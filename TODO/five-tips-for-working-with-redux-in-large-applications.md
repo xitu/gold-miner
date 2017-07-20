@@ -225,8 +225,7 @@ store.dispatch(setLoading('users', true));
 }
 ```
 
-如果我们想要读取下一页数据，我们会发送一个带有 `startElement=100` 查询参数的 GET 请求。
-If we want the next page of data, we would make a GET request with the `startElement=100` query parameter. We could just build a reducer function for each API service we interact with, but that would repeat the same logic across many places in our code. Instead, we will create a standalone pagination reducer. This reducer will be returned from a reducer factory which takes a prefix type and returns a new reducer function:
+如果我们想要读取下一页数据，我们会发送一个带有 `startElement=100` 查询参数的 GET 请求。我们可以为每一个调用的 API 都编写一个 reducer 函数，但这样会在代码中产生大量的重复逻辑。相反，我们要创建一个独立的分页 reducer。这个 reducer 会从一个接收前缀类型为参数并返回一个新 reducer 的 reducer 工厂生成：
 
 ```
 const initialPaginationState = {
@@ -255,7 +254,7 @@ const paginationReducerFor = (prefix) => {
   };
   return paginationReducer;
 };
-// example usages
+// 使用示例
 const usersReducer = combineReducers({
   usersData: usersDataReducer,
   paginationData: paginationReducerFor('USERS_'),
@@ -266,7 +265,7 @@ const domainsReducer = combineReducers({
 });
 ```
 
-The reducer factory `paginationReducerFor` takes the prefix type which will be added to all of the types that this reducer matches on. The factory returns a new reducer, with its types prefixed. Now when we dispatch an action like `USERS_SET_PAGINATION` it will only cause the pagination reducer for users to update. The domains pagination reducer will remain unchanged. This effectively allows us to reuse common reducer functions in multiple places in our store. For sake of completeness, here is an action creator factory to go along with our reducer factory, also using a prefix:
+reducer 工厂函数 `paginationReducerFor` 接收一个前缀类型作为参数，此参数将作为该 reducer 匹配的所有 action 类型的前缀使用。这个工厂函数会返回一个新的、已经添加了类型前缀的 reducer。现在，当我们发送一个 `USERS_SET_PAGINATION` 类型的 action 时，它只会触发维护用户分页信息的 reducer 更新。域名分页信息的 reducer 则不受影响。这允许我们有效地在 store 中复用通用 reducer 函数。为了完整起见，以下是一个配合我们的 reducer 工厂使用的 action 生成器工厂，同样使用了前缀：
 
 ```
 const setPaginationFor = (prefix) => {
@@ -287,16 +286,16 @@ const setPaginationFor = (prefix) => {
   };
   return setPagination;
 };
-// example usages
+// 使用示例
 const setUsersPagination = setPaginationFor('USERS_');
 const setDomainsPagination = setPaginationFor('DOMAINS_');
 ```
 
-### 5. React Integration and Wrap up
+### 5. React 集成与包装
 
-Some Redux applications may never need to render a view to users (like an API), but most of the time you will want some kind of view to render your data inside of. The most popular library for rendering UIs with Redux is React, and that is the one we will choose to demonstrate how to integrate Redux. We can use the strategies we learned in the above sections to make our lives easier when creating our view code. To do this integration, we will use the `react-redux`[library](https://github.com/reactjs/react-redux).
+有些 Redux 应用可能永远不需要向用户呈现一个视图（如 API），但大多数时间你都会想把数据渲染到某种形式的视图中。配合 Redux 渲染页面最流行的库是 React，我们也将使用它演示如何与 Redux 集成。我们可以利用在前几节中学到的策略简化我们创建视图代码的过程。为了实现集成，我们要用到 `react-redux` [库](https://github.com/reactjs/react-redux)。这里就是将状态中的数据映射到你组件的 props 的地方。
 
-One useful pattern in UI integration is using selectors to access the data in state from our view components. A convenient place to use selectors in `react-redux` is in the `mapStateToProps` function. This function is passed into the call to the `connect` function (the function you call to connect your React component to the Redux store). This is the place where you will map the data in state to the props that your component receives. This is the perfect place to use a selector to retrieve the data from state, and pass to the component as props. An example integration might look like the following:
+在 UI 集成方面一个有用的模式是在视图组件中使用选择器访问状态中的数据。在 `react-redux` 中的 `mapStateToProps` 函数中很方便使用选择器。该函数会在调用 `connect` 方法（该方法用于将你的 React 组件连接到 Redux 存储）时作为参数传入。这里是使用选择器从状态中获取数据并通过 props 传递给组件的绝佳位置。以下是一个集成的例子：
 
 ```
 const ConnectedComponent = connect(
@@ -304,14 +303,14 @@ const ConnectedComponent = connect(
     return {
       users: selectors.getCurrentUsers(state),
       editingUser: selectors.getEditingUser(state),
-      ... // other props from state go here
+      ... // 其它来自状态的 props
     };
   }),
-  mapDispatchToProps // another `connect` function
+  mapDispatchToProps // 另一个 connect 函数
 )(UsersComponent);
 ```
 
-The integration between React and Redux also provides us a handy location for wrapping our actions in scopes or types. We have to hook up our component’s handlers to actually call the store’s dispatch with our action creators. To accomplish this in `react-redux` we use the `mapDispatchToProps` function, which is also passed to the call to `connect`. This `mapDispatchToProps` function is the place we normally call the Redux `bindActionCreators` function to bind each action to the dispatch method from the store. While we’re at it, we can also bind the scope to the actions like we showed in [Section 4](http://techblog.appnexus.com/#section4). For example, if we wanted to use the scoped reducer pattern with the paginator for our Users page, we would write the following:
+React 与 Redux 之间的集成也提供了一个方便的位置来封装我们按作用域或类型创建的 action。我们必须连接我们组件的事件处理函数，以便在调用 store 的 dispatch 方法时使用我们的 action 生成器。要在 `react-redux` 中实现这一点，我们要使用 `mapDispatchToProps` 函数，它也会在调用 `connect` 方法时作为参数传入。这个 `mapDispatchToProps` 方法就是通常我们调用 Redux 的 `bindActionCreators` 方法将每个 action 和 store 的 dispatch 方法绑定的地方。在我们这样做的时候，我们也可以像在第四节中那样把作用域绑定到 action 上。例如，如果我们想在用户页面使用带作用域的 reducer 模式的分页功能，我们可以这样写：
 
 ```
 const ConnectedComponent = connect(
@@ -326,15 +325,15 @@ const ConnectedComponent = connect(
 )(UsersComponent);
 ```
 
-Now from the perspective of our `UsersPage` component, it just receives the list of users and other pieces of state as props, as well as the bound action creators. The component doesn’t need to be aware of which scoped action it needs or how to access the state; we have handled these concerns instead at the integration level. This allows us to create very decoupled components which don’t necessarily depend on the inner workings of our state. Hopefully by following the patterns discussed here, we can all create Redux applications in a scalable, maintainable, and reasonable way.
+现在，从我们 `UsersPage` 组件的角度看来，它只接收一个用户列表、状态的一部分以及绑定过的 action 生成器作为props。组件不需要知道它需要使用哪个作用域的 action 也不需要知道如何访问状态；我们已经在集成层面处理了这些问题。这使得我们可以创建一些非常独立的组件，它们并不依赖于状态内部的细节。希望通过遵循本文讨论的模式，我们都可以以一种可扩展的、可维护的、合理的方式开发 Redux 应用。
 
-**Further Reading:**
+**延伸阅读：**
 
-- [Redux](http://redux.js.org/) the state management library being discussed
-- [Reselect](https://github.com/reactjs/reselect) a library for creating selectors
-- [Normalizr](https://github.com/paularmstrong/normalizr) a library for normalizing JSON data against a schema, useful for storing data in indices
-- [Redux-Thunk](https://github.com/gaearon/redux-thunk) a middleware library for async actions in Redux
-- [Redux-Saga](https://github.com/redux-saga/redux-saga) another middleware for async actions using ES2016 generators
+- [Redux](http://redux.js.org/) 本文讨论的状态管理库
+- [Reselect](https://github.com/reactjs/reselect) 一个用于创建选择器的库
+- [Normalizr](https://github.com/paularmstrong/normalizr) 一个用于根据模式规范化 JSON 数据的库，有助于在索引中存储数据
+- [Redux-Thunk](https://github.com/gaearon/redux-thunk) 一个用于处理 Redux 中异步 action 的中间件
+- [Redux-Saga](https://github.com/redux-saga/redux-saga) 另一个利用 ES2016 生成器处理异步 action 的中间件
 
 
 ---
