@@ -1,20 +1,21 @@
 > * 原文地址：[Schedule tasks and jobs intelligently in Android](https://android.jlelse.eu/schedule-tasks-and-jobs-intelligently-in-android-e0b0d9201777)
 > * 原文作者：[Ankit Sinhal](https://android.jlelse.eu/@ankit.sinhal)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
-> * 校对者：
+> * 译者：[PhxNirvana](https://juejin.im/user/57a16f4e6be3ff00650682d8)
+> * 校对者：[ilumer](https://github.com/ilumer)、[wilsonandusa](https://github.com/wilsonandusa)
 
-# Schedule tasks and jobs intelligently in Android
+# Android 中的定时任务调度
 
 ![](https://cdn-images-1.medium.com/max/2000/1*WocBeIFoDtFZE7euHzm_Kg.png)
 
-In the modern application development, it is very common for our application to perform tasks asynchronously and scope of them are outside the application’s life-cycle like downloading some data or updating network resources. In some situations we also have to do some work but it is not required to do it right now. To schedule background work, Android introduced several APIs which we can use wisely in our applications.
 
-Selecting a proper scheduler can improve application performance and battery life of the device.
+在近期的应用开发中，异步执行任务是很流行的，而且这些任务经常在应用的生命周期之外运行，如下载数据或更新网络资源。有些情况下我们还需要做一些并不是马上需要执行的工作。Android 提供了一些 API 来帮助我们在应用中调度这些任务。
 
-Android M also introduced [Doze mode ](https://developer.android.com/training/monitoring-device-state/doze-standby.html)to minimize battery drain while user has been away from device for a period of time.
+选择合适调度器可以提升应用的性能并且延长电池使用时间。
 
-There are several APIs available to schedule tasks in Android:
+Android M 还引入了 [打盹模式（Doze mode](https://developer.android.com/training/monitoring-device-state/doze-standby.html) 来减少用户在短期内不使用设备时的电池消耗。
+
+Android 中可以使用的调度器有以下几种：
 
 - Alarm Manager
 - Job Scheduler
@@ -22,69 +23,69 @@ There are several APIs available to schedule tasks in Android:
 - Firebase Job Dispatcher
 - Sync Adapter
 
-### **Problems with Services**
+### **Services 的问题**
 
-Services allows you to perform long-running operations in the background. Running services in the background is very expensive for the battery life of the device.
+Services 允许应用在后台执行长时间的操作， 但这一行为是十分耗电的。
 
-Services are especially harmful when it continuously uses device resources even when not performing useful tasks. Above problem increased when those background services are listening for different system broadcasts (like CONNECTIVITY_CHANGE or NEW_PICTURE etc.).
+当持续使用设备资源却没有有效任务在执行时，service 便更加有害了。当那些后台服务在监听不同系统广播时（比如 *CONNECTIVITY_CHANGE* 或者 *NEW_PICTURE* 等），问题的严重性还会提升。 
 
-### **Schedule task in lifetime of your app**
+### **在应用的生命周期之内调度任务**
 
-When application is running and we want to schedule or run a task at a specific time then it is recommended to use Handler class in conjunction with Timer and Thread. Instead of using Alarm Manger, Job Scheduler etc. it is easier and much more efficient to use [Handler](https://developer.android.com/reference/android/os/Handler.html).
+当应用正在运行时，如果我们想在特定时间执行任务的话，推荐使用 Handler 结合 Timer 和 Thread，而不是使用 Alarm Manger, Job Scheduler 等。使用 [Handler](https://developer.android.com/reference/android/os/Handler.html) 更简单高效。
 
-### **Schedule task outside the lifetime of your app**
+### **在应用的生命周期之外调度任务**
 
 ### [**Alarm Manager**](https://developer.android.com/reference/android/app/AlarmManager.html)
 
-AlarmManager provides access to system-level alarm services. This give a way to perform any operations outside the lifetime of your application. So you can trigger events or actions even when your application is not running. AlarmManager can startup a service in future. It is used to trigger a PendingIntent when alarm goes off.
+AlarmManager 提供系统级的定时服务。正因此，也是一种在应用生命周期之外执行操作的方法。即使应用没有运行，也可以触发事件或动作。AlarmManager 可以在未来唤起服务。当达到预定时间时，触发特定的 PendingIntent。
 
-Registered alarms are retained while the device is asleep (and can optionally wake the device up if they go off during that time), but will be cleared if it is turned off and rebooted.
+注册过的定时任务会在设备休眠时保留（并且可以选择是否唤醒设备），但在关机和重启时会被清空。
 
-*“We should only use AlarmManager API for tasks that must execute at a specific time. This does not provide more robust execution conditions like device is idle, network is available or charging detect.”*
+**“我们应该只在执行特定时间的任务时使用 AlarmManager API。这并不是一个用来粗暴检查诸如设备空闲、网络状况或充电情况的方法。”**
 
-**Use Case: **Let’s say we want to perform a task after 1 hour or every 1 hour. In this case AlarmManager works perfectly for us. But this API is not suitable in a situations like perform the above task only when network is available or when device is not charging.
+**用例：**假设我们想在一小时后执行任务或每隔一小时执行一次任务， AlarmManager 是完美选择。但这 API 并不适合执行特定条件的任务，如网络好或不充电时执行任务这种情况。
 
 ### [**Job Scheduler**](https://developer.android.com/reference/android/app/job/JobScheduler.html)
 
-This is the chief among all the mentioned scheduling options and perform the background work very efficiently. *JobScheduler* API which was introduced in Android 5.0(API level 21).
+这是所有提过的调度器中最主要的一个，它可以高效地执行后台任务。 *JobScheduler* API 是在 Android 5.0(API level 21) 引入的
 
-This API allows to batch jobs when the device has more resources available or when the right conditions are met. All of the conditions can be defined when you’re creating a job. When the criteria declared are met, the system will execute this job on your application’s JobService. *JobScheduler* also defers the execution as necessary to comply with Doze mode and App Standby restrictions.
+该 API 可以在资源充足时或满足条件时批量执行任务。创建任务时可以定义执行的先决条件。当条件满足时，系统会在应用的 JobService 上执行任务。 *JobScheduler* 的执行也取决于系统的打盹模式和应用当前状态。
 
-Batching job execution in this fashion allows the device to enter and stay in sleep states longer, preserving battery life. In general this API can be used to schedule everything that is not time critical for the user.
+批量执行的特性使得设备可以更快地进入休眠，并拥有更长的休眠期，以此来延长电池使用时间。总而言之，这个 API 可以用来执行任何对时间不敏感的计划。
 
 ### [**GCM Network Manager**](https://developers.google.com/cloud-messaging/network-manager)
 
-GCM (Google Cloud Messaging) Network Manager has all the schedule features from JobScheduler. GCM Network Manager is also meant for performing repeated or one-off, non-imminent work while keeping battery life in mind.
+GCM (Google Cloud Messaging) Network Manager 有着 JobScheduler 的全部特性，GCM Network Manager 也用在重复的或一次性的，不紧急的任务上来延长电量。
 
-It is used to support backward compatibility and can also use below Android 5.0 (API level 21). From API level 23 or higher, GCM Network Manager uses the framework’s JobScheduler. GCM Network Manager uses the scheduling engine inside Google Play services so this class will **only work if the Google Play services is installed** on the device.
+这个 API 是向下兼容的，支持 Android 5.0 (API level 21) 以下。从 API level 23 开始，GCM Network Manager 使用 Android 框架的 JobScheduler。GCM Network Manager 使用 Google Play 服务 内置的调度器，所以这个类 **只会在安装了 Google Play 服务** 的设备上运行。
 
-Google has strongly recommended for GCM users to upgrade to FCM and instead use Firebase Job Dispatcher for scheduling any tasks.
+Google 强烈建议 GCM 的用户升级到 FCM 并使用 Firebase Job Dispatcher 执行任务调度。
 
 ### [**Firebase Job Dispatcher**](https://github.com/firebase/firebase-jobdispatcher-android#user-content-firebase-jobdispatcher-)
 
-The Firebase JobDispatcher is also a library for scheduling background jobs. It is also used to support backward compatibility (below API level 21) and works on all recent versions of Android (API level 9+).
+Firebase JobDispatcher 也是一个后台任务调度库。该库也被用来向下支持（低于 API level 21）并且支持所有近期 Android 设备（API level 9+）。
 
-This library will also works when running device do not have Google play services installed and wants to schedule a job in the application. In this condition this library internally uses AlarmManager. If Google Play service is available on the device then it uses the scheduling engine inside Google Play services.
+这个库也可以在没有安装 Google play 服务的设备，却仍想调度任务的应用上使用。这时，库内部的实现是 AlarmManager。如果设备上有 Google Play 服务，则会使用 Google Play 服务内置的调度器。
 
-**Tip:** It uses AlarmManager to support API levels <= 21 if Google Play services is unavailable.
+**提示：** 当 Google Play 服务不可用时，会使用 AlarmManager 来支持 API level <= 21 
 
-For the device running on API level 21, it uses JobScheduler. This library also has the same framework so there is no change in functionality.
+如果设备是 API level 21 的话，则使用 JobScheduler。这个库的框架是相同的，所以没有什么功能改变。
 
 ### [**Sync Adapter**](https://developer.android.com/reference/android/content/AbstractThreadedSyncAdapter.html)
 
-Sync adapters are designed specifically for syncing data between a device and the cloud. It should be only use for this type of task. Syncs could be triggered from data changes in either the cloud or device, or by elapsed time and time of day. The Android system will try to batch outgoing syncs to save battery life and transfers that are unable to run will queue up for transfer at some later time. The system will attempt syncs only when the device is connected to a network.
+Sync adapter 是被特别设计用来同步设备和云端数据的。它的用途也只限定在这方面。同步可以在云端或客户端数据有改变时触发，也可以通过时间差或设定每日一次。Android 系统会试图执行批量同步来节省电量，无法同步的将会被放到队列中稍后执行。系统只在联网时会尝试执行同步。
 
-Wherever possible, it is advised via Google to use JobScheduler, Firebase JobDispatcher, or GCM Network Manager.
+不管什么情况，都建议使用 Google 提供的 JobScheduler、Firebase JobDispatcher、或 GCM Network Manager。
 
-In Android N (API level 24), the SyncManager sits on top of the JobScheduler. You should only use the SyncAdapter class if you require the additional functionality that it provides.
+在 Android N (API level 24)中，SyncManager 在 JobScheduler （任务）的顶端。如果需要 SyncAdapter 提供的额外功能的话，建议只使用 SyncAdapter。
 
-### **Exercise**
+### **练习**
 
-We discussed lots of theoretical things so now have a look how to use the Android job scheduler.
+我们已经讨论了一堆理论性的东西，下面来看看如何使用 Android job scheduler。
 
-**1. Creating the Job Service**
+**1. 建立 Job Service**
 
-Create *JobSchedulerService* and extend the *JobService* class, which requires that two methods be created *onStartJob(JobParameters params)* and *onStopJob(JobParameters params)*.
+建立 *JobSchedulerService* 并继承 *JobService* 类，需要重写下面两个方法：*onStartJob(JobParameters params)* 和 *onStopJob(JobParameters params)*
 
     public class JobSchedulerService extends JobService {
 
@@ -106,9 +107,10 @@ Create *JobSchedulerService* and extend the *JobService* class, which requires t
 
     }
 
-The method* onStartJob(JobParameters params) *gets called when the JobScheduler decides to run your job. The JobService runs on the main thread so any logic needs to be performed should be in a separate thread. Method *onStopJob(JobParameters params) *gets called if the system determined that you must stop execution of your job even before you’ve had a chance to call jobFinished(JobParameters, boolean).
 
-You also have to register your job service in the AndroidManifest.
+*onStartJob(JobParameters params)* 方法在 JobScheduler 决定执行任务时调用。JobService 在主线程工作，所以任何耗时操作都应该在另外的线程执行。*onStopJob(JobParameters params)* 在任务还没执行完（调用 jobFinished(JobParameters, boolean) 之前），但系统决定停止执行时调用。
+
+还需要在 AndroidManifest 中注册 job service
 
     <application>
 
@@ -122,9 +124,9 @@ You also have to register your job service in the AndroidManifest.
 
     </application>
 
-**2. Create *JobInfo* object**
+**2. 创建 *JobInfo* 对象**
 
-To construct a *JobInfo* object, pass the *JobService* into *JobInfo.Builder()* as shown below. This job builder allows to set many different options for controlling when job executes.
+建立 *JobInfo* 对象需要将 *JobService* 传递到 *JobInfo.Builder()* 中，如下所示。这个 job builder 允许设置不同选项来控制任务的执行。
 
     ComponentName serviceName = new ComponentName(context, JobSchedulerService.class);
 
@@ -138,9 +140,9 @@ To construct a *JobInfo* object, pass the *JobService* into *JobInfo.Builder()* 
 
     .build();
 
-**3. Schedule Job**
+**3. 调度任务**
 
-Now we have JobInfo and JobService so it is time to schedule our job. All we need to do is to schedule a job with desired JobInfo as shown below:
+现在有了 JobInfo 和 JobService ，所以是时候来调度任务了。 用 JobInfo 调度任务时只需要执行如下代码即可：
 
     JobScheduler scheduler = (JobScheduler) context.getSystemService(Context.JOB_SCHEDULER_SERVICE);
 
@@ -152,19 +154,19 @@ Now we have JobInfo and JobService so it is time to schedule our job. All we nee
 
     }
 
-You can download the complete source code of *JobSchedulerExample* from [GitHub](https://github.com/AnkitSinhal/JobSchedulerExample).
+可以在 [GitHub](https://github.com/AnkitSinhal/JobSchedulerExample) 下载 *JobSchedulerExample* 的源码
 
-### **Conclusion**
+### **总结**
 
-While scheduling a job, you’ll need to think carefully about when and what should trigger your job and what should happen if it fails for some reason. You have to be very careful with your app performance along with other aspects such as battery life.
+当调度任务时，需要仔细考虑执行的时间和条件，以及出错的后果。需要在应用性能和其他电池之类的条件间取舍。
 
-*JobScheduler* is easy to implement and handle most of the complexity for you. While using *JobScheduler*, our scheduled jobs persists even if system reboots. At this moment the only downside of *JobScheduler* is that it is only available for api level 21 (Android 5.0).
+*JobScheduler* 容易实现，并且处理了大多数的复杂情况。当使用 *JobScheduler* 时，即使系统重启我们的任务依旧可以执行下去。此刻，*JobScheduler* 唯一的缺点就是它最低只在 api level 21 (Android 5.0) 上提供。
 
-Thanks for reading. To help others please click ❤ to recommend this article if you found it helpful.
+感谢阅读。如果感觉有用，还请轻点❤来推荐文章给更多人。
 
-Stay tuned for upcoming articles. For any quires or suggestions, feel free to hit me on [Twitter](https://twitter.com/ankitsinhal)[Google+](https://plus.google.com/109883670809423986640)[LinkedIn](https://in.linkedin.com/in/ankit-sinhal-58a16319)
+关注接下来的文章。有任何意见和建议请通过下面的渠道联系我们： [Twitter](https://twitter.com/ankitsinhal)[Google+](https://plus.google.com/109883670809423986640)[LinkedIn](https://in.linkedin.com/in/ankit-sinhal-58a16319)
 
-Check out my[ blogger page](http://androidjavapoint.blogspot.in/) for more interesting topics on Software development.
+进入我的 [博客](http://androidjavapoint.blogspot.in/) 获取更多有趣的开发话题。
 
 ---
 
