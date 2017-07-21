@@ -4,7 +4,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/natural-language-processing-made-easy-using-spacy-in-python.md](https://github.com/xitu/gold-miner/blob/master/TODO/natural-language-processing-made-easy-using-spacy-in-python.md)
 > * 译者：[lsvih](https://github.com/lsvih)
-> * 校对者：[yzgyyang](https://github.com/yzgyyang)
+> * 校对者：[yzgyyang](https://github.com/yzgyyang),[sqrthree](https://github.com/sqrthree)
 
 # 使用 Python+spaCy 进行简易自然语言处理
 
@@ -22,15 +22,11 @@ NLP 是一个很宽泛的领域，它包括了文本分类、实体识别、机�
 
 1. spaCy 简介及安装方法
 2. spaCy 的管道与属性
-- Tokenization
-
-- 词性标注
-
-- 实体识别
-
-- 依存句法分析
-
-- 名词短语
+	- Tokenization
+	- 词性标注
+	- 实体识别
+	- 依存句法分析
+	- 名词短语
 
 3. 集成词向量计算
 4. 使用 spaCy 进行机器学习
@@ -352,32 +348,35 @@ Spacy 是一个非常强大且具备工业级能力的 NLP 包，它能满足大
 
 ### 支持功能表
 
-| 功能 | Spacy | NLTK | Core NLP |
-| 简易的安装方式 | Y | Y | Y |
-| Python API | Y | Y | N |
-| 多语种支持 | N | Y | Y |
-| 分词 | Y | Y | Y |
-| 词性标注 | Y | Y | Y |
-| 分句 | Y | Y | Y |
-| 依存性分析 | Y | N | Y |
-| 实体识别 | Y | Y | Y |
-| 词向量计算集成 | Y | N | N |
-| 情感分析 | Y | Y | Y |
-| 共指消解 | N | N | Y |
+| 功能         | Spacy | NLTK | Core NLP |
+| ---------- | ----- | ---- | -------- |
+| 简易的安装方式    | Y     | Y    | Y        |
+| Python API | Y     | Y    | N        |
+| 多语种支持      | N     | Y    | Y        |
+| 分词         | Y     | Y    | Y        |
+| 词性标注       | Y     | Y    | Y        |
+| 分句         | Y     | Y    | Y        |
+| 依存性分析      | Y     | N    | Y        |
+| 实体识别       | Y     | Y    | Y        |
+| 词向量计算集成    | Y     | N    | N        |
+| 情感分析       | Y     | Y    | Y        |
+| 共指消解       | N     | N    | Y        |
 
 ### 速度：主要功能（Tokenizer、Tagging、Parsing）速度
 
-| **库** | **Tokenizer** | **Tagging** | **Parsing** |
-| spaCy | 0.2ms | 1ms | 19ms |
-| CoreNLP | 2ms | 10ms | 49ms |
-| NLTK | 4ms | 443ms | – |
+| **库**   | **Tokenizer** | **Tagging** | **Parsing** |
+| ------- | ------------- | ----------- | ----------- |
+| spaCy   | 0.2ms         | 1ms         | 19ms        |
+| CoreNLP | 2ms           | 10ms        | 49ms        |
+| NLTK    | 4ms           | 443ms       | –           |
 
 ### 准确性：实体抽取结果
 
-| **库** | **准确率** | **Recall** | **F-Score** |
-| spaCy | 0.72 | 0.65 | 0.69 |
-| CoreNLP | 0.79 | 0.73 | 0.76 |
-| NLTK | 0.51 | 0.65 | 0.58 |
+| **库**   | **准确率** | **Recall** | **F-Score** |
+| ------- | ------- | ---------- | ----------- |
+| spaCy   | 0.72    | 0.65       | 0.69        |
+| CoreNLP | 0.79    | 0.73       | 0.76        |
+| NLTK    | 0.51    | 0.65       | 0.58        |
 
 ## 结束语
 
