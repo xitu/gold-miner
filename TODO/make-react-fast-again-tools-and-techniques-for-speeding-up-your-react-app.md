@@ -83,12 +83,14 @@ React 15.4.0 引入了一个新的性能时间轴特性，可以精确展示组�
 1. 使用 npm 安装： `npm i --save-dev why-did-you-update`
 2. 在你应用中的任何地方添加下面这个片段：
 
-    import React from 'react'
+```
+import React from 'react'
 
-    if (process.env.NODE_ENV !== 'production') {
-      const {whyDidYouUpdate} = require('why-did-you-update')
-      whyDidYouUpdate(React)
-    }
+if (process.env.NODE_ENV !== 'production') {
+    const {whyDidYouUpdate} = require('why-did-you-update')
+    whyDidYouUpdate(React)
+}
+```
 
 **注意：** 这个工具在本地开发环境使用起来非常棒，但是要确保生产环境要禁用掉，因为它会拖慢你的应用。
 
