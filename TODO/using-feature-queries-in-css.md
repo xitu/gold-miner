@@ -152,13 +152,19 @@ So how far back are Feature Queries supported?
 那么支持特征查询到什么程度了呢？
 
 Well `@supports` has worked in Firefox, Chrome, and Opera since mid–2013. It also works in every version of Edge. Safari shipped it in Fall 2015, in Safari 9. Feature Queries are not supported in any version of Internet Explorer, Opera Mini, Blackberry Browser, or UC Browser.
-自从 2013 年年中以来，在 Firefox、Chrome、和 Opera 就已经支持 `@supports` 了。它也适用于 Edge 的每一个版本。Safari 在 2015 年秋季将其在Safari 9 中支持。在任何版本的 Internet Explorer、Opera Mini、Blackberry Browser 或 UC浏览器中都不支持特性查询。
+自从 2013 年年中以来，在 Firefox、Chrome、和 Opera 就已经支持 `@supports` 了。它也适用于 Edge 的每一个版本。Safari 在 2015 年秋季将其在Safari 9 中支持。在任何版本的 Internet Explorer、Opera Mini、Blackberry Browser 或 UC 浏览器中都不支持特性查询。
 
 [![a screenshot from Can I Use showing support for Feature Queries](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2016/08/Can-I-Use-Feature-Queries.gif)](http://caniuse.com/#feat=css-featurequeries)Looking up support for [Feature Queries on Can I Use](http://caniuse.com/#feat=css-featurequeries)
+[![Can I use 网站支持特征查询的截图](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2016/08/Can-I-Use-Feature-Queries.gif)](http://caniuse.com/#feat=css-featurequeries)特征查询的支持可以查看：[特征查询在 Can I Use上的结果](http://caniuse.com/#feat=css-featurequeries)
+
 You might think the fact Internet Explorer doesn’t have support for Feature Queries is a big problem. Actually, it’s usually not. I’ll show you why in a moment. I believe the biggest hurdle is Safari 8. We need to keep an eye out for what happens there.
+您可能会认为 Internet Explore r不支持特征查询。实际是，并不是。我马上告诉你原因。我认为最大的障碍是 Safari 8。我们需要密切注意发生的事情。
 
 Let’s look at another example. Say we have some layout code we want to apply that requires using `object-fit: cover` in order to work properly. For the browsers that don’t understand `object-fit`, we want to apply different layout CSS.
 [![a screenshot from Can I Use showing support for Object-fit](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2016/08/Can-I-Use-Object-Fit.gif)](http://caniuse.com/#feat=object-fit)Looking up support for [Object Fit on Can I Use](http://caniuse.com/#feat=object-fit)
+让
+
+
 So let’s write:
 
     div {
