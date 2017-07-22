@@ -162,16 +162,17 @@ You might think the fact Internet Explorer doesn’t have support for Feature Qu
 
 Let’s look at another example. Say we have some layout code we want to apply that requires using `object-fit: cover` in order to work properly. For the browsers that don’t understand `object-fit`, we want to apply different layout CSS.
 [![a screenshot from Can I Use showing support for Object-fit](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2016/08/Can-I-Use-Object-Fit.gif)](http://caniuse.com/#feat=object-fit)Looking up support for [Object Fit on Can I Use](http://caniuse.com/#feat=object-fit)
-让
-
+让我们来看另一个例子。假设我们有一些我们想要应用的布局代码，为了使操作更加合理需要使用 `object-fit: cover`。对于不理解 `object-fit` 的浏览器，我们希望应用不同的布局 CSS。
 
 So let’s write:
+所以我们开始来编写代码：
 
     div {
       width: 300px;
       background: yellow;
       // some complex code for a fallback layout
-    }
+      // 老布局的一些复杂代码
+    }
     @supports (object-fit: cover) {
       img {
         object-fit: cover;
@@ -180,11 +181,13 @@ So let’s write:
         width: auto;
         background: green;
        // some other complex code for the fancy new layout
+       // 新布局的一些其他复杂的代码
       }
     }
 
 
 So what happens? Feature Queries is either supported or not, and the new feature `object-fit: cover` is either supported or not. Combine those, and we get four possibilities:
+那么会发生什么呢？特征查询要么支持要么不支持，新的特性 `object-fit: cover` 要么支持要么不支持。结合这些，我们有四种可能性：
 
 | Feature Query Support? | Feature support? | What Happens? | Is This What We Want? |
 | --- | --- | --- | --- |
@@ -193,22 +196,37 @@ So what happens? Feature Queries is either supported or not, and the new feature
 | Does not support Feature Queries | Does not support the feature |
 | Does not support Feature Queries | Supports the feature in question |
 
+| 支持特征查询吗？ | 支持特性吗？ | 会发生什么？| 这是我们想要的吗？ |
+| --- | --- | --- | --- |
+| 支持特征查询 | 支持问题中的特性 |
+| 支持特征查询 | 不支持问题中的特性 |
+| 不支持特征查询 | 不支持问题中的特性 |
+| 不支持特征查询 | 支持问题中的特性 |
+
 
 ### Situation 1: Browsers that support Feature Queries, and support the feature in question
+### 情景 1：浏览器支持特征查询，并支持问题中的特性
 
 Firefox, Chrome, Opera, and Safari 9 all support `object-fit` and support `@supports`, so this test will run just fine, and the code inside this block will be applied. Our image will be cropped using `object-fit: cover`, and our `div` background will be green.
+Firefox、Chrome、Opera 和 Safari 9 都支持 `object-fit` 和 `@supports`，所以这个测试将运行得很好，并且这个块内的代码将被应用。我们的图像将使用 `object-fit: cover` 被裁剪，并且我们 `div` 的背景将是绿色的。
 
 ### Situation 2: Browsers that support Feature Queries, and do not support the feature in question
+### 情景 2：浏览器支持特征查询，并且不支持问题中的特性
 
 Edge does not support `object-fit`, but it does support `@supports`, so this test will run and fail, preventing the code block from being applied. The image will not have `object-fit` applied, and the `div` will have a yellow background.
+Edge 不支持 `object-fit`，但它支持 `@supports`，因此该测试将运行并失败，防止代码块被应用。该图像将不会有 `object-fit` 应用，并且 `div` 有黄色的背景。
 
 This is what we want.
+这是我们想要的。
 
 ### Situation 3: Browsers that do not support Feature Queries, and do not support the feature in question
+### 情景 3：浏览器不支持特征查询，并且也不支持问题中的特性
 
 This is where our classic nemesis Internet Explorer appears. IE does not understand `@supports` and it does not understand `object-fit`. You might think this means we can’t use a Feature Query — but that’s not true.
+这就是我们的经典克星 Internet Explorer 出现的地方。IE 不理解 `@supports`，并且也不理解 `object-fit`。你可能认为这意味着我们不能使用特征查询 —— 并不是。
 
 Think about the result we want. We want IE to skip over this entire block of code. And that’s exactly what will happen. Why? Because when it reaches `@supports`, it doesn’t recognize the syntax, and it skips to the end.
+想一下我们想要的结果。我们想要 IE 跳过
 
 It might be skipping the code “for the wrong reasons” — it skips over the code because it doesn’t understand `@supports`, instead of because it doesn’t understand `object-fit` — but who cares! We still get exactly the result we want.
 
