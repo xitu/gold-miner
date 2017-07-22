@@ -10,9 +10,9 @@
 
 CSS中有一个你可能还没有听说过的工具。它很强大。它已经存在一段时间了。并且它很可能会成为你最喜欢的CSS新事物之一。
 
-这就是`@supports`规则，也被称为 [Feature Queries](http://www.w3.org/TR/css3-conditional/#at-supports)。
+这就是 `@supports` 规则，也被称为 [Feature Queries](http://www.w3.org/TR/css3-conditional/#at-supports)。
 
-使用`@supports`，你可以在你的CSS中编写一个小测试，以查看是否支持特定的“特性”（CSS属性或值），并根据其返回的结果决定是否调用代码块。例如：
+使用 `@supports`，你可以在你的CSS中编写一个小测试，以查看是否支持特定的“特性”（CSS属性或值），并根据其返回的结果决定是否调用代码块。例如：
 
     @supports (display: grid) {
        // 只有在浏览器支持CSS网格时才会运行代码
@@ -44,7 +44,7 @@ CSS中有一个你可能还没有听说过的工具。它很强大。它已经�
 
 如果浏览器理解 `border-radius`，那么它将在 `aside` 上设置圆角。如果没有，它将跳过代码行并继续前进，使框的边缘为正方形。这里没有理由运行测试或使用特性查询。css 就是这样工作的。这是 [architecting solid, progressively-enhanced CSS](http://jensimmons.com/presentation/progressing-our-layouts) 中的一个基本原则。浏览器只跳过不理解的代码，不抛出错误。
  
-![新旧浏览器中圆角效果截图](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2016/08/border-radius.png)大多数的浏览器显示 `border-radius: 1em` 如右边所示。然而，Internet Explorer 6、7和8不会设置圆角，显示效果如左边所示。看看这个例子，在[codepen.io/jensimmons/pen/EydmkK](http://codepen.io/jensimmons/pen/EydmkK?editors=1100) 您不需要为此进行功能查询。
+![新旧浏览器中圆角效果截图](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2016/08/border-radius.png)大多数的浏览器显示 `border-radius: 1em` 如右边所示。然而，Internet Explorer 6、7和8不会设置圆角，显示效果如左边所示。看看这个例子 [codepen.io/jensimmons/pen/EydmkK](http://codepen.io/jensimmons/pen/EydmkK?editors=1100) 您不需要为此进行功能查询。
 
 那么，你想什么时候使用 `@supports` ？特征查询是一种将CSS声明捆绑在一起的工具，以便在一定条件下作为一个组运行。当您想应用旧的和新的CSS混合时使用特性查询，但只有在支持新CSS时才使用。
 
@@ -59,9 +59,11 @@ CSS中有一个你可能还没有听说过的工具。它很强大。它已经�
       }
 
 
-![首字母这个例子在 Safari 9 下面的截图](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2016/08/intial-letter-1.gif)这是我们的首字母的例子在 Safari 9 下的显示。现在让我们看看其他浏览器会发生什么…
+![首字母这个例子在 Safari 9 下面的截图](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2016/08/intial-letter-1.gif)
+这是我们的首字母的例子在 Safari 9 下的显示。现在让我们看看其他浏览器会发生什么…
 
 ![首字母这个例子在其他浏览器下面的截图](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2016/08/intial-letter-2.png)哦，不，这在其他浏览器看起来非常糟糕。这是不能接受的。我们不想改变字母的颜色，或者增加一个空白，或者让它加粗，除非它通过首字母属性被设置的更大了一些。我们需要一种方法来测试浏览器是否理解 `initial-letter`，并且只在颜色、重量和空白处应用更改。进入特征查询。
+    
     @supports (initial-letter: 4) or (-webkit-initial-letter: 4) {
       p::first-letter {
          -webkit-initial-letter: 4;
@@ -81,7 +83,7 @@ CSS中有一个你可能还没有听说过的工具。它很强大。它已经�
 
 这里有新的结果。浏览器理解 `initial-letter` 的话就会将其展现为字体更大、加粗并且是橘色的首字母。其他其它浏览器表现的像首字母不存在一样，使用这种方式，我会等待使用这个特征，直到更多的浏览器支持它。（顺便说一下，目前在 Firefox 中可以实现首字母的特性。）
 
-![使用之前和之后的对比](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2016/08/intial-letter-with-and-without.gif)截屏的左边是来自 Safari 9。其它浏览器展现的结果显示为右边。你可以在codepen.io/jensimmons/pen/ONvdYL] (http://codepen.io/jensimmons/pen/ONvdYL?editors=1100) 看到这个测试的代码。
+![使用之前和之后的对比](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2016/08/intial-letter-with-and-without.gif)截屏的左边是来自 Safari 9。其它浏览器展现的结果显示为右边。你可以在 codepen.io/jensimmons/pen/ONvdYL] (http://codepen.io/jensimmons/pen/ONvdYL?editors=1100) 看到这个测试的代码。
 ## 组织你的代码
 
 现在，您可能会尝试使用此工具将代码分成两个分支。“嘿，浏览器，如果你理解视口单位，执行这段代码，如果你不理解他们，执行另一段代码。”这感觉很好并且很整洁。
@@ -120,7 +122,7 @@ CSS中有一个你可能还没有听说过的工具。它很强大。它已经�
 
 
 所以我们开始来编写代码：
-
+```
     div {
       width: 300px;
       background: yellow;
@@ -136,7 +138,7 @@ CSS中有一个你可能还没有听说过的工具。它很强大。它已经�
        // 新布局的一些其他复杂的代码
       }
     }
-
+```
 那么会发生什么呢？特征查询要么支持要么不支持，新的特性 `object-fit: cover` 要么支持要么不支持。结合这些，我们有四种可能性：
 
 | 支持特征查询吗？ | 支持特性吗？ | 会发生什么？| 这是我们想要的吗？ |
@@ -200,25 +202,25 @@ Edge 不支持 `object-fit`，但它支持 `@supports`，因此该测试将运�
 ## 最佳实践
 
 现在我们明白了为什么我们不能像这样编写代码：
-
+```
     @supports not (display: grid) {
         // 较老浏览器的代码 //**不要模范这个例子**
     }
     @supports (display: grid) {
         // 较新浏览器的代码 // **我说这真的很糟糕吗？**
     }
-
+```
 如果我们这样做，我们将阻止旧的浏览器获取他们需要的代码。
 
 取而代之的是，像这样组织你的代码：
-
+```
     // 较老浏览器的回退代码
 
     @supports (display: grid) {
         // 较新浏览器的代码
         // 在需要时重构上面的代码
     }
-        
+```        
 这正是我们在支持 IE 的旧版本时使用媒体查询的策略。这个策略就是“移动优先”这个词的来源。
 
 我预计 CSS Grid 将在 2017 在浏览器中被使用，我打赌在实现未来的布局时我们将使用大量的特性查询。与 JavaScript 相比，它的麻烦要小得多，而且速度要快得多。并且 `@supports` 能使支持 CSS Grid 的浏览器做有趣的和复杂的东西，同时对不支持的浏览器提供布局选项。
