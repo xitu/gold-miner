@@ -3,7 +3,7 @@
 > * 原文作者：[Jen Simmons](http://jensimmons.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/using-feature-queries-in-css.md](https://github.com/xitu/gold-miner/blob/master/TODO/using-feature-queries-in-css.md)
-> * 译者：cherry
+> * 译者：[cherry](https://github.com/sunshine940326)
 > * 校对者：
 
 # 在CSS中使用特征查询
