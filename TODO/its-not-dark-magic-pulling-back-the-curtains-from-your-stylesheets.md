@@ -1,168 +1,185 @@
-
 > * 原文地址：[CSS Isn’t Black Magic](https://medium.freecodecamp.org/its-not-dark-magic-pulling-back-the-curtains-from-your-stylesheets-c8d677fa21b2)
 > * 原文作者：[aimeemarieknight](https://medium.freecodecamp.org/@aimeemarieknight)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/its-not-dark-magic-pulling-back-the-curtains-from-your-stylesheets.md](https://github.com/xitu/gold-miner/blob/master/TODO/its-not-dark-magic-pulling-back-the-curtains-from-your-stylesheets.md)
-> * 译者：
-> * 校对者：
+> * 译者：[吃土小2叉](https://github.com/xunge0613)
+> * 校对者：[薛定谔的猫](https://github.com/Aladdin-ADD)、
 
-# CSS Isn’t Black Magic
+# CSS 才不是什么黑魔法呢
 
-## Pulling Back The Curtains on Your Stylesheets
+## 一起来揭开 CSS 的神秘面纱
 
 ![](https://cdn-images-1.medium.com/max/1600/1*TqpR80LFFl09NnOpISdXJg.jpeg)
 
-If you’re a web developer, chances are you’re going to have to write some CSS from time to time.
+如果你是一名 web 开发者，你可能会时不时地写一些 CSS。
 
-When you first looked at CSS, it probably seemed like a breeze. You added some borders here, changed some colors there. JavaScript is the hard part of front end development, right?
+当你第一次接触 CSS 时，似乎觉得 CSS 轻而易举。加边框，改颜色，小菜一碟。JavaScript 才是前端开发的难点，不是吗？
 
-Somewhere during your progression as a web developer, that changed though! What’s worse is that many developers in the front end community have come to dismiss CSS as a toy language.
+但是在你 web 开发的生涯中的某天，这个想法变了！更糟糕的是，许多前端社区的开发者早已把 CSS 轻视为一门玩具语言。
 
-The truth however is that when we hit a wall, many of us don’t actually understand what our CSS is doing under the hood.
+然而，事实却是当我们碰壁时，我们中的许多人实际上并不深入了解我们编写的 CSS 做了什么。
 
-For the first two years after my bootcamp, I did full stack JavaScript and sprinkled in some CSS here and there. As a panelist on [JavaScript Jabber](https://devchat.tv/js-jabber/my-js-story-aimee-knight), I always felt like JavaScript was my bread and butter, so it’s what I spent the most time on.
+在我接受前端培训后的头两年，我曾从事全栈 JavaScript 开发，偶尔写一点点 CSS。作为 [JavaScript Jabber](https://devchat.tv/js-jabber/my-js-story-aimee-knight) 评委会的一员，我一直认为 JavaScript 才是我的吃饭家伙，所以大部分时间我都花在 JavaScript 上。
 
-Last year however, I decided to focus on the front end and I realized that I just wasn’t able to debug my stylesheets in the same way I did my JavaScript!
+然而直到去年，当我决定专注于前端时，才意识到根本无法像调试 JavaScript 那样轻松地调试 CSS！
 
-We all like to make jokes about it, but how many of us have actually taken the time to try and understand the CSS we’re writing or reading. How many of us have actually reasonably debugged an issue to the next lowest abstraction layer when we hit a wall? Instead, we settle for the first StackOverflow answer, hacks, or we just let the issue go entirely.
+我们都喜欢拿 CSS 开玩笑，但是我们中有多少人真的花时间去尝试理解我们正在编写或正在阅读的 CSS。当我们碰壁时，我们有多少人在解决问题的同时，会对解决方案进行抽象以解决更多同类问题？ 相反，我们止步于照搬第一个 StackOverflow 答案，或者用一些黑科技（hack）手段随便应付一下，或者我们干脆撒手不管了：那是一个 feature 而不是一个 bug。
 
-All too often developers are left completely puzzled when the browser renders CSS in ways they didn’t expect. It’s not dark magic though and as developers we know that computers are just parsing our instructions.
+当浏览器以未预期的方式呈现 CSS 时，开发者常常感到非常困惑。但是 CSS 并不是黑魔法，而作为开发者，我们都明白计算机只会按照我们的指令去执行。
 
-Knowledge of internals can also be useful for advanced debugging and performance tuning. While many conference talks discuss how to fix common bugs, my talk (and this post) will focus on the why by taking a deep dive into browser internals to see how our styles are parsed and rendered.
+学习浏览器的内部工作原理将有助于作出更明智的决策，并理解那些最佳开发实践的个中缘由。虽然许多会议的演讲会讨论如何修复常见的 bug，但我的演讲（和这篇文章）的重点在于为什么会有这些 bug，为此我将深入介绍浏览器内部原理，看看我们的 CSS 是如何被解析和呈现。
 
-### The DOM and CSSOM
+### DOM 与 CSSOM
 
-First, it’s important to understand that browsers contain a JavaScript engine and a rendering engine. We will focus on the latter. For example, we’ll be discussing details that pertain to WebKit (Safari), Blink (Chrome), Gecko (Firefox), and Trident/EdgeHTML (IE/Edge). The browser will undergo a process that includes conversion, tokenization, lexing, and parsing which ultimately constructs the DOM and CSSOM.
+首先，了解浏览器包含 JavaScript 引擎和渲染引擎非常重要，而本文将重点关注后者。例如，我们将讨论涉及WebKit（Safari），Blink（Chrome），Gecko（Firefox）和 Trident / EdgeHTML（IE / Edge）的细节。浏览器将经历包括转换、标记化、词法分析和解析的过程，最终构建 DOM 和 CSSOM。（译注：CSSOM 即 CSS Object Model，定义了媒体查询，选择器和CSS本身的 API，这些 API 包括了通用解析和序列化规则，传送门：[CSSOM](https://www.w3.org/TR/cssom-1/)）
 
-At a high level you can think of them as the following:
+这一过程大致可以分为以下几个步骤：
 
-- **Conversion**: Reading raw bytes of HTML and CSS off the disk or network.
-- **Tokenization**: Breaking input into chunks (ex: start tags, end tags, attribute names, attribute values), striping irrelevant characters such as whitespace and line breaks.
-- **Lexing**: Like the tokenizer, but it also identifies the type of each token (this token is a number, that token is a string literal, this other token is an equality operator).
-- **Parsing**: Takes the stream of tokens from the lexer, interprets the tokens using a specific grammar, and turns it into an abstract syntax tree.
+- **转换**：从磁盘或网络读取 HTML 和 CSS 的原始字节。
+- **标记化**： 将输入内容分解成一个个有效标记（例如：起始标签、结束标签、属性名、属性值），分离无关字符（如空格和换行符）。
+- **词法分析**：和 tokenizer（标记生成器）类似，但它还标记每个 token 的类型（类型包括：数字、字符串字面量、相等运算符等等）。
+- **解析**： 解析器接收词法分析器传递的 tokens，并尝试将其与某条语法规则进行匹配，匹配成功后将之添加到抽象语法树中。
 
-Once both tree structures are created, the rendering engine then attaches the data structures into what’s called a render tree as part of the layout process.
+一旦 DOM 树和 CSSOM 树创建完毕，渲染引擎就会将数据结构附加到所谓的渲染树中，并作为布局过程的一部分。
 
-The render tree is a visual representation of the document which enable painting the contents of the page in their correct order. Render tree construction follows the following order:
+渲染树是文档的可视化表现形式，它按照正确的顺序绘制页面的内容。渲染树的构造过程遵循以下顺序：
 
-- Starting at the root of the DOM tree, traverse each visible node.
-- Omit non visible nodes.
-- For each visible node find the appropriate matching CSSOM rules and apply them.
-- Emit visible nodes with content and their computed styles.
-- Finally, output a render tree that contains both the content and style information of all visible content on the screen.
+- 从 DOM 树的根节点开始，遍历每个可见节点
+- 忽略不可见的节点
+- 对于每个可见节点，找到合适的与 CSSOM 匹配的规则并应用它们
+- 发送包含内容和计算样式的可见节点
+- 最后，在屏幕上输出包含所有可见元素的内容和样式信息的渲染树。
 
-The CSSOM can have drastic effects on the render tree but none on the DOM tree.
+CSSOM 可以对渲染树产生很大的影响，但不会影响到 DOM 树。
 
-### Rendering
+### 渲染
 
-Following layout and render tree construction, the browser can finally proceed to actual painting of the screen and compositing. Let’s take a brief moment to distinguish between some terminology here.
+经历了布局和渲染树构建后，浏览器终于要开始将网页绘制到屏幕上并合成图层。
 
-- **Layout**: Includes calculating how much space an element will take up and where it is on screen. Parent elements can affect child elements and sometimes vice versa.
-- **Painting**: The process of converting each node in the render tree to actual pixels on the screen. It involves drawing out text, colors, images, borders, and shadows. The drawing is typically done onto multiple layers and multiple rounds of painting can be caused by JavaScript being loaded that changes the DOM.
-- **Compositing**: The action of flattening all layers into the final image that is visible on the screen. Since parts of the page can be drawn into multiple layers they need to be drawn to the screen in the correct order.
+- **布局**：包括计算一个元素占用的空间以及它在屏幕上的位置。父元素可以影响子元素布局，反之亦然。
+- **绘制**：将渲染树中的每个节点转换为屏幕上的实际像素的过程。它涉及绘制文本、颜色、图像、边框和阴影。绘图通常在多个图层上完成，另外由于加载、执行 JavaScript 而改变了 DOM 会导致多次绘制 。
+- **合成**：将所有图层合并在一个图层，作为最终屏幕上可见图层的过程。由于页面的各个部分可以绘制成多层，所以需要以正确的顺序绘制到屏幕上。
 
-Painting time varies based on render tree construction and the bigger the width and height of the element, the longer the painting time will be.
+绘制时间取决于渲染树结构，元素的 `width` 和 `height` 的值越大，绘制时间就越长。
 
-Adding different effects can also increase painting time. Painting follows the order that elements are stacked in their stacking contexts (back to front) which we’ll get into when we talk about z-index later on. If you’re a visual learner, there’s a great painting [demo](https://www.youtube.com/watch?v=ZTnIxIA5KGw).
+添加各种特效同样会增加绘画时间。绘制的顺序是按照元素进入层叠上下文的顺序（从后往前绘制），稍后我们再谈谈 z-index。如果你喜欢看视频教程，有一个很棒的关于绘制过程的 [demo](https://www.youtube.com/watch?v=ZTnIxIA5KGw)。
 
-When people speak of hardware acceleration in browsers, they’re almost always referring to accelerated compositing which just means using the GPU to composite contents of a web page.
+当人们在谈论浏览器的硬件加速时，绝大多数都是指加速“合成”过程，也就是意味着使用 GPU 来合成网页的内容。
 
-Compositing allows for pretty large speed increases versus the old way which used the computer’s CPU. The will-change property is one property that you can add that will take advantage of this.
+与使用计算机 CPU 进行合成的旧方式相比，使用 GPU 能带来相当多的速度提升，而合理利用 will-change 这一属性有助于此。（译注：`will-change` 相关资料传送门 [will-change MDN](https://developer.mozilla.org/zh-CN/docs/Web/CSS/will-change) 、[Everything You Need to Know About the CSS will-change Property](https://dev.opera.com/articles/css-will-change-property/)）
 
-For example, when using CSS transforms, the will-change property allows for hinting to the browser that a DOM element will be transformed in the near future. This enables offloading some drawing and compositing operations onto the GPU, which can greatly improve performance for pages with a lot of animations. It has similar gains for scroll position, contents, opacity, and top or left positioning.
+举个例子：在使用 CSS transform 属性时，will-change 属性能提前告知浏览器 DOM 元素接下来会有哪些变化。这可以将一些绘制和合成操作移交给 GPU，从而大大提高有大量动画的页面的性能。使用 will-change 属性，对于滚动位置变化、内容变化、不透明度变化以及绝对定位坐标位置变化也有类似的性能收益。
 
-It’s important to understand that certain properties will cause a relayout, while other properties only cause a repaint. Of course, performance wise it’s best if you can only trigger a repaint.
+有必要了解某些属性将导致重新布局，而其他属性只会导致重新绘制。当然出于性能考虑，最好只触发重绘。
 
-For example, changes to an element’s color will only repaint that element while changes to the element’s’ position will cause layout and repaint of that element, its children and possibly siblings. Adding a DOM node will cause layout and repaint of the node. Major changes, like increasing font size of an html element will cause a relayout and repaint of the entire tree.
+举个例子：元素的颜色改变后，只会对该元素进行重绘。而元素的位置改变后，会对该元素及其子元素（可能还有同级元素）进行布局和重绘。添加 DOM 节点后，会对该节点进行布局和重绘。一些重大变化（例如增大 `html` 元素的字体）会导致整个渲染树进行重新布局和绘制。
 
-If you’re like me you’re probably more familiar with the DOM than the CSSOM so let’s dive into that a bit. It’s important to note that by default CSS is treated as a render blocking resource. This means that the browser will hold rendering of any other process until the CSSOM is constructed.
+如果你像我一样，比起 CSSOM 更熟悉 DOM，那么让我们来深入了解一下 CSSOM。请务必注意，默认情况下，CSS 会被视为阻塞渲染资源。这意味着浏览器在构建完 CSSOM 之前，将挂起任何其它进程的渲染。
 
-The CSSOM is also not 1 to 1 with the DOM. Display none, script tags, meta tags, head element, etc. are omitted since they’re not reflected in the rendered output.
+CSSOM 和 DOM 并不是一一对应的。具有 `dispay:none` 属性的元素、`<script>` 标签、`<meta>`标签、`<head>`元素等等不可见的 DOM 元素不会显示在渲染树中。
 
-Another difference between the CSSOM and the DOM is that CSS parsing uses a context free grammar. In other words, the rendering engine does not have code that will fill in missing syntax for CSS like it will when parsing HTML to create the DOM.
+CSSOM 和 DOM 的另一个区别则在于解析 CSS 使用的是一种上下文无关语法。也就是说，CSS 渲染引擎不会自动补全 CSS 中缺少的语法，然而解析 HTML 创建 DOM 时则刚好相反。
 
-When parsing HTML, the browser has to take into account surrounding characters and it needs more than just the spec since the markup could contain missing information but will still need to be rendered no matter what.
+解析 HTML 时，浏览器不得不结合 HTML 标签所在的上下文，而且只遵从 HTML 规范是不够的，因为 HTML 标签可能包含一些缺省的信息，并且无论解析成什么，最终都要渲染出来。（译注：这么做的目的是为了包容开发者的错误，简化 web 开发，例如能省略一些起始或者结束标记等等）
 
-With all that said, let’s recap.
+说了那么多，我们来回顾一下：
 
-- Browser sends an HTTP request for page
-- Web server sends a response
-- Browser converts response data (bytes) into tokens, via tokenization
-- Browser turns tokens into nodes
-- Browser turns nodes into the DOM tree
-- Awaits CSSOM tree construction
+- 浏览器向服务器发起 HTTP 请求
+- 服务器响应请求，并返回网页数据
+- 浏览器通过标记化将响应数据（字节）转换为 tokens
+- 浏览器将 tokens 转换为节点
+- 浏览器将节点插入 DOM 树
+- 等待构建 CSSOM 树
 
-### Specificity
+### 优先级
 
-Now that we have a better understanding of how the browser is working under the hood, let’s take a look at some of the more common areas of confusion for developers. First up, specificity.
+我们已经深入了解了不少浏览器的工作原理，那么接下来我们来看看一些更常见的开发痛点吧。首先说说优先级。
 
-At a very basic level we know specificity just means applying rules in the correct cascade order. There are many ways to target a specific tag using CSS selectors though, and the browser needs a way to negotiate which styles to give to a specific tag. Browsers make this decision by first calculating each selectors specificity value.
+简单来说，CSS 的优先级是指以正确的层叠顺序应用规则。尽管可以使用多种 CSS 选择器来选中特定的标签，浏览器仍需要一种方式来决定最终哪些样式将会生效。在决策过程中，首先浏览器会计算每个选择器的优先级。
 
-Unfortunately specificity calculation has baffled many JavaScript developers, so let’s take a deeper dive into how this calculation is made. We’ll use an example of a div with a class of “container”. Nested inside that div we’ll have another div with an id of “main”. Inside that we’ll have a p tag that contains an anchor tag. Without peeking ahead, do you know what color the anchor tag will be?
+不幸的是，优先级的计算规则难倒了不少 JavaScript 开发者，所以让我们一起深入研究 CSS 优先级的计算规则。我们将使用以下的 html 结构作为例子：有一个类名为 `container` 的 div，在这个 div 里，我们嵌套了另一个 div，它的 id 是 `main`，我们又在这个 div 里嵌套了一个包含 a 标签的 p 标签。别偷看答案，你知道 a 标签的颜色是什么吗？
 
-    #main a {
-      color: green;
-    }
+```
+#main a {
+  color: green;
+}
 
-    p a {
-      color: yellow;
-    }
+p a {
+  color: yellow;
+}
 
-    .container #main a {
-      color: pink;
-    }
+.container #main a {
+  color: pink;
+}
 
-    div #main p a {
-      color: orange;
-    }
+div #main p a {
+  color: orange;
+}
 
-    a {
-      color: red;
-    }
+a {
+  color: red;
+}
+```
 
-The answer is pink, with a value of 1,1,1. Here are the remaining results:
+（译注：加一段 html 结构顺便防偷看答案 →_→）
 
-- `div #main p a: 1,0,3`
-- `#main a: 1,0,1`
+``` html
+<div class="container">
+	<div id="main">
+		<p>
+			<a href="#">Test</a>
+		</p>
+	</div>
+</div>
+```
+
+
+答案是粉色，它的优先级为：1，1，1。以下是其余选择器的优先级：
+
+- `div #main p a: 1，0，3`
+- `#main a: 1，0，1`
 - `p a: 2`
 - `a: 1`
 
-To determine the number, you need to calculate the following:
+优先级的每一个数的计算规则如下：
 
-- **First number**: The number of ID selectors.
-- **Second number**: The number of class selectors, attribute selectors (ex: `[type="text"]`, `[rel="nofollow"]`), and pseudo-classes (ex: `:hover`, `:visited`).
-- **Third number**: The number of type selectors and pseudo-elements (ex: `::before`, `::after`).
+- **第一个数**：ID 选择器的数量
+- **第二个数**：类选择器、属性选择器（不包含：`[type="text"]`, `[rel="nofollow"]`）、以及伪类选择器（不包含：`:hover`, `:visited`）的数量和。
+- **第三个数**：元素选择器与伪元素选择器（不包含: `::before`, `::after`）的数量和。
 
-So, for a selector that looks like this:
+因此，对于以下选择器：
 
     #header .navbar li a:visited
 
-The value will be 1,2,2 because we have one ID, one class, one pseudo-class, and two type selectors (`li`, `a`). You can read the values as if they were just a number, like 1,2,2 is 122. The commas are there to remind you that this isn’t a base 10 system. You could technically have a specificity value of 0,1,13,4 and 13 wouldn’t spill over like a base 10 system would.
+该选择器的优先级是：1，2，2。因为我们有 1 个 ID 选择器、1 个类选择器、1 个伪类选择器、还有 2 个元素选择器（`li`、`a`）。你可以把优先级看作一个数字，比如 1，2，2 就是 122。这里的逗号是为了提现你优先级的数值并不是以 10 进制计算的。理论上你可以让一个元素的优先级为：0，1，13，4，其中的 13 并不会像 10 进制那样产生进位。（译注：不会变成 0，2，3，4）  
+ 
+### 定位
 
-### Positioning
+其次，我想花点时间讨论一下定位。正如前文所说的，定位和布局是密切相关的。
 
-Second, I want to take a moment to discuss positioning. Positioning and layout go hand in hand as we saw earlier in this post.
+布局是一个递归的过程，当全局样式变化的时候，有时会在整个渲染树上（重新）触发布局，有时则仅在局部变化的地方增量更新。有一件有趣的事情值得注意：如果我们重新思考渲染树中的绝对定位元素，该对象在渲染树中的位置和它在 DOM 树中的位置不同的。
 
-Layout is a recursive process that can be triggered on the entire render tree as a result of a global style change, or incrementally where only dirty parts of the page will be laid out over. One interesting thing to note if we think back to the render tree is that with absolute positioning, the object being laid out is put in the render tree in a different place than in the DOM tree.
-
-I’m also asked frequently about using flexbox versus floats. Of course, flexbox is great from a usability standpoint, but when applied to the same element, a flexbox layout will render in roughly 3.5ms whereas a floated layout can take around 14ms. So, it pays to keep up with your CSS skills just as much as you do your JavaScript skills.
+我也经常被问及应该使用 flexbox 还是 float 进行布局。当然，flexbox 从可用性的角度来看是非常棒的（译注：对主流浏览器来说确实不错，然而，你懂的……），但是当应用于同一个元素时，flexbox 布局将在大约 3.5ms 内呈现，而浮动布局可能需要大约14ms。所以，磨砺你的 CSS 技术所带来的回报不下于磨砺你的 JavaScript 技能的回报。
 
 ### Z-Index
 
-Finally, I want to discuss z-index. At first, it sounds simple. Every element in an HTML document can be either in front of or behind every other element in the document. It also only works on positioned elements. If you try to set a z-index on an element with no position specified, it won’t do anything.
+最后，我想聊聊 z-index。起初 z-index 听起来很简单。HTML 文档中的每个元素都可以处在文档的每个其他元素的前面或后面。 而它也只适用于指定了定位方式的元素（译注：即，未被定位，非 `position:static` 的元素）。如果你尝试在没有被定位的元素上设置 z-index，则不会起作用。
 
-The key to debugging z-index issues is understanding stacking contexts, and to always start at the stacking contexts root element. A stacking context is just a three-dimensional conceptualization of HTML elements along an imaginary z-axis relative to the user facing the viewport. In other words, it’s groups of elements with a common parent that move forward or backward together.
+调试 z-index 问题的关键是理解层叠上下文，并始终从层叠上下文的根元素开始调试。 层叠上下文是 HTML 元素的三维概念，这些 HTML 元素在一条假想的相对于面向视窗（电脑屏幕）的用户的 z 轴上延伸。换句话说，它是一组具有相同父级的元素，在同一个层叠上下文领域，层叠水平值大的那一个覆盖小的那一个。
 
-Every stacking context has a single HTML element as its root element and when z-index and position properties aren’t involved, the rules are simple. The stacking order is the same as the order of appearance in the HTML.
+每个层叠上下文都有一个唯一的 HTML 元素作为其根元素，并且在不涉及 z-index 和 position 属性时，层叠规则很简单：层叠顺序与元素在 HTML 中出现的顺序相同。（译注：即，新绘制的元素会覆盖之前的元素）
 
-You can however, create new stacking contexts with properties other than z-index and this is where things get complicated. Opacity, when it’s value is less than one, filter when its value is something other than none, and mix-blend-mode when its value is something other than normal will actually create new stacking contexts.
+当然，你也可以使用 z-index 之外的属性来创建新的层叠上下文，这会导致情况更为复杂。以下属性都会创建新的层叠上下文：
 
-Just a reminder, blend mode determines how the pixels on a specific layer interact with the visible pixels on the layers below it.
+- opacity 值不是 1
+- filter 值不是 none
+- mix-blend-mode 值不是 normal
 
-The transform property also triggers a new stacking context when its value isn’t none. For example, `scale(1)` and `translate3d(0,0,0)`. Again, as a reminder the scale property is used to adjust size, and translate3d triggers the GPU into action for CSS transitions making them smoother.
+顺便提一下，blend mode 决定了指定图层上的像素与其下方图层上的可见像素的混合方式。
 
-So, you may still not have an eye for design, but hopefully now you’re walking away a CSS guru! If you’re interested in going even further, I’ve compiled additional resources which I also used [here](https://gist.github.com/AimeeKnight/77b36738ec876965c6db5c6d39f4ef4f).
+transform 属性值不为 `none` 的元素同样会创建新的层叠上下文。例如 `scale(1)` 和 `translate3d(0,0,0)`。同样顺便提一下，scale 属性是用于调整元素大小的，而 translate3d 属性则会启用 GPU 加速让 CSS 动画更为流畅 。
 
+所以，尽管你可能还没有设计师般的眼光，但希望你正向着 CSS 大师迈进！如果你有兴趣了解更多，我整理了一些[学习资源](https://gist.github.com/AimeeKnight/77b36738ec876965c6db5c6d39f4ef4f)。
 
 ---
 
