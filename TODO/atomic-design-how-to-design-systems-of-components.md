@@ -4,7 +4,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/atomic-design-how-to-design-systems-of-components.md](https://github.com/xitu/gold-miner/blob/master/TODO/atomic-design-how-to-design-systems-of-components.md)
 > * 译者：[H2O-2](https://github.com/H2O-2)
-> * 校对者：
+> * 校对者：[ZhangFe](https://github.com/ZhangFe)，[LeviDing](https://github.com/leviding)
 
 # 原子设计：如何设计组件系统
 
@@ -65,7 +65,7 @@
 现如今：我们从原子开始并且用原子构建
 因此我们不仅拥有了充斥在所有界面之间的「家庭气氛」（译注：「家庭气氛」是一部法国的喜剧电影），更拥有了一个带来无限设计可能性的系统！
 
-### 一切始于品牌识别
+### 一切始于品牌识别（Brand Identity）
 
 现在你也许在想：
 **「如果我们想以原子的方式设计，该从哪开始呢？」**
@@ -110,7 +110,7 @@ Netflix 的视觉语言：有力度、辨识度高且易于扩展
 ![](https://cdn-images-1.medium.com/max/800/1*35_KbPOTixmDVgUnShvitQ.jpeg)
 
 通过在已经存在的组件和新功能间循环往复来充实组件系统
-最初的组件可以帮我们创建出最初的界面，接着最初的界面又会帮我们在系统中创造新的组件或改变已有的组件。
+最初的组件可以帮我们创建出最初的界面，接下来，最初的界面又会帮我们在系统中创造新的组件，或改变已有的组件。
 
 #### 「通用」思维方式
 
@@ -127,7 +127,7 @@ Netflix 的视觉语言：有力度、辨识度高且易于扩展
 ![](https://cdn-images-1.medium.com/max/800/1*zpLDZgMO0s6R0OsTX0g5NQ.png)
 
 把一个特定组件转变为通用组件
-预见到这些变形后，我可以从这个组件创建出其他的组件：
+预见到这些变形后，我可以在这个组件基础上，创建出其他的组件：
 
 ![](https://cdn-images-1.medium.com/max/800/1*nn-NcMuzv6VdV3hpgvc7AQ.png)
 
@@ -164,7 +164,7 @@ Netflix 的视觉语言：有力度、辨识度高且易于扩展
 
 ![](https://cdn-images-1.medium.com/max/800/1*gczpHM7chfldsdtvr7Umtw.png)
 
-我们所有的组件都与原子相连。因此我们将可以轻松地更改部分组件系统，并观察这种更改对其余系统部分的副作用！
+我们所有的组件都与原子相连。因此我们将可以轻松地更改部分组件系统，并观察这种更改对系统其余部分的副作用！
 
 > **如今身为设计师的我们是何其幸运：利用改良之后的工具，我们终于可以创造出灵活且不断演化的系统了。**
 
@@ -183,9 +183,9 @@ Netflix 的视觉语言：有力度、辨识度高且易于扩展
 
 为了保持多个产品的一致性，系统的共享是必须的。
 
- 我们都知道，当我们独立完成一个项目时，一致性很快就会消失，但当我们越来越多地和其他设计师合作时，保持一致性会更加困难。
+我们都知道，当我们独立完成一个项目时，一致性很快就会消失，但当我们越来越多地和其他设计师合作时，保持一致性会更加困难。
 
-在这里又一次，已经有可以让我们围绕一个共同的系统进行团队协作的工具了。
+这时又一次，我们已经拥有可以围绕一个共同的系统进行团队协作的工具了。
 
 例如 Sketch 的 Craft，或是 Adobe 的[共享库](https://uxdesign.cc/how-to-use-adobe-cc-shared-libraries-and-make-the-most-of-it-d5e114014170)，这些工具使我们拥有一个公有且一直保持最新状态的单一数据源（single source of truth）。
 
