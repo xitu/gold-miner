@@ -17,7 +17,7 @@
 
 但是在你 web 开发的生涯中的某天，这个想法变了！更糟糕的是，许多前端社区的开发者早已把 CSS 轻视为一门玩具语言。
 
-然而，事实却是当我们碰壁时，我们中的许多人实际上并不深入了解我们编写的 CSS 做了什么。
+然而，事实却是当我们碰壁时，我们中的许多人实际上未曾深入了解我们编写的 CSS 做了什么。
 
 在我接受前端培训后的头两年，我曾从事全栈 JavaScript 开发，偶尔写一点点 CSS。作为 [JavaScript Jabber](https://devchat.tv/js-jabber/my-js-story-aimee-knight) 评委会的一员，我一直认为 JavaScript 才是我的吃饭家伙，所以大部分时间我都花在 JavaScript 上。
 
