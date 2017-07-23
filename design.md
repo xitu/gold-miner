@@ -1,3 +1,6 @@
+* [以排印为本，从内容出发](https://juejin.im/entry/5965c5b26fb9a06ba025074c/detail?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([cdpath](https://github.com/cdpath) 翻译)
+* [更好的表单设计: 每一页，一件事（实例研究）](https://juejin.im/post/5964c340f265da6c3f70c617?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([horizon13th](https://github.com/horizon13th) 翻译)
+* [用动效创建的可用性：动效中的用户体验宣言](https://juejin.im/post/595c77a66fb9a06bcb7f92ff?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([ruixi](https://github.com/ruixi) 翻译)
 * [使登录页面变得正确](https://juejin.im/post/5951e7905188250d98489c6a?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([LisaPeng](https://github.com/LisaPeng) 翻译)
 * [可口可乐自由风格售卖亭界面用户体验的回顾和重新设计](https://juejin.im/post/594bd720f265da6c4c4fb134?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([ylq167](https://github.com/ylq167) 翻译)
 * [为复杂产品制定设计规范](https://juejin.im/post/5944b8e55c497d006bdc261a?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([changkun](https://github.com/changkun) 翻译)

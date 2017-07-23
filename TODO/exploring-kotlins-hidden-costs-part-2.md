@@ -3,23 +3,23 @@
 > * 原文作者：[Christophe B.](https://medium.com/@BladeCoder)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/exploring-kotlins-hidden-costs-part-2.md](https://github.com/xitu/gold-miner/blob/master/TODO/exploring-kotlins-hidden-costs-part-2.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Feximin](https://github.com/Feximin)
+> * 校对者：[PhxNirvana](https://github.com/phxnirvana) 、[tanglie](https://github.com/tanglie1993)
 
-# Exploring Kotlin’s hidden costs — Part 2
+# 探索 Kotlin 中的隐性成本（第二部分）
 
 
-## Local functions, null safety and varargs
+## 局部函数，空值安全和可变参数
 
-This is part 2 of an ongoing series about the Kotlin programming language. Don’t forget to read [part 1](https://medium.com/@BladeCoder/exploring-kotlins-hidden-costs-part-1-fbb9935d9b62) if you haven’t already.
+本文是正在进行中的 Kotlin 编程语言系列的第二部分。如果你还未读过[第一部分](https://juejin.im/post/596774c96fb9a06bb95ae46a)的话，别忘了去看一下。
 
-Let’s take a new look behind the curtain and discover the implementation details of more Kotlin features.
+让我们重新看一下 Kotlin 的本质，去发现更多 Kotlin 特性的实现细节。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*pgUIupLpReTPmScVHMITjg.png)
 
-### Local functions
+### 局部函数
 
-There is a kind of function we did not cover in the first article: functions that are declared inside other functions, using the regular syntax. These are called [local functions](https://kotlinlang.org/docs/reference/functions.html#local-functions) and they are able to access the scope of the outer function.
+有一种函数我们在第一篇文章没有讲到：使用常规语法在其他函数内部声明的函数。这是[局部函数](https://kotlinlang.org/docs/reference/functions.html#local-functions)，它们可以访问外部函数的作用域。
 
 ```
 fun someMath(a: Int): Int {
@@ -29,9 +29,9 @@ fun someMath(a: Int): Int {
 }
 ```
 
-Let’s begin by mentioning their biggest limitation: **local functions can not be declared **`**inline**` (yet?) **and a function containing a local function can not be declared **`**inline**`** either**. There is no magical way to avoid the cost of function calls in this case.
+让我们先来谈谈他们最大的局限性：**局部函数不能被声明为`内联`（还不能？）并且一个包含局部函数的函数也不能被声明为`内联`**。还没有一个神奇的方法可以避免在这种情况下函数调用的成本。
 
-After compilation, these local functions are converted to `Function` objects, just like lambdas and with **most of the same limitations** described in the previous article regarding non-inline functions. The Java representation of the compiled code looks like this:
+局部函数在编译后被转换为 `Function` 对象，就像 lambdas 那样，并且有着和上篇文章中描述的关于非内联函数的**大多数相同的限制**。编译之后的 Java 代码形式是这样的：
 
 ```
 public static final int someMath(final int a) {
@@ -50,7 +50,7 @@ public static final int someMath(final int a) {
 }
 ```
 
-There is however one less performance hit compared to lambdas: because the actual instance of the function is known from the caller, its *specific* method will be called directly instead of its *generic* synthetic method from the `Function` interface. This means that **no casting or boxing of primitive types will occur when calling a local function from the outer function**. We can verify this by looking at the bytecode:
+但是与 lambdas 相比有一个小的性能损失：由于调用者是知道这个函数的真正实例的，它的**特定**方法将被直接调用，而不是调用来自 `Function` 接口的通用合成方法。这意味着**当从外部函数调用局部函数的时候不会有强制类型转换或者基础类型装箱现象发生**。我们可以通过查看字节码来验证这一点：
 
 ```
 ALOAD 1
@@ -63,9 +63,9 @@ IADD
 IRETURN
 ```
 
-We can see that the method being invoked twice is the one accepting an `**int**` and returning an `**int**`, and that the addition is performed immediately without any intermediate unboxing operation.
+我们可以看到那个被调用了两次的方法就是那个接收一个 **`int`** 参数并且返回一个 **`int`** 的方法，那个加法被立即执行并且没有任何中间的拆箱操作。
 
-Of course there is still the cost of creating a new `Function` object during each method call. This can be avoided by rewriting the local function to be non-capturing:
+当然，在每次方法调用的过程中仍然有着创建一个新 `Function` 对象的成本。这个成本可以通过将局部函数重写为非捕获性的来避免：
 
 ```
 fun someMath(a: Int): Int {
@@ -75,19 +75,19 @@ fun someMath(a: Int): Int {
 }
 ```
 
-Now the same `Function` instance will be reused an still no casting or boxing will occur. The only penalty of this local function compared to a classic private function will be the generation of an extra class with a few methods.
+现在这个相同的 `Function` 实例将被复用，仍然没有强制类型转换或者装箱情况发生。与典型的私有函数相比，局部函数唯一的缺点就是会额外生成一个有几个方法的的类。
 
-> Local functions are an alternative to private functions with the added benefit of being able to access local variables of the outer function. That benefit comes with the hidden cost of the creation of a `Function` object for each call of the outer function, so non-capturing local functions are preferred.
+> 局部函数是私有函数的一种替代，其优点是可以访问外部函数的局部变量。但是这些优点附带着隐性成本，那就是每次调用外部函数时都会生成一个 `Function` 对象，所以最好用非捕获性的函数。
 
 ---
 
-### Null safety
+### 空值安全
 
-One of the best features of the Kotlin language is that it makes a clear distinction between [nullable and non-null types](https://kotlinlang.org/docs/reference/null-safety.html). This enables the compiler to effectively prevent unexpected `NullPointerException`s at runtime by forbidding any code assigning a `**null**` or nullable value to a non-null variable.
+Kotlin 语言中最好的特性之一就是明确区分了[可空与不可空类型](https://kotlinlang.org/docs/reference/null-safety.html)。这可以使编译器在运行时通过禁止任何代码将 `null` 或者可空值分配给不可空变量来有效地阻止意想不到的 `NullPointerException`。
 
-#### Non-null arguments runtime checks
+#### 不可空参数运行时检查
 
-Let’s declare a public function taking a non-null `String` as argument:
+让我们声明一个公共的接收一个不可空 `String` 做为参数的函数：
 
 ```
 fun sayHello(who: String) {
@@ -95,7 +95,7 @@ fun sayHello(who: String) {
 }
 ```
 
-And now take a look at the Java representation of the compiled code:
+现在看一下编译之后的等同的 Java 形式：
 
 ```
 public static final void sayHello(@NotNull String who) {
@@ -105,13 +105,13 @@ public static final void sayHello(@NotNull String who) {
 }
 ```
 
-Notice that the Kotlin compiler is a good Java citizen and adds the `@NotNull` annotation to the argument, so Java tools can use this hint to show a warning when a `**null**` value is passed.
+注意，Kotlin 编译器是 Java 的好公民，它在参数上添加了一个 `@NotNull` 注解，因此当一个 **`null`** 值传过来的时候 Java 工具可以据此来显示一个警告。
 
-But an annotation is not enough to enforce null safety from the external callers. That’s why the compiler also adds at the very beginning of our function a **static method call** that will check the argument and throw an `IllegalArgumentException` if it’s `**null**`. The function will fail early and consistently rather than failing randomly later with a `NullPointerException`, in order to make the unsafe caller code easier to fix.
+但是一个注解还不足以让外部调用实现空值安全。这就是为什么编译器在函数的刚开始处还添加了一个可以检测参数并且如果参数为 **`null`** 就抛出 `IllegalArgumentException` 的**静态方法调用**。为了使不安全的调用代码更容易修复，这个函数在早期就会失败而不是在后期随机地抛出 `NullPointerException`。
 
-In practice, **every public function** has one static call to `Intrinsics.checkParameterIsNotNull()` added **for each non-null reference argument**. These checks are **not added to private functions** because the compiler guarantees that the code inside a Kotlin class is null safe.
+在实践中，**每一个公共的函数**都会在**每一个不可空引用参数**上添加一个 `Intrinsics.checkParameterIsNotNull()` 静态调用。**私有函数不会**有这些检查，因为编译器会保证 Kotlin 类中的代码是空值安全的。
 
-The performance impact of these static calls is negligible and they are really useful when debugging and testing an app. That being said, you may see them as an unnecessary extra cost for release builds. In that case, it’s possible to disable runtime null checks by using the `-Xno-param-assertions` compiler option or by adding the following [ProGuard](https://www.guardsquare.com/en/proguard) rule:
+这些静态调用对性能的影响可以忽略不计并且他们在调试或者测试一个 app 时确实很有用。话虽这么说，但你还是可能将他们视为一种正式版本中不必要的额外成本。在这种情况下，可以通过使用编译器选项中的 `-Xno-param-assertions` 或者添加以下的[混淆](https://www.guardsquare.com/en/proguard)规则来禁用运行时空值检查：
 
 ```
 -assumenosideeffects class kotlin.jvm.internal.Intrinsics {
@@ -119,13 +119,13 @@ The performance impact of these static calls is negligible and they are really u
 }
 ```
 
-> Note that this ProGuard rule will only take effect with optimizations enabled. Optimizations are disabled in the default Android ProGuard configuration.
+> 注意，这条混淆规则只有在优化功能开启的时候有效。优化功能在默认的安卓混淆配置中是禁用的。
 
-#### Nullable primitive types
+#### 可空的基本类型
 
-This seems obvious but needs to be reminded: a nullable type is always a reference type. Declaring a variable for a primitive type as **nullable** prevents Kotlin from using the Java primitive value types like `**int**` or `**float**` and instead the **boxed reference types** like `Integer` or `Float` will be used, involving the extra cost of boxing and unboxing operations.
+虽然显而易见，但仍需谨记：可空类型都是引用类型。将基础类型变量声明为 **可空**的话，会阻止 Kotlin 使用 Java 中类似 **`int`** 或者 **`float`** 那样的基础类型，相应的类似 `Integer` 或者 `Float` 那样的**装箱引用类型**会被使用，这就引起了额外的装箱或拆箱成本。
 
-Contrary to Java which allows you to be sloppy and use an `Integer` variable almost exactly like an `**int**` variable, thanks to [autoboxing](http://docs.oracle.com/javase/8/docs/technotes/guides/language/autoboxing.html) and disregard of null safety, Kotlin forces you to write safe code when using nullable types so the benefits of using non-null types become clearer:
+与 Java 中允许草率地使用与 **`int`** 变量几乎完全一样的 **`Integer`** 变量相反，由于[自动装箱](http://docs.oracle.com/javase/8/docs/technotes/guides/language/autoboxing.html)和不需要考虑空值安全的原因，在使用可空类型时 Kotlin 会迫使你编写安全的代码，因此使用不可空类型的好处变得越来越清晰：
 
 ```
 fun add(a: Int, b: Int): Int {
@@ -136,26 +136,23 @@ fun add(a: Int?, b: Int?): Int {
 }
 ```
 
-> Use non-null primitive types whenever possible for more readable code and better performance.
+> 为了更好的可读性和更佳的性能尽量使用不可空基础类型。
 
-#### About arrays
+#### 数组相关
 
-There are 3 types of arrays in Kotlin:
+Kotlin 中有三种数组类型：
 
-- `IntArray`, `FloatArray` and others: an array of primitive values.
-Compiles to `**int**[]`, `**float**[]` and others.
-- `Array<T>`: a typed array of non-null object references.
-This involves boxing for primitive types.
-- `Array<T?>`: a typed array of nullable object references.
-This also involves boxing for primitive types, obviously.
+- `IntArray`, `FloatArray` 还有其他的：基础类型数组。编译为 **`int[]`**, **`float[]`** 和其他的类型。
+- `Array<T>`：不可空对象引用类型化数组，这涉及到对基础类型的装箱。
+- `Array<T?>`：可空对象引用类型化数组。很明显，这也涉及到基础类型的装箱。
 
-> If you need an array for a non-null primitive type, prefer using `IntArray` than `Array<Int>` for example, to avoid boxing.
+> 如果你需要一个不可空的基础类型数组，最好用 `IntArray` 而不是 `Array<Int>` 来避免装箱（操作）。
 
 ---
 
-### Varargs
+### 可变参数
 
-Kotlin allows to declare functions with a [variable number of arguments](https://kotlinlang.org/docs/reference/functions.html#variable-number-of-arguments-varargs), like Java. The declaration syntax is a bit different:
+Kotlin 允许声明具有[数量可变的参数](https://kotlinlang.org/docs/reference/functions.html#variable-number-of-arguments-varargs)的函数，就像 Java 那样。声明语法有点不一样：
 
 ```
 fun printDouble(vararg values: Int) {
@@ -163,52 +160,52 @@ fun printDouble(vararg values: Int) {
 }
 ```
 
-Just like in Java, the `**vararg**` argument actually gets compiled to an **array** argument of the given type. You can then call these functions in three different ways:
+就像 Java 中那样，**`vararg`** 参数实际上被编译为一个给定类型的 **数组** 参数。你可以用三种不同的方式来调用这些函数：
 
-#### 1. Passing multiple arguments
+#### 1. 传入多个参数
 
 ```
 printDouble(1, 2, 3)
 ```
 
-The Kotlin compiler will transform this code to a creation and initialization of a new array, exactly like the Java compiler does:
+Kotlin 编译器会将这行代码转化为创建并初始化一个新的数组，和 Java 编译器做的完全一样：
 
 ```
 printDouble(new int[]{1, 2, 3});
 ```
 
-So there is the **overhead of the creation of a new array**, but this is nothing new compared to Java.
+因此有**创建一个新数组的开销**，但与 Java 相比这并不是什么新鲜事。
 
-#### 2. Passing a single array
+#### 2. 传入一个单独的数组
 
-This is where things differ. In Java, you can directly pass an existing array reference as vararg argument. In Kotlin, you need to use the *spread operator*:
+这就是不同之处。在 Java 中，你可以直接传入一个现有的数组引用作为可变参数。但是在 Kotlin 中你需要使用 **分布操作符**:
 
 ```
 val values = intArrayOf(1, 2, 3)
 printDouble(*values)
 ```
 
-In Java, the array reference is passed “as-is” to the function, with no extra array allocation. However, the Kotlin *spread operator* compiles differently, as you can see in this Java representation:
+在 Java 中，数组引用被“原样”传入函数，而无需分配额外的数组内存。然而，**分布操作符**编译的方式不同，正如你在（等同的）Java 代码中看到的：
 
 ```
 int[] values = new int[]{1, 2, 3};
 printDouble(Arrays.copyOf(values, values.length));
 ```
 
-The existing array **always gets copied** when calling the function. The benefit is safer code: it allows the function to modify the array without impacting the caller code. **But it allocates extra memory**.
+每当调用这个函数时，现在的数组总会被复制。好处是代码更安全：允许函数在不影响调用者代码的情况下修改这个数组。**但是会分配额外的内存**。
 
-*Note that calling a Java method with a variable number of arguments from Kotlin code has the same effect.*
+**注意，在 Kotlin 代码中调用一个有可变参数的 Java 方法会产生相同的效果。**
 
-#### 3. Passing a mix of arrays and arguments
+#### 3. 传入混合的数组和参数
 
-The main benefit of the *spread operator* is that it also allows mixing arrays with other arguments in the same call.
+**分布操作符**主要的好处是，它还允许在同一个调用中数组参数和其他参数混合在一起进行传递。
 
 ```
 val values = intArrayOf(1, 2, 3)
 printDouble(0, *values, 42)
 ```
 
-How does *this* get compiled? The resulting code is quite interesting:
+**这**是如何编译的呢？生成的代码十分有意思：
 
 ```
 int[] values = new int[]{1, 2, 3};
@@ -219,15 +216,15 @@ var10000.add(42);
 printDouble(var10000.toArray());
 ```
 
-In addition to the **creation of a new array**, a **temporary builder object** is used to compute the final array size and populate it. This adds another small cost to the method call.
+除了**创建新数组**外，一个**临时的 builder 对象**被用来计算最终的数组大小并填充它。这就使得这个方法调用又增加了另一个小的成本。
 
-> Calling a function with a variable number of arguments in Kotlin adds the cost of creating a new temporary array, even when using values from an existing array. For performance-critical code where the function is called repeatedly, consider adding a method with an actual array argument instead of `**vararg**`.
+> 在 Kotlin 中调用一个具有可变参数的函数时会增加创建一个新临时数组的成本，即使是使用已有数组的值。对方法被反复调用的性能关键性的代码来说，考虑添加一个以真正的数组而不是 **`可变数组`** 为参数的方法。
 
 ---
 
-Thank you for reading and please share this article if you liked it.
+感谢阅读，如果你喜欢的话请分享本文。
 
-Keep reading by heading to [part 3](https://medium.com/@BladeCoder/exploring-kotlins-hidden-costs-part-3-3bf6e0dbf0a4): *delegated properties* and *ranges*.
+继续阅读[第三部分](https://github.com/xitu/gold-miner/blob/master/TODO/exploring-kotlins-hidden-costs-part-3.md)：**委派属性**和**范围**。
 
 
 ---
