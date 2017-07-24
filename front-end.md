@@ -1,3 +1,4 @@
+* [高性能 React：3 个新工具加速你的应用](https://juejin.im/post/5971bc786fb9a06bad656523?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([sunui](https://github.com/sunui) 翻译)
 * [2017 年了，这么多前端框架，你会怎样选择？](https://juejin.im/post/597022c6f265da6c2f0add39?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([leviding](https://github.com/leviding) 翻译)
 * [Redux 并不慢，只是你使用姿势不对 —— 一份优化指南](https://juejin.im/post/596db2f9f265da6c4602ffc3?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([reid3290](https://github.com/reid3290) 翻译)
 * [即将到来的正则表达式新特性](https://juejin.im/post/59683f98f265da6c4f34eec6?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([sunui](https://github.com/sunui) 翻译)
