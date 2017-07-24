@@ -8,7 +8,7 @@
 
 # 在使用过采样或欠采样处理类别不均衡的数据后，如何正确的做交叉验证？
 
-*[关于我在这篇文章中使用的术语可以在 [Physionet](http://www.physionet.org/pn6/tpehgdb/) 网站中找到。 本篇博客中用到的代码可以在 [github](https://github.com/marcoalt/Physionet-EHG-imbalanced-data)中找到]*
+**[关于我在这篇文章中使用的术语可以在 [Physionet](http://www.physionet.org/pn6/tpehgdb/) 网站中找到。 本篇博客中用到的代码可以在 [github](https://github.com/marcoalt/Physionet-EHG-imbalanced-data)中找到]**
 
 几个星期前我阅读了一篇[交叉验证的技术文档（Cross Validation Done Wrong）](http://www.alfredo.motta.name/cross-validation-done-wrong)， 在交叉验证的过程中，我们希望能够了解到我们的模型的泛化性能，以及它是如何预测我们感兴趣的未知样本的。基于这个出发点，作者提出了很多好的观点（尤其是关于特征选择的）。我们的确经常在进行交叉验证之前进行特征选择，但是需要注意的是我们在特征选择的时候，不能将验证集的数据加入到特征选择这个环节中去。
 
