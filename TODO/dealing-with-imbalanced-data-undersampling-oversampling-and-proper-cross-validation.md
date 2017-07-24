@@ -4,7 +4,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/dealing-with-imbalanced-data-undersampling-oversampling-and-proper-cross-validation.md](https://github.com/xitu/gold-miner/blob/master/TODO/dealing-with-imbalanced-data-undersampling-oversampling-and-proper-cross-validation.md)
 > * 译者：[edvardhua](https://github.com/edvardHua)
-> * 校对者：
+> * 校对者：[lileizhenshuai](https://github.com/lileizhenshuai), [lsvih](https://github.com/lsvih)
 
 # 在使用过采样或欠采样处理类别不均衡的数据后，如何正确的做交叉验证？
 
