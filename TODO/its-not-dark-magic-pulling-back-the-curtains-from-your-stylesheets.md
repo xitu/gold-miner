@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/its-not-dark-magic-pulling-back-the-curtains-from-your-stylesheets.md](https://github.com/xitu/gold-miner/blob/master/TODO/its-not-dark-magic-pulling-back-the-curtains-from-your-stylesheets.md)
 > * 译者：[吃土小2叉](https://github.com/xunge0613)
-> * 校对者：[薛定谔的猫](https://github.com/Aladdin-ADD)、
+> * 校对者：[薛定谔的猫](https://github.com/Aladdin-ADD)、[LeviDing](https://github.com/leviding)
 
 # CSS 才不是什么黑魔法呢
 
