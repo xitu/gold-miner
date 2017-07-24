@@ -15,23 +15,23 @@
 
 当你第一次接触 CSS 时，似乎觉得 CSS 轻而易举。加边框，改颜色，小菜一碟。JavaScript 才是前端开发的难点，不是吗？
 
-但是在你 web 开发的生涯中的某天，这个想法变了！更糟糕的是，许多前端社区的开发者早已把 CSS 轻视为一门玩具语言。
+但是在你 web 开发生涯中的某天，这个想法变了！更糟糕的是，许多前端社区的开发者早已把 CSS 轻视为一门玩具语言。
 
 然而，事实却是当我们碰壁时，我们中的许多人实际上未曾深入了解我们编写的 CSS 做了什么。
 
-在我接受前端培训后的头两年，我曾从事全栈 JavaScript 开发，偶尔写一点点 CSS。作为 [JavaScript Jabber](https://devchat.tv/js-jabber/my-js-story-aimee-knight) 评委会的一员，我一直认为 JavaScript 才是我的吃饭家伙，所以大部分时间我都花在 JavaScript 上。
+在我接受前端培训后的头两年，我曾从事全栈 JavaScript 开发，偶尔写一点点 CSS。作为 [JavaScript Jabber](https://devchat.tv/js-jabber/my-js-story-aimee-knight) 评委会的一员，我一直认为 JavaScript 才是我吃饭的家伙，所以大部分时间我都花在 JavaScript 上。
 
 然而直到去年，当我决定专注于前端时，才意识到根本无法像调试 JavaScript 那样轻松地调试 CSS！
 
 我们都喜欢拿 CSS 开玩笑，但是我们中有多少人真的花时间去尝试理解我们正在编写或正在阅读的 CSS。当我们碰壁时，我们有多少人在解决问题的同时，会深入最底层（看看发生了什么）？ 相反，我们止步于照搬 StackOverflow 上票数最高的答案，或者用一些黑科技（hack）手段随便应付一下，或者我们干脆撒手不管了：那是一个 feature 而不是一个 bug。
 
-当浏览器以未预期的方式呈现 CSS 时，开发者常常感到非常困惑。但是 CSS 并不是黑魔法，而作为开发者，我们都明白计算机只会按照我们的指令去执行。
+当浏览器以非预期的方式呈现 CSS 时，开发者常常感到非常困惑。但是 CSS 并不是黑魔法，而作为开发者，我们都明白计算机只会按照我们的指令去执行。
 
-学习浏览器的内部工作原理将有助于作出更明智的决策，并理解那些最佳开发实践的个中缘由。虽然许多会议的演讲会讨论如何修复常见的 bug，但我的演讲（和这篇文章）的重点在于为什么会有这些 bug，为此我将深入介绍浏览器内部原理，看看我们的 CSS 是如何被解析和呈现。
+学习浏览器的内部工作原理将有助于掌握高级调试技巧和性能优化方案。虽然许多会议的演讲会讨论如何修复常见的 bug，但我的演讲（和这篇文章）的重点在于为什么会有这些 bug，为此我将深入介绍浏览器内部原理，看看我们的 CSS 是如何被解析和呈现。
 
 ### DOM 与 CSSOM
 
-首先，了解浏览器包含 JavaScript 引擎和渲染引擎非常重要，而本文将重点关注后者。例如，我们将讨论涉及 WebKit（Safari），Blink（Chrome），Gecko（Firefox）和 Trident / EdgeHTML（IE / Edge）的细节。浏览器将经历包括转换、标记化、词法分析和解析的过程，最终构建 DOM 和 CSSOM。（译注：CSSOM 即 CSS Object Model，定义了媒体查询，选择器和CSS本身的 API，这些 API 包括了通用解析和序列化规则，传送门：[CSSOM](https://www.w3.org/TR/cssom-1/)）
+首先，了解浏览器包含 JavaScript 引擎和渲染引擎非常重要，而本文将重点关注后者。例如，我们将讨论涉及 WebKit（Safari），Blink（Chrome），Gecko（Firefox）和 Trident / EdgeHTML（IE / Edge）的细节。浏览器将经历包括转换、标记化、词法分析和解析的过程，最终构建 DOM 和 CSSOM。（译注：CSSOM 即 CSS Object Model，定义了媒体查询，选择器和 CSS 本身的 API，这些 API 包括了通用解析和序列化规则，传送门：[CSSOM](https://www.w3.org/TR/cssom-1/)）
 
 这一过程大致可以分为以下几个步骤：
 
@@ -66,17 +66,17 @@ CSSOM 可以对渲染树产生很大的影响，但不会影响到 DOM 树。
 
 当人们在谈论浏览器的硬件加速时，绝大多数都是指加速“合成”过程，也就是意味着使用 GPU 来合成网页的内容。
 
-与使用计算机 CPU 进行合成的旧方式相比，使用 GPU 能带来相当多的速度提升，而合理利用 will-change 这一属性有助于此。（译注：`will-change` 相关资料传送门 [will-change MDN](https://developer.mozilla.org/zh-CN/docs/Web/CSS/will-change) 、[Everything You Need to Know About the CSS will-change Property](https://dev.opera.com/articles/css-will-change-property/)）
+与使用计算机 CPU 进行合成的旧方式相比，使用 GPU 能带来相当多的速度提升，而合理利用 `will-change` 这一属性有助于此。（译注：`will-change` 相关资料传送门 [will-change MDN](https://developer.mozilla.org/zh-CN/docs/Web/CSS/will-change) 、[Everything You Need to Know About the CSS will-change Property](https://dev.opera.com/articles/css-will-change-property/)）
 
-举个例子：在使用 CSS transform 属性时，will-change 属性能提前告知浏览器 DOM 元素接下来会有哪些变化。这可以将一些绘制和合成操作移交给 GPU，从而大大提高有大量动画的页面的性能。使用 will-change 属性，对于滚动位置变化、内容变化、不透明度变化以及绝对定位坐标位置变化也有类似的性能收益。
+举个例子：在使用 CSS `transform` 属性时，`will-change` 属性能提前告知浏览器 DOM 元素接下来会有哪些变化。这可以将一些绘制和合成操作移交给 GPU，从而大大提高有大量动画的页面的性能。使用 `will-change` 属性，对于滚动位置变化、内容变化、不透明度变化以及绝对定位坐标位置变化也有类似的性能收益。
 
-有必要了解某些属性将导致重新布局，而其他属性只会导致重新绘制。当然出于性能考虑，最好只触发重绘。
+有必要了解一件事：某些 CSS 属性将导致重新布局，而其他属性只会导致重新绘制。当然出于性能考虑，最好只触发重绘。
 
 举个例子：元素的颜色改变后，只会对该元素进行重绘。而元素的位置改变后，会对该元素及其子元素（可能还有同级元素）进行布局和重绘。添加 DOM 节点后，会对该节点进行布局和重绘。一些重大变化（例如增大 `html` 元素的字体）会导致整个渲染树进行重新布局和绘制。
 
 如果你像我一样，比起 CSSOM 更熟悉 DOM，那么让我们来深入了解一下 CSSOM。请务必注意，默认情况下，CSS 会被视为阻塞渲染资源。这意味着浏览器在构建完 CSSOM 之前，将挂起任何其它进程的渲染。
 
-CSSOM 和 DOM 并不是一一对应的。具有 `dispay:none` 属性的元素、`<script>` 标签、`<meta>`标签、`<head>`元素等等不可见的 DOM 元素不会显示在渲染树中。
+CSSOM 和 DOM 并不是一一对应的。具有 `dispay:none` 属性的元素、`<script>` 标签、`<meta>` 标签、`<head>` 元素等等不可见的 DOM 元素不会显示在渲染树中。
 
 CSSOM 和 DOM 的另一个区别则在于解析 CSS 使用的是一种上下文无关语法。也就是说，CSS 渲染引擎不会自动补全 CSS 中缺少的语法，然而解析 HTML 创建 DOM 时则刚好相反。
 
@@ -99,7 +99,7 @@ CSSOM 和 DOM 的另一个区别则在于解析 CSS 使用的是一种上下文�
 
 不幸的是，优先级的计算规则难倒了不少 JavaScript 开发者，所以让我们一起深入研究 CSS 优先级的计算规则。我们将使用以下的 html 结构作为例子：有一个类名为 `container` 的 div，在这个 div 里，我们嵌套了另一个 div，它的 id 是 `main`，我们又在这个 div 里嵌套了一个包含 a 标签的 p 标签。别偷看答案，你知道 a 标签的颜色是什么吗？
 
-```
+``` css
 #main a {
   color: green;
 }
@@ -123,7 +123,7 @@ a {
 
 （译注：加一段 html 结构顺便防偷看答案 →_→）
 
-```
+``` html
 <div class="container">
 	<div id="main">
 		<p>
@@ -158,25 +158,25 @@ a {
 
 布局是一个递归的过程，当全局样式变化的时候，有时会在整个渲染树上（重新）触发布局，有时则仅在局部变化的地方增量更新。有一件有趣的事情值得注意：如果我们重新思考渲染树中的绝对定位元素，该对象在渲染树中的位置和它在 DOM 树中的位置不同的。
 
-我也经常被问及应该使用 flexbox 还是 float 进行布局。毫无疑问，用 flexbox 进行布局相当方便，而且当应用于同一个元素时，flexbox 布局将在大约 3.5ms 内呈现，而浮动布局可能需要大约 14ms。所以，磨砺你的 CSS 技能所带来的回报不下于磨砺你的 JavaScript 技能的回报。
+我也经常被问及应该使用 `flexbox` 还是 `float` 进行布局。毫无疑问，用 `flexbox` 进行布局相当方便，而且当应用于同一个元素时，`flexbox` 布局将在大约 3.5ms 内呈现，而 `float` 布局可能需要大约 14ms。所以，磨砺你的 CSS 技能所带来的回报不下于磨砺你的 JavaScript 技能的回报。
 
 ### Z-Index
 
-最后，我想聊聊 z-index。起初 z-index 听起来很简单。HTML 文档中的每个元素都可以处在文档的每个其他元素的前面或后面。 而它也只适用于指定了定位方式的元素（译注：即，未被定位，非 `position:static` 的元素）。如果你尝试在没有被定位的元素上设置 z-index，则不会起作用。
+最后，我想聊聊 `z-index`。起初 `z-index` 听起来很简单。HTML 文档中的每个元素都可以处在文档的每个其他元素的前面或后面。 而它也只适用于指定了定位方式的元素（译注：即，未被定位，非 `position:static` 的元素）。如果你尝试在没有被定位的元素上设置 `z-index`，则不会起作用。
 
 调试 z-index 问题的关键是理解层叠上下文，并始终从层叠上下文的根元素开始调试。 层叠上下文是 HTML 元素的三维概念，这些 HTML 元素在一条假想的相对于面向视窗（电脑屏幕）的用户的 z 轴上延伸。换句话说，它是一组具有相同父级的元素，在同一个层叠上下文领域，层叠水平值大的那一个覆盖小的那一个。
 
-每个层叠上下文都有一个唯一的 HTML 元素作为其根元素，并且在不涉及 z-index 和 position 属性时，层叠规则很简单：层叠顺序与元素在 HTML 中出现的顺序相同。（译注：即，新绘制的元素会覆盖之前的元素）
+每个层叠上下文都有一个唯一的 HTML 元素作为其根元素，并且在不涉及 `z-index` 和 `position` 属性时，层叠规则很简单：层叠顺序与元素在 HTML 中出现的顺序相同。（译注：即，新绘制的元素会覆盖之前的元素）
 
-当然，你也可以使用 z-index 之外的属性来创建新的层叠上下文，这会导致情况更为复杂。以下属性都会创建新的层叠上下文：
+当然，你也可以使用 `z-index` 之外的属性来创建新的层叠上下文，这会导致情况更为复杂。以下属性都会创建新的层叠上下文：
 
-- opacity 值不是 1
-- filter 值不是 none
-- mix-blend-mode 值不是 normal
+- `opacity` 值不是 1
+- `filter` 值不是 `none`
+- `mix-blend-mode` 值不是 `normal`
 
 顺便提一下，blend mode 决定了指定图层上的像素与其下方图层上的可见像素的混合方式。
 
-transform 属性值不为 `none` 的元素同样会创建新的层叠上下文。例如 `scale(1)` 和 `translate3d(0,0,0)`。同样顺便提一下，scale 属性是用于调整元素大小的，而 translate3d 属性则会启用 GPU 加速让 CSS 动画更为流畅 。
+`transform` 属性值不为 `none` 的元素同样会创建新的层叠上下文。例如 `scale(1)` 和 `translate3d(0,0,0)`。同样顺便提一下，`scale` 属性是用于调整元素大小的，而 `translate3d` 属性则会启用 GPU 加速让 CSS 动画更为流畅 。
 
 所以，尽管你可能还没有设计师般的眼光，但希望你正向着 CSS 大师迈进！如果你有兴趣了解更多，我整理了一些[学习资源](https://gist.github.com/AimeeKnight/77b36738ec876965c6db5c6d39f4ef4f)。
 
