@@ -5,7 +5,7 @@
 
 [掘金翻译计划](https://juejin.im/tag/%E6%8E%98%E9%87%91%E7%BF%BB%E8%AF%91%E8%AE%A1%E5%88%92) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](#android)、[iOS](#ios)、[React](#react)、[前端](#前端)、[后端](#后端)、[产品](#产品)、[设计](#设计) 等领域，读者为热爱新技术的新锐开发者。
 
-掘金翻译计划目前翻译完成 [579](#近期文章列表) 篇文章，共有 [350](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 余名译者贡献翻译。
+掘金翻译计划目前翻译完成 [580](#近期文章列表) 篇文章，共有 [350](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 余名译者贡献翻译。
 
 # 官方指南
 
@@ -78,10 +78,10 @@
 
 ## 设计
 
+* [UX 基于背后的合理化，而非设计](https://juejin.im/post/5971ce0d51882574623352ca?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([horizon13th](https://github.com/horizon13th) 翻译)
 * [以排印为本，从内容出发](https://juejin.im/entry/5965c5b26fb9a06ba025074c/detail?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([cdpath](https://github.com/cdpath) 翻译)
 * [更好的表单设计: 每一页，一件事（实例研究）](https://juejin.im/post/5964c340f265da6c3f70c617?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([horizon13th](https://github.com/horizon13th) 翻译)
 * [用动效创建的可用性：动效中的用户体验宣言](https://juejin.im/post/595c77a66fb9a06bcb7f92ff?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([ruixi](https://github.com/ruixi) 翻译)
-* [使登录页面变得正确](https://juejin.im/post/5951e7905188250d98489c6a?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([LisaPeng](https://github.com/LisaPeng) 翻译)
 * [所有设计译文>>](https://github.com/xitu/gold-miner/blob/master/design.md)
 
 
