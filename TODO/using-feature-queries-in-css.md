@@ -3,8 +3,8 @@
 > * 原文作者：[Jen Simmons](http://jensimmons.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/using-feature-queries-in-css.md](https://github.com/xitu/gold-miner/blob/master/TODO/using-feature-queries-in-css.md)
-> * 译者：[cherry](https://github.com/sunshine940326)
-> * 校对者：[leviding]https://github.com/leviding
+> * 译者：[Cherry](https://github.com/sunshine940326)
+> * 校对者：[LeviDing]https://github.com/leviding
 
 # 在 CSS 中使用特征查询
 
@@ -24,7 +24,7 @@ CSS 中有一个你可能还没有听说过的工具。它很强大。它已经�
 
 也就是说，我发现 `@supports` 是非常有用的。`@supports` 规则让我多次感受到，使用新的 CSS 规则来实现功能，比使用旧的规则要简单得多。
 
-多年来，开发商都用 [Modernizr](https://modernizr.com) 做特征查询，但是 Modernizr 需要 JavaScript。即使脚本很小，CSS 架构与 Modernizr 需要 JavaScript 文件的下载、执行并且要在应用 CSS 之前完成。涉及 JavaScript 总是比只使用 CSS 慢。如果 JavaScript 打开失败也就是说如果JavaScript 不执行会发生什么？另外，Modernizr 需要一个复杂并且许多项目无法处理的附加层。特征查询速度更快，更健壮，使用起来更加简单。
+多年来，开发商都用 [Modernizr](https://modernizr.com) 做特征查询，但是 Modernizr 需要 JavaScript。即使脚本很小，CSS 架构与 Modernizr 需要 JavaScript 文件的下载、执行并且要在应用 CSS 之前完成。涉及 JavaScript 总是比只使用 CSS 慢。如果 JavaScript 打开失败也就是说如果 JavaScript 不执行会发生什么？另外，Modernizr 需要一个复杂并且许多项目无法处理的附加层。特征查询速度更快，更健壮，使用起来更加简单。
 
 你可能会注意到，特性查询的语法与媒体查询非常相似。我把他们看做堂兄弟。
 ```
@@ -114,12 +114,12 @@ CSS 中有一个你可能还没有听说过的工具。它很强大。它已经�
 
 自从 2013 年年中以来，在 Firefox、Chrome、和 Opera 就已经支持 `@supports` 了。它也适用于 Edge 的每一个版本。Safari 在 2015 年秋季将其在Safari 9 中支持。在任何版本的 Internet Explorer、Opera Mini、Blackberry Browser 或 UC 浏览器中都不支持特性查询。
 
-[![Can I use 网站支持特征查询的截图](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2016/08/Can-I-Use-Feature-Queries.gif)](http://caniuse.com/#feat=css-featurequeries)特征查询的支持可以查看：[特征查询在 Can I Use上的结果](http://caniuse.com/#feat=css-featurequeries)
+[![Can I use 网站支持特征查询的截图](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2016/08/Can-I-Use-Feature-Queries.gif)](http://caniuse.com/#feat=css-featurequeries)特征查询的支持可以查看：[特征查询在 Can I Use 上的结果](http://caniuse.com/#feat=css-featurequeries)
 
 您可能会认为 Internet Explore 不支持特征查询。实际是并不是。我马上告诉你原因。我认为最大的障碍是 Safari 8。我们需要密切关注这儿发生的事情。
 
 让我们来看另一个例子。假设我们有一些想要应用的布局代码，为了使操作更加合理需要使用 `object-fit: cover`。对于不理解 `object-fit` 的浏览器，我们希望应用不同的布局 CSS。
-[![Can I Use 网站中关于 Object-fit 支持的截图](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2016/08/Can-I-Use-Object-Fit.gif)](http://caniuse.com/#feat=object-fit)来看一下支持情况 [Object Fit 在 Can I Use上的结果](http://caniuse.com/#feat=object-fit)
+[![Can I Use 网站中关于 Object-fit 支持的截图](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2016/08/Can-I-Use-Object-Fit.gif)](http://caniuse.com/#feat=object-fit)来看一下支持情况 [Object Fit 在 Can I Use 上的结果](http://caniuse.com/#feat=object-fit)
 
 
 所以我们开始来编写代码：
