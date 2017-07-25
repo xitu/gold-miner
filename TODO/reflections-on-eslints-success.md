@@ -50,7 +50,7 @@ JSCS 和 ESLint 几乎是同时创建的，将它们各自的增加轨迹与更�
 
 我们收到很多在 ESLint 本身加入一些 React 特有规则的请求，但是原则上我不希望有库专有的规则 -- 因为这会带来巨大的维护成本。2014 年 12 月，eslint-plugin-react[5] 引入了许多 React 专有规则，很快得到了 Recat 开发者的欢迎。
 
-后来在 2015 年 2 月，Dan Abramov 写了一篇文章《Lint like it's 2015》。这这篇文章中，他介绍了 ESLint 在 React 中的应用，并给出了高度评价：
+后来在 2015 年 2 月，Dan Abramov 写了一篇文章《Lint like it's 2015》[6]。这这篇文章中，他介绍了 ESLint 在 React 中的应用，并给出了高度评价：
 
 > 如果你从未听说过 ESLint -- 它就是我一直想要 JSHint 成为的那样。
 
