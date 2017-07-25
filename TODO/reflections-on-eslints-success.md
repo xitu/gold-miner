@@ -16,7 +16,7 @@
 
 ## JavaScript 使用量增加
 
-过去三年，我们看到浏览器上 JavaScript 的使用量继续增加。根据 HTTP Archive[3]，现在网页的 JavaScript 比 2013 年增加了 100KB。
+过去三年，我们看到浏览器上 JavaScript 的使用量持续增加。根据 HTTP Archive[3]，现在网页的 JavaScript 比 2013 年增加了 100 KB。
 
 ![Chart - Increasing JavaScript Usage in Browsers 2013-2016](https://www.nczonline.net/images/posts/blog-js-chart-2016.png)
 
