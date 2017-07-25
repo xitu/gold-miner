@@ -46,7 +46,7 @@ JSCS 和 ESLint 几乎是同时创建的，将它们各自的增加轨迹与更�
 
 ## React
 
-讨论 ESLint 的流行离不开 React。React 的一个核心特性就是支持在 JavaScript 中嵌入 JSX，起初其它的检查工具都不支持。ESLint 不但在其默认 parser 支持 JSX，用户也可以通过配置使用 babel-eslint 或者 Facebook 的 Esprima fork 来支持 JSX。React 用户也因此开始使用 ESLint。
+讨论 ESLint 的流行离不开 React。React 的一个核心特性就是支持在 JavaScript 中嵌入 JSX，而其它检查工具起初都不支持这一特性。ESLint 不但在其默认 parser 支持 JSX，用户也可以通过配置使用 babel-eslint 或者 Facebook 的 Esprima fork 来支持 JSX。React 用户也因此开始使用 ESLint。
 
 我们收到很多在 ESLint 本身加入一些 React 特有规则的请求，但是原则上我不希望有库专有的规则 -- 因为这会带来巨大的维护成本。2014 年 12 月，eslint-plugin-react[5] 引入了许多 React 专有规则，很快得到了 Recat 开发者的欢迎。
 
