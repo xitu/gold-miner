@@ -44,7 +44,8 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*C9eu7Lcy_5K1hBA3cDIwRQ.png)
 
-也许会跳转到用户的个人资料页
+也许会跳转到用户的个人资料页。
+
 第一个例子里，第一列上的链接可能暗示着点击后会跳转到用户的个人资料页面。虽然页面说明不是很清楚，但也不难猜到。
 
 但是下面这个例子就未必了，你能猜到点击下图中的链接会跳转哪里吗？
@@ -71,17 +72,20 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*dKwoZRKsF3BUQQb5Fj9t5w.png)
 
-每行都有一个**「删除」** 操作。
+每行都有一个 **「删除」** 操作。
+
 在这个例子中每行都重复出现一个「删除」操作。想象一下，每行有 5、6 个重复的操作选项，会让表格看起来非常混乱。不仅如此，这样的表格中也不能同时删除多个选项，因为没有办法选择进行多选。
 
 ![](https://cdn-images-1.medium.com/max/800/1*CJd_ovH-TA7Y_9jLV4dzow@2x.png)
 
 现代企业应用的一个示例，表格里每项之前都有一个复选框。
+
 在同一时间、同一个表格里，选择并执行多个项目上的操作的一个好的模式是每行都允许被选中。选中后，工具栏出现在表格的上方或下方，可以进行要执行的操作。
 
 ![](https://cdn-images-1.medium.com/max/800/1*9zqme5j3KEbNZf2V0GJXkw@2x.png)
 
 在表格里选择多个项目后，有一个工具栏可以对所选项目执行操作。
+
 大多数具有表格形式的列表项的企业应用程序都遵循这种模式。但是一些设计师也发现，因为表格的每行都有复选框，所以在视觉上有点混乱、令人不知所措。
 
 在下图中可以看到，Google 收件箱的模式是，只有当鼠标悬停在该行的最左侧时，复选框才会显示出来。另外，对于操作能力较强的用户，可以使用 shift 快捷键同时选择多个项目。这是在表上实现操作模式的一个非常好的例子。
@@ -124,23 +128,27 @@
 ![](https://cdn-images-1.medium.com/max/800/1*0d74ZT5gQYQo3hxDtSXVhA.png)
 
 这个系统每页展示 10 条数据。
+
 用户在一页中只能查看 10 条数据，必须要翻页来查看第 11 条。为什么不能编写程序来查看表格下一页是否只有 1 到 3 条数据，如果是的话全部展示在当前这页呢？或者可以做得更好一点，判断条目少于 25 项不做分页。这些并不难实现，只是他们并没有多加考虑。
 
 #### 分页上多选被中断
 
 ![](https://cdn-images-1.medium.com/max/800/1*cOnC-SXXAH0F39BAenXsgQ.gif)
 
-翻页后多选失效
+翻页后多选失效。
+
 用户勾选了第一页的三个选项，然后去勾选第二页的前四个选项，逻辑上来说，他点击删除按钮时，这 7 项会被全部删除。但是实际上并不会发生，因为分页时跨页面保留用户选择的信息实现起来技术挑战难度较大，成本也很高。
 
 表中有分页时，选择**全部**项目是另一个挑战。用户只可能选择当前视图中的所有项，或者选择完整列表中的所有项。 
 
 ![](https://cdn-images-1.medium.com/max/800/1*3hHg3-2lHMjQfOLrpJoqTg.gif)
 
-分页时选择全部项目可能会很混乱
+分页时选择全部项目可能会很混乱。
+
 上面的例子里，用户先选择了当前页面上的所有选项，然后在整个列表中选择了全部 3000 个选项。分页操作后，勾选的信息失效了。这又是由于分页技术的局限性，因为从工程技术角度来看，保留选择记忆的成本很高。
 
 **无限滚动或者延迟加载的效果又如何呢？**
+
 许多应用程序目前正在从全部分页模式转型到 Facebook 或 Twitter 风格的无限加载信息模式。对此，设计师们各执一词。对我个人而言，一个「加载更多」按钮效果最好。
 
 ![](https://cdn-images-1.medium.com/max/800/1*O1e15RjpEpJU-8KQo34wdw.png)
@@ -164,11 +172,11 @@
 
 **我是 Adhithya ，旧金山 OpenDNS 的产品设计师。**
 
-你可以关注我的 **[Twitter](https://twitter.com/adhithyaux)**；**[戳这里](http://www.adhithyakumar.com)**查看我的作品；或者直接发邮件联系我 adhithya.ramakumar@gmail.com
+你可以关注我的 **[Twitter](https://twitter.com/adhithyaux)**； **[戳这里](http://www.adhithyakumar.com)** 查看我的作品；或者直接发邮件联系我 adhithya.ramakumar@gmail.com
 
 ![](https://cdn-images-1.medium.com/max/800/1*aNPBhln7iDMY8qRcmoyCfA.jpeg)
 
-Adhithya 写了这篇文章来分享知识技能，并帮助设计社区成员成长。所有在 uxdesign.cc 上发布的文章都循序相同的*[*设计哲学*](https://uxdesign.cc/the-design-community-we-believe-in-369d35626f2f)*
+Adhithya 写了这篇文章来分享知识技能，并帮助设计社区成员成长。所有在 uxdesign.cc 上发布的文章都循序相同的[**设计哲学**](https://uxdesign.cc/the-design-community-we-believe-in-369d35626f2f)
 
 ![](https://cdn-images-1.medium.com/max/800/1*aNPBhln7iDMY8qRcmoyCfA.jpeg)
 
