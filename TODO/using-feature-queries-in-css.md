@@ -4,52 +4,52 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/using-feature-queries-in-css.md](https://github.com/xitu/gold-miner/blob/master/TODO/using-feature-queries-in-css.md)
 > * 译者：[cherry](https://github.com/sunshine940326)
-> * 校对者：
+> * 校对者：[leviding]https://github.com/leviding
 
-# 在CSS中使用特征查询
+# 在 CSS 中使用特征查询
 
-CSS中有一个你可能还没有听说过的工具。它很强大。它已经存在一段时间了。并且它很可能会成为你最喜欢的CSS新事物之一。
+CSS 中有一个你可能还没有听说过的工具。它很强大。它已经存在一段时间了。并且它很可能会成为你最喜欢的 CSS 新事物之一。
 
 这就是 `@supports` 规则，也被称为 [Feature Queries](http://www.w3.org/TR/css3-conditional/#at-supports)。
 
-使用 `@supports`，你可以在你的CSS中编写一个小测试，以查看是否支持特定的“特性”（CSS属性或值），并根据其返回的结果决定是否调用代码块。例如：
-
+使用 `@supports`，你可以在你的 CSS 中编写一个小测试，以查看是否支持特定的“特性”（CSS 属性或值），并根据其返回的结果决定是否调用代码块。例如：
+```
     @supports (display: grid) {
-       // 只有在浏览器支持CSS网格时才会运行代码
+       // 只有在浏览器支持 CSS 网格时才会运行代码
      }
-
+```
 如果浏览器理解 `display: grid`，那么括号内的所有样式都将被应用。否则将跳过所有样式。
 
-现在，对于特征查询是什么，似乎有点混乱。这不是一种分析浏览器是否**正确地**实现了CSS属性的外部验证，如果你正在寻找这样的外部验证，[参考这里](http://testthewebforward.org)。特性查询要求浏览器对是否支持某个 CSS 属性/值进行自我报告，并根据其返回的结果决定是否调用代码块。如果浏览器不正确或不完整地实现了一个特性，`@supports` 不会对你有帮助。如果浏览器是误报了 CSS 支持，`@supports` 不会对你有帮助。这不是一个能使使浏览器漏洞消失的魔法。
+现在，对于特征查询是什么，似乎有点混乱。这不是一种分析浏览器是否**正确地**实现了 CSS 属性的外部验证，如果你正在寻找这样的外部验证，[参考这里](http://testthewebforward.org)。特性查询要求浏览器对是否支持某个 CSS 属性/值进行自我报告，并根据其返回的结果决定是否调用代码块。如果浏览器不正确或不完整地实现了一个特性，`@supports` 不会对你有帮助。如果浏览器误报了 CSS 支持的情况，`@supports` 不会对你有帮助。这不是一个能使使浏览器漏洞消失的魔法。
 
-也就是说，我发现 `@supports` 是非常有用的。`@supports` 规则多次让我使用新的CSS远远早于我能够没有它。
+也就是说，我发现 `@supports` 是非常有用的。`@supports` 规则让我多次感受到，使用新的 CSS 规则来实现功能，比使用旧的规则要简单得多。
 
-多年来，开发商都用 [Modernizr](https://modernizr.com) 做特征查询，但是 Modernizr 需要 JavaScript。即使脚本可能是微小的，CSS 架构与 Modernizr 需要 JavaScript文件的下载、执行和在应用 CSS 之前完成。涉及 JavaScript 总是比只使用 CSS 慢。如果 JavaScript 打开失败也就是说如果JavaScript 不执行会发生什么？另外，Modernizr 需要一个复杂并且许多项目无法处理的附加层。特征查询速度更快，更健壮，使用起来更加简单。
+多年来，开发商都用 [Modernizr](https://modernizr.com) 做特征查询，但是 Modernizr 需要 JavaScript。即使脚本很小，CSS 架构与 Modernizr 需要 JavaScript 文件的下载、执行并且要在应用 CSS 之前完成。涉及 JavaScript 总是比只使用 CSS 慢。如果 JavaScript 打开失败也就是说如果JavaScript 不执行会发生什么？另外，Modernizr 需要一个复杂并且许多项目无法处理的附加层。特征查询速度更快，更健壮，使用起来更加简单。
 
 你可能会注意到，特性查询的语法与媒体查询非常相似。我把他们看做堂兄弟。
-
+```
     @supports (display: grid) {
       main {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       }
     }
-
-现在大多数情况下，CSS 中不需要这样的测试。例如，你可以编写此代码而无需测试是否支持：
-
+```
+现在大多数情况下，CSS 中不需要这样的测试。例如，你在写代码的时候不用测试其支持情况：
+```
     aside {
       border: 1px solid black;
       border-radius: 1em;
     }
-
+```
 如果浏览器理解 `border-radius`，那么它将在 `aside` 上设置圆角。如果没有，它将跳过代码行并继续前进，使框的边缘为正方形。这里没有理由运行测试或使用特性查询。css 就是这样工作的。这是 [architecting solid, progressively-enhanced CSS](http://jensimmons.com/presentation/progressing-our-layouts) 中的一个基本原则。浏览器只跳过不理解的代码，不抛出错误。
  
-![新旧浏览器中圆角效果截图](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2016/08/border-radius.png)大多数的浏览器显示 `border-radius: 1em` 如右边所示。然而，Internet Explorer 6、7和8不会设置圆角，显示效果如左边所示。看看这个例子 [codepen.io/jensimmons/pen/EydmkK](http://codepen.io/jensimmons/pen/EydmkK?editors=1100) 您不需要为此进行功能查询。
+![新旧浏览器中圆角效果截图](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2016/08/border-radius.png)大多数的浏览器显示 `border-radius: 1em` 如图片的右边所示。然而，Internet Explorer 6、7 和 8 不会设置圆角，显示效果如图片的左边所示。看看这个例子 [codepen.io/jensimmons/pen/EydmkK](http://codepen.io/jensimmons/pen/EydmkK?editors=1100) 您不需要为此进行功能查询。
 
-那么，你想什么时候使用 `@supports` ？特征查询是一种将CSS声明捆绑在一起的工具，以便在一定条件下作为一个组运行。当您想应用旧的和新的CSS混合时使用特性查询，但只有在支持新CSS时才使用。
+那么，你想什么时候使用 `@supports` ？特征查询是一种将 CSS 声明捆绑在一起的工具，以便在一定条件下作为一个组运行。当你想在新的 CSS 功能被支持的时候，将新的和旧的 CSS 混合使用，那么请使用特征查询。
 
 让我们看一下使用首字母属性的示例。这个新属性 `initial-letter` 告诉浏览器，使元素变得更大 —— 像首字母大写。在这里，一个段落中第一个词的第一个字母被设置为四行文字的大小。非常好。但我还是想把那字母加粗，在右边留一点空白，让它变成一个漂亮的橙色。酷。
-
+```
     p::first-letter {
          -webkit-initial-letter: 4;
          initial-letter: 4;
@@ -57,13 +57,13 @@ CSS中有一个你可能还没有听说过的工具。它很强大。它已经�
          font-weight: bold;
          margin-right: 0.5em;
       }
+```
 
+![`initial-letter`这个例子在 Safari 9 下面的截图](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2016/08/intial-letter-1.gif)
+这是我们的 `initial-letter` 的例子在 Safari 9 下的显示。现在让我们看看其他浏览器会发生什么…
 
-![首字母这个例子在 Safari 9 下面的截图](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2016/08/intial-letter-1.gif)
-这是我们的首字母的例子在 Safari 9 下的显示。现在让我们看看其他浏览器会发生什么…
-
-![首字母这个例子在其他浏览器下面的截图](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2016/08/intial-letter-2.png)哦，不，这在其他浏览器看起来非常糟糕。这是不能接受的。我们不想改变字母的颜色，或者增加一个空白，或者让它加粗，除非它通过首字母属性被设置的更大了一些。我们需要一种方法来测试浏览器是否理解 `initial-letter`，并且只在颜色、重量和空白处应用更改。进入特征查询。
-    
+![`initial-letter` 这个例子在其他浏览器下面的截图](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2016/08/intial-letter-2.png)哦，不，这在其他浏览器看起来非常糟糕。这是不能接受的。我们不想改变字母的颜色，或者增加一个空白，或者让它加粗，除非它通过 `initial-letter` 属性被设置的更大了一些。我们需要一种方法来测试浏览器是否理解 `initial-letter`，并且只在颜色、重量和空白处应用更改。进入特征查询。
+```    
     @supports (initial-letter: 4) or (-webkit-initial-letter: 4) {
       p::first-letter {
          -webkit-initial-letter: 4;
@@ -73,21 +73,22 @@ CSS中有一个你可能还没有听说过的工具。它很强大。它已经�
          margin-right: 0.5em;
       }
     }
-
+```
 
 注意，您需要测试具有属性和值的完整字符串。最初这是令我困惑的。为什么我要测试 `initial-letter: 4`？值为 4 重要吗？如果我传入的值是 17 呢？它是否需要匹配我代码中较低的值？
 
-`@supports` 规则测试一个包含属性和值的字符串，因为有时候需要测试的是属性，有时需要测试的是值。对于 `initial-letter` 的例子，你传入的值并不重要。但是考虑 `@supports (display: grid)`，你会看到两者都是需要的。每个浏览器都理解 `display`。只有测试浏览器理解 `display: grid`（目前来说）。
+`@supports` 规则测试一个包含属性和值的字符串，因为有时候需要测试的是属性，有时需要测试的是值。对于 `initial-letter` 的例子，你传入的是什么值并不重要。但是考虑 `@supports (display: grid)`，你会看到两者都是需要的。每个浏览器都理解 `display`。只有测试版浏览器理解 `display: grid`（目前来说）。
 
 回到我们的示例：目前 `initial-letter` 仅在 Safari 9 中得到支持，并且它需要前缀。所以我写了这个前缀，为了确保包含无前缀的版本我写了这个测试。是的，可以在功能查询中使用 `or` 、`and` 和 `not` 语句。
 
-这里有新的结果。浏览器理解 `initial-letter` 的话就会将其展现为字体更大、加粗并且是橘色的首字母。其他其它浏览器表现的像首字母不存在一样，使用这种方式，我会等待使用这个特征，直到更多的浏览器支持它。（顺便说一下，目前在 Firefox 中可以实现首字母的特性。）
+这里有新的结果。浏览器理解 `initial-letter` 的话就会将其展现为字体更大、加粗并且是橘色的首字母。其它浏览器表现的像首字母不存在一样，使用这种方式，我会等待使用这个特征，直到更多的浏览器支持它。（顺便说一下，目前在 Firefox 中可以实现首字母的特性。）
 
 ![使用之前和之后的对比](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2016/08/intial-letter-with-and-without.gif)截屏的左边是来自 Safari 9。其它浏览器展现的结果显示为右边。你可以在 codepen.io/jensimmons/pen/ONvdYL] (http://codepen.io/jensimmons/pen/ONvdYL?editors=1100) 看到这个测试的代码。
+
 ## 组织你的代码
 
 现在，您可能会尝试使用此工具将代码分成两个分支。“嘿，浏览器，如果你理解视口单位，执行这段代码，如果你不理解他们，执行另一段代码。”这感觉很好并且很整洁。
-
+```
     @supports (height: 100vh) {
       // my layout that uses viewport height
     }
@@ -95,14 +96,14 @@ CSS中有一个你可能还没有听说过的工具。它很强大。它已经�
       // the alternative layout for older browsers
     }
     // WE MIGHT WISH. BUT THIS IS BAD CODE.
-
+```
 这不是一个好主意 —— 至少现在来说。你发现这个问题了吗？
 
 然而，不是所有浏览器都支持特征查询。并且浏览器不理解 `@supports` 将会跳过这部分的全部代码。这不是很好。
 
-这就意味着我们不能使用特征查询了吗直到 100% 的浏览器都支持它们吗？不是的，我们可以，并且当今我们应该使用特征查询。不要像最后一个例子那样编写代码。
+这就意味着我们不能使用特征查询了吗？直到 100% 的浏览器都支持它们吗？不是的，我们可以，并且当今我们应该使用特征查询。不要像最后一个例子那样编写代码。
 
-那怎么做才是正确的呢？好的，这和我们在 100% 支持媒体查询有相同的方法。事实上，在这个过渡时期使用特征查询比使用媒体查询更容易。你只要聪明点就行了。
+那怎么做才是正确的呢？好的，这和我们在 100% 支持媒体查询前有相同的方法。事实上，在这个过渡时期使用特征查询比使用媒体查询更容易。你只要聪明点就行了。
 
 你希望构建你的代码，因为最古老的浏览器不支持功能查询或您正在测试的特性。我来教你怎么做。
 （当然，在将来的某个时候，一旦 100% 的浏览器有功能查询，我们就可以更大程度地使用 `@supports not`，并以这种方式组织我们的代码。但我们还要等很多年。
@@ -115,9 +116,9 @@ CSS中有一个你可能还没有听说过的工具。它很强大。它已经�
 
 [![Can I use 网站支持特征查询的截图](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2016/08/Can-I-Use-Feature-Queries.gif)](http://caniuse.com/#feat=css-featurequeries)特征查询的支持可以查看：[特征查询在 Can I Use上的结果](http://caniuse.com/#feat=css-featurequeries)
 
-您可能会认为 Internet Explore r不支持特征查询。实际是，并不是。我马上告诉你原因。我认为最大的障碍是 Safari 8。我们需要密切注意发生的事情。
+您可能会认为 Internet Explore 不支持特征查询。实际是并不是。我马上告诉你原因。我认为最大的障碍是 Safari 8。我们需要密切关注这儿发生的事情。
 
-让我们来看另一个例子。假设我们有一些我们想要应用的布局代码，为了使操作更加合理需要使用 `object-fit: cover`。对于不理解 `object-fit` 的浏览器，我们希望应用不同的布局 CSS。
+让我们来看另一个例子。假设我们有一些想要应用的布局代码，为了使操作更加合理需要使用 `object-fit: cover`。对于不理解 `object-fit` 的浏览器，我们希望应用不同的布局 CSS。
 [![Can I Use 网站中关于 Object-fit 支持的截图](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2016/08/Can-I-Use-Object-Fit.gif)](http://caniuse.com/#feat=object-fit)来看一下支持情况 [Object Fit 在 Can I Use上的结果](http://caniuse.com/#feat=object-fit)
 
 
@@ -140,7 +141,7 @@ CSS中有一个你可能还没有听说过的工具。它很强大。它已经�
     }
 ```
 
-那么会发生什么呢？特征查询要么支持要么不支持，新的特性 `object-fit: cover` 要么支持要么不支持。结合这些，我们有四种可能性：
+那么会发生什么呢？特征查询要么支持要么不支持，新的特性 `object-fit: cover` 要么支持要么不支持。结合这些，我们有 4 种可能性：
 
 | 支持特征查询吗？ | 支持特性吗？ | 会发生什么？| 这是我们想要的吗？ |
 | --- | --- | --- | --- |
@@ -151,7 +152,7 @@ CSS中有一个你可能还没有听说过的工具。它很强大。它已经�
 
 ### 情景 1：浏览器支持特征查询，并支持问题中的特性
 
-Firefox、Chrome、Opera 和 Safari 9 都支持 `object-fit` 和 `@supports`，所以这个测试将运行得很好，并且这个块内的代码将被应用。我们的图像将使用 `object-fit: cover` 被裁剪，并且我们 `div` 的背景将是绿色的。
+Firefox、Chrome、Opera 和 Safari 9 都支持 `object-fit` 和 `@supports`，所以这个测试将运行得很好，并且这个块内的代码将被应用。我们的图像将通过 `object-fit: cover` 被裁剪，并且我们 `div` 的背景将是绿色的。
 
 ### 情景 2：浏览器支持特征查询，并且不支持问题中的特性
 
@@ -169,19 +170,19 @@ Edge 不支持 `object-fit`，但它支持 `@supports`，因此该测试将运�
 
 同样的事情也发生在 Android 的黑莓浏览器和 UC 浏览器上。他们不理解 `object-fit` 和 `@supports`，所以我们都设置了。很成功。
 
-底线是 —— 当你在浏览器中使用一个不支持特性查询的特性查询时，只要浏览器不支持你正在测试的功能就好了。
+底线是 —— 当你在浏览器中使用一个不支持特性查询的特性查询时，只要让浏览器不支持你正在测试的功能就好了。
 
 仔细思考代码的逻辑。问问自己，当浏览器跳过这个代码时会发生什么？如果那是你想要的，你都准备好了。
 
-### 场景4：浏览器不支持特性查询，但支持问题中的特性
+### 场景 4：浏览器不支持特性查询，但支持问题中的特性
 
-问题是这第四个组合 —— 当一个特性查询所提出的测试不运行时，但是浏览器确实支持该特性，并且应该运行该代码。
+问题是这第 4 个组合 —— 当一个特性查询所提出的测试不运行时，但是浏览器确实支持该特性，并且应该运行该代码。
 
 例如，`object-fit` 由 Safari 7.1（Mac）和 8（Mac和iOS）支持，但这两个浏览器都不支持功能查询。这同样适用于 Opera Mini —— 它将支持 `object-fit`，但不支持 `@supports`。
 
 会发生什么呢？这些浏览器进入这个代码块，而不是使用代码，在图片上应用 `object-fit:cover`，并将这个 `div` 的背景设置为绿色，它跳过了整个代码块，留下黄色作为背景颜色。
 
-并且是不是我们真正想要的
+并且是不是我们真正想要的。
 
 | 支持特征查询吗？ | 支持特性吗？ | 会发生什么？| 这是我们想要的吗？ |
 | --- | --- | --- | --- |
@@ -192,9 +193,9 @@ Edge 不支持 `object-fit`，但它支持 `@supports`，因此该测试将运�
 
 当然，这取决于特定的用例。也许这是共同的结果。较老的浏览器获得了较老浏览器的体验。网页仍在工作。
 
-但在大多数情况下，我们希望浏览器能够使用它支持的任何特性。这就是为什么 Safari 8 在涉及特性查询时，可能是最大的问题，而不是 Internet Explorer。有许多新的特性，Safari 8 不支持 —— Flexbox。您可能不想阻止 Safari 8 上的这些属性。这就是为什么我很少在 `@supports` 中使用 Flexbox，或者有时候，我在我的代码写的至少三个分叉，一个使用 `not`。（这很快就变得复杂了，所以不在这里解释了）。
+但在大多数情况下，我们希望浏览器能够使用它支持的任何特性。这就是为什么 Safari 8 在涉及特性查询时，可能是最大的问题，而不是 Internet Explorer。有许多新的特性，Safari 8 支持 —— Flexbox。您可能不想阻止 Safari 8 上的这些属性。这就是为什么我很少在 `@supports` 中使用 Flexbox，或者有时候，我在代码中至少写三个分支，一个使用 `not`。（这很快就变得复杂了，所以不在这里解释了）。
 
-如果您使用的是比旧查询更好的支持功能，那么在编写代码时要仔细考虑所有的组合。一定不要将浏览器从获取你想要的东西中排出。
+ 如果您使用的功能在旧版浏览器中比功能查询支持的更好的话，那么在编写代码时要仔细考虑所有的组合。确保不要将浏览器排除在想要他们获得的东西之外。
 
 同时，可以很容易的在 `@supports` 中用最新的 CSS 特性 —— 例如 CSS Grid、首字母。任何浏览器没有特征查询的话都不支持 CSS Grid。我们不必担心我们的第四个和最新特性组合不确定问题，在以后这使得功能查询非常有用的。
 
