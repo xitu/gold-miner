@@ -34,7 +34,7 @@ JSCS 和 ESLint 几乎是同时创建的，将它们各自的增加轨迹与更�
 
 ## ES6/Babel
 
-在过去的四年里，ECMAScript 6 得到了稳定成长，这也使 Babel 获得了极大成功。开发者不用等浏览器和 Node.js 的正式支持就可以使用 ECMAScript 6 语法，这也需要 JavaScript 工具的新特性支持。在这一点上，JSHint 对 ECMAScript 6 特性支持不足，显得有些落后了。
+在过去的四年里，ECMAScript 6 的人气一直在稳定增长，这也使 Babel 获得了极大成功。开发者不用等浏览器和 Node.js 的正式支持就可以使用 ECMAScript 6 语法，这也需要 JavaScript 工具的新特性支持。在这一点上，JSHint 对 ECMAScript 6 特性支持不足，显得有些落后了。
 
 另一方面，ESLint 有一个巨大的优势：你可以用其它的 parser 来代替默认的 parser -- 只要它的输出与 Esprima（或 Espree）兼容。这意味着你可以直接使用 Facebook 的 Esprima 支持 ES6 的 fork （现在已不再维护）来检查你的 ES6 代码。Espree 现在也已经支持 ES6 了（主要来自 Facebook 的 fork）。这使得开发者可以很方便的使用 ES6。
 
