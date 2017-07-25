@@ -4,7 +4,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/the-limitations-of-deep-learning.md](https://github.com/xitu/gold-miner/blob/master/TODO/the-limitations-of-deep-learning.md)
 > * 译者：[CACppuccino](https://github.com/CACppuccino)
-> * 校对者：
+> * 校对者：[whatbeg](https://github.com/whatbeg)   [lileizhenshuai](https://github.com/lileizhenshuai)
 
 # 论深度学习的局限性
 
@@ -49,7 +49,7 @@
 一个目前 AI 领域非常现实的问题，就是错误地阐释深度学习模型的职能，并高估了它们的能力。人类意识的一个基本特征就是“理论思维”，我们倾向于将意图、信仰和知识投影在我们周围的东西上。在一个石头上画一个笑脸能让它“快乐”起来 —— 在我们的意识中。应用在深度学习中，这意味着当我们能够成功地训练出一个可以添加标题描述图像的模型时，我们会相信那个模型理解了图片的内容，同时也理解所生成的标题。接着，我们会对模型因为任何轻微的异常于训练数据的图片而生成的荒谬的标题感到惊讶。
 
 ![基于深度学习的标题添加系统出现了错误](https://blog.keras.io/img/limitations-of-dl/caption_fail.png)
-# 这个男孩正拿着一个棒球棒
+### 这个男孩正拿着一个棒球棒
 
 特别地，这个是被强调的“对抗样例”，是被设计用于欺骗模型使它错误归类的。你已经注意到了，对输入空间扩充来产生能够最大化一些卷积网络滤波器（convnet filter）的输入，例如 —— 这是我们在第五章中介绍的滤波器可视化技术的基础（注：在 [Deep Learning with Python](https://www.manning.com/books/deep-learning-with-python?a_aid=keras&a_bid=76564dff)中），还有第八章的 Deep Dream 算法。相似地，通过梯度增加，模型可以通过轻微地修改一幅照片来最大化给定的种类的预测空间。通过给熊猫照一张照片，并给它加入“长臂猿”的梯度，我们可以得到一个将这只熊猫归为长臂猿的神经网络。这证明了这些模型的脆弱之处，以及它们所进行的输入输出映射与人类意识的巨大不同。
 
