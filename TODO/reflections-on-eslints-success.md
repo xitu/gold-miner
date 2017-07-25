@@ -28,7 +28,7 @@
 
 ![Chart - Increasing downloads for all JavaScript linters](https://www.nczonline.net/images/posts/blog-eslint-chart.png)
 
-JSCS 和 ESLint 几乎是同时创建的，所以与 JSHint 相比成长轨迹很有趣。到 2016 年初，JSHint 在 JavaScript 代码检查领域有着优势地位，JSCS 和 ESLint 也在增长。最有趣的是这三个工具的下载量都在增长，说明每月下载检查工具的人多于更换的人数。
+JSCS 和 ESLint 几乎是同时创建的，将它们各自的增加轨迹与更早一些的 JSHint 进行对比可以看到一些很有趣的地方。到 2016 年初，JSHint 在 JavaScript 代码检查领域有着优势地位，JSCS 和 ESLint 也在增长。最有趣的是这三个工具的下载量都在增长，说明每月下载检查工具的人多于更换的人数。
 
 所以 ESLint 确实迎合了开发者对 JavaScript 代码检查的大趋势。
 
