@@ -24,7 +24,7 @@
 
 ## 检查工具更加流行
 
-由于 JavaScript 工具的需求增加，对 JavaScript 代码检查的需求也随之增加。这很容易理解 -- 你编写的 JavaScript 代码越多，就越需要更多保障，避免一些常见错误。从 2013 年中以来 npm 上 JSHint、JSCS、ESLint 的下载量显示了这一趋势。
+由于 JavaScript 工具的需求增加，对 JavaScript 代码检查的需求也随之增加。这很容易理解 -- 你编写的 JavaScript 代码越多，就越需要更多保障，避免一些常见错误。自 2013 年中以来 npm 上 JSHint、JSCS、ESLint 的下载量显示了这一趋势。
 
 ![Chart - Increasing downloads for all JavaScript linters](https://www.nczonline.net/images/posts/blog-eslint-chart.png)
 
