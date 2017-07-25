@@ -40,7 +40,7 @@ JSCS 和 ESLint 几乎是同时创建的，将它们各自的增加轨迹与更�
 
 当然，Babel 并没有止步于支持 ES6 -- 它同样也支持实验特性。这就需要不但支持 ES 标准特性，还有其它开发中的特性（stage0 ~ stage4）。因此 ESLint 的 parser 可配置性就很重要了，因为 Babel 成员创建的 babel-eslint[4] 在其基础上进行封装，以便 ESLint 能够使用。
 
-不久以后，ESLint 就成为了使用 ES6 或者 Babel 的人推荐的检查工具，这得益于允许兼容 parser 替换默认的设计决策。
+不久以后，ESLint 就成为了使用 ES6 或者 Babel 的人推荐的检查工具，这得益于允许兼容 parser 替换默认 parser 的设计决策。
 
 现在，ESLint 安装时大约有 41% 使用了 babel-eslint（基于 npm 下载量统计）。
 
