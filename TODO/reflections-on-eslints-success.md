@@ -106,7 +106,7 @@ ESLint 关注于尽可能有用，让开发者来决定是否适合他们。所�
 
 ## 优秀的团队
 
-我很幸运有很优秀的团队为 ESLint 做贡献。由于我没有太多精力和时间在 ESLint 上，他们弥补了很多。一直令我吃惊的是我从来没有当面见过他们，也没有听过他们的声音，但我很期待能够每天和他们对话。由于我需要恢复健康，他们永恒的激情和创造力使得 ESLint 能够继续成长。虽然我一个人开始了 ESLint 这个项目，但他们无疑是它能够发展达到目前的人气的原因。
+我很幸运有很优秀的团队为 ESLint 做贡献。由于我没有太多精力和时间在 ESLint 上，他们做了很多工作。一直令我吃惊的是我从来没有当面见过他们，也没有听过他们的声音，但我很期待能够每天和他们对话。由于我需要恢复健康，他们永恒的激情和创造力使得 ESLint 能够继续成长。虽然我一个人开始了 ESLint 这个项目，但他们无疑是它能够发展达到目前的人气的原因。
 
 非常感谢 Ilya Volodin, Brandon Mills, Gyandeep Singh, Mathias Schreck, Jamund Ferguson, Ian VanSchooten, Toru Nagashima, Burak Yiğit Kaya, 和 Alberto Rodríguez，谢谢你们的大量工作。
 
