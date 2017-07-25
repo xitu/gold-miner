@@ -20,7 +20,7 @@
 
 ![Chart - Increasing JavaScript Usage in Browsers 2013-2016](https://www.nczonline.net/images/posts/blog-js-chart-2016.png)
 
-另一个因素是 Node.js 的爆炸性流行。以前 JavaScript 仅限于客户端使用，而 Node.js 使另外一些开发者也能够使用 JavaScript。JavaScript 能够同时运行于浏览器和服务器端，这自然会导致对 JavaScript 工具需求的增加。由于 ESLint 可以用于浏览器和 Node.js 上的 JavaScript，迎合了这一需求。
+另一个因素是 Node.js 的爆炸性流行。以前 JavaScript 仅限于客户端使用，而 Node.js 使另外一些开发者也能够使用 JavaScript。随着运行环境拓展到了浏览器和服务器端，JavaScript 工具需求自然增加了。由于 ESLint 可以用于浏览器和 Node.js 上的 JavaScript，迎合了这一需求。
 
 ## 检查工具更加流行
 
