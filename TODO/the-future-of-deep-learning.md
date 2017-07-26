@@ -10,7 +10,7 @@
 
 这篇文章改编自我的书 [Deep Learning with Python](https://www.manning.com/books/deep-learning-with-python?a_aid=keras&a_bid=76564dff)（Manning 出版社）第 9 章第 3 节（译者注：「结论」一章最后一小节）。
 它是讨论当前深度学习的局限性及其未来系列文章的第二篇。
-你可以在这里阅读第一篇：[深度学习的局限性](https://blog.keras.io/the-limitations-of-deep-learning.html)。
+你可以在这里阅读第一篇：[深度学习的局限性](https://github.com/xitu/gold-miner/blob/master/TODO/the-limitations-of-deep-learning.md)。
 
 ---
 
