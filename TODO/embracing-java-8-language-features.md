@@ -3,20 +3,20 @@
 > * 原文作者：[Jeroen Mols](https://jeroenmols.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/embracing-java-8-language-features.md](https://github.com/xitu/gold-miner/blob/master/TODO/embracing-java-8-language-features.md)
-> * 译者：
+> * 译者：[tanglie1993](https://github.com/tanglie1993)
 > * 校对者：
 
-# Embracing Java 8 language features
+# 拥抱 Java 8 语言特性
 
-For years Android developers have been limited to Java 6 features. While RetroLambda or the experimental Jack toolchain would help, proper support from Google was notably missing.
+近年来，Android 开发者一直被限制在 Java 6 的特性中。虽然 RetroLambda 或者实验性的 Jack toolchain 会有一定帮助，来自 Google 官方的适当支持却一直缺失。
 
-Finally, Android Studio 3.0 brings (backported!) support for most Java 8 features. Continue reading to learn how those work and why you should upgrade.
+终于， Android Studio 3.0 带来了（已经向后移植！）对大多数 Java 8 特性的支持。继续阅读，你将看到其中的原理，以及升级的理由。
 
-## Enabling java 8 features
+## 引入 Java 8 特性
 
-While Android Studio already supported many features in the [Jack toolchain](https://developer.android.com/guide/platform/j8-jack.html), starting from Android Studio 3.0 they are supported in the default toolchain.
+虽然 Android Studio 已经支持 [Jack toolchain](https://developer.android.com/guide/platform/j8-jack.html) 中的大量特性，从 Android Studio 3.0 开始，它们会在默认的工具链中被支持。
 
-First of all, make sure you disable Jack by removing the following from your main `build.gradle`:
+首先，确保你已经把以下内容从你的主要 `build.gradle` 中移除，从而关闭了 Jack:
 
 ```
 android {
@@ -31,7 +31,7 @@ android {
 }
 ```
 
-And add the following configuration instead:
+然后加入以下的配置：
 
 ```
 android {
@@ -43,7 +43,7 @@ android {
 }
 ```
 
-Also make sure you have the latest Gradle plugin in your root `build.gradle` file:
+并且确保你在根 `build.gradle` 文件中有最新的 Gradle 插件：
 
 ```
 buildscript {
@@ -54,13 +54,13 @@ buildscript {
 }
 ```
 
-Congratulations, you can now use most Java 8 features on all API levels!
+恭喜，你现在可以在所有的 API 层级上使用大多数的 Java 8 特性了！
 
-> Note: In case you’re migrating from [RetroLambda](https://github.com/evant/gradle-retrolambda), the official documentation has a more extensive [migration guide](https://developer.android.com/studio/write/java8-support.html#migrate).
+> 注意：如果你在从 [RetroLambda](https://github.com/evant/gradle-retrolambda) 迁移过来，官方文档有一个更加全面的 [迁移指南](https://developer.android.com/studio/write/java8-support.html#migrate)。
 
-## Lambda’s
+## 有关 Lambda
 
-Passing a listener to another class in Java 6 is quite verbose. A typical case would be where you add an `OnClickListener` to a `View`:
+在 Java 6 中，向另一个类传入监听器的代码是相当冗长的。典型的情况是，你需要向 `View` 添加一个 `OnClickListener`：
 
 ```
 button.setOnClickListener(new View.OnClickListener() {
@@ -71,40 +71,40 @@ button.setOnClickListener(new View.OnClickListener() {
 });
 ```
 
-Lambda’s can dramatically simplify this to the following:
+Lambda 可以把它剧烈简化到下面这样：
 
 ```
 button.setOnClickListener(view -> doSomething());
 ```
 
-Notice that almost all boilerplate is removed: no access modifier, no return type and no method name!
+注意：几乎全部模板代码都被删除了：没有访问控制修饰符，没有返回值，也没有方法名称！
 
-Now how do lambda’s actually work?
+Lambda 究竟是怎么工作的呢？
 
-They are syntactic sugar that reduce the need for anonymous class creation whenever you have an interface with exactly one method. We call such interfaces functional interfaces and `OnClickListener` is an example:
+它们使语法糖，当你有一个只有一个方法的接口时，它们可以减少创建匿名类的需要。我们把这些接口称为功能接口，`OnClickListener` 就是一个例子：
 
 ```
-// A functional interface has exactly one method
+// 只有一个方法的功能接口
 public interface OnClickListener {
     void onClick(View view);
 }
 ```
 
-Basically the lambda consists out of a three parts:
+基本上 lambda 包括三个部分：
 
 ```
 button.setOnClickListener((view) -> {doSomething()});
 ```
 
-1. declaration of all method arguments between brackets `()`
-2. an arrow `->`
-3. code that needs to execute between brackets `{}`
+1. 括号 `()` 中所有方法参数的声明
+2. 一个箭头 `->`
+3. 括号 `{}` 中需要执行的代码
 
-Note that in many cases even the brackets `()` and `{}` can be removed. For more details have a look at the [official documentation](https://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html).
+注意：在很多情况下，甚至 `()` 和 `{}` 这样的括号也可以被移除。更多细节，参见 [官方文档](https://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html)。
 
-## Method references
+## 方法引用
 
-Recall that lambda expressions remove a lot of boilerplate code for functional interfaces. Method references take that concept one step further when the lambda calls a method that already has a name.
+回忆一下 lambda 表达式为功能接口删除了大量样板代码的情形。当 lambda 调用了已经有一个名字的方法时，方法引用把这个概念更推进了一步， Method references take that concept one step further when the lambda calls a method that already has a name.
 
 In the following example:
 
