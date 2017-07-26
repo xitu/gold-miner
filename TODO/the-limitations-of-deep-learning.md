@@ -43,7 +43,6 @@
 
 通过增加更多的神经层和使用更多的训练数据，来扩大当前的深度神经网络的规模，只能在一些问题中取得一定的进步。这种方法并不能够解决更多的基础性问题，那些问题在深度学习模型的能力之外，它们无法被表示，并且唯一的学习途径又不能够被表示对一个数据副本的连续几何变换。
 
-## The risk of anthropomorphizing machine learning models
 ## 将机器学习模型人格化的风险
 
 一个目前 AI 领域非常现实的问题，就是错误地阐释深度学习模型的职能，并高估了它们的能力。人类意识的一个基本特征就是“理论思维”，我们倾向于将意图、信仰和知识投影在我们周围的东西上。在一个石头上画一个笑脸能让它“快乐”起来 —— 在我们的意识中。应用在深度学习中，这意味着当我们能够成功地训练出一个可以添加标题描述图像的模型时，我们会相信那个模型理解了图片的内容，同时也理解所生成的标题。接着，我们会对模型因为任何轻微的异常于训练数据的图片而生成的荒谬的标题感到惊讶。
@@ -79,7 +78,7 @@
 
 要想移除一些限制并与人类的大脑相比，我们需要将直接的输入输出映射去掉，改而关注于推理和抽象。一个可能的对不同情况和概念进行抽象建模的基质是计算机程序。如我们之前所说（在[Deep Learning with Python](https://www.manning.com/books/deep-learning-with-python?a_aid=keras&amp;a_bid=76564dff)中），机器学习模型可以被定义为“有学习能力的程序”；如今我们只有很小的一部分程序具有学习能力（对于所有的计算机程序来说）。但如果我们以模块化和可重复化来学习任意的程序呢？让我们在下一篇文章中看看未来的路可能是什么样子。
 
-英文版第二篇在此：[The future of deep learning](https://blog.keras.io/the-future-of-deep-learning.html)
+我的第二篇在此：[The future of deep learning（深度学习的未来）](https://github.com/xitu/gold-miner/blob/master/TODO/the-future-of-deep-learning.md)
 
 **作者：[@fchollet](https://twitter.com/fchollet), May 2017**
 
