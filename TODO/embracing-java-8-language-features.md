@@ -104,50 +104,50 @@ button.setOnClickListener((view) -> {doSomething()});
 
 ## 方法引用
 
-回忆一下 lambda 表达式为功能接口删除了大量样板代码的情形。当 lambda 调用了已经有一个名字的方法时，方法引用把这个概念更推进了一步， Method references take that concept one step further when the lambda calls a method that already has a name.
+回忆一下 lambda 表达式为功能接口删除了大量样板代码的情形。当 lambda 调用了已经有一个名字的方法时，方法引用把这个概念更推进了一步。
 
-In the following example:
+在下面的例子中：
 
 ```
 button.setOnClickListener(view -> doSomething(view));
 ```
 
-All the lambda does is redirecting the work to an existing `doSomething()` method. In such a case, a method reference simplifies things further to:
+Lambda 只是把要做的所有事情重定向到已有的 `doSomething()` 方法。在这种情况下，方法引用把事情简化到：
 
 ```
 button.setOnClickListener(this::doSomething);
 ```
 
-Note that the referenced method must take exactly the same parameters as the functional interface:
+注意，被引用的方法必须和功能接口接收相同的参数：
 
 ```
-// functional interface
+// 功能接口
 public interface OnClickListener {
     void onClick(View view);
 }
 
-// referenced method: must take View as argument, because onClick() does
+// 被引用的方法：必须接收 View 作为参数，因为 onClick() 会这样做：
 private void doSomething(View view) {
     // do something here
 }
 ```
 
-So how do method references work?
+那么，方法引用是如何工作的呢？
 
-They are again syntactic sugar to simplify a lambda expression that invokes an existing method. They can reference to:
+它们是语法糖，可以简化调用了现有方法的 lambda 表达式。他们可以引用：
 
-| static methods | MyClass::doSomething |
-| instance method of object | myObject::doSomething |
-| constructor | MyClass:: new |
-| instance method of any argument type | String::compare |
+| 静态方法 | MyClass::doSomething |
+| 对象的实例方法 | myObject::doSomething |
+| 构造方法 | MyClass:: new |
+| 任何参数类型的实例方法 | String::compare |
 
-For more examples about this have a look at the [official documentation](https://docs.oracle.com/javase/tutorial/java/javaOO/methodreferences.html).
+如果你需要更多关于这个的实例，请查看[官方文档](https://docs.oracle.com/javase/tutorial/java/javaOO/methodreferences.html)。
 
-## Default interface Methods
+## 默认接口方法
 
-Default methods make it possible to add new methods to an interface without breaking all classes that implement that interface.
+默认方法使你可以在不破坏实现一个接口的所有的类的情况下，向接口中加入新的方法。
 
-Imagine if you have a `MyView` interface that is implemented by a `MyFragment` (typical MVP scenario):
+假设你有一个 `MyView` 接口，它被一个 `MyFragment` 实现（典型 MVP 场景）：
 
 ```
 public interface MyView {
@@ -163,9 +163,9 @@ public class MyFragment implements MyView {
 }
 ```
 
-When you now want to add an extra method to `MyView` your code will no longer compile, until `MyFragment` also implements that new method. This is annoying, and can be even problematic when many classes are implementing said interface.
+如果你现在想要向 MyView 中加入一个额外的方法，你的代码将不再能够编译，直到 `MyFragment` 同样实现了这个新方法。这很烦人，并且如果很多类都实现这个接口的话，可能会引发新的问题。
 
-Therefore Java 8 now allows you to define default methods that provide a standard implementation:
+因此 Java 8 允许你定义带有标准实现的默认方法：
 
 ```
 public interface MyView {
@@ -176,13 +176,13 @@ public interface MyView {
 }
 ```
 
-So how do default methods work?
+那么默认方法是如何工作的呢？
 
-Just define a method with the `default` keyword in the interface and provide an actual default method body.
+在接口中定义一个带有 `default` 关键字的方法，并提供一个真实的默认方法体。
 
-To learn more about this feature, have a look at the [official documentation](https://docs.oracle.com/javase/tutorial/java/IandI/defaultmethods.html).
+要学习关于这个特性的更多知识，请查看 [官方文档](https://docs.oracle.com/javase/tutorial/java/IandI/defaultmethods.html)。
 
-## How to get started
+## 如何开始
 
 While this all might seem a bit overwhelming, Android Studio actually offers amazing quick fixes once you enable Java 8 features.
 
@@ -192,21 +192,21 @@ Just use `alt/option` + `enter` to convert a functional interface to a lamba or 
 
 This is a great way to get familiar with these new features and allows you to write code like you’re used to. After enough quick fixes by Android Studio you’ll learn in what cases a lambda or method reference would be possible and start writing them yourself.
 
-## Supported features
+## 支持的特性
 
-While not all Java 8 features have been backported yet, Android Studio 3.0 offers plenty more features:
+虽然并不是所有的 Java 8 特性都已经被向后移植，Android Studio 3.0 提供了很多其他的特性：
 
-- [static interface methods](https://docs.oracle.com/javase/tutorial/java/IandI/defaultmethods.html)
-- [type annotations](https://docs.oracle.com/javase/tutorial/java/annotations/type_annotations.html)
-- [repeating annotations](https://docs.oracle.com/javase/tutorial/java/annotations/repeating.html)
-- [try with resources](https://docs.oracle.com/javase/tutorial/essential/exceptions/tryResourceClose.html) (all versions, no longer min SDK 19)
+- [静态接口方法](https://docs.oracle.com/javase/tutorial/java/IandI/defaultmethods.html)
+- [类型标记](https://docs.oracle.com/javase/tutorial/java/annotations/type_annotations.html)
+- [重复标记](https://docs.oracle.com/javase/tutorial/java/annotations/repeating.html)
+- [针对资源的 try 语句](https://docs.oracle.com/javase/tutorial/essential/exceptions/tryResourceClose.html) (all versions, no longer min SDK 19)
 - Java 8 APIs (e.g. stream) -> min SDK 24
 
-## Wrap-up
+## 收尾
 
-Thanks to Java 8 features, a lot of code can be simplified into lambda’s or method references. Android Studio auto convert is the easiest way to start learning these features.
+Java 8 特性使得很多代码可以被简化为 lambda 表达式或方法引用。 Android Studio 自动转化是最简单的开始学习这些特性的方式。
 
-If you’ve made it this far, you should probably follow me on [Twitter](https://twitter.com/molsjeroen). Feel free leave a comment below!
+如果你已经读到这里了，你很可能应该在 [Twitter](https://twitter.com/molsjeroen) 上关注我。欢迎评论！
 
 
 ---
