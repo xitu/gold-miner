@@ -3,90 +3,90 @@
 > * 原文作者：[Francois Chollet](https://twitter.com/fchollet)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/the-future-of-deep-learning.md](https://github.com/xitu/gold-miner/blob/master/TODO/the-future-of-deep-learning.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Changkun Ou](https://github.com/changkun/)
+> * 校对者：[MoutainOne](https://github.com/MoutainOne), [sunshine940326](https://github.com/sunshine940326)
 
-# The future of deep learning
+# 深度学习的未来
 
-This post is adapted from Section 3 of Chapter 9 of my book, [Deep Learning with Python](https://www.manning.com/books/deep-learning-with-python?a_aid=keras&amp;a_bid=76564dff) (Manning Publications).
-It is part of a series of two posts on the current limitations of deep learning, and its future.
-You can read the first part here: [The Limitations of Deep Learning](https://blog.keras.io/the-limitations-of-deep-learning.html).
+这篇文章改编自我的书 [Deep Learning with Python](https://www.manning.com/books/deep-learning-with-python?a_aid=keras&a_bid=76564dff)（Manning 出版社）第 9 章第 3 节（译者注：「结论」一章最后一小节）。
+它是讨论当前深度学习的局限性及其未来系列文章的第二篇。
+你可以在这里阅读第一篇：[深度学习的局限性](https://github.com/xitu/gold-miner/blob/master/TODO/the-limitations-of-deep-learning.md)。
 
 ---
 
-Given what we know of how deep nets work, of their limitations, and of the current state of the research landscape, can we predict where things are headed in the medium term? Here are some purely personal thoughts. Note that I don't have a crystal ball, so a lot of what I anticipate might fail to become reality. This is a completely speculative post. I am sharing these predictions not because I expect them to be proven completely right in the future, but because they are interesting and actionable in the present.
+鉴于我们已经了解深度神经网的工作原理、局限性以及目前的研究现状，那我们能够预测它未来的趋势吗？ 这里给出一些纯粹的个人想法。 注意，我并没有预知未来的能力，所以我预测的很多东西可能并不会成为现实。这是一个完完全全的思考性文章。我与你们分享这些不是因为我希望它们在未来被证明完全正确，而是因为它们在现在很有意思并且可行。
 
-At a high-level, the main directions in which I see promise are:
+从高处审视，我觉得比较有前途的主要方向有：
 
-- Models closer to general-purpose computer programs, built on top of far richer primitives than our current differentiable layers—this is how we will get to *reasoning* and *abstraction*, the fundamental weakness of current models.
-- New forms of learning that make the above possible—allowing models to move away from just differentiable transforms.
-- Models that require less involvement from human engineers—it shouldn't be your job to tune knobs endlessly.
-- Greater, systematic reuse of previously learned features and architectures; meta-learning systems based on reusable and modular program subroutines.
+- 构建于顶层丰富的原始数据之上而不是当前的可微层次的模型，将更加接近通用目的的计算机程序 —— 当前模型的根本弱点是我们将如何得到（数据的）**推理 (reasoning)和抽象(abstraction)**。
+- 允许模型摆脱（每一步之间的）可微变换 (differentiable transformation) 限制的新学习模式使得实现上述模型成为可能（译者注：神经网络的每一步传播本质上是一个可微的线性变换，借助神经元的激活函数产生了非线性）。
+- 不需要人工调参的模型 —— 你的工作不应该是无休止地测试不同的参数。
+- 更好地、系统地复用学过的特征和架构；基于可复用和模块化子程序的元学习（meta-learning）系统（译者注：元学习的动机是自动理解并应用什么类型算法适合什么样类型的问题）。
 
-Additionally, do note that these considerations are not specific to the sort of supervised learning that has been the bread and butter of deep learning so far—rather, they are applicable to any form of machine learning, including unsupervised, self-supervised, and reinforcement learning. It is not fundamentally important where your labels come from or what your training loop looks like; these different branches of machine learning are just different facets of a same construct.
+此外，请注意，这些考虑并不是特定于已经作为深度学习基础设施的有监督学习，而是适用于任何形式的机器学习，包括无监督、自监督及强化学习。你训练数据标签的来源或你的训练循环怎么样其实并不重要，机器学习的这些不同的分支只是同一结构的不同面而已。
 
-Let's dive in.
+就让我们来一探究竟吧。
 
-## Models as programs
+## 模型即程序
 
-As we noted in our previous post, a necessary transformational development that we can expect in the field of machine learning is a move away from models that perform purely pattern recognition and can only achieve local generalization, towards models capable of abstraction and reasoning, that can achieve extreme generalization. Current AI programs that are capable of basic forms of reasoning are all hard-coded by human programmers: for instance, software that relies on search algorithms, graph manipulation, formal logic. In DeepMind's AlphaGo, for example, most of the "intelligence" on display is designed and hard-coded by expert programmers (e.g. Monte-Carlo tree search); learning from data only happens in specialized submodules (value networks and policy networks). But in the future, such AI systems may well be fully learned, with no human involvement.
+正如我们在上一篇文章中指出的那样，我们可以预计的是，机器学习领域开发的一个必要转型就是：从使用模型本身进行纯模式识别并仅能实现局部泛化当中脱离开来，转为能够进行抽象及推理的模型，从而实现极端泛化（extreme generalization）。目前的 AI 程序所具有的基本形式的推理能力均为程序员们手动写死的代码，例如：依赖搜索算法、图操作、形式逻辑的软件；又比如 DeepMind 的 AlphaGo，大多数所谓的「智能」其实都是被专业程序员设计并写死实现的（例如 Monte-Carlo 树搜索）；从数据中学习只发生在特殊的一些子模块（价值网络及策略网络）中。但是，这样的 AI 系统在未来可能会在没有人为参与的情况下被充分学习。
 
-What could be the path to make this happen? Consider a well-known type of network: RNNs. Importantly, RNNs have slightly less limitations than feedforward networks. That is because RNNs are a bit more than a mere geometric transformation: they are geometric transformations repeatedly applied inside a for loop. The temporal for loop is itself hard-coded by human developers: it is a built-in assumption of the network. Naturally, RNNs are still extremely limited in what they can represent, primarily because each step they perform is still just a differentiable geometric transformation, and the way they carry information from step to step is via points in a continuous geometric space (state vectors). Now, imagine neural networks that would be "augmented" in a similar way with programming primitives such as for loops—but not just a single hard-coded for loop with a hard-coded geometric memory, rather, a large set of programming primitives that the model would be free to manipulate to expand its processing function, such as if branches, while statements, variable creation, disk storage for long-term memory, sorting operators, advanced datastructures like lists, graphs, and hashtables, and many more. The space of programs that such a network could represent would be far broader than what can be represented with current deep learning models, and some of these programs could achieve superior generalization power.
+什么可以使得这种情况成为可能呢？考虑一个众所周知的网络类型：RNN。很重要的一点就是，RNN 的局限性远小于前馈神经网络。这是因为 RNN 不仅仅只是一个简单几何变换，而是在 for 循环里不断重复的几何变换。时间 for 循环本身由程序员写死的，这是网络本身的假设。当然，RNN 在它们能够表示的方面依然十分有限，主要原因是它们执行的每个步骤都是一个可微的几何变换，并且它们每一步传递信息的方式是通过连续几何空间中的点（状态向量）。现在，想象神经网络将以类似编程原语（例如 for 循环，但不仅仅是一个单一的写死的具有写死的几何记忆的 for 循环）的方式「增强」，具有一组大量的编程原语，使得模型能够自由的操纵并且扩充它的处理函数，例如 if 条件分支、while 循环语句、变量创建、长期记忆的磁盘存储、排序运算符、诸如列表、图、哈希表等的高级数据结构等等。这样一个网络可以表示的程序的空间将远大于当前深度学习模型所能表达的范围，其中一些程序可以实现更高的泛化能力。
 
-In a word, we will move away from having on one hand "hard-coded algorithmic intelligence" (handcrafted software) and on the other hand "learned geometric intelligence" (deep learning). We will have instead a blend of formal algorithmic modules that provide reasoning and abstraction capabilities, and geometric modules that provide informal intuition and pattern recognition capabilities. The whole system would be learned with little or no human involvement.
+总而言之，我们将远离写死的算法智能（手工软件）和学会的几何智能（深度学习），取而代之的是去提供混合推理和抽象能力的正式算法模块和非正式直觉和模式识别功能的几何模块，使得很少甚至没有人参与整个系统的学习。
 
-A related subfield of AI that I think may be about to take off in a big way is that of program synthesis, in particular neural program synthesis. Program synthesis consists in automatically generating simple programs, by using a search algorithm (possibly genetic search, as in genetic programming) to explore a large space of possible programs. The search stops when a program is found that matches the required specifications, often provided as a set of input-output pairs. As you can see, is it highly reminiscent of machine learning: given "training data" provided as input-output pairs, we find a "program" that matches inputs to outputs and can generalize to new inputs. The difference is that instead of learning parameter values in a hard-coded program (a neural network), we generate source code via a discrete search process.
+有一个相关的 AI 子领域我认为可能会出现巨大突破，那就是程序合成（Program Synthesis），尤其是神经程序合成（Neural Program Synthesis）。程序合成在于通过使用搜索算法（可能的遗传搜索、遗传编程）自动生成简单的程序，从而探索可能程序的一个更大的空间。当找到符合要求的程序后，停止搜索，并作为一组输入输入对来提供。正如你所看到的，这让我们高度联想到机器学习：给定训练数据作为输入输出对，找到一个程序使其匹配输入输出对，并能够泛化新的输入。不同之处在于，我们不用去学习写死程序（一个神经网路）的参数，而是通过离散的搜索过程来生成源代码。
 
-I would definitely expect this subfield to see a wave of renewed interest in the next few years. In particular, I would expect the emergence of a crossover subfield in-between deep learning and program synthesis, where we would not quite be generating programs in a general-purpose language, but rather, where we would be generating neural networks (geometric data processing flows) augmented with a rich set of algorithmic primitives, such as for loops—and many others. This should be far more tractable and useful than directly generating source code, and it would dramatically expand the scope of problems that can be solved with machine learning—the space of programs that we can generate automatically given appropriate training data. A blend of symbolic AI and geometric AI. Contemporary RNNs can be seen as a prehistoric ancestor to such hybrid algorithmic-geometric models.
+我相当期待这个子领域能在未来的几年里掀起一股新浪潮。特别地，我期望深度学习和程序合成之间能够再出现一个交叉子领域，在这里我们不再用通用语言来写程序，而是生成通过丰富的算法原语集增强的神经网络（几何数据处理流），比如 for 循环等等。这会比直接生成源代码要容易且有用得多，而且他会大大的扩展机器学习可以解决问题的范围 —— 我们可以自动生成给定适当训练数据的程序空间。一个符号 AI 与几何 AI 的混合。当代的 RNN 可以看做是这种混合算法与几何模型的鼻祖。
 
 ![A learned program relying on both geometric (pattern recognition, intuition) and algorithmic (reasoning, search, memory) primitives.](https://blog.keras.io/img/future-of-dl/metalearning1.png)
 
-**Figure:***A learned program relying on both geometric primitives (pattern recognition, intuition) and algorithmic primitives (reasoning, search, memory).*
+**图：一个依赖几何原语（模式识别、直觉）和算法原语（推理、搜索、记忆）的学习程序。**
 
-## Beyond backpropagation and differentiable layers
+## 超越反向传播与可微层
 
-If machine learning models become more like programs, then they will mostly no longer be differentiable—certainly, these programs will still leverage continuous geometric layers as subroutines, which will be differentiable, but the model as a whole would not be. As a result, using backpropagation to adjust weight values in a fixed, hard-coded network, cannot be the method of choice for training models in the future—at least, it cannot be the whole story. We need to figure out to train non-differentiable systems efficiently. Current approaches include genetic algorithms, "evolution strategies", certain reinforcement learning methods, and ADMM (alternating direction method of multipliers). Naturally, gradient descent is not going anywhere—gradient information will always be useful for optimizing differentiable parametric functions. But our models will certainly become increasingly more ambitious than mere differentiable parametric functions, and thus their automatic development (the "learning" in "machine learning") will require more than backpropagation.
+如果机器学习模型变得更像程序，那么它们将几乎不再是可微的 —— 当然，这些程序依然会将连续的几何图层作为可微的子程序，但是整个模型却不会这样。因此，使用反向传播来调整固定、写死的网络权重不能成为未来训练模型的首选方法 —— 至少不能是唯一的方法。我们需要找出有效地训练不可微系统的方法。目前的方法包括遗传算法、「进化策略」、某些强化学习方法和 ADMM（乘子交替方向法）。自然地，梯度下降不会被淘汰 —— 因为梯度信息总是对优化可微参数的函数有用。但是，我们的模型肯定会变得越来越有野心，而不仅仅只满足于可微参数的函数。因此它们的自动开发（「机器学习」中的「学习」）将需要的不仅仅只普通的反向传播。
 
-Besides, backpropagation is end-to-end, which is a great thing for learning good chained transformations, but is rather computationally inefficient since it doesn't fully leverage the modularity of deep networks. To make something more efficient, there is one universal recipe: introduce modularity and hierarchy. So we can make backprop itself more efficient by introducing decoupled training modules with some synchronization mechanism between them, organized in a hierarchical fashion. This strategy is somewhat reflected in DeepMind's recent work on "synthetic gradients". I would expect more more work along these lines in the near future.
+此外，反向传播是端到端的，这对于学习良好的链式变换（Chained Transformation）是一件好事，但它却计算效率低下，因为它不能充分利用深度神经网络的模块化性质。 为了使事情更有效率，有一个通用的方案：引入模块化和层次结构。 因此，我们可以通过引入具有一些同步机制的解耦训练模块，以分级方式组织，从而使反向传播本身更有效率。 DeepMind 最近在「合成梯度」(Synthetic Gradient) 方面的工作（译者注：指这篇[论文](https://arxiv.org/abs/1703.00522)），反映了这一策略。 我希望在不久的将来会有更多的这方面的工作。
 
-One can imagine a future where models that would be globally non-differentiable (but would feature differentiable parts) would be trained—grown—using an efficient search process that would not leverage gradients, while the differentiable parts would be trained even faster by taking advantage of gradients using some more efficient version of backpropagation.
+可以想象这样一个未来，那时人们可以训练全局不可微（但具有可微的部分）的模型，他们使用一个高效的搜索过程，而非利用梯度方法。但与此同时，可微的部分则通过使用的某些利用梯度优势从而更高效版本的反向传播而训练得更快。
 
-## Automated machine learning
+## 自动化机器学习
 
-In the future, model architectures will be learned, rather than handcrafted by engineer-artisans. Learning architectures automatically goes hand in hand with the use of richer sets of primitives and program-like machine learning models.
+在未来，模型架构也是学习的对象，而不再由工程师手工搭建。学习架构将自动与使用更丰富的原语，以及类似程序的机器学习模型配合使用。
 
-Currently, most of the job of a deep learning engineer consists in munging data with Python scripts, then lengthily tuning the architecture and hyperparameters of a deep network to get a working model—or even, to get to a state-of-the-art model, if the engineer is so ambitious. Needless to say, that is not an optimal setup. But AI can help there too. Unfortunately, the data munging part is tough to automate, since it often requires domain knowledge as well as a clear high-level understanding of what the engineer wants to achieve. Hyperparameter tuning, however, is a simple search procedure, and we already know what the engineer wants to achieve in this case: it is defined by the loss function of the network being tuned. It is already common practice to set up basic "AutoML" systems that will take care of most of the model knob tuning. I even set up my own years ago to win Kaggle competitions.
+目前，深入学习工程师的大部分工作就是用 Python 脚本清洗数据，然后对深度神经网络的架构和超参数进行长时间的调优，最终获得一个有用的模型 —— 如果工程师有野心的话，甚至可以说是当下最好的模型。无需多说，这并不是一个最理想的设置，但 AI 其实也可以帮忙。不幸的是，数据清洗的部分很难自动化，因为它通常需要对应的领域知识（Domain Knowledge），以及对工程师想要实现的工作有明确的高层理解。 然而，超参数调优其实只是一个简单的搜索过程，我们已经知道工程师在这种情况下需要实现什么：它由被调整网络的损失函数所定义。 设置基本的「AutoML」系统已经是一个常见的做法了，它负责大部分模型的参数调优。我甚至在几年前就这么干了，还赢得过 Kaggle 的比赛。
 
-At the most basic level, such a system would simply tune the number of layers in a stack, their order, and the number of units or filters in each layer. This is commonly done with libraries such as Hyperopt, which we discussed in Chapter 7 (Note: of [Deep Learning with Python](https://www.manning.com/books/deep-learning-with-python?a_aid=keras&amp;a_bid=76564dff)). But we can also be far more ambitious, and attempt to learn an appropriate architecture from scratch, with as few constraints as possible. This is possible via reinforcement learning, for instance, or genetic algorithms.
+在最基本的级别上，这样的系统将简单地调整（网络）栈中的层数、它们的顺序以及每一层中的单元或过滤器的数量。 这通常可以由诸如 Hyperopt 的库来完成，我们在第 7 章中讨论过（注：[Deep Learning with Python](https://www.manning.com/books/deep-learning-with-python?a_aid=keras&a_bid=76564dff)）。但是我们也可以更加有野心，尝试从头开始学习一个适当的网络架构，尽可能少的约束。这可以通过加强学习来实现，例如遗传算法。
 
-Another important AutoML direction is to learn model architecture jointly with model weights. Because training a new model from scratch every time we try a slightly different architecture is tremendously inefficient, a truly powerful AutoML system would manage to evolve architectures at the same time as the features of the model are being tuned via backprop on the training data, thus eliminating all computational redundancy. Such approaches are already starting to emerge as I am writing these lines.
+另一个重要的 AutoML 方向是与模型权重一起学习模型架构。因为每次尝试一个稍微不同的架构都需要重新训练模型是异常低效的，所以一个真正强大的 AutoML 系统将通过对训练数据的反馈来调整模型的特征，同时管理网络架构，进而消除所有计算冗余。这样的方法已经开始出现，因为我正在写这些东西。
 
-When this starts happening, the jobs of machine learning engineers will not disappear—rather, engineers will move higher up the value creation chain. They will start putting a lot more effort into crafting complex loss functions that truly reflect business goals, and understanding deeply how their models impact the digital ecosystems in which they are deployed (e.g. the users that consume the model's predictions and generate the model's training data) —problems that currently only the largest company can afford to consider.
+当这种情况开始发生时，机器学习工程师的工作并不会消失 —— 相反，工程师将在价值创造链上站的更高。他们将开始更多地努力制定真正反映业务目标的复杂损失函数，并更加深入了解他们的模型如何影响其部署的数字生态系统（例如，消耗模型预测内容并生成模型训练数据的用户）—— 考虑那些目前只有大公司才能考虑的问题。
 
-## Lifelong learning and modular subroutine reuse
+## 终身学习与模块化子程序复用
 
-If models get more complex and are built on top of richer algorithmic primitives, then this increased complexity will require higher reuse between tasks, rather than training a new model from scratch every time we have a new task or a new dataset. Indeed, a lot datasets would not contain enough information to develop a new complex model from scratch, and it will become necessary to leverage information coming from previously encountered datasets. Much like you don't learn English from scratch every time you open a new book—that would be impossible. Besides, training models from scratch on every new task is very inefficient due to the large overlap between the current tasks and previously encountered tasks.
+如果模型变得更加复杂，并且建立在更丰富的算法原语之上，那么这种增加的复杂性将需要更高的任务之间的复用，而不是每当我们有一个新的任务或一个新的数据集从头开始训练一个新的模型。实际上，很多数据集并没有包含足够的信息来从头开发新的复杂模型，而且利用来自先前遇到的数据集的信息也是有必要的。 这就像你每次打开新书时都不会从头开始学习英语 —— 这是不可能的。此外，由于当前任务与以前遇到的任务之间的重叠很大，对每个新任务重头开始训练模型的效率是非常低的。
 
-Additionally, a remarkable observation that has been made repeatedly in recent years is that training a same model to do several loosely connected tasks at the same time results in a model that is better at each task. For instance, training a same neural machine translation model to cover both English-to-German translation and French-to-Italian translation will result in a model that is better at each language pair. Training an image classification model jointly with an image segmentation model, sharing the same convolutional base, results in a model that is better at both tasks. And so on. This is fairly intuitive: there is always some information overlap between these seemingly disconnected tasks, and the joint model has thus access to a greater amount of information about each individual task than a model trained on that specific task only.
+此外，近年来反复出现的一个值得注意的现象是，同一个模型同时进行多个松散连接任务的同时会产生一个更好的模型，而这个模型对每个任务的结果都更好。例如，训练相同的神经网络机器翻译模型来涵盖「英语到德语」的翻译和「法语到意大利语」的翻译将获得对每个语言间翻译效果都更好的模型。与图像分割模型联合训练图像分类模型，并共享相同的卷积基，能得到对于两个任务更好的模型，等等。这是相当直观的：在这些看似断开连接的任务之间总是存在一些信息重叠。因此，联合模型可以获得比仅针对该特定任务训练的模型更多的关于每个独立任务的信息。
 
-What we currently do along the lines of model reuse across tasks is to leverage pre-trained weights for models that perform common functions, like visual feature extraction. You saw this in action in Chapter 5. In the future, I would expect a generalized version of this to be commonplace: we would not only leverage previously learned features (submodel weights), but also model architectures and training procedures. As models become more like programs, we would start reusing program subroutines, like the functions and classes found in human programming languages.
+你已经在第 5 章中看到，我们目前是沿着跨任务复用模型的方式，利用预训练的权重来执行常见函数的模型，如视觉特征提取。在未来，我会期望出现这种更一般的版本：我们不仅将利用以前学习的特征（子模型权重），还可以利用模型架构和训练过程。随着模型越来越像程序，我们将开始复用程序的子程序，就像编程语言中的函数和类那样。
 
-Think of the process of software development today: once an engineer solves a specific problem (HTTP queries in Python, for instance), they will package it as an abstract and reusable library. Engineers that face a similar problem in the future can simply search for existing libraries, download one and use it in their own project. In a similar way, in the future, meta-learning systems will be able to assemble new programs by sifting through a global library of high-level reusable blocks. When the system would find itself developing similar program subroutines for several different tasks, if would come up with an "abstract", reusable version of the subroutine and would store it in the global library. Such a process would implement the capability for abstraction, a necessary component for achieving "extreme generalization": a subroutine that is found to be useful across different tasks and domains can be said to "abstract" some aspect of problem-solving. This definition of "abstraction" is similar to the notion of abstraction in software engineering. These subroutines could be either geometric (deep learning modules with pre-trained representations) or algorithmic (closer to the libraries that contemporary software engineers manipulate).
+想想今天的软件开发过程：一旦工程师解决了一个特定的问题（例如 Python 中的 HTTP 查询），他们将把它打包成一个抽象的和可复用的库。未来面临类似问题的工程师可以简单地搜索现有的库，下载并在自己的项目中使用它们。类似的方式，将来的元学习系统将能够通过筛选全局库中高度可复用块来组装新程序。当系统发现自己为几个不同的任务开发类似的程序子程序时，如果可以产生一个「抽象的」子程序的可复用版本，就会将其存储在全局库中。这样的过程将实现抽象的能力，这是实现「极端泛化」的必要组件：在不同任务和领域中被发现的有用的子程序可以说是「抽象化」问题解决的一些方面。 「抽象」的定义与软件工程中抽象的概念相似，这些子程序可以是几何（具有预先训练表示的深度学习模块）或算法（更靠近当代软件工程师操纵的库）。
 
 ![A meta-learner capable of quickly developing task-specific models using reusable primitives (both algorithmic and geometric), thus achieving &quot;extreme generalization&quot;.](https://blog.keras.io/img/future-of-dl/metalearning2.png)
 
-**Figure:***A meta-learner capable of quickly developing task-specific models using reusable primitives (both algorithmic and geometric), thus achieving "extreme generalization".*
+**图: 元学习者能够使用可复用的（算法与几何）原语快速开发特定任务的模型，从而实现「极端泛化」。**
 
-## In summary: the long-term vision
+## 长期愿景
 
-In short, here is my long-term vision for machine learning:
+简单来说，以下是我对机器学习的一些长期愿景：
 
-- Models will be more like programs, and will have capabilities that go far beyond the continuous geometric transformations of the input data that we currently work with. These programs will arguably be much closer to the abstract mental models that humans maintain about their surroundings and themselves, and they will be capable of stronger generalization due to their rich algorithmic nature.
-surroundings and themselves, and they will be capable of stronger generalization due to their rich algorithmic nature.
-- In particular, models will blend algorithmic modules providing formal reasoning, search, and abstraction capabilities, with geometric modules providing informal intuition and pattern recognition capabilities. AlphaGo (a system that required a lot of manual software engineering and human-made design decisions) provides an early example of what such a blend between symbolic and geometric AI could look like.
-- They will be grown automatically rather than handcrafted by human engineers, using modular parts stored in a global library of reusable subroutines—a library evolved by learning high-performing models on thousands of previous tasks and datasets. As common problem-solving patterns are identified by the meta-learning system, they would be turned into a reusable subroutine—much like functions and classes in contemporary software engineering—and added to the global library. This achieves the capability for abstraction.
-- This global library and associated model-growing system will be able to achieve some form of human-like "extreme generalization": given a new task, a new situation, the system would be able to assemble a new working model appropriate for the task using very little data, thanks to 1) rich program-like primitives that generalize well and 2) extensive experience with similar tasks. In the same way that humans can learn to play a complex new video game using very little play time because they have experience with many previous games, and because the models derived from this previous experience are abstract and program-like, rather than a basic mapping between stimuli and action.
-- As such, this perpetually-learning model-growing system could be interpreted as an AGI—an Artificial General Intelligence. But don't expect any singularitarian robot apocalypse to ensue: that's a pure fantasy, coming from a long series of profound misunderstandings of both intelligence and technology. This critique, however, does not belong here.
+- 模型将更像是程序，并且具有远远超出我们目前使用的输入数据的连续几何变换的能力。这些程序可以说是更接近于人类对周围环境和自身的抽象思维模式，而且由于其丰富的算法性质，它们将具有更强的泛化能力。
+  环境及其自身，由于其丰富的算法性质，它们能够获得更强的泛化能力。
+- 特别地，模型将混合提供正式推理、搜索和抽象能力的算法模块，和提供非正式的直觉和模式识别功能的几何模块。AlphaGo（一个需要大量手动软件工程和人造设计决策的系统）提供了一个早期的范例，说明了符号与几何 AI 之间进行混合可能的样子。
+- 它们将不再由人类工程师手工打造，自动成长并使用存储在可复用子程序的全局库中的模块化部件（通过在数千个前有任务和数据集上学习过的高性能模型而演变出现的库）。由于常见的问题解决模式是通过元学习系统来识别的，它们将变成可复用的子程序并被添加到全局库中，像极了当代软件工程中的函数和类，进而实现了抽象的能力。
+- 这个全局库和相关的模式增长系统将能够实现某种形式的人类「极端泛化」：给定一个新的任务、一个新的情况，该系统将能够使用非常少的数据组装适合于任务的新的有效模型。这归功于：第一，可以像原语一样使用，丰富且泛化良好的程序（包）；第二，丰富的类似任务的经验。同样地，人类也可以用很少的游戏时间来学习复杂的新游戏，因为他们有许多以前的游戏的经验，并且从以前的经验得出的模型是抽象的和类似程序的，而不是刺激和行动之间的基本映射。
+- 就此来看，这种永恒学习的模型成长系统可以被解释为人造通用智能（AGI, Artificial General Intelligence）。但请不要指望任何奇点主义的（Singularitarian）机器人灾难发生：那是纯粹的幻想，是来自一系列长期对智能和技术的深刻误解。然而，这个批评不在本文讨论的范围之内（译者注：奇点主义是指采取有益于人类、避免导致超越人类智慧的人造智慧出现的行动）。
 
 
 ---
