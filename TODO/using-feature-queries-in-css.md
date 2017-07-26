@@ -4,7 +4,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/using-feature-queries-in-css.md](https://github.com/xitu/gold-miner/blob/master/TODO/using-feature-queries-in-css.md)
 > * 译者：[Cherry](https://github.com/sunshine940326)
-> * 校对者：[LeviDing]https://github.com/leviding
+> * 校对者：[LeviDing](https://github.com/leviding)
 
 # 在 CSS 中使用特征查询
 
@@ -20,11 +20,11 @@ CSS 中有一个你可能还没有听说过的工具。它很强大。它已经�
 ```
 如果浏览器理解 `display: grid`，那么括号内的所有样式都将被应用。否则将跳过所有样式。
 
-现在，对于特征查询是什么，似乎有点混乱。这不是一种分析浏览器是否**正确地**实现了 CSS 属性的外部验证，如果你正在寻找这样的外部验证，[参考这里](http://testthewebforward.org)。特性查询要求浏览器对是否支持某个 CSS 属性/值进行自我报告，并根据其返回的结果决定是否调用代码块。如果浏览器不正确或不完整地实现了一个特性，`@supports` 不会对你有帮助。如果浏览器误报了 CSS 支持的情况，`@supports` 不会对你有帮助。这不是一个能使使浏览器漏洞消失的魔法。
+现在，对于特征查询的概念，似乎还不是很清晰。这不是一种分析浏览器是否**正确地**实现了 CSS 属性的外部验证，如果你正在寻找这样的外部验证，[参考这里](http://testthewebforward.org)。特性查询要求浏览器对是否支持某个 CSS 属性/值进行自我报告，并根据其返回的结果决定是否调用代码块。如果浏览器不正确或不完整地实现了一个特性，`@supports` 不会对你有帮助。如果浏览器误报了 CSS 支持的情况，`@supports` 不会对你有帮助。这不是一个能使浏览器漏洞消失的魔法。
 
 也就是说，我发现 `@supports` 是非常有用的。`@supports` 规则让我多次感受到，使用新的 CSS 规则来实现功能，比使用旧的规则要简单得多。
 
-多年来，开发商都用 [Modernizr](https://modernizr.com) 做特征查询，但是 Modernizr 需要 JavaScript。即使脚本很小，CSS 架构与 Modernizr 需要 JavaScript 文件的下载、执行并且要在应用 CSS 之前完成。涉及 JavaScript 总是比只使用 CSS 慢。如果 JavaScript 打开失败也就是说如果 JavaScript 不执行会发生什么？另外，Modernizr 需要一个复杂并且许多项目无法处理的附加层。特征查询速度更快，更健壮，使用起来更加简单。
+多年来，开发商都用 [Modernizr](https://modernizr.com) 做特征查询，但是 Modernizr 需要 JavaScript。即使脚本很小，CSS 架构与 Modernizr 需要 JavaScript 文件的下载、执行并且要在应用 CSS 之前完成。涉及 JavaScript 总是比只使用 CSS 慢。如果 JavaScript 打开失败也就是说如果 JavaScript 不执行会发生什么？另外，Modernizr 需要一个复杂并且许多项目无法处理的附加层。特征查询速度更快、更健壮、使用起来更加简单。
 
 你可能会注意到，特性查询的语法与媒体查询非常相似。我把他们看做堂兄弟。
 ```
@@ -83,7 +83,7 @@ CSS 中有一个你可能还没有听说过的工具。它很强大。它已经�
 
 这里有新的结果。浏览器理解 `initial-letter` 的话就会将其展现为字体更大、加粗并且是橘色的首字母。其它浏览器表现的像首字母不存在一样，使用这种方式，我会等待使用这个特征，直到更多的浏览器支持它。（顺便说一下，目前在 Firefox 中可以实现首字母的特性。）
 
-![使用之前和之后的对比](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2016/08/intial-letter-with-and-without.gif)截屏的左边是来自 Safari 9。其它浏览器展现的结果显示为右边。你可以在 codepen.io/jensimmons/pen/ONvdYL] (http://codepen.io/jensimmons/pen/ONvdYL?editors=1100) 看到这个测试的代码。
+![使用之前和之后的对比](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2016/08/intial-letter-with-and-without.gif)截屏的左边是来自 Safari 9。其它浏览器展现的结果显示为右边。你可以在 [codepen.io/jensimmons/pen/ONvdYL] (http://codepen.io/jensimmons/pen/ONvdYL?editors=1100) 看到这个测试的代码。
 
 ## 组织你的代码
 
