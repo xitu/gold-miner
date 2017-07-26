@@ -3,8 +3,8 @@
 > * 原文作者：[Nicholas C. Zakas](http://www.twitter.com/slicknet/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/reflections-on-eslints-success.md](https://github.com/xitu/gold-miner/blob/master/TODO/reflections-on-eslints-success.md)
-> * 译者：薛定谔的猫<hh_2013@foxmail.com>
-> * 校对者：[H2O-2](https://github.com/xitu/gold-miner/pull/1932)、[warcryDoggie](https://github.com/warcryDoggie)
+> * 译者：[薛定谔的猫](https://github.com/Aladdin-ADD)
+> * 校对者：[H2O-2](https://github.com/H2O-2) [warcryDoggie](https://github.com/warcryDoggie)
 
 # 回顾 ESLint 的成功
 
