@@ -4,7 +4,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/we-analyzed-thousands-of-coding-interviews-heres-what-we-learned.md](https://github.com/xitu/gold-miner/blob/master/TODO/we-analyzed-thousands-of-coding-interviews-heres-what-we-learned.md)
 > * 译者：[tanglie1993](https://github.com/tanglie1993)
-> * 校对者：[zhangqippp](https://github.com/zhangqippp), [yzgyyang](https://github.com/yzgyyang)
+> * 校对者：[zhangqippp](https://github.com/zhangqippp)、[yzgyyang](https://github.com/yzgyyang)
 
 # 我们对数千个编程面试的分析结果
 
