@@ -4,28 +4,28 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/a-beginners-guide-to-making-progressive-web-apps.md](https://github.com/xitu/gold-miner/blob/master/TODO/a-beginners-guide-to-making-progressive-web-apps.md)
 > * 译者：[Haichao Jiang](https://github.com/AceLeeWinnie)
-> * 校对者：
+> * 校对者：[sun](https://github.com/sunui) [leviding](https://github.com/leviding) 
 
 # 构建渐进式 Web 应用入门指南
 
-你可能已经听过渐进式 Web 应用或 PWA 的大名，然而我并不打算深入 PWA 的构建和工作细节。这篇文章的目的在于说明 **PWA 是一个可以添加到手机主屏幕的网页** 并且它还能够离线运行。
+你可能已经听过渐进式 Web 应用或 PWA 的大名，然而我并不打算深入 PWA 的构建和工作细节。这篇文章的目的在于说明 **PWA 是一个可以添加到手机主屏幕的网页**，并且它还能够离线运行。
 
 ![](https://cdn-images-1.medium.com/max/800/1*2le_ZVx-FUCsK4oCXKcpqg.jpeg)
 
 
 我知道一些 HTML、CSS、JavaScript 的知识并且了解如何使用 GitHub。
 
-我是 web 开发新手，当下也不想学习原理和工作机制。我希望有一个简单，基础的方式做出一些东西，而不用连篇累牍地阅读文档和教程。**有希望的是，通过这篇文章你会学到所有在开始构建 PWA 时需要的知识。**
+我是 web 开发新手，当下也不想学习 Web 开发的原理和工作机制。我希望有一个简单，基础的方式做出一些东西，而不用连篇累牍地阅读文档和教程。**希望通过这篇文章你会学到所有在开始构建 PWA 时需要的知识。**
 
-要做 PWA 首先要有一个网站。这是理所应当的，假设你已经有一个网站，多端适配。幸运的是我们不需要通过 scratch  才能做到，我们可以使用模板。我喜欢使用 [HTML5 UP](https://html5up.net/) 和 [Start Bootstrap](https://startbootstrap.com/)。
+要做 PWA 首先要有一个网站。当然，本文假定你已经可以制作多端适配的网站。幸运的是我们不需要通过 scratch 才能做到，我们可以使用模板。我喜欢使用 [HTML5 UP](https://html5up.net/) 和 [Start Bootstrap](https://startbootstrap.com/)。
 
-选择并下载主题，用你自己的主页替换模板里的内容。你甚至可以改变颜色，如果你对编辑 CSS 有把握的话。
+选择并下载主题，把 index.html 中的所有内容替换成你自己的。如果你对编辑 CSS 有把握的话，你甚至可以更改颜色。
 
-在这个项目里，我为 Web Community Leads UK and IE 组织制作了一个登录页。你可以通过阅读 [Daniel](https://medium.com/@torgo) 的[相关博客]((https://medium.com/samsung-internet-dev/web-communities-for-the-people-6440e0c8e543))读到更多内容，或者访问我做的网站 [https://webcommunityukie.github.io/](https://webcommunityukie.github.io/)。
+在这个项目里，我为 Web Community Leads UK and IE 组织制作了一个登录页。你可以通过阅读 [Daniel](https://medium.com/@torgo) 的[相关博客](https://medium.com/samsung-internet-dev/web-communities-for-the-people-6440e0c8e543)读到更多内容，或者访问我做的网站 [https://webcommunityukie.github.io/](https://webcommunityukie.github.io/)。
 
 把这个网站做成 PWA 并没有为大多数用户带来更多体验，同时我也不希望每个人都把它加入主屏幕，但是它仍然优化了体验。我只是想要一个小网站来开启自己制作 PWA 之旅。
 
-我真的想要一个小网站，我喜欢 [Hacksmiths](http://goldsmiths.tech/) 并且知道它是开源的，所以我下载下来并且消化了源码。我保留了一个链接在下方，指向原网页和源码，人们可以 folk 出一个新网站。
+我真的想要一个简单的网站，我喜欢 [Hacksmiths](http://goldsmiths.tech/) 并且知道它是开源的，所以我下载下来并且消化了源码。我保留了一个链接在下方，指向原网页和源码，人们可以 folk 出一个新网站。
 
 现在我们有个网站了，可以把它变成一个渐进式 web 应用。为了达到目的，我们需要添加一系列东西，待会我会说明为什么我们需要他们。
 
@@ -37,7 +37,7 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*1jPywRVAHcebZeUIyPMllQ.png)
 
-我开始处理网站的 PWA 部分前，用 Lighthouse 检测过。
+我开始处理网站的 PWA 部分前 Lighthouse 的检测结果。
 
 鉴于还没有对网站开始进行 PWA 改造，36/100 不是一个悲观的数字。
 
@@ -53,19 +53,19 @@
 
 现在你有一个 app icon 了。🎉
 
-是时候把它放进你的网站里去了。我的方法是通过 [在线 icon 生成工具](http://www.favicon-generator.org/)。输入 blingbling 的新 icon，它会返回一些列不同尺寸版本和 HTML 代码。
+是时候把它放进你的网站里去了。我的方法是通过 [在线 icon 生成工具](http://www.favicon-generator.org/)。上传 blingbling 的新 icon，它会返回一些列不同尺寸版本和 HTML 代码。
 - 下载文件并解压。
 - 把 icon 放进网站文件夹。
-- 把对应的代码放进 index.html 的 <head> 中
-- 确保 icon 的路径是正确的。我把 icon 放在子文件夹中，所以我需要添加 "/icons" 前缀。
+- 把对应的代码放进 index.html 的 \<head\> 中
+- 确保 icon 的路径是正确的。我把 icon 放在子文件夹中，所以我需要添加"/icons"前缀。
 
 ![](https://cdn-images-1.medium.com/max/800/1*5LM7_X9cAfH51oyX2aB59g.png)
 
 ### Web App Manifest
 
-下一件要做的就是创建 manifest。manifest 是一个文件，包含了网站的数据，例如网站名字，偏好色彩和使用的 icon。
+下一件要做的就是创建 manifest。manifest 是一个文件，包含了网站的数据，例如网站名字、偏好色彩和使用的 icon。
 实际上，你已经有了一份 manifest，是 icon 生成工具生成的，接着我们要在上面添加更多内容。
-打开 [web app manifest 生成器](https://tomitm.github.io/appmanifest/)，填写网站的相关信息。内容不确定设置为默认即可。
+打开 [web app manifest 生成器](https://tomitm.github.io/appmanifest/)，填写网站的相关信息。对要填写的内容不确定的话，设置为默认即可。
 页面右侧，有一些 JSON 数据。复制粘贴到 manifest.json 文件头部，为确保格式正确，你可能需要添加一个逗号或删除一个大括号。
 我的 manifest 文件是 [这样](https://github.com/webcommunityukie/webcommunityukie.github.io/blob/master/manifest.json) 的。
 
@@ -82,11 +82,11 @@ service worker 比较复杂，相关的文档都很长，并且很混乱，整�
 幸运的是看到了 [Peter](https://medium.com/@poshaughnessy) 推荐的 sw-toolbox，他还给了我一个他自己的代码链接。
 所以我拷贝了他的代码，移除额外的 JavaScript 文件，添加到 service worker， 简化后用到我自己的项目里。
 
-#### 创建 service worker 需要知道的 3 件事。
+#### 创建 service worker 需要做的 3 件事。
 
-- 添加以下代码在 index.html 的 <head> 里，注册 service worker：
+- 在 index.html 的 \<head\> 里添加以下代码，注册 service worker：
 
-```
+```javascript
 <script>
 if (‘serviceWorker’ in navigator) {
   window.addEventListener(‘load’, function() {
@@ -103,22 +103,22 @@ if (‘serviceWorker’ in navigator) {
 </script>
 ```
 
-- 添加 sw-toolbar 到项目里。你只需要添加 [这个文件](https://github.com/GoogleChrome/sw-toolbox/blob/master/sw-toolbox.js) 到根目录下。
+- 添加 sw-toolbox 到项目里。你只需要添加 [这个文件](https://github.com/GoogleChrome/sw-toolbox/blob/master/sw-toolbox.js) 到根目录下。
 - 新建文件，命名为 "sw.js"，拷贝并粘贴以下代码：
 
-```
+```javascript
 ‘use strict’;
 importScripts(‘sw-toolbox.js’); toolbox.precache([“index.html”,”style/style.css”]); toolbox.router.get(‘/images/*’, toolbox.cacheFirst); toolbox.router.get(‘/*’, toolbox.networkFirst, { networkTimeoutSeconds: 5});
 ```
 
-你想要检查所有文件路径是否正确，编辑预缓存和列出离线时要存储的所有文件，我的站点只用到 index.html 和 style.css，但是你的情况可能需要更多文件和页面。
+你想要检查所有文件路径是否正确，编辑预缓存和列出离线时要存储的所有文件，我的站点只用到 index.html 和 style.css，你可能需要其他文件或页面。
 
 现在，用 Lighthouse 再次检测。
 
 ![](https://cdn-images-1.medium.com/max/800/1*ySpXMuVi__zP5Pqpd000gg.png)
 
 
-添加 service worker 之后 - 测试 localhost
+添加 service worker 之后 —— 测试 localhost
 **如果你想要 service worker 做些不一样的事情，而不是仅仅是保存页面，例如网络不通时访问特定的离线页面，你可以试下 [pwabuilder](http://www.pwabuilder.com/generator) 这个 service worker 脚本。**
 
 ### 托管到 GitHub Pages 上
@@ -132,7 +132,7 @@ importScripts(‘sw-toolbox.js’); toolbox.precache([“index.html”,”style/
 
 ![](https://cdn-images-1.medium.com/max/800/1*SzanuiJSVc6yrRjTPE_PbA.png)
 
-在 GitHub Pages 托管网站后 Lighthouse 的结果
+在 GitHub Pages 托管网站后 Lighthouse 的结果。
 
 ![](https://cdn-images-1.medium.com/max/600/1*luHsbfq_Zc00B8IR7QzVmg.png)
 
@@ -141,9 +141,9 @@ importScripts(‘sw-toolbox.js’); toolbox.precache([“index.html”,”style/
 **完整网站如下：**[https://webcommunityukie.github.io/](https://webcommunityukie.github.io/)
 它看起来和我开始时完全一样，但是在 Samsung Internet 上浏览时，地址栏会变成主题色，即浅紫色。会出现一个加号图标让你把它添加到你的主屏幕，允许全屏和离线使用。
 
-这篇文章提到了很多 PWA，你可以向他们发送推送通知告知用户你的应用有了新的内容。你可以阅读更多关于 [PWA 构成](https://www.smashingmagazine.com/2016/09/the-building-blocks-of-progressive-web-apps/) 的内容。
+还有很多 PWA 相关内容本文没有提到，你可以向他们发送推送通知告知用户你的应用有了新的内容。你可以阅读更多关于 [PWA 构成](https://www.smashingmagazine.com/2016/09/the-building-blocks-of-progressive-web-apps/) 的内容。
 
-我希望这能帮助你第一次体验到渐进式 web app，如果你在使用的过程中遇到困难，请给我留言或在推特 @ 我。
+我希望本文能帮助你第一次体验到渐进式 web app，如果你在使用的过程中遇到困难，请给我留言或在推特 @ 我。
 
 ---
 
