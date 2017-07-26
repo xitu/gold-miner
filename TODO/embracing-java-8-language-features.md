@@ -186,11 +186,11 @@ public interface MyView {
 
 While this all might seem a bit overwhelming, Android Studio actually offers amazing quick fixes once you enable Java 8 features.
 
-Just use `alt/option` + `enter` to convert a functional interface to a lamba or a lambda to a method reference.
+只要使用 `alt/option` + `enter` 就可以把功能接口转化为一个 lambda，或把 lambda 转为方法引用。
 
-![Java 8 language quick fixes](https://jeroenmols.com/img/blog/java8language/androidstudioconversion.gif)
+![Java 8 语言的 quick fixes](https://jeroenmols.com/img/blog/java8language/androidstudioconversion.gif)
 
-This is a great way to get familiar with these new features and allows you to write code like you’re used to. After enough quick fixes by Android Studio you’ll learn in what cases a lambda or method reference would be possible and start writing them yourself.
+这是一种熟悉新特性的好办法，它使你可以按照自己习惯的方式写代码。在使用 Android Studio 的 quick fix 功能足够多次之后，你将学会 lambda 和方法引用有哪些使用场景，并开始自己写它们。
 
 ## 支持的特性
 
