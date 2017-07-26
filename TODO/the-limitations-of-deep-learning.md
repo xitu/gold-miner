@@ -3,73 +3,84 @@
 > * 原文作者：[Francois Chollet](https://twitter.com/fchollet)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/the-limitations-of-deep-learning.md](https://github.com/xitu/gold-miner/blob/master/TODO/the-limitations-of-deep-learning.md)
-> * 译者：
-> * 校对者：
+> * 译者：[CACppuccino](https://github.com/CACppuccino)
+> * 校对者：[whatbeg](https://github.com/whatbeg)   [lileizhenshuai](https://github.com/lileizhenshuai)
 
-# The limitations of deep learning
+# 论深度学习的局限性
 
-This post is adapted from Section 2 of Chapter 9 of my book, [Deep Learning with Python](https://www.manning.com/books/deep-learning-with-python?a_aid=keras&amp;a_bid=76564dff) (Manning Publications). It is part of a series of two posts on the current limitations of deep learning, and its future.
 
-This post is targeted at people who already have significant experience with deep learning (e.g. people who have read chapters 1 through 8 of the book). We assume a lot of pre-existing knowledge.
+## 译者前言
+
+这篇文章清晰地展现了深度学习本身真正的意义，让我们更透彻地了解它的同时，也明白了它的局限之处，距离着人类层次的 AI 还有着太长的路要走。在文章的最后一部分，作者更是表达出了自己对于未来的 AI 之路的思考与展望。
+
+正文
+---
+
+这篇文章修改自我的书[《Deep Learning with Python (manning出版社)》](https://www.manning.com/books/deep-learning-with-python?a_aid=keras&amp;a_bid=76564dff)的第九章第二部分。这是关于当前的深度学习的局限性与未来展望的两篇系列文章之一。
+
+这篇文章的目标受众是那些已经在深度学习领域有着一定的经验（例如，那些已经读完 1-8 章的人们）。我们默认你已经知道了很多前置的知识。  
+
+**译者注：阅读此文章无需特别丰富的经验，实际上只要知道深度学习的大概运行模式即可**
 
 ---
 
-## Deep learning: the geometric view
 
-The most surprising thing about deep learning is how simple it is. Ten years ago, no one expected that we would achieve such amazing results on machine perception problems by using simple parametric models trained with gradient descent. Now, it turns out that all you need is *sufficiently large* parametric models trained with gradient descent on *sufficiently many* examples. As Feynman once said about the universe, *"It's not complicated, it's just a lot of it"*.
+## 深度学习：几何角度
 
-In deep learning, everything is a vector, i.e. everything is a point in a geometric space. Model inputs (it could be text, images, etc) and targets are first "vectorized", i.e. turned into some initial input vector space and target vector space. Each layer in a deep learning model operates one simple geometric transformation on the data that goes through it. Together, the chain of layers of the model forms one very complex geometric transformation, broken down into a series of simple ones. This complex transformation attempts to maps the input space to the target space, one point at a time. This transformation is parametrized by the weights of the layers, which are iteratively updated based on how well the model is currently performing. A key characteristic of this geometric transformation is that it must be differentiable, which is required in order for us to be able to learn its parameters via gradient descent. Intuitively, this means that the geometric morphing from inputs to outputs must be smooth and continuous—a significant constraint.
+深度学习最令人惊讶的地方在于它的简单程度。十年之前，没有人会想到我们能够只是运用梯度下降算法训练简单的参数模型，就能在机器感知方面取得如此巨大的成果。现在来看，你只需要通过梯度下降方法，用 **足够多** 的样例去训练一个参数 **足够多** 的参数模型（就可以取得你想要的结果了）。就如 Feynman 曾经对宇宙的描述一样，**“它并非复杂，只是数量巨大”**
 
-The whole process of applying this complex geometric transformation to the input data can be visualized in 3D by imagining a person trying to uncrumple a paper ball: the crumpled paper ball is the manifold of the input data that the model starts with. Each movement operated by the person on the paper ball is similar to a simple geometric transformation operated by one layer. The full uncrumpling gesture sequence is the complex transformation of the entire model. Deep learning models are mathematical machines for uncrumpling complicated manifolds of high-dimensional data.
+在深度学习中，所有东西都是一个向量，换言之，所有东西都是几何空间中的一个点。输入的模型（可以是文本，图像等等）和目标都会首先被“向量化”，也就是说，转化为初始的输入向量空间和目标向量空间。深度学习模型的每一层都对通过的数据，进行着一次简单的几何变换。而合并在一起，链在一起的各层模型形成了一个非常复杂的几何变换，分解成单一的之后又变的非常简单。这个复杂的变换试图将输入映射到输出，每次处理一个点。这个变换被各神经层的权重参数化，而权重则在每次迭代时基于当前模型的运行状况进行更新。这个几何变换的关键特征就是，它必须可导（可微），这样我们才能够通过梯度下降算法学习它的参数。直观地看，这意味着从输入到输出的几何变换必须是平稳且连续的 —— 这是一个重要的限制条件。
 
-That's the magic of deep learning: turning meaning into vectors, into geometric spaces, then incrementally learning complex geometric transformations that map one space to another. All you need are spaces of sufficiently high dimensionality in order to capture the full scope of the relationships found in the original data.
+对于输入的复杂几何变换过程，可以在 3D 下画出一个人，在尝试平整一张卷成球的纸，来达到视觉化的目的：皱起来的纸球代表着模型中的输入副本。每次人对纸的动作都与每次单个神经层的简单几何变换相似。这样看，平整纸球的一套动作就是整个模型的几何变换，而当这些动作（几何变换）连在一起时，看起来会非常复杂。深度学习模型实际上是一个数学机器，将多种高维数据平整化。
 
-## The limitations of deep learning
+这就是深度学习的神奇之处：将“意义”转变为向量到几何空间中，并逐渐地学习复杂的几何变换，将一个空间映射到另一个。你只需要有足够维度的空间，来获取原始数据中的所有存在的关系。
 
-The space of applications that can be implemented with this simple strategy is nearly infinite. And yet, many more applications are completely out of reach for current deep learning techniques—even given vast amounts of human-annotated data. Say, for instance, that you could assemble a dataset of hundreds of thousands—even millions—of English language descriptions of the features of a software product, as written by a product manager, as well as the corresponding source code developed by a team of engineers to meet these requirements. Even with this data, you could not train a deep learning model to simply read a product description and generate the appropriate codebase. That's just one example among many. In general, anything that requires reasoning—like programming, or applying the scientific method—long-term planning, and algorithmic-like data manipulation, is out of reach for deep learning models, no matter how much data you throw at them. Even learning a sorting algorithm with a deep neural network is tremendously difficult.
+## 深度学习的局限性
 
-This is because a deep learning model is "just" a chain of simple, continuous geometric transformations mapping one vector space into another. All it can do is map one data manifold X into another manifold Y, assuming the existence of a learnable continuous transform from X to Y, and the availability of a dense sampling of X:Y to use as training data. So even though a deep learning model can be interpreted as a kind of program, inversely most programs cannot be expressed as deep learning models—for most tasks, either there exists no corresponding practically-sized deep neural network that solves the task, or even if there exists one, it may not be learnable, i.e. the corresponding geometric transform may be far too complex, or there may not be appropriate data available to learn it.
+我们可以将这个简单的策略应用到各个领域。不过，也有很多领域不在当前深度学习所能达到的范围，即使给它大量的人工注释过的数据。例如，你可以对一个软件的特征进行成百上千次不同的描述，像一个项目经理那样写，同时包含相对应的一组软件工程师开发出来的源代码来满足这些需求。即使有了这些数据，你也不能训练出一个深度学习模型来简单地阅读产品描述并生成一个正确的代码库。而这只是众多例子中的一个。总体上来讲，任何需要推理类的编程，科学的长时期规划，算法类的数据操作都处在深度学习模型之外，不论你给予模型多少数据都没用。即使让深度神经网络学习一个排序算法也是非常困难的。
 
-Scaling up current deep learning techniques by stacking more layers and using more training data can only superficially palliate some of these issues. It will not solve the more fundamental problem that deep learning models are very limited in what they can represent, and that most of the programs that one may wish to learn cannot be expressed as a continuous geometric morphing of a data manifold.
+这是因为一个深度学习模型“只是”一系列简单、连续的几何变换，将一个几何空间映射到另一个。假设 X 到 Y 存在着一个可学习的连续变换，同时有足够密集的 X:Y 的训练数据作为样例，它所能做的一切就是将数据副本 X 映射到另一个副本 Y。所以尽管一个深度学习模型可以被看作是一种程序，反过来大部分程序并不能表示成深度学习模型 —— 对于大多数任务，要么实际上不存在相关的深度学习模型来解决这种任务，或者即使这里存在一个，可能也是不可学习的，也就是说，相关的几何变换可能过于复杂，或者这里可能没有合适的数据来进行学习。
 
-## The risk of anthropomorphizing machine learning models
+通过增加更多的神经层和使用更多的训练数据，来扩大当前的深度神经网络的规模，只能在一些问题中取得一定的进步。这种方法并不能够解决更多的基础性问题，那些问题在深度学习模型的能力之外，它们无法被表示，并且唯一的学习途径又不能够被表示对一个数据副本的连续几何变换。
 
-One very real risk with contemporary AI is that of misinterpreting what deep learning models do, and overestimating their abilities. A fundamental feature of the human mind is our "theory of mind", our tendency to project intentions, beliefs and knowledge on the things around us. Drawing a smiley face on a rock suddenly makes it "happy"—in our minds. Applied to deep learning, this means that when we are able to somewhat successfully train a model to generate captions to describe pictures, for instance, we are led to believe that the model "understands" the contents of the pictures, as well as the captions it generates. We then proceed to be very surprised when any slight departure from the sort of images present in the training data causes the model to start generating completely absurd captions.
+## 将机器学习模型人格化的风险
 
-![Failure of a deep learning-based image captioning system.](https://blog.keras.io/img/limitations-of-dl/caption_fail.png)
+一个目前 AI 领域非常现实的问题，就是错误地阐释深度学习模型的职能，并高估了它们的能力。人类意识的一个基本特征就是“理论思维”，我们倾向于将意图、信仰和知识投影在我们周围的东西上。在一个石头上画一个笑脸能让它“快乐”起来 —— 在我们的意识中。应用在深度学习中，这意味着当我们能够成功地训练出一个可以添加标题描述图像的模型时，我们会相信那个模型理解了图片的内容，同时也理解所生成的标题。接着，我们会对模型因为任何轻微的异常于训练数据的图片而生成的荒谬的标题感到惊讶。
 
-In particular, this is highlighted by "adversarial examples", which are input samples to a deep learning network that are designed to trick the model into misclassifying them. You are already aware that it is possible to do gradient ascent in input space to generate inputs that maximize the activation of some convnet filter, for instance—this was the basis of the filter visualization technique we introduced in Chapter 5 (Note: of [Deep Learning with Python](https://www.manning.com/books/deep-learning-with-python?a_aid=keras&a_bid=76564dff)), as well as the Deep Dream algorithm from Chapter 8. Similarly, through gradient ascent, one can slightly modify an image in order to maximize the class prediction for a given class. By taking a picture of a panda and adding to it a "gibbon" gradient, we can get a neural network to classify this panda as a gibbon. This evidences both the brittleness of these models, and the deep difference between the input-to-output mapping that they operate and our own human perception.
+![基于深度学习的标题添加系统出现了错误](https://blog.keras.io/img/limitations-of-dl/caption_fail.png)
+### 这个男孩正拿着一个棒球棒
 
+特别地，这个是被强调的“对抗样例”，是被设计用于欺骗模型使它错误归类的。你已经注意到了，对输入空间扩充来产生能够最大化一些卷积网络滤波器（convnet filter）的输入，例如 —— 这是我们在第五章中介绍的滤波器可视化技术的基础（注：在 [Deep Learning with Python](https://www.manning.com/books/deep-learning-with-python?a_aid=keras&a_bid=76564dff)中），还有第八章的 Deep Dream 算法。相似地，通过梯度增加，模型可以通过轻微地修改一幅照片来最大化给定的种类的预测空间。通过给熊猫照一张照片，并给它加入“长臂猿”的梯度，我们可以得到一个将这只熊猫归为长臂猿的神经网络。这证明了这些模型的脆弱之处，以及它们所进行的输入输出映射与人类意识的巨大不同。
 
-![An adversarial example: imperceptible changes in an image can upend a model's classification of the image.](/img/limitations-of-dl/adversarial_example.png)
+![一个对抗性的例子：图像中不可察觉的变化可以提升模型对图像的分类能力。](https://blog.keras.io/img/limitations-of-dl/adversarial_example.png)
 
-In short, deep learning models do not have any understanding of their input, at least not in any human sense. Our own understanding of images, sounds, and language, is grounded in our sensorimotor experience as humans—as embodied earthly creatures. Machine learning models have no access to such experiences and thus cannot "understand" their inputs in any human-relatable way. By annotating large numbers of training examples to feed into our models, we get them to learn a geometric transform that maps data to human concepts on this specific set of examples, but this mapping is just a simplistic sketch of the original model in our minds, the one developed from our experience as embodied agents—it is like a dim image in a mirror.
+简而言之，深度学习模型一点也不理解它们的输入，至少从人类的角度来看（人类的理解）。我们对于图像、声音和语言的理解是基于我们人类的感觉——这是体现在全地球的生物身上的。机器学习模型是没有这方面的经验的，也因此无法以人类的方法“理解”它们得到的输入。通过标注大量的训练样例并代入训练模型，我们使得它们能够学习到几何变换，从而将这一集合中的例子映射到人类的概念之中，不过这个映射只是我们的意识中最简单最原始的草图，是从我们经验中的体现 —— 就如镜子中的黯淡影像一般。
 
-![Current machine learning models: like a dim image in a mirror.](/img/limitations-of-dl/ml_model.png)
+![当前的学习模型：就如镜中暗淡的影子](https://blog.keras.io/img/limitations-of-dl/ml_model.png)
 
-As a machine learning practitioner, always be mindful of this, and never fall into the trap of believing that neural networks understand the task they perform—they don't, at least not in a way that would make sense to us. They were trained on a different, far narrower task than the one we wanted to teach them: that of merely mapping training inputs to training targets, point by point. Show them anything that deviates from their training data, and they will break in the most absurd ways.
+作为一个机器学习的实践者，总是要注意这个，而且永远不要陷入陷阱，相信神经网络懂得它们所处理的任务 —— 它们并不懂，至少不是像我们一样理解。它们所被训练于的任务，范围远远窄于我们所希望真正教给它们的东西：仅仅是将训练的目标与输入映射，点对点。如果给它们展示任何偏离它们的训练数据集的东西，它们就会以极为荒谬的方式“坏掉”。
 
-## Local generalization versus extreme generalization
+## 局部泛化与极端泛化
 
-There just seems to be fundamental differences between the straightforward geometric morphing from input to output that deep learning models do, and the way that humans think and learn. It isn't just the fact that humans learn by themselves from embodied experience instead of being presented with explicit training examples. Aside from the different learning processes, there is a fundamental difference in the nature of the underlying representations.
+看起来，深度学习模型的将输入通过几何变换得到输出的过程与人类的思考学习有着根本上的区别。不仅仅是人们通过自身的经验而不是清晰的训练样例来学习。除了不同的学习过程，两者根本性差异还在于底层表示的本质不同。
 
-Humans are capable of far more than mapping immediate stimuli to immediate responses, like a deep net, or maybe an insect, would do. They maintain complex, abstract models of their current situation, of themselves, of other people, and can use these models to anticipate different possible futures and perform long-term planning. They are capable of merging together known concepts to represent something they have never experienced before—like picturing a horse wearing jeans, for instance, or imagining what they would do if they won the lottery. This ability to handle hypotheticals, to expand our mental model space far beyond what we can experience directly, in a word, to perform abstraction and reasoning, is arguably the defining characteristic of human cognition. I call it "extreme generalization": an ability to adapt to novel, never experienced before situations, using very little data or even no new data at all.
+人类不止于能够针对刺激立即产生回应，就像深度神经网络或者一个昆虫会做的那样。它们针对着自己目前的状态，它们自己，其他的人，维护着复杂而抽象的模型，并且能够运用这些模型来预测可能的未来情况，进而有一个长期规划。它们有能力将所知的概念整合去表述一些它们从未见过的东西 —— 比如画一个穿牛仔裤的马，或者想象如果他们赢了彩票他们会干什么。这种能够处理假象，将我们的思维模型空间扩展至我们能够直接经历的之外的能力，可以说是定义人类认知的特征。我管它叫做“极端泛化”：一种从未经历过某些情况，但能够运用非常少量的数据甚至没有新的数据，来适应新事物的能力。
 
-This stands in sharp contrast with what deep nets do, which I would call "local generalization": the mapping from inputs to outputs performed by deep nets quickly stops making sense if new inputs differ even slightly from what they saw at training time. Consider, for instance, the problem of learning the appropriate launch parameters to get a rocket to land on the moon. If you were to use a deep net for this task, whether training using supervised learning or reinforcement learning, you would need to feed it with thousands or even millions of launch trials, i.e. you would need to expose it to a dense sampling of the input space, in order to learn a reliable mapping from input space to output space. By contrast, humans can use their power of abstraction to come up with physical models—rocket science—and derive an exact solution that will get the rocket on the moon in just one or few trials. Similarly, if you developed a deep net controlling a human body, and wanted it to learn to safely navigate a city without getting hit by cars, the net would have to die many thousands of times in various situations until it could infer that cars and dangerous, and develop appropriate avoidance behaviors. Dropped into a new city, the net would have to relearn most of what it knows. On the other hand, humans are able to learn safe behaviors without having to die even once—again, thanks to their power of abstract modeling of hypothetical situations.
+这与深度神经网络所做的事情完全相反，我叫它“局部泛化”：神经网络将输入输出映射的过程若遇到了偏离之前训练集的内容，即使差别不大，也会出现问题。考虑一下这个例子，学习能够使火箭在月球着陆的参数。如果你使用深度神经网络来解决这个任务，不管使用监督学习还是加强学习，你需要给予模型成千上万次的发射试验数据，也就是说，你需要将它暴露给密集采样的输入空间，来习得一个可靠的输入到输出空间的映射。恰恰相反的是，人类可以用他们抽象的能力建立物理模型——航空科学——并仅仅通过很少的试验得出一个能使火箭安全到达月球的解决方案。相似地，如果你想开发出一个深度网络来控制人的身体，并希望能够学会如何在一个城市中安全地行走而不被车撞倒，神经网络则会需要死亡成千上百次才能识别出车辆和危险，并生成避开的动作。若被放到一个新的城市中，神经网络会需要重新学习大部分之前的东西。另一方面，人类却不需要死亡一次就能够学习到安全的规避动作，这归功于他们能够在假象情况下抽象出模型的能力。
 
-![Local generalization vs. extreme generalization.](/img/limitations-of-dl/local_vs_extreme_generalization.png)
+![局部泛化 vs 极端泛化](https://blog.keras.io/img/limitations-of-dl/local_vs_extreme_generalization.png)
 
-In short, despite our progress on machine perception, we are still very far from human-level AI: our models can only perform local generalization, adapting to new situations that must stay very close from past data, while human cognition is capable of extreme generalization, quickly adapting to radically novel situations, or planning very for long-term future situations.
+简而言之，尽管我们有在机器感知方面的进步，我们仍然离人类层次的 AI 有着非常远的距离：我们的模型目前只能够进行局部泛化，适应于与过去数据非常相近的情况，而人类感知却具有极端泛化的能力，快速适应全新的情形，或者对未来的情况进行长期规划。
 
-## Take-aways
+## 最后几句
 
-Here's what you should remember: the only real success of deep learning so far has been the ability to map space X to space Y using a continuous geometric transform, given large amounts of human-annotated data. Doing this well is a game-changer for essentially every industry, but it is still a very long way from human-level AI.
+你应该记住：目前深度学习成功的地方只在于接受大量的人工注释的数据，通过连续的几何变换，将空间 X 映射到 空间 Y。这对于几乎所有的工业领域都是革命性的变化，但离人类层次的 AI 还有很长一段路要走。
 
-To lift some of these limitations and start competing with human brains, we need to move away from straightforward input-to-output mappings, and on to reasoning and abstraction. A likely appropriate substrate for abstract modeling of various situations and concepts is that of computer programs. We have said before (Note: in [Deep Learning with Python](https://www.manning.com/books/deep-learning-with-python?a_aid=keras&amp;a_bid=76564dff)) that machine learning models could be defined as "learnable programs"; currently we can only learn programs that belong to a very narrow and specific subset of all possible programs. But what if we could learn any program, in a modular and reusable way? Let's see in the next post what the road ahead may look like.
+要想移除一些限制并与人类的大脑相比，我们需要将直接的输入输出映射去掉，改而关注于推理和抽象。一个可能的对不同情况和概念进行抽象建模的基质是计算机程序。如我们之前所说（在[Deep Learning with Python](https://www.manning.com/books/deep-learning-with-python?a_aid=keras&amp;a_bid=76564dff)中），机器学习模型可以被定义为“有学习能力的程序”；如今我们只有很小的一部分程序具有学习能力（对于所有的计算机程序来说）。但如果我们以模块化和可重复化来学习任意的程序呢？让我们在下一篇文章中看看未来的路可能是什么样子。
 
-You can read the second part here: [The future of deep learning](https://blog.keras.io/the-future-of-deep-learning.html).
+我的第二篇在此：[The future of deep learning（深度学习的未来）](https://github.com/xitu/gold-miner/blob/master/TODO/the-future-of-deep-learning.md)
 
-*[@fchollet](https://twitter.com/fchollet), May 2017*
+**作者：[@fchollet](https://twitter.com/fchollet), May 2017**
 
 
 ---
