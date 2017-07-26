@@ -184,13 +184,13 @@ public interface MyView {
 
 ## 如何开始
 
-While this all might seem a bit overwhelming, Android Studio actually offers amazing quick fixes once you enable Java 8 features.
+虽然这看起来有些吓人，但是一旦你打开了 Java 8 特性，Android Studio 就提供了非常好用的快速修复功能。
 
 只要使用 `alt/option` + `enter` 就可以把功能接口转化为一个 lambda，或把 lambda 转为方法引用。
 
-![Java 8 语言的 quick fixes](https://jeroenmols.com/img/blog/java8language/androidstudioconversion.gif)
+![Java 8 语言的快速修复功能](https://jeroenmols.com/img/blog/java8language/androidstudioconversion.gif)
 
-这是一种熟悉新特性的好办法，它使你可以按照自己习惯的方式写代码。在使用 Android Studio 的 quick fix 功能足够多次之后，你将学会 lambda 和方法引用有哪些使用场景，并开始自己写它们。
+这是一种熟悉新特性的好办法，它使你可以按照自己习惯的方式写代码。在使用 Android Studio 的快速修复功能足够多次之后，你将学会 lambda 和方法引用有哪些使用场景，并开始自己写它们。
 
 ## 支持的特性
 
