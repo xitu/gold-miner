@@ -4,13 +4,11 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/user-breakpoints-in-xcode.md](https://github.com/xitu/gold-miner/blob/master/TODO/user-breakpoints-in-xcode.md)
 > * 译者：[oOatuo](https://github.com/)
-> * 校对者：
+> * 校对者：[fengzhihao123](https://github.com/fengzhihao123), [LeviDing](https://github.com/leviding)
 
 # Xcode 中的用户断点
 
-（这里的 User Breakpoints 是译成 "个人断点" 好呢，还是 "用户断点" ？）
-
-大家应该都用过 Xcode 中的断点，但你们熟悉用户断点么？下面我将向你们如何使用以及何时使用这种断点。如果你已经对个人断点有所了解了，可以查看下文章后面的清单，看看我们是如何在 PSPDFKit 中使用它们的，也许有一些新的东西可以添加到你的清单中！
+大家应该都用过 Xcode 中的断点，但你们熟悉用户断点么？下面我将向你们介绍如何使用以及何时使用这种断点。如果你已经对用户断点有所了解了，可以查看下文章后面的清单，看看我们是如何在 PSPDFKit 中使用它们的，也许有一些新的东西可以添加到你的清单中！
 
 ## 常规断点
 
@@ -18,13 +16,13 @@
 
 ![A regular breakpoint](https://pspdfkit.com/images/blog/2017/user-breakpoints-in-xcode/regular-breakpoint@2x-a201ce1c.png)
 
-这些断点保存在特定工作区或工程的个人设置中，仅自己可见。即使你将个人设置提交到项目中，在同一个项目中的同事的 Xcode 中也不会看到你的断点。
+这些断点保存在特定工作区或工程的个人设置中，仅自己可见。即使你将个人设置提交到项目中，在同一个项目中的同事也不会在他们的 Xcode 中看到你的断点。
 
 ## 分享断点
 
 通过右击断点，选择　'Share Breakpoint'，这个断点会对项目中的所有人可见。如果项目中有你希望每次都能停止执行的代码路径，例如自定义的异常处理或其他任何不应在正常情况下执行的特定的项目代码，这是很有用的。结合断点选项和可自动执行的断点，这对于提高调试体验也很有帮助。
 
-另一个你可以用它来做的稍微不那么有用的事：在应用程序的执行代码路径中添加一个共享的断点，比如完成一个网络请求，让它自动地继续运行，并让它在每次被击中时播放一个声音 - 是的，你可以让你的断点发出声音。提交断点，然后看着试图弄清楚声音是从哪里来而抓狂的同事！😁 不过，在远程工作的环境下，恶搞你的同事是很难的，这就是我为什么没有在 PSPDFKit 这么做。。。但可以在[我们的线下团建](https://pspdfkit.com/blog/2016/the-importance-of-retreats-for-a-remote-company/)时拿来娱乐一下。
+另一个你可以用它来做的稍微不那么有用的事：在应用程序的执行代码路径中添加一个共享的断点，比如完成一个网络请求，让它自动地连续运行，并让它在每次被击中时播放一个声音 - 是的，你可以让你的断点发出声音。提交断点，然后看着试图弄清楚声音是从哪里来而抓狂的同事！😁 不过，在远程工作的环境下，恶搞你的同事是很难的，这就是我为什么没有在 PSPDFKit 这么做。。。但可以在[我们的线下团建](https://pspdfkit.com/blog/2016/the-importance-of-retreats-for-a-remote-company/)时拿来娱乐一下。
 
 ## 用户断点
 
@@ -40,21 +38,21 @@
 
 - **Symbol:**`UIViewAlertForUnsatisfiableConstraints`
 
-    当出现自动布局约束的问题时自动停止。这会让我们更加关注这个问题，否则就会在 Xcode 中打印一个日志消息。它有助于及早地发现布局问题。
+    当出现自动布局约束的问题时自动停止。这会比仅仅在Xcode的控制台输出一条打印信息更让你注意这个问题。它有助于我们及早地发现布局问题。
 
 - **Symbol:**`NSKVODeallocateBreak`
 
-    在 KVO 抱怨观察者仍在原地的地方中断
+    在 KVO 抱怨观察者仍在原地的地方中断。   
 
 - **Symbol:**`UIApplicationMain`
 *Debugger command:*`e @import UIKit`
 
-    将 UIKit 导入到调试器中，不再需要在很多地方转换类型。你写过很多类似 `p (CGRect)[self bounds]` 的语句么？这消除了将其转换为 `CGRect` 的需要。
+    将 UIKit 导入到调试器中，不再需要在很多地方转换类型。你写过很多类似 `p (CGRect)[self bounds]` 的语句么？这消除了将其转换为 CGRect 的需求。
 
 - **Symbol:**`-[UIViewController initWithNibName:bundle:]`
     *Debugger command:*`po $arg1`
 
-    在视图控制器初试期间打印其类型。当在大型项目中工作或者你是个新来的，你会不知道所有试图控制器的名字。如果你想知道你要修改的视图控制器的名字的话，你只需激活这个断点，然后在应用中导航到这个视图控制器，你会在调试器中看到所打印的名字。
+     在视图控制器初始化期间打印其类型。当在大型项目中工作或者你是个新来的，你会不知道所有试图控制器的名字。如果你想知道你要修改的视图控制器的名字的话，你只需激活这个断点，然后在应用中导航到这个视图控制器，你会在调试器中看到所打印的名字。
 
 - **Symbol:**`-[UIApplication sendAction:toTarget:fromSender:forEvent:]`
 
@@ -71,7 +69,7 @@
 
 - **Swift Error Breakpoint**
 
-    但 Swift 错误出现时中断。
+    在 Swift 错误出现时中断。
 
 - **Symbol:**`_XCTFailureHandler`
 
