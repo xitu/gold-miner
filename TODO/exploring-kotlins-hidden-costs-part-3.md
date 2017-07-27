@@ -118,7 +118,7 @@ private var maxDelay: Long by SharedPreferencesDelegate<Long>()
 
 针对常见情形，Kotlin 提供了一些标准委托，如 [`Delegates.notNull()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.properties/-delegates/not-null.html)、 [`Delegates.observable()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.properties/-delegates/observable.html) 和 [*`lazy()`*](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/lazy.html)。
 
-`**lazy()**` 是一个在第一次读取时通过给定的 lambda 值来计算属性的初值，并返回只读属性的委托。
+**`lazy()`** 是一个在第一次读取时通过给定的 lambda 值来计算属性的初值，并返回只读属性的委托。
 
 ```
 private val dateFormat: DateFormat by lazy {
@@ -158,7 +158,7 @@ val dateFormat: DateFormat by lazy(LazyThreadSafetyMode.NONE) {
 
 ### 区间
 
-[区间](https://kotlinlang.org/docs/reference/ranges.html) 是 Kotlin 中用来代表一个有限的值集合的特殊表达式。值可以是任何 `Comparable` 类型。 这些表达式的形式都是创建声明了 `[ClosedRange](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.ranges/-closed-range/)` 接口的方法。创建区间的主要方法是 `..` 操作符方法。
+[区间](https://kotlinlang.org/docs/reference/ranges.html) 是 Kotlin 中用来代表一个有限的值集合的特殊表达式。值可以是任何 `Comparable` 类型。 这些表达式的形式都是创建声明了 [`ClosedRange`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.ranges/-closed-range/) 接口的方法。创建区间的主要方法是 `..` 操作符方法。
 
 #### 包含
 区间表达式的主要作用是使用 **`in`** 和 **`!in`** 操作符实现包含和不包含。
@@ -265,7 +265,7 @@ if(i <= var3) {
 }
 ```
 
-如果要**反向迭代**，可以使用 `[downTo()](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.ranges/down-to.html)` 中缀方法来代替 `..`：
+如果要**反向迭代**，可以使用 [`downTo()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.ranges/down-to.html) 中缀方法来代替 `..`：
 
 ```
 for (i in 10 downTo 1) {
@@ -291,7 +291,7 @@ if(i >= var3) {
 
 然而，**其他迭代器参数并没有如此好的优化**。
 
-反向迭代还有一种结果相同的方式，使用 `[reversed()](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.ranges/reversed.html)` 方法结合区间：
+反向迭代还有一种结果相同的方式，使用 [`reversed()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.ranges/reversed.html) 方法结合区间：
 
 ```
 for (i in (1..10).reversed()) {
@@ -328,7 +328,7 @@ while(true) {
 
 事实上，**任何结合不止一个方法来创建递进**都会生成类似的**至少创建两个微小递进对象**的代码。
 
-这个规则也适用于使用 `[step()](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.ranges/step.html)` 中缀方法来操作递进的步骤，即使**只有一步**：
+这个规则也适用于使用 [`step()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.ranges/step.html) 中缀方法来操作递进的步骤，即使**只有一步**：
 
 ```
 for (i in 1..10 step 2) {
@@ -338,7 +338,7 @@ for (i in 1..10 step 2) {
 
 一个次要提示，当生成的代码读取 `IntProgression` 的 **`last`** 属性时会通过对边界和步长的小小计算来决定准确的最后值。在上面的代码中，最终值是 9。
 
-最后，`[until()](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.ranges/until.html)` 中缀函数对于迭代也很有用，该函数（执行结果）不包含最大值。
+最后，[`until()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.ranges/until.html) 中缀函数对于迭代也很有用，该函数（执行结果）不包含最大值。
 
 ```
 for (i in 0 until size) {
