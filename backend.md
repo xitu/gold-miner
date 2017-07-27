@@ -1,3 +1,4 @@
+* [GraphQL vs. REST](https://juejin.im/post/59793f625188253ded721c70?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([wilsonandusa](https://github.com/wilsonandusa) 翻译)
 * [理解 Python 中的异步编程](https://juejin.im/entry/59704efc6fb9a06bbd6fabeb/detail?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([steinliber](https://github.com/steinliber) 翻译)
 * [WAR 还是 JAR，你应该用哪种格式打包？](https://juejin.im/post/5966fb99f265da6c2211ac4d?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([windmxf](https://github.com/windmxf) 翻译)
 * [Node.js 子进程：你应该知道的一切](https://juejin.im/entry/595dc35b51882568d00a97ab?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([FrankXiong](https://github.com/FrankXiong) 翻译)
