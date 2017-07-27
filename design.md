@@ -1,3 +1,4 @@
+* [原子设计：如何设计组件系统](https://juejin.im/post/59780066f265da6c3433872f?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([H2O-2](https://github.com/H2O-2) 翻译)
 * [为企业应用设计更好的表格](https://juejin.im/post/5976ecb65188250c855facc2?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([laiyun90](https://github.com/laiyun90) 翻译)
 * [UX 基于背后的合理化，而非设计](https://juejin.im/post/5971ce0d51882574623352ca?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([horizon13th](https://github.com/horizon13th) 翻译)
 * [以排印为本，从内容出发](https://juejin.im/entry/5965c5b26fb9a06ba025074c/detail?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([cdpath](https://github.com/cdpath) 翻译)
