@@ -12,7 +12,7 @@
 
 ## 委托属性（Delegated propertie）和区间（range）
 
-本系列关于 Kotlin 的前两篇文章发表之后，读者们纷至沓来的赞誉让我受宠若惊，其中还包括 Jake Wharton 的留言。很乐意和大家再次开始探索之旅。不要错过 [第一部分](https://medium.com/@BladeCoder/exploring-kotlins-hidden-costs-part-1-fbb9935d9b62) 和 [第二部分](https://medium.com/@BladeCoder/exploring-kotlins-hidden-costs-part-2-324a4a50b70).
+本系列关于 Kotlin 的前两篇文章发表之后，读者们纷至沓来的赞誉让我受宠若惊，其中还包括 Jake Wharton 的留言。很乐意和大家再次开始探索之旅。不要错过 [第一部分](https://github.com/xitu/gold-miner/blob/master/TODO/exploring-kotlins-hidden-costs-part-1.md) 和 [第二部分](https://github.com/xitu/gold-miner/blob/master/TODO/exploring-kotlins-hidden-costs-part-2.md).
 
 本文我们将探索更多关于 Kotlin 编译器的秘密，并提供一些可以使代码更高效的建议。
 
