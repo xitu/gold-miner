@@ -1,3 +1,4 @@
+* [深度学习的未来](https://juejin.im/post/597843506fb9a06ba4747db5?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([changkun](https://github.com/changkun) 翻译)
 * [论深度学习的局限性](https://juejin.im/post/5978352a6fb9a06bad6574a4?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([CACppuccino](https://github.com/CACppuccino) 翻译)
 * [使用 Python+spaCy 进行简易自然语言处理](https://juejin.im/post/5971a4b9f265da6c42353332?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lsvih](https://github.com/lsvih) 翻译)
 * [从金属巨人到深度学习](https://juejin.im/post/596f4cecf265da6c2f0adb04?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([XatMassacrE](https://github.com/XatMassacrE) 翻译)
