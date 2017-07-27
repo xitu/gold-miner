@@ -1,3 +1,4 @@
+* [使用 Python+spaCy 进行简易自然语言处理](https://juejin.im/post/5971a4b9f265da6c42353332?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lsvih](https://github.com/lsvih) 翻译)
 * [从金属巨人到深度学习](https://juejin.im/post/596f4cecf265da6c2f0adb04?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([XatMassacrE](https://github.com/XatMassacrE) 翻译)
 * [在使用过采样或欠采样处理类别不均衡的数据后，如何正确的做交叉验证？](https://juejin.im/entry/5976dde9f265da6c2e0fc2f9/detail?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([edvardHua](https://github.com/edvardHua) 翻译)
 * [如何处理机器学习中的不平衡类别](https://juejin.im/post/596f150551882549980c5f56?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([RichardLeeH](https://github.com/RichardLeeH) 翻译)
