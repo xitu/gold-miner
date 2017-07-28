@@ -1,153 +1,153 @@
 > * 原文地址：[Buttons in Design Systems](https://medium.com/eightshapes-llc/buttons-in-design-systems-eac3acf7e23#.u8m3qun1i)
 * 原文作者：[Nathan Curtis](https://medium.com/@nathanacurtis?source=post_header_lockup)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
-* 校对者：
+* 译者：[Funtrip](https://www.behance.net/Funtrip)
+* 校对者：[yifili09](https://github.com/yifili09)、[skyar2009](https://github.com/skyar2009)
 
-# Buttons in Design Systems #
+# 视觉系统中的按钮 #
 
-## 12 Tips for Setting Up a System That Endures ##
+## 建立一个长远的视觉系统的12点建议 ##
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/2000/1*CzIsMRDmO6EadfN0cb85GA.png">
 
-I love buttons. I can *do* things with buttons. Take a next step. Make a commitment. Get things done. With buttons, interaction springs to life.
+我爱按钮们。我可以用按钮**做**很多事：进行下一步，做出决定，或者完成事务。有了按钮，交互变得焕发生机。
 
-That’s why *Button*s are arguably a design system’s most important component. Devilishly simple, they offer a simple label in a defined region I can press. As such, buttons are where you apply a design language’s base attributes in ways that’ll ripple throughout more complex component later.
+这就是为什么**按钮**们是一个设计系统里最重要的组成部分。非常简单，它们在指定的区域提供可以点击的简单标签。因此，按钮是你应用一种设计语言的基本特征的重要方式，之后你可以把特征扩展到其他更复杂的部分上。
 
-Here’s **12** lessons I’ve learned when working the **primary button**, **secondary buttons**, and a whole host of **other button types** in an emerging system.
+这篇文章讲的是我在一个新生系统中着手设计主要按钮、次要按钮、以及一大堆其他类型按钮的时候所学习到的 **12** 条经验。
 
-### The Primary Button ###
+### 主要按钮 ###
 
-#### #1. Set a System’s Stylistic Tone ####
+#### #1. 设定一个系统的风格基调 ####
 
-A button is the purest atomic expression of a system’s visual style. It combines the “big three” attributes— *color*, *typography*, and *iconography* — into a non-splittable atomic part. Buttons also provoke discussion of *space*: padding inside (particularly, to a label’s left and right) and margin outside (adjacent to other elements). Ultimately, button can even surface more esoteric attributes like roundedness (via *border-radius*) and lift (via *box-shadow*).
+一个按钮就像是系统视觉风格中最纯粹的原子表达（译者注：原子是化学反应中不可分割的最小微粒）。它结合了三大属性——**颜色**、**字体**以及**图像**——这些成为了一个原子中不可分割的部分。按钮也引发了对**空间**的讨论：内部填充（特别是标签的左、右）和边距（与其他元素相邻）。最后，按钮甚至可以表达更深层次的东西，比如圆角（通过**边缘半径**），比如提升效果（通过**边框阴影**）。
 
-*Takeaway*: Embrace the button as a leading representation of a system’s style. Bonus points if you align a button’s definition with a burgeoning set of [token variables](https://medium.com/salesforce-ux/living-design-system-3ab1f2280ef7)for color, size, space, and other fine details.
+**要点**：你应该赞同按钮是一个系统风格的首要展现。如果你把按钮的定义与颜色、大小、空间或其他细节等[新的变量](https://medium.com/salesforce-ux/living-design-system-3ab1f2280ef7)联系起来，那将会是很好的加分项。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*PyWEYZhKikVzaC8KwAbN-A.png">
 
-Buttons pack in a wide range of attributes for such a simple element.
+按钮这样一个简单的元素包含了范围广泛的属性。
 
-#### #2. Set a Verbal Tone, Too ####
+#### #2. 设定一个语言基调 ####
 
-Fortunately, “Click Here” is in our past. But we still need answers: How long can button labels be? Are labels written in the imperative (such as “Save” or “Close”)? Should I pair a verb (“Save”) with an object type (“Document”)? Are there preferred labels for common actions? Do we inject a brand voice…or not?
+幸运的是，「点击这里」的讲法已经是过去式了。但我们仍然需要回答：一个按钮上的标签可以有多长？标签是用祈使句写的吗（比如「保存」或「关闭」）？我应该用一个对象（「文档」）来匹配一个动词（「保存」）吗？这些常用的标签有一些默认的用处么？ 我们是否需要引入品牌声音？
 
-*Takeaway*: Jumpstart a consistent voice by including label guidance where I find button assets. Sure, a word lists and deep editorial standards can be found in documentation like a Voice and Tone guide. However, buttons are a great place to start bridging guidance together.
+**要点**：我发现按钮的价值是通过标签的引导来推动一个一致性的声音。当然，单词表和深层次的文案标准可以在具体的文档中找到，比如说语言和语调的指南。但无论如何，要把各种指引桥接在一起，按钮是一个绝佳的元素。
 
 ![](https://cdn-images-1.medium.com/max/800/1*hqrRbtUd5v_HPeGqf_Ke3Q.png) 
 
-#### #3. Invert Buttons When Backgrounds Get Complicated ####
+#### #3. 在背景变得复杂时使用反转色 ####
 
-Most buttons work just fine on a white background. But what happens when you place it on a photograph? Or a different, darker background color? Heck, are you even allowed to put it on a light neutral color? Can you use a button anywhere? Can you *change* the color of a primary button?
+大部分按钮在白色的背景上都可以正常工作。但是当你把按钮放到一张照片上又会发生什么呢？或者深色的背景上呢？诶，它甚至可能被放到一个浅色的中性颜色上？你的按钮可以被用到任何地方吗？你可以**更改**主要按钮的颜色吗？
 
-*Takeaway*: Demonstrate viable backgrounds for your primary button, and codify an inverted alternative — white? a different color? semitransparent? — to apply when backgrounds darken. When documenting, show light and dark alternatives on a range of common backgrounds to drive the point home.
+**要点**：请在一个清晰可见的背景上展示你的按钮，并且设定一个反转色备用——白色？一个完全不同的颜色？或是半透明？——在背景灰暗时使用。当在编排文档时，在一系列有普遍性的背景上展示备用的亮色或暗色来把标准搞清楚。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*FeIWlJu-OZ8qUEsM-FsMUg.png">
 
-Show buttons a on variety of backgrounds, good and bad
+在不同的背景上展示按钮，看看它们看起来是不是都好
 
-#### #4. Limit One Per Page, Unless Repeating a Primary Action ####
+#### #4. 限制每页只有一个按钮，除非要重复主要操作 ####
 
-Buttons call for action. We often use a primary button to draw attention to a page’s highest priority action. Until, we can’t prioritize and there’s a bunch of primary buttons littered throughout a page ([hopefully they’re consistent](http://bradfrost.com/blog/post/conducting-an-interface-inventory/), right?).
+按钮可以引起动作。我们经常用一个主要的按钮，把用户的注意力吸引到页面里高优先级的操作上。但是，如果有一大堆按钮散落在页面上，我们就无法区分出它们的优先级的先后了。（[除非它们都是一样的](http://bradfrost.com/blog/post/conducting-an-interface-inventory/)，对吧？）
 
-In some cases, using a primary button is appropriate when you must choose from a parallel set of objects (like a stack of media objects in search results) or a settings page layout presents categories of options in equivalent modular regions.
+在某些情况下，使用一个主按钮是恰当的，比如当你必须从一大堆平行的对象中做选择，或是一个设置页面有相似的模块化的区域，布满了指向不同类别的选项。
 
-*Takeaway*: Define when to use — and when to avoid — more than one primary button on a page.
+**要点**：明确什么时候使用，和什么时候应该避免——在一个页面上使用超过一个的主要按钮。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*o2H9eO-00poReXitGm-hAQ.png">
 
 
-#### #5. Design and Build a Button’s Arc of Interaction ####
+#### #5. 设计并建立一个按钮的交互特征 ####
 
-Buttons are *the* primitive interaction, and with interaction comes change. It’s not good enough to present a developer “Here’s the button design!” by just showing how it looks when a page loads. Instead, it’s up to the designer to show how a button appears across many states: default, hover, focused (“haloed”), pressed / active, and even a spinning waiting or animated progression.
+按钮是最原始的交互，并随着交互变化。只展示按钮在页面加载时的样子，并告诉开发者「这就是按钮的设计！」显然是不够好的。相反，应该由设计师来展示一个按钮在许多不同的状态下应该出现的样式：默认、悬停、焦点状态（「一圈光环」），按下/活动中，甚至一个旋转的加载动画。
 
-*Takeaway*: Pair a live demo (just embed the button on the page!) with a gallery that shows the states without requiring readers to interact. Documentation isn’t a treasure hunt. Bonus points for including a video demo like Material Design does.
+**要点**：在资料中附上一个动画展示（把按钮放到页面里！），它可以展示按钮的各种状态而不需要阅读者亲自来互动。阅读文档不是一个寻宝游戏。像 Material Design 的指南那样做一个演示视频将会很加分。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*t9OuRA0hVzMw7uItFsqEAQ.png">
 
 
-#### #6. Be Resilient to Mixed Elements ####
+#### #6. 让多元素更具有灵动性 ####
 
-Pairing a button label with an icon reinforces meaning and quickens recognition.
+将按钮上的文字与 icon 配对可以让用户更快地识别和更易理解。
 
-Hold on! I thought buttons were a label in predictably clickable region. When you add an element, even a simple icon, a button layout shouldn’t break down. Coping with less predictable elements reveals pesky issues of spacing and alignment inside. You’ll wanna smooth these out, particularly if buttons can contain labels, icons, *and* other stuff.
+但是等等！我认为按钮应该处于可被预见的可点击区域内。当你添加了一个新元素，即使是一个简单的 icon，按钮的布局都不应该被破坏。要应对不可预见的元素揭示了间距和内部对齐等讨厌的问题。你会想要让他们的布局更加平缓，特别是按钮包括了标签、icon **和**其他部件的时候。
 
-*Takeaway*: Craft buttons to be resilient to including additional elements, whether in code or design tools. Users will want to add things — icons, labels, whatevers — and not worry about consequences of space and alignment. Set them up for success by doing that work for them.
+**要点**：让你的按钮对代码或设计工具可响应。用户们将要添加东西的——icon、标签、或者其他任何东西——但别担心间距和排列会被破坏。做好了前面的工作你就可以让它们正确地显示了。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*5dXoAkQukuKhKVL87pTJlw.png">
 
-### The Secondary Buttons ###
+### 次要按钮 ###
 
-#### #7. Ensure Secondary ≠ Disabled ####
+#### #7. 次要 ≠ 不可用 ####
 
-No one yearns for gray buttons.
+没有谁希望看到灰色的按钮
 
-But you may find yourself needing to pair a secondary option with that inviting, saturated primary. You avoid a second saturated color, because that results in two saturated buttons next to one another, like green for *Save* and blue for *Submit*. Not even you, let alone your users, know which is more important.
+但你可能发现你需要为那个吸引人的、高饱和度的主要按钮匹配一个次要按钮。你避免了使用第二个高饱和度的颜色，因为这会导致两个高饱和度的按钮彼此相邻，就像绿色表示**保存**，蓝色表示**提交**。不说用户，就连你自己也不知道哪个按钮更重要。
 
-So, you opt for a neutral. And the neutral is nearly or completed gray. And it looks disabled. Worse, when the primary is disabled, it’s now also gray. Next to your gray secondary. Sigh.
+所以，你可能会选择使用中性颜色。中性颜色看起来接近或完全是灰色。并且它看上去像是表达不可用。更糟糕的是，当主要按钮不可用的时候它也会变成灰色。并且就在你灰色的次要按钮旁边。哎。:-(
 
-*Takeaway*: Solve for the secondary button colors and disabled states in concert. Make sure all your options work well together and none are inaccessible.
+**要点**：同时处理次级按钮的颜色和不可用按钮的颜色。确保所有选项在一起时都可以正常工作并且都容易可见。
 
 ![](https://cdn-images-1.medium.com/max/800/1*E101zYa4_NxchGVfpKgypg.png) 
 
-Which one is disabled?
+哪一个才是不可用的？
 
-#### #8. Beware of Ghosts in the Machine ####
+#### #8. 当心机器里的「幽灵」 ####
 
-Ghost buttons rely on only a border and label of the same color while lacking a background fill. Behind that label rests an uncertain future. Sometimes the label is on white (yes, that’s easy!). However, other times a flat color or visually rich photo make the label difficult to read.
+「幽灵按钮」通常只依赖于相同颜色的边框和标签，而缺乏填充背景色。这样的标签背后的区域是不确定的。有时候标签在白色上（是的，那很容易被看清！）。然而，在其他时候一个纯色或者细节丰富的照片都可以让标签变得很难阅读。
 
-Ghosts allure designers coveting a sophistication absent from chunky, higher contrast primary button. Yet, these are called *Ghosts* for a reason. They disappear. I’ve observed ghost buttons donning a cloak of invisibility in usability test after usability test. Participants don’t see them or can’t read them. This weakens or destroys a button’s value in affording action we intend.
+「幽灵」让设计师在设计高对比度的主要按钮时想要偷懒。然而，把他们称为「**幽灵**」是有原因的。因为很多时候它们会无法被看见。我观察了「幽灵按钮」被难以查看的图片覆盖的情况下的可见性测试。参与者看不清它们或很难阅读它们。这将会削弱或破坏我们原本打算让这个按钮实现的交互的价值。
 
-*Takeaway*: Inject Ghost buttons into a system at your own peril. Studies I’ve observed suggest that ghosts perform poorer than filled counterparts. Plus, you might just avoid hours spent listening to polarizing designer debates on the subject.
+**要点**：在一个系统中使用「幽灵按钮」是将你自己的设计置于为危险中。我观察到的情况表明「幽灵按钮」的表现比填充色还要差。此外，你可能只是想避免花费几个小时来倾听关于这个问题的极端设计师辩论。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*bKSO70RdMp2OUoVrrLXs2Q.png">
 
-Ghost buttons — even in simple situations — perform questionably. In unpredictable backgrounds? Forget about it.
+幽灵按钮——即使在简单的情况下——表现也是有问题的。你想要在不可预测的背景上使用它？忘掉这回事吧。
 
-### Additional Button Types ###
+### 其他按钮类型 ###
 
-Before too long, system users will be asking you for *that* other button. A button big or small. A button with a menu or a toolbar of toggles aplenty. It’s up to your system to be complete-enough.
+很快，系统的用户们就需要你提供**那些**其他的按钮。大一点或者小一点的按钮。带有菜单或工具栏可切换的按钮。这取决于你的系统是否足够完整。
 
-#### #9. Vary Size, Both Large (or Mega/Huge/Puffy) & Small (or Micro/Tiny) ####
+#### #9. 可变尺寸，大（或者超大/巨大/扩展）&小（或者微小/极小） ####
 
-Interactions can be found in tight spots like a *Card* object or sidebar module. Other times, you need a massive button to sit on a full-bleed photo dominating the viewport.
+交互可以在重要的地方比如**卡片**元素或侧边栏模块中找到。有时，你需要在一个全屏的图片上放上一个巨大的按钮来引起用户关注。
 
-*Takeaway*: Provide tooling to tune button size down and up as needed, as simple as another CSS class or design software style. Also, consider more memorable names — like “Puffy” or “Micro” — rather than a bland “Large” or “Small.”
+**要点**：在有必要的时候调整按钮的尺寸大小，尽可能像其他的 CSS 类或者设计软件的风格一样简洁。此外，考虑一个更难忘的名字——比如「扩展」或「微小」——而不是一个平淡的「大」或「小」
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*xxExyXQ3M1TXwwK__d4fMw.png">
 
-#### #10. Distinguish Buttons from Links ####
+#### #10. 区分按钮与链接 ####
 
-In the era of flat designs, systems like [Material Design use a “Flat” button](https://www.google.com/design/spec/components/buttons.html#buttons-flat-buttons)  variant for use as in toolbars, dialog action groups, and inline near text. In a default state, there’s little to no visual difference from a link. However, a button’s states and behaviors bring a whole host of distinct considerations from your simple anchor tag.
+在扁平化设计的时代，像 [Material Design 这样的视觉系统](https://www.google.com/design/spec/components/buttons.html#buttons-flat-buttons)使用了多种「扁平」按钮，来用在工具栏、对话框操作和行内文本渣。在默认状态下，按钮和链接几乎没有视觉差异。然而，一个按钮的状态和行为，与简单的锚标签相比，会带来完全不同的效果。
 
-*Takeaway*: If your system offers a flat variant, be sure it’s conventional use — in both design and code — is distinguished from links. Additionally, cover all the interactive complexity such as *focus* & *press* states, *spacing*, and *alignment*.
+**要点**：如果你的系统使用了扁平化的版本，应该确保它的常规使用——在设计和代码中——都有别于链接。此外，这条准则应该涵盖所有复杂交互。例如**焦点**和**被按下**的状态，**间距**和**对齐方式**。
 
 ![](https://cdn-images-1.medium.com/max/800/1*0MCgCs3CpqhuQ9S_pQIalA.png) 
 
-#### #11. Enrich Variety with Menus & Zones ####
+#### #11. 使用菜单和区块丰富按钮的多样性 ####
 
-Richer buttons can trigger an associated menu panel with options to choose. Many systems offer multiple choices as a UI tightens up, such as *menu* (or *dropdown*) and *split* (or *segmented*) button.
+可变的按钮可以触发相关的菜单选项来进行选择。许多系统在 UI 位置紧张时提供了复合式的选项，就像**菜单**（或**下拉菜单**）和**分割**（或**分段式**）按钮。
 
-A menu button either indicates a current selection (such as Arial as font family) or opens to a menu of independent options (such as Share and Print). Add a arrow icon on the right, and you’ve got an extra segmented zone to drop a menu from the right while the left label fires a separate, primary action.
+一个菜单按钮可以指示当前的选项（例如已经选择了 Arial 作为字体）或者打开一个独立选项（例如分享或打印）。在右侧添加一个小箭头的图标，你还可以得到一个额外的独立区域来布局一个菜单，同时左侧的区域可以触发一个独立的主要操作。
 
-*Takeaway*: Enrich your apps with options for button menuing, but cautiously. Such buttons and their zonal segmentation (left for dominant action, right for menuing) support many scenarios, but with a higher cost of code and guidance complexity. For simpler sites, don’t distract build priorities with these less-used alternatives.
+**要点**：你可以用菜单式的按钮来丰富你的 App 的选项，但需要谨慎。这样的按钮和它们的区域分割（左侧主要操作，右侧菜单）可以支持许多种情况，但这也带来了更高的开发成本和学习成本。对设计更简洁的网站来说，不要用这些不常用的替代方案来破坏了原有的架构。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*QvaEyZSTLHnBMqx4E89n9g.png">
 
 
-#### #12. From Toggles to Toolbars, Make Buttons Play Nice Together ####
+#### #12. 从开关到工具栏，让按钮们工作地更和谐 ####
 
-Buttons can come in groups. A *button group* pairs a primary with one or more secondary options. A *toggle button* many turn on and off (such as bold) or reveal a choice from a set of options (such as text alignment’s options for left, right, center, and justified). At it’s most expansive, a *toolbar* arrange many types, all together: primary, secondaries, toggles, menus, the works.
+按钮可以成组使用。一个**按钮组**常常搭配一个主要选项和一个或多个次要选项。一个**开关按钮**常常用来表示开关（比如粗体）或者显示一个设置菜单的选项（就像文本对齐选项的左对齐、右对齐、居中或两端对齐）。在它们最广泛的用法中，一个工具栏可以把许多不同类型的按钮搭配在一起：主要的、次要的、开关、菜单、部件。
 
-*Takeaway*: When expanding button variety, explore and stress-test button sets in compact spaces and with varied combinations. System designers aren’t fortune tellers, able to predict the future. But exploring a reasonably diverse scenarios can help you avoid an abomination or two down the road.
+**要点**：当你在拓展按钮的种类时，你应该试着让按钮们在一个紧张的空间内做一个压力测试，并且尝试多种不同的组合。视觉系统的设计师们不是算命先生，没有办法预测未来。但是探索一个不同情形下的合理状态，可以帮助你避免厌恶情绪或一条道走到黑。
 
 
-### For Buttons, Use <button> ###
+### 对于按钮，就使用 <button> ###
 
-There’s a treasure trove of good learning about coding buttons correctly. The CSS Tricks article [When to Use the Button Element](https://css-tricks.com/use-button-element/) (and it’s robust and lively discussion) is a great place to start.
+有一个很好的关于学习按钮代码的宝库。这篇 CSS 技巧的文章[什么时候使用按钮元素](https://css-tricks.com/use-button-element/)（和关于它的活跃的讨论）是一个很好的开始。
 
 ![Markdown](http://p1.bqimg.com/1949/40f4997a20dea3f2.png)
 
-*Takeaway*: Study coding references to understand button conventions and accessibility. From articles like this, you can wind your way through excellent reads like Alex Lande’s [Anchors, Buttons, and Accessibility](http://formidable.com/blog/2014/05/08/anchors-buttons-and-accessibility/) and CSSKarma’s [Meet the Polybutton, An Accessibility Polyfill](http://csskarma.com/blog/polybutton/) 
+ **要点**：学习代码原型来了解常规的按钮和可行性。你可以认真阅读 Alex Lande 的 [Anchors, Buttons, and Accessibility](http://formidable.com/blog/2014/05/08/anchors-buttons-and-accessibility/) 和 CSSKarma 的 [Meet the Polybutton, An Accessibility Polyfill](http://csskarma.com/blog/polybutton/)  ，通过这样的文章，你将可以慢慢得到进步。
 
-*About to embark on a design system, or need to dive deeper to discuss products and players? EightShapes conducts* [*systems planning workshops*](http://eightshapes.com/workshop-planning-parts-products-people.html) and coaches clients on [*design systems*](http://eightshapes.com/design-systems.html) . [*Let’s talk*](https://twitter.com/nathanacurtis)!
+想要开始着手视觉系统的设计，或者需要深入讨论产品和用户？ EightShapes 会进行系统的[专题研讨会](http://eightshapes.com/workshop-planning-parts-products-people.html)并且在[视觉系统设计](http://eightshapes.com/design-systems.html)上指导客户。[让我们聊一聊吧？](https://twitter.com/nathanacurtis)

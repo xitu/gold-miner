@@ -167,8 +167,8 @@ tensorflow_var = tf.Variable(1, name="my_variable")
 
 *   tf.zeros() — 由 0 组成的矩阵
 *   tf.ones() — 由 1 组成的矩阵
-*   tf.random_normal() — 由随机均匀值组成的矩阵
-*   tf.random_uniform() — 由随机正态分布的数字组成的矩阵
+*   tf.random_normal() — 由随机正态分布值组成的矩阵
+*   tf.random_uniform() — 由随机均匀分布的数字组成的矩阵
 *   tf.truncated_normal() — 和 tf.random_normal() 一样，但是所有数字都不超过两个标准差
 
 这些函数接受一个初始化用的 shape 参数，用来定义矩阵的维度。比如：

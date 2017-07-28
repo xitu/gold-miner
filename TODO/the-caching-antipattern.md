@@ -2,95 +2,95 @@
 > * 原文地址：[The Caching Antipattern](https://www.hidefsoftware.co.uk/2016/12/25/the-caching-antipattern/)
 * 原文作者：[ROBERT STIFF](https://www.hidefsoftware.co.uk/about/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
-* 校对者：
+* 译者：[王子建](https://github.com/Romeo0906)
+* 校对者：[tanglie](https://github.com/tanglie1993)、[瞿祥轩](https://github.com/fghpdf)
 
-# The Caching Antipattern #
+## 为何我抵制使用缓存？ ##
 
-TL;DR - Caching done badly has bad implications. Try your hardest not to cache data; but if you really do have to, make sure you do it right.
+TL;DR - 错误地缓存数据其实是一件很糟糕的事情。尽你所能不要缓存数据，如果不得已而为之，一定要保证你正确地缓存数据。
 
 ---
 
-> There are only two hard things in Computer Science: cache invalidation and naming things.
+> 计算机科学中有两件难事：缓存失效和命名。
 > 
-> – Phil Karlton
+> - phil Karlton
 
-## Caching? ##
+## 缓存？ ##
 
-To make sure we’re on the same page, when I say *caching*, I am talking about the practice of speeding up your own application by masking slow dependencies by remembering previous responses and using them instead of making another slow call to the dependency.
+为了确保不产生讨论对象的误解，每次我提到的**缓存**都是指一种能够加速应用的实践，存储前次的响应数据并用此来掩饰缓慢的依赖处理，而不用重新调用依赖内容。
 
-As mentioned breifly by Phil Karlton in his well known sound byte, caching is a tricky problem. This is compounded by a number of common mistakes which I have seen over the years which have resulted in unnecessary confusion delay.
+如著名的 Phil Karlton 所言，缓存是一个棘手的问题。近年来，我经常见到因为缓存产生的错误导致了不必要的混乱和延迟。
 
-## Common Mistakes ##
+## 常见错误 ##
 
-Here are some of the mistakes I have seen and what we should to differently.
+以下是一些常见错误，我们应该避之而行。
 
-### Cache on startup ###
+### 启动时缓存 ###
 
-When you know for a fact that your dependencies are so slow they are unusable so you don’t even try at run time. Pre-populating a cache as your application starts up rather than querying your dependent service is just admitting that your dependency is not fit for purpose. If it’s a 3rd party service then maybe there is nothing you can do about that, but all too often this technique is used to avoid having to make your services actually fit for purpose.
+如果已经知晓你的依赖慢到不能正常使用，甚至你都不会尝试在运行中调用它，因此你在启动应用的时候就预先设置缓存来替代依赖服务查询。这恰恰证明了你选用了不合适的依赖服务，如果该依赖服务来自第三方，你可能只有干瞪眼却无可奈何。启动缓存的使用通常是为了避免依赖服务的改进工作。
 
-The problem with caching like this is that it extends application startup times, making scaling and failure recovery or even non-viable.
+这种缓存可能对应用造成的影响有：延长启动时间、造成卡顿、带来崩溃恢复的困难或者干脆失效。
 
-And even if you are okay with having a service that is slow to start or restart (which you shouldn’t be) it results in a cache which bares no relation to the nature of the data or your service’s usage patterns. A simple cache expiry policy would be meaningless here, as this pattern explicitly exists to avoid ever hitting your dependencies again.
+就算你不在意服务的（重）启动缓慢（你不该这样想），这种做法仍然是错误的，因为启动缓存无关应用数据也无关服务使用模式。鉴于使用启动缓存的目的是为了不调用依赖关系，因此我们不能对它设置过期策略。
 
-### Caching too early ###
+### 过早地缓存 ###
 
-I don’t mean too early in the request lifecycle, I mean too early in the development cycle. Many times I have seen developers write code, decide that it is too slow, and stick cache in front of it.
+这里所说的“早”是指在开发周期中的“早”，而不是在一次请求周期中的“早”。我曾见过，很多的开发者在写代码时，就断定要在某个“很慢”的方法前设置缓存。
 
-From that point on, the fact that their service is slow is hidden. There is no reason to optimise or improve the solution as the cache will ensure that the second request is much quicker; so why worry, right?
+这样做的话，就掩盖了服务运行慢的事实。既然服务运行很快，那也就没理由继续优化和改进方案了。既然缓存可以保证后续请求会快很多，那还有什么好担心的呢，对吧？
 
-### Integrated Cache ###
+### 全部缓存 ###
 
-What’s the S in SOLID? Single Responsibility. If your caching capability is integrated directly in to your service layer and you can’t run without it you’re definitely in breach of this principle. It’s not my my place extoll the virtues of this principle here.
+“SOLID”中的“S”扮演着什么样的角色？独立的职责（缓存也是如此）。如果你将缓存直接集成到服务层，那服务将不能离开缓存独立运行。这样你绝对是违反了模块独立的原则。事实如此，而不是我故意在这里宣扬这个原则。
 
-### Caching everything ###
+### 缓存所有内容 ###
 
-Blindly applying caching to every external call to ensure responsiveness without a thought for he implications. Even worse, this approach can result in developers and operators not even knowing that caching is occurring and making assumptions about the reliability of the underlying services that are simply not true.
+盲目地在每一个额外的调用中使用缓存，并以此确保再次响应时不用考虑其他因素。更糟的是，这种方式会在开发和运维人员并不知情的情况下产生缓存，并造成底层服务很可靠的假象，但其实那并不是真的。
 
-### Recaching ###
+### 重复缓存 ###
 
-Caching everything, or even just caching a lot, can result in caches that cache caches which cache caches.
+缓存所有内容或者缓存内容过多，都可能导致你缓存了缓存中的数据。
 
-On one end of the spectrum, this might result all internal caches expiring shortly before the very front cache, resulting in a huge waste of time and resources to operate layers and layers of caching which are never used.
+一方面，这可能会导致所有内部缓存在最外层的缓存之前过期，这不仅极大地浪费了时间也浪费了操作层和缓存层未被使用的资源。
 
-At the other then, it can result effectively summing the cache expiry time of all caches involved, so 10 layers of 30 minutes caches can result in a system serving data which is 5 hours old. How’s *that* for counterintuitive?
+另一方面，这可能将所有的缓存过期时间累加。比如，三十分钟有效期的缓存数据被缓存十次就能在系统中保持五个小时之久。这是多么不可思议呢？
 
-### Unflushable Cache ###
+### 无法删除的缓存 ###
 
-Occasionally cache implementations may back on to data stores like Redis which has management tooling which can be used to flush the cache on demand.
+偶尔会有类似于 Redis 这种存储方式的缓存实现方式，并且可以使用管理工具来按需删除缓存。
 
-Other implementations, such as hand cranks in memory caches or even caches provided by mainstream frameworks will not expose any cache management tools. This leaves ops with the only option, to restart the service to flush the memory. (Or worse, know enough about the cache implementation to find it’s location on file system and clear it out manually.)
+而在其他的实现方式中，比如内存中的缓存，甚至主流框架中提供的缓存都没有任何的管理工具。这让运维人员只能通过重启服务来清空内存。（更糟糕的情况是弄明白缓存的实现方式，并在找到其在文件系统中的位置，然后手动清除。）
 
-I have seen releases that have taken hours longer than necessary while different members of the team tried to track down cache after cache, flush them with a restart or wait for expiry before moving on to the next layer. All the time with a system taken offline because the system cannot be said to be consist within itself.
+我见过多次这种情况，团队中的不同成员都忙着找到缓存并清除它、重启来清除缓存或者等待缓存过期，之后才能继续下一步工作。他们在这项工作上花费了数个小时，实际上这已经超出了该工作所必须的时间。缓存使得他们所见非所得，就好像系统处于离线状态一样没有响应。
 
-## The implications ##
+## 缓存意味着什么 ##
 
-Caching data has implications which these mistakes can accentuate as well as new issues we didn’t have to think of before.
+缓存意味着以上这些错误都可能被放大，也包括一些我们之前从没考虑过的新问题。
 
-Deploying to a heavily cached system can be extremely time consuming while you wait for caches to expire or have to bust every cache you can find. Even in systems such as some CDNs I have worked with which serve traffic to tens of percent of the Internet and are thought to be the leaders in content delivery, flushing content and configuration caches globally can take up to two hours. This doesn’t need to be the case ([Fastly](https://www.fastly.com/products/instant-purging) can purge their cache in 150ms), and it results in confusion (is the new data being served yet?).
+部署一个过度缓存的系统特别耗费时间，因为部署过程中你不得不等待缓存过期，或者销毁每个你能找到的缓存。即使是那些备受推崇的堪称内容传输的泰山北斗的 CDN 服务系统，也会在使用的时候有百分之十左右的网络阻塞，删除全局的内容和配置缓存也可能会花费近两个小时。但事实上情况本没这么糟（[Fastly](https://www.fastly.com/products/instant-purging) 能够在 150ms 内清除缓存），同时这也会让人感到困惑，服务器上是现在是最新的数据了吗？
 
-The natural response is to come up with a workaround, usually some of of cache busting. Let’s just think about that. A work around for a feature that you just implemented. Think about that, time, effort and cognitive load just to compensate for time, effort and cognitive load you just spent on caching in the first place.
+你的第一反应通常是想办法销毁缓存。试想一下，你刚刚实现了一个功能，为了删除缓存，你需要花费和当初缓存数据时相当的时间、精力和认知负荷。
 
-Debugging a cached system also becomes a challenge as being up to your neck in a tricky debugging session will end up with unrelated things being missed or forgotten about. 3 hours of confusion later you realise that you haven’t actually been testing any of the changes you have been making.
+调试缓存系统也称得上是一种挑战，忙得不可开交的会话调试会让你不识庐山真面目，只缘身在此山中。三个小时的抓耳挠腮之后你才突然意识到，你根本没有测试任何更改的内容（因为缓存的存在，你得到的结果一直是缓存中的数据，译者注）。
 
-## What we should do instead ##
+## 我们该怎样做呢？ ##
 
-### Don’t cache! ###
+### 不使用缓存！ ###
 
-Okay, sometimes caching is your only option. You’re on the web and it’s happening whether you like it or not. But even in this case there are options other than a simply slapping on `Cache-Control: max-age=xxx`.
+好吧，有时除了使用缓存你别无选择。只要你在上网，无论你喜欢与否缓存都存在。但即使这样，除了使用 `Cache-Control: max-age=xxx` 你还有其他选择。
 
-### Know your data ###
+### 熟悉你的数据 ###
 
-You should know when your data was last modified at the very least. Now you can make use of the `If-Modified-Since` header. Return 304-not-modified if the data hasn’t changed. Now you can intelligently utilise the the client’s caching capability without sacrificing visibility and control. Using this header will let you serve new content instantly and also cache indefinitely. The best of both worlds. Taking it one step further, if you’re able to version you data (or just generate a hash of your response), you can make use of [etags](https://en.wikipedia.org/wiki/HTTP_ETag) and still interact with the client and apply appropriate logic without the latency related to data transfer.
+你至少应该知道数据最后一次修改的时间。你可以用 `If-Modified-Since` 头，数据没有改变的时候将返回一个 304-not-modified 响应信息。现在你可以在不牺牲可见性和控制权的情况下巧妙地使用客户端的缓存能力。使用这个头信息能做到立即更新服务内容并不定期缓存数据，这两者双剑合璧，天下无敌。更进一步说，如果你能标记数据版本（或者只是生成一个响应的哈希），你将能利用 [etags](https://en.wikipedia.org/wiki/HTTP_ETag) 功能，并在提供没有数据延迟的正确交互逻辑。
 
-### Optimise for performance, don’t hide bad performance ###
+### 优化性能，而不是掩饰糟糕的部分 ###
 
-Invest in profiler tooling. Find out why your application is slow and fix it. Reduce duplicate execution paths. Sort out bad query execution plans. Utilise indexes properly. If you’re using S3 or blob storage for your data you can always build your own index using Redis or the like. Redis is more than a cache. You can use it intelligently and get many benefits without the problems introduced by caching.
+要舍得下功夫去使用分析工具。找到应用运行的瓶颈所在并解决，减少重复执行路径，筛选出不好的查询方案，正确地使用索引。如果你正在使用 S3 或者 blob 存储数据，你可以用 Redis 或类似工具来建立独立索引。Redis 不光是缓存系统，你如果能物尽其用，就能避免缓存问题并受益良多。
 
-## Finale ##
+## 写在文末 ##
 
-Caching is a useful tool, but can be easily abused without giving any signs of the abuse.
+缓存是很有用的工具，但是若不加以指点很容易被滥用。
 
-Don’t get involved with caching till the last minute; find any other way you can first. Optimise your application before you use the blunt tool of caching.
+首先寻找其他解决方案，不到最后关头不要尝试使用缓存。先优化应用，再考虑使用迟钝的缓存工具。
 
-If you’ve come across any fundamental problems caused by caching and bad discipline there of, let me know and I can add them to the list.
+如果你也遇到了一些由缓存或错误做法引发的基本问题，请与我告知，我会将其添加到本文中。

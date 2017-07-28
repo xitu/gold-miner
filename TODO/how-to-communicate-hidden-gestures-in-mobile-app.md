@@ -1,73 +1,73 @@
 > * 原文地址：[How To Communicate Hidden Gestures in Mobile App](https://uxplanet.org/how-to-communicate-hidden-gestures-in-mobile-app-e55397f4006b#.po5wdv20m)
 * 原文作者：[Nick Babich](https://uxplanet.org/@101?source=post_header_lockup)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
-* 校对者：
+* 译者：[Gocy](https://github.com/Gocy015/)
+* 校对者：[Tina92](https://github.com/Tina92) , [marcmoore](https://github.com/marcmoore)
 
-# How To Communicate Hidden Gestures in Mobile App #
+# 如何让用户发掘移动应用中的“隐藏”手势 #
 
-Gestures, those little movements of finger and thumb that allow user to interact with an app. Touch interfaces provide many opportunities to use natural gestures like tap, swipe and pinch to get things done, but unlike graphical user interface controls, these interactions are often hidden from users, so unless users have prior knowledge that a gesture exists, they won’t try.
+我们将与应用进行交互的手指活动称为手势。可触摸界面为我们使用诸如点击、滑动、捏合等自然手势来控制应用提供了可能。但与图形控制界面相比，这些控制手势往往难以被用户感知，也就是说，如果用户不是事先就知道可以用特定的手势进行操控，他们是不会去刻意尝试（使用手势）的。
 
-How to incorporate hidden gestures? Luckily there are number of visual interaction design techniques for making them known.
+如何帮助用户发掘这些隐藏的手势呢？幸运的是，当下已经有几种可视交互设计技巧供我们选择，来让这些手势浮出水面了。
 
-### Tutorials and Walkthrough During Onboarding ###
+### 启动应用时展示教程和演示 ###
 
-Tutorials and walktrhoughs is quite a popular practice for gesture-driven apps. Incorporating tutorials in your app in many cases means showing some instructions to the user to explain the interface. However, UI tutorial isn’t the most elegant way to explain the core functionality of an app. There are two problems with this approach:
+许多手势驱动的应用偏向于利用教程和演示来指导用户使用。这通常意味着你会展示一些指令指南，来解释应用界面的操作规则。但是，通过界面教程来解释应用的核心功能并不是最优雅的方法。该方法有以下两个缺点：
 
-- If you have to give your app an instruction manual, then you’re not doing a good job of communicating with your users because users cannot be expected to read a manual before using your app.
+- 如果你必须要为你的应用提供配套的指令说明，那就说明你没有为用户提供一个友好的体验，因为你不能期望每个用户都会在使用应用之前阅读说明。
 
-- Another problem with tutorials is that users have to remember all of those new ways of using the app once they get in.
+- 另一个问题则是，用户必须在开始使用应用之前，记住所有他们才刚刚了解到的操控方法。
 
-For example, in Clear app starts with a mandatory 7-page tutorial and users have to patiently read all the information and try to commit it to their memory. That’s bad design because it requires users to work upfront even before they actually try the app.
+打个比方，Clear 应用启动时会强制展示 7 页长的使用指南，而用户必须仔细地阅读所有信息，并尽量的记住它们。这其实是非常糟糕的设计，因为用户必须在体验应用之前做许多准备工作。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/0*GPB-VY6vVkRPtU1t.png">
 
-*Tutorial in Clear app*
+**Clear 应用中的教程**
 
-Avoid mandatory multi-step UI walkthrough and try to educate in context of action (when user actually needs it). Given some iteration, tutorial can be transformed into a more gradual discovery:
+避免一次性展示包含多个步骤的演示，试着在对应的会话上下文中再进行指导（当用户实际使用该功能时）。通过多次小的演示，教程其实可以变成一段渐进式的探索之旅：
 
-> Focus on a single interaction rather than trying to explain every possible action in user interface
+> 将关注点放在一次特定的交互上，而不是试着将所有可能用到的指令全都呈现在界面上。
 
-Take this gesture education screen from YouTube app for Android as an example:
+就拿 YouTube 应用安卓端的手势教程界面为例：
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/0*jit4P5QZ3GGKTjtc.png">
 
-Youtube app for Android
+YouTube 安卓客户端
 
-The app has a gesture-based interaction, but doesn’t use tutorial to instruct users. Instead, it uses hints that appear on the first launch for new users, one at a time, as the user reaches the relevant section of the app.
+该应用同样是基于手势交互的，但它没有以教程形式向用户展示指令。相反，它仅在新用户首次进入应用的某些界面时，展示与该界面相关的使用提示。
 
-### How To Educate in Context ###
+### 如何在上下文中指导用户 ###
 
-Education in context technique helping users interact with an element or surface in a way they have not done so previously. This technique often includes* slight visual cues* and *subtle animation.*
+在上下文中对用户进行指导的技巧，是为了帮助用户掌握那些他们从未使用过的操作方式来与界面元素交互。这项技巧通常包括 **小巧的界面提示** 以及 **简短的动画示意** 。
 
-#### Plain Text Command ####
+#### 纯文本指令 ####
 
-This technique is based on text command which prompts users to perform a gesture and describe the result of the interaction in short and clear description.
+这项技巧基于文本指令来提示用户进行某种手势操作，并精简的描述该操作所起到的作用。
 
-**Tip:** Use ultra-short text for instruction — the less text overall, the more likely it is that users will read it and then actually follow that instruction.
+**小贴士：**尽可能缩短指令文字长度 - 文字越精简，用户就越可能仔细地读完并根据指令完成操作。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*jZyn5K8phjbxoFiZNYKZ6A.gif">
 
-Credits: Material Design
+图片源于:Material Design
 
-#### Hint Motion ####
+#### 动态提示（Hint Motion）####
 
-Hint motion (or animated visual hint) shows a preview of how to interact with element when performing the action. For example, Pudding Monsters’ game mechanics are based solely on gestures, but they allow users to get the basic idea of what to do without guessing too much. Animation conveys information about functioning — a scenario is showcased with animation and it immediately becomes clear for users what to do.
+动态提示（或者说界面提示动画）为元素交互动作的方式和结果提供了预览。举个例子， Pudding Monsters 的游戏机制是完全基于手势的，但它却能让用户较为准确地猜测到交互的方式。动画诠释了功能信息 - 展示一个带有动画的场景，用户便能清楚的知道该怎么做了。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*mtNyp2a4Ovg2usopA6cOfw.gif">
 
-Hint motion shows a preview of how to interact with an element. Credits: Pudding Monsters
+动态提示为元素的操控提供了预览。图片来源：Pudding Monsters
 
-#### Content Teases ####
+#### 内容梳理（Content Teases） ####
 
-Content teases are example of subtle visual clues, which indicate what’s possible. Example below demonstrates a content teases for cards — it simply shows that other cards exist behind a current card and this makes it clear that swiping is possible.
+内容梳理属于简单视觉线索（subtle visual clues）的一种，用于表明操作的可能性。下面的例子展示了如何对卡片视图进行内容梳理 - 它简单地在当前卡片下展示了其它的卡片，以此来说明此处可以使用滑动操作。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*YjZGGyu1OLaddxQ-b-NKXg.gif">
 
-Exhibit navigation functionality. Credits: [Barthelemy Chalvet](https://dribbble.com/BarthelemyChalvet)
+展览式的导航功能。 图片来源：[Barthelemy Chalvet](https://dribbble.com/BarthelemyChalvet)
 
-### Conclusion ###
+### 总结 ###
 
-The bottom-line is that there’s no one-size-fits-all solution to how to introduce gestures for your users in a mobile or web app. But when it comes to teaching users to use your UIs, I would recommend to do so mainly by educating in context using content teases,[ progressive disclosure](https://uxplanet.org/design-patterns-progressive-disclosure-for-mobile-apps-f41001a293ba#.p5aq5o4f2) and subtle animations. Tutorials and walkthroughts should be used only as a final resort.
+归根结底，没有一个万能的方法，能够满足所有在移动应用或是 web app 中指导用户使用手势的需求。但当涉及到指导用户如何使用界面时，我建议你尽量在相应上下文中使用弹性内容来显示指南，[渐进式地展示信息](https://uxplanet.org/design-patterns-progressive-disclosure-for-mobile-apps-f41001a293ba#.p5aq5o4f2) 并配合简短的动画。教程和演示是迫不得已时才考虑的手段。
 
-Thank you!
+感谢阅读！
