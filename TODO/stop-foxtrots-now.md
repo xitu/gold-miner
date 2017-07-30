@@ -145,7 +145,7 @@ remote: must appear in the 'first-parent' position of the
 remote: subsequent commit.
 ```
 
-还有其他的方法。你可以禁止直接向 *master* 分支进行推送，并保证不在 `fast-forward` 的情况下合并 `pull-requests`。或者培训你的员工使用 `git pull –rebase` 命令，并且永远不要使用 `git merge master`。并且一旦你培训完你的员工，就不要在招聘其他员工了。
+还有其他的方法。你可以禁止直接向 *master* 分支进行推送，并保证不在 `fast-forward` 的情况下合并 `pull-requests`。或者培训你的员工使用 `git pull –rebase` 命令，并且永远不要使用 `git merge master`。并且一旦你培训完你的员工，就不要再招聘其他员工了。
 
 如果你可以直接访问远程仓库，则可以设置 `pre-receive hook`。 以下的 `bash` 脚本可以帮助你开始这项设置：
 
@@ -192,7 +192,7 @@ done
 
 ### 总结
 
-在最后，其实“狐步舞”式的合并也像其他的合并那样。两个（或多个）提交到一起融合成一个新的记录节点。就你的代码库而言，没有任何区别。无无论 commit A 合并到 commit B 中还是反过来 commit B 合并到 commit A，从代码的角度来看最终结果是相同的。
+在最后，其实“狐步舞”式的合并也像其他的合并那样。两个（或多个）提交到一起融合成一个新的记录节点。就你的代码库而言，没有任何区别。无论 commit A 合并到 commit B 中还是反过来 commit B 合并到 commit A，从代码的角度来看最终结果是相同的。
 
 但是，当涉及到你的仓库的历史记录时，以及有效地使用 git 工具集时，“狐步舞”式的合并会有一定的破坏性。通过设置相应的策略来防止其出现，可以使你仓库的历史记录更加清晰明了，并减少了需要记住的 git 命令选项的范围。
 
