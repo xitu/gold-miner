@@ -8,7 +8,7 @@
 
 # 在 CSS 中使用特征查询
 
-CSS 中有一个你可能还没有听说过的工具。它很强大。它已经存在一段时间了。并且它很可能会成为你最喜欢的 CSS 新事物之一。
+CSS 中有一个你可能还没有听说过的工具。它很强大。它已经存在一段时间了。并且它很可能会成为你最喜欢的 CSS 新功能之一。
 
 这就是 `@supports` 规则，也被称为 [Feature Queries](http://www.w3.org/TR/css3-conditional/#at-supports)。
 
@@ -20,13 +20,13 @@ CSS 中有一个你可能还没有听说过的工具。它很强大。它已经�
 ```
 如果浏览器理解 `display: grid`，那么括号内的所有样式都将被应用。否则将跳过所有样式。
 
-现在，对于特征查询的概念，似乎还不是很清晰。这不是一种分析浏览器是否**正确地**实现了 CSS 属性的外部验证，如果你正在寻找这样的外部验证，[参考这里](http://testthewebforward.org)。特性查询要求浏览器对是否支持某个 CSS 属性/值进行自我报告，并根据其返回的结果决定是否调用代码块。如果浏览器不正确或不完整地实现了一个特性，`@supports` 不会对你有帮助。如果浏览器误报了 CSS 支持的情况，`@supports` 不会对你有帮助。这不是一个能使浏览器漏洞消失的魔法。
+现在，对于特征查询的概念，似乎还不是很清晰。这不是一种分析浏览器是否**正确地**实现了 CSS 属性的外部验证，如果你正在寻找这样的外部验证，[参考这里](http://testthewebforward.org)。特征查询要求浏览器对是否支持某个 CSS 属性/值进行自我报告，并根据其返回的结果决定是否调用代码块。如果浏览器不正确或不完整地实现了一个特性，`@supports` 不会对你有帮助。如果浏览器误报了 CSS 支持的情况，`@supports` 不会对你有帮助。这不是一个能使浏览器漏洞消失的魔法。
 
 也就是说，我发现 `@supports` 是非常有用的。`@supports` 规则让我多次感受到，使用新的 CSS 规则来实现功能，比使用旧的规则要简单得多。
 
 多年来，开发商都用 [Modernizr](https://modernizr.com) 做特征查询，但是 Modernizr 需要 JavaScript。即使脚本很小，CSS 架构与 Modernizr 需要 JavaScript 文件的下载、执行并且要在应用 CSS 之前完成。涉及 JavaScript 总是比只使用 CSS 慢。如果 JavaScript 打开失败也就是说如果 JavaScript 不执行会发生什么？另外，Modernizr 需要一个复杂并且许多项目无法处理的附加层。特征查询速度更快、更健壮、使用起来更加简单。
 
-你可能会注意到，特性查询的语法与媒体查询非常相似。我把他们看做堂兄弟。
+你可能会注意到，特征查询的语法与媒体查询非常相似。我把他们看做堂兄弟。
 ```
     @supports (display: grid) {
       main {
@@ -42,7 +42,7 @@ CSS 中有一个你可能还没有听说过的工具。它很强大。它已经�
       border-radius: 1em;
     }
 ```
-如果浏览器理解 `border-radius`，那么它将在 `aside` 上设置圆角。如果没有，它将跳过代码行并继续前进，使框的边缘为正方形。这里没有理由运行测试或使用特性查询。css 就是这样工作的。这是 [architecting solid, progressively-enhanced CSS](http://jensimmons.com/presentation/progressing-our-layouts) 中的一个基本原则。浏览器只跳过不理解的代码，不抛出错误。
+如果浏览器理解 `border-radius`，那么它将在 `aside` 上设置圆角。如果没有，它将跳过代码行并继续前进，使框的边缘为正方形。这里没有理由运行测试或使用特征查询。css 就是这样工作的。这是 [architecting solid, progressively-enhanced CSS](http://jensimmons.com/presentation/progressing-our-layouts) 中的一个基本原则。浏览器只跳过不理解的代码，不抛出错误。
  
 ![新旧浏览器中圆角效果截图](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2016/08/border-radius.png)大多数的浏览器显示 `border-radius: 1em` 如图片的右边所示。然而，Internet Explorer 6、7 和 8 不会设置圆角，显示效果如图片的左边所示。看看这个例子 [codepen.io/jensimmons/pen/EydmkK](http://codepen.io/jensimmons/pen/EydmkK?editors=1100) 您不需要为此进行功能查询。
 
@@ -112,7 +112,7 @@ CSS 中有一个你可能还没有听说过的工具。它很强大。它已经�
 
 那么支持特征查询到什么程度了呢？
 
-自从 2013 年年中以来，在 Firefox、Chrome、和 Opera 就已经支持 `@supports` 了。它也适用于 Edge 的每一个版本。Safari 在 2015 年秋季将其在Safari 9 中支持。在任何版本的 Internet Explorer、Opera Mini、Blackberry Browser 或 UC 浏览器中都不支持特性查询。
+自从 2013 年年中以来，在 Firefox、Chrome、和 Opera 就已经支持 `@supports` 了。它也适用于 Edge 的每一个版本。Safari 在 2015 年秋季将其在Safari 9 中支持。在任何版本的 Internet Explorer、Opera Mini、Blackberry Browser 或 UC 浏览器中都不支持特征查询。
 
 [![Can I use 网站支持特征查询的截图](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2016/08/Can-I-Use-Feature-Queries.gif)](http://caniuse.com/#feat=css-featurequeries)特征查询的支持可以查看：[特征查询在 Can I Use 上的结果](http://caniuse.com/#feat=css-featurequeries)
 
@@ -170,13 +170,13 @@ Edge 不支持 `object-fit`，但它支持 `@supports`，因此该测试将运�
 
 同样的事情也发生在 Android 的黑莓浏览器和 UC 浏览器上。他们不理解 `object-fit` 和 `@supports`，所以我们都设置了。很成功。
 
-底线是 —— 当你在浏览器中使用一个不支持特性查询的特性查询时，只要让浏览器不支持你正在测试的功能就好了。
+底线是 —— 当你在浏览器中使用一个不支的特征查询的特征查询时，只要让浏览器不支持你正在测试的功能就好了。
 
 仔细思考代码的逻辑。问问自己，当浏览器跳过这个代码时会发生什么？如果那是你想要的，你都准备好了。
 
-### 场景 4：浏览器不支持特性查询，但支持问题中的特性
+### 场景 4：浏览器不支持特征查询，但支持问题中的特性
 
-问题是这第 4 个组合 —— 当一个特性查询所提出的测试不运行时，但是浏览器确实支持该特性，并且应该运行该代码。
+问题是这第 4 个组合 —— 当一个特征查询所提出的测试不运行时，但是浏览器确实支持该特性，并且应该运行该代码。
 
 例如，`object-fit` 由 Safari 7.1（Mac）和 8（Mac和iOS）支持，但这两个浏览器都不支持功能查询。这同样适用于 Opera Mini —— 它将支持 `object-fit`，但不支持 `@supports`。
 
@@ -193,7 +193,7 @@ Edge 不支持 `object-fit`，但它支持 `@supports`，因此该测试将运�
 
 当然，这取决于特定的用例。也许这是共同的结果。较老的浏览器获得了较老浏览器的体验。网页仍在工作。
 
-但在大多数情况下，我们希望浏览器能够使用它支持的任何特性。这就是为什么 Safari 8 在涉及特性查询时，可能是最大的问题，而不是 Internet Explorer。有许多新的特性，Safari 8 支持 —— Flexbox。您可能不想阻止 Safari 8 上的这些属性。这就是为什么我很少在 `@supports` 中使用 Flexbox，或者有时候，我在代码中至少写三个分支，一个使用 `not`。（这很快就变得复杂了，所以不在这里解释了）。
+但在大多数情况下，我们希望浏览器能够使用它支持的任何特性。这就是为什么 Safari 8 在涉及特征查询时，可能是最大的问题，而不是 Internet Explorer。有许多新的特性，Safari 8 支持 —— Flexbox。您可能不想阻止 Safari 8 上的这些属性。这就是为什么我很少在 `@supports` 中使用 Flexbox，或者有时候，我在代码中至少写三个分支，一个使用 `not`。（这很快就变得复杂了，所以不在这里解释了）。
 
  如果您使用的功能在旧版浏览器中比功能查询支持的更好的话，那么在编写代码时要仔细考虑所有的组合。确保不要将浏览器排除在想要他们获得的东西之外。
 
@@ -228,7 +228,7 @@ Edge 不支持 `object-fit`，但它支持 `@supports`，因此该测试将运�
 
 这正是我们在支持 IE 的旧版本时使用媒体查询的策略。这个策略就是“移动优先”这个词的来源。
 
-我预计 CSS Grid 将在 2017 在浏览器中被使用，我打赌在实现未来的布局时我们将使用大量的特性查询。与 JavaScript 相比，它的麻烦要小得多，而且速度要快得多。并且 `@supports` 能使支持 CSS Grid 的浏览器做有趣的和复杂的东西，同时对不支持的浏览器提供布局选项。
+我预计 CSS Grid 将在 2017 在浏览器中被使用，我打赌在实现未来的布局时我们将使用大量的特征查询。与 JavaScript 相比，它的麻烦要小得多，而且速度要快得多。并且 `@supports` 能使支持 CSS Grid 的浏览器做有趣的和复杂的东西，同时对不支持的浏览器提供布局选项。
 
 自 2013 年年中以来，功能查询一直存在。随着 Safari 10 即将发布，我相信我们已经到了将 `@supports` 添加到工具箱的时候了。
 
