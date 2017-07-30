@@ -12,13 +12,13 @@ CSS 中有一个你可能还没有听说过的工具。它很强大。它已经�
 
 这就是 `@supports` 规则，也被称为 [Feature Queries](http://www.w3.org/TR/css3-conditional/#at-supports)。
 
-使用 `@supports`，你可以在你的 CSS 中编写一个小测试，以查看是否支持特定的“特性”（CSS 属性或值），并根据其返回的结果决定是否调用代码块。例如：
+通过使用 `@supports`，你可以在 CSS 中编写一个小测试，以查看是否支持某个“特性”（CSS 属性或值），并根据其返回的结果决定是否调用代码块。例如：
 ```
     @supports (display: grid) {
        // 只有在浏览器支持 CSS 网格时才会运行代码
      }
 ```
-如果浏览器理解 `display: grid`，那么括号内的所有样式都将被应用。否则将跳过所有样式。
+如果浏览器支持 `display: grid`，那么括号内的所有样式都将被应用。否则将跳过所有样式。
 
 现在，对于特征查询的概念，似乎还不是很清晰。这不是一种分析浏览器是否**正确地**实现了 CSS 属性的外部验证，如果你正在寻找这样的外部验证，[参考这里](http://testthewebforward.org)。特征查询要求浏览器对是否支持某个 CSS 属性/值进行自我报告，并根据其返回的结果决定是否调用代码块。如果浏览器不正确或不完整地实现了一个特性，`@supports` 不会对你有帮助。如果浏览器误报了 CSS 支持的情况，`@supports` 不会对你有帮助。这不是一个能使浏览器漏洞消失的魔法。
 
@@ -42,7 +42,7 @@ CSS 中有一个你可能还没有听说过的工具。它很强大。它已经�
       border-radius: 1em;
     }
 ```
-如果浏览器理解 `border-radius`，那么它将在 `aside` 上设置圆角。如果没有，它将跳过代码行并继续前进，使框的边缘为正方形。这里没有理由运行测试或使用特征查询。css 就是这样工作的。这是 [architecting solid, progressively-enhanced CSS](http://jensimmons.com/presentation/progressing-our-layouts) 中的一个基本原则。浏览器只跳过不理解的代码，不抛出错误。
+如果浏览器支持 `border-radius`，那么它将在 `aside` 上设置圆角。如果没有，它将跳过代码行并继续前进，使框的边缘为正方形。这里没有理由运行测试或使用特征查询。css 就是这样工作的。这是 [architecting solid, progressively-enhanced CSS](http://jensimmons.com/presentation/progressing-our-layouts) 中的一个基本原则。浏览器只跳过不支持的代码，不抛出错误。
  
 ![新旧浏览器中圆角效果截图](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2016/08/border-radius.png)大多数的浏览器显示 `border-radius: 1em` 如图片的右边所示。然而，Internet Explorer 6、7 和 8 不会设置圆角，显示效果如图片的左边所示。看看这个例子 [codepen.io/jensimmons/pen/EydmkK](http://codepen.io/jensimmons/pen/EydmkK?editors=1100) 您不需要为此进行功能查询。
 
@@ -62,7 +62,7 @@ CSS 中有一个你可能还没有听说过的工具。它很强大。它已经�
 ![`initial-letter`这个例子在 Safari 9 下面的截图](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2016/08/intial-letter-1.gif)
 这是我们的 `initial-letter` 的例子在 Safari 9 下的显示。现在让我们看看其他浏览器会发生什么…
 
-![`initial-letter` 这个例子在其他浏览器下面的截图](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2016/08/intial-letter-2.png)哦，不，这在其他浏览器看起来非常糟糕。这是不能接受的。我们不想改变字母的颜色，或者增加一个空白，或者让它加粗，除非它通过 `initial-letter` 属性被设置的更大了一些。我们需要一种方法来测试浏览器是否理解 `initial-letter`，并且只在颜色、重量和空白处应用更改。进入特征查询。
+![`initial-letter` 这个例子在其他浏览器下面的截图](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2016/08/intial-letter-2.png)哦，不，这在其他浏览器看起来非常糟糕。这是不能接受的。我们不想改变字母的颜色，或者增加一个空白，或者让它加粗，除非它通过 `initial-letter` 属性被设置的更大了一些。我们需要一种方法来测试浏览器是否支持 `initial-letter`，并且只在颜色、重量和空白处应用更改。进入特征查询。
 ```    
     @supports (initial-letter: 4) or (-webkit-initial-letter: 4) {
       p::first-letter {
@@ -77,17 +77,17 @@ CSS 中有一个你可能还没有听说过的工具。它很强大。它已经�
 
 注意，您需要测试具有属性和值的完整字符串。最初这是令我困惑的。为什么我要测试 `initial-letter: 4`？值为 4 重要吗？如果我传入的值是 17 呢？它是否需要匹配我代码中较低的值？
 
-`@supports` 规则测试一个包含属性和值的字符串，因为有时候需要测试的是属性，有时需要测试的是值。对于 `initial-letter` 的例子，你传入的是什么值并不重要。但是考虑 `@supports (display: grid)`，你会看到两者都是需要的。每个浏览器都理解 `display`。只有测试版浏览器理解 `display: grid`（目前来说）。
+`@supports` 规则测试一个包含属性和值的字符串，因为有时候需要测试的是属性，有时需要测试的是值。对于 `initial-letter` 的例子，你传入的是什么值并不重要。但是考虑 `@supports (display: grid)`，你会看到两者都是需要的。每个浏览器都支持 `display`。只有测试版浏览器支持 `display: grid`（目前来说）。
 
 回到我们的示例：目前 `initial-letter` 仅在 Safari 9 中得到支持，并且它需要前缀。所以我写了这个前缀，为了确保包含无前缀的版本我写了这个测试。是的，可以在功能查询中使用 `or` 、`and` 和 `not` 语句。
 
-这里有新的结果。浏览器理解 `initial-letter` 的话就会将其展现为字体更大、加粗并且是橘色的首字母。其它浏览器表现的像首字母不存在一样，使用这种方式，我会等待使用这个特征，直到更多的浏览器支持它。（顺便说一下，目前在 Firefox 中可以实现首字母的特性。）
+这里有新的结果。浏览器支持 `initial-letter` 的话就会将其展现为字体更大、加粗并且是橘色的首字母。其它浏览器表现的像首字母不存在一样，使用这种方式，我会等待使用这个特征，直到更多的浏览器支持它。（顺便说一下，目前在 Firefox 中可以实现首字母的特性。）
 
 ![使用之前和之后的对比](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2016/08/intial-letter-with-and-without.gif)截屏的左边是来自 Safari 9。其它浏览器展现的结果显示为右边。你可以在 [codepen.io/jensimmons/pen/ONvdYL](http://codepen.io/jensimmons/pen/ONvdYL?editors=1100) 看到这个测试的代码。
 
 ## 组织你的代码
 
-现在，您可能会尝试使用此工具将代码分成两个分支。“嘿，浏览器，如果你理解视口单位，执行这段代码，如果你不理解他们，执行另一段代码。”这感觉很好并且很整洁。
+现在，您可能会尝试使用此工具将代码分成两个分支。“嘿，浏览器，如果你支持视口单位，执行这段代码，如果你不支持他们，执行另一段代码。”这感觉很好并且很整洁。
 ```
     @supports (height: 100vh) {
       // my layout that uses viewport height
@@ -99,7 +99,7 @@ CSS 中有一个你可能还没有听说过的工具。它很强大。它已经�
 ```
 这不是一个好主意 —— 至少现在来说。你发现这个问题了吗？
 
-然而，不是所有浏览器都支持特征查询。并且浏览器不理解 `@supports` 将会跳过这部分的全部代码。这不是很好。
+然而，不是所有浏览器都支持特征查询。并且浏览器不支持 `@supports` 将会跳过这部分的全部代码。这不是很好。
 
 这就意味着我们不能使用特征查询了吗？直到 100% 的浏览器都支持它们吗？不是的，我们可以，并且当今我们应该使用特征查询。不要像最后一个例子那样编写代码。
 
@@ -118,7 +118,7 @@ CSS 中有一个你可能还没有听说过的工具。它很强大。它已经�
 
 您可能会认为 Internet Explore 不支持特征查询。实际是并不是。我马上告诉你原因。我认为最大的障碍是 Safari 8。我们需要密切关注这儿发生的事情。
 
-让我们来看另一个例子。假设我们有一些想要应用的布局代码，为了使操作更加合理需要使用 `object-fit: cover`。对于不理解 `object-fit` 的浏览器，我们希望应用不同的布局 CSS。
+让我们来看另一个例子。假设我们有一些想要应用的布局代码，为了使操作更加合理需要使用 `object-fit: cover`。对于不支持 `object-fit` 的浏览器，我们希望应用不同的布局 CSS。
 [![Can I Use 网站中关于 Object-fit 支持的截图](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2016/08/Can-I-Use-Object-Fit.gif)](http://caniuse.com/#feat=object-fit)来看一下支持情况 [Object Fit 在 Can I Use 上的结果](http://caniuse.com/#feat=object-fit)
 
 
@@ -162,13 +162,13 @@ Edge 不支持 `object-fit`，但它支持 `@supports`，因此该测试将运�
 
 ### 情景 3：浏览器不支持特征查询，并且也不支持问题中的特性
 
-这就是我们的经典克星 Internet Explorer 出现的地方。IE 不理解 `@supports`，并且也不理解 `object-fit`。你可能认为这意味着我们不能使用特征查询 —— 并不是。
+这就是我们的经典克星 Internet Explorer 出现的地方。IE 不支持 `@supports`，并且也不支持 `object-fit`。你可能认为这意味着我们不能使用特征查询 —— 并不是。
 
 想一下我们想要的结果。我们想要 IE 跳过整个代码块。并且确实是这样的结果。为什么呢？因为当它执行到 `@supports` 时，它不会识别语法，会跳转到结尾。
 
-它可能跳过代码“出于错误的原因” —— 它跳过代码是因为它不理解 `@supports`，而不是因为它不理解 `object-fit`，但是谁在乎呢？！我们仍然得到我们想要的结果。
+它可能跳过代码“出于错误的原因” —— 它跳过代码是因为它不支持 `@supports`，而不是因为它不支持 `object-fit`，但是谁在乎呢？！我们仍然得到我们想要的结果。
 
-同样的事情也发生在 Android 的黑莓浏览器和 UC 浏览器上。他们不理解 `object-fit` 和 `@supports`，所以我们都设置了。很成功。
+同样的事情也发生在 Android 的黑莓浏览器和 UC 浏览器上。他们不支持 `object-fit` 和 `@supports`，所以我们都设置了。很成功。
 
 底线是 —— 当你在浏览器中使用一个不支的特征查询的特征查询时，只要让浏览器不支持你正在测试的功能就好了。
 
