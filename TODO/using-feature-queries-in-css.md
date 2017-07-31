@@ -4,7 +4,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/using-feature-queries-in-css.md](https://github.com/xitu/gold-miner/blob/master/TODO/using-feature-queries-in-css.md)
 > * 译者：[Cherry](https://github.com/sunshine940326)
-> * 校对者：[LeviDing](https://github.com/leviding)
+> * 校对者：[LeviDing](https://github.com/leviding)、[H2O-2](https://github.com/H2O-2)
 
 # 在 CSS 中使用特征查询
 
