@@ -4,7 +4,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/stop-foxtrots-now.md](https://github.com/xitu/gold-miner/blob/master/TODO/stop-foxtrots-now.md)
 > * 译者：[LeviDing](https://github.com/leviding)
-> * 校对者：
+> * 校对者：[薛定谔的猫](https://github.com/Aladdin-ADD)，[luisliuchao](https://github.com/luisliuchao)
 
 # 保护我们的 Git Repos，立刻停止“狐步舞”
 
@@ -71,7 +71,7 @@ B, A.
 
 D, C, A.
 
-这时，B 节点已从 *origin/master* 第一父级中消失，事实上，B在它的第二父级上。。当然，不会有任何资料的丢失，并且 B 节点仍然是 *origin/master* 的一部分。
+这时，B 节点已从 *origin/master* 第一父级中消失，事实上，B在它的第二父级上。当然，不会有任何资料的丢失，并且 B 节点仍然是 *origin/master* 的一部分。
 
 但是，这样父级节点就会有错综复杂的关系。你是否知道，`tilda` 符号（例如 `~N`）指定从第 N 个提交的节点到第一个父节点间的路径？
 
@@ -103,7 +103,7 @@ D, C, A.
 
 啥招都没有，随它们去吧。除非你重写 master 分支的历史而惹怒其他人，那么就去这么疯吧。
 
-事实上，[不要这样做。](https://www.atlassian.com/git/tutorials/merging-vs-rebasing/the-golden-rule-of-rebasing/).
+事实上，[不要这样做。](https://www.atlassian.com/git/tutorials/merging-vs-rebasing/the-golden-rule-of-rebasing/)
 
 ### 如何防止未来“狐步舞”式的合并出现在我的 git 项目中？
 
@@ -114,7 +114,7 @@ D, C, A.
 2. 安装我为 Bitbucket 服务器写的插件，名字叫“Bit Booster Commit Graph and More”。
 你可以在下面的链接中找到他们：[https://marketplace.atlassian.com/plugins/com.bit-booster.bb](https://marketplace.atlassian.com/plugins/com.bit-booster.bb)[https://marketplace.atlassian.com/plugins/com.bit-booster.bb](https://marketplace.atlassian.com/plugins/com.bit-booster.bb)
 
-3. 在你所有项目中，都点击“Protect First Parent Hook”上的“Enabled”按钮，也就是“启用”按钮：
+3. 在你所有项目中，都点击 “Protect First Parent Hook” 上的 “Enabled” 按钮，也就是“启用”按钮：
 
 ![hook enabled](https://developer.atlassian.com/blog/2016/04/stop-foxtrots-now/09-hook-enabled.png)
 
