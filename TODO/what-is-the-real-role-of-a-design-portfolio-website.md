@@ -3,93 +3,94 @@
 > * 原文作者：[Fabricio Teixeira](https://uxdesign.cc/@fabriciot)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/what-is-the-real-role-of-a-design-portfolio-website.md](https://github.com/xitu/gold-miner/blob/master/TODO/what-is-the-real-role-of-a-design-portfolio-website.md)
-> * 译者：
+> * 译者：noturnot
 > * 校对者：
 
-# What is the real role of a design portfolio website?
+# 设计作品集网站的真正角色是什么？
 
-## Or “stop judging someone’s portfolio before knowing their objectives”.
+## 或“在了解其目的之前，不要评价其作品集”。
 
-Should design portfolios be straightforward and focused on the work, or should they be a piece of art that showcases the designer’s capabilities and vision? Is this even a binary question in the first place?
+设计作品集应该是简洁易懂的并且专注于作品，还是应该成为展现设计师能力和想法的一件艺术品？这是一个二元问题吗？
+
 
 ![](https://cdn-images-1.medium.com/max/2000/1*MFLfVMusiJYm7IvFPUMAAg.jpeg)
 
-Browsing through my feeds the other day I come across the following discussion:
+不久之前，我在浏览自己的订阅信息流时，看到了下面的讨论：
 
 ![](https://cdn-images-1.medium.com/max/1600/1*chMYyQsyqEdKcmXmLUwShw.png)
 
-If you are not familiar with the portfolio shared in the discussion above, here’s a screencast to give you a bit more context and the [link](http://narrowdesign.com/) so you can test it yourself:
-
+如果你对上述讨论分享的作品集不够熟悉，这里有一个可以给你更多上下文情境的截屏视频以及一个可以进行测试的[链接](http://narrowdesign.com/)：
 ![](https://cdn-images-1.medium.com/max/1600/1*a9FAjhl5jl5WFc0orJXQuw.gif)
 
-Have you seen this portfolio recently?
-> You can probably guess what followed: a long, heated discussion about **usability versus creativity**, **form versus function**, **performance versus beauty**, **contrast versus legibility**, republican versus democrat, **mine versus yours**.
+你最近有看过这份作品集吗？
+> 你或许已经猜到我接下来要说的：关于**可用性与创造性**、**形式与功能**、**性能与美观**、**对比性与易读性**、**共和主义者与民主主义者**、**我与你**的漫长而热烈的讨论。
 
-But that’s what happens with most discussions online: they quickly become about polarization, and people thinking in a pretty binary fashion about what they consider to be correct or incorrect. Don’t get me wrong: **the participants of the discussion are not to blame at all**. The reality is that short-form online discussions like the one above can only go so deep in terms of understanding all the complexities of a design decision.
+但是这才是大多数在线讨论中所发生的：人们很快变得两极分化，并且陷入他们所认为的正确或错误的二元方式中。不要误解：**我无意批判讨论的参与者**。事实是像上述这样短小的在线讨论，只有在理解设计决策的所有复杂性之后才能深入。
 
-Halfway through reading all the comments in that thread, my eyes start to space out. I couldn’t avoid stepping back and asking myself “**but hey, what is the real role of a design portfolio in the first place?**”. Until the people engaging in that discussion don’t align on what a portfolio’s objectives are, they won’t have any fruitful conclusions coming out of it.
+在阅读所有评论的过程中，我的眼睛开始变得昏沉。我无法避免后退一步并且问自己：“**嘿，首先设计作品集的真正角色是什么？**”。除非参与讨论的人们认识到作品集的目的是什么，他们不会从中获得有成效的结论。
 
-So let’s do here one of the things I enjoy the most: to break down problems into smaller pieces, until they become more manageable to solve or answer.
-
-![](https://cdn-images-1.medium.com/max/1600/1*aNPBhln7iDMY8qRcmoyCfA.jpeg)
-
-### Question 1: what is the role of a designer’s portfolio?
-
-First step is to understand all the possible angles to defining the role of a portfolio:
-
-- **Is it to show the final output of the projects the designer has worked on? **If this is the case, the design of the portfolio itself should be as simple as possible, focused on the content rather than the form. Expect big, full-bleed images beautifully crafted to create visual impact. That’s what platforms like cargocollective, behance and squarespace focus on.
-- **Is it to demonstrate the designer’s thought process?** In this case, expect project pages with much more writing, behind-the-scenes deliverables and long-form explanation.
-- **Is it to be a piece of art in itself, that showcases the designer’s vision? **In these cases the portfolio itself is the way the designer has found to demonstrate their design skills and vision, without all the constraints that projects sponsored by clients usually have. It shows to the world their vision on what good design is, in its purest form. In the example shown above, [narrowdesign.com](http://narrowdesign.com), the portfolio homepage is showcasing the designer’s knowledge on design theory (golden ratio rule), their craft on motion design and animation, their great taste for color palettes — and much more.
-
-The options above are not mutually exclusive, though. While some people will say “all of the above”, having a clear focus can help your portfolio achieve its goal more effectively. But in order to really understand in which of the three areas your portfolio should focus on, you have to ask yourself another question.
+所以接下来让我们做一件我最享受的事情之一吧：将问题分解成小部分，直到其变得更容易解决或回答。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*aNPBhln7iDMY8qRcmoyCfA.jpeg)
 
-### Question 2: what is the designer’s objective?
+### 问题1：设计作品集的角色是什么？
 
-- **Is it to document their past work?** Some people update their portfolio simply because they don’t want to lose track of the projects they have worked on. There isn’t any secret agenda here: they are just looking to build a repository of past work that they can easily refer to in the future. A memoir.
-- **Is it finding a new job?** Is the designer actively looking for a new job? If that’s the case, with which type of company are they looking to engage? A design studio? An agency? A business consultancy? Client-side? Product-focused? What is the type of project recruiters and managers will be looking for?
-- **Is it to be seen as a specialist in a certain area?** Some people redesign their portfolio website as a way to position themselves professionally in a slightly different manner than they have been doing. It’s that good old saying: “put the work you want to be doing in your portfolio, not the work you think others want to see”. And that might be the case for some designers, depending on where they are in their careers.
+第一步是尽可能多地理解定义作品集角色的各种角度：
 
-Simple, right?
+- **它是用来展示设计师所完成的最终项目吗？** 如果在这种情况下，作品集本身的设计应该是尽可能简单的，专注于内容而非形式。期望通过精心制作以创造视觉冲击力的大幅全出血图像。这是像 cargocollective，behance 和 squarespace 这样的平台所关注的。
+- **它是用来展现设计师的思考过程吗？** 在这种情况下，会期望包含更多文字、幕后可交付成果以及大段解释的项目页面。
+- **它是否本身是一件用来展现设计师想法的艺术品？** 在这种情况下，作品集本身就是设计师用来展现其设计技巧和想法的方式，而且没有客户所赞助项目通常有的约束条件。它用最纯正的方式，向世界展示了他们关于优质设计的想法。在上面提到的例子中，[narrowdesign.com](http://narrowdesign.com)， 其作品集主页正在展现设计师关于设计理论的知识（黄金比例原则），他们对动效设计和动画的精心制作，他们对调色盘的良好品味  ——  以及更多。
 
-Not really. There’s yet another layer that needs to be taken into consideration when judging someone’s portfolio…
+以上选择并不是相互排斥的。虽然有些人会说“上述所有”，但有一个清晰的关注点会帮助你的作品集更有效地达到目标。但是为了真正理解你的作品集应该关注三个领域中的哪一个，你必须再问自己另一个问题。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*aNPBhln7iDMY8qRcmoyCfA.jpeg)
 
-### Question 3: how does the designer want to be seen in the world?
+### 问题2：设计师的目的是什么？
 
-This one is about defining an area of focus in Design, and about understanding how the designer wants to be seen by their peers and by prospective employees who are visiting their portfolio. While it is important to demonstrate your ability to navigate across multiple design specialties, thinking through one’s value proposition as a designer can keep priorities in the right place.
+- **是为了记录过去的工作吗？** 这些人更新他们的作品集仅仅因为他们不想失去对过往项目的记录。并没有什么不可告人的目的：他们仅仅在建立一个过往作品的仓库以便可以在未来很容易找到。一份回忆录。
+- **是用来寻找一份新工作吗？** 设计师是否在积极地寻找一份新工作？如果是这种情况，他们寻找的是哪种类型的公司？设计工作室？代理机构？商业咨询处？客户端？以产品为中心？招聘人员和管理人员会找寻什么类型的项目？
+-  **是被看作某个特定领域的专家吗？** 有些人重新设计其作品集网站作为与以往略微不同来专业地定位自身的方式。正如那句俗语所讲：“将你希望做的作品放进你的作品集中，而非你希望别人看到的作品”。这或许适用于某些设计师的情况，取决于他们职业生涯的位置。
 
-> What is the takeaway you want people to leave your portfolio website with?
+简单吧？
 
-> “Wow, this person is a ______ that really ______!”
+并不是。在评价作品集时，还有另一个层次需要被考虑……
 
-A few examples:
+![](https://cdn-images-1.medium.com/max/1600/1*aNPBhln7iDMY8qRcmoyCfA.jpeg)
 
-- Wow, this person is a **graphic designer** that really **knows digital**.
-- Wow, this person is an **interface designer** who really **values motion**.
-- Wow, this person is a** front-end engineer** who **knows a lot about design and UX**.
-- Wow, this person is a **print designer** who **has years of experience designing business cards**.
-- Wow, this person is a **creative director** who really specialized in **advertising campaigns**.
+### 问题3：设计师希望如何被世界看到？
 
-Thinking about this construct of **[discipline]** + **[specialization]** is a good way of keeping your portfolio not too generic, and to give visitors a clear takeaway — an easy way to refer to you once they leave your website.
+这个问题关于定义设计中的重点领域，以及理解设计师希望被浏览他们作品集的同行和未来雇主如何看待。尽管展现你操纵多种设计专长的能力很重要，思考作为一位设计师的价值主张可以保证优先级在正确的位置。
 
-Getting to this simple articulation of who you are is not that simple, though.
+> 你希望人们离开你的作品集网站时带走的收获是什么？
 
-Some designers I know can clearly articulate who they are and how they want to be seen, but some need a little bit of help…
+> “哇，这个人是个真正 ______的 ______！”
+
+一些例子：
+
+- 哇，这个人是个真正**懂数码**的**平面设计师**。
+- 哇，这个人是个真正**重视动效**的**界面设计师**。
+- 哇，这个人是个**很懂设计和用户体验**的**前端工程师**。
+- 哇，这个人是个有**多年名片设计经验**的**印刷设计师**。
+- 哇，这个人是个专长**广告活动**的**创意导演**。
+
+考虑这个 **[规律]**+ **[专业化]** 的概念是使你的作品集不再普通以及带给访问者明确收获的方法  ——  一个一旦离开你的网站后，可以指向你的简单方法。
+
+尽管简单表达你是谁并不是那么简单。
+
+我认识的一些设计师可以清晰地表达他们是谁以及他们希望如何被看到，但是有一些需要一些帮助……
 
 ![](https://cdn-images-1.medium.com/max/1600/1*qFjeug_95wT-hQtmZj69HQ.jpeg)
 
-[NYTimes](https://well.blogs.nytimes.com/2013/03/25/looking-for-evidence-that-therapy-works/)
+[纽约时报](https://well.blogs.nytimes.com/2013/03/25/looking-for-evidence-that-therapy-works/)
 
 ![](https://cdn-images-1.medium.com/max/1600/1*aNPBhln7iDMY8qRcmoyCfA.jpeg)
 
-Once all these questions have been answered, you can start to visualize how one’s portfolio should look, what content is should showcase, and what their priorities should be.
+一旦上述问题被解答，你就可以开始设想作品集的样子，什么内容应该被展示，以及优先级应该是什么。
 
-And then, only then, you will be able to judge whether one’s portfolio is good at achieving their goals or not.
+然后，只有那时候，你才能判断一个人的作品集是否能够完成其目的。
 
 
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[React](https://github.com/xitu/gold-miner#react)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计) 等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
+
