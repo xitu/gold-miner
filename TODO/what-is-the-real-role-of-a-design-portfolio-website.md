@@ -3,8 +3,8 @@
 > * 原文作者：[Fabricio Teixeira](https://uxdesign.cc/@fabriciot)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/what-is-the-real-role-of-a-design-portfolio-website.md](https://github.com/xitu/gold-miner/blob/master/TODO/what-is-the-real-role-of-a-design-portfolio-website.md)
-> * 译者：noturnot
-> * 校对者：LeviDing
+> * 译者：[noturnot](https://github.com/noturnot)
+> * 校对者：[LeviDing](https://github.com/LeviDing)
 
 # 设计作品集网站的真正角色是什么？
 
