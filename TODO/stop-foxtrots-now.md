@@ -4,7 +4,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/stop-foxtrots-now.md](https://github.com/xitu/gold-miner/blob/master/TODO/stop-foxtrots-now.md)
 > * 译者：[LeviDing](https://github.com/leviding)
-> * 校对者：[薛定谔的猫](https://github.com/Aladdin-ADD)，[luisliuchao](https://github.com/luisliuchao)
+> * 校对者：[薛定谔的猫](https://github.com/Aladdin-ADD)、[luisliuchao](https://github.com/luisliuchao)
 
 # 保护我们的 Git Repos，立刻停止“狐步舞”
 
@@ -14,7 +14,7 @@
 
 ### 首先，什么是“狐步舞”式的合并？
 
-“狐步舞”式的合并是 `git commit` 的一个特别不好的具体顺序。如同在户外看到的“狐步舞”，这种commits序列像这个样子：
+“狐步舞”式的合并是 `git commit` 的一个特别不好的具体顺序。如同在户外看到的“狐步舞”，这种 commits 序列像这个样子：
 
 ![“狐步舞”式的合并](https://developer.atlassian.com/blog/2016/04/stop-foxtrots-now/02-foxtrot.png)
 
