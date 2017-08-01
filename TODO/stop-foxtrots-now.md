@@ -3,125 +3,126 @@
 > * 原文作者：[Sylvie Davies](https://developer.atlassian.com/blog/authors/sdavies)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/stop-foxtrots-now.md](https://github.com/xitu/gold-miner/blob/master/TODO/stop-foxtrots-now.md)
-> * 译者：
-> * 校对者：
+> * 译者：[LeviDing](https://github.com/leviding)
+> * 校对者：[薛定谔的猫](https://github.com/Aladdin-ADD)、[luisliuchao](https://github.com/luisliuchao)
 
-# Protect our Git Repos, Stop Foxtrots Now!
+# 保护我们的 Git Repos，立刻停止“狐步舞”
 
-![foxtrot dancers](https://developer.atlassian.com/blog/2016/04/stop-foxtrots-now/01-dance.jpg)
+![狐步舞舞者](https://developer.atlassian.com/blog/2016/04/stop-foxtrots-now/01-dance.jpg)
 
-Dancers gearing up to do the Foxtrot
+舞者们正准备跳狐步舞。
 
-### First, what is a foxtrot merge?
+### 首先，什么是“狐步舞”式的合并？
 
-A foxtrot merge is a specific sequence of git commits. A particularly nefarious sequence. Out in the open, in lush open grasslands, the sequence looks like this:
+“狐步舞”式的合并是 `git commit` 的一个特别不好的具体顺序。如同在户外看到的“狐步舞”，这种 commits 序列像这个样子：
 
-![foxtrot merge](https://developer.atlassian.com/blog/2016/04/stop-foxtrots-now/02-foxtrot.png)
+![“狐步舞”式的合并](https://developer.atlassian.com/blog/2016/04/stop-foxtrots-now/02-foxtrot.png)
 
-But foxtrots are rarely seen in the open. They hide up in the canopy, in-between the branches. I call them foxtrots because, when caught mid-pounce, they look like the foot sequence for the eponymous ballroom dance:
+但在公开场合很少会见到“狐步舞”。它们隐藏在树冠之间，树枝之间。我称它们“狐步舞”式，是因为他们交叉的样子，他们看起来像同步舞蹈的舞步顺序：
 
-![foxtrot merge](https://developer.atlassian.com/blog/2016/04/stop-foxtrots-now/foxtrot-redrawn.png)
+![狐步示意图](https://developer.atlassian.com/blog/2016/04/stop-foxtrots-now/foxtrot-redrawn.png)
 
-Others have blogged about foxtrot merges, but they never name them directly. For example, Junio C. Hamano blogs about having [Fun With –First-Parent](http://git-blame.blogspot.ca/2012/03/fun-with-first-parent.html), as well as [Fun With Non-Fast-Forward](http://git-blame.blogspot.ca/2015/03/fun-with-non-fast-forward.html). David Lowe of nestoria.com talks about [Maintaining Consistent Linear History](http://devblog.nestoria.com/post/98892582763/maintaining-a-consistent-linear-history-for-git).  And then there’s a [whole](http://longair.net/blog/2009/04/16/git-fetch-and-merge/)[whack](http://kernowsoul.com/blog/2012/06/20/4-ways-to-avoid-merge-commits-in-git/)[of](https://randyfay.com/content/simpler-rebasing-avoiding-unintentional-merge-commits)[people](https://adamcod.es/2014/12/10/git-pull-correct-workflow.html) telling you to avoid `git pull` and to always use `git pull –rebase` instead. Why?  Mostly to avoid merge commits in general, but also to avoid them darn foxtrot vermin.
+还有一些人也提到“狐步舞”式的合并，但它们从来没有直接说出它的名字。例如，Junio C. Hamano 的博客有[有趣的 `--first-parent`](http://git-blame.blogspot.ca/2012/03/fun-with-first-parent.html)，还有[有趣的非快进方式（Non-Fast-Forward）](http://git-blame.blogspot.ca/2015/03/fun-with-non-fast-forward.html)。David Lowe 的 nestoria.com 有关于[保持一致的线性历史记录](http://devblog.nestoria.com/post/98892582763/maintaining-a-consistent-linear-history-for-git)的文章。此外还有[一](http://longair.net/blog/2009/04/16/git-fetch-and-merge/)[大](http://kernowsoul.com/blog/2012/06/20/4-ways-to-avoid-merge-commits-in-git/)[堆](https://randyfay.com/content/simpler-rebasing-avoiding-unintentional-merge-commits)[人](https://adamcod.es/2014/12/10/git-pull-correct-workflow.html)告诉你要避免使用 `git pull`，而是使用 `git pull –rebase`。为什么？主要是为了避免一般的合并和提交时的错误，此外还可以避免出现该死的“狐步舞”式的提交。
 
-But are foxtrot merges really bad? Yes.
+“狐步舞”式的合并真的很不好吗？是的。
 
-![jelly](https://developer.atlassian.com/blog/2016/04/stop-foxtrots-now/04-jelly.jpg)
+![水母](https://developer.atlassian.com/blog/2016/04/stop-foxtrots-now/04-jelly.jpg)
 
-They are clearly not as bad as the Portuguese Man o’ War merge. But foxtrot merges are bad, and you do not want them creeping into your git repositories.
+它们显然不如僧帽水母那样糟糕。但是“狐步舞”式的合并也是不好的，你不希望你的 git 仓库里有它们的身影。
 
-### Why are foxtrot merges bad?
+### “狐步舞”式的合并为什么不好？
 
-Foxtrot merges are bad because they change origin/master’s first-parent history.
+“狐步舞”式的合并不好，因为它会改变 `origin/master` 分支的“第一父级”的地位。
 
-The parents of a merge commit are ordered. The first parent is HEAD. The second parent is the commit you reference with the `git merge` command.
+合并提交记录的父级是有序的。第一个父级是 `HEAD`。第二个父级是用 `git merge` 命令提交的。
 
-You can think of it like this:
+你可以像下面这样想：
 
-```
+```bash
 git checkout 1st-parent
 git merge 2nd-parent
 ```
 
-And if you are of the [octopus persuasion](http://marc.info/?l=linux-kernel&amp;m=139033182525831):
+如果你是 [octopus 的说客](http://marc.info/?l=linux-kernel&amp;m=139033182525831):
 
-```
+```bash
 git merge 2nd-parent 3rd-parent 4th-parent ... 8th-parent etc...
 ```
 
-This means first-parent history is exactly like it sounds.  It’s the history you get when you omit all parents except the first one for each commit. For regular commits (non-merges) the first parent is the only parent, and for merges it was the commit you were on when you typed `git merge.` This notion of first-parent is built right into Git, and appears in many of the commands, e.g., `git log –first-parent.`
+这意味着父级的记录就像它听起来一样。当你提交新的代码的时候，忽略第一个父级以外的父级，从而得到一个新的代码记录。对于常规的 `commit`（非 `merge`），第一个父级是唯一的父级，并且对于 `merge` 来说，它是你在输入 `git merge` 时所产生的记录。这种父级概念是直接植入到 Git 里的，并且在很多命令行中都有所体现，例如，`git log –first-parent`。
 
-The problem with foxtrot merges is they cause *origin/master* to merge as a second parent.
+“狐步舞”式的合并问题在于，它使得 *origin/master* 由第一父级变成了第二父级。
 
-Which would be fine except that Git doesn’t care about parent-order when it evaluates whether a commit is eligible for fast-forward.
+除了 Git 在评估提交是否有资格进行 `fast-forward` 时，Git 并不关心父级的先后次序。
 
-And you really don’t want that. You don’t want foxtrot merges updating *origin/master* via fast-forward. It makes the first-parent history unstable.
+当然你很不希望这样。你不希望“狐步舞”式的合并通过 `fast-forward` 的方式更新你的 *origin/master*，使得 *origin/master* 第一父级的地位不稳定。
 
-Look what happens when a foxtrot merge is pushed:
+看一下当“狐步舞”式的合并被 `push` 上去的时候会发生什么：
 
-![foxtrot pushed](https://developer.atlassian.com/blog/2016/04/stop-foxtrots-now/05-foxtrot-pushed.png)
+![“狐步舞”式的合并被 `push`](https://developer.atlassian.com/blog/2016/04/stop-foxtrots-now/05-foxtrot-pushed.png)
 
-You can calculate the first-parent history yourself by tracing the graph with your finger starting from *origin/master* and always going left at every fork.
+可以使用手指从 *origin/master* 开始沿着图形往下，在每个分叉的地方选择左边的分支，从而知道当前的第一父级的变更历史。
 
-The problem is that initially the first-parent sequence of commits (starting from *origin/master*) is this:
+问题是，最初的第一个父级提交次序（从 *origin/master* 开始）是这样的：
 
-B, A
+B, A.
 
-But after the foxtrot merge is pushed, the first-parent sequence becomes this:
+但是当“狐步舞”式的合并被 `push` 之后，父级的次序变成这样了：
 
-D, C, A
+D, C, A.
 
-Commit B has vanished from the *origin-master*‘s first-parent history. No work is lost, and commit B is still part of *origin/master* of course.
+这时，B 节点已从 *origin/master* 第一父级中消失，事实上，B在它的第二父级上。当然，不会有任何资料的丢失，并且 B 节点仍然是 *origin/master* 的一部分。
 
-But first-parent turns out to have all sorts of implications. Did you know that the tilda notation (e.g., ~N) specifies the *Nth*-commit down the first-parent path from the given commit?
+但是，这样父级节点就会有错综复杂的关系。你是否知道，`tilda` 符号（例如 `~N`）指定从第 N 个提交的节点到第一个父节点间的路径？
 
-Have you ever wanted to see each commit on your branch as a diff, but `git log -p` is clearly missing diffs, and `git log -p -m` has way too many diffs?
+你有没有想要看看你的分支上的每个提交记录之间的差异，但是使用 `git log -p` 显然会漏掉一些信息，使用 `git log -p -m` 能获取更多的信息吗？
 
-Try `git log -p -m –first-parent` instead.
+尝试使用 `git log -p -m –first-parent` 吧。
 
-Have you ever wanted to revert a merge?  You need to supply the `-m parent-number` option to `git revert` to do that, and you really don’t want to provide the wrong parent-number.
+你想过要还原一个合并的分支吗？那你需要为 `git revert` 提供 `-m parent-number` 选项，这时候你就很不希望自己提供的 `parent-number` 是错的。
 
-Most people I work with treat the first-parent sequence as the real “master” branch. Either consciously or subconsciously, people see `git log –first-parent origin/master` as the sequence of the important things. As for any side branches merging in? Well, you know what they say:
+和我一起工作的人，大多数都将第一个父级作为真正的 `master` 分支。有意识或无意识地，人们将 `git log –first-parent origin/master` 视为重要事物的顺序。 至于任何其他合并进来的分支？嗯，你应该知道他们会怎么说：
 
 ![topic](https://developer.atlassian.com/blog/2016/04/stop-foxtrots-now/06-what-happens-in-topic.jpg)
 
-But foxtrot merges mess with this. Consider the example below, where a sequence of critical commits hits origin/master in parallel to your own slightly less important work:
+但是“狐步舞”式的合并把这些都混在了一起。请考虑下面的例子，其中 *origin/master* 分支的一系列的重要提交信息，与你自己的稍微不那么重要的提交并行：
 
 ![topic escaped](https://developer.atlassian.com/blog/2016/04/stop-foxtrots-now/07a-topic-branch-escape.png)
 
-At this point you’re finally ready to bring your work into master. You type `git pull`, or maybe you’re on a topic branch and you type `git merge master`. What happens? A foxtrot merge happens.
+现在，你终于准备把你的工作并入到 `master` 中。你输入 `git pull`，或者可能你在一个主题分支上使用 `git merge master` 命令。那这样发生了什么？一个“狐步舞”式的合并就这么出现了。
 
 ![topic escaped b](https://developer.atlassian.com/blog/2016/04/stop-foxtrots-now/07b-topic-branch-escape.png)
 
-This wouldn’t really be of any concern. Except when you type `git push` and your remote repo accepts it. Because now your history looks like this:
+一切都没有什么大问题，除了当你键入 `git push`，让你的远程仓库接受它时，你的历史记录看起来像这样：
 
 ![topic escaped c](https://developer.atlassian.com/blog/2016/04/stop-foxtrots-now/07c-topic-branch-escape.png)
 
 ![topic escaped lego](https://developer.atlassian.com/blog/2016/04/stop-foxtrots-now/08-lego-topic-branch-escaped.jpg)
 
-### What should I do about the pre-existing foxtrot merges that have infected my git repo?
+### 对于已经混入了“狐步舞”式的合并的 git 项目应该怎么做？
 
-Nothing. Leave them. Unless you’re one of those antisocial people that rewrites master. Then go nuts.
+啥招都没有，随它们去吧。除非你重写 master 分支的历史而惹怒其他人，那么就去这么疯吧。
 
-Actually, [please don’t](https://www.atlassian.com/git/tutorials/merging-vs-rebasing/the-golden-rule-of-rebasing/).
+事实上，[不要这样做。](https://www.atlassian.com/git/tutorials/merging-vs-rebasing/the-golden-rule-of-rebasing/)
 
-### How can I prevent future foxtrot merges from creeping into my git repo?
+### 如何防止未来“狐步舞”式的合并出现在我的 git 项目中？
 
-There are a few ways.  My favorite approach involves 4 steps:
+这有几个方法。我最喜欢的的方式是下面的四步：
 
-1. Setup Atlassian Bitbucket Server for your team.
+1. 为你的团队安装 Atlassian Bitbucket 服务器。
 
-2. Install the add-on I wrote for Bitbucket Server called “Bit Booster Commit Graph and More.”  You can find it here:  [https://marketplace.atlassian.com/plugins/com.bit-booster.bb](https://marketplace.atlassian.com/plugins/com.bit-booster.bb)[https://marketplace.atlassian.com/plugins/com.bit-booster.bb](https://marketplace.atlassian.com/plugins/com.bit-booster.bb)
+2. 安装我为 Bitbucket 服务器写的插件，名字叫“Bit Booster Commit Graph and More”。
+你可以在下面的链接中找到他们：[https://marketplace.atlassian.com/plugins/com.bit-booster.bb](https://marketplace.atlassian.com/plugins/com.bit-booster.bb)[https://marketplace.atlassian.com/plugins/com.bit-booster.bb](https://marketplace.atlassian.com/plugins/com.bit-booster.bb)
 
-3. Click the “Enable” button on the “Protect First Parent Hook” in all your repos:
+3. 在你所有项目中，都点击 “Protect First Parent Hook” 上的 “Enabled” 按钮，也就是“启用”按钮：
 
 ![hook enabled](https://developer.atlassian.com/blog/2016/04/stop-foxtrots-now/09-hook-enabled.png)
 
-4. Call in sick to work for 31 days to make the trial license expire.
+4. 你可以在试用许可结束前免费使用31天。（感觉它好用的话，可以在试用期后进行购买）。
 
-This is my preferred approach because it keeps the foxtrots away, and it prints a cow whenever a foxtrot is blocked:
+这是我最喜欢的方式，因为它杜绝了“狐步舞”的出现。每当有一个“狐步舞”式的合并被阻挡时，它会打印一只牛：
 
-```
+``` bash
 $ git commit -m 'my commit'
 $ git pull
 $ git push
@@ -144,11 +145,11 @@ remote: must appear in the 'first-parent' position of the
 remote: subsequent commit.
 ```
 
-There are other ways. You could disable direct pushes to master, and hope that pull-requests never merge with fast-forward. Or train your staff to always do `git pull –rebase` and to never type `git merge master` and once all your staff are trained, never hire anyone else.
+还有其他的方法。你可以禁止直接向 *master* 分支进行推送，并保证不在 `fast-forward` 的情况下合并 `pull-requests`。或者培训你的员工使用 `git pull –rebase` 命令，并且永远不要使用 `git merge master`。并且一旦你培训完你的员工，就不要再招聘其他员工了。
 
-If you have direct access to the remote repository, you could setup a pre-receive hook. The following bash script should help you get started:
+如果你可以直接访问远程仓库，则可以设置 `pre-receive hook`。 以下的 `bash` 脚本可以帮助你开始这项设置：
 
-```
+```bash
 #/bin/bash
 
 # Copyright (c) 2016 G. Sylvie Davies. http://bit-booster.com/
@@ -171,30 +172,29 @@ fi
 done
 ```
 
-### I accidentally created a foxtrot merge, but I haven’t pushed it. How can I fix it?
+### 我不小心创建了一个“狐步舞”式的合并，但我还没有 `push` 上去。我该怎么解决？
 
-Suppose you install the pre-receive hook, and it blocks your foxtrot. What do you do next? You have three possible remedies:
+假设你安装了预先接收的钩子，并且阻止你“狐步舞”式的合并。你下一步做什么？你有三种可能的补救办法：
 
-1. Simple rebase:
+1. 普通的 `rebase`：
 
-![remedy rebase](https://developer.atlassian.com/blog/2016/04/stop-foxtrots-now/10-remedy-rebase.png)
+![使用 `rebase` 进行补救](https://developer.atlassian.com/blog/2016/04/stop-foxtrots-now/10-remedy-rebase.png)
 
-2. Reverse your earlier merge to make origin/master the first-parent:
+2. 撤销你之前的合并，使你的 *origin/master* 分支成为第一父级：
 
-![reverse merge](https://developer.atlassian.com/blog/2016/04/stop-foxtrots-now/11-remedy-reverse-merge.png)
+![撤销 merge](https://developer.atlassian.com/blog/2016/04/stop-foxtrots-now/11-remedy-reverse-merge.png)
 
-3. Create a 2nd merge commit after the foxtrot merge to preserve origin/master’s –first-parent relation.
+3. 在“狐步舞”式的合并后创建第二个合并并提交，以恢复 *origin/master* 的第一父级的地位。
 
-![remedy](https://developer.atlassian.com/blog/2016/04/stop-foxtrots-now/12-remedy-man-o-war.png)
+![补救](https://developer.atlassian.com/blog/2016/04/stop-foxtrots-now/12-remedy-man-o-war.png)
 
-But please don’t do #3, because the final result is called a “Portuguese man o’ war merge,” and those guys are even worse than foxtrot merges.
+但请不要使用上面的第三种方法，因为最后的结果被称为“僧帽水母”式的合并，这种合并甚至比“狐步舞”式的合并更糟糕。
 
-### Conclusion
+### 总结
 
-At the end of the day a foxtrot merge is just like any other merge. Two (or more) commits come together to reconcile separate development histories.  As far as your codebase is concerned, it makes no difference. Whether commit A merges into commit B or vice versa, the end result from a code perspective is identical.
+在最后，其实“狐步舞”式的合并也像其他的合并那样。两个（或多个）提交到一起融合成一个新的记录节点。就你的代码库而言，没有任何区别。无论 commit A 合并到 commit B 中还是反过来 commit B 合并到 commit A，从代码的角度来看最终结果是相同的。
 
-But when it comes to your repository’s history, as well as using the git toolset effectively, foxtrot merges create havoc.  By setting up policy to prevent them, you make your history easier to understand, and you reduce the range of git command options you need to memorize.
-
+但是，当涉及到你的仓库的历史记录时，以及有效地使用 git 工具集时，“狐步舞”式的合并会有一定的破坏性。通过设置相应的策略来防止其出现，可以使你仓库的历史记录更加清晰明了，并减少了需要记住的 git 命令选项的范围。
 
 ---
 
