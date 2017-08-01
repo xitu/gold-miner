@@ -18,7 +18,7 @@ Redux 是一个很棒的用于管理应用程序“状态”的工具。单向�
 - 第四点: 在状态中的不同节点复用通用的 reducer 函数
 - 第五点: 连接 React 组件与 Redux 状态的最佳实践
 
-### 1. 使用索引保存数据，使用选择器读取数据
+### 1. 使用索引（index）保存数据，使用选择器（selector）读取数据
 
 选择正确的数据结构可以对程序的结构和性能产生很大影响。在存储来自 API 的可序列化数据时可以极大的受益于索引的使用。索引是指一个 JavaScript 对象，其键是我们要存储的数据对象的 id，其值则是这些数据对象自身。这种模式和使用 hashmap 存储数据非常类似，在查询效率方面也有相同的优势。这一点对于精通 Redux 的人来说不足为奇。实际上，Redux 的作者 Dan Abramov 在他的 [Redux 教程中](https://egghead.io/lessons/javascript-redux-persisting-the-state-to-the-local-storage)就推荐了这种数据结构。
 
@@ -166,7 +166,7 @@ const getSelectedUsers = ({ selectedUserIds, usersById }) => {
 
 在 Redux 中复用 reducer 逻辑可能会有点棘手。默认情况下，当触发一个 action 时所有的 reducer 都会被执行。如果我们在多个 reducer 函数中共享一个 reducer 函数，那么当触发一个 action 时所有这些 reducer 都会被调用。然而这并不是我们想要的结果。当我们读取用户得到总数是 500 时，我们不想域名的 `count` 也变成 500。
 
-我们推荐两种不同的方式来解决此问题，利用特殊作用域或是类型前缀。第一种方式涉及到在 action 传递的数据中增加一个类型信息。这个 action 会利用该类型来决定该更新状态中的哪个数据。为了演示该方法，假设我们有一个包含多个模块的页面，每个模块都是从不同 API 异步加载的。我们跟踪加载过程的状态可能会像下面这样：
+我们推荐两种不同的方式来解决此问题，利用特殊作用域（scope）或是类型前缀（prefix）。第一种方式涉及到在 action 传递的数据中增加一个类型信息。这个 action 会利用该类型来决定该更新状态中的哪个数据。为了演示该方法，假设我们有一个包含多个模块的页面，每个模块都是从不同 API 异步加载的。我们跟踪加载过程的状态可能会像下面这样：
 
 ```
 const initialLoadingState = {
