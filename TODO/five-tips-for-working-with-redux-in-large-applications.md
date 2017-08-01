@@ -4,7 +4,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/five-tips-for-working-with-redux-in-large-applications.md](https://github.com/xitu/gold-miner/blob/master/TODO/five-tips-for-working-with-redux-in-large-applications.md)
 > * 译者：[loveky](https://github.com/loveky)
-> * 校对者：
+> * 校对者：[stormrabbit](https://github.com/stormrabbit)
 
 # 在大型应用中使用 Redux 的五个技巧
 
