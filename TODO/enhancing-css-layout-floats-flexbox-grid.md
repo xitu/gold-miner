@@ -3,48 +3,48 @@
 > * 原文作者：[Manuel Matuzović](https://www.smashingmagazine.com/author/manuelmatuzovic/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/enhancing-css-layout-floats-flexbox-grid.md](https://github.com/xitu/gold-miner/blob/master/TODO/enhancing-css-layout-floats-flexbox-grid.md)
-> * 译者：
+> * 译者：[LeviDing](https://github.com/leviding)
 > * 校对者：
 
-# Progressively Enhancing CSS Layout: From Floats To Flexbox To Grid
+# 逐渐增强的 CSS 布局：从浮动到 Flexbox 到 Grid
 
-Earlier this year, support for [CSS grid layout](https://www.smashingmagazine.com/2016/11/css-grids-flexbox-and-box-alignment-our-new-system-for-web-layout/) landed in most major desktop browsers. Naturally, the specification is one of the hot topics at meet-ups and conferences. After having some conversations about grid and progressive enhancement, I believe that there’s a **good amount of uncertainty** about using it. I heard some quite interesting questions and statements, which I want to address in this post.
+今年早些时候，大多数主流浏览器都支持了 [CSS Grid 布局](https://www.smashingmagazine.com/2016/11/css-grids-flexbox-and-box-alignment-our-new-system-for-web-layout/)。自然地，规范是小讨论会和大型会议的热门话题之一。在参与了一些关于 Grid 布局和渐进增强的讨论后，我认为使用它还是有**很大的不确定性**。我听到一些很有趣的问题和发言，我想在这篇文章中讨论讨论。
 
-### Statements And Questions I’ve Heard In The Last Few Weeks
+### 最近几周听到的声明和问题
 
-- “When can I start using CSS grid layout?”
-- “Too bad that it’ll take some more years before we can use grid in production.”
-- “Do I need Modernizr in order to make websites with CSS grid layout?”
-- “If I wanted to use grid today, I’d have to build two to three versions of my website.”
-- “Progressive enhancement sounds great in theory, but I don’t think it’s possible to implement in real projects.”
-- “How much does progressive enhancement cost?”
+- “我什么时候可以开始使用 CSS grid 布局？”
+- “还需要好几年我才能在实际项目中使用 CSS Grid 布局，这太扯淡了。”
+- “为了使 CSS Grid 布局，网站需要 Modernizr 吗？”
+- “如果我现在想使用 CSS Grid，那我需要为我的网站做两三个版本。”
+- “渐进增强在理论上听起来不错，但我认为在实际项目中不可能实现。”
+- “渐进增强的成本是多少？”
 
-These are all good questions, and not all of them are easy to answer, but I’m happy to share my approach. The CSS grid layout module is one of the most exciting developments since responsive design. We should try to get the best out of it as soon as possible, if it makes sense for us and our projects.
+这些都是很好的问题，并不是所有的都很容易回答，但我很乐于分享我的一些方法。CSS Grid 布局模块是响应式设计中最令人激动的发展之一。如果它对我们和我们的项目有意义，我们应尽快去用好它。
 
-### Demo: Progressively Enhanced Layout
+### Demo: 渐进增强布局
 
-Before going into detail and expounding my thoughts on the questions and statements above, I want to present a little [demo](https://s.codepen.io/matuzo/debug/Emddvx) I’ve made.
+在详细阐述我对上述问题的想法之前，我想介绍一下我做的一个小的 [demo](https://s.codepen.io/matuzo/debug/Emddvx) I’ve made。
 
-*Disclaimer:* It would be best to open the demo on a device with a large screen. You won’t see anything of significance on a smartphone.
-[![Progressively enhanced CSS Layout, with Flexbox and CSS Grid.](https://www.smashingmagazine.com/wp-content/uploads/2017/07/holy-grid_pptwcu_c_scale_w_1050.png)](https://s.codepen.io/matuzo/debug/Emddvx)
-The home page of an example website, with an adjustable slider to switch between different layout techniques.
-When you open the [demo](https://s.codepen.io/matuzo/debug/Emddvx), you’ll find yourself on the home page of a website with a very basic layout. You can adjust the slider in the top left to enhance the experience. The layout switches from being very basic to being a float-based layout to being a flexbox layout and, finally, to being one that uses grid.
+**注意：** 最好在具有大屏幕的设备上打开上面这个 demo。你用手机打开的话，啥也看不见。
+[![使用了 Flexbox 和 CSS Grid 的渐进增强的 CSS 布局](https://www.smashingmagazine.com/wp-content/uploads/2017/07/holy-grid_pptwcu_c_scale_w_1050.png)](https://s.codepen.io/matuzo/debug/Emddvx)
+示例网站的主页，具有可调节的滑块，可在不同的布局技术之间进行切换。
+当你打开这个 [demo](https://s.codepen.io/matuzo/debug/Emddvx), 你会发现自己在一个基本布局的网站的主页上。您可以调整左上角的滑块以增强您的体验。布局从非常基本到基于浮动的布局，再转换为 基于 flexbox 的布局，最后是基于 CSS Grid 的布局。
 
-It’s not the most beautiful or complex design, but it’s good enough to demonstrate which shapes a website can take based on a browser’s capabilities.
+它不是最美丽或最复杂的设计，但它足以显示基于浏览器功能的网站可以采用哪些形态。
 
-This demo page is built with CSS grid layout and **doesn’t use any prefixed properties or polyfills**. It’s accessible and usable for users in Internet Explorer (IE) 8, Opera Mini in Extreme mode, UC Browser and, of course, the most popular modern browsers. You can perfectly use CSS grid layout today if you don’t expect exactly the same appearance in every single browser, which isn’t possible to achieve nowadays anyway. I’m well aware that this decision isn’t always up to us developers, but I believe that our clients are willing to accept those differences if they understand the benefits (future-proof design, better accessibility and better performance). On top of that, I believe that our clients and users have — thanks to responsive design — already learned that websites don’t look the same in every device and browser.
+此演示页面使用 CSS Grid 布局构建，**不使用任何前缀属性或 polyfills **。它对于 Internet Explorer（IE）8，极限模式下的 Opera Mini，UC 浏览器和当前最流行的现代浏览器的用户来说，都是可以访问的。如果你不期待在所有浏览器中都看到完全相同的效果，那么你现在完全可以使用 CSS Grid 布局。但是期望使用 CSS Grid 在所有浏览器中都看到完全相同的效果是现在无法实现的。我很清楚，这种情况并不完全取决于我们的开发人员，但是我相信如果客户明白其中的好处（面向未来的设计，更好的可访问性和更高的性能），我们的客户会很愿意接受这些差异。除此之外，我相信我们的客户和用户 —— 感谢响应式设计 —— 已经了解到，网站在每个设备和浏览器中看起来都不一样。
 
-In the following sections, I’m going to show you how I built parts of the demo and why some things just work out of the box.
+在以下部分中，我将向你展示如何构建 demo 的部分内容，以及为什么有些效果只在 box 外有效。
 
-*Quick side note*: I had to add a few lines of JavaScript and CSS (an HTML5 shim) in order to make the page work in IE 8. I couldn’t resist, because IE 8+ just sounds more impressive than IE 9+.
+**边注**：,为了让这个 demo 支持 IE 8，我不得不多添加几行 JavaScript 和 CSS（一个 HTML 5 垫片）。我没办法，因为 IE 8+ 听起来比 IE 9+ 更令人印象深刻。
 
-### CSS Grid Layout And Progressive Enhancement
+### CSS Grid 布局和渐进增强
 
-Let’s take a deeper look at how I built the “**four levels of enhancement**” component in the center of the page.
+我们一起来深入了解我如何在页面中心建立“**四级增强**”组件。
 
 #### HTML
 
-I started off by putting all items into a `section` in a logical order. The first item in the section is the heading, followed by four subsections. Assuming that they represent separate blog posts, I wrapped each of them in an `article` tag. Each article consists of a heading (`h3`) and a linked image. I used the `picture` element here because I want to serve users with a different image if the viewport is wide enough. Here, we already have the first example of good ol’ progressive enhancement in action. If the browser doesn’t understand `picture` and `source`, it will still show the `img`, which is also a child of the `picture` element.
+我将所有项目按逻辑顺序放入到 `section` 中。该部分的第一个 `section` 中是标题，其次是四个小节。假设他们代表单独的博客帖子，我把它们中的每一个都包含在一个 `article` 标签中。每篇文章由一个标题（`h3`）和一个图像链接组成。我在这里使用 `picture` 元素，因为我想在视口足够宽的情况下，为不同的用户提供不同的图像。在这，我们已经有了良好的渐进增强的第一个例子。如果浏览器不理解 `picture` 和 `source`，它仍然会显示 `img`，这也是 `picture` 元素的一个子元素。
 
 ```
 <section>
@@ -54,13 +54,13 @@ I started off by putting all items into a `section` in a logical order. The firs
 </section>
 ```
 
-#### Float Enhancements
+#### 浮动增强功能
 
-![A component of the demo page built with float](https://www.smashingmagazine.com/wp-content/uploads/2017/07/component_float-800w-opt.jpg)
+![用 float 构建的演示页面的一个组件](https://www.smashingmagazine.com/wp-content/uploads/2017/07/component_float-800w-opt.jpg)
 
-All items in the “four levels of enhancement” component, floated left
+所有的项目都在“四级增强”组件中，向左浮动。
 
-On larger screens, this component works best if all items are laid out next to each other. In order to achieve that for browsers that don’t understand flexbox or grid, I float them, give them a size and some margin, and clear the floating after the last floated item.
+在较大的屏幕上，如果所有项目彼此排列，则此组件的效果最好。为了支持不了解 flexbox 或 grid 的浏览器，我将其设为浮动，给它们设置了一定的 `size` 和 `margin`，并在最后一个浮动项目之后清除浮动。
 
 ```
 article {
@@ -79,13 +79,13 @@ section:after {
 }
 ```
 
-### Flexbox Enhancements
+### Flexbox 增强功能
 
-![A component of the demo page built with flexbox](https://www.smashingmagazine.com/wp-content/uploads/2017/07/component_flex-800w-opt.jpg)
+![用 flexbox 布局构建的演示页面的一个组件](https://www.smashingmagazine.com/wp-content/uploads/2017/07/component_flex-800w-opt.jpg)
 
-All items in the “four levels of enhancement” enhanced with flexbox
+“四个层次的渐进增强”中的所有项目都因 flexbox 的加入而得到了提升。
 
-In this example, I actually don’t need to enhance the general layout of the component with flexbox, because floating already does what I need. In the design, the headings are below the images, which is something that’s achievable with flexbox.
+在这个例子中，我实际上不需要使用 flexbox 来增强组件的总体布局，因为浮动已经完成了我的需求。在设计中，标题在图像的下边，这可以通过 flexbox 实现。
 
 ```
 article {
@@ -98,17 +98,17 @@ h3 {
 }
 ```
 
-We have to be very cautious when reordering items with flexbox. We should use it only for visual changes, and make sure that reordering doesn’t change the user experience for keyboard or screen-reader users for the worse.
+使用 flexbox 重新为各个项目进行排序时，我们必须非常谨慎 我们应该仅将其用于视觉上的变化，并确保重新排序不会改变键盘或屏幕阅读器用户的体验。
 
-### Grid Enhancements
+### Grid 增强功能
 
-![A component of the demo page built with grid](https://www.smashingmagazine.com/wp-content/uploads/2017/07/component_grid-800w-opt.jpg)
+![用 grid 布局构建的演示页面的一个组件](https://www.smashingmagazine.com/wp-content/uploads/2017/07/component_grid-800w-opt.jpg)
 
-All items in the “four levels of enhancement” enhanced with CSS grid
+“四个层次的渐进增强”中的所有项目都因 CSS Grid 的加入而得到了提升。
 
-Everything looks pretty good now, but the heading still needs some positioning. There are many ways to position the heading right above the second item. The easiest and most flexible way I found is to use CSS grid layout.
+一切看起来都不错，但标题仍然需要进行一些定位上的调整。有很多方法可以将标题放在第二个项目的正上方。我发现最简单、最灵活的方式是使用 CSS Grid 布局。
 
-First, I drew a four-column grid, with a 20-pixel gutter on the parent container.
+首先，我画了一个四列的网格，在父级容器上有一个 20 像素的凹槽。
 
 ```
 section {
@@ -118,7 +118,7 @@ section {
 }
 ```
 
-Because all articles still have a width of `24.25%`, I reset this property for browsers that understand grid.
+因为所有文章的宽度都是 `24.25％`，所以我为支持 CSS Grid 的浏览器重新设置了这个属性。
 
 ```
 @supports(display: grid) {
@@ -127,7 +127,7 @@ Because all articles still have a width of `24.25%`, I reset this property for b
 }
 ```
 
-Then, I put the heading in the first row and second column.
+然后，我把标题放在第一行和第二列。
 
 ```
 h2 {
@@ -136,7 +136,7 @@ h2 {
 }
 ```
 
-To work against grid’s auto-placement, I also put the second `article` explicitly in the second row and second column (below the heading).
+为了去掉 Grid 的自动 `auto-placement`，我还将第二个 `article` 显式地放在第二行和第二列（标题下）。
 
 ```
 article:nth-of-type(2) {
@@ -145,7 +145,7 @@ article:nth-of-type(2) {
 }
 ```
 
-Finally, in order for the gap between the heading and the second item to be removed, all the other items have to span two rows.
+最后，因为我想删除标题和第二个项目之间的间距，所有其他项目必须跨两行。
 
 ```
 article {
@@ -153,9 +153,9 @@ article {
 }
 ```
 
-That’s it. You can [see the final layout on Codepen](https://codepen.io/matuzo/pen/PjYKXW?editors=1100)[5](#5).
+就是这样。你可以[在 Codepen 上看最终的布局](https://codepen.io/matuzo/pen/PjYKXW?editors=1100)[5](#5)。
 
-If I extract the extra lines that I need to make this thing work in IE 9+, then we’ll get a total of eight lines (three of which are actually for the clearfix and are reusable). Compare that to the overhead you get when you use prefixes.
+如果我需要让这些代码支持 IE 9+，那么我们将总共需要八行代码（其中三行实际上是 clearfix，并且是可重用的）。当你使用前缀的时候也要对比一下。
 
 ```
 article {
@@ -175,74 +175,74 @@ section:after {
 }
 ```
 
-I know that that’s just a simple example and not a complete project, and I know that a website has way more complex components. However, imagine how much more time it would take to build a layout that would look pixel-perfectly the same across all the various browsers.
+这只是一个简单的例子，而不是一个完整的项目，我知道一个网站有更复杂的组件。但是，想像一下，在所有的浏览器中构建一个布局效果几乎一样的项目需要多长时间。
 
-### You Don’t Have To Overwrite Everything
+### 你不需要覆盖一切
 
-In the preceding example, `width` was the only property that had to be reset. One of the great things about grid (and flexbox, too, by the way) is that certain properties lose their power if they’re applied to a flex or grid item. `float`, for example, has no effect if the element it’s applied to is within a grid container. That’s the same for some other properties:
+在前面的例子中，`width` 是唯一一个必须重置的属性。关于 grid（和 flexbox，顺便说一下）的一个重要的事儿是，如果某些属性被应用于 flex 或 grid 的项目内部，它们将失去原来的作用。例如，`float`，如果它应用于的元素在 grid 容器内，则不起作用。对于其他一些属性也是如此：
 
 - `display: inline-block`
 - `display: table-cell`
 - `vertical-align`
-- `column-*` properties
+- `column-*` 属性
 
-Check “[Grid ‘Fallbacks’ and Overrides](https://rachelandrew.co.uk/css/cheatsheets/grid-fallbacks)” by amazing [Rachel Andrew](https://rachelandrew.co.uk) for more details.
-[![Table showing the browser support of CSS Feature Queries](https://www.smashingmagazine.com/wp-content/uploads/2017/07/caniuse_featurequeries-800w-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2017/07/caniuse_featurequeries-large-opt.png)
+更多内容请点击查看 [Rachel Andrew](https://rachelandrew.co.uk) 写的 “[Grid 回退和覆盖。](https://rachelandrew.co.uk/css/cheatsheets/grid-fallbacks)”
+[![展示 CSS 功能查询支持情况的表格](https://www.smashingmagazine.com/wp-content/uploads/2017/07/caniuse_featurequeries-800w-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2017/07/caniuse_featurequeries-large-opt.png)
 
-CSS feature queries are supported in every major browser. (Image: [Can I Use](http://caniuse.com/) ([View large version](https://www.smashingmagazine.com/wp-content/uploads/2017/07/caniuse_featurequeries-large-opt.png)
+几乎每个主流浏览器都支持 CSS 功能查询。（图片：[我可以使用](http://caniuse.com/)）（[查看大图](https://www.smashingmagazine.com/wp-content/uploads/2017/07/caniuse_featurequeries-large-opt.png)）。
 
-If you do have to overwrite properties, use [feature queries](https://hacks.mozilla.org/2016/08/using-feature-queries-in-css/). In most cases, you’ll only need them to overwrite properties such as `width` or `margin`. [Support for feature queries](http://caniuse.com/#feat=css-featurequeries) is really good, and the best part is that they’re supported by every browser that understands grid as well. You don’t need [Modernizr](https://modernizr.com/) for that.
+如果你必须使用属性覆盖，那就是用 [CSS 功能查询](https://hacks.mozilla.org/2016/08/using-feature-queries-in-css/)。在大多数情况下，你只需要覆盖 `width` 或 `margin` 等属性。 [功能查询的支持情况](http://caniuse.com/#feat=css-featurequeries)非常好，并且最好的是每个浏览器都支持网格。在这你不需要 [Modernizr](https://modernizr.com/)。
 
-Also, you don’t have to put all grid properties in a feature query, because older browsers will simply [ignore properties and values they don’t understand](https://www.w3.org/TR/2003/WD-css3-syntax-20030813/#error-handling).
+此外，你不需要将所有的 grid 属性都放在功能查询中，因为旧的浏览器会简单的[忽略他们不了解的属性和值](https://www.w3.org/TR/2003/WD-css3-syntax-20030813/#error-handling)。
 
-The only time when it got a little tricky for me while working on the demo was when there was a flex or grid container with a clearfix applied to it. [Pseudo-elements with content become flex or grid items as well](https://codepen.io/matuzo/pen/mmQxEx). It may or may not affect you; just be aware of it. As an alternative, you can clear the parent with `overflow: hidden`, if that works for you.
+在我写这个 demo 的时候，对我来说唯一感到有点棘手的是当有一个 flex 或 grid 容器使用了 clearfix 的。[包含内容的伪元素也可以变为 flex 或 grid 项](https://codepen.io/matuzo/pen/mmQxEx)。它可能会，也可能不会影响你；只要知道它就好了。作为替代方案，你可以使用 `overflow：hidden` 来清除父级，如果这适用于你的话。
 
-### Measuring The Costs Of Progressive Enhancement
+### 衡量渐进增强的成本
 
-Browsers already do a lot of progressive enhancement for us. I already mentioned the `picture` element, which falls back to the `img` element. Another example is the `email` input field, which falls back to a simple `text` input field if the browser doesn’t understand it. Another example is the range slider that I’m using in the demo. In most browsers, it’s rendered as an adjustable slider. The input type `range` isn’t supported in IE 9, for example, but it’s still usable because it falls back to a simple `input` field. The user has to enter the correct values manually, which isn’t as convenient, but it works.
+浏览器已经为我们做了很多渐进增强的工作。我已经提到 `picture` 元素，它返回到 `img` 元素。另一个例子是 `email` 字段，如果浏览器不明白，它将返回一个简单的 `text` 字段。另一个例子是我在 demo 中使用的调节滑块。在大多数浏览器中，它会被渲染为可调节的滑块。例如，IE 9 中不支持输入类型 `range`，但它仍然可以使用，因为它返回一个简单的 `input` 字段。用户必须手动输入正确的值，这不太方便，但它可以正常工作。
 
-![Range input type comparison in Chrome and IE 9](https://www.smashingmagazine.com/wp-content/uploads/2017/07/slider-preview-opt.jpg)
+![Chrome 和 IE 9 中的输入范围调节效果的比较](https://www.smashingmagazine.com/wp-content/uploads/2017/07/slider-preview-opt.jpg)
 
-Comparison of how the `range` input type is rendered in Chrome and IE 9
+比较在 Chrome 和 IE 9 中如何呈现 `range` 输入类型。
 
-#### Some Things Are Taken Care of by the Browser, Others by Us
+#### 有些东西是浏览其所关注的，其他的则需要由我们负责
 
-While preparing the demo, I came to the realization that it’s incredibly helpful to really understand CSS, instead of just throwing properties at the browser and hoping for the best. The better you understand how floating, flexbox and grid work and the more you know about browsers, the easier it’ll be for you to progressively enhance.
+在准备 demo 的时候，我意识到，真正了解 CSS 是非常有帮助，而不仅仅是写一些属性，希望能够在浏览器中获得最佳的效果。越了解浮动，flexbox 和 grid 的工作原理，以及您对浏览器的了解越多，越容易实现渐进增强。
 
-> Becoming someone who understands CSS, rather than someone who just uses CSS, will give you a huge advantage in your work.
+> 成为一个了解 CSS 的人，而不仅仅是使用 CSS 的人，将为你在工作中带来巨大的优势。
 >
 > [Rachel Andrew](https://rachelandrew.co.uk/archives/2017/05/24/a-very-good-time-to-understand-css-layout/)[16](#16)
 
-Also, if progressive enhancement is already deeply integrated in your process of making websites, then it would be difficult to say how much extra it costs, because, well, that’s just how you make websites. Aaron Gustafson shares a few stories of some projects he has worked on in his post “[The True Cost of Progressive Enhancement](https://medium.com/@AaronGustafson/the-true-cost-of-progressive-enhancement-d395b6502979)” and on the [Relative Paths podcast](https://www.relativepaths.uk/ep48-progressive-enhancement-with-aaron-gustafson/). I highly recommend that you listen to and read about his experiences.
+此外，如果渐进增强功能已经深入整合到您制作网站的过程中，那么很难说会有多少额外的付出，因为这就是你做网站的方法。亚伦·古斯塔夫森（Aaron Gustafson）分享了他在文章“[渐进增强的实际成本](https://medium.com/@AaronGustafson/the-true-cost-of-progressive-enhancement-d395b6502979)”和 “[Relative Paths podcast](https://www.relativepaths.uk/ep48-progressive-enhancement-with-aaron-gustafson/)” 中所做的一些项目的几个故事。我强烈建议你阅读并学习他的经验。
 
 #### Resilient Web Development
 
-> Your website’s only as strong as the weakest device you’ve tested it on.
+> 你的网站和你测试的最弱的设备一样强大。
 >
 > [Ethan Marcotte](https://ethanmarcotte.com/wrote/left-to-our-own-devices/)
 
-Progressive enhancement might involve some work in the beginning, but it can save you time and money in the long run. We don’t know which devices, operating systems or browsers our users will be using next to access our websites. If we provide an accessible and usable experience for less capable browsers, then we’re building products that are resilient and better prepared for new and [unexpected developments](https://www.theverge.com/2017/2/26/14742150/nokia-3310-mwc-2017).
+渐进式增强可能会在一开始就涉及到一些工作，但是从长远来看可以节省时间和金钱。我们不知道用户接下来会使用哪些设备，操作系统或浏览器访问我们的网站。如果我们为不是太好的浏览器提供可访问和可用的体验，那么我们就正在构建具有弹性的产品，并为[意想不到的发展](https://www.theverge.com/2017/2/26/14742150/nokia-3310-mwc-2017)做好准备。
 
-### Summary
+### 摘要
 
-I have the feeling that some of us forget what our job is all about and maybe even forget that what we’re actually doing is “just” a job. We’re not rock stars, ninjas, artisans or gurus, and what we do is ultimately about putting content online for people to consume as easily as possible.
+我有一种感觉，我们中的一些人忘记了我们的工作是什么，甚至可能忘记我们实际做的“仅仅”是一份工作。我们不是摇滚明星，忍者，工匠或大师，我们所做的最终是将内容放在网上，让人们尽可能轻松地消费。
 
-> Content is the reason we create websites.
+> 内容是我们创建网站的原因。
 >
 > [Aaron Gustafson](https://alistapart.com/article/understandingprogressiveenhancement)
 
-That sounds boring, I know, but it doesn’t have to be. We can use the hottest cutting-edge technologies and fancy techniques, as long as we don’t forget who we are making websites for: users. Our users aren’t all the same, nor do they use the same device, OS, browser, Internet provider or input device. By providing a basic experience to begin with, we can get the best out of the modern web without compromising accessibility.
-[![Table showing the browser support of CSS grid layout](https://www.smashingmagazine.com/wp-content/uploads/2017/07/caniuse_grid-800w-opt.png)](http://caniuse.com/#search=grid)
+这听起来很无聊，我知道，但不一定是。我们可以使用最热门的尖端技术和花哨的技术，只要我们不忘记我们在为谁做的网站：用户。我们的用户不一样，也不使用相同的设备，操作系统，浏览器，互联网提供商或输入设备。通过提供最基本的版本开始，我们可以从现代网络中获得最佳效果，而不会影响可访问性。
+[![展示 CSS 功能查询支持情况的表格](https://www.smashingmagazine.com/wp-content/uploads/2017/07/caniuse_grid-800w-opt.png)](http://caniuse.com/#search=grid)
 
-CSS grid layout is supported in almost every major browser. (Image: [Can I Use](http://caniuse.com/)) ([View large version](https://www.smashingmagazine.com/wp-content/uploads/2017/07/caniuse_grid-large-opt.png))
+几乎每个主流浏览器都支持 CSS 功能查询。（图片：[我可以使用](http://caniuse.com/)）（[查看大图](https://www.smashingmagazine.com/wp-content/uploads/2017/07/caniuse_featurequeries-large-opt.png)）。
 
-Grid, for example, is [available in almost every major browser](http://caniuse.com/#search=grid), and we shouldn’t wait more years still until coverage is 100% in order to use it in production, because it’ll never be there. That’s just not how the web works.
+Grid，例如，[几乎在每个主流浏览器中都得到了支持](http://caniuse.com/#search=grid)，我们不应该等待好多年，直到覆盖率达到 100％ 才能在实际项目中使用它，因为那根本不存在。这也不用试网络工作的理念。
 
-[Grid is awesome](https://gridbyexample.com/examples/). Use it now!
+[Grid 非常好用](https://gridbyexample.com/examples/)。现在就开始使用吧！
 
-#### Screenshots
+#### 截图
 
-Here are some screenshots of the demo page in various browsers:
+以下是各种浏览器的 demo 页面的截图：
 
 [![](https://www.smashingmagazine.com/wp-content/uploads/2017/07/ie8_win7-large-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2017/07/ie8_win7-large-opt.png)
 
@@ -268,15 +268,15 @@ Opera Mini 42 (Extreme), Android 7
 
 UC Browser 11,  Android 7
 
-#### Resources and Further Reading
+#### 相关资料和深入阅读
 
-- “[Crippling the Web](https://timkadlec.com/2013/07/crippling-the-web/),” Tim Kadlec
-- “[Browser Support for Evergreen Websites](https://rachelandrew.co.uk/archives/2017/01/12/browser-support-for-evergreen-websites/),” Rachel Andrew
+- “[Crippling the Web](https://timkadlec.com/2013/07/crippling-the-web/)”，Tim Kadlec。
+- “[Browser Support for Evergreen Websites](https://rachelandrew.co.uk/archives/2017/01/12/browser-support-for-evergreen-websites/)”，Rachel Andrew。
 - [The Experimental Layout Lab of Jen Simmons](http://labs.jensimmons.com/) (demos), Jen Simmons
-- “[World Wide Web, Not Wealthy Western Web, Part 1](https://www.smashingmagazine.com/2017/03/world-wide-web-not-wealthy-western-web-part-1/), Bruce Lawson
-- “[Resilience](https://www.youtube.com/watch?v=W7wj7EDrSko)” (video), Jeremy Keith, View Source conference 2016
+- “[World Wide Web, Not Wealthy Western Web, Part 1](https://www.smashingmagazine.com/2017/03/world-wide-web-not-wealthy-western-web-part-1/)”，Bruce Lawson。
+- “[Resilience](https://www.youtube.com/watch?v=W7wj7EDrSko)” (video)，Jeremy Keith，View Source conference 2016。
 
-*Thanks to my mentor Aaron Gustafson for helping me with this article, to Eva Lettner for proofreading and to Rachel Andrew for her countless posts, demos and talks.*
+**感谢我的导师 Aaron Gustafson 对我创作本文的帮助，感谢 Eva Lettner 的校对，和与 Rachel Andrew 之间无数的帖子，demo 和讨论。**
 
 
 ---
