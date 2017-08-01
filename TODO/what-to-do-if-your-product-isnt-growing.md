@@ -3,8 +3,8 @@
 > * 原文作者：[austin chang](https://medium.com/@theaustinchang)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/what-to-do-if-your-product-isnt-growing.md](https://github.com/xitu/gold-miner/blob/master/TODO/what-to-do-if-your-product-isnt-growing.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Funtrip](https://dribbble.com/funtrip)
+> * 校对者：[LeviDing](https://github.com/leviding)、[laiyun90](https://github.com/laiyun90)、
 
 # 如果你的产品停止成长，你该怎么做？
 
