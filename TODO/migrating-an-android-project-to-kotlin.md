@@ -3,25 +3,24 @@
 > * 原文作者：[Ben Weiss](https://medium.com/@keyboardsurfer)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/migrating-an-android-project-to-kotlin.md](https://github.com/xitu/gold-miner/blob/master/TODO/migrating-an-android-project-to-kotlin.md)
-> * 译者：
+> * 译者：[wilsonandusa](https://github.com/wilsonandusa)
 > * 校对者：
 
-# Migrating an Android project to Kotlin
+# 将 Android 程序移植为 Kotlin 程序
 
-A while ago we open sourced [Topeka](https://github.com/googlesamples/android-topeka), an Android quiz app.
-It is tested, using [integration tests](https://github.com/googlesamples/android-topeka/tree/master/app/src/androidTest/java/com/google/samples/apps/topeka) and [unit tests](https://github.com/googlesamples/android-topeka/tree/master/app/src/test/java/com/google/samples/apps/topeka).
-And it is purely written in Java. Well… it was
+不久前我们开源了 [Topeka](https://github.com/googlesamples/android-topeka)，一个安卓写的小测试程序。
+这个程序是用 [integration tests](https://github.com/googlesamples/android-topeka/tree/master/app/src/androidTest/java/com/google/samples/apps/topeka) 和 [unit tests](https://github.com/googlesamples/android-topeka/tree/master/app/src/test/java/com/google/samples/apps/topeka) 进行测试的, 而且本身全部是用 Java 写的。至少以前是这样的...
 
-### What’s the name of the island off the coast of St Petersburg? _ _ _ _ _ _
+### 圣彼得堡岸边的那个岛屿叫什么? _ _ _ _ _ _
 
-At Google I/O 2017 we announced official [support for the Kotlin programming language](https://blog.jetbrains.com/kotlin/2017/05/kotlin-on-android-now-official/). That’s when I started migrating the code base away from Java, **learning Kotlin on the way.**
+2017年谷歌在开发者大会上官方宣布 [支持 Kotlin 编程语言](https://blog.jetbrains.com/kotlin/2017/05/kotlin-on-android-now-official/)。从那时起，我便开始移植 Java 代码，**同时在过程中学习Kotlin。**
 
-> Not that this migration was necessary from a technological standpoint. The app is solid as it stands, but mainly to satisfy my curiosity; Topeka serving as my vehicle to learn a new language.
+> 从技术层面上来讲，这次的移植并不是必须的，程序本身是十分稳定的，而主要是为了满足我的好奇心。Topeka成为了我学习一门新语言的媒介。
 
-If you’re curious you can jump straight into the [source code on GitHub](https://github.com/googlesamples/android-topeka/tree/kotlin).
-*For now the code is on a separate branch, but we’re planning to merge the Kotlin code into master at some point in the future.*
+如果你好奇的话可以直接来看 [GitHub 上的源代码](https://github.com/googlesamples/android-topeka/tree/kotlin)。
+目前 Kotlin 代码在一个独立的分支上，但在未来我们打算将其合并到主代码中。
 
-This post gathers some of the key parts I have found during the migration. It also shows some of the things I found useful while learning a new programming language for Android development.
+这篇文章涵盖了我在迁移代码过程中发现的各种关键点，同时我会介绍一些学习安卓开发新语言时有用的小窍门。
 
 ---
 
