@@ -3,40 +3,61 @@
 > * 原文作者：[Justin Falcone](https://medium.freecodecamp.org/@modernserf)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/whats-so-great-about-redux.md](https://github.com/xitu/gold-miner/blob/master/TODO/whats-so-great-about-redux.md)
-> * 译者：
+> * 译者：[ZiXYu](https://github.com/ZiXYu)
 > * 校对者：
 
 # What’s So Great About Redux?
+Redux 有多棒？
 
 ![](https://cdn-images-1.medium.com/max/1600/1*BpaqVMW2RjQAg9cFHcX1pw.png)
 
 Redux elegantly handles complex state interactions that are hard to express with React’s component state. It is essentially a message-passing system, like the kind seen in Object-Oriented programming, but implemented as a library instead of in the language itself[¹](#535d). As in OOP, Redux inverts the responsibility of control from caller to receiver — the UI doesn’t directly manipulate the state but rather sends it a message for the state to interpret.
 
+Redux 能够优雅地处理复杂且难以被 React 组件描述的状态交互。它本质上是一个消息传递系统，就像在面向对象编程中看到的那样，只是 Redux 是通过一个库而不是在语言本身中来实现的。就像在 OOP 中那样，Redux 将控制的责任从调用方转移到了接收方 - 界面并不直接操作状态值，而是发布一条操作消息来让状态解析。
+
 Through this lens, a Redux store is an object, reducers are method handlers, and actions are messages. `store.dispatch({ type: "foo", payload: "bar" })` is equivalent to Ruby's `store.send(:foo, "bar")`. Middleware are used in much the same way Aspect-Oriented Programming (e.g. Rails' `before_action`) and React-Redux's `connect` is dependency injection.
+
+一个 Redux store 是一个对象， reducers 是方法的处理程序，而 actions 是操作消息。`store.dispatch({ type: "foo", payload: "bar" })` 相当于 Ruby 中的 `store.send(:foo, "bar")`。中间件的使用方式类似于面向切面编程 (AOP, Aspect-Oriented Programming) (例如：Rails 中的 `before_action`)。 而 React-Redux 的 `connect` 则是依赖注入。
 
 #### Why is this desirable?
 
 - The inversion of control described above ensures that the UI doesn’t need to be updated if the implementation of state transitions changes. Adding complex features like logging, undo or even time travel debugging are almost trivial. Integration tests are just a matter of testing that the right action is dispatched; the rest can be unit-tested.
+- 上文中控制权限的转移保证了当状态转换的实现变化时， UI 并不需要更新。添加复杂的功能，例如记录日志，撤销操作，甚至是时光穿越调试 (time travel debugging)，将变得非常简单。集成测试只需要确认派发了正确的 actions 即可，剩下的测试都可以通过单元测试来完成。
 - React’s component state is pretty clunky for state that touches multiple parts of your app, such as user info and notifications. Redux gives you a state tree thats independent of your UI to handle these cross cutting concerns. Furthermore, having your state live outside of the UI makes things like persistence easier — you only need to deal with serializing to localStorage or URLs in a single place.
+- React 的组件状态对于那些在 app 中触及多个部分的状态而言非常笨重，例如用户信息和消息通知。Redux 提供了一个独立于 UI 的状态树来处理这些交叉问题。此外，让你的状态存活于 UI 之外使实现数据可持久化之类的功能变得更简单 - 你只需要在一个单独的地方处理 localStorage 和 URL 即可。
 - Redux’s titular “reducers” provide incredible flexibility for handling actions — composition, multiple dispatch, even `method_missing`-style parsing.
+- Redux 的 reducer 提供了难以想象的灵活方式来处理 actions - 组合，多次派发，甚至 `method_missing` 式解析
 
 #### These are all unusual cases. What about the common cases?
+这些都是不常见的情况。在常见情况下呢？
 
 Well, there’s the problem.
 
+好吧，这就是问题所在。
+
 - An action *could* be interpreted as a complex state transition, but most of them set a single value. Redux apps tend to end up with a bunch of actions that set a single value; there’s a distinct reminder of manually writing setter functions in Java.
+- 一个 action *可以*被解释为一个复杂的状态转换，但是它们中的绝大对数只是用来设置一个单独的值。Redux 应用倾向于结束这一大堆只用于设置一个值的 action，这里有个用于区分在 Java 中手动写 setter 函数的标志。
 - A fragment of state *could* be used all over your app, but most state maps 1:1 with a single part of the UI. Putting that state in Redux instead of component state just adds *indirection* without *abstraction*.
+- 你*可以*在你 app 的任意一个地方使用状态树的任一部分，但是对于大多数状态来说，它们一对一的对应了某个 UI 中的一部分。将这种状态放在 Redux 中，而不是放在组件里，这只是*间接*而非*抽象*。
 - A reducer function *could* do all sorts of metaprogramming weirdness, but in most cases it’s just single-dispatch on the action’s type field. This is fine in languages like Elm and Erlang, where pattern matching is terse and highly expressive, but rather clunky in JavaScript with `switch` statements.
+- 一个 reducer 函数*可以*做各种奇怪的元编程，但是在绝大多数情况下它只是基于某个 action 类型的单一派发。这在 Elm 和 Erlang 这种语言中是很好实现的，因为在这些语言中，模式匹配是简洁而高效的，但是在 JavaScript 中使用 `switch` 语句来实现就显得格外笨拙。
 
 But the really insidious thing is that when you spend all your time doing the boilerplate for common cases, you forget that better solutions for the special cases *even exist*. You encounter a complex state transition and solve it with a function that dispatches a dozen different value-setting actions. You duplicate state in the reducer rather than distributing a single state slice across the app. You copy and paste switch cases across multiple reducers instead of abstracting it into shared functions.
 
+但是更可怕的事是，当你花费了所有的时间在常见情况下编写代码模板时，你会忘记，在某些特殊情况下会有更好的解决方案*存在*。你遇到了一个复杂的状态转换问题，然后调用了很多用于设置状态值的 action 来解决了它。你在 reducer 中重复定义了很多状态，而不是在 app 中分发同一个子状态。你在很多 reducer 中复制粘贴了各种 switch case 而不是把其中的某些方法抽象成共有的方法。
+
 It’s easy to dismiss this as mere “Operator Error” — they didn’t RTFM, A Poor Craftsman Blames His Tools — but the frequency of these problems should raise some concerns. What does it say about a tool if most people are using it wrong?
 
+这很容易把这种错误仅仅当成 “操作员误差” - 是他们没有查看操作手册，就像可怜的工匠责怪他们手上的工具一样 - 但是这种问题出现的频率应当引起一些关注。如果大多数的人都错误的使用一款工具，那我们又该如何评价它呢？
+
 #### So should I just avoid Redux for the common cases and save it for the special ones?
+所以我们应该避免在常见情况下使用 Redux，而把它留给特殊情况吗？
 
 That’s the advice the Redux team will give you — and that’s the advice I give to my own team members: I tell them to avoid it until using setState becomes truly untenable. But I can’t bring myself to follow my own rules, ’cause there’s always *some* reason you want to use Redux. You might have a bunch of `set_$foo` actions, but setting any value *also *updates the URL, or resets some more transient value. Maybe you have a clear 1:1 mapping of state to UI, but you *also* want to have logging or undo.
+这是 Redux 开发团队给你的建议，也是我给我的开发团队成员的建议：除非使用 setState 难以解决问题，不然尽量避免使用 Redux。但是我不能让我自己也遵从我自己的规定，因为总是有*某些*原因让你想要使用 Redux。 可能你有一系列的 `set_$foo` 方法，而且设置这些值*也*会更新 URL，或者重设某些瞬态值。可能你有一些明确和 UI 一对一的状态值，但是你*也*希望纪录或者可以撤销它们。
 
 The truth is that I don’t know how to write, much less *teach*, “good Redux.” Every app I’ve worked on is full of these Redux antipatterns, either because I couldn’t think of a better solution myself or because I couldn’t convince my teammates to change it. If the code of a Redux “expert” is mediocre, what hope does a novice have? If anything, I’m just trying to counterbalance the prevailing “Redux all the things!” approach in the hope that they will be able to understand Redux on their own terms.
+事实是，我不知道如何写，更不要说*指导写*，“好的 Redux”。我曾经参与的每个 app 都充斥着 Redux 的反模式，因为我想不到更好的解决方案或者我无法说服我的队友来改变它。如果一个 Redux “专家” 写出来的代码也如此平庸，那我们还能指望一个新手怎么做呢？无论如何，我只是希望能够平衡一下现在大行其道的 “Redux 完成所有事” 解决方案，希望每个人都能在他们适用的情况下理解 Redux。
 
 #### So what do I do in that case?
 
