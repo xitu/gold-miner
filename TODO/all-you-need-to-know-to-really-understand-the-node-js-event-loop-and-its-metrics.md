@@ -4,10 +4,10 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/all-you-need-to-know-to-really-understand-the-node-js-event-loop-and-its-metrics.md](https://github.com/xitu/gold-miner/blob/master/TODO/all-you-need-to-know-to-really-understand-the-node-js-event-loop-and-its-metrics.md)
 > * 译者：[MuYunyun](https://github.com/MuYunyun)
-> * 校对者：[sigoden](https://github.com/sigoden)、[zyziyun](https://github.com/zyziyun)
+> * 校对者：[sigoden](https://github.com/sigoden)、[zyziyun](https://github.com/zyziyun)
 
 # 所有你需要知道的关于完全理解 Node.js 事件循环及其度量
-
+
 Node.js 是一个基于事件的平台。这意味着在 Node 中发生的一切都是基于对事件的反应。通过 Node 的事件处理机制遍历一系列回调。
 
 事件的回调，这一切都由一个名为 libuv 的库来处理，它提供了一种称为事件循环的机制。
