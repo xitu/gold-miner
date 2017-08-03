@@ -10,9 +10,9 @@
 
 今天，苹果 WebKit 团队提议[在 W3C 成立一个新的社区群组（Community Group）来讨论 Web 端三维图形的未来](https://www.w3.org/community/gpu/)和开发一款支持现代 GPU 特性（包括底层图像处理和通用计算）的标准 API。W3C 社区允许大家自由参与进来，而且我们也诚邀浏览器开发商、GPU 硬件提供商、软件开发者和 Web 社区[加入我们](https://www.w3.org/community/gpu/)。
 
-权当抛砖引玉，我们分享了一个 [API 提案](https://webkit.org/wp-content/uploads/webgpu-api-proposal.html)和一个[针对 WebKit 开源项目的 API 原型]。我们希望这是一个有益的开始，并期待随着社区讨论的进行 API 会不断发展进化。
+权当抛砖引玉，我们分享了一个 [API 提案](https://webkit.org/wp-content/uploads/webgpu-api-proposal.html)和一个[针对 WebKit 开源项目的 API 原型](https://webkit.org/b/167952)。我们希望这是一个有益的开始，并期待随着社区讨论的进行 API 会不断发展进化。
 
-**更新**：现在有一个[实现和演示 WebGPU 的 demos](https://webkit.org/blog/7504/webgpu-prototype-and-demos/)。
+**更新**：现在有一个[实现和演示 WebGPU 的 demo](https://webkit.org/blog/7504/webgpu-prototype-and-demos/)。
 
 让我们来看看我们成立这个社区群组的前因后果，以及这个新组与现有 Web 图形 API（如 WebGL）的关系。
 
@@ -164,7 +164,7 @@ commandBuffer.commit();
 
 ## 公开邀请
 
-苹果的 WebKit 团队已经建议为 Web 端 GPU 建立一个 W3C 社区群组作为工作论坛，同时也[请你加入我们](https://www.w3.org/community/gpu/) 一起定义 GPU 的下一代标准。我们的建议得到了其他浏览器引擎开发商、GPU 供应商、框架开发人员等业内同仁的积极回应。在行业的支持下，我们诚邀所有对 Web GPU 感兴趣或有专长的人加入社区群组。
+苹果的 WebKit 团队已经建议为 Web 端 GPU 建立一个 W3C 社区群组作为工作论坛，同时也[请你加入我们](https://www.w3.org/community/gpu/)一起定义 GPU 的下一代标准。我们的建议得到了其他浏览器引擎开发商、GPU 供应商、框架开发人员等业内同仁的积极回应。在行业的支持下，我们诚邀所有对 Web GPU 感兴趣或有专长的人加入社区群组。
 
 ---
 
