@@ -60,40 +60,57 @@ The truth is that I don’t know how to write, much less *teach*, “good Redux.
 事实是，我不知道如何写，更不要说*指导写*，“好的 Redux”。我曾经参与的每个 app 都充斥着 Redux 的反模式，因为我想不到更好的解决方案或者我无法说服我的队友来改变它。如果一个 Redux “专家” 写出来的代码也如此平庸，那我们还能指望一个新手怎么做呢？无论如何，我只是希望能够平衡一下现在大行其道的 “Redux 完成所有事” 解决方案，希望每个人都能在他们适用的情况下理解 Redux。
 
 #### So what do I do in that case?
+所以我们在这种情况下该怎么做呢？
 
 Fortunately, Redux is flexible enough that third-party libraries can integrate with it to handle the common cases — [Jumpstate](https://github.com/jumpsuit/jumpstate) for example. And to be clear, I don’t think it’s wrong for Redux to focus on the low-level stuff. But outsourcing these basic features to third parties creates an additional cognitive load and opportunity for bikeshedding — each user needs to essentially build their own framework from these parts.
+所幸的是，Redux 足够灵活，我们可以使用第三方库集成到 Redux 里来解决常见情况 - 例如 [Jumpstate](https://github.com/jumpsuit/jumpstate)。更清晰地说，我不认为 Redux 专注于处理底层事务是一种错误的行为。但是将这些基础的功能外包给第三方来完成会造成额外的认知和开发负担 - 每个用户都需要从这些部分里构建自己的框架。
 
 #### Some people are into that sort of thing.
+有些人执着于此
 
 And I’m one of ‘em! But not everybody is. I personally love Redux and use it for just about everything that I do, but I *also* love trying out new Webpack configurations. I am not representative of the general population. I’m *empowered *by the flexibility to write my own abstractions on top of Redux, but how empowered am I by the abstractions written by some senior engineer who never documented them and quit six months ago?
+而我正是其中之一。但并不是所有人都是。个人而言，我爱 Redux，尽可能地使用它，但是我*仍旧*喜爱尝试新的 Webpack 设置。但是我并不代表绝大多数人群。我被实现灵活解决方案的心*驱使*着，在 Redux 的顶层写了很多我自己的抽象方法。但是看着那些一群六个月前就离职的、从来没留下开发记录的开发工程师所写的抽象程序，谁又能有动力呢？
 
 It’s quite possible to *never* encounter the hard problems that Redux is particularly good at handling, particularly if you’re a junior on a team where those tickets go to the more senior engineers. Your experience of Redux is “that weird library everyone uses where you have to write everything three times.” Redux is simple enough that you *can *use it mechanically, without deep understanding, but that’s a joyless and unrewarding experience.
+其实很可能你根本*不会*遇到那些 Redux 特别擅长处理的难题，尤其如果你是一个队伍里的新人，这些问题基本上会交给更资深的工程师处理。你在 Redux 上累积的经验就是 “用着每个人都在用的垃圾库，把所写的代码都重复写上好几次”。 Redux 简单到你*可以*不深入理解也能机械地使用它，但是那是一种很无聊也没什么提高的体验。
 
 This brings me back to a question I raised earlier: what does it say about a tool if most people are using it wrong? A quality hand tool isn’t just useful and durable — it feels good to use. The most comfortable place to hold it is the correct place to hold it. It is designed not just for its task but also its user. A quality tool reflects the toolsmith’s empathy for the crafter.
+这让我回想起了我之前提出的一个问题：如果大多数的人都在错误的使用一款工具，那我们又该如何评价它呢？一个好的工具不仅仅应该有用且耐用 - 它应该让使用者有个好的使用体验。能舒服使用它的场景就是正确的场景。一个工具的设计不仅仅是为了它要完成的任务，同样也要考虑到它的使用者。一个好的工具可以反映出工具制作者对于使用者的同情心。
 
 [![](https://ws2.sinaimg.cn/large/006tNc79ly1fhzg65gw1bj31280dutam.jpg)](https://twitter.com/stevensacks/status/884947742975377409)
 
 Where is our empathy? Why is “you’re doing it wrong” our reaction, and not “we could make this easier to use”?
+那我们的同情心又在哪呢？为什么我们的反应总是 “你错误地使用了它” 而不是 “我们可以把它设计地更容易去使用” 呢？
 
 There’s a related phenomenon in functional programming circles I like to call the *Curse of the Monad Tutorial*: explaining how they work is trivial, but explaining why they are valuable is surprisingly difficult.
+这里有个函数式编程界的相关现象，我喜欢叫它 *Monad 指南的诅咒*：解释它们是怎么工作的是非常简单的，但是解释清楚它们这么做是有意义的就出乎意料地困难了。
 
 #### Are you seriously dropping a monad tutorial in the middle of this post?
+在这篇文章中你真的要读到一段 monad 指南？
 
 Monads are a common pattern in Haskell that’s used for working with a wide range of computation — lists, error handling, state, time, IO. There’s syntactic sugar, in the form of `do` notation, that allows you to represent sequences of monadic operations in a way that looks kind of like imperative code, much like how generators in javascript can make asynchronous code look synchronous.
+Moand 是一个在 Haskell 常见的开发模式，在计算机中的很多地方都被广泛使用 - 列表，错误处理，状态，时间，输入输出。这里有个语法糖，你可以以 `do` 表达式的形式像输入指令代码一样来输入一系列的 monad 操作，就好像 javascript 中的 generator 可以让异步函数看起来像同步一样。
 
 The first problem is that describing monads in terms of what they’re used for is inaccurate. [Monads were introduced to Haskell to handle side effects and sequential computation](http://homepages.inf.ed.ac.uk/wadler/papers/marktoberdorf/baastad.pdf), but monads as an abstract concept have nothing to do with side effects or sequences; they’re a set of rules for how a pair of functions should interact and have no inherent meaning. The concept of associativity *applies to* arithmetic and set operations and list concatenation and null propagation but it exists fully independent of them.
+第一个问题是，用 monad 用来做什么来描述 monad 是不准确的。[Haskell 曾引入 Monad 以解决副作用和顺序计算](http://homepages.inf.ed.ac.uk/wadler/papers/marktoberdorf/baastad.pdf)，但是事实上 monad 作为一个抽象概念并不能解决副作用和顺序化，它们是一系列规则，规定了一组函数如何交互，并没有什么固定的含义。关联性的概念*适用于*算术集合操作、列表合并和 null 传播，但是它完全独立于这些操作。
 
 The second problem is that any bite-sized example of a monadic approach to X is more verbose — and therefore at least *visually* more complex — than the imperative approach. Explicit option types a la `Maybe` are safer than checking for implicit `null` but result in more, uglier code. Error handling with `Either` types is often simpler to follow than code that can `throw` from anywhere, but throwing is certainly more concise than manually propagating values. And side effects — state, IO, etc. — are trivial in an imperative language. Functional programming enthusiasts (myself included) would argue that side effects are *too easy* in these languages but convincing someone that any kind of programming is too easy is a hard sell.
+第二个问题是在一些小问题上，用 monad 来解决问题更繁琐了 - 至少*看起来*更复杂了 - 相比于指令式操作而言。给一个可选类型指定它的 `Maybe Type` 明显比验证一个模糊的 `null` 类型更安全，但是这又会让代码变得更难看。使用 `Either` 类型来进行错误处理通常比那些随处可能 `throw` 错误的代码更容易理解，但是 throw 操作的确比手动传值更简洁。而副作用 - 状态，IO 等 - 在指令式语言中更是微不足道的。函数式编程爱好者们（包括我）会说副作用在函数式语言中*太简单*了，但是让别人相信任何一种语言很简单本身就是一件很难的事。
 
 The real value is only visible at the macro scale — not just that any one of these use cases follows the monad laws, but that all of them follow the *same* laws. A set of operations that works in one case can work in *every* case: zipping a pair of lists into a list of pairs is “the same thing” as merging a pair of promises into a single promise that completes with a pair of results.
+而 monad 真正的价值只能在宏观尺度体现出来 - 并不是这些用例都遵循着 monad 规则，但是这些用例都遵循着*同样*的规则。能够作用于一个用例的操作就可以作用于*每个*用例：把一对列表压缩成一个存储着对值的列表就和把一对 promise 函数融合成一个处理两个结果的 promise 是“一样的”。
 
 #### Is this going somewhere?
+所以呢？
 
 The point is that Redux has the same problem — it’s difficult to teach not because it’s difficult but rather because it’s so *simple*. Understanding is not a matter of having knowledge so much as trusting the core idea in such a way that we can derive everything else through induction.
+现在 Redux 有同样的问题 - 它很难学习并不是因为它很难反而是因为它太*简单*。理解并不是认知的障碍，而要相信它的核心设计理念，我们才能通过归纳来延伸其它的知识。
 
 It’s hard to share this understanding because the core ideas are banal truisms (avoid side effects) or abstract to the point of meaninglessness (`(prevState, action) => nextState`). Any single concrete example doesn't help; they showcase Redux's verbosity without demonstrating its expressivity.
+这种思想是很难共享的，因为核心思想是无趣的真理（避免副作用）或者做一些无意义的抽象（`(prevState, action) => nextState`）。任何单独的例子都不会对这种理解有任何帮助，因为这些例子只是展示了 Redux 的细节但并不能展现它的核心思想。
 
 Once we are ✨enlightened✨ a lot of us immediately forget what it felt like beforehand. We forget that our enlightenment came only through our own repeated failures and misunderstandings.
+一旦我们开始✨接受别人的思想✨，我们中的很多人就会立刻忘掉自己之前的一些想法。我们忘记了我们的理解只能从我们自己一次又一次的失败和误解中获得。
 
 #### So what do you propose?
 
