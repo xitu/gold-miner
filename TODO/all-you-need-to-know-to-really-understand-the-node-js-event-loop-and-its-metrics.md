@@ -4,9 +4,9 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/all-you-need-to-know-to-really-understand-the-node-js-event-loop-and-its-metrics.md](https://github.com/xitu/gold-miner/blob/master/TODO/all-you-need-to-know-to-really-understand-the-node-js-event-loop-and-its-metrics.md)
 > * 译者：[MuYunyun](https://github.com/MuYunyun)
-> * 校对者：
+> * 校对者：[sigoden](https://github.com/sigoden)、[zyziyun](https://github.com/zyziyun)
 
-# 我们所需理解的 Node.js 事件循环及其度量
+# 所有你需要知道的关于完全理解 Node.js 事件循环及其度量
 
 Node.js 是一个基于事件的平台。这意味着在 Node 中发生的一切都是基于对事件的反应。通过 Node 的事件处理机制遍历一系列回调。
 
@@ -18,7 +18,7 @@ Node.js 是一个基于事件的平台。这意味着在 Node 中发生的一切
 
 ## 常见的误解
 
-Libuv 是向 Node.js 提供事件循环的库。在 libuv 背后的关键人物 Bert Belder 的精彩的演讲 [Node 交互的主题演讲](https://www.youtube.com/watch?v=PNa9OMajw9w) 中，视频开始他使用 Google 图像搜索展示了各种各样不同的用来描绘事件循环的图片，但是他指出大部分图片描绘的都是错误的。
+Libuv 是向 Node.js 提供事件循环的库。在 libuv 背后的关键人物 Bert Belder 的精彩的演讲 [Node 交互的主题演讲](https://www.youtube.com/watch?v=PNa9OMajw9w) 中，演讲开头他使用 Google 图像搜索展示了各种不同方式描述事件循环的图片，但是他指出大部分图片描绘的都是错误的。
 
 [![](https://dt-cdn.net/wp-content/uploads/2017/07/Insert1-1024x464.png)](https://www.dynatrace.com/blog/?attachment_id=20207)
 
@@ -28,7 +28,7 @@ Libuv 是向 Node.js 提供事件循环的库。在 libuv 背后的关键人物 
 
 #### 误解
 
-有一个主线程，用户的 JavaScript 代码运行在上面，另一个线程运行事件循环。每次异步操作发生时，主线程将把工作交给事件循环线程，一旦完成，事件循环线程将通知主线程执行回调。
+用户的 JavaScript 代码运行在主线程上面，而另开一个线程运行事件循环。每次异步操作发生时，主线程将把工作交给事件循环线程，一旦完成，事件循环线程将通知主线程执行回调。
 
 #### 现实
 
@@ -38,7 +38,7 @@ Libuv 是向 Node.js 提供事件循环的库。在 libuv 背后的关键人物 
 
 #### 误解
 
-异步操作（如使用文件系统）执行出站 HTTP 请求或与数据库通信始终加载到由 libuv 提供的线程池中。
+异步操作，像操作文件系统，向外发送 HTTP 请求以及与数据库通信等都是由 libuv 提供的线程池处理的。
 
 #### 现实
 
@@ -50,38 +50,38 @@ Libuv 默认使用四个线程创建一个线程池来完成异步工作。今�
 
 简而言之：只有没有其他方式可以使用时，线程池才将会被用于异步 I/O 。
 
-### 误解3：事件循环类似堆栈或队列
+### 误解3：事件循环类似栈或队列
 
 #### 误解
 
-事件循环连续遍历异步任务的 FIFO ，并在完成任务时执行回调。
+事件循环采用先进先出的方式执行异步任务，类似于队列，当一个任务执行完毕后调用对应的回调函数。
 
 #### 现实
 
-虽然涉及到类似队列的结构，事件循环不会解析并处理堆栈。作为进程的事件循环是一组以循环方式处理的特定任务的阶段。
+虽然涉及到类似队列的结构，事件循环并不是采用栈的方式处理任务。事件循环作为一个进程被划分为多个阶段，每个阶段处理一些特定任务，各阶段轮询调度。
 
 ## 了解事件循环周期的阶段
 
-为了真正地了解事件循环，我们必须明白各个阶段都完成了哪些工作。 希望 Bert Belder 会批准，我的展示事件循环的方法是的工作原理如下：
+为了真正地了解事件循环，我们必须明白各个阶段都完成了哪些工作。 希望 Bert Belder 不介意，我直接拿了他的图片来说明事件循环是如何工作的：
 ![](https://dt-cdn.net/wp-content/uploads/2017/07/event-loop-final-phases-1024x538.png)
 
-事件循环的执行可以分成 5 个阶段，让我们来讨论这些阶段。可以找到更加深入的解释 [Node.js 官网](https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/)
+事件循环的执行可以分成 5 个阶段，让我们来讨论这些阶段。更加深入的解释见 [Node.js 官网](https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/)
 
 ### 计时器
 
-通过 setTimeout() 或 setInterval() 调用的所有内容将在此处处理。
+通过 setTimeout() 和 setInterval() 注册的回调会在此处处理。
 
 ### IO 回调
 
-大部分回调将在这部分被处理。Node.js 中大多数用户代码基本上都处于回调（例如，对传入的 http 请求触发级联的回调）。
+大部分回调将在这部分被处理。Node.js 中大多数用户代码都在回调中处理（例如，对传入的 http 请求触发级联的回调）。
 
 ### IO 轮询
 
 对接着要处理的的事件进行新的轮询。
 
-### 立即设置
+### Immediate 设置
 
-通过运行 setImmediate() 注册所有回调。
+此处处理所有由 setImmediate() 注册的回调。
 
 ### 结束
 
@@ -91,7 +91,7 @@ Libuv 默认使用四个线程创建一个线程池来完成异步工作。今�
 
 我们看到，事实上在 Node 应用程序中进行的所有事件都将通过事件循环运行。这意味着如果我们可以从中获得指标，相应地我们可以分析出有关应用程序整体运行状况和性能的宝贵信息。
 
-没有现成的 API 可以从事件循环中获取运行时指标，因此每个监控工具都提供自己的指标。我们来看看都想出了什么。
+没有现成的 API 可以从事件循环中获取运行时指标，因此每个监控工具都提供自己的指标，让我们来看看都有些什么。
 
 ### 记录频率
 
@@ -117,7 +117,7 @@ Libuv 默认使用四个线程创建一个线程池来完成异步工作。今�
 
 2. *ab -c 5*
 
-使用 apache 台式机我一次创建了 5 个并发请求
+使用 apache bench 工具我一次创建了 5 个并发请求
 
 3. *ab -c 10*
 
@@ -125,7 +125,7 @@ Libuv 默认使用四个线程创建一个线程池来完成异步工作。今�
 
 4. *ab -c 10 (slow backend)*
 
-被调用的 http 服务器在 1 秒后返回数据以模拟后端的环境。这会导致一些称为背压的请求，等待后端在 Node 内返回堆栈。
+为了模拟出一个很慢的后端，我们让被调用的 http 服务器在 1s 后返回数据。这样造成请求等待后端返回数据，被堆积在 Node 中，产生背压。
 
 [![](https://dt-cdn.net/wp-content/uploads/2017/07/Insert3-1024x352.png)](https://www.dynatrace.com/blog/?attachment_id=20209)
 
@@ -135,13 +135,13 @@ Libuv 默认使用四个线程创建一个线程池来完成异步工作。今�
 
 ##### 事件循环持续时间和被动态调整频率
 
-如果应用程序处于空闲状态，这意味着没有执行任何任务（定时器，回调等），此时全速运行这些阶段是没有意义的，所以事件循环将适应于此并在轮询阶段阻塞一段时间等待新的外部事件进入。
+如果应用程序处于空闲状态，这意味着没有执行任何任务（定时器，回调等），此时全速运行这些阶段是没有意义的，事件循环就这种情况会在在轮询阶段阻塞一段时间以等待新的外部事件进入。
 
 这也意味着，无负载下的度量（低频，高持续时间）与在高负载下与慢后端相关的应用程序相似。
 
 我们还看到，该演示应用程序在场景中运行得“最好”的是并发5个请求。
 
-*因此，标记频率和标记持续时间需要基于每秒当前请求的基准数量。*
+*因此，标记频率和标记持续时间需要基于每秒并发请求量进行度量。*
 
 虽然这些数据已经为我们提供了一些有价值的见解，但我们仍然不知道在哪个阶段花费时间，因此我们进一步研究并提出了另外两个指标。
 
@@ -151,11 +151,11 @@ Libuv 默认使用四个线程创建一个线程池来完成异步工作。今�
 
 高工作处理的延迟表示一个繁忙/耗尽的线程池。
 
-为了测试这个指标，我创建了一个使用 [Sharp](https://www.npmjs.com/package/sharp) 的模块来处理图像的 express 路由。 由于图像处理费用昂贵，Sharp 利用线程池来实现。
+为了测试这个指标，我创建了一个使用 [Sharp](https://www.npmjs.com/package/sharp) 的模块来处理图像的 express 路由。 由于图像处理开销太大，Sharp 利用线程池来实现。
 
 [![](https://dt-cdn.net/wp-content/uploads/2017/07/Insert4-1024x358.png)](https://www.dynatrace.com/blog/?attachment_id=20211)
 
-运行具有 5 个并发连接的 Apache 台式机，此图像处理功能的路线直接反映在此图表上，可以清楚地区分中等负载情况，而无需图像处理。
+通过 Apache bench 发起 5 个并发请求到具有图像处理功能的路由与没有使用图片处理的路由有很大不同，可以直接从图表上可以看到。
 
 ### 事件循环延迟
 
@@ -167,7 +167,7 @@ Libuv 默认使用四个线程创建一个线程池来完成异步工作。今�
 
 [![](https://dt-cdn.net/wp-content/uploads/2017/07/Insert51-1024x400.png)](https://www.dynatrace.com/blog/?attachment_id=20212)
 
-运行具有 5 个并发连接的 Apache 台式机，具有计算斐波那契功能的路由显示此刻回调队列处于繁忙状态。
+运行具有 5 个并发连接的 Apache bench，具有计算斐波那契功能的路由显示此刻回调队列处于繁忙状态。
 
 我们清楚地看到，这四个指标可以为我们提供宝贵的见解，并帮助您更好地了解 Node.js 的内部工作。
 
@@ -191,29 +191,27 @@ Node.js 应用程序在单个线程上运行。在多核机器上，这意味着
 
 虽然这可以解决 I/O 绑定应用程序上的负载问题，我建议多次负载测试，因为较大的线程池可能仍然耗尽内存或 CPU 。
 
-### 将逻辑移到服务端
+### 将任务扔给服务进程
 
-如果 Node.js 花费太多时间参与 CPU 繁重的操作，将逻辑移到服务端可能甚至使用更适合特定任务的其他语言可能是一个可行的选择。
+如果 Node.js 花费太多时间参与 CPU 繁重的操作，开一些服务进程处理这些繁重任务或者针对某些特定任务使用其它语言编写服务也是一个可行的选择。
 
 ## 总结
 
 我们总结一下我们在这篇文章中学到的内容：
 
 - 事件循环是使 Node.js 应用程序运行的原因
-- 它的功能经常被误解 - 它是一组遍历不同阶段的各个阶段的具体任务
+- 它的功能经常被误解 - 它有多个阶段组成，各阶段处理特定任务，阶段间轮询调度
 - 事件循环不提供现成的指标，因此收集的指标在 APM 供应商之间是不同的
 - 这些指标清楚地提供了有关瓶颈的有价值的见解，但对事件循环的深刻理解以及正在运行的代码才是关键
-- 在未来，Dynatrace 将会把事件循环通过遥测技术添加到其根本原因检测中，从而将事件循环异常与问题相关联
-
-For me there is no doubt that we just built the most comprehensive event loop monitoring solution on the market today, and I’m really happy that this amazing new feature will be rolled out to all of our customers within the next few weeks.
+- 在未来，Dynatrace 将会把事件循环添加到第一检测要素，从而将事件循环异常与问题相关联
 
 对我来说，毫无疑问，我们今天刚刚在市场上构建了最全面的事件循环监控解决方案，我非常高兴在未来几个星期内，这个惊人的新功能将推向所有客户。
 
 ## 最后
 
-我们的 stellar Node.js 代理团队为获取事件循环监控做了很大的努力。这篇博客文章中提出的大部分发现都是基于他们对 Node.js 内部运作的深入了解。 我要感谢 Bernhard Liedl ，Dominik Gruber ，GerhardStöbich 和 Gernot Reisinger 所有的工作和支持。
+我们一流的 Node.js 代理团队为了做好事件循环监控尽了很大努力。这篇博客文章中提出的大部分发现都是基于他们对 Node.js 内部运作的深入了解。 我要感谢 Bernhard Liedl ，Dominik Gruber ，GerhardStöbich 和 Gernot Reisinger 所有的工作和支持。
 
-我希望这篇文章使大家在事件循环上有新的认知。请在 Twitter 上关注我 [@dkhan](https://twitter.com/dkhan)。我很乐意回答您的所有问题，也可以在下面进行留言。
+我希望这篇文章使大家在事件循环上有新的认知。请在 Twitter 上关注我 [@dkhan](https://twitter.com/dkhan)。我很乐意回答您在 Twitter 里或下面评论区中的提出的一切问题。
 
 最后和以往一样：[下载免费试用版去监控您的完整堆栈，包括Node.js](https://www.dynatrace.com/technologies/nodejs-monitoring/)。
 
