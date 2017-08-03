@@ -71,7 +71,7 @@ with open('intents.json') as json_data:
     intents = json.load(json_data)
 ```
 
-With our intents JSON [file](https://github.com/ugik/notebooks/blob/master/intents.json) loaded, we can now begin to organize our documents, words and classification classes.
+
 意图的 json 文件被加载后，我们现在可以开始组织我们的文档，文字和分类器对应的类别
 
 
@@ -152,7 +152,6 @@ train_x = list(training[:,0])
 train_y = list(training[:,1])
 ```
 
-Notice that our data is shuffled. Tensorflow will take some of this and use it as test data *to gauge accuracy for a newly fitted model*.
 注意，我们的数据被打乱了。Tensorflow 会使用其中一部分数据用作测试，以评估训练模型的准确性。
 
 下面是一个 x 和 y 的列表元素，也即[词袋](https://en.wikipedia.org/wiki/Bag-of-words_model)数组，一个是意图的模式，另一个是意图所对应的类。
