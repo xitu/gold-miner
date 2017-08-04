@@ -113,31 +113,44 @@ Once we are ✨enlightened✨ a lot of us immediately forget what it felt like b
 一旦我们开始✨接受别人的思想✨，我们中的很多人就会立刻忘掉自己之前的一些想法。我们忘记了我们的理解只能从我们自己一次又一次的失败和误解中获得。
 
 #### So what do you propose?
+所以你的建议是？
 
 I would like us to admit we have a problem. Redux is [simple, but it is not easy](https://www.infoq.com/presentations/Simple-Made-Easy). This is a valid design choice, but it is nevertheless a tradeoff. Many people would benefit from a tool that traded some of the simplicity for ease-of-use. But large chunks of the community won’t even acknowledge that a tradeoff has been made!
+我觉得我们应该承认我们遇到了这个问题。Redux 是一种[简单却不容易](https://www.infoq.com/presentations/Simple-Made-Easy)的语言。这是一种可以理解的设计选择，但是仍旧是一种权衡。对于一门牺牲了某些简单性来让它更便于使用的语言，还是有很多人都会从中获益的。但是，很多大型社区甚至不觉得这是一种已经做出的权衡。
 
 I think it’s interesting to contrast React and Redux because while React is a vastly more complicated piece of software and has a significantly larger API surface, it somehow feels easier to use and understand. The only absolutely necessary API features of react are `React.createElement` and `ReactDOM.render` — state, component lifecycle, even DOM events could have been handled elsewhere. Building these features into React made it more complicated, but they also made it *better*.
+我认为对比 React 和 Redux 是一件很有意思的事，因为 React 是广泛来说软件中更复杂的一部分，它有着明显更多 API 接口，同是它也在某种意义上更容易使用和理解。而 React 唯一必须的 API 接口是 `React.createElement` 和 `ReactDOM.render` - 状态，组件生命周期，甚至 DOM 事件可以在别的地方处理。React 中的这些特性让它变得更复杂，但是也让它变得更*出色*。
 
-“Atomic state” is an abstract concept that can inform your work once you understand it, but `setState` is a method you can call on a React component that does atomic state management on your behalf, whether you understand it or not. It’s not a perfect solution — it’s less efficient than replacing state outright or mutating and forcing an update, and it has some footguns when it’s called asynchronously — but React is vastly better with `setState` as a callable method rather than a vocabulary term.
+“Atomic state” is an abstract concept that can inform your work once you understand it, but `setState` is a method you can call on a React com ponent that does atomic state management on your behalf, whether you understand it or not. It’s not a perfect solution — it’s less efficient than replacing state outright or mutating and forcing an update, and it has some footguns when it’s called asynchronously — but React is vastly better with `setState` as a callable method rather than a vocabulary term.
+“原子化状态”是个抽象概念，在你理解它之后可以指导你的开发，但是不管你理不理解这个概念，你都可以在 React 组件中调用 `setState`，来实现原子化状态管理。这并不是一个完美的解决方案 - 彻底替换状态或者强制更新有着比它更高的效率，而且它是一个异步调用的方法还会产生一些 bug - 但是 React 将 `setState` 作为一个调用的方法而不是一个专业术语是一个很好的做法。
 
 Both the Redux team and the community are [strongly opposed to expanding Redux’s API surface area](https://github.com/reactjs/redux/issues/2295), but the current approach of gluing a bunch of tiny libraries together is tedious even for experts and incomprehensible for beginners. If Redux cannot expand to have built-in support for the common cases, it needs a “blessed” framework to take that place. [Jumpsuit](https://github.com/jumpsuit/jumpsuit) could be a good start — it reifies the concepts of “actions” and “state” into callable functions while still preserving their many-to-many nature — but the actual library doesn’t matter as much as the act of blessing itself.
+Redux 的开发组和社区都[强烈反对增加 Redux 的 API 数量]，但是现在将一堆小型开发库融合在一起的做法对于专家而言是乏味的，而对于新手而言是费解的。如果 Redux 不能内置一些小功能来对常见情况做一些支持，那么我们需要一个“更好”的框架在常见情况下来取代它。[Jumpsuit](https://github.com/jumpsuit/jumpsuit) 可以作为一个不错的开始 - 它将“action”和“state”的概念转化为了可调用的方法，同时保留了它们多对多的特性 - 但是事实上，这个库其实并不关心这个优化本身。
 
 The irony in all this is that Redux’s *raison d’etre* is “Developer Experience”: Dan built Redux because he wanted to understand and recreate Elm’s time-traveling debugger. But as it developed its own identity — as it grew into the React ecosystem’s de facto OOP runtime — it gave up some of that focus on DX in exchange for configurability. This allowed the Redux ecosystem to bloom, but there’s a conspicuous absence where a humane, curated framework should be. Are we, the Redux community, ready to create it?
+讽刺的是：Redux *存在的意义* 是“开发者体验”：Dan 建立了 Redux 因为他希望理解和重建 Elm 的时光穿越调试。但是随着它开发了它自己的特性 - 进入了 React 生态系统的 OOP 运行环境 - 它牺牲了一些开发者的体验以换取可配置性。这让 Redux 得以蓬勃发展，但是这是个人性化开发框架明显的缺失。我们，Redux 社区，准备好了吗？
+
 
 ---
 
 *Thanks to *[*Matthew McVickar*](https://medium.com/@matthewmcvickar)*, *[*a pile of moss*](https://medium.com/@whale_eat_squid)*, *[*Eric Wood*](https://medium.com/@eric_b_wood)*, *[*Matt DuLeone*](https://twitter.com/Crimyon)*, and *[*Patrick Thomson*](https://twitter.com/importantshock)* for review.*
+*感谢 *[*Matthew McVickar*](https://medium.com/@matthewmcvickar)*, *[*a pile of moss*](https://medium.com/@whale_eat_squid)*, *[*Eric Wood*](https://medium.com/@eric_b_wood)*, *[*Matt DuLeone*](https://twitter.com/Crimyon)*, 和 *[*Patrick Thomson*](https://twitter.com/importantshock)* review 本文。*
 
 *Footnotes:*
+*备注：*
 
 **[1] Why do you make a distinction between react / JS and object oriented programming? JavaScript IS object oriented, just not class-based.**
+**[1] 为什么要在 react / JS 和 OOP 之间做明显的区分？JavaScript 是面向对象的，但是不是基于类（class-based）的。 **
 
 Object-Oriented programming, like functional programming, is a methodology, not a language feature. Some languages *support* this style better than others, or have a standard library that’s designed for the style, but if you’re sufficiently dedicated to the task, you can write in an object-oriented style in any language.
+OOP 类似于函数式编程，是一种方法，不是某个语言特性。有些语言对于 OOP *支持*地特别好，或者有一些专门为 OOP 定制的标准库，但是如果你对它的了解够深，你可以用任何语言写出面向对象风格的代码。
 
 JavaScript has a data structure it calls an Object, and *most* values in the language can be treated like objects, in the sense that there are methods you can call on every value except for `null` and `undefined`. But before Proxies came in ES6, every "method" call on an object was a dictionary lookup; `foo.bar` is always going to find a property named "bar" on foo or its prototype chain. Contrast this with a language like Ruby, where `foo.bar` sends the message `:bar` to foo -- this message can be *intercepted* and *interpreted*, it doesn't have to be a dictionary lookup.
+JavaScript 有一种数据类型 Object，同时 JS 中*大多数*数据类型可以以 Object 的形式来处理和解析，从这种角度来说你可以对任何数据类型调用某些同样的方法，除了 `null` 和 `undefined`。但是在 ES6 的 Proxy 出现之前，每个 Object 中调用的“方法”类似于一种字典查找，`foo.bar` 总是去查找 foo 对象中的“bar”属性或者它的原型链。而比如在 Ruby 这种语言中，`foo.bat` 会发一条消息 `:bar` 到 foo 对象中 - 这条消息可以被*拦截*或*解析*，它并不是必须做一个字典查找。
+
 
 Redux is essentially a slower but more sophisticated object system on top of JavaScript’s existing one, where reducers and middleware act as interpreters and interceptors around the JavaScript object that actually holds the state.
-
+Redux 是一种基于 JavaScript 已存在的对象系统上更慢和更复杂的对象系统，reducer 和 middleware 相当于保存着状态的 JavaScript 对象的拦截器和解析器。
 
 ---
 
