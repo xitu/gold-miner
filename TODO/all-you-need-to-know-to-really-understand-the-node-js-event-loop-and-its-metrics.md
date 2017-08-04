@@ -3,217 +3,217 @@
 > * 原文作者：[Daniel Khan](https://www.dynatrace.com/blog/author/daniel-khan/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/all-you-need-to-know-to-really-understand-the-node-js-event-loop-and-its-metrics.md](https://github.com/xitu/gold-miner/blob/master/TODO/all-you-need-to-know-to-really-understand-the-node-js-event-loop-and-its-metrics.md)
-> * 译者：
-> * 校对者：
+> * 译者：[MuYunyun](https://github.com/MuYunyun)
+> * 校对者：[sigoden](https://github.com/sigoden)、[zyziyun](https://github.com/zyziyun)
 
-# All you need to know to really understand the Node.js Event Loop and its Metrics
+# 所有你需要知道的关于完全理解 Node.js 事件循环及其度量
 
-Node.js is an event-based platform. This means that everything that happens in Node is the reaction to an event. A transaction passing through Node traverses a cascade of callbacks.
+Node.js 是一个基于事件的平台。这意味着在 Node 中发生的一切都是基于对事件的反应。通过 Node 的事件处理机制遍历一系列回调。
 
-Abstracted away from the developer, this is all handled by a library called libuv which provides a mechanism called an event loop.
+事件的回调，这一切都由一个名为 libuv 的库来处理，它提供了一种称为事件循环的机制。
 
-This event loop is maybe the most misunderstood concept of the platform. When we approached the topic of event loop monitoring, we put a lot of effort into properly understanding what we are actually measuring.
+这个事件循环可能是平台中最被误解的概念。当我们提及事件循环监测的主题时，我们花了很多精力来正确地理解我们实际监视的内容。
 
-In this article I will cover our learnings about how the event loop really works and how to monitor it properly.
+在本文中，我将带大家重新认知事件循环是如何工作以及它是如何正确地监视。
 
-## Common misconceptions
+## 常见的误解
 
-Libuv is the library that provides the event loop to Node.js. In his awesome [keynote talk at Node Interactive](https://www.youtube.com/watch?v=PNa9OMajw9w) Bert Belder, one of the key people behind libuv, started with presenting a Google image search that showed a variety of different approaches people had taken to picture the event loop and his disillusioning resume was that most of them were wrong.
+Libuv 是向 Node.js 提供事件循环的库。在 libuv 背后的关键人物 Bert Belder 的精彩的演讲 [Node 交互的主题演讲](https://www.youtube.com/watch?v=PNa9OMajw9w) 中，演讲开头他使用 Google 图像搜索展示了各种不同方式描述事件循环的图片，但是他指出大部分图片描绘的都是错误的。
 
 [![](https://dt-cdn.net/wp-content/uploads/2017/07/Insert1-1024x464.png)](https://www.dynatrace.com/blog/?attachment_id=20207)
 
-Let me cover the (my) most popular misunderstandings.
+让我们来看看最流行的误解。
 
-### Misconception 1: The event loop runs in a separate thread in the user code
+### 误解1：在用户代码中，事件循环在单独的线程中运行
 
-#### Misconception
+#### 误解
 
-There is a main thread where the JavaScript code of the user (userland code) runs in and another one that runs the event loop. Every time an asynchronous operation takes place, the main thread will hand over the work to the event loop thread and once it is done, the event loop thread will ping the main thread to execute a callback.
+用户的 JavaScript 代码运行在主线程上面，而另开一个线程运行事件循环。每次异步操作发生时，主线程将把工作交给事件循环线程，一旦完成，事件循环线程将通知主线程执行回调。
 
-#### Reality
+#### 现实
 
-There is only one thread that executes JavaScript code and this is the thread where the event loop is running. The execution of callbacks (know that every userland code in a running Node.js application is a callback) is done by the event loop. We will cover that in depth a bit later.
+只有一个线程执行 JavaScript 代码，事件循环也运行在这个线程上面。回调的执行（在运行的 Node.js 应用程序中被传入、后又被调用的代码都是一个回调）是由事件循环完成地。稍后我们会深入讨论。
 
-### Misconception 2: Everything that’s asynchronous is handled by a threadpool
+### 误解2：异步的所有内容都由线程池处理
 
-#### Misconception
+#### 误解
 
-Asynchronous operations, like working with the filesystems, doing outbound HTTP requests or talking to databases are always loaded off to a thread pool provided by libuv.
+异步操作，像操作文件系统，向外发送 HTTP 请求以及与数据库通信等都是由 libuv 提供的线程池处理的。
 
-#### Reality
+#### 现实
 
-Libuv by default creates a thread pool with four threads to offload asynchronous work to. Today’s operating systems already provide asynchronous interfaces for many I/O tasks ([e.g. AIO on Linux](http://man7.org/linux/man-pages/man7/aio.7.html)).
+Libuv 默认使用四个线程创建一个线程池来完成异步工作。今天的操作系统已经为许多 I/O 任务提供了异步接口（[例子 AIO on Linux](http://man7.org/linux/man-pages/man7/aio.7.html)）。
 
-Whenever possible, libuv will use those asynchronous interfaces, avoiding usage of the thread pool.
+只要有可能，libuv 将使用这些异步接口，避免使用线程池。
 
-The same applies to third party subsystems like databases. Here the authors of the driver will rather use the asynchronous interface than utilizing a thread pool.
+这同样适用于像数据库这样的第三方子系统。在这里，驱动程序的作者宁愿使用异步接口，而不是使用线程池。
 
-In short: Only if there is no other way, the thread pool will be used for asynchronous I/O.
+简而言之：只有没有其他方式可以使用时，线程池才将会被用于异步 I/O 。
 
-### Misconception 3: The event loop is something like a stack or queue
+### 误解3：事件循环类似栈或队列
 
-#### Misconception
+#### 误解
 
-The event loop continuously traverses a FIFO of asynchronous tasks and executes the callback when a task is completed.
+事件循环采用先进先出的方式执行异步任务，类似于队列，当一个任务执行完毕后调用对应的回调函数。
 
-#### Reality
+#### 现实
 
-While there are queue-like structures involved, the event loop does not run through and process a stack. The event loop as a process is a set of phases with specific tasks that are processed in a round-robin manner.
+虽然涉及到类似队列的结构，事件循环并不是采用栈的方式处理任务。事件循环作为一个进程被划分为多个阶段，每个阶段处理一些特定任务，各阶段轮询调度。
 
-## Understanding the phases of an event loop cycle
+## 了解事件循环周期的阶段
 
-To really understand the event loop we have to understand which work is done in which phase. Hoping that Bert Belder would approve it, my approach to show how the event loop works would be as follows:
-
+为了真正地了解事件循环，我们必须明白各个阶段都完成了哪些工作。 希望 Bert Belder 不介意，我直接拿了他的图片来说明事件循环是如何工作的：
 ![](https://dt-cdn.net/wp-content/uploads/2017/07/event-loop-final-phases-1024x538.png)
 
-5 Phases of Event Loop Execution
-Let’s discuss those phases. An in-depth explanation can be found [on the Node.s website](https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/).
+事件循环的执行可以分成 5 个阶段，让我们来讨论这些阶段。更加深入的解释见 [Node.js 官网](https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/)
 
-### Timers
+### 计时器
 
-Everything that was scheduled via setTimeout() or setInterval() will be processed here.
+通过 setTimeout() 和 setInterval() 注册的回调会在此处处理。
 
-### IO Callbacks
+### IO 回调
 
-Here most of the callbacks will be processed. As all userland code in Node.js is basically in callbacks (e.g a callback to an incoming http request triggers a cascade of callbacks), this is the userland code.
+大部分回调将在这部分被处理。Node.js 中大多数用户代码都在回调中处理（例如，对传入的 http 请求触发级联的回调）。
 
-### IO Polling
+### IO 轮询
 
-Polls for new events to be processed on the next run.
+对接着要处理的的事件进行新的轮询。
 
-### Set Immediate
+### Immediate 设置
 
-Runs all callbacks registered via setImmediate().
+此处处理所有由 setImmediate() 注册的回调。
 
-### Close
+### 结束
 
-Here all on(‘close’) event callbacks are processed.
+这里处理所有‘结束’事件的回调。
 
-## Monitoring the Event Loop
+## 监测事件循环
 
-We see that in fact everything that goes on in a Node applications runs through the event loop. This means that if we could get metrics out of it, they should give us valuable information about the overall health and performance of an application.
+我们看到，事实上在 Node 应用程序中进行的所有事件都将通过事件循环运行。这意味着如果我们可以从中获得指标，相应地我们可以分析出有关应用程序整体运行状况和性能的宝贵信息。
 
-There is no API to fetch runtime metrics from the event loop and as such each monitoring tool provides their own metrics. Let’s see what we came up with.
+没有现成的 API 可以从事件循环中获取运行时指标，因此每个监控工具都提供自己的指标，让我们来看看都有些什么。
 
-### Tick Frequency
+### 记录频率
 
-The number of ticks per time.
+每次的记录数。
 
-### Tick Duration
+### 记录持续时间
 
-The time one tick takes.
+一个刻度的时间。
 
-As our agent runs as a native module it was relatively easy for us to add probes to provide us this information.
+由于我们的代理作为本机模块运行，因此这是比较容易地添加探测器为我们提供这些信息。
 
-#### Tick frequency and tick duration metrics in action.
+#### 记录频率以及记录持续事件指标
 
-When we did our first tests under different loads, the results were surprising – let me show you an example:
+当我们在不同的负载下进行第一次测试时，结果令人惊讶 - 让我举例说明一下：
 
-In the following scenario I am calling an express.js application that does an outbound call to another http server.
+在以下情况下，我正在调用一个 express.js 应用程序，对其他 http 服务器进行外拨呼叫。
 
-There are four scenarios:
+有以下 4 中情况:
 
 1. *Idle*
 
-There are no incoming requests
+没有传入请求
+
 2. *ab -c 5*
 
-Using apache bench I created 5 concurrent requests at a time
+使用 apache bench 工具我一次创建了 5 个并发请求
+
 3. *ab -c 10*
 
-10 concurrent at a time
+一次 10 个并发请求
+
 4. *ab -c 10 (slow backend)*
 
-The http server that is called returns data after 1s to simulate a slow backend. This should cause something called back pressure as requests waiting for the backend to return pile up inside Node.
+为了模拟出一个很慢的后端，我们让被调用的 http 服务器在 1s 后返回数据。这样造成请求等待后端返回数据，被堆积在 Node 中，产生背压。
 
 [![](https://dt-cdn.net/wp-content/uploads/2017/07/Insert3-1024x352.png)](https://www.dynatrace.com/blog/?attachment_id=20209)
 
-Phases of event loop execution
+事件循环执行阶段
 
-If we look at the resulting chart we can make an interesting observation:
+如果我们看看得到的图表，我们可以做一个有趣的观察：
 
-##### Event loop duration and frequency are dynamically adapted
+##### 事件循环持续时间和被动态调整频率
 
-If the application is idle, which means that there are no pendings tasks (Timers, callbacks, etc),* it would not make sense to run through the phases with full speed, so the event loop will adapt to that and block for a while in the polling phase to wait for new external events coming in.*
+如果应用程序处于空闲状态，这意味着没有执行任何任务（定时器、回调等），此时全速运行这些阶段是没有意义的，事件循环就这种情况会在在轮询阶段阻塞一段时间以等待新的外部事件进入。
 
-This also means, that the metrics under no load are similar (low frequency, high duration) to an application that talks to a slow backend under high load.
+这也意味着，无负载下的度量（低频，高持续时间）与在高负载下与慢后端相关的应用程序相似。
 
-We also see that this demo application runs ‘best’ in the scenario with 5 simultaneous requests.
+我们还看到，该演示应用程序在场景中运行得“最好”的是并发 5 个请求。
 
-*Consequently tick frequency and tick duration need to be baselined factoring in the current requests per second.*
+**因此，标记频率和标记持续时间需要基于每秒并发请求量进行度量。**
 
-While this data already provides us with some valuable insights, we still don’t know in which phase the time is spent and so we researched further and came up with two more metrics.
+虽然这些数据已经为我们提供了一些有价值的见解，但我们仍然不知道在哪个阶段花费时间，因此我们进一步研究并提出了另外两个指标。
 
-### Work processed latency
+### 工作处理延迟
 
-This metric measures how long it takes until an asynchronous task gets processed by the thread pool.
+这个度量衡量线程池处理异步任务所需的时间。
 
-High work processed latency indicates a busy/exhausted threadpool.
+高工作处理的延迟表示一个繁忙/耗尽的线程池。
 
-To test this metric I created an express route that processes an image using a module called [Sharp](https://www.npmjs.com/package/sharp). As image processing is expensive, Sharp utilizes the thread pool to accomplish that.
+为了测试这个指标，我创建了一个使用 [Sharp](https://www.npmjs.com/package/sharp) 的模块来处理图像的 express 路由。 由于图像处理开销太大，Sharp 利用线程池来实现。
 
 [![](https://dt-cdn.net/wp-content/uploads/2017/07/Insert4-1024x358.png)](https://www.dynatrace.com/blog/?attachment_id=20211)
 
-Running Apache bench with 5 concurrent connections against this a route with this image processing function reflects directly on this chart and can be clearly distinguished from a scenario of moderate load without the image processing in place.
+通过 Apache bench 发起 5 个并发请求到具有图像处理功能的路由与没有使用图片处理的路由有很大不同，可以直接从图表上可以看到。
 
-### Event Loop Latency
+### 事件循环延迟
 
-The event loop latency measures how long it additionally takes until a task scheduled with setTimeout(X) really gets processed.
+事件循环延迟测量在通过 setTimeout(X) 调度的任务真正得到处理之前需要多长时间。
 
-A high event loop latency indicates an event loop busy with processing callbacks.
+事件循环高延迟表示事件循环正忙于处理回调。
 
-To test this metric, I created an express route that calculates fibonacci using a very *inefficient* algorithm.
+为了测试这个指标，我创建了一个 express 路由使用了一个非常**低效**的算法来计算斐波那契。
 
 [![](https://dt-cdn.net/wp-content/uploads/2017/07/Insert51-1024x400.png)](https://www.dynatrace.com/blog/?attachment_id=20212)
 
-Running Apache bench with 5 concurrent connections against this a route with the fibonacci function shows that now the callback queue is busy.
+运行具有 5 个并发连接的 Apache bench，具有计算斐波那契功能的路由显示此刻回调队列处于繁忙状态。
 
-We clearly see that those four metrics can provide us with valuable insights and help to understand the inner workings of Node.js better.
+我们清楚地看到，这四个指标可以为我们提供宝贵的见解，并帮助您更好地了解 Node.js 的内部工作。
 
-Still all of that needs to be seen in a bigger picture to make sense of it. Therefore we are currently collecting information to factor in these data into our anomaly detection.
+这些需求仍然需要在更大的图片中去观察，以使其有意义。因此，我们正在收集信息以将这些数据纳入我们的异常检测。
 
-## Tuning the Event Loop
+## 回到事件循环
 
-Of course, metrics alone do not help much without knowing how to derive possible actions to remedy problems from them. Here are a few hints on what to do when the event loop seems exhausted.
+当然，在不了解如何从可能的行动中解决问题的情况下，衡量标准本身就不会有太大的帮助。当事件循环快耗尽时，这里有几个提示。
 
 [![](https://dt-cdn.net/wp-content/uploads/2017/07/Insert6-1024x410.png)](https://www.dynatrace.com/blog/?attachment_id=20213)
 
-Exhausted Event Loop
+事件循环耗尽
 
-### Utilize all CPUs
+### 利用所有 CPU
 
-A Node.js application runs on a single thread. On multicore machines that means that the load isn’t distributed over all cores. Using the [cluster module](https://nodejs.org/api/cluster.html) that comes with Node it’s easy to spawn a child process per CPU. Each child process maintains its own event loop and the master process transparently distributes the load between all childs.
+Node.js 应用程序在单个线程上运行。在多核机器上，这意味着负载不会分布在所有内核上。使用 Node 附带的 [cluster module](https://nodejs.org/api/cluster.html) 可以轻松地为每个 CPU 生成一个子进程。每个子进程维护自己的事件循环，主进程在所有子进程之间透明地分配负载。
 
-### Tune the Thread Pool
+### 调整线程池
 
-As mentioned, libuv will create a thread pool with the size of 4. The default size of the pool can be overridden by setting the environment variable UV_THREADPOOL_SIZE.
+如上所述，libuv 将创建一个大小为 4 的线程池。通过设置环境变量 UV_THREADPOOL_SIZE 可以覆盖线程池的默认大小。
 
-While this can solve load problems on I/O-bound applications I’d recommend excessive load testing as a larger thread pool might still exhaust the memory or the CPU.
+虽然这可以解决 I/O 绑定应用程序上的负载问题，我建议多次负载测试，因为较大的线程池可能仍然耗尽内存或 CPU 。
 
-### Offload the work to Services
+### 将任务扔给服务进程
 
-If Node.js spends too much time with CPU heavy operations, offloading work to services maybe even using another language that better suits a specific task might be a viable option.
+如果 Node.js 花费太多时间参与 CPU 繁重的操作，开一些服务进程处理这些繁重任务或者针对某些特定任务使用其它语言编写服务也是一个可行的选择。
 
-## Summary
+## 总结
 
-Let’s summarize what we’ve learned in this post:
+我们总结一下我们在这篇文章中学到的内容：
 
-- The event loop is what keeps a Node.js application running
-- Its functionality is often misunderstood – it is a set of phases that are traversed continuously with specific tasks for each phase
-- There are no out-of-the-box metrics provided by the event loop so the metrics collected are different between APM vendors
-- The metrics clearly provide valuable insights about bottlenecks but deep understanding of the event loop and also the code that is running is key
-- In the future Dynatrace will add event loop telemetry to its root cause detection to correlate event loop anomalies with problems
+- 事件循环是使 Node.js 应用程序运行的原因
+- 它的功能经常被误解 - 它有多个阶段组成，各阶段处理特定任务，阶段间轮询调度
+- 事件循环不提供现成的指标，因此收集的指标在 APM 供应商之间是不同的
+- 这些指标清楚地提供了有关瓶颈的有价值的见解，但对事件循环的深刻理解以及正在运行的代码才是关键
+- 在未来，Dynatrace 将会把事件循环添加到第一检测要素，从而将事件循环异常与问题相关联
 
-For me there is no doubt that we just built the most comprehensive event loop monitoring solution on the market today, and I’m really happy that this amazing new feature will be rolled out to all of our customers within the next few weeks.
+对我来说，毫无疑问，我们今天刚刚在市场上构建了最全面的事件循环监控解决方案，我非常高兴在未来几个星期内，这个惊人的新功能将推向所有客户。
 
-## Credits
+## 最后
 
-Our stellar Node.js agent team put a lot of effort into getting event loop monitoring right. Much of the findings presented in this blog post is based on their in-depth knowledge of the inner workings of Node.js. I’d like to thank Bernhard Liedl, Dominik Gruber, Gerhard Stöbich and Gernot Reisinger for all the work and support.
+我们一流的 Node.js 代理团队为了做好事件循环监控尽了很大努力。这篇博客文章中提出的大部分发现都是基于他们对 Node.js 内部运作的深入了解。 我要感谢 Bernhard Liedl ，Dominik Gruber ，GerhardStöbich 和 Gernot Reisinger 所有的工作和支持。
 
-I hope this post did shed some light on the topic. Please follow me on twitter [@dkhan](https://twitter.com/dkhan). I’m happy to answer all your questions there or on the comment section below.
+我希望这篇文章使大家在事件循环上有新的认知。请在 Twitter 上关注我 [@dkhan](https://twitter.com/dkhan)。我很乐意回答您在 Twitter 里或下面评论区中的提出的一切问题。
 
-And as always: [Download our free trial to start monitoring your full stack including Node.js](https://www.dynatrace.com/technologies/nodejs-monitoring/) today.
-
+最后和以往一样：[下载免费试用版去监控您的完整堆栈，包括Node.js](https://www.dynatrace.com/technologies/nodejs-monitoring/)。
 
 ---
 
