@@ -8,13 +8,13 @@
 
 # 逐渐增强的 CSS 布局：从浮动到 Flexbox 到 Grid
 
-今年早些时候，大多数主流浏览器都支持了 [CSS Grid 布局](https://www.smashingmagazine.com/2016/11/css-grids-flexbox-and-box-alignment-our-new-system-for-web-layout/)。自然地，规范也成为了小讨论会和大型会议的热门话题之一。在参与了一些关于 Grid 布局和渐进增强的讨论后，我认为使用它还是有**很大的不确定性**。我听到一些很有趣的问题和发言，我想在这篇文章中讨论讨论。
+今年早些时候，大多数主流浏览器都支持了 [CSS Grid 布局](https://www.smashingmagazine.com/2016/11/css-grids-flexbox-and-box-alignment-our-new-system-for-web-layout/)。自然地，规范也成为了大小会议的热门话题之一。在参与了一些关于 Grid 布局和渐进增强的讨论后，我认为使用它还是有**很大的不确定性**。我听到一些很有趣的问题和发言，我想在这篇文章中讨论讨论。
 
 ### 最近几周听到的声明和问题
 
 - “我什么时候可以开始使用 CSS grid 布局？”
 - “还需要好几年我才能在实际项目中使用 CSS Grid 布局，这太扯淡了。”
-- “为了使 CSS Grid 布局，网站需要 Modernizr 吗？”
+- “为了使用 CSS Grid 布局，网站需要 Modernizr 吗？”
 - “如果我现在想使用 CSS Grid，那我需要为我的网站做两三个版本。”
 - “渐进增强在理论上听起来不错，但我认为在实际项目中不可能实现。”
 - “渐进增强的成本是多少？”
@@ -221,7 +221,7 @@ section:after {
 >
 > [Ethan Marcotte](https://ethanmarcotte.com/wrote/left-to-our-own-devices/)
 
-渐进式增强可能会在一开始就涉及到一些工作，但是从长远来看可以节省时间和金钱。我们不知道用户接下来会使用哪些设备，操作系统或浏览器访问我们的网站。如果我们为不是太好的浏览器提供可访问和可用的体验，那么我们就正在构建具有弹性的产品，并为[意想不到的发展](https://www.theverge.com/2017/2/26/14742150/nokia-3310-mwc-2017)做好准备。
+渐进增强可能在一开始需要一点工作，但是从长远来看可以节省时间和金钱。我们不知道用户接下来会使用哪些设备，操作系统或浏览器访问我们的网站。如果我们为不是太好的浏览器提供可访问和可用的体验，那么我们就正在构建具有弹性的产品，并为[意想不到的发展](https://www.theverge.com/2017/2/26/14742150/nokia-3310-mwc-2017)做好准备。
 
 ### 摘要
 
@@ -236,7 +236,7 @@ section:after {
 
 几乎每个主流浏览器都支持 CSS 功能查询。（图片：[我可以使用](http://caniuse.com/)）（[查看大图](https://www.smashingmagazine.com/wp-content/uploads/2017/07/caniuse_featurequeries-large-opt.png)）。
 
-Grid，例如，[几乎在每个主流浏览器中都得到了支持](http://caniuse.com/#search=grid)，我们不应该等待好多年，直到覆盖率达到 100％ 才能在实际项目中使用它，因为那根本不存在。这也不用试网络工作的理念。
+Grid，例如，[几乎在每个主流浏览器中都得到了支持](http://caniuse.com/#search=grid)，我们不应该等待好多年，直到覆盖率达到 100％ 才在实际项目中使用它，因为那根本不存在。仅仅是因为 web 本就不是那么玩的。
 
 [Grid 非常好用](https://gridbyexample.com/examples/)。现在就开始使用吧！
 
@@ -276,7 +276,7 @@ UC Browser 11,  Android 7
 - “[World Wide Web, Not Wealthy Western Web, Part 1](https://www.smashingmagazine.com/2017/03/world-wide-web-not-wealthy-western-web-part-1/)”，Bruce Lawson。
 - “[Resilience](https://www.youtube.com/watch?v=W7wj7EDrSko)” (video)，Jeremy Keith，View Source conference 2016。
 
-**感谢我的导师 Aaron Gustafson 对我创作本文的帮助，感谢 Eva Lettner 的校对，和与 Rachel Andrew 之间无数的帖子，demo 和讨论。**
+**感谢我的导师 Aaron Gustafson 对我创作本文的帮助，感谢 Eva Lettner 的校对，感谢 Rachel Andre 无数的帖子、demo 和建议。**
 
 
 ---
