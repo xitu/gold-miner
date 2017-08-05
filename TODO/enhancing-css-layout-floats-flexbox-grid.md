@@ -4,7 +4,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/enhancing-css-layout-floats-flexbox-grid.md](https://github.com/xitu/gold-miner/blob/master/TODO/enhancing-css-layout-floats-flexbox-grid.md)
 > * 译者：[LeviDing](https://github.com/leviding)
-> * 校对者：
+> * 校对者：[薛定谔的猫](https://github.com/Aladdin-ADD)，[LouisaNikita](https://github.com/louisanikita)
 
 # 逐渐增强的 CSS 布局：从浮动到 Flexbox 到 Grid
 
