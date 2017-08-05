@@ -3,20 +3,22 @@
 > * 原文作者：[Rutger Ruizendaal](https://medium.com/@r.ruizendaal)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/deep-learning-1-setting-up-aws-image-recognition.md](https://github.com/xitu/gold-miner/blob/master/TODO/deep-learning-1-setting-up-aws-image-recognition.md)
-> * 译者：
-> * 校对者：
+> * 译者：[lileizhenshuai](https://github.com/lileizhenshuai)
+> * 校对者：[Tina92](https://github.com/Tina92) [sqrthree](https://github.com/sqrthree)
 
 # 深度学习系列1：设置 AWS & 图像识别
 
-**这篇文章是深度学习系列的第一部分。你可以在[这里](https://medium.com/@r.ruizendaal/deep-learning-2-f81ebe632d5c)查看第二部分，以及[这里](https://medium.com/@r.ruizendaal/deep-learning-3-more-on-cnns-handling-overfitting-2bd5d99abe5d)查看第三部分。**
+**这篇文章是深度学习系列的第一部分。你可以在[这里](https://github.com/xitu/gold-miner/blob/master/TODO/deep-learning-2-convolutional-neural-networks.md)查看第二部分，以及[这里](https://github.com/xitu/gold-miner/blob/master/TODO/deep-learning-3-more-on-cnns-handling-overfitting.md)查看第三部分。**
+
+![](https://cdn-images-1.medium.com/max/1600/1*y3guCmNkYLF2uR09Fslh5g.png)
 
 本周的任务：对猫和狗的图像进行分类
 
-欢迎阅读本系列第一篇关于实战深度学习的文章。在本文中，我将设置 Amazon Web Services（AWS）实例，并使用预先训练的模型对猫和狗的图像进行分类。
+欢迎阅读本系列第一篇关于实战深度学习的文章。在本文中，我将创建 Amazon Web Services（AWS）实例，并使用预先训练的模型对猫和狗的图像进行分类。
 
-在这个完整的系列里，我会记录下我在 Fast AI 深度学习课程的第一部分内容的进度。这门课程是由旧金山大学数据研究所提供的并且现在能够在 MOOC 上观看。最近，这门课的作者提供了第二部分的内容，并且在接下来的几个月都可以在网上观看。我上这门课的主要是因为我对深度学习有着强烈的兴趣。我在网上发现了许多关于机器学习的课程，但有关深度学习的实战课程还是比较少见的。深度学习似乎因为进入门槛略高一点，而被单独列出。开始深度学习之前我们首先需要一个 GPU，在这门课程里我们会使用 AWS 的 p2 实例。现在让我们一起来准备它。
+在这个完整的系列里，我会记录下我在 Fast AI 深度学习课程的第一部分内容的进度。这门课程最初是由旧金山大学数据研究所提供的，并且现在能够在 MOOC 上观看。最近，这门课的作者提供了第二部分的内容，并且在接下来的几个月都可以在网上观看。我上这门课的主要是因为我对深度学习有着强烈的兴趣。我在网上发现了许多关于机器学习的课程，但有关深度学习的实战课程还是比较少见的。深度学习似乎因为进入门槛略高一点，而被单独列出。开始深度学习之前我们首先需要一个 GPU，在这门课程里我们会使用 AWS 的 p2 实例。现在让我们一起来准备它。
 
-这门课程第一周，我们会把重点放在准备工作上。做好深度学习的准备会花上一点时间，但把所有准备工作做好，并且正确运行时很重要的。这包括了设置 AWS，创建和配置 GPU 实例，设置 ssh 连接服务器以及管理你的目录。
+这门课程第一周，我们会把重点放在准备工作上。正确地准备深度学习需要一点时间，但这对一切能正确运行很重要。这包括了设置 AWS，创建和配置 GPU 实例，设置 ssh 连接服务器以及管理你的目录。
 
 我在实习期用的笔记本电脑上遇到了一些权限问题。我有个建议能够避免这个问题，从而帮你节省大量时间：在尝试操作之前，确保你在你的笔记本电脑上拥有完整的管理员权限。一些热情的工程师提出帮助我设置 GPU 实例，但是他们不能马上帮我搞定，所以我决定自己来。
 
@@ -28,12 +30,13 @@
 
   我在 aws-alias.sh 这个脚本上也遇到了同样的问题，在第七行的末尾加上 `'` 能够解决这个问题。下面是修改前和修改后的第七行：
 
-    alias aws-state='aws ec2 describe-instances --instance-ids $instanceId --query "Reservations[0].Instances[0].State.Name"
+  > alias aws-state='aws ec2 describe-instances --instance-ids $instanceId --query "Reservations[0].Instances[0].State.Name"
+  
+  > alias aws-state='aws ec2 describe-instances --instance-ids $instanceId --query "Reservations[0].Instances[0].State.Name"'
 
-    alias aws-state='aws ec2 describe-instances --instance-ids $instanceId --query "Reservations[0].Instances[0].State.Name"'
-​	[这里](https://gist.github.com/LeCoupa/122b12050f5fb267e75f)有一个为不熟悉 Bash 的人准备的 Bash 备忘录，因为你需要通过 Bash 来和你的实例进行交互，所以我非常推荐你去看看。
+  [这里](https://gist.github.com/LeCoupa/122b12050f5fb267e75f)有一个为不熟悉 Bash 的人准备的 Bash 备忘录，因为你需要通过 Bash 来和你的实例进行交互，所以我非常推荐你去看看。
 
-- Anaconda 的安装。视频中提到你需要在安装 Cygwin 之前先安装 Anaconda，你可能感到有些疑惑，因为你需要用“Cygwin python”来运行 pip 命令而不是一个本地的 Anaconda 分发版。
+- Anaconda 的安装。视频中提到你需要在安装 Cygwin 之前先安装 Anaconda。你可能感到有些疑惑，因为你需要用“Cygwin python”来运行 pip 命令而不是一个本地的 Anaconda 分发版。
 
 另外，[这个](https://github.com/TomLous/practical-deep-learning)仓库有一个手把手的教程教你如何让你的实例运行起来。
 
@@ -59,7 +62,7 @@
 
 神经网络是通过模仿人脑而设计的。根据通用近似定理，它理论上能拟合任何函数。神经网络通过反向传播算法来训练，这使得我们能够调整模型的参数来适应不同的函数。最后一个原因，也是深度学习近期取得众多成就的主要原因。因为游戏行业的进步和 GPU 计算能力的强劲发展，现在我们以非常快速和可扩展的方式来训练深层的神经网络。
 
-在第一节课里，我们的目标是使用一个叫做 Vgg16 的预先训练好的模型，来对猫和狗的图片进行分类。Vgg16 是 2014 年赢得 Imagenet 比赛模型的一个轻量级版本。这是一个年度的比赛并且可能是计算机视觉方面最大的一个比赛。我们可以利用这预先训练好的模型，并且把它应用到我们的猫和狗的图片数据集上。我们的数据集已经被课程的作者编辑过了，以确保它的格式正确。原始的数据集可以在[Kaggle](https://www.kaggle.com/c/dogs-vs-cats)上找到。这场比赛最初是在2013年进行的，那是最高的准确率是 80％。而我们的简单模型已经能够达到97％的准确度。大脑现在还清醒吧？下面是一些照片和他们被预测的标记：
+在第一节课里，我们的目标是使用一个叫做 Vgg16 的预先训练好的模型，来对猫和狗的图片进行分类。Vgg16 是 2014 年赢得 Imagenet 比赛模型的一个轻量级版本。这是一个年度的比赛并且可能是计算机视觉方面最大的一个比赛。我们可以利用这预先训练好的模型，并且把它应用到我们的猫和狗的图片数据集上。我们的数据集已经被课程的作者编辑过了，以确保它的格式正确。原始的数据集可以在 [Kaggle](https://www.kaggle.com/c/dogs-vs-cats) 上找到。这场比赛最初是在 2013 年进行的，那时的准确率是 80％。而我们的简单模型已经能够达到 97％的准确度。大脑现在还清醒吧？下面是一些照片和他们被预测的标记：
 
 ![](https://cdn-images-1.medium.com/max/1600/1*y3guCmNkYLF2uR09Fslh5g.png)
 
@@ -74,11 +77,12 @@
 本质上这个数据集和先前的是同一个数据集，但是没有被课程作者预处理过。Kaggle 命令行接口（CLI）提供了一个快捷的方法来下载这个数据集，可以通过 pip 来安装。一个美元标志通常用来表示命令运行在终端中。
 
     $ pip install kaggle-cli
+
 训练数据集中有 25000 张已经被标记为猫或是的狗的图片，测试数据集中则包含 12500 张未被标记的图片。为了调整参数，我们还通过占用训练集的一小部分来创建验证数据集。设置一个完整数据集的“样本”也很有用，可以用来快速检查你的模型在构建过程中是否正常工作。
 
 我们使用 Keras 库来运行我们的模型，这个库是基于 Thenao 和 TensorFlow 的最流行的深度学习库之一。Keras 能够让你更加直观地来编写神经网络，这意味着你能够更多地关注神经网络的架构而不用担心 TensorFlow API。因为Keras 通过查看图片所属的目录来确定它的类别，所以把图片移动到正确的目录非常的重要。这些操作所需的 bash 命令可以直接在 Jupyter Notebook 中运行，也就是我们写代码的地方。[这个](https://www.cyberciti.biz/faq/mv-command-howto-move-folder-in-linux-terminal/)链接包含了额外的一些关于这些命令的信息。
 
-一个 epoch，也就是在数据集完整地跑一遍，在我的 Amazon p2 实例上花费了10分钟时间。在这个例子里数据集是包含 23000 张图片的训练数据集，另外的 2000 张图片被保留下来作为验证数据集。在这里我决定使用 3 个 epoch。在验证数据集上的准确度在 98% 左右。训练好模型之后，我们可以看一些被正确分类的图片。在这个例子里，我们用图片中是一只猫的概率作为结果。1.0 表示模型非常自信地认为图片中是一只猫，而 0.0 则表示图片z中是一只狗。
+一个 epoch，也就是在数据集完整地跑一遍，在我的 Amazon p2 实例上花费了 10 分钟时间。在这个例子里数据集是包含 23000 张图片的训练数据集，另外的 2000 张图片被保留下来作为验证数据集。在这里我决定使用 3 个 epoch。在验证数据集上的准确度在 98% 左右。训练好模型之后，我们可以看一些被正确分类的图片。在这个例子里，我们用图片中是一只猫的概率作为结果。1.0 表示模型非常自信地认为图片中是一只猫，而 0.0 则表示图片中是一只狗。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*fgOX3G_imeRsodKuBBA8Tg.png)
 
@@ -98,7 +102,7 @@
 
 这就是这周的内容。就我个人而言，我已经迫不及待地想要开始第二周的课程并且学习更多关于这个模型的内部细节。希望我们也能开始利用 Keras 从头构建一个模型。
 
-同时，感谢所有更新 Github 脚本的人，这可帮了大忙！另外也要感谢所有参与 Fast AI 论坛的人，你们太棒了。
+同时，感谢所有更新 GitHub 脚本的人，这可帮了大忙！另外也要感谢所有参与 Fast AI 论坛的人，你们太棒了。
 
 如果你喜欢这篇文章，请把它推荐给你的朋友们，让更多人的看到它。你也可以按照这篇文章，跟上我在 Fast AI 课程中的进度。到时候那里见！
 
