@@ -58,7 +58,7 @@ buildscript {
 
 > 注意：如果你在从 [RetroLambda](https://github.com/evant/gradle-retrolambda) 迁移过来，官方文档有一个更加全面的 [迁移指南](https://developer.android.com/studio/write/java8-support.html#migrate)。
 
-## 有关 Lambda
+## 有关 Lambda 表达式
 
 在 Java 6 中，向另一个类传入监听器的代码是相当冗长的。典型的情况是，你需要向 `View` 添加一个 `OnClickListener`：
 
@@ -71,7 +71,7 @@ button.setOnClickListener(new View.OnClickListener() {
 });
 ```
 
-Lambda 可以把它剧烈简化到下面这样：
+Lambda 表达式可以把它显著地简化成下面这样：
 
 ```
 button.setOnClickListener(view -> doSomething());
@@ -79,9 +79,9 @@ button.setOnClickListener(view -> doSomething());
 
 注意：几乎全部模板代码都被删除了：没有访问控制修饰符，没有返回值，也没有方法名称！
 
-Lambda 究竟是怎么工作的呢？
+Lambda 表达式究竟是怎么工作的呢？
 
-它们使语法糖，当你有一个只有一个方法的接口时，它们可以减少创建匿名类的需要。我们把这些接口称为功能接口，`OnClickListener` 就是一个例子：
+它们是语法糖，当你有一个只有一个方法的接口时，它们可以减少创建匿名类的需要。我们把这些接口称为功能接口，`OnClickListener` 就是一个例子：
 
 ```
 // 只有一个方法的功能接口
@@ -90,7 +90,7 @@ public interface OnClickListener {
 }
 ```
 
-基本上 lambda 包括三个部分：
+基本上 lambda 表达式包括三个部分：
 
 ```
 button.setOnClickListener((view) -> {doSomething()});
@@ -104,7 +104,7 @@ button.setOnClickListener((view) -> {doSomething()});
 
 ## 方法引用
 
-回忆一下 lambda 表达式为功能接口删除了大量样板代码的情形。当 lambda 调用了已经有一个名字的方法时，方法引用把这个概念更推进了一步。
+回忆一下 lambda 表达式为功能接口删除了大量样板代码的情形。当 lambda 表达式调用了一个已经有名字的方法时，方法引用把这个概念更推进了一步。
 
 在下面的例子中：
 
@@ -134,7 +134,7 @@ private void doSomething(View view) {
 
 那么，方法引用是如何工作的呢？
 
-它们是语法糖，可以简化调用了现有方法的 lambda 表达式。他们可以引用：
+它们同样是语法糖，可以简化调用了现有方法的 lambda 表达式。他们可以引用：
 
 | 静态方法 | MyClass::doSomething |
 | 对象的实例方法 | myObject::doSomething |
@@ -145,7 +145,7 @@ private void doSomething(View view) {
 
 ## 默认接口方法
 
-默认方法使你可以在不破坏实现一个接口的所有的类的情况下，向接口中加入新的方法。
+默认方法使你可以在不破坏实现一个接口的所有的类的情况下，向该接口中加入新的方法。
 
 假设你有一个 `MyView` 接口，它被一个 `MyFragment` 实现（典型 MVP 场景）：
 
@@ -186,18 +186,18 @@ public interface MyView {
 
 虽然这看起来有些吓人，但是一旦你打开了 Java 8 特性，Android Studio 就提供了非常好用的快速修复功能。
 
-只要使用 `alt/option` + `enter` 就可以把功能接口转化为一个 lambda，或把 lambda 转为方法引用。
+只要使用 `alt/option` + `enter` 就可以把功能接口转化为一个 lambda 表达式，或把 lambda 转为方法引用。
 
 ![Java 8 语言的快速修复功能](https://jeroenmols.com/img/blog/java8language/androidstudioconversion.gif)
 
-这是一种熟悉新特性的好办法，它使你可以按照自己习惯的方式写代码。在使用 Android Studio 的快速修复功能足够多次之后，你将学会 lambda 和方法引用有哪些使用场景，并开始自己写它们。
+这是一种熟悉新特性的好办法，它使你可以按照自己习惯的方式写代码。在使用 Android Studio 的快速修复功能足够多次之后，你将学会 lambda 表达式和方法引用有哪些使用场景，并开始自己写它们。
 
 ## 支持的特性
 
-虽然并不是所有的 Java 8 特性都已经被向后移植，Android Studio 3.0 提供了很多其他的特性：
+虽然并不是所有的 Java 8 特性都已经被向后移植，但是Android Studio 3.0 提供了很多其他的特性：
 
 - [静态接口方法](https://docs.oracle.com/javase/tutorial/java/IandI/defaultmethods.html)
-- [类型标记](https://docs.oracle.com/javase/tutorial/java/annotations/type_annotations.html)
+- [类型注解](https://docs.oracle.com/javase/tutorial/java/annotations/type_annotations.html)
 - [重复标记](https://docs.oracle.com/javase/tutorial/java/annotations/repeating.html)
 - [针对资源的 try 语句](https://docs.oracle.com/javase/tutorial/essential/exceptions/tryResourceClose.html) (all versions, no longer min SDK 19)
 - Java 8 APIs (e.g. stream) -> min SDK 24
