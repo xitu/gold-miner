@@ -3,49 +3,64 @@
 > * 原文作者：[Samer Buna](https://edgecoders.com/@samerbuna)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/learning-react-js-is-easier-than-you-think.md](https://github.com/xitu/gold-miner/blob/master/TODO/learning-react-js-is-easier-than-you-think.md)
-> * 译者：
+> * 译者：[Cherry](https://github.com/sunshine940326)
 > * 校对者：
 
 # Learning React.js is easier than you think
+# 学习 React.js 比你想象的要简单
 
 ## Learn the fundamentals of React.js in one Medium article
+## 通过 Medium 中的一篇文章来学习 React.js 的基本原理
 
 ![](https://cdn-images-1.medium.com/max/1600/1*YsPpBr_PgtyTR6CFDmKU9g.png)
 
 Have you ever noticed that there is a Star of David hidden in the React logo? Just saying…
 Last year I wrote a short book on learning React.js which turned out to be about 100 pages. This year, I am going to challenge myself to summarize it as an article on Medium.
+你有没有注意到在 React 的 logo 中 有一个 Star of David（犹太教的六芒星形）？只是说。。。
+去年我写了一个简短的书关于学习 React.js 有 100 页左右。今年，我要挑战自己来总结出中的一篇文章向 Medium 投稿。
 
 This article is not going to cover what React is or [why you should learn it](https://medium.freecodecamp.org/yes-react-is-taking-over-front-end-development-the-question-is-why-40837af8ab76). This is just a practical introduction for the fundamentals of React.js for those who are already familiar with JavaScript and know the basics of [the DOM API](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model).
+这篇文章不是讲什么是 React 或者 [你该怎样学习React](https://medium.freecodecamp.org/yes-react-is-taking-over-front-end-development-the-question-is-why-40837af8ab76)。这是为那些已经熟悉 React.js 基本原理 —— JavaScript 和 [DOM API](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model) 的实用介绍
+
 
 > This article uses embedded jsComplete code snippets which needs a decent screen width to be readable.
+> 本文采用嵌入式 jsComplete 代码段所以为了方便阅读需要一个合适的屏幕宽度。
 
 All code examples below are labeled for reference. They are also purely intended to provide examples of concepts. Most of them can be written in a much better way.
+下面所有的代码都是参考代码。他们也纯粹是为了表达概念而提供的例子。他们中的大多数可以用更好的方式。
+
 
 You can edit and execute any code snippet below. Use *Ctrl+Enter* to execute the code. The bottom-right corner of each snippet has a link to edit/run the code full-screen at [jsComplete/repl](https://jscomplete.com/repl).
+您可以编辑和执行下面的任何代码段。使用**Ctrl+Enter**执行代码。每一段的右下角有一个链接到编辑/运行代码全屏在[jsComplete/repl](https://jscomplete.com/repl).
 
 ---
 
 #### 1 — React is all about components
+#### 1 - React 全部都是组件
 
 React is designed around the concept of reusable components. You define small components and you put them together to form bigger components.
+React 是围绕可重用组件的概念设计的。你定义小组件并将它们组合在一起形成更大的组件。
 
 All components small or big are reusable, even across different projects.
+无论大小，所有组件都是可重用的，甚至在不同的项目中也是如此。
 
 A React component — in its simplest form — is just a plain-old JavaScript function:
+React 组件最简单的形式，只是一个普通的 JavaScript 函数：
 
 ```
 function Button (props) {
-  // Returns a DOM element here. For example:
+  // 这里返回一个 DOM 元素，例如：
   return <button type="submit">{props.label}</button>;
 }
-
-// To render the Button component to the browser
+// 将按钮组件呈现给浏览器
 ReactDOM.render(<Button label="Save" />, mountNode)
 ```
 
 Example 1 — Edit code above and press Ctrl+Enter to execute
+例 1：编辑上面的代码并按 Ctrl+Enter 键执行
 
 > The curly braces used for the button label are explained below. Don’t worry about them now. `ReactDOM` will also be explained later, but if you want to test this example and all upcoming code examples, the above `render` function is what you need. (The second argument to `ReactDOM.render` is the destination DOM element which React is going to take over and control. In a jsComplete REPL, you can just use the special variable `mountNode`)
+> 用于按钮标签括号解释如下。现在不要担心它们。`ReactDOM` 也将稍后解释，但如果你想测试这个例子和所有接下来的例子，上述 `render` 函数是你需要的。（对 `ReactDOM.render` 是目的地的DOM元素反应要接管。在jscomplete REPL，你可以使用特殊的变量` mountnode `）
 
 Note the following about Example 1:
 
