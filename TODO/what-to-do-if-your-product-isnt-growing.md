@@ -3,85 +3,81 @@
 > * 原文作者：[austin chang](https://medium.com/@theaustinchang)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/what-to-do-if-your-product-isnt-growing.md](https://github.com/xitu/gold-miner/blob/master/TODO/what-to-do-if-your-product-isnt-growing.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Funtrip](https://dribbble.com/funtrip)
+> * 校对者：[LeviDing](https://github.com/leviding)、[laiyun90](https://github.com/laiyun90)、
 
-# What To Do If Your Product Isn’t Growing
+# 如果你的产品停止成长，你该怎么做？
 
-## How ‘Critical User Journeys’ can help a product take off
+## 「关键用户轨迹」可以怎样帮助产品起步
 
-As a [founder, product lead at Pinterest and PM for a couple products at Google](https://www.linkedin.com/in/austinnchang), as well as a growth partner for [Initialized Capital](http://initialized.com/), I’ve seen many product teams struggle to grow.
+作为 [Pinterest 的创始人和产品主管，Google 几款产品的产品经理](https://www.linkedin.com/in/austinnchang), 同时也是 [Initialized Capital](http://initialized.com/) 的发展伙伴, 我看过了太多希望努力成长起来的产品团队。
 
-Many products start out with a bang. Some find product-market fit with sustained growth. A few have gone through spurts of hyper-growth. But more often than not, I’ve seen most of them linger then fizzle.
+许多产品都以爆炸式的方式出现在人们视野中。它们有一些随着产品市场而持续增长。有一些则在井喷式的高速增长后死掉了。但我看到更多的时候是，许多产品都在失败的边缘徘徊。
 
-Throughout these experiences, I have noticed a common pattern that almost every startup founder falls into as they begin this journey. Founders launch their product, wonder why it isn’t growing like gangbusters and then immediately try to fix their growth problem.
+在这些相似的经历中，我注意到有一个很常见的「套路」，那就是几乎每一个创始人在开始一段产品的道路时都会使自己完全深陷其中。当创始人推出了一个产品，他们非常想知道自己的产品没有疯狂增长的原因，然后迫切地立即去解决它们的增长问题。
 
-They turn to growth tactics like optimizing their on-boarding funnel, SEO or push notifications before really understanding what they are building and who they are building for. This may create an initial burst of short-term growth. But it ultimately leads to high churn of your possible customers, while ignoring problems in the core product.
+在他们还没有真正明白自己在做什么，以及他们的目标用户是谁之前，他们通常会转为调整自己的增长策略，比如说他们的登录机制优化、搜索引擎优化或者推送通知优化。这可能会带来一个短期的爆发。但这最终可能会因为忽视了产品的核心问题，而导致潜在用户大量流失。
 
-Before trying different growth tactics like throwing spaghetti at a wall, startups need to take a fresh look at their users, evaluate their product end goals and re-define the journey they want their users to take to get there. Here are some tips that can help define a path which will clarify the different steps needed to unlock product growth.
+在尝试不同的增长策略之前，创业公司需要重新审视他们的用户，评估一下他们的产品所要达到的目标，并重新明确他们想要让用户达到什么样的体验。这里有一些提示，来告诉你在不同的步骤应该做些什么来解锁产品不同的成长阶段。
 
-#### Map out your ‘Critical User Journey’
+#### 绘制你的「关键用户轨迹」
 
-Many startups build a product without knowing what path they want their users to go down. If you look up the phrase “[Critical User Journey](https://www.google.com/search?q=critical+user+journeys&amp;oq=critical+user+journeys&amp;aqs=chrome..69i57.3639j0j7&amp;sourceid=chrome&amp;ie=UTF-8),” you’ll find a plethora of UX frameworks and user maps. These are great, but can be overwhelming and daunting.
+许多创业公司在不知道如何引导的情况下开发他们的产品。如果你搜索「[ 关键用户轨迹 ](https://www.google.com/search?q=critical+user+journeys&amp;oq=critical+user+journeys&amp;aqs=chrome..69i57.3639j0j7&amp;sourceid=chrome&amp;ie=UTF-8) （译者注：原文为 Critical User Journey）」这个词语，会发现许多的用户体验框架图和用户地图。这些东西很棒，但他们也很可能带来很大的压力，让人感到畏惧。
 
-> Early startups should start simple and make sure they know the optimal journey they want their product to fulfill for the user.
+> 初创公司应该从最简单的做起，确保他们的目标是让产品配合用户实现最佳的流程体验。
 
-Your Critical User Journey should focus on a single use case with a specific goal and include the surrounding context for the user. For example, one of the journeys that Pinterest is focused on is helping a user find ideas around their own personal style. A Pinterest user typically starts from browsing a large visual catalog of style ideas, and then progresses to discovering the right looks that fit their own style.
+你的关键用户轨迹应该着重于一个有特定目标的单一用例，并且应该包括用户的上下文环境。打个比方，Pinterest 重点之一是帮助用户找到符合他们个人风格的创意。一开始，Pinterest 的用户通常会浏览大量不同风格的创意，然后逐渐找到与他们自己的风格相符合的款式。
 
-Then Pinterest allows users to curate their own look books, style boards and eventually make it seamless to buy those looks, whether that’s directly on Pinterest or through a deep link to the merchant. The happy case is that the whole journey is completed on Pinterest. Now Pinterest has grown over the years to become a large company and fulfills multiple user journeys.
+然后 Pinterest 会让用户整理他们自己的型录、样板，并最终无缝地购买这些他们喜欢的款式——不管是直接在 Pinterest 上购买，还是通过与商家的深度合作链接来购买。让人很愉悦的是，这整个流程都是直接在 Pinterest 上完成的。如今，Pinterest 已经成长为了一家大公司，而且实现了许多不同的用户体验轨迹。
 
 ![](https://cdn-images-1.medium.com/max/800/1*cRz9ZjiN1xKRYYiw2Z4MmA.png)
 
-Pinterest guides users through each step of Personal Style Discovery: Browsing, Filtering, Curating, and Fulfilling
-Founders starting out need to have clarity on the specific ‘Critical User Journey’ they are fulfilling.Then they need to understand how their product helps users along each step of that journey.
+Pinterest 会在每一步引导用户探索个人风格、过滤、整理和扩充
+创业者们需要清晰地了解他们正在实现的「关键用户轨迹」。此外他们应该知道如何让他们的产品帮助用户们达成流程中的每一步。
 
-#### Measure your ‘Critical User Journey’
+#### 衡量你的「关键用户轨迹」
 
-Once founders have a crafted a user journey, they need to be ruthless and specific on how they measure it. All successful startups have a plethora of top-line metrics (or [KPIs](https://en.wikipedia.org/wiki/Performance_indicator)) they measure and there are many great [tools](https://www.quora.com/What-dashboard-software-is-useful-to-track-critical-metrics-for-Startups) to help visualize this. For startups just starting out, it’s very easy to fall into choosing vanity metrics like MAU (Monthly Active Users) or a sum total measurement metric that looks like it is growing and lose sight of what is actually happening.
+一旦创业者有了一个用户轨迹，他们就需要客观并仔细地去衡量它。所有成功的创业公司都有大量营收指标（或 [KPIs](https://en.wikipedia.org/wiki/Performance_indicator)）的衡量标准，当然也有很多[工具](https://www.quora.com/What-dashboard-software-is-useful-to-track-critical-metrics-for-Startups) 可以让轨迹实现可视化。但对于刚刚起步的创业公司来说，他们很满足于像 MAU （Monthly Active Users，每月活跃用户）或总体测量指标这样虚荣的指标，这些指标让你觉得产品正在增长并忽略了实际发生的情况。
 
 ![](https://cdn-images-1.medium.com/max/800/1*dZWyFdbMKjeNUwlp3Wwq0Q.png)
 
 source: [https://blog.kissmetrics.com/throw-away-vanity-metrics/](https://blog.kissmetrics.com/throw-away-vanity-metrics/)
-Instead, early startups should start with actionable top-line metrics to measure each step of the Journey. Start with two metrics: One user acquisition metric at the top of the funnel that measures how many new users are signing up and taking their first action. And then one user engagement metric further down the funnel that measures how often these new users engage with the product over time. Together, these two metrics define a product’s activation rate in how it graduates new users into becoming active users. From here you can add additional top-line metrics that are specific to your product and user journey.
+相反的，早期初创公司应该从可操作的营收指标来衡量这段历程的每一步。你可以从两个指标开始：一个是顶级用户获取指标，用来衡量有多少新用户并且开始了他们的第一次操作。另一个是用户参与度下降的指标，用来衡量新用户与产品互动的频率。总而言之，这两个指标定义了产品如何将新用户逐渐转化为活跃用户的转化率。有了这些指标之后，你可以添加一些符合你产品特点的和用户轨迹的营销指标。
 
-> The more specific top-line metrics are to a product’s user journey, the better they are at helping startups make decisions.
+> 对于产品的用户轨迹来说，越具体的营销指标越能帮助初创公司做出更好的决策。
 
-For example on Google Assistant, we measure user activation based on the user making at least one successful query that day on a specific surface (i.e. Pixel phone) in a specific country (i.e. U.K.) using a specific feature (i.e. Ask about “My Day”) within their first two weeks.
+以 Google Assistant 举例来说，我们基于用户当天在某一个特定设备（例如 Pixel 手机）、某一个特定国家（比如英国）、使用某一特定功能（例如询问「我的一天」）至少成功完成一次操作的指标来衡量活跃用户。而不是使用它们头两周的数据。
 
-#### Identify ‘product levers’ that help move users along their journey.
+#### 定义「产品杠杆」会帮助用户遵循他们的轨迹
 
-Many startups chose top-line metrics but are not able to directly move any of them in a measurable and systematic way through projects and work streams. Having numbers to measure is only good if you know how to move them with the right product levers.
+许多初创者选择了营销指标，但却无法在项目和工作流中，以可衡量的、系统化的方式来直接让用户遵循轨迹来移动。只有当你知道如何正确使用产品杠杆来让他们遵循轨迹移动，你拥有的这些数据才是有用的。
 
-> A product lever is something that is moveable and measurable that connects projects your team is working on on to top-line metrics that you care about.
+> 产品杠杆是一个你应该关心的，基于营销指标来工作，可移动和可测量，并与你的团队项目相关联的东西。
+举个例子。我与原始资本的投资公司之一进行了密切的合作，选择了「最近 7 天参与度（L7 Engagement）」这个营销指标（或者被称为过去 7 天里，用户在产品上的活跃天数）。他们选择了主要产品杠杆来驱动「每个用户都采取额外的活跃行为」以满足这个指标。他们缩小了他们正在开发的项目数量，只致力于让每个用户都产生更多的活跃行为（比如显示更多的内嵌帮助、发送产品促销信息、发送相关的后续通知，等等），并砍掉那些没有帮助的项目。在经历了几个试验周期后，他们看到他们的最近7天参与度出现了变化，然后他们将注意力被转移到更多的产品杠杆上以推动最近 7 天参与度的提升。
 
-For example, one of Initialized Capital’s portfolio companies I worked closely with chose the top-line metric ‘L7 Engagement,’ or the number of days a user has been active on the product during the last seven days). They chose the primary product lever to drive this as “Additional Actions taken per User.” They narrowed down the projects they were working on to only ones that drove additional actions per user (such as showing more in-line suggestions, creating off product promotions, sending contextual follow-up notifications, etc.) and cut the ones that didn’t. They saw their L7 Engagement rate turn around after a few experiment cycles and they expanded their focus to an additional product lever to drive L7 Engagement.
+#### 不要添加过多的功能，那会让「关键用户轨迹」变得模糊
 
-#### Don’t add so many features that the ‘Critical User Journey’ becomes obscured.
+几乎所有创业者都会遇到的一个常见的陷阱是，通过在产品添加更多的功能来「解决」增长问题，「看看会不会变得很棒」。通过增加产品数量来扩大增长是很难衡量，并且很难扩展的。
 
-Another common pitfall all founders are pulled into is to “fix” growth by adding more and more to your product to “see what sticks.” Growth by product addition is hard to measure and rarely scalable.
-
-For example, I worked with one portfolio company that had a great product serving a user need. They were driving a meaningful metric yet they were seeing stagnant month-over-month growth. Upon looking closer, we saw that they had built multiple convoluted activation flows on top of each other. Each flow they released showed slight overall gains, so they kept going and building more flows on top of each other. Soon enough, they couldn’t tell which flow was directly responsible for retaining or losing users. Their product became a [Rube Goldberg machine](https://en.wikipedia.org/wiki/Rube_Goldberg_machine) spitting out one user at a time.
-
+举例说，我曾经与一个创投公司进行过合作，他们有一个很好的产品可以满足用户的需求。他们正在驱动一个很有意义的指标，但他们发现月增长停滞了。仔细观察之后，我发现他们在不同产品上彼此构建了许多复杂的引导流程。他们发布的每一个引导流程都显示了略微的整体收益，因此他们继续在彼此之间添加更多的引导流程。很快，他们无法判断是哪一个引导流程直接导致了用户流失。他们的产品变成了一个 [Rube Goldberg machine](https://en.wikipedia.org/wiki/Rube_Goldberg_machine) ，用户一个一个的流失。（译者注：Rube Goldberg machine，即鲁布·戈德堡机械，是一种被设计得过度复杂的机械组合，以迂回曲折的方法去完成一些其实是非常简单的工作，例如倒一杯茶，或打一颗蛋等等）
 ![](https://cdn-images-1.medium.com/max/800/1*MErO6AqctCgPH-QhcuicAg.jpeg)
 
-A Rube Goldberg machine — complicated mechanics for a simple output
-Once we simplified the product down to one activation pathway with each flow directly moving a specific product lever, their conversion rates went way up. This was mostly because their product became simpler. It was easier for users to understand and easier for the company to see what was going when users got stuck.
+鲁布·戈德堡机械——完成简单工作的复杂机械
+一旦我们将产品简化为一个活跃的流程，每个流程都直接关联一个特定的产品杠杆，那它们的转化率就会上升。这主要是因为他们的产品变得更简单了。当用户遇到困难时用户可以更轻易地理解错误，而公司也可以更容易地发现错误。
 
-> Taking a step back to simplify and focus freed the product to grow.
+> 退后一步，简化并专注于产品的增长。
 
-#### Let your most engaged users show you the way.
+#### 让你最活跃的用户为你指引道路
 
-This one may seem obvious, but sometimes users have done the hard work for you. Startups should look at their most engaged users and deeply understand the actions and pathways they took to get there.
+这看起来是再明显不过的了，但确实很多时候你的用户为你做了最关键的工作。初创公司应该关注他们最活跃的用户，并深刻理解他们的行为和用户轨迹。
+试着找一群你最活跃的用户，并继续观察他们。看看他们在第一天、第一个月、以及随后的时间段内采取了哪些行动来达到他们的目的。你可以把这些行动看作是你想让新用户或临时用户在流程的每一步中所进行的关键时刻。例如，如果很多用户在第一周就进行了四次某种行为，那就试着让用户在第二周里投入更多。而下次在第一周时，就让新用户优先考虑这些行为。
+根据这些行为创建一个参与度的循环流程，以鼓励用户在完成他们的操作之后，继续沿着这个流程走下去。当然，你可以测量并监控每一个步骤中有多少用户采取这些行为，以查看你产品的整体参与度状况。
 
-Find a cohort of your most engaged users and look backwards. Identify what actions they took the first day, the week, the first month, and subsequent time periods to get to their state. Identify these actions as pivotal moments you want new or casual users to take at each step of the journey. For example, if taking four actions in the first week led users to be more engaged the second week, prioritize these actions for new users in their first week over anything else.
+> 如果你知道你最活跃的用户采取了哪些行动和步骤，你应该把这些步骤复制到其他人身上。
 
-Create engagement loops around these actions to encourage users to continue down the pathway to take another action after completing a previous action. And of course, measure and monitor how many users are taking these actions at each step of the journey to see the holistic engagement picture of your product.
+为你的产品定义一个「关键用户轨迹」是一个开始，它将作为定义指标的早期指南，可以明确用户在每一步需要做些什么，并帮助确定正确的产品杠杆以创造可持续。
 
-> If you know exactly what actions and steps your best users took, you should try to replicate their journey for others.
-
-Defining one ‘Critical User Journey’ for your product is a start and will serve as an early guide to define metrics, clarify what users need to do at every step, and help prioritize the right product levers to create sustainable growth.
-
-When you are ready, this framework can expand to several user journeys that either deepen engagement of existing users or broaden use cases to reach new sets of users.
+如果你准备好了，这个框架可以扩展到其他的几个用户轨迹，既可以深化现有用户的参与，也可以扩展用例以接触到新的用户群。
 
 
 ---

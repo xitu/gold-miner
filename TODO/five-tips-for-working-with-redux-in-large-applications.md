@@ -3,30 +3,30 @@
 > * 原文作者：[AppNexus Engineering](https://techblog.appnexus.com/@AppNexus.tech)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/five-tips-for-working-with-redux-in-large-applications.md](https://github.com/xitu/gold-miner/blob/master/TODO/five-tips-for-working-with-redux-in-large-applications.md)
-> * 译者：
-> * 校对者：
+> * 译者：[loveky](https://github.com/loveky)
+> * 校对者：[stormrabbit](https://github.com/stormrabbit)
 
-# Five Tips for Working with Redux in Large Applications
+# 在大型应用中使用 Redux 的五个技巧
 
-![](https://cdn-images-1.medium.com/max/1200/0*U2DmhXYumRyXH6X1.png)
+![](http://img20.360buyimg.com/uba/jfs/t5653/322/6027363778/85125/11c9a206/5967231dNdc56ee51.png)
 
-Redux is an excellent tool for managing the “state” of an application. The unidirectional flow of data and the focus on immutable state makes reasoning about changes to the state simple. Each update to our state is caused by a dispatched action, which causes our reducer function to return a new state with the desired changes. Many of the user interfaces we create with Redux at AppNexus deal with large amounts of data and very complex user interactions as our customers manage their advertisements or publishing inventory on our platform. Over the course of developing these interfaces, we have arrived at some helpful rules and tips to keep Redux manageable. The following points of discussion should help anyone working with Redux on large, data intensive applications:
+Redux 是一个很棒的用于管理应用程序“状态（state）”的工具。单向数据流以及对不可变数据的关注使得推断状态的变化变得很简单。每次状态变化都由一个 action 触发，这会导致 reducer 函数返回一个变更后的新状态。由于客户要在我们的平台上管理或发布广告资源，在 AppNexus 使用 Redux 创建的很多用户界面都需要处理大量数据以及非常复杂的交互。在开发这些界面的过程中，我们发现了一些有用的规则和技巧以维持 Redux 易于管理。以下的几点讨论应该可以帮助到任何在大型、数据密集型应用中使用 Redux 的开发者：
 
-- [Section 1:](#2032) Using indices and selectors for storing and accessing state
-- [Section 2](#b3eb): Separation of state between data objects, edits to those objects, and other UI state
-- [Section 3](#f43d): Sharing of state between multiple screens in a Single Page Application, and when not to
-- [Section 4](#fe11): Reusing common reducers between different places in state
-- [Section 5](#cb70): Best practices for connecting React components to Redux state
+- 第一点: 在存储和访问状态时使用索引和选择器
+- 第二点: 把数据对象，对数据对象的修改以及其它 UI 状态区分开
+- 第三点: 在单页应用的不同页面间共享数据，以及何时不该这么做
+- 第四点: 在状态中的不同节点复用通用的 reducer 函数
+- 第五点: 连接 React 组件与 Redux 状态的最佳实践
 
-### 1. Store data with an index. Access it with selectors.
+### 1. 使用索引（index）保存数据，使用选择器（selector）读取数据
 
-Choosing the right data structure can make a big difference for our application’s organization and performance. Storing serializable data from an API will greatly benefit from being stored in an index. An index is a javascript object in which the keys are the ids of the data objects we’re storing, and the value is the actual data objects themselves. This pattern is very similar to using a hashmap to store data, and we get the same benefits in terms of lookup time. This is likely unsurprising to those well-versed in Redux. Indeed, Redux’s creator Dan Abramov recommends this data structure in his [Redux tutorial](https://egghead.io/lessons/javascript-redux-persisting-the-state-to-the-local-storage).
+选择正确的数据结构可以对程序的结构和性能产生很大影响。在存储来自 API 的可序列化数据时可以极大的受益于索引的使用。索引是指一个 JavaScript 对象，其键是我们要存储的数据对象的 id，其值则是这些数据对象自身。这种模式和使用 hashmap 存储数据非常类似，在查询效率方面也有相同的优势。这一点对于精通 Redux 的人来说不足为奇。实际上，Redux 的作者 Dan Abramov 在他的 [Redux 教程中](https://egghead.io/lessons/javascript-redux-persisting-the-state-to-the-local-storage)就推荐了这种数据结构。
 
-Imagine you have a list of data objects fetched from a REST API, e.g. data from the `/users` service. Let’s assume that we decided to simply store the plain array in our state, just as it is in the response. What happens when we need to retrieve a specific user object? We would need to iterate over all the users in state. If there are many users, this could be a costly operation. What if we wanted to keep track of a subset of users, perhaps selected and unselected users? We either need to store the data in two separate arrays, or keep track of the indices in the main array of the selected and unselected users.
+设想你有一组从 REST API 获取的数据对象，例如来自 `/users` 服务的数据。假设我们决定直接将这个普通数组原封不动地存储在状态中，就像它在响应中那样。当我们需要获取一个特定用户对象时会怎样呢？我们需要遍历状态中的所有用户。如果用户很多，这可能会是一个代价高昂的操作。如果我们想跟踪用户的一小部分，例如选中和未选中的用户呢？我们要么需要把数据保存在两个数组中，要么就要记录这些选中和未选中用户在主数组中的索引（译者注：此处指的是普通意义上的数组索引）。
 
-Instead, we decide to refactor our code to store the data in an index. We would store the data in our reducer like so:
+然而，我们决定重构代码改用索引的方式存储数据。我们可以在 reducer 中以如下的方式存储数据：
 
-```
+```javascript
 {
  "usersById": {
     123: {
@@ -41,33 +41,33 @@ Instead, we decide to refactor our code to store the data in an index. We would 
 }
 ```
 
-So how does this data structure help us with these problems? If we need to lookup a specific user object, we simply access the state like so: `const user = state.usersById[userId]`. This method of access does not require us to iterate over the whole list, saving us time and simplifying our retrieval code.
+那么这种数据结构到底是如何帮助我们解决以上问题的呢？如果要查找一个特定用户，你可以直接用 `const user = state.usersById[userId]` 读取状态。这种方式不需要我们遍历整个列表，节省时间的同时简化了代码。
 
-At this point you may be wondering how we actually accomplish rendering a simple list of users with these data structures. To do so, we will use a selector, which is a function that takes the state and returns your data. A simple example would be a function to get all the users in our state:
+此时你可能会好奇我们如何通过这种数据结构来展示一个简单的用户列表呢。为此，我们需要使用一个选择器，它是一个接收状态并返回所需数据的函数。一个简单的例子是一个返回状态中所有用户的函数：
 
-```
+```javascript
 const getUsers = ({ usersById }) => {
   return Object.keys(usersById).map((id) => usersById[id]);
 }
 ```
 
-In our view code, we call that function with our state to produce the list of users. Then we can iterate over those users and produce our view. We could make another function to get just the selected users from our state like so:
+在我们的视图代码中，我们调用该方法以获取用户列表。然后就可以遍历这些用户生成视图了。我们可以创建另一个函数用于从状态中获取指定用户：
 
-```
+```javascript
 const getSelectedUsers = ({ selectedUserIds, usersById }) => {
   return selectedUserIds.map((id) => usersById[id]);
 }
 ```
 
-The selector pattern also increases our code’s maintainability. Imagine that later on we wish to change the shape of our state. Without selectors, we will be required to update all of our view code as well to match the new state shape. As the number of view components increases, the burden of changing state shape increases drastically. To avoid this problem, we will use selectors to access state in our views. If the underlying state shape changes, we just update the selector to access state in the correct way. All of the consuming components will still get their data, and we don’t have to update them. For all these reasons, large Redux applications will benefit from the index and selector data storage pattern.
+选择器模式还同时增加了代码的可维护性。设想以后我们想要改变状态的结构。在不使用选择器的情况下，我们不得不更新所有的视图代码以适应新的状态结构。随着视图组件的增多，修改状态结构的负担会急剧增加。为了避免这种情况，我们在视图中通过选择器读取状态。即使底层的状态结构发生了改变，我们也只需要更新选择器。所有依赖状态的组件仍将可以获取它们的数据，我们也不必更新它们。出于所有这些原因，大型 Redux 应用将受益于索引与选择器数据存储模式。
 
-### 2. Separate canonical state from view and edit state
+### 2. 将标准状态与视图状态、编辑状态分隔开
 
-Real-world Redux applications usually need to fetch some kind of data from another service, such as a REST API. When we receive that data, we dispatch an action with the payload of whatever data we got back. We refer to data returned from a service as “canonical state” — i.e. the current correct state of the data as it is stored in our database. Our state also contains other kinds of data such as the state of user interface components or of the application as a whole. The first time we retrieve some canonical data from our API, we might be tempted to store it in the same reducer file as the rest of our state for a given page. Although this approach may be convenient, it is difficult to scale when you need to fetch many kinds of data from a variety of sources.
+现实中的 Redux 应用通常需要从一些服务（例如一个 REST API）读取数据。在收到数据以后，我们发送一个包含了收到的数据的 action。我们把这些从服务返回的数据称为“标准状态” —— 即当前在我们数据库中存储的数据的正确状态。我们的状态还包含其他类型的数据，例如用户界面组件的状态或是整个应用程序的状态。当首次从 API 读取到标准状态时，我们可能会想将其与页面的其他状态保存在同一个 reducer 文件中。这种方式可能很省事，但当你需要从不同数据源获取多种数据时，它就会变得难以扩展。
 
-Instead, we will separate out the canonical state into its own reducer file. This approach encourages better code organization and modularity. Scaling reducer files vertically (adding more lines of code) is less maintainable than scaling them horizontally (adding more reducer files to the `combineReducers` call). Breaking reducers out into their own files makes it easier to reuse those reducers (more on that in [Section 3](http://techblog.appnexus.com/#section3)). Additionally, it discourages developers from adding non-canonical state into the data object reducers.
+相反，我们会把标准状态保存在它单独的 reducer 文件中。这会促使你编写组织更加良好、更加模块化的代码。垂直扩展 reducer（增加代码行数）比水平扩展 reducer（在 `combineReducers` 调用中引入更多的 reducer）的可维护性要差。将 reducers 拆分到各自的文件中有利于复用这些 reducer（在第三点中会详细讨论）。此外，这还可以阻止开发者将非标准状态添加到数据对象 reducer 中。
 
-Why not store other kinds of state with canonical state? Imagine we have the same list of users that we fetched from our REST API. Using the index storage pattern, we would store the data in our reducer like so:
+为什么不把其他类型的状态和标准状态保存在一起呢？假设我们像第一部分一样从 REST API 获得一组用户数据。利用索引存储模式，我们会像下面这样将其存储在 reducer 中：
 
 ```
 {
@@ -84,7 +84,7 @@ Why not store other kinds of state with canonical state? Imagine we have the sam
 }
 ```
 
-Now imagine that our UI allows the users to be edited in the view. When the edit icon is clicked for a user, we need to update our state so that the view renders the edit controls for that user. Instead of keeping our view state out of the canonical state, we just decide to put it in as a new field on the objects stored in the `users/by-id` index. Now our state might look something like this:
+现在假设我们的界面允许编辑用户信息。当点击某个用户的编辑图标时，我们需要更新状态，以便视图呈现出该用户的编辑控件。我们决定在 `users/by-id` 索引中存储的数据对象上新增一个字段，而不是分开存储视图状态和标准状态。现在我们的状态看起来是这个样子：
 
 ```
 {
@@ -102,9 +102,9 @@ Now imagine that our UI allows the users to be edited in the view. When the edit
 }
 ```
 
-We make some edits, click the submit button, and the changes are PUT back to our REST service. The service returns back the new state of that object. But how do we merge our new canonical state back into our store? If we just set the new object for the user at their id key in the `users/by-id` index, then our `isEditing` flag will no longer be there. We now need to manually specify which fields on the API payload we need to put back into the store. This complicates our update logic. You may have multiple booleans, strings, arrays, or other new fields necessary for UI state that would get appended on to the canonical state. In this situation it is easy for to add a new action for modifying canonical state but forget to reset the other UI fields on the object, resulting in an invalid state. Instead we ought to keep canonical data in its own independent data store in the reducer, and keep our actions simpler and easier to reason about.
+我们进行了一些修改，点击提交按钮，改动以 PUT 形式提交回 REST 服务。服务返回了该用户最新的状态。可是我们该如何将最新的标准状态合并到 store 呢？如果我们直接把新对象存储到 `users/by-id` 索引中对应的 id 下，那么 `isEditing` 标记就会丢失。我们不得不手动指定来自 API 的数据中哪些字段需要存储到 store 中。这使得更新逻辑变得复杂。你可能要追加多个布尔、字符串、数组或其他类型的新字段到标准状态中以维护视图状态。这种情况下，当新增一个 action 修改标准状态时很容易由于忘记重置这些 UI 字段而导致无效的状态。相反，我们在 reducer 中应该将标准状态保存在其独立的数据存储中，并保持我们的 action 更简单，更容易理解。
 
-Another benefit to keeping edit state separate is that if the user cancels their edit we can easily reset back to the canonical state. Imagine we have clicked the edit icon for a user, and have edited the name and email address of the user. Now imagine we don’t want to keep these changes, so we click the cancel button. This should cause the changes we made in the view to revert back to their previous state. However, since we overwrote our canonical state with the editing state, we no longer have the old state of the data. We would be forced to re-fetch the data from our REST API to get the canonical state again. Instead, let’s store the editing state in another place in state. Now our state might look like this:
+将编辑状态分开保存的另一个好处是如果用户取消编辑我们可以很方便的重置回标准状态。假设我们点击了某个用户的编辑图标，并修改了该用户的姓名和电子邮件地址。现在假设我们不想保存这些修改，于是我们点击取消按钮。这应该导致我们在视图中做的修改恢复到之前的状态。然而，由于我们用编辑状态覆盖了标准状态，我们已经没有旧状态的数据了。我们不得不再次请求 REST API 以获取标准状态。相反，让我们把编辑状态分开存储。现在我们的状态看起来是这个样子：
 
 ```
 {
@@ -129,11 +129,11 @@ Another benefit to keeping edit state separate is that if the user cancels their
 }
 ```
 
-Since we now have a copy of both the editing state of the object and the canonical state of the object, resetting back to after clicking cancel is easy. We simply show the canonical state in the view instead of the editing state, and no further calls to the REST API are necessary. As a bonus, we’re still tracking the edit state in our store. If we decide that we did want to keep our edits, we can just click the edit button again and now the edit state is shown with our old changes. Overall, keeping edit and view state separate from the canonical state both provides a better developer experience in terms of code organization and maintainability, as well as a better user experience for interacting with our form.
+由于我们同时拥有该对象在编辑状态和标准状态下的两个副本，在点击取消后重置状态变得很简单。我们只需在视图中展示标准状态而不是编辑状态即可，不必再次调用 REST API。作为奖励，我们仍然在 store 中跟踪着数据的编辑状态。如果我们决定确实需要保留这些更改，我们可以再次点击编辑按钮，此时之前的修改状态就又可以展示出来了。总之，把编辑状态和视图状态与标准状态区分开保存既在代码组织和可维护性方面提供了更好的开发体验，又在表单操作方面提供了更好的用户体验。
 
-### 3. Share state between views judiciously
+### 3. 合理地在视图之间共享状态
 
-Many applications may start off with a single store and a single user interface. As we grow our application to scale out our features, we will need to manage state between multiple different views and stores. In order to scale out our Redux application, it may help to create one top level reducer per page. Each page and top level reducer corresponds to one view in our application. For example, the users screen will fetch users from our API and store them in the `users` reducer, and another page which tracks the domains for the current user will fetch and store data from our domain API. The state might look something like this now:
+许多应用起初都只有一个 store 和一个用户界面。随着我们为了扩展功能而不断扩展应用，我们将要管理多个不同视图和 store 之间的状态。为每个页面创建一个顶层 reducer 可能有助于扩展我们的 Redux 应用。每个页面和顶层 reducer 对应我们应用中的一个视图。例如，用户页面会从 API 获取用户信息并存储在 `users` reducer 中，而另一个为当前用户展示域名信息的页面会从域名 API 存取数据。此时的状态看起来会是如下结构：
 
 ```
 {
@@ -148,25 +148,25 @@ Many applications may start off with a single store and a single user interface.
 }
 ```
 
-Organizing our pages like this will help keep the data behind our views decoupled and self-contained. Each page keeps track of its own state, and our reducer files can even be co-located with our view files. As we continue to expand our application, we may discover the need to share some state between two views which both depend on that data. Consider the following when thinking about sharing state:
+像这样组织页面有助于保持这些页面背后的数据之间的解耦与独立。每个页面跟踪各自的状态，我们的 reducer 文件甚至可以和视图文件保存在相同位置。随着我们不断扩展应用程序，我们可能会发现需要在两个视图之间共享一些状态。在考虑共享状态时，请思考以下几个问题：
 
-- How many views or other reducers will depend on this data?
-- Does each page need its own copy of the data?
-- How frequently does the data change?
+- 有多少视图或者其他 reducer 依赖此部分数据？
+- 每个页面是否都需要这些数据的副本？
+- 这些数据的改动有多频繁？
 
-For example, our application needs to display some information about the currently logged-in user on every page. We need to fetch their user information from the API, and store it in our reducer. We know that every page is going to depend on this data, so it doesn’t seem to fit with our one reducer per page strategy. We know that each page doesn’t necessarily need a unique copy of the data, since most pages will not be fetching other users or modifying the current user. Also, the data about the currently logged-in user is unlikely to change unless they are editing themselves on the users page.
+例如，我们的应用在每个页面都要展示一些当前登录用户的信息。我们需要从 API 获取用户信息并保存在 reducer 中。我们知道每个页面都会依赖于这部分数据，所以它似乎并不符合我们每个页面对应一个 reducer 的策略。我们清楚没必要为每个页面准备一份这部分数据的副本，因为绝大多数页面都不会获取其他用户或编辑当前用户。此外，当前登录用户的信息也不太会改变，除非客户在用户页面编辑自己的信息。
 
-Sharing the current user state between our pages seems like a good call, so we will pull it out into its own top level reducer in its own file. Now the first page the user visits will check if the current user reducer has loaded, and fetch the data from the API if not. Any view that is connected to the Redux store can view information about the current logged-in user.
+在页面之间共享当前用户信息似乎是个好办法，于是我们把这部分数据提升到专属于它的、单独保存的顶层 reducer 中。现在，用户首次访问的页面会检查当前用户信息是否加载，如果未加载则调用 API 获取信息。任何连接到 Redux 的视图都可以访问到当前登录用户的信息。
 
-What about cases that don’t make sense to share state? Let’s consider another example. Imagine that each domain belonging to a user also has a number of subdomains. We add a subdomain page to the application which shows a list of all the users subdomains. The domains page also has the option to display the subdomains for a given selected domain. Now we have two pages that both depend on the subdomain data. We also know that domains can change on a somewhat frequent basis — users may add, remove, or edit domains and subdomains at any time. Each page will also probably need its own copy of the data. The subdomain page will allow for reading or writing to the subdomain API, and will also potentially need to paginate through multiple pages of data. The domain screen by contrast will only need to fetch subsets of the subdomains at a time (the subdomains for a given selected domain). It seems clear this isn’t a good use case for sharing our subdomain state between these views. Each page should store its own copy of the subdomain data.
+不适合共享状态的情况又如何呢？让我们考虑另一种情况。设想用户名下的每一个域名还包含一系列子域名。我们增加了一个子域名页面用以展示某个用户名下的全部子域名。域名页面也有一个选项用以展示该域名下的子域名。现在我们有两个页面同时依赖于子域名数据。我们还知道域名信息可能会频繁改动 —— 用户可能会在任何时间增加、删除或是编辑域名与子域名。每个页面也可能需要它自己的数据副本。子域名页面允许通过子域名 API 读取和写入数据，可能还会需要对数据进行分页。而域名页面每次只需要获取子域名的一个子集（某个特定域名的子域名）。很明显，在这些视图间共享子域名数据并不妥当。每个页面应该单独保存其子域名数据。
 
-### 4. Reuse common reducer functions across state
+### 4. 在状态之间复用 reducer 函数
 
-After writing a few reducer functions, we may decide to try reusing our reducer logic between different places in state. For example, we may create a reducer to fetch users from our API. The API only returns 100 users at a time, and we may have thousands of users in our system or more. To address this, our reducer will also need to keep track of which page of data is currently being displayed. Our fetch logic will read from the reducer to determine the pagination parameters to send with the next API request (such as `page_number`). Later on when we need to fetch the list of domains, we will end up writing the same exact logic to fetch and store the domains, just with a different API endpoint and a different object schema. The pagination behavior remains the same. The savvy developer will realize we can probably modularize this reducer and share the logic between any reducers that need to paginate.
+在编写了一些 reducer 函数之后，我们可能想要在状态中的不同节点间复用 reducer 逻辑。例如，我们可能会创建一个用于从 API 读取用户信息的 reducer。该 API 每次返回 100 个用户，然而我们的系统中可能有成千上万的用户。要解决该问题，我们的 reducer 还需要记录当前正在展示哪一页。我们的读取逻辑需要访问 reducer 以确定下一次 API 请求的分页参数（例如 `page_number`）。之后当我们需要读取域名列表时，我们最终会写出几乎完全相同的逻辑来读取和存储域名信息，只不过 API 和数据结构不同罢了。
 
-Sharing reducer logic can be a little tricky in Redux. By default, all the reducer functions are called when a new action is dispatched. If we share a reducer function in multiple other reducer functions, then when we dispatch our action it will cause *all* of those reducers to fire. This isn’t the behavior we want for reusing our reducers, though. When we fetch the users and get a total count of 500, we don’t want the domain’s `count` to change to 500 as well.
+在 Redux 中复用 reducer 逻辑可能会有点棘手。默认情况下，当触发一个 action 时所有的 reducer 都会被执行。如果我们在多个 reducer 函数中共享一个 reducer 函数，那么当触发一个 action 时所有这些 reducer 都会被调用。然而这并不是我们想要的结果。当我们读取用户得到总数是 500 时，我们不想域名的 `count` 也变成 500。
 
-We recommend two different ways to accomplish this, both using special scopes or prefixes for types. The first way involves passing a scope inside your payload in an action. The action uses the type to infer the key in state to update. For illustrative purposes, let’s imagine that we have a web page containing several different sections, all of which load asynchronously from different API endpoints. Our state to track loading might look like this:
+我们推荐两种不同的方式来解决此问题，利用特殊作用域（scope）或是类型前缀（prefix）。第一种方式涉及到在 action 传递的数据中增加一个类型信息。这个 action 会利用该类型来决定该更新状态中的哪个数据。为了演示该方法，假设我们有一个包含多个模块的页面，每个模块都是从不同 API 异步加载的。我们跟踪加载过程的状态可能会像下面这样：
 
 ```
 const initialLoadingState = {
@@ -177,14 +177,14 @@ const initialLoadingState = {
 };
 ```
 
-Given such a state, we will need reducers and actions to set the loading state for each section of the view. We could write out four different reducer functions with four different actions — each using their own unique action type. That’s a lot of repeated code! Instead, let’s try using a scoped reducer and action. We create just one action type `SET_LOADING`, and a reducer function like so:
+有了这样的状态，我们就需要设置各模块加载状态的 reducer 和 action。我们可能会用 4 种 action 类型写出 4 个不同的 reducer 函数 —— 每个 action 都有它自己的 action 类型。这就造成了很多重复代码！相反，让我们尝试使用一个带作用域的 reducer 和 action。我们只创建一种 action 类型 `SET_LOADING` 以及一个 reducer 函数：
 
 ```
 const loadingReducer = (state = initialLoadingState, action) => {
   const { type, payload } = action;
   if (type === SET_LOADING) {
     return Object.assign({}, state, {
-      // sets the loading boolean at this scope
+      // 在此作用域内设置加载状态
       [`${payload.scope}Loading`]: payload.loading,
     });
   } else {
@@ -193,7 +193,7 @@ const loadingReducer = (state = initialLoadingState, action) => {
 }
 ```
 
-We also need to provide a scoped action creator function to call our scoped reducer. The action would look something like:
+我们还需要一个支持作用域的 action 生成器来调用我们带作用域的 reducer。这个 action 生成器看起来是这个样子：
 
 ```
 const setLoading = (scope, loading) => {
@@ -205,27 +205,27 @@ const setLoading = (scope, loading) => {
     },
   };
 }
-// example dispatch call
+// 调用示例
 store.dispatch(setLoading('users', true));
 ```
 
-By using a scoped reducer like this, we eliminate the need to repeat our reducer logic across multiple actions and reducer functions. This significantly decreases the amount of code repetition and helps us to write smaller action and reducer files. If we need to add another section to our view, we simply add a new key in our initial state and make another dispatch call with a different scope passed to `setLoading`. This solution works great when we have several similar collocated fields that need to be updated in the same way.
+通过像这样使用一个带作用域的 reducer，我们消除了在多个 action 和 reducer 函数间重复 reducer 逻辑的必要。这极大的减少了代码重复度同时有助于我们编写更小的 action 和 reducer 文件。如果我们需要在视图中新增一个模块，我们只需在初始状态中新增一个字段并在调用 `setLoading` 时传入一个新的作用域类型即可。当我们有几个相似的字段以相同的方式更新时，此方案非常有效。
 
-Sometimes though we need to share reducer logic between multiple different places in state. Instead of using one reducer and action to set multiple fields in one place in state, we want a reusable reducer function that we can call `combineReducers` with to plug into different places in state. This reducer will be returned by calls to a reducer factory function, which returns a new reducer function with that type prefix added.
+有时我们还需要在 state 中的多个节点间共享 reducer 逻辑。我们需要一个可以通过 `combineReducers` 在状态中不同节点多次使用的 reducer 函数，而不是在状态中的某一个节点利用一个 reducer 与 action 来维护多个字段。这个 reducer 会通过调用一个 reducer 工厂函数生成，该工厂函数会返回一个添加了类型前缀的 reducer 函数。
 
-A great example for reusing reducer logic is when it comes to pagination information. Going back to our fetching users example, our API might contain thousands of users or more. Most likely our API will provide some information for paginating through multiple pages of users. Perhaps the API response we receive looks something like this:
+复用 reducer 逻辑的一个绝佳例子就是分页信息。回到之前读取用户信息的例子，我们的 API 可能包含成千上万的用户信息。我们的 API 很可能会提供一些信息用于在多页用户之间进行分页。我们收到的 API 响应也许是这样的：
 
 ```
 {
   "users": ...,
-  "count": 2500, // the total count of users in the API
-  "pageSize": 100, // the number of users returned in one page of data
-  "startElement": 0, // the index of the first user in this response
+  "count": 2500, // API 中包含的用户总量
+  "pageSize": 100, // 接口每一页返回的用户数量
+  "startElement": 0, // 此次响应中第一个用户的索引
   ]
 }
 ```
 
-If we want the next page of data, we would make a GET request with the `startElement=100` query parameter. We could just build a reducer function for each API service we interact with, but that would repeat the same logic across many places in our code. Instead, we will create a standalone pagination reducer. This reducer will be returned from a reducer factory which takes a prefix type and returns a new reducer function:
+如果我们想要读取下一页数据，我们会发送一个带有 `startElement=100` 查询参数的 GET 请求。我们可以为每一个 API 都编写一个 reducer 函数，但这样会在代码中产生大量的重复逻辑。相反，我们要创建一个独立的分页 reducer。这个 reducer 会由一个接收前缀类型为参数并返回一个新 reducer 的 reducer 工厂生成：
 
 ```
 const initialPaginationState = {
@@ -254,7 +254,7 @@ const paginationReducerFor = (prefix) => {
   };
   return paginationReducer;
 };
-// example usages
+// 使用示例
 const usersReducer = combineReducers({
   usersData: usersDataReducer,
   paginationData: paginationReducerFor('USERS_'),
@@ -265,7 +265,7 @@ const domainsReducer = combineReducers({
 });
 ```
 
-The reducer factory `paginationReducerFor` takes the prefix type which will be added to all of the types that this reducer matches on. The factory returns a new reducer, with its types prefixed. Now when we dispatch an action like `USERS_SET_PAGINATION` it will only cause the pagination reducer for users to update. The domains pagination reducer will remain unchanged. This effectively allows us to reuse common reducer functions in multiple places in our store. For sake of completeness, here is an action creator factory to go along with our reducer factory, also using a prefix:
+reducer 工厂函数 `paginationReducerFor` 接收一个前缀类型作为参数，此参数将作为该 reducer 匹配的所有 action 类型的前缀使用。这个工厂函数会返回一个新的、已经添加了类型前缀的 reducer。现在，当我们发送一个 `USERS_SET_PAGINATION` 类型的 action 时，它只会触发维护用户分页信息的 reducer 更新。域名分页信息的 reducer 则不受影响。这允许我们有效地在 store 中复用通用 reducer 函数。为了完整起见，以下是一个配合我们的 reducer 工厂使用的 action 生成器工厂，同样使用了前缀：
 
 ```
 const setPaginationFor = (prefix) => {
@@ -286,16 +286,16 @@ const setPaginationFor = (prefix) => {
   };
   return setPagination;
 };
-// example usages
+// 使用示例
 const setUsersPagination = setPaginationFor('USERS_');
 const setDomainsPagination = setPaginationFor('DOMAINS_');
 ```
 
-### 5. React Integration and Wrap up
+### 5. React 集成与包装
 
-Some Redux applications may never need to render a view to users (like an API), but most of the time you will want some kind of view to render your data inside of. The most popular library for rendering UIs with Redux is React, and that is the one we will choose to demonstrate how to integrate Redux. We can use the strategies we learned in the above sections to make our lives easier when creating our view code. To do this integration, we will use the `react-redux`[library](https://github.com/reactjs/react-redux).
+有些 Redux 应用可能永远都不需要向用户呈现一个视图（如 API），但大多数时间你都会想把数据渲染到某种形式的视图中。配合 Redux 渲染页面最流行的库是 React，我们也将使用它演示如何与 Redux 集成。我们可以利用在前几点中学到的策略简化我们创建视图代码的过程。为了实现集成，我们要用到 `react-redux` [库](https://github.com/reactjs/react-redux)。这里就是将状态中的数据映射到你组件的 props 的地方。
 
-One useful pattern in UI integration is using selectors to access the data in state from our view components. A convenient place to use selectors in `react-redux` is in the `mapStateToProps` function. This function is passed into the call to the `connect` function (the function you call to connect your React component to the Redux store). This is the place where you will map the data in state to the props that your component receives. This is the perfect place to use a selector to retrieve the data from state, and pass to the component as props. An example integration might look like the following:
+在 UI 集成方面一个有用的模式是在视图组件中使用选择器访问状态中的数据。在 `react-redux` 中的 `mapStateToProps` 函数中使用选择器很方便。该函数会在调用 `connect` 方法（该方法用于将你的 React 组件连接到 Redux store）时作为参数传入。这里是使用选择器从状态中获取数据并通过 props 传递给组件的绝佳位置。以下是一个集成的例子：
 
 ```
 const ConnectedComponent = connect(
@@ -303,14 +303,14 @@ const ConnectedComponent = connect(
     return {
       users: selectors.getCurrentUsers(state),
       editingUser: selectors.getEditingUser(state),
-      ... // other props from state go here
+      ... // 其它来自状态的 props
     };
   }),
-  mapDispatchToProps // another `connect` function
+  mapDispatchToProps // 另一个 connect 函数
 )(UsersComponent);
 ```
 
-The integration between React and Redux also provides us a handy location for wrapping our actions in scopes or types. We have to hook up our component’s handlers to actually call the store’s dispatch with our action creators. To accomplish this in `react-redux` we use the `mapDispatchToProps` function, which is also passed to the call to `connect`. This `mapDispatchToProps` function is the place we normally call the Redux `bindActionCreators` function to bind each action to the dispatch method from the store. While we’re at it, we can also bind the scope to the actions like we showed in [Section 4](http://techblog.appnexus.com/#section4). For example, if we wanted to use the scoped reducer pattern with the paginator for our Users page, we would write the following:
+React 与 Redux 之间的集成也提供了一个方便的位置来封装我们按作用域或类型创建的 action。我们必须连接我们组件的事件处理函数，以便在调用 store 的 dispatch 方法时使用我们的 action 生成器。要在 `react-redux` 中实现这一点，我们要使用 `mapDispatchToProps` 函数，它也会在调用 `connect` 方法时作为参数传入。这个 `mapDispatchToProps` 方法就是通常我们调用 Redux 的 `bindActionCreators` 方法将每个 action 和 store 的 dispatch 方法绑定的地方。在我们这样做的时候，我们也可以像在第四点中那样把作用域绑定到 action 上。例如，如果我们想在用户页面使用带作用域的 reducer 模式的分页功能，我们可以这样写：
 
 ```
 const ConnectedComponent = connect(
@@ -325,15 +325,15 @@ const ConnectedComponent = connect(
 )(UsersComponent);
 ```
 
-Now from the perspective of our `UsersPage` component, it just receives the list of users and other pieces of state as props, as well as the bound action creators. The component doesn’t need to be aware of which scoped action it needs or how to access the state; we have handled these concerns instead at the integration level. This allows us to create very decoupled components which don’t necessarily depend on the inner workings of our state. Hopefully by following the patterns discussed here, we can all create Redux applications in a scalable, maintainable, and reasonable way.
+现在，从我们 `UsersPage` 组件的角度看来，它只接收一个用户列表、状态的一部分以及绑定过的 action 生成器作为props。组件不需要知道它需要使用哪个作用域的 action 也不需要知道如何访问状态；我们已经在集成层面处理了这些问题。这使得我们可以创建一些非常独立的组件，它们并不依赖于状态内部的细节。希望通过遵循本文讨论的模式，我们都可以以一种可扩展的、可维护的、合理的方式开发 Redux 应用。
 
-**Further Reading:**
+**延伸阅读：**
 
-- [Redux](http://redux.js.org/) the state management library being discussed
-- [Reselect](https://github.com/reactjs/reselect) a library for creating selectors
-- [Normalizr](https://github.com/paularmstrong/normalizr) a library for normalizing JSON data against a schema, useful for storing data in indices
-- [Redux-Thunk](https://github.com/gaearon/redux-thunk) a middleware library for async actions in Redux
-- [Redux-Saga](https://github.com/redux-saga/redux-saga) another middleware for async actions using ES2016 generators
+- [Redux](http://redux.js.org/) 本文讨论的状态管理库
+- [Reselect](https://github.com/reactjs/reselect) 一个用于创建选择器的库
+- [Normalizr](https://github.com/paularmstrong/normalizr) 一个用于根据模式规范 JSON 数据的库，有助于在索引中存储数据
+- [Redux-Thunk](https://github.com/gaearon/redux-thunk) 一个用于处理 Redux 中异步 action 的中间件
+- [Redux-Saga](https://github.com/redux-saga/redux-saga) 另一个利用 ES2016 生成器处理异步 action 的中间件
 
 
 ---
