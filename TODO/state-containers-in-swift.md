@@ -3,36 +3,40 @@
 > * 原文作者：[Tyler Tillage](https://www.captechconsulting.com/search#q=Tyler Tillage)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/state-containers-in-swift.md](https://github.com/xitu/gold-miner/blob/master/TODO/state-containers-in-swift.md)
-> * 译者：
+> * 译者：[deepmissea](http://deepmissea.blue)
 > * 校对者：
 
-# Reactive iOS Programming: Lightweight State Containers in Swift
+# iOS 响应式编程：Swift 中的轻量级状态容器
 
-## The State of Things
+## 事物的状态
 
-Every iOS & MacOS developer has subtly different opinions on how client architecture should work. From the classic [MVC Pattern](https://developer.apple.com/library/content/documentation/General/Conceptual/DevPedia-CocoaCore/MVC.html) built into Apple's own frameworks (read: Massive View Controllers), to those other MV* patterns (MVP, MVVM), to the scary sounding [Viper](https://www.objc.io/issues/13-architecture/viper/), how do we choose?
+在客户端架构如何工作上，每一个 iOS 和 MacOS 开发者都有不同的微妙见解。从最经典的苹果框架所内嵌的 
+[MVC 模式](https://developer.apple.com/library/content/documentation/General/Conceptual/DevPedia-CocoaCore/MVC.html)（读作：臃肿的视图控制器），到那些 MV* 模式（比如 MVP,MVVM），再到听起来有点吓人的 [Viper](https://www.objc.io/issues/13-architecture/viper/)，那么我们该如何选择？
 
-This article won't answer that question for you, because the true answer is that it *depends on context*. What I do want to highlight is a fundamental approach I've been seeing more often that I really like, the **state container**.
+这篇文章并不会回答你的问题，因为正确的答案是它是**依据环境而定的**。我想要强调的是一个基本的技巧，我经常看到而且很喜欢，名为**状态容器**。
 
-## What is a State Container?
+## 什么是一个状态容器 ？
 
-Essentially, state containers are just wrappers around pieces of information, gatekeepers for inputs & outputs to protected data. They don't care too much about the type of data or where it originally came from. But they do care, a lot, about when it is **changed**. The central doctrine of a state container is that the effect of any state change should propagate across the application in an **organized** and **predictable** fashion.
+实质上，状态容器只是一个围绕信息的封装，是数据安全输入输出的守门人。他们不是特别在意数据的类型和来源。但是他们非常在意的是当数据**改变**的时候。状态容器的中心思想就是，任何状态改变的影响都要以**有组织**并且**可预测**的方式，传播到应用中。
 
-> State containers provide state safety in the same way thread locks provide thread safety.
+> 状态容器以与线程锁相同的方式提供安全的状态。
 
-This isn't a new concept, and it's not a toolkit you can build your entire app with. The state container idea is versatile enough to fit into any app architecture without imposing too many rules. But it's a powerful approach that is at the crux of popular libraries like [ReactiveReSwift](https://github.com/ReSwift/ReactiveReSwift), which is itself based on [ReSwift](https://github.com/ReSwift/ReSwift), which is itself based on [Redux](https://github.com/reactjs/redux), which is itself based on [Flux](https://github.com/facebook/flux)...and the list goes on. The success and sheer number of these frameworks speaks to the efficacy of the state container pattern in modern mobile applications.
+这并不是一个新的概念，而且它也不是一个让你集成到应用中的工具包。状态容器的理念是多姿多彩的，它可以融入进任何应用程序架构，而无需太多的附加规则。但是它是一个强大的方法，是很多流行库（比如[ReactiveReSwift](https://github.com/ReSwift/ReactiveReSwift)）的核心，比如 [ReSwift](https://github.com/ReSwift/ReSwift)，[Redux](https://github.com/reactjs/redux)，[Flux](https://github.com/facebook/flux) 等等，这些框架的成功和绝对数量说明了状态容器模式在现代移动应用中的功效。
 
-In terms of a reactive library like `ReSwift`, state containers bridge the gap between an `Action` and a `View` as part of a uni-directional data flow. Yet even without the other 2 components state containers can be powerful. In fact, they can do much more than these libraries use them for.
+就像 `ReSwift` 这样的响应式库，状态容器将 `Action` 和 `View` 之间的缺口桥联为单向数据流的一部分。然而即使没有其他两个组件，状态容器也很强力。实际上，他们可以做的比这些库使用的更多。
 
-In this article I'll demonstrate a basic state container implementation that I've employed for all sorts of projects that didn't warrant pulling in larger architectural libraries.
+在这篇文章中，我会演示一个基本的状态容器实现，我已经把它用于各种没有引入大型架构库的项目中。
 
-## Building a State Container
+## 构建一个状态容器
 
 Let's start by constructing our fundamental `State` class.
 
-    /// Wraps a piece of state.classState<Type> {
+    /// Wraps a piece of state.
+    class State<Type> {
 
-        /// Unique key used to identify the state across the application.let key: String/// Holds the state itself.
+        /// Unique key used to identify the state across the application.
+        let key: String
+        /// Holds the state itself.
         fileprivate var _value: Type
 
         /// Used to synchronize changes to the state value.
@@ -51,18 +55,18 @@ Let's start by constructing our fundamental `State` class.
         }
     }
 
+这个通用类封装了一个任何 `Type` 的 `_value`，通过一个 `key` 关联，并声明了一个提供 `defaultValue` 的初始化器。
 
-This generic class wraps a `_value` of any `Type`, associates it with a `key` and declares an initializer to provide a `defaultValue`.
+### 读取状态
 
-### Reading State
+为了读取我们状态容器的当前值，我们要创建一个计算属性 `value`。
 
-In order to read the current value of our state container, we'll create a computed `value` property.
-
-Since state changes are typically triggered and read from multiple threads, we'll use a basic [Readers-Writer Lock](https://en.wikipedia.org/wiki/Readers%E2%80%93writer_lock) with Grand Central Dispatch to enforce thread safety when accessing the internal `_value` property.
+由于状态改变通常是由多线程触发并读取的，所以我们要通过 GCD 使用一个[读写锁](https://en.wikipedia.org/wiki/Readers%E2%80%93writer_lock)来确保访问内部 `_value` 属性时的线程安全。
 
      extension State {
 
-        /// The current state value.var value: Type {
+        /// The current state value.
+        var value: Type {
             var retVal: Type!
             self.lockQueue.sync {
                 retVal = self._value // I wish there was a `sync` method that inferred a generic return value.
@@ -72,9 +76,9 @@ Since state changes are typically triggered and read from multiple threads, we'l
     }
 
 
-### Modifying State
+### 改变状态
 
-In order to modify state, we'll create a `modify(_newValue:)` method. Although we could have allowed the setter to be accessed directly, the goal here is to define structure around state modifications. Using a method over a simple property setter communicates through our API that modifying state has repercussions. Therefore, all state changes must happen through this method.
+为了改变状态，我们还要创建一个 `modify(_newValue:)` 函数。虽然我们可以允许直接访问设置器，但在这里的目的是围绕状态改变来定义结构。在使用简单属性设置器的方法中，通过与我们 API 通信修改状态产生的影响。因此，所有的状态改变都必须通过这个方法来达成。
 
     extension State {
 
@@ -84,12 +88,12 @@ In order to modify state, we'll create a `modify(_newValue:)` method. Although w
                 self._value = newValue
             }
 
-            // Handle the repercussions of the modificationself.didModify()
+            // Handle the repercussions of the modificationself.
+            didModify()
         }
     }
 
-
- Just for fun, let's also define a custom operator!
+为了有趣一些，我们自定义一个运算符！
 
     /// Modifies the receiver by assigning the right-hand side of the operator.
     func ~> <T>(lhs: State<T>, rhs: T) {
@@ -97,27 +101,29 @@ In order to modify state, we'll create a `modify(_newValue:)` method. Although w
     }
 
 
-### The `didModify()` Method
+### 关于 `didModify()` 函数
 
-`didModify()` is the most important piece of our state container, because it allows us to define behaviors that are triggered by state changes. Subclasses of `State` can override this method to perform custom logic whenever this happens.
+`didModify()` 是我们状态容器中最重要的一部分，因为它允许我们定义在状态改变后所触发的行为。`State` 的子类能覆盖这个方法，在发生这种情况时，来执行一些自定义的逻辑。
 
-The `didModify()` method also plays another role. If our generic `Type` is a `class`, it is possible to alter its properties without our state container knowing about it. Therefore we expose the `didModify()` method so that these types of changes can be propagated manually (see below).
+`didModify()` 也扮演着另一个角色。如果我们通用的 `Type` 是一个 `class`，可能会改变它属性，而无需状态容器知道它。因此，我们暴露出 `didModify()` 方法，以便这些类型的更改可以手动传播（见下文）。
 
-This is an inherent danger of using reference types when dealing with state, so I recommend using value types whenever possible.
+这是在处理状态时使用引用类型的固有危险，所以我建议尽可能使用值类型。
 
-### Using the State Container
+### 使用状态容器
 
-Here's the most basic example of how to use our new `State` class:
+下面是如何使用我们 `State` 类的最基本的例子：
 
-    // State wrapping a value typelet themeColor = State(UIColor.blue, key: "themeColor")
+    // State wrapping a value type
+    let themeColor = State(UIColor.blue, key: "themeColor")
     print(themeColor.value) // "UIExtendedSRGBColorSpace 0 0 1 1"
 
-We can use `Optional` types as well:
+我们也可以使用`可选`类型：
 
-    // State wrapping an optional value typelet appRating = State<Int?>(nil, key: "appRating")
+    // State wrapping an optional value type
+    let appRating = State<Int?>(nil, key: "appRating")
     print(String(describing: appRating.value)) // "nil"
 
-Modifying our state is easy:
+改变状态很容易：
 
     appRating.modify(4)
     print(String(describing: appRating.value)) // "Optional(4)"
@@ -125,7 +131,7 @@ Modifying our state is easy:
     appRating ~> nil
     print(String(describing: appRating.value)) // "nil"
 
-If we have non value types (e.g. types that don't trigger `didSet` during in-place modification), we invoke the `didModify()` method to let `State` know about the change:
+如果我们有无价值的类型（比如在状态改变时，不触发 `didSet` 的类型），我们调用 `didModify()` 方法，让 `State` 知道这个改变：
 
     classCEO : CustomDebugStringConvertible {
         var name: String
@@ -139,30 +145,33 @@ If we have non value types (e.g. types that don't trigger `didSet` during in-pla
         }
     }
 
-    // State wrapping a reference typelet currentCEO = State(CEO(name: "John Sculley"), key: "currentCEO")
-    print(currentCEO.value) // "John Sculley"// Assigning a new user property, no need to invoke `didModify`
+    // State wrapping a reference type
+    let currentCEO = State(CEO(name: "John Sculley"), key: "currentCEO")
+    print(currentCEO.value) // "John Sculley"
+    // 分配一个新的用户属性，不需要调用 `didSet`
     currentCEO ~> CEO(name: "Steve Jobs")
-    print(currentCEO.value) // "Steve Jobs"// Modifying the user in-place, need to invoke `didModify` manually
+    print(currentCEO.value) // "Steve Jobs"
+    // 就地修改用户，需要手动调用 `didSet`
     currentCEO.value.name = "Tim Cook"
     currentCEO.didModify()
     print(currentCEO.value) // "Tim Cook"
 
-Although calling `didModify()` manually is annoying, there's no current way of knowing if a reference type's internal properties have been modified since they are mutable in-place. If you can think of a good way around this, tweet me [@TTillage](https://twitter.com/TTillage)!
+手动调用 `didModify()` 是不好的，因为无法知道引用类型的内部属性是否改变，因为他们是可以现场（in-place）改变的，如果你有好的方法，@我 [@TTillage](https://twitter.com/TTillage)!
 
-## Listening to State Changes
+## 监听状态的改变
 
-Now that we've established a basic state container, let's expand it to be more powerful. Through our `didModify()` method we can add functionality in the form of specialized subclasses. Let's add a way to "listen" for changes in state, so our UI components can update themselves whenever changes occur.
+现在我们已经建立了一个基本的状态容器，让我们来扩展一下，让它更强大。通过我们的 `didModify()` 方法，我们可以用特定子类的形式添加功能。让我们添加一种方式，来“监听”状态的改变，这样我们的 UI 组件可以在发生更改时自动更新。
+### 定义一个 `StateListener`
 
-### Defining a `StateListener`
-
-First, let's define what a state listener looks like:
+第一步，让我们定义一个这样的状态监听器：
 
     protocol StateListener : AnyObject {
 
         /// Invoked when state is modified.
         func stateModified<T>(_ state: State<T>)
 
-        /// The queue to use when dispatching state modification messages. Defaults to the main queue.var stateListenerQueue: DispatchQueue { get }
+        /// The queue to use when dispatching state modification messages. Defaults to the main queue.
+        var stateListenerQueue: DispatchQueue { get }
     }
 
     extension StateListener {
@@ -172,12 +181,11 @@ First, let's define what a state listener looks like:
         }
     }
 
+在状态改变时，监听器会在它选择的 `stateListenerQueue` 上收到 `stateModified(_state:)` 调用，默认是 `DispatchQueue.main`。
 
-Whenever state changes, a listener will receive an invocation of `stateModified(_state:)` on the `stateListenerQueue` that it chooses, defaulting to `DispatchQueue.main`.
+### 创建 `MonitoredState` 的子类
 
-### Creating the `MonitoredState` Subclass
-
-Next let's define a specialized subclass called `MonitoredState`, which keeps weak references to our listeners and notifies them of state changes. An easy way to do this is to use `NSHashTable.weakObjects()`.
+下一步，我们定义一个专门的子类，叫做 `MonitoredState`，它会对监听器保持弱引用，并通知他们状态的改变。一个简单的实现方式是使用 `NSHashTable.weakObjects()`。
 
     class MonitoredState<Type> : State<Type> {
 
@@ -209,7 +217,8 @@ Next let's define a specialized subclass called `MonitoredState`, which keeps we
 
             let allListeners = self.allListeners
 
-            let state = selffor l in allListeners {
+            let state = self
+            for l in allListeners {
                 l.stateListenerQueue.async {
                     l.stateModified(state)
                 }
@@ -217,10 +226,9 @@ Next let's define a specialized subclass called `MonitoredState`, which keeps we
         }
     }
 
+我们的 `MonitoredState` 类调用了 `didModify` 时，在它监听器上调用了 `stateModified(_state:)`，简单！
 
-Our `MonitoredState` class invokes `stateModified(_state:)` on its listeners whenever its own `didModify` method is called. Easy!
-
-To add a listener, we'll define an `attach(listener:)` method. Just like earlier, we're use `listenerLockQueue` to set up a readers-writer lock on our `listeners` property.
+要添加监听器，我们要定义一个 `attach(listener:)` 方法。和上面的内容很像，在我们的 `listeners` 属性上，使用 `listenerLockQueue` 来设置一个读写锁。
 
     extension MonitoredState {
 
@@ -233,18 +241,20 @@ To add a listener, we'll define an `attach(listener:)` method. Just like earlier
     }
 
 
-Now it's possible to listen to changes to any value that is wrapped in `MonitoredState`!
+现在可以监听任何封装在 `MonitoredState` 里值的改变了！
+### 根据状态的改变来触发 UI 的更新
 
-### Triggering UI Updates from State Changes
+下面是一个如何使用我们新的 `MonitoredState` 类的例子。假设我们在 `MonitoredState` 容器中追踪设备的位置：
 
-Here's an example of how to utilize our new `MonitoredState` class. Let's say we keep track of the device's location in a `MonitoredState` container:
+    /// The device's current location.
+    let deviceLocation = MonitoredState<CLLocation?>(nil, key: "deviceLocation")
 
-    /// The device's current location.let deviceLocation = MonitoredState<CLLocation?>(nil, key: "deviceLocation")
+
+我们还需要一个视图控制器来展示当前设备在地图上的位置：
 
 
-We also have a view controller which displays the device's current location on a map:
-
-    // Centers a map on the devices's current locationclassLocationViewController : UIViewController {
+    // Centers a map on the devices's current locationclass
+    LocationViewController : UIViewController {
 
         @IBOutlet var mapView: MKMapView!
 
@@ -254,7 +264,7 @@ We also have a view controller which displays the device's current location on a
         }
 
         func updateMapForCurrentLocation() {
-            iflet currentLocation = deviceLocation.value {
+            if let currentLocation = deviceLocation.value {
                 // Center the map on the device's location
                 self.mapView.setCenter(currentLocation.coordinate, animated: true)
             }
@@ -262,7 +272,7 @@ We also have a view controller which displays the device's current location on a
     }
 
 
-Since we need to update the map when `deviceLocation` changes, we'll extend `LocationViewController` to be a `StateListener`:
+由于我们需要在 `deviceLocation` 改变的时候更新地图，所以要把 `LocationViewController` 扩展为一个 `StateListener`：
 
     extension LocationViewController : StateListener {
 
@@ -275,42 +285,42 @@ Since we need to update the map when `deviceLocation` changes, we'll extend `Loc
     }
 
 
-Then we'll remember to attach the view controller to the state using `attach(listener:)`. In practice, this could happen in `viewDidLoad`, `init`, or whenever you want the listening to start.
+然后记住使用 `attach(listener:)` 把视图控制器附加到状态。实际上，这个操作可以在 `viewDidLoad`，`init` 或者任何你想要开始监听的时候来做。
 
     let vc = LocationViewController()
     deviceLocation.attach(listener: vc)
 
 
-Now that we're listening to `deviceLocation`, once we get a new location lock from `CoreLocation` all we have to do is modify our state container and our view controller will update itself automatically!
+现在我们正监听 `deviceLocation`，一旦我们从 `CoreLocation` 得到一个新的定位，我们所要做的只是改变我们的状态容器，我们的视图控制器会自动的更新位置！
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        iflet closestLocation = locations.first {
+        if let closestLocation = locations.first {
             // Triggers `updateMapForCurrentLocation` on the VC asynchronously on the main queue
             deviceLocation ~> closestLocation
         }
     }
 
 
-Note that since we're using a weak referencing `NSHashTable`, when the view controller is deallocated it will no longer appear in the `allListeners` property of `deviceLocation`. There is no need to "remove" a listener.
+值得注意的是，由于我们使用了一个弱引用 `NSHashTable`，在视图控制器被销毁时，`allListeners` 属性永远也不会有 `deviceLocation`。没有必要“移除”监听器。
 
-Remember that in a real-world scenario you'd want to check to ensure the view controller's `view` is visible before performing a UI update.
+记住，在真实的使用场景里，要确保视图控制器的 `view` 在执行更新 UI 之前是可见的。
 
-## Persisting State
+## 保持状态
 
-Ok, now we're getting to the good stuff. We have everything we need to be able to take a state container and **persist** it anywhere we want.
+OK，现在我们正在获得好的东东。我们可以把现在所需要的一切装在状态容器里，并且**保持**可以随时随地使用。
 
-1. We have a unique `key` that can be used to associate with a backing store.
-2. We know the `Type` of the value, informing how it should be persisted.
-3. We know when the value needs to be loaded from storage, using our `init(_defaultValue:key:)` method.
-4. We know when the value needs to be persisted to storage, using our `didModify()` method.
+1. 我们现在有一个唯一的 `key` 用于与后备存储关联。
+2. 我们知道值的 `Type`，通知它应该如何保持。
+3. 我们知道什么时候值需要从存储器中加载，使用 `init(_defaultValue:key:)` 方法。
+4. 我们知道什么时候值需要被保存在存储器中，使用 `didModify()` 方法。
 
-### Backing with `UserDefaults`
+### 使用 `UserDefaults` 
 
-Let's make a state container that **automatically** persists any changes to `UserDefaults.standard` and re-loads any previous value when initialized. It'll support values that are both `Optional` and non-`Optional`. It'll also automatically serialize & deserialize types that conform to `NSCoding` since `UserDefaults` doesn't support using `NSCoding` directly.
+让我们创建一个状态容器，它可以**自动地**保存任何改变到 `UserDefaults.standard` 中，并且在初始化的时候重新加载之前的这些值。它同时支持可选类型和非可选类型。他也会自动序列化和反序列化符合 `NSCoding` 的类型，即使 `UserDefaults` 并没有直接支持 `NSCoding` 的使用。
 
-Here's the code, I'll break it down below.
+这里是代码，我会在下面讲解。
 
-    classUserDefaultsState<Type> : MonitoredState<Type> {
+    class UserDefaultsState<Type> : MonitoredState<Type> {
 
         ///1) Loads existing value from `UserDefaults.standard`if it exists, otherwise falls back to the `defaultValue`.
         public override init(_defaultValue:Type, key:String) {
@@ -355,15 +365,15 @@ Here's the code, I'll break it down below.
 
 #### `init(_defaultValue:key:)`
 
-1. Our initializer checks to see if `UserDefaults.standard` already contains a value for the provided `key`.
-2. If we're able to load an object which matches our generic `Type`, we can use it immediately.
-3. If we're able to load `Data` and unarchive it using `NSKeyedUnarchiver`, it was stored using `NSCoding` and we can use it immediately.
-4. If nothing exists in `UserDefaults.standard` matching the `key` we'll use the `defaultValue` provided.
+1. 我们的初始化方法检查 `UserDefaults.standard` 是否已经包含一个由 `key` 对应的值。
+2. 如果我们能加载一个对象，并且它刚好是基本类型，我们可以立即使用它。
+3. 如果我们加载的是 `Data`，那么使用 `NSKeyedUnarchiver` 解压，它会被 `NSCoding` 存储，然后我立即使用它。
+4. 如果 `UserDefaults.standard` 里没有和 `key` 对应的值，我们就使用已提供的 `defaultValue`。
 
 #### `didModify()`
 
-5. Whenever the state changes, we want to persist our state automatically. The method of doing so depends on the `Type`.
-6. If the generic `Type` is an `Optional` and it's `nil`, we need to simply remove the value from `UserDefaults.standard`. It's a little tricky to check if a generic type is `nil`, but one way to do it is to extend `Optional` with a custom protocol:
+5. 在状态改变的时候，我们想要自动保存我们的状态，这样做的方法依赖于 `Type`
+6. 如果基本类型是 `Optional` 的，并且为 `nil`，我们只需要简单的把值从 `UserDefaults.standard` 移除，检查一个基本类型是否为 `nil` 有点棘手，不过 用协议扩展 `Optional` 是一个解决方法：
 
 ```
 protocol OptionalType {
@@ -379,11 +389,10 @@ extension Optional : OptionalType {
 }
 ```
 
+7. 如果我们的值符合 `NSCoding`，我们就需要使用 `NSKeyedArchiver` 来吧它转换成 `Data`，然后保存它。
+8. 除此之外，我们只需把值直接存储到 `UserDefaults` 中。
 
-7. If our value conforms to `NSCoding`, we'll convert it to `Data` using `NSKeyedArchiver` and then persist it.
-8. Otherwise, we'll just save the value directly to `UserDefaults`.
-
-Now if we want our state to be backed by `UserDefaults`, all we have to do is use our new `UserDefaultsState` class!
+现在，如果我们想要获得 `UserDefaults` 的支持，我们要做的仅仅是使用新的 `UserDefaultsState` 类！
 
     UserDefaults.standard.set(true, forKey: "isTouchIDEnabled")
     UserDefaults.standard.synchronize()
@@ -393,39 +402,38 @@ Now if we want our state to be backed by `UserDefaults`, all we have to do is us
 
     isTouchIDEnabled ~> falseprint(UserDefaults.standard.bool(forKey: "isTouchIDEnabled")) // "false"
 
-Our `UserDefaultsState` will automatically update its backing store whenever its value changes. Between app launches, it'll automatically pull the existing value from `UserDefaults` to be used immediately.
+我们的 `UserDefaultsState` 会在其值更改时自动更新它的后台存储。在应用启动的时候，它会自动把 `UserDefaultsState` 中的现有值投入使用。
 
-### Backing with Other Data Stores
+### 支持其他的数据存储
 
-This is just one example of how `State` can be extended to intelligently store its own data. In my projects I have also built subclasses which persist asynchronously to disk or to the keychain when changes occur. You could even trigger synchronization with a remote server, or log metrics to an Analytics library all by just using a different subclass. The sky is the limit.
+这只是使用状态容器的例子之一，`State` 如何扩展到智能地存储自己的数据。在我的项目中，也建立了一些子类，当发生更改时，它们将异步地保留到磁盘或钥匙串。你甚至可以通过使用不同的子类来触发与远程服务器的同步或者将指定标记录到分析库中。它毫无限制。
 
-## Managing State at the App Level
+## 应用级别的状态管理
 
-So where should these state containers be kept? Typically I store them statically in a single `struct`, and access them from all over the app. This is similar to how the Flux-based libraries store global app state.
+所以这些状态容器放在哪里呢？通常我把他们静态储存到一个 `struct` 里，这样可以在整个应用里访问。这与基于 Flux 库存储全局应用状态有些相似。
 
     struct AppState {
-        staticlet themeColor = State(UIColor.blue, key: "themeColor")
-        staticlet appRating = State<Int?>(nil, key: "appRating")
-        staticlet currentCEO = State(CEO(name: "Tim Cook"), key: "currentCEO")
-        staticlet deviceLocation = MonitoredState<CLLocation?>(nil, key: "deviceLocation")
-        staticlet isTouchIDEnabled = UserDefaultsState(false, key: "isTouchIDEnabled")
+        static let themeColor = State(UIColor.blue, key: "themeColor")
+        static let appRating = State<Int?>(nil, key: "appRating")
+        static let currentCEO = State(CEO(name: "Tim Cook"), key: "currentCEO")
+        static let deviceLocation = MonitoredState<CLLocation?>(nil, key: "deviceLocation")
+        static let isTouchIDEnabled = UserDefaultsState(false, key: "isTouchIDEnabled")
     }
 
 
-You can scope the state containers however you want, in separate or embedded structs and with varying access levels.
+你可以使用分离或嵌入式的结构体以及不同的访问级别来调整状态容器的作用域。
 
-## Conclusion
+## 结论
 
-Managing state inside state containers has many benefits. Data that was previously buried inside a singleton, or being passed around in a web of delegation, is now surfaced and visible at a high-level. All of the many inputs into your application's behavior are suddenly visible and organized.
+在状态容器上管理状态有很多好处。以前放在单例上的数据，或在网络代理中传播的数据，现在已经在高层次上浮现出来。应用程序行为中的所有输入都突然变得清晰可见并且组织严谨。
 
-From API responses to feature toggles to protected keychain items, using a state container pattern is a great way to define structure around critical pieces of information. State containers can easily be used for caching, user preferences, analytics, and anything that needs to stick around between app launches.
+从 API 响应到特征切换到受保护的钥匙串项，使用状态容器模式是围绕关键信息定义结构的优秀方式。状态容器可以轻松地用于缓存，用户偏好，分析以及应用程序启动之间需要保持的任何事情。
 
-The state container pattern allows UI components to stop worrying about how & when data is generated, and start focusing on how data is converted into a fantastic user experience.
+状态容器模式让 UI 组件不用担心如何以及何时生成数据，并把焦点转向如何把数据转换成梦幻般的用户体验。
 
-## About the Author
+## 关于作者
 
-CapTecher Tyler Tillage is located in the [Atlanta office](~/link.aspx?_id=4848D51075504B57822781008FC5CE6F&amp;_z=z) and has over 6 years of experience in [application design and development](~/link.aspx?_id=2C66A2C6A29E47CEB3DC7D3505D0DCF7&amp;_z=z). He specializes in front-end products for both mobile and web environments and has a passion for building exceptional user experiences using proven design patterns and techniques. Tyler has built iOS applications for the retail and banking industries that are used by millions of users every month.
-
+CapTecher Tyler Tillage 位于[亚特兰大办公室](~/link.aspx?_id=4848D51075504B57822781008FC5CE6F&amp;_z=z)，在[应用设计和开发](~/link.aspx?_id=2C66A2C6A29E47CEB3DC7D3505D0DCF7&amp;_z=z)有超过六年的经验。 他专注于移动和 web 的前端产品，并且热衷于使用成熟的设计模式和技术来构建卓越的用户体验。Tyler 曾为每个月数百万用户使用的零售和银行业构建 iOS 应用程序。
 
 ---
 
