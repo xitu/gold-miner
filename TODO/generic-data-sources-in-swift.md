@@ -16,9 +16,9 @@
 
 ### TableView vs CollectionView
 
-有些人可能会问 _为什么单讨论 collectionView 而不提 tableView 呢？_
+有些人可能会问 **为什么单讨论 collectionView 而不提 tableView 呢？**
 
-在最近的几个月里，我在之前可以使用 tableView 的地方都使用成了 collectionView 。它们到目前为止表现良好！这一做法帮助我不用去区分这两个 _几乎完全_ 相似但并不完全相同的集合概念。接下来则是让我做出这一决定的根本原因：
+在最近的几个月里，我在之前可以使用 tableView 的地方都使用成了 collectionView 。它们到目前为止表现良好！这一做法帮助我不用去区分这两个 **几乎完全** 相似但并不完全相同的集合概念。接下来则是让我做出这一决定的根本原因：
 
 - 任何 tableView 都可以用单列的 collectionView 进行实现/重构。
 - tableView 在大屏幕上（如：iPad ）表现的不是特别好。
@@ -51,7 +51,7 @@
 
 ### ReusableCell
 
-这个 **ReusableCell** 协议需要你定义一个 _重用标识符_ ，这个标志符将在重用 cell 的时候被用到。在我的 APP 里，我总是图方便把 cell 的重用标识符设置为和 cell 的类名一样。因此，很容易通过创建一个协议扩展来抽取出，让 **reuseIdentifier** 返回一个带有类名称的字符串：
+这个 **ReusableCell** 协议需要你定义一个 **重用标识符** ，这个标志符将在重用 cell 的时候被用到。在我的 APP 里，我总是图方便把 cell 的重用标识符设置为和 cell 的类名一样。因此，很容易通过创建一个协议扩展来抽取出，让 **reuseIdentifier** 返回一个带有类名称的字符串：
 
 ```
 public protocol ReusableCell {
@@ -81,7 +81,7 @@ public protocol ConfigurableCell: ReusableCell {
 
 1. **ConfigurableCell** 继承 **ReusableCell**
 
-2. 绑定类型的使用（**绑定类型 T ** ）将 **ConfigurableCell** 定义为泛型协议。
+2. 绑定类型的使用（ **绑定类型 T** ）将 **ConfigurableCell** 定义为泛型协议。
 
 ### 数据源的抽取: CollectionDataProvider
 
@@ -306,8 +306,8 @@ open class CollectionArrayDataSource<T, Cell: UICollectionViewCell>: CollectionD
 
 这个声明定义了很多事情：
 
-1. 这个类有一个公有的属性，因为它最终将被扩展为 **UICollectionView ** 对象的数据源对象。
-2. 这是一个继承 **UICollectionViewCell** 的泛型类，需要被特定的类型 ** T** 进一步定义才能正确展示 cell 和 cell 的内容。
+1. 这个类有一个公有的属性，因为它最终将被扩展为 **UICollectionView** 对象的数据源对象。
+2. 这是一个继承 **UICollectionViewCell** 的泛型类，需要被特定的类型 **T** 进一步定义才能正确展示 cell 和 cell 的内容。
 
 3. 这个类扩展了 **CollectionDataSource** 来提供进一步的特定行为。
 
@@ -385,7 +385,7 @@ let dataSource = PhotosDataSource(collectionView: collectionView, array: viewMod
 - [Smooth Scrolling in UITableView and UICollectionView](https://medium.com/capital-one-developers/smooth-scrolling-in-uitableview-and-uicollectionview-a012045d77f)
 - [Boost Smooth Scrolling with iOS 10 Pre-Fetching API](https://medium.com/capital-one-developers/boost-smooth-scrolling-with-ios-10-pre-fetching-api-818c25cd9c5d)
 
-**披露声明：这些意见是作者的意见。 除非在本贴中另有说明，否则 Capital One 不属于任何所提及的公司，也不属于任何上述公司。 使用或显示的所有商标和其他知识产权均为其各自所有者的所有权。 本文是©2017 Capital One **
+**披露声明：这些意见是作者的意见。 除非在本贴中另有说明，否则 Capital One 不属于任何所提及的公司，也不属于任何上述公司。 使用或显示的所有商标和其他知识产权均为其各自所有者的所有权。 本文是©2017 Capital One**
 
 更多关于 API、开源、社区活动或开发文化的信息，请访问我们的一站式开发网站  [**developer.capitalone.com**](https://developer.capitalone.com/) 。
 
