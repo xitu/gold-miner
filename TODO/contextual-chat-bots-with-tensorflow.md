@@ -8,9 +8,7 @@
 
 # 基于 TensorFlow 的上下文机器人
 
-在对话中， **语境决定了一切！** ，在这篇文章中我们将使用 TensorFlow 构建一个能够处理上下文的聊天机器人。
-
-![](https://cdn-images-1.medium.com/max/800/1*UuPrIVA-TutyZ0MXvkGOvg.jpeg)
+在对话中， **语境决定了一切！** ，在这篇文章中我们将使用 TensorFlow 构建一个能够处理上下文的聊天机器人框架。
 
 有没有想过为什么大多数聊天机器人都不能够理解语境的上下文？
 
@@ -24,7 +22,7 @@
 - 接下来，我们构建一个 chat-bot 框架来处理响应
 - 最后，我们将展示如何将基本的上下文合并到我们的相应处理模块中
 
-我们将使用 TensorFlow 之上构建的高层次 API，也即  [**tflearn**](http://tflearn.org/)、当然还有[**Python**](https://www.python.org/)、同时还使用[**iPython notebook**](https://ipython.org/notebook.html)来更好的完成我们的工作
+我们将使用在 TensorFlow 上构建的高层次 API，也即  [**tflearn**](http://tflearn.org/)、当然还有[**Python**](https://www.python.org/)、同时还使用[**iPython notebook**](https://ipython.org/notebook.html)来更好的完成我们的工作
 
 
 ---
@@ -62,7 +60,7 @@ import random
 ```
 
 Have a look at “[Deep Learning in 7 lines of code](https://chatbotslife.com/deep-learning-in-7-lines-of-code-7879a8ef8cfb)” for a primer or [here](https://chatbotslife.com/tensorflow-demystified-80987184faf7) if you need to demystify Tensorflow.
-如果你想入门 TensorFlow ，可以看[这篇文章](https://chatbotslife.com/deep-learning-in-7-lines-of-code-7879a8ef8cfb)，若要进一步的了解的话可以看[这篇文章](https://chatbotslife.com/tensorflow-demystified-80987184faf7)
+如果你想入门 TensorFlow ，可以看[这篇文章](https://chatbotslife.com/deep-learning-in-7-lines-of-code-7879a8ef8cfb)，若要进一步的了解的话可以看[这篇文章](https://chatbotslife.com/tensorflow-demystified-80987184faf7)。
 
 ```Python
 # import our chat-bot intents file
@@ -72,7 +70,7 @@ with open('intents.json') as json_data:
 ```
 
 
-意图的 json 文件被加载后，我们现在可以开始组织我们的文档，文字和分类器对应的类别
+意图的 json 文件被加载后，我们现在可以开始组织我们的文档，文字和分类器对应的类别。
 
 
 ```Python
@@ -105,7 +103,7 @@ print (len(classes), "classes", classes)
 print (len(words), "unique stemmed words", words)
 ```
 
-我们创建了一个文档（句子）列表，每个句子都是一个词干的列表，每个文档都与一个意图（一个类）相关
+我们创建了一个文档（句子）列表，每个句子都是一个词干的列表，每个文档都与一个意图（一个类）相关。
 
 ```Python
 27 documents
@@ -115,7 +113,7 @@ print (len(words), "unique stemmed words", words)
 
 词干 "tak" 将会和 "take", "taking","takers" 等词匹配。我们可以清理单词列表并删除无用的条目，但这就足够了。
 
-但是目前的数据结构不能够被 TensorFlow 利用，我们需要进一步的转换它：也即将文档中的词转换成数字的张量
+但是目前的数据结构不能够被 TensorFlow 利用，我们需要进一步的转换它：也即将文档中的词转换成数字的张量。
 
 
 ```Python
@@ -186,7 +184,7 @@ model.save('model.tflearn')
 ![](https://cdn-images-1.medium.com/max/800/1*5UIqnedBzsYTXJ81wEU-vg.gif)
 
 使用 tflearn 交互式构建模型
-为了完成这部分的工作，我们将保存（pickle）模型和文档以便我们在以后的 Jupyter Notebook 中可以使用他。
+为了完成这部分的工作，我们将保存（pickle）模型和文档以便我们在以后的 Jupyter Notebook 中可以使用他们。
 
 ```Python
 # 保存我们所有的数据结构
@@ -196,17 +194,16 @@ pickle.dump( {'words':words, 'classes':classes, 'train_x':train_x, 'train_y':tra
 
 ---
 
-![](https://cdn-images-1.medium.com/max/800/1*f9Sq7I_pauPQ9u4PbtPt4w.jpeg)
 
 #### 创建我们的 chat-bot 框架
 
 这部分的完整 notebook 在[这里](https://github.com/ugik/notebooks/blob/master/Tensorflow%20chat-bot%20response.ipynb)可以下载。
 
-我们创建了一个简单的 state-machine 来处理响应，用我们的意图模型（上一步训练的结果）做为分类器。 [聊天机器人是如何工作的](https://medium.freecodecamp.com/how-chat-bots-work-dfff656a35e2)
+我们创建了一个简单的 state-machine 来处理响应，用我们的意图模型（上一步训练的结果）作为分类器。 [聊天机器人是如何工作的](https://medium.freecodecamp.com/how-chat-bots-work-dfff656a35e2)
 
 > 上下文的 chat-bot 框架是 **state-machine** 内的一个分类器。
 
-加载相同的导入后，我们将 **un-pickle** 我们的模型和文档并且重新加载我们的意图文件。记住我们的 chat-bot 框架是和我们的模型分开来构建的—你不需要重新构建你的模型除非意图模式发生改变。因为有几百个意图和数千个模式，所以这个模型可能需要几分钟的时间来构建。
+加载相同的导入模块后，我们将 **un-pickle** 我们的模型和文档并且重新加载我们的意图文件。记住我们的 chat-bot 框架是和我们的模型分开来构建的—你不需要重新构建你的模型除非意图模式发生改变。因为有几百个意图和数千个模式，所以这个模型可能需要几分钟的时间来构建。
 
 ```Python
 # 重置变量
@@ -293,9 +290,9 @@ def response(sentence, userID='123', show_details=False):
             results.pop(0)
 ```
 
-每一个被传递到响应的句子都是机密的。我们分类器使用 **model.predict()** 方法是响应很快的。模型返回的响应结果的概率列表是和我们的意图定义一起处理的。
+句子传递到 response() 方法后会被分类。我们分类器使用 **model.predict()** 方法是响应很快的。模型返回的响应结果的概率列表是和我们的意图定义一起处理的。
 
-如果一个或多个分类器超过一个阈值，那么我们就会看到一个标记是否匹配一个意图然后再处理它。分类器列表将会当成栈，然后不断的从栈中单出一个元素来进行匹配是否符合，直到空栈为止。
+如果一个或多个分类器超过一个阈值，那么我们就会看到一个标记是否匹配一个意图然后再处理它。分类器列表将会当成栈，然后不断的从栈中弹出一个元素来进行匹配是否符合，直到空栈为止。
 
 让我们来看一个分类器的例子，我们看到最可能的标记和它所对应的概率值被返回了。
 
@@ -304,7 +301,7 @@ classify('is your shop open today?')
 [('opentoday', 0.9264171123504639)]
 ```
 
-注意到"你的商店今天营业吗"并不是这种意图的模式之一： **模式：["你今天开着吗?"，"你今天什么时候开?"，"你今天营业几小时?"]** ，然而词"开"和"今天"对我们的模式来说是很重要的（也就是说他决定了模型会选择什么意图）。
+注意到"你的商店今天营业吗"并不是这种意图的模式之一： **模式：["你今天开着吗?"，"你今天什么时候开?"，"你今天营业几小时?"]** ，然而词"开"和"今天"对我们的模式来说是很重要的（也就是说他们决定了模型会选择什么意图）。
 
 所以我们就可以根据用户的输入生成一个 chat-bot 的回应
 
@@ -326,7 +323,6 @@ Bye! Come back again soon.
 
 ---
 
-![](https://cdn-images-1.medium.com/max/800/1*RrQH1Mt6R73nq6lO6vTZ2w.jpeg)
 
 让我们给出租汽车的聊天机器人加入一些基本的上下文吧。
 
@@ -334,54 +330,53 @@ Bye! Come back again soon.
 
 我们想要让聊天机器人处理关于出租汽车的对话，比如询问客户是否要今天租赁。这个问题是一个简单的上下文响应，如果用户回复'今天'，那么上下文就是租赁时间，这个时候就赶紧给租赁公司打电话吧，他不想错过这个订单的。
 
-为了实现这一目的，我们在框架中添加了状态这个概念。这由一个数据结构组成用来维护状态的特定代码，以便在处理意图时对其进行操作。
+为了实现这一目的，我们在框架中添加了状态这个概念。这由一个保存状态的数据结构和操作状态的特定代码组成，以便处理意图。
 
-因为状态机（state-machine）需要很容易地保存、恢复、复制等等，所以把它保存在像字典这样的数据结构中是很重要的。
+因为状态机（state-machine）需要很容易地持久化、恢复、复制等等，所以把它保存在像字典这样的数据结构中是很重要的。
 
 以下是我们对基本情景化的反应过程：
 
 ```Python
-# create a data structure to hold user context
-context = {}
 
+# 字典储存上下文
+context = {}
 ERROR_THRESHOLD = 0.25
 def classify(sentence):
-    # generate probabilities from the model
+    # 得到的预测的结果（概率）列表
     results = model.predict([bow(sentence, words)])[0]
-    # filter out predictions below a threshold
+    # 根据错误阈值筛选预测的结果
     results = [[i,r] for i,r in enumerate(results) if r>ERROR_THRESHOLD]
-    # sort by strength of probability
+    # 根据概率值倒序排序
     results.sort(key=lambda x: x[1], reverse=True)
     return_list = []
     for r in results:
         return_list.append((classes[r[0]], r[1]))
-    # return tuple of intent and probability
+    # 返回意图和概率的元组
     return return_list
 
 def response(sentence, userID='123', show_details=False):
     results = classify(sentence)
-    # if we have a classification then find the matching intent tag
+    # 根据分类结果匹配意图标签
     if results:
-        # loop as long as there are matches to process
+        # 循环匹配
         while results:
             for i in intents['intents']:
-                # find a tag matching the first result
+                # 寻找与第一个结果匹配的标签
                 if i['tag'] == results[0][0]:
-                    # set context for this intent if necessary
+                    # 在必要时为这个意图设置上下文
                     if 'context_set' in i:
                         if show_details: print ('context:', i['context_set'])
                         context[userID] = i['context_set']
-                    # check if this intent is contextual and applies to this user's conversation
+                    # 检查这个意图是否与上下文相关然后与当前用户关联
                     if not 'context_filter' in i or \
                         (userID in context and 'context_filter' in i and i['context_filter'] == context[userID]):
                         if show_details: print ('tag:', i['tag'])
-                        # a random response from the intent
+                        # 返回响应
                         return print(random.choice(i['responses']))
-
             results.pop(0)
 ```
 
-我们的上下文状态是一个字典，他将包含每个用户的状态。每个用户都有唯一的标识符，从而达到让我们的框架能够 **无缝的维持多个用户之间的状态。**
+我们的上下文状态是一个字典，他将包含每个用户的状态。每个用户都有唯一的标识符，从而达到让我们的框架能够 **无缝地维持多个用户之间的状态。**
 
 > # 使用字典来维持用户的上下文
 > context = {}
@@ -390,15 +385,15 @@ def response(sentence, userID='123', show_details=False):
 
 ```Python
 	if i['tag'] == results[0][0]:
-	# set context for this intent if necessary
+	# 在必要时为这个意图设置上下文
 	if 'context_set' in i:
 		if show_details: print ('context:', i['context_set'])
 		context[userID] = i['context_set']
-		# check if this intent is contextual and applies to this user's conversation
+		# 检查这个意图是否与上下文相关然后与当前用户关联
 		if not 'context_filter' in i or \
 			(userID in context and 'context_filter' in i and i['context_filter'] == context[userID]):
 			if show_details: print ('tag:', i['tag'])
-			# a random response from the intent
+			# 返回响应
 			return print(random.choice(i['responses']))
 ```
 
@@ -422,7 +417,7 @@ def response(sentence, userID='123', show_details=False):
  }
 ```
 
-用这种方式，当用户只是输入 '今天' 的（没有上下文）的时候，'今天' 这个意图就不会被处理。当如果他们输入的 '今天' 作为回复我们提出的问题的时候，那么这个意图就会被处理。
+用这种方式，当用户只是输入 '今天' 的（没有上下文）的时候，'今天' 这个意图就不会被处理。当他们输入的 '今天' 作为回复我们提出的问题的时候，那么这个意图就会被处理。
 
 ```Python
 response('we want to rent a moped')
@@ -465,8 +460,6 @@ Happy to help!
 
 ---
 
-![](https://cdn-images-1.medium.com/max/800/1*YsxOYwba2fii9G98UXp1pw.jpeg)
-
 在语境化发生的情况下有几件事情需要考虑。
 
 #### 维持状态
@@ -498,15 +491,11 @@ RMI 客户端和服务器设置
 
 ---
 
-现在你已经知道如何构建一个聊天机器人的框架以及使它具备有服务状态的方法。[大部分聊天机器人框架都能够无缝的处理上下文](https://medium.com/@gk_/the-future-of-messaging-apps-590720cfa792)
+现在你已经知道如何构建一个聊天机器人的框架以及使它具备有服务状态的方法。[大部分聊天机器人框架都能够无缝地处理上下文](https://medium.com/@gk_/the-future-of-messaging-apps-590720cfa792)
 
 多想一些有创意的方法来影响聊天机器人对不同上下文所做出设置。你的用户的上下文字典可以包含各种各样的对话上下文。
 
 **享受它吧！**
-
-![](https://cdn-images-1.medium.com/max/800/1*7nbWVuNCP1sd5ZHVqElG_Q.jpeg)
-
-https://www.evernote.com/shard/s235/nl/2147483647/5982b891-afbc-4be4-8e46-d36996864281/: [https://wickedgoodweb.com](https://wickedgoodweb.com/seo-context-is-king/)
 
 
 ---
