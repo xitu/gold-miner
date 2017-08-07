@@ -4,7 +4,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/embracing-java-8-language-features.md](https://github.com/xitu/gold-miner/blob/master/TODO/embracing-java-8-language-features.md)
 > * 译者：[tanglie1993](https://github.com/tanglie1993)
-> * 校对者：
+> * 校对者：[lileizhenshuai](https://github.com/lileizhenshuai), [DeadLion](https://github.com/DeadLion)
 
 # 拥抱 Java 8 语言特性
 
@@ -199,7 +199,7 @@ public interface MyView {
 - [静态接口方法](https://docs.oracle.com/javase/tutorial/java/IandI/defaultmethods.html)
 - [类型注解](https://docs.oracle.com/javase/tutorial/java/annotations/type_annotations.html)
 - [重复标记](https://docs.oracle.com/javase/tutorial/java/annotations/repeating.html)
-- [针对资源的 try 语句](https://docs.oracle.com/javase/tutorial/essential/exceptions/tryResourceClose.html) (all versions, no longer min SDK 19)
+- [针对资源的 try 语句](https://docs.oracle.com/javase/tutorial/essential/exceptions/tryResourceClose.html) (所有版本，最低版本不再是 SDK 19)
 - Java 8 APIs (e.g. stream) -> min SDK 24
 
 ## 收尾
