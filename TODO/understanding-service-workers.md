@@ -6,15 +6,15 @@
   > * 译者：
   > * 校对者：
 
-  # 理解Service Workers
+# 理解Service Workers
 
   什么是Service Workers？他们能够做什么，怎样使你的web app执行的更流畅？本文旨在回答这些问题，以及如何使用Ember.js框架实现他们。
 
-## Table of Contents
+## 目录
 
 - [背景](#背景)
 - [注册](#注册)
-- [Install Event](#installevent)
+- [安装事件](#安装事件)
 - [Fetch Event](#fetchevent)
 - [Caching Strategies](#cachingstrategies)
 - [Activate Event](#activateevent)
@@ -66,22 +66,21 @@ if (navigator.serviceWorker) {
 }
 ```
 
-This will tell the browser where to find your Service Worker implementation. The browser will look for the file (`/sw.js`) and save it as a Service Worker under the domain that is being accessed. This file will contain all of the event handlers that will define your Service Worker.
+这将告诉浏览器在哪里可以找到你的 Service Worker 的实现代码，浏览器将找对应的文件（`/sw.js`），将它保存在你正在访问的域名下，这个文件将包含所有你自己定义的 Service Worker 事件处理程序。
 
 ![](http://blog.88mph.io/content/images/2017/07/Screenshot-2017-07-16-17.39.10.png)
 
-A registered Service Worker in Chrome DevTools
+在 Chrome 开发者工具里显示注册的 Service Worker 
 
-It will also set the **scope** of your ServiceWorker. The filename `/sw.js` implies that the scope of the SW is the root path of your URL (or `http://localhost:3000/`). This means any requests that are made under the root path of your URL will be made visible to the SW via fired events. A filename such as `/js/sw.js` would capture requests only under `http://localhost:3000/js`.
+它也将设置一个你的 Service Worker 的**作用域**，这个文件`/sw.js` 意味着 Service Worker 的作用范围是在你 URL（这里是指`http://localhost:3000/`） 的根路径下。这意味着在你的根路径下的任何请求，都将通过触发事件的方式告诉 Service Worker。一个文件路径为`/js/sw.js`的文件就仅仅可以捕获`http://localhost:3000/js`该链接下的请求。
 
-Alternatively, you could explicitly set the scope of your SW by passing a second argument to the `register` method:
-`navigator.serviceWorker.register('/sw.js', { scope: '/js' })`.
+或者你也可以通过明确定义的方式设置 Service Worker 的作用域范围，通过 `register` 方法的第二个参数传入设置：`navigator.serviceWorker.register('/sw.js', { scope: '/js' })`。
 
-## Event Handlers
+## 事件处理程序
 
-Now that your Service Worker is registered, it's time to implement the event handlers that are triggered during the lifetime of your Service Worker.
+现在你的 Service Worker 已经被注册好了，是时候在你的 Service Worker 生命周期中触发实现对应的事件处理程序了。
 
-#### Install Event
+#### 安装事件
 
 The install event is fired when your Service Worker registers for the first time, and any time after that when your Service Worker file (`/sw.js`) is updated (the browser will automatically detect changes).
 
