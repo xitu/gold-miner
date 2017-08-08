@@ -15,18 +15,18 @@
 - [背景](#背景)
 - [注册](#注册)
 - [安装事件](#安装事件)
-- [Fetch Event](#fetchevent)
-- [Caching Strategies](#cachingstrategies)
-- [Activate Event](#activateevent)
-- [Sync Event](#syncevent)
-- [When is the Sync Event fired?](#whenisthesynceventfired)
-- [Push Notifications](#pushnotifications)
-- [Notifications](#notifications)
-- [Push messaging](#pushmessaging)
-- [Implementing Using Ember.js](#implementingusingemberjs)
-- [Understanding ember-service-worker Conventions](#understandingemberserviceworkerconventions)
-- [Build your Ember App w/ Service Workers](#buildyouremberappwserviceworkers)
-- [Conclusion](#conclusion)
+- [拉取事件](#拉取事件)
+- [缓存策略](#缓存策略)
+- [激活事件](#激活事件)
+- [同步事件](#同步事件)
+- [什么时候同步事件被触发？](#什么时候同步事件被触发？)
+- [推送通知](#推送通知)
+- [通知](#通知)
+- [推送消息](#推送消息)
+- [用 Ember.js 的实现](#用 Ember.js 的实现)
+- [理解 ember-service-worker 的组成](#理解 ember-service-worker 的组成)
+- [构建你的基于 Ember 、Service Workers 的 App ](#构建你的基于 Ember 、Service Workers 的 App )
+- [结论](#结论)
 
 ## 背景
 
@@ -115,7 +115,7 @@ self.addEventListener('install', event => {
 
 Chrome 开发者工具中展示的缓存数据
 
-####  Fetch事件
+#### Fetch 事件
 
 **fetch** 事件是在每次网页发出请求的时候触发的，触发该事件的时候 Service Worker 能够 '拦截' 请求，决定返回什么 ———— 是否返回缓存的数据，还是真实发送一个请求，返回响应数据。
 
@@ -146,13 +146,13 @@ self.addEventListener('fetch', event => {
 
 ###### 缓存策略
 
-The fetch event is particularly important because it's where you can define your *caching strategy*. That is, how you determine when to use cached data, and when to use network-sourced data.
+fetch 事件是特别重要的，因为它能够在其中定义缓存策略。也就是说在其中确定何时使用缓存的数据，何时使用网络请求的数据。
 
-The beauty in Service Workers is that it is a low-level API for intercepting requests and lets you decide what response to provide for them. This allows us the freedom to implement our own strategy for providing cached or network-sourced content. There are several basic caching strategies that you could employ when trying to implement the best one for your web app.
+Service Worker 的好用之处在于它是一种底层的API，可以拦截请求，让使用者自己觉得提供什么样的响应返回。这允许我们自由的提供我们自己的缓存策略或者网络来源的内容。当你尝试实现一个最好的 Web App 的时候，有几种基本的缓存策略可以使用。
 
-Mozilla has a [handy resource](https://serviceworke.rs/caching-strategies.html) that documents several different caching strategies. There is also [The Offline Cookbook](https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook) written by Jake Archibald that outlines some of the same caching strategies, and more.
+Mozilla 基金会有一个  [handy resource](https://serviceworke.rs/caching-strategies.html) 的文档，其中有写几种不同的缓存策略。还有 Jake Archibald 编写的 [The Offline Cookbook](https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook) 书中有概述几种相似的缓存策略等等。
 
-In an above example, we demonstrated a basic **cache-first** strategy. The following is an example which I've found applicable in my own projects: a **cache and update** strategy. This method will let the cache respond first, but subsequently make a network request in the background. The response from this background request is used to update the value in the cache so that an updated response is provided the next time it is accessed.
+在上文的一个例子中，我们演示了一个基本的 **缓存优先** 的策略。以下是我发现的一个适用于我自己的项目的一个示例：**缓存和更新** 策略。这个方法将让缓存首先响应请求，随后在后台发送对应的网络请求，返回的响应数据更新我们缓存中的数据，以便在下次访问时提供这次更新的响应值。
 
 ```
 self.addEventListener('fetch', event => {
@@ -168,23 +168,23 @@ self.addEventListener('fetch', event => {
 });
 ```
 
-`event.respondWith` is used to provide a response to the request. Here we are opening the cache and finding a matching response. If it doesn't exist, we reach out to the network.
+`event.respondWith` 用于提供对请求的响应。这时我们打开缓存找到匹配的响应，如果它不存在，我们会走网络请求。
 
-Subsequently, we call `event.waitUntil` to allow the async Promise to resolve before the Service Worker context is terminated. Here we make a network request, and then cache the response. Once this asynchronous operation is finished, `waitUntil` will resolve and the operation will terminate.
+随后，我们将调用 `event.waitUntil` 函数允许 在 Service Worker 上下文终止之前 resolve 一个异步Promise。这里会走一个网络请求，然后缓存其响应。一旦这个异步操作完成，`waitUntil` 将会 resolve，操作将会终止。
 
-#### Activate Event
+#### 激活事件
 
-The activate event is a slightly less documented event, but is important for when you are updating your Service Worker file and need to execute any clean up or maintenance from the previous version of your Service worker.
+激活事件是一个稍微文档化的事件，但是当你需要更新 Service Worker 文件、执行清理、维护之前 Service Worker 文件版本的时候，是非常重要的。
 
-When you update your Service Worker file (`/sw.js`), the browser will detect changes and display this in Chrome DevTools:
+当你更新你的 Service Worker 文件（`/sw.js`）的时候，浏览器会侦测到这个改变，反映在你的 Chrome 开发者工具中如下图所示：
 
 ![](http://blog.88mph.io/content/images/2017/07/Screenshot-2017-07-18-08.29.32.png)
 
-Your new Service Worker is 'waiting to activate'.
+你的新的 Service Worker 是处在一种 “等待被激活” 的状态中。
 
-When the actual web page is closed, and re-opened again, the browser will replace the old Service Worker with the new one, and fire the **activate** event, after the **install** event. If you needed to clean up the caches or perform maintenance regarding the old version of your Service Worker, the activate event allows you the perfect time to do this.
+当实际网页关闭并重新打开的时候，浏览器将使用新的 Service Worker 替换旧的 Service Worker，在 **install** 事件触发之后，触发 **activate** 事件，如果你需要清理缓存或者对旧版本的 Service Worker 进行维护，激活事件可以让你完美的完成这个操作。
 
-#### Sync event
+#### 同步事件
 
 The sync event allows the deferring of network tasks until the user has connectivity. The feature it implements is commonly referred to as **background sync**. This is useful for ensuring that any network-dependent tasks that a user kicks off during offline mode will eventually reach their intended destination when the network is available again.
 
@@ -225,7 +225,7 @@ So for this example, if the user were offline, and clicked the button seven time
 
 In the case you would want separate syncs for each click event, you would register syncs under unique tags.
 
-###### When is the Sync Event fired?
+###### 什么时候同步事件被触发？
 
 If the user is online, then the sync event will fire immediately and accomplish whatever task you've defined without delay.
 
@@ -235,13 +235,13 @@ If you're like me, and want to try this out in Chrome, be sure to actually disco
 
 For more information, you can read [this explainer document](https://github.com/WICG/BackgroundSync/blob/master/explainer.md), as well as this [introduction to background syncs](https://developers.google.com/web/updates/2015/12/background-sync). The sync event is largely unimplemented across browsers (only in Chrome at the time of this writing), and is bound to undergo changes, so stay tuned.
 
-#### Push Notifications
+#### 推送通知
 
 Push notifications are a feature that are enabled by Service Workers by exposing the `push` event to Service Workers, as well as the [Push API](https://developer.mozilla.org/en-US/docs/Web/API/Push_API) implemented by the browser.
 
 When speaking about Web Push Notifications, there are actually two technologies at work: Notifications & Push Messaging.
 
-###### Notifications
+###### 通知
 
 Notifications are pretty straightforward feature to implement with Service Workers:
 
@@ -276,7 +276,7 @@ self.addEventListener('notificationclose', event => {
 
 You first need to ask permission from the user to enable notifications for your web page. From then on, you are able to toggle on notifications, and handle certain events, such as when a notification is closed by the user.
 
-###### Push Messaging
+###### 推送消息
 
 Push messaging involves utilizing the Push API provided by the browser, coupled with backend implementation. An entirely separate article could be written on the implementation of Push API, but the basic gist is:
 
@@ -284,7 +284,7 @@ Push messaging involves utilizing the Push API provided by the browser, coupled 
 
 It is an involved and slightly complicated process, and is outside the scope of this article. But if you'd like to learn more, this [introduction to push notifications](https://developers.google.com/web/ilt/pwa/introduction-to-push-notifications) is an informative read.
 
-## Implementing Using Ember.js
+## 用 Ember.js 的实现
 
 Implementing Service Workers for your Ember app is incredibly easy. By virtue of [ember-cli](https://ember-cli.com/) and the [Ember Add-ons](https://www.emberaddons.com) community, you can equip your web app with Service Workers in plug-and-play fashion.
 
@@ -292,7 +292,7 @@ This is made possible in part by the [ember-service-worker](https://github.com/D
 
 **ember-service-worker** sets up a modular architecture that can be used to plug in other ember-service-worker-* add-ons, such as [ember-service-worker-index](https://github.com/DockYard/ember-service-worker-index) or [ember-service-worker-asset-cache](https://github.com/DockYard/ember-service-worker-asset-cache). These add-ons implement different parts of behavior and caching strategies to make up your Service Worker.
 
-#### Understanding `ember-service-worker` conventions
+#### 理解 `ember-service-worker` 的组成
 
 All of the **ember-service-worker-*** add-ons follow a convention, in that their core logic is stored in one of two folders in the root directory of the add-on, `/service-worker` and `/service-worker-registration`:
 
@@ -371,9 +371,9 @@ Similarly, [**ember-service-worker-asset-cache**](https://github.com/DockYard/em
 
 There are [several add-ons](https://www.emberaddons.com/?query=service-worker) that employ **ember-service-worker** architecture and allow you to customize and fine tune your Service Worker's behavior and caching strategies.
 
-#### Build your Ember App w/ Service Workers
+#### 构建你的基于 Ember 、Service Workers 的 App
 
-First, you'll need [ember-cli](https://ember-cli.com/) installed. Then execute the following commands:
+首先，你需要下载 [ember-cli](https://ember-cli.com/)，然后在命令行中执行下面的语句操作：
 
 ```
 $ ember new new-app
@@ -390,17 +390,17 @@ You can fine tune what files under the `/assets` folder will get cached via `con
 
 If you find that none of the existing ember-service-worker add-ons solve your problem, you can create your own following the [docs at the ember-service-worker website](http://ember-service-worker.com/documentation/authoring-plugins/).
 
-## Conclusion
+## 结论
 
 I hope you have gained a firmer understanding of Service Workers, and their underlying architecture, and also how web apps can utilize them to create a better experience for users.
 
 `ember-service-worker` add-ons allow you implement them easily in your Ember.js web app. If you find that you need to implement your own logic for a Service Worker, it should be easy to create your own add-on that implements the event handlers you need to implement the behavior you want. This is something I'd like to tackle in the near future, so stay tuned!
 
-#### From our Sponsors
+#### 来自我们的赞助商
 
 ![](http://blog.88mph.io/content/images/2017/07/Quartzy-logo.png)
 
-*If you are interested in working with Ember.js full-time, [Quartzy](https://www.quartzy.com/) is hiring frontend devs! We help scientists around the world by helping them save money and be more efficient in the lab. Apply [here](http://grnh.se/coe8yp1).*
+** 如果你对基于 Ember.js 的全职工作感兴趣，[Quartzy](https://www.quartzy.com/) 正在招聘前端工程师！我们帮助世界各地的科学家节省资金，使得他们更有效率的在实验室研究。申请吧 [here](http://grnh.se/coe8yp1).**
 
 
   ---
