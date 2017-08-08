@@ -16,7 +16,7 @@
 
 Have you ever noticed that there is a Star of David hidden in the React logo? Just saying…
 Last year I wrote a short book on learning React.js which turned out to be about 100 pages. This year, I am going to challenge myself to summarize it as an article on Medium.
-你有没有注意到在 React 的 logo 中 有一个 Star of David（犹太教的六芒星形）？只是说。。。
+你有没有注意到在 React 的 logo 中 有一个 Star of David（犹太教的六芒星形）？只是说。。。（这里不知道怎么翻译 Just saying 合适，校对者给个意见）
 去年我写了一个简短的书关于学习 React.js 有 100 页左右。今年，我要挑战自己来总结出中的一篇文章向 Medium 投稿。
 
 This article is not going to cover what React is or [why you should learn it](https://medium.freecodecamp.org/yes-react-is-taking-over-front-end-development-the-question-is-why-40837af8ab76). This is just a practical introduction for the fundamentals of React.js for those who are already familiar with JavaScript and know the basics of [the DOM API](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model).
@@ -60,17 +60,23 @@ Example 1 — Edit code above and press Ctrl+Enter to execute
 例 1：编辑上面的代码并按 Ctrl+Enter 键执行
 
 > The curly braces used for the button label are explained below. Don’t worry about them now. `ReactDOM` will also be explained later, but if you want to test this example and all upcoming code examples, the above `render` function is what you need. (The second argument to `ReactDOM.render` is the destination DOM element which React is going to take over and control. In a jsComplete REPL, you can just use the special variable `mountNode`)
-> 用于按钮标签括号解释如下。现在不要担心它们。`ReactDOM` 也将稍后解释，但如果你想测试这个例子和所有接下来的例子，上述 `render` 函数是你需要的。（对 `ReactDOM.render` 是目的地的DOM元素反应要接管。在jscomplete REPL，你可以使用特殊的变量` mountnode `）
+> 括号中的 button 标签将稍后解释。现在不要担心它们。`ReactDOM` 也将稍后解释，但如果你想测试这个例子和所有接下来的例子，上述 `render` 函数是必须的。（React 将要接管和控制的是 `ReactDOM.render` 的第 2 个参数即目标 DOM 元素）
 
 Note the following about Example 1:
+关于例 1 的注意事项：
 
 - The component name is TitleCase-ed, `Button`. This is required since we will be dealing with a mix of HTML elements and React elements. Lowercase names are reserved for HTML elements. In fact, go ahead and try to name the React component just “button” and see how ReactDOM will ignore the function and just renders a regular empty HTML button.
+- 组件名称是 TitleCase-ed，是一个 `Button` 元素。必须要这样做因为我们将处理 HTML 元素和 React 元素的混合。小写名称保留为 HTML 元素。事实上，去尝试将 React 组件命名为 “button”然后你就会发现 ReactDOM 会忽略这个函数，仅仅是将其作为一个普通的空的 HTML 按钮来渲染。
 - Every component receives a list of attributes, just like HTML elements. In React, this list is called *props*. With a function component, you can name it anything though.
+- 每个组件都接收一个属性列表，就像 HTML 元素一样。在 React 中，这个列表被称为**props**。虽然你可以将一个函数随意命名。
 - We weirdly wrote what looks like HTML in the returned output of the `Button` function component above. This is really neither JavaScript nor HTML, and honestly, it’s not even React.js. However, it’s so popular that it became the default in React applications. It’s called [*JSX*](https://facebook.github.io/jsx/) and it’s a JavaScript extension. JSX is also a *compromise*! Go ahead and try and return any other HTML element inside the function above and see how they are all supported (for example, return a text input element).
+- 在上面组件中的 `Button` 函数中，我们在返回的输出中写看上去像是 HTML 的代码会很奇怪，这是 JavaScript 而不是 HTML，老实说，这甚至不是 React.js。然而它非常流行，以至于成为 React 应用程序中的默认值。这就是所谓的 [*JSX*](https://facebook.github.io/jsx/) ，这是一个JavaScript的扩展。JSX 也是一个**妥协**！继续尝试并在上面的函数中返回其他HTML元素，看看它们是如何被支持的（例如，返回一个文本输入元素）。
 
 #### 2 — What the flux is JSX?
+#### 2 - JSX 输出的是什么？
 
 Example 1 above can be written in pure React.js without JSX as follows:
+上面的例 1 可以用没有 JSX 的纯 React.js 编写，如下：
 
 ```
 function Button (props) {
@@ -81,6 +87,7 @@ function Button (props) {
   );
 }
 
+// 使用Button，你将会做这样做
 // To use Button, you would do something like
 ReactDOM.render(
   React.createElement(Button, { label: "Save" }),
@@ -89,14 +96,19 @@ ReactDOM.render(
 ```
 
 Example 2 — React component without JSX
+例 2：不使用 JSX 编写 React 组件
 
 The `createElement` function is the main function in the React top-level API. It’s 1 of a total of 7 things in that level that you need to learn. That’s how small the React API is.
+在 React 顶级 API 中，`createElement` 函数是主函数。这是你需要学习的 7 个 API 中的 1 个。React 的 API 就是这么小。
 
 Much like the DOM itself having a `document.createElement` function to create an element specified by a tag name, React’s `createElement` function is a higher-level function that can do what `document.createElement` does, but it can also be used to create an element to represent a React component. We did the latter when we used the `Button` component in Example 2 above.
+就像 DOM 本身具有 `document.createElement` 函数来通过标签名称来创建一个指定元素一样， React 的 `createElement` 函数是一个高级函数，有和 `document.createElement` 同样的功能，但它也可以被用来创建一个元素代表一个 React 组件。当我们使用上面例 2 中的按钮组件时，我们使用的是后者。
 
 Unlike `document.createElement`, React’s `createElement` accepts a dynamic number of arguments after the second one to represent the *children* of the created element. So `createElement` actually creates a *tree.*
+不像 `document.createElement`，React 的 `createElement` 接受一个动态参数在第二个代表创建元素的**子元素**之后。所以 `createElement` 实际上创造了一个**树**。
 
 Here’s an example of that:
+这里就是这样的一个例子：
 
 ```
 const InputForm = React.createElement(
@@ -107,7 +119,7 @@ const InputForm = React.createElement(
   React.createElement(Button, { label: "Search" })
 );
 
-// InputForm uses the Button component, so we need that too:
+// InputForm 使用 Button 组件，所以我们需要这样做：
 function Button (props) {
   return React.createElement(
     "button",
@@ -116,7 +128,7 @@ function Button (props) {
   );
 }
 
-// Then we can use InputForm directly with .render
+// 然后我们可以直接使用 InputForm 通过 .render 方法
 ReactDOM.render(InputForm, mountNode);
 ```
 
