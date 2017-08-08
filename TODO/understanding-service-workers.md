@@ -23,9 +23,9 @@
 - [推送通知](#推送通知)
 - [通知](#通知)
 - [推送消息](#推送消息)
-- [用 Ember.js 的实现](#用 Ember.js 的实现)
-- [理解 ember-service-worker 的组成](#理解 ember-service-worker 的组成)
-- [构建你的基于 Ember 、Service Workers 的 App ](#构建你的基于 Ember 、Service Workers 的 App )
+- [用Ember.js的实现](#用 Ember.js 的实现)
+- [理解ember-service-worker的组成](#理解 ember-service-worker 的组成)
+- [构建你的基于Ember、Service Workers的 App](#构建你的基于 Ember 、Service Workers 的 App )
 - [结论](#结论)
 
 ## 背景
