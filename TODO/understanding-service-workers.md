@@ -82,11 +82,11 @@ if (navigator.serviceWorker) {
 
 #### 安装事件
 
-The install event is fired when your Service Worker registers for the first time, and any time after that when your Service Worker file (`/sw.js`) is updated (the browser will automatically detect changes).
+install 事件是在你的 Service Worker 首次注册的时候、或者是你的 Service Worker 文件（`/sw.js`）在任何时间被更新之后触发（浏览器会自动侦测这些改变）。
 
-The install event is useful for logic you want to execute during the initialization of your Service Worker, i.e. a one-off operation that sets things up for the life of your Service Worker. A common use case is to load the cache during the install step.
+install 事件在初始化你的 Service Worker 应用程序期间执行的逻辑是非常有用的，它可以执行一些一次性的操作，贯穿在整个 Service Worker 应用程序的生命周期中。一个常见的例子是在 install 阶段加载缓存。
 
-Here is an example of an install event handler that will add data to the cache.
+这里是一个 install 事件处理程序阶段将添加数据缓存的例子。
 
 ```
 const CACHE_NAME = 'cache-v1';
@@ -105,21 +105,21 @@ self.addEventListener('install', event => {
 });
 ```
 
-`urlsToCache` contains a list of URLs we want to add to the cache.
+`urlsToCache` 包含了一组我们想添加缓存的 URL 路径。
 
-`caches` is a global [CacheStorage](https://developer.mozilla.org/en-US/docs/Web/API/CacheStorage) object that allows you to manage your caches in the browser. We call `open` to retrieve the specific [Cache](https://developer.mozilla.org/en-US/docs/Web/API/Cache) object we want to work with.
+`caches` 是一个全局的 [CacheStorage](https://developer.mozilla.org/en-US/docs/Web/API/CacheStorage) 对象，允许你在浏览器中管理你的缓存。 我们将调用 `open` 方法在 [Cache](https://developer.mozilla.org/en-US/docs/Web/API/Cache) 对象中查找到当前正在运行的那个缓存对象。
 
-`cache.addAll` will take a list of URLs, make a request to each, and then store the response in its cache. It uses the request body as a key for each cache value. Read more at the [addAll](https://developer.mozilla.org/en-US/docs/Web/API/Cache/addAll) docs.
+`cache.addAll` 将获得一组链接列表，向每个链接发送一个请求，将响应存储在其缓存中。它使用请求体作为每个缓存值的键名。更多细节可以查看 [addAll](https://developer.mozilla.org/en-US/docs/Web/API/Cache/addAll) 的文档.
 
 ![](http://blog.88mph.io/content/images/2017/07/Screenshot-2017-07-16-20.09.42.png)
 
-Cached data in Chrome DevTools
+Chrome 开发者工具中展示的缓存数据
 
-#### Fetch event
+####  Fetch事件
 
-The **fetch** event is fired every time the web page makes a request. When it fires, your Service Worker has the ability to 'intercept' the request and decide what to return - whether that be cached data, or the response to an actual network request.
+**fetch** 事件是在每次网页发出请求的时候触发的，触发该事件的时候 Service Worker 能够 '拦截' 请求，决定返回什么 ———— 是否返回缓存的数据，还是真实发送一个请求，返回响应数据。
 
-The following example illustrates a *cache-first* strategy: any cached data that matches the request will be sent off first, without a network request. Only if there is no existing cached data will a network request be made.
+下面的例子说明了**缓存优先**的策略：对于任何一个发送的请求，都将优先匹配缓存数据，如果有匹配到缓存的数据，则返回缓存数据，不走网络请求，只有当不存在缓存数据的时候，才会发出网络请求。
 
 ```
 self.addEventListener('fetch', event => {
@@ -138,13 +138,13 @@ self.addEventListener('fetch', event => {
 });
 ```
 
-`request` contains the request body that is included in the [FetchEvent](https://developer.mozilla.org/en-US/docs/Web/API/FetchEvent) object. It is used to lookup a matching response in the cache.
+`request` 属性包含在 [FetchEvent](https://developer.mozilla.org/en-US/docs/Web/API/FetchEvent) 对象里，它用于根据请求，查找匹配的缓存。
 
-`cache.match` will try to find a cached response that matches the specified request. If it finds nothing, the promise will resolve with `undefined`. We check for this, and make a `fetch` call in this case, which makes a network request and returns a promise.
+`cache.match` 将尝试找到一个缓存响应匹配到当前的请求。如果没有找到对应的缓存，则 promise 会 resolve 一个 `undefined` 值返回，我们可以通过判断这个返回值，决定是调用 fetch 方法（在这个例子里），还是走一个真实的网络请求返回一个promise。
 
-`event.respondWith` is a method specifically on a FetchEvent object that we use to send a response back to the browser for the request. It accepts a Promise that resolves to a response (or network error).
+`event.respondWith` 是一个FetchEvent 对象中的特殊方法，用于将请求的响应发送回浏览器。它接收一个resolve的promise（或者网络错误）作为参数。
 
-###### Caching Strategies
+###### 缓存策略
 
 The fetch event is particularly important because it's where you can define your *caching strategy*. That is, how you determine when to use cached data, and when to use network-sourced data.
 
