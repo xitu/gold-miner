@@ -400,7 +400,7 @@ $ ember install ember-service-worker-asset-cache
 
 ![](http://blog.88mph.io/content/images/2017/07/Quartzy-logo.png)
 
-** 如果你对基于 Ember.js 的全职工作感兴趣，[Quartzy](https://www.quartzy.com/) 正在招聘前端工程师！我们帮助世界各地的科学家节省资金，使得他们更有效率的在实验室研究。申请吧 [here](http://grnh.se/coe8yp1).**
+**如果你对基于 Ember.js 的全职工作感兴趣，[Quartzy](https://www.quartzy.com/) 正在招聘前端工程师！我们帮助世界各地的科学家节省资金，使得他们更有效率的在实验室研究。申请吧 [here](http://grnh.se/coe8yp1)。**
 
 
   ---
