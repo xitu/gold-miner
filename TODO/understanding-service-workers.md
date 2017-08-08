@@ -6,14 +6,14 @@
   > * 译者：
   > * 校对者：
 
-  # Understanding Service Workers
+  # 理解Service Workers
 
-  What are Service Workers? What can they do, and how can make your web app perform better? This article sets out to answer those questions, plus how to implement them using the Ember.js framework.
+  什么是Service Workers？他们能够做什么，怎样使你的web app执行的更流畅？本文旨在回答这些问题，以及如何使用Ember.js框架实现他们。
 
 ## Table of Contents
 
-- [Background](#background)
-- [Registration](#registration)
+- [背景](#背景)
+- [注册](#注册)
 - [Install Event](#installevent)
 - [Fetch Event](#fetchevent)
 - [Caching Strategies](#cachingstrategies)
@@ -28,31 +28,31 @@
 - [Build your Ember App w/ Service Workers](#buildyouremberappwserviceworkers)
 - [Conclusion](#conclusion)
 
-## Background
+## 背景
 
-In a time when the web was young, there was scarcely any thought given to how a web page should behave when a user was offline. You were just *always* online.
+在早期的互联网时代，开发者几乎没有考虑过，当一个用户离线的时候，一个 Web 页面该如何展示，通常只会考虑在线的状态。
 
 ![Connected!](http://blog.88mph.io/content/images/2017/07/aol-connected.jpg)
 
-Connected! The gang's all here! Don't ever leave.
+连接！这帮人都在这里！不要离开。
 
-But with the advent of mobile internet, and with the rest of the world catching up, spotty internet connections have become increasingly commonplace across users of the modern web.
+随着移动设备的普及以及网络在世界其他地区的涌现，网络质量层次不齐的连接在现代用户使用网络访问网站的过程中已经越来越普遍。
 
-Consequently, it has become valuable for websites to take ownership of how they behave offline so that users are not limited by network availability.
+因此，一个网站在它离线的时候的表现是很有价值的，使得人们不受限于网络环境的好坏。
 
-[AppCache](https://developer.mozilla.org/en-US/docs/Web/HTML/Using_the_application_cache) was initially introduced as part of the HTML5 spec as a solution for offline web applications. It consisted of a combination of HTML and JS that centered around a *cache manifest*, a configuration file written in a declarative language.
+[AppCache](https://developer.mozilla.org/en-US/docs/Web/HTML/Using_the_application_cache) 最初是作为 HTML5 规范的一部分引入，作为一个离线 Web 应用的解决方案出现。它包含以 **Cache Manifest** 配置文件为中心的HTML和JS的组合，可以以声明式语言编写其配置文件。 
 
-AppCache was eventually found to be [unwieldy and full of gotchas](https://alistapart.com/article/application-cache-is-a-douchebag). It has since been deprecated and effectively replaced by Service Workers.
+AppCache 最终被发现是 [不实用的和充满陷阱的](https://alistapart.com/article/application-cache-is-a-douchebag). 它因此被废弃了，被 Service Workers 有效的取代。
 
-[Service workers](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API) provide a more future-proof solution to the offline problem, by replacing AppCache's declarative style of implementation with a more imperative, procedural one.
+[Service workers](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API) 提供了一个更具前瞻性的离线应用解决方案，通过更加程序化的语言书写规则替代 AppCache 的声明式书写方式。
 
-Service Workers are a way to execute code in a persistent, background process contained in the web browser. The code is event-driven, meaning the events that fire in the scope of a Service Worker are what drives its behavior.
+Service Workers 在浏览器后台进程中持续的执行其代码。它是事件驱动的，这意味着在 Service Worker 的作用域范围内触发的事件会驱动其行为。
 
-The rest of this article is a brief explanation for each of those events. But to begin utilizing Service Workers, you will first need to implement code in your front-facing web app that registers the Service Worker.
+这篇文章剩下的部分将对 Service Worker 的每个事件阶段做个简要的说明，但是在开始使用Service Workers之前，你首先需要在 Web App 中注册你的 Service Worker 的执行代码。
 
-## Registration
+## 注册
 
-The code below illustrates how to **register** your Service Worker in the client's browser. This is accomplished by having the following `register` call executed somewhere on your front-facing web app:
+下面的代码说明了怎样在你的客户端浏览器中注册你的 Service Worker，这是通过在你的 Web App 前端代码的某一处执行 `register` 函数调用来实现的：
 
 ```
 if (navigator.serviceWorker) {
