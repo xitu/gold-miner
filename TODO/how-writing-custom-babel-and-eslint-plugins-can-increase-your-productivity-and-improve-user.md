@@ -3,50 +3,69 @@
 > * 原文作者：[Kent C. Dodds](https://medium.com/@kentcdodds)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/how-writing-custom-babel-and-eslint-plugins-can-increase-your-productivity-and-improve-user.md](https://github.com/xitu/gold-miner/blob/master/TODO/how-writing-custom-babel-and-eslint-plugins-can-increase-your-productivity-and-improve-user.md)
-> * 译者：
+> * 译者：[H2O2](https://github.com/H2O-2)
 > * 校对者：
 
 # How writing custom Babel & ESLint plugins can increase productivity & improve user experience
+# 自定义 Babel 和 ESLint 插件是如何提高生产率与用户体验的
 
 ---
 
 ![](https://cdn-images-1.medium.com/max/2000/1*5eWvduloSZ5sSGd0TGUSWA.jpeg)
 
 Person exploring a forest of **trees** (source: [https://unsplash.com/photos/ZDhLVO5m5iE](https://unsplash.com/photos/ZDhLVO5m5iE))
+一个正在探索**森林**的人
 
 # How writing custom Babel & ESLint plugins can increase productivity & improve user experience
+# 自定义 Babel 和 ESLint 插件是如何提高生产率与用户体验的
 
 *And it’s way more approachable than you think…*
+**而且比你想象的容易很多...**
 
 **My [Frontend Masters course “Code Transformation and Linting with ASTs”](https://frontendmasters.com/courses/linting-asts/) has been released 🎉 🎊 (go there to see a quick intro to the course)! I thought you all might be interested to know why you should take the 3 hours and 42 minutes to learn how to write custom Babel and ESLint plugins.**
+**我的[前端大师课程 “程序变换（code transformation）与抽象语法树（AST）”](https://frontendmasters.com/courses/linting-asts/)已经发布了🎉 🎊（进入网址查看课程的简介）！我觉得你们应该都有兴趣了解为什么要花上 3 小时 42 分钟来学习编写 Babel 和 ESLint 插件**
 
 Building applications is hard, and it just gets harder as a team and codebase grows. Luckily, we have tools like [ESLint](http://eslint.org/) and [Babel](https://babeljs.io/) to help us manage these growing codebases to prevent bugs and migrate code so we can focus on the domain-specific problems of our applications.
+构建应用程序是件困难的事，并且难度会随着团队和代码库的扩张而增大。幸运的是，我们有诸如 [ESLint](http://eslint.org/) 和 [Babel](https://babeljs.io/) 这样的工具来帮助我们处理这些逐渐成长的代码库，防止 bug 的产生并迁移代码，从而让我们可以把注意力集中在应用程序的特定领域。
 
 Both ESLint and Babel have a strong community of plugins (today, there are 857 packages matching [“ESLint plugin”](https://www.npmjs.com/search?q=eslint%20plugin&amp;page=1&amp;ranking=optimal) and 1781 matching [“Babel Plugin”](https://www.npmjs.com/search?q=babel%20plugin)). You can leverage these plugins to improve your developer experience and increase the quality of your codebase.
+ESLint 和 Babel 都有活跃的插件社区 (如今 [“ESLint plugin”](https://www.npmjs.com/search?q=eslint%20plugin&amp;page=1&amp;ranking=optimal) 可以搜索出 857 个包，[“Babel Plugin”](https://www.npmjs.com/search?q=babel%20plugin) 则可以搜索出 1781 个包)。正确应用这些插件可以提升你的开发体验并提高代码库的代码质量。
 
 As amazing as the communities are for both Babel and ESLint, the problems you’re facing are often different from the problems the rest of the world faces, so there’s often not an existing plugin to handle your specific use case. In addition, sometimes you need to refactor a big codebase and a custom babel plugin can help do so much better at this than a find/replace regex.
+尽管 Babel 和 ESLint 都拥有很棒的社区，你往往会遇到全世界都没遇到过的问题，因此你需要的特定用途的插件也往往不存在。另外，有时候重构代码库时，一个自定义的 babel 插件比查找/替换正则要有效得多。
 
 > *You can write custom ESLint and Babel plugins to handle your own needs.*
+> **你可以编写自定义 ESLint 和 Babel 插件来满足特定需求**
 
 ### When to write a custom ESLint plugin
+### 应在什么时候写自定义的 ESLint 插件
 
 ![](https://cdn-images-1.medium.com/max/1200/1*w18mlu-5XnwPK9rQn0JYeQ.png)
 
 ESLint logo
 
 The next time you’re fixing a bug, you’re going to want to make sure it doesn’t come back. Instead of starting out with [test driven development](https://egghead.io/lessons/javascript-use-test-driven-development) to do that, first ask yourself: “Could this bug have been prevented using a type system (like [Flow](https://flow.org/))?” If not, then ask “Could this bug have been prevented using a [custom ESLint plugin](http://eslint.org/docs/developer-guide/working-with-rules)?” The nice thing about these two tools is that you can run them on your code *statically*.
+修复一个 bug 之后，你应该确保它不再出现。与其通过 [测试驱动开发（test driven development）](https://egghead.io/lessons/javascript-use-test-driven-development)达到这个目的，先问问自己：“这个 bug 是不是可以通过使用一个类型系统（如 [Flow](https://flow.org/)）来避免？” 如果答案是否定的，再问自己“这个 bug 是不是可以通过使用 [自定义 ESLint 插件](http://eslint.org/docs/developer-guide/working-with-rules)来避免？” 这两个工具的好处是可以**静态**分析你的代码。
 
 > With ESLint you **don’t have to run any of your code** to confidently determine whether there’s a problem.
+> 通过 ESLint 你 **不需要运行任何一部分代码**即可断定是否有问题。
 
 In addition to this, once you’ve added an ESLint plugin, you’ve not only prevented the problem from entering that particular area of your codebase, **you’ve also prevented it from showing up anywhere else as well.** That’s a real win! (And that’s a benefit you do not have with testing).
+除了上面所说的之外，一旦你添加了一个 ESLint 插件问题不仅在代码库的特定位置得到了解决，**该问题在任何一个位置都不会出现了。**这是件大好事！（而且这是测试无法做到的）。
 
 Here are some examples of custom rules my team at PayPal uses to prevent us from shipping bugs we’ve experienced in the past:
+下面是我在 PayPal 的团队使用的一些自定义规则，以防止我们发布曾经出现过的 bug。
 
 - Ensure we always use our localization library rather than inlining content.
 - Enforce the correct React controlled component behavior and make sure there’s an `onChange` handler if a `value` is specified.
 - Ensure `<button>`s always have a `type` attribute.
 - Ensure that our `<Link>` components and `<a>` tags always have the proper `data` attributes for analytics.
 - Ensure you’re only importing files within the the right app or the shared folder (we have multiple apps in a single repo).
+
+- 确保我们一直使用本地化库而不是把内容写在行内。
+- 强制使用正确的 React 受控组件（controlled component）行为并确保每个 `value` 都有一个 `onChange` handler。
+- 确保 `<button>` 标签总是有 `type` 属性。
+- 确保 
 
 We have more, but there’s just a few of them. The cool part is that these bugs haven’t come up again because we took the time to [learn and write a custom ESLint plugin](http://kcd.im/fm-asts).
 
