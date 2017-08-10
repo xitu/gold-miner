@@ -1,10 +1,3 @@
----
-title: 学习 React.js 比你想象的要简单
-date: 2017-08-8 14:54:11
-tags: [React] 
-categories: [翻译]
----
-
 > * 原文地址：[Learning React.js is easier than you think](https://edgecoders.com/learning-react-js-is-easier-than-you-think-fbd6dc4d935a)
 > * 原文作者：[Samer Buna](https://edgecoders.com/@samerbuna)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
@@ -19,9 +12,9 @@ categories: [翻译]
 ![](https://cdn-images-1.medium.com/max/1600/1*YsPpBr_PgtyTR6CFDmKU9g.png)
 
 你有没有注意到在 React 的 logo 中 有一个 Star of David（犹太教的六芒星形）？只是说。。。（这里不知道怎么翻译 Just saying 合适，校对者给个意见）
-去年我写了一个简短的书关于学习 React.js 有 100 页左右。今年，我要挑战自己来总结出中的一篇文章向 Medium 投稿。
+去年我写了一个简短的书关于学习 React.js，有 100 页左右。今年，我要挑战自己 —— 总结出中的一篇文章向 Medium 投稿。
 
-这篇文章不是讲什么是 React 或者 [你该怎样学习React](https://medium.freecodecamp.org/yes-react-is-taking-over-front-end-development-the-question-is-why-40837af8ab76)。这是为那些已经熟悉 React.js 基本原理 —— JavaScript 和 [DOM API](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model) 的实用介绍。
+这篇文章不是讲什么是 React 或者 [你该怎样学习React](https://medium.freecodecamp.org/yes-react-is-taking-over-front-end-development-the-question-is-why-40837af8ab76)。这是在已经熟悉 React.js 基本原理 —— JavaScript 和 [DOM API](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model) 之后的实用介绍。
 
 > 本文采用嵌入式 jsComplete 代码段，所以为了方便阅读需要一个合适的屏幕宽度。
 
@@ -37,7 +30,7 @@ React 是围绕可重用组件的概念设计的。你定义小组件并将它�
 
 无论大小，所有组件都是可重用的，甚至在不同的项目中也是如此。
 
-React 组件最简单的形式，只是一个普通的 JavaScript 函数：
+React 组件最简单的形式，这是一个普通的 JavaScript 函数：
 
 ```
 function Button (props) {
@@ -52,11 +45,11 @@ ReactDOM.render(<Button label="Save" />, mountNode)
 
 > 括号中的 button 标签将稍后解释。现在不要担心它们。`ReactDOM` 也将稍后解释，但如果你想测试这个例子和所有接下来的例子，上述 `render` 函数是必须的。（React 将要接管和控制的是 `ReactDOM.render` 的第 2 个参数即目标 DOM 元素）。
 
-关于例 1 的注意事项：
+例 1 的注意事项：
 
-- 组件名称是 TitleCase-ed，是一个 `Button` 元素。必须要这样做因为我们将处理 HTML 元素和 React 元素的混合。小写名称保留为 HTML 元素。事实上，去尝试将 React 组件命名为 “button”然后你就会发现 ReactDOM 会忽略这个函数，仅仅是将其作为一个普通的空的 HTML 按钮来渲染。
-- 每个组件都接收一个属性列表，就像 HTML 元素一样。在 React 中，这个列表被称为**props**。虽然你可以将一个函数随意命名。
-- 在上面组件中的 `Button` 函数中，我们在返回的输出中写看上去像是 HTML 的代码会很奇怪，这是 JavaScript 而不是 HTML，老实说，这甚至不是 React.js。然而它非常流行，以至于成为 React 应用程序中的默认值。这就是所谓的 [*JSX*](https://facebook.github.io/jsx/) ，这是一个JavaScript的扩展。JSX 也是一个**妥协**！继续尝试并在上面的函数中返回其他HTML元素，看看它们是如何被支持的（例如，返回一个文本输入元素）。
+- 组件名称首字母大写，是一个 `Button` 元素。必须要这样做因为我们将处理 HTML 元素和 React 元素的混合。小写名称保留为 HTML 元素。事实上，将 React 组件命名为 “button” 然后你就会发现 ReactDOM 会忽略这个函数，仅仅是将其作为一个普通的空的 HTML 按钮来渲染。
+- 每个组件都接收一个属性列表，就像 HTML 元素一样。在 React 中，这个列表被称为**属性**。虽然你可以将一个函数随意命名。
+- 在上面组件中的 `Button` 函数中，我们在返回的输出中写看上去像是 HTML 的代码会很奇怪，这是 JavaScript 而不是 HTML，老实说，这甚至不是 React.js。然而它非常流行，以至于成为 React 应用程序中的默认值。这就是所谓的 [*JSX*](https://facebook.github.io/jsx/) ，这是一个JavaScript的扩展。JSX 也是一个**折中方案**！继续尝试并在上面的函数中返回其他 HTML 元素，看看它们是如何被支持的（例如，返回一个文本输入元素）。
 
 #### 2 JSX 输出的是什么？
 
@@ -82,9 +75,9 @@ ReactDOM.render(
 
 在 React 顶级 API 中，`createElement` 函数是主函数。这是你需要学习的 7 个 API 中的 1 个。React 的 API 就是这么小。
 
-就像 DOM 本身具有 `document.createElement` 函数来通过标签名称来创建一个指定元素一样， React 的 `createElement` 函数是一个高级函数，有和 `document.createElement` 同样的功能，但它也可以被用来创建一个元素代表一个 React 组件。当我们使用上面例 2 中的按钮组件时，我们使用的是后者。
+就像 DOM 本身具有 `document.createElement` 函数可以通过标签名称来创建一个指定元素一样， React 的 `createElement` 函数是一个高级函数，有和 `document.createElement` 同样的功能，但它也可以被用来创建一个元素代表一个 React 组件。当我们使用上面例 2 中的按钮组件时，我们使用的是后者。
 
-不像 `document.createElement`，React 的 `createElement` 接受一个动态参数在第二个代表创建元素的**子元素**之后。所以 `createElement` 实际上创造了一个**树**。
+不像 `document.createElement`，React 的 `createElement` 在第二个代表创建元素的**子元素**在接受一个动态参数之后。所以 `createElement` 实际上创造了一个**树**。
 
 这里就是这样的一个例子：
 
@@ -113,10 +106,10 @@ ReactDOM.render(InputForm, mountNode);
 
 上面例子中的一些事情值得注意：
 
-- `InputForm` 不是一个 React 组件；它仅仅是一个 React **元素**。这就是为什么我们可以在 `ReactDOM.render` 中直接使用它并且可以调用时不使用 `<InputForm />` 的原因。
+- `InputForm` 不是一个 React 组件；它仅仅是一个 React **元素**。这就是为什么我们可以在 `ReactDOM.render` 中直接使用它并且可以在调用时不使用 `<InputForm />` 的原因。
 - `React.createElement` 函数接收多个参数后的前两个。从参数列表的第三开始包含创建元素的子列表。
 - 我们可以调用 `React.createElement` 因为它是 JavaScript。
-- `React.createElement` 的第二个参数可以为空或者是一个空对象当这个元素不需要属性或方法时。
+- `React.createElement` 的第二个参数可以为空或者是一个空对象，当这个元素不需要属性或方法时。
 - 我们可以在 React 组件中混合 HTML 元素。你可以将 HTML 元素作为内置的 React 组件。
 - React 的 API 试图和 DOM API 一样，这就是为什么我们使用 `className` 代替 `class` 为输入元件的原因。我们都希望如果 React 的 API 成为 DOM API 本身的一部分，因为，你知道，它要好得多。
 
@@ -141,25 +134,24 @@ function Button (props) {
 ReactDOM.render(InputForm, mountNode);
 ```
 
-例 4：为什么在 React 中 JSX 是受欢迎（和例 3 相比）
+例 4：为什么在 React 中 JSX 受欢迎（和例 3 相比）
 
 注意上面的几件事：
 
 - 这不是 HTML 代码。比如，我们仍然可以使用 `className` 代替 `class`。
-- 我们仍在考虑怎样让上述的 JavaScript 看起来像是 HTML。看一下我是怎样在最后添加的。
+- 我们仍在考虑怎样让上述的 JavaScript 看起来像是 HTML。看一下我在最后是怎样添加的。
 
 我们在上面（例 4）中写的就是 JSX。然而，我们要将编译后的版本（例 3）给浏览器。要做到这一点，我们需要使用一个预处理器将 JSX 版本转换为 `React.createElement` 版本。
 
-什么是 JSX。这是一种折中的方案，允许我们用类似 HTML 的语法来编写我们的 React 组件，这是一个很好的方法。
+这就是 JSX。这是一种折中的方案，允许我们用类似 HTML 的语法来编写我们的 React 组件，这是一个很好的方法。
 
-> “Flux”在头部作为韵脚来使用，但它也是一个非常受欢迎的 [应用架构](https://facebook.github.io/flux/) 的名称由 Facebook 推广。最出名的是 Redux，Flux 和 React 非常合适。
+> “Flux” 在头部作为韵脚来使用，但它也是一个非常受欢迎的 [应用架构](https://facebook.github.io/flux/)，由 Facebook 推广。最出名的是 Redux，Flux 和 React 非常合适。
 
 JSX，可以自己使用，不仅仅适用于 React。
 
 #### 3 你可以再 JavaScript 的任何地方使用 JSX
 
 在 JSX 中，你可以在一对花括号内使用任何 JavaScript 表达式。
-
 
 ```
 const RandomValue = () =>
@@ -457,6 +449,11 @@ React 保存了渲染的历史记录，当它看到一个渲染与前一个不�
 1. 当组件的状态被更新时，或者它的父进程决定更改它传递给组件的属性时，组件可能需要重新渲染。
 2. 如果后者发生，React 会调用另一个生命周期方法：`componentWillReceiveProps`。
 3. 如果状态对象或传递的属性改变了，React 有一个重要的决定要做：组件是否应该在 DOM 中更新？这就是为什么它调用另一个重要的生命周期方法 `shouldComponentUpdate` 的原因 。此方法是一个实际问题，因此，如果需要自行定制或优化渲染过程，则必须通过返回 true 或 false 来回答这个问题。
+4. 如果没有自定义 `shouldComponentUpdate`，React 的默认事件在大多数情况下都能处理的很好。
+5. 首先，这个时候会调用另一生命周期的方法：`componentWillUpdate`。然后，React 将计算新渲染过的输出，并将其与最后渲染的输出进行对比。
+6. 如果渲染过的输出和之前的相同，React 不进行处理（不需要和浏览器先生对话）。
+7. 如果有不同的地方，React 将不同传达给浏览器，像我们之前看到的那样。
+8. 在任何情况下，一旦一个更新程序发生了，无论以何种方式（即使有相同的输出），React 会调用最后的生命周期方法：`componentDidUpdate`。
 
 生命周期方法是逃生舱口。如果你没有做什么特别的事情，你可以在没有它们的情况下创建完整的应用程序。它们非常方便地分析应用程序中正在发生的事情，并进一步优化 React 更新的性能。
 
