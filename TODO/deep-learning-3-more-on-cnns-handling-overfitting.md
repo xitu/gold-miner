@@ -8,7 +8,7 @@
 
 # 深度学习系列3 - CNNs 以及应对过拟合的详细探讨
 
-## 什么是卷积，最大池化（Max pooling）和 Dropout？
+## 什么是卷积，最大池化和 Dropout？
 
 > 这篇文章是深度学习系列中一篇文章。请查看[#系列1](https://github.com/xitu/gold-miner/blob/master/TODO/deep-learning-1-setting-up-aws-image-recognition.md)和[#系列2](https://github.com/xitu/gold-miner/blob/master/TODO/deep-learning-2-convolutional-neural-networks.md)
 
