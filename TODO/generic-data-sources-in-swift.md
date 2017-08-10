@@ -23,7 +23,7 @@
 - 任何 tableView 都可以用单列的 collectionView 进行实现/重构。
 - tableView 在大屏幕上（如：iPad ）表现的不是特别好。
 
-需要说明的是，我没有建议你把代码库里所有的 tableView 都用 collectionView 重新实现。我建议的是，当你需要添加一个展示列表的新功能时，你应该考虑下使用 collectionView 来代替 tableView 。尤其是在你开发一个通用 APP 时，因为 collectionView 将让你的 APP 在所有尺寸屏幕上动态调整布局变得更简单。
+需要说明的是，我没有建议你把代码库里所有的 tableView 都用 collectionView 重新实现。我建议的是，当你需要添加一个展示列表的新功能时，你应该考虑下使用 collectionView 来代替 tableView 。尤其是在你开发一个 Universal APP 时，因为 collectionView 将让你的 APP 在所有尺寸屏幕上动态调整布局变得更简单。
 
 ### Swift 泛型与有效抽取的探索
 
@@ -31,7 +31,7 @@
 
 我打算展示的代码抽取是基于对泛型使用的尝试，尤其是泛型协议。这样的代码抽取能够让我对设置 collectionView 所需的样板代码进行封装，从而减少设置数据源所需的代码，甚至在一些简单的使用场景两行代码就足够了。
 
-我想说明下我所创建的不是银子弹。我做的代码封装针对于解决一些特定使用场景。对于这些场景来说，使用抽取封装后的代码效果非常好。对于一些复杂的使用场景，可能就需要添加额外的代码了。我把抽取工作主要放在了 collectionView 最常用的功能。如果需要的话，你可以封装更多的功能，但是对于我的特定场景来说，这并不是必需的。
+我想说明下我所创建的不是通解。我做的代码封装针对于解决一些特定使用场景。对于这些场景来说，使用抽取封装后的代码效果非常好。对于一些复杂的使用场景，可能就需要添加额外的代码了。我把抽取工作主要放在了 collectionView 最常用的功能。如果需要的话，你可以封装更多的功能，但是对于我的特定场景来说，这并不是必需的。
 
 作为本篇文章的目的，我将会展示一部分抽取代码来概括使用 collectionView 时常用的功能。这将是你了解使用泛型，尤其是泛型协议能够来做什么的一个好的机会。
 
@@ -67,7 +67,7 @@ public extension ReusableCell {
 
 ### ConfigurableCell
 
-这个 **ConfigurableCell** 协议需要你实现一个方法，这个方法将使用特定类型的对象配置 cell ,而这个对象被定义成了一个泛型类型 **T**:
+这个 **ConfigurableCell** 协议需要你实现一个方法，这个方法将使用特定类型的实例配置 cell ,而这个实例被定义成了一个泛型类型 **T**:
 
 ```
 public protocol ConfigurableCell: ReusableCell {
@@ -198,15 +198,15 @@ open func collectionView(_ collectionView: UICollectionView,
 
 现在对 collectionView cell 展示的功能已经做好了，让我们再为它添加更多的功能吧。
 
-而作为第一个要添加的功能，用户应该能够在点击 cell 的时候触发某些操作。为了实现这个功能，一个简单的方案就是定义一个简单的 block,并对这个 block 初始化，当用户点击 cell 的时候执行这个 block 。
+而作为第一个要添加的功能，用户应该能够在点击 cell 的时候触发某些操作。为了实现这个功能，一个简单的方案就是定义一个简单的 closure,并对这个 closure 初始化，当用户点击 cell 的时候执行这个 closure 。
 
-处理 cell 点击的自定义 block 如下所示：
+处理 cell 点击的自定义 closure 如下所示：
 
 ```
 public typealias CollectionItemSelectionHandlerType = (IndexPath) -> Void
 ```
 
-现在，我们能定义个属性来存储这个 block ，当用户点击这个 cell 的时候就会在 **UICollectionViewDelegate** 的 **collectionView(_:didSelectItemAt:)** 代理方法实现中执行这个初始化好的 block 。
+现在，我们能定义个属性来存储这个 closure ，当用户点击这个 cell 的时候就会在 **UICollectionViewDelegate** 的 **collectionView(_:didSelectItemAt:)** 代理方法实现中执行这个初始化好的 closure 。
 
 ```
 // MARK: - Delegates
@@ -231,11 +231,11 @@ open func collectionView(_ collectionView: UICollectionView,
 
 通常来说，这种方式适用于所有的代理方法，当他们需要被子类重写覆盖时，这些方法需要定义为公有方法，并在 **CollectionDataSource** 中实现。
 
-另一种不同的解决方案就是使用一个自定义的 block ，就像在 **(CollectionItemSelectionHandlerType)** 方法中处理 cell 点击事件一样。
+另一种不同的解决方案就是使用一个自定义的 closure ，就像在 **(CollectionItemSelectionHandlerType)** 方法中处理 cell 点击事件一样。
 
 我实现的这个特定方面是软件工程中的一个典型的权衡，一方面 —— 为 collectionView 设置数据源的主要细节都被隐藏（被抽取封装）。另一方面 —— 封装的样板代码中没有提供的功能，就会变得不能开箱即用，添加新的功能并不复杂，但是需要像我上面两个例子那样，需要实现更多的自定义代码。
 
-### 实现一个具体的 CollectionDataProvider: ArrayDataProvider
+### 实现一个具体的 CollectionDataProvider 也就是 ArrayDataProvider
 
 现在样板代码已经设置好了，collectionView 的数据源由 **CollectionDataSource** 负责。让我们通过一个普通的使用案例来看看样板代码用起来有多方便。为了做这个，**CollectionDataSource** 对象需要提供 **CollectionDataProvider** 具体的实现。一个覆盖大多数常见使用案例的基本实现，可以简单地使用二维数组来包含展示 collectionView  cell 内容的数据 。作为我对数据源抽象的试验的一部分，我使这个实现变得更加通用，并且能够表示:
 
@@ -313,10 +313,10 @@ open class CollectionArrayDataSource<T, Cell: UICollectionViewCell>: CollectionD
 
 4. 特定类型 **T** 将被表示，它将通过一个 **ArrayDataProvider<T>** 对象来访问 cell 内容。
 
-5. 这个类在 block 中的定义表明有些特定的约束:
+5. 这个类在 closure 中的定义表明有些特定的约束:
 
 - **UICollectionViewCell** 必须遵循 **ConfigurableCell** 协议。（ **Cell:** **ConfigurableCell** ）
-- 特定类型 **T** 必须和 cell 跟 Provider 的 **T** 相同  (**Provider.T == Cell.T**) 。
+- cell 中的特定类型 **T** 必须跟 Provider 的 **T** 相同  (**Provider.T == Cell.T**) 。
 
 类的实现非常简单：
 
@@ -356,7 +356,7 @@ class PhotosDataSource: CollectionArrayDataSource<PhotoViewModel, PhotoCell> {}
 1. 继承于 **CollectionArrayDataSource** 。
 2. 这个类表示 **PhotoViewModel** 作为特定类型 **T** 将会展示 cell 内容，可通过 **ArrayDataProvider<PhotoViewModel>** 对象访问，**PhotoCell** 将作为 **UICollectionViewCell** 展示。
 
-请注意，**PhotoCell** 必须遵守 **ConfigurableCell** 协议，并且能够通过 **PhotoViewModel** 对象初始化它的属性。
+请注意，**PhotoCell** 必须遵守 **ConfigurableCell** 协议，并且能够通过 **PhotoViewModel** 实例初始化它的属性。
 
 创建一个 **PhotosDataSource** 对象是非常简单的。只需要传递过去将要展示的 collectionView 和由展示每个 cell 内容的 **PhotoViewModel** 元素组成的数组：
 
@@ -385,7 +385,7 @@ let dataSource = PhotosDataSource(collectionView: collectionView, array: viewMod
 - [Smooth Scrolling in UITableView and UICollectionView](https://medium.com/capital-one-developers/smooth-scrolling-in-uitableview-and-uicollectionview-a012045d77f)
 - [Boost Smooth Scrolling with iOS 10 Pre-Fetching API](https://medium.com/capital-one-developers/boost-smooth-scrolling-with-ios-10-pre-fetching-api-818c25cd9c5d)
 
-**披露声明：这些意见是作者的意见。 除非在本贴中另有说明，否则 Capital One 不属于任何所提及的公司，也不属于任何上述公司。 使用或显示的所有商标和其他知识产权均为其各自所有者的所有权。 本文是©2017 Capital One**
+**披露声明：这些意见是作者的意见。 除非在文章中额外声明，否则 Capital One 版权不属于任何所提及的公司，也不属于任何上述公司。 使用或显示的所有商标和其他知识产权均为其各自所有者的所有权。 本文版权为 ©2017 Capital One**
 
 更多关于 API、开源、社区活动或开发文化的信息，请访问我们的一站式开发网站  [**developer.capitalone.com**](https://developer.capitalone.com/) 。
 
