@@ -25,7 +25,7 @@
 - [消息推送](#消息推送)
 - [使用Ember.js实现](#使用Ember.js实现)
 - [了解ember-service-worker的约定](#了解ember-service-worker的约定)
-- [构建基于Ember、Service Workers的App](#构建基于Ember、Service Workers的App)
+- [构建基于Ember和Service-Workers的App](#构建基于Ember和Service-Workers的App)
 - [结论](#结论)
 
 ## 背景
@@ -284,7 +284,7 @@ self.addEventListener('notificationclose', event => {
 
 这是一个稍微复杂的过程，超出了本文的范围。但如果你想了解更多，可以参考 [introduction to push notifications](https://developers.google.com/web/ilt/pwa/introduction-to-push-notifications) 这篇文章 。
 
-## 使用 Ember.js 实现
+## 使用Ember.js实现
 
 用 Ember.js 实现 Service Workers 的 APP 是非常容易的，凭借其脚手架工具 [ember-cli](https://ember-cli.com/) 和其插件体系 [Ember Add-ons] (https://www.emberaddons.com) 社区的支持，你可以以一种即插即拔的方式在你的 Web App 中增加 Service Worker。
 
@@ -292,7 +292,7 @@ self.addEventListener('notificationclose', event => {
 
 **ember-service-worker** 建立了一个模块化的结构，可以被用于插入其他 ember-service-worker-* 的插件，例如 [ember-service-worker-index](https://github.com/DockYard/ember-service-worker-index) 或者 [ember-service-worker-asset-cache](https://github.com/DockYard/ember-service-worker-asset-cache)。这些插件使用不同的表现实现对应行为，以及不同的缓存策略组成你的 Service Worker 服务。
 
-#### 了解 `ember-service-worker` 的约定
+#### 了解`ember-service-worker`的约定
 
 所有的 **ember-service-worker-** 插件都遵循相同的模块结构，它们的核心逻辑存储在其根目录的`/service-worker` and `/service-worker-registration` 这两个文件夹中。
 
@@ -371,7 +371,7 @@ self.addEventListener('fetch', (event) => {
 
 有几个插件 [several add-ons](https://www.emberaddons.com/?query=service-worker) 也使用 **ember-service-worker** 该插件的结构，允许你自定义和微调对应的 Service Worker 的表现和缓存策略。
 
-#### 构建基于 Ember、Service Workers 的 App
+#### 构建基于Ember和Service-Workers的App
 
 首先，你需要下载 [ember-cli](https://ember-cli.com/)，然后在命令行中执行下面的语句操作：
 
