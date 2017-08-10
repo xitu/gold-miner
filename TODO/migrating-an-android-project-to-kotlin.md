@@ -26,89 +26,85 @@
 
 ![](https://cdn-images-1.medium.com/max/1600/1*oML2dls3WxjhTnR4a_TTRg.png)
 
-It still looks the same
+依旧看上去一样
 
-### 🔑 Key take aways
+### 🔑 关键的几点
 
-- Kotlin is a fun, powerful language
-- Testing gives peace of mind
-- Platform specific idioms are scarce
+- Kotlin 是一门有趣而强大的语言
+- 多测试才能心安
+- 平台受限的情况很少
 
 ---
 
-### Initial migration to Kotlin
+### 移植到 Kotlin 的第一步
 
 [![](https://ws4.sinaimg.cn/large/006tNc79ly1fhzfqen28gj313o0cswga.jpg)](https://twitter.com/anddev_badvice/status/864998931817615360)
 
-It’s not as easy as Bad Android Advice put it, but it’s a good starting point.
+虽然不可能像 Bad Android Advice 所说的那么简单，但至少是个不错的出发点。
 
-Steps 1 and 2 are kind of valid for getting started with Kotlin.
+第一步和第二步对于学好 Kotlin 来说确实很有用。
 
-I’ll figure out how that 3rd step will play out, though.
+然而第三步就要看我个人的造化了。
 
-#### For Topeka the route was more like this:
+#### 对于 Topeka 来说实际步骤如下：
 
-1. Read up on the [basic syntax of Kotlin](https://kotlinlang.org/docs/reference/basic-syntax.html)
-2. Go through the [Koans](https://github.com/Kotlin/kotlin-koans) to gain basic familiarity with the language
-3. Convert files, one by one, via “⌥⇧⌘K”, make sure tests still pass
-4. Go over the Kotlin files and make them more idiomatic
-5. Repeat step 4 until you and your code reviewers are happy
-6. Ship it
+1. 学好 [ Kotlin 的基础语法](https://kotlinlang.org/docs/reference/basic-syntax.html)
+2. 通过使用 [Koan](https://github.com/Kotlin/kotlin-koans) 来逐步熟悉这门语言
+3. 使用 “⌥⇧⌘K” 转化每个文件并保证能通过所有测试
+4. 修改 Kotlin 文件使其更加符合语言习惯
+5. 重复第四步直到每个审核者都满意
+6. 完工并上交
 
-### Interoperability
+### 互通性
 
-**Going step by step is a sensible approach.
-**Kotlin compiles down to Java byte code and the two languages are interoperable. Also it’s possible to have both languages within the same project. So it’s not necessary to migrate all code to another language.
+**一步步去做是很明智的做法。
+**Kotlin 编译为 Java 代码后两种语言可以互相通用。而且同一个项目中两种语言可以共存，所以没有必要把全部代码都移植成为另一种语言。
+但如果你本来就想这么做，那么重复的改写就是有意义的，因为这样你就尽可能去保持维护一个稳定的项目，同时在迁移代码的过程中也能学习这门语言。
 
-But if that’s your goal, it makes sense to do so iteratively. This way it’s more feasible to maintain a stable application throughout the migration process and learn as you go along.
+### 多做测试才能更加安心
 
-### Tests ease your mind
+搭配使用单元和整合测试的好处很多。在绝大多数情况下，这些测试是用来确保当前修改没有损坏现有的功能。
 
-Having a suite of unit and integration tests has many benefits.
-In most cases they are there to provide confidence that changes have not broken existing behaviour.
+我选择在一开始使用一个不是很复杂的数据类。在整个项目中我一直在用这些类，它们的复杂性相比来说很低。这样来看在学习新语言的过程中这些类就成为了最理想的出发点。
 
-Starting off with the less complex data classes was the clear choice for me.
-They are being used throughout the project, yet their complexity is comparatively low. This makes them an ideal starting point to set off the journey into a new language.
+在通过使用 Android Studio 自带的 Koltlin 代码转换器移植一部分代码后，我开始执行并通过测试，直到最终将测试本身也移植为 Kotlin 代码。
 
-After migrating some of these using the Kotlin code converter, which is built into Android Studio, executing tests and making them pass, I worked my way up until eventually ending up migrating the tests themselves to Kotlin.
+如果没有测试的话，我在每次改写后都需要对可能受影响的功能手动进行测试。自动化的测试在我移植代码的过程中显得更加快捷方便。
 
-Without tests, I would have been required to go through the touched features after each change, and manually verify them.
-By having this automated it was a lot quicker and easier to move through the codebase, migrating code as I went along.
+所以，如果你还没有对你的应用进行正确测试的话，以上就是你需要这么做的原因。 👆
 
-So, if you don’t have your app tested properly yet, there’s one more reason to do so right here. 👆
+### 生成的代码有时候看上去很糟糕！！
 
-### Generated code is not always nice to look at ‼️
+在完成最开始的自动化移植代码之后，我开始学习 [Kotlin 代码风格指南](https://kotlinlang.org/docs/reference/coding-conventions.html)。 这使我发现还有一条很长的路要走。
 
-After an initial round of *mostly* automated migration, I went on to read up on the [Kotlin style guide](https://kotlinlang.org/docs/reference/coding-conventions.html). This page made it clear to me that there’s still a long way ahead.
+总体来讲，代码生成器用起来很不错。虽然有很多语言特征和风格在转换过程中没有被使用，但翻译语言本来就是件很棘手的事，这么做可能更好一些，尤其是当这门语言所包含很多的特征或者可以通过不同方式进行表达的时候。
 
-The converter does a good job, overall. There are a lot of language idioms and features which are not being taken into account during the automated process, though. Which is probably for the better, since translating is tricky. Especially if one language contains more features or achieves similar things in a different way.
-
-For further reading on the Kotlin converter, [Benjamin Baxter](https://medium.com/@benbaxter) has written about his experience:
+如果想要了解更多有关 Kotlin 转换器的内容， [Benjamin Baxter](https://medium.com/@benbaxter) 写过一些他自己的经历：
 
 [![](https://ws1.sinaimg.cn/large/006tNc79ly1fhzfrxrvuqj313o0a2400.jpg)](https://medium.com/google-developers/lessons-learned-while-converting-to-kotlin-with-android-studio-f0a3cb41669)
 
 ### ‼️ ⁉
 
-After the automatic conversion I ended up with a lot of `?` and `!!`.
-These are used to make a value nullable and assert that something is not null. Which in turn can lead to a `NullPointerException`.
-And I couldn’t help but think of a very fitting quote:
+我发现自动转换会生成很多的 `?` 和 `!!` 。
+这些符号是用来定义可为空的数值和判断其是否不为空值的。他们可能会导致 `空指针异常`。
+我突然想起一条很恰当的名言
 
-> *‘Multiple exclamation marks,’ he went on, shaking his head, ‘are a sure sign of a diseased mind. — *[*Terry Pratchett*](https://wiki.lspace.org/mediawiki/Multiple_exclamation_marks)
+> *“过多使用感叹号，” 他一边摇头一边说道， ”是心理不正常的表现。” — *[*Terry Pratchett*](https://wiki.lspace.org/mediawiki/Multiple_exclamation_marks)
 
-In many cases a value doesn’t have to be nullable, so null checks can be removed. It’s not even necessary to initialise all values directly within a constructor. Instead `lateinit` or delegate initialisation can be used.
+在大部分情况下数值不会成为空值，所以我们不需要使用空值的检查。同时也没必要通过构造器来直接初始所有的数值，可以使用 `lateinit` 或者 delegate 来代替初始的流程。
 
-This doesn’t work for everything though:
+然而这些方法也不是万能的：
 
 [![](https://ws3.sinaimg.cn/large/006tNc79ly1fhzfsm2ll1j310c0dedhp.jpg)](https://twitter.com/dimsuz/status/883052997688930304)
 
-Sometimes vars have to be nullable nonetheless
+然而总有变量会成为空值的时候。
 
-So I had to go back and make my view members nullable.
+看来我得重新把 view 定义为可为空值。
 
-In these and other cases you will still have to check, whether something is `null`. Using `*supportActionBar*?.setDisplayShowTitleEnabled(false)` only executes the part after the question mark if there is a `supportActionBar`.
-This means a lot less `if` statement based null checks. 🔥
+在其他情况下你还是得检查是否也 `null` 存在。如果有 `supportActionBar` 存在的话， `*supportActionBar*?.setDisplayShowTitleEnabled(false)` 只能执行问号以后的代码。
+这意味着大部分 `if` 语句不会依靠空置检查。 🔥
 
-Also executing code with some of the stdlib functions directly on the non-null variable can be handy:
+直接在非空数值上使用 stdlib 函数非常方便：
 
 ```
 toolbarBack?.let {
@@ -117,19 +113,18 @@ toolbarBack?.let {
 }
 ```
 
-let it scale, let it scaaaale…
+大规模地使用它...
 
 ---
 
-### Incrementally becoming more idiomatic
+### 变得越来越符合语言习惯
 
-Going through the generated code and making it more idiomatic, as well as getting reviewer feedback made it obvious that Kotlin is a powerful language. It made things readable and concise.
+Kotlin 是门很强大的语言， 因为我们可以通过评论和反馈不断地改写生成的代码来使其变得更加符合语言的习惯。这是代码更加简洁并且提升了可读性。
 
-Let’s take a look at some examples that I came across.
+来看看我曾经遇到过的几个例子吧。
 
-#### Reading less is not always a bad thing
-
-Let’s take an adapter’s `getView` as example:
+#### 少读点儿并不一定是件坏事
+我们拿 adapter 里面的 getView 来举例：
 
 ```
 @Override
@@ -142,24 +137,24 @@ public View getView(int position, View convertView, ViewGroup parent) {
 }
 ```
 
-getView in Java
+Java 中的 getView
 
 ```
 override fun getView(position: Int, convertView: View?, parent: ViewGroup) =
     (convertView ?: createView(parent)).also { bindView(it) }
 ```
 
-getView in Kotlin
+Kotlin 的 getView
 
-These two code snippets do the *same thing*:
+这两段code在做同一件事：
 
-Check, whether `convertView` is `null` and either create a new view within `createView(...)` or return `convertView`. Both also call `bindView(...)`.
+先检查 `convertView` 是否为 `null` ，然后在 `createView(...)` 里面创建一个新的 `view` ，或者返回 `convertView`。同时在最后调用 `bindView(...)`.
 
-Both snippets, are equally legible. And boiling things down from 8 lines to mere 2 lines? **Render me impressed.**
+两端代码都很清晰，不过能从八行代码减到只有两行确实**让我很惊讶。**
 
-#### Data classes are magical 🦄
+#### 数据类很神奇 🦄
 
-To make it even more obvious how concise Kotlin can be, data classes easily manage to get rid of some verbosity:
+为了进一步展现 Kotlin 的精简所在，使用数据类可以轻松避免冗长的代码：
 
 ```
 public class Player {
@@ -220,23 +215,23 @@ public class Player {
 }
 ```
 
-Now, let’s look at that in Kotlin:
+下面我们来看怎么用 Kotlin 写这段代码:
 
 ```
 data class Player( val firstName: String?, val lastInitial: String?, val avatar: Avatar?)
 ```
 
-Yes, that’s 55 lines of code less, expressing the same thing. That’s the [magic of data classes](https://kotlinlang.org/docs/reference/data-classes.html).
+是的，在保证功能的情况下少了整整五十五行代码。这就是[数据类](https://kotlinlang.org/docs/reference/data-classes.html)的神奇之处。
 
-#### Extending functionality
+#### 扩展功能性
 
-This is where things get slightly weird from a traditional Android developer’s point of view. Kotlin allows creating your own DSL within a given scope.
+下面可能就是传统安卓开发者觉得奇怪的地方了。Kotlin 允许在一个给定范围内创建你自己的 DSL。
 
-**Let’s see how that works**
+**来看看它是如何运作的**
 
-At times within Topeka it makes sense to pass around booleans in a `Parcel`. This is not directly supported by the Android Framework APIs.
-In the initial implementation it was necessary to explicitly call a utility class’ method like such `ParcelableHelper.writeBoolean(parcel, value)`.
-With Kotlin, [extension functions](https://kotlinlang.org/docs/reference/extensions.html) solve that once and for all:
+有时我们会在 Topeka 里通过
+`Parcel` 传递 boolean。 安卓框架的 API 无法直接支持这项功能。在一开始实现这项功能的时候必须调用一个功能类函数例如`ParcelableHelper.writeBoolean(parcel, value)`。
+如果使用 Kotlin, [ 扩展函数](https://kotlinlang.org/docs/reference/extensions.html)可以解决之前的难题:
 
 ```
 import android.os.Parcel
@@ -253,11 +248,13 @@ fun Parcel.writeBoolean(toWrite: Boolean) = writeByte(if (toWrite) 1 else 0)
 fun Parcel.readBoolean() = 1 == this.readByte()
 ```
 
-Having this written in one place, makes it possible to call `parcel.writeBoolean(value)` and `parcel.readBoolean()` directly, as if it were part of the framework. If Android Studio would not highlight extension functions differently, they were almost not noticeable.
+当写好以上代码之后，我们可以把
+ `parcel.writeBoolean(value)` 和 `parcel.readBoolean()` 当成框架的一部分直接调用。要不是因为 Android Studio 使用不同的高亮方式区分扩展函数，它们看上去简直一模一样。
 
-**Extending functionality makes things easier to read.** Let’s take a look at another example: replacing a Fragment in a view hierarchy
 
-In the Java world this would look something like this:
+**扩展功能可以提升代码的可读性** 来看看另一个例子：在 view 的层次结构中替换 Fragment。
+
+如果使用 Java 的话代码如下：
 
 ```
 getSupportFragmentManager().beginTransaction()
@@ -265,9 +262,9 @@ getSupportFragmentManager().beginTransaction()
         .commit();
 ```
 
-That’s actually not too bad. But you’ll have to write this code, *every single time* a fragment will be replaced. Or create a method somewhere, for example in yet another Utils class.
+这几行代码其实写的还不错。但每次当 Fragment 被替换的时候你都要把这几行代码再写一遍，或者在其他的 Utils 类中创建一个函数。
 
-With Kotlin, an extension function makes it possible to simply call `replaceFragment(R.id.container, MyFragment())` to replace a fragment within any `FragmentActivity` within the project, by adding this code:
+如果使用 Kotlin，当我们在 `FragmentActivity` 中需要替换 Fragment 的时候，只需要使用如下代码调用`replaceFragment(R.id.container, MyFragment())` 即可:
 
 ```
 fun FragmentActivity.replaceFragment(@IdRes id: Int, fragment: Fragment) {
@@ -275,22 +272,21 @@ fun FragmentActivity.replaceFragment(@IdRes id: Int, fragment: Fragment) {
 }
 ```
 
-Replacing Fragments in a single line
-#### Less ceremony, more functionality
+替换 Fragment 只需一行代码
+#### 少一些形式，多一点儿功能
 
-**Higher order functions** blew my mind.
-Yes, I know that this is not a new concept in general. But for the old fashioned Android developer, it actually is. I had heard of them before and have seen them written, but making use of them within my own code is a different story.
+**高阶函数**太令我震撼了。是的，我知道这不是什么新的概念，但对于部分传统安卓开发者来说可能是。我之前有听说过这类函数，也见有人写过，但我从未在我自己的代码中使用过它们。
 
-Within several places in Topeka, I am relying on an `OnLayoutChangeListener` to inject behaviour. In a pre-Kotlin world this would usually result in an anonymous class, with some duplicated code.
+在 Topeka 里我有好几次都是依靠 `OnLayoutChangeListener` 来实现 inject behaviour. 如果没有 Kotlin ，这样做会生成一个包含重复代码的匿名类。
 
-After the migration, all that’s required to call is:
+迁移代码之后，只需要调用以下代码：
 `view.onLayoutChange { myAction() }`
 
-The ceremony around that has been encapsulated in this extension function:
+这其中的代码被封装到如下扩展函数中了：
 
 ```
 /**
- * Performs a given action when a layout change happens.
+ * 当布局改变时执行对应代码
  */
 inline fun View.onLayoutChange(crosssinline action: () -> Unit) {
     addOnLayoutChangeListener(object : View.OnLayoutChangeListener {
@@ -305,9 +301,9 @@ inline fun View.onLayoutChange(crosssinline action: () -> Unit) {
 }
 ```
 
-Higher order function to reduce boilerplate
+使用高阶函数减少样板代码
 
-Giving another example, this behaviour can also be applied to things like database transactions:
+另一个例子能证明以上的功能同样可以被应用于数据库的操作中：
 
 ```
 inline fun SQLiteDatabase.transact(operation: SQLiteDatabase.() -> Unit) {
@@ -321,24 +317,23 @@ inline fun SQLiteDatabase.transact(operation: SQLiteDatabase.() -> Unit) {
 }
 ```
 
-Less ceremony for database transactions
+少一些形式，多一些功能
 
-Now, instead of performing the whole dance to begin and end a transaction, all the user of this API has to call is `db.transact { operation() }`.
+这样写完后，API 使用者只需要调用 `db.transact { operation() }` 就可以完成以上所有操作。
 
-[Update via Twitter](https://twitter.com/pacoworks/status/885147451757350912): Using`SQLiteDatabase.()` instead of just `()` to pass in a function allows working on the database directly within the `operation()`. 🔥
+[通过 Twitter 进行更新](https://twitter.com/pacoworks/status/885147451757350912): 通过使用 `SQLiteDatabase.()` 而不是 `()` 可以在 `operation()` 中传递函数并实现直接使用数据库。🔥
 
-I could go on, but you get the gist.
+不用我多说你应该已经懂了。
 
-> Higher order functions and extensions are handy to make a project easier to read and more fun to work with by removing unnecessary verbosity, adding functionality and hiding implementation details.
+> 使用高阶和扩展函数能够提升项目的可读性，同时能去除冗长的代码，提升性能并省略细节。
 
 ---
 
-### Things to discover
+### 有待探索
 
-Throughout the conversion I have not come across many best practices for Android development just yet. So far I have mostly been sticking to the style guide and code conventions.
+目前为止我一直在讲代码规范以及一些开发的惯例，都没有提到有关安卓开发的实践经验。
 
-That may be because I am still new to the language or because there hasn’t been that much investment in gathering and publicising these yet. Maybe there is a collection which I am yet to come across, but it seems that there is quite some space for platform specific idioms.
-If you’re aware of collections like this, please add them to the comments.
+这主要是因为我对这门语言还不是很熟，或者说我还没有花太大精力去研究这方面。也许是因为我还没有碰到这类情况，but it seems that there is quite some space for platform specific idioms.（这句不知道怎么翻译。。）如果你知道这种情况，请在评论区补充。
 
 
 ---
