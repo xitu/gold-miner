@@ -462,7 +462,7 @@ React 保存了渲染的历史记录，当它看到一个渲染与前一个不�
 
 信不信由你，通过上面所学的知识（或部分知识），你可以开始创建一些有趣的 React 应用程序。如果你渴望更多，看看我的[**Pluralsight 的 React.js入门课程**](https://www.pluralsight.com/courses/react-js-getting-started?aid=701j0000001heIoAAI&amp;promo=&amp;oid=&amp;utm_source=google&amp;utm_medium=ppc&amp;utm_campaign=US_Dynamic&amp;utm_content=&amp;utm_term=&amp;gclid=CNOAj_2-j9UCFUpNfgod4V0Fdg).
 
-**感谢阅读。如果您觉得这篇文章有帮助，请点击下面。跟着我下面的 React.js 和 JavaScript 的更多文章**
+**感谢阅读。如果您觉得这篇文章有帮助，请点击下面的 💚。跟着我学习 React.js 和 JavaScript 的更多文章**
 
 ---
 
