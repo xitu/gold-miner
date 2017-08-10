@@ -1,3 +1,4 @@
+
 > * 原文地址：[Learning React.js is easier than you think](https://edgecoders.com/learning-react-js-is-easier-than-you-think-fbd6dc4d935a)
 > * 原文作者：[Samer Buna](https://edgecoders.com/@samerbuna)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
@@ -171,7 +172,7 @@ ReactDOM.render(<RandomValue />, mountNode);
 
 JavaScript 变量也是表达式，所以当组件接受属性列表时（不包括 `RandomValue` 组件，`props` 是可选择的），你可以在花括号里使用这些属性。我们在上述（例 1）的 `Button` 组件是这样使用的。
 
-JavaScript 对象也是表达式。有些时候我们在花括号中使用 JavaScript 对象，这看起来像是使用了两个花括号，但是在花括号中确实只有一个对象。其中一个用例就是将 CSS 样式对象传递给响应中的特殊样式属性:
+JavaScript 对象也是表达式。有些时候我们在花括号中使用 JavaScript 对象，这看起来像是使用了两个花括号，但是在花括号中确实只有一个对象。其中一个用例就是将 CSS 样式对象传递给响应中的特殊样式属性：
 
 ```
 const ErrorDisplay = ({message}) =>
@@ -219,7 +220,7 @@ ReactDOM.render(
 上述 `MaybeError` 组件只会在有 `errorMessage` 传入或者另外有一个空的 `div` 才会显示 `ErrorDisplay` 组件。React 认为 `{true}`、 `{false}`
 `{undefined}` 和 `{null}` 是有效元素，不呈现任何内容。
 
-我们也可以在 JSX 中使用所有的 JavaScript 的集合方法（`map`、`reduce` 、`filter`、 `concat`等）。因为他们返回表达式：
+我们也可以在 JSX 中使用所有的 JavaScript 的集合方法（`map`、`reduce` 、`filter`、 `concat` 等）。因为他们返回的也是表达式：
 
 ```
 const Doubler = ({value=[1, 2, 3]}) =>
@@ -237,7 +238,7 @@ ReactDOM.render(<Doubler />, mountNode);
 
 #### 4 你可以使用 JavaScript 类写 React 组件
 
-简单的函数组件非常适合简单的需求，但是有的时候我们需要的更多。React 也支持通过 [JavaScript 类](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes)来创建组件。这里 `Button` 组件（在例 1中）就是使用类的语法编写的。
+简单的函数组件非常适合简单的需求，但是有的时候我们需要的更多。React 也支持通过使用 [JavaScript 类](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes)来创建组件。这里 `Button` 组件（在例 1 中）就是使用类的语法编写的。
 
 ```
 class Button extends React.Component {
@@ -249,11 +250,12 @@ class Button extends React.Component {
 // 使用（相同的语法）
 ReactDOM.render(<Button label="Save" />, mountNode);
 ```
+
 例 9：使用 JavaScript 类创建组件
 
 类的语法是非常简单的：定义一个扩展的 `React.Component` 类（另一个你需要学习的 React 的顶级 API）。该类定义了一个单一的实例函数 —— `render()`，并使函数返回虚拟 DOM 对象。每一次我们使用基于类的 `Button` 组件（例如，通过 `<Button ... />`）,React 将从这个基于类的组件中实例化对象，并在 DOM 树中使用该对象。
 
-这就是为什么上面的例子中我们可以在 JSX 中使用 `this.props.label` 渲染输出的原因，因为每一个组件都有一个特殊的称为 `props` 的 **instance** 属性，这让所有的值传递给该组件时被实例化。
+这就是为什么上面的例子中我们可以在 JSX 中使用 `this.props.label` 渲染输出的原因，因为每一个组件都有一个特殊的称为 `props` 的 **实例** 属性，这让所有的值传递给该组件时被实例化。
 
 由于我们有一个与组件的单个使用相关联的实例，所以我们可以按照自己的意愿定制该实例。例如，我们可以通过使用常规 JavaScript 构造函数来构造它：
 
@@ -271,11 +273,10 @@ class Button extends React.Component {
 // 使用
 ReactDOM.render(<Button label="Save" />, mountNode);
 ```
+
 例 10：自定义组件实例
 
-
-We can also define class prototype functions and use them anywhere we wish, including inside the returned JSX output:
-我们也可以定义类的原型并且在任何我们希望的地方使用，包括返回的 JSX 输出内部：
+我们也可以定义类的原型并且在任何我们希望的地方使用，包括在返回的 JSX 输出的内部：
 
 ```
 class Button extends React.Component {
@@ -302,7 +303,7 @@ ReactDOM.render(<Button label="Save" />, mountNode);
 
 注意上述例 11 中的几件事情
 
-- `handleClick` 函数是使用 JavaScript 新提出的 [class-field syntax](https://github.com/tc39/proposal-class-fields) 语法写出的。这仍然是在 stage-2，但是这是访问组件安装实例（感谢箭头函数）最好的选择（因为很多原因）。然而，你需要使用类似 Babel 的编译器解码为 stage-2（或者仅仅是类字段语法）来让上述代码工作。 jsComplete REPL 有预编译功能。
+- `handleClick` 函数使用 JavaScript 新提出的 [class-field syntax](https://github.com/tc39/proposal-class-fields) 语法。这仍然是 stage-2，但是这是访问组件安装实例（感谢箭头函数）最好的选择（因为很多原因）。然而，你需要使用类似 Babel 的编译器解码为 stage-2（或者仅仅是类字段语法）来让上述代码工作。 jsComplete REPL 有预编译功能。
 
 ```
 // 错误：
@@ -319,7 +320,7 @@ onClick={this.handleClick}
 - 所有 React 元素属性（包括事件）都使用 **camelCase** 命名，而不是 **camelCase**。例如是 `onClick` 而不是 `onClick`。
 - 我们将实际的 JavaScript 函数引用传递给事件处理程序，而不是字符串。例如是 `onClick={**handleClick**}` 而不是 `onClick="**handleClick"**`。
 
-React 用自己的对象包装 DOM 事件对象以优化事件处理的性能，但是在事件处理程序内部，我们仍然可以访问 DOM 对象上所有可以访问的方法。React 将经过包装的事件对象传递给每个调用函数。例如，为了防止表单提交默认提交操作，你可以这样做：
+React 用自己的对象包装 DOM 对象事件以优化事件处理的性能，但是在事件处理程序内部，我们仍然可以访问 DOM 对象上所有可以访问的方法。React 将经过包装的事件对象传递给每个调用函数。例如，为了防止表单提交默认提交操作，你可以这样做：
 
 
 ```
@@ -349,11 +350,11 @@ ReactDOM.render(<Form />, mountNode);
 以下仅适用于类组件（扩展 `React.Component`）。函数组件有一个稍微不同的故事。
 
 1. 首先，我们定义了一个模板来创建组件中的元素。
-2. 然后，我们在某处使用 React。例如，在 `rrender` 内部调用其他的组件，或者直接使用 `ReactDOM.render`。
-3. 然后，React 实例化一个对象然后给它设置 *props* 然后我们可以通过 `this.props` 访问。这些属性都是我们在第 2 步传入的。
+2. 然后，我们在某处使用 React。例如，在 `render` 内部调用其他的组件，或者直接使用 `ReactDOM.render`。
+3. 然后，React 实例化一个对象然后给它设置**props**然后我们可以通过 `this.props` 访问。这些属性都是我们在第 2 步传入的。
 4. 因为这些全部都是 JavaScript，`constructor` 方法将会被调用（如果定义的话）。这是我们称之为的第一个：**组件生命周期方法**。
 5. 接下来 React 计算渲染之后的输出方法（虚拟 DOM 节点）。
-6. 因为这是 React 第一次渲染元素，React 将会与浏览器连通（代表我们，使用 DOM API）来显示元素。这整个过程称为 **mounting**。
+6. 因为这是 React 第一次渲染元素，React 将会与浏览器连通（代表我们使用 DOM API）来显示元素。这整个过程称为 **mounting**。
 7. 接下来 React 调用另一个生命周期函数，称为 `componentDidMount`。我们可以这样使用这个方法，例如：在 DOM 上做一些我们现在知道的在浏览器中存在的东西。在此生命周期方法之前，我们使用的 DOM 都是虚拟的。
 8. 一些组件的故事到此结束，其他组件得到卸载浏览器 DOM 中的各种原因。在后一种情况发生时，会调用另一个生命周期的方法，`componentWillUnmount`。
 9. 任何 mounted 的元素的**状态**都可能会改变。该元素的父级可能会重新渲染。无论哪种情况，mounted 的元素都可能接收到不同的属性集。React 的魔力就在这里发生，我们实际上需要 React 在这一点上！在这一点之前，说实话，我们并不需要 React。
