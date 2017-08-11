@@ -4,7 +4,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/generic-data-sources-in-swift.md](https://github.com/xitu/gold-miner/blob/master/TODO/generic-data-sources-in-swift.md)
 > * 译者：[Swants](https://swants.github.io)
-> * 校对者：
+> * 校对者：[iOSleep](https://github.com/iOSleep)
 
 # Swift 中的通用数据源
 
@@ -16,7 +16,7 @@
 
 ### TableView vs CollectionView
 
-有些人可能会问 **为什么单讨论 collectionView 而不提 tableView 呢？**
+有些人可能会问 **为什么单讨论 collectionView 而不提 tableView 呢?**
 
 在最近的几个月里，我在之前可以使用 tableView 的地方都使用成了 collectionView 。它们到目前为止表现良好！这一做法帮助我不用去区分这两个 **几乎完全** 相似但并不完全相同的集合概念。接下来则是让我做出这一决定的根本原因：
 
@@ -311,7 +311,7 @@ open class CollectionArrayDataSource<T, Cell: UICollectionViewCell>: CollectionD
 
 3. 这个类扩展了 **CollectionDataSource** 来提供进一步的特定行为。
 
-4. 特定类型 **T** 将被表示，它将通过一个 **ArrayDataProvider<T>** 对象来访问 cell 内容。
+4. 特定类型 **T** 将被表示，它将通过一个 **ArrayDataProvider\<T\>** 对象来访问 cell 内容。
 
 5. 这个类在 closure 中的定义表明有些特定的约束:
 
@@ -354,7 +354,7 @@ class PhotosDataSource: CollectionArrayDataSource<PhotoViewModel, PhotoCell> {}
 声明比较简单:
 
 1. 继承于 **CollectionArrayDataSource** 。
-2. 这个类表示 **PhotoViewModel** 作为特定类型 **T** 将会展示 cell 内容，可通过 **ArrayDataProvider<PhotoViewModel>** 对象访问，**PhotoCell** 将作为 **UICollectionViewCell** 展示。
+2. 这个类表示 **PhotoViewModel** 作为特定类型 **T** 将会展示 cell 内容，可通过 **ArrayDataProvider\<PhotoViewModel\>** 对象访问，**PhotoCell** 将作为 **UICollectionViewCell** 展示。
 
 请注意，**PhotoCell** 必须遵守 **ConfigurableCell** 协议，并且能够通过 **PhotoViewModel** 实例初始化它的属性。
 
