@@ -4,7 +4,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/contextual-chat-bots-with-tensorflow.md](https://github.com/xitu/gold-miner/blob/master/TODO/contextual-chat-bots-with-tensorflow.md)
 > * 译者：[edvardhua](https://github.com/edvardHua)
-> * 校对者：
+> * 校对者：[lileizhenshuai](https://github.com/lileizhenshuai)
 
 # 基于 TensorFlow 的上下文机器人
 
@@ -22,7 +22,7 @@
 - 接下来，我们构建一个 chat-bot 框架来处理响应
 - 最后，我们将展示如何将基本的上下文合并到我们的相应处理模块中
 
-我们将使用在 TensorFlow 上构建的高层次 API，也即  [**tflearn**](http://tflearn.org/)、当然还有[**Python**](https://www.python.org/)、同时还使用[**iPython notebook**](https://ipython.org/notebook.html)来更好的完成我们的工作
+我们将使用在 TensorFlow 上构建的高层次 API，也即  [** tflearn **](http://tflearn.org/)、当然还有[** Python **](https://www.python.org/)、同时还使用[** iPython notebook **](https://ipython.org/notebook.html)来更好的完成我们的工作
 
 
 ---
@@ -491,7 +491,7 @@ RMI 客户端和服务器设置
 
 ---
 
-现在你已经知道如何构建一个聊天机器人的框架以及使它具备有服务状态的方法。[大部分聊天机器人框架都能够无缝地处理上下文](https://medium.com/@gk_/the-future-of-messaging-apps-590720cfa792)
+现在你已经知道如何构建一个聊天机器人的框架以及使它具备有服务状态的方法，[大部分聊天机器人框架都能够无缝地处理上下文](https://medium.com/@gk_/the-future-of-messaging-apps-590720cfa792)。
 
 多想一些有创意的方法来影响聊天机器人对不同上下文所做出设置。你的用户的上下文字典可以包含各种各样的对话上下文。
 
