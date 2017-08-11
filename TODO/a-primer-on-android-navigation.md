@@ -4,7 +4,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/a-primer-on-android-navigation.md](https://github.com/xitu/gold-miner/blob/master/TODO/a-primer-on-android-navigation.md)
 > * 译者：[horizon13th](https://github.com/horizon13th)
-> * 校对者：
+> * 校对者：[SumiMakito](https://github.com/sumimakito), [laiyun90](https://github.com/laiyun90)
 
 # 安卓界面导航初识
 
@@ -33,7 +33,7 @@
 
 ---
 
-### 🗂 Tabs 标签页
+### 🗂 标签页（Tabs）
 
 ![](https://cdn-images-1.medium.com/max/2000/1*7VP4nwgLIOSLg2W13Iz6Dg.png)
 
@@ -66,7 +66,7 @@ Play Newsstand 应用（右）在媒体库页面使用标签页来呈现相同�
 
 ---
 
-### 🍔 Nav drawers 侧边栏（抽屉式导航栏）
+### 🍔 侧边栏／抽屉式导航栏（Nav drawers）
 
 ![](https://cdn-images-1.medium.com/max/2000/1*OlvxTeFymVd35TFE1d4QcA.png)
 
@@ -126,7 +126,7 @@ Inbox（右上）邮箱应用使用了伸长版的侧边栏。顶端是电子邮
 
 ---
 
-### 🚨 Bottom nav 底部导航
+### 🚨 底部导航（Bottom nav）
 
 ![](https://cdn-images-1.medium.com/max/2000/1*ucVh0hZm7BLSQiI-yzet3Q.png)
 
@@ -172,13 +172,13 @@ Google Photos 相册应用
 
 ---
 
-### 🕹 In-context navigation 上下文导航
+### 🕹 上下文导航（In-context navigation）
 
 ![](https://cdn-images-1.medium.com/max/2000/1*urOlDr3ceb6JiqdQsS4GmQ.png)
 
 #### 定义
 
-上下文导航由所有非上述导航控件间的交互组成。这些控件包括像按钮，方块，卡片，还有其它应用内跳转的内容。
+上下文导航由所有非上述导航控件间的交互组成。这些控件包括像按钮、方块、卡片，还有其它应用内跳转的内容。
 
 通常，上下文导航和常用导航形式相比，更多是非线性操作 —— 交互行为使用户在层级结构，离散型结构之间任意跳转，甚至跳转到应用之外。
 
@@ -212,7 +212,7 @@ Google Photos 相册应用
 
 ---
 
-### ↖️ Up, back, and close buttons 向上键，返回键，关闭键
+### ↖️ 向上键、返回键、关闭键（Up, back, and close buttons）
 
 ![](https://cdn-images-1.medium.com/max/2000/1*VBBwhx66_hRZApzdLzVrJA.png)
 
@@ -235,7 +235,7 @@ Google Photos 相册应用
 
 📚更多关于 后退键 vs 返回键 用户行为探讨，尽在 [Material Design](https://material.io/guidelines/patterns/navigation.html#navigation-up-back-buttons)。
 
-### 🔄 Combining patterns 混合模式
+### 🔄 混合模式（Combining patterns）
 
 尽管在这份初学者指南中，我们主要分析了使用单个导航组件的成功案例。实际上，这些应用在组合运用多类导航时仍然表现出色，构建了合理的用户行为框架。在文章结尾，我们来看看几个混搭实例。
 
@@ -247,7 +247,7 @@ Google Photos 相册应用
 
 Google+
 
-可能最显而易见的实例便是 Google+（上图），混合上述所有元素 —— 标签页，底部导航，上下文导航。
+可能最显而易见的实例便是 Google+（上图），混合上述所有元素 —— 标签页、底部导航、上下文导航。
 
 分离来看，底部导航是 Google+ 的焦点，可以访问四个顶级页面。而标签页将页面结构化增强，通过不同类别拆分内容。而侧边栏囊括了剩余其它按钮，以访问频率区分主次。
 
