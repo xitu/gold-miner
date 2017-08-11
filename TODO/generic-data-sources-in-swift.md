@@ -3,55 +3,55 @@
 > * 原文作者：[Andrea Prearo](https://medium.com/@andrea.prearo)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/generic-data-sources-in-swift.md](https://github.com/xitu/gold-miner/blob/master/TODO/generic-data-sources-in-swift.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Swants](https://swants.github.io)
+> * 校对者：[iOSleep](https://github.com/iOSleep)
 
-# Generic Data Sources in Swift
+# Swift 中的通用数据源
 
 ![](https://cdn-images-1.medium.com/max/1600/1*Lv_C7Y7otRuJyQb5_v35Pw.gif)
 
-In the vast majority of iOS apps I’ve been working on, table views and collection views have been the most commonly used UI components. As setting up a table view or collection view requires a lot of boilerplate, I have recently spent some time looking into a good way to avoid writing the same code over and over and over. My effort was focused on trying to encapsulate the required boilerplate by means of a set of abstractions. Over time, many other developers have worked on this problem and, with the recent advances to [Swift](https://github.com/apple/swift/blob/master/CHANGELOG.md), a lot of interesting approaches have been developed.
+在我开发的绝大多数 iOS app 中， tableView 和 collectionView 绝对是最常用的 UI 组件。鉴于设置一个 tableView 或 collectionView 需要大量样板代码，我最近花了些时间找到一个比较好的方法，去避免一遍又一遍地重复同样的代码。我的主要工作是对必需的样板代码进行抽取封装。随着时间的推移，很多其他开发者也解决了这个问题。并且随着 [Swift](https://github.com/apple/swift/blob/master/CHANGELOG.md) 的最新进展出现了很多有趣的解决方案。
 
-In this post, I am going to illustrate the approach I have been using for some time to reduce the amount of boilerplate required for setting up collection views in my apps.
+本篇文章里，我将介绍在我 APP 里已经使用了一段时间的解决方案，这个方案让我在设置 collectionView 的时候减少了大量的样板代码。
 
-### Table View vs Collection View
+### TableView vs CollectionView
 
-*“Why only talk about collection views and not table views?”* some of you may ask.
+有些人可能会问 **为什么单讨论 collectionView 而不提 tableView 呢?**
 
-For the last few months, I have been using collection view in every instance where, previously, I could have used table view. So far it has been working great! It’s helped me avoid the sort of duality that comes from using two concepts that are *almost* similar but not quite the same. The rationale behind my decision is as follows:
+在最近的几个月里，我在之前可以使用 tableView 的地方都使用成了 collectionView 。它们到目前为止表现良好！这一做法帮助我不用去区分这两个 **几乎完全** 相似但并不完全相同的集合概念。接下来则是让我做出这一决定的根本原因：
 
-- Any table view can always be implemented/refactored as a collection view with one column.
-- Table views don’t work well on large screens (e.g.: iPad).
+- 任何 tableView 都可以用单列的 collectionView 进行实现/重构。
+- tableView 在大屏幕上（如：iPad ）表现的不是特别好。
 
-I would like to point out that I am not suggesting that you should go through your codebase and re-implement all table views as collection views. What I am suggesting is that, if you need to add a **new feature** that requires displaying a list of items, you should consider using a collection view instead of a table view. Especially if you are working on a universal app, as a collection view will likely make it is easier to work with all screen sizes by dynamically adjusting the layout.
+需要说明的是，我没有建议你把代码库里所有的 tableView 都用 collectionView 重新实现。我建议的是，当你需要添加一个展示列表的新功能时，你应该考虑下使用 collectionView 来代替 tableView 。尤其是在你开发一个 Universal APP 时，因为 collectionView 将让你的 APP 在所有尺寸屏幕上动态调整布局变得更简单。
 
-### Swift Generics and the Search for Useful Abstractions
+### Swift 泛型与有效抽取的探索
 
-I have always been a fan of generic programming, so you can imagine I was pretty excited when Apple introduced generics in Swift. However, generics and protocols have not been working well together for some time. Then, with the introduction of [associated types](https://www.natashatherobot.com/swift-what-are-protocols-with-associated-types/) in Swift 2.x, creating generic protocols became much easier and many developers started experimenting with them.
+我一直是泛型编程的拥趸，所以你能想象的到当苹果宣布在 Swift 中引进泛型时，我是多么的兴奋。但是泛型和协议结合有时并不合作的那么和谐。这时 Swift 2.x 中关于 [关联类型](https://www.natashatherobot.com/swift-what-are-protocols-with-associated-types/) 的介绍让使用泛型协议变得更加简单，越来越多的开发者开始去尝试使用它们。
 
-The abstractions that I am going to present started out as an experiment with using generics, and in particular, generic protocols. Such abstractions allowed me to encapsulate the boilerplate required to set up collection views, and to reduce the code required to create a data source for collection views to two lines of code for simple use cases.
+我打算展示的代码抽取是基于对泛型使用的尝试，尤其是泛型协议。这样的代码抽取能够让我对设置 collectionView 所需的样板代码进行封装，从而减少设置数据源所需的代码，甚至在一些简单的使用场景两行代码就足够了。
 
-I’d like to point out that what I have built is not a silver bullet. The abstractions I implemented are focused on solving a set of specific use cases. For those cases, they do a reasonably good job of simplifying the code required to set up collection views. For some more complicated use cases, additional code may be required. I mainly focused on hiding away the most common functionality related to collection views. More functionality could be encapsulated, if needed, but that wasn’t required for my specific use cases.
+我想说明下我所创建的不是通解。我做的代码封装针对于解决一些特定使用场景。对于这些场景来说，使用抽取封装后的代码效果非常好。对于一些复杂的使用场景，可能就需要添加额外的代码了。我把抽取工作主要放在了 collectionView 最常用的功能。如果需要的话，你可以封装更多的功能，但是对于我的特定场景来说，这并不是必需的。
 
-For the purpose of this post, I will present a few abstractions that cover the functionality that is commonly required when working with a collection view. This should be a good starting point to illustrate what you can build using generics and, in particular, generic protocols.
+作为本篇文章的目的，我将会展示一部分抽取代码来概括使用 collectionView 时常用的功能。这将是你了解使用泛型，尤其是泛型协议能够来做什么的一个好的机会。
 
-### Collection View Cell Abstractions
+### Collection View Cell 抽取
 
-The first step I usually take in implementing a collection view is to create the cell that I am going to use to display the required data. What is always required when dealing with a cell in a collection view is to:
+首先，我实现 collectionView 通常都是先创建展示数据的 cell 。处理 collectionView 的 cell 时通常需要：
 
-- Dequeue the cell
-- Configure the cell
+- 重用 cell
+- 配置 cell
 
-To simplify the above tasks, I created two protocols:
+为了简化上面的工作，我写了两个协议：
 
 - ***ReusableCell***
 - ***ConfigurableCell***
 
-Let’s take a look at the details of the above abstractions.
+让我们详细地看一下这两个抽取后代码吧。
 
 ### ReusableCell
 
-The ***ReusableCell*** protocol requires you define a ***reuseIdentifier*** that will be used when dequeueing the cell. In my apps, I usually adopt the convention that the cell identifier is the same as the cell class name. Therefore, it is easy to abstract this away by creating a protocol extension that makes ***reuseIdentifier*** return a string with the class name:
+这个 **ReusableCell** 协议需要你定义一个 **重用标识符** ，这个标志符将在重用 cell 的时候被用到。在我的 APP 里，我总是图方便把 cell 的重用标识符设置为和 cell 的类名一样。因此，很容易通过创建一个协议扩展来抽取出，让 **reuseIdentifier** 返回一个带有类名称的字符串：
 
 ```
 public protocol ReusableCell {
@@ -67,7 +67,7 @@ public extension ReusableCell {
 
 ### ConfigurableCell
 
-The ***ConfigurableCell*** protocol requires you implement a method that will be used to configure the cell using an instance of a specific type, which is declared as generic type*** T***:
+这个 **ConfigurableCell** 协议需要你实现一个方法，这个方法将使用特定类型的实例配置 cell ,而这个实例被定义成了一个泛型类型 **T**:
 
 ```
 public protocol ConfigurableCell: ReusableCell {
@@ -77,23 +77,23 @@ public protocol ConfigurableCell: ReusableCell {
 }
 ```
 
-The ***ConfigurableCell ***protocol will be used when it is time to load cell content. I will go into some of its details in a bit. For the time being, I’d just like to highlight a couple of things:
+这个 **ConfigurableCell** 协议将会在加载 cell 内容的时候被调用。接下来我会详细介绍一些细节，现在我就强调下一些地方：
 
-1. ***ConfigurableCel***l extends ***ReusableCell***
+1. **ConfigurableCell** 继承 **ReusableCell**
 
-2. The use of the associated type (***associatedtype T***) defines ***ConfigurableCell ***as a generic protocol
+2. 绑定类型的使用（ **绑定类型 T** ）将 **ConfigurableCell** 定义为泛型协议。
 
-### Abstracting the Data Source: CollectionDataProvider
+### 数据源的抽取: CollectionDataProvider
 
-Now, let’s go back for a moment to what is required to set up a collection view. In order for the collection view to display any content, we need to conform to the ***UICollectionViewDataSource*** protocol. The first steps usually required are related to specifying:
+现在，让我们把目光收回，再回想下设置 collection view 都需要做些什么。为了让 collection view 展示内容，我们需要遵循 **UICollectionViewDataSource** 协议。那么最先要做的常常是确定下来这些:
 
-- The number of sections: ***numberOfSections(in:)***
-- The number of rows per section: ***collectionView(_:numberOfItemsInSection:)***
-- How to load cell content: ***collectionView(_:cellForItemAt:)***
+- 需要几组：**numberOfSections(in:)**
+- 每组需要几行：**collectionView(_:numberOfItemsInSection:)**
+- cell 的内容怎么加载 ：**collectionView(_:cellForItemAt:)**
 
-The above steps implement the delegates that make sure we are able to display cells for a specific collection view. Therefore, to me, this looked like a good place for building an abstraction.
+将上述代理方法实现，会确保我们能够对指定 collectionView 的 cell 进行展示 。而对于我来说，这里是非常适合进行代码抽取的地方。
 
-To abstract and encapsulate the above steps, I created the following generic protocol:
+为了抽取和封装上述步骤，我创建了以下泛型协议：
 
 ```
 public protocol CollectionDataProvider {
@@ -107,19 +107,19 @@ public protocol CollectionDataProvider {
 }
 ```
 
-The first three methods in the protocol are:
+这个协议前三个方法是：
 
 - ***numberOfSections()***
 - ***numberOfItems(in:)***
 - ***item(at:)***
 
-They map what is required to implement the above listed delegate methods of ***UICollectionViewDataSource***. Since I had some use cases where I also needed to update the data source based on some user interaction, I ended up adding a fourth method ***(updateItem(at:, value:))*** that allows you to update the underlying data source if needed. Therefore, the methods declared in ***CollectionDataProvider*** are sufficient to encapsulate the common functionality that is required for conforming to ***UICollectionViewDataSource***.
+他们指明了遵循 **UICollectionViewDataSource** 协议需要实现的代理方法列表。基于我有过一些当用户交互后需要更新数据源的使用场景，我在最后又加了一个 **(updateItem(at:, value:))** 方法。这个方法允许你在需要的时候更新底层数据。到这里，在 **CollectionDataProvider** 定义的方法满足了遵循 **UICollectionViewDataSource** 协议时需要实现的常用功能。
 
-### Encapsulating the Boilerplate: CollectionDataSource
+### 封装样板: CollectionDataSource
 
-With the above abstractions in place, it is possible to start implementing a base class that will encapsulate the common boilerplate required to create a data source for a collection view. This is where most of the *“magic”* is going to happen! The main responsibility of this class is to leverage a specific ***CollectionDataProvider*** and ***UICollectionViewCell*** to implement what is required to conform to the ***UICollectionViewDataSource*** protocol. It will also encapsulate some common cell functionality by conforming to the ***UICollectionViewDelegate*** protocol as well.
+通过上面的抽取，现在可以开始实现一个基类，这个基类将被封装为 collectionView 创建数据源所需的常用样板。这就是最神奇地方！这个类的主要作用就是利用特定的 **CollectionDataProvider** 和 **UICollectionViewCell** 来满足遵循 **UICollectionViewDataSource** 协议所需要实现的方法。
 
-Here is the class declaration:
+这是这个类的定义：
 
 ```
 open class CollectionDataSource<Provider: CollectionDataProvider, Cell: UICollectionViewCell>:
@@ -130,17 +130,17 @@ open class CollectionDataSource<Provider: CollectionDataProvider, Cell: UICollec
 { [...] }
 ```
 
-A lot is happening here:
+它为我们做了很多事：
 
-1. The class has an open access attribute because it will be extended to provide a concrete implementation that will work with a specific CollectionDataProvider.
-2. This is a generic class and it requires further specification by defining the particular instance of ***Provider (CollectionDataProvider)*** and Cell ***(UICollectionViewCell)*** it will be working with.
-3. The class extends ***NSObject*** and conforms to both ***UICollectionViewDataSource*** and ***UICollectionViewDelegate*** to implement and encapsulate the boilerplate code.
-4. The class has a couple of specific constraints declared in the where clause:
+1. 这个类有一个公有属性，让我们能够将它扩展为指定 CollectionDataProvider 提供正确的实现。
+2. 这是一个泛型的类，所以它需要特定的 **Provider (CollectionDataProvider)** 和 Cell **(UICollectionViewCell)** 对象进一步的定义来使用。
+3. 这个类继承于 **NSObject** 基类，所以能够遵循 **UICollectionViewDataSource** 和 **UICollectionViewDelegate** 来进行抽取封装样板代码。
+4. 这个类在以下场景使用的时候有一些特定限制：
 
-- The ***UICollectionViewCell*** it accepts has to conform to the ***ConfigurableCell ***protocol (***Cell:******ConfigurableCell***).
-- The specific type ***T*** must be the same for both the Cell and the Provider (***Provider.T == Cell.T***).
+- **UICollectionViewCell** 必须遵循 **ConfigurableCell** 协议。（ **Cell:** **ConfigurableCell** ）
+- 特定类型 **T** 必须和 cell 跟 Provider 的 **T** 相同 (**Provider.T == Cell.T**)。
 
-The code required to set up and initialize the ***CollectionDataSource*** class is as follows:
+代码需要像下面一样对 **CollectionDataSource** 进行初始化和设置：
 
 ```
 // MARK: - Private Properties
@@ -161,11 +161,11 @@ func setUp() {
 }
 ```
 
-The code is rather simple: ***CollectionDataSource*** needs to know which collection view instance it will be acting upon and through which specific Provider. Both these elements are passed as parameters of the ***init*** method. During the initialization phase, ***CollectionDataSource*** sets itself as the delegate for ***UICollectionViewDataSource*** and ***UICollectionViewDelegate*** (in the ***setUp*** methods).
+代码是非常简单的：**CollectionDataSource** 需要知道它将针对哪个 collectionView 对象，将根据哪个作为数据提供者。这些问题都是通过 **init** 方法的参数进行传递确定的。在初始化的过程中，**CollectionDataSource** 将自己设置为 **UICollectionViewDataSource** 和 **UICollectionViewDelegate** 的代理对象(在 **setUp** 方法中)。
 
-Now, let’s take a look at the boilerplate code that implements the delegates for ***UICollectionViewDataSource***.
+现在让我们看一下 **UICollectionViewDataSource** 代理的样板代码。
 
-Here’s the code:
+这是代码：
 
 ```
 // MARK: - UICollectionViewDataSource
@@ -192,21 +192,21 @@ open func collectionView(_ collectionView: UICollectionView,
 }
 ```
 
-The above snippet shows the implementation of the main ***UICollectionViewDataSource*** delegates by means of an instance of ***CollectionDataProvider*** which, as discussed earlier, encapsulates the details of the data source implementation. Each delegate uses the specific ***CollectionDataProvider*** method that abstracts the interaction with the data source.
+上面的代码片段通过 **CollectionDataProvider** 的一个对象展示了 **UICollectionViewDataSource** 代理的主要实现，就像之前所说的那样，它封装了数据源实现的所有细节。每个代理都使用指定的 **CollectionDataProvider** 方法来抽取跟数据源之间进行交互。
 
-Notice that the ***collectionView(_:cellForItemAt:)*** method has an open access attribute. This allows it to extend it, in case any subclass requires more customization during the cell content initialization phase.
+注意 **collectionView(_:cellForItemAt:)** 方法有一个公开的属性，这就能够让它的任何子类在需要对 cell 内容进行更多定制化的时候进行扩展。
 
-Now that the functionality for displaying the cells in the collection view is in place, let’s add a couple more features.
+现在对 collectionView cell 展示的功能已经做好了，让我们再为它添加更多的功能吧。
 
-For the first additional feature, the user should to be able to tap on a cell and trigger some action. To implement this, a simple solution is to define a custom closure and, if assigned, execute it when the user taps on a cell.
+而作为第一个要添加的功能，用户应该能够在点击 cell 的时候触发某些操作。为了实现这个功能，一个简单的方案就是定义一个简单的 closure,并对这个 closure 初始化，当用户点击 cell 的时候执行这个 closure 。
 
-The custom closure to handle cell taps looks as follows:
+处理 cell 点击的自定义 closure 如下所示：
 
 ```
 public typealias CollectionItemSelectionHandlerType = (IndexPath) -> Void
 ```
 
-Now, we can declare a property to store the closure and implement the ***collectionView(_:didSelectItemAt:)*** method of ***UICollectionViewDelegate*** to execute the assigned closure when the user taps the cell:
+现在，我们能定义个属性来存储这个 closure ，当用户点击这个 cell 的时候就会在 **UICollectionViewDelegate** 的 **collectionView(_:didSelectItemAt:)** 代理方法实现中执行这个初始化好的 closure 。
 
 ```
 // MARK: - Delegates
@@ -218,7 +218,7 @@ public func collectionView(_ collectionView: UICollectionView, didSelectItemAt i
 }
 ```
 
-For the second additional feature, I am going to implement some of the boilerplate to handle multiple headers and sections in ***CollectionDataSource***. This requires implementing the ***viewForSupplementaryElementOfKind*** delegate method of ***UICollectionViewDataSource***. Because I wanted to encapsulate all the logic for setting up the delegates inside ***CollectionDataSource***, in order for a subclass to be able to customize ***viewForSupplementaryElementOfKind***, the delegate method should be declared with an open attribute accessor to make it overridable in any subclass:
+作为第二个要添加的功能，我打算在 **CollectionDataSource** 中对多组组头和组的一些代码样板进行封装。这就需要实现 **UICollectionViewDataSource** 的代理方法 **viewForSupplementaryElementOfKind** 。为了能够让子类自定义的实现 **viewForSupplementaryElementOfKind** ，这个代理方法需要定义为公开方法，以便让任何子类能够对这个方法进行重写。
 
 ```
 open func collectionView(_ collectionView: UICollectionView,
@@ -229,20 +229,20 @@ open func collectionView(_ collectionView: UICollectionView,
 }
 ```
 
-Generally speaking, this is true for all delegate methods. In case they need to be overridden by a subclass, it is required to implemented them in ***CollectionDataSource ***and declare them with an open attribute accessor.
+通常来说，这种方式适用于所有的代理方法，当他们需要被子类重写覆盖时，这些方法需要定义为公有方法，并在 **CollectionDataSource** 中实现。
 
-A different strategy to achieve the same goal would be to use a custom closure, as seen for the cell tap handling ***(CollectionItemSelectionHandlerType)***.
+另一种不同的解决方案就是使用一个自定义的 closure ，就像在 **(CollectionItemSelectionHandlerType)** 方法中处理 cell 点击事件一样。
 
-This particular aspect of my implementation is a typical trade-off in software engineering. On one hand — the majority of the details for setting up the data source for a view collection will be hidden (and abstracted away). On the other hand — all functionality that has not been provided as part of the boilerplate will not be available “out-of-the-box” and will require additional customization. Adding new functionality is not overly complicated, but requires implementing more custom code as seen in the two examples above.
+我实现的这个特定方面是软件工程中的一个典型的权衡，一方面 —— 为 collectionView 设置数据源的主要细节都被隐藏（被抽取封装）。另一方面 —— 封装的样板代码中没有提供的功能，就会变得不能开箱即用，添加新的功能并不复杂，但是需要像我上面两个例子那样，需要实现更多的自定义代码。
 
-### Implementing a Concrete CollectionDataProvider: ArrayDataProvider
+### 实现一个具体的 CollectionDataProvider 也就是 ArrayDataProvider
 
-Now that the boilerplate is set up, the data source for a collection view is taken care of by means of ***CollectionDataSource***. Let’s see how we can take advantage of it for a very common use case. To do that, let’s go back for a moment to the ***CollectionDataProvider*** protocol. In order to be able to create an instance of ***CollectionDataSource***, it is required to provide a concrete implementation of ***CollectionDataProvider***. A basic implementation, which covers most of the common use cases, can simply leverage an array type to represent a list of items containing the data to be displayed in the collection view cells. As part of my experimentation with data source abstractions, I made this implementation a little bit more generic and capable of representing:
+现在样板代码已经设置好了，collectionView 的数据源由 **CollectionDataSource** 负责。让我们通过一个普通的使用案例来看看样板代码用起来有多方便。为了做这个，**CollectionDataSource** 对象需要提供 **CollectionDataProvider** 具体的实现。一个覆盖大多数常见使用案例的基本实现，可以简单地使用二维数组来包含展示 collectionView  cell 内容的数据 。作为我对数据源抽象的试验的一部分，我使这个实现变得更加通用，并且能够表示:
 
-- An array of lists, where each list in the array represents the content for a section of the collection view.
-- A single list of items, representing the data for the cells of the collection view, which is represented as the equivalent of having only one section (without header).
+- 二维数组，每一个数组元素代表 collectionView 一组 cell 的内容。
+- 数组，表示 collectionView 只有一组 cell 的内容（没有组头）。
 
-The code for the above implementation is contained in the generic class ***ArrayDataProvider***:
+上面的代码实现都包含在泛型类 **ArrayDataProvider** 中：
 
 ```
 public class ArrayDataProvider<T>: CollectionDataProvider {
@@ -290,13 +290,13 @@ public class ArrayDataProvider<T>: CollectionDataProvider {
 }
 ```
 
-This takes care of abstracting the details of accessing the data source for the most common use cases where a linear data structure can represent the content of the cells.
+这样做可以提取访问数据源的细节，线性数据结构可以表示 cell 的内容是最常见的使用情况。
 
-### Wrapping it All Together: CollectionArrayDataSource
+### 封装到一块: CollectionArrayDataSource
 
-With the concrete implementation of the ***CollectionDataProvider*** protocol in place, it is easy to create a subclass of ***CollectionDataSource*** that leverages it to cover the very common use case where a simple list of items needs to be displayed.
+这样 **CollectionDataProvider** 协议就具体实现了，创建一个 **CollectionDataSource** 子类来实现最常见的简单的列表数据展示是非常容易的。
 
-Let’s start with the class declaration:
+让我们从这个类的定义开始：
 
 ```
 open class CollectionArrayDataSource<T, Cell: UICollectionViewCell>: CollectionDataSource<ArrayDataProvider<T>, Cell>
@@ -304,21 +304,21 @@ open class CollectionArrayDataSource<T, Cell: UICollectionViewCell>: CollectionD
  { [...] }
 ```
 
-This declaration defines quite a few things:
+这个声明定义了很多事情：
 
-1. The class has an open access attribute because it will be extended to eventually create an instance of the data source for a ***UICollectionView ***instance.
-2. This is a generic class and it requires further specification by defining the particular type*** T*** that will be representing the cell content and the Cell, based on the ***UICollectionViewCell*** it will be working with.
+1. 这个类有一个公有的属性，因为它最终将被扩展为 **UICollectionView** 对象的数据源对象。
+2. 这是一个继承 **UICollectionViewCell** 的泛型类，需要被特定的类型 **T** 进一步定义才能正确展示 cell 和 cell 的内容。
 
-3. This class extends ***CollectionDataSource*** to provide further specific behavior.
+3. 这个类扩展了 **CollectionDataSource** 来提供进一步的特定行为。
 
-4. The particular type ***T*** that will be representing the cell content which will be accessed through an ***ArrayDataProvider<T>*** instance.
+4. 特定类型 **T** 将被表示，它将通过一个 **ArrayDataProvider\<T\>** 对象来访问 cell 内容。
 
-5. The class has a couple of specific constraints, declared in the where clause:
+5. 这个类在 closure 中的定义表明有些特定的约束:
 
-- The ***UICollectionViewCell*** it accepts has to conform to the ***ConfigurableCell*** protocol (Cell: ***ConfigurableCell***).
-- The specific type T must be the same for both the Cell and the ***ArrayDataProvider<T> (Cell. T == T)***.
+- **UICollectionViewCell** 必须遵循 **ConfigurableCell** 协议。（ **Cell:** **ConfigurableCell** ）
+- cell 中的特定类型 **T** 必须跟 Provider 的 **T** 相同  (**Provider.T == Cell.T**) 。
 
-The class body is rather simple:
+类的实现非常简单：
 
 ```
 // MARK: - Lifecycle
@@ -341,53 +341,53 @@ public func updateItem(at indexPath: IndexPath, value: T) {
 }
 ```
 
-It just provides a couple of initializers and methods to transparently interact with the provider instance to read and write items from/to the data source.
+它只是提供了一些初始化方法和与交互方法，这些方法使我们能够让数据提供者与数据源透明地进行读取和写入操作。
 
-### Setting up a Basic Collection View
+### 创建一个基本的 CollectionView
 
-The ***CollectionArrayDataSource*** base class can be extended to create a specific data source for any collection view that can be represented with an array of items. Here is an example (taken from the PhotoList sample available in the [GitHub repo](https://github.com/andrea-prearo/GenericDataSource)):
+可以将 **CollectionArrayDataSource** 基类扩展，为任何可以用二维数组展示的 collection view 创建一个特定的数据源。
 
 ```
 class PhotosDataSource: CollectionArrayDataSource<PhotoViewModel, PhotoCell> {}
 ```
 
-The declaration is relatively simple:
+声明比较简单:
 
-1. The class extends ***CollectionArrayDataSource***.
-2. This class specifies ***PhotoViewModel*** as the particular type ***T*** that will be representing the cell content, accessible through an ***ArrayDataProvider<PhotoViewModel>*** instance, and ***PhotoCell*** as the ***UICollectionViewCell*** it will be working with.
+1. 继承于 **CollectionArrayDataSource** 。
+2. 这个类表示 **PhotoViewModel** 作为特定类型 **T** 将会展示 cell 内容，可通过 **ArrayDataProvider\<PhotoViewModel\>** 对象访问，**PhotoCell** 将作为 **UICollectionViewCell** 展示。
 
-Please, notice that ***PhotoCell*** has to conform to the ***ConfigurableCell ***protocol, as specified by the ***CollectionDataSource*** declaration, and be able to configure its properties from an instance of ***PhotoViewModel***.
+请注意，**PhotoCell** 必须遵守 **ConfigurableCell** 协议，并且能够通过 **PhotoViewModel** 实例初始化它的属性。
 
-Creating an instance of ***PhotosDataSource*** is quite simple. It just requires being passed the collection view it will be working on and the array of ***PhotoViewModel*** items that represent each cell content:
+创建一个 **PhotosDataSource** 对象是非常简单的。只需要传递过去将要展示的 collectionView 和由展示每个 cell 内容的 **PhotoViewModel** 元素组成的数组：
 
 ```
 let dataSource = PhotosDataSource(collectionView: collectionView, array: viewModels)
 ```
 
-The ***collectionView*** parameter will typically be the outlet pointing to a collection view in a storyboard (***@IBOutlet weak var collectionView: UICollectionView!***).
+**collectionView** 参数通常是 storyboard 上的 collectionView 通过 outlet 指向获取到的。
 
-And that’s it! Two lines of code are sufficient to set up the data source for a basic collection view.
+所有的就完成了！两行代码就可以设置一个基本的 collectionView 数据源。
 
-### Setting up a Collection View with Headers and Sections
+### 设置带有组标题和组的 CollectionView
 
-For a more advanced and complex use case, you could take a look at the ***TaskList*** sample available in the [GitHub repo](https://github.com/andrea-prearo/GenericDataSource). I am not going into the details of the sample in this article as the content is already quite long. I will likely dive deeper into the topic of *“Collection View with Headers and Sections”* in a next post. On this note, if such a topic would be interesting for you, don’t hesitate to let me know so I can prioritize what to write about next. To get in touch with me, please leave a comment on this post or send an email to: [andrea.prearo@gmail.com](mailto:andrea.prearo@gmail.com).
+对于更高级和复杂的用例，你可以简单在 [GitHub repo](https://github.com/andrea-prearo/GenericDataSource) 上查看 **TaskList** 。内容已经很长了，本文就不再不介绍示例的更多细节。我将在下一篇 *“Collection View with Headers and Sections”* 文章里进行深入地探讨。在这个说明中，如果存在一个话题对你来说很有意思，请不要犹豫让我知道，这样我就可以优先考虑下一步写什么。为了和我联系，请在这篇文章下方留言或发邮件给我: [andrea.prearo@gmail.com](mailto:andrea.prearo@gmail.com) 。
 
-### Conclusion
+### 结论
 
-In this post I presented some abstractions I built to simplify working with collection views using generic data sources. The proposed implementation is based on use cases that fit recurring patterns I’ve run into during my experience with building iOS apps. Some more advanced use cases would likely require further customization. I believe that it would be possible to adapt the presented abstractions, or build new ones, to simplify working with different collection view patterns. But this is outside the scope of this particular post.
+在这篇文章中，我介绍了一些我做的抽取封装，以简化使用泛型数据源的 collectionView 。所提出的实现都是基于我在构建 iOS app 时遇到的重复代码的场景。一些更高级的的功能可能需要进一步的自定义。我相信，继续优化所得到的代码抽取，或者构建新的代码抽取，来简化处理不同的 collectionView 模式都是可能的。但这已经超出了这篇文章的范围。
 
-All the code for the generic data source and the sample apps is available under MIT license on [GitHub](https://github.com/andrea-prearo/GenericDataSource), and can be freely reused and adapted. All feedback, as well as proposed contributions, are welcome and greatly appreciated. In case there is enough interest, I would be happy to add the required configurations to make the code work with Cocoapods and Carthage and allow the generic data source to be imported using such dependency management tools. Or, this could be a good starting point to contribute to this project.
+所有的通用数据源代码和示例工程都在 [GitHub](https://github.com/andrea-prearo/GenericDataSource) 并且是遵守 MIT 协议的。你可以直接使用和修改它们。欢迎所有的反馈意见和建议的贡献，并非常感谢你这么做。如果你有足够的兴趣，我将很乐意添加所需的配置，使代码与Cocoapods和Carthage一起使用，并允许使用这种依赖关系管理工具导入通用数据源。或者，这可能是一个很好的起点去为这个项目做出贡献。
 
 ---
 
-#### Additional Links
+#### 额外链接
 
 - [Smooth Scrolling in UITableView and UICollectionView](https://medium.com/capital-one-developers/smooth-scrolling-in-uitableview-and-uicollectionview-a012045d77f)
 - [Boost Smooth Scrolling with iOS 10 Pre-Fetching API](https://medium.com/capital-one-developers/boost-smooth-scrolling-with-ios-10-pre-fetching-api-818c25cd9c5d)
 
-***DISCLOSURE STATEMENT: These opinions are those of the author. Unless noted otherwise in this post, Capital One is not affiliated with, nor is it endorsed by, any of the companies mentioned. All trademarks and other intellectual property used or displayed are the ownership of their respective owners. This article is © 2017 Capital One.***
+**披露声明：这些意见是作者的意见。 除非在文章中额外声明，否则 Capital One 版权不属于任何所提及的公司，也不属于任何上述公司。 使用或显示的所有商标和其他知识产权均为其各自所有者的所有权。 本文版权为 ©2017 Capital One**
 
-***For more on APIs, open source, community events, and developer culture at Capital One, visit DevExchange, our one-stop developer portal: ***[***developer.capitalone.com***](https://developer.capitalone.com/)***.***
+更多关于 API、开源、社区活动或开发文化的信息，请访问我们的一站式开发网站  [**developer.capitalone.com**](https://developer.capitalone.com/) 。
 
 
 ---
