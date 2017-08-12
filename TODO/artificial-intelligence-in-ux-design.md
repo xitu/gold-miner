@@ -3,109 +3,107 @@
   > * 原文作者：[Mukund Krishna](https://www.sitepoint.com/author/mukund-krishna/)
   > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
   > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/artificial-intelligence-in-ux-design.md](https://github.com/xitu/gold-miner/blob/master/TODO/artificial-intelligence-in-ux-design.md)
-  > * 译者：
+  > * 译者：[Changkun Ou](https://github.com/changkun/)
   > * 校对者：
 
-  # Can AI Solve Your UX Design Problems?
+# AI 能解决你的 UX 设计问题吗？
 
   ![AI Powered UX](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2017/07/1501567920icDqSo2.jpg)
 
-One of Mark Zuckerberg’s key New Year resolutions for 2016 was to build his own “[simple AI bot](http://www.vanityfair.com/news/2016/12/mark-zuckerberg-spent-100-hours-building-his-own-robot-butler)” that could help him with the household tasks. Remember the image of the butler, Jarvis from Iron Man? That’s a classic Hollywood example of how AI works.
+Mark Zuckerberg 在 2016年的重要新年决定之一就是建立属于自己的「[简单 AI 机器人](http://www.vanityfair.com/news/2016/12/mark-zuckerberg-spent-100-hours-building-his-own-robot-butler)」，使其帮助他解决家务。还记得钢铁侠的管家 Jarvis 吗？这就是一个经典的关于 AI 如何发挥作用的来自好莱坞的例子。
 
-But, what precisely is Artificial Intelligence and how can it solve the most common UX problems today?
+但是，人工智能（artificial intelligence, AI）究竟是什么？它如何能解决当今最常见的UX问题呢？
 
 ![Tony Stark using Jarvis](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2017/07/150156788652646.jpg)
-Tony Stark using Jarvis.
+Tony Stark 在使用 Jarvis。
 
-Artificial Intelligence (or AI) is an advanced human-like computerized system that has the ability to intelligently manage the activities and systems which humans usually do manually. While bots like Apple’s Siri and Amazon’s Echo are programmed to take on our most mundane tasks, bots like Google’s *Deep Dream* are inherently creative, helping users in problem-solving, thereby improving their experience.
+人工智能是一种先进的类人的计算机化的系统，具有智能管理通常需要人类手动执行的活动和系统的能力。当苹果的 Siri 和Amazon 的 Echo 这样的机器人还在处理我们最平凡的任务时，像 **Google 的 Deep Dream** 这样的机器人就已经具有与生俱来地创造性，并能帮助用户解决问题，从而改善他们的体验。
 
-AI is finding its application across multiple real-time scenarios:
+AI 正在多个实时场景中发现其应用：
 
-- **Handle data explosion** – With the advent of smartphones and mobile devices, comes the explosion of data. As the amount of data grows, it is pertinent to have an AI system to analyze, process, organize, and interpret the data.
-- **The ability to decipher our intent** – Netflix can predict from your behavior what kind of TV show or movie will keep you glued to your sofa. Imagine if your AI system can adjust your car’s temperature and turn off the lights when you take your car out of the garage.
-- **Improving the customer experience** – AI can dig deep into details which human eye could probably miss and help you focus on the right data. For instance, [RightClick.io](https://rightclick.io/#/) is a chatbot that helps you create websites by involving you in a conversation. Even if you try to divert it with unrelated questions, this AI device will put you back to the actual job of website creation.
+- **处理数据爆炸**：随着智能手机和移动设备的出现，数据正爆炸式增长。随着数据量的增长，有一个 AI 系统来分析、处理、组织和解释数据。
+- **能够辨别我们的意图**：Netflix 可以从你的行为中预测什么样的电视节目或电影将让你待在沙发上。想象一下，你的 AI 系统可以调整汽车的温度、在你从车库出来时自动把灯关掉。
+- **改善客户体验**：AI 可深入挖掘人眼可能错过的细节，从而帮助你专注于正确的数据。 比如，[RightClick.io](https://rightclick.io/#/) 是一个聊天机器人，可以让你通过与其对话来创建网站。即使你试着对其用不相关的问题转移话题，这个 AI 设备还是会引导你返回网站创建的实际工作中去。
 
 ![RightClick.io](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2017/07/15015679069ApLLkv.jpg)
 RightClick.io
 
-Artificial Intelligence is transforming the way we create user experiences. While movies like *Terminator* have given us a dystopian idea of AI, the reality is totally distinct. AI is a powerful technology that positively influences consumer behavior and enables businesses to provide a great user experience.
+人工智能正在改变我们创造用户体验的方式。 虽然**终结者**的电影给了我们一个 AI 的反乌托邦的想法，但现实是完全不同的。AI 是一种强大的技术，可以积极地影响消费者行为，并使企业能够提供出色的用户体验。
 
-## Understanding the role of AI in UX
+## 理解 AI 在 UX 中的作用
 
-To begin with, let us look at a few real-life scenarios of how AI is impacting UX today. Context-intelligent chatbots can delight your customer with prompt and timely advice or workarounds. Navigational apps could direct you to your destination effortlessly. With a few taps/clicks, you will receive your favorite meal at your doorstep.
+首先，让我们来看看一些现实生活中 AI 如何影响到今天的 UX。 能够感知上下文的聊天机器人可以通过提供一些及时的建议或解决方法从而取悦你的客户。导航应用程序可以毫不费力地将你引导到目的地。简单点几下，你就可以在家门口收到你最喜爱的餐点。
 
-### How does this work?
+### 这是怎么工作的？
 
-The very thought of developing AI came from the idea of science fictions, that described of machines that could talk, think or feel. AI is a combination of several nascent technologies- machine learning, deep learning, chat bots, augmented reality, virtual reality, robots- to name a few.
+开发 AI 的想法来自科幻小说，这些小说描述了可以说话、思考或感受的机器。AI 是多种新兴技术的组合，比如：机器学习、深度学习、聊天机器人、增强现实、虚拟现实和机器人等等。
 
-AI covers anything to do with infusing intelligence into machines/ devices so that they emulate the unique reasoning power of human beings. All of these can be accomplished by using algorithms that are capable of discovering human behavior patterns and generate insights from the data received and stored by the devices. Artificial Intelligence enabled devices or machines are programmed carefully so that they support in future decision-making.
+AI 涵盖了将智能注入到机器或设备的任何事情，使它们能模仿人类独特的推理能力。 所有这些，都可以通过使用能够发现人类行为模式、并从设备接收和存储的数据产生见解的算法来实现。启用人工智能的设备或机器被小心地编程，以便它们能在将来的决策中起到帮助。
 
-All this might sound simple, but these are interactions powered by the fast growing AI technology. In fact, when it comes to humanizing customer experience, AI will become an indispensable tool in a UX designer’s kit. However, besides architecting human-like conversations and actions, there is a lot more AI can do in the digital realm for generating outstanding UX.
+所有这一切听起来都很简单，但这些交互都是由快速增长的 AI 技术提供的。事实上，当涉及人性化客户体验时，AI 将成为 UX 设计师套件中不可或缺的工具。然而，除了构建类似人类的对话和行动之外，还有许多 AI 可以在数字领域中创造出优秀的 UX。
 
-## 1. A platform to collaborate
+## 1. 一个面向协助的平台
 
-AI is going mainstream with bots and robots fostering human-like interactions with the power of cognitive intelligence. However, robots cannot replace humans completely. Instead, AI nurtures fruitful collaboration in the domain of UX.
+AI 正在伴随着机器人走向主流，而机器人则通过认知智能的力量培育出了像人一样的互动。然而，机器人不能完全取代人类。相反，AI 在 UX 的领域培育了卓有成效的合作。
 
-For example, [TheGrid.io](https://thegrid.io/) is an algorithm-driven design platform that lets you build highly impressive and optimized websites. The platform is built from the ground up around the concept of continuous A/B testing and refinement layouts. Designers can sift through the multiple options provided by such AI-driven tools and select what works for them.
+例如，[TheGrid.io](https://thegrid.io/) 是一个算法驱动的设计平台，可让您构建高度令人印象深刻和优化的网站。该平台是围绕连续 A/B 测试和细化布局的概念构建的。设计师可以筛选由这些 AI 驱动的工具提供的多个选项，并选择适合它们的功能。
 
 ![TheGrid.io](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2017/07/1501567868cAk9mgD-e1501568470475.jpg)
 
-Like any good assistant, it usually does best when offering fresh options rather than making critical decisions. When designers have an intelligent platform to help them choose a template and verify the same by applying algorithms, it helps them to make more creative decisions.
+像任何好的助手一样，它通常在提供的新选项中做出最好的决定，而不是作出关键的决定。当设计师有一个智能平台帮助他们选择一个模板并通过应用算法来验证模板时，它可以帮助他们做出更多的创造性决策。
 
-## 2. Journey mapping with AI
+## 2. 用 AI 制定旅程
 
-Companies like [ReFUEL4](https://www.refuel4.com/) use the power of predictive analytics to understand the online journey of users and map them into segments based on their behavior. The most powerful UX is the one that understands and even predicts user interests and actions.
+像 [ReFUEL4](https://www.refuel4.com/) 这样的公司利用预测分析的力量来了解用户的线上行为，并根据他们的行为对其进行进一步的细化。最强大的 UX 是一个了解甚至能预测用户兴趣和行动的 UX。
 
 ![Refuel4](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2017/07/1501567882ezgif.com-optimize-34.gif)
 
-Once the designer is able to map a user’s journey, he can understand the paths a user is expected to travel in course of their digital interactions. AI-powered journey mapping allows you to create simple, engaging, and profitable UI.
+一旦设计师能够制定用户的行程，那么他就可以理解用户在交互过程中所期望路径。AI 驱动的行程制定可让你创建简单、有吸引力和有利可图的用户界面。
 
-## 3. Taking over repetitive, lower-value creative tasks
+## 3. 接管重复、低价值的创造性任务
 
-In a multi-device world, designers often have to come up with many graphics and variations of content to cater to multiple forms of a campaign. This can be quite mind-numbing and demands a lot of time.
+在多设备世界里，设计师经常必须提出许多图形和内容的变体，以满足各种形式的活动。 这可以很麻烦，需要很多时间。
 
 ![Netflix layout generation.](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2017/07/150156789352650.jpg)
-Netflix layout generation.
+Netflix 的布局生成。
 
-That’s why platforms like Netflix hand over these tedious tasks to algorithms. Human designers can map out the ‘rules’ for how a layout should work and then provide the system with a library of raw graphic elements to work with. Netflix’s system is then capable of combining the rules with the image assets to create original movie poster and banner units.
+这就是像 Netflix 这样的平台将这些繁琐的任务交给算法的原因。人类设计师可以绘制布局应如何工作的「规则」，然后为系统提供一个原始图形元素库来处理它们。Netflix 的系统能够将规则与图像素材相结合，以创建原始电影海报和横幅单元。
 
-When AI handles such tasks, designers can focus more on understanding the user journey and refining these rules. It’s not unlike a scenario where a senior designer is directing a team of junior designers. Each benefits from the other.
+当 AI 处理这些任务时，设计人员可以更多地关注理解用户之旅并完善这些规则。 这与高级设计师正在指导一支初级设计师团队没什么不同的，双赢。
 
-AI technologies like machine learning empowers digital marketers for granular targeting. For example, IBM’s Watson facilitates psychological user segmentation so that marketers can provide the right content to the right audience at the right time.
+像机器学习这样的 AI 技术可以使数字营销人员进行细粒度定位。例如，IBM 的 Watson 促进心理用户细分，使营销人员能够在正确的时间向正确的受众提供正确的内容。
 
-### Here is how Watson AI works:
+### Watson AI 的工作原理：
 
-Watson breaks down questions into different keywords or ‘sentences fragments’ in order to discover statistically related phrases. It not only creates a new algorithm for this operation but executes hundreds of analysis algorithms simultaneously.
+Watson 将问题分解成不同的关键字或「句子片段」，以便发现统计学上相关的短语。它不仅为此操作创建了一种新算法，而且同时执行了数百种分析算法。
 
-If more algorithms come up with the same answer independently, then Watson is more likely to be correct. Once Watson gets multiple solutions in hand, it verifies the potential workarounds against the database to ascertain if any of them makes sense.
+如果越多的算法独立出现相同的答案，那么 Watson 就越有可能是正确的。一旦 Watson 获得了多个解决方案，它将验证数据库的潜在解决方法，从而确定其中的任何一个是否有意义。
 
-## How do you mold AI for a better UX?
+## 你会怎样塑造 AI 来获得更好的 UX ？
 
-AI systems have the ability to analyze large amounts of data quickly and also learn and adjust their behavior in real-time. AI systems can infer from the context and you need to supply them with additional information in the form of business rules, questions, metadata and similar other conditions.
+AI 系统能够快速分析大量数据，并实时学习和调整其行为。 AI 系统可以从上下文中推断，你则需要给它们提供额外的关于业务规则、问题、元数据和类似的其他类似条件的信息。
 
-As you work through each design phase to build a great user experience, you can constantly refine the questions that you ask your AI system. This will change the way it analyzes data.
+当你通过每个设计阶段建立良好的用户体验时，你可以不断完善您询问 AI 系统的问题。这将改变分析数据的方式。
 
-For example, if you are managing a health insurance website, ask plain questions like:
+例如，如果您正在管理健康保险网站，可以问如下问题：
 
-- How many people between the age 40-60 use your application?
-- How many expecting moms access the system?
+- 40 至 60岁之间有多少人使用你的应用程序？
+- 有多少准妈妈访问系统？
 
-The system takes your questions, analyzes the data and learns to throw up the best possible answers. Each time you feed a new data or criterion, the system conditions itself using AI technology to enhance your user experience.
+系统会收到你的问题，分析数据并学习给出最佳答案。每当你提供新的数据或标准时，系统会使用人工智能来改善自身的用户体验。
 
-## The beauty of molding AI is:
+## 塑造 AI 的艺术
 
-- You can ask general to specific questions to your AI system. The system attends your questions, takes the data, and self-learns.
-- AI can analyze all the queries made on your search engine, collect more user analytics, identify trends, and generate richer findings.
-- Refine the quality of search results with data – AI can come up with better predictive search terms, provide recommendations, cross-topic referrals (similar to what Amazon offers), and bring more relevant content on top.
-- Above all, AI learns from everyone who has visited your application till now and serves your users with needed content. This makes way for a richer user experience.
-- Information Architecture with AI-AI analyzes both your internal and external data and helps you build information structure for your content management system and a navigation structure for your end users.
+- 你可以向你的 AI 系统询问一般具体问题。系统则处理问题、拿到数据再自我学习。
+- AI 可以分析搜索引擎上的所有查询，收集更多的用户分析结果、识别趋势，并生成更丰富的结果。
+- 使用数据优化搜索结果的质量：AI 可以预测搜索条件、提供建议、跨主题推荐（类似于 Amazon 提供的），从而给出更多相关的内容。
+- 最重要的是，AI 能学习到目前为止所有访问过你应用的用户，并为你的用户提供了所需的内容。这产生了更丰富的用户体验。
+- 具有 AI 的信息架构：AI 分析你的内部和外部数据，并帮助你构建内容管理系统的信息结构和最终用户的导航结构。
 
-User experience is not necessarily about leveraging data insights, it’s about intelligence too. Artificial intelligence connects the dots by infusing intelligence into the disparate sources of data.
+用户体验不一定是利用对数据的见解，它也是关于智能的。人工智能通过向不同数据源注入智能，从而连接了各类独立的节点。
 
-Though AI technologies like machine learning, chatbots, VR, robots, AR and other systems are gaining momentum, the growth seems to be gradual. AI, when combined with UX becomes the icon of the future technology. Merging AI with UX is a formula that should lead us to enhanced content findability and reachability.
+虽然像机器学习、聊天机器人、VR、机器人、AR 等系统的 AI 技术正在增长势头，但增长似乎是渐进的。 AI 与 UX 结合成为未来技术的标志。将 AI 与 UX 合并是一个公式，一个将引领我们增强内容的可查找性和可获取性的公式。
 
-
-  ---
+---
 
   > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[React](https://github.com/xitu/gold-miner#react)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计) 等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
-  
