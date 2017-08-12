@@ -287,7 +287,7 @@ self.addEventListener('notificationclose', event => {
 
 ## 使用Ember.js实现
 
-用 Ember.js 实现 Service Workers 的 APP 是非常容易的，凭借其脚手架工具 [ember-cli](https://ember-cli.com/) 和其插件体系 [Ember-Add-ons] (https://www.emberaddons.com) 社区的支持，你可以以一种即插即拔的方式在你的 Web App 中增加 Service Worker。
+用 Ember.js 实现 Service Workers 的 APP 是非常容易的，凭借其脚手架工具 [ember-cli](https://ember-cli.com/) 和其插件体系 [Ember Add-ons](https://www.emberaddons.com) 社区的支持，你可以以一种即插即拔的方式在你的 Web App 中增加 Service Worker。
 
 这是由 DockYard 的人员提供的一系列插件 [ember-service-worker](https://github.com/DockYard/ember-service-worker) 及其对应文档 [here](http://ember-service-worker.com/documentation/getting-started/)。
 
