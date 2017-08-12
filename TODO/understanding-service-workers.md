@@ -3,8 +3,9 @@
   > * 原文作者：[Adnan Chowdhury](http://blog.88mph.io/author/adnan/)
   > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
   > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/understanding-service-workers.md](https://github.com/xitu/gold-miner/blob/master/TODO/understanding-service-workers.md)
-  > * 译者：
-  > * 校对者：
+  > * 译者：[zyziyun](https://github.com/zyziyun)
+  > * 校对者：[undead25](https://github.com/undead25), [calpa](https://github.com/calpa)
+
 
 # 理解 Service Workers
 
@@ -48,7 +49,7 @@ AppCache 最终被发现是 [不实用的和充满陷阱的](https://alistapart.
 
 Service Workers 在浏览器后台进程中持续的执行其代码。它是事件驱动的，这意味着在 Service Worker 的作用域范围内触发的事件会驱动其行为。
 
-这篇文章剩下的部分将对 Service Worker 的每个事件阶段做个简要的说明，但是在开始使用Service Workers之前，你首先需要在你的 web app 中执行代码来注册 Service Worker 。
+这篇文章剩下的部分将对 Service Worker 的每个事件阶段做个简要的说明，但是在开始使用 Service Workers 之前，你首先需要在你的 web app 中执行代码来注册 Service Worker 。
 
 ## 注册
 
@@ -152,7 +153,7 @@ Service Worker 的好用之处在于它是一个用于拦截请求的低层 API�
 
 Mozilla 基金会有一个  [handy resource](https://serviceworke.rs/caching-strategies.html) 的文档，其中有写几种不同的缓存策略。还有 Jake Archibald 编写的 [The Offline Cookbook](https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook) 书中有概述几种相似的缓存策略等等。
 
-在上文的一个例子中，我们演示了一个基本的 **缓存优先** 的策略。以下是我发现的一个适用于我自己项目的示例：**缓存和更新** 策略。这个方法首先让缓存响应，随后在后台发起对应的网络请求。来自后台请求的响应用于更新缓存中的数据，以便在下次访问时提供更新后的响应。
+在上文的一个例子中，我们演示了一个基本的 **缓存优先** 的策略。以下是我发现的一个适用于我自己项目的示例：**缓存和更新**策略。这个方法首先让缓存响应，随后在后台发起对应的网络请求。来自后台请求的响应用于更新缓存中的数据，以便在下次访问时提供更新后的响应。
 
 ```
 self.addEventListener('fetch', event => {
@@ -286,7 +287,7 @@ self.addEventListener('notificationclose', event => {
 
 ## 使用Ember.js实现
 
-用 Ember.js 实现 Service Workers 的 APP 是非常容易的，凭借其脚手架工具 [ember-cli](https://ember-cli.com/) 和其插件体系 [Ember Add-ons] (https://www.emberaddons.com) 社区的支持，你可以以一种即插即拔的方式在你的 Web App 中增加 Service Worker。
+用 Ember.js 实现 Service Workers 的 APP 是非常容易的，凭借其脚手架工具 [ember-cli](https://ember-cli.com/) 和其插件体系 [Ember-Add-ons] (https://www.emberaddons.com) 社区的支持，你可以以一种即插即拔的方式在你的 Web App 中增加 Service Worker。
 
 这是由 DockYard 的人员提供的一系列插件 [ember-service-worker](https://github.com/DockYard/ember-service-worker) 及其对应文档 [here](http://ember-service-worker.com/documentation/getting-started/)。
 
