@@ -4,7 +4,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/learning-react-js-is-easier-than-you-think.md](https://github.com/xitu/gold-miner/blob/master/TODO/learning-react-js-is-easier-than-you-think.md)
 > * 译者：[Cherry](https://github.com/sunshine940326)
-> * 校对者：
+> * 校对者：[LeviDing](https://github.com/leviding)
 
 # 学习 React.js 比你想象的要简单
 
@@ -12,26 +12,26 @@
 
 ![](https://cdn-images-1.medium.com/max/1600/1*YsPpBr_PgtyTR6CFDmKU9g.png)
 
-你有没有注意到在 React 的 logo 中 有一个 Star of David（犹太教的六芒星形）？只是说。。。（这里不知道怎么翻译 Just saying 合适，校对者给个意见）
-去年我写了一个简短的书关于学习 React.js，有 100 页左右。今年，我要挑战自己 —— 总结出中的一篇文章向 Medium 投稿。
+你有没有注意到在 React 的 logo 中隐藏着一个六角星？
+去年我写了一本简短的关于学习 React.js 的书，有 100 页左右。今年，我要挑战自己 —— 将其总结成一篇文章，并向 Medium 投稿。
 
-这篇文章不是讲什么是 React 或者 [你该怎样学习React](https://medium.freecodecamp.org/yes-react-is-taking-over-front-end-development-the-question-is-why-40837af8ab76)。这是在已经熟悉 React.js 基本原理 —— JavaScript 和 [DOM API](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model) 之后的实用介绍。
+这篇文章不是讲什么是 React 或者 [你该怎样学习 React](https://medium.freecodecamp.org/yes-react-is-taking-over-front-end-development-the-question-is-why-40837af8ab76)。这是在面向那些已经熟悉了 JavaScript 和 [DOM API](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model) 的人的 React.js 基本原理介绍
 
 > 本文采用嵌入式 jsComplete 代码段，所以为了方便阅读需要一个合适的屏幕宽度。
 
-下面所有的代码都是参考代码。他们也纯粹是为了表达概念而提供的例子。他们中的大多数可以用更好的方式。
+下面所有的代码都是参考代码。它们也纯粹是为了表达概念而提供的例子。它们中的大多数有更好的实践方式。
 
-您可以编辑和执行下面的任何代码段。使用**Ctrl+Enter**执行代码。每一段的右下角有一个链接到编辑/运行代码全屏在[jsComplete/repl](https://jscomplete.com/repl).
+您可以编辑和执行下面的任何代码段。使用 **Ctrl+Enter** 执行代码。每一段的右下角有一个点击后可以在 [jsComplete/repl](https://jscomplete.com/repl) 进行全屏模式编辑/运行代码的链接。
 
 ---
 
-#### 1 React 全部都是组件
+#### 1 React 全部都是组件化的
 
 React 是围绕可重用组件的概念设计的。你定义小组件并将它们组合在一起形成更大的组件。
 
 无论大小，所有组件都是可重用的，甚至在不同的项目中也是如此。
 
-React 组件最简单的形式，这是一个普通的 JavaScript 函数：
+React 组件最简单的形式，就是一个普通的 JavaScript 函数：
 
 ```
 function Button (props) {
@@ -148,9 +148,9 @@ ReactDOM.render(InputForm, mountNode);
 
 > “Flux” 在头部作为韵脚来使用，但它也是一个非常受欢迎的 [应用架构](https://facebook.github.io/flux/)，由 Facebook 推广。最出名的是 Redux，Flux 和 React 非常合适。
 
-JSX，可以自己使用，不仅仅适用于 React。
+JSX，可以单独使用，不仅仅适用于 React。
 
-#### 3 你可以再 JavaScript 的任何地方使用 JSX
+#### 3 你可以在 JavaScript 的任何地方使用 JSX
 
 在 JSX 中，你可以在一对花括号内使用任何 JavaScript 表达式。
 
@@ -351,18 +351,18 @@ ReactDOM.render(<Form />, mountNode);
 
 1. 首先，我们定义了一个模板来创建组件中的元素。
 2. 然后，我们在某处使用 React。例如，在 `render` 内部调用其他的组件，或者直接使用 `ReactDOM.render`。
-3. 然后，React 实例化一个对象然后给它设置**props**然后我们可以通过 `this.props` 访问。这些属性都是我们在第 2 步传入的。
+3. 然后，React 实例化一个对象然后给它设置 **props** 然后我们可以通过 `this.props` 访问。这些属性都是我们在第 2 步传入的。
 4. 因为这些全部都是 JavaScript，`constructor` 方法将会被调用（如果定义的话）。这是我们称之为的第一个：**组件生命周期方法**。
 5. 接下来 React 计算渲染之后的输出方法（虚拟 DOM 节点）。
 6. 因为这是 React 第一次渲染元素，React 将会与浏览器连通（代表我们使用 DOM API）来显示元素。这整个过程称为 **mounting**。
 7. 接下来 React 调用另一个生命周期函数，称为 `componentDidMount`。我们可以这样使用这个方法，例如：在 DOM 上做一些我们现在知道的在浏览器中存在的东西。在此生命周期方法之前，我们使用的 DOM 都是虚拟的。
 8. 一些组件的故事到此结束，其他组件得到卸载浏览器 DOM 中的各种原因。在后一种情况发生时，会调用另一个生命周期的方法，`componentWillUnmount`。
-9. 任何 mounted 的元素的**状态**都可能会改变。该元素的父级可能会重新渲染。无论哪种情况，mounted 的元素都可能接收到不同的属性集。React 的魔力就在这里发生，我们实际上需要 React 在这一点上！在这一点之前，说实话，我们并不需要 React。
+9. 任何 mounted 的元素的**状态**都可能会改变。该元素的父级可能会重新渲染。无论哪种情况，mounted 的元素都可能接收到不同的属性集。React 的魔力就是这儿，我们实际上需要的正是 React 的这一点！在这一点之前，说实话，我们并不需要 React。
 10. 组价的故事还在继续，但是在此之前，我们需要理解我所说的这种**状态**。
 
 #### 7 React 组件可以具有私有状态
 
-以下只适用于类组件。我有没有提到有人叫表象而已的部件**dumb**？
+以下只适用于类组件。我有没有提到有人叫表象而已的部件 **dumb**？
 
 状态类是任何 React 类组件中的一个特殊字段。React 检测每一个组件状态的变化，但是为了 React 更加有效，我们必须通过 React 的另一个 API 改变状态字段，这就是我们要学习的另一个 API —— `this.setState`：
 
@@ -460,13 +460,13 @@ React 保存了渲染的历史记录，当它看到一个渲染与前一个不�
 
 ---
 
-信不信由你，通过上面所学的知识（或部分知识），你可以开始创建一些有趣的 React 应用程序。如果你渴望更多，看看我的[**Pluralsight 的 React.js入门课程**](https://www.pluralsight.com/courses/react-js-getting-started?aid=701j0000001heIoAAI&amp;promo=&amp;oid=&amp;utm_source=google&amp;utm_medium=ppc&amp;utm_campaign=US_Dynamic&amp;utm_content=&amp;utm_term=&amp;gclid=CNOAj_2-j9UCFUpNfgod4V0Fdg).
+信不信由你，通过上面所学的知识（或部分知识），你可以开始创建一些有趣的 React 应用程序。如果你渴望更多，看看我的 [**Pluralsight 的 React.js入门课程**](https://www.pluralsight.com/courses/react-js-getting-started?aid=701j0000001heIoAAI&amp;promo=&amp;oid=&amp;utm_source=google&amp;utm_medium=ppc&amp;utm_campaign=US_Dynamic&amp;utm_content=&amp;utm_term=&amp;gclid=CNOAj_2-j9UCFUpNfgod4V0Fdg)。
 
-**感谢阅读。如果您觉得这篇文章有帮助，请点击下面的 💚。跟着我学习 React.js 和 JavaScript 的更多文章**
+**感谢阅读。如果您觉得这篇文章有帮助，请点击下面的 💚。跟着我学习 React.js 和 JavaScript 的更多文章**。
 
 ---
 
-我 [Pluralsight](https://app.pluralsight.com/profile/author/samer-buna) 和 [Lynda](https://www.lynda.com/Samer-Buna/7060467-1.html) 创建了在线课程。我最新的文章在[Advanced React.js](https://www.pluralsight.com/courses/reactjs-advanced)、 [Advanced Node.js](https://www.pluralsight.com/courses/nodejs-advanced) 和  [Learning Full-stack JavaScript](https://www.lynda.com/Express-js-tutorials/Learning-Full-Stack-JavaScript-Development-MongoDB-Node-React/533304-2.html)中。我也做小组的在线和现场培训，覆盖初学者在高级 JavaScript 和 Node.js、 React.js、 and GraphQL。如果你需要一个导师，[请来找我](mailto:samer@jscomplete.com) 。如果你对此篇文章或者我写的其他任何文章有疑问，[通过这个联系我](https://slack.jscomplete.com/)，并且在 #questions 中提问.
+我 [Pluralsight](https://app.pluralsight.com/profile/author/samer-buna) 和 [Lynda](https://www.lynda.com/Samer-Buna/7060467-1.html) 创建了在线课程。我最新的文章在[Advanced React.js](https://www.pluralsight.com/courses/reactjs-advanced)、 [Advanced Node.js](https://www.pluralsight.com/courses/nodejs-advanced) 和  [Learning Full-stack JavaScript](https://www.lynda.com/Express-js-tutorials/Learning-Full-Stack-JavaScript-Development-MongoDB-Node-React/533304-2.html)中。我也做小组的在线和现场培训，覆盖初学者在高级 JavaScript 和 Node.js、 React.js、 and GraphQL。如果你需要一个导师，[请来找我](mailto:samer@jscomplete.com) 。如果你对此篇文章或者我写的其他任何文章有疑问，[通过这个联系我](https://slack.jscomplete.com/)，并且在 #questions 中提问。
 
 ---
 
