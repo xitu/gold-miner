@@ -3,12 +3,14 @@
   > * 原文作者：[micaksica](https://medium.com/@micaksica)
   > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
   > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/your-node-js-authentication-tutorial-is-wrong.md](https://github.com/xitu/gold-miner/blob/master/TODO/your-node-js-authentication-tutorial-is-wrong.md)
-  > * 译者：
+  > * 译者：[MuYunyun](https://github.com/MuYunyun)
   > * 校对者：
 
-  # Your Node.js authentication tutorial is (probably) wrong
+  # Node.js 的认证方面的教程（很可能）是错的
 
   **tl;dr: **I went on a search of Node.js/Express.js authentication tutorials. All of them were incomplete or made a security mistake in some way that can potentially hurt new users. This post explores some common authentication pitfalls, how to avoid them, and what to do to help yourself when your tutorials don’t help you anymore. I am still searching for a robust, all-in-one solution for authentication in Node/Express that rivals Rails’s [Devise](https://github.com/plataformatec/devise).
+
+  我搜索了大量关于 Node.js/Express.js 的认证教程。所有这些都是不完整的，甚至以某种方式造成安全错误，可能会伤害新用户。 这篇文章探讨了一些常见的身份验证陷阱，如何避免这些错误，以及如何帮助自己，当您的教程不再帮助您时。 我仍然在Node / Express中搜索强大的，一体化的解决方案，用于与Rails的竞争对手
 
 > **Update (Aug 7)**: RisingStack has reached out and [no longer stores passwords in plaintext](https://github.com/RisingStack/nodehero-authentication/commit/9d69ea70b68c4971466c64382e5f038e3eda8d8a) in their tutorial, opting to move to bcrypt in their example codes and tutorials.
 > **Update (Aug 8):** Editing title to *Your Node.js authentication tutorial is (probably) wrong*, as this post has improved some of these tutorials.
@@ -123,4 +125,3 @@ If you’re interested in better securing the Node ecosystem, please DM me [@_mi
   ---
 
   > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[React](https://github.com/xitu/gold-miner#react)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计) 等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
-  
