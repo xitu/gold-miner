@@ -59,7 +59,6 @@ import tensorflow as tf
 import random
 ```
 
-Have a look at “[Deep Learning in 7 lines of code](https://chatbotslife.com/deep-learning-in-7-lines-of-code-7879a8ef8cfb)” for a primer or [here](https://chatbotslife.com/tensorflow-demystified-80987184faf7) if you need to demystify Tensorflow.
 如果你想入门 TensorFlow ，可以看[这篇文章](https://chatbotslife.com/deep-learning-in-7-lines-of-code-7879a8ef8cfb)，若要进一步的了解的话可以看[这篇文章](https://chatbotslife.com/tensorflow-demystified-80987184faf7)。
 
 ```Python
