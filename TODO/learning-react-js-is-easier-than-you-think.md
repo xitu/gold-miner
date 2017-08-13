@@ -42,7 +42,7 @@ function Button (props) {
 ReactDOM.render(<Button label="Save" />, mountNode)
 ```
 
-例 1：编辑上面的代码并按 Ctrl+Enter 键执行
+例 1：编辑上面的代码并按 Ctrl+Enter 键执行（译者注：译文暂时没有这个功能，下同）
 
 > 括号中的 button 标签将稍后解释。现在不要担心它们。`ReactDOM` 也将稍后解释，但如果你想测试这个例子和所有接下来的例子，上述 `render` 函数是必须的。（React 将要接管和控制的是 `ReactDOM.render` 的第 2 个参数即目标 DOM 元素）。在 jsComplete REPL 中，你可以使用特殊的变量 `mountNode`。
 
