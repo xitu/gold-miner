@@ -3,54 +3,54 @@
   > * 原文作者：[Michael Bromley](https://medium.com/@michlbrmly)
   > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
   > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/why-i-havent-fixed-your-issue-yet.md](https://github.com/xitu/gold-miner/blob/master/TODO/why-i-havent-fixed-your-issue-yet.md)
-  > * 译者：
+  > * 译者：[LeviDing](https://github.com/leviding)
   > * 校对者：
 
-  # Why I Haven’t Fixed Your Issue Yet
+  # 为什么我还没 Fixed 你的 Issue
 
   ![](https://cdn-images-1.medium.com/max/1600/0*sBJnwQRCh05t-nXu.jpg)
 
-Hi there. You opened an issue with my project on GitHub, and it’s getting kind of stale by now.
+你好，你 GitHub 上的项目中有人提出的一个问题，现在已经过期了。
 
-I am aware of it — GitHub was kind enough to send me an email containing your report, which I scanned one morning a couple of weeks ago while I ate breakfast. I’ve even thought about it briefly a couple of times since then; once I was in the shower and I got the vague idea that I knew what caused it — but I wasn’t sure because I could not recall the specifics.
+我早就体会到了 GitHub 的亲切，它可以给我发送一封我在几天前早晨时扫过一眼的关于你的相关信息的邮件。从那以后，我已经简单地想过了几次，有一次我在淋浴的时候，我得到了一个模糊的想法，我知道是什么造成的 —— 但我不确定，因为我不记得具体细节。
 
-Of course, you knew none of this. You may have wondered if your issue — which may be critical to your current project — has been lost to the void. Allow me a few minutes to explain why you’ve not heard anything from me.
+当然，你不知道这些是什么。你可能会想知道你提的问题的答案 —— 这对你当前的项目可能至关重要 —— 你已经被困在其中了。请允许我用几分钟解释你为什么没收到我的回复。
 
-A couple of years ago, I was a freelancer and father to a new baby. The freelance hours provided me with flexibility and the baby was conveniently immobile and fairly docile. I started writing libraries and publishing them on GitHub. Seeing people use my code was and is exciting and rewarding. Collecting stars on GitHub is a guilty pleasure just as with any other kind of “fake internet points”. I had plenty of time to work on issues and improvements, and I would generally respond to (and often fix) issues within a day or two.
+几年前，我是一个自由职业者和一个新生儿的父亲。我有很多自由的时间，让我做事更加灵活，我的小孩因为很小，不会到处乱跑，这也让我不用太费心。那时我开始写相关的编程库并在 GitHub 上发布。看到人们使用我的代码是很令人兴奋且感觉付出得到了回报。在 GitHub 上收集星星是一个会上瘾的乐趣，就像任何其他类型的“虚假的互联网”一样。我有足够的时间来处理问题并做相应的改进，我一般会在一两天之内回复（并经常解决）问题。
 
-Today, I am in full-time employment. The baby is now a toddler, and there is also another baby. Toddlers are neither docile nor immobile. If I am lucky, I can carve out an hour of free time per day — generally between 9pm and 10pm.
+现在我的工作是全职的。我有一个年龄很小的孩子，还有另一个大一点的孩子。小孩既不温柔也不固定。如果我很幸运，我可以能够有一个小时的空闲时间 —— 一般在晚上 9 点到晚上 10 点之间。
 
-Do you know what I like to do in that time? Unfortunately for you, the answer is not *“fire up my IDE, get the build pipeline going, start a local dev server, and try to recreate someone else’s issue”*. And I don’t mean to berate; I am simply stating fact. My weary evening mind is just not up to the task most days. Usually I like to sit on the couch for a bit, and just enjoy sitting.
+你知道我现在喜欢做什么吗？很不辛，我的答案不是**“启动我的 IDE，建立管道，启动一个本地的服务器，并尝试修复别人的问题”**。我不是要谴责，我只是说实话。我疲惫的夜晚，大多大多都因为没有完成任务。通常我喜欢坐在沙发上，就简简单单的坐着。
 
-So where does that leave you, user of my library? Do I no longer care about your plight? Have you done your company a disservice by using my library in your project? In this *Free and Open Source Software* (FOSS) reality we live in, how many parts of your company’s product are coupled to the lifestyle and priorities of some lone, unpaid package maintainer? It’s something I have to think about too — in my day-job I build software on top of many FOSS libraries, many of which are probably maintained by people in similar circumstances to my own.
+那么，会有什么影响呢，我的编程库的用户？我不再在乎你的遇到的问题了吗？你是否因为在你的项目中使用我的编程库，而使公司失败了？在这个**自由和开放源代码软件**（FOSS）的世界中，我们都生活在这样的环境下，你公司的产品中有多少部分与一些独立的，无偿的软件包维护者的生活方式和优先级联系在了一起？这也是我必须考虑的事情 —— 在我的一天工作中，我在许多 FOSS 库之间构建软件，其中许多都可能在类似情况下由我自己维护。
 
-As with all things in life, a trade-off is involved. There is an implicit agreement which needs to be understood by both consumers and creators of FOSS projects¹. It goes something like this:
+与生活中的一切一样，涉及到权衡。有一个隐含的协议，需要被 FOSS 项目的消费者和创造者所理解。它是这样的：
 
-- I agree to provide you with some free code which solves your problem.
-- I recognize that in doing so, I have taken on a small portion of responsibility to you as a user of my code.
-- I agree to try to help you if you have difficulty in using my code.
-- I agree to try to fix bugs that you find in my code.
-- Crucially, you agree that I, in acting without remuneration, am free to assign priority to the above points as I see fit.
+- 我同意免费为你提供一些解决问题的代码。
+- 我承认，在这样做的时候，作为我的代码的用户，我承担了一小部分的责任。
+- 如果你难以使用我的代码，我同意尝试帮助你。
+- 我同意尝试修复我在代码中找到的错误。
+- 至关重要的是，你同意我没有报酬，可以自由地按照我的看法将上述要点放在首位。
 
-The last point is the reason why I haven’t fixed your issue yet. Your issue is competing for my attention with my work, my family, my couch, my other interests and of course with all the other issues that are still open — several of which are much older than yours.
+最后一点是为什么我还没有解决你的问题。你的问题正在与我的工作，我的家人，我的其他兴趣，当然还有所有其他需要解决的问题堆在一起，我需要按照优先级来完成。
 
-So, here is my message to you, to all the users of my FOSS projects, and to all developers who use and benefit from the FOSS ecosystem:
+所以，这是我给你的信息，给所有 FOSS 项目的用户，以及使用和受益于 FOSS 生态系统的所有开发人员：
 
-> I will try my best to get around to it. I do want to help you.
+> 我会尽全力去解决。我真的想帮你。
 
-> Make things easier for me by reading and following as closely as possible the [issue template](https://github.com/michaelbromley/ng2-pagination/blob/master/ISSUE_TEMPLATE.md).
+> 请认真阅读 [issue template](https://github.com/michaelbromley/ng2-pagination/blob/master/ISSUE_TEMPLATE.md)，并按照这种更容易让我明白的方式提问题。
 
-> Take time to understand, research and debug your issue — don’t offload that burden onto me.
+> 你需要花时间了解，研究和调试你的问题 —— 不要把这个负担推到我身上。
 
-> Understand if I do not reply in what seems like a reasonable time. And don’t be that one guy who was extremely rude and insulting (I’ll refrain from linking the issue for his sake).
+> 你要明白我不应定会在看似非常合理的时间内回复。你也尽量别做那个非常粗鲁、侮辱别人的人（我不会因为你的行为而更关注这个问题）。
 
-Thanks for reading, and happy coding.
+感谢你的阅读，编程愉快。
 
-¹ This goes for projects which are promoted in some way. If you tell people “hey, you should use my thing”, then you’ve entered into this agreement with them. If you just throw your stuff up onto GitHub for the fun of it, then it doesn’t necessarily apply.
+本文中的那个协议适用于以某种方式进行推广的项目。如果你告诉人们“嘿，你应该使用我的东西”，那么你已经和他们签订了这个协议。如果你仅仅是把你的东西放在 GitHub 上，那么它不一定适用。
 
 ---
 
-*Originally published at *[*www.michaelbromley.co.uk*](https://www.michaelbromley.co.uk/blog/why-i-havent-fixed-your-issue-yet/)*.*
+**首发于** [*www.michaelbromley.co.uk*](https://www.michaelbromley.co.uk/blog/why-i-havent-fixed-your-issue-yet/)*.*
 
 
   ---
