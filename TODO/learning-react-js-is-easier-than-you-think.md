@@ -56,7 +56,7 @@ ReactDOM.render(<Button label="Save" />, mountNode)
 
 上面的例 1 可以用没有 JSX 的纯 React.js 编写，如下：
 
-```
+```js
 function Button (props) {
   return React.createElement(
     "button",
