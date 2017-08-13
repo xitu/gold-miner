@@ -4,7 +4,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/how-writing-custom-babel-and-eslint-plugins-can-increase-your-productivity-and-improve-user.md](https://github.com/xitu/gold-miner/blob/master/TODO/how-writing-custom-babel-and-eslint-plugins-can-increase-your-productivity-and-improve-user.md)
 > * 译者：[H2O2](https://github.com/H2O-2)
-> * 校对者：
+> * 校对者：[MJingv](https://github.com/MJingv)
 
 # 自定义 Babel 和 ESLint 插件是如何提高生产率与用户体验的
 
@@ -45,7 +45,7 @@ ESLint logo
 - 确保我们一直使用本地化库而不是把内容写在行内。
 - 强制使用正确的 React 受控组件（controlled component）行为并确保每个 `value` 都有一个 `onChange` handler。
 - 确保 `<button>` 标签总是有 `type` 属性。
-- 确保 `<Link>` 组件和 `<a>` 标签总是有合理的 `data` 属性以存储数据。
+- 确保 `<Link>` 组件和 `<a>` 标签总是有合理的 `data` 属性以解析数据。
 - 确保只在某个应用或共享文件夹内部导入文件（我们在一个仓库（repo）里有多个应用）。
 
 我们还有更多的规则，但总的来说规则并不多。很赞的一点是，因为我们花了时间去[学习并编写自定义 ESLint 插件](http://kcd.im/fm-asts), 这些 bug 都没有再次出现。
@@ -72,7 +72,7 @@ Babel logo
 2. [Lodash](https://lodash.com/) 是一个使用很广泛的 JavaScript 实用程序库，但同时它也很大。一个小窍门是，如果你「cherry-pick」需要用到的方法（比如：`import get from 'lodash/get'`），只有你用到的那部分代码会被最终打包。[babel-plugin-lodash](https://github.com/lodash/babel-plugin-lodash) 插件会让你正常使用整个库（`import _ from 'lodash'`）然后自动 cherry-pick 所需的方法。
 3. 我在构建 [glamorous.rocks](https://rc.glamorous.rocks/) 网站（即将上线）时发现，无论用户使用的哪种语言，所有本地化字符串都会被加载！所以我写了[一个自定义的 babel 插件](https://github.com/kentcdodds/glamorous-website/blob/7ab245a4f99af9f217fd9b7d63f59dae1814f08e/other/babel-plugin-l10n-loader.js)基于 `LOCALE` 环境变量加载正确的本地化字符串。这样我们就可以为每种语言创建一个[服务端渲染网站的静态输出](https://github.com/zeit/next.js/blob/dba24dac9db97dfce07fbdb1725f5ed1f9a40811/readme.md#static-html-export)，并开始在服务器端为本地化字符串使用 markdown 了（而我们之前会在 JavaScript 模块里使用 markdown 的字符串，完全是一团乱）。我们可以不再使用令人混乱的「高阶组件（Higher Ordered Component）」来进行本地化，而可以**在服务器上**导入 markdown 文件。最终网站变得更快且对开发者更友好了。
 
-还有很多例子，不过希望这些已经让你能够认识到自定义 Babel 插件所带来的可能性了。
+还有很多例子，不过希望这些已经足够让你认识到自定义 Babel 插件所带来的可能性了。
 
 哦对了，你知道那些随着框架和工具主要更新一起推出的 codemods 吗？它们会像施魔法一样 ✨ 把你的代码更新到最新的API（比如 [React 的这个 codemod](https://github.com/reactjs/react-codemod) 或者 [webpack 的这个 codemod](https://github.com/webpack/webpack-cli/blob/master/lib/migrate.js)）。你可以把那些工具写成 babel 插件然后通过 [babel-codemod](https://github.com/square/babel-codemod) 运行（看看[这个 babel-codemod 的演示](https://www.youtube.com/watch?v=Vj9MOXbC43A&amp;index=1&amp;list=PLV5CVI1eNcJipUVm6RDsOQti_MzHImUMD)）。（[通过这篇演讲深入了解 codemods](https://www.youtube.com/watch?v=d0pOgY8__JM)，演讲者 [Chirstoph](https://medium.com/@cpojer)）。
 
