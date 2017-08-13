@@ -3,29 +3,29 @@
   > * 原文作者：[BRAD WESTFALL](https://css-tricks.com/author/bradwestfall/)
   > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
   > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/all-about-react-router-4.md](https://github.com/xitu/gold-miner/blob/master/TODO/all-about-react-router-4.md)
-  > * 译者：
+  > * 译者：[undead25](https://github.com/undead25)
   > * 校对者：
 
-  # All About React Router 4
+  # 关于 React Router 4 的一切
 
-  I met [Michael Jackson](https://twitter.com/mjackson) for the first time at React Rally 2016, soon after writing [an article on React Router 3](https://css-tricks.com/learning-react-router/). Michael is one of the principal authors of React Router along with [Ryan Florence](https://twitter.com/ryanflorence). It was exciting to meet someone who built a tool I liked so much, but I was shocked when he said. "Let me show you our ideas React Router 4, it's *way* different!" Truthfully, I didn't understand the new direction and why it needed such big changes. Since the router is such a big part of an application's architecture, this would potentially change some patterns I've grown to love. The idea of these changes gave me anxiety. Considering community cohesiveness and being that React Router plays a huge role in so many React applications, I didn't know how the community would accept the changes.
+  我在 React Rally 2016 大会上第一次遇到了 [Michael Jackson](https://twitter.com/mjackson)，不久之后便写了一篇 [an article on React Router 3](https://css-tricks.com/learning-react-router/)。Michael 与 [Ryan Florence](https://twitter.com/ryanflorence) 一起，都是 React Router 的主要作者之一。遇到一位我非常喜欢的工具的创建者是激动人心的，但当他这么说的时候，我感到很震惊。“让我向你们展示我们在 React Router 4 的想法，它的**方式**是截然不同的！”。老实说，我真的不明白新的方向以及为什么它需要如此大的改变。由于路由是应用程序架构的重要组成部分，因此这可能会改变一些我喜欢的模式。这些改变的想法让我很焦虑。考虑到社区凝聚力以及 React Router 在这么多的 React 应用程序中扮演着重要的角色，我不知道社区将如何接受这些改变。
 
-A few months later, [React Router 4](https://reacttraining.com/react-router/) was released, and I could tell just from the Twitter buzz there was mixed feelings on the drastic re-write. It reminded me of the push-back the first version of React Router had for its progressive concepts. In some ways, earlier versions of React Router resembled our traditional mental model of what an application router "should be" by placing all the routes rules in one place. However, the use of nested JSX routes wasn't accepted by everyone. But just as JSX itself overcame its critics (at least most of them), many came around to believe that a nested JSX router was a pretty cool idea.
+几个月后，[React Router 4](https://reacttraining.com/react-router/)发布了，仅仅从 Twitter 的嗡嗡声中我便得知，对于这个重大的重写存在着不同的想法。这让我想起了第一个版本的 React Router 针对其渐进概念的推回。在某些方面，早期版本的 React Router 符合我们传统的思维模式，即一个应用的路由“应该”将所有的路由规则放在一个地方。然而，并不是每个人都接受使用嵌套的 JSX 路由。但就像 JSX 自身说服了批评者一样（至少是大多数），许多人都认为嵌套的 JSX 路由是很酷的想法。
 
-So, I learned React Router 4. Admittedly, it was a struggle the first day. The struggle was not with the API, but more so the patterns and strategy for using it. My mental model for using React Router 3 wasn't migrating well to v4. I would have to change how I thought about the relationship between the router and the layout components if I was going to be successful. Eventually, new patterns emerged that made sense to me and I became very happy with the router's new direction. React Router 4 allowed me to do everything I could do with v3, and more. Also, at first, I was over-complicating the use of v4. Once I gained a new mental model for it, I realized that this new direction is amazing!
+如是，我学习了 React Router 4。无可否认，第一天是挣扎的。挣扎的倒不是其 API，而更多的是使用它的模式和策略。我使用 React Router 3 的思维模式并没有很好地迁移到 v4。如果要成功，我将不得不改变我对路由和布局组件之间的关系的看法。最终，出现了对我有意义的新模式，我对路由的新方向感到非常高兴。React Router 4 允许我做我使用 v3 能做的所有事情，而且更多。此外，起初我对 v4 的使用过于复杂。一旦我获得了一个新的思维模式，我就意识到这个新的方向是惊人的！
 
-My intentions for this article aren't to rehash the [already well-written documentation](https://reacttraining.com/react-router/) for React Router 4. I will cover the most common API concepts, but the real focus is on patterns and strategies that I've found to be successful.
+本文的意图并不是重复 React Router 4 [已写好的文档](https://reacttraining.com/react-router/)。我将介绍最常见的 API，但真正的重点是我发现成功的模式和策略。
 
-Here are some JavaScript concepts you need to be familiar with for this article:
+对于本文，以下是一些您需要熟悉的 JavaScript 概念:
 
-- React [(Stateless) Functional Components](https://facebook.github.io/react/docs/components-and-props.html)
-- ES2015 [Arrow Functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions) and their "implicit returns"
-- ES2015 [Destructuring](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment)
-- ES2015 [Template Literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)
+- React [（无状态）函数组件](https://facebook.github.io/react/docs/components-and-props.html)
+- ES2015 [箭头函数](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions) 以及它们的“隐式返回”
+- ES2015 [解构](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment)
+- ES2015 [模板字符串](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)
 
-If you're the type that prefers jumping right to a working demo, here you go:
+如果你喜欢跳转到演示，你可以去：
 
-[View Demo](https://codepen.io/bradwestfall/project/editor/XWNWge/?preview_height=50&amp;open_file=src/app.js)
+[查看演示](https://codepen.io/bradwestfall/project/editor/XWNWge/?preview_height=50&amp;open_file=src/app.js)
 
 ### A New API and A New Mental Model
 
