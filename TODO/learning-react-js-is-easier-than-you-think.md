@@ -33,7 +33,7 @@ React 是围绕可重用组件的概念设计的。你定义小组件并将它�
 
 React 组件最简单的形式，就是一个普通的 JavaScript 函数：
 
-```
+```js
 function Button (props) {
   // 这里返回一个 DOM 元素，例如：
   return <button type="submit">{props.label}</button>;
@@ -82,7 +82,7 @@ ReactDOM.render(
 
 这里就是这样的一个例子：
 
-```
+```js
 const InputForm = React.createElement(
   "form",
   { target: "_blank", action: "https://google.com/search" },
@@ -116,7 +116,7 @@ ReactDOM.render(InputForm, mountNode);
 
 上述的代码是当你引入 React 库的时候浏览器是怎样理解的。浏览器不会处理任何 JSX 业务。然而，我们更喜欢看到和使用 HTML，而不是那些 `createElement` 调用（想象一下只使用 `document.createElement` 构建一个网站！）。这就是 JSX 存在的原因。取代上述调用 `React.createElement` 的方式，我们可以使用一个非常简单类似于 HTML 的语法：
 
-```
+```js
 const InputForm =
   <form target="_blank" action="https://google.com/search">
     <div>Enter input and click Search</div>
@@ -154,7 +154,7 @@ JSX，可以单独使用，不仅仅适用于 React。
 
 在 JSX 中，你可以在一对花括号内使用任何 JavaScript 表达式。
 
-```
+```js
 const RandomValue = () =>
   <div>
     { Math.floor(Math.random() * 100) }
@@ -174,7 +174,7 @@ JavaScript 变量也是表达式，所以当组件接受属性列表时（不包
 
 JavaScript 对象也是表达式。有些时候我们在花括号中使用 JavaScript 对象，这看起来像是使用了两个花括号，但是在花括号中确实只有一个对象。其中一个用例就是将 CSS 样式对象传递给响应中的特殊样式属性：
 
-```
+```js
 const ErrorDisplay = ({message}) =>
   <div style={ { color: 'red', backgroundColor: 'yellow' } }>
     {message}
@@ -194,7 +194,7 @@ ReactDOM.render(
 
 你可以在 JSX 中使用 React 元素。因为这也是一个表达式（记住，一个 React 元素只是一个函数调用）：
 
-```
+```js
 const MaybeError = ({errorMessage}) =>
   <div>
     {errorMessage && <ErrorDisplay message={errorMessage} />}
@@ -222,7 +222,7 @@ ReactDOM.render(
 
 我们也可以在 JSX 中使用所有的 JavaScript 的集合方法（`map`、`reduce` 、`filter`、 `concat` 等）。因为他们返回的也是表达式：
 
-```
+```js
 const Doubler = ({value=[1, 2, 3]}) =>
   <div>
     {value.map(e => e * 2)}
@@ -240,7 +240,7 @@ ReactDOM.render(<Doubler />, mountNode);
 
 简单的函数组件非常适合简单的需求，但是有的时候我们需要的更多。React 也支持通过使用 [JavaScript 类](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes)来创建组件。这里 `Button` 组件（在例 1 中）就是使用类的语法编写的。
 
-```
+```js
 class Button extends React.Component {
   render() {
     return <button>{this.props.label}</button>;
@@ -259,7 +259,7 @@ ReactDOM.render(<Button label="Save" />, mountNode);
 
 由于我们有一个与组件的单个使用相关联的实例，所以我们可以按照自己的意愿定制该实例。例如，我们可以通过使用常规 JavaScript 构造函数来构造它：
 
-```
+```js
 class Button extends React.Component {
   constructor(props) {
     super(props);
@@ -278,7 +278,7 @@ ReactDOM.render(<Button label="Save" />, mountNode);
 
 我们也可以定义类的原型并且在任何我们希望的地方使用，包括在返回的 JSX 输出的内部：
 
-```
+```js
 class Button extends React.Component {
   clickCounter = 0;
 
@@ -305,7 +305,7 @@ ReactDOM.render(<Button label="Save" />, mountNode);
 
 - `handleClick` 函数使用 JavaScript 新提出的 [class-field syntax](https://github.com/tc39/proposal-class-fields) 语法。这仍然是 stage-2，但是这是访问组件安装实例（感谢箭头函数）最好的选择（因为很多原因）。然而，你需要使用类似 Babel 的编译器解码为 stage-2（或者仅仅是类字段语法）来让上述代码工作。 jsComplete REPL 有预编译功能。
 
-```
+```js
 // 错误：
 onClick={this.handleClick()}
 
@@ -323,7 +323,7 @@ onClick={this.handleClick}
 React 用自己的对象包装 DOM 对象事件以优化事件处理的性能，但是在事件处理程序内部，我们仍然可以访问 DOM 对象上所有可以访问的方法。React 将经过包装的事件对象传递给每个调用函数。例如，为了防止表单提交默认提交操作，你可以这样做：
 
 
-```
+```js
 class Form extends React.Component {
   handleSubmit = (event) => {
     event.preventDefault();
@@ -367,7 +367,7 @@ ReactDOM.render(<Form />, mountNode);
 状态类是任何 React 类组件中的一个特殊字段。React 检测每一个组件状态的变化，但是为了 React 更加有效，我们必须通过 React 的另一个 API 改变状态字段，这就是我们要学习的另一个 API —— `this.setState`：
 
 
-```
+```js
 class CounterButton extends React.Component {
   state = {
     clickCounter: 0,
