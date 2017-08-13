@@ -4,7 +4,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/learning-react-js-is-easier-than-you-think.md](https://github.com/xitu/gold-miner/blob/master/TODO/learning-react-js-is-easier-than-you-think.md)
 > * 译者：[Cherry](https://github.com/sunshine940326)
-> * 校对者：[LeviDing](https://github.com/leviding)
+> * 校对者：[LeviDing](https://github.com/leviding)、[undead25](https://github.com/undead25)
 
 # 学习 React.js 比你想象的要简单
 
