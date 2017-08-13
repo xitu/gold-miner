@@ -12,16 +12,16 @@
 
 ![](https://cdn-images-1.medium.com/max/1600/1*YsPpBr_PgtyTR6CFDmKU9g.png)
 
-你有没有注意到在 React 的 logo 中隐藏着一个六角星？
+你有没有注意到在 React 的 logo 中隐藏着一个六角星？只是顺便提下...
 去年我写了一本简短的关于学习 React.js 的书，有 100 页左右。今年，我要挑战自己 —— 将其总结成一篇文章，并向 Medium 投稿。
 
 这篇文章不是讲什么是 React 或者 [你该怎样学习 React](https://medium.freecodecamp.org/yes-react-is-taking-over-front-end-development-the-question-is-why-40837af8ab76)。这是在面向那些已经熟悉了 JavaScript 和 [DOM API](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model) 的人的 React.js 基本原理介绍
 
-> 本文采用嵌入式 jsComplete 代码段，所以为了方便阅读需要一个合适的屏幕宽度。
+> 本文采用嵌入式 jsComplete 代码段，所以为了方便阅读，你需要一个合适的屏幕宽度。
 
-下面所有的代码都是参考代码。它们也纯粹是为了表达概念而提供的例子。它们中的大多数有更好的实践方式。
+下面所有的代码都仅供参考。它们也纯粹是为了表达概念而提供的例子。它们中的大多数有更好的实践方式。
 
-您可以编辑和执行下面的任何代码段。使用 **Ctrl+Enter** 执行代码。每一段的右下角有一个点击后可以在 [jsComplete/repl](https://jscomplete.com/repl) 进行全屏模式编辑/运行代码的链接。
+您可以编辑和执行下面的任何代码段。使用 **Ctrl+Enter** 执行代码。每一段的右下角有一个点击后可以在 [jsComplete/repl](https://jscomplete.com/repl) 进行全屏模式编辑或运行代码的链接。
 
 ---
 
@@ -44,13 +44,13 @@ ReactDOM.render(<Button label="Save" />, mountNode)
 
 例 1：编辑上面的代码并按 Ctrl+Enter 键执行
 
-> 括号中的 button 标签将稍后解释。现在不要担心它们。`ReactDOM` 也将稍后解释，但如果你想测试这个例子和所有接下来的例子，上述 `render` 函数是必须的。（React 将要接管和控制的是 `ReactDOM.render` 的第 2 个参数即目标 DOM 元素）。
+> 括号中的 button 标签将稍后解释。现在不要担心它们。`ReactDOM` 也将稍后解释，但如果你想测试这个例子和所有接下来的例子，上述 `render` 函数是必须的。（React 将要接管和控制的是 `ReactDOM.render` 的第 2 个参数即目标 DOM 元素）。在 jsComplete REPL 中，你可以使用特殊的变量 `mountNode`。
 
 例 1 的注意事项：
 
-- 组件名称首字母大写，是一个 `Button` 元素。必须要这样做因为我们将处理 HTML 元素和 React 元素的混合。小写名称保留为 HTML 元素。事实上，将 React 组件命名为 “button” 然后你就会发现 ReactDOM 会忽略这个函数，仅仅是将其作为一个普通的空的 HTML 按钮来渲染。
+- 组件名称首字母大写，`Button`。必须要这样做是因为我们将处理 HTML 元素和 React 元素的混合。小写名称是为 HTML 元素保留的。事实上，将 React 组件命名为 “button” 然后你就会发现 ReactDOM 会忽略这个函数，仅仅是将其作为一个普通的空 HTML 按钮来渲染。
 - 每个组件都接收一个属性列表，就像 HTML 元素一样。在 React 中，这个列表被称为**属性**。虽然你可以将一个函数随意命名。
-- 在上面组件中的 `Button` 函数中，我们在返回的输出中写看上去像是 HTML 的代码会很奇怪，这是 JavaScript 而不是 HTML，老实说，这甚至不是 React.js。然而它非常流行，以至于成为 React 应用程序中的默认值。这就是所谓的 [*JSX*](https://facebook.github.io/jsx/) ，这是一个JavaScript的扩展。JSX 也是一个**折中方案**！继续尝试并在上面的函数中返回其他 HTML 元素，看看它们是如何被支持的（例如，返回一个文本输入元素）。
+- 在上面 Button 函数组件的返回输出中，我们奇怪地写了段看上去像 HTML 的代码。这实际上既不是 JavaScript 也不是 HTML，老实说，这甚至不是 React.js。然而它非常流行，以至于成为 React 应用程序中的默认值。这就是所谓的 [**JSX**](https://facebook.github.io/jsx/)，这是一个JavaScript 的扩展。JSX 也是一个**折中方案**！继续尝试并在上面的函数中返回其他 HTML 元素，看看它们是如何被支持的（例如，返回一个文本输入元素）。
 
 #### 2 JSX 输出的是什么？
 
@@ -65,7 +65,7 @@ function Button (props) {
   );
 }
 
-// 使用 Button，你将会做这样做
+// 要使用 Button，你可以这么做
 ReactDOM.render(
   React.createElement(Button, { label: "Save" }),
   mountNode
@@ -76,9 +76,9 @@ ReactDOM.render(
 
 在 React 顶级 API 中，`createElement` 函数是主函数。这是你需要学习的 7 个 API 中的 1 个。React 的 API 就是这么小。
 
-就像 DOM 本身具有 `document.createElement` 函数可以通过标签名称来创建一个指定元素一样， React 的 `createElement` 函数是一个高级函数，有和 `document.createElement` 同样的功能，但它也可以被用来创建一个元素代表一个 React 组件。当我们使用上面例 2 中的按钮组件时，我们使用的是后者。
+就像 DOM 自身有一个 document.createElement 函数来创建一个由标签名指定的元素一样，React 的 `createElement` 函数是一个高级函数，有和 `document.createElement` 同样的功能，但它也可以用于创建一个表示 React 组件的元素。当我们使用上面例 2 中的按钮组件时，我们使用的是后者。
 
-不像 `document.createElement`，React 的 `createElement` 在第二个代表创建元素的**子元素**在接受一个动态参数之后。所以 `createElement` 实际上创造了一个**树**。
+不像 `document.createElement`，React 的 `createElement` 在接收第二个参数后，接收一个动态参数，它表示所创建元素的子元素。所以 `createElement` 实际上创建了一个**树**。
 
 这里就是这样的一个例子：
 
@@ -100,7 +100,7 @@ function Button (props) {
   );
 }
 
-// 然后我们可以直接使用 InputForm 通过 .render 方法
+// 然后我们可以通过 .render 方法直接使用 InputForm
 ReactDOM.render(InputForm, mountNode);
 ```
 例 3：React 创建元素的 API
@@ -108,13 +108,13 @@ ReactDOM.render(InputForm, mountNode);
 上面例子中的一些事情值得注意：
 
 - `InputForm` 不是一个 React 组件；它仅仅是一个 React **元素**。这就是为什么我们可以在 `ReactDOM.render` 中直接使用它并且可以在调用时不使用 `<InputForm />` 的原因。
-- `React.createElement` 函数接收多个参数后的前两个。从参数列表的第三开始包含创建元素的子列表。
-- 我们可以调用 `React.createElement` 因为它是 JavaScript。
-- `React.createElement` 的第二个参数可以为空或者是一个空对象，当这个元素不需要属性或方法时。
+- React.createElement 函数在前两个参数后接收了多个参数。从第3个参数开始的参数列表构成了创建元素的子项列表。
+- 我们可以嵌套 `React.createElement` 调用，因为它是 JavaScript。
+- 当这个元素不需要属性时，React.createElement 的第二个参数可以为空或者是一个空对象。
 - 我们可以在 React 组件中混合 HTML 元素。你可以将 HTML 元素作为内置的 React 组件。
-- React 的 API 试图和 DOM API 一样，这就是为什么我们使用 `className` 代替 `class` 为输入元件的原因。我们都希望如果 React 的 API 成为 DOM API 本身的一部分，因为，你知道，它要好得多。
+- React 的 API 试图和 DOM API 一样，这就是为什么我们在 input 元素中使用 `className` 代替 `class` 的原因。我们都希望如果 React 的 API 成为 DOM API 本身的一部分，因为，你知道，它要好得多。
 
-上述的代码是当你引入 React 库的时候浏览器是怎样理解的。浏览器不会处理任何的 JSX 业务。然而，我们更喜欢看到和使用 HTML 而不是那些 `createElement` 调用（想象一下只使用 `document.createElement` 构建一个网站，你可以的！）。这就是 JSX 存在的原因。取代上述调用 `React.createElement` 的方式，我们可以使用一个非常简单类似于 HTML 的语法：
+上述的代码是当你引入 React 库的时候浏览器是怎样理解的。浏览器不会处理任何 JSX 业务。然而，我们更喜欢看到和使用 HTML，而不是那些 `createElement` 调用（想象一下只使用 `document.createElement` 构建一个网站！）。这就是 JSX 存在的原因。取代上述调用 `React.createElement` 的方式，我们可以使用一个非常简单类似于 HTML 的语法：
 
 ```
 const InputForm =
@@ -434,13 +434,13 @@ React 的名字是从状态改变的**反应**中得来的（虽然没有反应�
 - 通过父元素传入的属性
 - 以及可以随时更新的内部私有状态
 
-当渲染函数的输入改变时，输出也会改变。
+当渲染函数的输入改变时，输出可能也会改变。
 
 React 保存了渲染的历史记录，当它看到一个渲染与前一个不同时，它将计算它们之间的差异，并将其有效地转换为在 DOM 中执行的实际 DOM 操作。
 
 #### 9 React 是你的代码
 
-您可以将 React 看作是我们用来与浏览器通信的代理。以上面的当前时间戳显示为例。取代每一秒我们都需要手动去浏览器调用 DOM API 操作来查找和更新 `p#timestamp` 元素，我们仅仅改变组件的状态属性， React 做的工作代表我们与浏览器的通信。我相信这就是为什么 React 这么受欢迎的真正原因；我们只是不喜欢和浏览器先生谈话（以及它所说的 DOM 语言的很多方言），并且 React 自愿传递给我们，免费的！
+您可以将 React 看作是我们用来与浏览器通信的代理。以上面的当前时间戳显示为例。取代每一秒我们都需要手动去浏览器调用 DOM API 操作来查找和更新 `p#timestamp` 元素，我们仅仅改变组件的状态属性，React 做的工作代表我们与浏览器的通信。我相信这就是为什么 React 这么受欢迎的真正原因；我们只是不喜欢和浏览器先生谈话（以及它所说的 DOM 语言的很多方言），并且 React 自愿传递给我们，免费的！
 
 #### 10 每一个 React 组件都有一个故事：第 2 部分
 
@@ -460,19 +460,19 @@ React 保存了渲染的历史记录，当它看到一个渲染与前一个不�
 
 ---
 
-信不信由你，通过上面所学的知识（或部分知识），你可以开始创建一些有趣的 React 应用程序。如果你渴望更多，看看我的 [**Pluralsight 的 React.js入门课程**](https://www.pluralsight.com/courses/react-js-getting-started?aid=701j0000001heIoAAI&amp;promo=&amp;oid=&amp;utm_source=google&amp;utm_medium=ppc&amp;utm_campaign=US_Dynamic&amp;utm_content=&amp;utm_term=&amp;gclid=CNOAj_2-j9UCFUpNfgod4V0Fdg)。
+信不信由你，通过上面所学的知识（或部分知识），你可以开始创建一些有趣的 React 应用程序。如果你渴望更多，看看我的 [**Pluralsight 的 React.js 入门课程**](https://www.pluralsight.com/courses/react-js-getting-started?aid=701j0000001heIoAAI&amp;promo=&amp;oid=&amp;utm_source=google&amp;utm_medium=ppc&amp;utm_campaign=US_Dynamic&amp;utm_content=&amp;utm_term=&amp;gclid=CNOAj_2-j9UCFUpNfgod4V0Fdg)。
 
-**感谢阅读。如果您觉得这篇文章有帮助，请点击下面的 💚。跟着我学习 React.js 和 JavaScript 的更多文章**。
-
----
-
-我 [Pluralsight](https://app.pluralsight.com/profile/author/samer-buna) 和 [Lynda](https://www.lynda.com/Samer-Buna/7060467-1.html) 创建了在线课程。我最新的文章在[Advanced React.js](https://www.pluralsight.com/courses/reactjs-advanced)、 [Advanced Node.js](https://www.pluralsight.com/courses/nodejs-advanced) 和  [Learning Full-stack JavaScript](https://www.lynda.com/Express-js-tutorials/Learning-Full-Stack-JavaScript-Development-MongoDB-Node-React/533304-2.html)中。我也做小组的在线和现场培训，覆盖初学者在高级 JavaScript 和 Node.js、 React.js、 and GraphQL。如果你需要一个导师，[请来找我](mailto:samer@jscomplete.com) 。如果你对此篇文章或者我写的其他任何文章有疑问，[通过这个联系我](https://slack.jscomplete.com/)，并且在 #questions 中提问。
+**感谢阅读。如果您觉得这篇文章有帮助，请点击下面的 💚。请关注我的更多关于 React.js 和 JavaScript 的文章**。
 
 ---
 
-感谢很多读者检验和改进的文章，Łukasz Szewczak、Tim Broyles、 Kyle Holden、 Robert Axelse、 Bruce Lane、Irvin Waldman 和 Amie Wilt.
+我 [Pluralsight](https://app.pluralsight.com/profile/author/samer-buna) 和 [Lynda](https://www.lynda.com/Samer-Buna/7060467-1.html) 创建了在线课程。我最新的文章在[Advanced React.js](https://www.pluralsight.com/courses/reactjs-advanced)、 [Advanced Node.js](https://www.pluralsight.com/courses/nodejs-advanced) 和  [Learning Full-stack JavaScript](https://www.lynda.com/Express-js-tutorials/Learning-Full-Stack-JavaScript-Development-MongoDB-Node-React/533304-2.html)中。我也做小组的在线和现场培训，覆盖初级到高级的 JavaScript、 Node.js、 React.js、GraphQL。如果你需要一个导师，[请来找我](mailto:samer@jscomplete.com) 。如果你对此篇文章或者我写的其他任何文章有疑问，[通过这个联系我](https://slack.jscomplete.com/)，并且在 #questions 中提问。
 
-特别要感谢“惊人的” [Amie](https://www.linkedin.com/in/amiewilt/)，经验是一个实际的 [Unicorn](https://medium.com/@katherinemartinez/the-unicorn-hybrid-designer-developer-5e89607d5fe0)。有你们的帮助，我真的很感激。谢谢Amie。
+---
+
+感谢很多检验和改进这篇文章的读者，Łukasz Szewczak、Tim Broyles、 Kyle Holden、 Robert Axelse、 Bruce Lane、Irvin Waldman 和 Amie Wilt.
+
+特别要感谢“惊人的” [Amie](https://www.linkedin.com/in/amiewilt/)，经验是一个实际的 [Unicorn](https://medium.com/@katherinemartinez/the-unicorn-hybrid-designer-developer-5e89607d5fe0)。谢谢你所有的帮助，Anime，真的非常感谢你。
 
 ---
 
