@@ -4,7 +4,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/how-chat-bots-work.md](https://github.com/xitu/gold-miner/blob/master/TODO/how-chat-bots-work.md)
 > * 译者：[lsvih](https://github.com/lsvih)
-> * 校对者：[lileizhenshuai](https://github.com/lileizhenshuai)
+> * 校对者：[lileizhenshuai](https://github.com/lileizhenshuai),[jasonxia23](https://github.com/jasonxia23)
 
 # 机器之魂：聊天机器人是怎么工作的
 
@@ -57,33 +57,31 @@
 
 下面是一个简单的模式匹配定义：
 
-````
+```
 <aiml version = "1.0.1" encoding = "UTF-8"?>
    <category>
-  <pattern> WHO IS ALBERT EINSTEIN </pattern>
-  <template>Albert Einstein was a German physicist.</template>
+      <pattern> WHO IS ALBERT EINSTEIN </pattern>
+      <template>Albert Einstein was a German physicist.</template>
    </category>
 
    <category>
-  <pattern> WHO IS Isaac NEWTON </pattern>
-  <template>Isaac Newton was a English physicist and mathematician.</template>
+      <pattern> WHO IS Isaac NEWTON </pattern>
+      <template>Isaac Newton was a English physicist and mathematician.</template>
    </category>
 
    <category>
-  <pattern>DO YOU KNOW WHO * IS</pattern>
-  <template>
- <srai>WHO IS <star/></srai>
-  </template>
+      <pattern>DO YOU KNOW WHO * IS</pattern>
+      <template>
+         <srai>WHO IS <star/></srai>
+      </template>
    </category>
 </aiml>
-````
+```
 
 然后机器经过处理会回答：
 
-````
-Human: Do you know who Albert Einstein is
-Robot: Albert Einstein was a German physicist.
-````
+	Human: Do you know who Albert Einstein is
+	Robot: Albert Einstein was a German physicist.
 
 它之所以知道别人问的是哪个物理学家，只是靠着与他或者她名字相关联的模式匹配。同样的，它靠着创作者预设的模式可以对任何意图进行回应。在给予它成千上万种模式之后，你终将能看到一个“类人”的聊天机器人出现。
 
@@ -105,31 +103,27 @@ Robot: Albert Einstein was a German physicist.
 
 下面是一个简单的训练集：
 
-````
-class: weather
-"is it nice outside?"
-"how is it outside?"
-"is the weather nice?"
-
-class: greeting
-"how are you?"
-"hello there"
-"how is it going?"
-````
+	class: weather
+	    "is it nice outside?"
+	    "how is it outside?"
+	    "is the weather nice?"
+	
+	class: greeting
+	    "how are you?"
+	    "hello there"
+	    "how is it going?"
 
 让我们来对几个简单的输入句子进行分类：
 
-````
-input: "Hi there"
- term: "hi" (**no matches)**
- term: "there" **(class: greeting)**
- classification: **greeting **(score=1)
-
-input: "What’s it like outside?"
- term: "it" **(class: weather (2), greeting)**
- term: "outside **(class: weather (2) )**
- classification: **weather **(score=4)
-````
+	input: "Hi there"
+	 term: "hi" (**no matches)**
+	 term: "there" **(class: greeting)**
+	 classification: **greeting **(score=1)
+	
+	input: "What’s it like outside?"
+	 term: "it" **(class: weather (2), greeting)**
+	 term: "outside **(class: weather (2) )**
+	 classification: **weather **(score=4)
 
 请注意，“What’s it like outside”在分类时找到了另一个分类的单词，但是正确的分类给了单词较高的分值。通过算法公式，我们可以为句子计算匹配每个分类对应的词频，因此不需要去标明所有的模式。
 
@@ -140,7 +134,7 @@ input: "What’s it like outside?"
 
 ### 神经网络
 
-人工神经网络发明于 19 世纪 40 年代，它通过迭代计算训练数据得到连接的加权值（“突触”）,然后用于对输入数据进行分类。通过一次次使用训练数据计算改变加权值以使得神经网络的输出得到更高的“准确率”（低错误率）。
+人工神经网络发明于 20 世纪 40 年代，它通过迭代计算训练数据得到连接的加权值（“突触”），然后用于对输入数据进行分类。通过一次次使用训练数据计算改变加权值以使得神经网络的输出得到更高的“准确率”（低错误率）。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*HULATc7wX7CtzybTIxgBvQ.png)
 
@@ -148,7 +142,7 @@ input: "What’s it like outside?"
 
 其实除了当今的软件可以用更快的处理器、更大的内存外，这些结构并没有出现什么新奇的东西。当做数十万次的矩阵乘法（神经网络中的基本数学运算）的时候，运行内存和计算速度成为了关键问题。
 
-在前面的方法里，每个分类都会给定一些例句。接着，根据词干进行分句，将所有单词作为神经网络的输入。然后遍历数据，进行成千上万次迭代计算，每次迭代都通过改变突触权重来得到更高的准确率。接着通过反过来通过对训练集输出值和神经网络计算结果的对比，对各层重新进行计算权重（反向传播）。这个“权重”可以类比成神经突触想记住某个东西的“力度”，你能记住某个东西是因为你曾多次见过它，在每次见到它的时候这个“权重”都会轻微地上升。
+在前面的方法里，每个分类都会给定一些例句。接着，根据词干进行分句，将所有单词作为神经网络的输入。然后遍历数据，进行成千上万次迭代计算，每次迭代都通过改变突触权重来得到更高的准确率。接着反过来通过对训练集输出值和神经网络计算结果的对比，对各层重新进行计算权重（反向传播）。这个“权重”可以类比成神经突触想记住某个东西的“力度”，你能记住某个东西是因为你曾多次见过它，在每次见到它的时候这个“权重”都会轻微地上升。
 
 有时，在权重调整到某个程度后反而会使得结果逐渐变差，这种情况称为“过拟合”，在出现过拟合的情况下继续进行训练，反而会适得其反。
 
