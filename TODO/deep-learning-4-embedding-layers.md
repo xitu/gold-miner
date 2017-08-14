@@ -4,7 +4,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/deep-learning-4-embedding-layers.md](https://github.com/xitu/gold-miner/blob/master/TODO/deep-learning-4-embedding-layers.md)
 > * 译者：[Tobias Lee](http://tobiaslee.top)
-> * 校对者：[LJ147](https://github.com/LJ147) [changkun](https://github.com/changkun)
+> * 校对者：[LJ147](https://github.com/LJ147)、[changkun](https://github.com/changkun)
 
 # 深度学习系列4:  为什么你需要使用嵌入层
 
