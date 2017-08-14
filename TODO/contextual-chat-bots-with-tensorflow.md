@@ -4,7 +4,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/contextual-chat-bots-with-tensorflow.md](https://github.com/xitu/gold-miner/blob/master/TODO/contextual-chat-bots-with-tensorflow.md)
 > * 译者：[edvardhua](https://github.com/edvardHua)
-> * 校对者：[lileizhenshuai](https://github.com/lileizhenshuai)
+> * 校对者：[lileizhenshuai](https://github.com/lileizhenshuai), [jasonxia23](https://github.com/jasonxia23)
 
 # 基于 TensorFlow 的上下文机器人
 
@@ -14,15 +14,15 @@
 
 怎么可能在所有的对话中考虑到上下文的重要性？
 
-我们将创建一个"聊天机器人"框架，并为一个岛上的汽车出租店建立一个会话模型，这个小型的聊天机器人需要能够处理关于时间计算，预订选择等简单的功能。我们还希望他能够响应一些上下文的操作，譬如询问当天的租金。这样的话，我们的工作就可以减轻不少。
+我们将创建一个“聊天机器人”框架，并为一个岛上的汽车出租店建立一个会话模型，这个小型的聊天机器人需要能够处理关于时间计算，预订选择等简单的功能。我们还希望他能够响应一些上下文的操作，譬如询问当天的租金。这样的话，我们的工作就可以减轻不少。
 
 我们将通过下面三步来实现这个功能：
 
 - 首先，把对话意图的定义转换成 TensoFlow 模型
-- 接下来，我们构建一个 chat-bot 框架来处理响应
+- 接下来，我们构建一个聊天机器人框架来处理响应
 - 最后，我们将展示如何将基本的上下文合并到我们的相应处理模块中
 
-我们将使用在 TensorFlow 上构建的高层次 API，也即  [** tflearn **](http://tflearn.org/)、当然还有[** Python **](https://www.python.org/)、同时还使用[** iPython notebook **](https://ipython.org/notebook.html)来更好的完成我们的工作
+我们将使用在 TensorFlow 上构建的高层次 API，也即  [**tflearn**](http://tflearn.org/) ，当然还有 [**Python**](https://www.python.org/) ，同时还使用 [**iPython notebook**](https://ipython.org/notebook.html) 来更好的完成我们的工作
 
 
 ---
@@ -31,11 +31,11 @@
 
 这一部分的完整笔记在[这里](https://github.com/ugik/notebooks/blob/master/Tensorflow%20chat-bot%20model.ipynb)
 
-一个 chat-bot 框架需要一个结构，而其中就定义了会话的意图，在这里我们使用了 json 文件来定义他，如这个[文件](https://github.com/ugik/notebooks/blob/master/intents.json)中所示
+一个聊天机器人框架需要一个结构，而其中就定义了会话的意图，在这里我们使用了 json 文件来定义他，如这个[文件](https://github.com/ugik/notebooks/blob/master/intents.json)中所示
 
 ![](https://cdn-images-1.medium.com/max/800/1*pcbw_Y4acT750-lL98iw2Q.png)
 
-chat-bot 的意图
+聊天机器人的意图
 每个对话的意图都包含：
 
 - 一个 **标签**（tag，唯一标识的名字）
@@ -69,7 +69,7 @@ with open('intents.json') as json_data:
 ```
 
 
-意图的 json 文件被加载后，我们现在可以开始组织我们的文档，文字和分类器对应的类别。
+意图的 JSON 文件被加载后，我们现在可以开始组织我们的文档、文字和分类器对应的类别。
 
 
 ```Python
@@ -112,7 +112,7 @@ print (len(words), "unique stemmed words", words)
 
 词干 "tak" 将会和 "take", "taking","takers" 等词匹配。我们可以清理单词列表并删除无用的条目，但这就足够了。
 
-但是目前的数据结构不能够被 TensorFlow 利用，我们需要进一步的转换它：也即将文档中的词转换成数字的张量。
+但是目前的数据结构不能够被 TensorFlow 利用，我们需要进一步的转换它： **也即将文档中的词转换成数字的张量。**
 
 
 ```Python
@@ -149,7 +149,7 @@ train_x = list(training[:,0])
 train_y = list(training[:,1])
 ```
 
-注意，我们的数据被打乱了。Tensorflow 会使用其中一部分数据用作测试，以评估训练模型的准确性。
+注意，我们的数据被打乱了。TensorFlow 会使用其中一部分数据用作测试， **以评估训练模型的准确性。**
 
 下面是一个 x 和 y 的列表元素，也即[词袋](https://en.wikipedia.org/wiki/Bag-of-words_model)数组，一个是意图的模式，另一个是意图所对应的类。
 
@@ -161,7 +161,7 @@ train_y example: [0, 0, 1, 0, 0, 0, 0, 0, 0]
 我们已经准备好了，可以创建我们的模型了。
 
 ```Python
-# 重置 reset_default_graph
+# 重置底层图数据
 tf.reset_default_graph()
 # 创建神经网络
 net = tflearn.input_data(shape=[None, len(train_x[0])])
@@ -170,20 +170,20 @@ net = tflearn.fully_connected(net, 8)
 net = tflearn.fully_connected(net, len(train_y[0]), activation='softmax')
 net = tflearn.regression(net)
 
-# 定义模型和 tensorboard
+# 定义模型并创建 tensorboard
 model = tflearn.DNN(net, tensorboard_dir='tflearn_logs')
-# 使用随机梯度下降方法训练模型
+# 使用梯度下降方法训练模型
 model.fit(train_x, train_y, n_epoch=1000, batch_size=8, show_metric=True)
 model.save('model.tflearn')
 ```
 
-这个张量的结构与我们之前在一篇文章中使用的 2 层神经网络是相同的，训练模型的方式是不会过时的。
+这个张量的结构与我们[之前在一篇文章](https://chatbotslife.com/deep-learning-in-7-lines-of-code-7879a8ef8cfb)中使用的 2 层神经网络是相同的，训练模型的方式是不会过时的。
 
 
 ![](https://cdn-images-1.medium.com/max/800/1*5UIqnedBzsYTXJ81wEU-vg.gif)
 
 使用 tflearn 交互式构建模型
-为了完成这部分的工作，我们将保存（pickle）模型和文档以便我们在以后的 Jupyter Notebook 中可以使用他们。
+为了完成这部分的工作，我们将序列化保存（pickle）模型和文档以便我们在以后的 Jupyter Notebook 中可以使用他们。
 
 ```Python
 # 保存我们所有的数据结构
@@ -194,15 +194,15 @@ pickle.dump( {'words':words, 'classes':classes, 'train_x':train_x, 'train_y':tra
 ---
 
 
-#### 创建我们的 chat-bot 框架
+#### 创建我们的聊天机器人框架
 
 这部分的完整 notebook 在[这里](https://github.com/ugik/notebooks/blob/master/Tensorflow%20chat-bot%20response.ipynb)可以下载。
 
-我们创建了一个简单的 state-machine 来处理响应，用我们的意图模型（上一步训练的结果）作为分类器。 [聊天机器人是如何工作的](https://medium.freecodecamp.com/how-chat-bots-work-dfff656a35e2)
+我们创建了一个简单的状态机来处理响应，用我们的意图模型（上一步训练的结果）作为分类器。 [聊天机器人是如何工作的](https://medium.freecodecamp.com/how-chat-bots-work-dfff656a35e2)
 
-> 上下文的 chat-bot 框架是 **state-machine** 内的一个分类器。
+> 上下文的聊天机器人框架是 **状态机** 内的一个分类器。
 
-加载相同的导入模块后，我们将 **un-pickle** 我们的模型和文档并且重新加载我们的意图文件。记住我们的 chat-bot 框架是和我们的模型分开来构建的—你不需要重新构建你的模型除非意图模式发生改变。因为有几百个意图和数千个模式，所以这个模型可能需要几分钟的时间来构建。
+加载相同的导入模块后，我们将 **反序列化** 我们的模型和文档并且重新加载我们的意图文件。记住我们的 chat-bot 框架是和我们的模型分开来构建的—你不需要重新构建你的模型除非意图模式发生改变。因为有几百个意图和数千个模式，所以这个模型可能需要几分钟的时间来构建。
 
 ```Python
 # 重置变量
@@ -213,20 +213,20 @@ classes = data['classes']
 train_x = data['train_x']
 train_y = data['train_y']
 
-# 导入意图的 json 文件
+# 导入聊天机器人的意图文件
 import json
 with open('intents.json') as json_data:
     intents = json.load(json_data)
 ```
 
-接下来将加载我们保存在 TensorFlow(tflearn framework) 上的模型。首先我们需要和前面章节所述的一样来定义 TensorFlow 模型的结构。
+接下来将加载我们保存在 TensorFlow (tflearn framework) 上的模型。首先我们需要和前面章节所述的一样来定义 TensorFlow 模型的结构。
 
 ```Python
 # 加载保存的模型
 model.load('./model.tflearn')
 ```
 
-在开始处理意图之前，我们需要从用户的输入中生成词袋（bag-of-words），这和我们之前创建训练文档时使用的技术是一样的。
+在开始处理意图之前，我们需要 **从用户的输入** 中生成词袋（bag-of-words），这和我们之前创建训练文档时使用的技术是一样的。
 
 ```Python
 def clean_up_sentence(sentence):
@@ -300,7 +300,7 @@ classify('is your shop open today?')
 [('opentoday', 0.9264171123504639)]
 ```
 
-注意到"你的商店今天营业吗"并不是这种意图的模式之一： **模式：["你今天开着吗?"，"你今天什么时候开?"，"你今天营业几小时?"]** ，然而词"开"和"今天"对我们的模式来说是很重要的（也就是说他们决定了模型会选择什么意图）。
+注意到“你的商店今天营业吗”并不是这种意图的模式之一： **模式：["你今天开着吗?"，"你今天什么时候开?"，"你今天营业几小时?"]** ，然而词“开”和“今天”对我们的模式来说是很重要的（也就是说他们决定了模型会选择什么意图）。
 
 所以我们就可以根据用户的输入生成一个 chat-bot 的回应
 
@@ -327,7 +327,7 @@ Bye! Come back again soon.
 
 #### 情景化
 
-我们想要让聊天机器人处理关于出租汽车的对话，比如询问客户是否要今天租赁。这个问题是一个简单的上下文响应，如果用户回复'今天'，那么上下文就是租赁时间，这个时候就赶紧给租赁公司打电话吧，他不想错过这个订单的。
+我们想要让聊天机器人处理关于出租汽车的对话，比如询问客户是否要今天租赁。这个问题是一个简单的上下文响应，如果用户回复“今天”，那么上下文就是租赁时间，这个时候就赶紧给租赁公司打电话吧，他不想错过这个订单的。
 
 为了实现这一目的，我们在框架中添加了状态这个概念。这由一个保存状态的数据结构和操作状态的特定代码组成，以便处理意图。
 
@@ -416,7 +416,7 @@ def response(sentence, userID='123', show_details=False):
  }
 ```
 
-用这种方式，当用户只是输入 '今天' 的（没有上下文）的时候，'今天' 这个意图就不会被处理。当他们输入的 '今天' 作为回复我们提出的问题的时候，那么这个意图就会被处理。
+用这种方式，当用户只是意料之外地输入“今天“的的时候（没有上下文），“今天” 这个意图就不会被处理。当他们输入的 “今天” 作为回复我们提出的问题的时候，那么这个意图就会被处理。
 
 ```Python
 response('we want to rent a moped')
@@ -432,7 +432,7 @@ context
 {'123': 'rentalday'}
 ```
 
-我们定义'问候'的语句来清除上下文，就像闲聊时经常发生的那样。我们添加了一个 "查看详情" 的参数来帮助我们查看内部的运作。
+我们定义“问候”的语句来清除上下文，就像闲聊时经常发生的那样。我们添加了一个 “查看详情” 的参数来帮助我们查看内部的运作。
 
 ```
 response("Hi there!", show_details=True)
@@ -441,7 +441,7 @@ tag: greeting
 Good to see you again
 ```
 
-让我们再尝试一下输入 '今天'，这里有一些需要注意的东西...
+让我们再尝试一下输入 “今天”，这里有一些需要注意的东西...
 
 ```Python
 response('today')
@@ -450,7 +450,7 @@ classify('today')
 [('today', 0.5322513580322266), ('opentoday', 0.2611265480518341)]
 ```
 
-首先，我们对上下文无关的“今天”的反应是不同的。我们的分类产生了2个合适的意图，但是 'opentoday' 被选中， 'today' 意图虽然具备更高的可能性，但是却被限制在一个不再合适的环境中，**所以说上下文很重要**。
+首先，我们对上下文无关的“今天”的反应是不同的。我们的分类产生了 2 个合适的意图，但是 'opentoday' 被选中， 'today' 意图虽然具备更高的可能性，但是却被限制在一个不再合适的环境中，**所以说上下文很重要**。
 
 ```Python
 response("thanks, your great")
@@ -463,26 +463,26 @@ Happy to help!
 
 #### 维持状态
 
-没错，你的聊天机器人将不再是一种**无状态的服务**。
+没错，你的聊天机器人将不再是一种 **无状态的服务**。
 
-除非你想重新构建状态，重新加载模型和文档—每次调用你的 chat-bot 框架时，你都需要使其成为有状态的
+除非你想重新构建状态，重新加载模型和文档—每次调用你的聊天机器人框架时，你都需要使其成为有状态的。
 
-这并不是那么难，你可以运行一个有状态的聊天机器人框架的过程，也即使用远程过程调用 RPC 或者远程方法调用 RMI，在这里我推荐使用  [Pyro](http:/。pythonhosted.org/Pyro4/)。
+这并不是那么难，你可以运行一个有状态的聊天机器人框架的过程，也即使用远程过程调用 RPC 或者远程方法调用 RMI，在这里我推荐使用 [Pyro](http:/。pythonhosted.org/Pyro4/)。
 
 ![](https://cdn-images-1.medium.com/max/600/1*hpbuSvovqSyVY-nhBcoIaQ.jpeg)
 
 RMI 客户端和服务器设置
-用户界面(客户端)通常是无状态的，例如。HTTP 或 SMS。
+用户界面（客户端）通常是无状态的，例如。HTTP 或 SMS。
 
-你客户端的 chat-bot 将会创建一个 Pyro 函数调用，你的有状态服务将会处理他。
+你 **客户端** 的聊天机器人将会创建一个 Pyro 函数调用，你的有状态服务将会处理他。
 
-这里有一个一步一步指导你构建 Twilio SMS 聊天机器人客户端的[文章](https://chatbotslife.com/build-a-working-sms-chat-bot-in-10-minutes-b8278d80cc7a)，另外一篇[文章](https://chatbotnewsdaily.com/build-a-facebook-messenger-chat-bot-in-10-minutes-5f28fe0312cd)是关于构建 FB Messenger 的。
+这里有一篇一步一步指导你构建 Twilio SMS 聊天机器人客户端的[文章](https://chatbotslife.com/build-a-working-sms-chat-bot-in-10-minutes-b8278d80cc7a)，另外一篇[文章](https://chatbotnewsdaily.com/build-a-facebook-messenger-chat-bot-in-10-minutes-5f28fe0312cd)是关于构建 FB Messenger 的。
 
 #### 不可将状态储存在局部变量中
 
 所有的状态信息都必须放在像字典这样的数据结构中，很容易持久化、重新加载或复制。
 
-每个用户的对话都将承载为该用户提供状态的上下文。用户的唯一标识 ID 可以是 Facebook 的用户 ID 或者其他的唯一标识符
+每个用户的对话都将承载为该用户提供状态的上下文。用户的唯一标识 ID 可以是手机号，Facebook 的用户 ID 或者其他的唯一标识符
 
 在一些场景中用户的对话状态需要被复制然后重新储存起来被意图所处理。如果你的状态机携带的一些状态的变量在框架中是共用的话，则很难在实际场景中实现这一工作。
 
