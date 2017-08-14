@@ -318,7 +318,7 @@ onClick={this.handleClick}
 当处理 React 元素中的事件时，我们与 DOM API 的处理方式有两个非常重要的区别：
 
 - 所有 React 元素属性（包括事件）都使用 **camelCase** 命名，而不是 **camelCase**。例如是 `onClick` 而不是 `onClick`。
-- 我们将实际的 JavaScript 函数引用传递给事件处理程序，而不是字符串。例如是 `onClick={**handleClick**}` 而不是 `onClick="**handleClick"**`。
+- 我们将实际的 JavaScript 函数引用传递给事件处理程序，而不是字符串。例如是 `onClick={handleClick}` 而不是 `onClick="handleClick"`。
 
 React 用自己的对象包装 DOM 对象事件以优化事件处理的性能，但是在事件处理程序内部，我们仍然可以访问 DOM 对象上所有可以访问的方法。React 将经过包装的事件对象传递给每个调用函数。例如，为了防止表单提交默认提交操作，你可以这样做：
 
