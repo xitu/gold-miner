@@ -158,9 +158,9 @@ const PrimaryLayout = () => (
 
 如果遇到，`<Redirect>` 组件将会始终执行浏览器重定向，但是当它位于 `<Switch>` 语句中时，只有在其他路由不匹配的情况下，才会渲染重定向组件。想了解在非切换环境下如何使用 `<Redirect>`，请参阅下面的**授权路由**。
 
-### "Index Routes" and "Not Found"
+### “根路由”和“未找到”
 
-While there is no more `<IndexRoute>` in v4, using `<Route exact>` achieves the same thing.  Or if no routes resolved, then use  `<Switch>` with `<Redirect>` to redirect to a default page with a valid path (as I did with `HomePage` in the example), or even a not-found page.
+尽管在 v4 中已经没有 `<IndexRoute>` 了，但可以使用 `<Route exact>` 来达到同样的效果。如果没有路由解析，则可以使用 `<Switch>` 与 `<Redirect>` 重定向到具有有效路径的默认页面（如同我对本示例中的 `HomePage` 所做的 ），甚至可以是一个未找到页面。
 
 ### Nested Layouts
 
