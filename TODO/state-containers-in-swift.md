@@ -13,15 +13,15 @@
 在客户端架构如何工作上，每一个 iOS 和 MacOS 开发者都有不同的微妙见解。从最经典的苹果框架所内嵌的 
 [MVC 模式](https://developer.apple.com/library/content/documentation/General/Conceptual/DevPedia-CocoaCore/MVC.html)（读作：臃肿的视图控制器），到那些 MV* 模式（比如 MVP,MVVM），再到听起来有点吓人的 [Viper](https://www.objc.io/issues/13-architecture/viper/)，那么我们该如何选择？
 
-这篇文章并不会回答你的问题，因为正确的答案是它是**依据环境而定的**。我想要强调的是一个基本的技巧，我经常看到而且很喜欢，名为**状态容器**。
+这篇文章并不会回答你的问题，因为正确的答案是**依据环境而定的**。我想要强调的是一个我很喜欢并且经常看到的基本方法，名为**状态容器**。
 
-## 什么是一个状态容器 ？
+## 状态容器是什么？
 
-实质上，状态容器只是一个围绕信息的封装，是数据安全输入输出的守门人。他们不是特别在意数据的类型和来源。但是他们非常在意的是当数据**改变**的时候。状态容器的中心思想就是，任何状态改变的影响都要以**有组织**并且**可预测**的方式，传播到应用中。
+实质上，状态容器只是一个围绕信息的封装，是数据安全输入输出的守护者。他们不是特别在意数据的类型和来源。但是他们非常在意的是当数据**改变**的时候。状态容器的中心思想就是，任何由于状态改变产生的影响都应该以有组织并且可预测这种方式在应用里传递。
 
 > 状态容器以与线程锁相同的方式提供安全的状态。
 
-这并不是一个新的概念，而且它也不是一个让你集成到应用中的工具包。状态容器的理念是多姿多彩的，它可以融入进任何应用程序架构，而无需太多的附加规则。但是它是一个强大的方法，是很多流行库（比如[ReactiveReSwift](https://github.com/ReSwift/ReactiveReSwift)）的核心，比如 [ReSwift](https://github.com/ReSwift/ReSwift)，[Redux](https://github.com/reactjs/redux)，[Flux](https://github.com/facebook/flux) 等等，这些框架的成功和绝对数量说明了状态容器模式在现代移动应用中的功效。
+这并不是一个新的概念，而且它也不是一个你可以集成到整个应用的工具包。状态容器的理念是非常通用的，它可以融入进任何应用程序架构，而无需太多的附加规则。但是它是一个强大的方法，是很多流行库（比如[ReactiveReSwift](https://github.com/ReSwift/ReactiveReSwift)）的核心，比如 [ReSwift](https://github.com/ReSwift/ReSwift)，[Redux](https://github.com/reactjs/redux)，[Flux](https://github.com/facebook/flux) 等等，这些框架的成功和绝对数量说明了状态容器模式在现代移动应用中的有效性。
 
 就像 `ReSwift` 这样的响应式库，状态容器将 `Action` 和 `View` 之间的缺口桥联为单向数据流的一部分。然而即使没有其他两个组件，状态容器也很强力。实际上，他们可以做的比这些库使用的更多。
 
@@ -29,7 +29,7 @@
 
 ## 构建一个状态容器
 
-Let's start by constructing our fundamental `State` class.
+让我们从构建一个基本的 `State` 类开始。
 
     /// Wraps a piece of state.
     class State<Type> {
@@ -55,7 +55,7 @@ Let's start by constructing our fundamental `State` class.
         }
     }
 
-这个通用类封装了一个任何 `Type` 的 `_value`，通过一个 `key` 关联，并声明了一个提供 `defaultValue` 的初始化器。
+这个基类封装了一个任何 `Type` 的 `_value`，通过一个 `key` 关联，并声明了一个提供 `defaultValue` 的初始化器。
 
 ### 读取状态
 
@@ -101,11 +101,11 @@ Let's start by constructing our fundamental `State` class.
     }
 
 
-### 关于 `didModify()` 函数
+### 关于 `didModify()` 方法
 
-`didModify()` 是我们状态容器中最重要的一部分，因为它允许我们定义在状态改变后所触发的行为。`State` 的子类能覆盖这个方法，在发生这种情况时，来执行一些自定义的逻辑。
+`didModify()` 是我们状态容器中最重要的一部分，因为它允许我们定义在状态改变后所触发的行为。为了能够在任何时候这种情况发生时能够执行自定义的逻辑，`State` 的子类可以覆盖这个方法。
 
-`didModify()` 也扮演着另一个角色。如果我们通用的 `Type` 是一个 `class`，可能会改变它属性，而无需状态容器知道它。因此，我们暴露出 `didModify()` 方法，以便这些类型的更改可以手动传播（见下文）。
+`didModify()` 也扮演着另一个角色。如果我们通用的 `Type` 是一个 `class`，状态器就可以无需知道它就可以更改它的属性。因此，我们暴露出 `didModify()` 方法，以便这些类型的更改可以手动传播（见下文）。
 
 这是在处理状态时使用引用类型的固有危险，所以我建议尽可能使用值类型。
 
@@ -226,9 +226,9 @@ Let's start by constructing our fundamental `State` class.
         }
     }
 
-我们的 `MonitoredState` 类调用了 `didModify` 时，在它监听器上调用了 `stateModified(_state:)`，简单！
+无论何时 `didModify` 被调用，我们的 `MonitoredState` 类调用 `stateModified(_state:)` 上的监听者，简单！
 
-要添加监听器，我们要定义一个 `attach(listener:)` 方法。和上面的内容很像，在我们的 `listeners` 属性上，使用 `listenerLockQueue` 来设置一个读写锁。
+为了添加监听器，我们要定义一个 `attach(listener:)` 方法。和上面的内容很像，在我们的 `listeners` 属性上，使用 `listenerLockQueue` 来设置一个读写锁。
 
     extension MonitoredState {
 
@@ -241,7 +241,7 @@ Let's start by constructing our fundamental `State` class.
     }
 
 
-现在可以监听任何封装在 `MonitoredState` 里值的改变了！
+现在可以监听任何封装在 `MonitoredState` 里任何值的改变了！
 ### 根据状态的改变来触发 UI 的更新
 
 下面是一个如何使用我们新的 `MonitoredState` 类的例子。假设我们在 `MonitoredState` 容器中追踪设备的位置：
@@ -367,8 +367,8 @@ OK，现在我们正在获得好的东东。我们可以把现在所需要的一
 
 1. 我们的初始化方法检查 `UserDefaults.standard` 是否已经包含一个由 `key` 对应的值。
 2. 如果我们能加载一个对象，并且它刚好是基本类型，我们可以立即使用它。
-3. 如果我们加载的是 `Data`，那么使用 `NSKeyedUnarchiver` 解压，它会被 `NSCoding` 存储，然后我立即使用它。
-4. 如果 `UserDefaults.standard` 里没有和 `key` 对应的值，我们就使用已提供的 `defaultValue`。
+3. 如果我们加载的是 `Data`，那么使用 `NSKeyedUnarchiver` 解压，它会被 `NSCoding` 存储，然后我们立即使用它。
+4. 如果 `UserDefaults.standard` 里没有和 `key` 匹配的值，我们就使用已提供的 `defaultValue`。
 
 #### `didModify()`
 
@@ -389,7 +389,7 @@ extension Optional : OptionalType {
 }
 ```
 
-7. 如果我们的值符合 `NSCoding`，我们就需要使用 `NSKeyedArchiver` 来吧它转换成 `Data`，然后保存它。
+7. 如果我们的值符合 `NSCoding`，我们就需要使用 `NSKeyedArchiver` 来把它转换成 `Data`，然后保存它。
 8. 除此之外，我们只需把值直接存储到 `UserDefaults` 中。
 
 现在，如果我们想要获得 `UserDefaults` 的支持，我们要做的仅仅是使用新的 `UserDefaultsState` 类！
@@ -425,7 +425,7 @@ extension Optional : OptionalType {
 
 ## 结论
 
-在状态容器上管理状态有很多好处。以前放在单例上的数据，或在网络代理中传播的数据，现在已经在高层次上浮现出来。应用程序行为中的所有输入都突然变得清晰可见并且组织严谨。
+在状态容器上管理状态有很多好处。以前放在单例上的数据，或在网络代理中传播的数据，现在已经在高层次上浮现出来并且可见。应用程序行为中的所有输入都突然变得清晰可见并且组织严谨。
 
 从 API 响应到特征切换到受保护的钥匙串项，使用状态容器模式是围绕关键信息定义结构的优秀方式。状态容器可以轻松地用于缓存，用户偏好，分析以及应用程序启动之间需要保持的任何事情。
 
