@@ -16,7 +16,7 @@
 
 本文的意图并不是重复 React Router 4 [已写好的文档](https://reacttraining.com/react-router/)。我将介绍最常见的 API，但真正的重点是我发现成功的模式和策略。
 
-对于本文，以下是一些您需要熟悉的 JavaScript 概念:
+对于本文，以下是一些你需要熟悉的 JavaScript 概念:
 
 - React [（无状态）函数组件](https://facebook.github.io/react/docs/components-and-props.html)
 - ES2015 [箭头函数](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions) 以及它们的“隐式返回”
@@ -160,17 +160,17 @@ const PrimaryLayout = () => (
 
 ### “根路由”和“未找到”
 
-尽管在 v4 中已经没有 `<IndexRoute>` 了，但可以使用 `<Route exact>` 来达到同样的效果。如果没有路由解析，则可以使用 `<Switch>` 与 `<Redirect>` 重定向到具有有效路径的默认页面（如同我对本示例中的 `HomePage` 所做的 ），甚至可以是一个未找到页面。
+尽管在 v4 中已经没有 `<IndexRoute>` 了，但可以使用 `<Route exact>` 来达到同样的效果。如果没有路由解析，则可以使用 `<Switch>` 与 `<Redirect>` 重定向到具有有效路径的默认页面（如同我对本示例中的 `HomePage` 所做的），甚至可以是一个未找到页面。
 
-### Nested Layouts
+### 嵌套布局
 
-You're probably starting to anticipate nested sub layouts and how you might achieve them. I didn't think I would struggle with this concept, but I did. React Router v4 gives us a lot of options, which makes it powerful. Options, though, means the freedom to choose strategies that are not ideal. On the surface, nested layouts are trivial, but depending on your choices you may experience friction because of the way you organized the router.
+你可能开始期待嵌套子布局，以及如何实现它们。我不认为我会纠结这个概念，但我确实做到了。React Router v4 给了我们很多选择，这使它变得很强大。但是，选择意味着有选择不理想策略的自由。表面上看，嵌套布局很简单，但根据你的选择，可能会因为你组织路由的方式而遇到阻碍。
 
-To demonstrate, let's imagine that we want to expand our users section so we have a "browse users" page and a "user profile" page. We also want similar pages for products. Users and products both need sub-layout that are special and unique to each respective section. For example, each might have different navigation tabs. There are a few approaches to solve this, some good and some bad. The first approach is not very good but I want to show you so you don't fall into this trap. The second approach is much better.
+为了演示，假设我们想扩展我们的用户部分，所以我们会有一个“用户列表”页面和一个“用户详情”页面。我们也希望产品也有类似的页面。用户和产品都需要其个性化的子布局。例如，每个可能都有不同的导航选项卡。有几种方法可以解决这个问题，有的好，有的不好。第一种方法不是很好，但我想告诉你，这样你就不会掉入这个陷阱。第二种方法要好很多。
 
-For the first, let's modify our `PrimaryLayout` to accommodate the browsing and profile pages for users and products:
+首先，我们修改 `PrimaryLayout`，以适应用户和产品对应的列表及详情页面：
 
-```
+```jsx
 const PrimaryLayout = props => {
   return (
     <div className="primary-layout">
@@ -190,9 +190,9 @@ const PrimaryLayout = props => {
 }
 ```
 
-While this does technically work, taking a closer look at the two user pages starts to reveal the problem:
+虽然这在技术上可行的，但仔细观察这两个用户页面就会发现问题：
 
-```
+```jsx
 const BrowseUsersPage = () => (
   <div className="user-sub-layout">
     <aside>
@@ -216,13 +216,13 @@ const UserProfilePage = props => (
 )
 ```
 
-**New API Concept:**`props.match` is given to any component rendered by `<Route>`. As you can see, the `userId` is provided by `props.match.params`. See more in [v4 documentation](https://reacttraining.com/react-router/web/example/url-params). Alternatively, if any component needs access to `props.match` but the component wasn't rendered by a `<Route>` directly, we can use the [withRouter()](https://reacttraining.com/react-router/web/api/withRouter) Higher Order Component.
+**新 API 概念**：`props.match` 被赋到由 `<Route>` 渲染的任何组件。你可以看到，`userId` 是由 `props.match.params` 提供的，了解更多请参阅 [v4 文档](https://reacttraining.com/react-router/web/example/url-params)。或者，如果任何组件需要访问 `props.match`，而这个组件没有由 `<Route>` 直接渲染，那么我们可以使用 [withRouter()](https://reacttraining.com/react-router/web/api/withRouter) 高阶组件。
 
-Each user page not only renders its respective content but also has to be concerned with the sub layout itself (and the sub layout is repeated for each). While this example is small and might seem trivial, repeated code can be a problem in a real application. Not to mention, each time a `BrowseUsersPage` or `UserProfilePage` is rendered, it will create a new instance of `UserNav` which means all of its lifecycle methods start over. Had the navigation tabs required initial network traffic, this would cause unnecessary requests — all because of how we decided to use the router.
+每个用户页面不仅要渲染其各自的内容，而且还必须关注子布局本身（并且每个子布局都是重复的）。虽然这个例子很小，可能看起来微不足道，但重复的代码在一个真正的应用程序中可能是一个问题。更不用说，每次 `BrowseUsersPage` 或 `UserProfilePage` 被渲染时，它将创建一个新的 `UserNav` 实例，这意味着所有的生命周期方法都将重新开始。如果导航标签需要初始网络流量，这将导致不必要的请求 —— 这都是因为我们决定如何使用路由。
 
-Here's a different approach which is better:
+这里有另一种更好的方法：
 
-```
+```jsx
 const PrimaryLayout = props => {
   return (
     <div className="primary-layout">
@@ -240,13 +240,13 @@ const PrimaryLayout = props => {
 }
 ```
 
-Instead of four routes corresponding to each of the user's and product's pages, we have two routes for each section's layout instead.
+与每个用户和产品页面相对应的四条路由不同，我们为每个部分的布局提供了两条路由。
 
-Notice the above routes do not use the `exact` prop anymore because we want `/users`  to match any route that starts with `/users` and similarly for products.
+请注意，上述示例没有使用 `exact` 属性，因为我们希望 `/users` 匹配任何以 `/users` 开头的路由，同样适用于产品。
 
-With this strategy, it becomes the task of the sub layouts to render additional routes. Here's what the `UserSubLayout` could look like:
+通过这种策略，渲染其它路由将成为子布局的任务。`UserSubLayout` 可能如下所示：
 
-```
+```jsx
 const UserSubLayout = () => (
   <div className="user-sub-layout">
     <aside>
@@ -262,11 +262,11 @@ const UserSubLayout = () => (
 )
 ```
 
-The most obvious win in the new strategy is that the layout isn't repeated among all the user pages. It's a double win too because it won't have the same lifecycle problems as with the first example.
+新策略中最明显的胜出在于所有用户页面之间的不重复布局。这是一个双赢，因为它不会像第一个示例那样具有相同生命周期的问题。
 
-One thing to notice is that even though we're deeply nested in our layout structure, the routes still need to identify their full path in order to match. To save yourself the repetitive typing (and in case you decide to change the word "users" to something else), use `props.match.path` instead:
+有一点需要注意的是，即使我们在布局结构中深入嵌套，路由仍然需要识别它们的完整路径才能匹配。为了节省重复输入（以防你决定将“用户”改为其他内容），请改用 `props.match.path`：
 
-```
+```jsx
 const UserSubLayout = props => (
   <div className="user-sub-layout">
     <aside>
