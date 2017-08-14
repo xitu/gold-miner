@@ -3,20 +3,20 @@
 > * 原文作者：[Jeroen Mols](https://jeroenmols.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/embracing-java-8-language-features.md](https://github.com/xitu/gold-miner/blob/master/TODO/embracing-java-8-language-features.md)
-> * 译者：
-> * 校对者：
+> * 译者：[tanglie1993](https://github.com/tanglie1993)
+> * 校对者：[lileizhenshuai](https://github.com/lileizhenshuai), [DeadLion](https://github.com/DeadLion)
 
-# Embracing Java 8 language features
+# 拥抱 Java 8 语言特性
 
-For years Android developers have been limited to Java 6 features. While RetroLambda or the experimental Jack toolchain would help, proper support from Google was notably missing.
+近年来，Android 开发者一直被限制在 Java 6 的特性中。虽然 RetroLambda 或者实验性的 Jack toolchain 会有一定帮助，来自 Google 官方的适当支持却一直缺失。
 
-Finally, Android Studio 3.0 brings (backported!) support for most Java 8 features. Continue reading to learn how those work and why you should upgrade.
+终于， Android Studio 3.0 带来了（已经向后移植！）对大多数 Java 8 特性的支持。继续阅读，你将看到其中的原理，以及升级的理由。
 
-## Enabling java 8 features
+## 引入 Java 8 特性
 
-While Android Studio already supported many features in the [Jack toolchain](https://developer.android.com/guide/platform/j8-jack.html), starting from Android Studio 3.0 they are supported in the default toolchain.
+虽然 Android Studio 已经支持 [Jack toolchain](https://developer.android.com/guide/platform/j8-jack.html) 中的大量特性，从 Android Studio 3.0 开始，它们会在默认的工具链中被支持。
 
-First of all, make sure you disable Jack by removing the following from your main `build.gradle`:
+首先，确保你已经把以下内容从你的主要 `build.gradle` 中移除，从而关闭了 Jack:
 
 ```
 android {
@@ -31,7 +31,7 @@ android {
 }
 ```
 
-And add the following configuration instead:
+然后加入以下的配置：
 
 ```
 android {
@@ -43,7 +43,7 @@ android {
 }
 ```
 
-Also make sure you have the latest Gradle plugin in your root `build.gradle` file:
+并且确保你在根 `build.gradle` 文件中有最新的 Gradle 插件：
 
 ```
 buildscript {
@@ -54,13 +54,13 @@ buildscript {
 }
 ```
 
-Congratulations, you can now use most Java 8 features on all API levels!
+恭喜，你现在可以在所有的 API 层级上使用大多数的 Java 8 特性了！
 
-> Note: In case you’re migrating from [RetroLambda](https://github.com/evant/gradle-retrolambda), the official documentation has a more extensive [migration guide](https://developer.android.com/studio/write/java8-support.html#migrate).
+> 注意：如果你要从 [RetroLambda](https://github.com/evant/gradle-retrolambda) 迁移过来，官方文档有一个更加全面的 [迁移指南](https://developer.android.com/studio/write/java8-support.html#migrate)。
 
-## Lambda’s
+## 有关 Lambda 表达式
 
-Passing a listener to another class in Java 6 is quite verbose. A typical case would be where you add an `OnClickListener` to a `View`:
+在 Java 6 中，向另一个类传入监听器的代码是相当冗长的。典型的情况是，你需要向 `View` 添加一个 `OnClickListener`：
 
 ```
 button.setOnClickListener(new View.OnClickListener() {
@@ -71,83 +71,85 @@ button.setOnClickListener(new View.OnClickListener() {
 });
 ```
 
-Lambda’s can dramatically simplify this to the following:
+Lambda 表达式可以把它显著地简化成下面这样：
 
 ```
 button.setOnClickListener(view -> doSomething());
 ```
 
-Notice that almost all boilerplate is removed: no access modifier, no return type and no method name!
+注意：几乎全部模板代码都被删除了：没有访问控制修饰符，没有返回值，也没有方法名称！
 
-Now how do lambda’s actually work?
+Lambda 表达式究竟是怎么工作的呢？
 
-They are syntactic sugar that reduce the need for anonymous class creation whenever you have an interface with exactly one method. We call such interfaces functional interfaces and `OnClickListener` is an example:
+它们是语法糖，当你有一个只有一个方法的接口时，它们可以减少创建匿名类的需要。我们把这些接口称为功能接口，`OnClickListener` 就是一个例子：
 
 ```
-// A functional interface has exactly one method
+// 只有一个方法的功能接口
 public interface OnClickListener {
     void onClick(View view);
 }
 ```
 
-Basically the lambda consists out of a three parts:
+基本上 lambda 表达式包括三个部分：
 
 ```
 button.setOnClickListener((view) -> {doSomething()});
 ```
 
-1. declaration of all method arguments between brackets `()`
-2. an arrow `->`
-3. code that needs to execute between brackets `{}`
+1. 括号 `()` 中所有方法参数的声明
+2. 一个箭头 `->`
+3. 括号 `{}` 中需要执行的代码
 
-Note that in many cases even the brackets `()` and `{}` can be removed. For more details have a look at the [official documentation](https://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html).
+注意：在很多情况下，甚至 `()` 和 `{}` 这样的括号也可以被移除。更多细节，参见 [官方文档](https://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html)。
 
-## Method references
+## 方法引用
 
-Recall that lambda expressions remove a lot of boilerplate code for functional interfaces. Method references take that concept one step further when the lambda calls a method that already has a name.
+回忆一下 lambda 表达式为功能接口删除了大量样板代码的情形。当 lambda 表达式调用了一个已经有名字的方法时，方法引用把这个概念更推进了一步。
 
-In the following example:
+在下面的例子中：
 
 ```
 button.setOnClickListener(view -> doSomething(view));
 ```
 
-All the lambda does is redirecting the work to an existing `doSomething()` method. In such a case, a method reference simplifies things further to:
+Lambda 只是把要做的所有事情重定向到已有的 `doSomething()` 方法。在这种情况下，方法引用把事情简化到：
 
 ```
 button.setOnClickListener(this::doSomething);
 ```
 
-Note that the referenced method must take exactly the same parameters as the functional interface:
+注意，被引用的方法必须和功能接口接收相同的参数：
 
 ```
-// functional interface
+// 功能接口
 public interface OnClickListener {
     void onClick(View view);
 }
 
-// referenced method: must take View as argument, because onClick() does
+// 被引用的方法：必须接收 View 作为参数，因为 onClick() 会这样做：
 private void doSomething(View view) {
     // do something here
 }
 ```
 
-So how do method references work?
+那么，方法引用是如何工作的呢？
 
-They are again syntactic sugar to simplify a lambda expression that invokes an existing method. They can reference to:
+它们同样是语法糖，可以简化调用了现有方法的 lambda 表达式。他们可以引用：
 
-| static methods | MyClass::doSomething |
-| instance method of object | myObject::doSomething |
-| constructor | MyClass:: new |
-| instance method of any argument type | String::compare |
+| | |
+| - | - |
+| 静态方法 | MyClass::doSomething |
+| 对象的实例方法 | myObject::doSomething |
+| 构造方法 | MyClass:: new |
+| 任何参数类型的实例方法 | String::compare |
 
-For more examples about this have a look at the [official documentation](https://docs.oracle.com/javase/tutorial/java/javaOO/methodreferences.html).
+如果你需要更多关于这个的实例，请查看 [官方文档](https://docs.oracle.com/javase/tutorial/java/javaOO/methodreferences.html)。
 
-## Default interface Methods
+## 默认接口方法
 
-Default methods make it possible to add new methods to an interface without breaking all classes that implement that interface.
+默认方法使你可以在不破坏实现一个接口的所有的类的情况下，向该接口中加入新的方法。
 
-Imagine if you have a `MyView` interface that is implemented by a `MyFragment` (typical MVP scenario):
+假设你有一个 `MyView` 接口，它被一个 `MyFragment` 实现（典型 MVP 场景）：
 
 ```
 public interface MyView {
@@ -163,9 +165,9 @@ public class MyFragment implements MyView {
 }
 ```
 
-When you now want to add an extra method to `MyView` your code will no longer compile, until `MyFragment` also implements that new method. This is annoying, and can be even problematic when many classes are implementing said interface.
+如果你现在想要向 MyView 中加入一个额外的方法，你的代码将不再能够编译，直到 `MyFragment` 同样实现了这个新方法。这很烦人，并且如果很多类都实现这个接口的话，可能会引发新的问题。
 
-Therefore Java 8 now allows you to define default methods that provide a standard implementation:
+因此 Java 8 允许你定义带有标准实现的默认方法：
 
 ```
 public interface MyView {
@@ -176,37 +178,37 @@ public interface MyView {
 }
 ```
 
-So how do default methods work?
+那么默认方法是如何工作的呢？
 
-Just define a method with the `default` keyword in the interface and provide an actual default method body.
+在接口中定义一个带有 `default` 关键字的方法，并提供一个真实的默认方法体。
 
-To learn more about this feature, have a look at the [official documentation](https://docs.oracle.com/javase/tutorial/java/IandI/defaultmethods.html).
+要学习关于这个特性的更多知识，请查看 [官方文档](https://docs.oracle.com/javase/tutorial/java/IandI/defaultmethods.html)。
 
-## How to get started
+## 如何开始
 
-While this all might seem a bit overwhelming, Android Studio actually offers amazing quick fixes once you enable Java 8 features.
+虽然这看起来有些吓人，但是一旦你打开了 Java 8 特性，Android Studio 就提供了非常好用的快速修复功能。
 
-Just use `alt/option` + `enter` to convert a functional interface to a lamba or a lambda to a method reference.
+只要使用 `alt/option` + `enter` 就可以把功能接口转化为一个 lambda 表达式，或把 lambda 转为方法引用。
 
-![Java 8 language quick fixes](https://jeroenmols.com/img/blog/java8language/androidstudioconversion.gif)
+![Java 8 语言的快速修复功能](https://jeroenmols.com/img/blog/java8language/androidstudioconversion.gif)
 
-This is a great way to get familiar with these new features and allows you to write code like you’re used to. After enough quick fixes by Android Studio you’ll learn in what cases a lambda or method reference would be possible and start writing them yourself.
+这是一种熟悉新特性的好办法，它使你可以按照自己习惯的方式写代码。在使用 Android Studio 的快速修复功能足够多次之后，你将学会 lambda 表达式和方法引用有哪些使用场景，并开始自己写它们。
 
-## Supported features
+## 支持的特性
 
-While not all Java 8 features have been backported yet, Android Studio 3.0 offers plenty more features:
+虽然并不是所有的 Java 8 特性都已经被向后移植，但是Android Studio 3.0 提供了很多其他的特性：
 
-- [static interface methods](https://docs.oracle.com/javase/tutorial/java/IandI/defaultmethods.html)
-- [type annotations](https://docs.oracle.com/javase/tutorial/java/annotations/type_annotations.html)
-- [repeating annotations](https://docs.oracle.com/javase/tutorial/java/annotations/repeating.html)
-- [try with resources](https://docs.oracle.com/javase/tutorial/essential/exceptions/tryResourceClose.html) (all versions, no longer min SDK 19)
+- [静态接口方法](https://docs.oracle.com/javase/tutorial/java/IandI/defaultmethods.html)
+- [类型注解](https://docs.oracle.com/javase/tutorial/java/annotations/type_annotations.html)
+- [重复标记](https://docs.oracle.com/javase/tutorial/java/annotations/repeating.html)
+- [针对资源的 try 语句](https://docs.oracle.com/javase/tutorial/essential/exceptions/tryResourceClose.html) (所有版本，最低版本不再是 SDK 19)
 - Java 8 APIs (e.g. stream) -> min SDK 24
 
-## Wrap-up
+## 收尾
 
-Thanks to Java 8 features, a lot of code can be simplified into lambda’s or method references. Android Studio auto convert is the easiest way to start learning these features.
+Java 8 特性使得很多代码可以被简化为 lambda 表达式或方法引用。 Android Studio 自动转化是最简单的开始学习这些特性的方式。
 
-If you’ve made it this far, you should probably follow me on [Twitter](https://twitter.com/molsjeroen). Feel free leave a comment below!
+如果你已经读到这里了，你很可能应该在 [Twitter](https://twitter.com/molsjeroen) 上关注我。欢迎评论！
 
 
 ---
