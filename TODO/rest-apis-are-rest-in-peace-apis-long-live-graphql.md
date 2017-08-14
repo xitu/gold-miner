@@ -4,8 +4,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/rest-apis-are-rest-in-peace-apis-long-live-graphql.md](https://github.com/xitu/gold-miner/blob/master/TODO/rest-apis-are-rest-in-peace-apis-long-live-graphql.md)
 > * 译者：[sigoden](https://github.com/sigoden)
-> * 校对者：[jasonxia23](https://github.com/jasonxia23)
-> * 校对者：[shawnchenxmu](https://github.com/shawnchenxmu)
+> * 校对者：[jasonxia23](https://github.com/jasonxia23)、[shawnchenxmu](https://github.com/shawnchenxmu)
 
 # REST API 已死，GraphQL 长存
 
