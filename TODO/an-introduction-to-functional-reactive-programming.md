@@ -6,7 +6,7 @@
 > * 校对者：
 
 # An Introduction to Functional Reactive Programming
-# 函数式响应型编程（Functional Reactive Programming）介绍
+# 函数式响应型编程（Functional Reactive Programming）入门指南
 
 I gave a talk this year about functional reactive programming (FRP) that attempted to break down what gives FRP its name and why you should care. Here's a write-up of that talk.
 
