@@ -3,56 +3,57 @@
   > * 原文作者：[Adnan Chowdhury](http://blog.88mph.io/author/adnan/)
   > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
   > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/understanding-service-workers.md](https://github.com/xitu/gold-miner/blob/master/TODO/understanding-service-workers.md)
-  > * 译者：
-  > * 校对者：
+  > * 译者：[zyziyun](https://github.com/zyziyun)
+  > * 校对者：[undead25](https://github.com/undead25)、[calpa](https://github.com/calpa)
 
-  # Understanding Service Workers
 
-  What are Service Workers? What can they do, and how can make your web app perform better? This article sets out to answer those questions, plus how to implement them using the Ember.js framework.
+# 理解 Service Workers
 
-## Table of Contents
+  什么是 Service Workers？他们能够做什么，怎样使你的 web app 表现得更好？本文旨在回答这些问题，以及如何使用 Ember.js 框架来实现他们。
 
-- [Background](#background)
-- [Registration](#registration)
-- [Install Event](#installevent)
-- [Fetch Event](#fetchevent)
-- [Caching Strategies](#cachingstrategies)
-- [Activate Event](#activateevent)
-- [Sync Event](#syncevent)
-- [When is the Sync Event fired?](#whenisthesynceventfired)
-- [Push Notifications](#pushnotifications)
-- [Notifications](#notifications)
-- [Push messaging](#pushmessaging)
-- [Implementing Using Ember.js](#implementingusingemberjs)
-- [Understanding ember-service-worker Conventions](#understandingemberserviceworkerconventions)
-- [Build your Ember App w/ Service Workers](#buildyouremberappwserviceworkers)
-- [Conclusion](#conclusion)
+## 目录
 
-## Background
+- [背景](#背景)
+- [注册](#注册)
+- [安装事件](#安装事件)
+- [Fetch 事件](#Fetch事件)
+- [缓存策略](#缓存策略)
+- [激活事件](#激活事件)
+- [同步事件](#同步事件)
+- [什么时候同步事件被触发？](#什么时候同步事件被触发？)
+- [通知推送](#通知推送)
+- [通知](#通知)
+- [消息推送](#消息推送)
+- [使用 Ember.js 实现](#使用Ember.js实现)
+- [了解 ember-service-worker 的约定](#了解ember-service-worker的约定)
+- [构建基于 Ember 和 Service-Workers 的App](#构建基于Ember和Service-Workers的App)
+- [结论](#结论)
 
-In a time when the web was young, there was scarcely any thought given to how a web page should behave when a user was offline. You were just *always* online.
+## 背景
+
+在互联网早期时代，几乎没人会考虑用户处于离线状态时该如何呈现一个 web 页面，只会考虑在线状态。
 
 ![Connected!](http://blog.88mph.io/content/images/2017/07/aol-connected.jpg)
 
-Connected! The gang's all here! Don't ever leave.
+连接上了！这帮家伙在这里！永远别想离开。
 
-But with the advent of mobile internet, and with the rest of the world catching up, spotty internet connections have become increasingly commonplace across users of the modern web.
+但是，随着移动互联网的到来以及网络在世界其他地区的普及，参差不齐的网络质量在用户使用的现代网络中已经越来越普遍。
 
-Consequently, it has become valuable for websites to take ownership of how they behave offline so that users are not limited by network availability.
+因此，网站在离线状态时候的表现，以便用户不受网络可用性的限制，已变得非常有价值。
 
-[AppCache](https://developer.mozilla.org/en-US/docs/Web/HTML/Using_the_application_cache) was initially introduced as part of the HTML5 spec as a solution for offline web applications. It consisted of a combination of HTML and JS that centered around a *cache manifest*, a configuration file written in a declarative language.
+[AppCache](https://developer.mozilla.org/en-US/docs/Web/HTML/Using_the_application_cache) 最初是作为 HTML5 规范的一部分引入，用以解决离线 web 应用程序的问题。它包含以 **Cache Manifest** 配置文件为中心的HTML和JS的组合，配置文件以声明式语言来编写。 
 
-AppCache was eventually found to be [unwieldy and full of gotchas](https://alistapart.com/article/application-cache-is-a-douchebag). It has since been deprecated and effectively replaced by Service Workers.
+AppCache 最终被发现是 [不实用的和充满陷阱的](https://alistapart.com/article/application-cache-is-a-douchebag)。因此它已被废弃，被 Service Workers 有效的取代。
 
-[Service workers](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API) provide a more future-proof solution to the offline problem, by replacing AppCache's declarative style of implementation with a more imperative, procedural one.
+[Service workers](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API) 提供了一个更具前瞻性的离线应用解决方案，通过更加程序化的语言书写规则替代 AppCache 的声明式书写方式。
 
-Service Workers are a way to execute code in a persistent, background process contained in the web browser. The code is event-driven, meaning the events that fire in the scope of a Service Worker are what drives its behavior.
+Service Workers 在浏览器后台进程中持续的执行其代码。它是事件驱动的，这意味着在 Service Worker 的作用域范围内触发的事件会驱动其行为。
 
-The rest of this article is a brief explanation for each of those events. But to begin utilizing Service Workers, you will first need to implement code in your front-facing web app that registers the Service Worker.
+这篇文章剩下的部分将对 Service Worker 的每个事件阶段做个简要的说明，但是在开始使用 Service Workers 之前，你首先需要在你的 web app 中执行代码来注册 Service Worker 。
 
-## Registration
+## 注册
 
-The code below illustrates how to **register** your Service Worker in the client's browser. This is accomplished by having the following `register` call executed somewhere on your front-facing web app:
+下面的代码说明了怎样在你的客户端浏览器中注册你的 Service Worker，这是通过在你的 web app 前端代码的某一处执行 `register` 方法调用来实现的：
 
 ```
 if (navigator.serviceWorker) {
@@ -66,28 +67,27 @@ if (navigator.serviceWorker) {
 }
 ```
 
-This will tell the browser where to find your Service Worker implementation. The browser will look for the file (`/sw.js`) and save it as a Service Worker under the domain that is being accessed. This file will contain all of the event handlers that will define your Service Worker.
+这将告诉浏览器在哪里找到你的 Service Worker 的实现，浏览器将查找对应的（`/sw.js`）文件，并将它保存在你正在访问的域名下，这个文件将包含所有你自己定义的 Service Worker 事件处理程序。
 
 ![](http://blog.88mph.io/content/images/2017/07/Screenshot-2017-07-16-17.39.10.png)
 
-A registered Service Worker in Chrome DevTools
+在 Chrome 开发者工具中查看已注册的 Service Worker 
 
-It will also set the **scope** of your ServiceWorker. The filename `/sw.js` implies that the scope of the SW is the root path of your URL (or `http://localhost:3000/`). This means any requests that are made under the root path of your URL will be made visible to the SW via fired events. A filename such as `/js/sw.js` would capture requests only under `http://localhost:3000/js`.
+它也将设置你的 Service Worker 的**作用域**，这个 `/sw.js` 文件意味着 Service Worker 的作用范围是在你 URL（这里是指`http://localhost:3000/`） 的根路径下。这意味着在你的根路径下的任何请求，都将通过触发事件的方式告诉 Service Worker。一个文件路径为`/js/sw.js`的文件就仅仅可以捕获`http://localhost:3000/js`该链接下的请求。
 
-Alternatively, you could explicitly set the scope of your SW by passing a second argument to the `register` method:
-`navigator.serviceWorker.register('/sw.js', { scope: '/js' })`.
+另外，你也可以通过将第二个参数传入给 `register` 方法来明确地设置 Service Worker 的作用域范围：`navigator.serviceWorker.register('/sw.js', { scope: '/js' })`。
 
-## Event Handlers
+## 事件处理程序
 
-Now that your Service Worker is registered, it's time to implement the event handlers that are triggered during the lifetime of your Service Worker.
+现在你的 Service Worker 已经被注册好了，是时候在你的 Service Worker 生命周期中触发实现对应的事件处理程序了。
 
-#### Install Event
+#### 安装事件
 
-The install event is fired when your Service Worker registers for the first time, and any time after that when your Service Worker file (`/sw.js`) is updated (the browser will automatically detect changes).
+当你的 Service Worker 首次注册的时，或者你的 Service Worker 文件（`/sw.js`）在之后的任何时间被更新时（浏览器会自动检测这些更改），install 事件都将被触发。
 
-The install event is useful for logic you want to execute during the initialization of your Service Worker, i.e. a one-off operation that sets things up for the life of your Service Worker. A common use case is to load the cache during the install step.
+对于那些你想在你的 Service Worker 初始化时执行的逻辑，install 事件是非常有用的，它可以执行一些一次性的操作，贯穿在整个 Service Worker 应用程序的生命周期中。一个常见的例子是在 install 阶段加载缓存。
 
-Here is an example of an install event handler that will add data to the cache.
+下面是一个在 install 事件处理程序阶段向缓存添加数据的例子。
 
 ```
 const CACHE_NAME = 'cache-v1';
@@ -106,21 +106,21 @@ self.addEventListener('install', event => {
 });
 ```
 
-`urlsToCache` contains a list of URLs we want to add to the cache.
+`urlsToCache` 包含了一组我们想要添加到缓存的 URL。
 
-`caches` is a global [CacheStorage](https://developer.mozilla.org/en-US/docs/Web/API/CacheStorage) object that allows you to manage your caches in the browser. We call `open` to retrieve the specific [Cache](https://developer.mozilla.org/en-US/docs/Web/API/Cache) object we want to work with.
+`caches` 是一个全局的 [CacheStorage](https://developer.mozilla.org/en-US/docs/Web/API/CacheStorage) 对象，允许你在浏览器中管理你的缓存。我们将调用 `open` 方法来检索具体我们想要使用的 [Cache](https://developer.mozilla.org/en-US/docs/Web/API/Cache) 对象。
 
-`cache.addAll` will take a list of URLs, make a request to each, and then store the response in its cache. It uses the request body as a key for each cache value. Read more at the [addAll](https://developer.mozilla.org/en-US/docs/Web/API/Cache/addAll) docs.
+`cache.addAll` 将收到一组 URL，并向每个 URL 发起一个请求，然后将响应存储在其缓存中。它使用请求体作为每个缓存值的键名。了解更多请参阅 [addAll](https://developer.mozilla.org/en-US/docs/Web/API/Cache/addAll)。
 
 ![](http://blog.88mph.io/content/images/2017/07/Screenshot-2017-07-16-20.09.42.png)
 
-Cached data in Chrome DevTools
+在 Chrome 开发者工具中查看缓存数据
 
-#### Fetch event
+#### Fetch事件
 
-The **fetch** event is fired every time the web page makes a request. When it fires, your Service Worker has the ability to 'intercept' the request and decide what to return - whether that be cached data, or the response to an actual network request.
+**Fetch** 事件是在每次网页发出请求的时候触发的，触发该事件的时候 Service Worker 能够 '拦截' 请求，并决定返回内容 ———— 是返回缓存的数据，还是返回真实请求响应的数据。
 
-The following example illustrates a *cache-first* strategy: any cached data that matches the request will be sent off first, without a network request. Only if there is no existing cached data will a network request be made.
+下面的例子说明了**缓存优先**的策略：与请求匹配的任何缓存数据都将优先被返回，而不需要发送网络请求。只有当没有现有的缓存数据时才会发出网络请求。
 
 ```
 self.addEventListener('fetch', event => {
@@ -139,21 +139,21 @@ self.addEventListener('fetch', event => {
 });
 ```
 
-`request` contains the request body that is included in the [FetchEvent](https://developer.mozilla.org/en-US/docs/Web/API/FetchEvent) object. It is used to lookup a matching response in the cache.
+`request` 属性包含在 [FetchEvent](https://developer.mozilla.org/en-US/docs/Web/API/FetchEvent) 对象里，它用于查找匹配请求的缓存。
 
-`cache.match` will try to find a cached response that matches the specified request. If it finds nothing, the promise will resolve with `undefined`. We check for this, and make a `fetch` call in this case, which makes a network request and returns a promise.
+`cache.match` 将尝试找到一个与指定请求匹配的缓存响应。如果没有找到对应的缓存，则 promise 会 resolve 一个 `undefined` 值。在这个例子里，我们通过判断这个值来决定是返回这个值，还是调用 fetch 发起一个网络请求并返回一个 promise。
 
-`event.respondWith` is a method specifically on a FetchEvent object that we use to send a response back to the browser for the request. It accepts a Promise that resolves to a response (or network error).
+`event.respondWith` 是一个 FetchEvent 对象中的特殊方法，用于将请求的响应发送回浏览器。它接收一个对响应（或网络错误）resolve 后的 Promise 对象作为参数。
 
-###### Caching Strategies
+###### 缓存策略
 
-The fetch event is particularly important because it's where you can define your *caching strategy*. That is, how you determine when to use cached data, and when to use network-sourced data.
+Fetch 事件特别重要，因为它能够定义你的缓存策略。也就是说，你可以决定何时使用缓存数据，何时使用网络请求来的数据。
 
-The beauty in Service Workers is that it is a low-level API for intercepting requests and lets you decide what response to provide for them. This allows us the freedom to implement our own strategy for providing cached or network-sourced content. There are several basic caching strategies that you could employ when trying to implement the best one for your web app.
+Service Worker 的好用之处在于它是一个用于拦截请求的低层 API，并允许你决定为其提供哪些响应。这允许我们自由的提供我们自己的缓存策略或者网络来源的内容。当你尝试实现一个最好的 Web App 的时候，有几种基本的缓存策略可以使用。
 
-Mozilla has a [handy resource](https://serviceworke.rs/caching-strategies.html) that documents several different caching strategies. There is also [The Offline Cookbook](https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook) written by Jake Archibald that outlines some of the same caching strategies, and more.
+Mozilla 基金会有一个  [handy resource](https://serviceworke.rs/caching-strategies.html) 的文档，其中有写几种不同的缓存策略。还有 Jake Archibald 编写的 [The Offline Cookbook](https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook) 书中有概述几种相似的缓存策略等等。
 
-In an above example, we demonstrated a basic **cache-first** strategy. The following is an example which I've found applicable in my own projects: a **cache and update** strategy. This method will let the cache respond first, but subsequently make a network request in the background. The response from this background request is used to update the value in the cache so that an updated response is provided the next time it is accessed.
+在上文的一个例子中，我们演示了一个基本的**缓存优先**的策略。以下是我发现的一个适用于我自己项目的示例：**缓存和更新**策略。这个方法首先让缓存响应，随后在后台发起对应的网络请求。来自后台请求的响应用于更新缓存中的数据，以便在下次访问时提供更新后的响应。
 
 ```
 self.addEventListener('fetch', event => {
@@ -169,27 +169,27 @@ self.addEventListener('fetch', event => {
 });
 ```
 
-`event.respondWith` is used to provide a response to the request. Here we are opening the cache and finding a matching response. If it doesn't exist, we reach out to the network.
+`event.respondWith` 用于提供对请求的响应。这里我们打开缓存找到匹配的响应，如果它不存在，我们会走网络请求。
 
-Subsequently, we call `event.waitUntil` to allow the async Promise to resolve before the Service Worker context is terminated. Here we make a network request, and then cache the response. Once this asynchronous operation is finished, `waitUntil` will resolve and the operation will terminate.
+随后，我们将调用 `event.waitUntil` 方法以允许在 Service Worker 上下文终止之前 resolve 一个异步Promise。这里会走一个网络请求，然后缓存其响应。一旦这个异步操作完成，`waitUntil` 将会 resolve，操作将会终止。
 
-#### Activate Event
+#### 激活事件
 
-The activate event is a slightly less documented event, but is important for when you are updating your Service Worker file and need to execute any clean up or maintenance from the previous version of your Service worker.
+激活事件是一个较少记录的事件，但当你需要更新 Service Worker 文件，执行清理或者维护之前版本的 Service Worker 的时候，它是非常重要的。
 
-When you update your Service Worker file (`/sw.js`), the browser will detect changes and display this in Chrome DevTools:
+当你更新你的 Service Worker 文件（`/sw.js`）的时候，浏览器会检测到这些改变，它们在 Chrome 开发者工具中的展示如下图所示：
 
 ![](http://blog.88mph.io/content/images/2017/07/Screenshot-2017-07-18-08.29.32.png)
 
-Your new Service Worker is 'waiting to activate'.
+你的新 Service Worker 正在“等待激活”。
 
-When the actual web page is closed, and re-opened again, the browser will replace the old Service Worker with the new one, and fire the **activate** event, after the **install** event. If you needed to clean up the caches or perform maintenance regarding the old version of your Service Worker, the activate event allows you the perfect time to do this.
+当实际网页关闭并重新打开的时候，浏览器将使用新的 Service Worker 替换旧的 Service Worker，然后在 **install** 事件触发之后，触发 **activate** 事件，如果你需要清理缓存或者对旧版本的 Service Worker 进行维护，激活事件可以让你完美的做到这一点。
 
-#### Sync event
+#### 同步事件
 
-The sync event allows the deferring of network tasks until the user has connectivity. The feature it implements is commonly referred to as **background sync**. This is useful for ensuring that any network-dependent tasks that a user kicks off during offline mode will eventually reach their intended destination when the network is available again.
+Sync 事件允许延迟网络任务，直到用户连接上网络，它实现的功能通常被称为**后台同步**。这对于在离线模式下，确保用户启动的任何有网络依赖的任务，最终都将在网络再次可用时达到其预期目的，是非常有用的。
 
-Here is an example of what a background sync implementation would look like. You'll need code in your front-facing JS that registers a sync event, accompanied by a sync event handler in your Service Worker:
+下面是一个后台同步实现的例子。你需要在前端 JavaScript 中注册一个 sync 事件，并在 Service Worker 中附带 sync 事件处理程序。
 
 ```
 // app.js
@@ -203,11 +203,11 @@ navigator.serviceWorker.ready
   });
 ```
 
-Here we are assigning a click event to a button that will call `sync.register` on the [ServiceWorkerRegistration](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration) object.
+在这里，我们分配一个 click 事件给 button 元素，它将调用 [ServiceWorkerRegistration](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration) 对象上的 `sync.register` 方法。
 
-Basically, any operation that you want to ensure reaches the network either immediately or eventually when the network comes online, needs to be registered as a sync event.
+基本上，要确保任何操作都可以立即或最终在网络可用时到达网络，都需要被注册为 sync 事件。
 
-This could be something like POSTing a comment, or fetching user data, which will be defined in the Service Worker's event handler:
+在 Service Worker 的事件处理程序中，可能的操作像是发送一个评论，或者获取用户数据等等。
 
 ```
 // sw.js
@@ -218,33 +218,33 @@ self.addEventListener('sync', event => {
 });
 ```
 
-Here we are listening for a sync event, and checking for the `tag` on the [SyncEvent](https://developer.mozilla.org/en-US/docs/Web/API/SyncEvent) object to see if it matches the `'submit'` tag we specified for the click event.
+这里我们监听一个 sync 事件，并检查 [SyncEvent](https://developer.mozilla.org/en-US/docs/Web/API/SyncEvent) 对象上的 `tag` 属性属性是否匹配我们指定给 click 事件的`'submit'`标签。
 
-If multiple sync's under the `'submit'` tag are registered, the sync event handler will only execute once.
+如果对应 `'submit'` 标签下的多个 sync 事件信息被注册，sync 事件处理程序将只执行一次。
 
-So for this example, if the user were offline, and clicked the button seven times, when the network returned, all sync registrations would consolidate and the sync event would fire just once.
+因此，在这个例子中，如果用户离线，并点击了七次按钮，那么当网络恢复时，所有同步的注册事件将被合并且只触发一次。
 
-In the case you would want separate syncs for each click event, you would register syncs under unique tags.
+在这种情况下，如果你想拆分同步事件给每一次点击，你可以注册多个具有唯一标记的同步事件。
 
-###### When is the Sync Event fired?
+###### 什么时候同步事件被触发？
 
-If the user is online, then the sync event will fire immediately and accomplish whatever task you've defined without delay.
+如果用户在线，则同步事件将会立即触发，并完成你定义的任何任务，而不会延时。
 
-If the user is offline, the sync event will fire as soon as network connectivity is regained.
+如果用户离线，则一旦重新获得网络连接，同步事件就会触发。
 
-If you're like me, and want to try this out in Chrome, be sure to actually disconnect your internet by disabling your Wi-Fi or otherwise network adapter. Toggling the Network checkbox in Chrome DevTools will not trigger sync events.
+如果你像我一样，想在 Chrome 中尝试一下，一定要通过禁用 Wi-Fi 或者其他网络适配器来断开互联网连接。而在 Chrome 开发者工具中切换网络复选框不会触发 sync 事件。
 
-For more information, you can read [this explainer document](https://github.com/WICG/BackgroundSync/blob/master/explainer.md), as well as this [introduction to background syncs](https://developers.google.com/web/updates/2015/12/background-sync). The sync event is largely unimplemented across browsers (only in Chrome at the time of this writing), and is bound to undergo changes, so stay tuned.
+想了解更多的信息，你可以阅读文档 [this explainer document](https://github.com/WICG/BackgroundSync/blob/master/explainer.md) ，还有这篇文档  [introduction to background syncs](https://developers.google.com/web/updates/2015/12/background-sync) 。sync 事件现在在大部分浏览器当中并没有实现（撰写本文时，只能在 Chrome 中使用），但势必在将来会发生变化，敬请期待。
 
-#### Push Notifications
+#### 通知推送
 
-Push notifications are a feature that are enabled by Service Workers by exposing the `push` event to Service Workers, as well as the [Push API](https://developer.mozilla.org/en-US/docs/Web/API/Push_API) implemented by the browser.
+通知推送是 Service Workers 通过曝露其 `push` 以及浏览器实现的 [Push API](https://developer.mozilla.org/en-US/docs/Web/API/Push_API)  来启用的功能。
 
-When speaking about Web Push Notifications, there are actually two technologies at work: Notifications & Push Messaging.
+当我们讨论网络推送通知的时候，实际上会涉及两种对应的技术：通知和推送信息。
 
-###### Notifications
+###### 通知
 
-Notifications are pretty straightforward feature to implement with Service Workers:
+通知是可以通过 Service Workers 实现的非常简单的功能：
 
 ```
 // app.js
@@ -275,27 +275,27 @@ self.addEventListener('notificationclose', event => {
 });
 ```
 
-You first need to ask permission from the user to enable notifications for your web page. From then on, you are able to toggle on notifications, and handle certain events, such as when a notification is closed by the user.
+你首先需要向用户发出许可才能启用网页的通知。从那时起，你可以切换通知，并处理某些事件，例如用户关闭一个通知的时候。
 
-###### Push Messaging
+###### 消息推送
 
-Push messaging involves utilizing the Push API provided by the browser, coupled with backend implementation. An entirely separate article could be written on the implementation of Push API, but the basic gist is:
+推送消息涉及利用浏览器提供的 Push API 以及后端实现。这个要点可以单独抽出一篇文章详细讲解，但是其基本要点如下图所示：
 
 ![Push API Diagram](http://blog.88mph.io/content/images/2017/07/push-api.svg)
 
-It is an involved and slightly complicated process, and is outside the scope of this article. But if you'd like to learn more, this [introduction to push notifications](https://developers.google.com/web/ilt/pwa/introduction-to-push-notifications) is an informative read.
+这是一个稍微复杂的过程，超出了本文的范围。但如果你想了解更多，可以参考 [introduction to push notifications](https://developers.google.com/web/ilt/pwa/introduction-to-push-notifications) 这篇文章 。
 
-## Implementing Using Ember.js
+## 使用Ember.js实现
 
-Implementing Service Workers for your Ember app is incredibly easy. By virtue of [ember-cli](https://ember-cli.com/) and the [Ember Add-ons](https://www.emberaddons.com) community, you can equip your web app with Service Workers in plug-and-play fashion.
+用 Ember.js 实现 Service Workers 的 APP 是非常容易的，凭借其脚手架工具 [ember-cli](https://ember-cli.com/) 和其插件体系 [Ember Add-ons](https://www.emberaddons.com) 社区的支持，你可以以一种即插即拔的方式在你的 Web App 中增加 Service Worker。
 
-This is made possible in part by the [ember-service-worker](https://github.com/DockYard/ember-service-worker) add-on, provided by the folks at DockYard (docs [here](http://ember-service-worker.com/documentation/getting-started/)).
+这是由 DockYard 的人员提供的一系列插件 [ember-service-worker](https://github.com/DockYard/ember-service-worker) 及其对应文档 [here](http://ember-service-worker.com/documentation/getting-started/)。
 
-**ember-service-worker** sets up a modular architecture that can be used to plug in other ember-service-worker-* add-ons, such as [ember-service-worker-index](https://github.com/DockYard/ember-service-worker-index) or [ember-service-worker-asset-cache](https://github.com/DockYard/ember-service-worker-asset-cache). These add-ons implement different parts of behavior and caching strategies to make up your Service Worker.
+**ember-service-worker** 建立了一个模块化的结构，可以被用于插入其他 ember-service-worker-* 的插件，例如 [ember-service-worker-index](https://github.com/DockYard/ember-service-worker-index) 或者 [ember-service-worker-asset-cache](https://github.com/DockYard/ember-service-worker-asset-cache)。这些插件使用不同的表现实现对应行为，以及不同的缓存策略组成你的 Service Worker 服务。
 
-#### Understanding `ember-service-worker` conventions
+#### 了解`ember-service-worker`的约定
 
-All of the **ember-service-worker-*** add-ons follow a convention, in that their core logic is stored in one of two folders in the root directory of the add-on, `/service-worker` and `/service-worker-registration`:
+所有的 **ember-service-worker-** 插件都遵循相同的模块结构，它们的核心逻辑存储在其根目录的`/service-worker` and `/service-worker-registration` 这两个文件夹中。
 
     node_modules/ember-service-worker
     ├── ...
@@ -306,11 +306,11 @@ All of the **ember-service-worker-*** add-ons follow a convention, in that their
         └── index.js
 
 
-`/service-worker` is where the main implementation of your Service Worker is located (what you would store in `sw.js` as shown earlier).
+`/service-worker` 该目录是实现 Service Worker 的主要存储位置（如文章前面所说的那个 `sw.js` 就是存储在这个目录下）。
 
-`/service-worker-registration` holds the logic you need to run in your front-facing code, where Service Worker registration would take place.
+`/service-worker-registration` 该目录下有你需要在前端代码中运行的逻辑，像 Service Worker 的注册流程。
 
-Let's take a look at the `/service-worker` implementation for **ember-service-worker-index** (code [here](https://github.com/DockYard/ember-service-worker-index/blob/master/service-worker/index.js)) to divulge what it actually does:
+让我们看看 **ember-service-worker-index** 该插件的 `/service-worker` 目录下的代码实现  (code [here](https://github.com/DockYard/ember-service-worker-index/blob/master/service-worker/index.js)) ，符合上面所说的内容。
 
 ```
 import {
@@ -356,25 +356,25 @@ self.addEventListener('fetch', (event) => {
 });
 ```
 
-Without getting bogged down in the details, we can see that this code is basically implementing three of the event handlers we've talked about: `install`, `activate` and `fetch`.
+不去看具体的细节，我们可以看到，这个代码基本实现了我们之前讨论过的三个事件处理程序：`install`, `activate` and `fetch`。
 
-In the `install` event handler, we are fetching `INDEX_HTML_URL`, and then calling `cache.put` to store the response.
+在 `install` 事件处理程序中，我们调用 `INDEX_HTML_URL`对应的接口，获取数据，然后调用 `cache.put` 存储响应数据。
 
-`activate` does some rudimentary clean up.
+`activate` 阶段做了一些基本的清理缓存的操作。
 
-In the `fetch` handler, we are checking to see if `request` meets several conditions (is it a `GET` request; is it asking for HTML; is it local; etc.) and if it satisfies those conditions, we respond with what is stored in the cache.
+在 `fetch` 事件处理程序中，我们检查 `request` 是否满足几个条件（是否是 `GET` 请求，是否请求 HTML，是否是本地资源等等），只有满足一系列的条件，我们才把对应的数据缓存返回。
 
-Notice we're calling `cache.match` and using `INDEX_HTML_URL` to look up the value, and not `request.url`. This means we'd always look up the same cache key, no matter what the actual URL is.
+注意我们调用 `cache.match`方法 和 `INDEX_HTML_URL` 地址，来查找值，而不使用 `request.url`请求的 url。这意味着无论实际调用的 URL 请求是什么，我们始终会根据相同的缓存密钥做对应的查找操作。
 
-This is because an Ember app will always render using `index.html`. Any URL requests that are under the root URL of the app will end up with a cached version of `index.html`, where the Ember app would normally take over. That is the purpose of **ember-service-worker-index** - to cache `index.html`.
+这是因为 Ember 的应用程序将始终使用 `index.html` 进行页面渲染。在应用程序的根路径下的任何 URL 请求都将以 `index.html` 的缓存版本结尾，Ember 应用程序通常会接管。这就是 **ember-service-worker-index** 来缓存`index.html`的目的。
 
-Similarly, [**ember-service-worker-asset-cache**](https://github.com/DockYard/ember-service-worker-asset-cache) will cache all the assets found in the `/assets` folder by implementing its own `install` and `fetch` event handlers.
+同样的，[**ember-service-worker-asset-cache**](https://github.com/DockYard/ember-service-worker-asset-cache) 该插件将缓存所有在 `/assets` 目录下可以找到的所有资源，文件，触发调用其 `install`和 `fetch` 事件处理函数。
 
-There are [several add-ons](https://www.emberaddons.com/?query=service-worker) that employ **ember-service-worker** architecture and allow you to customize and fine tune your Service Worker's behavior and caching strategies.
+有几个插件 [several add-ons](https://www.emberaddons.com/?query=service-worker) 也使用 **ember-service-worker** 该插件的结构，允许你自定义和微调对应的 Service Worker 的表现和缓存策略。
 
-#### Build your Ember App w/ Service Workers
+#### 构建基于Ember和Service-Workers的App
 
-First, you'll need [ember-cli](https://ember-cli.com/) installed. Then execute the following commands:
+首先，你需要下载 [ember-cli](https://ember-cli.com/)，然后在命令行中执行下面的语句操作：
 
 ```
 $ ember new new-app
@@ -385,23 +385,23 @@ $ ember install ember-service-worker-asset-cache
 ```
 
 
-Your app is now serviced by Service Workers and by default will have `index.html` and `/assets/**/*` cached.
+你的应用程序现在由 Service Workers 提供缓存服务，默认情况下，会将 `index.html`文件和 `/assets/**/*` 该目录下的内容缓存。
 
-You can fine tune what files under the `/assets` folder will get cached via `config/environment.js`.
+你可以通过修改 `config/environment.js` 这个配置文件调整  `/assets` 文件夹下哪些文件将被缓存。
 
-If you find that none of the existing ember-service-worker add-ons solve your problem, you can create your own following the [docs at the ember-service-worker website](http://ember-service-worker.com/documentation/authoring-plugins/).
+如果你发现现有的 ember-service-worker 插件没有解决你的问题，你可以参照这个文档 [docs at the ember-service-worker website](http://ember-service-worker.com/documentation/authoring-plugins/) 创建你自己的插件。
 
-## Conclusion
+## 结论
 
-I hope you have gained a firmer understanding of Service Workers, and their underlying architecture, and also how web apps can utilize them to create a better experience for users.
+我希望你能够对 Service Workers 和其底层架构有一个更深入理解，以及怎样利用他们创建用户体验更好的Web App。
 
-`ember-service-worker` add-ons allow you implement them easily in your Ember.js web app. If you find that you need to implement your own logic for a Service Worker, it should be easy to create your own add-on that implements the event handlers you need to implement the behavior you want. This is something I'd like to tackle in the near future, so stay tuned!
+`ember-service-worker` 插件让你能在你的 Ember.js 应用程序中很容易地实现他们。如果你发现需要实现一个自己的 Service Worker 的逻辑，你可以很容易的创建自己的插件，来实现你需要的行为所对应的事件处理程序，这是我想在不久的将来解决的问题，敬请关注！
 
-#### From our Sponsors
+#### 来自我们的赞助商
 
 ![](http://blog.88mph.io/content/images/2017/07/Quartzy-logo.png)
 
-*If you are interested in working with Ember.js full-time, [Quartzy](https://www.quartzy.com/) is hiring frontend devs! We help scientists around the world by helping them save money and be more efficient in the lab. Apply [here](http://grnh.se/coe8yp1).*
+**如果你对基于 Ember.js 的全职工作感兴趣，[Quartzy](https://www.quartzy.com/) 正在招聘前端工程师！我们帮助世界各地的科学家节省资金，使得他们更有效率的在实验室研究。[点击这里](http://grnh.se/coe8yp1)申请吧。**
 
 
   ---
