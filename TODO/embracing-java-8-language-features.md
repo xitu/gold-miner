@@ -56,7 +56,7 @@ buildscript {
 
 恭喜，你现在可以在所有的 API 层级上使用大多数的 Java 8 特性了！
 
-> 注意：如果你在从 [RetroLambda](https://github.com/evant/gradle-retrolambda) 迁移过来，官方文档有一个更加全面的 [迁移指南](https://developer.android.com/studio/write/java8-support.html#migrate)。
+> 注意：如果你要从 [RetroLambda](https://github.com/evant/gradle-retrolambda) 迁移过来，官方文档有一个更加全面的 [迁移指南](https://developer.android.com/studio/write/java8-support.html#migrate)。
 
 ## 有关 Lambda 表达式
 
@@ -136,12 +136,14 @@ private void doSomething(View view) {
 
 它们同样是语法糖，可以简化调用了现有方法的 lambda 表达式。他们可以引用：
 
+| | |
+| - | - |
 | 静态方法 | MyClass::doSomething |
 | 对象的实例方法 | myObject::doSomething |
 | 构造方法 | MyClass:: new |
 | 任何参数类型的实例方法 | String::compare |
 
-如果你需要更多关于这个的实例，请查看[官方文档](https://docs.oracle.com/javase/tutorial/java/javaOO/methodreferences.html)。
+如果你需要更多关于这个的实例，请查看 [官方文档](https://docs.oracle.com/javase/tutorial/java/javaOO/methodreferences.html)。
 
 ## 默认接口方法
 
