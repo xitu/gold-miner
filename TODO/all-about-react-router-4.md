@@ -105,17 +105,17 @@ render(<App />, document.getElementById('root'))
 
 另一个在 v3 的例子中有而在 v4 中没有的是，使用 `{props.children}` 来嵌套组件。这是因为在 v4 中，`<Route>` 组件在何处编写，如果路由匹配，子组件将在那里渲染。
 
-### Inclusive Routing
+### 包容性路由
 
-In the previous example, you may have noticed the `exact` prop. So what's that all about? V3 routing rules were "exclusive" which meant that only one route would win. V4 routes are "inclusive" by default which means more than one `<Route>` can match and render at the same time.
+在前面的例子中，你可能已经注意到了 `exact` 这个属性。那么它是什么呢？V3 的路由规则是“排他性”的，这意味着只有一条路由将获胜。V4 的路由默认为“包含”的，这意味着多个 `<Route>` 可以同时进行匹配和渲染。
 
-In the previous example, we're trying to render either the `HomePage` or the `UsersPage` depending on the path. If the `exact` prop were removed from the example, both the  `HomePage` and `UsersPage` components would have rendered at the same time when visiting `/users` in the browser.
+在上一个例子中，我们试图根据路径渲染 `HomePage` 或者 `UsersPage`。如果从示例中删除了 `exact` 属性，那么在浏览器中访问 `/users` 时，`HomePage` 和 `UsersPage` 组件将同时渲染。
 
-To understand the matching logic better, review [path-to-regexp](https://www.npmjs.com/package/path-to-regexp) which is what v4 now uses to determine whether routes match the URL.
+要更好地了解匹配逻辑，请查看 [path-to-regexp](https://www.npmjs.com/package/path-to-regexp)，这是 v4 现在正在使用的，以确定路由是否匹配 URL。
 
-To demonstrate how inclusive routing is helpful, let's include a `UserMenu` in the header, but only if we're in the user's part of our application:
+为了演示包容性路由是有帮助的，我们在标题中包含一个 `UserMenu`，但前提是我们在应用程序的用户部分：
 
-```
+```jsx
 const PrimaryLayout = () => (
   <div className="primary-layout">
     <header>
@@ -130,7 +130,7 @@ const PrimaryLayout = () => (
 )
 ```
 
-Now, when the user visits `/users`, both components will render. Something like this was doable in v3 with certain patterns, but it was more difficult. Thanks to v4's inclusive routes, it's now a breeze.
+现在，当用户访问 `/users` 时，两个组件都会渲染。类似这样的事情在 v3 中通过特定的匹配模式也是可行的，但它更复杂。得益于 v4 的包容性路由，现在能够很轻松地实现。
 
 ### Exclusive Routing
 
