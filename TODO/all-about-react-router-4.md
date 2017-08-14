@@ -132,11 +132,11 @@ const PrimaryLayout = () => (
 
 现在，当用户访问 `/users` 时，两个组件都会渲染。类似这样的事情在 v3 中通过特定的匹配模式也是可行的，但它更复杂。得益于 v4 的包容性路由，现在能够很轻松地实现。
 
-### Exclusive Routing
+### 排他性路由
 
-If you need just one route to match in a group, use `<Switch>` to enable exclusive routing:
+如果你只需要在路由列表里匹配一个路由，则使用 `<Switch>` 来启用排他路由：
 
-```
+```jsx
 const PrimaryLayout = () => (
   <div className="primary-layout">
     <PrimaryHeader />
@@ -152,11 +152,11 @@ const PrimaryLayout = () => (
 )
 ```
 
-Only one of the routes in a given `<Switch>` will render. We still need `exact` on the `HomePage` route though if we're going to list it first. Otherwise the home page route would match when visiting paths like `/users` or `/users/add`. In fact, strategic placement is the name-of-the-game when using an exclusive routing strategy (as it always has been with traditional routers). Notice that we strategically place the routes for  `/users/add` before `/users` to ensure the correct matching. Since the path `/users/add` would match for `/users` and `/users/add`, putting the `/users/add` first is best.
+在给定的 `<Switch>` 路由中只有一条将渲染。在 `HomePage` 路由上，我们仍然需要 `exact` 属性，尽管我们会先把它列出来。否则，当访问诸如 `/users` 或 `/users/add` 的路径时，主页路由也将匹配。事实上，战略布局是使用排他路由策略（因为它总是与传统路由一起使用）时的关键。请注意，我们在 `/users` 之前策略性地放置了 `/ users/add` 的路由，以确保正确匹配。由于路径 `/users/add` 将匹配 `/users` 和 `/users/add`，所以最好先把 `/users/add` 放在前面。
 
-Sure, we could put them in any order if we use `exact` in certain ways, but at least we have options.
+当然，如果我们以某种方式使用 `exact`，我们可以把它们放在任何顺序上，但至少我们有选择。
 
-The `<Redirect>` component will always do a browser-redirect if encountered, but when it's in a  `<Switch>` statement, the redirect component only gets rendered if no other routes match first. To see how `<Redirect>` might be used in a non-switch circumstance, see **Authorized Route** below.
+如果遇到，`<Redirect>` 组件将会始终执行浏览器重定向，但是当它位于 `<Switch>` 语句中时，只有在其他路由不匹配的情况下，才会渲染重定向组件。想了解在非切换环境下如何使用 `<Redirect>`，请参阅下面的**授权路由**。
 
 ### "Index Routes" and "Not Found"
 
