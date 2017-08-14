@@ -8,18 +8,18 @@
 
   # 关于 React Router 4 的一切
 
-  我在 React Rally 2016 大会上第一次遇到了 [Michael Jackson](https://twitter.com/mjackson)，不久之后便写了一篇 [an article on React Router 3](https://css-tricks.com/learning-react-router/)。Michael 与 [Ryan Florence](https://twitter.com/ryanflorence) 一起，都是 React Router 的主要作者之一。遇到一位我非常喜欢的工具的创建者是激动人心的，但当他这么说的时候，我感到很震惊。“让我向你们展示我们在 React Router 4 的想法，它的**方式**是截然不同的！”。老实说，我真的不明白新的方向以及为什么它需要如此大的改变。由于路由是应用程序架构的重要组成部分，因此这可能会改变一些我喜欢的模式。这些改变的想法让我很焦虑。考虑到社区凝聚力以及 React Router 在这么多的 React 应用程序中扮演着重要的角色，我不知道社区将如何接受这些改变。
+  我在 React Rally 2016 大会上第一次遇到了 [Michael Jackson](https://twitter.com/mjackson)，不久之后便写了一篇 [an article on React Router 3](https://css-tricks.com/learning-react-router/)。Michael 与 [Ryan Florence](https://twitter.com/ryanflorence) 一起，都是 React Router 的主要作者之一。遇到一位我非常喜欢的工具的创建者是激动人心的，但当他这么说的时候，我感到很震惊。“让我向你们展示我们在 React Router 4 的想法，它的**方式**是截然不同的！”。老实说，我真的不明白新的方向以及为什么它需要如此大的改变。由于路由是应用程序架构的重要组成部分，因此这可能会改变一些我喜欢的模式。这些改变的想法让我很焦虑。考虑到社区凝聚力以及 React Router 在这么多的 React 应用程序中扮演着重要的角色，我不知道社区将如何接受这些改变。
 
-几个月后，[React Router 4](https://reacttraining.com/react-router/)发布了，仅仅从 Twitter 的嗡嗡声中我便得知，对于这个重大的重写存在着不同的想法。这让我想起了第一个版本的 React Router 针对其渐进概念的推回。在某些方面，早期版本的 React Router 符合我们传统的思维模式，即一个应用的路由“应该”将所有的路由规则放在一个地方。然而，并不是每个人都接受使用嵌套的 JSX 路由。但就像 JSX 自身说服了批评者一样（至少是大多数），许多人都认为嵌套的 JSX 路由是很酷的想法。
+几个月后，[React Router 4](https://reacttraining.com/react-router/) 发布了，仅仅从 Twitter 的嗡嗡声中我便得知，对于这个重大的重写存在着不同的想法。这让我想起了第一个版本的 React Router 针对其渐进概念的推回。在某些方面，早期版本的 React Router 符合我们传统的思维模式，即一个应用的路由“应该”将所有的路由规则放在一个地方。然而，并不是每个人都接受使用嵌套的 JSX 路由。但就像 JSX 自身说服了批评者一样（至少是大多数），许多人都认为嵌套的 JSX 路由是很酷的想法。
 
 如是，我学习了 React Router 4。无可否认，第一天是挣扎的。挣扎的倒不是其 API，而更多的是使用它的模式和策略。我使用 React Router 3 的思维模式并没有很好地迁移到 v4。如果要成功，我将不得不改变我对路由和布局组件之间的关系的看法。最终，出现了对我有意义的新模式，我对路由的新方向感到非常高兴。React Router 4 允许我做我使用 v3 能做的所有事情，而且更多。此外，起初我对 v4 的使用过于复杂。一旦我获得了一个新的思维模式，我就意识到这个新的方向是惊人的！
 
-本文的意图并不是重复 React Router 4 [已写好的文档](https://reacttraining.com/react-router/)。我将介绍最常见的 API，但真正的重点是我发现成功的模式和策略。
+本文的意图并不是重复 React Router 4 [已写好的文档](https://reacttraining.com/react-router/)。我将介绍最常见的 API，但真正的重点是我发现成功的模式和策略。
 
 对于本文，以下是一些您需要熟悉的 JavaScript 概念:
 
 - React [（无状态）函数组件](https://facebook.github.io/react/docs/components-and-props.html)
-- ES2015 [箭头函数](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions) 以及它们的“隐式返回”
+- ES2015 [箭头函数](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions) 以及它们的“隐式返回”
 - ES2015 [解构](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment)
 - ES2015 [模板字符串](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)
 
@@ -27,15 +27,15 @@
 
 [查看演示](https://codepen.io/bradwestfall/project/editor/XWNWge/?preview_height=50&amp;open_file=src/app.js)
 
-### A New API and A New Mental Model
+### 新的 API 和新的思维模式
 
-Earlier versions of React Router centralized the routing rules into one place, keeping them separate from layout components. Sure, the router could be partitioned and organized into several files, but conceptually the router was a unit, and basically a glorified configuration file.
+React Router 的早期版本将路由规则集中在一个位置，使它们与布局组件分离。当然，路由可以被划分成多个文件，但从概念上讲，路由是一个单元，基本上是一个美化的配置文件。
 
-Perhaps the best way to see how v4 is different is to write a simple two-page app in each version and compare. The example app has just two routes for a home page and a user's page.
+或许了解 v4 不同之处的最好方法是在每个版本中编写一个简单的两页应用程序并进行比较。示例应用程序只有两个路由，对应首页和用户页面。
 
-Here it is in v3:
+这里是 v3 的：
 
-```
+```jsx
 import { Router, Route, IndexRoute } from 'react-router'
 
 const PrimaryLayout = props => (
@@ -64,15 +64,15 @@ const App = () => (
 render(<App />, document.getElementById('root'))
 ```
 
-Here are some key concepts in v3 that are not true in v4 anymore:
+以下是 v3 中的一些关键概念，但在 v4 中是不正确的:
 
-- The router is centralized to one place.
-- Layout and page nesting is derived by the nesting of `<Route>` components.
-- Layout and page components are completely naive that they are a part of a router.
+- 路由集中在一个地方。
+- 布局和页面嵌套是通过 `<Route>` 组件的嵌套而来的。
+- 布局和页面组件完全是路由的一部分。
 
-React Router 4 does not advocate for a centralized router anymore. Instead, routing rules live within the layout and amongst the UI itself. As an example, here's the same application in v4:
+React Router 4 不再主张集中式路由了。相反，路由规则位于布局和 UI 本身之间。例如，以下是 v4 中的相同的应用程序：
 
-```
+```jsx
 import { BrowserRouter, Route } from 'react-router-dom'
 
 const PrimaryLayout = () => (
@@ -99,11 +99,11 @@ const App = () => (
 render(<App />, document.getElementById('root'))
 ```
 
-**New API Concept**: Since our app is meant for the browser, we need to wrap it in `<BrowserRouter>` which comes from v4. Also notice we import from `react-router-dom` now (which means we `npm install react-router-dom` not `react-router`). Hint! It's called `react-router-dom` now because there's also a [native version](https://reacttraining.com/react-router/native).
+**新的 API 概念**：由于我们的应用程序是用于浏览器的，所以我们需要将它封装在来自 v4 的 `BrowserRouter` 中。还要注意的是我们现在从 `react-router-dom` 中导入它（这意味着我们安装的是 `react-router-dom` 而不是 `react-router`）。提示！现在叫做 `react-router-dom` 是因为还有一个 [native version](https://reacttraining.com/react-router/native)。
 
-The first thing that stands out when looking at an app built with React Router v4 is that the "router" seems to be missing. In v3 the router was this giant thing we rendered directly to the DOM which orchestrated our application. Now, besides `<BrowserRouter>`, the first thing we throw into the DOM is our application itself.
+对于使用 React Router v4 构建的应用程序，首先看到的是“路由”似乎丢失了。在 v3 中，路由是我们的应用程序直接呈现给 DOM 的最巨大的东西。 现在，除了 `<BrowserRouter>` 外，我们首先抛给 DOM 的是我们的应用程序本身。
 
-Another v3-staple missing from the v4 example is the use of  `{props.children}` to nest components. This is because in v4, wherever the `<Route>` component is written is where the sub-component will render to if the route matches.
+另一个在 v3 的例子中有而在 v4 中没有的是，使用 `{props.children}` 来嵌套组件。这是因为在 v4 中，`<Route>` 组件在何处编写，如果路由匹配，子组件将在那里渲染。
 
 ### Inclusive Routing
 
