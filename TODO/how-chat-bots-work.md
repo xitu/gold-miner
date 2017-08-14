@@ -1,60 +1,61 @@
 
-  > * 原文地址：[Soul of the Machine: How Chatbots Work](https://medium.com/@gk_/how-chat-bots-work-dfff656a35e2)
-  > * 原文作者：[George Kassabgi](https://medium.com/@gk_)
-  > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-  > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/how-chat-bots-work.md](https://github.com/xitu/gold-miner/blob/master/TODO/how-chat-bots-work.md)
-  > * 译者：
-  > * 校对者：
+> * 原文地址：[Soul of the Machine: How Chatbots Work](https://medium.com/@gk_/how-chat-bots-work-dfff656a35e2)
+> * 原文作者：[George Kassabgi](https://medium.com/@gk_)
+> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/how-chat-bots-work.md](https://github.com/xitu/gold-miner/blob/master/TODO/how-chat-bots-work.md)
+> * 译者：[lsvih](https://github.com/lsvih)
+> * 校对者：[lileizhenshuai](https://github.com/lileizhenshuai),[jasonxia23](https://github.com/jasonxia23)
 
-  # Soul of the Machine: How Chatbots Work
+# 机器之魂：聊天机器人是怎么工作的
 
   ![](https://cdn-images-1.medium.com/max/2000/1*HRgcOpW8vSPqM-GxkoHhWw.jpeg)
 
-Since the early industrial age, we’ve been fascinated by self-operating devices. They represent the humanization of technology.
+自早期的工业时代以来，人类就被能自主操作的设备迷住了。因为，它们代表了科技的“人化”。
 
-Today, it is software that that’s becoming more human — most obviously “chatbots.”
+而在今天，各种软件也在逐渐变得人性化。其中变化最明显的当属“聊天机器人”。
 
-But how do these machines work? First, wind back time and explore an earlier — yet similar — technology.
+但是这些“机械”是如何运作的呢？首先，让我们回溯过去，探寻一种原始，但相似的技术。
 
-### How a music box works
+### 音乐盒是如何工作的
 
 ![](https://cdn-images-1.medium.com/max/1600/1*PveiqDdv2Zsog9ryJTUz-Q.png)
 
-An early example of automation — the mechanical music box.
-A set of tuned metallic teeth aligned on a comb-like structure are positioned next to a cylinder with pins. Each pin corresponds to a note at a specific interval.
+早期自动化的样例 —— 机械音乐盒。
+一组经过调音的金属齿排列成梳状结构，置于一个有针的圆柱边上。每根针都以一个特定的时间对应着一个音符。
 
-As the mechanism turns, it creates a tune by striking one or multiple pins at the predefined time. To play a different song, you can swap in a different cylindrical drum (assuming the set of unique notes is equivalent).
+当机械转动时，它便会在预定好的时间通过单个或者多个针的拨动来产生乐曲。如果要播放不同的歌，你得换不同的圆柱桶（假设不同的乐曲对应的特定音符是一样的）。
 
-In addition to striking a note, the movement of the drum can cause other automation, such as a moving figurine. Either way, the fundamental machinery of the music box remains the same.
+除了发出音符之外，圆筒的转动还可以附加一些其它的动作，例如移动小雕像等。不管怎样，这个音乐盒的基本机械结构是不会变的。
 
-### How a chatbot works
+### 聊天机器人是如何工作的
 
-Text input is processed by a software function called a “classifier”, this classification associates an input sentence with an “intent” (a conversational intent) which produces a response.
+输入的文本将经过一种名为“分类器”的函数处理，这种分类器会将一个输入的句子和一种“意图”（聊天的目的）联系起来，然后针对这种“意图”产生回应。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*aSGRi9NOM3J5vT2fMlo5ig.png)
 
-[a chatbot example (http://lauragelston.ghost.io/speakeasy/](http://lauragelston.ghost.io/speakeasy/))
-Think of a classifier as a way of categorizing a piece of data (a sentence) into one of several categories (an intent). The input “how are you?” is classified as an intent, which is associated with a response such as “I’m good” or (better) “I am well.”
+[一个聊天机器人的例子](http://lauragelston.ghost.io/speakeasy/)
 
-We learned about classification early in elementary science: a chimpanzee is in the class “mammals”, a blue jay is in the class “birds”, the earth is in the class “planets” and so on. Simple.
+你可以将分类器看成是将一段数据（一句话）分入几个分类中的一种（即某种意图）的一种方式。输入一句话“how are you?”，将被分类成一种意图，然后将其与一种回应（例如“I’m good”或者更好的“I am well”）联系起来。
 
-Generally speaking, there are 3 different kinds of text classifiers. Think of these as software machinery, built for a specific purpose, like the drum of a music box.
+我们在基础科学中早学习了分类：黑猩猩属于“哺乳动物”类，蓝鸟属于“鸟”类，地球属于“行星”等等。
 
-### **Chatbot text classification approaches**
+一般来说，文本分类有 3 种不同的方法。可以将它们看做是为了一些特定目的制造的软件机械，就如同音乐盒的圆筒一样。
 
-- **Pattern matchers**
-- **Algorithms**
-- **Neural networks**
+### **聊天机器人的文本分类方法**
 
-Regardless of which type of classifier is used, the end-result is a response. Like a music box, there can be additional “movements” associated with the machinery. A response can make use of external information (like weather, a sports score, a web lookup, etc.) but this isn’t specific to chatbots, it’s just additional code. A response may reference specific “parts of speech” in the sentence, for example: a proper noun. Also the response (for an intent) can use conditional logic to provide different responses depending on the “state” of the conversation, this can be a random selection (to insert some ‘natural’ feeling).
+- **模式匹配**
+- **算法**
+- **神经网络**
 
-### Pattern matchers
+无论你使用哪种分类器，最终的结果一定是给出一个回应。音乐盒可以利用一些机械机构的联系来完成一些额外的“动作”，聊天机器人也如此。回应中可以使用一些额外的信息（例如天气、体育比赛比分、网络搜索等等），但是这些信息并不是聊天机器人的组成部分，它们仅仅是一些额外的代码。也可以根据句子中的某些特定“词性”来产生回应（例如某个专有名词）。此外，符合意图的回应也可以使用逻辑条件来判断对话的“状态”，以提供一些不同的回应，这也可以通过随机选择实现（好让对话更加“自然”）。
 
-Early chatbots used pattern matching to classify text and produce a response. This is often referred to as “brute force” as the author of the system needs to describe every pattern for which there is a response.
+### 模式匹配
 
-A standard structure for these patterns is “AIML” (artificial intelligence markup language). Its use of the term “artificial intelligence” is quite an embellishment, but [that’s another story](https://medium.com/@gk_/the-ai-label-is-bullshit-559b171867ff).
+早期的聊天机器人通过模式匹配来进行文本分类以及产生回应。这种方法常常被称为“暴力法”，因为系统的作者需要为某个回应详细描述所有模式。
 
-A simple pattern matching definition:
+这些模式的标准结构是“AIML”（人工智能标记语言）。这个名词里用了“人工智能”作为修饰词，但是[它们完全不是一码事](https://medium.com/@gk_/the-ai-label-is-bullshit-559b171867ff)。
+
+下面是一个简单的模式匹配定义：
 
 ```
 <aiml version = "1.0.1" encoding = "UTF-8"?>
@@ -77,90 +78,92 @@ A simple pattern matching definition:
 </aiml>
 ```
 
-The machine then produces:
+然后机器经过处理会回答：
 
-    Human: Do you know who Albert Einstein is
-    Robot: Albert Einstein was a German physicist.
+	Human: Do you know who Albert Einstein is
+	Robot: Albert Einstein was a German physicist.
 
-It knows who a physicist is only because his or her name has an associated pattern. Likewise it responds to anything solely because of an authored pattern. Given hundreds or thousands of patterns you might see a chatbot “persona” emerge.
+它之所以知道别人问的是哪个物理学家，只是靠着与他或者她名字相关联的模式匹配。同样的，它靠着创作者预设的模式可以对任何意图进行回应。在给予它成千上万种模式之后，你终将能看到一个“类人”的聊天机器人出现。
 
-In 2000 a chatbot built using this approach was [in the news](http://mashable.com/2014/06/12/eugene-goostman-turing-test/) for passing the “Turing test”, built by John Denning and colleagues. It was built to emulate the replies of a 13 year old boy from Ukraine (broken English and all). I met with John in 2015 and he made no false pretenses about the internal workings of this automaton. It may have been “brute force” but it proved a point: parts of a conversation can be made to appear “natural” using a sufficiently large definition of patterns. It proved Alan Turing’s assertion, that this question of a machine fooling humans was “meaningless”.
+2000 年的时候，John Denning 和他的同事就以这种方法做了个聊天机器人（[相关新闻](http://mashable.com/2014/06/12/eugene-goostman-turing-test/)），并通过了“图灵测试”。它设计的目标是模仿来自乌克兰的一个 13 岁的男孩，这孩子的英语水平很蹩脚。我在 2015 年的时候和 John 见过面，他没有矢口否认这个自动机的内部原理。因此，这个聊天机器人很可能就是用“暴力”的方法进行模式匹配。但它也证明了一点：在足够大的模式匹配定义的支持下，可以让大部分对话都贴近“自然”的程度。同时也符合了图灵（Alan Turing）的断言：制作用来糊弄人类的机器是“毫无意义”的。
 
-An example of this approach used in building chatbots is [PandoraBots,](http://www.pandorabots.com/) they claim over 285k chatbots have been constructed using their framework.
+使用这种方法做机器人的典型案例还有 [PandoraBots](http://www.pandorabots.com/)，他们宣称已经用他们的框架构建了超过 28.5 万个聊天机器人。
 
-### Algorithms
+### 算法
 
-The brute-force mechanism is daunting: for each unique input a pattern must be available to specify a response. This creates a hierarchical structure of patterns, the inspiration for the idiom “rats nest”.
+暴力穷举法做自动机让人望而却步：对于每个输入都得有可用的模式来匹配其回应。人们由“老鼠洞”得到灵感，创建了模式的层级结构。
 
-To reduce the classifier to a more manageable machine, we can approach the work *algorithmically*, that is to say: we can build an equation for it. This is what computer scientists call a “reductionist” approach: the problem is *reduced* so that the solution is simplified.
+我们可以使用**算法**这种方法来减少分类器以便对机器进行管理，或者也可以说我们为它创建一个方程。这种方法是计算机科学家们称为“简化”的方法：问题需要**缩减**，那么解决问题的方法就是将其简化。
 
-A classic text classification algorithm is called “Multinomial Naive Bayes”, [taught in courses at Stanford](http://nlp.stanford.edu/IR-book/pdf/13bayes.pdf) and elsewhere. Here is the equation:
+有一种叫做“朴素贝叶斯多项式模型”的经典文本分类算法，你可以在[这儿](http://nlp.stanford.edu/IR-book/pdf/13bayes.pdf)或者别的地方学习它。下面是它的公式：
 
 ![](https://cdn-images-1.medium.com/max/1600/1*sj0TmP9mH6GEE9z3XAJYYA.png)
 
-This is a lot less complicated than it appears. Given a set of sentences, each belonging to a class, and a new input sentence, we can count the occurrence of each word in each class, account for its commonality and assign each class a *score*. Factoring for commonality is important: matching the word “it” is considerably less meaningful than a match for the word “cheese”. The class with the highest score is the one most likely to belong to the input sentence. This is a slight oversimplification as words need to be reduced to their [stems](https://en.wikipedia.org/wiki/Stemming), but you get the basic idea.
+实际用起它来比看上去要简单的多。给定一组句子，每个句子对应一个分类；接着输入一个新的句子，我们可以通过计算这个句子的单词在各个分类中的词频，找出各个分类的共性，并给每个分类一个**分值**（找出共性这点是很重要的：例如匹配到单词“cheese”（奶酪）比匹配到单词“it”要有意义的多）。最后，得到最高分值的分类很可能就是输入句子的同类。当然以上的说法是经过简化的，例如你还得先找到每个单词的[词干](https://en.wikipedia.org/wiki/Stemming)才行。不过，现在你应该对这种算法已经有了基本的概念。
 
-A sample training set:
+下面是一个简单的训练集：
 
-    class: weather
-        "is it nice outside?"
-        "how is it outside?"
-        "is the weather nice?"
+	class: weather
+	    "is it nice outside?"
+	    "how is it outside?"
+	    "is the weather nice?"
+	
+	class: greeting
+	    "how are you?"
+	    "hello there"
+	    "how is it going?"
 
-    class: greeting
-        "how are you?"
-        "hello there"
-        "how is it going?"
+让我们来对几个简单的输入句子进行分类：
 
-Let’s classify a few sample input sentences:
+	input: "Hi there"
+	 term: "hi" (**no matches)**
+	 term: "there" **(class: greeting)**
+	 classification: **greeting **(score=1)
+	
+	input: "What’s it like outside?"
+	 term: "it" **(class: weather (2), greeting)**
+	 term: "outside **(class: weather (2) )**
+	 classification: **weather **(score=4)
 
-    input: "Hi there"
-     term: "hi" (**no matches)**
-     term: "there" **(class: greeting)**
-     classification: **greeting **(score=1)
+请注意，“What’s it like outside”在分类时找到了另一个分类的单词，但是正确的分类给了单词较高的分值。通过算法公式，我们可以为句子计算匹配每个分类对应的词频，因此不需要去标明所有的模式。
 
-    input: "What’s it like outside?"
-     term: "it" **(class: weather (2), greeting)**
-     term: "outside **(class: weather (2) )**
-     classification: **weather **(score=4)
+这种分类器通过标定分类分值（计算词频）的方法给出最匹配语句的分类，但是它仍然有局限性。分值与概率不同，它仅仅能告诉我们句子的意图最有可能是哪个分类，而不能告诉我们它的所有匹配分类的可能性。因此，很难去给出一个阈值来判定是接受这个得分结果还是不接受这个结果。这种类型的算法给出的最高分仅仅能作为判断相关性的基础，它本质上作为分类器的效果还是比较差的。此外，这个算法不能接受 *is not* 类型的句子，因为它仅仅计算了 *it* 可能是什么。也就是说这种方法不适合做为包含 *not* 的否定句的分类。
 
-Notice that the classification for “What’s it like outside” found a term in another class but the term similarities to the desired class produced a higher score. By using an equation we are looking for word matches given some sample sentences for each class, and we avoid having to identify every pattern.
+有许多的聊天机器人框架[都是用这种方法来判断意图分类](https://medium.com/@gk_/text-classification-using-algorithms-e4d50dcba45#.ewnhttxa4)。而且大多数都是针对训练集进行词频计算，这种“幼稚”的方法有时还意外的有效。
 
-The classification score produced identifies the class with the highest term matches (accounting for commonality of words) but this has limitations. A score is not the same as a probability, a score tells us which intent is most like the sentence but not the likelihood of it being a match. Thus it is difficult to apply a threshold for which classification scores to accept or not. Having the highest score from this type of algorithm only provides a relative basis, it may still be an inherently weak classification. Also the algorithm doesn’t account for what a sentence *is not*, it only counts what it *is* like. You might say this approach doesn’t consider what makes a sentence *not* a given class.
 
-Many chatbot frameworks use [algorithms such as this to classify intent](https://medium.com/@gk_/text-classification-using-algorithms-e4d50dcba45#.ewnhttxa4). Most of what’s taking place is word counting against training datasets, it’s “naive” but surprisingly effective.
+### 神经网络
 
-### Neural Networks
-
-Artificial neural networks, invented in the 1940’s, are a way of calculating an output from an input (a classification) using weighted connections (“synapses”) that are calculated from repeated iterations through training data. Each pass through the training data alters the weights such that the neural network produces the output with greater “accuracy” (lower error rate).
+人工神经网络发明于 20 世纪 40 年代，它通过迭代计算训练数据得到连接的加权值（“突触”），然后用于对输入数据进行分类。通过一次次使用训练数据计算改变加权值以使得神经网络的输出得到更高的“准确率”（低错误率）。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*HULATc7wX7CtzybTIxgBvQ.png)
 
-a neural network structure: nodes (circles) and synapses (lines)
-There’s not much new about these structures, except today’s software is using much faster processors and can work with a lot more memory. The combination of working memory and speed is crucial when you’re doing hundreds of thousands of matrix multiplications (the neural network’s essential math operation).
+上图为一种神经网络结构，其中包括神经元（圆）和突触（线）
 
-As in the prior method, each class is given with some number of example sentences. Once again each sentence is broken down by word (stemmed) and each word becomes an input for the neural network. The synaptic weights are then calculated by iterating through the training data thousands of times, each time adjusting the weights slightly to greater accuracy. By recalculating back across multiple layers (“back-propagation”) the weights of all synapses are calibrated while the results are compared to the training data output. These weights are like a ‘strength’ measure, in a neuron the synaptic weight is what causes something to be more memorable than not. You remember a thing more because you’ve seen it more times: each time the ‘weight’ increases slightly.
+其实除了当今的软件可以用更快的处理器、更大的内存外，这些结构并没有出现什么新奇的东西。当做数十万次的矩阵乘法（神经网络中的基本数学运算）的时候，运行内存和计算速度成为了关键问题。
 
-At some point the adjustment reaches a point of diminishing returns, this is called “over-fitting” and going beyond this is counter-productive.
+在前面的方法里，每个分类都会给定一些例句。接着，根据词干进行分句，将所有单词作为神经网络的输入。然后遍历数据，进行成千上万次迭代计算，每次迭代都通过改变突触权重来得到更高的准确率。接着反过来通过对训练集输出值和神经网络计算结果的对比，对各层重新进行计算权重（反向传播）。这个“权重”可以类比成神经突触想记住某个东西的“力度”，你能记住某个东西是因为你曾多次见过它，在每次见到它的时候这个“权重”都会轻微地上升。
+
+有时，在权重调整到某个程度后反而会使得结果逐渐变差，这种情况称为“过拟合”，在出现过拟合的情况下继续进行训练，反而会适得其反。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*QckgibgJ74BhMaqinqwSDw.png)
 
-The trained neural network is less code than an comparable algorithm but it requires a potentially large matrix of “weights”. In a relatively small sample, where the training sentences have 150 unique words and 30 classes this would be a matrix of 150x30. Imagine multiplying a matrix of this size 100,000 times to establish a sufficiently low error rate. This is where processing speed comes in.
+训练好的神经网络模型的代码量其实很小，不过它需要一个很大的潜在权重矩阵。举个相对较小的样例，它的训练句子包括了 150 个单词、30 种分类，这可能产生一个 150x30 大小的矩阵；你可以想象一下，为了降低错误率，这么大的一个矩阵需要反复的进行 10 万次矩阵乘法。这也是为什么说需要高性能处理器的原因。
 
-If the neural network sounds magnificently sophisticated, relax, it boils down to [matrix multiplication](https://www.khanacademy.org/math/precalculus/precalc-matrices/multiplying-matrices-by-matrices/v/matrix-multiplication-intro) and a [formula for reducing values](https://en.wikipedia.org/wiki/Sigmoid_function) between -1 and 1 or some other minimal range. A middle-school math student could learn this in a few hours. The hard work is achieving clean training data.
+神经网络之所以能够做到既复杂又稀疏，归结于[矩阵乘法](https://www.khanacademy.org/math/precalculus/precalc-matrices/multiplying-matrices-by-matrices/v/matrix-multiplication-intro)和一种[缩小值至 -1，1 区间的公式](https://en.wikipedia.org/wiki/Sigmoid_function)（即激活函数，这里指的是 Sigmoid），一个中学生也能在几小时内学会它。其实真正困难的工作是清洗训练数据。
 
-Just as there are variations in pattern matching code and in algorithms, there are variations in neural networks, some more complex than others. The basic machinery is the same. The essential work is that of classification.
+就像前面的模式匹配和算法匹配一样，神经网络也有各种各样的变体，有一些变体会十分复杂。不过它的基本原理是相同的，做的主要工作也都是进行分类。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*_ldEr2WurmqNq6Pgp5J24w.jpeg)
 
-The mechanical music box knows nothing about music theory, likewise **chatbot machinery knows nothing about language**.
+机械音乐盒并不了解乐理，同样的，**聊天机器人并不了解语言**。
 
-Chatbot machinery is looking for patterns in collections of terms, each term is reduced to a token. In this machine* words have no meaning* except for their patterned existence within training data. The label “artificial intelligence” applied to such machinery [is mostly BS](https://medium.com/@gk_/the-ai-label-is-bullshit-559b171867ff#.3tlhftemt).
+聊天机器人实质上就是寻找短语集合中的模式，每个短语还能再分割成单个单词。在聊天机器人内部，除了它们存在的模式以及训练数据之外的**单词其实并没有意义**。为这样的“机器人”贴上“人工智能”的标签其实[也很糟糕](https://medium.com/@gk_/the-ai-label-is-bullshit-559b171867ff#.3tlhftemt)。
 
-The chatbot is like the mechanical music box: it’s *a machine that produces output according to patterns*. Rather than using pins and cylindrical drums the chatbot uses software code and mathematics.
+总结：聊天机器人就像机械音乐盒一样：它就是**一个根据模式来进行输出的机器**，只不过它不用圆筒和针，而是使用软件代码和数学原理。
 
 
   ---
 
-  > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[React](https://github.com/xitu/gold-miner#react)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计) 等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
-  
+> [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[React](https://github.com/xitu/gold-miner#react)、[前端](https://github.com/xitu/gold-miner#%E5%89%8D%E7%AB%AF)、[后端](https://github.com/xitu/gold-miner#%E5%90%8E%E7%AB%AF)、[产品](https://github.com/xitu/gold-miner#%E4%BA%A7%E5%93%81)、[设计](https://github.com/xitu/gold-miner#%E8%AE%BE%E8%AE%A1) 等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
+ 
