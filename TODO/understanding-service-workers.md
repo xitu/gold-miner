@@ -4,7 +4,7 @@
   > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
   > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/understanding-service-workers.md](https://github.com/xitu/gold-miner/blob/master/TODO/understanding-service-workers.md)
   > * 译者：[zyziyun](https://github.com/zyziyun)
-  > * 校对者：[undead25](https://github.com/undead25), [calpa](https://github.com/calpa)
+  > * 校对者：[undead25](https://github.com/undead25)、[calpa](https://github.com/calpa)
 
 
 # 理解 Service Workers
@@ -16,7 +16,7 @@
 - [背景](#背景)
 - [注册](#注册)
 - [安装事件](#安装事件)
-- [Fetch事件](#Fetch事件)
+- [Fetch 事件](#Fetch事件)
 - [缓存策略](#缓存策略)
 - [激活事件](#激活事件)
 - [同步事件](#同步事件)
@@ -24,9 +24,9 @@
 - [通知推送](#通知推送)
 - [通知](#通知)
 - [消息推送](#消息推送)
-- [使用Ember.js实现](#使用Ember.js实现)
-- [了解ember-service-worker的约定](#了解ember-service-worker的约定)
-- [构建基于Ember和Service-Workers的App](#构建基于Ember和Service-Workers的App)
+- [使用 Ember.js 实现](#使用Ember.js实现)
+- [了解 ember-service-worker 的约定](#了解ember-service-worker的约定)
+- [构建基于 Ember 和 Service-Workers 的App](#构建基于Ember和Service-Workers的App)
 - [结论](#结论)
 
 ## 背景
@@ -43,7 +43,7 @@
 
 [AppCache](https://developer.mozilla.org/en-US/docs/Web/HTML/Using_the_application_cache) 最初是作为 HTML5 规范的一部分引入，用以解决离线 web 应用程序的问题。它包含以 **Cache Manifest** 配置文件为中心的HTML和JS的组合，配置文件以声明式语言来编写。 
 
-AppCache 最终被发现是 [不实用的和充满陷阱的](https://alistapart.com/article/application-cache-is-a-douchebag). 因此它已被废弃，被 Service Workers 有效的取代。
+AppCache 最终被发现是 [不实用的和充满陷阱的](https://alistapart.com/article/application-cache-is-a-douchebag)。因此它已被废弃，被 Service Workers 有效的取代。
 
 [Service workers](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API) 提供了一个更具前瞻性的离线应用解决方案，通过更加程序化的语言书写规则替代 AppCache 的声明式书写方式。
 
@@ -401,7 +401,7 @@ $ ember install ember-service-worker-asset-cache
 
 ![](http://blog.88mph.io/content/images/2017/07/Quartzy-logo.png)
 
-**如果你对基于 Ember.js 的全职工作感兴趣，[Quartzy](https://www.quartzy.com/) 正在招聘前端工程师！我们帮助世界各地的科学家节省资金，使得他们更有效率的在实验室研究。申请吧 [here](http://grnh.se/coe8yp1)。**
+**如果你对基于 Ember.js 的全职工作感兴趣，[Quartzy](https://www.quartzy.com/) 正在招聘前端工程师！我们帮助世界各地的科学家节省资金，使得他们更有效率的在实验室研究。[点击这里](http://grnh.se/coe8yp1)申请吧。**
 
 
   ---
