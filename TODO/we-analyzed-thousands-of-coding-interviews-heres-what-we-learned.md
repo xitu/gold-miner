@@ -3,197 +3,189 @@
 > * 原文作者：[Aline Lerner](https://medium.freecodecamp.org/@alinelernerllc)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/we-analyzed-thousands-of-coding-interviews-heres-what-we-learned.md](https://github.com/xitu/gold-miner/blob/master/TODO/we-analyzed-thousands-of-coding-interviews-heres-what-we-learned.md)
-> * 译者：
-> * 校对者：
+> * 译者：[tanglie1993](https://github.com/tanglie1993)
+> * 校对者：[zhangqippp](https://github.com/zhangqippp)、[yzgyyang](https://github.com/yzgyyang)
 
-# We analyzed thousands of coding interviews. Here’s what we learned
+# 我们对数千个编程面试的分析结果
 
 ---
-
-# We analyzed thousands of coding interviews. Here’s what we learned.
 
 ![](https://cdn-images-1.medium.com/max/2000/1*nJCm0Uc5BOq12faK2KR4Dw.jpeg)
 
-*Note: I wrote most of the words in this post, but the legendary *[*Dave Holtz*](https://twitter.com/daveholtz)* did the heavy lifting on the data side. See more of his work on *[*his blog*](http://daveholtz.net/)*.*
+**注意：我写了这个帖子中的绝大部分内容，但传说中的 [Dave Holtz](https://twitter.com/daveholtz) 完成了数据处理的主要工作。我们可以在 [他的博客](http://daveholtz.net/) 中看到他的其它成果。**
 
-If you’re reading this post, there’s a decent chance that you’re about to re-enter the crazy and scary world of technical interviewing.
+如果你正在读这个帖子，很有可能，你正打算重新进入疯狂而可怕的技术面试的世界。
 
-Maybe you’re a college student or fresh grad who is going through the interviewing process for the first time. Maybe you’re an experienced software engineer who hasn’t even thought about interviews for a few years.
+也许你是一个在读或刚毕业的学生，即将首次经历面试的流程。也许你是一个有经验的软件工程师，已经有几年没考虑过参加面试了。
 
-Either way, the first step in the interviewing process is usually to read a bunch of online interview guides (especially if they’re written by companies you’re interested in) and to chat with friends about their experiences with the interviewing process (both as an interviewer and interviewee).
+无论哪种情况，面试流程的第一步，通常是读一堆在线面试指南（特别是由你感兴趣的公司写的那些），并和朋友们聊起他们面试（作为面试官和面试者）的经验。
 
-More likely than not, what you read and learn in this first, “exploratory” phase of the interview process will inform how you choose to prepare moving forward.
+更有可能，你在面试流程的“探索性”的第一步中学到的知识，将会告诉你如何准备、如何前往下一步。
 
-There are a few issues with this typical approach to interview preparation:
+这个典型的面试准备流程有一些问题：
 
-- Most interview guides are written from the perspective of one company. While Company A may really value efficient code, Company B may place more of an emphasis on high-level problem-solving skills. Unless your heart is set on Company A, you probably don’t want to give too much weight to what they value.
-- People lie sometimes, even if they don’t mean to. In writing, companies may say they’re language agnostic, or that it’s worthwhile to explain your thought process, even if the answer isn’t quite right. However, it’s not clear if this is actually how they act! We’re not saying that tech companies are nefarious liars who are trying to mislead their applicant pool. We’re just saying that sometimes implicit biases sneak in and people aren’t even aware of them.
-- A lot of the “folk knowledge” that you hear from friends and acquaintances may not be based in fact at all. A lot of people assume that short interviews spell doom. Similarly, everyone can recall one long interview after which they’ve thought to themselves, “I really hit it off with that interviewer, I’ll definitely get passed onto the next stage.” In the past, [we’ve seen that people are really bad at gauging how they did in interviews](http://blog.interviewing.io/people-are-still-bad-at-gauging-their-own-interview-performance-heres-the-data/). This time, we wanted to look directly at indicators like interview length and see if those actually matter.
+- 绝大多数面试指南是从一个公司的角度写的。可能 A 公司很重视高效的代码，而 B 公司更重视的是高级的问题解决能力。除非你一心想去 A 公司，否则你大概不想太侧重于他们所关心的能力。
+- 人们有时会撒谎，虽然可能不是故意的。他们可能会写“我们不关心具体的编程语言”，或是“哪怕答案不正确，解释你的思路也是值得的”。但是，实际上他们未必会这样做！我们并不是说科技公司是故意误导求职者的骗子。我们只是认为：有时候不明显的偏见会偷偷产生，人们甚至没有意识到它。
+- 你从朋友或认识的人那里听到的传闻并不一定有事实根据。很多人认为短的面试意味着失败。同样，每个人都可以回忆起一个很长的面试，在这面试结束后他们以为：“我成功打动了面试官，我肯定可以进入下个阶段”。过去， [我们发现人们衡量自己面试表现的能力相当差](http://blog.interviewing.io/people-are-still-bad-at-gauging-their-own-interview-performance-heres-the-data/)。现在，我们打算直接观察诸如面试时长之类的指标，看看它们是否真的重要。
 
-At my company, [interviewing.io](http://interviewing.io), we’re uniquely positioned to approach technical interviews and their outcomes in a data-driven way. We have a platform where people can practice technical interviewing anonymously. And if things go well, they can unlock the ability to interview anonymously, whenever they’d like, with top companies like Uber, Lyft, and Twitch.
+在我的公司 [interviewing.io](http://interviewing.io) 中，我们用独特的数据驱动方式去分析技术面试及其结果。我们有一个平台，可以让面试者匿名练习技术面试。如果事情顺利，他们可以解锁匿名参加真实面试的功能。他们可以在任何时间参加 Uber、Lyft 和 Twitch等顶级公司的面试。
 
-The cool thing is that both practice interviews and real interviews with companies take place within the interviewing.io ecosystem. As a result, we’re able to collect quite a bit of interview data and analyze it to better understand technical interviews, the signal they carry, what works and what doesn’t, and which aspects of an interview might actually matter for the outcome.
+有意思的是，练习面试和真实面试都发生在 interviewing.io 生态系统内。结果，我们可以收集到相当多的面试数据，用来分析并帮助我们更好地理解技术面试：它们传递的信号，什么有用，什么没有用，以及面试的哪些方面可能真的影响结果。
 
-Each interview, whether it’s practice or real, starts with the interviewer and interviewee meeting in a collaborative coding environment with voice, text chat, and a whiteboard, at which point they jump right into a technical question.
+每一个面试，无论是真实的还是用于练习的，开始时都有面试官和面试者，他们在一个合作式的编程环境中，有语音、文字聊天，以及一块白板。他们可以直接开始讨论技术问题。
 
-Interview questions tend to fall into the category of what you’d encounter in a phone screen for a back-end software engineering role.
+面试问题通常属于后端开发电话面试中常见的问题。
 
-**During these interviews, we collect everything that happens, including audio transcripts, data and metadata describing the code that the interviewee wrote and tried to run, and detailed feedback from both the interviewer and interviewee about how they think the interview went and what they thought of each other.**
+**在这些面试中，我们收集发生的一切。包括音频、面试者写的代码的数据和元数据，面试官和面试者对面试过程和对方的评价。**
 
-If you’re curious, you can see what the feedback forms for interviewers and interviewees look like below — in addition to one direct yes/no question, we also ask about a few different aspects of interview performance using a 1–4 scale.
+如果你好奇，你可以在下方看到面试者和面试官的反馈表格的样子 —— 除了一个直接的是/否问题以外，我们还问了不同方面的面试表现（使用 1-4 分的评分表）。
 
-We also ask interviewees some extra questions that we don’t share with their interviewers, and one of the things we ask is whether an interviewee has previously seen the question they just worked on.
+我们还问了面试者一些额外的问题，这部分问题面试官是不知道的。其中一个问题是，面试者以前有没有见过刚才的面试问题。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*WG4CovbdT88jxPEqXZBuiQ.png)
 
-Feedback form for interviewers
+面试官反馈表格
 
 ![](https://cdn-images-1.medium.com/max/1600/1*FRfeOXn8visxr36sKprDNw.png)
 
-Feedback form for interviewees
+面试者反馈表格
 
-### The results
+### 结果
 
-Before getting into the thick of it, it’s worth noting that the conclusions below are based on observational data, which means we can’t make strong causal claims… but we can still share surprising relationships we’ve observed and explain what we found so you can draw your own conclusions.
+在深入探究之前，需要注意：这些结论都是基于观察数据的，这意味着我们不能声称其中有很强的因果关系。但我们仍然可以分享观察到的奇特规律，并且解释我们发现了什么，以便让你做出自己的结论。
 
-#### Having seen the interview question before
+#### 以前见过面试问题
 
-> *“We’re talking about practice!”* -Allen Iverson
+> **“我们正在讨论的是练习！”** —— 阿伦·艾弗森
 
-First thing’s first. It doesn’t take a rocket scientist to suggest that one of the best ways to do better in interviews is to… practice interviewing. There are a number of resources out there to help you practice, ours among them. One of the main benefits of working through practice problems is that you reduce the likelihood of being asked to solve something you’ve never seen before. Balancing that binary search tree will be much less intimidating if you’ve already done it once or twice.
+从首要的东西开始。不算很聪明的人就能发现，最好的提升面试表现的方法之一是……练习面试。现在有大量的资源帮助你练习，包括我们自己的。做练习题的主要好处之一是：你被问到没见过的问题的概率会降低。如果你已经做过一两次的话，平衡一棵二叉树就显得不那么可怕了。
 
-We looked at a sample of ~3000 interviews and compared the outcome to whether the interviewee had seen the interview question before. You can see the results in the plot below.
+我们观察了3000个左右的面试，并把面试者见过与没有见过面试问题的结果相比较。你可以在下面的图中看到结果。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*0ha_0_L7WbspbayJet6N1g.png)
 
-**Unsurprisingly, interviewees who had seen the question were 16.6% more likely to be considered hirable by their interviewer.** This difference is statistically significant — all error bars in this post represent a 95% confidence interval.
+**不出意料，见过题目的面试者通过的概率比没有见过的多16.6%。** 这个差异是统计显著的——所有的误差条都表示95%置信区间。
 
-#### Does it matter what language you code in?
+#### 用什么语言编程重要吗？
 
-> *“Whoever does not love the language of his birth is lower than a beast and a foul smelling fish.” — *Jose Rizal
+> **“不爱自己母语的人比野兽和臭鱼更加低等。”** — Jose Rizal
 
-You might imagine that different languages lead to better interviews. For instance, maybe the readability of Python gives you a leg up in interviews. Or perhaps the fact that certain languages handle data structures in a particularly clean way makes common interview questions easier. We wanted to see whether or not there were statistically significant differences in interview performance across different interview languages.
+你可能认为，使用不同的语言会使面试得到更好的结果。比如，Python 的可读性会对面试有帮助。或者，有些语言处理数据结构的方式特别干净，会让常见的面试问题变得简单。我们想看看，使用不同的语言是否会对面试结果产生显著影响。
+ 
+我们把自己平台上的面试按照语言分组，并过滤掉了面试数量小于 5 个的语言（这只删去了少量的几个面试）。然后，我们就可以看到面试结果随语言变化的函数。
 
-To investigate, we grouped interviews on our platform by interview language and filtered out any languages that were used in fewer than 5 interviews (this only threw out a handful of interviews). After doing this, we were able to look at interview outcome and how it varied as a function of interview language.
+分析结果在下表中显示。任何不重叠的置信区间都表示使用不同语言的面试者通过面试的统计学差异。
 
-The results of that analysis are in the chart below. Any non-overlapping confidence intervals represent a statistically significant difference in how likely an interviewee is to ‘pass’ an interview, as a function of interview language.
-
-Although we don’t do a pairwise comparison for every possible pair of languages, the data below suggest that generally speaking,** there aren’t statistically significant differences between the success rate when interviews are conducted in different languages. **(There were more languages than these on our platform, but the more obscure the language, the less data points we have. For instance, all interviews in [Brainf***](https://en.wikipedia.org/wiki/Brainfuck) were clearly successful. Kidding.)
-
+虽然我们没有把所有语言逐对比较，但是下面的数据显示，总的来说，**不同语言的面试通过率没有显著的差异。**（我们的平台上还有其它的语言，但语言越没名气，我们的数据点就越少。例如，所有用 [Brainfuck](https://en.wikipedia.org/wiki/Brainfuck) 的面试都很成功。开个玩笑。）
 ![](https://cdn-images-1.medium.com/max/2000/1*S1-Aj4ZEKgyuihnFftCD6w.png)
 
-That said, one of the most common mistakes we’ve observed qualitatively is people choosing languages they’re not comfortable in and then messing up basic stuff like array length lookup, iterating over an array, instantiating a hash table, and so on.
+我们观察到的最常见的错误之一是：人们选择自己并不熟悉的语言，然后弄错了查看数组长度、遍历数组、创建哈希表之类的基本操作。但这只是我们定性的结论，没有统计数据支持。
 
-This is especially mortifying when interviewees purposely pick a fancy-sounding language to impress their interviewer. Trust us, wielding your language of choice comfortably beats out showing off in a fancy-sounding language you don’t know well, every time.
+当面试者故意选择一种时髦的语言，以试图打动面试官的时候，这种错误对他非常不利。相信我们，选择自己熟悉的语言，比时髦但不熟悉的语言更好。每一次都是这样。
 
-#### Even if language doesn’t matter… is it advantageous to code in the company’s language of choice?
+#### 哪怕语言并不重要……使用该公司选用的语言是否有优势？
 
-> *“God help me, I’ve gone native.”* — Margaret Blaine
+> **“救命，我已经变成本地人了。”** — Margaret Blaine
 
-It’s all well and good that, in general, interview language doesn’t seem particularly correlated with performance. However, you might imagine that there could be an effect depending on the language that a given company uses. You could imagine a Ruby shop saying “we only hire Ruby developers, if you interview in Python we’re less likely to hire you.”
+总的来说，语言和面试表现并没有特别紧密的关系。这很好。但是对方公司使用的语言可能会影响面试结果。一个使用 Ruby 的公司可能会说：“我们只雇佣 Ruby 程序员，如果你使用 Python 我们就不太可能雇你。”
 
-On the flip side, you could imagine that a company that writes all of their code in Python is going to be much more critical of an interviewee in Python — they know the ins and outs of the language, and might judge the candidate for doing all sorts of “non-pythonic” things during their interview.
+而在另一方面，一个完全使用 Python 的公司会对使用 Python 的面试者更苛刻——他们完全了解这种语言，可能会因为面试者对 Python 的使用不完全地道而对他有意见。
 
-The chart below is similar to the chart which showed differences in interview success rate (as measured by interviewers being willing to hire the interviewee) for C++, Java, and Python. However, this chart also breaks out performance by whether or not the interview language is in the company’s stack.
+下面的表和使用不同语言的面试成功率（也是用面试官愿意雇用面试者的概率来表示）的表很相似。但是，这个表是用面试语言是否在公司的技术栈内来分类的。
 
-We restrict this analysis to C++, Java and Python because these are the three languages where we had a good mixture of interviews where the company did and did not use that language.** The results here are mixed. When the interview language is Python or C++, there’s no statistically significant difference between the success rates for interviews where the interview language is or is not a language in the company’s stack. However, interviewers who interviewed in Java were more likely to succeed when interviewing with a Java shop **(p=0.037).
+我们把这个分析限制在 C++, Java 和 Python ，因为这三种语言都有很多公司用和不用它们。**结果并不一致。对于 Python 和 C++而言，面试者使用的语言是否在公司的技术栈内，并不会对成功率产生显著的影响。但是，使用 Java 的面试者在使用 Java 的公司面试时，更有可能成功**(p=0.037)。
 
-So, why is it that coding in the company’s language seems to be helpful when it’s Java, but not when it’s Python or C++? One possible explanation is that the communities that exist around certain programming languages (such as Java) place a higher premium on previous experience with the language. Along these lines, it’s also possible that interviewers from companies that use Java are more likely to ask questions that favor those with a pre-existing knowledge of Java’s idiosyncrasies.
+那么，为什么公司使用的语言是 Java 时，使用对方公司的语言会有帮助，而 Python 和 C++则没有呢？一个可能的解释是特定编程语言的社区（例如 Java）更看重程序员在该种语言上的工作经验。也有可能是因为使用 Java 的公司的面试官更有可能问出熟悉 Java 的人能回答得更好的问题。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*scSrZGC6Zy9a_ij1S0kZsg.png)
 
-#### What about the relationship between what language you program in and how good of a communicator you’re perceived to be?
+#### 你使用什么语言，和别人眼中你的沟通能力有关吗？
 
-> *“To handle a language skillfully is to practice a kind of evocative sorcery.”* — Charles Baudelaire
+> **“精巧地使用一门语言就像使用巫术一样。”** — Charles Baudelaire
 
-Even if language choice doesn’t matter that much for overall performance (Java-wielding companies notwithstanding), we were curious whether different language choices led to different outcomes in other interview dimensions.
+虽然语言选择对总体表现的影响不那么大（使用 Java 语言的公司除外），我们很好奇，选择不同的语言是否在其他维度上影响面试结果。
 
-For instance, an extremely readable language, like Python, may lead to interview candidates who are assessed to have communicated better. On the other hand, a low-level language like C++ might lead to higher scores for technical ability.
+例如，Python 之类非常易读的语言，可能导致面试者能够更好地交流。另外，C++ 之类底层的语言可能使面试者在技术能力上的评分更高。
 
-Furthermore, very readable or low-level languages might lead to correlations between these two scores (for instance, maybe they’re a C++ interview candidate who can’t explain at all what he or she is doing but who writes very efficient code). The chart below suggests that there isn’t really any observable difference between how candidates’ technical and communication abilities are perceived, across a variety of programming languages.
+另外，非常易读或者非常底层的语言，可能使得这两个分数相关（比如，也许有一个 C++ 候选人不能解释清楚自己在做什么，但是写的代码效率很高）。下面的表显示，面试者的技术能力和沟通能力的评分并没有可见的差异，对于各种语言都是如此。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*Cin1yM1gw62D2Gl1fhdG-w.png)
 
-**Furthermore, no matter what, poor technical ability seems highly correlated with poor communication ability — regardless of language, it’s relatively rare for candidates to perform well technically but not effectively communicate what they’re doing (or vice versa)**, largely (and fortunately) debunking the myth of the incoherent, fast-talking, awkward engineer.
+**另外，无论如何，技术能力似乎和沟通能力紧密相关——不管什么语言，技术表现很好的面试者沟通能力不好，是很罕见的，反之亦然。**, 这很大程度上拆穿了工程师往往笨拙、语无伦次的谣言。
 
-(The best engineers I’ve met have also been legendarily good at breaking down complex concepts and explaining them to laypeople. Why the infuriating myth of the socially awkward, incoherent tech nerd continues to exist, I have absolutely no idea.)
+（我见过的最好的工程师都很擅长分解复杂的概念，并把它们向外行解释。为什么总有人认为优秀的程序员不擅社交？我完全想不通。）
 
-#### Interview duration
+#### 面试时长
 
-> *“It’s fine when you careen off disasters and terrifyingly bad reviews and rejection and all that stuff when you’re young; your resilience is just terrific.” — *Harold Prince
+> **“年轻的时候搞砸各种事情是没有关系的；你的恢复能力还很强。”** — Harold Prince
 
-We’ve all had the experience of leaving an interview and just feeling like it went poorly. Often, that feeling of certain underperformance is motivated by rules of thumb that we’ve either come up with ourselves or heard repeated over and over again. You might find yourself thinking, “the interview didn’t last long? That’s probably a bad sign… ” or “I barely wrote anything in that interview! I’m definitely not going to pass.” Using our data, we wanted to see whether these rules of thumb for evaluating your interview performance had any merit.
+我们都经历过结束一场面试时，感觉自己表现很糟糕的情况。 通常，这种发挥不佳的感觉是出于我们自己发现，或者道听途说的经验法则。我们可能发现自己在想：“面试持续的时间不长？这很可能不是个好消息……”或者“我在面试中几乎什么都没有写！我肯定过不了。”使用自己的数据，我们试图研究这些衡量面试表现的经验法则是否有用。
 
-First, we looked at the length of the interview. Does a shorter interviewer mean you were such a train wreck that the interviewer just had to stop the interview early? Or was it maybe the case that the interviewer had less time than normal, or had seen in just a short amount of time that you were an awesome candidate? The plot below shows the distributions of interview length (measured in minutes) for both successful and unsuccessful candidates.
+首先，我们观察了面试的时间长度。面试时间短是否意味着面试者表现非常糟糕，面试官只能提早结束？或者，可能面试官不太有时间，或者他很快发现你是一个特别优秀的候选人？下图显示了成功与失败的候选人的面试时长（以分钟计）。
 
-**A quick look at this chart suggests that there is no difference in the distribution of interview lengths between interviews that go well and interviews that don’t — the average length of interviews where the interviewer wanted to hire the candidate was 51.00 minutes, whereas the average length of interviews where the interviewer did not was 49.95 minutes. This difference is not statistically significant**.
+**从表格上我们很快可以看到：成功和失败的面试在时长上并没有差异——成功面试的平均时长是51.00分钟，而失败面试的平均长度是49.95分钟。差异是不显著的**。
 
-(For every comparison of distributions in this post, we use both a Fisher-Pitman permutation test to compare the difference in the means of the distributions.)
+（对于本帖子中的每一个比较，我们用 Fisher-Pitman 置换检验来比较平均值的差异。）
 
 ![](https://cdn-images-1.medium.com/max/1600/1*kUsYEVIdbSKNWH5Ea-ks_w.png)
 
-#### Amount of code written
+#### 代码量
 
-> *“Brevity is the soul of wit.”* -William Shakespeare
+> **“简洁是智慧的灵魂。”** —— 威廉·莎士比亚
 
-You may have experienced an interview where you were totally stumped. The interviewer asks you a question you barely understand, you repeat back to him or her “binary search what?”, and you basically write no code during your interview. You might hope that you could still pass an interview like this through sheer wit, charm, and high-level problem-solving skills. In order to assess whether or not this was true, we looked at the final character length of code written by the interviewee. The plot below shows the distributions of character length for both successful and unsuccessful. A quick look at this chart suggests that there is a difference between the two — interviews that don’t go well tend to have less code. There are two phenomena that may contribute to this. First, unsuccessful interviewers may write less code to begin with. Additionally, they may be more prone to delete large swathes of code they’ve written that either don’t run or don’t return the expected result.
+你可能经历过完全失败的面试。面试官问你一个你几乎不理解的问题，你问他“二分查找什么？”，并且在整个过程中几乎没有写任何代码。你可能希望纯粹通过聪明、魅力或者高级的问题解决能力通过这个面试。为了检验这种说法是否正确，我们观察了面试者所写代码的长度。下图展示了成功和失败的面试者所写代码的长度。从中很快可以发现，这两者还是很有差别的——失败的面试代码量更少。有两个现象可能导致这个问题。首先，不成功的面试者可能一开始写的代码就比较少。另外，他们可能更倾向于删除很多自己写出的失败的代码。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*OyxyeBmyDfMdJaYyCDi6ng.png)
 
-**On average, successful interviews had final interview code that was on average 2045 characters long, whereas unsuccessful ones were, on average, 1760 characters long.** That’s a big difference! This finding is statistically significant and probably not very surprising.
+**成功的面试最终的代码平均有 2045 个字符，而不成功的平均只有 1760 个字符。** 这是很大的区别！这个发现是统计显著的，而且很可能不那么令人吃惊。
 
-#### Code modularity
+#### 代码模块化
 
-> *“The mark of a mature programmer is willingness to throw out code you spent time on when you realize it’s pointless.” — *Bram Cohen
+> **“成熟程序员的标志是，愿意抛弃自己花时间写的代码，如果它没有意义的话。”** — Bram Cohen
 
-In addition to just look at *how much* code you write, we can also think about the type of code you write. Conventional wisdom suggests that good programmers don’t recycle code — they write modular code that can be reused over and over again. We wanted to know if that type of behavior was actually rewarded during the interview process. In order to do so, we looked at interviews conducted in Python[5](http://blog.interviewing.io/#guide-fn5) and counted how many function definitions appeared in the final version of the interview. We wanted to know if successful interviewees defined more functions — while having more function handlers is not the definition of modularity, in our experience, it’s a pretty strong signal of it. As always, it’s impossible to make strong causal claims about this — it might be the case that certain interviewers (who are more or less lenient) ask interview questions that lend themselves to more or fewer functions. Nonetheless, it is an interesting trend to investigate!
+除了看看你写了 *多少* 代码以外，我们也可以考虑一下代码的类型。传统的观点是好的程序员不用回收代码——他们写出模块化的代码并不断复用。我们希望知道在面试过程中，有哪些行为是受到鼓励的。我们看了用 Python 进行的面试[5](http://blog.interviewing.io/#guide-fn5)，并且数了最终的版本中代码定义了多少函数。我们想知道，成功的面试者是否定义了更多函数——更多的函数并不是模块化的定义，但根据我们的经验，这是一个标志模块化程度的很强的信号。同样，我们不可能断言其中存在很强的因果联系——也许有的面试官问的问题本身就会导致面试者写出更多或更少的函数。不管怎样，这是一个值得研究的趋势。
 
-The plot below shows the distribution of the number of Python functions defined for both candidates who the interviewer said they would hire and candidates who the interviewer said they would not hire. A quick look at this chart suggests that there *is* a difference in the distribution of function definitions between interviews that go well and interviews that don’t. Successful interviewees seem to define *more* functions.
+下面的图展示了面试官愿意和不愿意雇佣的面试者的 Python 函数数量的对比。很快可以发现，成功和失败的面试在这方面是*有*差别的。成功的面试者会写出更*多*的函数。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*tJ71vF6YBjv-fq489afxSg.png)
 
-**On average, successful candidates interviewing in Python define 3.29 functions, whereas unsuccessful candidates define 2.71 functions. This finding is statistically significant. The upshot here is that interviewers really do reward the kind of code they say they want you to write.**
+**就平均水平而言，成功的 Python 面试者定义 3.29 个函数，而不成功的定义了 2.71 个。这个差异是统计显著的。结果是，面试官确实会对写出他们期望的代码的面试者有所奖励。**
 
-#### Does it matter if your code runs?
+#### 你的代码是否运行重要吗？
 
-> *“Move fast and break things. Unless you are breaking stuff, you are not moving fast enough.” — *Mark Zuckerberg
+> **“要快速行动，不要害怕弄坏东西。如果你什么都没有弄坏，你就做得还不够快。”** — 马克·扎克伯格
 
-> *“The most effective debugging tool is still careful thought, coupled with judiciously placed print statements.” — *Brian Kernighan
+> **“最强大的debug工具仍然是缜密的思维，以及准确安放的print语句。”*** — Brian Kernighan
 
-A common refrain in technical interviews is that interviewers don’t actually care if your code runs — what they care about is problem-solving skills. Since we collect data on the code interviewees run and whether or not that code compiles, we wanted to see if there was evidence for this in our data. Is there any difference between the percentage of code that compiles error-free in successful interviews versus unsuccessful interviews? Furthermore, can interviewees actually still get hired, even if they make tons of syntax errors?
+对于技术面试，常见的观点是面试官并不真的在乎你的代码是否能够运行——他们关心的是解决问题的技能。我们收集了面试者写的代码是否运行，以及是否能够编译的数据，希望看看我们的数据中是否有这方面的证据。成功与不成功的面试的代码中，含有错误的概率是否有差异？另外，如果面试者犯了很多语法错误，他是否还可以被雇佣？
 
-In order to get at this question, we looked at the data. We restricted our dataset to interviews longer than 10 minutes with more than 5 unique instances of code being executed. This helped filter out interviews where interviewers didn’t actually want the interviewee to run code, or where the interview was cut short for some reason. We then measured the percent of code runs that resulted in errors.[5](http://blog.interviewing.io/#guide-fn5) Of course, there are some limitations to this approach — for instance, candidates could execute code that does compile but gives a slightly incorrect answer. They could also get the right answer and write it to stderr! Nonetheless, this should give us a directional sense of whether or not there’s a difference.
+为了回答这些问题，我们查看了数据。我们把数据限制到超过 10 分钟，并且有超过5份代码被执行的面试。这过滤掉了面试官不希望面试者真的运行代码，或者由于某种原因提前终止的面试。接下来，我们测量了出现错误的代码的比例。[5](http://blog.interviewing.io/#guide-fn5) 当然，这种方式有它的局限性——比如，候选人可能写出能够编译，但是答案稍有不正确的代码。他们也可能得到正确的答案，却把它写到 stderr！虽然如此，这可以帮助我们感觉到它是否有差异。
 
-The chart below gives a summary of this data. The x-axis shows the percentage of code executions that were error-free in a given interview. So an interview with 3 code executions and 1 error message would count towards the “30%-40%” bucket. The y-axis indicates the percentage of all interviews that fall in that bucket, for both successful and unsuccessful interviews. Just eyeballing the chart below, one gets the sense that on average, successful candidates run more code that goes off without an error. But is this difference statistically significant?
+下面的表给出了数据的一个概要。X 轴显示了所有执行次数中没有错误的代码的比例。所以，如果代码执行了 3 次，但只有 1 条错误信息，就算在 “30% - 40%” 一栏中。Y 轴显示所有面试中，成功和失败的面试处于该区域的比例。看一看下面的表就会发现，平均情况下成功的面试者会写出更多的没有错误的代码。但这种差异是否是显著的呢？
 
 ![](https://cdn-images-1.medium.com/max/2000/1*434O4qWrzxlU6YltbN6sIw.png)
 
-On average, successful candidates’ code ran successfully (didn’t result in errors) 64% of the time, whereas unsuccessful candidates’ attempts to compile code ran successfully 60% of the time, and this difference was indeed significant. **Again, while we can’t make any causal claims, the main takeaway is that successful candidates do usually write code that runs better, despite what interviewers may tell you at the outset of an interview.**
+就平均水平而言，成功的面试者的代码在 64% 的情况下运行成功（没有产生错误），而不成功的候选人的代码在 60% 的情况下可以成功运行，这个差异当然是显著的。 **同样，我们不能声称有任何因果联系。我们主要学到的是，成功的候选人通常写出的代码能够运行得更好，无论面试官在面试开始时告诉你什么。**
 
-#### Should you wait and gather your thoughts before writing code?
+#### 在开始写代码之前是否应该等待一会，整理思路？
 
-> *“Never forget the power of silence, that massively disconcerting pause which goes on and on and may at last induce an opponent to babble and backtrack nervously.” — *Lance Morrow
+> **“不要忘记沉默的力量，不断出现的扰乱人思路的暂停，可能会使你的对手非常紧张。”** — Lance Morrow
 
-We were also curious whether or not successful interviewees tended to take their time in the interview. Interview questions are often complex! After being presented with a question, there might be some benefit to taking a step back and coming up with a plan, rather than jumping right into things. In order to get a sense of whether or not this was true, we measured how far into a given interview candidates first executed code. Below is a histogram showing how far into interviews both successful and unsuccessful interviewees first ran code. Looking quickly at the histogram, you can tell that successful candidates do in fact wait a bit longer to start running code, although the magnitude of the effect isn’t huge.
+我们也很好奇，成功的面试者在过程中是否会放慢节奏。面试问题通常是很复杂的！看到一个问题以后，后退一步去想一个完整的计划，可能比直接跳进去要好。为了验证这种观点是否正确，我们测量了候选人在面试中第一次运行代码的时间。下面是一个直方图，展示了成功和失败的面试者在开始面试之后，第一次运行代码的时间。很快地看一眼，你就可以发现，成功的候选人在开始运行代码之前，会等待得稍微久一点，虽然差别不是很大。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*I0npBvlvkI3JVWr5Toi1_g.png)
 
-More specifically, **on average, candidates with successful interviews first run code 27% of the way through the interview, whereas candidates with unsuccessful interviews first run code 23.9% of the way into the interview, and this difference is significant**. Of course, there are alternate explanations for what’s happening here. For instance, perhaps successful candidates are better at taking the time to sweet-talk their interviewer. Furthermore, the usual caveat that we can’t make causal claims applies — if you just sit in an interview for an extra 5 minutes in complete silence, it won’t help your chances. Nonetheless, there does seem to be a difference between the two cohorts.
+更准确地说，**就平均水平而言，成功的候选人在整个面试过程的 27% 处第一次运行代码，而不成功的候选人在 23.9% 处首次运行，这个差异是显著的**。当然，这种现象还有其它的解释。例如，也许成功的候选人更擅长把时间花在拍面试官的马屁上。而且，像平常一样，我们也不能声称其中有因果关系——如果你在面试过程中花5分钟时间坐着，什么也不说，这将对你没有什么帮助。但是，这样做会对第一次运行代码的时间产生影响。
 
-### Conclusions
+### 结论
 
-All in all, this post was our first attempt to understand what does and does not typically lead to an interviewer saying “you know what, I’d really like to hire this person.” Because all of our data are observational, its hard to make causal claims about what we see.
+总而言之，我们试图探究是什么使得面试官说：“你知道吗，我真的想雇佣这个人。”。这个帖子是我们的首次尝试。由于所有的数据都是观察数据，声称其中有因果联系是很困难的。
 
-While successful interviewees may exhibit certain behaviors, adopting those behaviors doesn’t guarantee success. Nonetheless, it does allow us to support (or call BS on) a lot of the advice you’ll read on the internet about how to be a successful interviewee.
+成功的面试者可能表现出特定的行为，但模仿这些行为并不保证你能成功。但是，这使我们有证据支持（或反对）你在网上看到的关于面试的许多建议。 
 
-That said, there is much still to be done. This was a first, quantitative pass over our data (which is, in many ways, a treasure trove of interview secrets), but we’re excited to do a deeper, qualitative dive and actually start to categorize different questions to see which carry the most signal as well as really get our head around 2nd order behaviors that you can’t measure easily by running a regex over a code sample or measuring how long an interview took.
+除此之外，还有很多事情可以做。这是第一个对我们的数据（在很多层面上，它蕴含着关于面试的宝贵信息）的定量分析。接下来，我们打算做一个更深层、定性的研究，并开始把不同的问题分类，看看哪一类问题含有重要的信号。我们也将分析用户的二级行为，这些行为不是把样本代码做一个回归分析，看看面试时长就可以测量的。
 
-If you want to help us with this and are excited to listen to a bunch of technical interviews, [drop me a line](mailto:aline@interviewing.io)!
-
----
-
-*Want to become awesome at technical interviews and land your next job in the process? *[*Join interviewing.io*](http://www.interviewing.io)*!*
-
+如果你想帮助我们，并想要听一些技术面试，[写信给我](mailto:aline@interviewing.io)！
 
 ---
 
