@@ -4,7 +4,7 @@
   > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
   > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/why-i-havent-fixed-your-issue-yet.md](https://github.com/xitu/gold-miner/blob/master/TODO/why-i-havent-fixed-your-issue-yet.md)
   > * 译者：[LeviDing](https://github.com/leviding)
-  > * 校对者：
+  > * 校对者：[shawnchenxmu](https://github.com/shawnchenxmu)
 
   # 为什么我还没 Fixed 你的 Issue
 
