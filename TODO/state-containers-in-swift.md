@@ -10,7 +10,7 @@
 
 ## 事物的状态
 
-在客户端架构如何工作上，每一个 iOS 和 MacOS 开发者都有不同的微妙见解。从最经典的苹果框架所内嵌的 
+在客户端架构如何工作上，每一个 iOS 和 MacOS 开发者都有不同的细微见解。从最经典的苹果框架所内嵌的 
 [MVC 模式](https://developer.apple.com/library/content/documentation/General/Conceptual/DevPedia-CocoaCore/MVC.html)（读作：臃肿的视图控制器），到那些 MV* 模式（比如 MVP,MVVM），再到听起来有点吓人的 [Viper](https://www.objc.io/issues/13-architecture/viper/)，那么我们该如何选择？
 
 这篇文章并不会回答你的问题，因为正确的答案是**依据环境而定的**。我想要强调的是一个我很喜欢并且经常看到的基本方法，名为**状态容器**。
