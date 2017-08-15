@@ -436,17 +436,17 @@ export default connect(stateToProps)(AuthorizedRoute)
 
 [![](https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1502066098/rr4_jmydzy.gif)](https://codepen.io/bradwestfall/project/editor/XWNWge/?preview_height=50&amp;open_file=src/app.js)
 
-### Other mentions
+### 其他提及
 
 There's a lot of other cool aspects React Router v4. To wrap up though, let's be sure to mention a few small things so they don't catch you off guard.
 
 #### **<Link>** vs **<NavLink>**
 
-In v4, there are two ways to integrate an anchor tag with the router: [`<Link>`](https://reacttraining.com/react-router/web/api/Link) and [`<NavLink>`](https://reacttraining.com/react-router/web/api/NavLink)
+在 v4 中，有两种方法可以将锚标签与路由集成：[`<Link>`](https://reacttraining.com/react-router/web/api/Link) 和 [`<NavLink>`](https://reacttraining.com/react-router/web/api/NavLink)
 
-`<NavLink>` works the same as `<Link>` but gives you some extra styling abilities depending on if the `<NavLink>` matches the browser's URL. For instance, in the [example application](https://codepen.io/bradwestfall/project/editor/XWNWge/#), there is a `<PrimaryHeader>` component that looks like this:
+`<NavLink>` 与 `<Link>` 一样，但如果 `<NavLink>` 匹配浏览器的 URL，那么它可以提供一些额外的样式能力。例如，在[示例应用程序](https://codepen.io/bradwestfall/project/editor/XWNWge/#)中，有一个`<PrimaryHeader>` 组件看起来像这样：
 
-```
+```jsx
 const PrimaryHeader = () => (
   <header className="primary-header">
     <h1>Welcome to our app!</h1>
@@ -459,19 +459,19 @@ const PrimaryHeader = () => (
 )
 ```
 
-The use of `<NavLink>` allows me to set a class of `active` to whichever link is active. But also, notice that I can use `exact` on these as well. Without `exact` the home page link would be active when visiting `/app/users` because of the inclusive matching strategies of v4. In my personal experiences, `<NavLink>` with the option of `exact` is a lot more stable than the v3 `<Link>` equivalent.
+使用 `<NavLink>` 可以让我给任何一个激活的链接设置一个 `active` 样式。而且，需要注意的是，我也可以给它们添加 `exact` 属性。如果没有 `exact`，由于 v4 的包容性匹配策略，那么在访问 `/app/users` 时，主页的链接将处于激活中。就个人经历而言，`NavLink` 带 `exact` 属性等价于 v3 的 `<link>`，而且更稳定。
 
-#### URL Query Strings
+#### URL 查询字符串
 
-There is no longer way to get the query-string of a URL from React Router v4. It seems to me that the [decision was made](https://github.com/ReactTraining/react-router/issues/4410) because there is no standard for how to deal with complex query strings. So instead of v4 baking an opinion into the module, they decided to just let the developer choose how to deal with query strings. This is a good thing.
+再也无法从 React Router v4 中获取 URL 的查询字符串了。在我看来，[做出决定](https://github.com/ReactTraining/react-router/issues/4410)是因为没有关于如何处理复杂查询字符串的标准。所以，他们决定让开发者去选择如何处理查询字符串，而不是将其作为一个选项嵌入到 v4 的模块中。这是一件好事。
 
-Personally, I use [query-string](https://www.npmjs.com/package/query-string) which is made by the always awesome [sindresorhus](https://twitter.com/sindresorhus).
+就个人而言，我使用的是 [query-string](https://www.npmjs.com/package/query-string)，它是由 [sindresorhus](https://twitter.com/sindresorhus) 大神写的。
 
-#### Dynamic Routes
+#### 动态路由
 
-One of the best parts about v4 is that almost everything (including `<Route>`) is just a React component. Routes aren't magical things anymore. We can render them conditionally whenever we want. Imagine an entire section of your application is available to route to when certain conditions are met. When those conditions aren't met, we can remove routes. We can even do some crazy cool [recursive route](https://reacttraining.com/react-router/web/example/recursive-paths) stuff.
+关于 v4 最好的部分之一是几乎所有的东西（包括 `<Route>`）只是一个 React 组件。路由不再是神奇的东西了。我们可以随时随地渲染它们。想象一下，当满足某些条件时，你的应用程序的整个部分都可以路由到。当这些条件不满足时，我们可以移除路由。甚至我们可以做一些疯狂而且很酷的[递归路由](https://reacttraining.com/react-router/web/example/recursive-paths)。
 
-React Router 4 is easier because it's [Just Components™](https://youtu.be/Mf0Fy8iHp8k?t=3m22s)
+React Router 4 更简单，因为它是 [Just Components™](https://youtu.be/Mf0Fy8iHp8k?t=3m22s)。
 
 
   ---
