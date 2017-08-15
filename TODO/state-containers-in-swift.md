@@ -4,7 +4,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/state-containers-in-swift.md](https://github.com/xitu/gold-miner/blob/master/TODO/state-containers-in-swift.md)
 > * 译者：[deepmissea](http://deepmissea.blue)
-> * 校对者：
+> * 校对者：[FlyOceanFish](http://www.jianshu.com/u/48277aa2055d)
 
 # iOS 响应式编程：Swift 中的轻量级状态容器
 
@@ -21,7 +21,7 @@
 
 > 状态容器以与线程锁相同的方式提供安全的状态。
 
-这并不是一个新的概念，而且它也不是一个你可以集成到整个应用的工具包。状态容器的理念是非常通用的，它可以融入进任何应用程序架构，而无需太多的附加规则。但是它是一个强大的方法，是很多流行库（比如[ReactiveReSwift](https://github.com/ReSwift/ReactiveReSwift)）的核心，比如 [ReSwift](https://github.com/ReSwift/ReSwift)，[Redux](https://github.com/reactjs/redux)，[Flux](https://github.com/facebook/flux) 等等，这些框架的成功和绝对数量说明了状态容器模式在现代移动应用中的有效性。
+这并不是一个新的概念，而且它也不是一个你可以集成到整个应用的工具包。状态容器的理念是非常通用的，它可以融入进任何应用程序架构，而无需太多的附加规则。但是它是一个强大的方法，是很多流行库（比如[ReactiveReSwift](https://github.com/ReSwift/ReactiveReSwift)）的核心，比如 [ReSwift](https://github.com/ReSwift/ReSwift)、[Redux](https://github.com/reactjs/redux)、[Flux](https://github.com/facebook/flux) 等等，这些框架的成功和绝对数量说明了状态容器模式在现代移动应用中的有效性。
 
 就像 `ReSwift` 这样的响应式库，状态容器将 `Action` 和 `View` 之间的缺口桥联为单向数据流的一部分。然而即使没有其他两个组件，状态容器也很强力。实际上，他们可以做的比这些库使用的更多。
 
@@ -429,7 +429,7 @@ extension Optional : OptionalType {
 
 从 API 响应到特征切换到受保护的钥匙串项，使用状态容器模式是围绕关键信息定义结构的优秀方式。状态容器可以轻松地用于缓存，用户偏好，分析以及应用程序启动之间需要保持的任何事情。
 
-状态容器模式让 UI 组件不用担心如何以及何时生成数据，并把焦点转向如何把数据转换成梦幻般的用户体验。
+状态容器模式让 UI 组件不用担心如何以及何时生成数据，并开始把焦点转向如何把数据转换成梦幻般的用户体验。
 
 ## 关于作者
 
