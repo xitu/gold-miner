@@ -1,3 +1,4 @@
+* [机器之魂：聊天机器人是怎么工作的](https://juejin.im/post/599155d86fb9a03c467c151d?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lsvih](https://github.com/lsvih) 翻译)
 * [深度学习系列3 - CNNs 以及应对过拟合的详细探讨](https://juejin.im/post/598f25b15188257d8643173d?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lj147](https://github.com/lj147) 翻译)
 * [深度学习系列2：卷积神经网络](https://juejin.im/post/598ac6a55188257dd366367f?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lsvih](https://github.com/lsvih) 翻译)
 * [如何将时间序列问题用 Python 转换成为监督学习问题](https://juejin.im/post/598ac4e651882548605ce4a9?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lsvih](https://github.com/lsvih) 翻译)
