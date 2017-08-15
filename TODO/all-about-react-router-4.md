@@ -134,7 +134,7 @@ const PrimaryLayout = () => (
 
 ### 排他性路由
 
-如果你只需要在路由列表里匹配一个路由，则使用 `<Switch>` 来启用排他路由：
+如果你只需要在路由列表里匹配一个路由，则使用 `<Switch>` 来启用排他路由：
 
 ```jsx
 const PrimaryLayout = () => (
@@ -282,18 +282,18 @@ const UserSubLayout = props => (
 )
 ```
 
-### Match
+### 匹配
 
-As we've seen so far, `props.match` is useful for knowing what `userId` the profile is rendering and also for writing our routes. The `match` object gives us several properties including `match.params`, `match.path`, `match.url` and [several more](https://reacttraining.com/react-router/web/api/match).
+到目前为止，`props.match` 对于知道详情页面渲染的 `userId` 以及如何编写我们的路由是很有用的。`match` 对象给我们提供了几个属性，包括 `match.params`、`match.path`、`match.url` 和[其他几个](https://reacttraining.com/react-router/web/api/match)。
 
 #### **match.path** vs **match.url**
 
-The differences between these two can seem unclear at first. Console logging them can sometimes reveal the same output making their differences even more unclear. For example, both these console logs will output the same value when the browser path is `/users`:
+起初这两者之间的区别似乎并不清楚。控制台日志有时会显示相同的输出，这使得它们之间的差异更加模糊。例如，当浏览器路径为 `/users` 时，它们在控制台日志将输出相同的值：
 
-```
+```jsx
 const UserSubLayout = ({ match }) => {
-  console.log(match.url)   // output: "/users"
-  console.log(match.path)  // output: "/users"
+  console.log(match.url)   // 输出："/users"
+  console.log(match.path)  // 输出："/users"
   return (
     <div className="user-sub-layout">
       <aside>
@@ -310,9 +310,9 @@ const UserSubLayout = ({ match }) => {
 }
 ```
 
-**ES2015 Concept:**`match` is being [destructured](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment) at the parameter level of the component function. This means we can type `match.path` instead of `props.match.path`.
+**ES2015 概念：** `match` 在组件函数的参数级别将被[解构](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment)。
 
-While we can't see the difference yet, `match.url` is the actual path in the browser URL and `match.path` is the path written for the router. This is why they are the same, at least so far. However, if we did the same console logs one level deeper in `UserProfilePage` and visit `/users/5` in the browser, `match.url` would be `"/users/5"` and `match.path` would be `"/users/:userId"`.
+虽然我们看不到差异，但 `match.url` 是浏览器 URL 中的实际路径，而 `match.path` 是为路由编写的路径。这就是为什么它们是一样的，至少到目前为止。但是，如果我们更进一步，在 `UserProfilePage` 中进行同样的控制台日志操作，并在浏览器中访问 `/users/5`，那么 `match.url` 将是 `"/users/5"` 而 `match.path` 将是 `"/users/:userId"`。
 
 ### Which to choose?
 
