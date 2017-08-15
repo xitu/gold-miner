@@ -314,11 +314,11 @@ const UserSubLayout = ({ match }) => {
 
 虽然我们看不到差异，但 `match.url` 是浏览器 URL 中的实际路径，而 `match.path` 是为路由编写的路径。这就是为什么它们是一样的，至少到目前为止。但是，如果我们更进一步，在 `UserProfilePage` 中进行同样的控制台日志操作，并在浏览器中访问 `/users/5`，那么 `match.url` 将是 `"/users/5"` 而 `match.path` 将是 `"/users/:userId"`。
 
-### Which to choose?
+### 选择哪一个？
 
-If you're going to use one of these to help build your route paths, I urge you to choose `match.path`. Using `match.url` to build route paths will eventually lead a scenario that you don't want. Here's a scenario which happened to me. Inside a component like `UserProfilePage` (which is rendered when the user visits `/users/5`), I rendered sub components like these:
+如果你要使用其中一个来帮助你构建路由路径，我建议你选择 `match.path`。使用 `match.url` 来构建路由路径最终会导致你不想看到的场景。下面是我遇到的一个情景。在一个像 `UserProfilePage`（当用户访问 `/users/5` 时渲染）的组件中，我渲染了如下这些子组件：
 
-```
+```jsx
 const UserComments = ({ match }) => (
   <div>UserId: {match.params.userId}</div>
 )
@@ -336,19 +336,19 @@ const UserProfilePage = ({ match }) => (
 )
 ```
 
-To illustrate the problem, I'm rendering two sub components with one route path being made from `match.url` and one from `match.path`. Here's what happens when visiting these pages in the browser:
+为了说明问题，我渲染了两个子组件，一个路由路径来自于 `match.url`，另一个来自 `match.path`。以下是在浏览器中访问这些页面时所发生的事情:
 
-- Visiting `/users/5/comments` renders "UserId: undefined".
-- Visiting `/users/5/settings` renders "UserId: 5".
+- 访问 `/users/5/comments` 渲染 "UserId: undefined"。
+- 访问 `/users/5/settings` 渲染 "UserId: 5"。
 
-So why does `match.path` work for helping to build our paths and `match.url` doesn't? The answer lies in the fact that `{${match.url}/comments}` is basically the same thing as if I had hard-coded `{'/users/5/comments'}`.  Doing this means the subsequent component won't be able to fill `match.params` correctly because there were no params in the path, only a hardcoded `5`.
+那么为什么 `match.path` 可以帮助我们构建路径 而 `match.url` 则不可以呢？答案就是这样一个事实：`{${match.url}/comments}` 基本上就像和硬编码的 `{'/users/5/comments'}` 一样。这样做意味着后续组件将无法正确地填充 `match.params`，因为路径中没有参数，只有硬编码的 `5`。
 
-It wasn't until later that I saw [this part of the documentation](https://reacttraining.com/react-router/core/api/match) and realized how important it was:
+直到后来我看到[文档的这一部分](https://reacttraining.com/react-router/core/api/match)，才意识到它有多重要：
 
 > match:
 >
-> - path - (string) The path pattern used to match. **Useful for building nested `<Route>`s**
-> - url - (string) The matched portion of the URL. **Useful for building nested `<Link>`s**
+> - path - (`string`) 用于匹配路径模式。**用于构建嵌套的 `<Route>`s**
+> - url - (`string`) URL 匹配的部分。 **用于构建嵌套的 `<Link>`s**
 
 ### Avoiding Match Collisions
 
