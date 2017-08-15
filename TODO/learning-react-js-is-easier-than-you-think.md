@@ -1,4 +1,3 @@
-
 > * 原文地址：[Learning React.js is easier than you think](https://edgecoders.com/learning-react-js-is-easier-than-you-think-fbd6dc4d935a)
 > * 原文作者：[Samer Buna](https://edgecoders.com/@samerbuna)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
@@ -317,7 +316,7 @@ onClick={this.handleClick}
 
 当处理 React 元素中的事件时，我们与 DOM API 的处理方式有两个非常重要的区别：
 
-- 所有 React 元素属性（包括事件）都使用 **camelCase** 命名，而不是 **camelCase**。例如是 `onClick` 而不是 `onClick`。
+- 所有 React 元素属性（包括事件）都使用 **camelCase** 命名，而不是 **lowercase**。例如是 `onClick` 而不是 `onclick`。
 - 我们将实际的 JavaScript 函数引用传递给事件处理程序，而不是字符串。例如是 `onClick={handleClick}` 而不是 `onClick="handleClick"`。
 
 React 用自己的对象包装 DOM 对象事件以优化事件处理的性能，但是在事件处理程序内部，我们仍然可以访问 DOM 对象上所有可以访问的方法。React 将经过包装的事件对象传递给每个调用函数。例如，为了防止表单提交默认提交操作，你可以这样做：
@@ -462,7 +461,7 @@ React 保存了渲染的历史记录，当它看到一个渲染与前一个不�
 
 信不信由你，通过上面所学的知识（或部分知识），你可以开始创建一些有趣的 React 应用程序。如果你渴望更多，看看我的 [**Pluralsight 的 React.js 入门课程**](https://www.pluralsight.com/courses/react-js-getting-started?aid=701j0000001heIoAAI&amp;promo=&amp;oid=&amp;utm_source=google&amp;utm_medium=ppc&amp;utm_campaign=US_Dynamic&amp;utm_content=&amp;utm_term=&amp;gclid=CNOAj_2-j9UCFUpNfgod4V0Fdg)。
 
-**感谢阅读。如果您觉得这篇文章有帮助，请点击下面的 💚。请关注我的更多关于 React.js 和 JavaScript 的文章**。
+**感谢阅读。如果您觉得这篇文章有帮助，请点击原文中的 💚。请关注我的更多关于 React.js 和 JavaScript 的文章**。
 
 ---
 
