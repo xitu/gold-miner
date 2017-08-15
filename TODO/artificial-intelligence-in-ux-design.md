@@ -4,7 +4,7 @@
   > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
   > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/artificial-intelligence-in-ux-design.md](https://github.com/xitu/gold-miner/blob/master/TODO/artificial-intelligence-in-ux-design.md)
   > * 译者：[Changkun Ou](https://github.com/changkun/)
-  > * 校对者：
+  > * 校对者：[Tina92](https://github.com/Tina92)、[shawnchenxmu](https://github.com/shawnchenxmu)
 
 # AI 能解决你的 UX 设计问题吗？
 
