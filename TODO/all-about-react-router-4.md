@@ -374,13 +374,13 @@ const UserSubLayout = ({ match }) => (
 
 请注意，为了确保进行适当的匹配，新增和编辑路由需要战略性地放在详情路由之前。如果详情路径在前面，那么访问 `/users/add` 时将匹配详情（因为 "add" 将匹配 `:userId`）。
 
-或者，如果我们这样创建路径 `${match.path}/:userId(\\d+)`， 来确保 `:userId` 必须是一个数字，那么我们可以先放置详情路由。然后访问 `/users/add` 将不会产生冲突。这是我在 [path-to-regexp](https://github.com/pillarjs/path-to-regexp#custom-match-parameters) 的文档中学到的技巧。
+或者，如果我们这样创建路径 `${match.path}/:userId(\\d+)`，来确保 `:userId` 必须是一个数字，那么我们可以先放置详情路由。然后访问 `/users/add` 将不会产生冲突。这是我在 [path-to-regexp](https://github.com/pillarjs/path-to-regexp#custom-match-parameters) 的文档中学到的技巧。
 
-### Authorized Route
+### 授权路由
 
-It's very common in applications to restrict the user's ability to visit certain routes depending on their login status. Also common is to have a "look-and-feel" for the unauthorized pages (like "log in" and "forgot password") vs the "look-and-feel" for the authorized ones (the main part of the application). To solve each of these needs, consider this main entry point to an application:
+在应用程序中，通常会根据用户的登录状态来限制用户访问某些路由。对于未经授权的页面（如“登录”和“忘记密码”）与已授权的页面（应用程序的主要部分）看起来不一样也是常见的。为了解决这些需求，需要考虑一个应用程序的主要入口点：
 
-```
+```jsx
 class App extends React.Component {
   render() {
     return (
@@ -397,13 +397,13 @@ class App extends React.Component {
 }
 ```
 
-Using [react-redux](https://github.com/reactjs/react-redux) works very similarly with React Router v4 as it did before, simply wrap `<BrowserRouter>` in `<Provider>` and it's all set.
+使用 [react-redux](https://github.com/reactjs/react-redux) 与 React Router v4 非常类似，就像之前一样，只需将 `BrowserRouter` 包在 `<Provider>` 中即可。
 
-There are a few takeaways with this approach. The first being that I'm choosing between two top-level layouts depending on which section of the application we're in. Visiting paths like `/auth/login` or `/auth/forgot-password` will utilize the `UnauthorizedLayout` — one that looks appropriate for those contexts. When the user is logged in, we'll ensure all paths have an `/app` prefix which uses `AuthorizedRoute` to determine if the user is logged in or not. If the user tries to visit a page starting with `/app` and they aren't logged in, they will be redirected to the login page.
+通过这种方法可以得到一些启发。第一个是根据我们所在的应用程序的哪个部分，在两个顶层布局之间进行选择。像访问 `/auth/login` 或 `/auth/forgot-password` 这样的路径会使用 `UnauthorizedLayout` —— 一个看起来适于这种情况的布局。当用户登录时，我们将确保所有路径都有一个 `/app` 前缀，它使用 `AuthorizedRoute` 来确定用户是否登录。如果用户在没有登录的情况下，尝试访问以 `/app` 开头的页面，那么将被重定向到登录页面。
 
-`AuthorizedRoute` isn't a part of v4 though. I made it myself [with the help of v4 docs](https://reacttraining.com/react-router/web/example/auth-workflow). One amazing new feature in v4 is the ability to create your own routes for specialized purposes. Instead of passing a `component` prop into `<Route>`, pass a `render` callback instead:
+虽然 `AuthorizedRoute` 不是 v4 的一部分，但是我[在 v4 文档的帮助下](https://reacttraining.com/react-router/web/example/auth-workflow)自己写了。v4 中一个惊人的新功能是能够为特定的目的创建你自己的路由。它不是将 `component` 的属性传递给 `<Route>`，而是传递一个 `render` 回调函数：
 
-```
+```jsx
 class AuthorizedRoute extends React.Component {
   componentWillMount() {
     getLoggedUser()
@@ -430,9 +430,9 @@ const stateToProps = ({ loggedUserState }) => ({
 export default connect(stateToProps)(AuthorizedRoute)
 ```
 
-While your login strategy might differ from mine, I use a network request to `getLoggedUser()` and plug `pending` and `logged` into Redux state. `pending` just means the request is still in route.
+可能你的登录策略与我的不同，我是使用网络请求来 `getLoggedUser()`，并将 `pending` 和 `logged` 插入 Redux 的状态中。`pending` 仅表示请求仍在路由中。
 
-Click here to see a fully working [Authentication Example at CodePen](https://codepen.io/bradwestfall/project/editor/XWNWge/?preview_height=50&amp;open_file=src/app.js).
+点击此处查看 CodePen 上完整的[身份验证示例](https://codepen.io/bradwestfall/project/editor/XWNWge/?preview_height=50&amp;open_file=src/app.js)。 
 
 [![](https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1502066098/rr4_jmydzy.gif)](https://codepen.io/bradwestfall/project/editor/XWNWge/?preview_height=50&amp;open_file=src/app.js)
 
