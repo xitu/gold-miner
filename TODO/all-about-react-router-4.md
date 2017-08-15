@@ -350,11 +350,11 @@ const UserProfilePage = ({ match }) => (
 > - path - (`string`) 用于匹配路径模式。**用于构建嵌套的 `<Route>`s**
 > - url - (`string`) URL 匹配的部分。 **用于构建嵌套的 `<Link>`s**
 
-### Avoiding Match Collisions
+### 避免匹配冲突
 
-Let's assume the app we're making is a dashboard so we want to be able to add and edit users by visiting `/users/add` and `/users/5/edit`. But with the previous examples, `users/:userId` already points to a `UserProfilePage`. So does that mean that the route with `users/:userId` now needs to point to yet another sub-sub-layout to accomodate editing and the profile? I don't think so. Since both the edit and profile pages share the same user-sub-layout, this strategy works out fine:
+假设我们制作的应用程序是一个控制面板，所以我们希望能够通过访问 `/users/add` 和 `/users/5/edit` 来新增和编辑用户。但是在前面的例子中，`users/:userId` 已经指向了 `UserProfilePage`。那么这是否意味着带有`users/:userId` 的路由现在需要指向另一个子子布局来容纳编辑页面和详情页面？我不这么认为，因为编辑和详情页面共享相同的用户子布局，所以这个策略是可行的：
 
-```
+```jsx
 const UserSubLayout = ({ match }) => (
   <div className="user-sub-layout">
     <aside>
@@ -372,9 +372,9 @@ const UserSubLayout = ({ match }) => (
 )
 ```
 
-Notice that the add and edit routes strategically come before the profile route to ensure there the proper matching. Had the profile path been first, visiting `/users/add` would have matched the profile (because "add" would have matched the `:userId`.
+请注意，为了确保进行适当的匹配，新增和编辑路由需要战略性地放在详情路由之前。如果详情路径在前面，那么访问 `/users/add` 时将匹配详情（因为 "add" 将匹配 `:userId`）。
 
-Alternatively, we can put the profile route first if we make the path `${match.path}/:userId(\\d+)` which ensures that `:userId` must be a number. Then visiting `/users/add` wouldn't create a conflict. I learned this trick in the docs for [path-to-regexp](https://github.com/pillarjs/path-to-regexp#custom-match-parameters).
+或者，如果我们这样创建路径 `${match.path}/:userId(\\d+)`， 来确保 `:userId` 必须是一个数字，那么我们可以先放置详情路由。然后访问 `/users/add` 将不会产生冲突。这是我在 [path-to-regexp](https://github.com/pillarjs/path-to-regexp#custom-match-parameters) 的文档中学到的技巧。
 
 ### Authorized Route
 
