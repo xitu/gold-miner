@@ -8,13 +8,13 @@
 
   # 关于 React Router 4 的一切
 
-  我在 React Rally 2016 大会上第一次遇到了 [Michael Jackson](https://twitter.com/mjackson)，不久之后便写了一篇 [an article on React Router 3](https://css-tricks.com/learning-react-router/)。Michael 与 [Ryan Florence](https://twitter.com/ryanflorence) 一起，都是 React Router 的主要作者之一。遇到一位我非常喜欢的工具的创建者是激动人心的，但当他这么说的时候，我感到很震惊。“让我向你们展示我们在 React Router 4 的想法，它的**方式**是截然不同的！”。老实说，我真的不明白新的方向以及为什么它需要如此大的改变。由于路由是应用程序架构的重要组成部分，因此这可能会改变一些我喜欢的模式。这些改变的想法让我很焦虑。考虑到社区凝聚力以及 React Router 在这么多的 React 应用程序中扮演着重要的角色，我不知道社区将如何接受这些改变。
+  我在 React Rally 2016 大会上第一次遇到了 [Michael Jackson](https://twitter.com/mjackson)，不久之后便写了一篇 [an article on React Router 3](https://css-tricks.com/learning-react-router/)。Michael 与 [Ryan Florence](https://twitter.com/ryanflorence) 都是 React Router 的主要作者。遇到一位我非常喜欢的工具的创建者是激动人心的，但当他这么说的时候，我感到很震惊。“让我向你们展示我们在 React Router 4 的想法，它的**方式**是截然不同的！”。老实说，我真的不明白新的方向以及为什么它需要如此大的改变。由于路由是应用程序架构的重要组成部分，因此这可能会改变一些我喜欢的模式。这些改变的想法让我很焦虑。考虑到社区凝聚力以及 React Router 在这么多的 React 应用程序中扮演着重要的角色，我不知道社区将如何接受这些改变。
 
 几个月后，[React Router 4](https://reacttraining.com/react-router/) 发布了，仅仅从 Twitter 的嗡嗡声中我便得知，对于这个重大的重写存在着不同的想法。这让我想起了第一个版本的 React Router 针对其渐进概念的推回。在某些方面，早期版本的 React Router 符合我们传统的思维模式，即一个应用的路由“应该”将所有的路由规则放在一个地方。然而，并不是每个人都接受使用嵌套的 JSX 路由。但就像 JSX 自身说服了批评者一样（至少是大多数），许多人都认为嵌套的 JSX 路由是很酷的想法。
 
 如是，我学习了 React Router 4。无可否认，第一天是挣扎的。挣扎的倒不是其 API，而更多的是使用它的模式和策略。我使用 React Router 3 的思维模式并没有很好地迁移到 v4。如果要成功，我将不得不改变我对路由和布局组件之间的关系的看法。最终，出现了对我有意义的新模式，我对路由的新方向感到非常高兴。React Router 4 允许我做我使用 v3 能做的所有事情，而且更多。此外，起初我对 v4 的使用过于复杂。一旦我获得了一个新的思维模式，我就意识到这个新的方向是惊人的！
 
-本文的意图并不是重复 React Router 4 [已写好的文档](https://reacttraining.com/react-router/)。我将介绍最常见的 API，但真正的重点是我发现成功的模式和策略。
+本文的意图并不是重复 React Router 4 [已经写得很好的文档](https://reacttraining.com/react-router/)。我将介绍最常见的 API，但真正的重点是我发现成功的模式和策略。
 
 对于本文，以下是一些你需要熟悉的 JavaScript 概念:
 
@@ -31,7 +31,7 @@
 
 React Router 的早期版本将路由规则集中在一个位置，使它们与布局组件分离。当然，路由可以被划分成多个文件，但从概念上讲，路由是一个单元，基本上是一个美化的配置文件。
 
-或许了解 v4 不同之处的最好方法是在每个版本中编写一个简单的两页应用程序并进行比较。示例应用程序只有两个路由，对应首页和用户页面。
+或许了解 v4 不同之处的最好方法是用每个版本编写一个简单的两页应用程序并进行比较。示例应用程序只有两个路由，对应首页和用户页面。
 
 这里是 v3 的：
 
@@ -64,11 +64,11 @@ const App = () => (
 render(<App />, document.getElementById('root'))
 ```
 
-以下是 v3 中的一些关键概念，但在 v4 中是不正确的:
+以下是 v3 中的一些核心思想，但在 v4 中是不正确的:
 
 - 路由集中在一个地方。
 - 布局和页面嵌套是通过 `<Route>` 组件的嵌套而来的。
-- 布局和页面组件完全是路由的一部分。
+- 布局和页面组件是完全纯粹的，它们是路由的一部分。
 
 React Router 4 不再主张集中式路由了。相反，路由规则位于布局和 UI 本身之间。例如，以下是 v4 中的相同的应用程序：
 
@@ -99,7 +99,7 @@ const App = () => (
 render(<App />, document.getElementById('root'))
 ```
 
-**新的 API 概念**：由于我们的应用程序是用于浏览器的，所以我们需要将它封装在来自 v4 的 `BrowserRouter` 中。还要注意的是我们现在从 `react-router-dom` 中导入它（这意味着我们安装的是 `react-router-dom` 而不是 `react-router`）。提示！现在叫做 `react-router-dom` 是因为还有一个 [native version](https://reacttraining.com/react-router/native)。
+**新的 API 概念**：由于我们的应用程序是用于浏览器的，所以我们需要将它封装在来自 v4 的 `BrowserRouter` 中。还要注意的是我们现在从 `react-router-dom` 中导入它（这意味着我们安装的是 `react-router-dom` 而不是 `react-router`）。提示！现在叫做 `react-router-dom` 是因为还有一个 [native 版本](https://reacttraining.com/react-router/native)。
 
 对于使用 React Router v4 构建的应用程序，首先看到的是“路由”似乎丢失了。在 v3 中，路由是我们的应用程序直接呈现给 DOM 的最巨大的东西。 现在，除了 `<BrowserRouter>` 外，我们首先抛给 DOM 的是我们的应用程序本身。
 
@@ -109,7 +109,7 @@ render(<App />, document.getElementById('root'))
 
 在前面的例子中，你可能已经注意到了 `exact` 这个属性。那么它是什么呢？V3 的路由规则是“排他性”的，这意味着只有一条路由将获胜。V4 的路由默认为“包含”的，这意味着多个 `<Route>` 可以同时进行匹配和渲染。
 
-在上一个例子中，我们试图根据路径渲染 `HomePage` 或者 `UsersPage`。如果从示例中删除了 `exact` 属性，那么在浏览器中访问 `/users` 时，`HomePage` 和 `UsersPage` 组件将同时渲染。
+在上一个例子中，我们试图根据路径渲染 `HomePage` 或者 `UsersPage`。如果从示例中删除了 `exact` 属性，那么在浏览器中访问 `/users` 时，`HomePage` 和 `UsersPage` 组件将同时被渲染。
 
 要更好地了解匹配逻辑，请查看 [path-to-regexp](https://www.npmjs.com/package/path-to-regexp)，这是 v4 现在正在使用的，以确定路由是否匹配 URL。
 
@@ -152,13 +152,13 @@ const PrimaryLayout = () => (
 )
 ```
 
-在给定的 `<Switch>` 路由中只有一条将渲染。在 `HomePage` 路由上，我们仍然需要 `exact` 属性，尽管我们会先把它列出来。否则，当访问诸如 `/users` 或 `/users/add` 的路径时，主页路由也将匹配。事实上，战略布局是使用排他路由策略（因为它总是与传统路由一起使用）时的关键。请注意，我们在 `/users` 之前策略性地放置了 `/ users/add` 的路由，以确保正确匹配。由于路径 `/users/add` 将匹配 `/users` 和 `/users/add`，所以最好先把 `/users/add` 放在前面。
+在给定的 `<Switch>` 路由中只有一条将渲染。在 `HomePage` 路由上，我们仍然需要 `exact` 属性，尽管我们会先把它列出来。否则，当访问诸如 `/users` 或 `/users/add` 的路径时，主页路由也将匹配。事实上，战略布局是使用排他路由策略（因为它总是像传统路由那样使用）时的关键。请注意，我们在 `/users` 之前策略性地放置了 `/users/add` 的路由，以确保正确匹配。由于路径 `/users/add` 将匹配 `/users` 和 `/users/add`，所以最好先把 `/users/add` 放在前面。
 
 当然，如果我们以某种方式使用 `exact`，我们可以把它们放在任何顺序上，但至少我们有选择。
 
 如果遇到，`<Redirect>` 组件将会始终执行浏览器重定向，但是当它位于 `<Switch>` 语句中时，只有在其他路由不匹配的情况下，才会渲染重定向组件。想了解在非切换环境下如何使用 `<Redirect>`，请参阅下面的**授权路由**。
 
-### “根路由”和“未找到”
+### “默认路由”和“未找到”
 
 尽管在 v4 中已经没有 `<IndexRoute>` 了，但可以使用 `<Route exact>` 来达到同样的效果。如果没有路由解析，则可以使用 `<Switch>` 与 `<Redirect>` 重定向到具有有效路径的默认页面（如同我对本示例中的 `HomePage` 所做的），甚至可以是一个未找到页面。
 
@@ -168,7 +168,7 @@ const PrimaryLayout = () => (
 
 为了演示，假设我们想扩展我们的用户部分，所以我们会有一个“用户列表”页面和一个“用户详情”页面。我们也希望产品也有类似的页面。用户和产品都需要其个性化的子布局。例如，每个可能都有不同的导航选项卡。有几种方法可以解决这个问题，有的好，有的不好。第一种方法不是很好，但我想告诉你，这样你就不会掉入这个陷阱。第二种方法要好很多。
 
-首先，我们修改 `PrimaryLayout`，以适应用户和产品对应的列表及详情页面：
+第一种方法，我们修改 `PrimaryLayout`，以适应用户和产品对应的列表及详情页面：
 
 ```jsx
 const PrimaryLayout = props => {
@@ -218,7 +218,7 @@ const UserProfilePage = props => (
 
 **新 API 概念**：`props.match` 被赋到由 `<Route>` 渲染的任何组件。你可以看到，`userId` 是由 `props.match.params` 提供的，了解更多请参阅 [v4 文档](https://reacttraining.com/react-router/web/example/url-params)。或者，如果任何组件需要访问 `props.match`，而这个组件没有由 `<Route>` 直接渲染，那么我们可以使用 [withRouter()](https://reacttraining.com/react-router/web/api/withRouter) 高阶组件。
 
-每个用户页面不仅要渲染其各自的内容，而且还必须关注子布局本身（并且每个子布局都是重复的）。虽然这个例子很小，可能看起来微不足道，但重复的代码在一个真正的应用程序中可能是一个问题。更不用说，每次 `BrowseUsersPage` 或 `UserProfilePage` 被渲染时，它将创建一个新的 `UserNav` 实例，这意味着所有的生命周期方法都将重新开始。如果导航标签需要初始网络流量，这将导致不必要的请求 —— 这都是因为我们决定如何使用路由。
+每个用户页面不仅要渲染其各自的内容，而且还必须关注子布局本身（并且每个子布局都是重复的）。虽然这个例子很小，可能看起来微不足道，但重复的代码在一个真正的应用程序中可能是一个问题。更不用说，每次 `BrowseUsersPage` 或 `UserProfilePage` 被渲染时，它将创建一个新的 `UserNav` 实例，这意味着所有的生命周期方法都将重新开始。如果导航标签需要初始网络流量，这将导致不必要的请求 —— 这都是我们决定使用路由的方式造成的
 
 这里有另一种更好的方法：
 
@@ -352,7 +352,7 @@ const UserProfilePage = ({ match }) => (
 
 ### 避免匹配冲突
 
-假设我们制作的应用程序是一个控制面板，所以我们希望能够通过访问 `/users/add` 和 `/users/5/edit` 来新增和编辑用户。但是在前面的例子中，`users/:userId` 已经指向了 `UserProfilePage`。那么这是否意味着带有`users/:userId` 的路由现在需要指向另一个子子布局来容纳编辑页面和详情页面？我不这么认为，因为编辑和详情页面共享相同的用户子布局，所以这个策略是可行的：
+假设我们制作的应用程序是一个仪表版，所以我们希望能够通过访问 `/users/add` 和 `/users/5/edit` 来新增和编辑用户。但是在前面的例子中，`users/:userId` 已经指向了 `UserProfilePage`。那么这是否意味着带有`users/:userId` 的路由现在需要指向另一个子子布局来容纳编辑页面和详情页面？我不这么认为，因为编辑和详情页面共享相同的用户子布局，所以这个策略是可行的：
 
 ```jsx
 const UserSubLayout = ({ match }) => (
@@ -430,7 +430,7 @@ const stateToProps = ({ loggedUserState }) => ({
 export default connect(stateToProps)(AuthorizedRoute)
 ```
 
-可能你的登录策略与我的不同，我是使用网络请求来 `getLoggedUser()`，并将 `pending` 和 `logged` 插入 Redux 的状态中。`pending` 仅表示请求仍在路由中。
+可能你的登录策略与我的不同，我是使用网络请求来 `getLoggedUser()`，并将 `pending` 和 `logged` 插入 Redux 的状态中。`pending` 仅表示在路由中请求仍在继续。
 
 点击此处查看 CodePen 上完整的[身份验证示例](https://codepen.io/bradwestfall/project/editor/XWNWge/?preview_height=50&amp;open_file=src/app.js)。 
 
@@ -438,7 +438,7 @@ export default connect(stateToProps)(AuthorizedRoute)
 
 ### 其他提及
 
-There's a lot of other cool aspects React Router v4. To wrap up though, let's be sure to mention a few small things so they don't catch you off guard.
+React Router v4 还有很多其他很酷的方面。最后，一定要提几件小事，以免到时它们让你措手不及。
 
 #### **<Link>** vs **<NavLink>**
 
@@ -463,7 +463,7 @@ const PrimaryHeader = () => (
 
 #### URL 查询字符串
 
-再也无法从 React Router v4 中获取 URL 的查询字符串了。在我看来，[做出决定](https://github.com/ReactTraining/react-router/issues/4410)是因为没有关于如何处理复杂查询字符串的标准。所以，他们决定让开发者去选择如何处理查询字符串，而不是将其作为一个选项嵌入到 v4 的模块中。这是一件好事。
+再也无法从 React Router v4 中获取 URL 的查询字符串了。在我看来，[做这个决定](https://github.com/ReactTraining/react-router/issues/4410)是因为没有关于如何处理复杂查询字符串的标准。所以，他们决定让开发者去选择如何处理查询字符串，而不是将其作为一个选项嵌入到 v4 的模块中。这是一件好事。
 
 就个人而言，我使用的是 [query-string](https://www.npmjs.com/package/query-string)，它是由 [sindresorhus](https://twitter.com/sindresorhus) 大神写的。
 
@@ -471,7 +471,7 @@ const PrimaryHeader = () => (
 
 关于 v4 最好的部分之一是几乎所有的东西（包括 `<Route>`）只是一个 React 组件。路由不再是神奇的东西了。我们可以随时随地渲染它们。想象一下，当满足某些条件时，你的应用程序的整个部分都可以路由到。当这些条件不满足时，我们可以移除路由。甚至我们可以做一些疯狂而且很酷的[递归路由](https://reacttraining.com/react-router/web/example/recursive-paths)。
 
-React Router 4 更简单，因为它是 [Just Components™](https://youtu.be/Mf0Fy8iHp8k?t=3m22s)。
+React Router 4 更简单，因为它 [Just Components™](https://youtu.be/Mf0Fy8iHp8k?t=3m22s)。
 
 
   ---
