@@ -4,7 +4,7 @@
   > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
   > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/all-about-react-router-4.md](https://github.com/xitu/gold-miner/blob/master/TODO/all-about-react-router-4.md)
   > * 译者：[undead25](https://github.com/undead25)
-  > * 校对者：
+  > * 校对者：[sunui](https://github.com/sunui)
 
   # 关于 React Router 4 的一切
 
