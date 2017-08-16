@@ -2,9 +2,8 @@
 
 ## 参与翻译
 
-请确保参与翻译之前已在相关文章的 Issue 发出过申请，避免重复性劳动。
-
-如果你还不是我们的译者，请参考 [如何参与翻译](https://github.com/xitu/gold-miner/wiki/%E5%A6%82%E4%BD%95%E5%8F%82%E4%B8%8E%E7%BF%BB%E8%AF%91)。
+- 请确保参与翻译之前已在相关文章的 Issue 发出过申请，避免重复性劳动。
+- 如果你还不是我们的译者，请参考 [如何参与翻译](https://github.com/xitu/gold-miner/wiki/%E5%A6%82%E4%BD%95%E5%8F%82%E4%B8%8E%E7%BF%BB%E8%AF%91)。
 
 ## 问题反馈
 
