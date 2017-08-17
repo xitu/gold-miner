@@ -5,7 +5,7 @@
 > * 译者：[龙骑将杨影枫](https://github.com/stormrabbit/)
 > * 校对者：[jasonxia23](https://github.com/jasonxia23)、[Tobias Lee](https://github.com/lileizhenshuai)
 
-# 函数式响应编程（Functional Reactive Programming）入门指南
+# 函数式响应编程入门指南
 
 今年，我做了一场有关函数式响应编程（functional reactive programming，简称 FRP）的演讲，演讲的内容包括“什么是函数式响应编程”以及“为什么你应该关注它”。本篇是此演讲的文字版。
 
