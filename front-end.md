@@ -1,3 +1,5 @@
+* [理解 Service Worker](https://juejin.im/post/599163316fb9a03c3c14d751?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([zyziyun](https://github.com/zyziyun) 翻译)
+* [学习 React.js 比你想象的要简单](https://juejin.im/post/599156cc6fb9a03c3a25db08?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([sunshine940326](https://github.com/sunshine940326) 翻译)
 * [渐进增强的 CSS 布局：从浮动到 Flexbox 到 Grid](https://juejin.im/post/5987acfd6fb9a03c502288f3?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([leviding](https://github.com/leviding) 翻译)
 * [Web 端的下一代三维图形](https://juejin.im/post/5983208c5188253c6f2d185d?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([reid3290](https://github.com/reid3290) 翻译)
 * [在大型应用中使用 Redux 的五个技巧](https://juejin.im/post/5980514151882537b41c4c0d?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([loveky](https://github.com/loveky) 翻译)
