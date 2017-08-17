@@ -15,7 +15,7 @@
 
 多年来，JavaScript已经从最慢的脚本语言之一，它发展到了一个高性能的工厂，它能够快速运行桌面、服务器、移动甚至嵌入式应用程序，不管是通过 Web 浏览器还是其他环境。
 
-随着 JavaScript 的增长，应用程序的复杂程度和规模都越来越复杂。然而，二十年前，很少有网站使用过 JavaScript，许多网站和非 Web 应用程序现在需要加载几个兆的 JavaScript 在用户开始实际使用之前。
+随着 JavaScript 的增长，应用程序的复杂程度和规模都越来越复杂。然而，二十年前，少数使用过 JavaScript 的网站也就加载几千字节的 JavaScript，许多网站和非 Web 应用程序现在需要加载几个兆的 JavaScript 在用户开始实际使用之前。
 
 “几兆的 JavaScript 代码”听起来会很陌生，但是像 Steam 这样的本地应用程序只有 3.1 兆（纯二进制，没有资源，没有
 调试符号，没有动态依赖，在我的 Mac 上测量的结果）。Telegram 是 11 兆，Opera **更新程序** 是 5.8 兆。我没有测量一个 Web 浏览器的大小，因为 Web 浏览器架构的本质从动态依赖，但我估计 Firefox 和 Chromium 有 100 多兆的大小。
@@ -36,7 +36,7 @@ JavaScript 二进制 AST 的思想很简单：我们可以通过发送**二进�
 
 生成一个二进制 AST 文件需要一个构建过程，我们希望这个过程越快越好。像 WebPack 或者 Babel 这样的构建工具会产生一个二进制的 AST 文件，因此，切换到二进制 AST 就像向构建传递一个标志一样简单，许多开发者已经开始使用。
 
-我想在我未来博客的文章中的详细介绍一些二进制 AST 的标准和我们的现状，现在，我来简述一下，早期的实验建议我们可以能得到很好的源压缩和可观的解析速度。
+我想在我未来博客的文章中详细介绍一些二进制 AST 的标准和我们的现状，现在，我来简述一下，早期的实验建议我们可以能得到很好的源压缩和可观的解析速度。
 
 我们已经研究二进制 AST 几个月了，现在项目已经作为 Stage 1 Proposal 被 ECMA TC-39 所接受。这是鼓舞人心的，但是直到你看到所有的 JavaScript 虚拟机和工具链的实现还是需要时间的。
 
@@ -44,10 +44,10 @@ JavaScript 二进制 AST 的思想很简单：我们可以通过发送**二进�
 
 ## 和压缩格式对比
 
-大部分的 web 服务器在发送 JavaScript 的时候已经使用了例如 gzip 或者 brotli 这样的压缩工具将 JavaScript 压缩了。这大大减少了等待数据的时间。我们在这里做的是一种专为 JavaScript 设计的格式。的确，在早期的原型内部使用 gzip，相比许多其他的技巧，gzip 有两个主要优点：
+大部分的 web 服务器在发送 JavaScript 的时候已经使用了例如 gzip 或者 brotli 这样的压缩工具将 JavaScript 压缩了。这大大减少了等待数据的时间。我们在这里做的是一种专为 JavaScript 设计的格式。的确，在早期的原型内部使用 gzip，相比许多其他的技巧，我们早期的原型有两个主要优势：
 
 - 它使得**解析**速度更快；
-- 根据早期的实验，我们大幅度击败了 gzip 或 brotli。（这句没搞懂什么意思，校对者给个意见）请注意，我们的主要目的是使分析速度更快，因此在未来，如果我们需要在文件大小和解析速度中做选择，我们最有可能选择更快的解析。另外，使用的压缩格式的内部可能会改变。
+- 根据早期的实验，我们大幅度击败了 gzip 或 brotli。请注意，我们的主要目的是使分析速度更快，因此在未来，如果我们需要在文件大小和解析速度中做选择，我们最有可能选择更快的解析。另外，使用的压缩格式的内部可能会改变。
 
 ## 和压缩工具相比
 web 开发者早期使用的用来减少 JS 文件大小的传统工具，例如 UglifyJS 和 Google’s Closure Compiler，这些工具称为压缩工具。
@@ -77,7 +77,7 @@ web 开发者早期使用的用来减少 JS 文件大小的传统工具，例如
 想证明我们错了，无论如何，请这样做:)
 
 ## 提高缓存
-当JavaScript代码被浏览器下载时，它被存储在浏览器的缓存中，以避免以后再下载它。Chromium 和 Firefox 近期更新了他们的浏览器使得不仅 JavaScript 源文件可以缓存，字节码也可以加入缓存。因此，可以很好地解决页面再次加载的解析时间问题。我不知道 Safari 和 Edge 在这方面的进展，所以他们可能也会有类似的技术。
+当 JavaScript 代码被浏览器下载时，它被存储在浏览器的缓存中，以避免以后再下载它。Chromium 和 Firefox 近期更新了他们的浏览器使得不仅 JavaScript 源文件可以缓存，字节码也可以加入缓存。因此，可以很好地解决页面再次加载的解析时间问题。我不知道 Safari 和 Edge 在这方面的进展，所以他们可能也会有类似的技术。
 
 恭喜 Chromium 和 Firefox，这些技术都很棒！事实上，他们很好地提高重载页面的性能。这对于那些自从上次访问 JavaScript 代码但是没有更新的页面非常有效。
 
@@ -97,35 +97,20 @@ web 开发者早期使用的用来减少 JS 文件大小的传统工具，例如
 
 大多数情况下，如果不是所有的 JavaScript 虚拟机已经使用一个内部的 JS 字节码。我似乎记得至少微软的虚拟机支持特殊的应用使用 JavaScript 字节。
 
-So, one could imagine browser vendors exposing their bytecode and letting
-all JS applications ship bytecode. This, however, sounds like a pretty bad
-idea, for several reasons.
 所以，你可以想象一下浏览器厂商将他们的字节码开源并且使所有的 JavaScript 应用使用字节码。这样的话，听起来不是一个好主意，有以下几个原因：
 
-第一：影响虚拟机的开发者。一旦你暴露自己的内部表示的JavaScript，你注定要维护它。事实证明，JavaScript字节码经常变化，以适应新版本的语言或新的优化。强迫VM保持与旧版本的字节码的兼容性将是一个维护和/或性能灾难，所以我怀疑任何浏览器/ VM供应商都愿意提交这个，除非在非常有限的设置中。
+第一：影响虚拟机的开发者。一旦你暴露自己的内部表示的 JavaScript，你注定要维护它。事实证明，JavaScript 字节码经常变化，以适应新版本的语言或新的优化。强迫 VM 保持与旧版本的字节码的兼容性将是一个维护和/或性能灾难，所以我怀疑任何浏览器或 VM 供应商都愿意提交这个，除非在非常有限的设置中。
 
-The second affects JS developers. Having several bytecodes would mean
-maintaining and shipping several binaries – possibly several dozens if you want to
-fine-time optimizations to successive versions of each browser’s bytecode. To
-make things worse, these bytecodes will have different semantics, leading to
-JS code compiled with different semantics.
-While
-this is in the realm of the possible – after all, mobile and native developers
-do this all the time – this would be a clear regression upon the current JS landscape.
-第二：影响JS开发者。有几个字节码就意味着维护和运送几个二进制，可能有几十个，如果你想要优化后续版本的浏览器的字节码。更糟糕的是，这些字节码会有不同的语义，导致不同语义的 JS 代码编译。虽然这是可能的，毕竟，移动和本地的开发者都是这样做的，这就是在回退 JavaScript。
+第二：影响 JS 开发者。有几个字节码就意味着维护和运送几个二进制，可能有几十个，如果你想要优化后续版本的浏览器的字节码。更糟糕的是，这些字节码会有不同的语义，导致不同语义的 JS 代码编译。虽然这是可能的，毕竟，移动和本地的开发者都是这样做的，这就是在回退 JavaScript。
 
 ## 我们有一个标准的 JS 字节码会怎样？
 
 所以，如果 JavaScript 虚拟机开发者决定想出一个新的字节码格式，可能作为一个扩展 WebAssembly，但专为 JavaScript 设计呢？
 
-Just to be clear: I have heard people regretting that such a format did not
-exist but I am not aware of anybody actively working on this.
 要明确一点：我听到有人后悔没有开发一个这样的格式，但我不知道有人积极致力于此。
 
 没有人这样做的原因是设计和维护一种随时变化的语言的字节码是相当复杂的，对于一种像 JavaScript 这种已经很复杂的语言来说，将会更加复杂。最重要的是，持续编译 JavaScript 和对 JavaScript 进行字节很有可能会失败。这将会产生两个不兼容的 JavaScript 语言，对于 web 有时非常不利。
 
-Also, whether such a bytecode
-would actually help code size and performance, remains to be demonstrated.、
 此外，这样的字节码实际上对代码的大小和性能是否有帮助，还有待论证。
 
 ## 我们只是让解析器更快会怎样？
@@ -135,10 +120,10 @@ would actually help code size and performance, remains to be demonstrated.、
 
 让我引用几个不能跳过或一直有效的步骤：
 
-- 处理外来编码，标记Unicode 字节顺序和其他细节；
+- 处理外来编码，标记 Unicode 字节顺序和其他细节；
 - 找出 `/` 字符，是一个除法操作或者一个注释或正则表达式的开始；
 - 找出 `(` 字符，是表达式的开始，一个函数调用的参数列表，箭头函数的参数列表等；
-- 找出这个字符串（字符串，数组，函数等）停止，这取决于所有的模棱两可的问题；
+- 找出这个字符串（分别是字符串模板、数组、函数等）在哪停止，这取决于所有模棱两可的问题；
 - 找出 `let a` 声明是否和其他的 `let a`、`var a`、`const a` 声明冲突，实际上可能在稍后的代码出现；
 - 当遇到使用 `eval` 时，决定使用 4 个语义中的哪一个；
 - 确定哪些是真正的本地变量；
@@ -151,7 +136,7 @@ would actually help code size and performance, remains to be demonstrated.、
 实际上，二进制 AST 建议旨在克服文本源 JavaScript 的语法和语义所带来的性能限制。
 
 # 现在是什么情况？
-我们发布这篇博客因为我们想让你 —— Web 开发人员或者工具开发商必须在尽可能早的了解二进制的 AST。到目前为止，我们两组收集的反馈是非常好的，我们期待着与社区密切合作。
+我们发布这篇博客因为我们想让你 —— Web 开发人员或者工具开发商必须在尽可能早的了解二进制的 AST。到目前为止，我们从两组收集的反馈是非常好的，我们期待着与社区密切合作。
 
 我们已经完成了一个早期的基准测试原型（因此不太实用），正在开发一个先进的原型，无论是对于工具还是 Firefox，但是我们还有几个月的时间去做一些有用的事情。
 
