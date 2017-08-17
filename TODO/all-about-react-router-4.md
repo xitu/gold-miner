@@ -4,15 +4,15 @@
   > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
   > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/all-about-react-router-4.md](https://github.com/xitu/gold-miner/blob/master/TODO/all-about-react-router-4.md)
   > * 译者：[undead25](https://github.com/undead25)
-  > * 校对者：[sunui](https://github.com/sunui)
+  > * 校对者：[sunui](https://github.com/sunui)、[LouisaNikita](https://github.com/LouisaNikita)
 
   # 关于 React Router 4 的一切
 
   我在 React Rally 2016 大会上第一次遇到了 [Michael Jackson](https://twitter.com/mjackson)，不久之后便写了一篇 [an article on React Router 3](https://css-tricks.com/learning-react-router/)。Michael 与 [Ryan Florence](https://twitter.com/ryanflorence) 都是 React Router 的主要作者。遇到一位我非常喜欢的工具的创建者是激动人心的，但当他这么说的时候，我感到很震惊。“让我向你们展示我们在 React Router 4 的想法，它的**方式**是截然不同的！”。老实说，我真的不明白新的方向以及为什么它需要如此大的改变。由于路由是应用程序架构的重要组成部分，因此这可能会改变一些我喜欢的模式。这些改变的想法让我很焦虑。考虑到社区凝聚力以及 React Router 在这么多的 React 应用程序中扮演着重要的角色，我不知道社区将如何接受这些改变。
 
-几个月后，[React Router 4](https://reacttraining.com/react-router/) 发布了，仅仅从 Twitter 的嗡嗡声中我便得知，对于这个重大的重写存在着不同的想法。这让我想起了第一个版本的 React Router 针对其渐进概念的推回。在某些方面，早期版本的 React Router 符合我们传统的思维模式，即一个应用的路由“应该”将所有的路由规则放在一个地方。然而，并不是每个人都接受使用嵌套的 JSX 路由。但就像 JSX 自身说服了批评者一样（至少是大多数），许多人都认为嵌套的 JSX 路由是很酷的想法。
+几个月后，[React Router 4](https://reacttraining.com/react-router/) 发布了，仅仅从 Twitter 的嗡嗡声中我便得知，大家对于这个重大的重写存在着不同的想法。这让我想起了第一个版本的 React Router 针对其渐进概念的推回。在某些方面，早期版本的 React Router 符合我们传统的思维模式，即一个应用的路由“应该”将所有的路由规则放在一个地方。然而，并不是每个人都接受使用嵌套的 JSX 路由。但就像 JSX 自身说服了批评者一样（至少是大多数），许多人转而相信嵌套的 JSX 路由是很酷的想法。
 
-如是，我学习了 React Router 4。无可否认，第一天是挣扎的。挣扎的倒不是其 API，而更多的是使用它的模式和策略。我使用 React Router 3 的思维模式并没有很好地迁移到 v4。如果要成功，我将不得不改变我对路由和布局组件之间的关系的看法。最终，出现了对我有意义的新模式，我对路由的新方向感到非常高兴。React Router 4 允许我做我使用 v3 能做的所有事情，而且更多。此外，起初我对 v4 的使用过于复杂。一旦我获得了一个新的思维模式，我就意识到这个新的方向是惊人的！
+如是，我学习了 React Router 4。无可否认，第一天是挣扎的。挣扎的倒不是其 API，而更多的是使用它的模式和策略。我使用 React Router 3 的思维模式并没有很好地迁移到 v4。如果要成功，我将不得不改变我对路由和布局组件之间的关系的看法。最终，出现了对我有意义的新模式，我对路由的新方向感到非常高兴。React Router 4 不仅包含v3的所有功能，而且还有新的功能。此外，起初我对 v4 的使用过于复杂。一旦我获得了一个新的思维模式，我就意识到这个新的方向是惊人的！
 
 本文的意图并不是重复 React Router 4 [已经写得很好的文档](https://reacttraining.com/react-router/)。我将介绍最常见的 API，但真正的重点是我发现成功的模式和策略。
 
@@ -23,7 +23,7 @@
 - ES2015 [解构](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment)
 - ES2015 [模板字符串](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)
 
-如果你喜欢跳转到演示，你可以去：
+如果你喜欢跳转到演示，请点这里：
 
 [查看演示](https://codepen.io/bradwestfall/project/editor/XWNWge/?preview_height=50&amp;open_file=src/app.js)
 
@@ -164,7 +164,7 @@ const PrimaryLayout = () => (
 
 ### 嵌套布局
 
-你可能开始期待嵌套子布局，以及如何实现它们。我不认为我会纠结这个概念，但我确实做到了。React Router v4 给了我们很多选择，这使它变得很强大。但是，选择意味着有选择不理想策略的自由。表面上看，嵌套布局很简单，但根据你的选择，可能会因为你组织路由的方式而遇到阻碍。
+你可能开始期待嵌套子布局，以及如何实现它们。我原本不认为我会纠结这个概念，但我确实纠结了。React Router v4 给了我们很多选择，这使它变得很强大。但是，选择意味着有选择不理想策略的自由。表面上看，嵌套布局很简单，但根据你的选择，可能会因为你组织路由的方式而遇到阻碍。
 
 为了演示，假设我们想扩展我们的用户部分，所以我们会有一个“用户列表”页面和一个“用户详情”页面。我们也希望产品也有类似的页面。用户和产品都需要其个性化的子布局。例如，每个可能都有不同的导航选项卡。有几种方法可以解决这个问题，有的好，有的不好。第一种方法不是很好，但我想告诉你，这样你就不会掉入这个陷阱。第二种方法要好很多。
 
@@ -436,7 +436,7 @@ export default connect(stateToProps)(AuthorizedRoute)
 
 [![](https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1502066098/rr4_jmydzy.gif)](https://codepen.io/bradwestfall/project/editor/XWNWge/?preview_height=50&amp;open_file=src/app.js)
 
-### 其他提及
+### 其他提示
 
 React Router v4 还有很多其他很酷的方面。最后，一定要提几件小事，以免到时它们让你措手不及。
 
@@ -471,7 +471,7 @@ const PrimaryHeader = () => (
 
 关于 v4 最好的部分之一是几乎所有的东西（包括 `<Route>`）只是一个 React 组件。路由不再是神奇的东西了。我们可以随时随地渲染它们。想象一下，当满足某些条件时，你的应用程序的整个部分都可以路由到。当这些条件不满足时，我们可以移除路由。甚至我们可以做一些疯狂而且很酷的[递归路由](https://reacttraining.com/react-router/web/example/recursive-paths)。
 
-React Router 4 更简单，因为它 [Just Components™](https://youtu.be/Mf0Fy8iHp8k?t=3m22s)。
+因为它 [Just Components™](https://youtu.be/Mf0Fy8iHp8k?t=3m22s)，React Router 4 更简单了。
 
 
   ---
