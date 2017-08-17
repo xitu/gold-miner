@@ -296,9 +296,9 @@ X 代表错误，即表示在结果流的数据在某个时候会变为非法值
 
 ## 引用
 
-我希望感谢在我准备的演讲时参考的一些资料。
+感谢在以下资料对我演讲的帮助：
 
-- [cycle.js 对主动型与响应型编码的解释(cycle.js has a great explanation of proactive vs. reactive code)](https://cycle.js.org/streams.html)，我的演讲参考了很多这篇文档。
+- [cycle.js 对主动型与响应型编码的解释(cycle.js has a great explanation of proactive vs. reactive code)](https://cycle.js.org/streams.html)，我参考了很多这篇文档来筹备演讲。
 
 - [Erik Meijer 做了一场碉堡了的、有关响应型/主动型二元对应的演讲](https://channel9.msdn.com/Events/Lang-NEXT/Lang-NEXT-2014/Keynote-Duality)，我从中借鉴了 4 项函数式的基本效果。本演讲有点高深，但是如果你能吃透它，它非常有启发性。
 
