@@ -12,9 +12,9 @@
 
 几个月后，[React Router 4](https://reacttraining.com/react-router/) 发布了，仅仅从 Twitter 的嗡嗡声中我便得知，大家对于这个重大的重写存在着不同的想法。这让我想起了第一个版本的 React Router 针对其渐进概念的推回。在某些方面，早期版本的 React Router 符合我们传统的思维模式，即一个应用的路由“应该”将所有的路由规则放在一个地方。然而，并不是每个人都接受使用嵌套的 JSX 路由。但就像 JSX 自身说服了批评者一样（至少是大多数），许多人转而相信嵌套的 JSX 路由是很酷的想法。
 
-如是，我学习了 React Router 4。无可否认，第一天是挣扎的。挣扎的倒不是其 API，而更多的是使用它的模式和策略。我使用 React Router 3 的思维模式并没有很好地迁移到 v4。如果要成功，我将不得不改变我对路由和布局组件之间的关系的看法。最终，出现了对我有意义的新模式，我对路由的新方向感到非常高兴。React Router 4 不仅包含v3的所有功能，而且还有新的功能。此外，起初我对 v4 的使用过于复杂。一旦我获得了一个新的思维模式，我就意识到这个新的方向是惊人的！
+如是，我学习了 React Router 4。无可否认，第一天是挣扎的。挣扎的倒不是其 API，而更多的是使用它的模式和策略。我使用 React Router 3 的思维模式并没有很好地迁移到 v4。如果要成功，我将不得不改变我对路由和布局组件之间的关系的看法。最终，出现了对我有意义的新模式，我对路由的新方向感到非常高兴。React Router 4 不仅包含 v3 的所有功能，而且还有新的功能。此外，起初我对 v4 的使用过于复杂。一旦我获得了一个新的思维模式，我就意识到这个新的方向是惊人的！
 
-本文的意图并不是重复 React Router 4 [已经写得很好的文档](https://reacttraining.com/react-router/)。我将介绍最常见的 API，但真正的重点是我发现成功的模式和策略。
+本文的意图并不是重复 React Router 4 [已经写得很好的文档](https://reacttraining.com/react-router/)。我将介绍最常见的 API，但真正的重点是我发现的成功模式和策略。
 
 对于本文，以下是一些你需要熟悉的 JavaScript 概念:
 
@@ -23,7 +23,7 @@
 - ES2015 [解构](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment)
 - ES2015 [模板字符串](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)
 
-如果你喜欢跳转到演示，请点这里：
+如果你喜欢跳转到演示区的话，请点这里：
 
 [查看演示](https://codepen.io/bradwestfall/project/editor/XWNWge/?preview_height=50&amp;open_file=src/app.js)
 
@@ -160,7 +160,7 @@ const PrimaryLayout = () => (
 
 ### “默认路由”和“未找到”
 
-尽管在 v4 中已经没有 `<IndexRoute>` 了，但可以使用 `<Route exact>` 来达到同样的效果。如果没有路由解析，则可以使用 `<Switch>` 与 `<Redirect>` 重定向到具有有效路径的默认页面（如同我对本示例中的 `HomePage` 所做的），甚至可以是一个未找到页面。
+尽管在 v4 中已经没有 `<IndexRoute>` 了，但可以使用 `<Route exact>` 来达到同样的效果。如果没有路由解析，则可以使用 `<Switch>` 与 `<Redirect>` 重定向到具有有效路径的默认页面（如同我对本示例中的 `HomePage` 所做的），甚至可以是一个“未找到页面”。
 
 ### 嵌套布局
 
@@ -218,7 +218,7 @@ const UserProfilePage = props => (
 
 **新 API 概念**：`props.match` 被赋到由 `<Route>` 渲染的任何组件。你可以看到，`userId` 是由 `props.match.params` 提供的，了解更多请参阅 [v4 文档](https://reacttraining.com/react-router/web/example/url-params)。或者，如果任何组件需要访问 `props.match`，而这个组件没有由 `<Route>` 直接渲染，那么我们可以使用 [withRouter()](https://reacttraining.com/react-router/web/api/withRouter) 高阶组件。
 
-每个用户页面不仅要渲染其各自的内容，而且还必须关注子布局本身（并且每个子布局都是重复的）。虽然这个例子很小，可能看起来微不足道，但重复的代码在一个真正的应用程序中可能是一个问题。更不用说，每次 `BrowseUsersPage` 或 `UserProfilePage` 被渲染时，它将创建一个新的 `UserNav` 实例，这意味着所有的生命周期方法都将重新开始。如果导航标签需要初始网络流量，这将导致不必要的请求 —— 这都是我们决定使用路由的方式造成的
+每个用户页面不仅要渲染其各自的内容，而且还必须关注子布局本身（并且每个子布局都是重复的）。虽然这个例子很小，可能看起来微不足道，但重复的代码在一个真正的应用程序中可能是一个问题。更不用说，每次 `BrowseUsersPage` 或 `UserProfilePage` 被渲染时，它将创建一个新的 `UserNav` 实例，这意味着所有的生命周期方法都将重新开始。如果导航标签需要初始网络流量，这将导致不必要的请求 —— 这都是我们决定使用路由的方式造成的。
 
 这里有另一种更好的方法：
 
@@ -347,8 +347,8 @@ const UserProfilePage = ({ match }) => (
 
 > match:
 >
-> - path - (`string`) 用于匹配路径模式。**用于构建嵌套的 `<Route>`s**
-> - url - (`string`) URL 匹配的部分。 **用于构建嵌套的 `<Link>`s**
+> - path - (`string`) 用于匹配路径模式。**用于构建嵌套的 `<Route>`**
+> - url - (`string`) URL 匹配的部分。 **用于构建嵌套的 `<Link>`**
 
 ### 避免匹配冲突
 
@@ -440,7 +440,7 @@ export default connect(stateToProps)(AuthorizedRoute)
 
 React Router v4 还有很多其他很酷的方面。最后，一定要提几件小事，以免到时它们让你措手不及。
 
-#### **<Link>** vs **<NavLink>**
+#### **`<Link>`** vs **`<NavLink>`**
 
 在 v4 中，有两种方法可以将锚标签与路由集成：[`<Link>`](https://reacttraining.com/react-router/web/api/Link) 和 [`<NavLink>`](https://reacttraining.com/react-router/web/api/NavLink)
 
