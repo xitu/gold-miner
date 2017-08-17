@@ -6,7 +6,7 @@
   > * 译者：[LeviDing](https://github.com/leviding)
   > * 校对者：[shawnchenxmu](https://github.com/shawnchenxmu)，[sunui](https://github.com/sunui)
 
-  # 为什么我还没 Fixed 你的 Issue
+  # 为什么我还没 Fix 你的 Issue
 
   ![](https://cdn-images-1.medium.com/max/1600/0*sBJnwQRCh05t-nXu.jpg)
 
