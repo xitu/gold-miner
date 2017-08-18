@@ -6,13 +6,11 @@
 > * 译者：[]()
 > * 校对者：
 
-# 如何在 iOS 上实现类似 Airbnb 中的展开式菜单  
+# 如何在 iOS 上实现类似 Airbnb 中的可展开式菜单  
 
 ![](https://cdn-images-1.medium.com/max/2000/1*4mjos0c1rx7qIAdfjJy6Wg.png)
 
-A few months ago I had a chance to implement an expandable menu that behaves same as the one in a popular iOS application (like Airbnb). Then I thought it would be great to have it available in form of a library. Now I want to share with you some solutions that I have created in order to implement beautiful scroll driven animations.
-
-几个月前，我有幸实现了一个可扩展式菜单，类似 著名的 iOS 应用 Airbnb 中的同样行为。那时我认为将其制作为库是非常不错的。现在我想分享给你一些解决方案我已经创建的实现美丽的滚动驱动动画。
+几个月前，我有机会实现了一个可展开式菜单，效果同知名的 iOS 应用 Airbnb。然后，我认为把他制作为库会更好。现在我想和你分享用于实现漂亮的滚动驱动动画采用的一些解决方案。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*c4e83KM3BMh8p04jXY3m1A.gif)
 
@@ -24,20 +22,23 @@ A few months ago I had a chance to implement an expandable menu that behaves sam
 
 ### UIScrollView
 
-`[UIScrollView](https://developer.apple.com/documentation/uikit/uiscrollview)` 是 iOS SDK 中的一个视图支持滚动和缩放 supports scrolling and zooming. 它被It is used as a superclass of `[UITableView](https://developer.apple.com/documentation/uikit/uitableview)` and `[UICollectionView](http://uicollectionview)`, 因此你可以在任何`UIScrollView`支持的上使用它。so you can use them wherever `UIScrollView` is supported.
+`[UIScrollView](https://developer.apple.com/documentation/uikit/uiscrollview)` 是 iOS SDK 中的一个支持滚动和缩放的视图。 它是 `[UITableView](https://developer.apple.com/documentation/uikit/uitableview)` 和 `[UICollectionView](http://uicollectionview)`的基类，因此你可以在任何`UIScrollView`支持的上使用它。so you can use them wherever `UIScrollView` is supported.
 
-`UIScrollView` 使用 `[UIPanGestureRecognizer](https://developer.apple.com/documentation/uikit/uipangesturerecognizer)` internally to detect scrolling gestures. Scrolling state of `UIScrollView` is defined as `contentOffset: CGPoint` property. Scrollable area is union of `contentInsets` and `contentSize`. So the starting `contentOffset` is `*CGPoint(x: -contentInsets.left, y: -contentInsets.right)*` and ending is `*CGPoint(x: contentSize.width — frame.width+contentInsets.right, y: contentSize.height — frame.height+contentInsets.bottom)*`*.*
+`UIScrollView` 使用 `[UIPanGestureRecognizer](https://developer.apple.com/documentation/uikit/uipangesturerecognizer)` 在内部检测滚动手势。 `UIScrollView` 的滚动状态被定义为 `contentOffset: CGPoint` 属性。 Scrollable area is union of `contentInsets` and `contentSize`. So the starting `contentOffset` is `*CGPoint(x: -contentInsets.left, y: -contentInsets.right)*` and ending is `*CGPoint(x: contentSize.width — frame.width+contentInsets.right, y: contentSize.height — frame.height+contentInsets.bottom)*`*.*
 
-`UIScrollView` has a `bounces: Bool` property. In case `bounces` is on `contentOffset` can change to value above/below limits. We need to keep that in mind.
+`UIScrollView` 有一个 `bounces: Bool` 属性。 In case `bounces` is on `contentOffset` can change to value above/below limits. 我们需要记住这一点。
 
 [![](https://i.ytimg.com/vi_webp/fgwVqCGgHZA/maxresdefault.webp)](https://youtu.be/fgwVqCGgHZA)
 
 UIScrollView contentOffset 演示
+
 We are interested in `contentOffset: CGPoint` property for changing our menu state. The main way of observing scroll view `contentOffset` is setting an object to delegate property and implementing `scrollViewDidScroll(UIScrollView)` method. There is no way to use delegate without affecting other client code in Swift (because `NSProxy` is not available) so I have decided to use Key-Value Observing.
+
+监控滚动视图`contentOffset`的主要方式是设置代理属性并实现 `scrollViewDidScroll(UIScrollView)`方法。因此我决定使用KVO。
 
 ### Observable
 
-I have created`Observable` class that can wrap any type of observing.
+我创建了`Observable`泛型类，因此可以观察任何类型。
 
 ```
 internal class Observable<Value>: NSObject {
@@ -80,7 +81,7 @@ internal class KVObservable<Value>: Observable<Value> {
 }
 ```
 
-- `GestureStateObservable` — for wrapping target-action observing of UIGestureRecognizer state.
+- `GestureStateObservable` — 封装了 target-action 用户监控 UIGestureRecognizer 状态。
 
 ```
 internal class GestureStateObservable: Observable<UIGestureRecognizerState> {
@@ -105,9 +106,11 @@ internal class GestureStateObservable: Observable<UIGestureRecognizerState> {
 
 ### Scrollable
 
-To make library testable I have implemented `Scrollable` protocol. I also needed a way to make `UIScrollView` provide `Observable`s for `contentOffset`, `contentSize` and `panGestureRecognizer.state`. Protocol conformance is a good way to do this. Apart from observables it contains all properties that library needs to use. It also contains `updateContentOffset(CGPoint, animated: Bool)` method to set `contentOffset` with animation.
+To make library testable I have implemented `Scrollable` protocol. I also needed a way to make `UIScrollView` provide `Observable` for `contentOffset`, `contentSize` and `panGestureRecognizer.state`. Protocol conformance is a good way to do this. Apart from observables it contains all properties that library needs to use. It also contains `updateContentOffset(CGPoint, animated: Bool)` method to set `contentOffset` with animation.
 
-为了使库可测试我实现了 `Scrollable` 协议。
+为了便于库的测试，我实现了 `Scrollable` 协议。我也需要一种方式来监控`UIScrollView`的`contentOffset`, `contentSize` 和 `panGestureRecognizer.state`。
+
+协议一致性是完成这中工作的不错方式。除了监控其还包括所有的属性库需要使用的。也包括 `updateContentOffset(CGPoint, animated: Bool)`方法用于设置 `contentOffset` 。
 
 ```
 internal protocol Scrollable: class {
@@ -158,9 +161,11 @@ extension UIScrollView: Scrollable {
 
 I have not used a native `setContentOffset(...)` method of `UIScrollView` for updating `contentOffset` cause `UIKit` animations API is more flexible IMO. The problem here is that setting `contentOffset` directly to property doesn’t stop `UIScrollView` deceleration, so `updateContentOffset(…)` method stops it via setting current `contentOffset` without animation.
 
+我没有使用
+
 ### State
 
-I wanted to have predictable menu state. That is why I have isolated all mutable state in `State` struct that contains `offset`, `isExpandedStateAvailable` and `configuration` properties.
+我想要一个可预测的菜单状态。这就是为什么我在 `State` 结构体中提取了所有可变状态，包括`offset`、`isExpandedStateAvailable` 和 `configuration` 属性。
 
 ```
 public struct State {
@@ -176,10 +181,10 @@ public struct State {
 }
 ```
 
-`offset` is just an inverted height of menu. I decided to use `offset` instead of `height`, because scrolling down decreases `height` when scrolling up increases. `offset` is being calculated like `*offset = previousOffset + (contentOffset.y — previousContentOffset.y)*`;
+`offset`仅仅是菜单高度的相反数。我打算使用`offset`来代替`height`，因为向下滚动时高度降低当向上滚动时高度增加。`offset`可以使用`*offset = previousOffset + (contentOffset.y — previousContentOffset.y)*`来计算。
 
 - `isExpandedStateAvailable` property determines should offset go below `-normalStateHeight` to `-expandedStateHeight` or not;
-- `configuration` is a struct that contains menu height constants.
+- `configuration` 是一个包含菜单高度常量的结构体。
 
 ```
 public struct Configuration {
@@ -191,7 +196,7 @@ public struct Configuration {
 
 ### BarController
 
-`BarController` is the main object that makes all state calculation magic and provides state changes to users.
+`BarController`是用于生成所有状态计算魔法的主要对象，并为调用者提供状态改变。
 
 ```
 public typealias StateObserver = (State) -> Void
@@ -235,11 +240,10 @@ public class BarController {
 }
 ```
 
-It takes `stateReducer`, `configuration` and `stateObserver` as initializer arguments.
-
 它传递 `stateReducer`， `configuration` 和 `stateObserver` 作为初始化参数。
 
-- `stateObserver` closure is called on a `didSet` observer of `state` property. It notifies library user about state changes.
+- `stateObserver` 闭包是`state`属性在观察者 `didSet` 中被调用。它通知库的调用者关于状态的改变。
+- `stateReducer` is a function that takes previous state, some scrolling context params and returns a new state. Injecting it through initializer provides decoupling between state calculation logic and `BarController` object itself.
 - `stateReducer` is a function that takes previous state, some scrolling context params and returns a new state. Injecting it through initializer provides decoupling between state calculation logic and `BarController` object itself.
 
 ```
@@ -255,6 +259,8 @@ internal typealias StateReducer = (StateReducerParameters) -> State
 ```
 
 Default state reducer calculates difference between `contentOffset.y` and `previousContentOffset.y` and applies provided transformers one-by-one. After that it returns new state with `offset = previousState.offset + deltaY`.
+
+默认的 state reducer 计算`contentOffset.y`和`previousContentOffset.y`的不同。然后返回返回新状态：`offset = previousState.offset + deltaY`。
 
 ```
 internal struct ContentOffsetDeltaYTransformerParameters {
@@ -289,9 +295,10 @@ internal func makeDefaultStateReducer(transformers: [ContentOffsetDeltaYTransfor
 }
 ```
 
-The library uses 3 transformers for reducing state:
+库中使用了 3 个变换器来减少状态：
 
 - `ignoreTopDeltaYTransformer` — makes sure that scrolling above top of `UIScrollView` is being ignored and does not affect `BarController` state;
+- `ignoreTopDeltaYTransformer` — 确保滚动到`UIScrollView`的顶部被忽略并且不会影响到 `BarController` 状态；
 
 ```
 internal let ignoreTopDeltaYTransformer: ContentOffsetDeltaYTransformer = { params -> CGFloat in
@@ -313,7 +320,7 @@ internal let ignoreTopDeltaYTransformer: ContentOffsetDeltaYTransformer = { para
 }
 ```
 
-- `ignoreBottomDeltaYTransformer` — same as `ignoreTopDeltaYTransformer`, but for scrolling below bottom;
+- `ignoreBottomDeltaYTransformer` — 和 `ignoreTopDeltaYTransformer`一致，只是滚动到底部；
 
 ```
 internal let ignoreBottomDeltaYTransformer: ContentOffsetDeltaYTransformer = { params -> CGFloat in
@@ -335,18 +342,19 @@ internal let ignoreBottomDeltaYTransformer: ContentOffsetDeltaYTransformer = { p
 ```
 
 - `cutOutStateRangeDeltaYTransformer` — cuts out extra delta Y, that goes out of minimum/maximum limits of BarController supported states.
+- `cutOutStateRangeDeltaYTransformer` — 删除多余的 delta Y，BarController支持的状态，超过最小值/最大值限制。
 
 ```
 internal let cutOutStateRangeDeltaYTransformer: ContentOffsetDeltaYTransformer = { params -> CGFloat in
   var deltaY = params.contentOffsetDeltaY
 
   if deltaY > 0 {
-    // Transform when scrolling down.
+    // 向下滚动时变换。
     // Cut out extra deltaY that will go out of compact state offset after apply.
     deltaY = min(-params.configuration.compactStateHeight, (params.state.offset + deltaY)) - params.state.offset
   } else {
-    // Transform when scrolling up.
-    // Expanded or normal state height.
+    // 向上滚动时变换。
+    // 展开或者正常状态的高度。
     let maxStateHeight = params.state.isExpandedStateAvailable ? params.configuration.expandedStateHeight : params.configuration.normalStateHeight
     // Cut out extra deltaY that will go out of maximum state offset after apply.
     deltaY = max(-maxStateHeight, (params.state.offset + deltaY)) - params.state.offset
@@ -356,13 +364,13 @@ internal let cutOutStateRangeDeltaYTransformer: ContentOffsetDeltaYTransformer =
 }
 ```
 
-`BarController` calls a `stateReducer` and sets result as a `state` every time `contentOffset` changes.
+`BarController` 调用 `stateReducer` 并且设置结果当 as a `state` every time `contentOffset` changes。
 
 ```
  private func setupObserving() {
     guard let observables = observables else { return }
 
-    // Content offset observing.
+    // 观察的内容偏移。
     var previousContentOffset: CGPoint?
     observables.contentOffset.observer = { [weak self] contentOffset in
       guard previousContentOffset != contentOffset else { return }
@@ -489,9 +497,9 @@ private func panGestureEnded() {
 
 So expanded state becomes available only when the user starts scrolling at the top of available scrollable area. If expanded state was available and user scrolls below normal state, expanded state turns off. And if the user ends the panning gesture during state transition `BarController` updates content offset with animation to finish it.
 
-### Binding UIScrollView to BarController
+### 将 UIScrollView 绑定到 BarController
 
-`BarController` contains 2 public methods that the user can use to assign `UIScrollView`. In most cases the user should use `set(scrollView: UIScrollView)` method. There is also `preconfigure(scrollView: UIScrollView)` method, it configures the scroll view’s visual state to be consistent with the current `BarController` state. It should be used when the scroll view is about to be swapped. For example the user can replace current scroll view with animation and want second scroll view to be visually configured in the beginning of animation. After animation completion the user should call `set(scrollView: UIScrollView)`. `preconfigure(scrollView: UIScrollView)` method is not needed to be called if `UIScrollView` is set once, cause `set(scrollView: UIScrollView)` calls it internally.
+`BarController` 包含 2 个公有方法用于用户设置 `UIScrollView`。大多数情况下个用户使用 `set(scrollView: UIScrollView)` 方法。也可以使用 `preconfigure(scrollView: UIScrollView)` 方法，it configures the scroll view’s visual state to be consistent with the current `BarController` state. It should be used when the scroll view is about to be swapped. For example the user can replace current scroll view with animation and want second scroll view to be visually configured in the beginning of animation. After animation completion the user should call `set(scrollView: UIScrollView)`. `preconfigure(scrollView: UIScrollView)` method is not needed to be called if `UIScrollView` is set once, cause `set(scrollView: UIScrollView)` calls it internally.
 
 `preconfigure` method finds difference between `contentSize` height and frame height and puts it as a bottom content inset so that the menu remains expandable, configures `contentInsets.top` and `scrollIndicatorInsets.top` and sets initial `contentOffset` to make the new scroll view visually consistent with the state offset.
 
@@ -540,7 +548,7 @@ To inform users about state changes `BarController` calls injected `stateObserve
 
 `State` struct has several public methods for getting useful information from internal state:
 
-- `height()`— returns reversed offset, actually height of menu;
+- `height()`— 返回 offset 的相反数, 菜单的实际高度；
 
 ```
   public func height() -> CGFloat {
@@ -548,7 +556,7 @@ To inform users about state changes `BarController` calls injected `stateObserve
   }
 ```
 
-- `transitionProgress()`— returns transition progress from 0 to 2, where *0 — compact state, 1 — normal state, 2 — expanded state*;
+- `transitionProgress()`— 返回从 0 到 2 的过度进度，*0 — 简洁状态，1 — 正常状态， 2 — 展开状态*；
 
 ```
 internal enum StateRange {
@@ -611,6 +619,8 @@ public enum ValueRangeType {
 
 Here is an example from `AirBarExampleApp` with a use of `State` public methods. `airBar.frame.height` is animated with `height()` and `backgroundView.alpha` is animated using `value(...)`. Background view alpha here is interpolated from transition progress to `(0, 1)` range in `compact-normal` transition and constantly `1` in `normal-expanded` transition.
 
+以下为`AirBarExampleApp`中使用 `State` 的公有方法。
+
 ```
 override func viewDidLoad() {
     ...
@@ -644,13 +654,15 @@ As a result, I got a beautiful scroll driven menu with predictable state and a l
 
 The library, example application and installation guide can be found here:
 
+以下可以找到本封装库，示例应用和安装指南：
+
 [![](https://ws3.sinaimg.cn/large/006tNc79ly1fhpl9s31fbj314i0aaaaw.jpg)](https://github.com/uptechteam/AirBar)
 
 Feel free to use it for your own purposes. Let me know if you have any difficulties with it.
 
 And what is your experience working with `UIScrollView`? And with scroll driven animations? Feel free to share / ask questions in the comments, I would be glad to help.
 
-Thank you for reading!
+感谢您的阅读！
 
 ---
 
