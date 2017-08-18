@@ -1,10 +1,9 @@
-
-  > * 原文地址：[How to Write a Perfect Error Message](https://uxplanet.org/how-to-write-a-perfect-error-message-da1ca65a8f36)
-  > * 原文作者：[Vitaly Dulenko](https://uxplanet.org/@atko_o)
-  > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-  > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/how-to-write-a-perfect-error-message.md](https://github.com/xitu/gold-miner/blob/master/TODO/how-to-write-a-perfect-error-message.md)
-  > * 译者：[Cherry](https://github.com/sunshine940326)
-  > * 校对者：
+> * 原文地址：[How to Write a Perfect Error Message](https://uxplanet.org/how-to-write-a-perfect-error-message-da1ca65a8f36)
+> * 原文作者：[Vitaly Dulenko](https://uxplanet.org/@atko_o)
+> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/how-to-write-a-perfect-error-message.md](https://github.com/xitu/gold-miner/blob/master/TODO/how-to-write-a-perfect-error-message.md)
+> * 译者：[Cherry](https://github.com/sunshine940326)
+> * 校对者：
 
 # 怎么写出完美的错误提示
   
