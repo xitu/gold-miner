@@ -3,13 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/building-ar-game-arkit-spritekit.md](https://github.com/xitu/gold-miner/blob/master/TODO/building-ar-game-arkit-spritekit.md)
 > * 译者：[Danny Lau](https://github.com/Danny1451)
-> * 校对者：
+> * 校对者：[KnightJoker](https://github.com/KnightJoker),[LJ147](https://github.com/LJ147)
 
 # 巧用 ARKit 和 SpriteKit 从零开始做 AR 游戏 
 
 **这篇文章隶属于 [Pusher 特邀作者计划](https://pusher.com/guest-writer-program)。**
 
-[ARKit](https://developer.apple.com/arkit/) 是一个全新的苹果框架，它将设备运动追踪，相机捕获和场景处理整合到了一起，可以用来构建[增强现实( AR )](https://en.wikipedia.org/wiki/Augmented_reality) 的体验。
+[ARKit](https://developer.apple.com/arkit/) 是一个全新的苹果框架，它将设备运动追踪，相机捕获和场景处理整合到了一起，可以用来构建[增强现实（Augmented Reality, AR）](https://en.wikipedia.org/wiki/Augmented_reality) 的体验。
 
 在使用 ARKit 的时候，你有三种选项来创建你的 AR 世界：
 
@@ -17,7 +17,7 @@
 - SpriteKit，渲染 2D 的叠加内容。
 - Metal，自己为 AR 体验构建的视图
 
-在这个教程里，我们将通过创建一个游戏来学习 ARKit 和 SpriteKit 的基础，游戏是受  Pokemon Go 的启发，但是有幽灵的元素，看下下面这个视频吧：
+在这个教程里，我们将通过创建一个游戏来学习 ARKit 和 SpriteKit 的基础，游戏是受  Pokemon Go 的启发，添加了幽灵元素，看下下面这个视频吧：
 
 [![](https://i.ytimg.com/vi_webp/0mmaLiuYAho/maxresdefault.webp)](https://www.youtube.com/embed/0mmaLiuYAho)
 
@@ -30,9 +30,9 @@
 
 ## 你将会需要的
 
-首先，为了完整的 AR 体验，ARKit 要求一个带有 A9 或者更新的处理器的 iOS 设备。换句话说，你至少需要一台 iPhone6s 或者更新的设备，比如 iPhoneSE，所有版本的 iPad Pro，或者 2017 版的 iPad。
+首先，为了完整的 AR 体验，ARKit 要求一个带有 A9 或者更新的处理器的 iOS 设备。换句话说，你至少需要一台 iPhone6s 或者有更高处理器的设备，比如 iPhoneSE，任何版本的 iPad Pro，或者 2017 版的 iPad。
 
-ARKit 是 iOS 11 的一个特性，所以你必须先装上这个版本的 SDK，并用 Xcode 9 来开发。在写这篇文章的时候，iOS 11 和 Xcode 9 仍然是在测试版本，所以你要先加入到[苹果开发者计划](https://developer.apple.com/programs/)，不过苹果现在也向公众发布了所以不再需要付过费的开发者账号。你可以在[这里](https://9to5mac.com/2017/06/26/how-to-install-ios-11-public-beta-on-your-eligible-iphone-ipad-or-ipod-touch/)找到更多关于安装 iOS 11 beta 的信息和[这里](https://developer.apple.com/download/)找到关于安装 Xcode beta 的信息。
+ARKit 是 iOS 11 的一个特性，所以你必须先装上这个版本的 SDK，并用 Xcode 9 来开发。在写这篇文章的时候，iOS 11 和 Xcode 9 仍然是在测试版本，所以你要先加入到[苹果开发者计划](https://developer.apple.com/programs/)，不过苹果现在也向公众发布了免费的开发者账号。你可以在[这里](https://9to5mac.com/2017/06/26/how-to-install-ios-11-public-beta-on-your-eligible-iphone-ipad-or-ipod-touch/)找到更多关于安装 iOS 11 beta 的信息和[这里](https://developer.apple.com/download/)找到关于安装 Xcode beta 的信息。
 
 为了避免之后版本的改动，这个应用的教程是通过 Xcode beta 2 来构建的。
 在这个游戏中，我们需要表示幽灵的图片和它被移除时的音效。[OpenGameArt.org](https://opengameart.org) 是一个非常棒的获取免费游戏资源的网站。我选了这个[幽灵图片](https://opengameart.org/content/ghosts) 和这个[幽灵音效](https://opengameart.org/content/ghost)，当然你也可以用任何你想要用的文件。
@@ -107,7 +107,7 @@ ARKit 是 iOS 11 的一个特性，所以你必须先装上这个版本的 SDK�
     }
 ```
 
-你可以用 `ARWorldTrackingSessionConfiguration` 类来配置该会话通过[六个自由度](https://en.wikipedia.org/wiki/Six_degrees_of_freedom)中追踪物体的移动。三个旋转角度：
+你可以用 `ARWorldTrackingSessionConfiguration` 类来配置该会话通过[六个自由度(6DOF)](https://en.wikipedia.org/wiki/Six_degrees_of_freedom)中追踪物体的移动。三个旋转角度：
 
 - Roll，在 X-轴 的旋转角度
 - Pitch，在 Y-轴 的旋转角度
@@ -160,7 +160,7 @@ ARKit 是 iOS 11 的一个特性，所以你必须先装上这个版本的 SDK�
 
 ARAnchor 使用一个 [4×4 的矩阵](https://developer.apple.com/documentation/scenekit/scnmatrix4) 来代表和它相对应的对象在一个三维空间中的位置，角度或者方向，和缩放。
 
-在 3D 编程的世界里，矩阵用来代表图形化的转换比如平移，缩放，旋转和投影。通过矩阵的乘法，多个转换可以连接成一个独立的转换。
+在 3D 编程的世界里，矩阵用来代表图形化的转换比如平移，缩放，旋转和投影。通过矩阵的乘法，多个转换可以连接成一个独立的变换矩阵。
 
 这是一篇关于[转换背后的数学](http://ronnqvi.st/the-math-behind-transforms/)很好的博文。同样的，在[核心动画指南中关于操作 3D 界面中层级一章](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/CoreAnimation_guide/CoreAnimationBasics/CoreAnimationBasics.html#//apple_ref/doc/uid/TP40004514-CH2-SW18) 中你也可以找到一些常用转换的矩阵配置。
 
@@ -182,7 +182,6 @@ ARAnchor 使用一个 [4×4 的矩阵](https://developer.apple.com/documentation
 > [http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/](http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/)
 
 接着，Z-轴列的第三个值改为了 -0.2 代表着在这个轴上有平移（负的 z 值代表着把对象放置到摄像头之前）。
-If you print the value of the translation matrix at this point, you’ll see it’s printed as an array of vectors, where each vector represents a column.
 如果你这个时候打印了平移矩阵值的话，你会看见它打印了一个向量数组，每个向量代表了一列。
 
 ```
@@ -199,8 +198,8 @@ If you print the value of the translation matrix at this point, you’ll see it�
 0     1     2     3    // 列号
 1.0   0.0   0.0   0.0  // 这一行代表着 X
 0.0   1.0   0.0   0.0  // 这一行代表着 Y
-0.0   0.0   1.0  -0.2  // This row represents Z 这一行代表着 Z
-0.0   0.0   0.0   1.0  // This row represents W 这一行代表着 W
+0.0   0.0   1.0  -0.2  // 这一行代表着 Z
+0.0   0.0   0.0   1.0  // 这一行代表着 W
 ```
 
 
@@ -281,14 +280,14 @@ let killSound = SKAction.playSoundFileNamed("ghost", waitForCompletion: false)
 
 你可以用像 [iOS Fonts](http://iosfonts.com/) 的站点来可视化的选择标签的字体。
 
-这个位置坐标代表着屏幕左下角的部分（相关代码稍后会解释）。我选择把它们放在屏幕的这个区域是为了避免转向的问题，因为场景的大小会随着方向改变而变化，但是，坐标保持不变，会引起标签显示超过屏幕或者在一些奇怪的位置（可以通过重写 `didChangeSize` 方法或者使用 [UILabels](https://developer.apple.com/documentation/uikit/uilabel) 替换 [SKLabelNodes](https://developer.apple.com/documentation/spritekit/sklabelnode)）。
+这个位置坐标代表着屏幕左下角的部分（相关代码稍后会解释）。我选择把它们放在屏幕的这个区域是为了避免转向的问题，因为场景的大小会随着方向改变而变化，但是，坐标保持不变，会引起标签显示超过屏幕或者在一些奇怪的位置（可以通过重写 `didChangeSize` 方法或者使用 [UILabels](https://developer.apple.com/documentation/uikit/uilabel) 替换 [SKLabelNodes](https://developer.apple.com/documentation/spritekit/sklabelnode) 来解决这一问题）。
 
 现在，为了在固定的时间间隔创建幽灵，我们需要一个定时器。这个更新方法会在每一帧（平均 60 次每秒）渲染之前被调用，可以像下面这样帮助我们：
 
 
 ```
     override func update(_ currentTime: TimeInterval) {
-      // 在每一帧渲染的时候调用
+      // 在每一帧渲染之前调用
       if currentTime > creationTime {
         createGhostAnchor()
         creationTime = currentTime + TimeInterval(randomFloat(min: 3.0, max: 6.0))
@@ -537,7 +536,7 @@ let killSound = SKAction.playSoundFileNamed("ghost", waitForCompletion: false)
 
 关于 ARKit 有两个非常棒的地方。第一是只需要几行代码我们就能创建神奇的 AR 应用，第二个，我们也能学习到 SpriteKit 和 SceneKit 的知识。 ARKit 实际上只有很少的量的类，更重要的是去学会如何运用上面提到的框架，而且稍加调整就能创造出 AR 体验。
 
-你可以通过增加游戏规则来扩展这个应用，引入奖励分数或者改变图像和声音。同样的，使用 [Pusher](https://pusher.com/)，你可以同步游戏状态来增加多人游戏的特性。
+你可以通过增加游戏规则，引入奖励分数或者改变图像和声音来扩展这个应用。同样的，使用 [Pusher](https://pusher.com/)，你可以同步游戏状态来增加多人游戏的特性。
 
 记住你可以在这个 [GitHub 仓库](https://github.com/eh3rrera/ARKitGameSpriteKit)中找到 Xcode 项目。
 
