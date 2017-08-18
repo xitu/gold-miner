@@ -7,7 +7,7 @@
 
 [掘金翻译计划](https://juejin.im/tag/%E6%8E%98%E9%87%91%E7%BF%BB%E8%AF%91%E8%AE%A1%E5%88%92) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](#android)、[iOS](#ios)、[React](#react)、[前端](#前端)、[后端](#后端)、[产品](#产品)、[设计](#设计) 等领域，读者为热爱新技术的新锐开发者。
 
-掘金翻译计划目前翻译完成 [616](#近期文章列表) 篇文章，共有 [350](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 余名译者贡献翻译。
+掘金翻译计划目前翻译完成 [617](#近期文章列表) 篇文章，共有 [350](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 余名译者贡献翻译。
 
 # 官方指南
 
@@ -73,11 +73,11 @@
 
 ## 教程
 
-* [[译] Chrome 开发者工具提示和技巧](http://gold.xitu.io/entry/56d56f4dc4c971005193ecec?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([chemzqm](https://github.com/chemzqm) 翻译)
-* [[译] 通过 Electron 开发一个简单的桌面应用](http://gold.xitu.io/entry/56aae5e4a633bd0257ae4ab8?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zhangdroid](https://github.com/Zhangdroid) 翻译)
-* [[译] Retrofit 入门教程](http://gold.xitu.io/entry/56cc4085128fe100580dd0ca?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([kevin xiu](https://github.com/xiuweikang) 翻译)
-* [[译] Pokedex.org 给宠物小精灵爱好者的 web app 的技术选型](http://gold.xitu.io/entry/56cebb8edf0eea79dc7c1ff0?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([RobertWang](https://github.com/RobertWang) 翻译)
-* [选择使用正确的 Markdown Parser](http://gold.xitu.io/entry/56ce79db1532bc0053728c2f?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lfkdsk](https://github.com/lfkdsk) 翻译)
+* [为什么我还没 Fix 你的 Issue](https://juejin.im/post/59950fd9f265da248535b46d?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([leviding](https://github.com/leviding) 翻译)
+* [Chrome 开发者工具提示和技巧](http://gold.xitu.io/entry/56d56f4dc4c971005193ecec?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([chemzqm](https://github.com/chemzqm) 翻译)
+* [通过 Electron 开发一个简单的桌面应用](http://gold.xitu.io/entry/56aae5e4a633bd0257ae4ab8?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zhangdroid](https://github.com/Zhangdroid) 翻译)
+* [Retrofit 入门教程](http://gold.xitu.io/entry/56cc4085128fe100580dd0ca?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([kevin xiu](https://github.com/xiuweikang) 翻译)
+* [Pokedex.org 给宠物小精灵爱好者的 web app 的技术选型](http://gold.xitu.io/entry/56cebb8edf0eea79dc7c1ff0?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([RobertWang](https://github.com/RobertWang) 翻译)
 
 
 ## 设计
