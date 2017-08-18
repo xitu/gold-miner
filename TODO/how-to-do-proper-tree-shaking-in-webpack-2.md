@@ -8,7 +8,7 @@
 
   # 如何在 Webpack 2 中使用 tree-shaking
 
-tree-shaking 这个术语首先源自 [Rollup](https://rollupjs.org/) -- Rich Harris 写的模块打包工具。它是指在打包时只包含用到的 Javascript 代码。它的可行性基于 ES6 的静态模块（exports 和 imports 不能在运行时修改），这使我们在打包时可以检测到未使用的代码。Webpack 2 也引入了这一特性，[Webpack 2](https://webpack.js.org/) 已经内置支持 ES6 模块和 tree-shaking。本文将会介绍如何在 webpack 中使用这一特性，如何克服使用中的难点。
+tree-shaking 这个术语首先源自 [Rollup](https://rollupjs.org/) -- Rich Harris 写的模块打包工具。它是指在打包时只包含用到的 Javascript 代码。它依赖于 ES6 静态模块（exports 和 imports 不能在运行时修改），这使我们在打包时可以检测到未使用的代码。Webpack 2 也引入了这一特性，[Webpack 2](https://webpack.js.org/) 已经内置支持 ES6 模块和 tree-shaking。本文将会介绍如何在 webpack 中使用这一特性，如何克服使用中的难点。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*djuJdyxfBwGEClfgji8GRw.jpeg)
 
@@ -56,13 +56,13 @@ console.log(new SportsCar(new V8Engine()).toString());
 
 通过定义类 SportsCar，我们只使用了 *V8Engine*，而没有用到 *V6Engine*。运行这个应用会输出：*‘V8 Sports Car’*。
 
-应用了 tree-shaking 后，我们期望输出包只包含用到的类和函数。在这个例子中，意味着它只有* V8Engine *和* SportsCar *类。让我们来看看它是如何工作的。
+应用了 tree-shaking 后，我们期望打包结果只包含用到的类和函数。在这个例子中，意味着它只有 *V8Engine* 和 *SportsCar* 类。让我们来看看它是如何工作的。
 
 #### 打包
 
 ![](https://cdn-images-1.medium.com/max/1600/1*eXdX_sQKzEZomscFgpEwRQ.png)
 
-我们打包时不使用变换（[Babel](https://babeljs.io/)等）和压缩（[UglifyJS](https://github.com/mishoo/UglifyJS2)等），可以得到如下输出：
+我们打包时不使用编译器（[Babel](https://babeljs.io/) 等）和压缩工具（[UglifyJS](https://github.com/mishoo/UglifyJS2) 等），可以得到如下输出：
 ```
 (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -109,23 +109,23 @@ console.log(new SportsCar(new __WEBPACK_IMPORTED_MODULE_0__engine__["a" /* V8Eng
 /***/ })
 ```
 
-Webpack 用注释*/* unused harmony export V6Engine */*将未使用的类和函数标记下来，用*/* harmony export (immutable) */ __webpack_exports__[“a”] = V8Engine;*来标记用到的。你自然会问未使用的代码怎么还在？tree-shaking 没有生效吗？
+Webpack 用注释 */\*unused harmony export V6Engine\*/* 将未使用的类和函数标记下来，用 */\*harmony export (immutable)\*/ __webpack_exports__[“a”] = V8Engine;* 来标记用到的。你应该会问未使用的代码怎么还在？tree-shaking 没有生效吗？
 
-#### Dead code elimination vs live code inclusion
+#### 移除未使用代码（Dead code elimination） vs 包含已使用代码（live code inclusion）
 
 背后的原因是：Webpack 仅仅标记未使用的代码（而不移除），并且不将其导出到模块外。它拉取所有用到的代码，将剩余的（未使用的）代码留给像 UglifyJS 这类压缩代码的工具来移除。UglifyJS 读取打包结果，在压缩之前移除未使用的代码。通过这一机制，就可以移除未使用的函数 *getVersion* 和类 *V6Engine*。
 
-而Rollup不同，它（的打包）只包含运行应用程序所必需的代码。打包完成后的输出并没有未使用的类和函数，压缩仅涉及实际使用的代码。
+而 Rollup 不同，它（的打包结果）只包含运行应用程序所必需的代码。打包完成后的输出并没有未使用的类和函数，压缩仅涉及实际使用的代码。
 
 #### 设置
 
-UglifyJS [不支持 ES6](https://github.com/mishoo/UglifyJS2/issues/448)（又名 ES2015，及以上）。 我们需要用 Babel 将代码编译为 ES5，然后用UglifyJS 来清除无用代码。
+UglifyJS [不支持 ES6](https://github.com/mishoo/UglifyJS2/issues/448)（又名 ES2015）及以上。我们需要用 Babel 将代码编译为 ES5，然后再用 UglifyJS 来清除无用代码。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*FS50WgvWgoi3hxY_IPqTXw.png)
 
-最重要的是让 ES6模块 不受 Babel 预设（preset）的影响。Webpack 认识 ES6 模块，只有当保留 ES6 模块语法时才能够应用 tree-shaking。如果将其转换为 CommonJS 语法，Webpack不知道哪些代码是使用过的，哪些不是（就不能应用 tree-shaking了）。最后，Webpack将把它们转换为 CommonJS 语法。
+最重要的是让 ES6 模块不受 Babel 预设（preset）的影响。Webpack 认识 ES6 模块，只有当保留 ES6 模块语法时才能够应用 tree-shaking。如果将其转换为 CommonJS 语法，Webpack 不知道哪些代码是使用过的，哪些不是（就不能应用 tree-shaking了）。最后，Webpack将把它们转换为 CommonJS 语法。
 
-我们需要告诉 Babel preset（在这个例子中是[babel-preset-env](https://github.com/babel/babel-preset-env)）不要转换 module。
+我们需要告诉 Babel 预设（在这个例子中是[babel-preset-env](https://github.com/babel/babel-preset-env)）不要转换 module。
 
 ```
 {
@@ -168,7 +168,7 @@ plugins: [
 
 可以看到函数 getVersion 被移除了，这是我们所预期的，然而类 V6Engine 并没有被移除。这是什么原因呢？
 
-#### Troubles ahead
+#### 问题
 
 首先 Babel 检测到 ES6 模块将其转换为 ES5，然后 Webpack 将所有的模块聚集起来，最后 UglifyJS 会移除未使用的代码。我们来看一下 UglifyJS 的输出，就可以找到问题出在哪里。
 
@@ -176,7 +176,7 @@ plugins: [
 Dropping unused function getVersion [car.prod.bundle.js:103,9]
 Side effects in initialization of unused variable V6Engine [car.prod.bundle.js:79,4]*
 
-它告诉我们类 *V6Engine* 转换为 ES5的代码在初始化时有副作用。
+它告诉我们类 *V6Engine* 转换为 ES5 的代码在初始化时有副作用。
 ```
 var V6Engine = function () {
   function V6Engine() {
@@ -195,15 +195,15 @@ var V6Engine = function () {
 
 编译过程阻止了对类进行 tree-shaking。它仅对函数起作用。
 
-在 Github 上，有一些相关的 bug report：[Webpack repository](https://github.com/webpack/webpack/issues/2867)、[UglifyJS repository](https://github.com/mishoo/UglifyJS2/issues/1261)。一个解决方案是 UglifyJS 完全支持 ES6，希望[下个主版本](https://github.com/mishoo/UglifyJS2/issues/1411)能够支持。另一个解决方案是将其标记为 pure（无副作用），以便 UglifyJS 能够处理。这种方法[已经实现](https://github.com/mishoo/UglifyJS2/pull/1448)，但要想生效，还需编译器支持将类编译后的赋值标记为 @__PURE__。实现进度：[Babel](https://github.com/babel/babel/issues/5632)、[Typescript](https://github.com/Microsoft/TypeScript/issues/13721)。
+在 Github 上，有一些相关的 bug report：[Webpack repository](https://github.com/webpack/webpack/issues/2867)、[UglifyJS repository](https://github.com/mishoo/UglifyJS2/issues/1261)。一个解决方案是 UglifyJS 完全支持 ES6，希望[下个主版本](https://github.com/mishoo/UglifyJS2/issues/1411)能够支持。另一个解决方案是将其标记为 pure（无副作用），以便 UglifyJS 能够处理。这种方法[已经实现](https://github.com/mishoo/UglifyJS2/pull/1448)，但要想生效，还需编译器支持将类编译后的赋值标记为 @\__PURE\__。实现进度：[Babel](https://github.com/babel/babel/issues/5632)、[Typescript](https://github.com/Microsoft/TypeScript/issues/13721)。
 
 #### 使用 Babili
 
-Babel 的开发者们认为：何不开发一个基于 Babel 的代码压缩工具，就能够识别 ES6+ 的语法了。所以他们开发了[Babili](https://github.com/babel/babili)，所有 Babel 可以解析的语言特性它都支持。Babili 能将 ES6 代码编译为 ES5，移除未使用的类和函数。就像 UglifyJS 已经支持 ES6 一样。
+Babel 的开发者们认为：为什么不开发一个基于 Babel 的代码压缩工具，这样就能够识别 ES6+ 的语法了。所以他们开发了[Babili](https://github.com/babel/babili)，所有 Babel 可以解析的语言特性它都支持。Babili 能将 ES6 代码编译为 ES5，移除未使用的类和函数，这就像 UglifyJS 已经支持 ES6 一样。
 
 Babili 会在编译前删除未使用的代码。在编译为 ES5 之前，很容易找到未使用的类，因此 tree-shaking 也可以用于类声明，而不再仅仅是函数。
 
-我们只需用 Babili 替换 UglifyJS，然后删除 babel-loader 即可。另一种方式是将 Babili 作为 Babel 的预设，仅使用 babel-loader（移除 UglifyJS 插件）。推荐使用第一种（插件的方式），因为当编译器不是 Babel（比如 Typescript）时，也能生效。
+我们只需用 Babili 替换 UglifyJS，然后删除 babel-loader 即可。另一种方式是将 Babili 作为 Babel 的预设，仅使用 babel-loader（移除 UglifyJS 插件）。推荐使用第一种（插件的方式），因为当编译器不是 Babel（比如 Typescript）时，它也能生效。
 
 ```
 module: {
@@ -217,7 +217,7 @@ plugins: [
 
 我们需要将 ES6+ 代码传给 BabiliPlugin，否则它不用移除（未使用的）类。
 
-使用 Typescript 等编译器时，也应当使用 ES6+。Typescript应当输出 ES6+ 代码，以便 tree-shaking 能够生效。
+使用 Typescript 等编译器时，也应当使用 ES6+。Typescript 应当输出 ES6+ 代码，以便 tree-shaking 能够生效。
 
 现在的输出不再包含类 *V6Engine*：[压缩后代码](https://github.com/blacksonic/babel-webpack-tree-shaking/blob/master/dist/car.es2015.prod.bundle.js)。
 
@@ -225,7 +225,7 @@ plugins: [
 
 对第三方包来说也是，应当使用 ES6 模块。幸运的是，越来越多的包作者同时发布 CommonJS 格式 和 ES6 格式的模块。ES6 模块的入口由 *package.json* 的字段 *module* 指定。
 
-对 ES6 模块，未使用的函数会被移除，但 class 并不一定会。只有当包内的 calss 定义也为 ES6 格式时，Babili 才能移除。很少有包能够以这种格式发布，但有的做到了（比如说 lodash 的 lodash-es）。
+对 ES6 模块，未使用的函数会被移除，但 class 并不一定会。只有当包内的 class 定义也为 ES6 格式时，Babili 才能将其移除。很少有包能够以这种格式发布，但有的做到了（比如说 lodash 的 lodash-es）。
 
 罪魁祸首是当包的单独文件通过扩展它们来修改其他模块时，导入文件有副作用。[RxJs](https://github.com/Reactive-Extensions/RxJS)就是一个例子。通过导入一个运算符来修改其中一个类，这些被认为是副作用，它们阻止代码进行 tree-shaking。
 
@@ -233,7 +233,7 @@ plugins: [
 
 通过 tree-shaking 你可以相当程度上减少应用的体积。Webpack 2 内置支持它，但其机制并不同于 Rollup。它会包含所有的代码，标记未使用的函数和函数，以便压缩工具能够移除。这就是对所有代码都进行 tree-shake 的困难之处。使用默认的压缩工具 UglifyJS，它仅移除未使用的函数和变量；Babili 支持 ES6，可以用它来移除类。我们还必须特别注意第三方模块发布的方式是否支持 tree-shaking。
 
-希望这篇文章澄清了 Webpack 的 tree-shaking 背后的原理，并为您提供了克服困难的思路。
+希望这篇文章阐述了 Webpack 的 tree-shaking 背后的原理，并为您提供了克服困难的思路。
 
 实际例子请访问 [Babel](https://github.com/blacksonic/babel-webpack-tree-shaking)、[Typescript](https://github.com/blacksonic/typescript-webpack-tree-shaking)。
 
