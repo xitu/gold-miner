@@ -7,7 +7,7 @@
 
 [掘金翻译计划](https://juejin.im/tag/%E6%8E%98%E9%87%91%E7%BF%BB%E8%AF%91%E8%AE%A1%E5%88%92) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](#android)、[iOS](#ios)、[React](#react)、[前端](#前端)、[后端](#后端)、[产品](#产品)、[设计](#设计) 等领域，读者为热爱新技术的新锐开发者。
 
-掘金翻译计划目前翻译完成 [618](#近期文章列表) 篇文章，共有 [350](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 余名译者贡献翻译。
+掘金翻译计划目前翻译完成 [619](#近期文章列表) 篇文章，共有 [350](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 余名译者贡献翻译。
 
 # 官方指南
 
@@ -41,10 +41,10 @@
 
 ## iOS
 
+* [iOS 响应式编程：Swift 中的轻量级状态容器](https://juejin.im/post/599652ee6fb9a024903a8d59?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([DeepMissea](https://github.com/DeepMissea) 翻译)
 * [Swift 中的通用数据源](https://juejin.im/post/5990fd7b51882548bc7cabd8?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([swants](https://github.com/swants) 翻译)
 * [模块化 Swift 中的状态](https://juejin.im/post/597962875188253dda0f05a9?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([DeepMissea](https://github.com/DeepMissea) 翻译)
 * [Xcode 中的用户断点](https://juejin.im/post/597934335188253dfb7b0db7?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([atuooo](https://github.com/atuooo) 翻译)
-* [语句，消息和归约器](https://juejin.im/post/596f17366fb9a06bc17c53db?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([zhangqippp](https://github.com/zhangqippp) 翻译)
 * [所有 iOS 译文>>](https://github.com/xitu/gold-miner/blob/master/ios.md)
 
 ## 前端
