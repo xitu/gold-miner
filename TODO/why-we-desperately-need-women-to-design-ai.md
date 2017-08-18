@@ -4,7 +4,7 @@
   > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
   > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/why-we-desperately-need-women-to-design-ai.md](https://github.com/xitu/gold-miner/blob/master/TODO/why-we-desperately-need-women-to-design-ai.md)
   > * 译者：[TobiasLee](http://tobiaslee.top)
-  > * 校对者：
+  > * 校对者：[Larry](https://github.com/lampui)
 
   # 为什么我们渴求女性来设计 AI
 
@@ -31,7 +31,7 @@
 
 你可以说 AI 是迄今为止我们见过能够对人类社会产生最大范围、最深远影响的技术之一，它触及或将触及我们所关心的绝大部分领域。而 AI 产品的形成和创造它的人的道德伦理水平、价值取向（是否存在偏见）以及个人权利是密切相关的，这就意味着我们需要密切关注：产品是否能代表所有的使用者。
 
-但这并不是一个既定的事实，谷歌 AI 和 机器学习首席科学家[李飞飞](https://www.wired.com/2017/05/melinda-gates-and-fei-fei-li-want-to-liberate-ai-from-guys-with-hoodies/)早就已经认识到了这个问题。
+但这并不是一个既定的事实，谷歌 AI 和机器学习首席科学家[李飞飞](https://www.wired.com/2017/05/melinda-gates-and-fei-fei-li-want-to-liberate-ai-from-guys-with-hoodies/)早就已经认识到了这个问题。
 
 > “如果我们不让女性和有色人种参与技术工作 - 把她们当做真正的技术人员，让他们做真正的工作 - 那么我们的系统就会存在偏见。从现在开始，扭转这个现象非常困难，可能需要十年或二十年，如果不是接近不可能的话。是时候让我们听听女性和其他的声音了，这样我们才能创造合理的产品，难道不是吗？这会很棒很酷，并且逐渐普及。但重要是我们必须让她们参与进来”  —— 李飞飞
 
@@ -66,11 +66,11 @@ IBM 的 Waston IoT 业务部门总经理 Harriet Green 表示，这是他们公�
 
 > “Siri 和 Alexa 仍然是回避、感激或者是调情，而 Cortana 和 Google Home 则为了回应她们所理解的骚扰而开始讲笑话。”
 
-Leah 还提供其他几个例子，所有这些都表明，负责这些机器人的程序员在构建响应集时有已经意识到了一些问题，但是直到“强奸”被提出之前，对这些行为的回应都是错误的（如你所见，上面和在其他例子中，一些响应集是彻头彻尾的可怕... Siri 实际上想要调戏回去！）
+Leah 还提供其他几个例子，所有这些都表明，负责这些机器人的程序员在构建响应集时已经意识到了一些问题，但是直到“强奸”这个词被提出之前，对这些行为的回应都是错误的（如你所见，上面和在其他例子中，一些响应集是彻头彻尾的可怕... Siri 实际上想要调戏回去！）
 
 最后：
 
-> “尽管这些机器人背后的开发人员的确切性别比例我们不得而知，但我们绝对可以肯定绝大多数是男性；在创造这些机器人的科技公司里，女性只承担了 20％ 不到的的[技术工作](http://graphics.wsj.com/diversity-in-tech-companies/)。因此，男性的机器人开发人员在编程这些机器人的时候，很有很可能用笑话作为对性骚扰的回应。他们是喜欢机器人这样“幽默”地回应，而不是明智和直接地对性骚扰做出反抗吗？
+> “尽管这些机器人背后的开发人员的确切性别比例我们不得而知，但我们绝对可以肯定绝大多数是男性；在创造这些机器人的科技公司里，女性只承担了 20％ 不到的[技术工作](http://graphics.wsj.com/diversity-in-tech-companies/)。因此，男性的机器人开发人员在编程这些机器人的时候，很有很可能用笑话作为对性骚扰的回应。他们是喜欢机器人这样“幽默”地回应，而不是明智和直接地对性骚扰做出反抗吗？
 
 这只是一个例子，说明如果您的工程师团队思想单调（或称为**缺乏多样性**），那么在创造我们每天都要交互的技术产品的时候，他们可能会巩固（甚至加剧？）一些我们正努力去改变的低俗文化和社会习俗。
 
@@ -78,9 +78,9 @@ Leah 还提供其他几个例子，所有这些都表明，负责这些机器人
 
 有大量的研究表明：公司中女性比例的上升在各个层面 — 特别是[领导力](https://www.fastcompany.com/3033950/why-the-most-successful-organizations-have-women-and-millennials-in-charg) — 都有着积极的影响。没错，这意味着更多的[钱](https://www.inc.com/melanie-curtin/science-companies-with-women-in-top-management-are-significantly-more-profitable.html)。
 
-那么创造一些东西，比如 AI 的时候，会怎么样呢？思想的多样化可以帮助[解决问题](http://www.scientificamerican.com/article/how-diversity-makes-us-smarter/)，女性被认为是更具有[协作能力](https://medium.com/@theBoardlist/5-reasons-why-having-women-in-leadership-benefits-your-entire-company-labor-day-2016-a3e46162a7a0)。有更多的女性的团队和全是男性的团队相比，会更有[生产力、创造力和实验精神](http://www.popularmechanics.com/technology/a19908/secret-weapon-women-in-technology/)。程序媛也可以写出[很棒的代码](https://www.usnews.com/news/blogs/data-mine/2016/02/18/study-shows-women-are-better-coders-but-only-when-gender-is-hidden)。
+那么创造一些东西，比如 AI 的时候，会怎么样呢？思想的多样化可以帮助[解决问题](http://www.scientificamerican.com/article/how-diversity-makes-us-smarter/)，女性被认为是更具有[协作能力](https://medium.com/@theBoardlist/5-reasons-why-having-women-in-leadership-benefits-your-entire-company-labor-day-2016-a3e46162a7a0)。有更多女性的团队和全是男性的团队相比，会更有[生产力、创造力和实验精神](http://www.popularmechanics.com/technology/a19908/secret-weapon-women-in-technology/)。程序媛也可以写出[很棒的代码](https://www.usnews.com/news/blogs/data-mine/2016/02/18/study-shows-women-are-better-coders-but-only-when-gender-is-hidden)。
 
-如果我们想让 AI 驱动的解决实际问题的产品可持续化，那么我们需要最好的团队。我们在项目中需要有不同的意见和想法，这意味我们需要增加工程师团队里的女性数量。
+如果我们想设计能解决实际问题并且能够可持续化发展的 AI 驱动型产品，那么我们需要最好的团队。我们在项目中需要有不同的意见和想法，这意味我们需要增加工程师团队里的女性数量。
 
 所以，快去招聘女性吧，你会回来感谢我们的！
 
