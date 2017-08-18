@@ -23,8 +23,7 @@
 
 每几秒钟，就会有一个小幽灵随机出现在场景里，同时在屏幕的左下角会有一个计数器不停在增加。当你点击幽灵的时候，它会播放一个音效同时淡出而且计数器也会减小。
 
-项目的代码已经放在了 [GitHub]
-(https://github.com/eh3rrera/ARKitGameSpriteKit) 上了。
+项目的代码已经放在了 [GitHub](https://github.com/eh3rrera/ARKitGameSpriteKit) 上了。
 
 让我们首先检查一下开发和运行这个项目的需要哪些东西。
 
