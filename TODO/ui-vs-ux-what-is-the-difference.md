@@ -3,92 +3,92 @@
   > * 原文作者：[Darin Dimitroff](https://www.sitepoint.com/author/darin-dimitroff/)
   > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
   > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/ui-vs-ux-what-is-the-difference.md](https://github.com/xitu/gold-miner/blob/master/TODO/ui-vs-ux-what-is-the-difference.md)
-  > * 译者：
+  > * 译者： [Nicolas(Yifei) Li](https://github.com/yifili09)
   > * 校对者：
 
-  # UI vs UX: What is the Difference?
+  # 用户界面和用户体验，他们到底有什么区别？ 
 
-  As a full-stack/generalist product designer, I’ve watched the industry's obsession with titles for many years. Sure, we can keep being snarky about it, and continue throwing around funny tweets, but when did this help anyone?
+  作为一位全能的产品设计师，我已经观察行业内对各种头衔的痴迷很多年了。
 
-Just like “*Should designers code?*”, the “*UX vs UI*” question has turned into an inside joke.
+就好像“设计师应该编程么？”，这类“用户体验 vs 用户界面”的问题已经转变成圈内人的玩笑了。
 
 [![](https://ws3.sinaimg.cn/large/006tNc79ly1fidh1mes79j30qa0qetbr.jpg)](https://twitter.com/sdw/status/709853249407361024/photo/1)
 
 [![](https://ws2.sinaimg.cn/large/006tNc79ly1fidh23pw82j30pw104td8.jpg)](https://twitter.com/ezyjules/status/797121630287888384/photo/1)
 
-On one hand, this trend might help a more seasoned designer vent. In fact, there’s a [Tumblr entirely dedicated to it](https://shittyuiuxanalogies.tumblr.com/).
+一方面，这也帮助了富有丰富经验的设计师发泄。事实上，有一个[Tumblr 博客专门为此而生](https://shittyuiuxanalogies.tumblr.com/)。
 
-However, there is a danger that it makes the industry look frustrating and inaccessible to a beginner. And that’s a shame because the barrier to entry for a new designer has never been so low (and I mean this in a completely positive way).
+然而，这会造成一个问题，对于新手来说这个行业看上去会很难上手苦难重重。但是这又很让人感到羞愧，因为新手设计师进入行业的门槛从未如此低过。(我想说的是这是个积极的方式。)
 
-## TL;DR
+## 太长，所以别看 ：）
 
-**UI stands for User Interface.** It's what users interact with directly, everything they see, touch and hear within a piece of software or a website. It's the outermost layer of an app – the controls.
+*UI 代表了用户界面。* 它是用户可以在软件或者网页内直接操作的东西，例如那些你能看到、触摸到的和听到的。他就是一个应用程序的最外层 - 控制器。 
 
-In its current state – due to the types of devices we are using – UI design is *mostly* a visual discipline, although voice and written word are gaining more and more traction thanks to voice assistants and conversational interfaces.
+目前状况来看 - 由于我们正在使用的设备类型 - 尽管语音和手写输入得到了越来越多的关注，多亏了各种语音助手和语音交互，但是用户界面设计仍遵从可视化视觉界面设计。 
 
-**UX stands for User eXperience.** It's a holistic term encapsulating each and every different kind of touchpoint a user has with a product.
+*UX 代表了用户体验。* 它是一个全面的术语，包含了用户使用这个产品中所有的接触点。 
 
-In the context of a digital product, this includes not only the software's front-end itself, but the whole technical stack, customer service, branding, public image of the company, availability, pricing, and communication, and that's certainly not all.
+对于数字产品来说，它不仅包含了软件的前端展示，也包含了整个技术栈的实施、客户服务、品牌理念、大众对企业的认知、实用性、价格和通讯联络，当然不仅仅于此。
 
-UI is a *subset* of UX. Both terms have different meanings and, whenever possible, should not be used interchangeably. The title “UX/UI designer” makes little sense in terms of semantics. Every UI designer is a UX designer by definition, and being a UX designer without a more specific field of work is quite rare. Talking about “UX” without specifics can quickly render any conversation meaningless.
+用户体验包含了用户界面。两者有不同的意义，在任何时候都不应该混淆使用。按照专业术语来看，“UX/UI（用户体验/用户界面） 设计师” 这样的头衔是完全没有意义的。参照定义来说，每一个用户界面设计师都是用户体验设计师，并且没有专业领域的知识是很少见的。在缺乏具体领域知识的基础上讨论“用户体验”会让任何交谈变得没有意义。
 
-## So, what’s the problem with “UI/UX designer”?
+## 所以，“用户界面/用户体验设计师”到底遇到了什么问题？
 
-As I see it, there are three major issues:
+就我看来，主要有三大问题：
 
-1. It’s misleading for everyone: designers, developers, recruiters, founders, etc. More and more junior designers put it in their titles – and I can’t blame them. Everyone is doing it and being honest about your skill-set can sometimes make you feel like you’re letting yourself fall behind the title trends.
-2. It introduces a false career path where being just a “UI designer” is not enough. If digital product design was like Pokemon, "UX/UI designer" wouldn't be the cooler, 'levelled-up' version of 'UI designer".
-3. It greatly undermines and almost tokenizes the importance of “UX design”, which is actually the sum of everyone’s work.
+1. 我们每一个人都被误导了： 设计师、开发者、招聘人员、投资人等等。越来越多的初级设计师使用这个头衔 - 并且我没法责怪他们。每个人都那么做了，在这股趋势下，若你对自己的技能能力太诚实往往会让你觉得自己落伍了。
+2. 它引入了一个错误的职业道路，仅成为一个“用户界面设计师”是远远不够的。如果数字产品像“神奇宝贝手游”一样，“用户体验/用户界面 设计师”没法更酷了，高一个等级的“用户界面设计师”。
+3. 它大大地破坏了“用户体验设计师”的重要性，实际上是所有人的工作总和。
 
-## UI is a *part* of UX
+## 用户界面是用户体验的*一部分*
 
-In a nutshell, a user interface is the layer where human-computer interaction happens. Although an important one, it’s just one layer of the whole user experience stack, which encapsulates multiple disciplines.
+简单来说，人机交互发生在用户界面上。虽然这是最重要的一部分，但是它也只是整个用户体验栈上的一层，它包括了很多设计原则。
 
-Let's use a real-world example: watching TV.
+让我们看一下实际生活中的例子： 观看电视节目。
 
-The UX of watching TV includes the content quality, specifications of the TV set, location, furniture, your current state of mind and a lot more. On the other hand, the *UI of watching TV* is just a small part of that: the design and build quality of the remote and the on-screen menus.
+有关观看看视节目的用户体验包括节目内容的质量、电视机的规格说明书、放置位置、配套家具、你目前精神状态和其他等等。另一方面而言，*观看电视的用户界面*就只有一小部分了：遥控器和在电视屏幕上的菜单的质量和设计。
 
-## About *those* images
+## 有关*这些*图片
 
 ![UI vs UX analogies](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2017/08/1501634649path-e1501833312222.jpg)
-UI vs UX analogies. Credit: [http://digitalfractal.com/](http://digitalfractal.com/)
+用户界面 vs 用户体验 . Credit: [http://digitalfractal.com/](http://digitalfractal.com/)
 
-Yes, *those* images. I don’t want to sound like an old man yelling at clouds, but most of the side-by-side pictures comparing UI and UX are just missing the point. Designer Sebastian de With expressed the same sentiment about a year ago with [this tweet](https://twitter.com/sdw/status/709853249407361024).
+是的，*这些*图片。我不想让你们觉得我是那个辛普森动画中朝着天空吼叫的老人，但是大部分用于比价用户界面和用户体验的图片都没有戳中要点。一位名叫 Sebastian 的设计师在他一年前的[推文](https://twitter.com/sdw/status/709853249407361024)中也表达出了相同的观点。
 
-Many of the recurring images (like the one with the two ketchup bottles and the one with the shortcut through a grass lane) not only lack meaning but are often counter-productive. They pit UI and UX against each other, implying that UI designers’ work is useless because people already use the product in another way.
+许多这些重复的图片（就好像这一个有两瓶番茄酱瓶子的图，还有一个展示了在草坪上的一条捷径）不仅仅缺少意义，还有可能产生相反的效果。这些让用户界面和用户体验陷入对立面，也暗示了用户界面设计师的工作是无用的因为用户已经采用其他方式使用这个产品。
 
-Let’s take the ketchup bottle example and fix it. We’ll only need one bottle because comparing two different designs and labeling that “UI vs UX” just doesn’t make sense:
+我们可以看下以下有关番茄酱的瓶子的这个例子并且修正它。我们将只需要使用一个瓶子，因为把两种不同的设计标记成“用户界面 Vs 用户体验”一点都没有意义：
 
 ![UI vs UX analogies. Ketchup example](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2017/08/15016346441-cYDgrGRLkIioJxkHUjrqaA.jpeg)
 
-- the **UI layer** is the bottle, including the cap and the label. This means ANY bottle – not just the upright version[1](#fn1).
-- the **UX layer** is a combination of the company’s branding and marketing efforts, the nutritional and sensory qualities of the ketchup itself, the act of discovering and buying it in a store or online, the company’s interactions with customers on social media and literally every other touch point between the company and its existing and potential customers.
+- *用户界面层*是瓶子本身，包含了瓶盖和标签。这意味着任何瓶子 - 而非仅是那个向上摆放的瓶子[1](#fn1)
+- *用户体验层*是一系列要素的组合，比如企业品牌和市场营销能力、番茄酱本身的营养和质量、具体在线上或者先下发现和购买的举动、在社交媒体网络上企业与客户的互动和每一个企业和他现有以及潜在客户之间的接触点。
 
-## Where did the term UX come from?
+## 用户体验到底从哪里来？
 
-UI is a much older term than UX. It’s been used since the earliest days of computing, as it’s a generic science term. UX, on the other hand, got popular much later.
+用户界面远早于用户体验。它被用于早期计算机时期，因为他是一种广泛使用的科学术语。用户体验，另一方面而言，过了很久后才流行。
 
-The term UX was popularized in the mid-'90s by Don Norman, one of the co-founders of the Nielsen Norman Group and author of best-selling book “The Design of Everyday Things”. From the very beginning, the meaning has been quite clear, Don Norman even has a [whole video](https://www.youtube.com/watch?v=9BdtGjoIN4E) addressing the modern specifics of the problem.
+在 90 年代中期，Don Norman 才让大众熟知了用户界面这个术语，他是 Nielsen Norman 集团的合伙人之一，他也是畅销书籍 ”The Design of Everday Things“ 的作者。刚开始的时候，它有一个非常清晰的意义，Don Norman 甚至还制作了[一个完整的视频](https://www.youtube.com/watch?v=9BdtGjoIN4E)来定义这个问题。
 
-## UI is not just GUI: designing an API
+## 用户界面不仅仅是 GUI: 设计一个 API
 
-When we think about interfaces, we're normally referring to Graphical User Interfaces or GUIs. Almost all of the devices and systems we're using today are interacted with within a visual set of paradigms: windows, icons, buttons, navigation bars, sliders, inputs, etc.
+当我们考虑界面的时候，我们一般会提到用户图形界面或者 GUIs。几乎当今我们使用的所有设备和系统都通过一些列可视化界面模型操作：操作窗口、图标、按钮、导航条、页面滑块、输入窗等等。
 
-UI and GUI (graphical user interface) have become almost synonymous and for a good reason: most users don’t have to interact with a code-based tool in their day to day. Still, UI is not just GUI.
+用户界面和用户图形化界面接口已经几乎同义了，并且有一个好的原因：在日常工作中，大部分的用户需要直接使用基于指令/代码的工具。尽管如此，用户界面并不仅是用户图形界面。
 
-In my day-to-day work, I’m focused on front-end design systems, so designing the developer-facing interface layer of a design system is part of my job. In that sense, a component’s API surface is its interface layer for people who work in code. Designing and documenting an API’s surface area is among the hardest tasks I’ve tackled over the years.
+在我的日常工作中，我关注于前端设计系统，所以设计面向开发人员层面的设计系统是我工作的一部分。既然这样，为了使用代码的开发人员来说，一个有 API 的组件就是这个层的接口。为一个 API 设计和撰写文档是我近几年最难解决的任务。
 
-Even if you don’t code, I can’t recommend spending some time on this sort of task, even as a personal challenge. Modern frameworks like React are doing a really great job suggesting and even enforcing the practice of designers and developers working together in a more meaningful way than sharing a Sketch file and calling it a day.
+即使你不编程，我也不建议你把时间花费在这类任务上，甚至把它作为一个个人历练。现代化的框架，例如 React，正在付诸一个伟大的工作，它建议甚至强迫参与其中的设计师和开发人员以一种更加有意义的方式协同工作，而非一味描述一个文件并且浪费一天的时间。
 
-## Saying no to false dichotomies
+## 拒绝伪二分法
 
-While being specific about titles and semantics in the design industry is generally a positive thing, taking the “UI vs UX” discussion too far may well be having adverse effects. It’s a heated topic, but I completely agree with Jared Spool: *Everyone is a designer*.
+当然在设计界，对某些头衔和语义上变得更加专业绝对是正向的事情，但是过分讨论 ”用户界面 Vs 用户体验“这样的话题将会产生反作用。他已经是一个过热的话题了，但是我又完全同意 Jared Spool 说的：“人人都是设计师。”
 
-I can’t count the times I’ve been gifted fantastic UI ideas from developers or taken valuable user flow improvements from visual designers. Being aware of your title within an organization is important – but only to the point where it’s not stopping you from contributing in areas outside of it.
+曾经那些来自于开发人员的伟大用户界面的想法或者那些视觉设计师对用户界面流程的提升让我无以数计。认清你在公司组织中的职责是很关键的 - 但是绝不要停止你对其他外界事物的贡献。
 
 ---
 
-1. Heinz continues to sell the upright glass bottles because of nostalgia and some people not trusting plastic packaging. [↩](#fnref1)
+1. 亨氏番茄酱任然出售瓶口向上的玻璃瓶，因为还有情怀的老客户和不相信塑料包装的用户。[↩](#fnref1)
 
 
   ---
