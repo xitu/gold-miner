@@ -3,46 +3,46 @@
   > * 原文作者：[David Gilbertson](https://hackernoon.com/@david.gilbertson)
   > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
   > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/web-fonts-when-you-need-them-when-you-dont.md](https://github.com/xitu/gold-miner/blob/master/TODO/web-fonts-when-you-need-them-when-you-dont.md)
-  > * 译者：
+  > * 译者：[undead25](https://github.com/undead25)
   > * 校对者：
 
-  # Web fonts: when you need them, when you don’t
+  # 网络字体：什么时候需要，什么时候不需要
 
   ![](https://cdn-images-1.medium.com/max/2000/1*Y4_EhogCnZQyALLuvQLDKQ.jpeg)
 
-Photo by [Marcus dePaula](https://unsplash.com/photos/tk7OAxsXNL0?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText) on [Unsplash](https://unsplash.com/?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText)
+图片来源于 [Unsplash](https://unsplash.com/?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText) 上的 [Marcus dePaula](https://unsplash.com/photos/tk7OAxsXNL0?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText)
 
-I’m not a fan of sweeping statements like you “should” or “shouldn’t” use web fonts, but I think there should be *some *sort of guidelines to help people decide whether or not to use them.
+我并不热衷笼统的陈述你“应该”或“不应该”使用网络字体，但我认为应该有**一些**指导方针来帮助我们决定是否使用它们。
 
-I’m going to type lots of words soon, but the gist of it is this: if you’re making a site, and you’re just about to go searching for that perfect web font, please, at least *consider* using system fonts instead.
+接下来的篇幅会很长，但是它的主旨是：如果你正在制作一个网站，而你即将去寻找完美的网络字体，请至少**考虑**使用系统字体。
 
-Perhaps that consideration may take the following form:
+也许这个考虑会采取以下形式：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*MpuDht99XGlRIFlhjFb2yQ.png)
 
-I suspect that for some, the decision process is more like this:
+我怀疑对于某些人来说，决策过程更像是这样：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*UuhYbCYMjgFk18srTw6rIQ.png)
 
-If you’ve always used web fonts, you’d be forgiven for thinking “system fonts” are ugly. Just the word “system” is ugly, so that’s a reasonable thing to think.
+如果你一直在使用网络字体，那么认为“系统字体”很丑也不足为怪，因为“系统”这个词本身就会让人觉得很丑，所以你才会这么想。
 
-To get everyone on the same page — or at least looking at the same book — I’d like to show one example of a site that uses system fonts. It might not be the prettiest thing in the world, but hopefully levels any negative preconceptions.
+为了让大家觉得是在看同一个页面，至少是在看同一本书，我想给大家展示一个使用系统字体的网页。这可能不是最好的方式，但我希望能以此改变那些负面的观念。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*fp9yphAAvXxSD3WbYKXhMA.png)
 
-Not ugly.
+并不丑啊。
 
 ---
 
-You might like to open your own site and try the following font-family, see how it feels:
+您可能希望打开你自己的网站并尝试以下字体系列，看看感觉如何：
 
     -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 
 ---
 
-Or you could take an extended test drive and use something like the [Stylebot Chrome extension](https://chrome.google.com/webstore/detail/stylebot/oiaejidbmkiecgbjeifoejpgmdaleoha) to set a font-family for a particular CSS selector/site. That way the changes stick as you navigate around you site.
+或者你可以使用扩展测试驱动器，并使用类似于 [Stylebot](https://chrome.google.com/webstore/detail/stylebot/oiaejidbmkiecgbjeifoejpgmdaleoha) 的 Chrome 扩展程序来设置特定 CSS 选择器或站点的字体系列。这样，当你访问你的站点时，更改会保持一致。
 
-With that surprisingly short intro out of the way, let’s spend a little time with each of the questions in that flow chart.
+有了这个令人惊讶的简短介绍，下面让我们在那个流程图中的每个问题上花点时间。
 
 ### Is the font crucial to your brand?
 
