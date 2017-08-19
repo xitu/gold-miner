@@ -16,7 +16,7 @@
 
 接下来的篇幅会很长，但是它的主旨是：如果你正在制作一个网站，而你即将去寻找完美的网络字体，请至少**考虑**使用系统字体。
 
-也许这个考虑会采取以下形式：
+也许你会这样考虑：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*MpuDht99XGlRIFlhjFb2yQ.png)
 
@@ -34,7 +34,7 @@
 
 ---
 
-您可能希望打开你自己的网站并尝试以下字体系列，看看感觉如何：
+你可能希望打开你自己的网站并尝试以下字体系列，看看感觉如何：
 
     -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 
@@ -44,17 +44,17 @@
 
 有了这个令人惊讶的简短介绍，下面让我们在那个流程图中的每个问题上花点时间。
 
-### Is the font crucial to your brand?
+### 字体对你的品牌至关重要吗？
 
-This is the easiest one to get out of the way. If the answer is yes, stop reading — there’s nothing to see here. Maybe skip straight to the comments to tell me I’m naive, I really don’t mind.
+这是最简单的方法。如果答案是肯定的，请停止阅读 —— 下面没有什么可看的了。我真的不介意你直接跳到评论，告诉我我太天真了。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*olLYhG5bwvR-YvWwIomuDg.png)
 
-Just look at that font, people. Rowl.
+只看这种字体，人就算了。
 
-Obviously, I’m not going to suggest *The New Yorker* kicks Irvin to the kerb, or that Apple.com ditches San Francisco. Even for sites like Nike I wouldn’t suggest they don’t do it (“One Nike Currency” is thoroughly uninspiring), because it’s *their* font.
+显然，我不会建议 **《纽约客》** 不使用 Irvin 字体，或者 Apple.com 不使用 San Francisco 字体。即使像耐克这样的网站，我也不会建议他们不要这样做（“One Nike Currency” 字体是完全没有意义的），因为那是**他们**的字体。
 
-**Conclusion**: if your font is part of your brand, use that font, obviously. Otherwise, onward!
+**结论**：如果你的字体是你品牌的一部分，那么显然要使用该字体。否则，请看下面的内容！
 
 ### Does the font make your site easier to read?
 
