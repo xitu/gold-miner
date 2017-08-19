@@ -22,9 +22,9 @@
 
 ### UIScrollView
 
-`[UIScrollView](https://developer.apple.com/documentation/uikit/uiscrollview)` 是 iOS SDK 中的一个支持滚动和缩放的视图。 它是 `[UITableView](https://developer.apple.com/documentation/uikit/uitableview)` 和 `[UICollectionView](http://uicollectionview)`的基类，因此你可以在任何`UIScrollView`支持的上使用它。因此，只要支持`UIScrollView`，就可以使用它。
+[UIScrollView](https://developer.apple.com/documentation/uikit/uiscrollview)是 iOS SDK 中的一个支持滚动和缩放的视图。 它是 [UITableView](https://developer.apple.com/documentation/uikit/uitableview) 和 [UICollectionView](http://uicollectionview)的基类，因此，只要支持`UIScrollView`，就可以使用它。
 
-`UIScrollView` 使用 `[UIPanGestureRecognizer](https://developer.apple.com/documentation/uikit/uipangesturerecognizer)` 在内部检测滚动手势。 `UIScrollView` 的滚动状态被定义为 `contentOffset: CGPoint` 属性。 Scrollable area is union of `contentInsets` and `contentSize`. So the starting `contentOffset` is `*CGPoint(x: -contentInsets.left, y: -contentInsets.right)*` and ending is `*CGPoint(x: contentSize.width — frame.width+contentInsets.right, y: contentSize.height — frame.height+contentInsets.bottom)*`*.*
+`UIScrollView` 使用 [UIPanGestureRecognizer](https://developer.apple.com/documentation/uikit/uipangesturerecognizer) 在内部检测滚动手势。 `UIScrollView` 的滚动状态被定义为 `contentOffset: CGPoint` 属性。 Scrollable area is union of `contentInsets` and `contentSize`. So the starting `contentOffset` is `*CGPoint(x: -contentInsets.left, y: -contentInsets.right)*` and ending is `*CGPoint(x: contentSize.width — frame.width+contentInsets.right, y: contentSize.height — frame.height+contentInsets.bottom)*`*.*
 
 `UIScrollView` 有一个 `bounces: Bool` 属性。 In case `bounces` is on `contentOffset` can change to value above/below limits. 我们需要记住这一点。
 
