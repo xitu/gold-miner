@@ -22,18 +22,17 @@
 
 ### UIScrollView
 
-[UIScrollView](https://developer.apple.com/documentation/uikit/uiscrollview)是 iOS SDK 中的一个支持滚动和缩放的视图。 它是 [UITableView](https://developer.apple.com/documentation/uikit/uitableview) 和 [UICollectionView](http://uicollectionview)的基类，因此，只要支持`UIScrollView`，就可以使用它。
+[UIScrollView](https://developer.apple.com/documentation/uikit/uiscrollview) 是 iOS SDK 中的一个支持滚动和缩放的视图。 它是 [UITableView](https://developer.apple.com/documentation/uikit/uitableview) 和 [UICollectionView](http://uicollectionview)的基类，因此，只要支持`UIScrollView`，就可以使用它。
 
-`UIScrollView` 使用 [UIPanGestureRecognizer](https://developer.apple.com/documentation/uikit/uipangesturerecognizer) 在内部检测滚动手势。 `UIScrollView` 的滚动状态被定义为 `contentOffset: CGPoint` 属性。 Scrollable area is union of `contentInsets` and `contentSize`. So the starting `contentOffset` is `*CGPoint(x: -contentInsets.left, y: -contentInsets.right)*` and ending is `*CGPoint(x: contentSize.width — frame.width+contentInsets.right, y: contentSize.height — frame.height+contentInsets.bottom)*`*.*
+`UIScrollView` 使用 [UIPanGestureRecognizer](https://developer.apple.com/documentation/uikit/uipangesturerecognizer) 在内部检测滚动手势。 `UIScrollView` 的滚动状态被定义为 `contentOffset: CGPoint` 属性。 可滚动区域由 `contentInsets` 和 `contentSize`联合决定。 因此，起始的 `contentOffset` 为 `*CGPoint(x: -contentInsets.left, y: -contentInsets.right)*` ，结束值为 `*CGPoint(x: contentSize.width — frame.width+contentInsets.right, y: contentSize.height — frame.height+contentInsets.bottom)*`*.*
 
-`UIScrollView` 有一个 `bounces: Bool` 属性。 In case `bounces` is on `contentOffset` can change to value above/below limits. 我们需要记住这一点。
+`UIScrollView` 有一个 `bounces: Bool` 属性。 `bounces` 能够避免设置`contentOffset` 高于/低于限定值。 我们需要记住这一点。
 
 [![](https://i.ytimg.com/vi_webp/fgwVqCGgHZA/maxresdefault.webp)](https://youtu.be/fgwVqCGgHZA)
 
 UIScrollView contentOffset 演示
 
-We are interested in `contentOffset: CGPoint` property for changing our menu state. The main way of observing scroll view `contentOffset` is setting an object to delegate property and implementing `scrollViewDidScroll(UIScrollView)` method. There is no way to use delegate without affecting other client code in Swift (because `NSProxy` is not available) so I have decided to use Key-Value Observing.
-我们感兴趣的是用于改变我们菜单状态的属性`contentOffset: CGPoint`。监听滚动视图`contentOffset`的主要方式是为对象设置一个代理属性，并实现`scrollViewDidScroll(UIScrollView)` 方法。（因为`NSProxy` 不可用），因此我打算使用键值监听（KVO）。
+我们感兴趣的是用于改变我们菜单状态的属性`contentOffset: CGPoint`。监听滚动视图`contentOffset`的主要方式是为对象设置一个代理属性，并实现`scrollViewDidScroll(UIScrollView)` 方法。 在 Swift 中，没有办法使用委托而不影响中的其他客户端代码（因为`NSProxy` 不可用），因此我打算使用键值监听（KVO）。
 
 ### Observable
 
