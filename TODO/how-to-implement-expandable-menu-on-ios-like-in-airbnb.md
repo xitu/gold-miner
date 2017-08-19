@@ -3,7 +3,7 @@
 > * 原文作者：[Evgeny Matviyenko](https://blog.uptech.team/@evgeny.matviyenko)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/how-to-implement-expandable-menu-on-ios-like-in-airbnb.md](https://github.com/xitu/gold-miner/blob/master/TODO/how-to-implement-expandable-menu-on-ios-like-in-airbnb.md)
-> * 译者：[]()
+> * 译者：[RichardLeeH](https://github.com/RichardLeeH)
 > * 校对者：
 
 # 如何在 iOS 上实现类似 Airbnb 中的可展开式菜单  
