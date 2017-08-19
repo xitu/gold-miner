@@ -4,7 +4,7 @@
   > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
   > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/how-to-do-proper-tree-shaking-in-webpack-2.md](https://github.com/xitu/gold-miner/blob/master/TODO/how-to-do-proper-tree-shaking-in-webpack-2.md)
   > * 译者：[薛定谔的猫](https://github.com/Aladdin-ADD/)
-  > * 校对者：
+  > * 校对者：[lsvih](https://github.com/lsvih)、[lampui](https://github.com/lampui)
 
   # 如何在 Webpack 2 中使用 tree-shaking
 
