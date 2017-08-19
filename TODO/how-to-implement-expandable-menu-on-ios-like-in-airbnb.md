@@ -14,7 +14,7 @@
 
 ![](https://cdn-images-1.medium.com/max/1600/1*c4e83KM3BMh8p04jXY3m1A.gif)
 
-此库支持 3 个状态。主要目的是在滚动时获得流畅的转换。 `[UIScrollView](https://developer.apple.com/documentation/uikit/uiscrollview)`。
+此库支持 3 个状态。主要目的是在滚动 [UIScrollView](https://developer.apple.com/documentation/uikit/uiscrollview) 时获得流畅的转换。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*yghDAza2CgWGTfXYIRJ9kQ.png)
 
