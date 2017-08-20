@@ -52,38 +52,38 @@
 
 只看这种字体，人就算了。
 
-显然，我不会建议 **《纽约客》** 不使用 Irvin 字体，或者 Apple.com 不使用 San Francisco 字体。即使像耐克这样的网站，我也不会建议他们不要这样做（“One Nike Currency” 字体是完全没有意义的），因为那是**他们**的字体。
+显然，我不会建议 **《纽约客》** 不使用 Irvin 字体，或者 Apple.com 不使用 San Francisco 字体。即使像耐克这样的网站，我也不会建议他们不要这样做（“One Nike Currency” 字体是十分平常的），因为那是**他们**的字体。
 
 **结论**：如果你的字体是你品牌的一部分，那么显然要使用该字体。否则，请看下面的内容！
 
-### Does the font make your site easier to read?
+### 字体是否使你的网站更容易阅读？
 
-Take a look at the text in this picture. The content isn’t relevant, just the font.
+看看这张图片中的文字，只看字体，内容是不相关的。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*wSyM5c15HIlxioEOpl2cPw.png)
 
-I guess if you’re a coal miner it’s relevant, just not to my article
-Allow yourself to form an opinion, I’ll come back to it later.
+我想如果你是一个煤矿工人，那这是相关的，只是这篇文章和它不相关。
+让自己形成一个意见，稍后再回来。
 
 ---
 
-If the average number of words read in succession on your site is four, eye strain is not such a big deal. Perhaps this is why Facebook, Twitter, Gmail, and eBay all use system fonts (in most places).
+如果在你的网站上，连续阅读的平均字数是 4 个，那么眼疲劳不是那么的大。也许这就是为什么 Facebook、Twitter、Gmail 和 eBay 都使用系统字体（在大多数地方）。
 
-But if a user is coming to your site to read for 10 minutes, you want your text to be easy on the eye.
+但是，如果用户到你的网站上阅读 10 分钟，你希望你的文本能够很容易地吸引注意力。
 
-(A note on serifs: so far I’ve been used the term ‘system fonts’ to refer to setting the font-family as `-apple-system, BlinkMacSystemFont`, etc., which are sans-serif fonts. The same idea applies to serif fonts as well. *The New York Times*, *The Boston Globe*, *The Australian*, all define the font-family for body text as something like `georgia, "times new roman", times, serif`.)
+（关于衬线的注意事项：到目前为止，我所使用的术语“系统字体”指的是将 font-family 设置为 `-apple-system, BlinkMacSystemFont` 等，它们是无衬线字体。同样的想法也适用于衬线字体。**The New York Times**, **The Boston Globe**, **The Australian** 这些网站都给 body 定义了像 `georgia, "times new roman", times, serif` 的字体。）
 
-Medium.com is a great example, and I’m pretty sure you’re familiar with it. They have clearly put a lot of thought into their typography. From those lovely em dashes to the different width spaces you didn’t even notice, Medium would not be the same with a system font.
+Medium.com 是一个很好的例子，我确定你很熟悉它。显然他们在排版上花了很多心思。从那些可爱的短划线到你甚至都没有注意到的不同宽度的空格，Medium 的字体与系统字体是不一样的。
 
-But that shouldn’t leave you thinking that a site is *only* easy to read if it has a web font.
+但这不应该让你认为一个网站有使用网络字体*才*容易阅读。
 
-If you’re a developer you’ve probably spent quite a bit of time staring at words on GitHub. Did you know that not a single font file was loaded over the network in the making of those words? Amazing.
+如果你是开发人员，可能已经花了很多时间盯着 GitHub 上的文字。你知道这些文字是没有加载任何一个网络字体实现的吗？太不可思议了。
 
-I think if tomorrow, GitHub switched from system fonts to ‘Source Sans Pro’, no one would even notice. Likewise, I’d bet that if NPM ditched the Source Sans Pro and went to system fonts, no one would notice either.
+我想如果明天 GitHub 从系统字体转换为 `Source Sans Pro`，没有人会注意到。同样，我敢打赌，如果 NPM 放弃了 `Source Sans Pro` 并使用系统字体，也没有人会注意到。
 
-And that’s the crux of it, would your users (not you) notice a difference in readability between a web font and system fonts?
+这就是它的关键，你的用户（不是你）会注意到网络字体和系统字体在可读性上的差异吗？
 
-Don’t answer that yet, because…
+先不要回答，因为……
 
 #### The curious case of Wikipedia
 
