@@ -13,9 +13,9 @@
 
 ### 圣彼得堡岸边的那个岛屿叫什么? _ _ _ _ _ _
 
-2017年谷歌在开发者大会上官方宣布 [支持 Kotlin 编程语言](https://blog.jetbrains.com/kotlin/2017/05/kotlin-on-android-now-official/)。从那时起，我便开始移植 Java 代码，**同时在过程中学习Kotlin。**
+2017年谷歌在开发者大会上官方宣布 [支持 Kotlin 编程语言](https://blog.jetbrains.com/kotlin/2017/05/kotlin-on-android-now-official/)。从那时起，我便开始移植 Java 代码，**同时在过程中学习 Kotlin。**
 
-> 从技术角度上来讲，这次的移植并不是必须的，程序本身是十分稳定的，而（这次移植）主要是为了满足我的好奇心。Topeka成为了我学习一门新语言的媒介。
+> 从技术角度上来讲，这次的移植并不是必须的，程序本身是十分稳定的，而（这次移植）主要是为了满足我的好奇心。Topeka 成为了我学习一门新语言的媒介。
 
 **如果你好奇的话可以直接来看 [GitHub 上的源代码](https://github.com/googlesamples/android-topeka/tree/kotlin)。
 目前 Kotlin 代码在一个独立的分支上，但我们计划在未来某个时刻将其合并到主代码中。**
@@ -63,7 +63,7 @@ Kotlin 编译为 Java 字节码后两种语言可以互相通用。而且同一�
 
 ### 多做测试才能更加安心
 
-搭配使用单元和整合测试的好处很多。在绝大多数情况下，这些测试是用来确保当前修改没有损坏现有的功能。
+搭配使用单元和集成测试的好处很多。在绝大多数情况下，这些测试是用来确保当前修改没有损坏现有的功能。
 
 我选择在一开始使用一个不是很复杂的数据类。在整个项目中我一直在用这些类，它们的复杂性相比来说很低。这样来看在学习新语言的过程中这些类就成为了最理想的出发点。
 
@@ -231,23 +231,22 @@ data class Player( val firstName: String?, val lastInitial: String?, val avatar:
 
 有时我们会在 Topeka 里通过
 `Parcel` 传递 boolean。Android 框架的 API 无法直接支持这项功能。在一开始实现这项功能的时候必须调用一个功能类函数例如`ParcelableHelper.writeBoolean(parcel, value)`。
-如果使用 Kotlin, [ 扩展函数](https://kotlinlang.org/docs/reference/extensions.html)可以解决之前的难题：
+如果使用 Kotlin，[扩展函数](https://kotlinlang.org/docs/reference/extensions.html)可以解决之前的难题：
 
 ```
 import android.os.Parcel
 
 /**
- * Writes a single boolean to a [Parcel].
- * @param toWrite Value to write.
+ * 将一个 boolean 值写入[Parcel]。
+ * @param toWrite 是即将写入的值。
  */
 fun Parcel.writeBoolean(toWrite: Boolean) = writeByte(if (toWrite) 1 else 0)
 
 /**
- * Retrieves a single boolean from a [Parcel].
+ * 从[Parcel]中得到 boolean 值。
  */
 fun Parcel.readBoolean() = 1 == this.readByte()
 ```
-
 当写好以上代码之后，我们可以把
  `parcel.writeBoolean(value)` 和 `parcel.readBoolean()` 当成框架的一部分直接调用。要不是因为 Android Studio 使用不同的高亮方式区分扩展函数，很难看出它们之间的区别。
 
@@ -264,7 +263,7 @@ getSupportFragmentManager().beginTransaction()
 
 这几行代码其实写的还不错。但每次当 Fragment 被替换的时候你都要把这几行代码再写一遍，或者在其他的 Utils 类中创建一个函数。
 
-如果使用 Kotlin，当我们在 `FragmentActivity` 中需要替换 Fragment 的时候，只需要使用如下代码调用`replaceFragment(R.id.container, MyFragment())` 即可:
+如果使用 Kotlin，当我们在 `FragmentActivity` 中需要替换 Fragment 的时候，只需要使用如下代码调用 `replaceFragment(R.id.container, MyFragment())` 即可:
 
 ```
 fun FragmentActivity.replaceFragment(@IdRes id: Int, fragment: Fragment) {
