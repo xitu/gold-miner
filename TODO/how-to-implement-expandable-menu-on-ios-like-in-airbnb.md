@@ -104,8 +104,6 @@ internal class GestureStateObservable: Observable<UIGestureRecognizerState> {
 
 ### Scrollable
 
-To make library testable I have implemented `Scrollable` protocol. I also needed a way to make `UIScrollView` provide `Observable` for `contentOffset`, `contentSize` and `panGestureRecognizer.state`. Protocol conformance is a good way to do this. Apart from observables it contains all properties that library needs to use. It also contains `updateContentOffset(CGPoint, animated: Bool)` method to set `contentOffset` with animation.
-
 为了便于库的测试，我实现了 `Scrollable` 协议。我也需要采用一种方式让`UIScrollView`监听`contentOffset`, `contentSize` 和 `panGestureRecognizer.state`。协议一致性是一个很好的方法。除了可以监听库中使用的所有的属性。还包括用于设置带有动画效果的 `contentOffset`的`updateContentOffset(CGPoint, animated: Bool)`方法。
 
 ```
