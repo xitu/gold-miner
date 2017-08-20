@@ -79,7 +79,7 @@ internal class KVObservable<Value>: Observable<Value> {
 }
 ```
 
-- `GestureStateObservable` — 封装了 target-action 用户监控 UIGestureRecognizer 状态。
+- `GestureStateObservable` — 封装了 target-action 用于监听 UIGestureRecognizer 状态。
 
 ```
 internal class GestureStateObservable: Observable<UIGestureRecognizerState> {
@@ -106,9 +106,7 @@ internal class GestureStateObservable: Observable<UIGestureRecognizerState> {
 
 To make library testable I have implemented `Scrollable` protocol. I also needed a way to make `UIScrollView` provide `Observable` for `contentOffset`, `contentSize` and `panGestureRecognizer.state`. Protocol conformance is a good way to do this. Apart from observables it contains all properties that library needs to use. It also contains `updateContentOffset(CGPoint, animated: Bool)` method to set `contentOffset` with animation.
 
-为了便于库的测试，我实现了 `Scrollable` 协议。我也需要一种方式来监听`UIScrollView`的`contentOffset`, `contentSize` 和 `panGestureRecognizer.state`。
-
-协议一致性是完成这中工作的不错方式。除了监听其还包括所有的属性库需要使用的。也包括 `updateContentOffset(CGPoint, animated: Bool)`方法用于设置 `contentOffset` 。
+为了便于库的测试，我实现了 `Scrollable` 协议。我也需要采用一种方式让`UIScrollView`监听`contentOffset`, `contentSize` 和 `panGestureRecognizer.state`。协议一致性是一个很好的方法。除了可以监听库中使用的所有的属性。还包括用于设置带有动画效果的 `contentOffset`的`updateContentOffset(CGPoint, animated: Bool)`方法。
 
 ```
 internal protocol Scrollable: class {
@@ -157,13 +155,11 @@ extension UIScrollView: Scrollable {
 }
 ```
 
-I have not used a native `setContentOffset(...)` method of `UIScrollView` for updating `contentOffset` cause `UIKit` animations API is more flexible IMO. The problem here is that setting `contentOffset` directly to property doesn’t stop `UIScrollView` deceleration, so `updateContentOffset(…)` method stops it via setting current `contentOffset` without animation.
-
-我没有使用系统库提供的`UIScrollView`方法`setContentOffset(...)` ，在我看来，因为`UIKit`动画 API 更加灵活。这里的问题是直接设置`contentOffset` 属性不能使`UIScrollView` 减速停下来，因此通过`updateContentOffset(…)` 方法设置当前的`contentOffset` 达到同样效果。
+我没有使用系统库提供的`UIScrollView`实现的方法`setContentOffset(...)` ，在我看来，因为`UIKit`动画 API 更加灵活。这里的问题是直接设置`contentOffset` 属性并不能使`UIScrollView` 减速停下来，因此通过`updateContentOffset(…)` 方法设置当前的`contentOffset`。
 
 ### State
 
-我想要一个可预测的菜单状态。这就是为什么我在 `State` 结构体中封装了所有可变状态，包括`offset`、`isExpandedStateAvailable` 和 `configuration` 属性。
+我想要获取可预测的菜单状态。这就是为什么我在 `State` 结构体中封装了所有可变状态，包括`offset`、`isExpandedStateAvailable` 和 `configuration` 属性。
 
 ```
 public struct State {
@@ -181,7 +177,7 @@ public struct State {
 
 `offset`仅仅是菜单高度的相反数。我打算使用`offset`来代替`height`，因为向下滚动时高度降低，当向上滚动时高度增加。`offset`可以使用`*offset = previousOffset + (contentOffset.y — previousContentOffset.y)*`来计算。
 
-- `isExpandedStateAvailable` property determines should offset go below `-normalStateHeight` to `-expandedStateHeight` or not;
+- `isExpandedStateAvailable` 属性用于判断 offset 应该赋值为 `-normalStateHeight` 或 `-expandedStateHeight`;
 - `configuration` 是一个包含菜单高度常量的结构体。
 
 ```
@@ -255,9 +251,7 @@ internal struct StateReducerParameters {
 internal typealias StateReducer = (StateReducerParameters) -> State
 ```
 
-Default state reducer calculates difference between `contentOffset.y` and `previousContentOffset.y` and applies provided transformers one-by-one. After that it returns new state with `offset = previousState.offset + deltaY`.
-
-默认的 state reducer 用于计算`contentOffset.y`和`previousContentOffset.y`的差值。然后返回返回新状态：`offset = previousState.offset + deltaY`。
+默认的 state reducer 用于计算`contentOffset.y`和`previousContentOffset.y`的差值, 并对每个变换器进行计算。然后返回返回新状态：`offset = previousState.offset + deltaY`。
 
 ```
 internal struct ContentOffsetDeltaYTransformerParameters {
@@ -337,7 +331,6 @@ internal let ignoreBottomDeltaYTransformer: ContentOffsetDeltaYTransformer = { p
 }
 ```
 
-- `cutOutStateRangeDeltaYTransformer` — cuts out extra delta Y, that goes out of minimum/maximum limits of BarController supported states.
 - `cutOutStateRangeDeltaYTransformer` — 删除多余的 delta Y，BarController支持的状态，超过最小值/最大值限制。
 
 ```
@@ -345,12 +338,12 @@ internal let cutOutStateRangeDeltaYTransformer: ContentOffsetDeltaYTransformer =
   var deltaY = params.contentOffsetDeltaY
 
   if deltaY > 0 {
-    // 向下滚动时变换。
+    // Transform when scrolling down.
     // Cut out extra deltaY that will go out of compact state offset after apply.
     deltaY = min(-params.configuration.compactStateHeight, (params.state.offset + deltaY)) - params.state.offset
   } else {
-    // 向上滚动时变换。
-    // 展开或者正常状态的高度。
+    // Transform when scrolling up.
+    // Expanded or normal state height.
     let maxStateHeight = params.state.isExpandedStateAvailable ? params.configuration.expandedStateHeight : params.configuration.normalStateHeight
     // Cut out extra deltaY that will go out of maximum state offset after apply.
     deltaY = max(-maxStateHeight, (params.state.offset + deltaY)) - params.state.offset
@@ -360,13 +353,13 @@ internal let cutOutStateRangeDeltaYTransformer: ContentOffsetDeltaYTransformer =
 }
 ```
 
-`BarController` 调用 `stateReducer` 并且设置结果 `state` 每次 `contentOffset` 变化。
+每次 `contentOffset` 变化时，`BarController` 调用 `stateReducer` 并将结果赋值给 `state`。
 
 ```
  private func setupObserving() {
     guard let observables = observables else { return }
 
-    // 观察的内容偏移。
+    // Content offset observing.
     var previousContentOffset: CGPoint?
     observables.contentOffset.observer = { [weak self] contentOffset in
       guard previousContentOffset != contentOffset else { return }
@@ -399,10 +392,7 @@ internal let cutOutStateRangeDeltaYTransformer: ContentOffsetDeltaYTransformer =
   ...
 ```
 
-For now the library is able to transform `contentOffset` changes into internal state changes, but `isExpandedStateAvailable` state property is never being mutated as well as state transitions are not being finished.
-目前，该库能够将`contentOffset`的变化转化为内部状态的改变，但是`isExpandedStateAvailable`状态属性
-
-That is where `panGestureRecognizer.state` observing comes in:
+到此，该库能够将`contentOffset`的变化转化为内部状态的改变，但是`isExpandedStateAvailable`状态属性此时不能被修改，因为状态状态转变尚未结束。
 
 该 `panGestureRecognizer.state` 监听出场了：
 
@@ -430,8 +420,7 @@ private func setupObserving() {
   }
 ```
 
-- Pan gesture sets `isExpandedStateAvailable` state property to true in case panning began in the top of scrolling or in case we already have an expanded state;
-- 拖动手势 设置 `isExpandedStateAvailable` 状态属性为 true ,以防开始拖动到滚动的上部或者表示我们已经设置了可展开状态；
+- 拖动手势开始回调方法 设置 `isExpandedStateAvailable` 状态属性为 true，以防开始拖动到滚动的上部或者表示我们已经设置了可展开状态；
 
 ```
 private func panGestureBegan() {
@@ -451,7 +440,7 @@ private func panGestureBegan() {
   }
 ```
 
-- Pan gesture change sets `isExpandedStateAvailable` if state offset reached normal state;
+- 如果状态偏移值达到正常状态，拖动手势变化回调方法就会设置 `isExpandedStateAvailable` ；
 
 ```
 private func panGestureChanged() {
@@ -465,7 +454,7 @@ private func panGestureChanged() {
 }
 ```
 
-- Pan gesture end finds offset that is most near current state, adds a difference to current content offset and calls `updateContentOffset(CGPoint, animated: Bool)` with result content offset to end state transition animation.
+- 拖动手势结束回调方法 计算一个最接近当前状态的偏移值，并计算一个差值加到当前 contentoffset 上，然后调用 `updateContentOffset(CGPoint, animated: Bool)` 方法，参数为最后计算的 ContentOffset 和 开启动画效果的 true。
 
 ```
 private func panGestureEnded() {
@@ -495,14 +484,14 @@ private func panGestureEnded() {
 }
 ```
 
-So expanded state becomes available only when the user starts scrolling at the top of available scrollable area. If expanded state was available and user scrolls below normal state, expanded state turns off. And if the user ends the panning gesture during state transition `BarController` updates content offset with animation to finish it.
-因此 开展开状态变为可用当用户开始滚动在最顶部可滚动区域。如果可展开状态可用并且用户滚动到正常状态以下，可展开状态失效。如果用户停止拖动手势在状态
+因此，只有当用户在可用的可滚动区域的顶部滚动时，可展开状态才会生效。如果可展开状态可用并且用户滚动到正常状态之下，此时可展开状态被禁用。如果用户在状态转换期间结束拖动手势，`BarController` 此时会以动效的方式更新 contentoffset。
 
 ### 将 UIScrollView 绑定到 BarController
 
-`BarController` 包含 2 个公有方法用于用户设置 `UIScrollView`。通常情况下，用户使用 `set(scrollView: UIScrollView)` 方法。也可以使用 `preconfigure(scrollView: UIScrollView)` 方法，it configures the scroll view’s visual state to be consistent with the current `BarController` state. It should be used when the scroll view is about to be swapped. For example the user can replace current scroll view with animation and want second scroll view to be visually configured in the beginning of animation. After animation completion the user should call `set(scrollView: UIScrollView)`. `preconfigure(scrollView: UIScrollView)` method is not needed to be called if `UIScrollView` is set once, cause `set(scrollView: UIScrollView)` calls it internally.
+`BarController` 包含 2 个公有方法用于用户设置 `UIScrollView`。通常情况下，用户使用 `set(scrollView: UIScrollView)` 方法。也可以使用 `preconfigure(scrollView: UIScrollView)` 方法，用于设置滚动视图的可视状态与当前 `BarController` 状态一致。
+当滚动视图即将被交换时，应该使用它。例如，用户可以采用动效替换当前的滚动视图，并希望在动画开始时将第二滚动视图可视化配置。动画结束后，用户应该调用 `set(scrollView: UIScrollView)`。如果 `UIScrollView` 只设置一次，那么 `preconfigure(scrollView: UIScrollView)` 方法不是必须调用的，因为 `set(scrollView: UIScrollView)` 是在内部调用的。
 
-`preconfigure` method finds difference between `contentSize` height and frame height and puts it as a bottom content inset so that the menu remains expandable, configures `contentInsets.top` and `scrollIndicatorInsets.top` and sets initial `contentOffset` to make the new scroll view visually consistent with the state offset.
+`preconfigure` 方法计算 `contentSize` 高度和 frame 高度的差值， 并将其赋值给 bottomcontentinset 确保菜单为可展开状态，并设置 `contentInsets.top` 和 `scrollIndicatorInsets.top`，然后设置初始的 `contentOffset` 确保新的滚动视图与状态偏移保持一致。
 
 ```
 public func set(scrollView: UIScrollView) {
@@ -545,7 +534,7 @@ internal func preconfigure(scrollable: Scrollable) {
 
 ### API
 
-To inform users about state changes `BarController` calls injected `stateObserver` function with changed `State` model object.
+为了通知用户状态变化，`BarController` 调用注入 `stateObserver` 方法并传入变化后的 `State` 模型对象。
 
 `State` 结构体提供了几个公有方法用于从内部状态中读取有用信息：
 
@@ -593,7 +582,7 @@ public func transitionProgress() -> CGFloat {
 }
 ```
 
-- `value(compactNormalRange: ValueRangeType, normalExpandedRange: ValueRangeType)` — returns transition progress mapped to one of 2 range types according to the current `StateRange`.
+- `value(compactNormalRange: ValueRangeType, normalExpandedRange: ValueRangeType)` — 根据当前的StateRange将转换进度映射为2个范围类型之一并返回。
 
 ```
 public enum ValueRangeType {
@@ -618,9 +607,7 @@ public enum ValueRangeType {
   }
 ```
 
-Here is an example from `AirBarExampleApp` with a use of `State` public methods. `airBar.frame.height` is animated with `height()` and `backgroundView.alpha` is animated using `value(...)`. Background view alpha here is interpolated from transition progress to `(0, 1)` range in `compact-normal` transition and constantly `1` in `normal-expanded` transition.
-
-以下为`AirBarExampleApp`中使用 `State` 的公有方法。
+以下为`AirBarExampleApp`中使用 `State` 的公有方法。`airBar.frame.height` 带有动效的 `height()` 和 `backgroundView.alpha` 带有动效的 `value(...)`。这里的背景视图透明会进行 `(0, 1)` 范围内的差值表示为 `compact-normal`的状态， `1` 为 `normal-expanded` 状态。
 
 ```
 override func viewDidLoad() {
@@ -651,7 +638,7 @@ override func viewDidLoad() {
 
 ### 总结
 
-到此，我实现了一个带有可预知状态的漂亮的滚动驱动菜单，同时学到了许多使用`UIScrollView`的经验。
+到此，我已经实现了一个带有可预测状态的漂亮的滚动驱动菜单，并学到了许多使用`UIScrollView`的经验。
 
 以下可以找到本封装库，示例应用和安装指南：
 
@@ -665,7 +652,7 @@ override func viewDidLoad() {
 
 ---
 
-We did the investigation of the topic for the [Freebird Rides](https://www.freebirdrides.com/) app we’ve built here at [UPTech](https://uptech.team/).
+我们在 [UPTech](https://uptech.team/) 上做了以 [Freebird Rides](https://www.freebirdrides.com/)  应用为主题的调查。
 
 ---
 
