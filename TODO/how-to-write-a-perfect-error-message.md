@@ -4,7 +4,7 @@
   > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
   > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/how-to-write-a-perfect-error-message.md](https://github.com/xitu/gold-miner/blob/master/TODO/how-to-write-a-perfect-error-message.md)
   > * 译者： [Cherry](https://github.com/sunshine940326)
-  > * 校对者：[lampui](https://github.com/lampui)
+  > * 校对者：[lampui](https://github.com/lampui) [shawnchenxmu](https://github.com/shawnchenxmu)
 
 # 怎么写出完美的错误消息
   
