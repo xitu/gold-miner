@@ -239,7 +239,7 @@ plugins: [
 
 ---
 
-*Thanks for reading! If you liked this story, please recommend it by clicking the ❤ button on the side and sharing it on social media. Follow me on *[*Medium*](https://medium.com/@blacksonic86)* or *[*Twitter*](https://twitter.com/blacksonic86)* to read more about Javascript!*
+*感谢阅读！请点击[原文](https://blog.craftlab.hu/how-to-do-proper-tree-shaking-in-webpack-2-e27852af8b21)中的 ❤，然后分享到社交媒体上。欢迎关注 *[*Medium*](https://medium.com/@blacksonic86)*，*[*Twitter*](https://twitter.com/blacksonic86)* 阅读更多有关 Javascript 的内容！*
 
 
   ---
