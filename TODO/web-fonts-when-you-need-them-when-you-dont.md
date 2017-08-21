@@ -52,7 +52,7 @@
 
 只看这种字体，人就算了。
 
-显然，我不会建议 **《纽约客》** 不使用 Irvin 字体，或者 Apple.com 不使用 San Francisco 字体。即使像耐克这样的网站，我也不会建议他们不要这样做（“One Nike Currency” 字体是十分平常的），因为那是**他们**的字体。
+显然，我不会建议 **The New Yorker** 不使用 Irvin 字体，或者 Apple.com 不使用 San Francisco 字体。即使像耐克这样的网站，我也不会建议他们不要这样做（“One Nike Currency” 字体是十分平常的），因为那是**他们**的字体。
 
 **结论**：如果你的字体是你品牌的一部分，那么显然要使用该字体。否则，请看下面的内容！
 
@@ -75,7 +75,7 @@
 
 Medium.com 是一个很好的例子，我确定你很熟悉它。显然他们在排版上花了很多心思。从那些可爱的短划线到你甚至都没有注意到的不同宽度的空格，Medium 的字体与系统字体是不一样的。
 
-但这不应该让你认为一个网站有使用网络字体*才*容易阅读。
+但这不应该让你认为一个网站有使用网络字体**才**容易阅读。
 
 如果你是开发人员，可能已经花了很多时间盯着 GitHub 上的文字。你知道这些文字是没有加载任何一个网络字体实现的吗？太不可思议了。
 
@@ -85,76 +85,76 @@ Medium.com 是一个很好的例子，我确定你很熟悉它。显然他们在
 
 先不要回答，因为……
 
-#### The curious case of Wikipedia
+#### 维基百科的奇特案例
 
-Wikipedia has [put a great deal of thought into their typography](https://www.mediawiki.org/wiki/Typography_refresh). And they have come to the conclusion that system fonts are the way to go.
+维基百科已经[对他们的排版做了大量的思考](https://www.mediawiki.org/wiki/Typography_refresh)。他们得出结论是，系统字体才是他们需要的。
 
-Good on ‘em.
+这对他们来说挺好的。
 
-But what baffles me is that at desktop sizes, they haven’t enforced a measure (line length) and have 14px font (for memory it was 13px before being bumped up in 2014).
+但令我感到困惑的是，在桌面版的尺寸上，他们没有执行过一个度量标准（行宽度），并且使用的是 14px 的字体（在 2014 年更新之前，它是 13px）。
 
-I would like to think there’s a solid reason for this, but I can’t for the life of me work out what it is. Maybe it’s something to do with being able to vertically scan the article, I don’t know.
+我认为这样做肯定是有充分的理由的，但此生我都不清楚是什么理由。也许与垂直扫描文章有关，我不知道。
 
-I’ve been consuming Wikipedia with 18px text and 700px line length for years now and I’ve got no complaints.
+我一直在使用 18px 文字和 700px 行宽度的维基百科，现在已经没有任何抱怨了。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*CGgCTocnhmQLpaWYeRh6-A.png)
 
-Courtesy of [the Skinny extension](https://chrome.google.com/webstore/detail/skinny/lfohknefidgmanghfabkohkmlgbhmeho) (shameless plug).
+感谢 [Skinny 拓展程序](https://chrome.google.com/webstore/detail/skinny/lfohknefidgmanghfabkohkmlgbhmeho)（无耻的插件）。
 
-When I am forced to return to the default view every so often, it does my head in.
+当我经常被迫返回到默认视图时，它就会进入我的脑海。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*-psbviYTpIj2VOo4r8yiGg.png)
 
-Wikipedia: exercising neck muscles since 2001. It’s like watching a shuttlecock match on the moon.
+维基百科：自 2001 年以来锻炼颈部肌肉，就像在月球上看一场羽毛球比赛。
 
-(My humble suggestion to Wikipedia: bump your desktop body text to 15px tomorrow, then increase it by 1px every year for the next five years — it will still be smaller than the text you’re reading now.)
+（我对维基百科的建议：明天将桌面版正文文本改为 15px，然后在未来五年每年增加 1px —— 仍然会比现在阅读的文字小。）
 
-The point to this little aside is: if your text is difficult to read to start with, a web font can only offer a small improvement at best. So get the foundations of readable typography right before even thinking about font faces.
-
----
-
-If you don’t know anything about typography, but care about readability, try this as a starting point:
-
-- A minimum of 18px font size
-- Line spacing of 1.6
-- #333 for color or thereabouts
-- Limit your lines to a width of 700px
-
-But don’t take my word for it, you can take your inspiration from Medium, The New Yorker, Smashing Magazine, longform.org, even the Node and NPM documentation. They have all clearly given consideration to readability and you’ll find some obvious similarities between them.
-
-Once you have the fundamentals sorted, you can compare system fonts and web fonts.
-
-(I have a premonition that people will argue with this — it’s my own fault for offering advice with any level of specificity — so I’ll get out in front of it here: apply common sense to what you read on the internet, adjust to taste, don’t do things you don’t want to do. Also don’t eat dishwasher tablets and if pain persists, see a doctor.)
+这个小问题的关键是：如果你的文本在一开始就难以阅读，那么网络字体只能提供小的改进。因此，在考虑字体之前，应该先要了解可读文字排版的基础。
 
 ---
 
-Now, I want you to promise me that you’re not going to scroll up.
+如果你不了解排版，但关心可读性，请尝试以此为起点：
 
-Because…
+- 至少 18px 的字体大小
+- 1.6 的行距
+- #333 或其周围的字体颜色
+- 限制行宽度为 700px
 
-Here’s that block of text again.
+但不要相信我的话，你可以从 Medium、The New Yorker、Smashing Magazine、longform.org，甚至 Node 和 NPM 文档中获得灵感。他们都清楚地考虑到可读性，你会发现他们之间有一些明显的相似之处。
+
+将基本原理整理后，你就可以比较系统字体和网络字体了。
+
+（我有一个预感，人们会争论这一点。提供宽泛的建议是我的错 —— 所以我会在这里说明：用常识来解释你在互联网上读到的内容，调整自己的品味，不要做你不想做的事情。也不要吃洗碗机，如果疼痛持续，就去看医生。）
+
+---
+
+现在，我希望你答应我，你不会往上翻。
+
+因为……
+
+这就是上面出现过的文本块。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*Q-h43aVyuDsrHRVXqx7QbQ.png)
 
-Is it easier to read than the first one? Harder to read? The same?
+比第一个更容易阅读吗？更难读？还是一样？
 
-It’s easy, when given two chunks of text side by side, to flick your eyes between them and convince yourself eventually that one is easier to read than the other. But if that difference isn’t apparent without the direct comparison, then you probably have two typefaces that are both perfectly acceptable.
+很容易，当给出的两大块文本并排放在一起时，让你的眼睛在它们之间移动，最终说服自己其中一个比另一个更容易阅读。但如果没有直接的比较导致差异不明显，那么你可能有两个完全可以接受的字体。
 
-For the sake of satisfaction, here they are side by side, where you can quite clearly see that they’re different. One’s a web font, the other a system font.
+为了满足需求，这里将它们并排放置，你可以很清楚地看到它们是不同的。一个是网络字体，而另一个是系统字体。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*eS3Yg49ckvxMdo9dv-OPQA.png)
 
-Source: [New Republic](https://newrepublic.com/minutes/143094/eliminating-coal-save-lives-per-year-entire-coal-industry-employs) (Also, I Photoshopped three differences into the pictures)
+资料来源：[New Republic](https://newrepublic.com/minutes/143094/eliminating-coal-save-lives-per-year-entire-coal-industry-employs)（另外，我在图片中处理了 3 个不同的地方）。
 
-I’m not going to tell you which font is which.
+我不会告诉你哪张图使用的是网络字体，哪张图使用的是系统字体。
 
-So back to the question from the flow chart: “Does the web font make your site easier to read?”. I would like to think, that in the cold light of day, any reasonable person would look at the above comparison and say *no*, neither of these is easier to read than the other.
+那么，回到流程图的问题上：“网络字体让你的网站更容易阅读吗？”。我想，在寒冷的光线下，任何一个理性的人都会看着上面的比较，然后说**不**，他们中没有一个比另外一个更容易阅读。
 
-(Now I think about it, this is actually a great test to see if you’re a reasonable person.)
+（现在我想一想，这实际上是一个很好的测试，看看你是否是一个理性的人。）
 
-**Conclusion**: if your site doesn’t have much text, a web font will make little difference to readability. But if your site is all about reading, this one’s probably not so easy. *I* think Medium’s font definitely makes the text more pleasant to read. And *I* think New Republic’s font makes no difference whatsoever. You need to find a way to objectively answer this question for your site — for your readers.
+**结论**：如果你的网站没有太多的文字，那么网络字体对可读性几乎没有任何影响。但如果你的网站都是关于阅读的，这可能不是那么容易。**我**认为 Medium 网站的字体肯定会让文字更加愉快地被阅读。**我**认为这和 New Republic 网站的字体没有任何区别。你需要为你网站的读者找到客观回答这个问题的方法。
 
-And if you decide that a web font makes no meaningful difference to readability then you’re a step closer to the ultimate goal — not having to faff about with web fonts.
+如果你认为网络字体对可读性没有什么意义，那么你将更接近最终目标 —— 不必担心网络字体。
 
 ### Can you load the font without a FOUT?
 
