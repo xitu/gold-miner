@@ -90,11 +90,11 @@ Redux 的开发组和社区都[强烈反对增加 Redux 的 API 数量](https://
 
 ---
 
-**感谢 **[*Matthew McVickar*](https://medium.com/@matthewmcvickar)*, *[*a pile of moss*](https://medium.com/@whale_eat_squid)*, *[*Eric Wood*](https://medium.com/@eric_b_wood)*, *[*Matt DuLeone*](https://twitter.com/Crimyon)*, 和 *[*Patrick Thomson*](https://twitter.com/importantshock)* review 本文。*
+**感谢** [*Matthew McVickar*](https://medium.com/@matthewmcvickar)*, *[*a pile of moss*](https://medium.com/@whale_eat_squid)*, *[*Eric Wood*](https://medium.com/@eric_b_wood)*, *[*Matt DuLeone*](https://twitter.com/Crimyon)*, 和 *[*Patrick Thomson*](https://twitter.com/importantshock)* review 本文。*
 
 **备注：**
 
-**[1] 为什么要在 React / JS 和 OOP 之间做明显的区分？JavaScript 是面向对象的，但是不是基于类（class-based）的。 **
+**[1] 为什么要在 React / JS 和 OOP 之间做明显的区分？JavaScript 是面向对象的，但是不是基于类（class-based）的。**
 
 OOP 类似于函数式编程，是一种方法，不是某个语言特性。有些语言对于 OOP **支持**地特别好，或者有一些专门为 OOP 定制的标准库，但是如果你对它的了解够深，你可以用任何语言写出面向对象风格的代码。
 
