@@ -4,7 +4,7 @@
   > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
   > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/binary-ast-newsletter-1.md](https://github.com/xitu/gold-miner/blob/master/TODO/binary-ast-newsletter-1.md)
   > * 译者：[Cherry](https://github.com/sunshine940326)
-  > * 校对者：[lampui](https://github.com/lampui)
+  > * 校对者：[lampui](https://github.com/lampui)、[jasonxia23](https://github.com/jasonxia23)
 
 # JavaScript 二进制的 AST
 
@@ -142,7 +142,7 @@ web 开发者早期使用的用来减少 JS 文件大小的传统工具，例如
 
 - [缺陷跟踪在 Firefox 的早期实验](https://bugzilla.mozilla.org/show_bug.cgi?id=1349917).
 - [ECMA TC-39 提议](https://github.com/syg/ecmascript-binary-ast).
-- [Tooling](https://github.com/Yoric/binjs-ref) (this is a WIP version of the advanced prototype, but it doesn’t reimplement everything from the early prototype yet).
+- [工具](https://github.com/Yoric/binjs-ref) (这是一种先进的正在进行中的原型产品的版本，但它不执行一切从早期的原型)。
 
 
   ---
