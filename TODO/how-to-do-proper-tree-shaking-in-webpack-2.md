@@ -233,7 +233,7 @@ plugins: [
 
 通过 tree-shaking 你可以相当程度上减少应用的体积。Webpack 2 内置支持它，但其机制并不同于 Rollup。它会包含所有的代码，标记未使用的函数和函数，以便压缩工具能够移除。这就是对所有代码都进行 tree-shake 的困难之处。使用默认的压缩工具 UglifyJS，它仅移除未使用的函数和变量；Babili 支持 ES6，可以用它来移除（未使用的）类。我们还必须特别注意第三方模块发布的方式是否支持 tree-shaking。
 
-希望这篇文章为您清楚阐述了 Webpack tree-shaking 背后的原理，并为您提供了克服困难的思路。
+希望这篇文章为您清楚阐述了 Webpack tree-shaking 背后的原理，并提供了克服困难的思路。
 
 实际例子请访问 [Babel](https://github.com/blacksonic/babel-webpack-tree-shaking)、[Typescript](https://github.com/blacksonic/typescript-webpack-tree-shaking)。
 
