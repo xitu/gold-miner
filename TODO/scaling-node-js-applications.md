@@ -175,7 +175,7 @@ master 进程与 worker 进程之间能够简单地进行通信，因为 cluster
 
 这次我们让通信的内容变得更实际一点。这次我们想要服务器返回数据库中用户的数量。我们将会创建一个 mock 函数来返回数据库中用户的数量，并且每次当它被调用时对这个值进行平方处理（理想情况下的增长）：
 
-    // **** Mock DB Call
+    // **** 模拟 DB 调用
     const numberOfUsersInDB = function() {
       this.count = this.count || 5;
       this.count = this.count * this.count;
@@ -187,7 +187,7 @@ master 进程与 worker 进程之间能够简单地进行通信，因为 cluster
 
 例如，在 master 进程模式中，我们同样可以遍历所有 worker 来广播用户数量的值：
 
-    // Right after the fork loop within the isMaster=true block
+    // 在 isMaster=true 的状态下进行 fork 循环后
 
     const updateWorkers = () => {
       const usersCount = numberOfUsersInDB();
@@ -236,17 +236,17 @@ master 进程与 worker 进程之间能够简单地进行通信，因为 cluster
 
 为了在服务器中模拟随机崩溃，我们通过一个 timer 来调用 `process.exit`，让它随机执行。
 
-    // In server.js
+    // 在 server.js 文件
 
     setTimeout(() => {
-      process.exit(1) // death by random timeout
+      process.exit(1) // 随时退出进程
     }, Math.random() * 10000);
 
 当一个 worker 进程因崩溃而退出，`cluster` 对象里的 `exit` 事件会通知 master 进程。我们可以给这个事件注册一个 handler，并且当其他 worker 进程还存在时让它 fork 一个新的 worker 进程。
 
 例如：
 
-    // Right after the fork loop within the isMaster=true block
+    // 在 isMaster=true 的状态下进行 fork 循环后
 
     **cluster**.on('**exit**', (worker, code, signal) => {
       if (code !== 0 && !worker.exitedAfterDisconnect) {
@@ -276,10 +276,10 @@ master 进程与 worker 进程之间能够简单地进行通信，因为 cluster
 
 用 cluster 模块能简单地实现这一想法。当 master 进程开始运行之后我们就不想重启它，我们需要想办法传递重启 worker 的指令给 master 进程。在 Linux 系统上这样做很容易因为我们能监听一个进程的信号像 `SIGUSR2`，当 `kill` 命令里面带有进程 id 和信号时这个监听事件将会触发：
 
-    // In Node
+    // 在 Node 里面
     process.on('SIGUSR2', () => { ... });
 
-    // To trigger that
+    // 触发信号
     $ kill -SIGUSR2 PID
 
 这样，master 进程不会被杀死，我们就能够在里面进行一系列操作了。`SIGUSR2` 信号适合这种情况，因为我们要执行用户指令。如果你想知道为什么不用 `SIGUSR1`，那是因为这个信号用在 Node 的调试器上，我们为了避免冲突所以不用它。
@@ -288,7 +288,7 @@ master 进程与 worker 进程之间能够简单地进行通信，因为 cluster
 
 在 Windows 上 Node 运行良好，但是我认为让作为产品的 Node 应用在 Linux 平台上运行会更安全。这和 Node 本身无关，只是因为在 Linux 上有更多稳定的生产工具。这只是我的个人见解，最好还是根据自己的情况选择平台。
 
-**顺带一提，在最近的 Windows 版本里，实际上你可以在里面使用 Linux 子系统。我自己测试过了，没有什么特别明显的缺点。如果你在 Windows 上开发 Node 应用，可以看看 [**Bash on Windows**](https://msdn.microsoft.com/en-us/commandline/wsl/about) 并尝试一下。
+**顺带一提，在最近的 Windows 版本里，实际上你可以在里面使用 Linux 子系统。我自己测试过了，没有什么特别明显的缺点。如果你在 Windows 上开发 Node 应用，可以看看 [**Bash on Windows**](https://msdn.microsoft.com/en-us/commandline/wsl/about) 并尝试一下。**
 
 在我们的例子中，当 master 进程收到 `SIGUSR2` 信号，就意味着是时候重启 worker 了，但是我们想要每次只重启一个 worker。因此 master 进程应该等到当前的 worker 已经重启完后再重启下一个 worker。
 
@@ -332,7 +332,7 @@ master 进程与 worker 进程之间能够简单地进行通信，因为 cluster
 
 来自 Pluralsight 课程中的截图 — Node.js 进阶
 
-像 PM2 的 进程监控器，我个人把它用在生产环境上，它让我们实现上述工作变得异常简单，同时它还有许多功能来监控 Node.js 应用的健壮度。例如，用 PM2，想要在任意应用上启动 cluster，你只需要用 `-i` 参数：
+像 PM2 这样的进程监控器，我个人把它用在生产环境上，它让我们实现上述工作变得异常简单，同时它还有许多功能来监控 Node.js 应用的健壮度。例如，用 PM2，想要在任意应用上启动 cluster，你只需要用 `-i` 参数：
 
     pm2 start server.js -i max
 
