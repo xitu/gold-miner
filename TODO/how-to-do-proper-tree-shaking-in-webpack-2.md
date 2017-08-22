@@ -111,7 +111,7 @@ console.log(new SportsCar(new __WEBPACK_IMPORTED_MODULE_0__engine__["a" /* V8Eng
 
 Webpack 用注释 */\*unused harmony export V6Engine\*/* 将未使用的类和函数标记下来，用 */\*harmony export (immutable)\*/ __webpack_exports__[“a”] = V8Engine;* 来标记用到的。你应该会问未使用的代码怎么还在？tree-shaking 没有生效吗？
 
-#### 移除未使用代码（Dead code elimination） vs 包含已使用代码（live code inclusion）
+#### 移除未使用代码（Dead code elimination）vs 包含已使用代码（live code inclusion）
 
 背后的原因是：Webpack 仅仅标记未使用的代码（而不移除），并且不将其导出到模块外。它拉取所有用到的代码，将剩余的（未使用的）代码留给像 UglifyJS 这类压缩代码的工具来移除。UglifyJS 读取打包结果，在压缩之前移除未使用的代码。通过这一机制，就可以移除未使用的函数 *getVersion* 和类 *V6Engine*。
 
@@ -231,15 +231,15 @@ plugins: [
 
 #### 总结
 
-通过 tree-shaking 你可以相当程度上减少应用的体积。Webpack 2 内置支持它，但其机制并不同于 Rollup。它会包含所有的代码，标记未使用的函数和函数，以便压缩工具能够移除。这就是对所有代码都进行 tree-shake 的困难之处。使用默认的压缩工具 UglifyJS，它仅移除未使用的函数和变量；Babili 支持 ES6，可以用它来移除类。我们还必须特别注意第三方模块发布的方式是否支持 tree-shaking。
+通过 tree-shaking 你可以相当程度上减少应用的体积。Webpack 2 内置支持它，但其机制并不同于 Rollup。它会包含所有的代码，标记未使用的函数和函数，以便压缩工具能够移除。这就是对所有代码都进行 tree-shake 的困难之处。使用默认的压缩工具 UglifyJS，它仅移除未使用的函数和变量；Babili 支持 ES6，可以用它来移除（未使用的）类。我们还必须特别注意第三方模块发布的方式是否支持 tree-shaking。
 
-希望这篇文章阐述了 Webpack 的 tree-shaking 背后的原理，并为您提供了克服困难的思路。
+希望这篇文章为您清楚阐述了 Webpack tree-shaking 背后的原理，并提供了克服困难的思路。
 
 实际例子请访问 [Babel](https://github.com/blacksonic/babel-webpack-tree-shaking)、[Typescript](https://github.com/blacksonic/typescript-webpack-tree-shaking)。
 
 ---
 
-*感谢阅读！喜欢本文请点击[原文](https://blog.craftlab.hu/how-to-do-proper-tree-shaking-in-webpack-2-e27852af8b21)中的 ❤，然后分享到社交媒体上。欢迎关注 [*Medium*](https://medium.com/@blacksonic86)，[*Twitter*](https://twitter.com/blacksonic86) 阅读更多有关 Javascript 的内容！*
+*感谢阅读！喜欢本文请点击[原文](https://blog.craftlab.hu/how-to-do-proper-tree-shaking-in-webpack-2-e27852af8b21)中的 ❤，然后分享到社交媒体上。欢迎关注 [Medium](https://medium.com/@blacksonic86)，[Twitter](https://twitter.com/blacksonic86) 阅读更多有关 Javascript 的内容！*
 
 
   ---
