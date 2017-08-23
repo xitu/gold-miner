@@ -1,3 +1,4 @@
+* [巧用 ARKit 和 SpriteKit 从零开始做 AR 游戏](https://juejin.im/post/599aaf746fb9a02477072380?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Danny1451](https://github.com/Danny1451) 翻译)
 * [深度学习系列4: 为什么你需要使用嵌入层](https://juejin.im/post/599183c6f265da3e2e5717d2?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lileizhenshuai](https://github.com/lileizhenshuai) 翻译)
 * [机器之魂：聊天机器人是怎么工作的](https://juejin.im/post/599155d86fb9a03c467c151d?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lsvih](https://github.com/lsvih) 翻译)
 * [深度学习系列3 - CNNs 以及应对过拟合的详细探讨](https://juejin.im/post/598f25b15188257d8643173d?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lj147](https://github.com/lj147) 翻译)
