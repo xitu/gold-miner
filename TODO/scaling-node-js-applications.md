@@ -390,7 +390,7 @@ master 进程与 worker 进程之间能够简单地进行通信，因为 cluster
 
 我为 [Pluralsight](https://app.pluralsight.com/profile/author/samer-buna) 和 [Lynda](https://www.lynda.com/Samer-Buna/7060467-1.html) 创建了**网络课程**。最近我的课程是 [Advanced React.js](https://www.pluralsight.com/courses/reactjs-advanced)，[Advanced Node.js](https://www.pluralsight.com/courses/nodejs-advanced) 和 [Learning Full-stack JavaScript](https://www.lynda.com/Express-js-tutorials/Learning-Full-Stack-JavaScript-Development-MongoDB-Node-React/533304-2.html)。
 
-同时我也为 JavaScript，Node.js，React.js，和 GraphQL 初级到进阶的人们创建了**在线 training**。[发邮件给我](mailto:samer@jscomplete.com) 如果你想要找一位导师。如对这篇文章或者其他我写的文章有任何疑问，请在 [这个 **slack** 用户](https://slack.jscomplete.com/) 上找到我并且在 #question 空间上提问。
+同时我也为 JavaScript，Node.js，React.js，和 GraphQL 初级到进阶的人们创建了**在线 training**。如果你想要找一位导师，可以 [发邮件给我](mailto:samer@jscomplete.com)。如对这篇文章或者其他我写的文章有任何疑问，请在 [这个 **slack** 用户](https://slack.jscomplete.com/) 上找到我并且在 #question 空间上提问。
 
 
 ---
