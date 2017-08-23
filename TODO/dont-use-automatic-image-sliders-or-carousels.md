@@ -4,7 +4,7 @@
   > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
   > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/dont-use-automatic-image-sliders-or-carousels.md](https://github.com/xitu/gold-miner/blob/master/TODO/dont-use-automatic-image-sliders-or-carousels.md)
   > * 译者：[shawnchenxmu](https://github.com/shawnchenxmu)
-  > * 校对者：
+  > * 校对者：[laiyun90](https://github.com/laiyun90) [thisisandy](https://github.com/thisisandy)
 
 # 别再使用图片轮播了
   
@@ -85,7 +85,7 @@ Jakob Nielsen（没错，可用性领域的大师） [在测试中证实了这�
 由于旗帜盲点，大多数人甚至都不会去关注那些图片轮播框，就连那些不能真正得到消息的人也是如此。
 
 
-访客登录你的网站，在轮播框中看到一条消息，正要开始阅读：『这个秋天你要……』**咻！**不见啦。这些滑块轮转得太快了，用户根本来不及读完一条消息（即使他们真的想）。
+访客登录你的网站，在轮播框中看到一条消息，正要开始阅读：『这个秋天你要……』**咻!** 不见啦。这些滑块轮转得太快了，用户根本来不及读完一条消息（即使他们真的想）。
 
 专注即高效。
 
@@ -96,7 +96,7 @@ Jakob Nielsen（没错，可用性领域的大师） [在测试中证实了这�
 
 ## 用户需掌握控制权
 
-图片轮播常常有着 [糟糕的可用性](http://uxmovement.com/navigation/big-usability-mistakes-designers-make-on-carousels/) —— 它们移动得太快了，而它们的导航图标又太小了（如果有的话！），并且常常不听话地自己动起来了，即使用户想要自己手动浏览其内容。UI 设计的一条重要准则就是 [用户需掌握控制权](http://bokardo.com/principles-of-user-interface-design/)
+图片轮播常常有着 [糟糕的可用性](http://uxmovement.com/navigation/big-usability-mistakes-designers-make-on-carousels/) —— 它们移动得太快了，而它们的导航图标又太小了（如果有的话！），并且常常不听话地自己动起来了，即使用户想要自己手动浏览其内容。UI 设计的一条重要准则就是 [用户需掌握控制权](http://bokardo.com/principles-of-user-interface-design/)。
 
 如今许多电商网站上都使用了图片轮播技术 —— 而且我认为他们并不是因为做过测试而选择了这一技术，不过是群体心理作祟，人云亦云罢了。
 
