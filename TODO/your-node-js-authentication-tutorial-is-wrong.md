@@ -4,7 +4,7 @@
   > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
   > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/your-node-js-authentication-tutorial-is-wrong.md](https://github.com/xitu/gold-miner/blob/master/TODO/your-node-js-authentication-tutorial-is-wrong.md)
   > * 译者：[MuYunyun](https://github.com/MuYunyun)
-  > * 校对者：
+  > * 校对者：[jasonxia23](https://github.com/jasonxia23)、[lampui](https://github.com/lampui)
 
   # 关于 Node.js 的认证方面的教程（很可能）是有误的
 
@@ -33,13 +33,12 @@ Node.js 开发中一个更有问题的事情之一就是身份验证在很大程
 
 没关系，对吧？**这只是一个内联网应用程序**，开发人员说，**下周将分配给我另外四个项目**。当然，该示例的密码不会以任何方式散列，[并且与本示例中的验证逻辑一起存储在明文中](https://github.com/passport/express-4.x-local-example/blob/master/db/users.js)。在这一点上，甚至没有考虑到凭证存储。
 
-让我们来 google 另一个使用 **passport-local** 的教程。我发现[这个来自 RisingStack 的一个叫“Node Hero”系列的快速教程](https://blog.risingstack.com/node-hero-node-js-authentication-passport-js/)，
-但对我也不是有用的帮助。他们也[在GitHub上提供了一个示例应用程序](https://github.com/RisingStack/nodehero-authentication)，
+让我们来 google 另一个使用 **passport-local** 的教程。我发现[这个来自 RisingStack 的一个叫“Node Hero”系列的快速教程](https://blog.risingstack.com/node-hero-node-js-authentication-passport-js/)，但对我也不是有用的帮助。他们也[在GitHub上提供了一个示例应用程序](https://github.com/RisingStack/nodehero-authentication)，
 但[它与官方的问题相同](https://github.com/RisingStack/nodehero-authentication/blob/7f808f5c8ea756155099b7b4a88390c356cf31be/app/authentication/init.js#L8)。（Ed。8/7/17：RisingStack [**现在使用 bcrypt **](https://github.com/RisingStack/nodehero-authentication/commit/9d69ea70b68c4971466c64382e5f038e3eda8d8a)在他们的教程应用。）
 
 接下来，[这是第四个结果](http://mherman.org/blog/2015/01/31/local-authentication-with-passport-and-express-4/)，来自写于 2015 年的 Google 产出的 **express js passport-local 教程**。它使用 Mongoose ODM，实际上从我的数据库读取凭据。 这一个教程算是比较完整的，包括集成测试，是的，你可以使用另一个样板。但是，Mongoose ODM [也存储类型为 **String** 的密码] (https://github.com/mjhea0/passport-local-express4/blob/master/models/account.js#L7)，所以这些密码也存储在明文中，只是这一次在 MongoDB 实例上。（[人人都知道 MongoDB 实例通常是非常安全的](https://www.shodan.io/report/nlrw9g59)）
 
-你可以指责我择优挑选教程，如果择优挑选意味着从 Google 搜索结果的第一页进行选择，那么你会是对的。让我们选择 [TutsPlus 上更高排名的**passport-local**教程](https://code.tutsplus.com/tutorials/authenticating-nodejs-applications-with-passport--cms-21619)。这一个更好，因为[它使用 brypt 的成本因子为 10 的密码哈希](https://github.com/tutsplus/passport-mongo/blob/master/passport/login.js)，并使用 **process.nextTick** 延迟同步 bcrypt 哈希检查。Google 的最高成绩[来自 scotch.io 的教程](https://scotch.io/tutorials/easy-node-authentication-setup-and-local)，也使用[bcrypt，成本因子较低的 8] (https://github.com/scotch-io/easy-node-authentication/blob/local/app/models/user.js#L37)。这两个值都很小，但是 8 真的很小。大多数 **bcrypt** 库现在使用 12。[8 的成本因素是管理员帐户是**十八年前的**](https://www.usenix.org/legacy/publications/library/proceedings/usenix99/provos/provos_html/node6.html)，当原来的 bcrypt 被释放。
+你可以指责我择优挑选教程，如果择优挑选意味着从 Google 搜索结果的第一页进行选择，那么你会是对的。让我们选择 [TutsPlus 上更高排名的**passport-local**教程](https://code.tutsplus.com/tutorials/authenticating-nodejs-applications-with-passport--cms-21619)。这一个更好，因为[它使用 brypt 的成本因子为 10 的密码哈希](https://github.com/tutsplus/passport-mongo/blob/master/passport/login.js)，并使用 **process.nextTick** 延迟同步 bcrypt 哈希检查。Google 的最高成绩[来自 scotch.io 的教程](https://scotch.io/tutorials/easy-node-authentication-setup-and-local)，也使用[bcrypt，成本因子较低的 8](https://github.com/scotch-io/easy-node-authentication/blob/local/app/models/user.js#L37)。这两个值都很小，但是 8 真的很小。大多数 **bcrypt** 库现在使用 12。[8 的成本因素是管理员帐户是**十八年前的**](https://www.usenix.org/legacy/publications/library/proceedings/usenix99/provos/provos_html/node6.html)，当原来的 bcrypt 被释放。
 
 除了密码存储之外，这些教程都不会实现密码重置功能，这将作为开发人员的一个练习，它附带着自己的陷阱。
 
@@ -56,11 +55,9 @@ Node.js 开发中一个更有问题的事情之一就是身份验证在很大程
 
 如果您对这些内容是第一次接触，请尝试 OWASP 的[密码重置工作表](https://www.owasp.org/index.php/Forgot_Password_Cheat_Sheet)。让我们回到 Node 中看看它为此提供给我们的东西。
 
-我们将转移到 **npm** 一秒钟，并[重新查找密码重置](https://www.npmjs.com/search?q=password%20reset&amp;page=1&amp;ranking=popularity)，看看是否已有人做到这一点。有一个五年的包（通常是棒极了）。在 Node.js 的时间轴上，这个模块是侏罗纪的，如果我想要剔除，[Math.random() 可以在 V8 中预测](https://security.stackexchange.com/questions/84906/predicting-math-random-numbers)，
-因此[它不应该用于令牌生成码](https://github.com/substack/node-password-reset/blob/master/index.js#L73)。此外，它不使用 Password，所以我们继续前进。
+我们将转移到 **npm** 一秒钟，并[重新查找密码重置](https://www.npmjs.com/search?q=password%20reset&amp;page=1&amp;ranking=popularity)，看看是否已有人做到这一点。有一个五年的包（通常是棒极了）。在 Node.js 的时间轴上，这个模块是侏罗纪的，如果我想要剔除，[Math.random() 可以在 V8 中预测](https://security.stackexchange.com/questions/84906/predicting-math-random-numbers)，因此[它不应该用于令牌生成码](https://github.com/substack/node-password-reset/blob/master/index.js#L73)。此外，它不使用 Password，所以我们继续前进。
 
-Stack Overflow 上获取不了太多的帮助，因为一个名叫 Stormpath 的公司的开发人员喜欢在每个可以想象的帖子上插入他们的 IaaS 启动。 [他们的文档也随处可见](https://docs.stormpath.com/client-api/product-guide/late Passwordword_reset.html)，
-他们也有[关于密码重置的博客广告](https：//stormpath.com/blog/the-pain-of-password-reset)。 但是，所有这一切因为 Stormpath 已经停止了，[完全关闭](https://stormpath.com/) 于 2017 年 8 月 17 日。
+Stack Overflow 上获取不了太多的帮助，因为一个名叫 Stormpath 的公司的开发人员喜欢在每个可以想象的帖子上插入他们的 IaaS 启动。[他们的文档也随处可见](https://docs.stormpath.com/client-api/product-guide/late Passwordword_reset.html)，他们也有[关于密码重置的博客广告](https：//stormpath.com/blog/the-pain-of-password-reset)。但是，所有这一切因为 Stormpath 已经停止了，于 2017 年 8 月 17 日[完全关闭](https://stormpath.com/)。
 
 好的，回到谷歌，唯一的教程似乎存在于那里。我们将在 Google 搜索**凭证密码重置。这是我们的老朋友 bcrypt** [第一个结果](http://sahatyalkabov.com/how-to-implement-password-reset-in-nodejs/)。在文本中使用了更小的成本因子 5，这远远超过了现代使用的成本因素。
 
@@ -107,8 +104,6 @@ API 令牌是凭据。它们与密码或重置令牌一样敏感。大多数每�
 
 请记住，速率限制还有助于可用性。**跨平台文件加密工具**是一个 CPU 密集型功能，没有速率限制功能，使用跨平台文件加密工具会让应用程序拒绝服务，特别是在 CPU 高数运行时。比如用户注册或检查登录密码的多个请求尽管是轻量级的 HTTP 的请求，但是会花费服务器大量的昂贵时间。
 
-While I do not have a tutorial I can point to for these, there are tons of rate limiting middlewares for Express, such as [express-rate-limit](https://github.com/nfriedly/express-rate-limit), [express-limiter](https://www.npmjs.com/package/express-limiter), and [express-brute](https://github.com/AdamPflug/express-brute). I cannot speak to the security of these modules and have not even looked at them; generally I [recommend running a reverse proxy in production](https://expressjs.com/en/advanced/best-practice-performance.html#use-a-reverse-proxy) and allowing [rate limiting to requests to be handled by nginx](https://www.nginx.com/blog/rate-limiting-nginx/) or whatever your load balancer is.
-
 虽然我没有教程可以证明这点，但 Express 有很多速率限制的技术，例如 [express-rate-limit](https://github.com/nfriedly/express-rate-limit)，[express-limiter](https://www.npmjs.com/package/express-limiter) 以及 [express-brute](https://github.com/AdamPflug/express-brute)。我不能评价这些模块的安全性，甚至没有看过它们；无论你的负载平衡用的是什么，通常我[推荐在生产中运行逆向代理](https://expressjs.com/en/advanced/best-practice-performance.html#use-a-reverse-proxy)，并允许[由 nginx 限制请求处理速率](https://www.nginx.com/blog/rate-limiting-nginx/)。
 
 ### 身份验证是困难的
@@ -122,8 +117,6 @@ Node.js 生态系统虽然容易接近，但对需要匆忙编写部署于生产
 如果您是教程作者，请更新您的教程，**特别是**样板代码。这些代码将可能被其他人拷贝到生产环境中的 web 应用程序。
 
 如果您是一个 Node.js 的铁杆使用者，希望您在这篇文章中学到一些关于使用用凭证验证身份的知识。你可能会遇到什么问题。这篇文章中我还没有找到完美的方法来完全避免以上错误。为您的 Express 应用程序增加凭证验证不应该是您的工作。应该有更好的办法。
-
-If you’re interested in better securing the Node ecosystem, please DM me [@_micaksica](https://twitter.com/_micaksica) on Twitter.
 
 如果您有兴趣更好地维护 Node 生态系统，请在 Twitter 上发送给我 [@_micaksica](https://twitter.com/_micaksica)。
 
