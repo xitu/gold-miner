@@ -156,54 +156,54 @@ Medium.com 是一个很好的例子，我确定你很熟悉它。显然他们在
 
 如果你认为网络字体对可读性没有什么意义，那么你将更接近最终目标 —— 不必担心网络字体。
 
-### Can you load the font without a FOUT?
+### 你能在没有 FOUT 的情况下加载字体吗？
 
-If you’ve got this far down the flow chart, the web font in question isn’t tied to your brand, and it doesn’t improve readability. But that of course doesn’t mean you shouldn’t use it.
+如果你的流程图远远落后，所讨论的网络字体与你的品牌无关，并且不会提高可读性。但这当然不意味着你不应该使用它。
 
-Unless you get a **F**lash **O**f **U**nstyled **T**ext. Because that’s U-G-L-Y.
+除非你遇到了 **F**lash **O**f **U**nstyled **T**ext（文本无样式闪烁）。因为那确实太丑了。
 
-I’m sorry, *New Republic*, but to dive deeper I’m going to pick on you some more. It’s not because I’m mean, it’s because you’re sending 542 KB of fonts to my browser.
+对不起，**New Republic**，我准备更深入地对你展开讨论。这并不是出于我本意，是因为你向我的浏览器发送了 524 KB 的字体。 
 
-Here’s the article from the screenshots above loading.
+下面是上图文章中的字体加载情况。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*6GoQ3zcV8mA-lufM3iMd1A.png)
 
-Loading a New Republic article. Chrome DevTools network panel, throttled to “Fast 3G”, filtered for fonts only.
-The body copy of the article is visible in 1.45 seconds. That’s a really solid effort.
+载入一篇 New Republic 网站的文章。在 Chrome 开发者工具的网络面板中，限制网速为 “Fast 3G”，然后仅对字体进行过滤。
+文章的正文副本在 1.45 秒内可见。这是一个很大的努力。
 
-Seriously, 1.45 seconds over 3G beats the pants off the vast majority of the internet [placatory shoulder pat].
+讲真的，3G 网络 1.45 秒的时间，打败了互联网绝大部分的网站【鼓励一下】。
 
-Then at 1.65 seconds the image loads. But from this point on it’s all downhill like a cheese rolling festival.
+然后在 1.65 秒的时候图片被加载了。但从这一点开始，一切都在走下坡路，就像奶酪追逐节一样。
 
-**Nine seconds later**, at 10.85, the web font is ready and the text flickers as the system font is swapped out for the web font. Yuck.
+**九秒钟后**，在 10.85 秒时，网络字体就绪，文本闪烁，因为系统字体被替换为网络字体了。我去。
 
-But it’s not done yet. Oh no. At 12.58 seconds it flickers again as the 700-weight font is loaded (which is used in the opening sentence of every article — so this shifts the rest of the copy), then the text flickers again at 12.7 when the 400 italics arrives.
+但这还没完，哦，不。在 12.58 秒时，它会再次闪烁，因为 700-weight 字体被加载了（在每篇文章的开头句子中使用 —— 所以这将改变其余的副本），然后在 12.7 秒时，400 斜体可用，文本再次闪烁。
 
-All this on top of the fact that most humans couldn’t tell the difference between the two fonts anyway.
+所有这一切，事实上是大多数人都无法区分这两种字体。
 
-Oh and from what I can tell, the ‘Balto’ and ‘Lava’ fonts used here are not only 542 KB, they’re also about $2,000/year. Sheish.
+我能说的是，这里使用的 `Balto` 和 `Lava` 字体不仅是 542 KB，它们每年也要 2000 美元左右。确实是这样。
 
-That certainly clenches my purse strings.
+这肯定会让我的钱包很紧。
 
-It’s funny, I think a lot of people will look at the title of this blog post and assume it’s a rant from some developer that doesn’t see the value in fine typography. But it’s quite the opposite. The behaviour described above is an assault on the visual experience, and it could be *avoided* by using a system font that would look damn-near identical.
+有趣的是，我想很多人在看到这篇文章的标题时，会认为这是一篇关于一些开发人员看不到精细排版中的价值的吐槽。但恰恰相反。上述行为是对视觉体验的攻击，并且可以通过使用看起来几乎相同的系统字体来**避免**。
 
 ---
 
-But let’s take a step back here. Clearly, the designers of this site don’t *want* it to be annoying as it loads. And it’s obviously not just *New Republic* that suffers from this. So how does a site get to this point?
+但是，我们在这里先退一步。很明显，这个网站的设计师并**不想**它在加载时这么烦人。这显然不仅仅只有 **New Republic** 遇到了这种情况。那么一个网站怎么会这样呢？
 
-And more importantly, how can you avoid *your site* getting to this point?
+更重要的是，你如何避免**你的网站**遇到这种情况？
 
-I imagine that the design decisions probably happened sitting in front of Sketch, or viewing the website with the font installed locally, so it was assumed that there is *no downside to using a web font*.
+我认为设计决策可能发生在 Sketch 设计的前面，或者用本地安装的字体来查看网站，所以假定**使用网络字体没有什么负面影响**。
 
-This is not true, as anyone that has ever used the internet can tell you.
+这是不正确的，因为任何曾经使用过互联网的人都可以告诉你。
 
-Perhaps if there was a plugin for Sketch or Photoshop that showed a system font for 10 seconds every time you opened a file, the world would have less superfluous web fonts.
+也许如果 Sketch 或者 Photoshop 有一个插件，在你每次打开一个文件时都会显示 10 秒钟的系统字体，那么世界上将会有更少的不必要的网络字体。
 
-My suggestion: understand how web fonts will look to your users, not on a static design with no annoying flash of unstyled text.
+我的建议：了解网络字体是如何展示给你的用户的，而不是停留在静态设计上，它不会出现任何烦人的闪烁的无样式文本。
 
-**Conclusion:** if you can’t avoid the FOUT, avoid the font.
+**结论：**如果你不能避免 FOUT，那么请避免使用网络字体。
 
-(If you’ve been knocked out in this round you can scroll ahead and see some tips for avoiding FOUT.)
+（如果你在本轮中被淘汰，你可以向上滚动并查看一些避免 FOUT 的提示。）
 
 ### Do you want the same font on all devices?
 
