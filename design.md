@@ -1,3 +1,4 @@
+* [别再使用图片轮播了](https://juejin.im/post/599cf1596fb9a02481205803?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([shawnchenxmu](https://github.com/shawnchenxmu) 翻译)
 * [虚拟现实是如何改变用户体验的：从原型到设备的设计](https://juejin.im/post/599683e0f265da24996015cb?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([laiyun90](https://github.com/laiyun90) 翻译)
 * [AI 能解决你的 UX 设计问题吗？](https://juejin.im/post/5992aa306fb9a03c445df727?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([changkun](https://github.com/changkun) 翻译)
 * [设计作品集网站的真正角色是什么？](https://juejin.im/post/598959b65188253d2968eaab?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([noturnot](https://github.com/noturnot) 翻译)
