@@ -205,47 +205,47 @@ Medium.com 是一个很好的例子，我确定你很熟悉它。显然他们在
 
 （如果你在本轮中被淘汰，你可以向上滚动并查看一些避免 FOUT 的提示。）
 
-### Do you want the same font on all devices?
+### 你想在所有设备上使用相同的字体吗？
 
-I only have this step in here because I’ve heard it several times and wanted to address it. But frankly I don’t get it.
+在这里我只有这一步，因为我已经听到过很多次，并想要解决它。但坦白说，我并没有解决这个问题。
 
-Why would I want the same font on all devices? On the surface that probably sounds like a stupid question, but I’ve tried to apply the ‘5 Whys’ and I get stuck at number two.
+为什么要在所有设备上使用相同的字体？在表面看来，这听起来像是一个愚蠢的问题。我试图用 `5 Whys` 进行分析，但我在第二个上面卡住了。
 
-From what I understand, the idea is that if I’m browsing for some socks in Safari on my Mac, then leave home, get in a train and go to that same site on my Android, it’s a *bad* thing if I now see a different font.
+从我的理解来看，我的想法是，如果我正在 Mac 的 Safari 中浏览一些袜子，然后离开家，坐上火车，用我的 Android 浏览同一个网站，如果我看到的是不同的字体，那将是一件很**糟糕**的事情。
 
-I understand the general idea that “consistency is important”. But … is it really? At this point in the flow chart?
+我理解“一致性很重要”这一普遍观点。但……真的吗？在流程图中的这一点上？
 
-I can only speak for myself, but if I’ve gone from sitting on the couch looking at your desktop site on a 15 inch LCD with 220 PPI to a dirty room on wheels, looking at your mobile site on a 5.5 inch OLED with 534 PPI, I couldn’t care less what font I’m looking at and would almost certainly not notice the change from San Francisco to Roboto.
+我只能代表我自己，但是如果我从坐在沙发上，用一个 15 英寸 220 PPI 的 LCD 屏浏览你的桌面版网站，到火车上的脏房间里面，用一个 5.5 英寸 534 PPI 的 OLED 屏浏览你的手机版网站，我并不在乎我在看到的是什么字体，几乎肯定不会注意到从 San Francisco 到 Roboto 字体的变化。
 
-I’m just lookin’ at socks on my phone.
+我只是看着我手机上的袜子。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*KCk6znjIEeYIT9Xirnh2EQ.png)
 
-Thanks, [readymag](https://readymag.com/arzamas/132908/9/)
+谢谢 [readymag](https://readymag.com/arzamas/132908/9/)。
 
-But like I said, I can only speak for myself. Maybe I’m alone in this thinking and everyone else would be comprehensively discombobulated by the Roboto/San Francisco switcheroo.
+但就像我说的，我仅代表我自己。也许只有我一个人有这样的想法，其他所有人都会对 Roboto/San Francisco 的切换感到非常困惑。
 
-I am but a lonely data point.
+我只是一个孤独的数据点。
 
 ---
 
-I’ve also heard the argument that having the same font on all devices means you can rely on text having a consistent weight and always taking up the same amount of space.
+我也听说过这样的争论，在所有设备上使用相同字体，意味着你可以依靠具有一致粗细的文本，并始终占用相同的空间。
 
-Nope.
+不是这样的。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*5-yDFIJgMvqyr-ugdYUMOA.jpeg)
 
-Safari on macOS
+macOS 是的 Safari。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*8cXq51gj6yp2kZfD_ePdIQ.png)
 
-Chrome on Windows
+Windows 上的 Chrome。
 
-I use macOS/Windows about half/half (I’m a bit of a tramp like that), and text generally looks lighter on Windows. But to complicate things, Windows has this whole ClearType thing that means you don’t actually know how fonts will show to different users.
+我使用 macOS/Windows 的时间大概是一半一半（我好像有点像流浪汉），而 Windows 上的文本通常看起来更轻。但让事情变得复杂的是，Windows 有这样一整个叫做 ClearType 的东西，这意味着你实际上并不知道字体是如何展示给不同的用户的。
 
-So you need to accept that even with a web font, your text will show differently on Mac and Windows and will almost certainly wrap at different points (note the first line of the main paragraph).
+因此，你需要接受的是，即使使用网络字体，你的文本在 Mac 和 Windows 上的显示也会有所不同，几乎肯定会在不同的地方进行包装（注意主段落的第一行）。
 
-**Conclusion**: if you understand that your text will never (ever) look the same on all devices, but still want to use the same font across all devices, then the choice is clear: you’re gonna need a web font. Otherwise…
+**结论**：如果你明白你的文字在所有设备上（永远）不会看起来一样，但仍然希望在所有设备上使用相同的字体，那么选择是明确的：你将需要一个网络字体。不然呢……
 
 ### Will you be happier if you use a web font?
 
