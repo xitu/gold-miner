@@ -247,37 +247,37 @@ Windows 上的 Chrome。
 
 **结论**：如果你明白你的文字在所有设备上（永远）不会看起来一样，但仍然希望在所有设备上使用相同的字体，那么选择是明确的：你将需要一个网络字体。不然呢……
 
-### Will you be happier if you use a web font?
+### 使用网络字体会让你更开心吗？
 
-So, you’ve got a font that *isn’t *tied to your brand, *doesn’t *increase readability, you *can *get it loading without an unsightly flash of unstyled text, and you have accepted the inevitable inconsistency across devices.
+因此，你已有了一个字体，**无关**你的品牌，也**不**增加可读性，你**可以**在没有难看的闪烁无样式文本的情况下加载它，而且你已经接受了设备之间不可避免的不一致。
 
-What now?
+现在怎么办?
 
-You may have noticed that missing from my flow chart is the question “does it look better?” I assure you this isn’t because I think looks don’t matter. Aesthetics are very important. It’s why I brush my hair in the morning.
+你可能已经注意到，我的流程图中缺少了“它看起来更好吗？”。我向你保证，这不是因为我觉得外观并不重要。美学是非常重要的，这也是为什么我早上要梳头发。
 
-The reason I left “does it look better?” out of the flow chart is because of the misconception that web fonts are inherently better looking than system fonts.
+它之所以没有出现在流程图中，是因为网络字体天生比系统字体更好看的误解。
 
-It’s probably about time we took a closer look at these “system” fonts…
+也许是时候我们更仔细地看看这些“系统”字体了……
 
-If you use a system font today, your users are getting ‘San Francisco’ on macOS and iOS, ‘Roboto’ on Android, and ‘Segoe UI’ on Windows.
+如果你今天使用系统字体，你的用户将获得 MacOS 和 iOS 上的 `San Francisco`，Android 上的 `Roboto` 和 Windows 上的 `Segoe UI`。
 
-These are what Apple, Google and Microsoft have chosen to be the faces of their interfaces. A great deal of care has gone into crafting these fonts, so they certainly shouldn’t be considered the poor second cousins to the likes of ‘Open Sans’, ‘Proxima Nova’ and ‘Lato’.
+这些是 Apple、Google 和 Microsoft 选择来作为界面外观的字体。它们都是经过精心设计的，所以他们肯定不应该被认为是像 `Open Sans`，`Proxima Nova` 和 `Lato` 这样的字体。
 
-(I’m tempted to suggest that these system fonts are superior to the majority of web fonts, but typography enthusiasts are a violent bunch so I will say no such thing.)
+（我想要说的是，这些系统字体比大多数网络字体都要好，但排版爱好者是一个暴力的群体，所以我不会说这样的话。）
 
-System fonts can be every bit as pretty as web fonts, and if you’re interested in how nice a font looks, then you should make the effort to see how your site looks with system fonts. Maybe it looks better — and wouldn’t that be a pleasant surprise?
+系统字体可以像网络字体一样漂亮，如果你对字体的外观感兴趣，那么你应该努力去了解你的网站使用系统字体看起来怎么样。也许它看起来更好 —— 这不会是一个惊喜吗？
 
 ---
 
-So, you’ve checked out the system fonts and they don’t do it for you. Now you quite simply want to select the font for your site, just like you want to select the color palette and the layout.
+所以，你已经检查了系统字体，它们可不会为你做这些。现在，你只需要为你的网站选择字体，就像你要选择调色板和布局一样。
 
-As luck would have it, we’re at the end of the flow chart, so if you want to use a web font, then you should use a web font.
+幸运的是，我们在流程图的末尾，所以如果你想使用网络字体，那么你就应该使用一个网络字体。
 
-I thank you for taking the time to consider system fonts and I wish you and your web font many years of happiness.
+我感谢你花时间考虑系统字体，并祝愿你和你的网络字体永远幸福。
 
-**Conclusion**: use a web font if you want to. *But *if you come to the conclusion after all of this that actually, it might be nice to have one less thing to worry about, and system are actually pretty great, then use a system font.
+**结论**：如果你想使用网络字体，那你就使用吧。**但**如果这是你在所有这些之后得出的结论，实际上可能还有一件事情需要担心，系统实际上是非常棒的，然后使用系统字体。
 
-Everyone’s a winner.
+每个人都是赢家。
 
 ### My opinion
 
