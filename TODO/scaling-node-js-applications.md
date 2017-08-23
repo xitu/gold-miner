@@ -208,18 +208,18 @@ master 进程与 worker 进程之间能够简单地进行通信，因为 cluster
     const http = require('http');
     const pid = process.pid;
 
-    **let usersCount;
-    **
+    let usersCount;
+    
     http.createServer((req, res) => {
       for (let i=0; i<1e7; i++); // simulate CPU work
       res.write(`Handled by process ${pid}\n`);
-    **res.end(`Users: ${usersCount}`);**
+      res.end(`Users: ${usersCount}`);
     }).listen(8080, () => {
       console.log(`Started process ${pid}`);
     });
 
     process.on('message', msg => {
-    **usersCount = msg.usersCount;**
+      usersCount = msg.usersCount;
     });
 
 上面的代码让 worker 的 web 服务器用缓存的 `usersCount` 进行响应。如果你现在测试 cluster 的代码，前 10 秒你会从所有的 worker 里得到用户数量为 “25”（同时只创建了一个数据库连接）。然后 10 秒过后，所有的 worker 开始报告当前的用户数量，625（同样只创建了一个数据库连接）。
@@ -248,11 +248,11 @@ master 进程与 worker 进程之间能够简单地进行通信，因为 cluster
 
     // 在 isMaster=true 的状态下进行 fork 循环后
 
-    **cluster**.on('**exit**', (worker, code, signal) => {
+    cluster.on('exit', (worker, code, signal) => {
       if (code !== 0 && !worker.exitedAfterDisconnect) {
         console.log(`Worker ${worker.id} crashed. ` +
                     'Starting a new worker...');
-    **cluster.fork();**
+        cluster.fork();
       }
     });
 
