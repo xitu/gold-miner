@@ -279,39 +279,39 @@ Windows 上的 Chrome。
 
 每个人都是赢家。
 
-### My opinion
+### 我的观点
 
-The above was a rather boring ending, wasn’t it. “Do whatever makes you happy” — bleugh.
+以上是一个非常无聊的结局，不是吗？“做任何让自己开心的事”。
 
-Now on to the important stuff. What *I* think.
+现在来讨论一些重要的事情。**我**是怎么认为的。
 
-*I* think web fonts are used as the default mode of operation rather than as the result of a considered decision making process.
+**我**认为网络字体应该被用作默认的操作模式，而不是作为考虑决策过程的结果。
 
-I think, um, exactly half the sites that use web fonts could get rid of them and be better off.
+我认为，恩，一半使用网络字体的网站可以摆脱它们，并变得更好。
 
-I think the worst ones will actually be losing traffic because of their slow-to-load web fonts.
+我认为最糟糕的是由于网络字体加载速度慢而实际造成的流量流失。
 
-Things like the below are particularly outrageous. Users are given a blank page to stare at for three unnecessary seconds while this site loads a pretty font.
+下面的事情尤其令人愤慨。让用户花不必要的三秒钟盯着一个空白页面来加载一个漂亮的字体。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*dlpNsFiPLVf7L8XTSZjsVA.png)
 
-This really grinds my gears.
+这真的让我很恼火。
 
-It’s like if you came over to my house to visit and I made you stand in the corner staring at a blank wall for three minutes while I brushed my hair.
+就像你来我家拜访我，在我梳头发的时候，让你站在角落里盯着一堵空墙三分钟。
 
-If your site loads like this, you’re effectively saying “my font is more important than my content, and your time”.
+如果你的网站是这样加载的，你实际上是在说“我的字体比我的内容和你的时间更重要”。
 
-I won’t give away the site (because I like the content and don’t think they deserve a public shaming), but you’re probably keen to see the unique, beautiful web font that causes this egregious delay.
+我不会放弃这个网站（因为我喜欢这些内容，也不认为它们应该受到公众的羞辱），但你可能很想看到导致这个严重延迟的，独特且漂亮的网络字体。
 
-So here is one paragraph in the system font you could have been reading straight away, and one in the wunderfont that users are kept waiting three seconds to see.
+所以这里有一段你可以直接阅读的使用了系统字体的段落，以及一段用户等待了三秒钟才看到的使用了网络字体的段落。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*SvPa6OyravMecd045jf16Q.png)
 
-It’s magnificent, isn’t it? Majestic, even. I wish that *all* sites kept me waiting an extra three seconds so that I could feast my eyes on the beauty that is this truly exhilarating typeface.
+这是宏伟的，不是吗？甚至是雄伟的。我希望**所有**网站都让我多等待三秒钟，以便我可以一饱眼福，欣赏到真正令人兴奋的字体美。
 
-OK that’s enough of my opinions. I’m running out of breath and I just remembered I’m trying to be less sarcastic.
+好吧，我的观点已经够了。我有点喘不过气来了，我只记得我试着不要这么讽刺。
 
-So let’s move on from me berating others for their choices and finish with something more practical.
+所以让我们从我的角度来看待别人的选择，并用更实际的方式来完成。
 
 ### How to do web fonts right
 
