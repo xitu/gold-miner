@@ -28,7 +28,7 @@ Node.js 开发中一个更有问题的事情就是身份验证的程序很大程
 
 在我们进入这个教程的兔子洞之前，请记住 OWASP 的[密码存储作弊表](https://www.owasp.org/index.php/Password_Storage_Cheat_Sheet)，它归结为“存储具有独特盐和单向自适应成本函数的高熵密码”。或者先看下 Coda Hale 的 [bcrypt meme](https://codahale.com/how-to-safely-store-a-password/)，即使[有一些争论](https://security.stackexchange.com/a/6415)。
 
-作为一个新的 Express.js 和 Passport 用户，我第一个要讲的地方将是 **passport-local** 本身的示例代码，[十分感谢 passport 官方提供了一个可以克隆和扩展的 Express.js 4.0 应用程序示例](https://github.com/passport/express-4.x-local-example) 我可以克隆和扩展。但是，如果我只是拷贝这个例子，我讲不了太多，因为没有数据库支持的例子，它假设我只是使用一些设置好的帐户。
+作为一个新的 Express.js 和 Passport 用户，我第一个要讲的地方将是 **passport-local** 本身的示例代码，[十分感谢 passport 官方提供了一个可以克隆和扩展的 Express.js 4.0 应用程序示例](https://github.com/passport/express-4.x-local-example)，从而我可以克隆和扩展。但是，如果我只是拷贝这个例子，我讲不了太多，因为没有数据库支持的例子，它假设我只是使用一些设置好的帐户。
 
 没关系，对吧？**这只是一个内联网应用程序**，开发人员说，**下周将分配给我另外四个项目**。当然，该示例的密码不会以任何方式散列，[并且与本示例中的验证逻辑一起存储在明文中](https://github.com/passport/express-4.x-local-example/blob/master/db/users.js)。在这一点上，甚至没有考虑到凭证存储。
 
