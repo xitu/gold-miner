@@ -1,113 +1,122 @@
 
-  > * 原文地址：[Making the Web More Accessible With AI](https://hackernoon.com/making-the-web-more-accessible-with-ai-1fb2ed6ea2a4)
-  > * 原文作者：[Abhinav Suri](https://hackernoon.com/@abhisuri97)
-  > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-  > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/making-the-web-more-accessible-with-ai.md](https://github.com/xitu/gold-miner/blob/master/TODO/making-the-web-more-accessible-with-ai.md)
-  > * 译者：
-  > * 校对者：
+> * 原文地址：[Making the Web More Accessible With AI](https://hackernoon.com/making-the-web-more-accessible-with-ai-1fb2ed6ea2a4)
+> * 原文作者：[Abhinav Suri](https://hackernoon.com/@abhisuri97)
+> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/making-the-web-more-accessible-with-ai.md](https://github.com/xitu/gold-miner/blob/master/TODO/making-the-web-more-accessible-with-ai.md)
+> * 译者：[lsvih](https://github.com/lsvih)
+> * 校对者：
 
-  # Making the Web More Accessible With AI
+# 使用 AI 为 Web 网页增加无障碍功能
 
   ![](https://cdn-images-1.medium.com/max/2000/1*oxCB95q9jaqKSqMw96FWqA.png)
 
-Person reading Braille stock image ([src](http://usabilitygeek.com/wp-content/uploads/2012/07/Software-For-Visually-Impaired-Blind-Users.jpg))
+图为一位盲人正在阅读盲文 （[图片链接](http://usabilitygeek.com/wp-content/uploads/2012/07/Software-For-Visually-Impaired-Blind-Users.jpg)）
 
-[According to the World Health Organization](http://www.who.int/mediacentre/factsheets/fs282/en/), approximately 285 million people are visually impaired worldwide, and in the United States alone, 8.1 million internet users have a visual impairment.
+[根据世界健康组织的统计](http://www.who.int/mediacentre/factsheets/fs282/en/)，全球约有 2.85 亿位视力障碍人士，仅美国就有 810 万网民患视力障碍。
 
-What most non-disabled individuals consider to be the internet, a place full of text, images, videos, and more, is something completely different for the visually impaired. Screen readers, tools that can read text and metadata on a web page, are very limited and can only expose one part of a webpage, namely the text of the site. While some developers take the time to go through their sites and add descriptive captions to their images for visually disabled users, the vast majority of programmers do not take the time to do this admittedly tedious task.
+在我们视力正常的人看来，互联网是一个充满了文字、图片、视频等事物的地方，然而对于视力障碍人士来说却并不是这样的。有一种可以读出网页中文字和元数据的工具叫做屏幕阅读器，然而这种工具的作用十分有限，仅能让人看到网页的一部分文本。虽然一些开发人员花时间去改进他们的网站，为视障人士添加图片的描述性文字，但是绝大多数程序员都没有去做这个“毫无意义”的繁琐任务。
 
+所以，我决定做这么一个工具，来帮助视障人士通过 AI 的力量来“看”互联网。我给它起名为“Auto Alt Text”（自动 Alt 文本添加器），是一个 Chrome 拓展插件，可以让用户在右击操作后得到图片中的场景描述 —— 最开始是要这么做的。
 So, I decided to make a tool to help visually impaired individuals “see” the internet with the power of AI. It’s called Auto Alt Text and is a chrome extension that allows users to right click and get a description of the scene in an image — the first to do so.
 
-Check out the video below to see how it works and [download it to try it out](http://abhinavsuri.com/aat)!
+您可以观看下面的视频，了解它是如何运作的，然后[下载它并亲自试一试吧！](http://abhinavsuri.com/aat)!
 
 [![](https://i.ytimg.com/vi_webp/c1S4iB360m8/maxresdefault.webp)](https://www.youtube.com/embed/c1S4iB360m8)
 
-Demo of the chrome extension in action
-#### Why I made Auto Alt Text:
+视频内容为这个 Chrome 插件的运行演示
 
-I used to be one of those developers who didn’t take the time to add descriptions to images on my page. For me, accessibility was always a second thought until I got an email from a user of [one of my projects](https://github.com/hack4impact/flask-base).
+#### 为什么我想做这个 Auto Alt Text：
+
+我曾经是不想花时间为图片添加描述的开发者中的一员。对那时的我来说，无障碍永远是“考虑考虑”的事，直到有一天我收到了来自[我的一个项目](https://github.com/hack4impact/flask-base)的用户的邮件。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*uYx_pi9vAI17mQ20D81ykw.png)
 
-Email Text: “Hi Abhinav, I found your flask-base project and think it is definitely going to be a great fit for my next project. Thanks for working on it. I also just wanted to let you know that you should put some alt descriptions on your readme images. I’m legally blind and had a tough time making out what was in them :/ From REDACTED”
-At that point, my development process put accessibility at the bottom of the list, basically an afterthought. However, this email was a wakeup call for me. There are many individuals on the internet who need accessibility features to understand the original intent of websites, apps, projects, and more.
+邮件内容如下：“你好啊 Abhinav，我看了你的 flask-base 项目，我觉得它非常适合我的下个工程。感谢你开发了它。不过我想让你知道，你应该为你 README 中的图片加上 alt 描述。我是盲人，用了很长一段时间才弄清楚它们的内容 :/来自 xxxx”
 
-> “The web is replete with images that have missing, incorrect, or poor alternative text” — WebAIM (Center for Persons with Disabilities at Utah State University)
+在收到邮件的时候，无障碍功能的开发是放在我开发队列的最后面的，基本上它就是个“事后有空再添加”的想法而已。但是，这封邮件唤醒了我。在互联网中，有许多的人需要无障碍功能来理解网站、应用、项目等事物的用途。
 
-#### Artificial Intelligence to the Rescue:
+> “现在 Web 中充满了缺失、错误或者没有替代文本的图片” —— WebAIM（犹他州立大学残疾人中心）
 
-There are numerous ways to caption images; however, most have a few disadvantages in common:
+#### 用 AI 来挽救：
 
-1. They aren’t responsive and take a long time to return a caption.
-2. They are semi-automated (i.e. relying on humans to manually caption images on demand).
-3. They are expensive to create and maintain.
+现在其实有一些方法来给图像加描述文字；但是，大多数方法都有一些缺点：
 
-By creating a neural network, all of these problems can be solved. I recently had started taking a deep dive into machine learning and AI when I came across Tensorflow, an open source library to help with machine learning. Tensorflow enables developers to architect robust models that can be used to complete a variety of tasks from object detection to image recognition.
+1. 它们反应很慢，要很长时间才能返回描述文字。
+2. 它们是半自动化的（即需要人类手动按需标记描述文字）。
+3. 制作、维护它们需要高昂的代价。
 
-Doing a bit more research, I came across a paper by Vinyals et al called “[Show and Tell: Lessons learned from the 2015 MSCOCO Image Captioning Challenge](https://arxiv.org/abs/1609.06647)”. These researchers created a deep neural network to describe image content in a semantic manner.
+现在，通过创建神经网络，这些问题都能得到解决。最近我邂逅了 Tensorflow —— 一个用于机器学习开发的开源库，开始深入研究机器学习与 AI。Tensorflow 让开发人员能够构建从物体检测到图像识别的具有鲁棒性的机器学习模型。
+
+在做了一些研究之后，我找到了一篇 Vinyals 写的论文[《Show and Tell: Lessons learned from the 2015 MSCOCO Image Captioning Challenge》](https://arxiv.org/abs/1609.06647)。这些研究者们创建了一个深度神经网络，可以以语义化方式描述图片的内容。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*mSvmjcvUbpgB3izigcEi4w.png)
 
-Examples of im2txt in action from the [im2txt Github Repository](https://github.com/tensorflow/models/tree/master/im2txt)
-#### Technical Details of im2txt:
+im2txt 的实例来自 [im2txt Github Repository](https://github.com/tensorflow/models/tree/master/im2txt)
 
-The mechanics of the model are fairly detailed, but basically it is an “encoder-decoder” scheme. First, the image is put through a deep convolutional neural network called Inception v3, an image classifier. Next, the encoded image is fed through an LSTM which is a type of neural network that specialized in modeling sequences/time-sensitive information. The LSTM then works through a set vocabulary and constructs a sentence to describe the image. It does this by taking the likelihood of each word from that set vocabulary appearing first in the sentence and then computing the most likely second-word probability distribution given the first-word probability distribution and so on until the most likely character is a “.” indicating the end of the caption.
+#### im2txt 的技术细节：
+
+这个模型的机制相当的精致，但是它基本上是一个“编码器 - 解码器”方案。首先图片会传入一个名为 Inception v3 的卷积神经网络进行图片分类，接着编码好的图片送入 LSTM 网络中。LSTM 是一种专门用于序列模型/时间敏感信息的神经网络层。最后 LSTM 通过组合设定好的单词，形成一句描述图片内容的句子。LSTM 通过求单词集中每个单词在句子中出现的似然性，分别计算第一个词出现的概率分布、第二个词出现的概率分布……直到出现概率最大的字符为“.”，为句子加上最后的句号。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*CW6YVV_zEriaGrxMzN4quA.png)
 
-Overview of the structure of the neural network (from the [im2txt Github repository](https://github.com/tensorflow/models/tree/master/im2txt))
-Per the Github repository, the training time for this neural network was approximately 1–2 weeks on a Tesla k20m GPU (probably much more for a standard CPU on a laptop which is what I have). Thankfully, a member of the tensorflow community provided a trained model for public download.
+图为此神经网络的概况（图片来自[im2txt Github repository](https://github.com/tensorflow/models/tree/master/im2txt)）
 
-#### Problems out of the box + Lamdba:
+根据 Github 库中的说明，这个模型在 Tesla k20m GPU 上的训练时间大约为 1-2 周（在我笔记本的标准 CPU 上计算需要更多更多的时间）。不过值得庆幸的是，Tensorflow 社区提供了一个已经训练好的模型。
 
-When running the model, I managed to get it to work with Bazel, a tool that is used to pre-package tensorflow models into runnable scripts (among other purposes). However, it took me nearly 15 seconds to get a result from a single image when running on the command line! The only way to solve this issue was to keep the tensorflow graph in memory, but that would require keeping the app up 24/7. I was planning on putting this model on AWS Elasticbeanstalk where compute time is prorated to the hour and keeping an app up all the time was non-ideal (basically leading to situation #3 in the disadvantages of image captioning software). So, I decided to switch over to AWS Lamdba to host everything.
+#### 使用 box + Lamdba 解决问题：
 
-Lambda is a service that provides serverless computing for an incredibly low cost. Furthermore, it charges on a second by second basis when it is actively used. The way Lambda works is simple: once your app gets a request from a user, Lambda will activate an image of your application, serve a response, and deactivate that image. If you have multiple concurrent requests, it just spins up more instances to scale to the load. Additionally, it will keep your app activated as long as there are multiple requests within the hour. This service was a great fit for my use case.
+在运行模型时，我试图使用 Bazel 来运行模型（Bazel 是一个用于将 tensorflow 模型解包成可运行脚本的工具）。但是，当命令行运行时，它需要大约 15 秒钟的时间才能从获取一张图片的结果！解决问题的唯一办法就是让 Tensorflow 的整个 Graph 都常驻内存，但是这样需要这个程序全天候运行。我计划将这个模型挂在 AWS Elasticbeanstalk 上，在这个平台上是以小时为单位为计算时间计费的，而我们要维持应用程序常驻，因此并不合适（它完全匹配了前面章节所说的图片描述软件缺点的第三条缺点）。因此，我决定使用 AWS Lambda 来完成所有工作。
+
+Lambda 是一种无服务器计算服务，价格很低。此外，它会在计算服务激活时按秒收费。Lambda 的工作原理很简单，一旦应用收到了用户的请求，Lambda 就会将应用程序的映象激活，返回 response，然后再停止应用映象。如果收到多个并发请求，它会唤起多个实例以拓展负载。另外，如果某个小时内应用不断收到请求，它将会保持应用程序的激活状态。因此，Lambda 服务非常符合我的这个用例。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*Q4EaQYos3s-67OkhhKzDkg.png)
 
-AWS API Gateway + AWS = heart ([src](https://cdn-images-1.medium.com/max/700/1*SzOPXTf_YQNtFejG0e4HPg.png))
-The problem with Lambda was that I had to create an API for the im2txt model. Furthermore, Lamdba has memory constraints on the application that can be loaded as a function. When uploading a zip file containing all your application code, including dependencies, the final file cannot be more than ~250 MB. This limit was a problem since the size of the im2txt model was over 180 MB, and the dependencies for it to run was over 350 MB. I tried to get around this issue by uploading some parts into an S3 instance and downloading into my running lambda instance when it was active; however, the total storage size limit on lambda is 512 MB which my application was well over (it was around 530 MB in total).
+图为 AWS API Gateway + AWS = ❤️ ([图片链接](https://cdn-images-1.medium.com/max/700/1*SzOPXTf_YQNtFejG0e4HPg.png))
 
-To reduce the final size of my project, I reconfigured im2txt to accept a pared down model containing only the trained checkpoint and no extraneous metadata. This deletion reduced my model size to 120 MB. I then discovered [lambda-packs](https://github.com/ryfeus/lambda-packs) which contained a minimized version of all the dependencies, albeit with an earlier version of python and tensorflow. After going through the painful process of downgrading any python 3.6 syntax and tensorflow 1.2 code, I finally had a package which was ~480 MB in total, just below the 512 MB limit.
+使用 Lambda 的问题就在于，我必须要为 im2txt 模型创建一个 API。另外，Lambda 对于以功能形式加载的应用有空间限制。上传整个应用程序的 zip 包时，最终文件大小不能超过 250 MB。这个限制是一个麻烦事，因为 im2txt 的模型就已经超过 180 MB 了，再加上它运行需要的依赖文件就已经超过 350 MB 了。我尝试将程序的一部分传到 S3 服务上，然后在 Lambda 实例运行再去下载相关文件。然而，Lambda 上一个应用的总存储限制为 512 MB，而我的应用程序已经超过限制了（总共约 530 MB）。
 
-To keep response times quick, I created a CloudWatch function to keep the Lambda instance “hot” and the application active. I added a few helper functions to manipulate images not in JPG format and finally had a working API. All of these reductions led to a blazing fast response time of < 5 seconds in most cases!
+为了减小项目的大小，我重新配置了 im2txt，只下载精简过的模型，去掉了没用的一些元数据。这样做之后，我的模型大小减小到了 120 MB。接着，我找到了一个最小依赖的 [lambda-packs](https://github.com/ryfeus/lambda-packs)，不过它仅有早期版本的 python 和 tensorflow。我将 python 3.6 语法和 tensorflow 1.2 的代码进行了降级，经过痛苦的降级过程后，我最终得到了一个总大小约为 480 MB 的包，小于 512 MB 的限制。
+
+为了保持应用的快速响应，我创建了一个 CloudWatch 函数，让 Lambda 实例保持”热“状态，使应用始终处于激活态。接着，我添加了一些函数用于处理不是 JPG 格式的图片，在最后，我做好了一个能提供服务的 API。这些精简工作让应用在大多数情况下能够于 5 秒之内返回 response。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*e5awvS8Z3k5V9qaxzMadQw.png)
 
-Image with likely probabilities of what is in the image according to the API
-Moreover, Lambda is incredibly cheap, at the current rate, I can analyze 60,952 images for free monthly and any additional image for $0.0001094 (meaning approx $6.67 for the next 60,952 images).
+上图为 API 提供的图片可能内容的概率
 
-More details about the API can be found at the repository: [https://github.com/abhisuri97/auto-alt-text-lambda-api](https://github.com/abhisuri97/auto-alt-text-lambda-api)
+此外，Lambda 的价格便宜的令人惊讶。以现在的情况，我可以每个月免费分析 60,952 张图片，之后的图片每张仅需 0.0001094 美元（这意味着接下来的 60,952 张图像约花费 6.67 美元）。
 
-All that was left was packing it into a chrome extension for ease of use for the end user, which wasn’t too challenging a task (since it just involved a simple AJAX request to my API endpoint).
+
+有关 API 的更多信息，请参考 repo：[https://github.com/abhisuri97/auto-alt-text-lambda-api](https://github.com/abhisuri97/auto-alt-text-lambda-api)
+
+剩下的工作就是将其打包为 Chrome 拓展插件，以方便用户使用。这个工作没啥挑战性（仅需要向我的 API 端点发起一个简单的 AJAX 请求即可）。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*SXf884JCTh_Ze-0XcXsxiw.gif)
 
-Auto Alt Text Chrome Extension in action
-#### Results:
+上图为 Auto Alt Text Chrome 插件运行示例
 
-Im2txt performs well on images of people, scenery, etc. as long as those objects are present in the Common Objects in Context (COCO) dataset.
+#### 结论：
+
+Im2txt 模型对于人物、风景以及其它存在于 COCO 数据集中的内容表现良好。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*NE9GCZliWRPy9km6Kmaarw.png)
 
-Categories of images in the COCO dataset
-This model somewhat limits the scope of what can be captioned; however, it does cover a majority of images that are seen on social media sites such as Facebook and Reddit.
+上图为 COCO 数据集图片分类
 
-However, it often does fail to caption images that contain text since the COCO dataset doesn’t contain any such pictures. I tried using Tesseract to accomplish this task; however, the results were too inaccurate and took too long to produce (upwards of 10 seconds). I am currently working on an implementation of [Wang et al.’s paper ](http://ai.stanford.edu/~ang/papers/ICPR12-TextRecognitionConvNeuralNets.pdf)in Tensorflow to aid in this task.
+这个模型能够标注的内容还是有所限制；不过，它能标注的内容已经涵盖了 Facebook、Reddit 等社交媒体上的大多数图片。
 
-#### Takeaways:
+但是，对于 COCO 数据集中不存在的图片内容，这个模型并不能完成标注。我曾尝试着使用 Tesseract 来解决这个问题，但是它的结果并不是很准确，而且花费的时间也太长了（超过 10 秒）。现在我正在尝试使用 Tensorflow 实现[王韬等人的论文](http://ai.stanford.edu/~ang/papers/ICPR12-TextRecognitionConvNeuralNets.pdf)，将其加入这个项目中。
 
-While there is a new story about the wonders of AI on a weekly basis, it is important to step back and see how those tools can be used outside the research setting and how those findings can help people throughout the world. Overall, I loved doing this deep dive into Tensorflow with im2txt and being able to apply what I learned to a real world problem. Hopefully, this tool will be the first of many to help visually impaired individuals see a better internet.
+#### 总结：
 
-#### Links:
+虽然现在几乎每周都会涌现一些关于 AI 的新事物，但最重要的是退回一步，看看这些工具能在研究环境之外发挥出怎样的作用，以及这些研究能怎样帮助世界各地的人们。总而言之，我希望我能深入研究 Tensorflow 和 in2txt 模型去做到这些事情，并将我所学知识应用于现实世界。我希望这个工具能成为帮助视障人士”看“更好的互联网的第一步。
 
-- Follow me: I primarily publish what I am doing on [my Medium](https://medium.com/@abhisuri97). If you like this post, I’d appreciate a follow :) In the coming months I’ll be publishing a couple more “how to” guides for using AI/tensorflow to solve real world problems. I’ll also be posting some JS explainers/tutorials in the near future.
-- Link to the Chrome Extension [download page](http://abhinavsuri.com/aat)
-- Link to the Auto Alt Text Lambda API [Github repository](http://github.com/abhisuri97/auto-alt-text-lambda-api)
+#### 相关链接：
+
+- 关注文章作者：我会在 [Medium](https://medium.com/@abhisuri97) 上首发我写的文章。如果你喜欢这篇文章，欢迎关注我:)。接下来一个月，我将会在下个月发布一系列“如何使用 AI/tensorflow 解决现实世界问题”的文章。最近我还会发一些 JS 方面的教程。
+- 本文工具 Chrome 插件：[下载地址](http://abhinavsuri.com/aat)
+- Auto Alt Text Lambda API：[Github repository 地址](http://github.com/abhisuri97/auto-alt-text-lambda-api)
 
 
   ---
 
   > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[React](https://github.com/xitu/gold-miner#react)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计) 等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
-  
