@@ -201,7 +201,7 @@ Medium.com 是一个很好的例子，我确定你很熟悉它。显然他们在
 
 我的建议：了解网络字体是如何展示给你的用户的，而不是停留在静态设计上，它不会出现任何烦人的闪烁的无样式文本。
 
-**结论：**如果你不能避免 FOUT，那么请避免使用网络字体。
+**结论**：如果你不能避免 FOUT，那么请避免使用网络字体。
 
 （如果你在本轮中被淘汰，你可以向上滚动并查看一些避免 FOUT 的提示。）
 
@@ -235,7 +235,7 @@ Medium.com 是一个很好的例子，我确定你很熟悉它。显然他们在
 
 ![](https://cdn-images-1.medium.com/max/1600/1*5-yDFIJgMvqyr-ugdYUMOA.jpeg)
 
-macOS 是的 Safari。
+macOS 上的 Safari。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*8cXq51gj6yp2kZfD_ePdIQ.png)
 
@@ -362,7 +362,7 @@ Windows 上的 Chrome。
 
 `rel=preload` 目前只覆盖了大约 50％ 的用户 [2017 年 8 月]，但它[即将登陆 Firefox 和 Safari](http://caniuse.com/#feat=link-rel-preload)，所以事情很快会变得越来越好。
 
-你的另一种选择是 `FontFace` API，它[覆盖更广](http://caniuse.com/#feat=font-loading) —— 接近 80％ 的用户。你可以在引用 CSS 之前使用它让浏览器立即下载字体。
+你的另一种选择是 `FontFace` API，它[覆盖更广](http://caniuse.com/#feat=font-loading) —— 接近 80％ 的用户。你可以在引用 CSS 之前使用它让浏览器立即下载字体。
 
 ```html
 <script>
@@ -384,7 +384,7 @@ Windows 上的 Chrome。
 <link rel="stylesheet" href="main.css" />
 ```
 
-如果这合你意，我强烈推荐阅读[网络字体优化](https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/webfont-optimization)。
+如果这合你意，我强烈推荐阅读[网络字体优化](https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/webfont-optimization)。
 
 结果也是一样的美好：
 
@@ -407,7 +407,7 @@ Windows 上的 Chrome。
 
 最后一件事情……你的字体现在开始下载得更快了，你可以完全避免可怕的 FOUT。但是在 CSS 可用和字体可用之间可能会有几百毫秒的时间。
 
-在这段时间内，浏览器知道要使用什么字体，只是还没有这个字体。很酷的是，您可以通过在 `@font-face` 规则中定义 `font-display` 属性来控制这段时间内它要做的事。
+在这段时间内，浏览器知道要使用什么字体，只是还没有这个字体。很酷的是，你可以通过在 `@font-face` 规则中定义 `font-display` 属性来控制这段时间内它要做的事。
 
 在上面的例子中，我可以确定的是字体将在 CSS 加载完成后的几百毫秒内可用，因为它们的大小相同，来自同一个服务器，并且同时开始加载。
 
@@ -415,7 +415,7 @@ Windows 上的 Chrome。
 
 另一方面，如果你认为字体可能在 CSS 加载完成之后的几秒钟内无法可用，你可能希望将其设置为 `swap`，以便浏览器立即显示无样式的文本，从而让读者阅读。
 
-[这个规范](https://tabatkins.github.io/specs/css-font-display/#font-display-desc)以相当简单的语言解释了细节（我只读了绿色框里面的内容）。所有这些都是在2017 年 8 月的 Chrome 浏览器中才开始使用的。
+[这个规范](https://tabatkins.github.io/specs/css-font-display/#font-display-desc)以相当简单的语言解释了细节（我只读了绿色框里面的内容）。所有这些都是在2017 年 8 月的 Chrome 浏览器中才开始使用的。
 
 ---
 
