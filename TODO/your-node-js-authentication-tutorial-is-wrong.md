@@ -26,8 +26,7 @@ Node.js 开发中一个更有问题的事情就是身份验证的程序很大程
 
 让我们从凭证存储开始。存储和调用凭证对于身份管理来说是非常标准的，而传统的方法是在你自己的数据库或应用程序中进行存储或者调用。凭证，作为中间件，简单地说就是“这个用户可以通过”或“这个用户不可以通过”，需要 [passport-local](https://github.com/jaredhanson/passport-local) 模块来处理在你自己的数据库密码存储，这个模块也是由 Passport.js 作者写的。
 
-在我们进入这个教程的兔子洞之前，请记住 OWASP 的[密码存储作弊表](https://www.owasp.org/index.php/Password_Storage_Cheat_Sheet)，它归结为“存储具有独特盐和单向自适应成本函数的高熵密码”。或者先看下 Coda Hale 的 [bcrypt meme](https://codahale.com/how-to-safely-store-a-password/)，
-即使[有一些争论](https://security.stackexchange.com/a/6415)。
+在我们进入这个教程的兔子洞之前，请记住 OWASP 的[密码存储作弊表](https://www.owasp.org/index.php/Password_Storage_Cheat_Sheet)，它归结为“存储具有独特盐和单向自适应成本函数的高熵密码”。或者先看下 Coda Hale 的 [bcrypt meme](https://codahale.com/how-to-safely-store-a-password/)，即使[有一些争论](https://security.stackexchange.com/a/6415)。
 
 作为一个新的 Express.js 和 Passport 用户，我第一个要讲的地方将是 **passport-local** 本身的示例代码，[十分感谢 passport 官方提供了一个可以克隆和扩展的 Express.js 4.0 应用程序示例](https://github.com/passport/express-4.x-local-example) 我可以克隆和扩展。但是，如果我只是拷贝这个例子，我讲不了太多，因为没有数据库支持的例子，它假设我只是使用一些设置好的帐户。
 
