@@ -313,41 +313,41 @@ Windows 上的 Chrome。
 
 所以让我们从我的角度来看待别人的选择，并用更实际的方式来完成。
 
-### How to do web fonts right
+### 如何正确使用网络字体
 
-Contrary to the vibe you may have gotten from the above, I don’t think the web should do away entirely with web fonts. But if you’re going to use them, there’s a right way and a wrong way. Below, you will find both.
+与你从上面可能得到的感觉相反，我不认为网站应该完全远离网络字体。但如果你要使用它们，那就有一个正确的和错误的方法。下面你会发现这两个方法。
 
 ---
 
-The reason web fonts can be slow is that the browser doesn’t find out about them until quite late in the loading process. The browser must load a bunch of HTML and CSS *before* learning that it needs your fancy font that you totally need. (Dammit, some sarcasm slipped through. Apologies.)
+网络字体可能很慢的原因是浏览器在加载过程中很晚才发现它们。浏览器必须先加载一堆 HTML 和 CSS，**然后**才知道它需要加载你所需要的别致的字体。（TMD，一些讽刺滑过，抱歉。）
 
-Only then will the browser begin downloading the font. Here’s the assets loading for a page with nothing more than some HTML, CSS, and a single web font:
+只有这样，浏览器才会开始下载字体。以下是一个页面的资源加载情况，只包含一些 HTML，CSS 和单个网络字体：
 
 ![](https://cdn-images-1.medium.com/max/1600/1*gfeEGIGmAgZ10PtxM53vSA.png)
 
-The blue bar is HTML, purple is CSS and grey is the font file.
+蓝色条是 HTML，紫色的是 CSS，灰色的是字体文件。
 
-You can see that as the browser is parsing the HTML, it discovers a reference to the CSS file and starts downloading it. Once you’ve finished noticing that, notice that only once the CSS is completely downloaded does the browser realise you’re going to need a font. So the page is actually ready to go before the font even *begins* to download.
+你可以看到，当浏览器解析 HTML 时，它发现了 CSS 文件的引用，并开始下载它。一旦你注意到这一点，注意到只有当 CSS 被完全下载后，它才会意识到你需要一个字体。因此，该页面实际上在字体之前，甚至是在字体**开始**下载之前就已经准备好了。
 
-It’s a bit hard to see, but across the top are screenshots of the page as it’s loading. If you squint (although if you ask me, squinting makes it even harder to see things), you can see that the text is rendered only once the font is ready (at about 2400ms).
+这有点难以理解，但通过上方的页面加载进程的截图，如果你眯着眼睛看（虽然眯着眼睛也很难看清），你可以看到只有在字体准备就绪（大约在 2400ms）的时候，文字才会被渲染。
 
-Your other option is to load the font via CSS — the sort of snippet you’re encouraged to use by Google Fonts. This basically loads a CSS file that defines some font-face rules that point to font files on Google’s servers. So the load pattern looks like this:
+你的另一个选择是通过 CSS 加载字体 —— Google 字体鼓励你使用的代码片段。这基本上是加载一个 CSS 文件，它定义了一些指向 Google 服务器上的字体文件的字体规则。所以加载模式看起来像这样：
 
 ![](https://cdn-images-1.medium.com/max/1600/1*Gdclz9iXlIXiZdP629I4AA.png)
 
-The green is the font file. The end result is much the same. We’re waiting for ages before we event start downloading the font.
+绿色是字体文件。最终结果是一样的。我们等了很长时间才开始下载字体。
 
 ---
 
-But what if you could add one line of code and start the font downloading sooner? Like…
+但是如果你可以添加一行代码并尽快开始字体下载呢？像这样……
 
 ![](https://cdn-images-1.medium.com/max/1600/1*a1AvziD3XHE_dt4u4tUW3g.png)
 
-Wouldn’t that be frikken awesome?
+这难道不是很棒吗?
 
-Well… drop this in your HTML before you define your CSS file and Bob’s your uncle.
+那么……在定义你的 CSS 文件和正文内容之前，把这个放在你的 HTML 中。
 
-```
+```html
 <link
   rel="preload"
   href="./fonts/sedgwick-ave-v1-latin-regular.woff2"
@@ -358,13 +358,13 @@ Well… drop this in your HTML before you define your CSS file and Bob’s your 
 <link rel="stylesheet" href="main.css" />
 ```
 
-Yes yes, technically not one line.
+是的，从技术上讲，它们不在一行上。
 
-`rel=preload` only covers about 50% of users right now [August 2017], but it’s [just about to land in Firefox and Safari](http://caniuse.com/#feat=link-rel-preload) so things are quickly getting better.
+`rel=preload` 目前只覆盖了大约 50％ 的用户 [2017 年 8 月]，但它[即将登陆 Firefox 和 Safari](http://caniuse.com/#feat=link-rel-preload)，所以事情很快会变得越来越好。
 
-Your alternative, the `FontFace` API, [covers a lot more ground](http://caniuse.com/#feat=font-loading) — closer to 80% of users. You can use it right before you point to your CSS to start the browser downloading immediately.
+你的另一种选择是 `FontFace` API，它[覆盖更广](http://caniuse.com/#feat=font-loading) —— 接近 80％ 的用户。你可以在引用 CSS 之前使用它让浏览器立即下载字体。
 
-```
+```html
 <script>
   if ('FontFace' in window) {
     var sedgwickAveFont = new FontFace(
@@ -384,17 +384,17 @@ Your alternative, the `FontFace` API, [covers a lot more ground](http://caniuse.
 <link rel="stylesheet" href="main.css" />
 ```
 
-I highly recommend reading [Web Font Optimization](https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/webfont-optimization) if this floats your boat
+如果这合你意，我强烈推荐阅读[网络字体优化](https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/webfont-optimization)。
 
-The result is just as wonderful:
+结果也是一样的美好：
 
 ![](https://cdn-images-1.medium.com/max/1600/1*1Igz81o2h0lfGld6ukAfrA.png)
 
-And in a neat stroke of luck, `.woff2` support is more or less a superset of `FontFace` support, so you only need to bother specifying the one font format when you use `FontFace`.
+幸运的是，`.woff2` 或多或少是 `FontFace` 支持的超集，所以你只需要在使用 `FontFace` 时指定一种字体格式。
 
-You can then have fallbacks for `.woff` and `.ttf` and whatever else you like in your usual `@font-face` rules.
+然后，你可以为 `.woff` 和 `.ttf` 定义预设机制，以及其他任何你经常使用的 `@font-face` 规则。
 
-```
+```css
 @font-face {
   font-family: 'Sedgwick Ave';
   font-style: normal;
@@ -405,29 +405,29 @@ You can then have fallbacks for `.woff` and `.ttf` and whatever else you like in
 }
 ```
 
-One last thing… so your font is now starting to download a lot sooner, you can hopefully avoid the dreaded FOUT entirely. But maybe there will be a few hundred milliseconds between the CSS arriving and the font arriving.
+最后一件事情……你的字体现在开始下载得更快了，你可以完全避免可怕的 FOUT。但是在 CSS 可用和字体可用之间可能会有几百毫秒的时间。
 
-In this period, the browser knows what font to use, but doesn’t have it yet. What’s cool is that you can control what it does during this time by defining the `font-display` property in the `@font-face` rule.
+在这段时间内，浏览器知道要使用什么字体，只是还没有这个字体。很酷的是，您可以通过在 `@font-face` 规则中定义 `font-display` 属性来控制这段时间内它要做的事。
 
-In the above example, I can be pretty sure the font is going to arrive within a few hundred milliseconds of the CSS, since they’re about the same size, coming from the same server, starting at the same time.
+在上面的例子中，我可以确定的是字体将在 CSS 加载完成后的几百毫秒内可用，因为它们的大小相同，来自同一个服务器，并且同时开始加载。
 
-In this case, I want to block the text from showing until the font arrives to save myself from the dreaded FOUT. I do this by setting `font-display` to `block`.
+在这种情况下，我想阻止文字显示直到字体可用，以避免可怕的 FOUT。我是通过将 `font-display` 设置为 `block` 来实现的。
 
-On the flip-side, if you think the font might not arrive for several seconds after your CSS, you might want to set it to `swap` so the browser shows the unstyled text immediately, thus letting your reader read.
+另一方面，如果你认为字体可能在 CSS 加载完成之后的几秒钟内无法可用，你可能希望将其设置为 `swap`，以便浏览器立即显示无样式的文本，从而让读者阅读。
 
-[The spec](https://tabatkins.github.io/specs/css-font-display/#font-display-desc) explains the details in fairly simple language (I only read the green boxes). All this is Chrome-only as of August 2017.
+[这个规范](https://tabatkins.github.io/specs/css-font-display/#font-display-desc)以相当简单的语言解释了细节（我只读了绿色框里面的内容）。所有这些都是在2017 年 8 月的 Chrome 浏览器中才开始使用的。
 
 ---
 
-Here’s a codepen that will list a bunch of fonts and show you which ones are supported on your current device.
+下面是一段在 codepen 是的代码，它将列出一堆字体，并显示你的当前设备上支持哪些字体。
 
-I’m not sure that it’s actually useful but it was a bit of fun trying to work out how to do it. Lemme know if you’d like some fonts added to the list.
+我不确定它是否真的有用，但是尝试着去做是一件很有趣的事情。如果你想把一些字体添加到列表中，请告诉我。
 
 [![](https://s3-us-west-2.amazonaws.com/i.cdpn.io/326282.PKJvow.2cabcc11-62f6-4e7f-abfc-1c756aa59002.png)](https://hackernoon.com/media/39b5620b39b011d96f5a261b318ff3b7?postId=a3b4b39fe0ae)
 
-That’s about it.
+仅此而已。
 
-Bye.
+再见。
 
 
   ---
