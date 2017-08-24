@@ -3,298 +3,146 @@
   > * 原文作者：[Yoric](https://yoric.github.io/about/)
   > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
   > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/binary-ast-newsletter-1.md](https://github.com/xitu/gold-miner/blob/master/TODO/binary-ast-newsletter-1.md)
-  > * 译者：
-  > * 校对者：
+  > * 译者：[Cherry](https://github.com/sunshine940326)
+  > * 校对者：[lampui](https://github.com/lampui)、[jasonxia23](https://github.com/jasonxia23)
 
-  # Towards a JavaScript Binary AST
+# JavaScript 二进制的 AST
 
-  In this blog post, I would like to introduce the JavaScript Binary AST, an
-ongoing project that we hope will help make webpages load faster, along with
-a number of other benefits.
+在这个博客文章中，我想介绍一下 JavaScript 二进制 AST，我们希望在我们的项目中这将有助于使网页加载更快，以及其他一些好处。
 
-# A little background
+# 背景介绍
 
-Over the years, JavaScript has grown from one of the slowest scripting languages
-available to a high-performance powerhouse, fast enough that it can run desktop,
-server, mobile and even embedded applications, whether through web browsers or
-other environments.
+多年来，JavaScript 已经从最慢的脚本语言之一，从老爷车发展为兰博基尼，不管是通过 Web 浏览器还是其他环境。它都能够快到可以运行桌面、服务器、移动甚至嵌入式应用程序。
 
-As the power of JavaScript has grown, so has the complexity of applications
-and their size. Whereas, twenty years ago, few websites used more than a few
-Kb of JavaScript, many websites and non-web applications now need to deliver
-and load several Mb of JavaScript before the user can start actually using
-the site/app.
+随着 JavaScript 的增长，应用程序的复杂程度和规模都越来越复杂。然而，二十年前，少数使用过 JavaScript 的网站也就加载几千字节的 JavaScript，许多网站和非 Web 应用程序现在需要在用户开始实际使用之前加载几兆的 JavaScript 代码。
 
-While the sound of “several Mb of JavaScript” may sound odd, recall that a
-native application such as Steam weighs 3.1Mb (pure binary, without resources, without
-debugging symbols, without dynamic dependencies, measured on my Mac),
-Telegram weights 11Mb and the Opera *updater* weighs 5.8Mb. I’m not adding the
-size of a web browser, because web browsers are architected essentially
-from dynamic dependencies, but I expect that both Firefox and Chromium
-weigh 100+ Mb.
+“几兆的 JavaScript 代码”听起来会很陌生，但是像 Steam 这样的本地应用程序只有 3.1 兆（纯二进制，没有资源，没有调试符号，没有动态依赖，在我的 Mac 上测量的结果）。Telegram 是 11 兆，Opera **更新程序** 是 5.8 兆。因为浏览器实际上是动态依赖构建的，所以我并没算上 Web 浏览器的体积，但我估计Firefox 和 Chrome 有 100 余兆的大小。
 
-Of course, large JavaScript source code has several costs, including:
+当然，大型 JavaScript 源代码有几个成本，包括：
 
-- heavy network transfers;
-- slow startup.
+- 重型网络传输；
+- 慢速启动。
 
-We have reached a stage at which the simple duration of parsing the JavaScript
-source code of a large web application such as Facebook can easily last
-500ms-800ms on a fast computer – that’s *before* the JavaScript code can be
-compiled to bytecode and/or interpreted.
-There is very little reason to believe that JavaScript
-applications will get smaller with time.
-
-So, a joint team from Mozilla and Facebook decided to get started working on a novel mechanism
-that we believe can dramatically improve the speed at which an application can
-start executing its JavaScript: the Binary AST.
-
-# Introducing the Binary AST
+我们现在已经能在很短的时间内解析 JavaScript 代码，在以前一个大型的 web 应用例如 Facebook 在一台较好的电脑上通过 500ms-800ms 的时间编译完成。几乎没有理由相信随着时间的推移，JavaScript 应用程序会变得越来越小。
 
-The idea of the JavaScript Binary AST is simple: instead of sending text source
-code, what could we improve by sending *binary* source code?
-
-Let me clarify: the Binary AST source code is equivalent to the text
-source code. It is *not* a new programming language, or a subset of
-JavaScript, or a superset of JavaScript, it *is* JavaScript.
-It is *not* a bytecode, rather a binary representation of the source
-code. If you prefer, this Binary AST representation is a form of *source
-compression*, designed specifically for JavaScript, and optimized to
-improve parsing speed. We are also building a decoder that provides a perfectly
-readable, well-formatted, source code. For the moment, the format does not
-maintain comments, but there is a proposal to allow comments to be maintained.
-
-Producing a Binary AST file will require a build step and we hope that, in time,
-build tools such as WebPack or Babel will be able to produce Binary AST files,
-hence making switching to Binary AST as simple as passing a flag to the build
-chains already used by many JS developers.
-
-I plan to detail the Binary AST, our benchmarks and our current status it in
-future blog posts. For the moment, let me just mention that early experiments
-suggest that we can both obtain very good source compression and considerable
-parsing speedups.
-
-We have been working on Binary AST for a few months now and the project was
-just accepted as a Stage 1 Proposal at at ECMA TC-39. This is encouraging, but
-it will take time until you see implemented in all JavaScript VMs and toolchains.
-
-# Comparing with…
-
-## …compression formats
-
-Most webservers already send JavaScript data using a compression format such as
-gzip or brotli. This considerably reduces the time spent waiting for the data.
-
-What we’re doing here is a format specifically designed for JavaScript. Indeed,
-our early prototype uses gzip internally, among many other tricks,
-and has two main advantages:
-
-- it is designed to make *parsing* much faster;
-- according to early experiments, we beat gzip or brotli by a large margin.
-
-Note that our main objective is to make parsing faster, so in the future, if we
-need to choose between file size and parsing speed, we are most likely to pick
-faster parsing. Also, the compression formats used internally may change.
-
-## …minifiers
-
-The tool traditionally used by web developers to decrease the size of JS files
-is the minifier, such as UglifyJS or Google’s Closure Compiler.
-
-Minifiers typically remove unused whitespace and comments, rewrite variable
-names to shorten then, and use a number of other transformations to make the
-program shorter.
-
-While these tools are definitely useful, they have two main shortcomings:
-
-- they do not attempt to make parsing faster – indeed, we have witnessed a
-number of cases in which minification accidentally makes parsing slower;
-- they have the side-effect of making the JavaScript code much harder to read,
-including renaming unreadable names to variables and functions,
-using exotic features to pack variable declarations, etc.
-
-By opposition, the Binary AST transformation:
-
-- is designed to make parsing faster;
-- maintains the source code in such a manner that it can be easily decoded
-and read, with all variable names, etc.
-
-Of course, obfuscation and Binary AST transformation can be combined for
-applications that do not wish to keep the source code readable.
-
-## …WebAssembly
-
-Another exciting web technology designed to improve performance in certain
-cases is WebAssembly (or wasm). wasm is designed to let native applications
-be compiled in a format that can both be transferred efficiently, parsed
-quickly and executed at native speed by the JavaScript VM.
-
-By design, however, wasm is limited to native code, so it doesn’t work
-with JavaScript out of the box.
-
-I am not aware of any project that achieves compilation of JavaScript to wasm.
-While this would certainly be feasible, this would be a rather risky undertaking,
-as this would involve developing a compiler that is at least as complex as a
-new JavaScript VM, while making sure that it is still compatible with
-JavaScript (which is both a very tricky language and a language whose
-specifications are clarified or extended at least once per year). Of course,
-this task ends up useless if the resulting code is slower than today’s JavaScript
-VMs (which tend to be really, really fast) or so large that it makes startup
-prohibitively slow (because that’s the problem we are trying to solve here)
-or if it doesn’t work with existing JavaScript libraries or (for browser
-applications) the DOM.
-
-Now, exploring this would definitely be an interesting work, so if anybody
-wants to prove us wrong, by all means, please do it :)
-
-## …improving caching
-
-When JavaScript code is downloaded by a browser, it is stored in the browser’s
-cache, so as to avoid having to re-download it later. Both Chromium and Firefox
-have recently improved their browsers to be able to cache not just the JavaScript
-source code but also the bytecode, hence side-stepping nicely the issue of
-parse time for the second load of a page. I have no idea of the status of
-Safari or Edge on the topic, so it is possible that they may have comparable
-technologies.
-
-Congratulation to both teams, these technologies are great! Indeed, they nicely
-improve the performance of reloading a page. This works very well for pages that
-have not updated their JavaScript code since the last time they were accessed.
-
-The problem we are attempting to solve with Binary AST is different:
-while we all have some pages that we visit and revisit often,
-there is a larger number of pages that we visit for the first time,
-in addition to the pages that we revisit but that that have been updated since
-our latest visit. In particular, a
-growing number of applications get updated very, very often – for instance, Facebook
-ships new JavaScript code several times per day, and I would be surprised if
-Twitter, LinkedIn, Google Docs et al didn’t follow similar practices. Also, if
-you are a JS
-developer shipping a JavaScript application – whether web or otherwise – you
-want the first contact between you and your users to be as smooth as possible,
-which means that you want the first load (or first load since update) to be very
-fast, too.
-
-These are problems that we address with Binary AST.
-
-# What if…
-
-## …we improved caching?
-
-Additional technologies have been discussed to let browsers prefetch and
-precompile JS code to bytecode.
-
-These technologies are
-definitely worth investigating and would also help with some of the scenarios
-for which we are developing Binary AST – each technology improving the other.
-In particular, the better resource-efficiency of Binary AST would thus help
-limit the resource waste when such technologies are misused, while also
-improving the cases in which these techniques cannot be used at all.
-
-## …we used an existing JS bytecode?
-
-Most, if not all, JavaScript Virtual Machines already use an internal
-representation of code as JS bytecode. I seem to remember that at least
-Microsoft’s Virtual Machine supports shipping JavaScript bytecode for
-privileged application.
-
-So, one could imagine browser vendors exposing their bytecode and letting
-all JS applications ship bytecode. This, however, sounds like a pretty bad
-idea, for several reasons.
-
-The first one affects VM developers. Once you have exposed your internal
-representation of JavaScript, you are doomed to maintain it. As it turns out,
-JavaScript bytecode changes regularly, to adapt to new versions of the language
-or to new optimizations. Forcing a VM to keep compatibility with an old version
-of its bytecode forever would be a maintenance and/or performance disaster, so
-I doubt that any browser/VM vendor will want to commit to this, except perhaps
-in a very limited setting.
-
-The second affects JS developers. Having several bytecodes would mean
-maintaining and shipping several binaries – possibly several dozens if you want to
-fine-time optimizations to successive versions of each browser’s bytecode. To
-make things worse, these bytecodes will have different semantics, leading to
-JS code compiled with different semantics.
-While
-this is in the realm of the possible – after all, mobile and native developers
-do this all the time – this would be a clear regression upon the current JS landscape.
-
-## …we had a standard JS bytecode?
-
-So what if the JavaScript VM vendors decided to come up with a novel bytecode
-format, possibly as an extension of WebAssembly, but designed specifically for
-JavaScript?
-
-Just to be clear: I have heard people regretting that such a format did not
-exist but I am not aware of anybody actively working on this.
-
-One of the reasons people have not done this yet is that designing and
-maintaining bytecode for a language that changes all the time is
-quite complicated – doubly so for a language that is already as complex
-as JavaScript. More importantly, keeping the interpreted-JavaScript
-and the bytecode-JavaScript in touch would most likely be a losing battle,
-one that would eventually result in two subtly incompatible JavaScript languages,
-something that would deeply hurt the web.
-
-Also, whether such a bytecode
-would actually help code size and performance, remains to be demonstrated.
-
-## …we just made the parser faster?
-
-Wouldn’t it be nice if we could *just* make the parser faster? Unfortunately,
-while JS parsers have improved considerably, we are long past the point of
-diminishing returns.
-
-Let me quote a few steps that simply cannot be skipped or made infinitely
-efficient:
-
-- dealing with exotic encodings, Unicode byte order marks and other niceties;
-- finding out if this `/` character is a division operator, the start of a
-comment or a regular expression;
-- finding out if this `(` character starts an expression, a list of arguments
-for a function call, a list of arguments for an arrow function, …;
-- finding out where this string (respectively string template, array, function,
-…) stops, which depends on all the disambiguation issues, …;
-- finding out whether this `let a` declaration is valid or whether it
-collides with another `let a`, `var a` or `const a` declaration –
-which may actually appear later in the source code;
-- upon encountering a use of `eval`, determine which of the 4 semantics
-of `eval` to use;
-- determining how truly local local variables are;
-- …
-
-Ideally, VM developers would like to be able to parallelize parsing and/or
-delay it until we know for sure that the code we parse is actually used.
-Indeed, most recent VMs implement these strategies. Sadly, the numerous
-token ambiguities in the JavaScript syntax considerably the opportunities
-for concurrency while the constraints on when syntax errors must be thrown
-considerably limit the opportunities for lazy parsing.
-
-In either case, the VM needs to perform an expensive pre-parse step that can
-often backfire into being slower than regular parsing, typically when applied
-to minified code.
-
-Indeed, the Binary AST proposal was designed to overcome the performance
-limitations imposed by the syntax and semantics of text source JavaScript.
-
-# What now?
-
-We are posting this blog entry early because we want you, web developers,
-tooling developers to be in the loop as early as possible. So far, the
-feedback we have gathered from both groups is pretty good, and we are looking
-forward to working closely with both communities.
-
-We have completed an early prototype for benchmarking purposes (so, not really
-usable) and are working on an advanced prototype, both for the tooling and
-for Firefox, but we are still a few months away from something useful.
-
-I will try and post more details in a few weeks time.
-
-For more reading:
-
-- [Bug tracking early experiments in Firefox](https://bugzilla.mozilla.org/show_bug.cgi?id=1349917).
-- [ECMA TC-39 Proposal](https://github.com/syg/ecmascript-binary-ast).
-- [Tooling](https://github.com/Yoric/binjs-ref) (this is a WIP version of the advanced prototype, but it doesn’t reimplement everything from the early prototype yet).
+因此，Mozilla 和 Facebook 的一个联合小组决定开始研究一种新的机制，我们相信通过二进制 AST 执行 JavaScript 可以极大地提高应用程序的速度。
+
+# 二进制 AST 简介
+JavaScript 二进制 AST 的思想很简单：我们可以通过发送**二进制**而不是发送文本源。
+
+让我来澄清一下：二进制 AST 源码相当于文本的源码。并**不是**一个新的语言，也不是 JavaScript 的子集或超集，它**是** JavaScript。它不是一个字节码，而是源代码的二进制表示形式。如果您愿意，这个二进制 AST 就是一种专为JavaScript而设计的，并为了解析速度而优化过的**源代码**。我们还在构建一个可以提供可读的格式良好的源代码解码器。目前，这种形式并没有保留注释，但是有一个保留注释的提议。
+
+生成一个二进制 AST 文件需要一个构建过程，我们希望这个过程越快越好。像 WebPack 或者 Babel 这样的构建工具会产生一个二进制的 AST 文件，因此，切换到二进制 AST 就像向构建传递一个标志一样简单，许多开发者已经开始使用。
+
+我想在我未来博客的文章中详细介绍一些二进制 AST 的标准和我们的现状，现在，我来简述一下，早期的实验暗示我们可以能得到很好的源压缩和可观的解析速度。
+
+我们已经研究二进制 AST 几个月了，现在项目已经作为 Stage 1 Proposal 被 ECMA TC-39 所接受。这是鼓舞人心的，但是还是需要一定的时间，你才能看到所有的 JavaScript 虚拟机和工具链的实现。
+
+# 对比一下
+
+## 和压缩格式对比
+
+大部分的 web 服务器在发送 JavaScript 的时候已经使用了例如 gzip 或者 brotli 这样的压缩工具将 JavaScript 压缩了。这大大减少了等待数据的时间。我们在这里做的是一种专为 JavaScript 设计的格式。的确，在早期的原型内部使用 gzip，相比许多其他的技巧，我们早期的原型有两个主要优势：
+
+- 它使得**解析**速度更快；
+- 根据早期的实验，我们大幅度击败了 gzip 或 brotli。请注意，我们的主要目的是使分析速度更快，因此在未来，如果我们需要在文件大小和解析速度中做选择，我们最有可能选择更快的解析。另外，使用的压缩格式的内部可能会改变。
+
+## 和压缩工具相比
+web 开发者早期使用的用来减少 JS 文件大小的传统工具，例如 UglifyJS 和 Google’s Closure Compiler，这些工具称为压缩工具。
+
+压缩工具通常移除未使用的空格和注释、修改变量然后缩短名称，并使用一些其他转换来使程序更短。
+
+虽然这些工具确实有用，但它们有两个主要缺点：
+
+- 它们并不试图更快地进行解析 —— 事实上，我们已经目睹了在很多情况下，缩小意外使得解析更慢；
+- 它们有使 JavaScript 代码更难阅读的副作用，包括重命名不便于阅读的变量和函数，使用奇怪的特征将声明的变量打包，等等。
+
+相反，使用二进制 AST 转换：
+
+- 用于使解析更快；
+- 以易于解码的方式保留了源代码并容易阅读所有变量名等。
+
+当然，如果不希望保持源代码可读性的应用程序，混淆和二进制 AST 转换可以结合在一起。
+
+## 和 WebAssembly 相对比
+另一个令人兴奋的旨在提升确定的性能的 web 技术是 WebAssembly（wasm）。wasm 是为了使本地的应用被编译为一种格式，这种格式既可以有效地传输，也可以快速的解析，并通过 JavaScript 虚拟机以本地速度执行。
+
+然而，设计者的意图是将 wasm 受限于本地代码，所以如果不是本地代码，JavaScript 将不起作用。
+
+我不认为所有的 JavaScript 项目都可以通过 wasm 的编译。虽然这是可行的，但这将会是一项相当冒险的项目，因为这至少和开发一个新的 JavaScript 虚拟机的复杂度是相同的。同时还要确保仍然可以和 JavaScript 兼容（这是一个非常棘手的语言，并且每年至少生成一次说明文档或扩展），当然，如果生成的代码比今天的 JavaScript 虚拟机慢的话，这个任务就没用了，JavaScript 虚拟机现在越来越快了。并且如果编译之后的代码运行速度过慢或者文件太大，会使得启动非常慢（这也是我们在这里要解决的问题）或者使用编译的 JavaScript 库和（适用于浏览器应用程序的）DOM 导致无法工作。
+
+现在，对这方面的探索绝对是一个有趣的工作，所以如果有人想证明我们错了，无论如何，请这样做:)
+
+## 提高缓存
+当 JavaScript 代码被浏览器下载时，它被存储在浏览器的缓存中，以避免以后再下载它。Chromium 和 Firefox 近期更新了他们的浏览器使得不仅 JavaScript 源文件可以缓存，字节码也可以加入缓存。因此，可以很好地解决页面再次加载的解析时间问题。我不知道 Safari 和 Edge 在这方面的进展，所以他们可能也会有类似的技术。
+
+恭喜 Chromium 和 Firefox，这些技术都很棒！事实上，他们很好地提高重载页面的性能。这对于那些自从上次访问 JavaScript 代码但是没有更新的页面非常有效。
+
+我们试图用二进制 AST 解决的问题是不同的，虽然一些页面是我们已经访问过并且经常访问的，但是还有更多的页面是我们只访问一次，哪怕是这个页面近期已经更新过了但我们并没有再访问。特别是，越来越多的应用程序得到非常频繁的更新 —— 例如，Facebook 每天发送几次新的 JavaScript 代码，并且 Twitter、LinkedIn、Google Docs 等情况也会类似。另外，如果你是一个 JS 的开发人员然后发布一个 JavaScript 应用程序 —— 无论是 Web 应用程序还是其他程序，你总是希望你和用户之间的第一次接触尽可能平滑，这意味着你希望第一个加载（或更新后的第一次加载）也非常快。
+
+这些问题我们都可以使用 二进制 AST 解决。
+
+# 假设
+
+## 如果我们提高了缓存会怎样？
+
+额外的技术是要使得浏览器提前抓取和预编译 JS 代码和字节码。
+
+这些技术确实值得研究，也将有助于我们开发二进制 AST 脚本 —— 每一种技术都改进了另一种技术。特别是，当使用这种技术时，二进制AST的更好的资源效率将有助于限制资源浪费，同时也改善了这些技术根本不能使用的情况。
+
+## 如果我们使用一个现有的 JS 字节码会怎样？
+
+大多数（要不就是所有的）JavaScript 虚拟机已经使用一个内部的 JS 字节码。我似乎记得至少微软的虚拟机支持特殊的应用使用 JavaScript 字节。
+
+所以，你可以想象一下浏览器厂商将他们的字节码开源并且使所有的 JavaScript 应用使用字节码。这样的话，听起来不是一个好主意，有以下几个原因：
+
+第一：影响虚拟机的开发者。一旦你暴露自己的内部表示的 JavaScript，你注定要维护它。事实证明，JavaScript 字节码经常变化，以适应新版本的语言或新的优化。强迫虚拟机保持与旧版本的字节码的兼容性将是一个维护和/或性能灾难，所以我怀疑任何浏览器或 VM 供应商都愿意提交这个，除非在非常有限的设置中。
+
+第二：影响 JS 开发者。有几个字节码就意味着维护和运送几个二进制，可能有几十个，如果你想要优化后续版本的浏览器的字节码。更糟糕的是，这些字节码会有不同的语义，导致不同语义的 JS 代码编译。虽然这是可能的，毕竟，移动和本地的开发者都是这样做的，这就是在回退 JavaScript。
+
+## 我们有一个标准的 JS 字节码会怎样？
+
+所以，如果 JavaScript 虚拟机开发者决定想出一个新的字节码格式，可能作为一个扩展 WebAssembly，但专为 JavaScript 设计呢？
+
+要明确一点：我听到有人后悔没有开发一个这样的格式，但我不知道有人积极致力于此。
+
+没有人这样做的原因是设计和维护一种随时变化的语言的字节码是相当复杂的，对于一种像 JavaScript 这种已经很复杂的语言来说，将会更加复杂。最重要的是，持续编译 JavaScript 和对 JavaScript 进行字节很有可能会失败。这将会产生两个不兼容的 JavaScript 语言，对于 web 有时非常不利。
+
+此外，这样的字节码实际上对代码的大小和性能是否有帮助，还有待论证。
+
+## 我们只是让解析器更快会怎样？
+
+那岂不是很好，如果我们可以**只**让解析器更快？不幸的是，虽然 JS 解析器有了很大改进，但改进的速度是在逐步放缓。
+
+让我引用几个不能跳过或一直有效的步骤：
+
+- 处理外来编码，标记 Unicode 字节顺序和其他细节；
+- 找出 `/` 字符，是一个除法操作或者一个注释或正则表达式的开始；
+- 找出 `(` 字符，是表达式的开始，一个函数调用的参数列表，箭头函数的参数列表等；
+- 找出这个字符串（分别是字符串模板、数组、函数等）在哪停止，这取决于所有模棱两可的问题；
+- 找出 `let a` 声明是否和其他的 `let a`、`var a`、`const a` 声明冲突，实际上可能在稍后的代码出现；
+- 当遇到使用 `eval` 时，决定使用 4 个语义中的哪一个；
+- 确定哪些是真正的本地变量；
+- 等等
+
+理想情况下，虚拟机开发者希望能够并行解析，或延迟直到我们知道我们实际上使用的语法在进行解析。事实上，最近的虚拟机实施这些战略。遗憾的是，JavaScript 语法中大量的标记含糊性大大增加了并发性的机会，同时必须抛出对语法错误的限制，从而限制了懒惰解析的机会。遗憾的是，JavaScript 语法中大量模棱两可的标记大大增加了并发性的机会，同时必须抛出对语法错误的限制，从而限制了懒惰解析的机会。
+
+在任何情况下，虚拟机都需要进行昂贵的预分析步骤，可却往往适得其反，产生比常规的解析速度较慢，尤其是当应用在压缩编码时。
+
+实际上，二进制 AST 建议旨在克服文本源 JavaScript 的语法和语义所带来的性能限制。
+
+# 现在是什么情况？
+我们发布这篇博客因为我们想让你 —— Web 开发人员或者工具开发商必须在尽可能早的了解二进制的 AST。到目前为止，我们从两组收集的反馈是非常好的，我们期待着与社区密切合作。
+
+我们已经完成了一个早期的基准测试原型（因此不太实用），正在开发一个先进的原型，无论是对于工具还是 Firefox，但是我们还有几个月的时间去做一些有用的事情。
+
+我会在几周内发布更多的细节。
+
+阅读更多：
+
+- [缺陷跟踪在 Firefox 的早期实验](https://bugzilla.mozilla.org/show_bug.cgi?id=1349917).
+- [ECMA TC-39 提议](https://github.com/syg/ecmascript-binary-ast).
+- [工具](https://github.com/Yoric/binjs-ref) (这是一种先进的正在进行中的原型产品的版本，但它不执行一切从早期的原型)。
 
 
   ---
