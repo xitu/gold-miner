@@ -20,7 +20,7 @@
 # 官方账号
 
 - [知乎专栏：掘金翻译计划](https://zhuanlan.zhihu.com/juejinfanyi)
-- [微博：掘金翻译计划](https://zhuanlan.zhihu.com/juejinfanyi)
+- [微博：掘金翻译计划](http://www.weibo.com/juejinfanyi)
 
 # 合作伙伴
 
