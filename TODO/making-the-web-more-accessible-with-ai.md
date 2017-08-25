@@ -4,7 +4,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/making-the-web-more-accessible-with-ai.md](https://github.com/xitu/gold-miner/blob/master/TODO/making-the-web-more-accessible-with-ai.md)
 > * 译者：[lsvih](https://github.com/lsvih)
-> * 校对者：
+> * 校对者：[Tina92](https://github.com/Tina92)
 
 # 使用 AI 为 Web 网页增加无障碍功能
 
@@ -14,10 +14,9 @@
 
 [根据世界健康组织的统计](http://www.who.int/mediacentre/factsheets/fs282/en/)，全球约有 2.85 亿位视力障碍人士，仅美国就有 810 万网民患视力障碍。
 
-在我们视力正常的人看来，互联网是一个充满了文字、图片、视频等事物的地方，然而对于视力障碍人士来说却并不是这样的。有一种可以读出网页中文字和元数据的工具叫做屏幕阅读器，然而这种工具的作用十分有限，仅能让人看到网页的一部分文本。虽然一些开发人员花时间去改进他们的网站，为视障人士添加图片的描述性文字，但是绝大多数程序员都没有去做这个“毫无意义”的繁琐任务。
+在我们视力正常的人看来，互联网是一个充满了文字、图片、视频等事物的地方，然而对于视力障碍人士来说却并不是这样的。有一种可以读出网页中文字和元数据的工具叫做屏幕阅读器，然而这种工具的作用十分有限，仅能让人看到网页的一部分文本。虽然一些开发人员花时间去改进他们的网站，为视障人士添加图片的描述性文字，但是绝大多数程序员都不会花时间去做这件公认冗长乏味的事情。
 
 所以，我决定做这么一个工具，来帮助视障人士通过 AI 的力量来“看”互联网。我给它起名为“Auto Alt Text”（自动 Alt 文本添加器），是一个 Chrome 拓展插件，可以让用户在右击操作后得到图片中的场景描述 —— 最开始是要这么做的。
-So, I decided to make a tool to help visually impaired individuals “see” the internet with the power of AI. It’s called Auto Alt Text and is a chrome extension that allows users to right click and get a description of the scene in an image — the first to do so.
 
 您可以观看下面的视频，了解它是如何运作的，然后[下载它并亲自试一试吧！](http://abhinavsuri.com/aat)!
 
@@ -25,19 +24,19 @@ So, I decided to make a tool to help visually impaired individuals “see” the
 
 视频内容为这个 Chrome 插件的运行演示
 
-#### 为什么我想做这个 Auto Alt Text：
+#### 为什么我想做 Auto Alt Text：
 
 我曾经是不想花时间为图片添加描述的开发者中的一员。对那时的我来说，无障碍永远是“考虑考虑”的事，直到有一天我收到了来自[我的一个项目](https://github.com/hack4impact/flask-base)的用户的邮件。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*uYx_pi9vAI17mQ20D81ykw.png)
 
-邮件内容如下：“你好啊 Abhinav，我看了你的 flask-base 项目，我觉得它非常适合我的下个工程。感谢你开发了它。不过我想让你知道，你应该为你 README 中的图片加上 alt 描述。我是盲人，用了很长一段时间才弄清楚它们的内容 :/来自 xxxx”
+邮件内容如下：“你好，Abhinav，我看了你的 flask-base 项目，我觉得它非常适合我的下个工程。感谢你开发了它。不过我想让你知道，你应该为你 README 中的图片加上 alt 描述。我是盲人，用了很长一段时间才弄清楚它们的内容 :/来自 xxxx”
 
 在收到邮件的时候，无障碍功能的开发是放在我开发队列的最后面的，基本上它就是个“事后有空再添加”的想法而已。但是，这封邮件唤醒了我。在互联网中，有许多的人需要无障碍功能来理解网站、应用、项目等事物的用途。
 
 > “现在 Web 中充满了缺失、错误或者没有替代文本的图片” —— WebAIM（犹他州立大学残疾人中心）
 
-#### 用 AI 来挽救：
+#### 用 AI（人工智能） 来挽救：
 
 现在其实有一些方法来给图像加描述文字；但是，大多数方法都有一些缺点：
 
@@ -45,7 +44,7 @@ So, I decided to make a tool to help visually impaired individuals “see” the
 2. 它们是半自动化的（即需要人类手动按需标记描述文字）。
 3. 制作、维护它们需要高昂的代价。
 
-现在，通过创建神经网络，这些问题都能得到解决。最近我邂逅了 Tensorflow —— 一个用于机器学习开发的开源库，开始深入研究机器学习与 AI。Tensorflow 让开发人员能够构建从物体检测到图像识别的具有鲁棒性的机器学习模型。
+现在，通过创建神经网络，这些问题都能得到解决。最近我接触、学习了 Tensorflow —— 一个用于机器学习开发的开源库，开始深入研究机器学习与 AI。Tensorflow 使开发人员能够构建可用于完成从对象检测到图像识别的各种任务的高鲁棒模型。
 
 在做了一些研究之后，我找到了一篇 Vinyals 写的论文[《Show and Tell: Lessons learned from the 2015 MSCOCO Image Captioning Challenge》](https://arxiv.org/abs/1609.06647)。这些研究者们创建了一个深度神经网络，可以以语义化方式描述图片的内容。
 
@@ -61,7 +60,7 @@ im2txt 的实例来自 [im2txt Github Repository](https://github.com/tensorflow/
 
 图为此神经网络的概况（图片来自[im2txt Github repository](https://github.com/tensorflow/models/tree/master/im2txt)）
 
-根据 Github 库中的说明，这个模型在 Tesla k20m GPU 上的训练时间大约为 1-2 周（在我笔记本的标准 CPU 上计算需要更多更多的时间）。不过值得庆幸的是，Tensorflow 社区提供了一个已经训练好的模型。
+根据 Github 库中的说明，这个模型在 Tesla k20m GPU 上的训练时间大约为 1-2 周（在我笔记本的标准 CPU 上计算需要更多的时间）。不过值得庆幸的是，Tensorflow 社区提供了一个已经训练好的模型。
 
 #### 使用 box + Lamdba 解决问题：
 
@@ -108,7 +107,7 @@ Im2txt 模型对于人物、风景以及其它存在于 COCO 数据集中的内�
 
 #### 总结：
 
-虽然现在几乎每周都会涌现一些关于 AI 的新事物，但最重要的是退回一步，看看这些工具能在研究环境之外发挥出怎样的作用，以及这些研究能怎样帮助世界各地的人们。总而言之，我希望我能深入研究 Tensorflow 和 in2txt 模型去做到这些事情，并将我所学知识应用于现实世界。我希望这个工具能成为帮助视障人士”看“更好的互联网的第一步。
+虽然现在几乎每周都会涌现一些关于 AI 的新事物，但最重要的是退回一步，看看这些工具能在研究环境之外发挥出怎样的作用，以及这些研究能怎样帮助世界各地的人们。总而言之，我希望我能深入研究 Tensorflow 和 in2txt 模型，并将我所学知识应用于现实世界。我希望这个工具能成为帮助视障人士”看“更好的互联网的第一步。
 
 #### 相关链接：
 
