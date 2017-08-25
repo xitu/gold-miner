@@ -5,9 +5,9 @@
 [![](https://img.shields.io/badge/weibo-%E6%8E%98%E9%87%91%E7%BF%BB%E8%AF%91%E8%AE%A1%E5%88%92-brightgreen.svg)](http://weibo.com/juejinfanyi)
 [![](https://img.shields.io/badge/%E7%9F%A5%E4%B9%8E%E4%B8%93%E6%A0%8F-%E6%8E%98%E9%87%91%E7%BF%BB%E8%AF%91%E8%AE%A1%E5%88%92-blue.svg)](https://zhuanlan.zhihu.com/juejinfanyi)
 
-[掘金翻译计划](https://juejin.im/tag/%E6%8E%98%E9%87%91%E7%BF%BB%E8%AF%91%E8%AE%A1%E5%88%92) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](#android)、[iOS](#ios)、[React](#react)、[前端](#前端)、[后端](#后端)、[产品](#产品)、[设计](#设计) 等领域，读者为热爱新技术的新锐开发者。
+[掘金翻译计划](https://juejin.im/tag/%E6%8E%98%E9%87%91%E7%BF%BB%E8%AF%91%E8%AE%A1%E5%88%92) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖[人工智能](#ai--deep-learning--machine-learning)、[Android](#android)、[iOS](#ios)、[React](#react)、[前端](#前端)、[后端](#后端)、[产品](#产品)、[设计](#设计) 等领域，读者为热爱新技术的新锐开发者。
 
-掘金翻译计划目前翻译完成 [628](#近期文章列表) 篇文章，共有 [350](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 余名译者贡献翻译。
+掘金翻译计划目前翻译完成 [628](#近期文章列表) 篇文章，共有 [380](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 余名译者贡献翻译。
 
 # 官方指南
 
@@ -16,6 +16,11 @@
 - [十万个为什么](https://github.com/xitu/gold-miner/wiki/十万个为什么)
 - [译文排版规则指北](https://github.com/xitu/gold-miner/wiki/译文排版规则指北)
 - [参与翻译所得的积分能做什么?](https://github.com/xitu/gold-miner/wiki/)
+
+# 官方账号
+
+- [知乎专栏：掘金翻译计划](https://zhuanlan.zhihu.com/juejinfanyi)
+- [微博：掘金翻译计划](https://zhuanlan.zhihu.com/juejinfanyi)
 
 # 合作伙伴
 
