@@ -3,110 +3,110 @@
   > * 原文作者：[David Kopal](https://medium.freecodecamp.org/@codinglawyer)
   > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
   > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/is-vanilla-javascript-worth-learning-absolutely.md](https://github.com/xitu/gold-miner/blob/master/TODO/is-vanilla-javascript-worth-learning-absolutely.md)
-  > * 译者：
+  > * 译者：[lampui](https://github.com/lampui)
   > * 校对者：
 
-  # Is Vanilla JavaScript worth learning? Absolutely.
+  # 原生 JavaScript 值得学习吗？答案是肯定的
 
   ![](https://cdn-images-1.medium.com/max/2000/1*E-94pGEukt8lDI2aDY3XcQ.jpeg)
 
-The purpose of this post is to emphasize the importance of JavaScript fundamentals for every front-end developer. I’m going to tell you why you should have a good knowledge of pure ([Vanilla](https://en.wikipedia.org/wiki/Vanilla_software)) JavaScript. This means JavaScript without any additional frameworks or libraries.
+这篇文章的意图是要给每位前端开发者强调 JavaScript 的基本原理。我要告诉你为什么你应该对原生（[Vanilla](https://en.wikipedia.org/wiki/Vanilla_software)）JavaScript 有一个较好的认识。这意味着没有额外框架或库的 JavaScript。
 
-I’ll also mention a couple of resources that helped me to learn these basics.
+我也会提及一些帮助过我学习这些基本原理的资源。
 
-Another reason behind this post is that many aspiring web developers tend to skip learning core JavaScript concepts such as hoisting, closures, or prototypes. They go straight to the hottest frameworks such as React or Angular 2. I’ll show you why this approach is not the most convenient one.
+写这篇文章背后另一个原因是许多有抱负的 web 开发者倾向于跳过核心 JavaScript 概念的学习，诸如提升、闭包或原型。他（她）们直接学习最热门的框架，例如 React 或 Angular 2。我会向你说明为什么这种方法不是最方便有效的。
 
-### Everybody wants developers with knowledge of ${addTheHotFramework}…
+### 每个人都想要有 ${请填写热门的框架名字} 知识的开发者…
 
-So, is there any reason why you should bother learning Vanilla JavaScript?
+那还有什么理由困扰你去学习原生 JavaScript 吗？
 
 ![](https://cdn-images-1.medium.com/max/1600/1*eTO0IHM6_MyCNIvBOLp7ag.jpeg)
 
-It’s hard to become a strong developer without knowledge of the core of the language itself. Just as you need to understand fundamental principles of the law before you can jump into a particular field of law. [This comparison](https://ideas.ataccama.com/i-stopped-being-a-lawyer-became-a-developer-and-its-awesome-5311e8d74882) is purely accidental. 😉
+不了解一门语言本身的核心知识那是很难成为一名大神的，就像在你去一个有特定法律的领域之前，你需要先清楚法律的一些基本原则。[这个比喻](https://ideas.ataccama.com/i-stopped-being-a-lawyer-became-a-developer-and-its-awesome-5311e8d74882)真的很巧。😉
 
-I understand that the majority of aspiring web developers want to get hired as soon as possible. I wanted this as well.
+我能理解大多数热血十足的 web 开发者想尽可能快地被雇用的心情。因为我也想。
 
-It seems much easier to do a crash course on JavaScript basics, jump into some fancy framework, make a ToDo list ([let a puppy die](https://medium.freecodecamp.com/every-time-you-build-a-to-do-list-app-a-puppy-dies-505b54637a5d)), upload it to GitHub, then start looking for a job.
+看起来去上一门 JavaScript 基础速成班、钻研一些框架、开发个 ToDo 列表（[let a puppy die](https://medium.freecodecamp.com/every-time-you-build-a-to-do-list-app-a-puppy-dies-505b54637a5d)）和上传到 GitHub 会简单些，然后再开始找工作。
 
-### …but investing time in Vanilla JavaScript will pay off in the long run
+### …但从长远来看，把时间投入到原生 JavaScript 的学习会更有收获
 
-Don’t get me wrong here. I am not biased against JavaScript frameworks in any way. It’s exactly the opposite. Many of them help you to write more readable and maintainable code. They let you write more abstract code that is often easier to debug.
+别误会我，无论如何我都不是对 JavaScript 的各种框架有偏见。恰好相反，许多框架反而能让你书写出可读性和维护性更高的代码，这些框架还能让你写出比平时更容易调试的抽象代码。
 
-But the JavaScript ecosystem is evolving pretty fast. New frameworks are being created. New functionalities are being added to the existing ones. And most important, many of today’s hottest frameworks will eventually be replaced, such as Angular 1.
+但 JavaScript 生态进化得非常快，新框架层出不穷，新功能不断地被添加到已有的功能上，最重要的是，眼下许多热门的框架迟早都会被替代，例如 Angular 1。
 
-In such circumstances, do you still think that knowledge of a particular JavaScript framework is sufficient for a web developer?
+在这样的环境下，你还认为具备某个 JavaScript 框架的知识对一名 web 开发者来说就足够了吗？
 
-Or is it better to understand how the language which all these libraries and frameworks are based on works under the hood?
+还是去理解这门语言是如何在这些框架和库的背后运作好点？
 
 ![](https://cdn-images-1.medium.com/max/1600/1*wQgXQXDwZe_3f1br1HcHcA.jpeg)
 
-Yes, you’re right, it is the second option.
-If you posses a solid knowledge of JavaScript fundamentals,the only thing you need to get yourself familiar with when starting to work with a new framework is its **syntax**. The basic rules will be the same since under all the layers of abstractions. It is still just plain ol’ JavaScript.
+Yes, 你对了！当然是第二个选择。
+如果你有一个很坚实的 JavaScript 基础，当开始工作的时候唯一需要让自己熟悉的就是新框架的**语法**，在所有层次的抽象下，基本的规则还是一样的，它还是纯粹的 JavaScript。
 
-If your knowledge is limited only to a single JavaScript framework, you will have a hard time learning a new one. Different frameworks are often based on a different set of JavaScript principles. In the long run you will spend more time trying to understand various frameworks and debugging the code you write in them.
+如果你的知识仅限于某个 JavaScript 框架，那你学习另一个新框架的时候会很艰难。不同的框架通常是基于不同的 JavaScript 原则。从长远来看，你会花跟多时间去理解不同的框架和调试你写的代码。
 
-All the JavaScript frameworks and libraries are inevitably based on its Vanilla core.
+所有的 JavaScript 框架和库都不可避免地基于原生 JavaScript。
 
-This should convince anyone that knowledge of a pure JavaScript is a must in the long run. It is a prerequisite for any successful developer, especially for one working mainly in the JavaScript ecosystem.
+从长远来看，这应该能说服任何人掌握原生 JavaScript 是必须的。这是对任何一名成功开发者的必要条件，特别是对于一个主要工作在 JavaScript 生态下的开发者。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*UkL0I2o1GDdXGUMPecxY7g.jpeg)
 
-### Personal experience
+### 个人经验
 
-Not long ago, I looked back at my [journey](https://ideas.ataccama.com/i-stopped-being-a-lawyer-became-a-developer-and-its-awesome-5311e8d74882#.v3xurb9v5) from a lawyer to a web developer. It has already been 18 months since I wrote my first JavaScript function, and my 10th month working as a professional front-end developer.
+不久前，我回顾了自己从一名律师转变为一名 web 开发者的[过程](https://ideas.ataccama.com/i-stopped-being-a-lawyer-became-a-developer-and-its-awesome-5311e8d74882#.v3xurb9v5)，从我写下第一个 JavaScript 函数算起，这已经有 18 个月了，并且现在是我第 10 个月作为一名专业前端开发者。
 
-I still remember how challenging it was for me to discover the right way of learning JavaScript, since I had no prior programming experience. I have tried (and am still trying) many different ways to become an effective learner. Some of them were more rewarding, some of them less.
+我依然记得摸索正确的 JavaScript 学习之路对我来说是多么地有挑战性，因为我之前没有任何的编程经验。我尝试过（至今还在尝试）许多不同的方法成为一名高效的学者，有些方法会让我收获很多，有些却较少。
 
-Most important, I cannot stress enough how helpful it was for me that I put emphasis on learning pure JavaScript from the beginning. **Frameworks came later.**
+最重要的是，开始的时候我把重点放在了学习原生 JavaScript 上面，这对我的帮助太不可思议了。**接下来是框架。**
 
 ![](https://cdn-images-1.medium.com/max/1600/1*ixM8cuSIabPQ5Wlj0rgsVQ.jpeg)
 
 [picture credit](https://www.keepcalm-o-matic.co.uk/p/keep-calm-and-learn-javascript/)
-At the moment, I am working with a [React](https://facebook.github.io/react/)-[Redux](http://redux.js.org/) stack. Even so, I often come across a problem that I can solve thanks to my knowledge of Vanilla JavaScript. These bugs would be much more challenging to solve with only the knowledge of a particular framework.
+现在，我在工作中用的是 [React](https://facebook.github.io/react/)-[Redux](http://redux.js.org/) 技术栈。即便如此，我经常能用原生 JavaScript 的知识解决眼下的一些问题。如果只具备某个框架的知识，这些 bugs 解决起来将会更具挑战性。
 
-Learning React or Angular 2 won’t teach you that objects are passed by reference or how closures works. Trying to understand these concepts under the abstractions brought by the framework is much harder. This makes simple JavaScript concepts more difficult to understand.
+学习 React 或 Angular 2 不会教你对象是通过引用传递或闭包是怎样工作的。在更加抽象的框架下，尝试去理解这些概念那就更加困难了。这就使简单的 JavaScript 概念变得更难以理解。
 
-Furthermore, if you are working with [JSX](https://facebook.github.io/react/docs/jsx-in-depth.html) (React, Vue, Inferno) or [TypeScript](https://www.typescriptlang.org/) (Angular 2), you have an another layer of abstraction on top of it.
+此外，如果你工作中用的是 [JSX](https://facebook.github.io/react/docs/jsx-in-depth.html) (React, Vue, Inferno) 或 [TypeScript](https://www.typescriptlang.org/) (Angular 2)，那你还有另一层的抽象层。
 
-If you want to understand how these frameworks work under the hood, you need to know how JavaScript itself works first.
+如果你想明白这些框架背后是怎样工作的，你需要先明白 JavaScript 本身是怎样工作的。
 
-You can **test your knowledge** of pure JavaScript by reading the source code of your favorite framework.Not only will this give you a picture of how it works under the hood, it will also teach you a lot about its logic, which you can use in your own code. You will see that framework’s functions that seems to be doing a lot of magic in your application are just compositions of basic JavaScript concepts.
+你可以通过阅读自己喜欢的框架的源代码**考考自己**对原生 JavaScript 的认识。这样不仅能够呈现一副这些框架背后工作的画面给你，同时也能教会你许多逻辑，顺便还可以用到工作中。你会看到框架里的函数貌似在你的应用中施了很多魔法，但其实这只是一些 JavaScript 基本概念的组合。
 
-### Give me something I can learn from
+### 给我一些资源
 
-The question you might be asking now is “What are some good resources that can help me to acquire decent knowledge of Vanilla JavaScript?”.
+你现在可能会问“哪些是能够帮助我学习原生 JavaScript 知识的好资源？”。
 
-There are tons of courses and books about JavaScript and its frameworks. Yet few of them aim to teach you Vanilla JavaScript in a comprehensive way. Most of them specialize for a particular JavaScript technology.
+现在已经有太多关于 JavaScript 及其框架的课程和书籍。但只有少数是全面地教你理解原生 JavaScript 的，大多数还是专注于某个具体的 JavaScript 技术。
 
-But there are still some good ones…
+但依然还是存在好资源的…
 
 ![](https://cdn-images-1.medium.com/max/1600/1*xPqexrgvo6HsgWM28Bw1-Q.jpeg)
 
-[Eloquent JavaScript](http://eloquentjavascript.net/) will teach you not only basics of JavaScript, but also basics of programming in general. If you are already an advanced developer, this book will provide you a fresh perspective on JavaScript and on its core principles.
+《[JavaScript 编程精解](http://eloquentjavascript.net/)》不仅会教你基本的 JavaScript，同时也会教你广泛适用的编程技巧。如果你已经是一名高级开发者，这本书会向你提供一个关于 JavaScript 和它的核心原则的新视角。
 
-Another great resource is the book series [You Don’t Know JavaScript](https://github.com/getify/You-Dont-Know-JS) (YDKJS) by Kyle Simpson. Kyle really knows how to teach. His explanations of advanced JavaScript concepts are beginner-friendly and he covers them in-depth. The mere titles of the books will give you a hint about what you are going to learn. “Up & Going”, “Scope & Closures”, “this & Object Prototypes”, “Types & Grammar”, “Async & Performance”, “ES6 & Beyond”. There is also a new 7th book about [functional programming in JavaScript](https://github.com/getify/Functional-Light-JS).
+另外一个非常不错的资源是 Kyle Simpson 写的《[你不知道的 JavaScript](https://github.com/getify/You-Dont-Know-JS)》。Kyle 真的知道如何去施教，关于高级的 JavaScript 概念对初学者解释得很友好，并且他将它们涵盖的很深。仅仅是这几本书的标题就已经告诉你要去学习什么，“Up & Going”、“Scope & Closures”、“this & Object Prototypes”、“Types & Grammar”、“Async & Performance”、“ES6 & Beyond”。现在已经有第七册书，名字叫 [JavaScript 中的函数式编程](https://github.com/getify/Functional-Light-JS)。
 
-One of the great things about Eloquent JavaScript and YDKJS is that **you can get them for free **(check the provided links). But if you really find them useful, don’t forget to support the authors by buying them.
+《JavaScript 编程精解》和《你不知道的 JavaScript》这两套书共同的好处就是**你都可以免费获得**（查看给出的链接）。但如果你发现它们对你很有帮助，别忘记通过购买它们以对作者表示支持。
 
-If you’re more a video course person, you can watch[ Kyle’s online courses](https://frontendmasters.com/kyle-simpson/). I guess the best thing you can do is to watch them as a companion to his books since the topics are the same. However, these courses are paid.
+如果你更倾向于看视频学习，你可以观看[ Kyle 的在线课](https://frontendmasters.com/kyle-simpson/)，我觉得最好把看视频作为是看书的辅助学习，因为这些主题都是一样的。当然啦，这些课程都是免费的。
 
-Another video course that I find useful is [Javascript: Understanding the Weird Parts](https://www.udemy.com/understand-javascript/) by Anthony Alicea. It explains what happens under the hood of JavaScript in an approachable way. It covers advanced concepts such as prototypical inheritance, functional programming and scope chains.
+另一个我觉得有帮助的视频教程是 Anthony Alicea 的 [Javascript: Understanding the Weird Parts](https://www.udemy.com/understand-javascript/)。这个教程以循序渐进的方式解释了 JavaScript 背后发生的事，同时这门教程涵盖了诸如原型继承、函数式编程和作用域链的高级概念。
 
-### Learn Vanilla JavaScript, now
+### 学习原生 JavaScript ，就现在
 
-If you invest your precious time in learning Vanilla JavaScript, you won’t regret it. Not only does it contains the word **vanilla**, but it will have a beneficial impact on programming skills.
+如果你之前投入过时间学习原生 JavaScript，那你肯定不会后悔。不仅仅是因为**原生**，同时也是因为这会对你日后的编程技巧有好的影响。
 
-For me, the best trade-off is that learning pure JavaScript will give you much more in the long run than investing time in a particular framework. Frameworks are just shortcuts. Under the hood it’s all JavaScript.
+对我来说，最好的权衡是相对于花时间学习一门指定的框架，学习原生 JavaScript 会在未来带给你更多好处。框架只是捷径，背后其实都是 JavaScript。
 
-You’ll see for yourself in a situation where a framework you’re using has some unexpected behavior. In such case, you’ll be forced to investigate this bug by going through the source code. Did I mention that although many frameworks lack decent documentation, they have a pretty complex code? But hey, piece of cake, right? You surely already spent a lot of time learning Vanilla JavaScript. Or not yet?
+当你用上某个框架，并在某个地方出现异常时你就会明白了，在这种情况下，你会被迫通过浏览源代码去调查这个 bug。我是不是提到过，虽然许多框架欠缺得体的文档，但它们却有复杂的代码？但是，小菜一碟，对吗？你肯定已经花了很多时间学习原生 JavaScript 了？还是没有？
 
-Should you remember only one thing from this post:
+从这篇文章中你应该记住一件事：
 
-Always keep it mind that knowledge of Vanilla JavaScript will help you to become a much better developer. Period.
+牢牢记住原生 JavaScript 会帮助你成为一名更好的开发者。完
 
 ![](https://cdn-images-1.medium.com/max/1600/1*-0-CNkI704V7s879GpF86w.jpeg)
 
-If you liked this article, give it a few claps. I would greatly appreciate it.
+如果你喜欢这篇文章，鼓个掌吧，我会很感激你的。
 
 See you on Twitter 😊
 
@@ -116,4 +116,3 @@ See you on Twitter 😊
   ---
 
   > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[React](https://github.com/xitu/gold-miner#react)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计) 等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
-  
