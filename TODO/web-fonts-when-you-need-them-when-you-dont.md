@@ -4,7 +4,7 @@
   > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
   > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/web-fonts-when-you-need-them-when-you-dont.md](https://github.com/xitu/gold-miner/blob/master/TODO/web-fonts-when-you-need-them-when-you-dont.md)
   > * 译者：[undead25](https://github.com/undead25)
-  > * 校对者：
+  > * 校对者：[Usey95](https://github.com/Usey95)
 
   # 网络字体：什么时候需要，什么时候不需要
 
@@ -14,7 +14,7 @@
 
 我并不热衷笼统的陈述你“应该”或“不应该”使用网络字体，但我认为应该有**一些**指导方针来帮助我们决定是否使用它们。
 
-接下来的篇幅会很长，但是它的主旨是：如果你正在制作一个网站，而你即将去寻找完美的网络字体，请至少**考虑**使用系统字体。
+接下来的篇幅会很长，但是它的主旨是：如果你正在制作一个网站，即将去寻找完美的网络字体，请至少**考虑**使用系统字体。
 
 也许你会这样考虑：
 
@@ -26,7 +26,7 @@
 
 如果你一直在使用网络字体，那么认为“系统字体”很丑也不足为怪，因为“系统”这个词本身就会让人觉得很丑，所以你才会这么想。
 
-为了让大家觉得是在看同一个页面，至少是在看同一本书，我想给大家展示一个使用系统字体的网页。这可能不是最好的方式，但我希望能以此改变那些负面的观念。
+为了让大家觉得是在看同一个页面，至少是在看同一本书，我想给大家展示一个使用系统字体的网页。它虽然不是最好的，但我希望能以此消除那些负面的观念。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*fp9yphAAvXxSD3WbYKXhMA.png)
 
@@ -34,15 +34,15 @@
 
 ---
 
-你可能希望打开你自己的网站并尝试以下字体系列，看看感觉如何：
+你可能希望打开你自己的网站并尝试以下字体，看看感觉如何：
 
     -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 
 ---
 
-或者你可以使用扩展测试驱动器，并使用类似于 [Stylebot](https://chrome.google.com/webstore/detail/stylebot/oiaejidbmkiecgbjeifoejpgmdaleoha) 的 Chrome 扩展程序来设置特定 CSS 选择器或站点的字体系列。这样，当你访问你的站点时，更改会保持一致。
+或者你可以使用扩展测试驱动器，并使用类似于 [Stylebot](https://chrome.google.com/webstore/detail/stylebot/oiaejidbmkiecgbjeifoejpgmdaleoha) 的 Chrome 扩展程序来设置特定 CSS 选择器或站点的字体。这样，当你访问你的站点时，更改会保持一致。
 
-有了这个令人惊讶的简短介绍，下面让我们在那个流程图中的每个问题上花点时间。
+有了这个简短介绍，下面让我们在那个流程图中的每个问题上花点时间。
 
 ### 字体对你的品牌至关重要吗？
 
@@ -249,7 +249,7 @@ Windows 上的 Chrome。
 
 ### 使用网络字体会让你更开心吗？
 
-因此，你已有了一个字体，**无关**你的品牌，也**不**增加可读性，你**可以**在没有难看的闪烁无样式文本的情况下加载它，而且你已经接受了设备之间不可避免的不一致。
+现在，你已有了一个字体，**无关**你的品牌，也**不**增加可读性，你**可以**在没有难看的闪烁无样式文本的情况下加载它，而且你已经接受了设备之间不可避免的不一致。
 
 现在怎么办?
 
@@ -419,7 +419,7 @@ Windows 上的 Chrome。
 
 ---
 
-下面是一段在 codepen 是的代码，它将列出一堆字体，并显示你的当前设备上支持哪些字体。
+下面是一段在 codepen 上的代码，它将列出一堆字体，并显示你的当前设备上支持哪些字体。
 
 我不确定它是否真的有用，但是尝试着去做是一件很有趣的事情。如果你想把一些字体添加到列表中，请告诉我。
 
