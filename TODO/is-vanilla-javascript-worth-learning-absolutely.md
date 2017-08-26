@@ -14,11 +14,11 @@
 
 我也会提及一些帮助过我学习这些基本原理的资源。
 
-写这篇文章背后另一个原因是许多有抱负的 web 开发者倾向于跳过核心 JavaScript 概念的学习，诸如提升、闭包或原型。他（她）们直接学习最热门的框架，例如 React 或 Angular 2。我会向你说明为什么这种方法不是最方便有效的。
+写这篇文章背后的另一个原因是许多有抱负的 web 开发者倾向于跳过核心 JavaScript 概念的学习，诸如提升、闭包或原型。他（她）们直接学习最热门的框架，例如 React 或 Angular 2。我会向你说明为什么这种方法不能称之为一条捷径。
 
 ### 每个人都想要有 ${请填写热门的框架名字} 知识的开发者…
 
-那还有什么理由困扰你去学习原生 JavaScript 吗？
+那么，还有什么理由让你再费事去学习原生 JavaScript 吗？
 
 ![](https://cdn-images-1.medium.com/max/1600/1*eTO0IHM6_MyCNIvBOLp7ag.jpeg)
 
@@ -26,7 +26,7 @@
 
 我能理解大多数热血十足的 web 开发者想尽可能快地被雇用的心情。因为我也想。
 
-看起来去上一门 JavaScript 基础速成班、钻研一些框架、开发个 ToDo 列表（[let a puppy die](https://medium.freecodecamp.com/every-time-you-build-a-to-do-list-app-a-puppy-dies-505b54637a5d)）和上传到 GitHub 会简单些，然后再开始找工作。
+看起来去上一门 JavaScript 基础速成班、钻研一些框架、开发个 ToDo 列表（[let a puppy die](https://medium.freecodecamp.com/every-time-you-build-a-to-do-list-app-a-puppy-dies-505b54637a5d)）和上传到 GitHub，然后再开始找工作会简单些。
 
 ### …但从长远来看，把时间投入到原生 JavaScript 的学习会更有收获
 
@@ -72,7 +72,7 @@ Yes, 你对了！当然是第二个选择。
 
 你可以通过阅读自己喜欢的框架的源代码**考考自己**对原生 JavaScript 的认识。这样不仅能够呈现一副这些框架背后工作的画面给你，同时也能教会你许多逻辑，顺便还可以用到工作中。你会看到框架里的函数貌似在你的应用中施了很多魔法，但其实这只是一些 JavaScript 基本概念的组合。
 
-### 给我一些资源
+### 给我一些可以去学习的东西
 
 你现在可能会问“哪些是能够帮助我学习原生 JavaScript 知识的好资源？”。
 
