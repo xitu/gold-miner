@@ -10,11 +10,11 @@
 
   ![](https://cdn-images-1.medium.com/max/2000/1*E-94pGEukt8lDI2aDY3XcQ.jpeg)
 
-这篇文章的意图是要给每位前端开发者强调 JavaScript 的基本原理。我要告诉你为什么你应该对原生（[Vanilla](https://en.wikipedia.org/wiki/Vanilla_software)）JavaScript 有一个较好的认识。这意味着没有额外框架或库的 JavaScript。
+这篇文章的意图是要给每位前端开发者强调 JavaScript 的基本原理。原生（[Vanilla](https://en.wikipedia.org/wiki/Vanilla_software)）是指没有额外框架或库的 JavaScript。本文将会告诉你为什么应该对原生 JavaScript 有一个较好的认识。
 
 我也会提及一些帮助过我学习这些基本原理的资源。
 
-写这篇文章背后的另一个原因是许多有抱负的 web 开发者倾向于跳过核心 JavaScript 概念的学习，诸如提升、闭包或原型。他（她）们直接学习最热门的框架，例如 React 或 Angular 2。我会向你说明为什么这种方法不能称之为一条捷径。
+写这篇文章背后的另一个原因是许多有抱负的 web 开发者倾向于跳过 JavaScript 核心概念的学习，诸如提升、闭包或原型。他（她）们直接学习最热门的框架，例如 React 或 Angular 2。我会向你说明为什么这种方法不能称之为一条捷径。
 
 ### 每个人都想要有 ${请填写热门的框架名字} 知识的开发者…
 
@@ -24,7 +24,7 @@
 
 不了解一门语言本身的核心知识那是很难成为一名大神的，就像在你去一个有特定法律的领域之前，你需要先清楚法律的一些基本原则。[这个比喻](https://ideas.ataccama.com/i-stopped-being-a-lawyer-became-a-developer-and-its-awesome-5311e8d74882)真的很巧。😉
 
-我能理解大多数热血十足的 web 开发者想尽可能快地被雇用的心情。因为我也想。
+我能理解大多数热血十足的 web 开发者想尽快地找到工作的心情。因为我也想。
 
 看起来去上一门 JavaScript 基础速成班、钻研一些框架、开发个 ToDo 列表（[let a puppy die](https://medium.freecodecamp.com/every-time-you-build-a-to-do-list-app-a-puppy-dies-505b54637a5d)）和上传到 GitHub，然后再开始找工作会简单些。
 
@@ -53,7 +53,7 @@ Yes, 你对了！当然是第二个选择。
 
 ### 个人经验
 
-不久前，我回顾了自己从一名律师转变为一名 web 开发者的[过程](https://ideas.ataccama.com/i-stopped-being-a-lawyer-became-a-developer-and-its-awesome-5311e8d74882#.v3xurb9v5)，从我写下第一个 JavaScript 函数算起，这已经有 18 个月了，并且现在是我第 10 个月作为一名专业前端开发者。
+不久前，我回顾了自己是怎样从一名律师转变为一名 web 开发者的[过程](https://ideas.ataccama.com/i-stopped-being-a-lawyer-became-a-developer-and-its-awesome-5311e8d74882#.v3xurb9v5)，从我开始写第一个 JavaScript 函数算起，都有 18 个月了，并且现在是我成为专业前端开发者的第 10 个月了。
 
 我依然记得摸索正确的 JavaScript 学习之路对我来说是多么地有挑战性，因为我之前没有任何的编程经验。我尝试过（至今还在尝试）许多不同的方法成为一名高效的学习者，有些方法会让我收获很多，有些却较少。
 
