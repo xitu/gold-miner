@@ -41,7 +41,7 @@
 ![](https://cdn-images-1.medium.com/max/1600/1*wQgXQXDwZe_3f1br1HcHcA.jpeg)
 
 Yes, 你对了！当然是第二个选择。
-如果你有一个很坚实的 JavaScript 基础，当开始工作的时候唯一需要让自己熟悉的就是新框架的**语法**，在所有层次的抽象下，基本的规则还是一样的，它还是纯粹的 JavaScript。
+如果你有一个很扎实的 JavaScript 基础，当开始工作的时候唯一需要让自己熟悉的就是新框架的**语法**，在所有层次的抽象下，基本的规则还是一样的，它还是纯粹的 JavaScript。
 
 如果你的知识仅限于某个 JavaScript 框架，那你学习另一个新框架的时候会很艰难。不同的框架通常是基于不同的 JavaScript 原则。从长远来看，你会花跟多时间去理解不同的框架和调试你写的代码。
 
@@ -92,7 +92,7 @@ Yes, 你对了！当然是第二个选择。
 
 另一个我觉得有帮助的视频教程是 Anthony Alicea 的 [Javascript: Understanding the Weird Parts](https://www.udemy.com/understand-javascript/)。这个教程以循序渐进的方式解释了 JavaScript 背后发生的事，同时这门教程涵盖了诸如原型继承、函数式编程和作用域链的高级概念。
 
-### 学习原生 JavaScript ，就现在
+### 马上学习原生 JavaScript 吧
 
 如果你之前投入过时间学习原生 JavaScript，那你肯定不会后悔。不仅仅是因为**原生**，同时也是因为这会对你日后的编程技巧有好的影响。
 
@@ -108,7 +108,7 @@ Yes, 你对了！当然是第二个选择。
 
 如果你喜欢这篇文章，鼓个掌吧，我会很感激你的。
 
-See you on Twitter 😊
+Twitter 见 😊
 
 [![](https://ws4.sinaimg.cn/large/006tKfTcgy1fiv00i5jlnj314i0a60uk.jpg)](https://twitter.com/coding_lawyer)
 
