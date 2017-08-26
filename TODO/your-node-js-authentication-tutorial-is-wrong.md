@@ -3,124 +3,122 @@
   > * 原文作者：[micaksica](https://medium.com/@micaksica)
   > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
   > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/your-node-js-authentication-tutorial-is-wrong.md](https://github.com/xitu/gold-miner/blob/master/TODO/your-node-js-authentication-tutorial-is-wrong.md)
-  > * 译者：
-  > * 校对者：
+  > * 译者：[MuYunyun](https://github.com/MuYunyun)
+  > * 校对者：[jasonxia23](https://github.com/jasonxia23)、[lampui](https://github.com/lampui)
 
-  # Your Node.js authentication tutorial is (probably) wrong
+  # 关于 Node.js 的认证方面的教程（很可能）是有误的
 
-  **tl;dr: **I went on a search of Node.js/Express.js authentication tutorials. All of them were incomplete or made a security mistake in some way that can potentially hurt new users. This post explores some common authentication pitfalls, how to avoid them, and what to do to help yourself when your tutorials don’t help you anymore. I am still searching for a robust, all-in-one solution for authentication in Node/Express that rivals Rails’s [Devise](https://github.com/plataformatec/devise).
+  我搜索了大量关于 Node.js/Express.js 认证的教程。所有这些都是不完整的，甚至以某种方式造成安全错误，可能会伤害新用户。当其他教程不再帮助你时，你或许可以看看这篇文章，这篇文章探讨了如何避免一些常见的身份验证陷阱。同时我也一直在 Node/Express 中寻找强大的、一体化的解决方案，来与 Rails 的 [devise](https://github.com/plataformatec/devise) 竞争。
 
-> **Update (Aug 7)**: RisingStack has reached out and [no longer stores passwords in plaintext](https://github.com/RisingStack/nodehero-authentication/commit/9d69ea70b68c4971466c64382e5f038e3eda8d8a) in their tutorial, opting to move to bcrypt in their example codes and tutorials.
-> **Update (Aug 8):** Editing title to *Your Node.js authentication tutorial is (probably) wrong*, as this post has improved some of these tutorials.
+> **更新 (8.7)**: 在他们的教程中，RisingStack 已经声明，[不要再以明文存储密码](https://github.com/RisingStack/nodehero-authentication/commit/9d69ea70b68c4971466c64382e5f038e3eda8d8a)，在示例代码和教程中选择使用了 bcrypt。
 
-On my spare time, I’ve been digging through various Node.js tutorials, as it seems that every Node.js developer with a blog has released their own tutorial on how to do things *the right way*, or, more accurately, *the way they do them*. Thousands of front-end developers being thrown into the server-side JS maelstrom are trying to piece together actionable knowledge from these tutorials, either by cargo-cult-copypasta or gratuitous use of *npm install *as they scramble frantically to meet the deadlines set for them by outsourcing managers or ad agency creative directors.
+> **更新 (8.8)**: 编辑标题 **关于 Node.js 的认证方面的教程（很可能）是有误的**，这篇文章已经对这些教程中的一些错误点进行了改正。
 
-One of the more questionable things in Node.js development is that authentication is largely left as an exercise to the individual developer*. *The *de facto *authentication solution in the Express.js world is [Passport](http://passportjs.org/), which offers a host of *strategies* for authentication. If you want a robust solution similar to [Plataformatec’s Devise](https://github.com/plataformatec/devise) for Ruby on Rails, you’ll likely be pointed to [Auth0](https://auth0.com/), a startup who has made authentication as a service.
+在业余时间，我一直在挖掘各种 Node.js 教程，似乎每个 Node.js 开发人员都有一个博客用来发布自己的教程，讲述如何以**正确的方式**做事，或者更准确地说，**他们做事的方式**。数以千计的前端开发人员被投入到服务器端的 JS 漩涡中，试图通过拷贝式的操作或无偿使用的 **npm install** 将这些教程中的可操作的知识拼凑在一起，从而在外包经理或广告代理商给出的期限内完成开发。
 
-Compared to Devise, Passport is simply authentication middleware, and does not handle any of the other parts of authentication for you: that means the Node.js developer is likely to roll their own API token mechanisms, password reset token mechanisms, user authentication routes and endpoints, and views in whatever templating language is the rage today. Because of this, there are a lot of tutorials that specialize in setting up Passport for your Express.js application, and nearly all of them are wrong in some way or another, and none properly implement the full stack necessary for a working web application.
+Node.js 开发中一个更有问题的事情就是身份验证的程序很大程度上是开发人员在摸索中完成开发的。事实上 Express.js 世界中的认证解决方案是 [Passport](http://passportjs.org/)，它提供了许多用于身份验证的**策略**。如果你想要一个类似于 [Plataformatec 的 devise](https://github.com/plataformatec/devise) 的 Ruby on Rails 的强大的解决方案，你可能会对 [Auth0](https://auth0.com/) 感兴趣，它是一个使认证成为服务的开创项目。
 
-> **Note**: I’m not attempting to harass the developers of these tutorials specifically, but rather I am using their authentication mistakes to show security issues inherent in rolling your own authentication systems. If you are a tutorial writer, feel free to reach out to me once you’ve updated your tutorial. Let’s make Node/Express a safer ecosystem for new developers.
+与 Devise 相比，Passport 只是身份验证中间件，不会处理任何其他身份验证：这意味着 Node.js 开发人员可能会定制自己的 API 令牌机制、密码重置令牌机制、用户认证路由、端点、多种模板语言，因此，有很多教程专门为你的 Express.js 应用程序设置 Passport，但是几乎没有完全正确的教程，没有一个正确地实现出 Web 应用程序所需的完整堆栈。
 
-### Mistake one: credential storage
+> **请注意**: 我不是故意针对这些教程的开发人员，而是使用他们的身份验证所存在的漏洞后会让自己的身份验证系统产生安全问题。如果你是教程作者，请在更新教程后随时与我联系。让 Node/Express 成为开发人员使用的更安全的生态系统。
 
-Let’s start with credential storage. Storing and recalling credentials is pretty standard fare for identity management, and the traditional way to do this is in your own database or application. Passport, being middleware that simply says “this user is cool” or “this user is not cool”, requires the [passport-local](https://github.com/jaredhanson/passport-local) module for handling password storage in your own database, written by the same developer as Passport.js itself.
+### 错误一：凭证存储
 
-Before we go down this tutorial rabbit hole, let’s remind ourselves of a [great cheat sheet for password storage](https://www.owasp.org/index.php/Password_Storage_Cheat_Sheet) by OWASP, which boils down to “store high-entropy passwords with unique salts and one-way adaptive cost functions”. Or, really, Coda Hale’s [bcrypt meme](https://codahale.com/how-to-safely-store-a-password/), even though [there’s some contention](https://security.stackexchange.com/a/6415).
+让我们从凭证存储开始。存储和调用凭证对于身份管理来说是非常标准的，而传统的方法是在你自己的数据库或应用程序中进行存储或者调用。凭证，作为中间件，简单地说就是“这个用户可以通过”或“这个用户不可以通过”，需要 [passport-local](https://github.com/jaredhanson/passport-local) 模块来处理在你自己的数据库密码存储，这个模块也是由 Passport.js 作者写的。
 
-As a new Express.js and Passport user, my first place to look will be the example code for *passport-local* itself, which [thankfully gives me a sample Express.js 4.0 application](https://github.com/passport/express-4.x-local-example) I can clone and extend. However, if I just copypasta this, I’m not left with too much, as there’s no database support in the example and it assumes I’m just using some set accounts.
+在我们进入这个教程的兔子洞之前，请记住 OWASP 的[密码存储作弊表](https://www.owasp.org/index.php/Password_Storage_Cheat_Sheet)，它归结为“存储具有独特盐和单向自适应成本函数的高熵密码”。或者先看下 Coda Hale 的 [bcrypt meme](https://codahale.com/how-to-safely-store-a-password/)，即使[有一些争论](https://security.stackexchange.com/a/6415)。
 
-That’s OK, though, right? *It’s just an Intranet application*, the dev says, *and I have four other projects assigned to me due next week*. Of course, the passwords for the example aren’t hashed in any way, [and stored in plaintext right alongside the validation logic in this example](https://github.com/passport/express-4.x-local-example/blob/master/db/users.js). Credential storage isn’t even considered in this one.
+作为一个新的 Express.js 和 Passport 用户，我第一个要讲的地方将是 **passport-local** 本身的示例代码，[十分感谢 passport 官方提供了一个可以克隆和扩展的 Express.js 4.0 应用程序示例](https://github.com/passport/express-4.x-local-example)，从而我可以克隆和扩展。但是，如果我只是拷贝这个例子，我讲不了太多，因为没有数据库支持的例子，它假设我只是使用一些设置好的帐户。
 
-Let’s google for another tutorial using *passport-local*. I find[ this quick tutorial from RisingStack in a series](https://blog.risingstack.com/node-hero-node-js-authentication-passport-js/) called “Node Hero”, but that doesn’t help me, either. They, too, [gave me a sample application on GitHub](https://github.com/RisingStack/nodehero-authentication), but it had [the same problems as the official one](https://github.com/RisingStack/nodehero-authentication/blob/7f808f5c8ea756155099b7b4a88390c356cf31be/app/authentication/init.js#L8). **(*Ed. 8/7/17: *RisingStack is**[**now using bcrypt**](https://github.com/RisingStack/nodehero-authentication/commit/9d69ea70b68c4971466c64382e5f038e3eda8d8a)** in their tutorial application.)**
+没关系，对吧？**这只是一个内联网应用程序**，开发人员说，**下周将分配给我另外四个项目**。当然，该示例的密码不会以任何方式散列，[并且与本示例中的验证逻辑一起存储在明文中](https://github.com/passport/express-4.x-local-example/blob/master/db/users.js)。在这一点上，甚至没有考虑到凭证存储。
 
-Next up, [here’s the fourth result](http://mherman.org/blog/2015/01/31/local-authentication-with-passport-and-express-4/) from Google for *express js passport-local tutorial*, written in 2015. It uses the Mongoose ODM and actually reads the credentials from my database. This one really has everything, including integration tests and, yes, another boilerplate you can use. However, the Mongoose ODM [also stores password as type *String*](https://github.com/mjhea0/passport-local-express4/blob/master/models/account.js#L7)*, *so these passwords are also stored in plaintext, only this time on the MongoDB instance. ([Everyone knows MongoDB instances are generally *very *secure](https://www.shodan.io/report/nlrw9g59).)
+让我们来 google 另一个使用 **passport-local** 的教程。我发现[这个来自 RisingStack 的一个叫“Node Hero”系列的快速教程](https://blog.risingstack.com/node-hero-node-js-authentication-passport-js/)，但从这个教程中我没找到很有用的帮助。他们也[在 GitHub 上提供了一个示例应用程序](https://github.com/RisingStack/nodehero-authentication)，
+但[它与官方的问题相同](https://github.com/RisingStack/nodehero-authentication/blob/7f808f5c8ea756155099b7b4a88390c356cf31be/app/authentication/init.js#L8)。（Ed。8/7/17：RisingStack [**现在使用 bcrypt**](https://github.com/RisingStack/nodehero-authentication/commit/9d69ea70b68c4971466c64382e5f038e3eda8d8a) 在他们的教程应用。）
 
-You could accuse me of cherry-picking tutorials, and you’d be right, if cherry picking means selecting from the first page of Google results. Let’s choose the [higher-ranked-in-results *passport-local* tutorial from TutsPlus](https://code.tutsplus.com/tutorials/authenticating-nodejs-applications-with-passport--cms-21619). This one is better, in that [it uses brypt with a cost factor of 10 for password hashing,](https://github.com/tutsplus/passport-mongo/blob/master/passport/login.js) and defers the synchronous bcrypt hash checks using *process.nextTick*. The top result on Google, [the tutorial from scotch.io](https://scotch.io/tutorials/easy-node-authentication-setup-and-local), also uses [bcrypt with a lesser cost factor of 8](https://github.com/scotch-io/easy-node-authentication/blob/local/app/models/user.js#L37). Both of these are small, but 8 is really small. Most *bcrypt* libraries these days use 12. [The cost factor of 8 was for administrator accounts *eighteen years ago*](https://www.usenix.org/legacy/publications/library/proceedings/usenix99/provos/provos_html/node6.html)when the original bcrypt paper was released.
+接下来，[这是第四个结果](http://mherman.org/blog/2015/01/31/local-authentication-with-passport-and-express-4/)，来自写于 2015 年的 Google 产出的 **express js passport-local 教程**。它使用 Mongoose ODM，实际上从我的数据库读取凭据。 这一个教程算是比较完整的，包括集成测试，是的，你可以使用另一个样板。但是，Mongoose ODM [也存储类型为 **String** 的密码](https://github.com/mjhea0/passport-local-express4/blob/master/models/account.js#L7)，所以这些密码也存储在明文中，只是这一次在 MongoDB 实例上。（[人人都知道 MongoDB 实例通常是非常安全的](https://www.shodan.io/report/nlrw9g59)）
 
-Password storage aside, neither of these tutorials implement password reset functionality, which is left as an exercise to the developer and comes with its own pitfalls.
+你可以指责我择优挑选教程，如果择优挑选意味着从 Google 搜索结果的第一页进行选择，那么你会是对的。让我们选择 [TutsPlus 上更高排名的 **passport-local** 教程](https://code.tutsplus.com/tutorials/authenticating-nodejs-applications-with-passport--cms-21619)。这一个更好，因为[它使用 brypt 的因子为 10 的密码哈希](https://github.com/tutsplus/passport-mongo/blob/master/passport/login.js)，并使用 **process.nextTick** 延迟同步 bcrypt 哈希检查。Google 的最高成绩[来自 scotch.io 的教程](https://scotch.io/tutorials/easy-node-authentication-setup-and-local)，也使用 [成本因子较低为 8 的 bcrypt](https://github.com/scotch-io/easy-node-authentication/blob/local/app/models/user.js#L37)。这两个值都很小，但是 8 真的很小。大多数 **bcrypt** 库现在使用 12。[选择 8 作为成本因子是因为管理员帐户是**十八年前的**](https://www.usenix.org/legacy/publications/library/proceedings/usenix99/provos/provos_html/node6.html)，这个因子数在那时候就能满足需求了。
 
-### Mistake two: password reset
+除了密码存储之外，这些教程都不会实现密码重置功能，这将作为开发人员的一个挑战，并且它附带着自己的陷阱。
 
-A sister security issue to password storage is that of password reset, and none of the top basic tutorials explain how to do this at all with Passport. You’ll have to follow another.
+### 错误二：密码重置
 
-There are a thousand ways to fuck this up. The most common ways I have witnessed that people get password reset wrong are:
+密码存储的一个姐妹安全问题是密码重置，并且没有一个顶级的基础教程解释了如何使用 Passport 来完成此操作。你必须另寻他法。
 
-1. **Predictable tokens. **Tokens that are based upon the current time are a good example. Tokens made by bad pseudorandom number generators are less obvious.
-2. **Bad storage. **Storing unencrypted password reset tokens in your DB means that if the DB is compromised, those tokens are effectively plaintext passwords. Generating a long token with a cryptographically secure random number generator stops remote brute force attacks on reset tokens, but it doesn’t stop local attacks. Reset tokens are credentials and should be treated as such.
-3. **No token expiry. **Not expiring your tokens gives attackers more time to exploit the reset window.
-4. **No secondary data verification.** Security questions are the *de facto* data verification for a reset. Of course, then the developer has to choose *good security questions*. [Security questions have their own problems](https://www.kaspersky.com/blog/security-questions-are-insecure/13004/). While this may seem like security overkill, the email address is something you have, not something you know, and conflates the authentication factors. Your email address becomes the key to every account that just sends a reset token to email.
+有一千种方法去搞砸这个问题。我见过的最常见人们重新设置密码错误是：
 
-If you’re new all of this, try OWASP’s [Password Reset Cheat Sheet](https://www.owasp.org/index.php/Forgot_Password_Cheat_Sheet). Let’s get back to what the Node world has to offer for us on this.
+1. **可预见的令牌。** 基于当前时间的令牌是一个很好的例子。不良伪随机数发生器产生的令牌相对好些。
+2. **存储不良。** 在数据库中存储未加密的密码重置令牌意味着如果数据库遭到入侵，那些令牌就是明文密码。使用加密安全的随机数生成器生成长令牌会阻止对重置令牌的远程强力攻击，但不会阻止本地攻击。重置令牌是凭据，应该这样处理。
+3. **无令牌到期。** 令牌如果没有到期时间会给攻击者更多的时间利用重置窗口。
+4. **无次要数据验证。**安全问题是**重置**的事实上的数据验证。当然，开发商必须选择一个**好的安全问题**。[安全问题有自己的问题](https://www.kaspersky.com/blog/security-questions-are-insecure/13004/)。虽然这可能看起来像安全性过度，电子邮件地址是你拥有的，而不是你认识的内容，并且会将身份验证因素混合在一起。你的电子邮件地址成为每个帐户的关键，只需将重置令牌发送到电子邮件。
 
-We’ll divert to *npm *for a second and [look for password reset](https://www.npmjs.com/search?q=password%20reset&amp;page=1&amp;ranking=popularity), to see if anyone’s made this. There’s a five-year-old package from the (generally awesome) substack. On the Node.js timeline this module is jurassic, and if I wanted to nitpick, [Math.random() is predictable in V8](https://security.stackexchange.com/questions/84906/predicting-math-random-numbers), so [it shouldn’t be used for token generation](https://github.com/substack/node-password-reset/blob/master/index.js#L73). Also, it doesn’t use Passport, so we’ll move on.
+如果你是第一次接触这些内容，请尝试 OWASP 的[密码重置工作表](https://www.owasp.org/index.php/Forgot_Password_Cheat_Sheet)。让我们回到 Node 中看看它为此提供给我们的东西。
 
-Stack Overflow isn’t of too much help, as developer relations from a company called Stormpath loved plugging their IaaS startup on every imaginable post regarding this. [Their documentation also popped up everywhere](https://docs.stormpath.com/client-api/product-guide/latest/password_reset.html) and they have [a blogvertisement on password reset, as well](https://stormpath.com/blog/the-pain-of-password-reset). However, all of this is for naught as Stormpath is defunct, [and it shuts down entirely](https://stormpath.com/) August 17, 2017.
+我们将转移到 **npm** 一秒钟，并[重新查找密码重置](https://www.npmjs.com/search?q=password%20reset&amp;page=1&amp;ranking=popularity)，看看是否已有人做到这一点。有一个已有五年历史的 package（通常意味着它很棒）。在 Node.js 的时间轴上，这个模块就像是侏罗纪时代的，如果我想要鸡蛋里挑骨头，[Math.random() 可以在 V8 中预测](https://security.stackexchange.com/questions/84906/predicting-math-random-numbers)，因此[它不应该用于令牌生成码](https://github.com/substack/node-password-reset/blob/master/index.js#L73)。此外，它不使用 Passport，所以我们继续前进。
 
-Alright, back to Google, for the only tutorial that seems to exist out there. We’ll take [the first result](http://sahatyalkabov.com/how-to-implement-password-reset-in-nodejs/) for the Google search *express passport password reset. *Here is our old friend *bcrypt* again, with an even smaller cost factor of 5 used in the text, which is *far* too small of a cost factor for modern use.
+Stack Overflow 上获取不了太多的帮助，因为一个名叫 Stormpath 的公司的开发人员喜欢在可以想象到的每一个跟这个相关的的帖子上都插入他们的 IaaS 启动教程。[他们的文档也随处可见](https://docs.stormpath.com/client-api/product-guide/late%20Passwordword_reset.html)，他们也有[关于密码重置的博客广告](https：//stormpath.com/blog/the-pain-of-password-reset)。但是，所有这一切都随着 Stormpath 的停业已经停止了，它们公司于 2017 年 8 月 17 日[完全关闭](https://stormpath.com/)。
 
-However, this tutorial is pretty solid compared to others in that it uses *crypto.randomBytes* to generate truly random tokens, and expires them if they aren’t used. However #2 and #4 of the practices above aren’t honored by this comprehensive tutorial, and thus the password tokens themselves are vulnerable to authentication mistake number one, credential storage.
+好的，回到谷歌，这里似乎存在唯一的教程。我们找到了 Google 搜索 **express passport 密码重置的**[第一个结果](http://sahatyalkabov.com/how-to-implement-password-reset-in-nodejs/)。还是我们的老朋友 **bcrypt**。文章中使用了更小的成本因子 5，这远远低于了现代使用的成本因素。
 
-Thankfully, this is of limited use thanks to the reset expiry. However, these tokens are especially fun if an attacker has read access to the user objects in the DB via BSON injection or can access Mongo freely due to misconfiguration. The attacker can just issue password resets for every user, read the unencrypted tokens from the DB, and set their own passwords for user accounts instead of having to go through the costly process of dictionary attacks on bcrypt hashes with a GPU rig.
+但是，与其他教程相比，这篇教程相当实用，因为它使用 **crypto.randomBytes** 来生成真正的随机标记，如果不使用它们，则会过期。然而，上述实践中的 ＃2 和 ＃4 与这个全面的教程不符，因此密码令牌本身容易受到认证错误，凭据存储的影响。
 
-### Mistake three: API tokens
+幸运的是，由于重置到期，这是有限的使用。但是，如果攻击者通过 BSON 注入对数据库中的用户对象进行读取访问，或由于配置错误，可以自由访问 Mongo，这些令牌将非常危险了。攻击者只需为每个用户发出密码重置，从 DB 读取未加密的令牌，并为用户帐户设置自己的密码，而不必经历使用 GPU 装备对 bcrypt 散列进行的昂贵的字典攻击过程。
 
-API tokens are credentials. They are just as sensitive as passwords or reset tokens. Most every developer knows this and tries to hold their AWS keys, Twitter secrets, etc. close to their chest, however this doesn’t seem to transfer into the code being authored.
+### 错误三：API 令牌
 
-Let’s use [JSON Web Tokens](https://jwt.io/) for API credentials. Having a stateless, blacklistable, claimable token is better than the old API key/secret pattern that has been used for the better part of a decade. Perhaps our junior Node.js dev has heard of JWT somewhere before, or saw *passport-jwt* and decided to implement the JWT strategy. In any case, JWT is where everyone seems to be moving in the Node.js sphere of influence. (The venerable [Thomas Ptacek will argue that JWT is bad](https://news.ycombinator.com/item?id=13866883) but I’m afraid that ship has sailed here.)
+API 令牌是凭据。它们与密码或重置令牌一样敏感。大多数开发人员都知道这一点，并尝试将他们的 AWS 密钥、Twitter 秘密等保留在他们胸前，但是这似乎并没有转移到被编写的代码中。
 
-We’ll search for *express js jwt* on Google, and then find [Soni Pandey](https://medium.com/@pandeysoni)’s tutorial [*User Authentication using JWT (JSON Web Token) in Node.js*](https://medium.com/@pandeysoni/user-authentication-using-jwt-json-web-token-in-node-js-using-express-framework-543151a38ea1)which is the first tutorial result. Unfortunately, this doesn’t actually help us at all, since it doesn’t use Passport, but while we’re here we’ll quickly note the mistakes in credential storage:
+让我们使用 [JSON Web 令牌](https://jwt.io/)获取 API 凭据。拥有一个无状态的、可添加黑名单的、可自定义的令牌比十年来使用的旧 API 密钥/私密模式更好。也许我们的初级 Node.js 开发人员曾经听说过 JWT，或者看到过 **passport-jwt**，并决定实施 JWT 策略。无论如何，接触 JWT 的人都会或多或少地受到 Node.js 的影响。（尊敬的[Thomas Ptacek 会认为 JWT 不好](https://news.ycombinator.com/item?id=13866883)，但恐怕船已经在这里航行。）
 
-1. We’ll store the [JWT key in plaintext in the repository](https://github.com/pandeysoni/User-Authentication-using-JWT-JSON-Web-Token-in-Node.js-Express/blob/master/server/config/config.js#L13).
-2. We’ll [use a symmetric cipher to store passwords](https://github.com/pandeysoni/User-Authentication-using-JWT-JSON-Web-Token-in-Node.js-Express/blob/master/server/config/common.js#L54). This means that I can get the encryption key and decrypt all of the passwords in event of a breach. The encryption key is shared with the JWT secret.
-3. We’ll use AES-256-CTR for password storage. We shouldn’t be using AES to start, and this mode of operation doesn’t help. I am not sure why this mode specifically was chosen, but [the choice alone leaves the ciphertext malleable](https://crypto.stackexchange.com/a/33861).
+我们在 Google 上搜索 **express js jwt**，然后找到 [Soni Pandey](https://medium.com/@pandeysoni) 的教程[使用 Node.js 中的 JWT（JSON Web 令牌）进行用户验证](https://medium.com/@pandeysoni/user-authentication-using-jwt-json-web-token-in-node-js-using-express-framework-543151a38ea1)，。不幸的是，这教程实际上并不帮助我们，因为它没使用凭证，但是当我们在这里时，我们会很快注意到凭据存储中的错误：
 
-Welp. Let’s back out to Google and we find the next tutorial. Scotch, which did an OK job with password storage in their passport-local tutorial, [just ignores what they told you before and stores the passwords in plaintext](https://github.com/scotch-io/node-token-authentication/blob/master/app/models/user.js#L7) for this example.
+1. 我们将 [以明文形式将 JWT 密钥存储在存储库中](https://github.com/pandeysoni/User-Authentication-using-JWT-JSON-Web-Token-in-Node.js-Express/blob/master/server/config/config.js#L13)。
+2. 我们将[使用对称密码存储密码](https://github.com/pandeysoni/User-Authentication-using-JWT-JSON-Web-Token-in-Node.js-Express/blob/master/server/config/common.js#L54)。这意味着我可以获得加密密钥，并在发生违规时解密所有密码。加密密钥与 JWT 秘密共享。
+3. 我们将使用 AES-256-CTR 进行密码存储。我们不应该使用 AES 来启动，而且这种操作模式没有什么帮助。我不知道为什么选择这个特别的模式，但是[单一的选择让密文具有延展性](https://crypto.stackexchange.com/a/33861)。
 
-Uh, we’ll give that a pass for brevity, but it doesn’t help the copypasta crew. That’s because more interestingly, this tutorial [also serializes the mongoose User object into the JWT](https://github.com/scotch-io/node-token-authentication/blob/master/server.js#L81).
+让我们回到 Google，接着寻找下一个教程。Scotch，在 passport-local 教程中做了一个密码存储的工作，比如[只是忽略他们以前告诉你的东西，并将密码存储在明文中](https://github.com/scotch-io/node-token-authentication/blob/master/app/models/user.js#L7)。
 
-Let’s clone the Scotch tutorial repository, follow the instructions, and run it. After a *DeprecationWarning *or three from Mongoose, we can hit [*http://localhost:8080/setup*](http://localhost:8080/setup)to create the user, then get a token by posting to /api/authenticate with the default credentials of “Nick Cerminara” and “password”. A token is returned, as displayed from Postman.
+好吧，我们会给出一个简短的凭证教程，但这并不能帮助只是拷贝的开发者。因为更有趣的是，这个教程[将这个 mongoose User 对象序列化到 JWT 中](https://github.com/scotch-io/node-token-authentication/blob/master/server.js#L81)。
+
+让我们克隆 Scotch 的这个资源库，按照说明进行运行。可以无视一些来自 Mongoose 的警告，我们可以输入 [**http://localhost:8080/setup**](http://localhost:8080/setup) 来创建用户，然后通过使用 “Nick Cerminara” 和 “password” 的默认凭证调用 /api/authenticate 拿到令牌。这个令牌返回并显示在了 Postman 上。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*wvb2F4-Rx4I1ji2EJIyXZg.png)
 
-A JWT token returned from the Scotch tutorial.
+从 Scotch 教程返回的 JWT 令牌。
 
-Note that JSON Web Tokens are signed, but not encrypted. That means that big blob between the two periods is a Base64-encoded object. Quickly decoding it, we get something interesting.
+请注意，JSON Web 令牌已签名但未加密。这意味着两个时期之间的大斑点是一个 Base64 编码对象。快速解码后，我们得到一些有趣的东西。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*5KcDyNtIfWXVe9uVUD0A_g.png)
 
-I love my passwords in plaintext in tokens.
-Now, anyone that has *even an expired token* has your password, as well as whatever else is stored in the Mongoose model. Given that this one came over HTTP, I could have sniffed it off of the wire.
+我喜欢在明文的密码中使用令牌。
+现在，任何一个包括存储在 Mongoose 模型**甚至过期的令牌**都有你的密码。鉴于这个来自HTTP，我可以把它从线上找出来。
 
-What about the next tutorial? The next tutorial, [*Express, Passport and JSON Web Token (jwt) Authentication for Beginners*](https://jonathanmh.com/express-passport-json-web-token-jwt-authentication-beginners/)*, *contains the same information disclosure vulnerability*. *The next tutorial from a startup called [SlatePeak does the same serialization](http://blog.slatepeak.com/creating-a-simple-node-express-api-authentication-system-with-passport-and-jwt/). At this point, I gave up looking.
+下一个教程怎么样呢？下一个教程，[**针对初学者的 Express、Passport 和 JSON Web 令牌（jwt)**](https://jonathanmh.com/express-passport-json-web-token-jwt-authentication-beginners/)，包含相同的信息泄露漏洞。下篇教程来自 [SlatePeak 的一篇做了同样的序列化文章](http://blog.slatepeak.com/creating-a-simple-node-express-api-authentication-system-with-passport-and-jwt/)。在这一点上，我放弃了阅读。
 
-### Mistake four: rate limiting
+### 错误四：限速
 
-As I alluded to above, I did not find a mention of rate limiting or account locking in any of these authentication tutorials.
+如上所述，我没有在任何这些身份验证教程中找到关于速率限制或帐户锁定的问题。
 
-Without rate limiting, an adversary can perform online dictionary attacks in which a tool like [Burp Intruder](https://portswigger.net/burp/help/intruder_using.html) is run in hopes of gaining access to an account with a weak password. Account lockout also helps with this problem by requiring extended login information from a user the next time they log in.
+没有速率限制，攻击者可以执行在线字典攻击，比如运行 [Burp Intruder](https://portswigger.net/burp/help/intruder_using.html) 等工具，去获得获取访问密码较弱的帐户。帐户锁定还可以通过在下次登录时要求用户填写扩展登录信息来帮助解决此问题。
 
-Remember, rate limiting also helps availability. *bcrypt* is a CPU-intensive function, and without rate limiting functions using bcrypt become an application-level denial of service vector, especially at high work factors. Multiple requests for user registration or login password checking are an easy way to turn a lightweight HTTP request into costly time for your server.
+请记住，速率限制还有助于可用性。**跨平台文件加密工具**是一个 CPU 密集型功能，没有速率限制功能，使用跨平台文件加密工具会让应用程序拒绝服务，特别是在 CPU 高数运行时。比如用户注册或检查登录密码的多个请求尽管是轻量级的 HTTP 的请求，但是会花费服务器大量的昂贵时间。
 
-While I do not have a tutorial I can point to for these, there are tons of rate limiting middlewares for Express, such as [express-rate-limit](https://github.com/nfriedly/express-rate-limit), [express-limiter](https://www.npmjs.com/package/express-limiter), and [express-brute](https://github.com/AdamPflug/express-brute). I cannot speak to the security of these modules and have not even looked at them; generally I [recommend running a reverse proxy in production](https://expressjs.com/en/advanced/best-practice-performance.html#use-a-reverse-proxy) and allowing [rate limiting to requests to be handled by nginx](https://www.nginx.com/blog/rate-limiting-nginx/) or whatever your load balancer is.
+虽然我没有教程可以证明这点，但 Express 有很多速率限制的技术，例如 [express-rate-limit](https://github.com/nfriedly/express-rate-limit)，[express-limiter](https://www.npmjs.com/package/express-limiter) 以及 [express-brute](https://github.com/AdamPflug/express-brute)。我不能评价这些模块的安全性，甚至没有看过它们；无论你的负载平衡用的是什么，通常我[推荐在生产中运行逆向代理](https://expressjs.com/en/advanced/best-practice-performance.html#use-a-reverse-proxy)，并允许[由 nginx 限制请求处理速率](https://www.nginx.com/blog/rate-limiting-nginx/)。
 
-### Authentication is hard.
+### 身份验证是困难的
 
-I’m sure the tutorial developers will defend themselves with “This is just meant to explain the basics! Surely nobody will do this in production!” However, I cannot emphasize enough *just how false this is*. This is *especially* true when code is put out there in your tutorials. People will take your word for it — after all, you *do* have more expertise than they do.
+我相信这些有错误的教程开发人员会辩解说，“这只是为了解释基础！没有人会在生产中这样做的！”但是，我再三强调了**这是多么错误**。当你的教程中的代码被放在这里时，人们就会参考并使用你的代码，毕竟，你比他们有更多的专业知识。
 
-**If you’re a beginner, don’t trust your tutorials.** Copypasta from tutorials *will* likely get you, your company, and your clients in authentication trouble in the Node.js world. If you really need strong, production-ready, all-in-one authentication libraries, go back to something that holds your hand better, has better stability, and is more proven, like Rails/Devise.
+**如果你是初学者，请不要信任你的教程。** 拷贝教程中的例子可能会让你、你的公司和你的客户在 Node.js 世界中遇到身份验证问题。如果你真的需要强大的生产完善的一体化身份验证库，那么可以使用更好的手段，比如使用具有更好的稳定性，而且更加经验证的 Rails/Devise。
 
-The Node.js ecosystem, while accessible, still has a lot of sharp edges for JavaScript-based developers needing to write production web applications in a hurry. If you have a front-end background and don’t know other programming languages, I personally believe it is easier to pick up Ruby and stand on the shoulders of giants than it is to quickly learn how not to shoot yourself in the foot when writing these types of things from scratch.
+Node.js 生态系统虽然容易接近，但对需要匆忙编写部署于生产环境的 Web 应用程序的 JavaScript 开发人员来说，仍然有很多尖锐的未解决的点。如果你有前端的背景，不知道其他的编程语言，我个人认为，使用 Ruby 是一个不错的选择，毕竟站在巨人的肩膀上比从头开始学习这些类型的东西要容易。
 
-If you’re a tutorial writer, *please* update your tutorials, *especially *the boilerplate code. This code will become copypasta into others’ production web applications.
+如果你是教程作者，请更新你的教程，**特别是**样板代码。这些代码将可能被其他人拷贝到生产环境中的 web 应用程序。
 
-If you are a die-hard Node.js developer, hopefully you’ve learned a few things not to do in your authentication system you’re rolling with Passport. You will likely get something wrong. I haven’t gotten close to covering all of the ways to get it wrong in this one post. It shouldn’t be your job to roll your own auth for your Express application. There should be something better.
+如果你是一个 Node.js 的铁杆使用者，希望你在这篇文章中学到一些关于使用用凭证验证身份的知识。你可能会遇到什么问题。这篇文章中我还没有找到完美的方法来完全避免以上错误。为你的 Express 应用程序增加凭证验证不应该是你的工作。应该有更好的办法。
 
-If you’re interested in better securing the Node ecosystem, please DM me [@_micaksica](https://twitter.com/_micaksica) on Twitter.
-
-> This post was brought to you by espresso because I’m out of sake.
-
+如果你有兴趣更好地维护 Node 生态系统，请在 Twitter 上发送给我 [@_micaksica](https://twitter.com/_micaksica)。
 
   ---
 
   > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[React](https://github.com/xitu/gold-miner#react)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计) 等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
-  
