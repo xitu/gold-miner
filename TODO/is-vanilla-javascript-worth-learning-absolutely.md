@@ -4,7 +4,7 @@
   > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
   > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/is-vanilla-javascript-worth-learning-absolutely.md](https://github.com/xitu/gold-miner/blob/master/TODO/is-vanilla-javascript-worth-learning-absolutely.md)
   > * 译者：[lampui](https://github.com/lampui)
-  > * 校对者：
+  > * 校对者：[kyrieliu](https://github.com/KKKyrie)、[Calpa Liu](https://github.com/calpa)
 
   # 原生 JavaScript 值得学习吗？答案是肯定的
 
