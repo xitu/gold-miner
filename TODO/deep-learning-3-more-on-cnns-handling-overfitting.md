@@ -12,7 +12,8 @@
 
 > 这篇文章是深度学习系列中一篇文章。请查看[#系列1](https://github.com/xitu/gold-miner/blob/master/TODO/deep-learning-1-setting-up-aws-image-recognition.md)和[#系列2](https://github.com/xitu/gold-miner/blob/master/TODO/deep-learning-2-convolutional-neural-networks.md)
 
-![数据增强（Data augmentation）是一种减少过拟合的方式。](https://cdn-images-1.medium.com/max/1600/1*GUvLnDB2Q7lKHDNiwLQBNA.png)
+![数据增强（Data augmentation）是一种减少过拟合的方式。] 
+![1*GUvLnDB2Q7lKHDNiwLQBNA](http://orkqx44nq.bkt.clouddn.com/2017-08-12-1*GUvLnDB2Q7lKHDNiwLQBNA.png)
 
 
  欢迎来到本系列教程的第三部分的学习！这周我会讲解一些卷积神经网络（Convolutional Neural Network, CNN）的内容并且讨论如何解决`欠拟合`和`过拟合`。
@@ -27,7 +28,8 @@
 当我们将这些滤波器依次滑过图像时，我们基本上创建了另一个图像。因此，如果我们的原始图像是 30x 30 ，则带有12个滤镜的卷积层的输出将为 30x30x12 。现在我们有一个张量，它基本上是一个超过 2 维的矩阵。现在你也就知道 TensorFlow 的名字从何而来。
 
 在每个卷积层（或多个）之后，我们通常就得到了最大池化（Max pooling）层。这个层会减少图像中的像素数量。例如，我们可以从图像中取出一个正方形然后用这个正方形里面像素的最大值代替这个正方形。
-![最大池化](https://cdn-images-1.medium.com/max/1600/1*GksqN5XY8HPpIddm5wzm7A.jpeg)
+ ![1*GksqN5XY8HPpIddm5wzm7A](http://orkqx44nq.bkt.clouddn.com/2017-08-12-1*GksqN5XY8HPpIddm5wzm7A.jpeg)
+
  
 得益于最大池化，我们的滤波器可以探索图像的较大部分。另外，由于像素损失，我们通常会增加使用最大池化后的滤波器数量。
 理论上来说，每个模型架构都是可行的并且为你的的问题提供一个很好的解决方案。然而，一些架构比其他架构要快得多。一个很差的架构可能需要超过你剩余生命的时间来得出结果。因此，考虑你的模型的架构以及我们为什么使用最大池并改变所使用的滤波器的数量是有意义的。为了在 CNN 上完成这个部分，[这个](http://yosinski.com/deepvis#toolbox)页面提供了一个很好的视频，可以将发生在 CNN 内部的事情可视化。
@@ -61,15 +63,19 @@ Dropout 在模型训练时随机将部分激活函数设置为零（让网络某
 
 对于 Fast AI 课程的学习者：请注意教材中使用 “width_zoom_range” 作为数据扩充参数之一。但是，这个选项在 Keras 中不再可用。
 
-![原始图像](https://cdn-images-1.medium.com/max/1600/1*GqYnzBWEC0L8ehpMcwtkhw.png)
+ 
+![原始图像](http://orkqx44nq.bkt.clouddn.com/2017-08-12-1*GqYnzBWEC0L8ehpMcwtkhw.png)
 
 现在我们来看看执行数据增强后的图像。所有的“猫”仍然能够被清楚地识别出来。
 
-![数据增强之后的图像](https://cdn-images-1.medium.com/max/1600/1*ozrEhNk2ONPXo4qDQjKPKw.png)
+ 
+![数据增强之后的图像](http://orkqx44nq.bkt.clouddn.com/2017-08-12-1*ozrEhNk2ONPXo4qDQjKPKw.png)
+
 
 第三步是使用泛化性能更佳的模型结构。然而，更重要的是第四步：增加正则化。三个最受欢迎的选项是：Dropout，L1 正则化和 L2 正则化。我之前提到过，在深入的学习中，大部分情况下你看到的都是 Dropout 。Dropout 在训练中删除随机的激活样本（使其为零）。在 Vgg 模型中，这仅适用于模型末端的完全连接的层。然而，它也可以应用于卷积层。要注意的是，Dropout 会导致信息丢失。如果你在第一层失去了一些信息，那么整个网络就会丢失这些信息。因此，一个好的做法是第一层使用较低的Dropout，然后逐渐增加。第五个也是最后一个选择是降低网络的复杂性。实际上，在大多数情况下，各种形式的正规化足以应付过拟合。
+![1*yIGb-kfxCAK0xiXipo6utA](http://orkqx44nq.bkt.clouddn.com/2017-08-12-1*yIGb-kfxCAK0xiXipo6utA.png)
 
-![Dropout可视化](https://cdn-images-1.medium.com/max/1600/1*yIGb-kfxCAK0xiXipo6utA.png)
+ 
 > 左边是原来的神经网络，右边是采用 Dropout 后的网络
 
 
