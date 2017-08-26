@@ -4,6 +4,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/how-to-implement-expandable-menu-on-ios-like-in-airbnb.md](https://github.com/xitu/gold-miner/blob/master/TODO/how-to-implement-expandable-menu-on-ios-like-in-airbnb.md)
 > * 译者：[RichardLeeH](https://github.com/RichardLeeH)
+> * 校对者：[iOSleep](https://github.com/iOSleep)
 > * 校对者：
 
 # 如何在 iOS 上实现类似 Airbnb 中的可展开式菜单  
@@ -22,21 +23,21 @@
 
 ### UIScrollView
 
-[UIScrollView](https://developer.apple.com/documentation/uikit/uiscrollview) 是 iOS SDK 中的一个支持滚动和缩放的视图。 它是 [UITableView](https://developer.apple.com/documentation/uikit/uitableview) 和 [UICollectionView](http://uicollectionview)的基类，因此，只要支持`UIScrollView`，就可以使用它。
+[UIScrollView](https://developer.apple.com/documentation/uikit/uiscrollview) 是 iOS SDK 中的一个支持滚动和缩放的视图。 它是 [UITableView](https://developer.apple.com/documentation/uikit/uitableview) 和 [UICollectionView](https://developer.apple.com/documentation/uikit/uicollectionview) 的基类，因此，只要支持 `UIScrollView`，就可以使用它。
 
-`UIScrollView` 使用 [UIPanGestureRecognizer](https://developer.apple.com/documentation/uikit/uipangesturerecognizer) 在内部检测滚动手势。 `UIScrollView` 的滚动状态被定义为 `contentOffset: CGPoint` 属性。 可滚动区域由 `contentInsets` 和 `contentSize`联合决定。 因此，起始的 `contentOffset` 为 `*CGPoint(x: -contentInsets.left, y: -contentInsets.right)*` ，结束值为 `*CGPoint(x: contentSize.width — frame.width+contentInsets.right, y: contentSize.height — frame.height+contentInsets.bottom)*`*.*
+`UIScrollView` 使用 [UIPanGestureRecognizer](https://developer.apple.com/documentation/uikit/uipangesturerecognizer) 在内部检测滚动手势。 `UIScrollView` 的滚动状态被定义为 `contentOffset: CGPoint` 属性。 可滚动区域由 `contentInsets` 和 `contentSize` 联合决定。 因此，起始的 `contentOffset` 为 `*CGPoint(x: -contentInsets.left, y: -contentInsets.right)*` ，结束值为 `*CGPoint(x: contentSize.width — frame.width+contentInsets.right, y: contentSize.height — frame.height+contentInsets.bottom)*`*.*
 
-`UIScrollView` 有一个 `bounces: Bool` 属性。 `bounces` 能够避免设置`contentOffset` 高于/低于限定值。 我们需要记住这一点。
+`UIScrollView` 有一个 `bounces: Bool` 属性。 `bounces` 能够避免设置 `contentOffset`  高于/低于限定值。 我们需要记住这一点。
 
 [![](https://i.ytimg.com/vi_webp/fgwVqCGgHZA/maxresdefault.webp)](https://youtu.be/fgwVqCGgHZA)
 
 UIScrollView contentOffset 演示
 
-我们感兴趣的是用于改变我们菜单状态的属性`contentOffset: CGPoint`。监听滚动视图`contentOffset`的主要方式是为对象设置一个代理属性，并实现`scrollViewDidScroll(UIScrollView)` 方法。 在 Swift 中，没有办法使用委托而不影响中的其他客户端代码（因为`NSProxy` 不可用），因此我打算使用键值监听（KVO）。
+我们感兴趣的是用于改变我们菜单状态的属性 `contentOffset: CGPoint`。监听滚动视图 `contentOffset` 的主要方式是为对象设置一个代理属性，并实现 `scrollViewDidScroll(UIScrollView)` 方法。 在 Swift 中，没有办法使用 `delegate` 而不影响其他客户端代码（因为`NSProxy` 不可用），因此我打算使用键值监听（KVO）。
 
 ### Observable
 
-我创建了`Observable`泛型类，因此可以监听任何类型。
+我创建了 `Observable` 泛型类，因此可以监听任何类型。
 
 ```
 internal class Observable<Value>: NSObject {
@@ -104,7 +105,7 @@ internal class GestureStateObservable: Observable<UIGestureRecognizerState> {
 
 ### Scrollable
 
-为了便于库的测试，我实现了 `Scrollable` 协议。我也需要采用一种方式让`UIScrollView`监听`contentOffset`, `contentSize` 和 `panGestureRecognizer.state`。协议一致性是一个很好的方法。除了可以监听库中使用的所有的属性。还包括用于设置带有动画效果的 `contentOffset`的`updateContentOffset(CGPoint, animated: Bool)`方法。
+为了便于库的测试，我实现了 `Scrollable` 协议。我也需要采用一种方式让 `UIScrollView` 监听 `contentOffset`, `contentSize` 和 `panGestureRecognizer.state`。协议一致性是一个很好的方法。除了可以监听库中使用的所有的属性。还包括用于设置带有动画效果的 `contentOffset` 的 `updateContentOffset(CGPoint, animated: Bool)` 方法。
 
 ```
 internal protocol Scrollable: class {
@@ -153,11 +154,11 @@ extension UIScrollView: Scrollable {
 }
 ```
 
-我没有使用系统库提供的`UIScrollView`实现的方法`setContentOffset(...)` ，在我看来，因为`UIKit`动画 API 更加灵活。这里的问题是直接设置`contentOffset` 属性并不能使`UIScrollView` 减速停下来，因此通过`updateContentOffset(…)` 方法设置当前的`contentOffset`。
+我没有使用系统库提供的 `UIScrollView` 实现的方法 `setContentOffset(...)` ，因为在我看来，`UIKit` 动画 API 更加灵活。这里的问题是直接设置 `contentOffset` 属性并不能使 `UIScrollView` 减速停下来，所以使用没有动画效果的 updateContentOffset(…) 方法设置当前的 contentOffset。
 
 ### State
 
-我想要获取可预测的菜单状态。这就是为什么我在 `State` 结构体中封装了所有可变状态，包括`offset`、`isExpandedStateAvailable` 和 `configuration` 属性。
+我想要获取可预测的菜单状态。这就是为什么我在 `State` 结构体中封装了所有可变状态，包括 `offset`、`isExpandedStateAvailable` 和 `configuration` 属性。
 
 ```
 public struct State {
@@ -173,7 +174,7 @@ public struct State {
 }
 ```
 
-`offset`仅仅是菜单高度的相反数。我打算使用`offset`来代替`height`，因为向下滚动时高度降低，当向上滚动时高度增加。`offset`可以使用`*offset = previousOffset + (contentOffset.y — previousContentOffset.y)*`来计算。
+`offset` 仅仅是菜单高度的相反数。我打算使用 `offset` 来代替 `height`，因为向下滚动时高度降低，当向上滚动时高度增加。`offset` 可以使用 `*offset = previousOffset + (contentOffset.y — previousContentOffset.y)*` 来计算。
 
 - `isExpandedStateAvailable` 属性用于判断 offset 应该赋值为 `-normalStateHeight` 或 `-expandedStateHeight`;
 - `configuration` 是一个包含菜单高度常量的结构体。
@@ -188,7 +189,7 @@ public struct Configuration {
 
 ### BarController
 
-`BarController`是用于生成所有状态计算魔法的主要对象，并为调用者提供状态改变。
+`BarController` 是用于生成所有状态计算魔法的主要对象，并为调用者提供状态改变。
 
 ```
 public typealias StateObserver = (State) -> Void
@@ -234,8 +235,8 @@ public class BarController {
 
 它传递 `stateReducer`， `configuration` 和 `stateObserver` 作为初始参数。
 
-- `stateObserver` 闭包是`state`属性在观察者 `didSet` 中被调用。它通知库的调用者关于状态的改变。
-- `stateReducer` 是一个函数，它传入之前的状态，一些滚动上下文参数，并返回一个新状态。通过初始化方法传入参数，用于解耦状态计算和 `BarController`对象。
+- `stateObserver` 闭包在 `state` 属性的 `didSet` 中被调用中被调用。它通知库的调用者关于状态的改变。
+- `stateReducer` 是一个函数，它传入之前的状态，一些滚动上下文参数，并返回一个新状态。通过初始化方法传入参数，用于解耦状态计算和 `BarController` 对象。
 
 ```
 internal struct StateReducerParameters {
@@ -249,7 +250,7 @@ internal struct StateReducerParameters {
 internal typealias StateReducer = (StateReducerParameters) -> State
 ```
 
-默认的 state reducer 用于计算`contentOffset.y`和`previousContentOffset.y`的差值, 并对每个变换器进行计算。然后返回返回新状态：`offset = previousState.offset + deltaY`。
+默认的 state reducer 用于计算 `contentOffset.y` 和 `previousContentOffset.y` 的差值, 并对每个变换器进行计算。然后返回返回新状态：`offset = previousState.offset + deltaY`。
 
 ```
 internal struct ContentOffsetDeltaYTransformerParameters {
@@ -286,7 +287,7 @@ internal func makeDefaultStateReducer(transformers: [ContentOffsetDeltaYTransfor
 
 库中使用了 3 个变换器来减少状态：
 
-- `ignoreTopDeltaYTransformer` — 确保滚动到`UIScrollView`的顶部被忽略并且不会影响到 `BarController` 状态；
+- `ignoreTopDeltaYTransformer` — 确保滚动到 `UIScrollView` 的顶部被忽略并且不会影响到 `BarController` 状态；
 
 ```
 internal let ignoreTopDeltaYTransformer: ContentOffsetDeltaYTransformer = { params -> CGFloat in
@@ -329,7 +330,7 @@ internal let ignoreBottomDeltaYTransformer: ContentOffsetDeltaYTransformer = { p
 }
 ```
 
-- `cutOutStateRangeDeltaYTransformer` — 删除多余的 delta Y，BarController支持的状态，超过最小值/最大值限制。
+- `cutOutStateRangeDeltaYTransformer` — 删除那些超过BarController支持的状态（最小值/最大值）限制的 delta Y。
 
 ```
 internal let cutOutStateRangeDeltaYTransformer: ContentOffsetDeltaYTransformer = { params -> CGFloat in
@@ -390,7 +391,7 @@ internal let cutOutStateRangeDeltaYTransformer: ContentOffsetDeltaYTransformer =
   ...
 ```
 
-到此，该库能够将`contentOffset`的变化转化为内部状态的改变，但是`isExpandedStateAvailable`状态属性此时不能被修改，因为状态状态转变尚未结束。
+到此，该库能够将 `contentOffset` 的变化转化为内部状态的改变，但是 `isExpandedStateAvailable` 状态属性此时不能被修改，因为状态状态转变尚未结束。
 
 该 `panGestureRecognizer.state` 监听出场了：
 
@@ -418,7 +419,7 @@ private func setupObserving() {
   }
 ```
 
-- 拖动手势开始回调方法 设置 `isExpandedStateAvailable` 状态属性为 true，以防开始拖动到滚动的上部或者表示我们已经设置了可展开状态；
+- 如果拖动手势在在滚动的上部，或者我们已经处于展开状态，拖动手势将 `isExpandedStateAvailable` 状态属性设置为 true；
 
 ```
 private func panGestureBegan() {
@@ -544,7 +545,7 @@ internal func preconfigure(scrollable: Scrollable) {
   }
 ```
 
-- `transitionProgress()`— 返回从 0 到 2 的改变状态，*0 — 简洁状态，1 — 正常状态， 2 — 展开状态*；
+- `transitionProgress()`— 返回从 0 到 2 的改变状态，**0 — 简洁状态，1 — 正常状态， 2 — 展开状态**；
 
 ```
 internal enum StateRange {
@@ -580,7 +581,7 @@ public func transitionProgress() -> CGFloat {
 }
 ```
 
-- `value(compactNormalRange: ValueRangeType, normalExpandedRange: ValueRangeType)` — 根据当前的StateRange将转换进度映射为2个范围类型之一并返回。
+- `value(compactNormalRange: ValueRangeType, normalExpandedRange: ValueRangeType)` — 根据当前的 StateRange 将转换进度映射为 2 个范围类型之一并返回。
 
 ```
 public enum ValueRangeType {
@@ -605,7 +606,7 @@ public enum ValueRangeType {
   }
 ```
 
-以下为`AirBarExampleApp`中使用 `State` 的公有方法。`airBar.frame.height` 带有动效的 `height()` 和 `backgroundView.alpha` 带有动效的 `value(...)`。这里的背景视图透明会进行 `(0, 1)` 范围内的差值表示为 `compact-normal`的状态， `1` 为 `normal-expanded` 状态。
+以下为 `AirBarExampleApp` 中使用 `State` 的公有方法。`airBar.frame.height` 根据 `height()` 动画，`backgroundView.alpha` 根据 `value(...)` 动画。这里的背景视图透明会进行 `(0, 1)` 范围内的差值表示为 `compact-normal` 的状态， `1` 为 `normal-expanded` 状态。
 
 ```
 override func viewDidLoad() {
@@ -636,7 +637,7 @@ override func viewDidLoad() {
 
 ### 总结
 
-到此，我已经实现了一个带有可预测状态的漂亮的滚动驱动菜单，并学到了许多使用`UIScrollView`的经验。
+到此，我已经实现了一个带有可预测状态的漂亮的滚动驱动菜单，并学到了许多使用 `UIScrollView` 的经验。
 
 以下可以找到本封装库，示例应用和安装指南：
 
@@ -644,17 +645,17 @@ override func viewDidLoad() {
 
 你可以随意使用它。如果遇到任何困难，请告诉我。
 
-你有哪些使用`UIScrollView`及滚动驱动动画经验？欢迎在评论中分享/提问，我很乐意帮忙。
+你有哪些使用 `UIScrollView` 及滚动驱动动画经验？欢迎在评论中分享/提问，我很乐意帮忙。
 
 感谢您的阅读！
 
 ---
 
-我们在 [UPTech](https://uptech.team/) 上做了以 [Freebird Rides](https://www.freebirdrides.com/)  应用为主题的调查。
+我们在 [UPTech](https://uptech.team/) 上做了以 [Freebird Rides](https://www.freebirdrides.com/) 应用为主题的调查。
 
 ---
 
-*如果本文对你有帮助, 点击下方的* 💚 *，这样其他人也会喜欢它。关注我们更多关于如何构建极好产品的文章。*
+**如果本文对你有帮助, 点击下方的* 💚 *，这样其他人也会喜欢它。关注我们更多关于如何构建极好产品的文章。**
 
 ---
 
