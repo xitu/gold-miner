@@ -3,16 +3,16 @@
   > * 原文作者：[James K Nelson](https://twitter.com/james_k_nelson)
   > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
   > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/how-should-i-separate-components.md](https://github.com/xitu/gold-miner/blob/master/TODO/how-should-i-separate-components.md)
-  > * 译者：
+  > * 译者：[undead25](https://github.com/undead25)
   > * 校对者：
 
-  # How do you separate components?
+  # 你如何分离组件？
 
-  React components have a habit of growing over time. Before I know it, some of my app's components will be monstrosities.
+  React 组件会随着时间的推移而逐步增长。幸好我意识到了这一点，不然我的一些应用程序的组件将变得非常可怕。
 
-But is this actually a problem? After all, it seems a little odd to create many small components that are used only once...
+但这实际上是一个问题吗？虽然创建许多只使用一次的小组件似乎有点奇怪……
 
-There is nothing inherently wrong with having large components in a React app. In fact, for *stateful* components, it is absolutely expected that they’ll have a bit of size.
+在一个大型的 React 应用程序中，拥有大量的组件本身没有什么错。实际上，对于**状态**组件，我们当然是希望它们越小越好。
 
 ## Fat components happen
 
