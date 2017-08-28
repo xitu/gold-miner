@@ -101,3 +101,9 @@
 * [细节是产品设计的重中之重](https://juejin.im/post/58ed96aaa22b9d00634732e9/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([iloveivyxuan](https://github.com/iloveivyxuan) 翻译)
 * [单元测试，精益创业，以及两者之间的关系](https://juejin.im/post/58d90a3b44d90400694505c4/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([gy134340](http://gy134340.com/) 翻译)
 * [所有产品译文>>](https://github.com/xitu/gold-miner/blob/master/product.md)
+
+
+# Copyright
+
+> **版权声明**
+> [掘金翻译计划](https://github.com/xitu/gold-miner)译文仅用于学习、研究和交流。版权归[掘金翻译计划](https://github.com/xitu/gold-miner/)、文章作者和译者所有，欢迎非商业转载。转载前请联系译者获取授权，并在文章开头明显位置注明本文出处、译者、校对者和掘金翻译计划的完整链接，违者必究。
