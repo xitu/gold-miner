@@ -6,7 +6,7 @@
   > * 译者：[undead25](https://github.com/undead25)
   > * 校对者：
 
-  # 你如何分离组件？
+  # 你如何拆分组件？
 
   React 组件会随着时间的推移而逐步增长。幸好我意识到了这一点，不然我的一些应用程序的组件将变得非常可怕。
 
@@ -18,45 +18,45 @@
 
 关于状态它通常不会很好地分解。如果有多个操作在单一状态下起作用，那么它们都需要放在同一个组件中。状态可以被改变的方式越多，组件就越大。另外，如果一个组件有影响多个[状态类型](http://jamesknelson.com/5-types-react-application-state/)的操作，那么它将变得非常庞大，这是不可避免的。
 
-**但即使大型组件不可避免，它们使用起来仍然是非常糟糕的**。这就是为什么你会尽可能地分离出更小的组件，遵循[关注点分离](https://en.wikipedia.org/wiki/Separation_of_concerns)的原则。
+**但即使大型组件不可避免，它们使用起来仍然是非常糟糕的**。这就是为什么你会尽可能地拆分出更小的组件，遵循[关注点分离](https://en.wikipedia.org/wiki/Separation_of_concerns)的原则。
 
 当然，说起来容易做起来难。
 
 寻找关注点分离的方法是一门技术，更是一门艺术。但你可以遵循以下几种常见模式……
 
-## 4 Types of Components
+## 4 种类型的组件
 
-In my experience, there are four types of components that you can factor out from larger components.
+根据我的经验，有四种类型的组件可以从较大的组件中拆分出来。
 
-### View components
+### 视图组件
 
-For more information on view components (which some people call presentational components), read Dan Abramov’s classic, [Presentational and Container Components](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0).
+有关视图组件（有些人称为展示组件）的更多信息，请参阅 Dan Abramov 的名著 —— [展示组件和容器组件](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)。
 
-View components are the simplest type of component. All they do is **display information and emit user input** via callbacks. They:
+视图组件是最简单的组件类型。它们所做的就是**显示信息，并通过回调发送用户输入**。它们：
 
-- Distribute their props to child elements.
-- Have callbacks that forward data from child elements to parent components.
-- Are often function components, but may be classes if they need to bind callbacks for performance.
-- Generally do not use lifecycle methods, except for performance optimization.
-- *Do not* directly store state, with the exception of UI-centric state like animation state.
-- *Do not* use refs or interact with the DOM directly (as the DOM is state).
-- *Do not* modify the environment; they should never directly dispatch actions to a redux store, call an API, etc.
-- *Do not* use React context.
+- 将属性分发给子元素。
+- 拥有将数据从子元素转发到父组件的回调。
+- 通常是函数组件，但如果为了性能，它们需要绑定回调，则可能是类。
+- 一般不使用生命周期方法，性能优化除外。
+- **不会**直接存储状态，除了以 UI 为中心的状态，例如动画状态。
+- **不会**使用 refs 或直接与 DOM 进行交互（因为 DOM 的改变意味着状态的改变）。
+- **不会**修改环境。它们不应该直接将操作发送给 redux 的 store 或者调用 API 等。
+- **不会**使用 React 上下文。
 
-Some signs that you can factor out a presentation component from a larger component include:
+一些迹象表明，你可以从较大的组件中拆分出展示组件，包括：
 
-- Your component has DOM markup or styles.
-- There are repeated sections like list items.
-- Something in your component “looks” like a box or a section.
-- A section of JSX only relies on a single object for its input data.
-- You have a large presentation component with distinct sections.
+- 你的组件有 DOM 标记或者样式。
+- 有像列表项这样重复的部分。
+- 你的组件中有“看起来”像一个盒子或者一个部分的东西。
+- JSX 的一部分仅依赖于单个对象作为输入数据。
+- 你有一个具有不同的部分的大型展示组件。
 
-Some examples of presentation components that can be factored out of larger components:
+一些展示组件的示例可以从较大的组件中拆分出来：
 
-- Components that perform layout for a number of child elements.
-- Cards and list items can be factored out of lists.
-- Groups of fields can be factored out of forms (with all updates combined into a single `onChange` callback).
-- Markup can be factored out of controls.
+- 为多个子元素执行布局的组件。
+- 卡片和列表项可以从列表中拆分出来。
+- 字段可以从表单中拆分出来（将所有的更新合并到一个 `onChange` 回调中）。
+- 标记可以从控件中拆分出来。
 
 ### Control components
 
