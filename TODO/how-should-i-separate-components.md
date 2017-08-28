@@ -14,15 +14,15 @@
 
 在一个大型的 React 应用程序中，拥有大量的组件本身没有什么错。实际上，对于**状态**组件，我们当然是希望它们越小越好。
 
-## Fat components happen
+## 臃肿组件的出现
 
-The thing about state is that it generally doesn’t decompose very well. If there are multiple actions that act on a single piece of state, they’ll all need to be placed in the same component. The more ways that the state can change, the larger the component gets. And if a component has actions that affect multiple [types of state](http://jamesknelson.com/5-types-react-application-state/), the component will become massive. This is unavoidable.
+关于状态它通常不会很好地分解。如果有多个操作在单一状态下起作用，那么它们都需要放在同一个组件中。状态可以被改变的方式越多，组件就越大。另外，如果一个组件有影响多个[状态类型](http://jamesknelson.com/5-types-react-application-state/)的操作，那么它将变得非常庞大，这是不可避免的。
 
-**But even if large components are inevitable, they’re still horrible to work with.** And that’s why you’ll want to factor out smaller components where possible, following the principle of [separation of concerns](https://en.wikipedia.org/wiki/Separation_of_concerns).
+**但即使大型组件不可避免，它们使用起来仍然是非常糟糕的**。这就是为什么你会尽可能地分离出更小的组件，遵循[关注点分离](https://en.wikipedia.org/wiki/Separation_of_concerns)的原则。
 
-Of course, this is easier said than done.
+当然，说起来容易做起来难。
 
-Finding the lines that separate concerns is more art than science. But there are a few common patterns you can follow…
+寻找关注点分离的方法是一门技术，更是一门艺术。但你可以遵循以下几种常见模式……
 
 ## 4 Types of Components
 
