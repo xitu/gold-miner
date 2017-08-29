@@ -1,134 +1,129 @@
-
 > * 原文地址：[Building an AR game with ARKit and Spritekit](https://blog.pusher.com/building-ar-game-arkit-spritekit/)
 > * 原文作者：[Esteban Herrera](https://github.com/eh3rrera)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/building-ar-game-arkit-spritekit.md](https://github.com/xitu/gold-miner/blob/master/TODO/building-ar-game-arkit-spritekit.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Danny Lau](https://github.com/Danny1451)
+> * 校对者：[KnightJoker](https://github.com/KnightJoker),[LJ147](https://github.com/LJ147)
 
-# Building an AR game with ARKit and Spritekit
+# 巧用 ARKit 和 SpriteKit 从零开始做 AR 游戏 
 
-*This blog post was written under the [Pusher Guest Writer program](https://pusher.com/guest-writer-program).*
+**这篇文章隶属于 [Pusher 特邀作者计划](https://pusher.com/guest-writer-program)。**
 
-[ARKit](https://developer.apple.com/arkit/) is the new Apple framework that integrates device motion tracking, camera capture, and scene processing to build [augmented reality (AR)](https://en.wikipedia.org/wiki/Augmented_reality) experiences.
+[ARKit](https://developer.apple.com/arkit/) 是一个全新的苹果框架，它将设备运动追踪，相机捕获和场景处理整合到了一起，可以用来构建[增强现实（Augmented Reality, AR）](https://en.wikipedia.org/wiki/Augmented_reality) 的体验。
 
-When using ARKit, you have three options to create your AR world:
+在使用 ARKit 的时候，你有三种选项来创建你的 AR 世界：
 
-- SceneKit, to render 3D overlay content
-- SpriteKit, to render 2D overlay content
-- Metal, to build your own view for an AR experience
+- SceneKit，渲染 3D 的叠加内容。
+- SpriteKit，渲染 2D 的叠加内容。
+- Metal，自己为 AR 体验构建的视图
 
-In this tutorial, we’re going to explore the basics of ARKit and SpriteKit by building a game, something inspired by Pokemon Go, but with ghosts, check out this video:
+在这个教程里，我们将通过创建一个游戏来学习 ARKit 和 SpriteKit 的基础，游戏是受  Pokemon Go 的启发，添加了幽灵元素，看下下面这个视频吧：
 
 [![](https://i.ytimg.com/vi_webp/0mmaLiuYAho/maxresdefault.webp)](https://www.youtube.com/embed/0mmaLiuYAho)
 
-Every few seconds, a little ghost appears randomly in the scene and a counter in the bottom left part of the screen is incremented. When you tap on a ghost, it fades out playing a sound and decrementing the counter.
+每几秒钟，就会有一个小幽灵随机出现在场景里，同时在屏幕的左下角会有一个计数器不停在增加。当你点击幽灵的时候，它会播放一个音效同时淡出而且计数器也会减小。
 
-The code of this project is hosted on [GitHub](https://github.com/eh3rrera/ARKitGameSpriteKit).
+项目的代码已经放在了 [GitHub](https://github.com/eh3rrera/ARKitGameSpriteKit) 上了。
 
-Let’s start by reviewing what you’ll need to develop and run this project.
+让我们首先检查一下开发和运行这个项目的需要哪些东西。
 
-## What you’ll need
+## 你将会需要的
 
-First of all, ARKit requires an iOS device with an A9 or later processor for a full AR experience. In other words, you’ll need an iPhone 6s or better, iPhone SE, any iPad Pro, or the 2017 iPad.
+首先，为了完整的 AR 体验，ARKit 要求一个带有 A9 或者更新的处理器的 iOS 设备。换句话说，你至少需要一台 iPhone6s 或者有更高处理器的设备，比如 iPhoneSE，任何版本的 iPad Pro，或者 2017 版的 iPad。
 
-ARKit is a feature of iOS 11, so you’ll need to have this version installed and use Xcode 9 for development. At the time of writing, iOS 11 and Xcode 9 are still in beta, so you’ll need to enroll in the [Apple Developer Program](https://developer.apple.com/programs/), however, Apple has now released both to the public so a paid developer account is no longer required. You can find more info about installing [iOS 11 beta here](https://9to5mac.com/2017/06/26/how-to-install-ios-11-public-beta-on-your-eligible-iphone-ipad-or-ipod-touch/) and [Xcode beta here](https://developer.apple.com/download/).
+ARKit 是 iOS 11 的一个特性，所以你必须先装上这个版本的 SDK，并用 Xcode 9 来开发。在写这篇文章的时候，iOS 11 和 Xcode 9 仍然是在测试版本，所以你要先加入到[苹果开发者计划](https://developer.apple.com/programs/)，不过苹果现在也向公众发布了免费的开发者账号。你可以在[这里](https://9to5mac.com/2017/06/26/how-to-install-ios-11-public-beta-on-your-eligible-iphone-ipad-or-ipod-touch/)找到更多关于安装 iOS 11 beta 的信息和[这里](https://developer.apple.com/download/)找到关于安装 Xcode beta 的信息。
 
-In case something changes in a later version, the app of this tutorial was built with Xcode beta 2.
+为了避免之后版本的改动，这个应用的教程是通过 Xcode beta 2 来构建的。
+在这个游戏中，我们需要表示幽灵的图片和它被移除时的音效。[OpenGameArt.org](https://opengameart.org) 是一个非常棒的获取免费游戏资源的网站。我选了这个[幽灵图片](https://opengameart.org/content/ghosts) 和这个[幽灵音效](https://opengameart.org/content/ghost)，当然你也可以用任何你想要用的文件。
 
-For the game, we’ll need images to represent the ghosts and a sound effect to play when one is removed. A great site to find free game assets is [OpenGameArt.org](https://opengameart.org). I chose this [ghost image](https://opengameart.org/content/ghosts) and this [ghost sound effect](https://opengameart.org/content/ghost), but you can use any other files you want.
+## 新建项目
 
-## Creating the project
-
-Open Xcode 9 and create a new AR app:
+打开 Xcode 9 并且新建一个 AR 应用：
 
 ![](https://blog.pusher.com/wp-content/uploads/2017/07/building-an-ar-game-with-arkit-and-spritekit-01-createProject.png)
 
-Enter the project information, choosing Swift as the language and SpriteKit as the content technology and create the project:
+输入项目的信息，选择 Swift 作为开发语言并把 SpriteKit 作为内容技术，接着创建项目：
 
 ![](https://blog.pusher.com/wp-content/uploads/2017/07/building-an-ar-game-with-arkit-and-spritekit-01-createProject2.png)
 
-At this time, AR cannot be tested on an iOS simulator, so we’ll need to test on a real device. For this, we’ll need to sign our app with our developer account. If you haven’t already, add your developer account to Xcode and choose your team to sign your app:
+目前 AR 不能够在 iOS 模拟器上测试，所以我们需要在真机上进行测试。为此，我们需要开发者账号来注册我们的应用。如果暂时没有的话，把你的开发账号添加到 Xcode 上并且选择你的团队来注册你的应用：
 
 ![](https://blog.pusher.com/wp-content/uploads/2017/07/building-an-ar-game-with-arkit-and-spritekit-02-developmentTeam-774x600.png)
 
-If you don’t have a paid developer account, you’ll have some limitations, like the fact that you can only create up to 10 App IDs every 7 days and that you can’t have more than 3 apps installed in your device.
+如果你没有一个付过费的开发者账号的话，你会有一些限制，比如你每七天只能够创建 10 个 App ID 而且你不能够在你的设备上安装超过 3 个以上的应用。
 
-The first time you install the app on your device,  probably you’ll be asked to trust the certificate in the device, just follow the instructions:
-
+在你第一次在你的设备上安装应用的时候，你可能会被要求信任设备上的证书，就跟着下面的指导：
 ![](https://blog.pusher.com/wp-content/uploads/2017/07/building-an-ar-game-with-arkit-and-spritekit-03-Trust.png)
 
-This way, when the app is run, you’ll be asked to give permissions to the camera:
+就像这样，当应用运行的时候，你会被请求给予摄像头权限：
 
 ![](https://blog.pusher.com/wp-content/uploads/2017/07/building-an-ar-game-with-arkit-and-spritekit-07-camera-permission.png)
 
-After that, a new sprite will be added to the scene when you touch the screen and positioned according to the orientation of the camera:
+之后，在你触摸屏幕的时候，一个新的精灵会被加到场景上去，并且根据摄像头的角度来调整位置。
 
 [![](https://i.ytimg.com/vi_webp/NyIHEM69skU/maxresdefault.webp)](https://www.youtube.com/watch?v=NyIHEM69skU)
 
-Now that we have set up the project, let’s take a look at the code.
+现在这个项目已经搭建完成了，让我们来看下代码吧。
 
-## How SpriteKit works with ARKit
+## SpriteKit 如何和 ARKit 一起工作
 
-If you open `Main.storyboard`, you’ll see there’s an [ARSKView](https://developer.apple.com/documentation/arkit/arskview) that fills the entire screen:
-
+如果你打开 `Main.storyboard`，你会发现有个 [ARSKView](https://developer.apple.com/documentation/arkit/arskview) 填满了整个屏幕：
 ![](https://blog.pusher.com/wp-content/uploads/2017/07/building-an-ar-game-with-arkit-and-spritekit-04-storyboard-836x600.png)
 
-This view renders the live video feed from the device camera as the scene background, placing 2D images (as SpriteKit nodes) in the 3D space (as [ARAnchor](https://developer.apple.com/documentation/arkit/aranchor) objects). When you move the device, the view automatically rotates and scales the images (SpriteKit nodes) corresponding to anchors (`ARAnchor` objects) so that they appear to track the real world seen by the camera.
+这个视图将来自设备摄像头的实时视频，渲染为场景的背景，将 2D 的图片(以 SpriteKit 的节点)加到 3D 的空间中( 以 [ARAnchor](https://developer.apple.com/documentation/arkit/aranchor) 对象)。当你移动设备的时候，这个视图会根据锚点（ `ARAnchor` 对象）自动旋转和缩放这个图像( SpriteKit 节点)，所以他们看上去就像是通过摄像头跟踪的真实的世界。
 
-This view is managed by the class `ViewController.swift`. First, in the `viewDidLoad` method, it turns on some debug properties of the view and then creates the SpriteKit scene from the automatically created scene `Scene.sks`:
+这个界面是通过 `ViewController.swift` 这个类来管理的。首先，在 `viewDidLoad` 方法中，它打开了界面的一些调试选项，然后通过这个自动生成的场景 `Scene.sks` 来创建 SpriteKit 场景：
 
 ```
     override func viewDidLoad() {
       super.viewDidLoad()
 
-      // Set the view's delegate
+      // 设置视图的代理
       sceneView.delegate = self
 
-      // Show statistics such as fps and node count
+      // 展示数据，比如 fps 和节点数
       sceneView.showsFPS = true
       sceneView.showsNodeCount = true
 
-      // Load the SKScene from 'Scene.sks'
+      // 从 'Scene.sks' 加载 SKScene
       if let scene = SKScene(fileNamed: "Scene") {
         sceneView.presentScene(scene)
       }
     }
 ```
 
-Then, the method `viewWillAppear` configures the session with the class [ARWorldTrackingSessionConfiguration](https://developer.apple.com/documentation/arkit/arworldtrackingsessionconfiguration). The session (an [ARSession](https://developer.apple.com/documentation/arkit/arsession) object) manages the motion tracking and image processing required to create an AR experience:
+接着，`viewWillAppear` 方法通过 [ARWorldTrackingSessionConfiguration](https://developer.apple.com/documentation/arkit/arworldtrackingsessionconfiguration) 类来配置这个会话。这个会话（ [ARSession](https://developer.apple.com/documentation/arkit/arsession) 对象）负责管理创建 AR 体验所需要的运动追踪和图像处理：
 
 ```
     override func viewWillAppear(_ animated: Bool) {
       super.viewWillAppear(animated)
 
-      // Create a session configuration
+      // 创建会话配置
       let configuration = ARWorldTrackingSessionConfiguration()
 
-      // Run the view's session
+      // 运行视图的会话
       sceneView.session.run(configuration)
     }
 ```
 
-You can configure the session with the `ARWorldTrackingSessionConfiguration` class to track the device’s movement with [six degrees of freedom (6DOF)](https://en.wikipedia.org/wiki/Six_degrees_of_freedom). The three rotation axes:
+你可以用 `ARWorldTrackingSessionConfiguration` 类来配置该会话通过[六个自由度(6DOF)](https://en.wikipedia.org/wiki/Six_degrees_of_freedom)中追踪物体的移动。三个旋转角度：
 
-- Roll, the rotation on the X-axis
-- Pitch, the rotation on the Y-axis
-- Yaw, the rotation on the Z-axis
+- Roll，在 X-轴 的旋转角度
+- Pitch，在 Y-轴 的旋转角度
+- Yaw，在 Z-轴 的旋转角度
 
-And three translation:
+和三个平移值：
+- Surging，在 X-轴 上向前向后移动。
+- Swaying，在 Y-轴 上左右移动。
+- Heaving，在 Z-轴 上上下移动。
 
-- Surging, moving forward and backward on the X-axis
-- Swaying, moving left and right on the Y-axis
-- Heaving, moving up and down on the Z-axis
+或者，你也可以用 [ARSessionConfiguration](https://developer.apple.com/documentation/arkit/arsessionconfiguration) ，它提供了 3 个自由度，支持低性能设备的简单运动追踪。
 
-Alternatively, you can also use [ARSessionConfiguration](https://developer.apple.com/documentation/arkit/arsessionconfiguration), which provides three degrees of freedom (3DOF) for simple motion tracking in less capable devices.
-
-A few lines below, you’ll find the method `view(_ view: ARSKView, nodeFor anchor: ARAnchor) -> SKNode?`. When an anchor is added, this method provides a custom node for that anchor that will be added to the scene. In this case, it returns an [SKLabelNode](https://developer.apple.com/documentation/spritekit/sklabelnode) to display the emoji that is presented to the user:
+往下几行，你会发现这个方法 `view(_ view: ARSKView, nodeFor anchor: ARAnchor) -> SKNode?` 。当一个锚点被添加的时候，这个方法为即将添加到场景上的锚点提供了一个自定义节点。在当前的情况下，它会返回一个 [SKLabelNode](https://developer.apple.com/documentation/spritekit/sklabelnode) 来展示这个面向用户的 emoji ：
 
 ```
     func view(_ view: ARSKView, nodeFor anchor: ARAnchor) -> SKNode? {
-      // Create and configure a node for the anchor added to the view's session.
+      // 为加上视图会话的锚点增加和配置节点
       let labelNode = SKLabelNode(text: "👾")
       labelNode.horizontalAlignmentMode = .center
       labelNode.verticalAlignmentMode = .center
@@ -136,9 +131,9 @@ A few lines below, you’ll find the method `view(_ view: ARSKView, nodeFor anch
     }
 ```
 
-But when is this anchor created?
+但是这个锚点什么时候创建的呢？
 
-It is done in the file `Scene.swift`, the class that manages the Sprite scene (`Scene.sks`), specifically, in this method:
+它是在 `Scene.swift` 文件中完成的，在这个管理 Sprite 场景（`Scene.sks`）的类中，特别地，这个方法中：
 
 ```
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -146,49 +141,47 @@ It is done in the file `Scene.swift`, the class that manages the Sprite scene (`
         return
       }
 
-      // Create anchor using the camera's current position
+      // 通过摄像头当前的位置创建锚点
       if let currentFrame = sceneView.session.currentFrame {
-        // Create a transform with a translation of 0.2 meters in front of the camera
+        // 创建一个往摄像头前面平移 0.2 米的转换
         var translation = matrix_identity_float4x4
         translation.columns.3.z = -0.2
         let transform = simd_mul(currentFrame.camera.transform, translation)
 
-        // Add a new anchor to the session
+        // 在会话上添加一个锚点
         let anchor = ARAnchor(transform: transform)
         sceneView.session.add(anchor: anchor)
       }
     }
 ```
 
-As you can read in the comments, it creates an anchor using the camera’s current position, then it creates a matrix to position the anchor 0.2 meters in front of the camera and add it to the scene.
+就像你从注释中可以看到的，它通过摄像头当前的位置创建了一个锚点，然后新建了一个矩阵来把锚点定位在摄像头前 0.2m 处，并把它加到场景中。
 
-An ARAnchor uses a [4×4 matrix](https://developer.apple.com/documentation/scenekit/scnmatrix4) represents the combined position, rotation or orientation, and scale of an object in three-dimensional space.
+ARAnchor 使用一个 [4×4 的矩阵](https://developer.apple.com/documentation/scenekit/scnmatrix4) 来代表和它相对应的对象在一个三维空间中的位置，角度或者方向，和缩放。
 
-In the 3D programming world, matrices are used to represent graphical transformations like translation, scaling, rotation, and projection. Through matrix multiplication, multiple transformations can be concatenated into a single transformation matrix.
+在 3D 编程的世界里，矩阵用来代表图形化的转换比如平移，缩放，旋转和投影。通过矩阵的乘法，多个转换可以连接成一个独立的变换矩阵。
 
-Here’s a good post about [the math behind transforms](http://ronnqvi.st/the-math-behind-transforms/). Also, the [Core Animation Programming Guide has a section about manipulating layers in three dimensions](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/CoreAnimation_guide/CoreAnimationBasics/CoreAnimationBasics.html#//apple_ref/doc/uid/TP40004514-CH2-SW18) where you can find matrix configurations for some common transformations.
+这是一篇关于[转换背后的数学](http://ronnqvi.st/the-math-behind-transforms/)很好的博文。同样的，在[核心动画指南中关于操作 3D 界面中层级一章](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/CoreAnimation_guide/CoreAnimationBasics/CoreAnimationBasics.html#//apple_ref/doc/uid/TP40004514-CH2-SW18) 中你也可以找到一些常用转换的矩阵配置。
 
-Back to the code, we start with an identity matrix (`matrix_identity_float4x4`):
+回到代码中，我们以一个特殊的矩阵开始（`matrix_identity_float4x4`）：
 
 ```
-1.0   0.0   0.0   0.0  // This row represents X
-0.0   1.0   0.0   0.0  // This row represents Y
-0.0   0.0   1.0   0.0  // This row represents Z
-0.0   0.0   0.0   1.0  // This row represents W
+1.0   0.0   0.0   0.0  // 这行代表 X
+0.0   1.0   0.0   0.0  // 这行代表 Y
+0.0   0.0   1.0   0.0  // 这行代表 Z
+0.0   0.0   0.0   1.0  // 这行代表 W
 ```
 
-
->  If you’re wondering what is W:
+>  如果你想知道 W 是什么：
 >
->  If w == 1, then the vector (x, y, z, 1) is a position in space.
->
->  If w == 0, then the vector (x, y, z, 0) is a direction.
+>  如果 w == 1，那么这个向量 (x, y, z, 1) 是空间中的一个位置。
+> 
+>  如果 w == 0，那么这个向量 (x, y, z, 0) 是一个方向。 
 >
 > [http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/](http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/)
 
-Then, the Z-axis of column number 3 is modified with the value -0.2 to indicate a translation in that axis (a negative z value places an object in front of the camera).
-
-If you print the value of the translation matrix at this point, you’ll see it’s printed as an array of vectors, where each vector represents a column.
+接着，Z-轴列的第三个值改为了 -0.2 代表着在这个轴上有平移（负的 z 值代表着把对象放置到摄像头之前）。
+如果你这个时候打印了平移矩阵值的话，你会看见它打印了一个向量数组，每个向量代表了一列。
 
 ```
 [ [1.0, 0.0,  0.0, 0.0 ],
@@ -198,19 +191,18 @@ If you print the value of the translation matrix at this point, you’ll see it�
 ]
 ```
 
-
-Probably it’s easier to see it this way:
+这样子可能看起来更简单一点：
 
 ```
-0     1     2     3    // Column number
-1.0   0.0   0.0   0.0  // This row represents X
-0.0   1.0   0.0   0.0  // This row represents Y
-0.0   0.0   1.0  -0.2  // This row represents Z
-0.0   0.0   0.0   1.0  // This row represents W
+0     1     2     3    // 列号
+1.0   0.0   0.0   0.0  // 这一行代表着 X
+0.0   1.0   0.0   0.0  // 这一行代表着 Y
+0.0   0.0   1.0  -0.2  // 这一行代表着 Z
+0.0   0.0   0.0   1.0  // 这一行代表着 W
 ```
 
 
-Then, this matrix is mutliplied by the transformation matrix of the camera’s current frame to get the final matrix that will be used to position the new anchor. For example, assumming the following camera’s transform matrix (as an array of columns):
+接着，这个矩阵会乘上当前摄像头帧的平移矩阵得到最后用来放置新锚点的矩阵。举个例子，假设是如下的相机转换矩阵（以一个列的数组的形式）：
 
 ```
 [ [ 0.103152, -0.757742,   0.644349, 0.0 ],
@@ -220,8 +212,7 @@ Then, this matrix is mutliplied by the transformation matrix of the camera’s c
 ]
 ```
 
-
-The result of the multiplication will be:
+那么相乘的结果将是：
 
 ```
 [ [0.103152,   -0.757742,   0.644349, 0.0 ],
@@ -231,14 +222,13 @@ The result of the multiplication will be:
 ]
 ```
 
+这里是关于[矩阵如何相乘](https://www.mathsisfun.com/algebra/matrix-multiplying.html)的更多信息，这是一个[矩阵乘法计算器](http://matrix.reshish.com/multiplication.php)。
 
-Here’s more information about [how to multiply matrices](https://www.mathsisfun.com/algebra/matrix-multiplying.html) and here’s a [matrix multiplication calculator](http://matrix.reshish.com/multiplication.php).
+现在你知道这个例子是如何工作的了，让我们修改它来创建我们的游戏吧。
 
-Now that you understand how the sample works, let’s modify it to make our game.
+## 构建 SpriteKit 的场景
 
-## Building the SpriteKit scene
-
-In the file Scene.swift, let’s add the following properties:
+在 Scene.swift 的文件中，让我们加上如下的配置：
 
 ```
     class Scene: SKScene {
@@ -255,21 +245,21 @@ In the file Scene.swift, let’s add the following properties:
     }
 ```
 
-We’re adding two labels, one that represents the number of ghosts present in the scene, a time interval to control the creating of the ghosts, and the ghost counter, with a property observer to update the label whenever its value changes.
+我们增加了两个标签，一个代表了场景中的幽灵的数量，控制幽灵产生的时间间隔，和幽灵的计数器，它有个属性观察器，每当它的值变化的时候，标签就会更新。
 
-Next up, download the sound that will be played when the ghost is removed and drag it to the project:
+接下来，下载幽灵移除时播放的音效，并把它拖到项目中：
 
 ![](https://blog.pusher.com/wp-content/uploads/2017/07/building-an-ar-game-with-arkit-and-spritekit-06-addImages-1.gif)
 
-And add the following line to the class:
+把下面这行加到类里面：
 
 ```
 let killSound = SKAction.playSoundFileNamed("ghost", waitForCompletion: false)
 ```
 
-We’ll call this action later to play the sound.
+我们稍后调用这个动作来播放音效。
 
-In the method `didMove`, let’s add the labels to the scene:
+在 `didMove` 方法中，我们把标签加到场景中：
 
 ```
     override func didMove(to view: SKView) {
@@ -287,15 +277,16 @@ In the method `didMove`, let’s add the labels to the scene:
     }
 ```
 
-You can use a site like [iOS Fonts](http://iosfonts.com/) to visually choose the font for the labels.
+你可以用像 [iOS Fonts](http://iosfonts.com/) 的站点来可视化的选择标签的字体。
 
-The position coordinates represent the bottom-left section of the screen (the code to make this happen will be explained later). I chose to place them in that section of the screen to avoid orientation issues because the size of the scene changes with the orientation, however, the coordinates remain the same, which can cause the labels to appear out of the screen or in odd positions (which can be fixed by overriding the `didChangeSize` method or by using [UILabels](https://developer.apple.com/documentation/uikit/uilabel) instead of [SKLabelNodes](https://developer.apple.com/documentation/spritekit/sklabelnode)).
+这个位置坐标代表着屏幕左下角的部分（相关代码稍后会解释）。我选择把它们放在屏幕的这个区域是为了避免转向的问题，因为场景的大小会随着方向改变而变化，但是，坐标保持不变，会引起标签显示超过屏幕或者在一些奇怪的位置（可以通过重写 `didChangeSize` 方法或者使用 [UILabels](https://developer.apple.com/documentation/uikit/uilabel) 替换 [SKLabelNodes](https://developer.apple.com/documentation/spritekit/sklabelnode) 来解决这一问题）。
 
-Now, to create the ghosts at a defined time interval, we’ll need some sort of timer. The update method, which is called before a frame is rendered (in average 60 times per second), can help us with this:
+现在，为了在固定的时间间隔创建幽灵，我们需要一个定时器。这个更新方法会在每一帧（平均 60 次每秒）渲染之前被调用，可以像下面这样帮助我们：
+
 
 ```
     override func update(_ currentTime: TimeInterval) {
-      // Called before each frame is rendered
+      // 在每一帧渲染之前调用
       if currentTime > creationTime {
         createGhostAnchor()
         creationTime = currentTime + TimeInterval(randomFloat(min: 3.0, max: 6.0))
@@ -303,9 +294,9 @@ Now, to create the ghosts at a defined time interval, we’ll need some sort of 
     }
 ```
 
-The argument `currentTime` represents the current time in the app, so if this is greater than the time represented by `creationTime`, a new ghost anchor will be created and `creationTime` will be incremented by a random amount of seconds, in this case, between 3 and 6.
+参数 `currentTime` 代表着当前应用中的时间，所以如果它大于 `creationTime` 所代表的时间，一个新的幽灵锚点会创建， `creationTime` 也会增加一个随机的秒数，在这个例子里面，是在 3 到 6 秒。
 
-Here’s the definition of `randomFloat`:
+这是 `randomFloat` 的定义：
 
 ```
     func randomFloat(min: Float, max: Float) -> Float {
@@ -313,7 +304,7 @@ Here’s the definition of `randomFloat`:
     }
 ```
 
-For the `createGhostAnchor` method, we need to get the scene view:
+在 `createGhostAnchor` 方法中，我们需要获取场景的界面：
 
 ```
     func createGhostAnchor(){
@@ -324,7 +315,7 @@ For the `createGhostAnchor` method, we need to get the scene view:
     }
 ```
 
-Then, since the functions we’re going to use work with radians, let’s define 360 degrees in radians:
+接着，因为在接下来的函数中我们都要与弧度打交道，让我们先定义一个弧度的 360 度：
 
 ```
     func createGhostAnchor(){
@@ -335,7 +326,7 @@ Then, since the functions we’re going to use work with radians, let’s define
     }
 ```
 
-Now, to place the ghost in a random position, let’s create one random rotation matrix on the X-axis and one on the Y-axis:
+现在，为了把幽灵放置在一个随机的位置，我们分别创建一个随机 X-轴旋转和 Y-轴旋转矩阵：
 
 ```
     func createGhostAnchor(){
@@ -349,17 +340,17 @@ Now, to place the ghost in a random position, let’s create one random rotation
 ```
 
 
-Luckily, we don’t have to build the rotation matrix manually, there are functions that returns a matrix describing a rotation, translation, or scale transformation.
+幸运的是，我们不需要去手动地创建这个旋转矩阵，有一些函数可以返回一个表示旋转，平移或者缩放的转换信息矩阵。
 
-In this case, [SCNMatrix4MakeRotation](https://developer.apple.com/documentation/scenekit/1409686-scnmatrix4makerotation) returns a matrix describing a rotation transformation. The first parameter represents the angle of rotation, in radians. The expression `_360degrees * randomFloat(min: 0.0, max: 1.0)` gives a random angle from 0 to 360 degrees.
+在这个例子中，[SCNMatrix4MakeRotation](https://developer.apple.com/documentation/scenekit/1409686-scnmatrix4makerotation) 返回了一个表示旋转变换的矩阵。第一个参数代表了旋转的角度，要用弧度的形式。在这个表达式 `_360degrees * randomFloat(min: 0.0, max: 1.0)` 中得到一个在 0 到 360 度中的随机角度。
 
-The rest of `SCNMatrix4MakeRotation`’s parameters represent the X, Y, and Z-components of the rotation axis respectively, that’s why we’re passing 1 as the parameter that corresponds to X in the first call and 1 as the parameter that corresponds to Y in the second call.
+剩下的 `SCNMatrix4MakeRotation` 的参数，代表了 X，Y 和 Z 轴各自的旋转，这就是为什么我们第一次调用的时候把 1 作为 X 的参数，而第二次的时候把 1 作为 Y 的参数。
 
-The result of `SCNMatrix4MakeRotation` is converted to a 4×4 matrix using the `simd_float4x4` struct.
+ `SCNMatrix4MakeRotation` 的结果通过 `simd_float4x4` 结构体转换为一个 4x4 的矩阵。 
 
->   If you’re using XCode 9 Beta 1, you should use SCNMatrix4ToMat4 instead, which was replaced by simd_float4x4 in XCode 9 Beta 2.
+>   如果你正在使用 Xcode 9 Beta 1 的话，你应该用 SCNMatrix4ToMat4 ，在 Xcode 9 Beta 2 中它被 simd_float4x4 替换了。 
 
-We can combine both rotation matrices with a multiplication operation:
+我们可以通过矩阵乘法来组合两个旋转矩阵：
 
 ```
     func createGhostAnchor(){
@@ -369,7 +360,7 @@ We can combine both rotation matrices with a multiplication operation:
     }
 ```
 
-Then, we create a translation matrix in the Z-axis with a random value between -1 and -2 meters:
+接着，我们创建一个 Z-轴是 -1 到 -2 之间的随机值的转换矩阵。
 
 ```
     func createGhostAnchor(){
@@ -380,7 +371,7 @@ Then, we create a translation matrix in the Z-axis with a random value between -
     }
 ```
 
-Combine the rotation and translation matrices:
+组合旋转和位移矩阵：
 
 ```
     func createGhostAnchor(){
@@ -390,7 +381,7 @@ Combine the rotation and translation matrices:
     }
 ```
 
-Create and add the anchor to the session:
+创建并把这个锚点加到该会话中：
 
 ```
     func createGhostAnchor(){
@@ -401,7 +392,7 @@ Create and add the anchor to the session:
     }
 ```
 
-And increment the ghost counter:
+并且增加幽灵计数器：
 
 ```
     func createGhostAnchor(){
@@ -410,7 +401,7 @@ And increment the ghost counter:
     }
 ```
 
-Now the only piece of code that is missing is the one executed when the user touches a ghost to remove it. Override the `touchesBegan` method to get the touch object first:
+现在唯一剩下没有加的就是当用户触摸一个幽灵并移动它的代码。首先重写 `touchesBegan`  来获取到触摸的物体：
 
 ```
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -421,7 +412,7 @@ Now the only piece of code that is missing is the one executed when the user tou
     }
 ```
 
-Then get the location of the touch in the AR scene:
+接着获取该触摸在 AR 场景中的位置：
 
 ```
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -431,7 +422,7 @@ Then get the location of the touch in the AR scene:
     }
 ```
 
-Get the nodes at that location:
+获取在该位置的所有节点：
 
 ```
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -441,7 +432,7 @@ Get the nodes at that location:
     }
 ```
 
-Get the first node (if any) and check if the node represents a ghost (remember that labels are also a node):
+获取第一个节点（如果有的话），检查这个节点是不是代表着一个幽灵（记住标签同样也是一个节点）：
 
 ```
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -454,7 +445,7 @@ Get the first node (if any) and check if the node represents a ghost (remember t
     }
 ```
 
-If that’s the case, group the fade-out and sound actions, create an action sequence, execute it, and decrement the ghost counter:
+如果就这个节点的话，组合淡出和音效动作，创建一个动作序列并执行它，同时减小幽灵的计数器：
 
 ```
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -465,15 +456,15 @@ If that’s the case, group the fade-out and sound actions, create an action seq
           let fadeOut = SKAction.fadeOut(withDuration: 0.5)
           let remove = SKAction.removeFromParent()
 
-          // Group the fade out and sound actions
+          // 组合淡出和音效动画
           let groupKillingActions = SKAction.group([fadeOut, killSound])
-          // Create an action sequence
+          // 创建动作序列
           let sequenceAction = SKAction.sequence([groupKillingActions, remove])
 
-          // Excecute the actions
+          // 执行动作序列
           node.run(sequenceAction)
 
-          // Update the counter
+          // 更新计数
           ghostCount -= 1
 
         }
@@ -481,11 +472,11 @@ If that’s the case, group the fade-out and sound actions, create an action seq
     }
 ```
 
-And our scene is done, now let’s work on the view controller of `ARSKView`.
+到这里，我们的场景已经完成了，现在我们开始处理 `ARSKView` 的视图控制器。
 
-## Building the view controller
+## 构建视图控制器
 
-In viewDidLoad, instead of loading the scene Xcode created for us, let’s create our scene in this way:
+在 viewDidLoad 中，不再加载 Xcode 为我们创建的场景，让我们通过这种方式来创建我们的场景：
 
 ```
     override func viewDidLoad() {
@@ -497,15 +488,15 @@ In viewDidLoad, instead of loading the scene Xcode created for us, let’s creat
     }
 ```
 
-This will ensure our scene fills the entire view and therefore, the entire screen (remember that the `ARSKView` defined in `Main.storyboard` fills the entire screen).  This will also help to position the game labels in the bottom-left section of the screen, with the position coordinates defined in the scene.
+这会确保我们的场景可以填满整个界面，甚至整个屏幕（在 `Main.storyboard` 中定义的 `ARSKView` 填满了整个屏幕）。这同样也有助于把游戏的标签定位在屏幕的左下角，根据场景中定义的位置坐标。
 
-Now it’s time to include the ghost images. In my case, the image format was SVG so I converted to PNG and for simplicity,  only added the first 6 ghosts of the image, creating the 2X and 3X versions (I didn’t see the point on creating the 1X version since devices using this resolution probably won’t be able to run the app anyway).
+现在，现在是时候添加幽灵图片了。在我的例子中，图片的格式原来是 SVG ，所以我转换到了 PNG ，并且为了简单起见，只加了图片中的前 6 个幽灵，创建了 2X 和 3X 版本（我没看见创建 1X 版本的地方，因此采用了缩放策略的设备不能够正常的运行这个应用）。
 
-Drag the image to `Assets.xcassets`:
+把图片拖到 `Assets.xcassets` 中：
 
 ![](https://blog.pusher.com/wp-content/uploads/2017/07/building-an-ar-game-with-arkit-and-spritekit-06-addImages.gif)
 
-Notice the number at the end of the image’s names – this will help us to randomly choose an image to create the SpriteKit node. Replace the code in `view(_ view: ARSKView, nodeFor anchor: ARAnchor)` with this:
+注意图像名字最后的数字 - 这会帮我们随机选择一个图片创建 SpriteKit 节点。用这个替换 `view(_ view: ARSKView, nodeFor anchor: ARAnchor)` 中的代码：  
 
 ```
     func view(_ view: ARSKView, nodeFor anchor: ARAnchor) -> SKNode? {
@@ -518,9 +509,9 @@ Notice the number at the end of the image’s names – this will help us to ran
     }
 ```
 
-We give all the nodes the same name *ghost,* so we can identify them when it’s time to remove them.
+我们给所有的节点同样的名字 *ghost* ，所以在移除它们的时候我们可以识别它们。
 
-Of course, don’t forget the randomInt function:
+当然，不要忘了 randomInt 方法：
 
 ```
     func randomInt(min: Int, max: Int) -> Int {
@@ -528,27 +519,30 @@ Of course, don’t forget the randomInt function:
     }
 ```
 
-And we’re done! Let’s test it.
+现在我们已经完成了所有工作！让我们来测试它吧！
 
-## Testing the app
+## 测试应用
 
-Run the app on a real device, give permissions to the camera, and start searching for the ghosts in all directions:
+在真机上运行这个应用，赋予摄像头权限，并且开始在所有方向中寻找幽灵：
 
 [![](https://i.ytimg.com/vi_webp/0mmaLiuYAho/maxresdefault.webp)](https://www.youtube.com/embed/0mmaLiuYAho)
 
-A new ghost should appear every 3 to 6 seconds, the counter should be updated and a sound should play every time you hit a ghost.
+每 3 到 6 秒就会出现一个新的幽灵，计数器也会更新，每当你击中一个幽灵的时候就会播放一个音效。
 
-Try to take the counter to zero!
+试着让计数器归零吧！
 
-## Conclusion
+## 结论
 
-There are two great things about ARKit. One is that with a few lines of code we can create amazing AR apps, and second, we can leverage our knowledge of SpriteKit and SceneKit. ARKit actually has a small number of classes, it’s more learning about how to use the mentioned frameworks and adapt them a little bit to create an AR experience.
+关于 ARKit 有两个非常棒的地方。第一是只需要几行代码我们就能创建神奇的 AR 应用，第二个，我们也能学习到 SpriteKit 和 SceneKit 的知识。 ARKit 实际上只有很少的量的类，更重要的是去学会如何运用上面提到的框架，而且稍加调整就能创造出 AR 体验。
 
-You can extend this app by adding game rules, introducing bonus points or changing the images and sound. Also, using [Pusher](https://pusher.com/), you could add multi-player features by syncing the state of the game.
+你可以通过增加游戏规则，引入奖励分数或者改变图像和声音来扩展这个应用。同样的，使用 [Pusher](https://pusher.com/)，你可以同步游戏状态来增加多人游戏的特性。
 
-Remember that you can find the Xcode project in this [GitHub repository](https://github.com/eh3rrera/ARKitGameSpriteKit).
+记住你可以在这个 [GitHub 仓库](https://github.com/eh3rrera/ARKitGameSpriteKit)中找到 Xcode 项目。
 
 
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[React](https://github.com/xitu/gold-miner#react)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计) 等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
+
+
+
