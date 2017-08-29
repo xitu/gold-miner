@@ -45,50 +45,50 @@
 
 一些迹象表明，你可以从较大的组件中拆分出展示组件，包括：
 
-- 你的组件有 DOM 标记或者样式。
+- 有 DOM 标记或者样式。
 - 有像列表项这样重复的部分。
-- 你的组件中有“看起来”像一个盒子或者一个部分的东西。
+- 有“看起来”像一个盒子或者区域的东西。
 - JSX 的一部分仅依赖于单个对象作为输入数据。
-- 你有一个具有不同的部分的大型展示组件。
+- 有一个具有不同区域的大型展示组件。
 
-一些展示组件的示例可以从较大的组件中拆分出来：
+可以从较大的组件中拆分出展示组件的一些示例：
 
 - 为多个子元素执行布局的组件。
 - 卡片和列表项可以从列表中拆分出来。
 - 字段可以从表单中拆分出来（将所有的更新合并到一个 `onChange` 回调中）。
 - 标记可以从控件中拆分出来。
 
-### Control components
+### 控制组件
 
-Control components are components that **store state related to partial input**, i.e. state that keeps track of actions the user has taken, which haven’t yet resulted in a valid value that can be emitted via an `onChange` callback. They are similar to presentation components, but:
+控制组件指的是**存储与部分输入相关的状态**的组件，即跟踪用户已发起操作的状态，而这些状态还未通过 `onChange` 回调产生有效值。它们与展示组件相似，但是：
 
-- Can store state (when it is related to partial input).
-- Can use refs and interact with the DOM.
-- Can use lifecycle methods.
-- Often don’t have any styles or DOM markup.
+- 可以存储状态（当与部分输入相关时）。
+- 可以使用 refs 和与 DOM 进行交互。
+- 可以使用生命周期方法。
+- 通常没有任何样式，也没有 DOM 标记。
 
-Some signs that you can factor out a control component from a larger component include:
+一些迹象表明，你可以从较大的组件中拆分出控制组件，包括：
 
-- You’re storing partial input in state.
-- Your component interacts with the DOM through refs.
-- Parts of your component look like native controls – buttons, fields, etc.
+- 将部分输入存储在状态中。
+- 通过 refs 与 DOM 进行交互。
+- 某些部分看起来像原生控件 —— 按钮，表单域等。
 
-Some examples of control components include:
+控制组件的一些示例包括：
 
-- Date pickers
-- Typeaheads
-- Switches
+- 日期选择器
+- 输入提示
+- 开关
 
-You’ll often find that you have a number of controls with the same behavior, but different presentation. In these cases, it makes sense to factor out the presentation into View components, which are passed in via a `theme` or `view` prop.
+你经常会发现你的很多控件具有相同的行为，但有不同的展现形式。在这中情况下，通过 `theme` 或 `view` 属性将展现形式拆分成视图组件是有意义的。
 
-You can see a real-world example of connector functions in the [react-dnd](https://github.com/react-dnd/react-dnd) library.
+你可以在 [react-dnd](https://github.com/react-dnd/react-dnd) 库中查看连接器函数的实际示例。
 
-When factoring presentation components out of controls, you may find that passing individual ref functions and callbacks to the presentation component via `props` feels a little wrong. In this case, it may help to pass **connector function** instead, which clones refs and callbacks onto a passed in element. For example:
+当从控件中拆分出展示组件时，你可能会发现通过 `props` 将单独的 `ref` 函数和回调传递给展示组件感觉有点不对。在这种情况下，它可能有助于传递**连接器函数**，这个函数将 refs 和回调克隆到传入的元素中。例如：
 
-```
+```jsx
 class MyControl extends React.Component {
-  // A connector function uses React.cloneElement to add event handlers
-  // and refs to an element created by the presentation component.
+  // 连接器函数使用 React.cloneElement 将事件处理程序
+  // 和 refs 添加到由展示组件创建的元素中。
   connectControl = (element) => {
     return React.cloneElement(element, {
       ref: this.receiveRef,
@@ -97,8 +97,8 @@ class MyControl extends React.Component {
   }
 
   render() {
-    // You can pass a presentation component into your controls via props,
-    // allowing controls to be themed with arbitrary markup and styles.
+    // 你可以通过属性将展示组件传递给控件，
+    // 从而允许控件以任意标记和样式来作为主题。
     return React.createElement(this.props.view, {
       connectControl: this.connectControl,
     })
@@ -110,8 +110,8 @@ class MyControl extends React.Component {
   // ...
 }
 
-// The presentation component can wrap an element in `connectControl` to add
-// appropriate callbacks and `ref` functions
+// 展示组件可以在 `connectControl` 中包裹一个元素，
+// 以添加适当的回调和 `ref` 函数。
 function ControlView({ connectControl }) {
   return connectControl(
     <div className='some-class'>
@@ -121,7 +121,7 @@ function ControlView({ connectControl }) {
 }
 ```
 
-You’ll find that control components can often end up surprisingly large. They have to deal with the DOM, which is a large chunk of state that doesn’t decompose. And this makes factoring out control components especially useful; by limiting your DOM interactions to control components, you can keep any DOM-related mess in a single place.
+你会发现控制组件通常会非常大。它们必须处理和状态密不可分的 DOM，这就使得控制组件的拆分特别有用；通过将 DOM 交互限制为控制组件，你可以将任何与 DOM 相关的杂项放在一个地方。
 
 ### Controllers
 
