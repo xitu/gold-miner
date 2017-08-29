@@ -25,15 +25,25 @@ As those of you following the work on V8 somewhat closely have probably already 
 
 In addition to that, [as of yesterday](https://codereview.chromium.org/2505933008) we are finally starting to pull the plug on fullcodegen for (modern) JavaScript features - that Crankshaft was never able to deal with - in the default configuration, which means that for example using `try`-`catch` in your code will now always route these functions through Ignition and TurboFan, instead of fullcodegen and eventually TurboFan (or even leaving the function unoptimized in fullcodegen). This will not only boost the performance of your code, and allow you to write cleaner code because you no longer need to work-around certain architectural limitations in V8, but also allows us to simplify our overall architecture quite significantly. Currently the overall compilation architecture for V8 still looks like this:
 
+除此之外，昨天我们终于
+
+
+
 ![Old V8 pipeline](http://benediktmeurer.de/images/2016/v8-old-pipeline-20161125.png)
 
 This comes with a lot of problems, especially considering new language features that need to be implemented in various parts of the pipeline, and optimizations that need to be applied consistently across a couple of different (mostly incompatible) compilers. This also comes with a lot of overhead for tooling integration, i.e. DevTools, as tools like the debugger and the profiler need to function somewhat well and behave the same independent of the compiler being used. So middle-term we’d like to simplify the overall compilation pipeline to something like this:
+
+同时，许多问题相继出现：尤其是考虑到新的语言特性需要通过管道的各个部分得以实现，不同的编译器（大部分是不兼容的）也要做出一致的优化。此外，类似 DevTools 的工具，其整合的管理成本也在攀升。像调试器或分析器等工具需独立于编译器而良好运行。所以在中期，我们会大致依照下图简化整体的编译管道。
 
 ![New V8 pipeline](http://benediktmeurer.de/images/2016/v8-new-pipeline-20161125.png)
 
 This simplified pipeline offers a lot of opportunities, not only reducing the technical debt that we accumulated over the years, but it will enable a lot of optimizations that weren’t possible in the past, and it will help to reduce the memory and startup overhead significantly long-term, since for example the AST is no longer the primary source of truth on which all compilers need to agree on, thus we will be able to reduce the size and complexity of the AST significantly.
 
+简化管道后有诸多好处，不仅减少了技术了历史包袱，过去无法实现的优化也成了可能，又因为各个编译器不需要完全依照 AST，所以 对减少长期的内存使用和启动消耗大有裨益。所以我们才可能大幅降低 AST 的大小和复杂性。
+
 So where do we stand with Ignition and TurboFan as of today? We’ve spend a lot of time this year catching up with the default configuration. For Ignition that mostly meant catching up with startup latency and baseline performance, while for TurboFan a lot of that time was spend catching up on peak performance for traditional (and modern) JavaScript workloads. This turned out to be a lot more involved than we expected three years ago when we started TurboFan, but it’s not really surprising given that an average of 10 awesome engineers spent roughly 6 years optimizing the old V8 compiler pipeline for various workloads, especially those measured by static test suites like [Octane](https://developers.google.com/octane), [Kraken](http://krakenbenchmark.mozilla.org) and [JetStream](http://browserbench.org/JetStream). Since we started with the full TurboFan and Ignition pipeline in August, we almost tripled our score on Octane and got a roughly 14x performance boost on Kraken (although this number is a bit misleading as it just highlights the fact that initially we couldn’t tier up a function from Ignition to TurboFan while the function was already executing):
+
+时至如今，我们又如何安放Ignition 和 TurboFan 呢？我们已经花了大量时间实现默认配置，对于 Ignition 而言是
 
 ![Octane score](http://benediktmeurer.de/images/2016/octane-20161125.png)
 
@@ -41,13 +51,19 @@ So where do we stand with Ignition and TurboFan as of today? We’ve spend a lot
 
 Now arguably these benchmarks are just a proxy for peak performance (and might not even be the best proxy), but you need to start somewhere and you need to measure and prove your progress if you want to replace the existing architecture. Comparing this to the default configuration, we can see that we almost closed the performance gap:
 
+这些代表高峰性能的基准又饱受争议，更别谈这些基准精准与否。但当你需要替换当前的架构时，又需要一个参考以便得知自己进度如何。我们与默认配置相比，便发现性能其实相差无几了。
+
 ![Octane score (including default)](http://benediktmeurer.de/images/2016/octane-cs-20161125.png)
 
 There are also a couple of benchmarks where TurboFan and Ignition beat the default configuration significantly (often because Crankshaft would bailout from optimization due to some corner case that it cannot handle), but there are also benchmarks even on Octane where Crankshaft already generates pretty decent code, but TurboFan can generate even better code. For example in case of Navier Stokes, TurboFan benefits from somewhat [sane inlining heuristics](https://docs.google.com/document/d/1VoYBhpDhJC4VlqMXCKvae-8IGuheBGxy32EOgC2LnT8):
 
+还有诸多评判标准，指出默认性能和 TurboFan 及Ignition相比早是望其项背了。
+
 ![Octane score (Navier Stokes)](http://benediktmeurer.de/images/2016/octane-navier-stokes-20161125.png)
 
 So stay tuned, and expect to see a lot more Ignition and TurboFan in the wild. We’re constantly working to improve TurboFan to catch up with Crankshaft even in the *old world* (i.e. on the traditional ES3/ES5 peak performance benchmarks). We already gave a few talks internally at Google on TurboFan and TurboFan-related topics, i.e.
+
+别急， Ignition 和 TurboFan
 
 - [An overview of the TurboFan compiler](https://docs.google.com/document/d/1VoYBhpDhJC4VlqMXCKvae-8IGuheBGxy32EOgC2LnT8)
 - [TurboFan IR](https://docs.google.com/presentation/d/1Z9iIHojKDrXvZ27gRX51UxHD-bKf1QcPzSijntpMJBM)
@@ -181,8 +197,6 @@ And obviously there are the people who contributed a lot to ES6 itself and the i
 
 So if you ever happen to meet one of them, and you like what they’re doing, consider inviting them for a beer or two.
 
-
-  ---
+---
 
   > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[React](https://github.com/xitu/gold-miner#react)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计) 等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
-  
