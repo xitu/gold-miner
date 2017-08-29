@@ -16,7 +16,7 @@
 
 ## 臃肿组件的出现
 
-关于状态它通常不会很好地分解。如果有多个操作在单一状态下起作用，那么它们都需要放在同一个组件中。状态可以被改变的方式越多，组件就越大。另外，如果一个组件有影响多个[状态类型](http://jamesknelson.com/5-types-react-application-state/)的操作，那么它将变得非常庞大，这是不可避免的。
+关于状态它通常不会很好地分解。如果有多个动作在单一状态下起作用，那么它们都需要放在同一个组件中。状态可以被改变的方式越多，组件就越大。另外，如果一个组件有影响多个[状态类型](http://jamesknelson.com/5-types-react-application-state/)的动作，那么它将变得非常庞大，这是不可避免的。
 
 **但即使大型组件不可避免，它们使用起来仍然是非常糟糕的**。这就是为什么你会尽可能地拆分出更小的组件，遵循[关注点分离](https://en.wikipedia.org/wiki/Separation_of_concerns)的原则。
 
@@ -38,12 +38,12 @@
 - 拥有将数据从子元素转发到父组件的回调。
 - 通常是函数组件，但如果为了性能，它们需要绑定回调，则可能是类。
 - 一般不使用生命周期方法，性能优化除外。
-- **不会**直接存储状态，除了以 UI 为中心的状态，例如动画状态。
-- **不会**使用 refs 或直接与 DOM 进行交互（因为 DOM 的改变意味着状态的改变）。
-- **不会**修改环境。它们不应该直接将操作发送给 redux 的 store 或者调用 API 等。
-- **不会**使用 React 上下文。
+- **不**直接存储状态，除了以 UI 为中心的状态，例如动画状态。
+- **不**使用 refs 或直接与 DOM 进行交互（因为 DOM 的改变意味着状态的改变）。
+- **不**修改环境。它们不应该直接将动作发送给 redux 的 store 或者调用 API 等。
+- **不**使用 React 上下文。
 
-一些迹象表明，你可以从较大的组件中拆分出展示组件，包括：
+你可以从较大的组件中拆分出展示组件的一些迹象：
 
 - 有 DOM 标记或者样式。
 - 有像列表项这样重复的部分。
@@ -60,20 +60,20 @@
 
 ### 控制组件
 
-控制组件指的是**存储与部分输入相关的状态**的组件，即跟踪用户已发起操作的状态，而这些状态还未通过 `onChange` 回调产生有效值。它们与展示组件相似，但是：
+控制组件指的是**存储与部分输入相关的状态**的组件，即跟踪用户已发起动作的状态，而这些状态还未通过 `onChange` 回调产生有效值。它们与展示组件相似，但是：
 
 - 可以存储状态（当与部分输入相关时）。
 - 可以使用 refs 和与 DOM 进行交互。
 - 可以使用生命周期方法。
 - 通常没有任何样式，也没有 DOM 标记。
 
-一些迹象表明，你可以从较大的组件中拆分出控制组件，包括：
+你可以从较大的组件中拆分出控制组件的一些迹象：
 
 - 将部分输入存储在状态中。
 - 通过 refs 与 DOM 进行交互。
 - 某些部分看起来像原生控件 —— 按钮，表单域等。
 
-控制组件的一些示例包括：
+控制组件的一些示例：
 
 - 日期选择器
 - 输入提示
@@ -123,39 +123,39 @@ function ControlView({ connectControl }) {
 
 你会发现控制组件通常会非常大。它们必须处理和状态密不可分的 DOM，这就使得控制组件的拆分特别有用；通过将 DOM 交互限制为控制组件，你可以将任何与 DOM 相关的杂项放在一个地方。
 
-### Controllers
+### 控制器
 
-Once you’ve split out your presentation and control code into separate components, most of the remaining code will be business logic. And if there is one thing that I want you to remember after reading this, it is that **business logic doesn’t need to be placed in React components**. It often makes sense to implement business logic as plain JavaScript functions and classes. For lack of a better name, I call these *controllers*.
+一旦你将展示和控制代码拆分到独立的组件中后，大部分剩余的代码将是业务逻辑。如果有一件事我想你在阅读本文之后记住，那就是**业务逻辑不需要放在 React 组件**中。将业务逻辑实现为纯 JavaScript 函数和类通常是有意义的。由于没有一个更好的名字，我将它称之为**控制器**。
 
-Ok, so there are only three types of *React* components. But there are still four types of components, because not every component is a React Component.
+所以只有三种类型的 **React** 组件。但仍然有四种类型的组件，因为不是每个组件都是一个 React 组件。
 
-And not every car is a Toyota (but at least in Tokyo, most of them are).
+并不是每辆车都是丰田（但至少在东京大部分都是）。
 
-Controllers generally follow a similar pattern. They:
+控制器通常遵循类似的模式。它们：
 
-- Store some state.
-- Have actions that operate on that state, and possibly cause side effects.
-- May have some method of subscribing to state changes that are not directly caused by actions.
-- May accept prop-like configuration, or subscribe to the state of some global controller.
-- *Do not* rely on any React APIs.
-- *Do not* interact with the DOM or have any styles.
+- 存储某个状态。
+- 有改变那个状态的动作，并可能引起副作用。
+- 可能有一些订阅状态变更的方法，而这些变更不是由动作直接造成的。
+- 可以接受类似属性的配置，或者订阅某个全局控制器的状态。
+- **不**依赖于任何 React API。
+- **不**与 DOM 进行交互，也没有任何样式。
 
-Some signs that you can factor out a controller from your component:
+你可以从你的组件中拆分出控制器的一些迹象：
 
-- The component has a lot of state that isn’t related to partial input.
-- State is used to store information that has been received from the server.
-- There are references to global state like drag/drop or navigation state.
+- 组件有很多与部分输入无关的状态。
+- 状态用于存储从服务器接收到的信息。
+- 引用全局状态，如拖放或导航的状态。
 
-Some examples of controllers include:
+一些控制器的示例：
 
-- A Redux or Flux store.
-- A JavaScript class with MobX observables.
-- A plain-old JavaScript class with methods and instance variables.
-- An event emitter.
+- 一个 Redux 或者 Flux 的 store。
+- 一个带有 MobX 可观察的 JavaScript 类。
+- 一个包含方法和实例变量的普通 JavaScript 类。
+- 一个事件发射器。
 
-Some controllers are globals; they exist entirely separately from your React application. Redux stores are a good example of global controllers. But **not all controllers need to be global**. And not all state needs to go in a single controller or store.
+一些控制器是全局的；它们完全独立于你的 React 应用程序。Redux 的 stores 就是一个是全局控制器很好的例子。但**并不是所有的控制器都需要全局**，也并不是所有的状态都需要放在单独的控制器或者 store 中。
 
-By factoring out controller code for your forms and lists into separate classes, you can instantiate these classes as needed in your container components.
+通过将表单和列表的控制器代码拆分为单独的类，你可以根据需要在容器组件中实例化这些类。
 
 ### Container components
 
