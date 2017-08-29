@@ -4,21 +4,21 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/making-the-web-more-accessible-with-ai.md](https://github.com/xitu/gold-miner/blob/master/TODO/making-the-web-more-accessible-with-ai.md)
 > * 译者：[lsvih](https://github.com/lsvih)
-> * 校对者：[Tina92](https://github.com/Tina92)
+> * 校对者：[Tina92](https://github.com/Tina92),[Cherry](https://github.com/sunshine940326)
 
 # 使用 AI 为 Web 网页增加无障碍功能
 
   ![](https://cdn-images-1.medium.com/max/2000/1*oxCB95q9jaqKSqMw96FWqA.png)
 
-图为一位盲人正在阅读盲文 （[图片链接](http://usabilitygeek.com/wp-content/uploads/2012/07/Software-For-Visually-Impaired-Blind-Users.jpg)）
+图为一位盲人正在阅读盲文（[图片链接](http://usabilitygeek.com/wp-content/uploads/2012/07/Software-For-Visually-Impaired-Blind-Users.jpg)）
 
 [根据世界健康组织的统计](http://www.who.int/mediacentre/factsheets/fs282/en/)，全球约有 2.85 亿位视力障碍人士，仅美国就有 810 万网民患视力障碍。
 
 在我们视力正常的人看来，互联网是一个充满了文字、图片、视频等事物的地方，然而对于视力障碍人士来说却并不是这样的。有一种可以读出网页中文字和元数据的工具叫做屏幕阅读器，然而这种工具的作用十分有限，仅能让人看到网页的一部分文本。虽然一些开发人员花时间去改进他们的网站，为视障人士添加图片的描述性文字，但是绝大多数程序员都不会花时间去做这件公认冗长乏味的事情。
 
-所以，我决定做这么一个工具，来帮助视障人士通过 AI 的力量来“看”互联网。我给它起名为“Auto Alt Text”（自动 Alt 文本添加器），是一个 Chrome 拓展插件，可以让用户在右击操作后得到图片中的场景描述 —— 最开始是要这么做的。
+所以，我决定做这么一个工具，来帮助视障人士通过 AI 的力量来“看”互联网。我给它起名为“Auto Alt Text”（自动 Alt 文本添加器），是一个 Chrome 拓展插件，可以让用户在图片上点击右键后得到场景描述 —— 最开始是要这么做的。
 
-您可以观看下面的视频，了解它是如何运作的，然后[下载它并亲自试一试吧！](http://abhinavsuri.com/aat)!
+您可以观看下面的视频，了解它是如何运作的，然后 [下载它并亲自试一试吧！](http://abhinavsuri.com/aat)！
 
 [![](https://i.ytimg.com/vi_webp/c1S4iB360m8/maxresdefault.webp)](https://www.youtube.com/embed/c1S4iB360m8)
 
@@ -30,13 +30,13 @@
 
 ![](https://cdn-images-1.medium.com/max/1600/1*uYx_pi9vAI17mQ20D81ykw.png)
 
-邮件内容如下：“你好，Abhinav，我看了你的 flask-base 项目，我觉得它非常适合我的下个工程。感谢你开发了它。不过我想让你知道，你应该为你 README 中的图片加上 alt 描述。我是盲人，用了很长一段时间才弄清楚它们的内容 :/来自 xxxx”
+邮件内容如下：“你好，Abhinav，我看了你的 flask-base 项目，我觉得它非常适合我的下个工程。感谢你开发了它。不过我想让你知道，你应该为你 README 中的图片加上 alt 描述。我是盲人，用了很长一段时间才弄清楚它们的内容 :/来自某人”
 
-在收到邮件的时候，无障碍功能的开发是放在我开发队列的最后面的，基本上它就是个“事后有空再添加”的想法而已。但是，这封邮件唤醒了我。在互联网中，有许多的人需要无障碍功能来理解网站、应用、项目等事物的用途。
+在收到邮件的时候，无障碍功能的开发是放在我开发队列的最后面的，基本上它就是个“事后有空再添加”的想法而已。但是，这封邮件唤醒了我。在互联网中，有许多的人需要无障碍阅读功能来理解网站、应用、项目等事物的用途。
 
 > “现在 Web 中充满了缺失、错误或者没有替代文本的图片” —— WebAIM（犹他州立大学残疾人中心）
 
-#### 用 AI（人工智能） 来挽救：
+#### 用 AI（人工智能）来挽救：
 
 现在其实有一些方法来给图像加描述文字；但是，大多数方法都有一些缺点：
 
@@ -54,11 +54,11 @@ im2txt 的实例来自 [im2txt Github Repository](https://github.com/tensorflow/
 
 #### im2txt 的技术细节：
 
-这个模型的机制相当的精致，但是它基本上是一个“编码器 - 解码器”方案。首先图片会传入一个名为 Inception v3 的卷积神经网络进行图片分类，接着编码好的图片送入 LSTM 网络中。LSTM 是一种专门用于序列模型/时间敏感信息的神经网络层。最后 LSTM 通过组合设定好的单词，形成一句描述图片内容的句子。LSTM 通过求单词集中每个单词在句子中出现的似然性，分别计算第一个词出现的概率分布、第二个词出现的概率分布……直到出现概率最大的字符为“.”，为句子加上最后的句号。
+这个模型的机制相当的精致，但是它基本上是一个“编码器 - 解码器”的方案。首先图片会传入一个名为 Inception v3 的卷积神经网络进行图片分类，接着编码好的图片送入 LSTM 网络中。LSTM 是一种专门用于序列模型/时间敏感信息的神经网络层。最后 LSTM 通过组合设定好的单词，形成一句描述图片内容的句子。LSTM 通过求单词集中每个单词在句子中出现的似然性，分别计算第一个词出现的概率分布、第二个词出现的概率分布……直到出现概率最大的字符为“.”，为句子加上最后的句号。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*CW6YVV_zEriaGrxMzN4quA.png)
 
-图为此神经网络的概况（图片来自[im2txt Github repository](https://github.com/tensorflow/models/tree/master/im2txt)）
+图为此神经网络的概况（图片来自 [im2txt Github repository](https://github.com/tensorflow/models/tree/master/im2txt)）
 
 根据 Github 库中的说明，这个模型在 Tesla k20m GPU 上的训练时间大约为 1-2 周（在我笔记本的标准 CPU 上计算需要更多的时间）。不过值得庆幸的是，Tensorflow 社区提供了一个已经训练好的模型。
 
@@ -103,7 +103,7 @@ Im2txt 模型对于人物、风景以及其它存在于 COCO 数据集中的内�
 
 这个模型能够标注的内容还是有所限制；不过，它能标注的内容已经涵盖了 Facebook、Reddit 等社交媒体上的大多数图片。
 
-但是，对于 COCO 数据集中不存在的图片内容，这个模型并不能完成标注。我曾尝试着使用 Tesseract 来解决这个问题，但是它的结果并不是很准确，而且花费的时间也太长了（超过 10 秒）。现在我正在尝试使用 Tensorflow 实现[王韬等人的论文](http://ai.stanford.edu/~ang/papers/ICPR12-TextRecognitionConvNeuralNets.pdf)，将其加入这个项目中。
+但是，对于 COCO 数据集中不存在的图片内容，这个模型并不能完成标注。我曾尝试着使用 Tesseract 来解决这个问题，但是它的结果并不是很准确，而且花费的时间也太长了（超过 10 秒）。现在我正在尝试使用 Tensorflow 实现 [王韬等人的论文](http://ai.stanford.edu/~ang/papers/ICPR12-TextRecognitionConvNeuralNets.pdf)，将其加入这个项目中。
 
 #### 总结：
 
