@@ -7,7 +7,7 @@
 
 [掘金翻译计划](https://juejin.im/tag/%E6%8E%98%E9%87%91%E7%BF%BB%E8%AF%91%E8%AE%A1%E5%88%92) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖[人工智能](#ai--deep-learning--machine-learning)、[Android](#android)、[iOS](#ios)、[React](#react)、[前端](#前端)、[后端](#后端)、[产品](#产品)、[设计](#设计) 等领域，读者为热爱新技术的新锐开发者。
 
-掘金翻译计划目前翻译完成 [628](#近期文章列表) 篇文章，共有 [380](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 余名译者贡献翻译。
+掘金翻译计划目前翻译完成 [630](#近期文章列表) 篇文章，共有 [380](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 余名译者贡献翻译。
 
 # 官方指南
 
@@ -70,10 +70,10 @@
 
 ## 后端
 
+* [关于 Node.js 的认证方面的教程（很可能）是有误的](https://juejin.im/post/599f955d51882511264e7f69?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([MuYunyun](https://github.com/MuYunyun) 翻译)
 * [使用 Node.js 搭建一个 API 网关](https://juejin.im/post/5992769151882548b17f76a6?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([MuYunyun](https://github.com/MuYunyun) 翻译)
 * [REST API 已死，GraphQL 长存](https://juejin.im/post/5991667b518825485d28dfb1?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([sigoden](https://github.com/sigoden) 翻译)
 * [将现有的 API 从 REST 迁移到 GraphQL](https://juejin.im/post/598eb22af265da3e26097835?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([zaraguo](https://github.com/zaraguo) 翻译)
-* [所有你需要知道的关于完全理解 Node.js 事件循环及其度量](https://juejin.im/post/5984816a518825265674c8f6?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([MuYunyun](https://github.com/MuYunyun) 翻译)
 * [所有后端译文>>](https://github.com/xitu/gold-miner/blob/master/backend.md)
 
 ## 教程
