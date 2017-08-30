@@ -44,7 +44,7 @@ Angular 中有但是 React 没有默认自带的特性有：
 
 - 数据绑定，依赖注入（DI）—— **@angular/core** — [MobX](https://mobx.js.org/)
 
-- 属性处理（Computed properties） —— [**rxjs**](http://reactivex.io/)— [MobX](https://mobx.js.org/)
+- 计算属性 —— [**rxjs**](http://reactivex.io/)— [MobX](https://mobx.js.org/)
 
 - 基于组件的路由 —— **@angular/router**— [React Router v4](https://reacttraining.com/react-router/)
 
@@ -58,7 +58,7 @@ Angular 中有但是 React 没有默认自带的特性有：
 
 ### 数据绑定
 
-数据绑定相对单项数据流来说可能更适合入门。当然，也可以使用完全相反的做法（指单项数据流），比如使用 React 中的 [Redux](http://redux.js.org/) 或者 [mobx-state-tree](https://github.com/mobxjs/mobx-state-tree)，或者使用 Angular 中的 [ngrx](https://github.com/ngrx/store)。不过那就是另一篇文章所要阐述的内容了。
+相对单项数据流来说，数据绑定可能更适合入门。当然，也可以使用完全相反的做法（指单项数据流），比如使用 React 中的 [Redux](http://redux.js.org/) 或者 [mobx-state-tree](https://github.com/mobxjs/mobx-state-tree)，或者使用 Angular 中的 [ngrx](https://github.com/ngrx/store)。不过那就是另一篇文章所要阐述的内容了。
 
 ### 计算属性（Computed properties）
 
@@ -67,14 +67,13 @@ Angular 中有但是 React 没有默认自带的特性有：
 >
 > 摘录来自: Unknown. “The Swift Programming Language 中文版”。 iBooks.
 
-考虑到性能问题，Angular 中简单的 `getters` 每次渲染时都被调用，所以被排除掉了。这次我们使用 [RsJS](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/subjects/behaviorsubject.md) 中的 [BehaviorSubject]
-(https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/subjects/behaviorsubject.md) 来处理此类问题。
+考虑到性能问题，Angular 中简单的 `getters` 每次渲染时都被调用，所以被排除掉了。这次我们使用 [RsJS](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/subjects/behaviorsubject.md) 中的 [BehaviorSubject](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/subjects/behaviorsubject.md) 来处理此类问题。
 
 在 React 中，可以使用 MobX 中的 [@computed](https://mobx.js.org/refguide/computed-decorator.html) 来达成相同的效果，而且此 api 会更方便一些。
 
 ### 依赖注入
 
-依赖注入有一定的争议性，因为它与当前 React 推行的函数式编程与数据不可变性理念背道而驰。事实证明，某种程度的依赖注入是数据绑定环境中必不可少的部分，因为它可以帮助没有独立数据层的结构解耦（这样做更便于使用模拟数据和测试）。
+依赖注入有一定的争议性，因为它与当前 React 推行的`函数式编程/数据不可变性理念`背道而驰。事实证明，某种程度的依赖注入是数据绑定环境中必不可少的部分，因为它可以帮助没有独立数据层的结构解耦（这样做更便于使用模拟数据和测试）。
 
 另一项依赖注入（Angular 中已支持）的优点是可以在（app）不同的生命周期中保有不同的数据仓库（store）。目前大部分 React 范例使用了映射到不同组件的全局状态（global app state）。但是依我的经验来看，当组件卸载（unmount）的时候清理全局状态很容易产生 bug。
 
