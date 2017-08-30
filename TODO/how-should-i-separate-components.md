@@ -189,17 +189,17 @@ function ControlView({ connectControl }) {
 
 当然，一旦你找到了重用该组件的地方，你可能希望将它移动到单独的文件中。这就使得把它放到哪个文件中去是一个甜蜜的烦恼了。
 
-## What about performance?
+## 性能怎么样？
 
-By splitting out one monolithic component into a number of controllers, presentation components and control components, you increase the total amount of code that needs to be run. This may slow things down a little bit. But it won’t slow it down very much.
+将一个庞大的组件拆分成多个控制器、演示组件和控制组件，增加了需要运行的代码总量。这可能会减慢一点点，但不会减慢很多。
 
-##### Story
+##### 故事
 
-The only time I’ve ever encountered performance issues caused by too many components was when I was rendering 5000 cells in a grid *on each frame*, each with multiple nested components.
+我遇到过唯一一次由于使用太多组件而引起性能问题 —— 我在**每一帧**上渲染 5000 个网格单元格，每个单元格都有多个嵌套组件。
 
-The thing about React performance is that even if your application has perceptible lag, the problem is almost certainly *not* to do with having too many components.
+关于 React 性能的是，即使你的应用程序有明显的延迟，问题肯定**不是**出于组件太多。
 
-**So use as many components as you’d like.**
+**所以你想使用多少组件都可以**。
 
 ## If it ain’t broke…
 
