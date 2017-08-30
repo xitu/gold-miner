@@ -177,17 +177,17 @@ function ControlView({ connectControl }) {
 - 由 MobX 的 `observer` 返回的组件。
 - react-router 的 `<Link>` 组件（因为它使用上下文并影响环境）。
 
-## Component files
+## 组件文件
 
-What do you call a component that isn't a View, Control, Controller or Container? You just call it a component! Simple, huh?
+你怎么称呼一个不是视图、控制、控制器或容器的组件？你只是把它叫做组件！很简单，不是吗？
 
-Once you’ve found a component to factor out, the question becomes *where do I put it?* And honestly, the answer depends a lot on personal taste. But there is one rule that I think is important:
+一旦你拆分出一个组件，问题就变成了**我把它放在哪里**？老实说，答案很大程度上取决于个人喜好，但有一条规则我认为很重要：
 
-**If the factored out component is only used in one parent, it goes in the same file as the parent.**
+**如果拆分出的组件只在一个父级中使用，那么它将与父级在同一个文件中**。
 
-This is in the interest of making it as easy as possible to factor out components. Creating files is bothersome and takes you out of flow. And if you try to put every component in a different file, you’ll soon start asking yourself “Do I really need a new component”? So start by putting related components in the same file.
+这是为了尽可能容易地拆分组件。创建文件比较麻烦，并且会打断你的思路。如果你试着将每个组件放在不同的文件中，你很快就会问自己“我真的需要一个新组件吗？”因此，请将相关的组件放在同一个文件中。
 
-Of course, once you *do* find a place to re-use that component, you may want to move it to its own file. And that makes figuring out which file to put it in a good problem to have.
+当然，一旦你找到了重用该组件的地方，你可能希望将它移动到单独的文件中。这就使得把它放到哪个文件中去是一个甜蜜的烦恼了。
 
 ## What about performance?
 
