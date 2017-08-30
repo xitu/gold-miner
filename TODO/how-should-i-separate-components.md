@@ -157,25 +157,25 @@ function ControlView({ connectControl }) {
 
 通过将表单和列表的控制器代码拆分为单独的类，你可以根据需要在容器组件中实例化这些类。
 
-### Container components
+### 容器组件
 
-Container components are the glue that connects your controllers to presentation and control components. They are more flexible than the other types of components. But they still tend to follow a few patterns. They:
+容器组件是将控制器连接到展示组件和控制组件的粘合剂。它们比其他类型的组件更具有灵活性。但仍然倾向于遵循一些模式，它们：
 
-- Store controller instances in component state.
-- Render their state with presentation and control components.
-- Use lifecycle methods to subscribe to updates in controller state.
-- *Do not* use DOM markup or style (with the possible exception of some unstyled divs).
-- Are often generated with Higher Order Functions like Redux’s `connect`.
-- Can access global controllers (such as a Redux store) through context.
+- 在组件状态中存储控制器实例。
+- 通过展示组件和控制组件来渲染状态。
+- 使用生命周期方法来订阅控制器状态的更新。
+- **不**使用 DOM 标记或样式（可能出现的例外是一些无样式的 div）。
+- 通常由像 Redux 的 `connect` 这样的高阶函数生成。 
+- 可以通过上下文访问全局控制器（例如 Redux 的 store）。
 
-While you can sometimes factor out Container components from other Containers, this is pretty rare. Instead, it is best to focus your effort on factoring out controllers, presentation components and control components, with whatever is left becoming your containers.
+虽然有时候你可以从其他容器中拆分出容器组件，但这很少见。相反，最好将精力集中在拆分控制器、展示组件和控制组件上，并将剩下的所有都变成你的容器组件。
 
-Some examples of containers include:
+一些容器组件的示例：
 
-- An `App` component
-- Components that are returned by Redux’s `connect`
-- Components that are returned by MobX’s `observer`
-- The `<Link>` component from react-router (because it uses context and affects the environment)
+- 一个 `App` 组件
+- 由 Redux 的 `connect` 返回的组件。
+- 由 MobX 的 `observer` 返回的组件。
+- react-router 的 `<Link>` 组件（因为它使用上下文并影响环境）。
 
 ## Component files
 
