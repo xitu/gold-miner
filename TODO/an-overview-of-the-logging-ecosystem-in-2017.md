@@ -6,137 +6,135 @@
   > * 译者：
   > * 校对者：
 
-  # An Overview of the Logging Ecosystem in 2017
+  # 对2017年日志系统的一次概述
 
-  Logging. It’s fair to say that it’s a fundamental tenet of modern computing. It helps developers debug applications, and systems administrators and DevOps staff debug server outages. Consequently, logs are critical for providing the information and context required to solve problems, both as they occur and to understand them from a historical context.
+  日志功能，对于现代计算机来说是基本的组件。它可以帮助开发者调试应用程序，和系统管理员和开发运营人员调试服务器中断的原因。因此，日志记录提供了解决问题所需信息和上下文环境是至关重要的，因为它们是同时发生而且可以从历史背景中了解它们
 
-But like anything in computing, the state of logging never stands still. Existing concepts go out of vogue and new ones take their place, while yet other ideas turn out to be timeless — sometimes enduring for years. The same pattern applies to tools and services, whether commercial or open source, hosted on- or off-site.
+但像计算中的任何东西一样，日志的状态从未停滞不前。现有的概念会过时然后被新的概念所替换，而其他的一些想法则变成永恒 - 有时会持续好几年。同样的模式也适用于工具和服务，无论是商业还是开源，线上服务或者线下服务。
 
-So where are we now? What trends, tools, and philosophies currently hold sway and why? Well, today I will consider three areas of the logging ecosystem to get a gauge of where the industry stands in mid-2017.
+所以现在我们处于什么位置？现在流行的趋势，工具和概念是什么？为什么它们流行？很好，我们将通过日志生态的三个元素去探究在2017年年中日志行业处于什么标准。
 
 Specifically, I’m going to look at some of the more notable:
 
-- philosophies
-- best practices
-- service and tool options
+- 概念
+- 最佳方案
+- 服务和工具选项
 
-Before we dive in, I’ll give this frank admission: I consider myself a developer first and foremost and a systems administrator and DevOps person second. As a result, my perspective and the choices I make in this article are colored accordingly. Please bear that in mind.
+在我们进入正题之前，我先清楚地说明：我首先将我自己立足于一名开发人员的角度，其次是系统管理员和运营。所以，我的观点和文中我作出的选择是有根据地得出结论。请记住这一点
 
-[“What logging trends, tools, and philosophies currently hold sway and why?” via @settermjd](https://twitter.com/share?text=%22What+logging+trends%2C+tools%2C+and+philosophies+currently+hold+sway+and+why%3F%22+via+%40settermjd&amp;url=https://blog.codeship.com/an-overview-of-the-logging-ecosystem-in-2017/)
+[“目前日志流行的趋势，工具和文化是什么和它们流行的原因是什么？” 来自 @settermjd ](https://twitter.com/share?text=%22What+logging+trends%2C+tools%2C+and+philosophies+currently+hold+sway+and+why%3F%22+via+%40settermjd&amp;url=https://blog.codeship.com/an-overview-of-the-logging-ecosystem-in-2017/)
 
-That said, let’s get going.
+我们可以开始啦。
 
-## The Philosophies of the Logging Ecosystem
+## 日志系统的概念
 
-The first area I want to cover is logging philosophies. Within that, I want to look at two concepts: logging storage and logging culture.
+我想说的第一部分是日志原理。在这里，我会说明两个概念：日志存储和日志内容。
 
-### Where and how should logs be stored?
 
-Should logs be kept in a service that you manage yourself, inside your organization? Or should you use a SaaS such as Loggly, or one of the other tools that [we’ll cover later](#service-and-tool-options), storing the log data outside of your direct control?
+### 日志记录应该存在哪里和如何被保存？
 
-From what I’ve come to understand, the primary distinction is fundamentally a question of security and data sensitivity. Do you have information that absolutely cannot be seen by someone outside of your organization?
+日志文件是应该直接保存在你组织内部自己管理的服务呢？还是你使用像Loggly这样的SaaS，或者将数据存储在你托管给其他的服务 [稍后我们会介绍](#service-and-tool-options) 工具之一？
 
-If so, then it’s likely better to host a solution yourself and log to it, something such as [Apache Kafka](https://kafka.apache.org), or [an Elastic (formerly ELK) stack](https://www.elastic.co/webinars/introduction-elk-stack). If your data isn’t as sensitive, then a hosted solution from one of the commercial vendors, such as *Loggly*, *Graylog*, *SumoLogic*, and *ElasticSearch*, may be better choices.
+按照我的理解，最主要的区别是安全性和数据的敏感性的问题。你的组织里有什么数据是处于私有状态的？
 
-The other consideration that still seems to populate discussions, such as [this one on Hacker News](https://news.ycombinator.com/item?id=12682566), is the question of efficiency. More specifically, is it worth the effort for us as an organization to build and manage an in-house logging solution, such as one based on Elastic Stack? Or is it better to host our data with a vendor?
+如果真的有，你最好自己去研究一种解决方案来记录日志，例如 [Apache Kafka](https://kafka.apache.org)，或者 [一个易伸缩 (formerly ELK) 堆](https://www.elastic.co/webinars/introduction-elk-stack) 。如果你的数据不是特别的敏感的话，像 **Loggly**，**Graylog**，**SumoLogic**， 和 **ElasticSearch** 这样的商业托管解决方案可能是一种更好的选择。
 
-There’s never a clear, one-size-fits-all answer to a question like this. And the most consistent answer I’m continuing to see still is “it depends.” No two organizations or applications are the same. What works for one won’t necessarily work for the other. One might have more resources and experience available to assign to the task. Another may not.
+另外一种似乎热门的谈论 [在 Hacker News](https://news.ycombinator.com/item?id=12682566) 认为是日志效率问题。具体谈论的是，我们是否努力建立和管理内部的日志解决方案，像基于堆栈的实现方式来提高效率？或者说托管给现成的厂商服务会更有效率？
 
-So if there’s a key philosophical constant in the logging ecosystem in 2017, it’s still the question of where should the log data be stored.
+从来没有一个明确，万全的答案来回答这样的问题。我一直认为最统一的解释就是"看情况而定"。任何组织和应用都是独一无二的。对于一个问题有效的解决方案不一定适用于另外一个。一个人可能拥有许多资源和经验可以用于分配任务。但另外一个人不一定有。
 
-### The sidecar application
+所以在2017年，日志数据如何被存储这个问题仍然是在日志生态系统当中的关键问题。
 
-What is new — at least for me — is a concept called *the sidecar application*. If you’ve not heard of it before, it’s mainly relevant when deploying applications using containers, as it pertains strongly to container-based deployments.
+### sidecar 应用
 
-[Garland Kan from Loggly](https://www.loggly.com/blog/how-to-implement-logging-in-docker-with-a-sidecar-approach/) puts it most succinctly, when he describes it as:
+这是一个被称为 "sidecar" 的崭新(至少对于我来说)概念。如果你以前没有听说过，那么告诉你它是与部署容器类应用相关的，同样地它非常适合基于容器的部署。
 
-> …the concept of pairing up an application container and a logging container.
+[Garland Kan 在 Loggly](https://www.loggly.com/blog/how-to-implement-logging-in-docker-with-a-sidecar-approach/) 中把 sidercar 简洁地描述为:
 
-Voxxed provides greater depth [when they describe it](https://www.voxxed.com/blog/2015/01/use-container-sidecar-microservices/) this way:
+> …将一个应用程序容器和日志容器进行结合的理念。
 
-> A sidecar application is deployed alongside each microservice that you have developed and deployed to a server/hosting instance. It is conceptually attached to the “parent” service, in the same manner a motorcycle sidecar is attached to the motorcycle — hence the name. A sidecar runs alongside your service as a second process and provides ‘platform infrastructure features’ exposed via a homogeneous interface such as a REST-like API over HTTP.
+[他们通过这种方式描述它](https://www.voxxed.com/blog/2015/01/use-container-sidecar-microservices/) ，Voxxed提供了更加详细的解释：
 
-In the context of logging, an additional container would be added to the deployed stack where the logs of the application would be stored, and which could also forward those logs on to an external service, such as LogEntries or Splunk. From what I understand, the concept can work well for smaller applications but may be hard to scale efficiently. That said, it’s an interesting concept all the same.
+> 一个SideCar应用是被部署在每一个已经开发或者部署服务器/集群实例的微服务的旁边。它是概念上依附着"父母"服务，就像三轮摩托车的边座位依附着三轮摩托车一样 - 因此而得名。sidecar作为第二进程和你的程序一起运行并通过暴露类似 REST 的 API 接口(如 HTTP 的 REST )来提供‘平台基础设施功能’。
 
-### A culture of logging
+在日志的上下文环境中，一个额外的容器被加载进了堆空间，同时堆空间是日志应用存储的地方以及可以转发日志记录到像 LogEntries 和 Splunk 外部服务。从我的理解，虽然siderca能适合较小的应用程序，但是比较困难去有效地测量。总的来说，这是非常有趣的概念。
 
-Now let’s look at culture — an all too important aspect of any initiative. To get straight to the point, something that struck me recently was a quote [from Stackify](https://stackify.com/java-logging-best-practices/), when they said:
+### 日志的文化
 
-> …we’ve built a “culture of logging”…
+现在让我们看看文化 - 一个具有主动性，非常重要的方面。直接点说，让我印象深刻 [来自 Stackify](https://stackify.com/java-logging-best-practices/) 的一个引用，他是这么说：
 
-I find this one of the best improvements in recent years because without a supporting culture, ideas and concepts are likely to be transitory at best. I’m sure most of us can relate to, in years gone by, when testing was on the way in. It always worked great at first. But if a supporting culture wasn’t in place, it quickly fell by the wayside when deadlines and other pressures started stacking up.
+> …我们已经建立了一个“日志文化”…
 
-In the post, Stackify goes on to say:
+我发现这是近年来最好的发展之一，因为没有一个支持的文化，想法和概念的话，它有可能只是暂时兴起。在过去的几年，当我们测试在时候，我认为我们都接触过。一开始社区文化总是起很大的作用。但是如果没有适当的文化支持，当其他方面的压力和最后的期限开始堆积的时候，它很快将会被淘汰。
 
-> [The culture of logging] sets out to accomplish these goals:
+在这篇文章，Stackify继续说：
+
+> [日志的文化]开始完成这些目标：
 >
-> Log all the things. Log as much as we possibly can, to always have relevant, contextual logs that don’t add overhead. Work smarter, not harder. Consolidate and aggregate all of our logging to a central location, available to all devs, and easy to distil. Also, to find new ways for our logging and exception data to help us proactively improve our product.
+> 记录所有的东西。尽可能地多记录一些有关联性的，有上下文信息的日志记录。更加的智能化而不是更复杂。巩固和聚集我们的日志记录到一个中心区域，开放给所有开发者和便于提取。而且，分析异常的日志信息找到新的途径，主动去优化产品。
 
-There are some excellent points here, two of which in particular are worth unpacking.
+这段话有一些很优秀的观点，其中两个比较特别的看法值得去了解。
 
-#### Log as much as we possibly can
+#### 尽可能多记录日志
 
-Contrary to what I’ve seen and experienced in previous years, this expresses the importance of logging more, **not less** — so long as that information’s contextual. This ties in well with what [Sumologic wrote back in April](https://www.sumologic.com/blog/log-management-analysis/best-practices-creating-custom-logs-diving-deeper/) 2017 when they said:
+与前几年我所看到的和所经历的相反，这个表达在于多记录日志，至少 - 这些信息都是有连续性的。这个说法与 [Sumologic 在2017年4月](https://www.sumologic.com/blog/log-management-analysis/best-practices-creating-custom-logs-diving-deeper/) 写的日志所说的紧密相连：
 
-> Your logs should tell a story.
+> 你的日志记录就应该像是在讲一个故事。
 
-To me, this makes perfect sense and is an excellent development to see coming to fruition.
+对于我来说，这种做法是非常有意思而且可以让你看到结果的发展。
 
-While I don’t believe we should log for the sake of it, the more (contextual) information we have, the better position we will be in to solve the problems that invariably occur.
+当我不确定我们是否应该记录下它们的理由，我们拥有越多(具有上下文联系)信息，对我们处理那些突发的问题就会越有利。
 
-#### Logging to a central location, available to all devs
+#### 保存在一个中心区域，对所有开发者都开放
 
-That the information is centrally accessible to everyone is another heartening development to see growing ever stronger.
+每个人都可以集中使用这些日志信息，是另外一个令人振奋的发展，甚至看见愈发的强大。
+当信息被保存在一个中心区域，它可以更容易发挥作用。每个人都可以去访问它 - * 查看它 * - 这样做提高了确定日志内容的责任，以及更快的解决问题的需要。如果信息被隐藏起来，那么问题更容易被掩盖或者被埋葬。
 
-When information is kept in a central location, it’s much easier to work with. And when everyone can access it — *and see it* — it increases the onus of responsibility in determining what goes into the logs, as well as the need to resolve issues quicker. If information can be hidden from view, then it’s easier for issues to be glossed over or buried.
-
-I’d like to believe that as these two philosophies take hold (logging as much as we can and logging to a central location), the quality of our applications will increase and the downtime will decrease, resulting in greater user and developer satisfaction.
+我愿意相信当这两个理念被实现(尽可能多记录和记录在中心位置)，那么我们的应用的质量会提高和故障会减少，这样会极大满足用户和开发体验。
 
 [![Sign up](https://resources.codeship.com/hubfs/hub_generated/resized/522f8e9a-4760-42a2-9e7d-21780dfaae2b.png)](https://resources.codeship.com/cs/c/?cta_guid=f9c07177-11c7-44f5-962e-71116a8292a2&placement_guid=964db6a6-69da-4366-afea-b129019aff07&portal_id=1169977&redirect_url=APefjpHK7AUB26fFkV8T6f8w3pa2iXgimx-OwWa0mv7vwuQ9Qn1_WPEopcBxEtxv0oUL4iy6kF57zx0LDmnef1BcqOe0zK9fp7xsE9o4rtHSF8IpBjkJg5SO678peKfJbWgDYpBuPX6GFmTlTZLDhCtdckQ9d2qMT7TAEW2hnqdESN05DqKsxc8pgJzg0g3Mf6ac2ljX6IzrTulkhymu9tJBlcsHgy9TpouYzPpk1cOQhGuZKm_lKXmZDN6GEo2LoUfh-F6AEH5DIEmtUlFcKWLPXWEmwPn0-kPZWSU43p9vnIMZQvFDDArTfWVn3ZbCMyggZCGYSOvgCPFqTvnFGsfYegiJlO5BjA&hsutk=a15127591b468cb7fa682b9b9d7434c5&canon=https%3A%2F%2Fblog.codeship.com%2Fan-overview-of-the-logging-ecosystem-in-2017%2F&click=fbdaa4a3-14b1-4d61-8363-9bab2cc5db38&utm_referrer=https%3A%2F%2Fblog.codeship.com%2Fan-overview-of-the-logging-ecosystem-in-2017%2F&__hstc=209244109.a15127591b468cb7fa682b9b9d7434c5.1503571579504.1503571579504.1503571579504.1&__hssc=209244109.2.1503571579514&__hsfp=3027766740)
 
-## Best Practices
+## 最佳方案
 
-Now I want to look at one of the central themes in best practice that I’ve picked up over the course of the year: do we create logs that are human-readable or ones that are efficient to parse?
+现在我想考虑今年我从学习中得出的最佳方案中的一个重点问题：我们创作日志内容是偏向于可读性或利于高效解析?
 
-It seems to be agreed upon that humans are better at working with data that isn’t logical, consistent, or possessing of a standard pattern, yet computers aren’t. Conversely, humans aren’t good at processing large amounts of data, yet computers are. Given that, we’re presented with a challenge: do we create logs that, on an individual basis, people can work with, or do we make them efficient for computer processing, and make them readable afterward?
+似乎人类更擅长于处理没有逻辑，没有组合或者没有拥有标准格式的数据，计算机却不能。相反，人类不擅长处理大量的数据但是计算机却可以。所以，我们面临着一个挑战:我们创建是创造以人为本，人们都可以使用的日志还是使它们有利于电脑程序处理，然后再让它们变得可读？
 
-I’ve found that unless you’re only logging a small amount of information, the consensus is that it’s better to focus on processing efficiency, with as much context as possible, rather than human readability.
+我发现的是，除非你只记录少量的信息，否则我们专注于处理效率之上，尽可能考虑执行环境而不是可读性。
 
-But what does an efficient, context-rich, log entry look like? [Dan Reichart (from SumoLogic) provides the following](https://www.sumologic.com/blog/log-management-analysis/best-practices-creating-custom-logs-diving-even-deeper/), from a fictitious flight-booking service, as an example:
+但是一个有效率，适合上下文的日志入口应该是怎么样的？ [Dan Reichart ( 从 SumoLogic ) 提供了](https://www.sumologic.com/blog/log-management-analysis/best-practices-creating-custom-logs-diving-even-deeper/) ， 一个虚构的机票预订服务，作为一个例子：
 
     2017-04-1009:50:32-0700-dan12345-10.0.24.123-GET- /checkout/flights/ -credit.payments.io-Success-2-241.98
 
-To summarize, each element in the entry is separated by a `-` sequence. And the elements, in order, are:
+简而言之，入口的每一个元素都被 " - " 分隔开,排序后得到以下结果：
 
-1. The log timestamp
-2. The purchaser’s username
-3. The user’s IP address
-4. The request method
-5. The requested resource
-6. The request gateway or path
-7. The requested status
-8. The number of flights purchased
-9. The combined flight value
+ 1. 日志时间戳
+ 2. 购物者的用户名
+ 3. 用户的IP地址
+ 4. 请求的方法
+ 5. 请求的资源
+ 6. 请求的网管或者路径
+ 7. 请求的状态
+ 8. 机票购买数量
+ 9. 机票合计
 
-If we just had some of this information, we’d only be able to know a part of the story, if anything. But by storing all this information, which compacts down quite well by the way, we’re in a position to know all we need to know to resolve the issue. The log is concise, yet readable, tells a story, and follows a standard, predictable pattern. There are other ways to be as expressive, of which this is but one.
+如果我们仅有这些信息，那么我们只能知道部分的故事。但是如果通过保存所有的信息，而这些信息可以很好的被压缩存储，那么我们处于一个我们得到解决问题所需信息的位置。这些日志记录是简洁的，具有可读性，像讲述一个故事和遵从一个标准，可预测的模式。还有其他的表达方式，这只是其中之一。
 
-## Service & Tool Options
+## 服务 & 工具的选项
 
-Now, let’s finish up by looking at some of the current players in the logging market. These are a mix of hosted SaaS and self-hosted solutions. Some of the more notable who are still going strong are ones that have been around for some time. They include such companies as *Loggly*, *Graylog*, *Splunk*, *ElasticSearch*, *LogEntries*, *Logz.io*, *LogStash*, *SumoLogic*, and *Retrace*.
+现在，让我们通过观察一些目前提供日志服务市场的厂商来完成这个课题。这些当中是托管的Saas和自我托管的解决方案的混合。其中一些令人注意而且正在越来越强大的厂商已经存在好些时候了。它们包括以下公司像**Loggly**，**Graylog**，**Splunk**，**ElasticSearch**， **LogEntries**， **Logz.io**，**LogStash**，**SumoLogic**，和 **Retrace** 。
 
-While each of these has features such as search and analysis, proactive monitoring, creating structured and unstructured data, custom parsing rules, and real-time dashboards, they’ve continued to build on their core functionality, as well as to expand their product offerings and feature sets.
+虽然它们都有具有像搜索和分析，主动检测，创建结构化和非结构化数据，自定义解析规则，和实时指示界面等特征，但是他们还在创建自己的核心功能，并扩展它们产品和特征集。
 
-There’s quite a difference in their pricing models as well, including free options, standard plans starting at around $90 USD, and enterprise plans starting as high as $2,000 USD.
+它们的定价模式也有很大的不同，包括免费的选择版本，价格在90美元左右的标准计划和高达200美元的企业套餐。
 
-But commercial vendors aren’t the only choice in 2017. Some open-source tools are also growing in maturity. In fact, two were singled out for attention in the Linux Foundation’s third annual [Guide to the Open Cloud report](http://go.linuxfoundation.org/l/6342/2016-10-31/3krbjr): [Fluentd](http://www.fluentd.org), the data collector for unified logging layers, and [LogStash](https://www.elastic.co/products/logstash), the server-side data-processing pipeline. Other open-source tools worth considering are [syslog-ng](https://syslog-ng.org/), [LOGalyze](http://www.logalyze.com/), and [Apache Flume](https://cwiki.apache.org/confluence/display/FLUME/Home).
+但在2017年，商业化不会是唯一的选择。一些开源工具也逐渐成熟起来。事实上， Linux基金会第三季度的 [开放云报告指南](http://go.linuxfoundation.org/l/6342/2016-10-31/3krbjr) 中有两个比较引人注意： [Fluentd](http://www.fluentd.org) 统一日志层的数据收集器，和 [LogStash](https://www.elastic.co/products/logstash)，服务端数据处理管道。其他值得考虑的开源工具是 [syslog-ng](https://syslog-ng.org/)， [LOGalyze](http://www.logalyze.com/)，和 [Apache Flume](https://cwiki.apache.org/confluence/display/FLUME/Home)。
 
-Given that, depending on your experience, needs, and budget, you’re not going to be short of choice this year. There will be a number of options from which you can choose to find the one best suited to your needs.
+鉴于此，取决于你的经验，需求和预算，今年你的选择是非常充足的。未来将会有大量的选项可以让你选择到最符合你的需求的开源工具。
 
-## Conclusion
-
-And that’s a broad overview of several of the key factors in the logging ecosystem in 2017.
-
-We’ve looked at current philosophies, such as where and how logs should be stored, and the sidecar-application concept. We’ve discussed how important a culture of logging can be to the success of logging within an organization, and how more contextual logging is better than less. And we finished up by looking at some of the key players in the market in 2017.
+## 结论
+在2017年，我们总结了在日志系统中大体上几个关键的因素。
+我们已经了解过了目前的原理，例如日志记录应该存在哪里以及如何被存储，和sidercar应用的概念。我们已经讨论过了在一个组织内日志记录的文化对于日志记录的成功是多么重要。还有更多上下文的日志记录是如何比少的要更好。最后我们了解了几个市场上关键厂商。
 
 
   ---
