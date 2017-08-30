@@ -189,7 +189,7 @@ public struct Configuration {
 
 ### BarController
 
-`BarController` 是用于生成所有状态计算魔法的主要对象，并为调用者提供状态改变。
+`BarController` 是用于管理所有计算状态的主要对象，并为调用者提供状态改变。
 
 ```
 public typealias StateObserver = (State) -> Void
