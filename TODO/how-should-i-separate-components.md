@@ -6,7 +6,7 @@
   > * 译者：[undead25](https://github.com/undead25)
   > * 校对者：
 
-  # 你如何拆分组件？
+  # 你是如何拆分组件的？
 
   React 组件会随着时间的推移而逐步增长。幸好我意识到了这一点，不然我的一些应用程序的组件将变得非常可怕。
 
@@ -47,7 +47,7 @@
 
 - 有 DOM 标记或者样式。
 - 有像列表项这样重复的部分。
-- 有“看起来”像一个盒子或者区域的东西。
+- 有“看起来”像一个盒子或者区域的内容。
 - JSX 的一部分仅依赖于单个对象作为输入数据。
 - 有一个具有不同区域的大型展示组件。
 
@@ -191,7 +191,7 @@ function ControlView({ connectControl }) {
 
 ## 性能怎么样？
 
-将一个庞大的组件拆分成多个控制器、演示组件和控制组件，增加了需要运行的代码总量。这可能会减慢一点点，但不会减慢很多。
+将一个庞大的组件拆分成多个控制器、展示组件和控制组件，增加了需要运行的代码总量。这可能会减慢一点点，但不会减慢很多。
 
 ##### 故事
 
@@ -201,15 +201,15 @@ function ControlView({ connectControl }) {
 
 **所以你想使用多少组件都可以**。
 
-## If it ain’t broke…
+## 如果没有拆分……
 
-I’ve mentioned a lot of rules in this spiel. So you may be surprised to hear that I don’t actually like hard and fast rules. They’re usually wrong, at least in some cases. So to be clear:
+我在本文中提到了很多规则，所以你可能会惊讶地听到我其实并不喜欢严格的规则。它们通常是错的，至少在某些情况下是这样。所以必须要明确的是:
 
-**Just because you *can* factor something out doesn’t mean that you *must* factor it out.**
+**『可以』拆分并不意味着『必须』拆分**。
 
-Let’s say that your goal is to make your code more comprehensible and easier to maintain. This still leaves the question: what is comprehensible? And what is easy to maintain? The answer often depends on who is asking, and that’s why refactoring is more art than science.
+假设你的目标是让你的代码更易于理解和维护，这仍然留下了一个问题：怎样才是易于理解？怎样才是易于维护？而答案往往取决于谁在问，这就是为什么重构是技术，更是艺术。
 
-For a concrete example, consider this contrived component:
+有一个具体的例子，考虑下这个组件的设计：
 
 ```html
 <!DOCTYPE html>
@@ -223,13 +223,13 @@ For a concrete example, consider this contrived component:
     <script src="https://unpkg.com/react@15.6.1/dist/react.js"></script>
     <script src="https://unpkg.com/react-dom@15.6.1/dist/react-dom.js"></script>
     <script>
-      // JavaScript source goes here
+      // 这里写 JavaScript
     </script>
   </body>
 </html>
 ```
 
-```
+```jsx
 class List extends React.Component {
   renderItem(item, i) {
     return (
@@ -257,9 +257,9 @@ ReactDOM.render(
 )
 ```
 
-While it would be perfectly possible to factor out the `renderItem` into a separate component, would you actually gain anything by doing so? Probably not. In fact, in a file with a number of different components, using the `renderItem` method would probably be *easier* to follow.
+尽管将 `renderItem` 拆分成一个单独的组件是完全可能的，但这样做实际上会有什么好处呢？可能没有。实际上，在具有多个不同组件的文件中，使用 `renderItem` 方法可能会**更容易**理解。
 
-So remember: the four types of components are a pattern that you can use when it feels like they make sense. They’re not hard and fast rules. And if you’re quite unsure about whether something needs to be factored out, just leave it be. Because the world won’t end if some components are fatter than others.
+请记住：四种类型的组件是当你觉得它们有意义的时候，你可以使用的一种模式。它们并不是硬性规定。如果你不确定某些内容是否需要拆分，那就不要拆分，因为即使某些组件比其他组件更臃肿，世界末日也不会到来。
 
 
   ---
