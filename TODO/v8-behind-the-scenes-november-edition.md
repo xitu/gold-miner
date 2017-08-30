@@ -63,13 +63,19 @@ There are also a couple of benchmarks where TurboFan and Ignition beat the defau
 
 So stay tuned, and expect to see a lot more Ignition and TurboFan in the wild. We’re constantly working to improve TurboFan to catch up with Crankshaft even in the *old world* (i.e. on the traditional ES3/ES5 peak performance benchmarks). We already gave a few talks internally at Google on TurboFan and TurboFan-related topics, i.e.
 
-别急， Ignition 和 TurboFan
+别急， Ignition 和 TurboFan的性能未来更值得期待。 我们一直在加强 TurboFan，直追 Crankshaft，甚至要求在旧标准上也依旧出色（例如传统的 ES3/ES5 高峰性能标准）。我们亦在谷歌内部就 TurboFan 和相关话题上进行了一些演说：
 
 - [An overview of the TurboFan compiler](https://docs.google.com/document/d/1VoYBhpDhJC4VlqMXCKvae-8IGuheBGxy32EOgC2LnT8)
 - [TurboFan IR](https://docs.google.com/presentation/d/1Z9iIHojKDrXvZ27gRX51UxHD-bKf1QcPzSijntpMJBM)
 - [CodeStubAssembler: Redux](https://docs.google.com/presentation/d/1u6bsgRBqyVY3RddMfF1ZaJ1hWmqHZiVMuPRw_iKpHlY)
 
+- [TurboFan 编译器一瞥](https://docs.google.com/document/d/1VoYBhpDhJC4VlqMXCKvae-8IGuheBGxy32EOgC2LnT8)
+- [TurboFan IR](https://docs.google.com/presentation/d/1Z9iIHojKDrXvZ27gRX51UxHD-bKf1QcPzSijntpMJBM)
+- [CodeStubAssembler: Redux](https://docs.google.com/presentation/d/1u6bsgRBqyVY3RddMfF1ZaJ1hWmqHZiVMuPRw_iKpHlY)
+
 and we will now try to make as much of this information available to the public as possible (check the [TurboFan](https://github.com/v8/v8/wiki/TurboFan) page on the V8 wiki for additional resources). We also plan to give talks at various JavaScript and Node.js conferences next year (ping [me](https://twitter.com/bmeurer) if you would like us to talk about Ignition and TurboFan at some particular conference).
+
+现如今，我们也在将这些讯息尽可能的传达给公众（更多资料可以查找 [TurboFan](https://github.com/v8/v8/wiki/TurboFan)  和 V8 的wiki）。我们也打算明年在各种 JavaScript 和 Node.js 会议上发表演讲（如果想让我们在某些会议上聊聊Ignition 和 TurboFan 尽请戳[我](https://twitter.com/bmeurer) ）。
 
 ## State of the union wrt. ES2015 and beyond
 
@@ -99,6 +105,8 @@ function fn() {
 
 in ES5, even though these are not semantically equivalent since the first example is using [ES6 iteration](https://tc39.github.io/ecma262/#sec-iteration) while the second example is just using a plain indexed access to an [Array Exotic Object](https://tc39.github.io/ecma262/#sec-array-exotic-objects).
 
+在 ES5 中，这两段代码语义是不相同的：第一段代码采用了 ES6 的[遍历方式](https://tc39.github.io/ecma262/#sec-iteration)，第二段代码则使用了普通的索引访问[数组奇异对象](https://tc39.github.io/ecma262/#sec-array-exotic-objects)。
+
 We are actually using a slightly modified and extended version of the performance test, which can be found [here](https://github.com/fhinkel/six-speed), that contains additional tests. All of these tests are obviously micro benchmarks, that’s why we don’t really pay attention to the absolute score (operations per second), but we only care about the slowdown factor between the ES5 and the ES6 versions. Our goal is to eventually get the slowdown close to **1x** for all the (relevant) benchmarks, but at the very least get it below **2x** for all of the line items. We made tremendous improvements on the most important line items since we started working on this in summer:
 
 ![Improvements M54 to M56](http://benediktmeurer.de/images/2016/six-speed-20161125.png)
@@ -107,11 +115,17 @@ This shows the improvements from V8 5.4 (which ships in current stable Chrome) t
 
 ### A closer look at `instanceof`
 
+细看 `instanceof`
+
 Besides the line items on the [six-speed](https://github.com/fhinkel/six-speed) table, we’re also actively working to improve the interaction of other new language features, that might not be so obvious on first sight. One particular, recent example that I’d like to mention here, is the [`instanceof` operator](https://tc39.github.io/ecma262/#sec-instanceofoperator) in ES2015 and the newly introduced well-known symbol [@@hasInstance](https://tc39.github.io/ecma262/#sec-symbol.hasinstance). When we worked on implementing ES2015 in V8, we didn’t have the resources to fully optimize every feature from the beginning, and we had to make sure that we don’t regress existing workloads and benchmarks just because of new ES2015 language features (which was still not possible 100% of the time, but nevertheless we managed to ship almost all of ES2015 by the end of last year without any major performance regressions). But especially the newly added well-known symbols caused some trouble there, as they are not local in the sense of *pay for what you use*, but are sort of global.
+
+除了 [六速表](https://github.com/fhinkel/six-speed)所展现的，我们也主动提升了其他新语言特性的交互，这些提升或许乍一看并不起眼。我在这里想提及的是 ES2015 里的 `instanceof` 操作符和新引入的symbol [@@hasInstance](https://tc39.github.io/ecma262/#sec-symbol.hasinstance) 。一开始在V8上实现 ES2015 时，我们无法充足优化每一个特性，我们也不想因为 ES2015 新的语言特性就减少工作量、降低标准（当时我们还没有100%地实现ES2015，但在去年年底，在保证没有任何明显的性能衰退的前提下，我们基本部署了ES2015）。然而，新加入的 symbol 类型也导致了一些麻烦。
 
 ![InstanceofOperator EcmaScript specification](http://benediktmeurer.de/images/2016/instanceof-20161125.png)
 
 For example, for `instanceof`, you now need to always check whether the right-hand side has a method `@@hasInstance`, and use that instead of the old ES5 algorithm - now known as [OrdinaryHasInstance](https://tc39.github.io/ecma262/#sec-ordinaryhasinstance) - when present, even though in 99.99% of the cases this will be [Function.prototype[@@hasInstance]](https://tc39.github.io/ecma262/#sec-function.prototype-@@hasinstance), which itself just calls to OrdinaryHasInstance. So for example a function `isA` like this
+
+拿 `instanceof` 来说，你总得检查右值是否有 `@@hasInstance` 的方法，并取代 ES5 中 [OrdinaryHasInstance](https://tc39.github.io/ecma262/#sec-ordinaryhasinstance) 的老算法--即使99%的情况下调用的是 [Function.prototype[@@hasInstance]](https://tc39.github.io/ecma262/#sec-function.prototype-@@hasinstance) ，也就是通过 OrdinaryHasInstance 实现的。例如有如下函数 `isA`
 
 ```
 function A() { ... }
@@ -123,7 +137,11 @@ function isA(o) { return o instanceof A; }
 
 would be slowed down a lot if you implement ES2015 naively, because in addition to the actual prototype chain walk that you need to perform for `instanceof`, you know also need to lookup the `@@hasInstance` property on `A`’s prototype first and call that method. To mitigate that problem we decided to go with a mechanism called a *protector cell* in the beginning, which allows certain parts of V8 to assume that a certain event didn’t happen so far, so we don’t need to perform certain checks. In this case the protector cell would guard against the addition of a property named `Symbol.hasInstance` anywhere in V8. Assuming that no one installed any other `@@hasInstance` function anywhere, we could just continue to always implement `instanceof` via OrdinaryHasInstance as long as the protector is intact.
 
+如果采用ES2015的方式，函数性能将大打折扣，因为运行 instanceof  不光要追踪原型链产生额外开销，还需要检查  `A `  的原型链上是否有  `@@hasInstance`  属性以便调用。为了降低影响，我们一开始决定采用 *protector cell* 的机制。这套机制让一部分 V8 假定一部分事件尚未发生， 从而跳过某些检测。在这个例子中， protector cell 确保 V8 没有添加其他 Symbol.hasInstance 的属性。如果 `@@hasInstance` 没有在其他地方添加，只要保护器完好，就可以继续调用 OrdinaryHasInstance  来实现 `instanceof`。
+
 The assumption was that no one would use this monkey-patching ability for `instanceof` anytime soon, which buys us some time to come up with a better solution that scales well even in the presence of custom `Symbol.hasInstance` methods. But apparently this assumption was invalid, since Node.js v7 [started using `Symbol.hasInstance`](https://github.com/nodejs/node/commit/2a4b068acaa160a2d76ec5a3728e29ac6cdc715b) for their `Writable` class. This slowed down any use of `instanceof` in any Node.js by up to a [factor of 100](https://github.com/nodejs/node/issues/9634) depending on the exact usage pattern. So we had to look for mitigations of the problem, and as it turned out, there is at least an easy way to avoid depending on the global protector cell for the optimizing compilers Crankshaft and TurboFan, and so we got that fixed with [crrev.com/2504263004](https://codereview.chromium.org/2504263004) and [crrev.com/2511223003](https://codereview.chromium.org/2511223003).
+
+
 
 For TurboFan, I did not only fix the regression, but also made it possible to optimize appropriately in the presence of custom `Symbol.hasInstance` handlers, which makes it possible to (mis)use `instanceof` for rather crazy things like this
 
