@@ -5,7 +5,7 @@
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/how-to-implement-expandable-menu-on-ios-like-in-airbnb.md](https://github.com/xitu/gold-miner/blob/master/TODO/how-to-implement-expandable-menu-on-ios-like-in-airbnb.md)
 > * 译者：[RichardLeeH](https://github.com/RichardLeeH)
 > * 校对者：[iOSleep](https://github.com/iOSleep)
-> * 校对者：
+> * 校对者：[KnightJoker](https://github.com/KnightJoker)
 
 # 如何在 iOS 上实现类似 Airbnb 中的可展开式菜单  
 
@@ -453,7 +453,7 @@ private func panGestureChanged() {
 }
 ```
 
-- 拖动手势结束回调方法 计算一个最接近当前状态的偏移值，并计算一个差值加到当前 contentoffset 上，然后调用 `updateContentOffset(CGPoint, animated: Bool)` 方法，参数为最后计算的 ContentOffset 和 开启动画效果的 true。
+- 拖动手势结束后找到最接近当前状态的偏移量，添加其差值到偏移量上，并调用偏移量到结束状态的动画 `updateContentOffset(CGPoint, animated: Bool)`。
 
 ```
 private func panGestureEnded() {
@@ -483,14 +483,14 @@ private func panGestureEnded() {
 }
 ```
 
-因此，只有当用户在可用的可滚动区域的顶部滚动时，可展开状态才会生效。如果可展开状态可用并且用户滚动到正常状态之下，此时可展开状态被禁用。如果用户在状态转换期间结束拖动手势，`BarController` 此时会以动效的方式更新 contentoffset。
+因此，只有当用户在可用的可滚动区域的顶部滚动时，可展开状态才会生效。如果可展开状态可用并且用户滚动到正常状态之下，此时可展开状态被禁用。如果用户在状态转换期间结束拖动手势，`BarController` 此时会以动画的方式更新 contentoffset。
 
 ### 将 UIScrollView 绑定到 BarController
 
 `BarController` 包含 2 个公有方法用于用户设置 `UIScrollView`。通常情况下，用户使用 `set(scrollView: UIScrollView)` 方法。也可以使用 `preconfigure(scrollView: UIScrollView)` 方法，用于设置滚动视图的可视状态与当前 `BarController` 状态一致。
-当滚动视图即将被交换时，应该使用它。例如，用户可以采用动效替换当前的滚动视图，并希望在动画开始时将第二滚动视图可视化配置。动画结束后，用户应该调用 `set(scrollView: UIScrollView)`。如果 `UIScrollView` 只设置一次，那么 `preconfigure(scrollView: UIScrollView)` 方法不是必须调用的，因为 `set(scrollView: UIScrollView)` 是在内部调用的。
+它被用于滚动视图即将被交换的时候。例如，用户可以采用动画替换当前的滚动视图，并希望在动画开始时将第二滚动视图可视化配置。动画结束后，用户应该调用 `set(scrollView: UIScrollView)`。如果 `UIScrollView` 只设置一次，那么 `preconfigure(scrollView: UIScrollView)` 方法不是必须调用的，因为 `set(scrollView: UIScrollView)` 是在内部调用的。
 
-`preconfigure` 方法计算 `contentSize` 高度和 frame 高度的差值， 并将其赋值给 bottomcontentinset 确保菜单为可展开状态，并设置 `contentInsets.top` 和 `scrollIndicatorInsets.top`，然后设置初始的 `contentOffset` 确保新的滚动视图与状态偏移保持一致。
+`preconfigure` 方法计算 `contentSize` 高度和 frame 高度的差值， 并将其赋值给 bottomcontentinset，使其菜单保持可扩展状态，并设置 `contentInsets.top` 和 `scrollIndicatorInsets.top`，然后设置初始的 `contentOffset` 确保新的滚动视图与状态偏移保持一致。
 
 ```
 public func set(scrollView: UIScrollView) {
