@@ -4,7 +4,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/angular-vs-react-which-is-better-for-web-development.md](https://github.com/xitu/gold-miner/blob/master/TODO/angular-vs-react-which-is-better-for-web-development.md)
 > * 译者：[龙骑将杨影枫](https://github.com/stormrabbit)
-> * 校对者：[Larry](https://github.com/lampui)
+> * 校对者：[Larry](https://github.com/lampui)、[薛定谔的猫](https://github.com/Aladdin-ADD)
 
 # Angular vs React：谁更适合前端开发
 
@@ -32,7 +32,7 @@
 
 当然，大部分 [React 开发者](https://www.toptal.com/react)会添加一系列的库，使得 React 成为完整的框架。但是这套完整框架的工作流程又一次和 Angular 完全不同，所以其可比性也很有限。
 
-两者最大的差别是对状态（state）的管理。Angular 通过数据绑定（data-binding）来将状态绑在数据上，而 React 如今通常引入 Redux 来提供单项数据流、处理不可变的数据（译者：我个人理解这句话的意思是 Angular 的数据和状态是互相影响的，而 React 只能通过切换不同的状态来显示不同的数据）。这是刚好互相对立的解决问题方法，而且开发者们不停的争论`可变的/数据绑定模式`与`不可变的/单向的数据流`两者间谁更优秀。
+两者最大的差别是对状态（state）的管理。Angular 通过数据绑定（data-binding）来将状态绑在数据上，而 React 如今通常引入 Redux 来提供单向数据流、处理不可变的数据（译者：我个人理解这句话的意思是 Angular 的数据和状态是互相影响的，而 React 只能通过切换不同的状态来显示不同的数据）。这是刚好互相对立的解决问题方法，而且开发者们不停的争论`可变的/数据绑定模式`与`不可变的/单向的数据流`两者间谁更优秀。
 
 ### 公平竞争的环境
 
@@ -58,7 +58,7 @@ Angular 中有但是 React 没有默认自带的特性有：
 
 ### 数据绑定
 
-相对单项数据流来说，数据绑定可能更适合入门。当然，也可以使用完全相反的做法（指单项数据流），比如使用 React 中的 [Redux](http://redux.js.org/) 或者 [mobx-state-tree](https://github.com/mobxjs/mobx-state-tree)，或者使用 Angular 中的 [ngrx](https://github.com/ngrx/store)。不过那就是另一篇文章所要阐述的内容了。
+相对单向数据流来说，数据绑定可能更适合入门。当然，也可以使用完全相反的做法（指单向数据流），比如使用 React 中的 [Redux](http://redux.js.org/) 或者 [mobx-state-tree](https://github.com/mobxjs/mobx-state-tree)，或者使用 Angular 中的 [ngrx](https://github.com/ngrx/store)。不过那就是另一篇文章所要阐述的内容了。
 
 ### 计算属性（Computed properties）
 
@@ -67,7 +67,7 @@ Angular 中有但是 React 没有默认自带的特性有：
 >
 > 摘录来自: Unknown. “The Swift Programming Language 中文版”。 iBooks.
 
-考虑到性能问题，Angular 中简单的 `getters` 每次渲染时都被调用，所以被排除掉了。这次我们使用 [RsJS](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/subjects/behaviorsubject.md) 中的 [BehaviorSubject](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/subjects/behaviorsubject.md) 来处理此类问题。
+考虑到性能问题，Angular 中简单的 `getters` 每次渲染时都被调用，所以被排除在外。这次我们使用 [RsJS](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/subjects/behaviorsubject.md) 中的 [BehaviorSubject](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/subjects/behaviorsubject.md) 来处理此类问题。
 
 在 React 中，可以使用 MobX 中的 [@computed](https://mobx.js.org/refguide/computed-decorator.html) 来达成相同的效果，而且此 api 会更方便一些。
 
@@ -79,7 +79,7 @@ Angular 中有但是 React 没有默认自带的特性有：
 
 在组件加载（mount）的时候创建一个独立的数据仓库（而且可以无缝传递给此组件的子组件）非常方便，而且是一项很容易被忽略的概念。
 
-Angular 中这项创造性的做法，在 MobX 中也很容易重现。
+Angular 中开箱即用的做法，在 MobX 中也很容易重现。
 
 ### 路由
 
@@ -95,17 +95,17 @@ Angular 中这项创造性的做法，在 MobX 中也很容易重现。
 
 ### 带有作用域的 CSS
 
-CSS 的类比较像是全局变量一类的东西。有许多方法来组织 CSS 以避免互相起冲突（包括 [BEM](https://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/)），但是当前的趋势是使用库辅助处理 CSS 以避免冲突，而不是需要[前端开发者](https://www.toptal.com/front-end)煞费苦心的给 CSS 起不同的名字。
+CSS 的类比较像是全局变量一类的东西。有许多方法来组织 CSS 以避免互相起冲突（包括 [BEM](https://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/)），但是当前的趋势是使用库辅助处理 CSS 以避免冲突，而不是需要[前端开发者](https://www.toptal.com/front-end)煞费苦心的设计精密的 CSS 命名系统。
 
 ### 表单校验
 
 表单校验是非常重要而且使用广泛的特性，使用相关的库可以有效避免冗余代码和 bug。
 
-### 程序生产器（Project Generator，也就是命令行工具）
+### 程序生成器（Project Generator，也就是命令行工具）
 
 使用一个命令行工具来创建项目比从 Github 上下载样板文件要方便的多。
 
-### 同一个 APP，编写两次
+### 分别使用 React 与 Angular 实现同一个 app
 
 那么我们准备使用 React 和 Anuglar 编写同一个 app。这个 app 并不复杂，只是一个可以供任何人发布帖子的公共贴吧（Shoutboard）。
 
@@ -122,7 +122,10 @@ CSS 的类比较像是全局变量一类的东西。有许多方法来组织 CSS
 - [贴吧源码 Angular 版](https://github.com/tomaash/shoutboard-angular)
 - [贴吧源码 React 版](https://github.com/tomaash/shoutboard-react)
 
-你瞧，我们同样使用 TypeScript 编写 React app，因为能够使用类型检查的优势还是很赞的。作为一种处理引入更优秀的方式，async/await 以及休眠线程如今终于可以在 TypeScript2 里使用了，这就让 Babel/ES7/[Flow](https://flow.org/) 显得有点过时（leaves Babel/ES7/[Flow](https://flow.org/) in the dust）。
+你瞧，我们同样使用 TypeScript 编写 React app，因为能够使用类型检查的优势还是很赞的。作为一种处理引入更优秀的方式，async/await 以及 rest spread 如今终于可以在 TypeScript2 里使用了，这就让 Babel/ES7/[Flow](https://flow.org/) 显得有点过时（leaves Babel/ES7/[Flow](https://flow.org/) in the dust）。
+
+>薛定谔的猫：其实并不是，babel的扩展很强大的。ts不支持的babel都可以通过插件支持（stage0~stage4）
+这里是说有了ts，就不用babel/es7/flow了。
 
 同样，我们为两者添加了 [Apollo Client](https://github.com/apollographql/apollo-client)，因为我希望使用 GraphQL 风格的接口。我的意思是，REST 风格的接口确实不错，但是经过十几年的发展后，它已经跟不上时代了。
 
@@ -219,14 +222,14 @@ export class AppStore {
 ```
 
 
-React 版本的入口文件相对要简短一些，因为不需要做那么多模块声明 —— 通常的情况下，只要导入就可以使用了。有时候这种硬依赖很麻烦（比如测试的时候），所以对于全局单例来说，我只好使用过时的[GoF](https://www.wikiwand.com/en/Design_Patterns) [模式](https://en.wikipedia.org/wiki/Singleton_pattern)。
+React 版本的入口文件相对要简短一些，因为不需要做那么多模块声明 —— 通常的情况下，只要导入就可以使用了。有时候这种硬依赖很麻烦（比如测试的时候），所以对于全局单例来说，我只好使用过时的[GoF](https://www.wikiwand.com/en/Design_Patterns) [模式](https://en.wikipedia.org/wiki/Singleton_pattern)（薛定谔的猫：GoF 才不会过时呢）。
 
 Angular 的路由是已注入的，所以可以在程序的任何地方使用，并不仅仅是组件中。为了在 React 中达到相同的功能，我们使用
 [mobx-react-router](https://github.com/alisd23/mobx-react-router) 并注入`routerStore`。
 
 总结：两个 app 的启动文件都非常直观。React 看起来更简单一点的，使用 import 代替了模块的加载。不过接下来我们会看到，虽然在入口文件中加载模块有点啰嗦，但是之后使用起来会很便利；而手动创建一个单例也有自己的麻烦。至于路由创建时的语法问题，是 JSON 更好还是 JSX 更好只是单纯的个人喜好。
 
-### 连接（Links）与必要的导航
+### 连接（Links）与命令式导航
 
 现在有两种方法来进行页面跳转。声明式的方法，使用超链接 `<a href...>` 标签；命令式的方法，直接调用 routing （以及 location）API。
 
@@ -340,7 +343,7 @@ export class HomeComponent {
 ```
 
 
-通过将 `HomeService` 注册进组件的 `providers`，此组件获得了一个独有的 `HomeService`。虽然现在它还不是一个实例，但是每一个组件在初始化的时候都会收到一个新的 `HomeService` 副本（译者注：也就是这个时候就算实例啦）。这意味着不会有之前 `HomeService` 使用过的过期数据。
+通过将 `HomeService` 注册进组件的 `providers`，此组件获得了一个独有的 `HomeService`。它不是单例，但是每一个组件在初始化的时候都会收到一个新的 `HomeService` 实例化对象。这意味着不会有之前 `HomeService` 使用过的过期数据。
 
 相对而言，`AppService` 被注册进了 `app.module` 文件（参见之前的入口文件），所以它是驻留在每一个组件中的单例，贯穿整个 app 的生命周期。能够从组件中控制服务的声明周期是一项非常有用、而且常被低估的概念。
 
@@ -738,7 +741,7 @@ export class PostsComponent extends React.Component<PostsComponentProps, any> {
 
 如你所见，CSS 模块加载器通过在每一个 CSS 类之后添加随机的后缀来保证其名字独一无二。这是一种非常简单的、可以有效避免命名冲突的办法。（编译好的）CSS 类随后会被 webpack 打包好的对象引用。这么做的缺点之一是不能像 Angular 那样只创建一个 CSS 文件来使用。但是从另一方面来说，这也未尝不是一件好事。因为这种机制会强迫你正确的封装 CSS 样式。
 
-总结：比起 Angular 的模版，我更喜欢 JSX 语法多一点，尤其是代码补全以及类型检查。这真是一项杀手锏（really is a killer feature）。Angular 现在采用了 AOT 编译器，也有一些新的东西，代码补全同样在一半的情况下起作用，但是不如 JSX/TypeScript 中做的那么完善。
+总结：比起 Angular 的模版，我更喜欢 JSX 语法，尤其是支持代码补全以及类型检查。这真是一项杀手锏（really is a killer feature）。Angular 现在采用了 AOT 编译器，也有一些新的东西，代码补全能处理大约一半的东西，但是不如 JSX/TypeScript 中做的那么完善。
 
 ### GraphQL — 加载数据
 
@@ -1209,7 +1212,7 @@ Oh, one more thing. The production minified JS bundle sizes, with default settin
 
 使用 React/MobX 实际上比起 React/Redux 更接近于 Angular。虽然在模版以及依赖管理中有一些显著的差异，但是它们有着相似的可变/数据绑定的风格。
 
-React/Redux 与它的不可变/单项数据流的模式则是完全不同的另一种东西。
+React/Redux 与它的不可变/单向数据流的模式则是完全不同的另一种东西。
 
 不要被 Redux 库的体积迷惑，它也许很娇小，但确实是一个框架。如今大部分 Redux 的优秀做法关注使用兼容 Redux 的库，比如用来处理异步代码以及获取数据的 [Redux Saga](https://redux-saga.js.org/)，用来管理表单的 [Redux Form](http://redux-form.com/)，用来记录选择器（Redux 计算后的值）的[Reselect](https://github.com/reactjs/reselect)，以及用来管理组件生命周期的 [Recompose](https://github.com/acdlite/recompose)。同时 Redux 社区也在从  [Immutable.js](https://facebook.github.io/immutable-js/) 转向  [lodash/fp](https://github.com/lodash/lodash/wiki/FP-Guide)，更专注于处理普通的 JS 对象而不是转化它们。
 
@@ -1223,7 +1226,7 @@ React/Redux 与它的不可变/单项数据流的模式则是完全不同的另�
 
 结论是：在选择 React 与 Angular 之前，先选择自己的编程习惯（译者：这结论等于没结论）。
 
-是可变的/数据绑定，还是不可变的/单项数据流？看起来真的很难抉择。
+是可变的/数据绑定，还是不可变的/单向数据流？看起来真的很难抉择。
 
 > 我希望你能喜欢这篇客座文章。这篇[文章](https://www.toptal.com/front-end/angular-vs-react-for-web-development)最初发表在 [Toptal](https://www.toptal.com/front-end/)，并且已经获得转载授权。
 ---
