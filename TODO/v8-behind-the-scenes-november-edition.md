@@ -6,13 +6,19 @@
   > * 译者：
   > * 校对者：
 
-  # V8: Behind the Scenes
+  # V8: 引擎背后
 
   So this is my attempt to start a series of blog posts about what’s going on behind the scenes of V8 in order to bring more transparency to what we do for [Node.js](https://nodejs.org) and [Chrome](https://www.google.com/chrome), and how this affects developers targeting either Node.js or Chrome. I’ll mostly talk about stuff where I’m actively involved, so mostly things that are related to JavaScript Execution Optimization, new language features and a few tooling/embedder related issues.
 
+  在文中，我将对我主动参与的部分进行详细阐述，内容大致涉及JavaScript 执行优化、新的语言特性及工具/嵌入器相关事务。
+
 Any opinions expressed in these posts are my own and don’t necessarily reflect the official position of Google or the Chrome/V8 teams. Also these articles are clearly targeting the primary audience of V8 itself, which are developers utilizing V8 through Node.js, Chrome or some other embedder to build and deliver awesome products to the end user. I’ll try to not only scratch the surface, but also provide some background information and interesting details whenever feasible.
 
+在这一系列的博文中，所有观点均为个人观点，并不代表 Google 或 Chrome/V8 团队的官方口径。这一系列文章针对 V8 引擎的主要受众，他们通过 Node.js，Chrome 或者其他嵌入器使用V8引擎，为终端用户提供了一流的产品。在文中，我尽量提供一些背景信息和有趣的细节，避免浅尝辄止、走马观花之嫌。
+
 In this first article I’m going to give a brief update on our ongoing work on the TurboFan compiler architecture and the Ignition interpreter, and the current progress on the ES2015 and beyond performance front.
+
+在首篇，我会简要介绍我们目前在 TurboFan 编译架构 和 Ignition 解释器上的工作内容，ES2015的进度以及【未翻译】
 
 ## An update on Ignition and TurboFan
 
@@ -20,8 +26,14 @@ In this first article I’m going to give a brief update on our ongoing work on 
 
 As those of you following the work on V8 somewhat closely have probably already figured out, we’re finally starting to ship the new architecture for V8, which is based on the [Ignition interpreter](http://v8project.blogspot.de/2016/08/firing-up-ignition-interpreter.html) and the [TurboFan compiler](http://v8project.blogspot.de/2015/07/digging-into-turbofan-jit.html). You have probably also already spotted the *Chrome (Ignition)* and *Chrome (TurboFan, Ignition)* graphs on [arewefastyet](http://arewefastyet.com). These reflect two possible configurations, which are currently being evaluated:
 
+在 V8 工作内容上，正如一些人已经预料到的那样，我们终于着手为V8升级新的架构了。 新的架构基于 [Ignition 解释器](http://v8project.blogspot.de/2016/08/firing-up-ignition-interpreter.html) 和 [TurboFan 编译器](http://v8project.blogspot.de/2015/07/digging-into-turbofan-jit.html)。 有可能你在[arewefastyet](http://arewefastyet.com) 上看到了*Chrome (Ignition)* and *Chrome (TurboFan, Ignition)* 的图表。 这张图标体现了两种正在评估的配置。
+
 1. The *Chrome (Ignition)* aka `--ignition-staging` configuration, which adds the Ignition interpreter as a third tier in front of the existing compiler architecture (i.e. in front of the fullcodegen baseline compiler, and the optimizating compilers TurboFan and Crankshaft), but with a direct tier up strategy from Ignition to TurboFan for features that Crankshaft cannot deal with (i.e. `try`-`catch`/-`finally`, `eval`, `for`-`of`, destructuring, `class` literals, etc.). This is a slight modification of the pipeline we had initially when [Ignition was announced earlier this year](http://v8project.blogspot.de/2016/08/firing-up-ignition-interpreter.html).
 2. The *Chrome (TurboFan, Ignition)* aka `--ignition-staging --turbo` configuration, where everything goes through Ignition and TurboFan only, and where both fullcodegen and Crankshaft are completely unused.
+
+
+
+1. ​
 
 In addition to that, [as of yesterday](https://codereview.chromium.org/2505933008) we are finally starting to pull the plug on fullcodegen for (modern) JavaScript features - that Crankshaft was never able to deal with - in the default configuration, which means that for example using `try`-`catch` in your code will now always route these functions through Ignition and TurboFan, instead of fullcodegen and eventually TurboFan (or even leaving the function unoptimized in fullcodegen). This will not only boost the performance of your code, and allow you to write cleaner code because you no longer need to work-around certain architectural limitations in V8, but also allows us to simplify our overall architecture quite significantly. Currently the overall compilation architecture for V8 still looks like this:
 
@@ -141,7 +153,9 @@ would be slowed down a lot if you implement ES2015 naively, because in addition 
 
 The assumption was that no one would use this monkey-patching ability for `instanceof` anytime soon, which buys us some time to come up with a better solution that scales well even in the presence of custom `Symbol.hasInstance` methods. But apparently this assumption was invalid, since Node.js v7 [started using `Symbol.hasInstance`](https://github.com/nodejs/node/commit/2a4b068acaa160a2d76ec5a3728e29ac6cdc715b) for their `Writable` class. This slowed down any use of `instanceof` in any Node.js by up to a [factor of 100](https://github.com/nodejs/node/issues/9634) depending on the exact usage pattern. So we had to look for mitigations of the problem, and as it turned out, there is at least an easy way to avoid depending on the global protector cell for the optimizing compilers Crankshaft and TurboFan, and so we got that fixed with [crrev.com/2504263004](https://codereview.chromium.org/2504263004) and [crrev.com/2511223003](https://codereview.chromium.org/2511223003).
 
+如果短期内没人使用这种补丁版的 `instanceof` , 那就相当于为实现伸缩性良好的、自定义的`Symbol.hasInstance`匀出了时间。然而这是不可能的，
 
+我们只能继续寻找缓解问题的方法。功夫不负有心人，有一种简单的方式能够优化 Crankshaft 和 TurboFan，却不依赖与全局的 protector cell，我们顺利解决了这个问题，issue记录如下[crrev.com/2504263004](https://codereview.chromium.org/2504263004) and [crrev.com/2511223003](https://codereview.chromium.org/2511223003)。
 
 For TurboFan, I did not only fix the regression, but also made it possible to optimize appropriately in the presence of custom `Symbol.hasInstance` handlers, which makes it possible to (mis)use `instanceof` for rather crazy things like this
 
@@ -197,6 +211,8 @@ Last but not least, I’d like to highlight that all of this is only possible be
 obviously standing on the [shoulders](https://twitter.com/mraleph) of [giants](https://en.wikipedia.org/wiki/Lars_Bak_(computer_programmer)).
 Here are the people currently working on features related to ES2015 and beyond for Node.js and Chrome:
 
+最重要的是，有了[前人](https://en.wikipedia.org/wiki/Lars_Bak_(computer_programmer))的[努力](https://twitter.com/mraleph)和以下工程师的辛勤付出才有了所有可能。下面是参与到ES2015、Node.js和Chrome幕后工作的人员名单：
+
 - [Adam Klein](mailto:adamk@chromium.org)
 - [Caitlin Potter](https://twitter.com/caitp)
 - [Daniel Ehrenberg](https://twitter.com/littledan)
@@ -209,11 +225,15 @@ Here are the people currently working on features related to ES2015 and beyond f
 
 And obviously there are the people who contributed a lot to ES6 itself and the initial V8 implementation:
 
+当然也有其他人在ES6 和V8实现上贡献颇多，他们是:
+
 - [Andreas Rossberg](mailto:rossberg@chromium.org)
 - [Dmitry Lomov](https://twitter.com/mulambda)
 - [Erik Arvidsson](https://twitter.com/ErikArvidsson)
 
 So if you ever happen to meet one of them, and you like what they’re doing, consider inviting them for a beer or two.
+
+要是你碰巧遇到他们了，你中意他们对V8做的贡献，那就顺便请他们小酌一两杯吧。
 
 ---
 
