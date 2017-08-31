@@ -22,32 +22,31 @@ In this first article I’m going to give a brief update on our ongoing work on 
 
 ## An update on Ignition and TurboFan
 
-##Ignition and TurboFan
+## 基于 Ignition 和 Turbofan 的更新
 
 ![Brace yourself - TurboFan and Ignition are coming](http://benediktmeurer.de/images/2016/brace-yourself-turbofan-ignition-are-coming.jpeg)
 
 As those of you following the work on V8 somewhat closely have probably already figured out, we’re finally starting to ship the new architecture for V8, which is based on the [Ignition interpreter](http://v8project.blogspot.de/2016/08/firing-up-ignition-interpreter.html) and the [TurboFan compiler](http://v8project.blogspot.de/2015/07/digging-into-turbofan-jit.html). You have probably also already spotted the *Chrome (Ignition)* and *Chrome (TurboFan, Ignition)* graphs on [arewefastyet](http://arewefastyet.com). These reflect two possible configurations, which are currently being evaluated:
 
-在 V8  工作内容方面，如一些人预料到的那样，我们终于着手为V8升级新的架构了。 新的架构基于 [Ignition 解释器](http://v8project.blogspot.de/2016/08/firing-up-ignition-interpreter.html) 和 [TurboFan 编译器](http://v8project.blogspot.de/2015/07/digging-into-turbofan-jit.html)。 有可能你在[arewefastyet](http://arewefastyet.com) 上看到了*Chrome (Ignition)* and *Chrome (TurboFan, Ignition)* 的图表，两种可能的配置正在评估中。
+在 V8 工作内容方面，如一些人预料到的那样，我们终于着手为V8升级新的架构了。 新的架构基于 [Ignition 解释器](http://v8project.blogspot.de/2016/08/firing-up-ignition-interpreter.html) 和 [TurboFan 编译器](http://v8project.blogspot.de/2015/07/digging-into-turbofan-jit.html)。有可能你在[arewefastyet](http://arewefastyet.com) 上看到了*Chrome (Ignition)* and *Chrome (TurboFan, Ignition)* 的图表，两种可能的配置正在评估中。
 
 1. The *Chrome (Ignition)* aka `--ignition-staging` configuration, which adds the Ignition interpreter as a third tier in front of the existing compiler architecture (i.e. in front of the fullcodegen baseline compiler, and the optimizating compilers TurboFan and Crankshaft), but with a direct tier up strategy from Ignition to TurboFan for features that Crankshaft cannot deal with (i.e. `try`-`catch`/-`finally`, `eval`, `for`-`of`, destructuring, `class` literals, etc.). This is a slight modification of the pipeline we had initially when [Ignition was announced earlier this year](http://v8project.blogspot.de/2016/08/firing-up-ignition-interpreter.html).
 2. The *Chrome (TurboFan, Ignition)* aka `--ignition-staging --turbo` configuration, where everything goes through Ignition and TurboFan only, and where both fullcodegen and Crankshaft are completely unused.
 
 
 
-1.  *Chrome (Ignition)*，即配置 `--ignition-staging` ，在现有的编译器架构前（例如在。。。。）加入了Ignition 解释器作为第三层。
+1.  *Chrome (Ignition)*，即`--ignition-staging`配置，在现有的编译器架构（例如由 full-codegen 基线编译器和 TurboFan、Crankshaft 优化编译器组成的架构）前加入了 Ignition 解释器作为第三层，但是从 Ignition 到 TurboFan 有一个直接的 tier up 策略以处理哪些 Crankshaft 无法应对的功能（如`try`-`catch`/-`finally`、`eval`、`for`-`of`、解构、`class` 字面量等）。这是对我们[今年早些时候宣布 Ignition 时](http://v8project.blogspot.de/2016/08/firing-up-ignition-interpreter.html)的原管道进行的微调。
 
 In addition to that, [as of yesterday](https://codereview.chromium.org/2505933008) we are finally starting to pull the plug on fullcodegen for (modern) JavaScript features - that Crankshaft was never able to deal with - in the default configuration, which means that for example using `try`-`catch` in your code will now always route these functions through Ignition and TurboFan, instead of fullcodegen and eventually TurboFan (or even leaving the function unoptimized in fullcodegen). This will not only boost the performance of your code, and allow you to write cleaner code because you no longer need to work-around certain architectural limitations in V8, but also allows us to simplify our overall architecture quite significantly. Currently the overall compilation architecture for V8 still looks like this:
 
-除此之外，昨天我们终于
-
+除此之外，昨天我们终于停止了 fullcodegen， 以在默认配置中支持（Crankshaft 打死都不支持的）JavaScript 新特性。也就是说，比如当你在代码中使用了 `try`-`catch`，现在这些函数的运行会经过 Ignition 和 TurboFan，而不是经过 fullcodegen 然后最终经过 TurboFan （或者甚至不经过 TurboFan 优化）。这不仅能增强你的代码的性能，使你写出更干净整洁的代码，因为你无须再做那些为应对某些框架的限制而做的多余工作，而且，这还使我们极其显著地简化了整体架构。当前 V8 的整体编译架构仍然长这个样子：
 
 
 ![Old V8 pipeline](http://benediktmeurer.de/images/2016/v8-old-pipeline-20161125.png)
 
 This comes with a lot of problems, especially considering new language features that need to be implemented in various parts of the pipeline, and optimizations that need to be applied consistently across a couple of different (mostly incompatible) compilers. This also comes with a lot of overhead for tooling integration, i.e. DevTools, as tools like the debugger and the profiler need to function somewhat well and behave the same independent of the compiler being used. So middle-term we’d like to simplify the overall compilation pipeline to something like this:
 
-同时，许多问题相继出现：尤其是考虑到新的语言特性需要通过管道的各个部分得以实现，不同的编译器（大部分是不兼容的）也要做出一致的优化。此外，类似 DevTools 的工具，其整合的管理成本也在攀升。像调试器或分析器等工具需独立于编译器而良好运行。所以在中期，我们会大致依照下图简化整体的编译管道。
+同时，这也带来了许多问题：尤其是考虑到新的语言特性需要通过管道的各个部分得以实现，不同的编译器（大部分是不兼容的）也要做出一致的优化。此外，类似 DevTools 的工具，其整合的管理成本也在攀升。像调试器或分析器等工具需独立于编译器而良好运行。所以在中期，我们会大致依照下图简化整体的编译管道。
 
 ![New V8 pipeline](http://benediktmeurer.de/images/2016/v8-new-pipeline-20161125.png)
 
@@ -57,7 +56,7 @@ This simplified pipeline offers a lot of opportunities, not only reducing the te
 
 So where do we stand with Ignition and TurboFan as of today? We’ve spend a lot of time this year catching up with the default configuration. For Ignition that mostly meant catching up with startup latency and baseline performance, while for TurboFan a lot of that time was spend catching up on peak performance for traditional (and modern) JavaScript workloads. This turned out to be a lot more involved than we expected three years ago when we started TurboFan, but it’s not really surprising given that an average of 10 awesome engineers spent roughly 6 years optimizing the old V8 compiler pipeline for various workloads, especially those measured by static test suites like [Octane](https://developers.google.com/octane), [Kraken](http://krakenbenchmark.mozilla.org) and [JetStream](http://browserbench.org/JetStream). Since we started with the full TurboFan and Ignition pipeline in August, we almost tripled our score on Octane and got a roughly 14x performance boost on Kraken (although this number is a bit misleading as it just highlights the fact that initially we couldn’t tier up a function from Ignition to TurboFan while the function was already executing):
 
-时至如今，我们又如何安放Ignition 和 TurboFan 呢？我们已经花了大量时间实现默认配置，对于 Ignition 而言是
+时至如今，我们对 Ignition 和 TurboFan 的使用又走到了哪一步了呢？我们已经花了大量时间实现默认配置，对于 Ignition 而言是在启动延迟和基线性能方面加紧优化，而对于 TurboFan，大部分时间花在了提高传统（与现代） JavaScript 运行的性能峰值上。这实际上比三年前刚开始使用 TurboFan 的我们的预期要复杂很多。但想到差不多 10 个了不起的工程师花了将近 6 年的时间才优化了旧的 V8 编译器管道，这其实也并不令人惊讶，特别是那些由 [Octane](https://developers.google.com/octane)， [Kraken](http://krakenbenchmark.mozilla.org) 和 [JetStream](http://browserbench.org/JetStream) 这样的静态测试套件测量的工作。
 
 ![Octane score](http://benediktmeurer.de/images/2016/octane-20161125.png)
 
