@@ -704,7 +704,7 @@ export class PostsComponent extends React.Component<PostsComponentProps, any> {
 
 当然，JSX 的语法比 Angular 的 HTML 模版更有 javascript 的风格，是好是坏取决于开发者的喜好。我们使用高阶函数 `map` 来代替 *ngFor 指令循环输出帖子。
 
-如今，Angular 也许是使用 TypeScript 最多的框架，但是实际上 JSX 语法才是 TypeScript 能真正发挥作用的地方。通过添加 CSS 模块（在上面引入的），它能够将模版转化为代码补全之道（code completion zen）。每一个事情都是经过类型检验的。组件、属性甚至 CSS 类（`appStyle.floatRight` 以及 `style.messageCard` 见下）。当然，JSX 语法的单薄特性比起 Angular 的模版更鼓励将代码拆分成组件和片段（fragment）。
+如今，Angular 也许是使用 TypeScript 最多的框架，但是实际上 JSX 语法才是 TypeScript 能真正发挥作用的地方。通过添加 CSS 模块（在顶部引入），它能够让模版编码的工作成为依靠插件进行代码补全的享受（it really turns your template coding into code completion zen）。每一个事情都是经过类型检验的。组件、属性甚至 CSS 类（`appStyle.floatRight` 以及 `style.messageCard` 见下）。当然，JSX 语法的单薄特性比起 Angular 的模版更鼓励将代码拆分成组件和片段（fragment）。
 
 **Local CSS:**
 
@@ -741,7 +741,7 @@ export class PostsComponent extends React.Component<PostsComponentProps, any> {
 
 如你所见，CSS 模块加载器通过在每一个 CSS 类之后添加随机的后缀来保证其名字独一无二。这是一种非常简单的、可以有效避免命名冲突的办法。（编译好的）CSS 类随后会被 webpack 打包好的对象引用。这么做的缺点之一是不能像 Angular 那样只创建一个 CSS 文件来使用。但是从另一方面来说，这也未尝不是一件好事。因为这种机制会强迫你正确的封装 CSS 样式。
 
-总结：比起 Angular 的模版，我更喜欢 JSX 语法，尤其是支持代码补全以及类型检查。这真是一项杀手锏（really is a killer feature）。Angular 现在采用了 AOT 编译器，也有一些新的东西，代码补全能处理大约一半的东西，但是不如 JSX/TypeScript 中做的那么完善。
+总结：比起 Angular 的模版，我更喜欢 JSX 语法，尤其是支持代码补全以及类型检查。这真是一项杀手锏（really is a killer feature）。Angular 现在采用了 AOT 编译器，也有一些新的东西。大约有一半的情况能使用代码补全，但是不如 JSX/TypeScript 中做的那么完善。
 
 ### GraphQL — 加载数据
 
