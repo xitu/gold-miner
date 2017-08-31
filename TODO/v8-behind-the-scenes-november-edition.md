@@ -10,7 +10,7 @@
 
   So this is my attempt to start a series of blog posts about what’s going on behind the scenes of V8 in order to bring more transparency to what we do for [Node.js](https://nodejs.org) and [Chrome](https://www.google.com/chrome), and how this affects developers targeting either Node.js or Chrome. I’ll mostly talk about stuff where I’m actively involved, so mostly things that are related to JavaScript Execution Optimization, new language features and a few tooling/embedder related issues.
 
-  在文中，我将对我主动参与的部分进行详细阐述，内容大致涉及JavaScript 执行优化、新的语言特性及工具/嵌入器相关事务。
+  为了使我们为Node.js和Chrome所做的工作以及其对Node.js或Chrome开发者的影响更加公开透明，这是我就V8幕后发生的故事所尝试撰写的一系列博文。在文中，我将对我主动参与的部分进行详细阐述，内容大致涉及JavaScript 执行优化、新的语言特性及工具/嵌入器相关事务。
 
 Any opinions expressed in these posts are my own and don’t necessarily reflect the official position of Google or the Chrome/V8 teams. Also these articles are clearly targeting the primary audience of V8 itself, which are developers utilizing V8 through Node.js, Chrome or some other embedder to build and deliver awesome products to the end user. I’ll try to not only scratch the surface, but also provide some background information and interesting details whenever feasible.
 
@@ -18,22 +18,24 @@ Any opinions expressed in these posts are my own and don’t necessarily reflect
 
 In this first article I’m going to give a brief update on our ongoing work on the TurboFan compiler architecture and the Ignition interpreter, and the current progress on the ES2015 and beyond performance front.
 
-在首篇，我会简要介绍我们目前在 TurboFan 编译架构 和 Ignition 解释器上的工作内容，ES2015的进度以及【未翻译】
+在首篇，我会简要介绍我们目前在 TurboFan 编译架构 和 Ignition 解释器上的工作内容，ES2015的进度以及一些性能相关的内容。
 
 ## An update on Ignition and TurboFan
+
+##Ignition and TurboFan
 
 ![Brace yourself - TurboFan and Ignition are coming](http://benediktmeurer.de/images/2016/brace-yourself-turbofan-ignition-are-coming.jpeg)
 
 As those of you following the work on V8 somewhat closely have probably already figured out, we’re finally starting to ship the new architecture for V8, which is based on the [Ignition interpreter](http://v8project.blogspot.de/2016/08/firing-up-ignition-interpreter.html) and the [TurboFan compiler](http://v8project.blogspot.de/2015/07/digging-into-turbofan-jit.html). You have probably also already spotted the *Chrome (Ignition)* and *Chrome (TurboFan, Ignition)* graphs on [arewefastyet](http://arewefastyet.com). These reflect two possible configurations, which are currently being evaluated:
 
-在 V8 工作内容上，正如一些人已经预料到的那样，我们终于着手为V8升级新的架构了。 新的架构基于 [Ignition 解释器](http://v8project.blogspot.de/2016/08/firing-up-ignition-interpreter.html) 和 [TurboFan 编译器](http://v8project.blogspot.de/2015/07/digging-into-turbofan-jit.html)。 有可能你在[arewefastyet](http://arewefastyet.com) 上看到了*Chrome (Ignition)* and *Chrome (TurboFan, Ignition)* 的图表。 这张图标体现了两种正在评估的配置。
+在 V8  工作内容方面，如一些人预料到的那样，我们终于着手为V8升级新的架构了。 新的架构基于 [Ignition 解释器](http://v8project.blogspot.de/2016/08/firing-up-ignition-interpreter.html) 和 [TurboFan 编译器](http://v8project.blogspot.de/2015/07/digging-into-turbofan-jit.html)。 有可能你在[arewefastyet](http://arewefastyet.com) 上看到了*Chrome (Ignition)* and *Chrome (TurboFan, Ignition)* 的图表，两种可能的配置正在评估中。
 
 1. The *Chrome (Ignition)* aka `--ignition-staging` configuration, which adds the Ignition interpreter as a third tier in front of the existing compiler architecture (i.e. in front of the fullcodegen baseline compiler, and the optimizating compilers TurboFan and Crankshaft), but with a direct tier up strategy from Ignition to TurboFan for features that Crankshaft cannot deal with (i.e. `try`-`catch`/-`finally`, `eval`, `for`-`of`, destructuring, `class` literals, etc.). This is a slight modification of the pipeline we had initially when [Ignition was announced earlier this year](http://v8project.blogspot.de/2016/08/firing-up-ignition-interpreter.html).
 2. The *Chrome (TurboFan, Ignition)* aka `--ignition-staging --turbo` configuration, where everything goes through Ignition and TurboFan only, and where both fullcodegen and Crankshaft are completely unused.
 
 
 
-1. ​
+1.  *Chrome (Ignition)*，即配置 `--ignition-staging` ，在现有的编译器架构前（例如在。。。。）加入了Ignition 解释器作为第三层。
 
 In addition to that, [as of yesterday](https://codereview.chromium.org/2505933008) we are finally starting to pull the plug on fullcodegen for (modern) JavaScript features - that Crankshaft was never able to deal with - in the default configuration, which means that for example using `try`-`catch` in your code will now always route these functions through Ignition and TurboFan, instead of fullcodegen and eventually TurboFan (or even leaving the function unoptimized in fullcodegen). This will not only boost the performance of your code, and allow you to write cleaner code because you no longer need to work-around certain architectural limitations in V8, but also allows us to simplify our overall architecture quite significantly. Currently the overall compilation architecture for V8 still looks like this:
 
@@ -121,13 +123,17 @@ in ES5, even though these are not semantically equivalent since the first exampl
 
 We are actually using a slightly modified and extended version of the performance test, which can be found [here](https://github.com/fhinkel/six-speed), that contains additional tests. All of these tests are obviously micro benchmarks, that’s why we don’t really pay attention to the absolute score (operations per second), but we only care about the slowdown factor between the ES5 and the ES6 versions. Our goal is to eventually get the slowdown close to **1x** for all the (relevant) benchmarks, but at the very least get it below **2x** for all of the line items. We made tremendous improvements on the most important line items since we started working on this in summer:
 
+实际上，我们使用的这套性能测试经过了一些修改和拓展，包含了其他额外的测试。这套测试在[这里](https://github.com/fhinkel/six-speed)。所有的测试都是微观标准，所以我们并不会着眼于分数（每秒钟的操作）多少，我们在乎的是ES6相较ES5时，拖慢性能的因素。我们的目的是将这些因素降低到标准的1倍，至少也要在2倍之内。自夏日开始，我们在这方面做了大量的优化。
+
 ![Improvements M54 to M56](http://benediktmeurer.de/images/2016/six-speed-20161125.png)
 
 This shows the improvements from V8 5.4 (which ships in current stable Chrome) to V8 5.6 (which will be in Chrome M56), with the additional constraint that I passed the `--turbo-escape` flag to V8, which unfortunately didn’t make it into 5.6 because the TurboFan Escape Analysis was not considered ready for prime time (it’s now on in ToT since [crrev.com/2512733003](https://codereview.chromium.org/2512733003)). The chart shows the percentage of improvements on the *ES5 to ES6* factor. There are still a couple of benchmarks left where we are not yet below **2x**, and we are actively working on those, and we hope that we will be able to offer a solid ES2015 experience (performance- and tooling-wise) for the next Node.js LTS release.
 
+这张图表展示了从V8 5.4版本到 到 5.6版本（Chorme M56将采用）的提升。在分析过程中，我还通过`--turbo-escape` 额外给 V8 加了一些限制，因为Turbofan 逸出分析当时并不成熟（自[crrev.com/2512733003 ](https://codereview.chromium.org/2512733003)已在TOT上线）,也就是说，这还不是 5,6 的实力。图表通过ES5 到ES6 各部分的提升百分比。还有一些标准未提及但成绩也在2x以内。目前我们的工作人在继续，我们希望能为下次Node.js LTS版本发布时提供 ES2015 （性能和功能方面）卓越的体验。
+
 ### A closer look at `instanceof`
 
-细看 `instanceof`
+###细看 `instanceof`
 
 Besides the line items on the [six-speed](https://github.com/fhinkel/six-speed) table, we’re also actively working to improve the interaction of other new language features, that might not be so obvious on first sight. One particular, recent example that I’d like to mention here, is the [`instanceof` operator](https://tc39.github.io/ecma262/#sec-instanceofoperator) in ES2015 and the newly introduced well-known symbol [@@hasInstance](https://tc39.github.io/ecma262/#sec-symbol.hasinstance). When we worked on implementing ES2015 in V8, we didn’t have the resources to fully optimize every feature from the beginning, and we had to make sure that we don’t regress existing workloads and benchmarks just because of new ES2015 language features (which was still not possible 100% of the time, but nevertheless we managed to ship almost all of ES2015 by the end of last year without any major performance regressions). But especially the newly added well-known symbols caused some trouble there, as they are not local in the sense of *pay for what you use*, but are sort of global.
 
@@ -137,7 +143,7 @@ Besides the line items on the [six-speed](https://github.com/fhinkel/six-speed) 
 
 For example, for `instanceof`, you now need to always check whether the right-hand side has a method `@@hasInstance`, and use that instead of the old ES5 algorithm - now known as [OrdinaryHasInstance](https://tc39.github.io/ecma262/#sec-ordinaryhasinstance) - when present, even though in 99.99% of the cases this will be [Function.prototype[@@hasInstance]](https://tc39.github.io/ecma262/#sec-function.prototype-@@hasinstance), which itself just calls to OrdinaryHasInstance. So for example a function `isA` like this
 
-拿 `instanceof` 来说，你总得检查右值是否有 `@@hasInstance` 的方法，并取代 ES5 中 [OrdinaryHasInstance](https://tc39.github.io/ecma262/#sec-ordinaryhasinstance) 的老算法--即使99%的情况下调用的是 [Function.prototype[@@hasInstance]](https://tc39.github.io/ecma262/#sec-function.prototype-@@hasinstance) ，也就是通过 OrdinaryHasInstance 实现的。例如有如下函数 `isA`
+拿 `instanceof` 来说，你总得检查右值是否有 `@@hasInstance` 的方法，并取代 ES5 中 [OrdinaryHasInstance](https://tc39.github.io/ecma262/#sec-ordinaryhasinstance) 的旧算法--即使99%的情况下调用的是 [Function.prototype[@@hasInstance]](https://tc39.github.io/ecma262/#sec-function.prototype-@@hasinstance) ，也是通过 OrdinaryHasInstance 实现的。例如有如下函数 `isA`
 
 ```
 function A() { ... }
@@ -149,15 +155,17 @@ function isA(o) { return o instanceof A; }
 
 would be slowed down a lot if you implement ES2015 naively, because in addition to the actual prototype chain walk that you need to perform for `instanceof`, you know also need to lookup the `@@hasInstance` property on `A`’s prototype first and call that method. To mitigate that problem we decided to go with a mechanism called a *protector cell* in the beginning, which allows certain parts of V8 to assume that a certain event didn’t happen so far, so we don’t need to perform certain checks. In this case the protector cell would guard against the addition of a property named `Symbol.hasInstance` anywhere in V8. Assuming that no one installed any other `@@hasInstance` function anywhere, we could just continue to always implement `instanceof` via OrdinaryHasInstance as long as the protector is intact.
 
-如果采用ES2015的方式，函数性能将大打折扣，因为运行 instanceof  不光要追踪原型链产生额外开销，还需要检查  `A `  的原型链上是否有  `@@hasInstance`  属性以便调用。为了降低影响，我们一开始决定采用 *protector cell* 的机制。这套机制让一部分 V8 假定一部分事件尚未发生， 从而跳过某些检测。在这个例子中， protector cell 确保 V8 没有添加其他 Symbol.hasInstance 的属性。如果 `@@hasInstance` 没有在其他地方添加，只要保护器完好，就可以继续调用 OrdinaryHasInstance  来实现 `instanceof`。
+如果采用ES2015的方式，函数性能将大打折扣，因为运行 instanceof  不光要追踪原型链产生额外开销，还需要检查  `A `  的原型链上是否有  `@@hasInstance`  属性以便调用。为了降低影响，我们一开始决定采用 *protector cell* 的机制。这套机制让一部分 V8 假定一部分事件尚未发生， 从而跳过某些检测。在这个例子中， protector cell 确保 V8 没有添加其他 Symbol.hasInstance 的属性。如果 `@@hasInstance` 没有在其他地方添加，并且保护器完好，就可以继续调用 OrdinaryHasInstance  来实现 `instanceof`。
 
 The assumption was that no one would use this monkey-patching ability for `instanceof` anytime soon, which buys us some time to come up with a better solution that scales well even in the presence of custom `Symbol.hasInstance` methods. But apparently this assumption was invalid, since Node.js v7 [started using `Symbol.hasInstance`](https://github.com/nodejs/node/commit/2a4b068acaa160a2d76ec5a3728e29ac6cdc715b) for their `Writable` class. This slowed down any use of `instanceof` in any Node.js by up to a [factor of 100](https://github.com/nodejs/node/issues/9634) depending on the exact usage pattern. So we had to look for mitigations of the problem, and as it turned out, there is at least an easy way to avoid depending on the global protector cell for the optimizing compilers Crankshaft and TurboFan, and so we got that fixed with [crrev.com/2504263004](https://codereview.chromium.org/2504263004) and [crrev.com/2511223003](https://codereview.chromium.org/2511223003).
 
 如果短期内没人使用这种补丁版的 `instanceof` , 那就相当于为实现伸缩性良好的、自定义的`Symbol.hasInstance`匀出了时间。然而这是不可能的，
 
-我们只能继续寻找缓解问题的方法。功夫不负有心人，有一种简单的方式能够优化 Crankshaft 和 TurboFan，却不依赖与全局的 protector cell，我们顺利解决了这个问题，issue记录如下[crrev.com/2504263004](https://codereview.chromium.org/2504263004) and [crrev.com/2511223003](https://codereview.chromium.org/2511223003)。
+我们只能继续寻找缓解问题的方法。功夫不负有心人，有一种简单的方式能够优化 Crankshaft 和 TurboFan，并且不依赖与全局的 protector cell，我们依此顺利解决了这个问题，issue记录如下[crrev.com/2504263004](https://codereview.chromium.org/2504263004) 和[crrev.com/2511223003](https://codereview.chromium.org/2511223003)。
 
 For TurboFan, I did not only fix the regression, but also made it possible to optimize appropriately in the presence of custom `Symbol.hasInstance` handlers, which makes it possible to (mis)use `instanceof` for rather crazy things like this
+
+对于TurboFan，除了解决性能倒退的问题外，我还一并适度优化了自定义的`Symbol.hasInstance` 句柄，有可能导致（误）用`instanceof `做一些奇妙的事，譬如下面这段代码：
 
 ```
 var Even = {[Symbol.hasInstance](x) { return x % 2 == 0; } }
@@ -171,6 +179,8 @@ isEven(2); // true
 ```
 
 and still generate awesome code for it. Assuming we run this example function with the new pipeline (Ignition and TurboFan) using `--turbo` and `--ignition-staging`, TurboFan is able to produce the following (close to perfect) code on x64:
+
+假设我们通过`--turbo` 和`--ignition-staging`用新的编译器管道（Ignition and TurboFan）运行这段代码，TurboFan 在x64位上得出以下（近乎完美的）结果：
 
 ```
 ...SNIP...
@@ -203,9 +213,13 @@ and still generate awesome code for it. Assuming we run this example function wi
 
 We are not only able to inline the custom `Even[Symbol.hasInstance]()` method, but TurboFan also consumes the integer feedback that Ignition collected for the modulus operator and turns the `x % 2` into a bitwise-and operation. There are still a couple of details that could be better about this code, but as mentioned above we’re still working to improve TurboFan.
 
+我们不仅能够内联自定义的`Even[Symbol.hasInstance]()` 方法，但是TurboFan 在消化 ？？？这段代码还有一些细节可以更棒，但如上文提及，我们仍在努力提升 TurboFan。
+
 ![Prepare for instanceof boost](http://benediktmeurer.de/images/2016/instanceof-20161125.jpg)
 
 ### The engineers behind all of this
+
+###幕后的工程师们
 
 Last but not least, I’d like to highlight that all of this is only possible because we have so many great engineers working on this, and we are
 obviously standing on the [shoulders](https://twitter.com/mraleph) of [giants](https://en.wikipedia.org/wiki/Lars_Bak_(computer_programmer)).
