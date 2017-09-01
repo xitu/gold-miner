@@ -3,144 +3,142 @@
   > * 原文作者：[Designlab](https://blog.prototypr.io/@trydesignlab)
   > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
   > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/are-notifications-a-dark-pattern.md](https://github.com/xitu/gold-miner/blob/master/TODO/are-notifications-a-dark-pattern.md)
-  > * 译者：
+  > * 译者：[Changkun Ou](https://github.com/changkun)
   > * 校对者：
 
-  # Are Notifications A Dark Pattern?
+# 通知是一种「暗模式」吗？
 
   ![](https://cdn-images-1.medium.com/max/2000/0*_tmPbpsam2ERhTWd.png)
 
-Text & Illustration: Andrew Wilshere
+文字 & 插图: Andrew Wilshere
 
-**Have you ever had a nightmare where you were literally drowning in little red notification badges?** I did once, and it got me thinking: what actually are notifications? And are they just another dark pattern — a form of coercion and online trickery? In this article, I explore the phenomenon of “pseudo-notifications”, and conclude with some thoughts on what the future might hold for notifications as a design pattern.
-
----
-
-### What are notifications?
-
-**Notifications are nothing new.** A doorbell is a notification system to let me know that someone is outside my house. The ring of a telephone is a signal that someone is waiting to talk. And an SMS ringtone notifies me that a message has arrived.
-
-However, since the arrival of smartphones, notifications have been subtly changing. First, and above all, the apps and websites we use every day love to notify us of everything they can. Our phones no longer just alert us to calls and texts; they now remind us about game activity, tell us when people are tweeting, and nag us to take our 10,000 daily steps. Unlike doorbells, the things that today’s apps and websites deem worthy of a notification often don’t really require our immediate attention at all.
-
-Second, notifications increasingly reach us by whatever means, and in whatever context, they can. Whether it’s an icon with an unread count, text scrolling in from the top of a smartphone screen, a special ringtone, or a disembodied voice assistant, notifications are designed to penetrate our senses and interrupt whatever we’re doing. Distraction isn’t an unfortunate side-effect of notifications — it is one of their core functions. Notifications are intended to draw us away from our current activity, and refocus our attention on wherever that notification is coming from.
-
-Notifications are a powerful tool for UX designers and developers, because they work by pushing people’s psychological buttons. Appealing to a deep human instinct to be socially integrated and accepted, that number in a little red circle subtly tells us both that there’s a social transaction awaiting our attention, and that by ignoring it, we’re missing out on something. By now we’ve probably all experienced that seemingly irrepressible urge to tap an icon just because it has an unread count — even if we already know we’re not interested in looking at whatever’s there.
-
-**Notifications were once there to tell us something we needed to know.** But has the desperation of companies to get us to engage with their product turned notifications into an annoyance — a manipulative, destructive dark pattern?
+ **你有没有做过这种噩梦：在梦中你被通知标记的小红点给淹没了？** 我做过一次，它让我想到：通知究竟是什么？他们只是一种暗模式（dark pattern）吗？一种强制的、在线欺骗的形式吗？在这篇文章中，我将探讨「伪通知」的现象，并就未来对通知作为设计模式的未来发表一些想法。
 
 ---
 
-### Notifications as a dark pattern
+### 通知是什么？
 
-**A “dark pattern” refers to any design feature intended to deceive, manipulate, or trick the user into taking an action that they didn’t desire or intend.** These first emerged in the earliest days of the web, when disreputable websites created popup windows in your browser, and in many cases would “bait and switch” the user by inviting them to click for one purpose, but then redirect to something unrelated.
+**通知屡见不鲜。**门铃是通知系统 —— 让我知道有人在我家外面；电话铃声则是有人正在等待谈话的信号；而短信铃声通知我收到了新的消息。
 
-The website [Dark Patterns](http://darkpatterns.org/) has assembled a pretty comprehensive typology of dark patterns, and they maintain a “hall of shame” that calls out companies and products that deliberately trick their users.
+然而，由于智能手机的到来，使得通知已经变得微乎其微。首先，最重要的是，我们每天使用的 App 和网站都喜欢通知我们他们可以做的一切。我们的手机不再只是提醒我们打电话和文字；他们现在提醒我们有关游戏的活动，告诉我们什么时候关注的人发了 Twitter，并且嘱咐我们的 10,000 个日常步骤。与门铃不同，今天的 App 和网站认为值得通知的东西通常不需要我们立即关注。
 
-These days, dark patterns are both more widespread and more sophisticated. Many sites use fairly harmless dark patterns to gather email subscribers — through things like “subscribe” boxes that appear as overlays on a webpage when you scroll down.
+第二，通知以越来越多的方式，不管以何种手段、何种情境，都可以通知到我们。无论是一个未读数的图标，从智能手机屏幕顶部的文本滚动，特殊的铃声或无声的语音助手，通知旨在渗透我们的感官，并中断我们正在做的。分心不是通知的不利副作用 —— 它是其核心功能之一。通知旨在让我们远离我们目前的活动，并将注意力集中在通知来自哪里。
 
-These do annoy users, precisely because their appearance has not been requested. But many companies accept that this occasional low-level annoyance is a price worth paying to build a customer base, and indeed most customers understand and accept that. Although, just as with advertising, we tolerate it more readily if it’s executed with some creative panache.
+通知是 UX 设计师和开发人员的强大工具，因为他们通过推动人们的心理按钮来起作用。在一个个的小红点中，有一种社会事务在等待我们的关注，而选择忽略它，我们就错过了一些事情。 到目前为止，我们大概都会看到似乎无法阻挡的冲动，只是因为它有一个未读的数字 —— 即使我们已经知道我们对看到任何东西都不感兴趣。
 
-Even that familiar “subscribe” box can be delivered with different levels of trickery. For example, it can pop up in such a way that it is obviously optional and can be dismissed or cancelled. But some sites will deliberately make the popup look like a mandatory step, when in reality, there is usually a way to close the message and continue reading.
-
-OS-level notification managers have become a feature of Android and iOS builds, in order to forcibly suppress notifications from apps. Similarly, apps usually have notification controls built in, but often even these are manipulative. For example, in Facebook Messenger, it used only to be possible to disable notifications temporarily; they would then automatically be turned back on after a few hours. Moreover, app notifications are almost always switched on by default, rather than being off automatically.
+**通知曾经在那里告诉我们需要知道的事情。**但是，公司的铤而走险让我们把产品变成了一种烦恼——一种操控性的、破坏性的暗模式?
 
 ---
 
-### Examples of dark pattern notifications
+### 通知即暗模式
 
-**Many of the sites we use every day now exploit our psychological weakness for notifications — our fear of missing out.** They use pseudo-notifications to deliver marketing messages, or simply to draw us back to using their product when there is actually nothing of substance to notify us about.
+**「暗模式」是指任何意图欺骗、操纵甚至欺诈用户采取他们不希望或打算的动作而设计的功能。** 这些最早出现在网络的最早期间，当不可思议的网站在你的浏览器中创建弹出窗口时，在许多情况下会通过邀请他们点击一个目的来「引诱和切换」用户，然后重定向到一些无关的东西上去。
+
+[暗模式网站](http://darkpatterns.org/)罗列了非常全面的暗模式类别，它们保留了一个「耻辱柱」，用来指出那些故意欺骗用户的公司和产品。
+
+这些天，暗模式变得更广泛和更复杂。许多网站使用相当无害的暗模式来收集电子邮件订阅者 —— 通过在向下滚动时在网页上显示为叠加层的「订阅」框。
+
+这些东西对用户来说是令人烦恼的，正是因为他们的外观没有要求。但是很多公司都认为，这种偶然的低级烦恼是构建客户群的价值，且实际上大多数客户都理解并接受。 尽管如此，就像广告一样，如果用一些创造性的方式执行，我们更容易容忍。
+
+即使是那些熟悉的「订阅」框也可以提供不同级别的诡计。 举个例子，它可以以这样的方式弹出：显然，它是可选的，可以被解除或取消。 但有些网站会故意让弹出窗口看起来像一个强制性的步骤，实际上通常会有一种方法来关闭消息并继续阅读。
+
+操作系统级通知管理器已经成为 Android 和 iOS 构建的一个功能，以强制禁止来自应用的通知。同样，应用程序通常都有内置的通知控件，但通常甚至是操纵的。 例如，在 Facebook Messenger 中，它仅用于暂时禁用通知；他们会在几个小时后自动重新开启。此外，默认情况下，应用通知几乎总是打开，而不是自动关闭。
+
+---
+
+### 暗模式通知的例子
+
+**我们每天使用的许多网站现在都利用了我们对通知的心理缺陷 —— 我们担心错过信息。**他们使用伪通知来提供营销信息，或者简单地让我们回到使用他们的产品，实际上没有什么实质内容可以通知我们。
 
 #### LinkedIn
 
-Go to the LinkedIn homepage, and you’ll see a navigation bar that looks something like this:
+转到 LinkedIn 主页，你将看到一个导览列，如下所示：
 
 ![](https://cdn-images-1.medium.com/max/2000/0*RWfwBOfuTqEjfHw8.png)
 
-“Hurrah,” I think, “I have 7 notifications!” (Although… Reactivate Premium? I never had Premium — another dark pattern, playing on my fear of loss).
+「我的天，」我想，「我竟然有 7 个通知！」（...重新激活会员是什么？但我从来没有开启过会员呀 —— 另一个暗模式，在玩弄我对损失的恐惧）。
 
-But when I click to see these notifications, they turn out to be nothing of the sort. Instead, I’m served with pseudo-notifications encouraging me to 1) engage with changes in other people’s profiles, 2) sign up to their Premium service by promising to show me who’s been looking at my profile, and 3) browse job ads.
+但是当我点击查看这些通知时，他们就是这样的事情。相反，我接受伪通知，鼓励我（1）参与其他人的个人资料的更改，（2）向我显示谁在看我的个人资料，以及（3）浏览招聘广告，注册他们的高级服务。
 
 ![](https://cdn-images-1.medium.com/max/1600/0*A1mzOvIHjPRaVsbA.png)
 
-*LinkedIn’s pseudo-notifications*
-As a LinkedIn user, when we don’t have any new messages or contact requests, there will nevertheless be subtle forms of advertising waiting in our notification feed. By engaging with this, we spend more time on their site, click through to more pages, and complete a wider range of actions.
+**LinkedIn 的伪通知**
+作为 LinkedIn 用户，当我们没有任何新消息或联系请求时，我们的通知 Feed 中仍然会显示一些微乎其微的广告形式。通过与此相关，我们在网站上花更多的时间，点击更多的页面，并完成更广泛的行动。
 
 #### Facebook
 
-Facebook was one of the original engineers of the kind of notification feed we’re used to seeing today. The company has in the past couple of years also turned to using pseudo-notifications to draw people into interacting with their service more consistently, and in new ways. For example, when I arrived in Paris recently, I got a notification inviting me to see where my friends had been in the city. First off, Facebook, that’s kind of creepy. And second, it’s not something I want to be pinged about in my notifications feed.
+Facebook 是我们以前看到的那种通知 Feed 的原始工程师之一。这家公司在过去几年中也转而使用伪通知来让人们更加一致地以新的方式与他们的服务进行互动。 例如，当我最近到达巴黎时，我收到通知，邀请我看看我的朋友在这个城市的位置。首先，Facebook，有点令人毛骨悚然，像是在跟踪我。其次，这不是我想要在我的通知Feed 中被提醒的东西。
 
 ![](https://cdn-images-1.medium.com/max/1600/0*PA-akOGFo-OhkkPZ.png)
 
-*Facebook’s notifications panel: none of these are really notifications*
-Similarly, Facebook will create notifications in response to how you are using their service. If you are short of “real” notifications (comments, likes, etc.) at the moment you refresh, it will use that lull to propose other forms of engagement — for example, by encouraging you to look back at Facebook “memories”, by giving you information about how many consecutive days you’ve shared content, or by telling you how many views your Pages have got.
+**Facebook 的通知面板：这些都不是真正的通知**
+同样，Facebook 会根据你如何使用他们的服务创建通知。如果你在刷新时缺少「真实」通知（评论、喜欢等），则会使用这种延迟来提出其他形式的参与 —— 例如，通过鼓励你回顾 Facebook 的「回忆」， 向你提供有关您共享内容的连续几天的信息，或者通过告诉你你的网页有多少访问量等等。
 
 #### Twitter
 
 ![](https://cdn-images-1.medium.com/max/1600/0*DTweu2kIIb03vorO.png)
 
-*Twitter effectively shows you other people’s notifications when you’re short of your own*
-Twitter uses a similar strategy, populating your notifications feed to ensure there is always something new for you to engage with.
+**当你没什么推文时，Twitter 会有效地向你显示其他人互动的通知**
+使用类似的策略，填充您的通知 Feed，以确保总是有新的东西与你进行交互。
 
-When the service doesn’t have any direct interactions to tell you about, it will start telling you about *other users’* interactions instead. In the screenshot above, it’s telling me about what people I’m following are doing on the site — a kind of meta-notification.
+当服务没有任何直接的交互来通知你时，它会开始告诉你其他用户的互动。在上面的截图中，它告诉我有关我在关注的人在网站上做了什么 —— 元通知（meta-notification）的一种。
 
-Twitter pushes this kind of notification into your phone’s notification bar as well, inviting renewed interaction with their app.
-
----
-
-### Engagement at any cost?
-
-I’ve picked LinkedIn, Facebook and Twitter here as three big and prominent examples of this trend in notification design, but of course the practice is increasingly common across a whole range of sites and sectors. (Troublingly, my wine club’s website notifies me that I have 117 bottles of wine to review.)
-
-The questions to be leveled at companies that use notifications in this way must be these: Are you acting in your users’ interests, or in your own? And if you’re acting in your own interests, are you fairly balancing these with the interests of the user? Many sites rely on clicks for ad revenue, and have discovered in notifications a quietly coercive way to generate both.
-
-In fairness, companies are faced with the problem that these methods are very effective. Even when we, as users, understand that we are being manipulated, we still carry on clicking and tapping. And in a commercial environment, it can spell disaster to refuse on principle to deploy an effective marketing technique, when all of your competitors are doing it and reaping the rewards.
+Twitter 也会将此类通知推送到您的手机通知栏中，并邀请他们再次与他们的应用进行互动。
 
 ---
 
-### Peak notification?
+### 参与的代价
 
-However, whether this approach to notification design remains effective will depend precisely on the evolution of our attitudes as users. We have probably all experienced notification fatigue at some point. Speaking personally, the intrusive notification practices of platforms like Twitter make me want to use those services less (but I remain problematically addicted to Facebook).
+我在选择了 LinkedIn，Facebook 和 Twitter 作为例子，这是通知设计中这个趋势的三大突出例子，但当然这种做法在一系列网站和行业中越来越普遍（令人不安的是，我的葡萄酒俱乐部的网站告诉我，我还有 117 瓶葡萄酒等着我去品尝）。
 
-As users learn to identify and avoid pseudo-notifications, just as we learned to identify and avoid ads, notifications are likely to become less persuasive, and therefore less effective as a way of leveraging user action. And perhaps more significantly, if people’s attitudes to notifications harden, their deployment as a dark pattern will begin systematically detracting from people’s perception of a brand. Conversely, in that scenario, companies and services that adopt a simpler, more honest, and more transparent notification regime may benefit from having exactly that selling point.
+在以这种方式通知的公司中要平衡的问题必须是：你是以用户的利益还是以你自己的方式行事？如果你是以自己的利益行事，你是否平衡这些与用户的利益？许多网站依靠点击来获得广告收入，并在通知中发现了一种静态强制的方式来产生两者。
 
----
-
-### Notifications and the Tech/Life Balance
-
-**If yesterday’s problem was work/life balance, then this story is about tech/life balance.** The use of notifications as a dark pattern is important because it raises questions about how we regulate and control our personal use of smart technology in a world not only where it is pervasive, but also where those running key services have no qualms about bombarding us with information.
-
-Technology has the potential to enhance our social and personal lives by keeping us connected. But notifications show that technology also has the power to impair our lives by supplanting real connections with ones that have been commercially brokered, mediated, and processed.
-
-This touches on the question of what it means to be human in the developed world in the 21st century. We are learning together how to enjoy the benefits of our newfound connectedness, without losing touch with why we actually value those connections in the first place, and what we want technology to help us accomplish in and through our social relationships.
+公平地说，公司面临着这些方法非常有效的问题。 即使我们作为用户了解到我们正在被操纵，我们仍然进行点击和点击。 而在商业环境中，当所有的竞争对手都在做这些事情并获得收益时，它就可以拼出原则来拒绝部署有效的营销手段。
 
 ---
 
-### The future of notifications
+### 通知的峰值？
 
-**Tech companies are not ignorant of the question of tech/life balance.** As it becomes more pressing in the years to come, we can expect services like Facebook to get smarter with when, how, and how often they deploy pseudo-notifications.
+然而，这种通知设计方法是否仍然有效将完全取决于我们作为用户的态度演变。在某些时候，我们大概经历过通知疲劳。就个人而言，像 Twitter 这样的平台侵入性通知的做法，会让我想减少使用这些服务（但我仍然对 Facebook 有疑问）。
 
-I’m sure that before long, Facebook will automatically learn what kind of notifications I tend to engage with, and which I tend to ignore or dismiss. This data will enable the service automatically to send me a personalized mix of notifications based on what it has learned about my preferences. For example, if its algorithms note that I always dismiss or ignore notifications about being in a new city, a future iteration of Facebook might learn to simply stop showing me that information, or show me something else instead.
-
-But with this comes an ethical hazard. At the moment, the pseudo-notification dark pattern is quite crude, which at least makes it easy to identify. But as services refine how their messages are chosen and delivered, it may become less and less obvious when information is being tailored on the basis of machine learning about our individual online behavior and latent preferences.
-
-This begins to open the door to manipulation not only by fellow humans, but also by faceless algorithms that eventually learn to present each of us only with information that we already want to see — perhaps even only the news stories that are consistent with our present worldview.
-
-As users, we should be vigilant to ensure that we retain the capacity to challenge and be challenged. As designers and developers, we must seek to develop experiences that respect users as people with agency, boundaries, and human dignity, and don’t just treat them as a vessel for clicks.
+当用户学习识别和避免伪通知时，正如我们学会识别和避免广告一样，通知可能变得不那么有说服力，因此作为利用用户操作的一种方式效果较差。也许更重要的是，如果人们对通知的态度变得僵硬，他们的部署将是一个暗模式，将系统性地降低人们对这个品牌的看法。相反，在这种情况下，采用更简单，更诚实，更透明的通知制度的公司和服务可能会受益于这一卖点。
 
 ---
 
-*Enjoyed reading? Here’s more quality content from Designlab:* [Great Design Thinkers: Frank Chimero on The Shape Of Design](http://trydesignlab.com/blog/frank-chimero-design-thinkers-shape-of-design/)
+### 通知与科技、生活的平衡
+
+**如果昨天的问题是工作/生活平衡，那么这个故事就是关于科技/生活的平衡。** 使用通知作为暗模式很重要，因为它引发了关于我们如何在世界范围内管理和控制我们对智能技术的个人使用的问题，不仅在于它是普遍的，而且那些运行关键服务的人也不会对我们进行信息轰炸。
+
+技术有潜力通过保持我们的联系来增强我们的社会和个人生活。但是通知显示，技术也有权力通过与商业经纪人、媒介和处理方式的真实联系来削减我们的生活。
+
+这触及到了21世纪发达国家的人类是什么样子的问题。我们正在一起学习如何享受我们新发现的联系带来的好处，同时又不失去我们真正珍视这些联系的原因，以及我们想要的技术帮助我们在社会关系中取得的成就。
 
 ---
 
-### Learn the fundamentals with Designlab
+###  通知的未来
 
-We offer mentor-led short courses like Design 101, as well as an immersive UX Academy program to prepare you for a career as a professional user experience designer. [Find out more over on our Courses page,](http://trydesignlab.com/courses/) and drop us a line at [hello@trydesignlab.com](mailto:hello@trydesignlab.com) with any questions. Our next courses start in early August, so don’t delay!
+**科技公司对技术/生活平衡问题并不了解。** 随着未来几年变得越来越紧迫，我们可以期待像 Facebook 这样的服务：在部署伪通知的时间、方式以及频率方面更加智能化。
 
-**The Designlab Promise:** We believe that education should be both rigorous and affordable — you shouldn’t have to break the bank to get the skills you need to take the next step in your life.`
+我相信，很久以后，Facebook 会自动学习什么样的通知，我倾向于点开，什么样的通知我倾向于忽略。 这些数据将使服务能够根据我对自己喜好的了解，自动向我发送个性化的通知。例如，如果它的算法注意到我总是忽略或忽略关于在新城市的通知，Facebook 可能会学会简单地停止向我显示该信息，或者向我显示其他信息。
 
+但是这会产生道德危机。 目前，伪通知暗模式是相当粗暴的，至少使它容易识别。但是，随着服务不断改进他们的信息如何选择和交付，当信息在基于机器学习关于我们的个人在线行为和潜在偏好的基础上被定制时，它可能变得越来越不明显。
 
-  ---
+这开始不仅是人类操纵的门，而且还通过无表情的算法，最终学会只向我们展示我们已经想要看到的信息 —— 哪怕那些与我们当前的世界观一致的新闻故事。
+
+作为用户，我们应该保持警惕，确保我们保持质疑和被质疑的能力。作为设计师和开发人员，我们必须不断探索而开发体验。这些体验应当尊重用户，即具有能动作用和独立人格尊严的人，而不仅仅是把他们视为点击通知的容器。
+
+---
+
+很享受阅读吗？这里有更多的优质内容来自 Designlab：[伟大的设计思想家：Frank Chimero 的设计形状](http://trydesignlab.com/blog/frank-chimero-design-thinkers-shape-of-design/)
+
+---
+
+### 在 Designlab 学习基础知识
+
+我们提供导师指导的短期课程，如 Design 101，以及沉浸式的 UX Academy 课程，为你成为专业用户体验设计师的职业而做准备。[了解更多关于我们的课程页面](http://trydesignlab.com/courses/)，如果有任何问题，请给我们留言我们 hello@trydesignlab.com。我们的下一课程从8月初开始，所以不要犹豫！
+
+**Designlab 承诺**：我们认为教育应该是严谨和实惠的——你不应该为了获取你下一步生活需要的技能而把自己搞破产。
+
+---
 
   > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[React](https://github.com/xitu/gold-miner#react)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计) 等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
-  
