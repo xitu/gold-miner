@@ -4,8 +4,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/how-to-implement-expandable-menu-on-ios-like-in-airbnb.md](https://github.com/xitu/gold-miner/blob/master/TODO/how-to-implement-expandable-menu-on-ios-like-in-airbnb.md)
 > * 译者：[RichardLeeH](https://github.com/RichardLeeH)
-> * 校对者：[iOSleep](https://github.com/iOSleep)
-> * 校对者：[KnightJoker](https://github.com/KnightJoker)
+> * 校对者：[iOSleep](https://github.com/iOSleep)，[KnightJoker](https://github.com/KnightJoker)
 
 # 如何在 iOS 上实现类似 Airbnb 中的可展开式菜单  
 
@@ -23,17 +22,17 @@
 
 ### UIScrollView
 
-[UIScrollView](https://developer.apple.com/documentation/uikit/uiscrollview) 是 iOS SDK 中的一个支持滚动和缩放的视图。 它是 [UITableView](https://developer.apple.com/documentation/uikit/uitableview) 和 [UICollectionView](https://developer.apple.com/documentation/uikit/uicollectionview) 的基类，因此，只要支持 `UIScrollView`，就可以使用它。
+[UIScrollView](https://developer.apple.com/documentation/uikit/uiscrollview) 是 iOS SDK 中的一个支持滚动和缩放的视图。它是 [UITableView](https://developer.apple.com/documentation/uikit/uitableview) 和 [UICollectionView](https://developer.apple.com/documentation/uikit/uicollectionview) 的基类，因此，只要支持 `UIScrollView`，就可以使用它。
 
-`UIScrollView` 使用 [UIPanGestureRecognizer](https://developer.apple.com/documentation/uikit/uipangesturerecognizer) 在内部检测滚动手势。 `UIScrollView` 的滚动状态被定义为 `contentOffset: CGPoint` 属性。 可滚动区域由 `contentInsets` 和 `contentSize` 联合决定。 因此，起始的 `contentOffset` 为 `*CGPoint(x: -contentInsets.left, y: -contentInsets.right)*` ，结束值为 `*CGPoint(x: contentSize.width — frame.width+contentInsets.right, y: contentSize.height — frame.height+contentInsets.bottom)*`*.*
+`UIScrollView` 使用 [UIPanGestureRecognizer](https://developer.apple.com/documentation/uikit/uipangesturerecognizer) 在内部检测滚动手势。`UIScrollView` 的滚动状态被定义为 `contentOffset: CGPoint` 属性。 可滚动区域由 `contentInsets` 和 `contentSize` 联合决定。 因此，起始的 `contentOffset` 为 `*CGPoint(x: -contentInsets.left, y: -contentInsets.right)*` ，结束值为 `*CGPoint(x: contentSize.width — frame.width+contentInsets.right, y: contentSize.height — frame.height+contentInsets.bottom)*`*.*
 
-`UIScrollView` 有一个 `bounces: Bool` 属性。 `bounces` 能够避免设置 `contentOffset`  高于/低于限定值。 我们需要记住这一点。
+`UIScrollView` 有一个 `bounces: Bool` 属性。`bounces` 能够避免设置 `contentOffset`  高于/低于限定值。我们需要记住这一点。
 
 [![](https://i.ytimg.com/vi_webp/fgwVqCGgHZA/maxresdefault.webp)](https://youtu.be/fgwVqCGgHZA)
 
 UIScrollView contentOffset 演示
 
-我们感兴趣的是用于改变我们菜单状态的属性 `contentOffset: CGPoint`。监听滚动视图 `contentOffset` 的主要方式是为对象设置一个代理属性，并实现 `scrollViewDidScroll(UIScrollView)` 方法。 在 Swift 中，没有办法使用 `delegate` 而不影响其他客户端代码（因为`NSProxy` 不可用），因此我打算使用键值监听（KVO）。
+我们感兴趣的是用于改变我们菜单状态的属性 `contentOffset: CGPoint`。监听滚动视图 `contentOffset` 的主要方式是为对象设置一个代理属性，并实现 `scrollViewDidScroll(UIScrollView)` 方法。在 Swift 中，没有办法使用 `delegate` 而不影响其他客户端代码（因为 `NSProxy` 不可用），因此我打算使用键值监听（KVO）。
 
 ### Observable
 
@@ -439,7 +438,7 @@ private func panGestureBegan() {
   }
 ```
 
-- 如果状态偏移值达到正常状态，拖动手势变化回调方法就会设置 `isExpandedStateAvailable` ；
+- 如果状态偏移值达到正常状态，拖动手势变化回调方法就会设置 `isExpandedStateAvailable`；
 
 ```
 private func panGestureChanged() {
