@@ -1,26 +1,25 @@
-
   > * 原文地址：[Securing Cookies in Go](https://www.calhoun.io/securing-cookies-in-go/)
   > * 原文作者：[Jon Calhoun](https://www.calhoun.io/hire-me/)
   > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
   > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/securing-cookies-in-go.md](https://github.com/xitu/gold-miner/blob/master/TODO/securing-cookies-in-go.md)
-  > * 译者：
+  > * 译者：[lsvih](https://github.com/lsvih)
   > * 校对者：
 
-  # Securing Cookies in Go
+  # 在 Go 语言中增强 Cookie 的安全性
+  
+在我开始学习 Go 语言时已经有一些 Web 开发经验了，但是并没有直接操作 Cookie 的经验。我之前做过 Rails 开发，当我不得不需要在 Rails 中读写 Cookie 时，并不需要自己去实现各种安全措施。
 
-  When I first started learning Go I had experience with web development, but a little less experience working directly with cookies. I was coming from a Rails background, and while I had to read/write cookies in Rails, I didn't actually need to implement all of the security measures myself.
+瞧瞧，Rails 默认就自己完成了大多数的事情。你不需要设置任何 CSRF 策略，也无需特别区加密你的 Cookie。在新版的 Rails 中，这些事情都是它默认帮你完成的。
 
-You see, Rails is big on having most things done by default. You don't need to go setup CSRF countermeasures, or do anything special to encrypt your cookies. This is all done by default for you in the newer versions of Rails.
+而使用 Go 语言开发则完全不同。在 Golang 的默认设置中，这些事都不会帮你完成。因此，当你想要开始使用 Cookie 时，了解各种安全措施、为什么要使用这些措施、以及如何将这些安全措施集成到你的应用中是非常重要的事。希望本文能帮助你做到这一点。
 
-Developing in Go is very different. None of these things are done for you by default, so when you want to start using cookies it is vitally important that you learn about all of these security measures, why they are in place, and how to incorporate them into your own application. This article is meant to be a guide in helping you do that.
+**注意：我并不想引起关于 Go 与 Reils 两者哪种更好的论战。两者各有优点，但在本文中我希望能着重讨论 Cookie 的防护，而不是去争论 Rails vs Go。**
 
-*Note: This is not meant to spark an argument/discussion about which route is better. Both have their merits, but I want to instead focus on securing cookies, not Rails vs Go.*
+## 什么是 Cookie？
 
-## What are cookies?
+在进入 Cookie 防护相关的内容前，我们必须要理解 Cookie 究竟是什么。从本质上说，Cookie 就是存储在终端用户计算机中的键值对。因此，使用 Go 创建一个 Cookie 需要做的事就是创建一个包含键名、键值的 [http.Cookie](https://golang.org/pkg/net/http/#Cookie) 类型字段，然后调用 [http.SetCookie](https://golang.org/pkg/net/http/#SetCookie) 函数通知终端用户的浏览器设置该 Cookie。
 
-Before we jump into the security of cookies, it is important to understand what cookies really are. At their very core, cookies are just key/value pairs stored on an end user's computer. As a result, the only thing you really need to do to create one is to set the Name and Value fields of the [http.Cookie](https://golang.org/pkg/net/http/#Cookie) type, then call the [http.SetCookie](https://golang.org/pkg/net/http/#SetCookie) function to tell the end user's browser to set that cookie.
-
-In code it looks something like this:
+写成代码之后，它看起来类似于这样：
 
 ```
 func someHandler(w http.ResponseWriter, r *http.Request) {
@@ -32,44 +31,44 @@ func someHandler(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-> `http.SetCookie` doesn't return an error, but may instead silently drop an invalid cookie. This isn't an awesome experience, but it is what it is, so definitely keep this in mind when using the function.
+> `http.SetCookie` 函数并不会返回错误，但它可能会静默地移除无效的 Cookie，因此使用它并不是什么美好的经历。但它既然这么设计了，就请你在使用这个函数的时候一定要牢记它的特性。
 
-While it might appear that we are "setting" a cookie in our code, we are really just sending a `"Set-Cookie"` header back in our response that defines the cookie we want to be set. We don't store cookies on our server, but instead rely on the end user's browser to create and store them.
+虽然这好像是在代码中“设定”了一个 Cookie，但其实我们只是在我们返回 Response 时发送了一个 `"Set-Cookie"` 的 Header，从而定义需要设置的 Cookie。我们不会在服务器上存储 Cookie，而是依靠终端用户的计算机创建与存储 Cookie。
 
-I want to stress this, because it has very serious security implications. We DO NOT control this data. The end user's computer (and thus the end user) ultimately has control over this data.
+我要强调上面这一点，因为它存在非常严重的安全隐患：我们**不能**控制这些数据，而终端用户的计算机（以及用户）才能控制这些数据。
 
-When reading and writing data that the end user ultimately controls, we need to be very careful with how we treat that data. A nefarious user could delete a cookie, edit the data stored in it, or we could even run into [man-in-the-middle attacks](https://en.wikipedia.org/wiki/Man-in-the-middle_attack) where someone attempts to steal cookies when a user sends them to our web server.
+当读取与写入终端用户控制的数据时，我们都需要十分谨慎地对数据进行处理。恶意用户可以删除 Cookie、修改存储在 Cookie 中的数据，甚至我们可能会遇到[ 中间人攻击](https://en.wikipedia.org/wiki/Man-in-the-middle_attack)，即当用户向服务器发送数据时，另有人试图窃取 Cookie。
 
-## Potential issues with cookies
+## Cookie 的潜在安全问题
 
-In my experience I have found that security concerns related to cookies roughly fall into five primary categories. Below we will see each one briefly, and then the rest of this article will be dedicated to discussing each in detail along with countermeasures.
+根据我的经验，Cookie 相关的安全性问题大致分为以下五大类。下面我们先简单地看一看，本文的剩余部分将详细讨论每个分类的细节问题与解决对策。
 
-**1. Cookie theft** - Attackers can attempt to steal cookies in various ways. We will discuss how to prevent/mitigate most of these, but at the end of the day we can't completely prevent physical device access.
+**1. Cookie 窃取** - 攻击者会通过各种方式来试图窃取 Cookie。我们将讨论如何防范、规避这些方式，但是归根结底我们并不能完全阻止设备上的物理类接触。
 
-**2. Cookie tampering** - Whether intentional or not, data in cookies can be altered. We will want to discuss how we can verify the data stored in a cookie is indeed valid data we wrote.
+**2. Cookie 篡改** - Cookie 中存储的数据可以被用户有意或无意地修改。我们将讨论如何验证存储在 Cookie 中的数据确为我们写入的合法数据。
 
-**3. Data leaks** - Cookies are stored on end user's computers, so we should be conscious of what data we store there in case it is leaked.
+**3. 数据泄露** - Cookie 存储在终端用户的计算机上，因此我们需要清楚地意识到什么数据是能存储在 Cookie 中的，什么数据是不能存储在 Cookie 中的，以防其发生数据泄露。
 
-**4. Cross-site scripting (XSS)** - While not directly related to cookies, XSS attacks are more powerful when they have access to cookies. We should consider limiting our cookies from being accessible to scripts where it isn't needed.
+**4. 跨站脚本攻击（XSS）** - 虽然这条与 Cookie 没有直接关系，但是 XSS 攻击在攻击者能获取 Cookie 时危害更大。我们应该考虑在非必须的时候限制脚本访问 Cookie。
 
-**5. Cross-site Request Forgery (CSRF)** - These attacks often rely on users being logged in with a session stored in a cookie, so we will discuss how to prevent them even when we are using cookies in this manner.
+**5. 跨站请求伪造（CSRF）** - 这种攻击常常是由于使用 Cookie 存储用户登录会话造成的。因此我们将讨论在这种情景下如何防范这种攻击。
 
-As I stated before, we will address each of these throughout this article and by the end you will be able to lock down your cookies like a pro.
+如我前面所说，在下文中我们将分别解决这些问题，让你最终能够专业地将你的 Cookie 装进保险柜。
 
-## Cookie theft
+## Cookie 窃取
 
-Cookie theft is exactly what it sounds like - someone steals a user's cookie, often in order to pretend to be that users.
+Cookie 窃取攻击就和它字面意思一样 —— 某人窃取了正常用户的 Cookie，然后一般用来将自己伪装成那个正常用户。
 
-Cookies are often stolen in one of two ways:
+Cookie 通常是被以下方式中的某种窃取：
 
-1. [Man in the middle attacks](https://en.wikipedia.org/wiki/Man-in-the-middle_attack), or something similar where an attacker intercepts your web request and steals the cookie data from it.
-2. Gaining access to the hardware.
+1. [中间人攻击](https://en.wikipedia.org/wiki/Man-in-the-middle_attack)，或者是类似的其它攻击方式，归纳以下就是攻击者拦截你的 Web 请求，从中窃取 Cookie。
+2. 取得硬件的访问权限。
 
-Preventing man in the middle attacks basically boils down to always using SSL when your website uses cookies. By using SSL you make it essentially impossible for others to sit in the middle of a request, because they won't be able to decrypt the data.
+阻止中间人攻击的终极方式就是当你的网站使用 Cookie 时，使用 SSL。使用 SSL 时，由于中间人无法对数据进行解密，因此外人基本上没可能在请求的中途获取 Cookie。
 
-For those of you thinking, "ahh a man-in-the-middle attack isn't very likely..." I would strongly encourage you to check out [firesheep](http://codebutler.com/firesheep), a simple tool designed to illustrate just how easy it is to steal unencrypted cookies sent over public wifi.
+可能你会觉得“哈哈，中间人攻击不太可能……”，我建议你看看 [firesheep](http://codebutler.com/firesheep)，这个简单的工具，它足以说明在使用公共 wifi 时窃取未加密的 Cookie 是一件很轻松的事情。
 
-If you want to ensure that this doesn't happen to your users, SET UP SSL!. [Caddy Server](https://caddyserver.com/) makes this a breeze with Let's Encrypt. Just use it. Its really freaking simple to setup for prod environments. For example, you could easily proxy your Go application with 4 lines of code:
+如果你想确保这种事情不发生在你的用户中，**请使用 SSL！**试试使用 [Caddy Server](https://caddyserver.com/) 进行加密吧。它经过简单的配置就能投入生产环境中。例如，你可以使用下面四行代码轻松让你的 Go 应用使用代理：
 
 ```
 calhoun.io {
@@ -78,43 +77,43 @@ calhoun.io {
 }
 ```
 
-And Caddy will automatically handle everything SSL related for you.
+然后 Caddy 会为你自动处理所有与 SSL 有关的事务。
 
-Preventing cookie theft via access to the hardware is a much trickier scenario. We can't exactly force our users to use a security system or to properly password their computer, so there is always the risk that someone will just sit down at their computer and steal some cookies then leave. Cookies could also be stolen via a virus, so if a user clicked on a shady attachment we could be looking at similar circumstances.
+防范通过访问硬件来窃取 Cookie 是十分棘手的事情。我们不能强制我们的用户使用高安全性系统，也不能逼他们为电脑设置密码，所以总会有他人坐在电脑前偷走 Cookie 的风险。此外，Cookie 也可能被病毒窃取，可能用户打开了某些钓鱼邮件时就会出现这种情况。
 
-What often makes this even more challenging is that it is harder to detect. If someone stole your watch, you would notice when you realized it wasn't on your wrist. Cookies on the other hand can be copied and used often without anyone realizing.
+不过这些都容易被发现。例如，如果有人偷了你的手表，当你发现表不在手上时你立马就会注意到它被偷了。然而 Cookie 还可以被复制，这样任何人都不会意识到它已经丢了。
 
-While not a failsafe, you can use a few techniques to detect stolen cookies. For example, you could track what device the user is logging in with and then flag any new hardware, requiring them to reenter their password. You could also track IP addresses, alerting users of suspicious login locations.
+虽然不是万无一失，但你还是可以用一些技术来猜测 Cookie 是否被盗了。例如，你可以追踪用户的登录设备，要求他们重新输入密码。你还可以跟踪用户的 IP 地址，当其在可疑地点登录时通知用户。
 
-All of these solutions require a bit more backend work to track the data, and are things you should work towards if your application deals with sensitive data, money, or is gaining popularity.
+所有的这些解决方案都需要后端做更多的工作来追踪数据，如果你的应用需要处理一些敏感信息、金钱，或者它的收益可观的话，请在安全方面投入更多精力。
 
-That said, for most applications this is likely overkill in the first version and simply using SSL is good enough to release.
+也就是说，对于大多数只是作为过渡版本的应用来说，使用 SSL 就足够了。
 
-## Cookie tampering (aka users faking data)
+## Cookie 篡改（也叫用户伪造数据）
 
-Let's face it - some people are jerks, and SOMEONE is going to try to look at a cookie you set and try to change its value. Even if only done out of curiosity, it will happen and you need to be ready for it.
+请直面这种情况 —— 可能有一些混蛋突然就想看看你设的 Cookie，然后修改它的值。也可能他是出于好奇才这么做的，但是还是请你为这种可能发生的情况做好准备。
 
-In some of these situations we likely don't care. For example, if we let users define a theme preference we likely don't really care if they alter this. When it is invalid we can just revert to a default theme, and if they change it to a valid theme we can just use that theme without doing any harm.
+在一些情景中，我们对此并不在意。例如，我们给用户定义一种主题设置时，并不会关心用户是否改变了这个设置。当这个 Cookie 过期时，就会恢复默认的主题设置，并且如果用户设置其为另一个有效的主题时我们可以让他正常使用那个主题，这并不会对系统造成任何损失。
 
-In other cases we likely will care a lot more. Editing session cookies and attempting to impersonate another user is a much bigger deal than changing your theme, and we clearly don't want Joe pretending to be Sally.
+但是在另一些情况下，我们需要格外小心。编辑会话 Cookie 冒充另一个用户产生的危害比改个主题大得多。我们绝不想看到张三假装自己是李四。
 
-We are going to cover two strategies to detect and prevent cookie tampering.
+我们将介绍两种策略来检测与防止 Cookie 被篡改。
 
-#### 1. Digitally sign the data
+#### 1. 对数据进行数字签名
 
-Digitally signing data is the act of adding a "signature" to the data so that you can verify it's authenticity. Data doesn't need to be encrypted or masked from the end user, but we do need to add enough data to our cookie so that if a user alters the data we can detect it.
+对数据进行数字签名，即对数据增加一个“签名”，这样能让你校验数据的可靠性。这种方法并不需要对终端用户的数据进行加密或隐藏，只要对 Cookie 增加必要的签名数据，我们就能检测到用户是否修改数据。
 
-The way this works with cookies is via a hash - we hash the data, then store both the data along with the hash of the data in the cookie. Then later when the user sends the cookie to us, we hash the data again and verify that it matches the original hash we created.
+这种保护 Cookie 的方法原理是哈希编码 —— 我们对数据进行哈希编码，接着将数据与它的哈希编码同时存入 Cookie 中。当用户发送 Cookie 给我们时，再对数据进行哈希计算，验证此时的哈希值与原始哈希值是否匹配。
 
-We don't want users also creating new hashes, so you will often see hashing algorithms like HMAC being used so that the data can be hashed using a secret key. This prevents end users from editing both the data and the digital signature (the hash).
+我们当人不会想看到用户也创建一个新的哈希来欺骗我们，因此你可以使用一些类似 HMAC 之类的哈希算法来使用秘钥对数据进行哈希编码。这样就能防范用户同时编辑数据与数字签名（即哈希值）。
 
-> Digitally signing data is built into [JSON Web Tokens (JWT)](https://jwt.io/) by default, so you might already be familiar with this approach.
+> [JSON Web Tokens（JWT）](https://jwt.io/) 默认内置了数字签名功能，因此你可能对这种方法比较熟悉。
 
-This can be done in Go using a package like Gorilla's [securecookie](http://www.gorillatoolkit.org/pkg/securecookie), where you provide it with a hash key when creating a `SecureCookie` and then use that object to secure your cookies.
+在 Go 中，可以使用类似 Gorilla 的 [securecookie](http://www.gorillatoolkit.org/pkg/securecookie) 之类的 package，你可以在创建 `SecureCookie` 事使用它来保护你的 Cookie。
 
 ```
-// It is recommended to use a key with 32 or 64 bytes, but
-// this key is less for simplicity.
+// 推荐使用 32 字节或 64 字节的 hashKey
+// 此处为了简洁故设为了 “very-secret”
 var hashKey = []byte("very-secret")
 var s = securecookie.New(hashKey, nil)
 
@@ -132,7 +131,7 @@ func SetCookieHandler(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-You could then read this cookie by using the same SecureCookie object in another handler.
+然后你可以在另一个处理 Cookie 的函数中同样使用 SecureCookie 对象来读取 Cookie。
 
 ```
 func ReadCookieHandler(w http.ResponseWriter, r *http.Request) {
@@ -145,144 +144,142 @@ func ReadCookieHandler(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-*Examples adapted from examples at [http://www.gorillatoolkit.org/pkg/securecookie](http://www.gorillatoolkit.org/pkg/securecookie).*
+**以上样例来源于 [http://www.gorillatoolkit.org/pkg/securecookie](http://www.gorillatoolkit.org/pkg/securecookie).**
 
-> Note: The data here IS NOT encrypted, but is only encoded. We discuss how to encrypt the data in the "data leaks" section.
+> 注意：这儿的数据并不是进行了加密，而只是进行了编码。我们会在“数据泄露”一章讨论如何对数据进行加密。
 
-One important caveat to this pattern is that if you are doing authentication this way you need to be careful and follow a pattern like JWTs use where you add both user information and an expiration date in the data that is digitally signed. You cannot rely solely on cookie expiration dates because the date stored on the cookie isn't signed, and a user could create a new cookie with no expiration date and copy the signed cookie over to it, essentially creating a cookie that keeps them logged in forever.
+这种模式还需要注意的是，如果你使用这种方式进行身份验证，请遵循 JWT 的模式，将登录过期日期和用户数据同时进行签名。你不能只凭 Cookie 的过期日期来判断登录是否有效，因为存储在 Cookie 上的日期并未经过签名，且用户可以创建一个永不过期的新 Cookie，将原 Cookie 的内容复制进去就得到了一个永远处于登录状态的 Cookie。
 
-#### 2. Obfuscate data
+#### 2. 进行数据混淆
 
-Another solution is to mask your data in a way that makes it impossible for users to fake it. Eg, rather than storing a cookie like:
+还有一种解决方案可以隐藏数据并防止用户造假。例如，不要这样存储 Cookie：
 
 ```
-// Don't do this
+// 别这么做
 http.Cookie{
   Name: "user_id",
   Value: "123",
 }
 ```
 
-We could instead store data that maps to the real data in our database. This is often done with session IDs or remember tokens, where we have a table named `remember_tokens` and then store data in it like so:
+我们可以存储一个值来映射存在数据库中的真实数据。通常使用 Session ID 或者 remember token 来作为这个值。例如我们有一个名为 `remember_tokens` 的表，这样存储数据：
 
 ```
 remember_token: LAKJFD098afj0jasdf08jad08AJFs9aj2ASfd1
 user_id: 123
 ```
 
-We would then only store the remember token in the cookie, and even if the user wanted to fake it they wouldn't know what to change it to. It just looks like gibberish.
+在 Cookie 中，我们仅存储这个 remember token。如果用户想伪造 Cookie 也会无从下手。它看上去就是一堆乱码。
 
-Later when a user visits our application we would look up the remember token in our database and determine which user they are logged in as.
+之后当用户要登陆我们的应用时，再根据 remember token 在数据库中查询，确定用户具体的登录状态。
 
-In order for this to work well, you need to ensure that your obfuscated data is:
+为了让此措施正常工作，你需要确保你的混淆值有以下特性：
 
-- Maps to a user (or some other resource)
-- Random
-- Has significant entropy
-- Can be invalidated (eg delete/change the token stored in the DB)
+- 能映射到用户数据（或其它资源）
+- 随机
+- 熵值高
+- 可被无效化（例如在数据库中删除、修改 token 值）
 
-One downside to this approach is that it requires a database lookup upon every page request that you need to authenticate the user, but this is rarely noticeable and can be mitigated with caching and other similar techniques. An upside to this approach over say JWT is that you can immediately invalidate sessions.
+这种方法也有一个缺点，就是在用户访问每个需要校验权限的页面时都得进行数据库查询。不过这个缺点很少有人注意，而且可以通过缓存等技术来减小数据库查询的开销。这种方法的升级版就是 JWT，应用这种方法你可以随时使会话无效化。
 
-*Note: This is the most common authentication strategy I am aware of, despite JWT gaining popularity recently with all the JS frameworks.*
+**注意：尽管目前 JWT 收到了大多数 JS 框架的追捧，但上文这种方法是我了解的最常用的身份验证策略。**
 
-## Data leaks
+## 数据泄露
 
-Data leaks often require another attack vector - like cookie theft - before they can become a real concern, but it is always good to err on the side of caution. Just because a cookie gets stolen doesn't mean we want to accidentally tell the attacker the user's password as well.
+在真正出现数据泄露前，通常需要另一种攻击向量 —— 例如 Cookie 窃取。然而还是很难去正确地判断并提防数据的发生。因为仅仅是 Cookie 发生了泄露并不意味着攻击者也得到了用户的账户密码。
 
-Whenever storing data in cookies, always minimize the amount of sensitive data stored there. Don't store things like a user's password, and be sure that any encoded data also doesn't have this. Articles like [this one](https://hackernoon.com/your-node-js-authentication-tutorial-is-wrong-f1a3bf831a46#2491) point out a few instances where developers have unknowingly stored sensitive data in cookies or JWTs because it was base64 encoded, but in reality anyone can decode this data. It is encoded, NOT encrypted.
+无论何时，都应当减少存储在 Cookie 中的敏感数据。绝不要将用户密码之类的东西存在 Cookie 中，即使密码已经经过了编码也不要这么做。[这篇文章](https://hackernoon.com/your-node-js-authentication-tutorial-is-wrong-f1a3bf831a46#2491) 给出了几个开发者无意间将敏感数据存储在 Cookie 或 JWT 中的实例，由于（JWT 的 payload）是 base64 编码，没有经过任何加密，因此任何人都可以对其进行解码。
 
-This is a pretty big blunder to make, so if you are concerned with accidentally storing something sensitive I suggest you look into packages like Gorilla's [securecookie](http://www.gorillatoolkit.org/pkg/securecookie).
+出现数据泄露可是犯了大错。如果你担心你不小心存储了一些敏感数据，我建议你使用如 Gorilla 的 [securecookie](http://www.gorillatoolkit.org/pkg/securecookie) 之类的 package。
 
-Earlier we discussed how it can be used to digitally sign your cookies, but `securecookie` can also be used to encrypt and decrypt your cookie data so that it can't be decoded and read easily.
+前面我们讨论了如何对你的 Cookie 进行数字签名，其实 `securecookie` 也可以用于加密与解密你的 Cookie 数据，让你的数据不能被轻易地解码并读取。
 
-To enable encryption with the package, you simply need to pass in a block key when creating your `SecureCookie` instance.
+使用这个 package 进行加密，你只需要在创建 `SecureCookie` 实例时传入一个“块秘钥”（blockKey）即可。
 
 ```
 var hashKey = []byte("very-secret")
-// Add this part for encryption.
+// 增加这一部分进行加密
 var blockKey = []byte("a-lot-secret")
 var s = securecookie.New(hashKey, blockKey)
 ```
 
-Everything else is the same as the samples in the digital signatures section of this article.
+其它所有东西都和前面章节的数字签名中的样例一致。
 
-It is important to mention here that you still SHOULD NOT store any really sensitive data in a cookie; especially not things like a password. Encryption is simply a technique to help secure things up a little extra in case something semi-sensitive ends up in a cookie.
+再次提醒，你**不应该**在 Cookie 中存储任何敏感数据，尤其不能存储密码之类的东西。加密仅仅是一项为数据增加一部分安全性，使其成为”半敏感数据“数据的技术而已。
 
-## Cross-site scripting (XSS)
+## 跨站脚本攻击（XSS）
 
-[Cross-site scripting](https://en.wikipedia.org/wiki/Cross-site_scripting), often denoted as XSS, occurs when someone manages to inject some JavaScript into your site that you didn't write, but because of the way the attack works the browser doesn't know that and runs the JavaScript as if your server did provide the code.
+[跨站脚本（Cross-site scripting）](https://en.wikipedia.org/wiki/Cross-site_scripting)也经常被记为 XSS，及有人试图将一些不是你写的 JavaScript 代码注入你的网站中。但由于其攻击的机理，你无法知道正在浏览器中运行的 JavaScript 代码到底是不是你的服务器提供的代码。
 
-You should be doing your best to prevent XSS in general, and we won't go into too much detail about what it is here, but JUST IN CASE it slips through I suggest disabling JavaScript access to cookies whenever it isn't needed. You can always enable it later if you need it, so don't let that be an excuse to leave yourself vulnerable either.
+无论何时，你都应该尽量去阻止 XSS 攻击。在本文中我们不会深入探讨这种攻击的具体细节，但是**以防万一**我建议你在非必要的情况下禁止 JavaScript 访问 Cookie 的权限。在你需要这个权限的时候你可以随时开启它，所以不要让它成为你的网站安全性脆弱的理由。
 
-Doing this in Go is simple enough. You simply set the `HttpOnly` field to true in any cookies you create.
+在 Go 中完成这点很简单，只需要在创建 Cookie 时设置 `HttpOnly` 字段为 true 即可。
 
 ```
 cookie := http.Cookie{
-  // true means no scripts, http requests only. This has
-  // nothing to do with https vs http
+  // true 表示脚本无权限，只允许 http request 使用 Cookie。
+  // 这与 Http 与 Https 无关。
   HttpOnly: true,
 }
 ```
 
-## CSRF (Cross Site Request Forgery)
+## CSRF（跨站请求伪造）
 
-CSRF occurs when a user visits a site that isn't yours, but that site has a form submitting to your web application. Because the end user submits the form and this isn't done via a script, the browser treats this as a user-initiated action and passes cookies along with the form submission.
+CSRF 发生的情况为某个用户访问别人的站点，但那个站点有一个能提交到你的 web 应用的表单。由于终端用户提交表单时的操作不经由脚本，因此浏览器会将此请求设为用户进行的操作，将 Cookie 附上表单数据同时发送。
 
-This doesn't seem too bad at first, but what happens when that external site starts sending over data the user didn't intend? For example, badsite.com might have a form that submits a request to transfer $100 to their bank account to chase.com hoping that you are logged into a bank account there, and this could lead to money being transfered without the end user intending to.
+乍一看似乎这没什么问题，但是如果外部网站发送一些用户不希望发送的数据时会发生什么呢？例如，badsite.com 中有个表单，会提交请求将你的 100 美元转到他们的账户中，而 chase.com 希望你在它这儿登录你的银行账户。这可能会导致在终端用户不知情的情况下钱被转走。
 
-Cookies aren't directly at fault for this, but if you are using cookies for things like authentication you need to prevent this using a package like Gorilla's [csrf](http://www.gorillatoolkit.org/pkg/csrf).
+Cookie 不会直接导致这样的问题，不过如果你使用 Cookie 作为身份验证的依据，那你需要使用 Gorilla 的 [csrf](http://www.gorillatoolkit.org/pkg/csrf) 之类的 package 来避免 CSRF 攻击。
 
-This package works by providing you with a CSRF token you can insert into every web form, and whenever a form is submitted without a token the `csrf` package's middleware will reject the form, making it impossible for external sites to trick users into submitting forms.
+这个 package 将会提供一个 CSRF token，插入你网站的每个表单中，当表单中不含 token 时，`csrf` package 中间件将会阻止表单的提交，使得别的网站不能欺骗用户在他们那儿向你的网站提交表单。
 
-*For more on what CSRF is, see the following:*
+**更多关于 CSRF 攻击的资料请参阅：**
 
 - [https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF))
 - [https://en.wikipedia.org/wiki/Cross-site_request_forgery](https://en.wikipedia.org/wiki/Cross-site_request_forgery)
 
-## Limit cookie access where it isn't needed
+## 在非必要时限制 Cookie 的访问权限
 
-The last thing we are going to discuss isn't related to a specific attack, but is more of a guiding principle that I suggest when working with cookies - limit access wherever you can, and only provide access when it is needed.
+我们要讨论的最后一件事与特定的攻击无关，更像是一种指导原则。我建议在使用 Cookie 时尽量限制其权限，仅在你需要时开发相关权限。
 
-We touched on this briefly when discussing XSS, but the general idea is that you should limit access to your cookies wherever you can. For example, if your web application doesn't use subdomains, you have no reason to give all subdomains access to your cookies. This is the default for cookies, so you don't actually need to do anything to limit to a specific domain.
+前面讨论 XSS 时我也简单的提到过这点，但一般的观点是你需要尽可能限制对 Cookie 的访问。例如，如果你的 Web 应用没有使用子域名，那你就不应该赋予 Cookie 所有子域的权限。不过这是 Cookie 的默认值，因此其实你什么都不用做就能将 Cookie 的权限限制在某个特定域中。
 
-On the other hand, if you do need share your cookie with subdomains you can do so with something like this:
+但是，如果你需要与子域共享 Cookie，你可以这么做：
 
 ```
 c := Cookie{
-  // Defaults to host-only, which means exact subdomain
-  // matching. Only change this to enable subdomains if you
-  // need to! The below code would work on any subdomain for
-  // yoursite.com
+  // 根据主机模式的默认设置，Cookie 进行的是精确域名匹配。
+  // 因此请仅在需要的时候开启子域名权限！
+  // 下面的代码可以让 Cookie 在 yoursite.com 的任何子域下工作：
   Domain: "yoursite.com",
 }
 ```
 
-*For more information on how the domain is resolved, see [https://tools.ietf.org/html/rfc6265#section-5.1.3](https://tools.ietf.org/html/rfc6265#section-5.1.3). You can also see the source code where this gets its default value at [https://golang.org/src/net/http/cookie.go#L157](https://golang.org/src/net/http/cookie.go#L157).*
+**欲了解更多有关域的信息，请参阅 [https://tools.ietf.org/html/rfc6265#section-5.1.3](https://tools.ietf.org/html/rfc6265#section-5.1.3)。你也可以在这儿阅读源码，参阅其默认设置：[https://golang.org/src/net/http/cookie.go#L157](https://golang.org/src/net/http/cookie.go#L157).**
 
-*You can also read [this stack overflow question](https://stackoverflow.com/questions/18492576/share-cookie-between-subdomain-and-domain) for more info on why you don't need the period prefix you used to need for subdomain cookies, and the Go code linked also shows that the leading period will be trimmed anyway if you provide it.*
+**你可以参阅 [这个 stackoverflow 的问题](https://stackoverflow.com/questions/18492576/share-cookie-between-subdomain-and-domain) 了解更多信息，弄明白为什么在为紫玉使用 Cookie 时不需要提供子域前缀。此外 Go 源码链接中也可以看到如果你提供前缀名的话会被自动去除。**
 
-On top of limiting to specific domains, you can also limit your cookies to specific paths.
+除了将 Cookie 的权限限制在特定域上之外，你还可以将 Cookie 限制于某个特定的目录路径中。
 
 ```
 c := Cookie{
-  // Defaults to any path on your app, but you can use this
-  // to limit to a specific subdirectory. Eg:
+  // Defaults 设置为可访问应用的任何路径，但你也可以
+  // 进行如下设置将其限制在特定子目录下：
   Path: "/app/",
 }
 ```
 
-The TL;DR is you can set path prefixes with something like `/blah/`, but if you would like to read more about how this field works you can check out [https://tools.ietf.org/html/rfc6265#section-5.1.4](https://tools.ietf.org/html/rfc6265#section-5.1.4).
+还有你也可以对其设置路径前缀，例如 `/blah/`，你可以参阅下面这篇文章了解更多这个字段的使用方法：[https://tools.ietf.org/html/rfc6265#section-5.1.4](https://tools.ietf.org/html/rfc6265#section-5.1.4).
 
-## Why not just use JWTs?
+## 为什么我不使用 JWT？
 
-This will inevitably come up, so I'm going to address it briefly.
+就知道肯定会有人提出这个问题，下面让我简单解释一下。
 
-Despite what many people may tell you, cookies can be just as secure as JWTs. In fact, JWTs and cookies don't really even solve the same issue, as JWTs could be stored inside of cookies and used virtually identical to how they are used when provided as a header.
+可能有很多人和你说过，Cookie 的安全性与 JWT 一样。但实际上，Cookie 与 JWT 解决的并不是相同的问题。比如 JWT 可以存储在 Cookie 中，这和将其放在 Header 中的实际效果是一样的。
 
-Regardless, cookies can be used for non-authentication data, and even in those cases I find knowing about proper security measures is useful.
+另外，Cookie 可用于无需验证的数据，在这种情况下了解如何增加 Cookie 的安全性也是必要的。
 
 
   ---
 
   > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[React](https://github.com/xitu/gold-miner#react)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计) 等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
-  
