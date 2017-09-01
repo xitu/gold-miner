@@ -3,30 +3,26 @@
   > * 原文作者：[Benedikt Meurer](http://benediktmeurer.de/)
   > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
   > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/v8-behind-the-scenes-november-edition.md](https://github.com/xitu/gold-miner/blob/master/TODO/v8-behind-the-scenes-november-edition.md)
-  > * 译者：
+  > * 译者：逆寒
   > * 校对者：
 
   # V8: 引擎背后
 
   So this is my attempt to start a series of blog posts about what’s going on behind the scenes of V8 in order to bring more transparency to what we do for [Node.js](https://nodejs.org) and [Chrome](https://www.google.com/chrome), and how this affects developers targeting either Node.js or Chrome. I’ll mostly talk about stuff where I’m actively involved, so mostly things that are related to JavaScript Execution Optimization, new language features and a few tooling/embedder related issues.
 
-  为了使我们为Node.js和Chrome所做的工作以及其对Node.js或Chrome开发者的影响更加公开透明，这是我就V8幕后发生的故事所尝试撰写的一系列博文。在文中，我将对我主动参与的部分进行详细阐述，内容大致涉及JavaScript 执行优化、新的语言特性及工具/嵌入器相关事务。
-
-Any opinions expressed in these posts are my own and don’t necessarily reflect the official position of Google or the Chrome/V8 teams. Also these articles are clearly targeting the primary audience of V8 itself, which are developers utilizing V8 through Node.js, Chrome or some other embedder to build and deliver awesome products to the end user. I’ll try to not only scratch the surface, but also provide some background information and interesting details whenever feasible.
+  为了使我们为Node.js和Chrome所做的工作以及其对 [Node.js](https://nodejs.org) 或 [Chrome](https://www.google.com/chrome) 开发者的影响更加公开透明，这是我就V8幕后发生的故事所尝试撰写的一系列博文。在文中，我将对我主动参与的部分进行详细阐述，内容大致涉及JavaScript 执行优化、新的语言特性及工具/嵌入器相关事务。
 
 在这一系列的博文中，所有观点均为个人观点，并不代表 Google 或 Chrome/V8 团队的官方口径。这一系列文章针对 V8 引擎的主要受众，他们通过 Node.js，Chrome 或者其他嵌入器使用V8引擎，为终端用户提供了一流的产品。在文中，我尽量提供一些背景信息和有趣的细节，避免浅尝辄止、走马观花之嫌。
 
-In this first article I’m going to give a brief update on our ongoing work on the TurboFan compiler architecture and the Ignition interpreter, and the current progress on the ES2015 and beyond performance front.
-
 在首篇，我会简要介绍我们目前在 TurboFan 编译架构 和 Ignition 解释器上的工作内容，ES2015的进度以及一些性能相关的内容。
 
-## An update on Ignition and TurboFan
+
 
 ## 基于 Ignition 和 Turbofan 的更新
 
 ![Brace yourself - TurboFan and Ignition are coming](http://benediktmeurer.de/images/2016/brace-yourself-turbofan-ignition-are-coming.jpeg)
 
-As those of you following the work on V8 somewhat closely have probably already figured out, we’re finally starting to ship the new architecture for V8, which is based on the [Ignition interpreter](http://v8project.blogspot.de/2016/08/firing-up-ignition-interpreter.html) and the [TurboFan compiler](http://v8project.blogspot.de/2015/07/digging-into-turbofan-jit.html). You have probably also already spotted the *Chrome (Ignition)* and *Chrome (TurboFan, Ignition)* graphs on [arewefastyet](http://arewefastyet.com). These reflect two possible configurations, which are currently being evaluated:
+
 
 在 V8 工作内容方面，如一些人预料到的那样，我们终于着手为V8升级新的架构了。 新的架构基于 [Ignition 解释器](http://v8project.blogspot.de/2016/08/firing-up-ignition-interpreter.html) 和 [TurboFan 编译器](http://v8project.blogspot.de/2015/07/digging-into-turbofan-jit.html)。有可能你在[arewefastyet](http://arewefastyet.com) 上看到了*Chrome (Ignition)* and *Chrome (TurboFan, Ignition)* 的图表，两种可能的配置正在评估中。
 
@@ -39,7 +35,7 @@ As those of you following the work on V8 somewhat closely have probably already 
 
 In addition to that, [as of yesterday](https://codereview.chromium.org/2505933008) we are finally starting to pull the plug on fullcodegen for (modern) JavaScript features - that Crankshaft was never able to deal with - in the default configuration, which means that for example using `try`-`catch` in your code will now always route these functions through Ignition and TurboFan, instead of fullcodegen and eventually TurboFan (or even leaving the function unoptimized in fullcodegen). This will not only boost the performance of your code, and allow you to write cleaner code because you no longer need to work-around certain architectural limitations in V8, but also allows us to simplify our overall architecture quite significantly. Currently the overall compilation architecture for V8 still looks like this:
 
-除此之外，昨天我们终于停止了 fullcodegen， 以在默认配置中支持（Crankshaft 打死都不支持的）JavaScript 新特性。也就是说，比如当你在代码中使用了 `try`-`catch`，现在这些函数的运行会经过 Ignition 和 TurboFan，而不是经过 fullcodegen 然后最终经过 TurboFan （或者甚至不经过 TurboFan 优化）。这不仅能增强你的代码的性能，使你写出更干净整洁的代码，因为你无须再做那些为应对某些框架的限制而做的多余工作，而且，这还使我们极其显著地简化了整体架构。当前 V8 的整体编译架构仍然长这个样子：
+除此之外，[昨天](https://codereview.chromium.org/2505933008)我们终于停止了 fullcodegen， 以在默认配置中支持（Crankshaft 打死都不支持的）JavaScript 新特性。也就是说，比如当你在代码中使用了 `try`-`catch`，现在这些函数的运行会经过 Ignition 和 TurboFan，而不是经过 fullcodegen 然后最终经过 TurboFan （或者甚至不经过 TurboFan 优化）。这不仅能增强你的代码的性能，使你写出更干净整洁的代码，因为你无须再做那些为应对某些框架的限制而做的多余工作，而且，这还使我们极其显著地简化了整体架构。当前 V8 的整体编译架构仍然长这个样子：
 
 
 ![Old V8 pipeline](http://benediktmeurer.de/images/2016/v8-old-pipeline-20161125.png)
@@ -50,11 +46,9 @@ This comes with a lot of problems, especially considering new language features 
 
 ![New V8 pipeline](http://benediktmeurer.de/images/2016/v8-new-pipeline-20161125.png)
 
-This simplified pipeline offers a lot of opportunities, not only reducing the technical debt that we accumulated over the years, but it will enable a lot of optimizations that weren’t possible in the past, and it will help to reduce the memory and startup overhead significantly long-term, since for example the AST is no longer the primary source of truth on which all compilers need to agree on, thus we will be able to reduce the size and complexity of the AST significantly.
+
 
 简化管道后有诸多好处，不仅减少了技术了历史包袱，过去无法实现的优化也成了可能，又因为各个编译器不需要完全依照 AST，所以 对减少长期的内存使用和启动消耗大有裨益。所以我们才可能大幅降低 AST 的大小和复杂性。
-
-So where do we stand with Ignition and TurboFan as of today? We’ve spend a lot of time this year catching up with the default configuration. For Ignition that mostly meant catching up with startup latency and baseline performance, while for TurboFan a lot of that time was spend catching up on peak performance for traditional (and modern) JavaScript workloads. This turned out to be a lot more involved than we expected three years ago when we started TurboFan, but it’s not really surprising given that an average of 10 awesome engineers spent roughly 6 years optimizing the old V8 compiler pipeline for various workloads, especially those measured by static test suites like [Octane](https://developers.google.com/octane), [Kraken](http://krakenbenchmark.mozilla.org) and [JetStream](http://browserbench.org/JetStream). Since we started with the full TurboFan and Ignition pipeline in August, we almost tripled our score on Octane and got a roughly 14x performance boost on Kraken (although this number is a bit misleading as it just highlights the fact that initially we couldn’t tier up a function from Ignition to TurboFan while the function was already executing):
 
 时至如今，我们对 Ignition 和 TurboFan 的使用又走到了哪一步了呢？我们已经花了大量时间实现默认配置，对于 Ignition 而言是在启动延迟和基线性能方面加紧优化，而对于 TurboFan，大部分时间花在了提高传统（与现代） JavaScript 运行的性能峰值上。这实际上比三年前刚开始使用 TurboFan 的我们的预期要复杂很多。但想到差不多 10 个了不起的工程师花了将近 6 年的时间才优化了旧的 V8 编译器管道，这其实也并不令人惊讶，特别是那些由 [Octane](https://developers.google.com/octane)， [Kraken](http://krakenbenchmark.mozilla.org) 和 [JetStream](http://browserbench.org/JetStream) 这样的静态测试套件测量的工作。
 
@@ -94,7 +88,11 @@ and we will now try to make as much of this information available to the public 
 
 The performance (and to some extend feature) work on ES2015 and ES.Next features is the other big topic that I’m involved in. Earlier this year we decided that we will have to invest resources in making ES2015 and beyond viable for usage in practice, which means that we must not only ship the fundamental feature, but we also need to integrate it with tooling (i.e. the debugger and profiler mechanisms in [Chrome Developer Tools](https://developer.chrome.com/devtools)) and we need to provide somewhat decent performance, at least compared to the transpiled version (i.e. as generated by [Babel](http://babeljs.io/) or other transpilers) and a naive ES5 version (which doesn’t need to match the sematics exactly). For the performance work, we set up a publicly available [performance plan](https://docs.google.com/document/d/1EA9EbfnydAmmU_lM8R_uEMQ-U_v4l9zulePSBkeYWmY) where we record the areas of work and track the current progress.
 
+我参与提升ES2015 和 ES,Next的性能又是另一个一言难尽的话题了。今年年初，我们决定了要使ES2015和后面的标准可用需要投入多大的资源，可用不单单意味着重大特性的发行，也意味着一些开发工具（比如[Chrome 开发者工具](https://developer.chrome.com/devtools)的调试器和性能分析器）也得整合在内。此外，编译后的版本（比如[Babel](http://babeljs.io/)或者其他编译器生成的文件）相比，性能自然也得不一般。在提升性能方面的工作上，我们制定了[性能计划](https://docs.google.com/document/d/1EA9EbfnydAmmU_lM8R_uEMQ-U_v4l9zulePSBkeYWmY)，公之于众。这份计划记录了工作涉及的方方面面和进度。
+
 For finding horrible performance cliffs and tracking progress on the relevant issues, we’re currently mostly using the so-called [six-speed](https://github.com/kpdecker/six-speed) performance test, which tests the performance of ES6 (and beyond) features compared to their naive ES5 counterparts, i.e. not a 100% semantically equivalent version, but the naive version that a programmer would likely pick instead. For example an array destructuring like this
+
+为了找到可怕的性能天堑，追踪解决相关的问题的进度，目前我们采用了所谓的[六速](https://github.com/kpdecker/six-speed)性能测试，这份测试致力于比较原生ES5和ES6对应特性的性能，对应特性是指不一定100%语义上的吻合，而是程序员退而选择的原生版本。拿数组结构举例：
 
 ```
 var data = [1, 2, 3];
@@ -106,6 +104,8 @@ function fn() {
 ```
 
 in ES6 roughly corresponds to this code
+
+在 ES6 大致相当于：
 
 ```
 var data = [1, 2, 3];
@@ -212,7 +212,7 @@ and still generate awesome code for it. Assuming we run this example function wi
 
 We are not only able to inline the custom `Even[Symbol.hasInstance]()` method, but TurboFan also consumes the integer feedback that Ignition collected for the modulus operator and turns the `x % 2` into a bitwise-and operation. There are still a couple of details that could be better about this code, but as mentioned above we’re still working to improve TurboFan.
 
-我们不仅能够内联自定义的`Even[Symbol.hasInstance]()` 方法，但是TurboFan 在消化 ？？？这段代码还有一些细节可以更棒，但如上文提及，我们仍在努力提升 TurboFan。
+我们不仅能够内联自定义的`Even[Symbol.hasInstance]()` 方法，Ignition为模块化的操作符收集的整数反馈后，被TurboFan 在消化后将 `x % 2`  转换为 按位和操作。这个过程还有一些细节可以更棒，但如上文提及，我们仍在努力提升 TurboFan。
 
 ![Prepare for instanceof boost](http://benediktmeurer.de/images/2016/instanceof-20161125.jpg)
 
@@ -246,7 +246,7 @@ And obviously there are the people who contributed a lot to ES6 itself and the i
 
 So if you ever happen to meet one of them, and you like what they’re doing, consider inviting them for a beer or two.
 
-要是你碰巧遇到他们了，你中意他们对V8做的贡献，那就顺便请他们小酌一两杯吧。
+要是你碰巧遇到他们了，你中意他们对 V8 做的贡献，那就顺便请他们小酌一两杯吧。
 
 ---
 
