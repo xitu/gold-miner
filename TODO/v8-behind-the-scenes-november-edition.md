@@ -35,7 +35,7 @@ As those of you following the work on V8 somewhat closely have probably already 
 
 
 
-1.  *Chrome (Ignition)*，即`--ignition-staging`配置，在现有的编译器架构（例如由 full-codegen 基线编译器和 TurboFan、Crankshaft 优化编译器组成的架构）前加入了 Ignition 解释器作为第三层，但是从 Ignition 到 TurboFan 有一个直接的 tier up 策略以处理哪些 Crankshaft 无法应对的功能（如`try`-`catch`/-`finally`、`eval`、`for`-`of`、解构、`class` 字面量等）。这是对我们[今年早些时候宣布 Ignition 时](http://v8project.blogspot.de/2016/08/firing-up-ignition-interpreter.html)的原管道进行的微调。
+1.  *Chrome (Ignition)*，即`--ignition-staging`配置，在现有的编译器架构（例如由 fullcodegen 基线编译器和 TurboFan、Crankshaft 优化编译器组成的架构）前加入了 Ignition 解释器作为第三层，但是从 Ignition 到 TurboFan 有一个直接的 tier up 策略以处理那些 Crankshaft 无法应对的功能（如`try`-`catch`/-`finally`、`eval`、`for`-`of`、解构、`class` 字面量等）。这是对我们[今年早些时候宣布 Ignition 时](http://v8project.blogspot.de/2016/08/firing-up-ignition-interpreter.html)的原流水线进行的微调。
 
 In addition to that, [as of yesterday](https://codereview.chromium.org/2505933008) we are finally starting to pull the plug on fullcodegen for (modern) JavaScript features - that Crankshaft was never able to deal with - in the default configuration, which means that for example using `try`-`catch` in your code will now always route these functions through Ignition and TurboFan, instead of fullcodegen and eventually TurboFan (or even leaving the function unoptimized in fullcodegen). This will not only boost the performance of your code, and allow you to write cleaner code because you no longer need to work-around certain architectural limitations in V8, but also allows us to simplify our overall architecture quite significantly. Currently the overall compilation architecture for V8 still looks like this:
 
@@ -46,17 +46,17 @@ In addition to that, [as of yesterday](https://codereview.chromium.org/250593300
 
 This comes with a lot of problems, especially considering new language features that need to be implemented in various parts of the pipeline, and optimizations that need to be applied consistently across a couple of different (mostly incompatible) compilers. This also comes with a lot of overhead for tooling integration, i.e. DevTools, as tools like the debugger and the profiler need to function somewhat well and behave the same independent of the compiler being used. So middle-term we’d like to simplify the overall compilation pipeline to something like this:
 
-同时，这也带来了许多问题：尤其是考虑到新的语言特性需要通过管道的各个部分得以实现，不同的编译器（大部分是不兼容的）也要做出一致的优化。此外，类似 DevTools 的工具，其整合的管理成本也在攀升。像调试器或分析器等工具需独立于编译器而良好运行。所以在中期，我们会大致依照下图简化整体的编译管道。
+同时，这也带来了许多问题：尤其是考虑到新的语言特性需要通过流水线的各个部分得以实现，不同的编译器（大部分是不兼容的）也要做出一致的优化。此外，类似 DevTools 的工具，其整合的管理成本也在攀升。像调试器或分析器等工具需独立于编译器而良好运行。所以在中期，我们会大致依照下图简化整体的编译流水线。
 
 ![New V8 pipeline](http://benediktmeurer.de/images/2016/v8-new-pipeline-20161125.png)
 
 This simplified pipeline offers a lot of opportunities, not only reducing the technical debt that we accumulated over the years, but it will enable a lot of optimizations that weren’t possible in the past, and it will help to reduce the memory and startup overhead significantly long-term, since for example the AST is no longer the primary source of truth on which all compilers need to agree on, thus we will be able to reduce the size and complexity of the AST significantly.
 
-简化管道后有诸多好处，不仅减少了技术了历史包袱，过去无法实现的优化也成了可能，又因为各个编译器不需要完全依照 AST，所以 对减少长期的内存使用和启动消耗大有裨益。所以我们才可能大幅降低 AST 的大小和复杂性。
+简化流水线后有诸多好处，不仅减少了技术了历史包袱，过去无法实现的优化也成了可能，又因为各个编译器不需要完全依照 AST，所以 对减少长期的内存使用和启动消耗大有裨益。所以我们才可能大幅降低 AST 的大小和复杂性。
 
 So where do we stand with Ignition and TurboFan as of today? We’ve spend a lot of time this year catching up with the default configuration. For Ignition that mostly meant catching up with startup latency and baseline performance, while for TurboFan a lot of that time was spend catching up on peak performance for traditional (and modern) JavaScript workloads. This turned out to be a lot more involved than we expected three years ago when we started TurboFan, but it’s not really surprising given that an average of 10 awesome engineers spent roughly 6 years optimizing the old V8 compiler pipeline for various workloads, especially those measured by static test suites like [Octane](https://developers.google.com/octane), [Kraken](http://krakenbenchmark.mozilla.org) and [JetStream](http://browserbench.org/JetStream). Since we started with the full TurboFan and Ignition pipeline in August, we almost tripled our score on Octane and got a roughly 14x performance boost on Kraken (although this number is a bit misleading as it just highlights the fact that initially we couldn’t tier up a function from Ignition to TurboFan while the function was already executing):
 
-时至如今，我们对 Ignition 和 TurboFan 的使用又走到了哪一步了呢？我们已经花了大量时间实现默认配置，对于 Ignition 而言是在启动延迟和基线性能方面加紧优化，而对于 TurboFan，大部分时间花在了提高传统（与现代） JavaScript 运行的性能峰值上。这实际上比三年前刚开始使用 TurboFan 的我们的预期要复杂很多。但想到差不多 10 个了不起的工程师花了将近 6 年的时间才优化了旧的 V8 编译器管道，这其实也并不令人惊讶，特别是那些由 [Octane](https://developers.google.com/octane)， [Kraken](http://krakenbenchmark.mozilla.org) 和 [JetStream](http://browserbench.org/JetStream) 这样的静态测试套件测量的工作。
+时至如今，我们对 Ignition 和 TurboFan 的使用又走到了哪一步了呢？我们已经花了大量时间实现默认配置，对于 Ignition 而言是在启动延迟和基线性能方面加紧改进，而对于 TurboFan 而言，大部分时间花在了提高传统（与现代） JavaScript 运行的性能极限上。这实际上比三年前刚开始使用 TurboFan 的我们的预期要复杂很多。但想到差不多 10 个了不起的工程师花了将近 6 年的时间才优化了旧的 V8 编译器流水线，这其实也并不令人惊讶，特别是那些由 [Octane](https://developers.google.com/octane)， [Kraken](http://krakenbenchmark.mozilla.org) 和 [JetStream](http://browserbench.org/JetStream) 这样的静态测试套件测量的工作。自从 8 月份我们开始全面使用 TurboFan 和 Ignition 流水线后，我们在 Ostane 上的分数翻了将近三倍，而且在 Kraken 上获得了大概 14 倍的性能提升 （不过这个数字有一些夸张，只是强调一下我们最初做不到在一个函数执行期间将它从 Ignition 层提升到 TurboFan）。
 
 ![Octane score](http://benediktmeurer.de/images/2016/octane-20161125.png)
 
@@ -64,13 +64,13 @@ So where do we stand with Ignition and TurboFan as of today? We’ve spend a lot
 
 Now arguably these benchmarks are just a proxy for peak performance (and might not even be the best proxy), but you need to start somewhere and you need to measure and prove your progress if you want to replace the existing architecture. Comparing this to the default configuration, we can see that we almost closed the performance gap:
 
-这些代表高峰性能的基准又饱受争议，更别谈这些基准精准与否。但当你需要替换当前的架构时，又需要一个参考以便得知自己进度如何。我们与默认配置相比，便发现性能其实相差无几了。
+可能这些基准代表代表的只是性能峰值，更别谈这些基准精准与否。但当你需要替换当前的架构时，又需要一个参考以便得知自己进度如何。我们与默认配置相比，便发现性能其实相差无几了。
 
 ![Octane score (including default)](http://benediktmeurer.de/images/2016/octane-cs-20161125.png)
 
 There are also a couple of benchmarks where TurboFan and Ignition beat the default configuration significantly (often because Crankshaft would bailout from optimization due to some corner case that it cannot handle), but there are also benchmarks even on Octane where Crankshaft already generates pretty decent code, but TurboFan can generate even better code. For example in case of Navier Stokes, TurboFan benefits from somewhat [sane inlining heuristics](https://docs.google.com/document/d/1VoYBhpDhJC4VlqMXCKvae-8IGuheBGxy32EOgC2LnT8):
 
-还有诸多评判标准，指出默认性能和 TurboFan 及Ignition相比早是望其项背了。
+还有诸多基准测试结果表明默认配置和 TurboFan 及Ignition相比早是望其项背了（经常是因为 Crankshaft 由于一些极端情况无法完成优化），但也有一些基准测试中，即使 Octane 上 Crankshaft 已经生成相当可观的代码，结果还是被 TurboFan 比下去。例如在 Navier Stoker 的案例中，TurboFan 受益于所谓的 [sane inlining heuristics](https://docs.google.com/document/d/1VoYBhpDhJC4VlqMXCKvae-8IGuheBGxy32EOgC2LnT8)：
 
 ![Octane score (Navier Stokes)](http://benediktmeurer.de/images/2016/octane-navier-stokes-20161125.png)
 
@@ -132,7 +132,7 @@ This shows the improvements from V8 5.4 (which ships in current stable Chrome) t
 
 ### A closer look at `instanceof`
 
-###细看 `instanceof`
+### 细看 `instanceof`
 
 Besides the line items on the [six-speed](https://github.com/fhinkel/six-speed) table, we’re also actively working to improve the interaction of other new language features, that might not be so obvious on first sight. One particular, recent example that I’d like to mention here, is the [`instanceof` operator](https://tc39.github.io/ecma262/#sec-instanceofoperator) in ES2015 and the newly introduced well-known symbol [@@hasInstance](https://tc39.github.io/ecma262/#sec-symbol.hasinstance). When we worked on implementing ES2015 in V8, we didn’t have the resources to fully optimize every feature from the beginning, and we had to make sure that we don’t regress existing workloads and benchmarks just because of new ES2015 language features (which was still not possible 100% of the time, but nevertheless we managed to ship almost all of ES2015 by the end of last year without any major performance regressions). But especially the newly added well-known symbols caused some trouble there, as they are not local in the sense of *pay for what you use*, but are sort of global.
 
@@ -179,7 +179,7 @@ isEven(2); // true
 
 and still generate awesome code for it. Assuming we run this example function with the new pipeline (Ignition and TurboFan) using `--turbo` and `--ignition-staging`, TurboFan is able to produce the following (close to perfect) code on x64:
 
-假设我们通过`--turbo` 和`--ignition-staging`用新的编译器管道（Ignition and TurboFan）运行这段代码，TurboFan 在x64位上得出以下（近乎完美的）结果：
+假设我们通过`--turbo` 和`--ignition-staging`用新的编译器流水线（Ignition and TurboFan）运行这段代码，TurboFan 在x64位上得出以下（近乎完美的）结果：
 
 ```
 ...SNIP...
@@ -218,7 +218,7 @@ We are not only able to inline the custom `Even[Symbol.hasInstance]()` method, b
 
 ### The engineers behind all of this
 
-###幕后的工程师们
+### 幕后的工程师们
 
 Last but not least, I’d like to highlight that all of this is only possible because we have so many great engineers working on this, and we are
 obviously standing on the [shoulders](https://twitter.com/mraleph) of [giants](https://en.wikipedia.org/wiki/Lars_Bak_(computer_programmer)).
