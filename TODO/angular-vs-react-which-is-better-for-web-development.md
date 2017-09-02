@@ -18,7 +18,7 @@
 
 ### Angular 之殇
 
-两年前，我写了一篇有关 [React 生态系统](https://www.toptal.com/react/navigating-the-react-ecosystem) 的文章。以我的观点来说，Angular 是“预发布时就跪了”的倒霉蛋（victim of “death by pre-announcement”）。那个时候，任何不想让自己项目跑在过时框架上的开发者很容易在 Angular 和 React 之间做出选择。Angular 1 就是被时代抛弃的框架，Angular 2 甚至没有活到 alpha 版本。
+两年前，我写了一篇有关 [React 生态系统](https://www.toptal.com/react/navigating-the-react-ecosystem) 的文章。以我的观点来说，Angular 是“预发布时就跪了”的倒霉蛋（victim of “death by pre-announcement”）。那个时候，任何不想让自己项目跑在过时框架上的开发者很容易在 Angular 和 React 之间做出选择。Angular 1 就是被时代抛弃的框架，（原本的）Angular 2 甚至没有活到 alpha 版本。
 
 不过事后证明，这种担心是多多少少有合理性的。Angular 2 进行了大幅度的修改，甚至在最终发布前对主要部分进行了重写。
 
@@ -26,9 +26,9 @@
 
 怎么样？
 
-### Angular vs React：苹果与橘子的比较
+### Angular vs React：风牛马不相及 （Comparing Apples and Oranges）
 
-据说把 React 和 Angular 拿来比长短就像把苹果和橘子拿来比好吃一样。即便 React 只是一个处理界面的库，而 Angular 是一个完整齐备的全家桶框架。
+把 React 和 Angular 拿来比较是件很没意义的事情（校对逆寒： Comparing Apples and Oranges 是一种俚语说法，比喻把两件完全不同的东西拿来相提并论）。因为 React 只是一个处理界面（view）的库，而 Angular 是一个完整齐备的全家桶框架。
 
 当然，大部分 [React 开发者](https://www.toptal.com/react)会添加一系列的库，使得 React 成为完整的框架。但是这套完整框架的工作流程又一次和 Angular 完全不同，所以其可比性也很有限。
 
@@ -177,7 +177,7 @@ export class AppService {
 }
 ```
 
-基本上，所有希望使用的组件、所有需要引入的第三方库以及所有 provider 中需要注入的全局数据仓库（global store）都要预先声明。子组件可以访问到已声明的变量，而且有机会可以添加一些自己的东西。
+基本上，希望使用的组件要写在 `declarations` 中，需要引入的第三方库要写在 `imports` 中，希望注入的全局性数据仓库（global store）要写在 `providers` 中。子组件可以访问到已声明的变量，而且有机会可以添加一些自己的东西。
 
 #### React
 
@@ -248,7 +248,7 @@ Angular 的路由是已注入的，所以可以在程序的任何地方使用，
 
 Angular Router 自动检测处于当前页面的 `routerLink`，为其加载适当的 `routerLinkActive` CSS 样式，方便在页面中凸显。
 
-router 使用特殊的  `<router-outlet>` 标签来渲染当前的路径（不管是哪种）。当 app 的子组件嵌套的比较深的时候，便可以使用很多 `<router-outlet>` 标签。
+router 使用特殊的  `<router-outlet>` 标签来渲染当前路径对应的视图（不管是哪种）。当 app 的子组件嵌套的比较深的时候，便可以使用很多 `<router-outlet>` 标签。
 
 
 ```
@@ -261,7 +261,7 @@ export class FormService {
 }
 ```
 
-路由模块可以注入进任何服务（一半是因为 TypeScript 是强类型语言的功劳），`private` 的声明修饰可以将路由存储在组件的实例上，不需要再显示声明。使用 `navigate` 方法便可以切换路径。
+路由模块可以注入进任何服务（一半是因为 TypeScript 是强类型语言的功劳），`private` 的声明修饰可以将路由存储在组件的实例上，不需要再显式声明。使用 `navigate` 方法便可以切换路径。
 
 #### React
 
@@ -851,7 +851,7 @@ React 版本的做法差不多一样，不过既然 `apolloClient` 使用了 Pro
 
 #### 通用代码
 
-又一次，这是 GraphQL 相关的代码：
+同样的，这是 GraphQL 相关的代码：
 
 
 ```
