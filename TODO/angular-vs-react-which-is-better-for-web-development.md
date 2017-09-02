@@ -122,10 +122,9 @@ CSS 的类比较像是全局变量一类的东西。有许多方法来组织 CSS
 - [贴吧源码 Angular 版](https://github.com/tomaash/shoutboard-angular)
 - [贴吧源码 React 版](https://github.com/tomaash/shoutboard-react)
 
-你瞧，我们同样使用 TypeScript 编写 React app，因为能够使用类型检查的优势还是很赞的。作为一种处理引入更优秀的方式，async/await 以及 rest spread 如今终于可以在 TypeScript2 里使用了，这就让 Babel/ES7/[Flow](https://flow.org/) 显得有点过时（leaves Babel/ES7/[Flow](https://flow.org/) in the dust）。
+你瞧，我们同样使用 TypeScript 编写 React app，因为能够使用类型检查的优势还是很赞的。作为一种处理引入更优秀的方式，async/await 以及 rest spread 如今终于可以在 TypeScript2 里使用，这样就不需要 Babel/ES7/[Flow](https://flow.org/) 了（leaves Babel/ES7/[Flow](https://flow.org/) in the dust）。
 
->薛定谔的猫：其实并不是，babel 的扩展很强大的。ts 不支持的 babel 都可以通过插件支持（stage0~stage4）。
-这里是说有了 ts，就不用 babel/es7/flow 了。
+>薛定谔的猫：babel 的扩展很强大的。ts 不支持的 babel 都可以通过插件支持（stage0~stage4）。
 
 同样，我们为两者添加了 [Apollo Client](https://github.com/apollographql/apollo-client)，因为我希望使用 GraphQL 风格的接口。我的意思是，REST 风格的接口确实不错，但是经过十几年的发展后，它已经跟不上时代了。
 
