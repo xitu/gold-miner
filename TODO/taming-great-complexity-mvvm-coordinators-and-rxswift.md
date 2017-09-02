@@ -4,7 +4,8 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/taming-great-complexity-mvvm-coordinators-and-rxswift.md](https://github.com/xitu/gold-miner/blob/master/TODO/taming-great-complexity-mvvm-coordinators-and-rxswift.md)
 > * 译者：[jingzhilehuakai](https://github.com/jingzhilehuakai)
-> * 校对者：[cbangchen](https://github.com/cbangchen) 
+> * 校对者：[cbangchen](https://github.com/cbangchen) [swants](https://github.com/swants)
+            
 
 # MVVM, Coordinators 和 RxSwift 的抽丝剥茧
 
