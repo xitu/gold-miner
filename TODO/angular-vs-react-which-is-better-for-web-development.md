@@ -4,7 +4,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/angular-vs-react-which-is-better-for-web-development.md](https://github.com/xitu/gold-miner/blob/master/TODO/angular-vs-react-which-is-better-for-web-development.md)
 > * 译者：[龙骑将杨影枫](https://github.com/stormrabbit)
-> * 校对者：[Larry](https://github.com/lampui)、[薛定谔的猫](https://github.com/Aladdin-ADD)
+> * 校对者：[Larry](https://github.com/lampui)、[薛定谔的猫](https://github.com/Aladdin-ADD)、[逆寒](https://github.com/thisisandy)
 
 # Angular vs React：谁更适合前端开发
 
