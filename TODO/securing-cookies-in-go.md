@@ -13,7 +13,7 @@
 
 而使用 Go 语言开发则完全不同。在 Golang 的默认设置中，这些事都不会帮你完成。因此，当你想要开始使用 Cookie 时，了解各种安全措施、为什么要使用这些措施、以及如何将这些安全措施集成到你的应用中是非常重要的事。希望本文能帮助你做到这一点。
 
-**注意：我并不想引起关于 Go 与 Reils 两者哪种更好的论战。两者各有优点，但在本文中我希望能着重讨论 Cookie 的防护，而不是去争论 Rails vs Go。**
+**注意：我并不想引起关于 Go 与 Reils 两者哪种更好的论战。两者各有优点，但在本文中我希望能着重讨论 Cookie 的防护，而不是去争论 Rails 和 Go 哪个好。**
 
 ## 什么是 Cookie？
 
@@ -37,7 +37,7 @@ func someHandler(w http.ResponseWriter, r *http.Request) {
 
 我要强调上面这一点，因为它存在非常严重的安全隐患：我们**不能**控制这些数据，而终端用户的计算机（以及用户）才能控制这些数据。
 
-当读取与写入终端用户控制的数据时，我们都需要十分谨慎地对数据进行处理。恶意用户可以删除 Cookie、修改存储在 Cookie 中的数据，甚至我们可能会遇到[ 中间人攻击](https://en.wikipedia.org/wiki/Man-in-the-middle_attack)，即当用户向服务器发送数据时，另有人试图窃取 Cookie。
+当读取与写入终端用户控制的数据时，我们都需要十分谨慎地对数据进行处理。恶意用户可以删除 Cookie、修改存储在 Cookie 中的数据，甚至我们可能会遇到[中间人攻击](https://en.wikipedia.org/wiki/Man-in-the-middle_attack)，即当用户向服务器发送数据时，另有人试图窃取 Cookie。
 
 ## Cookie 的潜在安全问题
 
@@ -107,9 +107,9 @@ calhoun.io {
 
 我们当然不会想看到用户也创建一个新的哈希来欺骗我们，因此你可以使用一些类似 HMAC 的哈希算法来使用秘钥对数据进行哈希编码。这样就能防范用户同时编辑数据与数字签名（即哈希值）。
 
-> [JSON Web Tokens（JWT）](https://jwt.io/) 默认内置了数字签名功能，因此你可能对这种方法比较熟悉。
+> [JSON Web Tokens(JWT)](https://jwt.io/) 默认内置了数字签名功能，因此你可能对这种方法比较熟悉。
 
-在 Go 中，可以使用类似 Gorilla 的 [securecookie](http://www.gorillatoolkit.org/pkg/securecookie) 之类的 package，你可以在创建 `SecureCookie` 事使用它来保护你的 Cookie。
+在 Go 中，可以使用类似 Gorilla 的 [securecookie](http://www.gorillatoolkit.org/pkg/securecookie) 之类的 package，你可以在创建 `SecureCookie` 时使用它来保护你的 Cookie。
 
 ```
 // 推荐使用 32 字节或 64 字节的 hashKey
