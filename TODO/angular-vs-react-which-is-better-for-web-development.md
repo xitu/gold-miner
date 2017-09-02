@@ -221,7 +221,7 @@ export class AppStore {
 ```
 
 
-React 版本的入口文件相对要简短一些，因为不需要做那么多模块声明 —— 通常的情况下，只要导入就可以使用了。有时候这种硬依赖很麻烦（比如测试的时候），所以对于全局单例来说，我只好使用老式的（decades-old） [GoF](https://www.wikiwand.com/en/Design_Patterns) [模式](https://en.wikipedia.org/wiki/Singleton_pattern)（薛定谔的猫：GoF 是经典模式，才不会过时呢）。
+React 版本的入口文件相对要简短一些，因为不需要做那么多模块声明 —— 通常的情况下，只要导入就可以使用了。有时候这种硬依赖很麻烦（比如测试的时候），所以对于全局单例来说，我只好使用老式的（decades-old） [GoF](https://www.wikiwand.com/en/Design_Patterns) [模式](https://en.wikipedia.org/wiki/Singleton_pattern)。
 
 Angular 的路由是已注入的，所以可以在程序的任何地方使用，并不仅仅是组件中。为了在 React 中达到相同的功能，我们使用
 [mobx-react-router](https://github.com/alisd23/mobx-react-router) 并注入`routerStore`。
