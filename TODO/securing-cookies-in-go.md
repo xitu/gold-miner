@@ -3,13 +3,13 @@
   > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
   > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/securing-cookies-in-go.md](https://github.com/xitu/gold-miner/blob/master/TODO/securing-cookies-in-go.md)
   > * 译者：[lsvih](https://github.com/lsvih)
-  > * 校对者：
+  > * 校对者：[tmpbook](https://github.com/tmpbook),[Yuuoniy](https://github.com/Yuuoniy)
 
   # 在 Go 语言中增强 Cookie 的安全性
   
 在我开始学习 Go 语言时已经有一些 Web 开发经验了，但是并没有直接操作 Cookie 的经验。我之前做过 Rails 开发，当我不得不需要在 Rails 中读写 Cookie 时，并不需要自己去实现各种安全措施。
 
-瞧瞧，Rails 默认就自己完成了大多数的事情。你不需要设置任何 CSRF 策略，也无需特别区加密你的 Cookie。在新版的 Rails 中，这些事情都是它默认帮你完成的。
+瞧瞧，Rails 默认就自己完成了大多数的事情。你不需要设置任何 CSRF 策略，也无需特别去加密你的 Cookie。在新版的 Rails 中，这些事情都是它默认帮你完成的。
 
 而使用 Go 语言开发则完全不同。在 Golang 的默认设置中，这些事都不会帮你完成。因此，当你想要开始使用 Cookie 时，了解各种安全措施、为什么要使用这些措施、以及如何将这些安全措施集成到你的应用中是非常重要的事。希望本文能帮助你做到这一点。
 
@@ -45,7 +45,7 @@ func someHandler(w http.ResponseWriter, r *http.Request) {
 
 **1. Cookie 窃取** - 攻击者会通过各种方式来试图窃取 Cookie。我们将讨论如何防范、规避这些方式，但是归根结底我们并不能完全阻止设备上的物理类接触。
 
-**2. Cookie 篡改** - Cookie 中存储的数据可以被用户有意或无意地修改。我们将讨论如何验证存储在 Cookie 中的数据确为我们写入的合法数据。
+**2. Cookie 篡改** - Cookie 中存储的数据可以被用户有意或无意地修改。我们将讨论如何验证存储在 Cookie 中的数据确实是我们写入的合法数据
 
 **3. 数据泄露** - Cookie 存储在终端用户的计算机上，因此我们需要清楚地意识到什么数据是能存储在 Cookie 中的，什么数据是不能存储在 Cookie 中的，以防其发生数据泄露。
 
@@ -79,7 +79,7 @@ calhoun.io {
 
 然后 Caddy 会为你自动处理所有与 SSL 有关的事务。
 
-防范通过访问硬件来窃取 Cookie 是十分棘手的事情。我们不能强制我们的用户使用高安全性系统，也不能逼他们为电脑设置密码，所以总会有他人坐在电脑前偷走 Cookie 的风险。此外，Cookie 也可能被病毒窃取，可能用户打开了某些钓鱼邮件时就会出现这种情况。
+防范通过访问硬件来窃取 Cookie 是十分棘手的事情。我们不能强制我们的用户使用高安全性系统，也不能逼他们为电脑设置密码，所以总会有他人坐在电脑前偷走 Cookie 的风险。此外，Cookie 也可能被病毒窃取，比如用户打开了某些钓鱼邮件时就会出现这种情况。
 
 不过这些都容易被发现。例如，如果有人偷了你的手表，当你发现表不在手上时你立马就会注意到它被偷了。然而 Cookie 还可以被复制，这样任何人都不会意识到它已经丢了。
 
@@ -105,7 +105,7 @@ calhoun.io {
 
 这种保护 Cookie 的方法原理是哈希编码 —— 我们对数据进行哈希编码，接着将数据与它的哈希编码同时存入 Cookie 中。当用户发送 Cookie 给我们时，再对数据进行哈希计算，验证此时的哈希值与原始哈希值是否匹配。
 
-我们当人不会想看到用户也创建一个新的哈希来欺骗我们，因此你可以使用一些类似 HMAC 之类的哈希算法来使用秘钥对数据进行哈希编码。这样就能防范用户同时编辑数据与数字签名（即哈希值）。
+我们当然不会想看到用户也创建一个新的哈希来欺骗我们，因此你可以使用一些类似 HMAC 的哈希算法来使用秘钥对数据进行哈希编码。这样就能防范用户同时编辑数据与数字签名（即哈希值）。
 
 > [JSON Web Tokens（JWT）](https://jwt.io/) 默认内置了数字签名功能，因此你可能对这种方法比较熟悉。
 
@@ -186,7 +186,7 @@ user_id: 123
 
 ## 数据泄露
 
-在真正出现数据泄露前，通常需要另一种攻击向量 —— 例如 Cookie 窃取。然而还是很难去正确地判断并提防数据的发生。因为仅仅是 Cookie 发生了泄露并不意味着攻击者也得到了用户的账户密码。
+在真正出现数据泄露前，通常需要另一种攻击向量 —— 例如 Cookie 窃取。然而还是很难去正确地判断并提防数据泄露的发生。因为仅仅是 Cookie 发生了泄露并不意味着攻击者也得到了用户的账户密码。
 
 无论何时，都应当减少存储在 Cookie 中的敏感数据。绝不要将用户密码之类的东西存在 Cookie 中，即使密码已经经过了编码也不要这么做。[这篇文章](https://hackernoon.com/your-node-js-authentication-tutorial-is-wrong-f1a3bf831a46#2491) 给出了几个开发者无意间将敏感数据存储在 Cookie 或 JWT 中的实例，由于（JWT 的 payload）是 base64 编码，没有经过任何加密，因此任何人都可以对其进行解码。
 
@@ -257,7 +257,7 @@ c := Cookie{
 
 **欲了解更多有关域的信息，请参阅 [https://tools.ietf.org/html/rfc6265#section-5.1.3](https://tools.ietf.org/html/rfc6265#section-5.1.3)。你也可以在这儿阅读源码，参阅其默认设置：[https://golang.org/src/net/http/cookie.go#L157](https://golang.org/src/net/http/cookie.go#L157).**
 
-**你可以参阅 [这个 stackoverflow 的问题](https://stackoverflow.com/questions/18492576/share-cookie-between-subdomain-and-domain) 了解更多信息，弄明白为什么在为紫玉使用 Cookie 时不需要提供子域前缀。此外 Go 源码链接中也可以看到如果你提供前缀名的话会被自动去除。**
+**你可以参阅 [这个 stackoverflow 的问题](https://stackoverflow.com/questions/18492576/share-cookie-between-subdomain-and-domain) 了解更多信息，弄明白为什么在为子域使用 Cookie 时不需要提供子域前缀.此外 Go 源码链接中也可以看到如果你提供前缀名的话会被自动去除。**
 
 除了将 Cookie 的权限限制在特定域上之外，你还可以将 Cookie 限制于某个特定的目录路径中。
 
