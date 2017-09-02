@@ -61,12 +61,12 @@ Cookie 窃取攻击就和它字面意思一样 —— 某人窃取了正常用�
 
 Cookie 通常是被以下方式中的某种窃取：
 
-1. [中间人攻击](https://en.wikipedia.org/wiki/Man-in-the-middle_attack)，或者是类似的其它攻击方式，归纳以下就是攻击者拦截你的 Web 请求，从中窃取 Cookie。
+1. [中间人攻击](https://en.wikipedia.org/wiki/Man-in-the-middle_attack)，或者是类似的其它攻击方式，归纳一下就是攻击者拦截你的 Web 请求，从中窃取 Cookie。
 2. 取得硬件的访问权限。
 
 阻止中间人攻击的终极方式就是当你的网站使用 Cookie 时，使用 SSL。使用 SSL 时，由于中间人无法对数据进行解密，因此外人基本上没可能在请求的中途获取 Cookie。
 
-可能你会觉得“哈哈，中间人攻击不太可能……”，我建议你看看 [firesheep](http://codebutler.com/firesheep)，这个简单的工具，它足以说明在使用公共 wifi 时窃取未加密的 Cookie 是一件很轻松的事情。
+可能你会觉得“哈哈，中间人攻击不太可能…”，我建议你看看 [firesheep](http://codebutler.com/firesheep)，这个简单的工具，它足以说明在使用公共 wifi 时窃取未加密的 Cookie 是一件很轻松的事情。
 
 如果你想确保这种事情不发生在你的用户中，**请使用 SSL！**试试使用 [Caddy Server](https://caddyserver.com/) 进行加密吧。它经过简单的配置就能投入生产环境中。例如，你可以使用下面四行代码轻松让你的 Go 应用使用代理：
 
