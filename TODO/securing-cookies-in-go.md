@@ -3,9 +3,9 @@
   > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
   > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/securing-cookies-in-go.md](https://github.com/xitu/gold-miner/blob/master/TODO/securing-cookies-in-go.md)
   > * 译者：[lsvih](https://github.com/lsvih)
-  > * 校对者：[tmpbook](https://github.com/tmpbook),[Yuuoniy](https://github.com/Yuuoniy)
+  > * 校对者：[tmpbook](https://github.com/tmpbook), [Yuuoniy](https://github.com/Yuuoniy)
 
-  # 在 Go 语言中增强 Cookie 的安全性
+# 在 Go 语言中增强 Cookie 的安全性
   
 在我开始学习 Go 语言时已经有一些 Web 开发经验了，但是并没有直接操作 Cookie 的经验。我之前做过 Rails 开发，当我不得不需要在 Rails 中读写 Cookie 时，并不需要自己去实现各种安全措施。
 
