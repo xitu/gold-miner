@@ -3,92 +3,92 @@
   > * 原文作者：[James K Nelson](https://twitter.com/james_k_nelson)
   > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
   > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/how-should-i-separate-components.md](https://github.com/xitu/gold-miner/blob/master/TODO/how-should-i-separate-components.md)
-  > * 译者：
-  > * 校对者：
+  > * 译者：[undead25](https://github.com/undead25)
+  > * 校对者：[薛定谔的猫](https://github.com/Aladdin-ADD)、[Germxu](https://github.com/germxu)
 
-  # How do you separate components?
+  # 你是如何拆分组件的？
 
-  React components have a habit of growing over time. Before I know it, some of my app's components will be monstrosities.
+  React 组件会随着时间的推移而逐步增长。幸好我意识到了这一点，不然我的一些应用程序的组件将变得非常可怕。
 
-But is this actually a problem? After all, it seems a little odd to create many small components that are used only once...
+但这实际上是一个问题吗？虽然创建许多只使用一次的小组件似乎有点奇怪……
 
-There is nothing inherently wrong with having large components in a React app. In fact, for *stateful* components, it is absolutely expected that they’ll have a bit of size.
+在一个大型的 React 应用程序中，拥有大量的组件本身没有什么错。实际上，对于**状态**组件，我们当然是希望它们越小越好。
 
-## Fat components happen
+## 臃肿组件的出现
 
-The thing about state is that it generally doesn’t decompose very well. If there are multiple actions that act on a single piece of state, they’ll all need to be placed in the same component. The more ways that the state can change, the larger the component gets. And if a component has actions that affect multiple [types of state](http://jamesknelson.com/5-types-react-application-state/), the component will become massive. This is unavoidable.
+关于状态它通常不会很好地分解。如果有多个动作作用于同一状态，那么它们都需要放在同一个组件中。状态可以被改变的方式越多，组件就越大。另外，如果一个组件有影响多个[状态类型](http://jamesknelson.com/5-types-react-application-state/)的动作，那么它将变得非常庞大，这是不可避免的。
 
-**But even if large components are inevitable, they’re still horrible to work with.** And that’s why you’ll want to factor out smaller components where possible, following the principle of [separation of concerns](https://en.wikipedia.org/wiki/Separation_of_concerns).
+**但即使大型组件不可避免，它们使用起来仍然是非常糟糕的**。这就是为什么你会尽可能地拆分出更小的组件，遵循[关注点分离](https://en.wikipedia.org/wiki/Separation_of_concerns)的原则。
 
-Of course, this is easier said than done.
+当然，说起来容易做起来难。
 
-Finding the lines that separate concerns is more art than science. But there are a few common patterns you can follow…
+寻找关注点分离的方法是一门技术，更是一门艺术。但你可以遵循以下几种常见模式……
 
-## 4 Types of Components
+## 4 种类型的组件
 
-In my experience, there are four types of components that you can factor out from larger components.
+根据我的经验，有四种类型的组件可以从较大的组件中拆分出来。
 
-### View components
+### 视图组件
 
-For more information on view components (which some people call presentational components), read Dan Abramov’s classic, [Presentational and Container Components](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0).
+有关视图组件（有些人称为展示组件）的更多信息，请参阅 Dan Abramov 的名著 —— [展示组件和容器组件](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)。
 
-View components are the simplest type of component. All they do is **display information and emit user input** via callbacks. They:
+视图组件是最简单的组件类型。它们所做的就是**显示信息，并通过回调发送用户输入**。它们：
 
-- Distribute their props to child elements.
-- Have callbacks that forward data from child elements to parent components.
-- Are often function components, but may be classes if they need to bind callbacks for performance.
-- Generally do not use lifecycle methods, except for performance optimization.
-- *Do not* directly store state, with the exception of UI-centric state like animation state.
-- *Do not* use refs or interact with the DOM directly (as the DOM is state).
-- *Do not* modify the environment; they should never directly dispatch actions to a redux store, call an API, etc.
-- *Do not* use React context.
+- 将属性分发给子元素。
+- 拥有将数据从子元素转发到父组件的回调。
+- 通常是函数组件，但如果为了性能，它们需要绑定回调，则可能是类。
+- 一般不使用生命周期方法，性能优化除外。
+- **不**直接存储状态，除了以 UI 为中心的状态，例如动画状态。
+- **不**使用 refs 或直接与 DOM 进行交互（因为 DOM 的改变意味着状态的改变）。
+- **不**修改环境。它们不应该直接将动作发送给 redux 的 store 或者调用 API 等。
+- **不**使用 React 上下文。
 
-Some signs that you can factor out a presentation component from a larger component include:
+你可以从较大的组件中拆分出展示组件的一些迹象：
 
-- Your component has DOM markup or styles.
-- There are repeated sections like list items.
-- Something in your component “looks” like a box or a section.
-- A section of JSX only relies on a single object for its input data.
-- You have a large presentation component with distinct sections.
+- 有 DOM 标记或者样式。
+- 有像列表项这样重复的部分。
+- 有“看起来”像一个盒子或者区域的内容。
+- JSX 的一部分仅依赖于单个对象作为输入数据。
+- 有一个具有不同区域的大型展示组件。
 
-Some examples of presentation components that can be factored out of larger components:
+可以从较大的组件中拆分出展示组件的一些示例：
 
-- Components that perform layout for a number of child elements.
-- Cards and list items can be factored out of lists.
-- Groups of fields can be factored out of forms (with all updates combined into a single `onChange` callback).
-- Markup can be factored out of controls.
+- 为多个子元素执行布局的组件。
+- 卡片和列表项可以从列表中拆分出来。
+- 字段可以从表单中拆分出来（将所有的更新合并到一个 `onChange` 回调中）。
+- 标记可以从控件中拆分出来。
 
-### Control components
+### 控制组件
 
-Control components are components that **store state related to partial input**, i.e. state that keeps track of actions the user has taken, which haven’t yet resulted in a valid value that can be emitted via an `onChange` callback. They are similar to presentation components, but:
+控制组件指的是**存储与部分输入相关的状态**的组件，即跟踪用户已发起动作的状态，而这些状态还未通过 `onChange` 回调产生有效值。它们与展示组件相似，但是：
 
-- Can store state (when it is related to partial input).
-- Can use refs and interact with the DOM.
-- Can use lifecycle methods.
-- Often don’t have any styles or DOM markup.
+- 可以存储状态（当与部分输入相关时）。
+- 可以使用 refs 和与 DOM 进行交互。
+- 可以使用生命周期方法。
+- 通常没有任何样式，也没有 DOM 标记。
 
-Some signs that you can factor out a control component from a larger component include:
+你可以从较大的组件中拆分出控制组件的一些迹象：
 
-- You’re storing partial input in state.
-- Your component interacts with the DOM through refs.
-- Parts of your component look like native controls – buttons, fields, etc.
+- 将部分输入存储在状态中。
+- 通过 refs 与 DOM 进行交互。
+- 某些部分看起来像原生控件 —— 按钮，表单域等。
 
-Some examples of control components include:
+控制组件的一些示例：
 
-- Date pickers
-- Typeaheads
-- Switches
+- 日期选择器
+- 输入提示
+- 开关
 
-You’ll often find that you have a number of controls with the same behavior, but different presentation. In these cases, it makes sense to factor out the presentation into View components, which are passed in via a `theme` or `view` prop.
+你经常会发现你的很多控件具有相同的行为，但有不同的展现形式。在这种情况下，通过将展现形式拆分成视图组件，并作为 `theme` 或 `view` 属性传入是有意义的。
 
-You can see a real-world example of connector functions in the [react-dnd](https://github.com/react-dnd/react-dnd) library.
+你可以在 [react-dnd](https://github.com/react-dnd/react-dnd) 库中查看连接器函数的实际示例。
 
-When factoring presentation components out of controls, you may find that passing individual ref functions and callbacks to the presentation component via `props` feels a little wrong. In this case, it may help to pass **connector function** instead, which clones refs and callbacks onto a passed in element. For example:
+当从控件中拆分出展示组件时，你可能会发现通过 `props` 将单独的 `ref` 函数和回调传递给展示组件感觉有点不对。在这种情况下，它可能有助于传递**连接器函数**，这个函数将 refs 和回调克隆到传入的元素中。例如：
 
-```
+```jsx
 class MyControl extends React.Component {
-  // A connector function uses React.cloneElement to add event handlers
-  // and refs to an element created by the presentation component.
+  // 连接器函数使用 React.cloneElement 将事件处理程序
+  // 和 refs 添加到由展示组件创建的元素中。
   connectControl = (element) => {
     return React.cloneElement(element, {
       ref: this.receiveRef,
@@ -97,8 +97,8 @@ class MyControl extends React.Component {
   }
 
   render() {
-    // You can pass a presentation component into your controls via props,
-    // allowing controls to be themed with arbitrary markup and styles.
+    // 你可以通过属性将展示组件传递给控件，
+    // 从而允许控件以任意标记和样式来作为主题。
     return React.createElement(this.props.view, {
       connectControl: this.connectControl,
     })
@@ -110,8 +110,8 @@ class MyControl extends React.Component {
   // ...
 }
 
-// The presentation component can wrap an element in `connectControl` to add
-// appropriate callbacks and `ref` functions
+// 展示组件可以在 `connectControl` 中包裹一个元素，
+// 以添加适当的回调和 `ref` 函数。
 function ControlView({ connectControl }) {
   return connectControl(
     <div className='some-class'>
@@ -121,95 +121,95 @@ function ControlView({ connectControl }) {
 }
 ```
 
-You’ll find that control components can often end up surprisingly large. They have to deal with the DOM, which is a large chunk of state that doesn’t decompose. And this makes factoring out control components especially useful; by limiting your DOM interactions to control components, you can keep any DOM-related mess in a single place.
+你会发现控制组件通常会非常大。它们必须处理和状态密不可分的 DOM，这就使得控制组件的拆分特别有用；通过将 DOM 交互限制为控制组件，你可以将任何与 DOM 相关的杂项放在一个地方。
 
-### Controllers
+### 控制器
 
-Once you’ve split out your presentation and control code into separate components, most of the remaining code will be business logic. And if there is one thing that I want you to remember after reading this, it is that **business logic doesn’t need to be placed in React components**. It often makes sense to implement business logic as plain JavaScript functions and classes. For lack of a better name, I call these *controllers*.
+一旦你将展示和控制代码拆分到独立的组件中后，大部分剩余的代码将是业务逻辑。如果有一件事我想你在阅读本文之后记住，那就是**业务逻辑不需要放在 React 组件**中。将业务逻辑用普通 JavaScript 函数和类来实现通常是有意义的。由于没有一个更好的名字，我将它称之为**控制器**。
 
-Ok, so there are only three types of *React* components. But there are still four types of components, because not every component is a React Component.
+所以只有三种类型的 **React** 组件。但仍然有四种类型的组件，因为不是每个组件都是一个 React 组件。
 
-And not every car is a Toyota (but at least in Tokyo, most of them are).
+并不是每辆车都是丰田（但至少在东京大部分都是）。
 
-Controllers generally follow a similar pattern. They:
+控制器通常遵循类似的模式。它们：
 
-- Store some state.
-- Have actions that operate on that state, and possibly cause side effects.
-- May have some method of subscribing to state changes that are not directly caused by actions.
-- May accept prop-like configuration, or subscribe to the state of some global controller.
-- *Do not* rely on any React APIs.
-- *Do not* interact with the DOM or have any styles.
+- 存储某个状态。
+- 有改变那个状态的动作，并可能引起副作用。
+- 可能有一些订阅状态变更的方法，而这些变更不是由动作直接造成的。
+- 可以接受类似属性的配置，或者订阅某个全局控制器的状态。
+- **不**依赖于任何 React API。
+- **不**与 DOM 进行交互，也没有任何样式。
 
-Some signs that you can factor out a controller from your component:
+你可以从你的组件中拆分出控制器的一些迹象：
 
-- The component has a lot of state that isn’t related to partial input.
-- State is used to store information that has been received from the server.
-- There are references to global state like drag/drop or navigation state.
+- 组件有很多与部分输入无关的状态。
+- 状态用于存储从服务器接收到的信息。
+- 引用全局状态，如拖放或导航的状态。
 
-Some examples of controllers include:
+一些控制器的示例：
 
-- A Redux or Flux store.
-- A JavaScript class with MobX observables.
-- A plain-old JavaScript class with methods and instance variables.
-- An event emitter.
+- 一个 Redux 或者 Flux 的 store。
+- 一个带有 MobX 可观察的 JavaScript 类。
+- 一个包含方法和实例变量的普通 JavaScript 类。
+- 一个事件发射器。
 
-Some controllers are globals; they exist entirely separately from your React application. Redux stores are a good example of global controllers. But **not all controllers need to be global**. And not all state needs to go in a single controller or store.
+一些控制器是全局的；它们完全独立于你的 React 应用程序。Redux 的 stores 就是一个是全局控制器很好的例子。但**并不是所有的控制器都需要是全局的**，也并不是所有的状态都需要放在单独的控制器或者 store 中。
 
-By factoring out controller code for your forms and lists into separate classes, you can instantiate these classes as needed in your container components.
+通过将表单和列表的控制器代码拆分为单独的类，你可以根据需要在容器组件中实例化这些类。
 
-### Container components
+### 容器组件
 
-Container components are the glue that connects your controllers to presentation and control components. They are more flexible than the other types of components. But they still tend to follow a few patterns. They:
+容器组件是将控制器连接到展示组件和控制组件的粘合剂。它们比其他类型的组件更具有灵活性。但仍然倾向于遵循一些模式，它们：
 
-- Store controller instances in component state.
-- Render their state with presentation and control components.
-- Use lifecycle methods to subscribe to updates in controller state.
-- *Do not* use DOM markup or style (with the possible exception of some unstyled divs).
-- Are often generated with Higher Order Functions like Redux’s `connect`.
-- Can access global controllers (such as a Redux store) through context.
+- 在组件状态中存储控制器实例。
+- 通过展示组件和控制组件来渲染状态。
+- 使用生命周期方法来订阅控制器状态的更新。
+- **不**使用 DOM 标记或样式（可能出现的例外是一些无样式的 div）。
+- 通常由像 Redux 的 `connect` 这样的高阶函数生成。 
+- 可以通过上下文访问全局控制器（例如 Redux 的 store）。
 
-While you can sometimes factor out Container components from other Containers, this is pretty rare. Instead, it is best to focus your effort on factoring out controllers, presentation components and control components, with whatever is left becoming your containers.
+虽然有时候你可以从其他容器中拆分出容器组件，但这很少见。相反，最好将精力集中在拆分控制器、展示组件和控制组件上，并将剩下的所有都变成你的容器组件。
 
-Some examples of containers include:
+一些容器组件的示例：
 
-- An `App` component
-- Components that are returned by Redux’s `connect`
-- Components that are returned by MobX’s `observer`
-- The `<Link>` component from react-router (because it uses context and affects the environment)
+- 一个 `App` 组件
+- 由 Redux 的 `connect` 返回的组件。
+- 由 MobX 的 `observer` 返回的组件。
+- react-router 的 `<Link>` 组件（因为它使用上下文并影响环境）。
 
-## Component files
+## 组件文件
 
-What do you call a component that isn't a View, Control, Controller or Container? You just call it a component! Simple, huh?
+你怎么称呼一个不是视图、控制、控制器或容器的组件？你只是把它叫做组件！很简单，不是吗？
 
-Once you’ve found a component to factor out, the question becomes *where do I put it?* And honestly, the answer depends a lot on personal taste. But there is one rule that I think is important:
+一旦你拆分出一个组件，问题就变成了**我把它放在哪里**？老实说，答案很大程度上取决于个人喜好，但有一条规则我认为很重要：
 
-**If the factored out component is only used in one parent, it goes in the same file as the parent.**
+**如果拆分出的组件只在一个父级中使用，那么它将与父级在同一个文件中**。
 
-This is in the interest of making it as easy as possible to factor out components. Creating files is bothersome and takes you out of flow. And if you try to put every component in a different file, you’ll soon start asking yourself “Do I really need a new component”? So start by putting related components in the same file.
+这是为了尽可能容易地拆分组件。创建文件比较麻烦，并且会打断你的思路。如果你试着将每个组件放在不同的文件中，你很快就会问自己“我真的需要一个新组件吗？”因此，请将相关的组件放在同一个文件中。
 
-Of course, once you *do* find a place to re-use that component, you may want to move it to its own file. And that makes figuring out which file to put it in a good problem to have.
+当然，一旦你找到了重用该组件的地方，你可能希望将它移动到单独的文件中。这就使得把它放到哪个文件中去成为一个甜蜜的烦恼了。
 
-## What about performance?
+## 性能怎么样？
 
-By splitting out one monolithic component into a number of controllers, presentation components and control components, you increase the total amount of code that needs to be run. This may slow things down a little bit. But it won’t slow it down very much.
+将一个庞大的组件拆分成多个控制器、展示组件和控制组件，增加了需要运行的代码总量。这可能会减慢一点点，但不会减慢很多。
 
-##### Story
+##### 故事
 
-The only time I’ve ever encountered performance issues caused by too many components was when I was rendering 5000 cells in a grid *on each frame*, each with multiple nested components.
+我遇到过唯一一次由于使用太多组件而引起性能问题 —— 我在**每一帧**上渲染 5000 个网格单元格，每个单元格都有多个嵌套组件。
 
-The thing about React performance is that even if your application has perceptible lag, the problem is almost certainly *not* to do with having too many components.
+关于 React 性能的是，即使你的应用程序有明显的延迟，问题肯定**不是**出于组件太多。
 
-**So use as many components as you’d like.**
+**所以你想使用多少组件都可以**。
 
-## If it ain’t broke…
+## 如果没有拆分……
 
-I’ve mentioned a lot of rules in this spiel. So you may be surprised to hear that I don’t actually like hard and fast rules. They’re usually wrong, at least in some cases. So to be clear:
+我在本文中提到了很多规则，所以你可能会惊讶地听到我其实并不喜欢严格的规则。它们通常是错的，至少在某些情况下是这样。所以必须要明确的是:
 
-**Just because you *can* factor something out doesn’t mean that you *must* factor it out.**
+**『可以』拆分并不意味着『必须』拆分**。
 
-Let’s say that your goal is to make your code more comprehensible and easier to maintain. This still leaves the question: what is comprehensible? And what is easy to maintain? The answer often depends on who is asking, and that’s why refactoring is more art than science.
+假设你的目标是让你的代码更易于理解和维护，这仍然留下了一个问题：怎样才是易于理解？怎样才是易于维护？而答案往往取决于谁在问，这就是为什么重构是技术，更是艺术。
 
-For a concrete example, consider this contrived component:
+有一个具体的例子，考虑下这个组件的设计：
 
 ```html
 <!DOCTYPE html>
@@ -223,13 +223,13 @@ For a concrete example, consider this contrived component:
     <script src="https://unpkg.com/react@15.6.1/dist/react.js"></script>
     <script src="https://unpkg.com/react-dom@15.6.1/dist/react-dom.js"></script>
     <script>
-      // JavaScript source goes here
+      // 这里写 JavaScript
     </script>
   </body>
 </html>
 ```
 
-```
+```jsx
 class List extends React.Component {
   renderItem(item, i) {
     return (
@@ -257,9 +257,9 @@ ReactDOM.render(
 )
 ```
 
-While it would be perfectly possible to factor out the `renderItem` into a separate component, would you actually gain anything by doing so? Probably not. In fact, in a file with a number of different components, using the `renderItem` method would probably be *easier* to follow.
+尽管将 `renderItem` 拆分成一个单独的组件是完全可能的，但这样做实际上会有什么好处呢？可能没有。实际上，在具有多个不同组件的文件中，使用 `renderItem` 方法可能会**更容易**理解。
 
-So remember: the four types of components are a pattern that you can use when it feels like they make sense. They’re not hard and fast rules. And if you’re quite unsure about whether something needs to be factored out, just leave it be. Because the world won’t end if some components are fatter than others.
+请记住：四种类型的组件是当你觉得它们有意义的时候，你可以使用的一种模式。它们并不是硬性规定。如果你不确定某些内容是否需要拆分，那就不要拆分，因为即使某些组件比其他组件更臃肿，世界末日也不会到来。
 
 
   ---
