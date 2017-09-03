@@ -8,7 +8,7 @@
 
   # V8: 引擎背后
 
-  这是我就 V8 幕后发生的故事所尝试撰写的一系列博文，目的是使我们为 Node.js 和 Chrome 所做的工作以及其对 [Node.js](https://nodejs.org) 或 [Chrome](https://www.google.com/chrome) 开发者的影响更加公开透明。在文中，我将对我主动参与的部分进行详细阐述，内容大致涉及 JavaScript 执行优化、新的语言特性及工具/嵌入器相关事务。
+  这是我就 V8 幕后发生的故事所尝试撰写的一系列博文，目的是使我们为 [Node.js](https://nodejs.org) 和 [Chrome](https://www.google.com/chrome) 所做的工作以及其对开发者的影响更加公开透明。在文中，我将对我主动参与的部分进行详细阐述，内容大致涉及 JavaScript 执行优化、新的语言特性及工具/嵌入器相关事务。
 
 在这一系列的博文中，所有观点均为个人观点，并不代是 Google 或 Chrome/V8 团队的官方口径。这一系列文章针对 V8 引擎的主要受众，他们通过 Node.js，Chrome 或者其他嵌入器使用 V8 引擎，为终端用户提供了一流的产品。在文中，我尽量提及一些背景信息和有趣的细节，避免浅尝辄止、走马观花之嫌。
 
@@ -41,17 +41,17 @@
 
 简化管道有诸多好处，不仅扔掉了些技术的历史包袱，过去无法实现的优化也成了可能，又因为各个编译器不需要完全依照 AST，所以这对减少长期的内存使用和启动消耗大有裨益。因此我们才可能大幅降低 AST 的大小和复杂性。
 
-时至今日，我们对 Ignition 和 TurboFan 的使用又走到了哪一步了呢？我们已经花了大量时间实现默认配置，对于 Ignition 而言是在启动延迟和基线性能方面加紧改进，而对于 TurboFan 而言，大部分时间花在了提高传统（与现代） JavaScript 运行的性能极限上。这实际上比我们三年前刚开始接触 TurboFan 的预期要复杂很多。但想到差不多 10 个优秀的工程师花了将近 6 年的时间才优化了旧的 V8 编译器管道，这其实也并不令人惊讶，特别是那些由 [Octane](https://developers.google.com/octane)， [Kraken](http://krakenbenchmark.mozilla.org) 和 [JetStream](http://browserbench.org/JetStream) 这样的静态测试套件测量的工作。自从 8 月份我们开始全面使用 TurboFan 和 Ignition 流水线后，我们在 Ostane 上的分数翻了将近三倍，而且在 Kraken 上获得了大概 14 倍的性能提升 （不过这个数字有一些夸张，只是强调一下我们最初做不到在一个函数执行期间将它从 Ignition 层提升到 TurboFan）。
+时至今日，我们对 Ignition 和 TurboFan 的使用又走到了哪一步了呢？我们已经花了大量时间实现默认配置，对于 Ignition 而言是在启动延迟和基线性能方面加紧改进，而对于 TurboFan 而言，大部分时间花在了提高传统（与现代） JavaScript 运行的性能极限上。这实际上比我们三年前刚开始接触 TurboFan 的预期要复杂很多。但想到差不多 10 个优秀工程师花了将近 6 年的时间才优化了旧的 V8 编译器管道，特别是那些 [Octane](https://developers.google.com/octane)， [Kraken](http://krakenbenchmark.mozilla.org) 和 [JetStream](http://browserbench.org/JetStream) 静态测试套件测量的工作，这其实合情合理了。自从 8 月份我们开始全面使用 TurboFan 和 Ignition 管道后，我们在 Ostane 上的分数翻了将近三倍，而且在 Kraken 上获得了大概 14 倍的性能提升 （不过这个数字有一些夸张，只是强调一下我们最初做不到在一个函数执行期间将它从 Ignition 层提升到 TurboFan）。
 
 ![Octane score](http://benediktmeurer.de/images/2016/octane-20161125.png)
 
 ![Kraken score](http://benediktmeurer.de/images/2016/kraken-20161125.png)
 
-可能这些基准代表的只是性能峰值，更别谈这些基准精准与否。但当你需要替换当前的架构时，又需要一个参考以便得知自己进度如何。我们与默认配置相比，便发现性能其实相差无几了。
+可能这些基准代表的只是性能峰值，更别谈这些基准本身精准与否。但当你需要替换当前的架构时，又需要一个参考以便得知自己进度如何。与默认配置相比，性能其实相差无几了。
 
 ![Octane score (including default)](http://benediktmeurer.de/images/2016/octane-cs-20161125.png)
 
-还有诸多基准测试结果表明默认配置和 TurboFan 及 Ignition 相比早是望其项背了（通常是因为 Crankshaft 无法完成一些极端情况的优化），但也在一些基准测试中，即使 Octane 上 Crankshaft 已经生成相当可观的代码，结果还是被 TurboFan 比下去。例如在 Navier Stoker 的案例中，TurboFan 受益于所谓的 [sane inlining heuristics](https://docs.google.com/document/d/1VoYBhpDhJC4VlqMXCKvae-8IGuheBGxy32EOgC2LnT8)：
+还有诸多基准测试结果表明默认配置和 TurboFan 与 Ignition 相比早是望其项背了（通常是因为 Crankshaft 无法完成一些极端情况的优化），但也在一些基准测试中，即使 Octane 上 Crankshaft 已经生成相当可观的代码，结果还是被 TurboFan 比下去。例如在 Navier Stoker 的案例中，TurboFan 受益于所谓的 [sane inlining heuristics](https://docs.google.com/document/d/1VoYBhpDhJC4VlqMXCKvae-8IGuheBGxy32EOgC2LnT8)：
 
 ![Octane score (Navier Stokes)](http://benediktmeurer.de/images/2016/octane-navier-stokes-20161125.png)
 
@@ -69,9 +69,9 @@
 
 ##ES2015 和未来标准的态势
 
-我参与提升 ES2015 和 ES,Next 的性能又是另一个一言难尽的话题了。今年年初，我们决定了要使 ES2015 和后面的标准可用需要投入多大的资源，可用不单单意味着重大特性的发行，也意味着一些开发工具（比如 [Chrome 开发者工具](https://developer.chrome.com/devtools)的调试器和性能分析器）也得整合在内。此外，编译后的版本（比如 [Babel](http://babeljs.io/) 或者其他编译器生成的文件）相比，性能自然也得不一般。在提升性能方面的工作上，我们制定了[性能计划](https://docs.google.com/document/d/1EA9EbfnydAmmU_lM8R_uEMQ-U_v4l9zulePSBkeYWmY)，并公之于众。这份计划记录了工作涉及的方方面面和详细进度。
+我参与提升 ES2015 和 ES.Next 的性能又是另一个一言难尽的话题了。今年年初，我们决定了要使 ES2015 和后面的标准可用需要投入多大的资源，可用不单单意味着重大特性的发行，也意味着一些开发工具（比如 [Chrome 开发者工具](https://developer.chrome.com/devtools)的调试器和性能分析器）也得整合在内。此外，编译后的版本（比如 [Babel](http://babeljs.io/) 或者其他编译器生成的文件）相比，性能自然也得不一般。在提升性能方面的工作上，我们制定了[性能计划](https://docs.google.com/document/d/1EA9EbfnydAmmU_lM8R_uEMQ-U_v4l9zulePSBkeYWmY)，并公之于众。这份计划记录了工作涉及的方方面面和详细进度。
 
-为了找到可怕的性能天堑，追踪解决相关问题，目前我们采用了所谓的[六速](https://github.com/kpdecker/six-speed)性能测试，这份测试致力于比较原生 ES5 和 ES6 对应特性的性能，对应特性是指不一定 100% 语义上的吻合，而是程序员退而选择的原生版本。拿数组结构举例：
+为了找到可怕的性能天堑，追踪解决相关问题，目前我们采用了所谓的[六速](https://github.com/kpdecker/six-speed)性能测试，这份测试致力于比较原生 ES5 和 ES6 对应特性的性能，对应特性是指不一定 100% 语义上的吻合，而是程序员退而选择的原生版本。拿数组解构举例：
 
 ```
 var data = [1, 2, 3];
@@ -95,7 +95,7 @@ function fn() {
 
 在 ES5 中，这两段代码语义是不相同的：第一段代码采用了 ES6 的[遍历方式](https://tc39.github.io/ecma262/#sec-iteration)，第二段代码则使用了普通的索引访问[数组奇异对象](https://tc39.github.io/ecma262/#sec-array-exotic-objects)。
 
-实际上，我们使用的这套性能测试经过了一些修改和拓展，包含了其他的测试。这套测试在[这里](https://github.com/fhinkel/six-speed)。所有的测试都是微观标准，所以我们并不会着眼于分数（每秒钟的操作）多少，我们在乎的是 ES6 相较 ES5 时，影响性能的因素。我们的目的是将这些因素降低到标准的 1 倍，至少也要在 2 倍之内。自夏日开始，我们在这方面做了大量的优化。
+实际上，我们使用的这套性能测试经过了一些修改和拓展，包含了其他的测试。这套测试在[这里](https://github.com/fhinkel/six-speed)。所有的测试都是微观标准，所以我们并不会着眼于分数（每秒钟的操作）多少，我们在乎的是 ES6 相较 ES5 时，影响性能的因素。我们的目的是将这些因素降低到标准的 1 倍，至少也要在 2 倍之内。这个夏天开始，我们在这方面做了大量的优化。
 
 ![Improvements M54 to M56](http://benediktmeurer.de/images/2016/six-speed-20161125.png)
 
@@ -103,7 +103,7 @@ function fn() {
 
 ### 细看 `instanceof`
 
-除了[六速表](https://github.com/fhinkel/six-speed)所展现的，我们也积极提升了其他新语言特性的交互，这些提升乍一看或许并不起眼。我在这里想提及的是 ES2015 里的 `instanceof` 操作符和新引入的symbol [@@hasInstance](https://tc39.github.io/ecma262/#sec-symbol.hasinstance) 。一开始在 V8 上实现 ES2015 时，我们无法充分优化每一个特性，我们也不想因为 ES2015 新的语言特性就减少工作量、降低标准（当时我们还没有 100% 地实现 ES2015，但在去年年底，在保证没有任何性能明显衰退的前提下，我们基本上实现了 ES2015）。然而，新加入的 symbol 类型也导致了一些麻烦。
+除了[六速表](https://github.com/fhinkel/six-speed)所展现的，我们也积极提升了其他新语言特性的交互，这些提升乍一看或许并不起眼。我在这里想提及的是 ES2015 里的 `instanceof` 操作符和新引入的symbol [@@hasInstance](https://tc39.github.io/ecma262/#sec-symbol.hasinstance) 。一开始在 V8 上实现 ES2015 时，我们无法充分优化每一个特性，我们也不想因为 ES2015 新的语言特性就减少工作量、降低标准（当时我们还没有 100% 地实现 ES2015，但去年年底，在保证没有任何性能明显衰退的前提下，我们基本上实现了 ES2015）。然而，新加入的 symbol 类型也导致了一些麻烦。
 
 ![InstanceofOperator EcmaScript specification](http://benediktmeurer.de/images/2016/instanceof-20161125.png)
 
