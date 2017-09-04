@@ -3,8 +3,8 @@
   > * 原文作者：[Dave Gash](https://medium.com/@davidagash)
   > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
   > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/css-hex-colors-demystified.md](https://github.com/xitu/gold-miner/blob/master/TODO/css-hex-colors-demystified.md)
-  > * 译者：
-  > * 校对者：
+  > * 译者：Cherry[https://github.com/sunshine940326]
+  > * 校对者：
 
   # CSS 的十六进制颜色揭秘
 
