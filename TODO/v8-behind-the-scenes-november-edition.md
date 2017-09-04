@@ -3,8 +3,8 @@
   > * 原文作者：[Benedikt Meurer](http://benediktmeurer.de/)
   > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
   > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/v8-behind-the-scenes-november-edition.md](https://github.com/xitu/gold-miner/blob/master/TODO/v8-behind-the-scenes-november-edition.md)
-  > * 译者：逆寒
-  > * 校对者：
+  > * 译者：[逆寒](https://github.com/thisisandy)
+  > * 校对者：[Yuuoniy](https://github.com/Yuuoniy) [ahonn](https://github.com/ahonn)
 
   # V8: 引擎背后
 
@@ -51,7 +51,7 @@
 
 ![Octane score (including default)](http://benediktmeurer.de/images/2016/octane-cs-20161125.png)
 
-还有诸多基准测试结果表明默认配置和 TurboFan 与 Ignition 相比早是望其项背了（通常是因为 Crankshaft 无法完成一些极端情况的优化），但也在一些基准测试中，即使 Octane 上 Crankshaft 已经生成相当可观的代码，结果还是被 TurboFan 比下去。例如在 Navier Stoker 的案例中，TurboFan 受益于所谓的 [sane inlining heuristics](https://docs.google.com/document/d/1VoYBhpDhJC4VlqMXCKvae-8IGuheBGxy32EOgC2LnT8)：
+还有诸多基准测试结果表明 TurboFan 与 Ignition 的性能远远超过了默认配置（通常是因为 Crankshaft 无法完成一些极端情况的优化），但也在一些基准测试中，即使 Octane 上 Crankshaft 已经生成相当可观的代码，结果还是被 TurboFan 比下去。例如在 Navier Stoker 的案例中，TurboFan 受益于所谓的 [sane inlining heuristics](https://docs.google.com/document/d/1VoYBhpDhJC4VlqMXCKvae-8IGuheBGxy32EOgC2LnT8)：
 
 ![Octane score (Navier Stokes)](http://benediktmeurer.de/images/2016/octane-navier-stokes-20161125.png)
 
@@ -71,7 +71,7 @@
 
 我参与提升 ES2015 和 ES.Next 的性能又是另一个一言难尽的话题了。今年年初，我们决定了要使 ES2015 和后面的标准可用需要投入多大的资源，可用不单单意味着重大特性的发行，也意味着一些开发工具（比如 [Chrome 开发者工具](https://developer.chrome.com/devtools)的调试器和性能分析器）也得整合在内。此外，编译后的版本（比如 [Babel](http://babeljs.io/) 或者其他编译器生成的文件）相比，性能自然也得不一般。在提升性能方面的工作上，我们制定了[性能计划](https://docs.google.com/document/d/1EA9EbfnydAmmU_lM8R_uEMQ-U_v4l9zulePSBkeYWmY)，并公之于众。这份计划记录了工作涉及的方方面面和详细进度。
 
-为了找到可怕的性能天堑，追踪解决相关问题，目前我们采用了所谓的[六速](https://github.com/kpdecker/six-speed)性能测试，这份测试致力于比较原生 ES5 和 ES6 对应特性的性能，对应特性是指不一定 100% 语义上的吻合，而是程序员退而选择的原生版本。拿数组解构举例：
+为了找到可怕的性能天堑，追踪解决相关问题，目前我们采用了所谓的 [six-speed](https://github.com/kpdecker/six-speed) 性能测试，这份测试致力于比较原生 ES5 和 ES6 对应特性的性能，对应特性是指不一定 100% 语义上的吻合，而是程序员退而选择的原生版本。拿数组解构举例：
 
 ```
 var data = [1, 2, 3];
@@ -103,7 +103,7 @@ function fn() {
 
 ### 细看 `instanceof`
 
-除了[六速表](https://github.com/fhinkel/six-speed)所展现的，我们也积极提升了其他新语言特性的交互，这些提升乍一看或许并不起眼。我在这里想提及的是 ES2015 里的 `instanceof` 操作符和新引入的symbol [@@hasInstance](https://tc39.github.io/ecma262/#sec-symbol.hasinstance) 。一开始在 V8 上实现 ES2015 时，我们无法充分优化每一个特性，我们也不想因为 ES2015 新的语言特性就减少工作量、降低标准（当时我们还没有 100% 地实现 ES2015，但去年年底，在保证没有任何性能明显衰退的前提下，我们基本上实现了 ES2015）。然而，新加入的 symbol 类型也导致了一些麻烦。
+除了 [six-speed](https://github.com/fhinkel/six-speed) 表所展现的，我们也积极提升了其他新语言特性的交互，这些提升乍一看或许并不起眼。我在这里想提及的是 ES2015 里的 `instanceof` 操作符和新引入的symbol [@@hasInstance](https://tc39.github.io/ecma262/#sec-symbol.hasinstance) 。一开始在 V8 上实现 ES2015 时，我们无法充分优化每一个特性，我们也不想因为 ES2015 新的语言特性就减少工作量、降低标准（当时我们还没有 100% 地实现 ES2015，但去年年底，在保证没有任何性能明显衰退的前提下，我们基本上实现了 ES2015）。然而，新加入的 symbol 类型也导致了一些麻烦。
 
 ![InstanceofOperator EcmaScript specification](http://benediktmeurer.de/images/2016/instanceof-20161125.png)
 
