@@ -4,7 +4,7 @@
   > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
   > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/using-machine-learning-to-predict-value-of-homes-on-airbnb.md](https://github.com/xitu/gold-miner/blob/master/TODO/using-machine-learning-to-predict-value-of-homes-on-airbnb.md)
   > * 译者：[lsvih](httpsL//github.com/lsvih)
-  > * 校对者：[TobiasLee](https://github.com/TobiasLee), [RichardLeeH](https://github.com/RichardLeeH)
+  > * 校对者：[TobiasLee](https://github.com/TobiasLee), [RichardLeeH](https://github.com/RichardLeeH), [reid3290](https://github.com/reid3290)
 
 # 在 Airbnb 使用机器学习预测房源的价格
 
@@ -34,22 +34,22 @@ LTV 全称 Customer Lifetime Value，意为“客户终身价值”，是电子�
 
 ![](https://cdn-images-1.medium.com/max/1600/1*zT1gNPErRqizxlngxXCtBA.png)
 
-不过幸运的是，我们有相关的机器学习工具，可以从机器学习模型提取出其工作流。如果没有这些神奇的工具，我们根本无法将模型应用于生产环境。下面将通过 4 个主题来分别介绍我们的工作流以及各自用到的工具：
+不过幸运的是，我们有相关的机器学习工具，可以将具体的生产部署工作流从机器学习模型的分析建立中分离出来。如果没有这些神奇的工具，我们就无法轻松地将模型应用于生产环境。下面将通过 4 个主题来分别介绍我们的工作流以及各自用到的工具：
 
-- **特征工程：**定义相关特征
-- **原型设计与训练：**训练一个模型原型
-- **模型选择与验证：**选择模型以及调参
-- **生产部署：**将选择好的模型原型投入生产环境使用
+- **特征工程**：定义相关特征
+- **原型设计与训练**：训练一个模型原型
+- **模型选择与验证**：选择模型以及调参
+- **生产部署**：将选择好的模型原型投入生产环境使用
 
 ### 特征工程
 
-> **使用工具：Airbnb 内部特征库 - Zipline**
+> **使用工具：Airbnb 内部特征库 — Zipline**
 
-任何监督学习项目的第一步都是去找到会影响到结果的相关特征，我们把这一过程称为“特征工程”。例如在预测 LTV 时，特征可以是某个房源房屋在接下来 180 天内的可使用天数所占百分比，或者也可以是其与同市场其它房屋定价的差异。
+任何监督学习项目的第一步都是去找到会影响到结果的相关特征，这一个过程被称为特征工程。例如在预测 LTV 时，特征可以是某个房源房屋在接下来 180 天内的可使用天数所占百分比，或者也可以是其与同市场其它房屋定价的差异。
 
-在 Airbnb 中，要做特征工程首先得从头开始写 Hive 查询语句来创建特征。但是这个工作相当无聊，而且需要花费很多时间。因为它需要一些特定的领域知识和业务逻辑，也因此这些特征 pipeline 并不容易共享或复用。为了让这项工作更具可扩展性，我们开发了 **Zipline** —— 一个训练特征库。它可以提供不同粒度级别（例如房主、客户、房源房屋及市场级别）的特征。
+在 Airbnb 中，要做特征工程一般得从头开始写 Hive 查询语句来创建特征。但是这个工作相当无聊，而且需要花费很多时间。因为它需要一些特定的领域知识和业务逻辑，也因此这些特征 pipeline 并不容易共享或复用。为了让这项工作更具可扩展性，我们开发了 **Zipline** —— 一个训练特征库。它可以提供不同粒度级别（例如房主、客户、房源房屋及市场级别）的特征。
 
-这个内部工具“**多源共享**”的特性也让数据科学家们可以在过去的项目中找出大量高质量、经过审查的特征。如果没有找到希望提取的特征，用户也可以写一个配置文件来创建他自己需要的特征：
+这个内部工具“**多源共享**”的特性让数据科学家们可以在过去的项目中找出大量高质量、经过审查的特征。如果没有找到希望提取的特征，用户也可以写一个配置文件来创建他自己需要的特征：
 
 ```
 source: {
@@ -77,13 +77,13 @@ features: {
 }
 ```
 
-在构建训练集时，Zipline 将会找出训练集所需要的特征，使用智能秘钥连接后台，读取需要的数据并填充数据集。在构造房源 LTV 模型时，我们使用了一些 Zipline 中已经存在的特征，还自己写了一些特征。总体来说，模型中用了超过 150 个特征，其中包括：
+在构建训练集时，Zipline 将会找出训练集所需要的特征，自动的按照 key 将特征组合在一起并填充数据。在构造房源 LTV 模型时，我们使用了一些 Zipline 中已经存在的特征，还自己写了一些特征。模型总共使用了 150 多个特征，其中包括：
 
 - **位置**：国家、市场、社区以及其它地理特征
-- **价格**：夜间费率、清洁费、与相似房源的价格差异
-- **可用性**：可在夜间预订的总天数，以及房主手动关闭夜间预订的占比百分数
+- **价格**：过夜费、清洁费、与相似房源的价格差异
+- **可用性**：可过夜的总天数，以及房主手动关闭夜间预订的占比百分数
 - **是否可预订**：预订数量及过去 X 天内在夜间订房的数量
-- **质量**：评价打分、评价数量、便利设施
+- **质量**：评价得分、评价数量、便利设施
 
 ![](https://cdn-images-1.medium.com/max/1600/1*KYs7WNNfdwKmKcVbgKGkiw.png)
 
@@ -93,14 +93,14 @@ features: {
 
 ### 原型设计与训练
 
-> **使用工具：Python 机器学习库 — **[**scikit-learn**](http://scikit-learn.org/stable/)
+> **使用工具：Python 机器学习库** — [**scikit-learn**](http://scikit-learn.org/stable/)
 
 以前面的训练集为例，我们在做训练前先要对数据进行一些预处理：
 
 - **数据插补**：我们需要检查是否有数据缺失，以及它是否为随机出现的缺失。如果不是随机现象，我们需要弄清楚其根本原因；如果是随机缺失，我们需要填充空缺数据。
 - **对分类进行编码**：通常来说我们不能在模型里直接使用原始的分类，因为模型并不能去拟合字符串。当分类数量比较少时，我们可以考虑使用 [one-hot encoding](http://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OneHotEncoder.html) 进行编码。如果分类数量比较多，我们就会考虑使用 [ordinal encoding](https://www.kaggle.com/general/16927), 按照分类的频率计数进行编码。
 
-在这一步中，我们还不知道最有效的一组特征是什么，因此需要我们能快速迭代代码。如 [Scikit-Learn](http://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html)、[Spark](https://spark.apache.org/docs/latest/ml-pipeline.html) 等开源工具的 pipeline 结构对于原型构建来说是非常方便的工具。Pipeline 可以让数据科学家们设计蓝图，指定如何转换特征、训练哪一个模型。更具体来说，可以看下面我们 LTV 模型的 pipeline：
+在这一步中，我们还不知道最有效的一组特征是什么，因此编写可快速迭代的代码是非常重要的。如 [Scikit-Learn](http://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html)、[Spark](https://spark.apache.org/docs/latest/ml-pipeline.html) 等开源工具的 pipeline 结构对于原型构建来说是非常方便的工具。Pipeline 可以让数据科学家们设计蓝图，指定如何转换特征、训练哪一个模型。更具体来说，可以看下面我们 LTV 模型的 pipeline：
 
 ```
 transforms = []
@@ -130,9 +130,9 @@ features = FeatureUnion(transforms)
 
 在高层设计时，我们使用 pipeline 来根据特征类型（如二进制特征、分类特征、数值特征等）来指定不同特征中数据的转换方式。最后使用 [FeatureUnion](http://scikit-learn.org/stable/modules/generated/sklearn.pipeline.FeatureUnion.html) 简单将特征列组合起来，形成最终的训练集。
 
-使用 pipeline 开发原型的优势在于，它可以使用 [data transforms](http://scikit-learn.org/stable/data_transforms.html) 来避免繁琐的数据类型转换。总的来说，这些转换是为了确保数据在训练和评估时保持一致，以避免将原型部署到生产环境时出现的数据不一致。
+使用 pipeline 开发原型的优势在于，它可以使用 [data transforms](http://scikit-learn.org/stable/data_transforms.html) 来避免繁琐的数据转换。总的来说，这些转换是为了确保数据在训练和评估时保持一致，以避免将原型部署到生产环境时出现的数据不一致。
 
-另外，pipeline 还可以将数据转换过程和训练模型过程分开。虽然上面代码中没有，但科学家可以在最后一步指定一种 [estimator（估值器）](http://scikit-learn.org/stable/tutorial/machine_learning_map/index.html)来训练模型。通过尝试使用不同的估值器，数据科学家可以为模型选出一个表现最佳的估值器，减少模型的样本误差。
+另外，pipeline 还可以将数据转换过程和训练模型过程分开。虽然上面代码中没有，但数据科学家可以在最后一步指定一种 [estimator（估值器）](http://scikit-learn.org/stable/tutorial/machine_learning_map/index.html)来训练模型。通过尝试使用不同的估值器，数据科学家可以为模型选出一个表现最佳的估值器，减少模型的样本误差。
 
 ### 模型选择与验证
 
@@ -143,15 +143,16 @@ features = FeatureUnion(transforms)
 ![](https://cdn-images-1.medium.com/max/1600/1*tQbBEq6T8ZJ9lFSCbZKFqw.png)
 
 上图引用自 James、Witten、Hastie、Tibshirani 所著《R 语言统计学习》
+
 在保险、信用审查等应用中，需要对模型进行解释。因为对模型来说避免无意排除一些正确客户是很重要的事。不过在图像分类等应用中，模型的高性能比可解释更重要。
 
 由于模型的选择相当耗时，我们选择采用各种[自动机器学习](https://medium.com/airbnb-engineering/automated-machine-learning-a-paradigm-shift-that-accelerates-data-scientist-productivity-airbnb-f1f8a10d61f8)工具来加速这个步骤。通过探索大量的模型，我们最终会找到表现最好的模型。例如，我们发现 [XGBoost](https://github.com/dmlc/xgboost) (XGBoost) 明显比其他基准模型（比如 mean response 模型、岭回归模型、单一决策树）的表现要好。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*y1O7nIxCFmgQamCfsrWfjA.png)
 
-上图：通过比较 RMSE 可以让我们选择表现更好的模型
+上图：我们通过比较 RMSE 可以选择出表现更好的模型
 
-鉴于我们的最初目标是预测房源价格，因此我们很舒服地在最终的生产环境中使用 XGBoost 模型，比起可解释性它更注重于灵活性。
+鉴于我们的最初目标是预测房源价格，因此我们很舒服地在最终的生产环境中使用 XGBoost 模型，比起可解释性它更注重于模型的弹性。
 
 ### 生产部署
 
