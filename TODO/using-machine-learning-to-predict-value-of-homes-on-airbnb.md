@@ -10,7 +10,7 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/1*jdUbWGwyIyJJ4wlr1FaSqA.png)
 
-**位于希腊爱琴岛伊莫洛维里的一个 Airbnb 民宿的美好风景**
+**位于希腊爱琴海伊莫洛维里的一个 Airbnb 民宿的美好风景**
 
 ### 简介
 
