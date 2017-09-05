@@ -3,7 +3,7 @@
   > * 原文作者：[Dave Gash](https://medium.com/@davidagash)
   > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
   > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/css-hex-colors-demystified.md](https://github.com/xitu/gold-miner/blob/master/TODO/css-hex-colors-demystified.md)
-  > * 译者：Cherry[https://github.com/sunshine940326]
+  > * 译者：Cherry[https://github.com/sunshine940326]
   > * 校对者：
 
   # CSS 的十六进制颜色揭秘
@@ -90,7 +90,7 @@
 
 虽然我在本文中提倡十六进制表示色值的方法，但我不能忽视这一事实，它决不是唯一指定 CSS 颜色的方法。在继续之前，让我们快速看看其他三种方法。
 
-> **注意：**如果你对这部分的内容完全不感兴趣，你可以直接跳到下一主题，**快速浏览**。说真的，你不是错过任何关于十六进制的重要信息。包括我这个简短的为了完整性的题外，在很大程度上避免大量“但是，但是，但是……！”
+> **注意：** 如果你对这部分的内容完全不感兴趣，你可以直接跳到下一主题，**快速浏览**。说真的，你不是错过任何关于十六进制的重要信息。包括我这个简短的为了完整性的题外，在很大程度上避免大量“但是，但是，但是……！”
 
 **颜色名**
 
@@ -146,7 +146,7 @@
 
 因此，十进制值 10，我们称之为“十”，实际上表示“一个十和零个一”。同样，十进制的 26 表示“两个十和六个一”，十进制的 33 表示“三个十和三个一”，十进制的 42 表示“四个十和两个二”。（当然，[这就是最终问题的答案](https://en.wikipedia.org/wiki/Phrases_from_The_Hitchhiker%27s_Guide_to_the_Galaxy#Answer_to_the_Ultimate_Question_of_Life.2C_the_Universe.2C_and_Everything_.2842.29））。
 
-十六进制的伟大之处在于它工作得很像十进制。**确切地说！**不开玩笑、不夸张、没有选择。十六进制算术和十进制算术完全一样，它只有十六个字符数字而不是十个数字。
+十六进制的伟大之处在于它工作得很像十进制。**确切地说！** 不开玩笑、不夸张、没有选择。十六进制算术和十进制算术完全一样，它只有十六个字符数字而不是十个数字。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*jhKg0v_TTUDXht8y4VQD9g.png)
 
