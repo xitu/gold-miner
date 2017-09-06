@@ -4,7 +4,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/switching-site-https-shoestring-budget.md](https://github.com/xitu/gold-miner/blob/master/TODO/switching-site-https-shoestring-budget.md)
 > * 译者：[lsvih](https://github.com/lsvih)
-> * 校对者：
+> * 校对者：[ahonn](https://github.com/ahonn), [sunshine940326](https://github.com/sunshine940326)
 
 # 低成本将你的网站切换为 HTTPS
 
@@ -22,7 +22,7 @@ Google 的 Search Console 小组最近向所有站长发了一封 email，警告
 
 问题在于：安装 SSL 证书、将网站 URL 从 HTTP 转换为 HTTPS、以及将所有链接和图像链接等都换成 HTTPS 并不是一项简单的任务。谁会为了自己的个人网站去费时费钱呢？
 
-我使用 GitHub Page 免费托管了一系列的网站和项目，其中的一部分还是用了自定义域名。因此，我想看看我能否快速、廉价地将这些网站从 HTTP 迁移为 HTTPS。最后我找到了一种相对简单的方案，希望能帮助你们。下面让我们来探究一下这种方法吧。
+我使用 GitHub Page 免费托管了一系列的网站和项目，其中的一部分还使用了自定义域名。因此，我想看看我能否快速、廉价地将这些网站从 HTTP 迁移为 HTTPS。最后我找到了一种相对简单且低成本的方案，希望能够帮助到你们。下面让我们来探究一下这种方法吧。
 
 ## 对 GitHub page 强制启用 HTTPS
 
@@ -32,13 +32,13 @@ Google 的 Search Console 小组最近向所有站长发了一封 email，警告
 
 ## 但我们仍然需要 SSL
 
-第一步十分的简单，但它并不符合 Google 对安全网站定义的要求。我们启用了 HTTPS 设置，但是没有为使用[自定义域名](https://help.github.com/articles/using-a-custom-domain-with-github-pages/)的网站安装、提供 SSL 证书。直接使用 GitHub Page 提供的网址的站点已经是完全安全的了，但是使用自定义域名的站点必须要进行一些额外的步骤，让其在域名的层面上使用安全证书。
+第一步十分的简单，但它并不符合 Google 对安全网站定义的要求。我们启用了 HTTPS 设置，但是没有为使用[自定义域名](https://help.github.com/articles/using-a-custom-domain-with-github-pages/)的网站安装、提供 SSL 证书。直接使用 GitHub Page 提供的网址的站点已经完全符合要求了，但是使用自定义域名的站点必须要进行一些额外的步骤，让其在域名的层面上使用安全证书。
 
-还有个问题，SSL 证书虽然并不贵，但也需要花一笔钱，在你尽可能希望降低成本时可不想为此增加花费。所以得找个办法。
+还有个问题，SSL 证书虽然并不贵，但也需要花一笔钱，在你尽可能希望降低成本时可不想为此增加花费。所以得找个办法解决这个问题。
 
 ## 我们可以通过 CDN 免费试用 SSL！
 
-在这儿就不得不提 Cloudflare 了。Cloudflare 是一个内容分发网络（CDN）提供商，同时它也提供分布式域名服务，这也意味着我们可以利用他们的网络来设置 HTTPS。使用它们服务的真正好处在于他们提供了免费计划，可以让我们免费做到这一切。
+在这儿就不得不提 Cloudflare 了。Cloudflare 是一个内容分发网络（CDN）提供商，同时它也提供分布式域名服务，这也意味着我们可以利用他们的网络来设置 HTTPS。使用它们服务的真正好处在于他们提供了免费的方案，让这一切成为可能。
 
 另外，值得一提的是在 CSS-Tricks 论坛里也有[许多帖子](https://css-tricks.com/?s=cdn)描述了使用 CDN 的好处。虽然这篇文章中主要探讨的是安全性问题，但其实 CDN 除了能帮你使用 HTTPS 之外，还是降低服务器负载、[提升网站性能](https://css-tricks.com/adding-a-cdn-to-your-website/)的绝佳方式。
 
@@ -56,7 +56,7 @@ Cloudflare 扫描 DNS 记录后会将结果展示出来供你查看。如果 Clo
 
 ![The DNS record report in Cloudflare](https://res.cloudinary.com/css-tricks/image/upload/c_scale,w_959,f_auto,q_auto/v1504368181/https-cloudflare-nameservers_yvfca2.png)
 
-### 第三步：获取免费计划
+### 第三步：获取免费方案
 
 Cloudflare 会询问你需要哪种级别的服务。瞧~你可以在这儿选择“免费”选项。
 
@@ -92,7 +92,7 @@ Cloudflare 会询问你需要哪种级别的服务。瞧~你可以在这儿选�
 
 ### 第六步：使用 CDN
 
-嘿，我们现在正在用 CDN 来获取 SSL 证书，所以我们还可以利用它的性能优势来得到更多的好处。我们可以通过自动压缩文件、设置浏览器缓存过期时间来提升网站性能。
+我们现在正在用 CDN 来获取 SSL 证书，所以我们还可以利用它的性能优势来得到更多的好处。我们可以通过自动压缩文件、延长浏览器缓存过期时间来提升网站性能。
 
 选择”Speed“选项，允许 Cloudflare 自动压缩网站资源：
 
@@ -122,7 +122,7 @@ Cloudflare 会询问你需要哪种级别的服务。瞧~你可以在这儿选�
 
 ![Create a page rule in the Cloudflare settings](https://res.cloudinary.com/css-tricks/image/upload/c_scale,w_962,f_auto,q_auto/v1504368647/https-cloudflare-page-rule_hzmbvv.png)
 
-… 然后点击“Add a Setting”，选择“Always use HTTPS”选项：
+然后点击“Add a Setting”，选择“Always use HTTPS”选项：
 
 ![Force HTTPS on that entire domain! Note the asterisks in the formatting, which is crucial.](https://res.cloudinary.com/css-tricks/image/upload/c_scale,w_797,f_auto,q_auto/v1504368689/https-cloudflare-force-https_vgouyf.png)
 
