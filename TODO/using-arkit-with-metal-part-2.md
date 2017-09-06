@@ -178,15 +178,15 @@ In the vertex shader we update the vertex position using the model-view matrix:
 
 ```
 vertex float4 vertexDebugPlane(DebugVertex in [[ stage_in]],
-constant SharedUniforms &sharedUniforms [[ buffer(3) ]],
-constant InstanceUniforms *instanceUniforms [[ buffer(2) ]],
-ushort vid [[vertex_id]],
-ushort iid [[instance_id]]) {
-  float4 position = float4(in.position, 1.0);
-  float4x4 modelMatrix = instanceUniforms[iid].modelMatrix;
-  float4x4 modelViewMatrix = sharedUniforms.viewMatrix * modelMatrix;
-  float4 outPosition = sharedUniforms.projectionMatrix * modelViewMatrix * position;
-  return outPosition;
+                               constant SharedUniforms &sharedUniforms [[ buffer(3) ]],
+                               constant InstanceUniforms *instanceUniforms [[ buffer(2) ]],
+                               ushort vid [[vertex_id]],
+                               ushort iid [[instance_id]]) {
+    float4 position = float4(in.position, 1.0);
+    float4x4 modelMatrix = instanceUniforms[iid].modelMatrix;
+    float4x4 modelViewMatrix = sharedUniforms.viewMatrix * modelMatrix;
+    float4 outPosition = sharedUniforms.projectionMatrix * modelViewMatrix * position;
+    return outPosition;
 }
 ```
 
