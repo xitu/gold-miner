@@ -6,7 +6,7 @@
   > * 译者：[oOatuo](https://github.com/atuooo)
   > * 校对者：[Kangkang](https://github.com/xuxiaokang), [Richard_Lee](https://github.com/richardleeh)
 
-# 探究 Swift 中的 Futures & Promises 
+# 掀起 Swift 中 Futures & Promises 的红盖头 
 
 异步编程可以说是构建大多数应用程序最困难的部分之一。无论是处理后台任务，例如网络请求，在多个线程中并行执行重操作，还是延迟执行代码，这些任务往往会中断，并使我们很难调试问题。
 
