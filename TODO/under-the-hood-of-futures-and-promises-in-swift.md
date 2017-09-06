@@ -6,13 +6,13 @@
   > * 译者：[oOatuo](https://github.com/atuooo)
   > * 校对者：[Kangkang](https://github.com/xuxiaokang), [Richard_Lee](https://github.com/richardleeh)
 
-# 掀起 Swift 中 Futures & Promises 的红盖头 
+# 探究 Swift 中的 Futures & Promises 
 
 异步编程可以说是构建大多数应用程序最困难的部分之一。无论是处理后台任务，例如网络请求，在多个线程中并行执行重操作，还是延迟执行代码，这些任务往往会中断，并使我们很难调试问题。
 
 正因为如此，许多解决方案都是为了解决上述问题而发明的 - 主要是围绕异步编程创建抽象，使其更易于理解和推理。对于大多数的解决方案来说，它们都是在"回调地狱"中提供帮助的，也就是当你有多个嵌套的闭包为了处理同一个异步操作的不同部分的时候。
 
-这周，让我们来看一个这样的解决方案 - *Futures & Promises* - 让我们打开"引擎盖"，看看它们是如何工作的。
+这周，让我们来看一个这样的解决方案 - **Futures & Promises** - 让我们打开"引擎盖"，看看它们是如何工作的。。
 
 ## A promise about the future
 
@@ -84,7 +84,7 @@ userLoader.loadUser(withID: userID).observe { result in
 
 **就像编程中的大多数事情一样，有许多不同的方式来实现 Futures & Promises。在本文中，我将提供一个简单的实现，最后将会有一些流行框架的链接，这些框架提供了更多的功能。**
 
-让我们开始探究下 `Future` 的实现，这是从异步操作中*公开返回*的。它提供了一种*只读*的方式来观察每当被赋值的时候以及维护一个观察回调列表，像这样：
+让我们开始探究下 `Future` 的实现，这是从异步操作中*公开返回*的。它提供了一种**只读**的方式来观察每当被赋值的时候以及维护一个观察回调列表，像这样：
 
 ```
 class Future<Value> {
@@ -111,7 +111,7 @@ class Future<Value> {
 
 ## 生成 promise
 
-接下来，硬币的反面，`Promise` 是 `Future` 的子类，用来添加*解决*和*拒绝*它的 API。解决一个承诺的结果是，在未来成功地完成并返回一个值，而拒绝它会导致一个错误。像这样：
+接下来，硬币的反面，`Promise` 是 `Future` 的子类，用来添加**解决***和*拒绝**它的 API。解决一个承诺的结果是，在未来成功地完成并返回一个值，而拒绝它会导致一个错误。像这样：
 
 ```
 class Promise<Value>: Future<Value> {
