@@ -25,7 +25,7 @@
 # 合作伙伴
 
 - [虚位以待]()
-- 合作相关事宜请加管理员微信 517010193 或者扫描 [二维码](http://oiiyyn1t0.bkt.clouddn.com/wechat-517010193.jpg)
+- 合作事宜请扫描 [二维码](http://oiiyyn1t0.bkt.clouddn.com/wechat-517010193.jpg) 联系管理员
 
 # 近期文章列表
 
