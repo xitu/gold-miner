@@ -2,7 +2,7 @@
 > * 原文地址：[Improve Web Typography with CSS Font Size Adjust](https://www.sitepoint.com/improve-web-typography-css-font-size-adjust/?utm_source=SitePoint&utm_medium=email&utm_campaign=Versioning)
 > * 原文作者：[Panayotis Matsinopoulos](https://www.sitepoint.com/author/pmatsinopoulos/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/#.md](https://github.com/xitu/gold-miner/blob/master/TODO/#.md)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/improve-web-typography-css-font-size-adjust.md](https://github.com/xitu/gold-miner/blob/master/TODO/improve-web-typography-css-font-size-adjust.md)
 > * 译者：
 > * 校对者：
 
