@@ -3,54 +3,55 @@
 > * 原文作者：[Guanghan Ning](http://guanghan.info/blog/en/author/admin/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/building-our-personal-deep-learning-rig-gtx-1080-ubuntu-16-04-cuda-8-0rc-cudnn-7-tensorflowmxnetcaffedarknet.md](https://github.com/xitu/gold-miner/blob/master/TODO/building-our-personal-deep-learning-rig-gtx-1080-ubuntu-16-04-cuda-8-0rc-cudnn-7-tensorflowmxnetcaffedarknet.md)
-> * 译者：
+> * 译者：[RichardLeeH](https://github.com/RichardLeeH)
 > * 校对者：
 
-# Build Personal Deep Learning Rig: GTX 1080 + Ubuntu 16.04 + CUDA 8.0RC + CuDnn 7 + Tensorflow/Mxnet/Caffe/Darknet
+# 搭建个人深度学习平台：GTX 1080 + Ubuntu 16.04 + CUDA 8.0RC + CuDnn 7 + Tensorflow/Mxnet/Caffe/Darknet
 
-My intern at TCL is over soon. Before going back to the campus for graduation, I have decided to build myself a personal deep learning rig. I guess I cannot really rely on the machines either in the company or in the lab, because ultimately the workstation is not mine, and the development environment may be messed up (It already happened once) . With a personal rig, I can conveniently use teamviewer to login my deep learning workstation at any time. And I got the chance to build everything from scratch.
+我在 TCL 的实习即将结束。在回校园参加毕业典礼之前，我决定搭建自己的个人深度学习平台。我想我不能真的依赖于公司或实验室的机器，因为最终工作站不是我的，而且开发环境可能是一团糟(它已经发生过一次)。有了个人平台，我可以方便地使用 teamviewer 随时登陆我的深度学习工作站。我有机会从头开始搭建平台。
 
-In this post, I will go through the whole process of the building a deep learning PC, including the hardware and the software. Upon sharing it with you, I hope it will be helpful to researchers and engineers with the same needs. Since I am building the rig with **GTX 1080, Ubuntu 16.04, CUDA 8.0RC, CuDnn 7**, everything is pretty up-to-date. Here is an overview of this article:
+在本文中，我将介绍搭建深度学习 PC 的挣个过程。包括硬件和软件。在此，我分享给大家，希望对具有相同需求的研究人员和工程师有所帮助。由于我使用 **GTX 1080, Ubuntu 16.04, CUDA 8.0RC, CuDnn 7** 搭建平台，这些都是最新版本。以下是这篇文章的概述：
 
-**Hardware**
+**硬件**
 
-1. Pick Parts
-2. Build the workstation
+1. 选择部分
+2. 搭建工作站
 
-**Software**
+**软件**
 
-3. Operating System Installation
+3. 操作系统安装
 
-- Preparing bootable installation USB drives
-- Build systems
+- 准备可引导安装的 USB 驱动器
+- 安装系统
 
-4. Deep Learning Environment Installation
+4. 深度学习环境安装
 
-- Remote Control: teamviewer
-- Bundle Management: anaconda
-- Development Environment: python IDE
-- GPU-optimized Environment: CUDA and CuDnn
-- Deep Learning Frameworks: Tensorflow & Mxnet & Caffe & Darknet
+- 远程控制：teamviewer
+- 开发包管理：anaconda
+- 开发环境：python IDE
+- GPU 优化环境：CUDA 和 CuDnn
+- 深度学习框架：Tensorflow & Mxnet & Caffe & Darknet
 
-5. Docker for Out-of-the-Box Deep Learning Environment
+5. 开箱即用的深度学习环境：Docker
 
-- Install Docker
-- Install NVIDIA-Docker
-- Download Deep Learning Docker Images
-- Share Data between Host and Container
-- Learn Simple Docker Commands
+- 安装 Docker
+- 安装 NVIDIA-Docker
+- 下载深度学习 Docker 镜像
+- 主机和容器之间共享数据
+- 了解简单的 Docker 命令
 
-## Hardware:
+## 硬件：
 
-### Pick Parts
+### 选择部分
 
 I recommend using **PcPartPicker** to pick your parts. It helps you find the source where you can buy your part with the lowest price available, and it checks the compatibility of the selected parts for you. They also have a **youtube channel** where they offer videos that demonstrate the building process.
+我推荐使用 **PcPartPicker** 来挑选配件。它可以帮助你以最低价购买到配件，并检查所选配件的兼容性。他们还上线了一个 **youtube 频道**，你可以找到他们提供的搭建过程的视频。
 
-In my case, I used their build article as reference, and created a build list myself, which can be found [here](https://pcpartpicker.com/user/quietning/saved/#view=YP6v6h). Here are the parts that I used to build the workstation.
-
+在我的搭建案例中，我使用他们的搭建文章作为参考，并创建了一个搭建清单，可以在[这里](https://pcpartpicker.com/user/quietning/saved/#view=YP6v6h)找到。以下是我搭建工作站使用的配件。
 ![](http://guanghan.info/blog/en/wp-content/uploads/2016/07/IMG_20160707_191958-Copy.jpg)
 
 Since we are doing deep learning research, a good GPU is necessary. Therefore, I choose the recently released GTX 1080. It was quite hard to buy, but if you notice the bundles in newegg, some people are gathering this to sell in [GPU + motherboard] or [GPU + Power] bundles. Market, you know. It is better buying the bundle than buying it at a raised price, though. Anyway, a good GPU will make the training or finetuning process much faster. Here are some figures to show the advantage of GTX 1080 over some other GPUs, with respect to performance, price, and power efficiency (saves you electricity daily and the money to buy the appropriate PC power supply).
+由于我们正在进行深度学习研究，一个好的 GPU 是非常有必要的。因此，我选择了最新发布的 GTX 1080。但很难买到，
 
 ![](http://guanghan.info/blog/en/wp-content/uploads/2016/07/gtx_1.png)
 
@@ -64,25 +65,25 @@ As of building from the parts, I followed the tutorial of [this video]. Although
 
 ![](http://guanghan.info/blog/en/wp-content/uploads/2016/07/IMG_20160708_020941-Copy.jpg)
 
-## Software: 
+## 软件：
 
-### Installation of Operating Systems
+### 操作系统安装
 
-It is very common to use Ubuntu for deep learning research. But sometimes you may need another operating system working as well. For example, if you are also a VR developer, having a GTX 1080, you may want a Win10 for VR development with Unity or whatsoever. Here I introduce the installation of both Win10 and Ubuntu. If you are only interested in the Ubuntu installation, you can skip installing windows.
+通常采用 Ubuntu 进行深度学习研究。但是有时你需要使用另一操作系统协同工作。例如，如果 if you are also a VR developer, having a GTX 1080, you may want a Win10 for VR development with Unity or whatsoever. Here I introduce the installation of both Win10 and Ubuntu. If you are only interested in the Ubuntu installation, you can skip installing windows.
 
-#### Preparing bootable installation USB drives
+#### 准备可引导安装的 USB 驱动器
 
 It is very convenient to install operating systems with USB disks, as we all have them. Because the USB disks will be formatted, you won’t want that happen to your portable hard disk. Or if you have writable DVDs, you can use them to install operating systems and save them for future use, if you can find them again by then.
 
 Since it is well illustrated in the official website, you can go to [Windows 10 page](https://www.microsoft.com/en-us/software-download/windows10/) to learn how to make the USB drive.As of Ubuntu, you can similarly download the ISO and create USB installation media or burn it to a DVD. If you are now using Ubuntu system, follow [this tutorial](http://www.ubuntu.com/download/desktop/create-a-usb-stick-on-ubuntu) from Ubuntu official website. If you are current using Windows, follow [this tutorial](http://www.ubuntu.com/download/desktop/create-a-usb-stick-on-windows) istead.
 
-#### Installing Systems
+#### 系统安装
 
 It is highly recommended that you install windows first for a dual-system installation. I will skip win10 installation as detailed guide can be found here: [Windows 10 page](https://www.microsoft.com/en-us/software-download/windows10/) . One thing to note is that you will need the activation key. You can find the tag on the bottom of your laptop, if it has been installed windows 7 or windows 10 upon purchasing.
 
 Installing Ubuntu16.04 was a little tricky for me, which was kind of a surprise. It was mainly because I did not have the GTX 1080 driver pre-installed at the very beginning. I will share my story with you, in case you encounter the same problems.
 
-#### Installing Ubuntu：
+#### 安装 Ubuntu：
 
 First things first, insert the boot USB for installation. Nothing is showing on my LG screen, except that it says frequency is too high. But the screen is okay, as is tested on another laptop. I tried to connect the PC with a TV, which was showing, but only the desktop with no tool panel. I figured out it was the problem of the NVIDIA driver. So I went to BIOS and set the integrated graphics as default and restart. Remember to switch the HDMI from the port on GTX1080 to that on the motherboard. Now the display works well. I successfully installed Ubuntu following its prompt guides.
 
@@ -116,13 +117,13 @@ menuentry ‘Windows 10′{
 - Problem: Upon installing teamviewer, it says “dependencies not met”
 - Solver: Refer to [this link](http://askubuntu.com/questions/362951/installed-teamviewer-using-a-64-bits-system-but-i-get-a-dependency-error/363083).
 
-### Deep Learning Environment 
+### 深度学习环境 
 
-#### Installation of Remote Control (TeamViewer):
+#### 远程控制软件安装 (TeamViewer)：
 
 dpkg -i teamviewer_11.0.xxxxx_i386.deb
 
-#### Installation of Package Management System (Anaconda):
+#### 包管理工具安装 (Anaconda)：
 
 Anaconda is an easy-to-install free package manager, environment manager, Python distribution, and collection of over 720 open source packages offering free community support.It can be used to create virtual environments, where each environment will not mess up with each other. It is helpful when we use different deep learning frameworks at the same time, and the configurations are different.Using it to install packages is convenient as well.It can be easily installed, [follow this](https://docs.continuum.io/anaconda/install#linux-install).
 
@@ -131,13 +132,13 @@ Some commands to start using virtual environment:
 - source activate virtualenv
 - source deactivate
 
-### Installation of Development Environment (Python IDE):
+### 开发环境安装 (Python IDE)：
 
 #### Spyder vs Pycharm?
 
 Spyder:
 
-- Advantage：matlab-like，easy to review intermediate results.
+- 优点：matlab-like，easy to review intermediate results.
 
 Pycharm：
 
@@ -145,21 +146,21 @@ Pycharm：
 
 In my personal philosophy, I regard them to be merely tools. Each tool will be used when it comes in handy. I will use IDEs for the construction of the backbone for the project. For example, use pycharm for the framework construction. After that, I will just modify code with VIM. It is not that VIM is so powerful and showy, but because it is the single text editor that I want to really master. As of text editors, there is no need we should master two. For special occasions, where we need to frequently check IO, directories, etc, we might want to use spyder instead.
 
-#### Installation:
+#### 安装：
 
 1. spyder：
 
-- You do not need to install spyder, as is included in anaconda.
+- 你不需要安装 spyder，因为 anaconda 中已经自带了 spyder
 
 2. pycharm
 
-- Download from the [official website](https://www.jetbrains.com/pycharm/). Just unzip.
-- Set anaconda to be the project interpreter for pycharm, dealing with package management. Follow [this](https://docs.continuum.io/anaconda/ide_integration#pycharm).
+- 从 [官方网站](https://www.jetbrains.com/pycharm/) 下载。只需解压。
+- 设置 pycharm 的 项目解释器为 anaconda，并进行包管理。 关注 [这里](https://docs.continuum.io/anaconda/ide_integration#pycharm)。
 
 3. vim
 
 - sudo apt-get install vim
-- The configuration that I currently use: [Github](https://github.com/Guanghan/VimIDE)
+- 我使用的配置：[Github](https://github.com/Guanghan/VimIDE)
 
 4. Git
 
@@ -169,18 +170,18 @@ In my personal philosophy, I regard them to be merely tools. Each tool will be u
 - git config –global core.editor vim
 - git config –list
 
-### Installation of GPU-Optimized Computing Environment (CUDA and CuDNN)
+### GPU 优化计算环境安装 (CUDA 和 CuDNN)
 
 #### CUDA
 
-##### [Install CUDA 8.0 RC](https://developer.nvidia.com/cuda-release-candidate-download): There are two reasons to choose the 8.0 version over 7.5:
+##### [安装 CUDA 8.0 RC](https://developer.nvidia.com/cuda-release-candidate-download): 选择 7.5 以上版本的 8.0 版本有两个原因：
 
 - CUDA 8.0 will give a performance gain for GTX1080 (Pascal), compared to CUDA 7.5.
 - It seems that ubuntu 16.04 does not support CUDA 7.5 because you cannot find it to download on the official website. Therefore CUDA 8.0 is the only choice.
 
-##### [CUDA starter Guide](http://developer.download.nvidia.com/compute/cuda/8.0/secure/rc1/docs/sidebar/CUDA_Quick_Start_Guide.pdf?autho=1468531210_b9ce6047a5b7cb575fde7a6ffd6ad729&file=CUDA_Quick_Start_Guide.pdf)
+##### [CUDA 入门指南](http://developer.download.nvidia.com/compute/cuda/8.0/secure/rc1/docs/sidebar/CUDA_Quick_Start_Guide.pdf?autho=1468531210_b9ce6047a5b7cb575fde7a6ffd6ad729&file=CUDA_Quick_Start_Guide.pdf)
 
-##### [CUDA Installer Guide](http://developer.download.nvidia.com/compute/cuda/8.0/secure/rc1/docs/sidebar/CUDA_Installation_Guide_Linux.pdf?autho=1468531209_7b8d97cef95dffcb18e2fecb656b8a85&file=CUDA_Installation_Guide_Linux.pdf)
+##### [CUDA 安装指南](http://developer.download.nvidia.com/compute/cuda/8.0/secure/rc1/docs/sidebar/CUDA_Installation_Guide_Linux.pdf?autho=1468531209_7b8d97cef95dffcb18e2fecb656b8a85&file=CUDA_Installation_Guide_Linux.pdf)
 
 1. sudo sh cuda_8.0.27_linux.run
 2. Follow the command-line prompts
@@ -191,27 +192,27 @@ In my personal philosophy, I regard them to be merely tools. Each tool will be u
 - PATH=${CUDA_HOME}/bin:${PATH}
 - export PATH
 
-4. check if CUDA is installed (Remember to restart the terminal):
+4. 验证是否 CUDA 安装（记住需要重启 terminal）：
 
 - nvcc –version
 
-#### Cudnn（CUDA Deep Learning Libarary）
+#### Cudnn（CUDA 深度学习库）
 
-##### [install cudnn](https://developer.nvidia.com/cudnn)
+##### [安装 cudnn](https://developer.nvidia.com/cudnn)
 
 - Version：Cudnn v5.0 for CUDA 8.0RC
 
-##### [User Guide](http://developer.download.nvidia.com/compute/machine-learning/cudnn/secure/v5/prod/cudnn_library.pdf?autho=1468531134_f12a2097cf581a5659608091857f7326&file=cudnn_library.pdf)
+##### [用户指南](http://developer.download.nvidia.com/compute/machine-learning/cudnn/secure/v5/prod/cudnn_library.pdf?autho=1468531134_f12a2097cf581a5659608091857f7326&file=cudnn_library.pdf)
 
-##### [Install Guide](http://developer.download.nvidia.com/compute/machine-learning/cudnn/secure/v5/prod/cudnn_library.pdf?autho=1468531134_f12a2097cf581a5659608091857f7326&file=cudnn_library.pdf)
+##### [安装指南](http://developer.download.nvidia.com/compute/machine-learning/cudnn/secure/v5/prod/cudnn_library.pdf?autho=1468531134_f12a2097cf581a5659608091857f7326&file=cudnn_library.pdf)
 
-1. Choice one: (Add CuDNN path to environment variables)
+1. 方式一：(环境变量中添加 CuDNN 路径)
 
 - Extract folder “cuda”
 - cd <installpath>
 - export LD_LIBRARY_PATH=`pwd`:$LD_LIBRARY_PATH
 
-2. Choice two:  (Copy the files of CuDNN to CUDA folder. If CUDA is working alright, it will automatically find CUDNN by relative path)
+2. 方式二:  (将 CuDNN 的文件 拷贝到 CUDA 文件夹下。If CUDA is working alright, it will automatically find CUDNN by relative path)
 
 - tar xvzf cudnn-8.0.tgz
 - cd cudnn
@@ -219,24 +220,24 @@ In my personal philosophy, I regard them to be merely tools. Each tool will be u
 - sudo cp lib64/libcudnn* /usr/local/cuda/lib64
 - sudo chmod a+r /usr/local/cuda/include/cudnn.h /usr/local/cuda/lib64/libcudnn*
 
-### Installation of Deep Learning Frameworks：
+### 安装深度学习框架：
 
 #### Tensorflow / keras
 
-##### Install tensorflow first
+##### 首先安装 tensorflow
 
-1. [Install with anaconda](https://github.com/tensorflow/tensorflow/blob/master/tensorflow/g3doc/get_started/os_setup.md#anaconda-installation)
+1. [使用 anaconda 安装](https://github.com/tensorflow/tensorflow/blob/master/tensorflow/g3doc/get_started/os_setup.md#anaconda-installation)
 
 - conda create -n tensorflow python=3.5
 
-2. [Install Tensorflow using Pip in the environment](https://www.tensorflow.org/versions/r0.9/get_started/os_setup.html#anaconda-installation) (It does NOT supports cuda 8.0 at the moment. I will update this when binaries for CUDA 8.0 come out)
+2. [在环境中使用 Pip 安装 Tensorflow](https://www.tensorflow.org/versions/r0.9/get_started/os_setup.html#anaconda-installation) (It does NOT supports cuda 8.0 at the moment. I will update this when binaries for CUDA 8.0 come out)
 
 - source activate tensorflow
 - sudo apt install python3-pip
 - export TF_BINARY_URL=https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow-0.9.0-cp35-cp35m-linux_x86_64.whl
 - pip3 install –upgrade $TF_BINARY_URL
 
-3. [Install Tensorflow directly from source](https://www.tensorflow.org/versions/r0.9/get_started/os_setup.html#installing-from-sources)
+3. [直接使用源码安装 Tensorflow](https://www.tensorflow.org/versions/r0.9/get_started/os_setup.html#installing-from-sources)
 
 - install bazel: install jdk 8, uninstall jdk 9.
 - sudo apt-get install python-numpy swig python-dev
@@ -244,10 +245,10 @@ In my personal philosophy, I regard them to be merely tools. Each tool will be u
 - build with bazel: bazel build -c opt –config=cuda //tensorflow/cc:tutorials_example_trainer, 
 bazel-bin/tensorflow/cc/tutorials_example_trainer –use_gpu.
 
-##### Install keras
+##### 安装 keras
 
-1. download it at: [https://github.com/fchollet/keras/tree/master/keras](https://github.com/fchollet/keras/tree/master/keras)
-2. cd to the Keras folder and run the install command:
+1. 下载: [https://github.com/fchollet/keras/tree/master/keras](https://github.com/fchollet/keras/tree/master/keras)
+2. 定位到 Keras 目录中并运行安装命令：
 
 - sudo python setup.py install
 
@@ -260,7 +261,7 @@ bazel-bin/tensorflow/cc/tutorials_example_trainer –use_gpu.
 
 #### Mxnet
 
-##### Create a virtual environment for Mxnet
+##### 为 Mxnet 创建一个虚拟环境
 
 1. conda create -n mxnet python=2.7
 2. source activate mxnet
@@ -313,23 +314,23 @@ bazel-bin/tensorflow/cc/tutorials_example_trainer –use_gpu.
 
 - This is the easiest of all to install. Just type “make”, and that’s it.
 
-### Docker for Out-of-the-Box Deep Learning Environment  
+### 开箱即用的深度学习环境：Docker
 
 I used to have caffe, darknet, mxnet, tensorflow all installed correctly in Ubuntu 14.04 and TITAN-X (cuda7.5). And I have done projects with these frameworks, all turning out working well. It is therefore safer to use these pre-built environments than adventuring with latest versions, if you want to focus on the deep learning research instead of being potentially bothered by peripheral problems you may encounter. Then you should consider isolate each framework with its own environment using docker. These docker images can be found in [DockerHub](https://hub.docker.com/). 
 
-#### Install Docker 
+#### 安装 Docker 
 
 Unlike virtual machines, a docker image is built with layers. Same ingredients are shared among different images. When we download a new image, existing components won’t be re-downloaded. It is more efficient and convenient compared to the replacement of the whole virtual machine image. Docker containers are like the run-time of docker images. They can be committed and used to update docker images, just like Git.
 
 To install docker on Ubuntu 16.04, we follow instructions on [the official website](https://docs.docker.com/engine/installation/linux/ubuntulinux/).
 
-#### Install NVIDIA-Docker
+#### 安装 NVIDIA-Docker
 
 Docker containers are both hardware-agnostic and platform agnostic, but docker does not natively support NVIDIA GPUs with containers. (The hardware is specialized, and driver is needed.) To solve this problem, we need the nvidia-docker to mount the devices and driver files when starting the container on the target machine. In this way, the image is agnostic of the Nvidia driver.
 
 The installation of NVIDIA-Docker can be found [here](https://github.com/NVIDIA/nvidia-docker).
 
-#### Download Deep Learning Docker Images 
+#### 下载深度学习 Docker 镜像 
 
 I have collected some pre-built docker images from the Docker Hub. They are listed here:
 
@@ -342,20 +343,20 @@ I have collected some pre-built docker images from the Docker Hub. They are list
 Share Data between Host and Container
 For computer vision researchers, it will be awkward not to see results.For instance, after adding some Picasso style to an image, we would definitely want to the output images from different epoches.Check out [this page](https://github.com/rocker-org/rocker/wiki/Sharing-files-with-host-machine) quickly to share data between the host and the container.In a shared directory, we can create projects. On the host, we can start coding with text editors or whatever IDEs we prefer. And then we can run the program in the container.The data in the shared container can be viewed and processed with the GUI of the host Ubuntu machine.
 
-#### Learn Simple Docker Commands
+#### 了解简单的 命令
 
 Don’t be overwhelmed  if you are new to docker. It does not need to be systematically studied unless you want to in the future.Here are some simple commands for you to use to start dealing with docker. Usually they are sufficient if you consider Docker a tool, and want to use it solely for a deep learning environment.
 
-##### How to check the docker images？
+##### 如何检查 docker 镜像？
 
 - docker images： Check all the docker images that you have.
 
-##### How to check the docker containers？
+##### 如何检查 docker 容器？
 
 - docker ps -a：Check all the containers that you have.
 - docker ps: Check containers that are running
 
-##### How to exit a docker container？
+##### 如何退出 docker 容器？
 
 1. (Method 1) In the terminal corresponding the current container:
 
@@ -391,7 +392,7 @@ Don’t be overwhelmed  if you are new to docker. It does not need to be systema
 - If the container is to be saved because it is probably to be committed: docker run -it [image_name]
 - If the container is only for temporary use: docker run –rm -it [image_name]
 
-Leave a Reply
+欢迎发表评论
 
 
 ---
