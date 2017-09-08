@@ -3,136 +3,138 @@
 > * 原文作者：[CHRISTOPHER SCHMITT](https://css-tricks.com/author/schmitt/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/switching-site-https-shoestring-budget.md](https://github.com/xitu/gold-miner/blob/master/TODO/switching-site-https-shoestring-budget.md)
-> * 译者：
-> * 校对者：
+> * 译者：[lsvih](https://github.com/lsvih)
+> * 校对者：[ahonn](https://github.com/ahonn), [Cherry](https://github.com/sunshine940326)
 
-# Switching Your Site to HTTPS on a Shoestring Budget
+# 低成本将你的网站切换为 HTTPS
 
-Google's Search Console team recently sent out an email to site owners with a warning that Google Chrome will take steps starting this October to identify and show warnings on non-secure sites that have form inputs.
+Google 的 Search Console 小组最近向所有站长发了一封 email，警告 Google Chrome 将从 10 月起，在包含表单但没有使用安全措施的网站中显示警告信息。
 
-Here's the notice that landed in my inbox:
+下图为我收件箱里的通知：
 
-![The notice from the Google Search Console team regarding HTTPS support](https://res.cloudinary.com/css-tricks/image/upload/c_scale,w_610,f_auto,q_auto/v1504368007/https-google-letter_h3h2a7.jpg)
+![图为 Google Search Console 团队发来的关于 HTTPS 支持的通知](https://res.cloudinary.com/css-tricks/image/upload/c_scale,w_610,f_auto,q_auto/v1504368007/https-google-letter_h3h2a7.jpg)
 
-If your site URL does not support HTTPS, then this notice directly affects you. Even if your site does not have forms, moving over to HTTPS should be a priority, as this is only one step in Google's strategy to identify insecure sites. They state this clearly in their message:
+如果你的网站还不支持 HTTPS，那这个通知就直接与你相关。即使你的网站并没有用到表单，也应当早日将网站迁移为 HTTPS。因为现在这项措施只不过是 Google“标识非安全网站”策略的第一步。他们在消息中明确表示：
 
-> The new warning is part of a long term plan to mark all pages served over HTTP as "not secure".
+> 这个新的警告仅仅是将所有通过 HTTP 提供服务的页面标记为“不安全”的长期计划的一部分。
 
-![Current Chrome's UI for a site with HTTP support and a site with HTTPS](https://res.cloudinary.com/css-tricks/image/upload/c_scale,w_401,f_auto,q_auto/v1504414046/chrome-http-secure-ui-v2_g208mc.png)
+![当前 Chrome 用以表示支持 HTTP 的站点以及支持 HTTPS 站点的 UI 设计](https://res.cloudinary.com/css-tricks/image/upload/c_scale,w_401,f_auto,q_auto/v1504414046/chrome-http-secure-ui-v2_g208mc.png)
 
-The problem is that the process of installing SSL certificates and transitioning site URLs from HTTP to HTTPS—not to mention editing all those links and linked images in existing content—sounds like a daunting task. Who has time and wants to spend the money to update a personal website for this?
+问题在于：安装 SSL 证书、将网站 URL 从 HTTP 转换为 HTTPS、以及将所有链接和图像链接等都换成 HTTPS 并不是一项简单的任务。谁会为了自己的个人网站去费时费钱呢？
 
-I use GitHub Pages to host a number sites and projects for free—including some that use custom domain names. To that end, I wanted to see if I could quickly and inexpensively convert a site from HTTP to HTTPS. I wound up finding a relatively simple solution on a shoestring budget that I hope will help others. Let's dig into that.
+我使用 GitHub Pages 免费托管了一系列的网站和项目，其中的一部分还使用了自定义域名。因此，我想看看我能否快速、低成本地将这些网站从 HTTP 迁移为 HTTPS。最后我找到了一种相对简单且低成本的方案，希望能够帮助到你们。下面让我们来探究一下这种方法吧。
 
-## Enforcing HTTPS on GitHub Pages
+## 对 GitHub Pages 强制启用 HTTPS
 
-Sites hosted on GitHub Pages have a simple setting to enable HTTPS. Navigate to the project's Settings and flip the switch to enforce HTTPS.
+托管在 GitHub Pages 上的网站可以通过设置很方便地启用 HTTPS。进入项目设置页面，勾上“Enforce HTTPS”即可。
 
-![The GitHub Pages setting to enforce HTTPS on a project](https://res.cloudinary.com/css-tricks/image/upload/c_scale,w_789,f_auto,q_auto/v1504368069/https-github-pages_iekrru.png)
+![在 GitHub Pages 设置中启用项目的 HTTPS 支持](https://res.cloudinary.com/css-tricks/image/upload/c_scale,w_789,f_auto,q_auto/v1504368069/https-github-pages_iekrru.png)
 
-## But We Still Need SSL
+## 但我们仍然需要 SSL
 
-Sure, that first step was a breeze, but it's not the full picture of what we need to do to meet Google's definition of a secure site. The reason is that enabling the HTTPS setting neither provides nor installs a Secure Sockets Layer (SSL) certificate to a site that uses a [custom domain](https://help.github.com/articles/using-a-custom-domain-with-github-pages/). Sites that use the default web address provided by GitHub Pages are fully secure with that setting, but those of us that use a custom domain have to go the extra step of securing SSL at the domain level.
+第一步十分的简单，但它并不符合 Google 对安全网站定义的要求。我们启用了 HTTPS 设置，但是没有为使用[自定义域名](https://help.github.com/articles/using-a-custom-domain-with-github-pages/)的网站安装、提供 SSL 证书。直接使用 GitHub Pages 提供的网址的站点已经完全符合要求了，但是使用自定义域名的站点必须要进行一些额外的步骤，让其在域名的层面上使用安全证书。
 
-That's a bummer because SSL, while not super expensive, is yet another cost and likely one you may not want to incur when you're trying to keep costs down. I wanted to find a way around this.
+还有个问题，SSL 证书虽然并不贵，但也需要花一笔钱，在你尽可能希望降低成本时可不想为此增加花费。所以得找个办法解决这个问题。
 
-## We Can Get SSL From a CDN ... for Free!
+## 我们可以通过 CDN 免费试用 SSL！
 
-This is where Cloudflare comes in. Cloudflare is a Content Delivery Network (CDN) that also provides distributed domain name server services. What that means is that we can leverage their network to set up HTTPS. The real kicker is that they have a free plan that makes this all possible.
+在这儿就不得不提 Cloudflare 了。Cloudflare 是一个内容分发网络（CDN）提供商，同时它也提供分布式域名服务，这也意味着我们可以利用他们的网络来设置 HTTPS。使用这个服务真正的好处在于他们提供了免费的方案，让这一切成为可能。
 
-It's worth noting that there are a [number of good posts](https://css-tricks.com/?s=cdn) here on CSS-Tricks that tout the benefits of a CDN. While we're focused on the security perks in this post, CDNs are an excellent way to help reduce server burden and [increase performance](https://css-tricks.com/adding-a-cdn-to-your-website/).
+另外，值得一提的是在 CSS-Tricks 论坛里也有[许多帖子](https://css-tricks.com/?s=cdn)描述了使用 CDN 的好处。虽然这篇文章中主要探讨的是安全性问题，但其实 CDN 除了能帮你使用 HTTPS 之外，还是降低服务器负载、[提升网站性能](https://css-tricks.com/adding-a-cdn-to-your-website/)的绝佳方式。
 
-From here on out, I'm going to walk through the steps I used to connect Cloudflare to GitHub Pages so, if you haven't already, you can [snag a free account](https://www.cloudflare.com/a/sign-up) and follow along.
+在下文中，我将简述我使用 Cloudflare 连接 Github Pages 的步骤。如果你还没有 Cloudflare 账号，你可以[点击这儿注册账号](https://www.cloudflare.com/a/sign-up)再跟着步骤操作。
 
-### Step 1: Select the "+ Add Site" option
+### 第一步：选择“+ Add Site”选项
 
-First off, we have to tell Cloudflare that our domain exists. Cloudflare will scan the DNS records to verify both that the domain exists and that the public information about the domain are accessible.
+首先，我们需要告诉 Cloudflare 我们使用的域名。Cloudflare 将会扫描 DNS 记录，以验证域名是否存在，并检查域名的公开信息。
 
-![Cloudflare's "Add Website" Setting](https://res.cloudinary.com/css-tricks/image/upload/c_scale,w_992,f_auto,q_auto/v1504368119/https-cloudflare-add-website_m8cxbg.png)
+![Cloudflare 的“Add Website”设置](https://res.cloudinary.com/css-tricks/image/upload/c_scale,w_992,f_auto,q_auto/v1504368119/https-cloudflare-add-website_m8cxbg.png)
 
-### Step 2: Review the DNS records
+### 第二步：查看 DNS 记录
 
-After Cloudflare has scanned the DNS records, it will spit them out and display them for your review. Cloudflare indicates that it believes things are in good standing with an orange cloud in the Status column. Review the report and confirm that the records match those from your registrar. If all is good, click "Continue" to proceed.
+Cloudflare 扫描 DNS 记录后会将结果展示出来供你查看。如果 Cloudflare 认为这些信息符合要求，就会在“Status”列中显示一个橙色的云的图标。你需要检查这份报告，确认其中的信息与你在域名注册商中留的信息相符，如果没问题的话，点击“Continue”按钮继续。
 
-![The DNS record report in Cloudflare](https://res.cloudinary.com/css-tricks/image/upload/c_scale,w_959,f_auto,q_auto/v1504368181/https-cloudflare-nameservers_yvfca2.png)
+![Cloudflare 给出的 DNS 记录报告](https://res.cloudinary.com/css-tricks/image/upload/c_scale,w_959,f_auto,q_auto/v1504368181/https-cloudflare-nameservers_yvfca2.png)
 
-### Step 3: Get the Free Plan
+### 第三步：获取免费方案
 
-Cloudflare will ask what level of service you want to use. Lo and behold! There is a free option that we can select.
+Cloudflare 会询问你需要哪种级别的服务。瞧~你可以在这儿选择“免费”选项。
 
-![Cloudflare's free plan option](https://res.cloudinary.com/css-tricks/image/upload/c_scale,w_997,f_auto,q_auto/v1504368222/https-cloudflare-free-plan_oxgbp0.png)
+![Cloudflare 的免费方案选项](https://res.cloudinary.com/css-tricks/image/upload/c_scale,w_997,f_auto,q_auto/v1504368222/https-cloudflare-free-plan_oxgbp0.png)
 
-### Step 4: Update the Nameservers
+### 第四步：更新域名解析服务器（NS 服务器）
 
-At this point, Cloudflare provides us with its server addresses and our job is to head over to the registrar where the domain was purchased and paste those addresses into the DNS settings.
+这一步中，Cloudflare 给我们提供了其服务器地址，我们要做的就是将这个地址粘贴到自己的域名注册商中的 DNS 设置里。
 
-![Cloudflare provides the nameservers for updated the registrar settings.](https://res.cloudinary.com/css-tricks/image/upload/c_scale,w_976,f_auto,q_auto/v1504368295/https-cloudflare-nameservers-2_yhr2up.jpg)
+![在域名注册商设置中使用 Cloudflare 提供的域名解析服务器](https://res.cloudinary.com/css-tricks/image/upload/c_scale,w_976,f_auto,q_auto/v1504368295/https-cloudflare-nameservers-2_yhr2up.jpg)
 
-It's not incredibly difficult to do this, but can be a little unnerving. Your registrar likely has instructions for how to do this. For example, here are [GoDaddy's instructions]()https://www.godaddy.com/help/set-nameservers-for-domains-hosted-and-registered-with-godaddy-12316 for updating nameservers for domains registered through their service.
+这一步其实并不困难，但你可能会有些疑惑。你的域名注册商可能会提供这一步的操作指南。例如[点此查看 GoDaddy 的指南](https://www.godaddy.com/help/set-nameservers-for-domains-hosted-and-registered-with-godaddy-12316)，了解如何通过他们的服务更新域名解析服务器。
 
-Once you have done this step, your domain will effectively be mapped to Cloudflare's servers, which will act as an intermediary between the domain and GitHub Pages. However, it is a bit of a waiting game and can take Cloudflare up to 24 hours to process the request.
+完成这一步之后，你的域名将会很快被映射到 Cloudflare 的服务器上，这些服务器将成为域名与 Github Pages 之间的中间层。不过，这一步需要耗费一些时间，Cloudflare 可能需要 24 小时来处理这个请求。
 
-**If you are using GitHub Pages with a subdomain** instead of a custom domain, there is one extra step you are required to do. Head over to your GitHub Pages settings and add a CNAME record in the DNS settings. Set it to point to `<your-username>.github.io`, where `<your-username>` is, of course, your GitHub account handle. Oh, and you will need to add a CNAME text file to the root of your GitHub project which is literally a text file named CNAME with your domain name in it.
+**如果你没有用主域名，而是用了子域名来使用 GitHub Pages**，则需要额外进行一步操作。打开你的 GitHub Pages 设置页面，在 DNS 设置中添加一条 CNAME 记录，设置它指向 `<your-username>.github.io`，其中 `<your-username>` 是你的 Github 账号。此外，你需要在 GitHub 项目的根目录下添加一个文件名为 CNAME 的无后缀名文本文档，其内容为你的域名。
 
-Here is a screenshot with an example of adding a GitHub Pages subdomain as a CNAME record in Cloudflare's settings:
+下面的屏幕截图为在 Cloudflare 设置中将 GitHub Pages 子域名添加为 CNAME 记录的例子：
 
-![Adding a GitHub Pages subdomain to Cloudflare](https://res.cloudinary.com/css-tricks/image/upload/c_scale,w_985,f_auto,q_auto/v1504368357/https-cloudflare-github-pages-subdomain_mtnvep.png)
+![将 GitHub Pages 子域名加入 Cloudflare](https://res.cloudinary.com/css-tricks/image/upload/c_scale,w_985,f_auto,q_auto/v1504368357/https-cloudflare-github-pages-subdomain_mtnvep.png)
 
-### Step 5: Enable HTTPS in Cloudflare
+### 第五步：在 Cloudflare 中启用 HTTPS
 
-Sure, we've technically already done this in GitHub Pages, but we're required to do it in Cloudflare as well. Cloudflare calls this feature "Crypto" and it not only forces HTTPS, but provides the SSL certificate we've been wanting all along. But we'll get to that in just a bit. For now, enable Crypto for HTTPS.
+现在，我们从技术上说已经为 GitHub Pages 启用了 HTTPS，但是我们还需要在 Cloudflare 中做同样的事。Cloudflare 把这个功能称为“Crypto”，不仅强制开启了 HTTPS，还提供了我们梦寐以求的 SSL 证书。现在先让我们为 HTTPS 启用 Crypto，之后的步骤中我们会获取到证书的。
 
-![The Crypto option in Cloudflare's main menu](https://res.cloudinary.com/css-tricks/image/upload/c_scale,w_581,f_auto,q_auto/v1504368403/https-cloudflare-crypto_y44ged.png)
+![Cloudflare 主菜单中的 Crypto 选项](https://res.cloudinary.com/css-tricks/image/upload/c_scale,w_581,f_auto,q_auto/v1504368403/https-cloudflare-crypto_y44ged.png)
 
-Turn on the "Always use HTTPS" option:
+开启“Always use HTTPS”选项：
 
-![Enable HTTPS in the Cloudflare settings](https://res.cloudinary.com/css-tricks/image/upload/c_scale,w_954,f_auto,q_auto/v1504368456/https-cloudflare-enable_e5povd.png)
+![在 Cloudflare 设置中开启 HTTPS](https://res.cloudinary.com/css-tricks/image/upload/c_scale,w_954,f_auto,q_auto/v1504368456/https-cloudflare-enable_e5povd.png)
 
-Now any HTTP request from a browser is switched over to the more secure HTTPS. We're another step closer to making Google Chrome happy.
+此时，任何来自浏览器的 HTTP 请求都会被切换成更安全的 HTTPS。我们离“取悦” Google Chrome 又进了一步。
 
-### Step 6: Make Use of the CDN
+### 第六步：使用 CDN
 
-Hey, we're using a CDN to get SSL, so we may as well take advantage of its performance benefits while we're at it. We can speed up performance by reducing files automatically and extend browser cache expiration.
+我们现在正在用 CDN 来获取 SSL 证书，所以我们还可以利用它的性能优势来得到更多的好处。我们可以通过自动压缩文件、延长浏览器缓存过期时间来提升网站性能。
 
-Select the "Speed" option in the settings and allow Cloudflare to auto minify our site's web assets:
+选择“Speed”选项，允许 Cloudflare 自动压缩网站资源：
 
-![Allow Cloudflare to minify the site's web assets](https://res.cloudinary.com/css-tricks/image/upload/c_scale,w_983,f_auto,q_auto/v1504368507/https-cloudflare-minify_dzk1a4.png)
+![允许 Cloudflare 自动压缩网站资源](https://res.cloudinary.com/css-tricks/image/upload/c_scale,w_983,f_auto,q_auto/v1504368507/https-cloudflare-minify_dzk1a4.png)
 
-We can also set the expiration on browser cache to maximize performance:
+我们还可以通过设置浏览器缓存过期时间来最大化地提升性能：
 
-![Set the browser cache in Cloudflare's Speed settings](https://res.cloudinary.com/css-tricks/image/upload/c_scale,w_972,f_auto,q_auto/v1504368548/https-cloudflare-cache_diayym.png)
+![在 Cloudflare 的 Speed 设置中指定浏览器缓存](https://res.cloudinary.com/css-tricks/image/upload/c_scale,w_972,f_auto,q_auto/v1504368548/https-cloudflare-cache_diayym.png)
 
-By moving the expiration out date a longer than the default option, the browser will refrain itself from asking for a site's resources with each and every visit—that is, resources that more than likely haven't been changed or updated. This will save visitors an extra download on repeat visits within a month's time.
+将过期时间设置为比默认选项更长，可以让浏览器在访问网站时不再需要每次都去请求那些没有变更过的网站资源。这将让访客在一个月内再次访问你的网站时节省额外的下载量。
 
-### Step 7: Make External Resource Secure
+### 第七步：使用安全的外部资源
 
-If you use external resources on your site (and many of us do), then those need to be served securely as well. For example, if you use a Javascript framework and it is not served from an HTTP source, that blows our secure cover as far as Google Chrome is concerned and we need to patch that up.
+如果你的网站还使用了一些外部资源（我们很多人都这么做），那么还需要确保这些外部资源是安全的。例如，如果你使用了一个 Javascript 框架，但没有使用 HTTPS 源，那么 Google Chrome 将会认为其降低了我们网站的安全性，因此我们需要对其进行改进。
 
-If the external resource you use does not provide HTTPS as a source, then you might want to consider hosting it yourself. We have a CDN now that makes the burden of serving it a non-issue.
+如果你使用的外部资源不提供 HTTPS 源，那么你可以考虑自己对其进行托管。反正我们现在已经有了 CDN，做托管服务的负载并不成问题。
 
-### Step 8: Activate SSL
+### 第八步：激活 SSL
 
-Woot, here we are! SSL has been the missing link between our custom domain and GitHub Pages since we enabled HTTPS in the GitHub Pages setting and this is where we have the ability to activate a free SSL certificate on our site, courtesy of Cloudflare.
+已经做到这一步啦！我们已经在 GitHub Pages 设置中开启了 HTTPS，现在还缺少自定义域名与 GitHub Pages 的连接证书。Cloudflare 提供了免费的 SSL 证书，我们可以在网站中使用它。
 
-From the Crypto settings in Cloudflare, let's first make sure that the SSL certificate is active:
+打开 Cloudflare 的 Crypto 设置页面，确认 SSL 证书处于激活状态：
 
-![Cloudflare shows an active SSL certificate in the Crypto settings](https://res.cloudinary.com/css-tricks/image/upload/c_scale,w_954,f_auto,q_auto/v1504368600/https-cloudlfare-ssl_nbbkyy.png)
+![Cloudflare 的 Crypto 设置中显示 SSL 证书为激活状态](https://res.cloudinary.com/css-tricks/image/upload/c_scale,w_954,f_auto,q_auto/v1504368600/https-cloudlfare-ssl_nbbkyy.png)
 
-If the certificate is active, move to "Page Rules" in the main menu and select the "Create Page Rule" option:
+如果证书处于激活状态，在主菜单中切换到“Page Rules”页面，选择“Create Page Rule”选项：
 
-![Create a page rule in the Cloudflare settings](https://res.cloudinary.com/css-tricks/image/upload/c_scale,w_962,f_auto,q_auto/v1504368647/https-cloudflare-page-rule_hzmbvv.png)
+![在 Cloudflare 设置中创建页面规则](https://res.cloudinary.com/css-tricks/image/upload/c_scale,w_962,f_auto,q_auto/v1504368647/https-cloudflare-page-rule_hzmbvv.png)
 
-...then click "Add a Setting" and select the "Always use HTTPS" option:
+然后点击“Add a Setting”，选择“Always use HTTPS”选项：
 
-![Force HTTPS on that entire domain! Note the asterisks in the formatting, which is crucial.](https://res.cloudinary.com/css-tricks/image/upload/c_scale,w_797,f_auto,q_auto/v1504368689/https-cloudflare-force-https_vgouyf.png)
+![对整个域名都强制使用 HTTPS！注意图中文本中的星号很重要](https://res.cloudinary.com/css-tricks/image/upload/c_scale,w_797,f_auto,q_auto/v1504368689/https-cloudflare-force-https_vgouyf.png)
 
-After that click "Save and Deploy" and celebrate! We now have a fully secure site in the eyes of Google Chrome and didn't have to touch a whole lot of code or drop a chunk of change to do it.
+点击“Save and Deply”，恭喜你！现在，我们拥有了一个在 Google Chrome 眼中完全安全的网站，并且在迁移的过程中我们并不需要接触、修改很多代码。
 
-## In Conclusion
+## 总结
 
-Google's push for HTTPS means front-end developers need to prioritize SSL support more than ever, whether it's for our own sites, company sites, or client sites. This move gives us one more incentive to make the move and the fact that we can pick up free SSL and performance enhancements through the use of a CDN makes it all the more worthwhile.
+Google 这样推进 HTTPS 意味着前端开发者们在开发自己的网站、公司网站、客户网站的时候需要优先考虑 SSL 支持。这一举措将会促使我们将站点向 HTTPS 迁移。而使用 CDN 可以让我们使用免费的 SSL 并提升网站性能，如此超值的事何乐而不为呢？
 
-Have you written about your adventures moving to HTTPS? Let me know in the comments and we can compare notes. Meanwhile, enjoy a secure and speedy site!
+你记录过迁移到 HTTPS 的经历吗？在评论里留言你的迁移方法，让我们相互对比吧。
+
+享受你的既安全又快速的网站吧！
 
 
 ---
