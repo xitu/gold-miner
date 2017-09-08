@@ -4,7 +4,7 @@
   > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
   > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/why-context-value-matters-and-how-to-improve-it.md](https://github.com/xitu/gold-miner/blob/master/TODO/why-context-value-matters-and-how-to-improve-it.md)
   > * 译者：[星辰](https://www.zhihu.com/people/tmpbook)
-  > * 校对者：
+  > * 校对者：[lsvih](https://github.com/lsvih)，[leviding](https://github.com/leviding)
 
   # 为什么 context.Value 重要，如何进行改进
 
