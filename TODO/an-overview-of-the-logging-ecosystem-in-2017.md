@@ -3,8 +3,8 @@
   > * 原文作者：[Matthew Setter](https://blog.codeship.com/author/matthewsetter/)
   > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
   > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/an-overview-of-the-logging-ecosystem-in-2017.md](https://github.com/xitu/gold-miner/blob/master/TODO/an-overview-of-the-logging-ecosystem-in-2017.md)
-  > * 译者：
-  > * 校对者：
+  > * 译者：[TanJianCheng](https://github.com/TanNingMeng)
+  > * 校对者：[tmpbook ](https://github.com/tmpbook), [Yuuoniy](https://github.com/Yuuoniy)
 
   # 2017年日志生态系统概述
 
@@ -50,7 +50,7 @@
 
 [Garland Kan 在 Loggly](https://www.loggly.com/blog/how-to-implement-logging-in-docker-with-a-sidecar-approach/) 中把 sidercar 简洁地描述为:
 
-> …将一个应用程序容器和日志容器进行结合的理念
+> 将一个应用程序容器和日志容器进行结合的理念。
 
 [他们通过这种方式描述它](https://www.voxxed.com/blog/2015/01/use-container-sidecar-microservices/) ，Voxxed　提供了更加详细的解释：
 
@@ -76,7 +76,7 @@
 
 #### 尽可能多记录日志
 
-与前几年我所看到的和所经历的相反，这个表达在于多记录日志，至少 - 这些信息都是有连续性的。这个说法与 [Sumologic 在2017年4月](https://www.sumologic.com/blog/log-management-analysis/best-practices-creating-custom-logs-diving-deeper/) 写的日志所说的紧密相连：
+与前几年我所看到的和所经历的相反，这个表达在于多记录日志，至少 -- 这些信息都是有连续性的。这个说法与 [Sumologic 在 2017 年 4 月](https://www.sumologic.com/blog/log-management-analysis/best-practices-creating-custom-logs-diving-deeper/)写的日志所说的紧密相连：
 
 > 你的日志记录就应该像是在讲一个故事。
 
@@ -128,7 +128,7 @@
 
 它们的定价模式也有很大的不同，包括免费的选择版本，价格在90美元左右的标准计划和高达200美元的企业套餐。
 
-但在2017年，商业化不会是唯一的选择。一些开源工具也逐渐成熟起来。事实上，Linux基金会第三季度的 [开放云报告指南](http://go.linuxfoundation.org/l/6342/2016-10-31/3krbjr) 中有两个比较引人注意： [Fluentd](http://www.fluentd.org) 统一日志层的数据收集器，和 [LogStash](https://www.elastic.co/products/logstash)，服务端数据处理管道。其他值得考虑的开源工具是 [syslog-ng](https://syslog-ng.org/)， [LOGalyze](http://www.logalyze.com/)，和 [Apache Flume](https://cwiki.apache.org/confluence/display/FLUME/Home)。
+但在2017年，商业化不会是唯一的选择。一些开源工具也逐渐成熟起来。事实上，Linux基金会第三季度的 [开放云报告指南](http://go.linuxfoundation.org/l/6342/2016-10-31/3krbjr) 中有两个比较引人注意：[Fluentd](http://www.fluentd.org) 统一日志层的数据收集器，和 [LogStash](https://www.elastic.co/products/logstash)，服务端数据处理管道。其他值得考虑的开源工具是 [syslog-ng](https://syslog-ng.org/)， [LOGalyze](http://www.logalyze.com/)，和 [Apache Flume](https://cwiki.apache.org/confluence/display/FLUME/Home)。
 
 鉴于此，取决于你的经验，需求和预算，今年你的选择是非常充足的。未来将会有大量的选项可以让你选择到最符合你的需求的开源工具。
 
