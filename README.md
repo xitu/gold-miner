@@ -5,9 +5,9 @@
 [![](https://img.shields.io/badge/weibo-%E6%8E%98%E9%87%91%E7%BF%BB%E8%AF%91%E8%AE%A1%E5%88%92-brightgreen.svg)](http://weibo.com/juejinfanyi)
 [![](https://img.shields.io/badge/%E7%9F%A5%E4%B9%8E%E4%B8%93%E6%A0%8F-%E6%8E%98%E9%87%91%E7%BF%BB%E8%AF%91%E8%AE%A1%E5%88%92-blue.svg)](https://zhuanlan.zhihu.com/juejinfanyi)
 
-[掘金翻译计划](https://juejin.im/tag/%E6%8E%98%E9%87%91%E7%BF%BB%E8%AF%91%E8%AE%A1%E5%88%92) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](#android)、[iOS](#ios)、[React](#react)、[前端](#前端)、[后端](#后端)、[产品](#产品)、[设计](#设计) 等领域，读者为热爱新技术的新锐开发者。
+[掘金翻译计划](https://juejin.im/tag/%E6%8E%98%E9%87%91%E7%BF%BB%E8%AF%91%E8%AE%A1%E5%88%92) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖[人工智能](#ai--deep-learning--machine-learning)、[Android](#android)、[iOS](#ios)、[React](#react)、[前端](#前端)、[后端](#后端)、[产品](#产品)、[设计](#设计) 等领域，读者为热爱新技术的新锐开发者。
 
-掘金翻译计划目前翻译完成 [628](#近期文章列表) 篇文章，共有 [350](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 余名译者贡献翻译。
+掘金翻译计划目前翻译完成 [630](#近期文章列表) 篇文章，共有 [380](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 余名译者贡献翻译。
 
 # 官方指南
 
@@ -17,9 +17,15 @@
 - [译文排版规则指北](https://github.com/xitu/gold-miner/wiki/译文排版规则指北)
 - [参与翻译所得的积分能做什么?](https://github.com/xitu/gold-miner/wiki/)
 
+# 官方账号
+
+- [知乎专栏：掘金翻译计划](https://zhuanlan.zhihu.com/juejinfanyi)
+- [微博：掘金翻译计划](http://www.weibo.com/juejinfanyi)
+
 # 合作伙伴
 
 - [虚位以待]()
+- 合作事宜请扫描 [二维码](http://oiiyyn1t0.bkt.clouddn.com/wechat-517010193.jpg) 联系管理员
 
 # 近期文章列表
 
@@ -49,10 +55,10 @@
 
 ## 前端
 
+* [JavaScript 二进制的 AST](https://juejin.im/post/599e6f246fb9a024985f0421?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([sunshine940326](https://github.com/sunshine940326) 翻译)
 * [关于 React Router 4 的一切](https://juejin.im/post/5995a2506fb9a0249975a1a4?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([undead25](https://github.com/undead25) 翻译)
 * [如何在 Webpack 2 中使用 tree-shaking](https://juejin.im/post/599bc13b6fb9a024a370f4ec?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Aladdin-ADD](https://github.com/Aladdin-ADD) 翻译)
 * [Redux 有多棒？](https://juejin.im/entry/599cff2551882524397f95c1/detail?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([ZiXYu](https://github.com/ZiXYu) 翻译)
-* [自定义 Babel 和 ESLint 插件是如何提高生产率与用户体验的](https://juejin.im/post/599519e06fb9a02499759f71?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([H2O-2](https://github.com/H2O-2) 翻译)
 * [所有前端译文>>](https://github.com/xitu/gold-miner/blob/master/front-end.md)
 
 ## React
@@ -65,10 +71,10 @@
 
 ## 后端
 
+* [关于 Node.js 的认证方面的教程（很可能）是有误的](https://juejin.im/post/599f955d51882511264e7f69?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([MuYunyun](https://github.com/MuYunyun) 翻译)
 * [使用 Node.js 搭建一个 API 网关](https://juejin.im/post/5992769151882548b17f76a6?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([MuYunyun](https://github.com/MuYunyun) 翻译)
 * [REST API 已死，GraphQL 长存](https://juejin.im/post/5991667b518825485d28dfb1?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([sigoden](https://github.com/sigoden) 翻译)
 * [将现有的 API 从 REST 迁移到 GraphQL](https://juejin.im/post/598eb22af265da3e26097835?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([zaraguo](https://github.com/zaraguo) 翻译)
-* [所有你需要知道的关于完全理解 Node.js 事件循环及其度量](https://juejin.im/post/5984816a518825265674c8f6?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([MuYunyun](https://github.com/MuYunyun) 翻译)
 * [所有后端译文>>](https://github.com/xitu/gold-miner/blob/master/backend.md)
 
 ## 教程
@@ -96,3 +102,8 @@
 * [细节是产品设计的重中之重](https://juejin.im/post/58ed96aaa22b9d00634732e9/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([iloveivyxuan](https://github.com/iloveivyxuan) 翻译)
 * [单元测试，精益创业，以及两者之间的关系](https://juejin.im/post/58d90a3b44d90400694505c4/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([gy134340](http://gy134340.com/) 翻译)
 * [所有产品译文>>](https://github.com/xitu/gold-miner/blob/master/product.md)
+
+
+# Copyright
+
+> **版权声明：**[掘金翻译计划](https://github.com/xitu/gold-miner)译文仅用于学习、研究和交流。版权归[掘金翻译计划](https://github.com/xitu/gold-miner/)、文章作者和译者所有，欢迎非商业转载。转载前请联系译者或[管理员](http://oiiyyn1t0.bkt.clouddn.com/wechat-517010193.jpg)获取授权，并在文章开头明显位置注明本文出处、译者、校对者和掘金翻译计划的完整链接，违者必究。

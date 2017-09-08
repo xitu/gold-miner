@@ -1,31 +1,31 @@
-
+    
   > * 原文地址：[Under the hood of Futures & Promises in Swift](https://www.swiftbysundell.com/posts/under-the-hood-of-futures-and-promises-in-swift)
   > * 原文作者：[John Sundell](https://twitter.com/johnsundell)
   > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
   > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/under-the-hood-of-futures-and-promises-in-swift.md](https://github.com/xitu/gold-miner/blob/master/TODO/under-the-hood-of-futures-and-promises-in-swift.md)
-  > * 译者：
-  > * 校对者：
+  > * 译者：[oOatuo](https://github.com/atuooo)
+  > * 校对者：[Kangkang](https://github.com/xuxiaokang), [Richard_Lee](https://github.com/richardleeh)
 
-  # Under the hood of Futures & Promises in Swift
+# 探究 Swift 中的 Futures & Promises 
 
-  Asynchronous programming is arguably one of the hardest parts of building most apps. Whether it's handling background tasks such as a network request, performing heavy operations in parallel across multiple threads, or executing code with a delay - things tend to break and leave us with hard to debug problems.
+异步编程可以说是构建大多数应用程序最困难的部分之一。无论是处理后台任务，例如网络请求，在多个线程中并行执行重操作，还是延迟执行代码，这些任务往往会中断，并使我们很难调试问题。
 
-Because of this, many solutions have been invented to try to combat the above problem - basically creating abstractions around asynchronous programming to make it easier to understand and reason about. What's true for most of these solutions is that they all offer a helping hand out of "callback hell", which is when you have multiple nested closures all dealing with different parts of an async operation.
+正因为如此，许多解决方案都是为了解决上述问题而发明的 - 主要是围绕异步编程创建抽象，使其更易于理解和推理。对于大多数的解决方案来说，它们都是在"回调地狱"中提供帮助的，也就是当你有多个嵌套的闭包为了处理同一个异步操作的不同部分的时候。
 
-This week, let's take a look at one such solution - *Futures & Promises* - and go a bit "under the hood" to see how they actually work.
+这周，让我们来看一个这样的解决方案 - **Futures & Promises** - 让我们打开"引擎盖"，看看它们是如何工作的。。
 
 ## A promise about the future
 
-When introduced to the concept of Futures & Promises, the first thing most people ask is *"What's the difference between a Future and a Promise?"*. The easiest way to think about it, in my opinion, is like this:
+当介绍 Futures & Promises 的概念时，大多数人首先会问的是 **Future 和 Promise 有什么区别？**。在我看来，最简单易懂的理解是这样的：
 
-- A **Promise** is something you make to someone else.
-- In the **Future** you may choose to honor (resolve) that promise, or reject it.
+- **Promise** 是你对别人所作的承诺。
+- 在 **Future** 中，你可能会选择兑现（解决）这个 promise，或者拒绝它。
 
-If we use the above definition, Futures & Promises become two sides of the same coin. A promise gets constructed, then returned as a future, where it can be used to extract information at a later point.
+如果我们使用上面的定义，Futures & Promises 变成了一枚硬币的正反面。一个 Promise 被构造，然后返回一个 Future，在那里它可以被用来在稍后提取信息。
 
-So what does that look like in code?
+那么这些在代码中看起来是怎样的？
 
-Let's take a look at an asynchronous operation, where we load data for a `User` over the network, transform it into a model, and then finally save it to a local database. Using the "old fashioned way", with closures, it would look like this:
+让我们来看一个异步的操作，这里我们从网络加载一个 "User" 的数据，将其转换成模型，最后将它保存到一个本地数据库中。用”老式的办法“，闭包，它看起来是这样的：
 
 ```
 class UserLoader {
@@ -55,7 +55,7 @@ class UserLoader {
 }
 ```
 
-As we can see above, even with a quite simple (and very common) operation like this, we end up with quite deeply nested code. This is what the above looks like with Futures & Promises instead:
+正如我们可以看到的，即使有一个非常简单（非常常见）的操作，我们最终得到了相当深的嵌套代码。这是用 Future & Promise 替换之后的样子：
 
 ```
 class UserLoader {
@@ -69,7 +69,7 @@ class UserLoader {
 }
 ```
 
-And this is what the call site looks like:
+这是调用时的写法：
 
 ```
 let userLoader = UserLoader()
@@ -78,13 +78,13 @@ userLoader.loadUser(withID: userID).observe { result in
 }
 ```
 
-Now the above might seem a bit like black magic (where did all of our code go?! 😱), so let's dive deeper and take a look at how it's all implemented.
+现在上面的代码可能看起来有一点黑魔法（所有其他的代码去哪了？！😱），所以让我们来深入研究一下它是如何实现的。
 
-## Looking into the future
+## 探究 future
 
-*Like most things in programming, there are of course many different ways to implement Futures & Promises. In this post I'll provide a simple implementation, and at the end there will be links to some popular frameworks that offer a lot more functionality.*
+**就像编程中的大多数事情一样，有许多不同的方式来实现 Futures & Promises。在本文中，我将提供一个简单的实现，最后将会有一些流行框架的链接，这些框架提供了更多的功能。**
 
-Let's start by taking a look under the hood of a `Future`, which is what is *publicly returned* from an async operation. It offers a *read only* way to observe whenever a value is assigned to it and maintains a list of observation callbacks, like this:
+让我们开始探究下 `Future` 的实现，这是从异步操作中*公开返回*的。它提供了一种**只读**的方式来观察每当被赋值的时候以及维护一个观察回调列表，像这样：
 
 ```
 class Future<Value> {
@@ -109,9 +109,9 @@ class Future<Value> {
 }
 ```
 
-## Making a promise
+## 生成 promise
 
-Next, the flip side of the coin, `Promise` is a subclass of `Future` that adds APIs for *resolving* and *rejecting* it. Resolving a promise results in the future being successfully completed with a value, while rejecting it results in an error. Here's what `Promise` looks like:
+接下来，硬币的反面，`Promise` 是 `Future` 的子类，用来添加**解决**和**拒绝**它的 API。解决一个承诺的结果是，在未来成功地完成并返回一个值，而拒绝它会导致一个错误。像这样：
 
 ```
 class Promise<Value>: Future<Value> {
@@ -133,9 +133,9 @@ class Promise<Value>: Future<Value> {
 }
 ```
 
-As you can see above, the basic implementation of Futures & Promises is quite simple. A lot of the "magic" that we get from using them though, comes from extensions that adds ways to chain and transform futures, enabling us to construct these nice chains of operations like we did in `UserLoader`.
+正如你看到的，Futures & Promises 的基本实现非常简单。我们从使用这些方法中获得的很多神奇之处在于，这些扩展可以增加连锁和改变未来的方式，使我们能够构建这些漂亮的操作链，就像我们在 UserLoader 中所做的那样。
 
-But without adding APIs for chaining, we can already construct the first part of our user loading async chain - `urlSession.request(url:)`. A common practice in async abstractions is to provide convenience APIs on top of the SDKs and the Swift standard library, so that's what we'll do here too. The `request(url:)` method will be an extension on `URLSession` that lets it be used as a Future/Promise-based API:
+但是，如果不添加用于链式操作的api，我们就可以构造用户加载异步链的第一部分 - `urlSession.request(url:)`。在异步抽象中，一个常见的做法是在 SDK 和 Swift 标准库之上提供方便的 API，所以我们也会在这里做这些。`request(url:)` 方法将是 `URLSession` 的一个扩展，让它可以用作基于 Future/Promise 的 API。
 
 ```
 extension URLSession {
@@ -161,7 +161,7 @@ extension URLSession {
 }
 ```
 
-We can now perform a network request by simply doing the following:
+我们现在可以通过简单地执行以下操作来执行网络请求：
 
 ```
 URLSession.shared.request(url: url).observe { result in
@@ -169,11 +169,11 @@ URLSession.shared.request(url: url).observe { result in
 }
 ```
 
-## Chaining
+## 链式
 
-Next, let's take a look at how we can chain multiple futures together to form a chain - like the one we used to load data, unbox it and save an instance to a database in `UserLoader`.
+接下来，让我们看一下如何将多个 future 组合在一起，形成一条链 — 例如当我们加载数据时，将其解包并在 UserLoader 中将实例保存到数据库中。
 
-Chaining involves providing a closure that given a value returns a future for a new  value. This will enable us to take the result from one operation, pass it onto the next, and return a new value from that. Let's take a look:
+链式的写法涉及到提供一个闭包，该闭包可以返回一个新值的 future。这将使我们能够从一个操作获得结果，将其传递给下一个操作，并从该操作返回一个新值。让我们来看一看：
 
 ```
 extension Future {
@@ -214,7 +214,7 @@ extension Future {
 }
 ```
 
-Using the above, we can now add an extension on *futures for `Savable` types*, to enable values to easily be saved to a database once available:
+使用上面的方法，我们现在可以给 **`Savable` 类型的 future** 添加一个扩展，来确保数据一旦可用时，能够轻松地保存到数据库。
 
 ```
 extension Future where Value: Savable {
@@ -232,13 +232,13 @@ extension Future where Value: Savable {
 }
 ```
 
-Now we're starting to tap into the true potential of Futures & Promises, and we can see how easily extendable the API becomes, as we can easily add convenience APIs for various values and operations by using different generic constraints on the `Future` class.
+现在我们来挖掘下 Futures & Promises 的真正潜力，我们可以看到 API 变得多么容易扩展，因为我们可以在 `Future` 的类中使用不同的通用约束，方便地为不同的值和操作添加方便的 API。
 
-## Transforms
+## 转换
 
-While chaining provides a powerful way to sequentially perform async operations, sometimes you just want to do a simple synchronous transform of a value - and for that, we're going to add support for *transforms*.
+虽然链式调用提供了一个强大的方式来有序地执行异步操作，但有时你只是想要对值进行简单的同步转换 - 为此，我们将添加对**转换**的支持。
 
-A transform completes directly, can optionally throw, and is perfect for things like JSON parsing or transforming a value of one type into another. Just like we did for `chained()`, we'll add a `transformed()` method as an extension on `Future`, like this:
+转换直接完成，可以随意地抛出，对于 JSON 解析或将一种类型的值转换为另一种类型来说是完美的。就像 `chained()` 那样，我们将添加一个 `transformed()` 方法作为 `Future` 的扩展，像这样：
 
 ```
 extension Future {
@@ -250,9 +250,9 @@ extension Future {
 }
 ```
 
-As you can see above, a transform is really just a synchronous version of a chaining operation, and since its value is known directly - it simply passes it into a new `Promise` when constructing it.
+正如你在上面看到的，转换实际上是一个链式操作的同步版本，因为它的值是直接已知的 - 它构建时只是将它传递给一个新 `Promise` 。
 
-Using our new transform API, we can now add support for transforming a future for `Data` into a future for an `Unboxable` (JSON decodable) type, like this:
+使用我们新的变换 API, 我们现在可以添加支持，将 `Data` 类型 的 future 转变为一个 `Unboxable` 类型(JSON可解码) 的 future类型，像这样：
 
 ```
 extension Future where Value == Data {
@@ -262,9 +262,9 @@ extension Future where Value == Data {
 }
 ```
 
-## Putting it all together
+## 整合所有
 
-We now have all the parts needed to upgrade our `UserLoader` to support Futures & Promises. I'll break down the operations to each be on its own line, so it's easier to see what's going on for each step:
+现在，我们有了把 `UserLoader` 升级到支持 Futures & Promises 的所有部分。我将把操作分解为每一行，这样就更容易看到每一步发生了什么：
 
 ```
 class UserLoader {
@@ -286,7 +286,7 @@ class UserLoader {
 }
 ```
 
-And we can of course also do what we did in the beginning, and chain all the calls together (which also gives us the benefit of utilizing Swift's type inference to infer the type of the `User` future):
+当然，我们也可以做我们刚开始做的事情，把所有的调用串在一起 (这也给我们带来了利用 Swift 的类型推断来推断 `User` 类型的 future 的好处):
 
 ```
 class UserLoader {
@@ -300,29 +300,28 @@ class UserLoader {
 }
 ```
 
-## Conclusion
+## 结论
 
-Futures & Promises can be a really powerful tool when writing asynchronous code, especially if you need to chain multiple operations and transforms together. It almost enables you to write async code as if it was synchronous, which can really improve readability and make it easier to move things around if needed.
+在编写异步代码时，Futures & Promises 是一个非常强大的工具，特别是当您需要将多个操作和转换组合在一起时。它几乎使您能够像同步那样去编写异步代码，这可以提高可读性，并使在需要时可以更容易地移动。
 
-However - like in most abstractions - you are essentially "burying complexity", moving most of the heavy lifting under the covers. So while a `urlSession.request(url:)` API looks really nice from the outside, it can get harder to both debug and understand what exactly is going on on the inside.
+然而，就像大多数抽象化一样，你本质上是在掩盖复杂性，把大部分的重举移到幕后。因此，尽管 `urlSession.request(url:)` 从外部看，API看起来很好，但调试和理解到底发生了什么都会变得更加困难。
 
-My advice if you're using Futures & Promises, is to try to keep your chains as short and simple as possible, and remember that good documentation and solid unit tests can really help you avoid a lot of headaches and tricky debugging in the future.
+我的建议是，如果你在使用 Futures & Promises，那就是让你的调用链尽可能精简。记住，好的文档和可靠的单元测试可以帮助你避免很多麻烦和棘手的调试。
 
-Here are some popular open source frameworks for Futures & Promises in Swift:
+以下是一些流行的 Swift 版本的 Futures & Promises 开源框架：
 
 - [PromiseKit](https://github.com/mxcl/PromiseKit)
 - [BrightFutures](https://github.com/Thomvis/BrightFutures)
 - [When](https://github.com/vadymmarkov/When)
 - [Then](https://github.com/freshOS/then)
 
-You can also find all the sample code from this post on [GitHub here](https://github.com/JohnSundell/SwiftBySundell/blob/master/Blog/Under-the-hood-of-Futures-and-Promises.swift).
+你也可以在 [GitHub](https://github.com/JohnSundell/SwiftBySundell/blob/master/Blog/Under-the-hood-of-Futures-and-Promises.swift) 上找到该篇文章涉及的的所有代码。
 
-Do you have questions, feedback or comments? I'd love to hear from you! 👍 Feel free to either leave a comment below, or contact me on Twitter [@johnsundell](https://twitter.com/johnsundell).
+如果有问题，欢迎留言。我非常希望听到你的建议！👍你可以在下面留言，或者在 Twitter [@johnsundell](https://twitter.com/johnsundell) 联系我。
 
-Also make sure to check out the new [Swift by Sundell podcast](https://swiftbysundell.com/podcast), on which me & guests from the community answer your questions about Swift development!
+另外，你可以获取最新的 [Sundell 的 Swift 播客](https:swiftbysundell.compodcast)，我和来自社区的游客都会在上面回答你关于 Swift 开发的问题。
 
-Thanks for reading 🚀
-
+感谢阅读 🚀。
 
   ---
 
