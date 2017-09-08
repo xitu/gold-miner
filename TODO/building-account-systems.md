@@ -3,172 +3,175 @@
   > * 原文作者：[Mike Hearn](https://blog.plan99.net/@octskyward)
   > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
   > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/building-account-systems.md](https://github.com/xitu/gold-miner/blob/master/TODO/building-account-systems.md)
-  > * 译者：
-  > * 校对者：
+  > * 译者：[shawnchenxmu](https://github.com/shawnchenxmu)
+  > * 校对者：[undead25](https://github.com/undead25) [DeadLion](https://github.com/DeadLion)
 
-  # Building account systems
+# 搭建账户系统
 
   ![](https://cdn-images-1.medium.com/max/1600/1*gMIGLbIgwnSC8huyC5ugKQ.jpeg)
+  
+[Troy Hunt](https://www.troyhunt.com/) 近期发表了一篇题为『[新时代的认证指南](https://www.troyhunt.com/passwords-evolved-authentication-guidance-for-the-modern-era/)』的博文。文章对于「你的网站应该使用什么样的密码规则」给予了很多实用的建议，而通过参考权威机构的建议总是有助于说服同事或老板。
 
-[Troy Hunt](https://www.troyhunt.com/) recently published a blog post titled “[Authentication guidance for the modern era](https://www.troyhunt.com/passwords-evolved-authentication-guidance-for-the-modern-era/)”. It has a big pile of solid advice on what password rules your website should use, with references to formal government recommendations — always useful for convincing colleagues or a boss.
+我在 Google 工作期间从事过的一个项目就是他们的统一账户系统（[特别是反劫持](https://googleblog.blogspot.ch/2013/02/an-update-on-our-war-against-account.html)）。大多数网站都会有一个登录系统，阅读 Troy 的文章极大地启发了我去建立这样的一个系统，从而将那些建议应用其中。
 
-One of the projects I worked on during my time at Google was their unified account system ([specifically, anti-hijacking](https://googleblog.blogspot.ch/2013/02/an-update-on-our-war-against-account.html)). Login systems are a part of most websites, so reading Troy’s article inspired me to put together some advice for building them.
+### 1. 最好不要有
 
-### 1. Ideally, don’t
+不管是什么业务，进行用户认证并不是你的主职，现代登录系统需要考虑的有很多，密码只是一个开始。如果你成功建立了账户，最终还得考虑：
 
-Whatever your business is, user authentication is not your core competency. Modern login systems are expected to do a lot. Passwords are only the start. If you are successful you will eventually also want:
+- 找回密码
+- 电子邮箱的认证
+- 账户登出，常常比你想象的要困难（见下文）
+- 密码的强力保护
+- 基于短信、手机应用和硬件密钥的双因子验证
+- 对账户劫持的保护（当攻击者已经知道了正确密码而用户还没有双因子验证时）
+- 用户的地区、语言、姓名、个人头像等的偏好
+- 对桌面和移动端的登录支持
+- 异常行为的通知
+- 只允许特定手机的登录
 
-- Forgotten password recovery
-- Email address verification
-- Log out, which is harder than it looks (see below)
-- Password brute forcing protection
-- Two-factor authentication via SMS, phone app and hardware key
-- Account hijacking protection (when an attacker already knows the correct password and the user does not have 2FA)
-- Region/language/name/profile photo preferences
-- Support for mobile/desktop sign-in
-- Unusual activity notifications
-- Phone-only signin
+随着大公司对用户验证意识的提高和攻击者的攻击能力的提升，一成不变的验证技术已经不符合时代的变化。幸运的是，你现在可以将你的身份验证环节外包给那些支持 OAuth 协议的公司。
 
-As big companies raise user expectations and attackers get better, the effort to keep up is becoming impractical. Fortunately, you can outsource your authentication to those companies using OAuth.
+Web 开发者常常会在建立完自己的账户系统之后，才觉得添加[『使用 Facebook 登录』](https://developers.facebook.com/docs/facebook-login)或[『使用 Google 登录』](https://developers.google.com/identity/sign-in/web/sign-in)是个不错的方案。如果你是为了建立一个全新的网站而阅读这篇文章，我建议『使用第三方登录』应该成为你的网站的唯一选项。如今，建立自己的账户系统就像是建立自己的数据中心，而不是使用 AWS。
 
-Often web developers see adding a “[sign in with Facebook](https://developers.facebook.com/docs/facebook-login)” or “[sign in with Google](https://developers.google.com/identity/sign-in/web/sign-in)” button as a kind of optional nice-to-have, which comes only after building their own account system. If you’re reading this because you’re starting a new website from scratch, I argue that “Sign in with …” should be the only option you offer. Building your own account system these days is like building your own datacenters instead of using AWS. It’s an expensive distraction.
+人们有时候会担心，如果只提供『第三方登录』按钮用来登录，那么那些大型的 ID 提供商可能会试图窃取他们的客户。通常情况下，人们担心的情况是，使用 ID 提供商登录，但是却被要求设置密码。其实不用担心这一点，这种情况不太可能发生，就算真的发生了，你也随时可以通过电子邮件给他们发送一个链接将你的客户群迁移到你自己的系统上。
 
-Sometimes people worry that if they only offer “Sign in with …”, the big ID providers might one day try to steal their customers. The usual indication someone’s worrying about this is you sign in with an ID provider and are then asked to set a password anyway. Don’t worry about this — in the unlikely event that this happens, you can always migrate your customer base to a new system of your own later by simply emailing them a link.
+### 2. 使用邮箱或电话号码来识别用户
 
-### 2. Use email / phone numbers to identify users
+不要强制用户设置用户名，即使你的业务体验是基于用户名的，比如聊天论坛之类的。用户通常是通过邮箱或者是电话抑或是两者同时验证的，如果你想让每个用户都拥有一个独一无二的用户名（用来展示的），那应该单独选择，为什么呢？
 
-Don’t ask users to pick usernames, even if you want a username-oriented experience like on a chat forum. Users are always identified to you by email address, phone number or both, and if you want a different name for user-to-user identification (a display name), that should be chosen separately. Why?
+- 无论如何你都是要用户提供邮箱地址的
+- 如果用户名成为你的系统的个人识别符，你要考虑用户是会随时更改它的
+- 用户经常会忘记用户名，可一般不会忘记邮箱或电话号码
+- 挑选用户名的过程常常是让人沮丧，一旦用户使用了一个用户名，却因为该用户名已经存在而不能通过时，有些人就会放弃了，从而你就流失了一位用户
+- 将用户名和用来展示的名字分开可以大大减少对用户设置的限制，例如禁止空格
 
-- You will ask for the email address anyway.
-- If the username becomes a form of self-expression on your service, users will want to change it from time to time.
-- Users forget usernames but not their email/phone numbers.
-- Picking a username is frustrating. Every time a user selects a name that’s already taken, some will give up and your customer acquisition pipeline narrows.
-- Separating username from display name will reduce the temptation to impose arbitrary restrictions on how users appear, like forbidding spaces.
-
-### 3. Don’t use passwords at all
+### 3. 完全放弃密码
 
 ![](https://cdn-images-1.medium.com/max/1600/1*1S1yaiqUAmfLZE2uF5AvDw.jpeg)
 
-If you aren’t quite ready to rely 100% on third party ID providers, at least do everyone a favour and don’t make users pick a password at all.
+如果你还没准备好将账户系统完全依赖于第三方 ID 提供商，那么千万不要设置密码，这样对每个人都有好处。
 
-This isn’t as stupid as it sounds. You are already asking the user for their email address. The very first feature you will add to your login system after going live is forgotten password recovery, which will work by sending the user a clickable link via an email. Therefore anyone who can read your user’s email can log in as them anyway and your own site password adds no extra security.
+这个主意并不像它听起来那么愚蠢。你已经向用户询问他们的电子邮箱了，你所应该在你的登录系统上添加的第一个功能就是用户忘记密码后该如何恢复，你可以通过电子邮件给用户发送一个可点击的链接。这样，只要用户能够使用该邮箱就能够登录你的系统，而你的网站密码也用不着增加额外的安全性。
 
-Instead, skip the first step and go straight to the second — your login system can be as simple as emailing the user a link that sets a login cookie when clicked. [Medium.com is an example of a site that does this](https://blog.medium.com/signing-in-to-medium-by-email-aacc21134fcd).
+我们跳过这一步，直接进入下一步，取而代之的——你的登录系统可以变得更简单，只需通过邮件向用户发送一封包含了登录cookie的链接，用户只需点击链接便能登录。[Medium.com 便是如此](https://blog.medium.com/signing-in-to-medium-by-email-aacc21134fcd)。
 
-This approach works as long as every device where the user might log in to your service has an email client. This is true for desktops, laptops, phones and tablets. It is not true for games consoles or TVs, but you probably aren’t targeting them yet. If you are it’s better to use a Bluetooth style pairing process anyway, as these devices don’t have convenient keyboards.
+通过这种方法，只要用户的设备装有电子邮件客户端，就能够登录。对于台式机、笔记本电脑、手机和平板来说也是如此。对于游戏机和电视来说可能行不通，不过你的目标用户可能不是这些人群。其中的匹配过程最好用蓝牙的方式，因为这些设备没有方便使用的键盘。
 
-There have been suggestions in the past that users can be confused by the lack of a password entry box. But the modern Google sign-in experience starts by asking the user for their email address only, so it’s unlikely users are confused by this any more … and the benefits are huge.
+过去常常有这样的说法：缺少密码输入框会使用户感到不自在。而现代的谷歌登录体验正是如此，他们仅仅要求用户输入他们的电子邮箱地址，所以用户并不会感到有什么不自在，而且这么做还大有好处。
 
-This approach has an additional benefit: some users have phone numbers but not email addresses. This is especially true in developing countries, so if this is a possible target market for your website you may eventually want to support users who can only log in by receiving a code to their phone. Such accounts won’t have passwords at all, so if you assumed all users do have passwords it will require you to go back and add lots of special cases to security-sensitive code paths (this can easily lead to fatal mistakes).
+而这种方法还有个好处：有些人只有电话号码而没有电子邮箱。在发展中国家尤其如此，所以如果这些国家的用户是你的网站的潜在目标市场的话，最终你可能要支持仅能通过手机接受验证码的方式登录。这样的账户根本就不需要密码，如果你所有的用户都有密码，那么你需要返回并为安全敏感的代码路径添加许多特殊的情况（这很容易导致致命的错误）。
 
-### 4. Don’t use secret questions
+### 4. 不要使用密保问题
 
-If you simply must use passwords — perhaps you don’t want to try explaining to your boss why you did things differently — at the very least don’t let the user recover using secret questions and answers.
+如果你就是想使用密码——大概你懒得向你的老板解释为什么你这么特立独行，那么请至少不要让用户通过密保问题来找回他们的密码。
 
-- The answers to secret questions are often trivially guessed. Users find it incredibly hard to think of questions that only they could answer and nobody else.
-- Pre-supplied questions make the guessing problem worse.
-- Pre-supplied questions often have cultural bias that makes them useless for many users (e.g. “what was your high school’s mascot?”)
-- Some savvy users realise they can’t think of a hard-to-guess answer so just use it as a second password field, meaning they then can’t recover when they forget.
-- There is a long list of high profile celebrity and VIP hacks that worked by abusing password recovery flows. You don’t want this to be you.
+- 密保问题常常被猜测。用户很难想出那些只有他们知道而其他人答不出来的问题。
+- 预设的问题使得猜测的现象更加严重
+- 预设问题往往带有文化差异，从而使得它们对于许多用户并不友好（例如：『你们高中学校的吉祥物是什么？』）。
+- 一些『精明』的用户意识到他们不能想出一个难以猜测的答案，所以仅仅在这个位置填入密码，导致了他们在忘记密码时无法恢复。
+- 还有一堆的高端黑客，会在密码恢复流程上做点文章，你可不希望这事发生在你身上吧。
 
-Google had severe problems with secret questions. [A couple of my old colleagues published research on it](https://security.googleblog.com/2015/05/new-research-some-tough-questions-for.html) that’s worth reading or watching (video below)
+Google 曾经在密保问题上遇到过严重的问题。[这是我的几位老同事发表的研究](https://security.googleblog.com/2015/05/new-research-some-tough-questions-for.html)，值得一看（视频在下面，来自 youtube，需要翻墙）。
 
 [![](https://i.ytimg.com/vi_webp/h8YwQvJm7rk/maxresdefault.webp)](https://www.youtube.com/embed/h8YwQvJm7rk)
 
-A talk on secret questions/answers at Google
-Some examples of problematic Q/As:
+一场在谷歌进行的关于密保问题和答案的谈话
 
-- **Q: Favourite food. A: Pizza.** The answer is always pizza. You can break into around 20% of English-speaking accounts with just a single guess using this answer. With just 10 guesses you can break in to over a third of all English-speaking accounts that have this question. For Korean accounts you can get into 43% of all accounts within 10 guesses.
-- **Q: On what day did I get married?****A: Thursday.** A custom question, but fatally flawed — the attacker needed only 5 guesses, too few to be detected as a brute forcing attempt.
-- **Q: In which city was I born?****A: Seoul.** In some countries almost everyone lives in a handful of large cities. Observing the language the ID verification UI is written in can thus narrow down the list of possible cities dramatically. For Korean accounts you only need 10 guesses to break 40% of accounts using this question.
-- **Q: What was the name of my first teacher? A: Mr Smith, Smith, John, John S. Smith, JOHN SMITH, Jon Smth.** All of these answers are correct but won’t be matched by a straightforward implementation. I added fuzzy matching for questions like these because users so often got them ‘nearly’ right. The matching logic often needs to understand something about the question (Levenshtein distance by itself is insufficient for things like street addresses). Good luck doing this for all the languages your product supports!
+这是一些问答的例子：
 
-Not surprisingly, professional account systems do not use knowledge of secret Q/A alone to allow users to recover accounts. It’s just one signal amongst many. I give you a <2% chance of writing something sophisticated enough to get this right. That’s why Google phased secret Q/A out in favour of SMS recovery. SMS based recovery has its own issues, but it’s still a lot better than secret questions.
+- **问：你最喜欢的食物是？答：披萨。**答案常常是披萨。仅仅通过猜出这个问题的答案，你就能破解大约 20% 的说英语的用户。再添加十个猜测选项，你就能破解三分之一的设置了这个问题的用户。而对于韩国用户，你可以用 10 个以内的选项破解 43% 的用户。
+- **问：你是在星期几结的婚？答：星期四** 是用户自定义的问题，但却有个致命的缺陷 —— 一般攻击者只需要尝试 5 次，就能破解正确答案。而这还不至于被检测为暴力破解。
+- **问：我是在哪个城市出生的？答：首尔**在一些国家里，大多数人会聚居在少数的几个大城市里。观察 ID 验证用户界面所使用的语言，可大大缩小可能的城市列表。通过这个问题，你能够破解 40% 的用户。
+- **问：我的第一位老师叫什么名字？答：Mr Smith， Smith， John， John S. Smith，JOHN SMITH， Jon Smth。** 这些都是正确答案，但是却不能正确通过。我为这些问题提供了模糊匹配的模式，因为用户的答案总是差那么一点儿。匹配逻辑通常需要了解一些问题背景（『编辑距离』算法本身不足以满足诸如街道地址等的情况）。你还得让你的产品支持多语言，祝你好运吧。
 
-### 5. Avoid CAPTCHAs
+专业的账户系统是不会单独使用密保问题来允许用户恢复密码的。它仅仅只是一种参考。我只给予你小于 2% 的机会去通过一个足够复杂的机制来获得这个权利。这就是为什么 Google 逐步淘汰密保问题而采用短信的方式来恢复密码。当然短信恢复自身也存在一些问题，但相比于密保问题还是好很多的。
 
-CAPTCHAs are a frequent feature of many login forms. They’re also something I did a bit of work on at Google. Unfortunately, CAPTCHAs are these days extremely low value and often implemented badly.
+### 5. 避免使用验证码
+
+验证码是许多登录表单的常见功能。我在 Google 期间也做了一些相关的工作。但是，在如今验证码几乎没有什么价值，而且执行率非常之低。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*_RLdNjTDj6VzHRsIit5ODg.gif)
 
-All these CAPTCHAs are uselessly weak
+这些验证码都无济于事。
 
-The thing to understand about CAPTCHAs is they’re only useful for imposing a very basic throttle on automated attacks. They will not protect your account system against bulk registrations. Other than account security I also spent some years working on Google signup abuse. We routinely saw spammers solve tens of millions of our hardest CAPTCHAs. There are professional CAPTCHA solving firms like [DeathByCaptcha](http://www.deathbycaptcha.com/user/login) that use a mix of OCR and human solving. Ordinary CAPTCHAs block blind people from signing up, which may be a problem, but speech recognition based CAPTCHAs are either trivially solved by computers or unsolvable by humans.
+首先要正确理解验证码的作用，它们仅仅对自动化攻击施加非常简单的限制。他们并不会保护你的账户系统免于批量注册的风险。除了账户安全，我还花了几年时间研究 Google 的注册滥用。我们亲眼看到垃圾邮件发送者轻松地解决了数千万个那些我们认为很难的验证码。有那些专业处理验证码的公司，如 [DeathByCaptcha](http://www.deathbycaptcha.com/user/login)，他们使用的是光学字符识别和人工识别。普通的验证码让盲人用户无法进行注册，这确实是个问题。而基于语音的验证识别对于机器很容易，对人来说却很困难。
 
-CAPTCHAs are most useful for blocking password brute forcing attempts. Brute forces may require hundreds of thousands or millions of attempts against an account to find the right password. A simple way to stop them without annoying users is to start throwing CAPTCHAs if the user has had some recent failed login attempts. Even easy CAPTCHAs are enough to throw a small delay into a bot loop.
+使用验证码阻止暴力破解密码是很有帮助的。暴力破解一个账户的密码，可能需要成百上千次的尝试，一个简单的方法来阻止这种现象是在他们经过了几次失败的尝试之后就开始加入验证码。在机械的循环中，即使是使用一个简单的验证码来延缓进程也足够了。
 
-CAPTCHAs are much less useful for stopping bulk account registration. Building systems to detect and stop that is a whole other ball game; one I spent several years playing. To get a sense of how hard it can be, go to [buyaccs.com](http://buyaccs.com) and observe the huge variation in prices charged by underground account sellers. The higher prices are caused by better defence systems. Unless you’re one of the Big 5 you won’t be able to beat the work we did on account signup security — it’s just one more reason to outsource login to the major players.
+对于阻止批量账户注册，验证码却不太管用。建立一个系统去检测和阻止这类现象是另一桩工作，在这方面我也花了好几年的时间。你可以大致了解一下这有多困难，登录 [buyaccs.com](http://buyaccs.com) 并对比一下黑市账户销售商收取的巨大差价。防御系统较好的网站的账户通常会收取更高的价格。除非你是 Big 5 之一，不然在注册安全方面，你所做的不可能超过我们，这也是我建议你将登录系统外包给那几家主要的公司的另一个原因。
 
-If you *still* want to use CAPTCHAs, use [reCAPTCHA](https://www.google.com/recaptcha/intro/) and make sure your CAPTCHA is bound appropriately to avoid replay attacks. Don’t try to roll your own or use a kit you found on GitHub. Such CAPTCHAs are invariably solved by modern OCR and will accomplish nothing except reducing the success rate of customer signup.
+如果你**仍然**想要使用验证码，请使用 [reCAPTCHA](https://www.google.com/recaptcha/intro/) 并确保你的验证码放置在了适当的位置，以免重放攻击。不要尝试使用你自己制作的或是你在 GitHub 上找到的工具包，这样的验证码很容易被现代的光学字符识别所解决，除了降低客户注册的成功率之外并没有什么用处。
 
-### 6. Outsource 2-factor authentication
+### 6. 外包双因子验证
 
 ![](https://cdn-images-1.medium.com/max/1200/1*GmSsoIZQN49cIBMeNDoYlA.png)
 
-Two-factor auth is a pretty common feature these days. Again, doing this well is hard, expensive and you do not want to implement it yourself.
+如今双因子验证是一个很常见的功能。然而，把它做好却是很困难的，而且花费不菲，你不会想自己动手去实现它的。
 
-- SMS is unreliable, especially in some countries. Recovery codes will occasionally just not show up. You will eventually want to implement phone calls with speech synthesis as a result because phone calls are much more reliable, but now you need multi-lingual speech synthesis engines.
-- Doing lots of SMSs or phone calls is extremely expensive, even if you can negotiate good bulk discounts.
-- People lose access to their phone numbers all the time. If you rely on email addresses your password recovery flow can be pretty easy, but once solid 2FA is introduced your password recovery becomes the weakest point in the system. If you don’t upgrade it attackers will simply go around it. If you block it, then you will discover that …
-- 2FA can be abused by attackers who add it to accounts they phished or hacked. This is to prevent the real users from stealing the account back whilst the malicious activity is performed.
-- Phone numbers are vulnerable to porting attacks, so the trend is towards asking users to set up mobile apps or security keys. Implementing those is even more work, and of course both of those can be lost too, so you will ultimately still need some customer support flow to help them recover.
-- As you’re figuring out, 2FA adds a lot of manual customer support work because you can no longer just push users towards email or secret Q/A based recovery. That’s expensive.
+- 短信是不稳定的，特别是在有些国家，恢复码常常不能显示。你最终可能会选择语音合成的电话，因为电话更加稳定一些，而现在你又需要考虑多语种的语音合成引擎了。
+- 大量的短信或电话将会是一笔大的开销，即使你能通过大批量获得优惠。
+- 人们可能常常会更换电话号码。如果你的密码恢复流程是基于电子邮件地址的，那么这个过程将会变得很容易。但是一旦你的系统引入了稳定的双因子认证，密码恢复将变成你系统中的一个漏洞。如果你不去修复它，攻击者将会很轻松地进行破解。而如果你尝试阻止它也并不会起作用。
+- 双因子验证会被攻击者滥用，他们将它添加到钓鱼或者黑入的账户里。这是为了在执行恶意活动期间，防止真正的用户取回该账号。
+- 电话号码很容易受到移植攻击，所以如今的趋势是要求用户设置移动应用或安全密钥。为了实现这项措施意味着更多的工作，当然，这两项可能都不管用，所以你最终还是需要一些客户支持流程来帮助他们恢复。
+- 如你所见，双因子验证增加了大量客户的手动操作，因为你不再使用密保问题或电子邮件的方式恢复用户的密码了。而这个开销很大。
 
-Some of these problems are fundamental, but most of them are solved already by the big players who will pay the phone bills and customer support people on your behalf, for free!
+其中一些问题是很根本的，但是大多数已经有人帮你解决了，他们将免费为你支付电话费和客户支持人员
 
-Still, if you don’t want to use them, there are startups that will solve small parts of the 2FA puzzle for you.
+不过，如果你仍然不想使用他们提供的服务，那么还有一些创业公司可以为你解决小部分的双因子验证难题。
 
-### 7. Don’t force password changes
+### 7. 不要强制用户更改密码
 
-Troy already covered this just fine so I won’t repeat it here, except to say that this is really important. Don’t require users to change passwords just because it’s been a while.
+Troy 已经把这一点解释的很好了，我这里就不再赘述，但还要再强调一遍，这很重要。不要仅仅是因为用户的密码已经使用一段时间了，就让用户更改密码。
 
-- Some users won’t make it through the process and you will bleed users.
-- Some users will be smarter than you and use tricks like changing their password (once, twice, three times) and then immediately changing it back to their old password, meaning you will end up wanting to store a history of recent passwords to prevent this behaviour. But I bet your first implementation won’t do this.
-- It doesn’t improve security anyway.
+- 一些用户可能无法通过这个流程，从而导致你流失一部分用户。
+- 用户可比你聪明，他们会更改密码（一次、两次、三次），然后立即将其更改为旧密码，这意味着你得存储最近密码的历史记录以防止此类行为。但我敢打赌，你不会这样做的。
+- 这样并不会增加安全性。
 
-### 8. Don’t expire sessions
+### 8. 不要为会话设置有效期
 
-Yet another best practice that isn’t. It’s tempting to set your session cookies to expire. Sometimes people think that this improves security for the same reason they think expiring people’s passwords improves security.
+是的，这又是个不好的『最佳实践』。人们常常会为会话 cookie 设置有效期，觉得这样做增加了安全性，出于同样的原因，人们会认为为密码设置有效期也会增加安全性。
 
-- Attackers tend to perform malicious activities immediately, so expirations don’t help much.
-- Session expiry trains users that random unexpected password prompts are normal, which makes them incredibly easy to phish.
-- Sessions that expire randomly create an explosion of bugs that your developers will waste large amounts of time on. Most parts of your website will not be written to handle the case of sessions expiring half way through an action, so you’ll have to go back and fix them, assuming you even notice the problems at all. Expiry tends to surface as user reports of random flakiness which are hard to track down.
+- 攻击者往往会立即进行恶意活动，所以设置有效期并没有多大用处。
+- 会话有效期这一设置使得用户习惯于意料之外的密码提示，这使得他们非常容易被欺骗。
+- 存储有效期的随机性会产生大量的 bug，导致了你的开发人员将大量的时间花在了修复 bug 上。你的网站的大部分代码应该不能处理这种，在一个操作中途，使用的会话过期了的情况，所以你必须返回去修复它，前提是你能够发现的话。而由于用户报告的随机性，这使得追踪错误变得更加困难了。
 
-### 9. Remember sign-out
+### 9. 记得登出
 
-Getting sign-out wrong is remarkably common in immature account systems. It sounds superficially easy but the most obvious ways to do it have flaws.
+在不成熟的账户系统中，登出错误是非常常见的。这听起来很简单，但是实现这一功能的公认方法，是有缺陷的。
 
-- Simply deleting the session cookie is fine as a convenience to the user, but means you can’t recover from XSS. Once an XSS is found you may wish to invalidate possibly stolen session cookies, but if sign-out is just “ask the browser to delete the cookie” then you can’t do it.
-- Adding timestamps to session cookies and then setting a “last sign-out time” requires every action to check against the accounts database to discover if the user’s session is too old. This can slow things down, meaning developers will be tempted to optimise it out (it doesn’t seem dangerous to do so after all). But then if they remove the check for an endpoint of interest to attackers, you’ve still got the problem in step one. Additionally, this means signing out of one browser or device signs the user out of all of them, which isn’t expected behaviour.
+- 简单地删除会话的 cookie 对用户来说是方便的，但是这意味着你在遭受『跨站脚本攻击』后无法恢复。一旦发现『跨站脚本攻击』，你会希望，让可能被盗取的会话 cookie 无效，但是如果登出只是『要求浏览器删除 cookie』，那么这样做是不行的。
+- 将时间戳添加到会话 cookie，然后设置『最后登出时间』，每个操作都需要检查帐户数据库，以了解用户的会话是否过旧。这可能会导致操作响应变慢，意味着开发人员将要对此进行优化（毕竟这似乎也没什么）。但是如果他们移除了对攻击者感兴趣的一个端口的检查，那么你在第一步中遇到问题将会再次出现。另外，这意味着退出一个浏览器或设备，就会将所有用户登出，这不是预期的行为。
 
-The right way to do this is keeping a list of invalidated session cookies with in-memory caching. But for most companies, there’s a less costly approach which is good enough: have the user’s sign-out link be just a way to clear the session cookie and nothing more, then make session cookies expire but be automatically and silently replaced every 5 minutes or so. The act of replacing an expired session cookie consults the database to see if the administrators have forced a logout. If the user is presenting an expired cookie then they are required to log in again. This recognises that cleaning up after cookies may have been stolen is a relatively rare event.
+正确的方法是使用内存中缓存来保存过期会话 cookie 的列表。但是，对于大多数公司来说，有个成本更低而且足够好的替代方案：让用户的退出链接仅仅当作是清除会话 cookie 的一种方式，紧接着可以让会话 cookie 过期，并且每隔5分钟自动更新。替换过期会话 cookie 的行为可以通过查询数据库，以查看管理员是否强制注销了该账户。如果用户显示的是过期的 cookie，则需要重新登录。这就意味着 cookie 清理之后就不太可能被盗用了。
 
-### 10. Separate account emails from marketing mail
+### 10. 从营销邮件中分离帐号电子邮件
 
 ![](https://cdn-images-1.medium.com/max/1600/1*kg2ZRHcCDGJ83rEz8D7saA.png)
 
-The obvious way to send password recovery links, signup verifications etc is simply from your company’s main email server. Unfortunately, some people in your company are trying to build a “relationship” with the user by sending them commercial mails they don’t want.
+一般我们会用公司的主要电子邮箱服务器来给用户发送恢复密码链接、登录验证等信息。然而，贵公司的一些人却会通过给用户发送那些他们不想收到的商业邮件与用户建立『联系』。
 
-Even if users agreed to receive these during account signup, many of them don’t want them anymore and some will solve this by reporting them as spam. This is an expedient solution for the savvy user who has noticed that simply clicking “Report spam” a couple of times makes the emails go away, without any mental effort expended on finding tiny light-grey-on-white-6pt-font unsubscribe links or … gasp … writing email filters.
+即使用户同意在帐号注册期间收到这类信息，但其中大部分用户却不想再收到这样的信息，有些人甚至会将其举报为垃圾邮件。那些精明的用户知道，这是一个极其方便的解决方案，仅仅简单地点击『举报垃圾邮件』，就能让这些令人讨厌的电子邮件消失，而不必把精力花费在寻找用微小字体写着的『取消订阅』链接，或是劳神费力地写电子邮件过滤器。
 
-Unfortunately, this entirely normal behaviour will start to degrade the reputation of your mail email domain. Mail from your account system may start going into the user’s spam folder. We’ve all seen warnings on signup or password recovery flows telling us to check our spam folders — that’s why.
+而不幸的是，这类行为将会降低你的电子邮件域名的信誉。从你的帐户系统发送的邮件最终很可能会进入用户的垃圾邮件文件夹。我们在注册或进行密码恢复的流程中，都能看到这类让我们检查垃圾邮件文件夹的提示 —— 就是这个原因。
 
-One way to solve this is by buying a separate top-level domain to send your account mails from and making sure to configure DKIM. But then some users will notice the mismatch and report your email as phishing instead. The best solution is to send your marketing emails from a different DKIM domain, but that will likely involve picking a fight with your product folks. Still … the moment you chose to roll your own you accepted this pain, remember?
+解决这个问题的一种方法是，购买单独的顶级域名来发送邮件，并确保符合电子邮件验证标准。但是，一些用户可能会注意到域名不匹配，从而将你的电子邮件举报为网络钓鱼。最佳方案是使用不同电子邮件验证标准的域名发送你的营销邮件，但你的产品人员可能不认可。所以，还是那句话，你选择自己干的那一刻，也同时承担了痛苦。
 
-### 11. Keep your password database well protected
+### 11. 保护好你的密码数据库
 
-If you have passwords, you have a database attackers want (and frequently get). They don’t care about your company directly, they just want the passwords so they can try them at higher value targets. Yet data breaches are embarrassing and can lead to big penalties even if the direct impact on your customers is low. A database of OAuth tokens is of far less value to attackers and thus you’re much less likely to be attacked.
+一旦你拥有了密码，你的数据库就成了攻击者的目标（而且他们常常能得手）。他们对你的公司并不感兴趣，他们只是想要密码，以方便他们尝试那些更高价值目标。所以，数据泄露是个严重的问题，也许对客户的直接影响没那么大，但有可能导致严重的后果。而使用 OAuth 协议的数据库对于攻击者来说却没什么价值， 因此不太可能受到攻击。
 
-### Conclusion
+### 结论
 
-There is far more I could write about account systems. Defending your site against malicious account hacking/signup is an entire book all by itself. I can’t write that book but you can watch [this video of a talk I gave in 2012](https://www.youtube.com/watch?v=XwsaZ4-3muA) instead, if you’re curious.
+关于帐户系统我还能写好多东西。保护你的网站，使其免受恶意帐户入侵或注册，这方面内容可以单独写成一本书了。这书我写不了，不过如果你有兴趣的话，可以看看这个视频，这是我在 [2012 年的一次访谈](https://www.youtube.com/watch?v=XwsaZ4-3muA)。
 
-But it’s fair to say the task is deceptively large. That’s why I keep recommending you bite the bullet and outsource your account management to the big boys. Fiddling with CAPTCHAs is not your core business. Writing design documents for “log out” is not your core business. Diagnosing why you’re bleeding users who forgot their password is not your core business. Diagnosing why SMS message delivery to Peru isn’t reliable isn’t your core business. Every dollar you spend on these things is a dollar your competitors who use “Sign in with …” are spending on their core business.
+老实说，这看似是一个浩大的工程，实则并非如此。所以我一直建议你要硬着头皮坚持做下去，并且把你的账户管理外包给那些大公司。因为，你的主要业务并不是去操心怎样摆弄验证码、不是怎样写『登出』的设计文档、不是诊断为什么你会流失那些忘记密码的用户、也不是去考虑为什么发送信息到秘鲁会不稳定。你在这些事情上花费的每一分钱，对于那些提供了『使用第三方登录』的竞争对手来说，他们将这些钱都花在了他们的核心业务上。
 
-So throw out your password database, and don’t look back.
-
-
+所以，不要回头看了，放弃你的密码数据库吧。
+  
   ---
 
   > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[React](https://github.com/xitu/gold-miner#react)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计) 等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
   
+
+
+
