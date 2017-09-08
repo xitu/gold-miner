@@ -6,7 +6,7 @@
   > * 译者：[星辰](https://www.zhihu.com/people/tmpbook)
   > * 校对者：
 
-  # 为什么 context.Value 重要，如何改进
+  # 为什么 context.Value 重要，如何进行改进
 
   **觉得文章太长可以看这里：我认为 context.Value 解决了描写无状态这个重要用例 - 而且它的抽象还是可扩展的。我相信 [dynamic scoping](https://en.wikipedia.org/wiki/Scope_(computer_science)#Dynamic_scoping) 可以提供同样的好处，同时解决对当前实现的大多数争议。 因此，我将试图从其具体实施到它的潜在问题进行讨论。**
 
@@ -14,15 +14,15 @@
 
 ---
 
-最近 [这篇博文](https://faiface.github.io/post/context-should-go-away-go2/) 已经在几个 Go 论坛上被探讨过。它提出了几个很好的论据来反对 [context-package](https://godoc.org/context)：
+最近[这篇博文](https://faiface.github.io/post/context-should-go-away-go2/)已经在几个 Go 论坛上被探讨过。它提出了几个很好的论据来反对 [context-package](https://godoc.org/context)：
 
-- 即使有一些中间函数没有用到它，但它依然要求这些函数包含 `context.Context`。这引起了 API 的混乱的同时还需要广泛的深入修改 API， 比如，`ctx context.Context` 会在入参中重复出现多次。
+- 即使有一些中间函数没有用到它，但它依然要求这些函数包含 `context.Context`。这引起了 API 的混乱的同时还需要广泛的深入修改 API，比如，`ctx context.Context` 会在入参中重复出现多次。
 - `context.Value` 不是静态类型安全的，总是需要类型断言。
 - 它不允许你静态地表达关于上下文内容的关键依赖。
 - 由于需要全局命名空间，它容易出现名称冲突。
 - 这是一个以链表形式实现的字典，因此效率很低。
 
-然而，在对 context 被设计来**解决**的问题的探讨中，我不认为它做的足够好，它主要探讨的是取消机制，而 `Context.Value` 只是简单说明了一下。
+然而，在对 context 被设计来**解决**的问题的探讨中，我认为它做的不够好，它主要探讨的是取消机制，而对于 `Context.Value` 只进行了简单的说明。
 
 > […] 设计你的 API，而不考虑 ctx.Value，可以让你永远有选择的余地。
 
@@ -35,16 +35,17 @@
 这些 context 要去解决的问题是将问题抽象为独立执行的、由系统的不同部分处理的单元，以及如何将数据作用域应用到这些单元的某一个上。很难清楚的定义我说的这些抽象，所以我会给出一些例子。
 
 - 当你构建一个可扩展的 web 服务时，你可能会有一个为你做一些类似认证、权鉴和解析等的无状态前端服务。它允许你轻松的扩展外部接口，如果负载增加到后端不能承受，也可以直接在前端优雅的拒绝。
-- [微服务](https://en.wikipedia.org/wiki/Microservices)将大型应用分成小的个体分别来处理每个特定的请求，拆分出更多的请求到其它微服务里面。这些请求通常是独立的，可以根据需求轻松的将各个微服务上下的扩展，从而在实例之间进行负载均衡，并解决 [透明代理](https://istio.io/) 中的一些问题。
-- [函数及服务](https://en.wikipedia.org/wiki/Serverless_computing)走的更远一步：你编写一个无状态的方法来转换数据，平台使其可扩展并更效率的执行。 - 甚至 [CSP](https://en.wikipedia.org/wiki/Communicating_sequential_processes)，Go 内置的并发模型也可以体现这一方式。即程序员执行单独的『进程』来描述他的问题，运行时则会更效率的执行它。
+- [微服务](https://en.wikipedia.org/wiki/Microservices)将大型应用分成小的个体分别来处理每个特定的请求，拆分出更多的请求到其它微服务里面。这些请求通常是独立的，可以根据需求轻松的将各个微服务上下的扩展，从而在实例之间进行负载均衡，并解决[透明代理](https://istio.io/)中的一些问题。
+- [函数及服务](https://en.wikipedia.org/wiki/Serverless_computing)走的更远一步：你编写一个无状态的方法来转换数据，平台使其可扩展并更效率的执行。 
+- 甚至[CSP](https://en.wikipedia.org/wiki/Communicating_sequential_processes)，Go 内置的并发模型也可以体现这一方式。即程序员执行单独的『进程』来描述他的问题，运行时则会更效率的执行它。
 - [函数式程序设计](https://en.wikipedia.org/wiki/Functional_programming)作为一种范型。函数结果只依赖于入参的这一概念意味着不存在共享态和独立执行。
-- 这个 Go 的[Request Oriented Collector](https://docs.google.com/document/d/1gCsFxXamW8RRvOe5hECz98Ftk-tcRRJcDFANj2VwCB0/edit)设计也有着完全相同的猜想和理论。
+- 这个 Go 的 [Request Oriented Collector](https://docs.google.com/document/d/1gCsFxXamW8RRvOe5hECz98Ftk-tcRRJcDFANj2VwCB0/edit) 设计也有着完全相同的猜想和理论。
 
 所有这些情况的想法都是想通过减少共享状态的同时保持资源的共享来增加扩展性（无论是分布在机器之间，线程之间或者只是代码中）。
 
 Go 采取了一个措施来靠近这个特性。但它不会像某些函数式编程语言那样禁止或者阻碍可变状态。它允许在线程之间共享内存并与互斥体进行同步，而不完全依赖于通道。但是它也绝对想成为一种（或**唯一**）编写现代可扩展服务的语言。因此，它**需要**成为一种很好的语言来编写无状态的服务，它需要至少在一定程度上能够达到**请求**隔离级别而不是进程隔离。
 
-**（附注：这似乎是上述文章作者的声明，他声称上下文主要对服务作者有用。我不同意。一般抽象发生在很多层面。比如 GUI 的一次点击就像这个请求的抽象一样，作为一个 HTTP 请求）**
+**（附注：这似乎是上述文章作者的声明，他声称上下文主要对服务作者有用。我不同意。一般抽象发生在很多层面。比如 GUI 的一次点击就像这个请求的抽象一样，作为一个 HTTP 请求。）**
 
 这带来了能在请求级别存储一些数据的需求。一个简单的例子就是[RPC 框架](https://grpc.io)中的身份验证。不同的请求将具有不同的功能。如果一个请求来自于管理员，它应该比未认证用户拥有更高的权限。这是从根本上的**请求作用域**内的数据而不是过程，服务或者应用作用域。RPC 框架应该将这些数据视为不透明的。它是应用程序特指的，不仅是数据看起来有多详细，还有**什么样**的数据是需要的。
 
@@ -116,7 +117,7 @@ func (a *Authenticator) Username(req *http.Request) string {
 
 最后我们可能会考虑将这些数据存储在 [*http.Request](https://godoc.org/net/http#Request) 本身中，例如通过将其添加为字符串的 [URL parameter](https://godoc.org/net/url#URL.RawQuery)，但这也有几个缺点。事实上，它基本检测到了 `context.Context` 的每个单独 item 的缺点。表达式是一个链表。即使有那样的优点，它的线程安全也无法忽略，如果该请求被传递给不同的 goroutine 中的程序处理，我们会遇到麻烦。
 
-**（附注：所有的这一切也使我们了解了为什么 context 包被使用链表的方式实现。它允许存储在其中的所有数据都是只读的，因此肯定线程安全，在上下文中保存的共享状态永远不会出现锁争用，因为压根不需要锁）**
+**（附注：所有的这一切也使我们了解了为什么 context 包被使用链表的方式实现。它允许存储在其中的所有数据都是只读的，因此肯定线程安全，在上下文中保存的共享状态永远不会出现锁争用，因为压根不需要锁。）**
 
 
 所以我们看到，解决这个问题是非常困难的（如果可以解决），实现在独立执行的处理程序附加数据给请求时，也是优于 `context.Value` 的。无论是否相信这个问题值得解决，它都是有争议的。但是**如果**你想获得这种可扩展的抽象，你将不得不依赖于类似于 `context.Value` 的**东西**。
