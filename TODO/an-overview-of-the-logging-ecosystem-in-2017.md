@@ -4,7 +4,7 @@
   > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
   > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/an-overview-of-the-logging-ecosystem-in-2017.md](https://github.com/xitu/gold-miner/blob/master/TODO/an-overview-of-the-logging-ecosystem-in-2017.md)
   > * 译者：[TanJianCheng](https://github.com/TanNingMeng)
-  > * 校对者：[tmpbook ](https://github.com/tmpbook), [Yuuoniy](https://github.com/Yuuoniy)
+  > * 校对者：[tmpbook ](https://github.com/tmpbook) [Yuuoniy](https://github.com/Yuuoniy)
 
   # 2017年日志生态系统概述
 
