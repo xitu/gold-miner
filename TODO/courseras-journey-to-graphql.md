@@ -4,13 +4,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/courseras-journey-to-graphql.md](https://github.com/xitu/gold-miner/blob/master/TODO/courseras-journey-to-graphql.md)
 > * 译者：[bambooom](https://github.com/bambooom)
-> * 校对者：
+> * 校对者：[sunui](https://github.com/sunui)
 
 # Coursera 的 GraphQL 之路
 
-将 GraphQL 添加至 REST 微服务的后端中
+将 GraphQL 添加至 REST + 微服务的后端中
 
-Coursera 客户端的开发人员喜欢 GraphQL 的灵活性、类型安全性以及社区的支持，这些已经[众](https://building.coursera.org/blog/2016/11/23/why-ui-developers-love-graphql/)[所](https://speakerdeck.com/jnwng/going-graphql-first)[周](https://dev-blog.apollodata.com/graphql-just-got-a-whole-lot-prettier-7701d4675f42)[知](https://building.coursera.org/blog/2017/05/11/coursera-engineering-podcast-episode-one/)。但是，我们没有谈过多少后端开发者们对于 GraphQL 的感受，这是因为他们大多数并不需要考虑 GraphQL。
+Coursera 的客户端开发人员喜欢 GraphQL 的灵活性、类型安全性以及社区的支持，这些已经[众](https://building.coursera.org/blog/2016/11/23/why-ui-developers-love-graphql/)[所](https://speakerdeck.com/jnwng/going-graphql-first)[周](https://dev-blog.apollodata.com/graphql-just-got-a-whole-lot-prettier-7701d4675f42)[知](https://building.coursera.org/blog/2017/05/11/coursera-engineering-podcast-episode-one/)。但是，我们没有谈过多少我们的后端开发者们对于 GraphQL 的感受，这是因为他们大多数并不需要考虑 GraphQL。
 
 过去的一年中，我们构建了将所有 REST API 动态转换为 GraphQL 的工具。这使得后端开发者可以继续编写他们熟悉的 API，同时客户端开发者也可以通过 GraphQL 访问所有数据。
 
@@ -20,11 +20,11 @@ Coursera 客户端的开发人员喜欢 GraphQL 的灵活性、类型安全性�
 
 ## 初步调查
 
-Coursera 的 REST API 是基于资源构建的（即课程 API、教师 API、课程成绩 API 等）。这样使得开发和测试都很容易，并且很好地实现了关注分离。然而，随着产品规模扩大以及 API 数量增长，我们开始面临性能、文档以及易用性等的问题。在许多页面上，我们发现需要四到五次与服务器的往返来获取所有我们需要渲染的数据。
+Coursera 的 REST API 是基于资源构建的（即课程 API、教师 API、课程成绩 API 等）。这样使得开发和测试都很容易，并且在后端很好地实现了关注分离。然而，随着产品规模扩大以及 API 数量增长，我们开始面临性能、文档以及易用性等问题。在许多页面上，我们发现需要四到五次与服务器的往返来获取所有我们需要渲染的数据。
 
 还记得 Facebook 首次推出 GraphQL 时我们团队非常兴奋，因为我们几乎立刻就意识到 GraphQL 可以解决我们的诸多问题，例如在一次往返获取所有数据，并为 API 提供结构化的文档等。虽然我们想马上停止使用 REST 并开始编写 GraphQL，但事情并非如此简单，因为：
 
-- 当时，Coursera 有超过 1000 个不同的 REST 端点，即使我们想完全停止使用 REST，GraphQL 的迁移成本将是天文数字。
+- 当时，Coursera 有超过 1000 个不同的 REST 端点，即使我们想完全停止使用 REST，GraphQL 的迁移成本将是极大的。
 
 - 我们所有的后端服务都使用 REST API 进行服务间通信，所以经常会有给后端服务以及前端提供相同 API 的情况。
 
@@ -36,7 +36,7 @@ Coursera 的 REST API 是基于资源构建的（即课程 API、教师 API、�
 
 包装 REST API 是个非常简单的过程，我们针对下游 REST 调用通过解析器获取数据构建了一些实用程序，并写了一些将现有模型转为 GraphQL 的规则。
 
-第一步是构建 GraphQL 解析器，然后在生产环境中启动一个 GraphQL 服务器，使下游 REST 调用到源端点。一旦完成了这项工作（用 GraphQL 来验证所有），我们就会在设置的演示页面展示数据，几天之内就可以说 GraphQL 启动成功了。
+第一步是构建 GraphQL 解析器，然后在生产环境中启动一个 GraphQL 服务器，使下游 REST 调用到源端点。一旦完成了这项工作（用 GraphQL 来验证一切），我们就会在设置的演示页面展示数据，几天之内就可以说 GraphQL 启动成功了。
 
 ### 短暂的庆祝
 
@@ -48,7 +48,7 @@ Coursera 的 REST API 是基于资源构建的（即课程 API、教师 API、�
 
 ### 自动化流程
 
-所以我们回到了白板上，试图找出一个清晰的解决方案获得真实数据源。将 REST API 视为真实数据源是有道理的，因为 GraphQL 是基于他们构建的。为此，我们需要自动地确定性地构建 GraphQL 层，以反映当前体系中正在运行的内容，而不是我们认为正在运行的。
+所以我们回到了白板上，试图找出一个清晰的解决方案获得真实数据源。将 REST API 视为真实数据源是有道理的，因为 GraphQL 是基于它们构建的。为此，我们需要自动地确定性地构建 GraphQL 层，以反映当前体系中正在运行的内容，而不是我们认为正在运行的。
 
 幸运的是（也许算有远见），我们的 [REST 框架](https://github.com/coursera/naptime)给我们提供了构建这个自动化层需要的一切：
 
@@ -56,9 +56,9 @@ Coursera 的 REST API 是基于资源构建的（即课程 API、教师 API、�
 
 - 针对每一个资源，我们可以引入一系列端点和参数列表（即一个课程可以通过 id 获取，也可以由讲师查找）
 
-- 另外，我们得到了由 [Courier 模式语言](http://coursera.github.io/courier/schemalanguage/)定义的模型返回的 [Pegasus 模式](https://github.com/linkedin/rest.li/wiki/DATA-Data-Schema-and-Templates)（译：没明白这里在讲啥。。。）
+- 另外，我们接受由 [Courier 的模式语言](http://coursera.github.io/courier/schemalanguage/)定义的 [Pegasus Schemas](https://github.com/linkedin/rest.li/wiki/DATA-Data-Schema-and-Templates)，用于每个模型返回数据
 
-只要发现不同的部分，我们就需要构建一个 GraphQL 模式，在 GraphQL 服务器上设置一个任务，每五分钟对所有下游服务 ping 一次，请求所有信息。然后，我们就可以在 Pegasus 模式和 GraphQL 类型之间编写 1：1 的转化层了。
+只要发现不同的部分，我们就需要构建一个 GraphQL 模式，在 GraphQL 服务器上设置一个任务，每五分钟对所有下游服务 ping 一次，请求所有信息。然后，我们就可以在 Pegasus 模式和 GraphQL 类型之间编写 1:1 的转化层了。
 
 接下来，我们只需要简单定义如何将 GraphQL 查询转化为 REST 请求，使用以前的解析器中的大部分逻辑，就可以生成功能完整的 GraphQL 服务器，不再会过期 5 分钟以上。
 
@@ -97,7 +97,7 @@ courseAPI.addRelation(
 - [Brennan Saeta](https://twitter.com/bsaeta)，编写了 Naptime API库，并帮助 Naptime 编写了初始的 GraphQL 支持。
 - Oleg Ilyenko，编写的 [Sangria 库](http://sangria-graphql.org/) 为我们所有的 GraphQL 工作提供了支柱。如果你正在使用 GraphQL，并正在使用或计划使用 Scala，那么你一定要看看 Sangria。
 - Coursera 前端基础设施团队提供了帮助将 GraphQL 从测试项目转移至预备生产环境中。
-- Coursera 的整个工程团队的耐心以及帮助，我们一起在 GraphQL 曾中解决了无数 bug 和奇怪的现象。
+- Coursera 的整个工程团队的耐心以及帮助，我们一起在 GraphQL 层解决了无数 bug 和奇怪的现象。
 
 
 ---
