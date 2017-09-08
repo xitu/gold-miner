@@ -3,22 +3,22 @@
 > * 原文作者：[Panayotis Matsinopoulos](https://www.sitepoint.com/author/pmatsinopoulos/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/improve-web-typography-css-font-size-adjust.md](https://github.com/xitu/gold-miner/blob/master/TODO/improve-web-typography-css-font-size-adjust.md)
-> * 译者：
+> * 译者：[lampui](https://github.com/lampui)
 > * 校对者：
 
-# Improve Web Typography with CSS Font Size Adjust
+# 使用 CSS 的 font-size-adjust 属性改善网页排版
 
-The `font-size-adjust` [property](https://drafts.csswg.org/css-fonts-3/#propdef-font-size-adjust) in CSS allows developers to specify the `font-size` based on the height of lowercase letters instead of uppercase letters. This can significantly improve the legibility of text on the web.
+CSS 中的 `font-size-adjust` [属性](https://drafts.csswg.org/css-fonts-3/#propdef-font-size-adjust)允许开发者基于小写字母的高度指定 `font-size` ，这可以有效地提高网页文字的可读性。
 
-In this article, you will learn about the importance of the [font-size-adjust](https://drafts.csswg.org/css-fonts-3/#propdef-font-size-adjust) property and how to use it properly in your projects.
+在这篇文章中，你不仅能了解到 [font-size-adjust](https://drafts.csswg.org/css-fonts-3/#propdef-font-size-adjust) 属性的重要性，并且还能学会如何在你的项目中使用它。
 
-## The Importance of font-size-adjust
+## font-size-adjust 的重要性
 
-Most websites that you visit consist primarily of text. Since the written word is such an important part of a website, it makes sense to pay special attention to the typeface you are using to display your information. Choosing the right typeface can result in a pleasant reading experience. However, using the wrong one can make the website illegible. Once you have decided the typeface you want to use, you generally choose a proper size for it.
+你访问的网站大多都是由文字组成的，由于书面文字是网站的重要组成部分，因此就很值得把注意力关注到你用来显示信息的字体上面。选对正确的字体能带给用户愉快的阅读体验，然而，使用不恰当的字体则会使网站变得难以阅读。当你决定将要使用什么字体后，一般你就会再给这个字体选择一个合适的大小。
 
-The `font-size` property sets the size of all the `font-family` options that you want to use on a website. However, most of the times it is generally chosen in such a way that your first `font-family` option looks good. The problem arises when the first choice is not available for some reason and the browser renders the text using one of the fallback fonts listed in the CSS document.
+正如你在 `font-family` 属性下声明了网站上想使用的所有字体，再用 `font-size` 属性去设置它们的统一大小，然而在大多数情况下，浏览器一般都是使用 `font-family` 下声明的第一种字体。只有当第一种字体因为某些原因不可用时，浏览器才会使用候选字体继续渲染页面。
 
-For instance, given this CSS rule:
+举个例子，看下面的代码：
 
 ```
 body {
@@ -26,54 +26,54 @@ body {
 }
 ```
 
-If ‘Lato’, which your browser downloads from [Google Fonts](https://fonts.google.com/?query=lato&selection.family=Lato), is not available, the next fallback font, in this case Verdana, will be used instead. However, it’s likely that the `font-size` value was chosen with ‘Lato’ in mind, rather than with Verdana.
+如果你从 [Google Fonts](https://fonts.google.com/?query=lato&selection.family=Lato) 下载的 ‘Lato’ 字体不可用时，在这种情况下，Verdana 字体就会被使用。但是，脑海里 `font-size` 的值好像是针对 ‘Lato’ 字体设定的，而不是 Verdana。
 
-### What Is the Aspect Value of a Web Font?
+### 什么是字体的纵横比？
 
-The apparent size of a font as well as its legibility can vary greatly for a constant `font-size` value. This is especially true for scripts like Latin that distinguish between upper and lowercase letters. In such cases, the ratio of the height of lowercase letters to their uppercase counterparts is an important factor in deciding the legibility of the given font. This ratio is commonly called the **aspect value** of a font.
+字体的外观尺寸及其可读性可能会因为 `font-size` 的值而产生很大的变化，特别像是对 Latin 这种文字会导致其在大小写之间差别巨大。在这种情况下，小写字母与对应的大写字母的高度比例是决定一种字体易读性的重要因素，这个比值通常被叫做一种字体的**纵横比**。
 
-As I mentioned earlier, once you set a `font-size` value, it will remain constant for all the font families. However, this may affect the legibility of the fallback font if its aspect value is too different from the aspect value of the first choice font.
+正如我之前说的，一旦你设置了 `font-size` 的值，这个值将会对所有的字体起作用。如果候选字体的纵横比跟首选字体的纵横比相差太大，这可能影响候选字体的易读性。
 
-The role of the `font-size-adjust` property becomes very important in such situations, as it allows you to set the [x-height](https://typedecon.com/blogs/type-glossary/x-height/) of all the fonts to the same value thereby improving their legibility.
+`font-size-adjust` 属性在这种情形下则扮演着一个尤为重要的角色，因为它允许你设置所有字体的 [x-height](https://typedecon.com/blogs/type-glossary/x-height/) 为统一大小，以便提高文字的易读性。
 
-## Choosing the Right Value for font-size-adjust
+## 给 font-size-adjust 属性选择合适的值
 
-Now that you know the importance of using the `font-size-adjust` property, it is time to learn how to use it on your website. This property has the following syntax:
+现在你知道使用 `font-size-adjust` 属性的重要性了吧，是时候把它用到你的网站上了。这个属性的语法如下：
 
 ```
 font-size-adjust: none | <number>
 ```
 
-The initial value of `font-size-adjust` is `none`. The value `none` means that no adjustment will be made to the value of the `font-size` of different `font-family` options.
+`none` 是默认值，这个值意味着不调整字体的大小。
 
-You can also set the value of the `font-size-adjust` property to a number. This number is used to calculate the x-height of all the fonts on a webpage to the same value. The x-height is equal to the given number multiplied by the `font-size`. This can improve the readability of fonts at small sizes quite a bit. Here is an example of using the `font-size-adjust` property.
+你也可以设置属性的值为一个数字，这个数字将用来计算一张网页上所有字体的 x 轴高度，x 轴高度等于这个数字乘以 `font-size` 的值。 这可以提高小尺寸字体的可读性。以下是一个使用 `font-size-adjust` 属性的例子：
 
 ```
 font-size: 20px;
 font-size-adjust: 0.6;
 ```
 
-The x-height of all the fonts will now be 20px * 0.6 = 12px. The actual size of a given font can now be changed to make sure that the x-height always stays at 12px. The new adjusted `font-size` of a given font can be calculated using this formula:
+所有字体的 x 轴高度现在是 20px * 0.6 = 12px，一种字体的实际大小现在可以被修改以确保 x 轴高度总是等于 12px。调整后 `font-size` 的值可以通过以下公式计算
 
 ```
 c = ( a / a' ) s.
 ```
 
-Here, `c` is the adjusted `font-size` to use, `s` is the specified `font-size` value, a is the aspect value specified by the `font-size-adjust` property and `a'` is the aspect value of the font that needs to be adjusted.
+这里， `c` 指调整后的 `font-size`，`s` 指原先指定的 `font-size`，a 是 `font-size-adjust` 属性指定的纵横比，`a'` 指实际字体的纵横比。is the aspect value of the font that needs to be adjusted.
 
-You cannot set `font-size-adjust` to a negative value. A value of 0 will result in text with no height. In other words, the text will effectively be hidden. In older browsers, like Firefox 40, a value of 0 is equivalent to setting `font-size-adjust` to `none`.
+你不能设置 `font-size-adjust` 的值为负数，设置为 0 则会致使文字没有高度，换句话说，就是文字会被隐藏。在旧的浏览器中，例如 Firefox 40，如果设置其属性值为 0 则相当于设置为 `none`。
 
-In most cases, developers generally experiment with a few `font-size` values to see what looks best for a given font. This means that ideally, they would want the x-height of all the font options to be equal to the x-height of their first choice font. In other words, the most suitable value for the `font-size-adjust` property is the aspect value of your first choice font.
+大多数情况下，开发者一般会尝试不同的 `font-size` 取值以确定哪个值对给定的字体最好看。这意味着在理想情况下，他们希望所有字体的 x-height 与首选字体的 x-height 相等。换句话说，最合适的 `font-size-adjust` 取值就是你首选字体的纵横比。
 
-## ow to know the Aspect Value of a Font
+## 如何计算一种字体的纵横比
 
-To determine the right aspect value for a font, you can rely on the fact that its adjusted `font-size` should be the same as the original font-size that you specified. This means that `a` should be equal to `a'` in the previous equation.
+要确定一种字体合适的纵横比，你可以凭实际经验就是调整后的字体大小应该跟原来声明的字体大小一样。这就是说上面公式中的 `a` 应该跟 `a'` 相等。
 
-The first step to calculate the aspect value is the creation of two `<span>` elements. Both elements will contain a single letter and a border around each letter (the letters have to be the same for both `<span>` elements because we’ll need to make a comparison between them). Also, both elements will have the same value for the `font-size` property, but only one of them will also use the `font-size-adjust` property. When the value of `font-size-adjust` is equal to the aspect value of a given font, both letters in each `<span>` element will be of the same size.
+计算纵横比的第一步是先创建 2 个 `<span>` 元素，每个 `<span>` 元素将会包含一个字母和一个包围着字母的边框（因为我们要进行比较，所以每个 `<span>` 中的字母都必须相同）。同时，每个元素的 `font-size` 属性值都应该相同，但只有一个元素会使用 `font-size-adjust` 属性。当 `font-size-adjust` 的值等于给定字体的纵横比时，每个 `<span>` 下的字母都是一样的大小。
 
-In the following demo, I have created a border around the letters ‘t’ and ‘b’ and applied a different `font-size-adjust` value for each pair.
+在下面的 demo 中，我创建了一个边框围绕着字母 ‘t’ 和 ‘b’ 并且对每组字母应用了不同的 `font-size-adjust` 属性值。
 
-Here’s the relevant snippet:
+以下是相关代码：
 
 ```
 .adjusted-a {
@@ -89,31 +89,31 @@ Here’s the relevant snippet:
 }
 ```
 
-As you can see in the live demo below, a higher `font-size-adjust` value makes the letters larger and a lower value makes the letters smaller. When `font-size-adjust` becomes equal to the aspect value, the pairs attain equal size.
+正如下面 demo 所示，`font-size-adjust` 的值越大则字母会显得越大，反之则越小，当该值等于纵横比时，每组字母的尺寸都相等。
 
 [![](http://oiklhfczu.bkt.clouddn.com/1504780206%281%29.jpg)](https://codepen.io/SitePoint/pen/YxxbMp)
 
-## Using font-size-adjust on Websites
+## 在网站上使用 font-size-adjust
 
-The following demo uses the `font-size-adjust` value that was calculated in the previous CodePen demo for the ‘Lato’ font to adjust the `font-size` of ‘Verdana’, which acts as fallback font. A button will turn the adjustment on or off so that you can see the difference yourself:
+以下 demo 使用的 `font-size-adjust` 取值于上一个 CodePen demo 中为 ‘Lato’ 字体设置的值，现在将会用来调整 ‘Verdana’ 这个候选字体。会有一个按钮控制修改是否发生，所以你可以看出修改前后的变化：
 
 [![](http://oiklhfczu.bkt.clouddn.com/1504780255%281%29.jpg)](https://codepen.io/SitePoint/pen/KvvLOr)
 
-The effect is more noticeable when you are working with a larger amount of text. However, the above example should still be enough to give you an idea of the usefulness of this property.
+当你处理大量文字时效果会更加引人注目，然而上面的例子应该足够让你认识到这个属性的有用之处。
 
-## Browser Support
+## 浏览器支持
 
-At present, only Firefox supports `font-size-adjust` by default. Starting from version 43 and 30, Chrome and Opera support this property behind the “Experimental Web Platform Features” flag that can be enabled in chrome://flags. Edge and Safari don’t support the `font-size-adjust` property at all.
+目前，只有 Firefox 默认支持 `font-size-adjust` 属性。Chrome 和 Opera 分别从 43 和 30 版本开始作为试验特性予以支持，开发者需前往 chrome://flags 中开启 “Experimental Web Platform Features” 选项。Edge 和 Safari 不支持这个属性。
 
-If you decide to use this property, lower browser support should not be an issue at all. This property has been designed with backward compatibility in mind. Non supporting browsers will display the text normally while supporting browsers will adjust the `font-size` based on the `font-size-adjust` property’s value.
+如果你决定使用这个属性，低版本浏览器的支持将不成问题，这个属性被设计时就已经考虑到向后兼容性，不支持的浏览器会正常的显示文本，支持的浏览器则会基于该属性的值调整字体大小。
 
-## Conclusion
+## 总结
 
-After reading the tutorial, now you know what the `font-size-adjust` property does, why it’s important, and how to work out the aspect value of different fonts.
+读完这篇文章后，你应该知道 `font-size-adjust` 属性是什么、为什么它很重要以及如何计算出不同字体的纵横比。
 
-Because `font-size-adjust` degrades gracefully in older browsers, you can go ahead and start using it today to improve the legibility of text in production websites.
+因为 `font-size-adjust` 在旧浏览器中优雅降级，你今天就可以直接应用该属性到你的生产环境中，以便提高页面文字易读性。
 
-Do you know some other tools or tips that can help users calculate the aspect values of a font quickly? Let fellow readers know in the comments.
+你还有其他工具或方法可以帮助开发者更快地计算纵横比吗？留言告诉他们吧。
 
 
 ---
