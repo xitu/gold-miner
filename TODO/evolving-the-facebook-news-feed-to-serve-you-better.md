@@ -3,90 +3,90 @@
   > * 原文作者：[Ryan Freitas](https://medium.com/@ryanchris)
   > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
   > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/evolving-the-facebook-news-feed-to-serve-you-better.md](https://github.com/xitu/gold-miner/blob/master/TODO/evolving-the-facebook-news-feed-to-serve-you-better.md)
-  > * 译者：
-  > * 校对者：
+  > * 译者：[Lai](https://github.com/laiyun90)
+  > * 校对者：[kyrieliu](https://github.com/KKKyrie)  [Sean Shao](https://github.com/angilent) 
 
-  # Evolving the Facebook News Feed to Serve You Better
+  # 优化 Facebook 新鲜事，使其为您提供更好的服务
 
   ![](https://cdn-images-1.medium.com/max/2000/1*jQtKO4-gLZ1Y937qKDupKQ.jpeg)
 
-Starting late last year, we set out to explore how we could make News Feed more readable, conversational, and easier to navigate. As you might imagine, designing for a community that connects two billion people can pose some unique challenges.
+从去年年底开始，我们就着手探索如何让新鲜事（News Feeds）更加易于阅读、易于交流和易于浏览。可以想象，为一个连接 20 亿用户的社区进行设计，可能会面临一些不同寻常的挑战。
 
-As managers of two teams of designers that bring News Feed to life each day, we are sensitive to the fact that any changes we make can resonate across the entire Facebook experience. In speaking with people who use Facebook around the world, we’ve heard that they felt News Feed had become cluttered and hard to navigate. Solving this problem meant evolving the News Feed design system, a significant challenge for a highly-optimized product. Small changes, like a few extra pixels of padding or the tint of a button, can have large and unexpected repercussions.
+作为将 News Feed 带到每天生活中的两个设计团队的管理人员，我们清楚地意识到，我们做出的任何改变都会在整个 Facebook 体验中产生共鸣。在与世界各地使用 Facebook 的用户沟通中，他们觉得 News Feed 变得很混乱、难以浏览。解决这个问题意味着需要优化 News Feed 的设计系统，这对于一个高度优化的产品而言，无疑是一个重大的挑战。一些类似额外像素的填充或者调整按钮的色调之类的小变化，可能会带来巨大的、意想不到的影响。
 
 [![](https://fb-s-b-a.akamaihd.net/h-ak-fbx/v/t15.0-10/20903038_10155513750176390_6456020927531450368_n.jpg?oh=dc35a79787ee18078e1890f7f255d086&oe=5A37A267&__gda__=1508549353_65f797c69507a2979e014c72da9f149c)](https://www.facebook.com/v2.3/plugins/post.php?app_id=52049637695&channel=https%3A%2F%2Fstaticxx.facebook.com%2Fconnect%2Fxd_arbiter%2Fr%2FXBwzv5Yrm_1.js%3Fversion%3D42%23cb%3Dfa753d97d77ac8%26domain%3Dcdn.embedly.com%26origin%3Dhttps%253A%252F%252Fcdn.embedly.com%252Ff32992607cee04c%26relation%3Dparent.parent&container_width=700&href=https%3A%2F%2Fwww.facebook.com%2Fdesign%2Fvideos%2F10155513748726390%2F&locale=en_US&sdk=joey&width=700)
 
-#### Improving readability on News Feed
+#### 提高 News Feed 的可读性
 
-Our design and research teams are in continuing dialog with real users, every day. Consistently, our audience lets us know what they care about most:
+我们的设计和研发团队坚持每天和真实的用户交流。日积月累，我们了解到用户最关心的是以下几点：
 
-1. The **content** itself, such as a shared photo
-2. The person **who **is sharing the content
-3. How they can leave **feedback** (like a comment or reaction) to what they were seeing
+1. **内容**本身，例如分享的照片
+2. 分享内容的**人**
+3. 他们如何对正在浏览的内容留下**反馈**(像是评论或是交互操作)
 
-With feedback from real users in mind, we took a look at the anatomy of our most common story types. The idea was to break things down into their atomic parts, and make certain the design choices we’d made in the past served the needs of our audience right now.
+带着从真实用户那里得来的反馈，我们深入分析了常见的 story 类型的结构。我们的想法是，将问题分解成一个一个的小问题，再从我们之前所完成的设计中确定一个能立刻满足我们用户的需求的选择。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*vQMq6O3HmzHVPP5twX5TiQ.png)
 
-Before: This is what our existing News Feed story formats looked like when we started.
+改版前：这是在我们优化前现有的 News Feed 的 story 样式。
 
-We asked ourselves if we were meeting three key objectives:
+我们问自己，是否符合 3 个主要目标：
 
-> How might we improve News Feed to be easier to read and distinguish key areas of content?
+> 我们如何改进 News Feed 使其更易读阅读，并能与内容的主要部分区分开来？
 
-> How might we make the content itself more engaging and immersive?
+> 我们如何让内容自身更具吸引力和沉浸感？
 
-> How might we make it easier to leave feedback?
+> 如何才能让用户更容易地留下反馈？
 
-These questions drove our exploration and experimentation in a design sprint, a week of coordinated brainstorming and prototyping of new ideas, across two teams of designers, researchers and content strategists. The sprint artifacts helped shape what became a north star for the future of News Feed.
+这些问题促使我们在设计 sprint 中不断地探索和实验，在两个设计师团队、研究人员和内容战略师中展开了为期一周的头脑风暴，并为新想法绘制原型。这次 sprint 的成品成为了一个指引，对形成未来的 News Feed 提供了很大的帮助。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*-Kkl2bNRuk02FZ7tMipTEw.png)
 
-The first iteration of updated story formats from our design sprint
+我们设计 sprint 的第一版迭代更新的 story 样式
 
-We did a variety of design treatments to find opportunities on improving how each of these content types are displayed:
+我们尝试了各种设计处理，以找寻机会去改进每种内容类型展示的方式。
 
-- Make the News Feed stories easier to read by improving visual hierarchy, increasing type size and color contrast
-- Help people better understand and interact with News Feed actions by evolving our iconography and increasing tap target sizes
-- Provide a more engaging content experience by expanding content full-width and reduce unnecessary UI elements
+- 通过优化视觉层次结构、增加文字大小和颜色对比来增加 News Feed 详情的易读性
+- 通过改进图标样式、放大点击目标尺寸来帮助用户更好地理解 News Feeds 的操作并与之进行交互
+- 通过扩大内容展示区域、减少不必要的 UI 元素来提供更精彩的内容体验
 
-Our design sprints always include an opportunity for research to validate our explorations. With this sprint we made sure to put our work in front of real users to get their reactions.
+我们的设计 sprint 都会有一个研究机会来验证我们的探索。在 sprint 中，我们确保把作品展现在真实的用户面前，来看看他们的反应。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*COSpLOU6nblSxB45OzKIUQ.png)
 
-User feedback from our first round of testing.
+第一轮测试的用户反馈。
 
-Through several rounds of iteration and testing, we learned that some of our initial design solutions helped to clean up the interface however there were decisions like placing the text on top of photos or removing explicit text labels that caused new legibility concerns. Each round of iteration got us closer to our final designs, with layouts and typography that are easier to consume without sacrificing comprehension.
+通过几轮迭代和测试，我们了解到我们最初的一些设计方案有助于让界面整洁，但是诸如将文案放置在照片顶部、删除明确的文本标签等决定，又引发了新的易读性问题。每次迭代都让我们离最终的设计又进了一步，我们的目标是布局和板式更易使用而又不牺牲可理解性。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*KMsUJuKyk8UeWqt6PDOm-A.png)
 
-After: Our final round of News Feed story improvements.
+改版后：我们最后一轮的 News Feed 的 story 优化。
 
-#### Making comments more conversational and engaging
+#### 让评论更具对话性和吸引力
 
-Our goal is to make it easier to engage in meaningful conversations, make conversation more central to more interactions, and give people more ways to express themselves. Our existing formats were rooted in message board styles, with similarly limited affordances for personal expression. As we started to look at other formats for comments, it was obvious that messaging design paradigms have empowered people to converse better than they could before.
+我们的目标是让人们容易参与到有意义的交流中去，让交流更为集中的同时产生更多的互动，并为人们提供更多元的表达自己的方式。我们现有的样式植根于留言板的风格，可供个人表达的方式大多相似且有限。当我们开始寻求其他评论样式时，很明显，消息传递设计范能够使人们比以前更好地进行交流。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*wVbXLamvms92BPrapEBigw.png)
 
-Comments before (L) and after (R).
+以前的评论样式（左图）以及优化后的（右图）。
 
-#### Making navigation between News Feed stories easier
+#### 让 News Feed 详情间的浏览更容易
 
-Another area that we wanted to improve was how people moved to and from News Feed stories throughout the system. Depending on the content type, we watched people in lab studies open their feed and simply get stuck consuming content. We also saw how people would struggle to find the “back” button because we had been quite inconsistent with our execution on applying consistent affordances over the years.
+我们想改进的另一个方面是用户如何在整个系统间进入和离开 News Feed。根据内容类型，我们观察发现实验室研究中的用户打开他们的 Feed 后，仅仅只是陷于消费内容。我们也注意到，用户如何努力寻找「返回」按钮，而这是因为多年来我们与执行一致的功能可见性原则相违背。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*pzPdxt8EiRfeJ8tfSlgLqA.png)
 
-Navigation before (L) and after (R).
+以前的导航（左图）以及优化后的（右图）。 
 
-The team opted for consistent back affordances across all the immersive views in addition to reducing the redundancy between our navigation bar and the title of the story. We also improved the transition from News Feed to story view by making the content expand in place creating a sense of remaining in context. We improved navigational gestures by enabling people to swipe back out into News Feed.
+除了减少导航栏和 story 标题间的冗余之外，我们团队选择了在所有沉浸式视图中一致的返回可供性。我们还优化了从 News Feed 到 story 视图页的跳转，通过扩展内容显示区域，营造一种专注于情境的感觉。我们也改善了导航的手势，让用户可以滑动屏幕回到 News Feed。
 
 [![](https://fb-s-d-a.akamaihd.net/h-ak-fbx/v/t15.0-10/20884290_10155513754036390_2163201085114679296_n.jpg?oh=054fbfb96418565834359c970c76b092&oe=5A1F9814&__gda__=1512720282_b3d048b53c0060bfcabd3f090b8a4b86)](https://medium.com/media/dd89d805e790715d32a15a67ce6e814d?postId=f844a5cb903d)
 
-We’re continuing to build on to the system from here and nothing is ever “done” at Facebook. As Facebook designers, we put people at the center of everything we do, so we set out to improve the experience in a meaningful way. This is a unique design challenge because we did not want to just “fiddle at the edges”, but rather make something that billions of people use every day less frustrating. We’ll be continuing to learn, iterate and improve upon our new foundation, but we’re hopeful this is a step towards a better Facebook experience.
+我们将继续从这里开始构建系统，在 Facebook 没有什么事情「做完」过。作为 Facebook 的设计师，我们以用户为中心，所以我们着手以有意义的方式改进用户体验。这将是一个独特的设计挑战，因为我们不希望仅仅「在无关痛痒的地方瞎搞」，而是真正让数十亿人每天使用的东西不那么令人沮丧。我们会在新基础上继续学习、迭代和改进，但是我们希望这一步可以迈向更好的 Facebook 体验。
 
-We’d like to offer launch day congratulations and a big thank you to everyone on the team! This would not have been possible without your tremendous effort and sacrifice. Christopher Welch, Kory Westerhold, Robin Clediere, Brian Frick, Cristobal Castilla, Dan Lebowitz, Crystine Gray, Emily Becklund, Nick Merola, Brittany Lawrence, Kara Fong, Paddy Underwood, Sylvia Lin, Tim Feeley, Davis Fields, Boris Ratchev, Suv Bhadra, Aaron Pang, Adam Bell, Juan Garibay, Thomas Reese, Jonathan Ballerano, Naren Hazareesingh, Michael Belkin, Zach Ritter, Joshua Wu, SheShe He, Anthony Overstreet, Kai Ding, Brody Larson, Mohammed Abid, Dragan Milisav, James Kao, Mathias Roth, Frank Yan, Patrik Chamelo, Sriram Ramasubramanian, Yohann Richard, Brian Amerige, Ergin Erant, Abhinav Jain, Alan Norbauer, Andrew Truong, Claire Lerner, Eric Guan, Inna Rubio, Jungi Kim, Kaya Tutuncuoglu, Lenino Colobong, Tyler Craft, Yuri Brunets, Wilson Ng, Steven Luscher
+在这里，我想祝贺我们成功发版，并衷心感谢团队的每位成员！没有你们的巨大努力和牺牲，是不可能做到的。
 
-Also thank you Geoff Teehan, John Evans, Julie Zhuo, Lars Backstrom, Hady ElKheir, John Hegeman, Mark Hull, Adam Mosseri, Tom Alison, Chris Cox and Mark Zuckerberg and the many other people that touched this project for helping support, consult and push to the finish line.
+还要感谢 Geoff Teehan、John Evans、Julie Zhuo、Lars Backstrom、Hady ElKheir、John Hegeman、Mark Hull、Adam Mosseri、Tom Alison、Chris Cox 和 Mark Zuckerberg，以及其他参与过这个项目的所有人，感谢你们提供的支持和咨询，并最终帮助推进项目上线。 
 
 
   ---
