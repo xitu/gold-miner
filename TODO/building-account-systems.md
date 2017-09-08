@@ -4,7 +4,7 @@
   > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
   > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/building-account-systems.md](https://github.com/xitu/gold-miner/blob/master/TODO/building-account-systems.md)
   > * 译者：[shawnchenxmu](https://github.com/shawnchenxmu)
-  > * 校对者：[undead25](https://github.com/undead25) [michaelia](https://github.com/michaelia)
+  > * 校对者：[undead25](https://github.com/undead25) [DeadLion](https://github.com/DeadLion)
 
 # 搭建账户系统
 
