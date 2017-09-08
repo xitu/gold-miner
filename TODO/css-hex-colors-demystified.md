@@ -6,7 +6,7 @@
   > * 译者：Cherry[https://github.com/sunshine940326]
   > * 校对者：Aladdin-ADD[https://github.com/Aladdin-ADD] 
 
-  # CSS 的十六进制颜色揭秘
+  # CSS 十六进制颜色揭秘
 
   ![](https://cdn-images-1.medium.com/max/1600/1*-_xWZmET00Mx_BM9aZou-g.jpeg)
 
