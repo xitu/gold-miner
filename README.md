@@ -31,10 +31,10 @@
 
 ## AI / Deep Learning / Machine Learning
 
+* [基于 TensorFlow 的上下文聊天机器人](https://juejin.im/entry/5992cd385188252433704fa3?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([edvardHua](https://github.com/edvardHua) 翻译)
+* [使用 AI 为 Web 网页增加无障碍功能](https://juejin.im/post/59a51e91f265da2499603c8c?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lsvih](https://github.com/lsvih) 翻译)
+* [在 Airbnb 使用机器学习预测房源的价值](https://juejin.im/post/59acfc336fb9a0249471e47d?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lsvih](https://github.com/lsvih) 翻译)
 * [为什么我们渴求女性来设计 AI ](https://juejin.im/post/599c1e45518825242a02596e?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([TobiasLee](https://github.com/TobiasLee) 翻译)
-* [巧用 ARKit 和 SpriteKit 从零开始做 AR 游戏](https://juejin.im/post/599aaf746fb9a02477072380?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Danny1451](https://github.com/Danny1451) 翻译)
-* [深度学习系列4: 为什么你需要使用嵌入层](https://juejin.im/post/599183c6f265da3e2e5717d2?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lileizhenshuai](https://github.com/lileizhenshuai) 翻译)
-* [机器之魂：聊天机器人是怎么工作的](https://juejin.im/post/599155d86fb9a03c467c151d?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lsvih](https://github.com/lsvih) 翻译)
 * [所有 AI 译文>>](https://github.com/xitu/gold-miner/blob/master/AI.md)
 
 ## Android
