@@ -1,3 +1,4 @@
+* [在 Go 语言中增强 Cookie 的安全性](https://juejin.im/post/59aa7a4d6fb9a0249c007e16?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lsvih](https://github.com/lsvih) 翻译)
 * [关于 Node.js 的认证方面的教程（很可能）是有误的](https://juejin.im/post/599f955d51882511264e7f69?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([MuYunyun](https://github.com/MuYunyun) 翻译)
 * [使用 Node.js 搭建一个 API 网关](https://juejin.im/post/5992769151882548b17f76a6?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([MuYunyun](https://github.com/MuYunyun) 翻译)
 * [REST API 已死，GraphQL 长存](https://juejin.im/post/5991667b518825485d28dfb1?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([sigoden](https://github.com/sigoden) 翻译)
