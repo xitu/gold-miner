@@ -47,10 +47,10 @@
 
 ## iOS
 
-* [iOS 响应式编程：Swift 中的轻量级状态容器](https://juejin.im/post/599652ee6fb9a024903a8d59?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([DeepMissea](https://github.com/DeepMissea) 翻译)
-* [Swift 中的通用数据源](https://juejin.im/post/5990fd7b51882548bc7cabd8?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([swants](https://github.com/swants) 翻译)
-* [模块化 Swift 中的状态](https://juejin.im/post/597962875188253dda0f05a9?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([DeepMissea](https://github.com/DeepMissea) 翻译)
-* [Xcode 中的用户断点](https://juejin.im/post/597934335188253dfb7b0db7?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([atuooo](https://github.com/atuooo) 翻译)
+* [结构体指针](https://juejin.im/post/59a60cc1f265da249a201ae9?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([swants](https://github.com/swants) 翻译)
+* [MVVM, Coordinators 和 RxSwift 的抽丝剥茧](https://juejin.im/post/59acf7dcf265da24722fe6a1?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([jingzhilehuakai](https://github.com/jingzhilehuakai) 翻译)
+* [探究 Swift 中的 Futures & Promises](https://juejin.im/post/59afcf5d51882524434163dd?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([atuooo](https://github.com/atuooo) 翻译)
+* [iOS 响应式编程：Swift 中的轻量级状态容器](https://juejin.im/post/599652ee6fb9a024903a8d59?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([atuooo](https://github.com/atuooo) 翻译)
 * [所有 iOS 译文>>](https://github.com/xitu/gold-miner/blob/master/ios.md)
 
 ## 前端
