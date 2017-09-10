@@ -6,55 +6,55 @@
 > * 译者：
 > * 校对者：
 
-# How can I use CSS-in-JS securely?
+# 如何安全地使用 CSS-in-JS ？
 
-CSS-in-JS allows me to interpolate JavaScript variables into my CSS. This gives me a lot of power, but is it safe?
+CSS-in-JS 允许我把 JavaScript 变量插入到 CSS 中，这给了我很大的权限，但这样是安全的吗？
 
-What kind of exploits could a malicious user pull off using just CSS injection? And how can I defend against these?
+恶意用户可以通过 CSS 注入捣什么鬼？我该如何防范这些？
 
-CSS-in-JS is an exciting new technology that completely eliminates the need for CSS `class` names. It makes it possible to add styles *directly* to your components, using the full power of CSS. Unfortunately, it also promotes interpolation of unescaped props into that CSS, opening you up to injection attacks.
+CSS-in-JS 是一门令人兴奋的新技术，完全不需要 CSS  的 `class` 名字。它可以充分利用 CSS 的功能直接给你的组件添加样式。不幸的是，它也促使未转义的  props 插入到 CSS 中，将你暴露给注射攻击。
 
-And CSS injection attacks are a *major security hazard*.
+而 CSS 注入攻击是一个 **重大的安全隐患**。
 
-If your site or app accepts user input and displays it to others users, usage of CSS-in-JS libraries [like styled-components](https://www.styled-components.com/docs/advanced#security) or [glamorous](https://github.com/paypal/glamorous/issues/300) may result in your site being defaced. But worse, you may inadvertently allow attackers to make requests from your user’s machines, siphon their data, steal their credentials, or even execute arbitrary JavaScript.
+如果你的网站或 APP 接受用户输入并将其显示给其他用户，那么使用 CSS-in-JS 库 [如 styled-components](https://www.styled-components.com/docs/advanced#security)  或 [glamorous] (https://github.com/paypal/glamorous/issues/300) 可能会破坏你的网站。更糟的是，你可能会无意中允许攻击者从用户端发出请求，提取他们的数据，窃取其证书，甚至执行任意的 JavaScript 脚本。
 
-Of course, it is also possible to use CSS-in-JS safely. You’ll just need to follow one simple rule.
+当然，安全地使用 CSS-in-JS 是有可能的，你只需要遵守以下简单的法则。
 
-## The golden rule
+## 黄金法则
 
-Never interpolate user input into your stylesheets. Never ever. Don’t do it.
+永远不要将用户的输入插入到样式表中。
 
-At least without sanitizing that input first. Which is hard to do correctly, so don’t try unless you really know what you’re doing.
+没有经过处理的用户输入很难可以正确地插入到样式表。所以除非你知道你在做什么，否则不要尝试将其插入。
 
-If you must use user input for your styles, consider using raw `style` props. Anything you pass to a `style` object is safe.
+如果你必须基于用户输入添加样式，请考虑使用原生的 `style` 工具，你传给 `style` 对象的任何东西都是安全的。
 
-This rule, if followed correctly, will ensure that your users are safe. But all it takes is one slip and your users’ passwords can grow legs…
+如果该法则被正确地遵循，它将可以确保用户的安全。但仅仅一次失误用户的密码就可能被偷...
 
-## Exploiting CSS-in-JS
+## 利用 CSS-in-JS 
 
-CSS-in-JS tools are like `eval` for CSS. They’ll take any input and evaluate it as CSS.
+CSS-in-JS 工具就像对 CSS 使用 eval 函数，它门接受任意输入并将其当作 CSS 来读取。
 
-The problem is that they’ll literally evaluate any input, even if it is untrusted. And to make matters worse, they encourage untrusted input, by allowing you to pass in variables via `props`.
+问题是它们会逐字读取任意输入，即使是不可靠的。更糟糕的是，它们允许你通过 `props`  传递变量，从而助长了不可靠的输入。
 
-If your styled components have props whose value is set by your users, you’ll need to manually sanitize the inputs. Otherwise malicious users will be able to inject arbitrary styles into other user’s pages.
+如果你的样式组件有 props 的值是用户设置的，那么你需要手动处理输入。否则恶意用户将能够将任意样式注入其他用户的页面。
 
-But styles are just styles, right? They can’t be that scary…
+但样式只是样式，对吗？它们不会那么吓人...
 
-### A password-stealing color
+### 窃取密码的 `color`
 
-Say you want to allow users to pick the color of their profile page, just like you can on Twitter. This would be a pain in the ass with plain CSS, but CSS-in-JS makes it easy; you just add a `color` prop!
+假设你想允许用户选择他们的个人资料页面的颜色，就像 Twitter 那样。对于普通的 CSS 来说，这有点难实现。但是 CSS-in-JS 可以使其变得简单，你只需要添加一个 `color` prop！
 
-As it happens, a backend developer has kindly handled the API side of things for you, and now you have a `color` prop available in your styled components.
+正因为如此，后端开发人员已经处理了 API 方面的事情，现在你可以在你的样式组件中添加 `color` prop。
 
-As your app is a single page app, the login form opens as an overlay over the profile. And since your backend developer stored the color in a text field without validation, a malicious user can now set a `color` that will steal some users’ passwords:
+由于你的 APP 是单页面的，因此打开登录表单时会覆盖个人资料页。而且由于后端开发人员没有验证就将 color 值存储在文本字段中，恶意用户可以设置一个会窃取用户密码的 `color`：
 
-This only works because the tools run something like the CSS equivalent of `eval` on the interpolated string. If you use standard inline style, or always remember to sanitize your inputs, you’re safe.
+因为工具对插入的字符串执行类似 CSS 的 `eval` 操作，所以这样会起作用。 如果你使用标准的内联样式，或者始终记得清理你的输入，那么你是安全的。
 
 ```
-// - Add more selectors to get more info
-// - You can use different types of attribute selectors too
-// - Compare received values against a dictionary to make
-//     a good guess from the data you have
+// - 添加更多的选择器来获取更多信息
+// - 你也可以使用不同类型的属性选择器
+// - 把接受的值与某个字典比较
+//     从而对你的数据作出相对正确的猜测
 
 var color = `#8233ff;
 html:not(&) {
@@ -68,25 +68,25 @@ html:not(&) {
 }`
 ```
 
-You can read more about attacks like this one at [Reading Data via CSS Injection](https://www.curesec.com/blog/article/blog/Reading-Data-via-CSS-Injection-180.html).
+你可以在 [Reading Data via CSS Injection](https://www.curesec.com/blog/article/blog/Reading-Data-via-CSS-Injection-180.html) 阅读更多像这样的攻击。
 
-This works by using attribute selectors on the password field to change the background image depending on the current input. Here’s what Chrome dev tools’ network tab looks like after I type in ‘password’:
+可以通过使用密码字段上的属性选择器来根据当前输入更改背景图像。以下是在我输入 ‘密码’ 之后 Chrome 开发工具的网络选项卡的样子：
 
 ![](https://reactarmory.com/cad5ea782b425e1e9ac072b3c8aa52d9.png)
 
-While this attack can’t steal all passwords, it’ll still get quite a few of them. And a few stolen passwords is more than enough to ruin your day.
+虽然这种攻击不能窃取所有密码，但它仍会窃取相当多的密码。还有一些被盗的密码会给你带来麻烦。
 
-Here’s a [proof of concept](https://codesandbox.io/s/llnzkwk0mz) in a codesandbox using styled-components.
+这是在 codesandbox 中使用 styled-components 进行的 [概念验证](https://codesandbox.io/s/llnzkwk0mz)。
 
-### A data-siphoning avatar
+### 提取数据的 avatar
 
-Say that your boss wants each user in your application to have an avatar next to their name. Fair enough. Your boss, being a bit stingy, doesn’t want to pay for bandwidth for the avatars. So he wants you to provide the option to hotlink to an off-site URL. Whatever.
+假设你的老板想要你的应用程序中的每个用户的名字旁有 avatar。但你的老板有点吝啬，不想为 avatar 支付带宽费用。所以他希望你提供连接到外部 URL 的选项。或类似的东西。
 
-Naturally, your `Identity` component is built as a styled component using glamorous. It accepts an entire user object as a prop, with `name`, `twitter` and a few other things. Your backend developer adds an `avatarURL` to the object, and then your designer adds an image to the markup using a `background-image` tag.
+当然，你的 `Identity` 组件是作为样式组件使用 glamorous 构建的。它接受整个用户对象作为 prop，该对象包含名字，twitter，以及其他一些东西。后端开发人员为对象添加 `avatarURL`，然后设计师使用 `background-image` 标签标记图像。
 
-And now, anybody who views that avatar will have data from specific elements on their page hoovered up by god-knows-who. Here’s the avatarURL that does it:
+而现在，任何看过这个 avatar 的人都会从他们的页面的特定元素中获得数据。以下就是 avatarURL 做的：
 
-This almost looks like a good old fashioned SQL injection, but with CSS. We truly are living in the future.
+这看起来像是一个不错的老式 SQL 注入，但是使用了CSS。
 
 ```
 const avatarURL = `blue;}
@@ -120,48 +120,48 @@ const avatarURL = `blue;}
 `
 ```
 
-You can read more about attacks like this one at [CSS based Attack: Abusing unicode-range of @font-face](http://mksben.l0.cm/2015/10/css-based-attack-abusing-unicode-range.html).
+你可以在 [基于CSS的攻击：滥用 @font-face 的 unicode-range](http://mksben.l0.cm/2015/10/css-based-attack-abusing-unicode-range.html) 阅读更多类似的攻击。
 
-A bug has been [reported](https://code.google.com/p/chromium/issues/detail?id=543078) to the chrome team by the linked article’s author, but it has been marked as WontFix.
+链接文章的作者向 chrome 团队[报告](https://code.google.com/p/chromium/issues/detail?id=543078)了一个错误，但它已被标记为 WontFix 。
 
-This works by attaching different URLs to each character in a custom font, then applying that font to the text you want to siphon. This allows you to get a list of characters, and if applied to an input as the user is typing, it’ll be guaranteed to give you them in the correct order, along with timing information. You can also combine with things like the `::first-letter` or `::selection` selector to get more detailed information.
+通过在自定义字体中为每个字符添加不同的 URL，然后将该字体应用于你想要提取的文本。你可以获取字符列表，而如果在用户输入时应用它，则可以保证你得到正确顺序的输入以及时间信息。你也可以结合其他的东西，如 `::first-letter` 或 `::selection` 选择器以获得更详细的信息。
 
-A look at Chrome dev tools’ network tab shows how the current user’s name was extracted:
+Chrome 开发工具的网络选项卡显示当前用户名称的提取方式：
 
 ![](https://reactarmory.com/42f2eed3d995577d1558878de3e09d91.png)
 
-Here’s a [proof of concept](https://codesandbox.io/s/m541x36wpj) in a codesandbox using glamorous.
+这是在 codesandbox 上利用 glamorous 进行的[概念验证](https://codesandbox.io/s/m541x36wpj)
 
-### Arbitrary JavaScript execution
+### 执行任意 JavaScript 脚本
 
-React supports IE9, and will [for the foreseeable future](https://facebook.github.io/react/blog/2016/01/12/discontinuing-ie8-support.html).
+React 支持 IE9，并在 [不久的将来停止支持 IE8](https://facebook.github.io/react/blog/2016/01/12/discontinuing-ie8-support.html)。
 
-IE9 and earlier allow you to run arbitrary JavaScript from stylesheets, if you can put that JavaScript in a text file on the same domain.
+IE9 和更早版本的 IE 允许你在样式表中执行任意的 JavaScript 脚本，前提是该脚本被放在同一个域上的文本文件中。
 
-If you have users in IE9, and somehow a malicious user manages to upload a file and inject the associated `behavior` attribute into a stylesheet via an unsanitized prop, then **a malicious user can steal their accounts**.
+如果你有用户使用 IE9，有恶意用户试图以某种方式上传文件，并通过未转义的 prop 将关联的 `behavior` 属性注入到样式表中，然后 **恶意用户可以窃取 IE9 用户的帐户**。
 
-I’m not going to go into a demo, but please understand that this type of attack has happened before in the wild. You can read more about the details at [Executing JavaScript Inside CSS](http://www.diaryofaninja.com/blog/2013/10/30/executing-javascript-inside-css-another-reason-to-whitelist-and-encode-user-input).
+我不打算进行相关展示，但请明白，这种类型的攻击已经发生过。你可以阅读更多关于 [在 CSS 内部执行 JavaScript 脚本](http://www.diaryofaninja.com/blog/2013/10/30/executing-javascript-inside-css-another-reason-to-whitelist-and-encode-user-input) 的详细信息。
 
-## Practical considerations
+## 实际考虑
 
-As long as you follow the golden rule, none of these exploits will be a problem.
+只要你遵循黄金法则，这些代码就不会成为问题。
 
-### Never interpolate user input into your stylesheets.
+### 不要将用户的输入插入到样式表中。
 
-Of course, even if you can’t interpolate user input into styles, you can still use it for non-style props. And you can still interpolate static variables into styles.
+当然，即使你无法将用户输入插入到样式中，你仍然可以将其用于无样式的 props 或将静态变量插入到样式中。
 
-But this introduces another problem: how can you know which props on a styled component can safely accept user input?
+但是这引出了另一个问题：你如何知道样式组件上的哪些 props 可以安全地接受用户输入？
 
-### Separation of concerns
+### 关注点分离
 
-One of the great things about React is that it lets you create components, facilitating [separation of concerns](https://reactarmory.com/answers/how-should-i-separate-components). Child components don’t need to know where their props come from. Parent components don’t need to know how their children are implemented. Components are independent, improving maintainability and reusability.
+React 的一个重要特性是它允许你创建组件，便于 [关注点分离](https://reactarmory.com/answers/how-should-i-separate-components)。子组件不需要知道他们的 props 来自哪里。父组件不需要知道他们的孩子如何实现。组件是相互独立的，这样提高了它们的可维护性和可复用性。
 
-Unsanitized props break this independence.
+Unsanitized props 打破了这一独立性
 
-For example, consider a component that accepts two props: an unsanitized `theme` prop that is interpolated into the stylesheet, and a `content` prop:
+例如，考虑一个接受两个 props 的组件：一个是插入到样式表中的 unsanitized `theme`  prop，另外一个是 `content` prop：
 
 ```
-// Can `theme` accept user input? Can `content` accept user input?
+// `theme` 可以接受用户输入吗？`content` 可以接受用户输入吗？
 function MyComponent({ theme, content }) {
   return (
     <MyStyledComponent theme={theme}>
@@ -171,13 +171,13 @@ function MyComponent({ theme, content }) {
 }
 ```
 
-From a quick glance at the component’s signature, it isn’t immediately obvious whether `theme` or `content` are sanitized and/or used in the stylesheet. Indeed, even looking at the implementation doesn’t tell us how `theme` is used.
+我们不能很快地根据组件的名字判断 `theme` 或 `content` 在样式表中使用时是否被处理过。事实上，即使看具体的实现我们也不能知道 `theme`是如何被使用的。
 
-To ensure that your components stay reusable and maintainable, use a naming scheme to make it clear when props are dangerous. For example:
+为了确保你的组件具有可复用性和可维护性，请使用一种在 props 不安全时清晰易懂的命名方案。例如：
 
 ```
-// `unsanitizedTheme` cannot accept user input
-// `content` can accept user input
+// `unsanitizedTheme` 不能接受用户输入
+// `content` 可以接受用户的输入
 function MyComponent({ unsanitizedTheme, content }) {
   return (
     <MyStyledComponent unsanitizedTheme={unsanitizedTheme}>
@@ -186,11 +186,11 @@ function MyComponent({ unsanitizedTheme, content }) {
 }
 ```
 
-### Don’t trust anyone
+### 别相信任何人
 
-The only way to know whether a prop in a third-party library is safe is to dive into the source code and check.
+知道第三方库中的 prop 是否安全的唯一方法是研究并检查源代码。
 
-For example, consider a 3rd-party tooltip component:
+例如，考虑第三方工具提示组件：
 
 ```
 <Tooltip
@@ -199,39 +199,39 @@ For example, consider a 3rd-party tooltip component:
 />
 ```
 
-While you may assume that it is safe to pass user input to the `content` prop, you cannot actually know until you check the source.
+虽然你可以假定将用户输入传递给 `content` prop 是安全的，但在你检查源码之前你无法真正地知道其安全性。
 
-You may feel like this is a rather contrived example, but it is actually a [reported](https://github.com/jxnblk/rebass/issues/318) security issue in a popular UI toolkit based on styled-components.
+你可能会觉得这是一个很勉强的例子，但实际上这是一个基于 styled-components 的流行 UI 工具包中 [报告](https://github.com/jxnblk/rebass/issues/318) 的安全问题。
 
-You can see a proof of concept exploit of this security issue on codesandbox.
+你可以在 codesandbox 上查看这个问题的概念验证。
 
-In fact, even if you’re using a UI toolkit that is currently safe, you can never guarantee that it will still be that way after running `npm upgrade`.
+实际上，即使你使用的 UI 工具包目前是安全的，你也不能保证在执行 `npm upgrade` 后它仍然安全。
 
-So unless you’re building a static website with no user input, I recommend completely avoiding 3rd-party UI libraries that use CSS-in-JS internally. It is the only way to be safe.
+所以除非你建立的是一个不需要用户输入的静态网站，否则你应该完全避免在内部使用 CSS-in-JS 的第三方 UI 库。这是确保网站安全的唯一方法。
 
-### But I need user input in my styles…
+### 但我需要基于用户输入添加样式...
 
-The safest way to add styles based on user input is to use plain old inline `style`, i.e. the style prop. Anything you put in a `style` object is safe.
+基于用户输入添加样式的最安全的方法是使用旧的普通内联样式，即 style prop。你放在 `style` 对象中的任何东西都是安全的。
 
-But if inline style does not suffice, you’ll need to manually escape each occurence of user input using [CSS.escape](https://drafts.csswg.org/cssom/#the-css.escape%28%29-method). This utility is a relatievly new standard, so you’ll need to use a [polyfill](https://github.com/mathiasbynens/CSS.escape).
+但是，如果内联样式不够，你需要使用 [CSS.escape](https://drafts.csswg.org/cssom/#the-css.escape%28%29-method) 手动转义用户的每一次输入。这个是一个相对新的标准，所以你需要使用 [polyfill](https://drafts.csswg.org/cssom/#the-css.escape%28%29-method)。
 
-Keep in mind that all it takes is a single unescaped prop to ruin your day. Because of this, if you’re going to interpolate any props that contain user input, the only safe approach is to escape every prop – over your entire application.
+请记住，一个 unescaped prop 会给你带来麻烦。因此，如果你要插入任何包含用户输入的 props，唯一安全的方法就是在你的应用程序上转义所有的 prop。
 
-## But it’s a backend problem?
+## 但这是一个后端的问题？
 
-One excuse I’ve heard is that all of these issues are the backend developer’s fault; they should sanitize the data before they store it. Naturally, I heard this excuse from a frontend developer.
+我听到过的一个借口是所有这些问题都是后端开发人员的错误; 他们应该在存储数据之前处理数据。当然，我从一个前端开发人员口中听到过这个。
 
-**Security is everyone’s problem**. While most of us make every effort to do the right thing and sanitize input properly, people make mistakes. We’re human. And that’s why it is irresponsible to assume that the backend will always supply clean data, just as it is irresponsible to assume the same of the frontend.
+**安全问题关乎每个人**。虽然我们大多数人都尽力做正确的事情，对输入进行了恰当的处理，但我们都是人，是人就会犯错误。这就是为什么假设后端始终会提供干净的数据是不负责任的，同样假设前端能做到这样的事情也是不负责任的。
 
-## But JSX interpolation is ok?
+## 但插入 JSX 可以吗？ 
 
-Yes. This is because **JSX does not trust interpolated strings by default**. It only let’s you dangerously insert HTML if you use the `dangerouslySetInnerHTML` prop, and pass an object with the format `{ __html: 'your_string' }`.
+可以。因为 **JSX 默认情况下不信任插入的字符串**。如果你使用 `dangerouslySetInnerHTML` prop，它只会让你在插入 HTML 时不安全 ，并传递 `{ __html: 'your_string' }` 格式的对象。
 
-Nobody ever means to let unfiltered user input into HTML. But people make mistakes, and that’s why React requires you to explicitly tell it that directly interpolated strings are safe.
+没有人想要将未经过滤的用户输入插入到 HTML。但是人会犯错误，这就是为什么 React 要求你明确地告知它直接插入的字符串是安全的。
 
-Currently, CSS-in-JS does not provide any mechanism for automatic sanitization (but there is [talk about](https://github.com/styled-components/styled-components/issues/1105#issuecomment-325273993) it). So until it does, make sure to name any interpolated props as `unsanitizedSomething`.
+目前，CSS-in-JS 不提供任何自动处理机制（但这里有 [讨论](https://github.com/styled-components/styled-components/issues/1105#issuecomment-325273993)）。所以在它提供之前，请确保将任何插入的 props 命名为 `unsanitizedSomething`。
 
-And ideally, avoid using interpolated props altogether.
+如果能完全避免使用插入的 props 是最好不过了。
 
 
 ---
