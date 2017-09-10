@@ -12,7 +12,7 @@ CSS-in-JS 允许我把 JavaScript 变量插入到 CSS 中，这给了我很大�
 
 What kind of exploits could a malicious user pull off using just CSS injection? And how can I defend against these?
 
-CSS-in-JS 是一门令人兴奋的新技术，完全不需要 CSS  的 `class` 名字。它可以充分利用 CSS 的功能直接给你的组件添加样式。不幸的是，它也促使 unescaped props 插入到 CSS 中，将你暴露给注射攻击。
+CSS-in-JS 是一门令人兴奋的新技术，完全不需要 CSS  的 `class` 名字。它可以充分利用 CSS 的功能直接给你的组件添加样式。不幸的是，它也促使未转义的  props 插入到 CSS 中，将你暴露给注射攻击。
 
 而 CSS 注入攻击是一个 **重大的安全隐患**。
 
@@ -32,7 +32,7 @@ CSS-in-JS 是一门令人兴奋的新技术，完全不需要 CSS  的 `class` 
 
 ## 利用 CSS-in-JS 
 
-CSS-in-JS 工具就像对 CSS 使用 eval 函数，它门接受任意输入并把其当作 CSS 来读取。
+CSS-in-JS 工具就像对 CSS 使用 eval 函数，它门接受任意输入并将其当作 CSS 来读取。
 
 问题是它们会逐字读取任意输入，即使是不可靠的。更糟糕的是，它们允许你通过 `props`  传递变量，从而助长了不可靠的输入。
 
@@ -138,7 +138,7 @@ React 支持 IE9，并在 [不久的将来停止支持 IE8](https://facebook.git
 
 IE9 和更早版本的 IE 允许你在样式表中执行任意的 JavaScript 脚本，前提是该脚本被放在同一个域上的文本文件中。
 
-如果你有用户使用 IE9，有恶意用户试图以某种方式上传文件，并通过 unsanitized prop 将关联的 `behavior` 属性注入到样式表中，然后 **恶意用户可以窃取 IE9 用户的帐户**。
+如果你有用户使用 IE9，有恶意用户试图以某种方式上传文件，并通过未转义的 prop 将关联的 `behavior` 属性注入到样式表中，然后 **恶意用户可以窃取 IE9 用户的帐户**。
 
 我不打算进行相关展示，但请明白，这种类型的攻击已经发生过。你可以阅读更多关于 [在 CSS 内部执行 JavaScript 脚本](http://www.diaryofaninja.com/blog/2013/10/30/executing-javascript-inside-css-another-reason-to-whitelist-and-encode-user-input) 的详细信息。
 
@@ -154,7 +154,7 @@ IE9 和更早版本的 IE 允许你在样式表中执行任意的 JavaScript 脚
 
 ### 关注点分离
 
-React 的一个重要特性是它允许你创建组件，便于 [关注点分离](https://reactarmory.com/answers/how-should-i-separate-components)。子组件不需要知道他们的 props 来自哪里。父组件不需要知道他们的孩子如何实现。组件是相互独立的，这样提高了它们的可维护性和可重用性。
+React 的一个重要特性是它允许你创建组件，便于 [关注点分离](https://reactarmory.com/answers/how-should-i-separate-components)。子组件不需要知道他们的 props 来自哪里。父组件不需要知道他们的孩子如何实现。组件是相互独立的，这样提高了它们的可维护性和可复用性。
 
 Unsanitized props 打破了这一独立性
 
@@ -215,7 +215,7 @@ function MyComponent({ unsanitizedTheme, content }) {
 
 但是，如果内联样式不够，你需要使用 [CSS.escape](https://drafts.csswg.org/cssom/#the-css.escape%28%29-method) 手动转义用户的每一次输入。这个是一个相对新的标准，所以你需要使用 [polyfill](https://drafts.csswg.org/cssom/#the-css.escape%28%29-method)。
 
-请记住，一个 unescaped prop 会给你带来麻烦。因此，如果你要插入任何包含用户输入的 props，唯一安全的方法就是在你的应用程序上 escape 所有的 prop。
+请记住，一个 unescaped prop 会给你带来麻烦。因此，如果你要插入任何包含用户输入的 props，唯一安全的方法就是在你的应用程序上转义所有的 prop。
 
 ## 但这是一个后端的问题？
 
