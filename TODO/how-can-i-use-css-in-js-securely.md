@@ -10,7 +10,7 @@
 
 CSS-in-JS 允许我把 JavaScript 变量插入到 CSS 中，这给了我很大的权限，但这样是安全的吗？
 
-What kind of exploits could a malicious user pull off using just CSS injection? And how can I defend against these?
+恶意用户可以通过 CSS 注入捣什么鬼？我该如何防范这些？
 
 CSS-in-JS 是一门令人兴奋的新技术，完全不需要 CSS  的 `class` 名字。它可以充分利用 CSS 的功能直接给你的组件添加样式。不幸的是，它也促使未转义的  props 插入到 CSS 中，将你暴露给注射攻击。
 
