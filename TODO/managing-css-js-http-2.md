@@ -5,13 +5,13 @@ Trevor Davis](https://www.viget.com/about/team/tdavis)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/managing-css-js-http-2.md](https://github.com/xitu/gold-miner/blob/master/TODO/managing-css-js-http-2.md)
 > * 译者：[sunui](https://github.com/sunui)
-> * 校对者：
+> * 校对者：[Usey95](https://github.com/Usey95)、[alfred-zhong](https://github.com/alfred-zhong)
 
 # 在 HTTP/2 的世界里管理 CSS 和 JS
 
-使用了 HTTP/2，在你的网站中交付 CSS 和 JS 变得完全不同，本文是结合我实践的一份指南。
+使用了 HTTP/2，在网站中传输 CSS 和 JS 将变得完全不同，本文是结合我实践的一份指南。
 
-我们已经听说 HTTP/2 很多年了。我们甚至写了[一些](https://www.viget.com/articles/getting-started-with-http-2-part-1)[关于它的博客](https://www.viget.com/articles/getting-started-with-http-2-part-2)。但我们的真正实践并不多。一直到现在。在一些最近的项目中，我把使用 HTTP/2 作为一个目标，并弄清楚如何更好地应用[多路复用](https://http2.github.io/faq/#why-is-http2-multiplexed)。本文不会去讲你为什么使用 HTTP/2，而是要讨论我是如何管理 CSS 和 JS 的从而解释这一范式转变。
+我们已经听说 HTTP/2 很多年了。我们甚至写了[一些](https://www.viget.com/articles/getting-started-with-http-2-part-1)[关于它的博客](https://www.viget.com/articles/getting-started-with-http-2-part-2)。但我们的真正实践并不多。一直到现在。在一些最近的项目中，我把使用 HTTP/2 作为一个目标，并弄清楚如何更好地应用[多路复用](https://http2.github.io/faq/#why-is-http2-multiplexed)。本文并不会主要去讲你为什么应该使用 HTTP/2，而是要讨论我是如何管理 CSS 和 JS 的从而解释这一范式转变。
 
 ## 拆分 CSS
 
@@ -58,7 +58,7 @@ Trevor Davis](https://www.viget.com/about/team/tdavis)
 
 ![](https://static.viget.com/blog/_1064xAUTO_crop_center-center/http2-assets-config.png?mtime=20170823122448)
 
-这里的入口文件是 `_index.scss`，它引入了所有其他 SCSS 文件，所以我可以访问到一些变量和 mixins。它这是样的：
+这里的入口文件是 `_index.scss`，它引入了所有其他 SCSS 文件，所以我可以访问到一些变量和 mixins。它是这样的：
 
 ```css
 @import "variables";
@@ -73,7 +73,7 @@ Trevor Davis](https://www.viget.com/about/team/tdavis)
 
 **GLOBAL 文件夹**
 
-这个文件夹包含我在每一页都使用的 CSS 的地方。特别适合放一些类似网站的 header、footer、reset、字体和其他通用样式之类的东西。
+这个文件夹包含我每一页都使用的 CSS。特别适合放一些类似网站的 header、footer、reset、字体和其他通用样式之类的东西。
 
 ![](https://static.viget.com/blog/_1064xAUTO_crop_center-center/http2-assets-global.png?mtime=20170823150006)
 
@@ -92,7 +92,7 @@ Trevor Davis](https://www.viget.com/about/team/tdavis)
 @import "components/*";
 ```
 
-最后一行引入了所有 components 的子目录，这是在模块化中避免额外全局样式的捷径。
+最后一行引入了所有 components 的子目录，这是将额外全局样式模块化的捷径。
 
 **MODULES 文件夹**
 
@@ -114,13 +114,13 @@ Trevor Davis](https://www.viget.com/about/team/tdavis)
 
 **PAGES 文件夹**
 
-实质上这个文件夹和 modules 文件夹一样，但我给页面具体的内容使用它。这种更模块化的方式在我们最近做的东西里绝对罕见，但是它很好地把页面的特殊样式拆分出来了。
+实质上这个文件夹和 modules 文件夹一样，但我为了页面特定的内容使用它”。这种更模块化的方式在我们最近做的东西里绝对罕见，但是它很好地把页面的特殊样式拆分出来了。
 
 ![](https://static.viget.com/blog/_1150xAUTO_crop_center-center/http2-assets-pages.png?mtime=20170823150703)
 
-### 调整到 Blendid
+### 适配 Blendid
 
-最近开启的几个项目都是使用 [Blendid](https://github.com/vigetlabs/blendid)。为了实现上文描述的 SCSS 配置，我需要添加 [node-sass-glob-importer](https://www.npmjs.com/package/node-sass-glob-importer)。一旦装好它，我只需把它添加到 Blendid 的 `task-config.js` 中。
+最近所有的项目我们都是用 [Blendid](https://github.com/vigetlabs/blendid) 来构建的 。为了实现上文描述的 SCSS 配置，我需要添加 [node-sass-glob-importer](https://www.npmjs.com/package/node-sass-glob-importer)。一旦装好它，我只需把它添加到 Blendid 的 `task-config.js` 中。
 
 ```
 var globImporter = require('node-sass-glob-importer');
@@ -160,7 +160,7 @@ duang，这样就完成了管理 SCSS 的 HTTP/2 配置。
 
 就像 CSS 一样，我想要把 JS 拆分为模块，这样每一页只加载必要的 JS。一样的，使用 [Blendid 配置](https://github.com/vigetlabs/blendid)，为了一切正常运转我只需要做一点点微调。
 
-并没有使用 Webpack 的`require()`，我需要使用 `import()`。因此现在的 `modules/index.js` 文件需要看起来是这样的：
+我使用的是 `import()`，而非 Webpack 的`require()`，。因此现在的 `modules/index.js` 文件需要看起来是这样的：
 
 ```
 const moduleElements = document.querySelectorAll('[data-module]');
