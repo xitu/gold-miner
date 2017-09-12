@@ -3,51 +3,51 @@
 > * 原文作者：[Karolina Szczur](https://medium.com/@fox?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/talk-the-state-of-the-web.md](https://github.com/xitu/gold-miner/blob/master/TODO/talk-the-state-of-the-web.md)
-> * 译者：
+> * 译者：[undead25](https://github.com/undead25)
 > * 校对者：
 
-# The State of the Web：A guide to impactful performance improvements
+网络现状：性能提升指南
 
-The Internet is growing exponentially, and so is the Web platform we create. Often though **we fail to reflect on the greater picture of connectivity and contexts the audience of our work might find themselves in**. Even a short glance at the state of the World Wide Web shows that we haven’t been building with empathy, situation variability awareness, let alone performance in mind.
+互联网正在爆发式地增长，我们创建的 Web 平台也是如此。**我们通常都没有考虑到用户网络的连通性和使用情景**。即使是万维网状况的一瞥，也可以看出我们还没有建立起感同身受和形势变化的认知，更不用说性能的考虑了。
 
-So, what is the state of the Web today?
+那么，现今的网络状况是怎样的呢？
 
-**Only 46% of 7.4 billion people on this planet have access to the Internet**. The average network speed caps at unimpressive 7Mb/s. More importantly, 93% of Internet users are going online through mobile devices — it becomes inexcusable to not cater to handhelds. Often data is more expensive than we’d assume — it could take anywhere from an hour to 13 hours to purchase 500MB packet (Germany versus Brazil; for more intriguing stats on connectivity head to [Ben Schwarz’s Beyond the Bubble: The Real World Performance](https://twitter.com/benschwarz)).
+**地球上 74 亿人口中，只有 46% 的人能够上网**，平均网络速度竟有 7Mb/s。更重要的是，93% 的互联网用户都是通过移动设备上网的 —— 不去适应手持设备是不可原谅的。数据往往比我们想象中要昂贵得多 —— 500MB 的数据在德国只要 1 个小时，而在巴西需要 13 个小时（更多有趣的统计可以看看 [Ben Schwarz](https://twitter.com/benschwarz) 的[《泡沫破灭：真实的性能》](https://speakerdeck.com/benschwarz/beyond-the-bubble)）。
 
-**Our websites aren’t in a perfect shape either** — the average site [is the size of original Doom game](https://www.wired.com/2016/04/average-webpage-now-size-original-doom/) (approx. 3 MB) (please note that for statistical accuracy medians should be used, read [Ilya Grigorik’s excellent The “Average Page” is a myth](https://twitter.com/igrigorik). Median site size is currently at 1.4MB). Images can easily account for 1.7 MB of bandwidth and JavaScript averages at 400KB. This isn’t a problem specific to the Web platform only. Native applications aren’t better; remember that time you had to download 200 MB to get unspecified bug fixes?
+**我们的网站表现得也不尽如人意** —— 平均体积大概[是第一版 Doom 游戏的大小](https://www.wired.com/2016/04/average-webpage-now-size-original-doom/)（3 MB 左右）（请注意，为了统计准确度，需要使用[中位数](https://zh.wikipedia.org/wiki/%E4%B8%AD%E4%BD%8D%E6%95%B8)，推荐阅读 [Ilya Grigorik](https://twitter.com/igrigorik) 的 [《“平均页面”是一个神话》](https://www.igvita.com/2016/01/12/the-average-page-is-a-myth/)。中位数统计出的网站体积目前为 1.4MB）。图片可以轻松占用 1.7 MB，而 JavaScript 平均为 400KB。不仅仅只有 Web 平台，本地应用程序也有同样的问题，你是否遇到过为了修复某些 bug，不得不下载 200MB 的应用呢？
 
-**s technologists often we find ourselves in the position of privilege**. With up-to-date, high-end laptops, phones and fast cable Internet connection, it becomes all to easy to forget this isn’t the case for everyone (actually, it’s true for very few).
+**技术人员经常会发现自己处于特权地位**。拥有新型高端的笔记本、手机和快速的网络连接。我们很容易忘记，其实并不是每个人都有这样的条件（实际上只有少部分人而已）。
 
-> If we’re building the web platform from the standpoint of privilege and lack of empathy, it results in exclusionary, subpar experiences.
+> 如果我们只站在自己而不是用户的角度来构建 web 平台，那这将导致糟糕的用户体验。
 
-How can we do better by designing and developing with performance in mind?
+我们如何通过在设计和开发中考虑性能来做得更好呢？
 
-## Optimising all assets
+## 资源优化
 
-One of the most powerful, but under-utilised ways to significantly improve performance starts with understanding how the browser analyses and serves assets. It turns out that browsers are pretty great at discovering resources while parsing and determining their priority on the fly. Here’s where the **critical request** comes in.
+最能明显提升性能但未被充分利用的方式是，从了解浏览器如何分析和处理资源开始。事实证明，浏览器在资源发现方面表现得非常不错，同时解析和立即确定资源的优先级。下面是关于**关键请求**的解释。
 
-> A request is critical if it contains assets that are necessary to render the content within the users’ viewport.
+> 如果请求包含用户视图渲染所需的资源，那该请求就是关键请求。
 
-For most sites, it’d be HTML, necessary CSS, a logo, a web font and maybe an image. It turns out that in many cases, dozens of other, irrelevant at the time assets are requested instead (JavaScript, tracking codes, ads, etc.). Luckily, we’re able to control this behaviour by carefully picking crucial resources and adjusting their priority.
+对于大多数网站，关键请求可以是 HTML，必要的 CSS，LOGO，网络字体，也可能是图片。事实证明，在大多数情况下，当资源被请求时，许多其他不相关的（JavaScript，追踪代码，广告等）也被请求了。不过我们能够通过仔细挑选重要资源，并调整它们的优先级来避免这种情况发生。
 
-With `<link rel='preload'>` we’re able to manually force assets’ priority to `High` ensuring that desired content will be rendered on time. This technique can yield significant improvements in Time to Interactive metric, making optimal user experience possible.
+通过 `<link rel ='preload'>`，我们可以手动强制设置资源的优先级为`高`，来确保所期望的内容按时渲染。 这种技术可以明显改善“交互时间”指标，从而使最佳用户体验成为可能。
 
 ![](https://cdn-images-1.medium.com/max/800/1*JT-53LslhwOOqTgv1dGoXg.png)
 
-Critical requests still seem like a black box for many, and the lack of shareable materials doesn’t help to change that. Fortunately, [Ben Schwarz](https://twitter.com/benschwarz/) published an incredibly comprehensive and approachable article on the subject — [The Critical Request](https://css-tricks.com/the-critical-request/). Additionally, check Addy’s Preload, [Prefetch and Priorities in Chrome](https://medium.com/reloading/preload-prefetch-and-priorities-in-chrome-776165961bbf).
+由于相关资料的缺乏，关键请求对许多人来说似乎仍然是一个黑盒子。幸运的是，[Ben Schwarz](https://twitter.com/benschwarz/) 发表了一篇非常全面且通俗易懂的文章 —— [关键请求](https://css-tricks.com/the-critical-request/)。另外，你也可以查看 Addy 关于预加载的文章 —— [Chrome 中的预加载和优先级](https://medium.com/reloading/preload-prefetch-and-priorities-in-chrome-776165961bbf)。
 
-![Enabling Priorities in Chrome Developer Tools](https://cdn-images-1.medium.com/max/800/1*ju18GQzgF-TQDMrYdtPelg.gif)
+![在 Chrome 开发者工具中启用优先级](https://cdn-images-1.medium.com/max/800/1*ju18GQzgF-TQDMrYdtPelg.gif)
 
-🛠 To track how well you’re doing on prioritising requests use Lighthouse performance tool and [Critical Request Chains audit](https://developers.google.com/web/tools/lighthouse/audits/critical-request-chains) or check the Request Priority under Network tab in Chrome Developer Tools.
+🛠 要追踪优先处理请求的效果，你可以使用 Lighthouse 性能检测工具和[关键请求链路评测](https://developers.google.com/web/tools/lighthouse/audits/critical-request-chains)，或者查看 Chrome 开发者工具网络标签下的请求优先级。
 
-**📝 General performance checklist**
+**📝 常用性能检查表**
 
-1. Cache aggressively
-2. Enable compression
-3. Prioritise critical assets
-4. Use content delivery networks
+1. 主动缓存
+2. 启用压缩
+3. 优先关键资源
+4. 使用 CDN
 
-## Optimising images
+## 图片优化
 
 Images often account for most of a web page’s transferred payload, which is why imagery optimisation can yield the biggest performance improvements. There are many existing strategies and tools to aid us in removing extra bytes, but the first question to ask is: “Is this image essential to convey the message and effect I’m after?”. If it’s possible to eliminate it, not only we’re saving bandwidth, but also requests.
 
