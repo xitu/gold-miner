@@ -6,9 +6,9 @@
 > * 译者：
 > * 校对者：
 
-# 通过 Metal 来使用 ARKit (下)
+# Using ARKit with Metal part 2
 
-咱们上篇提到过, **ARKit** 应用通常包括三个图层 : `渲染层` , `追踪层` 和 `场景解析层` 。上一篇我们通过一个自定义视图已经非常详细地分析了渲染层在 `Metal` 中是如何工作的了。 `ARKit` 使用 `视觉惯性测程法` 准确地追踪它周围的环境，并将相机传感器数据和 `CoreMotion` 数据相结合。这样当相机随我们运动时，不需要额外的校准就可以保证图像的稳定性。这篇文章我们将研究  __场景解析__ —— 通过平面检测，碰撞测试和测定光线来描述场景的特征。 `ARKit` 可以分析相机呈现出来的场景并在场景中找到类似地板这样的水平面。前提是，我们需要在运行 session configuration 之前，简单地添加额外的一行代码来打开水平面检测的新特性（默认是关闭的）：
+As underlined last time, ￼there are three layers in an **ARKit** application: `Rendering`, `Tracking` and `Scene Understanding`. Last time we analyzed in great detail how Rendering is done in `Metal` using a custom view. `ARKit` uses `Visual Inertial Odometry` for accurate Tracking of the world around it and to combine camera sensor data with `CoreMotion` data. No additional calibration is necessary for image stability while we are in motion. In this article we look at **Scene Understanding** - ways of describing scene attributes by using plane detection, hit-testing and light estimation. `ARKit` can analyze the scene presented by the camera view and find horizontal planes such as floors. First, we need to enable the plane detection feature (which is **off** by default) by simply adding one more line before running the session configuration:
 
 ```
 override func viewWillAppear(_ animated: Bool) {
@@ -19,9 +19,9 @@ override func viewWillAppear(_ animated: Bool) {
 }
 ```
 
-> 注意，在当前的 API 版本中只能添加水平的平面检测。
+> Note that only horizontal plane detection is possible with the current API version.
 
-使用 **ARSessionObserver** 协议方法来处理会话错误，追踪点更改和打断：
+The **ARSessionObserver** protocol’s methods are used for handling session errors, tracking changes and interruptions:
 
 ```
 func session(_ session: ARSession, didFailWithError error: Error) {}
@@ -31,7 +31,7 @@ func sessionWasInterrupted(_ session: ARSession) {}
 func sessionInterruptionEnded(_ session: ARSession) {}
 ```
 
-与此同时， **ARSessionDelegate** 协议还有其他的代理方法（继承于 ARSessionObserver ）来让我们处理锚点：我们在第一个方法中调用 **print()** ：
+However, there are other delegate methods that belong to the **ARSessionDelegate** protocol (which extends ARSessionObserver) that let us work with anchors. Put a **print()** call inside the first one:
 
 ```
 func session(_ session: ARSession, didAdd anchors: [ARAnchor]) {
@@ -42,7 +42,7 @@ func session(_ session: ARSession, didUpdate anchors: [ARAnchor]) {}
 func session(_ session: ARSession, didUpdate frame: ARFrame) {}
 ```
 
-让我们现在打开 **Renderer.swift** 文件。首先，创建一些我们需要的类属性。这些变量将会帮助我们在屏幕上创建和展示一个调试界面：
+Let’s move to the **Renderer.swift** file now. First, create a few class properties we need to work with. These variables will help us create and display a debug plane on the screen:
 
 ```
 var debugUniformBuffer: MTLBuffer!
@@ -53,13 +53,13 @@ var debugUniformBufferAddress: UnsafeMutableRawPointer!
 var debugInstanceCount: Int = 0
 ```
 
-其次，我们在 **setupPipeline()** 中创建缓存区：
+Next, in **setupPipeline()** we create the buffer:
 
 ```
 debugUniformBuffer = device.makeBuffer(length: anchorUniformBufferSize, options: .storageModeShared)
 ```
 
-我们需要为我们的平面创建新的顶点和分段函数，以及新的渲染管道和深度模板状态。在刚才创建命令行队列的行上面，添加以下行的代码：
+We need to create new vertex and fragment functions for our plane, as well as new render pipeline and depth stencil states. Right before the line where the command queue is created, add these lines:
 
 ```
 let debugGeometryVertexFunction = defaultLibrary.makeFunction(name: "vertexDebugPlane")!
@@ -71,7 +71,7 @@ do { try debugPipelineState = device.makeRenderPipelineState(descriptor: anchorP
 debugDepthState = device.makeDepthStencilState(descriptor: anchorDepthStateDescriptor)
 ```
 
-再次，在 **setupAssets()** 方法中，我们需要创建一个新的 `Model I/O` 平面网格，然后在其中再创建一个 Metal 网格。在这个方法的末尾添加下面的代码：
+Next, in **setupAssets()** we need to create a new `Model I/O` plane mesh and then create the Metal mesh from it. At the end of the function add these lines:
 
 ```
 mdlMesh = MDLMesh(planeWithExtent: vector3(0.1, 0.1, 0.1), segments: vector2(1, 1), geometryType: .triangles, allocator: metalAllocator)
@@ -80,23 +80,21 @@ do { try debugMesh = MTKMesh(mesh: mdlMesh, device: device)
 } catch let error { print(error) }
 ```
 
-从此，在 **updateBufferStates()** 方法中，我们需要更新平面所在缓存区的地址。添加下面的代码：
-
+Next, in **updateBufferStates()** we need to update the address of the buffer where the plane resides. Add the following lines:
 
 ```
 debugUniformBufferOffset = alignedInstanceUniformSize * uniformBufferIndex
 debugUniformBufferAddress = debugUniformBuffer.contents().advanced(by: debugUniformBufferOffset)
 ```
 
-接下来，在 **updateAnchors()** 方法中，我们需要更新转换矩阵和锚点的数量。再循环之前添加下面的代码：
-
+Next, in **updateAnchors()** we need to update the transform matrices and the anchors count. Add the following lines before the loop:
 
 ```
 let count = frame.anchors.filter{ $0.isKind(of: ARPlaneAnchor.self) }.count
 debugInstanceCount = min(count, maxAnchorInstanceCount - (anchorInstanceCount - count))
 ```
 
-然后，在循环中用下面代码替换最后的三行代码：
+Then, inside the loop replace the last three lines with the following lines:
 
 ```
 if anchor.isKind(of: ARPlaneAnchor.self) {
@@ -111,8 +109,7 @@ if anchor.isKind(of: ARPlaneAnchor.self) {
 }
 ```
 
-我们必须以 **Z** 轴为轴心扭转平面 90°，这样我们就可以使平面保持水平。注意我们使用了一个叫做  **rotationMatrix()** 的自定义方法，现在来让我们定义这个方法。在我早先的文章第一次介绍 3D 转换时提到过这个矩阵：
-
+We had to rotate the plane **90** degrees by the **Z** axis so we can make it horizontal. Notice that we used a custom method named **rotationMatrix()** so let’s define it. We have seen this matrix in the early articles when we first introduced 3D transforms:
 
 ```
 func rotationMatrix(rotation: float3) -> float4x4 {
@@ -134,15 +131,13 @@ func rotationMatrix(rotation: float3) -> float4x4 {
 }
 ```
 
-，在 **drawAnchorGeometry()** 方法中，我们需要确保我们在渲染的时候至少拥有一个锚点，用下面的代码替换方法第一行：
-
+Next, in **drawAnchorGeometry()** we need to make sure we have at least one anchor before drawing it. Replace the first line with this one:
 
 ```
 guard anchorInstanceCount - debugInstanceCount > 0 else { return }
 ```
 
-再然后，我们终于完成了 **drawDebugGeometry()** 方法来渲染我们的平面。它和锚点渲染方法是非常相似的：
-
+Next, let’s finally create the **drawDebugGeometry()** function that draws our plane. It’s very similar to the anchor drawing function:
 
 ```
 func drawDebugGeometry(renderEncoder: MTLRenderCommandEncoder) {
@@ -165,15 +160,13 @@ func drawDebugGeometry(renderEncoder: MTLRenderCommandEncoder) {
 }
 ```
 
-在渲染层还有最后件事要做——就是在 **update()** 里我们刚才结束编码的那一行上面调用这个方法： 
-
+There is one more thing left to do in `Renderer` and that is - call this function in **update()** right above the line where we end the encoding:
 
 ```
 drawDebugGeometry(renderEncoder: renderEncoder)
 ```
 
-接着，我们打开 **Shaders.metal** 文件，我们需要一个新的结构体，只需通过一个顶点描述符传递顶点的位置
-
+Finally, let’s go to the **Shaders.metal** file. We need a new struct with just the vertex position passed via a vertex descriptor:
 
 ```
 typedef struct {
@@ -181,8 +174,7 @@ typedef struct {
 } DebugVertex;
 ```
 
-在顶点的着点中，我们使用模型视图模型来更新顶点的位置：
-
+In the vertex shader we update the vertex position using the model-view matrix:
 
 ```
 vertex float4 vertexDebugPlane(DebugVertex in [[ stage_in]],
@@ -198,8 +190,7 @@ vertex float4 vertexDebugPlane(DebugVertex in [[ stage_in]],
 }
 ```
 
-最后，在片段着色器中，我们给予平面一个大胆的颜色来让我们可以在视图中轻易注意到它：
-
+And last, in the fragment shader we give the plane a bold color to make it noticeable in the view:
 
 ```
 fragment float4 fragmentDebugPlane() {
@@ -207,15 +198,15 @@ fragment float4 fragmentDebugPlane() {
 }
 ```
 
-如果你运行这个 app , 当 APP 检测到一个平面时，你应该能够看到一个矩形，就像这样：
+If you run the app, you should be able to see a rectangle added when the app detects a plane, like this:
 
 ![](https://github.com/MetalKit/images/blob/master/plane.gif?raw=true)
 
-我们接下来可以更新/移动平面，我们检测到更多平面或者我们从之前检测到的平面移开。其他的代理方法可以帮助我们实现这一点。接着我们可以研究碰撞和其他物理效果。当然，这只是一个未来的想象。
+What we could do next is update/remove planes as we detect more or as we move away from the previously detected one. The other delegate methods can help us achieve just that. Then, we could look at collisions and physics. Just a thought for the future.
 
-我想要感谢 [Caroline](https://twitter.com/carolinebegbie) 为本篇文章指定检测目标（平面）! 按照惯例，[源代码](https://github.com/MetalKit/metal) 都发表在 `Github` 上。
+I want to thank [Caroline](https://twitter.com/carolinebegbie) for being the designated (plane) detective for this article! The [source code](https://github.com/MetalKit/metal) is posted on `Github` as usual.
 
-期待下次相见！
+Until next time!
 
 
 ---
