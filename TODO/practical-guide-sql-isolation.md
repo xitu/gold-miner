@@ -4,7 +4,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/practical-guide-sql-isolation.md](https://github.com/xitu/gold-miner/blob/master/TODO/practical-guide-sql-isolation.md)
 > * 译者：[sigoden](https://github.com/sigoden)
-> * 校对者：[mnikn](https://github.com/mnikn)
+> * 校对者：[mnikn](https://github.com/mnikn),[tmpbook](https://github.com/tmpbook)
 
 # SQL 事务隔离实用指南
 
