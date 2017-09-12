@@ -3,107 +3,106 @@
 > * 原文作者：[Yaphi Berhanu](https://www.sitepoint.com/author/yberhanu/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/learning-javascript-9-common-mistakes.md](https://github.com/xitu/gold-miner/blob/master/TODO/learning-javascript-9-common-mistakes.md)
-> * 译者：
+> * 译者：[lekenny](https://github.com/lekenny)
 > * 校对者：
 
-# Learning JavaScript: 9 Common Mistakes That Are Holding You Back
+# 学习 JavaScript：9个常见错误让你不言弃
 
-A lot of people try to learn JavaScript and then give up. Then they tell themselves things like, “JavaScript is too confusing,” or worse, “Maybe I’m not cut out for web development.”
+很多人尝试学习 JavaScript 然后就放弃了。然后就告诉自己，“JavaScript 太复杂了”，更有甚者说，“我不是前端开发的料”。
 
-The sad part? There was no need to give up. All that was needed was a different learning approach.
+悲伤地部分？没有必要放弃。所需要的只是一种不同的学习方法。
 
-In this article, we’ll cover some of the most common learning mistakes people make and find out how to avoid them. Many of these tips will be applicable outside of JavaScript or even web development, so there’s that bonus too.
+在这篇文章中，我们将介绍一些最常见的错误学习方法，并了解如何避免这些错误。许多技巧将适用于 JavaScript 或者 web 开发之外，所以也有这个奖金。
 
-Let’s dive in!
+我们来吧！
 
-## Mistake #1: Overanalyzing Instead of Getting Started
+## 错误 #1：开始学习之前过度分析
 
-It can be tempting to look for all the information you can get before you start learning JavaScript. If you look, you’ll find information about how JavaScript is the best thing ever or the worst thing ever, or that you need to be on this framework or that framework. You might also hear that you need to write JavaScript a certain way or else you’ll never be a “real” developer.
+开始学习 JavaScript 之前，你可以找到可以获得的所有信息。如果你看，你会发现一些 JavaScript 是最好的或者是最坏的，以及你是需要这个框架还那个框架的相关信息。你也可能会听到你需要以某种方式编写 JavaScript，否者你永远不会成为“真正”的开发人员。
 
-Whether or not these points have validity, nothing is worse than the six months to a year you’ll waste agonizing instead of starting.
+不管这些点是否有效，没有什么比浪费六个月到一年还没有开始更糟糕。
 
-Just type one line of code. It doesn’t have to be perfect. It can be terrible. If you get started, you’ve already passed one of the hurdles that stop a lot of people.
+只需要敲一行代码。他不一定是完美的。可能很垃圾。如果你开始了，那么你就通过了阻止很多人的障碍之一。
 
-## Mistake #2: Learning a Framework Before Learning Plain JavaScript
+## 错误 #2：学习 JavaScript 基础之前学习框架
 
-JavaScript frameworks are built on top of vanilla JavaScript, so if you understand JavaScript, you automatically understand the fundamentals of how to use any JavaScript framework.
+JavaScript 框架建立在 vanilla JavaScript 之上，因此如果你理解了 JavaScript，你也就自然而然的知道如何使用任何 JavaScript 框架的基本原理。
 
-However, if you jump straight into a framework, you’ll end up memorizing without understanding. It’s like trying to write sentences without knowing what words mean. You’ll end up memorizing random phrases instead of understanding how words work and how to put them together to make your own sentences.
+但是，如果你直接进入一个框架，最后你也只是死记硬背而已。这就像在不知道词语意思的情况下写句子。最后你会记住随机的短语，而不是理解单词的原理，以及如何把他们学以自用。
 
-If you go straight to a framework it’ll be harder to learn and you’ll have a harder time adapting to another framework if you need to. If you learn plain JavaScript first, you have a firm basis to understand all the frameworks.
+如果你直接进入一个框架，那将会更难学习，当你需要另一个框架你会更难适应。如果你首先学习基础的 JavaScript，那么你将有一个坚实的基础来了解所有的框架。
 
-## Mistake #3: Moving to the Next Step Too Soon
+## 错误 #3：好高骛远
 
-One of the most common mistakes is to move on immediately after understanding a concept.
+最常见的错误之一就是在理解概念之后立即采取行动。
 
-I’ve definitely struggled with this one because it’s tempting to move forwards once you understand something.
+我一直在努力解决这个问题，因为一旦了解某些东西，你就想更进一步。
 
-What helped was to treat each concept like a new toy; That means taking some time to enjoy what you just learned. Play around, experiment, see if you can do something new with it. You’ll learn a lot that way, and you’ll remember better as well.
+像对待新玩具一样对待每个概念是很有帮助的；这意味着你需要花一些事假来享受你刚学到的东西。玩耍、实验，看看你能不能做一些新的事情。你会学到很多，你会记得更好。
 
-Once you feel like you can apply a concept in your sleep, move on. It takes a little bit more time up front, but soon it makes everything go much faster.
+一旦你觉得你可以在睡眠中应用一个概念，继续前进。在前面它需要更多的时间，但是很快它使一切都快得多。
 
-On the other hand, if you rush, you’ll end up forgetting and having to backtrack for every little thing. That ends up taking way more time, and it can be discouraging. In fact, this is a common reason people have said they quit JavaScript.
+另一方面，如果你急着，你会最终忘记和不得不追踪每一件小事情。这最终会花更多的时间，这可能是令人沮丧的。事实上，这是人们常说要放弃 JavaScript 的常见原因。
 
-## Mistake #4: Not Breaking Concepts Into Small Enough Pieces
+## 错误 #4：没有将概念打破成小块
 
-Learning is like a staircase: If you can take one step, you can keep taking more steps until you reach your goals. When something is tough to understand, it’s often because you’re trying to take a flying leap instead of going one step at a time. Of course, it seems impossible!
+学习就像爬楼梯：如果你能走一步，你可以继续采取更多的步骤，直到你达到目标。当有些东西难以理解时，往往是因为你想要跳过一次飞跃，而不是一次走一步。当然这是痴心妄想！
 
-In practical terms, I’ve seen situations where people would struggle to understand a piece of code. I would ask them to explain it, and they’d get tripped up trying to explain the entire thing at once. I’d ask them to explain it again, but this time line by line, and that was when it made sense.
+实际上，我看到人们会很难理解一段代码的情况。我会请他们解释一下，他们会一下子试图解释整个事情。我会请他们再次解释一下，但这一次一行一行的讲，这是有道理的。
 
-If something seems confusing, there’s often a step that’s being skipped, so it helps to focus on smaller and smaller pieces until you find the sticking point. If a concept still doesn’t make sense after breaking it down, you’ll have an easier time searching for help because it’s easier to look up specific topics than vague ones.
+如果有些东西看起来很混乱，那么往往会跳过一个步骤，所以它有助于专注于更小和更小的部分，直到找到关键点。如果一个概念在破解后仍然没有任何意义，那么您可以更容易地寻找帮助，因为查找特定主题比较简单。
 
-## Mistake #5: Attempting a Complex Project Too Early
+## 错误 #5：太早尝试复杂的项目
 
-People who are just starting with JavaScript often say something like “I’ll just code a quick little social network,” not realizing the extent of what’s involved. When the project proves difficult, they give up on JavaScript altogether.
+刚开始使用 JavaScript 的人们经常会说“我只是编写一个快速的社交网络”，没有意识到涉及的程度。 当项目证明很困难时，他们完全放弃了 JavaScript。
 
-I’ve [written about projects](https://www.sitepoint.com/projects-can-sometimes-be-the-worst-way-to-learn-javascript/) in more detail, but the gist is that it’s often easier to start with some fundamental concepts first. That way you have some building blocks in your toolkit for when you start doing projects.
+我更详细地[介绍了项目](https://www.sitepoint.com/projects-can-sometimes-be-the-worst-way-to-learn-javascript/)，但是要点是，首先要从一些基本概念开始就更容易。 当您开始做项目时，您可以在工具包中添加一些构建块。
 
-To be clear, I’m not saying to go overboard and avoid projects for a long time. I’ve just found it easier to start projects if I’ve done some fundamental things first, like showing some text in the browser or responding to a button click.
+要明确的说，我不是说要超越旷日持久的项目。 我刚刚发现，如果我先做了一些基本的事情，比如在浏览器中显示一些文本或响应一个按钮，就可以轻松地启动项目。
 
-## Mistake #6: Not Practicing Under Real-Life Conditions
+## 错误 #6：不在真实环境下练习
 
-When you’re learning JavaScript, you might end up practicing under conditions that don’t match real life. For example, you might be typing inside a website’s built-in code editor, or you might be depending on a pasted file from a tutorial.
+当你学习JavaScript时，你可能会在不符合真实环境下进行练习。 例如，你可能在网站的内置代码编辑器中输入内容，或者你可能依赖于教程中的粘贴文件。
 
-These approaches can be great for learning, but it’s also important to try the material on your own. That would mean using your own text editor and coding a concept from scratch.
+这些方法对于学习来说可能是非常好的，但是您也可以自己尝试搭建环境。 这将意味着使用您自己的文本编辑器并从头开始编写一个概念。
 
-If you don’t take a bit of time to practice each concept on your own, you’ll come to depend on the training wheels. Then you end up in a situation where you’ve spent all this time learning, but you can’t seem to apply any of it on your own.
+如果你不用自己的时间练习每一个概念，你会依赖训练环境。 那么你最终会遇到这样的情况，你已经花了这么多时间学习，但你似乎不能自己应用任何一个。
 
-## Mistake #7: Comparing Yourself to More Advanced Developers
+## 错误 #7：将自己与大神进行比较
 
-One of the easiest ways to get discouraged is to compare yourself to more advanced people. That’s because you’re looking at where they are instead of how they got there.
+让自己更沮丧的最简单的方法之一就是将自己与更先进的人进行比较。 因为你总是看他们在哪里，而不是看他们如何到达那里。
 
-To use a personal example, people have seen my tutorials and asked how I wrote such clean code. They said they couldn’t write clean code like that, so maybe they just weren’t cut out for JavaScript.
+举个例子，人们看到我的教程，并问我如何写这么干净的代码。 他们说他们无法编写像这样的干净的代码，所以也许他们根本就不是 JavaScript 的那块料。
 
-The truth is that my process was a mess. I experimented, made mistakes, looked things up, wrote ugly code, and finally refined everything into a presentable tutorial. People saw the polished version, and assumed the whole process was like that. I also made these assumptions about tutorial authors until I started writing my own.
+事实是我的过程是一团糟。我不断试验、犯错、看着这些，写下丑陋的代码，最后把所有的内容都细化成一个可呈现的教程。人们看了优秀的版本，并且假设整个过程就是这样的。我也做了关于教程作者的这些假设，直到我开始写我自己的。
 
-The point is, just focus on what you’re learning right now and you’ll get better at that. Keep repeating this process, and soon you’ll be at a point where other people wonder how you got there.
+关键是，只关注你正在学习的东西，你会变得更好。继续重复这个过程，很快别人就会敬服你是如何达到那种高度的。
 
-## Mistake #8: Consuming Information and Not Actually Coding
+## 错误 #8：只看教程不写代码
 
-It’s easy to spend a lot of time watching videos and reading tutorials, but you won’t really learn unless you actually write code.
+你会自然而然的花费大量的时间来观看视频和教程，但是除非你自己动手编写代码，否则你不能真的学会。
 
-The dangerous part about consuming information without acting on it is that you’ll feel like you’re learning. Then six months later, you’ll find yourself unable to apply any of what you’ve learned.
+光看而不采取实际行动是很危险的，你会有一种错觉你正在学习。六个月后，你会发现自己无法应用任何你学到的东西。
 
-Fifteen minutes of actually coding can often teach you more than an hour of consuming information.
+写 15 分钟的代码比上你光看一小时的教程有用多了。
 
-## Mistake #9: Following Tutorials Without Understanding or Experimenting
+## 错误 #9：看没有详细讲解或实验的教程
 
-When reading tutorials, it’s tempting to just copy the steps in a linear way. This approach doesn’t teach the process of solving a problem, which typically involves experimenting and taking small steps in various directions. As a result, someone who follows tutorials in a linear way will often be unable to apply the knowledge afterwards.
+阅读教程时，只需要线性方式复制步骤即可。 这种方法并不教导解决问题的过程，这通常涉及在各个方面进行实验和采取小步骤。 因此，以线性方式遵循教程的人往往无法应用知识。
 
-So what’s the solution?
+那么解决方案是什么？
 
-Instead of copying each step, take time to experiment. For example, if you’re doing a slideshow tutorial, experiment with showing and hiding divs, then experiment with timing, and then try another small piece. You’ll learn much more through experiments than through the linear approach, and you’ll be able to apply it better too.
+不要光复制每一步，花点儿时间去自己实现。例如，如果您正在进行幻灯片教程，请尝试显示和隐藏 div，然后尝试计时，然后尝试另一个小部分。 您将通过实验学习更多，而不是通过线性方法学习更多，您也可以更好地应用它。
 
-## Key Takeaways
+## 小贴士
 
-If there’s one thing I want you to remember from this article, it’s that you’ll make the biggest progress by taking the smallest steps.
+如果有一件事我想让你记住这篇文章，那就是通过采取最小的步骤来取得最大的进步。
 
-Whatever it is you’re learning, get comfortable with the fundamentals. Experiment with what you’ve learned, and have fun.
+无论你在学习什么，都可以很好的理解基础知识。 尝试你学到的东西，玩得开心。
 
-It might be difficult sometimes, but that’s good. The challenge means you’re stretching your abilities, and that’s what will make you improve. If everything is always too easy, that might mean something needs to change.
+有时可能很困难，但这很好。 挑战意味着你正在扩展你的能力，这将使你进步。 如果一切总是太容易，这可能意味着某些东西需要改变。
 
-I hope this has been helpful, and if there’s anything that has helped you learn JavaScript, feel free to share in the comments!
-
+我希望这是有帮助的，如果有什么可以帮助你学习 JavaScript，请随时分享评论！
 
 ---
 
