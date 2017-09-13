@@ -49,8 +49,7 @@
 在我的搭建案例中，我使用他们的搭建文章作为参考，并创建了一个搭建清单，可以在[这里](https://pcpartpicker.com/user/quietning/saved/#view=YP6v6h)找到。以下是我搭建工作站使用的配件。
 ![](http://guanghan.info/blog/en/wp-content/uploads/2016/07/IMG_20160707_191958-Copy.jpg)
 
-Since we are doing deep learning research, a good GPU is necessary. Therefore, I choose the recently released GTX 1080. It was quite hard to buy, but if you notice the bundles in newegg, some people are gathering this to sell in [GPU + motherboard] or [GPU + Power] bundles. Market, you know. It is better buying the bundle than buying it at a raised price, though. Anyway, a good GPU will make the training or finetuning process much faster. Here are some figures to show the advantage of GTX 1080 over some other GPUs, with respect to performance, price, and power efficiency (saves you electricity daily and the money to buy the appropriate PC power supply).
-由于我们正在进行深度学习研究，一个好的 GPU 是非常有必要的。因此，我选择了新近发布的 GTX 1080。但很难买到，但是如果你注意到 newegg (新蛋网，美国新蛋网是电子数码产品销售网站) 上的捆绑销售，一些人。你懂得，这就是市场。购买捆绑产品会。不管怎样，一个高的 GPU 将会加快训练和过程。以下是一些 GTX 1080 同其他品牌 GPU 的优势，在性能，价格和耗电量（）
+由于我们正在进行深度学习研究，一个好的 GPU 是非常有必要的。因此，我选择了新近发布的 GTX 1080。但很难买到，但是如果你注意到 newegg (新蛋网，美国新蛋网是电子数码产品销售网站) 上的捆绑销售，一些人已经囤到货并组合 [GPU + 主板] 或 [GPU + 电源] 进行捆绑销售。你懂得，这就是市场。购买捆绑产品会比买一个价格高的要好。不管怎样，一个好的 GPU 将会加快训练和 fine-tuning 过程。以下是一些 GTX 1080 同其他品牌 GPU 的优势，在性能，价格和耗电量（节约日常用电量和用于购买合适 PC 电源的开支）。
 
 ![](http://guanghan.info/blog/en/wp-content/uploads/2016/07/gtx_1.png)
 
@@ -83,7 +82,6 @@ Since we are doing deep learning research, a good GPU is necessary. Therefore, I
 
 #### 安装 Ubuntu：
 
-First things first, insert the boot USB for installation. Nothing is showing on my LG screen, except that it says frequency is too high. But the screen is okay, as is tested on another laptop. I tried to connect the PC with a TV, which was showing, but only the desktop with no tool panel. I figured out it was the problem of the NVIDIA driver. So I went to BIOS and set the integrated graphics as default and restart. Remember to switch the HDMI from the port on GTX1080 to that on the motherboard. Now the display works well. I successfully installed Ubuntu following its prompt guides.
 首先，插入用于安装系统的引导 USB。在我的 LG 显示屏上并没有出现任何东西，除了显示频率太高。但是显示屏是正常的，因为在另一台笔记本上测试过了。我试着将 PC 连接到 电视上，可以在电视上正常显示，但仅有桌面没有工具面板。我发现这是 NVIDIA 驱动的问题。因此我打开 BIOS，并设置集成图像作为默认设置并重启。记得要把 HDMI 从 GTX1080 端口上的接口切换到主板上。现在这个显示器工作得很好。我按照提示指南成功地安装了 Ubuntu。
 ![](http://guanghan.info/blog/en/wp-content/uploads/2016/07/installing_ubuntu.png)
 
@@ -140,8 +138,8 @@ Pycharm：
 
 - 优点：模块化编码、更完整的web开发框架和跨平台的IDE。
 
-In my personal philosophy, I regard them to be merely tools. Each tool will be used when it comes in handy. I will use IDEs for the construction of the backbone for the project. For example, use pycharm for the framework construction. After that, I will just modify code with VIM. It is not that VIM is so powerful and showy, but because it is the single text editor that I want to really master. As of text editors, there is no need we should master two. For special occasions, where we need to frequently check IO, directories, etc, we might want to use spyder instead.
-在我的个人哲学中，我认为它们只是工具。每个工具在手边都可以使用。我将使用ide来构建项目的主干。例如，在框架结构中使用py符咒。之后，我将使用VIM修改代码。这并不是说VIM是如此强大和花哨，而是因为它是我想真正掌握的单一文本编辑器。至于文本编辑器，我们不需要掌握两个。在特殊情况下，我们需要频繁地检查IO、目录等，我们可能希望使用spyder。
+在我的个人哲学中，我认为它们只是工具。当使用时每个工具就会派上用场。我将使用 IDE 来构建主项目。例如，使用 pycharm 构建框架。然后，我仅用 vim 修改代码。这并不是说 VIM 有多么的强大和花哨。之后，我将使用VIM修改代码。而是因为它是我想真正掌握的文本编辑器。对于文本编辑器，我们不需要掌握两个。在特殊情况下，我们需要频繁地检查IO、目录等，我们可能希望使用 spyder。
+
 #### 安装：
 
 1. spyder：
@@ -172,16 +170,16 @@ In my personal philosophy, I regard them to be merely tools. Each tool will be u
 
 ##### [安装 CUDA 8.0 RC](https://developer.nvidia.com/cuda-release-candidate-download): 选择 7.5 以上版本的 8.0 版本有两个原因：
 
-- CUDA 8.0 will give a performance gain for GTX1080 (Pascal), compared to CUDA 7.5.
-- It seems that ubuntu 16.04 does not support CUDA 7.5 because you cannot find it to download on the official website. Therefore CUDA 8.0 is the only choice.
+- 相比于 CUDA 7.5，CUDA 8.0 将会提高 GTX1080 (Pascal) 的性能。
+- ubuntu 16.04 似乎不支持 CUDA 7.5，因为你在官网上找不到它。因此 CUDA 8.0 是唯一的选择。
 
 ##### [CUDA 入门指南](http://developer.download.nvidia.com/compute/cuda/8.0/secure/rc1/docs/sidebar/CUDA_Quick_Start_Guide.pdf?autho=1468531210_b9ce6047a5b7cb575fde7a6ffd6ad729&file=CUDA_Quick_Start_Guide.pdf)
 
 ##### [CUDA 安装指南](http://developer.download.nvidia.com/compute/cuda/8.0/secure/rc1/docs/sidebar/CUDA_Installation_Guide_Linux.pdf?autho=1468531209_7b8d97cef95dffcb18e2fecb656b8a85&file=CUDA_Installation_Guide_Linux.pdf)
 
 1. sudo sh cuda_8.0.27_linux.run
-2. Follow the command-line prompts
-3. As part of the CUDA environment, you should add the following in the ~/**.bashrc**  file of your home folder.
+2. 按照命令提示
+3. 作为 CUDA 环境一部分，你需要在你主目录的 添加日下的字符串you should add the following in the ~/**.bashrc**  file of your home folder.
 
 - export CUDA_HOME=/usr/local/cuda-8.0
 - export LD_LIBRARY_PATH=${CUDA_HOME}/lib64
@@ -196,7 +194,7 @@ In my personal philosophy, I regard them to be merely tools. Each tool will be u
 
 ##### [安装 cudnn](https://developer.nvidia.com/cudnn)
 
-- Version：Cudnn v5.0 for CUDA 8.0RC
+- 版本：Cudnn v5.0 for CUDA 8.0RC
 
 ##### [用户指南](http://developer.download.nvidia.com/compute/machine-learning/cudnn/secure/v5/prod/cudnn_library.pdf?autho=1468531134_f12a2097cf581a5659608091857f7326&file=cudnn_library.pdf)
 
@@ -226,7 +224,7 @@ In my personal philosophy, I regard them to be merely tools. Each tool will be u
 
 - conda create -n tensorflow python=3.5
 
-2. [在环境中使用 Pip 安装 Tensorflow](https://www.tensorflow.org/versions/r0.9/get_started/os_setup.html#anaconda-installation) (It does NOT supports cuda 8.0 at the moment. I will update this when binaries for CUDA 8.0 come out)
+2. [在环境中使用 Pip 安装 Tensorflow](https://www.tensorflow.org/versions/r0.9/get_started/os_setup.html#anaconda-installation) (目前不支持 cuda 8.0。当 CUDA 8.0 的二进制文件发布后我将会进行更新)
 
 - source activate tensorflow
 - sudo apt install python3-pip
@@ -250,7 +248,7 @@ bazel-bin/tensorflow/cc/tutorials_example_trainer –use_gpu.
 
 3. [Change the default backend](http://keras.io/backend/) from theano to tensorflow
 
-##### Use conda to activate/deactivate the virtual environment
+##### 使用 conda 在虚拟环境间进行切换
 
 1. source activate tensorflow
 2. source deactivate
@@ -312,8 +310,7 @@ bazel-bin/tensorflow/cc/tutorials_example_trainer –use_gpu.
 
 ### 开箱即用的深度学习环境：Docker
 
-I used to have caffe, darknet, mxnet, tensorflow all installed correctly in Ubuntu 14.04 and TITAN-X (cuda7.5). And I have done projects with these frameworks, all turning out working well. It is therefore safer to use these pre-built environments than adventuring with latest versions, if you want to focus on the deep learning research instead of being potentially bothered by peripheral problems you may encounter. Then you should consider isolate each framework with its own environment using docker. These docker images can be found in [DockerHub](https://hub.docker.com/). 
-我已经在 Ubuntu 14.04 和 TITAN-X (cuda7.5) 上 正确的安装过caffe, darknet, mxnet, tensorflow等。使用这些框架我已经完成了。项目
+我已经在 Ubuntu 14.04 和 TITAN-X (cuda7.5) 上正确的安装过c affe，darknet，mxnet，tensorflow等。我已经完成了这些框架的项目，一切都很顺利。因此，如果你想专注于深度学习的研究，而不是被你可能遇到的外围问题所困扰，那么使用这些预先构建的环境比使用最新版本更安全。然后，您应该考虑使用 docker 将每个框架与它自己的环境隔离开来。这些 docker 镜像可以在[DockerHub](https://hub.docker.com/)中找到。
 
 #### 安装 Docker 
 
@@ -341,8 +338,8 @@ NVIDIA-Docker 的安装从 [这里](https://github.com/NVIDIA/nvidia-docker)可�
 
 #### 了解简单的 命令
 
-Don’t be overwhelmed  if you are new to docker. It does not need to be systematically studied unless you want to in the future.Here are some simple commands for you to use to start dealing with docker. Usually they are sufficient if you consider Docker a tool, and want to use it solely for a deep learning environment.
-如果你是一个 docker 新手，不要不知所措。它不需要系统的学习除非你将来需要。以下是一些在 docker 上 使用的简单命令。如果你认为 docker 是一个工具，这些命令足够了， 
+如果你是一个 docker 新手，不要不知所措。它不需要系统的学习除非你将来需要。以下是一些在 docker 上 使用的简单命令。如果你认为 docker 是一个工具，这些命令足够了，并且仅仅是为了深度学习而使用它。
+
 ##### 如何检查 docker 镜像？
 
 - docker images： 查询所有安装的 docker 镜像。
@@ -358,7 +355,7 @@ Don’t be overwhelmed  if you are new to docker. It does not need to be systema
 
 - exit
 
-2. (方法 2) 使用 [Ctrl + Alt + T] 打开一个新终端，或者使用 [Ctrl + Shift + T] 打开一个新终端tab：
+2. (方法 2) 使用 [Ctrl + Alt + T] 打开一个新终端，或者使用 [Ctrl + Shift + T] 打开一个新终端：
 
 - docker ps -a：查询安装的镜像。
 - docker ps: 查询运行的容器。
@@ -372,20 +369,20 @@ Don’t be overwhelmed  if you are new to docker. It does not need to be systema
 
 - docker rm [docker_container_name]
 
-5. 如何制作我们自己的 docker 镜像， based on one that is from someone else？（Update a container created from an image and commit the results to an image.）如何创建我们自己的 docker 镜像，
+5. 基于已经存在的镜像如何制作我们自己的 docker 镜像？（从一个已经创建的镜像更新容器并且将结果提交到镜像。）如何创建我们自己的 docker 镜像。
 
-- load image，open a container
-- do some changes in the container
--commit to the image: docker commit -m “Message: Added changes” -a “Author: Guanghan”  0b2616b0e5a8 ning/cuda-mxnet
+- 加载镜像，打开一个容器
+- 在容器中做一些修改
+-提交镜像：docker commit -m “Message: Added changes” -a “Author: Guanghan”  0b2616b0e5a8 ning/cuda-mxnet
 
-6. 在主机和 dockeer 容器之间 拷贝数据：
+6. 在主机和 docker 容器之间拷贝数据：
 
 - docker cp foo.txt mycontainer:/foo.txt
 - docker cp mycontainer:/foo.txt foo.txt
 
 7. 从 docker 镜像中打开一个容器：
 
-- If the container is to be saved because it is probably to be committed: docker run -it [image_name]
+- 是否需要保存这个容器，因为它是可以被提交的：docker run -it [image_name]
 - 如果容器只是暂时使用：docker run –rm -it [image_name]
 
 欢迎发表评论
