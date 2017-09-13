@@ -8,13 +8,13 @@
 
 # 搭建个人深度学习平台：GTX 1080 + Ubuntu 16.04 + CUDA 8.0RC + CuDnn 7 + Tensorflow/Mxnet/Caffe/Darknet
 
-我在 TCL 的实习即将结束。在回校园参加毕业典礼之前，我决定搭建自己的个人深度学习平台。我想我不能真的依赖于公司或实验室的机器，因为最终工作站不是我的，而且开发环境可能是一团糟(它已经发生过一次)。有了个人平台，我可以方便地使用 teamviewer 随时登陆我的深度学习工作站。我有机会从头开始搭建平台。
+我在 TCL 的实习即将结束。在回校参加毕业典礼之前，我决定搭建自己的个人深度学习平台。我想我不能真的依赖于公司或实验室的机器，因为最终工作站不是我的，而且开发环境可能是一团糟(它已经发生过一次)。有了个人平台，我可以方便地使用 teamviewer 随时登陆我的深度学习工作站。我有机会从头开始搭建平台。
 
-在本文中，我将介绍搭建深度学习 PC 的挣个过程。包括硬件和软件。在此，我分享给大家，希望对具有相同需求的研究人员和工程师有所帮助。由于我使用 **GTX 1080, Ubuntu 16.04, CUDA 8.0RC, CuDnn 7** 搭建平台，这些都是最新版本。以下是这篇文章的概述：
+在本文中，我将介绍搭建深度学习 PC 的整个过程。包括硬件和软件。在此，我分享给大家，希望对具有相同需求的研究人员和工程师有所帮助。由于我使用 **GTX 1080、Ubuntu 16.04、CUDA 8.0RC、CuDnn 7** 搭建平台，这些都是最新版本。以下是这篇文章的概述：
 
 **硬件**
 
-1. 选择部分
+1. 配件选择
 2. 搭建工作站
 
 **软件**
@@ -42,68 +42,65 @@
 
 ## 硬件：
 
-### 选择部分
+### 配件选择
 
-I recommend using **PcPartPicker** to pick your parts. It helps you find the source where you can buy your part with the lowest price available, and it checks the compatibility of the selected parts for you. They also have a **youtube channel** where they offer videos that demonstrate the building process.
 我推荐使用 **PcPartPicker** 来挑选配件。它可以帮助你以最低价购买到配件，并检查所选配件的兼容性。他们还上线了一个 **youtube 频道**，你可以找到他们提供的搭建过程的视频。
 
 在我的搭建案例中，我使用他们的搭建文章作为参考，并创建了一个搭建清单，可以在[这里](https://pcpartpicker.com/user/quietning/saved/#view=YP6v6h)找到。以下是我搭建工作站使用的配件。
 ![](http://guanghan.info/blog/en/wp-content/uploads/2016/07/IMG_20160707_191958-Copy.jpg)
 
 Since we are doing deep learning research, a good GPU is necessary. Therefore, I choose the recently released GTX 1080. It was quite hard to buy, but if you notice the bundles in newegg, some people are gathering this to sell in [GPU + motherboard] or [GPU + Power] bundles. Market, you know. It is better buying the bundle than buying it at a raised price, though. Anyway, a good GPU will make the training or finetuning process much faster. Here are some figures to show the advantage of GTX 1080 over some other GPUs, with respect to performance, price, and power efficiency (saves you electricity daily and the money to buy the appropriate PC power supply).
-由于我们正在进行深度学习研究，一个好的 GPU 是非常有必要的。因此，我选择了最新发布的 GTX 1080。但很难买到，
+由于我们正在进行深度学习研究，一个好的 GPU 是非常有必要的。因此，我选择了新近发布的 GTX 1080。但很难买到，但是如果你注意到 newegg (新蛋网，美国新蛋网是电子数码产品销售网站) 上的捆绑销售，一些人。你懂得，这就是市场。购买捆绑产品会。不管怎样，一个高的 GPU 将会加快训练和过程。以下是一些 GTX 1080 同其他品牌 GPU 的优势，在性能，价格和耗电量（）
 
 ![](http://guanghan.info/blog/en/wp-content/uploads/2016/07/gtx_1.png)
 
 ![](http://guanghan.info/blog/en/wp-content/uploads/2016/07/gtx_2.png)
 
-Note that GTX 1080 has only 8GB memory, compared to 12GB of TITAN X. You may be richer or more generous to yourself, therefore considering using stacked GPUs. Then remember to choose another motherboard that has more PCIs.
+注意 相比于 12GM 内存的TITAN X，GTX 1080 仅有 8GB，你可能手头宽裕或更慷慨，因此会选择使用堆叠式 GPU。然后记得选择一个带有更多 PCI 的主板。
 
-### Build from Parts
+### 配件组装
 
-As of building from the parts, I followed the tutorial of [this video]. Although the parts are slightly different, the building process is quite similar. I have no previous experience building by my own, but with this tutorial I was able to make it work within 3 hours. (It should take you less time, but I was extremely cautious, you know.)
-
+平台搭建从配件组装开始，我参考了 [这段视频] 教程。虽然各个部分略有不同，但搭建过程非常相似。我没有一点组装经验，但是有了这个教程，我就能在 3 小时内完成组装。（你可能花费更少的时间，但你知道，我非常谨慎）
 ![](http://guanghan.info/blog/en/wp-content/uploads/2016/07/IMG_20160708_020941-Copy.jpg)
 
 ## 软件：
 
 ### 操作系统安装
 
-通常采用 Ubuntu 进行深度学习研究。但是有时你需要使用另一操作系统协同工作。例如，如果 if you are also a VR developer, having a GTX 1080, you may want a Win10 for VR development with Unity or whatsoever. Here I introduce the installation of both Win10 and Ubuntu. If you are only interested in the Ubuntu installation, you can skip installing windows.
+通常采用 Ubuntu 进行深度学习研究。但是有时你需要使用另一操作系统协同工作。例如，如果你使用 GTX 1080，同时又是一位 VR 开发者，你可能需要使用 Win10 进行基于 Unity 或 其他框架的 VR 开发。以下我将介绍 Win10 和 Ubuntu 的安装。如果你仅对 Ubuntu 的安装感兴趣，你可以跳过 windows 安装。
 
 #### 准备可引导安装的 USB 驱动器
 
-It is very convenient to install operating systems with USB disks, as we all have them. Because the USB disks will be formatted, you won’t want that happen to your portable hard disk. Or if you have writable DVDs, you can use them to install operating systems and save them for future use, if you can find them again by then.
+使用 USB 盘安装操作系统非常方便，因为我们几乎人手一个。由于USB盘将被格式化，所以您不希望在便携硬盘上发生这种情况。或者如果你有可写的dvd，你可以用它们来安装操作系统，并保存它们以备将来使用，如果你能在那时再找到它们的话。
 
-Since it is well illustrated in the official website, you can go to [Windows 10 page](https://www.microsoft.com/en-us/software-download/windows10/) to learn how to make the USB drive.As of Ubuntu, you can similarly download the ISO and create USB installation media or burn it to a DVD. If you are now using Ubuntu system, follow [this tutorial](http://www.ubuntu.com/download/desktop/create-a-usb-stick-on-ubuntu) from Ubuntu official website. If you are current using Windows, follow [this tutorial](http://www.ubuntu.com/download/desktop/create-a-usb-stick-on-windows) istead.
+由于在官方网站上已经很好的说明了，你可以访问 [Windows 10 页面](https://www.microsoft.com/en-us/software-download/windows10/) 学习如何制作 USB 驱动。对于 Ubuntu，你可以同样下载 ISO 并构建 USB 安装媒体或者刻录到 DVD 上。如果你正在使用 Ubuntu 系统，参考 Ubuntu 官方网站的 [教程](http://www.ubuntu.com/download/desktop/create-a-usb-stick-on-ubuntu)。 如果你在使用 Windows，参考 [本教程](http://www.ubuntu.com/download/desktop/create-a-usb-stick-on-windows)。
 
 #### 系统安装
 
 It is highly recommended that you install windows first for a dual-system installation. I will skip win10 installation as detailed guide can be found here: [Windows 10 page](https://www.microsoft.com/en-us/software-download/windows10/) . One thing to note is that you will need the activation key. You can find the tag on the bottom of your laptop, if it has been installed windows 7 or windows 10 upon purchasing.
-
-Installing Ubuntu16.04 was a little tricky for me, which was kind of a surprise. It was mainly because I did not have the GTX 1080 driver pre-installed at the very beginning. I will share my story with you, in case you encounter the same problems.
+强烈建议安装 windows 为主系统的双系统。我将会跳过 win10 的安装
+安装 Ubuntu16.04 时遇到点小麻烦，这有些出乎意料。这主要是因为一开始我就没有安装 GTX 1080 驱动。我将把这些分享给大家，以防你遇到同样的问题。
 
 #### 安装 Ubuntu：
 
 First things first, insert the boot USB for installation. Nothing is showing on my LG screen, except that it says frequency is too high. But the screen is okay, as is tested on another laptop. I tried to connect the PC with a TV, which was showing, but only the desktop with no tool panel. I figured out it was the problem of the NVIDIA driver. So I went to BIOS and set the integrated graphics as default and restart. Remember to switch the HDMI from the port on GTX1080 to that on the motherboard. Now the display works well. I successfully installed Ubuntu following its prompt guides.
-
+首先，插入用于安装系统的引导 USB。在我的 LG 显示屏上并没有出现任何东西，除了显示分辨率太高。但是显示屏是正常的，因为在另一台笔记本上测试过了。我试着将 PC 连接到 电视上，可以在电视上正常显示，
 ![](http://guanghan.info/blog/en/wp-content/uploads/2016/07/installing_ubuntu.png)
 
-In order to use GTX1080, go to [this page](http://www.nvidia.com/download/driverResults.aspx/104284/en-us) to get the NVIDIA display driver for Ubuntu. Upon installing this driver, make sure that GTX1080 is on the motherboard.
-Now it shows “You appear to be running an X server.. “.  I followed [this link](http://askubuntu.com/questions/149206/how-to-install-nvidia-ru) to solve this problem and installed the driver. I quote it here:
+为了使用 GTX1080，请访问 [本页面](http://www.nvidia.com/download/driverResults.aspx/104284/en-us) 获取 基于 Ubuntu 的 NVIDIA 显卡驱动display。安装好驱动后，确保 GTX1080 在主板上。
+现在屏幕上显示 “You appear to be running an X server.. “。 我参考了 [本链接](http://askubuntu.com/questions/149206/how-to-install-nvidia-ru) 来解决这个问题并安装驱动。我在这里引用下：
 
-- Make sure you are logged out.
-- Hit CTRL+ALT+F1and login using your credentials.
-- kill your current X server session by typing sudo service lightdm stopor sudo stop lightdm
-- Enter runlevel 3 by typing sudo init 3and install your *.run file.
-- You might be required to reboot when the installation finishes. If not, run sudo service lightdm startor sudo start lightdm to start your X server again.
+- 确保登出系统。
+- 同时按住 CTRL+ALT+F1 并用你的授权进行登录。
+- 通过运行 sudo service lightdm stop 或 sudo stop lightdm 杀死当前的 X 服务会话。
+- 通过运行 sudo init 3 进入到第三等级 并安装 *.run 文件。
+- 当安装结束，你需要重启系统。如果没有重启，运行 sudo service lightdm start 或 sudo start lightdm 重新启动 X 服务。
 
-After installing the driver, we can now restart and set the GTX1080 as default in BIOS. We are good to go.
+驱动器安装完后，我们需要重启并在 BIOS 中 将 GTX1080 设置为默认。此时，我们已经准备好了。
 
-Some other small problems I encountered are listed here, in case they are helpful:
-
-- Problem: When I restart, I couldn’t find the option to choose windows.
-- Solver: In ubuntu, **sudo gedit /boot/grub/grub.cfg**, add following lines:
+我遇到的其他一些小问题，以备将来使用：
+- 问题: 当我重启时，我不能找到选项来选择 windows。
+- 解决方案: 在 ubuntu 下，**sudo gedit /boot/grub/grub.cfg**, 增加如下行：
 
 ```
 menuentry ‘Windows 10′{
@@ -112,10 +109,10 @@ menuentry ‘Windows 10′{
 }
 ```
 
-- Problem: Ubuntu does not support wireless adapter Belkin N300, which is commonly sold in Bestbuy.
-- Solver: Follow instructions in [this link](https://ubuntuforums.org/showthread.php?t=1515747), the problem will be solved.
-- Problem: Upon installing teamviewer, it says “dependencies not met”
-- Solver: Refer to [this link](http://askubuntu.com/questions/362951/installed-teamviewer-using-a-64-bits-system-but-i-get-a-dependency-error/363083).
+- 问题: Ubuntu 不支持 百思买经常出售的这款 Belkin N300 无线适配器，
+- 解决方案: 参考 [本链接](https://ubuntuforums.org/showthread.php?t=1515747) 的指南, 问题将会被解决。
+- 问题: 安装好 teamviewer 后，提示 “dependencies not met”
+- 解决方案: 参考 [本链接](http://askubuntu.com/questions/362951/installed-teamviewer-using-a-64-bits-system-but-i-get-a-dependency-error/363083).
 
 ### 深度学习环境 
 
@@ -125,7 +122,7 @@ dpkg -i teamviewer_11.0.xxxxx_i386.deb
 
 #### 包管理工具安装 (Anaconda)：
 
-Anaconda is an easy-to-install free package manager, environment manager, Python distribution, and collection of over 720 open source packages offering free community support.It can be used to create virtual environments, where each environment will not mess up with each other. It is helpful when we use different deep learning frameworks at the same time, and the configurations are different.Using it to install packages is convenient as well.It can be easily installed, [follow this](https://docs.continuum.io/anaconda/install#linux-install).
+Anaconda 是一个易于安装的免费包管理工具, 环境管理工具environment manager, Python distribution, and collection of over 720 open source packages offering free community support.It can be used to create virtual environments, where each environment will not mess up with each other. It is helpful when we use different deep learning frameworks at the same time, and the configurations are different.Using it to install packages is convenient as well.It can be easily installed, [follow this](https://docs.continuum.io/anaconda/install#linux-install).
 
 Some commands to start using virtual environment:
 
@@ -192,7 +189,7 @@ In my personal philosophy, I regard them to be merely tools. Each tool will be u
 - PATH=${CUDA_HOME}/bin:${PATH}
 - export PATH
 
-4. 验证是否 CUDA 安装（记住需要重启 terminal）：
+4. 验证是否安装 CUDA（记住需要重启 terminal）：
 
 - nvcc –version
 
@@ -266,7 +263,7 @@ bazel-bin/tensorflow/cc/tutorials_example_trainer –use_gpu.
 1. conda create -n mxnet python=2.7
 2. source activate mxnet
 
-##### Follow the [official website](http://mxnet-mli.readthedocs.io/en/latest/how_to/build.html#building-on-ubuntu-debian) to install mxnet
+##### 参考 [官方网站](http://mxnet-mli.readthedocs.io/en/latest/how_to/build.html#building-on-ubuntu-debian) 安装 mxnet
 
 1. sudo apt-get update
 2. sudo apt-get install -y build-essential git libatlas-base-dev libopencv-dev
@@ -277,38 +274,38 @@ bazel-bin/tensorflow/cc/tutorials_example_trainer –use_gpu.
 7. make clean_all
 8. make -j4
 
-- One problem I encountered was，”gcc version later than 5.3 not supported!” My gcc version was 5.4, and I had to remove it.
+- 我遇到的一个问题是，“高于 5.3 版本的 gcc 是不支持的！”, 而我的 gcc 为 5.4，因此我不得不删除它。
 
 > - apt-get remove gcc g++
 > - conda install -c anaconda gcc=4.8.5
 > - gcc –version
 
-##### [Python package install](http://mxnet-mli.readthedocs.io/en/latest/how_to/build.html#python-package-installation) for mxnet
+##### 用于 mxnet 的[Python 包安装](http://mxnet-mli.readthedocs.io/en/latest/how_to/build.html#python-package-installation)
 
 1. conda install -c anaconda numpy=1.11.1
-2. Method 1:
+2. 方法 1：
 
 - cd python; sudo python setup.py install
 - sudo apt-get install python-setuptools
 
-3. Method 2:
+3. 方法 2：
 
 - cd mxnet
 - cp -r ../mxnet/python/mxnet .
 - cp ../mxnet/lib/libmxnet.so mxnet/
 
-4. Quick test：
+4. 快速测试：
 
 - python example/image-classification/train_mnist.py
 
-5. GPU test:
+5. GPU 测试：
 
 - python example/image-classification/train_mnist.py –network lenet –gpus 0
 
 #### Caffe
 
-1. Follow this detailed guide:  [Caffe Ubuntu 16.04 or 15.10 Installation Guide](https://github.com/BVLC/caffe/wiki/Ubuntu-16.04-or-15.10-Installation-Guide)
-2. OpenCV is needed. For Installation of Opencv 3.1, refer to this link: [Ubuntu 16.04 or 15.10 OpenCV 3.1 Installation Guide](https://github.com/BVLC/caffe/wiki/Ubuntu-16.04-or-15.10-OpenCV-3.1-Installation-Guide)
+1. 参考详细指南：[Caffe Ubuntu 16.04 或 15.10 安装指南](https://github.com/BVLC/caffe/wiki/Ubuntu-16.04-or-15.10-Installation-Guide)
+2. 需要安装 OpenCV。Opencv 3.1 的安装，参考以下链接：[Ubuntu 16.04 或 15.10 OpenCV 3.1 安装指南](https://github.com/BVLC/caffe/wiki/Ubuntu-16.04-or-15.10-OpenCV-3.1-Installation-Guide)
 
 #### Darknet
 
@@ -322,25 +319,24 @@ I used to have caffe, darknet, mxnet, tensorflow all installed correctly in Ubun
 
 Unlike virtual machines, a docker image is built with layers. Same ingredients are shared among different images. When we download a new image, existing components won’t be re-downloaded. It is more efficient and convenient compared to the replacement of the whole virtual machine image. Docker containers are like the run-time of docker images. They can be committed and used to update docker images, just like Git.
 
-To install docker on Ubuntu 16.04, we follow instructions on [the official website](https://docs.docker.com/engine/installation/linux/ubuntulinux/).
+要在 Ubuntu 16.04 上安装 docker，我们可以参考 [官方网站](https://docs.docker.com/engine/installation/linux/ubuntulinux/) 的指南。
 
 #### 安装 NVIDIA-Docker
 
 Docker containers are both hardware-agnostic and platform agnostic, but docker does not natively support NVIDIA GPUs with containers. (The hardware is specialized, and driver is needed.) To solve this problem, we need the nvidia-docker to mount the devices and driver files when starting the container on the target machine. In this way, the image is agnostic of the Nvidia driver.
 
-The installation of NVIDIA-Docker can be found [here](https://github.com/NVIDIA/nvidia-docker).
+NVIDIA-Docker 的安装从 [这里](https://github.com/NVIDIA/nvidia-docker)可以找到。
 
 #### 下载深度学习 Docker 镜像 
 
-I have collected some pre-built docker images from the Docker Hub. They are listed here:
-
+我从 docker Hub 收集了一些预购建镜像。以下是这些手机的镜像列表
 - cuda-caffe
 - cuda-mxnet
 - cuda-keras-tensorflow-jupyter
 
-#### More can be easily found on docker hub.
+#### 可以在 docker hub 上找到更多镜像。
 
-Share Data between Host and Container
+在主机和容器间共享数据
 For computer vision researchers, it will be awkward not to see results.For instance, after adding some Picasso style to an image, we would definitely want to the output images from different epoches.Check out [this page](https://github.com/rocker-org/rocker/wiki/Sharing-files-with-host-machine) quickly to share data between the host and the container.In a shared directory, we can create projects. On the host, we can start coding with text editors or whatever IDEs we prefer. And then we can run the program in the container.The data in the shared container can be viewed and processed with the GUI of the host Ubuntu machine.
 
 #### 了解简单的 命令
@@ -358,39 +354,39 @@ Don’t be overwhelmed  if you are new to docker. It does not need to be systema
 
 ##### 如何退出 docker 容器？
 
-1. (Method 1) In the terminal corresponding the current container:
+1. (方法 1) 在对应于当前容器的终端输入：
 
 - exit
 
-2. (Method 2) Use [Ctrl + Alt + T] to open a new terminal, or use [Ctrl + Shift + T] to open a new terminal tab：
+2. (方法 2) 使用 [Ctrl + Alt + T] 打开一个新终端，或者使用 [Ctrl + Shift + T] 打开一个新终端tab：
 
 - docker ps -a：Check the containers you have.
 - docker ps: Check the running container(s).
 - docker stop [container’s ID]: Stop this container.
 
-3. How to remove a docker image？
+3. 如何删除一个 docker 镜像？
 
 - docker rmi [docker_image_name]
 
-4. How to remove a docker container？
+4. 如何删除一个 docker 容器？
 
 - docker rm [docker_container_name]
 
-5. How to create our own docker image, based on one that is from someone else？（Update a container created from an image and commit the results to an image.）
+5. 如何制作我们自己的 docker 镜像， based on one that is from someone else？（Update a container created from an image and commit the results to an image.）如何创建我们自己的 docker 镜像，
 
 - load image，open a container
 - do some changes in the container
 -commit to the image: docker commit -m “Message: Added changes” -a “Author: Guanghan”  0b2616b0e5a8 ning/cuda-mxnet
 
-6. Copy data between host and the docker container：
+6. 在主机和 dockeer 容器之间 拷贝数据：
 
 - docker cp foo.txt mycontainer:/foo.txt
 - docker cp mycontainer:/foo.txt foo.txt
 
-7. Open a container from a docker image：
+7. 从 docker 镜像中打开一个容器：
 
 - If the container is to be saved because it is probably to be committed: docker run -it [image_name]
-- If the container is only for temporary use: docker run –rm -it [image_name]
+- 如果容器只是暂时使用：docker run –rm -it [image_name]
 
 欢迎发表评论
 
