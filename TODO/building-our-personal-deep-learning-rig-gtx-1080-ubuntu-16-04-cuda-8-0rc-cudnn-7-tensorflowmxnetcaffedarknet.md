@@ -46,7 +46,7 @@
 
 我推荐使用 **PcPartPicker** 来挑选配件。它可以帮助你以最低价购买到配件，并检查所选配件的兼容性。他们还上线了一个 **youtube 频道**，你可以找到他们提供的搭建过程的视频。
 
-在我的搭建案例中，我使用他们的搭建文章作为参考，并创建了一个搭建清单，可以在[这里](https://pcpartpicker.com/user/quietning/saved/#view=YP6v6h)找到。以下是我搭建工作站使用的配件。
+在我的搭建案例中，我使用他们的搭建文章作为参考，并创建了一个搭建清单，可以在 [这里](https://pcpartpicker.com/user/quietning/saved/#view=YP6v6h) 找到。以下是我搭建工作站使用的配件。
 ![](http://guanghan.info/blog/en/wp-content/uploads/2016/07/IMG_20160707_191958-Copy.jpg)
 
 由于我们正在进行深度学习研究，一个好的 GPU 是非常有必要的。因此，我选择了新近发布的 GTX 1080。但很难买到，但是如果你注意到 newegg (新蛋网，美国新蛋网是电子数码产品销售网站) 上的捆绑销售，一些人已经囤到货并组合 [GPU + 主板] 或 [GPU + 电源] 进行捆绑销售。你懂得，这就是市场。购买捆绑产品会比买一个价格高的要好。不管怎样，一个好的 GPU 将会加快训练和 fine-tuning 过程。以下是一些 GTX 1080 同其他品牌 GPU 的优势，在性能，价格和耗电量（节约日常用电量和用于购买合适 PC 电源的开支）。
@@ -76,7 +76,7 @@
 
 #### 系统安装
 
-强烈建议安装 windows 为主系统的双系统。我将会跳过 win10 的安装，因为详细的安装指南可以从[Windows 10 主页](https://www.microsoft.com/en-us/software-download/windows10/)找到。需要注意的一点是，你需要使用激活码。如果在你的笔记本电脑上安装了windows 7 或windows 10，你可以在你的笔记本电脑底部找到标签。
+强烈建议安装 windows 为主系统的双系统。我将会跳过 win10 的安装，因为详细的安装指南可以从 [Windows 10 主页](https://www.microsoft.com/en-us/software-download/windows10/) 找到。需要注意的一点是，你需要使用激活码。如果在你的笔记本电脑上安装了windows 7 或windows 10，你可以在你的笔记本电脑底部找到标签。
 
 安装 Ubuntu16.04 时遇到点小麻烦，这有些出乎意料。这主要是因为一开始我就没有安装 GTX 1080 驱动。我将把这些分享给大家，以防你遇到同样的问题。
 
@@ -110,7 +110,7 @@ menuentry ‘Windows 10′{
 - 问题: Ubuntu 不支持 百思买经常出售的这款 Belkin N300 无线适配器，
 - 解决方案: 参考 [本链接](https://ubuntuforums.org/showthread.php?t=1515747) 的指南, 问题将会被解决。
 - 问题: 安装好 teamviewer 后，提示 “dependencies not met”
-- 解决方案: 参考 [本链接](http://askubuntu.com/questions/362951/installed-teamviewer-using-a-64-bits-system-but-i-get-a-dependency-error/363083).
+- 解决方案: 参考 [本链接](http://askubuntu.com/questions/362951/installed-teamviewer-using-a-64-bits-system-but-i-get-a-dependency-error/363083)。
 
 ### 深度学习环境 
 
@@ -246,7 +246,7 @@ bazel-bin/tensorflow/cc/tutorials_example_trainer –use_gpu.
 
 - sudo python setup.py install
 
-3. [Change the default backend](http://keras.io/backend/) from theano to tensorflow
+3. [改变默认后端](http://keras.io/backend/) 从 theano 到 tensorflow
 
 ##### 使用 conda 在虚拟环境间进行切换
 
@@ -310,11 +310,11 @@ bazel-bin/tensorflow/cc/tutorials_example_trainer –use_gpu.
 
 ### 开箱即用的深度学习环境：Docker
 
-我已经在 Ubuntu 14.04 和 TITAN-X (cuda7.5) 上正确的安装过c affe，darknet，mxnet，tensorflow等。我已经完成了这些框架的项目，一切都很顺利。因此，如果你想专注于深度学习的研究，而不是被你可能遇到的外围问题所困扰，那么使用这些预先构建的环境比使用最新版本更安全。然后，您应该考虑使用 docker 将每个框架与它自己的环境隔离开来。这些 docker 镜像可以在[DockerHub](https://hub.docker.com/)中找到。
+我已经在 Ubuntu 14.04 和 TITAN-X (cuda7.5) 上正确的安装过c affe，darknet，mxnet，tensorflow等。我已经完成了这些框架的项目，一切都很顺利。因此，如果你想专注于深度学习的研究，而不是被你可能遇到的外围问题所困扰，那么使用这些预先构建的环境比使用最新版本更安全。然后，您应该考虑使用 docker 将每个框架与它自己的环境隔离开来。这些 docker 镜像可以在 [DockerHub](https://hub.docker.com/) 中找到。
 
 #### 安装 Docker 
 
-与虚拟器不同，docker 镜像由层构建。同一个组件可以在不同的镜像间共享。当我们下载一个新镜像，已经存在的组件是不需要重新下载的。相比于完全替换虚拟机镜像，这是非常高效和方便的。 docker 容器是 docker 镜像的运行时。这些镜像可以被提交和更新，就如同 Git.
+与虚拟器不同，docker 镜像由层构建。同一个组件可以在不同的镜像间共享。当我们下载一个新镜像，已经存在的组件是不需要重新下载的。相比于完全替换虚拟机镜像，这是非常高效和方便的。docker 容器是 docker 镜像的运行时。这些镜像可以被提交和更新，就如同 Git.
 
 要在 Ubuntu 16.04 上安装 docker，我们可以参考 [官方网站](https://docs.docker.com/engine/installation/linux/ubuntulinux/) 的指南。
 
@@ -322,7 +322,7 @@ bazel-bin/tensorflow/cc/tutorials_example_trainer –use_gpu.
 
 docker 容器是硬件和平台无关的，但是 docker 并没有通过容器来支持 NVIDIA GPU。（硬件是专门的，需要驱动程序。）为了解决这个问题，在特定的机器上启动容器的时候，我们需要 nvidia-docker 挂载到设备和驱动文件上。在这种情况下，镜像对于 Nvidia 驱动是不可知的。 
 
-NVIDIA-Docker 的安装从 [这里](https://github.com/NVIDIA/nvidia-docker)可以找到。
+NVIDIA-Docker 的安装从 [这里](https://github.com/NVIDIA/nvidia-docker) 可以找到。
 
 #### 下载深度学习 Docker 镜像 
 
