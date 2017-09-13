@@ -4,13 +4,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/courseras-journey-to-graphql.md](https://github.com/xitu/gold-miner/blob/master/TODO/courseras-journey-to-graphql.md)
 > * 译者：[bambooom](https://github.com/bambooom)
-> * 校对者：[sunui](https://github.com/sunui)
+> * 校对者：[sunui](https://github.com/sunui)、[alfred-zhong](https://github.com/alfred-zhong)
 
 # Coursera 的 GraphQL 之路
 
 将 GraphQL 添加至 REST + 微服务的后端中
 
-Coursera 的客户端开发人员喜欢 GraphQL 的灵活性、类型安全性以及社区的支持，这些已经[众](https://building.coursera.org/blog/2016/11/23/why-ui-developers-love-graphql/)[所](https://speakerdeck.com/jnwng/going-graphql-first)[周](https://dev-blog.apollodata.com/graphql-just-got-a-whole-lot-prettier-7701d4675f42)[知](https://building.coursera.org/blog/2017/05/11/coursera-engineering-podcast-episode-one/)。但是，我们没有谈过多少我们的后端开发者们对于 GraphQL 的感受，这是因为他们大多数并不需要考虑 GraphQL。
+Coursera 的客户端开发人员喜欢 GraphQL 的灵活性、类型安全性以及社区的支持，这些已经[众](https://building.coursera.org/blog/2016/11/23/why-ui-developers-love-graphql/)[所](https://speakerdeck.com/jnwng/going-graphql-first)[周](https://dev-blog.apollodata.com/graphql-just-got-a-whole-lot-prettier-7701d4675f42)[知](https://building.coursera.org/blog/2017/05/11/coursera-engineering-podcast-episode-one/)。但是，我们没有谈过多少我们的后端开发者们对于 GraphQL 的感受，这是因为实际上他们大多数并不需要为 GraphQL 考虑太多。
 
 过去的一年中，我们构建了将所有 REST API 动态转换为 GraphQL 的工具。这使得后端开发者可以继续编写他们熟悉的 API，同时客户端开发者也可以通过 GraphQL 访问所有数据。
 
@@ -24,19 +24,19 @@ Coursera 的 REST API 是基于资源构建的（即课程 API、教师 API、�
 
 还记得 Facebook 首次推出 GraphQL 时我们团队非常兴奋，因为我们几乎立刻就意识到 GraphQL 可以解决我们的诸多问题，例如在一次往返获取所有数据，并为 API 提供结构化的文档等。虽然我们想马上停止使用 REST 并开始编写 GraphQL，但事情并非如此简单，因为：
 
-- 当时，Coursera 有超过 1000 个不同的 REST 端点，即使我们想完全停止使用 REST，GraphQL 的迁移成本将是极大的。
+- 当时，Coursera 有超过 1000 个不同的 REST 端点（现在更多），即使我们想完全停止使用 REST，GraphQL 的迁移成本将是极大的。
 
 - 我们所有的后端服务都使用 REST API 进行服务间通信，所以经常会有给后端服务以及前端提供相同 API 的情况。
 
-- 我们有三个不同的客户端（web、iOS 以及 Android），希望能缓慢地推进灵活性。
+- 我们有三个不同的客户端（web、iOS 以及 Android），希望能灵活缓慢地推进。
 
-在一些调查之后，我们发现了一个引入 GraphQL 的好方法，那就是在 REST API 上添加 GraphQL 的代理层。这个方法实际上也很常见，并且[已经](http://graphql.org/blog/rest-api-graphql-wrapper/)[有](https://medium.com/@raxwunter/moving-existing-api-from-rest-to-graphql-205bab22c184)[详细的](https://nordicapis.com/how-to-wrap-a-rest-api-in-graphql/)[文档](https://0x2a.sh/from-rest-to-graphql-b4e95e94c26b)，所以这里我就不深入展开了。
+在一些调查之后，我们发现了一个引入 GraphQL 的好方法，那就是在 REST API 上添加 GraphQL 的代理层。这个方法实际上也很常见，并且[有](https://medium.com/@raxwunter/moving-existing-api-from-rest-to-graphql-205bab22c184)[详细的](https://nordicapis.com/how-to-wrap-a-rest-api-in-graphql/)[文档](https://0x2a.sh/from-rest-to-graphql-b4e95e94c26b)[验证](http://graphql.org/blog/rest-api-graphql-wrapper/)过了，所以这里我就不深入展开了。
 
 ## 生产环境上使用 GraphQL
 
 包装 REST API 是个非常简单的过程，我们针对下游 REST 调用通过解析器获取数据构建了一些实用程序，并写了一些将现有模型转为 GraphQL 的规则。
 
-第一步是构建 GraphQL 解析器，然后在生产环境中启动一个 GraphQL 服务器，使下游 REST 调用到源端点。一旦完成了这项工作（用 GraphQL 来验证一切），我们就会在设置的演示页面展示数据，几天之内就可以说 GraphQL 启动成功了。
+第一步是构建 GraphQL 解析器，然后在生产环境中启动一个 GraphQL 服务器，使下游 REST 调用到源端点。一旦完成了这项工作（用 GraphQL 来验证一切），我们就会在设置的演示页面展示数据，几天之内就可以说 GraphQL 的尝试成功了。
 
 ### 短暂的庆祝
 
@@ -44,7 +44,7 @@ Coursera 的 REST API 是基于资源构建的（即课程 API、教师 API、�
 
 我们的 GraphQL 服务器完美工作了几天，但是突然之间，在我们准备给团队演示之前，每个 GraphQL 查询都失败了。我们措手不及，因为自从上次验证它正常工作以来并没有对 GraphQL 服务器进行任何更改。
 
-在调查之后，终于发现由于一个不相关的 bug，下游课程目录服务回滚到了之前的版本，导致 GraphQL 中构建的模式不同步了。我们可以手动更新并修复演示页面，但很快我们意识到我们的 GraphQL 架构如果扩展到 1000 个不同的资源，由超过 50 个不同的服务支持，若想保持所有数据都更新到最新几乎是不可能的。如果在微服务体系中你有多于一个数据来源，那么问题在于何时，而不是他们是否不同步。
+在调查之后，终于发现由于一个不相关的 bug，下游课程目录服务回滚到了之前的版本，导致 GraphQL 中构建的模式不同步了。我们可以手动更新并修复演示页面，但很快我们意识到当我们的 GraphQL 架构如果扩展到由超过 50 个不同的服务支持的 1000 个不同的资源之后，想保持所有数据都更新到最新几乎是不可能的。如果在微服务体系中你有多于一个数据来源，那么问题在于何时，而不是他们是否不同步。
 
 ### 自动化流程
 
