@@ -4,7 +4,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/improve-web-typography-css-font-size-adjust.md](https://github.com/xitu/gold-miner/blob/master/TODO/improve-web-typography-css-font-size-adjust.md)
 > * 译者：[lampui](https://github.com/lampui)
-> * 校对者：
+> * 校对者：[sun](https://github.com/sunui)、[Yuuoniy](https://github.com/Yuuoniy)
 
 # 使用 CSS 的 font-size-adjust 属性改善网页排版
 
@@ -14,7 +14,7 @@ CSS 中的 `font-size-adjust` [属性](https://drafts.csswg.org/css-fonts-3/#pro
 
 ## font-size-adjust 的重要性
 
-你访问的网站大多都是由文本组成的，由于书面文字是网站的重要组成部分，因此就很值得把注意力关注到你用来显示信息的字体上面。选对正确的字体能带给用户愉快的阅读体验，然而，使用不恰当的字体则会使网站变得难以阅读。当你决定将要使用什么字体后，一般你就会再给这个字体选择一个合适的大小。
+你访问的网站大多都是由文本组成的，由于书面文字是网站的重要组成部分，因此就很值得把注意力放到你用来显示信息的字体上面。选对正确的字体能带给用户愉快的阅读体验，然而，使用不恰当的字体则会使网站变得难以阅读。当你决定将要使用什么字体后，一般你就会再给这个字体选择一个合适的大小。
 
 `font-size`　属性会设置网页中所有 `font-family` 下你想使用的字体的大小，然而在大多数情况下，浏览器一般都是使用 `font-family` 下声明的第一种字体。只有当第一种字体因为某些原因不可用时，浏览器才会使用候选字体继续渲染页面。
 
@@ -63,7 +63,7 @@ c = ( a / a' ) s.
 
 你不能设置 `font-size-adjust` 的值为负数，设置为 0 则会致使文字没有高度，换句话说，就是文字会被隐藏。在旧的浏览器中，例如 Firefox 40，如果设置其属性值为 0 则相当于设置为 `none`。
 
-大多数情况下，开发者一般会尝试不同的 `font-size` 取值以确定哪个值对给定的字体最好看。这意味着在理想情况下，他们希望所有字体的 x 轴高度 与首选字体的 x 轴高度 相等。换句话说，最合适的 `font-size-adjust` 取值就是你首选字体的纵横比。
+大多数情况下，开发者一般会尝试不同的 `font-size` 取值以确定哪个值对给定的字体最好看。这意味着在理想情况下，他们希望所有字体的 x 轴高度与首选字体的 x 轴高度相等。换句话说，最合适的 `font-size-adjust` 取值就是你首选字体的纵横比。
 
 ## 如何计算一种字体的纵横比
 
@@ -109,7 +109,7 @@ c = ( a / a' ) s.
 
 ## 总结
 
-读完这篇文章后，你应该知道 `font-size-adjust` 属性是什么、为什么它很重要以及如何计算出不同字体的纵横比。
+读完这篇文章后，你应该知道 `font-size-adjust` 属性是什么，为什么它很重要以及如何计算出不同字体的纵横比。
 
 因为 `font-size-adjust` 在旧浏览器中优雅降级，你今天就可以直接应用该属性到你的生产环境中，以便提高页面文字易读性。
 
