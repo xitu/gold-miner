@@ -54,7 +54,7 @@ Coursera 的 REST API 是基于资源构建的（即课程 API、教师 API、�
 
 - 基础架构中的每一个服务都可以动态地提供正在运行的 REST 资源列表。
 
-- 针对每一个资源，我们可以引入一系列端点和参数列表（即一个课程可以通过 id 获取，也可以由讲师查找）
+- 针对每一个资源，我们可以内省获取其一系列端点和参数列表（即一个课程可以通过 id 获取，也可以由讲师查找）
 
 - 另外，我们接受由 [Courier 的模式语言](http://coursera.github.io/courier/schemalanguage/)定义的 [Pegasus Schemas](https://github.com/linkedin/rest.li/wiki/DATA-Data-Schema-and-Templates)，用于每个模型返回数据
 
