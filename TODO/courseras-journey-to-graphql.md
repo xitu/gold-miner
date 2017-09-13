@@ -3,72 +3,76 @@
 > * 原文作者：[Bryan Kane](https://dev-blog.apollodata.com/@bryankane)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/courseras-journey-to-graphql.md](https://github.com/xitu/gold-miner/blob/master/TODO/courseras-journey-to-graphql.md)
-> * 译者：
-> * 校对者：
+> * 译者：[bambooom](https://github.com/bambooom)
+> * 校对者：[sunui](https://github.com/sunui)、[alfred-zhong](https://github.com/alfred-zhong)
 
-# Coursera’s journey to GraphQL
+# Coursera 的 GraphQL 之路
 
-Adding GraphQL to a REST and microservices backend.
+将 GraphQL 添加至 REST + 微服务的后端中
 
-Client developers at Coursera love GraphQL’s flexibility, type-safety, and community of support, and [we’ve made](https://building.coursera.org/blog/2016/11/23/why-ui-developers-love-graphql/) [that](https://speakerdeck.com/jnwng/going-graphql-first) [well](https://dev-blog.apollodata.com/graphql-just-got-a-whole-lot-prettier-7701d4675f42) [known](https://building.coursera.org/blog/2017/05/11/coursera-engineering-podcast-episode-one/). However, we haven’t spoken much about how our backend developers feel about GraphQL — and that’s because most of them don’t actually have to think about GraphQL very much.
+Coursera 的客户端开发人员喜欢 GraphQL 的灵活性、类型安全性以及社区的支持，这些已经[众](https://building.coursera.org/blog/2016/11/23/why-ui-developers-love-graphql/)[所](https://speakerdeck.com/jnwng/going-graphql-first)[周](https://dev-blog.apollodata.com/graphql-just-got-a-whole-lot-prettier-7701d4675f42)[知](https://building.coursera.org/blog/2017/05/11/coursera-engineering-podcast-episode-one/)。但是，我们没有谈过多少我们的后端开发者们对于 GraphQL 的感受，这是因为实际上他们大多数并不需要为 GraphQL 考虑太多。
 
-Over the past year, we’ve built tooling to dynamically translate all of our REST APIs to GraphQL, allowing our backend devs to continue writing the APIs they’re familiar with, while giving client developers full access to all of the data through GraphQL.
+过去的一年中，我们构建了将所有 REST API 动态转换为 GraphQL 的工具。这使得后端开发者可以继续编写他们熟悉的 API，同时客户端开发者也可以通过 GraphQL 访问所有数据。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*tUKO-HN2ogKRwmOc-kI-kQ.png)
 
-In this post, we’ll walk through our journey to GraphQL, and highlight a few of our successes and failures along the way.
+本文中将介绍我们的 GraphQL 之旅，特别是过程中的成功及失败。
 
-## Initial investigation
+## 初步调查
 
-Coursera’s approach to REST APIs was to build resource-based APIs (i.e. an API for courses, an API for instructors, an API for course grades, etc.). These were really easy to build and test, and provided a nice separation of concerns on the backend. However, as our product scaled and the number of APIs grew, we began to face many problems around performance, documentation, and general ease-of-use. On many pages, we found ourselves making four or five round-trips to the server to fetch the data that we needed to render.
+Coursera 的 REST API 是基于资源构建的（即课程 API、教师 API、课程成绩 API 等）。这样使得开发和测试都很容易，并且在后端很好地实现了关注分离。然而，随着产品规模扩大以及 API 数量增长，我们开始面临性能、文档以及易用性等问题。在许多页面上，我们发现需要四到五次与服务器的往返来获取所有我们需要渲染的数据。
 
-I still remember the excitement on my team when Facebook first introduced GraphQL — we almost immediately realized how GraphQL could solve a lot of our problems, allowing us to fetch all data in a single roundtrip, and providing structured documentation for our APIs. But as much as we wanted to begin writing GraphQL endpoints for everything and stop using REST on our clients, that wasn’t an option that we were able to consider, because:
+还记得 Facebook 首次推出 GraphQL 时我们团队非常兴奋，因为我们几乎立刻就意识到 GraphQL 可以解决我们的诸多问题，例如在一次往返获取所有数据，并为 API 提供结构化的文档等。虽然我们想马上停止使用 REST 并开始编写 GraphQL，但事情并非如此简单，因为：
 
-- At the time, we had over 1,000 different REST endpoints at Coursera (and now we have many more) — even if we wanted to stop using REST entirely, the migration cost to GraphQL would be astronomical.
-- All of our backend services use REST APIs for inter-service communication, and we often expose the same API for use in both our backend services and our frontend clients.
-- We also have three different clients (web, iOS, and Android), and wanted the flexibility to roll out slowly.
+- 当时，Coursera 有超过 1000 个不同的 REST 端点（现在更多），即使我们想完全停止使用 REST，GraphQL 的迁移成本将是极大的。
 
-After some investigation, we found a great approach to help us get to GraphQL — we decided to add a GraphQL proxy layer on top of our REST APIs. This approach is actually pretty common and has [been](http://graphql.org/blog/rest-api-graphql-wrapper/) [very](https://medium.com/@raxwunter/moving-existing-api-from-rest-to-graphql-205bab22c184) [well](http://nordicapis.com/how-to-wrap-a-rest-api-in-graphql/) [documented](https://0x2a.sh/from-rest-to-graphql-b4e95e94c26b), so I won’t go into details here.
+- 我们所有的后端服务都使用 REST API 进行服务间通信，所以经常会有给后端服务以及前端提供相同 API 的情况。
 
-## GraphQL in production
+- 我们有三个不同的客户端（web、iOS 以及 Android），希望能灵活缓慢地推进。
 
-Wrapping our REST APIs was a pretty easy process — we built some utilities around making downstream REST calls to fetch data in our resolver, and wrote up some rules around converting our existing models into GraphQL.
+在一些调查之后，我们发现了一个引入 GraphQL 的好方法，那就是在 REST API 上添加 GraphQL 的代理层。这个方法实际上也很常见，并且[有](https://medium.com/@raxwunter/moving-existing-api-from-rest-to-graphql-205bab22c184)[详细的](https://nordicapis.com/how-to-wrap-a-rest-api-in-graphql/)[文档](https://0x2a.sh/from-rest-to-graphql-b4e95e94c26b)[验证](http://graphql.org/blog/rest-api-graphql-wrapper/)过了，所以这里我就不深入展开了。
 
-Our first step was to build a few GraphQL resolvers and then launch a GraphQL server in production to make downstream REST calls to our source endpoints. Once we had this working (using GraphiQL to verify everything), we displayed this data on a demo page that we set up, and within a matter of days were ready to call our GraphQL pilot a success.
+## 生产环境上使用 GraphQL
 
-### Short-lived celebration
+包装 REST API 是个非常简单的过程，我们针对下游 REST 调用通过解析器获取数据构建了一些实用程序，并写了一些将现有模型转为 GraphQL 的规则。
 
-If there’s one thing I’ve learned from this project though, it’s not to celebrate too early.
+第一步是构建 GraphQL 解析器，然后在生产环境中启动一个 GraphQL 服务器，使下游 REST 调用到源端点。一旦完成了这项工作（用 GraphQL 来验证一切），我们就会在设置的演示页面展示数据，几天之内就可以说 GraphQL 的尝试成功了。
 
-Our GraphQL server worked perfectly for a few days. But suddenly, right before we were set to demo this page to the team, every GraphQL query started failing. This caught us off guard, because we hadn’t deployed any changes to our GraphQL server since we last verified that it was working.
+### 短暂的庆祝
 
-After some investigation, we realized that our downstream course catalog service was rolled back to a previous version due to an unrelated bug, and the schema that we had built in our GraphQL service was now out of sync. We were able to manually update the schema and fix our demo, but we quickly realized then that as our GraphQL schema scaled to 1,000 different resources, backed by over 50 different services, keeping everything up to date was going to be impossible. If you have multiple sources of truth in a microservice architecture, it’s a matter of when, not if they’ll become out of sync.
+如果说我从这个项目中学到了一件事，那一定是不要高兴太早。
 
-### Automating the process
+我们的 GraphQL 服务器完美工作了几天，但是突然之间，在我们准备给团队演示之前，每个 GraphQL 查询都失败了。我们措手不及，因为自从上次验证它正常工作以来并没有对 GraphQL 服务器进行任何更改。
 
-So we went back to the drawing boards, and tried to figure out a cleaner solution to get to a single source of truth — it made sense for us to treat our REST APIs as the source of truth, since they’re what we’re basing our GraphQL schema on. To do this, we’d need to automatically and deterministically build our GraphQL layer, reflecting what was currently running in our architecture, not what we thought was running.
+在调查之后，终于发现由于一个不相关的 bug，下游课程目录服务回滚到了之前的版本，导致 GraphQL 中构建的模式不同步了。我们可以手动更新并修复演示页面，但很快我们意识到当我们的 GraphQL 架构如果扩展到由超过 50 个不同的服务支持的 1000 个不同的资源之后，想保持所有数据都更新到最新几乎是不可能的。如果在微服务体系中你有多于一个数据来源，那么问题在于何时，而不是他们是否不同步。
 
-Luckily for us (perhaps with a bit of foresight), [our REST framework](https://github.com/coursera/naptime) gave us everything that we needed to build this automation layer:
+### 自动化流程
 
-- Each service in our infrastructure was able to dynamically provide us with a list of REST resources running on it.
-- For each of those resources, we could introspect the list of endpoints and arguments (i.e. a course endpoint would have a fetch by id, or lookup by instructor).
-- Additionally, we received [Pegasus Schemas](https://github.com/linkedin/rest.li/wiki/DATA-Data-Schema-and-Templates), defined by our [Courier schema language](http://coursera.github.io/courier/schemalanguage/) for each model returned.
+所以我们回到了白板上，试图找出一个清晰的解决方案获得真实数据源。将 REST API 视为真实数据源是有道理的，因为 GraphQL 是基于它们构建的。为此，我们需要自动地确定性地构建 GraphQL 层，以反映当前体系中正在运行的内容，而不是我们认为正在运行的。
 
-Once we discovered the different pieces we’d need to build a GraphQL schema, we set up a task on our GraphQL server to ping every downstream service every five minutes, and request all of that information. We then were able to write a 1:1 [conversion layer](https://github.com/coursera/naptime/blob/master/naptime-graphql/src/main/scala/org/coursera/naptime/ari/graphql/schema/FieldBuilder.scala) between the Pegasus Schemas and GraphQL types.
+幸运的是（也许算有远见），我们的 [REST 框架](https://github.com/coursera/naptime)给我们提供了构建这个自动化层需要的一切：
 
-Next, we simply defined a translation between GraphQL queries and REST requests, using most of the logic from our earlier resolvers, and were able to generate a fully-functioning GraphQL server, never more than five minutes out of date.
+- 基础架构中的每一个服务都可以动态地提供正在运行的 REST 资源列表。
 
-### Relating the resources
+- 针对每一个资源，我们可以内省获取其一系列端点和参数列表（即一个课程可以通过 id 获取，也可以由讲师查找）
 
-One of the main reasons we wanted to adopt GraphQL was to fetch all data we needed for a page in a single roundtrip to the server. However, our initial approach only provided a one-to-one mapping between the models returned from our REST APIs and what we returned in GraphQL. Without actually linking our resources together, we’d still end up making just as many GraphQL queries to fetch data as we would while using our REST APIs. While there are definitely developer experience gains that come from fetching data about a user in GraphQL instead of REST, there aren’t actually performance gains if you have to wait for that query to return before fetching more data.
+- 另外，我们接受由 [Courier 的模式语言](http://coursera.github.io/courier/schemalanguage/)定义的 [Pegasus Schemas](https://github.com/linkedin/rest.li/wiki/DATA-Data-Schema-and-Templates)，用于每个模型返回数据
 
-Our REST APIs each live in a silo — they don’t need to know about the existence of any other API. However, with GraphQL, models and resources do need to know about each other, and how everything is connected.
+只要发现不同的部分，我们就需要构建一个 GraphQL 模式，在 GraphQL 服务器上设置一个任务，每五分钟对所有下游服务 ping 一次，请求所有信息。然后，我们就可以在 Pegasus 模式和 GraphQL 类型之间编写 1:1 的转化层了。
 
-There’s no way to build the links between resources automatically though, so we defined a simple annotation that developers could add to resources to specify the relations between them. For example, we could say that a course resource should have an instructors field representing the instructors who teach that course. And to fetch those instructors, we should lookup instructors by id, using the instructorIds field already available on the course. We called these “forward relations,” because we knew exactly what instructors to fetch by id.
+接下来，我们只需要简单定义如何将 GraphQL 查询转化为 REST 请求，使用以前的解析器中的大部分逻辑，就可以生成功能完整的 GraphQL 服务器，不再会过期 5 分钟以上。
 
-In the case where we wanted to go from one resource to another where there wasn’t an explicit link, we added support to do a reverse lookup to fetch the data — i.e. to get a user’s enrollments on a course, we could call the `byCourseId` lookup on the `userEnrollments`.v1 resource, which could return the matching enrollment data for a given user on a given course.
+### 关联资源
 
-The syntax that we developed looks something like this:
+我们希望使用 GraphQL 的一个主要原因是在一个往返中获取某个页面需要的所有数据。但是一开始我们的方法只能提供 REST API 以及 GraphQL 之间一对一的映射。没有将资源连接在一起，我们仍然会像使用 REST API 一样，使用多次 GraphQL 查询来获取数据。虽然通过 GraphQL 获取用户数据相比使用 REST 来说，开发者体验有所提升，但如果在获取更多数据之前必须等待前序查询返回的话，那么在性能上没有实质提升。
+
+我们的每个 REST API 都独立存活，他们不需要知道其他任何 API 的存在。但是，如果使用 GraphQL，模型和资源确实需要彼此的存在，以及如何连接。
+
+资源之间的连接是不能自动添加的，所以我们定义了一个简单的标记方法，使得开发者可以添加资源并指定资源之间的关系。例如，我们可以指定一个课程应该有讲师字段，代表教授这门课程的讲师。获取这些讲师的时候，需要使用 id 查询，此时就可以使用课程已经提供的 `instructorIds` 字段。我们称之为「前置关系」，因为我们通过 id 确切知道哪些讲师需要获取。
+
+在想要从一个资源到另一个资源但没有显式关联的情况下，我们添加了反向查询的支持，也就是获取一个用户在一个课程的注册情况。我们可以在 `userEnrollments`.v1 资源上通过 `byCourseId` 进行查询，就可以返回在指定的课程中指定用户的注册数据。
+
+我们开发的语法看起来像这样：
 
 ```js
 courseAPI.addRelation(
@@ -78,22 +82,22 @@ courseAPI.addRelation(
     arguments = Map("courseId" -> "$id", "version" -> "$version"))
 ```
 
-Once these links were in place, our GraphQL schema began coming together— instead of lots of small data pieces that we could fetch with GraphQL, a web of all Coursera’s data and resources formed.
+一旦这些关联到位，我们的 GraphQL 模式就开始汇集在一起了，不再是小量数据碎片，而是整个 Coursera 数据和资源的网络。
 
-## Conclusion
+## 结论
 
-We’ve been running our GraphQL server in production at Coursera for over six months now, and while the road has certainly been bumpy at times, we’re really able to recognize the benefits that GraphQL provides. Developers have an easier time discovering data and writing queries, our site is more reliable due to the additional [type-safety](https://github.com/apollographql/apollo-codegen) that GraphQL provides, and pages using GraphQL load data much faster.
+我们已经在生产环境中运行 GraphQL 服务器 6 个月了，这条路有时是颠簸的，但我们切实认识到 GraphQL 带来的好处。开发人员更容易发现数据及编写查询，我们的产品也由于 GraphQL 额外提供的[类型安全性](https://github.com/apollographql/apollo-codegen)更加可靠，使用 GraphQL 获取数据的页面加载也更快。
 
-Just as importantly though, this migration didn’t come at a huge cost of developer productivity. Our frontend developers did have to learn how to use GraphQL, but we didn’t have to rewrite any backend APIs or run complex migrations to begin taking advantage of GraphQL — it was simply available for developers to use as they created new applications.
+需要重点提出的是，这种迁移并不以开发效率为代价。我们的前端工程师的确需要学习如何使用 GraphQL，但我们并不需要重写后端 API 或运行复杂的迁移才能享受 GraphQL 带来的好处。当创建新的应用程序的时候，它就可供开发人员使用了。
 
-Overall, we’ve been really happy with what GraphQL has provided our developers (and ultimately our users) and are really excited for what’s to come in the GraphQL ecosystem.
+总的来说，我们对 GraphQL 为开发人员（最终为用户）提供的帮助非常满意，并对 GraphQL 生态的发展充满期待。
 
-### Acknowledgements
+### 致谢
 
-- [Brennan Saeta](https://twitter.com/bsaeta), who wrote the Naptime API library and helped write the initial GraphQL support in Naptime.
-- Oleg Ilyenko, who’s incredible [Sangria library](http://sangria-graphql.org/) provides the backbone for all of our GraphQL work. If you’re doing anything with GraphQL and are currently using / planning on using Scala, you should definitely check Sangria out.
-- The frontend infrastructure team at Coursera for helping get GraphQL from a test project to a production-ready implementation.
-- And the entire Coursera engineering team for being patient and helpful guinea pigs as we worked out countless bugs and quirks in our GraphQL translation layer.
+- [Brennan Saeta](https://twitter.com/bsaeta)，编写了 Naptime API库，并帮助 Naptime 编写了初始的 GraphQL 支持。
+- Oleg Ilyenko，编写的 [Sangria 库](http://sangria-graphql.org/) 为我们所有的 GraphQL 工作提供了支柱。如果你正在使用 GraphQL，并正在使用或计划使用 Scala，那么你一定要看看 Sangria。
+- Coursera 前端基础设施团队提供了帮助将 GraphQL 从测试项目转移至预备生产环境中。
+- Coursera 的整个工程团队的耐心以及帮助，我们一起在 GraphQL 层解决了无数 bug 和奇怪的现象。
 
 
 ---
