@@ -141,7 +141,7 @@ Pycharm：
 - 优点：模块化编码、更完整的web开发框架和跨平台的IDE。
 
 In my personal philosophy, I regard them to be merely tools. Each tool will be used when it comes in handy. I will use IDEs for the construction of the backbone for the project. For example, use pycharm for the framework construction. After that, I will just modify code with VIM. It is not that VIM is so powerful and showy, but because it is the single text editor that I want to really master. As of text editors, there is no need we should master two. For special occasions, where we need to frequently check IO, directories, etc, we might want to use spyder instead.
-
+在我的个人哲学中，我认为它们只是工具。每个工具在手边都可以使用。我将使用ide来构建项目的主干。例如，在框架结构中使用py符咒。之后，我将使用VIM修改代码。这并不是说VIM是如此强大和花哨，而是因为它是我想真正掌握的单一文本编辑器。至于文本编辑器，我们不需要掌握两个。在特殊情况下，我们需要频繁地检查IO、目录等，我们可能希望使用spyder。
 #### 安装：
 
 1. spyder：
@@ -308,21 +308,22 @@ bazel-bin/tensorflow/cc/tutorials_example_trainer –use_gpu.
 
 #### Darknet
 
-- This is the easiest of all to install. Just type “make”, and that’s it.
+- 这是所有需要安装工具中最易安装的。仅需运行 “make” 命令，就是这么简单。
 
 ### 开箱即用的深度学习环境：Docker
 
 I used to have caffe, darknet, mxnet, tensorflow all installed correctly in Ubuntu 14.04 and TITAN-X (cuda7.5). And I have done projects with these frameworks, all turning out working well. It is therefore safer to use these pre-built environments than adventuring with latest versions, if you want to focus on the deep learning research instead of being potentially bothered by peripheral problems you may encounter. Then you should consider isolate each framework with its own environment using docker. These docker images can be found in [DockerHub](https://hub.docker.com/). 
+我已经在 Ubuntu 14.04 和 TITAN-X (cuda7.5) 上 正确的安装过caffe, darknet, mxnet, tensorflow等。使用这些框架我已经完成了。项目
 
 #### 安装 Docker 
 
-Unlike virtual machines, a docker image is built with layers. Same ingredients are shared among different images. When we download a new image, existing components won’t be re-downloaded. It is more efficient and convenient compared to the replacement of the whole virtual machine image. Docker containers are like the run-time of docker images. They can be committed and used to update docker images, just like Git.
+与虚拟器不同，docker 镜像由层构建。同一个组件可以在不同的镜像间共享。当我们下载一个新镜像，已经存在的组件是不需要重新下载的。相比于完全替换虚拟机镜像，这是非常高效和方便的。 docker 容器是 docker 镜像的运行时。这些镜像可以被提交和更新，就如同 Git.
 
 要在 Ubuntu 16.04 上安装 docker，我们可以参考 [官方网站](https://docs.docker.com/engine/installation/linux/ubuntulinux/) 的指南。
 
 #### 安装 NVIDIA-Docker
 
-Docker containers are both hardware-agnostic and platform agnostic, but docker does not natively support NVIDIA GPUs with containers. (The hardware is specialized, and driver is needed.) To solve this problem, we need the nvidia-docker to mount the devices and driver files when starting the container on the target machine. In this way, the image is agnostic of the Nvidia driver.
+docker 容器是硬件和平台无关的，但是 docker 并没有通过容器来支持 NVIDIA GPU。（硬件是专门的，需要驱动程序。）为了解决这个问题，在特定的机器上启动容器的时候，我们需要 nvidia-docker 挂载到设备和驱动文件上。在这种情况下，镜像对于 Nvidia 驱动是不可知的。 
 
 NVIDIA-Docker 的安装从 [这里](https://github.com/NVIDIA/nvidia-docker)可以找到。
 
@@ -336,20 +337,20 @@ NVIDIA-Docker 的安装从 [这里](https://github.com/NVIDIA/nvidia-docker)可�
 #### 可以在 docker hub 上找到更多镜像。
 
 在主机和容器间共享数据
-For computer vision researchers, it will be awkward not to see results.For instance, after adding some Picasso style to an image, we would definitely want to the output images from different epoches.Check out [this page](https://github.com/rocker-org/rocker/wiki/Sharing-files-with-host-machine) quickly to share data between the host and the container.In a shared directory, we can create projects. On the host, we can start coding with text editors or whatever IDEs we prefer. And then we can run the program in the container.The data in the shared container can be viewed and processed with the GUI of the host Ubuntu machine.
+对于计算机视觉研究人员来说，没有看到结果会很尴尬。例如，给一个图像添加毕加索风格，我们希望从不同的 epoch 输出结果。参考 [本页面](https://github.com/rocker-org/rocker/wiki/Sharing-files-with-host-machine) 快速在主机和容器间共享数据。在一个共享目录中，我们可以创建项目。在主机上，我们能使用文本编辑器编写代码或者我们喜欢的 IDE。接着，我们可以在容器中运行程序。共享容器中的数据可以在基于 Ubuntu 机器的主机上通过 GUI 看到并处理。 
 
 #### 了解简单的 命令
 
 Don’t be overwhelmed  if you are new to docker. It does not need to be systematically studied unless you want to in the future.Here are some simple commands for you to use to start dealing with docker. Usually they are sufficient if you consider Docker a tool, and want to use it solely for a deep learning environment.
-
+如果你是一个 docker 新手，不要不知所措。它不需要系统的学习除非你将来需要。以下是一些在 docker 上 使用的简单命令。如果你认为 docker 是一个工具，这些命令足够了， 
 ##### 如何检查 docker 镜像？
 
-- docker images： Check all the docker images that you have.
+- docker images： 查询所有安装的 docker 镜像。
 
 ##### 如何检查 docker 容器？
 
-- docker ps -a：Check all the containers that you have.
-- docker ps: Check containers that are running
+- docker ps -a：查询所有安装的容器。
+- docker ps: 查询当前运行的容器
 
 ##### 如何退出 docker 容器？
 
@@ -359,9 +360,9 @@ Don’t be overwhelmed  if you are new to docker. It does not need to be systema
 
 2. (方法 2) 使用 [Ctrl + Alt + T] 打开一个新终端，或者使用 [Ctrl + Shift + T] 打开一个新终端tab：
 
-- docker ps -a：Check the containers you have.
-- docker ps: Check the running container(s).
-- docker stop [container’s ID]: Stop this container.
+- docker ps -a：查询安装的镜像。
+- docker ps: 查询运行的容器。
+- docker stop [container’s ID]: 停止退出容器。
 
 3. 如何删除一个 docker 镜像？
 
