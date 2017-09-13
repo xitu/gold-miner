@@ -149,7 +149,7 @@ Pycharm：
 2. pycharm
 
 - 从 [官方网站](https://www.jetbrains.com/pycharm/) 下载。只需解压。
-- 设置 pycharm 的 项目解释器为 anaconda，并进行包管理。 关注 [这里](https://docs.continuum.io/anaconda/ide_integration#pycharm)。
+- 设置 pycharm 的 项目解释器为 anaconda，并进行包管理。关注 [这里](https://docs.continuum.io/anaconda/ide_integration#pycharm)。
 
 3. vim
 
@@ -179,7 +179,7 @@ Pycharm：
 
 1. sudo sh cuda_8.0.27_linux.run
 2. 按照命令提示
-3. 作为 CUDA 环境一部分，你需要在你主目录的 添加日下的字符串you should add the following in the ~/**.bashrc**  file of your home folder.
+3. 作为 CUDA 环境一部分，你需要在你主目录的 ~/**.bashrc** 文件中添加以下内容。
 
 - export CUDA_HOME=/usr/local/cuda-8.0
 - export LD_LIBRARY_PATH=${CUDA_HOME}/lib64
@@ -206,7 +206,7 @@ Pycharm：
 - cd <installpath>
 - export LD_LIBRARY_PATH=`pwd`:$LD_LIBRARY_PATH
 
-2. 方式二:  (将 CuDNN 的文件 拷贝到 CUDA 文件夹下。If CUDA is working alright, it will automatically find CUDNN by relative path)
+2. 方式二:  (将 CuDNN 的文件 拷贝到 CUDA 文件夹下。如果 CUDA 运行正常，它会通过相对路径自动找到 CUDNN)
 
 - tar xvzf cudnn-8.0.tgz
 - cd cudnn
