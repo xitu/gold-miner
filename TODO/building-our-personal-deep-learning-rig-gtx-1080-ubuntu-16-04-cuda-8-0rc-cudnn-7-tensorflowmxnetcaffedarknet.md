@@ -77,14 +77,14 @@ Since we are doing deep learning research, a good GPU is necessary. Therefore, I
 
 #### 系统安装
 
-It is highly recommended that you install windows first for a dual-system installation. I will skip win10 installation as detailed guide can be found here: [Windows 10 page](https://www.microsoft.com/en-us/software-download/windows10/) . One thing to note is that you will need the activation key. You can find the tag on the bottom of your laptop, if it has been installed windows 7 or windows 10 upon purchasing.
-强烈建议安装 windows 为主系统的双系统。我将会跳过 win10 的安装
+强烈建议安装 windows 为主系统的双系统。我将会跳过 win10 的安装，因为详细的安装指南可以从[Windows 10 主页](https://www.microsoft.com/en-us/software-download/windows10/)找到。需要注意的一点是，你需要使用激活码。如果在你的笔记本电脑上安装了windows 7 或windows 10，你可以在你的笔记本电脑底部找到标签。
+
 安装 Ubuntu16.04 时遇到点小麻烦，这有些出乎意料。这主要是因为一开始我就没有安装 GTX 1080 驱动。我将把这些分享给大家，以防你遇到同样的问题。
 
 #### 安装 Ubuntu：
 
 First things first, insert the boot USB for installation. Nothing is showing on my LG screen, except that it says frequency is too high. But the screen is okay, as is tested on another laptop. I tried to connect the PC with a TV, which was showing, but only the desktop with no tool panel. I figured out it was the problem of the NVIDIA driver. So I went to BIOS and set the integrated graphics as default and restart. Remember to switch the HDMI from the port on GTX1080 to that on the motherboard. Now the display works well. I successfully installed Ubuntu following its prompt guides.
-首先，插入用于安装系统的引导 USB。在我的 LG 显示屏上并没有出现任何东西，除了显示分辨率太高。但是显示屏是正常的，因为在另一台笔记本上测试过了。我试着将 PC 连接到 电视上，可以在电视上正常显示，
+首先，插入用于安装系统的引导 USB。在我的 LG 显示屏上并没有出现任何东西，除了显示频率太高。但是显示屏是正常的，因为在另一台笔记本上测试过了。我试着将 PC 连接到 电视上，可以在电视上正常显示，但仅有桌面没有工具面板。我发现这是 NVIDIA 驱动的问题。因此我打开 BIOS，并设置集成图像作为默认设置并重启。记得要把 HDMI 从 GTX1080 端口上的接口切换到主板上。现在这个显示器工作得很好。我按照提示指南成功地安装了 Ubuntu。
 ![](http://guanghan.info/blog/en/wp-content/uploads/2016/07/installing_ubuntu.png)
 
 为了使用 GTX1080，请访问 [本页面](http://www.nvidia.com/download/driverResults.aspx/104284/en-us) 获取 基于 Ubuntu 的 NVIDIA 显卡驱动display。安装好驱动后，确保 GTX1080 在主板上。
@@ -122,10 +122,9 @@ dpkg -i teamviewer_11.0.xxxxx_i386.deb
 
 #### 包管理工具安装 (Anaconda)：
 
-Anaconda 是一个易于安装的免费包管理工具, 环境管理工具environment manager, Python distribution, and collection of over 720 open source packages offering free community support.It can be used to create virtual environments, where each environment will not mess up with each other. It is helpful when we use different deep learning frameworks at the same time, and the configurations are different.Using it to install packages is convenient as well.It can be easily installed, [follow this](https://docs.continuum.io/anaconda/install#linux-install).
+Anaconda 是一个易于安装的免费包管理、环境管理和 Python 分发工具包。其中收集了多达 720 个 开源包并提供免费的支持社区。它可以创建虚拟环境，这些虚拟环境并不会相互影响。当同时使用不同的深度学习框架，这非常有用，它们的配置可以不同。使用它来安装包页非常方便。极易安装，[参考这里](https://docs.continuum.io/anaconda/install#linux-install)。
 
-Some commands to start using virtual environment:
-
+使用虚拟环境的一些命令：
 - source activate virtualenv
 - source deactivate
 
@@ -135,11 +134,11 @@ Some commands to start using virtual environment:
 
 Spyder:
 
-- 优点：matlab-like，easy to review intermediate results.
+- 优点：类 matlab，易于查看中间结果。
 
 Pycharm：
 
-- Advantage：modular coding，more complete IDE for web development frameworks and cross-platform.
+- 优点：模块化编码、更完整的web开发框架和跨平台的IDE。
 
 In my personal philosophy, I regard them to be merely tools. Each tool will be used when it comes in handy. I will use IDEs for the construction of the backbone for the project. For example, use pycharm for the framework construction. After that, I will just modify code with VIM. It is not that VIM is so powerful and showy, but because it is the single text editor that I want to really master. As of text editors, there is no need we should master two. For special occasions, where we need to frequently check IO, directories, etc, we might want to use spyder instead.
 
