@@ -3,7 +3,7 @@
   > * 原文作者：[Dave Gash](https://medium.com/@davidagash)
   > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
   > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/css-hex-colors-demystified.md](https://github.com/xitu/gold-miner/blob/master/TODO/css-hex-colors-demystified.md)
-  > * 译者：Cherry[https://github.com/sunshine940326]
+  > * 译者：[Cherry](https://github.com/sunshine940326)
   > * 校对者：[薛定谔的猫](https://github.com/Aladdin-ADD)、[lampui](https://github.com/lampui)、[undead25](https://github.com/undead25)、[undead25](https://github.com/undead25)
 
   # CSS 十六进制颜色揭秘
