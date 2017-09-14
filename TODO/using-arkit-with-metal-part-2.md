@@ -8,6 +8,9 @@
 
 # 基于 Metal 的 ARKit 使用指南（下）
 
+- [基于 Metal 的 ARKit 使用指南（上）](https://github.com/xitu/gold-miner/blob/master/TODO/using-arkit-with-metal.md)
+- [基于 Metal 的 ARKit 使用指南（下）](https://github.com/xitu/gold-miner/blob/master/TODO/using-arkit-with-metal-part-2.md)
+
 咱们上篇提到过 ,  **ARKit** 应用通常包括三个图层 : `渲染层` , `追踪层` 和 `场景解析层` 。上一篇我们通过一个自定义视图已经非常详细地分析了渲染层在 `Metal` 中是如何工作的了。 `ARKit` 使用 `视觉惯性测程法` 准确地追踪它周围的环境，并将相机传感器数据和 `CoreMotion` 数据相结合。这样当相机随我们运动时，不需要额外的校准就可以保证图像的稳定性。这篇文章我们将研究  __场景解析__ —— 通过平面检测，碰撞测试和光线测定来描述场景特征的方法。 `ARKit` 可以分析相机呈现出来的场景并在场景中找到类似地板这样的水平面。前提是，我们需要在运行 session configuration 之前，简单地添加额外的一行代码来打开水平面检测的新特性（默认是关闭的）：
 
 ```
