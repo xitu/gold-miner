@@ -4,11 +4,11 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/building-trello-layout-css-grid-flexbox.md](https://github.com/xitu/gold-miner/blob/master/TODO/building-trello-layout-css-grid-flexbox.md)
 > * 译者：[sunui](https://github.com/sunui)
-> * 校对者：
+> * 校对者：[Aladdin-ADD](https://github.com/Aladdin-ADD)、[ahonn](https://github.com/ahonn)
 
 # 使用 CSS 栅格和 Flexbox 打造 Trello 布局
  
-通过本教程，我将带你完成 [Trello](https://trello.com/) 看板 ([查看示例](https://trello.com/b/nC8QJJoZ/trello-development-roadmap))的基本布局。这是一个响应式的、纯 CSS 的解决方案，并且我们将只开发布局的结构特征。
+通过本教程，我将带你完成 [Trello](https://trello.com/) 看板 ([查看示例](https://trello.com/b/nC8QJJoZ/trello-development-roadmap))的基本布局。这是一个响应式的、纯 CSS 的解决方案，并且我们将只开发布局的结构特性。
 
 [这是一个 CodePen demo](https://codepen.io/SitePoint/pen/brmXRX?editors=0100)，可预览一下最终结果。
 
@@ -16,7 +16,7 @@
 
 除了[栅格布局](https://www.sitepoint.com/introduction-css-grid-layout-module/)和 [Flexbox](https://www.sitepoint.com/flexbox-css-flexible-box-layout/)，这个方案还采用了 [calc](https://www.sitepoint.com/css3-calc-function/) 和[视图单位](https://www.sitepoint.com/css-viewport-units-quick-start/)。我们也将利用 [Sass 变量](http://sass-lang.com/documentation/file.SASS_REFERENCE.html#variables_)，让代码更可读和高效。
 
-不提供向下兼容，所以请确保在一个支持的浏览器上运行。一切就绪，就让我们开始一步一步开发看板组件吧。
+不提供向下兼容，所以请确保在支持的浏览器上运行。一切就绪，就让我们开始一步一步开发看板组件吧。
 
 ## 屏幕布局
 
@@ -91,7 +91,7 @@
 
 给 `overflow-x` 指定 auto 值，当列表不适合视口提供的宽度时，浏览器会在屏幕底部显示一个水平滚动条。
 
-`flex` 简写属性用于 flex item 使列表更精确。`flex-basis` （简写的方式使用）的 auto 值指示布局引擎从 `.list` 元素的宽度属性取值，`flex-grow` 和 `flex-shrink` 的 0 值可以防止宽度的改变。
+`flex` 简写属性用于 flex item 使列表更严格。`flex-basis` （简写的方式使用）的 auto 值指示布局引擎从 `.list` 元素的宽度属性取值，`flex-grow` 和 `flex-shrink` 的 0 值可以防止宽度的改变。
 
 接下来我将在列表之间添加一个水平分隔。如果给列表设置右间距，当水平溢出时看板上最后一个列表之后的间距不会被渲染。为了解决这个问题，列表被一个左间距分隔并且最后一个列表和窗口右边缘的间距通过给每个 `.lists` 元素添加一个伪元素 `::after` 来实现。默认值 `flex-shrink: 1` 一定要被重写，否则这个伪元素会”吸收“所有的负空间，然后消失。
 
