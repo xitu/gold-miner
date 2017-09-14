@@ -3,132 +3,131 @@
 > * 原文作者：[Camillo Bruni](https://plus.google.com/115597567207091386344)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/fast-properties-in-v8.md](https://github.com/xitu/gold-miner/blob/master/TODO/fast-properties-in-v8.md)
-> * 译者：
+> * 译者：[Cherry](https://github.com/sunshine940326)
 > * 校对者：
 
-# Fast Properties in V8
+# V8 中的快速特性
 
-In this blog post we would like to explain how V8 handles JavaScript properties internally. From a JavaScript point of view there are only a few distinctions necessary for properties. JavaScript objects mostly behave like dictionaries, with string keys and arbitrary objects as values. The specification does however treat integer-indexed properties and other properties differently [during iteration](https://tc39.github.io/ecma262/#sec-ordinaryownpropertykeys). Other than that, the different properties behave mostly the same, independent of whether they are integer indexed or not.
+在这篇文章中我将要解释 V8 引擎内部是如何处理 JavaScript 属性的。从 JavaScript 的角度来看，属性们区别并不大，JavaScript 对象表现形式更像是字典，字符串作为键和任意对象作为值。[通过该规范](https://tc39.github.io/ecma262/#sec-ordinaryownpropertykeys) 可以看出，我们可以通过整数索引来区分不同的属性。除此之外，不同属性的行为基本相同，和他们可不可以进行整数索引没有关系。
 
-However, under the hood V8 does rely on several different representations of properties for performance and memory reasons. In this blog post we are going to explain how V8 can provide fast property access while handling dynamically-added properties. Understanding how properties work is essential for explaining how optimizations such as [inline caches](http://mrale.ph/blog/2012/06/03/explaining-js-vms-in-js-inline-caches.html) work in V8.
+然而在 V8 引擎中属性的不同表现形式确实会对性能和内存有影响，在这篇文章中我们来解析 V8 引擎是如何能够在动态添加属性时进行快速的属性访问的，理解属性是如何工作的，并且解释 V8 引擎是如何的优化，（例如 [内联缓存](http://mrale.ph/blog/2012/06/03/explaining-js-vms-in-js-inline-caches.html) ）。
 
-This post explains the difference in handling integer-indexed and named properties. After that we show how V8 maintains HiddenClasses when adding named properties in order to provide a fast way to identify the shape of an object. We'll then continue giving insights into how named properties are optimized for fast accesses or fast modification depending on the usage. In the final section we provide details on how V8 handles integer-indexed properties or array indices.
+这篇文章解释了处理整数索引属性和命名属性的不同之处，之后我们展示了 V8 中是如何为了提供一个快速的方式定义一个对象的模型在添加一个命名属性时使用 HiddenClasses。然后，我们将继续深入了解如何根据使用情况进行属性名的命名优化，以便能够快速访问或者快速修改。在最后一节中，我们介绍 V8 如何处理整数索引属性或数组索引的详细信息。                                    
+## 命名属性和元素
 
-## Named Properties vs. Elements
+让我们从分析一个非常简单的对象开始，比如：`{a: "foo", b: "bar"}`。这个对象有两个命名属性，`"a" 和 "b"`。它没有使用任何的整数索引作为属性名。我们也可以使用索引访问属性，特别是对象为数组的情况。例如，数组 `["foo", "bar"]` 有两个可以使用数组索引的属性：索引为 0 的值是 `"foo"`，索引为 1 的值是 `"bar"`。
 
-Let's start by analysing a very simple object such as `{a: "foo", b: "bar"}`. This object has two named properties, `"a"` and `"b"`. It does not have any integer indices for property names. array-indexed properties, more commonly known as elements, are most prominent on arrays. For instance the array `["foo", "bar"]` has two array-indexed properties: 0, with the value `"foo"`, and `1`, with the value `"bar"`. This is the first major distinction on how V8 handles properties in general. 
+这是 V8 一般处理属性的第一个主要区别。
 
-The following diagram shows what a basic JavaScript object looks like in memory.
-
+下图显示了一个 JavaScript 的基本对象在内存中的样子。
 ![](https://2.bp.blogspot.com/-85h60IlpPP0/WaZyqIVb4BI/AAAAAAAABVo/07d2HYCaz8ojd3e6w2mmtls3jYPlzc7SwCEwYBhgL/s640/V8%2BBlog%2BPost%2BProperties%2B%25281%2529V8%2BBlog%2BPost%2BProperties%2B%25281%2529-opt.png)
 
-Elements and properties are stored in two separate data structures which makes adding and accessing properties or elements more efficient for different usage patterns.
+元素和属性存储在两个独立的数据结构中，这使得使用不同的模式添加和访问属性和元素将会更加有效。
 
-Elements are mainly used for the various [Array.prototype methods](https://tc39.github.io/ecma262/#sec-properties-of-the-array-prototype-object) such as pop or slice. Given that these functions access properties in consecutive ranges, V8 also represents them as simple arrays internally — most of the time. Later in this post we will explain how we sometimes switch to a sparse dictionary-based representation to save memory.
+元素主要用于各种 [数组原型链上的方法](https://tc39.github.io/ecma262/#sec-properties-of-the-array-prototype-object) 例如 `pop` 或 `slice`。考虑到这些函数是在连续范围存储区域内访问属性的，V8 引擎内部大部分情况下也将他们表示为简单的数组。稍后我们将解释如何使用一个稀疏的基于字典的表示来节省内存。
 
-Named properties are stored in a similar way in a separate array. However, unlike elements, we cannot simply use the key to deduce their position within the properties array; we need some additional metadata. In V8 every JavaScript object has a HiddenClass associated. The HiddenClass stores information about the shape of an object, and among other things, a mapping from property names to indices into the properties. To complicate things we sometimes use a dictionary for the properties instead of a simple array. We will explain this in more detail in a dedicated section.
+命名属性的存储类似于稀疏数组的存储。然而，与元素不同，我们不能简单的使用键推断其在属性数组中的位置，我们需要一些额外的头部信息。在 V8 中，每一个 JavaScript 对象都有一个相关联的 `HiddenClass`。这个 `HiddenClass` 存储了一个对象的模型信息，在其他方面，有一个从属性名到属性索引映射。我们有时使用一个字典来代替简单的数组。我们专门会在一个章节中更详细地解释这一点。
 
-**Takeaway from this section:**
+**本节重点:**
 
-- Array-indexed properties are stored in a separate elements store.
-- Named properties are stored in the properties store.
-- Elements and properties can either be arrays or dictionaries.
-- Each JavaScript object has a HiddenClass associated that keeps information about the object shape.
+- 数组索引属性存储在单独的元素存储区中。
+- 命名属性存储在属性存储区中。
+- 元素和属性可以是数组或字典。
+- 每个 JavaScript 对象有一个和对象的模型相关联的 `HiddenClass` 。
 
-## HiddenClasses and DescriptorArrays
+## HiddenClasses 和描述符数组
 
-After explaining the general distinction of elements and named properties we need to have a look at how HiddenClasses work in V8. This HiddenClass stores meta information about an object, including the number of properties on the object and a reference to the object’s prototype. HiddenClasses are conceptually similar to classes in typical object-oriented programming languages. However, in a prototype-based language such as JavaScript it is generally not possible to know classes upfront. Hence, in this case V8, HiddenClasses are created on the fly and updated dynamically as objects change. HiddenClasses serve as an identifier for the shape of an object and as such a very important ingredient for V8's optimizing compiler and inline caches. The optimizing compiler for instance can directly inline property accesses if it can ensure a compatible objects structure through the HiddenClass.
+在介绍了元素和命名属性的大致区别之后，我们需要来看一下 HiddenClasses 在 V8 中是怎么工作的。HiddenClass 存储了一个对象的头部信息，包括对象和对象引用原型的数量。HiddenClasses 在典型的面向对象的编程语言的概念中和“类”类似。然而，在像 JavaScript 这样的基于原型的编程语言中，通常不可能知道该对象是一个类的。因此，在这种情况下，在 V8 引擎中，HiddenClasses 创建和更新属性的动态变化。HiddenClasses 作为一个对象模型的标识，并且是 V8 引擎优化编译器和内联缓存的一个非常重要的因素。通过 HiddenClass 可以保持一个兼容的对象结构，这样的话实例可以直接使用内联的属性。
 
-Let's have a look at the important parts of a HiddenClass.
+让我们来看一下 HiddenClass 的重点
 
 ![](https://3.bp.blogspot.com/-DOwcud2emlM/WaZyqD5ijnI/AAAAAAAABVo/qM1VSAAvGb8UdkSDR7voqnsl7PPyP83nwCEwYBhgL/s640/V8%2BBlog%2BPost%2BProperties%2B%25283%2529V8%2BBlog%2BPost%2BProperties%2B%25283%2529-opt.png)
 
-In V8 the first field of a JavaScript object points to a HiddenClass. (In fact, this is the case for any object that is on the V8 heap and managed by the garbage collector.) In terms of properties, the most important information is the third bit field, which stores the number of properties, and a pointer to the descriptor array. The descriptor array contains information about named properties like the name itself and the position where the value is stored. Note that we do not keep track of integer indexed properties here, hence there is no entry in the descriptor array.
+在 V8 中，JavaScript 对象的第一部分就是指向 HiddenClass。（实际上，这也是 V8 中的任何对象都在堆中并且受垃圾回收器管理的原因。）在属性方面，最重要的信息是第三段区域，它存储属性的数量，以及一个指向描述符数组的指针。描述符数组包含有关命名属性的信息，如名称本身和存储值的位置。注意，我们不在这里跟踪整数索引属性，因此描述符数组中没有整数索引的条目。
 
-The basic assumption about HiddenClasses is that objects with the same structure — e.g. the same named properties in the same order — share the same HiddenClass. To achieve that we use a different HiddenClass when a property gets added to an object. In the following example we start from an empty object and add three named properties.
+关于 HiddenClasses 的基本假设是对象具有相同的结构，例如，相同的顺序对应相同的属性，共用相同的 HiddenClass。当我们给一个对象添加一个属性的时候我们使用不用的 HiddenClass 实现。在下面的例子中，我们从一个空对象开始并且添加三个命名属性。
 
 ![](https://2.bp.blogspot.com/-QryvU5yH54E/WaZypyDcL5I/AAAAAAAABVo/7A7nQTGpHnYh3nj2Z1ycEzKJMzMaASQ0ACEwYBhgL/s640/V8%2BBlog%2BPost%2BProperties%2B%25282%2529V8%2BBlog%2BPost%2BProperties%2B%25282%2529-opt.png)
 
-Every time a new property is added, the object's HiddenClass is changed. In the background V8 creates a transition tree that links the HiddenClasses together. V8 knows which HiddenClass to take when you add, for instance, the property "a" to an empty object. This transition tree makes sure you end up with the same final HiddenClass if you add the same properties in the same order. The following example shows that we would follow the same transition tree even if we add simple indexed properties in between.
+每次加入一个新属性时，对象的 HiddenClass 就会改变，在 V8 引擎的后台会创建一个将 HiddenClass 连接在一起的转移树。V8 引擎就知道你添加的 HiddenClass 是哪一个了，例如，属性 “a” 添加到一个空对象中，如果你以相同的顺序添加相同的属性，这个转化树会使用相同的 HiddenClass。下面的示例表明，即使在两者之间添加简单的索引属性，我们也将遵循相同的转换树。
 
 ![](https://1.bp.blogspot.com/-T2N4cAFYhH4/WaZz-dXh50I/AAAAAAAABV0/7TuUAyt5zUoTnLK-ESMHpY4YS44_lwAPwCEwYBhgL/s640/8.opt.png)
 
-**Takeway from this section: **
+**本节重点：**
 
-- Objects with the same structure (same properties in the same order) have the same HiddenClass
-- By default every new named property added causes a new HiddenClass to be created.
-- Adding array-indexed properties does not create new HiddenClasses.
+- 结构相同的对象（相同的顺序对于相同的属性）有相同的 HiddenClasses。
+- 默认情况下，每添加一个新的命名属性将产生了一个新的 HiddenClasses。
+- 增加数组索引属性并不创造新 HiddenClasses。
 
-## The Three Different Kinds of Named Properties
+## 三种不同的命名属性
 
-After giving an overview on how V8 uses HiddenClasses to track the shape of objects let’s dive into how these properties are actually stored. As explained in the introduction above, there are two fundamental kind of properties: named and indexed. The following section covers named properties.
+在概述了 V8 引擎是如何使用 HiddenClasses 来追踪对象的模型之后，我们来看一下这些属性实际上是如何储存的。正如上面介绍所介绍的，有两种基本属性：命名属性和索引属性。以下部分是命名属性:
 
-A simple object such as {a: 1, b: 2} can have various internal representations in V8. While JavaScript objects behave more or less like simple dictionaries from the outside, V8 tries to avoid dictionaries because they hamper certain optimizations such as [inline caches](https://en.wikipedia.org/wiki/Inline_caching) which we will explain in a separate post. 
+一个简单的对象，例如 `{a: 1, b: 2}` 在 V8 引擎的内部有多种表现形式，虽然 JavaScript 对象或多或少的和外部的字典相似，V8 引擎仍然试图避免和字典类似因为他们妨碍某些优化，例如 [内联缓存](https://en.wikipedia.org/wiki/Inline_caching)，我们将在一篇单独的文中中解释。
 
-In-object vs. Normal Properties: V8 supports so-called in-object properties which are stored directly on the object themselves. These are the fastest properties available in V8 as they are accessible without any indirection. The number of in-object properties is predetermined by the initial size of the object. If more properties get added than there is space in the object, they are stored in the properties store. The properties store adds one level of indirection but can be grown independently.
+**属性存储在对象中与存储在属性区域：** V8 引擎支持直接储存在所谓的对象本身的对象属性。这些是 V8 引擎中可用的最快速的属性，因为他们可以直接访问。如果在对象中添加超出存储空间的属性，那么他们会储存在属性存储区中。属性存储多了一层间接寻址但这是独立的区域。
 
 ![](https://4.bp.blogspot.com/-d2tpi7Ag4Xc/WaZyrJLvHoI/AAAAAAAABVo/ckwdEeuj0asJWRwVcNfLNX8b_9V5uOdvACEwYBhgL/s640/V8%2BBlog%2BPost%2BProperties%2B%25285%2529V8%2BBlog%2BPost%2BProperties%2B%25285%2529-opt.png)
 
-**Fast vs. Slow Properties: **The next important distinction is between fast and slow properties. Typically we define the properties stored in the linear properties store as "fast".  Fast properties are simply accessed by index in the properties store. To get from the name of the property to the actual position in the properties store, we have to consult the descriptor array on the HiddenClass, as we've outlined before.
+**访问属性的速度对比：** 下一个重要的区别是访问属性的速度。通常，我们将存储在线性属性存储区域的属性称为“快速的”。快属性仅通过属性存储区的索引访问，为了在属性存储区的实际位置得到属性的名字，我们必须通过在 HiddenClass 中的描述符数组。  
 
 ![](https://1.bp.blogspot.com/-5koeeNOIEAA/WaZ1GIxOgcI/AAAAAAAABWE/pVHJMYKV2oAdLVnOH7mJS4CcOnsGr5GngCEwYBhgL/s640/10-opt.png)
 
-However, if many properties get added and deleted from an object, it can generate a lot of time and memory overhead to maintain the descriptor array and HiddenClasses. Hence, V8 also supports so-called slow properties. An object with slow properties has a self-contained dictionary as a properties store. All the properties meta information is no longer stored in the descriptor array on the HiddenClass but directly in the properties dictionary. Hence, properties can be added and removed without updating the HiddenClass. Since inline caches don’t work with dictionary properties, the latter, are typically slower than fast properties.
+然而，从一个对象中添加或删除多个属性，会为了保持描述符数组和 HiddenClasses 而产生大量的时间和内存的开销。因此，V8 引擎也支持所谓的慢属性，一个有慢属性的对象有一个自包含的字典作为属性存储区。所有的属性头部信息都不再存储在 HiddenClass 的描述符数组而是直接在属性字典。因此，属性可以添加和删除不更新的 HiddenClass。由于内联缓存不使用字典属性，后者通常比快速属性慢。
 
-**Takeaway from this section: **
+**本节重点：**
 
-1. There are three different named property types: in-object, fast and slow/dictionary.
+1. 有三种不同的命名属性类型：对象、快字典和慢字典。
 
-- In-object properties are stored directly on the object itself and provide the fastest access.
-- Fast properties live in the properties store, all the meta information is stored in the descriptor array on the HiddenClass.
-- Slow properties live in a self-contained properties dictionary, meta information is no longer shared through the HiddenClass.
+- 在对象属性中直接存储在对象本身上，并提供最快的访问权限。
+- 快属性存储在属性存储区，所有的头部信息存储在 HiddenClass 的描述符数组中。
+- 慢属性存储在自身的属性字典中，头部信息不再存储于 HiddenClass。
 
-2. Slow properties allow for efficient property removal and addition but are slower to access than the other two types.
+2. 慢属性允许高效的属性删除和添加，但访问速度比其他两种类型慢。
 
-## Elements or array-indexed Properties
+## 元素或数组索引属性
 
-So far we have looked at named properties and ignored integer indexed properties commonly used with arrays. Handling of integer indexed properties is no less complex than named properties. Even though all indexed properties are always kept separately in the elements store, there are 20 different types of elements!
+到目前为止，我们已经研究了命名属性，在研究的过程中忽略数组中常用的整数索引属性。处理整数索引属性并不比命名属性简单。尽管所有的索引属性总是单独存放在元素存储中，但是有 20 种不同类型的元素！
 
-**Packed or Holey Elements: **The first major distinction V8 makes is whether the elements backing store is packed or has holes in it. You get holes in a backing store if you delete an indexed element, or for instance, you don't define it. A simple example is [1,,3] where the second entry is a hole. The following example illustrates this issue:
+**元素是连续的的还是有缺省的：** V8 引擎的第一个主要区别是元素存储区是连续的还是有缺省的。如果删除索引元素，或者在不定义索引元素的情况下，就会在后台存储中有一个缺省。一个简单的例子是 `[1,,3]`，第二个位置缺省。下面的例子说明了这个问题：
 
 ```
 const o = ["a", "b", "c"];
-console.log(o[1]);          // Prints "b".
+console.log(o[1]);          // 打印 "b".
 
-delete o[1];                // Introduces a hole in the elements store.
-console.log(o[1]);          // Prints "undefined"; property 1 does not exist.
-o.__proto__ = {1: "B"};     // Define property 1 on the prototype.
+delete o[1];                // 删除一个属性.
+console.log(o[1]);          // 打印 "undefined"; 第二个属性不存在
+o.__proto__ = {1: "B"};     // 在原型上定义第二个属性
 
-console.log(o[0]);          // Prints "a".
-console.log(o[1]);          // Prints "B".
-console.log(o[2]);          // Prints "c".
-console.log(o[3]);          // Prints undefined
+console.log(o[0]);          // 打印 "a".
+console.log(o[1]);          // 打印 "B".
+console.log(o[2]);          // 打印
+console.log(o[3]);          // 打印 undefined
 ```
 
 ![](https://4.bp.blogspot.com/-IYamXWTAJWc/WaZ0hiBb5VI/AAAAAAAABV8/9BRrrSGMsxkJkjtH2bEqw2qg_UszfNBBACEwYBhgL/s400/9-opt.png)
 
-In short, if a property is not present on the receiver we have to keep on looking on the prototype chain. Given that elements are self-contained, e.g. we don't store information about present indexed properties on the HiddenClass, we need a special value, called the_hole, to mark properties that are not present. This is crucial for the performance of Array functions. If we know that there are no holes, i.e. the elements store is packed, we can perform local operations without expensive lookups on the prototype chain.
+简言之，如果接收器上不存在属性，我们必须继续在原型链上查找。如果元素是自包含的，我们不在 HiddenClass 中存储有关当前索的属性，我们需要一个特殊的值，称为 `the_hole`，来标记属性是不存在的。这个数组函数的性能是至关重要的。如果我们知道有没有缺省，即元素是连续的，我们可以不用昂贵代价来查询原型链来进行本地操作。
 
-**Fast or Dictionary Elements: **The second major distinction made on elements is whether they are fast or dictionary-mode. Fast elements are simple VM-internal arrays where the property index maps to the index in the elements store. However, this simple representation is rather wasteful for very large sparse/holey arrays where only few entries are occupied. In this case we used a dictionary-based representation to save memory at the cost of slightly slower access:
-
+**快速元素和字典元素: ** 对元素的第二个主要区别是它们是快速的还是字典模式的。快速元素是简单的 VM 内部数组，其中属性索引映射到元素存储区中的索引。然而，这种简单的表示在稀疏数组中是相当浪费的。在这种情况下，我们使用基于字典的表示来节省内存，以访问速度稍微慢一些为代价：
 ```
 const sparseArray = [];
-sparseArray[1 << 20] = "foo"; // Creates an array with dictionary elements.
+sparseArray[1 << 20] = "foo"; // 使用字典元素创建一个数组。
 ```
 
-In this example, allocating a full array with 10k entries would be rather wasteful. What happens instead is that V8 creates a dictionary where we store a key-value-descriptor triplets. The key in this case would be 10000 and the value "string" and the default descriptor is used. Given that we don't have a way to store descriptor details on the HiddenClass, V8 resorts to slow elements whenever you define an indexed properties with a custom descriptor:
+在这个例子中，分配一个 10K 的条目全排列会更浪费。取而代之的是 V8 创建的一个字典，我们在其中存储三个一模一样的键值描述符。本例中的键为 10000，使用值“字符串”和默认描述符。因为我们没有办法在 HiddenClass 存储区描述细节，在 V8 中 当你定义一个索引属性与自定义描述符存储在慢元素中：
 
 ```
 const array = [];
 Object.defineProperty(array, 0, {value: "fixed", configurable: false});
-console.log(array[0]);      // Prints "fixed".
-array[0] = "other value";   // Cannot override index 0.
-console.log(array[0]);      // Still prints "fixed".
+console.log(array[0]);      // 打印 "fixed".
+array[0] = "other value";   // 不能重新第 1 个索引.
+console.log(array[0]);      // 仍然打印 "fixed".
 ```
 
-In this example we added a non-configurable property on the array. This information is stored in the descriptor part of a slow elements dictionary triplet. It is important to note that Array functions perform considerably slower on objects with slow elements.
+在这个例子中，我们在数组上添加了一个不可配置的属性。此信息存储在慢元素字典三元组的描述符部分中。需要注意的是，在慢元素对象上，数组函数的执行速度要慢得多。
 
-**Smi and Double Elements: **For fast elements there is another important distinction made in V8. For instance if you only store integers in an Array, a common use-case, the GC does not have to look at the array, as integers are directly encoded as so called small integers (Smis) in place. Another special case are Arrays that only contain doubles. Unlike Smis, floating point numbers are usually represented as full objects occupying several words. However, V8 stores raw doubles for pure double arrays to avoid memory and performance overhead. The following example lists 4 examples of Smi and double elements:
+**小整数和双精度元素：** 对于快速元素，V8中还有另一个重要的区别。例如，如果你只保存整数数组，一个常见的例子：GC 没有接受数组，因为整数直接编码为所谓的小整数（SMIS）。另一个特例是数组，它们只包含双精度数。不像SMIS，浮点数通常表示为对象占用的几个字符。然而，V8 使用两行来存储纯双精度组，以避免内存和性能开销。下面的示例列出了 SMI 和双精度元素的 4 个示例：
 
 ```
 const a1 = [1,   2, 3];  // Smi Packed
@@ -137,19 +136,20 @@ const b1 = [1.1, 2, 3];  // Double Packed
 const b2 = [1.1,  , 3];  // Double Holey, b2[1] reads from the prototype
 ```
 
-**Special Elements: **With the information so far we covered 7 out of the 20 different element kinds. For simplicity we excluded 9 element kinds for TypedArrays, two more for String wrappers and last but not least, two more special element kinds for arguments objects.
+**特别的元素: **到目前为止，我们涵盖了 20 种不同元素中的 7 种。为简单起见，我们排除了 9 元种 数组类型，两个字符串包装等等，两个参数对象。
 
-**The ElementsAccessor: **As you can imagine we are not exactly keen on writing Array functions 20 times in C++, once for every elements kind. That's where some C++ magic comes into play. Instead of implementing Array functions over and over again, we built the ElementsAccessor where we mostly have to implement only simple functions that access elements from the backing store. The ElementsAccessor relies on CRTP to create specialized versions of each Array function. So if you call something like slice on a array, V8 internally calls a builtin written in C++ and dispatches through the ElementsAccessor to the specialized version of the function:
+**ElementsAccessor: **
+你可以想象我们并不想为了每一种元素在 C++ 中写 20 次数组函数。这就是 C++ 奇妙。为了代替取代一次又一次数组函数的实现，我们在从后备存储访问元素建立了 ElementsAccessor 。ElementsAccessor 依赖 CRTP 创建每一个数组函数的专业版。所以，如果你调用数组中的一些方法例如 slice，将通过调用 V8 引擎的内部调用内置 C++ 编写的，ElementsAccessor 的专业版：
 
 ![](https://3.bp.blogspot.com/-VZ1f0pKwu9g/WaZyrpJ-2qI/AAAAAAAABVo/UZp0rgWPM_QorIHTDBHJCvYUVhnND8DlQCEwYBhgL/s640/V8%2BBlog%2BPost%2BProperties%2B%25287%2529V8%2BBlog%2BPost%2BProperties%2B%25287%2529-opt.png)
 
-**Takeaway from this section:**
+**本节重点：**
 
-- There are fast and dictionary-mode indexed properties and elements.
-- Fast properties can be packed or they can can contain holes which indicate that an indexed property has been deleted.
-- Elements are specialized on their content to speed up Array functions and reduce GC overhead.
+- 有快速模式和字典模式索引属性和元素。
+- 快速属性可以试玩和智能的也可以有包含被删除的属性。
+- 元素在其内容上专门化，以加速数组函数并减少 GC 开销。
 
-Understanding how properties work is key to many optimizations in V8. For JavaScript developers many of these internal decisions are not visible directly, but they explain why certain code patterns are faster than others. Changing the property or element type typically causes V8 to create a different HiddenClass which can lead to type pollution which [prevents V8 from generating optimal code](http://mrale.ph/blog/2015/01/11/whats-up-with-monomorphism.html). Stay tuned for further posts on how the VM-internals of V8 work.
+了解属性如何工作是在 V8 中许多优化的关键。对于 JavaScript 开发人员来说，这些内部决策中有很多是不可见的，但它们解释了为什么某些代码模式比其他代码模式更快。更改属性或元素类型通常让 V8 创造不同的 HiddenClass，[阻碍 V8 优化的原因](http://mrale.ph/blog/2015/01/11/whats-up-with-monomorphism.html)。敬请期待我以后的文章：V8 引擎 VM 内部是如何工作的。
 
 
 ---
