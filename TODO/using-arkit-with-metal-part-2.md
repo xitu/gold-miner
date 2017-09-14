@@ -3,25 +3,25 @@
 > * 原文作者：[Marius Horga](https://twitter.com/gpu3d)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/using-arkit-with-metal-part-2.md](https://github.com/xitu/gold-miner/blob/master/TODO/using-arkit-with-metal-part-2.md)
-> * 译者：
-> * 校对者：
+> * 译者：[swants](http://www.swants.cn)
+> * 校对者：[zhangqippp](https://github.com/zhangqippp) [Danny1451](https://github.com/Danny1451)
 
-# 通过 Metal 来使用 ARKit (下)
+# 基于 Metal 的 ARKit 使用指南（下）
 
-咱们上篇提到过, **ARKit** 应用通常包括三个图层 : `渲染层` , `追踪层` 和 `场景解析层` 。上一篇我们通过一个自定义视图已经非常详细地分析了渲染层在 `Metal` 中是如何工作的了。 `ARKit` 使用 `视觉惯性测程法` 准确地追踪它周围的环境，并将相机传感器数据和 `CoreMotion` 数据相结合。这样当相机随我们运动时，不需要额外的校准就可以保证图像的稳定性。这篇文章我们将研究  __场景解析__ —— 通过平面检测，碰撞测试和测定光线来描述场景的特征。 `ARKit` 可以分析相机呈现出来的场景并在场景中找到类似地板这样的水平面。前提是，我们需要在运行 session configuration 之前，简单地添加额外的一行代码来打开水平面检测的新特性（默认是关闭的）：
+咱们上篇提到过 ,  **ARKit** 应用通常包括三个图层 : `渲染层` , `追踪层` 和 `场景解析层` 。上一篇我们通过一个自定义视图已经非常详细地分析了渲染层在 `Metal` 中是如何工作的了。 `ARKit` 使用 `视觉惯性测程法` 准确地追踪它周围的环境，并将相机传感器数据和 `CoreMotion` 数据相结合。这样当相机随我们运动时，不需要额外的校准就可以保证图像的稳定性。这篇文章我们将研究  __场景解析__ —— 通过平面检测，碰撞测试和光线测定来描述场景特征的方法。 `ARKit` 可以分析相机呈现出来的场景并在场景中找到类似地板这样的水平面。前提是，我们需要在运行 session configuration 之前，简单地添加额外的一行代码来打开水平面检测的新特性（默认是关闭的）：
 
 ```
 override func viewWillAppear(_ animated: Bool) {
-  super.viewWillAppear(animated)
-  let configuration = ARWorldTrackingConfiguration()
-  configuration.planeDetection = .horizontal
-  session.run(configuration)
+super.viewWillAppear(animated)
+let configuration = ARWorldTrackingConfiguration()
+configuration.planeDetection = .horizontal
+session.run(configuration)
 }
 ```
 
 > 注意，在当前的 API 版本中只能添加水平的平面检测。
 
-使用 **ARSessionObserver** 协议方法来处理会话错误，追踪点更改和打断：
+使用 **ARSessionObserver** 协议方法来处理会话错误，追踪变化和打断：
 
 ```
 func session(_ session: ARSession, didFailWithError error: Error) {}
@@ -35,7 +35,7 @@ func sessionInterruptionEnded(_ session: ARSession) {}
 
 ```
 func session(_ session: ARSession, didAdd anchors: [ARAnchor]) {
-  print(anchors)
+print(anchors)
 }
 func session(_ session: ARSession, didRemove anchors: [ARAnchor]) {}
 func session(_ session: ARSession, didUpdate anchors: [ARAnchor]) {}
@@ -59,7 +59,7 @@ var debugInstanceCount: Int = 0
 debugUniformBuffer = device.makeBuffer(length: anchorUniformBufferSize, options: .storageModeShared)
 ```
 
-我们需要为我们的平面创建新的顶点和分段函数，以及新的渲染管道和深度模板状态。在刚才创建命令行队列的行上面，添加以下行的代码：
+我们需要为我们的平面创建新的顶点和分段函数，以及新的渲染管道和深度模板状态。在刚才创建命令行队列的代码上面，添加以下代码：
 
 ```
 let debugGeometryVertexFunction = defaultLibrary.makeFunction(name: "vertexDebugPlane")!
@@ -71,7 +71,7 @@ do { try debugPipelineState = device.makeRenderPipelineState(descriptor: anchorP
 debugDepthState = device.makeDepthStencilState(descriptor: anchorDepthStateDescriptor)
 ```
 
-再次，在 **setupAssets()** 方法中，我们需要创建一个新的 `Model I/O` 平面网格，然后在其中再创建一个 Metal 网格。在这个方法的末尾添加下面的代码：
+再次，在 **setupAssets()** 方法中，我们需要创建一个新的 `Model I/O` 平面网格，然后在通过它创建一个 Metal 网格。在这个方法的末尾添加下面的代码：
 
 ```
 mdlMesh = MDLMesh(planeWithExtent: vector3(0.1, 0.1, 0.1), segments: vector2(1, 1), geometryType: .triangles, allocator: metalAllocator)
@@ -80,7 +80,7 @@ do { try debugMesh = MTKMesh(mesh: mdlMesh, device: device)
 } catch let error { print(error) }
 ```
 
-从此，在 **updateBufferStates()** 方法中，我们需要更新平面所在缓存区的地址。添加下面的代码：
+下一步，在 **updateBufferStates()** 方法中，我们需要更新平面所在缓存区的地址。添加下面的代码：
 
 
 ```
@@ -88,7 +88,7 @@ debugUniformBufferOffset = alignedInstanceUniformSize * uniformBufferIndex
 debugUniformBufferAddress = debugUniformBuffer.contents().advanced(by: debugUniformBufferOffset)
 ```
 
-接下来，在 **updateAnchors()** 方法中，我们需要更新转换矩阵和锚点的数量。再循环之前添加下面的代码：
+接下来，在 **updateAnchors()** 方法中，我们需要更新转换矩阵和锚点的数量。在循环之前添加下面的代码：
 
 
 ```
@@ -100,14 +100,14 @@ debugInstanceCount = min(count, maxAnchorInstanceCount - (anchorInstanceCount - 
 
 ```
 if anchor.isKind(of: ARPlaneAnchor.self) {
-  let transform = anchor.transform * rotationMatrix(rotation: float3(0, 0, Float.pi/2))
-  let modelMatrix = simd_mul(transform, coordinateSpaceTransform)
-  let debugUniforms = debugUniformBufferAddress.assumingMemoryBound(to: InstanceUniforms.self).advanced(by: index)
-  debugUniforms.pointee.modelMatrix = modelMatrix
+let transform = anchor.transform * rotationMatrix(rotation: float3(0, 0, Float.pi/2))
+let modelMatrix = simd_mul(transform, coordinateSpaceTransform)
+let debugUniforms = debugUniformBufferAddress.assumingMemoryBound(to: InstanceUniforms.self).advanced(by: index)
+debugUniforms.pointee.modelMatrix = modelMatrix
 } else {
-  let modelMatrix = simd_mul(anchor.transform, coordinateSpaceTransform)
-  let anchorUniforms = anchorUniformBufferAddress.assumingMemoryBound(to: InstanceUniforms.self).advanced(by: index)
-  anchorUniforms.pointee.modelMatrix = modelMatrix
+let modelMatrix = simd_mul(anchor.transform, coordinateSpaceTransform)
+let anchorUniforms = anchorUniformBufferAddress.assumingMemoryBound(to: InstanceUniforms.self).advanced(by: index)
+anchorUniforms.pointee.modelMatrix = modelMatrix
 }
 ```
 
@@ -116,56 +116,56 @@ if anchor.isKind(of: ARPlaneAnchor.self) {
 
 ```
 func rotationMatrix(rotation: float3) -> float4x4 {
-  var matrix: float4x4 = matrix_identity_float4x4
-  let x = rotation.x
-  let y = rotation.y
-  let z = rotation.z
-  matrix.columns.0.x = cos(y) * cos(z)
-  matrix.columns.0.y = cos(z) * sin(x) * sin(y) - cos(x) * sin(z)
-  matrix.columns.0.z = cos(x) * cos(z) * sin(y) + sin(x) * sin(z)
-  matrix.columns.1.x = cos(y) * sin(z)
-  matrix.columns.1.y = cos(x) * cos(z) + sin(x) * sin(y) * sin(z)
-  matrix.columns.1.z = -cos(z) * sin(x) + cos(x) * sin(y) * sin(z)
-  matrix.columns.2.x = -sin(y)
-  matrix.columns.2.y = cos(y) * sin(x)
-  matrix.columns.2.z = cos(x) * cos(y)
-  matrix.columns.3.w = 1.0
-  return matrix
+var matrix: float4x4 = matrix_identity_float4x4
+let x = rotation.x
+let y = rotation.y
+let z = rotation.z
+matrix.columns.0.x = cos(y) * cos(z)
+matrix.columns.0.y = cos(z) * sin(x) * sin(y) - cos(x) * sin(z)
+matrix.columns.0.z = cos(x) * cos(z) * sin(y) + sin(x) * sin(z)
+matrix.columns.1.x = cos(y) * sin(z)
+matrix.columns.1.y = cos(x) * cos(z) + sin(x) * sin(y) * sin(z)
+matrix.columns.1.z = -cos(z) * sin(x) + cos(x) * sin(y) * sin(z)
+matrix.columns.2.x = -sin(y)
+matrix.columns.2.y = cos(y) * sin(x)
+matrix.columns.2.z = cos(x) * cos(y)
+matrix.columns.3.w = 1.0
+return matrix
 }
 ```
 
-，在 **drawAnchorGeometry()** 方法中，我们需要确保我们在渲染的时候至少拥有一个锚点，用下面的代码替换方法第一行：
+接着，在 **drawAnchorGeometry()** 方法中，我们需要确保我们在渲染的时候至少拥有一个锚点，用下面的代码替换方法第一行：
 
 
 ```
 guard anchorInstanceCount - debugInstanceCount > 0 else { return }
 ```
 
-再然后，我们终于完成了 **drawDebugGeometry()** 方法来渲染我们的平面。它和锚点渲染方法是非常相似的：
+再然后，让我们最后创建 **drawDebugGeometry()** 方法来绘制我们的平面。它和锚点渲染方法是非常相似的：
 
 
 ```
 func drawDebugGeometry(renderEncoder: MTLRenderCommandEncoder) {
-  guard debugInstanceCount > 0 else { return }
-  renderEncoder.pushDebugGroup("DrawDebugPlanes")
-  renderEncoder.setCullMode(.back)
-  renderEncoder.setRenderPipelineState(debugPipelineState)
-  renderEncoder.setDepthStencilState(debugDepthState)
-  renderEncoder.setVertexBuffer(debugUniformBuffer, offset: debugUniformBufferOffset, index: 2)
-  renderEncoder.setVertexBuffer(sharedUniformBuffer, offset: sharedUniformBufferOffset, index: 3)
-  renderEncoder.setFragmentBuffer(sharedUniformBuffer, offset: sharedUniformBufferOffset, index: 3)
-  for bufferIndex in 0..<debugMesh.vertexBuffers.count {
-    let vertexBuffer = debugMesh.vertexBuffers[bufferIndex]
-    renderEncoder.setVertexBuffer(vertexBuffer.buffer, offset: vertexBuffer.offset, index:bufferIndex)
-  }
-  for submesh in debugMesh.submeshes {
-    renderEncoder.drawIndexedPrimitives(type: submesh.primitiveType, indexCount: submesh.indexCount, indexType: submesh.indexType, indexBuffer: submesh.indexBuffer.buffer, indexBufferOffset: submesh.indexBuffer.offset, instanceCount: debugInstanceCount)
-  }
-  renderEncoder.popDebugGroup()
+guard debugInstanceCount > 0 else { return }
+renderEncoder.pushDebugGroup("DrawDebugPlanes")
+renderEncoder.setCullMode(.back)
+renderEncoder.setRenderPipelineState(debugPipelineState)
+renderEncoder.setDepthStencilState(debugDepthState)
+renderEncoder.setVertexBuffer(debugUniformBuffer, offset: debugUniformBufferOffset, index: 2)
+renderEncoder.setVertexBuffer(sharedUniformBuffer, offset: sharedUniformBufferOffset, index: 3)
+renderEncoder.setFragmentBuffer(sharedUniformBuffer, offset: sharedUniformBufferOffset, index: 3)
+for bufferIndex in 0..<debugMesh.vertexBuffers.count {
+let vertexBuffer = debugMesh.vertexBuffers[bufferIndex]
+renderEncoder.setVertexBuffer(vertexBuffer.buffer, offset: vertexBuffer.offset, index:bufferIndex)
+}
+for submesh in debugMesh.submeshes {
+renderEncoder.drawIndexedPrimitives(type: submesh.primitiveType, indexCount: submesh.indexCount, indexType: submesh.indexType, indexBuffer: submesh.indexBuffer.buffer, indexBufferOffset: submesh.indexBuffer.offset, instanceCount: debugInstanceCount)
+}
+renderEncoder.popDebugGroup()
 }
 ```
 
-在渲染层还有最后件事要做——就是在 **update()** 里我们刚才结束编码的那一行上面调用这个方法： 
+在渲染层还有最后件事要做 —— 就是在 **update()** 里我们刚才结束编码的那一行上面调用这个方法： 
 
 
 ```
@@ -177,33 +177,33 @@ drawDebugGeometry(renderEncoder: renderEncoder)
 
 ```
 typedef struct {
-  float3 position [[attribute(0)]];
+float3 position [[attribute(0)]];
 } DebugVertex;
 ```
 
-在顶点的着点中，我们使用模型视图模型来更新顶点的位置：
+在顶点着色器中，我们使用模型视图矩阵来更新顶点的位置：
 
 
 ```
 vertex float4 vertexDebugPlane(DebugVertex in [[ stage_in]],
-                               constant SharedUniforms &sharedUniforms [[ buffer(3) ]],
-                               constant InstanceUniforms *instanceUniforms [[ buffer(2) ]],
-                               ushort vid [[vertex_id]],
-                               ushort iid [[instance_id]]) {
-    float4 position = float4(in.position, 1.0);
-    float4x4 modelMatrix = instanceUniforms[iid].modelMatrix;
-    float4x4 modelViewMatrix = sharedUniforms.viewMatrix * modelMatrix;
-    float4 outPosition = sharedUniforms.projectionMatrix * modelViewMatrix * position;
-    return outPosition;
+constant SharedUniforms &sharedUniforms [[ buffer(3) ]],
+constant InstanceUniforms *instanceUniforms [[ buffer(2) ]],
+ushort vid [[vertex_id]],
+ushort iid [[instance_id]]) {
+float4 position = float4(in.position, 1.0);
+float4x4 modelMatrix = instanceUniforms[iid].modelMatrix;
+float4x4 modelViewMatrix = sharedUniforms.viewMatrix * modelMatrix;
+float4 outPosition = sharedUniforms.projectionMatrix * modelViewMatrix * position;
+return outPosition;
 }
 ```
 
-最后，在片段着色器中，我们给予平面一个大胆的颜色来让我们可以在视图中轻易注意到它：
+最后，在片段着色器中，我们给平面一个鲜艳的颜色，使我们在视图中可以一眼看到它：
 
 
 ```
 fragment float4 fragmentDebugPlane() {
-  return float4(0.99, 0.42, 0.62, 1.0);
+return float4(0.99, 0.42, 0.62, 1.0);
 }
 ```
 
@@ -211,7 +211,7 @@ fragment float4 fragmentDebugPlane() {
 
 ![](https://github.com/MetalKit/images/blob/master/plane.gif?raw=true)
 
-我们接下来可以更新/移动平面，我们检测到更多平面或者我们从之前检测到的平面移开。其他的代理方法可以帮助我们实现这一点。接着我们可以研究碰撞和其他物理效果。当然，这只是一个未来的想象。
+接下来,我们可以通过检测其他目标,或将视角从之前的检测目标上移开来更新或者移除平面。其他的代理方法可以帮助我们实现这一点。接着我们可以研究碰撞和其他物理效果。当然，这只是一个未来的想象。
 
 我想要感谢 [Caroline](https://twitter.com/carolinebegbie) 为本篇文章指定检测目标（平面）! 按照惯例，[源代码](https://github.com/MetalKit/metal) 都发表在 `Github` 上。
 
