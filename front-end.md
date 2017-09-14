@@ -1,3 +1,5 @@
+* [使用 CSS 的 font-size-adjust 属性改善网页排版](https://juejin.im/post/59b8b97d5188257e8c54d816?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lampui](https://github.com/lampui) 翻译)
+* [CSS 十六进制颜色揭秘](https://juejin.im/entry/59b887515188257e7973a60a?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([sunshine940326](https://github.com/sunshine940326) 翻译)
 * [原生 JavaScript 值得学习吗？答案是肯定的](https://juejin.im/post/59a535bd6fb9a0249975cb9b?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lampui](https://github.com/lampui) 翻译)
 * [你是如何拆分组件的？](https://juejin.im/post/59aa7f8c6fb9a024747f13b7?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([undead25](https://github.com/undead25) 翻译)
 * [Angular 与 React：谁更适合前端开发](https://juejin.im/post/59ab51746fb9a024865d202b?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([stormrabbit](https://github.com/stormrabbit) 翻译)
