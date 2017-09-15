@@ -4,7 +4,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/the-tiny-keyboard-problem-do-people-complete-forms.md](https://github.com/xitu/gold-miner/blob/master/TODO/the-tiny-keyboard-problem-do-people-complete-forms.md)
 > * 译者：[Changkun Ou](https://github.com/changkun)
-> * 校对者：
+> * 校对者：[ylq167](https://github.com/ylq167)
 
 # 「小键盘」难题：用户在手机上填写表单吗？
 
