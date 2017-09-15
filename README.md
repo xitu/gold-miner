@@ -31,10 +31,10 @@
 
 ## AI / Deep Learning / Machine Learning
 
+* [基于 TensorFlow 的上下文聊天机器人](https://juejin.im/entry/5992cd385188252433704fa3?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([edvardHua](https://github.com/edvardHua) 翻译)
+* [使用 AI 为 Web 网页增加无障碍功能](https://juejin.im/post/59a51e91f265da2499603c8c?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lsvih](https://github.com/lsvih) 翻译)
+* [在 Airbnb 使用机器学习预测房源的价值](https://juejin.im/post/59acfc336fb9a0249471e47d?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lsvih](https://github.com/lsvih) 翻译)
 * [为什么我们渴求女性来设计 AI ](https://juejin.im/post/599c1e45518825242a02596e?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([TobiasLee](https://github.com/TobiasLee) 翻译)
-* [巧用 ARKit 和 SpriteKit 从零开始做 AR 游戏](https://juejin.im/post/599aaf746fb9a02477072380?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Danny1451](https://github.com/Danny1451) 翻译)
-* [深度学习系列4: 为什么你需要使用嵌入层](https://juejin.im/post/599183c6f265da3e2e5717d2?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lileizhenshuai](https://github.com/lileizhenshuai) 翻译)
-* [机器之魂：聊天机器人是怎么工作的](https://juejin.im/post/599155d86fb9a03c467c151d?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lsvih](https://github.com/lsvih) 翻译)
 * [所有 AI 译文>>](https://github.com/xitu/gold-miner/blob/master/AI.md)
 
 ## Android
@@ -47,18 +47,18 @@
 
 ## iOS
 
-* [iOS 响应式编程：Swift 中的轻量级状态容器](https://juejin.im/post/599652ee6fb9a024903a8d59?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([DeepMissea](https://github.com/DeepMissea) 翻译)
-* [Swift 中的通用数据源](https://juejin.im/post/5990fd7b51882548bc7cabd8?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([swants](https://github.com/swants) 翻译)
-* [模块化 Swift 中的状态](https://juejin.im/post/597962875188253dda0f05a9?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([DeepMissea](https://github.com/DeepMissea) 翻译)
-* [Xcode 中的用户断点](https://juejin.im/post/597934335188253dfb7b0db7?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([atuooo](https://github.com/atuooo) 翻译)
+* [如何在 iOS 上实现类似 Airbnb 中的可展开式菜单](https://juejin.im/post/59acdf2b6fb9a024763806cf?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([RichardLeeH](https://github.com/RichardLeeH) 翻译)
+* [结构体指针](https://juejin.im/post/59a60cc1f265da249a201ae9?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([swants](https://github.com/swants) 翻译)
+* [MVVM, Coordinators 和 RxSwift 的抽丝剥茧](https://juejin.im/post/59acf7dcf265da24722fe6a1?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([jingzhilehuakai](https://github.com/jingzhilehuakai) 翻译)
+* [探究 Swift 中的 Futures & Promises](https://juejin.im/post/59afcf5d51882524434163dd?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([atuooo](https://github.com/atuooo) 翻译)
 * [所有 iOS 译文>>](https://github.com/xitu/gold-miner/blob/master/ios.md)
 
 ## 前端
 
-* [JavaScript 二进制的 AST](https://juejin.im/post/599e6f246fb9a024985f0421?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([sunshine940326](https://github.com/sunshine940326) 翻译)
-* [关于 React Router 4 的一切](https://juejin.im/post/5995a2506fb9a0249975a1a4?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([undead25](https://github.com/undead25) 翻译)
-* [如何在 Webpack 2 中使用 tree-shaking](https://juejin.im/post/599bc13b6fb9a024a370f4ec?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Aladdin-ADD](https://github.com/Aladdin-ADD) 翻译)
-* [Redux 有多棒？](https://juejin.im/entry/599cff2551882524397f95c1/detail?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([ZiXYu](https://github.com/ZiXYu) 翻译)
+* [使用 CSS 的 font-size-adjust 属性改善网页排版](https://juejin.im/post/59b8b97d5188257e8c54d816?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lampui](https://github.com/lampui) 翻译)
+* [CSS 十六进制颜色揭秘](https://juejin.im/entry/59b887515188257e7973a60a?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([sunshine940326](https://github.com/sunshine940326) 翻译)
+* [原生 JavaScript 值得学习吗？答案是肯定的](https://juejin.im/post/59a535bd6fb9a0249975cb9b?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lampui](https://github.com/lampui) 翻译)
+* [你是如何拆分组件的？](https://juejin.im/post/59aa7f8c6fb9a024747f13b7?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([undead25](https://github.com/undead25) 翻译)
 * [所有前端译文>>](https://github.com/xitu/gold-miner/blob/master/front-end.md)
 
 ## React
@@ -71,10 +71,10 @@
 
 ## 后端
 
-* [关于 Node.js 的认证方面的教程（很可能）是有误的](https://juejin.im/post/599f955d51882511264e7f69?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([MuYunyun](https://github.com/MuYunyun) 翻译)
-* [使用 Node.js 搭建一个 API 网关](https://juejin.im/post/5992769151882548b17f76a6?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([MuYunyun](https://github.com/MuYunyun) 翻译)
-* [REST API 已死，GraphQL 长存](https://juejin.im/post/5991667b518825485d28dfb1?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([sigoden](https://github.com/sigoden) 翻译)
-* [将现有的 API 从 REST 迁移到 GraphQL](https://juejin.im/post/598eb22af265da3e26097835?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([zaraguo](https://github.com/zaraguo) 翻译)
+* [Coursera 的 GraphQL 之路](https://juejin.im/post/59b8d1d36fb9a00a3f24c439?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([bambooom](https://github.com/bambooom) 翻译)
+* [SQL 事务隔离实用指南](https://juejin.im/post/59b7ce03f265da0672281fcc?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([sigoden](https://github.com/sigoden) 翻译)
+* [低成本将你的网站切换为 HTTPS](https://juejin.im/post/59b129365188253da63829ad?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lsvih](https://github.com/lsvih) 翻译)
+* [为什么 context.Value 重要，如何改进](https://juejin.im/post/59b20d6ff265da249517c14a?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([tmpbook](https://github.com/tmpbook) 翻译)
 * [所有后端译文>>](https://github.com/xitu/gold-miner/blob/master/backend.md)
 
 ## 教程
@@ -88,10 +88,10 @@
 
 ## 设计
 
-* [别再使用图片轮播了](https://juejin.im/post/599cf1596fb9a02481205803?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([shawnchenxmu](https://github.com/shawnchenxmu) 翻译)
-* [虚拟现实是如何改变用户体验的：从原型到设备的设计](https://juejin.im/post/599683e0f265da24996015cb?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([laiyun90](https://github.com/laiyun90) 翻译)
-* [AI 能解决你的 UX 设计问题吗？](https://juejin.im/post/5992aa306fb9a03c445df727?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([changkun](https://github.com/changkun) 翻译)
-* [设计作品集网站的真正角色是什么？](https://juejin.im/post/598959b65188253d2968eaab?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([noturnot](https://github.com/noturnot) 翻译)
+* [优化 Facebook 新鲜事，使其为您提供更好的服务](https://juejin.im/post/59a52a276fb9a024927a43ce?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([laiyun90](https://github.com/laiyun90) 翻译)
+* [UI vs UX: 到底有什么差别](https://juejin.im/entry/59a62190f265da24843e713d/detail?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([yifili09](https://github.com/yifili09) 翻译)
+* [怎么写出完美的错误消息](https://juejin.im/post/599cf1596fb9a02481205803?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([sunshine940326](https://github.com/sunshine940326) 翻译)
+* [通知是一种「暗模式」吗？](https://juejin.im/post/59ae63026fb9a024985f31b5?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([changkun](https://github.com/changkun) 翻译)
 * [所有设计译文>>](https://github.com/xitu/gold-miner/blob/master/design.md)
 
 
