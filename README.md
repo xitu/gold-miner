@@ -7,7 +7,7 @@
 
 [掘金翻译计划](https://juejin.im/tag/%E6%8E%98%E9%87%91%E7%BF%BB%E8%AF%91%E8%AE%A1%E5%88%92) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖[人工智能](#ai--deep-learning--machine-learning)、[Android](#android)、[iOS](#ios)、[React](#react)、[前端](#前端)、[后端](#后端)、[产品](#产品)、[设计](#设计) 等领域，读者为热爱新技术的新锐开发者。
 
-掘金翻译计划目前翻译完成 [630](#近期文章列表) 篇文章，共有 [380](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 余名译者贡献翻译。
+掘金翻译计划目前翻译完成 [700](#近期文章列表) 余篇文章，共有 [405](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 余名译者贡献翻译。
 
 # 官方指南
 
@@ -47,18 +47,18 @@
 
 ## iOS
 
+* [如何在 iOS 上实现类似 Airbnb 中的可展开式菜单](https://juejin.im/post/59acdf2b6fb9a024763806cf?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([RichardLeeH](https://github.com/RichardLeeH) 翻译)
 * [结构体指针](https://juejin.im/post/59a60cc1f265da249a201ae9?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([swants](https://github.com/swants) 翻译)
 * [MVVM, Coordinators 和 RxSwift 的抽丝剥茧](https://juejin.im/post/59acf7dcf265da24722fe6a1?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([jingzhilehuakai](https://github.com/jingzhilehuakai) 翻译)
 * [探究 Swift 中的 Futures & Promises](https://juejin.im/post/59afcf5d51882524434163dd?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([atuooo](https://github.com/atuooo) 翻译)
-* [iOS 响应式编程：Swift 中的轻量级状态容器](https://juejin.im/post/599652ee6fb9a024903a8d59?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([atuooo](https://github.com/atuooo) 翻译)
 * [所有 iOS 译文>>](https://github.com/xitu/gold-miner/blob/master/ios.md)
 
 ## 前端
 
-* [原生 JavaScript 值得学习吗？答案是肯定的](https://juejin.im/post/59a535bd6fb9a0249975cb9b?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lampui](https://github.com/lampui) 翻译)
-* [你是如何拆分组件的？](https://juejin.im/post/59aa7f8c6fb9a024747f13b7?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([undead25](https://github.com/undead25) 翻译)
-* [Angular 与 React：谁更适合前端开发](https://juejin.im/post/59ab51746fb9a024865d202b?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([stormrabbit](https://github.com/stormrabbit) 翻译)
-* [JavaScript 二进制的 AST](https://juejin.im/post/599e6f246fb9a024985f0421?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([sunshine940326](https://github.com/sunshine940326) 翻译)
+* [使用 CSS 栅格和 Flexbox 打造 Trello 布局](https://juejin.im/post/59bb463d51882519777c5a85?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([sunui](https://github.com/sunui) 翻译)
+* [在 HTTP/2 的世界里管理 CSS 和 JS](https://juejin.im/post/59b8b97d5188257e8c54d816?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([sunui](https://github.com/sunui) 翻译)
+* [学习 JavaScript：9个常见错误阻碍你进步](https://juejin.im/post/59bb4a7c6fb9a00a53274cd7?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lekenny](https://github.com/lekenny) 翻译)
+* [使用 CSS 的 font-size-adjust 属性改善网页排版](https://juejin.im/post/59b8b97d5188257e8c54d816?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lampui](https://github.com/lampui) 翻译)
 * [所有前端译文>>](https://github.com/xitu/gold-miner/blob/master/front-end.md)
 
 ## React
@@ -71,10 +71,10 @@
 
 ## 后端
 
+* [Coursera 的 GraphQL 之路](https://juejin.im/post/59b8d1d36fb9a00a3f24c439?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([bambooom](https://github.com/bambooom) 翻译)
+* [SQL 事务隔离实用指南](https://juejin.im/post/59b7ce03f265da0672281fcc?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([sigoden](https://github.com/sigoden) 翻译)
 * [低成本将你的网站切换为 HTTPS](https://juejin.im/post/59b129365188253da63829ad?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lsvih](https://github.com/lsvih) 翻译)
 * [为什么 context.Value 重要，如何改进](https://juejin.im/post/59b20d6ff265da249517c14a?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([tmpbook](https://github.com/tmpbook) 翻译)
-* [搭建账户系统](https://juejin.im/post/59b2708b5188257e8a30842f?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([shawnchenxmu](https://github.com/shawnchenxmu) 翻译)
-* [扩展 Node.js 应用](https://juejin.im/post/599eb2dbf265da246d6afb33?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([mnikn](https://github.com/mnikn) 翻译)
 * [所有后端译文>>](https://github.com/xitu/gold-miner/blob/master/backend.md)
 
 ## 教程
