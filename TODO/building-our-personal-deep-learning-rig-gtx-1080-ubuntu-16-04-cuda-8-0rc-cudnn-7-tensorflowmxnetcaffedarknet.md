@@ -4,7 +4,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/building-our-personal-deep-learning-rig-gtx-1080-ubuntu-16-04-cuda-8-0rc-cudnn-7-tensorflowmxnetcaffedarknet.md](https://github.com/xitu/gold-miner/blob/master/TODO/building-our-personal-deep-learning-rig-gtx-1080-ubuntu-16-04-cuda-8-0rc-cudnn-7-tensorflowmxnetcaffedarknet.md)
 > * 译者：[RichardLeeH](https://github.com/RichardLeeH)
-> * 校对者：[TobiasLee](https://github.com/TobiasLee)
+> * 校对者：[TobiasLee](https://github.com/TobiasLee)，[fghpdf](https://github.com/fghpdf)
 
 # 搭建个人深度学习平台：GTX 1080 + Ubuntu 16.04 + CUDA 8.0RC + CuDnn 7 + Tensorflow/Mxnet/Caffe/Darknet
 
@@ -27,7 +27,7 @@
 4. 深度学习环境安装
 
 - 远程控制：teamviewer
-- 开发包管理：anaconda
+- 开发包管理：Anaconda
 - 开发环境：python IDE
 - GPU 优化环境：CUDA 和 CuDnn
 - 深度学习框架：Tensorflow & Mxnet & Caffe & Darknet
@@ -66,27 +66,27 @@
 
 ### 操作系统安装
 
-通常采用 Ubuntu 进行深度学习研究。但是有时你需要使用另一操作系统协同工作。例如，如果你使用 GTX 1080，同时又是一位 VR 开发者，你可能需要使用 Win10 进行基于 Unity 或 其他框架的 VR 开发。以下我将介绍 Win10 和 Ubuntu 的安装。如果你仅对 Ubuntu 的安装感兴趣，你可以跳过 windows 安装。
+通常采用 Ubuntu 进行深度学习研究。但是有时你需要使用另一操作系统协同工作。例如，如果你使用 GTX 1080，同时又是一位 VR 开发者，你可能需要使用 Win10 进行基于 Unity 或其他框架的 VR 开发。以下我将介绍 Win10 和 Ubuntu 的安装。如果你仅对 Ubuntu 的安装感兴趣，你可以跳过 windows 安装。
 
 #### 准备可引导安装的 USB 驱动器
 
-使用 USB 盘安装操作系统非常方便，因为我们几乎人手一个。由于USB盘将被格式化，所以您不希望在便携硬盘上发生这种情况。或者如果你有可写的dvd，你可以用它们来安装操作系统，并保存它们以备将来使用，如果你能在那时再找到它们的话。
+使用 USB 盘安装操作系统非常方便，因为我们几乎人手一个。由于 USB 盘将被格式化，所以您不希望在移动硬盘上发生这种情况。或者如果你有可写的 DVD，你可以用它们来安装操作系统，并保存它们以备将来使用，如果你能在那时再找到它们的话。
 
 由于在官方网站上已经很好的说明了，你可以访问 [Windows 10 页面](https://www.microsoft.com/en-us/software-download/windows10/) 学习如何制作 USB 驱动。对于 Ubuntu，你可以同样下载 ISO 并构建 USB 安装媒体或者刻录到 DVD 上。如果你正在使用 Ubuntu 系统，参考 Ubuntu 官方网站的 [教程](http://www.ubuntu.com/download/desktop/create-a-usb-stick-on-ubuntu)。 如果你在使用 Windows，参考 [本教程](http://www.ubuntu.com/download/desktop/create-a-usb-stick-on-windows)。
 
 #### 系统安装
 
-强烈建议安装 windows 为主系统的双系统。我将会跳过 win10 的安装，因为详细的安装指南可以从 [Windows 10 主页](https://www.microsoft.com/en-us/software-download/windows10/) 找到。需要注意的一点是，你需要使用激活码。如果在你的笔记本电脑上安装了windows 7 或windows 10，你可以在你的笔记本电脑底部找到标签。
+强烈建议安装 Windows 为主系统的双系统。我将会跳过 Win10 的安装，因为详细的安装指南可以从 [Windows 10 主页](https://www.microsoft.com/en-us/software-download/windows10/) 找到。需要注意的一点是，你需要使用激活码。如果在你的笔记本电脑上安装了 Windows 7 或 我 Windows 10，你可以在你的笔记本电脑底部找到激活码的标签。
 
 安装 Ubuntu16.04 时遇到点小麻烦，这有些出乎意料。这主要是因为一开始我就没有安装 GTX 1080 驱动。我将把这些分享给大家，以防你遇到同样的问题。
 
 #### 安装 Ubuntu：
 
-首先，插入用于安装系统的引导 USB。在我的 LG 显示屏上并没有出现任何东西，除了显示频率太高。但是显示屏是正常的，因为在另一台笔记本上测试过了。我试着将 PC 连接到 电视上，可以在电视上正常显示，但仅有桌面没有工具面板。我发现这是 NVIDIA 驱动的问题。因此我打开 BIOS，并设置集成图像作为默认设置并重启。记得要把 HDMI 从 GTX1080 端口上的接口切换到主板上。现在这个显示器工作得很好。我按照提示指南成功地安装了 Ubuntu。
+首先，插入用于安装系统的引导 USB。在我的 LG 显示屏上并没有出现任何东西，除了显示频率太高。但是显示屏是正常的，因为在另一台笔记本上测试过了。我试着将 PC 连接到 电视上，可以在电视上正常显示，但仅有桌面没有工具面板。我发现这是 NVIDIA 驱动的问题。因此我打开 BIOS，并设置集成显卡作为默认显卡并重启。记得要把 HDMI 从 GTX1080 端口上的接口切换到主板上。现在这个显示器工作得很好。我按照提示指南成功地安装了 Ubuntu。
 ![](http://guanghan.info/blog/en/wp-content/uploads/2016/07/installing_ubuntu.png)
 
-为了使用 GTX1080，请访问 [本页面](http://www.nvidia.com/download/driverResults.aspx/104284/en-us) 获取 基于 Ubuntu 的 NVIDIA 显卡驱动display。安装好驱动后，确保 GTX1080 在主板上。
-现在屏幕上显示 “You appear to be running an X server.. “。 我参考了 [本链接](http://askubuntu.com/questions/149206/how-to-install-nvidia-ru) 来解决这个问题并安装驱动。我在这里引用下：
+为了使用 GTX1080，请访问 [本页面](http://www.nvidia.com/download/driverResults.aspx/104284/en-us) 获取 基于 Ubuntu 的 NVIDIA 显卡驱动。安装好驱动后，确保 GTX1080 在主板上。
+现在屏幕上显示 “You appear to be running an X server..”。 我参考了 [本链接](http://askubuntu.com/questions/149206/how-to-install-nvidia-ru) 来解决这个问题并安装驱动。我在这里引用下：
 
 - 确保登出系统。
 - 同时按住 CTRL+ALT+F1 并用你的授权进行登录。
@@ -136,20 +136,20 @@ Spyder:
 
 Pycharm：
 
-- 优点：模块化编码、更完整的web开发框架和跨平台的IDE。
+- 优点：模块化编码、更完整的 web 开发框架和跨平台的IDE。
 
-在我的个人哲学中，我认为它们只是工具。当使用时每个工具就会派上用场。我将使用 IDE 来构建主项目。例如，使用 pycharm 构建框架。然后，我仅用 vim 修改代码。这并不是说 VIM 有多么的强大和花哨。之后，我将使用VIM修改代码。而是因为它是我想真正掌握的文本编辑器。对于文本编辑器，我们不需要掌握两个。在特殊情况下，我们需要频繁地检查IO、目录等，我们可能希望使用 spyder。
+在我的个人哲学中，我认为它们只是工具。当使用时每个工具就会派上用场。我将使用 IDE 来构建主项目。例如，使用 pycharm 构建框架。然后，我仅用 vim 修改代码。这并不是说 VIM 有多么的强大和花哨。之后，我将使用 Vim 修改代码。而是因为它是我想真正掌握的文本编辑器。对于文本编辑器，我们不需要掌握两个。在特殊情况下，我们需要频繁地检查IO、目录等，我们可能希望使用 spyder。
 
 #### 安装：
 
 1. spyder：
 
-- 你不需要安装 spyder，因为 anaconda 中已经自带了 spyder
+- 你不需要安装 spyder，因为 Anaconda 中已经自带了 spyder
 
-2. pycharm
+2. Pycharm
 
 - 从 [官方网站](https://www.jetbrains.com/pycharm/) 下载。只需解压。
-- 设置 pycharm 的 项目解释器为 anaconda，并进行包管理。关注 [这里](https://docs.continuum.io/anaconda/ide_integration#pycharm)。
+- 设置 Pycharm 的 项目解释器为 Anaconda，并进行包管理。关注 [这里](https://docs.continuum.io/anaconda/ide_integration#pycharm)。
 
 3. vim
 
@@ -190,11 +190,11 @@ Pycharm：
 
 - nvcc –version
 
-#### Cudnn（CUDA 深度学习库）
+#### CuDNN（CUDA 深度学习库）
 
-##### [安装 cudnn](https://developer.nvidia.com/cudnn)
+##### [安装 CuDNN](https://developer.nvidia.com/cudnn)
 
-- 版本：Cudnn v5.0 for CUDA 8.0RC
+- 版本：CuDNN v5.0 for CUDA 8.0RC
 
 ##### [用户指南](http://developer.download.nvidia.com/compute/machine-learning/cudnn/secure/v5/prod/cudnn_library.pdf?autho=1468531134_f12a2097cf581a5659608091857f7326&file=cudnn_library.pdf)
 
@@ -220,7 +220,7 @@ Pycharm：
 
 ##### 首先安装 tensorflow
 
-1. [使用 anaconda 安装](https://github.com/tensorflow/tensorflow/blob/master/tensorflow/g3doc/get_started/os_setup.md#anaconda-installation)
+1. [使用 Anaconda 安装](https://github.com/tensorflow/tensorflow/blob/master/tensorflow/g3doc/get_started/os_setup.md#anaconda-installation)
 
 - conda create -n tensorflow python=3.5
 
@@ -326,7 +326,7 @@ NVIDIA-Docker 的安装从 [这里](https://github.com/NVIDIA/nvidia-docker) 可
 
 #### 下载深度学习 Docker 镜像 
 
-我从 docker Hub 收集了一些预购建镜像。以下是这些手机的镜像列表
+我从 docker Hub 收集了一些预购建镜像。这些镜像列表如下：
 - cuda-caffe
 - cuda-mxnet
 - cuda-keras-tensorflow-jupyter
