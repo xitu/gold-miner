@@ -6,11 +6,11 @@
 > * 译者：[RichardLeeH](https://github.com/RichardLeeH)
 > * 校对者：[TobiasLee](https://github.com/TobiasLee)，[fghpdf](https://github.com/fghpdf)
 
-# 搭建个人深度学习平台：GTX 1080 + Ubuntu 16.04 + CUDA 8.0RC + CuDnn 7 + Tensorflow/Mxnet/Caffe/Darknet
+# 搭建个人深度学习平台：GTX 1080 + Ubuntu 16.04 + CUDA 8.0RC + CuDNN 7 + Tensorflow/Mxnet/Caffe/Darknet
 
-我在 TCL 的实习即将结束。在回校参加毕业典礼之前，我决定搭建自己的个人深度学习平台。我想我不能真的依赖于公司或实验室的机器，毕竟那工作站不是我的，而且开发环境可能是一团糟(它已经发生过一次)。有了个人平台，我可以方便地通过 teamviewer 随时登录我的深度学习工作站。我有机会从头开始搭建平台。
+我在 TCL 的实习即将结束。在回校参加毕业典礼之前，我决定搭建自己的个人深度学习平台。我想我不能真的依赖于公司或实验室的机器，毕竟那工作站不是我的，而且开发环境可能是一团糟(它已经发生过一次)。有了个人平台，我可以方便地通过 teamViewer 随时登录我的深度学习工作站。我有机会从头开始搭建平台。
 
-在本文中，我将介绍搭建深度学习 PC 的整个过程。包括硬件和软件。在此，我分享给大家，希望对具有相同需求的研究人员和工程师有所帮助。由于我使用 **GTX 1080、Ubuntu 16.04、CUDA 8.0RC、CuDnn 7** 搭建平台，这些都是最新版本。以下是这篇文章的概述：
+在本文中，我将介绍 PC 平台搭建深度学习的整个过程，包括硬件和软件。在此，我分享给大家，希望对具有相同需求的研究人员和工程师有所帮助。由于我使用 **GTX 1080、Ubuntu 16.04、CUDA 8.0RC、CuDNN 7** 搭建平台，这些都是最新版本。以下是这篇文章的概述：
 
 **硬件**
 
@@ -26,10 +26,10 @@
 
 4. 深度学习环境安装
 
-- 远程控制：teamviewer
+- 远程控制：teamViewer
 - 开发包管理：Anaconda
 - 开发环境：python IDE
-- GPU 优化环境：CUDA 和 CuDnn
+- GPU 优化环境：CUDA 和 CuDNN
 - 深度学习框架：Tensorflow & Mxnet & Caffe & Darknet
 
 5. 开箱即用的深度学习环境：Docker
@@ -44,18 +44,18 @@
 
 ### 配件选择
 
-我推荐使用 **PcPartPicker** 来挑选配件。它可以帮助你以最低价购买到配件，并检查所选配件的兼容性。他们还上线了一个 **youtube 频道**，你可以找到他们提供的搭建过程的视频。
+我推荐使用 **PcPartPicker** 来挑选配件。它可以帮助你以最低价购买到配件，并为你检查所选配件的兼容性。他们还上线了一个 **youtube 频道**，在这个频道里他们提供了用于展示构建过程的视频。
 
 在我的搭建案例中，我使用他们的搭建文章作为参考，并创建了一个搭建清单，可以在 [这里](https://pcpartpicker.com/user/quietning/saved/#view=YP6v6h) 找到。以下是我搭建工作站使用的配件。
 ![](http://guanghan.info/blog/en/wp-content/uploads/2016/07/IMG_20160707_191958-Copy.jpg)
 
-由于我们正在进行深度学习研究，一个好的 GPU 是非常有必要的。因此，我选择了新近发布的 GTX 1080。它虽然很难买到，但如果你注意到 newegg (新蛋网，美国新蛋网是电子数码产品销售网站) 上的捆绑销售，一些人已经囤到货并组合 [GPU + 主板] 或 [GPU + 电源] 进行捆绑销售。你懂得，这就是市场。购买捆绑产品会比买一个价格高的要好。不管怎样，一个好的 GPU 将会加快训练和 fine-tuning 过程。以下是一些 GTX 1080 同其他品牌 GPU 的优势，在性能，价格和耗电量（节约日常用电量和用于购买合适 PC 电源的开支）。
+由于我们正在进行深度学习研究，一个好的 GPU 是非常有必要的。因此，我选择了新近发布的 GTX 1080。它虽然很难买到，但如果你注意到 newegg (新蛋网，美国新蛋网是电子数码产品销售网站) 上的捆绑销售，一些人已经囤到货并组合 [GPU + 主板] 或 [GPU + 电源] 进行捆绑销售。你懂得，这就是市场。购买捆绑产品会比买一个价格高的要好。不管怎样，一个好的 GPU 将加快训练或者后期调参过程。以下是一些 GTX 1080 同其他品牌 GPU 的优势，在性能，价格和耗电量（节约日常用电量和用于购买合适 PC 电源的开支）。
 
 ![](http://guanghan.info/blog/en/wp-content/uploads/2016/07/gtx_1.png)
 
 ![](http://guanghan.info/blog/en/wp-content/uploads/2016/07/gtx_2.png)
 
-注意 相比于 12GB 内存的TITAN X，GTX 1080 仅有 8GB，你可能手头宽裕或更慷慨，因此会选择使用堆叠式 GPU。然后记得选择一个带有更多 PCI 的主板。
+注意：相比于 12GB 内存的 TITAN X，GTX 1080 仅有 8GB，你可能手头宽裕或更慷慨，因此会选择使用堆叠式 GPU。然后记得选择一个带有更多 PCI 的主板。
 
 ### 配件组装
 
@@ -70,7 +70,7 @@
 
 #### 准备可引导安装的 USB 驱动器
 
-使用 USB 盘安装操作系统非常方便，因为我们几乎人手一个。由于 USB 盘将被格式化，所以您不希望在移动硬盘上发生这种情况。或者如果你有可写的 DVD，你可以用它们来安装操作系统，并保存它们以备将来使用，如果你能在那时再找到它们的话。
+使用 USB 盘安装操作系统非常方便，因为我们少不了它。由于 USB 盘将被格式化，所以您不希望在移动硬盘上发生这种情况。或者如果你有可写的 DVD，你可以用它们来安装操作系统，并保存它们以备将来使用，如果你能在那时再找到它们的话。
 
 由于在官方网站上已经很好的说明了，你可以访问 [Windows 10 页面](https://www.microsoft.com/en-us/software-download/windows10/) 学习如何制作 USB 驱动。对于 Ubuntu，你可以同样下载 ISO 并构建 USB 安装媒体或者刻录到 DVD 上。如果你正在使用 Ubuntu 系统，参考 Ubuntu 官方网站的 [教程](http://www.ubuntu.com/download/desktop/create-a-usb-stick-on-ubuntu)。 如果你在使用 Windows，参考 [本教程](http://www.ubuntu.com/download/desktop/create-a-usb-stick-on-windows)。
 
@@ -109,7 +109,7 @@ menuentry ‘Windows 10′{
 
 - 问题: Ubuntu 不支持 百思买经常出售的这款 Belkin N300 无线适配器，
 - 解决方案: 参考 [本链接](https://ubuntuforums.org/showthread.php?t=1515747) 的指南, 问题将会被解决。
-- 问题: 安装好 teamviewer 后，提示 “dependencies not met”
+- 问题: 安装好 teamViewer 后，提示 “dependencies not met”
 - 解决方案: 参考 [本链接](http://askubuntu.com/questions/362951/installed-teamviewer-using-a-64-bits-system-but-i-get-a-dependency-error/363083)。
 
 ### 深度学习环境 
@@ -136,7 +136,7 @@ Spyder:
 
 Pycharm：
 
-- 优点：模块化编码、更完整的 web 开发框架和跨平台的IDE。
+- 优点：模块化编码、更完整的 web 开发框架和跨平台的 IDE。
 
 在我的个人哲学中，我认为它们只是工具。当使用时每个工具就会派上用场。我将使用 IDE 来构建主项目。例如，使用 pycharm 构建框架。然后，我仅用 vim 修改代码。这并不是说 VIM 有多么的强大和花哨。之后，我将使用 Vim 修改代码。而是因为它是我想真正掌握的文本编辑器。对于文本编辑器，我们不需要掌握两个。在特殊情况下，我们需要频繁地检查IO、目录等，我们可能希望使用 spyder。
 
@@ -310,7 +310,7 @@ bazel-bin/tensorflow/cc/tutorials_example_trainer –use_gpu.
 
 ### 开箱即用的深度学习环境：Docker
 
-我已经在 Ubuntu 14.04 和 TITAN-X (cuda7.5) 上正确的安装过caffe，darknet，mxnet，tensorflow 等。我已经完成了这些框架的项目，一切都很顺利。因此，如果你想专注于深度学习的研究，而不是被你可能遇到的外围问题所困扰，那么使用这些预先构建的环境比使用最新版本更安全。然后，您应该考虑使用 docker 将每个框架与它自己的环境隔离开来。这些 docker 镜像可以在 [DockerHub](https://hub.docker.com/) 中找到。
+我已经在 Ubuntu 14.04 和 TITAN-X (cuda7.5) 上正确的安装过 caffe、darknet、mxnet 和 tensorflow 等。我已经完成了这些框架的项目，一切都很顺利。因此，如果你想专注于深度学习的研究，而不是被你可能遇到的外围问题所困扰，那么使用这些预先构建的环境比使用最新版本更安全。然后，您应该考虑使用 docker 将每个框架与它自己的环境隔离开来。这些 docker 镜像可以在 [DockerHub](https://hub.docker.com/) 中找到。
 
 #### 安装 Docker 
 
@@ -369,7 +369,7 @@ NVIDIA-Docker 的安装从 [这里](https://github.com/NVIDIA/nvidia-docker) 可
 
 - docker rm [docker_container_name]
 
-5. 基于已经存在的镜像如何制作我们自己的 docker 镜像？（从一个已经创建的镜像更新容器并且将结果提交到镜像。）如何创建我们自己的 docker 镜像。
+5. 基于已经存在的镜像如何制作我们自己的 docker 镜像？（从一个已经创建的镜像更新容器并且将结果提交到镜像。）
 
 - 加载镜像，打开一个容器
 - 在容器中做一些修改
