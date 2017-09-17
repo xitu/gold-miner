@@ -34,7 +34,7 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*JT-53LslhwOOqTgv1dGoXg.png)
 
-由于相关资料的缺乏，关键请求对许多人来说似乎仍然是一个黑盒子。幸运的是，[Ben Schwarz](https://twitter.com/benschwarz/) 发表了一篇非常全面且通俗易懂的文章 —— [关键请求](https://css-tricks.com/the-critical-request/)。另外，你也可以查看 Addy 关于预加载的文章 —— [Chrome 中的预加载和优先级](https://medium.com/reloading/preload-prefetch-and-priorities-in-chrome-776165961bbf)。
+由于相关资料的缺乏，关键请求对许多人来说似乎仍然是一个黑盒子。幸运的是，[Ben Schwarz](https://twitter.com/benschwarz/) 发表了一篇非常全面且通俗易懂的文章 —— [《关键请求》](https://css-tricks.com/the-critical-request/)。另外，你也可以查看 Addy 关于预加载的文章 —— [《Chrome 中的预加载和优先级》](https://medium.com/reloading/preload-prefetch-and-priorities-in-chrome-776165961bbf)。
 
 ![在 Chrome 开发者工具中启用优先级](https://cdn-images-1.medium.com/max/800/1*ju18GQzgF-TQDMrYdtPelg.gif)
 
@@ -49,79 +49,79 @@
 
 ## 图片优化
 
-Images often account for most of a web page’s transferred payload, which is why imagery optimisation can yield the biggest performance improvements. There are many existing strategies and tools to aid us in removing extra bytes, but the first question to ask is: “Is this image essential to convey the message and effect I’m after?”. If it’s possible to eliminate it, not only we’re saving bandwidth, but also requests.
+页面传输的大部分数据通常都是图片，因此优化图片可以带来很大的性能提升。有许多现有的策略和工具可以帮助我们删除多余的字节，但首先要问的是：“图片对于传达后续的信息和效果至关重要吗”？ 如果可以移除，不仅可以节省带宽，还可以减少请求。
 
-In some cases, similar results can be achieved with different technologies. CSS has a range of properties for art direction, such as shadows, gradients, animations or shapes allowing us to swap assets for appropriately styled DOM elements.
+在某些情况下，我们可以通过不同的技术来实现同样的效果。CSS 有很多具有艺术性的属性，例如阴影，渐变，动画和形状，这就允许我们用具有合适样式的 DOM 元素来替代图片。
 
-### Choosing the right format
+### 选择合适的格式
 
-If it’s not possible to remove an asset, it’s important to determine what format will be appropriate. The initial choice falls between vector and raster graphics:
+如果必须使用图片，那确定哪种格式比较合适是很重要的。一般都在矢量图和栅格图之间进行选择：
 
-- **Vector**: resolution independent, usually significantly smaller in size. Perfect for logos, iconography and simple assets comprising of basic shapes (lines, polygons, circles and points).
-- **Raster**: offers much more detailed results. Ideal for photographs.
+- **矢量图形**：与分辨率无关，文件通常比较小。特别适用于 LOGO，图标和由简单图形（点、线、圆和多边形）组成的图片。
+- **栅格图像**：表现内容更丰富。适用于照片。
 
-After making this decision, there are a fair bit of formats to choose from: JPEG, GIF, PNG–8, PNG–24, or newest formats such as WEBP or JPEG-XR. With such an abundance of options, how do we ensure we’re picking the right one? Here’s a basic way of finding the best format to go with:
+做出上面的决定后，有这样的几种格式供我们选择：JPEG、GIF、PNG-8、PNG-24 或者最新的格式，例如 WEBP 或 JPEG-XR。既然有这么多的选择，那如何确保我们选择的正确性呢？以下是找到最佳格式的基本方法：
 
-- **JPEG**: imagery with many colours (e.g. photos)
-- **PNG–8**: imagery with a few colours
-- **PNG–24**: imagery with partial transparency
-- **GIF**: animated imagery
+- **JPEG**：色彩丰富的图片（例如照片）
+- **PNG–8**：色彩不是很丰富的图片
+- **PNG–24**：具有部分透明度的图片
+- **GIF**：动画图片
 
-Photoshop can optimise each of these on export through various settings such as decreasing quality, reducing noise or number of colours. Ensure that designers are aware of performance practices and can prepare the right type of asset with the right optimisation presets. If you’d like to know more how to develop images, head to [Lara Hogan’s](https://twitter.com/lara_hogan) invaluable [Designing for Performance](http://designingforperformance.com/optimizing-images/#choosing-an-image-format).
+Photoshop 在图片导出时，可以通过一些设置来对上述格式的图片进行优化，例如降低质量、减少颜色的噪点和数量。这可以让设计师意识到性能实践，并通过正确的优化预设来准备合适的图片。如果你想了解更多关于如何开发图片的信息，可以阅读 [Lara Hogan's](https://twitter.com/lara_hogan) 的 [《速度与激情：以网站性能提升用户体验》](http://designingforperformance.com/optimizing-images/#choosing-an-image-format)。
 
-### Experimenting with new formats
+### 尝试新格式
 
-There are a few newer players in the spectrum of image formats, namely WebP, JPEG 2000 and JPEG-XR. All of them are developed by browser vendors: WebP by Google, JPEG 2000 by Apple and JPEG-XR by Microsoft.
+有这样几种由浏览器厂商开发的新图片格式：Google 的 WebP，Apple 的 JPEG 2000 和 Microsoft 的 JPEG-XR。
 
-**WebP** is easily the most popular contender, supporting both lossless and lossy compression, which makes it incredibly versatile. **Lossless WebP is 26% smaller than PNGs and 25–34% smaller than JPGs**. With 74% browser support it can safely be used with fallback, introducing up to 1/3 savings in transferred bytes. JPGs and PNGs can be converted to WebP in Photoshop and other image processing apps as well as through command line interfaces (`brew install webp`).
+**WebP** 是最具有竞争力的，支持无损和有损压缩使得它被广泛应用。**无损 WebP 比 PNG 小 26%，比 JPG 小 25-34%**。74% 的浏览器支持率及降级方案使它可以安全地被使用，最多可节省 1/3 的传输字节。JPG 和 PNG 可以通过 Photoshop 和其他图像处理程序，也可以使用命令行（`brew install webp`）将其转换为 WebP。
 
-If you’d like to explore (minor) visual differences between these formats I recommend [this nifty demo on Github](https://xooyoozoo.github.io/yolo-octo-bugfixes).
+如果你想探索这些格式之间的视觉差异，我推荐[这个在 Github 上不错的示例](https://xooyoozoo.github.io/yolo-octo-bugfixes)。
 
-### Optimising with tools and algorithms
+### 使用工具和算法进行优化
 
-**Even using incredibly efficient image formats doesn’t warrant skipping post-processing optimisation**. This step is crucial.
+**即便使用了高效的图片格式也需要后续的处理和优化**。这一步很重要。
 
-If you’ve chosen SVGs, which are usually relatively small in size, they too have to be compressed. [SVGO](https://github.com/svg/svgo) is a command line tool that can swiftly optimise SVGs through stripping unnecessary metadata. Alternatively, use [SVGOMG](https://jakearchibald.github.io/svgomg/) by [Jake Archibald](https://twitter.com/jaffathecake) if you prefer a web interface or are limited by your operating system. Because SVG is an XML-based format, it can also be subject to GZIP compression on the server side.
+如果你选择了体积相对较小的 SVG，它们也需要被压缩。[SVGO](https://github.com/svg/svgo) 是一个命令行工具，可以通过剥离不必要的元数据来快速优化 SVG。另外，如果你喜欢 Web 界面或者由于操作系统的限制，也可以使用 [Jake Archibald](https://twitter.com/jaffathecake) 的 [SVGOMG](https://jakearchibald.github.io/svgomg/)。由于 SVG 是基于 XML 的格式，所以它也可以被服务端 GZIP 压缩。
 
-[ImageOptim](https://imageoptim.com/mac) is an excellent choice for most of the other image types. Comprising of pngcrush, pngquant, MozJPEG, Google Zopfli and more, it bundles a bunch of great tools in a comprehensive, Open Source package. Available as a Mac OS app, command line interface and Sketch plugin, ImageOptim can be easily implemented into an existing workflow. For those on Linux or Windows, most of the CLIs ImageOptim relies on can be used on your platform.
+[ImageOptim](https://imageoptim.com/mac) 是大多数其他图片格式的绝佳选择，它将 pngcrush、pngquant、MozJPEG、Google Zopfli 等一些不错的工具打包进了一个综合的开源包里面。作为一个 Mac OS 应用程序、命令行界面和 Sketch 插件，ImageOptim 可以轻松地用于现有的工作流中。大多数 ImageOptim 依赖 CLI 都可以在 Linux 或者 Windows 平台上使用。
 
-If you’re inclined to try emerging encoders, earlier this year, Google released [Guetzli](https://research.googleblog.com/2017/03/announcing-guetzli-new-open-source-jpeg.html) — an Open Source algorithm stemming from their learnings with WebP and Zopfli. **Guetzli is supposed to produce up to 35% smaller JPEGs than any other available method of compression**. The only downside: slow processing times (a minute of CPU per megapixel).
+如果你倾向于尝试新兴的编码器，今年早些时候，Google 发布了 [Guetzli](https://research.googleblog.com/2017/03/announcing-guetzli-new-open-source-jpeg.html) —— 一个源于他们对 WebP 和 Zopfli 研究的开源算法。**Guetzli 可以生成比任何其他可用的压缩方法少 35% 体积的 JPEG**。唯一的缺点是：处理时间慢（每百万像素的 CPU 时间为一分钟）。
 
-When choosing tools make sure they produce desired results and fit into teams’ workflow. Ideally, automate the process of optimisation, so no imagery slips through the cracks unoptimised.
+选择工具时，请确保它们能达到预期并适合团队的工作流。最好能自动化优化，这样所有图片都是优化过了的。
 
-### Responsible and responsive imagery
+### 响应式图片
 
-A decade ago we might have gotten away with one resolution to serve all, but the landscape of ever-changing, responsive web is very different today. That’s why we have to take extra care in implementing visual resources we’ve so carefully optimised and ensuring they cater for the variety of viewports and devices. Fortunately, thanks to [Responsive Images Community Group](https://responsiveimages.org/) we’re perfectly equipped to do so with `picture` element and `srcset` attribute (both have 85%+ support).
+十年前，也许一种分辨率就能满足所有的场景，但随着时代的变化，响应式网站现今已截然不同。这就是为什么我们必须特别小心地实施我们精心优化的视觉资源，并确保它们适应各种视图和设备。幸运的是，感谢[响应式图像社区组织](https://responsiveimages.org/)，通过 `picture` 元素和 `srcset` 属性（都有 85%+ 的浏览器支持率），我们可以完美地做到。
 
-### The srcset attribute
+### srcset 属性
 
-`Srcset` works best in the resolution switching scenario—when we want to display imagery based on users’ screen density and size. Based on a set of predefined rules in `srcset` and `sizes` attributes the browser will pick the best image to serve accordingly to the viewport. This technique can bring great bandwidth and request savings, especially for the mobile audience.
+`srcset` 在分辨率切换场景中表现得非常不错 —— 当我们想根据用户的屏幕密度和大小显示图片时。根据 `srcset` 和 `sizes` 属性中一些预定义的规则，浏览器将会根据视图选择最佳的图片进行展示。这种技术可以节省带宽和减少请求，特别是对于移动端用户。
 
-![An example of srcset usage](https://cdn-images-1.medium.com/max/800/1*87BIfYsjZTh-bikjmp7eow.png)
+![srcset 属性使用示例](https://cdn-images-1.medium.com/max/800/1*87BIfYsjZTh-bikjmp7eow.png)
 
-### The picture element
+### picture 元素
 
-`Picture` element and the `media` attribute are designed to make art direction easy. By providing different sources for varying conditions (tested via `media-queries`), we’re able always able to keep the most important elements of imagery in the spotlight, no matter the resolution.
+`picture` 元素和 `media` 属性旨在更容易地通往艺术殿堂。通过为不同的条件提供不同的来源（通过 `media-queries`），无论分辨率如何，我们始终能聚焦在最重要的图像元素上。
 
-!An example of picture element usage](https://cdn-images-1.medium.com/max/800/1*NeyfH6Vu1xCWE2SY5w1cDQ.png)
+![picture 元素使用示例](https://cdn-images-1.medium.com/max/800/1*NeyfH6Vu1xCWE2SY5w1cDQ.png)
 
-📚 Make sure to read [Jason Grigsby’s Responsive Images 101](https://twitter.com/grigs) guide for a thorough explanation of both approaches.
+📚 阅读 [Jason Grigsby](https://twitter.com/grigs) 的[《响应式图片 101》](https://cloudfour.com/thinks/responsive-images-101-definitions/) 可以全面地了解这两种方式。
 
-### Delivery with image CDNs
+### 使用图片 CDN
 
-The last step of our journey to performant visuals is delivery. All assets can benefit from using a content delivery network, but there are specific tools targeting imagery, such as [Cloudinary](http://cloudinary.com/) or [imgx](https://www.imgix.com/). The benefit of using those services goes further than reducing traffic on your servers and significantly decreasing response latency.
+图片性能的最后一步就是分发了。所有资源都可以从使用 CDN 中受益，但有一些特定的工具是专门针对图片的，例如 [Cloudinary](http://cloudinary.com/) 或者 [imgx](https://www.imgix.com/)。使用这些服务的好处远不止于减少服务器流量，它还可以显著减少响应延迟。
 
-**CDNs can take out a lot of complexity from serving responsive, optimised assets on image-heavy sites**. The offerings differ (and so does the pricing) but most handle resizing, cropping and determining which format is best to serve to your customers based on devices and browsers. Even more than that — they compress, detect pixel density, watermark, recognise faces and allow post-processing. With these powerful features and ability to append parameters to URLs serving user-centric imagery becomes a breeze.
+**CDN 可以降低重图片站点提供自适应和高性能图片的复杂度**。他们提供的服务各不相同（价格也不同），但是大多数都可以根据设备和浏览器进行尺寸调整、裁剪和确定最合适的格式，甚至更多 —— 压缩、检测像素密度、水印、人脸识别和允许后处理。借助这些强大的功能和能够将参数附到 URL 中，使得提供以用户为中心的图片变得轻而易举了。
 
-📝 Image performance checklist
+📝 图片性能检查表
 
-1. Chose the right format
-2. Use vector wherever possible
-3. Re duce the quality if change is unnoticeable
-4. Experiment with new formats
-5. Optimise with tools and algorithms
-6. Learn about srcset and picture
-7. Use an image CDN
+1. 选择正确的格式
+2. 尽可能使用矢量图
+3. 如果变化不明显，则降低质量
+4. 尝试新格式
+5. 使用工具和算法进行优化
+6. 学习 srcset 属性和 picture 元素
+7. 使用图片 CDN
 
 ## Optimising web fonts
 
