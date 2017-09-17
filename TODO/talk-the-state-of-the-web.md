@@ -6,7 +6,7 @@
 > * 译者：[undead25](https://github.com/undead25)
 > * 校对者：
 
-网络现状：性能提升指南
+# 网络现状：性能提升指南
 
 互联网正在爆发式地增长，我们创建的 Web 平台也是如此。**我们通常都没有考虑到用户网络的连通性和使用情景**。即使是万维网状况的一瞥，也可以看出我们还没有建立起感同身受和形势变化的认知，更不用说性能的考虑了。
 
@@ -14,7 +14,7 @@
 
 **地球上 74 亿人口中，只有 46% 的人能够上网**，平均网络速度竟有 7Mb/s。更重要的是，93% 的互联网用户都是通过移动设备上网的 —— 不去适应手持设备是不可原谅的。数据往往比我们想象中要昂贵得多 —— 500MB 的数据在德国只要 1 个小时，而在巴西需要 13 个小时（更多有趣的统计可以看看 [Ben Schwarz](https://twitter.com/benschwarz) 的[《泡沫破灭：真实的性能》](https://speakerdeck.com/benschwarz/beyond-the-bubble)）。
 
-**我们的网站表现得也不尽如人意** —— 平均体积大概[是第一版 Doom 游戏的大小](https://www.wired.com/2016/04/average-webpage-now-size-original-doom/)（3 MB 左右）（请注意，为了统计准确度，需要使用[中位数](https://zh.wikipedia.org/wiki/%E4%B8%AD%E4%BD%8D%E6%95%B8)，推荐阅读 [Ilya Grigorik](https://twitter.com/igrigorik) 的 [《“平均页面”是一个神话》](https://www.igvita.com/2016/01/12/the-average-page-is-a-myth/)。中位数统计出的网站体积目前为 1.4MB）。图片可以轻松占用 1.7 MB，而 JavaScript 平均为 400KB。不仅仅只有 Web 平台，本地应用程序也有同样的问题，你是否遇到过为了修复某些 bug，不得不下载 200MB 的应用呢？
+**我们的网站表现得也不尽如人意** —— 平均体积大概[是第一版 Doom 游戏的大小](https://www.wired.com/2016/04/average-webpage-now-size-original-doom/)（3MB 左右）（请注意，为了统计准确度，需要使用[中位数](https://zh.wikipedia.org/wiki/%E4%B8%AD%E4%BD%8D%E6%95%B8)，推荐阅读 [Ilya Grigorik](https://twitter.com/igrigorik) 的 [《“平均页面”是一个神话》](https://www.igvita.com/2016/01/12/the-average-page-is-a-myth/)。中位数统计出的网站体积目前为 1.4MB）。图片可以轻松占用 1.7MB，而 JavaScript 平均为 400KB。不仅仅只有 Web 平台，本地应用程序也有同样的问题，你是否遇到过为了修复某些 bug，不得不下载 200MB 的应用呢？
 
 **技术人员经常会发现自己处于特权地位**。拥有新型高端的笔记本、手机和快速的网络连接。我们很容易忘记，其实并不是每个人都有这样的条件（实际上只有少部分人而已）。
 
@@ -120,52 +120,52 @@ Photoshop 在图片导出时，可以通过一些设置来对上述格式的图�
 3. 如果变化不明显，则降低质量
 4. 尝试新格式
 5. 使用工具和算法进行优化
-6. 学习 srcset 属性和 picture 元素
+6. 学习 `srcset` 属性和 `picture` 元素
 7. 使用图片 CDN
 
-## Optimising web fonts
+## 优化网络字体
 
-The ability to use custom fonts is an incredibly powerful design tool. But with power comes a lot of responsibility. With whooping **68% of websites leveraging web fonts this type of asset is one of the biggest performance offenders** (easily averaging 100KB, depending on the number of variants and typefaces).
+能够使用自定义字体是一个非常强大的设计工具。但权利越大，责任就越大。**68% 的网站正在使用网络字体，而这种资源是最大的性能杀手之一**（很容易平均达到 100KB，这取决于字体的各种形态和数量）。
 
-Even when weight isn’t the most major issue, **Flash of Invisible Text** (FOIT) is. FOIT occurs when web fonts are still loading or failed to be fetched, which results in an empty page and thus, inaccessible content. It might be worth it to [carefully examine whether we need web fonts in the first place](https://hackernoon.com/web-fonts-when-you-need-them-when-you-dont-a3b4b39fe0ae). If so, there are a few strategies to help us mitigate the negative effect on performance.
+即使体积不是最重要的问题，但**不可见文本闪烁**（FOIT）是。当网络字体在加载中或者加载失败时，就会发生 FOIT，这会导致空白页面，从而造成内容无法访问。这可能值得我们[仔细检查是否需要网络字体](https://hackernoon.com/web-fonts-when-you-need-them-when-you-dont-a3b4b39fe0ae)。如果是这样，有一些策略可以帮助我们减轻对性能的负面影响。
 
-### Choosing the right format
+### 选择正确的格式
 
-There are four web font formats: EOT, TTF, WOFF and more recent WOFF2. TTF and WOFF are most widely adopted, boasting over 90% browser support. Depending on the support you’re targeting **it’s most likely safe to serve WOFF2** and fall back to WOFF for older browsers. The advantage of using WOFF2 is a set of custom preprocessing and compression algorithms (like [Brotli](https://github.com/google/brotli)) resulting in [approx. 30% file-size reduction](https://docs.google.com/presentation/d/10QJ_GABjwzfwUb5DZ3DULdv82k74QdPArkovYJZ-glc/present?slide=id.g1825bd881_0182) and improved parsing capabilities.
+有四种网络字体格式：EOT、TTF、WOFF 和近期的 WOFF2。TTF 和 WOFF 被广泛使用，拥有超过 90% 的浏览器支持率。根据你所针对的支持情况，**使用 WOFF2 可能最安全**，并为老版本浏览器降级使用 WOFF。使用 WOFF2 的优点是一整套自定义的预处理和压缩算法（如 [Brotli](https://github.com/google/brotli)）可以 [缩小 30% 的文件大小](https://docs.google.com/presentation/d/10QJ_GABjwzfwUb5DZ3DULdv82k74QdPArkovYJZ-glc/present?slide=id.g1825bd881_0182)和改进过的解析功能。
 
-When defining the sources of web fonts in `@font-face` use the `format()` hint to specify which format should be utilised.
+在 `@font-face` 中定义网络字体的来源时，使用 `format()` 提示来指定应该使用哪种格式。
 
-If you’re using Google Fonts or Typekit to serve your fonts, both of these tools have implemented a few strategies to mitigate their performance footprint. Typekit now serves all kits asynchronously, preventing FOIT as well as allows for extended cache period of 10 days for their JavaScript kit code (instead of default 10 minutes). Google Fonts automatically serves the smallest file, based on the capabilities of the users’ device.
+如果你正在使用 Google 字体或者 Typekit 字体，他们都实施了一些策略来减轻对性能的影响。Typekit 所有套件现在都支持异步来预防 FOIT，并且允许其 JavaScript 套件代码的缓存期限延长 10 天（而不是默认的 10 分钟）。Google 字体可以根据用户设备自动提供最小的文件。
 
-### Audit font selection
+### 字体选择评测
 
-No matter whether self-hosting or not, the number of typefaces, font weights and styles will significantly affect your performance budgets.
-Ideally, we can get away with one typeface featuring normal and bold stylistic variants. If you’re not sure how to make font selection choices refer to Lara Hogan’s [Weighing Aesthetics and Performance](http://designingforperformance.com/weighing-aesthetics-and-performance/).
+无论是否自托管，字体的数量、体积和样式都将明显影响性能。
+理想情况下，我们可以忽略只提供了正常和加粗形态的字体。如果你不确定如何选择字体，可以参考 Lara Hogan 的[《美学与性能》](http://designingforperformance.com/weighing-aesthetics-and-performance/)。
 
-### Use Unicode-range subsetting
+### 使用 unicode-range 子集
 
-Unicode-range subsetting allows splitting large fonts into smaller sets. It’s a relatively advanced strategy but might bring significant savings especially when targeting Asian languages (did you know Chinese fonts average at 20,000 glyphs?). The first step is to limit the font to the necessary language set, such as Latin, Greek or Cyrillic. If a web font is required only for logotype usage, it’s worth it to use Unicode-range descriptor to pick specific characters.
+Unicode-range 子集允许将大字体分割成较小的集合。这是一个相对先进的策略，但它可能会明显地减少字体体积，特别是在针对亚洲语言的时候（你知道中文字体的平均字形数是 20,000 吗？）。第一步是将字体限制为必要的语言集，例如拉丁语、希腊语或西里尔语。如果网络字体只是用于标识，那完全可以使用 Unicode-range 描述符来选择特定的字符。
 
-The Filament Group released an Open Source command-line utility, [glyph hanger](https://github.com/filamentgroup/glyphhanger) that can generate a list of necessary glyphs based on files or URLs. Alternatively, the web-based [Font Squirrel Web Font Generator](https://www.fontsquirrel.com/tools/webfont-generator) offers advanced subsetting and optimisation options. If using Google Fonts or Typekit choosing a language subset is built into the typeface picker interface, making basic subsetting easier.
+Filament Group 发布的开源命令行工具 [glyph hanger](https://github.com/filamentgroup/glyphhanger) 可以根据文件或 URL 生成需要的字形列表。或者，基于 web 的 [Font Squirrel Web Font Generator](https://www.fontsquirrel.com/tools/webfont-generator)，它提供高级子集和优化选项。如果使用 Google 字体或者 Typekit，他们在字体选择界面都提供了语言子集的选择，这使得确定基本子集更容易。
 
-### Establish a font loading strategy
+### 建立字体加载策略
 
-**Fonts are render-blocking** — because the browser has to build both the DOM and CSSOM first; web fonts won’t be downloaded before they’re used in a CSS selector that matches an existing node. This behaviour significantly delays text rendering, often causing the **Flash of Invisible Text** (FOIT) mentioned before. FOIT is even more pronounced on slower networks and mobile devices.
+**字体是渲染阻塞的** —— 因为浏览器需要首先创建 DOM 和 CSSOM；网络字体用于与现有节点相匹配的 CSS 选择器之前，它都不会被下载。这种行为显然延迟了文本的渲染，通常都会导致前面提到的**不可见文本闪烁**（FOIT）。在较慢的网络和移动设备上，FOIT 则更加明显。
 
-Implementing a font loading strategy prevents users from not being able to access your content. Often, opting for **Flash of Unstyled Text** (FOUT) is the easiest and most effective solution.
+实施字体加载策略可以避免用户无法访问内容。通常，**无样式文本闪烁**（FOUT）是最简单和最有效的解决方案。
 
-`font-display` is a new CSS property providing a non-JavaScript reliant solution. Unfortunately, it has partial support (Chrome and Opera only) and is currently under development in Firefox and WebKit. Still, it can and should be used in combination with other font loading mechanisms.
+`font-display` 是一个新的 CSS 属性，提供了一个不依赖 JavaScript 的解决方案。不幸的是，它只被部分支持（Chrome 和 Opera），Firefox 和 WebKit 目前在开发中。 尽管如此，它可以并且应该与其他字体加载机制结合使用。
 
-![font-display property in action](https://cdn-images-1.medium.com/max/800/1*Kuky8fVepcjU3tMbTjewdw.png)
+![font-display 属性示例](https://cdn-images-1.medium.com/max/800/1*Kuky8fVepcjU3tMbTjewdw.png)
 
-Luckily, Typekit’s [Web Font Loader](https://github.com/typekit/webfontloader) and [Bram Stein’s](https://twitter.com/bram_stein) [Font Face Observer](https://fontfaceobserver.com/) can help manage font loading behaviour. Additionally, [Zach Leatherman](https://twitter.com/zachleat), an expert on web font performance, published [A Comprehensive Guide to Font Loading Strategies](https://www.zachleat.com/web/comprehensive-webfonts) which will aid in choosing the right approach for your project.
+幸运的是，Typekit 的[网络字体加载器](https://github.com/typekit/webfontloader) 和 [Bram Stein](https://twitter.com/bram_stein) 的 [字体观察者](https://fontfaceobserver.com/) 可以帮助我们管理字体的加载行为。此外，[Zach Leatherman](https://twitter.com/zachleat) 是网络字体性能的专家，他发布的[《字体加载策略综合指南》](https://www.zachleat.com/web/comprehensive-webfonts)将帮助你为你的项目选择正确的方法。
 
-📝 Web font performance checklist
+📝 网络字体性能检测表
 
-1. Chose the right format
-2. Audit the font selection
-3. Use Unicode-range subsetting
-4. Establish a font loading strategy
+1. 选择正确的格式
+2. 字体选择评测
+3. 使用 Unicode-range 子集
+4. 建立字体加载策略
 
 ## Optimising JavaScript
 
