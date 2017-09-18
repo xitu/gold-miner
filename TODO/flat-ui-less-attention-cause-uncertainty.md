@@ -146,7 +146,7 @@
 
 这表明，与普通文本相比，低对比度内嵌链接表明这可能是一个轻微的弱指示符，但不够明显。然而，在 Brilliant Earth 的例子中，如上图所示缺乏对比色的链接有很大的影响。我们可以推测，存在一个对比度的序列：链接和文本之间的颜色对比度越强，用户识别它们的几率就越高。如果我们在 Ally Bank 的弱指示符版本中使用了浅灰色的高光颜色，我们可能会期望看到在凝视模式上有更大的不同。**只要在行内文本链接[以一种对比色显示](https://www.nngroup.com/articles/clickable-elements/)，用户就能识别他们的目的**，即使没有下划线。
 
-The other two stimulus pairs with no discernible heatmap differences between the weak and strong versions had some traits in common, when compared to the rest of the stimuli: 其他两种刺激对，没有明显的热图差异在弱指示符和强指示符的版本之间有一些共同的特征，与其他刺激相比，它们：
+The other two stimulus pairs with no discernible heatmap differences between the weak and strong versions had some traits in common, when compared to the rest of the stimuli: 其他没有明显的热图差异的两种刺激对，在弱指示符和强指示符的版本之间有一些共同的特征，与其他刺激相比，它们：
 
 - **信息密度低。**这些页面包含的内容相对较少，空白的空间也很大，这意味着即使是那些不太显眼的东西也会脱颖而出，因为它们并没有与其他页面元素竞争。
 - **布局传统。**元素（按钮、链接、导航）位于标准位置，用户通常也期望它们在那个位置。
