@@ -8,7 +8,7 @@
 
 # 网络现状：性能提升指南
 
-互联网正在爆发式地增长，我们创建的 Web 平台也是如此。**我们通常都没有考虑到用户网络的连通性和使用情景**。即使是万维网状况的一瞥，也可以看出我们还没有建立起感同身受和形势变化的认知，更不用说性能的考虑了。
+互联网正在爆发式地增长，我们创建的 Web 平台也是如此。**我们通常都没有考虑到用户网络的连通性和使用情景**。即使是万维网现状的一瞥，也可以看出我们还没有建立起同理心和对形势变化的认知，更不用说对性能的考虑了。
 
 那么，现今的网络状况是怎样的呢？
 
@@ -26,7 +26,7 @@
 
 最能明显提升性能但未被充分利用的方式是，从了解浏览器如何分析和处理资源开始。事实证明，浏览器在资源发现方面表现得非常不错，同时解析和立即确定资源的优先级。下面是关于**关键请求**的解释。
 
-> 如果请求包含用户视图渲染所需的资源，那该请求就是关键请求。
+> 如果请求包含用户视口渲染所需的资源，那该请求就是关键请求。
 
 对于大多数网站，关键请求可以是 HTML，必要的 CSS，LOGO，网络字体，也可能是图片。事实证明，在大多数情况下，当资源被请求时，许多其他不相关的（JavaScript，追踪代码，广告等）也被请求了。不过我们能够通过仔细挑选重要资源，并调整它们的优先级来避免这种情况发生。
 
@@ -40,7 +40,7 @@
 
 🛠 要追踪优先处理请求的效果，你可以使用 Lighthouse 性能检测工具和[关键请求链路评测](https://developers.google.com/web/tools/lighthouse/audits/critical-request-chains)，或者查看 Chrome 开发者工具网络标签下的请求优先级。
 
-**📝 常用性能清单**
+**📝 通用性能清单**
 
 1. 主动缓存
 2. 启用压缩
@@ -53,7 +53,7 @@
 
 在某些情况下，我们可以通过不同的技术来实现同样的效果。CSS 有很多具有艺术性的属性，例如阴影，渐变，动画和形状，这就允许我们用具有合适样式的 DOM 元素来替代图片。
 
-### 选择合适的格式
+### 选择正确的格式
 
 如果必须使用图片，那确定哪种格式比较合适是很重要的。一般都在矢量图和栅格图之间进行选择：
 
@@ -67,7 +67,7 @@
 - **PNG–24**：具有部分透明度的图片
 - **GIF**：动画图片
 
-Photoshop 在图片导出时，可以通过一些设置来对上述格式的图片进行优化，例如降低质量、减少颜色的噪点和数量。这可以让设计师意识到性能实践，并通过正确的优化预设来准备合适的图片。如果你想了解更多关于如何开发图片的信息，可以阅读 [Lara Hogan's](https://twitter.com/lara_hogan) 的 [《速度与激情：以网站性能提升用户体验》](http://designingforperformance.com/optimizing-images/#choosing-an-image-format)。
+Photoshop 在图片导出时，可以通过一些设置来对上述格式的图片进行优化，例如降低质量、减少颜色的噪点和数量。这可以让设计师意识到性能实践，并通过正确的优化预设来准备合适的图片。如果你想了解更多关于如何开发图片的信息，可以阅读 [Lara Hogan](https://twitter.com/lara_hogan) 的 [《速度与激情：以网站性能提升用户体验》](http://designingforperformance.com/optimizing-images/#choosing-an-image-format)。
 
 ### 尝试新格式
 
@@ -91,11 +91,11 @@ Photoshop 在图片导出时，可以通过一些设置来对上述格式的图�
 
 ### 响应式图片
 
-十年前，也许一种分辨率就能满足所有的场景，但随着时代的变化，响应式网站现今已截然不同。这就是为什么我们必须特别小心地实施我们精心优化的视觉资源，并确保它们适应各种视图和设备。幸运的是，感谢[响应式图像社区组织](https://responsiveimages.org/)，通过 `picture` 元素和 `srcset` 属性（都有 85%+ 的浏览器支持率），我们可以完美地做到。
+十年前，也许一种分辨率就能满足所有的场景，但随着时代的变化，响应式网站现今已截然不同。这就是为什么我们必须特别小心地实施我们精心优化的视觉资源，并确保它们适应各种视口和设备。幸运的是，感谢[响应式图像社区组织](https://responsiveimages.org/)，通过 `picture` 元素和 `srcset` 属性（都有 85%+ 的浏览器支持率），我们可以完美地做到。
 
 ### srcset 属性
 
-`srcset` 在分辨率切换场景中表现得非常不错 —— 当我们想根据用户的屏幕密度和大小显示图片时。根据 `srcset` 和 `sizes` 属性中一些预定义的规则，浏览器将会根据视图选择最佳的图片进行展示。这种技术可以节省带宽和减少请求，特别是对于移动端用户。
+`srcset` 在分辨率切换场景中表现得非常不错 —— 当我们想根据用户的屏幕密度和大小显示图片时。根据 `srcset` 和 `sizes` 属性中一些预定义的规则，浏览器将会根据视口选择最佳的图片进行展示。这种技术可以节省带宽和减少请求，特别是对于移动端用户。
 
 ![srcset 属性使用示例](https://cdn-images-1.medium.com/max/800/1*87BIfYsjZTh-bikjmp7eow.png)
 
@@ -140,9 +140,9 @@ Photoshop 在图片导出时，可以通过一些设置来对上述格式的图�
 ### 字体选择评测
 
 无论是否自托管，字体的数量、体积和样式都将明显影响性能。
-理想情况下，我们可以忽略只提供了正常和加粗形态的字体。如果你不确定如何选择字体，可以参考 Lara Hogan 的[《美学与性能》](http://designingforperformance.com/weighing-aesthetics-and-performance/)。
+理想情况下，我们只需要一种包括常规和粗体的字体。如果你不确定如何选择字体，可以参考 Lara Hogan 的[《美学与性能》](http://designingforperformance.com/weighing-aesthetics-and-performance/)。
 
-### 使用 unicode-range 子集
+### 使用 Unicode-range 子集
 
 Unicode-range 子集允许将大字体分割成较小的集合。这是一个相对先进的策略，但它可能会明显地减少字体体积，特别是在针对亚洲语言的时候（你知道中文字体的平均字形数是 20,000 吗？）。第一步是将字体限制为必要的语言集，例如拉丁语、希腊语或西里尔语。如果网络字体只是用于标识，那完全可以使用 Unicode-range 描述符来选择特定的字符。
 
@@ -173,9 +173,9 @@ Filament Group 发布的开源命令行工具 [glyph hanger](https://github.com/
 
 > 我们可能没有意识到，我们所钟爱的 JavaScript 隐藏着更加危险的性能瓶颈。
 
-### 监控 JavaScript 交付
+### 监控 JavaScript 传输
 
-优化交付只是抗衡页面肥胖的一种方法。JavaScript 下载后，必须由浏览器进行解析、编译和运行。浏览一些热门的网站，我们会发现，gzip 压缩后的 JS **在解压之后至少变大三倍**。实际上，我们正在发送一大堆代码。
+优化传输只是抗衡页面肥胖的一种方法。JavaScript 下载后，必须由浏览器进行解析、编译和运行。浏览一些热门的网站，我们会发现，gzip 压缩后的 JS **在解压之后至少变大三倍**。实际上，我们正在发送一大堆代码。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Yrn4kTkaYHX0PWj4HB-mQg.jpeg)
 
@@ -211,64 +211,64 @@ JavaScript 的前端框架日新月异。根据 [2016 年的 JavaScript 现状�
 
 📝 JavaScript 性能清单
 
-1. 监控 JavaScript 交付
+1. 监控 JavaScript 传输
 2. 移除不必要的依赖
 3. 实施代码分割
 4. 考虑框架选择
 
-## Tracking performance and the road forward
+## 性能追踪，前进之路
 
-We’ve talked about several strategies that in most cases will yield positive changes to the user experience of products we’re building. Performance can be a tricky beast though, and it’s necessary to track the long-term results of our tweaks.
+在大多数情况下，我们讨论过的一些策略会对我们正在打造的产品的用户体验产生积极的变化。性能可能是一个棘手的问题，有必要长期跟踪我们调整的效果。
 
-### User-centric performance metrics
+### 以用户为中心的性能指标
 
-Great performance metrics aim to be as close to portraying user experience as possible. Long established `onLoad`, `onContentLoaded` or `SpeedIndex` tell us very little about how soon sites can be interacted with. When focusing only on the delivery of assets, it’s not easy to quantify [perceived performance](https://calibreapp.com/docs/metrics/user-focused-metrics). Fortunately, there are a few timings that paint quite a comprehensive picture of how soon content is both visible and interactive.
+卓越的性能指标，旨在尽可能接近描绘的用户体验。以往的 `onLoad`、`onContentLoaded` 或者 `SpeedIndex` 对于用户多久能与页面进行交互给出的信息非常少。当仅关注资源传输时，我们很难量化[感知得到的性能](https://calibreapp.com/docs/metrics/user-focused-metrics)。幸运的是，有一些时间可以很好地描述内容的可视性和互动性。
 
-Those metrics are First Paint, First Meaningful Paint, Visually Complete and Time to Interactive.
+这些指标是白屏时间、首次有效渲染、视觉完整和可交互时间。
 
 ![](https://cdn-images-1.medium.com/max/800/1*fjqW4fRUD7iIrzcKfUkfIg.png)
 
-- **First Paint**: the browser changed from a white screen to the first visual change.
-- **First Meaningful Paint**: text, images and major items are viewable.
-- **Visually Complete**: all content in the viewport is visible.
-- **Time to Interactive**: all content in the viewport is visible and ready to interact with (no major main thread JavaScript activity).
-- 
-These timings directly correspond to what the users see therefore make excellent candidates for tracking. If possible, record all, otherwise pick one or two to have a better understanding of perceived performance. It’s worth keeping an eye on other metrics as well, especially the number of bytes (optimised and unpacked) we’re sending.
+- **First Paint 白屏时间**：浏览器从白屏到第一次视觉变化。
+- **First Meaningful Paint 首次有效渲染**：文字，图像和主要内容都已可见。
+- **Visually Complete 视觉完整**：视口中的所有内容都可见。
+- **Time to Interactive 可交互时间**：视口中的所有内容都可见，并且可以与 JavaScript 主要线程进行交互。
 
-### Setting performance budgets
+这些时间和用户体验息息相关，因此可以作为重点进行追踪。如果可能，将它们全部记录，否则选择一两个来更好地监控性能。其他指标也需要关注，特别是我们发送的字节数（优化和解压缩）。
 
-All of these figures might quickly become confusing and cumbersome to understand. Without actionable goals and targets, it’s easy to lose track of what we’re trying to achieve. A good few years ago [Tim Kadlec](https://twitter.com/tkadlec) wrote about the concept of [performance budgets](https://timkadlec.com/2013/01/setting-a-performance-budget/).
+### 设置性能预算
 
-Unfortunately, there’s no magical formula for setting them. Often performance budgets boil down to competitive analysis and product goals, which are unique to each business.
+所有数据可能会很快变得令人困惑和难以理解。没有可执行的目标，很容易迷失我们最初的目的。几年前，[Tim Kadlec](https://twitter.com/tkadlec) 写过关于[《性能预算》](https://timkadlec.com/2013/01/setting-a-performance-budget/)的概念。
 
-When setting budgets, it’s important to aim for a noticeable difference, which usually equals to at least 20% improvement. Experiment and iterate on your budgets, leveraging Lara Hogan’s [Approach New Designs with a Performance Budget](http://designingforperformance.com/weighing-aesthetics-and-performance/#approach-new-designs-with-a-performance-budget) as a reference.
+遗憾的是，没有什么神奇的公式可以设置它们。性能预算通常归结为竞争分析和产品目标，而这是每个业务所独有的。
 
-🛠 Try out [Performance Budget Calculator](http://www.performancebudget.io/) or [Browser Calories](https://browserdiet.com/calories/) Chrome extension to aid in creating budgets.
+设定预算时，重要的是要有明显的差异，通常情况下，至少要有 20% 的改善。实验和迭代你的预算，可以参考 Lara Hogan 的[使用性能预算来接近新设计](http://designingforperformance.com/weighing-aesthetics-and-performance/#approach-new-designs-with-a-performance-budget)。
 
-### Continuous monitoring
+使用[性能预算计算器](http://www.performancebudget.io/)或者 [Browser Calories](https://browserdiet.com/calories/) Chrome 拓展程序来帮助你创建预算。
 
-Monitoring performance shouldn’t be manual. There are quite a few powerful tools offering comprehensive reporting.
+### 持续监控
 
-[Google Lighthouse](https://developers.google.com/web/tools/lighthouse/) is an Open Source project auditing performance, accessibility, progressive web apps, and more. It’s possible to use Lighthouse in the command line or as just recently, directly in Chrome Developer Tools.
+性能监控应该是自动化的，市面上有很多提供全面报告的强大工具。
 
-![Lighthouse performing a performance audit.](https://cdn-images-1.medium.com/max/800/1*T3HA3VrN48JsCAHWFfnu3g.gif)
+[Google Lighthouse](https://developers.google.com/web/tools/lighthouse/) 是一个开源项目，它可以审查性能、可访问性、PWA 等。你可以在命令行中或者直接在 Chrome 开发者工具中使用它。
 
-For continuous tracking opt-in for [Calibre](https://calibreapp.com/) that offers performance budgets, device emulation, distributed monitoring and many other features that are impossible to get without carefully building your own performance suite.
+![Lighthouse 性能审查示例](https://cdn-images-1.medium.com/max/800/1*T3HA3VrN48JsCAHWFfnu3g.gif)
 
-![Comprehensive performance tracking in Calibre.](https://cdn-images-1.medium.com/max/800/1*LTFZ7zMASCWUz3r0eqXdoQ.gif)
+对于持续的追踪，可以选择 [Calibre](https://calibreapp.com/)，它提供的性能预算、设备仿真、分布式监控和许多其他功能是我们在构建自己的性能套件时需要花费大量精力的。
 
-Wherever you’re tracking, make sure to make the data transparent and accessible to the entire team, or in smaller organisations, the whole business.
+![使用 Calibre 进行全面的性能追踪](https://cdn-images-1.medium.com/max/800/1*LTFZ7zMASCWUz3r0eqXdoQ.gif)
 
-> Performance is a shared responsibility, which spans further than developer teams — we’re all accountable for the user experience we’re creating, no matter role or title.
+无论你在哪里追踪，请确保数据对于整个团队或者小型组织里的整个业务线都是透明和可访问的。
 
-It’s incredibly important to advocate for speed and establish collaboration processes to catch possible bottlenecks as early as product decisions or design phases.
+> 性能是共同的责任，不仅仅是开发团队 —— 我们都应对所创建的用户体验负责，不管是什么角色或职级。
 
-**Building performance awareness and empathy
-Caring about performance isn’t only a business goal** (but if you need to sell it through sales statistics do so with [PWA Stats](https://www.pwastats.com/)). It’s about fundamental empathy and putting the best interest of the users first.
+在产品决策或者设计阶段，提倡速度和建立协作流程以发现可能的瓶颈是非常重要的。
 
-> As technologists, it’s our responsibility not to hijack attention and time people could be happily spending elsewhere. Our objective is to [build tools that are conscious of time and human focus](http://www.timewellspent.io/).
+### 建立性能意识和同理心
+**关心性能不仅仅是一个业务目标**（但如果你需要通过销售统计数据来进行销售，那可以使用 [PWA 统计](https://www.pwastats.com/)）。这关乎于基本的同理心，并把用户的最大利益放在第一位。
 
-Advocating for performance awareness should be everyone’s goal. Let’s build a better, more mindful future for all of us with performance and empathy in mind.
+> 作为技术人员，我们的责任是，不要让用户的注意力和时间放在等待页面上。我们的目标是，[建立有时间观念和以人为本的工具](http://www.timewellspent.io/)。
+
+提倡性能意识应该是每个人的目标。让我们抱着性能和同理心，为所有人建立一个更好、更有意义的未来吧。
 
 
 ---
