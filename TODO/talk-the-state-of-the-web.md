@@ -40,7 +40,7 @@
 
 🛠 要追踪优先处理请求的效果，你可以使用 Lighthouse 性能检测工具和[关键请求链路评测](https://developers.google.com/web/tools/lighthouse/audits/critical-request-chains)，或者查看 Chrome 开发者工具网络标签下的请求优先级。
 
-**📝 常用性能检查表**
+**📝 常用性能清单**
 
 1. 主动缓存
 2. 启用压缩
@@ -113,7 +113,7 @@ Photoshop 在图片导出时，可以通过一些设置来对上述格式的图�
 
 **CDN 可以降低重图片站点提供自适应和高性能图片的复杂度**。他们提供的服务各不相同（价格也不同），但是大多数都可以根据设备和浏览器进行尺寸调整、裁剪和确定最合适的格式，甚至更多 —— 压缩、检测像素密度、水印、人脸识别和允许后处理。借助这些强大的功能和能够将参数附到 URL 中，使得提供以用户为中心的图片变得轻而易举了。
 
-📝 图片性能检查表
+📝 图片性能清单
 
 1. 选择正确的格式
 2. 尽可能使用矢量图
@@ -125,7 +125,7 @@ Photoshop 在图片导出时，可以通过一些设置来对上述格式的图�
 
 ## 优化网络字体
 
-能够使用自定义字体是一个非常强大的设计工具。但权利越大，责任就越大。**68% 的网站正在使用网络字体，而这种资源是最大的性能杀手之一**（很容易平均达到 100KB，这取决于字体的各种形态和数量）。
+能够使用自定义字体是一个非常强大的设计工具。但权利越大，责任就越大。**68% 的网站正在使用网络字体，而这种资源是最大的性能瓶颈之一**（很容易平均达到 100KB，这取决于字体的各种形态和数量）。
 
 即使体积不是最重要的问题，但**不可见文本闪烁**（FOIT）是。当网络字体在加载中或者加载失败时，就会发生 FOIT，这会导致空白页面，从而造成内容无法访问。这可能值得我们[仔细检查是否需要网络字体](https://hackernoon.com/web-fonts-when-you-need-them-when-you-dont-a3b4b39fe0ae)。如果是这样，有一些策略可以帮助我们减轻对性能的负面影响。
 
@@ -167,54 +167,54 @@ Filament Group 发布的开源命令行工具 [glyph hanger](https://github.com/
 3. 使用 Unicode-range 子集
 4. 建立字体加载策略
 
-## Optimising JavaScript
+## 优化 JavaScript
 
-At the moment, [the average size of JavaScript bundle is 446 KB](http://httparchive.org/trends.php#bytesJS&reqJS), which already makes it second biggest type of an asset size-wise (following images).
+目前，[JavaScript 包的平均大小为 446KB](http://httparchive.org/trends.php#bytesJS&reqJS)，这使得使其成为第二大体积类型的资源（仅次于图片）。
 
-> What we might not realise is that there’s a much more sinister performance bottleneck hidden behind our beloved JavaScript.
+> 我们可能没有意识到，我们所钟爱的 JavaScript 隐藏着更加危险的性能瓶颈。
 
-### Monitor how much JavaScript is delivered
+### 监控 JavaScript 交付
 
-Optimising delivery is only one step in combating web page bloat. After JavaScript is downloaded, it has to be parsed, compiled and run by the browser. A quick look at a few popular sites and it becomes obvious that `gzipped` JS becomes **at least three times bigger after unpacking**. Effectively, we are sending giant blobs of code down the wire.
+优化交付只是抗衡页面肥胖的一种方法。JavaScript 下载后，必须由浏览器进行解析、编译和运行。浏览一些热门的网站，我们会发现，gzip 压缩后的 JS **在解压之后至少变大三倍**。实际上，我们正在发送一大堆代码。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Yrn4kTkaYHX0PWj4HB-mQg.jpeg)
 
-Parse times for 1MB of JavaScript on different devices. Image courtesy of Addy Osmani and his [JavaScript Start-up Performance](https://medium.com/reloading/javascript-start-up-performance-69200f43b201) article.
+1MB JavaScript 在不同的设备上的解析时间。图片来源于 Addy Osmani 的[《JavaScript 启动性能》](https://medium.com/reloading/javascript-start-up-performance-69200f43b201)。
 
-Analysing parse and compile times becomes crucial to understanding when apps are ready to be interacted with. These timings vary significantly based the hardware capabilities of users’ device. **Parse and compile can easily be 2–5x times higher on lower end mobiles**. [Addy’s](https://twitter.com/addyosmani) research confirms that on an average phone an app will take 16 seconds to reach an interactive state, compared to 8 seconds on a desktop. It’s crucial to analyse these metrics, and fortunately, we can do so through Chrome DevTools.
+分析解析和编译时间，对于理解应用程序何时准备好进行交互至关重要，这些时间因用户设备的硬件能力而异。**解析和编译的时间会很容易地在低端手机上高出 2-5 倍**。 [Addy](https://twitter.com/addyosmani) 的研究表明，一个应用程序在普通手机上需要 16 秒才能达到可交互状态，而在桌面上是 8 秒。分析这些指标至关重要，幸运的是，我们可以通过 Chrome 开发者工具来完成。
 
-![Investigating parse and compile in Chrome Dev Tools](https://cdn-images-1.medium.com/max/800/1*eV83YP2fnoOllUleaWa5lw.gif)
+![在 Chrome 开发者工具中审查解析和编译过程](https://cdn-images-1.medium.com/max/800/1*eV83YP2fnoOllUleaWa5lw.gif)
 
-📚 Make sure to read Addy Osmani’s detailed write-up on [JavaScript Start-up Performance](https://medium.com/reloading/javascript-start-up-performance-69200f43b201).
+请务必阅读 Addy Osmani 在[《JavaScript 启动性能》](https://medium.com/reloading/javascript-start-up-performance-69200f43b201)文中的详细总结。
 
-### Get rid of unnecessary dependencies
+### 移除不必要的依赖
 
-The way modern package managers work can easily obscure the number and the size of dependencies. [webpack-bundle-analyzer](https://www.npmjs.com/package/webpack-bundle-analyzer) and Bundle Buddy are great, visual tools helping identify code duplication, biggest performance offenders and outdated, unnecessary dependencies.
+现今的包管理方式可以很容易地隐藏依赖包的数量和大小。[webpack-bundle-analyzer](https://www.npmjs.com/package/webpack-bundle-analyzer) 和 [bundle-buddy](https://www.npmjs.com/package/bundle-buddy) 是很好的可视化工具，可以帮助我们识别出重复代码、最大的性能瓶颈以及过时和不必要的依赖包。
 
-![Webpack bundle analyzer in action.](https://cdn-images-1.medium.com/max/800/1*dusVhPiL44VDoS4gJHMWSg.gif)
+![Webpack bundle analyzer 的示例](https://cdn-images-1.medium.com/max/800/1*dusVhPiL44VDoS4gJHMWSg.gif)
 
-We can make imported package cost even more visible with `Import Cost` extension in [VS Code](https://marketplace.visualstudio.com/items?itemName=wix.vscode-import-cost) and [Atom](https://atom.io/packages/atom-import-cost).
+通过 [VS Code](https://marketplace.visualstudio.com/items?itemName=wix.vscode-import-cost) 和 [Atom](https://atom.io/packages/atom-import-cost) 中的 `Import Cost` 扩展，我们可以明显知晓导入包的大小。
 
-![Import Code VS Code extension.](https://cdn-images-1.medium.com/max/800/1*LbfI4D9XXiZYS1Slwsys5g.gif)
+![VS Code 中的 Import Cost 拓展](https://cdn-images-1.medium.com/max/800/1*LbfI4D9XXiZYS1Slwsys5g.gif)
 
-### Implement code splitting
+### 实施代码分割
 
-Whenever possible, **we should only serve the necessary assets to create the desired user experience**. Sending a full `bundle.js` file to the user, including code handling interactions they might never see is less than optimal (imagine downloading JavaScript handling an entire app when visiting a landing page). Similarly, we shouldn’t be universally serving code targeting specific browsers or user agents.
+只要有可能，**我们就应该只提供用户体验所必需的资源**。向用户发送一个完整的 `bundle.js` 文件，包括他们可能永远看不到的交互效果的处理代码，这不太理想（试想一下，在访问着陆页时，下载了处理整个应用程序的 JavaScript）。同样，我们不应到处提供针对特定浏览器或用户代理的代码。
 
-Webpack, one of the most popular module bundlers, comes with [code splitting support](https://webpack.js.org/guides/code-splitting/). Most straightforward code splitting can be implemented per page (`home.js` for a landing page, `contact.js` for a contact page, etc.), but Webpack offers few advanced strategies like dynamic imports or [lazy loading](https://webpack.js.org/guides/lazy-loading/) that might be worth looking into as well.
+Webpack 是最受欢迎的打包工具之一，默认支持[代码分割](https://webpack.js.org/guides/code-splitting/)。最简单的代码分割可以按页面实施（例如着陆页面的 `home.js`，联系页面的 `contact.js` 等）。但 Webpack 提供了比较少的高级策略，例如动态导入或者[懒加载](https://webpack.js.org/guides/lazy-loading/)，这可能值得研究。
 
-### Consider framework alternatives
+### 考虑框架选择
 
-JavaScript front-end frameworks are constantly on the rise. According to the [State of JavaScript 2016 survey](https://stateofjs.com/2016/frontend/) React is the most popular option. Carefully auditing architecture choices though might show that you’d be better off with a much more lightweight alternative such as [Preact](https://preactjs.com/) (note that Preact isn’t trying to be a full React reimplementation, just a [highly performant](https://github.com/developit/preact-perf), less featured virtual DOM library). Similarly, we can swap bigger libraries for smaller altrnatives — `moment.js` for `date-fns` (or in particular case of `moment.js` [remove unused](https://github.com/distilagency/starward/issues/81) `locales`).
+JavaScript 的前端框架日新月异。根据 [2016 年的 JavaScript 现状调查](https://stateofjs.com/2016/frontend/)，React 是最受欢迎的。仔细评估架构选型可能会发现，你可以采用更为轻量级的替代方案，例如 Preact（需要注意的是，Preact 并不是一个完整的 React 重新实现，它只是一个具有[高性能](https://github.com/developit/preact-perf)，功能更轻的虚拟 DOM 库）。同样，我们可以将较大的库替换为更小的替代方案 —— `moment.js` 换成 `date-fns`（或者在特定情况下，[删除 `moment.js` 中未使用的 `locales`](https://github.com/distilagency/starward/issues/81)）。
 
-**Before starting a new project, it’s worthwhile to determine what kind of features are necessary and pick the most performant framework for your needs and goals**. Sometimes that might mean opting for writing more vanilla JavaScript instead.
+**在开始一个新项目之前，有必要确定什么样的功能是必需的，并为你的需求和目标选择性能最好的框架**。有时这可能意味着选择写更多的原生 JavaScript。
 
-📝 JavaScript performance checklist
+📝 JavaScript 性能清单
 
-1. Monitor how much JavaScript is delivered
-2. Get rid of unnecessary dependencies
-3. Implement code splitting
-4. Consider framework alternatives
+1. 监控 JavaScript 交付
+2. 移除不必要的依赖
+3. 实施代码分割
+4. 考虑框架选择
 
 ## Tracking performance and the road forward
 
