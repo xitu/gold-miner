@@ -3,22 +3,22 @@
 > * 原文作者：[mxbck](https://twitter.com/intent/follow?screen_name=mxbck)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/offline-friendly-forms.md](https://github.com/xitu/gold-miner/blob/master/TODO/offline-friendly-forms.md)
-> * 译者：
-> * 校对者：
+> * 译者：[sunui](https://github.com/sunui)
+> * 校对者：[yanyixin](https://github.com/yanyixin)、[Tina92](https://github.com/Tina92)
 
-# Offline-Friendly Forms
+# 离线友好的表单
 
-Forms on the web don't usually play nice with bad connections. If you try to submit a form while offline, you'll most likely just lose your input. Here's how we might fix that.
+网络不佳时网页表单的表现通常并不理想。如果你试图在离线状态下提交表单，那就很可能丢失刚刚填好的数据。下面就看看我们是如何修复这个问题的。
 
-TL;DR: Here’s the [CodePen Demo](https://codepen.io/mxbck/pen/ayYGGO/) of this post.
+太长，勿点：这里是本文的 [CodePen Demo](https://codepen.io/mxbck/pen/ayYGGO/)。
 
-With the introduction of Service Workers, developers are now able to supply experiences on the web that will work even without an internet connection. While it’s relatively easy to cache static resources, things like forms that require server interaction are harder to optimize. It is possible to provide a somewhat useful offline fallback though.
+随着 Service Workers 的推行，现在开发者们甚至可以实现离线版的网页了。静态资源的缓存相对容易，而像表单这样需要服务器交互的情况就很难优化了。即使这样，提供一些有用的离线回退方案还是有可能的。
 
-First, we have to set up a new class for our offline-friendly forms. We’ll save a few properties of the `<form>` element and then attach a function to fire on submit:
+首先，我们为离线友好的表单创建一个新的类。接着我们保存一些 `<form>` 元素的属性然后绑定一个触发 submit 事件的函数：
 
 ```
 class OfflineForm {
-  // setup the instance.
+  // 配置实例。
   constructor(form) {
     this.id = form.id;
     this.action = form.action;
@@ -29,43 +29,43 @@ class OfflineForm {
 }
 ```
 
-In the submit handler, we can include a simple connectivity check using the `navigator.onLine` property. [Browser support for it](http://caniuse.com/online-status/embed/) is great across the board, and it’s trivial to implement.
+在 submit 处理函数中，我们使用 `navigator.onLine` 属性内置一个简单的网络检查器。[浏览器对它的支持](http://caniuse.com/online-status/embed/)很好，而且实现它也不难。
 
-⚠️ There is however a [possibility of false positives](https://developer.mozilla.org/en-US/docs/Web/API/NavigatorOnLine/onLine) with it, as the property can only detect if the client is connected to a network, not if there’s actual internet access. A `false` value on the other hand can be trusted to mean “offline” with relative certainty. So it’s best to check for that, instead of the other way around.
+⚠️ 但它还是有一定[误报](https://developer.mozilla.org/en-US/docs/Web/API/NavigatorOnLine/onLine)的可能，因为这个属性只能检查客户端是否连接到网络，而不能检测实际的网络连通性。另一方面，一个 `false` 值意味着“离线”是相对确定的。因此，比起其他方式这个判断方法是最好的。
 
-If a user is currently offline, we’ll hold off submitting the form for now and instead store the data locally.
+如果一个用户当前处于离线状态，我们就暂停表单的提交，把数据存储在本地。
 
 ```
 handleSubmit(e) {
   e.preventDefault();
-  // parse form inputs into data object.
+  // 解析表单输入，存储到对象中
   this.getFormData();
   
   if (!navigator.onLine) {
-    // user is offline, store data on device.
+    // 用户离线，在设备中存储数据
     this.storeData();
   } else {
-    // user is online, send data via ajax.
+    // 用户在线，通过 ajax 发送数据 
     this.sendData();
   }
 }
 ```
 
-## Storing the Form Input
+## 存储表单数据
 
-There are [a few different options](https://developer.mozilla.org/en-US/docs/Web/API/Storage) on how to store arbitrary data on the user’s device. Depending on your data, you could use `sessionStorage` if you don’t want the local copy to persist in memory. For our example, let’s go with `localStorage`.
+存储数据到用户设备有[几种不同的方式](https://developer.mozilla.org/en-US/docs/Web/API/Storage)。根据数据的不同，如果你不希望本地副本持久存储在内存中，可以使用 `sessionStorage`。在我们的例子中，我们可以一起使用  `localStorage`。
 
-We can timestamp the form data, put it into a new object and then save it using `localStorage.setItem`. This method takes two arguments: a **key** (the form id) and a **value** (the JSON string of our data).
+我们可以给表单数据附上时间戳，把它赋值给一个新的对象，并且使用 `localStorage.setItem` 保存。这个方法接受两个参数：**key**（表单 id）和 **value**（数据的 JSON 串）。
 
 ```
 storeData() {
-  // check if localStorage is available.
+  // 检测 localStorage 是否可用
   if (typeof Storage !== 'undefined') {
     const entry = {
       time: new Date().getTime(),
       data: this.data,
     };
-    // save data as JSON string.
+    // 把数据存储为 JSON 串
     localStorage.setItem(this.id, JSON.stringify(entry));
     return true;
   }
@@ -73,19 +73,19 @@ storeData() {
 }
 ```
 
-Hint: You can check the storage in Chrome’s devtools under the “Application” tab. If everything went as planned, you should see something like this:
+提示：你可以在 Chrome 的开发者工具 “Application” 中查看存储数据。如果不出差错，你可以看到内容如下：
 
 ![](https://mxb.at/blog/offline-forms/devtools.png)
 
-It’s also a good idea to inform the user of what happened, so they know that their data wasn’t just lost. We could extend the `handleSubmit` function to display some kind of feedback message.
+通知用户发生了什么也是个好主意，这样他们会知道他们的数据不会丢失。我们可以扩展 `handleSubmit` 函数来显示某些反馈信息。
 
 ![](https://mxb.at/blog/offline-forms/message.png)
 
-How thoughtful of you, form!
+多么周到的表单！
 
-## Checking for Saved Data
+## 检查保存的数据
 
-Once the user comes back online, we want to check if there’s any stored submissions. We can listen to the `online` event to catch connection changes, and to the `load` event in case the page is refreshed:
+一旦用户联网，我们想检查一下是否有被存储的提交。我们可以监听 `online` 事件来捕获网络链接的改变，还有页面刷新时的 `load` 事件：
 
 ```
 constructor(form){
@@ -98,12 +98,12 @@ constructor(form){
 ```
 checkStorage() {
   if (typeof Storage !== 'undefined') {
-    // check if we have saved data in localStorage.
+    // 检测我们是否在 localStorage 之中存储了数据
     const item = localStorage.getItem(this.id);
     const entry = item && JSON.parse(item);
 
     if (entry) {
-      // discard submissions older than one day. (optional)
+      // 舍弃超过一天的提交。 （可选）
       const now = new Date().getTime();
       const day = 24 * 60 * 60 * 1000;
       if (now - day > entry.time) {
@@ -111,7 +111,7 @@ checkStorage() {
         return;
       }
 
-      // we have valid form data, try to submit it.
+      // 我们已经验证了表单数据，尝试提交它
       this.data = entry.data;
       this.sendData();
     }
@@ -119,15 +119,15 @@ checkStorage() {
 }
 ```
 
-The last step would be to remove the data from `localStorage` once we have successfully sent it, to avoid multiple submissions. Assuming an ajax form, we can do this as soon as we get a successful response back from the server. We can simply use the storage object’s `removeItem()` method here.
+一旦我们成功提交了表单，那最后一步就是移除 `localStorage` 中的数据，来避免重复提交。假设是一个 ajax 表单，我们可以在服务器响应成功的回调里做这件事。很简单，这里我们可以使用 storage 对象的 `removeItem()` 方法。
 
 ```
 sendData() {
-  // send ajax request to server
+  // 向服务器发送 ajax 请求
   axios.post(this.action, this.data)
     .then((response) => {
       if (response.status === 200) {
-        // remove stored data on success
+        // 成功时移除存储的数据
         localStorage.removeItem(this.id);
       }
     })
@@ -137,11 +137,11 @@ sendData() {
 }
 ```
 
-If you dont want to use ajax to send your form submission, another solution would be to just repopulate the form fields with the stored data, then calling `form.submit()` or have the user press the button themselves.
+如果你不想使用 ajax 提交，另一个方案是将存储的数据回填到表单，然后调用 `form.submit()` 或让用户自己点击提交按钮。
 
-☝️ Note: I’ve omitted some other parts like form validation and security tokens in this demo to keep it short, obviously these would have to be implemented in a real production-ready thing. Dealing with sensitive data is another issue here, as you should not store stuff like passwords or credit card data unencrypted locally.
+☝️ 注意：简单起见，我在这个案例中省略了一些其他部分，比如表单验证和安全 token 验证等，这些东西在真正的生产环境是必不可少的。这里的另一个问题是处理敏感数据，就是说你不能在本地存储一些密码或者信用卡数据等私密信息。
 
-If you’re interested, check out [the full example on CodePen](https://codepen.io/mxbck/pen/ayYGGO).
+如果你感兴趣，请查阅 [CodePen 上的全部示例](https://codepen.io/mxbck/pen/ayYGGO)。
 
 
 ---
