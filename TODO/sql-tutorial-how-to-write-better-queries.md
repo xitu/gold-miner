@@ -1,14 +1,14 @@
 
-  > * 原文地址：[SQL Tutorial: How To Write Better Queries](https://medium.com/towards-data-science/sql-tutorial-how-to-write-better-queries-108ae91d5f4e)
-  > * 原文作者：[Karlijn Willems](https://medium.com/@kacawi)
-  > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-  > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/sql-tutorial-how-to-write-better-queries.md](https://github.com/xitu/gold-miner/blob/master/TODO/sql-tutorial-how-to-write-better-queries.md)
-  > * 译者：[临书](https://github.com/tmpbook)
-  > * 校对者：[steinliber](https://github.com/steinliber), [xiaoyusilen](https://github.com/xiaoyusilen)
+> * 原文地址：[SQL Tutorial: How To Write Better Queries](https://medium.com/towards-data-science/sql-tutorial-how-to-write-better-queries-108ae91d5f4e)
+> * 原文作者：[Karlijn Willems](https://medium.com/@kacawi)
+> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/sql-tutorial-how-to-write-better-queries.md](https://github.com/xitu/gold-miner/blob/master/TODO/sql-tutorial-how-to-write-better-queries.md)
+> * 译者：[临书](https://github.com/tmpbook)
+> * 校对者：[steinliber](https://github.com/steinliber), [xiaoyusilen](https://github.com/xiaoyusilen)
 
-  # SQL 指引：如何写出更好的查询
+# SQL 指引：如何写出更好的查询
 
-  结构化查询语言（SQL）是数据科学行业的一种不可或缺的技能，一般来说，学习这项技能是相当简单的。然而大多数人都忘记 SQL 不仅仅是写查询语句，这只是第一步。确保查询高性能，或者符合上下文语意又完全是另外一回事了。
+结构化查询语言（SQL）是数据科学行业的一种不可或缺的技能，一般来说，学习这项技能是相当简单的。然而大多数人都忘记 SQL 不仅仅是写查询语句，这只是第一步。确保查询高性能，或者符合上下文语意又完全是另外一回事了。
 
 这就是为什么本篇 SQL 教程要引导你，可以通过以下步骤来评估你的查询：
 
@@ -329,7 +329,7 @@ SQL 远未消亡：无论你是申请数据分析师，数据工程师，数据�
 如过你想开始使用 SQL，可以考虑学习 DataCamp 的 [Intro to SQL for Data Science](https://www.datacamp.com/courses/intro-to-sql-for-data-science) 课程！
 
 
-  ---
+---
 
-  > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[React](https://github.com/xitu/gold-miner#react)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计) 等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
+> [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[React](https://github.com/xitu/gold-miner#react)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计) 等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
   
