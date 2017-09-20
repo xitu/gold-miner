@@ -4,7 +4,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/fast-properties-in-v8.md](https://github.com/xitu/gold-miner/blob/master/TODO/fast-properties-in-v8.md)
 > * 译者：[Cherry](https://github.com/sunshine940326)
-> * 校对者：
+> * 校对者：[dearpork](https://github.com/dearpork)、[薛定谔的猫](https://github.com/Aladdin-ADD)
 
 # V8 引擎怎样对属性进行快速访问
 
@@ -13,6 +13,7 @@
 然而在 V8 引擎中属性的不同表现形式确实会对性能和内存有影响，在这篇文章中我们来解析 V8 引擎是如何能够在动态添加属性时进行快速的属性访问的，理解属性是如何工作的，以解释 V8 引擎是如何的优化，（例如 [内联缓存](http://mrale.ph/blog/2012/06/03/explaining-js-vms-in-js-inline-caches.html) ）。
 
 这篇文章解释了处理整数索引属性和命名属性的不同之处，之后我们展示了 V8 中是如何为了提供一个快速的方式定义一个对象的模型在添加一个命名属性时使用 HiddenClasses。然后，我们将继续深入了解如何根据使用情况进行属性名的命名优化，以便能够快速访问或者快速修改。在最后一节中，我们介绍 V8 如何处理整数索引属性或数组索引的详细信息。                                    
+
 ## 命名属性和元素
 
 让我们从分析一个非常简单的对象开始，比如：`{a: "foo", b: "bar"}`。这个对象有两个命名属性，`"a" 和 "b"`。它没有使用任何的整数索引作为属性名。我们也可以使用索引访问属性，特别是对象为数组的情况。例如，数组 `["foo", "bar"]` 有两个可以使用数组索引的属性：索引为 0 的值是 `"foo"`，索引为 1 的值是 `"bar"`。
