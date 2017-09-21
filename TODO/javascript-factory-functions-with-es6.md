@@ -3,20 +3,20 @@
 > * 原文作者：[Eric Elliott](https://medium.com/@_ericelliott?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/javascript-factory-functions-with-es6.md](https://github.com/xitu/gold-miner/blob/master/TODO/javascript-factory-functions-with-es6.md)
-> * 译者：
+> * 译者：[lampui](https://github.com/lampui)
 > * 校对者：
 
-# JavaScript Factory Functions with ES6+
+# ES6+ 中的 JavaScript 工厂函数
 
 ![Smoke Art Cubes to Smoke — MattysFlicks — (CC BY 2.0)](https://cdn-images-1.medium.com/max/800/1*uVpU7iruzXafhU2VLeH4lw.jpeg)
 
-> Note: This is part of the “Composing Software” series on learning functional programming and compositional software techniques in JavaScript ES6+ from the ground up. Stay tuned. There’s a lot more of this to come!
+>提示：本文是学习“软件编码”系列中的一部分，是关于从头学习函数式编程以及 JavaScript ES6+ 代码构成部分技巧的。 敬请关注，更多干货在后面！
 
-A **factory function** is any function which is not a class or constructor that returns a (presumably new) object. In JavaScript, any function can return an object. When it does so without the `new` keyword, it’s a factory function.
+**工厂函数**是一个能返回对象的函数，类和构造函数除外。在 JavaScript 中，任何函数都可以返回一个对象，如果函数前面没有使用 `new` 关键字，却又返回一个对象，那这个函数就是一个工厂函数。
 
-Factory functions have always been attractive in JavaScript because they offer the ability to easily produce object instances without diving into the complexities of classes and the `new` keyword.
+因为工厂函数提供了轻松生成对象实例的能力，且无需深入学习类和 `new` 关键字的复杂性，所以工厂函数在 JavaScript 中一直很具吸引力。
 
-JavaScript provides a very handy object literal syntax. It looks something like this:
+JavaScript 提供了非常方便的对象字面量语法，代码如下：
 
 ```
 const user = {
@@ -25,20 +25,20 @@ const user = {
 };
 ```
 
-Like JSON (which is based on JavaScript’s object literal notation), the left side of the `:` is the property name, and the right side is the value. You can access props with dot notation:
+就像 JSON 的语法（JSON 就是基于 JavaScript 的对象字面量语法），`:`（冒号）左边是属性名，右边是属性值。你可以使用点运算符访问变量：
 
 ```
 console.log(user.userName); // "echo"
 ```
 
-You can access computed property names using square bracket notation:
+或者使用方括号及属性名访问变量：
 
 ```
 const key = 'avatar';
 console.log( user[key] ); // "echo.png"
 ```
 
-If you have variables in-scope with the same name as your intended property names, you can omit the colon and the value in the object literal creation:
+如果在作用域内还有变量和你的属性名相同，那你可以直接在对象字面量中使用这个变量，这样就省去了冒号和属性值：
 
 ```
 const userName = 'echo';
@@ -51,7 +51,7 @@ console.log(user);
 // { "avatar": "echo.png",   "userName": "echo" }
 ```
 
-Object literals support concise method syntax. We can add a `.setUserName()` method:
+对象字面量支持简洁表示法。我们可以添加一个 `.setUserName()` 的方法：
 
 ```
 const userName = 'echo';
@@ -67,17 +67,17 @@ const user = {
 console.log(user.setUserName('Foo').userName); // "Foo"
 ```
 
-In concise methods, `this` refers to the object which the method is called on. To call a method on an object, simply access the method using object dot notation and invoke it by using parentheses, e.g., `game.play()` would apply `.play()` to the `game` object. In order to apply a method using dot notation, that method must be a property of the object in question. You can also apply a method to any other arbitrary object using the function prototype methods, `.call()`, `.apply()`, or `.bind()`.
+在简洁表示法中，`this` 指向的是调用该方法的对象，要调用一个对象的方法，只需要简单地使用点运算符访问方法并使用圆括号调用即可，例如 `game.play()` 就是在 `game` 这一对象上调用 `.play()`。要使用点运算符调用方法，这个方法必须是对象属性。你也可以使用函数原型方法 `.call()`，`.apply()` 或 `.bind()` 把一个方法应用于一个对象上。
 
-In this case, `user.setUserName('Foo')` applies `.setUserName()` to `user`, so `this === user`. In the `.setUserName()` method, we change the `.userName` property on the `user` object via its `this` binding, and return the same object instance for method chaining.
+本例中，`user.setUserName('Foo')` 是在 `user` 对象上调用 `.setUserName()`，因此 `this === user`。在`.setUserName()` 方法中，我们通过 `this` 这个引用修改了 `.userName` 的值，然后返回了相同的对象实例，以便于后续方法链式调用。
 
-## Literals for One, Factories for Many
+## 字面量偏向单一对象，工厂方法适用众多对象
 
-If you need to create many objects, you’ll want to combine the power of object literals and factory functions.
+如果你需要创建多个对象，你应该考虑把对象字面量和工厂函数结合使用。
 
-With a factory function, you can create as many user objects as you want. If you’re building a chat app, for instance, you can have a user object representing the current user, and also a lot of other user objects representing all the other users who are currently signed in and chatting, so you can display their names and avatars, too.
+使用工厂函数，你可以根据需要创建任意数量的用户对象。假如你正在开发一个聊天应用，你会用一个用户对象表示当前用户，以及用很多个用户对象表示其他已登录和在聊天的用户，以便显示他们的名字和头像等等。
 
-Let’s turn our user object into a `createUser()` factory:
+让我们把 `user` 对象转换为一个 `createUser()` 工厂方法:
 
 ```
 const createUser = ({ userName, avatar }) => ({
@@ -98,11 +98,11 @@ console.log(createUser({ userName: 'echo', avatar: 'echo.png' }));
 */
 ```
 
-## Returning Objects
+## 返回对象
 
-Arrow functions (`=>`) have an implicit return feature: if the function body consists of a single expression, you can omit the `return` keyword: `() => 'foo'` is a function that takes no parameters, and returns the string, `"foo"`.
+箭头函数（`=>`）具有隐式返回的特性：如果函数体由单个表达式组成，则可以省略 `return` 关键字。`()=>'foo'` 是一个没有参数的函数， 并返回字符串 `"foo"`。
 
-Be careful when you return object literals. By default, JavaScript assumes you want to create a function body when you use braces, e.g., `{ broken: true }`. If you want to use an implicit return for an object literal, you’ll need to disambiguate by wrapping the object literal in parentheses:
+ 返回对象字面量时要小心。当使用大括号时，JavaScript 默认你创建的是一个函数体，例如 `{ broken: true }`。如果你需要返回一个明确的对象字面量，那你就需要通过使用圆括号将对象字面量包起来以消除歧义，如下所示：
 
 ```
 const noop = () => { foo: 'bar' };
@@ -111,69 +111,69 @@ const createFoo = () => ({ foo: 'bar' });
 console.log(createFoo()); // { foo: "bar" }
 ```
 
-In the first example, `foo:` is interpreted as a label, and `bar` is interpreted as an expression that doesn’t get assigned or returned. The function returns `undefined`.
+在第一个例子中，`foo:` 被解释为一个标签，`bar` 被解释为一个没有被赋值或者返回的表达式，因此函数返回 `undefined`。
 
-In the `createFoo()` example, the parentheses force the braces to be interpreted as an expression to be evaluated, rather than a function body block.
+在 `createFoo()` 例子中，圆括号强制着大括号，使其被解释为要求值的表达式，而不是一个函数体。
 
-## Destructuring
+## 解构
 
-Pay special attention to the function signature:
+请特别注意函数声明：
 
 ```
 const createUser = ({ userName, avatar }) => ({
 ```
 
-In this line, the braces (`{`, `}`) represent object destructuring. This function takes one argument (an object), but destructures two formal parameters from that single argument, `userName`, and `avatar`. Those parameters can then be used as variables in the function body scope. You can also destructure arrays:
+这一行里，大括号 (`{, }`) 表示对象解构。这个函数有一个参数（即一个对象），但是从这个参数中，却解构出了两个形参，`userName` 和 `avatar`。这些形参可以作为函数体内的变量使用。解构还可以用于数组：
 
 ```
 const swap = ([first, second]) => [second, first];
 console.log( swap([1, 2]) ); // [2, 1]
 ```
 
-And you can use the rest and spread syntax (`...varName`) to gather the rest of the values from the array (or a list of arguments), and then spread those array elements back into individual elements:
+你可以使用扩展语法 (`...varName`) 获取数组（或参数列表）余下的值，然后将这些值回传成单个元素：
 
 ```
 const rotate = ([first, ...rest]) => [...rest, first];
 console.log( rotate([1, 2, 3]) ); // [2, 3, 1]
 ```
 
-## Computed Property Keys
+## 计算属性值
 
-Earlier we used square bracket computed property access notation to dynamically determine which object property to access:
+前面我们使用方括号的方法动态访问对象的属性值：
 
 ```
 const key = 'avatar';
 console.log( user[key] ); // "echo.png"
 ```
 
-We can also compute the value of keys to assign to:
+我们也可以计算属性值来赋值：
 
 ```
 const arrToObj = ([key, value]) => ({ [key]: value });
 console.log( arrToObj([ 'foo', 'bar' ]) ); // { "foo": "bar" }
 ```
 
-In this example, `arrToObj` takes an array consisting of a key/value pair (aka a tuple) and converts it into an object. Since we don’t know the name of the key, we need to compute the property name in order to set the key/value pair on the object. For that, we borrow the idea of square bracket notation from computed property accessors, and reuse it in the context of building an object literal:
+本例中，`arrToObj` 接受一个包含键值对（又称`元组`）的数组，并将其转化成一个对象。因为我们并不知道属性名，因此我们需要计算属性名以便在对象上设置属性值。为了做到这一点，我们使用了方括号表示法，来设置属性名，并将其放在对象字面量的上下文中来创建对象：
 
 ```
 { [key]: value }
 ```
 
-After the interpolation is done, we end up with the final object:
+在赋值完成后，我们就能得到像下面这样的对象：
 
 ```
 { "foo": "bar" }
 ```
 
-## Default Parameters
+## 默认参数
 
-Functions in JavaScript support default parameter values, which have several benefits:
+JavaScript 函数支持默认参数值，给我们带来以下优势：
 
-1. Users are able to omit parameters with suitable defaults.
-2. The function is more self-documenting because default values supply examples of expected input.
-3. IDEs and static analysis tools can use default values to infer the type expected for the parameter. For example, a default value of `1` implies that the parameter can take a member of the `Number` type.
+1. 用户可以通过适当的默认值省略参数。
+2. 函数自我描述性更高，因为默认值提供预期的输入例子。
+3. IDEs 和静态分析工具可以利用默认值推断参数的类型。例如，一个默认值 `1` 表示参数可以接受的数据类型为 `Number`。
 
-Using default parameters, we can document the expected interface for our `createUser` factory, and automatically fill in `'Anonymous'` details if the user’s info is not supplied:
+使用默认参数，我们可以为我们的 `createUser` 工厂函数描述预期的接口，此外，如果用户的输入不被支持，可以自动地补充`某些`细节：
 
 ```
 const createUser = ({
@@ -191,49 +191,49 @@ console.log(
 );
 ```
 
-The last part of the function signature probably looks a little funny:
+函数定义的最后一部分可能看起来有点搞笑：
 
 ```
 } = {}) => ({
 ```
 
-The last `= {}` bit just before the parameter signature closes means that if nothing gets passed in for this parameter, we’re going to use an empty object as the default if no argument is passed in. When you try to destructure values from the empty object, the default values for properties will get used automatically, because that’s what default values do: replace `undefined` with some predefined value.
+在参数声明最后那部分的 `= {}` 表示：如果传进来的实参不符合要求，则将使用一个空对象作为默认参数。当你尝试从空对象解构赋值的时候，属性的默认值会被自动填充，因为这就是默认值所做的工作：用预先定义好的值替换 `undefined`。
 
-Without the `= {}` default value, `createUser()` with no arguments would throw an error because you can’t try to access properties from `undefined`.
+如果没有 `={}` 这个默认值，且没有向 `createUser()` 传递有效的实参，则将会抛出错误，因为你不能从 `undefined` 中访问属性。
 
-## Type Inference
+## 类型判断
 
-JavaScript does not have any native type annotations as of this writing, but several competing formats have sprung up over the years to fill the gaps, including JSDoc (in decline due to the emergence of better options), [Facebook’s Flow](https://flow.org/), and [Microsoft’s TypeScript](https://www.typescriptlang.org/). I use [rtype](https://github.com/ericelliott/rtype) for documentation — a notation I find much more readable than TypeScript for functional programming.
+在写这篇文章的时候，JavaScript 都还没有内置的类型注解，但是近几年涌现了一批格式化工具或者框架来填补这一空白，包括 JSDoc（由于出现了更好的选择其呈现出下降趋势），Facebook 的 [Flow](https://flow.org/)，还有微软的 [TypeScript](https://www.typescriptlang.org/)。我个人使用 [rtype](https://github.com/ericelliott/rtype)，因为我觉得它在函数式编程方面比 TypeScript 可读性更强。
 
-At the time of this writing, there is no clear winner for type annotations. None of the alternatives have been blessed by the JavaScript specification, and there seem to be clear shortcomings in all of them.
+直至写这篇文章，各种类型注解方案其实都不相上下。没有一个获得 JavaScript 规范的庇护，而且每个方案都有它明显的不足。
 
-Type inference is the process of inferring types based on the context in which they are used. In JavaScript, it is a very good alternative to type annotations.
+类型推断是基于变量所在的上下文推断其类型的一个过程，在 JavaScript 中，这是对类型注解非常好的一个替代。
 
-If you provide enough clues for inference in your standard JavaScript function signatures, you’ll get most of the benefits of type annotations with none of the costs or risks.
+如果你在标准的 JavaScript 函数中提供足够的线索去推断，你就能获得类型注解的大部分好处，且不用担心任何额外成本或风险。
 
-Even if you decide to use a tool like TypeScript or Flow, you should do as much as you can with type inference, and save the type annotations for situations where type inference falls short. For example, there’s no native way in JavaScript to specify a shared interface. That’s both easy and useful with TypeScript or rtype.
+即使你决定使用像 TypeScript 或 Flow 这样的工具，你也应该尽可能利用类型推断的好处，并保存在类型推断抽风时的类型注解。例如，原生 JavaScript 是不支持定义共享接口的。但使用 TypeScript 或 rtype 都可以方便有效地定义接口。
 
-[Tern.js](http://ternjs.net/) is a popular type inference tool for JavaScript that has plugins for many code editors and IDEs.
+[Tern.js](http://ternjs.net/) 是一个流行的 JavaScript 类型推断工具，它在很多代码编辑器或 IDE 上都有插件。
 
-Microsoft’s Visual Studio Code doesn’t need Tern because it brings the type inference capabilities of TypeScript to regular JavaScript code.
+微软的 Visual Studio Code 不需要 Tern，因为它把 TypeScript 的类型推断功能附带到了 JavaScript 代码的编写中。
 
-When you specify default parameters for functions in JavaScript, tools capable of type inference such as Tern.js, TypeScript, and Flow can provide IDE hints to help you use the API you’re working with correctly.
+当你在 JavaScript 函数中指定默认参数值时，很多诸如 Tern.js，TypeScript 和 Flow 的类型推断工具就可以在 IDE 中给予提示以帮助开发者正确地使用 API。
 
-Without defaults, IDEs (and frequently, humans) don’t have enough hints to figure out the expected parameter type.
+没有默认值，各种IDE（更多的时候，连我们自己）都没有足够的信息来判断函数预期的参数类型。
 
-![Without defaults, the type is unknown for `userName`.](https://cdn-images-1.medium.com/max/800/1*2sP_9k1e0dkgYqdEPs0G3g.png)
+![没有默认值， `userName` 的类型未知。](https://cdn-images-1.medium.com/max/800/1*2sP_9k1e0dkgYqdEPs0G3g.png)
 
-With defaults, IDEs (and frequently, humans) can infer the types from the examples.
+有了默认值，IDEs (更多的时候，我们自己) 可以从代码中推断出类型。
 
-![With defaults, the IDE can suggest that `userName` is expecting a string.](https://cdn-images-1.medium.com/max/800/1*tFUXCLA8ClAzsPgZXGGR9A.png)
+![有默认值，IDE 可以提示 `userName` 的类型应该是字符串。](https://cdn-images-1.medium.com/max/800/1*tFUXCLA8ClAzsPgZXGGR9A.png)
 
-It doesn’t always make sense to restrict a parameter to a fixed type (that would make generic functions and higher order functions difficult), but when it does make sense, default parameters are often the best way to do it, even if you’re using TypeScript or Flow.
+将参数限制为固定类型（这会使通用函数和高阶函数更加受限）是不怎么合理的。但要说这种方法什么时候有意义的话，使用默认参数通常就是，即使你已经在使用 TypeScript 或 Flow 做类型推断。
 
-## Factory Functions for Mixin Composition
+## Mixin 结构的工厂函数
 
-Factories are great at cranking out objects using a nice calling API. Usually, they’re all you need, but once in a while, you’ll find yourself building similar features into different types of objects, and you’ll want to abstract those features into functional mixins so you can reuse them more easily.
+工厂函数擅于利用一个优秀的 API 创建对象。通常来说，它们能满足基本需求，但不久之后，你就会遇到这样的情况,总会把类似的功能构建到不同类型的对象中，所以你需要把这些功能抽象为 mixin 函数，以便轻松重用。
 
-That’s where functional mixins shine. Let’s build a `withConstructor` mixin to add the `.constructor` property to all object instances.
+mixin 的工厂函数就要大显身手了。我们来构建一个 `withConstructor` 的 mixin 函数，把 `.constructor` 属性添加到所有的对象实例中。
 
 `with-constructor.js:`
 
@@ -245,11 +245,14 @@ const withConstructor = constructor => o => {
   );
   return Object.assign(Object.create(proto), o);
 };
-Now you can import it and use it with other mixins:
+```
+
+现在你可以导入和使用其他 mixins：
+```
 import withConstructor from `./with-constructor';
 const pipe = (...fns) => x => fns.reduce((y, f) => f(y), x);
-// or `import pipe from 'lodash/fp/flow';`
-// Set up some functional mixins
+// 或者 `import pipe from 'lodash/fp/flow';`
+// 设置一些 mixin 的功能
 const withFlying = o => {
   let isFlying = false;
   return {
@@ -298,37 +301,37 @@ console.log(`
 `);
 ```
 
-As you can see, the reusable `withConstructor()` mixin is simply dropped into the pipeline with other mixins. `withBattery()` could be used with other kinds of objects, like robots, electric skateboards, or portable device chargers. `withFlying()` could be used to model flying cars, rockets, or air balloons.
+正如你所见，可重用的 `withConstructor()` mixin 与其他 mixin 一起被简单地放入 `pipeline` 中。`withBattery()` 可以被其他类型的对象使用，如机器人，电动滑板或便携式设备充电器等等。`withFlying()` 可以被用来给飞行的汽车，火箭或飞行气球建模。
 
-Composition is more of a way of thinking than a particular technique in code. You can accomplish it in many ways. Function composition is just the easiest way to build it up from scratch, and factory functions are a simple way to wrap a friendly API around the implementation details.
+对象组合更多的是一种思维方式，而不是写代码的某一特定技巧。你可以在很多地方用到它。功能组合只是从头开始构建你思维方式的最简单方法，工厂函数就是将对象组合有关实现细节包装成一个友好 API 的简单方法。
 
-## Conclusion
+## 结论
 
-ES6 provides a convenient syntax for dealing with object creation and factory functions. Most of the time, that’s all you’ll need, but because this is JavaScript, there’s another approach that makes it feel more like Java: the `class` keyword.
+对于对象的创建和工厂函数，ES6 提供了一种方便的语法，大多数时候，这样就足够了，但因为这是 JavaScript，所以还有一种更方便并更像 Java 的语法：`class` 关键字。
 
-In JavaScript, classes are more verbose & restrictive than factories, and a bit of a minefield when it comes to refactoring, but they’ve also been embraced by major front-end frameworks like React and Angular, and there are a couple of rare use-cases that make the complexity worthwhile.
+在 JavaScript 中，类比工厂更冗长和受限，当进行代码重构时更容易出现问题，但也被像是 React 和 Angular 等主流前端框架所采纳使用，而且还有一些少见的用例，使得类更有存在意义。
 
-> “Sometimes, the elegant implementation is just a function. Not a method. Not a class. Not a framework. Just a function.” ~ John Carmack
+> “有时，最优雅的实现仅仅是一个函数。不是方法，不是类，不是框架。仅仅只是一个函数。” ~ John Carmack
 
-Start with the simplest implementation, and move to more complex implementations only as required. When it comes to objects, that progression looks a bit like this:
+从最简单的实现开始，只有在必要时才转移到更复杂的实现。涉及到对象时，这种变化看起来像这样：
 
 `Pure function -> factory -> functional mixin -> class`
 
 [Next: Why Composition is Harder with Classes >](https://medium.com/javascript-scene/why-composition-is-harder-with-classes-c3e627dcd0aa)
 
-## Next Steps
+## 下一步
 
-Want to learn more about object composition with JavaScript?
+想更深入学习关于 JavaScript 的对象组合？
 
-[Learn JavaScript with Eric Elliott.](http://ericelliottjs.com/product/lifetime-access-pass/) If you’re not a member, you’re missing out!
+[与 Eric Elliott 一起学习 JavaScript 吧](http://ericelliottjs.com/product/lifetime-access-pass/)，如果你还不是一名会员，那你就亏大了！
 
 ![](https://cdn-images-1.medium.com/max/800/1*3njisYUeHOdyLCGZ8czt_w.jpeg)
 
-**Eric Elliott** is the author of [“Programming JavaScript Applications”](http://pjabook.com/) (O’Reilly), and [“Learn JavaScript with Eric Elliott”](http://ericelliottjs.com/product/lifetime-access-pass/). He has contributed to software experiences for **Adobe Systems**, **Zumba Fitness**, **The Wall Street Journal**, **ESPN**, **BBC**, and top recording artists including **Usher**, **Frank Ocean**, **Metallica**, and many more.
+**Eric Elliott** 是 [《Programming JavaScript Applications》](http://pjabook.com/) (O’Reilly) 和 [《Learn JavaScript with Eric Elliott》](http://ericelliottjs.com/product/lifetime-access-pass/)的作者。他在 **Adobe Systems**, **Zumba Fitness**, **The Wall Street Journal**, **ESPN**, **BBC** 工作过，还和很多顶尖的艺术家有过合作，包括 **Usher**, **Frank Ocean**, **Metallica** 等等。
 
-He spends most of his time in the San Francisco Bay Area with the most beautiful woman in the world.
+他大多数时间都在湾区，和世界上最漂亮的女人在一起。
 
-Thanks to [JS_Cheerleader](https://medium.com/@JS_Cheerleader?source=post_page).
+感谢 [JS_Cheerleader](https://medium.com/@JS_Cheerleader?source=post_page).
 
 
 ---
