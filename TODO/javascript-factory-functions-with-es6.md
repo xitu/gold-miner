@@ -6,13 +6,14 @@
 > * 译者：[lampui](https://github.com/lampui)
 > * 校对者：
 
-# ES6+ 中的 JavaScript 工厂函数
+# ES6+ 中的 JavaScript 工厂函数（第八部分）
 
 ![Smoke Art Cubes to Smoke — MattysFlicks — (CC BY 2.0)](https://cdn-images-1.medium.com/max/800/1*uVpU7iruzXafhU2VLeH4lw.jpeg)
 
->提示：本文是学习“软件编码”系列中的一部分，是关于从头学习函数式编程以及 JavaScript ES6+ 代码构成部分技巧的。 敬请关注，更多干货在后面！
+>注意：这是“软件编写”系列文章的第八部分，该系列主要阐述如何在 JavaScript ES6+ 中从零开始学习函数式编程和组合化软件（compositional software）技术（译注：关于软件可组合性的概念，参见维基百科 [Composability](https://en.wikipedia.org/wiki/Composability)）。后续还有更多精彩内容，敬请期待！
+> [< 上一篇](https://github.com/xitu/gold-miner/blob/master/TODO/functional-mixins-composing-software.md) | [<< 第一篇](https://github.com/xitu/gold-miner/blob/master/TODO/the-rise-and-fall-and-rise-of-functional-programming-composable-software.md)  | [下一篇 >](https://github.com/xitu/gold-miner/blob/master/TODO/why-composition-is-harder-with-classes.md)
 
-**工厂函数**是一个能返回对象的函数，类和构造函数除外。在 JavaScript 中，任何函数都可以返回一个对象，如果函数前面没有使用 `new` 关键字，却又返回一个对象，那这个函数就是一个工厂函数。
+**工厂函数**是一个能返回对象的函数，它既不是类也不是构造函数。在 JavaScript 中，任何函数都可以返回一个对象，如果函数前面没有使用 `new` 关键字，却又返回一个对象，那这个函数就是一个工厂函数。
 
 因为工厂函数提供了轻松生成对象实例的能力，且无需深入学习类和 `new` 关键字的复杂性，所以工厂函数在 JavaScript 中一直很具吸引力。
 
@@ -67,7 +68,7 @@ const user = {
 console.log(user.setUserName('Foo').userName); // "Foo"
 ```
 
-在简洁表示法中，`this` 指向的是调用该方法的对象，要调用一个对象的方法，只需要简单地使用点运算符访问方法并使用圆括号调用即可，例如 `game.play()` 就是在 `game` 这一对象上调用 `.play()`。要使用点运算符调用方法，这个方法必须是对象属性。你也可以使用函数原型方法 `.call()`，`.apply()` 或 `.bind()` 把一个方法应用于一个对象上。
+在简洁表示法中，`this` 指向的是调用该方法的对象，要调用一个对象的方法，只需要简单地使用点运算符访问方法并使用圆括号调用即可，例如 `game.play()` 就是在 `game` 这一对象上调用 `.play()`。要使用点运算符调用方法，这个方法必须是对象属性。你也可以使用函数原型方法 `.call()`、`.apply()` 或 `.bind()` 把一个方法应用于一个对象上。
 
 本例中，`user.setUserName('Foo')` 是在 `user` 对象上调用 `.setUserName()`，因此 `this === user`。在`.setUserName()` 方法中，我们通过 `this` 这个引用修改了 `.userName` 的值，然后返回了相同的对象实例，以便于后续方法链式调用。
 
@@ -171,9 +172,9 @@ JavaScript 函数支持默认参数值，给我们带来以下优势：
 
 1. 用户可以通过适当的默认值省略参数。
 2. 函数自我描述性更高，因为默认值提供预期的输入例子。
-3. IDEs 和静态分析工具可以利用默认值推断参数的类型。例如，一个默认值 `1` 表示参数可以接受的数据类型为 `Number`。
+3. IDE 和静态分析工具可以利用默认值推断参数的类型。例如，一个默认值 `1` 表示参数可以接受的数据类型为 `Number`。
 
-使用默认参数，我们可以为我们的 `createUser` 工厂函数描述预期的接口，此外，如果用户的输入不被支持，可以自动地补充`某些`细节：
+使用默认参数，我们可以为我们的 `createUser` 工厂函数描述预期的接口，此外，如果用户没有提供信息，可以自动地补充`某些`细节：
 
 ```
 const createUser = ({
@@ -191,7 +192,7 @@ console.log(
 );
 ```
 
-函数定义的最后一部分可能看起来有点搞笑：
+函数签名的最后一部分可能看起来有点搞笑：
 
 ```
 } = {}) => ({
@@ -199,11 +200,11 @@ console.log(
 
 在参数声明最后那部分的 `= {}` 表示：如果传进来的实参不符合要求，则将使用一个空对象作为默认参数。当你尝试从空对象解构赋值的时候，属性的默认值会被自动填充，因为这就是默认值所做的工作：用预先定义好的值替换 `undefined`。
 
-如果没有 `={}` 这个默认值，且没有向 `createUser()` 传递有效的实参，则将会抛出错误，因为你不能从 `undefined` 中访问属性。
+如果没有 `= {}` 这个默认值，且没有向 `createUser()` 传递有效的实参，则将会抛出错误，因为你不能从 `undefined` 中访问属性。
 
 ## 类型判断
 
-在写这篇文章的时候，JavaScript 都还没有内置的类型注解，但是近几年涌现了一批格式化工具或者框架来填补这一空白，包括 JSDoc（由于出现了更好的选择其呈现出下降趋势），Facebook 的 [Flow](https://flow.org/)，还有微软的 [TypeScript](https://www.typescriptlang.org/)。我个人使用 [rtype](https://github.com/ericelliott/rtype)，因为我觉得它在函数式编程方面比 TypeScript 可读性更强。
+在写这篇文章的时候，JavaScript 都还没有内置的类型注解，但是近几年涌现了一批格式化工具或者框架来填补这一空白，包括 JSDoc（由于出现了更好的选择其呈现出下降趋势）、Facebook 的 [Flow](https://flow.org/)、还有微软的 [TypeScript](https://www.typescriptlang.org/)。我个人使用 [rtype](https://github.com/ericelliott/rtype)，因为我觉得它在函数式编程方面比 TypeScript 可读性更强。
 
 直至写这篇文章，各种类型注解方案其实都不相上下。没有一个获得 JavaScript 规范的庇护，而且每个方案都有它明显的不足。
 
@@ -217,13 +218,13 @@ console.log(
 
 微软的 Visual Studio Code 不需要 Tern，因为它把 TypeScript 的类型推断功能附带到了 JavaScript 代码的编写中。
 
-当你在 JavaScript 函数中指定默认参数值时，很多诸如 Tern.js，TypeScript 和 Flow 的类型推断工具就可以在 IDE 中给予提示以帮助开发者正确地使用 API。
+当你在 JavaScript 函数中指定默认参数值时，很多诸如 Tern.js、TypeScript 和 Flow 的类型推断工具就可以在 IDE 中给予提示以帮助开发者正确地使用 API。
 
-没有默认值，各种IDE（更多的时候，连我们自己）都没有足够的信息来判断函数预期的参数类型。
+没有默认值，各种 IDE（更多的时候，连我们自己）都没有足够的信息来判断函数预期的参数类型。
 
 ![没有默认值， `userName` 的类型未知。](https://cdn-images-1.medium.com/max/800/1*2sP_9k1e0dkgYqdEPs0G3g.png)
 
-有了默认值，IDEs (更多的时候，我们自己) 可以从代码中推断出类型。
+有了默认值，IDE (更多的时候，我们自己) 可以从代码中推断出类型。
 
 ![有默认值，IDE 可以提示 `userName` 的类型应该是字符串。](https://cdn-images-1.medium.com/max/800/1*tFUXCLA8ClAzsPgZXGGR9A.png)
 
@@ -301,7 +302,7 @@ console.log(`
 `);
 ```
 
-正如你所见，可重用的 `withConstructor()` mixin 与其他 mixin 一起被简单地放入 `pipeline` 中。`withBattery()` 可以被其他类型的对象使用，如机器人，电动滑板或便携式设备充电器等等。`withFlying()` 可以被用来给飞行的汽车，火箭或飞行气球建模。
+正如你所见，可重用的 `withConstructor()` mixin 与其他 mixin 一起被简单地放入 `pipeline` 中。`withBattery()` 可以被其他类型的对象使用，如机器人、电动滑板或便携式设备充电器等等。`withFlying()` 可以被用来模型飞行汽车、火箭或气球。
 
 对象组合更多的是一种思维方式，而不是写代码的某一特定技巧。你可以在很多地方用到它。功能组合只是从头开始构建你思维方式的最简单方法，工厂函数就是将对象组合有关实现细节包装成一个友好 API 的简单方法。
 
