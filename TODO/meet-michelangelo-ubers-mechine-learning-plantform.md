@@ -3,241 +3,240 @@
 > * 原文作者：[JEREMY HERMANN & MIKE DEL BALSO](https://eng.uber.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/meet-michelangelo-ubers-mechine-learning-plantform.md](https://github.com/xitu/gold-miner/blob/master/TODO/meet-michelangelo-ubers-mechine-learning-plantform.md)
-> * 译者：
+> * 译者：[lsvih](https://github.com/lsvih)
 > * 校对者：
 
-# MEET MICHELANGELO: UBER’S MACHINE LEARNING PLATFORM
+# Uber 机器学习平台 — 米开朗基罗
 
-Uber Engineering is committed to developing technologies that create seamless, impactful experiences for our customers. We are increasingly investing in artificial intelligence (AI) and machine learning (ML) to fulfill this vision. At Uber, our contribution to this space is Michelangelo, an internal ML-as-a-service platform that democratizes machine learning and makes scaling AI to meet the needs of business as easy as requesting a ride.
+Uber 工程师们一直致力于开发各种新技术，以让客户得到有效、无缝的用户体验。现在，他们正在加大人工智能、机器学习领域的投入来实现这个愿景。在 Uber，工程师们开发出了一个名为“米开朗基罗”（Michelangelo）的机器学习平台，它是一个内部的“MLaaS”（机器学习即服务）平台，用以降低机器学习开发的门槛，并能根据不同的商业需求对 AI 进行拓展与缩放，就有如客户使用 Uber 打车一样方便。
 
-Michelangelo enables internal teams to seamlessly build, deploy, and operate machine learning solutions at Uber’s scale. It is designed to cover the end-to-end ML workflow: manage data, train, evaluate, and deploy models, make predictions, and monitor predictions. The system also supports traditional ML models, time series forecasting, and deep learning.
+米开朗基罗平台可以让公司内部团队无缝构建、部署与运行 Uber 规模的机器学习解决方案。它旨在覆盖全部的端到端机器学习工作流，包括：数据管理、训练模型、评估模型、部署模型、进行预测、预测监控。此系统不仅支持传统机器学习模型，还支持时间序列预测以及深度学习。
 
-Michelangelo has been serving production use cases at Uber for about a year and has become the de-facto system for machine learning for our engineers and data scientists, with dozens of teams building and deploying models. In fact, it is deployed across several Uber datacenters, leverages specialized hardware, and serves predictions for the highest loaded online services at the company.
+米开朗基罗在 Uber 投产约一年时间，已经成为了 Uber 工程师、数据科学家真正意义上的“平台”，现在有数十个团队在此平台上构建、部署模型。实际上，米开朗基罗平台现在部署于多个 Uber 数据中心并使用专用硬件，用于为公司内最高负载的在线服务提供预测功能。
 
-In this article, we introduce Michelangelo, discuss product use cases, and walk through the workflow of this powerful new ML-as-a-service system.
+本文将介绍米开朗基罗以及其产品用例，并简单通过这个强大的 MLaaS 系统介绍整个机器学习工作流。
 
-## Motivation behind Michelangelo
+## 米开朗基罗背后的动机
 
-Before Michelangelo, we faced a number of challenges with building and deploying machine learning models at Uber related to the size and scale of our operations. While data scientists were using a wide variety of tools to create predictive models (R, [scikit-learn](http://scikit-learn.org/stable/), custom algorithms, etc.), separate engineering teams were also building bespoke one-off systems to use these models in production. As a result, the impact of ML at Uber was limited to what a few data scientists and engineers could build in a short time frame with mostly open source tools.
+在米开朗基罗平台出现前，Uber 的工程师和数据科学家们需要构建、部署一些公司需要的机器学习模型，并能根据实际操作进行规模拓展。那时他们试图使用各种各样的工具来创建预测模型（如 R 语言、[scikit-learn](http://scikit-learn.org/stable/)、自定义算法等），而工程团队一会构建一些一次性的系统以使用这些模型进行预测。因此，在 Uber 内能够在短时间内使用各种开源工具构建出框架的数据科学家与工程师少之又少，限制了机器学习在公司内的应用。
 
-Specifically, there were no systems in place to build reliable, uniform, and reproducible pipelines for creating and managing training and prediction data at scale. Prior to Michelangelo, it was not possible to train models larger than what would fit on data scientists’ desktop machines, and there was neither a standard place to store the results of training experiments nor an easy way to compare one experiment to another. Most importantly, there was no established path to deploying a model into production–in most cases, the relevant engineering team had to create a custom serving container specific to the project at hand. At the same time, we were starting to see signs of many of the ML anti-patterns documented by [Scully et al](https://papers.nips.cc/paper/5656-hidden-technical-debt-in-machine-learning-systems.pdf).
+具体来说，那时没有建立一个可靠、统一、pipeline 可复用的系统用于创建、管理、训练、预测规模化数据。因此在那时，不会有人做出数据科学家的台式机跑不了的模型，也没有一个规范的结果存储方式，要将几个实验结果进行对比也是相当困难的事情。更重要的是，那时没有一种将模型部署到生产环境的确定方法。因此，大多数情况下都是相关的工程团队去为手中的项目开发定制的服务容器。这时，他们注意到了这些迹象符合由 Scully 等人记录的[机器学习的反模式](https://papers.nips.cc/paper/5656-hidden-technical-debt-in-machine-learning-systems.pdf)一文的描述。
 
-Michelangelo is designed to address these gaps by standardizing the workflows and tools across teams though an end-to-end system that enables users across the company to easily build and operate machine learning systems at scale. Our goal was not only to solve these immediate problems, but also create a system that would grow with the business.
+米开朗基罗旨在将整个团队的工作流程和工具标准化，通过端对端系统让整个公司的用户都能轻松构建、运行大型机器学习系统。并且其目标不仅限于解决这些直接的问题，更是要创立一个能与企业共同发展的体系。
 
-When we began building Michelangelo in mid 2015, we started by addressing the challenges around scalable model training and deployment to production serving containers. Then, we focused on building better systems for managing and sharing feature pipelines. More recently, the focus shifted to developer productivity–how to speed up the path from idea to first production model and the fast iterations that follow.
+当工程师们于 2015 年年中开始构建米开朗基罗系统时，他们也开始解决一些规模化模型训练以及一些将模型部署于生产环境容器的问题。接着，他们专注于构建用于能够更好进行管理、共享特征 pipeline 的系统。而最近，他们的重点转移到了研究如快速将 idea 实现为模型并在生产环境快速迭代。
 
-In the next section, we look at an example application to understand how Michelangelo has been used to build and deploy models to solve specific problems at Uber. While we highlight a specific use case for [UberEATS](https://www.ubereats.com/), the platform manages dozens of similar models across the company for a variety of prediction use cases.
+下一节将通过一个样例来介绍如何使用米开朗基罗构建、部署一个模型，用于解决 Uber 的某种特定问题。虽然使用了 [UberEATS](https://www.ubereats.com/) 中的具体用例，不过这个平台也可以管理公司中类似的各种各样的模型以及用例。
 
-## Use case: UberEATS estimated time of delivery model
+## 用例：UberEATS 需要建立送餐到家模型
 
-UberEATS has several models running on Michelangelo, covering meal delivery time predictions, search rankings, search autocomplete, and restaurant rankings. The delivery time models predict how much time a meal will take to prepare and deliver before the order is issued and then again at each stage of the delivery process.
+UberEATS 在米开朗基罗中有数个模型在运行，包括送餐到达时间预测、搜索排行、搜索自动完成、餐厅排行等。送餐到达时间预测模型能够预测准备膳食所需要的时间、送餐时间以及送餐过程中的各个阶段所需时间。
 
 ![](https://eng.uber.com/wp-content/uploads/2017/09/image4-768x516.png)
 
-Figure 1: The UberEATS app hosts an estimated delivery time feature powered by machine learning models built on Michelangelo.
+图 1：UberEATS app 提供了估测外卖送达时间的功能，此功能由基于米开朗基罗构建的机器学习模型驱动。
 
-Predicting meal estimated time of delivery (ETD) is not simple. When an UberEATS customer places an order it is sent to the restaurant for processing. The restaurant then needs to acknowledge the order and prepare the meal which will take time depending on the complexity of the order and how busy the restaurant is. When the meal is close to being ready, an Uber delivery-partner is dispatched to pick up the meal. Then, the delivery-partner needs to get to the restaurant, find parking, walk inside to get the food, then walk back to the car, drive to the customer’s location (which depends on route, traffic, and other factors), find parking, and walk to the customer’s door to complete the delivery. The goal is to predict the total duration of this complex multi-stage process, as well as recalculate these time-to-delivery predictions at every step of the process.
+预测外卖的送达时间（ETD）并不是一件简单的事情。当 UberEATS 用户下单时，订单将被送到餐厅进行处理。餐厅需要确认订单，根据订单的复杂度以及餐厅的繁忙程度准备餐品，这一步自然要花费一些时间。在餐品快要准备完毕的时候，Uber 外卖员出发去取餐。接着，外卖员需要开车到达餐厅、找到停车场、进餐厅取餐、回到车里、开车前往客户家（这个步骤耗时取决于路线、交通等因素）、找到车位、走到客户家门口，最终完成交货。UberEATS 的目标就是预测这个复杂的多阶段过程的总时间，并在各个步骤重新计算 ETD。
 
-On the Michelangelo platform, the UberEATS data scientists use gradient boosted decision tree regression models to predict this end-to-end delivery time. Features for the model include information from the request (e.g., time of day, delivery location), historical features (e.g. average meal prep time for the last seven days), and near-realtime calculated features (e.g., average meal prep time for the last one hour). Models are deployed across Uber’s data centers to Michelangelo model serving containers and are invoked via network requests by the UberEATS microservices. These predictions are displayed to UberEATS customers prior to ordering from a restaurant and as their meal is being prepared and delivered.
+在米开朗基罗平台上，UberEATS 数据科学家们使用了 GBDT（梯度提升决策树）回归模型来预测这种端到端的送达时间。此模型使用的特征包括请求信息（例如时间、送餐地点）、历史特征（例如餐厅在过去 7 天中的平均餐食准备时间）、以及近似实时特征（例如最近一小时的平均餐食准备时间）。此模型部署于 Uber 数据中心的米开朗基罗平台提供的容器中，通过 UberEATS 微服务提供网络调用。预测结果将在餐食准备及及送达前展示给客户。
 
-## System architecture
+## 系统架构
 
-Michelangelo consists of a mix of open source systems and components built in-house. The primary open sourced components used are [HDFS](http://hadoop.apache.org/), [Spark](https://spark.apache.org/), [Samza](http://samza.apache.org/), [Cassandra](http://cassandra.apache.org/), [MLLib](https://spark.apache.org/mllib/), [XGBoost](https://github.com/dmlc/xgboost), and [TensorFlow](https://www.tensorflow.org/). We generally prefer to use mature open source options where possible, and will fork, customize, and contribute back as needed, though we sometimes build systems ourselves when open source solutions are not ideal for our use case.
+米开朗基罗系统由一些开源系统和内置组件组成。主要使用的开源组件有 [HDFS](http://hadoop.apache.org/)、[Spark](https://spark.apache.org/)、[Samza](http://samza.apache.org/)、[Cassandra](http://cassandra.apache.org/)、[MLLib](https://spark.apache.org/mllib/)、[XGBoost](https://github.com/dmlc/xgboost)、[TensorFlow](https://www.tensorflow.org/)。在条件允许的前提下，开发团队更倾向于使用一些成熟的开源系统，并会进行 fork、定制化，如果有需求的话也会对其进行贡献。如果找不到合适的开源解决方案，他们也会自己构建一些系统。
 
-Michelangelo is built on top of Uber’s data and compute infrastructure, providing a data lake that stores all of Uber’s transactional and logged data, Kafka brokers that aggregate logged messages from all Uber’s services, a Samza streaming compute engine, managed Cassandra clusters, and Uber’s in-house service provisioning and deployment tools.
+米开朗基罗系统建立与 Uber 的数据及计算基础设施之上，它们提供了一个“数据湖”，其中包含了 Uber 所有的事务和日志数据。由 Kafka 对 Uber 的所有服务日志进行采集汇总，使用 Cassandra 集群管理的 Samza 流计算引擎以及 Uber 内部服务进行计算与部署。
 
-In the next section, we walk through the layers of the system using the UberEATS ETD models as a case study to illustrate the technical details of Michelangelo.
+在下一节中将以 UberEATS 的 ETD 模型为例，简单介绍系统的各个层次，说明米开朗基罗的具体技术细节。
 
-## Machine learning workflow
+## 机器学习工作流
 
-The same general workflow exists across almost all machine learning use cases at Uber regardless of the challenge at hand, including classification and regression, as well as time series forecasting. The workflow is generally implementation-agnostic, so easily expanded to support new algorithm types and frameworks, such as newer deep learning frameworks. It also applies across different deployment modes such as both online and offline (and in-car and in-phone) prediction use cases.
+在 Uber，大多数的机器学习用例（包括一些正在做的工作，例如分类、回归以及时间序列预测等）都有着一套同样的工作流程。这种工作流程可以与具体实现分离，因此很容易进行拓展以支持新的算法和框架（例如最新的深度学习框架）。它还适用于各种不同预测用例的部署模式（如在线部署与离线部署，在车辆中使用与在手机中使用）。
 
-We designed Michelangelo specifically to provide scalable, reliable, reproducible, easy-to-use, and automated tools to address the following six-step workflow:  
+米开朗基罗专门设计提供可拓展、可靠、可重用、易用的自动化工具，用于解决下面 6 步工作流：
 
-1. Manage data
-2. Train models
-3. Evaluate models
-4. Deploy models
-5. Make predictions
-6. Monitor predictions
+1. 管理数据
+2. 训练模型
+3. 评价模型
+4. 部署模型
+5. 进行预测
+6. 预测监控
 
-Next, we go into detail about how Michelangelo’s architecture facilitates each stage of this workflow.
+下面将详细介绍米开朗基罗的架构是如何促进工作流中的各个步骤的。
 
-## Manage data
+## 管理数据
 
-Finding good features is often the hardest part of machine learning and we have found that building and managing data pipelines is typically one of the most costly pieces of a complete machine learning solution.
+找出良好的特征使是机器学习最难的部分，因此工程师们发现整个机器学习解决方案中最费时费力的部分就是构建及管理数据管道。
 
-A platform should provide standard tools for building data pipelines to generate feature and label data sets for training (and re-training) and feature-only data sets for predicting. These tools should have deep integration with the company’s data lake or warehouses and with the company’s online data serving systems. The pipelines need to be scalable and performant,  incorporate integrated monitoring for data flow and data quality, and support both online and offline training and predicting. Ideally, they should also generate the features in a way that is shareable across teams to reduce duplicate work and increase data quality. They should also provide strong guard rails and controls to encourage and empower users to adopt best practices (e.g., making it easy to guarantee that the same data generation/preparation process is used at both training time and prediction time).
+因此，平台应提供一套标准工具以构建数据管道，生成特征，对数据集进行标记（用于训练及再训练），以及提供无标记特征数据用以预测，这些工具需要与公司的数据湖、数据中心以及公司的在线数据服务系统进行深度的整合。构建出来的数据管道必须具有可缩放性以及足够的性能，能够监控数据流以及数据质量，为各种在线\离线训练与预测都提供全面的支持。这些工具还应该能通过团队共享的方式生成特征，以减少重复工作并提高数据质量。此外，这些工具应当提供强有力的保护措施，鼓励用户去采用最好的方式使用工具（例如，保证在训练时和预测时都采用同一批次生成的数据）。
 
-The data management components of Michelangelo are divided between online and offline pipelines. Currently, the offline pipelines are used to feed batch model training and batch prediction jobs and the online pipelines feed online, low latency predictions (and in the near future, online learning systems).
+米开朗基罗的数据管理组件分为在线管道和离线管道。目前，离线管道主要用于为批量模型训练以及批量预测作业提供数据；在线管道主要为在线、低时延预测作业特供数据（以及之后会为在线学习系统提供支持）。
 
-In addition, we added a layer of data management, a feature store that allows teams to share, discover, and use a highly curated set of features for their machine learning problems.  We found that many modeling problems at Uber use identical or similar features, and there is substantial value in enabling teams to share features between their own projects and for teams in different organizations to share features with each other.
+此外，工程师们还为数据管理层新加了一个特征存储系统，可以让各个团队共享、发现高质量的数据特征以解决他们的机器学习问题。工程师们发现，Uber 的许多模型都是用了类似或相同的特征，如果能在不同的项目、不同组织的团队间共享特征是一件很有意义的事。
 
 ![](http://eng.uber.com/wp-content/uploads/2017/09/image5.png)
 
-Figure 2: Data preparation pipelines push data into the Feature Store tables and training data repositories.
+图 2：数据预处理管道将数据存入特征库以及训练数据仓库中。
 
-### Offline
+### 离线部署
 
-Uber’s transactional and log data flows into an HDFS data lake and is easily accessible via Spark and Hive SQL compute jobs. We provide containers and scheduling to run regular jobs to compute features which can be made private to a project or published to the Feature Store (see below) and shared across teams, while batch jobs run on a schedule or a trigger and are integrated with data quality monitoring tools to quickly detect regressions in the pipeline–either due to local or upstream code or data issues.
+Uber 的事务与日志数据会“流入”一个 HDFS 数据湖中，可以使用 Spark 和 Hive SQL 的计算作业轻松调用这些数据。平台提供了容器与计划任务两种方式运行常规作业，用于计算项目内部的私有特征或将其发布至特征存储库（见后文）与其他团队共享。当计划任务运行批量作业或通过别的方式触发批量作业时，作业将被整合传入数据质量监控工具，此工具能够快速回溯找出问题出在 pipeine 中的位置，判明是本地代码的问题还是上游代码的问题导致的数据错误。
 
-### Online
+### 在线部署
 
-Models that are deployed online cannot access data stored in HDFS, and it is often difficult to compute some features in a performant manner directly from the online databases that back Uber’s production services (for instance, it is not possible to directly query the UberEATS order service to compute the average meal prep time for a restaurant over a specific period of time). Instead, we allow features needed for online models to be precomputed and stored in Cassandra where they can be read at low latency at prediction time.
+在线部署的模型将无法访问 HDFS 存储的数据，因此，一些需要在 Uber 生产服务的支撑数据库中读取的特征很难直接用于这种在线模型（例如，无法直接查询 UberEATS 的订单服务去计算某餐厅某特定时间段平均膳食准备时间）。因此，工程师们将在线模型需要的特征预存储在 Cassandra 中，线上模型可以以低迟延读取这些数据。
 
-We support two options for computing these online-served features, batch precompute and near-real-time compute, outlined below:
+在线部署支持两种计算系统：批量预计算与近实时计算，详情如下：
 
-- **Batch precompute**. The first option for computing is to conduct bulk precomputing and loading historical features from HDFS into Cassandra on a regular basis. This is simple and efficient, and generally works well for historical features where it is acceptable for the features to only be updated every few hours or once a day. This system guarantees that the same data and batch pipeline is used for both training and serving. UberEATS uses this system for features like a ‘restaurant’s average meal preparation time over the last seven days.’
-- **Near-real-time compute**. The second option is to publish relevant metrics to Kafka and then run Samza-based streaming compute jobs to generate aggregate features at low latency. These features are then written directly to Cassandra for serving and logged back to HDFS for future training jobs. Like the batch system, near-real-time compute ensures that the same data is used for training and serving. To avoid a cold start, we provide a tool to “backfill” this data and generate training data by running a batch job against historical logs. UberEATS uses this near-realtime pipeline for features like a ‘restaurant’s average meal preparation time over the last one hour.’
+- **批量预计算**。这个系统会定期进行大批量计算，并将 HDFS 中的特征历史记录加载进 Cassandra 数据库中。这样做虽然很简单粗暴，但是如果需要的特征对实时性要求不高（比如允许隔几小时更新一次），那么效果还是很好的。这个系统还能保证在批处理管道中用于训练和服务的数据是同批次的。UberEATS 就采用了这个系统处理一部分特征，如“餐厅过去七天的膳食平均准备时间”。
+- **近实时计算**。这个系统会将相关指标发布至 Kafka 系统，接着运行 Samza 流计算作业以低时延生成所有特征。接着这些特征将直接存入 Cassandra 数据库用于提供服务，并同时备份至 HDFS 用于之后的训练作业。和批量预计算系统一样，这样做同样能保证提供服务和进行训练的数据为同一批次。为了避免这个系统的冷启动，工程师们还专门为这个系统制作了一个工具，用于“回填”数据与基于历史记录运行批处理生成训练数据。UberEATS 就使用了这种近实时计算 pipeline 来得到如“餐厅过去一小时的膳食平均准备时间”之类的特征。
 
-### Shared feature store
+### 共享特征库
 
-We found great value in building a centralized Feature Store in which teams around Uber can create and manage canonical features to be used by their teams and shared with others. At a high level, it accomplishes two things:  
+工程师们发现建立一个集中的特征库是很有用的，Uber 的各个团队可以使用其它团队的特征、创建管理自己的特征，并能够将这些特征与其它团队共享。从大方向上看，它做到了以下两件事情：
 
-1. It allows users to easily add features they have built into a shared feature store, requiring only a small amount of extra metadata (owner, description, SLA, etc.) on top of what would be required for a feature generated for private, project-specific usage.
-2. Once features are in the Feature Store, they are very easy to consume, both online and offline, by referencing a feature’s simple canonical name in the model configuration. Equipped with this information, the system handles joining in the correct HDFS data sets for model training or batch prediction and fetching the right value from Cassandra for online predictions.
+1. 它可以让用户轻松地将自己构建的特征存入共享特征库中（只需要增加少许元数据，如添加者、描述、SLA 等），另外它也能让一些特定项目使用的特征以私有形式存储。
+2. 只要特征存入了特征库，那之后再用它就十分简单了。无论是在线模型还是离线模型，都只要简单地在模型配置中写上特征的名称就行了。系统将会从 HDFS 取出正确的数据，进行处理后返回相应的特征集，既可以用于模型训练，也可以用于批量预测或者从 Cassandra 取值做在线预测。
 
-At the moment, we have approximately 10,000 features in Feature Store that are used to accelerate machine learning projects, and teams across the company are adding new ones all the time. Features in the Feature Store are automatically calculated and updated daily.
+目前，Uber 的特征库中有大约 10000 个特征用于加速机器学习工程的构建，公司的各个团队还在不断向其中增加新的特征。特征库中的特征每天都会进行自动计算与更新。
 
-In the future, we intend to explore the possibility of building an automated system to search through Feature Store and identify the most useful and important features for solving a given prediction problem.
+工程师们打算之后构建自动化系统，以实现搜索特征库并找出对解决特定预测问题最有用的特征。
 
-**Domain specific language for feature selection and transformation.**
+**用于选择特征、特征转换的领域特定语言（DSL）。**
 
-Often the features generated by data pipelines or sent from a client service are not in the proper format for the model, and they may be missing values that need to be filled. Moreover, the model may only need a subset of features provided. In some cases, it may be more useful for the model to transform a timestamp into an hour-of-day or day-of-week to better capture seasonal patterns. In other cases, feature values may need to be normalized (e.g., subtract the mean and divide by standard deviation).
+由数据 pipeline 生成的特征与客户端服务传来的特征经常不符合模型需要的数据格式，而且这些数据时常会缺失一些值，需要对其进行填充；有时候，模型可能只需要传入的特征的一个子集；还有的时候，将传入的时间戳转换为 小时/天 或者 天/周 会在模型中起到更好的效果；另外，还可能需要对特征值进行归一化。（例如减去平均值再除以标准差）。
 
-To address these issues, we created a DSL (domain specific language) that modelers use to select, transform, and combine the features that are sent to the model at training and prediction times. The DSL is implemented as sub-set of Scala. It is a pure functional language with a complete set of commonly used functions. With this DSL, we also provide the ability for customer teams to add their own user-defined functions. There are accessor functions that fetch feature values from the current context (data pipeline in the case of an offline model or current request from client in the case of an online model) or from the Feature Store.
+为了解决这些问题，工程师们为建模人员创造了一种 DSL（领域特定语言），用于选择、转换、组合那些用于训练或用于预测的特征。这种 DSL 为 Scala 的子集，是一种纯函数式语言，包含了一套常用的函数集，工程师们还为这种 DSL 增加了自定义函数的功能。这些函数能够从正确的地方取出特征（离线模型从数据 pipeline 取特征值，在线模型从客户请求取特征值。或是直接从特征库中取出特征）。
 
-It is important to note that the DSL expressions are part of the model configuration and the same expressions are applied at training time and at prediction time to help guarantee that the same final set of features is generated and sent to the model in both cases.
+此外，DSL 表达式是模型配置的一部分，在训练时取特征的 DSL 与在与测试时用的 DSL 需要保持一致，以确保任何时候传入模型的特征集的一致性。
 
-### Train models
+### 训练模型
 
-We currently support offline, large-scale distributed training of decision trees, linear and logistic models, unsupervised models ([k-means](https://en.wikipedia.org/wiki/K-means_clustering)), time series models, and deep neural networks. We regularly add new algorithms in response to customer need and as they are developed by Uber’s [AI Labs](https://www.uber.com/info/ailabs/) and other internal researchers. In addition, we let customer teams add their own model types by providing custom training, evaluation, and serving code. The distributed model training system scales up to handle billions of samples and down to small datasets for quick iterations.
+现在平台支持各种决策树、线性模型、逻辑模型、无监督模型（[k-means](https://en.wikipedia.org/wiki/K-means_clustering)）、时间序列模型以及深度神经网络的离线、大规模分布式训练。工程师们将定期根据用户的需求增加一些由 Uber [AI 实验室](https://www.uber.com/info/ailabs/)新开发的模型。此外，用户也可以自己提供模型类型，包括自定义训练、评价以及提供服务的代码。分布式模型训练系统可以规模化处理数十亿的样本数据，也可以处理一些小数据集进行快速迭代。
 
-A model configuration specifies the model type, hyper-parameters, data source reference, and feature DSL expressions, as well as compute resource requirements (the number of machines, how much memory, whether or not to use GPUs, etc.). It is used to configure the training job, which is run on a [YARN](https://yarnpkg.com/) or [Mesos](https://yarnpkg.com/) cluster.
+一个模型的配置包括模型类型、超参、数据源、特征 DSL，以及计算资源需求（需要的机器数量、内存用量、是否使用 GPU 等）。这些信息将用于配置运行在 [YARN](https://yarnpkg.com/) 或 [Mesos](https://yarnpkg.com/) 集群上的训练作业。
 
-After the model is trained, performance metrics (e.g., ROC curve and PR curve) are computed and combined into a model evaluation report. At the end of training, the original configuration, the learned parameters, and the evaluation report are saved back to our model repository for analysis and deployment.
+在模型训练完毕之后，系统会将其计算得到的性能指标（例如 ROC 曲线和 PR 曲线）进行组合，得到一个模型评价报告。在训练结束时，系统会将原始配置、学习到的参数以及评价包括存回模型库，用于分析与部署。
 
-In addition to training single models, Michelangelo supports hyper-parameter search for all model types as well as partitioned models. With partitioned models, we automatically partition the training data based on configuration from the user and then train one model per partition, falling back to a parent model when needed (e.g. training one model per city and falling back to a country-level model when an accurate city-level model cannot be achieved).
+除了训练单个模型之外，米开朗基罗系统还支持对分块模型等各种模型进行超参搜索。以分块模型为例，以分块模型为例，系统会根据用户配置自动对训练数据进行分块，对每个分块训练一个模型；在有需要的时候再将各个分块模型合并到父模型中（例如，先对每个城市数据进行训练，如果无法得到准确的市级模型时再将其合并为国家级模型）。
 
-Training jobs can be configured and managed through a web UI or an API, often via [Jupyter notebook](http://jupyter.org/). Many teams use the API and workflow tools to schedule regular re-training of their models.
+训练作业可以通过 Web UI 或者 API 进行配置与管理（通常使用 [Jupyter notebook](http://jupyter.org/)）。大多数团队都使用 API 以及流程管理工具来对他们的模型进行定期重训练。
 
 ![](http://eng.uber.com/wp-content/uploads/2017/09/image2.png)
 
-Figure 3: Model training jobs use Feature Store and training data repository data sets to train models and then push them to the model repository.
+图 3：模型训练作业使用特征库与训练数据仓库中的数据集训练模型，接着讲模型存入模型库中。
 
-### Evaluate models
+### 评价模型
 
-Models are often trained as part of a methodical exploration process to identify the set of features, algorithms, and hyper-parameters that create the best model for their problem. Before arriving at the ideal model for a given use case, it is not uncommon to train hundreds of models that do not make the cut. Though not ultimately used in production, the performance of these models guide engineers towards the model configuration that results in the best model performance. Keeping track of these trained models (e.g. who trained them and when, on what data set, with which hyper-parameters, etc.), evaluating them, and comparing them to each other are typically big challenges when dealing with so many models and present opportunities for the platform to add a lot of value.
+训练模型可以看成是一种寻找最佳特征、算法、超参以针对问题建立最佳模型的探索过程。在得到用例的理想模型前，训练数百种模型而一无所获也是常有的事。虽然这些失败的模型最终不能用于生产，但它们可以指导工程师们更好地进行模型配置，从而获得更好的性能。追踪这些训练过的模型（例如谁、何时训练了它们，用了什么数据集、什么超参等），对它们的性能进行评估、互相对比，可以对平台带来更多的价值与机会。不过要处理如此之多的模型，也是一个极大的挑战。
 
-For every model that is trained in Michelangelo, we store a versioned object in our model repository in Cassandra that contains a record of:
+米开朗基罗平台中训练的每个模型都需要将以下信息作为版本对象存储在 Cassandra 的模型库中：
 
-- Who trained the model.
-- Start and end time of the training job.
-- Full model configuration (features used, hyper-parameter values, etc.).
-- Reference to training and test data sets.
-- Distribution and relative importance of each feature.
-- Model accuracy metrics.
-- Standard charts and graphs for each model type (e.g. ROC curve, PR curve, and confusion matrix for a binary classifier).
-- Full learned parameters of the model.
-- Summary statistics for model visualization.
+- 谁训练的模型。
+- 训练模型的开始时间与结束时间。
+- 模型的全部配置（包括用了什么特征、超参的设置等）。
+- 引用训练集和测试集。
+- 描述每个特征的重要性。
+- 模型准确性评价方法。
+- 模型每个类型的标准评价表或图（例如 ROC 曲线图、PR 曲线图，以及二分类的混淆矩阵等）。
+- 模型所有学习到的参数。
+- 模型可视化摘要统计。
 
-The information is easily available to the user through a web UI and programmatically through an API, both for inspecting the details of an individual model and for comparing one or more models with each other.
+用户可以通过 Web UI 或者使用 API 轻松获取这些数据，用以检查单个模型的详细情况或者对多个模型进行比较。
 
-### Model accuracy report
+### 模型准确率报告
 
-The model accuracy report for a regression model shows standard accuracy metrics and charts. Classification models would display a different set, as depicted below in Figures 4 and 5:
+回归模型的准确率报告会展示标准的准确率指标与图表；分类模型的准确率报告则会展示不同的分类集合，如图 4 图 5 所示：
 
 ![](https://eng.uber.com/wp-content/uploads/2017/09/image9-768x295.png)
 
-Figure 4: Regression model reports show regression-related performance metrics.
+图 4：回归模型的报告展示了与回归相关的性能指标。
 
 ![](https://eng.uber.com/wp-content/uploads/2017/09/image10-768x505.png)
 
-Figure 5: Binary classification performance reports show classification-related performance metrics.
+图 5：二分类模型报告展示了分类相关的性能指标。
 
-### Decision tree visualization
+### 可视化决策树
 
-For important model types, we provide sophisticated visualization tools to help modelers understand why a model behaves as it does, as well as to help debug it if necessary. In the case of decision tree models, we let the user browse through each of the individual trees to see their relative importance to the overall model, their split points, the importance of each feature to a particular tree, and the distribution of data at each split, among other variables. The user can specify feature values and the visualization will depict the triggered paths down the decision trees, the prediction per tree, and the overall prediction for the model, as pictured in Figure 6 below: 
+决策树作为一种重要的模型类型，工程师们为其提供了可视化工具，以帮助建模者更好地理解模型的行为原理，并在建模者需要时帮助其进行调试。例如在一个决策树模型中，用户可以浏览每个数分支，看到其对于整体模型的重要程度、决策分割点、每个特征对于某个特定分支的权重，以及每个分支上的数据分布等变量。用户可以输入一个特征值，可视化组件将会遍历整个决策树的触发路径、每个树的预测、整个模型的预测，将数据展示成类似下图的样子：
 
 ![](https://eng.uber.com/wp-content/uploads/2017/09/image7-768x245.png)
 
-Figure 6: Tree models can be explored with powerful tree visualizations.
+图 6：使用强大的树可视化组件查看树模型。
 
-### Feature report
+### 特征报告
 
-Michelangelo provides a feature report that shows each feature in order of importance to the model along with partial dependence plots and distribution histograms. Selecting two features lets the user understand the feature interactions as a two-way partial dependence diagram, as showcased below:
+米开朗基罗提供了特征报告，在报告中使用局部依赖图以及混合直方图展示了各个特征对于模型的重要性。选中两个特征可以让用户看到它们之间相互的局部依赖图表，如下所示：
 
 ![](https://eng.uber.com/wp-content/uploads/2017/09/image11-768x371.png)
 
-Figure 7: Features, their impact on the model, and their interactions can be explored though a feature report.
+图 7：在特征报告中可以看到的特征、对模型的重要性以及不同特征间的相关性。
 
-### Deploy models
+### 部署模型
 
-Michelangelo has end-to-end support for managing model deployment via the UI or API and three modes in which a model can be deployed:
+米开朗基罗支持使用 UI 或 API 端对端管理模型的部署。一个模型可以有下面三种部署方式：
 
-1. **Offline deployment**. The model is deployed to an offline container and run in a Spark job to generate batch predictions either on demand or on a repeating schedule.
-2. **Online deployment**. The model is deployed to an online prediction service cluster (generally containing hundreds of machines behind a load balancer) where clients can send individual or batched prediction requests as network RPC calls.
-3. **Library deployment**. We intend to launch a model that is deployed to a serving container that is embedded as a library in another service and invoked via a Java API. (It is not shown in Figure 8, below, but works similarly to online deployment).
+1. **离线部署**。模型将部署于离线容器中，使用 Spark 作业，根据需求或计划任务进行批量预测。
+2. **在线部署**。模型将部署于在线预测服务集群（集群通常为使用负载均衡部署数百台机器），客户端可以通过网络 RPC 调用发起单个或批量的预测请求。
+3. **部署为库**。工程师们希望能在服务容器中运行模型。可以将其整合为一个库，也可以通过 Java API 进行调用（在下图中没有展示此类型，不过这种方式与在线部署比较类似）。
 
 ![](https://eng.uber.com/wp-content/uploads/2017/09/image6-768x433.png)
 
-Figure 8: Models from the model repository are deployed to online and offline containers for serving.
+图 8：模型库中的模型部署于在线及离线容器中用于提供服务。
 
-In all cases, the required model artifacts (metadata files, model parameter files, and compiled DSL expressions) are packaged in a ZIP archive and copied to the relevant hosts across Uber’s data centers using our standard code deployment infrastructure. The prediction containers automatically load the new models from disk and start handling prediction requests.  
+上面所有情况中，所需要的模型组件（包括元数据文件、模型参数文件以及编译好的 DSL）都将被打包为 ZIP 文件，使用 Uber 的标准代码部署架构将其复制到 Uber 数据中心的相关数据上。预测服务容器将会从磁盘自动加载新模型，并自动开始处理预测请求。
 
-Many teams have automation scripts to schedule regular model retraining and deployment via Michelangelo’s API. In the case of the UberEATS delivery time models, training and deployment are triggered manually by data scientists and engineers through the web UI.
+许多团队都自己写了自动化脚本，使用米开朗基罗 API 进行一般模型的定期再训练及部署。例如 UberEATS 的送餐时间预测模型就由数据科学家和工程师通过 Web UI 控制进行训练与部署。
 
-### Make predictions
+### 进行预测
 
-Once models are deployed and loaded by the serving container, they are used to make predictions based on feature data loaded from a data pipeline or directly from a client service. The raw features are passed through the compiled DSL expressions which can modify the raw features and/or fetch additional features from the Feature Store. The final feature vector is constructed and passed to the model for scoring. In the case of online models, the prediction is returned to the client service over the network. In the case of offline models, the predictions are written back to Hive where they can be consumed by downstream batch jobs or accessed by users directly through SQL-based query tools, as depicted below: 
+一旦模型部署于服务容器并加载成功，它就可以开始用于对数据管道传来的特征数据或用户端发来的数据进行预测。原始特征将通过编译好的 DSL 传递，如有需要也可以对 DSL 进行修改以改进原始特征，或者从特征存储库中拉取一些额外的特征。最终构造出的特征向量会传递给模型进行评分。如果模型为在线模型，预测结果将通过网络传回给客户端。如果模型为离线模型，预测结果将被写回 Hive，之后可以通过下游的批处理作业或者直接使用 SQL 查询传递给用户，如下所示：
 
 ![](http://eng.uber.com/wp-content/uploads/2017/09/image3.png)
 
-Figure 9: Online and offline prediction services use sets of feature vectors to generate predictions.
+图 9：在线预测服务及离线预测服务使用一组特征向量生成预测结果。
 
-### Referencing models
+### 引用模型
 
-More than one model can be deployed at the same time to a given serving container. This allows safe transitions from old models to new models and side-by-side A/B testing of models. At serving time, a model is identified by its UUID and an optional tag (or alias) that is specified during deployment. In the case of an online model, the client service sends the feature vector along with the model UUID or model tag that it wants to use; in the case of a tag, the container will generate the prediction using the model most recently deployed to that tag. In the case of batch models, all deployed models are used to score each batch data set and the prediction records contain the model UUID and optional tag so that consumers can filter as appropriate.
+在米开朗基罗平台中可以同时向服务容器部署多个模型。这也使得从旧模型向新模型进行无痛迁移以及对模型进行 A/B 测试成为可能。在服务中，可以由模型的 UUID 以及一个在部署时可指定的 tag（或者别名）识别不同的模型。以一个在线模型为例，客户端服务会将特征向量与需要使用的模型 UUID 或者 tag 同时发送给服务容器；如果使用的是 tag，服务容器会使用此 tag 对应的最新部署的模型进行预测。如果使用的是多个模型，所有对应的模型都将对各批次的数据进行预测，并将 UUID 和 tag 与预测结果一同传回，方便客户端进行筛选过滤。
 
-If both models have the same signature (i.e. expect the same set of features) when deploying a new model to replace an old model, users can deploy the new model to the same tag as the old model and the container will start using the new model immediately. This allows customers to update their models without requiring a change in their client code. Users can also deploy the new model using just its UUID and then modify a configuration in the client or intermediate service to gradually switch traffic from the old model UUID to the new one.
+如果在部署一个新模型替换旧模型时用了相同的事物（例如用了一些同样的特征），用户可以为新模型设置和旧模型一样的 tag，这样容器就会立即开始使用新模型。这可以让用户只需要更新模型，而不用去修改他们的客户端代码。用户也可以通过设置 UUID 来部署新模型，再将客户端或中间件配置中旧模型的 UUID 换成新的，逐步将流量切换到新模型去。
 
-For A/B testing of models, users can simply deploy competing models either via UUIDs or tags and then use Uber’s experimentation framework from within the client service to send portions of the traffic to each model and track performance metrics.
+如果需要对模型进行 A/B 测试，用户可以通过 UUID 或者 tag 轻松地部署竞争模型，再使用客户端服务中的 Uber 实验框架将部分流量导至各个模型，再对性能指标进行评估。
 
-### Scale and latency
+### 规模缩放与时延
 
-Since machine learning models are stateless and share nothing, they are trivial to scale out, both in online and offline serving modes. In the case of online models, we can simply add more hosts to the prediction service cluster and let the load balancer spread the load. In the case of offline predictions, we can add more Spark executors and let Spark manage the parallelism.
+由于机器学习模型是无状态的，且不需要共享任何东西，因此，无论是在线模式还是离线模式下对它们进行规模缩放都是一件轻而易举的事情。如果是在线模型，工程师可以简单地给预测服务集群增加机器，使用负载均衡器分摊负载。如果是离线预测，工程师可以给 Spark 设置更多的 executor，让 Spark 进行并行管理。
 
-Online serving latency depends on model type and complexity and whether or not the model requires features from the Cassandra feature store. In the case of a model that does not need features from Cassandra, we typically see P95 latency of less than 5 milliseconds (ms). In the case of models that do require features from Cassandra, we typically see P95 latency of less than 10ms. The highest traffic models right now are serving more than 250,000 predictions per second.
+在线服务的延迟取决于模型的类型与复杂度以及是否使用从 Cassandra 特征库中取出的特征。在模型不需要从 Cassandra 取特征的情况下，P95 测试延迟小于 5 毫秒。在需要从 Cassandra 取特征时，P95 测试延迟仍小于 10 毫秒。目前用量最大的模型每秒能提供超过 250000 次预测。
 
-### Monitor predictions
+### 预测监控
 
-When a model is trained and evaluated, historical data is always used. To make sure that a model is working well into the future, it is critical to monitor its predictions so as to ensure that the data pipelines are continuing to send accurate data and that production environment has not changed such that the model is no longer accurate.
+当模型训练完成并完成评价之后，使用的数据都将是历史数据。监控模型的预测情况，是确保其在未来工作正常的重要保障。工程师需要确保数据管道传入的是正确的数据，具体的生产环境没有发生变化，这样模型才能够进行准确的预测。
 
-To address this, Michelangelo can automatically log and optionally hold back a percentage of the predictions that it makes and then later join those predictions to the observed outcomes (or labels) generated by the data pipeline. With this information, we can generate ongoing, live measurements of model accuracy. In the case of a regression model, we publish R-squared/[coefficient of determination](https://en.wikipedia.org/wiki/Coefficient_of_determination), [root mean square logarithmic error](https://www.kaggle.com/wiki/RootMeanSquaredLogarithmicError) (RMSLE), [root mean square error](https://en.wikipedia.org/wiki/Root-mean-square_deviation) (RMSE), and [mean absolute error metrics](https://en.wikipedia.org/wiki/Mean_absolute_error) to Uber’s time series monitoring systems so that users can analyze charts over time and set threshold alerts, as depicted below:
+为了解决这个问题，米开朗基罗系统会自动记录并将部分预测结果加入到数据 pipeline 的标签中去，有了这些信息，就能得到持续的、实时的模型精确度指标。在回归模型中，会将 R^2/[决定系数](https://en.wikipedia.org/wiki/Coefficient_of_determination)、[均方根对数误差](https://www.kaggle.com/wiki/RootMeanSquaredLogarithmicError)（RMSLE）、[均方根误差](https://en.wikipedia.org/wiki/Root-mean-square_deviation)（RMSE）以及[平均绝对值误差](https://en.wikipedia.org/wiki/Mean_absolute_error)发布至 Uber 的实时监控系统中，用户可以分析指标与时间关系的图标，并设置阈值告警：
 
 ![](https://eng.uber.com/wp-content/uploads/2017/09/image8-768x433.png)
 
-Figure 10: Predictions are sampled and compared to observed outcomes to generate model accuracy metrics.
+图 10：对预测结果进行采样，与观测结果进行比较得到模型准确指标。
 
-### Management plane, API, and web UI
+### 管理层、API、Web UI
 
-The last important piece of the system is an API tier. This is the brains of the system. It consists of a management application that serves the web UI and network API and integrations with Uber’s system monitoring and alerting infrastructure. This tier also houses the workflow system that is used to orchestrate the batch data pipelines, training jobs, batch prediction jobs, and the deployment of models both to batch and online containers.
+米开朗基罗系统的最后一个重要部分就是 API 层了，它也是整个系统的大脑。API 层包含一个管理应用，提供了 Web UI 以及网络 API 两种访问方式，并与 Uber 的监控、报警系统相结合。同时该层还包含了用于管理批量数据管道、训练作业、批量预测作业、模型批量部署以及在线容器的工作流系统。
 
-Users of Michelangelo interact directly with these components through the web UI, the REST API, and the monitoring and alerting tools.
+米开朗基罗的用户可以通过 Web UI、REST API 以及监控、管理工具直接与这些组件进行交互。
 
-## Building on the Michelangelo platform
+## 米开朗基罗平台之后的构建工作
 
-In the coming months, we plan to continue scaling and hardening the existing system to support both the growth of our set of customer teams and Uber’s business overall. As the platform layers mature, we plan to invest in higher level tools and services to drive democratization of machine learning and better support the needs of our business:
+工程师们打算在接下来几个月继续扩展与加强现有的系统，以支持不断增长的用户和 Uber 的业务。随着米开朗基罗平台各个层次的不断成熟，他们计划开发更高层的工具与服务，以推动机器学习在公司内部的发展，更好地支持商业业务：
 
-- **AutoML**. This will be a system for automatically searching and discovering model configurations (algorithm, feature sets, hyper-parameter values, etc.) that result in the best performing models for given modeling problems. The system would also automatically build the production data pipelines to generate the features and labels needed to power the models. We have addressed big pieces of this already with our Feature Store, our unified offline and online data pipelines, and hyper-parameter search feature. We plan to accelerate our earlier data science work through AutoML. The system would allow data scientists to specify a set of labels and an objective function, and then would make the most privacy-and security-aware use of Uber’s data to find the best model for the problem. The goal is to amplify data scientist productivity with smart tools that make their job easier.
-- **Model visualization**. Understanding and debugging models is increasingly important, especially for deep learning. While we have made some important first steps with visualization tools for tree-based models, much more needs to be done to enable data scientists to understand, debug, and tune their models and for users to trust the results.
-- **Online learning**. Most of Uber’s machine learning models directly affect the Uber product in real time. This means they operate in the complex and ever-changing environment of moving things in the physical world. To keep our models accurate as this environment changes, our models need to change with it. Today, teams are regularly retraining their models in Michelangelo. A full platform solution to this use case involves easily updateable model types, faster training and evaluation architecture and pipelines, automated model validation and deployment, and sophisticated monitoring and alerting systems. Though a big project, early results suggest substantial potential gains from doing online learning right.
-- **Distributed deep learning**. An increasing number of Uber’s machine learning systems are implementing deep learning technologies. The user workflow of defining and iterating on deep learning models is sufficiently different from the standard workflow such that it needs unique platform support. Deep learning use cases typically handle a larger quantity of data, and different hardware requirements (i.e. GPUs) motivate further investments into distributed learning and a tighter integration with a flexible resource management stack.
+- **AutoML**。这是将会成为一个自动搜寻与发现模型配置的系统（包括算法、特征集、超参值等），可以为给定问题找到表现最佳的模型。该系统还会自动构建数据管道，根据模型的需要生成特征与标签。目前工程师团队已经通过特征库、统一的离线在线数据管道、超参搜索特征解决了此系统的一大部分问题。AutoML 系统可以加快数据科学的早期工作，数据科学家们只需要指定一组标签和一个目标函数，接着就能高枕无忧地使用 Uber 的数据找到解决问题的最佳模型了。这个系统的最终目标就是构建更智能的工具，简化数据科学家们的工作，从而提高生产力。
+- **模型可视化**。对于机器学习，尤其是深度学习，理解与调试模型现在越来越重要。虽然工程师们已经首先为树状模型提供了可视化工具，但是还需要做更多的工作，帮助数据科学家理解、debug、调整他们的模型，得到真正令人信服的结果。
+- **在线学习**。Uber 的机器学习模型大多数直接受到 Uber 产品的实时影响。这也意味着这些模型需要能够在复杂、不断变化的真实世界中运行。为了保证模型在变化环境中的准确性，这些模型需要随着环境一同进化；现在，各个团队会在米开朗基罗平台上定期对模型进行重训练。一个完整的平台式解决方案应该让用户能够轻松地对模型进行升级、快速训练及评价，有着更精细的监控及报警系统。虽然这将是一个很大的工程，但是早前的研究结果表明，构建完成在线学习系统可能会带来巨大的收益。
+- **分布式深度学习**。越来越多的 Uber 机器学习系统开始使用深度学习实现。定义与迭代深度学习模型的工作流与标准的工作流有着很大的区别，因此需要平台对其进行额外的支持。深度学习需要处理更大的数据集，需要不同的硬件支持（例如 GPU），因此它更需要分布式学习的支持，以及与更具弹性的资源管理堆栈进行紧密结合。
 
-If you are interesting in tackling machine learning challenges that push the limits of scale, consider applying for [a role](https://www.uber.com/careers/list/?city=all&country=all&keywords=machine+learning+platform+team&subteam=all&team=all) on our team! 
+如果你对挑战规模化机器学习有兴趣，欢迎申请[Uber 机器学习平台团队](https://www.uber.com/careers/list/?city=all&country=all&keywords=machine+learning+platform+team&subteam=all&team=all) ！
 
-Jeremy Hermann is an Engineering Manager and Mike Del Balso is a Product Manager on Uber’s Machine Learning Platform team.
-
+作者简介：Jeremy Hermann 是 Uber 机器学习平台团队的工程经理，Mike Del Balso 是 Uber 机器学习平台团队的产品经理。
 
 ---
 
