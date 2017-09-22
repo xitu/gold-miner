@@ -3,8 +3,8 @@
 > * 原文作者：[James K Nelson](https://reactarmory.com/authors/james-k-nelson)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/how-can-i-use-css-in-js-securely.md](https://github.com/xitu/gold-miner/blob/master/TODO/how-can-i-use-css-in-js-securely.md)
-> * 译者：Yuuoniy[https://github.com/Yuuoniy]
-> * 校对者：HydeSong[https://github.com/HydeSong] [Tina92](https://github.com/Tina92)
+> * 译者：[Yuuoniy](https://github.com/Yuuoniy)
+> * 校对者：[HydeSong](https://github.com/HydeSong) [Tina92](https://github.com/Tina92)
 
 # 如何安全地使用 CSS-in-JS ？
 
