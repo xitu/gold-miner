@@ -4,7 +4,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/talk-the-state-of-the-web.md](https://github.com/xitu/gold-miner/blob/master/TODO/talk-the-state-of-the-web.md)
 > * 译者：[undead25](https://github.com/undead25)
-> * 校对者：
+> * 校对者：[sun](https://github.com/sunui)、[IridescentMia](https://github.com/IridescentMia)
 
 # 网络现状：性能提升指南
 
@@ -12,7 +12,7 @@
 
 那么，现今的网络状况是怎样的呢？
 
-**地球上 74 亿人口中，只有 46% 的人能够上网**，平均网络速度竟有 7Mb/s。更重要的是，93% 的互联网用户都是通过移动设备上网的 —— 不去适应手持设备是不可原谅的。数据往往比我们想象中要昂贵得多 —— 500MB 的数据在德国只要 1 个小时，而在巴西需要 13 个小时（更多有趣的统计可以看看 [Ben Schwarz](https://twitter.com/benschwarz) 的[《泡沫破灭：真实的性能》](https://speakerdeck.com/benschwarz/beyond-the-bubble)）。
+**地球上 74 亿人口中，只有 46% 的人能够上网**，平均网络速度为 7Mb/s。更重要的是，93% 的互联网用户都是通过移动设备上网的 —— 不去迎合手持设备是不可原谅的。数据往往比我们想象中要昂贵得多 —— 购买 500MB 数据的价格在德国要为此工作 1 个小时，而在巴西需要 13 个小时（更多有趣的统计可以看看 [Ben Schwarz](https://twitter.com/benschwarz) 的[《泡沫破灭：真实的性能》](https://building.calibreapp.com/beyond-the-bubble-real-world-performance-9c991dcd5342)）。
 
 **我们的网站表现得也不尽如人意** —— 平均体积大概[是第一版 Doom 游戏的大小](https://www.wired.com/2016/04/average-webpage-now-size-original-doom/)（3MB 左右）（请注意，为了统计准确度，需要使用[中位数](https://zh.wikipedia.org/wiki/%E4%B8%AD%E4%BD%8D%E6%95%B8)，推荐阅读 [Ilya Grigorik](https://twitter.com/igrigorik) 的 [《“平均页面”是一个神话》](https://www.igvita.com/2016/01/12/the-average-page-is-a-myth/)。中位数统计出的网站体积目前为 1.4MB）。图片可以轻松占用 1.7MB，而 JavaScript 平均为 400KB。不仅仅只有 Web 平台，本地应用程序也有同样的问题，你是否遇到过为了修复某些 bug，不得不下载 200MB 的应用呢？
 
@@ -24,13 +24,13 @@
 
 ## 资源优化
 
-最能明显提升性能但未被充分利用的方式是，从了解浏览器如何分析和处理资源开始。事实证明，浏览器在资源发现方面表现得非常不错，同时解析和立即确定资源的优先级。下面是关于**关键请求**的解释。
+最能明显提升性能但未被充分利用的方式是，从了解浏览器如何分析和处理资源开始。事实证明，当浏览器解析和立即确定资源的优先级时，在资源发现方面表现得非常不错。下面是关于**关键请求**的解释。
 
 > 如果请求包含用户视口渲染所需的资源，那该请求就是关键请求。
 
-对于大多数网站，关键请求可以是 HTML，必要的 CSS，LOGO，网络字体，也可能是图片。事实证明，在大多数情况下，当资源被请求时，许多其他不相关的（JavaScript，追踪代码，广告等）也被请求了。不过我们能够通过仔细挑选重要资源，并调整它们的优先级来避免这种情况发生。
+对于大多数网站，关键请求可以是 HTML、必要的 CSS、LOGO、网络字体，也可能是图片。事实证明，在大多数情况下，当资源被请求时，许多其他不相关的（JavaScript、追踪代码、广告等）也被请求了。不过我们能够通过仔细挑选重要资源，并调整它们的优先级来避免这种情况发生。
 
-通过 `<link rel ='preload'>`，我们可以手动强制设置资源的优先级为`高`，来确保所期望的内容按时渲染。 这种技术可以明显改善“交互时间”指标，从而使最佳用户体验成为可能。
+通过 `<link rel ='preload'>`，我们可以手动强制设置资源的优先级，来确保所期望的内容按时渲染。这种技术可以明显改善“交互时间”指标，从而使最佳用户体验成为可能。
 
 ![](https://cdn-images-1.medium.com/max/800/1*JT-53LslhwOOqTgv1dGoXg.png)
 
@@ -49,15 +49,15 @@
 
 ## 图片优化
 
-页面传输的大部分数据通常都是图片，因此优化图片可以带来很大的性能提升。有许多现有的策略和工具可以帮助我们删除多余的字节，但首先要问的是：“图片对于传达后续的信息和效果至关重要吗”？ 如果可以移除，不仅可以节省带宽，还可以减少请求。
+页面传输的大部分数据通常都是图片，因此优化图片可以带来很大的性能提升。有许多现有的策略和工具可以帮助我们删除多余的字节，但首先要问的是：“图片对于传达后续的信息和效果至关重要吗？”。如果可以移除，不仅可以节省带宽，还可以减少请求。
 
-在某些情况下，我们可以通过不同的技术来实现同样的效果。CSS 有很多具有艺术性的属性，例如阴影，渐变，动画和形状，这就允许我们用具有合适样式的 DOM 元素来替代图片。
+在某些情况下，我们可以通过不同的技术来实现同样的效果。CSS 有很多具有艺术性的属性，例如阴影、渐变、动画和形状，这就允许我们用具有合适样式的 DOM 元素来替代图片。
 
 ### 选择正确的格式
 
 如果必须使用图片，那确定哪种格式比较合适是很重要的。一般都在矢量图和栅格图之间进行选择：
 
-- **矢量图形**：与分辨率无关，文件通常比较小。特别适用于 LOGO，图标和由简单图形（点、线、圆和多边形）组成的图片。
+- **矢量图形**：与分辨率无关，文件通常比较小。特别适用于 LOGO、图标和由简单图形（点、线、圆和多边形）组成的图片。
 - **栅格图像**：表现内容更丰富。适用于照片。
 
 做出上面的决定后，有这样的几种格式供我们选择：JPEG、GIF、PNG-8、PNG-24 或者最新的格式，例如 WEBP 或 JPEG-XR。既然有这么多的选择，那如何确保我们选择的正确性呢？以下是找到最佳格式的基本方法：
@@ -67,7 +67,7 @@
 - **PNG–24**：具有部分透明度的图片
 - **GIF**：动画图片
 
-Photoshop 在图片导出时，可以通过一些设置来对上述格式的图片进行优化，例如降低质量、减少颜色的噪点和数量。这可以让设计师意识到性能实践，并通过正确的优化预设来准备合适的图片。如果你想了解更多关于如何开发图片的信息，可以阅读 [Lara Hogan](https://twitter.com/lara_hogan) 的 [《速度与激情：以网站性能提升用户体验》](http://designingforperformance.com/optimizing-images/#choosing-an-image-format)。
+Photoshop 在图片导出时，可以通过一些设置来对上述格式的图片进行优化，例如降低质量、减少噪点或者颜色的数量。确保设计师有性能实践的意识，并通过正确的优化预设来准备合适的图片。如果你想了解更多关于如何开发图片的信息，可以阅读 [Lara Hogan](https://twitter.com/lara_hogan) 的 [《速度与激情：以网站性能提升用户体验》](http://designingforperformance.com/optimizing-images/#choosing-an-image-format)。
 
 ### 尝试新格式
 
@@ -101,7 +101,7 @@ Photoshop 在图片导出时，可以通过一些设置来对上述格式的图�
 
 ### picture 元素
 
-`picture` 元素和 `media` 属性旨在更容易地通往艺术殿堂。通过为不同的条件提供不同的来源（通过 `media-queries`），无论分辨率如何，我们始终能聚焦在最重要的图像元素上。
+`picture` 元素和 `media` 属性旨在更容易地通往艺术殿堂。通过为不同的条件提供不同的来源（通过 `media-queries` 测试），无论分辨率如何，我们始终能聚焦在最重要的图像元素上。
 
 ![picture 元素使用示例](https://cdn-images-1.medium.com/max/800/1*NeyfH6Vu1xCWE2SY5w1cDQ.png)
 
@@ -111,7 +111,7 @@ Photoshop 在图片导出时，可以通过一些设置来对上述格式的图�
 
 图片性能的最后一步就是分发了。所有资源都可以从使用 CDN 中受益，但有一些特定的工具是专门针对图片的，例如 [Cloudinary](http://cloudinary.com/) 或者 [imgx](https://www.imgix.com/)。使用这些服务的好处远不止于减少服务器流量，它还可以显著减少响应延迟。
 
-**CDN 可以降低重图片站点提供自适应和高性能图片的复杂度**。他们提供的服务各不相同（价格也不同），但是大多数都可以根据设备和浏览器进行尺寸调整、裁剪和确定最合适的格式，甚至更多 —— 压缩、检测像素密度、水印、人脸识别和允许后处理。借助这些强大的功能和能够将参数附到 URL 中，使得提供以用户为中心的图片变得轻而易举了。
+**CDN 可以降低重图片站点提供自适应和高性能图片的复杂度**。他们提供的服务各不相同（价格也不同），但是大多数都可以根据设备和浏览器进行尺寸调整、裁剪和确定最合适的格式，甚至更多 —— 压缩、检测像素密度、水印、人脸识别和允许后期处理。借助这些强大的功能和能够将参数附到 URL 中，使得提供以用户为中心的图片变得轻而易举了。
 
 📝 图片性能清单
 
@@ -125,13 +125,13 @@ Photoshop 在图片导出时，可以通过一些设置来对上述格式的图�
 
 ## 优化网络字体
 
-能够使用自定义字体是一个非常强大的设计工具。但权利越大，责任就越大。**68% 的网站正在使用网络字体，而这种资源是最大的性能瓶颈之一**（很容易平均达到 100KB，这取决于字体的各种形态和数量）。
+使用自定义字体的能力是一个非常强大的设计工具。但权利越大，责任就越大。**68% 的网站正在使用网络字体，而这种资源是最大的性能瓶颈之一**（很容易平均达到 100KB，这取决于字体的各种形态和数量）。
 
-即使体积不是最重要的问题，但**不可见文本闪烁**（FOIT）是。当网络字体在加载中或者加载失败时，就会发生 FOIT，这会导致空白页面，从而造成内容无法访问。这可能值得我们[仔细检查是否需要网络字体](https://hackernoon.com/web-fonts-when-you-need-them-when-you-dont-a3b4b39fe0ae)。如果是这样，有一些策略可以帮助我们减轻对性能的负面影响。
+即使体积不是最重要的问题，但**不可见文本闪现**（FOIT）是。当网络字体在加载中或者加载失败时，就会发生 FOIT，这会导致空白页面，从而造成内容无法访问。这可能值得我们[仔细检查是否需要网络字体](https://hackernoon.com/web-fonts-when-you-need-them-when-you-dont-a3b4b39fe0ae)。如果是这样，有一些策略可以帮助我们减轻对性能的负面影响。
 
 ### 选择正确的格式
 
-有四种网络字体格式：EOT、TTF、WOFF 和近期的 WOFF2。TTF 和 WOFF 被广泛使用，拥有超过 90% 的浏览器支持率。根据你所针对的支持情况，**使用 WOFF2 可能最安全**，并为老版本浏览器降级使用 WOFF。使用 WOFF2 的优点是一整套自定义的预处理和压缩算法（如 [Brotli](https://github.com/google/brotli)）可以 [缩小 30% 的文件大小](https://docs.google.com/presentation/d/10QJ_GABjwzfwUb5DZ3DULdv82k74QdPArkovYJZ-glc/present?slide=id.g1825bd881_0182)和改进过的解析功能。
+有四种网络字体格式：EOT、TTF、WOFF 和近期的 WOFF2。TTF 和 WOFF 被广泛使用，拥有超过 90% 的浏览器支持率。根据你所针对的支持情况，**使用 WOFF2 可能最安全**，并为老版本浏览器降级使用 WOFF。使用 WOFF2 的优点是一整套自定义的预处理和压缩算法（如 [Brotli](https://github.com/google/brotli)）可以 [缩小 30% 的文件大小](https://docs.google.com/presentation/d/10QJ_GABjwzfwUb5DZ3DULdv82k74QdPArkovYJZ-glc/present?slide=id.g1825bd881_0182)和改进过的解析性能。
 
 在 `@font-face` 中定义网络字体的来源时，使用 `format()` 提示来指定应该使用哪种格式。
 
@@ -144,23 +144,23 @@ Photoshop 在图片导出时，可以通过一些设置来对上述格式的图�
 
 ### 使用 Unicode-range 子集
 
-Unicode-range 子集允许将大字体分割成较小的集合。这是一个相对先进的策略，但它可能会明显地减少字体体积，特别是在针对亚洲语言的时候（你知道中文字体的平均字形数是 20,000 吗？）。第一步是将字体限制为必要的语言集，例如拉丁语、希腊语或西里尔语。如果网络字体只是用于标识，那完全可以使用 Unicode-range 描述符来选择特定的字符。
+Unicode-range 子集允许将大字体分割成较小的集合。这是一个相对先进的策略，但它可能会明显地减少字体体积，特别是在针对亚洲语言的时候（你知道中文字体的平均字形数是 20,000 吗？）。第一步是将字体限制为必要的语言集，例如拉丁语、希腊语或西里尔语。如果网络字体只是做 LOGO 类的使用，那完全可以使用 Unicode-range 描述符来选择特定的字符。
 
 Filament Group 发布的开源命令行工具 [glyph hanger](https://github.com/filamentgroup/glyphhanger) 可以根据文件或 URL 生成需要的字形列表。或者，基于 web 的 [Font Squirrel Web Font Generator](https://www.fontsquirrel.com/tools/webfont-generator)，它提供高级子集和优化选项。如果使用 Google 字体或者 Typekit，他们在字体选择界面都提供了语言子集的选择，这使得确定基本子集更容易。
 
 ### 建立字体加载策略
 
-**字体是渲染阻塞的** —— 因为浏览器需要首先创建 DOM 和 CSSOM；网络字体用于与现有节点相匹配的 CSS 选择器之前，它都不会被下载。这种行为显然延迟了文本的渲染，通常都会导致前面提到的**不可见文本闪烁**（FOIT）。在较慢的网络和移动设备上，FOIT 则更加明显。
+**字体是阻塞渲染的** —— 因为浏览器需要首先创建 DOM 和 CSSOM；网络字体用于与现有节点相匹配的 CSS 选择器之前，它都不会被下载。这种行为显然延迟了文本的渲染，通常都会导致前面提到的**不可见文本闪现**（FOIT）。在较慢的网络和移动设备上，FOIT 则更加明显。
 
-实施字体加载策略可以避免用户无法访问内容。通常，**无样式文本闪烁**（FOUT）是最简单和最有效的解决方案。
+实施字体加载策略可以避免用户无法访问内容。通常，**无样式文本闪现**（FOUT）是最简单和最有效的解决方案。
 
-`font-display` 是一个新的 CSS 属性，提供了一个不依赖 JavaScript 的解决方案。不幸的是，它只被部分支持（Chrome 和 Opera），Firefox 和 WebKit 目前在开发中。 尽管如此，它可以并且应该与其他字体加载机制结合使用。
+`font-display` 是一个新的 CSS 属性，提供了一个不依赖 JavaScript 的解决方案。不幸的是，它只被部分支持（Chrome 和 Opera），Firefox 和 WebKit 目前在开发中。尽管如此，它可以并且应该与其他字体加载机制结合使用。
 
 ![font-display 属性示例](https://cdn-images-1.medium.com/max/800/1*Kuky8fVepcjU3tMbTjewdw.png)
 
 幸运的是，Typekit 的[网络字体加载器](https://github.com/typekit/webfontloader) 和 [Bram Stein](https://twitter.com/bram_stein) 的 [字体观察者](https://fontfaceobserver.com/) 可以帮助我们管理字体的加载行为。此外，[Zach Leatherman](https://twitter.com/zachleat) 是网络字体性能的专家，他发布的[《字体加载策略综合指南》](https://www.zachleat.com/web/comprehensive-webfonts)将帮助你为你的项目选择正确的方法。
 
-📝 网络字体性能检测表
+📝 网络字体性能清单
 
 1. 选择正确的格式
 2. 字体选择评测
@@ -175,13 +175,14 @@ Filament Group 发布的开源命令行工具 [glyph hanger](https://github.com/
 
 ### 监控 JavaScript 传输
 
-优化传输只是抗衡页面肥胖的一种方法。JavaScript 下载后，必须由浏览器进行解析、编译和运行。浏览一些热门的网站，我们会发现，gzip 压缩后的 JS **在解压之后至少变大三倍**。实际上，我们正在发送一大堆代码。
+优化传输只是抗衡页面臃肿的一种方法。JavaScript 下载后，必须由浏览器进行解析、编译和运行。浏览一些热门的网站，我们会发现，gzip 压缩后的 JS **在解压之后至少变大三倍**。实际上，我们正在发送一大堆代码。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Yrn4kTkaYHX0PWj4HB-mQg.jpeg)
 
 1MB JavaScript 在不同的设备上的解析时间。图片来源于 Addy Osmani 的[《JavaScript 启动性能》](https://medium.com/reloading/javascript-start-up-performance-69200f43b201)。
 
-分析解析和编译时间，对于理解应用程序何时准备好进行交互至关重要，这些时间因用户设备的硬件能力而异。**解析和编译的时间会很容易地在低端手机上高出 2-5 倍**。 [Addy](https://twitter.com/addyosmani) 的研究表明，一个应用程序在普通手机上需要 16 秒才能达到可交互状态，而在桌面上是 8 秒。分析这些指标至关重要，幸运的是，我们可以通过 Chrome 开发者工具来完成。
+分析解析和编译时间，对于理解应用程序何时准备好进行交互至关重要，这些时间因用户设备的硬件能力而异。**解析和编译的时间会很容易地在低端手机上高出 2-5 倍**。[Addy](https://twitter.com/addyosmani) 的研究表明，一个应用程序在普通手机上需要 16 秒才能达到可交互状态，而在桌面上是 8 秒
+分析这些指标至关重要，幸运的是，我们可以通过 Chrome 开发者工具来完成。
 
 ![在 Chrome 开发者工具中审查解析和编译过程](https://cdn-images-1.medium.com/max/800/1*eV83YP2fnoOllUleaWa5lw.gif)
 
@@ -229,9 +230,9 @@ JavaScript 的前端框架日新月异。根据 [2016 年的 JavaScript 现状�
 ![](https://cdn-images-1.medium.com/max/800/1*fjqW4fRUD7iIrzcKfUkfIg.png)
 
 - **First Paint 白屏时间**：浏览器从白屏到第一次视觉变化。
-- **First Meaningful Paint 首次有效渲染**：文字，图像和主要内容都已可见。
+- **First Meaningful Paint 首次有效渲染**：文字、图像和主要内容都已可见。
 - **Visually Complete 视觉完整**：视口中的所有内容都可见。
-- **Time to Interactive 可交互时间**：视口中的所有内容都可见，并且可以与 JavaScript 主要线程进行交互。
+- **Time to Interactive 可交互时间**：视口中的所有内容都可见，并且可以进行交互（JavaScript 主线程停止活动）。
 
 这些时间和用户体验息息相关，因此可以作为重点进行追踪。如果可能，将它们全部记录，否则选择一两个来更好地监控性能。其他指标也需要关注，特别是我们发送的字节数（优化和解压缩）。
 
@@ -253,7 +254,7 @@ JavaScript 的前端框架日新月异。根据 [2016 年的 JavaScript 现状�
 
 ![Lighthouse 性能审查示例](https://cdn-images-1.medium.com/max/800/1*T3HA3VrN48JsCAHWFfnu3g.gif)
 
-对于持续的追踪，可以选择 [Calibre](https://calibreapp.com/)，它提供的性能预算、设备仿真、分布式监控和许多其他功能是我们在构建自己的性能套件时需要花费大量精力的。
+对于持续的追踪，可以选择 [Calibre](https://calibreapp.com/)，它提供的性能预算、设备仿真、分布式监控和许多其他功能是我们不在构建自己的性能套件上花费大量精力是完成不了的。
 
 ![使用 Calibre 进行全面的性能追踪](https://cdn-images-1.medium.com/max/800/1*LTFZ7zMASCWUz3r0eqXdoQ.gif)
 
