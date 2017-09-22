@@ -3,20 +3,20 @@
 > * 原文作者：[James K Nelson](https://reactarmory.com/authors/james-k-nelson)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/how-can-i-use-css-in-js-securely.md](https://github.com/xitu/gold-miner/blob/master/TODO/how-can-i-use-css-in-js-securely.md)
-> * 译者：
-> * 校对者：
+> * 译者：Yuuoniy[https://github.com/Yuuoniy]
+> * 校对者：HydeSong[https://github.com/HydeSong] [Tina92](https://github.com/Tina92)
 
 # 如何安全地使用 CSS-in-JS ？
 
-CSS-in-JS 允许我把 JavaScript 变量插入到 CSS 中，这给了我很大的权限，但这样是安全的吗？
+CSS-in-JS 允许我把 JavaScript 变量插入到 CSS 中，这给了我很大的权限，但这样安全吗？
 
-恶意用户可以通过 CSS 注入捣什么鬼？我该如何防范这些？
+恶意用户可以仅仅通过 CSS 注入的方式给我造成怎样的破坏性影响？我该如何进行防范？
 
-CSS-in-JS 是一门令人兴奋的新技术，完全不需要 CSS  的 `class` 名字。它可以充分利用 CSS 的功能直接给你的组件添加样式。不幸的是，它也促使未转义的  props 插入到 CSS 中，将你暴露给注射攻击。
+CSS-in-JS 是一门令人兴奋的新技术，完全不需要 CSS  的 `class` 名字。它可以充分利用 CSS 的功能直接给你的组件添加样式。不幸的是，它也促使未转义的 props 插入到 CSS 中，将你暴露给注入攻击。
 
 而 CSS 注入攻击是一个 **重大的安全隐患**。
 
-如果你的网站或 APP 接受用户输入并将其显示给其他用户，那么使用 CSS-in-JS 库 [如 styled-components](https://www.styled-components.com/docs/advanced#security)  或 [glamorous] (https://github.com/paypal/glamorous/issues/300) 可能会破坏你的网站。更糟的是，你可能会无意中允许攻击者从用户端发出请求，提取他们的数据，窃取其证书，甚至执行任意的 JavaScript 脚本。
+如果你的网站或 APP 接受用户输入并将其显示给其他用户，那么使用[如 styled-components](https://www.styled-components.com/docs/advanced#security)  或 [glamorous] (https://github.com/paypal/glamorous/issues/300) 这样的 CSS-in-JS 库可能会破坏你的网站。更糟的是，你可能会无意中允许攻击者从用户端发出请求，提取他们的数据，窃取其证书，甚至执行任意的 JavaScript 脚本。
 
 当然，安全地使用 CSS-in-JS 是有可能的，你只需要遵守以下简单的法则。
 
@@ -26,13 +26,13 @@ CSS-in-JS 是一门令人兴奋的新技术，完全不需要 CSS  的 `class` 
 
 没有经过处理的用户输入很难可以正确地插入到样式表。所以除非你知道你在做什么，否则不要尝试将其插入。
 
-如果你必须基于用户输入添加样式，请考虑使用原生的 `style` 工具，你传给 `style` 对象的任何东西都是安全的。
+如果你必须基于用户输入添加样式，请考虑使用原生的 style 属性，你传给 `style` 对象的任何东西都是安全的。
 
-如果该法则被正确地遵循，它将可以确保用户的安全。但仅仅一次失误用户的密码就可能被偷...
+如果该法则被正确地遵循，就可以确保用户的安全。但仅仅一次失误用户的密码就可能被偷...
 
 ## 利用 CSS-in-JS 
 
-CSS-in-JS 工具就像对 CSS 使用 eval 函数，它门接受任意输入并将其当作 CSS 来读取。
+CSS-in-JS 就像 CSS 中的 `eval`，它们接受任意输入并将其当作 CSS 来读取。
 
 问题是它们会逐字读取任意输入，即使是不可靠的。更糟糕的是，它们允许你通过 `props`  传递变量，从而助长了不可靠的输入。
 
@@ -70,23 +70,23 @@ html:not(&) {
 
 你可以在 [Reading Data via CSS Injection](https://www.curesec.com/blog/article/blog/Reading-Data-via-CSS-Injection-180.html) 阅读更多像这样的攻击。
 
-可以通过使用密码字段上的属性选择器来根据当前输入更改背景图像。以下是在我输入 ‘密码’ 之后 Chrome 开发工具的网络选项卡的样子：
+通过使用 password 输入框上的属性选择器根据当前输入改变背景图时，这种攻击也会起作用。以下是在我输入 ‘密码’ 之后 Chrome 开发工具的网络选项卡的样子：
 
 ![](https://reactarmory.com/cad5ea782b425e1e9ac072b3c8aa52d9.png)
 
-虽然这种攻击不能窃取所有密码，但它仍会窃取相当多的密码。还有一些被盗的密码会给你带来麻烦。
+虽然这种攻击不能窃取所有密码，但它仍会窃取相当多的密码。一些被盗的密码足以毁掉你一天的工作。
 
 这是在 codesandbox 中使用 styled-components 进行的 [概念验证](https://codesandbox.io/s/llnzkwk0mz)。
 
 ### 提取数据的 avatar
 
-假设你的老板想要你的应用程序中的每个用户的名字旁有 avatar。但你的老板有点吝啬，不想为 avatar 支付带宽费用。所以他希望你提供连接到外部 URL 的选项。或类似的东西。
+假设你的老板想要你的应用程序中的每个用户的名字旁有 avatar。但你的老板有点吝啬，不想为 avatar 支付带宽费用。所以他希望你提供连接到外部 URL 的方案。或者其他方案。
 
-当然，你的 `Identity` 组件是作为样式组件使用 glamorous 构建的。它接受整个用户对象作为 prop，该对象包含名字，twitter，以及其他一些东西。后端开发人员为对象添加 `avatarURL`，然后设计师使用 `background-image` 标签标记图像。
+当然，你的 `Identity` 组件是 glamorous 构建的样式组件。它接受整个用户对象作为 prop，该对象包含名字，twitter，以及其他一些东西。后端开发人员为对象添加 `avatarURL`，然后设计师使用 `background-image` 标签标记图像。
 
-而现在，任何看过这个 avatar 的人都会从他们的页面的特定元素中获得数据。以下就是 avatarURL 做的：
+而现在，任何人浏览 avatar 都会从页面上具体元素获得数据。以下就是 avatarURL 做的：
 
-这看起来像是一个不错的老式 SQL 注入，但是使用了CSS。
+这看起来像是过去流行的的老式 SQL 注入，但是使用了CSS。我们真的生活在未来啊。
 
 ```
 const avatarURL = `blue;}
@@ -126,7 +126,7 @@ const avatarURL = `blue;}
 
 通过在自定义字体中为每个字符添加不同的 URL，然后将该字体应用于你想要提取的文本。你可以获取字符列表，而如果在用户输入时应用它，则可以保证你得到正确顺序的输入以及时间信息。你也可以结合其他的东西，如 `::first-letter` 或 `::selection` 选择器以获得更详细的信息。
 
-Chrome 开发工具的网络选项卡显示当前用户名称的提取方式：
+Chrome 开发者工具的网络选项卡显示当前用户名称的提取方式：
 
 ![](https://reactarmory.com/42f2eed3d995577d1558878de3e09d91.png)
 
@@ -136,11 +136,11 @@ Chrome 开发工具的网络选项卡显示当前用户名称的提取方式：
 
 React 支持 IE9，并在 [不久的将来停止支持 IE8](https://facebook.github.io/react/blog/2016/01/12/discontinuing-ie8-support.html)。
 
-IE9 和更早版本的 IE 允许你在样式表中执行任意的 JavaScript 脚本，前提是该脚本被放在同一个域上的文本文件中。
+如果你可以把 JavaScript 的文本文件放在同一个域内，IE9 和更早版本的 IE 都会允许你在样式表中执行任意的 JavaScript 脚本 。
 
 如果你有用户使用 IE9，有恶意用户试图以某种方式上传文件，并通过未转义的 prop 将关联的 `behavior` 属性注入到样式表中，然后 **恶意用户可以窃取 IE9 用户的帐户**。
 
-我不打算进行相关展示，但请明白，这种类型的攻击已经发生过。你可以阅读更多关于 [在 CSS 内部执行 JavaScript 脚本](http://www.diaryofaninja.com/blog/2013/10/30/executing-javascript-inside-css-another-reason-to-whitelist-and-encode-user-input) 的详细信息。
+我不打算进行相关展示，但请明白，这种类型的攻击之前已经广泛地发生过了。你可以在 [在 CSS 内部执行 JavaScript 脚本](http://www.diaryofaninja.com/blog/2013/10/30/executing-javascript-inside-css-another-reason-to-whitelist-and-encode-user-input) 一文中了解相关的详细信息。
 
 ## 实际考虑
 
@@ -219,7 +219,7 @@ function MyComponent({ unsanitizedTheme, content }) {
 
 ## 但这是一个后端的问题？
 
-我听到过的一个借口是所有这些问题都是后端开发人员的错误; 他们应该在存储数据之前处理数据。当然，我从一个前端开发人员口中听到过这个。
+我听到过的一个借口是所有这些问题都是后端开发人员的错误; 他们应该在存储数据之前处理数据。当然，我是从一个前端开发人员那里听到的借口。
 
 **安全问题关乎每个人**。虽然我们大多数人都尽力做正确的事情，对输入进行了恰当的处理，但我们都是人，是人就会犯错误。这就是为什么假设后端始终会提供干净的数据是不负责任的，同样假设前端能做到这样的事情也是不负责任的。
 
