@@ -16,7 +16,7 @@ CSS-in-JS 是一门令人兴奋的新技术，完全不需要 CSS  的 `class` 
 
 而 CSS 注入攻击是一个 **重大的安全隐患**。
 
-如果你的网站或 APP 接受用户输入并将其显示给其他用户，那么使用[如 styled-components](https://www.styled-components.com/docs/advanced#security)  或 [glamorous] (https://github.com/paypal/glamorous/issues/300) 这样的 CSS-in-JS 库可能会破坏你的网站。更糟的是，你可能会无意中允许攻击者从用户端发出请求，提取他们的数据，窃取其证书，甚至执行任意的 JavaScript 脚本。
+如果你的网站或 APP 接受用户输入并将其显示给其他用户，那么使用如 [styled-components](https://www.styled-components.com/docs/advanced#security)  或 [glamorous](https://github.com/paypal/glamorous/issues/300) 这样的 CSS-in-JS 库可能会破坏你的网站。更糟的是，你可能会无意中允许攻击者从用户端发出请求，提取他们的数据，窃取其证书，甚至执行任意的 JavaScript 脚本。
 
 当然，安全地使用 CSS-in-JS 是有可能的，你只需要遵守以下简单的法则。
 
