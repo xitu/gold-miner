@@ -314,23 +314,23 @@ console.log(`
 
 > “有时，最优雅的实现仅仅是一个函数。不是方法，不是类，不是框架。仅仅只是一个函数。” ~ John Carmack
 
-从最简单的实现开始，只有在必要时才转移到更复杂的实现。涉及到对象时，这种变化看起来像这样：
+最后，你还要切记，不要把事情搞复杂，工厂函数不是必需的，对于某个问题，你的解决思路应当是：
 
-`Pure function -> factory -> functional mixin -> class`
+`纯函数 > 工厂函数 > 函数式 Mixin > 类`
 
 [Next: Why Composition is Harder with Classes >](https://medium.com/javascript-scene/why-composition-is-harder-with-classes-c3e627dcd0aa)
 
-## 下一步
+## 接下来
 
 想更深入学习关于 JavaScript 的对象组合？
 
-[与 Eric Elliott 一起学习 JavaScript 吧](http://ericelliottjs.com/product/lifetime-access-pass/)，如果你还不是一名会员，那你就亏大了！
+[跟着 Eric Elliott 学 Javacript](http://ericelliottjs.com/product/lifetime-access-pass/)，机不可失时不再来！
 
 ![](https://cdn-images-1.medium.com/max/800/1*3njisYUeHOdyLCGZ8czt_w.jpeg)
 
-**Eric Elliott** 是 [《Programming JavaScript Applications》](http://pjabook.com/) (O’Reilly) 和 [《Learn JavaScript with Eric Elliott》](http://ericelliottjs.com/product/lifetime-access-pass/)的作者。他在 **Adobe Systems**, **Zumba Fitness**, **The Wall Street Journal**, **ESPN**, **BBC** 工作过，还和很多顶尖的艺术家有过合作，包括 **Usher**, **Frank Ocean**, **Metallica** 等等。
+**Eric Elliott** 是  [**“编写 JavaScript 应用”**](http://pjabook.com) （O’Reilly） 以及 [**“跟着 Eric Elliott 学 Javascript”**](http://ericelliottjs.com/product/lifetime-access-pass/) 两书的作者。他为许多公司和组织作过贡献，例如 **Adobe Systems**、**Zumba Fitness**、**The Wall Street Journal**、**ESPN** 和 **BBC** 等 , 也是很多机构的顶级艺术家，包括但不限于 **Usher**、**Frank Ocean** 以及 **Metallica**。
 
-他大多数时间都在湾区，和世界上最漂亮的女人在一起。
+大多数时间，他都在 San Francisco Bay Area，同这世上最美丽的女子在一起。
 
 感谢 [JS_Cheerleader](https://medium.com/@JS_Cheerleader?source=post_page).
 
