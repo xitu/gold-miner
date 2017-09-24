@@ -141,13 +141,13 @@ NEO 中 DBFT 的具体实现用到了一种迭代共识的方法来保证达到�
     - 合同脚本是否被正确执行？
     - 该交易是否只包单次支付？（也就是说，该交易是否能避免重复支付？）
 
-    - **If Validated Proposal Broadcast:**
+    - **如果提案通过验证则广播:**
       <!-- -->
-      <prepareResponse, h, k, i, [block]sigi>
+        <prepareResponse, h, k, i, [block]sigi>
     
-    - **If Invalidated Proposal Broadcast:**
+    - **如果提案未通过验证则广播：**
       <!-- -->
-          <ChangeView, h,k,i,k+1>
+        <ChangeView, h,k,i,k+1>
 
    <p align="center"><img src="https://github.com/neo-project/docs/raw/master/assets/consensus4.png" width="500"><br> <b>图 9:</b><b>议员</b>审查区块链提案并响应</p>
 
