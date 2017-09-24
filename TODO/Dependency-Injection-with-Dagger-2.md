@@ -1,24 +1,24 @@
 > * 原文地址：[Dependency Injection with Dagger 2](https://github.com/codepath/android_guides/wiki/Dependency-Injection-with-Dagger-2)
 > * 原文作者：[CodePath](https://github.com/codepath)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者： 
-> * 校对者：
+> * 译者： [tanglie1993](https://github.com/tanglie1993)
+> * 校对者：[mnikn](https://github.com/mnikn), [Zhiw](https://github.com/Zhiw)
 
-# Dependency Injection with Dagger 2
+# 用 Dagger 2 实现依赖注入
 
-## Overview 
+## 概要 
 
-Many Android apps rely on instantiating objects that often require other dependencies.  For instance, a Twitter API client may be built using a networking library such as [[Retrofit|Consuming-APIs-with-Retrofit]]. To use this library, you might also need to add parsing libraries such as [[Gson|Leveraging-the-Gson-Library]].  In addition, classes that implement authentication or caching may require accessing [[shared preferences|Storing-and-Accessing-SharedPreferences]] or other common storage, requiring instantiating them first and creating an inherent dependency chain.
+很多 Android 应用依赖于一些含有其它依赖的对象。例如，一个 Twitter API 客户端可能需要通过 [Retrofit](https://github.com/codepath/android_guides/wiki/Consuming-APIs-with-Retrofit) 之类的网络库来构建。要使用这个库，你可能还需要添加 [Gson](https://github.com/codepath/android_guides/wiki/Leveraging-the-Gson-Library) 这样的解析库。另外，实现认证或缓存的库可能需要使用 [shared preferences](https://github.com/codepath/android_guides/wiki/Storing-and-Accessing-SharedPreferences) 或其它通用存储方式。这就需要先把它们实例化，并创建一个隐含的依赖链。
 
-If you're not familiar with Dependency Injection, watch [this](https://www.youtube.com/watch?v=IKD2-MAkXyQ) quick video.
+如果你不熟悉依赖注入，看看[这个](https://www.youtube.com/watch?v=IKD2-MAkXyQ)短视频。
 
-Dagger 2 analyzes these dependencies for you and generates code to help wire them together.  While there are other Java dependency injection frameworks, many of them suffered limitations in relying on XML, required validating dependency issues at run-time, or incurred performance penalties during startup. [Dagger 2](http://google.github.io/dagger/) relies purely on using Java [annotation processors](https://www.youtube.com/watch?v=dOcs-NKK-RA) and compile-time checks to analyze and verify dependencies.  It is considered to be one of the most efficient dependency injection frameworks built to date.
+Dagger 2 为你解析这些依赖，并生成把它们绑定在一起的代码。也有很多其它的 Java 依赖注入框架，但它们中大多数是有缺陷的，比如依赖 XML，需要在运行时验证依赖，或者在起始时造成性能负担。 [Dagger 2](http://google.github.io/dagger/) 纯粹依赖于 Java [注解解析器](https://www.youtube.com/watch?v=dOcs-NKK-RA)以及编译时检查来分析并验证依赖。它被认为是目前最高效的依赖注入框架之一。
 
-### Advantages
+### 优点
 
-Here is a list of other advantages for using Dagger 2:
+这是使用 Dagger 2 的一系列其它优势：
 
- * **Simplifies access to shared instances**. Just as the [[ButterKnife|Reducing-View-Boilerplate-with-Butterknife]] library makes it easier to define references to Views, event handlers, and resources, Dagger 2 provides a simple way to obtain references to shared instances.  For instance,  once we declare in Dagger our singleton instances such as  `MyTwitterApiClient` or `SharedPreferences`, we can declare fields with a simple `@Inject` annotation:
+ * **简化共享实例访问**。就像 [ButterKnife](https://github.com/codepath/android_guides/wiki/Reducing-View-Boilerplate-with-Butterknife) 库简化了引用View， event handler 和 resources 的方式一样，Dagger 2 提供了一个简单的方式获取对共享对象的引用。例如，一旦我们在 Dagger 中声明了  `MyTwitterApiClient` 或 `SharedPreferences` 的单例，就可以用一个简单的 `@Inject` 标注来声明域：
 
 ```java
 public class MainActivity extends Activity {
@@ -31,17 +31,17 @@ public class MainActivity extends Activity {
    } 
 ```
 
- * **Easy configuration of complex dependencies**. There is an implicit order in which your objects are often created.   Dagger 2 walks through the dependency graph and [[generates code|Dependency-Injection-with-Dagger-2#code-generation]] that is both easy to understand and trace, while also saving you from writing the large amount of boilerplate code you would normally need to write by hand to obtain references and pass them to other objects as dependencies.  It also helps simplify refactoring, since you can focus on what modules to build rather than focusing on the order in which they need to be created.
+ * **容易配置复杂的依赖关系**。 对象创建是有隐含顺序的。Dagger 2 遍历依赖关系图，并且[生成易于理解和追踪的代码](https://github.com/codepath/android_guides/wiki/Dependency-Injection-with-Dagger-2#code-generation)。而且，它可以节约大量的样板代码，使你不再需要手写，手动获取引用并把它们传递给其他对象作为依赖。它也简化了重构，因为你可以聚焦于构建模块本身，而不是它们被创建的顺序。
 
- * **Easier unit and integration testing**  Because the dependency graph is created for us, we can easily swap out modules that make network responses and mock out this behavior.
+ * **更简单的单元和集成测试**  因为依赖图是为我们创建的，我们可以轻易换出用于创建网络响应的模块，并模拟这种行为。
 
- * **Scoped instances**  Not only can you easily manage instances that can last the entire application lifecycle, you can also leverage Dagger 2 to define instances with shorter lifetimes (i.e. bound to a user session, activity lifecycle, etc.).
+ * **实例范围** 你不仅可以轻易地管理持续整个应用生命周期的实例，也可以利用 Dagger 2 来定义生命周期更短（比如和一个用户 session 或 Activity 生命周期相绑定）的实例。 
 
-### Setup
+### 设置
 
-Android Studio by default will not allow you to navigate to generated Dagger 2 code as legitimate classes because they are not normally added to the source path  but adding the `android-apt` plugin will add these files into the IDE classpath and enable you to have more visibility.
+默认的 Android Studio 不把生成的 Dagger 2 代码视作合法的类，因为它们通常并不被加入 source 路径。但引入 `android-apt` 插件后，它会把这些文件加入 IDE classpath，从而提供更好的可见性。
 
-Make sure to [[upgrade|Getting-Started-with-Gradle#upgrading-gradle]] to the latest Gradle version to use the `annotationProcessor` syntax: 
+确保[升级](https://github.com/codepath/android_guides/wiki/Getting-Started-with-Gradle#upgrading-gradle) 到最新的 Gradle 版本以使用最新的 `annotationProcessor` 语法: 
 
 ```gradle
 dependencies {
@@ -52,12 +52,12 @@ dependencies {
 }
 ```
 
-Note that the `provided` keyword refers to dependencies that are only needed at compilation.  The Dagger compiler generates code that is used to create the dependency graph of the classes defined in your source code.  These classes are added to the IDE class path during compilation. The `annotationProcessor` keyword, which is understood by the Android Gradle plugin, does not add these classes to the class path, they are used only for annotation processing, which prevents accidentally referencing them.
+注意 `provided` 关键词是指只在编译时需要的依赖。Dagger 编译器生成了用于生成依赖图的类，而这个依赖图是在你的源代码中定义的。这些类在编译过程中被添加到你的IDE classpath。`annotationProcessor` 关键字可以被 Android Gradle 插件理解。它不把这些类添加到 classpath 中，而只是把它们用于处理注解。这可以避免不小心引用它们。
 
-### Creating Singletons
-![Dagger Injections Overview](https://raw.githubusercontent.com/codepath/android_guides/master/images/dagger_general.png)
+### 创建单例
+![Dagger 注入概要](https://raw.githubusercontent.com/codepath/android_guides/master/images/dagger_general.png)
 
-The simplest example is to show how to centralize all your singleton creation with Dagger 2.  Suppose you weren't using any type of dependency injection framework and wrote code in your Twitter client similar to the following:
+最简单的例子是用 Dagger 2 集中管理所有的单例。假设你不用任何依赖注入框架，在你的 Twitter 客户端中写下类似这些的东西：
 
 ```java
 OkHttpClient client = new OkHttpClient();
@@ -82,11 +82,11 @@ Retrofit retrofit = new Retrofit.Builder()
                                 .build();
 ```
 
-#### Declare your singletons 
+#### 声明你的单例
 
-You need to define what objects should be included as part of the dependency chain by creating a Dagger 2 **module**.  For instance, if we wish to make a single `Retrofit` instance tied to the application lifecycle and available to all our activities and fragments, we first need to make Dagger aware that a `Retrofit` instance can be provided.   
+你需要通过创建 Dagger 2 **模块**定义哪些对象应该作为依赖链的一部分。例如，假设我们想要创建一个 `Retrofit` 单例，使它绑定到应用生命周期，对所有的 Activity 和 Fragment 都可用，我们首先需要使 Dagger 意识到他可以提供 `Retrofit` 的实例。
 
-Because we wish to setup caching, we need an Application context.  Our first Dagger module, `AppModule.java`, will be used to provide this reference.  We will define a method annotated with `@Provides` that denotes to Dagger that this method is the constructor for the `Application` return type:
+因为需要设置缓存，我们需要一个 Application context。我们的第一个 Dagger 模块，`AppModule.java`，被用于提供这个依赖。我们将定义一个 `@Provides` 注解，标注带有 `Application` 的构造方法:
 
 ```java
 @Module
@@ -106,9 +106,9 @@ public class AppModule {
 }
 ```
 
-We create a class called `NetModule.java` and annotate it with `@Module` to signal to Dagger to search within the available methods for possible instance providers.  
+我们创建了一个名为 `NetModule.java` 的类，并用 `@Module` 来通知 Dagger，在这里查找提供实例的方法。
 
-The methods that will actually expose available return types should also be annotated with `@Provides` decorator.  The `Singleton` annotation also signals to the Dagger compiler that the instance should be created only once in the application.  In the following example, we are specifying `SharedPreferences`, `Gson`, `Cache`, `OkHttpClient`, and `Retrofit` as the return types that can be used as part of the dependency list.  
+返回实例的方法也应当用 `@Provides` 标注。`Singleton` 标注通知 Dagger 编译器，实例在应用中只应被创建一次。在下面的例子中，我们把 `SharedPreferences`, `Gson`, `Cache`, `OkHttpClient`, 和 `Retrofit` 设置为在依赖列表中可用的类型。
 
 ```java
 @Module
@@ -166,13 +166,13 @@ public class NetModule {
 }
 ```
 
-Note that the method names (i.e. `provideGson()`, `provideRetrofit()`, etc) do not matter and can be named anything.  The return type annotated with a `@Provides` decorator is used to associate this instantiation with any other modules of the same type.  The `@Singleton` annotation is used to declare to Dagger to be only initialized only once during the entire lifecycle of the application.  
+注意，方法名称（比如 `provideGson()`, `provideRetrofit()` 等）是没关系的，可以任意设置。`@Provides` 被用于把这个实例化和其它同类的模块联系起来。`@Singleton` 标注用于通知 Dagger，它在整个应用的生命周期中只被初始化一次。
 
-A `Retrofit` instance depends both on a `Gson` and `OkHttpClient` instance, so we can define another method within the same class that takes these two types.  The `@Provides` annotation and these two parameters in the method will cause Dagger to recognize that there is a dependency on `Gson` and `OkHttpClient` to build a `Retrofit` instance.
+一个 `Retrofit` 实例依赖于一个 `Gson` 和一个 `OkHttpClient` 实例，所以我们可以在同一个类中定义两个方法，来提供这两种实例。`@Provides` 标注和方法中的这两个参数将使 Dagger 意识到，构建一个 `Retrofit` 实例 需要依赖 `Gson` 和 `OkHttpClient`。
 
-#### Define injection targets
+#### 定义注入目标
 
-Dagger provides a way for the fields in your activities, fragments, or services to be assigned references simply by annotating the fields with an `@Inject` annotation and calling an `inject()` method.  Calling `inject()` will cause Dagger 2 to locate the singletons in the dependency graph to try to find a matching return type.  If it finds one, it assigns the references to the respective fields. For instance, in the example below, it will attempt to find a provider that returns `MyTwitterApiClient` and a `SharedPreferences` type:
+Dagger 使你的 activity, fragment, 或 service 中的域可以通过 `@Inject` 注解和调用 `inject()` 方法被赋值。调用 `inject()` 将会使得 Dagger 2 在依赖图中寻找合适类型的单例。如果找到了一个，它就把引用赋值给对应的域。例如，在下面的例子中，它会尝试找到一个返回`MyTwitterApiClient` 和`SharedPreferences` 类型的 provider：
 
 ```java
 public class MainActivity extends Activity {
@@ -185,7 +185,7 @@ public class MainActivity extends Activity {
    } 
 ```
 
-The injector class used in Dagger 2 is called a **component**.  It assigns references in our activities, services, or fragments to have access to singletons we earlier defined.  We will need to annotate this class with a `@Component` declaration. Note that the activities, services, or fragments that can be added should be declared in this class with individual `inject()` methods: 
+Dagger 2 中使用的注入者类被称为 **component**。它把先前定义的单例的引用传给 activity, service 或 fragment。我们需要用 `@Component` 来注解这个类。注意，需要被注入的 activity, service 或 fragment 需要在这里使用 `inject()` 方法注入： 
 
 
 ```java
@@ -198,14 +198,15 @@ public interface NetComponent {
 }
 ```
 
-**Note** that base classes are not sufficient as injection targets.  Dagger 2 relies on strongly typed classes, so you must specify explicitly which ones should be defined.   (There are [suggestions](https://blog.gouline.net/2015/05/04/dagger-2-even-sharper-less-square/) to workaround the issue, but the code to do so may be more complicated to trace than simply defining them.)
+**注意** 基类不能被作为注入的目标。Dagger 2 依赖于强类型的类，所以你必须指定哪些类会被定义。（有一些[建议](https://blog.gouline.net/2015/05/04/dagger-2-even-sharper-less-square/) 帮助你绕开这个问题，但这样做的话，代码可能会变得更复杂，更难以追踪。）
 
-#### Code generation
+#### 生成代码
 
-An important aspect of Dagger 2 is that the library generates code for classes annotated with the `@Component` interface.  You can use a class prefixed with `Dagger` (i.e. `DaggerTwitterApiComponent.java`) that will be responsible for instantiating an instance of our dependency graph and using it to perform the injection work for fields annotated with `@Inject`.  See the [[setup guide|Dependency-Injection-with-Dagger-2#setup]].
-### Instantiating the component
+Dagger 2 的一个重要特点是它会为标注 `@Component` 的接口生成类的代码。你可以使用带有 `Dagger` (比如 `DaggerTwitterApiComponent.java`) 前缀的类来为依赖图提供实例，并用它来完成用 `@Inject` 注解的域的注入。 参见[设置](https://github.com/xitu/gold-miner/pull/1484#%E8%AE%BE%E7%BD%AE)。
 
-We should do all this work within an `Application` class since these instances should be declared only once throughout the entire lifespan of the application:
+### 实例化组件
+
+我们应该在一个 `Application` 类中完成这些工作，因为这些实例应当在 application 的整个周期中只被声明一次：
 
 ```java
 public class MyApp extends Application {
@@ -234,9 +235,9 @@ public class MyApp extends Application {
 }
 ```
 
-Make sure to rebuild the project (in Android Studio, select _Build > Rebuild Project_) if you cannot reference the Dagger component.
+如果你不能引用 Dagger 组件，rebuild 整个项目 (在 Android Studio 中，选择 _Build > Rebuild Project_)。
 
-Because we are overriding the default `Application` class, we also modify the application  `name` to launch `MyApp`.  This way your application will use this application class to handle the initial instantiation.
+因为我们在覆盖默认的 `Application` 类，我们同样需要修改应用的 `name` 以启动 `MyApp`。这样，你的 application 将会使用这个 application 类来处理最初的实例化。
 
 ```xml
 <application
@@ -244,7 +245,7 @@ Because we are overriding the default `Application` class, we also modify the ap
       android:name=".MyApp">
 ```
 
-Within our activity, we simply need to get access to these components and call `inject()`.  
+在我们的 activity 中，我们只需要获取这些 components 的引用，并调用 `inject()`。
 
 ```java
 public class MyActivity extends Activity {
@@ -258,10 +259,11 @@ public class MyActivity extends Activity {
     } 
 ```
  
-### Qualified types
+### 限定词类型
+
 ![Dagger Qualifiers](https://raw.githubusercontent.com/codepath/android_guides/master/images/dagger_qualifiers.png)
 
-If we need two different objects of the same return type, we can use the `@Named` qualifier annotation.  You will define it both where you provide the singletons (`@Provides` annotation), and where you inject them (`@Inject` annotations):
+如果我们需要同一类型的两个不同对象，我们可以使用 `@Named` 限定词注解。 你需要定义你如何提供单例 (用 `@Provides` 注解)，以及你从哪里注入它们(用 `@Inject` 注解):
 
 ```java
 @Provides @Named("cached")
@@ -279,14 +281,14 @@ OkHttpClient provideOkHttpClient() {
 }
 ```
 
-Injection will also require these named annotations too:
+注入同样需要这些 named 注解：
 
 ```java
 @Inject @Named("cached") OkHttpClient client;
 @Inject @Named("non_cached") OkHttpClient client2;
 ```
 
-`@Named` is a qualifier that is pre-defined by dagger, but you can create your own qualifier annotations as well:
+`@Named` 是一个被 Dagger 预先定义的限定语，但你也可以创建你自己的限定语注解：
 
 ```java
 @Qualifier
@@ -296,11 +298,10 @@ public @interface DefaultPreferences {
 }
 ```
 
-### Scopes
-![Dagger Scopes](https://raw.githubusercontent.com/codepath/android_guides/master/images/dagger_scopes.png)
+### 作用域
+![Dagger 作用域](https://raw.githubusercontent.com/codepath/android_guides/master/images/dagger_scopes.png)
 
-In Dagger 2, you can define how components should be encapsulated by defining custom scopes.  For instance, you can create a scope that only lasts the duration of an activity or fragment lifecycle.  You can create a scope that maps only to a user authenticated session.  You can define any number of custom scope annotations in your application by declaring them as a public `@interface`:
-
+在 Dagger 2 中，你可以通过自定义作用域来定义组件应当如何封装。例如，你可以创建一个只持续 activity 或 fragment 整个生命周期的作用域。你也可以创建一个对应一个用户认证 session 的作用域。 你可以定义任意数量的自定义作用域注解，只要你把它们声明为 public `@interface`：
 ```java
 @Scope
 @Documented
@@ -310,17 +311,17 @@ public @interface MyActivityScope
 }
 ```
 
-Even though Dagger 2 does not rely on the annotation at runtime, keeping the `RetentionPolicy` at RUNTIME is useful in allowing you to inspect your modules later.
+虽然 Dagger 2 在运行时不依赖注解，把 `RetentionPolicy` 设置为 RUNTIME 对于将来检查你的 module 将是很有用的。
 
-### Dependent Components vs. Subcomponents
+### 依赖组件和子组件
 
-Leveraging scopes allows us to create either **dependent components** or **subcomponents**.  The example above showed that we used the `@Singleton` notation that lasted the entire lifecycle of the application. We also relied on one major Dagger component.  
+利用作用域，我们可以创建 **依赖组件** 或 **子组件**。上面的例子中，我们使用了 `@Singleton` 注解，它持续了整个应用的生命周期。我们也依赖了一个主要的 Dagger 组件。  
 
-If we wish to have multiple components that do not need to remain in memory all the time (i.e. components that are tied to the lifecycle of an activity or fragment, or even tied to when a user is signed-in), we can create dependent components or subcomponents.  In either case, each provide a way of encapsulating your code. We'll see how to use both in the next section. 
+如果我们不需要组件总是存在于内存中（例如，和 activity 或 fragment 生命周期绑定，或在用户登录时绑定），我们可以创建依赖组件和子组件。它们各自提供了一种封装你的代码的方式。我们将在下一节中看到如何使用它们。
 
-There are several considerations when using these approaches:
+在使用这种方法时，有若干问题要注意：
 
-  * **Dependent components require the parent component to explicitly list out what dependencies can be injected downstream, while subcomponents do not.**   For parent components, you would need to expose to the downstream component by specifying the type and a method:
+  * **依赖组件需要父组件显式指定哪些依赖可以在下游注入，而子组件不需要** 对父组件而言，你需要通过指定类型和方法来向下游组件暴露这些依赖：
 
 ```java
 // parent component
@@ -337,17 +338,18 @@ public interface NetComponent {
 }
 ```
 
-   If you forget to add this line, you will likely to see an error about an injection target missing.  Similar to how private/public variables are managed, using a parent component allows more explicit control and better encapsulation, but using subcomponents makes dependency injection easier to manage at the expense of less encapsulation. 
+   如果你忘记加入这一行，你将有可能看到一个关于注入目标缺失的错误。就像 private/public 变量的管理方式一样，使用一个 parent 组件可以更显式地控制，也可保证更好的封装。使用子组件使得依赖注入更容易管理，但封装得更差。
+   
+   
+  * **两个依赖组件不能使用同一个作用域** 例如，两个组件不能都用 `@Singleton` 注解设置定义域。这个限制的原因在 [这里](https://github.com/google/dagger/issues/107#issuecomment-71073298) 有所说明。依赖组件需要定义它们自己的作用域。
 
-  * **Two dependent components cannot share the same scope.**  For instance, two components cannot both be scoped to a `@Singleton` annotation.  This restriction is imposed because of reasons described [here](https://github.com/google/dagger/issues/107#issuecomment-71073298).  Dependent components need to define their own scope.
+  * **Dagger 2 同样允许使用带作用域的实例。你需要负责在合适的时机创建和销毁引用。**  Dagger 2 对底层实现一无所知。这个 Stack Overflow [讨论](http://stackoverflow.com/questions/28411352/what-determines-the-lifecycle-of-a-component-object-graph-in-dagger-2) 上有更多的细节。
+  
+#### 依赖组件
 
-  * **While Dagger 2 also enables the ability to create scoped instances, the responsibility rests on you to create and delete references that are consistent with the intended behavior.**  Dagger 2 does not know anything about the underlying implementation.  See this Stack Overflow [discussion](http://stackoverflow.com/questions/28411352/what-determines-the-lifecycle-of-a-component-object-graph-in-dagger-2) for more details.
+![Dagger 组件依赖](https://raw.githubusercontent.com/codepath/android_guides/master/images/dagger_dependency.png)
 
-#### Dependent Components
-
-![Dagger Component Dependencies](https://raw.githubusercontent.com/codepath/android_guides/master/images/dagger_dependency.png)
-
-For instance, if we wish to use a component created for the entire lifecycle of a user session signed into the application, we can define our own `UserScope` interface:
+如果你想要创建一个组件，使它的生命周期和已登录用户的 session 相绑定，就可以创建 `UserScope` 接口：
 
 ```java
 import java.lang.annotation.Retention;
@@ -358,7 +360,7 @@ public @interface UserScope {
 }
 ```
 
-Next, we define the parent component:
+接下来，我们定义父组件：
 
 ```java
   @Singleton
@@ -370,7 +372,7 @@ Next, we define the parent component:
   }
 ```
 
-We can then define a child component:
+接下来定义子组件：
 
 ```java
 @UserScope // using the previously defined scope, note that @Singleton will not work
@@ -380,7 +382,7 @@ public interface GitHubComponent {
 }
 ```
 
-Let's assume this GitHub module simply returns back an API interface to the GitHub API:
+假定 Github 模块只是把 API 接口返回给 Github API:
 
 ```java
 
@@ -400,7 +402,7 @@ public class GitHubModule {
 }
 ```
 
-In order for this `GitHubModule.java` to get access to the `Retrofit` instance, we need explicitly define them in the upstream component.  If the downstream modules will be performing the injection, they should also be removed from the upstream components too:
+为了让这个 `GitHubModule.java` 获得对 `Retrofit` 实例的引用，我们需要在上游组件中显式定义它们。如果下游模块会执行注入，它们也应当被从上游组件中移除：
 
 ```java
 @Singleton
@@ -415,7 +417,7 @@ public interface NetComponent {
 }
 ```
 
-The final step is to use the `GitHubComponent` to perform the instantiation.  This time, we first need to build the `NetComponent` and pass it into the constructor of the `DaggerGitHubComponent` builder:
+最终的步骤是用 `GitHubComponent` 进行实例化。这一次，我们需要首先实现 `NetComponent` 并把它传递给 `DaggerGitHubComponent` builder 的构造方法：
 
 ```java
 NetComponent mNetComponent = DaggerNetComponent.builder()
@@ -429,16 +431,17 @@ GitHubComponent gitHubComponent = DaggerGitHubComponent.builder()
                 .build();
 ```
 
-See [this example code](https://github.com/codepath/dagger2-example) for a working example.
+[示例代码](https://github.com/codepath/dagger2-example) 中有一个实际的例子。
 
-#### Subcomponents
-![Dagger subcomponents](https://raw.githubusercontent.com/codepath/android_guides/master/images/dagger_subcomponent.png)
+#### 子组件
 
-Using subcomponents is another way to extend the object graph of a component.  Like components with dependencies, subcomponents have their own life-cycle and can be garbage collected when all references to the subcomponent are gone, and have the same scope restrictions.  One advantage in using this approach is that you do not need to define all the downstream components.  
+![Dagger 子组件](https://raw.githubusercontent.com/codepath/android_guides/master/images/dagger_subcomponent.png)
 
-Another major difference is that subcomponents simply need to be declared in the parent component.
+使用子组件是扩展组件对象图的另一种方式。就像带有依赖的组件一样，子组件有自己的的生命周期，而且在所有对子组件的引用都失效之后，可以被垃圾回收。此外它们作用域的限制也一样。使用这个方式的一个优点是你不需要定义所有的下游组件。
 
-Here's an example of using a subcomponent for an activity.  We annotate the class with a custom scope and the `@Subcomponent` annotation: 
+另一个主要的不同是，子组件需要在父组件中声明。
+
+这是为一个 activity 使用子组件的例子。我们用自定义作用域和 `@Subcomponent` 注解这个类：
 
 ```java
 @MyActivityScope
@@ -448,7 +451,7 @@ public interface MyActivitySubComponent {
 }
 ```
 
-The module that will be used is defined below:
+被使用的模块在下面定义：
 
 ```java
 @Module
@@ -466,7 +469,7 @@ public class MyActivityModule {
 }
 ```
 
-Finally, in the **parent component**, we will define a factory method with the return value of the component and the dependencies needed to instantiate it:
+最后，在**父组件**中，我们将定义一个工厂方法，它以这个组件的类型作为返回值，并定义初始化所需的依赖：
 
 ```java
 @Singleton
@@ -479,7 +482,7 @@ public interface MyApplicationComponent {
 }
 ```
 
-In the above example, a new instance of the subcomponent will be created every time that the `newMyActivitySubcomponent()` is called.  To use the submodule to inject an activity:
+在上面的例子中，一个子组件的新实例将在每次 `newMyActivitySubcomponent()` 调用时被创建。把这个子模块注入一个 activity 中：
 
 ```java
 public class MyActivity extends Activity {
@@ -495,12 +498,12 @@ public class MyActivity extends Activity {
 }
 ```
 
-#### Subcomponent Builders
-*Available starting in v2.7*
+#### 子组件 builder
+*从 v2.7 版本起可用*
 
-![Dagger subcomponent builders](https://raw.githubusercontent.com/codepath/android_guides/master/images/subcomponent_builders.png)
+![Dagger 子组件 builder](https://raw.githubusercontent.com/codepath/android_guides/master/images/subcomponent_builders.png)
 
-Subcomponent builders allow the creator of the subcomponent to be de-coupled from the parent component, by removing the need to have a subcomponent factory method declared on that parent component.  
+子组件 builder 使创建子组件的类和子组件的父类解耦。这是通过移除父组件中的子组件工厂方法实现的。
 
 ```java
 @MyActivityScope
@@ -518,7 +521,7 @@ public interface SubcomponentBuilder<V> {
 }
 ```
 
-The subcomponent is declared as an inner interface in the subcomponent interface and it must include a `build()` method which the return type matching the subcomponent.  It's convenient to declare a base interface with this method, like `SubcomponentBuilder` above.  This new **builder must be added to the parent component graph** using a "binder" module with a "subcomponents" parameter:
+子组件是在子组件接口内部的接口中声明的。它必须含有一个  `build()` 方法，其返回值和子组件相匹配。用这个方法声明一个基接口是很方便的，就像上面的`SubcomponentBuilder` 一样。这个新的 **builder 必须被加入父组件的图中**，而这是用一个 "binder" 模块和一个 "subcomponents" 参数实现的:
 
 ```java
 @Module(subcomponents={ MyActivitySubComponent.class })
@@ -541,7 +544,7 @@ public @interface SubcomponentKey {
 }
 ```
 
-Once the builders are made available in the component graph, the activity can use it to create its subcomponent:
+一旦 builder 在出现在组件图中，activity 就可以用它来创建子组件：
 
 ```java
 public class MyActivity extends Activity {
@@ -562,13 +565,13 @@ public class MyActivity extends Activity {
 
 ## ProGuard
 
-Dagger 2 should work out of box without ProGuard, but if you start seeing `library class dagger.producers.monitoring.internal.Monitors$1 extends or implements program class javax.inject.Provider`, make sure your Gradle configuration uses the `annotationProcessor` declaration instead of `provided`. 
+Dagger 2 应当在没有 ProGuard 时可以直接使用，但是如果你看到了 `library class dagger.producers.monitoring.internal.Monitors$1 extends or implements program class javax.inject.Provider`，你需要确认你的 gradle 配置使用了 `annotationProcessor` 声明，而不是 `provided`。
 
-## Troubleshooting
+## 常见问题
 
-* If you are upgrading Dagger 2 versions (i.e. from v2.0 to v2.5), some of the generated code has changed.  If you are incorporating Dagger code that was generated with older versions, you may see `MemberInjector` and `actual and former argument lists different in length` errors.  Make sure to clean the entire project and verify that you have upgraded all versions to use the consistent version of Dagger 2.
+* 如果你在升级 Dagger 版本（比如从 v2.0 升级到 v 2.5），一些被生成的代码会改变。如果你在集成使用旧版本 Dagger 生成的代码，你可能会看到 `MemberInjector` 和 `actual and former argument lists different in length` 错误。确保你 clean 过整个项目，并且把所有版本升级到和 Dagger 2 相匹配的版本。
 
-## References
+## 参考资料
 
 * [Dagger 2 Github Page](http://google.github.io/dagger/)
 * [Sample project using Dagger 2](https://github.com/vinc3m1/nowdothis)

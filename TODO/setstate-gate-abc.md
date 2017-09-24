@@ -1,106 +1,108 @@
 > * 原文地址：[setState() Gate](https://medium.com/javascript-scene/setstate-gate-abc10a9b2d82#.z148awo8n)
 > * 原文作者：[Eric Elliott](https://medium.com/@_ericelliott?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
-> * 校对者：
+> * 译者：[reid3290](https://github.com/reid3290)
+> * 校对者：[1992chenlu](https://github.com/1992chenlu)，[qinfanpeng](https://github.com/qinfanpeng)
 
-# setState() Gate #
+# setState() 门事件 #
 
-## Navigating React setState() Behavior Confusion ## 
+## React setState() 解惑 ##
 
-<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*YvimnE7n9gk2Oesw_Dmxhg.jpeg">
-
-It all started last week. 3 different React learners encountered 3 different obstacles trying to use `setState()` in their projects. I mentor new React users a lot, and consult with teams making transitions from other architectures to React.
-
-One of those learners was working on a production project that is a good fit for Redux, so instead of working out how to fix the timing with `setState()`, I recommended that we just replace `setState()` with Redux, which has the effect of removing the timing of state updates from the component drawing the DOM. Then the module simply has to decide what to render based on the props from the store, and the timing complexity is magically side-stepped.
-
-That inspired this tweet:
-
-
-[“React has a setState() problem: Asking newbies to use setState() is a recipe for headaches. Advanced users have learned to avoid it. ;)](https://twitter.com/_ericelliott)
-
-After that, some advanced users chimed in to correct me:
-
-[“React team member checking in. Please learn to use setState before other approaches.”](https://twitter.com/dan_abramov/status/842490428440150017?ref_src=twsrc%5Etfw)
-
-[“Those ‘adanced’ users will get left behind when we turn on async scheduling by default in React 17”](https://twitter.com/acdlite/status/842499250822950912?ref_src=twsrc%5Etfw)
-
-On that second point:
-
-[“Fiber has a strategy for pausing, splitting, rebasing, aborting updates that doesn’t work if you deviate from component state”](https://twitter.com/acdlite/status/842506455232143360?ref_src=twsrc%5Etfw)
-
-Both fair points. Other people made memes:
+> 译注：本文起因于作者的一条推特，他认为应该避免使用 setState()，随后引发论战，遂写此文详细阐明其观点。译者个人认为，本文主要在于“撕逼“，并未深入介绍 setState() 的技术细节，希望从技术层面深入了解 `setState()` 的同学可以参考[[译] React 未来之函数式 setState](https://juejin.im/post/58cfcf6e44d9040068478fc6)。对 `setState()` 不了解的同学可能会感到本文不知所云，特此说明。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*YvimnE7n9gk2Oesw_Dmxhg.jpeg">
 
-It’s great to make fun of a frustrating situation, but let’s not pretend there’s no problem.
+一切都源于上周。3 位 React 初学者尝试在项目中使用 `setState()` 时遇到了 3 种不同的问题。我指导过很多 React 新手，也为团队提供从其他技术到 React 的架构转型咨询。
 
-In my very next meeting with a different mentee, *he was also confused* about how `setState()` works, and had just given up and stuffed his state in a closure, which of course wouldn’t automatically trigger a render if the closure state changed.
+其中一位初学者正在开发一个十分适合使用 Redux 的生产项目，所以我没有正面去解决 `setState()` 的同步问题（the timing with `setState()`），而是直接建议他用 Redux 替换掉 `setState()`，因为使用 Redux 能避免 state 在组件渲染的过程中发生改变。Redux 简单地利用来自 store 的 props 来决定如何渲染界面，巧妙地规避了复杂的同步问题。
 
-Given the *constant influx* of confused React newbies, I stand by the first part of my tweet, but if I had it to do again, I’d change the second part *a little,* because some advanced users (notably, lots of Facebook and Netflix) use `setState()` extensively:
+因此也就有了下面这条推特：
 
-> “React has a setState() problem: Asking newbies to use setState() is a recipe for headaches. Advanced users have secret cures.”
 
-Of course, Twitter would probably still lose its collective mind. After all, React is *perfect*, and we must all agree that `setState()` is beautiful just as it is, or face ridicule and scorn.
+[“React 有个 setState() 问题：让新手使用 setState() 毫无好处（a recipe for headaches）。高手们已经学会了如何避免使用它"](https://twitter.com/_ericelliott)
 
-If `setState()` confuses you, it’s *your fault.* You must be crazy or stupid. (Have I mentioned that [the JavaScript community has a bullying problem?](https://medium.com/javascript-scene/the-js-community-has-a-bullying-problem-96c10f11c85d#.wagjqz54o) )
+之后，有些高手就来纠正我了：
 
-Let’s check our egos for a moment and stop patting ourselves on the back for our `setState()` mastery while we mock everybody who hasn’t learned the same lessons.
+[“我是 React 团队的一员。在尝试其他方法之前，请学会使用 setState。”](https://twitter.com/dan_abramov/status/842490428440150017?ref_src=twsrc%5Etfw)
 
-That behavior is absurd, elitist, and very uninviting to newcomers. If people frequently get confused about an API, it could be an opportunity to improve that API, or at least improve the documentation.
+[“那些所谓‘高手’们怕是要落伍了，因为 React 17 将会默认采用异步调度。”](https://twitter.com/acdlite/status/842499250822950912?ref_src=twsrc%5Etfw)
 
-Making the community and our tools more friendly and inviting is good for everybody.
+对于第二点：
 
-### What’s Wrong with setState()? ###
+[“Fiber 有一种用于暂停、切分、重建和取消更新的策略，但如果你脱离了组件 state，那此策略便无法正常工作了。”](https://twitter.com/acdlite/status/842506455232143360?ref_src=twsrc%5Etfw)
 
-This question has two answers:
+貌似都没错，可是码农们就要骂娘了：
 
-1. Not much. It (mostly) behaves like it needs to to solve the problem it’s designed to solve.
-2. Learning curve. Users new to React and `setState()` frequently encounter obstacles while trying to do things that *just work* with vanilla JS and direct DOM manipulation.
+<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*YvimnE7n9gk2Oesw_Dmxhg.jpeg">
 
-React is designed to make it easier to build apps, but:
+面对困境“呵呵”两下并无妨，不过千万别呵呵过后就对问题视而不见了。
 
-- You can’t just grab bits of DOM and update them any way you like.
-- You can’t just set the state to anything at any time, depending on any data source you like.
-- You can’t just observe the rendered DOM or element visibility on screen at any part of the component lifecycle, which limits when and how you can use `setState()` for render dependent state (the state you’re working on may not have been rendered to the screen, yet).
+在和另一个初学者交流的时候，我发现他也对 `setState()` 的工作机制感到困惑。他后来索性放弃了，他把 state 塞在一个闭包里；显而易见，闭包中 state 的改变是不会触发 render 函数自动执行的。
 
-In all of these cases, the confusion is caused by the *(intentional, good)* limitations of the React component lifecycle.
+考虑到深感困惑的初学者之多，我还是坚持我上述推文中前半句的观点；但如果可以重来的话，我会对后半句稍作修改，因为确有很多高手在（主要是 Facebook 和 Netfix 的工程师）大量地使用 `setState()`：
 
-#### Dependent State ####
+> “React 有个 setState() 问题：叫新手使用 setState() 毫无好处，但高手们自有神技。“
 
-When we’re updating state, sometimes the value of the update depends on things that React tries to help us with:
+当然，推特还是有可能会丧失其集体智慧（lose its collective mind）（译注：个人认为这句应该是指当网络上大多数人持某一观点时，那即使该观点是错的，那你也不能指出其错误，否则就会招致集体攻讦；或者说，真理有时候只掌握在少数人手里）。 毕竟，React 是“**完美的**”， 我们都必须承认 `setState`的美妙优雅是多么的恰如其分，否则只会遭到冷嘲热讽。
 
-- The current state
-- Previous attempts to update state in the same cycle
-- The rendered DOM (e.g., component coordinates, visibility, calculated CSS values, etc…)
+如果 `setState()` 令你感到困惑，那都是**你的问题** —— 你要么是疯子，要么是傻瓜。（我好像忘了说 [Javascript 社区的霸凌问题了](https://medium.com/javascript-scene/the-js-community-has-a-bullying-problem-96c10f11c85d#.wagjqz54o) ）
 
-If you try to simply update the state in a straightforward way when you have these kinds of dependent state, React’s behavior might surprise you in an obnoxiously hard-to-debug way. Frequently, whatever you just tried to do simply doesn’t work. You’ll end up with incorrect state, or you’ll see an error in the console.
+好了，当你嘲笑所有初学者的时候，先反省反省自己吧，别以为掌握了 `setState()` 就可以得意忘形了。
 
-My gripe with `setState()` is that its restrictive behavior is not made obvious to newcomers in the API documentation, and common patterns for dealing with its restrictive behavior are not well explained. This forces users to resort to trial and error, Google, and help from other community members, when there could be better guide-posts built into `setState()` and it’s API documentation.
+那种行为是荒谬可笑的，是精英主义论的，会让新手们感到十分讨厌。如果人们经常对某个 API 感到困惑的话，那就该改进 API 本身的设计了，或者至少应该改进下文档。
 
-The current API documentation for `setState()` leads with this:
+让我们的社区和工具变得更加友好对所有人来说都是件好事。
+
+### setState() 究竟有何问题？ ###
+
+这个问题可以有两个答案：
+
+1. 没啥问题。（大部分情况下）其表现和设计期望一样，足以解决目标问题。
+2. 学习曲线问题。对新手而言，一些用原生 JS 和直接的 DOM 操作可以轻松实现的效果，用 React 和 `setState` 实现起来就会困难重重。
+
+React 的设计初衷本是简化应用开发流程，但是：
+
+- 你却不能随心所欲地操作 DOM。
+- 你不能随心所欲地（于任何时间、依赖任意数据源）更新 state。
+- 在组件的生命周期中，你并不总是能在屏幕上直接观察到渲染后的 DOM 元素，这限制了 `setState()` 的使用时机和方式（因为你有些 state 可能还没有渲染到屏幕上）。
+
+在这几种情况下，困惑都来源于 React 组件生命周期的限制性（这些限制是刻意设计的，是好的）。
+
+#### 从属 State（Dependent State） ####
+
+更新 state 时，更新结果可能依赖于：
+
+- 当前 state
+- 同一批次中先前的更新操作
+- 当前已渲染的 DOM （例如：组件的坐标位置、可见性、CSS 计算值等等）
+
+当存在这几种从属 state 的时候，如果你还想简单直接地更新 state，那 React 的表现行为会让你大吃一惊，并且是以一种令人憎恶又难以调试的方式。大多数情况下，你的代码根本无法工作：要么 state 不对，要么控制台有错误。
+
+我之所以吐槽 `setState()`，是因为它的这种限制性在 API 文档中并没有详细说明，关于应对这种限制性的各种通用模式也未能阐述清楚。这迫使初学者只能不断试错、Google 或者从其他社区成员那里寻求帮助，但实际上在文档中本该就有更好的新手指南。
+
+当前关于 `setState()` 的文档开头如下：
 
 ```
 setState(nextState, callback)
 ```
 
-> Performs a shallow merge of nextState into current state. This is the primary method you use to trigger UI updates from event handlers and server request callbacks.
+> 将 nextState 浅合并到当前 state。这是在事件处理函数和服务器请求回调函数中触发 UI 更新的主要方法。
 
-It does make very brief mention at the end that it has async behavior:
+在末尾确实也提到了其异步行为：
 
-> There is no guarantee of synchronous operation of calls to `setState` and calls may be batched for performance gains.
+> 不保证 `setState` 调用会同步执行，考虑到性能问题，可能会对多次调用作批处理。
 
-The consequence of both of those things together is the root of many userland bugs:
+这就是很多用户层（userland） bug 的根本原因：
 
 ```
-// assuming state.count === 0
+// 假设 state.count === 0
 this.setState({count: state.count + 1});
 this.setState({count: state.count + 1});
 this.setState({count: state.count + 1});
-// state.count === 1, not 3
+// state.count === 1, 而不是 3
 ```
 
-It’s essentially equivalent to:
+本质上等同于：
 
 ```
 Object.assign(state,
@@ -110,38 +112,38 @@ Object.assign(state,
 ); // {count: 1}
 ```
 
-This is not mentioned explicitly in the API docs (it is covered elsewhere in a special guide).
+这在文档中并未显式说明（在另外一份特殊指南中提到了）。
 
-The API docs also makes mention of a function alternative to the `setState()` signature:
+文档还提到了另外一种函数式的 `setState()` 语法：
 
-> It’s also possible to pass a function with the signature `function(state, props) => newState`. This enqueues an atomic update that consults the previous value of state and props before setting any values.
+> 也可以传递一个签名为 `function(state, props) => newState` 的函数作为参数。这会将一个原子性的更新操作加入更新队列，在设置任何值之前，此操作会查询前一刻的 state 和 props。
 
 > `...`
 
-> `setState()` does not immediately mutate `this.state` but creates a pending state transition. Accessing `this.state` after calling this method can potentially return the existing value.
+> `setState()`  并不会立即改变  `this.state` ，而是会创建一个待执行的变动。调用此方法后访问 `this.state` 有可能会得到当前已存在的 state（译注：指 state 尚未来得及改变）。
 
-The API docs are dropping some breadcrumbs, but they don’t really explain the behavior that newbies frequently encounter in a way that clearly guides the reader on the right path, and though React is famous for generating useful errors in dev mode, no such warnings get logged when `setState()` timing bugs crop up.
+API 文档虽提供了些许线索，但未能以一种清晰明了的方式阐明初学者经常遇到的怪异表现。开发模式下，尽管 React 的错误信息以有效、准确著称，但当 `setState()` 的同步问题出现 bug 的时候控制台却没有任何警告。
 
-[![](https://ww2.sinaimg.cn/large/006tNc79gy1fdwma23qp0j30jk077mxt.jpg)](https://twitter.com/JikkuJose/status/842915627899670528?ref_src=twsrc%5Etfw) 
+[![](https://ww2.sinaimg.cn/large/006tKfTcgy1fecsfa9ryhj30jh06qaaq.jpg)](https://twitter.com/JikkuJose/status/842915627899670528?ref_src=twsrc%5Etfw)
 
-[![](https://ww3.sinaimg.cn/large/006tNc79gy1fdwmac1hwlj30ji06rq3h.jpg)](https://twitter.com/PierB/status/842590294776451072?ref_src=twsrc%5Etfw)
+[![](https://ww1.sinaimg.cn/large/006tKfTcgy1fecsftg2goj30j406674u.jpg)](https://twitter.com/PierB/status/842590294776451072?ref_src=twsrc%5Etfw)
 
-Lifecycle timing issues account for a lot of the questions asked about `setState()` on StackOverflow. Of course, React is very popular, so those questions have been [asked](http://stackoverflow.com/questions/25996891/react-js-understanding-setstate)[many](http://stackoverflow.com/questions/35248748/calling-setstate-in-a-loop-only-updates-state-1-time) [times](http://stackoverflow.com/questions/30338577/reactjs-concurrent-setstate-race-condition/30341560#30341560), with answers of various quality and correctness.
+StackOverflow 上有关 `setState()` 的问题大都要归结于组件的生命周期问题。毫无疑问，React 非常流行，因此那些问题都被[问](http://stackoverflow.com/questions/25996891/react-js-understanding-setstate)[烂](http://stackoverflow.com/questions/35248748/calling-setstate-in-a-loop-only-updates-state-1-time)[了](http://stackoverflow.com/questions/30338577/reactjs-concurrent-setstate-race-condition/30341560#30341560)，也有着各种良莠不齐的回答。
 
-So how can newbies learn the right way to manage `setState()` timing issues?
+那么，初学者究竟该如何掌握 `setState()` 呢？
 
-There is more in-depth information in a separate guide in the React docs called [“State and Lifecycle”](https://facebook.github.io/react/docs/state-and-lifecycle.html) :
+在 React 的文档中还有一份名为  [“ state 和生命周期”](https://facebook.github.io/react/docs/state-and-lifecycle.html)的指南，该指南提供了更多深入内容：
 
-> “…To fix it, use a second form of `setState()` that accepts a function rather than an object. That function will receive the previous state as the first argument, and the props at the time the update is applied as the second argument:”
+> “…要解决此问题，请使用 `setState()` 的第二种形式 —— 以一个函数而不是对象作为参数，此函数的第一个参数是前一刻的 state，第二个参数是 state 更新执行瞬间的 props ：”
 
 ```
-// Correct
+// 正确用法
 this.setState((prevState, props) => ({
   count: prevState.count + props.increment
 }));
 ```
 
-This function-parameter form (sometimes called “functional `setState()`”) works more like this:
+这个函数参数形式（有时被称为“函数式 `setState()`”）的工作机制更像：
 
 ```
 [
@@ -153,9 +155,9 @@ This function-parameter form (sometimes called “functional `setState()`”) wo
 }), {count: 0}); // {count: 3}
 ```
 
-Not sure how reduce works? See [“Reduce”](https://medium.com/javascript-scene/reduce-composing-software-fe22f0c39a1d#.8d8kw0l40)  from [“Composing Software”](https://medium.com/javascript-scene/the-rise-and-fall-and-rise-of-functional-programming-composable-software-c2d91b424c8c#.7k9w6v9ok) .
+不明白 reduce 的工作机制？ 参见  [“Composing Software”](https://medium.com/javascript-scene/the-rise-and-fall-and-rise-of-functional-programming-composable-software-c2d91b424c8c#.7k9w6v9ok) 的 [“Reduce”](https://medium.com/javascript-scene/reduce-composing-software-fe22f0c39a1d#.8d8kw0l40) 教程。
 
-The key is the **updater function**:
+关键点在于**更新函数（updater function）**：
 
 ```
 (prevState, props) => ({
@@ -163,56 +165,60 @@ The key is the **updater function**:
 })
 ```
 
-This is basically a reducer, where `prevState` acts like an accumulator, and `props` acts as the source for the new update data. Like reducers from Redux, you can reduce with this function using any standard reduce utility (including `Array.prototype.reduce()`). Also like Redux, the reducer should be a [pure function](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-a-pure-function-d1c076bec976) .
+这基本上就是个 reducer，其中 `prevState` 类似于一个累加器（accumulator），而 `props` 则像是新的数据源。类似于 Redux 中的 reducers，你可以使用任何标准的 reduce 工具库对该函数进行 reduce（包括 `Array.prototype.reduce()`）。同样类似于 Redux，reducer 应该是 [纯函数](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-a-pure-function-d1c076bec976) 。
 
-> Note: Trying to directly mutate `prevState` is a common source of confusion among new users.
+> 注意：企图直接修改 `prevState` 通常都是初学者困惑的根源。
 
-These properties and expectations of the updater function are not mentioned in the API documentation, so the rare, lucky newbie who chances across the fact that the functional `setState()` form does something useful that isn’t supported by the object literal form is probably still going to be confused.
+API 文档中并未提及更新函数的这些特性和要求，所以，即使少数幸运的初学者碰巧了解到函数式 `setState()` 可以实现一些对象字面量形式无法实现的功能，最终依然可能困惑不解。
 
-### Just A Newbie Problem? ###
+### 仅仅是新手才有的问题吗？ ###
 
-I still bump into rough edges now and then when I’m dealing with forms or DOM element coordinates because, when you use `setState()`, you have to deal with the component lifecycle directly. When you use a container component or store and pass your state through props, React handles the timing issues for you.
+直到现在，在处理表单或是 DOM 元素坐标位置的时候，我还是会时不时得掉到坑里去。当你使用 `setState()` 的时候，你必须直接面对组件生命周期的相关问题；但当你使用容器组件或是通过 props 来存储和传递 state 的时候，React 则会替你处理同步问题。
 
-Shared mutable state and state locks can be painful to navigate [*regardless of your experience level*](https://medium.com/@mweststrate/3-reasons-why-i-stopped-using-react-setstate-ab73fc67a42e#.saj7jn6wh) *.* Experienced users are just better at identifying the problem quickly and jumping to a handy workaround.
+ [**无论你有经验与否**](https://medium.com/@mweststrate/3-reasons-why-i-stopped-using-react-setstate-ab73fc67a42e#.saj7jn6wh) ，处理共享的可变 state 和 state 锁（state locks）都是很棘手的。经验丰富之人只不过是能更加快速地定位问题，然后找出一个巧妙的变通方案罢了。
 
-Since newbies haven’t seen the problem before, and aren’t aware of workarounds, it just happens to hit them hardest.
+因为初学者从未遇到过这种问题，更不知规避方案，所以是掉坑里摔得最惨的。
 
-[](https://twitter.com/_ericelliott/status/842546271944564737?ref_src=twsrc%5Etfw) 
+[![](https://ww4.sinaimg.cn/large/006tKfTcgy1fecsglwlldj30jb067wf0.jpg)](https://twitter.com/_ericelliott/status/842546271944564737?ref_src=twsrc%5Etfw)
 
-[](https://twitter.com/dan_abramov/status/842548605525331969?ref_src=twsrc%5Etfw) 
+[![](https://ww1.sinaimg.cn/large/006tKfTcgy1fecshbe5u6j30jl05xdg8.jpg)](https://twitter.com/dan_abramov/status/842548605525331969?ref_src=twsrc%5Etfw)
 
-You can fight with React over when things happen, or you can let React do its thing and go with the flow. That’s what I mean when I say that Redux is *sometimes* easier than `setState()`, *even for beginners.*
+当问题发生时，你当然可以选择和 React 斗个你死我活；不过，你也可以选择让 React 顺其自然的工作。这就是我说**即使是对初学者而言**，Redux **有时** 都比 `setState` 更简单的原因。
 
-In concurrent systems, updates to state are typically handled in 1 of 2 ways:
+在并发系统中，state 更新通常按其中一种方式进行：
 
-- Locking or restricting access to state updates while other things are using the state, (e.g., `setState()`)or…
-- Employing immutability to eliminate shared mutable state, which allows unrestricted access to state, and new state creation at any point in time. (e.g., Redux)
+- 当其他程序（或代码）正在访问 state 时，禁止 state 的更新（例如 `setState()`）（译注：即常见的锁机制）
+- 引入不可变性来消除共享的可变 state，从而实现对 state 的无限制访问，并且可以在任何时间创建新 state（例如 Redux）
 
-In my opinion (after teaching both techniques to lots of students), the first way is much more error prone and confusing than the second way. When state updates are simply blocked (or in the case of `setState()`, batched or deferred), the correct solution to the problem is not immediately clear.
+在我看来（在向很多学生教授过这两种方法之后），相比于第二种方法，第一种方法更加容易导致错误，也更加容易令人困惑。当 state 更新被简单地阻塞时（在 `setState` 的例子中，也可以叫批处理化或延迟执行），解决问题的正确方法并不十分清晰明了。
 
-My default reaction when I encounter a `setState()` timing issue is simple: Move my state management up the tree, either to Redux (or MobX), or to a container component. I usually use and recommend Redux for [lots of reasons](https://medium.com/javascript-scene/10-tips-for-better-redux-architecture-69250425af44) , but obviously, that’s *not the right advice for everybody.*
+当遇到 `setState()` 的同步问题时，我的直觉反应其实是很简单的：将 state 的管理上移到 Redux（或 MobX） 或容器组件中。基于[多方面原因](https://medium.com/javascript-scene/10-tips-for-better-redux-architecture-69250425af44) ，我自己使用同时也推荐他人使用 Redux，但很显然，这**并不是一条放之四海而皆准的建议**。
 
-Redux has its own *gigantic learning curve,* but sidesteps shared mutable state and state update timing complexity, so I find that once I teach students to avoid mutations, it’s pretty smooth sailing, *without too many gotchas or roadblocks.*
+Redux 自有其**陡峭**的学习曲线，但它规避了共享的可变 state 以及 state 更新同步等复杂问题。因此我发现，一旦我教会了学生如何避免可变性，接下来基本就**一帆风顺**了。
 
-A newbie trying to learn Redux without any functional programming experience is probably going to have more trouble with Redux than they would with `setState()` — but at least there is a great set of [free](https://egghead.io/courses/getting-started-with-redux) [courses](https://egghead.io/courses/building-react-applications-with-idiomatic-redux)  on the topic, by the author of Redux.
+对于没有任何函数式编程经验的新手而言，学习 Redux 遇到的问题可能会比学习 `setState()` 遇到的更多 —— 但是，Redux 至少有很多其作者亲自讲授的[免费](https://egghead.io/courses/getting-started-with-redux) [教程](https://egghead.io/courses/building-react-applications-with-idiomatic-redux)
 
-React should take a page out of the Redux book: A great video tutorial on common React patterns and `setState()` gotchas would make an amazing addition to the React home-page.
+React 应当向 Redux 学习：有关 React 编程模式和 `setState()` 踩坑的视频教程定能让 React 主页锦上添花。
 
-#### Decide the State Before You Render ####
+#### 在渲染之前决定 State  ####
 
-Moving state management to a container component (or Redux) forces you to think differently about your component state by making it clear that *before you can render* a component, *its state must already be decided* (because you have to pass it in as props).
+将 state 管理移到容器组件（或 Redux）中能促使你从另一个角度思考组件 state 问题，因为这种情况下，在组件**渲染之前**，其** state 必须是既定的**（因为你必须将其作为 props 传下去）。
 
-That’s worth repeating:
+重要的事情说三遍：
 
-> Before you render, decide the state!
+> 渲染之前，决定 state！
+>
+> 渲染之前，决定 state！
+>
+> 渲染之前，决定 state！
 
-An obvious corollary is that trying to use `setState()` inside your `render()` method is an anti-pattern.
+说完三篇之后就可以得到一个显然的推论：在 `render()` 函数中调用 `setState()` 是反模式的。
 
-Calculating dependent state inside your render method is fine (e.g., if you have `firstName` and `lastName` and you want to calculate `fullName`, it’s OK to do that in `render()`), but I prefer to calculate dependent state in a container and pass it in as props to presentation components.
+在 `render` 函数中计算从属 state 是 OK 的（比如说， state 中有 `firstName` 和 `lastName`，据此你计算出 `fullName`，在 `render` 函数中这样做完全是 OK 的），但我还是倾向于在容器组件中计算出从属 state ，然后通过 props 将其传递给展示组件（presentation components）。
 
-### How Can setState() be Fixed? ###
+### setState()  该怎么治？ ###
 
-My preference would be to deprecate the object literal form of `setState()`. I know it’s (superficially) easier to understand and more convenient, but it’s also how a lot of new users get stuck, and I think it’s self-evident that somebody doing this:
+我倾向于废弃掉对象字面量形式的 `setState()`，我知道这（表面上看）更加易于理解也更加方便（译者：“这”指对象字面量形式的 `setState()`），但它也是坑之所在啊。用脚指头都能猜到，肯定有人这样写：
 
 ```
 state.count; // 0
@@ -221,73 +227,74 @@ this.setState({count: state.count + 1});
 this.setState({count: state.count + 1});
 ```
 
-Expects to see `{count: 3}` afterwards. I have not yet seen a case where a batched object merge on the same property was expected behavior. I would argue that if such cases exist, they’re too tightly coupled to implementation details of React to be advisable valid use-cases.
+然后天真就地以为 `{count: 3}`。批量化处理后对象的同名 props 被合并掉的情况几乎不可能是用户所期望的行为，反正我是没见过这种例子。要是真存在这种情况，那我必须说这跟 React 的实现细节耦合地太紧密了，根本不能作为有效参考用例。
 
-I would also like to see the API section of the `setState()` docs link to the in-depth [“State and Lifecycle”](https://facebook.github.io/react/docs/state-and-lifecycle.html)  guide, to provide much more detail on this topic to users who are trying to learn the ins and outs of `setState()`. Because it does not operate synchronously or return anything meaningful, simply describing its function signature without more thoroughly discussing its effects and behavior is not successfully onboarding new users.
+我也希望 API 文档中有关 `setState()` 的章节能够加上[“ state 和声明周期”](https://facebook.github.io/react/docs/state-and-lifecycle.html)这一深度指南的链接，这能给那些想要全面学习 `setState()` 的用户更多的细节内容。`setState()` 并非同步操作，也无任何有意义的返回结果，仅仅是简单地描述其函数签名而没有深入地探讨其各种影响和表现，这对初学者是极不友好的。
 
-They have to resort to hours of troubleshooting, Google searches, StackOverflow, and GitHub issues.
+初学者必须花上大量时间去找出问题：Google 上搜、StackOverflow 上搜、GitHub issues 里搜。
 
-### Why is setState() so Strict? ###
+### setState() 为何如此严苛？ ###
 
-The quirky behavior of setState() is not a bug. It’s a feature. In fact, you might say *it’s the whole reason that React exists in the first place.*
+setState() 的怪异表现并非 bug，而是特性。实际上，甚至可以说**这是 React 之所以存在的根本原因**。
 
-One of the driving motivations for React was to ensure deterministic renders: Given some application state, render some specific output. Ideally, given the same state, always render the same output.
+React 的一大创作动机就是保证确定性渲染：给定应用 state ，渲染出特定结果。理想情况下，给定 state 相同，渲染结果也应相同。
 
-In order to make that happen, React has to *manage mutation* by limiting when it can happen. We don’t just grab hold of the DOM and mutate it in place. Instead, React renders the DOM, and when some state changes, React decides how to render again. *We don’t render the DOM. React does.*
+为了达到此目的，当发生变化时，React 通过采取一些限制性手段来**管理**变化。我们不能随意取得某些 DOM 节点然后就地修改之。相反，React 负责 DOM 渲染；当 state 发生改变时，也由React 决定如何重绘。**我们不渲染 DOM，而是由 React 来负责**。
 
-But to do this in a way that doesn’t retrigger renders during the update cycle, React introduces a rule:
+为了避免在 state 更新的过程中触发重绘，React 引入了一条规则：
 
-The state that React uses to render can’t mutate during the DOM render process. *We don’t decide when component state gets updated. React does.*
+React 用于渲染的 state 不能在 DOM 渲染的过程中发生改变。**我们不能决定组件 state 何时得到更新，而是由 React 来决定**。
 
-Hence the confusion. When you call `setState()`, you think you’re setting the state. You’re not.
+困惑就此而来。当你调用 `setState()` 时，你以为你设置了 state ，其实并没有。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*cGqz_qxBGnJTsGygPe8ItQ.jpeg">
 
-“You keep using that word. I don’t think it means what you think it means.”
+“你就接着装逼，你以为你所以为的就是你所以为的吗？”
 
-### When Should We Use setState()? ###
+### 何时使用 setState()？ ###
 
-I use `setState()` almost exclusively for self-contained units of functionality that don’t need to persist state. In other words, things like reusable form validation components, custom date or time block selection widgets, data visualization widgets that let you customize their view state, etc…
+我一般只在不需要持久化 state 的自包含功能单元中使用 `setState()`，例如可复用的表单校验组件、自定义的日期或时间选择部件（widget）、可自定义界面的数据可视化部件等。
 
-I call components like that “widgets”, and they’re really made up of two or more components: a container for internal state management, and one or more child components which handle the actual DOM and presentation aspects.
+我称这种组件为“小部件（widget）”，它们一般由两个或两个以上组件构成：一个负责内部 state 管理的容器组件，一个或多个负责界面显示的子组件
 
-Here are some simple litmus tests:
+几条立见分晓的检验方法（litmus tests）：
 
-- Do other components rely on the state?
-- Do you need to persist the state? (Save it to local storage or send it to a server?)
+- 是否有其他组件是否依赖于该 state ？
+- 是否需要持久化 state ？（存储于 local storage 或服务器）
 
-If the answers to both of those questions is “no”, maybe it’s OK to use `setState()`. Otherwise, you might want to consider something else.
+如果这两个问题的答案都是“否”的话，那使用 `setState()` 基本是没问题的；否则，就要另作考虑了。
 
-At Facebook, as far as I understand, they use `setState()` managed by a [Relay container](https://facebook.github.io/relay/) to encapsulate different parts of the Facebook UI like mini applications inside the larger Facebook application. For them, it’s a great way to colocate their many complex data dependencies with the components that actually use them.
+据我所知，Facebook 使用受管于 [Relay container](https://facebook.github.io/relay/) 的 `setState()` 来包装 Facebook UI 的各个不同部分，例如大型 Facebook 应用内部的迷你型应用。于 Facebook 而言，以这种方式将复杂的数据依赖和需要实际使用这些数据的组件放在一起是很好的。
 
-I recommend similar strategies for very large (enterprise scale) applications. If your app has a whole lot of code (hundreds of thousands of LOC+), this may be a good strategy for you, too — but there’s no reason the approach can’t also scale down as well.
+对于大型（企业级）应用，我也推荐这种策略。如果你的应用代码量非常大（十万行以上），那此策略可能是很好的 —— 但这并不意味着这种方式就不能应用于小型应用中。
 
-There’s also no reason you can’t use a similar approach by instead breaking those different pieces into actually separate mini-applications which get composed into the larger application. I have done that with Redux for enterprise software. For example, I often separate analytics dashboards, messaging, admin, team/user role management, and billing management into totally separate apps with their own Redux stores. Such apps can share a domain along with common login/session management using API tokens and OAuth so that the apps feel like one connected app.
+类似地，并不意味着你不能将大型应用拆分成多个独立的迷你型应用。我自己就结合 Redux为企业级应用这样做过。例如，我经常将分析面板、消息管理、系统管理、团队/成员角色管理以及账单管理等模块拆分成多个独立的应用，每个应用都有其自己的 Redux store。通过 API tokens 和 OAuth，这些应用共享同一个域下的登录/session 管理，感觉就像是一个统一的应用。
 
-For most apps, I recommend **defaulting to Redux**. It’s worth noting that Dan Abramov (the creator of Redux) disagrees with me on that point. He rightly favors keeping apps as simple as they can be until they can’t be that simple anymore. The conventional community wisdom says “don’t use Redux until you feel the pain.”
+对于大多数应用，我建议**默认使用 Redux**。需要指出的是，Dan Abramov（Redux 的作者）在这一点上和我持相反的观点。他喜欢应用尽可能地保持简单，这当然没错。传统社区有句格言如是说：“除非真得感到痛苦，否则就别用 Redux”。
 
-My response is this:
+而我的观点是：
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*z_XSyNy2GoSEOipCeOVM_g.jpeg">
 
-“Those who are unaware they are walking in darkness will never seek the light”.
-As I mentioned already, *in some cases,* Redux is a simpler path than `setState()`. Redux simplifies state management by eliminating entire classes of bugs related to shared mutable state and timing dependencies.
+“不知道自己正走在黑暗中的人是永远不会去搜寻光明的“。
 
-Do learn `setState()`, but even if you decide you don’t want to use Redux in your app, **you should still learn Redux.** It will teach you new ways to think about application state, and probably help you simplify your application state no matter what other solution you choose for your app.
+正如我说过的，**在某些情况下**，Redux 比 `setState()` 更简单。通过消除一切和共享的可变 state 以及同步依赖有关的 bug，Redux 简化了 state 管理问题。
 
-For apps with a whole lot of derived state, [MobX](https://github.com/mobxjs/mobx)  is probably a better solution than `setState()` or Redux, because it’s very good at efficiently managing and organizing calculated state.
+`setState()` 肯定要学，但即使你不想使用 Redux，你也应该学学 Redux。无论你采用何种解决方案，它都能让你从新的角度思考去应用的 state 管理问题，也可能能帮你简化应用 state。
 
-Because of its granular observable subscription model, it’s also very good at rendering LOTS of dynamic DOM elements efficiently (tens of thousands). So if you’re building a graphical game, or a console that monitors all the instances of your enterprise microservices, it might be a great choice for visually displaying all that complex information in realtime.
+对于有大量衍生（derived ） state 的应用而言， [MobX](https://github.com/mobxjs/mobx) 可能会比 `setState()` 和 Redux 都要好，因为它非常擅于高效地管理和组织需要通过计算得到的（calculated ） state 。
 
-### Next Steps ###
+得利于其细粒度的、可观察的订阅模型，MobX也很擅于高效渲染大量（数以万计）动态 DOM 节点。因此，如果你正在开发的是一款图形游戏，或者是一个监控所有企业级微服务实例的控制台，那 MobX 可能是个很好的选择，它非常有利于实时地可视化展示这种复杂的信息。
 
-Want to learn a whole lot more about building software with React and Redux?
+### 接下来 ###
 
-[Learn JavaScript with Eric Elliott](http://ericelliottjs.com/product/lifetime-access-pass/) . If you’re not a member, you’re missing out!
+想要全面学习如何用 React 和 Redux 开发软件？
+
+[跟着 Eric Elliott 学 Javacript](http://ericelliottjs.com/product/lifetime-access-pass/)，机不可失时不再来！
 
 [<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*3njisYUeHOdyLCGZ8czt_w.jpeg">
 ](https://ericelliottjs.com/product/lifetime-access-pass/)
 
-***Eric Elliott*** *is the author of* [*“Programming JavaScript Applications”*](http://pjabook.com) *(O’Reilly), and* [*“Learn JavaScript with Eric Elliott”*](http://ericelliottjs.com/product/lifetime-access-pass/) . He has contributed to software experiences for **Adobe Systems** , **Zumba Fitness** , **The Wall Street Journal** , **ESPN** , **BBC** , and top recording artists including **Usher** , **Frank Ocean** , **Metallica**, and many more.
+**Eric Elliott** 是  [**“编写 JavaScript 应用”**](http://pjabook.com) （O’Reilly） 以及 [**“跟着 Eric Elliott 学 Javascript”**](http://ericelliottjs.com/product/lifetime-access-pass/) 两书的**作者**。他为许多公司和组织作过贡献，例如 **Adobe Systems**、**Zumba Fitness**、**The Wall Street Journal**、**ESPN**和**BBC**等 , 也是很多机构的顶级艺术家，包括但不限于 **Usher** , **Frank Ocean** , **Metallica**。
 
-*He spends most of his time in the San Francisco Bay Area with the most beautiful woman in the world.*
+大多数时间，他都在 San Francisco Bay Area，同这世上最美的女子在一起（译注：这是怕老婆呢还是怕老婆呢还是怕老婆呢？）。

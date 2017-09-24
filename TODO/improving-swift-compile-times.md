@@ -1,27 +1,28 @@
-* 原文地址：[Improving Swift compile times](https://medium.com/@johnsundell/improving-swift-compile-times-ee1d52fb9bd#.hfqaeq76p)
+> * 原文地址：[Improving Swift compile times](https://medium.com/@johnsundell/improving-swift-compile-times-ee1d52fb9bd#.hfqaeq76p)
 * 原文作者：[John Sundell](https://medium.com/@johnsundell?source=post_header_lockup)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
-* 校对者：
-# Improving Swift compile times #
+* 译者：[Deepmissea](http://deepmissea.blue)
+* 校对者：[atuooo](http://atuo.xyz)，[1992chenlu](https://github.com/1992chenlu)
 
-For all its awesomeness, one thing that can sometimes be quite cumbersome when working with Swift on a bit larger scale is how long it can *currently* take to compile. While it’s expected that compile times are going to be longer in Swift compared to, for instance, Objective-C — since the Swift compiler does so much more in terms of assuring runtime safety — I wanted to look into if we can somehow help the compiler out to make it able to work faster.
+# 优化 Swift 的编译时间
 
-So last week I dove into one of our larger Swift projects at [Hyper](http://www.hyper.no) . It has somewhere around 350 source files and 30,000 lines of code. In the end I managed to reduce the average time for a clean build on this project [by over 20%](https://twitter.com/johnsundell/status/837318595973611521)  — so I thought I’d spend this week’s blog post detailing how I did it.
+在 Swift 所有的特性中，有一件事有时会相当恼人，那就是在用 Swift 编写更大规模的项目时，它**一般**会编译多久。尽管 Swift 编译器在保证运行时安全方面做的更多，但是它的编译时间要比 Objective-C 编译时间长很多。（所以）我想研究一下，是否我们可以帮助编译器让他工作的更快。
 
-Now, before we begin, I just want to say that **I don’t intend this post to in any way be critisism towards Swift or the team working on it** — I know the developers working on the Swift compiler, both at Apple and in the open source community, are continuously making major improvements in both the speed, functionality and stability of the compiler. Hopefully this blog post will be rendered redundant over time, but until then I just want to provide some practical tips & tricks that I’ve found can make compile times faster.
+所以，上周我投身于 [Hyper](http://www.hyper.no) 上的一个较大的 Swift 项目。它大概有 350 个源文件以及 30,000 行的代码。最后我设法将这个项目的平均构建时间减少了 [20%](https://twitter.com/johnsundell/status/837318595973611521)。所以我想在我这周的博客上详细的介绍我是怎么做的。
 
-#### Step 1: Gather data ####
+现在，在我们开始之前，我只想说**我不想这篇文章以任何形式的方式来批判 Swift 或它的团队工作**。我知道 Swift 编译器的开发者，包含 Apple 公司和开源社区，都在持续地对编译器速度、功能和稳定性做出重大改进。希望这篇博文能随着时间的流逝而显得多余，但在那之前，我只是想提供一些我发现可以提升编译速度的实用技巧。
 
-Before starting any optimization work, it’s always good to establish a baseline that you can measure your improvements against. For me, this was done through two simple scripts that I added as *Run script phases* for the app’s target in Xcode.
+#### Step 1: 采集数据
 
-Before *Compile Sources*, I added the following script:
+在开始优化工作之前，建立一个能衡量你改进的基准总是好的。我是通过在 Xcode 里，给应用的 target 添加两个简单的脚本作为**运行脚本阶段**来实现的。
+
+在**编译源文件**之前，添加下面的脚本：
 
 ```
 echo "$(date +%s)" > "buildtimes.log"
 ```
 
-and at the end, I added this script:
+在最后，添加这个脚本：
 
 ```
 startime=$(<buildtimes.log)
@@ -32,25 +33,25 @@ newline=$'\n'
 echo "[Start] $startime$newline[End] $endtime$newline[Delta] $deltatime" > "buildtimes.log"
 ```
 
-Now, this measures only the time it takes to compile the **app’s own source files** (in order to measure the compile time for the entire app, you could use Xcode behaviors to hook into the *Build Starts* and *Build Succeeds* events). Since compile times vary a lot depending on what machine the code is being compiled on — I also *git ignored buildtimes.log*.
+现在，这个脚本只会测算编译器编译**应用自己的源文件**的时间（为了测量出整个引用的编译时间，你可以使用 Xcode 的特性来挂载(hook)到 **Build Starts** 和 **Build Succeeds** 上）。由于编译时间非常依赖于编译它的设备，所以我也 **git ignored 了 buildtimes.log 文件**。
 
-Next, I wanted to highlight what specific code blocks that take extra long to compile, in order to identify bottlenecks that I could then fix. To do this, you can simply set a threshold by passing the following arguments to the Swift compiler under the *Other Swift Flags *build setting in Xcode:
+接下来，我想突出哪些个别代码块耗费了额外的长时间来编译，以便识别瓶颈，这样我就可以修复它。要做到这个，只需要通过向 Xcode 中 Build Setting 里的 **Other Swift Flags** 传递下面的参数给 Swift 编译器来设置一个临界值：
 
 ```
 -Xfrontend -warn-long-function-bodies=500
 ```
 
-Using the above arguments you will get a warning if any function in your project takes more than **500 miliseconds** to compile. This is the threshold I started out with (and the continously lowered it as I fixed more and more bottlenecks).
+使用上面的参数后，在你的项目中，如果有任何函数耗费了超过 500 毫秒的编译时间，你就会得到一个警告。这是我开始设置的临界值（并且随着我对更多瓶颈的修复，这个值在不断的降低）。
 
-#### Step 2: Fix all the warnings ####
+#### Step 2: 消除所有的警告
 
-When enabling warnings for long function compile times, you will probably start to see a few of them in your project. At first, it can look seemingly random that a function takes long to compile, but soon patterns start to emerge. Here are two common patterns that I’ve noticed take particularly long to compile using the Swift 3.0 compiler:
+在设置了函数编译时间过长的警告之后，你可能会在项目中开始发现一些。最开始，你会觉得编译时间过长的函数是随机的，但是很快模式（patterns）就开始出现了。这里我注意到了两个使 Swift 3.0 编译器编译函数时间过长的常见模式：
 
-**Custom operators (especially overloaded ones with generic parameters)**
+**自定义运算符（特别是带有通用参数的重载）**
 
-One of the concepts that were new to many iOS & macOS developers when Swift came out is operator overloads, and like many new shiny things — we get excited about trying them out. Now, I’m not going to argue here whether custom operators & overloads are good or bad, but they can have a pretty big impact on compile times, especially if used it more complex expressions.
+当 Swift 出现时，对于大多数 iOS 和 macOS 开发者来说，运算符重载是全新的概念之一，但就像许多新鲜事物一样，我们很兴奋的使用它们。现在，我不打算在这讨论自定义或重载运算符是好是坏，但它们的确对编译时间有很大影响，尤其是如果使用更加复杂的表达式。
 
-Consider the following operator, that adds two *IntegerConvertible* numbers to form a custom number type:
+思考下面的运算符，它将两个 **IntegerConvertible** 类型的数字加起来，构成了自定义的数字类型：
 
 ```
 func +<A: IntegerConvertible,
@@ -59,7 +60,7 @@ func +<A: IntegerConvertible,
 }
 ```
 
-Which we then use to add a few numbers:
+然后我们用它来让几个数字相加：
 
 ```
 func addNumbers() -> CustomNumber {
@@ -71,7 +72,7 @@ func addNumbers() -> CustomNumber {
 }
 ```
 
-Looks simple enough, but the above* addNumbers()* function takes quite a long time to compile (over *300 ms* on my late 2013 MBP). Compare that to if we implement the same logic but using a protocol extension instead:
+看上去很简单，但是上面的 **addNumbers()** 函数会花费很长一段时间来编译（在我 2013 年的 MBP 上超过 **300 ms**）。对比一下，如果我们用协议扩展来实现相同逻辑：
 
 ```
 extension IntegerConvertible {
@@ -88,13 +89,13 @@ func addNumbers() -> CustomNumber {
 }
 ```
 
-With this change, our *addNumbers()* function now takes **less than 1 ms to compile**. That’s **~300 times faster!**
+通过这个改变，我们的 **addNumbers()** 函数现在编译时间**不到 1 ms**。**这快了 300 倍！**
 
-So, if you are making heavy use of custom/overloaded operators, especially ones with generic parameters (or if you’re using 3rd party libraries that do so — like many Auto Layout libraries), consider rewriting the same logic but using normal functions, protocol extensions or some other technique instead.
+所以，如果你大量的使用了自定义/重载运算符，特别是带有通用参数的（或者如果你使用的第三方库来做这些，比如许多自动布局的库），考虑一下用普通函数、协议扩展或其他的技术来重写吧。
 
-**Collection literals**
+**集合字面量**
 
-Another pattern that I’ve found to often become a compile time bottleneck is the use of collection literals, especially when the compiler needs to do a lot of work to infer the type of those literals. Let’s say you have a method that converts a model into a JSON-like dictionary, like this:
+另一个我发现的编译时间瓶颈是使用集合字面量，特别是编译器需要做很多工作来推断那些字面量的类型。让我们假设你有一个函数，它要把模型转换成一个类似 JSON 的字典，像这样：
 
 ```
 extension User {
@@ -116,7 +117,7 @@ extension User {
 }
 ```
 
-The above* toJSON()* function takes my computer about *500 ms* to compile. Now let’s try to construct that very same dictionary line-by-line instead of using a literal:
+上面 **toJSON()** 函数在我的电脑上大概要 **500 ms** 的时间来编译。现在让我们试着逐行重构这个像字典的东西来代替字面量：
 
 ```
 extension User {
@@ -138,14 +139,14 @@ extension User {
 }
 ```
 
-It now compiles in around *5 ms* — **100 times faster!**
+它现在编译时间大概在 **5 ms** 左右，**提高了 100 倍！**
 
-#### Step 3: Conclusions ####
+#### Step 3: 结论 ####
 
-What both of the above examples make very clear is that some of the nice features of the Swift compiler, such as type inference and overloading, come at a time cost. This is, if we think about it, quite logical. Since the compiler has to do more work to perform inference, it will take longer. But as we can also see above, if we just slightly tweak our code to help the compiler resolve our expressions more easily — we can dramatically speed up our compile times.
+上面的两个例子非常清晰的说明了 Swift 编译器的一些新特性，比如类型推演和重载，都是付出了时间开销。如果我们仔细思考一下，也很符合逻辑。由于编译器不得不做更多的工作来执行推演，所以花费了更多的时间。但是我们也看到了，如果我们稍微调整一下我们的代码，帮助编译器更简单的解决表达式，我们就可以很大程度的加快编译时间。
 
-Now, I’m not saying that you should always let compile times guide your decisions on how to write code. Sometimes it may be worth having the compiler do more work, if it makes your code clearer and easier to understand. But in large projects, coding techniques that drive compile times up in the 300–500 ms range (or higher) per function can quite quickly become a problem. My suggestion would be to keep monitoring your compile times, set a reasonable threshold for warnings using the above mentioned compiler flags, and address problems whenever they occur.
+现在，我不是说你要一直让编译时间来决定你写代码的方式。有时可以让它做更多的工作，让你的代码更加清晰并且容易理解。但是在大型的项目中，每个函数要用 300-500 ms 范围（或更多）的时间来编译的编码技术可能很快就会成为一个问题。我的建议是对你的编译时间保持监控，使用上面的编译标记设置一个合理的临界值，并在发现问题的时候解决问题。
 
-I’m sure the examples above don’t cover all potential areas of compile time improvements, so I’d love to hear from you if you have any other techniques that you’ve found useful to speed up compile times in large Swift projects. Either post a response here on Medium, or contact me on [**Twitter @johnsundell**](https://twitter.com/johnsundell).
+我确信上面的例子肯定没有涵盖所有潜在的编译时间改进的方法，所有我很愿意听到你的意见。如果你有任何有用的改进大型 Swift 项目编译时间的其他的技术，你可以写在 Medium 上回复，或者在 [**Twitter @johnsundell**](https://twitter.com/johnsundell) 上联系我。
 
-Thanks for reading! 🚀
+感谢阅读！🚀
