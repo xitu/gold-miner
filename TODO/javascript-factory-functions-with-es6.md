@@ -4,7 +4,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/javascript-factory-functions-with-es6.md](https://github.com/xitu/gold-miner/blob/master/TODO/javascript-factory-functions-with-es6.md)
 > * 译者：[lampui](https://github.com/lampui)
-> * 校对者：
+> * 校对者：[IridescentMia](https://github.com/IridescentMia)、[sunui](https://github.com/sunui)
 
 # ES6+ 中的 JavaScript 工厂函数（第八部分）
 
@@ -103,7 +103,7 @@ console.log(createUser({ userName: 'echo', avatar: 'echo.png' }));
 
 箭头函数（`=>`）具有隐式返回的特性：如果函数体由单个表达式组成，则可以省略 `return` 关键字。`()=>'foo'` 是一个没有参数的函数，并返回字符串 `"foo"`。
 
- 返回对象字面量时要小心。当使用大括号时，JavaScript 默认你创建的是一个函数体，例如 `{ broken: true }`。如果你需要返回一个明确的对象字面量，那你就需要通过使用圆括号将对象字面量包起来以消除歧义，如下所示：
+返回对象字面量时要小心。当使用大括号时，JavaScript 默认你创建的是一个函数体，例如 `{ broken: true }`。如果你需要返回一个明确的对象字面量，那你就需要通过使用圆括号将对象字面量包起来以消除歧义，如下所示：
 
 ```
 const noop = () => { foo: 'bar' };
