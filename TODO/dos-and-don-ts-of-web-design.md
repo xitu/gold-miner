@@ -3,7 +3,7 @@
   > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
   > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/dos-and-don-ts-of-web-design.md](https://github.com/xitu/gold-miner/blob/master/TODO/dos-and-don-ts-of-web-design.md)
   > * 译者：[吃土小2叉](https://github.com/xunge0613)
-  > * 校对者：
+  > * 校对者：[michaelia](https://github.com/michaelia)、[Hyde Song](https://github.com/HydeSong)
 
   ![](https://cdn-images-1.medium.com/max/1600/1*w32GqveebJfDRnxcScB7lw.png)
 
