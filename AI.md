@@ -1,3 +1,5 @@
+* [搭建个人深度学习平台](https://juejin.im/post/59be8e2b5188252c24746e9c?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([RichardLeeH](https://github.com/RichardLeeH) 翻译)
+* [Uber 机器学习平台 — 米开朗基罗](https://juejin.im/post/59c8b4d56fb9a00a4843b2a6?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lsvih](https://github.com/lsvih) 翻译)
 * [基于 TensorFlow 的上下文聊天机器人](https://juejin.im/entry/5992cd385188252433704fa3?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([edvardHua](https://github.com/edvardHua) 翻译)
 * [使用 AI 为 Web 网页增加无障碍功能](https://juejin.im/post/59a51e91f265da2499603c8c?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lsvih](https://github.com/lsvih) 翻译)
 * [在 Airbnb 使用机器学习预测房源的价值](https://juejin.im/post/59acfc336fb9a0249471e47d?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lsvih](https://github.com/lsvih) 翻译)
