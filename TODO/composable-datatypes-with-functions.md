@@ -7,7 +7,7 @@ Eric Elliott](https://medium.com/@_ericelliott?source=post_header_lockup)
 > * 译者：[yoyoyohamapi](https://github.com/yoyoyohamapi)
 > * 校对者：
 
-# 借助函数完成可组合的数据类型（第十部分）
+# 借助函数完成可组合的数据类型（软件编写）（第十部分）
 
 ![Smoke Art Cubes to Smoke — MattysFlicks — (CC BY 2.0)](https://cdn-images-1.medium.com/max/800/1*uVpU7iruzXafhU2VLeH4lw.jpeg)（译注：该图是用 PS 将烟雾处理成方块状后得到的效果，参见 [flickr](https://www.flickr.com/photos/68397968@N07/11432696204)。）
 
