@@ -4,14 +4,15 @@
 Eric Elliott](https://medium.com/@_ericelliott?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/javascript-monads-made-simple.md](https://github.com/xitu/gold-miner/blob/master/TODO/javascript-monads-made-simple.md)
-> * 译者：
+> * 译者：[yoyoyohamapi](htttps://github.com/yoyoyohamapi)
 > * 校对者：
 
-# JavaScript Monads Made Simple
+# JavaScript 让 Monad 更简单
 
-![Smoke Art Cubes to Smoke — MattysFlicks — (CC BY 2.0)](https://cdn-images-1.medium.com/max/800/1*uVpU7iruzXafhU2VLeH4lw.jpeg)
+![Smoke Art Cubes to Smoke — MattysFlicks — (CC BY 2.0)](https://cdn-images-1.medium.com/max/800/1*uVpU7iruzXafhU2VLeH4lw.jpeg)（译注：该图是用 PS 将烟雾处理成方块状后得到的效果，参见 [flickr](https://www.flickr.com/photos/68397968@N07/11432696204)。）
 
-> Note: This is part of the “Composing Software” series on learning functional programming and compositional software techniques in JavaScript ES6+ from the ground up. Stay tuned. There’s a lot more of this to come!
+> 这是 “软件编写” 系列文章的第十一部分，该系列主要阐述如何在 JavaScript ES6+ 中从零开始学习函数式编程和组合化软件（compositional software）技术（译注：关于软件可组合性的概念，参见维基百科
+ +> [< 上一篇](https://medium.com/javascript-scene/composable-datatypes-with-functions-aec72db3b093) | [<< 返回第一篇](https://github.com/xitu/gold-miner/blob/master/TODO/the-rise-and-fall-and-rise-of-functional-programming-composable-software.mda)
 
 Before you begin to learn monads, you should already know:
 
@@ -59,7 +60,7 @@ This example did not include arrays of arrays, but you can flatten arrays in JS 
 [].concat.apply([], [[1], [2, 3], [4]]); // [1, 2, 3, 4]
 ```
 
-## You’re probably already using monads.
+## 你早就用过 Monad 了
 
 Regardless of your skill level or understanding of category theory, using monads makes your code easier to work with. Failing to take advantage of monads may make your code harder to work with (e.g., callback hell, nested conditional branches, more verbosity).
 
@@ -188,7 +189,7 @@ Remember the essence of monads:
 
 In this case, our monads are really promises, so when we compose these promise-returning functions, we have a `Promise(User)` instead of the `User` that `hasPermission()` is expecting. Notice that if you took the outer `Monad()` wrapper off of `Monad(Monad(a))`, you'd be left with `Monad(a) => Monad(b)`, which is just the regular functor `.map()`. If we had something that could flatten `Monad(x) => x`, we'd be in business.
 
-## What Monads are Made of
+## Monad 的构成
 
 A monad is based on a simple symmetry — A way to wrap a value into a context, and a way to unwrap the value from the context:
 
@@ -270,7 +271,7 @@ You may have heard that a promise is not strictly a monad. That’s because it w
 
 But because it behaves differently for promise values and other values, `.then()` does not strictly obey all the mathematical laws that all functors and/or monads must satisfy for all given values. In practice, as long as you're aware of that behavior branching, you can usually treat them as either. Just be aware that some generic composition tools may not work as expected with promises.
 
-## Building monadic (aka Kleisli) composition
+## 构建 monadic 组合（也叫做 Kleisli 组合）
 
 Let’s take a deeper look at the `composeM` function we used to compose promise-lifting functions:
 
@@ -381,7 +382,7 @@ const composeMap = composeM('map');
 const composeFlatMap = composeM('flatMap');
 ```
 
-## The monad laws
+## Monda 定律
 
 Before you can start building your own monads, you need to know there are three laws that all monads should satisfy:
 
@@ -389,7 +390,7 @@ Before you can start building your own monads, you need to know there are three 
 2. Right identity: `m.chain(unit) ==== m`
 3. Associativity: `m.chain(f).chain(g) ==== m.chain(x => f(x).chain(g))`
 
-## The Identity Laws
+## 同一律（Identity Law）
 
 ![Left and right identity](https://cdn-images-1.medium.com/max/800/1*X_bUJJYudP8MlhN0FLEGKg.png)
 
@@ -398,7 +399,7 @@ A monad is a functor. A functor is a morphism between categories, `A -> B`. The 
 
 ![Identity morphisms](https://cdn-images-1.medium.com/max/800/1*3jcLj7wdwWaUJ22X2iT7OA.png)
 
-## Associativity
+## 结合律（Associativity）
 
 Associativity just means that it doesn’t matter where we put the parenthesis when we compose. For example, if you’re adding, `a + (b + c)` is the same as `(a + b) + c`. The same holds true for function composition: `(f ∘ g) ∘ h = f ∘ (g ∘ h)`.
 
@@ -408,7 +409,7 @@ The same holds true for Kleisli composition. You just have to read it backwards.
 h(x).chain(x => g(x).chain(f)) ==== (h(x).chain(g)).chain(f)
 ```
 
-## Proving the Monad Laws
+## Monda 的定律证明
 
 Let’s prove that the identity monad satisfies the monad laws:
 
@@ -459,7 +460,7 @@ Let’s prove that the identity monad satisfies the monad laws:
 }
 ```
 
-## Conclusion
+## 总结
 
 Monads are a way to compose type lifting functions: `g: a => M(b)`, `f: b => M(c)`. To accomplish this, monads must flatten `M(b)` to `b` before applying `f()`. In other words, functors are things you can map over. Monads are things you can flatMap over:
 
@@ -492,22 +493,19 @@ This makes monads a very powerful tool to simplify your code. You don’t have t
 
 No need to fear Lady Monadgreen’s curse.
 
-## Level Up Your Skills with Live 1:1 Mentorship
+## 通过一对一辅导提升你的 JavaScript 技巧
 
-DevAnywhere is the fastest way to level up to advanced JavaScript skills:
+DevAnyWhere 能帮助你最快进阶你的 JavaScript 能力：
 
-- Live lessons
-- Flexible hours
-- 1:1 mentorship
-- Build real production apps
+- 直播课程
+- 灵活的课时
+- 一对一辅导
+- 构建真正的应用产品
 
 [![https://devanywhere.io/](https://cdn-images-1.medium.com/max/800/1*pskrI-ZjRX_Y0I0zZqVTcQ.png)](https://devanywhere.io/)
 
-**Eric Elliott** is the author of [“Programming JavaScript Applications”](http://pjabook.com/) (O’Reilly), and [“Learn JavaScript with Eric Elliott”](http://ericelliottjs.com/product/lifetime-access-pass/). He has contributed to software experiences for **Adobe Systems**, **Zumba Fitness**, **The Wall Street Journal**, **ESPN**, **BBC**, and top recording artists including **Usher**, **Frank Ocean**, **Metallica**, and many more.
+**Eric Elliott** 是  [**“编写 JavaScript 应用”**](http://pjabook.com) （O’Reilly） 以及 [**“跟着 Eric Elliott 学 Javascript”**](http://ericelliottjs.com/product/lifetime-access-pass/) 两书的作者。他为许多公司和组织作过贡献，例如 **Adobe Systems**、**Zumba Fitness**、**The Wall Street Journal**、**ESPN** 和 **BBC** 等 , 也是很多机构的顶级艺术家，包括但不限于 **Usher**、**Frank Ocean** 以及 **Metallica**。
 
-He spends most of his time in the San Francisco Bay Area with the most beautiful woman in the world.
-
-
----
+大多数时间，他都在 San Francisco Bay Area，同这世上最美丽的女子在一起。
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[React](https://github.com/xitu/gold-miner#react)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计) 等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
