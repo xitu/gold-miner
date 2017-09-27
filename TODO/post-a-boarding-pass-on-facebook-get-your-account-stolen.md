@@ -4,7 +4,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/post-a-boarding-pass-on-facebook-get-your-account-stolen.md](https://github.com/xitu/gold-miner/blob/master/TODO/post-a-boarding-pass-on-facebook-get-your-account-stolen.md)
 > * 译者：[lampui](https://github.com/lampui)
-> * 校对者：
+> * 校对者：[Tina92](https://github.com/Tina92)
 
 # 在 Facebook 发一张登机牌，你就有可能被盗号了
 
@@ -12,13 +12,13 @@
 
 ## 一趟前往香港的旅行
 
-我认识 [Petr Mára](http://www.petrmara.com/) 好几年了，他是一个很 nice 的人，同时他也是一位演讲者、训练者、视频主播及 IOS & macOS 的发烧友。他还很爱去旅行，在 2016 年 5 月，他就带着她妻子一起去了趟香港庆祝她的生日，但 Petr 没有说他们会去多久，当然，我最后还是知道了！在 Petr 还没飞的时候，他发了一条动态，[这条动态](https://www.instagram.com/p/BF06blXmUXF/)上面有一个订单号 YJVFKG 和一些条码在登机牌上，就是那一刻，我知道了他要在香港呆多久。一般而言，你最好别公开任何印有订单号、二维码或条码的登机牌、票据。
+我认识 [Petr Mára](http://www.petrmara.com/) 好几年了，他是一个很友好的人，同时他也是一位演讲者、训练者、视频主播及 IOS & macOS 的发烧友。他还很爱去旅行，在 2016 年 5 月，他就带着她妻子一起去了趟香港庆祝她的生日，但 Petr 没有说他们会去多久，当然，我最后还是知道了！在 Petr 还没飞的时候，他发了一条动态，[这条动态](https://www.instagram.com/p/BF06blXmUXF/)上面有一个订单号 YJVFKG 和一些条码在登机牌上，就是那一刻，我知道了他要在香港呆多久。一般而言，你最好别公开任何印有订单号、二维码或条码的登机牌、票据。
 
 ![英国航空公司登机牌](https://www.michalspacek.cz/i/images/blog/boardingpass/ba-pass.jpg)
 
 Petr Mára 发的这条动态
 
-这趟航班从伦敦起飞，大概要飞 12 个小时，所以他们*只呆 5 天*？为了要找到 Petr 在香港的起降机场，上[英国航空公司官网](https://www.britishairways.com/travel/managebooking/public/en_cz)就够了，在右边的输入框输入他的订单号。提交了订单号之后我才发现，除了其他事情之外，Petr 已经把所需的数据都填好了，也不奇怪，他人都在香港了。然后下面有一个 _View or change details_ 的红色按钮。你应该懂的，你看到一个红色按钮，你就要点它，所以我点了。
+这趟航班从伦敦起飞，大概要飞 12 个小时，所以他们**只待 5 天**？只要上[英国航空公司官网](https://www.britishairways.com/travel/managebooking/public/en_cz)，并在右边的输入框输入他的订单号，然后你就可以找到 Petr 在香港的起降机场了。提交了订单号之后我才发现，除了其他事情之外，Petr 已经把所需的数据都填好了。也不奇怪，他人都在香港了。然后下面有一个 _View or change details_ 的红色按钮。你应该懂的，你看到一个红色按钮，你就要点它，所以我点了。
 
 ![British Airways login form](https://www.michalspacek.cz/i/images/blog/boardingpass/ba-login.png)
 
@@ -34,7 +34,7 @@ Petr Mára 发的这条动态
 
 Petr 的详细信息
 
-最终，我找到了他的护照号码！我甚至可以修改它！酷！我可以令那小两口在香港呆得*更久一点*。只需输入一个国际通缉犯或是其他什么的护照号码。
+最终，我找到了他的护照号码！我甚至可以修改它！酷！我可以令 Pter 和 他妻子在香港庆祝生日得*更久一点*。只需输入一个国际通缉犯或是其他什么的护照号码。
 
 我没有修改任何信息，也没有告诉 Petr。我也很抱歉，因为我试着猜测他妻子的生日而令他在接下来的 24 小时以内不能访问他的预订页面。当然啦，之后我谷歌到了他妻子的生日。非常感谢 Petr 知道这件事后还是对我这么友好！5 个月后，从他[下一条发有登机牌的朋友圈](https://www.instagram.com/p/BMOpEFWBV-Y/)就知道，Petr 已经上了一堂课 — 订单号或条码都要打码。
 
@@ -46,7 +46,7 @@ Petr 的详细信息
 
 Instagram 中的随机条码
 
-Anna 的全名叫 Anna Ferenčáková，在 2017 年 4 月，她从布拉格飞往塞尔维亚的首都 — 贝尔格莱德。你扫了那个条码就能知道这些信息了！条码也可以在“遗忘”登机牌或其他地方被找到。
+Anna 的全名叫 Anna Ferenčáková，在 2017 年 4 月，她从布拉格飞往塞尔维亚的首都 — 贝尔格莱德。你扫了那张照片上的条形码就能知道这些信息了！条码也可以在“遗忘”登机牌或其他地方被找到。
 
 ![Barcode Scanner screenshot](https://www.michalspacek.cz/i/images/blog/boardingpass/anna-ferencakova.jpg)
 
@@ -58,7 +58,7 @@ Anna 的全名叫 Anna Ferenčáková，在 2017 年 4 月，她从布拉格飞�
 
 智能手表上的 Aztec 二维码
 
-这只手（和手表）是 Stephen Fenech 的，这张照片是拍在她从旧金山去往纽约的途中。我们又一次知道了这些信息，因为我们扫了 Aztec 二维码。我们可以通过阅读这篇[关于在"智能"手表上使用登机牌的陷井](http://www.techguide.com.au/blog/boarding-pass-experience-with-apple-watch-ran-off-the-runway/)，你的手腕 – 只是不适合一些扫描仪。在 Aztec 二维码还有一项重要的信息：一个代表该旅客是频繁飞行旅客的号码。 Fenech 先生的这个号码是 `4708760`。
+这只手（和手表）是 Stephen Fenech 的，这张照片是拍在她从旧金山去往纽约的途中。我们又一次知道了这些信息，因为我们扫了 Aztec 二维码。我们可以通过阅读这篇[关于在"智能"手表上使用登机牌的陷井](http://www.techguide.com.au/blog/boarding-pass-experience-with-apple-watch-ran-off-the-runway/)，你的手腕 – 只是不适合一些扫描仪。在 Aztec 二维码还有一项重要的信息：一个代表该旅客是频繁飞行旅客的号码。Fenech 先生的这个号码是 `4708760`。
 
 ![Barcode Scanner screenshot](https://www.michalspacek.cz/i/images/blog/boardingpass/stephen-fenech.jpg)
 
@@ -66,7 +66,7 @@ Anna 的全名叫 Anna Ferenčáková，在 2017 年 4 月，她从布拉格飞�
 
 ## 盗号
 
-当在 Facebook 搜索登机牌的时候，我找到了一张有 Aztec 二维码的照片，这张照片是一个匿名男子拍的。他在某个圈子很有名，Twitter 上大概有 120,000 名的粉丝，在欧洲和美国也*有些背景*。这个二维码包含了他在联合航空公司的频繁飞行旅客号码。这间航空公司对待这些号码就像对待高级秘密访问口令。如果他们需要将这些号码打印到官方文件，他们只会显示最后 3 位数字，而其他位则会隐蔽，就想密码那样。在 Aztec 二维码中扫出来的频繁飞行旅客号码是完整的，当然，所以我在想利用它并黑进那个人的账户。为什么不黑呢，对吧，这应该不会*那么简单*。
+当在 Facebook 搜索登机牌的时候，我找到了一张有 Aztec 二维码的照片，这张照片是一个匿名男子拍的。他在某个圈子很有名，Twitter 上大概有 120,000 名的粉丝，在欧洲和美国也**有些背景**。这个二维码包含了他在联合航空公司的频繁飞行旅客号码。这间航空公司对待这些号码就像对待高级秘密访问口令。如果他们需要将这些号码打印到官方文件，他们只会显示最后 3 位数字，而其他位则会隐蔽，就像密码那样。在 Aztec 二维码中扫出来的频繁飞行旅客号码是完整的，当然，所以我在想利用它并黑进那个人的账户。为什么不黑呢，对吧，这应该不会**那么简单**。
 
 所以我上了联合航空公司的官网，选择了[忘记密码](https://www.united.com/ual/en/us/account/security/passwordrecovery)，然后输入从 Aztec 二维码得来的名字和号码，接着用了几秒时间回答了 2 个安全问题：“你访问的第一个大城市？”和“你最喜爱的冬季运动？”，第一个问题的答案就是那个人的出生地，第二个问题的答案在高山国家的话肯定不是高尔夫。系统无误地将*我*认定为账号的*真实主人*，然后我可以给*他的账号*设置一个新密码。**更新 8 月 25 日**：这件事情发生在 2016 年 6 月，联合航空公司已经[加多了一项保护措施](https://twitter.com/benholley/status/900800557753016320)，他们会要求用户点击一条发送到用户邮箱里的修改密码链接，看来我现在能发送这样的电子邮件了。
 
@@ -76,7 +76,7 @@ Anna 的全名叫 Anna Ferenčáková，在 2017 年 4 月，她从布拉格飞�
 
 我没有设置一个新密码，我并不想给任何人带来麻烦。我发了一条消息给那个人，就像我发了条消息给 Petr Mára 一样。他已经在 Facebook（但 Twitter 上还在）删除了那张含有 Aztec 二维码的照片。但他不信我可以劫持他的账户，他以为联合航空公司网站会发个新密码给他。
 
-经过一番简单的解释之后，他懂了！ *Oh shit，你是对的！你可以把密码给改了！这简直就是疯了！*没错，确实是这样。就因为他上传了他的登机牌，我可以盗他的号！也许未来的买卖会有储蓄支付卡，又或者我可以令他在某个地方*卡死*。
+经过一番简单的解释之后，他懂了！ **Oh shit，你是对的！你可以把密码给改了！这简直就是疯了！**没错，确实是这样。就因为他上传了他的登机牌，我可以盗他的号！也许未来的买卖会有储蓄支付卡，又或者我可以令他在某个地方**卡死**。
 
 ## 别公开任何含有代码的图片
 
