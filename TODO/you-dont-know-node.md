@@ -3,88 +3,88 @@
 > * 原文作者：[Samer Buna](https://medium.com/@samerbuna?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/you-dont-know-node.md](https://github.com/xitu/gold-miner/blob/master/TODO/you-dont-know-node.md)
-> * 译者：
+> * 译者：[lampui](https://github.com/lampui)
 > * 校对者：
 
-# You don’t know Node
+# 你不知道的 Node
 
 ![Official Nodejs logo from nodejs.org](https://cdn-images-1.medium.com/max/2000/1*q9ww_u32hhpMaA-Q_s1ujw.png)
 
-At this year’s Forward.js conference (a JavaScript one), I gave a talk titled “You don’t know Node”. In that talk, I challenged the audience with a set of questions about the Nodejs runtime and most of the _technical_ audience could not answer most of the questions.
+在今年的 Forward.js 大会（一个 JavaScript 峰会），我进行了一场主题为“你不知道的 Node” 的演讲，在那场演讲中，我用了一套关于 Node.js 运行时的问题考了考现场的听众，然而大部分*搞技术*的听众都不能全部回答得上。
 
-I didn’t really measure that but it certainly felt so in the room and a few brave people approached me after the talk and confessed to the fact.
+我当时并没有真的计算过，直到演讲完了才有一些勇敢的人过来跟我坦白说他们不会。
 
-Here is the problem that made me give that talk. I don’t think we teach Node the right way! Most educational content about Nodejs focuses on Node packages and not its runtime. Most of these packages wrap modules in the Node runtime itself (like _http_, or _stream_). When you run into problems, these problems might be inside the runtime itself and if you don’t know the Node runtime, you are in trouble.
+这个问题正是让我发表演讲的原因，我并不认为我们教授 Node 的方式是对的。大多数关于 Nodejs 的教材内容主要集中在 Node 包和 Node 运行时之外的地方，大多数这些包都在 Node 运行时封装好了模块（例如 _http_ 或 _stream_），问题可能是藏在运行时里面，然而你不懂 Node 运行时的话，你就麻烦了。
 
-> The problem: most educational content about Nodejs focuses on Node packages and not its runtime.
+> 问题：大多数关于 Nodejs 的教材内容主要集中在 Node 包和 Node 运行时之外的地方。
 
-I picked a few questions and answers to feature for this article. They are presented in headers below. Try to answer them in your head first!
+我挑选了几个问题并组织了一些答案来写成这篇文章，答案就在问题的下面，建议尝试先自己回答。
 
-If you find a wrong or misleading answer here, please let me know.
+如果哪里有错或误导了你，请跟我联系。
 
-## Question #1: What is the Call Stack and is it part of V8?
+## 问题 #1：什么是回调栈？它是 V8 的一部分吗？
 
-The Call Stack is definitely part of V8\. It is the data structure that V8 uses to keep track of function invocations. Every time we invoke a function, V8 places a reference to that function on the call stack and it keeps doing so for each nested invocation of other functions. This also includes functions that call themselves recursively.
+回调栈百分之百就是 V8 的一部分，它是 V8 用来追踪函数调用的数据结构。每一次我们调用一个方法，V8 在调用栈中放置一个引用到那个方法，并且 V8 对每个其他方法的嵌套调用也这样操作，同时也包括那些自身递归调用的方法。
 
 ![Screenshot captured from my Pluralsight course — Advanced Node.js](https://cdn-images-1.medium.com/max/800/1*9xKwtu4Gq-a7Pj_tWJ-tog.png)
 
-When the nested invocations of functions reaches an end, V8 will pop one function at a time and use its returned value in its place.
+当方法的嵌套调用结束时，V8 会逐个地将方法从栈中 pop 出来，并在它的位置使用方法的返回值。
 
-Why is this important to understand for Node? Because you only get ONE Call Stack per Node process. If you keep that Call Stack busy, your whole Node process is busy. Keep that in mind.
+为什么这对于理解 Node 是如此关键？因为在每个 Node 进程中你只有一个调用栈。如果你令调用栈处于忙禄，你整个的 Node 进程也将变得忙碌。牢记这一点！
 
-## Question #2: What is the Event Loop? Is it part of V8?
+## 问题 #2:什么是事件循环？它是 V8 的一部分吗？
 
-Where do you think the event loop is in this diagram?
+你觉得事件循环在这张图的哪个部分？
 
 ![Screenshot captured from my Pluralsight course — Advanced Node.js](https://cdn-images-1.medium.com/max/800/1*nLwOhFq_i4XbxRWUoXMlQQ.png)
 
-The event loop is provided by the _libuv_ library. It is not part of V8.
+答案是 _libuv_ 。事件循环不是 V8 的一部分！
 
-The Event Loop is the entity that handles external events and converts them into callback invocations. It is a loop that picks events from the event queues and pushes their callbacks into the Call Stack. It is also a multi-phase loop.
+事件循环是操控外部事件并将它们转换为回调调用的实体，它是从事件队列中取出事件并将事件的回调函数推进调用栈的一个循环。并且该循环过程中分为多个独立的阶段。
 
-If this is the first time you are hearing of the Event Loop, these definitions will not be that helpful. The Event Loop is part of a much bigger picture:
+如果这是你第一次听说事件循环，这些概念对你可能帮助不大。事件循环是一副很大的轮廓图的其中一部分：
 
 ![Screenshot captured from my Pluralsight course — Advanced Node.js](https://cdn-images-1.medium.com/max/800/1*lj3_-x3yh-114QzWpFq8Ug.png)
 
-You need to understand that bigger picture to understand the Event Loop. You need to understand the role of V8, know about the Node APIs, and know how things get queued to be executed by V8.
+你需要先理解这幅轮廓图再理解事件循环，你需要先理解 V8 在这里面饰演的角色、理解 Node APIs 并知道事件是怎样进入队列并被 V8 处理的。
 
-The Node APIs are functions like `setTimeout` or `fs.readFile`. These are not part of JavaScript itself. They are just functions provided by Node.
+Node APIs 是像 `setTimeout` 或 `fs.readFile`的一些方法，它们不是 JavaScript 本身的一部分，它们就是 Node 本身提供的方法。
 
-The Event Loop sits in the middle of this picture (a more complex version of it, really) and acts like an organizer. When V8 Call Stack is empty, the event loop can decide what to execute next.
+事件循环在这张图片的中间（一个更复杂的版本，真的）饰演一个组织者的角色。a more complex version of it, really) and acts like an organizer. 当 V8 调用栈为空的时候，事件循环可以决定接下来执行什么。
 
-## Question #3: What will Node do when the Call Stack and the event loop queues are all empty?
+## 问题 #3：当回调栈和事件循环队列都为空时，Node 会做什么？
 
-It will simply exit.
+Node 会直接退出。
 
-When you run a Node program, Node will automatically start the event loop and when that event loop is idle and has nothing else to do, the process will exit.
+当你执行一个 Node 程序时，Node 会自动地开始事件循环，当没有事件处理时并且没有其他任务时，Node 则会退出进程。
 
-To keep a Node process running, you need to place something somewhere in event queues. For example, when you start a timer or an HTTP server you are basically telling the event loop to keep running and checking on these events.
+为了保持一个 Node 进程持续运行，你需要把一些任务放入事件队列中。例如，当你创建一个计时器或一个 HTTP 服务器时，你基本上就是在告诉事件循环要保持并检测这些任务持续执行。
 
-## Question #4: Besides V8 and Libuv, what other external dependencies does Node have?
+## 问题 #4：除了 V8 和 Libuv，Node 还有哪些外部依赖？
 
-The following are all separate libraries that a Node process can use:
+以下是一个 Node 进程可以使用的所有外部的库：
 
 * http-parser
 * c-ares
 * OpenSSL
 * zlib
 
-All of them are external to Node. They have their own source code. They have their own license. Node just uses them.
+对 Node 本身来说，上面这些库都是外部的，这些库都有自己的源代码、许可证，Node 只是使用它们而已。
 
-You want to remember that because you want to know where your program is running. If you are doing something with data compression, you might encounter trouble deep in the zlib library stack. You might be fighting a zlib bug. Do not blame everything on Node.
+你想记住它们是因为你想知道你的程序执行到哪里了，如果你在做一些数据压缩的工作，有可能是在 zlib 这个库遇到问题，Node 是无辜的好吗。
 
-## Question #5: Would it be possible to run a Node process without V8?
+## 问题 #5：不用 V8 有可能运行一个 Node 进程吗？
 
-This might be a trick question. You do need a VM to run a Node process, but V8 is not the only VM that you can use. You can use Chakra.
+这可能是一个奇技淫巧的问题。你肯定是需要一个虚拟机去执行 Node 进程，但 V8 并不是唯一的虚拟机，你还可以使用 Chakra。
 
-Checkout this Github repo to track the progress of the node-chakra project:
+查看这个 Github 仓库来跟踪 node-chakra 项目的进度：
 
 - [**nodejs/node-chakracore**
 : node-chakracore - Node.js on ChakraCore](https://github.com/nodejs/node-chakracore "https://github.com/nodejs/node-chakracore")
 
-## Question #6: What is the difference between module.exports and exports?
+## 问题 #6：module.exports 和 exports 两者的区别？
 
-You can always use `module.exports` to export the API of your modules. You can also use `exports` except for one case:
+你可以使用 `module.exports` 导出你模块的 API，你也可以使用 `exports`，但有个值得注意的地方：
 
 ```
 module.exports.g = ...  // Ok
@@ -95,13 +95,13 @@ module.exports = ...    // Ok
 
 exports = ...           // Not Ok
 ```
-**Why?**
+**为什么？**
 
-`exports` is just a reference or alias to `module.exports`. When you change `exports` you are changing that reference and no longer changing the official API (which is `module.exports`). You would just get a local variable in the module scope.
+`exports` 只是一个对 `module.exports` 的引用或缩写，当你改变 `exports` 时你是在改变它的引用，并且修改对官方 API （即 `module.exports`）也没产生影响，你只是在模块作用域中得到一个局部变量。
 
-## Question #7: How come top-level variables are not global?
+## 问题 #7：为什么顶层变量不是全局变量？
 
-If you have `module1` that defines a top-level variable `g`:
+如果你在 `module1` 定义了一个顶层变量 `g`：
 
 ```
 // module1.js
@@ -109,13 +109,13 @@ If you have `module1` that defines a top-level variable `g`:
 var g = 42;
 ```
 
-And you have `module2` that requires `module1` and try to access the variable `g`, you would get `g is not defined`.
+而你在 `module2` 依赖 `module1`并试图访问这个变量 `g`，你会得到错误 `g is not defined`。
 
-**Why?** If you do the same in a browser you can access top-level defined variables in all scripts included after their definition.
+**为什么？** 如果你在浏览器执行相同的操作，你可以在所有脚本中访问顶层定义的变量。
 
-Every Node file gets its own IIFE (Immediately Invoked Function Expression) behind the scenes. All variables declared in a Node file are scoped to that IIFE.
+每个 Node 文件在背后都有自己的 IIFE（立即调用函数表达式），所有在一个 Node 文件中声明的变量都被限制在这个 IIFE 的作用域中。
 
-**Related Question**: What would be the output of running the following Node file that has just this single line:
+**相关问题**: 在一个 Node 文件中只有下面这一行代码，执行它会输出什么：
 
 ```
 // script.js</pre>
@@ -123,29 +123,29 @@ Every Node file gets its own IIFE (Immediately Invoked Function Expression) behi
 console.log(arguments);
 ```
 
-You are going to see some arguments!
+你会看到一些参数！
 
 ![](https://cdn-images-1.medium.com/max/800/1*mLd8sj1_SFudZNisAeiOAQ.png)
 
-**Why?**
+**为什么？**
 
-Because what Node executed is a function. Node wrapped your code with a function and that function explicitly defines the _five_ arguments that you see above.
+因为 Node 执行的是一个函数。Node 将你的代码包裹在一个函数中，这个函数明确地定义了你上面看到的那 5 个参数。
 
-## Question #8: The objects `exports`, `require`, and `module` are all globally available in every file but they are different in every file. How?
+## 问题 #8：`exports`、`require`、和 `module`三个对象在每个文件中都是全局可用的，但他们在每个文件中又有区别，怎么回事？
 
-When you need to use the `require` object, you just use it directly as if it was a global variable. However, if you inspect `require` in two different files, you will see two different objects. How?
+当你需要使用 `require` 对象时，你只是像使用全局变量那样直接使用它，然而，如果你在 2 个不同的文件中比较 `require` 对象的区别，你会发现 2 个不同的对象，怎么回事？
 
-Because of that same magic IIFE:
+还是因为一样的魔术 IIFE：
 
 ![](https://cdn-images-1.medium.com/max/800/1*W926fXZZIUf7vnvE2IOnZg.png)
 
-As you can see, the magic IIFF passes to your code the following five arguments: `exports`, `require`, `module`, `__filename`, and `__dirname`.
+正如你所见，IIFF 将以下 5 个参数传递到你的代码中：`exports`, `require`, `module`, `__filename`, and `__dirname`。
 
-These five variables appear to be global when you use them in Node, but they are actually just function arguments.
+当你在 Node 中使用这 5 个变量的时候似乎是在使用全局变量，但它们只是函数参数。
 
-## Question #9: What are circular module dependencies in Node?
+## 问题 #9: Node 中的循环依赖是什么？
 
-If you have a `module1` that requires `module2` and `module2` that in-turn requires `module1`, what is going to happen? An error?
+如果你有一个 `module1` 依赖于 `module2`，而 `module2` 又反过来依赖于 `module1`，这将发生什么？一个错误？
 
 ```
 // module1
@@ -157,21 +157,21 @@ require('./module2');
 require('./module1');
 ```
 
-You will not get an error. Node allows that.
+放心，不会报错，Node 允许这样做。
 
-So `module1` requires `module2`, but since `module2` needs `module1` and `module1` is not done yet, `module1` will just get a partial version of `module2`.
+所以, `module1` 依赖于 `module2`，但因为 `module2` 又依赖于 `module1`，然而 `module1` 此时还没就绪，`module1` 只会得到 `module2` 的不完整版本。
 
-You have been warned.
+系统已经发出警告了。
 
-## Question #10: When is it OK to use the file system *Sync methods (like readFileSync)
+## 问题 #10：什么时候适合使用文件系统的*同步*方法（像 readFileSync）？
 
-Every `fs` method in Node has a synchronous version. Why would you use a sync method instead of the async one?
+每个 Node 中的 `fs` 方法都有一个同步版本，为什么你要使用一个同步方法而不是一个异步方法？
 
-Sometimes using the sync method is fine. For example, it can be used in any initializing step while the server is still loading. It is often the case that everything you do after the initializing step depends on the data you obtain there. Instead of introducing a callback-level, using synchronous methods is acceptable, as long as what you use the synchronous methods for is a one-time thing.
+有时使用同步方法挺好的，举个例子，可以在服务器还在一直加载的时候，将同步方法用到任何初始化工作中。通常情况下，在初始化工作完成之后，你接下来的工作是根据获得的数据继续进行作业而不是引入回调级别。使用同步方法是可以接受的，只要你使用的同步方法是一次性的。
 
-However, if you are using synchronous methods inside a handler like an HTTP server on-request callback, that would simply be 100% wrong. Do not do that.
+然而，如果你在一个像是 HTTP 服务器的 on-request 回调句柄里使用同步方法，那就真的是 100% 错误！别那样做。
 
-I hope you were able to answer some or all of these challenge questions. I will leave you with some detailed articles I wrote about beyond-the-basics concepts in Node.js:
+我希望你能答上一部分或者所有的问题，以下是我写得比较深入 Node.js 细节的文章：
 
 - [Before you bury yourself in packages, learn the Node.js runtime itself](https://medium.freecodecamp.org/before-you-bury-yourself-in-packages-learn-the-node-js-runtime-itself-f9031fbd8b69)
 - [Requiring modules in Node.js: Everything you need to know](https://medium.freecodecamp.org/requiring-modules-in-node-js-everything-you-need-to-know-e7fbd119be8)
