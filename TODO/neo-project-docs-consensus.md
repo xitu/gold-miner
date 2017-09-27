@@ -4,7 +4,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/neo-project-docs-consensus.md](https://github.com/xitu/gold-miner/blob/master/TODO/neo-project-docs-consensus.md)
 > * 译者：[王子建](https://github.com/Romeo0906)
-> * 校对者：
+> * 校对者：[faintz](https://github.com/faintz) [wild-flame](https://github.com/wild-flame)
 
 # 区块链共识机制
 
