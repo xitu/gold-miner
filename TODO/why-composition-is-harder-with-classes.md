@@ -11,7 +11,7 @@ Eric Elliott](https://medium.com/@_ericelliott?source=post_header_lockup)
 
 ![Smoke Art Cubes to Smoke — MattysFlicks — (CC BY 2.0)](https://cdn-images-1.medium.com/max/800/1*uVpU7iruzXafhU2VLeH4lw.jpeg)（译注：该图是用 PS 将烟雾处理成方块状后得到的效果，参见 [flickr](https://www.flickr.com/photos/68397968@N07/11432696204)。）
 
-这是 “软件编写” 系列文章的第九部分，该系列主要阐述如何在 JavaScript ES6+ 中从零开始学习函数式编程和组合化软件（compositional software）技术（译注：关于软件可组合性的概念，参见维基百科
+> 注意：这是 “软件编写” 系列文章的第十部分，该系列主要阐述如何在 JavaScript ES6+ 中从零开始学习函数式编程和组合化软件（compositional software）技术（译注：关于软件可组合性的概念，参见维基百科 [Composability](https://en.wikipedia.org/wiki/Composability)）。后续还有更多精彩内容，敬请期待！
 > [< 上一篇](https://juejin.im/post/59c8c8756fb9a00a681ae5bd) | [<< 返回第一篇](https://github.com/xitu/gold-miner/blob/master/TODO/the-rise-and-fall-and-rise-of-functional-programming-composable-software.mda)
 
 前文中，我们仔细审视了工厂函数，并且也看到了在使用了函数式 mixins 之后，它们能很好地服务于函数组合。现在，我们还将更加地仔细看看类，调查看看 `class` 的机制是如何妨碍了组合式软件编写。
