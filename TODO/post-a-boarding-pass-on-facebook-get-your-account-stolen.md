@@ -4,7 +4,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/post-a-boarding-pass-on-facebook-get-your-account-stolen.md](https://github.com/xitu/gold-miner/blob/master/TODO/post-a-boarding-pass-on-facebook-get-your-account-stolen.md)
 > * 译者：[lampui](https://github.com/lampui)
-> * 校对者：[Tina92](https://github.com/Tina92)
+> * 校对者：[Tina92](https://github.com/Tina92) [zhangqippp](https://github.com/zhangqippp)
 
 # 在 Facebook 发一张登机牌，你就有可能被盗号了
 
