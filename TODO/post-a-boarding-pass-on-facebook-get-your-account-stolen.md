@@ -12,7 +12,7 @@
 
 ## 一趟前往香港的旅行
 
-我认识 [Petr Mára](http://www.petrmara.com/) 好几年了，他是一个很友好的人，同时他也是一位演讲者、训练者、视频主播及 IOS & macOS 的发烧友。他还很爱去旅行，在 2016 年 5 月，他就带着她妻子一起去了趟香港庆祝她的生日，但 Petr 没有说他们会去多久，当然，我最后还是知道了！在 Petr 还没飞的时候，他发了一条动态，[这条动态](https://www.instagram.com/p/BF06blXmUXF/)上面有一个订单号 YJVFKG 和一些条码在登机牌上，就是那一刻，我知道了他要在香港呆多久。一般而言，你最好别公开任何印有订单号、二维码或条码的登机牌、票据。
+我认识 [Petr Mára](http://www.petrmara.com/) 好几年了，他是一个很友好的人，同时他也是一位演讲者、训练者、视频主播及 IOS & macOS 的发烧友。他还很爱去旅行，在 2016 年 5 月，他就带着她妻子一起去了趟香港庆祝她的生日，但 Petr 没有说他们会去多久，当然，我最后还是知道了！在 Petr 还没飞的时候，他发了一条动态，[这条动态](https://www.instagram.com/p/BF06blXmUXF/)上面有一个带着订单号 YJVFKG 和一些条码的登机牌，就是那一刻，我知道了他要在香港呆多久。一般而言，你最好别公开任何印有订单号、二维码或条码的登机牌、票据。
 
 ![英国航空公司登机牌](https://www.michalspacek.cz/i/images/blog/boardingpass/ba-pass.jpg)
 
@@ -36,7 +36,7 @@ Petr 的详细信息
 
 最终，我找到了他的护照号码！我甚至可以修改它！酷！我可以令 Pter 和 他妻子在香港庆祝生日得*更久一点*。只需输入一个国际通缉犯或是其他什么的护照号码。
 
-我没有修改任何信息，也没有告诉 Petr。我也很抱歉，因为我试着猜测他妻子的生日而令他在接下来的 24 小时以内不能访问他的预订页面。当然啦，之后我谷歌到了他妻子的生日。非常感谢 Petr 知道这件事后还是对我这么友好！5 个月后，从他[下一条发有登机牌的朋友圈](https://www.instagram.com/p/BMOpEFWBV-Y/)就知道，Petr 已经上了一堂课 — 订单号或条码都要打码。
+我没有修改任何信息，并把这件事告诉了 Petr。我向他道了歉，因为我试着猜测他妻子的生日而令他在接下来的 24 小时以内不能访问他的预订页面。当然啦，之后我谷歌到了他妻子的生日。非常感谢 Petr 知道这件事后还是对我这么友好！5 个月后，从他[下一条发有登机牌的朋友圈](https://www.instagram.com/p/BMOpEFWBV-Y/)就知道，Petr 已经上了一堂课 — 订单号或条码都要打码。
 
 ## 更多 Facebook 和 Instagram 的照片
 
@@ -46,7 +46,7 @@ Petr 的详细信息
 
 Instagram 中的随机条码
 
-Anna 的全名叫 Anna Ferenčáková，在 2017 年 4 月，她从布拉格飞往塞尔维亚的首都 — 贝尔格莱德。你扫了那张照片上的条形码就能知道这些信息了！条码也可以在“遗忘”登机牌或其他地方被找到。
+Anna 的全名叫 Anna Ferenčáková，在 2017 年 4 月，她从布拉格飞往塞尔维亚的首都 — 贝尔格莱德。你扫了那张照片上的条形码就能知道这些信息了！条码也可以在“遗落”于飞机上的登机牌或其他地方被找到。
 
 ![Barcode Scanner screenshot](https://www.michalspacek.cz/i/images/blog/boardingpass/anna-ferencakova.jpg)
 
@@ -58,7 +58,7 @@ Anna 的全名叫 Anna Ferenčáková，在 2017 年 4 月，她从布拉格飞�
 
 智能手表上的 Aztec 二维码
 
-这只手（和手表）是 Stephen Fenech 的，这张照片是拍在她从旧金山去往纽约的途中。我们又一次知道了这些信息，因为我们扫了 Aztec 二维码。我们可以通过阅读这篇[关于在"智能"手表上使用登机牌的陷井](http://www.techguide.com.au/blog/boarding-pass-experience-with-apple-watch-ran-off-the-runway/)，你的手腕 – 只是不适合一些扫描仪。在 Aztec 二维码还有一项重要的信息：一个代表该旅客是频繁飞行旅客的号码。Fenech 先生的这个号码是 `4708760`。
+这只手（和手表）是 Stephen Fenech 的，这张照片是拍在他从旧金山去往纽约的途中。我们又一次知道了这些信息，因为我们扫了 Aztec 二维码。我们可以通过阅读这篇[关于在"智能"手表上使用登机牌的陷井](http://www.techguide.com.au/blog/boarding-pass-experience-with-apple-watch-ran-off-the-runway/)，你的手腕 – 只是不适合一些扫描仪。在 Aztec 二维码还有一项重要的信息：一个代表该旅客是频繁飞行旅客的号码。Fenech 先生的这个号码是 `4708760`。
 
 ![Barcode Scanner screenshot](https://www.michalspacek.cz/i/images/blog/boardingpass/stephen-fenech.jpg)
 
