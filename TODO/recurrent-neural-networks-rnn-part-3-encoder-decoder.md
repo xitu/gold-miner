@@ -38,7 +38,7 @@
 
 ## 编码器
 
-编码器只接受编码器的输入，而我们唯一关心的是最终的隐藏状态。这个隐藏的状态包含了所有输入的信息。我们不会像原始论文所建议的那样反转编码器的输入，因为我们使用的是 `dynamic_rnn` 的 `seq_len`。它会基于 `seq_len` 自动返回最后一个相关的隐藏状态。
+编码器只接受编码器的输入，而我们唯一关心的是最终的隐藏状态。这个隐藏的状态包含了所有输入的信息。我们不会像原始论文所建议的那样反转编码器的输入，因为我们使用的是 `dynamic_rnn` 的 `seq_len`。它会基于 `seq_len` 自动返回最后一个对应的隐藏状态。
 
 ```python
 with tf.variable_scope('encoder') as scope:
@@ -66,12 +66,12 @@ with tf.variable_scope('encoder') as scope:
 
 ## 解码器
 
-这个简单的解码器将编码器的最终的隐藏状态作为自己的初始状态。我们还将接入解码器的输入，并使用 RNN 解码器来处理它们。输出的结果将通过 softmax 进行归一化处理，然后与目标进行比较。注意，解码器输入从一个 GO token 开始，从而用来预测第一个目标 token。解码器输入的最后一个相关 token 则是用来预测 EOS 目标 token 的。
+这个简单的解码器将编码器的最终的隐藏状态作为自己的初始状态。我们还将接入解码器的输入，并使用 RNN 解码器来处理它们。输出的结果将通过 softmax 进行归一化处理，然后与目标进行比较。注意，解码器输入从一个 GO token 开始，从而用来预测第一个目标 token。解码器输入的最后一个对应的 token 则是用来预测 EOS 目标 token 的。
 
 ```python
 with tf.variable_scope('decoder') as scope:
 
-    # 初始状态是编码器的最后一个相关状态
+    # 初始状态是编码器的最后一个对应状态
     self.decoder_initial_state = self.encoder_state
 
     # RNN 解码器单元
