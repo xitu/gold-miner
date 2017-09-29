@@ -4,7 +4,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/you-dont-know-node.md](https://github.com/xitu/gold-miner/blob/master/TODO/you-dont-know-node.md)
 > * 译者：[lampui](https://github.com/lampui)
-> * 校对者：
+> * 校对者：[smile](https://github.com/smile-soul)、[Yuuoniy](https://github.com/Yuuoniy)
 
 # 你不知道的 Node
 
@@ -169,7 +169,7 @@ require('./module1');
 
 有时使用同步方法挺好的，举个例子，可以在服务器还在一直加载的时候，将同步方法用到任何初始化工作中。通常情况下，在初始化工作完成之后，你接下来的工作是根据获得的数据继续进行作业而不是引入回调级别。使用同步方法是可以接受的，只要你使用的同步方法是一次性的。
 
-然而，如果你在一个像是 HTTP 服务器的 on-request 回调句柄里使用同步方法，那就真的是 100% 错误！别那样做。
+然而，如果你在一个像是 HTTP 服务器的 on-request 回调函数里使用同步方法，那就真的是 100% 错误！别那样做。
 
 我希望你能答上一部分或者所有的问题，以下是我写得比较深入 Node.js 细节的文章：
 
