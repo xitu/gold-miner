@@ -131,11 +131,11 @@ console.log(arguments);
 
 因为 Node 执行的是一个函数。Node 将你的代码包裹在一个函数中，这个函数明确地定义了你上面看到的那 5 个参数。
 
-## 问题 #8：`exports`、`require`、和 `module`三个对象在每个文件中都是全局可用的，但他们在每个文件中又有区别，怎么回事？
+## 问题 #8：`exports`、`require`、和 `module`三个对象在每个文件中都是全局可用的，但他们在每个文件中又有区别，为什么呢？
 
 当你需要使用 `require` 对象时，你只是像使用全局变量那样直接使用它，然而，如果你在 2 个不同的文件中比较 `require` 对象的区别，你会发现 2 个不同的对象，怎么回事？
 
-还是因为一样的魔术 IIFE：
+还是因为一样的原因 IIFE（立即调用函数表达式）：
 
 ![](https://cdn-images-1.medium.com/max/800/1*W926fXZZIUf7vnvE2IOnZg.png)
 
