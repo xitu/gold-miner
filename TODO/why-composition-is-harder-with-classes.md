@@ -1,7 +1,7 @@
 
 > * 原文地址：[Why Composition is Harder with Classes](https://medium.com/javascript-scene/why-composition-is-harder-with-classes-c3e627dcd0aa)
 > * 原文作者：[
-Eric Elliott](https://medium.com/@_ericelliott?source=post_header_lockup)
+Eric Elliott](https://medium.com/@_ericelliott)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/why-composition-is-harder-with-classes.md](https://github.com/xitu/gold-miner/blob/master/TODO/why-composition-is-harder-with-classes.md)
 > * 译者：[yoyoyohamapi](https://github.com/yoyoyohamapi)
