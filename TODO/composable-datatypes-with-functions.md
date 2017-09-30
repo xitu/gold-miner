@@ -5,7 +5,7 @@ Eric Elliott](https://medium.com/@_ericelliott?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/composable-datatypes-with-functions.md](https://github.com/xitu/gold-miner/blob/master/TODO/composable-datatypes-with-functions.md)
 > * 译者：[yoyoyohamapi](https://github.com/yoyoyohamapi)
-> * 校对者：
+> * 校对者：[IridescentMia](https://github.com/IridescentMia)
 
 # 借助函数完成可组合的数据类型（软件编写）（第十部分）
 
@@ -14,7 +14,7 @@ Eric Elliott](https://medium.com/@_ericelliott?source=post_header_lockup)
 > 注意：这是 “软件编写” 系列文章的第十部分，该系列主要阐述如何在 JavaScript ES6+ 中从零开始学习函数式编程和组合化软件（compositional software）技术（译注：关于软件可组合性的概念，参见维基百科 [Composability](https://en.wikipedia.org/wiki/Composability)）。后续还有更多精彩内容，敬请期待！
 > [<上一篇](https://medium.com/javascript-scene/why-composition-is-harder-with-classes-c3e627dcd0aa) | [<< 返回第一章](https://github.com/xitu/gold-miner/blob/master/TODO/the-rise-and-fall-and-rise-of-functional-programming-composable-software.md)
 
-在 JavaScript 中，最简单的方式完成组合就是函数组合，并且一个函数仅只是一个你能够位置添加方法的对象。换言之，你可以这么做：
+在 JavaScript 中，最简单的方式完成组合就是函数组合，并且一个函数只是一个你能够为之添加方法的对象。换言之，你可以这么做：
 
 ```
 const t = value => {
@@ -110,7 +110,8 @@ const t = value => {
 ```
 // 自顶向下的函数组合：
 const pipe = (...fns) => x => fns.reduce((y, f) => f(y), x);
-// Sugar to kick off the pipeline with an initial 
+// 求和函数为 pipeline 传入需要的初始值
+// curry 化的 pipeline 复用度更好，我们可以延迟传入任意的初始值
 const sumT = (...fns) => pipe(...fns)(t(0));
 sumT(
   t(2),
@@ -121,7 +122,7 @@ sumT(
 
 ## 任何数据类型都适用
 
-无论你的数据形态是什么样子的，只要它需要类似组合的过程，上面的策略都能帮到你。对于列表或者字符串来说，组合能够完成连接操作。对于 DSP（数字信号处理）来说，组合完成的就是信号的求和。当然，其他的操作也能为你带来想要的结果。那么问题来了，哪种操作最能反映组合的观念？换言之，哪种种操作能更受益于下面的代码组织方式：
+无论你的数据形态是什么样子的，只要它需要类似组合的过程，上面的策略都能帮到你。对于列表或者字符串来说，组合能够完成连接操作。对于 DSP（数字信号处理）来说，组合完成的就是信号的求和。当然，其他的操作也能为你带来想要的结果。那么问题来了，哪种操作最能反映组合的观念？换言之，哪种操作能更受益于下面的代码组织方式：
 
 ```
 const result = compose(
@@ -152,7 +153,7 @@ import { $ } from 'moneysafe';
 $(.1) + $(.2) === $(.3).cents; // true
 ```
 
-ledger 语法利用了 Moneysafe 是将一般的值提升为可组合函数的实质。它暴露一个简单的、称之为 ledger 的函数组合套件：
+ledger 语法利用了 Moneysafe 将一般的值提升为可组合函数的优势。它暴露一个简单的、称之为 ledger 的函数组合套件：
 
 ```
 import { $ } from 'moneysafe';
