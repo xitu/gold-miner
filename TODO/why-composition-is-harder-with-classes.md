@@ -5,7 +5,7 @@ Eric Elliott](https://medium.com/@_ericelliott?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/why-composition-is-harder-with-classes.md](https://github.com/xitu/gold-miner/blob/master/TODO/why-composition-is-harder-with-classes.md)
 > * 译者：[yoyoyohamapi](https://github.com/yoyoyohamapi)
-> * 校对者：[IridescentMia](https://github.com/IridescentMia)
+> * 校对者：[sunui](https://github.com/sunui) [IridescentMia](https://github.com/IridescentMia)
 
 # 为什么在使用了类之后会使得组合变得愈发困难（软件编写）（第九部分）
 
@@ -14,18 +14,18 @@ Eric Elliott](https://medium.com/@_ericelliott?source=post_header_lockup)
 > 注意：这是 “软件编写” 系列文章的第十部分，该系列主要阐述如何在 JavaScript ES6+ 中从零开始学习函数式编程和组合化软件（compositional software）技术（译注：关于软件可组合性的概念，参见维基百科 [Composability](https://en.wikipedia.org/wiki/Composability)）。后续还有更多精彩内容，敬请期待！
 > [< 上一篇](https://juejin.im/post/59c8c8756fb9a00a681ae5bd) | [<< 返回第一篇](https://github.com/xitu/gold-miner/blob/master/TODO/the-rise-and-fall-and-rise-of-functional-programming-composable-software.mda)
 
-前文中，我们仔细审视了工厂函数，并且也看到了在使用了函数式 mixins 之后，它们能很好地服务于函数组合。现在，我们还将更加地仔细看看类，调查看看 `class` 的机制是如何妨碍了组合式软件编写。
+前文中，我们仔细审视了工厂函数，并且也看到了在使用了函数式 mixins 之后，它们能很好地服务于函数组合。现在，我们还将更加仔细地看看类，验证 `class` 的机制是如何妨碍了组合式软件编写。
 
 但我们并不完全否定类，一些优秀的类使用案例和如何更加安全地使用类也是本文将会探讨的。
 
-ES6 拥有了一个便捷的 `class` 语法，这也让你不免怀疑为什么我们还需要工厂函数。二者最显著的区别是构造函数以及 `class` 需要使用配合使用 `new` 关键字。我们需要弄清楚 `new` 究竟做了什么？
+ES6 拥有了一个便捷的 `class` 语法，这也让你不免怀疑为什么我们还需要工厂函数。二者最显著的区别是构造函数以及 `class` 要使用 `new` 关键字。但 `new` 究竟做了什么？
 
 - 创建了一个新的对象，并且将构造函数中的 `this` 绑定到了该对象。
 - 如果你没有显式地在构造函数中返回其他对象，那么构造函数将隐式地返回 `this`。
-- 将对象的 `[[Prototype]]` 属性设置为 `Constructor.prototype`，从而有 `Object.getPrototypeOf(instance) === Constructor.prototype`。
+- 将对象的 `[[Prototype]]` （一个内部引用） 属性设置为 `Constructor.prototype`，从而有 `Object.getPrototypeOf(instance) === Constructor.prototype`。
 - 声明构造函数引用，令 `instance.constructor === Constructor`。
 
-所有的这些都暗示了，与工厂函数不同，类并不是完成组合式函数 mixin 的好手段。虽然你仍可以使用 `class` 来完成组合，但在后文中你将看到，这是一个非常复杂的过程，你的煞费苦心并不值当。
+所有的这些都意味着，与工厂函数不同，类并不是完成组合式函数 mixin 的好手段。虽然你仍可以使用 `class` 来完成组合，但在后文中你将看到，这是一个非常复杂的过程，你的煞费苦心并不值当。
 
 ## 委托原型
 
@@ -33,7 +33,7 @@ ES6 拥有了一个便捷的 `class` 语法，这也让你不免怀疑为什么�
 
 `[[Prototype]]` 链接是服务于原型委托的，如果你有数以百万计的对象，它将能帮你节约内存，亦或当你需要在程序中在 16 毫秒内的渲染循环中访问一个对象成千上万的属性时，它能够带来一些微小的性能提升。
 
-如果你并不需要内存或者性能上的微型优化，`[[Prototype]]` 链接就弊大于利了。在 JavaScript 中，原型链加强了了 `instanceof` 运算符，但不幸的是，由于以下两个原因，`instanceof` 并不可靠：
+如果你并不需要内存或者性能上的微型优化，`[[Prototype]]` 链接就弊大于利了。在 JavaScript 中，原型链加强了 `instanceof` 运算符，但不幸的是，由于以下两个原因，`instanceof` 并不可靠：
 
 在 ES5 中，`Constructor.prototype` 链接是动态可重配的，这一特性在你需要创建抽象工厂时显得尤为方便，但是如果你使用了该特性，当 `Constructor.prototype` 引用的对象和 `[[Prototype]]` 属性指向的不是同一对象时，`instanceof` 会引起伪阴性（false negative），即丢失了对象和所属类的关系：
 
@@ -50,32 +50,32 @@ const currentUser = new User({
 });
 User.prototype = {}; // 重配了 User 原型
 console.log(
-  currentUser instanceof User, // <-- false -- Oops!
-// But it clearly has the correct shape:
+  currentUser instanceof User, // <-- false -- 糟糕！
+  // 但是该对象的形态确实满足 User 类型
   // { avatar: "foo.png", userName: "Foo" }
   currentUser
 );
 ```
 
-Chrome 意识到了这个问题，所以在属性描述子中，将 `Constructor.prototype` 的 `configurable` 属性设置为了 `false`。然而，Babel 就没有实现类似的行为，所以 Babel 编译后的代码将表现得和 ES5 的构造函数一样。而当你试图重新配置 `Constructor.prototype` 属性时，V8 将静默失败。无论是哪种方式，你都得不到你想要的结果。更加糟糕的是，重新设置 `Constructor.prototype` 会是前后矛盾的，因此我不推荐这样做。
+Chrome 意识到了这个问题，所以在属性描述之中，将 `Constructor.prototype` 的 `configurable` 属性设置为了 `false`。然而，Babel 就没有实现类似的行为，所以 Babel 编译后的代码将表现得和 ES5 的构造函数一样。而当你试图重新配置 `Constructor.prototype` 属性时，V8 将静默失败。无论是哪种方式，你都得不到你想要的结果。更加糟糕的是，重新设置 `Constructor.prototype` 会是前后矛盾的，因此我不推荐这样做。
 
-更常见的问题是，JavaScript 会拥有多个执行上下文 - 相同代码所在的内存沙盒会访问不同的物理内存地址。例如，如果在父 frame 中有一个构造函数，且在 `iframe` 中有相同的构造函数，那么父 frame 中的 `Constructor.prototype` 和 `iframe` 中的 `Constructor.prototype` 将不会引用指向的内存位置。这是因为 JavaScript 中的对象值在底层是内存引用的，而不同的 frame 指向内存的不同内存位置，所以 `===` 将会检查失败。
+更常见的问题是，JavaScript 会拥有多个执行上下文 -- 相同代码所在的内存沙盒会访问不同的物理内存地址。例如，如果在父 frame 中有一个构造函数，且在 `iframe` 中有相同的构造函数，那么父 frame 中的 `Constructor.prototype` 和 `iframe` 中的 `Constructor.prototype` 将不会引用相同的内存位置。这是因为 JavaScript 中的对象值在底层是内存引用的，而不同的 frame 指向内存的不同内存位置，所以 `===` 将会检查失败。
 
-`instanceof` 的另一个问题是，它是一个名字类型检查而非结构类型检查，这意味着如果你开始使用了 `class` 并在之后切换到了抽象工厂，所有调用了 `instanceof` 的代码将不再能明白新的实现，即便这些代码都满足了接口约束。例如，你已经构建了一个音乐播放器接口，之后产品团队要求你为视频播放也提供支持，之后的之后，又叫你支持 360 个视频对象。视频播放器对象和音乐播放器对象是使用一致的控制策略：播放，停止，倒回，快进。
+`instanceof` 的另一个问题是，它是一个名义上的类型检查而非结构类型检查，这意味着如果你开始使用了 `class` 并在之后切换到了抽象工厂，所有调用了 `instanceof` 的代码将不再能明白新的实现，即便这些代码都满足了接口约束。例如，你已经构建了一个音乐播放器接口，之后产品团队要求你为视频播放也提供支持，之后的之后，又叫你支持全景视频。视频播放器对象和音乐播放器对象是使用一致的控制策略：播放，停止，倒回，快进。
 
 但是如果你使用了 `instanceof` 作为对象类型检查，所有实现了你的视频接口类的对象不会满足代码中已经存在的 `foo instanceof AudioInterface` 检查。
 
 这些检查本应当成功的，然而现在却失败了。在其他语言中，通过允许一个类声明其所实现的接口，实现了可共享接口，从而也就解决了上面的问题。但在 JavaScript 中，这一点尚不能做到。
 
-在 JavaScript 中，如果你不需要委托原型链接（`[[Prototype]]`）的话，就去掉它，让每次对象类型判断检查的都失败，错就错个彻底，这才是使用 `instanceof` 的最好方式。这样的处理方式你也不会对对象类型判断的可靠性产生误解。这其实是让你不要相信 `instanceof`，它也就无法对你撒谎了。
+在 JavaScript 中，如果你不需要委托原型链接（`[[Prototype]]`）的话，就打断委托原型链，让每次对象的类型判断检查都失败，错就错个彻底，这才是使用 `instanceof` 的最好方式。这样的处理方式你也不会对对象类型判断的可靠性产生误解。这其实是让你不要相信 `instanceof`，它也就无法对你撒谎了。
 
 ## .contructor 属性
 
-`.constructor` 在 JavaScript 中已经鲜有使用了，它的确很很有用，将它放入你的对象实例中也会是个好主意。但大多数情况下，如果你不尝试使用它来进行类型检测的话，它会是毛病重重的，并且，它也是不安全的，原因和 `instanceof` 不安全的原因一样。
+`.constructor` 在 JavaScript 中已经鲜有使用了，它本该很有用，将它放入你的对象实例中也会是个好主意。但大多数情况下，如果你不尝试使用它来进行类型检测的话，它会是毛病重重的，并且，它也是不安全的，原因和 `instanceof` 不安全的原因一样。
 
-**理论上来说**，`.constructor` 对于创建通用函数很有用，无论传入的对象是什么，这些函数总能返回新的对象。
+**理论上来说**，`.constructor` 对于创建通用函数很有用，这些通用函数能够返回你传入对象的新实例。
 
-**实际上**，在 JavaScript 中，有许多其他的方式来创建新的实例。即使是一些微不足道的目的，让对象保持一个其构造函数的引用，和知道如何使用构造函数够实例化新的对象也并不是一件事儿，我们可以看到下面这个例子，如何创建一个与指定对象同类型的空实例，首先，我们借助于 `new` 及对象的 `.constructor` 属性：
+**实践中**，在 JavaScript 中，有许多不同的方式来创建新的实例。即使是一些微不足道的目的，让对象保持一个其构造函数的引用，和知道如何使用构造函数够实例化新的对象也并不是一件事儿，我们可以看到下面这个例子，如何创建一个与指定对象同类型的空实例，首先，我们借助于 `new` 及对象的 `.constructor` 属性：
 
 ```
 // 返回任何传入对象类型的空实例？
@@ -125,7 +125,7 @@ console.log(
 不幸的是，`.of()` 静态方法才开始在 JavaScript 中得到支持。`Promise` 对象没有 `.of()` 静态方法，但有一个与之行为一致的静态方法 `.resolve()`，因此，我们的通用工厂函数无法工作在 `Promise` 对象上：
 
 ```
-// Return an empty instance of any type?
+// 返回任意对象类型的空实例？
 const empty = ({ constructor } = {}) => constructor.of ?
   constructor.of() :
   undefined
@@ -136,7 +136,7 @@ console.log(
 );
 ```
 
-同样地，如果字符串，数字，object，map，weak map，set 等类型也提供了 `.of()` 静态方法，那么 `.constructor` 属性将成为 JavaScript 中更加有用的特性。我们能够使用它来构建一个富工具函数库，这个库能够工作在 functor，monad 以及其他任何代数类型上。
+同样地，如果字符串、数字、object、map、weak map、set 等类型也提供了 `.of()` 静态方法，那么 `.constructor` 属性将成为 JavaScript 中更加有用的特性。我们能够使用它来构建一个富工具函数库，这个库能够工作在 functor，monad 以及其他任何代数类型上。
 
 对于一个工厂函数来说，添加 `.constructor` 和 `.of()` 是非常容易的：
 
@@ -150,7 +150,7 @@ const createUser = ({
   constructor: createUser
 });
 createUser.of = createUser;
-// 测试 .of and .constructor:
+// 测试 .of 和 .constructor:
 const empty = ({ constructor } = {}) => constructor.of ?
   constructor.of() :
   undefined
@@ -184,18 +184,18 @@ const createUser = ({
 工厂函数通过下面这些方式提高了代码的灵活性：
 
 - 将对象实例化细节从调用代码处解耦。
-- 允许你返回任意类型，例如，使用一个对象池完成一个垃圾收集器。
-- 不会提供任何的类型保证，这样，调用者也不会尝试使用  `instanceof` 或者其他不可靠的类型检测手段，这些手段往往会在跨执行上下文调用或是当你切换到一个抽象工厂时破坏了原有的代码。
-- 由于工厂函数不提供任何类型保证，工厂就能动态地切换到抽象工厂的实现。例如，一个媒体播放器工厂变为了一个抽象工厂，该工厂一个 `.play()` 方法来满足不同的媒体类型。
+- 允许你返回任意类型，例如，使用一个对象池控制垃圾收集器。
+- 不要提供任何的类型保证，这样，调用者也不会尝试使用  `instanceof` 或者其他不可靠的类型检测手段，这些手段往往会在跨执行上下文调用或是当你切换到一个抽象工厂时破坏了原有的代码。
+- 由于工厂函数不提供任何类型保证，工厂就能动态地切换到抽象工厂的实现。例如，一个媒体播放器工厂变为了一个抽象工厂，该工厂提供一个 `.play()` 方法来满足不同的媒体类型。
 - 使用工厂函数将更利于函数组合。
 
-尽管多数目标能够通过类完成，但是使用工厂函数，将会让一切变得更加轻松。使用工厂函数，将更少地遇到 bug，更少地陷入复杂性的泥潭，以及获得更少的代码量。
+尽管多数目标能够通过类完成，但是使用工厂函数，将会让一切变得更加轻松。使用工厂函数，将更少地遇到 bug，更少地陷入复杂性的泥潭，以及更少的代码。
 
-出于以上特性，更加推崇将 `class` 重构为工厂函数，但也要注意，重构会是个复杂并且有可能产生错误的过程。在每一个面向对象语言中，从类到工厂函数的重构都是一个普遍的需求。关于此，你可以在 Martin Fowler，Kent Beck，John Brant，William Opdyke 和 Don Roberts 的这篇文章中知道更多：[Refactoring: Improving the Design of Existing Code](https://www.amazon.com/Refactoring-Improving-Design-Existing-Code/dp/0201485672/ref=as_li_ss_tl?ie=UTF8&linkCode=ll1&tag=eejs-20&linkId=e7d5f652bc860f02c27ec352e1b8342c)
+基于以上原因，更加推崇将 `class` 重构为工厂函数，但也要注意，重构会是个复杂并且有可能产生错误的过程。在每一个面向对象语言中，从类到工厂函数的重构都是一个普遍的需求。关于此，你可以在 Martin Fowler、Kent Beck、John Brant、William Opdyke 和 Don Roberts 的这篇文章中知道更多：[Refactoring: Improving the Design of Existing Code](https://www.amazon.com/Refactoring-Improving-Design-Existing-Code/dp/0201485672/ref=as_li_ss_tl?ie=UTF8&linkCode=ll1&tag=eejs-20&linkId=e7d5f652bc860f02c27ec352e1b8342c)
 
 由于 `new` 改变了一个函数调用的行为，从类到工厂函数进行的重构将是一个潜在的巨大改变。换言之，强制调用者使用 `new` 将不可避免地将调用者限制到构造函数的实现中，因此，`new` 将潜在地引起巨大的调用相关的 API 的实现改变。
 
-我们已经见识过了，下面这些隐式行为会让重构成为一个巨大的改变：
+我们已经见识过了，下面这些隐式行为会让从类到工厂的转变成为一个巨大的改变：
 
 - 工厂函数创建的实例不再具有 `[[Prototype]]` 链接，那么该实例所有调用 `instanceof` 进行类型检测的代码都需要修改。
 - 工厂函数创建的实例不再具有 `.constructor` 属性，所有用到该实例 `.constructor` 属性的代码都需要修改。
@@ -222,7 +222,7 @@ const bar = new foo();
 
 所以，你无法在 ES6 环境下去将类重构为一个箭头函数工厂。但这无关紧要，彻头彻尾的失败是件好事儿，这会让你断了使用 `new` 的念想。
 
-但是，如果你将箭头函数编译为标准函数来允许对标准函数使用 `neW`，就会错上加错。在构建应用程序时，代码工作良好，但是应用切到产品环境时，也许会导致错误，从而影响了用户体验，甚至让整个应用崩溃。
+但是，如果你将箭头函数编译为标准函数来允许对标准函数使用 `neW`，就会错上加错。在构建应用程序时，代码工作良好，但是应用切到生产环境时，也许会导致错误，从而影响了用户体验，甚至让整个应用崩溃。
 
 一个编辑器默认配置的变化就能破坏你的应用，甚至是你都没有改变任何你自己撰写的代码。再唠叨一句：
 
@@ -234,7 +234,7 @@ const bar = new foo();
 
 如果你的 `class` API 是公开的，或者如果你和一个大型团队一起服务于一个大型项目，重构很可能破坏一些你无法意识到的代码。更好的做法是淘汰掉整个类（译注：也要淘汰类的相关操作，如 `new`，`instanceof` 等），并将其替代为工厂函数。
 
-该过程将一个小的，兴许能够静默改变的技术问题变为了无法界定的人的问题，新的重构将要求开发者对此具有足够的意识，受教育程度，以及愿意入伙重构，因此，这样的重构会是一个十分繁重的任务。
+该过程将一个小的，兴许能够静默解决的技术问题变为了极大的人的问题，新的重构将要求开发者对此具有足够的意识，受教育程度，以及愿意入伙重构，因此，这样的重构会是一个十分繁重的任务。
 
 我已经见到过了 `new` 多次引起了非常令人头痛的问题，但这很容易避免：
 
@@ -280,9 +280,9 @@ const currentUser = createUser({
 });
 ```
 
-如果熟悉 JavaScript 以及 箭头函数，那么能够感受到工厂函数更简洁的语法及因此带来的代码可读性的提高。或许你还倾向于 `new`，但下面这篇文章阐述了应当避免使用的 `new` 的原因：[Familiarity bias may be holding you back](https://medium.com/javascript-scene/familiarity-bias-is-holding-you-back-its-time-to-embrace-arrow-functions-3d37e1a9bb75).
+如果熟悉 JavaScript 以及箭头函数，那么能够感受到工厂函数更简洁的语法及因此带来的代码可读性的提高。或许你还倾向于 `new`，但下面这篇文章阐述了应当避免使用的 `new` 的原因：[Familiarity bias may be holding you back](https://medium.com/javascript-scene/familiarity-bias-is-holding-you-back-its-time-to-embrace-arrow-functions-3d37e1a9bb75)。
 
-再看看其他工厂由于类的论证。
+还有别的工厂优于类的论证吗？
 
 ## 性能及内存占用
 
@@ -308,32 +308,32 @@ ThreeJS 也使用了类，但你知道的，ThreeJS 是一个 3d 渲染库，常
 
 ## 类型检测
 
-JavaScript 中的类是动态的，`instanceof` 的类型检测不会真正地跨执行上下文工作，所以基于 `class` 的类型检测不值得考虑。类型检测可能导致 bug，你的应用程序也不需要那么严造成复杂性的提高。
+JavaScript 中的类是动态的，`instanceof` 的类型检测不会真正地跨执行上下文工作，所以基于 `class` 的类型检测不值得考虑。类型检测可能导致 bug，你的应用程序也不需要那么严格，造成复杂性的提高。
 
-## 使用 `extends` 进行类型继承
+## 使用 `extends` 进行类继承
 
 类继承会造成的这些问题想必你已经听过多次了：
 
 - **紧耦合**: 在面向对象程序设计中，类继承会造成最紧的耦合。
 - **层级不灵活**: 随着开发时间的增长，所有的类层级最终都不适应于新的用例，但紧耦合又限制了代码重构的可能性。
-- **猩猩/香蕉 问题**: 继承的强制性。“ 你只想要一个香蕉，但是你最终得到的却是一个猩猩拿着的香蕉以及整个丛林 ” 这句话来自 Joe Armstrong 在 [Coders at Work](https://www.amazon.com/Coders-Work-Reflections-Craft-Programming/dp/1430219483/ref=as_li_ss_tl?s=books&ie=UTF8&qid=1500436305&sr=1-1&keywords=coders+at+work&linkCode=ll1&tag=eejs-20&linkId=45e89bc5d776b1326c2ae90355e9ccac) 中提到的
+- **猩猩/香蕉 问题**: 继承的强制性。“你只想要一个香蕉，但是你最终得到的却是一个拿着香蕉的猩猩以及整个丛林 ” 这句话来自 Joe Armstrong 在 [Coders at Work](https://www.amazon.com/Coders-Work-Reflections-Craft-Programming/dp/1430219483/ref=as_li_ss_tl?s=books&ie=UTF8&qid=1500436305&sr=1-1&keywords=coders+at+work&linkCode=ll1&tag=eejs-20&linkId=45e89bc5d776b1326c2ae90355e9ccac) 中提到的
 - **代码重复**: 由于不灵活的层级及 猩猩/香蕉 问题，代码重用往往只能靠复制/粘贴，这违反了 DRY（Don't Repeat Yourself）原则，反而一开始就违背了继承的初衷。
 
-`extends` 的唯一目的是创建一个单一祖先的类型类分类法。一些机智的 hacker 读了本文会说：“ 我不认同你的看法，类也是可组合的 ”。对此，我的回答是 “ 但是你脱离了 `extend` ，使用对象组合来替代类继承，在 JavaScript 中是更加简单，安全的方式”
+`extends` 的唯一目的是创建一个单一祖先的 class 分类法。一些机智的 hacker 读了本文会说：“我不认同你的看法，类也是可组合的 ”。对此，我的回答是 “但是你脱离了 `extend`，使用对象组合来替代类继承，在 JavaScript 中是更加简单，安全的方式”
 
 ## 如果你足够仔细的话，类也是 OK 的
 
 我说了很多工厂替代掉类的好处，但你仍坚持使用类的话，不妨再看看我下面的一些建议，它们帮助你更安全地使用类：
 
 - 避免使用 `instanceof`。由于 JavaScript 是动态语言并且拥有多个执行上下文，`instanceof` 总是难以反映期望的类型检测结果。如果之后你要切换到抽象工厂，这也会造成问题。
-- 避免使用 `extends`。不要多次继承一个单一层级。“ 应当优先考虑对象组合而不是类继承 ”  这句话源自 [Design Patterns: Elements of Reusable Object-Oriented Software](https://www.amazon.com/Design-Patterns-Elements-Reusable-Object-Oriented-ebook/dp/B000SEIBB8/ref=as_li_ss_tl?s=digital-text&ie=UTF8&qid=1500478917&sr=1-1&keywords=design+patterns&linkCode=ll1&tag=eejs-20&linkId=7443052c45c6e7d9cb7f6b06fa58b488)
+- 避免使用 `extends`。不要多次继承一个单一层级。“应当优先考虑对象组合而不是类继承” 这句话源自 [Design Patterns: Elements of Reusable Object-Oriented Software](https://www.amazon.com/Design-Patterns-Elements-Reusable-Object-Oriented-ebook/dp/B000SEIBB8/ref=as_li_ss_tl?s=digital-text&ie=UTF8&qid=1500478917&sr=1-1&keywords=design+patterns&linkCode=ll1&tag=eejs-20&linkId=7443052c45c6e7d9cb7f6b06fa58b488)
 - 避免导出你的类。使用 `class` 会让应用获得一定程度的性能提升，但是导出一个工厂来创建实例是为了不鼓励用户来继承你撰写好的类，也避免他们使用 `new` 来实例化对象。
-- 避免使用 `new`。尽量不直接使用 `new`，也不要让强制你的调用者使用它，取而代之的是，你可以导出一个工厂供调用者使用。
+- 避免使用 `new`。尽量不直接使用 `new`，也不要强制你的调用者使用它，取而代之的是，你可以导出一个工厂供调用者使用。
 
 下面这些情况你可以使用类：
 
 - **你正使用某个框架创建 UI 组件**，例如你正使用 React 或者 Angular 撰写组件。这些框架会将你的组件类包裹为工厂函数，并负责组件的实例化，所以也避免了用户去使用 `new`。
-- **你从不会继承你的类或者组件**。尝试使用对象组合，函数组合，高阶函数，高阶组件或者模块，相较于类继承，它们更利于代码复用。
+- **你从不会继承你的类或者组件**。尝试使用对象组合、函数组合、高阶函数、高阶组件或者模块，相较于类继承，它们更利于代码复用。
 - **你需要优化性能**。只要记住你使用了类之后应当暴露工厂而不是类给用户，让用户避免使用 `new` 和 `extend`。
 
 在大多数情况下，工厂函数将更好地服务于你。
