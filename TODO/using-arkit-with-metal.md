@@ -3,37 +3,40 @@
 > * 原文作者：[Marius Horga](https://twitter.com/gpu3d)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/using-arkit-with-metal.md](https://github.com/xitu/gold-miner/blob/master/TODO/using-arkit-with-metal.md)
-> * 译者：
+> * 译者：[]()
 > * 校对者：
 
-# Using ARKit with Metal
+# 基于 Metal 的 ARKit 使用指南
 
 - [基于 Metal 的 ARKit 使用指南（上）](https://github.com/xitu/gold-miner/blob/master/TODO/using-arkit-with-metal.md)
 - [基于 Metal 的 ARKit 使用指南（下）](https://github.com/xitu/gold-miner/blob/master/TODO/using-arkit-with-metal-part-2.md)
 
-**Augmented Reality** provides a way of overlaying virtual content on top of real world views usually obtained from a mobile device camera. Last month at `WWDC 2017` we were all thrilled to see `Apple`’s new **ARKit** framework which is a high level `API` that works with `A9`-powered devices or newer, running on `iOS 11`. Some of the ARKit experiments we’ve already seen are outstanding, such as this one below:
+**增强现实**提供了一种将虚拟内容渲染到通过移动设备摄像头捕获的真实世界场景之上的方法。上个月，在 `WWDC 2017` 上，我们都很兴奋的看到了 `苹果`’ 的新 **ARKit** 高级 API 框架，它运行于搭载 A9 处理器或更高配置的 `iOS 11` 设备上。我们看到的一些 ARKit 实验已相当出色，比如下面这个：
 
 ![alt text](https://github.com/MetalKit/images/blob/master/ARKit.gif?raw=true "ARKit")
 
-There are three distinct layers in an `ARKit` application:
+一个 `ARKit` 应用中包含 3 种不同的层：
 
-- **Tracking** - no external setup is necessary to do world tracking using visual inertial odometry.
-- **Scene Understanding** - the ability of detecting scene attributes using plane detection, hit-testing and light estimation.
-- **Rendering** - can be easily integrated because of the template `AR` views provided by `SpriteKit` and `SceneKit` but it can also be customized for `Metal`. All the pre-render processing is done by `ARKit` which is also responsible for image capturing using `AVFoundation` and `CoreMotion`.
 
-In this first part of the series we will be looking mostly at `Rendering` in `Metal` and talk about the other two stages in the next part of this series. In an `AR` application, the `Tracking` and `Scene Understanding` are handled entirely by the `ARKit` framework while `Rendering` can be handled by either `SpriteKit`, `SceneKit` or `Metal`:
+- **追踪层** - 不需要额外的配置就可以采用视觉惯性定位追踪场景。
+- **场景理解层** - the ability of detecting scene attributes using plane detection, hit-testing and light estimation.利用平面检测，点击检测和光照估计来检测场景属性的能力
+- **渲染层** - can be easily integrated because of the template `AR` views provided by `SpriteKit` and `SceneKit` but it can also be customized for `Metal`. All the pre-render processing is done by `ARKit` which is also responsible for image capturing using `AVFoundation` and `CoreMotion`.
+
+在本系列的第一部分中，我们将主要关注 `Metal` 下的 `渲染`，并在本系列的下一部分讨论其他两个阶段。在一个 `AR` 应用中，`追踪层` 和 `场景理解层` 完全由 `ARKit` 框架处理，而 `渲染层` 可以被 `SpriteKit`、`SceneKit` 或 `Metal` 处理：
 
 ![alt text](https://github.com/MetalKit/images/blob/master/ARKit1.png?raw=true "ARKit 1")
 
-To get started, we need to have an **ARSession** instance that is set up by an **ARSessionConfiguration** object. Then, we call the **run()** function on this configuration. The session also has **AVCaptureSession** and **CMMotionManager** objects running at the same time to get image and motion data for tracking. Finally, the session will output the current frame to an **ARFrame** object:
+开始之前，我们需要通过一个 **ARSessionConfiguration** 对象创建一个 **ARSession** 实例，接着我们在这个配置上调用 **run()** 方法。The session also has **AVCaptureSession** and **CMMotionManager** objects running at the same time to get image and motion data for tracking. 最后，会话将会输出当前 frame 到一个 **ARFrame** 对象：Finally, the session will output the current frame to an **ARFrame** object:
 
 ![alt text](https://github.com/MetalKit/images/blob/master/ARKit2.png?raw=true "ARKit 2")
 
 The `ARSessionConfiguration` object contains information about the type of tracking the session will have. The `ARSessionConfiguration` base configuration class provides **3** degrees of freedom tracking (the device _orientation_) while its subclass, **ARWorldTrackingSessionConfiguration**, provides **6** degrees of freedom tracking (the device _position_ and _orientation_).
+`ARSessionConfiguration` 对象包含了会话将会使用的追踪类型信息。The `ARSessionConfiguration` base configuration class provides **3** degrees of freedom tracking (the device _orientation_) while its subclass, **ARWorldTrackingSessionConfiguration**, provides **6** degrees of freedom tracking (the device _position_ and _orientation_).
 
 ![alt text](https://github.com/MetalKit/images/blob/master/ARKit4.png?raw=true "ARKit 4")
 
-When a device does not support world tracking, it falls back to the base configuration:
+当设备不支持真实场景追踪时，它会采用基本配置：
+
 
 ```
 if ARWorldTrackingSessionConfiguration.isSupported { 
@@ -44,6 +47,8 @@ if ARWorldTrackingSessionConfiguration.isSupported {
 ```
 
 An `ARFrame` contains the captured image, tracking information and well as scene information via **ARAnchor** objects that contain information about real world position and orientation and can be easily added, updated or removed from sessions. `Tracking` is the ability to determine the physical location in real time. The `World Tracking` however, determines both position and orientation, it works with physical distances, it’s relative to the starting position and provides `3D`-feature points.
+
+一个 `ARFrame` 包含了捕获的图像，追踪信息和tracking information and well as scene information via **ARAnchor** objects that contain information about real world position and orientation and can be easily added, updated or removed from sessions. `Tracking` is the ability to determine the physical location in real time. The `World Tracking` however, determines both position and orientation, it works with physical distances, it’s relative to the starting position and provides `3D`-feature points.
 
 The last component of an `ARFrame` are **ARCamera** objects which facilitate transforms (translation, rotation, scaling) and carry tracking state and camera intrinsics. The quality of tracking relies heavily on uninterrupted sensor data, static scenes and is more accurate when scenes have textured environment with plenty of complexity. Tracking state has three values: **Not Available** (camera only has the identity matrix), **Limited** (scene has insufficient features or is not static enough) and **Normal** (camera is populated with data). Session interruptions are caused by camera input not being available or when tracking is stopped:
 
@@ -72,6 +77,8 @@ func sessionInterruptionEnded(_ session: ARSession) {
 All this information is in the `ARFrame` object. To access the frame, there are two options: _polling_ or using a _delegate_. We are going to describe the latter. I took the `ARKit` template for `Metal` and stripped it down to a minimum so I can better understand how it works. First thing I did was to remove all the `C` dependencies so bridging is not necessary anymore. It will be useful in the future to have it in place so types and enum constants can be shared between `API` code and shaders but for the purpose of this article it is not needed.
 
 Next, on to **ViewController** which will act as both our `MTKView` and `ARSession` delegates. We create a `Renderer` instance that will work with the delegates for real time updates to the application:
+接着，on to **ViewController** which will act as both our `MTKView` and `ARSession` delegates. 我们创建一个 `渲染层、` 实例instance that will work with the delegates for real time updates to the application:
+
 
 ```
 var session: ARSession!
@@ -92,7 +99,7 @@ override func viewDidLoad() {
 }
 ```
 
-As you can see, we also added a gesture recognizer which we will use to add virtual content to our view. We first get the session’s current frame, then create a translation to put our object in front of the camera (**0.3** meters in this case) and finally add a new anchor to our session using this transform:
+正如你所看到的，我们还添加了一个手势识别，用于在场景中添加虚拟内容。首先，我们获取会话的当前坐标系，接着创建一个变换将我们的实体放到摄像头前（本例中 **0.3** 米），最后使用这个变换在会话中添加一个新的锚点。
 
 ```
 func handleTap(gestureRecognize: UITapGestureRecognizer) {
@@ -106,7 +113,7 @@ func handleTap(gestureRecognize: UITapGestureRecognizer) {
 }
 ```
 
-We use the **viewWillAppear()** and **viewWillDisappear()** methods to start and pause the session:
+我们分别使用 **viewWillAppear()** 和 **viewWillDisappear()** 方法启动和暂停会话：
 
 ```
 override func viewWillAppear(_ animated: Bool) {
@@ -140,6 +147,7 @@ func sessionInterruptionEnded(_ session: ARSession) {}
 ```
 
 Let’s move to the **Renderer.swift** file now. The first thing to notice is the use of a very handy protocol that will give us access to all the `MTKView` properties we need for the draw call later:
+让我们打开 **Renderer.swift** 文件。
 
 ```
 protocol RenderDestinationProvider {
@@ -274,7 +282,7 @@ func drawCapturedImage(renderEncoder: MTLRenderCommandEncoder) {
 }
 ```
 
-Finally, in **drawAnchorGeometry()** we draw the anchors for the virtual content we created:
+最后，在 **drawAnchorGeometry()** 中 为我们创建的虚拟内容添加锚点：
 
 ```
 func drawAnchorGeometry(renderEncoder: MTLRenderCommandEncoder) {
@@ -326,6 +334,7 @@ fragment float4 capturedImageFragmentShader(ImageColorInOut in [[stage_in]],
 
 In the second pair of shaders for the anchor geometry, in the vertex shader we calculate the position of our vertex in clip space and output for clipping and rasterization, then color each face a different color, then calculate the positon of our vertex in eye space and finally rotate our normals to world coordinates:
 
+
 ```
 vertex ColorInOut anchorGeometryVertexTransform(Vertex in [[stage_in]],
                                                 constant SharedUniforms &sharedUniforms [[ buffer(3) ]],
@@ -374,13 +383,13 @@ fragment float4 anchorGeometryFragmentLighting(ColorInOut in [[stage_in]],
 }
 ```
 
-If you run the app, you should be able to tap on the screen to add cubes on top of your live camera view, and move away or closer or around the cubes to see their different colors on each face, like this:
+如果你运行这个程序，你就可以点击屏幕并在实时摄像头视图中添加立方体，然后移动或靠近这些立方体观察每个面的不同颜色，就像这样：
 
 ![alt text](https://github.com/MetalKit/images/blob/master/ARKit1.gif?raw=true "ARKit 1")
 
-In the next part of the series we will look more into `Tracking` and `Scene Understanding` and see how plane detection, hit-testing, collisions and physics can make our experience even greater. The [source code](https://github.com/MetalKit/metal) is posted on `Github` as usual.
+在本系列的下一部分，我们将会更深入的研究 `追踪层` 和 `场景解析层` 并 了解see how plane detection, hit-testing, collisions and physics can make our experience even greater. [源代码](https://github.com/MetalKit/metal) 已经发布到 `GitHub`。
 
-Until next time!
+下次见！
 
 
 ---
