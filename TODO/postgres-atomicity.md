@@ -5,8 +5,7 @@
   > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/postgres-atomicity.md](https://github.com/xitu/gold-miner/blob/master/TODO/postgres-atomicity.md)
   > * 译者：[TanJianCheng](https://github.com/TanNingMeng)
   > * 校对者：[xiaoyusilen](https://github.com/xiaoyusilen) [mnikn](https://github.com/mnikn)
-  
-  
+   
   # 混乱世界中的稳定：Postgres 如何使事务原子化
 
   原子性( “ACID” 特性)声明，对于一系列的数据库操作，要么所有操作一起提交，要么全部回滚；不允许中间状态存在。对于那些需要去适应混乱的现实世界的代码来说，简直是天赐良物。
@@ -34,7 +33,9 @@
 为了避免被删除或隐藏的行数据不断地堆积，数据库最后将经过一个 **vacuum** 程序（或在某些情况下，带有歧义查询的 “microvacuums” 队列）来清理淘汰数据，但是只能在数据不再被其它快照使用的时候才能进行。
 
 让我们看下 Postgres 如何使用 MVCC 管理并发的情况。
+
 ## 事务、元组和快照
+
 这是 Postgres 用于实现事务的结构（来自 [proc.c](https://github.com/postgres/postgres/blob/b35006ecccf505d05fd77ce0c820943996ad7ee9/src/include/storage/proc.h#L207)）：
 
 ```
