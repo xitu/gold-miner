@@ -6,6 +6,7 @@
   > * 译者：[TanJianCheng](https://github.com/TanNingMeng)
   > * 校对者：[xiaoyusilen](https://github.com/xiaoyusilen) [mnikn](https://github.com/mnikn)
   
+  
   # 混乱世界中的稳定：Postgres 如何使事务原子化
 
   原子性( “ACID” 特性)声明，对于一系列的数据库操作，要么所有操作一起提交，要么全部回滚；不允许中间状态存在。对于那些需要去适应混乱的现实世界的代码来说，简直是天赐良物。
