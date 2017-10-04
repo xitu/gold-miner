@@ -8,27 +8,27 @@
 
   # 混乱世界中的稳定：Postgres 如何使事务原子化
 
-  原子性( “ACID” 特性)声明，对于针对数据库执行的一系列操作，要么所有操作一起提交，要么全部回滚；对于那些需要去适应混乱的现实世界的代码来说，简直是天赐良物。
+  原子性( “ACID” 特性)声明，对于一系列的数据库操作，要么所有操作一起提交，要么全部回滚；不允许中间状态存在。对于那些需要去适应混乱的现实世界的代码来说，简直是天赐良物。
 
-那些改变数据并继续恶化下去的故障将被取代，这些改变会被恢复。虽然在处理着百万请求，间歇性问题导致连接的踪迹断断续续和出现其它一些突发情况，这可能导致一些不便，但不会打乱你的数据。
+那些改变数据并继续恶化下去的故障将被取代，这些改变会被恢复。当你在处理着百万级请求的时候，可能会因为间歇性的问题导致连接的断断续续或者出现一些其它的突发情况，从而导致一些不便，但不会打乱你的数据。
 
-Postgres 的实现是提供强大的事务语义化。虽然我已经用了好几年，但它从来不是我已经理解。Postgres 有着稳定出色的工作表现，让我安心把它当成一个黑盒子 -- 惊人地好用，但是内部的机制却是不为人知的。
+众所周知 Postgres 的实现中提供了强大的事务语义化。虽然我已经用了好几年，但是有些东西我从来没有真正理解。Postgres 有着稳定出色的工作表现，让我安心把它当成一个黑盒子 -- 惊人地好用，但是内部的机制却是不为人知的。
 
 这篇文章是探索 Postgres 如何保持它的事务及原子性提交，和一些可以让我们深入理解其内部机制的关键概念<sup>[\[1\]](#footnote-1)</sup>。
 
 ## 管理并发访问
 
-假如你建立了一个从硬盘上 CSV 文件读写的简单数据库。当一个客户端发起请求，它会打开文件，读取信息并写入信息。一切运行非常完美，有一天，你决定给它加入更加复杂的新特性 - 多客户端支持，来增强你的数据库。
+假如你建立了一个简易数据库，这个数据库读写硬盘上的 CSV 文件。当只有一个客户端发起请求时，它会打开文件，读取信息并写入信息。一切运行非常完美，有一天，你决定强化你的数据库，给它加入更加复杂的新特性 - 多客户端支持！
 
-不幸地是，当两个客户端同时试图去读取数据的时候，新功能立即被出现的问题所困扰。当一个 CSV 文件正在被一个客户端读取，修改，和写入了数据的时候，如果另一个客户端也尝试去做同样的事情，这个时候就会发生冲突。
+不幸地是，当两个客户端同时试图去操作数据的时候，新功能立即被出现的问题所困扰。当一个 CSV 文件正在被一个客户端读取，修改，和写入数据的时候，如果另一个客户端也尝试去做同样的事情，这个时候就会发生冲突。
 
 [![](https://brandur.org/assets/postgres-atomicity/csv-database.svg)](https://brandur.org/assets/postgres-atomicity/csv-database.svg)
 
-客户端之间的资源争夺会导致数据丢失。这是并发访问出现的常见问题。可以通过引入**并发控制**来解决。曾经有过许多天真的解决方案。例如我们让来访者带上独占锁去读写文件，或者我们可以强制所有访问都需要通过流控制点，从而实现同一时间只能运行其一。但是这些方法不仅运行缓慢，而且由于不能纵向扩展，从而使数据库不能完全支持 ACID 特性。现代数据库有一个完美的解决办法，MVCC （多版本并行控制系统）。
+客户端之间的资源争夺会导致数据丢失。这是并发访问出现的常见问题。可以通过引入**并发控制**来解决。曾经有过许多原始解决方案。例如我们让来访者带上独占锁去读写文件，或者我们可以强制让所有访问都需要通过流控制点，从而实现同一时间只能运行其一。但是这些方法不仅运行缓慢，而且由于不能纵向扩展，从而使数据库不能完全支持 ACID 特性。现代数据库有一个完美的解决办法，MVCC （多版本并行控制系统）。
 
 在 MVCC，语句在**事务**里面执行。它会创建一个新版本，而不会直接覆写数据。有需求的客户端仍然可以使用原始的数据，但新的数据会被隐藏起来直到事务被提交。这样客户端之间就不存在直接争夺的情况，数据也不再面临重写而且可以安全地被保存。
 
-事务开启的时候，同时数据库生成一个捕获此刻数据库状态的快照。在数据库的每一个事务都适用于**串行**顺序，和一个保持唯一对象，能够提交和中止操作的全局锁。快照完美体现了两个事务之间的数据库状态。
+事务开始执行的时候，数据库会生成一个此刻数据库状态的快照。在数据库的每一个事务都会以**串行**的顺序执行，通过一个全局锁来保证每次只有一个事务能够提交或者中止操作。快照完美体现了两个事务之间的数据库状态。
 
 为了避免被删除或隐藏的行数据不断地堆积，数据库最后将经过一个 **vacuum** 程序（或在某些情况下，带有歧义查询的 “microvacuums” 队列）来清理淘汰数据，但是只能在数据不再被其它快照使用的时候才能进行。
 
@@ -41,7 +41,7 @@ typedef struct PGXACT
 {
     TransactionId xid;   /* 当前由程序执行的顶级事务 ID 
                           * 如果正在执行且 ID 被赋值；
-                          * 否则是无效事务的 ID */
+                          * 否则是无效事务 ID */
 
     TransactionId xmin;  /* 正在运行最小的 XID，
                           *  除了 LAZY VACUUM:
@@ -58,7 +58,7 @@ typedef struct PGXACT
 
 ### 生命周期感知的元组
 
-在 Postgres，行数据常常与**元组**有关。当 Postgres 使用像B树通用的查找结构去快速检索信息，索引已经不能满足存储一个元素的完整数据或与之相关可视信息。相反，他们存储可以从物理存储器（也称为“堆”）检索特定行的 `tid`（元组 ID）。Postgres 通过 `tid` 作为起始点，对堆进行扫描直到找到一个能满足当前快照的可见元组。
+在 Postgres，行数据常常与**元组**有关。当 Postgres 使用像 B 树通用的查找结构去快速检索信息，索引并没有存储一个元素的完整数据或其中任意的可见信息。相反，他们存储可以从物理存储器（也称为“堆”）检索特定行的 `tid`（元组 ID）。Postgres 通过 `tid` 作为起始点，对堆进行扫描直到找到一个能满足当前快照的可见元组。
 
 这是 Postgres 实现的**堆元组**（不是**索引元组**），以及它头信息的结构( [来自 `htup.h`](https://github.com/postgres/postgres/blob/b35006ecccf505d05fd77ce0c820943996ad7ee9/src/include/access/htup_details.h#L116) [和 `htup_details.h`](https://github.com/postgres/postgres/blob/b35006ecccf505d05fd77ce0c820943996ad7ee9/src/include/access/htup.h#L62)):
 
@@ -143,9 +143,9 @@ typedef struct SnapshotData
 
 同时也有定义为 `xmax` 的变量，它被设置为最后一次提交事务的 `xid` + 1。`xmax` 是数据可见的上限；`xid >= xmax` 的事务对快照是不可见的。
 
-最后，当快照被创建，它会定义一个 `*xip` 作为存储所有事务 `xid` 的数组。`*xip` 存在的原因是因为即使 `xmin` 被设定为可见边界，可能有一些已经提交的事务的 `xid` 大于 `xmin`，但也存在 `xmin` **也**大于一些处于执行阶段的事务的 `xid`。
+最后，当快照被创建，它会定义一个 `*xip` 作为存储所有事务 `xid` 的数组。`*xip` 存在是因为即使 `xmin` 被设定为可见边界，可能有一些已经提交的事务的 `xid` 大于 `xmin`，但也存在 `xmin` **也**大于一些处于执行阶段的事务的 `xid`。
 
-我们希望任何 `xid > xmin` 的事务提交结果都是可见的，但事实上被隐藏了。快照创建的时候，`*xip` 存储的有效事务清单可以帮助我们辨别各事务身份。
+我们希望任何 `xid > xmin` 的事务提交结果都是可见的，但事实上它们被隐藏了。快照创建的时候，`*xip` 存储的有效事务清单可以帮助我们辨别各事务身份。
 
 [![](https://brandur.org/assets/postgres-atomicity/snapshot-creation.svg)](https://brandur.org/assets/postgres-atomicity/snapshot-creation.svg)
 
@@ -153,9 +153,9 @@ typedef struct SnapshotData
 
 ## 开启事务
 
-当你执行 `BEGIN` 语句，尽管 Postgres 会放置一些基本的簿记，但它会尽可能地推迟更多昂贵的操作。举个例子，新的事务不会得到 `xid` 直到它开始修改数据的时候。这样做可以减少在其他地方追踪它的花费。
+当你执行 `BEGIN` 语句，尽管 Postgres 对于一些常用的操作会有相应优化，但它会尽可能地推迟更多开销比较大的操作。举个例子，一个新的事务在开始修改数据之前，我们不会给它分配 xid。这样做可以减少在其他地方追踪它的花费。
 
-新的事务也不会立即使用快照。当事务运行第一个查询，`exec_simple_query` ([在 `postgres.c`](https://github.com/postgres/postgres/blob/b35006ecccf505d05fd77ce0c820943996ad7ee9/src/backend/tcop/postgres.c#L1010))才会将其入栈。一个简单的 `SELECT 1;` 语句甚至也能触发：
+新的事务也不会立即使用快照。当事务运行第一个查询，`exec_simple_query` ([在 `postgres.c`](https://github.com/postgres/postgres/blob/b35006ecccf505d05fd77ce0c820943996ad7ee9/src/backend/tcop/postgres.c#L1010))才会将其入栈。甚至一个简单的 `SELECT 1;` 语句也会触发：
 
 ```
 static void
@@ -193,9 +193,9 @@ GetSnapshotData(Snapshot snapshot)
 }
 ```
 
-这个函数做了很多初始化，但像我们谈到的，它最主要的工作就是设置快照的 `xmin`，`xmax`，和 `*xip`。其中最简单的就是设置 `xmax`，它可以从 Postmaster 管理的共享存储器中检索出来。每个提交的事务都会通知 Postmaster，和 `latestCompletedXid` 将会被更新，如果 `xid` 高于当前 `xid` 的值（稍后将详细介绍）。
+这个函数做了很多初始化的工作，但像我们谈到的，它最主要的工作就是设置快照的 `xmin`，`xmax`，和 `*xip`。其中最简单的就是设置 `xmax`，它可以从 Postmaster 管理的共享存储器中检索出来。每个提交的事务都会通知 Postmaster，和 `latestCompletedXid` 将会被更新，如果 `xid` 高于当前 `xid` 的值（稍后将详细介绍）。
 
-需要注意的是，最后的 `xid` 自增是由函数实行的。因为在 Postgres 里面，事务的 IDs 是被允许包装，所以这不是简单的增加它那简单。一个事务 ID 是被定义为一个无符号32位整数(来自 [c.h](https://github.com/postgres/postgres/blob/b35006ecccf505d05fd77ce0c820943996ad7ee9/src/include/c.h#L397)):
+需要注意的是，最后的 `xid` 自增是由函数实行的。因为在 Postgres 里面，事务的 IDs 是被允许包装，所以并不是单纯的自增那么简单。一个事务 ID 是被定义为一个无符号32位整数(来自 [c.h](https://github.com/postgres/postgres/blob/b35006ecccf505d05fd77ce0c820943996ad7ee9/src/include/c.h#L397)):
 
 ```
 typedef uint32 TransactionId;
@@ -249,7 +249,7 @@ for (index = 0; index < numProcs; index++)
     if (NormalTransactionIdPrecedes(xid, xmin))
         xmin = xid;
 
-    /* 添加 XID 去快照。 */
+    /* 添加 XID 到快照中。 */
     snapshot->xip[count++] = xid;
 
     ...
@@ -287,9 +287,9 @@ CommitTransaction(void)
 }
 ```
 
-### 稳定性和 WAL 
+### 持久性和 WAL 
 
-Postgres 是完全围绕着稳定性的概念设计的。这样即使像在外力摧毁或功率损耗的情况下，已提交的事务也保持原有的状态。像许多优秀的系统，Postgres 使用**预写式日志**( **WAL**，或 “xlog”）去实现稳定。所有的更改被记录进磁盘，甚至像宕机这种事情，Postgres 会搜寻 WAL，然后重新恢复没有写进数据文件的更改记录。
+Postgres 是完全围绕着持久性的概念设计的。这样即使像在外力摧毁或功率损耗的情况下，已提交的事务也保持原有的状态。像许多优秀的系统，Postgres 使用**预写式日志**( **WAL**，或 “xlog”）去实现稳定。所有的更改被记录进磁盘，甚至像宕机这种事情，Postgres 会搜寻 WAL，然后重新恢复没有写进数据文件的更改记录。
 
 从上面 `RecordTransactionCommit` 的片段代码中，将事务的状态更改到 WAL：
 
@@ -334,12 +334,12 @@ RecordTransactionCommit(void)
 }
 ```
 
-### 提交日志记录
+### commit log
 
-伴随着 WAL，Postgres 也有一个**提交日志记录**（或者 “clog” 或者 “pg_xact”）。这个记录都保存事务提交痕迹，无论最后事务提交与否。上面的 `TransactionIdCommitTree` 实现了这个功能 - 首先会尝试把信息的容量写入 WAL，然后 `TransactionIdCommitTree` 会在提交日志中改为“已提交”。
+伴随着 WAL，Postgres 也有一个**commit log**（或者叫 “clog” 和 “pg_xact”）。这个记录都保存事务提交痕迹，无论最后事务提交与否。上面的 `TransactionIdCommitTree` 实现了这个功能 - 首先会尝试把一系列的信息写入 WAL，然后 `TransactionIdCommitTree` 会在 commit log 中改为“已提交”。
 
-虽然提交日志也被称为“日志”，但实际上它是一个提交状态的位图，在共享内存和在磁盘上的进行拆分。
-在现代编程中很少出现这么简约的例子，事务的状态可以仅被记录于二字节，我们能每字节存储四个事务，或者每个标准 8k 页面存储 32758。
+虽然 commit log 也被称为“日志”，但实际上它是一个提交状态的位图，在共享内存和在磁盘上的进行拆分。
+在现代编程中很少出现这么简约的例子，事务的状态可以仅使用二个字节来记录，我们能每字节存储四个事务，或者每个标准 8k 页面存储 32758。
 
 来自 [`clog.h`](https://github.com/postgres/postgres/blob/b35006ecccf505d05fd77ce0c820943996ad7ee9/src/include/access/clog.h#L26) 和 [`clog.c`](https://github.com/postgres/postgres/blob/b35006ecccf505d05fd77ce0c820943996ad7ee9/src/backend/access/transam/clog.c#L57):
 
@@ -356,7 +356,7 @@ RecordTransactionCommit(void)
 
 ### 优化的规模
 
-稳定性固然重要，但性能表现也是一个 Postgres 哲学中的核心元素。若是事务从不赋值 `xid`，Postgres 就会跳过 WAL 和提交日志。若是事务被中止，我们仍然会把它中止的状态写进 WAL 和提交日志记录，但不要急着马上去刷新（同步），因为实际上即使系统崩溃了，我们也不会丢失任何信息。在故障恢复期间，Postgres 会提示没有标记的事务，认为它们被中止了。
+稳定性固然重要，但性能表现也是一个 Postgres 哲学中的核心元素。若是事务从不赋值 `xid`，Postgres 就会跳过 WAL 和提交日志。若是事务被中止，我们仍然会把它中止的状态写进 WAL 和 commit log，但不要急着马上去刷新（同步），因为实际上即使系统崩溃了，我们也不会丢失任何信息。在故障恢复期间，Postgres 会提示没有标记的事务，认为它们被中止了。
 
 ### 防御性编程
 
@@ -451,15 +451,15 @@ ProcArrayEndTransactionInternal(PGPROC *proc, PGXACT *pgxact,
 }
 ```
 
-你可能想知道什么是“proc array”。不像其他的服务进程，Postgres 使用一个分岔模型的程序来操作并发机制而不是线程。当它接受一个新连接，Postmaster 分开一个新服务器进程([在 `postmaster.c`](https://github.com/postgres/postgres/blob/b35006ecccf505d05fd77ce0c820943996ad7ee9/src/backend/postmaster/postmaster.c#L4014))。使用 `PGPROC` 数据结构来表示服务器进程 ([在 `proc.h`](https://github.com/postgres/postgres/blob/b35006ecccf505d05fd77ce0c820943996ad7ee9/src/include/storage/proc.h#L94))，和有效的程序的集合都可以在共用存储器追踪到，这就是“proc array”。
+你可能想知道什么是“proc array”。不像其他的服务进程，Postgres 没有使用线程，而是使用一个分岔模型的程序来操作并发机制。当它接受一个新连接，Postmaster 分开一个新服务器进程([在 `postmaster.c`](https://github.com/postgres/postgres/blob/b35006ecccf505d05fd77ce0c820943996ad7ee9/src/backend/postmaster/postmaster.c#L4014))。使用 `PGPROC` 数据结构来表示服务器进程 ([在 `proc.h`](https://github.com/postgres/postgres/blob/b35006ecccf505d05fd77ce0c820943996ad7ee9/src/include/storage/proc.h#L94))，和有效的程序的集合都可以在共用存储器追踪到，这就是“proc array”。
 
 现在还记得我们如何创建一个快照并把它的 `xmax` 设置为 `latestCompletedXid + 1`？通过把全局共用存储器中的 `latestCompletedXid` 赋值给刚提交的事务的 `xid`，我们把它的结果对所有从这一刻开始，任何服务器进程的新快照都可见。
 
-看以下获取锁和释放锁所调用的 `LWLockConditionalAcquire` 和 `LWLockRelease`。大多数时候，Postgres 非常乐意让程序都并行工作，但是有一些地方需要获得锁来避免争夺，和这就是它们其中之一。在文章的开头，我们提到了在 Postgres 的事务是如何按顺序依次提交或中止的。`ProcArrayEndTransaction` 需要独占锁以便于当它更新  `latestCompletedXid` 的时候不被别的程序打扰。
+看以下获取锁和释放锁所调用的 `LWLockConditionalAcquire` 和 `LWLockRelease`。大多数时候，Postgres 非常乐意让程序都并行工作，但是有一些地方需要获得锁来避免争夺，而这就是需要用到它们的时候。在文章的开头，我们提到了在 Postgres 的事务是如何按顺序依次提交或中止的。`ProcArrayEndTransaction` 需要独占锁以便于当它更新  `latestCompletedXid` 的时候不被别的程序打扰。
 
 ### 响应客户端
 
-通过整个流程，客户端会同步等待它的事务被确认。部分原子性是虚构数据库标记事务为提交，这不是不可能的。很多地方都可能发生故障，但是如果出现了故障，客户端会找出它然后去重试或解决问题。
+在整个流程中，客户端在它的事务被确认之前会同步地等待。部分原子性是虚构数据库标记事务为提交，这不是不可能的。很多地方都可能发生故障，但是如果出现了故障，客户端会找出它然后去重试或解决问题。
 
 ## 检查可见性
 
@@ -572,7 +572,7 @@ RETURNING *;
 COMMIT;
 ```
 
-我不会停止思考其中发生什么。我得到一个强大的高级抽象（以 SQL 形式），我知道这样做是可靠的，如我们所看到的，Postgres 在底层做好了所有繁杂的细节工作。好的软件就是一个黑盒子，而Postgres 是特别黑的那种（尽管有可访问的内部的接口）。
+我不会停止思考其中发生什么。我得到一个强大的高级抽象（以 SQL 形式），我知道这样做是可靠的，如我们所看到的，Postgres 在底层做好了所有繁杂的细节工作。好的软件就是一个黑盒子，而 Postgres 是特别黑的那种（尽管有可访问的内部的接口）。
 
 感谢 [Peter Geoghegan](https://twitter.com/petervgeoghegan) 耐心地回答了我所有业余问题，有关 Postgres 事务和快照，和给予我寻找相关源码的指引。
 
