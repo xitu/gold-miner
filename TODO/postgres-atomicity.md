@@ -3,8 +3,8 @@
   > * 原文作者：[Brandur](https://twitter.com/brandur)
   > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
   > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/postgres-atomicity.md](https://github.com/xitu/gold-miner/blob/master/TODO/postgres-atomicity.md)
-  > * 译者：
-  > * 校对者：
+  > * 译者：[TanJianCheng](https://github.com/TanNingMeng)
+  > * 校对者：[xiaoyusilen](https://github.com/xiaoyusilen) [mnikn](https://github.com/mnikn)
 
   # 混乱世界中的稳定：Postgres 如何使事务原子化
 
