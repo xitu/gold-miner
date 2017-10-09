@@ -1,3 +1,5 @@
+* [修改 JavaScript 帧](https://github.com/xitu/gold-miner/blob/master/TODO/altering-javascript-frames.md?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([AceLeeWinnie](https://github.com/AceLeeWinnie) 翻译)
+* [为什么在使用了类之后会使得组合变得愈发困难（第九部分）](https://juejin.im/post/59cf43ce6fb9a00a4e67cd36?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([yoyoyohamapi](https://github.com/yoyoyohamapi) 翻译)
 * [离线友好的表单](https://juejin.im/post/59c138e35188253fbd46c5fc?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([sunui](https://github.com/sunui) 翻译)
 * [V8 引擎中的快速属性](https://juejin.im/post/59c1df855188257e826779f8?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([sunshine940326](https://github.com/sunshine940326) 翻译)
 * [如何安全地使用 CSS-in-JS？](https://juejin.im/post/59c90a6df265da065270b004?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Yuuoniy](https://github.com/Yuuoniy) 翻译)
