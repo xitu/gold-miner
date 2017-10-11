@@ -3,7 +3,7 @@
 > * 原文作者：[Tobias Koppers](https://medium.com/@sokra?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/webpack-http-2.md](https://github.com/xitu/gold-miner/blob/master/TODO/webpack-http-2.md)
-> * 译者：
+> * 译者：薛定谔的猫<hh_2013@foxmail.com>
 > * 校对者：
 
 # webpack & HTTP/2
