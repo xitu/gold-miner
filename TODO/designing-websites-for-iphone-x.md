@@ -91,7 +91,7 @@ CSS 工作组[最近决定添加这个特性](https://github.com/w3c/csswg-draft
 
 使用 @supports 来检测 min 和 max 很重要，因为并不是任何浏览器都支持，根据 CSS 的[无效变量处理](https://drafts.csswg.org/css-variables/#invalid-variables)，**不要**在 @supports 查询中指定变量。
 
-在示例页面中，竖屏时 `constant(safe-area-inset-left)` 解析为0px，因此 `max()` 解析为 12px。横屏时，由于感应器空间的存在，设置 `constant(safe-area-inset-left)` 的值会变得更大，而 `max()` 这个函数将会解析这个大小，以确保重要内容始终可见。
+在示例页面中，竖屏时 `constant(safe-area-inset-left)` 解析为 0px，因此 `max()` 解析为 12px。横屏时，由于感应器空间的存在，设置 `constant(safe-area-inset-left)` 的值会变得更大，而 `max()` 这个函数将会解析这个大小，以确保重要内容始终可见。
 
 [![max() with safe area insets](https://webkit.org/wp-content/uploads/max-safe-areas-insets.png)](/demos/safe-area-insets/4-min-max.html)
 
