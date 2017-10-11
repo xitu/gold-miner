@@ -12,9 +12,9 @@
 
 > 有了 HTTP/2，你就不再需要打包模块了。
 
-HTTP/2 can multiplex all your modules over the same connection in parallel. So there are no additional round trips for the many requests. Each module can be separately cached.
+HTTP/2 可以多路复用，所有模块都可以并行使用同一个连接，因此多个请求不再需要多余的往返数据。每个模块都可以独立缓存。
 
-Sadly **it’s not that easy** in reality.
+很遗憾，现实并不如意。
 
 ## Prior work
 
