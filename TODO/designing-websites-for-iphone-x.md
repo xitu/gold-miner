@@ -45,7 +45,7 @@ Safari 的默认内嵌行为。
 
 iPhone X 横屏时的安全区和非安全区（带默认内嵌数值）
 
-为了实现这一点，iOS 11 中的WebKit新增了一个 [CSS 函数](https://github.com/w3c/csswg-drafts/pull/1817)，`constant()`，以及一组[四个预定义的常量](https://github.com/w3c/csswg-drafts/pull/1819)： `safe-area-inset-left`, `safe-area-inset-right`, `safe-area-inset-top` 和 `safe-area-inset-bottom`。当合并使用时，允许样式使用每个方向的安全区域的大小。
+为了实现这一点，iOS 11 中的 WebKit 新增了一个 [CSS 函数](https://github.com/w3c/csswg-drafts/pull/1817)，`constant()`，以及一组[四个预定义的常量](https://github.com/w3c/csswg-drafts/pull/1819)： `safe-area-inset-left`, `safe-area-inset-right`, `safe-area-inset-top` 和 `safe-area-inset-bottom`。当合并使用时，允许样式使用每个方向的安全区域的大小。
 
 CSS 工作组[最近决定添加这个特性](https://github.com/w3c/csswg-drafts/issues/1693#issuecomment-330909067)，但是使用了不同的名称，请记住这一点。
 
@@ -101,7 +101,7 @@ max() 将安全区内嵌与传统边距结合
 
 ## 反馈和问题
 
-现在你可以在 [Xcode 9](https://developer.apple.com/xcode/) 中 iPhone X 模拟器的 Safari 开始采用 viewport-fit 和安全区内嵌。很乐意听到所有特性被采纳，请随时将反馈和问题发送到 [web-evangelist@apple.com](mailto:web-evangelist@apple.com) 或者在 Twitter 上 [@webkit](https://twitter.com/webkit)，并将 bug 都提交到 [WebKit的bug跟踪器](https://bugs.webkit.org/)。
+现在你可以在 [Xcode 9](https://developer.apple.com/xcode/) 中 iPhone X 模拟器的 Safari 开始采用 viewport-fit 和安全区内嵌。很乐意听到所有特性被采纳，请随时将反馈和问题发送到 [web-evangelist@apple.com](mailto:web-evangelist@apple.com) 或者在 Twitter 上 [@webkit](https://twitter.com/webkit)，并将 bug 都提交到 [WebKit 的 bug 跟踪器](https://bugs.webkit.org/)。
 
 
 ---
