@@ -5,7 +5,7 @@ Eric Elliott](https://medium.com/@_ericelliott?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/composable-datatypes-with-functions.md](https://github.com/xitu/gold-miner/blob/master/TODO/composable-datatypes-with-functions.md)
 > * 译者：[yoyoyohamapi](https://github.com/yoyoyohamapi)
-> * 校对者：[IridescentMia](https://github.com/IridescentMia)
+> * 校对者：[IridescentMia](https://github.com/IridescentMia) [lampui](https://github.com/lampui)
 
 # 借助函数完成可组合的数据类型（软件编写）（第十部分）
 
@@ -16,7 +16,7 @@ Eric Elliott](https://medium.com/@_ericelliott?source=post_header_lockup)
 
 在 JavaScript 中，最简单的方式完成组合就是函数组合，并且一个函数只是一个你能够为之添加方法的对象。换言之，你可以这么做：
 
-```
+```js
 const t = value => {
   const fn = () => value;
   fn.toString = () => `t(${ value })`;
@@ -43,7 +43,7 @@ console.log(
 
 我们也能将上述代码翻译为一种简单的单元测试：
 
-```
+```js
 const assert = {
   same: (actual, expected, msg) => {
     if (actual.toString() !== expected.toString()) {
@@ -88,7 +88,7 @@ NOT OK: a value t(x) composed with t(0) ==== t(x)
 
 将 1 至 3 步综合起来得到：
 
-```
+```js
 const t = value => {
   const add = n => t(value + n);
   return Object.assign(add, {
@@ -107,7 +107,7 @@ const t = value => {
 
 现在，你可以使用函数组合来组合 t() ，从而达到求和任务：
 
-```
+```js
 // 自顶向下的函数组合：
 const pipe = (...fns) => x => fns.reduce((y, f) => f(y), x);
 // 求和函数为 pipeline 传入需要的初始值
@@ -124,7 +124,7 @@ sumT(
 
 无论你的数据形态是什么样子的，只要它存在有意义的组合操作，上面的策略都能帮到你。对于列表或者字符串来说，组合能够完成连接操作。对于 DSP（数字信号处理）来说，组合完成的就是信号的求和。当然，其他的操作也能为你带来想要的结果。那么问题来了，哪种操作最能反映组合的观念？换言之，哪种操作能更受益于下面的代码组织方式：
 
-```
+```js
 const result = compose(
   value1,
   value2,
@@ -136,7 +136,7 @@ const result = compose(
 
 [Moneysafe](https://github.com/ericelliott/moneysafe) 是一个实现了这个可组合的、函数式数据类型风格的开源库。JavaScript 的 `Number` 类型无法精确地表示美分的计算：
 
-```
+```js
 .1 + .2 === .3 // false
 ```
 
@@ -148,14 +148,14 @@ npm install --save moneysafe
 
 之后：
 
-```
+```js
 import { $ } from 'moneysafe';
 $(.1) + $(.2) === $(.3).cents; // true
 ```
 
 ledger 语法利用了 Moneysafe 将一般的值提升为可组合函数的优势。它暴露一个简单的、称之为 ledger 的函数组合套件：
 
-```
+```js
 import { $ } from 'moneysafe';
 import { $$, subtractPercent, addPercent } from 'moneysafe/ledger';
 $$(
