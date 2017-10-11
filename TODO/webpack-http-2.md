@@ -30,9 +30,9 @@ HTTP/2 可以多路复用，所有模块都可以并行使用同一个连接，�
 * **压缩**成单文件优于多个小文件。
 * 相比处理单个大文件，**服务器**处理多个小文件较慢。
 
-So we need to find the middle ground to get the best for both worlds. We put the modules into _n_ bundles where _n_ is greater than 1 and smaller than the number of modules. Changing one module invalidates the cache for one bundle which is only a part of the complete application. The remaining application is still cached.
+因此我们需要在两者中间取得一个折中。我们将模块分为 _n_ 个包，n 大于 1，小于模块数。改变其中一个模块使其缓存失效，因为相应的包只是整个应用的一部分，其它的包的缓存仍然有效。
 
-> More bundles means better caching, but less compression.
+> 更多的包意味着缓存命中率更高，但压缩率更低？
 
 ## The AggressiveSplittingPlugin
 
