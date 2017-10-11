@@ -4,7 +4,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/react-16-features-and-fiber-explanation.md](https://github.com/xitu/gold-miner/blob/master/TODO/react-16-features-and-fiber-explanation.md)
 > * 译者：[yoyoyohamapi](https://github.com/yoyoyohamapi)
-> * 校对者：
+> * 校对者：[Tina92](https://github.com/Tina92) [sunui](https://github.com/sunui)
 
 # React 16 带来了什么以及对 Fiber 的解释
 
@@ -36,7 +36,7 @@ React 核心算法的更新已经进行了多年了 —— 这次更新提供了
 
 异步渲染的意义在于能够将渲染任务划分为多块。浏览器的渲染引擎是单线程的，这意味着几乎所有的行为都是同步发生的。React 16 使用原生的浏览器 API 来间歇性地检查当前是否还有其他任务需要完成，从而实现了对主线程和渲染过程的管理。在 Firefox 中，一个浏览器主线程的例子很简单：
 
-```
+```js
 while (!mExiting) {
     NS_ProcessNextEvent(thread);
 }
@@ -62,7 +62,7 @@ React 16 也会在必要的时候管理各个更新的优先级。这就允许�
 
 React 16 含有的 error boundary 不只能够提供清晰的错误信息，还能防止整个应用因错误而崩溃。将 error boundary 添加到你的应用之后，它能够 catch 住错误并且展示一个对应的 UI 而不会造成整个组件树崩溃。boundary 能够在组建的渲染期、生命周期方法及所有其子树的构造方法中 catch 错误。error boundary 通过一个新的生命周期方法 componentDidCatch(error, info) 就可以轻松实现。
 
-```
+```js
 class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
@@ -108,7 +108,7 @@ React 16 依赖于 `Map` 及 `Set`。为了确保对所有浏览器兼容，你�
 
 另外，React 16 也依赖于 `requestAnimationFrame`，这个依赖主要服务于测试。一个针对测试目的的 shim 可以是：
 
-```
+```js
 global.requestAnimationFrame = function(callback) {
   setTimeout(callback);
 };
