@@ -16,19 +16,19 @@ HTTP/2 可以多路复用，所有模块都可以并行使用同一个连接，�
 
 很遗憾，现实并不如意。
 
-## Prior work
+## 以前的文章
 
-You can read the following articles, which explain everything in detail and do some experiments to verify them (or just skip and and read the summary).
+下面的文章详细解释了相关信息，并且做了一些实验来验证。你可以阅读它们（或者跳过它们，只看总结）。
 
 [**Forgo JS packaging? Not so fast** *The traditional advice for web developers is to bundle the JavaScript files used by their webpages into one or (at most…*engineering.khanacademy.org](http://engineering.khanacademy.org/posts/js-packaging-http2.htm)
 
 [**The Right Way to Bundle Your Assets for Faster Sites over HTTP/2** *Speed is always a priority in web development. With the introduction of HTTP/2, we can have increased performance for a…*medium.com](https://medium.com/@asyncmax/the-right-way-to-bundle-your-assets-for-faster-sites-over-http-2-437c37efe3ff)
 
-This is the gist of the articles:
+文章主旨：
 
-* There is still a **protocol overhead** for each request compared to a single concatenated file.
-* The **compression** of the single large file is better than many small files.
-* **Servers** are slower serving many small files than a single large file.
+* 相比拼接为一个文件，多个文件传输仍然有 **协议负担（protocol overhead）**。
+* **压缩**成单文件优于多个小文件。
+* 相比处理单个大文件，**服务器**处理多个小文件较慢。
 
 So we need to find the middle ground to get the best for both worlds. We put the modules into _n_ bundles where _n_ is greater than 1 and smaller than the number of modules. Changing one module invalidates the cache for one bundle which is only a part of the complete application. The remaining application is still cached.
 
