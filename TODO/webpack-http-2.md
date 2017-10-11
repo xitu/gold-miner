@@ -8,9 +8,9 @@
 
 # webpack & HTTP/2
 
-Let’s start with a myth about HTTP/2:
+让我们从 HTTP/2 的一个传言开始：
 
-> With HTTP/2 you don’t need to bundle your modules anymore.
+> 有了 HTTP/2，你就不再需要打包模块了。
 
 HTTP/2 can multiplex all your modules over the same connection in parallel. So there are no additional round trips for the many requests. Each module can be separately cached.
 
