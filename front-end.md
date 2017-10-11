@@ -6,7 +6,7 @@
 * [网络现状：性能提升指南](https://juejin.im/post/59c4b6a55188257e764c9c20?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([undead25](https://github.com/undead25) 翻译)
 * [ES6+ 中的 JavaScript 工厂函数](https://juejin.im/post/59c8c8756fb9a00a681ae5bd?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lampui](https://github.com/lampui) 翻译)
 * [使用 CSS 栅格和 Flexbox 打造 Trello 布局](https://juejin.im/post/59bb463d51882519777c5a85?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([sunui](https://github.com/sunui) 翻译)
-* [在 HTTP/2 的世界里管理 CSS 和 JS](https://juejin.im/post/59b8b97d5188257e8c54d816?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([sunui](https://github.com/sunui) 翻译)
+* [在 HTTP/2 的世界里管理 CSS 和 JS](https://juejin.im/post/59bb463d51882519777c5a85?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([sunui](https://github.com/sunui) 翻译)
 * [学习 JavaScript：9个常见错误阻碍你进步](https://juejin.im/post/59bb4a7c6fb9a00a53274cd7?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lekenny](https://github.com/lekenny) 翻译)
 * [使用 CSS 的 font-size-adjust 属性改善网页排版](https://juejin.im/post/59b8b97d5188257e8c54d816?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lampui](https://github.com/lampui) 翻译)
 * [CSS 十六进制颜色揭秘](https://juejin.im/entry/59b887515188257e7973a60a?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([sunshine940326](https://github.com/sunshine940326) 翻译)
