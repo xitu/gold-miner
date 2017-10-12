@@ -335,10 +335,10 @@ Once you know the difference between the function dynamic and the lexical `this`
 
 ## **Further reading**
 
-[http://www.joshuakehn.com/2011/10/20/Understanding-JavaScript-Context.html](http://www.joshuakehn.com/2011/10/20/Understanding-JavaScript-Context.html)
-[http://ryanmorr.com/understanding-scope-and-context-in-javascript/](http://ryanmorr.com/understanding-scope-and-context-in-javascript/)
-[https://hackernoon.com/execution-context-in-javascript-319dd72e8e2c](https://hackernoon.com/execution-context-in-javascript-319dd72e8e2c)
-[http://2ality.com/2012/04/arrow-functions.html](http://2ality.com/2012/04/arrow-functions.html)
+- [http://www.joshuakehn.com/2011/10/20/Understanding-JavaScript-Context.html](http://www.joshuakehn.com/2011/10/20/Understanding-JavaScript-Context.html)
+- [http://ryanmorr.com/understanding-scope-and-context-in-javascript/](http://ryanmorr.com/understanding-scope-and-context-in-javascript/)
+- [https://hackernoon.com/execution-context-in-javascript-319dd72e8e2c](https://hackernoon.com/execution-context-in-javascript-319dd72e8e2c)
+- [http://2ality.com/2012/04/arrow-functions.html](http://2ality.com/2012/04/arrow-functions.html)
 
 
 ---
