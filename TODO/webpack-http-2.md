@@ -32,9 +32,9 @@ HTTP/2 可以多路复用，所有模块都可以并行使用同一个连接，�
 
 因此我们需要在两者中间取得一个折中。我们将模块分为 _n_ 个包，n 大于 1，小于模块数。改变其中一个模块使其缓存失效，因为相应的包只是整个应用的一部分，其它的包的缓存仍然有效。
 
-> 更多的包意味着缓存命中率更高，但压缩率更低？
+> 更多的包意味着缓存命中率更高，但不利于压缩？
 
-## The AggressiveSplittingPlugin
+## AggressiveSplittingPlugin
 
 The upcoming webpack 2 gives you the tool to do so. The most webpack internals are already there anyway. We already have chunks as a group of modules which form a output file. We have an optimization phase which can change these chunks. We just need a plugin to perform this optimization.
 
