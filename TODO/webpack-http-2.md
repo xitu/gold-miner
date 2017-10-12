@@ -36,19 +36,19 @@ HTTP/2 可以多路复用，所有模块都可以并行使用同一个连接，�
 
 ## AggressiveSplittingPlugin
 
-The upcoming webpack 2 gives you the tool to do so. The most webpack internals are already there anyway. We already have chunks as a group of modules which form a output file. We have an optimization phase which can change these chunks. We just need a plugin to perform this optimization.
+webpack 2 为你提供了这样的工具。webpack 内部大多都是这样，将一组模块组装成块（chunk）输出一个文件。我们还有一个优化阶段可以改变这些块（chunk），只是需要一个插件来做这个优化。
 
-The _AggressiveSplittingPlugin_ splits the original chunks into smaller chunks. You specify the chunk size you want to have. This improves the caching while worsens the compression (and transferring for HTTP/1).
+插件 _AggressiveSplittingPlugin_ 将原始的块分的更小。你可以指定你想要的块大小。它提高的缓存，但损害了压缩（对 HTTP/1 来说也影响传输时间）。
 
-To combine similar modules, they are sorted alphabetically (by path) before splitting. Modules in the same folder are probably related to each other and similar from compression point of view. With this sorting they end up in the same chunk.
+为了结合相似的模块，它们在分离之前会按照路径的字母顺序排序。通常在同一目录下的文件往往是相关的，从压缩来看也是一样。通过这种排序，它们也就能分离到相同的块中了。
 
-Now we have efficient chunking for HTTP/2.
+对于 HTTP/2 我们现在有高效的分块方式了。
 
-## Changes to the application
+## 修改应用
 
-But that’s not the end of the story. When the application is **updated** we need to **try hard** to **reuse** the previously created chunks. Therefore every time the *AggressiveSplittingPlugin* finds a good chunk (size within the limits), it stores the chunk’s **modules** and **hash** into *records*.
+但这还没结束。当应用更新时我们要尽量复用之前创建的块。因此每次 AggressiveSplittingPlugin 都能够找到一个合适的块大小（在限制内），并将块的模块（modules）和哈希（hash）保存到 *records* 中。
 
-> **Records** is webpack’s concept of **state** that is kept between compilations. It’s stored to and read from a JSON file.
+> **Records** 是 webpack 编译过程中**编译状态**的概念，可以通过 JSON 文件存取。
 
 When the *AggressiveSplittingPlugin* is called again it first tries to **restore** the chunks from _records_ before trying to split the remaining modules. This ensures that cached chunks are reused.
 
