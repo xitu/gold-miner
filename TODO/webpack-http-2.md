@@ -50,11 +50,11 @@ webpack 2 为你提供了这样的工具。webpack 内部大多都是这样，�
 
 > **Records** 是 webpack 编译过程中**编译状态**的概念，可以通过 JSON 文件存取。
 
-When the *AggressiveSplittingPlugin* is called again it first tries to **restore** the chunks from _records_ before trying to split the remaining modules. This ensures that cached chunks are reused.
+当再次调用 *AggressiveSplittingPlugin*，在尝试分离剩余模块之前，它会先尝试从 _records_ 中**恢复**块。这就确保已缓存的块能够被复用。
 
-## Bootstrapping and Server
+## 启动和服务（Bootstrapping and Server）
 
-An application using this technique no longer emits a single file which can be included in the HTML file. It emits multiple chunks which all need to be loaded. In an application using this optimization multiple script-tags are used to load every chunk (in parallel). Maybe like this:
+使用这项技术的应用不再输出包含在 HTML 文件中的单独文件，相反，它输出多个需要被加载的块（chunk），应用就能使用多个 script 标签（并行）加载每个块。就像这样：
 
 ```
 <script src="1ea296932eacbe248905.js"></script>
@@ -76,19 +76,19 @@ An application using this technique no longer emits a single file which can be i
 <script src="02d127598b1c99dcd2d0.js"></script>
 ```
 
-webpack emit these chunk in **order of age**. The oldest file is executed first and the most recent one last. The browser can start executing files in cache while waiting for the download of the most recent files. Older files are more likely to be in the cache already.
+webpack按时间**先后顺序**输出这些块。最旧的文件先执行，最新的在最后。浏览器可以先执行已被缓存的块，同时加载最新的文件。旧文件更可能已经被缓存。
 
-**HTTP/2 Server push** can be used to send these chunks to the client when the HTML page is requested. Best start pushing the most recent file first, as older files are more likely to be in the cache already. The client can cancel push responses for files it already have, but this takes a round trip.
+当 HTML 文件被请求时，**HTTP/2 服务端推送**可以将这些块推送给客户端。最好能先推送最新的文件，因为旧文件更可能已经被缓存。如果已经有缓存，客户端可以取消服务端的推送，但这需要一次往返。
 
-When using Code Splitting for **on demand loading** webpack handles the parallel requests for you.
+webpack 将代码分离用于 **按需加载**，可以处理并行请求？
 
-## Conclusion
+## 结论
 
-webpack 2 gives you the tooling to improve caching and transfer of your application when using HTTP/2\. Don’t be afraid that your stack won’t be future-proof.
+webpack 2 为你提供了用于 HTTP/2 的，能改善缓存和传输的工具。不用担心你的技术栈不面向未来了。
 
-Note that the _AggressiveSplittingPlugin_ is still **experimental**.
+注意 _AggressiveSplittingPlugin_ 仍然是实验特性。
 
-I’m very interested in your experiences…
+我对你的使用体验很感兴趣哦~
 
 
 ---
