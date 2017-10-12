@@ -4,15 +4,15 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/the-many-faces-of-this-in-javascript.md](https://github.com/xitu/gold-miner/blob/master/TODO/the-many-faces-of-this-in-javascript.md)
 > * 译者：[lsvih](https://github.com/lsvih)
-> * 校对者：
+> * 校对者：[lampui](https://github.com/lampui)
 
 # Javascript 中各种各样的 this
 
 ![](https://cdn-images-1.medium.com/max/800/1*7SJ32rCU2QasXn9Uyv8NyQ.jpeg)
 
-本文将尽量解释清楚 JavaScript 中最基本的部分之一：执行上下文（execution context）。如果你大多情况都使用的是各种 JS 框架，那理解“this”只是锦上添花。不过如果你想认真地对待编程，成为一名 Javascript 程序员，那么理解上下文是非常重要的一个点。
+本文将尽量解释清楚 JavaScript 中最基础的部分之一：执行上下文（execution context）。如果你大多情况都使用的是各种 JS 框架，那理解“this”更是锦上添花。不过如果你想认真地对待编程，成为一名 Javascript 程序员，那么理解上下文是非常重要的一个点。
 
-我们可以像与平常说话一样来使用 `this`。我会说“我妈很不爽，这（this）太糟糕了”，而不会说“我妈很不爽，我妈很不爽这件事太糟糕了”。理解了 `this` 的上下文，才会理解我们为什么觉得很糟糕。
+我们可以像平常说话一样来使用 `this`。我会说“我妈很不爽，这（this）太糟糕了”，而不会说“我妈很不爽，我妈很不爽这件事太糟糕了”。理解了 `this` 的上下文，才会理解我们为什么觉得很糟糕。
 
 现在试着把这个例子与编程语言联系起来。在 Javascript 中，我们将 `this` 作为一个快捷方式，一个引用，它指向它所在上下文的某个对象、变量。
 
@@ -65,7 +65,7 @@ console.log(fy());
 // => 20
 ```
 
-`this` 由函数被引用的方式决定。如你所见，上面的所有函数都是在全局上下文中被调用。
+`this` 由函数被调用的方式决定。如你所见，上面的所有函数都是在全局上下文中被调用。
 
 ```
 var o = {
