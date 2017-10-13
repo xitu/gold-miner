@@ -3,34 +3,34 @@
 > * 原文作者：[Steve Smith](https://legacy-developer.atlassian.com/blog/authors/ssmith/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/force-with-lease.md](https://github.com/xitu/gold-miner/blob/master/TODO/force-with-lease.md)
-> * 译者：
-> * 校对者：
+> * 译者：[LeviDing](https://github.com/leviding)
+> * 校对者：[yifili09](https://github.com/yifili09)
 
-# -force considered harmful; understanding git's --force-with-lease
+# 使用 `-force` 被认为是有害的；了解 Git 的 `-force-with-lease` 命令
 
-Git's `push --force` is destructive because it unconditionally overwrites the remote repository with whatever you have locally, possibly overwriting any changes that a team member has pushed in the meantime. However there is a better way; the option --force-with-lease can help when you do need to do a forced push but still ensure you don't overwrite other's work.
+Git 的 `push --force` 具有破坏性，因为它无条件地覆盖远程存储库，无论你在本地拥有什么。使用这个命令，可能覆盖团队成员在此期间推送的所有更改。然而，有一个更好的办法，当你需要强制推送，但仍需确保不覆盖其他人的工作时，`-force-with-lease` 这条指令选项可以帮助到你。
 
-![I don't always push --force...](https://developer.atlassian.com/blog/2015/04/force-with-lease/force-with-lease.jpg)
+![我不经常使用 push --force...](https://developer.atlassian.com/blog/2015/04/force-with-lease/force-with-lease.jpg)
 
-It's well known that git's `push --force` is strongly discouraged as it can destroy other commits already pushed to a shared repository. This isn't always completely fatal (if the changes are in someone's working tree then they can be merged), but at the very least it's inconsiderate, at worst disastrous. This is because the `--force` option makes the head of the branch point at your personal history, ignoring any changes that may have occurred in parallel with yours.
+众所周知，git 的 `push -force` 指令是不推荐被使用的，因为它会破坏其他已经提交到共享库的内容。虽然这不总是完全致命的（如果那些修改的内容仍在某些同事的本地工作域中，那之后他们能被重新合并），但是这样的做法很欠考虑，最糟糕的情况会造成灾难性的损失。这是因为 `--force` 指令选项迫使分支的头指针指向你个人的修改记录，而忽略了那些其他和你同时进行地更改。
 
-One of the most common causes of force pushes is when we're forced to rebase a branch. To illustrate this, let's have a quick example. We have a project with a feature branch that both Alice and Bob are going to work on. They both `clone` this repository and start work.
+强制推动最常见的原因之一是当我们被迫 `rebase` 一个分支的时候。为了说明这一点，我们来看一个例子。我们有一个项目，其中有一个功能分支，Alice 和 Bob 要同时在这个分支上工作。他们都 `git clone...` 了这个仓库，并开始工作。
 
-Alice initially completes her part of the feature, and `push`es this up to the main repository. This is all well and good.
+最初，Alice 完成了她负责的功能，并将其 `push` 到主仓库。这都没啥问题。
 
-Bob also finishes his work, but before pushing it up he notices some changes had been merged into master. Wanting to keep a clean tree, he performs a rebase against the master branch. Of-course, when he goes to push this rebased branch it will be rejected. However not realising that Alice has already pushed her work, he performs a `push --force`. Unfortunately, this will erase all record of Alice's changes in the central repository.
+Bob 也完成了他的工作，但在 `push` 之前，他注意到一些变化已被合并到了 *master* 分支。想要保持一棵整洁的工作树，他会对主分支执行一个 `rebase`。当然，当他 `push` 这个经过 `rebase` 的分支的时候将被拒绝。然而，Bob 没有意识到 Alice 已经 `push` 了她的工作。Bob 执行了 `push --force` 命令。不幸的是，这将清除 Alice 在远程主仓库的所有更改和记录。
 
-The problem here is that when doing a force push Bob doesn't know why his changes have been rejected, so he assumes that it's due to the rebase, not due to Alice's changes. This is why `--force` on shared branches is an absolute no-no; and with the central-repository workflow any branch can potentially be shared.
+这里的问题是，进行强制推送的 Bob 不知道为什么他的 `push` 会被拒绝，所以他认为这是 `rebase` 造成的，而不是由于 Alice 的变化。这就是为什么 `--force` 在同一个分支上协作的时候要杜绝的；并且通过远程主仓库的工作流程，任何分支都可以被共享。
 
-But `--force` has a lesser-known sibling that *partially* protects against damaging forced updates; this is `--force-with-lease`.
+但是 `--force` 有一个不为众人所知的亲戚，它在**一定程度上**能防止强制更新操作带来的结构性破坏；它就是 `--force-with-lease`。
 
-What `--force-with-lease` does is refuse to update a branch unless it is the state that we expect; i.e. nobody has updated the branch upstream. In practice this works by checking that the upstream ref is what we expect, because refs are hashes, and implicitly encode the chain of parents into their value.
+`--force-with-lease` 是用于拒绝更新一个分支，除非该分支达到我们期望的状态。即没有人在上游更新分支内容。 实际上，通过检查上游引用是我们所期望的，因为引用是散列，并将父系链隐含地编码成它们的值。
 
-You can tell `--force-with-lease` exactly what to check for, but by default will check the current remote ref. What this means in practice is that when Alice updates her branch and pushes it up to the remote repository, the ref pointing head of the branch will be updated. Now, unless Bob does a pull from the remote, his *local* reference to the remote will be out of date. When he goes to push using `--force-with-lease`, git will check the local ref against the new remote and refuse to force the push. `--force-with-lease` effectively only allows you to force-push if no-one else has pushed changes up to the remote in the interim. It's `--force` with the seatbelt on. A quick demonstration of it in action may help clarify this:
+你可以告诉 `--force-with-lease` 究竟要检查什么，默认情况下会检查当前的远程引用。这在实践中意味着，当 Alice 更新她的分支并将其推送到远程仓库时，分支的引用指针将被更新。现在，除非 Bob从远程仓库 `pull` 一下，否则*本地*对远程仓库的引用将过期。当他使用 `--force-with-lease` 推送时，git 会检查本地与远程的引用是否对应，并拒绝 Bob 的强制推送。`--force-with-lease` 有效地只在没有人在上游更新分支内容的时候允许你强制推送。就像是一个带有安全带的 `--force`。它的一个快速演示可能有助于说明这一点：
 
-Alice has made some changes to the branch and has pushed to the main repository. But here Bob rebases the branch against master:
+Alice 已经对该分支进行了一些更改，并已推送到了远程主仓库。Bob 现在又对远程仓库的 `master` 分支进行了 `rebases` 操作：
 
-```
+```bash
 ssmith$ git rebase master
 First, rewinding head to replay your work on top of it...
 Applying: Dev commit #1
@@ -38,9 +38,9 @@ Applying: Dev commit #2
 Applying: Dev commit #3
 ```
 
-Having rebased, he attempts to push, but the server rejects it as it would overwrite Alice's work:
+`rebase` 之后，他试图将自己的更改 `push` 上去，但服务器拒绝了，因为这会覆盖 Alice 的工作：
 
-```
+```bash
 ssmith$ git push
 To /tmp/repo
  ! [rejected]        dev -> dev (fetch first)
@@ -52,15 +52,15 @@ hint: (e.g., 'git pull ...') before pushing again.
 hint: See the 'Note about fast-forwards' in 'git push --help' for details.
 ```
 
-But Bob assumes that this is due to the rebase, and decides to push it anyway:
+但 Bob 认为这是 `rebase` 操作造成的，并决定强制 `push`：
 
-```
+```bash
 ssmith$ git push --force
 To /tmp/repo
  + f82f59e...c27aff1 dev -> dev (forced update)
 ```
 
-However, if he had used `--force-with-lease`, he would have had a different result, as git would have checked that the remote branch had not in-fact been updated since Bob last fetched it:
+然而，如果他使用了 `--force-with-lease`，则会得到不同的结果，因为 git 会检查远程分支，发现 从上一次 Bob 使用 `fetch` 到现在，实际上并没有被更新：
 
 ```
 ssmith$ git push -n --force-with-lease
@@ -69,9 +69,9 @@ To /tmp/repo
 error: failed to push some refs to '/tmp/repo'
 ```
 
-Of course, this being git there are some caveats. The standard one is that this only works if Alice has already pushed her changes up to the remote repository. This is not a serious problem, however as when she goes to pull the rebased branch she'll be prompted to merge the changes in; if she wishes she can alternatively rebase her work onto it.
+当然，在这有一些关于 git 的注意事项。上面展示的，只有当 Alice 已经将其更改推送到远程存储库时，它才有效。这不是一个严重的问题，但是如果她想修改她提交的东西，那她去 `pull` 分支时，会被提示合并被更改。
 
-A more subtle problem is that it is possible to trick git into thinking that a branch has not been modified when it has. The main way that this would happen under normal usage is when Bob uses `git fetch` rather than `git pull` to update his local copy. The `fetch` will pull the objects and refs from the remote, but without a matching `merge` does not update the working tree. This will make it look as if the working copy of the remote is up to date with the remote without actually including the new work, and trick `--force-with-lease` into overwriting the remote branch, as you can see in this example:
+一个更微妙的问题是，我们有方法去骗 git，让 git 认为这个分支没有被修改。在正常使用情况下，最常发生这种现象的情况是，Bob 使用 `git fetch` `而不是 `git pull` `来更新他的本地副本。`fetch` 将从远程仓库拉出对象和引用，但没有匹配的 `merge` 则不会更新工作树。这将使本地仓库看起来已经与远程仓库进行了同步更新，但实际上本地仓库并没有进行更新，并欺骗 `--force-with-lease` 命令，成功覆盖远程分支，就像下面这个例子：
 
 ```
 ssmith$ git push --force-with-lease
@@ -97,15 +97,15 @@ To /tmp/repo
    d7cda55..b57fc84  dev -> dev
 ```
 
-The simplest answer to this issue is to simply say "Don't fetch without a merge" (or more commonly just do pull, which does both), but if for some reason you wish to fetch before pushing with `--force-with-lease` there is a way to do this safely. As with so many things git, refs are just arbitrary pointers to objects, so we can just create our own. In this case we can create a "save-point" copy of the remote ref before we perform the fetch. We can then tell `--force-with-lease` to use this ref as the expected value rather than the updated remote ref.
+这个问题的最简单的答案就是，简单的说“不要在没有合并的情况下 `fetch` 远程该分支”（或者更常用的方法是 `pull`，这个操作包含了前面的两个），但是如果由于某种原因你希望在用 `--force-with-lease` 进行代码上传之前进行 `fetch`，那么这有一种比较安全的方法。像 git 那么多的属性一样，引用只是对象的指针，所以我们可以创建我们自己的引用。在这种情况下，我们可以在进行 `fetch` 之前，为远程仓库引用创建“保存点”的副本。然后，我们可以告诉 `--force-with-lease` 将此作为引用值，而不是已经更新的远程引用。
 
-To do this we use git's `update-ref` feature to create a new ref to save the remote state before any rebase or fetch operations. This effectively bookmarks the point at which we start the work we're going to force push to the remote. In this we're saving the state of the remote branch `dev` to a new ref called `dev-pre-rebase`:
+为了做到这一点，我们使用 git 的 `update-ref` 功能来创建一个新的引用，以保存远程仓库在任何 `rebase` 或 `fetch` 操作前的状态。这有效地标记了我们开始强制 `push` 到远程的工作节点。在这里，我们将远程分支 `dev` 的状态保存到一个名为 `dev-pre-rebase` 的新引用中：
 
 ```
 ssmith$ git update-ref refs/dev-pre-rebase refs/remotes/origin/dev
 ```
 
-At this point we can do the rebase, fetch and then use the saved ref to protect the remote repository in case anyone has pushed up changes while we were working:
+这时呢，我们就可以进行 `rebase` 和 `fetch` 操作，然后使用保存的 `ref` 来保护远程仓库，以防有人在工作时做了更改：
 
 ```
 ssmith$ git rebase master
@@ -128,9 +128,9 @@ To /tmp/repo
 error: failed to push some refs to '/tmp/repo'
 ```
 
-As we can see `--force-with-lease` is a useful tool for the git user who sometimes needs to force-push. But it is far from a panacea for all the risks of `--force`, and it should not be used without first understanding how it works internally and its caveats.
+我们可以看到 `--force-with-lease` 对于有时需要进行强制推送的 git 用户来说，是一个很有用的工具。但是，对于 `--force` 操作的所有风险来说，这并不是万能的，如果不了解它内部的工作及其注意事项，就不应该使用它。
 
-But in its most common use case where the developers just push and pull as normal, with the occasional rebase, it provides some much needed protection against damaging forced pushes. For this reason, I would hope that in a future version of git (but probably not until 3.0) it would become the default behaviour of `--force`, and that that the current behaviour would be relegated to an option that shows its actual behaviour such as `--force-replace-remote`.
+但是，在最常见的用例中，开发人员只要按照正常的方式进行 `pull` 和 `push` 操作即可。偶尔使用下 `rebase`，这个命令提供了一些我们非常需要的，防止强制推送带来破坏的保护功能。因此，我希望在未来版本的 git（但可能 3.0 以前都不会实现），它将成为 `--force` 的默认行为，并且当前的行为将被降级到显示其实际行为的选项中，例如：`--force-replace-remote`。
 
 
 ---
