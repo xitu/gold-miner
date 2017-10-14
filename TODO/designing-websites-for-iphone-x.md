@@ -4,7 +4,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/designing-websites-for-iphone-x.md](https://github.com/xitu/gold-miner/blob/master/TODO/designing-websites-for-iphone-x.md)
 > * 译者：[Hyde Song](https://github.com/HydeSong)
-> * 校对者：[Larry](https://github.com/lampui)
+> * 校对者：[Larry](https://github.com/lampui) [Vernon](https://github.com/VernonVan)
 
 # iPhone X 网页设计
 
