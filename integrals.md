@@ -1,4 +1,4 @@
-> 注：该文档由管理员修改，如有疑问请联系管理员。最近更新时间：https://github.com/xitu/gold-miner/commits/master/integrals.md
+> 注：该文档由管理员修改，如有疑问请联系管理员。最近更新时间：[详见 Commit](https://github.com/xitu/gold-miner/commits/master/integrals.md)
 
 ## 译者：[shenxn](https://github.com/shenxn) 历史贡献积分：60 当前积分：15
 
