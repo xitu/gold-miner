@@ -3,77 +3,74 @@
 > * 原文作者：[Jason Brownlee](https://machinelearningmastery.com/author/jasonb/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/5-step-life-cycle-neural-network-models-keras.md](https://github.com/xitu/gold-miner/blob/master/TODO/5-step-life-cycle-neural-network-models-keras.md)
-> * 译者：
+> * 译者：[lsvih](https://github.com/lsvih)
 > * 校对者：
 
-# 5 Step Life-Cycle for Neural Network Models in Keras
+# Keras 中构建神经网络的 5 个生命周期
 
-Deep learning neural networks are very easy to create and evaluate in Python with Keras, but you must follow a strict model life-cycle.
+使用 Keras 创建、评价深度神经网络非常的便捷，不过你需要严格地遵循模型的几个生命周期。
 
-In this post you will discover the step-by-step life-cycle for creating, training and evaluating deep learning neural networks in Keras and how to make predictions with a trained model.
+在本文中我们将一步步地探索在 Keras 中创建、训练、评价深度神经网络的生命周期，并了解如何使用训练好的模型进行预测。
 
-After reading this post you will know:
+在阅读完本文后你将了解：
 
-* How to define, compile, fit and evaluate a deep learning neural network in Keras.
-* How to select standard defaults for regression and classification predictive modeling problems.
-* How to tie it all together to develop and run your first Multilayer Perceptron network in Keras.
+* 如何在 Keras 中定义、编译、训练以及评价一个深度神经网络。
+* 如何选择、使用默认的模型解决回归、分类预测问题。
+* 如何使用 Keras 开发并运行你的第一个多层感知机网络。
 
-Let’s get started.
+* **2017 年 3 月更新**：将示例更新至 Keras 2.0.2 / TensorFlow 1.0.1 / Theano 0.9.0。
 
-* **Update Mar/2017**: Updated example for Keras 2.0.2, TensorFlow 1.0.1 and Theano 0.9.0.
+![Keras 的深度学习神经网络生命周期](https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/07/Deep-Learning-Neural-Network-Life-Cycle-in-Keras.jpg)
 
-![Deep Learning Neural Network Life-Cycle in Keras](https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/07/Deep-Learning-Neural-Network-Life-Cycle-in-Keras.jpg)
+题图版权由 [Martin Stitchener](https://www.flickr.com/photos/dxhawk/6842278135/) 所有。
 
-Deep Learning Neural Network Life-Cycle in Keras
-Photo by [Martin Stitchener](https://www.flickr.com/photos/dxhawk/6842278135/), some rights reserved.
+## 综述
 
-## Overview
+下面概括一下我们将要介绍的 Keras 中神经网络模型的 5 个生命周期。
 
-Below is an overview of the 5 steps in the neural network model life-cycle in Keras that we are going to look at.
+1. 定义网络。
+2. 编译网络。
+3. 训练网络。
+4. 评价网络。
+5. 进行预测。
 
-1. Define Network.
-2. Compile Network.
-3. Fit Network.
-4. Evaluate Network.
-5. Make Predictions.
+![Keras 中神经网络的 5 个生命周期](https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/07/5-Step-Life-Cycle-for-Neural-Network-Models-in-Keras.png)
 
-![5 Step Life-Cycle for Neural Network Models in Keras](https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/07/5-Step-Life-Cycle-for-Neural-Network-Models-in-Keras.png)
+Keras 中神经网络的 5 个生命周期
 
-5 Step Life-Cycle for Neural Network Models in Keras
+## 想要了解更多使用 Python 进行深度学习的知识？
 
-## Need help with Deep Learning in Python?
+免费订阅 2 周，收取我的邮件，探索 MLP、CNN 以及 LSTM 吧！（附带样例代码）
 
-Take my free 2-week email course and discover MLPs, CNNs and LSTMs (with sample code).
+现在点击注册还能得到免费的 PDF 版教程。
 
-Click to sign-up now and also get a free PDF Ebook version of the course.
+[点击这里开始你的小课程吧！](https://machinelearningmastery.leadpages.co/leadbox/142d6e873f72a2%3A164f8be4f346dc/5657382461898752/)
 
-[Start Your FREE Mini-Course Now!](https://machinelearningmastery.leadpages.co/leadbox/142d6e873f72a2%3A164f8be4f346dc/5657382461898752/)
+## 第一步：定义网络
 
-## Step 1. Define Network
+首先要做的就是定义你的神经网络。
 
-The first step is to define your neural network.
+在 Keras 中，可以通过一系列的层来定义神经网络。这些层的容器就是 Sequential 类。（译注：序贯模型）
 
-Neural networks are defined in Keras as a sequence of layers. The container for these layers is the Sequential class.
+第一步要做的就是创建 Sequential 类的实例。然后你就可以按照层的连接顺序创建你所需要的网络层了。
 
-The first step is to create an instance of the Sequential class. Then you can create your layers and add them in the order that they should be connected.
-
-For example, we can do this in two steps:
+例如，我们可以做如下两步：
 
 ```
 model = Sequential()
 model.add(Dense(2))
 ```
 
-But we can also do this in one step by creating an array of layers and passing it to the constructor of the Sequential.
+此外，我们也可以通过创建一个层的数组，并将其传给 Sequential 构造器来定义模型。
 
 ```
 layers = [Dense(2)]
 model = Sequential(layers)
 ```
 
-The first layer in the network must define the number of inputs to expect. The way that this is specified can differ depending on the network type, but for a Multilayer Perceptron model this is specified by the input_dim attribute.
+网络的第一层必须要定义预期输入维数。指定这个参数的方式有许多种，不过在本文的多层感知机模型中我们将通过 `input_dim` 属性来指定它。
 
-For example, a small Multilayer Perceptron model with 2 inputs in the visible layer, 5 neurons in the hidden layer and one neuron in the output layer can be defined as:
+例如，我们要定义一个小型的多层感知机模型，这个模型在可见层中具有 2 个输入，在隐藏层中有 5 个神经元，在输出层中有 1 个神经元。这个模型可以定义如下：
 
 ```
 model = Sequential()
@@ -81,9 +78,9 @@ model.add(Dense(5, input_dim=2))
 model.add(Dense(1))
 ```
 
-Think of a Sequential model as a pipeline with your raw data fed in at the bottom and predictions that come out at the top.
+你可以将这个序贯模型看成一个管道，从一头喂入数据，从另一头得到预测。
 
-This is a helpful conception in Keras as concerns that were traditionally associated with a layer can also be split out and added as separate layers, clearly showing their role in the transform of data from input to prediction. For example, activation functions that transform a summed signal from each neuron in a layer can be extracted and added to the Sequential as a layer-like object called Activation.
+这种将通常互相连接的层分开，并作为单独的层加入模型是 Keras 中一个非常有用的概念，这样可以清晰地表明各层在数据从输入到输出的转换过程中起到的职责。例如，可以将用于将各个神经元中信号求和、转换的激活函数单独提取出来，并将这个 Activation 对象同层一样加入 Sequential 模型中。
 
 ```
 model = Sequential()
@@ -93,196 +90,181 @@ model.add(Dense(1))
 model.add(Activation('sigmoid'))
 ```
 
-The choice of activation function is most important for the output layer as it will define the format that predictions will take.
+输出层激活函数的选择尤为重要，它决定了预测值的格式。
 
-For example, below are some common predictive modeling problem types and the structure and standard activation function that you can use in the output layer:
+例如，以下是一些常用的预测建模问题类型，以及它们可以在输出层使用的结构和标准的激活函数：
 
-* **Regression**: Linear activation function or ‘linear’ and the number of neurons matching the number of outputs.
-* **Binary Classification (2 class)**: Logistic activation function or ‘sigmoid’ and one neuron the output layer.
-* **Multiclass Classification (>2 class)**: Softmax activation function or ‘softmax’ and one output neuron per class value, assuming a one-hot encoded output pattern.
+* **回归问题**：使用线性的激活函数或直接使用 “linear”，并使用与与输出数量相匹配的神经元数量。
+* **二分类问题**：使用逻辑激活函数或直接使用 “sigmoid”，在输出层仅设一个神经元。
+* **多分类问题**：使用 Softmax 激活函数或直接使用 “softmax”；假如你使用的是 one-hot 编码的输出格式的话，那么每个输出对应一个神经元。
 
-## Step 2. Compile Network
+## 第二步：编译网络
 
-Once we have defined our network, we must compile it.
+当我们定义好网络之后，必须要对它进行编译。
 
-Compilation is an efficiency step. It transforms the simple sequence of layers that we defined into a highly efficient series of matrix transforms in a format intended to be executed on your GPU or CPU, depending on how Keras is configured.
+编译是一个高效的步骤。它会将我们定义的层序列通过一系列高效的矩阵转换，根据 Keras 的配置转换成能在 GPU 或 CPU 上执行的格式。
 
-Think of compilation as a precompute step for your network.
+你可以将编译过程看成是对你网络的预计算。
 
-Compilation is always required after defining a model. This includes both before training it using an optimization scheme as well as loading a set of pre-trained weights from a save file. The reason is that the compilation step prepares an efficient representation of the network that is also required to make predictions on your hardware.
+无论是要使用优化器方案进行训练，还是从保存的文件中加载一组预训练权重，只要是在定义模型之后都需要编译，因为编译步骤会将你的网络转换为适用于你的硬件的高效结构。此外，进行预测也是如此。
 
-Compilation requires a number of parameters to be specified, specifically tailored to training your network. Specifically the optimization algorithm to use to train the network and the loss function used to evaluate the network that is minimized by the optimization algorithm.
+编译步骤需要专门针对你的网络的训练设定一些参数，设定训练网络使用的优化算法 以及用于评价网络通过优化算法最小化结果的损失函数尤为重要。
 
-For example, below is a case of compiling a defined model and specifying the stochastic gradient descent (sgd) optimization algorithm and the mean squared error (mse) loss function, intended for a regression type problem.
+下面的例子对定义好的用于回归问题的模型进行编译时，指定了随机梯度下降（sgd）优化算法，以及均方差（mse）算是函数。
 
 ```
 model.compile(optimizer='sgd', loss='mse')
 ```
-The type of predictive modeling problem imposes constraints on the type of loss function that can be used.
+预测建模问题的种类也会限制可以使用的损失函数类型。
 
-For example, below are some standard loss functions for different predictive model types:
+例如，下面是几种不同的预测建模类型对应的标准损失函数：
 
-* **Regression**: Mean Squared Error or ‘_mse_‘.
-* **Binary Classification (2 class)**: Logarithmic Loss, also called cross entropy or ‘_binary_crossentropy_‘.
-* **Multiclass Classification (>2 class)**: Multiclass Logarithmic Loss or ‘_categorical_crossentropy_‘.
+* **回归问题**：均方差误差 “_mse_”。
+* **二分类问题**：对数损失（也称为交叉熵）“_binary_crossentropy_”。
+* **多分类问题**：多类对数损失 “_categorical_crossentropy_”。
 
-You can review the [suite of loss functions supported by Keras](http://keras.io/objectives/).
+你可以查阅 [Keras 支持的损失函数](http://keras.io/objectives/)。
 
-The most common optimization algorithm is stochastic gradient descent, but Keras also supports a [suite of other state of the art optimization algorithms](http://keras.io/optimizers/).
+最常用的优化算法是随机梯度下降，不过 Keras 也支持[其它的一些优化算法](http://keras.io/optimizers/)。
 
-Perhaps the most commonly used optimization algorithms because of their generally better performance are:
+以下几种优化算法可能是最常用的优化算法，因为它们的性能一般都很好：
 
-* **Stochastic Gradient Descent** or ‘_sgd_‘ that requires the tuning of a learning rate and momentum.
-* **ADAM** or ‘_adam_‘ that requires the tuning of learning rate.
-* **RMSprop** or ‘_rmsprop_‘ that requires the tuning of learning rate.
+* **随机梯度下降** “_sgd_” 需要对学习率以及动量参数进行调参。
+* **ADAM** “_adam_” 需要对学习率进行调参。
+* **RMSprop** “_rmsprop_” 需要对学习率进行调参。
 
-Finally, you can also specify metrics to collect while fitting your model in addition to the loss function. Generally, the most useful additional metric to collect is accuracy for classification problems. The metrics to collect are specified by name in an array.
+最后，你还可以指定在训练模型过程中除了损失函数值之外的特定指标。一般对于分类问题来说，最常收集的指标就是准确率。需要收集的指标由设定数组中的名称决定。
 
-For example:
-
-```
-model.compile(optimizer='sgd', loss='mse', metrics=['accuracy'])
-```
-
-## Step 3. Fit Network
-
-Once the network is compiled, it can be fit, which means adapt the weights on a training dataset.
-
-Fitting the network requires the training data to be specified, both a matrix of input patterns X and an array of matching output patterns y.
-
-The network is trained using the backpropagation algorithm and optimized according to the optimization algorithm and loss function specified when compiling the model.
-
-The backpropagation algorithm requires that the network be trained for a specified number of epochs or exposures to the training dataset.
-
-Each epoch can be partitioned into groups of input-output pattern pairs called batches. This define the number of patterns that the network is exposed to before the weights are updated within an epoch. It is also an efficiency optimization, ensuring that not too many input patterns are loaded into memory at a time.
-
-A minimal example of fitting a network is as follows:
+例如：
 
 ```
 model.compile(optimizer='sgd', loss='mse', metrics=['accuracy'])
 ```
 
-Once fit, a history object is returned that provides a summary of the performance of the model during training. This includes both the loss and any additional metrics specified when compiling the model, recorded each epoch.
+## 第三步：训练网络
 
-## Step 4. Evaluate Network
+在网络编译完成后，就能对它进行训练了。这个过程也可以看成是调整权重以拟合训练数据集。
 
-Once the network is trained, it can be evaluated.
+训练网络需要制定训练数据，包括输入矩阵 X 以及相对应的输出 y。
 
-The network can be evaluated on the training data, but this will not provide a useful indication of the performance of the network as a predictive model, as it has seen all of this data before.
+在此步骤，将使用反向传播算法对网络进行训练，并使用在编译时制定的优化算法以及损失函数来进行优化。
 
-We can evaluate the performance of the network on a separate dataset, unseen during testing. This will provide an estimate of the performance of the network at making predictions for unseen data in the future.
+反向传播算法需要指定训练的 Epoch 数（轮次数、历元数）、对数据集的 exposure 数。
 
-The model evaluates the loss across all of the test patterns, as well as any other metrics specified when the model was compiled, like classification accuracy. A list of evaluation metrics is returned.
+每个 epoch 都可以被划分成多组数据输入输出对，它们也称为 batch。batch 设定的数字将会定义在每个 epoch 中更新权重之前输入输出对的数量。这种做法也是一种优化效率的方式，可以确保不会同时加载过多的输入输出对到内存（显存）中。
 
-For example, for a model compiled with the accuracy metric, we could evaluate it on a new dataset as follows:
+以下是一个最简单的训练网络的例子：
+
+```
+model.compile(optimizer='sgd', loss='mse', metrics=['accuracy'])
+```
+
+在训练网络之后，会返回一个历史对象（History oject），其中包括了模型在训练中各项性能的摘要（包括每轮的损失函数值及在编译时制定收集的指标）。
+
+## 第四步：评价网络
+
+在网络训练完毕之后，就可以对其进行评价。
+
+可以使用训练集的数据对网络进行评价，但这种做法得到的指标对于将网络进行预测并没有什么用。因为在训练时网络已经“看”到了这些数据。
+
+因此我们可以使用之前没有“看”到的额外数据集来评估网络性能。这将提供网络在未来对没有见过的数据进行预测的性能时的估测。
+
+评价模型将会评价所有测试集中的输入输出对的损失值，以及在模型编译时指定的其它指标（例如分类准确率）。本步骤将返回一组评价指标结果。
+
+例如，一个在编译时使用准确率作为指标的模型可以在新数据集上进行评价，如下所示：
 
 ```
 loss, accuracy = model.evaluate(X, y)
 ```
 
-## Step 5. Make Predictions
+## 第五步：进行预测
 
-Finally, once we are satisfied with the performance of our fit model, we can use it to make predictions on new data.
+最后，如果我们对训练后的模型的性能满意的话，就能用它来对新的数据做预测了。
 
-This is as easy as calling the predict() function on the model with an array of new input patterns.
+这一步非常简单，直接在模型上调用 predict() 函数，传入一组新的输入即可。
 
-For example:
+例如：
 
 ```
 predictions = model.predict(x)
 ```
 
-The predictions will be returned in the format provided by the output layer of the network.
+预测值将以网络输出层定义的格式返回。
 
-In the case of a regression problem, these predictions may be in the format of the problem directly, provided by a linear activation function.
+在回归问题中，这些由线性激活函数得到的预测值可能直接就符合问题需要的格式。
 
-For a binary classification problem, the predictions may be an array of probabilities for the first class that can be converted to a 1 or 0 by rounding.
+对于二分类问题，预测值可能是一组概率值，这些概率说明了数据分到第一类的可能性。可以通过四舍五入（K.round）将这些概率值转换成 0 与 1。
 
-For a multiclass classification problem, the results may be in the form of an array of probabilities (assuming a one hot encoded output variable) that may need to be converted to a single class output prediction using the [argmax function](http://docs.scipy.org/doc/numpy/reference/generated/numpy.argmax.html).
+而对于多分类问题，得到的结果可能也是一组概率值（假设输出变量用的是 one-hot 编码方式），因此它还需要用 [argmax 函数](http://docs.scipy.org/doc/numpy/reference/generated/numpy.argmax.html)将这些概率数组转换为所需要的单一类输出。
 
 ## End-to-End Worked Example
 
-Let’s tie all of this together with a small worked example.
+让我们用一个小例子将以上的所有内容结合起来。
 
-This example will use the Pima Indians onset of diabetes binary classification problem, that you can [download from the UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/Pima+Indians+Diabetes).
+我们将以 Pima Indians 糖尿病发病二分类问题为例。你可以在 [UCI 机器学习仓库](https://archive.ics.uci.edu/ml/datasets/Pima+Indians+Diabetes)中下载此数据集。
 
-The problem has 8 input variables and a single output class variable with the integer values 0 and 1.
+该问题有 8 个输入变量，需要输出 0 或 1 的分类值。
 
-We will construct a Multilayer Perceptron neural network with a 8 inputs in the visible layer, 12 neurons in the hidden layer with a rectifier activation function and 1 neuron in the output layer with a sigmoid activation function.
+我们将构建一个包含 8 个输入的可见层、12 个神经元的隐藏层、rectifier 激活函数、1 个神经元的输出层、sigmoid 激活函数的多层感知机神经网络。
 
-We will train the network for 100 epochs with a batch size of 10, optimized using the ADAM optimization algorithm and the logarithmic loss function.
+我们将对网络进行 100 epoch 次训练，batch 大小设为 10，使用 ADAM 优化算法以及对数损失函数。
 
-Once fit, we will evaluate the model on the training data and then make standalone predictions for the training data. This is for brevity, normally we would evaluate the model on a separate test dataset and make predictions for new data.
+在训练之后，我们使用训练数据对模型进行评价，然后使用训练数据对模型进行单独的预测。这么做是为了方便起见，一般来说我们都会使用额外的测试数据集进行评价，用新的数据进行预测。
 
-The complete code listing is provided below.
+完整代码如下：
 
 ```
-# Sample Multilayer Perceptron Neural Network in Keras
+# Keras 多层感知机神经网络样例
 from keras.models import Sequential
 from keras.layers import Dense
 import numpy
-# load and prepare the dataset
+# 加载数据
 dataset = numpy.loadtxt("pima-indians-diabetes.csv", delimiter=",")
 X = dataset[:,0:8]
 Y = dataset[:,8]
-# 1. define the network
+# 1. 定义网络
 model = Sequential()
 model.add(Dense(12, input_dim=8, activation='relu'))
 model.add(Dense(1, activation='sigmoid'))
-# 2. compile the network
+# 2. 编译网络
 model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
-# 3. fit the network
+# 3. 训练网络
 history = model.fit(X, Y, epochs=100, batch_size=10)
-# 4. evaluate the network
+# 4. 评价网络
 loss, accuracy = model.evaluate(X, Y)
 print("\nLoss: %.2f, Accuracy: %.2f%%" % (loss, accuracy*100))
-# 5. make predictions
+# 5. 进行预测
 probabilities = model.predict(X)
 predictions = [float(round(x)) for x in probabilities]
 accuracy = numpy.mean(predictions == Y)
 print("Prediction Accuracy: %.2f%%" % (accuracy*100))
 ```
 
-Running this example produces the following output:
+运行样例，会得到以下输出：
 
 ```
-# Sample Multilayer Perceptron Neural Network in Keras
-from keras.models import Sequential
-from keras.layers import Dense
-import numpy
-# load and prepare the dataset
-dataset = numpy.loadtxt("pima-indians-diabetes.csv", delimiter=",")
-X = dataset[:,0:8]
-Y = dataset[:,8]
-# 1. define the network
-model = Sequential()
-model.add(Dense(12, input_dim=8, activation='relu'))
-model.add(Dense(1, activation='sigmoid'))
-# 2. compile the network
-model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
-# 3. fit the network
-history = model.fit(X, Y, epochs=100, batch_size=10)
-# 4. evaluate the network
-loss, accuracy = model.evaluate(X, Y)
-print("\nLoss: %.2f, Accuracy: %.2f%%" % (loss, accuracy*100))
-# 5. make predictions
-probabilities = model.predict(X)
-predictions = [float(round(x)) for x in probabilities]
-accuracy = numpy.mean(predictions == Y)
-print("Prediction Accuracy: %.2f%%" % (accuracy*100))
+...
+768/768 [==============================] - 0s - loss: 0.5219 - acc: 0.7591
+Epoch 99/100
+768/768 [==============================] - 0s - loss: 0.5250 - acc: 0.7474
+Epoch 100/100
+768/768 [==============================] - 0s - loss: 0.5416 - acc: 0.7331
+32/768 [>.............................] - ETA: 0s
+Loss: 0.51, Accuracy: 74.87%
+Prediction Accuracy: 74.87%
 ```
 
-## Summary
+## 总结
 
-In this post you discovered the 5-step life-cycle of a deep learning neural network using the Keras library.
+在本文中，我们探索了使用 Keras 库进行深度学习时构建神经网络的 5 个生命周期。
 
-Specifically, you learned:
+此外，你还学到了：
 
-* How to define, compile, fit, evaluate and make predictions for a neural network in Keras.
-* How to select activation functions and output layer configurations for classification and regression problems.
-* How to develop and run your first Multilayer Perceptron model in Keras.
+* 如何在 Keras 中定义、编译、训练以及评价一个深度神经网络。
+* 如何选择、使用默认的模型解决回归、分类预测问题。
+* 如何使用 Keras 开发并运行你的第一个多层感知机网络。
 
-Do you have any questions about neural network models in Keras or about this post? Ask your questions in the comments and I will do my best to answer them.
+你对 Keras 的神经网络模型还有别的问题吗？或者你对本文还有什么建议吗？请在评论中留言，我会尽力回答。
 
 
 ---
