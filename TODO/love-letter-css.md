@@ -1,50 +1,51 @@
 > * 原文地址：[A Love Letter to CSS](http://developer.telerik.com/topics/web-development/love-letter-css/)
 > * 原文作者：[TJ VanToll](http://developer.telerik.com/author/tvantoll/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
-> * 校对者：
+> * 译者：[reid3290](https://github.com/reid3290)
+> * 校对者：[changkun](https://github.com/changkun)，[CACppuccino](https://github.com/CACppuccino)
 
-# A Love Letter to CSS
+# 一封写给 CSS 的情书
 
 ![http://developer.telerik.com/wp-content/uploads/2017/05/css_love_header.jpg](http://developer.telerik.com/wp-content/uploads/2017/05/css_love_header.jpg)
 
-When I tell coworkers of my unabated love for CSS they look at me like I’ve made an unfortunate life decision.
+当我和同事们谈及我对 CSS 的热爱有增无减时，他们一个个盯着我看，好像我做了个不幸的人生决定一样。
 
-> “Let’s sit down TJ, and talk about the poor choices you made during childhood that set you up for failure.”
+> “TJ，来坐这，我们来聊聊你小时候做的那个糟糕的选择是如何注定你一生的失败的。”
 
-Sometimes I feel that developers, some of the most opinionated human beings on the planet, can only agree on one thing: that CSS is totally the worst.
+有时候我觉得开发者们 —— 这星球上最固执己见的一批人 —— 只有一条共识：CSS 是最垃圾的。
 
 ![](https://ws2.sinaimg.cn/large/006tNc79gy1fgcf54bv9uj30eo062dga.jpg)
 
-One of the best ways to get consistent laughs at tech conferences is to take a jab at CSS, and CSS memes are so common that I’m contractually obligated to include two of them in this article.
+嘲讽 CSS 是在技术大会上博众人一笑的最佳手段之一，黑 CSS 的表情包也早已泛滥成灾，我觉得不放两个在这都对不起大家。
 
 ![](http://developer.telerik.com/wp-content/uploads/2017/05/css-mug.jpg)
 ![](http://developer.telerik.com/wp-content/uploads/2017/05/css-blinds.gif)
 
-But today I’m going to blow your mind. Today I’m going to try to convince you that not only is CSS one of the best technologies you use on a day-to-day basis, not only is CSS incredibly well designed, but that you should be thankful—thankful!—each and every time you open a `.css` file.
+但是今天我要给你们洗洗脑了。我要说服你相信 CSS 是你日常所使用的最好的技术之一，CSS设计精美，每次你打开 `.css` 文件的时候都应该心存感激！
 
-My argument is relatively simple: creating a comprehensive styling mechanism for building complex user interfaces is startlingly hard, and every alternative to CSS is much worse. Like, it’s not even close.
+我的论点相当简单明了：为构建复杂的用户界面创建一个全面的样式系统是非常困难的，任何 CSS 的替代方案都只会比 CSS 更糟而已。
 
-To prove my point I’m going to compare CSS to a few alternative styling systems, and I’m going start by taking you back in time.
+为了论证我的观点，我会将 CSS 同其他几种样式系统相比较，首先来看一种比较古老的技术。
 
-## OMG, remember Java applets?
+## 天哪，还记得 Java applets 吗？
 
-In college I built a few apps with this powerful, about-to-be-obsolete technology called Java applets. Java applets were basically Java apps that you could haphazardly embed in a browser using an `<applet>` tag. On a good day half of your users would have the correct version of Java installed on their machines, and they’d be able to run your apps successfully.
+大学期间我曾用 Java applets 技术编写过一些应用，这是一种现在几乎已经被淘汰了的技术。Java appltes 基本上就是一些 Java 应用，你可以使用 `<applet>` 标签随意地将其嵌入浏览器中。运气好的话，可能有一半用户在本地安装了版本正确的 Java，并能成功运行你的应用。 
 
 ![](http://developer.telerik.com/wp-content/uploads/2017/05/java-applet.jpg)
-*A sample Java applet so you can take yourself back to the late 90s*
 
-Java applets debuted in 1995 and started to get popular a few years later. If you were around in the late 90s, you’ll remember real debates about whether you should build your next great app using web technologies, or whether you should build using Java applets.
+**一个简单的 Java applet，带你回到 90 年代末**
 
-Like most technologies that let you create user interfaces, Java applets let you change the appearance of the controls that you place on the user’s screens. And because Java applets were seen as a plausible alternative to web development, the ease of styling controls in applets was sometimes compared to how you accomplish that same task on the web.
+Java applets 在 1995 年推出，并在随后的几年里逐渐流行了起来。如果你在 90 年代末就已经在出来浪了的话，那你应该记得那场关于 web 技术和 Java applets 的技术论战。
 
-Java applets obviously didn’t use CSS, so how exactly do you style UI controls in a Java applet? Not easily. Here’s a code snippet from the [first Google result for “change button color Java applet”](http://www.java-examples.com/change-button-background-color-example).
+和大多数用于构建用户界面的技术一样，Java applets 允许你改变用户界面上各种控件的外观。而且由于 Java applets 被视为 web 开发的合理替代技术，有时会将在 applets 中进行控件布局的便捷性和用 web 技术实现相同的功能作比较。
+
+Java applets 显然没有使用 CSS，那它究竟是如何进行 UI 布局的呢？并不容易。
+尝试用谷歌搜索“在 Java applet 中改变按钮颜色”，[返回的第一条结果代码如下：](http://www.java-examples.com/change-button-background-color-example).
 
 ```
 /*
-        Change Button Background Color Example
-        This java example shows how to change button background color using
-        AWT Button class.
+        改变按钮背景颜色的例子
+        该 java 示例展示了如何使用 AWT Button 类改变按钮背景颜色
 */
 
 import java.applet.Applet;
@@ -55,42 +56,42 @@ public class ChangeButtonBackgroundExample extends Applet{
 
     public void init(){
 
-        //create buttons
+        //创建按钮
         Button button1 = new Button("Button 1");
         Button button2 = new Button("Button 2");
 
         /*
-          * To change background color of a button use
-          * setBackground(Color c) method.
+          * 为了改变按钮背景颜色，使用
+          * setBackground(Color c) 方法。
           */
 
         button1.setBackground(Color.red);
         button2.setBackground(Color.green);
 
-        //add buttons
+        //添加按钮
         add(button1);
         add(button2);
     }
 }
 ```
+首先应该注意的是，Java applets 没有提供将代码逻辑和样式进行分离的方法，就像你可能在网页上使用 HTML 和 CSS 一样。它将作为本文剩余部分的主题。
 
-The first thing to note is that Java applets offer no real way to separate your logic and styling code, like you might do on the web with HTML and CSS. This will be a theme for the rest of this article.
+其次，创建两个按钮并改变其背景颜色需要编写**大量**代码。此刻你要是在想，“呵呵，这种方法在开发实际应用的时候很快就会变得不可控了”，那么你便开始能理解为什么 web 技术最终战胜了 Java Applets 了。
 
-The second thing to note is that this is a *lot* of code to create two buttons and change their background colors. If you’re thinking something like *“wow, this approach seems like it would get out of control really quickly in a real-world app”*, then you’re starting to get an idea of why the web won and Java Applets didn’t.
 
-That being said I know what you’re thinking.
+话虽如此，但我知道你在想什么。
 
-> “TJ, you’re not exactly winning me over by saying CSS styling is better Java Applet’s approach. Way to set a high bar.”
+> “TJ，你还没有完全说服我 CSS 的样式系统比 Java Applet 的更好呢。你这标准应该设得更高一点嘛。”
 
-Yes, because Java applet’s visual APIs aren’t exactly the gold standard of user interface design, let’s shift our attention to something developers actually build nowadays: Android apps.
+没错，Java applet 的可视化 API 并非界面设计的黄金准则，因此让我们将注意力转到当前的开发中来：Android 应用。
 
-## Why styling Android apps is hard
+## 为什么说 Android 应用的样式布局很难？
 
-In some ways, Android is a modern, way-better version of the Java applets from years ago. Like Java applets, Android uses Java as a development language. (Although you’ll soon be able to use the Kotlin language, per a [recent Google announcement at their Google I/O event](https://techcrunch.com/2017/05/17/google-makes-kotlin-a-first-class-language-for-writing-android-apps/).) But unlike Java applets, Android includes a series of conventions that makes building user interfaces a whole lot easier, and a lot more like building for the web.
+在某些方面，Android 可以说是现代化的高级版 Java applets。同 Java applets 一样，Android 也使用 Java 作为开发语言。 （不过，根据[谷歌最近在 Google I/O 大会上的声明]((https://techcrunch.com/2017/05/17/google-makes-kotlin-a-first-class-language-for-writing-android-apps/))，你很快就能使用 Kotlin 语言了。）但与 Java applets 不同的是，Android 包含一系列约定，使得构建用户界面更加容易，也更像是在构建 web 应用。
 
-On Android you define your user interface controls in XML files, and interact with that markup in a separate Java files. It’s very similar to a web app with markup in HTML files, and logic in separate JavaScript files.
+在 Android 应用中，界面控件的定义写在 XML 文件中，而与这些控件交互的逻辑则写在单独的 Java 文件中。这点很像 web 应用 —— HTML 文件负责标签结构，独立的 JavaScript 文件负责行为逻辑。
 
-Here’s what the markup of a very simple Android “activity” (basically a page) might look like.
+如下代码是一个非常简单的 Android “activity”（基本就是个页面）的标签结构：
 
 ```
 <?xml version="1.0" encoding="utf-8"?>
@@ -109,14 +110,13 @@ Here’s what the markup of a very simple Android “activity” (basically a pa
 
 </android.support.constraint.ConstraintLayout>
 ```
-
-This might look a bit arcane if you’re a web developer, but remember that a basic `index.html` file has its share of quirks as well. What you’re seeing here is two UI components, an `<android.support.constraint.ConstraintLayout>` and an `<android.widget.Button>`, each with various attributes used for configuration. Just to give you a visual, here’s what this simple app looks like running on an Android device.
+这对 web 开发者而言可能会有点晕，但请记住，一个基本的“index.html”文件也有其怪异之处。 你在这里看到的是两个 UI 组件，一个 `<android.support.constraint.ConstraintLayout>` 和一个 `<android.widget.Button>`，每个组件又有各种属性。直观起见，上述应用在 Android 手机上的运行效果如下图所示。
 
 ![](http://developer.telerik.com/wp-content/uploads/2017/05/simple-android-app.jpg)
 
-So to bring this discussion back to the topic of this article, how do you style these components? Much like the web’s `style` attribute, there are a variety of attributes you can apply to pretty much every Android UI component to change their appearance.
+让我们回到本文主旨上来，如何为这些组件赋予样式呢？和 web 中的 `style` 属性类似，基本上 Android 的每个 UI 组件都有各种属性，你可以为这些属性赋值来控制组件的外观。
 
-For example, if you want to change the background color of the previous example’s button, you can apply the `android:background` attribute. In the code below I apply that attribute so that the button appears red.
+例如，如果你想改变上例中按钮的背景颜色，你可以使用 `android:background` 属性。在下面的代码中我便应用了该属性使按钮背景变为红色。
 
 ```
 <Button
@@ -129,15 +129,15 @@ For example, if you want to change the background color of the previous example�
 
 ![](http://developer.telerik.com/wp-content/uploads/2017/05/android-red-button.jpg)
 
-So far so good. Android Studio, Google’s recommended Android development environment, even provides a robust visual editor that makes configuring some of these common properties really easy. The image below shows Android Studio’s design view for this sample app. Note how you can easily configure properties such as “background” using the pane on the right-hand side of the screen.
+到现在为止还挺好。 Google 推荐的 Android 开发环境 Android Studio 甚至提供了一个强大的可视化编辑器，可以很容易地配置其中的一些常见属性。 下面的图片显示了这个示例应用程序在 Android Studio 中的设计视图。 请注意，你可以使用屏幕右侧的窗格轻松配置诸如“背景”等属性。
 
 ![](http://developer.telerik.com/wp-content/uploads/2017/05/android-visual-editor.jpg)
 
-Through things like the design view, Android makes the basics of applying styles to user interface controls very simple. But this is where the pro-Android portion of this article ends.
+通过类似设计试图这样的工具，将一些基础样式应用于 Android 界面控件是非常简单的。不过，Android 的优点也就止于此了。
 
-Real-world development requires you to go well beyond the basics, and, at least in my experience, this is where the verbosity of Android and the simplicity of CSS really starts to show. For example, suppose you want to create a collection of property name/value pairs that you can easily reuse – something kind of like CSS class names. You can kind of do that in Android, but it gets messy very quickly.
+实际应用开发所需要的可远不止基础样式，根据我个人的经验，处理复杂样式是 Android 代码之冗余而 CSS 代码之简洁的分水岭。举例来说，假设你需要创建一个易于复用的键值对的集合——类似于 CSS 中的 class。在 Android 中也可以做类似的事情，不过很快就会变得一团糟。
 
-Android apps have a `styles.xml` file where you can create XML chunks in that file that build on top of each other. For instance, suppose you wanted to make all your app’s buttons have red backgrounds. On Android you could use the following code to create a “RedTheme” style.
+Android 应用有一个 `styles.xml` 文件，可以在其中创建具有层级结构的 XML 代码块。例如，假设你想要应用中所有的按钮都具有红色的背景，那你可以使用如下代码创建一个 “RedTheme” 样式：
 
 ```
 <style name="RedTheme" parent="@android:style/Theme.Material.Light">
@@ -149,7 +149,7 @@ Android apps have a `styles.xml` file where you can create XML chunks in that fi
 </style>
 ```
 
-After that change, you could then apply a `android:theme="@style/RedTheme"` attribute to the top-level UI component you want this theme to apply to. In the code below I apply that attribute to the top-level layout component from our previous example.
+如此，你便可以将 `android:theme="@style/RedTheme"` 属性应用到对应的顶层 UI 组件中。如下代码所示，我将该属性应用到了上文示例中的顶层布局组件中。
 
 ```
 <android.support.constraint.ConstraintLayout
@@ -157,15 +157,15 @@ After that change, you could then apply a `android:theme="@style/RedTheme"` attr
     android:theme="@style/RedTheme">
 ```
 
-This works, and all buttons within that layout will indeed be red, but let’s take a step back. All of that code — the handful of lines of XML, the markup attributes, and such — all of that is replicating what you can accomplish in CSS using `button { background: red; }`. And these same sort of styling tasks don’t get easier as your Android apps get more complex.
+这可以实现所需效果，在此布局组件中的所有按钮确实变成了红色，不过我们可以回过头想一下。在 CSS 中一行 `button { background: red; }` 就可以搞定的事情，竟然要用那么多 XML 代码。而且随着应用越来越大，这种方式也只会变得越来越复杂。
 
-In general, non-trivial styling implementations on Android tend to involve either nested XML configuration files, or a bunch of Java code to create extensible components — neither of which fill with me with much joy.
+一般来说，Android 中稍微复杂点的样式往往需要涉及到嵌套的 XML 配置文件或是一大堆用于创建可扩展组件的 Java 代码——无论哪种方式都不能令我满意。
 
-Consider animations. Android has some built-in animations, and those tend to be nice and easy to use, but custom animations must be implemented in Java code. (Here’s [an example](https://developer.android.com/training/animation/crossfade.html).) There’s no equivalent of something like CSS animations that lets you configure and manage your animations along with your app’s styling.
+再来看看动画。Android 有一些内建的动画效果，这些是很好的，用起来也很方便，但是自定义动画则必须用 Java 代码来实现。（这里有个[例子](https://developer.android.com/training/animation/crossfade.html)。）Android 中没有类似 CSS 动画的东西，不可能将动画的配置管理和应用样式写在一起。
 
-Consider media queries. Android lets you implement some CSS-media-query-like properties to your UI components, but it’s entirely done in markup, which doesn’t lend itself to reusability across pages or views.
+再来看看媒体查询（media queries）。Android 允许你实现类似于 CSS 媒体查询的属性并将其用于 UI 组件中，但这完全是耦合在标签结构中的，根本无法在页面或视图间复用。
 
-Just to give you a sense of what I’m talking about, this is the very first code example from Android’s documentation on [Supporting Multiple Screen Sizes](https://developer.android.com/training/multiscreen/screensizes.html). I’ll offer it below verbatim as some food for thought the next time you complain about CSS media queries.
+为了让你能更好地理解 Android 中的媒体查询，下面是 Android 文档[支持多种屏幕尺寸](https://developer.android.com/training/multiscreen/screensizes.html)中的第一个代码示例。我将其原样摘抄如下，下次你再抱怨 CSS 媒体查询的时候，可以拿来做个对比。
 
 ```
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -202,89 +202,86 @@ Just to give you a sense of what I’m talking about, this is the very first cod
 </LinearLayout>
 ```
 
-We could keep going through CSS features, but hopefully you’re seeing a pattern: you can do a whole lot to style your apps on Android, but the solutions almost always require a whole lot more code than it does on the Web.
+我们本可以将 CSS 的特性都过一遍，但通过上述几个例子便可得出一个结论：在 Android 中确实可以实现各种样式效果，但其实现方法总是要比在 web 上实现复杂很多。
 
-And while it’s easy to gawk at some of Android’s XML verbosity, remember that it’s really, really hard to come up with a mechanism of styling UI components that’s clear, concise, and that works well in large-scale applications. You can definitely find CSS examples that are subjectively as bad as Android’s solutions, but having worked in both I’ll personally take CSS’s approach without a second thought.
+讨论 Android  XML 的冗余性很简单，但要真地想出一种清晰简洁而且能在大规模应用上运行良好的 UI 组件样式机制却是非常难的。主观上你肯定可以举出和上述 Android 例子一样糟糕的 CSS 的例子，但使用这两种技术工作过后，我会毫不犹豫地选择 CSS。
 
-To round out my argument let’s look at one other popular platform for rendering UI components: iOS.
+为保证论述完整性，让我们再来讨论另外一种可以渲染 UI 组件的平台：iOS。
 
-## Why styling iOS apps is hard
+## 为什么说 iOS 应用的样式布局很难？
 
-iOS is a bit unique in the software development world, as it’s one of the only software platforms I know of where the majority of your UI development is done through a visual tool. That tool is called [storyboards](https://developer.apple.com/library/content/documentation/General/Conceptual/Devpedia-CocoaApp/Storyboard.html), and you use them within Xcode to build apps for iOS and macOS.
+在软件开发行业，iOS 有点独一无二，因为据我所知，它是惟一一个 UI 开发主要是通过可视化工具来完成的软件平台。那个工具叫做 [Storyboard](https://developer.apple.com/library/content/documentation/General/Conceptual/Devpedia-CocoaApp/Storyboard.html)，使用它并结合 Xcode 来开发 iOS 和 macOS 应用。 
 
-Just to give you an idea of what I’m talking about, here’s what it looks like to add two buttons to a view in an iOS app.
+为了你能更好地理解我在说些什么，下图展示了在 iOS 应用中如何为视图添加两个按钮。
 
 ![](http://developer.telerik.com/wp-content/uploads/2017/05/buttons.gif)
 
-It’s worth noting that you don’t *have* to to build iOS apps using storyboards, but the alternative is generating your most of your user interface in Objective-C or Swift code, and therefore storyboards are the development path that Apple recommends for iOS development.
+值得注意的是，开发 iOS 应用并非**一定**要用 Storyboard，但其替代方法需要用 Objective-C 或 Swift 代码开发大部分用户界面，因此苹果官方推荐 iOS 开发使用 storyboards。
 
-> **NOTE** A complete discussion of when storyboard development is and isn’t appropriate for iOS apps is out of the scope of this article. If you’re interested, check out this [debate about the topic on Quora](https://www.quora.com/How-many-iOS-developers-dont-use-NIBs-Storyboards-and-Constraints).
+> **注意** 关于 Storyboard 适用场景的问题超出了本文的论述范围，如果你对此感兴趣的话，可以参考 [Quora 上关于此话题的讨论](https://www.quora.com/How-many-iOS-developers-dont-use-NIBs-Storyboards-and-Constraints)。
 
-So to bring the conversation back to the top of this article, how do you style iOS UI components? Well as you might expect from a visual editor, there are easy ways to configure individual properties of UI controls. For example, if you want to change the background color of a button, you can do so pretty easily from a menu on the right-hand side of the screen.
+让我们回到本文主旨上来，如何为 iOS 中的 UI 组件赋予样式呢？你可能已经猜到了，在可视化编辑器中配置 UI 控件各自的属性是很容易的一件事情。例如，如果想改变一个按钮的背景颜色，使用屏幕右侧的菜单就可以轻易地实现。
 
 ![](http://developer.telerik.com/wp-content/uploads/2017/05/button-background-ios.jpg)
 
-Much like Android, the task of applying individual properties is very simple. But also like Android, things get much harder when you move beyond the basics. For example, how do you make multiple buttons look the same in an iOS app? Not easily.
+和 Android 很像，为构件配置各种属性是很简单的。但同样和 Android 类似，当需求变得复杂时事情也就更棘手了。例如，在 iOS 应用中如何使多个按钮的看起来完全一样呢？这就不简单了。
 
-iOS has this concept of [outlets](https://developer.apple.com/library/content/documentation/General/Conceptual/Devpedia-CocoaApp/Outlet.html), which are essentially a mechanism for your Objective-C or Swift code to get a reference to user interface components. You can think of outlets sort of like `document.getElementById()` calls on the Web. To style multiple iOS UI components you need to get an explicit reference, or outlet, for each control on your storyboard, loop over them, and then apply your changes. Here’s an example of what a Swift view controller that changes the background color of all buttons looks like.
+iOS 有一个 [outlets](https://developer.apple.com/library/content/documentation/General/Conceptual/Devpedia-CocoaApp/Outlet.html) 的概念，本质上是使得 Objective-C 或 Swift 代码可以获取界面组件的引用的机制。可以将 outlets 看作 iOS 中的 `document.getElementById()`。想要为多个 iOS UI 组件赋予样式，需要获取一个显式的 reference 或者 outlet，遍历 storyboard 中的每个控件，并赋予其相应的变化。下面这个例子展示了 Swift 视图控制器是如何改变所有按钮的背景颜色的。
 
 ```
 import UIKit
 
 class ViewController: UIViewController {
 
-    // A collection of button outlets that you fill using
-    // Xcode’s storyboard editor
+    // 一个按钮 outlets 的集合，使用 Xcode 的 storyboard 编辑器为其填充数据
     @IBOutlet var buttons: [UIButton]!
 
     func styleButtons() {
         for button in self.buttons {
-            // Apply a red background color by setting the view’s
-            // backgroundColor property.
+            // 通过设置视图的 backgroundColot 属性来赋予其红色的背景
             button.backgroundColor = UIColor.red
         }
     }
 
-    // This is the entry point to your view controller. iOS
-    // invokes this function when your view loads.
+    // 视图控制器的入口点，iOS 会在视图加载后调用此函数。
     override func viewDidLoad() {
         super.viewDidLoad()
         self.styleButtons()
     }
 }
 ```
+此处的关键点不在于具体细节，因此我不会详细说明每一行 Swift 代码的作用。关键在于为多个控件赋予样式不可避免地会涉及到 Objective-C 或 Swift 代码，而这在 CSS 中只需要定义一个简单的类名即可搞定。
 
-The point here is not the specifics, so I’m not going to go over what each and every line of Swift code is doing here. The point is that styling multiple controls inevitably involves Objective-C or Swift code, something you can easily accomplish in CSS by defining a simple class name.
+不难想象，更复杂的 iOS 样式需求会涉及更多的代码。例如，创建一个简单的 iOS “主题”涉及到[一大堆 `UIAppearance` APIs](https://www.raywenderlich.com/108766/uiappearance-tutorial)，而处理多种设备类型则需要学习高深的 [auto layout](https://developer.apple.com/library/content/documentation/UserExperience/Conceptual/AutolayoutPG/)。
 
-And as you might expect, more complex iOS styling tasks don’t involve less code. For example, creating a simple iOS “theme” involves [a whole bunch of `UIAppearance` APIs](https://www.raywenderlich.com/108766/uiappearance-tutorial), and dealing with multiple device types requires that you learn about the non-trivial topic of [auto layout](https://developer.apple.com/library/content/documentation/UserExperience/Conceptual/AutolayoutPG/).
+公平地说，原生开发者也能指出 CSS 中一些诡异的特性，而且在某种程度上他们也没错。毕竟，无论是 Web 还是诸如 iOS 和 Android 这样的原生平台，界面组件的定位、样式、动画以及处理各种设备的兼容性都不是什么简单的事情。任何全面的样式系统都不可避免地作出一些取舍，但是，在各种软件行业都工作后，我觉得 CSS 凭借诸多优势脱颖而出了。
 
-To be fair, native developers can make somewhat similar arguments about there being some bizarre features in CSS, and to a certain extent they’re right. After all, whether we’re talking about the Web, or a native platform such as iOS or Android, the task of positioning, styling, and animating user interface components, across all sorts of devices, is no easy task. Any comprehensive styling system must inevitably make tradeoffs, but, having worked in a number of software ecosystems, CSS stands out to me for a number of reasons.
+## 为什么说 CSS 更好
 
-## Why CSS is more awesome
+### CSS 非常灵活
 
-### CSS is amazingly flexible.
+CSS 允许你将应用的关注点分离，因此样式逻辑和应用主体逻辑之间是完全独立的。[关注点分离原则](https://en.wikipedia.org/wiki/Separation_of_concerns)是过去几十年里 web 开发的基本原则，CSS 的架构特点则是使得这一原则实际可行的主要因素之一。
 
-CSS lets you separate your app’s concerns so that your styling logic is completely separate from your app’s main logic. The [separation of concerns principal](https://en.wikipedia.org/wiki/Separation_of_concerns) has been a bedrock of web development for the last two decades, and CSS’s architecture is one of the main reasons this approach is possible.
+话虽如此，如果您愿意的话，CSS 的灵活性也允许你忽略关注点分离原则，而通过应用代码来处理所有样式。 诸如 React 这样的框架便采取了这种方法，而不需要对 CSS 语言或架构作任何改动。
 
-That being said, CSS is also flexible enough that you can ignore the separation of concerns principal if you’d like, and handle all your styling through application code. Frameworks like React were able to take this approach without needing to change the CSS language or architecture in any way.
+在如何为界面控件赋予样式方面，Android 和 iOS 的机制都比较严格，而 web 则有多种选择，你可以选择最满足你实际需求的那一种。
 
-Android and iOS have relatively strict mechanisms when it comes to styling your user interface controls, but on the web you have options, and you can pick the option that best suits your application’s needs.
 
-### CSS is a simple language, and therefore an excellent compiler target.
+### CSS 语言简单，且是出色的编译目标
 
-CSS is a relatively simple language. Think about it, at a high level all you have is a collection of selectors that define a series of name/value pairs. And that simplicity makes a whole lot of things possible.
+CSS 是一种相对简单的语言。从上层来看，CSS 不过是定义了一系列键值对的选择器的集合。这种简单性使得很多事情都可能实现。
 
-One of them is transpilers. Because CSS is relatively simple, transpilers such as SASS and LESS were able to innovate on top of the CSS language and experiment with powerful new features. Tools like SASS and LESS have not only improved developer productivity, they’ve also helped influence the CSS specification itself, with features like CSS variables now [being available in most major browsers](http://caniuse.com/#feat=css-variables).
+其中一项就是转译器（transpilers）。因为 CSS 相对简单，像 SASS 和 LESS 这样的转译器便能在 CSS 语言的基础之上进行创新，并实验许多功能强大的新特性。SASS 和 LESS 这样的工具不仅提升了开发效率，而且也影响到了 CSS 标准本身，例如像 CSS 变量这样的特性目前[在大多数主流浏览器中都可以使用了](http://caniuse.com/#feat=css-variables)。
 
-But CSS’s simplicity enables more than just transpilers. Every theme builder or drag & drop building tool you see on the web is possible because of just how easy CSS is to output. The concept of a theme builder isn’t even a thing in the iOS or Android worlds, because the tool’s output would need to be a complete iOS or Android app, which isn’t exactly an easy thing to generate. (Instead of iOS/Android theme builders you tend to see things like app templates or app starters).
+CSS 的简单性带来的不仅仅是转译器。你在 web 上看到的每一个主题构建器（theme builder）或拖拽构建工具（drag & drop building tool）都有可能源自 CSS 的简单性。iOS 和 Android 的世界里甚至根本没有主题构建器这一概念，因为该工具的输出必须是一个完整的 iOS 或 Android 应用，而一个完整应用并不是那么容易开发的。（不存在 iOS/Android 主题构建器，更多的是类似应用模版或应用启动器这样的东西）
 
-Here’s another one: you know how your browser’s developers tools are awesome and let you easily tweak the look and feel of your application? This is again CSS’s simplicity at work. iOS and Android have nothing that comes close to the visual development tools we have on the web.
+还有一点：你知道浏览器的开发者工具有多棒吗？你可以很容易地调试应用的外观和体验，这又是 CSS 简单性的一个体现。iOS 和 Android 都没有类似 web 上的可视化开发者工具。
 
-One final example: on the [NativeScript project](https://docs.nativescript.org/) we were able to allow developers to [style native iOS and Android controls using subset of CSS](https://docs.nativescript.org/ui/styling), for example using `Button { color: blue; }` to style a `UIButton` or `android.widget.Button`. We were only able to do this because CSS is a flexible and easy to parse language.
+最后一个例子：[NativeScript 项目](https://docs.nativescript.org/)允许开发者[使用 CSS 的子集控制 iOS 和 Android 控件的样式](https://docs.nativescript.org/ui/styling)，例如使用 `Button { color: blue; }` 控制 `UIButton` 或 `android.widget.Button` 的样式。我们能这样做纯粹是因为 CSS 是一门灵活而且易于解析的语言。
 
-### CSS lets you do some amazing stuff.
+### CSS 能让你做一些很棒的事情
 
-And finally, the single biggest reason CSS is awesome is the sheer range of things developers have been able to build with a language of simple selectors and rules. The internet is full of "10 AMAZING CSS-ONLY EXAMPLES" posts that prove this point, but I’m going to embed a few of my favorites right here because I can.
+最后，说 CSS 很棒还有一个最重要的原因，那就是开发者使用一些简单的选择器和样式规则便能开发出一系列东西。网络上充斥着“10 个仅用 CSS 实现的精彩案例”这样的帖子证明了这一点，在这里也我要放上几个我最喜欢的例子。 
 
 以下为精彩案例，点击图片可查看源码：
 
@@ -293,13 +290,13 @@ And finally, the single biggest reason CSS is awesome is the sheer range of thin
 - 案例 3：[![](https://ws3.sinaimg.cn/large/006tNc79gy1fgcfpbf291j31980ozjtb.jpg)](https://codepen.io/r4ms3s/pen/gajVBG)
 
 
-## Conclusion
+## 结论
 
-So does CSS have its quirks? Sure. The box model is a bit weird, flexbox isn’t the easiest thing to learn, and it’d be great if features like CSS variables were available years ago.
+那 CSS 就没有坑吗？当然有。盒模型就有点怪异，而 flexbox 又不是那么容易上手，另外诸如 CSS 变量这样的特性要再早几年出来就更好了。
 
-Every styling system has its warts, but CSS’s flexibility, simplicity, and pure power have stood the test of time, and have helped make the web the powerful development platform it is today. I’m happy to defend CSS against the CSS haters, and I encourage you to do the same.
+每种样式系统都有其不足之处，但是 CSS 的灵活、简单和功能强大让它经受住了时间的考验，也帮助 web 成为了目前非常强大的开发平台。面对 CSS 的攻讦者，我很乐意捍卫 CSS，而且我也鼓励你这样做。
 
-*Header image based upon [Valentines by Misha Gardner](https://flic.kr/p/bpWQ7a)*
+**标题图片来自 [Valentines by Misha Gardner](https://flic.kr/p/bpWQ7a)**
 
 ---
 

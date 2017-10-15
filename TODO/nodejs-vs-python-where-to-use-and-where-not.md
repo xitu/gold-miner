@@ -1,42 +1,42 @@
 > * 原文地址：[Node.js vs Python – Where to Use and Where not?](https://www.agriya.com/blog/2016/07/13/nodejs-vs-python-where-to-use-and-where-not/)
 > * 原文作者：[Agriya](https://www.agriya.com/blog/author/ace/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
-> * 校对者：
+> * 译者：[ymz1124](https://github.com/ymz1124)
+> * 校对者：[zaraguo](https://github.com/zaraguo), [sunui](https://github.com/sunui)
 
-# Node.js vs Python – Where to Use and Where not?
+# Node.js 和 Python 对比 —— 哪里使用 Node.js 哪里使用 Python ？
 
 ![](https://www.agriya.com/blog/wp-content/uploads/2016/07/nodejs-vs-python.png)
 
-When it comes to back-end website development, a developer will easily find a handful of refined programming languages.  PHP, Python, C++ , and Java are languages that play a crucial part in the development of websites. Having said that, there are web development companies and developers who initiate the creation of websites and applications without any proper planning or a definite structure. Here, they can seek out the assistance of frameworks. [PHP](https://www.agriya.com/blog/category/php/) powers some exceptional frameworks like Laravel, Symfony, cake, Yii and so on to help programmers at this point. In short, the choices available for developers to create websites and applications are a lot many.
+当谈到网站的后端开发时，开发人员可以容易地找到一些优雅的开发语言，比如 PHP、Python、C++ 和 JAVA 都是重要的网站开发语言。话虽如此，但是仍有一些 web 开发公司和开发者在没有任何合理的设计或一个确定的结构就开始创建网站和应用。在这里，他们可以找一些框架助力网站和应用的创建。比如 Laravel, Symfony, cake, Yii 等就是很好的 PHP 框架。简而言之，开发者创建网站和应用的选择非常多。
 
-Node.js is a powerful run-time environment used by developers and many a [Node.js development company](https://www.agriya.com/services/node.js-development) for creating web solutions. It is pure JavaScript and is easy to learn. Python is a clean server-side scripting language having a lot of admirers addicted to it. Programmers who come from the Java background may find shifting to PHP as a terrible thing. But developers will feel more comfortable in shifting to Python from Java. Some expert developers use both Node.js and Python in tandem. To utilize the complete merits of Node.js and Python in the development of web solutions, developers must have a clear-cut idea about where it should be used? And where it should not be used? They must have a thorough knowledge of advantages, disadvantages, functionality, and the working of both these platforms.
+Node.js 是一个强大的运行环境，开发者和许多 [Node.js 开发公司](https://www.agriya.com/services/node.js-development)用它来创建 web 解决方案。它是纯 JavaScript 的并且很容易学。Python 是一个纯服务器端的脚本语言，它有很多爱好者。有 Java 背景的开发者会觉得从 Java 转到 PHP 是一件很恐怖的事情，但从 Java 转到 Python 会舒服很多。一些资深开发者会同时使用 Node.js 和 Python。为了能在 web 解决方案中完全发挥出 Node.js 和 Python 的长处，开发者必须非常清楚什么情况下能使用，什么情况下不能使用。他们必须对这两个平台的优点、缺点、功能和平台的使用都有充分的了解。
 
-## Where Node.js Excels?
+## Node.js 的出色之处
 
-Node.js is pure JavaScript and the basics remain simple for the developers to learn. The learning curve is very low. On multiple occasions, it runs faster than Python. Python tends to be slow at the initial stage. Perhaps, Node.js is the best platform available right now to deal with real-time web applications. The ones that deal with *queued inputs, data-streaming, and proxy*. Nodes.js performs at its best when used to develop *chat applications* r functional things such as a live* stock-exchange.*
+Node.js 是纯 JavaScript 的并且学习曲线很低，很容易学习。在多数情况下，Node.js 比 Python 快。Python 在初始阶段比较慢。也许，Node.js 是目前实时 web 应用最好的平台，这些实时 web 应用需要处理**输入队列、数据流和代理**。Node.js 在聊天应用相关的场景发挥得最好，比如实时**股票交易**。
 
-## Where Node.js fall Behind?
+## Node.js 的逊色之处
 
-Node.js lacks the clean coding standards. Node.js cannot be recommended for larger projects unless you maintain a team of experts who work in a disciplined manner. Every developer who works in the project must stick to the *Promise library or Bluebird* and every developer must maintain a strict style guideline to avoid the breaking of the project in the middle.
+Node.js 没有清晰的代码标准。不推荐使用 Node.js 做大型项目，除非你有一个受过编码风格训练的开发团队。项目中的每个开发者必须遵循 **Promise** 库或者 **Bluebird**，并且必须维护一套严格的风格手册以避免项目中断。
 
-Debugging, and the inclusion of new features while implementing bigger projects using Node.js may cause pain in the nerve for many programmers. When making use of a dynamically typed language, programmers may fall short of many valuable functions in the IDE. *Call-backs, error-handling, and overall maintainability* of Node.js may cause issues when used with massive projects. It suits or works quickly while used in small projects for enabling functionality which requires less scripting.
+在使用 Node.js 实现较大的项目时，调试以及增加新特性可能会给开发者带来痛苦。当使用动态语言时，开发者可能在 IDE 中找不到足够的有用函数。在大型项目中，Node.js 的回调函数、错误处理和整体的可维护性可能会有问题。Node.js 适合在仅实现较少脚本功能的小型项目中使用，并且速度很快。
 
-## Where Python Excels?
+## Python 的出色之处
 
-The great advantage of using Python is that you will have to write fewer lines of code and is a clean platform. The learning curve of this platform is not that simple, but learners can easily overcome it once things start going to the long run. This platform has a great maintainability, and *errors can be solved within less time*. The compact syntax is really simple to work with. It is a language which keeps valuable standards, and is easy to debug and fix errors.
+使用 Python 最大的优点是你只需要写少量的代码就行，并且它是一个干净的平台。学习这个平台没有那么容易，但是从长远的角度考虑，学习者可以容易地克服这个问题。这个平台可维护性很好，并且可以用更少的时间排错。紧凑的语法使用起来非常简单。它是一种具有价值标准的语言，且很容易调试和修复错误。
 
-Python comprises of a functional library which is better than PHP. The *importing exceptions and namespaces* really work well without any issues. Simply, Python can do anything that can be done using PHP codes, and all those can be accomplished at a greater speed(even more). Hence, developers may not face any major issues if they use Python for developing larger projects.
+Python 由一些比 PHP 好的函数库组成。导入的异常和命名空间真的很好，没有任何问题。简单地讲，Python 可以做任何 PHP 代码可以做的事情，并且这些可以以更快的速度完成。因此，使用 Python 开发大型项目时，开发者可能不会面临任何重大的问题。
 
-## Where Python fall Behind?
+## Python 的逊色之处
 
-Python’s performance is not as fast as Java in a run-time environment. It is not the best for activities that are memory intensive. The language is interpreted causing an initial performance drop down in comparison to java or C/C++.
+Python 在运行时环境中的性能没有 Java 快。对于内存密集的活动来说，它不是最佳选择。它是解释型语言，和 Java 或者 C/C++ 相比存在初始性能下降的问题。
 
-To put it in simple words, it is not a language suited for developing a high-end 3D game involving graphics and a lot more CPU activity. Python continues to be in a developing state, and the documentation happens to be poor for the newly included functionality. The tutorials, as well as resources detailing the functions of Python, is much less if we compare it with PHP, Java, or C.
+简单地说，Python 不适合开发涉及图形和需要更多 CPU 的高档 3D 游戏。Python 还在发展中，新增功能的文档比较糟糕。同样，和 PHP、Java 或者 C 相比，它的教程很少。
 
-## Bringing it Altogether
+## 联合使用
 
-Node.js utilizes a V8 JavaScript interpreter having a *built-in Just-In-Time compiler to increase the speed* of web applications. Python also has a built-in interpreter, namely *PyPy*. Still, it does not back the Python version 3.5.1. As a final word, we can stay glued to the old saying, no programming language is good or bad. What adds life to a website or an application is the brain, eyes, and hands that put the merits of a language rightly into it at the time of development.
+Node.js 使用内置即时编译器的 V8 JavaScript 解释器来提高 web 应用的速度。Python 也有一个叫 PyPy 的内置解释器。不过它还不支持 3.5.1 版本的 Python。最后，古话说，编程语言无好坏之分。让网站或应用焕发生命力的是大脑、眼睛和双手，正是它们在开发之时将语言的精髓运用自如。
 
 ---
 

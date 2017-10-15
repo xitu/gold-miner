@@ -1,48 +1,49 @@
 > * 原文地址：[What's new in iOS 11 for developers](https://www.hackingwithswift.com/whats-new-in-ios-11)
 > * 原文作者：[Paul Hudson](https://twitter.com/twostraws)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
-> * 校对者：
+> * 译者：       [Swants](https://swants.github.io)
+> * 校对者：  [Danny1451](https://github.com/Danny1451)   [RichardLeeH](https://github.com/RichardLeeH)
 
-# What's new in iOS 11 for developers
+# 开发者眼中 iOS 11 都更新了什么？
 
-iOS 11 was announced at WWDC 2017, and introduces a massive collection of powerful features such as Core ML, ARKit, Vision, PDFKit, MusicKit, drag and drop, and more. I've tried to summarize the key changes below so you can get started with them straight away, providing code where feasible.
+苹果在 2017 年全球开发者大会上公布了 iOS 11 , 其加入许多强大的功能，如 `Core ML`,`ARKit`,`Vision `,`PDFKit `,`MusicKit ` 拖放等等。 我尝试着把主要变化在接下来的文章里总结了出来，并在可行的地方提供代码，这样你就可以直接上手。
 
-**Warning:** Some of these features are not for the faint hearted. I've provided as much code as I can to help give you a head start with working apps, but ultimately a great deal of iOS 11 involves complex functionality that you simply can't avoid.
+__注意：__ 有些地方没涉及到并不是因为懒，我已经尽我所能提供足够多的代码来帮你在应用上快速上手这些特性。但是你最终还是免不了去额外了解更多 iOS 11 中大量复杂的设计功能。
 
-Before you continue, you might find these articles useful pre-reading:
+在接着读下去之前，你可能需要了解下这几篇文章：
 
-- [What's new in Swift 4?](/swift4)
-- [What's new in Swift 3.1?](/swift3-1)
-- [What's new in iOS 10?](/ios10)
-- [What's new in iOS 9?](/ios9)
+- [What's new in Swift 4?](https://www.hackingwithswift.com/swift4)
+- [What's new in Swift 3.1?](https://www.hackingwithswift.com/swift3-1)
+- [What's new in iOS 10?](https://www.hackingwithswift.com/ios10)
+- [What's new in iOS 9?](https://www.hackingwithswift.com/ios9)
 
-**You might want to buy my new book: Practical iOS 11.** You get seven complete coding projects in tutorial form plus more technique projects that deep-dive specific new technologies – it's the fastest way to get up to speed with iOS 11!
+__你可能想购买我的新书：《 Practical iOS 11 》。__ 你可以通过教程的形式获得 7 个完整的项目代码，以及更多深入了解特定新技术的技术项目 - 这是熟悉 iOS 11最快的方式！
+
 
 [Buy Practical iOS 11 for $30](https://www.hackingwithswift.com/store/practical-ios11)
 
-## Drag and drop
+## 拖放
 
-Drag and drop is something we've always taken for granted on desktop operating systems, but its absence on iOS really held back multitasking – until iOS 11, that is. In iOS 11, and particularly on iPad, multitasking has gone into overdrive, with drag and drop being a huge part of that: you can move content inside apps or between apps, you can use your other hand to manipulate apps while dragging, and you can even use the new dock system to activate other apps mid-drag.
+拖放是我们在桌面操作系统中认为理所当然的操作，但是拖放在 iOS 上直到 iOS 11 才出现，这真的阻碍了多任务处理的发展。换句话说，在 iOS 11 上尤其是在 iPad 上，多任务处理迎来了高速发展的时代。得益于拖放成为其中很大的一部分：你可以在 APP 内部和或 APP 之间移动内容，当你拖放的时候你可以用另一只手对其他 app 进行操作.你甚至可以利用 全新的 dock 系统来激活其他 app 的中间拖动。
 
-**Note: on iPhone drag and drop is limited to a single app – you can't drag content to other apps.**
+__注意： 在 iPhone 上拖放被限制在单个 app 内 —— 你不能把内容拖放到其他 app 里。__
 
-Helpfully, both `UITableView` and `UICollectionView` both come with some degree of drag and drop support built in, but there's still a fair amount of code to write in order to get them working. You can also add drag and drop support to other components, and as you'll see this actually takes less work.
+令人欣喜的是，`UITableView ` 和 `UICollectionView ` 在一定程度上都支持拖拽内置。但是想要使用拖放功能仍旧需要写相当多的代码。你也可以向其他组件添加拖放支持，而且你会发现实际上这只需要少量的工作。
 
-Let's take a look at how to implement simple drag and drop to let you copy rows between two tables. First, we need a basic app to work with, so we're going to write some code to create two table views filled with example data we can copy.
+下面让我们来看看如何使用简单的拖放来实现在两个列表之间拷贝行内容。首先，我们需要使用一个简单的 app 。让我们写一些代码来创建两个有示例数据的 `tableview` 供我们拷贝。
 
-Create a new Single View App template in Xcode, then open ViewController.swift for editing.
+在 Xcode 内创建一个新的单一视图 app 模板，然后打开 `ViewController.swift` 类进行编辑。
 
-Now we need to put two table views in there, both filled with dummy data. I'm not going to use IB here because it's clearer just to write it all in code. That being said, I'm *not* going to explain this code in detail because it's just existing iOS code and I don't want to waste your time.
+现在我们需要在这里放上两个含有示例数据的 tableView 。我不打算使用 IB 的方式布局， 因为全部使用代码来实现是更清楚的。顺便提一下，我 __不打算__ 详细地解释代码，因为这都是现成的 iOS 代码，我不想浪费你的时间。
 
-This code will:
+这些代码将：
 
-- Create two table views, and create two string array filled with "Left" and "Right".
-- Configure both table views to use the view controller as their data source, give them hard-coded frames, register a re-use cell, then add them to the view.
-- Implement `numberOfRowsInSection` so that each table view has the correct number of items based on its string array.
-- Implement `cellForRowAt` to dequeue and cell then show the correct item from one of the two string arrays depending on which table this is.
+- 创建两个 `tableView` ,并且创建两个分别包含`Left` 和 `Right` 元素的字符串数组。
+- 制定两个 `tableView` 都使用 `view controller` 来作为它们的数据源，给他们写死位置宽高，注册一个可重用的 `cell` ，把它们两个都添加到这个 `view` 上。
+- 实现 `numberOfRowsInSection` 方法，确保每个 table view 都根据其字符串数组有正确的行数。
+- 实现 `cellForRowAt` 来排列，这时 cell根据 table 来从两个字符串数组中选出对应的数据源正确展示。
 
-Again, this is all code from before iOS 11, so it should be nothing new to you. Replace the content of ViewController.swift with this:
+然后，这是 iOS 11 之前的所有代码，应该没有你不熟悉的代码。将 ViewController.swift 类的内容用下面的代码替换：
 
 ```
 import UIKit
@@ -92,9 +93,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 }
 ```
 
-OK: now for the *new* stuff. If you run the app you'll see it gives us two side-by-side table views filled with items. What we want to do is let the user grab an item from one table and copy it into the other, in either direction.
+好：下面就是 __新__ 的内容了。如果你现在运行 app 你就会看到两个并列并且填满数据的 tableView 。我们现在想要做的就是让用户可以从一个 table 上选择一行并且复制到另一个 table 里，或者反方向操作。
 
-The first step is to tell both table views to use the current view controller as their drag and drop delegate, then enable drag interaction on both of them. Add this code to `viewDidLoad()`:
+第一步就是就是设置两个 tableView 的拖和放操作的代理为当前 view controller ，再把它们设置为可拖放。 最后把下面的代码加入到 `viewDidLoad()` 方法里：
 
 ```
 leftTableView.dragDelegate = self
@@ -106,14 +107,14 @@ leftTableView.dragInteractionEnabled = true
 rightTableView.dragInteractionEnabled = true
 ```
 
-As soon as you do that, Xcode will throw up several warnings because our current view controller class doesn't conform to the `UITableViewDragDelegate` or `UITableViewDropDelegate` protocols. This is easily fixed by adding those two protocols to our class – scroll up to the top and change the class definition to this:
+当你做完这些后，Xcode 会抛出几个警告，因为我们当前的控制器类没有遵从 `UITableViewDragDelegate` 和 `UITableViewDropDelegate` 协议。通过给我们的类添加这两个协议很容易就修复这些警告了 —— 滚动到文件的最顶端并且改变类的定义：
 
 ```
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITableViewDragDelegate, UITableViewDropDelegate {
 
 ```
 
-This in turn creates another problem: we're saying we conform to those two new protocols, but we aren't implementing their required methods. This used to be a real drag (sorry not sorry) to fix, but Xcode 9 can automatically complete required methods for protocols – click the number "2" on the red highlighted line of code, and you should see a more detailed explanation appear. Click "Fix" to have Xcode insert the two missing methods for us – you should see this appear in your class:
+但是这样又会产生新的问题：我说过我们应该遵从这两个新协议，但是我们没有实现协议必须实现的方法，在过去修复这个常常是很麻烦的，但是 Xcode 9 可以自动完成这几个协议必须实现的方法 —— 点击报红色高亮代码行上的数字 2，这时你将会看到出现了更多的详细解释。点击 "fix" 来让 Xcode 9 为我们插入两个缺少的方法 —— 你将会看到你的类里边出现了下面的代码：
 
 ```
 func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
@@ -125,24 +126,24 @@ func tableView(_ tableView: UITableView, performDropWith coordinator: UITableVie
 }
 ```
 
-At least in this initial beta, Xcode always inserts new method stubs at the top of your class, and if you're like me that will make your eye twitch – feel free to move them somewhere more sensible before continuing!
+Xcode 总是把新的方法插在你的类最上面，至少在这次初始的 beta 版本里是。如果你和我一样看这不顺眼 —— 在继续之前可以把它们移到更明智地方！
 
-The `itemsForBeginning` method is easiest, so let's start there. It gets called when the user has initiated a drag operation on a table view cell by holding down their finger, and needs to return an array of drag items. If you return an *empty* array, you're effectively declining drag and drop.
+`itemsForBeginning` 方法是最简单的，让我们先从它开始。这个方法是在当用户的手指在 tableView 某行 cell 上按下执行拖的操作的时候调用。如果你返回一个空数组，你实际上就是拒绝了拖放操作。
 
-We're going to give this method four lines of code:
+我们打算为这个方法添加四行代码：
 
-1. Figure out which string is being copied. We can do that with a simple ternary: if the table view in question is the left table view then read from `leftItems`, otherwise read from `rightItems`.
-2. Attempt to convert the string to a `Data` object so it can be passed around using drag and drop.
-3. Place that data inside an `NSItemProvider`, marking it as containing a plain text string so other apps know what to do with it.
-4. Finally, place that item provider inside a `UIDragItem` so that it can be used for drag and drop by UIKit.
+1. 指出哪一个字符串被拷贝，我们可以使用一个简单的三元操作符来实现：如果当前的 tableView 是在左边就从 `leftItems` 中读取，否则就从 `rightItems` 中读取。
+2. 试着将这个字符串转换成一个 `Data` 对象， 以便可以通过拖放进行传递。
+3. 将这个 data 放进一个 `NSItemProvider` 中，并且标记为存储了一个纯文本字符串从而其他 app 可以知道如何去处理它。
+4. 最后， 把这个 `NSItemProvider` 放进一个 `UIDragItem`内，从而它可以用于 UIKit 的拖放。
 
-To mark the item data as being plain text we need to import the MobileCoreServices framework, so please add this line of code near the top of ViewController.swift:
+为了把 data 元素标记为纯文本字符串 我们需要引入 MobileCoreServices 框架，所以请把下面的代码加入到 ViewController.swift 文件最上面：
 
 ```
 import MobileCoreServices
 ```
 
-Now replace your `itemsForBeginning` method stub with this:
+现在用下面的代码替换你的 `itemsForBeginning` 方法：
 
 ```
 func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
@@ -154,13 +155,13 @@ func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSessio
 }
 ```
 
-Now we just need to fill in the `performDropWith` method. Well, I say "just", but this is actually quite tricky because there are two potential complexities. First, we might be getting several strings at the same time if someone is dragging in lots of things, so we need to insert them all sensibly. Second, we might be told where the user wants to insert the rows, but we might not – they might just drag the strings onto some whitespace in the table, so we need to decide what that means for us.
+接下来我们只需要实现 `performDropWith` 方法。我说 “只需要”，但是剩下的两个潜在的复杂问题还是很棘手的。首先，如果有人拖放了很多东西我们就会同时获得很多字符串，我们需要把它们都正确插入。其次，我们可能被告知用户想要插入到哪几行，也可能不被告知 —— 用户可能只是把字符串拖放到 tableView 的空白处，这时需要我们决定该怎么处理。
 
-To solve those two problems means writing more code than you may have expected, but I'll try to walk you through it step by step to make it a bit easier.
+要解决这两个问题需要写比你期望中的更多的代码，但我会带你一步一步编写代码，让它更容易些。
 
-First, the easier part: figuring out where to drop rows. The `performDropWith` method passes us an object of the class `UITableViewDropCoordinator`, which has a `destinationIndexPath` property telling us where the user wants to drop the data. However, it's *optional*: it will be nil if they dragged their data over some empty cells in our table view, and if that happens we're going to assume they wanted to drop the data at the end of the table.
+首先，是最简单的部分：找出行被拖放到哪里。 `performDropWith` 返回一个 `UITableViewDropCoordinator` 类对象，该对象有一个 `destinationIndexPath` 属性 可以告诉我们用户想把数据拖放到哪里。然而 这个方法是 __可选__ 实现：如果用户把他们的数据拖放到我们 tableView 的空单元格上，方法返回的将会是 nil 。如果这真的发生了我们会认为用户是想把数据拖放到 table 的最尾部。
 
-So, start by adding this code to the `performDropWith` method:
+所以，把下面的代码添加到 `performDropWith` 方法内继续吧：
 
 ```
 let destinationIndexPath: IndexPath
@@ -174,13 +175,13 @@ if let indexPath = coordinator.destinationIndexPath {
 }
 ```
 
-As you can see, that either uses the coordinator's `destinationIndexPath` if it exists, or creates one by looking at the last row of the last section.
+正如你所看到的那样，如果 coordinator 的 `destinationIndexPath` 存在就直接用，如果不存在则创建一个最后一组最后一行的 `destinationIndexPath` 。
 
-The next step is to ask the drop coordinator to load all the objects it has for a specific class, which in our case will be `NSString`. (No, regular `String` doesn't work.) We need to send this a closure of code to run when the items are ready, which is where the complexity starts: we need to insert them all one by one below the destination index path, modifying either the `leftItems` or `rightItems` arrays, before finally calling `insertRows()` on our table view to make them appear.
+下一步就是让拖放的 coordinator 来加载拖动的所有特定类对象。在我们的例子里这个特定类是 `NSString` 。（然而，通常用 `String` 不起作用。）当所有拷贝的内容都就绪时我们需要发送一个闭包来运行，这也是最复杂的地方：我们需要把内容一个接一个地在目标行下面插入，修改 `leftItems` 或 `rightItems` 数组，最后调用我们 tableView 的 `insertRows()` 方法来展示拷贝后的结果。
 
-So, again: we've just written code to figure out the destination index path for a drop operation. But if we get *multiple* items then all we have is the `initial` destination index path – the path for the first item. The *second* item should be one row lower, the third item should be two rows lower, and so on. As we move down each item to copy, we're going to create a new index path and stash it away in an `indexPaths` array so we can call `insertRows()` on our table view all at once.
+那么，接下来：我们刚刚写了一些代码来指出拖放操作最终的目标行。但如果我们得到了 __多个__ 拷贝对象，那么我们所有的都是初始的 destination index path —— 第一个拷贝对象的目标行就是它，第二个拷贝对象的目标行比它低一行，第三个拷贝对象的目标行比它低两行，等等。当我们移动每个拷贝对象时，我们会创建一个新的 index path 并且把它暂存到一个 `indexPaths` 数组中，这样我们就可以让 tableView 只调用一次 `insertRows()` 方法就完成了全部插入操作 。
 
-Add this code to your `performDropWith` method, below the previous code we just wrote:
+把代码添加到你的 `performDropWith` 方法中，放在我们刚才写的代码下面：
 
 ```
 // attempt to load strings from the drop coordinator
@@ -212,11 +213,11 @@ coordinator.session.loadObjects(ofClass: NSString.self) { items in
 }
 ```
 
-That's all the code complete – you should be able to run the app now and drag rows between the two table views to copy them. It took quite a bit of work, yes, but I have a pleasant surprise for you: the work you've done has enabled drag and drop across the entire system: if you try using the iPad simulator you'll find you can drag text from Apple News into either table view, or drag text from your table view into the URL bar in Safari, for example. Nice!
+这就是完成的所有代码了 —— 你现在能够运行这个 app 并且在两个 tableView 之间拖动行内容来完成拷贝。完成这个花费了这么多的工作量，但令人感到惊喜的是：你所做的这些工作你能够支持整个系统的拖放：譬如如果你试着用 iPad 模拟器的话，你就会发现你可以把这些文本拖放到 Apple News 内的任何一个列表上，或者把 tableView 上的文本拖放到 Safari 的搜索条上。非常酷！
 
-Before we're done with drag and drop, I want to demonstrate one more thing: how to add drag and drop support for other views. This is actually easier than using a table view, so let's whizz through it quickly.
+在你试着去完成拖放操作之前，我想再展示一件事：如何实现为其他 View 添加拖放支持。其实比在 tableView 上实现要容易，那就让我们快速做一遍吧。
 
-As before, we need a simple harness so we have something we can add drag and drop to. This time we're going to create a `UIImageView` and render a simple red circle for its image. You can keep your existing Single View App template and just replace ViewController.swift with this new code:
+在开始之前，我们需要一个简单的控件来让我们有可以添加拖放的东西。这次我们打算创建一个 `UIImageView` 并且渲染一个简单的红色圆圈作为图片。你可以保留已存在的单视图 APP 模板 并把  ViewController.swift 的内容用新代码替换：
 
 ```
 import UIKit
@@ -244,19 +245,20 @@ class ViewController: UIViewController {
 }
 ```
 
-As before, that is all old iOS code so I'm not going to go into detail on it. If you try running that in the iPad simulator you should see a large red circle in your view controller – that's more than enough for us to test with.
+像之前一样，这都是些 iOS 的老代码所以我不打算给你详细解释它。如果你试着在 iPad 模拟器上运行，你就会在控制器里看到一个大的红色圆圈 —— 这对供我们测试来说足够了。
 
-Dragging for custom views is done using a new class called `UIDragInteraction`. You tell it where to send messages (in our case, we'll use the current view controller), then attach it to whatever view should be interactive.
+自定义视图的拖放是通过一个新的叫作 `UIDragInteraction` 类来实现的。 你告诉它在哪里发送信息（在我们这个例子里，我们用的是当前的控制器），然后将它和用来交互的 View 绑定。
 
-**Important:** don't forget to enable user interaction on the view in question, otherwise you'll be scratching your head when things don't work.
+__重要提示：__ 千万不要忘了打开相关视图的交互，否则当拖放最后不起作用时，你会感到非常困惑。
 
-First, add these three lines of code to the end of `viewDidLoad()`, just after the previous code. You'll see Xcode complaining that our view controller doesn't conform to the `UIDragInteractionDelegate` protocol, so please modify the class definition to this:
+首先， 在 `viewDidLoad()` 的最末尾添加这三行代码，就在之前的代码后面。你就会看到 Xcode 提示我们的 View Controller 没有遵循
+`UIDragInteractionDelegate` 协议，所以把类的定义改成下面这样：
 
 ```
 class ViewController: UIViewController, UIDragInteractionDelegate {
 ```
 
-Xcode will complain because we don't actually implement the one required method of the `UIDragInteractionDelegate` protocol, so repeat what you did earlier – click the error marker on the bad line, then select "Fix" to insert this method stub:
+Xcode 将会继续提示我们没有实现 `UIDragInteractionDelegate` 协议的一个必要方法，所以重复之前我们所做的 —— 在出错行上单击错误提示，然后选择 "Fix" 来插入下面的代码：
 
 ```
 func dragInteraction(_ interaction: UIDragInteraction, itemsForBeginning session: UIDragSession) -> [UIDragItem] {
@@ -264,11 +266,11 @@ func dragInteraction(_ interaction: UIDragInteraction, itemsForBeginning session
 }
 ```
 
-This is just like the `itemsForBeginning` method we implemented for our table views earlier: we need to return whatever image we want to share when the user starts dragging on our image view.
+这就像我们之前为我们的 tableView 实现的 `itemsForBeginning` 方法一样：当用户开始拖动我们的 imageView 的时候，我们需要返回我们想要分享的图像。
 
-The code for this is nice and simple: we'll pull out the image from the image view using `guard` to avoid problems, then wrap that first in a `NSItemProvider` then in a `UIDragItem` before sending it back.
+这些代码是非常好并且简单的：我们会使用 `guard` 来防止我们在 imageView 上拉取图片时出现问题，先用一个 `NSItemProvider` 包装 image，然后返回数据的时候再使用 `UIDragItem` 包装下。
 
-Replace your `itemsForBeginning` stub with this:
+将 `itemsForBeginning` 方法用下面的代码替换：
 
 ```
 func dragInteraction(_ interaction: UIDragInteraction, itemsForBeginning session: UIDragSession) -> [UIDragItem] {
@@ -279,25 +281,25 @@ func dragInteraction(_ interaction: UIDragInteraction, itemsForBeginning session
 }
 ```
 
-And that's it! Try using iPad multitasking to put the Photos app on the right of the screen – you should be able to drag the image from your app into Photos to have it copied across.
+这就完成了！ 尝试使用 ipad 多任务处理功能来将图库放在屏幕的右端 —— 你能够通过拖放图片来将图片从你的 APP 拷贝到图库里。
 
-## Augmented Reality
+## 增强现实
 
-Augmented reality (AR) has been around for a while, but with iOS 11 Apple has done something quite remarkable: they've created an advanced implementation that integrates seamlessly with its existing game development technologies. This means you can take your existing SpriteKit or SceneKit skills and integrate them with AR without too much work, which is a tantalising prospect indeed.
+增强现实 (AR) 已经出现有一段时间了，但是苹果在 iOS 11 上做了一些可圈可点的事情：他们创造了一个卓越的实现就是让 AR 开发可以和现有的游戏开发技术无缝集成。这就意味着你不需要做太多的工作就能把你 SpriteKit 或 SceneKit 技能和 AR 集成起来，这是个非常诱人的前景。
 
-Xcode comes with a great ARKit template right out of the box, so I encourage you to give it a try – you'll be surprised how easy it is!
+Xcode 自带了一个非常棒可以立即使用的 ARKit 模板，因此我鼓励你去尝试一下 —— 你会惊奇地发现实现它是多么的容易！
 
-I want to walk through the template just briefly so you can see how everything fits together. First, create a new Xcode project using the Augmented Reality App template, then select SpriteKit for Content Technology. Yes, SpriteKit is a 2D framework, but it still works great in ARKit because it billboards your sprites so they appear to twist and turn in 3D.
+我想快速地演示下模板的使用，这样你就可以了解到这一切是如何融合在一起的。首先，使用虚拟现实模板创建一个新的 Xcode 工程，然后选择 SpriteKit 作为内容技术。是的，SpriteKit 是一个 2D 框架，但它仍能够在 ARKit 中用得很好，因为它可以像 3D 一样通过扭曲或旋转来展示你的精灵。
 
-If you open Main.storyboard, you'll see that the ARKit template works a little differently from the regular SpriteKit template: it uses a new `ARSKView` Interface Builder object, which is what brings together the two worlds of ARKit and SpriteKit. That's connected to an outlet in ViewController.swift, which sets up the AR tracking in `viewWillAppear()` and pauses it in `viewWillDisappear()`.
+如果你打开了 Main.storyboard ，你会发现这个 ARKit 模板与普通的 SpriteKit 模板有所不同：它使用了一个新的 `ARSKView` 界面对象，将 ARKit 和 SpriteKit 两个世界融合在一起。这个对象通过一个 outlet 和 ViewController.swift 连接在一起，在这个控制器中的 viewWillAppear() 方法中构建 AR 追踪，并在 viewWillDisappear() 方法中暂停追踪。
 
-However, the *real* work takes place in two other places: the `touchesBegan()` method of Scene.swift, and the `nodeFor` method in ViewController.swift. In regular SpriteKit you create nodes and add them to your scene directly, but with ARKit you create *anchors* – placeholders that have a position in the scene and an identifier, but no actual content. These then get converted into SpriteKit nodes as needed using the `nodeFor` method. If you've ever used `MKMapView`, this is similar to the way annotations and pins work – annotations are your model data, and pins are the views.
+但是，真正起作用的是在两个地方：Scene.swift 文件的 `touchesBegan()` 方法内，和 ViewController.swift 文件的 `nodeFor` 方法。 在通常的 SpriteKit 中你创建节点并把节点直接添加到你的场景中，但是使用 ARKit 后创建的是 __锚点__  —— 包含场景位置和标识符的占位，但它没有实际的内容。根据需要的时候使用 `nodeFor` 方法转换为 SpriteKit 节点。如果你曾使用过 `MKMapView` ，会发现这和 `MKMapView` 添加大头针和标注的方式是类似的 —— 标注是你的模型数据，大头针是 view。
 
-Inside Scene.swift's `touchesBegan()` method you'll see code to pull out the current frame from ARKit, then calculate where to place a new enemy. This is done using matrix multiplication: if you create an identity matrix (something representing the position X:0, Y:0, Z:0) then move its Z coordinate back by 0.2 (equivalent to 0.2 meters), you can multiply that by the current scene's camera to move back in the direction the user is pointing.
+在 Scene.swift 类的 `touchesBegan()` 方法你会看到从 ARKit 拉出当前帧的代码，先计算放入一个新敌人的位置。这是通过矩阵乘法实现：如果你创建一个单位矩阵（表示位置 X:0, Y:0, Z:0 的东西），再将它的 Z 坐标移回 0.2（相当于 0.2 米），你可以乘以当前场景相机位置来实现向用户指向的方向移动。
 
-So, if the user is pointing ahead the anchor will be placed ahead, but if they are pointing up then the anchor will be placed above. And once the anchor is placed there, it stays there: ARKit will move, rotate and warp it automatically to ensure it stays aligned correctly as the player's device moves.
+所以，当用户指向前方锚点就会被放在前方，如果他们指向上方，锚点就会放在上方。一旦锚点被放在那，它就会呆在那：ARKit 将会自动移动，旋转或扭曲来确保当用户的设备移动时与锚点始终正确对齐。
 
-All that is done using these three lines of code:
+所有的操作可以用三行代码来实现：
 
 ```
 var translation = matrix_identity_float4x4
@@ -305,16 +307,17 @@ translation.columns.3.z = -0.2
 let transform = simd_mul(currentFrame.camera.transform, translation)
 ```
 
-Once the transform is calculated it gets converted into an anchor and added to the session like this:
+一旦计算出来转换，位移就会包装成一个锚点并添加到回话中，就像这样：
 
 ```
 let anchor = ARAnchor(transform: transform)
 sceneView.session.add(anchor: anchor)
 ```
 
-Finally, the `nodeFor` method in ViewController.swift will get called. This happens because that view controller was configured to be the delegate of the `ARSKView`, so it's responsible for converting anchors into nodes as needed. You *don't* need to worry about positioning these nodes: remember, anchors are already being placed at precise coordinates in real-world space, and ARKit is responsible for mapping its position and transform to your SpriteKit nodes.
+最后会调用 ViewController.swift 类的 `nodeFor` 方法。之所以会调用是因为当前 ViewController 被设置成了 `ARSKView` 的代理，
+当前 ViewController 就会在需要的时候负责把锚点转换成节点。你 __不需要__ 担心定位这些节点：记住，锚点已经放置到真实世界的具体坐标上了，ARKit 负责映射锚点的位置并转换成 SpriteKit 节点。
 
-As a result, the `nodeFor` method is simple:
+总之，`nodeFor` 方法很简单：
 
 ```
 func view(_ view: ARSKView, nodeFor anchor: ARAnchor) -> SKNode? {
@@ -326,30 +329,30 @@ func view(_ view: ARSKView, nodeFor anchor: ARAnchor) -> SKNode? {
 }
 ```
 
-In case you were wondering, ARKit anchors have an `identifier` property that lets you know what kind of node to create. In the Xcode template all anchors are space aliens, but in your own projects you'll almost certainly want to identify things more uniquely.
+如果你想知道，ARKit 锚点有一个 `identifier` 属性可以让你知道创建了什么样的节点。在 Xcode 模板中所有的节点都是未知的。但是在你自己的工程中你几乎肯定会想把事物唯一标识出来。
 
-And that's it! The end result is remarkably effective given how little code it takes – ARKit should prove to be a big hit.
+就是这些！这么少的代码带来的结果是非常有效的 —— ARKit 注定是一个大的飞跃。
 
-## Intermission
+## 插播广告 
 
-If you're enjoying this article, you might be interested in a new book I'm working on that teaches iOS 11 using hands-on tutorials. You'll make real projects that build on Core ML, PDFView, ARKit, drag and drop, and more – **it's the fastest way to learn iOS 11!**
+如果你喜欢这篇文章，你可能对我新写的 iOS 11 实践教程新书感兴趣。你将会实际开发基于 Core ML , PDFView , ARKit , 拖拽等更多新技术的工程。 —— __这是学习 iOS 11 最快的方式！__
 
 ![](https://www.hackingwithswift.com/img/book-ios11@2x.png)
 
 [Buy Practical iOS 11 for $30](https://www.hackingwithswift.com/store/practical-ios11)
 
 
-## PDF rendering
+## PDF 渲染
 
-macOS has always had first-rate support for rendering PDFs, and since OS X 10.4 has benefited from a framework called PDFKit that provides PDF rendering, manipulation, annotations, and more with hardly any code.
+自从 OS X 10.4 开始受益于几乎不需要提供任何代码就可以提供 PDF 渲染，操作，标注甚至更多的 PDFKit 框架后，macOS 就始终对 PDF 渲染有着一流的支持。
 
-Well, as of iOS 11 that's available on iOS 11 in its entirety: you can use the `PDFView` class to display PDFs, let users move through a document, select and share content, zoom in and out, and more. Alternatively, you can use individual classes such as `PDFDocument`, `PDFPage`, and `PDFAnnotation` to create your own custom PDF reader.
+至于，到了 iOS 11 也可以在系统中使用 PDF 框架的全部功能了：你可以使用 `PDFView` 类来显示 PDF，让用户浏览文档，选择并且分享内容，放大缩小等等操作。或者，你可以使用独立的类比如： `PDFDocument` , `PDFPage` 和 `PDFAnnotation` 来创建你自己自定义的 PDF 阅读器。
 
-As with drag and drop, we can create a simple container app to demonstrate just how easy PDFKit is. You can re-use the same Single View App project you made earlier if you want, but you do need to add a PDF to your project so PDFKit has something to read from.
+和拖放一样，我们可以创建一个简单的 app 来演示 PDFKIT 是多么的简单。如果你愿意的话，你可以继续使用你刚才创建的单视图 app 工程，但你需要向工程中导入一个 PDF 文件来供 PDFKit 去读取。
 
-To write this code you need to learn two new classes, both of which are trivial. The first is `PDFView`, which does all the hard work of rendering PDFs, responding to scroll and zoom gestures, selecting text, and so on. This is just a regular `UIView` subclass in iOS, so you can create it without any parameters then position it using Auto Layout to fit your needs. The second new class is `PDFDocument`, which loads a PDF from a URL ready to be rendered or manipulated elsewhere.
+你需要学习两个新的比较小的类来编写代码，第一个是 PDFView ，它负责所有的负责工作，包括 PDF 渲染，滚动和缩放手势响应，选择文本等。它也是 iOS 系统中常见的 UIView 子类，所以你可以不使用任何参数地创建 PDFView 实例对象，然后使用自动布局来约束它的位置来满足你的需求。第二个是新的类是 PDFDocument ，它可以通过一个 URL 来加载一个在其他地方可以被渲染或者操作 PDF 文档。
 
-Replace all the code in ViewController.swift with this:
+把 ViewController.swift 类的全部代码用这个代替：
 
 ```
 import PDFKit
@@ -380,20 +383,20 @@ class ViewController: UIViewController {
 }
 ```
 
-If you run the app you should already see you can scroll vertically through pages using a continuous scrolling mechanism. You can also pinch to zoom if you're testing on a real device – and you'll see the PDF re-render at higher resolution as you do. If you want to change the way the PDF is laid out, you can try manipulating the `displayMode`, `displayDirection`, and `displaysAsBook` properties.
+如果运行 app 你应该可以看到你可以使用连续的滚动机制垂直滚动页面。如果你在真机上测试，你也可以通过捏合操作进行缩放 —— 这时你就会发现 PDF 以更高的分辨率重新渲染。如果你想要更改 PDF 的布局样式，你可以试着去设置 `displayMode`, `displayDirection`, 和 `displaysAsBook` 属性。
 
-For example, you can position the pages as double-page spreads with the cover by itself like this:
+例如，你可以将页面以双页的模式展现，而封面默认就是这样的：
 
 ```
 pdfView.displayMode = .twoUpContinuous
 pdfView.displaysAsBook = true
 ```
 
-The `PDFView` class comes with a bunch of helpful methods to let users navigate and manipulate the PDF. To try this out, we're going to add some navigation bar buttons to our view controller, because that's the easiest way to add some interactivity.
+`PDFView` 提供了一系列有用的方法来让用户浏览和操作 PDF。为了试验，我们会在我们的控制器上添加一些导航栏按钮，因为这是添加交互最简单的方式。
 
-This takes three steps, starting with adding a navigation controller so we have an actual navigation bar to work with. So, open Main.storyboard, select View Controller Scene in the document outline, then go to the Editor menu and choose Embed In > Navigation Controller.
+总共三步，我们先添加一个 navigation controller， 这样我们就有了一个现成的导航栏来使用。所以，打开你的 Main.storyboard ，在大纲视图里选中 View Controller Scene 。再进入编辑菜单选择 Embed In > Navigation Controller 。
 
-Next, add this code to `viewDidLoad()` in ViewController.swift
+接下来，在 ViewController.swift 中的 `viewDidLoad()` 方法中添加以下代码：
 
 ```
 let printSelectionBtn = UIBarButtonItem(title: "Selection", style: .plain, target: self, action: #selector(printSelection))
@@ -403,7 +406,7 @@ let lastPageBtn = UIBarButtonItem(title: "Last", style: .plain, target: self, ac
 navigationItem.rightBarButtonItems = [printSelectionBtn, firstPageBtn, lastPageBtn]
 ```
 
-That sets up three buttons to add some basic functionality. Finally, we just need to write the three methods being called by those buttons, so add these methods to the `ViewController` class:
+这些代码添加了三个按钮来实现一些基本的功能。最后，我们只需要写这三个按钮的响应方法就好了，那么把下面这些方法添加到 `ViewController` 类中：
 
 ```
 func printSelection() {
@@ -419,61 +422,61 @@ func lastPage() {
 }
 ```
 
-Now, if this were Swift 3 we would be done. But as of Swift 4 you'll start seeing the error "Argument of '#selector' refers to instance method 'firstPage()' that is not exposed to Objective-C", along with the proposed fix of "Add '@objc' to expose this instance method to Objective-C". What this means is that the Swift method in question isn't visible to Objective-C, which matters because `UIBarButtonItem` is Objective-C code.
+现在，如果是在 Swift 3 下，我们可以这么做。但是到了 Swift 4 你将会看到报 "Argument of '#selector' refers to instance method 'firstPage()' that is not exposed to Objective-C" 错误。换句话说就是 Swift 的方法对 Objective-C 不可见的，而 `UIBarButtonItem` 是 Objective-C 代码实现。
 
-While adding `@objc` to individual methods is a working solution, I expect most people will just shrug their shoulders and put `@objcMembers` before their class – that automatically exposes everything in the class to Objective-C, just like Swift 3 used to. So, modify the class definition to this:
+当然在每个方法之前加上 @objc 是个有效的办法，我猜大部分人可能就耸耸肩（我有什么办法，我也很绝望啊），然后在类之前加上一个 @objcMembers 的定义 —— 这会像之前 Swift 3 那样自动将类的所有东西都暴露给 Objective-C 。所以，把类的定义修改成这样：
 
 ```
 @objcMembers
 class ViewController: UIViewController {
 ```
 
-That should compile correctly now, and you'll see the first and last pages work straight away. As for the selection button, you just need to select some text in the PDF before clicking it - this works just like text selection in iBooks.
+现在这就正确地编译了，现在你将会看到跳转到首页和末页的功能可以直接使用了。至于选择按钮，你只需要在点击按钮之前在 PDF 之前选择一些文本 —— 就像在 iBooks 进行文本选择操作那样。
 
-## NFC reading now available
+## 开始支持 NFC 读取
 
-The iPhone 7 introduced hardware support for NFC, and as of iOS 11 that's available for all of us to use in our apps: you can now write code to detect nearby NFC NDEF tags, and it's surprisingly easy – at least in *code*. However, before we get to the code you have to jump through a number of deeply irritating hoops, all of which I dearly hope will disappear before release.
+iPhone 7 引入了针对 NFC 的硬件支持，至于 iOS 11，NFC 开始支持让我们在自己的 APP 内使用：你现在可以编写代码来检测附近的 NFC NDEF 标签，而且出乎意料地简单 —— 至少在 __代码层面__ 。然而在我们看代码之前，你需要绕过一些坑，所有的我都希望在正式版消失。
 
-**Step 1:** Create a new Single View App template in Xcode.
+**Step 1:** 在 Xcode 里创建一个新的 单视图 APP 模板。
 
-**Step 2:** Go to the iTunes provisioning portal at [https://developer.apple.com/account/](https://developer.apple.com/account/) and create an App ID for your app that includes support for NFC Tag Reading.
+**Step 2:** 去 iTunes 配置网站 [https://developer.apple.com/account](https://developer.apple.com/account/)  为你的 APP 创建一个 包含 NFC 标签读取的 APP ID。
 
-**Step 3:** Create a provisioning profile for that app ID, and install it into Xcode. Uncheck the "Automatically manage signing" checkbox, and instead select the provisioning profile you just installed. You should be able to click the small "i" button next to the profile and see "com.apple.developer.nfc.readersession.formats" in the list of entitlements.
+**Step 3:** 为这个 APP ID 创建一个描述文件，并将其安装到 Xcode 中。取消 "Automatically manage signing" 选项卡，并且选择你刚才安装的描述文件。你可以点击描述文件旁边的小 “i” 按钮来在权限列表里查看 "com.apple.developer.nfc.readersession.formats"。
 
-**Step 4:** Press Cmd+N to add a new file to the project, then choose Property List. Name it "Entitlements.entitlements", and make sure "Group" has a blue icon next to it.
+**Step 4:** 使用 快捷键 Cmd+N 为工程添加一个新的文件，先选择属性列表。把它命名为 "Entitlements.entitlements" ，并且确保 "Group" 旁边有一个蓝色的图标。
 
-**Step 5:** Open Entitlements.entitlements for editing, then right-click in the whitespace and choose "Add Row". Give it the key name "com.apple.developer.nfc.readersession.formats" and change its type to Array. Click the disclosure indicator to the left of "com.apple.developer.nfc.readersession.formats", then click the + sign to the right of it. That should insert "Item 0" with an empty value – change the value to be "NDEF".
+**Step 5:** 打开 Entitlements.entitlements 进行编辑，右击空白处选择 "Add Row"。键值为 "com.apple.developer.nfc.readersession.formats" 并把它的类型改为数组。点击 "com.apple.developer.nfc.readersession.formats" 左侧的指示箭头，再点击右边的 + 标记。这时应该会插入一个带有空值的 "Item 0" 键 —— 把它的值改为 "NDEF"。  
 
-**Step 6:** Go to the build settings for your target and search for Code Signing Entitlements. Enter "Entitlements.entitlements" into that text box.
+**Step 6:** 定位到你的 target 的 build settings 找到 Code Signing Entitlements 。在文本框里填入 "Entitlements.entitlements" 。
 
-**Step 7:** Open your Info.plist file, then right-click in the white space and choose "Add Row". Give it the key name "Privacy - NFC Scan Usage Description" and the value "SwiftyNFC".
+**Step 7:** 打开你的 Info.plist 文件，再右击空白处选择 "Add Row" 。添加键为 "Privacy - NFC Scan Usage Description" ，值为 "SwiftyNFC" 。
 
-Yes, it's a complete mess. No, I don't know why – being able to scan NFC is hardly any more private than having access to someone's health records, and that's much easier to do. And before you think it's because nefarious apps could scan for NFC without the user knowing, put your mind at rest: as you'll see in just a moment that simply isn't possible.
+是的，就是一团糟。我不知道为什么——能够扫描 NFC 几乎没有比访问某人的健康记录更私密，而且更容易做到。在你思考恶意应用会不会暗地里扫描 NFC 之前，还是省省吧：就像刚才看到的那样，这是根本不可能做到的。
 
-After the chaos of setting up, I'm happy to report that the code required to make NFC work is almost trivial: create a property to store a `NFCNDEFReaderSession` object, which represents the current NFC scanning session, then create it and ask it to begin scanning.
+在混乱的设置之后，很高兴地告诉你使 NFC 工作的代码几乎是微不足道的：创建一个属性来存储一个代表当前 NFC 扫描会话的 `NFCNDEFReaderSession` 对象，再创建这个对象并要求它开始扫描。
 
-When you create the reader session, you need to give it three pieces of data: the delegate it can send messages to, the queue it should use to send those messages, and whether it should stop scanning as soon as it finds an NFC tag. We're going to use `self` for the delegate, `DispatchQueue.main` for the queue, and false to stop scanning after it finds a tag, so it continues scanning until its 60-second time out is reached.
+当你创建读取会话时，你需要给它提供三条数据：它能够发送信息的代理，它应该用于发送这些消息的队列和当它扫描到一个 NFC 标签的时候是否结束扫描。我们会用  `self` 作为代理，`DispatchQueue.main` 作为队列，将值设置为 false 当扫描到一个标签后不停止扫描，所以它会继续扫描直到60秒结束。
 
-Open ViewController.swift, add an import for `CoreNFC`, then add this property to the `ViewController` class:
+打开 ViewController.swift，导入 `CoreNFC`，再把这个属性添加到 `ViewController` 类：
 
 ```
 var session: NFCNDEFReaderSession!
 ```
 
-Next, add these two lines of code to `viewDidLoad()`:
+接下来,在 `viewDidLoad()` 方法中添加这两行代码：
 
 ```
 session = NFCNDEFReaderSession(delegate: self, queue: DispatchQueue.main, invalidateAfterFirstRead: false)
 session.begin()
 ```
 
-The `ViewController` class doesn't currently conform to the `NFCNDEFReaderSessionDelegate` protocol, so you'll need to amend your class definition to include it:
+`ViewController` 现在还没有正确地遵循 `NFCNDEFReaderSessionDelegate` 协议，你需要修改你的类定义来包含它：
 
 ```
 class ViewController: UIViewController, NFCNDEFReaderSessionDelegate {
 ```
 
-As per usual, Xcode will complain that you're missing some required methods, so use its recommended fix to insert these two method stubs:
+按照惯例，Xcode 将会报你缺失一些必要方法的错，所以使用它建议的修复来插入下面这两个方法：
 
 ```
 func readerSession(_ session: NFCNDEFReaderSession, didDetectNDEFs messages: [NFCNDEFMessage]) {
@@ -485,7 +488,7 @@ func readerSession(_ session: NFCNDEFReaderSession, didInvalidateWithError error
 }
 ```
 
-Both of those methods are easy enough, but error handling is particularly so – we're just going to make the error print out to the Xcode console. Fill in the `didInvalidateWithError` method like this:
+两个方法都是特别简单的，但是错误的处理也非常简单——我们只是把错误打印到 Xcode 的控制台。在 `didInvalidateWithError` 方法内像这样添加内容：
 
 ```
 func readerSession(_ session: NFCNDEFReaderSession, didInvalidateWithError error: Error) {
@@ -493,9 +496,9 @@ func readerSession(_ session: NFCNDEFReaderSession, didInvalidateWithError error
 }
 ```
 
-Now for the `didDetectNDEFs` method. When this is called you'll get an array of detected messages, each of which can contain one or more records describing a single piece of data. For example, you might have seen NFC used to launch the Google Cardboard app: Cardboard devices have a simple NFC tag containing the absolute URL "cardboard://V1.0.0", which gets detected by devices and causes the app to be shown.
+现在对于 `didDetectNDEFs` 方法。当它被调用的时候你会得到一个检测到的消息的数组，数组每一个元素都可以包含描述单个数据的一个或更多记录。例如，你可能会看到 NFC 被用作启动 Google Cardboard app: Cardboard 设备有一个简单的包含绝对 URL "cardboard://V1.0.0" 的 NFC 标签，当设备检测到标签后会唤起 APP 显示。
 
-What you do with the NFC data is down to you, so we're just going to print it out. Modify your `didDetectNDEFs` method to this:
+用 NFC 数据的处理就是你需要做的事了，我们只是把他打印出来了，把你的 `didDetectNDEFs` 修改成这样：
 
 ```
 func readerSession(_ session: NFCNDEFReaderSession, didDetectNDEFs messages: [NFCNDEFMessage]) {
@@ -509,33 +512,33 @@ func readerSession(_ session: NFCNDEFReaderSession, didDetectNDEFs messages: [NF
 }
 ```
 
-That's all the code complete, so go ahead and run the app! If everything has worked, you will immediately see some system user interface appear prompting the user to hold their device near something to scan. This is why it's just not possible for nefarious apps to abuse NFC scanning – not only do we have no control over the user interface, but it also times out after 60 seconds to avoid wasting battery.
+所有的代码就完成了，那么继续开始运行这个 app 吧！如果所有的部分都起作用了，你将立即看到系统用户界面出现提示用户将其设备靠近要扫描的位置。这就是为什么恶意应用程序滥用 NFC 扫描是不可能的 - 不仅我们无法控制用户界面，而且 60 秒后扫描也会因为超时结束以避免浪费电量。
 
-## Machine learning and Vision
+## 机器学习和视觉识别
 
-Machine Learning is the *buzzword du jour*, and lets computers adapt to new data based on processing rules they have been exposed to in the past. For example, "does this picture contain a guitar?" is a difficult question to answer if you just have a picture of a guitar and an empty Swift file, but if you build a trained model out of many sample input images of a guitar then you can effectively train computers to detect new images of guitars.
+机器学习是现在最时髦的流行语，就是让计算机根据过去接触到的处理规则来适应新的数据。比如，如果你只有一张吉他画和一个空的 Swift 类，那么”这幅画中有吉他吗？“是个非常难回答的问题，但是如果你使用大量包含吉他的图片样本来构建一个训练模型，这时你就可以有效地训练计算机识别出包含吉他的新图像。
 
-This might sound dull, but it's actually the basis of a number of huge technologies in iOS 11: Siri, Camera, and Quick Type all use it to help gain a better understanding of the world you're using them in. iOS 11 also introduces a new Vision framework, which is a slightly nebulous combination of things from Core Image, machine learning functionality, and all new technology.
+听上去很无聊，但实际上是 iOS 11 上大量的先进技术的基础：Siri，照相机，Quick Type 都使用了机器学习来帮助它们更好的理解我们所在的世界。iOS 11 还引入了一个新的 Vision 框架，这是一个从 Core Image ，机器学习功能和所有新技术组成的一个有点模糊的组合。
 
-In iOS 11 this is all provided by a new machine learning framework called Core ML, which is designed to support a wide variety of models rather than just examining images. Believe it or not, Core ML is almost trivial to write code for, however, that's only one part of the story.
+在 iOS 11 里所有的这些都是由一个叫做 Core ML 的机器学习框架提供，该框架旨在支持各种各样的模型，而不仅仅是识别图像。信不信由你，编写 Core ML 的代码是很少的，然而这只是事情的一面。
 
-You see, Core ML requires trained models to work with: the result of training an algorithm on a variety of data. These models can range from a few kilobytes to hundreds of megabytes or more, and obviously require a certain amount of expertise to produce – particularly if you're working with image recognition. Fortunately, Apple has provided a handful of models we can use to get up and running quickly, so if you just want to take Core ML for a test ride it's actually easy.
+你清楚的，Core ML 需要训练模型才能工作，而模型是用算法在大量数据训练得出的。这些模型可以从几千字节到数百兆字节甚至更多，而且明显需要一定的专业知识才能训练，特别是当你处理图像识别的时候。令人欣喜的是，苹果提供了一些可以用来快速上手和运行的模型，所以如果你只是想要尝试下使用 Core ML ，实际上是非常简单的。
 
-Sadly, even that is only another part of the story: there's a third part, which is thoroughly evil. You see, Core ML models automatically generate code for us that accept some input data and return some output – that part is beautiful. Sadly, the input data they want when processing images isn't a `UIImage`, nor is it a `CGImage`, or even a `CIImage`.
+难过的是，还有事情还有另外一面：第三方框架总是非常恶心的，你明白的，Core ML 模型为我们自动生成接收一些输入数据并返回一些输出数据的代码 - 这部分是非常友好的。但悲伤的是，处理图像时所需的输入数据不是 “UIImage”，也不是 “CGImage”，更不是 “CIImage” 。
 
-Instead, Apple has chosen to make us use `CVPixelBuffer`, which is about as welcome in my code as a porcupine in a hemophiliac meetup. There is no nice, efficient way of converting a `UIImage` to a `CVPixelBuffer`, and I feel confident saying that because I wasted several hours trying to make one. Fortunately for me [Chris Cieslak](https://twitter.com/cieslak) was kind enough to share his code with me, and he's made it available under the [WTFPL](http://www.wtfpl.net/about/) so you can use it too.
+相反，苹果选择让我们使用 “CVPixelBuffer” 输入。`CVPixelBuffer` 放进我的代码中就像血友病聚会上来了头豪猪一样不受欢迎。没有把 UIImage 转换为 CVPixelBuffer 的完美有效的方法，我是很有资格说的，因为我浪费了几个小时来寻求解决方案。幸运的是 [Chris Cieslak](https://twitter.com/cieslak) 非常慷慨把他的代码分享给我，在他的 [WTFPL](http://www.wtfpl.net/about/) 下转换是非常有效的，所以你也可以使用它进行转换。
 
-Let's try out Core ML now. Create a new Single View App project (or re-use your existing one), then add a picture of something – I added a picture of [Washington Dulles International Airport](https://upload.wikimedia.org/wikipedia/commons/9/92/Washington_Dulles_International_Airport_at_Dusk.jpg) from Wikipedia. Name the picture "test.jpg" in your project to avoid typos.
+现在让我们尝试下 Core ML 吧。先创建一个新的单视图 APP 工程（或者继续使用你现有的工程），再在工程里添加一张图片 —— 我添加的是维基百科里的 [华盛顿杜勒斯国际机场](https://upload.wikimedia.org/wikipedia/commons/9/92/Washington_Dulles_International_Airport_at_Dusk.jpg) 。把这张图片重命名为 "test.jpg" 以避免拼写错误。
 
-Now that we have some test input, we need to add a trained model. It might not have seen our exact picture before, but it needs to have been exposed to similar pictures in order to have a shot at recognizing the airport. Apple provides a selection of pre-configured models at [https://developer.apple.com/machine-learning](https://developer.apple.com/machine-learning/) – please go there now, and download the model for "Places205-GoogLeNet". This is only 25MB, so it won't take up much space on your user's devices.
+现在我们有一些输入测试，我们需要添加一个训练好的模型。它可能没有看到过我们确切的照片，但它需要接触些类似的图片以便识别出这个机场。苹果在 [https://developer.apple.com/machine-learning](https://developer.apple.com/machine-learning/) 上提供了一些预配置的模型 —— 现在进入网站，并下载 “Places205-GoogLeNet” 模型。 模型只有 25MB，所以它不会占用你用户设备上太多空间。
 
-Once you've downloaded the model, drag it into your Xcode project then select it so you can see Core ML's model viewer. You'll see it's a neural network classifier produced out of MIT, and available under a Creative Commons license. Below that you'll see it has "sceneImage" for its inputs, and "sceneLabelProbs" and "sceneLabel" for its output – an image for input, and some text describing what it thinks of the image for output.
+当你下载好模型后，先把它拖到你的 Xcode 工程中，再选择它，这时你就可以看到 Core ML 的模型查看器。你会看到它是由 MIT 制作的神经网络分类器，还有可以根据知识共享许可证使用。在这个下面，你将看到它有 “sceneImage” 作为输入，还有 “sceneLabelProbs ” 和 “sceneLabel” 作为输出 —— 输入一张图片，输出一些计算机识别这张图片的文本描述。
 
-You'll also see "Model class" and "Swift generated source" – Xcode generates a class for us that wraps up the entire thing in only a few lines of code, which is quite remarkable as you'll see shortly.
+你还将看到 “Model class” 和 “Swift generated source” —— Xcode为我们生成了一个类，只包含几行代码，这一点非常显著，你将很快看到。
 
-At this point we have an image to recognize and a trained model that can examine it. All we need to do now is put the two together: load the image, prepare it for the model, then ask the model for its prediction.
+现在，我们有一个可以识别的图像和一个可以检查它的训练好的模型。 我们现在需要做的是将两者放在一起：加载图片，为模型准备图片，最后询问模型的预测。
 
-To help make this code easier to understand, I've split it into a number of chunks. To begin with, open ViewController.swift and modify it to this:
+为了使这个代码更容易理解，我把它分成了一些块。 首先，打开 ViewController.swift 并将其修改为：
 
 ```
 import UIKit
@@ -553,11 +556,11 @@ class ViewController: UIViewController {
 }
 ```
 
-That just loads our test image, ready for processing. The next steps are to fill in those three comments, one by one, starting with `// 1`.
+这只是加载我们准备被处理的测试图片。 接下来的步骤是从 “// 1” 开始逐个填写这三个注释。
 
-Image-based Core ML models expect to receive images at a precise size, which is whatever size they were trained with. In the case of the GoogLeNetPlaces model that's 224x224, but other models have different sizes and Core ML will tell you if you send something at the wrong resolution.
+基于图像的 Core ML 模型要求以精确的尺寸接收图片，这是他们接受过训练的尺寸。 对于 GoogLeNetPlaces 模型尺寸应该是 224 x 224 而其他模型有它们各自的尺寸，而 Core ML 会告诉你是否以错误的尺寸输入了东西。
 
-So, the first thing we need to is scale down our image so that it's precisely 224x224, disregarding whether we're using a retina device or otherwise. This can be done using `UIGraphicsBeginImageContextWithOptions()`, forcing a scale of 1.0. Replace the `// 1` comment with this:
+所以，我们需要的第一件事是缩小我们的图像，让图片恰好是 224 x 224 ，而不管我们是使用视网膜屏设备还是其他的设备。 这可以使用 “UIGraphicsBeginImageContextWithOptions（）” 方法来强制 1.0 的比例。 用下面的代码替换这个 `// 1` 注释：
 
 ```
 let modelSize = 224
@@ -567,9 +570,9 @@ let newImage = UIGraphicsGetImageFromCurrentImageContext()!
 UIGraphicsEndImageContext()
 ```
 
-That gives us a new constant called `newImage`, which is a `UIImage` at the correct size for our model.
+这给了我们一个新的叫做 “newImage” 常量，它是一个符合模型中正确尺寸的 “UIImage”。
 
-Now for the second part, which is the truly vicious conversion between `UIImage` and `CVPixelBuffer`. This is pointlessly complicated, so I'm not even going to bother trying to explain all the various steps and I don't recommend you do anything more than copy and paste this code. Replace the `// 2` comment with this:
+现在第二部分要做的是从 “UIImage” 到 “CVPixelBuffer” 之间恶心的转换。 因为这是毫无意义的复杂操作，所以我不打算试图解释所有的各个步骤。除了拷贝下面的代码，我不建议你做任何事情。 用下面的代码替换这个 `// 2` 注释：
 
 ```
 let attrs = [kCVPixelBufferCGImageCompatibilityKey: kCFBooleanTrue, kCVPixelBufferCGBitmapContextCompatibilityKey: kCFBooleanTrue] as CFDictionary
@@ -592,13 +595,13 @@ UIGraphicsPopContext()
 CVPixelBufferUnlockBaseAddress(pixelBuffer!, CVPixelBufferLockFlags(rawValue: 0))
 ```
 
-You might want to wrap all that gibberish in a helper function if you intend to use it a lot, but whatever you do please don't bother trying to memorize it.
+如果可能使用很多次上面的代码，你可能想要把这些复杂代码封装到一个函数里边。但无论你如何操作，请不要试图去记住它。
 
-Now for the important, interesting, and trivial part: actually using Core ML. This is just three lines of code, which is, quite frankly, criminally easy. Like I said, Xcode automatically generates a Swift class from the Core ML model, so we can instantiate that immediately as `GoogLeNetPlaces`.
+现在开始重要的，有趣的和微不足道的部分：实际使用 Core ML 框架，这只有三行代码，相当坦率地说，非常简单。 就像我所说的，Xcode 自动根据 Core ML 模型生成一个 Swift 类，所以我们可以立即实例化一个 “GoogLeNetPlaces” 对象。
 
-We can then pass our pixel buffer into its `prediction()` method, which will either return a prediction or throw an error. In practice, you'll probably find it easier to use `try?` to either get a value back or nil. Finally, we'll just print out the prediction so you can see how Core ML fared.
+最后我们可以将我们的图片缓存传递给它的 “prediction()” 方法，这个方法将返回预测结果或抛出一个错误。 在实践中，你可能会发现使用 `try？' 更容易获得一个值或是 nil 。 最后，我们将打印出预测结果，以便你了解到 Core ML 的表现。
 
-Replace the `// 3` comment with this:
+用下面代码替换替换这个 `// 3` 注释：
 
 ```
 let model = GoogLeNetPlaces()
@@ -606,38 +609,39 @@ guard let prediction = try? model.prediction(sceneImage: pixelBuffer!) else { re
 print(prediction.sceneLabel)
 ```
 
-Believe it or not, that really is all it takes to use Core ML in code; all the rest was setup for those three simple lines. What you get printed out depends on what you put in and your model, but GoogLeNetPlaces correctly identified my image as an airport terminal, and did so entirely on device – there was no need to send the image off to a server to be processed, so you get great privacy out of the box.
+不管你相不相信，这就是使用 Core ML 的所有代码； 这简单的三行代码做完了所有的工作。 你打印出来的结果取决于你的输入内容和你的训练模型，但 GoogLeNetPlaces 正确地将我的图片识别为机场航站楼，这一切完全在设备上完成 —— 无需将图片发送到远程服务器处理，因此在这个黑盒子里你得到了极好的隐私保护。
 
-## Lots of other improvements…
+## 更多其他的更新。。。
 
-There are lots of other improvements across iOS 11 – here are my favorites:
+iOS 11 还有大量的其他更新 —— 这些是我最喜欢的：
 
-- Metal 2 is set to increase graphics performance across the system. I haven't provided code examples here because it's quite a specialist topic – most people will just be happy to see their SpriteKit, SceneKit, and Unity apps get faster for no extra work.
-- Table view cells are now automatically self-sizing. Previously this behavior was triggered using `UITableViewAutomaticDimension` for a row height, but it's no longer needed.
-- Table views also gained a new closure-based `performBatchUpdates()` method, which lets you animate mutiple inserts, deletes, and moves at once – and even runs a completion closure once the animations are finished.
-- The new heavy black titles first seen in Apple Music have now spread across the system, and are available to our own apps with one small change: check "Prefers Large Titles" for your navigation bar in IB, or use `navigationController?.navigationBar.prefersLargeTitles = true` if you prefer to do it in code.
-- The `topLayoutGuide` property has been deprecated in favor of `safeAreaLayoutGuide`. This provides edges for all sides rather than just top and bottom, but may well forebode future iPhones with non-rectangular layouts – full-screen iPhone 8 with embedded camera, anyone?
-- Stack views have gained a `setCustomSpacing(_:after:)` method, which lets you add gaps in the stack view wherever you want rather than uniformly.
+- Metal 2 被设置成提高整个系统的图形性能。我没在这提供代码示例是因为这实在是一个高深的话题 —— 大多数人只会很高兴看到他们的 SpriteKit ，SceneKit 和 Unity 应用程序无需额外的工作就可以获得更快的速度。
+- TableView Cell 现在自动支持自适应。以前都是设置 `UITableViewAutomaticDimension` 作为行高来触发自适应行为。但现在再也不需要设置了。
+- TableView 增加了一个 新的基于闭包的 `performBatchUpdates()` 方法，它可以让你一次性对多行的插入、删除、移动操作进行动画处理，甚至可以在动画完成之后立即执行结束闭包。
+- 在  Apple Music 第一次出现的新的加粗黑标题现在可以再整个系统使用了，同时支持通过一个细小的改动在我们自己的 APP 使用：在 IB 内为我们的导航条选择 "Prefers Large Titles" ，或者如果你更喜欢使用代码的话使用 `navigationController?.navigationBar.prefersLargeTitles = true` 来设置。
+- 为了支持 `safeAreaLayoutGuide`  `topLayoutGuide`属性被弃用了。它提供了所有边的边缘而不仅仅是顶部和底部，这可能预示未来的 iPhone 为非矩形布局 —— 带有沉浸式相机的全屏幕 iPhone 8，有人有异议吗？
+- Stack views 增加了一个 `setCustomSpacing(_:after:)` 方法，这可以让你在 stack view 添加你想要的而不是统一大小的空白。
 
-## And then there's Xcode
+## 接下来就是 Xcode
 
-Xcode 9 is the most exciting Xcode release I've ever seen - it's packed full of incredible new features that will make even the most hardened Xcode complainer reconsider.
+Xcode 9 是我见过的最令人兴奋的 Xcode 版本 —— 它充满了令人难以置信的新功能，甚至可以使最坚定的 Xcode 抱怨者重新考虑。
 
-Here are the big features that caught my eye:
+这些是最吸引我的功能更新：
 
-- Refactoring for Swift and Objective-C is built right into the editor, which means you can make sweeping changes to your code (e.g renaming a method) in just a few clicks.
-- Wireless debugging is now available for iOS and tvOS. To enable this functionality, connect your device using USB then go to the Window menu and choose Devices and Simulators. Select your device, then check the "Connect via network" option. Don't be surprised if it doesn't work first time – it's only beta 1!
-- The source editor has been rewritten in Swift, which has resulted in extraordinary speed improvements for scrolling and searching, along with helpful features such as scope highlighting when you hold down the Ctrl key.
-- You can now add named colors to asset catalogs, which lets you define them once and use them everywhere with the new `UIColor(named:)` initializer.
-- There's a new main thread checker enabled by default, which will automatically warn you when it detects any UIKit method calls that aren't made on the main thread – a common source of bugs.
-- You can now run multiple simulators concurrently, and you can even resize them freely. Apple added extra user interface around the simulators to give us access to hardware controls.
-- If you're not keen to use Swift 4 immediately, there's a new "Swift Language Version" build setting that lets you choose either Swift 4.0 or Swift 3.2. Both use the same compiler, but enable different options internally.
+- 可以在编辑器内进行 Swift 和 Objective-C 的重构，这意味着你只需点击几下鼠标就可以对你的代码进行彻底的更改（例如对方法重命名）。
+- iOS 和 tvOS 支持无线调试了。为了使用这个功能，先使用 USB 连接你的设备，再在 Window 菜单里选择 Devices and Simulators 。
+选择你的设备，最后选择 "Connect via network" 。如果第一次不能成功 不必感到惊奇 —— 这还是 beta 1 版本！
+- 源代码编辑器使用 Swift 进行了重写，带来了滚动和搜索的速度极大的提升。以及一些其他有用的功能，比如按住 Ctrl 键时的范围高亮显示。
+- 你现在可以将命名颜色添加到 asset catalogs，这样你可以定义一次颜色， 在任何地方使用 `UIColor(named:)` 方法初始化。
+- 默认情况下启用了一个新的主线程检查器，当检测到任何不在主线程上执行的 UIKit 方法调用时，它将自动发出警告 - 这是常见的错误源头。
+- 你现在可以同时运行多个模拟器，甚至可以自由调整它们的大小。 苹果在模拟器周围添加了额外的用户界面，以便我们访问硬件控件。
+- 如果您不想立即使用 Swift 4，则会有一个新的 “Swift Language Version” 构建设置，您可以选择 Swift 4.0 或 Swift 3.2。 两者都使用相同的编译器，但在内部启用不同的选项
 
-Seriously, I wish I were at WWDC this year just so I could hug the Xcode engineers – this is a scorching release that sets Xcode up for continued greatness.
+认真的，我希望我今年在 WWDC 现场，这样我就给 Xcode 工程师一个熊抱 —— 这是一个炙手可热的版本，让 Xcode 在奔向伟大的路上越行越远。
 
-## What now?
+## 还在等什么？
 
-Now that you've had a taste of what's new in iOS 11, you should take a look at my new book: [Practical iOS 11](/store/practical-ios11). It's a book that teaches all the major changes in iOS 11 using practical projects, so you can get to speed as fast as possible.
+现在你已经了解了 iOS 11 中的新功能，你也应该看一看我的新书：[Practical iOS 11](/store/practical-ios11)。这是一本用实际项目讲解 iOS 11 中所有主要变化的书籍，拥有它你可以尽可能快地熟悉 iOS 11。
 
 [![Practical iOS 11](https://www.hackingwithswift.com/img/book-ios11@2x.png)](https://www.hackingwithswift.com/store/practical-ios11)
 

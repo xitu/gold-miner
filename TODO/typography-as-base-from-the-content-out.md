@@ -1,224 +1,229 @@
 > * 原文地址：[Typography as Base: From the Content Out](https://medium.com/subvisual/typography-as-base-from-the-content-out-c59fe7bfb633)
 > * 原文作者：[Francisco Baila](https://medium.com/@fcBaila)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
-> * 校对者：
+> * 译者：[cdpath](https://github.com/cdpath)
+> * 校对者：[osirism (Olivia)](https://github.com/osirism), [laiyun90 (Lai)](https://github.com/laiyun90)
 
 ---
 
 ![](https://cdn-images-1.medium.com/max/2000/1*1Km4fqgsA1Qod5grVqAECQ.png)
 
-Photo by [Raphael Schaller](https://unsplash.com/@raphaelphotoch)
+照片来自 [Raphael Schaller](https://unsplash.com/@raphaelphotoch)
 
-# Typography as Base: From the Content Out
+# 以排印为本，从内容出发
 
-*First published on *[*Subvisual’s blog*](https://subvisual.co/blog/posts/138-typography-as-base-from-the-content-out)*. *This blog post was born out of my necessity to find a structure in which I could rely on when designing any kind of web project.
+**首发于 [Subvisual 的 blog](https://subvisual.co/blog/posts/138-typography-as-base-from-the-content-out)**。本文的起因是为了寻找一种在设计任何 web 项目时都能依赖的结构。
 
-### 0. Random
+### 0. 从随机选择开始
 
-Before I started this research, my structure was very naive. When I came across a new project, my first move was to start drawing boxes and text blocks with randomly selected typefaces and margins. Not completely random of course, but with no serious thought behind it. If I needed a margin, I would start with 20px, and whenever I needed a bigger one I would double that value, so I ended up almost every time with margins like 20px, 40px, 80px and so on. The same with the typefaces chosen and their sizes. Selecting sizes always started at 16px or 18px adding 4px to get new ones. Once again the sizes would always end up being 16px, 20px, 24px and so on.
+在开始研究之前，我的架构非常幼稚。开始新项目的第一步就是用随机选择的字体和页边距画框框和文本块。当然也不是完全随机啦，不过也没有深入的思考。如果定一个页边距，我会从 20px 开始尝试，如果要一个大一点的，就加倍，所以最后所有的页边距都是 20px，40px 和 80px 之类的。选择字体和字号也是同样的思路。字体永远是从 16px 或 18px 开始试起，每次加 4px。最后字体也总是 16px，20px 和 24px 等等。
 
-I started my journey on design through graphic design. In college, I spent a lot of time creating posters, books, and magazines. To do these kinds of pieces, I always went through very thorough processes of selecting fonts, sizes, margins, grids, etc. and I had excellent teachers that showed me how to do it. I liked doing graphic design, and I still do, but the web called me, and here I am, giving my first big steps after some big web projects. I also find myself asking why it is that I am not using processes like the ones I used before, on books and magazines, to do websites and products.
+我入门设计这一行最开始是做平面设计。我在大学制作了很久的海报、书籍和杂志。要完成这些活计我总得事无巨细地搞定选字体、字号、页边距、网格等等的全部流程。好在有个出色的老师指导我。我喜欢做平面设计，现在也喜欢，但是 web 召唤了我，所以我转而做 web 了，搞了几个大项目之后终于算是迈出了重要的第一步。我发现自己在问，为什么没有用之前搞书籍和杂志的流程来做网站和产品。
 
-I am happy with the projects I’ve done so far, but I always get that feeling that something is missing. Some craftsmanship I would say. At Subvisual we care about our processes, and we are always searching for ways to improve them. The thing is that most of those processes are focused on User Experience, a subject that we care about. However, there is no good UX with a bad User Interface. I’m not saying that our UIs are bad. In fact, I think they are pretty cool but they lack craftsmanship. And you know, we strive for it. Curious and stubborn as I am, I went looking for solutions to this problem.
+我对目前在搞的项目都还挺满意的，但是总觉的少了些什么。可能是少了些匠心。在 Subvisual，我们关注流程，而且一直寻求改进之道。关键在于大多数流程关注的重点都是用户体验，这正是我们看中的。不过没有好的用户界面（UI）哪有好的用户体验（UX）。我并不是说我们的 UI 很糟糕。实际上我觉得 UI 非常不错，只是少了些许匠心。我们正为此努力。我求知欲旺盛，个性又倔强，正在想办法解决这个问题。
 
-I started by googling and reading everything that could be interesting. I found some excellent articles, especially [this one from Zac Halbert](https://medium.com/tradecraft-traction/harmonious-typography-and-grids-10da490a17d) that ended up being an inspiration for this post and a formula that I used in my work ever since. I asked some friends that are working on graphic design how they are doing their stuff nowadays and found some books that helped me a lot in my quest.
+我开始上网搜素并阅读了很多有意思的东西。我找到了一些极好的文章，尤其是[Zac Halbert 的这篇文章](https://medium.com/tradecraft-traction/harmonious-typography-and-grids-10da490a17d)，直接促使我写了现在这篇文章，还让我形成了工作中一直在用的准则（formula）。我还询问了一些从事平面设计的朋友，想看看他们现在的工作方式，由此收获了一些对我的研究帮助极大的书籍。
 
-### Our Project — [TurnGram](https://www.turngram.com/)
+### 我们的项目 ──[TurnGram](https://www.turngram.com/)
 
-I’m going to take you through the process of bootstrapping a project using typography as base. We will start by the art direction and finish on the typography scale. Our project is TurnGram, a service that delivers your photos to your loved ones on a regular basis, hassle free. The design sprint has ended, our prototype is done and tested, and the first version will be born.
+下面我就带你了解以排版为基础来引导项目的过程。我们从艺术目标开始，到字体排版的缩放(typography scale)结束。我们的项目是 TurnGram，一个定期将自己的照片寄给所爱的人的服务，非常省事。设计冲刺已结束，原型完成并通过了测试，第一版即将面市。
 
 ![](https://cdn-images-1.medium.com/max/800/1*_9cuEOL2vOdCBeNQ4JwYag@2x.png)
 
-### 1. Art Direction
+### 1. 艺术方向
 
-Let’s start with the Art Direction or goals, of the project. This is where we think about the mood of the project, the feel that we want users to have when looking to our website. Take the time to read the project’s copy carefully and to look at its images, if possible. We want to understand our project’s personality through its content. As you do it, write it down: **cozy, familiar and nostalgic**.
+从这个项目的美术设计或者说艺术方向开始谈起。这时要考虑定下项目的基调，也就是想传达给看浏览我们网站的人的感觉。花点时间仔细阅读项目素材，最好能看看其中的图像。我们想通过内容来了解项目的气质，然后写下想到的词：**「温馨、亲密和怀旧」**。
 
-### 2. Hierarchy
+### 2. 分级结构
 
-Every structure needs hierarchy. You should take advantage of the time you are spending reading the content to set the rules of your project’s hierarchy. Set what is a text block, what is a heading, what is a secondary heading, and so on. Mark them, find examples for every type of content.
+每个结构都需要层级。应该利用读过的项目内容来定下项目层级。决定什么是文本块，什么是大标题，什么是二级标题，诸如此类。记下来，给每种内容都找一些例子。
 
-1. **H1** — Some of our favorite TurnGrams;
-2. **H2** — Recipient Name & TurnGram Instructions;
-3. **H3** — Do you ship overseas and to P.O. boxes?;
-4. **Text block** — I would like to send my mother (Maria Eastman) photos of my family on a monthly basis. She loves to display photos around her home and show her guests recent pictures of the grandkids. So please make sure to include the kids in your photo selections as much as possible.;
-5. **Buttons** — Start Now;
+1. **H1** ── TurnGrams 中最惹人爱的部分；
+2. **H2** ── 收件人姓名和使用指引；
+3. **H3** ── 面向海外用户和邮箱吗？；
+4. **文本块** ── 我想每月给妈妈（Maria Eastman）寄一些家庭照片。她喜欢把照片摆满房间，把孙子的近照拿给客人看。所以务必在照片选集中尽量多加些孩子的照片。；
+5. **按钮** ── 现在开始；
 
-### 3. Typefaces selection
+### 3. 字体选择
 
-Once there are no more examples to cover, it’s time to make the most important style decision. Let’s select the typefaces we are going to use.
+如果没有更多可以覆盖的用例，就是时候做最重要的样式决策了。下面就来选取会用到的字体。
 
-From now on, every decision that we make has to take into account **readability** and **legibility**. As described on Wikipedia, readability is the ease with which a reader can understand a written text. Legibility is the ease with which a reader can recognize individual characters in the text. I will be addressing them through the post.
+从现在起，我们的每一个决策都要考虑可读性和可识别性[^1]。正如维基百科所描述的，可读性是指读者可以轻松读懂书面文字，可识别性是指读者可以清晰地分辨出文本中的每一个字符。接下来的博文我都致力于这两点。
 
-Picking a typeface early on a project’s life will change the way you will make decisions later. There is one book that helped me a lot on how to choose and combine typefaces. [“The Elements of Typographic Style” by Robert Bringhurst](https://www.goodreads.com/book/show/44735.The_Elements_of_Typographic_Style) is considered by many a typography bible.
+在产品的早期就选定字体会改变你稍后做决策的方式。推荐阅读 Robert Bringhurst 的 [“The Elements of Typographic Style”](https://www.goodreads.com/book/show/44735.The_Elements_of_Typographic_Style)，在选择、结合字体时给予我很大帮助。很多设计师也把它视为字体排印圣经。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Zxuu_UecxZmRbf3t-dGoMw@2x.png)
 
-The first two advices that Robert Bringhurst gives us are **“Consider the medium for which the typeface was originally designed”** and **“When using digital adaptations of letterpress faces, choose fonts that are faithful to the spirit as well as the letter of the old designs.”** Be sure that the typeface you want was designed to be displayed on a screen or, if it is an adaptation, check if the font weights and proportions are well adapted.
+Robert Bringhurst 给出的前两个建议是「**考虑字体最初是为什么媒介设计的**」以及「**当使用活版印刷体的电子改版时，选择字体要形神兼备**」。确保你采用的字体是为屏幕显示设计的，如果不是，则要检查字重和比例是否合适。
 
-**“Choose fonts that will survive, and if possible prosper, under the final printing conditions.”** From this, we must bear in mind what sizes our typefaces will be rendered in, a question of legibility. Before choosing the typeface, go for its specimen and check what sizes it is best rendered in. Our example has some long text blocks so we should aim for a base font size of 20px. If you are designing a blog post, for instance, you will want to be using a base font size between 20px and 24px with a good x-height(the height of the lowercase). This is a rule that I regularly apply in my work, but like all rules, it can be broken when we feel it can work differently.
+「**选择在最终打印出来条件下能存续下来的字体，最好是发展比较好的**。」根据这则建议，我们必须牢记选用的字体会被渲染到什么字号，这事关可识别性。在选择字体之前，看一下样本，了解其最优的渲染字号。我们的例子有很多长文本块，所以我们的目标字体的基础字号是 20px。举个例子，如果你在设计博文页面，你会想要使用基础字号在 20px 到 24px 之间，x 高（小写字母高度）合理的字体。这是我经常应用到我的工作中的一条规则，但是和所有规则一样，如果我们觉得可以采用其他方式，规则也可以打破。
 
-**“Choose faces that suit the task as well as the subject.”** This project’s personality is cozy, familiar and nostalgic, so we should pick a typeface that reflects this.
+「**选择同时适合任务和主题的字体**。」我们项目的气质是温馨、亲密和怀旧，所以我们应该选择能够相称的字体。
 
-**“Choose faces that can furnish whatever special effects you require.”** If your content has a lot of numbers in the text, for example, you want to choose a typeface that contemplates [text figures](https://en.wikipedia.org/wiki/Text_figures). The same goes to texts that need some emphasis where you could use italic, bold or even [small caps](https://en.wikipedia.org/wiki/Small_caps).
+「**选择可以提供你想要的特殊效果的字体**。」如果你的内容中含有带有大量数字的文本，举个例子，你就想要一个仔细打磨了不齐线数字[^2]的字体。同理，如果想要强调，可以使用斜体、黑体甚至小型大写字母。
 
-**“Start with a single typographic family.”** A lot of the projects that we see using two families could be set in only one. We should take advantage of the resources that our typeface gives us before we appeal to a new typeface.
+「**先尝试只用一套字型家族**。」我们看到有很多项目使用了两套字型家族，其实一套就足够了。我们应该充分利用字体提供的资源，无法满足时才去诉诸新的字体。
 
-Summing up, these are the guidelines to keep in mind when choosing typefaces:
+总结一下，选择字体时应该铭记的准则有：
 
-1. Be sure that it was designed to be displayed on a screen;
-2. Look for a font that looks good on 20px;
-3. A typeface that looks good on long texts, cosy, familiar and nostalgic;
-4. Be aware if your content needs “special effects”;
-5. Take advantage of the typeface resources.
+1. 确保字体是为在屏幕上呈现而设计的；
+2. 字号为 20px 时看上去不错；
+3. 字体要利于显示长文本，能够体现温馨、亲密和怀旧的特质；
+4. 了解你的内容是否需要「**特殊效果**」
+5. 充分利用字体资源。
 
-Make sure you do a lot of tests with multiple examples from your content before you make a decision. The best way to know if your typeface is the right one is to read the content with it. I will choose [Tisa Pro](https://www.fontfont.com/fonts/tisa), a serif font with multiple weights. It looks good on 20px; it looks good on long texts; it’s cosy and familiar due to its humanistic stroke. I don’t think that Tisa Pro can be considered to be nostalgic but not every requirement as to be achieved with type. You can rely on images, illustration, color, etc. I’ve checked that Tisa looks good in every kind of content that we have so we are ready to go.
+在做出决定前，保证你使用自己的内容中选取的例子做了很多测试。判断一个字体是否选对了的最重要的手段就是阅读用这个字体呈现的内容。我会选择 [Tisa Pro](https://www.fontfont.com/fonts/tisa)，一个有多重字重的衬线字体。它在 20px 时看上去不错；显示长文本出色；而且因为手工的笔画所以有温馨亲密的感觉。我不认为 Tisa Pro 有怀旧的感觉，但是不是所有一切都仰仗字体来呈现，还可以尝试图像，图案，颜色等等。我检查过了，Tisa 在我们所有内容上都看上去好极了，所以我们可以开始设计了。
 
 ![](https://cdn-images-1.medium.com/max/800/1*kmKqR2X5EWPXm1_uZbdtfg.png)
 
-Almost ready. One thing that we can try here is the branding typeface. If you are doing a website for a project that already as branding work done, you should try to use its typeface or, at least, use one that looks good with it. However, in some cases, you will not like the branding typeface and that is ok. That is what happened to us here so we went in a different direction. Although it is good to stick with one typeface, we felt the need to use a different one because we were needing an extra layer of contrast.
+差不多准备好了。我们这里还可以尝试品牌推广用的字体。如果你在开发产品的网站已经有完成了的品牌推广项目，你应该尝试使用它的字体，或者至少是和它在放在一起会比较和谐的字体。不过有时你可能不喜欢品牌字体，这样也没问题。我们就常常遇到这种情况，所以我们就换了一个方向。尽管坚持一种字体是个好习惯，我们觉得有使用别的字体的需求，因为我们需要额外的一层对比。
 
-We are going to use [Effra](https://www.daltonmaag.com/library/effra).
+我们决定使用 [Effra](https://www.daltonmaag.com/library/effra)。
 
 ![](https://cdn-images-1.medium.com/max/800/1*5OUVDBgQb9yxp-gLB4Q0kA.png)
 
-### 3.1. Pairing Typefaces
+### 3.1. 字体配对
 
-When pairing two typefaces we want to have contrast between them with linking details at the same time. First, Tisa is a serif and Effra is a sans-serif which is a great contrast point. They have similar x-heights which prevent us from creating two different scales — we will address this later. Effra mixes a geometric basis with some humanistic details, great to both create contrast and linking details with Tisa.
+在协调两种字体时，我们需要对比效果，同时有一些勾连的细节。首先，Tisa 是衬线字体而 Effra 是无衬线字体，这就是很好的对比。它们有近似的 x 高，这样我们就省去创建两套比例的麻烦，稍后我们还会细谈。Effra 结合了几何基础和人本主义细节，和 Tisa 既有对比效果又有关联的细节。
 
-### 4 . Sizes
+### 4. 尺寸
 
-In the previous stages, we have already talked about some points that will come in handy here. As I said earlier, to choose a typeface you have to know the job it will perform. We already saw that our website has some long text blocks and that 20px is a good size, this is our base font size.
+上一步我们讲过的几个关键点在这一步会很有用。我之前说过，要选择字体必须知道字体的职能所在。我们知道我们的网站有些长文本块，而且 20px 的尺寸正合适，这就是我们的基准字号。
 
-With a base font size comes a base line-height. Line-height is your font size plus the leading you want to give it. Leading is the space between one text line and the next. If you want your user to read faster or if you need to save space you can reduce the leading, like in books or newspapers. You can do the opposite if you want your user to have a more relaxed and comfortable reading.
+有了基准字号就可以定下基础行高（line-height）。行高是字号加上行距（leading）。行距是文本行的间距。如果想让读者快点读完或者需要节省空间，可以减少行距，就像图书和报纸做得那样。如果需要想提高阅读体验可以加大行距。
 
-Now that we need more numbers we need a scale to be the logic behind them.
+既然我们需要更多数据，我们得有一个比例尺来支撑背后的逻辑。
 
-> *“By using culturally relevant, historically pleasing ratios to create modular scales and basing the measurements in our compositions on values from those scales, we can achieve a visual harmony not found in layouts that use arbitrary, conventional, or easily divisible numbers.”*
+> **通过使用文化相关，在历史上令人愉悦的比率来创建模块尺度（modular scale），然后以此定下我们作品中的度量。我们就可以达到视觉上的和谐，这种和谐是无法通过随意的，常规的或者简单除法得到的数字实现的**。
 
 > ***Tim Brown***
 
-So we start with our base font size of 20px, and we want a comfortable reading. There is one tool that I find really useful and that will save our life at this point: [modularscale.com](http://www.modularscale.com/) by Tim Brown. This website lets you enter your base and a ratio and then it does all the math for you. In our example we want a relaxed pace reading so the ratio we will choose will be augmented fourth(1,414) `20 * 1,414 = 28.28`. After rounding, our base line-height is 28px. Some other examples of modular scales:
+所以我们从 20px 基准字号开始，我们的诉求是舒适的阅读。推荐一下我找到的一个很有用的工具网站，可以省很多时间，Tim Brown 的 [modularscale.com](http://www.modularscale.com/)。输入基准和比率，网站就会帮你算好一切。以我们的网站为例，我们要的效果是舒缓的阅读，所以我们选的比率是增四度（1,414) `20 * 1,414 = 28.28`。四舍五入之后，我们的基准行高就是 28px。下面还有一些模块比例的例子：
 
-1. **Minor third(1,2) **`**20 * 1,2 = 24**` - fast reading speed and great space saving;
-2. **Perfect fourth(1,333) **`**20 * 1,333 = 26,66**` - good reading speed and good space saving;
-3. **Perfect fifth(1,5) **`**20 * 1,5 = 30**` - super relaxed reading speed.
-4. **Golden section(1,618) **`**20 * 1,618 = 32,36**` - super duper relaxed reading speed.
+1. **小三度（1,2)** `20 * 1,2 = 24` ── 快速阅读并节省大量空间；
+2. **纯四度(1,333)** `20 * 1,333 = 26,66` ── 相当的阅读速度并节省一定空间；
+3. **纯五度(1,5)** `20 * 1,5 = 30` ── 非常舒适的阅读速度；
+4. **黄金分割 (1,618)** `20 * 1,618 = 32,36` ── 超级轻松的阅读速度。
 
 ![](https://cdn-images-1.medium.com/max/800/1*jsEcmLicghI-G6mHfzp8IA@2x.png)
 
-### 4.1. Modular Scales
+### 4.1. 模块尺度
 
-These scales are everywhere. They can be seen in molecules, flowers, the human body and that is why they make things so much more harmonious than randomly selected numbers. If we see something made of the same numbers as we are it will look much more harmonious.
+比例无处不在，在分子，花朵甚至人体中都可以观察到。这就是为什么模块尺度比随机选择的数字更协调的原因。如果我们看到一些东西的比例和我们人体的比例一样，就会显得特别协调。
 
-> *“Simple, right? And, at its core, the idea is pretty basic. But, oddly enough, it’s quite easy to both under-estimate its implications and over-estimate its complexity (at least once you start to dig into it a bit).”*
+> **「很简单，不是吗？而且核心思想非常基础。但是奇怪的是，非常容易既低估其可能的影响力又高估其复杂度（至少你一旦开始深挖就会有此感受）。**
 
 > ***Billy Whited***
 
-They started to first appear in musical intervals and have been used through history by architects, painters, musicians, furniture makers, and others. So, why shouldn’t we use them?
+它们最早是表示音程的术语，在随后的历史中，建筑师，画家，音乐家，木匠等人都采用过相关的概念。所以我们为什么不试一试呢？
 
-### 4.2. Typographic Scale
+### 4.2. 印刷尺度
 
-Modular scales will give us a visual harmony, a rhythm. Like in music, our websites and products need a flow that makes sense.
+模块尺度会带来视觉上的和谐，充满韵律。跟音乐一样，我们的网站和产品需要讲得通的流畅。
 
-We have already chosen our scale so now you are going to apply it, creating our typographic scale. Remember when we set the hierarchy at phase 2? Let’s translate it now into numbers.
+我们已经选好比例，下面就是使用了，生成自己的印刷尺度。还记得我们在第二步中定下的分级结构吗？现在来转成数字。
 
-1. **H1** — `28,28 * 1,414 = 39,988` ~ 40px
-2. **H2** — `20 * 1,414 = 28,28` ~ 28px
-3. **H3**–20px (bold)
-4. **Text block** — 20px (the base)
-5. **Captions** — `20 / 1,414 = 14,144` ~ 14px (uppercase, bold)
+1. **H1** ── `28,28 * 1,414 = 39,988` ~ 40px
+2. **H2** ── `20 * 1,414 = 28,28` ~ 28px
+3. **H3** ── 20px (加粗)
+4. **文本块** ── 20px (基准)
+5. **标题** ── `20 / 1,414 = 14,144` ~ 14px (大写，加粗）
 
-I started at the base and followed what the modular scale gave me with my hierarchy in mind. For the buttons and labels, we are going to use 14px because we can use them in uppercase, so the legibility will not be damaged. When you are making these decisions make sure that you are testing them, don’t follow the scale blindly. It may happen that you find the scale not suitable for this task. In that case, go back and try another one. I will leave the line-height setting for later; you will see why.
+我先从基准开始，然后依据模块尺度给出的数字，同时内心牢记分级结构。对于按钮和标注，我们会用 14px，因为可以用大写字母，所以不会影响可识别性。当你做决策时，一定要做好测试，不要盲目追求比例。有可能到头来发现比例根本不适合你的项目。这种情况下就要返工再尝试新的比例了。我稍后再谈行高的设定，到时候你就懂了。
 
-### 5. Horizontal Grid
+### 5. 水平网格
 
-We can now start giving our first steps into our grid. The grid can be viewed from two perspectives, the horizontal and the vertical ones. Let’s start with the horizontal, the one that you may have seen more often. Grids are a fascinating subject; I recommend that you read [“Grid Systems” a beautiful book by Josef Müller-Brockmann](https://www.goodreads.com/book/show/350962.Grid_Systems_in_Graphic_Design_Raster_Systeme_Fur_Die_Visuele_Gestaltung).
+可以开始处理网格了。有两个视角审视网格，水平的和垂直的。先从水平网格说起，因为更常见。网格非常迷人，推荐大家阅读一下 Josef Müller-Brockmann 著的[《平面设计中的网格系统》](https://book.douban.com/subject/26806997/ "平面设计中的网格系统")。
 
 ![](https://cdn-images-1.medium.com/max/800/1*jEoCIfJRUuf-sFxYsujLFA@2x.png)
 
-Grids allow us to solve visual organization problems. With these helpers it is easier to organize texts, images and other elements of our content. As Josef tells us in his book, the grid can only be conceived when we have an idea of the texts and images we are going to use. It is the content that is going to tell us our grid sizes.
+网格可以处理视觉组织的问题。有了网格的帮助，组织文本，图像以及我们内容的其他元素都变得轻松。正如 Josef 在书中所言，只有想好了要用哪些文本和图像之后才能想清楚网格。内容自身来决定网格的大小。
 
-We have already one size, the gutter (space between columns). The gutter should have the same size as our base line-height, 28px because this will be the most used margin.
+我们已经有一个尺寸了，列间距。列间距应该和基准行高一致，28px，因为这会是最常用的页边距。
 
 ![](https://cdn-images-1.medium.com/max/800/1*WV2zckqjC_SzSYi1URrQbA@2x.png)
 
-Text lines should have an average of 10 words, so this will be our column width. We are going to pick some pieces of text from our content, set them at 20px/28px and adapt its width to the numbers of our scale.
+文本行应该平均有十个单词，这就是我们的列宽。我们从内容中选几个片段，置为 20px/28px，然后将宽度设为我们选的比例。
 
 ![](https://cdn-images-1.medium.com/max/800/1*8VUz_kl9zv6tOh79N4AiYA.png)
 
-452px is a good number for this. You don’t want to have text lines that are either too short or too long. Reading becomes more tiring, and it damages the readability.
+452px 比较合适。文本行过长或过短都不好。不然阅读容易劳累，影响可读性。
 
 ![](ttps://cdn-images-1.medium.com/max/800/1*00f1sulKiGpeahauhNpiAA@2x.png)
 
-We will start with 1440px of width because that is the maximum width to where we want to go with this project. In 1440px there could be three columns with 452px of width and between them two gutters with 28px of width. Our grid has a total width of 1412px.
+我们从 1440px 的宽度开始试起，这是我们想在项目上用的最大宽度。在 1440px 的宽度下，可以有三个 452px 的列，列间距则是 28px。这样我们的网格的总宽度实际就是 1412px。
 
 ![](https://cdn-images-1.medium.com/max/800/1*phsnJa9NzCW7RRRN6Yd10Q@2x.png)
 
-Now, following Josef’s advice, the more columns we have, the more dynamic and creative we can be. So how about dividing our columns by 2? `452(one column) - 28(one gutter) = 424; 424 / 2 = 212` px(new column size). Our total grid size is still the same, but our number of columns is now 6 and our text block will occupy two columns and one gutter.
+接下来根据 Josef 的建议，如果有更多列，就可以更灵活更有创造力。所以不妨试试将现有的列一分为二？`452(现在的列宽) - 28(列间距) = 424; 424 / 2 = 212px(新列宽)`。这样网格大小不变，变成 6 列，文本块就可以多两个列和一个列间距可以占据。
 
 ![](https://cdn-images-1.medium.com/max/800/1*4puYPozvbj97-Ol32w-dUQ@2x.png)
 
-The number of columns should depend on the dynamism you want to give to your content as well.
+列数取决于你想给内容多大的动态程度。
 
 ![](https://cdn-images-1.medium.com/max/800/1*aIj-zCoeroxWU1ZSVLfXHA@2x.png)
 
-### 5.1. Vertical Grid
+### 5.1. 垂直网格
 
-The horizontal perspective is set. One more to go.
+水平网格确定之后来处理垂直网格。
 
-Baselines are where all our content will rest. With these lines it is much easier to align elements. So, our baselines are going to be half of the line-height, 14px and our scale will do the rest.
+基线是安放内容的地方。有了基线，对齐元素就轻松许多。所以我们的基线定为半个行高14px，剩下的交给比例尺。
 
 ![](https://cdn-images-1.medium.com/max/800/1*jH_2M8_kEajFwM1Rnq-zew@2x.png)
 
-On good examples of print projects, all the texts are aligned with the baselines and that gives us an exquisite look that is hard to reach on the web. Go to [modularscale.com](http://www.modularscale.com/) again and pick as much margin sizes as your project needs and list them neatly; have them match your baselines. Your margins will need a role. This role will be to separate different sections, titles from text blocks, elements inside a section, and others.
+一些不错的印刷作品中，所有的文本都通过基线来对齐，这营造出网页无法企及的精致效果。再回到 [modularscale.com](http://www.modularscale.com/)，为你的项目选几个页边距，整齐地排列好，和基线对齐。给页边距赋予具体的角色。这个角色会用来分割不同的区域，文本块的标题，区域中的元素等等。
 
-1. **14,144 ~ 14** — Spacing inside an element;
-2. **28,28 ~ 28** — Sub-section and text blocks or other elements;
-3. **39,988 ~ 42** — Sub-sections;
-4. **113,052 ~ 112** — Different sections.
+1. **14,144 ~ 14** ── 元素中的间隙；
+2. **28,28 ~ 28** ── 子区域和文本块或者其他元素；
+3. **39,988 ~ 42** ── 子区域；
+4. **113,052 ~ 112** ── 各种各样的区域。
 
 ![](https://cdn-images-1.medium.com/max/800/1*HA7h_TMrcYddV4Ij_jENdA@2x.png)
 
-Now that we have baselines we can go back to our typographic scale. We have lines every 14px, so we want our scale to match them.
+既然搞定了基线，现在可以回到印刷尺度了。每行都是 14px，所以比例也要与之对应。
 
-### 6. Typographic Scale (with baselines)
+### 6. 印刷尺度（带基线）
 
-We already knew our base line-height, 28px, the number right after our base font size, 20px. Text block — 20px — line-height — 28px — 2 baselines;
+已经有了基准行高，28px，然后是基准字号，20px。文本块 ── 20px ── 行高 ── 28px ── 两倍基线。
 
-1. **H1**–40px; To know the line-height for font-size 40px you have to do a cross multiplication. So, if `20px -> 28px, 40px -> x, x = (40 * 28) / 20, x = 56`. Placing this number in our baseline will give us 56 but but you may need to round it. **H1** - 40px/56px - 4 baselines;
-2. **H2**–28px/42px — 3 baselines;
-3. **H3**–20px/28px — 2 baselines;
-4. **Captions** — 14px; This case is not so simple. Font sizes that have the same size of baselines, or similar, need more space to breathe. So let’s add an extra baseline to this one. This will cause some imbalance when captions and text blocks are side by side. It’s something I’m still trying to sort out. **Captions** — 14px/28px — 2 baselines.
+1. **H1** ── 40px；要算出 40px 字体需要的行高，需要做一次叉乘。所以 `20px -> 28px, 40px -> x, x = (40 * 28) / 20, x = 56`。把数字代入基线可以得到 56，不过得四舍五入一下。H1 - 40px/56px - 4 基线；
+2. **H2**── 28px/42px ── 3 基线；
+3. **H3** ── 20px/28px ── 2 基线；
+4. **标题** ── 14px；这个情况比较复杂。字号如果不大于基线，就需要给予更多的空间。所以要额外的基线。如果标题和文本块挨在一起，这会带来不平衡。这个问题我仍没有解决。标题 ── 14px/28px ── 2 基线。
 
 ![](https://cdn-images-1.medium.com/max/800/1*kTIkLyNjd5T2UbgzSw-Wzg@2x.png)
 
-### What has changed?
+### 改变了什么？
 
-It’s easy to think that there is no real impact for users with this process but I’ll tell you what it has changed for me. Before this journey, I had no strong opinion on this subject. It was that feeling that something was missing that kept pushing me to start learning about it. Now, after some websites and products, I can say that my projects have harmony on them and that the content dictated the appearance of the project. It may be psychological, but I firmly believe it isn’t. People read my projects better because they have a well-thought scale. People will not get bored so easily because my websites are more dynamic now. We designers have to think about the people that use our products every day and they are worth every effort that we can put into them. I strongly believe that this is something that will have an enormous impact on a product’s lifetime.
+很容易觉得我们折腾的这些对用户没有什么实际的影响，但是我可以谈谈对我自己的改变。在这段旅程开始之前，我对这件事没有明确的意见。不过一直感觉缺失了什么东西，这种感觉一直催促着我去学习了解。现在做完几个网站和产品之后，我可以说我的产品协调，内容支配着外观。可能只是心理上的感受，但是我坚定的认为并不是这样的。人们可以更好地阅读我的作品是因为精心设计的尺度。人们不会轻易感到无聊是因为我的网站现在变得更加动态。我们设计师必须考虑到每天使用我们的产品的用户的感受，他们值得我们为之付出的所有努力。我坚信这就是会对产品的存在期产生巨大影响的东西。
 
-### What about the 8pt grid, responsiveness, communication with developers, and all that stuff?
+### 8pt 网格，响应式设计，和程序员沟通等等这些呢？
 
-As everything we do here at Subvisual, this process is not written in stone. We are always trying to improve ourselves and our way of doing things. This has proven to be a very worthy system to follow but with some flaws that easily solved with other methods like the 8pt grid, which we also use. Plus, the number of variables in this process is very hard to incorporate into our designer-developer communication. These and other reasons led us into creating our own structure combining what is best on all systems we have tried before. We are working and testing it and soon we will be able to share it with the world, it will be worth the wait, I promise.
+如同我们在 Subvisual 所做的一切，这个过程也不是一成不变的。我们不断试图提升自己，改进自己做事的方式。事实证明这是非常有价值的系统，即使有瑕疵也可以轻松地用其他方法来解决，比如我们也在用的 8pt 网格。此外，这个过程中的变量过多，无法代入设计师和程序员间的沟通之中。这样和那样的原因促使我们创建了自己的结构，同时结合了我们尝试过的所有系统上的最佳实践。我们还在调试中，很快就可以和大家分享了。值得等待，我保证。
 
-### References
+### 参考资料
 
-Books
+书籍
 
 1. The Elements of Typographic Style — Robert Bringhurst
 2. Grid Systems — Josef Müller-Brockmann
 
-Posts
+文章
 
 1. [Harmonious Typography and Grids](https://medium.com/tradecraft-traction/harmonious-typography-and-grids-10da490a17d) — Zac Halbert
 2. [More Meaningful Typography](https://alistapart.com/article/more-meaningful-typography) — Tim Brown
 3. [More Perfect Typography](https://www.youtube.com/watch?v=6s3XwSpY2vc) — Tim Brown
 4. [R(a|ela)tional Design](https://8thlight.com/blog/billy-whited/2011/10/28/r-a-ela-tional-design.html) — Billy Whited
 
-### Thank you!
+### 谢谢！
 
-Thank you for reading this, I hope you found it useful. If you have questions or something to share please drop me a line here or at twitter [@fcBaila](https://twitter.com/fcBaila).
+感谢阅读，希望对你有用。如果你有疑问或者有一些想法想和我分享，欢迎来信或者在 twitter 上 [@fcBaila](https://twitter.com/fcBaila)。
+
+1:	译者注：参见豆瓣 [关于易读性和可读性](https://www.douban.com/group/topic/10416279/)
+
+2:	译者注：参见维基百科 [不齐线数字](https://zh.wikipedia.org/wiki/%E4%B8%8D%E9%BD%90%E7%BA%BF%E6%95%B0%E5%AD%97)
 
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[React](https://github.com/xitu/gold-miner#react)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计) 等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)。
+
