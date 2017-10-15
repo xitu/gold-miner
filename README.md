@@ -55,10 +55,10 @@
 
 ## 前端
 
-* [离线友好的表单](https://juejin.im/post/59c138e35188253fbd46c5fc?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([sunui](https://github.com/sunui) 翻译)
-* [V8 引擎中的快速属性](https://juejin.im/post/59c1df855188257e826779f8?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([sunshine940326](https://github.com/sunshine940326) 翻译)
-* [如何安全地使用 CSS-in-JS？](https://juejin.im/post/59c90a6df265da065270b004?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Yuuoniy](https://github.com/Yuuoniy) 翻译)
-* [网络现状：性能提升指南](https://juejin.im/post/59c4b6a55188257e764c9c20?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([undead25](https://github.com/undead25) 翻译)
+* [React 16 带来了什么以及对 Fiber 架构的解释](https://juejin.im/post/59de1b2a51882578c70c0833?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([yoyoyohamapi](https://github.com/yoyoyohamapi) 翻译)
+* [Javascript 中各种各样的 this](https://juejin.im/post/59e066d551882578c3411908?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lsvih](https://github.com/lsvih) 翻译)
+* [修改 JavaScript 帧](https://juejin.im/entry/59d2ed6f6fb9a00a681b01f8?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([AceLeeWinnie](https://github.com/AceLeeWinnie) 翻译)
+* [为什么在使用了类之后会使得组合变得愈发困难（第九部分）](https://juejin.im/post/59cf43ce6fb9a00a4e67cd36?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([yoyoyohamapi](https://github.com/yoyoyohamapi) 翻译)
 * [所有前端译文>>](https://github.com/xitu/gold-miner/blob/master/front-end.md)
 
 ## React
