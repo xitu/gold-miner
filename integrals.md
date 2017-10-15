@@ -2619,10 +2619,11 @@
 |[如何在 ChromeOS 下用 Go 搭建 Web 服务](https://juejin.im/post/58d9e1711b69e6006bc38b1a)|翻译|8|
 |[Pull request review 的十大错误](https://juejin.im/post/58ce3b3e61ff4b006c988f63)|校对|1|
 
-## 译者：[sunui](https://github.com/sunui) 历史贡献积分：90.5 当前积分：45.5
+## 译者：[sunui](https://github.com/sunui) 历史贡献积分：100.2 当前积分：55.2
 
 |文章|类型|积分|
 |------|-------|-------|
+|[2017 年 10 月 翻译 JavaScript 97 个](#)|翻译|9.7|
 |[React 16 带来了什么以及对 Fiber 架构的解释](https://juejin.im/post/59de1b2a51882578c70c0833)|校对|1|
 |[为什么在使用了类之后会使得组合变得愈发困难（第九部分）](https://juejin.im/post/59cf43ce6fb9a00a4e67cd36)|校对|1.5|
 |[网络现状：性能提升指南](https://juejin.im/post/59c4b6a55188257e764c9c20)|校对|2|
@@ -3240,10 +3241,11 @@
 |[Swift 中的通用数据源](https://juejin.im/post/5990fd7b51882548bc7cabd8)|翻译|9|
 |[开发者眼中 iOS 11 都更新了什么？](https://juejin.im/post/595f1f2c5188250d8a605d69)|翻译|15|
 
-## 译者：[richardleeh](https://github.com/RichardLeeH) 历史贡献积分：22 当前积分：22
+## 译者：[richardleeh](https://github.com/RichardLeeH) 历史贡献积分：32 当前积分：32
 
 |文章|类型|积分|
 |------|-------|-------|
+|[2017 年 10 月 翻译 Python 100 个](#)|翻译|10|
 |[搭建个人深度学习平台](https://juejin.im/post/59be8e2b5188252c24746e9c)|翻译|7|
 |[如何在 iOS 上实现类似 Airbnb 中的可展开式菜单](https://juejin.im/post/59acdf2b6fb9a024763806cf)|翻译|4|
 |[在 Airbnb 使用机器学习预测房源的价值](https://juejin.im/post/59acfc336fb9a0249471e47d)|校对|2|
@@ -3618,10 +3620,11 @@
 |------|-------|-------|
 |[你不知道的 Node](https://juejin.im/post/59cf06caf265da0665640008)|校对|1|
 
-## 译者：[skychenbo](https://github.com/skychenbo) 历史贡献积分：20 当前积分：20
+## 译者：[skychenbo](https://github.com/skychenbo) 历史贡献积分：30 当前积分：30
 
 |文章|类型|积分|
 |------|-------|-------|
+|[翻译 Python 开源库 100 个](#)|翻译|10|
 |[翻译 JavaScript 开源库 100 个](#)|翻译|10|
 |[翻译 JavaScript 开源库 100 个](#)|翻译|10|
 
