@@ -2714,10 +2714,11 @@
 |[你正在阅读的用户体验文章是不是在向你进行推销？](https://juejin.im/post/58d4c501a22b9d00645544d9)|校对|2|
 |[震惊，还可以用这种姿势学习编程](https://juejin.im/post/58d3ebd4128fe1006cb43722)|翻译|3|
 
-## 译者：[lsvih](https://github.com/lsvih) 历史贡献积分：171 当前积分：136
+## 译者：[lsvih](https://github.com/lsvih) 历史贡献积分：173 当前积分：138
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Javascript 中各种各样的 this](https://juejin.im/post/59e066d551882578c3411908)|翻译|2|
 |[设计推特时间轴与搜索功能](#)|翻译|6|
 |[2017 年 9 月 翻译 JavaScript 100 个](#)|翻译|10|
 |[Uber 机器学习平台 — 米开朗基罗](https://juejin.im/post/59c8b4d56fb9a00a4843b2a6)|翻译|11|
@@ -3442,10 +3443,11 @@
 |[结构体指针](https://juejin.im/post/59a60cc1f265da249a201ae9)|校对|1|
 |[iOS 响应式编程：Swift 中的轻量级状态容器](https://juejin.im/post/599652ee6fb9a024903a8d59)|校对|1|
 
-## 译者：[lampui](https://github.com/lampui) 历史贡献积分：32.5 当前积分：17.5
+## 译者：[lampui](https://github.com/lampui) 历史贡献积分：33 当前积分：18
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Javascript 中各种各样的 this](https://juejin.im/post/59e066d551882578c3411908)|校对|0.5|
 |[你不知道的 Node](https://juejin.im/post/59cf06caf265da0665640008)|翻译|3|
 |[在 Facebook 发一张登机牌，你就有可能被盗号了](https://juejin.im/post/59ccdeec51882531b21f1835)|翻译|3|
 |[ES6+ 中的 JavaScript 工厂函数](https://juejin.im/post/59c8c8756fb9a00a681ae5bd)|翻译|3.5|
@@ -3631,3 +3633,9 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[翻译 CSS 开源库 87 个](#)|翻译|8.7|
+
+## 译者：[zerosrat](https://github.com/zerosrat) 历史贡献积分：0.5 当前积分：0.5
+
+|文章|类型|积分|
+|------|-------|-------|
+|[Javascript 中各种各样的 this](https://juejin.im/post/59e066d551882578c3411908)|校对|0.5|
