@@ -41,8 +41,6 @@ Below is an overview of the 5 steps in the neural network model life-cycle in Ke
 
 5 Step Life-Cycle for Neural Network Models in Keras
 
-
-
 ## Need help with Deep Learning in Python?
 
 Take my free 2-week email course and discover MLPs, CNNs and LSTMs (with sample code).
