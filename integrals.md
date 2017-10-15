@@ -1776,10 +1776,11 @@
 |[Swift 中的面向协议编程是如何点亮我的人生的](http://gold.xitu.io/entry/58044fc5a22b9d005b4f56b2)|翻译|4|
 |[Swift 3，这些陷阱在等你](http://gold.xitu.io/entry/57f6fa03816dfa0056a4d782/)|校对|1|
 
-## 译者：[tina92](https://github.com/Tina92) 历史贡献积分：49.5 当前积分：19.5
+## 译者：[tina92](https://github.com/Tina92) 历史贡献积分：50.5 当前积分：20.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[React 16 带来了什么以及对 Fiber 架构的解释](https://juejin.im/post/59de1b2a51882578c70c0833)|校对|1|
 |[在 Facebook 发一张登机牌，你就有可能被盗号了](https://juejin.im/post/59ccdeec51882531b21f1835)|校对|1|
 |[如何安全地使用 CSS-in-JS？](https://juejin.im/post/59c90a6df265da065270b004)|校对|1|
 |[离线友好的表单](https://juejin.im/post/59c138e35188253fbd46c5fc)|校对|0.5|
@@ -2618,10 +2619,11 @@
 |[如何在 ChromeOS 下用 Go 搭建 Web 服务](https://juejin.im/post/58d9e1711b69e6006bc38b1a)|翻译|8|
 |[Pull request review 的十大错误](https://juejin.im/post/58ce3b3e61ff4b006c988f63)|校对|1|
 
-## 译者：[sunui](https://github.com/sunui) 历史贡献积分：89.5 当前积分：44.5
+## 译者：[sunui](https://github.com/sunui) 历史贡献积分：90.5 当前积分：45.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[React 16 带来了什么以及对 Fiber 架构的解释](https://juejin.im/post/59de1b2a51882578c70c0833)|校对|1|
 |[为什么在使用了类之后会使得组合变得愈发困难（第九部分）](https://juejin.im/post/59cf43ce6fb9a00a4e67cd36)|校对|1.5|
 |[网络现状：性能提升指南](https://juejin.im/post/59c4b6a55188257e764c9c20)|校对|2|
 |[统一样式语言](https://juejin.im/post/595311fa6fb9a06b9d5b5f08)|校对|4|
@@ -2846,10 +2848,11 @@
 |[同中有异的 Webpack 与 Rollup](https://juejin.im/post/58edb865570c350057f199a7)|校对|1|
 |[webpack 拾翠：充分利用 CommonsChunkPlugin()](https://juejin.im/post/58ec4e3f5c497d0062c470bf)|校对|1|
 
-## 译者：[yoyoyohamapi](https://github.com/yoyoyohamapi) 历史贡献积分：21 当前积分：21
+## 译者：[yoyoyohamapi](https://github.com/yoyoyohamapi) 历史贡献积分：24 当前积分：24
 
 |文章|类型|积分|
 |------|-------|-------|
+|[React 16 带来了什么以及对 Fiber 架构的解释](https://juejin.im/post/59de1b2a51882578c70c0833)|翻译|3|
 |[为什么在使用了类之后会使得组合变得愈发困难（第九部分）](https://juejin.im/post/59cf43ce6fb9a00a4e67cd36)|翻译|6|
 |[函数式 Mixin（软件编写）（第七部分）](https://juejin.im/post/594a2cf6ac502e006bc0bc3a)|翻译|7|
 |[Functor 与 Category （软件编写）（第六部分）](https://juejin.im/post/58f58d5da0bb9f006aac3e8d)|翻译|4|
