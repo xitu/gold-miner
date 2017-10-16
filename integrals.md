@@ -1776,10 +1776,11 @@
 |[Swift 中的面向协议编程是如何点亮我的人生的](http://gold.xitu.io/entry/58044fc5a22b9d005b4f56b2)|翻译|4|
 |[Swift 3，这些陷阱在等你](http://gold.xitu.io/entry/57f6fa03816dfa0056a4d782/)|校对|1|
 
-## 译者：[tina92](https://github.com/Tina92) 历史贡献积分：50.5 当前积分：20.5
+## 译者：[tina92](https://github.com/Tina92) 历史贡献积分：53.5 当前积分：23.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[React 系列教程](#)|翻译|3|
 |[React 16 带来了什么以及对 Fiber 架构的解释](https://juejin.im/post/59de1b2a51882578c70c0833)|校对|1|
 |[在 Facebook 发一张登机牌，你就有可能被盗号了](https://juejin.im/post/59ccdeec51882531b21f1835)|校对|1|
 |[如何安全地使用 CSS-in-JS？](https://juejin.im/post/59c90a6df265da065270b004)|校对|1|
@@ -3400,10 +3401,11 @@
 |[REST API 已死，GraphQL 长存](https://juejin.im/post/5991667b518825485d28dfb1)|校对|2|
 |[机器之魂：聊天机器人是怎么工作的](https://juejin.im/post/599155d86fb9a03c467c151d)|校对|1|
 
-## 译者：[undead25](https://github.com/undead25) 历史贡献积分：34 当前积分：34
+## 译者：[undead25](https://github.com/undead25) 历史贡献积分：37 当前积分：37
 
 |文章|类型|积分|
 |------|-------|-------|
+|[React 系列教程](#)|翻译|3|
 |[ReactJS 底层揭秘系列](#)|翻译|2|
 |[网络现状：性能提升指南](https://juejin.im/post/59c4b6a55188257e764c9c20)|翻译|8|
 |[CSS 的十六进制颜色揭秘](https://juejin.im/entry/59b887515188257e7973a60a)|校对|3|
@@ -3534,10 +3536,11 @@
 |------|-------|-------|
 |[优化 Facebook 新鲜事，使其为您提供更好的服务](https://juejin.im/post/59a52a276fb9a024927a43ce)|校对|1|
 
-## 译者：[ahonn](https://github.com/ahonn) 历史贡献积分：2.5 当前积分：2.5
+## 译者：[ahonn](https://github.com/ahonn) 历史贡献积分：4.5 当前积分：4.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[React 系列教程](#)|翻译|2|
 |[使用 CSS 栅格和 Flexbox 打造 Trello 布局](https://juejin.im/post/59bab7d16fb9a00a3c4b069e)|校对|1|
 |[低成本将你的网站切换为 HTTPS](https://juejin.im/post/59b129365188253da63829ad)|校对|1.5|
 
@@ -3588,10 +3591,11 @@
 |------|-------|-------|
 |[Web 设计准则](https://juejin.im/post/59c9c6f66fb9a00a4d53eec7)|校对|1|
 
-## 译者：[HydeSong](https://github.com/HydeSong) 历史贡献积分：4 当前积分：4
+## 译者：[HydeSong](https://github.com/HydeSong) 历史贡献积分：6 当前积分：6
 
 |文章|类型|积分|
 |------|-------|-------|
+|[React 系列教程](#)|翻译|2|
 |[修改 JavaScript 帧](https://juejin.im/entry/59d2ed6f6fb9a00a681b01f8/detail)|校对|2|
 |[如何安全地使用 CSS-in-JS？](https://juejin.im/post/59c90a6df265da065270b004)|校对|1|
 |[Web 设计准则](https://juejin.im/post/59c9c6f66fb9a00a4d53eec7)|校对|1|
@@ -3645,3 +3649,15 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[Javascript 中各种各样的 this](https://juejin.im/post/59e066d551882578c3411908)|校对|0.5|
+
+## 译者：[blizzardzheng](https://github.com/blizzardzheng) 历史贡献积分：19 当前积分：19
+
+|文章|类型|积分|
+|------|-------|-------|
+|[React 系列教程](#)|翻译|19|
+
+## 译者：[bambooom](https://github.com/bambooom) 历史贡献积分：2 当前积分：2
+
+|文章|类型|积分|
+|------|-------|-------|
+|[React 系列教程](#)|翻译|2|
