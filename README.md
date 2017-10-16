@@ -16,6 +16,7 @@
 - [十万个为什么](https://github.com/xitu/gold-miner/wiki/十万个为什么)
 - [译文排版规则指北](https://github.com/xitu/gold-miner/wiki/译文排版规则指北)
 - [参与翻译所得的积分能做什么?](https://github.com/xitu/gold-miner/wiki/)
+- [译者积分表](https://github.com/xitu/gold-miner/blob/master/integrals.md)
 
 # 官方账号
 
