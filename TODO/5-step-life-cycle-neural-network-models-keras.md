@@ -4,13 +4,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/5-step-life-cycle-neural-network-models-keras.md](https://github.com/xitu/gold-miner/blob/master/TODO/5-step-life-cycle-neural-network-models-keras.md)
 > * 译者：[lsvih](https://github.com/lsvih)
-> * 校对者：
+> * 校对者：[CACppuccino](https://github.com/CACppuccino)
 
-# Keras 中构建神经网络的 5 个生命周期
+# Keras 中构建神经网络的 5 个步骤
 
-使用 Keras 创建、评价深度神经网络非常的便捷，不过你需要严格地遵循模型的几个生命周期。
+使用 Keras 创建、评价深度神经网络非常的便捷，不过你需要严格地遵循几个步骤来构建模型。
 
-在本文中我们将一步步地探索在 Keras 中创建、训练、评价深度神经网络的生命周期，并了解如何使用训练好的模型进行预测。
+在本文中我们将一步步地探索在 Keras 中创建、训练、评价深度神经网络，并了解如何使用训练好的模型进行预测。
 
 在阅读完本文后你将了解：
 
@@ -20,13 +20,13 @@
 
 * **2017 年 3 月更新**：将示例更新至 Keras 2.0.2 / TensorFlow 1.0.1 / Theano 0.9.0。
 
-![Keras 的深度学习神经网络生命周期](https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/07/Deep-Learning-Neural-Network-Life-Cycle-in-Keras.jpg)
+![Keras 中构建神经网络的 5 个步骤](https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/07/Deep-Learning-Neural-Network-Life-Cycle-in-Keras.jpg)
 
 题图版权由 [Martin Stitchener](https://www.flickr.com/photos/dxhawk/6842278135/) 所有。
 
 ## 综述
 
-下面概括一下我们将要介绍的 Keras 中神经网络模型的 5 个生命周期。
+下面概括一下我们将要介绍的在 Keras 中构建神经网络模型的 5 个步骤。
 
 1. 定义网络。
 2. 编译网络。
@@ -34,9 +34,9 @@
 4. 评价网络。
 5. 进行预测。
 
-![Keras 中神经网络的 5 个生命周期](https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/07/5-Step-Life-Cycle-for-Neural-Network-Models-in-Keras.png)
+![Keras 中构建神经网络的 5 个步骤](https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2016/07/5-Step-Life-Cycle-for-Neural-Network-Models-in-Keras.png)
 
-Keras 中神经网络的 5 个生命周期
+Keras 中构建神经网络的 5 个步骤
 
 ## 想要了解更多使用 Python 进行深度学习的知识？
 
@@ -68,7 +68,7 @@ layers = [Dense(2)]
 model = Sequential(layers)
 ```
 
-网络的第一层必须要定义预期输入维数。指定这个参数的方式有许多种，不过在本文的多层感知机模型中我们将通过 `input_dim` 属性来指定它。
+网络的第一层必须要定义预期输入维数。指定这个参数的方式有许多种，取决于要建造的模型种类，不过在本文的多层感知机模型中我们将通过 `input_dim` 属性来指定它。
 
 例如，我们要定义一个小型的多层感知机模型，这个模型在可见层中具有 2 个输入，在隐藏层中有 5 个神经元，在输出层中有 1 个神经元。这个模型可以定义如下：
 
@@ -149,9 +149,9 @@ model.compile(optimizer='sgd', loss='mse', metrics=['accuracy'])
 
 在此步骤，将使用反向传播算法对网络进行训练，并使用在编译时制定的优化算法以及损失函数来进行优化。
 
-反向传播算法需要指定训练的 Epoch 数（轮次数、历元数）、对数据集的 exposure 数。
+反向传播算法需要指定训练的 Epoch（回合数、历元数）、对数据集的 exposure 数。
 
-每个 epoch 都可以被划分成多组数据输入输出对，它们也称为 batch。batch 设定的数字将会定义在每个 epoch 中更新权重之前输入输出对的数量。这种做法也是一种优化效率的方式，可以确保不会同时加载过多的输入输出对到内存（显存）中。
+每个 epoch 都可以被划分成多组数据输入输出对，它们也称为 batch（批次大小）。batch 设定的数字将会定义在每个 epoch 中更新权重之前输入输出对的数量。这种做法也是一种优化效率的方式，可以确保不会同时加载过多的输入输出对到内存（显存）中。
 
 以下是一个最简单的训练网络的例子：
 
@@ -256,7 +256,7 @@ Prediction Accuracy: 74.87%
 
 ## 总结
 
-在本文中，我们探索了使用 Keras 库进行深度学习时构建神经网络的 5 个生命周期。
+在本文中，我们探索了使用 Keras 库进行深度学习时构建神经网络的 5 个步骤。
 
 此外，你还学到了：
 
