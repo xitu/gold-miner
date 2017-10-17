@@ -5,14 +5,14 @@ Eric Elliott](https://medium.com/@_ericelliott?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/javascript-monads-made-simple.md](https://github.com/xitu/gold-miner/blob/master/TODO/javascript-monads-made-simple.md)
 > * 译者：[yoyoyohamapi](htttps://github.com/yoyoyohamapi)
-> * 校对者：
+> * 校对者：[IridescentMia](https://github.com/IridescentMia) [WJoan](https://github.com/WJoan)
 
 # JavaScript 让 Monad 更简单（软件编写）（第十一部分）
 
 ![Smoke Art Cubes to Smoke — MattysFlicks — (CC BY 2.0)](https://cdn-images-1.medium.com/max/800/1*uVpU7iruzXafhU2VLeH4lw.jpeg)（译注：该图是用 PS 将烟雾处理成方块状后得到的效果，参见 [flickr](https://www.flickr.com/photos/68397968@N07/11432696204)。）
 
 > 这是 “软件编写” 系列文章的第十一部分，该系列主要阐述如何在 JavaScript ES6+ 中从零开始学习函数式编程和组合化软件（compositional software）技术（译注：关于软件可组合性的概念，参见维基百科
- +> [< 上一篇](https://medium.com/javascript-scene/composable-datatypes-with-functions-aec72db3b093) | [<< 返回第一篇](https://github.com/xitu/gold-miner/blob/master/TODO/the-rise-and-fall-and-rise-of-functional-programming-composable-software.mda)
+> [< 上一篇](https://medium.com/javascript-scene/composable-datatypes-with-functions-aec72db3b093) | [<< 返回第一篇](https://github.com/xitu/gold-miner/blob/master/TODO/the-rise-and-fall-and-rise-of-functional-programming-composable-software.md)
 
 在开始学习 Monad 之前，你应当了解过：
 
@@ -72,7 +72,7 @@ const result = arr.map(f); // [40]
 - 具有 Functor context 的 map，要求函数的输入输出是 Functor： `Functor(a) => Functor(b)`
 - 具备 Monad context，且需要 flatten 的 map，则允许组合中发生类型提升：`Monad(Monad(a)) => Monad(b)`
 
-目前有多种描述 **函数组合** 的方式。函数存在的真正目的就是让你去组合他们，编写应用。函数帮助你将复杂问题划分为若干简单问题，从而能够分而治之的处理这些小问题，在应用中，不同的函数组合，就带来了解决不同问题的方式，从而让你无论面对什么大的问题，都能通过组合进行解决。
+这些都是描述**函数组合**的不同方式。函数存在的真正目的就是让你去组合他们，编写应用。函数帮助你将复杂问题划分为若干简单问题，从而能够分而治之的处理这些小问题，在应用中，不同的函数组合，就带来了解决不同问题的方式，从而让你无论面对什么大的问题，都能通过组合进行解决。
 
 理解函数及如何正确使用函数的关键在于更深刻地认识函数组合。
 
@@ -115,7 +115,7 @@ h composeM(f, g):
 
 Monad 使得类型整齐划一，从而使 `a => M(b)` 这样，发生了类型提升的函数也可被组合。
 
-在上面的图示中，`M(b) => b` 的 flatten 操作及 `b => M(c)` 的 mao 操作都在 `chain` 方法内部完成了。`chain` 的调用发生在了 `composeM()` 内部。在应用层面，你不需要关注内在的实现，你只需要用和组合一般函数相同的手段组合返回 Monad 的函数即可。
+在上面的图示中，`M(b) => b` 的 flatten 操作及 `b => M(c)` 的 map 操作都在 `chain` 方法内部完成了。`chain` 的调用发生在了 `composeM()` 内部。在应用层面，你不需要关注内在的实现，你只需要用和组合一般函数相同的手段组合返回 Monad 的函数即可。
 
 由于大多数函数都不是简单的 `a => b` 映射，因此 Monad 是需要的。一些函数需要处理副作用（如 Promise，Stream），一些函数需要操纵分支（Maybe），一些函数需要处理异常（Either），等等。
 
@@ -150,7 +150,7 @@ const trace = label => value => {
   const hasPermission = ({ role }) => (
     Promise.resolve(role === 'Author')
   );
-  // 尝试组合上面两个任务，并不能看到Yui
+  // 尝试组合上面两个任务，注意：这个例子会失败
   const authUser = compose(hasPermission, getUserById);
   // 总是输出 false
   authUser(3).then(trace(label));
@@ -495,7 +495,7 @@ Monad 是组合类型提升函数的方式：`g: a => M(b)`, `f: b => M(c)`。�
 
 由于 Monad 也是 Functor，因此它们能够进行 map 操作：
 
-- Map： 进行保留 context 的 map：`M(a) -> M(b)`
+- Map：进行保留 context 的 map：`M(a) -> M(b)`
 
 组合 flatten 以及 map，你就能得到 chain -- 这是一个用于 monad-lifting 函数的函数组合，也称之为 Kleisli 组合。
 
@@ -507,7 +507,7 @@ Monads 必须满足三个定律（公理），合在一起称之为 Monad 定律
 - 右同一律：`m.chain(unit) ==== m`
 - 结合律：`m.chain(f).chain(g) ==== m.chain(x => f(x).chain(g)`
 
-每天撰写 JavaScript 代码的时候，你或多或少已经在使用 Monad 或者 Monad 类似的东西了，例如 Promise 和 Observable。Kleisli 组合允许你组合数据流逻辑时不用操心组合中的数据类型吗，也不用担心可能发生的副作用，条件分支，以及其他一些组合中去除 context 包裹时的细节，这些细节全部都藏在了 `.chain()` 操作中。
+每天撰写 JavaScript 代码的时候，你或多或少已经在使用 Monad 或者 Monad 类似的东西了，例如 Promise 和 Observable。Kleisli 组合允许你组合数据流逻辑时不用操心组合中的数据类型，也不用担心可能发生的副作用，条件分支，以及其他一些组合中去除 context 包裹时的细节，这些细节全部都藏在了 `.chain()` 操作中。
 
 这一切都让 Monad 在简化代码中扮演了重要角色。在阅读文本之前，兴许你还不明白 Monad 内部到底做了什么就已经从 Monad 中受益颇丰，现在，你对 Monad 底层细节也有了一定认识，这些细节也并不可怕。
 
