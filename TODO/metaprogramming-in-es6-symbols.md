@@ -2,26 +2,26 @@
 > * 原文作者：[Keith Cirkel](https://twitter.com/keithamus)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/metaprogramming-in-es6-symbols.md](https://github.com/xitu/gold-miner/blob/master/TODO/metaprogramming-in-es6-symbols.md)
-> * 译者：
+> * 译者：[yoyoyohamapi](https://github.com/yoyoyohamapi)
 > * 校对者：
 
-# Metaprogramming in ES6: Symbols and why they're awesome
+# 元编程：Symbol，了不起的 Symbol
 
-You’ve heard of ES6 right? It’s the new version of JavaScript that is awesome in so many ways. I frequently wax lyrical about all of the amazing new features I keep discovering with ES6, much to the chagrin of my colleagues (consuming someone’s lunch break talking about ES6 Modules seems to be not to everyone’s liking).
+你已经听说过 ES6 了，是吧？这是一个在多方面表现卓著的 JavaScript 的新版本。每当在 ES6 中发现令人惊叹的新特性，我就会开始对我的同事滔滔不绝起来（但是因此占用了别人的午休时间并不是所有人乐意的）。
 
-A set of great new features for ES6 comes in the form of a slew of new metaprogramming tools, which provide low level hooks into code mechanics. Not much has been written on them, so I thought I’d do a teensy weensy 3 part post on them (sidebar; because I’m so lazy and this post has been sat in my drafts folder - 90% done - for three months, a [bit more has been written about them since I said that](https://hacks.mozilla.org/2015/06/es6-in-depth-symbols/)):
+一系列优秀的 ES6 的新特性都来自于新的元编程工具，这些工具提供了到代码。目前，介绍 ES6 元编程的文章寥寥，所以我认为我将撰写 3 篇关于它们的博文（附带一句，我太懒了，这篇完成度 90% 的博文都在我的草稿箱里面躺了三个月了，自打我说了要撰文之后，[更多内容都已完成](https://hacks.mozilla.org/2015/06/es6-in-depth-symbols/)）：
 
-Part 1: Symbols (this post) [Part 2: Reflect](/metaprogramming-in-es6-part-2-reflect/) [Part 3: Proxies](/metaprogramming-in-es6-part-3-proxies/)
+第一部分：Symbols（本篇文章）[第二部分：Reflect](/metaprogramming-in-es6-part-2-reflect/) [Part 3: Proxies](/metaprogramming-in-es6-part-3-proxies/)
 
-## Metaprogramming
+## 元编程
 
-First, let’s take a quick detour and discover the wonderful world of Metaprogramming. Metaprogramming is (loosely) all about the underlying mechanics of the language, rather than “high level” data modelling or business logic. If programming can be described as “making programs”, metaprogramming could be described as “making programs making programs” - or something. You probably use metaprogramming every day perhaps without even noticing it.
+首先，让我们快速浏览一些元编程，去探索元编程的美妙世界。元编程（宽松地说）是所有关于一门语言的底层机制，而不是数据建模或者业务逻辑那些高级抽象。如果程序可以被描述为 “制作程序”，元编程就能被描述为 “让程序来制作程序”。你可能已经在日常编程中使用到了元编程，即使你并没有注意到它。
 
-Metaprogramming has a few “subgenres” - one is _Code Generation_, aka `eval` & friends - which JavaScript has had since its inception (JS had `eval` in ES1, even before it got `try`/`<span class="k">catch</span>` or `switch` statements). Pretty much every other language you’d reasonably use today has _code generation_ features.
+元编程有一些 “次主题（subgenres）” —— 其中之一是 **代码生成（Code Generation）**，也称之为 `eval` —— JavaScript 在一开始就拥有代码生成的能力（JavaScript 在 ES1 中就有了 `eval`，它甚至早于 `try`/`catch` 和 `switch` 的出现）。目前，其他一些流行的编程语言都具有 **代码生成** 的特性。
 
-Another facet of metaprogramming is Reflection - finding out about and adjusting the structure and semantics of your application. JavaScript has quite a few tools for Reflection. Functions have `Function#name` and `Function#length`, as well as `Function#bind`, `Function#call`, and `Function#apply`. All of the available methods on Object are Reflection, e.g. `Object.getOwnProperties` (As an aside, Reflection tools that don’t alter code, but instead gather information about it are often called Introspection). We also have Reflection/Introspection operators, like `typeof`, `instanceof`, and `delete`.
+元编程另一个方面是反射（Reflection） —— 反射用于发现和调整你的应用程序结构和语义。JavaScript 有几个工具来完成反射。函数有 `Function#name`、`Function#length`、以及 `Function#bind`、`Function#call` 和 `Functin#apply`。所有 Object 上可用的方法也算是反射，例如 `Object.getOwnProperties`。我们也有反射/内省运算符，如 `typeof`、`instancesof` 以及 `delete`。
 
-Reflection is a really cool part of metaprogramming, because it allows you to alter the internals of how an application works. Take for example Ruby, in Ruby you can specify operators as methods which lets you override how those operators work when used against the class (sometimes called “operator overloading”):
+反射是元编程中非常酷的一部分，因为它允许你改变应用程序的内部工作机制。以 Ruby 为例，你可以声明一个运算符作为方法，来让你重写运算符在这个类上的工作机制（这一手段通常称为 “运算符重载”）：
 
 ```
 class BoringClass
@@ -35,19 +35,20 @@ BoringClass.new == BoringClass.new #=> false
 CoolClass.new == CoolClass.new #=> true!
 ```
 
-Compared to other languages like Ruby or Python, JavaScript’s metaprogramming features are not yet as advanced - especially when it comes to nifty tools like Operator Overloading, but ES6 is starting to level the playing field.
+对比到其他类似 Ruby 或者 Python 的语言，JavaScript 的元编程特性要落后不少 —— 尤其考虑到它缺乏诸如运算符重载这样的好工具时更是如此，但是 ES6 开始帮助 JavaScript 在元编程上赶上其他语言。
 
-### Metaprogramming within ES6
+### ES6 下的元编程
 
-The new APIs in ES6 come in three flavours: `Symbol`, `Reflect`, and `Proxy`. Upon first glance this might be a little confusing - three separate APIs all for metaprogramming? But it actually makes a lot of sense when you see how each one is split:
+ES6 带来了三个全新的 API：`Symbol`、`Reflect`、以及 `Proxy`。刚看到它们时会有些疑惑 —— 这三个 API 都是服务于元编程的吗？如果你分开看这几个 API，你不难发现它们确实很有意义：
 
-* Symbols are all about _Reflection within implementation_ - you sprinkle them on your existing classes and objects to change the behaviour.
-* Reflect is all about _Reflection through introspection_ - used to discover very low level information about your code.
-* Proxy is all about _Reflection through intercession_ - wrapping objects and intercepting their behaviours through traps.
+* 
+* Symbols 是 **实现了的反射**—— 你将 Symbols 应用到你已有的类和对象上去改变它们的行为。
+* Reflect 是 **通过自省（introspection）的反射** —— 通常用来探索非常底层的代码信息。
+* Proxy 是 **通过调解（intercession）的反射** —— 包裹对象并通过自陷（trap）来拦截对象行为。
 
-So how does each one work? How are they useful? This post will cover Symbols, while the next two posts will cover Reflect and Proxy respectively.
+所以，它们是怎么工作的？它们又是怎么变得有用的？这边文章将讨论 Symbols，而后续两篇文章则分别讨论反射和代理。
 
-## Symbols - Reflection within Implementation
+## Symbols —— 实现了的反射
 
 Symbols are a new primitive. Just like the `Number`, `String`, and `Boolean` primitives, Symbols have a `Symbol` function which can be used to create them. Unlike the other primitives, Symbols do not have a literal syntax (e.g how Strings have `''`) - the only way to make them is with the Symbol constructor-not-constructor-thingy:
 
@@ -58,7 +59,7 @@ assert(typeof Symbol() === 'symbol')
 new Symbol(); // TypeError: Symbol is not a constructor
 ```
 
-### Symbols have debuggability built in
+### Symbols 拥有内置的 debug 能力
 
 Symbols can be given a description, which is really just used for debugging to make life a little easier when logging them to a console:
 
@@ -67,7 +68,7 @@ console.log(Symbol('foo')); // prints "Symbol(foo)" to the console.
 assert(Symbol('foo').toString() === 'Symbol(foo)');
 ```
 
-### Symbols can be used as Object keys
+### Symbols 能过用作对象的 key
 
 This is where Symbols get really interesting. They are heavily intertwined with Objects. Symbols can be assigned as keys to Objects (kind of like String keys), meaning you can assign an unlimited number of unique Symbols to an object and be guaranteed that these will never conflict with String keys, or other unique Symbols:
 
@@ -98,7 +99,7 @@ assert(Object.getOwnPropertySymbols(myObj)[0] === fooSym);
 
 This means Symbols give a whole new sense of purpose to Objects - they provide a kind of hidden under layer to Objects - not iterable over, not fetched using the already existing Reflection tools and guaranteed not to conflict with other properties in the object!
 
-### Symbols are completely unique…
+### Symbols 是完全唯一的......
 
 By default, each new Symbol has a completely unique value. If you create a symbol (`var mysym = Symbol()`) it creates a completely new value inside the JavaScript engine. If you don’t have the _reference_ for the Symbol, you just can’t use it. This also means two symbols will never equal the same value, even if they have the same description.
 
@@ -154,7 +155,7 @@ assert(Symbol.keyFor(globalFooSymbol) === 'foo');
 assert(Symbol.for(Symbol.keyFor(globalFooSymbol)) === Symbol.for('foo'));
 ```
 
-### What Symbols are, what Symbols aren’t.
+### Symbols 是什么？又不是什么？
 
 So we’ve got a good overview for what Symbols are, and how they work - but it’s just as important to know what Symbols _are_ good for, and what they’re _not_ good for, as they could easily be assumed to be something they’re not:
 
