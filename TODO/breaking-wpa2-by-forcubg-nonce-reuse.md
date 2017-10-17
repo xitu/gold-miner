@@ -1,6 +1,6 @@
 
 > * 原文地址：[Key Reinstallation Attacks: Breaking WPA2 by forcing nonce reuse](https://www.krackattacks.com/?from=groupmessage&isappinstalled=0#faq)
-> * 原文作者：[krackattacks.com]https://www.krackattacks.com/()
+> * 原文作者：[krackattacks.com](https://www.krackattacks.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/breaking-wpa2-by-forcubg-nonce-reuse.md](https://github.com/xitu/gold-miner/blob/master/TODO/breaking-wpa2-by-forcubg-nonce-reuse.md)
 > * 译者：
