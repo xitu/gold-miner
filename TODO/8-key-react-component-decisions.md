@@ -12,7 +12,6 @@
 ![选择困难证](https://cdn-images-1.medium.com/max/1000/1*XgHYXVXoyziBKd7Or5IliQ.jpeg)
 
 
-
 React 自 2013 年被开源以来，一直在更新演进。当你在搜索网页时，可能会被一些使用了过时的方法的文章坑到。所以，现在在写 React 组件时，你的团队需要作出以下八个关键决策。
 
 ### 决策 1：开发环境
