@@ -86,7 +86,7 @@ webpack 将代码分离用于 **按需加载**，可以处理并行请求。
 
 webpack 2 为你提供了用于 HTTP/2 的，能改善缓存和传输的工具。不用担心你的技术栈不面向未来了。
 
-注意 _AggressiveSplittingPlugin_ 仍然是实验特性。
+注意 _AggressiveSplittingPlugin_ 仍然是**实验特性**。
 
 我对你的使用体验很感兴趣哦~
 
