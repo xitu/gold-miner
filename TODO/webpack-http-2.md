@@ -46,11 +46,11 @@ webpack 2 为你提供了这样的工具。webpack 内部大多都是这样，�
 
 ## 修改应用
 
-但这还没结束。当应用更新时我们要尽量复用之前创建的块。因此每次 AggressiveSplittingPlugin 都能够找到一个合适的块大小（在限制内），并将块的模块（modules）和哈希（hash）保存到 *records* 中。
+但这还没结束。当应用更新时我们要尽量复用之前创建的块。因此每次 AggressiveSplittingPlugin 都能够找到一个合适的块大小（在限制内），并将块的**模块**（modules）和**哈希**（hash）保存到 *records* 中。
 
 > **Records** 是 webpack 编译过程中**编译状态**的概念，可以通过 JSON 文件存取。
 
-当再次调用 *AggressiveSplittingPlugin*，在尝试分离剩余模块之前，它会先尝试从 _records_ 中**恢复**块。这就确保已缓存的块能够被复用。
+当再次调用 **AggressiveSplittingPlugin**，在尝试分离剩余模块之前，它会先尝试从 _records_ 中**恢复**块。这就确保已缓存的块能够被复用。
 
 ## 启动和服务（Bootstrapping and Server）
 
