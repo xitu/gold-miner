@@ -1,3 +1,8 @@
+* [你不知道的 Node](https://juejin.im/post/59cf06caf265da0665640008?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lampui](https://github.com/lampui) 翻译)
+* [SQL 指引：如何写出更好的查询](https://juejin.im/post/59c1d402518825396f4f6321?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([zyziyun](https://github.com/zyziyun) 翻译)
+* [2017年日志生态系统概述](https://juejin.im/post/59b8e345f265da0660296161?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([TanNingMeng](https://github.com/TanNingMeng) 翻译)
+* [Coursera 的 GraphQL 之路](https://juejin.im/post/59b8d1d36fb9a00a3f24c439?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([bambooom](https://github.com/bambooom) 翻译)
+* [SQL 事务隔离实用指南](https://juejin.im/post/59b7ce03f265da0672281fcc?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([sigoden](https://github.com/sigoden) 翻译)
 * [低成本将你的网站切换为 HTTPS](https://juejin.im/post/59b129365188253da63829ad?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lsvih](https://github.com/lsvih) 翻译)
 * [为什么 context.Value 重要，如何改进](https://juejin.im/post/59b20d6ff265da249517c14a?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([tmpbook](https://github.com/tmpbook) 翻译)
 * [搭建账户系统](https://juejin.im/post/59b2708b5188257e8a30842f?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([shawnchenxmu](https://github.com/shawnchenxmu) 翻译)

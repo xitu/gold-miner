@@ -3,359 +3,332 @@
   > * 原文作者：[Dave Gash](https://medium.com/@davidagash)
   > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
   > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/css-hex-colors-demystified.md](https://github.com/xitu/gold-miner/blob/master/TODO/css-hex-colors-demystified.md)
-  > * 译者：
-  > * 校对者：
+  > * 译者：[Cherry](https://github.com/sunshine940326)
+  > * 校对者：[薛定谔的猫](https://github.com/Aladdin-ADD)、[lampui](https://github.com/lampui)、[undead25](https://github.com/undead25)、[undead25](https://github.com/undead25)
 
-  # CSS Hex Colors Demystified
+  # CSS 十六进制颜色揭秘
 
   ![](https://cdn-images-1.medium.com/max/1600/1*-_xWZmET00Mx_BM9aZou-g.jpeg)
 
-### Introduction
+### 简介
+作为一个长期在世界各地主持技术峰会的主持人，我有机会和许多技术传播者交流，我将这些人称为“**专业的**技术作者”，忙于他们的工作。
 
-As a long-time presenter at tech pubs conferences around the world, I’ve had the opportunity to chat with many technical communicators, the folks I call “*technical* technical writers”, about their jobs. Every writer has their own particular likes and dislikes, pet features and problematic ones — “pros and woes”, as one New Zealander put it — about the more technical aspects of technical communication.
+一个主题反复出现的是 CSS 中的颜色 —— 特别是它们在 CSS 的属性值中使用十六进制表示法。你可以在你的 CSS 中各个地方看见这些看起来怪怪的字符串：`#FF0080`、`#9AC0B3`、`#B5CBE8`。我的意思是 `#WTF`，不是吗？
 
-One theme that comes up repeatedly is CSS colors — specifically their hex (hexadecimal) representation in CSS property values. You’ve seen them: weird-looking strings of characters scattered through your CSS such as `#FF0080`, `#9AC0B3`, and `#B5CBE8`. I mean, `#WTF`, amirite?
+虽然大部分的技术作者都会在某些时候遇到十六进制编码的颜色值，它通常情况下是一个模糊的问题，所以从来没有人花时间去解释他们。我听到最多的评论大都是这样的：
 
-While most tech writers encounter hex color coding at some point, it’s a fuzzy subject because, usually, no one has ever taken the time to explain it to them. Most comments I hear tend to run along these lines:
+- 我一直在使用十六进制编码的色值，但是我真的**不明白**。
+- 其实我知道一些十六进制编码的色值代表什么颜色，但是我不知道**为什么**。
+- 有时候我可以修改十六进制的编码来达到我想要的效果，但是我不理解它们是**怎么**工作的。
+- 使用一个像 `#BADA55` 这样的不易理解的十六进制编码是错误的吗？
 
-- I have to deal with CSS hex color coding all the time, but I don’t really *get* it.
-- I actually know some hex codes and which colors they represent, but I don’t know *why*.
-- I can sometimes get the color I want by fiddling with the hex, but I don’t understand *how *that works.
-- Is it wrong to use a color with a rude-sounding hex code like `#BADA55`?
+好的，就拿最后一个来说，但是答案是否定的，不，使用 `#BADA55` 这样的十六进制表示颜色不是错误的。如果你是想要一个黄绿色，那么你就可以使用 `#BADA55`。
 
-Okay, I made up that last one, but the answer is no. No, it isn’t. If you’re into chartreuse, go for it!
+### CSS 中的颜色
 
-### Colors in CSS
+在 CSS 中颜色无处不在，它们可以作为前景、背景、阴影、表格、边框、链接、底纹等等这些属性的值。正因为颜色对于 CSS 是如此的重要，所以我们需要一个通用、标准的方式来引用它们，以便在所有浏览器中得到相同的颜色，这样用户就可以看到作者希望展现的颜色。
 
-Colors are ubiquitous in CSS; they’re used as property values for foregrounds, backgrounds, shadows, tables, borders, links, shading, and much more. Because of the importance of colors to CSS, we need a common, standardized way to refer to them so that all browsers everywhere can process color requests identically, and so that users can see the colors the page authors intended.
+在 CSS 中设置颜色有很多种方式，我们稍后会讨论其中的几种。但本文的重点是十六进制颜色，因为它具有明确性、一致性，而且还十分优雅。虽然它有这么多优点，但是有个缺点就是它并不是很直观。
 
-There are several ways to specify colors in CSS, and we’ll take a look at some of them in a bit. But this article focuses on hex notation because hexadecimal color codes are specific, consistent, and what developers call “elegant” (the rest of us just say “cool”). But, while they are certainly all those things, they aren’t exactly intuitive — yet.
 
-### Oh No, Physics!
+### 物理学
 
-Let’s begin with the single underlying premise of all color: that white light is actually made up of all the colors of the rainbow. Remember *Roy G. Biv*? What we see as white light is just the combination of the visible spectrum of Red, Orange, Yellow, Green, Blue, Indigo, and Violet light mixed together. And if you don’t believe me, just ask David Gilmour.
+让我们从色彩的基本原理开始：白光其实是由彩虹的所有颜色组成。知道 Roy G. Biv 吗？它是红、橙、黄、绿、蓝、靛、紫七种颜色的英文首字母缩略词，我们看到的白光仅仅是有这七种颜色混合组成的。
 
-![](https://cdn-images-1.medium.com/max/1600/1*apZ_o9Z6v6tf4uBXzphgaw.png)
+![如果你认为这是一个笑话，那么你太年轻了。](https://cdn-images-1.medium.com/max/1600/1*apZ_o9Z6v6tf4uBXzphgaw.png)
 
-If you’re too young to get that joke, tough.
 
-#### Pigments
 
-To see how colors work, let’s first review the physics of light in pigments, something we’ve all understood since childhood. The primary colors in pigments are blue, yellow, and red, just like in your first box of crayons.
+#### 颜料
+让我们来看一下颜色是怎么工作的，我们先来回顾一下颜料中的物理光线。=> 要了解颜色是如何工作的，让我们先来回顾一下颜料中的物理光线。
 
-![](https://cdn-images-1.medium.com/max/1600/1*WgrNsoQrXQ2HVtEb2JE24Q.png)
+![颜料的三原色](https://cdn-images-1.medium.com/max/1600/1*WgrNsoQrXQ2HVtEb2JE24Q.png)
 
-Pigment primary colors
+学习颜料的第一件事情就是你可以把原色组合成第二种颜色。例如，你可以将蓝色和红色混合在一起得到紫色。同样，还有其他的选择，你可以将红色和黄色混合成橙色，黄色和蓝色混合成绿色 —— 全新的第二种颜色。
 
-And one of the first things you learned about pigments was that you could combine primary colors to make secondary colors. For example, you discovered that you could color blue and red on top of each other when that snot-nosed brat Susie stole your purple crayon (but I’m not bitter!). Likewise with the other primaries; you quickly found you could color red and yellow, and yellow and blue, together to get orange and green — brand-new secondary colors.
+![颜料中的生成色](https://cdn-images-1.medium.com/max/1600/1*RBfoOD8CS_lFMB_oIyG_1g.png)
 
-![](https://cdn-images-1.medium.com/max/1600/1*RBfoOD8CS_lFMB_oIyG_1g.png)
+你当时不知道的是它的成色原理：颜料减色法原理。也就是说，它们吸收或减去白光中的某些色光，只反射它们没有减去的光。
 
-Pigment secondary colors
+> 对于那些没有试验过的人来说，这意味着一个看起来是单一颜色的物体实际上不是那种颜色。因为物体吸收了所有的光波长，但是只反射回来一种颜色的光（我们看到的），它实际上是所有的颜色。换句话说，是**除了它显示的颜色之外的所有颜色**。我们看到的橘色实际上并不是橙色。虽然不符合常理，但事实如此。
 
-Take that, Susie.
+在不知道它的物理特性的情况下，我们早都理解将两种或两种以上的颜色组合在一起会得到其他颜色，而且我们添加的颜色越多，新的颜色就越多，每种颜色都比原色更深。我们最终了解到，如果把所有的颜色混合在一起，我们最终会得到黑色，或者是非常接近黑色的颜色。我们现在知道，这是因为从原来的白光开始，随着越来越多的颜料被加入，越来越多的光被吸收或减去。所以，明显的是，**光线越少 = 颜色越深**。 提示：请记住这一点，这在后面将会很重要。
 
-What you didn’t know at the time is the reason it works that way: pigments are *subtractive*. That is, they absorb, or subtract, different wavelengths of the light that hits them, and reflect back only what they don’t subtract.
+![非常非常深的灰色就接近黑色](https://cdn-images-1.medium.com/max/1600/1*OXCcIybMtfaIoXTtIZSDLQ.png)
 
-> For those of you partial to thought experiments, this means that an object that appears to be a single color is really, truly, in actual fact, not that color at all. Because the object absorbs all light wavelengths but the one it’s reflecting back (the one we see), it’s actually all colors at once; that is, it’s *every color except the one it appears to be*. In other words, an orange isn’t. Seriously.
+我们发现颜料混合的另一件事是，除了被混合的颜色外，混合颜色的比列也会影响结果。即同为蓝黄混合，黄色多一点，会产生一个淡淡的“春绿”，而蓝色多一点则会产生一个暗暗的“森林绿”。所以很明显，混合的比例也很重要。
 
-Without knowing the physics of it, we all understood early on that putting two or more colors together gave us other colors, and the more colors we added, the more new colors we made, each secondary color becoming darker than either of its primaries. We eventually learned that if we mixed all the colors together, we ended up with black, or something pretty close to it. We now know that that’s because as more and more pigments were added, more and more light was absorbed, or subtracted, from the original white light. So, it becomes obvious that **less light = darker colors**. Tip: Remember that factoid; it will be important later.
+#### 色光
 
-![](https://cdn-images-1.medium.com/max/1600/1*OXCcIybMtfaIoXTtIZSDLQ.png)
+你明白了吗？那好，现在忘了它，因为所有的计算机屏幕都是基于光而不是颜料。颜料的知识只是为光学做准备，稍后你会感谢我的。事实证明，光学的物理现象是和颜料相同的，只是稍有不同（这是真的）。
 
-Dark dark dark really dark gray is about as close to black as we’re going to get
-The next thing we discovered about mixing pigments was that, beyond which colors were mixed, the *levels* of the mixed colors affected the result. That is, for a blue-yellow mix, more yellow yields a lightish “spring green”, while more blue yields a darkish “forest green”. So it became clear that the mix ratio is quite important too; so far, so good.
+就像上面讨论颜料一样，我们先从原色开始，在光学上它们是红色、绿色和蓝色。
 
-#### Optics
+![我们一起来看，这可能有一点粗糙](https://cdn-images-1.medium.com/max/1600/1*0L0ixGTpbm1X20Y84cDcUQ.png)
 
-Okay, have you got all that? Good! Now forget it, because all computer device screens are based on light, not pigments. I just needed to walk you through pigments to prepare you for optics; you’ll thank me later. As it turns out, the physics of optics is the same, only different. (No, really.)
-
-Let’s begin as we did with pigments with the primary colors, which in optics are red, green, and blue.
-
-![](https://cdn-images-1.medium.com/max/1600/1*0L0ixGTpbm1X20Y84cDcUQ.png)
-
-Stay with me here; it might get a tad gnarly
-Just like pigments, we can mix primary colors to get secondary colors. And, just like pigments, the secondary mixes make sense — mostly. Blue light and red light make a purple-y color called magenta; okay, I’ll buy that. Green light and blue light make a teal-y color called cyan; all right, fair enough. And red light and green light make… wait, *what?!?*
+就像颜料一样，我们可以将原色混合获得第二种颜色。并且，就和颜料一样，并且也有很多种混合结果。蓝光和红光混合得到名为 purple-y 的颜色，我们称之为洋红；绿光和蓝光混合得到名为 teal-y 的颜色，我们称为青色；好吧，很合理，有红灯了也有绿灯了……**什么？！？**
 
 ![](https://cdn-images-1.medium.com/max/1600/1*2Hx5hxBCeG81iq6Z0bIb-w.png)
 
-Mind officially blown
-Yeah, that last one is a kick in the head, and anything but intuitive. But that’s how optics works: red light plus green light makes yellow light.
+是的，最后一个确实和前面的不一样，并不像直观感受的那样，但是这就是光学的工作原理：红光和绿光相加得到黄光。
 
-> Why? Well, it just does, okay? That’s how light works. You got a problem with that, talk to one of [these guys](https://en.wikipedia.org/wiki/List_of_light_deities) and tell Heimdallr I said wazzup.
+> 这是为什么呢？本来就是如此，光学的工作原理就是这样的。你可能会对此感到困惑，如果对此感到困惑，你可以咨询这里面的 [专家](https://en.wikipedia.org/wiki/List_of_light_deities)。 
 
-The reason for this is that optics are *additive*, the opposite of pigments. The more different wavelengths of light we combine, the more new colors are created. And the more light we add, the brighter the colors we create, until — when all colors are mixed at their maximum levels — we end up with white light. And it’s easy to see that each secondary color we create is brighter than either of its primaries. Thus, the corollary to our earlier pigments discovery, that less light = darker colors, is that **more light = brighter colors**. (The “duh” is silent.)
+这是因为色光是加色法，和颜料相反。我们组合的光波波长越多，新的颜色就越多，直到所有颜色都以最大比例混合时 —— 最终将得到白光。很容易看出，我们得到的每一种混合色都比它的原色更亮。因此，对于颜料我们的推论是：**光线越少 = 颜色越深**，而对于色光则是：**光线越多 = 颜色越亮**。
 
-![](https://cdn-images-1.medium.com/max/1600/1*BC1eJ6IwEa4ow_t2wDHPYQ.png)
+![三种原色的光聚集在一起就成了白光](https://cdn-images-1.medium.com/max/1600/1*BC1eJ6IwEa4ow_t2wDHPYQ.png)
 
-So light light light really light everything is just white
-### Back to CSS
+### 回到 CSS
 
-In CSS, then, to achieve a desired color result, we need a way to specify not only which primary colors to mix, but also what levels of each color to let into the mix. That is, we need to specify exactly how much red, green, and blue light to add together to get a specific color. Hey, it’s physics!
+在 CSS 中，我们要达到预期的颜色效果，我们需要一种方式，不仅指定选哪一种原色，而且还要指定每一种颜色的比例。也就是说，我们需要精确地指定多少红色、绿色和蓝色的光线相加以获得特定的颜色。嘿，这是物理学！
 
-In all of Computerdom, the minimum-to-maximum range for a given value is generally 0–255. There is of course a nerdy technical reason for that but, right now, you don’t care. Really, you don’t. That explanation, how binary works, is for another article entirely. For now, just trust me that our range for each color is a minimum of 0 and a maximum of 255. Thanks.
+在计算机世界，值的范围一般是在 0-255 之间。当然，这是有原因的，但现在你可以不用在意。因为要解释二进制是如何工作的，是另一篇文章的内容。现在，请相信我，每种颜色的最小值是 0，最大值是 255，谢谢。
 
-#### Ways to Specify Colors
+#### 设置颜色的方法
 
-Although I’m promoting the hexadecimal color scheme in this article, I can’t ignore the fact that it is by no means the only way to specify CSS colors. Before proceeding, then, let’s quickly look at three other methods.
+虽然我在本文中提倡十六进制表示色值的方法，但我不能忽视这一事实，它决不是唯一指定 CSS 颜色的方法。在继续之前，让我们快速看看其他三种方法。
 
-> **Note:** If you aren’t interested in this part, feel free to jump right ahead to the next main heading, **A Quick Review**. Seriously, you won’t miss anything significant about hexadecimal. I include this brief digression mostly for completeness and, in no small way, to avoid a deluge of “But but but…!” comments later. You know who you are.
+> **注意：** 如果你对这部分的内容完全不感兴趣，你可以直接跳到下一主题，**快速浏览**。说真的，你不会错过任何关于十六进制的重要信息。这个小插曲主要是未来完整性，很大程度上是为了避免文末出现大量“但是，但是，但是...”的评论。
 
-**Color Names**
+**颜色名**
 
-One easy way to refer to colors is by name. All modern browsers understand a wide range of color names that can be used as CSS property values. Many of the names make perfect sense, like black, white, red, green, blue, yellow, purple, orange, and so on. Some are more obtuse but semi-obvious, like aquamarine, blueviolet, cornsilk, and khaki. And then some are just ridiculous, like aliceblue, lavenderblush, burlywood, and gainsboro.
+通过颜色名设置颜色是一种简单的方式，所有现代浏览器都能解释各种颜色名，它们可以用作 CSS 属性值。很多名字都很有道理，比如 black（黑）、white（白）、red（红）、green（绿）、blue（蓝）、yellow（黄）、purple（紫）、orange（橙）等等。有些不是很明显，像 aquamarine（海蓝宝石），blueviolet（蓝紫色），cornsilk（花丝），khaki（卡其布）。然后有些是荒谬的，像 aliceblue（爱丽丝蓝）、lavenderblush（淡紫红）、burlywood（原木色）、和 gainsboro（淡灰色）。
 
-The problem is, none of them are very flexible, not even the common ones; there’s only one purple color, and that’s “purple”; if you want a specific, particular, purple-y, lavender-y, mauve-y color, “purple” ain’t it. Oh, sure, there’s “mediumorchid” and “plum” and “thistle”, but those are probably not exactly what you want, and how would you even know if they were? Also, as we just noted, the more exotic the name, the less intuitive the color. Anyone want to guess what color “peru” is? Didn’t think so.
+问题是，颜色名不够灵活，也不常见。purple 只对应一种颜色，那就是“紫色”。如果你想要一个特定的紫色，比如“淡紫”、“薰衣草紫”，那它做不到。当然，有 “mediumorchid”、“plum” 和 “thistle” 这些名称可供选择，但这些可能并不是你想要的颜色，并且你怎么通过名称知道是什么颜色呢？正如刚才提到的，名称越奇特，颜色越不直观。我认为没有人能猜到 “peru” 是什么颜色。
 
-For example, here’s yellow text on a red background using color names:
+例如，这是一个有红色背景的黄色文本，使用颜色名设置：
 
 `span.hilite { color: yellow; background-color: red; }`
 
 **RGB**
 
-Another method is called RGB, for… well, I expect you can work that one out. This method sticks with plain old numbers and fairly cleanly specifies each color’s level in either decimal notation or percentages. This method, however, suffers from verbosity and complexity; what with the extra parentheses, commas, and/or percentage signs, it’s dead easy to typo an RGB color right into something unwanted — or even invalid.
+另一种方法被称为 RGB，对于……嗯，我希望你能解决那个问题。这种方法使用普通的数字，并且相当整齐地用十进制记数法或百分比指定每个颜色的比例。但这种方法，冗长并复杂；有额外的括号，逗号，和/或百分比符号，很容易写成不是你想要的颜色或者出错。
 
-Here’s yellow text on a red background using RGB:
+这是一个有红色背景的黄色文本，使用 RGB 设置：
 
 `span.hilite { color: rgb(255, 255, 0); background-color: rgb(255, 0, 0); }`
 
-or
+或者
 
 `span.hilite { color: rgb(100%, 100%, 0%); background-color: rgb(100%, 0%, 0%); }`
 
 **HSL**
 
-Just to further muddy the water, yet another method is called HSL, for Hue, Saturation, and Lightness. This method — which has various sub-methods I’m not even going to touch — uses one decimal value and two percentage values. The hue decimal value represents a color on the color wheel from 0 to 360, where 0 is red, 120 is green, and 240 is blue. The saturation percentage represents the quantity of light, where 0% is no color and 100% is full color. The lightness percentage then modifies the brightness, or luminosity, of the color, where 0% is black and 100% is white. I’ve always found this method a bit confusing and, in my experience, seldom used by developers.
+只是为了进一步把水搅浑，另一种方法称为 HSL，分别表示色调，饱和度，亮度。这种方法 —— 具有多种我不想使用的子方法，使用十进制值和百分比的值。十进制值表示色轮上的颜色从 0 到 360，其中 0 是红色，120 是绿色，240 是蓝色。百分比表示光的数量，其中 0% 是无色的，100% 是全色的。亮度百分比然后修改颜色的亮度或光度，其中 0% 是黑色的，100% 是白色的。我一直觉得这个方法有点混乱，根据我的经验，开发人员很少使用这种方法。
 
-And here’s yellow text on a red background using HSL:
+这是一个有红色背景的黄色文本，使用 HSL 设置：
 
 `span.hilite { color: hsl(60, 100%, 50%); background-color: hsl(0, 100%, 50%) }`
 
-**Hex**
+**十六进制表示**
 
-Hexidecimal notation, on the other hand, is generally the most popular CSS color designation method. It is specific, consistent, compact, and precise. Hex uses three two-character codes to specify RGB values in the range 00-FF, where 00 is no color and FF is full color.
+另外一种，十六进制记数法，通常是最流行的 CSS 颜色命名方法。它是具体的、一致的、紧凑的和精确的。使用三个字符的十六进制码在范围 00-FF 的指定 RGB 值，其中 00 是没有颜色和 FF 是所有颜色聚集在一起形成的白色。
 
-Finally, here’s yellow text on a red background using hex:
+这是一个有红色背景的黄色文本，使用十六进制色值设置：
 
 `span.hilite { color: #FFFF00; background-color: #FF0000; }`
 
-Okay, enough of that. Movin’ on!
+好了，这就够了，让我们继续来看！
 
-### A Quick Review
+### 快速的回顾一下
 
-I know you think I’m lying, but hex really is easier than you think. Hex color codes are based on hexadecimal (base 16) arithmetic. To understand how hex works, you just have to understand how decimal (base 10) works. Oh, wait, you already do! Excellent; let’s review.
+我知道你认为我在撒谎，但十六进制真的比你想象的容易。十六进制色值是基于十六进制（基数为 16）计算的。为了理解十六进制是如何工作的，你只需要理解十进制（基数为 10）是如何工作的。哦，等等，你已经做了！很好，让我们回顾一下。
 
-> Don’t skip this part, okay? I know you know *how *decimal works; I want you to think about *why* it works.
+> 请不要跳过这部分，好吗？我知道你理解十进制是**怎样**工作的，我想让你想一下**为什么**它能起作用。
 
-The decimal system has ten single-character digits, 0 through 9. You can repeatedly increment a digit to get the next digit, but eventually you’ll run out of digits. When that happens, you put a zero in that place and increment the next place to its left. Let’s think about what that really means in plain old words.
+十进制系统有十个单字符数字，0 到 9。你可以一直加一来获得下一个数字，但最终你将用完数字。当这种情况发生时，你把一个 0 放在这个位置，然后在左边再增加一位数。让我们来思考一下这句话的含义。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*-QBjj9bsURSYsSlaSYKUbg.png)
 
-Or “ten
+这里最重要的一点是，位置的名字表示它们中的数字的值，而每个位置的名称代表的最大值，在其右边的位置表示。在十进制中，最右边的位置称为“个位”，右边的第二个位置称为“十位”。数字“9”的意思是“九个一”，如果我们加上“1”（“一个一”），我们就用完了数字，所以我们就在个位放了一个 0，在十位放了一个 1，得到了两位数 10。
 
-The important bit here is that the place names denote the value of the digits in them, and each place name represents one more than the maximum number that can be represented in the place to its right. In decimal, the right-most place is called “ones” and the second-from-right place is called “tens”. The digit “9” means “nine ones”, and if we add “1” (“one ones”) to it, we run out of digits, so we put a 0 in the ones place and a 1 in the tens place, yielding the digit pair 10.
+因此，十进制值 10，我们称之为“十”，实际上表示“一个十和零个一”。同样，十进制的 26 表示“两个十和六个一”，十进制的 33 表示“三个十和三个一”，十进制的 42 表示“四个十和两个二”。（当然，[这就是最终问题的答案](https://en.wikipedia.org/wiki/Phrases_from_The_Hitchhiker%27s_Guide_to_the_Galaxy#Answer_to_the_Ultimate_Question_of_Life.2C_the_Universe.2C_and_Everything_.2842.29) ）。
 
-Thus, the decimal value of a 1 followed by a 0 — what we call “ten” — really means “one ten and no ones”. Likewise, decimal 26 means “two tens and six ones”, decimal 33 means “three tens and three ones”, and decimal 42 means “four tens and two ones” (as well as being the answer to the [Ultimate Question](https://en.wikipedia.org/wiki/Phrases_from_The_Hitchhiker%27s_Guide_to_the_Galaxy#Answer_to_the_Ultimate_Question_of_Life.2C_the_Universe.2C_and_Everything_.2842.29), of course).
-
-The great thing about hex is that it works *exactly* like decimal. **Exactly!** No kidding, no exaggerating, no alternative fact-ing. Hex arithmetic works exactly like decimal arithmetic; it just has sixteen single-character digits instead of ten.
+十六进制的伟大之处在于它工作得很像十进制。**确切地说！** 不开玩笑、不夸张、并且你也只能选择使用十进制的方式理解十六进制。十六进制算术和十进制算术完全一样，它只有十六个字符数字而不是十个数字。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*jhKg0v_TTUDXht8y4VQD9g.png)
 
-Digits A-F are pronounced, well, like A-F
-That’s right, the decimal values 10 through 15 are represented by the letters A through F. Sure, the computer wizards of ye olden tymes could have come up with six completely new characters for those digits, but (a) we would all have to learn them, (b) how are you supposed to type
+将 A ~ F 视为数字，对应十进制中的 10 ~ 15。当然，计算机是对你友好的才提出多出这六个数字，但（a）我们必须要学习他们，（b）如何在键盘输入。![](https://cdn-images-1.medium.com/max/1600/1*f4G4sDddeNFIEkfcGOJffw.png)。（c）那东西是什么，他们只是在字母最小的恶作剧。
 
-![](https://cdn-images-1.medium.com/max/1600/1*f4G4sDddeNFIEkfcGOJffw.png)
+换句话说，十进制值 10 用十六进制的一个数字 A 表示，这表示“十个一”。十六进制数字 B 表示“十一个一”，等等，直到 F，表示“十五个一”。
 
-on a keyboard, and (c) what is that thing, even?!? So they just stuck with letters as the path of least shenanigans.
+重复一遍，就和十进制一样，每一个位置的名字表示它们中的数字的值，每个位置的名称代表的最大值可以在其右边的位置表示。最右边的地方仍被称为“一”，我们现在可以数到 F（“十五个一”），右边起第二位被称为“16”。
 
-In other words, the decimal value 10 is represented in hex by the single digit A, which just means “ten ones”. The hex digit B means “eleven ones”, and so on up to F, meaning “fifteen ones”.
+![十六进制加法：9 + 1 = a](https://cdn-images-1.medium.com/max/1600/1*hz81_Qc6tCAhsrrSJ8fopA.png)
 
-Again, just like in decimal, the place names denote the value of the digits in them, and each place name represents one more than the maximum number that can be represented in the place to its right. The right-most place is still called “ones” and, because we can now count up to F (“fifteen ones”) in that place, the second-from-right place is called “sixteens”.
+数字“9”还表示“九个一”，但现在，如果我们加上“1”（“一个一”）的话，我们还没有用完的数字，所以我们可以在个位使用 A（“十个一”），只需要让十六显示为两位数。
 
-![](https://cdn-images-1.medium.com/max/1600/1*hz81_Qc6tCAhsrrSJ8fopA.png)
+就像十进制一样，你可以不断地增加一个数字来获得下一个数字，但是你仍然会用完数字。当这种情况发生时，你把一个 0 放在这个位置，然后在这位数的左边新增一位数。**就和十进制一样**，再让我们想想这句话的意思。
 
-Hex addition: 9 + 1 = A
-The digit “9” still means “nine ones”, but now if we add “1” (“one ones”) to it, we haven’t yet run out of digits, so we can put an A (“ten ones”) in the ones place and leave the sixteens place alone — we don’t need it yet because we still have some digits left.
+![十六进制加法：f + 1 = 10](https://cdn-images-1.medium.com/max/1600/1*VstVral1WUbSHywS5kBYtg.png)
 
-And, just like in decimal, you can repeatedly increment a digit to get the next digit, but you’ll **still** eventually run out of digits. When that happens, you put a zero in that place and increment the next place to its left. *Just. Like. In. Decimal.* Again, let’s think about what that really means in words.
+所以，10（数字 1 和数字 0）的十六进制值不是十，而是十六，因为它的表示“一个十六，零个一”。然而，就像十进制一样，任何两位数字的十六进制数字都可以用同样的方式读取和理解。这意味着，如果我们继续计数递增到十六的时我们就使用“F”，重点来了：**我们可以使用十六进制的两位数从 00 到 FF 代表任何从 0 到 255 的十进制数**。
 
-![](https://cdn-images-1.medium.com/max/1600/1*VstVral1WUbSHywS5kBYtg.png)
+例如，在下面的图表中，十六进制的 14（也就是“数字一和数字四”）是十进制的二十，因为它实际上是一个十六（16）和四个一（1），在十进制中 16 + 4 = 20。十六进制的 A5 代表着一百六十五，因为因为它是十个十六（10 * 16 = 160）和五个一（1 * 5 = 5）。最终，要特别注意红色的线，因为他们是最终的范围和范围的中间点：十六进制的 00（数字零和数字零）是零，十六进制的 FF 是二百五十五（15 * 16 + 15 = 255），并且十六进制的 80（数字八和数字零）是一百二十八（8 * 16 + 0 * 1 = 128），是 00 和 FF 的中间值。提示：记住 “80” 是中间点，我们马上就要用到它。
 
-Hex addition: F + 1 = 10
-So, that hex value of 10 (say “one zero”) is not ten, it’s sixteen, because it means “one sixteen and no ones”. And yet again, just like in decimal, any two-digit hex number can be read and understood the same way. And that means that if we keep counting and incrementing and flopping over to the sixteens place when we get to “F” — stand back, here it comes — *we can represent any decimal number from 0 to 255 with exactly two hex digits from 00 to FF*.
+![十六进制计数，00 到 FF](https://cdn-images-1.medium.com/max/1600/1*UMYMc30_T_tX6G-KAB4H-A.png)
 
-For example, in the chart below, hex 14 (say “one four”) means twenty, because it is literally one sixteen (16) and four ones (4), and 16 + 4 = 20 in decimal. Hex A5 means one hundred sixty-five, because it is ten (A) sixteens (160) and five ones (5). Finally, it’s important to note the lines in red, because they are the end- and mid-points of the range: hex 00 (say “zero zero”) is zero, hex FF is two hundred fifty-five (fifteen sixteens, or 240, plus 15 ones = 255), and hex 80 (“eight zero”) is one hundred twenty-eight (eight sixteens, or 128, plus 0 ones) — exactly halfway between 00 and FF. Tip: Remember that “80” halfway point; we’ll use it heavily in a minute.
+> 请和我一起继续
 
-![](https://cdn-images-1.medium.com/max/1600/1*UMYMc30_T_tX6G-KAB4H-A.png)
+让我们在这里喘口气，因为这个计数方案是整个事情的关键，是理解十六进制表示颜色的关键。但请不要让它更难理解；我不是在开玩笑，十六进制，**真的**、**真的**、**真的**和十进制工作原理一样。这些概念是完全相同的；在到达下一位数之前十六进制只不过是多了几个可用的数字。
 
-Hex counting, 00 to FF
-> As The Eagles sang, “Are ya with me so far?”
+在你继续之前，一定要理解这个概念。以下是一些十六进制转换为十进制的例子。
 
-Let’s take a breath here, because this counting scheme is the crux of the whole thing, and it’s critical to understanding hex colors. But please don’t make it harder than it is; I’m not dumbing it down or making false equivalences: hex really, *really*, **really** works exactly like decimal. The concepts are truly identical; you just have more available digits in hex before you have to roll over to the next place.
+- 1F = 一个十六和十五个一 = 十进制的 16 + 15 = 31 
+- 2B = 两个十六和十一个一 = 十进制的 32 + 11 = 43 
+- 41 = 四个十六和一个一 = 十进制的 64 + 1 = 65 
+- AA = 十个十六和十个一 = 十进制的 160 + 10 = 170 
+- F0 = 十五个十六和零个一 = 十进制的 240 + 0 = 240
 
-Be sure you understand this concept before you go on. Here are some more hex-to-decimal conversion examples.
+看，一旦你掌握了窍门就很容易了。这只是数学。只不过是使用字母来表示数字。
 
-- 1F = one sixteen and fifteen ones = 16 + 15 = 31 decimal
-- 2B = two sixteens and eleven ones = 32 + 11 = 43 decimal
-- 41 = four sixteens and one one = 64 + 1 = 65 decimal
-- AA = ten sixteens and ten ones = 160 + 10 = 170 decimal
-- F0 = fifteen sixteens and no ones = 240 + 0 = 240 decimal
+因此，三个两位数的十六进制数字，从 00（0）到 FF（255），将在 CSS 颜色属性值中表示红色、蓝色和绿色的程度。
 
-See, it’s easy once you get the hang of it. It’s only math. With letters.
+### 直观性
 
-And so three of those two-digit hex numbers, from 00 (0) to FF (255), are going to represent the levels of red, blue, and green in our CSS color property values.
+现在我们明白如何将基色混合和如何指定的每一个颜色的程度，应该明确的是，我们可以在整整六个十六进制数字产生任何颜色代码，从 `#000000` 到 `#FFFFFF`，前面两位表示红色，中间两位表示绿色，最后两位表示蓝色 - 始终是 RGB 这个顺序。
 
-### Intuitive-icity-ish-ness
+> 我们可以用六个十六进制数字编码多少种颜色？嗯，这 `FFFFFF` 是十进制的 16777216 ，所以正确答案是“一堆”。
 
-Now that we understand how to mix the primary colors and how to specify each level, it should be clear that we can create any color code in exactly six hex digits, from `#000000` to `#FFFFFF`— two for red, two for green, and two for blue — and always in that order: RGB.
+当我们指定 CSS 进制颜色代码之前，我们以“#”，称为**英镑符号**或**井号**。CSS 就是这样知道下面是一个十六进制的颜色代码。另外，字母大小写不要紧，CSS 中 `#a94cb3` 和 `#a94cb3` 是相同的。
 
-> How many different colors can we code in six hex digits? Well, the hex number FFFFFF is decimal 16,777,216, so the correct answer is “a buttload”.
+了解这些之后，一些颜色代码你就应该知道怎样表达了，像黑色、白色和三基色。
 
-When we specify hex color codes in CSS, we precede them with “#”, called a *pound sign* or *hash mark* (not *hashtag*, millennials). That’s how CSS knows that what follows is a hex color code. Also, letter case doesn’t matter to CSS; `#A94CB3` is identical to `#a94cb3`.
+![十六进制的黑色、白色和三基色](https://cdn-images-1.medium.com/max/1600/1*TZK3FiDgZlRFqeJNNK8Z6g.png)
 
-Knowing what we know now, some color codes should start to become obvious, like black, white, and the three primaries.
+这很简单，对吧？这是光的物理原理：在这些颜色代码中，每个 RGB 分量要么是“零”（00），要么是“全部”（FF）。所以，例如，`#000000` 表示黑色。看这些零；没有红色，没有绿色，没有蓝色 - 没有光源 - 没有光不就是黑色吗？（如果你说“暗的”，你被解雇了。）同样，`#FF0000` 代表红色。该代码指定完全红色，没有绿色，也没有蓝色。只有红色的光。只代表红色。没有其他的可能，必须是红色，正红。
 
-![](https://cdn-images-1.medium.com/max/1600/1*TZK3FiDgZlRFqeJNNK8Z6g.png)
+不管你信不信，我们接着往下看，因为一旦你掌握了这个想法，其他颜色也开始变得直观了。现在你应该将十六进制代码看做的颜色，因为他们**就是**颜色。
 
-Hex black, white, and primary colors
-Easy-peasy, right? It’s the physics of light: in those color codes, each RGB component is either “none” (00) or “all” (ff). So, for example, `#000000` can’t be anything but black. It just can’t. Look at all those zeros; there’s no red, no green, and no blue — no light whatsoever — and what is “no light” if not black? (And if you say “dark”, you’re dismissed.) Likewise, `#ff0000` cannot possibly be anything but bright red. That code specifies full red, no green, and no blue. Nothing but red light. Can’t be anything else but red. Not possible. Has to be red. Just red. RED.
+考虑三基色，洋红（全红色，没有绿色，没有蓝色）青色（没有红色，全绿色，全蓝色），黄色（可直观的全红色，全绿色，没有蓝色）。创建这些颜色的十六进制代码现在应该是显而易见的。
 
-And, believe it or not, now we’re on the downhill slope, because once you grasp that idea, other colors start to become intuitive as well. You should now start seeing hex codes as the colors they simply **have** to be.
+![十六进制颜色值](https://cdn-images-1.medium.com/max/1600/1*2ttPfJOfPNuAr5ch49wqjw.png)
 
-Consider the three secondaries, magenta (full red, no green, full blue), cyan (no red, full green, full blue), and yellow (the admittedly unintuitive full red, full green, no blue). The hex codes that create those colors should now be obvious.
+好的，到目前为止，我们仍然只使用“没有”或“全部”值。但回想十六进制的 80（“数字八和数字零”）是 00 和 FF 的中间，所以我们现在应该能够使用这个值，方便地构建一些半光的颜色代码 —— 即代码创建深色调的初级和中级的颜色。嗯，我想知道那些会是什么样子的？可能像这样。
 
-![](https://cdn-images-1.medium.com/max/1600/1*2ttPfJOfPNuAr5ch49wqjw.png)
+![十六进制初级和中级半色调](https://cdn-images-1.medium.com/max/1600/1*vWe3elGJZAK4EImaBPGEmA.png)
 
-Hex secondary colors
-Okay. So far we’re still working with just “none” or “all” values. But recall that hex 80 (“eight zero”) is halfway between 00 and FF, so we should now be able to use that value to easily construct some color codes with half the light — that is, codes that create darker shades of both the primary and secondary colors. Hmm, I wonder what those would look like? Probably like this.
+我们在这里做的，通过改变三个分量的值，仅仅是改变了光的数量，我们把代码放入每种颜色的代码中，从没有（00） 到一半（80） 到全部（FF），这个事实使我们有点顿悟。好吧，一个巨大的巨大的巨大的巨大的顿悟。实际上两个。
 
-![](https://cdn-images-1.medium.com/max/1600/1*vWe3elGJZAK4EImaBPGEmA.png)
+**更高的数字 = 更多的光线 = 接近白色 = 明亮的颜色。**
 
-Hex primary and secondary half-light shades
-What we’re doing here by changing the values of the three components is merely *varying the amount of light* we put into the code for each color, from none/00 to half/80 to full/FF, and this fact leads us to a little epiphany. Okay, a great big huge massive ginormous epiphany. Two, actually.
+**较低的数字 = 较少的光线 = 接近黑色 = 较暗的颜色。**
 
-**Higher numbers = more light = closer to white = brighter colors.**
+这些真的很重要，请再读一遍。
 
-**Lower numbers = less light = closer to black = darker colors.**
+### 小测验
 
-Those are really important; please read them again, but in Morgan Freeman’s voice.
+让我们来做一些使用代码表示颜色的小测试，来吧，这将是很有趣的！用纯文字回答这些问题（不是十六进制代码），然后向下轮动一点来显示答案。
 
-### Pop Quiz
+**问题 1.** 如果 `#FF00FF` 是亮红色并且 `#800080` 是暗红色，那么 `#B000B0` 是什么呢？
 
-Let’s try some color code questions. C’mon, it’ll be fun! Just answer these in plain English (not hex codes), then scroll down a bit to reveal the answers.
+**问题 2.** 如果 `#00FFFF` 是亮青色并且 `#008080` 是暗青色（也被称为绿色），那么 `#004040` 是什么呢？ 
 
-**Question 1.** If `#FF00FF` is bright magenta and `#800080` is dark magenta, what’s `#B000B0`?
+**问题 3.** 如果 `#000000` 是黑色并且 `#ffffff` 是白色的，那么 `#010101` 到 `#323232` 代表什么颜色的范围呢？
 
-**Question 2.** If `#00FFFF` is bright cyan and `#008080` is dark cyan (also called teal), what is `#004040`?
-
-**Question 3.** If `#000000` is black and `#FFFFFF` is white, what are the colors in the range `#010101` through `#323232`?
-
-…scroll down
+…向下滚动
 
 …
 
-…lower
+…接着向下
 
 …
 
-…keep going
+…继续
 
 …
 
-…a little more
+…再向下滚动一点
 
 …
 
-…almost there
+…马上就到了
 
 …
 
-**Answer 1:**`#B000B0` is a medium-bright magenta-y color that’s somewhere between bright and dark magenta, because B0 is less than FF but more than 80.
+**答案 1：** `#B000B0` 是中等亮度的 亮红和暗红色之间的地方，因为 B0 小于 FF 但超过 80。
 
-**Answer 2:**`#004040` is a quite dark teal-y color, because 40 is less than both FF and 80.
+**答案 2：** `#004040` 比暗青色暗的颜色，因为 40 小于 FF 和 80。
 
-**Answer 3:**`#010101` through `#323232` is *fifty shades of gray!* (oh, don’t roll your eyes, I know you laughed), because hex 32 — three sixteens (48) plus 2 ones (2) = decimal 50.
+**答案 3：** `#010101` 到 `#323232` 是**五十种深浅不同的灰色**，因为十六进制的 32 等于十进制的 50：3 * 16 + 2 * 1 = 50。
 
-And actually, that last question leads us to one more, slightly less huge massive and ginormous but still quite important, epiphany.
+事实上，最后一个的问题使我们顿悟了一个更多并且细微，虽然不是特别伟大但又是非常重要的道理：
 
-**Whenever all three component values are the same, no matter what the value is, the color is some shade of gray.**
+**当所有三个色值相同时，不管值是多少，颜色都是灰色的**
 
-That’s right, `#232323`, `#a9a9a9`, `#4b4b4b`, `#2f2f2f`, `#959595`, `#dadada`, and every other combo with identical RGB values is some shade of gray — some darker, some lighter. And, because hex 80 is midway between 00 and FF, it means that `#808080` is the most medium of medium grays. And yes, “gray” technically includes black and white, `#000000` and `#ffffff`; that means, for those of you keeping track, there are really 256 shades of gray. Bite on that, E. L. James.
+确实是这样的，`#232323`、`#a9a9a9`、`#4b4b4b`、`#2f2f2f`、`#959595`、`#dadada` 和所有其他具有相同的 RGB 值的组合都是灰色 —— 有些更暗一些，一些更亮一些。而且，因为十六进制的 80 是 00 和 FF 的中间值，这意味着 `#808080` 是所有灰色的中间色。是的，“灰色”包括黑色 `#000000` 和白色 `#ffffff`；这意味着，真的有 256 种的灰色。
 
-### Practical Examples
+### 实际的例子
+让我们来靠近一些实际的 CSS 颜色编码的示例。基于你对十六进制和颜色的新知识，你应该能够理解为什么这些十六进制的颜色值可以表示他们想要表达的颜色。看看这些 CSS 规则中的代码并且想一下这三对十六进制的数字表示什么颜色，你应该立刻能够回答上来。
 
-Let’s close up with some realistic CSS color coding samples. Based on your new knowledge of colors and hex, you should be able to see why these hex color codes make the colors they do. Look at the codes in these CSS rules and think about what color levels the three hex pairs represent, and they should jump out at you.
+例 1：在这里，文本的前景色设置为深蓝色并且背景色设置为偏浅一点的中灰色。
 
-Example 1: Here, the body foreground (text) color is set to dark blue and the background color is a medium-light gray.
+![例 1](https://cdn-images-1.medium.com/max/1600/1*mDaO6vXwz14YzMl3YCKfcQ.png)
 
-![](https://cdn-images-1.medium.com/max/1600/1*mDaO6vXwz14YzMl3YCKfcQ.png)
-Example 1
-Example 2: Here, any element with a class of “warning” displays in red text on a yellow background. (Note that the page background is still gray from the rule above, assuming all this is in the same page.)
+例 2：在这里，任何带有类名为“warning”的元素将设置为黄色背景红色文字（注意，根据上述规则，背景仍为灰色，假设这些都在同一个页面中。
 
-![](https://cdn-images-1.medium.com/max/1600/1*PoLdJEGTrqmVIGUxxNtmpw.png)
-Example 2
-Example 3: Here, normal links display in teal text, while hovered links display in white text on a teal background. (Still on the gray page background.)
+![例 2](https://cdn-images-1.medium.com/max/1600/1*PoLdJEGTrqmVIGUxxNtmpw.png)
 
-![](https://cdn-images-1.medium.com/max/1600/1*o8TIPpnBOqvqgbOLTKBQHQ.png)
+例 3：在这里，正常的链接显示为蓝绿色的文本，而在悬浮样式设置为白色文字蓝绿色背景。（仍然在灰色页面背景下。）
 
-Example 3
+![例 3](https://cdn-images-1.medium.com/max/1600/1*o8TIPpnBOqvqgbOLTKBQHQ.png)
+
 Example 4: And finally, this blockquote displays in various levels of brown: a light brown (pastel yellow) background, a medium brown border, and dark brown text. (All on the same gray page background.)
+例 4：最后，这个块的背景为浅棕色（淡黄色），一个棕色的边框，和深褐色的文本。（都在相同的灰色页面背景下。）
 
-![](https://cdn-images-1.medium.com/max/1600/1*lPMcAGAbSXru_aq4HXJ9iA.png)
+![例 4](https://cdn-images-1.medium.com/max/1600/1*lPMcAGAbSXru_aq4HXJ9iA.png)
 
-Example 4
-### Shorthand
+### 简写
 
-I need to mention that you can abbreviate CSS hex color codes from six digits to three, but please don’t. Graphic designers generally discourage the practice, for good reasons.
+我要说的是你可以将十六进制的六位 CSS 颜色值简写是为三位，但是请不要这样，这对平面设设计师不利。
 
-First, shorthand codes often result in unintended colors. Shorthand is only accurate when both hex digits for one color value are the same, like FF, 88, or 22. For example, `#fff` is the same as `#ffffff`, and `#d09` is the same as `#dd0099`. But if the hex digits in the original color aren’t the same, shorthand coding “smooths out” the color, resulting in something close to — but not quite like — the original. That is, `#080` is the same as `#008800`; it is absolutely **not** the same as `#008000`. And `#a4d` is the same as #aa44dd, **not**`#a040d0`.
+首先，缩写通常会导致意外的颜色。只有当一个颜色值的两个十六进制数字相同，如 FF，88，或 22 时，缩写才是准确的。例如，`#fff` 和 `#ffffff` 相同，`#d09` 和 `#dd0099 ` 是一样的。但是如果原始颜色的十六进制数字就不相同，那么缩写的代码只会“看起来像”原始颜色，也就是说和原始颜色很接近，但是又不完全相同。例如：`#080` 和 `#008800` 一样，但是肯定和 `#008000` 是**不**一样的，`#a4d` 和 `#aa44dd` 是相同的，和 `#a040d0` 是**不同的**。
 
-Second, even when shorthand is used correctly, it is seldom used consistently, rendering global search and replace problematic or useless. If you code `#4be` in some CSS rules and `#44bbee` in others, and then find you need to change that color later, you’ve got a matching problem. Even simple codes like `#000` and `#000000` can’t be easily matched and replaced.
+其次，即使是正确使用缩写，它也很少被一致地使用，在全局搜索中就可能出问题或者是无用的。如果你的 CSS 代码中使用 `#4be` 而其他人使用 `#44bbee`，稍后找到你需要你改变这个颜色，这就会产生匹配的问题。即使是简单的代码 `#000` 和 `#000000` 也不荣易进行匹配和替换。
 
-Third, the download efficiency gain of color shorthand is *three crummy bytes*. The reduction in color specificity alone, never mind the soon-to-jump-up-and-kick-your-butt maintenance hassle, just isn’t worth it.
+第三，颜色值的缩写仅仅能减少**三个字节**，这弊大于利。
 
-### Summary
+### 总结
 
-Let’s take it home. The point to be made here is that hexadecimal isn’t hard, and it’s not even that different from decimal — it just has more digits. Remember that you’re really just dealing with decimal numbers from 0–255, but written with the hex two-digit 00-FF notation. Once you accept the concept of base 16, you’ll see that its mechanics are identical to base 10, and hex color codes will start to become more intuitive.
+让我们来总结一下。这里要明确一点的是，十六进制并不难，和十进制不同的只是多了几个数字。你要记住你要处理的数据是的十进制表示是 0-255，但是写成十六进制的两位数表示就是 00-FF。一旦你接受了十六进制的基数是 16，你将会发现它与是基数为 10 的十进制原理是一样的。十六进制的颜色代码将表现的更为直观。 
 
-![](https://cdn-images-1.medium.com/max/1600/1*dBgajGgo1neP6GZlHOG09g.jpeg)
+![有些人明白了，但有些人还是不明白](https://cdn-images-1.medium.com/max/1600/1*dBgajGgo1neP6GZlHOG09g.jpeg)
 
-Some folks get it… some folks don’t
-Remember, it’s always three pairs of hex digits, always in red-green-blue order, and higher numbers always mean brighter colors (and vice versa).
+记住，它总是三对十六进制数字，总是以红-绿-蓝的顺序排列，更高的数字总是意味着更加明亮的颜色（反之亦然）。
 
-Now take a moment to scrunch your arm around behind you and pat yourself on the back. You now know something that about 98% of your peers don’t!
+现在花一点时间将你的手臂在你身后，拍拍自己的背，放松一下。你现在知道一些你的 98% 的同伴都不了解的知识！
 
-### Resources (sites)
+### 参考文献
 
-#### Colors
+#### 色彩部分
 
 - [http://www.w3schools.com/cssref/css_colors.asp](http://www.w3schools.com/cssref/css_colors.asp)
 - [https://en.wikipedia.org/wiki/Web_colors](https://en.wikipedia.org/wiki/Web_colors)
 - [https://developer.mozilla.org/en-US/docs/Web/CSS/color](https://developer.mozilla.org/en-US/docs/Web/CSS/color)
-- Thousands more, just Google “CSS colors”
+- 还有很多，都是通过谷歌搜索“CSS colors”得到
 
-#### Hexadecimal
+#### 十六进制部分
 
 - [https://learn.sparkfun.com/tutorials/hexadecimal](https://learn.sparkfun.com/tutorials/hexadecimal)
 - [http://www.codeproject.com/Articles/4069/Learning-Binary-and-Hexadecimal](http://www.codeproject.com/Articles/4069/Learning-Binary-and-Hexadecimal)
-- Again, more than you can count
+- 同样的，还有很多
 
-### Resources (tools)
+### 工具
 
-#### Integrated with editors/HATs
+#### 集成工具
 
-Integrated tools typically let you choose a color and see the code, or enter a code and see the color. For example, Chrome DevTools has an integrated color picker, and Mac Sublime Text has a color picker plug-in.
+集成工具通常允许您选择一个颜色并查看其代码，或者输入代码来显示颜色，例如谷歌浏览器的开发者工具有一个集成的颜色选择器，Mac 的 Sublime Text 也有一个颜色选择器的插件
 
-#### Standalone
+#### 其他
 
 - [http://www.colorpicker.com/](http://www.colorpicker.com/) (online)
 - [http://www.iconico.com/colorpic/](http://www.iconico.com/colorpic/) (desktop)
 - [http://www.eyecon.ro/colorpicker/](http://www.eyecon.ro/colorpicker/) (jQuery)
 - [http://colorcop.net/](http://colorcop.net/) (desktop, an oldie but goodie)
 
-### Thanks!
+### 感谢!
 
-Thank you for reading this article; I hope you had fun and learned something along the way! Comments or questions? Contact the author, Dave Gash, at [dave@davegash.com](mailto:dave@davegash.com).
+谢谢你阅读这篇文章，我希望你在这一过程中获得了乐趣并学到了一些东西！评论或问题？可以在 [dave@davegash.com](mailto:dave@davegash.com) 中联系作者，Dave Gash。
 
 
   ---

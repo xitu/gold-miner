@@ -3,24 +3,24 @@
 > * 原文作者：[Giulio Mainardi](https://www.sitepoint.com/author/gmainardi/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/building-trello-layout-css-grid-flexbox.md](https://github.com/xitu/gold-miner/blob/master/TODO/building-trello-layout-css-grid-flexbox.md)
-> * 译者：
-> * 校对者：
+> * 译者：[sunui](https://github.com/sunui)
+> * 校对者：[Aladdin-ADD](https://github.com/Aladdin-ADD)、[ahonn](https://github.com/ahonn)
 
-# Building a Trello Layout with CSS Grid and Flexbox
+# 使用 CSS 栅格和 Flexbox 打造 Trello 布局
+ 
+通过本教程，我将带你完成 [Trello](https://trello.com/) 看板 ([查看示例](https://trello.com/b/nC8QJJoZ/trello-development-roadmap))的基本布局。这是一个响应式的、纯 CSS 的解决方案，并且我们将只开发布局的结构特性。
 
-In this tutorial, I’ll walk you through an implementation of the basic layout of a [Trello](https://trello.com/) board screen ([see example here](https://trello.com/b/nC8QJJoZ/trello-development-roadmap)). This is a responsive, CSS-only solution, and only the structural features of the layout will be developed.
-
-For a preview, [here is a CodePen demo](https://codepen.io/SitePoint/pen/brmXRX?editors=0100) of the final result.
+[这是一个 CodePen demo](https://codepen.io/SitePoint/pen/brmXRX?editors=0100)，可预览一下最终结果。
 
 ![](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2017/08/1504250645trello-screen.png)
 
-Besides [Grid Layout](https://www.sitepoint.com/introduction-css-grid-layout-module/) and [Flexbox](https://www.sitepoint.com/flexbox-css-flexible-box-layout/), the solution employs [calc](https://www.sitepoint.com/css3-calc-function/) and [viewport units](https://www.sitepoint.com/css-viewport-units-quick-start/). To make the code more readable and efficient, I’ll also take advantage of [Sass variables](http://sass-lang.com/documentation/file.SASS_REFERENCE.html#variables_).
+除了[栅格布局](https://www.sitepoint.com/introduction-css-grid-layout-module/)和 [Flexbox](https://www.sitepoint.com/flexbox-css-flexible-box-layout/)，这个方案还采用了 [calc](https://www.sitepoint.com/css3-calc-function/) 和[视图单位](https://www.sitepoint.com/css-viewport-units-quick-start/)。我们也将利用 [Sass 变量](http://sass-lang.com/documentation/file.SASS_REFERENCE.html#variables_)，让代码更可读和高效。
 
-No fallbacks are provided, so make sure to run the code in [a supporting browser](http://caniuse.com/#feat=css-grid). Without further ado, let’s dive in, developing the screen components one by one.
+不提供向下兼容，所以请确保在支持的浏览器上运行。一切就绪，就让我们开始一步一步开发看板组件吧。
 
-## The Screen Layout
+## 屏幕布局
 
-The screen of a Trello board consists of an app bar, a board bar, and a section containing the card lists. I’ll build this structure with the following markup skeleton:
+一个 Trello 看板由一个 app 栏、一个 board 栏和一个包含卡片列表的部分组成。我使用以下标签骨架搭建出这一结构：
 
 ```html
 <div class="ui">
@@ -40,9 +40,9 @@ The screen of a Trello board consists of an app bar, a board bar, and a section 
 </div>
 ```
 
-This layout will be achieved with a CSS Grid. Specifically, a 3×1 grid (that is, one column and three rows). The first row will be for the app bar, the second for the board bar, and the third for the `.lists` element.
+这个布局将通过 CSS 栅格实现。确切地说是 3×1 栅格（就是指一列三行）。第一行用于 app 栏，第二行用于 board 栏，第三行用于 `.lists` 元素。
 
-The first two rows each have a fixed height, while the third row will span the rest of the available viewport height:
+前两行各自有一个固定的高度，而第三行将撑起可变窗口高度的其余部分：
 
 ```css
 .ui {
@@ -52,13 +52,13 @@ The first two rows each have a fixed height, while the third row will span the r
 }
 ```
 
-Viewport units ensure that the `.ui` container will always be as tall as the browser’s viewport.
+视图单位可以确保 `.ui` 容器总是和浏览器的窗口高度一致。
 
-A grid formatting context is assigned to the container, and the grid rows and columns specified above are defined. To be more precise, only the rows are defined because there is no need to declare the unique column. The sizing of the rows is done with a couple of Sass variables for the height of the bars and the `fr` unit to make the height of the `.lists` element span the rest of the available viewport height.
+一个栅格化的上下文被分配给容器，并且指定了上文说的行和列。确切地说，是只指定了行，因为声明单独的列是没有必要的。一对 Sass 变量指定了两个栏目的高度，使用 `fr` 单位指定 `.lists` 元素高度使其撑起可变窗口高度的其余部分，这样每行的大小就设定完成了。
 
-## The Card Lists Section
+## 卡片列表部分
 
-As mentioned, the third row of the screen grid hosts the container for the card lists. Here’s the outline of its markup:
+如上所述，屏幕栅格的第三行托管着卡片列表的容器。这是标签的轮廓：
 
 ```html
 <div class="lists">
@@ -72,7 +72,7 @@ As mentioned, the third row of the screen grid hosts the container for the card 
 </div>
 ```
 
-I’m using a full viewport-width Flexbox single-line row container to format the lists:
+我用一个满屏宽的 Flexbox 单行行容器来格式化列表：
 
 ```
 .lists {
@@ -89,17 +89,17 @@ I’m using a full viewport-width Flexbox single-line row container to format th
 }
 ```
 
-Assigning the auto value to the `overflow-x` property tells the browser to display a horizontal scrollbar at the bottom of the screen when the lists don’t fit in the width provided by the viewport.
+给 `overflow-x` 指定 auto 值，当列表不适合视口提供的宽度时，浏览器会在屏幕底部显示一个水平滚动条。
 
-The `flex` shorthand property is used on the flex items to make the lists rigid. The auto value for `flex-basis` (used in the shorthand) instructs the layout engine to read the size from the `.list` element’s width property, and the zero values for `flex-grow` and `flex-shrink` prevent the alteration of this width.
+`flex` 简写属性用于 flex item 使列表更严格。`flex-basis` （简写的方式使用）的 auto 值指示布局引擎从 `.list` 元素的宽度属性取值，`flex-grow` 和 `flex-shrink` 的 0 值可以防止宽度的改变。
 
-Next I’ll need to add a horizontal separation between the lists. If a right margin on the lists is set, then the margin after the last list in a board with horizontal overflowing is not rendered. To fix this, the lists are separated by a left margin and the space between the last list and the right viewport edge is handled by adding an `::after` pseudo-element to each `.lists` element. The default `flex-shrink: 1` must be overridden otherwise the pseudo-element ‘absorbs’ all the negative space and it vanishes.
+接下来我将在列表之间添加一个水平分隔。如果给列表设置右间距，当水平溢出时看板上最后一个列表之后的间距不会被渲染。为了解决这个问题，列表被一个左间距分隔并且最后一个列表和窗口右边缘的间距通过给每个 `.lists` 元素添加一个伪元素 `::after` 来实现。默认值 `flex-shrink: 1` 一定要被重写，否则这个伪元素会”吸收“所有的负空间，然后消失。
 
-Note that on Firefox < 54 an explicit `width: 100%` on `.lists` is needed to ensure the correct layout rendering.
+注意在 Firefox < 54 的版本上要给 `.lists` 指定 `width: 100%` 以确保正确的布局渲染。
 
-## The Card List
+## 卡片列表
 
-Each card list is made up of a header bar, a sequence of cards, and a footer bar. The following HTML snippet captures this structure:
+每个卡片列表由一个 header 栏、一个卡片序列和一个 footer 栏目组成。以下 HTML 代码段实现了这一结构：
 
 ```html
 <div class="list">
@@ -113,15 +113,15 @@ Each card list is made up of a header bar, a sequence of cards, and a footer bar
 </div>
 ```
 
-The crucial task here is how to manage the height of a list. The header and footer have fixed heights (not necessarily equal). Then there are a variable number of cards, each one with a variable amount of content. So the list grows and shrinks vertically as cards are added or removed.
+这里的关键任务是如何管理列表的高度。header 和 footer 有固定的高度(未必相等)。然后有一些不定数量的卡片，每个卡片都有不定量的内容。因此随着卡片的添加和移除，这个列表也会增大和缩小。
 
-But the height cannot grow indefinitely, it needs to have an upper limit that depends on the height of the `.lists` element. Once this limit is reached, I want a vertical scrollbar to appear to allow access to the cards that overflow the list.
+但是高度不能无限增大，它需要有一个取决于 `.lists` 元素高度的上限。一旦突破上线，我想有一个垂直滚动条出现来允许访问溢出列表的卡片。
 
-This sounds like a job for the `max-height` and `overflow` properties. But if these properties are applied to the root container `.list`, then, once the list reaches its maximum height, the scrollbar appears for all `.list` elements, header and footer included. The following illustration shows the wrong sidebar on the left and the correct one on the right:
+这听起来是 `max-height` 和 `overflow` 属性能做的。但如果根容器 `.list` 提供了这些属性，一旦列表达到了它的最大高度，所有的 `.list` 元素包括 header 和 footer 在内都会出现滚动条。下图左右两边分别显示错误的和正确的侧边条：
 
 ![](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2017/08/1503994870wrong-right-sidebars.jpg)
 
-So, let’s instead apply the `max-height` constraint to the inner `<ul>`. Which value should be used? The heights of the header and the footer must be subtracted from the height of the list parent container (`.lists`):
+因此，让我们把 `max-height` 约束给内部的 `<ul>`。应该提供什么值呢？header 和 footer 的高度必须从列表父容器(`.lists`)的高度之中扣除：
 
 ```
 ul {
@@ -129,7 +129,7 @@ ul {
 }
 ```
 
-But there is a problem. The percentage value doesn’t refer to `.lists` but to the `<ul>` element’s parent, `.list`, and this element doesn’t have a definite height and so this percentage cannot be resolved. This can be fixed by making `.list` as tall as `.lists`:
+但还有一个问题。百分比数值并不参照 `.lists` 而是参照 `<ul>` 元素的父元素  `.list`，并且这个元素没有定义高度，因此这个百分比不能确定。这个问题可以通过设置 `.list` 和 `.lists` 同样高度来解决：
 
 ```
 .list {
@@ -137,9 +137,9 @@ But there is a problem. The percentage value doesn’t refer to `.lists` but to 
 }
 ```
 
-This way, since `.list` is always as high as `.lists`, regardless of its content, its `background-color` property cannot be used for the list background color, but it is possible to use its children (header, footer, cards) for this purpose.
+这样，既然 `.list` 和 `.lists` 总是一样高，它的 `background-color` 属性不能用于列表背景色，但可以使用它的子元素（header, footer 和卡片）来实现这一目的。
 
-One last adjustment to the height of the list is necessary, to account for a bit of space (`$gap`) between the bottom of the list and the bottom edge of the viewport:
+最后一个 list 高度的调整很有必要，可用来计算列表底部和窗口底部的一点空间（`$gap`）。
 
 ```
 .list {
@@ -147,11 +147,11 @@ One last adjustment to the height of the list is necessary, to account for a bit
 }
 ```
 
-A further `$scrollbar-thickness` amount is subtracted to prevent the list from touching the `.list` element’s horizontal scrollbar. In fact, on Chrome this scrollbar ‘grows’ inside the `.lists` box. That is, the 100% value refers to the height of `.lists`, scrollbar included.
+还有一个 `$scrollbar-thickness` 需要被减去，防止列表触及 `.list` 元素的水平滚动条。 事实上这个滚动条”增长“在 `.lists` 盒子内部。也就是说，100% 这个值是指包括滚动条在内的 `.lists` 的高度。
 
-On Firefox instead, the scrollbar is ‘appended’ outside the `.lists` height, i.e, the 100% refers to the height of `.lists` not including the scrollbar. So this subtraction would not be necessary. As a result, when the scrollbar is visible, on Firefox the visual space between the bottom border of a list that has reached its maximum height and the top of the scrollbar is slightly larger.
+而在火狐中，这个滚动条被”附加“给 `.lists` 高度的外部，就是说 `.lists` 高度的 100% 并不包含滚动条。所以这个减法就没什么必要了。结果是当滚动条可见时，在火狐中已经触及最大高度的底部边框和滚动条的顶部之间的可视空间会稍大一些。
 
-Here are the relevant CSS rules for this component:
+这是这个组件相应的 CSS 规则：
 
 ```css
 .list {
@@ -188,17 +188,17 @@ Here are the relevant CSS rules for this component:
 }
 ```
 
-As mentioned, the list background color is rendered by assigning the `$list-bg-color` value to the `background-color` property of each `.list` element’s children. `overflow-y` shows the cards scrollbar only when needed. Finally, some simple styling is added to the header and the footer.
+如上所述，列表背景色通过给每一个 `.list` 元素的子元素的 `background-color` 属性指定 `$list-bg-color` 值而被渲染。`overflow-y` 使得卡片滚动条只有按需显示。最后，给 header 和 footer 添加一些简单的样式。
 
-## Finishing Touches
+## 完成收尾
 
-The HTML for a single card simply consists of a list item:
+单个卡片包含的一个列表元素 HTML：
 
 ```
 <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit</li>
 ```
 
-Or, if the card has a cover image:
+卡片也有可能包含一个封面图片：
 
 ```html
 <li>
@@ -207,7 +207,7 @@ Or, if the card has a cover image:
 </li>
 ```
 
-This is the relevant CSS:
+这是相应的样式：
 
 ```css
 li {
@@ -231,30 +231,30 @@ li {
 }
 ```
 
-After having set a background, padding, and bottom margins, the cover image layout is ready. The image width must span the entire card from the left padding edge to the right padding edge:
+设置完一个背景、填充、和底部间距就差背景图片的布局了。这个图片宽度一定是跨越整个卡片的，从左填充的边缘到右填充的边缘：
 
 ```
 width: calc(100% + 2 * #{$gap});
 ```
 
-Then, negative margins are assigned to align the image horizontally and vertically:
+然后，指定负边距以使图片水平和垂直对齐：
 
 
 ```
 margin: -$gap 0 $gap (-$gap);
 ```
 
-The third positive margin value takes care of the space between the cover image and the card text.
+第三个正边距的值用于指定封面图片和文字之间的空间。
 
-Finally, I’ve added a flex formatting context to the two bars that occupy the first rows of the screen layout. But they are only sketched. Feel free to build your own implementation of this by [expanding on the demo](https://codepen.io/SitePoint/pen/brmXRX?editors=0100).
+最后我给占据屏幕布局第一行的两条添加了一个 flex 格式化上下文，但它们只是草图。通过[扩展 demo](https://codepen.io/SitePoint/pen/brmXRX?editors=0100) 自由构建你自己的实现吧。
 
-## Conclusion
+## 总结
 
-This is only one possible way to accomplish this design and it would be interesting to see other approaches. Also, it would be nice to finalize the layout, for instance completing the two screen bars.
+这只是实现这种设计的一种可行方法，如果能看见其他方式那一定很有趣。此外，如果能完成整个布局那就更好了，比如完成最后的两个栏目。
 
-Another potential enhancement could be the implementation of custom scrollbars for the card lists.
+另一个潜在的改进是能够为卡片列表实现自定义的滚动条。
 
-So, feel free to [fork the demo](https://codepen.io/SitePoint/pen/brmXRX?editors=0100) and post a link in the discussion below.
+所以，[fork 这个 demo](https://codepen.io/SitePoint/pen/brmXRX?editors=0100) 尽情发挥吧，记得在下面的讨论区留下你的链接哦。
 
 
 ---
