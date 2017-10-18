@@ -2,44 +2,44 @@
 > * 原文作者：[Cory House](https://medium.freecodecamp.org/@housecor?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/8-key-react-component-decisions.md](https://github.com/xitu/gold-miner/blob/master/TODO/8-key-react-component-decisions.md)
-> * 译者：
+> * 译者：[undead25](https://github.com/undead25)
 > * 校对者：
 
-# 8 Key React Component Decisions
+# React 组件的 8 个关键决策
 
-## Standardize your React development with these key decisions
+## 通过这些关键决策来标准化你的 React 开发
 
-![](https://cdn-images-1.medium.com/max/1000/1*XgHYXVXoyziBKd7Or5IliQ.jpeg)
+![选择困难证](https://cdn-images-1.medium.com/max/1000/1*XgHYXVXoyziBKd7Or5IliQ.jpeg)
 
-With this many options, choosing is hard.
 
-React was open-sourced in 2013\. Since then, it has evolved. As you search the web, you’ll stumble across old posts with dated approaches. So, here are eight key decisions your team needs to make when writing React components today.
 
-### Decision 1: Dev Environment
+React 自 2013 年被开源以来，一直在更新演进。当你在搜索网页时，可能会被一些使用了过时的方法的文章坑到。所以，现在在写 React 组件时，你的团队需要作出以下八个关键决策。
 
-Before you write your first component, your team needs to agree on a dev environment. Lots of options…
+### 决策 1：开发环境
+
+在编写第一个组件之前，你的团队需要就开发环境达成一致。太多选择了……
 
 ![](https://i.loli.net/2017/10/17/59e5d90a25a0a.jpg)
 
-Sure, you can [build a JS dev environment from scratch](https://www.pluralsight.com/courses/javascript-development-environment). 25% of React devs do just that. My current team uses a fork of create-react-app with additional features such as a [realistic mock API that supports CRUD](https://medium.freecodecamp.org/rapid-development-via-mock-apis-e559087be066), a [reusable component library](https://www.pluralsight.com/courses/react-creating-reusable-components), and linting enhancements (we lint our test files too, which create-react-app ignores). I enjoy create-react-app, but [this tool will help you compare many compelling alternatives](http://andrewhfarmer.com/starter-project/). Want to render on the server? Check out [Gatsby](http://gatsbyjs.org) or [Next.js](https://github.com/zeit/next.js/). You can even consider using an online editor like [CodeSandbox](https://codesandbox.io).
+当然，你可以[从头开始构建 JS 开发环境](https://www.pluralsight.com/courses/javascript-development-environment)，有 25% 的 React 开发者是这么做的。我目前的团队使用的是 create-react-app 的 fork，并拓展了一些功能，例如[支持 CRUD 的 mock API](https://medium.freecodecamp.org/rapid-development-via-mock-apis-e559087be066)、[可复用的组件库](https://www.pluralsight.com/courses/react-creating-reusable-components)和增强的代码检测功能（我们会检测 create-react-app 忽略了的测试文件）。我是喜欢 create-react-app 的，但[这个工具可以帮助你比较许多不错的替代方案](http://andrewhfarmer.com/starter-project/)。想在服务端进行渲染？可以了解下 [Gatsby](http://gatsbyjs.org) 或者 [Next.js](https://github.com/zeit/next.js/)。你甚至可以考虑使用在线编辑器，例如 [CodeSandbox](https://codesandbox.io)。
 
-### Decision 2: Types
+### 决策 2：类型检测
 
-You can ignore types, use [prop-types](https://reactjs.org/docs/typechecking-with-proptypes.html), use [Flow](https://flow.org), or use [TypeScript](https://www.typescriptlang.org). Note that prop-types was extracted to a [separate library](https://www.npmjs.com/package/prop-types) in React 15.5, so older posts will show imports that don’t work anymore.
+你可以使用 [prop-types](https://reactjs.org/docs/typechecking-with-proptypes.html)、[Flow](https://flow.org) 或 [TypeScript](https://www.typescriptlang.org) 来进行类型检测。需要注意的是，在 React 15.5 中，prop-types 被提取到了[单独的库](https://www.npmjs.com/package/prop-types)，因此按照较老的文章进行导入会报警告（React 16 会报错）。
 
-The community remains divided on this topic:
+社区在这个话题上依然存在着分歧：
 
 ![](https://i.loli.net/2017/10/17/59e5da85a81b6.jpg)
 
-I prefer prop-types because I find it provides sufficient type safety in React components with little friction. Using the combination of Babel, [Jest tests](https://facebook.github.io/jest/), [ESLint](http://www.eslint.org), and prop-types, I rarely see runtime type issues.
+我更倾向于 prop-types，因为我发现它在 React 组件中提供了足够的类型安全性，几乎没有任何阻碍。使用 Babel、[Jest](https://facebook.github.io/jest/)、[ESLint](http://www.eslint.org) 和 prop-types 的组合，我很少看到运行时的类型问题。
 
-### Decision 3: createClass vs ES Class
+### 决策 3：createClass 和 ES 类
 
-React.createClass was the original API, but in 15.5, it was deprecated. Some feel [we jumped the gun moving to ES classes](https://medium.com/dailyjs/we-jumped-the-gun-moving-react-components-to-es2015-class-syntax-2b2bb6f35cb3). Regardless, the createClass style has been moved out of React core and [relegated to a single page called “React without ES6” in the React docs](https://reactjs.org/docs/react-without-es6.html). So it’s clear: ES classes are the future. You can easily convert from createClass to ES Classes using [react-codemod](https://github.com/reactjs/react-codemod).
+React.createClass 是原始 API，但在 15.5 中已被弃用。有点感觉[我们将枪头指向了 ES 类](https://medium.com/dailyjs/we-jumped-the-gun-moving-react-components-to-es2015-class-syntax-2b2bb6f35cb3)。不管怎样，createClass 已经从 React 的核心中移除，并被[归类到 React 官方文档中一个名为“React without ES6”的页面](https://reactjs.org/docs/react-without-es6.html)。所以很清楚的是：ES 类是趋势。你可以使用 [react-codemod](https://github.com/reactjs/react-codemod) 轻松地从 createClass 转换为 ES 类。
 
-### Decision 4: Class vs Functional
+### 决策 4：类和函数
 
-You can declare React components via a class or a function. Classes are useful when you need refs, and lifecycle methods. Here are [9 reasons to consider using functions when possible](https://hackernoon.com/react-stateless-functional-components-nine-wins-you-might-have-overlooked-997b0d933dbc). But it’s also worth noting that [there are some downsides to functional components](https://medium.freecodecamp.org/7-reasons-to-outlaw-reacts-functional-components-ff5b5ae09b7c).
+你可以通过类或函数来声明 React 组件。当你需要 refs 或者生命周期方法时，类是必须的。这里有[尽可能考虑使用函数的 9 个理由](https://hackernoon.com/react-stateless-functional-components-nine-wins-you-might-have-overlooked-997b0d933dbc)。但值得注意的是，[函数组件有一些缺点](https://medium.freecodecamp.org/7-reasons-to-outlaw-reacts-functional-components-ff5b5ae09b7c)。
 
 ### Decision 5: State
 
