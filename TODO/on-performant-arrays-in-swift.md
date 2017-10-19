@@ -11,7 +11,7 @@
 
 ## 连续的数组
 
-[`Array`](https://developer.apple.com/documentation/swift/array) 不是 Swift 唯一提供的数组类型。你可能已经注意到 [`ArraySlice`](https://developer.apple.com/documentation/swift/arrayslice) 类型，它能在不复制数组的情况下，展示出数组的局部片段。另外还有 [`ContiguousArray`](https://developer.apple.com/documentation/swift/contiguousarray) 类型。和名字所暗示的不同，它其实是 Swift 中最简单的数组类型。它能比标准的数组具有更高的性能，即使没有，它提供与 `Array` 相同的性能水平。同时也暴露出相同的接口。所以，为什么不用 `ContiguousArray` 去替代 `Array` 呢？
+[`Array`](https://developer.apple.com/documentation/swift/array) 不是 Swift 唯一提供的数组类型。你可能已经注意到 [`ArraySlice`](https://developer.apple.com/documentation/swift/arrayslice) 类型，它能在不复制数组的情况下，展示出数组的局部片段。另外还有 [`ContiguousArray`](https://developer.apple.com/documentation/swift/contiguousarray) 类型。和名字所暗示的不同，它其实是 Swift 中最简单的数组类型。相比标准的数组，它可以有更好的性能表现，而即便没有，也至少可以提供与 `Array` 相同性能水平的表现。同时也暴露出相同的接口。所以，为什么不用 `ContiguousArray` 去替代 `Array` 呢？
 
 ```
 let deliciousArray = ContiguousArray<String>(arrayLiteral: "🌮", "🥞", "🥖")
@@ -19,7 +19,7 @@ let deliciousArray = ContiguousArray<String>(arrayLiteral: "🌮", "🥞", "🥖
 
 好吧，因为 Objective-C 的兼容性，`Array` 能无缝对接成一个 `NSArray`。在底层，一个 `Array` 实例只要它的元素类型是 class 或是遵循了 Objective-C 兼容协议的类型，就会将数组数据存储在 `NSArray` 中。只要不是这种情况（例如数组元素为值类型的数组），这个数组就不会被存储在 `NSArray` 中，并且性能变得和 `ContiguousArray` 相当。
 
-为了比较性能，我们运行了这样一个测试，向每个数组的实例中添加一百万个单独的引用类型，然后删除。这些引用类型会在开始计时前进行预构建，并且结果是在超过 100 次的运行后得到的平均值。下面的值是在设置了编译器优化的情况下获得的。总的来说，你可以看到，如果数组性能是瓶颈的话，要是数组元素是一个引用类型或 `@objc` 类型，或许通过切换到 `ContiguousArray` 能让你获得约 2 倍的提升。
+为了比较性能，我们运行了这样一个测试，向每个数组的实例中添加一百万个单独的引用类型，然后删除。这些引用类型会在开始计时前进行预构建，而结果为超过 100 次的运行后得到的平均值。下面的值是在设置了编译器优化的情况下获得的。总的来说，你可以看到，如果数组性能是瓶颈的话，在数组元素为引用类型或 `@objc` 类型的前提下，切换为 `ContiguousArray` 的使用大约能获得 2 倍性能的提升。
 
 | **Array** | **ContiguousArray** |
 | ---------- | ------------------ |
@@ -45,7 +45,7 @@ healthyArray.reserveCapacity(50)
 
 ## C 类型数组
 
-如果你想访问原始内存来支撑数组，你也可以这么做。对于标准的数组操作，它不会提供太多的性能增益。对于非标准的情况，用这种方式访问或修改数据可能是有必要的，或者是对性能有益的。
+如果你想访问原始内存来加强数组，你也可以这么做。对于标准的数组操作，它不会提供太多的性能增益。对于非标准的情况，用这种方式访问或修改数据可能是有必要的，或者是对性能有益的。
 
 ```
 var balancedDietArray = ["🥖", "🍩", "🍗"]
