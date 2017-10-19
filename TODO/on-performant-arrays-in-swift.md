@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/on-performant-arrays-in-swift.md](https://github.com/xitu/gold-miner/blob/master/TODO/on-performant-arrays-in-swift.md)
 > * 译者：[jingzhilehuakai](https://github.com/jingzhilehuakai)
-> * 校对者：
+> * 校对者：[RickeyBoy](https://github.com/RickeyBoy)  [cbangchen](https://github.com/cbangchen)
 
 # Swift 上的高性能数组
 
