@@ -79,7 +79,7 @@ add(2, 7); // now we call our optimized function, feedback has been collected, l
 d8 --trace-deopt --print-opt-code --allow-natives-syntax --code-comments --turbo add.js
 ```
 
-如果运行在 V8 版本低于 5.9，必须显式传递 `--turbo` 参数，以调用 TurboFan。
+如果运行的 V8 版本低于 5.9，必须显式传递 `--turbo` 参数，以调用 TurboFan。
 
 运行上面的命令，会得到以下类似输出：
 
