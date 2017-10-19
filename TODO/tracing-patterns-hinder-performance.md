@@ -1059,7 +1059,7 @@ RelocInfo (size = 142)
 
 未来，你可以添加 string 特有的操作，比如 (a + b).toUpperCase()，而不需要对 sum 函数做任何特殊处理。
 
-最后，你应该牢记过优化可能会伤害可读性，最终导致不可维护的代码。尽量不要使用任何你在编译语言中不使用的奇怪模式？。
+最后，你应该牢记过度优化可能会伤害可读性，最终导致不可维护的代码。尽量不要使用任何编译语言中不适用的奇怪模式。
 
 最后的最后，我要感谢 Google 的软件工程师、V8 团队的技术领导 [Benedikt Meurer](https://twitter.com/bmeurer)。这里是他的博客：http://benediktmeurer.de/
 
