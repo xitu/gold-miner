@@ -129,7 +129,6 @@ FP 事件在图层进行绘制的时候触发，而不是文本、图片或 Canv
 * 资源太过庞大（如 index.html），传输它们消耗太多时间
 
 阅读 [Ilya Grigorik](https://medium.com/@igrigorik) 写的 [High Performance Browser Networking](https://hpbn.co/) 了解更多关于网络性能的问题，消除这些因素的影响。
-Browser Networking](https://hpbn.co/) by [Ilya Grigorik](https://medium.com/@igrigorik) to eliminate the influence of these factors.
 
 * * *
 
