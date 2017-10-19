@@ -4,7 +4,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/performance-metrics-whats-this-all-about.md](https://github.com/xitu/gold-miner/blob/master/TODO/performance-metrics-whats-this-all-about.md)
 > * 译者：[llp0574](https://github.com/llp0574)
-> * 校对者：
+> * 校对者：[ppp-man](https://github.com/ppp-man)，[lampui](https://github.com/lampui)
 
 # 性能指标都是些什么鬼?
 
@@ -40,13 +40,13 @@ PWM’s 都是些什么，我们为什么需要它们？
 
 为什么加载感知会如此重要？可以参考 [Chrome Developers](https://medium.com/@ChromiumDev) 上的一篇文章：[Leveraging the Performance Metrics that Most Affect User Experience](https://developers.google.com/web/updates/2017/06/user-centric-performance-metrics)，再次强调了加载问题。
 
-看一下下方柱状图，X 轴展示了加载时间，Y 轴展示了用户在特定的时间区间内体验加载时间的相对数值，你就可以明白不是所有用户的体验加载时间都会小于两秒。
+看一下下方柱状图，X 轴展示了加载时间，Y 轴展示了体验到加载时长在特定时间区间里的用户的相对数量，你就可以明白不是所有用户的体验加载时间都会小于两秒。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*gw7eB5MF4SDAk1TGHSUlkg.png)
 
 因此在我们的试验里，17 秒左右的 `load` 时间在获取用户感知加载这方面是没有什么价值的。用户在这 17 秒里到底看到了什么？白屏？加载了一半的页面？页面假死（用户无法点击输入框或滚动）？如果这些问题有答案的话：
 
-1. 可以提高用户体验
+1. 可以改善用户体验
 2. 给应用带来更多的用户
 3. 增加产品所有者的利益（用户、消费者、钱）
 
@@ -56,18 +56,18 @@ PWM’s 都是些什么，我们为什么需要它们？
 
 1. “**它正在运行吗？**”
 
-我的导航成功启动了吗（如服务器已经返回）？
+我的网页浏览开始了吗（服务器有回应，等等）？
 Has my navigation started successfully (the server has responded, etc.)?
 
 2. “**它有用吗？**”
 
-页面上是否有足够关键的内容我可以参与其中？
+页面上是否有足够关键的内容使我能够理解？
 
 3. “**它可以使用了吗？**”
 
 我能不能和页面互动了呢？还是它依旧处于加载状态？
 
-4. “**它好不好看？**”
+4. “**用户体验良好吗？**”
 
 是否没有滚动卡顿、动画卡顿、无样式内容闪烁和缓慢的 Web 字体文件加载等问题出现，让我感到惊喜？
 
@@ -190,7 +190,7 @@ Browser Networking](https://hpbn.co/) by [Ilya Grigorik](https://medium.com/@igr
 
 这个指标意在估计应用对于用户输入的响应有多流畅。
 
-但在深入研究前，我想在同一页面解释一些术语。
+但在深入研究前，我想通过解释一些术语以便大家在理解上同步。
 
 **长任务**
 
@@ -239,7 +239,7 @@ Browser Networking](https://hpbn.co/) by [Ilya Grigorik](https://medium.com/@igr
 
 这个指标的定义和 TTCI 有一点不同。我们从头至尾来分析跟踪时间轴。在 FMP 发生后应该有 3 秒的安静窗口。这个时间已经足够说明页面对于用户来说是可交互的。但可能会有**长任务**在这个安静窗口期间或之后开始执行，它们可以被忽略。
 
-> **长任务** - 距离 FMP 很远执行的任务，并由 250ms 的执行时间期间（信道大小） 和在信道大小前后的 1 秒安静期分隔开来。这个示例任务有可能是第三方广告或者分析脚本。
+> **长任务** - 距离 FMP 很远执行的任务，并由 250ms 的执行时间期间（信道大小）和在信道大小前后的 1 秒安静期分隔开来。这个示例任务有可能是第三方广告或者分析脚本。
 
 > 有时长于 250 毫秒的“长任务”会对页面有严重的影响。
 
@@ -265,7 +265,7 @@ Browser Networking](https://hpbn.co/) by [Ilya Grigorik](https://medium.com/@igr
 
 **速度指数**本身表示**视觉上完成**结果的中值。**速度指数**的值越小，性能就越好。
 
-视觉上 100% 完成是一个最终点，决定了用户对页面是否感到满意。这个时间也是用来回答问题 - **它好不好看？**
+视觉上 100% 完成是一个最终点，决定了用户对页面是否感到满意。这个时间也是用来回答问题 - **用户体验良好吗？**
 
 * * *
 
