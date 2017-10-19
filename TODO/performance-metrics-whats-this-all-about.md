@@ -3,276 +3,275 @@
 > * 原文作者：[Artem Denysov](https://codeburst.io/@denar90?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/performance-metrics-whats-this-all-about.md](https://github.com/xitu/gold-miner/blob/master/TODO/performance-metrics-whats-this-all-about.md)
-> * 译者：
-> * 校对者：
+> * 译者：[llp0574](https://github.com/llp0574)
+> * 校对者：[ppp-man](https://github.com/ppp-man)，[lampui](https://github.com/lampui)
 
-# Performance metrics. What’s this all about?
+# 性能指标都是些什么鬼?
 
 ![](https://cdn-images-1.medium.com/max/1000/1*hT4ixOXHZ8KRZ3YfbpAxbg.png)
 
-Measuring performance of page loading is a hard task. Hence [Google Developers](https://medium.com/@googledevs) together with the community are working on Progressive Web Metrics (PWM’s).
+测量页面的加载性能是一项艰难的任务。因此 [Google Developers](https://medium.com/@googledevs) 正和社区一起致力于渐进式网页指标（Progressive Web Metrics，简称 PWM’s）。
 
-What are PWM’s and why do we need them?
+PWM’s 都是些什么，我们为什么需要它们？
 
-A bit history of browser metrics.
+先来讲一点关于浏览器指标的历史。
 
-A while ago we had 2 main points (events) for measuring performance:
+此前我们有两个主要的点（事件）来测量性能：
 
-`DOMContentLoaded` — fired when page is loaded but scripts just started to be executed.
+`DOMContentLoaded` — 页面加载时触发，但脚本文件刚刚开始执行。
 
-`load` event which is fired then a page is fully loaded and a user can engage with either page or application.
+`load` 事件在页面完全加载后触发，此时用户已经可以使用页面或应用。
 
-If we take a look, as example, at [timeline trace of reddit.com](https://chromedevtools.github.io/timeline-viewer/?loadTimelineFromURL=drive://0ByCYpYcHF12_YjBGUTlJR2gzcHc) (Chrome Dev Tools helps us marking those points with blue and red vertical lines) we can understand why these metrics are not so helpful.
+举个例子，如果我们看一下 [reddit.com 的跟踪时间轴](https://chromedevtools.github.io/timeline-viewer/?loadTimelineFromURL=drive://0ByCYpYcHF12_YjBGUTlJR2gzcHc)（Chrome 的开发者工具可以帮助我们用蓝色和红色的垂直线来标记那些点），就可以明白为什么这些指标不是那么有用了。
 
 ![timeline trace of reddit.com](https://cdn-images-1.medium.com/max/1000/1*hFyHeo1-iI62aMQT8P8ORw.png)
 
-> Fast forward to today and we see that `window.onload` doesn’t reflect the user perception as well as it once did.
+> 时至今日，我们也可以看到 `window.onload` 并没有像以前那样真实反映出用户的感知。
 
-> [Steve Souders](https://medium.com/@souders), [Moving beyond window.onload()](https://www.stevesouders.com/blog/2013/05/13/moving-beyond-window-onload/) (2013)
+> 参考：[Steve Souders](https://medium.com/@souders)，[Moving beyond window.onload()](https://www.stevesouders.com/blog/2013/05/13/moving-beyond-window-onload/) （2013）
 
-Indeed. The problem of `DOMContentLoaded` is a time for parsing and executing javascript, if scripts are too big then this time might take too long. For example on mobile devices. Regarding the timeline trace, which was measured with 3G network throttling, it took ~10 sec for reaching `load`.
+确实，`DOMContentLoaded` 的问题在于解析和执行 JavaScript 的时间，如果脚本文件太大，那么这个时间就会非常长。比如移动设备，在 3G 网络的限制下测量跟踪时间轴，就会发现要花费差不多十秒才能到达 `load` 点。
 
-In other hand, `load` happens too late to analyze page performance bottlenecks.
+另一方面，`load` 事件太晚触发，就无法分析出页面的性能瓶颈。
 
-So can we rely on these metrics? What information do they provide us with?
+所以我们能否依赖这些指标？它们到底给我们提供了什么信息？
 
-And the main question, **how do users perceive page load** from the start of page loading to fully loaded page?
+而且最主要的问题是，从页面开始加载直至加载完成，**用户如何感知这个过程**？
 
-Why is this loading perception is so important? We can refer to [Leveraging the Performance Metrics that Most Affect User Experience article](https://developers.google.com/web/updates/2017/06/user-centric-performance-metrics) from [Chrome Developers](https://medium.com/@ChromiumDev) which underline problem of `load` one more time.
+为什么加载感知会如此重要？可以参考 [Chrome Developers](https://medium.com/@ChromiumDev) 上的一篇文章：[Leveraging the Performance Metrics that Most Affect User Experience](https://developers.google.com/web/updates/2017/06/user-centric-performance-metrics)，再次强调了加载问题。
 
-Taking a look at the histogram where X-axis show load times and y-axis show the relative number of users who experienced a load time in that particular time bucket, you can understand that not all users experienced load time less than 2 seconds.
+看一下下方柱状图，X 轴展示了加载时间，Y 轴展示了体验到加载时长在特定时间区间里的用户的相对数量，你就可以明白不是所有用户的体验加载时间都会小于两秒。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*gw7eB5MF4SDAk1TGHSUlkg.png)
 
-As a result `load` time, which is around 17 seconds for our experiment, couldn’t say anything valuable about user’s perception of page loading. What had user been seeing during this 17 seconds? Blank screen? Partly loaded page? Was content loaded but frozen (e.g. user couldn’t tap on input or scroll)? Having answers to that questions:
+因此在我们的试验里，17 秒左右的 `load` 时间在获取用户感知加载这方面是没有什么价值的。用户在这 17 秒里到底看到了什么？白屏？加载了一半的页面？页面假死（用户无法点击输入框或滚动）？如果这些问题有答案的话：
 
-1. Can improve user experience
-2. Bring more users to the application
-3. Increase benefits for product owners (users, customers, money)
+1. 可以改善用户体验
+2. 给应用带来更多的用户
+3. 增加产品所有者的利益（用户、消费者、钱）
 
 * * *
 
-So, guys tried to read users minds and predict what would user ask herself/himself while 17 seconds of load time.
+所以，大家都在尝试解读用户的想法并预测用户在这 17 秒的加载时间里会想些什么。
 
-1. “I**s it happening?**”
+1. “**它正在运行吗？**”
 
+我的网页浏览开始了吗（服务器有回应，等等）？
 Has my navigation started successfully (the server has responded, etc.)?
 
-2. “I**s it useful?**”
+2. “**它有用吗？**”
 
-Has the page painted enough critical content that I could engage with it?
+页面上是否有足够关键的内容使我能够理解？
 
-3. “I**s it usable?**”
+3. “**它可以使用了吗？**”
 
-Can I actually engage with the page or is it still busy?
+我能不能和页面互动了呢？还是它依旧处于加载状态？
 
-4. “**Is it delightful?**”
+4. “**用户体验良好吗？**”
 
-Was I pleasantly surprised by the lack of scrolling jank, animation jank, FOUC, slow webfonts, etc?
+是否没有滚动卡顿、动画卡顿、无样式内容闪烁和缓慢的 Web 字体文件加载等问题出现，让我感到惊喜？
 
 * * *
 
-If `DOMContentLoaded` or `load` metrics can’t answer these questions which one can?
+如果 `DOMContentLoaded` 或者 `load` 指标不能回答这些问题，那么什么指标可以回答？
 
-## Progressive Web Metrics
+## 渐进式网页指标（Progressive Web Metrics）
 
-PWM’s — list of metrics which suppose to help detect performance bottlenecks. Despite `load` and `DOMContentLoaded` PWM’s provide developers with much more detailed information about page loading.
+PWM’s 的指标列表目的在于帮助检测性能瓶颈。除开 `load` 和 `DOMContentLoaded`，PWM's 给开发者提供了更多更详细的关于页面加载的信息。
 
-Let’s take a journey with PWM’s using reddit.com trace and try to understand the meaning of each metric.
+下面让我们用 reddit.com 的跟踪时间轴来探究一下 PWM’s，并尝试弄明白每个指标的意思。
 
 ![Timeline trace of reddit.com measured using ChromeDevTools](https://cdn-images-1.medium.com/max/1000/1*-zjNpHphoKaaZJgG7omu2w.png)
 
 * * *
 
-### First Paint (FP)
+### 首次绘制（First Paint，FP）
 
-I was, kinda, cheating saying that we had only 2 metrics. Dev Tools also provided us with one more metric — FP. It’s a timing while page was being painted. Saying another word it’s time when user seeing a blank screen for the first time (below a FP screenshot of msn.com). Read more at [specification](https://github.com/w3c/paint-timing).
+我曾经说我们只有两个指标，这其实不太准确。（Chrome）开发者工具还给我们提供了一个指标 - FP。这个指标表示页面绘制的时间点，换句话说它表示当用户第一次看到白屏的时间点（下面是 msn.com 的 FP 截屏）。可以在[规范说明](https://github.com/w3c/paint-timing)里阅读更多相关内容。
 
 ![](https://cdn-images-1.medium.com/max/800/1*IuI-OeOiJByd_kbOnQ4T6A.png)
 
-To understand how it works, we can take a look under the hood at Chromium graphic layer, as an example
+想弄明白它是如何工作的话，作为例子，我们可以看一下 Chromium 图层的底层原理。
 
 ![Simplified Chromium Graphics Layer](https://cdn-images-1.medium.com/max/800/1*w0ejDtPxaRfJsyGRgoE02A.png)
 
-FP event is fired when graphic layer was being painted, but not text, image, canvas etc, but it gave some information at list which developers tried to use.
+FP 事件在图层进行绘制的时候触发，而不是文本、图片或 Canvas 出现的时候，但它也在列表里给出了一些开发者尝试使用的信息。
 
-While it was not standardized metric, measuring became really tricky. Different “hacky” techniques were used, like:
+但它并不是标准指标，所以测量就变得非常棘手。因此用到了一些不同的 “取巧” 技术，比如：
 
-* attaching requestAnimationFrame
-* catching css resources loaded
-* even using `DOMContentLoaded` and `load`events (their problems were described above)
+* 附加 `requestAnimationFrame` 使用
+* 捕捉 CSS 资源加载
+* 甚至使用 `DOMContentLoaded` 和 `load` 事件（它们的问题之前已经讲过）
 
-But, despite on all effort, it has low-level value because text, image, canvas might be drawn a while after fired FP event, affected by performance bottlenecks like page weight, css or javascript resources size.
+但是，尽管做出了这些努力，它仍然不具有太大的价值，因为文本、图片和 Canvas 可能在 FP 事件触发没多久就会进行绘制，而这些则会被诸如页面权重、CSS 或 JavaScript 资源大小等性能瓶颈所影响。
 
-> This metric is NOT a part PWM but knowledge about it is useful to understand metric explained below.
+> 这个指标不属于 PWM 的一部分，但它对于理解下面将要讲到的指标很有帮助。
 
-So some other metric was needed to represent actual drawing of content.
+所以需要其他一些指标来表示真实的内容绘制。
 
-### **First Contentful Paint (FCP)**
+### **首次内容绘制（First Contentful Paint，FCP）**
 
-It’s a timing when user sees something “contentful” painted on a page. Just something different from a blank screen. It can be anything either first paint of text, or first paint of SVG, or first paint of canvas etc.
+这是当用户看见一些“内容”元素被绘制在页面上的时间点。和白屏是不一样的，它可以是文本的首次出现，或者 SVG 的首次出现，或者 Canvas 的首次出现等等。
 
-As a result, user might ask himself the question, i**s it happening?** Has page started loading after he/she wrote a URL and pressed enter?
+因此，用户可能会产生疑问，**它正在运行吗？** 页面是否在他（她）键入 URL 并按 enter 键后开始加载了呢？
 
 ![First Paint vs First Contentful Paint of msn.com](https://cdn-images-1.medium.com/max/800/1*UduDmCWTDefC6CHubA-lTQ.png)
 
-Continuing taking a look at Chromium, FCP event has been fired during actual drawing of a text (text which is waiting for loading fonts is ignored), image, canvas etc. As result time difference between FP and FCP might take from milliseconds to seconds_._ The difference really noticed even on a screenshot above. That’s why having metric which represents real first paint of content is valuable.
+继续看一下 Chromium，FCP 事件在文本（正在等待字体文件加载的文本不计算在内）、图片、Canvas 等元素绘制期间就已经被触发了。因此，FP 和 FCP 的时间差异可能从几毫秒到几秒不等。这个差别甚至可以从上面的图片中看出来。这就是为什么用一个指标来表示真实的首次内容绘制是有价值的。
 
-> You can read all specification [here](https://docs.google.com/document/d/1kKGZO3qlBBVOSZTf-T8BOMETzk3bY15SC-jsMJWv4IE/edit#).
+> 你可以从[这里](https://docs.google.com/document/d/1kKGZO3qlBBVOSZTf-T8BOMETzk3bY15SC-jsMJWv4IE/edit#)阅读所有的规范说明。
 
-**How is *FCP* metric valuable for developers?**
+**FCP 指标如何对开发者产生价值？**
 
-If time to *First Contentful Paint* takes too long, then:
+如果**首次内容绘制**耗时太长，那么：
 
-* you might have performance jank in your network connection
-* resources are large (e.g. index.html) and it takes a time to deliver them
+* 你的网络连接可能有性能问题
+* 资源太过庞大（如 index.html），传输它们消耗太多时间
 
-Read more about network performance in [High Performance
+阅读 [Ilya Grigorik](https://medium.com/@igrigorik) 写的 [High Performance Browser Networking](https://hpbn.co/) 了解更多关于网络性能的问题，消除这些因素的影响。
 Browser Networking](https://hpbn.co/) by [Ilya Grigorik](https://medium.com/@igrigorik) to eliminate the influence of these factors.
 
 * * *
 
-### First Meaningful Paint (FMP)
+### 首次有意义绘制（First Meaningful Paint，FMP）
 
-Is the time when page’s primary content appeared on the screen, hence — **is it useful?**
+这是指页面主要内容出现在屏幕上的时间点，因此，**它有用吗？**
 
 ![First Paint vs First Contentful Paint vs First Meaningful Paint of msn.com](https://cdn-images-1.medium.com/max/800/1*835Kq5Mzw87L8XRoXXyKIw.png)
 
-What’s this primary content?
+主要内容是什么？
 
-When
+当
 
-* header and text for blogs
-* search text for search engines
-* images if they are critical for e-commerce products
+* 博客的标题和文本
+* 搜索引擎的搜索文本
+* 对于电子商务产品来说重要的图片
 
-is shown.
+展示的时候。
 
-But it _doesn’t count_ if
+但如果展示的是
 
-* spinners or something similar
-* flash of unstyled content (FOUC)
-* navigation bar or page header
+* 下拉菜单或类似的东西
+* 无样式内容闪烁（FOUC）
+* 导航条或页面标题
 
-is shown.
+则**不计算**在主要内容之内。
 
-> FMP = Paint that follows biggest layout change
+> FMP = 最大布局变化时的绘制
 
-Due to Chromium implementation, this paint is calculated using [LayoutAnalyzer](https://code.google.com/p/chromium/codesearch#chromium/src/third_party/WebKit/Source/core/layout/LayoutAnalyzer.h&sq=package:chromium&type=cs), which collects all layout changes, by finding time when the biggest layout was changed. This time will be the FMP.
+基于 Chromium 的实现，这个绘制是使用 [LayoutAnalyzer](https://code.google.com/p/chromium/codesearch#chromium/src/third_party/WebKit/Source/core/layout/LayoutAnalyzer.h&sq=package:chromium&type=cs) 进行计算的，它会收集所有的布局变化，当布局发生最大变化时得出时间。而这个时间就是 FMP。
 
-> You can read all specification [here](https://docs.google.com/document/d/1BR94tJdZLsin5poeet0XoTW60M0SjvOJQttKT-JK8HI/edit#).
+> 你可以从[这里](https://docs.google.com/document/d/1BR94tJdZLsin5poeet0XoTW60M0SjvOJQttKT-JK8HI/edit#)阅读所有的规范说明。
 
-**How is *FMP* metric useful for developers?**
+**FMP 指标如何对开发者产生帮助？**
 
-If primary content isn’t shown for too long time, then:
+如果主要内容很久都没有展示出来，那么：
 
-* too many resources (images, styles, fonts, javascript) have high load priority, as a result, they are blocking FMP
+* 太多资源（图片、样式、字体、JavaScript）有较高的加载优先级，因此，它们阻塞了 FMP
 
-I don’t wanna repeat already used practices for improving these bottlenecks and just leave some links
+我不想重复太多已有的用来提升这些瓶颈的实践方法，给大家留出一些链接：
 
-* [Preload, Prefetch And Priorities in Chrome](https://medium.com/reloading/preload-prefetch-and-priorities-in-chrome-776165961bbf) by [Addy Osmani](https://medium.com/@addyosmani)
-* [Critical Request](https://css-tricks.com/the-critical-request/) by [Ben Schwarz](https://medium.com/@benschwarz)
-* [The State of the Web](https://medium.com/@fox/talk-the-state-of-the-web-3e12f8e413b3) by [Karolina Szczur](https://medium.com/@fox)
-* [Practical Performance (Polymer Summit 2016)](https://youtu.be/6m_E-mC0y3Y) from [Paul Irish](https://medium.com/@paul_irish) and [Sam Saccone](https://medium.com/@samccone)
+* [Addy Osmani](https://medium.com/@addyosmani) 的 [Preload, Prefetch And Priorities in Chrome](https://medium.com/reloading/preload-prefetch-and-priorities-in-chrome-776165961bbf)
+* [Ben Schwarz](https://medium.com/@benschwarz) 的 [Critical Request](https://css-tricks.com/the-critical-request/)
+* [Karolina Szczur](https://medium.com/@fox) 的 [The State of the Web](https://medium.com/@fox/talk-the-state-of-the-web-3e12f8e413b3)
+* [Paul Irish](https://medium.com/@paul_irish) 和 [Sam Saccone](https://medium.com/@samccone) 的 [Practical Performance (Polymer Summit 2016)](https://youtu.be/6m_E-mC0y3Y) 
 
-where you can find all necessary information.
-
-* * *
-
-### Visually Ready
-
-When page looks “nearly” loaded but browser hasn’t finished executing all scripts.
+从这些文章里可以找到所有需要的信息。
 
 * * *
 
-### Estimated Input Latency
+### 视觉上准备好
 
-Metric suppose to estimate how smoothly application responses on user input.
+当页面看上去“接近”加载完成，但浏览器还没有执行完所有脚本文件的状态。
 
-But before digging in I want to explain some terminology to be on a same page.
+* * *
 
-**Long tasks**
+### 预计输入延迟
 
-Browser under the hood wrap all users input into tasks (UI tasks) and put them in a queue on the main thread. Other than that, browser also has to parse/compile/execute javascript on a page (application tasks). If time for each application task takes a long time then user input task might be blocked until they are done. As a result it could delay interactive with a page, page could behave janky and laggy.
+这个指标意在估计应用对于用户输入的响应有多流畅。
 
-Saying simple words, long tasks — parsing/compiling/executing javascript chunks longer than 50ms.
+但在深入研究前，我想通过解释一些术语以便大家在理解上同步。
 
-> You can read all specification [here](https://w3c.github.io/longtasks/).
+**长任务**
 
-Long tasks API already [implemented](https://www.chromestatus.com/feature/5738471184400384) in Chrome and already used for measuring how busy main thread is.
+浏览器底层将所有用户输入打包在一个任务里（UI 任务），并在主线程中将它们放到一个队列里。除此之外，浏览器还必须在页面上解析、编译和执行 JavaScript 代码（应用任务）。如果每个应用任务要耗费很长时间的话，那么用户输入任务就可能在其他任务结束前受到阻塞。因此它就会延迟与页面的交互，页面行为就会变得卡顿有延迟。
+
+简单来说，长任务就是指耗时大于 50 毫秒的解析、编译和执行 JavaScript 代码块。
+
+> 你可以从[这里](https://w3c.github.io/longtasks/)阅读所有的规范说明。
+
+长任务 API 已经在 Chrome 里[实现](https://www.chromestatus.com/feature/5738471184400384)，并用作测量主线程的繁忙程度。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*JUlxNXlme70nrChpYw6idQ.png)
 
-Going back to the Estimated Input Latency, users assume that page responses immediately but if main thread is busy proceeding each long task then it bothers he/she in a not good way. As far as user experience is critical for application you can read information [Measure Performance with the RAIL Model](https://developers.google.com/web/fundamentals/performance/rail) about performance improvements of these kind bottlenecks.
+回到预计输入延迟，用户会假设页面响应很快，但如果主线程正忙于处理各个长任务，那么就会让用户不满意。对于应用来说，用户体验至关重要，可以从 [Measure Performance with the RAIL Model](https://developers.google.com/web/fundamentals/performance/rail) 这篇文章里阅读关于这种类型的性能瓶颈如何进行性能提升。
 
 * * *
 
-### First Interactive
+### 首次交互
 
-Interactive — i**s it usable?** Yes, this is the question user want to ask when seeing Visually Ready page and want to engage with it.
+交互 - **它可以使用了吗？** 是的，这是当用户看见视觉上准备好的页面时提出的问题，他们希望能与页面产生交互。
 
-First interactive has happened then conditions
+首次交互发生需满足以下条件：
 
 * *FMP*
 * &&
-* [DOMContentLoaded](https://developer.mozilla.org/ru/docs/Web/Events/DOMContentLoaded) event has been fired
+* [DOMContentLoaded](https://developer.mozilla.org/ru/docs/Web/Events/DOMContentLoaded) 事件被触发
 * &&
-* page *Visually Complete* on 85%
+* 页面视觉完成度在 85%
 
-are satisfied.
+首次交互 - 这个指标可以拆分成两个指标，首次交互的时间（Time to First Interactive，TTFI）和首次持续交互的时间（Time to First Consistently Interactive，TTCI）。
 
-First Interactive — metric which is separated on a two metrics Time to First Interactive (TTFI) and Time to First Consistently Interactive (TTCI).
+拆分的原因在于：
 
-Reasons to separate it
-
-* define minimal interactive, when UI responses well but it’s ok if it’s not
-* when a website is completely and delightfully interactive and strictly meets the guideline of [RAIL](https://developers.google.com/web/fundamentals/performance/rail)
+* 当 UI 响应良好时，定义最小程度的交互，但如果响应不好也可以接受
+* 当网站有着完整且令人愉悦的交互，并严格遵循 [RAIL](https://developers.google.com/web/fundamentals/performance/rail) 的指导原则时
 
 **TTCI**
 
 ![](https://cdn-images-1.medium.com/max/800/0*6qzJAADPmBaNSwFw.)
 
-Using revers analyses, which looks from the end of a trace, finds that the page loading activity is quiet for 5 sec and it has no more long tasks, get period called *quiet window*. Time after quiet window and before first long task (first from the end) will be **TTCI.**
+使用逆序分析，从追踪线的尾端开始看，发现页面加载活动保持了 5 秒的安静并且再无更多的长任务执行，得到了一段叫做**安静窗口**的时期。安静窗口之后及第一个长任务（从安静期结束后开始算）之前的时间就是**TTCI**。
 
 **TTFI**
 
 ![](https://cdn-images-1.medium.com/max/800/0*xWGGBiXh0pLiPeuk.)
 
-Definition of this metric a bit different from TTCI. Trace is analyzed from start to end. After FMP happened there are should be quiet window for 3 seconds. It’s enough time for saying that page is interactive enough for the user. But there might be _lonely tasks_ during/after quite window. They can be ignored.
+这个指标的定义和 TTCI 有一点不同。我们从头至尾来分析跟踪时间轴。在 FMP 发生后应该有 3 秒的安静窗口。这个时间已经足够说明页面对于用户来说是可交互的。但可能会有**长任务**在这个安静窗口期间或之后开始执行，它们可以被忽略。
 
-> _Lonely tasks — _tasksexecuted far from FMP and isolated by 250ms execution time period (envelope size) and 1 sec quietness before and after envelope size. Example of this task can be third party ads or analytics scripts.
+> **长任务** - 距离 FMP 很远执行的任务，并由 250ms 的执行时间期间（信道大小）和在信道大小前后的 1 秒安静期分隔开来。这个示例任务有可能是第三方广告或者分析脚本。
 
-> Sometimes “lonely tasks” longer than 250ms can have serious perf impact on a page
+> 有时长于 250 毫秒的“长任务”会对页面有严重的影响。
 
-> Like detecting *adblock*
+> 比如检测**adblock**
 
-> You can read all specification [here](https://docs.google.com/document/d/1GGiI9-7KeY3TPqS3YT271upUVimo-XiL5mwWorDUD4c/edit#).
+> 你可以从[这里](https://docs.google.com/document/d/1GGiI9-7KeY3TPqS3YT271upUVimo-XiL5mwWorDUD4c/edit#)阅读所有的规范说明。
 
-**How are *TTFI and TTCI* metrics useful for developers?**
+**TTFI 和 TTCI 指标如何对开发者产生帮助？**
 
-When thread is busy for a long time between *Visually Ready* and *First Interactive*
+当线程长时间处于**视觉上准备好**和**首次交互**中间忙碌状态时
 
 ![](https://cdn-images-1.medium.com/max/800/1*_uAiHAv4-bpoMFYqgbBKcQ.png)
 
-This is one of the trickiest bottlenecks and there is no standard way to fix this kind of problem. It’s individual and depends on application specific cases. [Chrome Dev Tools](https://developer.chrome.com/devtools) has bunch of [articles](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/) which can help detect runtime performance issues.
+这是其中一个最复杂的瓶颈，并且没有标准方法来修复这类型的问题。它是独立的，而且取决于应用的特定情况。[Chrome 开发者工具](https://developer.chrome.com/devtools)有一系列[文章](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/)帮助我们检测运行时的性能问题。
 
 * * *
 
-### Visually Complete / Speed Index
+### 视觉上完成 / 速度指数
 
-*Visually Complete* is calculated taking page screenshots and do pixel analysis of those screenshots applying [Speed Index algorithm](https://sites.google.com/a/webpagetest.org/docs/using-webpagetest/metrics/speed-index). Sometimes it can be tricky measuring *Visually Complete.*
+**视觉上完成**是通过页面截图来计算的，并使用[速度指数算法](https://sites.google.com/a/webpagetest.org/docs/using-webpagetest/metrics/speed-index)来对那些截图进行像素分析。有时候测量是否**视觉上完成**也是一件棘手的事情。
 
-> If page has changing images aka carousel it might be challenging to get proper Result of Visually Complete
+> 如果页面里有会发生变化的图片如轮播图，那么获取正确的视觉上完成结果就可能有点挑战了。
 
-*Speed Index* by itself represents median of *Visually Complete* results. The less value of *Speed Index* metric then better.
+**速度指数**本身表示**视觉上完成**结果的中值。**速度指数**的值越小，性能就越好。
 
-Visually Complete 100% is a final point where user can be either happy or not. This is a time for asking question — **was it delightful?**
+视觉上 100% 完成是一个最终点，决定了用户对页面是否感到满意。这个时间也是用来回答问题 - **用户体验良好吗？**
 
 * * *
 
-## Summarizing
+## 总结
 
-It’s not all PWM but most important of them. Above, were added links to materials which can help improve each metric, also, I want to leave some links to the tools for measuring this kind of metrics
+上述并不是所有的 PWM，但是最重要的一部分。上面的指标都增加了一些资料链接，帮助我们更好地提升它们，另外，我还想留出一些关于测量这些类型指标的工具链接：
 
 * [Web Pagetest](https://www.webpagetest.org/about)
 * [Lighthouse](https://github.com/GoogleChrome/lighthouse/)
@@ -280,11 +279,11 @@ It’s not all PWM but most important of them. Above, were added links to materi
 * [Calibre](https://calibreapp.com/)
 * [DevTools Timeline Viewer](https://chromedevtools.github.io/timeline-viewer/)
 
-P.S. For getting results of all these metrics is better to use either Lighthouse or pwmetrics. Both Calibre and WPT run Lighthouse, and by extension of that provides all of these metrics.
+P.S. 要获得所有这些指标的结果的话，我推荐使用 Lighthouse 或 pwmetrics。Calibre 和 WPT 都可以运行 Lighthouse，并可以通过扩展提供所有这些指标。
 
-If you want to do performance measurements manually there are native API called [PerformanceObserver](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceObserver) can help you achieve your measurement goals.
+如果你想手动测量性能，有一个原生 API，叫 [PerformanceObserver](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceObserver)，它可以帮助你实现你的测量目标。
 
-Example from [specification](https://w3c.github.io/performance-timeline/):
+从[规范说明](https://w3c.github.io/performance-timeline/)里截取的示例：
 
 ```
 const observer = new PerformanceObserver(list => {
@@ -313,7 +312,7 @@ observer.observe({
 });
 ```
 
-Thanks to all guys for amazing work with a specifications, articles, and tools!
+感谢所有工作人员，他们在规范说明、文章和工具上做了很出色的工作！
 
 
 ---
