@@ -87,7 +87,7 @@ PWM’s 的指标列表目的在于帮助检测性能瓶颈。除开 `load` 和 
 
 ### 首次绘制（First Paint，FP）
 
-我曾经说我们只有两个指标，这其实不太准确。（Chrome）开发者工具还给我们提供了一个指标 - FP。这个指标表示页面绘制的时间点，换句话说它表示当用户第一次看到白屏的时间点（下面是 msn.com 的 FP 截屏）。可以在[规范](https://github.com/w3c/paint-timing)里阅读更多相关内容。
+我曾经说我们只有两个指标，这其实不太准确。（Chrome）开发者工具还给我们提供了一个指标 - FP。这个指标表示页面绘制的时间点，换句话说它表示当用户第一次看到白屏的时间点（下面是 msn.com 的 FP 截屏）。可以在[规范说明](https://github.com/w3c/paint-timing)里阅读更多相关内容。
 
 ![](https://cdn-images-1.medium.com/max/800/1*IuI-OeOiJByd_kbOnQ4T6A.png)
 
@@ -119,7 +119,7 @@ FP 事件在图层进行绘制的时候触发，而不是文本、图片或 Canv
 
 继续看一下 Chromium，FCP 事件在文本（正在等待字体文件加载的文本不计算在内）、图片、Canvas 等元素绘制期间就已经被触发了。因此，FP 和 FCP 的时间差异可能从几毫秒到几秒不等。这个差别甚至可以从上面的图片中看出来。这就是为什么用一个指标来表示真实的首次内容绘制是有价值的。
 
-> 你可以从[这里](https://docs.google.com/document/d/1kKGZO3qlBBVOSZTf-T8BOMETzk3bY15SC-jsMJWv4IE/edit#)阅读所有的规范。
+> 你可以从[这里](https://docs.google.com/document/d/1kKGZO3qlBBVOSZTf-T8BOMETzk3bY15SC-jsMJWv4IE/edit#)阅读所有的规范说明。
 
 **FCP 指标如何对开发者产生价值？**
 
@@ -161,7 +161,7 @@ Browser Networking](https://hpbn.co/) by [Ilya Grigorik](https://medium.com/@igr
 
 基于 Chromium 的实现，这个绘制是使用 [LayoutAnalyzer](https://code.google.com/p/chromium/codesearch#chromium/src/third_party/WebKit/Source/core/layout/LayoutAnalyzer.h&sq=package:chromium&type=cs) 进行计算的，它会收集所有的布局变化，当布局发生最大变化时得出时间。而这个时间就是 FMP。
 
-> 你可以从[这里](https://docs.google.com/document/d/1BR94tJdZLsin5poeet0XoTW60M0SjvOJQttKT-JK8HI/edit#)阅读所有的规范。
+> 你可以从[这里](https://docs.google.com/document/d/1BR94tJdZLsin5poeet0XoTW60M0SjvOJQttKT-JK8HI/edit#)阅读所有的规范说明。
 
 **FMP 指标如何对开发者产生帮助？**
 
@@ -198,7 +198,7 @@ Browser Networking](https://hpbn.co/) by [Ilya Grigorik](https://medium.com/@igr
 
 简单来说，长任务就是指耗时大于 50 毫秒的解析、编译和执行 JavaScript 代码块。
 
-> 你可以从[这里](https://w3c.github.io/longtasks/)阅读所有的规范。
+> 你可以从[这里](https://w3c.github.io/longtasks/)阅读所有的规范说明。
 
 长任务 API 已经在 Chrome 里[实现](https://www.chromestatus.com/feature/5738471184400384)，并用作测量主线程的繁忙程度。
 
@@ -245,7 +245,7 @@ Browser Networking](https://hpbn.co/) by [Ilya Grigorik](https://medium.com/@igr
 
 > 比如检测**adblock**
 
-> 你可以从[这里](https://docs.google.com/document/d/1GGiI9-7KeY3TPqS3YT271upUVimo-XiL5mwWorDUD4c/edit#)阅读所有的规范。
+> 你可以从[这里](https://docs.google.com/document/d/1GGiI9-7KeY3TPqS3YT271upUVimo-XiL5mwWorDUD4c/edit#)阅读所有的规范说明。
 
 **TTFI 和 TTCI 指标如何对开发者产生帮助？**
 
@@ -283,7 +283,7 @@ P.S. 要获得所有这些指标的结果的话，我推荐使用 Lighthouse 或
 
 如果你想手动测量性能，有一个原生 API，叫 [PerformanceObserver](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceObserver)，它可以帮助你实现你的测量目标。
 
-从[规范](https://w3c.github.io/performance-timeline/)截取的示例：
+从[规范说明](https://w3c.github.io/performance-timeline/)里截取的示例：
 
 ```
 const observer = new PerformanceObserver(list => {
@@ -312,7 +312,7 @@ observer.observe({
 });
 ```
 
-感谢所有工作人员，他们在规范、文章和工具上做了很出色的工作！
+感谢所有工作人员，他们在规范说明、文章和工具上做了很出色的工作！
 
 
 ---
