@@ -40,51 +40,51 @@ React.createClass 是原始 API，但在 15.5 中已被弃用。有点感觉[我
 
 你可以通过类或函数来声明 React 组件。当你需要 refs 或者生命周期方法时，类是必须的。这里有[尽可能考虑使用函数的 9 个理由](https://hackernoon.com/react-stateless-functional-components-nine-wins-you-might-have-overlooked-997b0d933dbc)。但值得注意的是，[函数组件有一些缺点](https://medium.freecodecamp.org/7-reasons-to-outlaw-reacts-functional-components-ff5b5ae09b7c)。
 
-### Decision 5: State
+### 决策 5：状态
 
-You can use plain React component state. It’s sufficient. [Lifting state](https://reactjs.org/docs/lifting-state-up.html) scales nicely. Or, you may enjoy Redux or MobX:
+使用普通的 React 组件状态足以满足。[状态提升](https://reactjs.org/docs/lifting-state-up.html)可以很好地解决状态共享的问题。或者，你也可以使用 Redux 或 MobX：
 
-![1508235965(1).jpg](https://i.loli.net/2017/10/17/59e5daca05632.jpg)
+![](https://i.loli.net/2017/10/17/59e5daca05632.jpg)
 
-[I’m a fan of Redux](https://www.pluralsight.com/courses/react-redux-react-router-es6), but I often use plain React since it’s simpler. In my current role, we’ve shipped about a dozen React apps, and decided Redux was worth it for two. I prefer shipping many, small, autonomous apps over a single large app.
+[我是 Redux 的粉丝](https://www.pluralsight.com/courses/react-redux-react-router-es6)，但我经常使用普通的 React 状态，因为它更简单。就目前来看，我们已经上线了十几个 React 应用程序，其中的两个是值得使用 Redux 的。我喜欢将多个小型自研应用程序运行在单个大型应用程序中。
 
-On a related note, if you’re interested in immutable state, there are at least [4 ways to keep your state immutable](https://medium.com/@housecor/handling-state-in-react-four-immutable-approaches-to-consider-d1f5c00249d5).
+如果你对不可变状态感兴趣，这里有一篇相关的文章，提到了至少有 [4 种方式来保持状态不可变](https://medium.com/@housecor/handling-state-in-react-four-immutable-approaches-to-consider-d1f5c00249d5)。
 
-### Decision 6: Binding
+### Decision 6: 绑定
 
-There are at least [half a dozen ways you can handle binding](https://medium.freecodecamp.org/react-binding-patterns-5-approaches-for-handling-this-92c651b5af56) in React components. In React’s defense, this is mostly because modern JS offers many ways to handle binding. You can bind in the constructor, bind in render, use an arrow function in render, use a class property, or use decorators. [See the comments on this post](https://medium.freecodecamp.org/react-binding-patterns-5-approaches-for-handling-this-92c651b5af56) for even more options! Each approach has its merits, but assuming you’re comfortable with experimental features, [I suggest using class properties (aka property initializers) by default today](https://medium.freecodecamp.org/react-binding-patterns-5-approaches-for-handling-this-92c651b5af56).
+在 React 组件中，至少有[半打方式可以处理绑定](https://medium.freecodecamp.org/react-binding-patterns-5-approaches-for-handling-this-92c651b5af56)。这主要是因为现代 JS 提供了很多方法来处理绑定。你可以在构造函数中绑定，在 render 中绑定，在 render 中使用箭头函数，使用类属性或者装饰器。[这篇文章的评论](https://medium.freecodecamp.org/react-binding-patterns-5-approaches-for-handling-this-92c651b5af56)里有更多的选择！每种方式都有其优点，但假设你觉得实验性功能还不错，[我建议你使用类属性（也叫属性初始值）](https://medium.freecodecamp.org/react-binding-patterns-5-approaches-for-handling-this-92c651b5af56)。
 
-This poll is from Aug 2016\. Since then, it appears class properties have grown in popularity, and createClass has reduced in popularity.
+这个投票是从 2016 年 8 月开始的。从那时起，类属性越来越受欢迎，而 createClass 的欢迎程度则逐步降低。
 
 ![](https://i.loli.net/2017/10/17/59e5daf6be182.jpg)
 
-**Side note**: Many are confused about why arrow functions and bind in render are potentially problematic. The real reason? [It makes shouldComponentUpdate and PureComponent cranky](https://medium.freecodecamp.org/why-arrow-functions-and-bind-in-reacts-render-are-problematic-f1c08b060e36).
+**附注**：许多人对于为什么使用箭头函数和在 render 中绑定可能存在问题而感到困惑。真正的原因是因为[它使 shouldComponentUpdate 和 PureComponent 变得笨拙](https://medium.freecodecamp.org/why-arrow-functions-and-bind-in-reacts-render-are-problematic-f1c08b060e36)。
 
-### Decision 7: Styling
+### 决策 7：样式
 
-Here’s where the options get seriously intense. There are 50+ ways to style your components including React’s inline styles, traditional CSS, Sass/Less, [CSS Modules](https://github.com/css-modules/css-modules), and [56 CSS-in-JS options](https://github.com/MicheleBertoli/css-in-js). Not kidding. I explore React styling approaches in detail [in the styling module of this course](https://www.pluralsight.com/courses/react-creating-reusable-components), but here’s the summary:
+这里的选择变得非常激烈，有 50 多种方式来写组件的样式，包括 React 的内联样式、传统的 CSS、Sass/Less、[CSS Modules](https://github.com/css-modules/css-modules) 和 [56 个 CSS-in-JS 选项](https://github.com/MicheleBertoli/css-in-js)。不开玩笑，我在这个[样式模块化课程](https://www.pluralsight.com/courses/react-creating-reusable-components)中详细探索了 React 的样式，下面是总结：
 
 ![](https://cdn-images-1.medium.com/max/1000/1*5Q3FXqxI6akM-GWV2rqlcw.png)
 
-Red is bad. Green is good. Gray is warning.
+红色代表不支持，绿色代表支持，灰色代表警告。
 
-See why there is so much fragmentation in React’s styling options? There’s no clear winner.
+看看为什么在 React 的样式选择中有这么多的分歧？没有明确的赢家。
 
 ![](https://cdn-images-1.medium.com/max/800/1*_K-z-ZfTXNFwyedAXrS5sA.png)
 
-Looks like CSS-in-JS is gaining steam. CSS modules is losing steam.
+看起来 CSS-in-JS 正在蒸蒸日上，而 CSS modules 正在每况愈下。
 
-My current team uses Sass with BEM and are happy enough, but I also enjoy [styled-components](https://www.styled-components.com).
+我目前的团队使用 Sass 和 BEM，并乐在其中，但我也喜欢[样式组件](https://www.styled-components.com)。
 
-### Decision 8: Reusable Logic
+### 决策 8：逻辑复用
 
-React initially embraced [mixins](https://reactjs.org/docs/react-without-es6.html#mixins) as a mechanism for sharing code between components. But mixins caused issues and are [now considered harmful](https://reactjs.org/blog/2016/07/13/mixins-considered-harmful.html). You can’t use mixins with ES class components, so now people [utilize higher-order components](https://reactjs.org/docs/higher-order-components.html) and [render props](https://cdb.reacttraining.com/use-a-render-prop-50de598f11ce) (aka function as child) to share code between components.
+React 最初采用 [mixins](https://reactjs.org/docs/react-without-es6.html#mixins) 作为组件之间共享代码的机制。但是 mixin 有问题，[现在被认为是有害的](https://reactjs.org/blog/2016/07/13/mixins-considered-harmful.html)。你不能在 ES 类组件中使用 mixins，所以现在我们[使用高阶组件](https://reactjs.org/docs/higher-order-components.html）和[渲染属性](https//cdb.reacttraining.com/use-a-render-prop-50de598f11ce)（也叫子函数）在组件之间共享代码。
 
-![1508236093(1).jpg](https://i.loli.net/2017/10/17/59e5db5a8f656.jpg)
+![](https://i.loli.net/2017/10/17/59e5db5a8f656.jpg)
 
-Higher-order components are currently more popular, but I prefer render props since they’re often easier to read and create. [Michael Jackson recently sold me with this](https://cdb.reacttraining.com/use-a-render-prop-50de598f11ce):
+高阶组件目前更受欢迎，但我更喜欢渲染属性，因为它们通常更易于阅读和创建。
 
-[Video-YouTube](https://youtu.be/BcVAq3YFiuc)
+[YouTube 视频](https://youtu.be/BcVAq3YFiuc)
 
 ### And that’s not all…
 
