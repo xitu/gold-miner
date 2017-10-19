@@ -3,8 +3,8 @@
 > * 原文作者：[Jakub Rożek](https://www.netguru.co/blog/tracing-patterns-hinder-performance)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/tracing-patterns-hinder-performance.md](https://github.com/xitu/gold-miner/blob/master/TODO/tracing-patterns-hinder-performance.md)
-> * 译者：[薛定谔的猫]<hh_2013@foxmail.com>
-> * 校对者：
+> * 译者：[薛定谔的猫](https://github.com/Aladdin-ADD/)
+> * 校对者：[AceLeeWinnie](https://github.com/AceLeeWinnie)
 
 # 找出可能影响性能的代码（模式）
 
