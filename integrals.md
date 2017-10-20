@@ -1229,10 +1229,11 @@
 |[使用 Zopfli 优化 PNG 图片](http://gold.xitu.io/entry/578e3a34c4c971005e059ee9)|翻译|3|
 |[让你的网站更炫酷的一些小 tips](https://gold.xitu.io/entry/577f402b79bc4400329db962)|校对|3|
 
-## 译者：[llp0574](https://github.com/llp0574) 历史贡献积分：59 当前积分：9
+## 译者：[llp0574](https://github.com/llp0574) 历史贡献积分：64 当前积分：14
 
 |文章|类型|积分|
 |------|-------|-------|
+|[翻译 GraphQL 网站](#)|翻译|5|
 |[优秀产品背后的设计原则](https://gold.xitu.io/entry/58b04c49570c35006960d764)|校对|4|
 |[2017 年 2 月份兑换章鱼猫一大只 + 贴纸 part3]()|减去积分|35|
 |[几张 GIF 动图让你看懂弹性盒模型（Flexbox）如何工作](http://gold.xitu.io/entry/589d2dd886b599006b2c3308/)|翻译|4|
@@ -2850,10 +2851,11 @@
 |[同中有异的 Webpack 与 Rollup](https://juejin.im/post/58edb865570c350057f199a7)|校对|1|
 |[webpack 拾翠：充分利用 CommonsChunkPlugin()](https://juejin.im/post/58ec4e3f5c497d0062c470bf)|校对|1|
 
-## 译者：[yoyoyohamapi](https://github.com/yoyoyohamapi) 历史贡献积分：24 当前积分：24
+## 译者：[yoyoyohamapi](https://github.com/yoyoyohamapi) 历史贡献积分：24 当前积分：-6
 
 |文章|类型|积分|
 |------|-------|-------|
+|[yoyoyohamapi 2017 年 10 月兑 大猫 1 个](#)|减去积分|30|
 |[React 16 带来了什么以及对 Fiber 架构的解释](https://juejin.im/post/59de1b2a51882578c70c0833)|翻译|3|
 |[为什么在使用了类之后会使得组合变得愈发困难（第九部分）](https://juejin.im/post/59cf43ce6fb9a00a4e67cd36)|翻译|6|
 |[函数式 Mixin（软件编写）（第七部分）](https://juejin.im/post/594a2cf6ac502e006bc0bc3a)|翻译|7|
@@ -3624,10 +3626,11 @@
 |------|-------|-------|
 |[你不知道的 Node](https://juejin.im/post/59cf06caf265da0665640008)|校对|1|
 
-## 译者：[skychenbo](https://github.com/skychenbo) 历史贡献积分：30 当前积分：30
+## 译者：[skychenbo](https://github.com/skychenbo) 历史贡献积分：30 当前积分：0
 
 |文章|类型|积分|
 |------|-------|-------|
+|[skychenbo 2017 年 10 月兑 大猫 1 个](#)|减去积分|30|
 |[翻译 Python 开源库 100 个](#)|翻译|10|
 |[翻译 JavaScript 开源库 100 个](#)|翻译|10|
 |[翻译 JavaScript 开源库 100 个](#)|翻译|10|
