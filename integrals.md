@@ -84,7 +84,7 @@
 |[第一次翻译计划文章已兑换Octocat小]()|减去积分|15|
 |[Vector For All (slight return)](http://gold.xitu.io/entry/5756697ea341310063dd532c)|翻译|4|
 
-## 译者：[ithreeking](https://github.com/iThreeKing) 历史贡献积分：42 当前积分：7
+## 译者：[joyking7](https://github.com/joyking7) 历史贡献积分：42 当前积分：7
 
 |文章|类型|积分|
 |------|-------|-------|
