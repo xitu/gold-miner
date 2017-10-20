@@ -2557,10 +2557,11 @@
 |[创建和使用 WebAssembly 组件](https://juejin.im/post/58d0bbe144d90400684c0f3a)|翻译|5|
 |[Web 分享 API 赋予浏览器原生分享能力](https://gold.xitu.io/entry/58c174ec44d9040069777f17/)|校对|1|
 
-## 译者：[iridescentmia](https://github.com/IridescentMia) 历史贡献积分：21当前积分：2
+## 译者：[iridescentmia](https://github.com/IridescentMia) 历史贡献积分：22.5 当前积分：22.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[JavaScript 让 Monad 更简单（软件编写）（第十一部分）](https://juejin.im/post/59e55dbbf265da43333d7652)|校对|1.5|
 |[借助函数完成可组合的数据类型（软件编写）（第十部分）](https://juejin.im/post/59e3f3786fb9a0450166ff7b)|校对|0.5|
 |[为什么在使用了类之后会使得组合变得愈发困难（第九部分）](https://juejin.im/post/59cf43ce6fb9a00a4e67cd36)|校对|1.5|
 |[网络现状：性能提升指南](https://juejin.im/post/59c4b6a55188257e764c9c20)|校对|2|
@@ -2853,11 +2854,12 @@
 |[同中有异的 Webpack 与 Rollup](https://juejin.im/post/58edb865570c350057f199a7)|校对|1|
 |[webpack 拾翠：充分利用 CommonsChunkPlugin()](https://juejin.im/post/58ec4e3f5c497d0062c470bf)|校对|1|
 
-## 译者：[yoyoyohamapi](https://github.com/yoyoyohamapi) 历史贡献积分：25.5 当前积分：-4.5
+## 译者：[yoyoyohamapi](https://github.com/yoyoyohamapi) 历史贡献积分：30.5 当前积分：0.5
 
 |文章|类型|积分|
 |------|-------|-------|
 |[yoyoyohamapi 2017 年 10 月兑 大猫 1 个](#)|减去积分|30|
+|[JavaScript 让 Monad 更简单（软件编写）（第十一部分）](https://juejin.im/post/59e55dbbf265da43333d7652)|翻译|5|
 |[借助函数完成可组合的数据类型（软件编写）（第十部分）](https://juejin.im/post/59e3f3786fb9a0450166ff7b)|翻译|1.5|
 |[React 16 带来了什么以及对 Fiber 架构的解释](https://juejin.im/post/59de1b2a51882578c70c0833)|翻译|3|
 |[为什么在使用了类之后会使得组合变得愈发困难（第九部分）](https://juejin.im/post/59cf43ce6fb9a00a4e67cd36)|翻译|6|
@@ -3677,3 +3679,9 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[iPhone X 网页设计](https://juejin.im/post/59e445816fb9a0450670ab82)|校对|1|
+
+## 译者：[WJoan](https://github.com/WJoan) 历史贡献积分：1.5 当前积分：1.5
+
+|文章|类型|积分|
+|------|-------|-------|
+|[JavaScript 让 Monad 更简单（软件编写）（第十一部分）](https://juejin.im/post/59e55dbbf265da43333d7652)|校对|1.5|
