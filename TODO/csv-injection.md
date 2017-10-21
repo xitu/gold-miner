@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/csv-injection.md](https://github.com/xitu/gold-miner/blob/master/TODO/csv-injection.md)
 > * 译者：[mnikn](http://github.com/mnikn)
-> * 校对者：
+> * 校对者：[yct21](https://github.com/yct21)，[CACppuccino](https://github.com/CACppuccino)
 
 # CSV 注入：被人低估的巨大风险
 
