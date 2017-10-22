@@ -78,7 +78,7 @@ React.createClass 是原始 API，但在 15.5 中已被弃用。有点感觉[我
 
 ### 决策 8：逻辑复用
 
-React 最初采用 [mixins](https://reactjs.org/docs/react-without-es6.html#mixins) 作为组件之间共享代码的机制。但是 mixin 有问题，[现在被认为是有害的](https://reactjs.org/blog/2016/07/13/mixins-considered-harmful.html)。你不能在 ES 类组件中使用 mixins，所以现在我们[使用高阶组件](https://reactjs.org/docs/higher-order-components.html）和[渲染属性](https//cdb.reacttraining.com/use-a-render-prop-50de598f11ce)（也叫子函数）在组件之间共享代码。
+React 最初采用 [mixins](https://reactjs.org/docs/react-without-es6.html#mixins) 作为组件之间共享代码的机制。但是 mixin 有问题，[现在被认为是有害的](https://reactjs.org/blog/2016/07/13/mixins-considered-harmful.html)。你不能在 ES 类组件中使用 mixins，所以现在我们[使用高阶组件](https://reactjs.org/docs/higher-order-components.html)和[渲染属性](https//cdb.reacttraining.com/use-a-render-prop-50de598f11ce)（也叫子函数）在组件之间共享代码。
 
 ![](https://i.loli.net/2017/10/17/59e5db5a8f656.jpg)
 
@@ -86,41 +86,41 @@ React 最初采用 [mixins](https://reactjs.org/docs/react-without-es6.html#mixi
 
 [YouTube 视频](https://youtu.be/BcVAq3YFiuc)
 
-### And that’s not all…
+### 其他决策
 
-There are more decisions:
+还有一些其他的决策：
 
-* Will you use a [.js or .jsx extension](https://github.com/facebookincubator/create-react-app/issues/87#issuecomment-234627904)?
-* Will you place [each component in its own folder](https://medium.com/styled-components/component-folder-pattern-ee42df37ec68)?
-* Will you enforce one component per file? Will you [drive people nuts by slapping an index.js file in each directory](https://hackernoon.com/the-100-correct-way-to-structure-a-react-app-or-why-theres-no-such-thing-3ede534ef1ed)?
-* If you use propTypes, will you declare them at the bottom, or within the class itself using [static properties](https://michalzalecki.com/react-components-and-class-properties/#static-fields)? Will you [declare propTypes as deeply as possible](https://iamakulov.com/notes/deep-proptypes/?utm_content=buffer57abf&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer)?
-* Will you initialize state traditionally in the constructor or utilize the [property initializer syntax](http://stackoverflow.com/questions/35662932/react-constructor-es6-vs-es7)?
+* 你使用 [.js 还是 .jsx 拓展名](https://github.com/facebookincubator/create-react-app/issues/87#issuecomment-234627904)?
+* 你会将[每个组件放在其自己的文件夹中](https://medium.com/styled-components/component-folder-pattern-ee42df37ec68)吗？
+* 你会实施每个组件即一个文件吗？你会[在每个目录写一个 index.js 文件来让别人感到抓狂吗](https://hackernoon.com/the-100-correct-way-to-structure-a-react-app-or-why-theres-no-such-thing-3ede534ef1ed)？
+* 如果使用 propTypes，你会在底部声明它们，还是在其自身的类里使用[静态属性](https://michalzalecki.com/react-components-and-class-properties/#static-fields)？你会[尽可能深地声明 propTypes](https://iamakulov.com/notes/deep-proptypes/?utm_content=buffer57abf&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer) 吗？
+* 你会传统地在构造函数中初始化状态，还是使用[属性初始化语法](http://stackoverflow.com/questions/35662932/react-constructor-es6-vs-es7)？
 
-And since React is mostly just JavaScript, you have the usual long list of JS development style decisions such as [semicolons](https://eslint.org/docs/rules/semi), [trailing commas](https://eslint.org/docs/rules/comma-dangle), [formatting](https://github.com/prettier/prettier), and [event handler naming](https://jaketrent.com/post/naming-event-handlers-react/) to consider too.
+由于 React 大多是 JavaScript，所以你有许多 JS 开发的代码规范，例如[分号](https://eslint.org/docs/rules/semi)、[尾随逗号](https://eslint.org/docs/rules/comma-dangle)、[格式化](https://github.com/prettier/prettier)以及也要考虑[事件处理的命名](https://jaketrent.com/post/naming-event-handlers-react/)。
 
-### Choose a Standard, Then Automate Enforcement
+### 选择一个标准，然后自动化执行
 
-And all this up, and there are dozens of combinations you may see in the wild today.
+所有的这一切，今天你可能会看到很多组合。
 
-So, these next steps are key:
+所以，下面这几步是关键：
 
-> 1. Discuss these decisions as a team and document your standard.
+> 1. 和你的团队讨论这些决策并写成标准文档。
 
-> 2. Don’t waste time manually policing inconsistency in code reviews. Enforce your standards using tools like [ESLint](https://eslint.org), [eslint-plugin-react](https://github.com/yannickcr/eslint-plugin-react), and [prettier](https://github.com/prettier/prettier).
+> 2. 不要浪费时间在代码审查中手动检查不一致。使用 [ESLint](https://eslint.org)、[eslint-plugin-react](https://github.com/yannickcr/eslint-plugin-react) 和 [prettier](https://github.com/prettier/prettier)。
 
-> 3. Need to restructure existing React components? Use [react-codemod](https://github.com/reactjs/react-codemod) to automate the process.
+> 3. 需要重构现有的 React 组件？使用 [react-codemod](https://github.com/reactjs/react-codemod) 来自动化该过程。
 
-Other key decisions I’ve overlooked? Chime in via the comments.
+我忽略了其他的关键决策，希望能通过你们的评论来得到方案。
 
-### Looking for More on React? ⚛️
+### 想了解更多关于 React 的信息？⚛️
 
-I’ve authored [multiple React and JavaScript courses](http://bit.ly/psauthorpageimmutablepost) on Pluralsight ([free trial](http://bit.ly/pstrialimmutablepost)).
+我在 Pluralsight（[免费试用](http://bit.ly/pstrialimmutablepost)）上写了[很多 React 和 JavaScript 课程](http://bit.ly/psauthorpageimmutablepost)。
 
 [![](https://cdn-images-1.medium.com/max/800/1*BkPc3o2d2bz0YEO7z5C2JQ.png)](https://www.pluralsight.com/authors/cory-house)
 
 * * *
 
-[Cory House](https://twitter.com/housecor) is the author of [multiple courses on JavaScript, React, clean code, .NET, and more on Pluralsight](http://pluralsight.com/author/cory-house). He is principal consultant at [reactjsconsulting.com](http://www.reactjsconsulting.com), a Software Architect at VinSolutions, a Microsoft MVP, and trains software developers internationally on software practices like front-end development and clean coding. Cory tweets about JavaScript and front-end development on Twitter as [@housecor](http://www.twitter.com/housecor).
+[Cory House](https://twitter.com/housecor) 是 [Pluralsight 上许多 JavaScript、React、代码整洁之道和 .NET 课程](http://pluralsight.com/author/cory-house)的作者。他是 [reactjsconsulting.com](http://www.reactjsconsulting.com) 的首席顾问、VinSolutions 的软件架构师、Microsoft 的最有价值专家，并且在国际上培训软件开发人员的软件实践，例如前端开发和代码整洁之道。Cory 在 Twitter 上 [@housecor](http://www.twitter.com/housecor) 发布了很多关于 JavaScript 和前端开发的推文。
 
 
 ---
