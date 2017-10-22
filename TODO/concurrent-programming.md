@@ -4,7 +4,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/concurrent-programming.md](https://github.com/xitu/gold-miner/blob/master/TODO/concurrent-programming.md)
 > * 译者：[kobehaha](http://github.com/kobehaha)
-> * 校对者：
+> * 校对者：[joyking7](http://github.com/joyking7) [alfred-zhong](http://github.com/alfred-zhong)
 
 # 并发编程
 
