@@ -4,15 +4,15 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-networks-rnn-part-2-text-classification.md](https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-networks-rnn-part-2-text-classification.md)
 > * 译者：[Changkun Ou](https://github.com/changkun)
-> * 校对者：
+> * 校对者：[yanqiangmiffy](https://github.com/yanqiangmiffy)
 
 **本系列文章汇总**
 
 1. [RNN 循环神经网络系列 1：基本 RNN 与 CHAR-RNN](https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-networks-rnn-part-1-basic-rnn-char-rnn.md)
 2. [RNN 循环神经网络系列 2：文本分类](https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-networks-rnn-part-2-text-classification.md)
 3. [RNN 循环神经网络系列 3：编码、解码器](https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-networks-rnn-part-3-encoder-decoder.md)
-4. [RNN 循环神经网络系列 4：ATTENTIONAL INTERFACES](https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-network-rnn-part-4-attentional-interfaces.md)
-5. [RNN 循环神经网络系列 5：CUSTOM CELLS](https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-network-rnn-part-5-custom-cells.md)
+4. [RNN 循环神经网络系列 4：注意力机制](https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-network-rnn-part-4-attentional-interfaces.md)
+5. [RNN 循环神经网络系列 5：自定义单元](https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-network-rnn-part-5-custom-cells.md)
 
 # RNN 循环神经网络系列 2：文本分类
 
@@ -20,11 +20,11 @@
 
 ## 文本分类
 
-这个任务的数据集选用了来自 Cornell 大学的[语句情绪极性数据集 v1.0](http://www.cs.cornell.edu/people/pabo/movie-review-data/)，它包含了 5331 个正面和负面情绪的句子。这是一个非常小的数据集，但足够说明该如何使用循环神经网络进行文本分类了。
+这个任务的数据集选用了来自 Cornell 大学的[语句情绪极性数据集 v1.0](http://www.cs.cornell.edu/people/pabo/movie-review-data/)，它包含了 5331 个正面和负面情绪的句子。这是一个非常小的数据集，但足够用来演示如何使用循环神经网络进行文本分类了。
 
-我们需要进行一些预处理，主要包括对输入句子的 token 化、填充操作、附加 token 等等。请参考[完整代码](https://github.com/ajarai/the-neural-perspective/tree/master/recurrent-neural-networks/text_classification)了解更多。
+我们需要进行一些预处理，主要包括标注输入、附加标记（填充等）。请参考[完整代码](https://github.com/ajarai/the-neural-perspective/tree/master/recurrent-neural-networks/text_classification)了解更多。
 
-## 处理步骤
+## 预处理步骤
 
 1. 清洗句子并切分成一个个 token；
 2. 将句子转换为数值 token；
@@ -142,9 +142,9 @@ class model(object):
             return outputs[0], outputs[1], outputs[2]
 ```
 
-上面的代码就是我们的模型代码，它在训练的过程中使用了输入的文本。**注意**：为了清楚期间，我们决定将批量数据的大小保存在我们的输入和目标占位符中，但是我们应该让它们独立于一个特定的批量大小之外。由于这个特定的批量大小依赖于 `batch_size`，如果我们这么做，那么我们就还得输入一个 `initial_state`。我们通过嵌入他们来为每个数据序列来输入 token。实践策略表明，在输入文本上预训练这些包含连续跳跃元模型的嵌入权重能够获得更好的性能。
+上面的代码就是我们的模型代码，它在训练的过程中使用了输入的文本。**注意**：为了清楚期间，我们决定将批量数据的大小保存在我们的输入和目标占位符中，但是我们应该让它们独立于一个特定的批量大小之外。由于这个特定的批量大小依赖于 `batch_size`，如果我们这么做，那么我们就还得输入一个 `initial_state`。我们通过嵌入他们来为每个数据序列来输入 token。实践策略表明，我们在输入文本上使用 skip-gram 模型预训练嵌入权重能够取得更好的性能。
 
-在此模型中，我们再次使用 `dynamic_rnn`，但是这次我们提供了`sequence_length` 参数的值，它是一个包含每个序列长度的列表。这样，我们就可以避免在输入序列的最后一个字之后不必要的计算。**`length`** 函数就用来计算这个列表，如下所示。当然，我们也可以在外面计算`seq_len`，再通过占位符进行传递。
+在此模型中，我们再次使用 `dynamic_rnn`，但是这次我们提供了`sequence_length` 参数的值，它是一个包含每个序列长度的列表。这样，我们就可以避免在输入序列的最后一个字之后不必要的计算。**`length`** 函数就用来获取这个列表的长度，如下所示。当然，我们也可以在外面计算`seq_len`，再通过占位符进行传递。
 
 ```python
 def length(data):
@@ -154,7 +154,7 @@ def length(data):
 	return length
 ```
 
-由于我们填充符 token 为 0，因此可以使用每个 token 的 sign 性质来确定它是否是一个填充符 token。如果输入大于 0，则 `tf.sign` 为 1；如果输入为 0，则为 `tf.sign` 为 0。这样，我们可以通过 sign 值为正这个性质来通过列索引逐个获得 token 的数量。至此，我们可以将这个长度提供给 `dynamic_rnn` 了。
+由于我们填充符 token 为 0，因此可以使用每个 token 的 sign 性质来确定它是否是一个填充符 token。如果输入大于 0，则 `tf.sign` 为 1；如果输入为 0，则为 `tf.sign` 为 0。这样，我们可以逐步通过列索引来获得 sign 值为正的 token 数量。至此，我们可以将这个长度提供给 `dynamic_rnn` 了。
 
 **注意**：我们可以很容易地在外部计算 `seq_lens`，并将其作为占位符进行传参。这样我们就不用依赖于 `PAD_ID = 0` 这个性质了。
 
