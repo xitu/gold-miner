@@ -4,15 +4,15 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-networks-rnn-part-1-basic-rnn-char-rnn.md](https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-networks-rnn-part-1-basic-rnn-char-rnn.md)
 > * 译者：[Changkun Ou](https://github.com/changkun/)
-> * 校对者：
+> * 校对者：[CACppuccino](https://github.com/CACppuccino)
 
 **本系列文章汇总**
 
 1. [RNN 循环神经网络系列 1：基本 RNN 与 CHAR-RNN](https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-networks-rnn-part-1-basic-rnn-char-rnn.md)
 2. [RNN 循环神经网络系列 2：文本分类](https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-networks-rnn-part-2-text-classification.md)
 3. [RNN 循环神经网络系列 3：编码、解码器](https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-networks-rnn-part-3-encoder-decoder.md)
-4. [RNN 循环神经网络系列 4：ATTENTIONAL INTERFACES](https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-network-rnn-part-4-attentional-interfaces.md)
-5. [RNN 循环神经网络系列 5：CUSTOM CELLS](https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-network-rnn-part-5-custom-cells.md)
+4. [RNN 循环神经网络系列 4：注意力机制](https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-network-rnn-part-4-attentional-interfaces.md)
+5. [RNN 循环神经网络系列 5：自定义单元](https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-network-rnn-part-5-custom-cells.md)
 
 # RNN 循环神经网络系列 1：基本 RNN 与 CHAR-RNN
 
@@ -87,7 +87,7 @@ for t in reversed(xrange(len(inputs))):
 
 ![Screen Shot 2016-10-31 at 8.45.07 PM.png](https://theneuralperspective.files.wordpress.com/2016/10/screen-shot-2016-10-31-at-8-45-07-pm.png?w=620)
 
-这个任务对于一次性输入（全部 `batch_size` 个序列的）`seq_len` 整行这点上有点奇怪。通常来说，我们一次只传递一个批量，每个批量都有 `batch_size` 个序列，所以形状为` (batch_size, seq_len)`。我们通常也不会用 `seq_len` 来做分割，而是取整个序列的长度。对于 seq2seq 任务而言，本系列的第 2、3 和 5 篇文章中看到，我们会将大小为 `batch_size` 一个批量的序列作为输入，其中每个序列的长度为` seq_len` 。我们不能像在图中那样指定 `seq_len`，因为实际的`seq_len` 会根据全部样本的特点填充到最大值。我们会在比最大长度短的所有句子后填充一些填充符，从而达到最大值。不过现在还不是深入讨论这个问题的时候。
+这个任务对于一次性输入整行（全部 `batch_size` 个序列的）`seq_len` 这点上有点奇怪。通常来说，我们一次只传递一个批量，每个批量都有 `batch_size` 个序列，所以形状为` (batch_size, seq_len)`。我们通常也不会用 `seq_len` 来做分割，而是取整个序列的长度。对于 seq2seq 任务而言，本系列的第 2、3 和 5 篇文章中看到，我们会将大小为 `batch_size` 一个批量的序列作为输入，其中每个序列的长度为` seq_len` 。我们不能像在图中那样指定 `seq_len`，因为实际的`seq_len` 会根据全部样本的特点填充到最大值。我们会在比最大长度短的所有句子后填充一些填充符，从而达到最大值。不过现在还不是深入讨论这个问题的时候。
 
 ## 四、Char-RNN 的 TensorFlow 实现（无 RNN 抽象）
 
@@ -95,7 +95,7 @@ for t in reversed(xrange(len(inputs))):
 
 **重点：**
 
-首先我想就如何生成批量化的数据来引起各位的注意。你可能注意到了，我们有一个额外的步骤，那就是将数据进行批量化处理，然后再将数据分割进 `seq_len`。这么做的原因是为了消除 RNN 结构中 BPTT 算法中产生的梯度消失问题，你可以在我的博客中查看更多[相关信息](https://theneuralperspective.com/2016/10/27/gradient-topics/)。本质上来说，我们并不能同时处理多个字符。这是因为在反向传播中，如果序列太长，梯度就会下降得很快。因此，一个简单的技巧是保存一个 `seq_len` 长度的输出状态，然后将其作为下一个 `seq_len` 的  `initial_state`。这种由我们自行选择（使用 BPTT 来）处理的个数和更新频率的做法，就是所谓的截断反向传播（truncated backpropagation）。`initial_state` 从 0 开始，并在每轮计算中进行重置。因此，我们仍然能在一个特定的批次中从之前的 `seq_len` 序列里保存表示的某些类型。这么做的原因在于，在字符这种级别上，一个极小的序列并不足以真正的学习足够的表示。
+首先我想讨论下如何生成批量化的数据。你可能注意到了，我们有一个额外的步骤，那就是将数据进行批量化处理，然后再将数据分割进 `seq_len`。这么做的原因是为了消除 RNN 结构中 BPTT 算法中产生的梯度消失问题，你可以在我的博客中查看更多[相关信息](https://theneuralperspective.com/2016/10/27/gradient-topics/)。本质上来说，我们并不能同时处理多个字符。这是因为在反向传播中，如果序列太长，梯度就会下降得很快。因此，一个简单的技巧是保存一个 `seq_len` 长度的输出状态，然后将其作为下一个 `seq_len` 的  `initial_state`。这种由我们自行选择（使用 BPTT 来）处理的个数和更新频率的做法，就是所谓的截断反向传播（truncated backpropagation）。`initial_state` 从 0 开始，并在每轮计算中进行重置。因此，我们仍然能在一个特定的批次中从之前的 `seq_len` 序列里保存表示的某些类型。这么做的原因在于，在字符这种级别上，一个极小的序列并不能够学习到足够多的表示。
 
 ```python
 def generate_batch(FLAGS, raw_data):
@@ -142,7 +142,7 @@ def rnn_logits(FLAGS, rnn_output):
     return tf.matmul(rnn_output, W_softmax) + b_softmax
 ```
 
-我们将输入和独热编码在 RNN 的 批处理中进行 reshape 操作。然后，我们就可以使用 `rnn_cell`、`rnn_logits` 和 softmax 来运行我们的 RNN 从而预测下一个 token 了。你可以看到，我们生成的状态与我们在这个简单实现中的 RNN 输出是一致的。
+我们将输入和独热编码在 RNN 的批处理中进行 reshape 操作。然后，我们就可以使用 `rnn_cell`、`rnn_logits` 和 softmax 来运行我们的 RNN 从而预测下一个 token 了。你可以看到，我们生成的状态与我们在这个简单实现中的 RNN 输出是一致的。
 
 ```python
 class model(object):
@@ -256,7 +256,7 @@ def sample(self, FLAGS, sampling_type=1):
     return predictions
 ```
 
-我们还需要看看在数据流中如何传递 `initial_state` 参数。为了避免梯度消失的出现，每次处理完一个序列后，它和 `final_state` 都会被更新。注意，我们将零初始状态作为起始状态，然后在将这个状态传递给随后的序列，并将前一个序列的 `final_state` 作为新的输入状态。
+我们还需要看看如何向数据流中传递 `initial_state` 参数。为了避免梯度消失的出现，每次处理完一个序列后，它和 `final_state` 都会被更新。注意，我们将零初始状态作为起始状态，然后在将这个状态传递给随后的序列，并将前一个序列的 `final_state` 作为新的输入状态。
 
 ```python
 state = np.zeros([FLAGS.NUM_BATCHES, FLAGS.NUM_HIDDEN_UNITS])
@@ -391,7 +391,7 @@ class model(object):
 
 为了生成输出，我们使用了 `tf.nn.dynamic_rnn` ，其输出结果为每个输入的输出以及返回状态（即包含上一次每个输入批次的状态的元组）。最后，我们将输出进行了 reshape ，从而得到 logit 概率并用于与targets 进行比较。
 
-注意到 `self.initial_state` 由 `stacked_cell.zero_state` 初始化，我们只需要指定的 `batch_size` 就够了。对于这里的 `NUM_BATCHES` 请查看前面的张量形状一节中的说明。有一种替代方法可以不包含初始状态，`dynamic_rnn()` 会自行处理，我们所需要做的就是指定数据类型（即`dtype = tf.float32` 等)。可惜我们并不能这样做，因为我们要把序列的 `final_state` 作为了下一个序列的 `initial_state` 。你可能还会注意到，尽管 `self.initial_state` 不是占位符，我们还是把前一次 `final_state` 传给了新的 `initial_state`。当然，我们可以通过重载 `step()` 里的 `self.initial_state` 来输入自己的初始值。不管怎样，一旦用到 `input_feeds` ，我们就需要计算 `output_feed`，而如果没有用到，那么就会跳回使用重载之前的值（也就是 `stacked_cell.zero_state`）。
+注意到 `self.initial_state` 由 `stacked_cell.zero_state` 初始化，我们只需要指定的 `batch_size` 就够了。对于这里的 `NUM_BATCHES` 请查看前面的张量形状一节中的说明。有一种替代方法可以不包含初始状态，`dynamic_rnn()` 会自行处理，我们所需要做的就是指定数据类型（即`dtype = tf.float32` 等)。可惜我们并不能这样做，因为我们要把序列的 `final_state` 作为了下一个序列的 `initial_state` 。你可能还会注意到，尽管 `self.initial_state` 不是占位符，我们还是把前一次 `final_state` 传给了新的 `initial_state`。当然，我们可以通过重新定义 `step()` 里的 `self.initial_state` 来输入自己的初始值。不管怎样，一旦用到 `input_feeds` ，我们就需要计算 `output_feed`，而如果没有用到，那么就会跳回使用重载之前的值（也就是 `stacked_cell.zero_state`）。
 
 ```python
 def step(self, sess, batch_X, batch_y, initial_state=None):
