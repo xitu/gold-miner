@@ -23,7 +23,7 @@
 
 反射是元编程中非常酷的一部分，因为它允许你改变应用程序的内部工作机制。以 Ruby 为例，你可以声明一个运算符作为方法，来让你重写运算符在这个类上的工作机制（这一手段通常称为 “运算符重载”）：
 
-```
+```ruby
 class BoringClass
 end
 class CoolClass
@@ -50,29 +50,29 @@ ES6 带来了三个全新的 API：`Symbol`、`Reflect`、以及 `Proxy`。刚�
 
 ## Symbols —— 实现了的反射
 
-Symbols are a new primitive. Just like the `Number`, `String`, and `Boolean` primitives, Symbols have a `Symbol` function which can be used to create them. Unlike the other primitives, Symbols do not have a literal syntax (e.g how Strings have `''`) - the only way to make them is with the Symbol constructor-not-constructor-thingy:
+Symbols 是新的原始类型（primitive）。就像是 `Number`、`String`、和 `Boolean` 一样。Symbols 具有一个 `Symbol` 函数用于创建 Symbol。与别的原始类型不同，Symbols 没有字面量语法（例如，String 有 `''`）—— 创建 Symbol 的唯一方式是使用类似构造函数而又非构造函数的 `Symbol` 函数：
 
-```
+```js
 Symbol(); // symbol
-console.log(Symbol()); // prints "Symbol()" to the console
+console.log(Symbol()); // 输出 "Symbol()" 至控制台
 assert(typeof Symbol() === 'symbol')
 new Symbol(); // TypeError: Symbol is not a constructor
 ```
 
 ### Symbols 拥有内置的 debug 能力
 
-Symbols can be given a description, which is really just used for debugging to make life a little easier when logging them to a console:
+Symbols 可以指定一个描述，这在 debug 时很有用，当我们能够输出更有用的信息到控制台时，我们的编程体验将得到提高：
 
-```
-console.log(Symbol('foo')); // prints "Symbol(foo)" to the console.
+```js
+console.log(Symbol('foo')); // 输出 "Symbol(foo)" 至控制台
 assert(Symbol('foo').toString() === 'Symbol(foo)');
 ```
 
 ### Symbols 能过用作对象的 key
 
-This is where Symbols get really interesting. They are heavily intertwined with Objects. Symbols can be assigned as keys to Objects (kind of like String keys), meaning you can assign an unlimited number of unique Symbols to an object and be guaranteed that these will never conflict with String keys, or other unique Symbols:
+这个能力是 Symbols 真正有趣之处。它们和对象紧密的交织在一起。Symbols 能指定作对象的 key （类似字符串 key），这意味着你可以分配无限多的具有唯一性的 Symbols 到一个对象上，这些 key 保证不会和现有的字符串 key 冲突，或者和其他 Symbol key 冲突：
 
-```
+```js
 var myObj = {};
 var fooSym = Symbol('foo');
 var otherSym = Symbol('bar');
@@ -84,9 +84,9 @@ assert(myObj[fooSym] === 'baz');
 assert(myObj[otherSym] === 'bing');
 ```
 
-In addition to that, Symbols do not show up on an Object using `for in`, `for of` or `Object.getOwnPropertyNames` - the only way to get the Symbols within an Object is `Object.getOwnPropertySymbols`:
+另外，Symbols key 无法通过 `for in`、`for of` 或者 `Object.getOwnPropertyNames` 获得 —— 获得它们的唯一方式是 `Object.getOwnPropertySymbols`：
 
-```
+```js
 var fooSym = Symbol('foo');
 var myObj = {};
 myObj['foo'] = 'bar';
@@ -97,13 +97,13 @@ Object.getOwnPropertySymbols(myObj); // -> [ Symbol(foo) ]
 assert(Object.getOwnPropertySymbols(myObj)[0] === fooSym);
 ```
 
-This means Symbols give a whole new sense of purpose to Objects - they provide a kind of hidden under layer to Objects - not iterable over, not fetched using the already existing Reflection tools and guaranteed not to conflict with other properties in the object!
+这意味着 Symbols 能够给对象提供一个隐藏层，帮助对象实现了一种全新的目的 —— 属性不可迭代，也不能够通过现有的反射工具获得，并且能被保证不会和对象任何已有属性冲突。
 
 ### Symbols 是完全唯一的......
 
-By default, each new Symbol has a completely unique value. If you create a symbol (`var mysym = Symbol()`) it creates a completely new value inside the JavaScript engine. If you don’t have the _reference_ for the Symbol, you just can’t use it. This also means two symbols will never equal the same value, even if they have the same description.
+默认情况下，每一个新创建的 Symbol 都有一个完全唯一的值。如果你新创建了一个 Symbol（`var mysym = Symbol()`），在 JavaScript 引擎内部，就会创建一个全新的值。如果你不保留 Symbol 对象的引用，你就无法使用它。这也意味着两个 Symbol 将绝不会等同于同一个值，即使它们有一样的描述：
 
-```
+```js
 assert.notEqual(Symbol(), Symbol());
 assert.notEqual(Symbol('foo'), Symbol('foo'));
 assert.notEqual(Symbol('foo'), Symbol('bar'));
@@ -118,15 +118,15 @@ assert(object[foo1] === 1);
 assert(object[foo2] === 2);
 ```
 
-### …except when they’re not.
+### ......等等，也有例外
 
-Well, there’s a small caveat to that - as there is also another way to make Symbols that can be easily fetched and re-used: `Symbol.for()`. This method creates a Symbol in a “global Symbol registry”. Small aside: this registry is also cross-realm, meaning a Symbol from an iframe or service worker will be the same as one generated from your existing frame:
+稍安勿躁，这有一个小小的警告 —— 这里也有一个其他的创建 Symbol 的方式来轻易地实现 Symbol 的获得和重用：`Symbol.for`。该方法在 “全局 Symbol 注册中心” 创建了一个 Symbol。额外注意的一点：这个注册中心也是跨域的，意味着 iframe 或者 service worker 中的 Symbol 会与当前 frame Symbol 相等：
 
-```
+```js
 assert.notEqual(Symbol('foo'), Symbol('foo'));
 assert.equal(Symbol.for('foo'), Symbol.for('foo'));
 
-// Not unique:
+// 不是唯一的：
 var myObj = {};
 var fooSym = Symbol.for('foo');
 var otherSym = Symbol.for('foo');
@@ -136,7 +136,7 @@ assert(fooSym === otherSym);
 assert(myObj[fooSym] === 'bing');
 assert(myObj[otherSym] === 'bing');
 
-// Cross-Realm
+// 跨域
 iframe = document.createElement('iframe');
 iframe.src = String(window.location);
 document.body.appendChild(iframe);
@@ -144,9 +144,9 @@ assert.notEqual(iframe.contentWindow.Symbol, Symbol);
 assert(iframe.contentWindow.Symbol.for('foo') === Symbol.for('foo')); // true!
 ```
 
-Having global Symbols does make things more complicated, but for good reason, which we’ll get to. Right now some of you are probably saying “Argh!? How will I know which Symbols are unique Symbols and which Symbols aren’t?”, to that I say “it’s okay, I got you, nothing bad is going to happen, we have `Symbol.keyFor()`”:
+全局 Symbol 会让东西变得更加复杂，但我们又舍不得它好的方面。现在，你们当中的一些人可能会说：“我要怎样知道哪些 Symbol 是唯一的，哪些不是？”，对此，我会说 “别担心，我们还有 `Symbol.keyFor()`”：
 
-```
+```js
 var localFooSymbol = Symbol('foo');
 var globalFooSymbol = Symbol.for('foo');
 
@@ -155,29 +155,36 @@ assert(Symbol.keyFor(globalFooSymbol) === 'foo');
 assert(Symbol.for(Symbol.keyFor(globalFooSymbol)) === Symbol.for('foo'));
 ```
 
-### Symbols 是什么？又不是什么？
+### Symbols 是什么，又不是什么？
 
-So we’ve got a good overview for what Symbols are, and how they work - but it’s just as important to know what Symbols _are_ good for, and what they’re _not_ good for, as they could easily be assumed to be something they’re not:
+所以，我们完成了一个还不错的对 Symbol 及它怎样工作的概述 —— 但同样重要的是，我们要知道 Symbol 适合和不适合什么场景，下面几点阐述了 Symbol 不是什么：
 
-* **Symbols will never conflict with Object string keys**. This makes them great for extending objects you’ve been given (e.g. as a function param) without affecting the Object in a noticeable way.
-* **Symbols cannot be read using existing reflection tools**. You need the new `Object.getOwnPopertySymbols()` to access an Object’s symbols, this makes Symbols great for storing bits of information you don’t want people getting at through normal operation. Using `Object.getOwnPropertySymbols()` is a pretty special use-case.
-* **Symbols are not private**. The other edge to that sword - all of the Symbols of an object can be gotten by using `Object.getOwnSymbols()` - not very useful for a truly private value. Don’t try to store information you want to be really private in an Object using a symbol - it can be gotten!
-* **Enumerable Symbols can be copied to other objects** using new methods like Object.assign. If you try calling `Object.assign(newObject, objectWithSymbols)` all of the (enumerable) Symbols in the second param (`objectWithSymbols`) _will be copied_ to the first (`newObject`). If you don’t want this to happen, make them non-enumerable with `Object.defineProperty`.
-* **Symbols are not coercible into primitives**. If you try to coerce a Symbol to a primitive (`+Symbol()`, `''+Symbol()`, `Symbol() + 'foo'`) it will throw an Error. This prevents you accidentally stringifying them when setting them as property names.
-* **Symbols are not always unique**. As mentioned above, `Symbol.for()` returns you a non-unique Symbol. Don’t always assume the Symbol you have is unique, unless you made it yourself.
-* **Symbols are nothing like Ruby Symbols**. They share some similarities - such as having a central Symbol registry, but that’s about it. They should not be used the same as Ruby symbols.
+* **Symbols 绝不会与对象的字符串 key 冲突**。这一特性让 Symbol 在扩展已有对象时表现卓著（例如，Symbol 作为了一个函数参数），它不会显式地影响到对象：
 
-## Okay, but what are Symbols really good for?
+* **Symbols 无法通过现有的反射工具读取**。你需要一个新的方法 `Object.getOwnPropertySymbols()` 来访问对象上的 Symbols，这让 Symbol 适合存储那些你不想让别人直接获得的信息。使用 `Object.getOwnPropertySymbols()` 是一个非常特殊的用例，一般人可不知道。
 
-In reality, Symbols are just a slightly different way to attach properties to an Object - you could easily provide the well-known symbols as standard methods, just like `Object.prototype.hasOwnProperty` which appears in everything that inherits from Object (which is basically everything). In fact, other languages such as Python do just that - Python’s equivalent of `Symbol.iterator` is `__iter__`, `Symbol.hasInstance` is `__instancecheck__`, and I guess `Symbol.toPrimitive` draws similarities with `__cmp__`. Python’s way is, arguably, a worse approach though, as JavaScript Symbols don’t need any weird syntax, and in no way can a user accidentally conflict with one of these special methods.
+* **Symbols 不是私有的**。作为双刃剑的另一面 —— 对象上所有的 Symbols 都可以直接通过 `Object.getOwnPropertySymbols()` 获得 —— 这不利于我们使用 Symbol 存储一些真正需要私有化的值。不要尝试使用 Symbols 存储对象中需要真正私有化的值 —— Symbol 总能被拿到。
 
-Symbols, in my opinion, can be used 2 fold:
+* **可枚举的 Symbols 能够被复制到其他对象**，复制会通过类似这样的 `Object.assign` 新方法完成。如果你尝试调用 `Object.assign(newObject, objectWithSymbols)`，并且所有的可迭代的 Symbols 作为了第二个参数（`objectWithSymbols`）传入，这些 Symbols 会被复制到第一个参数（`newObject`）上。如果你不想要这种情况发生，就用 `Obejct.defineProperty` 来让这些 Symbols 变得不可迭代。
 
-### 1. As a unique value where you’d probably normally use a String or Integer:
+* **Symbols 不能强制类型转换为原始对象**。如果你尝试强制转换一个 Symbol 为原始值对象（`+Symbol()`、`-Symbol()`、`Symbol() + 'foo'`），将会抛出一个错误。这防止了当你将 Symbol 设置为对象属性名时，不小心字符串化了（stringify）它们。
 
-Let’s assume you have a logging library, which includes multiple log levels such as `logger.levels.DEBUG`, `logger.levels.INFO`, `logger.levels.WARN` and so on. In ES5 code you’d like make these Strings (so `logger.levels.DEBUG === 'debug'`), or numbers (`logger.levels.DEBUG === 10`). Both of these aren’t ideal as those values aren’t unique values, but Symbols are! So `logger.levels` simply becomes:
+* **Symbols 不总是唯一的**。上文中就提到过了，`Symbol.for()` 将为你返回一个不唯一的 Symbol。不要总认为 Symbol 具有唯一性，除非你自己能够保证它的唯一性。
 
-```
+* **Symbols 与 Ruby 的 Symbols 不是一回事**。二者有一些共性，例如都有一个 Symbol 注册中心，但仅仅如此了。JavaScript 中 Symbol 不能当做 Ruby 中 Symbol 去使用。
+
+
+## Symbols 真正适合的是什么？
+
+现实中，Symbols 只是一个略有不同绑定对象属性的方式 —— 你能够轻易地提供一些著名的 Symbols（例如 Symbols.iterator） 作为标准方法，正如 `Object.prototype.hasOwnProperty` 这个方法就出现在了所有继承自 Object 的对象（继承自 Object，基本上也就意味着一切对象都有 `hasOwnProperty` 这个方法了）。实际上，例如 Python 这样的语言是这样提供标准方法的 —— 在 Python 中，等同于 `Symbol.iterator` 的是 `__iter__`，等同于 `Symbole.hasInstance` 的是 `__instancecheck__`，并且我猜 `__cmp__` 也类似于 `Symbole.toPrimitive`。Python 的这个做法可能是一种较差的做法，而 JavaScript 的 Symbols 不需要依赖任何古怪的语法就能提供标准方法，并且，任何情况下用户都不会和这些标准方法遭遇冲突。
+
+在我看来，Symbols 可以被用在下面两个场景：
+
+### 1. 作为一个可替换字符串或者整型使用的唯一值
+
+假定你有一个日志库，该库包含了多个日志级别，例如 `logger.levels.DEBUG`、`logger.levels.INFO`、`logger.levels.WARN` 等等。在 ES5 中，你通过字符串或者整型设置或者判断级别：`logger.levels.DEBUG === 'debug'`、`logger.levels.DEBUG === 10`。这些方式都不是理想方式，因为它们不能保证级别取值唯一，但是 Symbols 的唯一性能够出色地完成这个任务！现在 `logger.levels` 变成了：
+
+```js
 log.levels = {
     DEBUG: Symbol('debug'),
     INFO: Symbol('info'),
@@ -187,11 +194,11 @@ log(log.levels.DEBUG, 'debug message');
 log(log.levels.INFO, 'info message');
 ```
 
-### 2. A place to put metadata values in an Object
+### 2. 作为一个对象中放置元信息（metadata）的场所
 
-You could also use them to store custom metadata properties that are secondary to the actual Object. Think of this as an extra layer of non-enumerability (after all, non-enumerable keys still come up in `Object.getOwnProperties`). Lets take our trusty Collection class and add a size reference, which is hidden behind the scenes as a Symbol (just remember that **Symbols are not private** - and you can - and should - only use them in for stuff you don’t mind being altered by the rest of the app):
+你也可以用 Symbol 来存储一些对于真实对象来说较为次要的元信息属性。把这看作是不可迭代性的另一层面（毕竟，不可迭代的 keys 仍然会出现在 `Object.getOwnProperties` 中）。让我们创建一个受信的集合类，并为其添加一个 size 引用来获得集合规模这个元信息，这个引用借助于 Symbol 不会暴露给外部（只要记住，**Symbols 不是私有的** —— 并且只有当你不在乎应用的其他部分会修改到 Symbols 属性时，再使用 Symbol）：
 
-```
+```js
 var size = Symbol('size');
 class Collection {
     constructor() {
@@ -218,12 +225,12 @@ assert.deepEqual(Object.getOwnPropertyNames(x), ['0']);
 assert.deepEqual(Object.getOwnPropertySymbols(x), [size]);
 ```
 
-### 3. Giving developers ability to add hooks to their objects, through your API
+### 3. 给予开发者在 API 中为对象添加钩子（hook）的能力
 
-Ok, this sounds a little weird but bear with me. Let’s pretend that we have a `console.log` style utility function - this function can take _any_ Object, and log it to the console. It has its own routines for how it displays the given Object in the console - but you, as a developer who consumes this API, can override those by providing a method, under a hook: an `inspect` Symbol:
+这听起来有点奇怪，但大家不妨多点耐心，听我解释。假定我们有一个 `console.log` 风格的工具函数 —— 这个函数可以接受 __任何__ 对象，并将其输出到控制台。它有自己的机制去决定如何在控制台显示对象 —— 但是你作为一个使用该 API 的开发者，能够通过提供一个方法去重写显示机制，这得益于 `inspect` Symbol 实现的一个钩子 ：
 
-```
-// Retreive the magic inspect Symbol from the API's Symbol constants
+```js
+// 从 API 的 Symbols 常量中获得这个充满魔力的审查 Symbol
 var inspect = console.Symbols.INSPECT;
 
 var myVeryOwnObject = {};
@@ -233,9 +240,9 @@ myVeryOwnObject[inspect] = function () { return 'DUUUDE'; };
 console.log(myVeryOwnObject); // logs out `DUUUDE`
 ```
 
-An implementation of this theoretical inspect hook could look a little something like this:
+这个审查（inspect）钩子大致实现如下：
 
-```
+```js
 console.log = function (…items) {
     var output = '';
     for(const item of items) {
@@ -250,13 +257,15 @@ console.log = function (…items) {
 }
 ```
 
-To clarify, this does not mean you should write code that modifies objects given to it. That would most definitely be a no-no (for this, have a look at [WeakMaps](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/WeakMap) which can provide ancillary objects for you to gather your own metadata on Objects).
+需要说明的是，这不意味着你应该写一些会改变给定对象的代码。这是决不允许的事（对于此，可以看下 [WeakMaps](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/WeakMap)，它为你提供了辅助对象来收集你自己在对象上定义的元信息）。
 
-[Node.js already has similar behaviour with its implementation of `console.log`](https://nodejs.org/api/util.html#util_custom_inspect_function_on_objects). Sort of. It uses String (`'inspect'`) not a Symbol, meaning you can set `x.inspect = function(){}` - but this is clunky because it could clash with your classes methods, and occur by accident. Using Symbols _is a very purposeful way for this kind of behaviour to happen_.
+> 译注：如果你对 WeakMap 存有疑惑，可以参看 [stackoverflow —— What are the actual uses of ES6 WeakMap?](https://stackoverflow.com/questions/29413222/what-are-the-actual-uses-of-es6-weakmap)。
 
-This way of using Symbols is so profound, that it is actually part of the language, and with that we segue into the realm of well known Symbols…
+[Node.js 已经在其 `console.log` 中已经有了类似的实现](https://nodejs.org/api/util.html#util_custom_inspect_function_on_objects)。其使用了一个字符串（`'inspect'`）而不是 Symbol，这意味着你可以设置 `x.inspect = function(){}` —— 这不是聪明的做法，因为某些时候，这可能会和你的类方法冲突。而使用 Symbol __是一个非常有前瞻性的方式来防止这样的情况发生__。
 
-## Well Known Symbols
+这样使用 Symbols 的方式是意义深远的，这已经成为了这门语言的一部分，借此，我们开始深入到一些有名的 Symbol 中去。
+
+## 有名的 Symbols
 
 A key part of what makes Symbols useful, is a set of Symbol constants, known as “well known symbols”. These are effectively a bunch of static properties on the `Symbol` class which are implemented within other native objects, such as Arrays, Strings, and within the internals of the JavaScript engine. This is where the real “Reflection within Implementation” part happens, as these well known Symbols alter the behaviour of (what used to be) JavaScript internals. Below I’ve detailed what each one does and why they’re just so darn awesome!
 
