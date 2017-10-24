@@ -4,7 +4,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-network-rnn-part-4-attentional-interfaces.md](https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-network-rnn-part-4-attentional-interfaces.md)
 > * 译者：[TobiasLee](http://tobiaslee.top)
-> * 校对者：
+> * 校对者：[changkun](https://github.com/changkun)
 
 **本系列文章汇总**
 
@@ -16,23 +16,21 @@
 
 # RNN 循环神经网络系列 4: 注意力机制
 
-在这篇文章里，我们将尝试使用带有注意力机制的编码器-解码器（encoder-decoder）模型来解决序列到序列（seq-seq）问题，实现的原理主要是根据这篇论文，简化版的地址在[这里](https://theneuralperspective.com/2016/10/02/neural-machine-translation-by-jointly-learning-to-align-and-translate-attention-in-rnns/)。
+在这篇文章里，我们将尝试使用带有注意力机制的编码器-解码器（encoder-decoder）模型来解决序列到序列（seq-seq）问题，实现的原理主要是根据这篇论文，具体请参考[这里](https://theneuralperspective.com/2016/10/02/neural-machine-translation-by-jointly-learning-to-align-and-translate-attention-in-rnns/)。
 
 ![attention.png](https://github.com/ajarai/casual-digressions/blob/master/notes/images/rnn_attention/attention.png?raw=true)
 
-首先，让我们来一窥整个模型的架构并且讨论其中一些有趣的部分，然后我们会在先前实现的不带有注意力机制的编码器-解码器模型基础之上，添加注意力机制，先前模型的实现细节在[这里](https://theneuralperspective.com/2016/11/20/recurrent-neural-networks-rnn-part-3-encoder-decoder/)。**注意**：因为数据是我自己在分钟内草率地编写的，所以这个模型的性能可能并不是非常出色。这篇文章旨在帮助你理解带有注意力机制的模型，从而你能够运用到更大的数据集上，并且取得非常不错的结果。
-
-## Encoder-Decoder with Attention:
+首先，让我们来一窥整个模型的架构并且讨论其中一些有趣的部分，然后我们会在先前实现的不带有注意力机制的编码器-解码器模型基础之上，添加注意力机制，先前模型的实现细节在[这里](https://theneuralperspective.com/2016/11/20/recurrent-neural-networks-rnn-part-3-encoder-decoder/)，我们将慢慢引入注意力机制，并实现模型的推断。。**注意**：这个模型并非当下最好的模型，更何况这些数据还是我在几分钟内草率地编写的。这篇文章旨在帮助你理解带有注意力机制的模型，从而你能够运用到更大的数据集上，并且取得非常不错的结果。
 
 ## 带有注意力机制的编码器-解码器模型：
 
 ![Screen Shot 2016-11-19 at 5.27.39 PM.png](https://theneuralperspective.files.wordpress.com/2016/11/screen-shot-2016-11-19-at-5-27-39-pm.png?w=620)
 
-这张图片是第一张图的更为具体的版本，包含了更多细节。让我们从编码器开始讲起，直到最后解码器的输出。首先，我们的输入数据是经过填充（Padding）和词嵌入（Embedding）处理的向量，我们将这些向量交给带有一系列 cell（上图中蓝色的 RNN 单元）的 RNN 网络，这些 cell 的输出称为隐藏状态（hidden state，上图中的h<sub>0</sub>，h<sub>1</sub>等)，它们被初始化为零，但在输入数据之后，这些隐藏状态会改变并且持有一些非常有价值的信息。如果你使用的是一个 LSTM 网络（RNN 的一种），我们会把 cell 的状态和它的输出一起向前传递给下一个 cell。对于每一个输入（上图中的 X<sub>0</sub>等），在每一个 cell 上我们都会得到一个隐藏状态的输出，这个输出也会作为下一个 cell 输入的一部分。我们把每个神经元的输出记作 h<sub>1</sub> 到 h<sub>N</sub>，这些输出将会成为我们注意力模型的输入。
+这张图片是第一张图的更为具体的版本，包含了更多细节。让我们从编码器开始讲起，直到最后解码器的输出。首先，我们的输入数据是经过填充（Padding）和词嵌入（Embedding）处理的向量，我们将这些向量交给带有一系列 cell（上图中蓝色的 RNN 单元）的 RNN 网络，这些 cell 的输出称为隐藏状态（hidden state，上图中的h<sub>0</sub>，h<sub>1</sub>等)，它们被初始化为零，但在输入数据之后，这些隐藏状态会改变并且持有一些非常有价值的信息。如果你使用的是一个 LSTM 网络（RNN 的一种），我们会把 cell 的状态 c 和隐藏状态 h 一起向前传递给下一个 cell。对于每一个输入（上图中的 X<sub>0</sub>等），在每一个 cell 上我们都会得到一个隐藏状态的输出，这个输出也会作为下一个 cell 输入的一部分。我们把每个神经元的输出记作 h<sub>1</sub> 到 h<sub>N</sub>，这些输出将会成为我们注意力模型的输入。
 
 在我们深入探讨注意力机制之前，先来看看解码器是怎么处理它的输入以及如何产生输出的。目标语言经过同样的词嵌入处理后作为解码器的输入，以 GO 标识开始，以 EOS 和其后的一些填充部分作为结束。解码器的 RNN cell 同样有着隐藏状态，并且和上面一样，被初始化为零且随着数据的输入而产生变化。这样看来，解码器和编码器似乎没有什么不同。事实上，它们的不同之处在于解码器还会接收一个由注意力机制产生的上下文向量 c<sub>i</sub>作为输入。在接下来的部分里，我们将详细地讨论上下文向量是如何产生的，它是基于编码器的所有输入以及前面解码器 cell 的隐藏状态所产生的一个非常重要的成果：上下文向量能够指导我们在编码器产生的输入上如何分配注意力，来更好地预测接下来的输出。
 
-解码器的每一个 cell 利用编码器产生的输入，和前一个 cell 的隐藏状态以及注意力机制产生的上下文向量来计算，最后经过 softmax 函数产生最终的目标输出。
+解码器的每一个 cell 利用编码器产生的输入，和前一个 cell 的隐藏状态以及注意力机制产生的上下文向量来计算，最后经过 softmax 函数产生最终的目标输出。值得注意的是，在训练的过程中，每个 RNN cell 只使用这三个输出来获得目标的输出，然而在推断阶段中，我们并不知道解码器的下一个输入是什么。因此我们将使用解码器之前的预测结果来作为新的输入。
 
 现在，让我们仔细看看注意力机制是怎么产生上下文向量的。
 
@@ -42,13 +40,13 @@
 
 上图是注意力机制的示意图，让我们先关注注意力层的输入和输出部分：我们利用编码器产生的所有隐藏状态以及上一个解码器 cell 的输出，来给每一个解码器 cell 生成对应的上下文向量。首先，这些输入都会经过一层 tanh 函数来产生一个形状为 [N, H] 的输出矩阵e，编码器中每个 cell 的输出都会产生对应解码器中第 i 个 cell 的一个 e<sub>ij</sub>。接下来对矩阵 e 应用一次 softmax 函数，就能得到一个关于各个隐藏状态的概率，我们把这个结果记作 alpha。然后再利用 alpha 和原来的隐藏状态矩阵 h 相乘，使得每个 h 中的每一个隐藏状态获得个权重，最后进行求和就得到了形状为 [N, H] 的上下文向量 c<sub>i</sub>，实际上这就是编码器产生的输入的一个带有权重分布的表示。
 
-在训练开始，这个上下文向量可能非常的“武断”，但是随着训练的进行，我们的模型将会不断地学习编码器产生的输入中哪一部分是重要的，从而帮助我们在解码器这一端产生更好的结果。
+在训练开始，这个上下文向量可能会比较随意，但是随着训练的进行，我们的模型将会不断地学习编码器产生的输入中哪一部分是重要的，从而帮助我们在解码器这一端产生更好的结果。
 
-##Tensorflow 实现：
+## Tensorflow 实现：
 
 现在让我们来实现这个模型，其中最重要的部分就是注意力机制。我们将使用一个单向的 GRU 编码器和解码器，和前面那篇[**文章**](https://theneuralperspective.com/2016/11/20/recurrent-neural-networks-rnn-part-3-encoder-decoder/)里使用的非常类似，区别在于这里的解码器将会额外地使用上下文向量（表示注意力分配）来作为输入。另外，我们还将使用 Tensorflow 里的 `embedding_attention_decoder() `接口。
 
-首先，让我们来了解一下将要处理，然后传递给编码器/解码器的数据集。
+首先，让我们来了解一下将要处理并传递给编码器/解码器的数据集。
 
 ### 数据:
 
@@ -77,7 +75,6 @@
 最后，总算到了注意力机制这一部分。我们已经知道了输入和输出，我们把一系列参数（时序列表、初始状态、注意力矩阵这些编码器的输出）交给了 `embedded_attention_decoder()` 函数，但在这其中究竟发生了什么？首先， 我们会创建一系列权重来对输入进行嵌入操作，我们把这些权重命名为 W_embedding。在通过输入生成解码器的输出之后，我们会开始一个循环函数，来决定将哪一部分输出交给下一个解码器作为输入。在训练过程中，我们通常不会把前一个解码器单元的输出传递给下一个，所以这里的循环函数是 None。而在推理期间，我们会这样做，所以这里的循环函数就会使用 `_extract_argmax_and_embed()`，它的用处就如它的名字所言（提取参数并且嵌入）。得到解码器单元的输出之后，让它和 softmax 后的权重矩阵相乘（output_projection），并将它的形状从 **[N, H]** 转换成 **[N, C]**，再使用同样 W_embedding 来替代经过嵌入操作的输出(**[N, H]**)，再将经过处理的输出作为下一个解码器单元的输入。
 
 ```
-# Loop function if using decoder outputs for next prediction
 # 如果我们需要预测下一个词语的话，使用如下的循环函数
 loop_function = _extract_argmax_and_embed(
     W_embedding, output_projection,
@@ -154,19 +151,18 @@ cs.append(tf.reshape(c, [-1, attn_size]))
 而当我们在进行推断的时候，循环函数不再是 None，而是 `_extract_argmax_and_append()`。这个函数会接收前一个解码器单元的输出，而我们新的解码器单元的输入就是先前的输出经过 softmax 之后的结果，接下来对它进行重嵌入操作。在利用注意力矩阵进行w完所有处理之后，将 prev 将被更新为新预测的输出。
 
 ```
-# Process decoder inputs one by one
-# 挨个处理解码器的出入
+
+# 依次处理解码器的输入
 for i, inp in enumerate(decoder_inputs):
 
-    if i &amp;gt; 0:
+    if i > 0:
         tf.get_variable_scope().reuse_variables()
 
     if loop_function is not None and prev is not None:
         with tf.variable_scope("loop_function", reuse=True):
             inp = loop_function(prev, i)
 
-    # Merge the input and attentions together
-    # 把 输入和注意力向量合并
+    # 把输入和注意力向量合并
     input_size = inp.get_shape().with_rank(2)[1]
     x = tf.nn.rnn_cell._linear(
         args=[inp]+attns, output_size=input_size, bias=True)
@@ -174,8 +170,8 @@ for i, inp in enumerate(decoder_inputs):
     # 解码器 RNN
     cell_outputs, state = cell(x, state) # our stacked cell
 
-    # Attention mechanism to get Cs
-    # 通过注意力拿到 上下文向量
+
+    # 通过注意力拿到上下文向量
     attns = attention(state)
 
     with tf.variable_scope('attention_output_projection'):
@@ -227,7 +223,7 @@ else:
 
 ### 带有 buckets 的模型:
 
-另外一种常见的模型会在 tf.nn.seq2seq 模型上添加 `_with_buckets()` 函数，这也是 Tensorflow 官方的 NMT [教程](https://www.tensorflow.org/versions/r0.11/tutorials/seq2seq/index.html)所使用的模型，这种 buckets 模型的优点在于缩短了注意力矩阵向量的长度。在先前的模型中，我们会把注意力向量应用在 max_len 长度的 hidden states 上。而在这里，我们只要对相关的一部分应用注意力向量，因为 PAD token 是完全可以被忽略的。我们可以选择对应的 buckets 使得句子中的 PAD token 尽可能的少。
+另外一种常见的附加结构是使用 `tf.nn.seq2seq.model_with_buckets()` 函数，这也是 Tensorflow 官方的 NMT [教程](https://www.tensorflow.org/versions/r0.11/tutorials/seq2seq/index.html)所使用的模型，这种 buckets 模型的优点在于缩短了注意力矩阵向量的长度。在先前的模型中，我们会把注意力向量应用在 max_len 长度的 hidden states 上。而在这里，我们只要对相关的一部分应用注意力向量，因为 PAD token 是完全可以被忽略的。我们可以选择对应的 buckets 使得句子中的 PAD token 尽可能的少。
 
 但我个人觉得这个方法有一点粗糙，而且如果真的想要避免处理 PAD token 的话，我会建议使用 seq_lens 这个属性来过滤掉编码器输出中的 PAD token，或者当我们在计算上下文向量的时候，我们可以把每个句子中 PAD token 对应的 hidden state 置为 0。这种方法有点复杂，所以我们不在这里实现它，但 buckets 对于 PAD token 带来的噪音确实不是一种优雅的解决方法。
 
