@@ -1,132 +1,131 @@
-
 > * 原文地址：[The Right Way to Bundle Your Assets for Faster Sites over HTTP/2](https://medium.com/@asyncmax/the-right-way-to-bundle-your-assets-for-faster-sites-over-http-2-437c37efe3ff)
 > * 原文作者：[Max Jung](https://medium.com/@asyncmax?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/the-right-way-to-bundle-your-assets-for-faster-sites-over-http-2.md](https://github.com/xitu/gold-miner/blob/master/TODO/the-right-way-to-bundle-your-assets-for-faster-sites-over-http-2.md)
-> * 译者：
+> * 译者：[yct21](https://github.com/yct21/)
 > * 校对者：
 
-# The Right Way to Bundle Your Assets for Faster Sites over HTTP/2
+# HTTP/2 下网站资源打包的正确方法
 
-Speed is always a priority in web development. With the introduction of HTTP/2, we can have increased performance for a small amount of effort. This article will briefly go over the basics of HTTP/2 for those who are unfamiliar, and will show benchmark data to support some simple development guidelines to ensure that your site is optimized for HTTP/2.
+加载速度一直是 web 开发的重点。随着 HTTP/2 的出现，我们可以用很少的功夫做到性能上的优化。本文首先为不熟悉的读者简要介绍了 HTTP/2 的基本概念，随后列出了基准测试时所得到的数据，并在此基础上给出了一些简洁的参考建议，让网站可以充分利用 HTTP/2。
 
-## HTTP/2 and Why It Matters
+## HTTP/2 的概念与重要性
 
-With websites constantly growing and HTTP/1.1 remaining unchanged since its introduction in 1997, HTTP/2 was introduced in 2015 as the new major version upgrade to HTTP1.1 to consider web page latency. A user’s perceived performance of web applications depends mostly on the [latency](https://docs.google.com/presentation/d/1r7QXGYOLCh4fcUq0jDdDwKJWNqWK1o4xMtYpKZCJYjM/edit#slide=id.g518e3c87f_2_0), not bandwidth. So the major goal of HTTP/2 design was to solve the latency problem by introducing [multiplexing](https://http2.github.io/faq/#why-is-http2-multiplexed) as well as some other design considerations, including header compression.
+自 1997 年诞生以来，HTTP/1.1 一直以一成不变的方式工作着，但它要传输的网站却日渐臃肿起来。终于，在 2015 年，HTTP 协议迎来了大版本更新。HTTP/2 更加注重页面加载的延迟，毕竟用户对一个 web 应用的性能的感受，[取决于延迟而不是带宽](https://docs.google.com/presentation/d/1r7QXGYOLCh4fcUq0jDdDwKJWNqWK1o4xMtYpKZCJYjM/edit#slide=id.g518e3c87f_2_0)。HTTP/2 采用了[多路复用](https://http2.github.io/faq/#why-is-http2-multiplexed)的工作方式，辅以头信息压缩等手段，以解决延迟的问题。
 
-HTTP/2 is carefully designed to be semantically compatible with HTTP/1.1 so there is no difference from web developers’ perspective in terms of how to write your code. However, to take full advantage of multiplexing, we have to adjust our asset delivery strategy according to the new behavior of HTTP/2 environment. As an increasing number of hosting providers offer HTTP/2 support and knowledge of this technology becomes more popularized, it becomes even more important to optimize your site for HTTP/2 in order to stay relevant in the endless race for the fastest site. According to W3Techs, as of April 2016, 7.1% of the top 10 million websites supported HTTP/2, and that number will continue to grow quickly. Also, CloudFlare posted an interesting [article](https://blog.cloudflare.com/introducing-http2/) about the real world statistics of SPDY & HTTP/2 traffic. It showed that 81% of all traffic to their network was served over either SPDY or HTTP/2 connection as of December 2015.
+在精心设计下，HTTP/2 的语义兼容于 HTTP/1.1。站在开发者的角度，我们无需因此改变写代码的方式。不过在 HTTP/2 的环境下，为了最大化多路复用所能带来的性能提升，我们需要对传输资源文件的方法做出调整。随着支持 HTTP/2 的主机服务商的增加，和这项技术逐渐流行的事实，尽量优化网站在 HTTP/2 下的性能，已成为永不停息的最快网站竞赛中的重要一环。根据 W3Techs 的统计，2016 年 4 月，全球流量前一百万的网站中，已经有 7.1% 的网站支持 HTTP/2，这个数据还在不断上升。同时，CloudFlare 发表了一篇有意思的[文章](https://blog.cloudflare.com/introducing-http2/)，介绍了 SPDY & HTTP/2 在实际应用中的统计数据。其中指出，早在 2015 年的 12 月，就已经有 81% 的网络流量，是以 SPDY 或者 HTTP/2 的方式进行传输的。
 
-Because SPDY provides most benefits of HTTP/2 as a predecessor, we can think of it as a variation of HTTP/2\. With SPDY included, we can see that HTTP/2 is not the future, but the present — it’s already ubiquitous, with most desktop and mobile browsers today having support for either of them.
+考虑到 SPDY 作为 HTTP/2 的先驱，提供了绝大部分 HTTP/2 能带来的优化，因此本文将其视为 HTTP/2 的变种。而若将 SPDY 与 HTTP/2 放在一起统计，我们可以看到，HTTP/2 已经不是未来的概念，而是现已成熟的技术。它已无所不在，绝大部分的桌面或移动浏览器，都至少支持 SPDY 和 HTTP/2 其中的一个。
 
-## The HTTP/2 Bundling Myth
+## HTTP/2 下，有关打包的错误看法
 
-So how do we prepare our assets to best take advantage of HTTP/2? In the HTTP/1.1 era, there was no question that concatenating multiple assets into one big file is the most important optimization for increasing loading performance of web applications.
+所以要最大化 HTTP/2 的收益，我们到底应该怎样组织网站的资源文件？回顾一下 HTTP/1.1 年代里的网站加载速度提升指南，其中最重要的一步，是将多个资源文件拼成一个大大的文件，减少总共的连接数。
 
-One downside of this approach was a negative impact on browser’s cache management. If one small asset changes, the whole big file has to be downloaded again. But the performance gain from the concatenation simply outweighs this penalty in HTTP/1.1 environment.
+这种方法的坏处是，浏览器的缓存管理功能会受到影响。哪怕一个很小的资源文件发生了变动，整个合并后的文件都要再重新传输一遍。当然在 HTTP/1.1 的环境下，拼接文件所带来的性能提升，要远远高于重新传输引起的损失。
 
-On the other hand, [concatenation has been considered to be bad](https://docs.google.com/presentation/d/1r7QXGYOLCh4fcUq0jDdDwKJWNqWK1o4xMtYpKZCJYjM/edit#slide=id.g518e3c87f_0_318) in a HTTP/2 environment because HTTP/2 is designed to transfer multiple small files simultaneously without much overhead. By avoiding concatenation, browser cache can work much more efficiently.
+而另一方面，HTTP/2 可以同时传输多个小文件，无需过多的额外开销。因此，在 HTTP/2 环境下，[合并资源文件一直被视为错误的做法](https://docs.google.com/presentation/d/1r7QXGYOLCh4fcUq0jDdDwKJWNqWK1o4xMtYpKZCJYjM/edit#slide=id.g518e3c87f_0_318)。毕竟，避免了合并文件，可以让浏览器的缓存更加有效地运作。
 
-But in real world, things are [not to be that simple](http://engineering.khanacademy.org/posts/js-packaging-http2.htm).
+然而在实际环境中，我们发现[事情并不简单](http://engineering.khanacademy.org/posts/js-packaging-http2.htm)。
 
-Contrary to popular belief, our benchmark test showed that asset concatenation is still good for improving loading performance in HTTP/2\. However, instead of a singular concatenated file that’s typical in HTTP/1.1, it’s the most optimal to group assets into several smaller bundles containing related assets since it will not only decrease latency, but it will allow flexibility in browser cache management. Even in the scenario where the client only supports HTTP/1.1, page performance is not affected drastically when serving several bundle files compared to a singular concatenated file.
+和主流观念不同，我们的基准测试显示，资源文件的合并，即使在 HTTP/2 下也能提高网站加载的表现。和 HTTP/1.1 下拼接为一个文件的策略不同，HTTP/2 中更好的方法是将资源分组，分别打包。这种做法不仅能减少延迟，还可以发挥浏览器缓存管理的作用。而即使客户端只支持 HTTP/1.1，这里也只是从传输一个合并文件变为传输多个打包文件，页面加载的表现不会受到太大影响。
 
-## HTTP/2 Benchmark Details
+## 此次 HTTP/2 基准测试的细节
 
-There are 4 web pages in this benchmark test and each web page loads a different set of external JavaScript files to simulate a different level of concatenation. Though the number of files and size are different, total amount of data transfer for loading each page is about the same.
+这里的基准测试每次都使用 4 个页面，各个页面会从服务器请求并加载不同数量的 JavaScript 文件，用以模拟文件合并的不同层级。每次测试所用的 JavaScript 文件数量各有不同，但传输的数据总量保证是一致的。
 
-The test was ran against 3 web servers located on 3 different AWS availability zones to simulate varying level of distance between user’s browser and web server. The network was a 15Mbps Comcast residential cable connection and Chrome 50 on Windows 10 was used.
+测试选取了搭建于 3 个不同地区的 AWS 上的 web 服务器，用以模拟客户端与服务器间在不同距离上的连接。客户端采用了 15Mbps 的 Comcast 民用光纤宽带，使用 Windows 10 和 Chrome 50 进行测试。
 
-Each column shows the result of 4 different level of concatenation as follows. The rows show the result of 10 different sampling tests (with browser cache disabled) with some interval of time between each.
+后文的测试结果图表中，每一列分别代表以下 4 中拼接级别中的一个，每一行给出的数据分别是对 10 中不同的样本数据进行测试的结果（关闭了浏览器缓存），每次测试之间会有一段间隔时间。
 
-* **1000**: Loading 1000 small (819 bytes each) JavaScript files, simulating no concatenation.
-* **50**: Loading 50 medium (16399 bytes each) JavaScript files, simulating moderate concatenation.
-* **6**: Loading 6 large (136666 bytes each) JavaScript files, simulating aggressive concatenation.
-* **1**: Loading 1 huge (819999 bytes) JavaScript file, simulating extreme concatenation.
+* **1000**：载入 1000 个小型 JavaScript 文件，每个 819 字节，用以模拟不做任何合并的策略。
+* **50**：载入 50 个中性 JavaScript 文件，每个 16399 字节，用以模拟中度的合并策略。
+* **6**：载入 6 个大型 JavaScript 文件，每个 136666 字节，用以模拟较激进的合并策略。
+* **1**：载入 1 个巨型 JavaScript 文件，每个 819999 字节，用以模拟极端的合并策略。
 
-### Between San Jose and US West (N. California)
+### 从圣何塞到美国西部（北加利福尼亚）
 
 ![](https://cdn-images-1.medium.com/max/800/1*_7p74XMRQjuoeEYcA_jjYg.png)
 
 ![](https://cdn-images-1.medium.com/max/800/1*lFAaGiYTuBHVZM7lguCsjA.png)
 
-Going from 1000 files to 50 increases speed by an average of 66%. 6 files and 1 file concatenated show almost a 70% page load speed increase as well.
+结果显示，当文件数量从 1000 个降到了 50 后，加载速度平均上升了 66%。当文件数到达 6 个乃至 1 个时，相比于完全不做合并时的加载速度，也有几乎 70% 的提升。
 
-### Between San Jose and US East (N. Virginia)
+### 从圣何塞到美国东部（北弗吉尼亚）
 
-[](https://cdn-images-1.medium.com/max/800/1*Iepr45KgMK6pQ263xTFkOg.png)
+![](https://cdn-images-1.medium.com/max/800/1*Iepr45KgMK6pQ263xTFkOg.png)
 
 ![](https://cdn-images-1.medium.com/max/800/1*37Z0AJ3JLerHGc_yRUY9Tw.png)
 
-In this benchmark test, going from 1000 files to 50 showed an average increase in speed of 28.4%.
+在这次的基准测试中，随着文件数量从 1000 降至 50，加载速度平均提升了 28.4%。
 
-### Between San Jose and Asia Pacific (Seoul)
+### 从圣何塞到亚太地区（首尔）
 
 ![](https://cdn-images-1.medium.com/max/800/1*Kpxr2LBNWR75grAagVgu0g.png)
 
 ![](https://cdn-images-1.medium.com/max/800/1*f5rh5cgcRuzJHLeBQ9sYPA.png)
 
-We can see here that the average page load speed is much slower because of the distance between the client and server, but going from 1000 files to 50 and below has an average speed increase of around 27%.
+这里我们可以看到，由于客户端与服务器的距离过远，页面载入的速度明显降低。但当文件数量从 1000 降到 50 以下时，加载速度还是有平均 27% 的提升。
 
-## Results and Key Findings
+## 测试结果与重要发现
 
-* Even in HTTP/2 environment, any level of concatenation showed a significant improvement compared to non-concatenation.
-* The improvement was most significant (3x faster) when the distance between browser and server is shortest (i.e. over a connection with least latency).
-* Differences among concatenation levels below 1000 (50, 6 or 1) were negligible.
-* As distance between browser and server is getting farther (more latency), fluctuations of loading speed between samplings became bigger. This means comparing two numbers measured long interval between them can be irrelevant.
+* 即使在 HTTP/2 的环境下，每种程度的文件合并都能带来显著的性能提升。
+* 如果客户端与服务器的距离很近（连接的延迟非常短），性能的提升相当显著（提升了 3 倍）。
+* 1000 以下的 3 个文件数量级别（50，6 和 1 个文件），性能提升的差距可以忽略。
+* 随着客户端和服务器的距离逐渐增加（延迟逐渐加大），所有样本中加载速度的波动都在增加。也就是说在超长距离的测试中，由于数据的波动太大，比较任意 2 个数据可能是无意义的。
 
-## Final Takeaways
+## 结论与建议
 
-### Always concatenate files into several bundles
+### 尽量将资源文件打包传输
 
-Even though HTTP/2 is designed to be highly efficient in transferring many small files, tiny overhead of each small file can add up and becomes noticeable when we are dealing with many files. Plus, there’s a limit to the amount of concurrent streams that the browser or the server allows. [Chrome’s limit appears to be 256](https://github.com/gourmetjs/http2-concat-benchmark-docs/blob/master/images/chrome_limit.png), and NGINX’s ngx_http_v2_module, which is used for this benchmark test, has [http2_max_concurrent_streams](http://nginx.org/en/docs/http/ngx_http_v2_module.html#http2_max_concurrent_streams) configuration directive set to 128 as default. A modern web application without concatenation will easily have over several hundred asset files and HTTP/2 will [not transfer it all at once](https://github.com/gourmetjs/http2-concat-benchmark-docs/blob/master/images/stream_concurrency.png).
+尽管 HTTP/2 被设计成一个可以高效传输许多小文件的协议，但当需要传输的文件数达到一定规模后，每个文件带来的额外开销也会积少成多，影响效率。此外，浏览器和服务器本来就都有并行传输数据流的上限。[Chrome 的上限似乎是 256](https://github.com/gourmetjs/http2-concat-benchmark-docs/blob/master/images/chrome_limit.png)；而在 NGINX 中用于基准测试的 ngx_http_v2_module 里面，会使用 [http2_max_concurrent_streams](http://nginx.org/en/docs/http/ngx_http_v2_module.html#http2_max_concurrent_streams) 这个配置参数，它的默认值为 128。一个现代的 web 应用，如果不去做任何合并，资源文件的数量可以轻而易举到达好几百，导致 HTTP/2 需要[分多次进行传输](https://github.com/gourmetjs/http2-concat-benchmark-docs/blob/master/images/stream_concurrency.png)。
 
-In order to enhance browser’s cache performance, create smaller bundles instead of one gigantic bundle. Each bundle should have a set of related asset files. If a bundle consists of related assets, most changes in a group can be contained locally without impacting other groups.
+为了提高浏览器缓存的效率，资源文件要分成多个组进行打包，而不要全部合并成单独的一个文件。每一个包里的资源按照相关性分组，尽量让改动发生在同一个包的文件中，不去影响其他包的缓存。
 
-For example, creating a bundle per NPM module can be a good strategy because one specific module’s update will invalidate only that module’s bundle in browser cache. This strategy may result in increased number of bundles. But as we saw in the benchmark result, if we keep the number of bundles under a certain level(50 in this benchmark), it will not hurt the performance thanks to HTTP/2’s multiplexing. Be wary of all the suggestions to forego concatenation — as you can see, the amount of overhead in not concatenating will undoubtedly impact performance.
+举个例子，对于每个 NPM 模块都单独打包，是一个不错的策略。每当某个模块更新时，只有该模块对应的浏览器缓存会失效。这个策略会导致打包后的文件数量增加，但我们可以从基准测试中看出，当传输的文件数量低于一个值（本次测试中的 50）时，得益于 HTTP/2 的多路复用，性能不会受到过多影响。上文已经提过，别轻信 HTTP/2 下不要做任何合并的建议。从测试结果中可以看出，不合并策略下，传输各个小文件带来的开销，积累起来毫无疑问会影响性能。
 
-### Consider HTTP/1.1 compatibility
+### 考虑兼容 HTTP/1.1
 
-Even though HTTP/2 (or SPDY) is surprisingly pervasive, HTTP/1.1 can’t be totally ignored. It may be more critical for vertical applications.
+尽管 HTTP/2 （或者 SPDY) 已被广泛使用，我们依然不能忽略 HTTP/1.1 协议。这点在垂直应用中更加重要。
 
-For the best result in both HTTP/2 and HTTP/1.1 environment, using two different concatenating strategies based on browser’s capability (moderate for HTTP/2, aggressive for HTTP/1.1) would be the best solution. However, maintaining two different strategies will be a overkill for most cases.
+为了同时保证 HTTP/2 和 HTTP/1.1 环境下的性能，最好方法是根据浏览器支持的协议，采取不同的文件合并策略（对 HTTP/2 使用适度的文件合并，对 HTTP/1.1 使用极端的文件合并）。不过在大部分情况下，维护 2 种不同合并策略，是没必要的过度优化。
 
-What if we use the same concatenation strategy for HTTP/1.1 connection as well?
+如果我们在 HTTP/1.1 下也采取前文所建议的分组打包的策略，效率收到什么影响？
 
 ![](https://cdn-images-1.medium.com/max/800/1*fy8n3lBauSinX37LlLGyAA.png)
 
-As you can see, loading 50 bundles via HTTP/1.1 doesn’t seem to be terribly slow compared to 6 bundles or 1 bundle. So using a “balanced” number of bundles for both HTTP/2 and HTTP/1.1 can be a reasonable compromise.
+如你所见，用 HTTP/1.1 传输 50 个打包文件的结果，并不会比传输 6 个或者 1 个文件要差太多。因此，在 HTTP/2 和 HTTP/1.1 间找到平衡，选取一个合适的文件打包数量，是一个合理的妥协。
 
-> **NOTE 1**: HTTP/1.1 mode was tested by connecting the web servers over a plain HTTP, not HTTPS, using Chrome browser. Because Chrome browser uses 6 simultaneous TCP connections for a HTTP/1.1 website, real world HTTP/1.1 browsers may show far worse performance degradation as the number of bundles increases.
+> **注1**：在 HTTP/1.1 模式的测试中，我们使用了 Chrome 作为浏览器，传输使用的是 HTTP 而不是 HTTPS。此外，由于 Chrome 浏览器在打开 HTTP/1.1 的网站时，会使用 6 个并发的 TCP 连接。那些真正只支持 HTTP/1.1 的浏览器，可能会在资源文件增加时，遭遇性能的显著下降。
 
-> **NOTE 2**: Keep in mind that these numbers should not be compared to the above HTTP/2 results because this HTTP/1.1 test was executed on Sunday afternoon and overall internet performance was better than busy hours of the weekday when the HTTP/2 test was executed.
+> **注2**：注意不要拿 HTTP/1.1 的数据直接去和之前 HTTP/2 测试中的数据进行比较。HTTP/2 的测试在繁忙的工作日里进行，而 HTTP/1.1 测试执行于周日下午，结果会优于 HTTP/2 测试。
 
-### Use image sprites
+### 继续使用雪碧图
 
-It has been recommended to avoid [image sprites](http://www.w3schools.com/css/css_image_sprites.asp) in HTTP/2 environment for the same reason as concatenation.
+在 HTTP/2 环境下，出于和合并文件同样的理由，大众认知里，[雪碧图](http://www.w3schools.com/css/css_image_sprites.asp) 是应该避免使用的。
 
-However, if individual icon files are small and icons in a sprite share a common design theme, it can be actually beneficial to use image sprites as opposed to bunch of tiny individual image files.
+然而，如果雪碧图中的每个图标文件都足够小，且采用了相同的设计主题，那么相比分别传输单独的图片文件，使用雪碧图可能是更好的方法。
 
-If icons in a sprite are inter-related and share a theme, changes will highly likely occur to many icons, defying the benefit of granular cache-ability anyway.
+因为如果雪碧图中的图标之间相互联系，并共享同样的设计主题，那么当设计发生变化时，很有可能雪碧图中的很多图标都需要更新，此时小粒度的缓存不再有优势。
 
-### Carefully use data URIs
+### 谨慎使用 data URI
 
-It has been also recommended to avoid inlining assets using [data URIs](https://developer.mozilla.org/en-US/docs/Web/HTTP/data_URIs).
+还有一种打包资源文件的方法，是采用 [data URI](https://developer.mozilla.org/en-US/docs/Web/HTTP/data_URIs)的形式，直接将资源内联在网页中。这种方法在 HTTP/2 中一般也被认为是应当避免的。
 
-This is more subtle topic. An appropriate answer would be “it depends”. If the assets are really small(under 100 bytes), inlining can make more sense. Even if the assets are relatively big, inlining can be still beneficial if they are expected to change frequently or changes to them are supposed to be in sync with changes to the hosting document.
+内嵌 data URI 的利弊，是一个更为微妙的问题，合适的答案应该是“看情况而定”。如果资源文件非常小（小于 100 字节），内联是有一定意义的。即使资源文件相对较大，如果这些资源经常发生变动，或者这些变动必须和资源所在的页面同步，内联也可以产生收益。
 
-### Enable both SPDY and HTTP/2
+### 同时支持 SPDY 和 HTTP/2
 
-This is a deployment issue rather than development. There are many browsers out there that support SPDY only. This will change over time and SPDY will be completely replaced by HTTP/2 sometime in the future.
+这是一个部署问题，和开发的关系不大。如今还有很多浏览器只支持 SPDY，HTTP/2 对 SPDY 的彻底取代还需要一定的时间。
 
-In the meantime, we can’t ignore SPDY yet. Enable both SPDY and HTTP/2 when you deploy your web server. For NGINX, CloudFlare [open sourced](https://blog.cloudflare.com/open-sourcing-our-nginx-http-2-spdy-code/) a patch for that.
+而在此之前，我们还不能忽视 SPDY。在部署应用时，我们要让服务器同时支持 SPDY 和 HTTP/2 协议。CloadFlare [开源了](https://blog.cloudflare.com/open-sourcing-our-nginx-http-2-spdy-code/) 一个补丁，可以让 NGINX 做到这点。
 
-* * *
+---
 
-Despite best practices not being established yet considering the newness of HTTP/2, web developers heeding this advice when bundling their assets should reap the benefits HTTP/2 performance as well as flexible browser caching.
+考虑到 HTTP/2 起步不久，还没有得出相关的最佳实践方法。尽管如此，web 开发者最好还是留心本文提出的建议，尽可能地榨取 HTTP/2 提供的性能提升，灵活地利用好浏览器缓存。
 
-Check out the benchmark code here: [https://github.com/gourmetjs/http2-concat-benchmark](https://github.com/gourmetjs/http2-concat-benchmark)
+这里可以查看基准测试所用的代码：[https://github.com/gourmetjs/http2-concat-benchmark](https://github.com/gourmetjs/http2-concat-benchmark)
 
-Get tables and pictures in this article here: [https://github.com/gourmetjs/http2-concat-benchmark-docs](https://github.com/gourmetjs/http2-concat-benchmark-docs)
+这里可以查看文章中所有的图表: [https://github.com/gourmetjs/http2-concat-benchmark-docs](https://github.com/gourmetjs/http2-concat-benchmark-docs)
 
 
 ---
