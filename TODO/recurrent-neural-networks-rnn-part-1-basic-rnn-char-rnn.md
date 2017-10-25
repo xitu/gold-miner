@@ -3,113 +3,115 @@
 > * 原文作者：[GokuMohandas](https://twitter.com/GokuMohandas)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-networks-rnn-part-1-basic-rnn-char-rnn.md](https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-networks-rnn-part-1-basic-rnn-char-rnn.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Changkun Ou](https://github.com/changkun/)
+> * 校对者：[CACppuccino](https://github.com/CACppuccino), [TobiasLee](https://github.com/TobiasLee)
 
 **本系列文章汇总**
 
-1. [RECURRENT NEURAL NETWORKS (RNN) – PART 1: BASIC RNN / CHAR-RNN](https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-networks-rnn-part-1-basic-rnn-char-rnn.md)
-2. [RECURRENT NEURAL NETWORKS (RNN) – PART 2: TEXT CLASSIFICATION](https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-networks-rnn-part-2-text-classification.md)
-3. [RECURRENT NEURAL NETWORKS (RNN) – PART 3: ENCODER-DECODER](https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-networks-rnn-part-3-encoder-decoder.md)
-4. [RECURRENT NEURAL NETWORKS (RNN) – PART 4: ATTENTIONAL INTERFACES](https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-network-rnn-part-4-attentional-interfaces.md)
-5. [RECURRENT NEURAL NETWORKS (RNN) – PART 5: CUSTOM CELLS](https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-network-rnn-part-5-custom-cells.md)
+1. [RNN 循环神经网络系列 1：基本 RNN 与 CHAR-RNN](https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-networks-rnn-part-1-basic-rnn-char-rnn.md)
+2. [RNN 循环神经网络系列 2：文本分类](https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-networks-rnn-part-2-text-classification.md)
+3. [RNN 循环神经网络系列 3：编码、解码器](https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-networks-rnn-part-3-encoder-decoder.md)
+4. [RNN 循环神经网络系列 4：注意力机制](https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-network-rnn-part-4-attentional-interfaces.md)
+5. [RNN 循环神经网络系列 5：自定义单元](https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-network-rnn-part-5-custom-cells.md)
 
-# RECURRENT NEURAL NETWORKS (RNN) – PART 1: BASIC RNN / CHAR-RNN
+# RNN 循环神经网络系列 1：基本 RNN 与 CHAR-RNN
 
-**Note:** The section of RNN will span several posts including this one covering basic RNN structure and supporting naive and TF implementation for character level sequence generation. Subsequent posts for RNNs will cover more advanced topics like attention while using more complicated RNN architectures for tasks such as machine translation.
+**提示：**关于 RNN 的内容将横跨好几篇文章，包括基本的 RNN 结构、支持字符级序列生成的纯 TensorFlow 实现等等。而关于 RNN 的后续文章会包含更多高级主题，比如更加复杂的用于机器翻译任务的 Attention 机制等。
 
-## I. Overview:
+## 一、概述
 
-There are many advantaged to using a recurrent structure but the obvious ones are being able to keep in memory the representation of the previous inputs. With this, we can better predict the subsequent outputs. There are many problems that arise by keeping track of long streams of memory, such as vanishing gradients during BPTT. Luckily, there are even more architectural changes we can make to combat many of these issues.
+使用循环结构拥有很多优势，最突出的一个优势就是它们能够在内存中存储前一个输入的表示。如此，我们就可以更好的预测后续的输出内容。持续追踪内存中的长数据流会出现很多的问题，比如 BPTT 算法中出现的梯度消失（gradient vanishing）问题就是其中之一。幸运的是，我们可以对架构做出一些改进来解决这个问题。
 
 ![Screen Shot 2016-10-04 at 5.54.13 AM.png](https://theneuralperspective.files.wordpress.com/2016/10/screen-shot-2016-10-04-at-5-54-13-am.png?w=620)
 
-## II. Char-RNN
+## 二、CHAR-RNN
 
-We will not implement the naive and TF implementation for a character generating model. The model’s objective is to read from each input sequence (stream of chars), one letter at a time and predict the next letter. During training, we will feed in the letter from our input to generate each output letter, but during inference (generation), we will feed in the previous output as the new input (starting with a random token as the first input).
+我们不会去专门实现一个纯 TensorFlow 版本的单字符生成模型。相反，现在这个模型的目标是从每个输入句子中以每次一个字母的方式来读取字符流，并预测下一个字母是什么。在训练期间，我们将句子中的字母提供给网络，并用于生成输出的字母。而在推断（生成）期间，我们则会将上一次的输出作为新的输入（使用随机的 token 作为第一个输入）。
 
-There are a few preprocessing steps done to the text data, so please review the **[GitHub Repo](https://github.com/ajarai/Neural-Perspective/tree/master/05.%20RNN)** for more detailed info.
+对于文本数据来说，我们做了一些预处理，请查看这个 [GitHub 仓库]((https://github.com/ajarai/Neural-Perspective/tree/master/05.%20RNN))来获取更多信息。
 
-**Example input**: Hello there Charlie, how are you? Today I want a nice day. All I want for myself is a car.
+**输入样例**：Hello there Charlie, how are you? Today I want a nice day. All I want for myself is a car.
 
-* DATA_SIZE = len(input)
-* BATCH_SIZE = # of sequences per batch
-* NUM_STEPS = # of tokens per split (aka seq_len)
-* STATE_SIZE = # of hidden units PER hidden state = H
-* num_batches = number of batch_sized batches to split in the input into
+* DATA_SIZE：输入的长度，即 `len(input)`；
+* BATCH_SIZE：每批的序列个数；
+* NUM_STEPS：每个切片的 token 数，即序列的长度 `seq_len`；
+* STATE_SIZE：每个隐层状态的隐层节点数，即值 `H`；
+* num_batches：数据集小批量化后的批量数
 
-![Screen Shot 2016-10-04 at 6.15.57 AM.png](https://theneuralperspective.files.wordpress.com/2016/10/screen-shot-2016-10-04-at-6-15-57-am.png?w=620)**Note: ** needs to be columns (above it is rows) because we feed into RNN cell by rows. So you will reshape raw input from to. Also note that each letter will be fed in a as one-hot-encoded vector that will be embedded. Note in the image above, each sentence is perfectly split into a batch. This is just for visualization purpose so you can see how an input would be split. In the actual char-rnn implementation, we don’t care about a sentence. We just split the entire input into num_batches and each batch is split so each input is of length num_steps (aka seq_len).
+![Screen Shot 2016-10-04 at 6.15.57 AM.png](https://theneuralperspective.files.wordpress.com/2016/10/screen-shot-2016-10-04-at-6-15-57-am.png?w=620)
+
+**注意：**由于我们是一行一行的将数据输入进 RNN 单元的，因此我们需要一列一列的将数据组成张量输入到网络中去，即我们必须把原始数据进行 reshape 处理。此外，每个字母都将作为一个被嵌入的独热编码（one-hot encoding，译注：又称 1-of-k encoding）的向量输入。在上图中，每个句子数据都被完美的切分进了一组组小批量数据，这只不过是为了达到更好的可视化目的，这样你就可以看到输入是怎样被切分的了。在实际的     -RNN 实现中，我们并不关心一个具体的句子，我们只是将整个输入切分成 num_batches 个批次，每个批次彼此独立，所以每个输入的长度都是 `num_steps`，即 `seq_len`。
 
 ![Screen Shot 2016-10-04 at 6.30.17 AM.png](https://theneuralperspective.files.wordpress.com/2016/10/screen-shot-2016-10-04-at-6-30-17-am.png?w=620)
 
-## III. Backpropagation
+## 三、反向传播
 
-The BPTT for the RNN structure can be a bit messy at first, especially when computing influence on hidden states and inputs.Use code below from **[Karpathy’s](http://karpathy.github.io/2015/05/21/rnn-effectiveness/)** naive numpy implementation to follow along the math in my diagram.
+RNN 版本的反向传播 BPTT 刚开始可能有点混乱，尤其是计算隐藏状态对输入的影响之时。下面 [Karpathy](http://karpathy.github.io/2015/05/21/rnn-effectiveness/) 的代码使用原生 numpy 实现，符合下图中我的公式推导逻辑。
 
 ![Screen Shot 2016-10-04 at 6.33.37 AM.png](https://theneuralperspective.files.wordpress.com/2016/10/screen-shot-2016-10-04-at-6-33-37-am.png?w=620)
 
 ![Screen Shot 2016-10-04 at 6.35.29 AM.png](https://theneuralperspective.files.wordpress.com/2016/10/screen-shot-2016-10-04-at-6-35-29-am1.png?w=620)
 
-**Forward pass:**
+**前向传播：**
 
-```
+```python
 for t in xrange(len(inputs)):
-    xs[t] = np.zeros((vocab_size,1)) # encode in 1-of-k representation
+    xs[t] = np.zeros((vocab_size,1)) # 独热编码
     xs[t][inputs[t]] = 1
-    hs[t] = np.tanh(np.dot(Wxh, xs[t]) + np.dot(Whh, hs[t-1]) + bh) # hidden state
-    ys[t] = np.dot(Why, hs[t]) + by # unnormalized log probabilities for next chars
-    ps[t] = np.exp(ys[t]) / np.sum(np.exp(ys[t])) # probabilities for next chars
-    loss += -np.log(ps[t][targets[t],0]) # softmax (cross-entropy loss)
+    hs[t] = np.tanh(np.dot(Wxh, xs[t]) + np.dot(Whh, hs[t-1]) + bh) # 隐藏状态
+    ys[t] = np.dot(Why, hs[t]) + by # 下一个字符的未归一化对数似然概率
+    ps[t] = np.exp(ys[t]) / np.sum(np.exp(ys[t])) # 下一个字符的概率
+    loss += -np.log(ps[t][targets[t],0]) # softmax（交叉熵损失）
 ```
 
-**Backpropagation:**
+**反向传播:**
 
 
-```
+```python
 for t in reversed(xrange(len(inputs))):
     dy = np.copy(ps[t])
     dy[targets[t]] -= 1
     dWhy += np.dot(dy, hs[t].T)
     dby += dy
-    dh = np.dot(Why.T, dy) + dhnext # backprop into h
-    dhraw = (1 - hs[t] * hs[t]) * dh # backprop through tanh nonlinearity
+    dh = np.dot(Why.T, dy) + dhnext  # 反向传播给 h
+    dhraw = (1 - hs[t] * hs[t]) * dh # 通过 tanh 的非线性进行反向传播
     dbh += dhraw
     dWxh += np.dot(dhraw, xs[t].T)
     dWhh += np.dot(dhraw, hs[t-1].T)
     dhnext = np.dot(Whh.T, dhraw)
 ```
 
-## Learning about shapes
+## 张量的形状
 
-Before getting into the implementations, let’s talk about shapes. This char-rnn example is a bit odd in terms of shaping, so I’ll show you how we make batches here and how they are usually made for seq-seq tasks.
+在实现之前，我们来谈谈张量的形状。在这个 CHAR-RNN 的例子上讲述张量形状这个概念有点奇怪，因此我会向你解释如何对其进行批量化以及它们是怎样完成 seq2seq 任务的。
 
 ![Screen Shot 2016-10-31 at 8.45.07 PM.png](https://theneuralperspective.files.wordpress.com/2016/10/screen-shot-2016-10-31-at-8-45-07-pm.png?w=620)
 
-This task is a bit weird in that we feed the entire row of seq_len (all batch_size sequences) at once. Normally, we will just pass in one batch at once, where each batch will have batch_size sequences (batch_size, seq_len). We also don’t usually split by seq_len but just take the entire length of a sequence. With seq-seq tasks, as you will see in Part 2 and 3, we feed in a batch with batch_size sequences where each sequence is of length seq_len. We cannot dictate seq_len as we do there because seq_len will just be a max len from all the examples. We just PAD the sequences that do not match that max length. But we’ll take a closer look at this in the subsequent posts.
+这个任务对于一次性输入整行（全部 `batch_size` 个序列的）`seq_len` 这点上有点奇怪。通常来说，我们一次只传递一个批量，每个批量都有 `batch_size` 个序列，所以形状为` (batch_size, seq_len)`。我们通常也不会用 `seq_len` 来做分割，而是取整个序列的长度。对于 seq2seq 任务而言，本系列的第 2、3 和 5 篇文章中看到，我们会将大小为 `batch_size` 一个批量的序列作为输入，其中每个序列的长度为` seq_len` 。我们不能像在图中那样指定 `seq_len`，因为实际的`seq_len` 会根据全部样本的特点填充到最大值。我们会在比最大长度短的所有句子后填充一些填充符，从而达到最大值。不过现在还不是深入讨论这个问题的时候。
 
-## IV. Char-RNN TF Implementation (no RNN abstractions)
+## 四、Char-RNN 的 TensorFlow 实现（无 RNN 抽象）
 
-This implementation will be using tensorflow but none of the RNN classes for abstraction. We will just be using our own set of weights to really understand where the input data is going and how our output is generated. I will provide code and breakdown analysis with links but will talk about some significant highlights of the code here. If you want an implementation with TF RNN classes, go to section V.
+我们将使用没有 RNN 类抽象的纯 TensorFlow 进行实现。同时还将使用我们自己的权重集来真正理解输入数据的流向以及输出是如何生成的。在这里我们只讨论代码里一些重点部分，而完整的代码我将给出相关链接。如果你想要使用 TF RNN 类进行实现，请转到本文第五小节。
 
-**Highlights:**
+**重点：**
 
-First thing I want to draw attention to is how we generate our batched data. You may notice that we have an additional step where we batch the data and then further split it into seq_lens. This is because of the vanishing gradient problem with BPTT in RNN structures. More information can be found in my blog post **[here](https://theneuralperspective.com/2016/10/27/gradient-topics/)**. But essentially, we cannot process to many characters at once because during backprop, we will quickly diminish the gradients if the sequence is too long. So a simple trick is to save the output state of a seq_len long sequence and then feed that as the initial_state for the next seq_len. This is also referred to as truncated backpropagation where we choose how much we process (apply BPTT to) and also how often we update. The initial_state starts from zeros and is reset for every epoch. So, we are still able to hold some type of representation in a specific batch from previous seq_len sequences. We need to do this because at the char-level, a small sequence is not enough to really be able to learn adequate representations.
+首先我想讨论下如何生成批量化的数据。你可能注意到了，我们有一个额外的步骤，那就是将数据进行批量化处理，然后再将数据分割进 `seq_len`。这么做的原因是为了消除 RNN 结构中 BPTT 算法中产生的梯度消失问题，你可以在我的博客中查看更多[相关信息](https://theneuralperspective.com/2016/10/27/gradient-topics/)。本质上来说，我们并不能同时处理多个字符。这是因为在反向传播中，如果序列太长，梯度就会下降得很快。因此，一个简单的技巧是保存一个 `seq_len` 长度的输出状态，然后将其作为下一个 `seq_len` 的  `initial_state`。这种由我们自行选择（使用 BPTT 来）处理的个数和更新频率的做法，就是所谓的截断反向传播（truncated backpropagation）。`initial_state` 从 0 开始，并在每轮计算中进行重置。因此，我们仍然能在一个特定的批次中从之前的 `seq_len` 序列里保存表示的某些类型。这么做的原因在于，在字符这种级别上，一个极小的序列并不能够学习到足够多的表示。
 
-```
+```python
 def generate_batch(FLAGS, raw_data):
     raw_X, raw_y = raw_data
     data_length = len(raw_X)
 
-    # Create batches from raw data
-    num_batches = FLAGS.DATA_SIZE // FLAGS.BATCH_SIZE # tokens per batch
+    # 从原始数据中创建批量数据
+    num_batches = FLAGS.DATA_SIZE // FLAGS.BATCH_SIZE # 每批的 token
     data_X = np.zeros([num_batches, FLAGS.BATCH_SIZE], dtype=np.int32)
     data_y = np.zeros([num_batches, FLAGS.BATCH_SIZE], dtype=np.int32)
     for i in range(num_batches):
         data_X[i, :] = raw_X[FLAGS.BATCH_SIZE * i: FLAGS.BATCH_SIZE * (i+1)]
         data_y[i, :] = raw_y[FLAGS.BATCH_SIZE * i: FLAGS.BATCH_SIZE * (i+1)]
 
-    # Even though we have tokens per batch,
-    # We only want to feed in &amp;amp;lt;SEQ_LEN&amp;amp;gt; tokens at a time
+    # 尽管每个批次都有很多的 token
+    # 但我们每次只想输入 seq_len 个 token
     feed_size = FLAGS.BATCH_SIZE // FLAGS.SEQ_LEN
     for i in range(feed_size):
         X = data_X[:, i * FLAGS.SEQ_LEN:(i+1) * FLAGS.SEQ_LEN]
@@ -117,9 +119,9 @@ def generate_batch(FLAGS, raw_data):
         yield (X, y)
 ```
 
-Below is the code that uses all of our weights. We have an rnn_cell that takes in the input and the state from the previous cell in order to generate the rnn output which is also the next cell’s input state. The next function, rnn_logits, converts our rnn output using weights to generate logits to be used for probability determination via softmax.
+下面是使用我们自己的权重的代码。`rnn_cell` 函数用来接收来自前一个单元的输入和状态，从而生成 RNN 的输出，同时也是下一个单元的输入状态。下一个函数 `rnn_logits` 使用权重将我们的 RNN 输出进行转换，从而通过 softmax 生成 logits 概率并用于分类。
 
-```
+```python
 def rnn_cell(FLAGS, rnn_input, state):
     with tf.variable_scope('rnn_cell', reuse=True):
         W_input = tf.get_variable('W_input',
@@ -140,26 +142,26 @@ def rnn_logits(FLAGS, rnn_output):
     return tf.matmul(rnn_output, W_softmax) + b_softmax
 ```
 
-We take our input and one hot encode it and then reshape for batch processing in the RNN. We can then run our RNN to predict the next token using the rnn_cell and rnn_logits functions with softmax. You can see that we generate the state but that also is the same as our rnn output in this simple implementation here.
+我们将输入和独热编码在 RNN 的批处理中进行 reshape 操作。然后，我们就可以使用 `rnn_cell`、`rnn_logits` 和 softmax 来运行我们的 RNN 从而预测下一个 token 了。你可以看到，我们生成的状态与我们在这个简单实现中的 RNN 输出是一致的。
 
-```
+```python
 class model(object):
 
     def __init__(self, FLAGS):
 
-        # Placeholders
+        # 占位符
         self.X = tf.placeholder(tf.int32, [None, None],
             name='input_placeholder')
         self.y = tf.placeholder(tf.int32, [None, None],
             name='labels_placeholder')
         self.initial_state = tf.zeros([FLAGS.NUM_BATCHES, FLAGS.NUM_HIDDEN_UNITS])
 
-        # Prepre the inputs
+        # 准备输入
         X_one_hot = tf.one_hot(self.X, FLAGS.NUM_CLASSES)
         rnn_inputs = [tf.squeeze(i, squeeze_dims=[1]) \
             for i in tf.split(1, FLAGS.SEQ_LEN, X_one_hot)]
 
-        # Define the RNN cell
+        # 定义 RNN cell
         with tf.variable_scope('rnn_cell'):
             W_input = tf.get_variable('W_input',
                 [FLAGS.NUM_CLASSES, FLAGS.NUM_HIDDEN_UNITS])
@@ -169,7 +171,7 @@ class model(object):
                 [FLAGS.NUM_HIDDEN_UNITS],
                 initializer=tf.constant_initializer(0.0))
 
-        # Creating the RNN
+        # 创建 RNN
         state = self.initial_state
         rnn_outputs = []
         for rnn_input in rnn_inputs:
@@ -177,7 +179,7 @@ class model(object):
             rnn_outputs.append(state)
         self.final_state = rnn_outputs[-1]
 
-        # Logits and predictions
+        # Logits 概率及预测
         with tf.variable_scope('softmax'):
             W_softmax = tf.get_variable('W_softmax',
                 [FLAGS.NUM_HIDDEN_UNITS, FLAGS.NUM_CLASSES])
@@ -188,7 +190,7 @@ class model(object):
         logits = [rnn_logits(FLAGS, rnn_output) for rnn_output in rnn_outputs]
         self.predictions = [tf.nn.softmax(logit) for logit in logits]
 
-        # Loss and optimization
+        # 损失与优化
         y_as_list = [tf.squeeze(i, squeeze_dims=[1]) \
             for i in tf.split(1, FLAGS.SEQ_LEN, self.y)]
         losses = [tf.nn.sparse_softmax_cross_entropy_with_logits(logit, label) \
@@ -198,15 +200,15 @@ class model(object):
             FLAGS.LEARNING_RATE).minimize(self.total_loss)
 ```
 
-We also sample from our model every once in a while. For sampling, we can either choose to take the argmax (boring) of the logits or introduce some uncertainty in the chosen class using temperature.
+我们偶尔也会从模型中进行采样。对于采样而言，可以选择使用 logits 概率中的最大值，或者在选择的类别中引入 `temperature` 参数。
 
-```
+```python
 def sample(self, FLAGS, sampling_type=1):
 
     initial_state = tf.zeros([1,FLAGS.NUM_HIDDEN_UNITS])
     predictions = []
 
-    # Process preset tokens
+    # 处理预设 token
     state = initial_state
     for char in FLAGS.START_TOKEN:
         idx = FLAGS.char_to_idx[char]
@@ -214,7 +216,7 @@ def sample(self, FLAGS, sampling_type=1):
         rnn_input = tf.reshape(idx_one_hot, [1, 65])
         state =  rnn_cell(FLAGS, rnn_input, state)
 
-    # Predict after preset tokens
+    # 在预设 token 后进行预测
     logit = rnn_logits(FLAGS, state)
     prediction = tf.argmax(tf.nn.softmax(logit), 1)[0]
     predictions.append(prediction.eval())
@@ -225,16 +227,16 @@ def sample(self, FLAGS, sampling_type=1):
         state =  rnn_cell(FLAGS, rnn_input, state)
         logit = rnn_logits(FLAGS, state)
 
-        # scale the distribution
-        # for creativity, higher temperatures produce more nonexistent words
-        # BUT more creative samples
+        # 对分布进行缩放
+        # temperature 越高，产生的新词越多，也就越炫酷
+        # 但同时也需要更多的样本
         next_char_dist = logit/FLAGS.TEMPERATURE
         next_char_dist = tf.exp(next_char_dist)
         next_char_dist /= tf.reduce_sum(next_char_dist)
 
         dist = next_char_dist.eval()
 
-        # sample a character
+        # 单字符采样
         if sampling_type == 0:
             prediction = tf.argmax(tf.nn.softmax(
                                     next_char_dist), 1)[0].eval()
@@ -244,7 +246,7 @@ def sample(self, FLAGS, sampling_type=1):
             weight = 0.0
             for index in range(0, FLAGS.NUM_CLASSES):
                 weight += dist[0][index]
-                if weight &amp;amp;gt;= point:
+                if weight >= point:
                     prediction = index
                     break
         else:
@@ -254,9 +256,9 @@ def sample(self, FLAGS, sampling_type=1):
     return predictions
 ```
 
-Also take a look at how we pass in an initial_state parameter into the data flow. This is updated with the final_state after each sequence is processed. We need to do this in order to avoid vanishing gradients in our RNN. Notice that we feed in a zero initial state for the start and then for subsequent sequences, we take the final_state of the previous sequence as the new input state.
+我们还需要看看如何向数据流中传递 `initial_state` 参数。为了避免梯度消失的出现，每次处理完一个序列后，它和 `final_state` 都会被更新。注意，我们将零初始状态作为起始状态，然后在将这个状态传递给随后的序列，并将前一个序列的 `final_state` 作为新的输入状态。
 
-```
+```python
 state = np.zeros([FLAGS.NUM_BATCHES, FLAGS.NUM_HIDDEN_UNITS])
 
 for step, (input_X, input_y) in enumerate(epoch):
@@ -265,14 +267,14 @@ for step, (input_X, input_y) in enumerate(epoch):
 	training_losses.append(total_loss)
 ```
 
-## V. TF RNN Library Implementation
+## 五、使用 TF RNN 实现
 
-In this implementation, in contrast with the one above, we will be using tensorflow’s nn utility to create the rnn abstraction classes. It’s important what we understand what is the input, internal operations and outputs for each of these classes before we use them. We will still be using the basic rnn_cell here so we will be employing truncated backpropagation, but if using GRU or LSTM, there is no need to use it. In fact, just split the entire data into batch_size and just process the entire sequence.
+与上面不同的是，在下面这个实现中，我们将使用 TensorFlow 的 NN 工具来创建 RNN 抽象类。在使用这些类之前，理解这些类的输入内容、内部操作及输出结果是很重要的。由于我们仍然是使用基本的 `rnn_cell`，因此我们将使用截断误差反向传播，但是如果使用 GRU 或 LSTM，就没有必要了。其实，只需将整个数据分割成 `batch_size`，然后处理整个序列就可以了。
 
-```
+```python
 def rnn_cell(FLAGS):
 
-    # Get the cell type
+    # 获取 cell 类型
     if FLAGS.MODEL == 'rnn':
         rnn_cell_type = tf.nn.rnn_cell.BasicRNNCell
     elif FLAGS.MODEL == 'gru':
@@ -282,30 +284,30 @@ def rnn_cell(FLAGS):
     else:
         raise Exception("Choose a valid RNN unit type.")
 
-    # Single cell
+    # 单一 cell
     single_cell = rnn_cell_type(FLAGS.NUM_HIDDEN_UNITS)
 
     # Dropout
     single_cell = tf.nn.rnn_cell.DropoutWrapper(single_cell,
         output_keep_prob=1-FLAGS.DROPOUT)
 
-    # Each state as one cell
+    # 每个状态作为单个 cell
     stacked_cell = tf.nn.rnn_cell.MultiRNNCell([single_cell] * FLAGS.NUM_LAYERS)
 
     return stacked_cell
 ```
 
-The code above is about creating our specific rnn architecture. We can choose from many different rnn cell types but here you can see three of most common (basic, GRU, and LSTM). We create each cell with a certain number of hidden units. We can then add a dropout layer after cell layer for regularization. Finally, we can make the stacked rnn architecture by replicating the single_cell. Note the **state_is_tuple=True** condition added to single_cell and stacked_cell. This ensures that we get a tuple return that contains the states after each input in a given sequence. The above statement will be true if using an LSTM unit, otherwise, please disregard.
+上面的代码创建的是我们特定的 RNN 结构。我们可以从许多不同的 RNN 单元类型中进行选择，但是在这里你可以看到三个最常见的类型（BasicRNN、GRU 和 LSTM）。我们用一定数量的隐藏单元来创建每个 RNN 单元。然后，我们可以在每个单元层之后之后添加一个 Dropout 层来进行正则化处理。最后，我们可以通过复制 `single_cell` 来实现堆叠的 RNN 结构。注意，`state_is_tuple=True` 条件被附加到了 `single_cell` 和 `stacked_cell` 里。这保证了在给定序列的每个输入之后返回一个包含状态的元组。如果使用 LSTM 单元，上述语句为真；否则无视。
 
-```
+```python
 def rnn_inputs(FLAGS, input_data):
     with tf.variable_scope('rnn_inputs', reuse=True):
         W_input = tf.get_variable("W_input",
             [FLAGS.NUM_CLASSES, FLAGS.NUM_HIDDEN_UNITS])
 
-    # &amp;amp;lt;BATCH_SIZE, seq_len, num_hidden_units&amp;amp;gt;
+    # <BATCH_SIZE, seq_len, num_hidden_units>
     embeddings = tf.nn.embedding_lookup(W_input, input_data)
-    # &amp;amp;lt;seq_len, BATCH_SIZE, num_hidden_units&amp;amp;gt;
+    # <seq_len, BATCH_SIZE, num_hidden_units>
     # BATCH_SIZE will be in columns bc we feed in row by row into RNN.
     # 1st row = 1st tokens from each batch
     #inputs = [tf.squeeze(i, [1]) for i in tf.split(1, FLAGS.SEQ_LEN, embeddings)]
@@ -322,44 +324,44 @@ def rnn_softmax(FLAGS, outputs):
     return logits
 ```
 
-Couple differences between the rnn_inputs function here and in the naive TF implementation. As you can see, we no longer have to reshape our inputs to that it changed from to. This is because we will be receiving the output and state from our rnn by using **tf.nn.dynamic_rnn**. This is a significantly effective and efficient rnn abstraction that requires the inputs not be shaped when fed it, so all we feed in are the embeddings. The rnn_softmax class which gives us the logits remains the same as the previous implementation.
+这里的 `rnn_inputs` 函数与原生 TensorFlow 版本的实现由一些不同。正如你所看到的，我们不再需要 reshape 输入。这是因为 `tf.nn.dynamic_rnn` 会帮我们处理来自 RNN 的 output 和 state。这是一种效率非常高的 RNN 抽象，它还要求输入的数据不被预先 reshape，因此我们所有全部内容都是嵌入的。`rnn_softmax` 类提供的 logits 功能和前面所实现内容的完全一样。
 
-```
+```python
 class model(object):
 
     def __init__(self, FLAGS):
 
-        ''' Data placeholders '''
+        ''' 数据占位符'''
         self.input_data = tf.placeholder(tf.int32, [None, None])
         self.targets = tf.placeholder(tf.int32, [None, None])
 
-        ''' RNN cell '''
+        ''' RNN 单元 '''
         self.stacked_cell = rnn_cell(FLAGS)
         self.initial_state = self.stacked_cell.zero_state(
             FLAGS.NUM_BATCHES, tf.float32)
 
-        ''' Inputs to RNN '''
-        # Embedding (aka W_input weights)
+        ''' RNN 输入 '''
+        # 嵌入权重 W_input)
         with tf.variable_scope('rnn_inputs'):
             W_input = tf.get_variable("W_input",
                 [FLAGS.NUM_CLASSES, FLAGS.NUM_HIDDEN_UNITS])
         inputs = rnn_inputs(FLAGS, self.input_data)
 
-        ''' Outputs from RNN '''
-        # Outputs: &amp;amp;lt;seq_len, BATCH_SIZE, num_hidden_units&amp;amp;gt;
-        # state: &amp;amp;lt;BATCH_SIZE, num_layers*num_hidden_units&amp;amp;gt;
+        ''' RNN 输出 '''
+        # outputs: <seq_len, BATCH_SIZE, num_hidden_units>
+        # state: <BATCH_SIZE, num_layers*num_hidden_units>
         outputs, state = tf.nn.dynamic_rnn(cell=self.stacked_cell, inputs=inputs,
                                            initial_state=self.initial_state)
 
-        # &amp;amp;lt;seq_len*BATCH_SIZE, num_hidden_units&amp;amp;gt;
+        # <seq_len*BATCH_SIZE, num_hidden_units>
         outputs = tf.reshape(tf.concat(1, outputs), [-1, FLAGS.NUM_HIDDEN_UNITS])
 
-        ''' Process RNN outputs '''
+        ''' 处理 RNN 输出 '''
         with tf.variable_scope('rnn_softmax'):
             W_softmax = tf.get_variable("W_softmax",
                 [FLAGS.NUM_HIDDEN_UNITS, FLAGS.NUM_CLASSES])
             b_softmax = tf.get_variable("b_softmax", [FLAGS.NUM_CLASSES])
-        # Logits
+        # Logit
         self.logits = rnn_softmax(FLAGS, outputs)
         self.probabilities = tf.nn.softmax(self.logits)
 
@@ -370,28 +372,28 @@ class model(object):
                 self.logits, y_as_list))
         self.final_state = state
 
-        ''' Optimization '''
+        ''' 优化 '''
         self.lr = tf.Variable(0.0, trainable=False)
         trainable_vars = tf.trainable_variables()
-        # glip the gradient to avoid vanishing or blowing up gradients
+        # 梯度截断防止梯度消失或梯度爆炸
         grads, _ = tf.clip_by_global_norm(tf.gradients(self.loss, trainable_vars),
                                           FLAGS.GRAD_CLIP)
         optimizer = tf.train.AdamOptimizer(self.lr)
         self.train_optimizer = optimizer.apply_gradients(
             zip(grads, trainable_vars))
 
-        # Components for model saving
+        # 保存模型的组件
         self.global_step = tf.Variable(0, trainable=False)
         self.saver = tf.train.Saver(tf.all_variables())
 ```
 
-Also notice that we don’t manually do one-hot encoding on our input tokens before embeddings them. This is because **tf.nn.embedding_lookup** in rnn_inputs function above does this automatically for us.
+还要注意的是，我们不会手动的在嵌入之前对输入 token 进行独热编码，这是因为`rnn_inputs` 函数里的  `tf.nn.embedding_lookup` 会自动帮我们完成。
 
-For generating the outputs, we use **tf.nn.dynamic_rnn** where the outputs will be the output for each input and the returning state is a tuple containing the last state for each input batch. Finally, we reshape the outputs to shape so we can get the logits and compare to targets.
+为了生成输出，我们使用了 `tf.nn.dynamic_rnn` ，其输出结果为每个输入的输出以及返回状态（即包含上一次每个输入批次的状态的元组）。最后，我们将输出进行了 reshape ，从而得到 logits 概率并用于与 targets 进行比较。
 
-Notice the **self.initial_state**, with stacked_cell.zero_state, all we have to specify is the batch_size. Here you will see NUM_BATCHES, please refer to section above on shaping for clarification. An another alternative is not including initial_state at all! **dynamic_rnn()** will figure it out on its own, all we need to do is specify the data type (ie. dtype=tf.float32, etc.). But we can’t do that here because we pass in the final_state of a sequence as the initial_state of the next sequence. You may notice that we pass in the previous final_state as the new initial_state even though **self.initial_state** is not a placeholder. We can still feed in our own initial just by redefining self.initial_state in **step()**. What ever we need to calculate in our output_feed, the input_feeds will be used and if it is missing, it will just go to predefined (stacked_cell.zero_state in this case) value.
+注意到 `self.initial_state` 由 `stacked_cell.zero_state` 初始化，我们只需要指定的 `batch_size` 就够了。对于这里的 `NUM_BATCHES` 请查看前面的张量形状一节中的说明。有一种替代方法可以不包含初始状态，`dynamic_rnn()` 会自行处理，我们所需要做的就是指定数据类型（即`dtype = tf.float32` 等)。可惜我们并不能这样做，因为我们要把序列的 `final_state` 作为了下一个序列的 `initial_state` 。你可能还会注意到，尽管 `self.initial_state` 不是占位符，我们还是把前一次 `final_state` 传给了新的 `initial_state`。当然，我们可以通过重新定义 `step()` 里的 `self.initial_state` 来输入自己的初始值。不管怎样，一旦用到 `input_feeds` ，我们就需要计算 `output_feed`，而如果没有用到，那么就会跳回使用重载之前的值（也就是 `stacked_cell.zero_state`）。
 
-```
+```python
 def step(self, sess, batch_X, batch_y, initial_state=None):
 
     if initial_state == None:
@@ -410,26 +412,25 @@ def step(self, sess, batch_X, batch_y, initial_state=None):
     return outputs[0], outputs[1], outputs[2], outputs[3]
 ```
 
-## Results:
+## 结果
 
-Let’s take a look at a few results. This by no means going to be earth shattering creativity, but I did use temperature instead of argmax for reproduction. So we will see more creativity but more errors (grammar, spelling, ordering, etc.). I only let it train for 10 epochs but we can already start to see words and sentence structure and even the concept for acting lines for each character (data was shakespeare’s work). For decent results, let it train over-night on a GPU.
+我们来看看结果。这绝不是一种惊天动地的创造，但我确实是用了 `temperature` 而不是 `argmax` 进行生成。因此，我们可以看到生成结果里包含很多新奇的创意，但同时错误也很多（包括语法、拼写、排序等）。我只让网络训练了 10 轮，但已经开始看到单词和句子结构了，甚至还能看到每个角色的表演台词（数据集是莎士比亚的作品）。为了获得不错的结果，可以让它通宵在 GPU 上进行训练。
 
-Look’s like Shakespeare has lost his touch and ability to spell.
+看到这，估计连莎士比亚都要给跪了。
 
 ![Inline image 1](https://mail.google.com/mail/u/0/?ui=2&ik=d006c59970&view=fimg&th=1581decebd5ad068&attid=0.1&disp=emb&realattid=ii_1581decde193b589&attbid=ANGjdJ8r_gfurE4BhEYCCJ_-tXVhe4tnxHp3tXtGHBO9tPDDqLBErfAbwUjgLzBJVr0DhtjWIU3hB6Ut0YMnaHAHqBnZQx9IU1FcTsC4yJBvvroguIEldoeR0EFxaBU&sz=w1124-h480&ats=1477970844577&rm=1581decebd5ad068&zw&atsh=1)
 
-**Update**: I got a lot of doubts about the shapes of a typical input, output and state.
+**更新**：我对典型输入、输出和状态张量的形状有很多疑问。
 
-* **input** – [num_batches, seq_len, num_classes]
-* **output** – [num_batches, seq_len, num_hidden_units] (all outputs from each of the states)
-* **state** – [num_batches, num_hidden_units] (this is just the output from the last state)
+* **输入**：[num_batches, seq_len, num_classes]
+* **输出**：[num_batches, seq_len, num_hidden_units] （每个状态的全部输出）
+* **状态**：[num_batches, num_hidden_units] （上一次状态的输出）
 
-In this next blog post, we will be dealing with inputs that contain variable sequence lengths and show an implementation for the of text classification.
+在下一篇文章中，我们将处理变长序列，展示文本分类的具体实现。
 
-## **All Code:**
+## **代码**
 
-**[GitHub Repo](https://github.com/ajarai/the-neural-perspective/tree/master/recurrent-neural-networks/char_rnn) (Updating all repos, will be back up soon!)**
-
+**[GitHub 仓库](https://github.com/ajarai/the-neural-perspective/tree/master/recurrent-neural-networks/char_rnn) （正在更新，敬请期待！）** 
 
 ---
 
