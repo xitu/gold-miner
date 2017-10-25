@@ -4,7 +4,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-networks-rnn-part-1-basic-rnn-char-rnn.md](https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-networks-rnn-part-1-basic-rnn-char-rnn.md)
 > * 译者：[Changkun Ou](https://github.com/changkun/)
-> * 校对者：[CACppuccino](https://github.com/CACppuccino)
+> * 校对者：[CACppuccino](https://github.com/CACppuccino), [TobiasLee](https://github.com/TobiasLee)
 
 **本系列文章汇总**
 
@@ -40,7 +40,7 @@
 
 ![Screen Shot 2016-10-04 at 6.15.57 AM.png](https://theneuralperspective.files.wordpress.com/2016/10/screen-shot-2016-10-04-at-6-15-57-am.png?w=620)
 
-**注意：** 由于我们是一行一行的将数据输入进 RNN 单元的，因此我们需要一列一列的将数据组成张量输入到网络中去，即我们必须把原始数据进行 reshape 处理。此外，每个字母都将作为一个被嵌入的独热编码（one-hot encoding, 译注：又称 1-of-k encoding）的向量输入。在上图中，每个句子数据都被完美的切分进了一组组小批量数据，这只不过是为了达到更好的可视化目的，这样你就可以看到输入是怎样被切分的了。在实际的 CHAR-RNN 实现中，我们并不关心一个具体的句子，我们只是将整个输入切分成 num_batches 个批次，每个批次彼此独立，所以每个输入的长度都是 `num_steps`，即 `seq_len`。
+**注意：**由于我们是一行一行的将数据输入进 RNN 单元的，因此我们需要一列一列的将数据组成张量输入到网络中去，即我们必须把原始数据进行 reshape 处理。此外，每个字母都将作为一个被嵌入的独热编码（one-hot encoding，译注：又称 1-of-k encoding）的向量输入。在上图中，每个句子数据都被完美的切分进了一组组小批量数据，这只不过是为了达到更好的可视化目的，这样你就可以看到输入是怎样被切分的了。在实际的     -RNN 实现中，我们并不关心一个具体的句子，我们只是将整个输入切分成 num_batches 个批次，每个批次彼此独立，所以每个输入的长度都是 `num_steps`，即 `seq_len`。
 
 ![Screen Shot 2016-10-04 at 6.30.17 AM.png](https://theneuralperspective.files.wordpress.com/2016/10/screen-shot-2016-10-04-at-6-30-17-am.png?w=620)
 
@@ -83,7 +83,7 @@ for t in reversed(xrange(len(inputs))):
 
 ## 张量的形状
 
-在实现之前，我们来谈谈张量的形状。这个 CHAR-RNN 的例子对于讲述张量形状这个概念有点诡异，因此我会向你解释如何对其进行批量化以及它们是怎样完成 seq2seq 任务的。
+在实现之前，我们来谈谈张量的形状。在这个 CHAR-RNN 的例子上讲述张量形状这个概念有点奇怪，因此我会向你解释如何对其进行批量化以及它们是怎样完成 seq2seq 任务的。
 
 ![Screen Shot 2016-10-31 at 8.45.07 PM.png](https://theneuralperspective.files.wordpress.com/2016/10/screen-shot-2016-10-31-at-8-45-07-pm.png?w=620)
 
@@ -119,7 +119,7 @@ def generate_batch(FLAGS, raw_data):
         yield (X, y)
 ```
 
-下面是使用我们自己的权重的代码。`rnn_cell`函数用来接收来自前一个单元的输入和状态，从而生成 RNN 的输出，同时也是下一个单元的输入状态。下一个函数 `rnn_logits` 使用权重将我们的 RNN 输出进行转换，从而通过 softmax 生成 logit 概率并用于分类。
+下面是使用我们自己的权重的代码。`rnn_cell` 函数用来接收来自前一个单元的输入和状态，从而生成 RNN 的输出，同时也是下一个单元的输入状态。下一个函数 `rnn_logits` 使用权重将我们的 RNN 输出进行转换，从而通过 softmax 生成 logits 概率并用于分类。
 
 ```python
 def rnn_cell(FLAGS, rnn_input, state):
@@ -179,7 +179,7 @@ class model(object):
             rnn_outputs.append(state)
         self.final_state = rnn_outputs[-1]
 
-        # Logit 概率及预测
+        # Logits 概率及预测
         with tf.variable_scope('softmax'):
             W_softmax = tf.get_variable('W_softmax',
                 [FLAGS.NUM_HIDDEN_UNITS, FLAGS.NUM_CLASSES])
@@ -200,7 +200,7 @@ class model(object):
             FLAGS.LEARNING_RATE).minimize(self.total_loss)
 ```
 
-我们偶尔也会从模型中进行采样。对于采样而言，可以选择使用 logit 概率中的最大值，或者在选择的类别中引入 `temperature` 参数。
+我们偶尔也会从模型中进行采样。对于采样而言，可以选择使用 logits 概率中的最大值，或者在选择的类别中引入 `temperature` 参数。
 
 ```python
 def sample(self, FLAGS, sampling_type=1):
@@ -297,7 +297,7 @@ def rnn_cell(FLAGS):
     return stacked_cell
 ```
 
-上面的代码创建的是我们特定的 RNN 结构。我们可以从许多不同的 RNN 单元类型中进行选择，但是在这里你可以看到三个最常见的类型（基本、GRU 和 LSTM）。我们用一定数量的隐藏单元来创建每个 RNN 单元。然后，我们可以在每个单元层之后之后添加一个 Dropout 层来进行正则化处理。最后，我们可以通过复制 `single_cell` 来实现堆叠的 RNN 结构。注意，`state_is_tuple=True` 条件被附加到了 `single_cell` 和 `stacked_cell` 里。这保证了在给定序列的每个输入之后返回一个包含状态的元组。如果使用 LSTM 单元，上述语句为真；否则无视。
+上面的代码创建的是我们特定的 RNN 结构。我们可以从许多不同的 RNN 单元类型中进行选择，但是在这里你可以看到三个最常见的类型（BasicRNN、GRU 和 LSTM）。我们用一定数量的隐藏单元来创建每个 RNN 单元。然后，我们可以在每个单元层之后之后添加一个 Dropout 层来进行正则化处理。最后，我们可以通过复制 `single_cell` 来实现堆叠的 RNN 结构。注意，`state_is_tuple=True` 条件被附加到了 `single_cell` 和 `stacked_cell` 里。这保证了在给定序列的每个输入之后返回一个包含状态的元组。如果使用 LSTM 单元，上述语句为真；否则无视。
 
 ```python
 def rnn_inputs(FLAGS, input_data):
@@ -324,7 +324,7 @@ def rnn_softmax(FLAGS, outputs):
     return logits
 ```
 
-这里的 `rnn_inputs` 函数与原生 TensorFlow 版本的实现由一些不同。正如你所看到的，我们不再需要 reshape 输入。这是因为 `tf.nn.dynamic_rnn` 会帮我们处理来自 RNN 的 output 和 state。这是一种效率非常高的 RNN 抽象，它还要求输入的数据不被预先 reshape，因此我们所有全部内容都是嵌入的。`rnn_softmax` 类提供的 logit 功能和前面所实现内容的完全一样。
+这里的 `rnn_inputs` 函数与原生 TensorFlow 版本的实现由一些不同。正如你所看到的，我们不再需要 reshape 输入。这是因为 `tf.nn.dynamic_rnn` 会帮我们处理来自 RNN 的 output 和 state。这是一种效率非常高的 RNN 抽象，它还要求输入的数据不被预先 reshape，因此我们所有全部内容都是嵌入的。`rnn_softmax` 类提供的 logits 功能和前面所实现内容的完全一样。
 
 ```python
 class model(object):
@@ -389,7 +389,7 @@ class model(object):
 
 还要注意的是，我们不会手动的在嵌入之前对输入 token 进行独热编码，这是因为`rnn_inputs` 函数里的  `tf.nn.embedding_lookup` 会自动帮我们完成。
 
-为了生成输出，我们使用了 `tf.nn.dynamic_rnn` ，其输出结果为每个输入的输出以及返回状态（即包含上一次每个输入批次的状态的元组）。最后，我们将输出进行了 reshape ，从而得到 logit 概率并用于与targets 进行比较。
+为了生成输出，我们使用了 `tf.nn.dynamic_rnn` ，其输出结果为每个输入的输出以及返回状态（即包含上一次每个输入批次的状态的元组）。最后，我们将输出进行了 reshape ，从而得到 logits 概率并用于与 targets 进行比较。
 
 注意到 `self.initial_state` 由 `stacked_cell.zero_state` 初始化，我们只需要指定的 `batch_size` 就够了。对于这里的 `NUM_BATCHES` 请查看前面的张量形状一节中的说明。有一种替代方法可以不包含初始状态，`dynamic_rnn()` 会自行处理，我们所需要做的就是指定数据类型（即`dtype = tf.float32` 等)。可惜我们并不能这样做，因为我们要把序列的 `final_state` 作为了下一个序列的 `initial_state` 。你可能还会注意到，尽管 `self.initial_state` 不是占位符，我们还是把前一次 `final_state` 传给了新的 `initial_state`。当然，我们可以通过重新定义 `step()` 里的 `self.initial_state` 来输入自己的初始值。不管怎样，一旦用到 `input_feeds` ，我们就需要计算 `output_feed`，而如果没有用到，那么就会跳回使用重载之前的值（也就是 `stacked_cell.zero_state`）。
 
