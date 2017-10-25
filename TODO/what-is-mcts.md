@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/what-is-mcts.md](https://github.com/xitu/gold-miner/blob/master/TODO/what-is-mcts.md)
 > * 译者：[CACppuccino](https://github.com/CACppuccino)
-> * 校对者：
+> * 校对者：[ppp-man](https://github.com/ppp-man) [CACppuccino](https://github.com/CACppuccino)
 
 # 什么是蒙特卡洛树搜索
 
