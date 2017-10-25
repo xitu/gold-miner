@@ -2,151 +2,148 @@
 > * 原文作者：[cameronius](http://www.cameronius.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/what-is-mcts.md](https://github.com/xitu/gold-miner/blob/master/TODO/what-is-mcts.md)
-> * 译者：
-> * 校对者：
+> * 译者：[CACppuccino](https://github.com/CACppuccino)
+> * 校对者：[ppp-man](https://github.com/ppp-man) [CACppuccino](https://github.com/CACppuccino)
 
-# What is MCTS?
+# 什么是蒙特卡洛树搜索
 
-Monte Carlo Tree Search (MCTS) is a method for making optimal decisions in artificial intelligence (AI) problems, typically move planning in combinatorial games. MCTS combines the generality of random simulation with the precision of tree search.
+蒙特卡洛树搜索（MCTS）是一种在人工智能问题中进行决策优化的方法，通常是对于那些在组合游戏中需要移动规划的部分。蒙特卡洛树搜索将随机模拟的通用性与树搜索的准确性进行了结合。
 
-John von Neumann's 1928 minimax theorem paved the way for adversarial tree search methods that have formed the basis of decision making in computer science and AI almost since their inception. Monte Carlo methods were later formalised in the 1940s as a way to approach less well-defined problems unsuitable for tree search through the use of random sampling. Rémi Coulomb combined these two ideas in 2006 to provide a new approach for move planning in Go now known as MCTS.
+冯·诺依曼于 1928 年提出的极小化极大理论（minimax）为之后的对抗性树搜索方法铺平了道路，而这些在计算机科学和人工智能刚刚成立的时候就成为了决策理论的根基。蒙特卡洛方法通过随机采样解决问题，随后在 20 世纪 40 年代，被作为了一种解决模糊定义问题而不适合直接树搜索的方法。Rémi Coulomb 于 2006 年将这两种方法结合，来提供一种新的方法作为围棋中的移动规划，如今称为蒙特卡洛树搜索（MCTS）。
 
-Research interest in MCTS has risen sharply due to its spectacular success with computer Go and potential application to a number of other difficult problems. Its application extends beyond games, and MCTS can theoretically be applied to any domain that can be described in terms of {_state_, _action_} pairs and simulation used to forecast outcomes.
-
----
-
-## Basic Algorithm
-
-The basic MCTS algorithm is simplicity itself: a search tree is built, node by node, according to the outcomes of simulated playouts. The process can be broken down into the following steps:
-
-![](mcts-algorithm-1a.png)
-
-1. Selection
-
-Starting at root node _R_, recursively select optimal child nodes (explained below) until a leaf node _L_ is reached.
-
-2. Expansion
-
-If _L_ is a not a terminal node (i.e. it does not end the game) then create one or more child nodes and select one _C_.
-
-3. Simulation
-
-Run a simulated playout from _C_ until a result is achieved.
-
-4. Backpropagation
-
-Update the current move sequence with the simulation result.
-
-Each node must contain two important pieces of information: an estimated value based on simulation results and the number of times it has been visited.
-
-In its simplest and most memory efficient implementation, MCTS will add one child node per iteration. Note, however, that it may be beneficial to add more than one child node per iteration depending on the application.
+近期由于它在计算机围棋上的成果和对某些难题具有解决的潜力，科研领域对于 MCTS 的研究兴趣快速上升。它的应用领域已不止于博弈，而且理论上 MCTS 可以应用于任何能够以 **{状态，动作}** 形式描述，通过模拟来预测结果的领域。
 
 ---
 
-## Node Selection
+## 基本算法
 
-### Bandits and UCB
+最基本的 MCTS 算法本身就是简单的：根据模拟出来的结果，建立一棵节点相连的搜索树。整个过程可以被分解为如下几步：
 
-Node selection during recursive tree descent is achieved by choosing the node that maximises some quantity, analagous to the _multiarmed bandit problem_ in which a player must choose the slot machine (bandit) that maximises their estimated reward each turn. The following Upper Confidence Bounds (UCB) formula is typically used:
+![](https://i.imgur.com/Oi1UjD1.png)
 
-![](ucb-1.png)
+1.选择
 
-where `vi` is the estimated value of the node, `ni` is the number of the times the node has been visited and `N` is the total number of times that its parent has been visited. `C` is a tunable bias parameter.
+从根节点 R 开始，递归地选择最优子节点（下面会解释）直到一个叶子节点 L 为止。
 
-### Exploitation vs Exploration
+2.扩展
 
-The UCB formula provides a good balance between the _exploitation_ of known rewards and the _exploration_ of relatively unvisited nodes to encourage their exercise. Reward estimates are based on random simulations, so nodes must be visited a number of times before these estimates become reliable; MCTS estimates will typically be unreliable at the start of a search but converge to reliable estimates given sufficient time and perfect estimates given infinite time.
+如果 L 不是终止节点（就是说，博弈尚未结束）那么就创建一个或多个子节点，并选择其中一个 C。
 
-### MCTS and UCT
+3.模拟
 
-Kocsis and Szepervari (2006) first formalised a complete MCTS algorithm using UCB and dubbed it the Upper Confidence Bounds for Trees (UCT) method. This is the algorithm used in the vast majority of current MCTS implementations.
+从 C 执行一次模拟推出（译者注：通常称为 playout 或 rollout）直到得到一个结果。
 
-UCT may be described as a special case of MCTS, that is:
+4.反向传播
 
-UCT  =  MCTS + UCB
+用模拟出来的结果更新当前的移动序列。
 
----
+每一个节点必须包含两部分重要的信息：基于模拟所得结果的估值，和被访问的次数
 
-## Benefits
-
-MCTS offers a number of advantages over traditional tree search methods.
-
-### Contextual Freedom
-
-The greatest benefit of MCTS is that it does not require any strategic or tactical knowledge about a given game (or other problem domain) to make reasonable move decisions. The algorithm can function effectively with no knowledge of a game apart from its legal moves and end conditions; this means that a single MCTS implementation can be reused for any number of games with little modificiation, and makes MCTS a potential boon for general game playing.
-
-### Asymmetric Tree Growth
-
-MCTS performs an asymmetric tree growth that adapts to the topology of the search space. The algorithm visits more interesting nodes more often, and focusses its search time in more relevant parts of the tree.
-
-![](../mcts-tree-4.png)
-
-This makes MCTS suitable for games with large branching factors such as 19x19 Go. Such large combinatorial spaces typically cause problems for standard depth- or breadth-based search methods, but the adaptive nature of MCTS means that it will (eventually) find those moves that appear optimal and focus its search effort there.
-
-### Graceful Exit
-
-The algorithm can be halted at any time to return the current best estimate. The search tree built thus far may be discarded or preserved for future reuse.
-
-### Simplicity
-
-The algorithm is extremely simple to implement (see the [Tutorial](../tutorial/index.html)).
+在最简单和最大化利用内存的执行中，MCTS 会在每次迭代中添加一个子节点。注意，在某些情况下每次迭代增加多个子节点可能会更有益。
 
 ---
 
-## Drawbacks
+## 节点的选择
 
-MCTS has few drawbacks, but they can be major.
+### 老虎机与 UCB 算法
 
-### Playing Strength
+在树递归地向下发展时的节点的选择，是取决于该节点是否最大化了某些数量，类似于**多臂老虎机**问题：即玩家每回合都要选择那个能够带给他们最大化收益的老虎机。接下来的上限置信区间（Upper Confidence Bounds, UCB）公式通常会被用到：
 
-The MCTS algorithm, in its basic form, can fail to find reasonable moves for even games of medium complexity within a reasonable amount of time. This is mostly due to the sheer size of the combinatorial move space and the fact that key nodes may not be visited enough times to give reliable estimates.
+![](https://i.imgur.com/0m8A2zl.png)
 
-Luckily, the performance of the algorithm can be sigificantly improved using a number of techniques.
+其中 `vi` 是节点的估值，`ni` 是节点被访问的次数而 `N` 是它的父亲节点被访问的总次数。`C` 是可调的偏置参数。
+
+### 利用性 vs 探索性
+
+UCB 公式在**利用性**与**探索性**之间提供了不错的平衡，鼓励访问未曾访问过的节点。奖励是基于随机模拟的，所以节点在变的可靠之前必须被访问一定的次数。MCTS 估值往往在开始的表现会非常不可靠，但随着足够多的时间而逐渐向可靠的估值收敛，若有无限多的时间则可以收敛至最优估值。
+
+### 蒙特卡洛树搜索（MCTS）与上限置信区间树（UCT）
+
+Kocsis 和 Szepervari (2006)首先利用 UCB 提出了一个完整的 MCTS 算法并命名为上限置信区间树（UCT）的方法。这个方法正是如今被大多数人采用于 MCTS 的实施中的算法。  
+UCT 可以被描述为 MCTS 的一种特殊情况，即：
+
+UCT = MCTS + UCB
+---
+
+## 优点
+
+MCTS 相对传统树搜索方法具有一些不错的优点。
+
+### 上下文无关
+
+MCTS最大的好处就在于它无需知道该博弈（或者其他问题领域）的任何战术或策略。这个算法可以无需知道任何该博弈的信息（除了可进行的动作和终止条件）。这意味着任何的 MCTS 的实现方案可以在仅仅修改一小部分后便移植到其他的博弈中，对于所有的博弈问题来说 MCTS 的这个特性也是一种隐形的好处。
+
+
+### 非对称树增长（Asymmetric Tree Growth）
+
+MCTS 表现出一种非对称的树增长来适应搜索空间的拓扑。算法会访问其更‘感兴趣’的节点，并将搜索空间集中于更加相关的部分。
+
+![](https://i.imgur.com/5ctcMfU.png)
+
+这使得 MCTS 很适合于拥有大量影响因素的博弈中，如 19x19 大小的围棋。如此巨大的空间组合往往会使得标准的深度或广度搜索方法出现问题，但 MCTS 的适应特性意味着它会（最终）找到那些更为优秀的移动（动作）并专注于那里的搜索。
+
+
+### 优雅的退出
+
+算法可以在任意时间中止并返回当前最佳的评估策略。建立的搜索树可以被抛弃或为以后的复用而保留。
+
+### 易用性
+
+算法非常易于实现，可见教程。（译者注：[python](http://mcts.ai/code/python.html) 及 [java](http://mcts.ai/code/java.html) 源码及相关知识点可在此找到）
 
 ---
 
-Improvements
+## 缺点
 
-There are two types of improvements that may benefit an MCTS implementation: those specific to the current domain and those common to all domains.
+MCTS 虽然只有少量缺陷，但他们可以很严重（影响树搜索的效果）。
 
-### Domain Specific
+### 博弈强度
 
-Domain knowledge specific to the current game is typically exploited during the simulation stage to produce playouts that are more similar to playouts that would occur between human opponents. This means that playout results will be more realistic than random simulations and that nodes will require fewer iterations to yield realistic reward values.
+MCTS 算法，在最基本的形式下，即使针对中等复杂度的博弈也有可能在一定时间内不能够给出很好的决策。这很可能是由于决策空间的绝对大小和关键树节点在没有被访问足够多的次数的情况下不能够给出可靠的估值的原因。
 
-Domain specific improvements typically involve the completion of local move patterns known to work for the current game, such as capturing moves in Go or bridge intrusions in Hex. They can yield significant performance improvements for the current game at the expense of generality.
-
-### Domain Independent
-
-Domain independent enhancements with broad application to a range of applications are the holy grail of MCTS research, and are the focus of most current work in the area. Dozens of such enhancements have been suggested to date with varying degrees of success, ranging from the simple (play winning moves/avoid losing moves where possible during playouts) to more complex node initialisation and selection methods and meta-strategies.
-
-See the [Enhancements](../enhancements/index.html) page for a more detailed list of MCTS improvements.
+幸运的是，算法的表现可以通过一些技巧来提升。
 
 ---
 
-## Open Research Topics
+# 提升方法
 
-As MCTS is a new field of study, there are many open research topics.
+这里有两种方法可能有益于提升 MCTS 的实现：一个是对于特定领域，另一个对于所有的领域。
 
-### Algorithmic Enhancements
+### 特定的领域（知识）
 
-Almost all of the dozens of improvements suggested for the basic algorithm require further research. See the list in the [Enhancements](../enhancements/index.html) section for more details.
+对于特定博弈的领域知识通常会在进行模拟的阶段被开发出来，这样得到的推出或决策（playout）会与人类的选手的动作更加相似。这意味着推出的结果会变的比随机模拟更加的真实并且节点会在更少的迭代后产生真实可靠的估值。
 
-### Automated Parameter Tuning
+特定的领域知识提升方法往往需要知道当前博弈已知的一些技巧，如围棋中的捕捉动作或者六贯棋中的桥指令。它们对当前博弈有巨大的提升效果，不过同时也牺牲了通用性。
 
-One of the simplest open questions is how to dynamically adjust search parameters such as the UCB bias term to maximum effect, and what other aspects of the search may be similarly parameterised.
+### 领域独立（提升方法）
 
-### Node Expansion
+领域独立提升方法有着很大的应用范围，是 MCTS 算法研究中的圣杯，也是当今很多研究所瞄准的方向。许多这样的提升被提出并与不同层面的成功相吻合，从简单（博弈并获胜的移动/避免在推出中可能失败的移动）到复杂的节点初始化和选择方法，还有元策略。
+可以通过浏览[提升列表](http://www.cameronius.com/research/mcts/enhancements/index.html)来查看 MCTS 更多提升的细节  
 
-Some applications benefit from expanding the search tree one node per iteration whereas other might benefit from expanding all possible nodes per iteration. There are to date no clear guidelines as to which strategy should be applied for a given situation, and whether this can be determined automatically.
+---
 
-### Node Reliability
+## 成立的研究课题
+MCTS 仍是研究领域中的新的部分，有许多正在进行的研究课题。
 
-It would be useful to know how many times a given node must be visited before its reward estimate is sufficently reliable, based on its situation and relative position within the search tree.
+### 算法提升
 
-### Tree Shape Analysis
+几乎所有针对基本算法做出的提升建议都需要更多的研究。可以参考该[提升列表](http://www.cameronius.com/research/mcts/enhancements/index.html)
 
-We have already conducted preliminary work into the question of whether UCT tree shape might yield some insight into the characteristics of a given game (Williams 2010).The results are encouraging.
+### 自动化调参
 
+最简单的一个问题是，如何动态地调整搜索参数，如 UCB 中的偏置参数，来最大化算法效果，并且是否其他方面的搜索算法也能类似地被参数化呢。
+
+### 节点扩展
+
+有些应用适合于每次迭代扩展一个节点，而有些则适合多个。至今尚未有清晰的指导来告诉我们哪些情况下应该使用哪个策略，并且是否可以被自动化。
+
+### 节点可靠性
+
+若能基于情景和节点在搜索树中的相对位置，知道一个节点要被访问了多少次之后才会变得可靠，会非常有用处。
+
+### 树形状分析
+
+我们在这一方面已经针对 UCT 树会不会根据所给博弈的特定而产生另一些特征，进行了初步的研究(Williams 2010)。有着不错的结果。
 
 ---
 
