@@ -4,7 +4,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-networks-rnn-part-2-text-classification.md](https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-networks-rnn-part-2-text-classification.md)
 > * 译者：[Changkun Ou](https://github.com/changkun)
-> * 校对者：[yanqiangmiffy](https://github.com/yanqiangmiffy)
+> * 校对者：[yanqiangmiffy](https://github.com/yanqiangmiffy), [TobiasLee](https://github.com/TobiasLee)
 
 **本系列文章汇总**
 
@@ -32,7 +32,7 @@
 
 ![Screen Shot 2016-10-05 at 7.32.36 PM.png](https://theneuralperspective.files.wordpress.com/2016/10/screen-shot-2016-10-05-at-7-32-36-pm.png?w=620)
 
-如上图所示，我们希望在计算完成时立即对句子的情绪做出预测。引入额外的填充符会带来过多噪声，这样的话你网络的性能就会不太好。**注意**：我们填充序列的唯一原因是因为需要以固定大小的批量输入进 RNN。下面你会看到，使用动态 RNN 还能避免在序列完成后的不必要计算。
+如上图所示，我们希望在计算完成时立即对句子的情绪做出预测。引入额外的填充符会带来过多噪声，这样的话你模型的性能就会不太好。**注意**：我们填充序列的唯一原因是因为需要以固定大小的批量输入进 RNN。下面你会看到，使用动态 RNN 还能避免在序列完成后的不必要计算。
 
 ## 模型
 
@@ -76,7 +76,7 @@ class model(object):
                 [FLAGS.num_hidden_units, FLAGS.num_classes])
             b_softmax = tf.get_variable("b_softmax", [FLAGS.num_classes])
 
-        # Logit
+        # Logits
         logits = rnn_softmax(FLAGS, outputs)
         probabilities = tf.nn.softmax(logits)
         self.accuracy = tf.equal(tf.argmax(
@@ -103,7 +103,7 @@ class model(object):
         # (由于采样，只需一个输入序列)
         sampling_outputs = all_outputs[0]
 
-        # Logit
+        # Logits
         sampling_logits = rnn_softmax(FLAGS, sampling_outputs)
         self.sampling_probabilities = tf.nn.softmax(sampling_logits)
 
@@ -142,9 +142,9 @@ class model(object):
             return outputs[0], outputs[1], outputs[2]
 ```
 
-上面的代码就是我们的模型代码，它在训练的过程中使用了输入的文本。**注意**：为了清楚期间，我们决定将批量数据的大小保存在我们的输入和目标占位符中，但是我们应该让它们独立于一个特定的批量大小之外。由于这个特定的批量大小依赖于 `batch_size`，如果我们这么做，那么我们就还得输入一个 `initial_state`。我们通过嵌入他们来为每个数据序列来输入 token。实践策略表明，我们在输入文本上使用 skip-gram 模型预训练嵌入权重能够取得更好的性能。
+上面的代码就是我们的模型代码，它在训练的过程中使用了输入的文本。**注意**：为了清楚起见，我们决定将批量数据的大小保存在我们的输入和目标占位符中，但是我们应该让它们独立于一个特定的批量大小之外。由于这个特定的批量大小依赖于 `batch_size`，如果我们这么做，那么我们就还得输入一个 `initial_state`。我们通过嵌入他们来为每个数据序列来输入 token。实践策略表明，我们在输入文本上使用 skip-gram 模型预训练嵌入权重能够取得更好的性能。
 
-在此模型中，我们再次使用 `dynamic_rnn`，但是这次我们提供了`sequence_length` 参数的值，它是一个包含每个序列长度的列表。这样，我们就可以避免在输入序列的最后一个字之后不必要的计算。**`length`** 函数就用来获取这个列表的长度，如下所示。当然，我们也可以在外面计算`seq_len`，再通过占位符进行传递。
+在此模型中，我们再次使用 `dynamic_rnn`，但是这次我们提供了`sequence_length` 参数的值，它是一个包含每个序列长度的列表。这样，我们就可以避免在输入序列的最后一个词之后进行的不必要的计算。**`length`** 函数就用来获取这个列表的长度，如下所示。当然，我们也可以在外面计算`seq_len`，再通过占位符进行传递。
 
 ```python
 def length(data):
@@ -172,10 +172,10 @@ def length(data):
 
 ## 损失屏蔽（这里不需要）
 
-最后，我们来计算 cost。你可能会注意到我们没有做任何损失屏蔽（loss masking）处理，因为我们分离了对应输出，仅用于计算损失函数。然而，对于其他诸如机器翻译的任务来说，我们的输出很有可能还来自填充符 token。我们不想考虑这些输出，因为传递了 `seq_lens` 参数的 `dynamic_rnn` 将返回 0。下面这个例子比较简单，只用来说明这个实现大概是怎么回事；再次，我们使用填充符 token 为 0 的性质：
+最后，我们来计算 cost。你可能会注意到我们没有做任何损失屏蔽（loss masking）处理，因为我们分离了对应输出，仅用于计算损失函数。然而，对于其他诸如机器翻译的任务来说，我们的输出很有可能还来自填充符 token。我们不想考虑这些输出，因为传递了 `seq_lens` 参数的 `dynamic_rnn` 将返回 0。下面这个例子比较简单，只用来说明这个实现大概是怎么回事；我们这里再一次使用了填充符 token 为 0 的性质：
 
 ```python
-# 向量化 logit 和目标
+# 向量化 logits 和目标
 targets = tf.reshape(targets, [-1]) # 将张量 targets 转为向量
 losses = tf.nn.sparse_softmax_cross_entropy_with_logits(logits, targets)
 mask = tf.sign.(tf.to_float(targets)) # targets 为 0 则输出为 0, target < 0 则输出为 -1, 否则 为 1
@@ -198,7 +198,7 @@ masked_losses = mask*losses # 填充符所在位置的贡献为 0
 
 我们需要将这个嵌入后的 `X` 传递给 `dynamic_rnn` 并返回 `all_outputs` （`[N, <max_len>, D]`）以及 `state`（`[1, N, D]`）。由于我们输入了 `seq_lens`，对于我们而言它就是最后一个对应的状态。从维度的角度来说，你可以看到， `all_outputs` 就是来自 RNN 的对于每个句子中的每个词的全部输出结果。然而，`state` 仅仅只是每个句子的最后一个对应输出。
 
-现在我们要输入 softmax 权重，但在此之前，我们需要通过取第一个索引（`state[0]`）来把状态从 `[1,N,D]` 转换为`[N,D]`。如此便可以通过与 softmax 权重 `[D,C]` 的点积，来得到形状为 `[N,C]` 的输出。其中，我们做指数级 softmax 运算，然后进行正规化，最终结合形状为 `[N,C]` 的 `target_y` 来计算损失函数。
+现在我们要输入 softmax 权重，但在此之前，我们需要通过取第一个索引（`state[0]`）来把状态从 `[1,N,D]` 转换为`[N,D]`。如此便可以通过与 softmax 权重 `[D,C]` 的点积，来得到形状为 `[N,C]` 的输出。其中，我们做指数级 softmax 运算，然后进行正则化，最终结合形状为 `[N,C]` 的 `target_y` 来计算损失函数。
 
 **注意**：如果你使用了基本的 RNN 或者 GRU，从 `dynamic_rnn` 返回的 `all_outputs` 和 `state` 的形状是一样的。但是如果使用 LSTM 的话，`all_outputs` 的形状就是 `[N, <max_len>, D]` 而 `state` 的形状为 `[1, 2, N, D]`。
 
