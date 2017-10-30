@@ -4,7 +4,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-network-rnn-part-4-attentional-interfaces.md](https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-network-rnn-part-4-attentional-interfaces.md)
 > * 译者：[TobiasLee](http://tobiaslee.top)
-> * 校对者：[changkun](https://github.com/changkun)
+> * 校对者：[changkun](https://github.com/changkun) [Brucexz](https://github.com/Brucexz)
 
 **本系列文章汇总**
 
@@ -20,7 +20,7 @@
 
 ![attention.png](https://github.com/ajarai/casual-digressions/blob/master/notes/images/rnn_attention/attention.png?raw=true)
 
-首先，让我们来一窥整个模型的架构并且讨论其中一些有趣的部分，然后我们会在先前实现的不带有注意力机制的编码器-解码器模型基础之上，添加注意力机制，先前模型的实现细节在[这里](https://theneuralperspective.com/2016/11/20/recurrent-neural-networks-rnn-part-3-encoder-decoder/)，我们将慢慢引入注意力机制，并实现模型的推断。。**注意**：这个模型并非当下最好的模型，更何况这些数据还是我在几分钟内草率地编写的。这篇文章旨在帮助你理解带有注意力机制的模型，从而你能够运用到更大的数据集上，并且取得非常不错的结果。
+首先，让我们来一窥整个模型的架构并且讨论其中一些有趣的部分，然后我们会在先前实现的不带有注意力机制的编码器-解码器模型基础之上，添加注意力机制，先前模型的实现细节在[这里](https://theneuralperspective.com/2016/11/20/recurrent-neural-networks-rnn-part-3-encoder-decoder/)，我们将慢慢引入注意力机制，并实现模型的推断。。**注意**：这个模型并非当下最好的模型，更何况这些数据还是我在几分钟内草率地编写的。这篇文章旨在帮助你理解使用注意力机制的模型，从而你能够运用到更大的数据集上，并且取得非常不错的结果。
 
 ## 带有注意力机制的编码器-解码器模型：
 
@@ -52,7 +52,7 @@
 
 我为模型创建了一个很小的数据集：20 个英语和对应的西班牙语句子。这篇教程的重点是让你了解如何建立一个带有软注意力机制的编码器-解码器模型，来解决像机器翻译等的序列到序列问题。所以我写了关于我自己的 20 个英文句子，然后把他们翻译成对应的西班牙语，这就是我们的数据。
 
-首先，我们把这些句子变成一系列 token，再把 token 转换成对应的词汇 id。在这个处理过程中，我们会建立一个词汇词典，使我们能够从 token 和词汇 id 之间完成转换。对于我们的目标语言（西班牙语），我们会额外地添加一个 EOS 标识。接下来我们将对源语言和目标语言转换得来的一组 token 进行填充操作，将它们补齐至最大长度（数据集中最长的句子长度），这将成为最终我们要喂给我们模型的数据。我们把经过填充的源语言数据传给编码器，但我们还会对目标语言的输入做一些额外的操作以获得解码器的输入和输出。
+首先，我们把这些句子变成一系列 token，再把 token 转换成对应的词汇 id。在这个处理过程中，我们会建立一个词汇词典，使我们能够从 token 和词汇 id 之间完成转换。对于我们的目标语言（西班牙语），我们会额外地添加一个 EOS 标识。接下来我们将对源语言和目标语言转换得来的一组 token 进行填充操作，将它们补齐至最大长度（分别是它们各自的数据集中的最长句子长度），这将成为最终我们要喂给我们模型的数据。我们把经过填充的源语言数据传给编码器，但我们还会对目标语言的输入做一些额外的操作以获得解码器的输入和输出。
 
 最后，输入就长成下面这个样子：
 
