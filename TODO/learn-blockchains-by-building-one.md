@@ -4,7 +4,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/learn-blockchains-by-building-one.md](https://github.com/xitu/gold-miner/blob/master/TODO/learn-blockchains-by-building-one.md)
 > * 译者：[cdpath](https://github.com/cdpath)
-> * 校对者：[dubuqingfeng (Zhengyan Gao)](https://github.com/dubuqingfeng), [atuooo (oOatuo(史金炜))](https://github.com/atuooo)
+> * 校对者：
 
 # 从零到一用 Python 写一个区块链
 
@@ -340,7 +340,7 @@ if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
 ```
 
-一些简单的解释：
+稍微解释一下：
 
 * **第 15 行:** 初始化节点。更多信息请阅读 [Flask 文档](http://flask.pocoo.org/docs/0.12/quickstart/#a-minimal-application)。
 * **第 18 行:** 随机给节点起名。
