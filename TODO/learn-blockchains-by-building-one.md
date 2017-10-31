@@ -4,25 +4,25 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/learn-blockchains-by-building-one.md](https://github.com/xitu/gold-miner/blob/master/TODO/learn-blockchains-by-building-one.md)
 > * 译者：[cdpath](https://github.com/cdpath)
-> * 校对者：
+> * 校对者：[dubuqingfeng (Zhengyan Gao)](https://github.com/dubuqingfeng), [atuooo (oOatuo(史金炜))](https://github.com/atuooo)
 
-# 自制区块链：学习区块链的最快方式
+# 从零到一用 Python 写一个区块链
 
 ![](https://cdn-images-1.medium.com/max/2000/1*zutLn_-fZZhy7Ari-x-JWQ.jpeg)
 
 本文的读者想必跟我一样对数字加密货币的崛起兴奋不已，应该也想了解数字加密货币背后的区块链的工作原理吧。
 
-但是区块链不太好懂，反正我理解起来比较费劲。我看了不少视频，学了些漏洞百出的教程，找了些少得可怜的例子试了试，都挺让人失望的。
+但是区块链不太好懂，反正我理解起来比较费劲。我看了不少难懂的视频，学了些漏洞百出的教程，找了些少得可怜的例子试了试，都挺让人失望的。
 
 我喜欢在实践中学习。这迫使我搞定在代码层面就至关重要的东西，这才是黏人的地方。如果你和我一样，读完本文你就可以构建一个可以使用的区块链，同时扎实理解其工作原理。
 
 ## 背景知识……
 
-要知道区块链是**不可变的，有序的**记录的链，记录也叫做区块。区块可以包含交易，文件或者任何你能想到的数据。不过至关重要的是，它们由**哈希值****串**在一起。
+要知道区块链是**不可变的，有序的**记录的链，记录也叫做区块。区块可以包含交易，文件或者任何你能想到的数据。不过至关重要的是，它们由**哈希值****链接**在一起。
 
-如果你不知道哈希是什么，先看看[这篇文章]((https://learncryptography.com/hash-functions/what-are-hash-functions)。
+如果你不知道哈希是什么，先看看 [这篇文章](https://learncryptography.com/hash-functions/what-are-hash-functions)。
 
-**本文的目标读者是谁？** 你应该可以读写基本的 Python 代码，也要基本了解 HTTP 请求的工作原理，因为本文将要实现的区块链依赖 HTTP。
+**本文的目标读者是谁？** 你应该可以熟练读写基本的 Python 代码，也要基本了解 HTTP 请求的工作原理，因为本文将要实现的区块链依赖 HTTP。
 
 **需要什么环境？** Python 版本不低于 3.6，装有 `pip`。还需要安装 Flask 和绝赞的 Requests 库：
 
@@ -32,7 +32,7 @@ pip install Flask==0.12.2 requests==2.18.4
 
 哦，你还得有个 HTTP 客户端，比如 Postman 或者 cURL。随便什么都可以。
 
-**那代码在哪里？** 源代码在[这里](https://github.com/dvf/blockchain)。
+**那代码在哪里？** 源代码在 [这里](https://github.com/dvf/blockchain)。
 
 ## 第一步：创建 Blockchain 类
 
@@ -70,7 +70,7 @@ class Blockchain(object):
 Blockchain 类的设计
 
 
-`Blockchain` 类负责管理链。它用来存储交易信息，也有一些帮助方法用来将区块添加到链中。我们接着来实现一些方法。
+`Blockchain` 类负责管理链。它用来存储交易信息，也有一些帮助方法用来将新区块添加到链中。我们接着来实现一些方法。
 
 ### 区块长什么样？
 
@@ -96,13 +96,13 @@ block = {
 
 区块链中的区块的例子
 
-到这里**链**的概念就介绍清楚了：每个新区块都包含上一个区块的哈希。**这一重要概念使得区块链的不可变性成为可能：**如果攻击者篡改了链中的前序区块，**所有**的后续区块的哈希都是错的。
+到这里**链**的概念就介绍清楚了：每个新区块都包含上一个区块的哈希。**这一重要概念使得区块链的不可变性成为可能**：如果攻击者篡改了链中的前序区块，**所有**的后续区块的哈希都是错的。
 
 理解了吗？如果没有想明白，花点时间思考一下，这是区块链的核心思想。
 
 ### 在区块中添加交易信息
 
-还需要在区块中添加交易信息的方法。用 `new_transaction()` 方法来做这件事吧，代码写出来非常直观：
+此外，还需要在区块中添加交易信息的方法。用 `new_transaction()` 方法来做这件事吧，代码写出来非常直观：
 
 ```
 class Blockchain(object):
@@ -126,7 +126,7 @@ class Blockchain(object):
         return self.last_block['index'] + 1
 ```
 
-`new_transaction()` 在列表中添加新交易之后，会返回该交易被加到的区块的**索引**，也就是指向**下一个要挖的区块**。稍后会讲到索引对提交交易的用户比较有意义。
+`new_transaction()` 在列表中添加新交易之后，会返回该交易被加到的区块的**索引**，也就是指向**下一个要挖的区块**。稍后会讲到这对于之后提交交易的用户会有用。
 
 ## 创建新区块
 
@@ -203,11 +203,11 @@ class Blockchain(object):
         return hashlib.sha256(block_string).hexdigest()
 ```
 
-上面的代码还是比较直观的，还有一些注释和文档字符串做进一步解释。这样就差不多可以表示区块链了。但是到了这一步，你一定好奇新区块是怎样被创建，锻造或者开采出来的。
+上面的代码还是比较直观的，还有一些注释和文档字符串做进一步解释。这样就差不多可以表示区块链了。但是到了这一步，你一定好奇新区块是怎样被创建，锻造或者挖出来的。
 
 ### 理解工作量证明
 
-工作量证明算法（PoW）表述了区块链中的新区块是如何创建或者开采的。PoW 的目的是寻找符合特定规则的数字。对网络中的任何人来说，从计算的角度上看，该数字必须**难以寻找，易于验证**。这是工作量证明算法背后的核心思想。
+工作量证明算法（PoW）表述了区块链中的新区块是如何创建或者挖出来的。PoW 的目的是寻找符合特定规则的数字。对网络中的任何人来说，从计算的角度上看，该数字必须**难以寻找，易于验证**。这是工作量证明算法背后的核心思想。
 
 下面给出一个非常简单的例子来帮助理解。
 
@@ -286,7 +286,7 @@ class Blockchain(object):
 
 本文使用 Python Flask 框架。Flask 是一个微框架，易于将网络端点映射到 Python 函数。由此可以轻易地借助 HTTP 请求通过网络和区块链交互。
 
-需要创建三个方法：
+这里需要创建三个方法：
 
 * `/transactions/new` 在区块中新增交易
 * `/mine` 通知服务器开采新节点
@@ -345,9 +345,9 @@ if __name__ == '__main__':
 * **第 15 行:** 初始化节点。更多信息请阅读 [Flask 文档](http://flask.pocoo.org/docs/0.12/quickstart/#a-minimal-application)。
 * **第 18 行:** 随机给节点起名。
 * **第 21 行:** 初始化 `Blockchain` 类
-* **第 24–26 行:** 创建 `/mine` 端点，使用 `GET` 方法。
-* **第 28–30 行:** 创建 `/transactions/new` 端点，使用 `POST` 方法，因为要给它发数据。
-* **第 32–38 行:** 创建 `/chain` 端点，它会返回整个区块链。
+* **第 24–26 行:** 创建 `/mine` 接口，使用 `GET` 方法。
+* **第 28–30 行:** 创建 `/transactions/new` 接口，使用 `POST` 方法，因为要给它发数据。
+* **第 32–38 行:** 创建 `/chain` 接口，它会返回整个区块链。
 * **第 40–41 行:** 服务器运行在 5000 端口。
 
 ### 交易端
@@ -397,7 +397,7 @@ def new_transaction():
 
 挖矿端是见证奇迹的地方。非常简单，只需要做三件事：
 
-1. 计算工作量
+1. 计算工作量证明
 2. 奖励矿工（这里就是我们），新增一次交易就赚一个币
 3. 将区块加入链就可以构建新区块
 
@@ -440,7 +440,7 @@ def mine():
     return jsonify(response), 200
 ```
 
-注意，开采出的区块的接受方就是节点的地址。这里做的事情基本上就是和 Blockchain 类的方法打交道。代码写到这里就差不多搞定了，下面可以和区块链进行交互了。
+注意，挖出来区块的接受方就是节点的地址。这里做的事情基本上就是和 Blockchain 类的方法打交道。代码写到这里就差不多搞定了，下面可以和区块链进行交互了。
 
 ## 第三步：和 Blockchain 交互
 
@@ -454,7 +454,7 @@ $ python blockchain.py
 * Running on [http://127.0.0.1:5000/](http://127.0.0.1:5000/) (Press CTRL+C to quit)
 ```
 
-通过 `GET` 请求 `http://localhost:5000/mine` 尝试开采一个区块。
+通过 `GET` 请求 `http://localhost:5000/mine` 尝试挖一块新区块。
 
 ![Using Postman to make a GET request](https://cdn-images-1.medium.com/max/800/1*ufYwRmWgQeA-Jxg0zgYLOA.png)
 
@@ -472,7 +472,7 @@ $ curl -X POST -H "Content-Type: application/json" -d '{
 }' "[http://localhost:5000/transactions/new](http://localhost:5000/transactions/new)"
 ```
 
-重启服务器后，加上新开采的两个区块，现在有了三个区块。通过请求 `http://localhost:5000/chain` 来查看全部区块链：
+重启服务器后，加上新挖出的两个区块，现在有了三个区块。通过请求 `http://localhost:5000/chain` 来查看全部区块链：
 
 ```
 {
@@ -521,7 +521,7 @@ $ curl -X POST -H "Content-Type: application/json" -d '{
 
 ### 注册新节点
 
-在实现共识算法之前：我们需要让节点知道其所在的网络存在邻居节点。网络中的每一个节点都应该保存网络中其他节点的信息。所以要写几个新端点：
+在实现共识算法之前：我们需要让节点知道其所在的网络存在邻居节点。网络中的每一个节点都应该保存网络中其他节点的信息。所以要写几个新接口：
 
 1. `/nodes/register` 接受新节点的列表，形式是 URL。
 2. `/nodes/resolve` 来执行共识算法，解决所有冲突，确保节点的链是正确的
@@ -629,11 +629,11 @@ class Blockchain(object)
         return False
 ```
 
-第一个方法 `valid_chain()` 会检查链的有效性，主要是通过遍历每个区块，验证哈希和工作量证明。
+第一个方法 `valid_chain()` 负责检查链的有效性，主要是通过遍历每个区块，验证哈希和工作量证明。
 
 `resolve_conflicts()` 方法会遍历所有邻居节点，**下载**它们的链，用上面的方法来验证。**如果找到了有效链，而且长度比本地的要长，就替换掉本地的链**。
 
-接下来将这两个端点注册到 API 中，一个用来新增邻居节点，另一个来解决冲突：
+接下来将这两个接口注册到 API 中，一个用来新增邻居节点，另一个来解决冲突：
 
 ```
 @app.route('/nodes/register', methods=['POST'])
@@ -672,15 +672,15 @@ def consensus():
     return jsonify(response), 200
 ```
 
-到这一步，如果你愿意，可以用另一台电脑，在网络中加入不同的节点。或者用同一台电脑的不同端口来加入不同的节点。我选择用同一个电脑的不同的端口注册新节点，这样就有了两个节点：`http://localhost:5000` 和 `http://localhost:5001`。
+到这一步，如果你愿意，可以用另一台电脑，在网络中启动不同的节点。或者用同一台电脑的不同端口启动进程加入网络。我选择用同一个电脑的不同的端口注册新节点，这样就有了两个节点：`http://localhost:5000` 和 `http://localhost:5001`。
 
 ![Registering a new Node](https://cdn-images-1.medium.com/max/800/1*Dd78u-gmtwhQWHhPG3qMTQ.png)
 
-我在 2 号节点开采了新区块，保证 2 号节点的链更长。然后用 `GET` 调用 1 号节点的 `/nodes/resolve`，可以发现链被通过共识算法替换了：
+我在 2 号节点挖出了新区块，保证 2 号节点的链更长。然后用 `GET` 调用 1 号节点的 `/nodes/resolve`，可以发现链被通过共识算法替换了：
 
 ![Consensus Algorithm at Work](https://cdn-images-1.medium.com/max/800/1*SGO5MWVf7GguIxfz6S8NVw.png)
 
-看上去好极了。 叫一些朋友来一起试试你的区块链吧。
+这样子就差不多完工了。 叫一些朋友来一起试试你的区块链吧。
 
 我希望这个教程可以激发你创建新东西的热情。我迷恋数字加密货币，因为我相信区块链技术会快速改变我们思考经济学，政府以及记录信息的方式。
 
@@ -692,4 +692,3 @@ def consensus():
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[React](https://github.com/xitu/gold-miner#react)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计) 等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
-
