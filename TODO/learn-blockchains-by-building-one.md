@@ -3,44 +3,44 @@
 > * 原文作者：[Daniel van Flymen](https://hackernoon.com/@vanflymen?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/learn-blockchains-by-building-one.md](https://github.com/xitu/gold-miner/blob/master/TODO/learn-blockchains-by-building-one.md)
-> * 译者：
-> * 校对者：
+> * 译者：[cdpath](https://github.com/cdpath)
+> * 校对者：[atuooo](https://github.com/atuooo) [dubuqingfeng](https://github.com/dubuqingfeng)
 
-# Learn Blockchains by Building One: The fastest way to learn how Blockchains work is to build one
+# 从零到一用 Python 写一个区块链
 
 ![](https://cdn-images-1.medium.com/max/2000/1*zutLn_-fZZhy7Ari-x-JWQ.jpeg)
 
-You’re here because, like me, you’re psyched about the rise of Cryptocurrencies. And you want to know how Blockchains work—the fundamental technology behind them.
+本文的读者想必跟我一样对数字加密货币的崛起兴奋不已，应该也想了解数字加密货币背后的区块链的工作原理吧。
 
-But understanding Blockchains isn’t easy—or at least wasn’t for me. I trudged through dense videos, followed porous tutorials, and dealt with the amplified frustration of too few examples.
+但是区块链不太好懂，反正我理解起来比较费劲。我看了不少难懂的视频，学了些漏洞百出的教程，找了些少得可怜的例子试了试，都挺让人失望的。
 
-I like learning by doing. It forces me to deal with the subject matter at a code level, which gets it sticking. If you do the same, at the end of this guide you’ll have a functioning Blockchain with a solid grasp of how they work.
+我喜欢在实践中学习。这迫使我搞定在代码层面就至关重要的东西，这才是黏人的地方。如果你和我一样，读完本文你就可以构建一个可以使用的区块链，同时扎实理解其工作原理。
 
-## Before you get started…
+## 背景知识……
 
-Remember that a blockchain is an _immutable, sequential_ chain of records called Blocks. They can contain transactions, files or any data you like, really. But the important thing is that they’re _chained_ together using _hashes_.
+要知道区块链是**不可变的，有序的**记录的链，记录也叫做区块。区块可以包含交易，文件或者任何你能想到的数据。不过至关重要的是，它们由**哈希值****链接**在一起。
 
-If you aren’t sure what a hash is, [here’s an explanation](https://learncryptography.com/hash-functions/what-are-hash-functions).
+如果你不知道哈希是什么，先看看 [这篇文章](https://learncryptography.com/hash-functions/what-are-hash-functions)。
 
-**Who is this guide aimed at?** You should be comfy reading and writing some basic Python, as well as have some understanding of how HTTP requests work, since we’ll be talking to our Blockchain over HTTP.
+**本文的目标读者是谁？** 你应该可以熟练读写基本的 Python 代码，也要基本了解 HTTP 请求的工作原理，因为本文将要实现的区块链依赖 HTTP。
 
-**What do I need?** Make sure that [Python 3.6](https://www.python.org/downloads/)+ (along with `pip`) is installed. You’ll also need to install Flask and the wonderful Requests library:
+**需要什么环境？** Python 版本不低于 3.6，装有 `pip`。还需要安装 Flask 和绝赞的 Requests 库：
 
 ```
 pip install Flask==0.12.2 requests==2.18.4
 ```
 
-Oh, you’ll also need an HTTP Client, like [Postman](https://www.getpostman.com) or cURL. But anything will do.
+哦，你还得有个 HTTP 客户端，比如 Postman 或者 cURL。随便什么都可以。
 
-**Where’s the final code?**The source code is [available here](https://github.com/dvf/blockchain).
+**那代码在哪里？** 源代码在 [这里](https://github.com/dvf/blockchain)。
 
-## Step 1: Building a Blockchain
+## 第一步：创建 Blockchain 类
 
-Open up your favourite text editor or IDE, personally I ❤️ [PyCharm](https://www.jetbrains.com/pycharm/). Create a new file, called `blockchain.py`. We’ll only use a single file, but if you get lost, you can always refer to the [source code](https://github.com/dvf/blockchain).
+用你喜欢的编辑器或者 IDE，新建 `blockchain.py` 文件，我个人比较喜欢 [PyCharm](https://www.jetbrains.com/pycharm/)。本文全文都使用这一个文件，但是如果你搞丢了，可以参考[源代码](https://github.com/dvf/blockchain)。
 
-### Representing a Blockchain
+### 表示区块链
 
-We’ll create a `Blockchain` class whose constructor creates an initial empty list (to store our blockchain), and another to store transactions. Here’s the blueprint for our class:
+创建 `Blockchain` 类，其构造函数会创建两个初始为空的列表，一个存储区块链，另一个存储交易信息。类设计如下：
 
 ```
 class Blockchain(object):
@@ -67,16 +67,16 @@ class Blockchain(object):
         pass
 ```
 
-Blueprint of our Blockchain Class
+Blockchain 类的设计
 
 
-Our `Blockchain` class is responsible for managing the chain. It will store transactions and have some helper methods for adding new blocks to the chain. Let’s start fleshing out some methods.
+`Blockchain` 类负责管理链。它用来存储交易信息，也有一些帮助方法用来将新区块添加到链中。我们接着来实现一些方法。
 
-### What does a Block look like?
+### 区块长什么样？
 
-Each Block has an *index*, a *timestamp* (in Unix time), a *list of transactions*, a *proof* (more on that later), and the *hash of the previous Block*.
+每个区块都有其**索引**，**时间戳**（Unix 时间），**交易列表**，**证明**（稍后解释），以及**前序区块的哈希值**。
 
-Here’s an example of what a single Block looks like:
+下面是一个单独区块：
 
 ```
 block = {
@@ -94,15 +94,15 @@ block = {
 }
 ```
 
-Example of a Block in our Blockchain
+区块链中的区块的例子
 
-At this point, the idea of a _chain_ should be apparent—each new block contains within itself, the hash of the previous Block. **This is crucial because it’s what gives blockchains immutability:** If an attacker corrupted an earlier Block in the chain then **all** subsequent blocks will contain incorrect hashes.
+到这里**链**的概念就介绍清楚了：每个新区块都包含上一个区块的哈希。**这一重要概念使得区块链的不可变性成为可能**：如果攻击者篡改了链中的前序区块，**所有**的后续区块的哈希都是错的。
 
-Does this make sense? If it doesn’t, take some time to let it sink in—it’s the core idea behind blockchains.
+理解了吗？如果没有想明白，花点时间思考一下，这是区块链的核心思想。
 
-### Adding Transactions to a Block
+### 在区块中添加交易信息
 
-We’ll need a way of adding transactions to a Block. Our `new_transaction()` method is responsible for this, and it’s pretty straight-forward:
+此外，还需要在区块中添加交易信息的方法。用 `new_transaction()` 方法来做这件事吧，代码写出来非常直观：
 
 ```
 class Blockchain(object):
@@ -126,13 +126,13 @@ class Blockchain(object):
         return self.last_block['index'] + 1
 ```
 
-After `new_transaction()` adds a transaction to the list, it returns the *index* of the block which the transaction will be added to—*the next one to be mined.* This will be useful later on, to the user submitting the transaction.
+`new_transaction()` 在列表中添加新交易之后，会返回该交易被加到的区块的**索引**，也就是指向**下一个要挖的区块**。稍后会讲到这对于之后提交交易的用户会有用。
 
-## Creating new Blocks
+## 创建新区块
 
-When our `Blockchain` is instantiated we’ll need to seed it with a *genesis* block—a block with no predecessors. We’ll also need to add a *“proof”* to our genesis block which is the result of mining (or proof of work). We’ll talk more about mining later.
+实例化 `Blockchain` 类之后，需要新建一个**创始区块**，它没有任何前序区块。此外还要在创始区块中加入**证明**，证明来自挖矿（或者工作量证明）。稍后再来讨论挖矿这件事。
 
-In addition to creating the *genesis* block in our constructor, we’ll also flesh out the methods for `new_block()`, `new_transaction()` and `hash()`:
+除了要在构造函数中创建**创始区块**，我们还要实现  `new_block()`，`new_transaction()` 和 `hash()`。
 
 ```
 import hashlib
@@ -203,15 +203,15 @@ class Blockchain(object):
         return hashlib.sha256(block_string).hexdigest()
 ```
 
-The above should be straight-forward—I’ve added some comments and *docstrings* to help keep it clear. We’re almost done with representing our blockchain. But at this point, you must be wondering how new blocks are created, forged or mined.
+上面的代码还是比较直观的，还有一些注释和文档字符串做进一步解释。这样就差不多可以表示区块链了。但是到了这一步，你一定好奇新区块是怎样被创建，锻造或者挖出来的。
 
-### Understanding Proof of Work
+### 理解工作量证明
 
-A Proof of Work algorithm (PoW) is how new Blocks are created or *mined* on the blockchain. The goal of PoW is to discover a number which solves a problem. The number must be **difficult to find** **but easy to verify**—computationally speaking—by anyone on the network. This is the core idea behind Proof of Work.
+工作量证明算法（PoW）表述了区块链中的新区块是如何创建或者挖出来的。PoW 的目的是寻找符合特定规则的数字。对网络中的任何人来说，从计算的角度上看，该数字必须**难以寻找，易于验证**。这是工作量证明算法背后的核心思想。
 
-We’ll look at a very simple example to help this sink in.
+下面给出一个非常简单的例子来帮助理解。
 
-Let’s decide that the _hash_ of some integer `x` multiplied by another `y` must end in `0`. So, `hash(x * y) = ac23dc...0`. And for this simplified example, let’s fix `x = 5`. Implementing this in Python:
+不妨规定某整数 `x` 乘以另一个 `y` 的哈希必须以 `0`结尾。也就是 `hash(x * y) = ac23dc...0`。就这个例子而言，不妨将令 `x = 5`。Python 实现如下：
 
 ```
 from hashlib import sha256
@@ -222,21 +222,21 @@ while sha256(f'{x*y}'.encode()).hexdigest()[-1] != "0":
 print(f'The solution is y = {y}')
 ```
 
-The solution here is `y = 21`. Since, the produced hash ends in `0`:
+解就是 `y = 21`。因为这样得到的哈希的结尾是 `0`：
 
 ```
 hash(5 * 21) = 1253e9373e...5e3600155e860
 ```
 
-In Bitcoin, the Proof of Work algorithm is called [*Hashcash*](https://en.wikipedia.org/wiki/Hashcash). And it’s not too different from our basic example above. It’s the algorithm that miners race to solve in order to create a new block. In general, the difficulty is determined by the number of characters searched for in a string. The miners are then rewarded for their solution by receiving a coin—in a transaction.
+比特币的工作量算法叫做 [`Hashcash`](https://en.wikipedia.org/wiki/Hashcash)。它和上面给出例子非常类似。矿工们争相求解这个算法以便创建新块。总体而言，难度大小取决于要在字符串中找到多少特定字符。矿工给出答案的报酬就是在交易中得到比特币。
 
-The network is able to *easily* verify their solution.
+而网络可以**轻松地**验证答案。
 
-### Implementing basic Proof of Work
+### 实现基本的工作量证明
 
-Let’s implement a similar algorithm for our blockchain. Our rule will be similar to the example above:
+接下来为我们的区块链实现一个类似的算法。规则和上面的例子类似：
 
-> *Find a number* p *that when hashed with the previous block’s solution a hash with 4 leading* `*0*`*s is produced.*
+> 寻找数字 `p`，当它和前一个区块的证明一起求哈希时，该哈希开头是四个 `0`。
 
 ```
 import hashlib
@@ -278,23 +278,23 @@ class Blockchain(object):
         return guess_hash[:4] == "0000"
 ```
 
-To adjust the difficulty of the algorithm, we could modify the number of leading zeroes. But 4 is sufficient. You’ll find out that the addition of a single leading zero makes a mammoth difference to the time required to find a solution.
+要调整算法的难度，直接修改要求的零的个数就行了。不过 4 个零足够了。你会发现哪怕多一个零都会让求解难度倍增。
 
-Our class is almost complete and we’re ready to begin interacting with it using HTTP requests.
+类写得差不多了，可以用 HTTP 请求与之交互了。
 
-## Step 2: Our Blockchain as an API
+## 第二步：将 Blockchain 用作 API
 
-We’re going to use the Python Flask Framework. It’s a micro-framework and it makes it easy to map endpoints to Python functions. This allows us talk to our blockchain over the web using HTTP requests.
+本文使用 Python Flask 框架。Flask 是一个微框架，易于将网络端点映射到 Python 函数。由此可以轻易地借助 HTTP 请求通过网络和区块链交互。
 
-We’ll create three methods:
+这里需要创建三个方法：
 
-* `/transactions/new` to create a new transaction to a block
-* `/mine` to tell our server to mine a new block.
-* `/chain` to return the full Blockchain.
+* `/transactions/new` 在区块中新增交易
+* `/mine` 通知服务器开采新节点
+* `/chain` 返回完整的区块链
 
-### Setting up Flask
+### 开始 Flask 吧
 
-Our “server” will form a single node in our blockchain network. Let’s create some boilerplate code:
+这个服务器会构成区块链网络中的一个节点。下面是一些模板代码：
 
 ```
 import hashlib
@@ -340,19 +340,19 @@ if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
 ```
 
-A brief explanation of what we’ve added above:
+稍微解释一下：
 
-* **Line 15:** Instantiates our Node. Read more about Flask [here](http://flask.pocoo.org/docs/0.12/quickstart/#a-minimal-application).
-* **Line 18:** Create a random name for our node.
-* **Line 21:** Instantiate our `Blockchain` class.
-* **Line 24–26:** Create the `/mine` endpoint, which is a `GET` request.
-* **Line 28–30:** Create the `/transactions/new` endpoint, which is a `POST` request, since we’ll be sending data to it.
-* **Line 32–38:** Create the `/chain` endpoint, which returns the full Blockchain.
-* **Line 40–41:** Runs the server on port 5000.
+* **第 15 行:** 初始化节点。更多信息请阅读 [Flask 文档](http://flask.pocoo.org/docs/0.12/quickstart/#a-minimal-application)。
+* **第 18 行:** 随机给节点起名。
+* **第 21 行:** 初始化 `Blockchain` 类
+* **第 24–26 行:** 创建 `/mine` 接口，使用 `GET` 方法。
+* **第 28–30 行:** 创建 `/transactions/new` 接口，使用 `POST` 方法，因为要给它发数据。
+* **第 32–38 行:** 创建 `/chain` 接口，它会返回整个区块链。
+* **第 40–41 行:** 服务器运行在 5000 端口。
 
-### The Transactions Endpoint
+### 交易端
 
-This is what the request for a transaction will look like. It’s what the user sends to the server:
+下面是交易请求的内容，也就是发给服务器的东西：
 
 ```
 {
@@ -362,7 +362,7 @@ This is what the request for a transaction will look like. It’s what the user 
 }
 ```
 
-Since we already have our class method for adding transactions to a block, the rest is easy. Let’s write the function for adding transactions:
+因为已经有类方法将交易加到区块中，剩下的就很简单了。写一个添加交易的函数：
 
 ```
 import hashlib
@@ -391,15 +391,15 @@ def new_transaction():
     return jsonify(response), 201
 ```
 
-A method for creating Transactions</figcaption>
+创建交易的方法
 
-### The Mining Endpoint
+### 挖矿端
 
-Our mining endpoint is where the magic happens, and it’s easy. It has to do three things:
+挖矿端是见证奇迹的地方。非常简单，只需要做三件事：
 
-1. Calculate the Proof of Work
-2. Reward the miner (us) by adding a transaction granting us 1 coin
-3. Forge the new Block by adding it to the chain
+1. 计算工作量证明
+2. 奖励矿工（这里就是我们），新增一次交易就赚一个币
+3. 将区块加入链就可以构建新区块
 
 ```
 import hashlib
@@ -440,13 +440,13 @@ def mine():
     return jsonify(response), 200
 ```
 
-Note that the recipient of the mined block is the address of our node. And most of what we’ve done here is just interact with the methods on our Blockchain class. At this point, we’re done, and can start interacting with our blockchain.
+注意，挖出来区块的接受方就是节点的地址。这里做的事情基本上就是和 Blockchain 类的方法打交道。代码写到这里就差不多搞定了，下面可以和区块链进行交互了。
 
-## Step 3: Interacting with our Blockchain
+## 第三步：和 Blockchain 交互
 
-You can use plain old cURL or Postman to interact with our API over a network.
+可以用简洁又古老的 cURL 或者 Postman 来通过网络用 API 和区块链交互。
 
-Fire up the server:
+启动服务器：
 
 ```
 $ python blockchain.py
@@ -454,15 +454,15 @@ $ python blockchain.py
 * Running on [http://127.0.0.1:5000/](http://127.0.0.1:5000/) (Press CTRL+C to quit)
 ```
 
-Let’s try mining a block by making a `GET` request to `http://localhost:5000/mine`:
+通过 `GET` 请求 `http://localhost:5000/mine` 尝试挖一块新区块。
 
 ![Using Postman to make a GET request](https://cdn-images-1.medium.com/max/800/1*ufYwRmWgQeA-Jxg0zgYLOA.png)
 
-Let’s create a new transaction by making a `POST` request to`http://localhost:5000/transactions/new` with a body containing our transaction structure:
+通过 `POST` 请求 `http://localhost:5000/transactions/new` 来创建新交易，POST 的数据要包含如下交易结构：
 
 ![Using Postman to make a POST request](https://cdn-images-1.medium.com/max/800/1*O89KNbEWj1vigMZ6VelHAg.png)
 
-If you aren’t using Postman, then you can make the equivalent request using cURL:
+不用 Postman 的话还可以用等价的 cURL 命令：
 
 ```
 $ curl -X POST -H "Content-Type: application/json" -d '{
@@ -472,7 +472,7 @@ $ curl -X POST -H "Content-Type: application/json" -d '{
 }' "[http://localhost:5000/transactions/new](http://localhost:5000/transactions/new)"
 ```
 
-I restarted my server, and mined two blocks, to give 3 in total. Let’s inspect the full chain by requesting `[http://localhost:5000/chain](http://localhost:5000/chain:)`[:](http://localhost:5000/chain:)
+重启服务器后，加上新挖出的两个区块，现在有了三个区块。通过请求 `http://localhost:5000/chain` 来查看全部区块链：
 
 ```
 {
@@ -515,18 +515,18 @@ I restarted my server, and mined two blocks, to give 3 in total. Let’s inspect
 }
 ```
 
-## Step 4: Consensus
+## 第四步：共识
 
-This is very cool. We’ve got a basic Blockchain that accepts transactions and allows us to mine new Blocks. But the whole point of Blockchains is that they should be _decentralized_. And if they’re decentralized, how on earth do we ensure that they all reflect the same chain? This is called the problem of _Consensus_, and we’ll have to implement a Consensus Algorithm if we want more than one node in our network.
+非常酷对不对？我们已经构建了基本的区块链，不仅支持交易，还可以挖矿。但是区块链的核心是**去中心化**。但是如果要去中心化，怎么知道每个区块都在同一个链中呢？这就是**共识**问题，如果网络中不只这一个节点，必须实现共识算法。
 
-### Registering new Nodes
+### 注册新节点
 
-Before we can implement a Consensus Algorithm, we need a way to let a node know about neighbouring nodes on the network. Each node on our network should keep a registry of other nodes on the network. Thus, we’ll need some more endpoints:
+在实现共识算法之前：我们需要让节点知道其所在的网络存在邻居节点。网络中的每一个节点都应该保存网络中其他节点的信息。所以要写几个新接口：
 
-1. `/nodes/register` to accept a list of new nodes in the form of URLs.
-2. `/nodes/resolve` to implement our Consensus Algorithm, which resolves any conflicts—to ensure a node has the correct chain.
+1. `/nodes/register` 接受新节点的列表，形式是 URL。
+2. `/nodes/resolve` 来执行共识算法，解决所有冲突，确保节点的链是正确的
 
-We’ll need to modify our Blockchain’s constructor and provide a method for registering nodes:
+下面需要修改 Blockchain 类的构造函数，然后写一下注册节点的方法：
 
 ```
 ...
@@ -551,13 +551,13 @@ class Blockchain(object):
         self.nodes.add(parsed_url.netloc)
 ```
 
-A method for adding neighbouring nodes to our Network
+在网络中注册邻居节点的方法
 
-Note that we’ve used a `set()` to hold the list of nodes. This is a cheap way of ensuring that the addition of new nodes is idempotent—meaning that no matter how many times we add a specific node, it appears exactly once.
+注意，这里使用了 `set()` 来保存节点列表。这是用来确保添加节点是幂等的的简单方法，也就是说不管某节点被添加了多少次，它只出现一次。
 
-### Implementing the Consensus Algorithm
+### 实现共识网络
 
-As mentioned, a conflict is when one node has a different chain to another node. To resolve this, we’ll make the rule that _the longest valid chain is authoritative._ In other words, the longest chain on the network is the _de-facto_ one. Using this algorithm, we reach _Consensus_ amongst the nodes in our network.
+上面提过，冲突就是一个节点的链和其他节点的不同。要解决冲突，我们制定了一个规则：**最长有效链即权威**。也就是说，网络中最长的链就是**事实上**正确的链。有了这个算法，就可以在网络中的多个节点中实现**共识**。
 
 ```
 ...
@@ -629,11 +629,11 @@ class Blockchain(object)
         return False
 ```
 
-The first method `valid_chain()` is responsible for checking if a chain is valid by looping through each block and verifying both the hash and the proof.
+第一个方法 `valid_chain()` 负责检查链的有效性，主要是通过遍历每个区块，验证哈希和工作量证明。
 
-`resolve_conflicts()` is a method which loops through all our neighbouring nodes, *downloads* their chains and verifies them using the above method. **If a valid chain is found, whose length is greater than ours, we replace ours.**
+`resolve_conflicts()` 方法会遍历所有邻居节点，**下载**它们的链，用上面的方法来验证。**如果找到了有效链，而且长度比本地的要长，就替换掉本地的链**。
 
-Let’s register the two endpoints to our API, one for adding neighbouring nodes and the another for resolving conflicts:
+接下来将这两个接口注册到 API 中，一个用来新增邻居节点，另一个来解决冲突：
 
 ```
 @app.route('/nodes/register', methods=['POST'])
@@ -672,21 +672,21 @@ def consensus():
     return jsonify(response), 200
 ```
 
-At this point you can grab a different machine if you like, and spin up different nodes on your network. Or spin up processes using different ports on the same machine. I spun up another node on my machine, on a different port, and registered it with my current node. Thus, I have two nodes: `[http://localhost:5000](http://localhost:5000)` and `http://localhost:5001`.
+到这一步，如果你愿意，可以用另一台电脑，在网络中启动不同的节点。或者用同一台电脑的不同端口启动进程加入网络。我选择用同一个电脑的不同的端口注册新节点，这样就有了两个节点：`http://localhost:5000` 和 `http://localhost:5001`。
 
 ![Registering a new Node](https://cdn-images-1.medium.com/max/800/1*Dd78u-gmtwhQWHhPG3qMTQ.png)
 
-I then mined some new Blocks on node 2, to ensure the chain was longer. Afterward, I called `GET /nodes/resolve` on node 1, where the chain was replaced by the Consensus Algorithm:
+我在 2 号节点挖出了新区块，保证 2 号节点的链更长。然后用 `GET` 调用 1 号节点的 `/nodes/resolve`，可以发现链被通过共识算法替换了：
 
 ![Consensus Algorithm at Work](https://cdn-images-1.medium.com/max/800/1*SGO5MWVf7GguIxfz6S8NVw.png)
 
-And that’s a wrap... Go get some friends together to help test out your Blockchain.
+这样子就差不多完工了。 叫一些朋友来一起试试你的区块链吧。
 
-I hope that this has inspired you to create something new. I’m ecstatic about Cryptocurrencies because I believe that Blockchains will rapidly change the way we think about economies, governments and record-keeping.
+我希望这个教程可以激发你创建新东西的热情。我迷恋数字加密货币，因为我相信区块链技术会快速改变我们思考经济学，政府以及记录信息的方式。
 
-**Update:** I’m planning on following up with a Part 2, where we’ll extend our Blockchain to have a Transaction Validation Mechanism as well as discuss some ways in which you can productionize your Blockchain.
+**更新**：我打算接着写本文的第二部分，继续拓展本文实现的区块链以涵盖交易验证机制并讨论如何让区块链产品化。
 
-> *If you enjoyed this guide, or have any suggestions or questions, let me know in the comments. And if you’ve spotted any errors, feel free to contribute to the code* [*here*](https://github.com/dvf/blockchain)*!*
+> 如果你喜欢这个教程，或者有建议或疑问，欢迎评论。如果你发现了任何错误，欢迎在[这里](https://github.com/dvf/blockchain)为我们贡献代码!
 
 
 ---
