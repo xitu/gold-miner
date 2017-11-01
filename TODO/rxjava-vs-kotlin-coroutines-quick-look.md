@@ -3,8 +3,8 @@
 > * 原文作者：[Dávid Karnok](https://plus.google.com/113316559156085910174)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/rxjava-vs-kotlin-coroutines-quick-look.md](https://github.com/xitu/gold-miner/blob/master/TODO/rxjava-vs-kotlin-coroutines-quick-look.md)
-> * 译者：
-> * 校对者：
+> * 译者：[PhxNirvana](https://github.com/phxnirvana)
+> * 校对者：[jamweak](https://github.com/jamweak)、[jerry-shao](https://github.com/jerry-shao)
 
 # 管中窥豹：RxJava 与 Kotlin 协程的对比
 
