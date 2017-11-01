@@ -20,7 +20,7 @@
   >
   > * 校对 / 语句优化：[laalaguer](https://github.com/laalaguer)
   >
-  > * 整合:  [Candy Zheng](https://github.com/blizzardzheng)
+  > * 整合长文:  [Candy Zheng](https://github.com/blizzardzheng)
 
 
 
@@ -37,7 +37,7 @@
 
 ## 概览
 
-[![](./stack/images/intro/all-page-stack-reconciler-25-scale.jpg)](./stack/images/intro/all-page-stack-reconciler.svg)
+[![](https://raw.githubusercontent.com/xitu/Under-the-hood-ReactJS/translation/stack/images/intro/all-page-stack-reconciler-25-scale.jpg)](./stack/images/intro/all-page-stack-reconciler.svg)
 
 整个流程图分为 15 个部分，让我们开始学习历程吧。
 
@@ -46,7 +46,7 @@
 ### 初识流程图
 
 
-[![图 介绍-0：整体流程](../images/intro/all-page-stack-reconciler-25-scale.jpg)](../images/intro/all-page-stack-reconciler.svg)
+[![图 介绍-0：整体流程](https://github.com/xitu/Under-the-hood-ReactJS/raw/translation/stack/images/intro/all-page-stack-reconciler-25-scale.jpg)](../images/intro/all-page-stack-reconciler.svg)
 
 
 
@@ -1101,7 +1101,3 @@ processUpdates: function(parentNode, updates) {
 [![](https://rawgit.com/Bogdan-Lyashenko/Under-the-hood-ReactJS/master/stack/images/14/updating-parts-C.svg)](https://rawgit.com/Bogdan-Lyashenko/Under-the-hood-ReactJS/master/stack/images/14/updating-parts-C.svg)
 
 <em>14.5 更新 (点击查看大图)</em>
-
-# 整理感言
-
-这篇文章箱底的带我们
