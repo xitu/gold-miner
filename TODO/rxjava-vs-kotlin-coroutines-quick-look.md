@@ -3,26 +3,25 @@
 > * 原文作者：[Dávid Karnok](https://plus.google.com/113316559156085910174)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/rxjava-vs-kotlin-coroutines-quick-look.md](https://github.com/xitu/gold-miner/blob/master/TODO/rxjava-vs-kotlin-coroutines-quick-look.md)
-> * 译者：
-> * 校对者：
+> * 译者：[PhxNirvana](https://github.com/phxnirvana)
+> * 校对者：[jamweak](https://github.com/jamweak)、[jerry-shao](https://github.com/jerry-shao)
 
-# RxJava vs. Kotlin Coroutines, a quick look
+# 管中窥豹：RxJava 与 Kotlin 协程的对比
 
-## Introduction
+## 引言
 
-Does Kotlin Coroutines make RxJava and [reactive programming obsolete](https://twitter.com/PreusslerBerlin/status/905001787215798273)? The answer depends on who you ask. Enthusiasts and marketing departments would say yes without hesitation. If so, sooner or later developers would have to convert Rx code into coroutines or write something with coroutines from the start.
+Kotlin 的协程是否让 RxJava 和 [响应式编程光辉不再](https://twitter.com/PreusslerBerlin/status/905001787215798273) 了呢？答案取决于你询问的对象。狂信徒和营销者们会毫不犹豫地是是是。如果真是这样的话，开发者们迟早会将 Rx 代码用协程重写一遍，抑或从一开始就用协程来写。
+因为 [协程](https://kotlinlang.org/docs/reference/coroutines.html) 目前还是实验性的，所以目前的诸如性能瓶颈之类的不足，都将逐渐解决。因此，相对于原生性能，本文的重点更在于易用性方面。
 
-Since [Coroutines](https://kotlinlang.org/docs/reference/coroutines.html) are currently experimental, there is always the prospect deficiencies, especially regarding the overhead, will be resolved eventually. Therefore, this post will focus more on usability than raw performance.
+## 方案设计
 
-## The scenario
+假设有两个函数，**f1** 和 **f2**，用来模仿不可信的服务，二者都会在一段延迟之后返回一个数。调用这两个函数，将其返回值求和并呈现给用户。然而如果 500ms 之内没有返回的话，就不再指望它会返回值了，因此我们会在有限次数内取消并重试，直到超过次数最终放弃请求。
 
-Let's say we have two functions imitating unreliable service: **f1** and **f2**, both returning a number after some delay. We have to call these services, sum up their returned values and present it to the user. However, if this doesn't happen within 500 milliseconds, we don't expect it to happen reasonably faster, thus we'd like to cancel and retry the two services for a limited amount of time before giving up after some number of retries.
+## 协程的方式
 
-## The Coroutine Way
+协程用起来就像是传统的 基于 **ExecutorService** 和 **Future** 的工具套装， 不同点在于协程的底层是用的挂起、状态机和任务调度来代替线程阻塞的。
 
-Programming via coroutines feels like programming with the traditional **ExecutorService**- and **Future**-based toolset with the difference that the underlying infrastructure will use suspension, state machine(s) and task rescheduling instead of blocking a thread.
-
-First, we need the functions that exhibit the delaying behavior:
+首先，写两个函数来实现延迟操作：
 
 ```
 suspend fun f1(i: Int) {
@@ -36,9 +35,9 @@ suspend fun f2(i: Int) {
 }
 ```
 
-Functions that participate in a coroutine execution should be declared with the **suspend** keyword and executed within a coroutine context. For demonstration purposes, the logic will sleep for 2 seconds if the parameter supplied to the functions is not 2\. This will give a chance to the timeout logic to kick in yet the 3rd attempt to succeed before the timeout.
+与协程调度有关的函数需要加上 **suspend** 关键字并通过协程上下文来调用。为了演示上面的目的，如果传入参数不是 2 的时候，函数会延迟 2s。这样就会让超时检测将其结束掉，并在第三次尝试时在规定时间内成功。
 
-Since going asynchronous usually ends up leaving the main thread, we need a way to block it until the business logic completes before letting the JVM quit. For this, we can use the **runBlocking** execution mode in the main method:
+因为异步总会在结束时离开主线程，我们需要一个方法来在业务逻辑完成前阻塞它，以防止直接退出 JVM。为了达到目的，可以使用 **runBlocking** 在主线程中调用函数。
 
 ```
 fun main(arg: Array<string>) = runBlocking <unit>{
@@ -57,7 +56,7 @@ func reactiveWay() {
 }</unit> </string>
 ```
 
-The coroutine way of writing the desired logic promises some simplicity compared to the functional ways of RxJava; it should look like as if everything is written in a sequential and synchronous manner.
+相比 RxJava 的函数式，用协程写出来的代码逻辑更简洁，而且代码看起来就像是线性和同步的一样。
 
 ```
 suspend fun coroutineWay() {
@@ -100,21 +99,21 @@ suspend fun coroutineWay() {
 }
 ```
 
-The printlns were added to see what's happening when in this logic.
+添加的一些输出是用来观察这段代码如何运行的。
 
-1. In traditional sequential programming, there is no convenient way of retrying an operation under certain conditions, therefore, we first need a loop with a retry counter **i**.
-2. We fork off the async computations via the **async(CommonPool)** that will start and execute the functions immediately on some background thread. It returns a **Deferred<Int>** we will need later. If we applied await() to get var **v1** to be the resulting value, that would suspend the current thread and the calculation for **v2** wouldn't start until the first one resumes it. Plus we'll need a way of cancel the ongoing computation in case of a timeout. See steps 3 and 5.
-3. If we'd like to timeout both computations, it seems we have to do the timed waiting ourselves with another async task. The method **launch(CommonPool)**, returning a **Job**, will be used for this. The difference from **async** is that such tasks can't return values. We save the returned **Job** because in case the previous async calls succeed in time, we no longer need the timer to fire anymore.
-4. In the timeout job, we cancel **v1** and **v2** with a **TimeoutException**, that will unblock any routine that is suspended on getting a result from either of them.
-5. We await the results of the two computation. If there is a timeout, the **await** will rethrow the exception we used in 4.
-6. If there was no exception, we cancel the timeout task itself as its services are no longer needed, and break out the loop.
-7. If there was a timeout, we catch it the traditional way and perform state checks to determine what to do. Note that any other exception simply falls through and exits the loop.
-8. In case this was the 3rd (or later) attempt, we simply give up and rethrow the exception.
-9. If everything went okay, we print the total time the run took and leave the function. 
+1. 通常线性编程的情况下，是没有直接重试某个操作的快捷方法的，因此，我们需要建立一个循环以及重试计数器 **i**。
+2. 通过 **async(CommonPool)** 来执行异步操作，该函数可以在一些后台线程立即启动并执行函数。该函数会返回一个 **Deferred<Int>**，稍后会用到这个值。 如果用 await() 来得到 **v1** 作为最终值的话，当前线程将会挂起，另外，对 **v2** 的计算也不会开始，除非前一个恢复执行。除此以外，我们还需要在超时的情况下取消当前操作的方法。参考步骤 3 和 5。
+3. 如果想让两个操作都超时的话，看起来我们只能在另一个异步线程中执行等待操作。**launch(CommonPool)** 方法会返回一个可以用在这种情况下的 **Job** 对象。 与 **async** 的区别是，这样执行无法返回值。之所以保存返回的 **Job** 是因为先前的异步操作可能及时返回，就不再需要取消操作了。
+4. 在超时的任务中，我们用 **TimeoutException** 来取消 **v1** 和 **v2** ，这将恢复任何已经挂起来等待二者返回的操作。
+5. 等待两个函数运行结果。如果超时，**await** 将重新扔出在第四步中使用的异常。
+6. 如果没有异常，则取消不再需要执行的超时任务，并跳出循环。
+7. 如果有超时，则走老一套捕获异常并执行状态检查来确定下一步操作。注意任何其他异常都会直接被抛出并退出循环。
+8. 万一是第三次或更多次的尝试，直接扔出异常，什么都不做。
+9. 如果一切按剧本走，打印运行的总时间，然后退出当前函数。
 
-Looks straightforward, although the cancellation management can get scary: what if **v2** crashes with some other exception (such as **IOException** due to network access)? Certainly we have to keep those task references around so they can get cancelled in such cases as well (i.e., try with resources in Kotlin?). However, this case also has the drawback that if **v1** would return in time after all, we can't cancel **v1** or detect the crash from **v2** until there is an attempt to await it.
+看起来挺简单的，尽管取消机制可能搞个大新闻：如果 **v2** 因为其他异常（比如网络原因导致的 **IOException**）崩溃了呢？当然我们得处理这些情况来确保任务可以在各种情况下被取消（举个栗子，试试 Kotlin 中的资源？）。然而，这种情况发生的背景是 **v1** 会及时返回，直到尝试 await 之前都无法取消 **v1** 或检测 **v2** 的崩溃。
 
-Regardless, the setup works and we get a printout something like this:
+不要在意那些细节，反正程序跑起来了，运行结果如下：
 
 ```
 Attempt 1 at T=0
@@ -128,11 +127,12 @@ Attempt 3 at T=4026
 End a
 ```
 
-3 attempts, last one succeeds and we get the sum of 3\. Looks reasonable, right? Not so fast (pun intended)! We can see the cancellation happened about time, ~500 milliseconds after the two unsuccessful attempts, yet the crash detection printout happened 2000 milliseconds after the attempt! We know the **cancel()** invocation worked because it was the source of the exception we actually caught. Therefore, it looks like the **Thread.sleep()** in the functions were not actually interrupted, or in coroutine terms, not resumed with the interruption exception. This could be a property of the **CommonPool** , the use of **Future.cancel(false)** in the underlying infrastructure or simply a limitation of it.
+一共进行了 3 次尝试，最后一次成功了，值是 3。是不是和剧本一模一样的？一点都不快（此处有双关（译者并没有看出来哪里有双关））！ 我们可以看到取消事件发生的大概时间，两次不成功的请求之后大约 500 ms ，然而异常捕获发生在大约 2000 ms 之后！我们知道 **cancel()** 被成功调用是因为我们捕获了异常。然而，看起来函数中的 **Thread.sleep()** 并没有被打断，或者用协程的说法，没有在打断异常时恢复。这可能是 **CommonPool** 的一部分，对 **Future.cancel(false)** 的调用处于基础结构中，抑或只是简单的程序限制。
 
-## The Reactive Way
+## 响应式
 
-Now let's see how to accomplish the same with RxJava 2\. Unfortunately, once a function is marked suspended, one can't call it from regular contexts, therefore we have to redo them in a traditional fashion:
+接下来我们看看 RxJava 2 是如何实现相同操作的。让人失望的是，如果函数前加了 suspended，就无法通过普通方式调用了，所以我们还得用普通方法重写一下两个函数：
+
 
 ```
 fun f3(i: Int) : Int {
@@ -146,7 +146,7 @@ fun f4(i: Int) : Int {
 }
 ```
 
-To match the functionality of a blocking outer context, we will use the BlockingScheduler from the [RxJava 2 Extensions](https://github.com/akarnokd/RxJava2Extensions#blockingscheduler) project that allows returning to the main thread. As it name says, it blocks the caller/main thread when started until something submits a task through the scheduler to be executed.
+为了匹配阻塞外部环境的功能，我们采用  [RxJava 2 Extensions](https://github.com/akarnokd/RxJava2Extensions#blockingscheduler) 中的 BlockingScheduler 来提供返回到主线程的功能。顾名思义，它阻塞了一开始的调用者/主线程，直到有任务通过调度器来提交并运行。
 
 ```
 fun reactiveWay() {
@@ -191,21 +191,21 @@ fun reactiveWay() {
 }
 ```
 
-A slightly longer implementation and certainly may look scary to those who are not used to so much lambdas.
+实现起来有点长，对那些不熟悉 lambda 的人来说看起来可能有点可怕。
 
-1. RxJava 2 notoriously delivers exceptions in one way or other. On Android, undeliverable exceptions will crash the app unless handled with the **RxJavaPlugins.setErrorHandler**. Here, since we know a cancellation will interrupt a **Thread.sleep()**, the resulting stacktrace printed to the console would just clutter it and it is decided we ignore such excess exceptions.
-2. We setup the **BlockingScheduler** and issue the first task to be executed on it, containing the rest of the logic to be executed in the main thread. This is due to the fact that because it blocks, a regular **start()** will livelock the main thread as any subsequent work, that would otherwise unblock it, wouldn't get executed.
-3. We setup a heap variable that will count the number of retries.
-4. We increment this counter and print out the "Attempt" string whenever there is a subscription via **Single.defer**. The operator allows us to have a per subscription state which we expect from the resubscriptions of a **retry()** operator down the chain.
-5. We use the **zip** operator that starts two single-element asynchronous calculation, each calling the respective function from a background thread. 
-6. Once both finish, we add the resulting number together.
-7. To make a cancellation from the timeout visible, we add the **doOnDispose** operator to print out the indicator and timestamp of such event.
-8. We define the overall timeout to get the sum via the **timeout** operator. The overload will signal a **TimeoutException** if the timeout happens (i.e., no fallback for this scenario).
-9. The retry operator overload provides the number of times the retry happened and the current error. After printing the error, we should return **true** - which indicates the retry must happen - if the number of retries so far is less than 3 and the error itself is of **TimeoutException**. Any other error will simply fall through without triggering a retry.
-10. Once we are done, we should shut down the scheduler so it can release the main thread and the JVM can quit.
-11. Hovever, just before that, we print the resulting sum and the time it took the whole operation to finish.
+1. 众所周知 RxJava 2 无论如何都会传递异常。在 Android 上，无法传递的异常会使应用崩溃，除非使用 **RxJavaPlugins.setErrorHandler** 来捕获。在此，因为我们知道取消事件会打断 **Thread.sleep()** ，调用栈打出来的结果只会是一团乱麻，我们也不会去注意这么多的异常。
+2. 设置 **BlockingScheduler** 并分发第一个执行的任务，以及剩下的主线程执行逻辑。 这是由于一旦锁住， **start()** 将会给主线程增加一个活锁状态，直到有任何随后事件打破锁定，主线程才会继续执行。
+3. 设置一个堆变量来记录重试次数。
+4. 一旦有通过 **Single.defer** 的订阅，计数器加一并打印 “Attempt” 字符串。该操作符允许保留每个订阅的状态，这正是我们在下游执行的 **retry()** 操作符所期望的。
+5. 使用 **zip** 操作符来异步执行两个元素的计算，二者都在后台线程执行自己的函数。
+6. 当二者都完成时，将结果相加。
+7. 为了让超时取消，使用 **doOnDispose** 操作符来打印当前状态和时间。
+8. 使用 **timeout** 操作符定义求和的超时。如果超时则会发送 **TimeoutException**（例如该场景下没有反馈时）。
+9. retry 操作符的重载提供了重试时间以及当前错误。打印错误后，应该返回 **true** ——也就是说必须执行重试——如果重试次数小于三并且当前错误是 **TimeoutException** 的话。任何其他错误只会终止而不是触发重试。
+10. 一旦完成，我们需要关闭调度器，来让释放主线程并退出JVM。
+11. 当然，在完成前我们需要打印求和结果以及整个操作的耗时。
 
-One could say, it is more convoluted compared to the coroutine version. At least it works:
+可能有人说，这比协程的实现复杂多了。不过……至少跑起来了：
 
 ```
     Cancelling at T=4527
@@ -222,13 +222,13 @@ Attempt 3 at T=1090
 End at T=1292
 ```
 
-The **Cancelling at T=4527**, interestingly comes from the **coroutineWay()** call if we run the two functions together from the **main** method above: even though there was no timeout at last, cancelling the timeout itself suffered the same non-interruptible computation problem, hence the additional and mute signal about cancelling the already finished tasks.
+有趣的是，如果在 **main** 函数中同时调用两个函数的话，**Cancelling at T=4527** 是在调用 **coroutineWay()** 方法时打印出来的：尽管最后根本没有时间消耗，取消事件自身就浪费在无法停止的计算问题上，也因此在取消已经完成的任务上增加了额外消耗。
 
-RxJava, on the other hand, promptly cancels and retries the functions at least. There is, however, a practically unnecessary **Cancelling at T=1291** entry in the printout too. This is an artifact, or rather my sloppyness, in how **Single.timeout** is implemented: if it succeeds without timeout, the internal **CompositeDisposable** hosting the upstream's **Disposable** gets cancelled along with the timeout task regardless of the actual state of the operator.
+另一方面，RxJava 至少及时地取消和重试了函数。然而，实际上也有几乎没必要的 **Cancelling at T=1291** 被打印出来了。呐，没办法，写出来就这样了，或者说我懒吧，在 **Single.timeout** 中是这样实现的：如果没有延时就完成了的话，无论操作符真实情况如何，内部的 **CompositeDisposable** 代理了上游的 **Disposable** 并将其和操作符一起取消了。
 
-## Conclusion
+## 结论
 
-As a final thought, let's illustrate the power of reactive design by a small change in the expectations: Why retry the whole sum if we could only retry that function which doesn't respond in time? The solution is straightforward in RxJava: move the **doOnDispose().timeout().retry()** into each of the function call sequence (perhaps through a transformer to avoid code duplication):
+最后呢，我们通过一个小小的改进来看一下响应式设计的强大之处：如果只需要重试没有响应的函数的话，为什么我们要重试整个过程呢？改进方法也可以很容易地在 RxJava 中找到：将 **doOnDispose().timeout().retry()** 放到每一个函数调用链中（也许用 transfomer 可以避免代码的重复）：
 
 ```
 val timeoutRetry = SingleTransformer<Int, Int> { 
@@ -260,10 +260,10 @@ Single.zip(
 // ...
 ```
 
-I welcome the reader to try and update the coroutine implementation to accomplish the same behavior (including any other form of cancellation possibility while you are at it).
-One of the benefits of declarative reactive programming is the ability to not bother with complications such as threading, propagation of cancellation and operation composition most of the time. Libraries such as RxJava give an API and a viewpoint that hide these lower level "evils" from the typical user.
+欢迎读者亲自动手实践并更新协程的实现来实现相同行为（顺便可以试试各种其他形式的取消机制）。
+响应式编程的好处之一是大多数情况下都不必去理会诸如线程、取消信息的传递和操作符的结构等恼人的东西。RxJava 之类的库已经设计好了 API 并将这些底层的大麻烦封装起来了，通常情况下，程序员只需要使用即可。
 
-So, are coroutines useful after all? Certainly they are, but I believe this usefulness is rather limited and I have my doubts on how it could replace reactive programming in general.</div>
+那么，协程到底有没有用呢？当然有用啦，但总的来说，我还是觉得性能对其是极大的限制，同时，我也想知道协程可以怎么做才能整体取代响应式编程。
 
 
 ---
