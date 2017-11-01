@@ -4,7 +4,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/learn-blockchains-by-building-one.md](https://github.com/xitu/gold-miner/blob/master/TODO/learn-blockchains-by-building-one.md)
 > * 译者：[cdpath](https://github.com/cdpath)
-> * 校对者：
+> * 校对者：[atuooo](https://github.com/atuooo) [dubuqingfeng](https://github.com/dubuqingfeng)
 
 # 从零到一用 Python 写一个区块链
 
