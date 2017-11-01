@@ -11,7 +11,7 @@
   >
   >   | 译者                                       | 翻译章节                         |
   >   | ---------------------------------------- | ---------------------------- |
-  >   | [Candy Zheng](https://github.com/blizzardzheng) | 3、4、5、14、8、9、10、11、12、14、流程图 |
+  >   | [Candy Zheng](https://github.com/blizzardzheng) | 3、4、5、14、8、9、10、11、12、14 |
   >   | [undead25 ](https://github.com/undead25) | 主页、介绍、0                      |
   >   | [Tina92](https://github.com/Tina92)      | 6、13                         |
   >   | [HydeSong](https://github.com/HydeSong)  | 1                            |
