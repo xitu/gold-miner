@@ -1958,10 +1958,11 @@
 |[理解 iOS 应用程序的代码签名 (CODE SIGN) 机制](http://gold.xitu.io/entry/5826ef85570c3500586b241d/)|校对|1|
 |[Swift 3 语言中的全模块优化](http://gold.xitu.io/entry/5818b6f52f301e005cf0ef8e/)|校对|1|
 
-## 译者：[romeo0906](https://github.com/Romeo0906) 历史贡献积分：118 当前积分：68
+## 译者：[romeo0906](https://github.com/Romeo0906) 历史贡献积分：118 当前积分：23
 
 |文章|类型|积分|
 |------|-------|-------|
+|[2017 年 10 月兑 树莓派套餐 1 个](#)|减去积分|45|
 |[区块链中的共识机制 DBFT](https://juejin.im/entry/59cba85ef265da06507542a4/detail)|翻译|8|
 |[何为 HTML API，如何设计之？](https://juejin.im/entry/59131ee7a0bb9f0058ba4a88/)|翻译|9|
 |[2017年2月份兑换章鱼猫两大只]()|减去积分|60|
@@ -2624,10 +2625,11 @@
 |[如何在 ChromeOS 下用 Go 搭建 Web 服务](https://juejin.im/post/58d9e1711b69e6006bc38b1a)|翻译|8|
 |[Pull request review 的十大错误](https://juejin.im/post/58ce3b3e61ff4b006c988f63)|校对|1|
 
-## 译者：[sunui](https://github.com/sunui) 历史贡献积分：100.2 当前积分：55.2
+## 译者：[sunui](https://github.com/sunui) 历史贡献积分：100.2 当前积分：10.2
 
 |文章|类型|积分|
 |------|-------|-------|
+|[2017 年 10 月兑 树莓派套餐 1 个](#)|减去积分|45|
 |[2017 年 10 月 翻译 JavaScript 97 个](#)|翻译|9.7|
 |[React 16 带来了什么以及对 Fiber 架构的解释](https://juejin.im/post/59de1b2a51882578c70c0833)|校对|1|
 |[为什么在使用了类之后会使得组合变得愈发困难（第九部分）](https://juejin.im/post/59cf43ce6fb9a00a4e67cd36)|校对|1.5|
