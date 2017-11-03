@@ -2324,10 +2324,11 @@
 |[如何搭建安卓开发持续化集成环境（Ubuntu + Jenkins + SonarQube）](https://gold.xitu.io/entry/589d1c251b69e60059ba04b5)|翻译|7|
 |[SOLID 原则：权威指南](https://gold.xitu.io/entry/587f1c331b69e6005853ecfa)|校对|1|
 
-## 译者：[fghpdf](https://github.com/fghpdf) 历史贡献积分：16.5 当前积分：16.5
+## 译者：[fghpdf](https://github.com/fghpdf) 历史贡献积分：26.5 当前积分：26.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[fghpdf 翻译开源库 Python 100 个](#)|翻译|10|
 |[搭建个人深度学习平台](https://juejin.im/post/59be8e2b5188252c24746e9c)|校对|1.5|
 |[在你沉迷于包的海洋之前，还是了解一下运行时 Node.js 的本身](https://juejin.im/post/58cf4a3144d90400690b7be7/)|翻译|6|
 |[Google 是如何构建 web 框架的](https://gold.xitu.io/entry/58bcdda4128fe1007e5b44db/)|翻译|5|
@@ -3458,10 +3459,11 @@
 |[结构体指针](https://juejin.im/post/59a60cc1f265da249a201ae9)|校对|1|
 |[iOS 响应式编程：Swift 中的轻量级状态容器](https://juejin.im/post/599652ee6fb9a024903a8d59)|校对|1|
 
-## 译者：[lampui](https://github.com/lampui) 历史贡献积分：34.5 当前积分：19.5
+## 译者：[lampui](https://github.com/lampui) 历史贡献积分：44.5 当前积分：29.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[lampui 翻译开源库 JavaScript 100 个](https://juejin.im/post/59e3f3786fb9a0450166ff7b)|翻译|10|
 |[借助函数完成可组合的数据类型（软件编写）（第十部分）](https://juejin.im/post/59e3f3786fb9a0450166ff7b)|校对|0.5|
 |[iPhone X 网页设计](https://juejin.im/post/59e445816fb9a0450670ab82)|校对|1|
 |[Javascript 中各种各样的 this](https://juejin.im/post/59e066d551882578c3411908)|校对|0.5|
@@ -3566,18 +3568,20 @@
 |------|-------|-------|
 |[MVVM, Coordinators 和 RxSwift 的抽丝剥茧](https://juejin.im/post/59acf7dcf265da24722fe6a1)|翻译|5|
 
-## 译者：[alfred-zhong](https://github.com/alfred-zhong) 历史贡献积分：4.4 当前积分：4.4
+## 译者：[alfred-zhong](https://github.com/alfred-zhong) 历史贡献积分：14.4 当前积分：14.4
 
 |文章|类型|积分|
 |------|-------|-------|
+|[alfred-zhong 翻译开源库 Go 100 个](#)|翻译|10|
 |[翻译 Go 开源库 29 个](#)|翻译|2.9|
 |[在 HTTP/2 的世界里管理 CSS 和 JS](https://juejin.im/post/59bb463d51882519777c5a85)|校对|0.5|
 |[Coursera 的 GraphQL 之路](https://juejin.im/post/59b8d1d36fb9a00a3f24c439)|校对|1|
 
-## 译者：[Usey95](https://github.com/Usey95) 历史贡献积分：2.5 当前积分：2.5
+## 译者：[Usey95](https://github.com/Usey95) 历史贡献积分：12.5 当前积分：12.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[usey95 翻译开源库 CSS 100 个](#)|翻译|10|
 |[V8 引擎中的快速属性](https://juejin.im/post/59c1df855188257e826779f8)|校对|2|
 |[在 HTTP/2 的世界里管理 CSS 和 JS](https://juejin.im/post/59bb463d51882519777c5a85)|校对|0.5|
 
@@ -3617,10 +3621,11 @@
 |------|-------|-------|
 |[翻译 Vue 开源库 39 个](#)|翻译|3.9|
 
-## 译者：[ayermac](https://github.com/ayermac) 历史贡献积分：10 当前积分：10
+## 译者：[ayermac](https://github.com/ayermac) 历史贡献积分：20 当前积分：20
 
 |文章|类型|积分|
 |------|-------|-------|
+|[翻译 PHP 开源库 100 个](#)|翻译|10|
 |[翻译 PHP 开源库 100 个](#)|翻译|10|
 
 ## 译者：[faintz](https://github.com/faintz) 历史贡献积分：2 当前积分：2
@@ -3685,3 +3690,43 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[JavaScript 让 Monad 更简单（软件编写）（第十一部分）](https://juejin.im/post/59e55dbbf265da43333d7652)|校对|1.5|
+
+## 译者：[Ice](https://github.com/Ice) 历史贡献积分：6.7 当前积分：6.7
+
+|文章|类型|积分|
+|------|-------|-------|
+|[Ice 翻译开源库 Shell 67 个](#)|翻译|6.7|
+
+## 译者：[RIChardLeeH](https://github.com/RIChardLeeH) 历史贡献积分：17.1 当前积分：17.1
+
+|文章|类型|积分|
+|------|-------|-------|
+|[RichardLeeH 翻译开源库 Python 101 个](#)|翻译|10.1|
+|[RIChardLeeH 翻译开源库 Python 70 个](#)|翻译|7|
+
+## 译者：[amagi](https://github.com/amagi) 历史贡献积分：10 当前积分：10
+
+|文章|类型|积分|
+|------|-------|-------|
+|[amagi 翻译开源库 JavaScript 100 个](#)|翻译|10|
+
+## 译者：[cnJason](https://github.com/cnJason) 历史贡献积分：31.5 当前积分：31.5
+
+|文章|类型|积分|
+|------|-------|-------|
+|[cnJason 翻译开源库 Java 215 个](#)|翻译|21.5|
+|[cnJason 翻译开源库 Java 100 个](#)|翻译|10|
+
+## 译者：[RickeyBoy](https://github.com/RickeyBoy) 历史贡献积分：10 当前积分：10
+
+|文章|类型|积分|
+|------|-------|-------|
+|[RickeyBoy 翻译开源库 iOS 100 个](#)|翻译|10|
+
+## 译者：[goldEli](https://github.com/goldEli) 历史贡献积分：10 当前积分：10
+
+|文章|类型|积分|
+|------|-------|-------|
+|[goldEli 翻译开源库 JavaScript 100 个](#)|翻译|10|
+
+
