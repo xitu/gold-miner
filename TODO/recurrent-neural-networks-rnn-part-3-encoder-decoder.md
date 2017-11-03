@@ -3,58 +3,58 @@
 > * 原文作者：[GokuMohandas](https://twitter.com/GokuMohandas)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-networks-rnn-part-3-encoder-decoder.md](https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-networks-rnn-part-3-encoder-decoder.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Changkun Ou](https://github.com/changkun)
+> * 校对者：[zcgeng](https://github.com/zcgeng)
 
 **本系列文章汇总**
 
-1. [RECURRENT NEURAL NETWORKS (RNN) – PART 1: BASIC RNN / CHAR-RNN](https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-networks-rnn-part-1-basic-rnn-char-rnn.md)
-2. [RECURRENT NEURAL NETWORKS (RNN) – PART 2: TEXT CLASSIFICATION](https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-networks-rnn-part-2-text-classification.md)
-3. [RECURRENT NEURAL NETWORKS (RNN) – PART 3: ENCODER-DECODER](https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-networks-rnn-part-3-encoder-decoder.md)
-4. [RECURRENT NEURAL NETWORKS (RNN) – PART 4: ATTENTIONAL INTERFACES](https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-network-rnn-part-4-attentional-interfaces.md)
-5. [RECURRENT NEURAL NETWORKS (RNN) – PART 5: CUSTOM CELLS](https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-network-rnn-part-5-custom-cells.md)
+1. [RNN 循环神经网络系列 1：基本 RNN 与 CHAR-RNN](https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-networks-rnn-part-1-basic-rnn-char-rnn.md)
+2. [RNN 循环神经网络系列 2：文本分类](https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-networks-rnn-part-2-text-classification.md)
+3. [RNN 循环神经网络系列 3：编码、解码器](https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-networks-rnn-part-3-encoder-decoder.md)
+4. [RNN 循环神经网络系列 4：注意力机制](https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-network-rnn-part-4-attentional-interfaces.md)
+5. [RNN 循环神经网络系列 5：自定义单元](https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-network-rnn-part-5-custom-cells.md)
 
-# RECURRENT NEURAL NETWORKS (RNN) – PART 3: ENCODER-DECODER
+# RNN 循环神经网络系列 3：编码、解码器
 
-In this post, I will cover the basic encoder-decoder which we use to process seq-seq tasks such as machine translation. We will not be covering attention in this post but we will implement it in the next one.
+在本文中，我将介绍基本的编码器（encoder）和解码器（decoder），用于处理诸如机器翻译之类的 seq2seq 任务。我们不会在这篇文章中介绍注意力机制，而在下一篇文章中去实现它。
 
-Here we will feed in the input sequence into the encoder which will generate a final hidden state that we will feed into a decoder. The final hidden state from the encoder is the new initial state for the decoder. We will use the decoder outputs with softmax and compare it to the targets to calculate our loss. You can find our more about the paper this model comes from in this **[post](https://theneuralperspective.com/2016/10/02/sequence-to-sequence-learning-with-neural-network/)**. The main difference is that I do not add an EOS token to the encoder inputs and I do not reverse the encoder inputs.
+如下图所示，我们将输入序列输入给编码器，然后将生成一个最终的隐藏状态，并将其输入到解码器中。即编码器的最后一个隐藏状态就是解码器的新初始状态。我们将使用 softmax 来处理解码器输出，并将其与目标进行比较，从而计算我们的损失函数。你可以从[这篇博文](https://theneuralperspective.com/2016/10/02/sequence-to-sequence-learning-with-neural-network/)中找到更多关于我对原始论文中提出这个模型的介绍。这里的主要区别在于，我没有向编码器的输入添加 EOS（译注：句子结束符，end-of-sentence）token，同时我也没有让编码器对句子进行反向读取。
 
 ![Screen Shot 2016-11-19 at 4.48.03 PM.png](https://theneuralperspective.files.wordpress.com/2016/11/screen-shot-2016-11-19-at-4-48-03-pm.png?w=620)
 
-## Data:
+## 数据
 
-I wanted to create a very short dataset to work with (20 sentences in english and spanish). The point of this tutorial is just to see how to build an encoder-decoder system with soft attention for tasks such as machine translation and other seq-to-seq processing. So I wrote several sentences about me and then translate them to spanish and that is our data.
+我想创建一个非常小的数据集来使用（20 个英语和西班牙语的句子）。本教程的重点是了解如何构建一个编码解码器系统，而不是去关注这个系统对诸如机器翻译和其他 seq2seq 处理等任务的处理。所以我自己写了几个句子，然后把它们翻译成西班牙语。这就是我们的数据集。
 
-First we separate the sentences into tokens and then convert the tokens into token ids. During this process we collect a vocabulary dict and a reverse vocabulary dict to convert back and forth between tokens and token ids. For our target language (spanish), we will add an extra EOS token. Then we will pad both source and target tokens to the max length (biggest sentence in the respective datasets). This is the data we feed into our model. We use the padded source inputs as is for the encoder, but we will do further additions to the target inputs in order to get our decoder inputs and outputs.
+首先，我们将这些句子分隔为 token，然后将这些 token 转换为 token ID。在这个过程中，我们收集一个词汇字典和一个反向词汇字典，以便在 token 和 token ID 之间来回转换。对于我们的目标语言（西班牙语）来说，我们将添加一个额外的 EOS token。然后，我们会将源 token 和目标 token 都填充到（对应数据集中最长句子的）最大长度。这是我们模型的输入数据。对于编码器而言，我们将填充后的源内容直接进行输入，而对于目标内容做进一步处理，以获得我们的解码器输入和输出。
 
-Finally, the inputs will look like this:
+最后，输入结果是这个样子的：
 
 ![Screen Shot 2016-11-19 at 4.20.54 PM.png](https://theneuralperspective.files.wordpress.com/2016/11/screen-shot-2016-11-19-at-4-20-54-pm.png?w=620)
 
-This is just one sample from a batch. The 0’s are paddings, 1 is a GO token and 2 is an EOS token. A more general representation of the data transformation is below. Ignore the target weights, we do not use them in our implementation.
+这只是某个批次中的一个样本。其中 0 是填充的值，1 是 GO token，2 则是 EOS token。下图是数据变换更一般的表示形式。请无视目标权重，我们不会在实现中使用它们。
 
 ![screen-shot-2016-11-16-at-5-09-10-pm](https://theneuralperspective.files.wordpress.com/2016/10/screen-shot-2016-11-16-at-5-09-10-pm.png?w=620)
 
-## Encoder:
+## 编码器
 
-The encoder simply taken the encoder inputs and the only thing we care about is the final hidden state. This hidden state holds the information from all of the inputs. We do not reverse the encoder inputs as the paper suggests because we are using seq_len with dynamic_rnn. This automatically returns the last relevant hidden state based on seq_lens.
+编码器只接受编码器的输入，而我们唯一关心的是最终的隐藏状态。这个隐藏的状态包含了所有输入的信息。我们不会像原始论文所建议的那样反转编码器的输入，因为我们使用的是 `dynamic_rnn` 的 `seq_len`。它会基于 `seq_len` 自动返回最后一个对应的隐藏状态。
 
-```
+```python
 with tf.variable_scope('encoder') as scope:
 
-    # Encoder RNN cell
+    # RNN 编码器单元
     self.encoder_stacked_cell = rnn_cell(FLAGS, self.dropout,
         scope=scope)
 
-    # Embed encoder inputs
+    # 嵌入 RNN 编码器输入
     W_input = tf.get_variable("W_input",
         [FLAGS.en_vocab_size, FLAGS.num_hidden_units])
     self.embedded_encoder_inputs = rnn_inputs(FLAGS,
         self.encoder_inputs, FLAGS.en_vocab_size, scope=scope)
     #initial_state = encoder_stacked_cell.zero_state(FLAGS.batch_size, tf.float32)
 
-    # Outputs from encoder RNN
+    # RNN 编码器的输出
     self.all_encoder_outputs, self.encoder_state = tf.nn.dynamic_rnn(
         cell=self.encoder_stacked_cell,
         inputs=self.embedded_encoder_inputs,
@@ -62,29 +62,29 @@ with tf.variable_scope('encoder') as scope:
         dtype=tf.float32)
 ```
 
-We will use this final hidden state as the new initial state for our decoder.
+我们将使用这个最终的隐藏状态作为解码器的新初始状态。
 
-## Decoder:
+## 解码器
 
-This simple decoder takes in the final hidden state from the encoder as its initial state. We will also embed the decoder inputs and process them with the decoder RNN. The outputs will be normalized with softmax and then compared with the targets. Note that the decoder inputs starts with a GO token which is to predict the first target token. The decoder input’s last relevant token with predict the EOS target token.
+这个简单的解码器将编码器的最终的隐藏状态作为自己的初始状态。我们还将接入解码器的输入，并使用 RNN 解码器来处理它们。输出的结果将通过 softmax 进行归一化处理，然后与目标进行比较。注意，解码器输入从一个 GO token 开始，从而用来预测第一个目标 token。解码器输入的最后一个对应的 token 则是用来预测 EOS 目标 token 的。
 
-```
+```python
 with tf.variable_scope('decoder') as scope:
 
-    # Initial state is last relevant state from encoder
+    # 初始状态是编码器的最后一个对应状态
     self.decoder_initial_state = self.encoder_state
 
-    # Decoder RNN cell
+    # RNN 解码器单元
     self.decoder_stacked_cell = rnn_cell(FLAGS, self.dropout,
         scope=scope)
 
-    # Embed decoder RNN inputs
+    # 嵌入 RNN 解码器输入
     W_input = tf.get_variable("W_input",
         [FLAGS.sp_vocab_size, FLAGS.num_hidden_units])
     self.embedded_decoder_inputs = rnn_inputs(FLAGS, self.decoder_inputs,
         FLAGS.sp_vocab_size, scope=scope)
 
-    # Outputs from encoder RNN
+    # RNN 解码器的输出
     self.all_decoder_outputs, self.decoder_state = tf.nn.dynamic_rnn(
         cell=self.decoder_stacked_cell,
         inputs=self.embedded_decoder_inputs,
@@ -92,20 +92,20 @@ with tf.variable_scope('decoder') as scope:
         initial_state=self.decoder_initial_state)
 ```
 
-But what about the paddings, they will also be predicting some output target but we don’t really care about those but they will still impact our loss if we factor them in. Here’s where we will be masking the loss to remove influence from paddings in the targets.
+那填充值会发生什么呢？它们也会预测一些输出目标，而我们并不关心这些内容，但如果我们把它们考虑进去，它们仍然会影响我们的损失函数。接下来我们将屏蔽掉这些损失以消除对目标结果的影响。
 
-## Loss Masking:
+## 损失屏蔽
 
-We will use the targets and where ever the target is a PAD, we will mask the loss for that location to 0\. So when we get to the last relevant decoder token, the appropriate target will be an EOS token id. For the next decoder input the target will be a PAD id. This is where the masking starts.
+我们会检查目标，并将目标中被填充的部分屏蔽为 0。因此，当我们获得最后一个有关的解码器 token 时，目标就会是表示 EOS 的 token ID。而对于下一个解码器的输入而言，目标就会是 PAD ID，这也就是屏蔽开始的地方。
 
-```
-# Logits
+```python
+# Logit
 self.decoder_outputs_flat = tf.reshape(self.all_decoder_outputs,
     [-1, FLAGS.num_hidden_units])
 self.logits_flat = rnn_softmax(FLAGS, self.decoder_outputs_flat,
     scope=scope)
 
-# Loss with masking
+# 损失屏蔽
 targets_flat = tf.reshape(self.targets, [-1])
 losses_flat = tf.nn.sparse_softmax_cross_entropy_with_logits(
     self.logits_flat, targets_flat)
@@ -116,22 +116,21 @@ self.loss = tf.reduce_mean(
     tf.reduce_sum(masked_losses, reduction_indices=1))
 ```
 
-We will cleverly use the fact that PAD IDs are 0 to apply the loss mask. Once we apply the mask, we just compute the sum of the losses for each row (sample in the batch) and then take the mean of all the sample’s losses to get the batch’s loss. From here, we can just train on minimizing this loss.
+注意到可以使用 PAD ID 为 0 这个事实作为屏蔽手段，我们便只需计算（一个批次中样本的）每一行损失之和即可，然后取所有样本损失的平均值，从而得到一个批次的损失。这时，我们就可以通过最小化这个损失函数来进行训练了。
 
-Here are the training results:
+以下是训练结果：
 
 ![Screen Shot 2016-11-19 at 4.56.18 PM.png](https://theneuralperspective.files.wordpress.com/2016/11/screen-shot-2016-11-19-at-4-56-18-pm.png?w=620)
 
-We won’t be doing any inference here but you can find it the following post with attention. But if you really want to implement inference here, just use the same model as training but you need to feed the predicted target back in as an input for the next decoder rnn cell. You need to embed with the same set of weights used to embed INTO the decoder and have it as another input to the rnn. This means that for the initial GO token, you need to feed in some dummy input token that will be embedded.
+我们不会在这里做任何的模型推断，但是你可以在接下来的关于注意力机制的文章中看到。如果你真的想在这里实现模型推断，使用相同的模型就可以了，但你还得将预测目标的结果作为输入接入下一个 RNN 解码器单元。同时你还要将相同的权重集嵌入解码器中，并将其作为 RNN 的另一个输入。这意味着对于初始的 GO token 而言，你得嵌入一些伪造的 token 进行输入。
 
-## Conclusion:
+## 结论
 
-This encoder-decoder model is quite simple but it is a necessary foundation prior to understanding the seq-seq implementation with attention. In the next RNN tutorial, we will cover attentional interfaces and their advantages over this encoder-decoder architecture.
+这个编码解码器模型非常简单，但是在理解 seq2seq 实现之前，它是一个必要的基础。在下一篇 RNN 教程中，我们将涵盖 Attention 模型及其在编码解码器模型结构上的优势。
 
-## Code:
+## **代码**
 
-**[GitHub Repo](https://github.com/ajarai/the-neural-perspective/tree/master/recurrent-neural-networks/seq-seq/encoder-decoder) (Updating all repos, will be back up soon!)**
-
+**[GitHub 仓库](https://github.com/ajarai/the-neural-perspective/tree/master/recurrent-neural-networks/char_rnn) （正在更新，敬请期待！）**
 
 ---
 
