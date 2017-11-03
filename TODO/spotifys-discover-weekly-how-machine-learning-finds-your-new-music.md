@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/spotifys-discover-weekly-how-machine-learning-finds-your-new-music.md](https://github.com/xitu/gold-miner/blob/master/TODO/spotifys-discover-weekly-how-machine-learning-finds-your-new-music.md)
 > * 译者：[lsvih](https://github.com/lsvih)
-> * 校对者：[ppp-man](https://github.com/ppp-man), [atuooo](https://github.com/atuooo)
+> * 校对者：[ppp-man](https://github.com/ppp-man)
 
 # Spotify 每周推荐功能：基于机器学习的音乐推荐
 
