@@ -3,82 +3,83 @@
 > * 原文作者：[GokuMohandas](https://twitter.com/GokuMohandas)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-network-rnn-part-5-custom-cells.md](https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-network-rnn-part-5-custom-cells.md)
-> * 译者：
-> * 校对者：
+> * 译者：[lsvih](https://github.com/lsvih)
 
 **本系列文章汇总**
 
-1. [RECURRENT NEURAL NETWORKS (RNN) – PART 1: BASIC RNN / CHAR-RNN](https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-networks-rnn-part-1-basic-rnn-char-rnn.md)
-2. [RECURRENT NEURAL NETWORKS (RNN) – PART 2: TEXT CLASSIFICATION](https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-networks-rnn-part-2-text-classification.md)
-3. [RECURRENT NEURAL NETWORKS (RNN) – PART 3: ENCODER-DECODER](https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-networks-rnn-part-3-encoder-decoder.md)
-4. [RECURRENT NEURAL NETWORKS (RNN) – PART 4: ATTENTIONAL INTERFACES](https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-network-rnn-part-4-attentional-interfaces.md)
-5. [RECURRENT NEURAL NETWORKS (RNN) – PART 5: CUSTOM CELLS](https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-network-rnn-part-5-custom-cells.md)
+1. [RNN 循环神经网络系列 1：基本 RNN 与 CHAR-RNN](https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-networks-rnn-part-1-basic-rnn-char-rnn.md)
+2. [RNN 循环神经网络系列 2：文本分类](https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-networks-rnn-part-2-text-classification.md)
+3. [RNN 循环神经网络系列 3：编码、解码器](https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-networks-rnn-part-3-encoder-decoder.md)
+4. [RNN 循环神经网络系列 4：注意力机制](https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-network-rnn-part-4-attentional-interfaces.md)
+5. [RNN 循环神经网络系列 5：自定义单元](https://github.com/xitu/gold-miner/blob/master/TODO/recurrent-neural-network-rnn-part-5-custom-cells.md)
 
-# RECURRENT NEURAL NETWORK (RNN) – PART 5: CUSTOM CELLS
+# RNN 循环神经网络系列 5: 自定义单元
 
-In this post, we will explore the idea of creating our own custom RNN cells. But first, we will take a closer look at the simple RNN and then more complicated units such as LSTM and GRU. We will also analyze the tensorflow code for these units and draw from them to eventually create our own custom cells. In this post, I will be using images from one of the best posts out there on RNNs/LSTMS by Chris Olah. I highly urge you to read the **[post](http://colah.github.io/posts/2015-08-Understanding-LSTMs/)** and in my post I will be reiterating a lot of material but I will move rather quickly and focus more on the tf code. I will be referring back to this code in a future post on applying layer normalization to these RNN architectures, which can be found **[here](https://theneuralperspective.com/2016/10/27/gradient-topics/)**.
+在本文中，我们将探索并尝试创建我们自己定义的 RNN 单元。不过在此之前，我们需要先仔细研究简单的 RNN，再逐步深入较为复杂的单元（如 LSTM 与 GRU）。我们会分析这些单元在 tensorflow 中的实现代码，最终参照这些代码来创建我们的自定义单元。本文将援引由 Chris Olah 所著，在 RNN、LSTM 方面非常棒的一篇文章中的图片。在此我强烈推荐你阅读**[这篇文章](http://colah.github.io/posts/2015-08-Understanding-LSTMs/)**，本文中会重申其中许多相关内容，不过由于我们主要还是关注 tf 代码，所以这些内容将会较快地略过。将来当我要对 RNN 结构进行层规范化时，我还会引用本文中的代码。之后的文章可以在**[这儿](https://theneuralperspective.com/2016/10/27/gradient-topics/)**查看。
 
-## Basic RNNs:
+## 基本 RNN：
 
-With traditional RNNs, the main issue is that we cannot adequately learn long term dependencies because the operations that we repeat at each cell unit for each input are static. If you think back to the basic RNN cell, the operations all involve the single tanh operation.
+对于传统的 RNN 来说，最大的问题就在于每个单元的重复输入都是静态的，因此我们无法充分学习到长期的依赖情况。你回想一下基本 RNN 单元，就会发现所有操作都是单一的 tanh 运算。
 
 ![screen-shot-2016-10-04-at-5-54-13-am](https://theneuralperspective.files.wordpress.com/2016/10/screen-shot-2016-10-04-at-5-54-13-am.png?w=620)
 
-This architecture is suitable inputs where the solutions are based on short term dependencies but if we wish to utilize long term memory efficiently to predict the right targets, we will need a rnn cell unit that is more robust. Cue the LSTM.
+对于解决短期依赖情况的问题来说，这种结构已经够用了；但如果我们希望通过有效的长期记忆来预测目标，则需要使用更稳定强大的 RNN 单元 —— LSTM。
 
-## Long Short Term Memory Networks (LSTMs):
+## 长短期记忆网络（LSTM）：
 
-The architecture of the LSTMs allows us to have long term information control at the expensive of more operations. Our traditional RNNs had one output which served as both the hidden state representation and the output from the cell.
+LSTM 的结构可以让我们在更多的操作中进行长期的信息控制。传统的 RNN 仅有一个输出，其既作为隐藏状态表示也作为此单元的输出端。
 
 ![Screen Shot 2016-11-16 at 6.25.04 PM.png](https://theneuralperspective.files.wordpress.com/2016/11/screen-shot-2016-11-16-at-6-25-04-pm.png?w=620)
 
-There is an absence of information control with this basic architecture that prevents us from holding on to useful information for many steps down the line. The LSTM, instead, has two different types of outputs. We still the traditional state output which acts as the hidden state representation and the cell’s output but the cell also outputs a cell state C. Here is the LSTM in all its glory, time to break it down into pieces.
+这种结构缺乏对信息的控制，无法存住对许多步之后有用的信息。而 LSTM 有两种不同的输出。其中一种仍与前面的传统结构一样，既作为隐藏状态表示也作为单元输出；但 LSTM 单元还有另一种输出 - 单元状态 C。这也是 LSTM 精髓所在，让我们仔细研究它。
 
 ![Screen Shot 2016-11-16 at 6.28.06 PM.png](https://theneuralperspective.files.wordpress.com/2016/11/screen-shot-2016-11-16-at-6-28-06-pm.png?w=620)
 
-### Forget gate:
+### 遗忘门：
 
-The very first gate is the forget gate. This gate allows us to selectively pass information to determination of the cell state. I will break down the notation below once and you can reapply for all the other gates as well.
+第一个要介绍的门就是遗忘门。这个门可以让我们选择性地传递信息以决定单元的状态。我将公式罗列在下，后面介绍其它的门时也会如此。
 
 ![Screen Shot 2016-11-16 at 6.30.38 PM.png](https://theneuralperspective.files.wordpress.com/2016/11/screen-shot-2016-11-16-at-6-30-38-pm.png?w=620)
 
 ![Screen Shot 2016-11-16 at 6.39.17 PM.png](https://theneuralperspective.files.wordpress.com/2016/11/screen-shot-2016-11-16-at-6-39-17-pm.png?w=620)
 
-And of course to implement this, you could follow something like tf’s [_linear](https://github.com/tensorflow/tensorflow/blob/master/tensorflow/python/ops/rnn_cell.py#867) function. But the main idea is that we are applying this sigmoid operation to both the input and the previous hidden state. But what exactly is applying this sigmoid operation doing? Recall that sigmoid outputs in the range [0, 1] and here we are applying it to a matrix of shape [N X H], which means we will produce NXH values with sigmoid applied to them. If the sigmoid operation results in 0, then that hidden value is nullified and it it is 1, we completely let that value be used. Anything in between allows parts of the information to go through. This is an nice way to control the information that is flowing through by effectively blocking and selectively passing parts of the inputs to the cell.
+你可以参考类似 tf 的 [_linear](https://github.com/tensorflow/tensorflow/blob/master/tensorflow/python/ops/rnn_cell.py#867) 函数来实现它。不过遗忘门的主要要点是对输入与隐藏状态前应用了 sigmoid。那么这个 sigmoid 的作用是什么？请回想一下，sigmoid 会输出在 [0, 1] 范围的值，在此我们将其应用于 [N X H] 的矩阵，因此会得到 NXH 个 sigmoid 算出的值。如果 sigmoid 得到 0 值，那么其对应的隐藏值就会失效；如果 sigmoid 得到 1 值，那么此隐藏值将会被应用在计算中。而处于 0 和 1 之间的值将会允许一部分的信息继续传递。这样就能很好地通过阻塞与选择性地传递输入单元的数据，以达到控制信息的目的。
 
-This forget gate, however, is only the first operation that we do to ultimately calculate our cell state. The next operation involves the input gate.
+这就是遗忘门。它是我们的单元得到最终结果前的第一个步骤。下面介绍另一个操作：输入门。
 
-### Input gate:
+### 输入门：
 
-The input gate takes in our input X and the previous hidden state and computes two operations. First it selectively allows parts of the inputs to pass through with a sigmoid gate and then we multiply it by the tanh of the inputs.
+输入门将获取我们的输入值 X 以及在前面的隐藏状态，并对它们进行两次运算。首先会通过 sigmoid 门来选择性地允许部分数据输入，接着将其与输入值的 tanh 值相乘。
 
 ![Screen Shot 2016-11-16 at 6.48.07 PM.png](https://theneuralperspective.files.wordpress.com/2016/11/screen-shot-2016-11-16-at-6-48-07-pm.png?w=620)
 
-What the tanh is doing here is a bit different from the sigmoid operation. Recall that tanh changes our inputs into the range [-1, 1]. This essentially changes the underlying representation of our inputs with this nonlinearity. This is the exact same step as what we were doing with the basic RNN cell. But now we take the product of these two values and add it to the value from the forget gate to calculate our cell state.
+这儿的 tanh 与前面的 sigmoid 操作不同。请回忆一下，tanh 会将输入值改变为 [-1, 1] 范围内的值。它本质上通过非线性的方式改变了输入的表示。这一步与我们在基本 RNN 单元中进行的操作一致，不过在此我们将两值的乘积加上遗忘门得到的值得到本单元的状态值。
 
-These operations with the forget and input gate can be translated to the fact that we keep parts of the old cell state (C_{t-1}) and keep parts of the new transformed (tanh) cell state C~_t. These weights are trained with our data to learn exactly how much information to keep and how to perform the correct transformation.
+遗忘门与输入门的操作可以看做同时保存了旧状态（C_{t-1}）的一部分与新变换（tanh）单元状态（C~_t）的一部分。这些权重将会通过我们数据的训练学到需要保存多少数据以及如何进行正确的变换。
 
-### Output gate:
+### 输出门：
 
-The last gate is the output gate and it uses the input, previous hidden state and the new cell state to determine the new hidden state representation.
+最后一个门是输出门，它利用输入值、前面的隐藏状态值以及新单元状态值来共同决定新隐藏状态的表示。
 
 ![Screen Shot 2016-11-16 at 6.54.29 PM.png](https://theneuralperspective.files.wordpress.com/2016/11/screen-shot-2016-11-16-at-6-54-29-pm.png?w=620)
 
-This operation again involves the selective information barrier sigmoid which is multiplied with tanh of the cell state. Note that this tanh operation is not a neural network as with the tanh operation in the input gate. This is simply applying the tangent to the cell state without any modifications with weights. We are merely forcing the cell states [NXH] values to be in the range [-1, 1].
+该步骤依旧涉及到了 sigmoid，将它的值与单元状态的 tanh 值相乘以决定信息的去留。需要注意这一步的 tanh 计算与输入门的 tanh 计算不同，此步不再是神经网络的计算，而仅仅是单纯、不带任何权重地计算单元状态值的 tanh 值。这样我们就能强制单元状态矩阵 [NXH] 的值处于 [-1, 1] 的范围内。
 
-### Variations:
+### 变体
 
-There are literally hundreds of variations for RNN cells so I suggest checking our Chris Olah’s **[blog](http://colah.github.io/posts/2015-08-Understanding-LSTMs/)** again for more information. A few note worthy one’s he discussed were the peephole model (allow all gates to see the cell state available at that point in time (C_{t-1} or C_t is already calculated) and coupled cell states (only update when we forget and forget when we update). But the current rival to the LSTM, which is heavily based off of the LSTM and it rapidly growing in use is the Gated Recurrent Unit (GRU).
+RNN 单元有许多种变体，在此再次建议去阅读 Chris Olah 的**[这篇博文](http://colah.github.io/posts/2015-08-Understanding-LSTMs/)**学习更多相关知识。不过他在文中讨论的是 peehole 模型（在计算 C_{t-1} 或 C_t 时允许所有门都能观察到单元状态值）以及单元状态的 couple（更新与遗忘同时进行）。不过目前 LSTM 的竞争对手是正在被广泛使用的 GRU（Gated Recurrent Unit）。
 
-## Gated Recurrent Unit (GRU):
+## GRU（Gated Recurrent Unit）：
 
-The main idea behind the GRU is that is combines the forget and input gate into one update gate. ![Screen Shot 2016-11-16 at 7.01.15 PM.png](https://theneuralperspective.files.wordpress.com/2016/11/screen-shot-2016-11-16-at-7-01-15-pm.png?w=620)
+GRU 的主要原理是将遗忘门与输入门结合成一个更新门。
 
-Empirically, the GRU’s performance on most tasks is on par with the LSTM and also computationally less expensive. These tradeoffs are the reason behind it’s surging popularity.
+ ![Screen Shot 2016-11-16 at 7.01.15 PM.png](https://theneuralperspective.files.wordpress.com/2016/11/screen-shot-2016-11-16-at-7-01-15-pm.png?w=620)
 
-## Tensorflow Native Implementations:
+在实际使用中，GRU 的性能与 LSTM 相当，但其计算量更小，因此它现在日益流行。
 
-Now we will take a look at the official Tensorflow code the GRU unit and we will mostly focus on the function calls, inputs and outputs. From here, we will replicate the structure to create our own unique cells. If you’re interested in the other cells available, you can find them all at this **[link](https://github.com/tensorflow/tensorflow/blob/master/tensorflow/python/ops/rnn_cell.py)**. We will just focus on the GRU because it’s performance is as good as the LSTM in more cases and significantly less complex.
+## 原生 Tensorflow 实现：
+
+我们先观察一下 Tensorflow 官方对于 GRU 单元的实现代码，主要关注其函数调用方式、输入以及输出。然后我们会复制它的结构用于创建我们自己的单元。如果你对其它的单元有兴趣，可以在**[这儿](https://github.com/tensorflow/tensorflow/blob/master/tensorflow/python/ops/rnn_cell.py)**找到它们的实现。本文将主要关注 GRU，因为它在大多数情况下性能与 LSTM 相当且复杂度更低。
 
 ```
 class GRUCell(RNNCell):
@@ -113,11 +114,11 @@ class GRUCell(RNNCell):
     return new_h, new_h
 ```
 
-The GRUCell class start with the __init__ function which defines the number of units and the activation function it will use. This is the activation function that is usually tanh but the sigmoid activations are fixed since the [0,1] range allows us to control the information flow. Then we have two properties that both return self._num_units when invoked. And finally, we have out __call__ function which is what processes the input and churns out the new hidden state. Recall that GRU does not have a cell state like the LSTM.
+GRUCell 类由 __init__ 函数开始执行。在 __init__ 函数中定义了单元的数量与其使用的激活函数。其激活函数一般是 tanh，不过也可以使用 sigmoid 来使得值固定在 [0, 1] 范围内方便我们控制信息流。另外，它还有两个在调用时会返回 self._num_units 的属性。最后定义了 __call__ 函数，它将处理输入值并得出新的隐藏值。回忆一下，GRU 没有类似 LSTM 的单元状态值。
 
-First, we compute r and u (u = z in colah’s notation above). Instead of separately doing them, we just merge the weights and do it with 2*num_units and then we split it by two. **split(dim, num_splits, value)**. Then we apply our sigmoid activate on the values to selectively control the information flow. Then we calculate the candidate c and use it to calculate out new hidden state representation. You may see that the order for calculating new_h is switched, either way works fine, because the weights will train accordingly.
+在 __call__ 中，我们首先计算 r 和 u（u 是前面图中的 z）。在这步中，我们没有单独去计算它们，而是以乘以 2 倍 num_units 的形式合并了权重，再将结果分割成两份得到它们（split(dim, num_splits, value)）。然后对得到的值应用 sigmoid 激活函数，以选择性地控制信息流。接着计算 c 的值，用它计算新隐藏状态表示值。你可能发现它计算 new_h 的顺序和之前颠倒了，不过由于权重会同时进行训练，因此代码仍能正常运行。
 
-All of the other cells’ codes look very similar to this, so you will easily be able to interpret them.
+其它的单元代码都与此代码类似，你弄明白了上面的代码就能轻松解释其它单元的代码。
 
 
 ---
