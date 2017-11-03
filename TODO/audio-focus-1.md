@@ -7,6 +7,8 @@
 
 # Understanding Audio Focus (Part 1 / 3)
 
+![](https://cdn-images-1.medium.com/max/2000/1*2_mUAwAihjBYMszQCCL0Mw.png)
+
 ## Common Audio Focus use cases
 
 Many apps on your Android phone can play audio simultaneously. While the Android operating system mixes all audio streams together, it can be very disruptive to a user when multiple apps are playing audio at the same time. This results in the user having a poor experience on their phone. To deliver a good UX, Android provides an [API](https://developer.android.com/guide/topics/media-apps/audio-focus.html) that lets apps share _audio focus_, where only one app can hold audio focus at a time.
