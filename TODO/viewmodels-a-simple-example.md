@@ -5,57 +5,57 @@
 > * 译者：
 > * 校对者：
 
-# ViewModels : A Simple Example
+# ViewModels 简单入门
 
-### Introduction
+### 简介
 
-A little over two years ago, I was working on [Android for Beginners](https://www.udacity.com/course/android-development-for-beginners--ud837); a class that takes students from zero programming to their first Android app. As part of the course, students build a very simple one screen app called [Court-Counter](https://github.com/udacity/Court-Counter).
+两年前，我在做 [给 Android 入门的课程](https://www.udacity.com/course/android-development-for-beginners--ud837)，教零基础学生开发 Android App。其中有一部分是教学生构建一个简单的单屏 App 叫做 [Court-Counter](https://github.com/udacity/Court-Counter).
 
-Court-Counter is a _very_ straightforward app with buttons that modify a basketball score. The finished app has a bug though; if you rotate the phone, your current score will inexplicably disappear.
+Court-Counter 是一个只有几个按钮来修改篮球比赛分数的 App。成品有些 bug，比如你旋转手机手，当前保存的分数会莫名归零。
 
 ![](https://cdn-images-1.medium.com/max/800/1*kZ5CiWnpSC0-aQeModzpNA.gif)
 
-What’s going on? Rotating a device is one of a few [**configuration changes**](https://developer.android.com/guide/topics/manifest/activity-element.html#config) that an app can go through during its lifetime, including keyboard availability and changing the device’s language. All of these configuration changes cause the Activity to be torn down and recreated.
+这是什么原因呢？因为旋转设备会导致App 生命周期中一些 [**配置发生改变**](https://developer.android.com/guide/topics/manifest/activity-element.html#config) ，比如键盘是否可用，变更设备语言等。这些配置的改变都会导致 Activity 被销毁重建。
 
-This behavior allows us to do things like use a landscape orientation specific layout when the device is rotated on its’ side. Unfortunately it can be a headache for new (and sometimes not so new) engineers to wrap their head around.
+这种表现可以让我们在做一些特殊处理，比如设备旋转时变更为横向特定布局。 然而对于新手（有时候老鸟也是）工程师来说，这可能会让他们头疼。
 
-At Google I/O 2017, the Android Framework team introduced a new set of [Architecture Components](https://developer.android.com/topic/libraries/architecture/index.html), one of which deals with this exact rotation issue.
+在 Google I/O 2017，Android Framework团队推出了一套新的架构组件，其中一个处理设备旋转的问题。
 
-The [**ViewModel**](https://developer.android.com/reference/android/arch/lifecycle/ViewModel.html) class is designed to hold and manage UI-related data in a life-cycle conscious way. This allows data to survive configuration changes such as screen rotations.
+[**ViewModel**](https://developer.android.com/reference/android/arch/lifecycle/ViewModel.html) 类旨在以有生命周期的方式保存和管理与UI相关的数据。 这使得数据可以在屏幕旋转等配置变化的情况下不丢失。
 
-This post is the first in a series exploring the ins and outs of ViewModel. In this post I’ll:
+这篇文章是在一系列探索ViewModel的细节中的第一个。 在这篇文章中，我会：
 
-*   Explain the basic need ViewModels fulfill
-*   Solve the rotation issue by changing the Court-Counter code to use a ViewModel
-*   Take a closer look at ViewModel and UI Component association
+- 解释ViewModel满足的基本需求
+- 通过更改 Court-Counter 代码以使用 ViewModel 解决旋转问题
+- 仔细审视 ViewModel 和 UI 组件的关联
 
-### The underlying problem
+### 潜在的问题
 
-The underlying challenge is that the [Android Activity lifecycle](https://developer.android.com/guide/components/activities/activity-lifecycle.html) has a lot of states and a single Activity might cycle through these different states many times due to configuration changes.
+潜在的挑战是  [Android Activity 生命周期](https://developer.android.com/guide/components/activities/activity-lifecycle.html) 中有很多状态，并且由于配置更改，单个Activity可能会多次循环进入这些不同的状态。
 
 ![](https://cdn-images-1.medium.com/max/800/1*CGGROXWhl8dTko1GdDeFsA.png)
 
-As an Activity is going through all of these states, you also might have transient UI data that you need to keep in memory. I’m going to define **transient UI data** as data needed for the UI. Examples include data the user enters, data generated during runtime, or data loaded from a database. This data could be bitmap images, a list of objects needed for a RecyclerView or, in this case, a basketball score.
+Activity 会经历所有这些状态，也可能需要把暂时的用户界面数据存储在内存中。这里将把临时UI数据定义为UI所需的数据。列子中包括用户输入的数据，运行时生成的数据或者是数据库加载的数据。这些数据可以是bitmap， RecyclerView 所需的对象列表等等，在这个例子中，是指篮球得分。
 
-Previously, you might have used `[onRetainNonConfigurationInstance](https://developer.android.com/reference/android/app/Activity.html#onRetainNonConfigurationInstance%28%29)` to save this data during a configuration change and unpack it on the other end. But wouldn’t it be swell if your data didn’t need to know or manage what lifecycle state the Activity is in? Instead of having a variable like `scoreTeamA` within the Activity, and therefore tied to all the whims of the Activity lifecycle, what if that data was stored somewhere else, outside of the Activity? **This is the purpose of the ViewModel class.**
+以前你可能用过 [onRetainNonConfigurationInstance](https://developer.android.com/reference/android/app/Activity.html#onRetainNonConfigurationInstance%28%29) 方法在配置更改期间保存和恢复数据。但是，如果你的数据不需要知道或管理 Activity 所处的生命周期状态，这样写会不会导致代码过于冗杂？如果 Activity 中有一个像scoreTeamA 这样的变量，虽然与 Activity 生命周期紧密相连，但又存储在Activity之外的地方呢？**这就是 ViewModel 类的目的**。
 
-In the diagram below, you can see the lifecycle of an Activity which undergoes a rotation and then is finally finished. The lifetime of the ViewModel is shown next to the associated Activity lifecycle. Note that ViewModels can be easily used with both Fragments and Activities, which I’ll call **UI controllers**. This example focuses on Activities.
+ 在下面的图表中，可以看到一个 Activity 的生命周期，该 Activity 经历了一次旋转，最后被 finish 掉。 ViewModel 的生命周期显示在关联的Activity生命周期旁边。注意，ViewModels 可以很简单的用与Fragments 和 Activities,，这里称他们为 UI 控制器。本示例着重于 Activities。
 
 ![](https://cdn-images-1.medium.com/max/800/1*3Kr2-5HE0TLZ4eqq8UQCkQ.png)
 
-The ViewModel exists from when the you first request a ViewModel (usually in the `onCreate` the Activity) until the Activity is finished and destroyed. `onCreate` may be called several times during the life of an Activity, such as when the app is rotated, but the ViewModel survives throughout.
+ViewModel从你首次请求创建ViewModel（通常在onCreate的Activity）时就存在，直到Activity完成并销毁。Activity 的生命周期中，onCreate可能会被调用多次，比如当应用程序被旋转时，但 ViewModel 会一直存在，不会被重建。
 
-### A very simple example
+### 一个简单的例子
 
-There are three steps to setting up and using a ViewModel:
+分三步骤来设置和使用ViewModel：
 
-1.  Separate out your data from your UI controller by creating a class that extends [ViewModel](https://developer.android.com/reference/android/arch/lifecycle/ViewModel.html)
-2.  Set up communications between your ViewModel and your UI controller
-3.  Use your ViewModel in your UI controller
+1. 通过创建一个扩展 ViewModel 类来从UI控制器中分离出你的数据
+2. 建立你的 ViewModel 和UI控制器之间的通信
+3. 在 UI 控制器中使用你的 ViewModel
 
-#### Step 1: Create a ViewModel class
+#### 第一步: 创建 ViewModel 类
 
-In general, you’ll make a ViewModel class for each screen in your app. This ViewModel class will hold all of the data associated with the screen and have getters and setters for the stored data. This separates the code to display the UI, which is implemented in your Activities and Fragments, from your data, which now lives in the ViewModel. So, let’s create a ViewModel class for the one screen in Court-Counter:
+一般来讲，需要为每屏都创建一个ViewModel类。这个ViewModel类将保存与该屏相关的所有数据，提供 getter 和 setter。这样就将数据与 UI 显示逻辑分开了，UI逻辑在Activities 或 Fragments中，数据保存在 ViewModel 中。好了，接下来为 Court-Counter 中的一个屏创建ViewModel类：
 
 ```
 public class ScoreViewModel extends ViewModel {
@@ -67,23 +67,25 @@ public class ScoreViewModel extends ViewModel {
 }
 ```
 
-I’ve chosen to have the data stored as public members in my `ScoreViewModel.java` for brevity, but creating getters and setters to better encapsulate the data is a good idea.
+为了简洁，这里我采用了公共成员存储在ScoreViewModel.java中，也可以选择用 getter 和 setter 来更好的封装数据。
 
-#### Step 2: Associate the UI Controller and ViewModel
+#### 第二步:关联UI控制器和ViewModel
 
-Your UI controller (aka Activity or Fragment) needs to know about your ViewModel. This is so your UI controller can display the data and update the data when UI interactions occur, such as pressing a button to increase a team’s score in Court-Counter.
+你的UI控制器（Activity或Fragment）需要访问你的ViewModel。这样，UI控制器就可以在UI交互发生时显示和更新数据，例如按下按钮以增加 Court-Counter 中的分数。
 
-**ViewModels should not, though, hold a reference to Activities, Fragments, or** [**Context**](https://developer.android.com/reference/android/content/Context.html)**s**.****** Furthermore, ViewModels should not contain elements that contain references to UI controllers, such as Views, since this will create an indirect reference to a Context.
+ViewModels不持有 Activities ，Fragments  或者 [**Context**](https://developer.android.com/reference/android/content/Context.html) 的引用。
 
-The reason you shouldn’t store these objects is that ViewModels outlive your specific UI controller instances — if you rotate an Activity three times, you have just created three different Activity instances, but you only have one ViewModel.
+此外，ViewModels也不应包含包含对UI控制器（如Views）引用的元素，因为这将创建对Context的间接引用。
 
-With that in mind, let’s create this UI controller/ViewModel association. You’ll want to create a member variable for your ViewModel in the UI Controller. Then in `onCreate`, you should call:
+之所以不这样做是因为，ViewModel 比 UI控制器生命周期长，比如你旋转一个Activity三次，会得到三个不同的Activity实例，但ViewModel只有一个。
+
+基于这一点，我们来创建 UI控制器/ ViewMode l的关联。在UI控制器中将 ViewModel 创建为一个成员变量。然后在 onCreate中这样掉用：
 
 ```
 ViewModelProviders.of(<Your UI controller>).get(<Your ViewModel>.class)
 ```
 
-In the case of Court-Counter, this looks like:
+在 Court-Counter 例子中，会是这样：
 
 ```
 @Override
@@ -95,11 +97,11 @@ protected void onCreate(Bundle savedInstanceState) {
 }
 ```
 
-****Note:** There’s one exception to the “no contexts in ViewModels” rule. Sometimes you might need an [**Application context**](https://developer.android.com/reference/android/content/Context.html#getApplicationContext%28%29)(as opposed to an Activity context) for use with things like system services. Storing an Application context in a ViewModel is okay because an Application context is tied to the Application lifecycle. This is different from an Activity context, which is tied to the Activity lifecycle. In fact, if you need an Application context, you should extend [**AndroidViewModel**](https://developer.android.com/reference/android/arch/lifecycle/AndroidViewModel.html) which is simply a ViewModel that includes an Application reference.
+**注意:** 这里对 “no contexts in ViewModels” 规则有个例外。有时候你可能会需要一个 [**Application context**](https://developer.android.com/reference/android/content/Context.html#getApplicationContext%28%29)(as opposed to an Activity context) 调用系统服务。这种情况下在 ViewModel 中持有 Application context 是没问题的，因为 Application context 是存在于 App 整个生命周期的，这点与 Activity context 不同， Activity context  只存在与 Activity 的生命周期。事实上，如果你需要 Application context，最好继承 [**AndroidViewModel**](https://developer.android.com/reference/android/arch/lifecycle/AndroidViewModel.html) ，这是一个持有 Application 引用的 ViewModel。
 
-#### Step 3: Use the ViewModel in your UI Controller
+#### 第三步:在 UI 控制器中使用 ViewModel
 
-To access or change UI data, you can now use the data in your ViewModel. Here’s an example of the new `onCreate` method and a method for updating the score by adding one point to team A:
+要访问或更改UI数据，可以使用ViewModel中的数据。下面是一个新的 onCreate 方法的示例，以及一个增加 team A 分数的方法：
 
 ```
 // The finished onCreate method
@@ -119,50 +121,49 @@ public void addOneForTeamA(View v) {
 }
 ```
 
-**Pro tip:** ViewModel also works very nicely with another Architecture Component, [LiveData](https://developer.android.com/reference/android/arch/lifecycle/LiveData.html), which I won’t be exploring deeply in this series. The added bonus here of using LiveData is that it’s observable: it can trigger UI updates when the data changes. You can learn more about LiveData [here](https://developer.android.com/topic/libraries/architecture/livedata.html).
+**tips:** ViewModel 也可以很好地与另一个架构组件  [LiveData](https://developer.android.com/reference/android/arch/lifecycle/LiveData.html) 一起工作，在这个系列中我不会深入探索。使用LiveData 的额外好处是它是可观察的：它可以在数据改变时触发UI更新。可以在[这里](https://developer.android.com/topic/libraries/architecture/livedata.html)了解更多关于LiveData的信息。
 
-### A closer look at `ViewModelsProviders.of`
+### 进一步审视 `ViewModelsProviders.of`
 
-The first time the `[ViewModelProviders.of](https://developer.android.com/reference/android/arch/lifecycle/ViewModelProviders.html#of%28android.support.v4.app.Fragment%29)` method is called by MainActivity, it creates a new ViewModel instance. When this method is called again, which happens whenever `onCreate` is called, it will return the pre-existing ViewModel associated with the specific Court-Counter MainActivity. This is what preserves the data.
+第一次调用  [ViewModelProviders.of](https://developer.android.com/reference/android/arch/lifecycle/ViewModelProviders.html#of%28android.support.v4.app.Fragment%29)  方法是在 MainActivity 中，创建了一个新的 ViewModel 实例。每次调用 `onCreate` 方法都会再次调用这个方法。它会返回之前 Court-Counter MainActivity 中创建的 ViewModel。 这就是它持有数据的方式。
 
-This works only if you pass in the correct UI controller as the first argument. While you should **never** store a UI controller inside of a ViewModel, the ViewModel class does keep track of the associations between ViewModel and UI controller instance behind the scenes, using the UI controller you pass in as the first argument.
+只有给 UI controller 提供正确的UI控制器作为参数才可以。切记不要在 ViewModel 内存储 UI 控制器，ViewModel 会在后台跟踪 UI 控制器实例和 ViewModel 之间的关联。
 
 ```
 ViewModelProviders._of_(**<THIS ARGUMENT>**).get(ScoreViewModel.**class**);
 ```
 
-This allows you to have an app that opens a lot of different instances of the same Activity or Fragment, but with different ViewModel information. Let’s imagine if we extended our Court-Counter example to have the scores for multiple basketball games. The games are presented in a list, and then clicking on a game in the list opens a screen that looks like our current MainActivity, but which I’ll call GameScoreActivity.
+这可以让你有一个应用程序，打开同一个 Activity or Fragment 的不同实例，但具有显示不同的 ViewModel 信息。让我们想象一下，如果我们扩展 Court-Counter 程序，使其可以支持不同的篮球比赛得分。比赛呈现在列表里，然后点击列表中的比赛就会开启一屏与 MainActivity 一样的画面，后面我就叫它 GameScoreActivity。
 
-For every different game screen you open, if you associate the ViewModel and `GameScoreActivity` in `onCreate`, it will create a different ViewModel instance. If you rotate one of these screens, the connection to the **same** ViewModel is maintained.
+对于你打开的每一个不同的比赛画面，在 onCreate 中关联ViewModel和GameScoreActivity 后，它将创建不同的 ViewModel 实例。旋转其中一个屏幕，则保持与同一个ViewModel的连接。
 
 ![](https://cdn-images-1.medium.com/max/800/1*uQ6XDm4Ga14SJWlCb27rkg.png)
 
-All of this logic is done for you by calling `ViewModelProviders.of(<Your UI controller>).get(<Your ViewModel>.class)`. So as long as you pass in the correct instance of a UI controller, it just works.
+所有这些逻辑都是通过调用 `ViewModelProviders.of(<Your UI controller>).get(<Your ViewModel>.class)` 实现的。 你只需要传递正确的UI 控制器实例就好。
 
-**A final thought**: ViewModels are very nifty for separating out your UI controller code from the data which fills your UI. That said, they are not a cure all for data persistence and saving app state. In the next post I’ll explore the subtler interactions of the Activity lifecycle with ViewModels and how ViewModels compare to `onSaveInstanceState`.
+**最后的思考**：ViewModel非常好的把你的UI控制器代码与UI的数据分离出来。 这就是说，它并不是能完成数据持久化和保存App 状态的工作。 在下一篇文章中，我将探讨Activity生命周期与ViewModels之间的微妙交互，以及 ViewModel 与 onSaveInstanceState 进行比较。
 
-### Conclusion and further learning
+### 结论和进一步的学习
 
-In this post, I explored the very basics of the new ViewModel class. The key takeaways are:
+在这篇文章中，我探索了新的ViewModel类的基础知识。关键要点是：
 
-*   The [ViewModel](https://developer.android.com/reference/android/arch/lifecycle/ViewModel.html) class is designed to hold and manage UI-related data in a life-cycle conscious way. This allows data to survive configuration changes such as screen rotations.
-*   ViewModels separate UI implementation from your app’s data.
-*   In general, if a screen in your app has transient data, you should create a separate ViewModel for that screen’s data.
-*   The lifecycle of a ViewModel extends from when the associated UI controller is first created, till it is completely destroyed.
-*   Never store a UI controller or Context directly or indirectly in a ViewModel. This includes storing a View in a ViewModel. Direct or indirect references to UI controllers defeat the purpose of separating the UI from the data and can lead to memory leaks.
-*   ViewModel objects will often store LiveData objects, which you can learn more about [here](https://developer.android.com/topic/libraries/architecture/livedata.html).
-*   The [ViewModelProviders.of](https://developer.android.com/reference/android/arch/lifecycle/ViewModelProviders.html#of%28android.support.v4.app.Fragment%29) method keeps track of what UI controller the ViewModel is associated with via the UI controller that is passed in as an argument.
+- ViewModel类旨在一个连续的生命周期中保存和管理与UI相关的数据。这使得数据可以在屏幕旋转等配置变化的情况下得以保存。
+- ViewModels将UI实现与 App 数据分离开来。
+- 一般来说，如果某屏应用中有瞬态数据，则应该为该屏的数据创建一个单独的ViewModel。
+- ViewModel的生命周期从关联的UI控制器首次创建时开始，直到完全销毁。
+- 不要将UI控制器或 Context 直接或间接存储在ViewModel中。这包括在ViewModel中存储 View。对UI控制器的直接或间接引用违背了从数据中分离UI的目的，并可能导致内存泄漏。
+- ViewModel对象通常会存储LiveData对象，您可以在 [这里](https://developer.android.com/topic/libraries/architecture/livedata.html)了解更多。
+- [ViewModelProviders.of](https://developer.android.com/reference/android/arch/lifecycle/ViewModelProviders.html#of%28android.support.v4.app.Fragment%29)  方法通过作为参数传入的 UI控制器与 ViewModel 进行关联。
 
-Want more ViewModel-ly goodness? Check out:
+想要了解更多 ViewModel 化的好处? 可以进一步阅读下面文章:
 
 *   [Instructions for adding the gradle dependencies](https://developer.android.com/topic/libraries/architecture/adding-components.html)
 *   [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel.html) documentation
 *   Guided ViewModel practice with the [Lifecycles Codelab](https://codelabs.developers.google.com/codelabs/android-lifecycles/#0)
 
-The Architecture Components were created based upon your feedback. If you have questions or comments about ViewModel or any of the architecture components, check out our [feedback page](https://developer.android.com/topic/libraries/architecture/feedback.html). Questions about or suggestion for this series? Leave a comment!
+架构组件是根据大家的反馈创建的。 如果你对 ViewModel 或任何架构组件有任何疑问或意见，请查看我们的  [反馈页面](https://developer.android.com/topic/libraries/architecture/feedback.html).。 有关这个系列的问题或建议？ 发表评论！
 
-Thanks to [Mark Lu](https://medium.com/@marklu_44193?source=post_page), [Florina Muntenescu](https://medium.com/@florina.muntenescu?source=post_page), and [Daniel Galpin](https://medium.com/@dagalpin?source=post_page).
-
+感谢 [Mark Lu](https://medium.com/@marklu_44193?source=post_page), [Florina Muntenescu](https://medium.com/@florina.muntenescu?source=post_page), 以及 [Daniel Galpin](https://medium.com/@dagalpin?source=post_page).
 
 ---
 
