@@ -2,24 +2,26 @@
 > * 原文作者：[Luis Alonzo](https://raygun.com)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/javascript-debugging-tips.md](https://github.com/xitu/gold-miner/blob/master/TODO/javascript-debugging-tips.md)
-> * 译者：
+> * 译者：[ParadeTo](https://github.com/ParadeTo)
 > * 校对者：
 
-# The 14 JavaScript debugging tips you probably didn't know
+# 14 个你可能不知道的 JavaScript 调试技巧
 
-Debug your JavaScript with greater speed and efficiency
+更快更高效地调试你的 JavaScript
 
-Knowing your tools can make a significant difference when it comes to getting things done. Despite JavaScript's reputation as being difficult to debug, if you keep a couple of tricks up your sleeve errors and bugs will take less time to resolve.
 
-**We've put together a list of 14 debugging tips that you may not know**, but might want to keep in mind for next time you find yourself needing to debug your JavaScript code! 
+了解你的工具在完成任务时有很重要的意义。 尽管 JavaScript 是出了名的难以调试，但是如果你掌握了一些小技巧，错误和 bug 解决起来就会快多了。
 
-**Let's get to it.**
+**我们收集了 14 个你必须要知道的调试技巧**，希望你可以牢记以便下次你需要它们来帮助你调试你的 JavaScript 代码。
 
-Most of these tips are for Chrome Inspector and Firefox, although many will also work with other inspectors. 
+**让我们开始吧**
 
-## 1. ‘debugger;’
 
-After console.log, 'debugger;' is my favorite quick and dirty debugging tool. Once it's in your code, Chrome will automatically stop there when executing. You can even wrap it in conditionals, so it only runs when you need it.
+大多数技巧都是用于 Chrome Inspector 和 Firefox，尽管有些可能也适用于其他调试器。
+
+## 1. "debugger;"
+
+除了 console.log， “debugger;” 是我最喜欢的临时应急的调试工具。一旦它在你的代码中出现，Chrome 会自动地在执行到它所在位置时停下。你甚至可以将它放在条件语句中，只在你需要的时候运行。
 
 ```
 if (thisThing) {
@@ -27,9 +29,10 @@ if (thisThing) {
 }
 ```
 
-## 2. Display objects as a table
+## 2. 以表格的形式展示对象
 
-Sometimes, you have a complex set of objects that you want to view. You can either console.log them and scroll through the list, or break out the console.table helper. Makes it easier to see what you’re dealing with!
+有些时候，你想查看一组复杂的对象。你可以用 console.log 打印并滚动查看，或者
+使用 console.table 来更加轻松地查看你所处理的对象。
 
 ```
 var animals = [
@@ -41,27 +44,27 @@ var animals = [
 console.table(animals);
 ```
 
-Will output: 
+输出: 
 
 [![Screenshot showing the resulting table for JavaScript debugging tip 2 ](https://raygun.com/upload/Debugging%202b.png)](https://raygun.com/upload/Debugging%202b.png)
 
-## 3. Try all the sizes
+## 3. 尝试所有的尺寸
 
-While having every single mobile device on your desk would be awesome, it’s not feasible in the real world. How about resizing your viewport instead? Chrome provides you with everything you need. Jump into your inspector and click the **‘toggle device mode’** button. Watch your media queries come to life!
+拥有所有的移动设备这个想法是很美妙的，但是现实中是不可能的。不如取而代之，改变视口吧？ Chrome 提供了所有你需要的东西。打开你的调试器并点击 **"toggle device mode"** 按钮。你会看到媒体查询出现啦！
 
 [![](https://raygun.com/upload/Debugging%201%20.png)](https://raygun.com/upload/Debugging%201%20.png)
 
-## 4. How to find your DOM elements quickly
+## 4. 如何快速找到你的 DOM 元素
 
-Mark a DOM element in the elements panel and use it in your console. Chrome Inspector keeps the last five elements in its history so that the final marked element displays with $0, the second to last marked element $1 and so on.
+在 elements 面板中标记一个 DOM 元素，然后在 console 中使用它。 Chrome Inspector 会保存最后 5 个元素在其历史记录中，所以最后标记的元素可以用 $0 来显示，倒数第二个被标记的元素为 $1 ，以此类推。
 
-If you mark following items in order ‘item-4′, ‘item-3’, ‘item-2’, ‘item-1’, ‘item-0’ then you can access the DOM nodes like this in the console:
+如果你以 “item-4”, “item-3”, “item-2”, “item-1”, “item-0” 的顺序标记下面的这些元素，你可以像下图所示那样在 console 中访问这些 DOM 节点
 
 [![](https://raygun.com/upload/Debugging%202.png)](https://raygun.com/upload/Debugging%202.png)
 
-## 5. Benchmark loops using console.time() and console.timeEnd()
+## 5. 使用 console.time() 和 console.timeEnd() 对循环做基准测试
 
-It can be super useful to know exactly how long something has taken to execute, especially when debugging slow loops. You can even set up multiple timers by assigning a label to the method. Let’s see how it works:
+知道程序运行的确切时间是非常有用的，尤其当调试非常慢的循环时。通过给函数传参，你甚至可以启动多个计时器。让我们看看如何做：
 
 ```
 console.time('Timer1');
@@ -75,19 +78,19 @@ for(var i = 0; i < 100000; i++){
 console.timeEnd('Timer1');
 ```
 
-This has produced the following result:
+得到如下输出：
 
 [![](https://raygun.com/upload/Debugging%203.png)](https://raygun.com/upload/Debugging%203.png)
 
-## 6. Get the stack trace for a function
+## 6. 获取函数的堆栈踪迹
 
-You probably know JavaScript frameworks, produce a lot of code – quickly.
+您可能了解 JavaScript 框架，生成大量代码 -- 快速地。
 
-It creates views and triggers events, so eventually you'll want to know what caused the function call.
+它会构建视图和触发事件，因此你最终会想要知道是什么在调用函数。
 
-Since JavaScript is not a very structured language, it can sometimes be hard to get an overview of **what** happened and **when**. This is when console.trace (or just trace in the console) comes handy to be able to debug JavaScript.
+JavaScript 不是一个非常结构化的语言，所以有时很难搞清楚 **发生了什么** 和 **什么时候发生的** 。因此 console.trace （console 面板中只需要 trace）就派上用场了。
 
-Imagine you want to see the entire stack trace for the function call funcZ in the car instance on line 33:
+假设你想知道第 33 行 car 实例的 funcZ 方法的整个堆栈踪迹：
 
 ```
 var car;
@@ -106,8 +109,8 @@ var func4 = function() {
 	car.funcX();
 }
 var Car = function() {
-	this.brand = ‘volvo’;
-	this.color = ‘red’;
+	this.brand = 'volvo';
+	this.color = 'red';
 	this.funcX = function() {
 		this.funcY();
 	}
@@ -117,26 +120,26 @@ var Car = function() {
 	}
 
 	this.funcZ = function() {
-		console.trace(‘trace car’)
+		console.trace('trace car')
 	}
 }
 func1();
-var car; 
+var car;
 var func1 = function() {
 	func2();
-} 
+}
 var func2 = function() {
 	func4();
 }
 var func3 = function() {
-} 
+}
 var func4 = function() {
 	car = new Car();
 	car.funcX();
 }
 var Car = function() {
-	this.brand = ‘volvo’;
-	this.color = ‘red’;
+	this.brand = 'volvo';
+	this.color = 'red';
 	this.funcX = function() {
 		this.funcY();
 	}
@@ -144,40 +147,41 @@ var Car = function() {
 		this.funcZ();
 	}
  	this.funcZ = function() {
-		console.trace(‘trace car’)
+		console.trace('trace car')
 	}
-} 
+}
 func1();
 ```
 
-Line 33 will output:
+第 33 行将输出：
 
 [![](https://raygun.com/upload/Debugging%204.png)](https://raygun.com/upload/Debugging%204.png)
 
-Now we can see that **func1** called **func2, **which called **func4**. **Func4** thencreated an instance of **Car** and then called the function **car.funcX**, and so on.
+现在我们知道 **func1** 调用了 **func2** ， **它又调用了func4** 。 **func4** 接着创建了一个 **Car** 的实例并调用了 **car.funcX** ， 等等。
 
-Even though you think you know your script well this can still be quite handy. Let’s say you want to improve your code. Get the trace and your great list of all related functions. Every single one is clickable, and you can now go back and forth between them. It’s like a menu just for you.
+即便你认为对你的代码很熟悉，这也仍然非常有用。假设你想优化你的代码。获取到函数堆栈踪迹以及所有相关的其他函数，每一个函数都是可点击的，你可以在他们之间来回跳转，就像一个菜单一样。
 
-## 7. Unminify code as an easy way to debug JavaScript
+## 7. 解压缩代码以便更好地调试 JavaScript
 
-Sometimes you may have an issue in production, and your source maps didn’t quite make it to the server. **Fear not**. Chrome can unminify your Javascript files to a more human-readable format. The code won’t be as helpful as your real code – but at the very least you can see what’s happening. Click the {} Pretty Print button below the source viewer in the inspector.
+有时生产环境会出现问题，而服务器无法提供 source map 。 **不要害怕**。 Chrome 可以解压你的 JavaScript 代码以更加可读的格式呈现。尽管格式化后的代码不可能跟源码一样有用，但至少你可以知道发生了什么。点击调试器 source 面板下面的 {} Pretty Print 按钮。
 
 [![](https://raygun.com/upload/Debugging%205.png)](https://raygun.com/upload/Debugging%205.png)
 
-## 8. Quick-find a function to debug
+## 8. 快速定位要调试的函数
 
-Let’s say you want to set a breakpoint in a function.
+假设你想在某个函数中设置一个断点。
 
-The two most common ways to do that is:
+最常用的两种方式是：
 
-**1. Find the line in your inspector and add a breakpoint
-2. Add a debugger in your script**
+**1. 在调试器中找到相应的行并设置一个断点**
 
-In both of these solutions, you have to click around in your files to find the particular line you want to debug
+**2. 在你的脚本中添加一个 debugger**
 
-What’s probably less common is to use the console. Use debug(funcName) in the console and the script will stop when it reaches the function you passed in.
+以上两种方法，你都必须到你的文件中找到你想调试的那一行。
 
-It’s quick, but the downside is it doesn’t work on private or anonymous functions. But if that’s not the case, it’s probably the fastest way to find a function to debug. (Note: there’s a function called console.debug which is not the same thing.)
+可能比较少的方式是使用 console。 在 console 中使用 debug(funcName)，脚本会在运行到你传入的函数的时候停止。
+
+这种方式比较快，缺点是对私有和匿名函数无效。但是，如果排除这些情形的话，这可能是最快的定位要调试函数的方法。
 
 ```
 var func1 = function() {
@@ -197,17 +201,17 @@ var Car = function() {
 var car = new Car();
 ```
 
-Type debug(car.funcY) in the console and the script will stop in debug mode when it gets a function call to car.funcY:
+在 console 中输入 debug(car.funcY)，在调试模式下当调用 car.faunY 时脚本会停下来：
 
 [![](https://raygun.com/upload/Debugging%206.png)](https://raygun.com/upload/Debugging%206.png)
 
-## 9.  Black box scripts that are NOT relevant
+## 9. 不相关的黑盒脚本
 
-Today we often have a few libraries and frameworks on our web apps. Most of them are well tested and relatively bug-free. But, the debugger still steps into all the files that have no relevance for this debugging task. The solution is to black box the script you don’t need to debug. This could also include your own scripts. [Read more about debugging black box in this article. ](https://raygun.com/blog/javascript-debugging-with-black-box/)
+我们经常会在我们的网页应用中用到一些库和框架。他们中大部分都经过良好的测试且相对来说错误较少。但是，调试器在执行调试任务时还是会进入这些不相关的文件。一个解决办法是将你不需要调试的脚本设置成黑盒。也包括你自己的脚本。[更多关于调试黑盒的信息请参考这篇文章](https://raygun.com/blog/javascript-debugging-with-black-box/)
 
-## 10. Find the important things in complex debugging
+## 10. 在复杂的调试中找到重要的信息
 
-In more complex debugging we sometimes want to output many lines. One thing you can do to keep a better structure of your outputs is to use more console functions, for example, Console.log, console.debug, console.warn, console.info, console.error and so on. You can then filter them in your inspector. But sometimes this is not really what you want when you need to debug JavaScript. It’s now that YOU can get creative and style your messages. Use CSS and make your own structured console messages when you want to debug JavaScript:
+在更复杂的调试中我们有时想输出很多行。为了使你的输出保持更好的结构，你可以使用更多的 console 方法，如：console.log，console.debug，console.warn，console.info，console.error 等。然后，你还可以在调试器中过滤他们。但是有时当你调试 JavaScript 时，这并不是你真正想要的。现在，你可以给你的信息添加点创意和样式了。你可以使用 CSS 并制定你自己的 console 输出格式：
 
 ```
 console.todo = function(msg) {
@@ -222,17 +226,17 @@ console.todo(“This is something that’ s need to be fixed”);
 console.important(‘This is an important message’);
 ```
 
-Will output: 
+将输出: 
 
 [![](https://raygun.com/upload/Debugging%207.png)](https://raygun.com/upload/Debugging%207.png)
 
-**For example:**
+**例如：**
 
-In the console.log() you can set %s for a string, %i for integers and %c for custom style. You can probably find better ways to use this. If you use a single page framework, you maybe want to have one style for view message and another for models, collections, controllers and so on. Maybe also name the shorter like wlog, clog and mlog use your imagination!
+在 console.log() 中，%s 表示一个字符串，%i 表示整型，%c 表示自定义样式。你可能会找到更好的方式来使用它们。如果你使用单页面框架，你可能想对 view 的输出信息使用一种样式，对 models，collections，controllers 等使用其他的样式，你可能会使用 wlog，clog，mlog 等简称来命名。总之，尽情发挥你的创造力吧。
 
-## 11. Watch specific function calls and its arguments
+## 11. 监控一个特定的函数调用及其参数
 
-In the Chrome console, you can keep an eye on specific functions. Every time the function is called, it will be logged with the values that it was passed in.
+在 Chrome 的 console 面板中，你可以监视一个特定的函数。每次该函数被调用，它将连同传入的参数一起打印出来。
 
 ```
 var func1 = function(x, y, z) {
@@ -240,35 +244,35 @@ var func1 = function(x, y, z) {
 };
 ```
 
-Will output: 
+将输出： 
 
 [![](https://raygun.com/upload/Debugging%208.png)](https://raygun.com/upload/Debugging%208.png)
 
-This is a great way to see which arguments are passed into a function. But I must say it would be good if the console could tell how many arguments to expect. In the above example, func1 expect 3 arguments, but only 2 is passed in. If that’s not handled in the code it could lead to a possible bug.
+这是一个查看函数所传入参数的好办法。但是我认为如果 console 能够告诉我函数需要传入的参数个数的话会更好。上面的例子中，func1 需要传入 3 个参数，但是只传了 2 个参数。如果代码中没有对这种情况进行处理，可能会导致 bug。
 
-## 12. Quickly access elements in the console
+## 12. 在 console 中快速查询元素
 
-A faster way to do a querySelector in the console is with the dollar sign. $(‘css-selector’) will return the first match of CSS selector. $(‘css-selector’) will return all of them. If you are using an element more than once, it’s worth saving it as a variable.
+在 console 中执行 querySelector 的一个更快的办法是使用 dollar 符号。$('css-selector') 会返回 CSS 选择器所匹配的第一个元素。$$(‘css-selector’) 会返回所有的元素。如果你要不止一次地使用该元素，最好是把它作为变量缓存起来。
 
 [![](https://raygun.com/upload/Debugging%2010.png)](https://raygun.com/upload/Debugging%2010.png)
 
-## 13. Postman is great (but Firefox is faster)
+## 13. Postman 是个好东西（但 Firefox 更快）
 
-Many developers are using Postman to play around with ajax requests. Postman is excellent, but it can be a bit annoying to open up a new browser window, write new request objects and then test them.
+很多开发者在使用 Postman 来处理 ajax 请求。Postman 很优秀，使用它需要打开一个新的浏览器窗口，然后编写请求体然后测试，有点烦人。
 
-Sometimes it’s easier to use your browser.
+有时使用你的浏览器会更轻松。
 
-When you do, you no longer need to worry about authentication cookies if you are sending to a password-secure page. This is how you would edit and resend requests in Firefox.
+使用浏览器，当你向一个基于密码保护的网页发送请求时你不用再担心 cookie 的认证。你可以在 Firefox 中编辑并再次发送请求。
 
-Open up the inspector and go to the network tab. Right-click on the desired request and choose Edit and Resend. Now you can change anything you want. Change the header and edit your parameters and hit resend.
+打开调试器并跳转到 network 选项。右键点击你想要修改的请求并选择 Edit and Resend，你就可以修改任何你想要修改的东西了。你可以修改头部以及参数然后点击 resend。
 
-Below I present a request twice with different properties:
+下面我提交了两个参数不同的请求：
 
 ![When debugging JavaScript, Chrome lets you pause when a DOM element changes](https://raygun.com/upload/Debugging%2011.png)
 
-## 14. Break on node change
+## 14. 打断节点的变化
 
-The DOM can be a funny thing. Sometimes things change and you don’t know why. However, when you need to debug JavaScript, Chrome lets you pause when a DOM element changes. You can even monitor its attributes. In Chrome Inspector, right click on the element and pick a break on setting to use:
+DOM 是个有趣的东西。有时它发生了变化，然而你却一脸懵逼，不知道为啥。但是，当你使用 Chrome 调试 JavaScript，DOM 发生变化时，你可以暂停，甚至可以监控属性的变化。在 Chrome Inspector 中，右键点击某个元素，然后选择 break on 设置来使用：
 
 [![](https://raygun.com/upload/Debugging%2014.png)](https://raygun.com/upload/Debugging%2014.png)
 
