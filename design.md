@@ -1,3 +1,5 @@
+* [iPhone X 网页设计](https://juejin.im/post/59e445816fb9a0450670ab82?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([HydeSong](https://github.com/HydeSong) 翻译)
+* [如何为通知设计更好的用户体验](https://juejin.im/post/59f9b14f518825295f5d411f?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([dongpeiguo](https://github.com/dongpeiguo) 翻译)
 * [扁平化的 UI 元素既朴实又玄乎](https://juejin.im/post/59c0d3305188256bce40e884?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([changkun](https://github.com/changkun) 翻译)
 * [「小键盘」难题：用户在手机上填写表单吗？](https://juejin.im/post/59c0e3835188256bcf2e1d22?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([changkun](https://github.com/changkun) 翻译)
 * [Web 设计准则](https://juejin.im/post/59c9c6f66fb9a00a4d53eec7?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([xunge0613](https://github.com/xunge0613) 翻译)
