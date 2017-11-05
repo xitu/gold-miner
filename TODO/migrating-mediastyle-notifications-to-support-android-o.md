@@ -13,11 +13,11 @@
 
 ### 简介
 
-如果你在 API level 25 或以下的版本上用 “MediaStyle” 的提醒功能，这篇文章充当把这功能迁移到 Android O 上的指引。“MediaStyle” 的提醒功能通常是有限制的，用在启动那些允许后台音频重放的功能。
+如果你在 API level 25 或以下的版本上用 MediaStyle 的提醒功能，这篇文章充当把这功能迁移到 Android O 上的指引。MediaStyle 的提醒功能通常是有限制的，并在后台开启那些允许音频回放的服务。
 
 Android O 的一些主要的区别需要被考虑到。
 
-1. 后台要以 `[startForegroundService(Intent)](https://developer.android.com/preview/features/background.html#services)` 开头， 而且五秒内一定要出现个持续性的提醒。
+1. 后台要以 [startForegroundService(Intent)](https://developer.android.com/preview/features/background.html#services) 开头， 而且五秒内一定要出现个持续性的提醒。
 2. 如果要显示提醒就一定要用到提醒渠道。
 
 整个到 Android O 的迁移需要以下几个小步骤。
@@ -32,19 +32,19 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.media.app.NotificationCompat.MediaStyle;</pre>
 ```
 
-你或许有 v7 的导入语句，但你不需要：
+或许之前会有 v7 的导入语句，但现在已经不再需要：
 
 ```
 import android.support.v7.app.NotificationCompat;</pre>
 ```
 
-在你的 “build.gradle” 里，你只需要导入包括了 “MediaStyle” 类的 “media-compat” 函式库。
+现在你的 build.gradle 文件里，只需要导入包含 MediaStyle 类的 media-compat 函数库。
 
 ```
 implementation ‘com.android.support:support-media-compat:26.+’</pre>
 ```
 
-“MediaStyle” 在 “android.support.v4.**media**” 这个包里因为它现在是 “[media-compat](https://developer.android.com/topic/libraries/support-library/packages.html#v4-media-compat)” dependency 的一部分。他们没有在 “support－compat” 库里的原因是为了单独考虑这个库的模块。
+MediaStyle 在 android.support.v4.media 这个包里因为它现在是 [media-compat](https://developer.android.com/topic/libraries/support-library/packages.html#v4-media-compat) 依赖的一部分。特意不将它们放在 support-compat 库里的原因是保持支持库模块里的关注点分离。
 
 ### 第二步：用 NotificationCompat 和渠道
 
@@ -62,11 +62,11 @@ NotificationCompat.Builder notificationBuilder =
         new NotificationCompat.Builder(mContext);</pre>
 ```
 
-为了更好理解 Android O，请在 [developer.android.com](https://developer.android.com/preview/features/notification-channels.html) 上阅读所有相关信息。Google Play 音乐让你自由地选择收到什么提醒。例如如果你只在乎与音频重放相关的提醒，你可以只允许与之相关的提醒而关闭其他的。
+为了更好地理解 Android O 里的渠道，请在 [developer.android.com](https://developer.android.com/preview/features/notification-channels.html) 上阅读所有相关信息。Google Play Music 可以让你自定义提醒消息。例如，如果你只关心”重放“相关的提醒，就可以只启用与之相关的提醒并禁用其他。
 
 ![](https://cdn-images-1.medium.com/max/800/0*I8gqatqtqnPtzCZP.)
 
-“NotificationCompat” 这个类并不帮你创建渠道，你依然要[自己弄一个](https://developer.android.com/preview/features/notification-channels.html#CreatingChannels)。这里有一个 Android O 的例子。
+NotificationCompat 这个类并不帮你创建渠道，你依然要[自己创建一个](https://developer.android.com/preview/features/notification-channels.html#CreatingChannels)。这里有一个 Android O 的例子。
 
 ```
 private static final String CHANNEL_ID = "media_playback_channel";
@@ -93,7 +93,7 @@ private static final String CHANNEL_ID = "media_playback_channel";
     }
 ```
 
-这段代码利用 “NotificationCompat” 生成 “MediaStyle” 提醒。
+这段代码利用 NotificationCompat 生成 MediaStyle 提醒。
 
 ```
 import android.support.v4.app.NotificationCompat;
@@ -132,7 +132,7 @@ view rawMediaStyleNotification.java hosted with ❤ by GitHub
 
 ### 第三步：用 ContextCompat 来激活 startForegroundService()
 
-在 Android O里，像音乐重放这类理应是在后台运行的服务需要用 “Context.startForegroundService()” 而不是 “Context.startService()” 来启动。如果你在 Android O 上，“ContextCompat” 这个类来自动帮你完成，如果你在 Android N 或之前的版本就需要用 “startService(Intent)” 来启动。
+在 Android O里，像音乐重放这类理应是在后台运行的服务需要用 Context.startForegroundService() 而不是 Context.startService() 来启动。如果你在 Android O 上，就可以用 ContextCompat 这个类来自动帮你完成，如果你在 Android N 或之前的版本就需要用 startService(Intent) 来启动。
 
 ```
 if (isPlaying && !mStarted) {
@@ -143,9 +143,9 @@ if (isPlaying && !mStarted) {
 }
 ```
 
-就是那么简单！三个简单步骤就能帮你把 “MediaStyle” 的后台提醒功能从 Android O 之前的版本迁移到 Android O 上。
+就是那么简单！三个简单步骤就能帮你把 MediaStyle 的后台提醒功能从 Android O 之前的版本迁移到 Android O 上。
 
-关于 “MediaStyle” 更新的更多资讯，请看[这里](https://developer.android.com/topic/libraries/support-library/revisions.html#26-0-0)
+关于 MediaStyle 更新的更多资讯，请看[这里](https://developer.android.com/topic/libraries/support-library/revisions.html#26-0-0)
 
 ### 安卓（Android）媒体资源
 
