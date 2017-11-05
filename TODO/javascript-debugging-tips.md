@@ -21,7 +21,7 @@
 
 ## 1. "debugger;"
 
-除了 console.log， “debugger;” 是我最喜欢的临时应急的调试工具。一旦它在你的代码中出现，Chrome 会自动地在执行到它所在位置时停下。你甚至可以将它放在条件语句中，只在你需要的时候运行。
+除了 console.log， “debugger;” 是我最喜欢的临时应急调试工具。一旦它在你的代码中出现，Chrome 会自动地在执行到它所在位置时停下。你甚至可以将它放在条件语句中，只在你需要的时候运行。
 
 ```
 if (thisThing) {
@@ -31,8 +31,7 @@ if (thisThing) {
 
 ## 2. 以表格的形式展示对象
 
-有些时候，你想查看一组复杂的对象。你可以用 console.log 打印并滚动查看，或者
-使用 console.table 来更加轻松地查看你所处理的对象。
+有些时候，你想查看一组复杂的对象。你可以用 console.log 打印并滚动查看，或者使用 console.table 来更加轻松地查看你所处理的对象。
 
 ```
 var animals = [
@@ -50,13 +49,13 @@ console.table(animals);
 
 ## 3. 尝试所有的尺寸
 
-拥有所有的移动设备这个想法是很美妙的，但是现实中是不可能的。不如取而代之，改变视口吧？ Chrome 提供了所有你需要的东西。打开你的调试器并点击 **"toggle device mode"** 按钮。你会看到媒体查询出现啦！
+拥有所有的移动设备这个想法是很美妙的，但是现实中是不可能的。不如取而代之，改变视口吧？Chrome 提供了所有你需要的东西。打开你的调试器并点击 **"toggle device mode"** 按钮。你会看到媒体查询出现啦！
 
 [![](https://raygun.com/upload/Debugging%201%20.png)](https://raygun.com/upload/Debugging%201%20.png)
 
 ## 4. 如何快速找到你的 DOM 元素
 
-在 elements 面板中标记一个 DOM 元素，然后在 console 中使用它。 Chrome Inspector 会保存最后 5 个元素在其历史记录中，所以最后标记的元素可以用 $0 来显示，倒数第二个被标记的元素为 $1 ，以此类推。
+在 elements 面板中标记一个 DOM 元素，然后在 console 中使用它。Chrome Inspector 会保存最后 5 个元素在其历史记录中，所以最后标记的元素可以用 $0 来显示，倒数第二个被标记的元素为 $1 ，以此类推。
 
 如果你以 “item-4”, “item-3”, “item-2”, “item-1”, “item-0” 的顺序标记下面的这些元素，你可以像下图所示那样在 console 中访问这些 DOM 节点
 
@@ -157,7 +156,7 @@ func1();
 
 [![](https://raygun.com/upload/Debugging%204.png)](https://raygun.com/upload/Debugging%204.png)
 
-现在我们知道 **func1** 调用了 **func2** ， **它又调用了func4** 。 **func4** 接着创建了一个 **Car** 的实例并调用了 **car.funcX** ， 等等。
+现在我们知道 **func1** 调用了 **func2** ， **它又调用了func4**。 **func4** 接着创建了一个 **Car** 的实例并调用了 **car.funcX**，等等。
 
 即便你认为对你的代码很熟悉，这也仍然非常有用。假设你想优化你的代码。获取到函数堆栈踪迹以及所有相关的其他函数，每一个函数都是可点击的，你可以在他们之间来回跳转，就像一个菜单一样。
 
@@ -179,9 +178,9 @@ func1();
 
 以上两种方法，你都必须到你的文件中找到你想调试的那一行。
 
-可能比较少的方式是使用 console。 在 console 中使用 debug(funcName)，脚本会在运行到你传入的函数的时候停止。
+可能不常见的方式是使用 console。在 console 中使用 debug(funcName)，脚本会在运行到你传入的函数的时候停止。
 
-这种方式比较快，缺点是对私有和匿名函数无效。但是，如果排除这些情形的话，这可能是最快的定位要调试函数的方法。
+这种方式比较快，缺点是对私有和匿名函数无效。但是，如果排除这些情形的话，这可能是定位要调试函数的最快方法。
 
 ```
 var func1 = function() {
@@ -211,7 +210,7 @@ var car = new Car();
 
 ## 10. 在复杂的调试中找到重要的信息
 
-在更复杂的调试中我们有时想输出很多行。为了使你的输出保持更好的结构，你可以使用更多的 console 方法，如：console.log，console.debug，console.warn，console.info，console.error 等。然后，你还可以在调试器中过滤他们。但是有时当你调试 JavaScript 时，这并不是你真正想要的。现在，你可以给你的信息添加点创意和样式了。你可以使用 CSS 并制定你自己的 console 输出格式：
+在更复杂的调试中我们有时想输出很多行。为了使你的输出保持更好的结构，你可以使用更多的 console 方法，如：console.log, console.debug, console.warn, console.info, console.error 等。然后，你还可以在调试器中过滤他们。但是有时当你调试 JavaScript 时，这并不是你真正想要的。现在，你可以给你的信息添加点创意和样式了。你可以使用 CSS 并制定你自己的 console 输出格式：
 
 ```
 console.todo = function(msg) {
@@ -252,7 +251,7 @@ var func1 = function(x, y, z) {
 
 ## 12. 在 console 中快速查询元素
 
-在 console 中执行 querySelector 的一个更快的办法是使用 dollar 符号。$('css-selector') 会返回 CSS 选择器所匹配的第一个元素。$$(‘css-selector’) 会返回所有的元素。如果你要不止一次地使用该元素，最好是把它作为变量缓存起来。
+在 console 中执行 querySelector 的一个更快的办法是使用 $ 符号。$('css-selector') 会返回 CSS 选择器所匹配的第一个元素。$$(‘css-selector’) 会返回所有的元素。如果你要不止一次地使用该元素，最好是把它作为变量缓存起来。
 
 [![](https://raygun.com/upload/Debugging%2010.png)](https://raygun.com/upload/Debugging%2010.png)
 
