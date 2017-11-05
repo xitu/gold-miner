@@ -3580,7 +3580,7 @@
 |[Swift 上的高性能数组](https://juejin.im/post/59e84129f265da43128005ed)|翻译|2.5|
 |[MVVM, Coordinators 和 RxSwift 的抽丝剥茧](https://juejin.im/post/59acf7dcf265da24722fe6a1)|翻译|5|
 
-## 译者：[alfred-zhong](https://github.com/alfred-zhong) 历史贡献积分：15.9 当前积分：14.4
+## 译者：[alfred-zhong](https://github.com/alfred-zhong) 历史贡献积分：15.9 当前积分：15.9
 
 |文章|类型|积分|
 |------|-------|-------|
