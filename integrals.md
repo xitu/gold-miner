@@ -84,10 +84,12 @@
 |[第一次翻译计划文章已兑换Octocat小]()|减去积分|15|
 |[Vector For All (slight return)](http://gold.xitu.io/entry/5756697ea341310063dd532c)|翻译|4|
 
-## 译者：[joyking7](https://github.com/joyking7) 历史贡献积分：42 当前积分：7
+## 译者：[joyking7](https://github.com/joyking7) 历史贡献积分：44.5 当前积分：9.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[并发编程](https://juejin.im/post/59ecb058f265da43346f10e5)|校对|1.5|
+|[什么是蒙特卡洛树搜索](https://juejin.im/post/59f16e8c5188250385371302)|校对|1|
 |[探索 Python 3 加密技术](http://gold.xitu.io/entry/575fae92df0eea0062c5a1dc)|校对|1|
 |[RxSwift 的第一印象](https://github.com/xitu/gold-miner/edit/master/TODO/rxswift-at-first-sight.md)|校对|1|
 |[Linux 系统下 Swift 3.0 的介绍](https://github.com/xitu/gold-miner/blob/master/TODO/Introducing-Swift%203.0.md)|翻译|6|
@@ -2952,10 +2954,11 @@
 |[使登录页面变得正确](https://juejin.im/post/5951e7905188250d98489c6a)|翻译|5|
 |[针对失败者的体验设计](hhttps://juejin.im/post/59013f6eda2f60005de40516)|校对|1|
 
-## 译者：[zhangqippp](https://github.com/zhangqippp) 历史贡献积分：24.5 当前积分：9.5
+## 译者：[zhangqippp](https://github.com/zhangqippp) 历史贡献积分：25.5 当前积分：10.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[什么是蒙特卡洛树搜索](https://juejin.im/post/59f16e8c5188250385371302)|校对|1|
 |[性能指标都是些什么鬼？](https://juejin.im/entry/59e855b45188250989513220/detail)|校对|1.5|
 |[在 Facebook 发一张登机牌，你就有可能被盗号了](https://juejin.im/post/59ccdeec51882531b21f1835)|校对|1|
 |[通过 Metal 来使用 ARKit (下)](https://juejin.im/post/59bb2a99f265da0650750e56)|校对|1|
@@ -3185,10 +3188,11 @@
 |[用动效创建的可用性：动效中的用户体验宣言](https://juejin.im/post/595c77a66fb9a06bcb7f92ff)|校对|2|
 |[为复杂产品制定设计规范](https://juejin.im/post/5944b8e55c497d006bdc261a)|校对|1|
 
-## 译者：[cacppuccino](https://github.com/CACppuccino) 历史贡献积分：37 当前积分：37
+## 译者：[cacppuccino](https://github.com/CACppuccino) 历史贡献积分：41 当前积分：41
 
 |文章|类型|积分|
 |------|-------|-------|
+|[什么是蒙特卡洛树搜索](https://juejin.im/post/59f16e8c5188250385371302)|翻译|4|
 |[Keras 中构建神经网络的 5 个步骤](https://juejin.im/post/59e43b5b6fb9a0452a3b5f4f)|校对|2|
 |[使用 Node.js 搭建一个 API 网关](https://juejin.im/post/5992769151882548b17f76a6)|校对|1|
 |[论深度学习的局限性](https://juejin.im/post/5978352a6fb9a06bad6574a4)|翻译|7|
@@ -3576,10 +3580,11 @@
 |[Swift 上的高性能数组](https://juejin.im/post/59e84129f265da43128005ed)|翻译|2.5|
 |[MVVM, Coordinators 和 RxSwift 的抽丝剥茧](https://juejin.im/post/59acf7dcf265da24722fe6a1)|翻译|5|
 
-## 译者：[alfred-zhong](https://github.com/alfred-zhong) 历史贡献积分：14.4 当前积分：14.4
+## 译者：[alfred-zhong](https://github.com/alfred-zhong) 历史贡献积分：15.9 当前积分：14.4
 
 |文章|类型|积分|
 |------|-------|-------|
+|[并发编程](https://juejin.im/post/59ecb058f265da43346f10e5)|校对|1.5|
 |[alfred-zhong 翻译开源库 Go 100 个](#)|翻译|10|
 |[翻译 Go 开源库 29 个](#)|翻译|2.9|
 |[在 HTTP/2 的世界里管理 CSS 和 JS](https://juejin.im/post/59bb463d51882519777c5a85)|校对|0.5|
@@ -3762,3 +3767,9 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[webpack & HTTP/2](https://juejin.im/post/59e87b89f265da433226b0f3)|校对|0.5|
+
+## 译者：[kobehaha](https://github.com/kobehaha) 历史贡献积分：5 当前积分：5
+
+|文章|类型|积分|
+|------|-------|-------|
+|[并发编程](https://juejin.im/post/59ecb058f265da43346f10e5)|翻译|5|
