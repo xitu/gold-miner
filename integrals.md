@@ -3613,7 +3613,7 @@
 |------|-------|-------|
 |[Web 设计准则](https://juejin.im/post/59c9c6f66fb9a00a4d53eec7)|校对|1|
 
-## 译者：[HydeSong](https://github.com/HydeSong) 历史贡献积分：9 当前积分：9
+## 译者：[HydeSong](https://github.com/HydeSong) 历史贡献积分：9.5 当前积分：9.5
 
 |文章|类型|积分|
 |------|-------|-------|
