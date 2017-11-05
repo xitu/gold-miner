@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/javascript-debugging-tips.md](https://github.com/xitu/gold-miner/blob/master/TODO/javascript-debugging-tips.md)
 > * 译者：[ParadeTo](https://github.com/ParadeTo)
-> * 校对者：
+> * 校对者：[Yuuoniy](https://github.com/Yuuoniy), [lampui](https://github.com/lampui)
 
 # 14 个你可能不知道的 JavaScript 调试技巧
 
