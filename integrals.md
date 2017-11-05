@@ -1056,10 +1056,11 @@
 |------|-------|-------|
 |[给产品经理的简易优先级法则](http://gold.xitu.io/entry/572ad1cc1532bc0065d5e36b)|校对|1|
 
-## 译者：[dongpeiguo](https://github.com/dongpeiguo) 历史贡献积分：10 当前积分：10
+## 译者：[dongpeiguo](https://github.com/dongpeiguo) 历史贡献积分：14 当前积分：14
 
 |文章|类型|积分|
 |------|-------|-------|
+|[如何为通知设计更好的用户体验](https://juejin.im/post/59f9b14f518825295f5d411f)|翻译|4|
 |[是的，重新设计](https://juejin.im/post/5940e74fa0bb9f006b76a841)|翻译|8|
 |[针对失败者的体验设计](https://juejin.im/post/59013f6eda2f60005de40516)|校对|1|
 |[给产品经理的简易优先级法则](http://gold.xitu.io/entry/572ad1cc1532bc0065d5e36b)|校对|1|
@@ -1781,10 +1782,11 @@
 |[Swift 中的面向协议编程是如何点亮我的人生的](http://gold.xitu.io/entry/58044fc5a22b9d005b4f56b2)|翻译|4|
 |[Swift 3，这些陷阱在等你](http://gold.xitu.io/entry/57f6fa03816dfa0056a4d782/)|校对|1|
 
-## 译者：[tina92](https://github.com/Tina92) 历史贡献积分：53.5 当前积分：23.5
+## 译者：[tina92](https://github.com/Tina92) 历史贡献积分：54.5 当前积分：24.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[React 组件的 8 个关键决策](https://juejin.im/post/59f7e2c5f265da4318760a5f)|校对|1|
 |[React 系列教程](#)|翻译|3|
 |[React 16 带来了什么以及对 Fiber 架构的解释](https://juejin.im/post/59de1b2a51882578c70c0833)|校对|1|
 |[在 Facebook 发一张登机牌，你就有可能被盗号了](https://juejin.im/post/59ccdeec51882531b21f1835)|校对|1|
@@ -2342,10 +2344,11 @@
 |[防守式编程的艺术](https://gold.xitu.io/entry/58980dbc1b69e6005997f069)|校对|1|
 |[为何我抵制使用缓存？](https://gold.xitu.io/entry/5884184f1b69e60058dc7fc6)|校对|1|
 
-## 译者：[vuuihc](https://github.com/vuuihc) 历史贡献积分：19 当前积分：19
+## 译者：[vuuihc](https://github.com/vuuihc) 历史贡献积分：20 当前积分：20
 
 |文章|类型|积分|
 |------|-------|-------|
+|[React 组件的 8 个关键决策](https://juejin.im/post/59f7e2c5f265da4318760a5f)|校对|1|
 |[Preload，Prefetch 和它们在 Chrome 之中的优先级](https://juejin.im/post/58e8acf10ce46300585a7a42)|校对|1|
 |[看动画，学 RxJS](https://juejin.im/post/58cd146a61ff4b0060277d32)|校对|1|
 |[这项浏览器调整使 Facebook 收到的网络请求减少了 60%](https://gold.xitu.io/entry/58b82f602f301e006c545b05/)|翻译|4|
@@ -2914,10 +2917,11 @@
 |------|-------|-------|
 |[从形式到功能，设计思维的改变](https://juejin.im/post/58fedca744d9040069f720e4)|校对|1|
 
-## 译者：[mnikn](https://github.com/mnikn) 历史贡献积分：36 当前积分：31
+## 译者：[mnikn](https://github.com/mnikn) 历史贡献积分：41 当前积分：36
 
 |文章|类型|积分|
 |------|-------|-------|
+|[CSV 注入：被人低估的风险](https://juejin.im/post/59eca3fef265da430b7a63c8)|翻译|5|
 |[混乱世界中的稳定：Postgres 如何使事务原子化](https://juejin.im/post/59db0f94518825788a44470e)|校对|3|
 |[SQL 事务隔离实用指南](https://juejin.im/post/59b7ce03f265da0672281fcc)|校对|2|
 |[扩展 Node.js 应用](https://juejin.im/post/599eb2dbf265da246d6afb33)|翻译|12|
@@ -3058,10 +3062,12 @@
 |[前端调试技巧与诀窍](https://juejin.im/post/5901e8d6a0bb9f0065e64f63)|校对|2|
 |[别让你的偏爱拖了后腿：快拥抱箭头函数吧！](https://juejin.im/post/59158c92a0bb9f005fd58fd7)|校对|2|
 
-## 译者：[changkun](https://github.com/changkun) 历史贡献积分：65.7 当前积分：65.7
+## 译者：[changkun](https://github.com/changkun) 历史贡献积分：72.7 当前积分：72.7
 
 |文章|类型|积分|
 |------|-------|-------|
+|[RNN 循环神经网络系列 2：文本分类](https://juejin.im/post/59f0c6b3f265da4319557de4)|翻译|3|
+|[RNN 循环神经网络系列 1：基本 RNN 与 CHAR-RNN](https://juejin.im/post/59f0c5b0f265da43085d3e94)|翻译|4|
 |[翻译 C++ 开源库 27 个](#)|翻译|2.7|
 |[「小键盘」难题：用户在手机上填写表单吗？](https://juejin.im/post/59c0e3835188256bcf2e1d22)|翻译|2|
 |[扁平化的 UI 元素既朴实又玄乎](https://juejin.im/post/59c0d3305188256bce40e884)|翻译|6|
@@ -3188,10 +3194,12 @@
 |[用动效创建的可用性：动效中的用户体验宣言](https://juejin.im/post/595c77a66fb9a06bcb7f92ff)|校对|2|
 |[为复杂产品制定设计规范](https://juejin.im/post/5944b8e55c497d006bdc261a)|校对|1|
 
-## 译者：[cacppuccino](https://github.com/CACppuccino) 历史贡献积分：41 当前积分：41
+## 译者：[cacppuccino](https://github.com/CACppuccino) 历史贡献积分：43.5 当前积分：43.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[CSV 注入：被人低估的风险](https://juejin.im/post/59eca3fef265da430b7a63c8)|校对|1.5|
+|[RNN 循环神经网络系列 1：基本 RNN 与 CHAR-RNN](https://juejin.im/post/59f0c5b0f265da43085d3e94)|校对|1|
 |[什么是蒙特卡洛树搜索](https://juejin.im/post/59f16e8c5188250385371302)|翻译|4|
 |[Keras 中构建神经网络的 5 个步骤](https://juejin.im/post/59e43b5b6fb9a0452a3b5f4f)|校对|2|
 |[使用 Node.js 搭建一个 API 网关](https://juejin.im/post/5992769151882548b17f76a6)|校对|1|
@@ -3311,10 +3319,12 @@
 |------|-------|-------|
 |[是的，ES2017 （ES8）来了](https://juejin.im/post/596713b75188250da20604cb)|翻译|3|
 
-## 译者：[tobiaslee](https://github.com/tobiaslee) 历史贡献积分：34 当前积分：4
+## 译者：[tobiaslee](https://github.com/tobiaslee) 历史贡献积分：36 当前积分：6
 
 |文章|类型|积分|
 |------|-------|-------|
+|[RNN 循环神经网络系列 2：文本分类](https://juejin.im/post/59f0c6b3f265da4319557de4)|校对|1|
+|[RNN 循环神经网络系列 1：基本 RNN 与 CHAR-RNN](https://juejin.im/post/59f0c5b0f265da43085d3e94)|校对|1|
 |[2017 年 9 月兑 大猫 1 个](#)|减去积分|30|
 |[Uber 机器学习平台 — 米开朗基罗](https://juejin.im/post/59c8b4d56fb9a00a4843b2a6)|校对|3.5|
 |[搭建个人深度学习平台](https://juejin.im/post/59be8e2b5188252c24746e9c)|校对|1.5|
@@ -3420,10 +3430,11 @@
 |[REST API 已死，GraphQL 长存](https://juejin.im/post/5991667b518825485d28dfb1)|校对|2|
 |[机器之魂：聊天机器人是怎么工作的](https://juejin.im/post/599155d86fb9a03c467c151d)|校对|1|
 
-## 译者：[undead25](https://github.com/undead25) 历史贡献积分：37 当前积分：37
+## 译者：[undead25](https://github.com/undead25) 历史贡献积分：40.5 当前积分：40.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[React 组件的 8 个关键决策](https://juejin.im/post/59f7e2c5f265da4318760a5f)|翻译|3.5|
 |[React 系列教程](#)|翻译|3|
 |[ReactJS 底层揭秘系列](#)|翻译|2|
 |[网络现状：性能提升指南](https://juejin.im/post/59c4b6a55188257e764c9c20)|翻译|8|
@@ -3618,10 +3629,11 @@
 |------|-------|-------|
 |[Web 设计准则](https://juejin.im/post/59c9c6f66fb9a00a4d53eec7)|校对|1|
 
-## 译者：[HydeSong](https://github.com/HydeSong) 历史贡献积分：9.5 当前积分：9.5
+## 译者：[HydeSong](https://github.com/HydeSong) 历史贡献积分：10.5 当前积分：10.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[如何为通知设计更好的用户体验](https://juejin.im/post/59f9b14f518825295f5d411f)|校对|1|
 |[webpack & HTTP/2](https://juejin.im/post/59e87b89f265da433226b0f3)|校对|0.5|
 |[iPhone X 网页设计](https://juejin.im/post/59e445816fb9a0450670ab82)|翻译|3|
 |[React 系列教程](#)|翻译|2|
@@ -3744,10 +3756,11 @@
 |------|-------|-------|
 |[goldEli 翻译开源库 JavaScript 100 个](#)|翻译|10|
 
-## 译者：[yct21](https://github.com/yct21) 历史贡献积分：4 当前积分：4
+## 译者：[yct21](https://github.com/yct21) 历史贡献积分：7 当前积分：7
 
 |文章|类型|积分|
 |------|-------|-------|
+|[CSV 注入：被人低估的风险](https://juejin.im/post/59eca3fef265da430b7a63c8)|校对|3|
 |[HTTP/2 下网站资源打包的正确方法](https://juejin.im/post/59f74d20f265da431523326b)|翻译|4|
 
 ## 译者：[ParadeTo](https://github.com/ParadeTo) 历史贡献积分：1 当前积分：1
@@ -3773,3 +3786,15 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[并发编程](https://juejin.im/post/59ecb058f265da43346f10e5)|翻译|5|
+
+## 译者：[yanqiangmiffy](https://github.com/yanqiangmiffy) 历史贡献积分：1 当前积分：1
+
+|文章|类型|积分|
+|------|-------|-------|
+|[RNN 循环神经网络系列 2：文本分类](https://juejin.im/post/59f0c6b3f265da4319557de4)|校对|1|
+
+## 译者：[winjeysong](https://github.com/winjeysong) 历史贡献积分：3 当前积分：3
+
+|文章|类型|积分|
+|------|-------|-------|
+|[如何为通知设计更好的用户体验](https://juejin.im/post/59f9b14f518825295f5d411f)|校对|3|
