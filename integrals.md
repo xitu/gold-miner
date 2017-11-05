@@ -246,10 +246,11 @@
 |[使用 webP 减少图片的大小](http://gold.xitu.io/entry/57383657c4c97100601212d5)|翻译|4|
 |[Vector For All (slight return)](http://gold.xitu.io/entry/5756697ea341310063dd532c)|校对|1|
 
-## 译者：[cdpath](https://github.com/cdpath) 历史贡献积分：101 当前积分：56
+## 译者：[cdpath](https://github.com/cdpath) 历史贡献积分：106 当前积分：61
 
 |文章|类型|积分|
 |------|-------|-------|
+|[从零到一用 Python 写一个区块链](https://juejin.im/entry/59faa0ed51882576ea3507de/detail)|翻译|5|
 |[以排印为本，从内容出发](https://juejin.im/entry/5965c5b26fb9a06ba025074c/detail)|翻译|9|
 |[用动效创建的可用性：动效中的用户体验宣言](https://juejin.im/post/595c77a66fb9a06bcb7f92ff)|校对|2|
 |[时间复杂度 O(log n) 意味着什么？](https://juejin.im/entry/593f56528d6d810058a355f4/detail)|翻译|4|
@@ -2086,10 +2087,11 @@
 |[我在手撕 SVG 条形图时踩过的定位坑](http://gold.xitu.io/entry/58306b428ac2470061b60ede/)|校对|1|
 |[构建 Android APP 一定要绕过的 30 个坑](http://gold.xitu.io/entry/58217b84570c350060bc40f8/)|校对|1|
 
-## 译者：[aceleewinnie](https://github.com/AceLeeWinnie) 历史贡献积分：78 当前积分：33
+## 译者：[aceleewinnie](https://github.com/AceLeeWinnie) 历史贡献积分：79.5 当前积分：34.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[找出可能影响性能的代码模式](https://juejin.im/post/59e87b89f265da433226b0f3)|校对|1.5|
 |[修改 JavaScript 帧](https://juejin.im/entry/59d2ed6f6fb9a00a681b01f8/detail)|翻译|5|
 |[构建渐进式 Web 应用入门指南](https://juejin.im/entry/5979666af265da3e161a6402/detail)|翻译|5|
 |[为社交网络设计数据结构](https://github.com/xitu/system-design-primer/blob/master/solutions/system_design/social_graph/README.md)|翻译|4|
@@ -2409,10 +2411,11 @@
 |[重构 Swift 中单例的用法](https://gold.xitu.io/entry/58b81150570c3500598fc567/)|翻译|4|
 |[步入 Swift 3](https://gold.xitu.io/entry/58aa701fda2f60006fa9978f/)|校对|2|
 
-## 译者：[dubuqingfeng](https://github.com/dubuqingfeng) 历史贡献积分：5 当前积分：5
+## 译者：[dubuqingfeng](https://github.com/dubuqingfeng) 历史贡献积分：6.5 当前积分：6.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[从零到一用 Python 写一个区块链](https://juejin.im/entry/59faa0ed51882576ea3507de/detail)|校对|1.5|
 |[Google 是如何构建 web 框架的](https://gold.xitu.io/entry/58bcdda4128fe1007e5b44db/)|校对|1|
 |[用 Python 实现每秒百万级请求](https://gold.xitu.io/entry/58b5b141570c350062f6cc01/)|校对|1|
 |[观察者模式 – 响应式编程 [Android RxJava2]（这到底是什么）：第一部分](https://gold.xitu.io/entry/58ada9738fd9c5006704f5a1)|校对|2|
@@ -2532,10 +2535,11 @@
 |[再谈 CSS 中的代码味道](https://juejin.im/post/58c2034dac502e0062cf8e2a/)|校对|1|
 |[Google 是如何构建 web 框架的](https://gold.xitu.io/entry/58bcdda4128fe1007e5b44db/)|校对|1|
 
-## 译者：[atuooo](https://github.com/atuooo) 历史贡献积分：29 当前积分：14
+## 译者：[atuooo](https://github.com/atuooo) 历史贡献积分：30.5 当前积分：15.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[从零到一用 Python 写一个区块链](https://juejin.im/entry/59faa0ed51882576ea3507de/detail)|校对|1.5|
 |[探究 Swift 中的 Futures & Promises](https://juejin.im/post/59afcf5d51882524434163dd)|翻译|4|
 |[模块化 Swift 中的状态](https://juejin.im/post/597962875188253dda0f05a9)|校对|1|
 |[Xcode 中的用户断点](https://juejin.im/post/597934335188253dfb7b0db7)|翻译|3|
@@ -2731,10 +2735,12 @@
 |[你正在阅读的用户体验文章是不是在向你进行推销？](https://juejin.im/post/58d4c501a22b9d00645544d9)|校对|2|
 |[震惊，还可以用这种姿势学习编程](https://juejin.im/post/58d3ebd4128fe1006cb43722)|翻译|3|
 
-## 译者：[lsvih](https://github.com/lsvih) 历史贡献积分：177 当前积分：142
+## 译者：[lsvih](https://github.com/lsvih) 历史贡献积分：185 当前积分：150
 
 |文章|类型|积分|
 |------|-------|-------|
+|[RNN 循环神经网络系列 5: 自定义单元](https://juejin.im/post/59fbd28b6fb9a045204b91f2)|翻译|3|
+|[Spotify 每周推荐功能：基于机器学习的音乐推荐](https://juejin.im/post/59fbd0d9518825299a468a8b)|翻译|5|
 |[Keras 中构建神经网络的 5 个步骤](https://juejin.im/post/59e43b5b6fb9a0452a3b5f4f)|翻译|4|
 |[Javascript 中各种各样的 this](https://juejin.im/post/59e066d551882578c3411908)|翻译|2|
 |[设计推特时间轴与搜索功能](#)|翻译|6|
@@ -2828,10 +2834,11 @@
 |------|-------|-------|
 |[在 Apache 和 Nginx 日志里检测爬虫机器人](https://juejin.im/post/58ea5758ac502e4957c78808)|校对|1|
 
-## 译者：[aladdin-add](https://github.com/Aladdin-ADD) 历史贡献积分：66 当前积分：66
+## 译者：[aladdin-add](https://github.com/Aladdin-ADD) 历史贡献积分：71 当前积分：71
 
 |文章|类型|积分|
 |------|-------|-------|
+|[找出可能影响性能的代码模式](https://juejin.im/post/59e87b89f265da433226b0f3)|翻译|5|
 |[webpack & HTTP/2](https://juejin.im/post/59e87b89f265da433226b0f3)|翻译|2|
 |[修改 JavaScript 帧](https://juejin.im/entry/59d2ed6f6fb9a00a681b01f8/detail)|校对|2|
 |[V8 引擎中的快速属性](https://juejin.im/post/59c1df855188257e826779f8)|校对|2|
@@ -2958,12 +2965,10 @@
 |[使登录页面变得正确](https://juejin.im/post/5951e7905188250d98489c6a)|翻译|5|
 |[针对失败者的体验设计](hhttps://juejin.im/post/59013f6eda2f60005de40516)|校对|1|
 
-## 译者：[zhangqippp](https://github.com/zhangqippp) 历史贡献积分：25.5 当前积分：10.5
+## 译者：[zhangqippp](https://github.com/zhangqippp) 历史贡献积分：23 当前积分：8
 
 |文章|类型|积分|
 |------|-------|-------|
-|[什么是蒙特卡洛树搜索](https://juejin.im/post/59f16e8c5188250385371302)|校对|1|
-|[性能指标都是些什么鬼？](https://juejin.im/entry/59e855b45188250989513220/detail)|校对|1.5|
 |[在 Facebook 发一张登机牌，你就有可能被盗号了](https://juejin.im/post/59ccdeec51882531b21f1835)|校对|1|
 |[通过 Metal 来使用 ARKit (下)](https://juejin.im/post/59bb2a99f265da0650750e56)|校对|1|
 |[语句，消息和归约器](https://juejin.im/post/596f17366fb9a06bc17c53db)|翻译|6|
@@ -3062,10 +3067,12 @@
 |[前端调试技巧与诀窍](https://juejin.im/post/5901e8d6a0bb9f0065e64f63)|校对|2|
 |[别让你的偏爱拖了后腿：快拥抱箭头函数吧！](https://juejin.im/post/59158c92a0bb9f005fd58fd7)|校对|2|
 
-## 译者：[changkun](https://github.com/changkun) 历史贡献积分：72.7 当前积分：72.7
+## 译者：[changkun](https://github.com/changkun) 历史贡献积分：76.7 当前积分：76.7
 
 |文章|类型|积分|
 |------|-------|-------|
+|[RNN 循环神经网络系列 4: 注意力机制](https://juejin.im/post/59f72f61f265da432002871c)|校对|2|
+|[RNN 循环神经网络系列 3：编码、解码器](https://juejin.im/post/59fc1616f265da432b4a2d44)|翻译|2|
 |[RNN 循环神经网络系列 2：文本分类](https://juejin.im/post/59f0c6b3f265da4319557de4)|翻译|3|
 |[RNN 循环神经网络系列 1：基本 RNN 与 CHAR-RNN](https://juejin.im/post/59f0c5b0f265da43085d3e94)|翻译|4|
 |[翻译 C++ 开源库 27 个](#)|翻译|2.7|
@@ -3319,10 +3326,11 @@
 |------|-------|-------|
 |[是的，ES2017 （ES8）来了](https://juejin.im/post/596713b75188250da20604cb)|翻译|3|
 
-## 译者：[tobiaslee](https://github.com/tobiaslee) 历史贡献积分：36 当前积分：6
+## 译者：[tobiaslee](https://github.com/tobiaslee) 历史贡献积分：42 当前积分：12
 
 |文章|类型|积分|
 |------|-------|-------|
+|[RNN 循环神经网络系列 4: 注意力机制](https://juejin.im/post/59f72f61f265da432002871c)|翻译|6|
 |[RNN 循环神经网络系列 2：文本分类](https://juejin.im/post/59f0c6b3f265da4319557de4)|校对|1|
 |[RNN 循环神经网络系列 1：基本 RNN 与 CHAR-RNN](https://juejin.im/post/59f0c5b0f265da43085d3e94)|校对|1|
 |[2017 年 9 月兑 大猫 1 个](#)|减去积分|30|
@@ -3629,10 +3637,11 @@
 |------|-------|-------|
 |[Web 设计准则](https://juejin.im/post/59c9c6f66fb9a00a4d53eec7)|校对|1|
 
-## 译者：[HydeSong](https://github.com/HydeSong) 历史贡献积分：10.5 当前积分：10.5
+## 译者：[HydeSong](https://github.com/HydeSong) 历史贡献积分：12 当前积分：12
 
 |文章|类型|积分|
 |------|-------|-------|
+|[找出可能影响性能的代码模式](https://juejin.im/post/59e87b89f265da433226b0f3)|翻译|1.5|
 |[如何为通知设计更好的用户体验](https://juejin.im/post/59f9b14f518825295f5d411f)|校对|1|
 |[webpack & HTTP/2](https://juejin.im/post/59e87b89f265da433226b0f3)|校对|0.5|
 |[iPhone X 网页设计](https://juejin.im/post/59e445816fb9a0450670ab82)|翻译|3|
@@ -3798,3 +3807,29 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[如何为通知设计更好的用户体验](https://juejin.im/post/59f9b14f518825295f5d411f)|校对|3|
+
+## 译者：[ppp-man](https://github.com/ppp-man) 历史贡献积分：4 当前积分：4
+
+|文章|类型|积分|
+|------|-------|-------|
+|[Spotify 每周推荐功能：基于机器学习的音乐推荐](https://juejin.im/post/59fbd0d9518825299a468a8b)|校对|1.5|
+|[什么是蒙特卡洛树搜索](https://juejin.im/post/59f16e8c5188250385371302)|校对|1|
+|[性能指标都是些什么鬼？](https://juejin.im/entry/59e855b45188250989513220/detail)|校对|1.5|
+
+## 译者：[smileforward123](https://github.com/smileforward123) 历史贡献积分：1 当前积分：1
+
+|文章|类型|积分|
+|------|-------|-------|
+|[RNN 循环神经网络系列 5: 自定义单元](https://juejin.im/post/59fbd28b6fb9a045204b91f2)|校对|1|
+
+## 译者：[zcgeng](https://github.com/zcgeng) 历史贡献积分：1 当前积分：1
+
+|文章|类型|积分|
+|------|-------|-------|
+|[RNN 循环神经网络系列 3：编码、解码器](https://juejin.im/post/59fc1616f265da432b4a2d44)|校对|1|
+
+## 译者：[Brucexz](https://github.com/Brucexz) 历史贡献积分：2 当前积分：2
+
+|文章|类型|积分|
+|------|-------|-------|
+|[RNN 循环神经网络系列 4: 注意力机制](https://juejin.im/post/59f72f61f265da432002871c)|校对|2|
