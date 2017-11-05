@@ -1229,10 +1229,11 @@
 |[使用 Zopfli 优化 PNG 图片](http://gold.xitu.io/entry/578e3a34c4c971005e059ee9)|翻译|3|
 |[让你的网站更炫酷的一些小 tips](https://gold.xitu.io/entry/577f402b79bc4400329db962)|校对|3|
 
-## 译者：[llp0574](https://github.com/llp0574) 历史贡献积分：64 当前积分：14
+## 译者：[llp0574](https://github.com/llp0574) 历史贡献积分：69 当前积分：19
 
 |文章|类型|积分|
 |------|-------|-------|
+|[性能指标都是些什么鬼？](https://juejin.im/entry/59e855b45188250989513220/detail)|翻译|5|
 |[翻译 GraphQL 网站](#)|翻译|5|
 |[优秀产品背后的设计原则](https://gold.xitu.io/entry/58b04c49570c35006960d764)|校对|4|
 |[2017 年 2 月份兑换章鱼猫一大只 + 贴纸 part3]()|减去积分|35|
@@ -1627,10 +1628,11 @@
 |[奋起的 IBM 凭什么成为世界上最大最精致的设计公司？](http://gold.xitu.io/entry/57e8c99b8ac247005bd929a6/)|校对|1|
 |[嘿，Logo，你应该是这个尺寸的！](http://gold.xitu.io/entry/57bb183279bc440063a6f290)|校对|1|
 
-## 译者：[cbangchen](https://github.com/cbangchen) 历史贡献积分：28 当前积分：3
+## 译者：[cbangchen](https://github.com/cbangchen) 历史贡献积分：28.5 当前积分：3.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Swift 上的高性能数组](https://juejin.im/post/59e84129f265da43128005ed)|校对|0.5|
 |[MVVM, Coordinators 和 RxSwift 的抽丝剥茧](https://juejin.im/post/59acf7dcf265da24722fe6a1)|校对|1|
 |[2017年2月份兑换贴纸 part1 + part2]()|减去积分|10|
 |[如何给你的产品写文案？](http://gold.xitu.io/entry/57d3a12067f3560057d58eba/)|校对|1|
@@ -2821,10 +2823,11 @@
 |------|-------|-------|
 |[在 Apache 和 Nginx 日志里检测爬虫机器人](https://juejin.im/post/58ea5758ac502e4957c78808)|校对|1|
 
-## 译者：[aladdin-add](https://github.com/Aladdin-ADD) 历史贡献积分：64 当前积分：64
+## 译者：[aladdin-add](https://github.com/Aladdin-ADD) 历史贡献积分：66 当前积分：66
 
 |文章|类型|积分|
 |------|-------|-------|
+|[webpack & HTTP/2](https://juejin.im/post/59e87b89f265da433226b0f3)|翻译|2|
 |[修改 JavaScript 帧](https://juejin.im/entry/59d2ed6f6fb9a00a681b01f8/detail)|校对|2|
 |[V8 引擎中的快速属性](https://juejin.im/post/59c1df855188257e826779f8)|校对|2|
 |[使用 CSS 栅格和 Flexbox 打造 Trello 布局](https://juejin.im/post/59bab7d16fb9a00a3c4b069e)|校对|1|
@@ -2949,10 +2952,11 @@
 |[使登录页面变得正确](https://juejin.im/post/5951e7905188250d98489c6a)|翻译|5|
 |[针对失败者的体验设计](hhttps://juejin.im/post/59013f6eda2f60005de40516)|校对|1|
 
-## 译者：[zhangqippp](https://github.com/zhangqippp) 历史贡献积分：23 当前积分：8
+## 译者：[zhangqippp](https://github.com/zhangqippp) 历史贡献积分：24.5 当前积分：9.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[性能指标都是些什么鬼？](https://juejin.im/entry/59e855b45188250989513220/detail)|校对|1.5|
 |[在 Facebook 发一张登机牌，你就有可能被盗号了](https://juejin.im/post/59ccdeec51882531b21f1835)|校对|1|
 |[通过 Metal 来使用 ARKit (下)](https://juejin.im/post/59bb2a99f265da0650750e56)|校对|1|
 |[语句，消息和归约器](https://juejin.im/post/596f17366fb9a06bc17c53db)|翻译|6|
@@ -3461,10 +3465,11 @@
 |[结构体指针](https://juejin.im/post/59a60cc1f265da249a201ae9)|校对|1|
 |[iOS 响应式编程：Swift 中的轻量级状态容器](https://juejin.im/post/599652ee6fb9a024903a8d59)|校对|1|
 
-## 译者：[lampui](https://github.com/lampui) 历史贡献积分：44.5 当前积分：29.5
+## 译者：[lampui](https://github.com/lampui) 历史贡献积分：46 当前积分：31
 
 |文章|类型|积分|
 |------|-------|-------|
+|[性能指标都是些什么鬼？](https://juejin.im/entry/59e855b45188250989513220/detail)|校对|1.5|
 |[lampui 翻译开源库 JavaScript 100 个](https://juejin.im/post/59e3f3786fb9a0450166ff7b)|翻译|10|
 |[借助函数完成可组合的数据类型（软件编写）（第十部分）](https://juejin.im/post/59e3f3786fb9a0450166ff7b)|校对|0.5|
 |[iPhone X 网页设计](https://juejin.im/post/59e445816fb9a0450670ab82)|校对|1|
@@ -3564,10 +3569,11 @@
 |------|-------|-------|
 |[你的站点如你所想的移动友好吗](https://juejin.im/post/59ae68c0f265da2489159ab4)|校对|2|
 
-## 译者：[jingzhilehuakai](https://github.com/jingzhilehuakai) 历史贡献积分：5 当前积分：5
+## 译者：[jingzhilehuakai](https://github.com/jingzhilehuakai) 历史贡献积分：7.5 当前积分：7.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Swift 上的高性能数组](https://juejin.im/post/59e84129f265da43128005ed)|翻译|2.5|
 |[MVVM, Coordinators 和 RxSwift 的抽丝剥茧](https://juejin.im/post/59acf7dcf265da24722fe6a1)|翻译|5|
 
 ## 译者：[alfred-zhong](https://github.com/alfred-zhong) 历史贡献积分：14.4 当前积分：14.4
@@ -3611,6 +3617,7 @@
 
 |文章|类型|积分|
 |------|-------|-------|
+|[webpack & HTTP/2](https://juejin.im/post/59e87b89f265da433226b0f3)|校对|0.5|
 |[iPhone X 网页设计](https://juejin.im/post/59e445816fb9a0450670ab82)|翻译|3|
 |[React 系列教程](#)|翻译|2|
 |[修改 JavaScript 帧](https://juejin.im/entry/59d2ed6f6fb9a00a681b01f8/detail)|校对|2|
@@ -3719,10 +3726,11 @@
 |[cnJason 翻译开源库 Java 215 个](#)|翻译|21.5|
 |[cnJason 翻译开源库 Java 100 个](#)|翻译|10|
 
-## 译者：[RickeyBoy](https://github.com/RickeyBoy) 历史贡献积分：10 当前积分：10
+## 译者：[RickeyBoy](https://github.com/RickeyBoy) 历史贡献积分：10.5 当前积分：10.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Swift 上的高性能数组](https://juejin.im/post/59e84129f265da43128005ed)|校对|0.5|
 |[RickeyBoy 翻译开源库 iOS 100 个](#)|翻译|10|
 
 ## 译者：[goldEli](https://github.com/goldEli) 历史贡献积分：10 当前积分：10
@@ -3731,4 +3739,26 @@
 |------|-------|-------|
 |[goldEli 翻译开源库 JavaScript 100 个](#)|翻译|10|
 
+## 译者：[yct21](https://github.com/yct21) 历史贡献积分：4 当前积分：4
 
+|文章|类型|积分|
+|------|-------|-------|
+|[HTTP/2 下网站资源打包的正确方法](https://juejin.im/post/59f74d20f265da431523326b)|翻译|4|
+
+## 译者：[ParadeTo](https://github.com/ParadeTo) 历史贡献积分：1 当前积分：1
+
+|文章|类型|积分|
+|------|-------|-------|
+|[HTTP/2 下网站资源打包的正确方法](https://juejin.im/post/59f74d20f265da431523326b)|校对|1|
+
+## 译者：[altairlu](https://github.com/altairlu) 历史贡献积分：1 当前积分：1
+
+|文章|类型|积分|
+|------|-------|-------|
+|[HTTP/2 下网站资源打包的正确方法](https://juejin.im/post/59f74d20f265da431523326b)|校对|1|
+
+## 译者：[perseveringman](https://github.com/perseveringman) 历史贡献积分：0.5 当前积分：0.5
+
+|文章|类型|积分|
+|------|-------|-------|
+|[webpack & HTTP/2](https://juejin.im/post/59e87b89f265da433226b0f3)|校对|0.5|
