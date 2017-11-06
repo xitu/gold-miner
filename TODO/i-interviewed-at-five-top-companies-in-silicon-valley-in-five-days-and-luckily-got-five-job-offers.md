@@ -20,7 +20,7 @@
 
 ### **如何开始**
 
-我在 Groupon 混了近三年了。 这是我的第一份工作，我一直在和很[牛逼的团队](http://www.builtinchicago.org/2017/07/14/data-science-engineering-Groupon)做着[了不起的项目](https://www.linkedin.com/feed/update/urn:li:activity:6324643825717481472)。
+我在 Groupon 混了近三年了。 这是我的第一份工作，我一直在和很[牛逼的团队](http://www.builtinchicago.org/2017/07/14/data-science-engineering-Groupon) 做着[了不起的项目](https://www.linkedin.com/feed/update/urn:li:activity:6324643825717481472) 。
 我们团队一直在做很酷的事情，在公司内部很有影响也发表了一些论文等等。
 尽管我一直渴望学习更多但我觉得我的学习速率开始下降了。作为一名芝加哥的软件工程师，湾区的那么多伟大的公司总是强有力的诱惑着我。
 
