@@ -5,17 +5,17 @@
 > * 译者：
 > * 校对者：
 
-# Rebuilding slack.com
+# 重建slack.com
 
-## A redesign powered by CSS Grid and optimized for performance and accessibility.
+## 使用CSS Grid 重新设计，并针对性能和可访问性进行了优化。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*N48fpqutpCqswRistXpymw.jpeg)
 
-Illustrations by [Alice Lee](http://byalicelee.com/).
+[Alice Lee](http://byalicelee.com/) 的插图.
 
-In August, we released a major redesign of [slack.com](https://slack.com/), and we want to give you a peek behind-the-scenes. Rebuilding our marketing website was a massive project that took careful coordination across a variety of teams, departments, and agencies.
+在八月, 我们重新设计了[slack.com](https://slack.com/), 我们想让您稍微看下屏幕后面发生了什么。 重建我们的营销网站是一个经过各团队、部门、机构仔细协调的大规模项目。
 
-We implemented a redesign while overhauling all the under-the-hood code. Our aim was to address a few goals at the same time: deliver a consistent rebranded experience while tackling critical improvements to site architecture, code modularity, and overall performance and accessibility. This would afford us a new foundation for several important company initiatives, including [internationalization](https://slackhq.com/bienvenue-willkommen-bienvenidos-to-a-more-globally-accessible-slack-546a458b21ae).
+我们重新设计网站的同时彻底检查了所有的底层代码。我们想要同时实现这样的一些目标： 提供一致的更新体验的同时对网站的架构，代码的模块化，整体性能和可访问性进行大改。这将为公司的几个重大事宜提供新的基础，包括[国际化](https://slackhq.com/bienvenue-willkommen-bienvenidos-to-a-more-globally-accessible-slack-546a458b21ae).
 
 ![](https://cdn-images-1.medium.com/max/400/1*Q0gC53oTuet-cjsfhRafUQ.png)
 
@@ -23,55 +23,54 @@ We implemented a redesign while overhauling all the under-the-hood code. Our aim
 
 ![](https://cdn-images-1.medium.com/max/400/1*5BjTaWrvqZPjbhDrS5FBOQ.png)
 
-Slack.com (L-R: August 2013, January 2017, August 2017)
+Slack.com (从左到右: 2013年8月, 2017年一月, 2017年8月)
 
-### Cleaner and leaner code
+### 更干净、精简的代码
 
-The old slack.com shared many code and asset dependencies with our web-based Slack client. One of our earliest goals was to decouple the website from the “web app” in order to streamline and simplify our codebase. By including only what we need to run slack.com, we are able to increase site stability, reduce developer confusion and create a codebase that is easier to iterate on. A fundamental part of this effort was the creation of our new UI framework, called :spacesuit: **👩🏾‍🚀**.
+旧的 slack.com 和我们基于网页的 Slack 客户端共享了很多代码和资源依赖。我们的目标之一就是将网站和 “web app” 解耦，以简化我们的代码库。 通过只包含我们运行 slack.com 所需要的资源的方式，可以提高站点的稳定性，减少开发人员的困惑，创建一个更容易迭代的代码库。这项工作的基本部分之一就是创建我们新的UI框架，名为 :spacesuit: **👩🏾‍🚀**。
 
-The :spacesuit: framework consists of class-based, reusable components and utility classes used to standardize our marketing pages. It allowed us to reduce our CSS payload, in one case by nearly 70% (from 416kB to 132kB).
+:spacesuit: 框架包含基于类(class)的可重用组件和用于标准化我们的营销页面的实用程序类组成。 它降低了我们的CSS载荷，在一种情况下降低了近70%(从 416kB 降低至 132kB).
 
-Some other interesting data points:
+其他有吸引力的数据：
 
-*   799 unique declarations, down from 1,881
-*   14 unique colors, down from 91
-*   1,719 selectors, down from 2,328
+*   声明数量从 1,881 降至 799 
+*   颜色数量从 91 降至 14 
+*   选择器数量从 2,328 降至 1,719
 
 ![](https://cdn-images-1.medium.com/max/1000/0*Kx8ltSgpKXyXRdaD.)
 
-**_Before_**_: Lots of deep spikes and valleys indicate poorly managed_ [_CSS specificity_](https://csswizardry.com/2014/10/the-specificity-graph/)_._
+**_重建之前_**_: 大量的高峰低谷表明 [_CSS 特异性_](https://csswizardry.com/2014/10/the-specificity-graph/)管理不善。_
 
 ![](https://cdn-images-1.medium.com/max/1000/0*BmFqbD-18McrbaDi.)
 
-**_After_**_: Using a mostly class-based system resulted in a drop in our specificity._
+**_重建之后_**_: 使用大部分基于类的系统导致我们的特异性下降。_
 
-Our CSS is organized based on the [ITCSS philosophy](http://www.creativebloq.com/web-design/manage-large-css-projects-itcss-101517528) and uses [BEM-like](https://csswizardry.com/2015/08/bemit-taking-the-bem-naming-convention-a-step-further/) naming conventions. Selectors are named using a single-letter prefix to indicate the type of style the class represents. The prefix is followed by the name of the component and any variation applied to it. For example, `u-margin-top--small` represents a utility class that sets `margin-top` to the small value set by our variables. Utility classes such as these are an essential part of our system as it allows our devs to fine tune pieces of UI without having to rewrite a lot of CSS. In addition, spacing between components is one of the tricker parts of creating a design system. Utility classes such as `u-margin-top--small` let us create consistent spacing and eliminate the need to reset or undo any spacing already applied to a component.
-
+我们的 CSS 是基于[ITCSS 理念](http://www.creativebloq.com/web-design/manage-large-css-projects-itcss-101517528) 组织的，并且使用 [类似 BEM ](https://csswizardry.com/2015/08/bemit-taking-the-bem-naming-convention-a-step-further/) 命名规范。选择器使用单个字母作为前缀来指定类表示的类型。 前缀后面跟着组件的名称以及组件的所有变体。 举个例子，`u-margin-top--small` 表示我们用变量将 `margin-top` 设置为比较小的数值的工具类。这样的工具类是我们系统不可或缺的部分，因为它允许我们的开发者在不重写大量 CSS 得情况下微调 UI 片段。另外，组件之间的距离是创建设计系统窍门之一。诸如 `u-margin-top--small` 这样的工具类可以创建一致的间距，让我们不必去重置或撤销任何已经设置到组件上的间距。
 ![](https://cdn-images-1.medium.com/max/800/0*YrT_q3rSjUFssyYy.)
 
-Our biggest gains were on the pricing page, which saw a 53% decrease in loading time.
+加载时间减少了 53% 的定价页面是我们最大的成果。
 
-### A modern, responsive layout
+### 现代的响应式布局
 
-The new site uses a combination of Flexbox and CSS Grid to create responsive layouts. We wanted to utilize the latest CSS features, while also ensuring that visitors with older browsers received a comparable experience.
+新网站使用 Flexbox 和 CSS Grid 的组合来创建响应式布局。我们想要使用 CSS 最新的特性，又希望那些使用较旧的浏览器的访问者获得相似的体验。 
 
-At first we tried to implement our layout with a traditional 12-column grid using CSS Grid. That approach ultimately didn’t work because we were limiting ourselves into a using a single dimensional layout when Grid is meant for two. In the end, we discovered that a column-based grid [wasn’t actually needed](https://rachelandrew.co.uk/archives/2017/07/01/you-do-not-need-a-css-grid-based-grid-system/). Since Grid allows you to create a custom grid to match whatever layout you have, we didn’t need to force it into 12 columns. Instead, we created CSS Grid objects for some of the common layout patterns in the designs.
+开始我们尝试使用 CSS Grid 实现传统的12列网格布局，但是最终没有奏效。因为当网格是两种的时候，我们会把自己限制在单一的尺寸布局上。最后我们发现实际上[并不需要](https://rachelandrew.co.uk/archives/2017/07/01/you-do-not-need-a-css-grid-based-grid-system/)基于列的网格。由于 Grid 布局允许你去创建自定义的网格来适配你所有的布局，所以不需要强制12列网格。相反，我们为设计中一些常见的布局模式创建了 CSS Grid 对象。
 
-Some of the patterns were pretty simple.
+一些模式很简单
 
 ![](https://cdn-images-1.medium.com/max/1000/0*IXMPtmw5vQfr-fZ0.)
 
-A basic three-column grid block.
+经典的三列网格块布局
 
-Others were more complex, which really showcased Grid’s abilities.
+其他更复杂的则真正展现了 Grid 的能力
 
 ![](https://cdn-images-1.medium.com/freeze/max/30/0*Q_tqzOLre__HPLIL.?q=20)
 
 ![](https://cdn-images-1.medium.com/max/2000/0*Q_tqzOLre__HPLIL.)
 
-A photo collage object.
+照片拼贴对象
 
-Before our Grid implementation, a layout like the one above required lots of wrapping, and sometimes empty, divs to mimic a two-dimensional grid.
+在实现我们的网格之前，像上面这样的布局需要大量的包装，有时使用空 div 来模仿一个二维网格。
 
 ```
 <section class=”o-section”>
@@ -89,7 +88,7 @@ Before our Grid implementation, a layout like the one above required lots of wra
 </section>
 ```
 
-With CSS Grid, we’re able to remove the extra markup needed to simulate a grid, and simply create one natively. Starting with Grid lets us use less markup, in addition to making sure the markup we use is semantic.
+使用 CSS Grid，我们可以删除模拟网格所需要的额外标记，只需要在本地简单的创建一个就好。从 Grid 开始我们可以使用更少的标记。此外还要确保我们使用的是有语义的标记。
 
 ```
 <section class=”c-photo-collage c-photo-collage--three”>
@@ -102,17 +101,17 @@ With CSS Grid, we’re able to remove the extra markup needed to simulate a grid
 </section>
 ```
 
-At first we used Modernizr to detect Grid support, however that resulted in flashes of unstyled layout while the library loaded.
+起初，我们使用 Modernizr 来测试对网格的支持情况。然而当库加载时，导致了闪烁的无格式布局。
 
 ![](https://cdn-images-1.medium.com/max/1000/0*PFKwdHYeunJfV-Sh.)
 
-Pages defaulted to the mobile layout and reflowed once Modernizr detected Grid support.
+当 Modernizr 检测到网格支持的时候，页面默认为移动布局并重排。
 
-We decided that addressing the jarring experience of the layout shift was a higher priority than backwards compatibility. The compromise was to use CSS Grid as an enhancement and fallback to Flexbox and other techniques when needed.
+我们决定解决布局切换时抖动的体验比向后兼容更重要。在使用 CSS Grid 作为 FlexBox和其他技术在需要的时候的增强和回退上，我们做了妥协。
 
-Instead of using a library to detect Grid support, we went with CSS feature queries. Unfortunately, feature queries aren’t supported in every browser. This means that any browser that can’t handle the `@supports` rule will not get the CSS Grid layout, even if that browser supports Grid. So IE11, for example, will always use our Flexbox-based layout even though it supports some Grid features.
+我们使用了 CSS 功能查询来检测网格支持，而不是使用库。不幸的是，并不是每一个浏览器都支持功能查询。这就意味着只有能处理 `@supports` 规则的浏览器才能使用 CSS Grid 布局。因此，IE11，即使支持某些网格功能，也将会使用基于 FLexBox 的布局。
 
-We use some features of Grid that aren’t currently fully supported in all browsers, the most notable being percentage-based `grid-gap`. Although support for this has been implemented in some versions of Safari, we still needed to anticipate its absence. In practice, a Grid object is styled as follows:
+我们使用一些目前尚未在所有浏览器中完全支持的 Grid 功能。最明显的就是基于百分比的 `grid-gap`。尽管 Safari 的某些版本已经支持这个属性，但是我们仍然需要预见到它的缺失。在实践中，Grid 对象的样式如下：
 
 ```
 @supports (display: grid) and (grid-template-columns: repeat(3, 1fr)) and (grid-row-gap: 1%) and (grid-gap: 1%) and (grid-column-gap: 1%) {
@@ -139,6 +138,7 @@ We use some features of Grid that aren’t currently fully supported in all brow
     }
 };
 ```
+任何不符合查询要求的浏览器将使用我们的 FlexBox 回退方案
 
 ```
 @supports not ((display: grid) and (grid-column-gap: 1%)) {
@@ -146,11 +146,11 @@ We use some features of Grid that aren’t currently fully supported in all brow
 }
 ```
 
-### Fluid typesetting
+### 流式排版
 
-Once we had responsive layouts, we needed equally adaptable typography. We created [Less mixins](http://lesscss.org/features/#mixins-feature) to help us fine-tune our typesetting. Typeset is a mixin that acts as single source of truth for all typography settings. For each type style, a new line is created inside the mixin that contains the name or purpose of the style, followed by a list of settings for each style. They are, in order: `font-family`, min and max `font-size` (in rems by default), `line-height`, `font-weight`, and any `text-transforms`, such as `uppercase`. For clarity, each type name is prefixed with `display-as-` to make its purpose plain.
+一旦我们有响应式的布局，我们需要同样适应性的排版。我们使用了[Less mixins](http://lesscss.org/features/#mixins-feature) 来帮助我们微调排版。排版是一个可以作为所有排版设置单一来源的 mixin。对于每种类型的样式，mixin中都会创建一个包含样式名称或者用途的新行，后跟每种类型样式的设置列表。它们的顺序是：`font-family`, min 和 max `font-size` (默认单位是rem), `line-height`, `font-weight`, 以及任何的 `text-transforms`, 例如 `uppercase`。为了清楚起见，每种类型名称都以 `display-as-`作为前缀，确保其目的明确。
 
-Here’s a simplified version of the mixin:
+下面是 mixin 的简化版本：
 
 ```
 .m-typeset(@setting) {
@@ -162,13 +162,13 @@ Here’s a simplified version of the mixin:
 }
 ```
 
-See it in action:
+看看它的作用：
 
 ```
 .c-button { .m-typeset(“display-as-btn-text”); }
 ```
 
-The logic for this mixin takes a parameter, such as `display-as-btn-text`, and extracts the settings from the list at the index indicated for each property. In this example, the `line-height` property would be set to 1.3 because it is the 4th indexed value. The resulting CSS would be
+这个 mixin 的逻辑需要一个参数，比如 `display-as-btn-text`，并且会从列表中提取每个属性指定的索引。在这个例子中，`line-height` 属性将设置为1.3，因为它是第4个索引值。所以产生的CSS将是
 
 ```
 .c-button {
@@ -179,17 +179,17 @@ The logic for this mixin takes a parameter, such as `display-as-btn-text`, and e
 }
 ```
 
-### Art direction & imagery
+### 美术指导 & 意象(imagery)
 
-[Alice Lee](http://byalicelee.com/) provided us with some beautiful illustrations, and we wanted to make sure we showcased them in the best possible light. Sometimes it was necessary to display a different version of an image depending upon the viewport width. We toggled between retina vs. non-retina assets, and made image adjustments for specific screen widths.
+[Alice Lee](http://byalicelee.com/)为我们提供了一些漂亮的插图，我们想要确保我们尽可能好的展出他们。有时想要根据视口(viewport)宽度来显示不同版本的图像。我们在视网膜(retina)和非视网膜(non-retina)资源之间进行切换，对特定的屏幕宽度进行图像调整。
 
-This process, also known as [art direction](http://usecases.responsiveimages.org/#art-direction), is accomplished by using the `[picture](https://html.spec.whatwg.org/multipage/embedded-content.html#embedded-content)` [and](https://html.spec.whatwg.org/multipage/embedded-content.html#embedded-content) `[source](https://html.spec.whatwg.org/multipage/embedded-content.html#embedded-content)` elements with [Picturefill](https://scottjehl.github.io/picturefill/) as a polyfill for older browsers. Defining characteristics, like device size, device resolution, orientation allows us to display different image assets when the design dictates it.
+这个过程也成为 [美术指导(art direction)](http://usecases.responsiveimages.org/#art-direction),通过使用 [Picturefill](https://scottjehl.github.io/picturefill/) 的 `[picture](https://html.spec.whatwg.org/multipage/embedded-content.html#embedded-content)` 和 `[source](https://html.spec.whatwg.org/multipage/embedded-content.html#embedded-content)` 元素作为旧版浏览器的 polyfill。例如设备尺寸，设备分辨率，方向等定义的特征可以让我们在设计时规定显示不同的图像资源。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*5SzojYwz0QGQF614iNNBmg.gif)
 
-Our Features pages use_ srcset _to display different images based on viewport size.
+我们的功能页面使用  _srcset_  来显示基于视口大小的不同图像。
 
-With these tools, we were able to display the best possible version of an asset based upon query parameters we set. In the above example, the main hero image needed a simpler version for a smaller viewport.
+借助这些工具，我们能够根据我们设置的查询参数来显示资源的最佳版本。在上面的例子中，小视口需要更简单的首图(hero image)。
 
 ```
 <picture class=”o-section__illustration for-desktop-only”>
@@ -198,19 +198,22 @@ With these tools, we were able to display the best possible version of an asset 
 </picture>
 ```
 
-This technique allows us to specify which image asset is shown for a particular media query, plus if retina and non-retina assets are needed and available. The end result is greater art direction throughout the site.
+这种技术使我们能够为特定的媒体查询显示指定的图片资源，以及需要的是视网膜还是非视网膜资源。最终的结果是在整个网站上良好的美术指导。
 
-### Inclusive, from the start
 
-Another major goal was to ensure that low-vision, screenreader and keyboard-only users could navigate the site with ease. While starting from a clean codebase, we were able to make many impactful improvements to color contrast, semantic HTML and keyboard accessibility with little additional effort. Additionally, we were able to work in some new features for a more accessible experience. We added a [skip link](https://webaim.org/techniques/skipnav/) before the navigation so that users could bypass the menu if desired. For a better screenreader experience, we added an [aria-live region](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions) and helper functions to announce form errors and route changes. In addition, interactions are keyboard accessible with noticeable focus states. We also strived to use clear, descriptive alt text.
+### 兼容, 从头开始
 
-### Looking Forward
+另一个主要的目标就是确保低视力用户，屏幕阅读器用户和键盘用户可以轻松的浏览网站。从一个干净的代码库开始，我们用少量额外的工作就对颜色对比，HTML语义化和键盘可访问性做了很多有影响的改进。此外，我们还能够使用一些新功能来获得更好的访问体验。我们在导航前面添加了[跳过链接](https://webaim.org/techniques/skipnav/)，一边用户可以根据需要绕过菜单。为了获得更好的屏幕阅读体验，我们添加了[aria-live 区域](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions) 和辅助函数来报告表单错误和路由更改。此外，在交互键盘可访问和明显的焦点状态上，我们也努力使用清晰，描述性的替代文字(alt text)。
 
-There are always more wins to be had for better performance, maintainability and accessibility. We are refining our site telemetry to better understand where the bottlenecks lie and where we can make the most impact. We’re proud of the progress we have made; progress that will surely serve us well as we look to create a more pleasant experience for our customers around the world.
+
+### 期待
+
+在获得更好性能，可维护性和可访问性上，总是有很多的胜利。我们正在改进我们站点的遥测(telemetry)，以更好的了解瓶颈所在，以及我们可以再哪些方面发挥最大的影响力。我们为自己取得的进步感到骄傲。我们希望为世界各地的客户创造更愉快的体验。
+
 
 * * *
 
-Thanks to [Matt Haughey](https://medium.com/@mathowie?source=post_page).
+感谢 [Matt Haughey](https://medium.com/@mathowie?source=post_page)。
 
 
 ---
