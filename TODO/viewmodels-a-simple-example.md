@@ -2,24 +2,24 @@
 > * 原文作者：[Lyla Fujiwara](https://medium.com/@lylalyla?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/viewmodels-a-simple-example.md](https://github.com/xitu/gold-miner/blob/master/TODO/viewmodels-a-simple-example.md)
-> * 译者：
-> * 校对者：
+> * 译者：[huanglizhuo](https://github.com/huanglizhuo)
+> * 校对者：[chuanxing](https://github.com/zhaochuanxing)
 
 # ViewModels 简单入门
 
 ### 简介
 
-两年前，我在做 [给 Android 入门的课程](https://www.udacity.com/course/android-development-for-beginners--ud837)，教零基础学生开发 Android App。其中有一部分是教学生构建一个简单的单屏 App 叫做 [Court-Counter](https://github.com/udacity/Court-Counter).
+两年前，我在做 [给 Android 入门的课程](https://www.udacity.com/course/android-development-for-beginners--ud837)，教零基础学生开发 Android App。其中有一部分是教学生构建一个简单 App 叫做 [Court-Counter](https://github.com/udacity/Court-Counter).
 
 Court-Counter 是一个只有几个按钮来修改篮球比赛分数的 App。成品有些 bug，比如你旋转手机手，当前保存的分数会莫名归零。
 
 ![](https://cdn-images-1.medium.com/max/800/1*kZ5CiWnpSC0-aQeModzpNA.gif)
 
-这是什么原因呢？因为旋转设备会导致App 生命周期中一些 [**配置发生改变**](https://developer.android.com/guide/topics/manifest/activity-element.html#config) ，比如键盘是否可用，变更设备语言等。这些配置的改变都会导致 Activity 被销毁重建。
+这是什么原因呢？因为旋转设备会导致 App 中一些 [**配置发生改变**](https://developer.android.com/guide/topics/manifest/activity-element.html#config) ，比如键盘是否可用，变更设备语言等。这些配置的改变都会导致 Activity 被销毁重建。
 
 这种表现可以让我们在做一些特殊处理，比如设备旋转时变更为横向特定布局。 然而对于新手（有时候老鸟也是）工程师来说，这可能会让他们头疼。
 
-在 Google I/O 2017，Android Framework团队推出了一套新的架构组件，其中一个处理设备旋转的问题。
+在 Google I/O 2017，Android Framework团队推出了一套 Architecture Components 的工具集，其中一个处理设备旋转的问题。
 
 [**ViewModel**](https://developer.android.com/reference/android/arch/lifecycle/ViewModel.html) 类旨在以有生命周期的方式保存和管理与UI相关的数据。 这使得数据可以在屏幕旋转等配置变化的情况下不丢失。
 
@@ -67,7 +67,7 @@ public class ScoreViewModel extends ViewModel {
 }
 ```
 
-为了简洁，这里我采用了公共成员存储在ScoreViewModel.java中，也可以选择用 getter 和 setter 来更好的封装数据。
+为了简洁，这里我采用了公共成员存储在ScoreViewModel.java中，也可以选择用 getter 和 setter 来更好地封装数据。
 
 #### 第二步:关联UI控制器和ViewModel
 
@@ -79,7 +79,7 @@ ViewModels不持有 Activities ，Fragments  或者 [**Context**](https://develo
 
 之所以不这样做是因为，ViewModel 比 UI控制器生命周期长，比如你旋转一个Activity三次，会得到三个不同的Activity实例，但ViewModel只有一个。
 
-基于这一点，我们来创建 UI控制器/ ViewMode l的关联。在UI控制器中将 ViewModel 创建为一个成员变量。然后在 onCreate中这样掉用：
+基于这一点，我们来创建 UI控制器/ ViewMode l的关联。在UI控制器中将 ViewModel 创建为一个成员变量。然后在 onCreate中这样调用：
 
 ```
 ViewModelProviders.of(<Your UI controller>).get(<Your ViewModel>.class)
