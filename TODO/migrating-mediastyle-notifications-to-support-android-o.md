@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/migrating-mediastyle-notifications-to-support-android-o.md](https://github.com/xitu/gold-miner/blob/master/TODO/migrating-mediastyle-notifications-to-support-android-o.md)
 > * 译者： [ppp-man](https://github.com/ppp-man)
-> * 校对者：[llp0574](https://github.com/llp0574)
+> * 校对者：[llp0574](https://github.com/llp0574) [zhaochuanxing](https://github.com/zhaochuanxing)
 
 # 在 Android O 上用到 MediaStyle 的提醒功能
 
