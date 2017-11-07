@@ -20,7 +20,7 @@ Android O 的一些主要的区别需要被考虑到。
 1. 后台要以 `[startForegroundService(Intent)](https://developer.android.com/preview/features/background.html#services)` 开头， 而且五秒内一定要出现个持续性的提醒。
 2. 如果要显示提醒就一定要用到提醒渠道。
 
-整个到 Android O 的迁移需要以下几个小步骤。
+整合到 Android O 的迁移需要以下几个小步骤。
 
 ### 第一步：改变导入的语句
 
