@@ -70,9 +70,7 @@ import foo from './foo.js';
 
 当然到达那里我还有很长的路需要走，同时我还觉得我有着照看社区的责任，因为我一直是 ESM 的倡导者。
 
-现在我们正在进入一个激动人心的地方 —— 浏览器刚刚开始添加本地模块支持，而且现在 webpack 支持范围提升，在各处使用 ESM 都会有很实在的好处。所以我们希望尽快看到 ESM 从 CommonJS 模块中接管出来。（如果你还在写CommonJS，别写了！你这是在制造技术债务）
-
-We're getting to an exciting place though — browsers are just starting to add native module support, and now that webpack has scope hoisting, there are very tangible benefits to using ESM everywhere. So we'll hopefully see ESM take over from CommonJS modules very soon. (If you're still writing CommonJS, stop! You're just creating technical debt.)
+现在我们正在进入一个激动人心的地方 —— 浏览器刚刚开始添加本地模块支持，而且现在 webpack 支持范围提升，在各处使用 ESM 都会有很实在的好处。所以我们希望尽快看到 ESM 从 CommonJS 模块中接管出来。（如果你还在写CommonJS，别写了！你这是在制造技术债务）.
 
 ## 总的来说， _Rollup_ 和 web 开发在未来将会是什么样子？你有哪些预测呢？
 
