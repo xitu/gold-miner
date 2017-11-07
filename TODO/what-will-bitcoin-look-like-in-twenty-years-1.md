@@ -170,6 +170,8 @@ From the above, we have three principles to help us predict the future:
 
 All right, let’s break out the crystal ball and peer into the fate of Bitcoin and crypto.
 
+Hopefully we’ll have better luck than Stoll and this article won’t get trotted out by tomorrow’s Boing Boing replacement to call me an idiot.
+
 
 ---
 
