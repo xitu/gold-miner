@@ -6,17 +6,17 @@
 > * 译者：
 > * 校对者：
 
-# Angular vs. React vs. Vue: A 2017 comparison
+# Angular、React、Vue 三剑客: 在 2017 年的比较
 
-Deciding on a JavaScript framework for your web application can be overwhelming. [Angular](https://angular.io/) and [React](https://facebook.github.io/react/) are very popular these days, and there is an upstart which has been getting a lot of traction lately: [VueJS](https://vuejs.org/). What’s more, these are just a few of the new [kids on the block](https://hackernoon.com/top-7-javascript-frameworks-c8db6b85f1d0).
+决定 web 应用的 JavaScript 开发框架是一件很费劲的事。现如今 [Angular](https://angular.io/) 和 [React](https://facebook.github.io/react/) 非常流行， 并且有一个新贵，最近引起了很大的关注： [VueJS](https://vuejs.org/)。 更重要的是，这只是一些 [新事物](https://hackernoon.com/top-7-javascript-frameworks-c8db6b85f1d0).
 
-![Javascripts in 2017 — things aren’t easy these days!](https://cdn-images-1.medium.com/max/800/1*xRhs4h2a_rGpXNpoSNlA9w.png)
+![2017 年的 Javascript— 现在事情并不简单！](https://cdn-images-1.medium.com/max/800/1*xRhs4h2a_rGpXNpoSNlA9w.png)
 
-So, how are we supposed to decide? A pros-and-cons list never hurts. We’ll do this in the style of my previous article, “[9 Steps: Choosing a tech stack for your web application](https://medium.com/unicorn-supplies/9-steps-how-to-choose-a-technology-stack-for-your-web-application-a6e302398e55)”.
+那么，我们该如何决定呢？ 列出 JavaScript 开发框架的优点和缺点从来没有害处。 我们将按过去文章的风格来说明这一点， “[总共9步：为 Web 应用选择一个技术栈](https://medium.com/unicorn-supplies/9-steps-how-to-choose-a-technology-stack-for-your-web-application-a6e302398e55)”。
 
-## Before we start — SPA or not?
+## 开始之前 — 是不是 SPA？
 
-You should first make a clear decision as to whether you need a single-page-application (SPA) or if you’d rather take a multi-page approach. Read more on this in my blog post, “[Single-page-application (SPA) vs. Multi-page web applications (MPA)](https://medium.com/unicorn-supplies/angular-vs-react-vs-vue-a-2017-comparison-c5c52d620176#)” (coming soon, follow me [on Twitter](http://www.twitter.com/jensneuhaus/) for updates).
+首先你应该明确决定是否需要单页面应用程序（SPA），或者是否希望采用多页面方法。 关于这个问题请进一步阅读我的博客文章，“[单页面应用程序（SPA）与多页面Web应用程序（MPA）](https://medium.com/unicorn-supplies/angular-vs-react-vs-vue-a-2017-comparison-c5c52d620176#)“（即将推出，请关注我的 [推特](http://www.twitter.com/jensneuhaus/) 更新）。
 
 ## The starters today: Angular, React and Vue
 
@@ -39,7 +39,7 @@ Ready, set, GO!
 
 ## Lifecycle & strategic considerations
 
-![React vs. Angular vs. Vuettps://cdn-images-1.medium.com/max/800/1*aPijhbTjT0VOxPYq2RkVUw.png)
+![React vs. Angular vs. Vue](https://cdn-images-1.medium.com/max/800/1*aPijhbTjT0VOxPYq2RkVUw.png)
 
 ### Some history
 
