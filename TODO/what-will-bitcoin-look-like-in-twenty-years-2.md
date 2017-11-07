@@ -1,9 +1,13 @@
 > * 原文地址：[What Will Bitcoin Look Like in Twenty Years? - Part 2](https://hackernoon.com/what-will-bitcoin-look-like-in-twenty-years-7e75481a798c)
 > * 原文作者：[Daniel Jeffries](https://hackernoon.com/@dan.jeffries?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/what-will-bitcoin-look-like-in-twenty-years.md](https://github.com/xitu/gold-miner/blob/master/TODO/what-will-bitcoin-look-like-in-twenty-years-2.md)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/what-will-bitcoin-look-like-in-twenty-years-2.md](https://github.com/xitu/gold-miner/blob/master/TODO/what-will-bitcoin-look-like-in-twenty-years-2.md)
 > * 译者：
 > * 校对者：
+
+- [What Will Bitcoin Look Like in Twenty Years? - Part 1](https://github.com/xitu/gold-miner/blob/master/TODO/what-will-bitcoin-look-like-in-twenty-years-1.md)
+- [What Will Bitcoin Look Like in Twenty Years? - Part 2](https://github.com/xitu/gold-miner/blob/master/TODO/what-will-bitcoin-look-like-in-twenty-years-2.md)
+- [What Will Bitcoin Look Like in Twenty Years? - Part 3](https://github.com/xitu/gold-miner/blob/master/TODO/what-will-bitcoin-look-like-in-twenty-years-3.md)
 
 # What Will Bitcoin Look Like in Twenty Years? - Part 2
 
