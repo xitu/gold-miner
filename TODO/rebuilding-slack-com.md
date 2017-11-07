@@ -5,15 +5,15 @@
 > * 译者：
 > * 校对者：
 
-# 重建slack.com
+# 重建 slack.com
 
-## 使用CSS Grid 重新设计，并针对性能和可访问性进行了优化。
+## 使用 CSS Grid 重新设计，并针对性能和可访问性进行了优化。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*N48fpqutpCqswRistXpymw.jpeg)
 
 [Alice Lee](http://byalicelee.com/) 的插图.
 
-在八月, 我们重新设计了[slack.com](https://slack.com/), 我们想让您稍微看下屏幕后面发生了什么。 重建我们的营销网站是一个经过各团队、部门、机构仔细协调的大规模项目。
+在八月, 我们重新设计了 [slack.com](https://slack.com/), 我们想让您稍微看下屏幕后面发生了什么。 重建我们的营销网站是一个经过各团队、部门、机构仔细协调的大规模项目。
 
 我们重新设计网站的同时彻底检查了所有的底层代码。我们想要同时实现这样的一些目标： 提供一致的更新体验的同时对网站的架构，代码的模块化，整体性能和可访问性进行大改。这将为公司的几个重大事宜提供新的基础，包括[国际化](https://slackhq.com/bienvenue-willkommen-bienvenidos-to-a-more-globally-accessible-slack-546a458b21ae).
 
@@ -27,9 +27,9 @@ Slack.com (从左到右: 2013年8月, 2017年一月, 2017年8月)
 
 ### 更干净、精简的代码
 
-旧的 slack.com 和我们基于网页的 Slack 客户端共享了很多代码和资源依赖。我们的目标之一就是将网站和 “web app” 解耦，以简化我们的代码库。 通过只包含我们运行 slack.com 所需要的资源的方式，可以提高站点的稳定性，减少开发人员的困惑，创建一个更容易迭代的代码库。这项工作的基本部分之一就是创建我们新的UI框架，名为 :spacesuit: **👩🏾‍🚀**。
+旧的 slack.com 和我们基于 web 的 Slack 客户端共享了很多代码和资源依赖。我们的目标之一就是将网站和 “web app” 解耦，以简化我们的代码库。 通过只包含我们运行 slack.com 所需要的资源的方式，可以提高站点的稳定性，减少开发人员的困惑，创建一个更容易迭代的代码库。这项工作的基本部分之一就是创建我们新的UI框架，名为 :spacesuit: **👩🏾‍🚀**。
 
-:spacesuit: 框架包含基于类(class)的可重用组件和用于标准化我们的营销页面的实用程序类组成。 它降低了我们的CSS载荷，在一种情况下降低了近70%(从 416kB 降低至 132kB).
+:spacesuit: 框架包含基于类(class)的可重用组件和用于标准化我们的营销页面的实用程序类组成。 它降低了我们的 CSS 载荷，在一种情况下降低了近70%(从 416kB 降低至 132kB).
 
 其他有吸引力的数据：
 
@@ -39,13 +39,13 @@ Slack.com (从左到右: 2013年8月, 2017年一月, 2017年8月)
 
 ![](https://cdn-images-1.medium.com/max/1000/0*Kx8ltSgpKXyXRdaD.)
 
-**_重建之前_**_: 大量的高峰低谷表明 [_CSS 特异性_](https://csswizardry.com/2014/10/the-specificity-graph/)管理不善。_
+**_重建之前_**_: 大量的高峰低谷表明 [CSS 特异性](https://csswizardry.com/2014/10/the-specificity-graph/)管理不善。_
 
 ![](https://cdn-images-1.medium.com/max/1000/0*BmFqbD-18McrbaDi.)
 
 **_重建之后_**_: 使用大部分基于类的系统导致我们的特异性下降。_
 
-我们的 CSS 是基于[ITCSS 理念](http://www.creativebloq.com/web-design/manage-large-css-projects-itcss-101517528) 组织的，并且使用 [类似 BEM ](https://csswizardry.com/2015/08/bemit-taking-the-bem-naming-convention-a-step-further/) 命名规范。选择器使用单个字母作为前缀来指定类表示的类型。 前缀后面跟着组件的名称以及组件的所有变体。 举个例子，`u-margin-top--small` 表示我们用变量将 `margin-top` 设置为比较小的数值的工具类。这样的工具类是我们系统不可或缺的部分，因为它允许我们的开发者在不重写大量 CSS 得情况下微调 UI 片段。另外，组件之间的距离是创建设计系统窍门之一。诸如 `u-margin-top--small` 这样的工具类可以创建一致的间距，让我们不必去重置或撤销任何已经设置到组件上的间距。
+我们的 CSS 是基于 [ITCSS 理念](http://www.creativebloq.com/web-design/manage-large-css-projects-itcss-101517528) 组织的，并且使用 [类似 BEM ](https://csswizardry.com/2015/08/bemit-taking-the-bem-naming-convention-a-step-further/) 命名规范。选择器使用单个字母作为前缀来指定类表示的类型。 前缀后面跟着组件的名称以及组件的所有变体。 举个例子，`u-margin-top--small` 表示我们用变量将 `margin-top` 设置为比较小的数值的工具类。这样的工具类是我们系统不可或缺的部分，因为它允许我们的开发者在不重写大量 CSS 得情况下微调 UI 片段。另外，组件之间的距离是创建设计系统窍门之一。诸如 `u-margin-top--small` 这样的工具类可以创建一致的间距，让我们不必去重置或撤销任何已经设置到组件上的间距。
 ![](https://cdn-images-1.medium.com/max/800/0*YrT_q3rSjUFssyYy.)
 
 加载时间减少了 53% 的定价页面是我们最大的成果。
@@ -88,7 +88,7 @@ Slack.com (从左到右: 2013年8月, 2017年一月, 2017年8月)
 </section>
 ```
 
-使用 CSS Grid，我们可以删除模拟网格所需要的额外标记，只需要在本地简单的创建一个就好。从 Grid 开始我们可以使用更少的标记。此外还要确保我们使用的是有语义的标记。
+使用 CSS Grid，我们可以删除模拟网格所需要的额外标记，只需要在本地简单的创建一个就好。从 Grid 开始我们可以使用更少的标记。此外还要确保我们使用的标记是有语义的。
 
 ```
 <section class=”c-photo-collage c-photo-collage--three”>
@@ -107,7 +107,7 @@ Slack.com (从左到右: 2013年8月, 2017年一月, 2017年8月)
 
 当 Modernizr 检测到网格支持的时候，页面默认为移动布局并重排。
 
-我们决定解决布局切换时抖动的体验比向后兼容更重要。在使用 CSS Grid 作为 FlexBox和其他技术在需要的时候的增强和回退上，我们做了妥协。
+我们决定解决布局切换时抖动的体验比向后兼容更重要。在使用 CSS Grid 作为 FlexBox 和其他技术在需要的时候的增强和回退上，我们做了妥协。
 
 我们使用了 CSS 功能查询来检测网格支持，而不是使用库。不幸的是，并不是每一个浏览器都支持功能查询。这就意味着只有能处理 `@supports` 规则的浏览器才能使用 CSS Grid 布局。因此，IE11，即使支持某些网格功能，也将会使用基于 FLexBox 的布局。
 
@@ -168,7 +168,7 @@ Slack.com (从左到右: 2013年8月, 2017年一月, 2017年8月)
 .c-button { .m-typeset(“display-as-btn-text”); }
 ```
 
-这个 mixin 的逻辑需要一个参数，比如 `display-as-btn-text`，并且会从列表中提取每个属性指定的索引。在这个例子中，`line-height` 属性将设置为1.3，因为它是第4个索引值。所以产生的CSS将是
+这个 mixin 的逻辑需要一个参数，比如 `display-as-btn-text`，并且会从列表中提取每个属性指定的索引。在这个例子中，`line-height` 属性将设置为1.3，因为它是第4个索引值。所以产生的 CSS 将是
 
 ```
 .c-button {
@@ -181,7 +181,7 @@ Slack.com (从左到右: 2013年8月, 2017年一月, 2017年8月)
 
 ### 美术指导 & 意象(imagery)
 
-[Alice Lee](http://byalicelee.com/)为我们提供了一些漂亮的插图，我们想要确保我们尽可能好的展出他们。有时想要根据视口(viewport)宽度来显示不同版本的图像。我们在视网膜(retina)和非视网膜(non-retina)资源之间进行切换，对特定的屏幕宽度进行图像调整。
+[Alice Lee](http://byalicelee.com/) 为我们提供了一些漂亮的插图，我们想要确保我们尽可能好的展出他们。有时想要根据视口(viewport)宽度来显示不同版本的图像。我们在视网膜(retina)和非视网膜(non-retina)资源之间进行切换，对特定的屏幕宽度进行图像调整。
 
 这个过程也成为 [美术指导(art direction)](http://usecases.responsiveimages.org/#art-direction),通过使用 [Picturefill](https://scottjehl.github.io/picturefill/) 的 `[picture](https://html.spec.whatwg.org/multipage/embedded-content.html#embedded-content)` 和 `[source](https://html.spec.whatwg.org/multipage/embedded-content.html#embedded-content)` 元素作为旧版浏览器的 polyfill。例如设备尺寸，设备分辨率，方向等定义的特征可以让我们在设计时规定显示不同的图像资源。
 
@@ -203,7 +203,7 @@ Slack.com (从左到右: 2013年8月, 2017年一月, 2017年8月)
 
 ### 兼容, 从头开始
 
-另一个主要的目标就是确保低视力用户，屏幕阅读器用户和键盘用户可以轻松的浏览网站。从一个干净的代码库开始，我们用少量额外的工作就对颜色对比，HTML语义化和键盘可访问性做了很多有影响的改进。此外，我们还能够使用一些新功能来获得更好的访问体验。我们在导航前面添加了[跳过链接](https://webaim.org/techniques/skipnav/)，一边用户可以根据需要绕过菜单。为了获得更好的屏幕阅读体验，我们添加了[aria-live 区域](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions) 和辅助函数来报告表单错误和路由更改。此外，在交互键盘可访问和明显的焦点状态上，我们也努力使用清晰，描述性的替代文字(alt text)。
+另一个主要的目标就是确保低视力用户，屏幕阅读器用户和键盘用户可以轻松的浏览网站。从一个干净的代码库开始，我们用少量额外的工作就对颜色对比，HTML 语义化和键盘可访问性做了很多有影响的改进。此外，我们还能够使用一些新功能来获得更好的访问体验。我们在导航前面添加了[跳过链接](https://webaim.org/techniques/skipnav/)，一边用户可以根据需要绕过菜单。为了获得更好的屏幕阅读体验，我们添加了[aria-live 区域](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions) 和辅助函数来报告表单错误和路由更改。此外，在交互键盘可访问和明显的焦点状态上，我们也努力使用清晰，描述性的替代文字(alt text)。
 
 
 ### 期待
