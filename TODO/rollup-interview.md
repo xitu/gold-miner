@@ -2,106 +2,112 @@
 > * 原文作者：[SurviveJS](https://twitter.com/survivejs)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/rollup-interview.md](https://github.com/xitu/gold-miner/blob/master/TODO/rollup-interview.md)
-> * 译者：
+> * 译者：[Raoul1996](https://github.com/Raoul1996)
 > * 校对者：
 
-# Rollup - Next-generation ES6 module bundler - Interview with Rich Harris
+# Rollup - 下一代 ES6 模块化打包工具 - 对 Rich Harris 的采访
 
-Given JavaScript application source cannot be consumed easily through the browser "as is" just yet, the process of **bundling** is needed. The point is to convert the source into a form the browser can understand. This is the reason why bundlers, such as Browserify, Rollup, or webpack exist.
+鉴于浏览器目前尚不能按照“原样”解析 JavaScript 源码，所以**打包**这一步必不可少。将源代码编译成浏览器可以能懂的形式，这是打包工具（例如 Browserify，Rollup 或者 webpack）存在的原因。
 
-To dig deeper into the topic, I'm interviewing [Rich Harris](https://twitter.com/Rich_Harris), the author of Rollup.
+为了深入探讨这个话题，我们正在采访 Rollup 的作者  [Rich Harris](https://twitter.com/Rich_Harris)。
 
-> I [interviewed Rich earlier about Svelte](https://survivejs.com/blog/svelte-interview/), a UI framework of his.
+> 我早些时候已经采访过 [UI 框架 Svelte 的作者 Rich](https://survivejs.com/blog/svelte-interview/) 。
 
-## Can you tell a bit about yourself?
+## 你可以介绍下自己吗？
 
-![Rich Harris](https://www.gravatar.com/avatar/329f9d32fe20b186838ee237d3eb2d43?s=200) I'm a graphics editor at the New York Times, working on the investigations team — part journalist, part developer. Before that I did a similar job at the Guardian. Part of my role historically has been to build tools that allow us to create and deploy projects at the speed of news, which can be pretty aggressive — [Rollup](https://rollupjs.org), [Bublé](https://buble.surge.sh) and [Svelte](https://svelte.technology), among others, are all products of that.
+![Rich Harris](https://www.gravatar.com/avatar/329f9d32fe20b186838ee237d3eb2d43?s=200) 我是在纽约时报调查组工作的图形编辑，身兼记者和开发者职位。在此之前，我在卫报做差不多的工作。过去我的部分职责是开发工具去让我们用新闻的速度新建、部署项目。这个过程或许有点激进 —— [Rollup](https://rollupjs.org)，[Bublé](https://buble.surge.sh) 和 [Svelte](https://svelte.technology) 等都是那个时期的产物。
 
-## How would you describe _Rollup_ to someone who has never heard of it?
+## 你会怎样把 _Rollup_ 介绍给一个从未听说过它的人？
 
-Rollup is a module bundler. Basically, it concatenates JavaScript files, except you don't have to manually specify the order of them or worry about variable names in one file conflicting with names in another. Under the hood it's a bit more sophisticated than that, but in essence that's all it's doing — concatenating.
+Rollup 是一个模块化的打包工具。基本上，它会合并 JavaScript 文件。若非必要，你不需要去手动指定它们的顺序，或者去担心文件之间的变量名冲突。引擎内部实现会比说的复杂一点，但是它就是这么做的 —— 合并。
 
-The reason you'd use it is so that you can write software in a modular way — which is better for your sanity for lots of reasons — using the `import` and `export` keywords that were added to the language in ES2015. Since browsers and Node.js don't yet support ES2015 modules (ESM) natively, we have to bundle our modules in order to run them.
+这么做的原因是你可以使用 ES2015 新增到语言中的 `import` 和 `export` 关键字来模块化编程，这样在很多方面上更加明智。因为浏览器和 Node.js 还没有提供原生的 ES2015 module（ESM）支持，所以我们模块必须在打包之后才能运行。
 
-Rollup can create self-executing `<script>` files, AMD modules, Node-friendly CommonJS modules, UMD modules (which are a combination of all three), or even ESM bundles that can be used in _other_ projects.
+Rollup 可以打包出自执行（self-executing）的 `<script>` 文件，AMD 模块，节点友好的 CommonJS 模块，UMD 模块（兼容三者），甚至是可以在 _其他_ 项目中使用的 ESM 模块。
 
-Which is ideal for libraries. In fact, most major JavaScript libraries that I can think of — React, Vue, Angular, Glimmer, D3, Three.js, PouchDB, Moment, Most.js, Preact, Redux, etc — are built with Rollup.
+这是库的理想选择。实际上，大多数的 JavaScript 库（React，Vue，Angular，Glimmer，D3，Three.js，PouchDB，Moment，Most.js，Preact，Redux等）都是用 Rollup 构建的。
 
-## How does _Rollup_ work?
+## _Rollup_ 是怎样工作的呢？
 
-You give it an entry point — let's say `index.js`. Rollup will read that file and parse it using Acorn — this gives us something called an abstract syntax tree (AST). Once you have the AST you can discover lots of things about the code, such as which `import` declarations it contains.
+你给它一个入口文件 —— 通常是 `index.js`。Rollup 将使用 Acorn 读取解析文件 —— 将返回给我们一种叫抽象语法树（AST）的东西。 一旦有了 AST ，你就可以发现许多关于代码的东西，比如它包含哪些 import 声明。
 
-Let's say `index.js` has this line at the top:
+假设 `index.js` 文件头部有这样一行：
 
 ```
 import foo from './foo.js';
 ```
 
-That means that Rollup needs to resolve `./foo.js` relative to `index.js`, load it, parse it, analyse it, lather, rinse and repeat until there are no more modules to import. Crucially, all these steps are pluggable, so you can augment Rollup with the ability to import from `node_modules` or compile ES2015 to ES5 in a sourcemap-aware way, for example.
+这就意味着 Rollup 需要去相对于 `index.js` 去加载，解析，分析 `./foo.js`。重复解析直到没有更多的模块被加载进来。更重要的是，所有的这些操作都是可插拔的，所以您可以从 `node_modules` 中导入或者使用 sourcemap-aware 的方式将 ES2015 编译成 ES5 代码。
 
-## How does _Rollup_ differ from other solutions?
+## _Rollup_ 和其他解决方案有何不同？
 
-Firstly, there's zero overhead. The traditional approach to bundling is to wrap every module in a function, put those functions in an array, and implement a `require` function that plucks those functions out of the array and executes them on demand. It turns out [this is terrible](https://nolanlawson.com/2016/08/15/the-cost-of-small-modules/) for both bundle size and startup time.
+首先，零开销。传统的打包方式是将模块封装到独立的函数中，将这些函数放进一个数组中，然后实现一个可以将这些函数从数组中取出并按需执行的 `require` 函数。事实证明这样打包体积和启动时间都会很糟糕。
 
-Instead, Rollup essentially just concatenates your code — there's no waste, and the resulting bundle minifies better. Some people call this 'scope hoisting'.
+相反，Rollup 事实上只是会合并你的代码 —— 没有任何浪费。所产生的包也可以更好的缩小。有人称之为 “范围提升（scope hoisting）”。
 
-Secondly, it removes unused code from the modules you import, which is called 'treeshaking' for reasons that no-one is certain of.
+其次。他把你导入的模块中的未使用代码移除。这被称为“（摇树优化）treeshaking”。原因没人知道。
 
-It's worth noting that webpack implements a form of scope hoisting and treeshaking in the most recent version, so it's catching up to Rollup in terms of bundle size and startup time (though we're still ahead!). Webpack is generally considered the better option if you're building an app rather than a library, since it has a lot of features that Rollup doesn't — code splitting, dynamic imports and so-on.
+值得注意的是，webpack 最新版本实现了范围提升和摇树优化，所以它在打包体积和启动时间上赶上了 Rollup（尽管我们还是遥遥领先）。如果你构建的不是一个库，那么通常 webpack 是一个更好的选择，因为他有很多 Rollup 不具有的功能 —— 比如代码分割，动态导入等等。
 
-> To understand the difference between the tools, [read "Webpack and Rollup: the same but different"](https://medium.com/webpack/webpack-and-rollup-the-same-but-different-a41ad427058c).
+> 理解工具间的差异，[请阅读 “Webpack 和 Rollup：似是而非”](https://medium.com/webpack/webpack-and-rollup-the-same-but-different-a41ad427058c)。
 
-## Why did you develop _Rollup_?
+## 为什么你要开发 _Rollup_ 呢？
 
-Necessity. None of the existing tools were good enough.
 
-A few years ago, I was working on a project called [Ractive](https://ractive.js.org), and I was frustrated with our build process. The more we split the codebase up into modules, the larger the build got, because of the overhead I described earlier. We were effectively being penalised for doing the right thing.
+必要性。现有的工具都不够好。
 
-So I wrote a module bundler called Esperanto and released it as a separate open source project. Lo and behold, our builds shrank. But I wasn't satisfied, because I'd read something [Jo Liss](https://twitter.com/jo_liss) had written about how ESM — being designed with static analysis in mind — would allow us to do treeshaking. Esperanto didn't have that ability.
+几年前，我正在开发一个名叫  [Ractive](https://ractive.js.org) 的项目。构建的过程让我十分沮丧。我们越是把代码库分解成模块，由于之前我描述的开销的原因，构建得越大。我们做了正确的事情但是却遭受着处罚。
 
-Adding treeshaking to Esperanto would have been very difficult, so I burned it all and started over with Rollup.
+所以我谢了一个叫 Esperanto 的模块打包工具，并且作为单独的开源项目将其发布。敲，我们的打包体积缩小了，但是我并不满意。因为我读过 [Jo Liss](https://twitter.com/jo_liss) 写的关于如何设计静态分析的 ESM 能够让我们进行摇树优化（treeshaking），然而 Esperanto 做不到这一点。
 
-> To learn more about ESM, [read the interview of Bradley Farias](https://survivejs.com/blog/es-modules-interview/).
+在 Esperanto 上增加摇树优化会非常困难，所以我放弃了它，并用 Rollup 重新开发。
 
-## What next?
+> 想了解更多关于 ESM 的信息, [请阅读对 Bradley Farias 的采访](https://survivejs.com/blog/es-modules-interview/).
 
-I would love to get Rollup to a place where we can call it 'done', so that I don't have to think about it any more. It's not an exciting project to work on, since module bundling is an incredibly boring subject. It's basically just plumbing — essential but unglamorous.
+## 接下来做什么？
 
-There's a fair distance to go before we get there though. And I feel a certain responsibility to keep the community looked after, since I've been such a vocal advocate for ESM.
+我很乐意把 Rollup 开发到大家认为“完毕”的程度，这样我就可以不用再考虑它了。这并不是一个令人兴奋的项目，因为模块打包是一个无聊至极的主题。这基本上只是水暖（plumbing）—— 必不可少但却毫无魅力可言。
+
+当然到达那里我还有很长的路需要走，同时我还觉得我有着照看社区的责任，因为我一直是 ESM 的倡导者。
+
+现在我们正在进入一个激动人心的地方 —— 浏览器刚刚开始添加本地模块支持，而且现在 webpack 支持范围提升，在各处使用 ESM 都会有很实在的好处。所以我们希望尽快看到 ESM 从 CommonJS 模块中接管出来。（如果你还在写CommonJS，别写了！你这是在制造技术债务）
 
 We're getting to an exciting place though — browsers are just starting to add native module support, and now that webpack has scope hoisting, there are very tangible benefits to using ESM everywhere. So we'll hopefully see ESM take over from CommonJS modules very soon. (If you're still writing CommonJS, stop! You're just creating technical debt.)
 
-## What does the future look like for _Rollup_ and web development in general? Can you see any particular trends?
+## 总的来说， _Rollup_ 和 web 开发在未来将会是什么样子？你有哪些预测呢？
 
-For one thing, Rollup will become increasingly obsolete. Once browsers support modules natively, there'll be a large class of applications for which bundling (and everything that goes with it — compiling, minifying and so on) will just be an optional performance optimisation, as opposed to a necessity. That's going to be _huge_, particularly for newcomers to web development.
+一方面，Rollup 会变得越来越过时。一旦浏览器提供原生的本地模块支持的时候，将会有一大类把打包（以及与之相关的一切 —— 编译，压缩等）作为一个可选而非必须的性能优化的应用。这将是 _大趋势_ ，尤其是对于 web 开发的新手来说。
 
-But at the same time we're increasingly using our build processes to add sophisticated capabilities to our applications. I'm a proponent of that — [Svelte](https://svelte.technology) is a compiler that essentially writes your app for you from a declarative template — and it's only going to get more intense with the advent of WASM and other things.
+但是与此同时，我们越来越多的使用构建流程为我们的应用添加复杂的功能。我是这个的支持者 —— [Svelte](https://svelte.technology) 基本上是从声明模板为你编写应用程序的一个编译器。而且伴随着 WASM 以及其他东西的横空出世，他只会变得更激烈。
 
-So we have these two seemingly contradictory trends happening simultaneously, and it'll be fascinating to see how they play out.
+所以有两个看起来矛盾的趋势同时发生了，看看他们怎么发展将会是很有趣的。
 
-## What advice would you give to programmers getting into web development?
+## 您对进行 web 开发的程序员有什么建议呢？
 
-Watch other programmers over their shoulders. Read source code. Develop taste by building things, and being proud of them but never satisifed. Learn the fundamentals, because all abstractions are leaky. Learn what 'all abstractions are leaky' means. Turn your computer off and go outside, because most of your best programming will happen away from your keyboard.
+站在其他程序员的肩膀上。读源码，通过构建一些东西来体会开发，并以此为荣而不要自满。学习基础知识，因为任何的抽象都不可能天衣无缝（all abstractions are leaky）。搞清楚“何的抽象都不可能天衣无缝”的意思。关掉你的电脑，走出门外。因为大多数好戏都会在键盘之外发生。
 
-Most importantly, take programming advice with a pinch of salt. As soon as someone reaches the stage where people start asking them to offer advice, they forget what it was like to be a new developer. No-one knows anything anyway.
+最重要的是，采取一撮盐的编程建议（take programming advice with a pinch of salt）。 一旦有人达到别人开始要求他们提供建议的阶段，他们就忘记自己当初是新手的感觉。没有人无所不知，无所不能。
 
-## Who should I interview next?
+## 接下来我应该去采访谁？
 
-I really like following the work of people who straddle the line between JavaScript and disciplines like dataviz, WebGL, cartography and animation — people like [Vladimir Agafonkin](https://twitter.com/mourner), [Matthew Conlen](https://twitter.com/mathisonian), [Sarah Drasner](https://twitter.com/sarah_edo), [Robert Monfera](https://twitter.com/monfera), and [Tom MacWright](https://twitter.com/tmcw).
 
-On the web development front more generally, I've been enjoying playing around with [Rill](https://rill.site) by [Dylan Piercey](https://twitter.com/dylan_piercey). It's a universal router that lets you write Express-style apps that also work in the browser, and it's really well thought through. For me it hits the sweet spot between boosting productivity and not being overly opinionated.
+我真的很喜欢跟随跨越 JavaScript 和其他学科（例如 DataGL，WebGL，制图和动画等）的人们的工作 —— 像 [Vladimir Agafonkin](https://twitter.com/mourner)，[Matthew Conlen](https://twitter.com/mathisonian)，[Sarah Drasner](https://twitter.com/sarah_edo)，[Robert Monfera](https://twitter.com/monfera) 和 [Tom MacWright](https://twitter.com/tmcw) 这样的人。
 
-## Any last remarks?
+在更广泛的 web 开发前沿，我一直喜欢和 [Dylan Piercey](https://twitter.com/dylan_piercey) 交流 [Rill](https://rill.site)。这是一个可以让你编写在浏览器中运行的 Express 风格应用的通用的路由（router），这个想法很棒。对我来说，它达到了提高生产力而不过度自以为是的最佳状态。
 
-Rollup would love your help! It's a fairly important part of the ecosystem nowadays, but I don't have nearly enough time to give it the attention it deserves, and the same is true for all our contributors. If you're interested in helping out with a tool that indirectly benefits millions (perhaps billions!) of web users, get in touch with us.
 
-## Conclusion
+## 最后随意说点什么？
 
-Thanks for the interview Rich! Rollup is an amazing tool and well worth learning especially for library authors. I hope we can skip the entire bundling step one day as that would make things simpler.
+Rollup 非常感谢您的帮助！ 这是当今生态中相当重要的一部分，但是我没有足够的时间去给予足够的重视，对我们的所有贡献者也是这样。如果您有兴趣提供能让数百万（甚至数十亿）网络用户受益的工具，请联系我们。
 
-To learn more about Rollup, [check out the online documentation](https://rollupjs.org/). You can also [find the project on GitHub](https://github.com/rollup/rollup).
 
-10 Jul 2017
+## 结论
+
+感谢您采访 Rich ！Rollup 是一个十分了不起的工具，尤其是对于库作者来说，非常值得学习。希望有一天我们可以跳过整个打包步骤，那么这样会让事情简单不少。
+
+想了解更多关于 Rollup 的信息，[请阅读在线文档](https://rollupjs.org/)。你也可以[在 GitHub 上找到这个项目](https://github.com/rollup/rollup)。
+
+2017年7月10日
 
 
 ---
