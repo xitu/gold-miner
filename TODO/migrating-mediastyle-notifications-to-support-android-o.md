@@ -17,7 +17,7 @@
 
 Android O 的一些主要的区别需要被考虑到。
 
-1. 后台要以 `[startForegroundService(Intent)](https://developer.android.com/preview/features/background.html#services)` 开头， 而且五秒内一定要出现个持续性的提醒。
+1. 后台要以 `[startForegroundService(Intent)](https://developer.android.google.cn/preview/features/background.html#services)` 开头， 而且五秒内一定要出现个持续性的提醒。
 2. 如果要显示提醒就一定要用到提醒渠道。
 
 整合到 Android O 的迁移需要以下几个小步骤。
@@ -44,7 +44,7 @@ import android.support.v7.app.NotificationCompat;</pre>
 implementation ‘com.android.support:support-media-compat:26.+’</pre>
 ```
 
-`MediaStyle` 在 `android.support.v4.media` 这个包里因为它现在是 `[media-compat](https://developer.android.com/topic/libraries/support-library/packages.html#v4-media-compat)` 依赖的一部分。特意不将它们放在 `support-compat` 库里的原因是保持支持库模块里的关注点分离。
+`MediaStyle` 在 `android.support.v4.media` 这个包里因为它现在是 `[media-compat](https://developer.android.google.cn/topic/libraries/support-library/packages.html#v4-media-compat)` 依赖的一部分。特意不将它们放在 `support-compat` 库里的原因是保持支持库模块里的关注点分离。
 
 ### 第二步：用 NotificationCompat 和渠道
 
@@ -62,11 +62,11 @@ NotificationCompat.Builder notificationBuilder =
         new NotificationCompat.Builder(mContext);</pre>
 ```
 
-为了更好地理解 Android O 里的渠道，请在 [developer.android.com](https://developer.android.com/preview/features/notification-channels.html) 上阅读所有相关信息。Google Play Music 可以让你自定义提醒消息。例如，如果你只关心”重放“相关的提醒，就可以只启用与之相关的提醒并禁用其他。
+为了更好地理解 Android O 里的渠道，请在 [developer.android.google.cn](https://developer.android.google.cn/preview/features/notification-channels.html) 上阅读所有相关信息。Google Play Music 可以让你自定义提醒消息。例如，如果你只关心”重放“相关的提醒，就可以只启用与之相关的提醒并禁用其他。
 
 ![](https://cdn-images-1.medium.com/max/800/0*I8gqatqtqnPtzCZP.)
 
-`NotificationCompat` 这个类并不帮你创建渠道，你依然要[自己创建一个](https://developer.android.com/preview/features/notification-channels.html#CreatingChannels)。这里有一个 Android O 的例子。
+`NotificationCompat` 这个类并不帮你创建渠道，你依然要[自己创建一个](https://developer.android.google.cn/preview/features/notification-channels.html#CreatingChannels)。这里有一个 Android O 的例子。
 
 ```
 private static final String CHANNEL_ID = "media_playback_channel";
@@ -145,14 +145,14 @@ if (isPlaying && !mStarted) {
 
 就是那么简单！三个简单步骤就能帮你把 `MediaStyle` 的后台提醒功能从 Android O 之前的版本迁移到 Android O 上。
 
-关于 `MediaStyle` 更新的更多资讯，请看[这里](https://developer.android.com/topic/libraries/support-library/revisions.html#26-0-0)
+关于 `MediaStyle` 更新的更多资讯，请看[这里](https://developer.android.google.cn/topic/libraries/support-library/revisions.html#26-0-0)
 
 ### 安卓（Android）媒体资源
 
 * [Understanding MediaSession](https://medium.com/google-developers/understanding-mediasession-part-1-3-e4d2725f18e4)
 * [Building a simple audio playback app using MediaPlayer](https://medium.com/google-developers/building-a-simple-audio-app-in-android-part-1-3-c14d1a66e0f1)
-* [Android Media API Guides — Media Apps Overview](https://developer.android.com/guide/topics/media-apps/media-apps-overview.html)
-* [Android Media API Guides — Working with a MediaSession](https://developer.android.com/guide/topics/media-apps/working-with-a-media-session.html)
+* [Android Media API Guides — Media Apps Overview](https://developer.android.google.cn/guide/topics/media-apps/media-apps-overview.html)
+* [Android Media API Guides — Working with a MediaSession](https://developer.android.google.cn/guide/topics/media-apps/working-with-a-media-session.html)
 
 
 ---
