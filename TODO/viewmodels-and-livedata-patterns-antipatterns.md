@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/viewmodels-and-livedata-patterns-antipatterns.md](https://github.com/xitu/gold-miner/blob/master/TODO/viewmodels-and-livedata-patterns-antipatterns.md)
 > * 译者：[boileryao](https://github.com/boileryao)
-> * 校对者：
+> * 校对者：[Zhiw](https://github.com/Zhiw)  [miguoer](https://github.com/miguoer)
 
 # ViewModel 和 LiveData：为设计模式打 Call 还是唱反调？
 
