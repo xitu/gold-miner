@@ -9,13 +9,13 @@
 
 ## View 层和 ViewModel 层
 
-### 分散的职责
+### 分离职责
 
 ![](https://cdn-images-1.medium.com/max/800/1*I9WPcnpGNuI4CjxxrkP0-g.png)
 
 *用 Architecture Components 构建的 APP 中实体的典型交互* 
 
-理想情况下，ViewModel 不应该知道任何关于 Android 的事情（如Activity、Fragment）。 这样会大大改善可测试性，有利于模块化，并且能够减少内存泄漏带来的风险。一个通用的法则是，你的 ViewModel 中没有导入像 `android.*`这样的包（像 `android.arch.*` 这样的除外)。这个经验也同样适用于 MVP 模式中的 Presenter 。
+理想情况下，ViewModel 不应该知道任何关于 Android 的事情（如Activity、Fragment）。 这样会大大改善可测试性，有利于模块化，并且能够减少内存泄漏的风险。一个通用的法则是，你的 ViewModel 中没有导入像 `android.*`这样的包（像 `android.arch.*` 这样的除外)。这个经验也同样适用于 MVP 模式中的 Presenter 。
 
 > ❌ 不要让 ViewModel（或Presenter）直接使用 Android 框架内的类
 
@@ -25,17 +25,17 @@
 
 ### ViewModel 中的 View 引用
 
-[ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel.html) 的生命周期跟 Activity 和 Fragment 的生命周期不一样。当 ViewModel 正在工作的时候，一个 Activity 可能处于自己 [生命周期](https://developer.android.com/guide/components/activities/activity-lifecycle.html) 的任何状态。 Activity 和 Fragment 可以被销毁并且重新创建， ViewModel 将对此一无所知。
+[ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel.html) 的生命周期跟 Activity 和 Fragment 不一样。当 ViewModel 正在工作的时候，一个 Activity 可能处于自己 [生命周期](https://developer.android.com/guide/components/activities/activity-lifecycle.html) 的任何状态。 Activity 和 Fragment 可以被销毁并且重新创建， ViewModel 将对此一无所知。
 
 ![](https://cdn-images-1.medium.com/max/800/1*86RjXnTJucJMkW4Xi4kUlA.png)
 
 ViewModel 对配置的重新加载（比如屏幕旋转）具有“抗性” ↑
 
-把视图层（Activity 或 Fragment）的引用传递给 ViewModel 是有 **相当大的风险** 的。我们假设 ViewModel 从网络请求数据，然后由于某些问题，数据返回的时候已经沧海桑田了。这时候，ViewModel 引用的视图层可能已经被销毁或者不可见了。这将产生内存泄漏甚至引起崩溃。
+把视图层（Activity 或 Fragment）的引用传递给 ViewModel 是有 **相当大的风险** 的。假设 ViewModel 从网络请求数据，然后由于某些问题，数据返回的时候已经沧海桑田了。这时候，ViewModel 引用的视图层可能已经被销毁或者不可见了。这将产生内存泄漏甚至引起崩溃。
 
 > ❌ 避免在 ViewModel 里持有视图层的引用
 
-**观察者模式**是 ViewModel 层和 View 层的推荐通信方式。使用 LiveData 或其他一些库来引入观察者。
+推荐使用**观察者模式**作为 ViewModel 层和 View 层的通信方式，可以使用 LiveData 或者其他库中的 Observable 对象作为被观察者。
 
 ### 观察者模式
 
@@ -44,7 +44,7 @@ ViewModel 对配置的重新加载（比如屏幕旋转）具有“抗性” ↑
 一个很方便的设计 Android 应用中的展示层的方法是让视图层（Activity 或 Fragment）去观察 ViewModel 的变化。由于 ViewModel 对 Android 一无所知，它也就不知道 Android 是多么频繁的干掉视图层的小伙伴。这样有几个好处：
 
 1. ViewModel 在配置重新加载（比如屏幕旋转）的时候是不会变化的，所以没有必要从外部（比如网络和数据库）重新获取数据。
-2. 当耗时操作结束后，ViewModel 中的“被观察者”被更新，无论这些数据**当前**有没有观察者。不会有尝试更新不存在的视图层的情况，也就不会有 `NullPointerException`。
+2. 当耗时操作结束后，ViewModel 中的“被观察者”被更新，无论这些数据**当前**有没有观察者。这样不会有尝试直接更新不存在的视图的情况，也就不会有 `NullPointerException`。
 3. ViewModel 不持有视图层的引用，这大大减少了内存泄漏的风险。
 
 ```
@@ -80,7 +80,7 @@ Activity / Fragment 中的一个典型“订阅”案例。
 2. 本地：数据库、文件
 3. 内存中的缓存
 
-在应用中放一个数据层是一个好主意，数据层完全不关心表示层。由于保持缓存和数据库与网络同步的算法通常很琐碎复杂，所以建议为每个仓库创建一个类作为处理同步的单独入口。
+在应用中放一个数据层是一个好主意，数据层完全不关心展示层（`MVP` 中的 `P`）。由于保持缓存和数据库与网络同步的算法通常很琐碎复杂，所以建议为每个仓库创建一个类作为处理同步的单一入口。
 
 如果是许多种并且差别很大的数据模型，考虑使用多个数据仓库。
 
@@ -94,13 +94,13 @@ Activity / Fragment 中的一个典型“订阅”案例。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Hj8ChdU7pakjcM3kxj_Fzg.png)
 
-可以包装类中有状态和其他元数据（比如错误信息）的类。参见示例代码中的 [Resource](https://developer.android.com/topic/libraries/architecture/guide.html#addendum) 类。
+可以将类中有状态和其他元数据（比如错误信息）的数据封装到一个类。参见示例代码中的 [Resource](https://developer.android.com/topic/libraries/architecture/guide.html#addendum) 类。
 
 > ✅ 使用一个包装类或者 LiveData 来暴露状态信息。
 
 ## 保存 Activity 的状态
 
-Activity 的状态是在 Activity 消失时重新创建屏幕内容所需的信息，Activity 消失意味着被销毁或进程被终止。旋转屏幕是最明显的情况，我们已经在 ViewModel 部分提到了。保存在 ViewModel 的状态是安全的。
+Activity 的状态是指在 Activity 消失时重新创建屏幕内容所需的信息，Activity 消失意味着被销毁或进程被终止。旋转屏幕是最明显的情况，我们已经在 ViewModel 部分提到了。保存在 ViewModel 的状态是安全的。
 
 但是，你可能需要在其他 ViewModel 也消失的场景中恢复状态。例如，当操作系统因资源不足杀死进程时。
 
@@ -132,7 +132,7 @@ snackbarMessage.setValue("Item saved!");
 
 > ✅ 使用像 [SingleLiveEvent](https://github.com/googlesamples/android-architecture/blob/dev-todo-mvvm-live/todoapp/app/src/main/java/com/example/android/architecture/blueprints/todoapp/SingleLiveEvent.java) 这样的 observable 来处理导航栏或者 SnackBar 显示消息这样的情况
 
-## Leaking ViewModels
+## ViewModels 的泄漏问题
 
 响应式范例在 Android 中运行良好，它允许在 UI 和应用程序的其他层之间建立方便的联系。 LiveData 是这个架构的关键组件，因此通常你的 Activity 和 Fragment 会观察 LiveData 实例。
 
@@ -146,7 +146,7 @@ ViewModel 如何与其他组件进行通信取决于你，但要注意泄漏问�
 
 ![](https://cdn-images-1.medium.com/max/800/1*OYyXV-qPtgmAlbDjI640KA.png)
 
-*Activity 已经结束了但是 ViewModel 还在苟且*
+*Activity 已经被销毁了但是 ViewModel 还在苟且*
 
 如果是一个轻量级 ViewModel 或可以保证操作快速完成，这个泄漏并不是什么大问题。但是，情况并不总是这样。理想情况下，ViewModels 在没有任何观察者的情况下不应该持有 ViewModel 的引用：
 
@@ -160,7 +160,7 @@ ViewModel 如何与其他组件进行通信取决于你，但要注意泄漏问�
 
 > ✅ 考虑边界情况，泄漏以及长时间的操作会对架构中的实例带来哪些影响。
 
-> ❌ 不要将跟保存干净状态和数据相关的逻辑放在 ViewModel 中。任何从 ViewModel 所做的调用都可以跟数据相关的。
+> ❌ 不要将保存原始状态和数据相关的逻辑放在 ViewModel 中。任何从 ViewModel 所做的调用都可能是数据相关的。
 
 ## 数据仓库中的 LiveData
 
