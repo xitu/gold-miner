@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/rebuilding-slack-com.md](https://github.com/xitu/gold-miner/blob/master/TODO/rebuilding-slack-com.md)
 > * 译者：[Raoul1996](https://github.com/Raoul1996)
-> * 校对者：[IridescentMia](https://github.com/IridescentMia)
+> * 校对者：[IridescentMia](https://github.com/IridescentMia)、[Usey95](https://github.com/Usey95)
 
 # 重建 slack.com
 
@@ -27,11 +27,11 @@ Slack.com (从左到右: 2013 年 8 月, 2017 年 1 月, 2017 年 8 月)
 
 ### 更干净、精简的代码
 
-旧的 slack.com 和我们基于 web 的 Slack 客户端共享了很多代码和资源依赖。我们的目标之一就是将网站和 “web app” 解耦，以简化我们的代码库。通过只包含我们运行 slack.com 所需要的资源的方式，可以提高站点的稳定性，减少开发人员的困惑，创建一个更容易迭代的代码库。这项工作的基本部分之一就是创建我们新的UI框架，名为：spacesuit: **👩🏾‍🚀**。
+旧的 slack.com 和我们基于 web 的 Slack 客户端共享了很多代码和资源依赖。我们的目标之一就是将网站和 “web app” 解耦，以简化我们的代码库。通过只包含我们运行 slack.com 所需要的资源的方式，可以提高站点的稳定性，减少开发人员的困惑，创建一个更容易迭代的代码库。这项工作的基本部分之一就是创建我们新的UI框架，名为 :spacesuit: **👩🏾‍🚀**。
 
-:spacesuit: 框架包含基于类(class)的可重用组件和用于标准化我们的营销页面的实用程序类。它降低了我们的 CSS 载荷，在一种情况下降低了近70%(从 416kB 降低至 132kB).
+:spacesuit: 框架包含基于类(class)的可重用组件和用于标准化我们营销页面的工具类。它降低了我们的 CSS 载荷，在一种情况下降低了近70%(从 416kB 降低至 132kB).
 
-其他有吸引力的数据：
+其他有意思的数据：
 
 * 声明数量从 1,881 降至 799 
 * 颜色数量从 91 降至 14 
@@ -39,7 +39,7 @@ Slack.com (从左到右: 2013 年 8 月, 2017 年 1 月, 2017 年 8 月)
 
 ![](https://cdn-images-1.medium.com/max/1000/0*Kx8ltSgpKXyXRdaD.)
 
-**_重建之前_**_：大量的高峰低谷表明 [CSS 特异性](https://csswizardry.com/2014/10/the-specificity-graph/)管理不善。_
+**_重建之前_**_：大量的波动表明 [CSS 特异性](https://csswizardry.com/2014/10/the-specificity-graph/)管理不善。_
 
 ![](https://cdn-images-1.medium.com/max/1000/0*BmFqbD-18McrbaDi.)
 
@@ -88,7 +88,7 @@ Slack.com (从左到右: 2013 年 8 月, 2017 年 1 月, 2017 年 8 月)
 </section>
 ```
 
-使用 CSS Grid，我们可以删除模拟网格所需要的额外标记，只需要在本地简单的创建一个就好。从 Grid 开始我们可以使用更少的标记。此外还要确保我们使用的标记是有语义的。
+使用 CSS Grid，我们可以删除模拟网格所需要的额外标记，只需要在本地简单的创建一个就好。使用 Grid 让我们可以使用更少的标记。此外还确保我们使用的标记是有语义的。
 
 ```
 <section class=”c-photo-collage c-photo-collage--three”>
@@ -107,8 +107,7 @@ Slack.com (从左到右: 2013 年 8 月, 2017 年 1 月, 2017 年 8 月)
 
 当 Modernizr 检测到网格支持的时候，页面默认为移动布局并重排。
 
-我们决定解决布局切换时抖动的体验比向后兼容更重要。在使用 CSS Grid 作为 FlexBox 和其他技术在需要的时候的增强和回退上，我们做了妥协。
-
+我们认为解决布局切换时抖动的体验比向后兼容更重要。折中方案是将 CSS Grid 作为增强方案，当有需要时回退到 Flexbox 和其他技术。
 我们使用了 CSS 功能查询来检测网格支持，而不是使用库。不幸的是，并不是每一个浏览器都支持功能查询。这就意味着只有能处理 `@supports` 规则的浏览器才能使用 CSS Grid 布局。因此，IE11，即使支持某些网格功能，也将会使用基于 FLexBox 的布局。
 
 我们使用一些目前尚未在所有浏览器中完全支持的 Grid 功能。最明显的就是基于百分比的 `grid-gap`。尽管 Safari 的某些版本已经支持这个属性，但是我们仍然需要预见到它的缺失。在实践中，Grid 对象的样式如下：
