@@ -3,11 +3,11 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/rollup-interview.md](https://github.com/xitu/gold-miner/blob/master/TODO/rollup-interview.md)
 > * 译者：[Raoul1996](https://github.com/Raoul1996)
-> * 校对者：
+> * 校对者：[Usey95](https://github.com/Usey95)
 
 # Rollup - 下一代 ES6 模块化打包工具 - 对 Rich Harris 的采访
 
-鉴于浏览器目前尚不能按照“原样”解析 JavaScript 源码，所以**打包**这一步必不可少。将源代码编译成浏览器可以能懂的形式，这是打包工具（例如 Browserify，Rollup 或者 webpack）存在的原因。
+鉴于浏览器目前尚不能按照“原样”解析 JavaScript 源码，所以**打包**这一步必不可少。将源代码编译成浏览器可以理解的形式，这是打包工具（例如 Browserify，Rollup 或者 webpack）存在的原因。
 
 为了深入探讨这个话题，我们正在采访 Rollup 的作者  [Rich Harris](https://twitter.com/Rich_Harris)。
 
@@ -19,11 +19,11 @@
 
 ## 你会怎样把 _Rollup_ 介绍给一个从未听说过它的人？
 
-Rollup 是一个模块化的打包工具。基本上，它会合并 JavaScript 文件。若非必要，你不需要去手动指定它们的顺序，或者去担心文件之间的变量名冲突。引擎内部实现会比说的复杂一点，但是它就是这么做的 —— 合并。
+Rollup 是一个模块化的打包工具。基本上，它会合并 JavaScript 文件。而且你不需要去手动指定它们的顺序，或者去担心文件之间的变量名冲突。引擎内部实现会比说的复杂一点，但是它就是这么做的 —— 合并。
 
 这么做的原因是你可以使用 ES2015 新增到语言中的 `import` 和 `export` 关键字来模块化编程，这样在很多方面上更加明智。因为浏览器和 Node.js 还没有提供原生的 ES2015 module（ESM）支持，所以我们模块必须在打包之后才能运行。
 
-Rollup 可以打包出自执行（self-executing）的 `<script>` 文件，AMD 模块，节点友好的 CommonJS 模块，UMD 模块（兼容三者），甚至是可以在 _其他_ 项目中使用的 ESM 模块。
+Rollup 可以打包出自执行（self-executing）的 `<script>` 文件，AMD 模块，Node 友好的 CommonJS 模块，UMD 模块（兼容三者），甚至是可以在 _其他_ 项目中使用的 ESM 模块。
 
 这是库的理想选择。实际上，大多数的 JavaScript 库（React，Vue，Angular，Glimmer，D3，Three.js，PouchDB，Moment，Most.js，Preact，Redux等）都是用 Rollup 构建的。
 
@@ -37,11 +37,11 @@ Rollup 可以打包出自执行（self-executing）的 `<script>` 文件，AMD �
 import foo from './foo.js';
 ```
 
-这就意味着 Rollup 需要去相对于 `index.js` 去加载，解析，分析 `./foo.js`。重复解析直到没有更多的模块被加载进来。更重要的是，所有的这些操作都是可插拔的，所以您可以从 `node_modules` 中导入或者使用 sourcemap-aware 的方式将 ES2015 编译成 ES5 代码。
+这就意味着 Rollup 需要去加载，解析，分析在 index.js 中引入的 ./foo.js。重复解析直到没有更多的模块被加载进来。更重要的是，所有的这些操作都是可插拔的，所以您可以从 `node_modules` 中导入或者使用 sourcemap-aware 的方式将 ES2015 编译成 ES5 代码。
 
 ## _Rollup_ 和其他解决方案有何不同？
 
-首先，零开销。传统的打包方式是将模块封装到独立的函数中，将这些函数放进一个数组中，然后实现一个可以将这些函数从数组中取出并按需执行的 `require` 函数。事实证明这样打包体积和启动时间都会很糟糕。
+首先，零开销。传统的打包方式是将模块封装到独立的函数中，将这些函数放进一个数组中，然后实现一个可以将这些函数从数组中取出并按需执行的 `require` 函数。事实证明这样打包体积和启动时间都会[很糟糕](https://nolanlawson.com/2016/08/15/the-cost-of-small-modules/)。
 
 相反，Rollup 事实上只是会合并你的代码 —— 没有任何浪费。所产生的包也可以更好的缩小。有人称之为 “范围提升（scope hoisting）”。
 
@@ -58,7 +58,7 @@ import foo from './foo.js';
 
 几年前，我正在开发一个名叫  [Ractive](https://ractive.js.org) 的项目。构建的过程让我十分沮丧。我们越是把代码库分解成模块，由于之前我描述的开销的原因，构建得越大。我们做了正确的事情但是却遭受着处罚。
 
-所以我谢了一个叫 Esperanto 的模块打包工具，并且作为单独的开源项目将其发布。敲，我们的打包体积缩小了，但是我并不满意。因为我读过 [Jo Liss](https://twitter.com/jo_liss) 写的关于如何设计静态分析的 ESM 能够让我们进行摇树优化（treeshaking），然而 Esperanto 做不到这一点。
+所以我写了一个叫 Esperanto 的模块打包工具，并且作为单独的开源项目将其发布。瞧，我们的打包体积缩小了，但是我并不满意。因为我读过 [Jo Liss](https://twitter.com/jo_liss) 写的关于如何设计静态分析的 ESM 能够让我们进行摇树优化（treeshaking），然而 Esperanto 做不到这一点。
 
 在 Esperanto 上增加摇树优化会非常困难，所以我放弃了它，并用 Rollup 重新开发。
 
@@ -70,19 +70,19 @@ import foo from './foo.js';
 
 当然到达那里我还有很长的路需要走，同时我还觉得我有着照看社区的责任，因为我一直是 ESM 的倡导者。
 
-现在我们正在进入一个激动人心的地方 —— 浏览器刚刚开始添加本地模块支持，而且现在 webpack 支持范围提升，在各处使用 ESM 都会有很实在的好处。所以我们希望尽快看到 ESM 从 CommonJS 模块中接管出来。（如果你还在写CommonJS，别写了！你这是在制造技术债务）.
+现在我们正在进入一个激动人心的地方 —— 浏览器陆续开始添加本地模块支持，而且现在 webpack 支持范围提升，在各处使用 ESM 都会有很实在的好处。所以我们希望尽快看到 ESM 接管 CommonJS。（如果你还在写CommonJS，别写了！你这是在制造技术债务）.
 
 ## 总的来说， _Rollup_ 和 web 开发在未来将会是什么样子？你有哪些预测呢？
 
 一方面，Rollup 会变得越来越过时。一旦浏览器提供原生的本地模块支持的时候，将会有一大类把打包（以及与之相关的一切 —— 编译，压缩等）作为一个可选而非必须的性能优化的应用。这将是 _大趋势_ ，尤其是对于 web 开发的新手来说。
 
-但是与此同时，我们越来越多的使用构建流程为我们的应用添加复杂的功能。我是这个的支持者 —— [Svelte](https://svelte.technology) 基本上是从声明模板为你编写应用程序的一个编译器。而且伴随着 WASM 以及其他东西的横空出世，他只会变得更激烈。
+但是与此同时，我们越来越多地使用构建流程为我们的应用添加复杂的功能。我是这个的支持者 —— [Svelte](https://svelte.technology) 基本上是从声明模板开始为你编写应用程序的一个编译器。而且伴随着 WASM 以及其他东西的横空出世，他只会变得更激烈。
 
 所以有两个看起来矛盾的趋势同时发生了，看看他们怎么发展将会是很有趣的。
 
 ## 您对进行 web 开发的程序员有什么建议呢？
 
-站在其他程序员的肩膀上。读源码，通过构建一些东西来体会开发，并以此为荣而不要自满。学习基础知识，因为任何的抽象都不可能天衣无缝（all abstractions are leaky）。搞清楚“何的抽象都不可能天衣无缝”的意思。关掉你的电脑，走出门外。因为大多数好戏都会在键盘之外发生。
+站在其他程序员的肩膀上。读源码，通过构建一些东西来体会开发，并以此为荣而不要自满。学习基础知识，因为任何的抽象都不可能天衣无缝（all abstractions are leaky）。搞清楚“任何的抽象都不可能天衣无缝”的意思。关掉你的电脑，走出门外。因为大多数好戏都会在键盘之外发生。
 
 最重要的是，采取一撮盐的编程建议（take programming advice with a pinch of salt）。 一旦有人达到别人开始要求他们提供建议的阶段，他们就忘记自己当初是新手的感觉。没有人无所不知，无所不能。
 
