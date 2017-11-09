@@ -13,8 +13,6 @@
 
 [**推荐优质英文文章到掘金翻译计划**](https://github.com/xitu/gold-miner/issues/new?title=推荐优秀英文文章&body=-%20原文链接：%0A-%20简要介绍：介绍一下好不好啦，毕竟小编也看不太懂哎_(:з」∠)_) （**推荐文章前 Google 一下，尽量保证本文未被翻译**）
 
----
-
 ### 翻译计划译者教程
 
 1. [如何参与翻译](https://github.com/xitu/gold-miner/wiki/%E5%A6%82%E4%BD%95%E5%8F%82%E4%B8%8E%E7%BF%BB%E8%AF%91)
