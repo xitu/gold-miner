@@ -11,7 +11,9 @@
 
 # 官方指南
 
-- [**推荐优质英文文章到掘金翻译计划**](https://github.com/xitu/gold-miner/issues/new?title=推荐优秀英文文章&body=-%20原文链接：%0A-%20简要介绍：介绍一下好不好啦，毕竟小编也看不太懂哎_(:з」∠)_) （**推荐文章前 Google 一下，尽量保证本文未被翻译**）
+[**推荐优质英文文章到掘金翻译计划**](https://github.com/xitu/gold-miner/issues/new?title=推荐优秀英文文章&body=-%20原文链接：%0A-%20简要介绍：介绍一下好不好啦，毕竟小编也看不太懂哎_(:з」∠)_) （**推荐文章前 Google 一下，尽量保证本文未被翻译**）
+
+---
 
 ### 翻译计划译者教程
 
@@ -21,6 +23,8 @@
 4. [文章分享到掘金指南](https://github.com/xitu/gold-miner/wiki/%E5%88%86%E4%BA%AB%E5%88%B0%E6%8E%98%E9%87%91%E6%8C%87%E5%8D%97)
 5. [译文排版规则指北](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E6%96%87%E6%8E%92%E7%89%88%E8%A7%84%E5%88%99%E6%8C%87%E5%8C%97)
 6. [十万个为什么](https://github.com/xitu/gold-miner/wiki/%E5%8D%81%E4%B8%87%E4%B8%AA%E4%B8%BA%E4%BB%80%E4%B9%88)
+
+---
 
 ### 积分及积分兑换
 
@@ -39,6 +43,8 @@
 ### Glossary
 
 1. [Glossary of Blockchain](https://github.com/xitu/gold-miner/wiki/Glossary-of-Blockchain)
+
+---
 
 # 官方账号
 
