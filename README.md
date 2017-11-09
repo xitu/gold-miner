@@ -7,16 +7,38 @@
 
 [掘金翻译计划](https://juejin.im/tag/%E6%8E%98%E9%87%91%E7%BF%BB%E8%AF%91%E8%AE%A1%E5%88%92) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖[人工智能](#ai--deep-learning--machine-learning)、[Android](#android)、[iOS](#ios)、[React](#react)、[前端](#前端)、[后端](#后端)、[产品](#产品)、[设计](#设计) 等领域，读者为热爱新技术的新锐开发者。
 
-掘金翻译计划目前翻译完成 [750](#近期文章列表) 余篇文章，共有 [480](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 余名译者贡献翻译。
+掘金翻译计划目前翻译完成 [750](#近期文章列表) 余篇文章，共有 [500](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 余名译者贡献翻译。
 
 # 官方指南
 
 - [**推荐优质英文文章到掘金翻译计划**](https://github.com/xitu/gold-miner/issues/new?title=推荐优秀英文文章&body=-%20原文链接：%0A-%20简要介绍：介绍一下好不好啦，毕竟小编也看不太懂哎_(:з」∠)_) （**推荐文章前 Google 一下，尽量保证本文未被翻译**）
-- [如何参与翻译](https://github.com/xitu/gold-miner/wiki/如何参与翻译)
-- [十万个为什么](https://github.com/xitu/gold-miner/wiki/十万个为什么)
-- [译文排版规则指北](https://github.com/xitu/gold-miner/wiki/译文排版规则指北)
-- [参与翻译所得的积分能做什么?](https://github.com/xitu/gold-miner/wiki/)
-- [译者积分表](https://github.com/xitu/gold-miner/blob/master/integrals.md)
+
+### 翻译计划译者教程
+
+1. [如何参与翻译](https://github.com/xitu/gold-miner/wiki/%E5%A6%82%E4%BD%95%E5%8F%82%E4%B8%8E%E7%BF%BB%E8%AF%91)
+2. [关于如何提交翻译以及后续更新的教程](https://github.com/xitu/gold-miner/wiki/%E5%85%B3%E4%BA%8E%E5%A6%82%E4%BD%95%E6%8F%90%E4%BA%A4%E7%BF%BB%E8%AF%91%E4%BB%A5%E5%8F%8A%E5%90%8E%E7%BB%AD%E6%9B%B4%E6%96%B0%E7%9A%84%E6%95%99%E7%A8%8B)
+3. [如何参与校对及校对的正确姿势](https://github.com/xitu/gold-miner/wiki/%E5%8F%82%E4%B8%8E%E6%A0%A1%E5%AF%B9%E7%9A%84%E6%AD%A3%E7%A1%AE%E5%A7%BF%E5%8A%BF)
+4. [文章分享到掘金指南](https://github.com/xitu/gold-miner/wiki/%E5%88%86%E4%BA%AB%E5%88%B0%E6%8E%98%E9%87%91%E6%8C%87%E5%8D%97)
+5. [译文排版规则指北](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E6%96%87%E6%8E%92%E7%89%88%E8%A7%84%E5%88%99%E6%8C%87%E5%8C%97)
+6. [十万个为什么](https://github.com/xitu/gold-miner/wiki/%E5%8D%81%E4%B8%87%E4%B8%AA%E4%B8%BA%E4%BB%80%E4%B9%88)
+
+### 积分及积分兑换
+
+1. [译者积分表](https://github.com/xitu/gold-miner/blob/master/integrals.md)
+2. [积分兑换：小礼物列表](https://github.com/xitu/gold-miner/wiki/%E7%A7%AF%E5%88%86%E5%85%91%E6%8D%A2)
+
+---
+
+### 其他
+
+1. [译者擅长领域表](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E6%93%85%E9%95%BF%E9%A2%86%E5%9F%9F%E8%A1%A8)
+2. [掘金翻译计划文章主要来源](https://github.com/xitu/gold-miner/wiki/%E6%8E%98%E9%87%91%E7%BF%BB%E8%AF%91%E8%AE%A1%E5%88%92%E6%96%87%E7%AB%A0%E4%B8%BB%E8%A6%81%E6%9D%A5%E6%BA%90)
+
+---
+
+### Glossary
+
+1. [Glossary of Blockchain](https://github.com/xitu/gold-miner/wiki/Glossary-of-Blockchain)
 
 # 官方账号
 
