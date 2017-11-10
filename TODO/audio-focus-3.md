@@ -5,7 +5,7 @@
 > * 译者：[oaosj](https://github.com/oaosj)
 > * 校对者：
 
-# 理解音频焦点 (第3/3部分)
+# 理解音频焦点 (第3/3部分)：三个步骤实现音频聚焦
 
 ![](https://cdn-images-1.medium.com/max/2000/1*2_mUAwAihjBYMszQCCL0Mw.png)
 
