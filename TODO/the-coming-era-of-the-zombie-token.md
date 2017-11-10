@@ -5,50 +5,50 @@
 > * 译者：
 > * 校对者：
 
-# The Coming Era of the Zombie Token?
+# 僵尸币时代即将到来?
 
-## Updated ICO Market Condition Observations
+## 更新版ICO市场状况调查
 
-One month ago we published [_Most ICOs Fail: Tale of Two Worlds_](https://hackernoon.com/most-icos-fail-tale-of-two-worlds-d1ab7625ff66) which looked beyond the breathless, positive headlines to better understand, on a project by project basis, the important nuances of the ICO market. That data betrayed an increasingly challenging market. The real story was that an increasing number of ICOs failed to achieve their funding objectives, often quite dramatically.
+一个月前我们发布了[大部分ICO失败：两个世界的故事_](https://hackernoon.com/most-icos-fail-tale-of-two-worlds-d1ab7625ff66) 在其中我们跳出了从令人乍舌的各种正面新闻转向通过每个项目对ICO市场中重要细节有更好的理解。其中的数据违背了日益面对巨大挑战的市场。真实情况是越来越多的ICO无法达成预设的融资目标，而且往往很明显。
 
-**Update: What Happened Over the Past Month?**
+**更新：过去的这个月发生了什么？**
 
-The headline remains very positive. In October 2017, 76 projects completed their ICO raising the equivalent of $700mm, a record month. However, as we observed last month, the market is becoming more selective with only 26 projects, 34% of the total, a new low, hitting their funding objectives. In addition, we believe there are at least a couple of dozen projects who have announced the launch of an ICO, yet have since gone silent publicly. These findings are consistent with the anecdotal signals we experience daily.
+新闻标题永远那么积极正面。2017年10月，76个项目完成了他们的ICO相当于7亿美元的自己，创纪录的一个月。 然而，正如我们上个月观察到的，市场变得更有选择性了，只有26个项目，总量的34%，完成了他们的集资目标，创了新低。另外，我们相信至少还有几十个项目宣布进行ICO，但是公开后一直保持沉默。以上这些发现都和我们经历的传闻一致。
 
 ![](https://cdn-images-1.medium.com/max/800/1*_AKom5HbpQqTMd2yfdNJAw.jpeg)
 
 ![](https://cdn-images-1.medium.com/max/800/1*E5p90fkjOxczb-8rQxgE2w.jpeg)
 
-**Criticism of Our Conclusions**
+**对我们的结论的批评**
 
-Our analysis and conclusions are based upon comparing publicly announced funding objectives with actual capital raised. Our measure of success is the arbitrarily selected hurdle of raising 75% of the stated objective. This approach has been fairly criticized; arguing that raising funding at all via an ICO, regardless of amount, constitutes success. In some cases, I’d wholeheartedly agree, particularly in a situation where the team had an ambitious funding goal, fell short, but still raised tens of millions in capital.
+我们的分析和结论基于公开宣布的集资目标和实际筹得的资金的对比。我们衡量成功的标准是随机选择的门槛即集资达到生命的目标的75%。这种做法收到了普遍批评；争论点是我们不看ICO集资的量来决定成功与否。在某种情况下我是完全同意的，特别是团队有巨大的融资目标但功亏一篑没有达成，却仍然还是集到了几千万的资本时。
 
-**The Coming Era of Zombie Tokens?**
+**僵尸币时代即将来临？**
 
-However, many projects have only raised modest amounts of capital via their ICOs. As an example, since June 2017 we count 82 projects which have raised $5mm or less, often far less.
+然而很多项目的ICO只筹集到了一个很普通的投资量。例如，从2017年6月开始我们数了数，有82个项目集资少于等于5百万，或者少很多很多。
 
-This creates a conundrum. Medium to long term, token value is fundamentally dependent upon i) token use within a “viable, live and sustainable” project and ii) token holder liquidity. The limited capital raised may increase the risk of getting to a viable project state and the small number of tokens issued virtually guarantees lack of liquidity. Unfortunately, we fear the combination may result in many “Zombie Tokens”.
+这造成了一个难题。从中长期来看，代币价值基本上决定于 1） 代币是在一个“可行的，有活力的，可持续的”项目中使用的 2）代币持有者的流动性。筹集的有限的资金可能会增加形成一个可行的项目的风险，同时发布的代币数量较少也暗示了代币缺乏流动性。不幸的是，我们担心以上两个因素可能形成许多“僵尸币”。
 
-We define Zombie Tokens as ones which i) lack critical mass of users/supporters, ii) lack sufficient funding to achieve the vision described in their white papers, iii) lack token holder liquidity and iv) will likely find it very difficult to raise additional capital in the future due to i) through iii). Further complicating this scenario, issuers often have fixed the token supply in perpetuity, possibly prohibiting future sales of additional tokens to raise needed capital.
+我们对僵尸币的定义如下 1）缺乏足够多的用户/支持者， 2）缺乏足够的资金来支持项目团队达成在白皮书中描述的愿景， 3）缺乏代币持有者流动性，4）我们可能会发现因为1）2）种描述的情况，将来很可能很难获得更多的资本。这些情况进一步复杂化，代币发行者常常永久性限定代币的发行量，以禁止将来为了获取投资的额外代币销售。
 
-Zombie Tokens are very different than outright failed projects. Zombie Tokens may actually contribute to project failure by i) signaling a limited number of supporters, ii) making it difficult to attract exchange listings and, if attracted, virtually guarantee inefficient price discovery and liquidity due to low volume, iii) create frustrated token holders who are constantly sniping. All of these factors distract and can create a negative feedback cycle.
+僵尸币和直接失败的项目不同。僵尸币往往导致了项目的失败，因为：1）发出支持者不多的信号 2）很难吸引交易所上市该项目，就算吸引到了，几乎可以断定由于低流量带来的低效价格和低流动性 3）产生一群会不断打冷枪的烦躁的代币持有者。以上这些因素会分散注意力并且形成一个负面反馈闭环。
 
-It’s easy to be critical. That’s not our intent. Our objective is to assist the crypto / blockchain community to create a robust yet rational, sustainable, legally and regulatory compliant marketplace for crypto currencies and tokens. We’ve been direct participants in past eras of irrational exuberance and believe, as well stated by Carlota Perez in [_Technological Revolutions and Financial Capital_](https://www.amazon.com/Technological-Revolutions-Financial-Capital-Dynamics/dp/1843763311), that such a state is a precursor to “great technological surges of development.” However, the immediate aftermath can be painful.
+站着说话不腰疼。这不是我们的目的。我们的目的实施帮助加密/区块链社区为加密货币和代币形成一个强大且合理的，持续的，合法也合规的市场。我们一直是过去非理性繁荣的直接参与者，我们相信根据Carlota Perez在 [_技术革命和金融资本_](https://www.amazon.com/Technological-Revolutions-Financial-Capital-Dynamics/dp/1843763311) 中说的，此时的状态是一个“伟大的技术发展浪潮”的前兆。但是，现阶段的后果是痛苦的。
 
-**Suggestions for Consideration**
+**供考虑的几点建议**
 
-We are crypto / blockchain believers but recognize that the market will suffer growing pains, some of which are beginning to manifest today. For those seeking to use tokens as a funding vehicle or as an in-platform incentive mechanism, we’d suggest considering the following:
+我们虽然是加密/区块链信徒却认可市场将会经历痛苦，有些现阶段已经开始显现。对于那些想要使用代币作为融资工具或者平台内激励机制的团队，我们的建议如下：
 
-1.  Prepare carefully, assume a challenging market reception with tough questions and increasingly higher purchaser expectations.
-2.  Assume that you will need to engage with the growing number of professional crypto purchasers to successfully complete an ICO.
-3.  Assume the regulators will regulate eventually, in some manner. Take steps to mitigate current and prospective risks.
-4.  Build in flexibility to adapt to the future unknown. For example, be cautious about pre-determining all token terms. Adaptation for platform use case or additional capital may be advantageous.
+1. 认真准备，假设会遇到棘手的问题和严峻市场接受度，同时购买者的期望也越来越高。
+2. 假设你要和越来越多的专业加密货币买手打交道来完成一次ICO。
+3. 假设监管者迟早要用某种形式来监管的。提前采取措施来减轻现有的和将来的危机。
+4. 形成适应未来未知的灵活性。比如，小心的定义所有代币条款。对平台用例和额外资本的适应会是个优势。
 
-**Open Source Backup Materials**
+**开源的备份资料**
 
-For those interested, [here](https://docs.google.com/spreadsheets/d/1cpDOY_AnbO9UiUIDde7CagHzfOTDHVw4l927_7sdKSw/edit?usp=sharing) is the Google Spreadsheet for all our data analytics. We intend to allow for commenting, editing and corrections.
+给有兴趣的人，[此处](https://docs.google.com/spreadsheets/d/1cpDOY_AnbO9UiUIDde7CagHzfOTDHVw4l927_7sdKSw/edit?usp=sharing) 是我们所有数据分析的google表格。我们打算允许评论，编辑和订正。
 
-On a final note, we are aware of the ongoing debate on the proper words to use to describe what has become colloquially known as an ICO or Initial Coin Offering. We prefer Token Distribution, others have gelled around TGE or Token Generation Event. Regardless, it’s form over substance in our mind. The regulators are not going to be influenced by the name used to describe this type of transaction. We’ve stuck with ICO in this article as it’s the most commonly used and widely understood term.
+最后说一下，我们知道现在有关于俗称的 ICO 也就是初始代币发行的用词正确性的讨论。我们更喜欢用 Token Distribution，有的人倾向于 TGE 或者 Token Generation Event. 不管是哪一种，对我们而言他都只是描述事物的一种形式。监管机构将不会受到用来描述这一类交易的名字的影响。我们在本文中只能继续用ICO因为这是最常见也最被广泛理解的术语。
 
 
 ---
