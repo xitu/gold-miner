@@ -10,7 +10,6 @@
 ![](https://cdn-images-1.medium.com/max/2000/1*2_mUAwAihjBYMszQCCL0Mw.png)
 
 
-
 本系列文章旨在让您深入理解音频焦点的含义，使用方法和其对用户体验的重要性。本篇文章是该系列的第一部分，该系列三篇文章包含了：
 
 1.  [最常见的音频焦点用例和成为一个优秀的媒体事业人员的重要性](https://medium.com/@nazmul/audio-focus-1-6b32689e4380)
