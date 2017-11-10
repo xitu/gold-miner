@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/viewmodels-a-simple-example.md](https://github.com/xitu/gold-miner/blob/master/TODO/viewmodels-a-simple-example.md)
 > * 译者：[huanglizhuo](https://github.com/huanglizhuo)
-> * 校对者：[chuanxing](https://github.com/zhaochuanxing)
+> * 校对者：[chuanxing](https://github.com/zhaochuanxing) [miguoer](https://github.com/miguoer)
 
 # ViewModels 简单入门
 
@@ -11,7 +11,7 @@
 
 两年前，我在做 [给 Android 入门的课程](https://www.udacity.com/course/android-development-for-beginners--ud837)，教零基础学生开发 Android App。其中有一部分是教学生构建一个简单 App 叫做 [Court-Counter](https://github.com/udacity/Court-Counter).
 
-Court-Counter 是一个只有几个按钮来修改篮球比赛分数的 App。成品有些 bug，比如你旋转手机手，当前保存的分数会莫名归零。
+Court-Counter 是一个只有几个按钮来修改篮球比赛分数的 App。最终的App有一个bug，如果你旋转手机，当前保存的分数会莫名归零。
 
 ![](https://cdn-images-1.medium.com/max/800/1*kZ5CiWnpSC0-aQeModzpNA.gif)
 
@@ -23,7 +23,7 @@ Court-Counter 是一个只有几个按钮来修改篮球比赛分数的 App。�
 
 [**ViewModel**](https://developer.android.com/reference/android/arch/lifecycle/ViewModel.html) 类旨在以有生命周期的方式保存和管理与UI相关的数据。 这使得数据可以在屏幕旋转等配置变化的情况下不丢失。
 
-这篇文章是在一系列探索ViewModel的细节中的第一个。 在这篇文章中，我会：
+这篇文章是详细探索ViewModel系列文章中的第一篇。 在这篇文章中，我会：
 
 - 解释ViewModel满足的基本需求
 - 通过更改 Court-Counter 代码以使用 ViewModel 解决旋转问题
@@ -35,7 +35,7 @@ Court-Counter 是一个只有几个按钮来修改篮球比赛分数的 App。�
 
 ![](https://cdn-images-1.medium.com/max/800/1*CGGROXWhl8dTko1GdDeFsA.png)
 
-Activity 会经历所有这些状态，也可能需要把暂时的用户界面数据存储在内存中。这里将把临时UI数据定义为UI所需的数据。列子中包括用户输入的数据，运行时生成的数据或者是数据库加载的数据。这些数据可以是bitmap， RecyclerView 所需的对象列表等等，在这个例子中，是指篮球得分。
+Activity 会经历所有这些状态，也可能需要把暂时的用户界面数据存储在内存中。这里将把临时UI数据定义为UI所需的数据。例子中包括用户输入的数据，运行时生成的数据或者是数据库加载的数据。这些数据可以是bitmap， RecyclerView 所需的对象列表等等，在这个例子中，是指篮球得分。
 
 以前你可能用过 [onRetainNonConfigurationInstance](https://developer.android.com/reference/android/app/Activity.html#onRetainNonConfigurationInstance%28%29) 方法在配置更改期间保存和恢复数据。但是，如果你的数据不需要知道或管理 Activity 所处的生命周期状态，这样写会不会导致代码过于冗杂？如果 Activity 中有一个像scoreTeamA 这样的变量，虽然与 Activity 生命周期紧密相连，但又存储在Activity之外的地方呢？**这就是 ViewModel 类的目的**。
 
@@ -55,7 +55,7 @@ ViewModel从你首次请求创建ViewModel（通常在onCreate的Activity）时�
 
 #### 第一步: 创建 ViewModel 类
 
-一般来讲，需要为每屏都创建一个ViewModel类。这个ViewModel类将保存与该屏相关的所有数据，提供 getter 和 setter。这样就将数据与 UI 显示逻辑分开了，UI逻辑在Activities 或 Fragments中，数据保存在 ViewModel 中。好了，接下来为 Court-Counter 中的一个屏创建ViewModel类：
+一般来讲，需要为每个界面都创建一个ViewModel类。这个ViewModel类将保存与该屏相关的所有数据，提供 getter 和 setter。这样就将数据与 UI 显示逻辑分开了，UI逻辑在Activities 或 Fragments中，数据保存在 ViewModel 中。好了，接下来为 Court-Counter 中的一个屏创建ViewModel类：
 
 ```
 public class ScoreViewModel extends ViewModel {
@@ -73,7 +73,7 @@ public class ScoreViewModel extends ViewModel {
 
 你的UI控制器（Activity或Fragment）需要访问你的ViewModel。这样，UI控制器就可以在UI交互发生时显示和更新数据，例如按下按钮以增加 Court-Counter 中的分数。
 
-ViewModels不持有 Activities ，Fragments  或者 [**Context**](https://developer.android.com/reference/android/content/Context.html) 的引用。
+ViewModels不应该持有 Activities ，Fragments  或者 [**Context**](https://developer.android.com/reference/android/content/Context.html) 的引用。
 
 此外，ViewModels也不应包含包含对UI控制器（如Views）引用的元素，因为这将创建对Context的间接引用。
 
