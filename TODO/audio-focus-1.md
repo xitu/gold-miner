@@ -5,11 +5,10 @@
 > * 译者：[oaosj](https://github.com/oaosj)
 > * 校对者：
 
-# 理解音频焦点 (第1/3部分)
+# 理解音频焦点 (第1/3部分)：常见的音频焦点用例
 
 ![](https://cdn-images-1.medium.com/max/2000/1*2_mUAwAihjBYMszQCCL0Mw.png)
 
-## 常见的音频焦点用例
 
 Android手机支持多个应用同时播放音频。操作系统会把多个音频流混合在一起播放，但是多个应用同时播放音频，给用户带来的体验往往不佳。为了提供更友好的用户体验，Android提供了一个[API](https://developer.android.com/guide/topics/media-apps/audio-focus.html)，让应用程序可以共享**音频焦点**，旨在保证同一时段内只有一个应用可以维持音频聚焦。
 
