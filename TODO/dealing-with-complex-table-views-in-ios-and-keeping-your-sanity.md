@@ -4,7 +4,6 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/dealing-with-complex-table-views-in-ios-and-keeping-your-sanity.md](https://github.com/xitu/gold-miner/blob/master/TODO/dealing-with-complex-table-views-in-ios-and-keeping-your-sanity.md)
 > * 译者：[zhangqippp](https://github.com/zhangqippp)
-> * 校对者：
 
 # 处理 iOS 中复杂的 Table Views 并保持优雅
 
