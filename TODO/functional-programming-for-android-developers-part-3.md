@@ -11,9 +11,10 @@
 
 In the last post, we learned about _immutability_ and _concurrency_. In this one, we’ll look at _Higher Order Functions_ and _Closures._
 
-If you haven’t read part 2, please read it here:
+If you haven’t read part 1 and part 2, please read it here:
 
-[Functional Programming for Android Developers — Part 2](https://medium.freecodecamp.com/functional-programming-for-android-developers-part-2-5c0834669d1a)
+- [Android 开发者如何函数式编程 （一）](https://github.com/xitu/gold-miner/blob/master/TODO/functional-programming-for-android-developers-part-1.md)
+- [Android 开发者如何函数式编程 （二）](https://github.com/xitu/gold-miner/blob/master/TODO/functional-programming-for-android-developers-part-2.md)
 
 ### Higher Order Functions
 
