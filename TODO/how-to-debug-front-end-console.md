@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/how-to-debug-front-end-console.md](https://github.com/xitu/gold-miner/blob/master/TODO/how-to-debug-front-end-console.md)
 > * 译者：[lsvih](https://github.com/lsvih)
-> * 校对者：
+> * 校对者：[Raoul1996](https://github.com/Raoul1996)
 
 # 前端 Console 调试小技巧
 
@@ -21,7 +21,7 @@
 *   在页面任何元素上右键，选择“检查”。
 *   在 Mac 中，按下 Command+Option+I；在 Windows 与 Linux 中，按下 Ctrl+Shift+I。
 
-请观察 Console 栏中有什么。
+请观察 Console 选项卡中的内容。
 
 ![](https://cdn-images-1.medium.com/max/800/0*ZggoM0sI_jj1QafW.)
 
@@ -29,7 +29,7 @@
 
 ![](https://cdn-images-1.medium.com/max/600/1*-EAbAlPJaC22sk1R4z6GPA.png)
 
-- 清除 console 控制台
+- 清空 console 控制台
 
 `top` — 在默认状态下，Console 的上下文（context）为 top（顶级）。不过当你检查元素或使用 Chrome 插件上下文时，它会发生变化。
 你可以在此更改 console 执行的上下文（页面的顶级 frame）。
@@ -41,7 +41,7 @@
 `Hide network` — 隐藏诸如 404 之类的网络错误。
 `Preserve log` — 控制台将会在页面刷新或者跳转时不清空记录。
 `Selected context only` — 勾上后可以根据前面 top 选择的上下文来指定控制台的日志记录范围。
-`User messages only` — 隐藏浏览器产生的警告。
+`User messages only` — 隐藏浏览器产生的访问异常之类的警告。
 `Log XMLHttpRequests` — 顾名思义，记录 XMLHttpRequest 产生的信息。
 `Show timestamps` — 在控制台中显示时间戳信息。
 `Autocomplete from history` — Chrome 会记录你曾经输入过的命令，进行自动补全。
@@ -122,7 +122,7 @@ for(var i =0; i <=3; i++){
 
 #### console.table()
 
-很好用的调试函数，但即使它会提高工作效率，我也一般懒得用它…… 别像我这样，咱要保持效率。
+很好用的调试函数，但即使它会提高工作效率，我也一般懒得用它…… 别像我这样，咱要保持高效。
 
 ```
 var fruits = [
@@ -135,7 +135,7 @@ console.table(fruits);
 
 ![](https://cdn-images-1.medium.com/max/800/0*qe69gSjpDllYrGvY.)
 
-它非常棒。第一，你可以将所有东西都整齐地放在表格中；第二，你也会得到 `console.log` 的结果。在 Chrome 中它可以正常工作，但不保证在所有浏览器都能正常使用它。
+它非常棒。第一，你可以将所有东西都整齐地放在表格中；第二，你也会得到 `console.log` 的结果。它在 Chrome 中可以正常工作，但是不保证兼容所有浏览器。
 
 ```
 var fruits = [
@@ -207,7 +207,7 @@ console.dir([1,2]);
 #### $_, $0 — $4
 
 `$_` 会返回最近执行表达式的值。
-`$0 — $4` — 分别作为近 5 此检查元素时对元素的引用。
+`$0 — $4` — 分别作为近 5 此检查元素时对 HTML 元素的引用。
 
 ![](https://cdn-images-1.medium.com/max/800/0*J1jrQOkNHzaDA_hu.)
 
@@ -227,7 +227,7 @@ console.dir([1,2]);
 
 ![](https://cdn-images-1.medium.com/max/800/0*Dr5KRB77jQrjjdA4.)
 
-在 Element 栏中按 ESC 键展开这个界面。
+在 Element 标签中按 ESC 键展开这个界面。
 
 在 `$` 没有另做它用的情况下：
 
@@ -236,7 +236,7 @@ console.dir([1,2]);
 
 #### 复制在控制台中打印的数据
 
-有时，当你处理数据时可能会想打个草稿，或者简单地看看两个对象是否有区别。这时将所有东西都打印出来再去复制可能会很麻烦，在此介绍一种很方便的方法。
+有时，当你处理数据时可能会想打个草稿，或者简单地看看两个对象是否有区别。全选之后再复制可能会很麻烦，在此介绍一种很方便的方法。
 
 在打印出的对象上点击右键，选择 copy（复制），或选择 Store as global element（将指定元素的引用存储在全局作用域中），然后你就可以在控制台中操作刚才存储的元素啦。
 
