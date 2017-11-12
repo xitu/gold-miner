@@ -2,57 +2,57 @@
 > * 原文作者：[Michał Witkowski](https://blog.pragmatists.com/@WitkowskiMichau?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/how-to-debug-front-end-console.md](https://github.com/xitu/gold-miner/blob/master/TODO/how-to-debug-front-end-console.md)
-> * 译者：
-> * 校对者：
+> * 译者：[lsvih](https://github.com/lsvih)
+> * 校对者：[Raoul1996](https://github.com/Raoul1996)
 
-# How to debug Front-end: Console
+# 前端 Console 调试小技巧
 
 ![](https://cdn-images-1.medium.com/max/800/1*7YqeM-SzGWEHzbROo_MyAQ.jpeg)
 
-Software developers produce code and introduce bugs, not intentionally, but they do. The older the bug is, the harder it is to find and fix. In this series of articles, I’ll try to show what you can do by using Google Chrome Devtools, Chrome plugins and WebStorm.
+开发者们在开发的过程中会无意地产生一些 bug。bug 越老，找到并修复它的难度就越高。在本系列的文章中，我将试着向你展示如何使用 Google Chrome 开发者工具、Chrome 插件以及 WebStorm 进行调试。
 
-This tutorial will be about Chrome Console, the most commonly used debugging tool. Enjoy!
+这篇文章将介绍最常用的调试工具 —— Chrome Console。请享用！
 
 ### Console
 
-To open Chrome DevTools:
+打开 Chrome 开发者工具的方法：
 
-*   Select More Tools > Developer Tools from Chrome’s Main Menu.
-*   Right-click a page element and select Inspect.
-*   Press Command+Option+I (Mac) or Control+Shift+I (Windows, Linux).
+*   在主菜单中选择“更多工具”菜单 > 点击开发者工具。
+*   在页面任何元素上右键，选择“检查”。
+*   在 Mac 中，按下 Command+Option+I；在 Windows 与 Linux 中，按下 Ctrl+Shift+I。
 
-Look at the Console tab and what is there.
+请观察 Console 选项卡中的内容。
 
 ![](https://cdn-images-1.medium.com/max/800/0*ZggoM0sI_jj1QafW.)
 
-First row:
+第一行：
 
 ![](https://cdn-images-1.medium.com/max/600/1*-EAbAlPJaC22sk1R4z6GPA.png)
 
-- clear console
+- 清空 console 控制台
 
-`top` — by default, the Console context is top, unless you inspect some element, or Chrome plugin context.
-You can change the context of execution (the top frame of the page).
+`top` — 在默认状态下，Console 的上下文（context）为 top（顶级）。不过当你检查元素或使用 Chrome 插件上下文时，它会发生变化。
+你可以在此更改 console 执行的上下文（页面的顶级 frame）。
 
-**Filter:**
-Filters console output. You can filter by severity level, regular expression, or by hiding network messages.
+**过滤：**
+对控制台的输出进行过滤。你可以根据输出严重级别、正则表达式对其进行过滤，也可以在此隐藏网络连接产生的消息。
 
-**Settings:**
-`Hide network` — Hide network errors such as 404.
-`Preserve log` — Console will keep logs between refreshes or navigation.
-`Selected context only` — We can change the context of logs in [top].
-`User messages only` — Hide browser-generated [violation] warnings.
-`Log XMLHttpRequests` — I can’t say more than this checkbox says.
-`Show timestamps` — timestamps are visible in the console below.
-`Autocomplete from history` — Chrome _does_ remember what you typed ;)
+**设置：**
+`Hide network` — 隐藏诸如 404 之类的网络错误。
+`Preserve log` — 控制台将会在页面刷新或者跳转时不清空记录。
+`Selected context only` — 勾上后可以根据前面 top 选择的上下文来指定控制台的日志记录范围。
+`User messages only` — 隐藏浏览器产生的访问异常之类的警告。
+`Log XMLHttpRequests` — 顾名思义，记录 XMLHttpRequest 产生的信息。
+`Show timestamps` — 在控制台中显示时间戳信息。
+`Autocomplete from history` — Chrome 会记录你曾经输入过的命令，进行自动补全。
 
-### Chosen Console API
+### 选择合适的 Console API
 
-The console will run every JS code you’ll type in, in your application context. So if something is available in a global scope, you can easily see it via the console. You can also simply type and see the result of an expression e.g.: “null === 0”.
+控制台会在你应用的上下文中运行你输入的 JS 代码。你可以轻松地通过控制台查看全局作用域中存储的东西，也可以直接输入并查看表达式的结果。例如：“null === 0”。
 
-#### console.log — reference
+#### console.log — 对象引用
 
-By definition, console.log prints an output to the console. That part you probably know; what might be new for you is that console.log keeps a reference to the object you are displaying. Look at the code below.
+根据定义，console.log 将会在控制台中打印输出内容。除此之外，你还得知道，console.log 会对你展示的对象保持引用关系。请看下面的代码：
 
 ```
 var fruits = [{one: 1}, {two: 2}, {three: 3}];
@@ -65,17 +65,17 @@ console.log('fruits after modification - stringed : ', JSON.stringify(fruits))
 
 ![](https://cdn-images-1.medium.com/max/800/0*L5q3tcszjc1IYXRT.)
 
-When debugging objects or arrays, you need to be careful. We see that `_fruits_` before modification contains 3 objects, but they are no longer there. To see results in this particular moment, use `JSON.stringify` to keep the information visible. Of course, that might not be convenient with bigger objects. Don’t worry; later on, we’ll find a better solution.
+当调试对象或数组时，你需要注意这点。我们可以看到 `fruits` 数组再被修改前包含 3 个对象，但之后发生了变化。如需要在特定时刻查看结果，可以使用 `JSON.stringify` 来展示信息。不过这种方法对于展示大对象来说并不方便。之后我们会介绍更好的解决方案。
 
-#### console.log — sorting object properties
+#### console.log — 对对象属性进行排序
 
-Does JavaScript guarantee object property order?
+JavaScript 是否能保证对象属性的顺序呢？
 
-> 4.3.3 Object — ECMAScript Third Edition (1999)
+> 4.3.3 Object — ECMAScript 第三版 (1999)
 
-> An object is a member of the type Object. It is an unordered collection of properties, each of which contains a primitive value, object, or function. A function stored in a property of an object is called a method.
+> 对象是 Object 的成员，它是一组无序属性的集合，每个属性都包含一个原始值、对象或函数。称存储在对象属性中的函数为方法。
 
-Later… in ES5 it has slightly changed — but you can’t be sure if your object properties will be in order or not. Browsers have implemented this in various ways. If we look at the Chrome result, we’ll see something disturbing.
+但是…… 在 ES5 中它的定义发生了改变，属性可以有序 —— 但你还是不能确定你的对象属性是否能按顺序排列。浏览器通过各种方法实现了有序属性。在 Chrome 中运行下面的代码，可以看到令人困惑的结果：
 
 ```
 var letters = {
@@ -89,11 +89,11 @@ console.log('fruits - stringify', JSON.stringify(letters));
 
 ![](https://cdn-images-1.medium.com/max/800/0*aISOsYX8-BnOtWy4.)
 
-Surprise! Chrome sorted properties in alphabetical order, to help us. I can’t decide if I like it or not, but it’s good to know it might happen.
+Chrome 按照字母表的顺序对属性进行了排序。没法说我们是否应该喜欢这种排序方式，但了解这儿发生了什么总没坏处。
 
 #### console.assert(expression, message)
 
-`Console.assert` throws up an error if the evaluated expression is `false`. Crucially, assert does not stop code from further evaluation. It might help to debug long and tricky code,or find bugs which reveal themselves after several iterations.
+如果 expression 表达式的结果为 `false`，`Console.assert` 将会抛出错误。关键的是，assert 函数不会由于报错而停止评估之后的代码。它可以帮助你调试冗长棘手的代码，或者找到多次迭代后函数自身产生的错误。
 
 ```
 function callAssert(a,b) {
@@ -107,7 +107,7 @@ callAssert(1,1);
 
 #### console.count(label)
 
-Put simply, it’s a `console.log` that counts how many times it has been called with the same expression. THE SAME.
+简而言之，它就是一个会计算相同表达式执行过多少次的 `console.log`。其它的都一样。
 
 ```
 for(var i =0; i <=3; i++){
@@ -118,11 +118,11 @@ for(var i =0; i <=3; i++){
 
 ![](https://cdn-images-1.medium.com/max/800/0*2yH13TAvSFpKrTWn.)
 
-As you can see in the example, only the exact same string had a number.
+如上面的例子所述，只有完全相同的表达式才会增加统计数字。
 
 #### console.table()
 
-Great debugging function, but sometimes I’m just too lazy to use it, even though it would probably speed up my work… so please don’t make this mistake. Be efficient.
+很好用的调试函数，但即使它会提高工作效率，我也一般懒得用它…… 别像我这样，咱要保持高效。
 
 ```
 var fruits = [
@@ -135,7 +135,7 @@ console.table(fruits);
 
 ![](https://cdn-images-1.medium.com/max/800/0*qe69gSjpDllYrGvY.)
 
-Great… firstly, you got everything nicely placed in the table; secondly, you have `console.log` added as well. Good work Chrome, but that’s not all.
+它非常棒。第一，你可以将所有东西都整齐地放在表格中；第二，你也会得到 `console.log` 的结果。它在 Chrome 中可以正常工作，但是不保证兼容所有浏览器。
 
 ```
 var fruits = [
@@ -148,12 +148,11 @@ console.table(fruits, ['name'])
 
 ![](https://cdn-images-1.medium.com/max/800/0*Fv8KsLDQIPY8yfJN.)
 
-We can decide if we want to see all of it, or some columns from the whole object.
-The table is sortable– just click on the header of the column you want to sort.
+我们可以决定是完全展示数据内容还是只展示整个对象的某几列。这个表格是可排序的 —— 点击需要排序的列的表头，即可按此列对表格进行排序。
 
 #### console.group() / console.groupEnd();
 
-We’ll start with code this time. Let’s see how grouping works for console.
+这次让我们直接从代码开始介绍。运行下面的代码看看控制台是如何进行分组的。
 
 ```
 console.log('iteration');
@@ -172,11 +171,11 @@ for(var firstLevel = 0; firstLevel<2; firstLevel++){
 
 ![](https://cdn-images-1.medium.com/max/800/0*X3vtX9amAT_Or_DO.)
 
-Great if you are working with data, and going deep…
+它可以帮助你更好的处理数据。
 
 #### console.trace();
 
-Trace prints stack trace into Console. Good to know, especially if you are building libraries or frameworks.
+console.trace 会将调用栈打印在控制台中。如果你正在构建库或框架时，它给出的信息将十分有用。
 
 ```
 function func1() {
@@ -193,7 +192,7 @@ func1();
 
 ![](https://cdn-images-1.medium.com/max/800/0*4JoZfbntg4bGr03y.)
 
-#### console.log vs console.dir
+#### 对比 console.log 与 console.dir
 
 ```
 console.log([1,2]);
@@ -202,61 +201,62 @@ console.dir([1,2]);
 
 ![](https://cdn-images-1.medium.com/max/800/0*SI2ge80spD1WY9yI.)
 
-Here, the implementation depends on the browser. Initially, dir was supposed to keep the reference to an object, whereas log was not.(Log was displaying a copy of an object). Now as we saw before, log also keeps the reference. Let’s stay with that, as they display objects differently. Not a big deal, and useful with debugging HTML objects.
+它们的实现方式取决于浏览器。在最开始的时候，规范中建议 dir 要保持对对象的引用，而 log 不需要引用。（Log 会显示一个对象的副本）。但现在，如上图所示，log 也保持了对于对象的引用。它们展示对象的方式有所不同，但我们不再加以深究。不过 dir 在调试 HTML 对象的时候会非常有用。
+> 译注：console.dir 会详细打印一个对象的所有属性与方法。
 
 #### $_, $0 — $4
 
-`$_` returns the value of the most recently evaluated expression.
-`$0 — $4` — work as a historical reference to the last 5 inspected HTML elements.
+`$_` 会返回最近执行表达式的值。
+`$0 — $4` — 分别作为近 5 此检查元素时对 HTML 元素的引用。
 
 ![](https://cdn-images-1.medium.com/max/800/0*J1jrQOkNHzaDA_hu.)
 
 #### getEventListeners(object)
 
-Returns event listeners registered on specific DOM elements.There is also a more convenient way to set listeners, but I’ll cover that in the next tutorial.
+返回指定 DOM 元素上注册的事件监听器。这儿还有一种更便捷的方法来设置事件监听，下次教程会介绍它。
 
 ![](https://cdn-images-1.medium.com/max/800/0*JrWFBmu3UKYy-nFj.)
 
 ### monitorEvents(DOMElement, [events]) / unmonitorEvents(DOMElement)
 
-If any of these set events are triggered, we’ll get information in the console. Until you unmonitor the event.
+在指定 DOM 元素上触发任何事件时，都可以在控制台中看到相关信息。直到取消对相应元素的监视。
 
 ![](https://cdn-images-1.medium.com/max/800/0*PJTUIgivpcMGnrRP.)
 
-### Selecting elements in Console
+### 在控制台中选择元素
 
 ![](https://cdn-images-1.medium.com/max/800/0*Dr5KRB77jQrjjdA4.)
 
-To open this screen, press ESC in Element tab.
+在 Element 标签中按 ESC 键展开这个界面。
 
-If there is nothing other assigned to `$`
+在 `$` 没有另做它用的情况下：
 
-`$()` — `**document.querySelector()**`**.** Returns the first element, matching a CSS selector (e.g. `$(‘span’)` will return the first span).
-`$$()` — `**document.querySelectorAll()**`. Returns an array of elements that match the CSS selector inside.
+`$()` — 相当于 `**document.querySelector()**`。它会返回匹配 CSS 选择器的第一个元素（例如 `$('span')` 会返回第一个 span）
+`$$()` — 相当于 `**document.querySelectorAll()**`。它会以数组的形式返回所有匹配 CSS 选择器的元素。
 
-#### Copy printed data
+#### 复制打印的数据
 
-Sometimes, you are working on data. You might want to create a draft, or simply see if there is any difference between two objects. Highlighting everything and then copying might be hard. Happily, there is another way.
+有时，当你处理数据时可能会想打个草稿，或者简单地看看两个对象是否有区别。全选之后再复制可能会很麻烦，在此介绍一种很方便的方法。
 
-Click with your right mouse button on the object and press copy, or store it as a global element. Then you can operate on the stored element in the console.
+在打印出的对象上点击右键，选择 copy（复制），或选择 Store as global element（将指定元素的引用存储在全局作用域中），然后你就可以在控制台中操作刚才存储的元素啦。
 
-Anything in the console can also be copied by using `copy(‘object-name’)`.
+控制台中的任何内容都可以通过使用 `copy('object-name')` 进行复制。
 
-#### Style console output
+#### 自定义控制台输出样式
 
-Imagine again that you’re working on a library, or a big module that your whole team/company will work with. It would be nice to highlight some logs in dev mode. You can do it; try the code below.
+假设你正在开发一个库，或者在为公司、团队开发一个大模块。此时在开发模式下对一些日志进行高亮处理会很舒爽。你可以试试下面的代码：
 
-`console.log(‘%c Truly hackers code! ‘, ‘background: #222; color: #bada55’);`
+`console.log('%c Truly hackers code! ', 'background: #222; color: #bada55');`
 
 ![](https://cdn-images-1.medium.com/max/800/0*RYIJp1JEZhZ7Nqm8.)
 
-`%d` or `%i` — Integer
-`%f` — floating point value
-`%o` — Expandable DOM element
-`%O` — Expandable JS object
-`%c` — Formats outputs with CSS
+`%d` 或 `%i` — 整型值
+`%f` — 浮点值
+`%o` — 可展开的 DOM 元素
+`%O` — 可展开的 JS 对象
+`%c` — 使用 CSS 格式化输出
 
-That is all for today, but not all in this topic. Below, you’ll find links for further reading.
+以上就是本文的全部内容，但并不是 Console 这个话题的全部内容。你可以点击以下链接了解更多有关知识：
 
 *   [Command Line API Reference](https://developers.google.com/web/tools/chrome-devtools/console/command-line-reference) by Google
 *   [Console API](https://developer.mozilla.org/en-US/docs/Web/API/Console) by MDN
