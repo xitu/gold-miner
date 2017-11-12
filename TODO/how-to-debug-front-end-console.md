@@ -34,7 +34,7 @@
 `top` — 在默认状态下，Console 的上下文（context）为 top（顶级）。不过当你检查元素或使用 Chrome 插件上下文时，它会发生变化。
 你可以在此更改 console 执行的上下文（页面的顶级 frame）。
 
-**Filter（过滤器）：**
+**过滤：**
 对控制台的输出进行过滤。你可以根据输出严重级别、正则表达式对其进行过滤，也可以在此隐藏网络连接产生的消息。
 
 **设置：**
@@ -219,7 +219,7 @@ console.dir([1,2]);
 
 ### monitorEvents(DOMElement, [events]) / unmonitorEvents(DOMElement)
 
-在指定 DOM 元素上触发任何事件时，都可以在控制台中看到相关信息。直到调用 unmoniterEvents 取消事件监视。
+在指定 DOM 元素上触发任何事件时，都可以在控制台中看到相关信息。直到取消对相应元素的监视。
 
 ![](https://cdn-images-1.medium.com/max/800/0*PJTUIgivpcMGnrRP.)
 
