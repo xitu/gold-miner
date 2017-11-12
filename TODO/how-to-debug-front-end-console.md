@@ -234,7 +234,7 @@ console.dir([1,2]);
 `$()` — 相当于 `**document.querySelector()**`。它会返回匹配 CSS 选择器的第一个元素（例如 `$('span')` 会返回第一个 span）
 `$$()` — 相当于 `**document.querySelectorAll()**`。它会以数组的形式返回所有匹配 CSS 选择器的元素。
 
-#### 复制在控制台中打印的数据
+#### 复制打印的数据
 
 有时，当你处理数据时可能会想打个草稿，或者简单地看看两个对象是否有区别。全选之后再复制可能会很麻烦，在此介绍一种很方便的方法。
 
@@ -256,7 +256,7 @@ console.dir([1,2]);
 `%O` — 可展开的 JS 对象
 `%c` — 使用 CSS 格式化输出
 
-以上就是本文的全部内容，但并没能完整介绍控制台这个主题。你可以点击以下链接了解更多有关知识：
+以上就是本文的全部内容，但并不是 Console 这个话题的全部内容。你可以点击以下链接了解更多有关知识：
 
 *   [Command Line API Reference](https://developers.google.com/web/tools/chrome-devtools/console/command-line-reference) by Google
 *   [Console API](https://developer.mozilla.org/en-US/docs/Web/API/Console) by MDN
