@@ -148,45 +148,45 @@ Angular 是一个框架而不是一个库，因为它提供了关于如何构建
 
 另一方面，Angular 还有一个令人困惑的构建工具，样板，检查器（linter）和时间片来处理。 如果使用项目初始套件或样板，React 也是如此。 他们自然是非常有帮助的，但是 React 可以开箱即用，这也许是你应该学习的方式。 有时，在 Javascript 环境下工作所需的各种工具被称为 “Javascript 疲劳”。有时，在 JavaScript 环境中工作要使用各种工具被称为 “Javascript 疲劳”。 [Eric Clemmons](https://medium.com/@ericclemmons) 在他的 [文章](https://medium.com/@ericclemmons/javascript-fatigue-48d4011b6fc4) 中说：
 
-> There are still a bunch of installed tools, you are not used to, when starting with the framework. These are generated but probably a lot of developers do not understand, what is happening under the hood — or it takes a lot of time for them to do.
+> 当开始使用框架，还有一堆安装的工具，你会不习惯。 这些都是生成的，但可能很多开发人员不明白，底下发生了什么 - 或者需要花费很多时间才能明白。
 
-Vue seems to be the cleanest and lightest of the three frameworks. GitLab has a [blog post about its decision regarding Vue.js](https://about.gitlab.com/2016/10/20/why-we-chose-vue/) (October 2016):
+Vue 似乎是三个框架中最干净和最轻量的。 GitLab 有一篇 [关于 Vue.js（2016 年 10 月）的决定的博客文章](https://about.gitlab.com/2016/10/20/why-we-chose-vue/)：
 
-> Vue.js comes with the perfect balance of what it will do for you and what you need to do yourself.(…) Vue.js is always within reach, a sturdy, but flexible safety net ready to help you keep your programming efficient and your DOM-inflicted suffering to a minimum.
+> Vue.js 完美的兼顾了它将为你做什么和你需要做什么。（...）Vue.js 始终是可及的，一个坚固，但灵活的安全网，保证编程效率和把DOM 造成的痛苦降到最低。
 
-They like the simplicity and ease of use — the source code is very readable, and no documentation or external libraries are needed. Everything is very straightforward. Vue.js “does not make large assumptions about much of anything either”. There’s also a [podcast about GitLab’s decision](https://www.youtube.com/watch?v=ioogrvs2Ejc#action=share).
+他们喜欢简单易用 - 源代码非常易读，不需要任何文档或外部库。 一切都非常简单。 Vue.js “对任何东西都不做大的假设”。 还有一个 [关于 GitLab 的决定的播客](https://www.youtube.com/watch?v=ioogrvs2Ejc#action=share)。
 
-Another blogpost [about a shift towards](http://pixeljets.com/blog/why-we-chose-vuejs-over-react/) Vue comes from Pixeljets. React “was a great step forward for JS world in terms of [state-awareness](https://en.wikipedia.org/wiki/Single_source_of_truth), and it showed lots of people the real functional programming in a good, practical way”. One of the big cons of React vs. Vue is the problem of splitting components into smaller components because of the JSX restrictions. Here is a quote of the article:
+另一个来自 Pixeljets 的 [关于向 Vue 转变](http://pixeljets.com/blog/why-we-chose-vuejs-over-react/) 的博文。 React “是JS界在 [意识层面](https://en.wikipedia.org/wiki/Single_source_of_truth) 向前迈出的一大步，它以很好，实用的方式向很多人展示了真正的函数式编程。 React 对 Vue 的一大缺点是由于 JSX 的限制，将组件拆分成更小的组件。 这里是文章的引述：
 
-> For me and my team the readability of code is important, but it is still very important that writing code is fun. It is not funny to create 6 components when you are implementing really simple calculator widget. In a lot of cases, it is also bad in terms of maintenance, modifications, or applying visual overhaul to some widget, because you need to jump around multiple files/functions and check each small chunk of HTML separately. Again, I am not suggesting to write monoliths — I suggest to use components instead of microcomponents for day-to-day development.
+> 对于我和我的团队来说，代码的可读性是很重要的，但编写代码很有趣也是非常重要的。 在实现真正简单的计算器小部件时创建 6 个组件并不奇怪。 在许多情况下，在维护，修改或对某个小部件进行可视化检查方面也是不好的，因为您需要绕过多个文件/函数并分别检查每个小块的 HTML。 再次，我不是建议写巨石 - 我建议在日常开发中使用组件而不是微组件。
 
-There are interesting discussions about the blog post on [Hacker news](https://news.ycombinator.com/item?id=13151317) and [Reddit](https://www.reddit.com/r/webdev/comments/5ho71i/why_we_chose_vuejs_over_react/) — there are arguments from dissenters and further supporters of Vue alike.
+关于 [Hacker news](https://news.ycombinator.com/item?id=13151317) 和 [Reddit](https://www.reddit.com/r/webdev/comments/5ho71i/why_we_chose_vuejs_over_react/) 上的博客文章有趣的讨论 - 有来自 Vue 的持异议者和进一步支持者的争论。
 
 ### 状态管理和数据绑定
 
-Building UIs is hard, because there are states everywhere — data changing over time entails complexity. Defined state workflows are a big help when apps grow and get more complex. For limited applications, this is probably overkill and something like Vanilla JS would be sufficient.
+构建用户界面很困难，因为处处都有状态 - 随着时间的推移而变化的数据带来了复杂性。 定义的状态工作流程对于应用程序的增长和复杂性有很大的帮助。 对于复杂度不大的应用程序，就不必定义的状态流了，像原生 JS 就足够了。
 
-How does it work? Components describe the UI at any point in time. When data changes, the framework re-renders the entire UI component — displayed data is always up-to-date. We can call this concept “UI as function”.
+它是如何工作的？ 组件在任何时间点描述 UI。 当数据改变时，框架重新渲染整个 UI 组件 - 显示的数据始终是最新的。 我们可以把这个概念称为“ UI 即功能”。
 
-React often works bundled with Redux. **Redux** describes itself in three [fundamental principles](http://redux.js.org/docs/introduction/ThreePrinciples.html):
+React 经常与 Redux 在一起使用。**Redux** 以三个 [基本原则](http://redux.js.org/docs/introduction/ThreePrinciples.html) 来描述自己：
 
-- Single source of truth
-- State is read-only
-- Changes are made with pure functions
+- 单一的来源
+- 状态只读
+- 用纯函数进行更改
 
-In other words: the status of the complete application is stored in an object tree within a single store. This helps with debugging the application, and some functionalities are easier to implement. The state is read-only and can only be changed via actions to avoid race conditions (it also helps with debugging). Reducers are written to specify how the states can be transformed by actions.
+换句话说：完整应用程序的状态存储在单个存储中的对象树中。这有助于调试应用程序，一些功能更容易实现。状态是只读的，只能通过动作来改变，以避免竞争条件（这也有助于调试）。编写 Reducer 来指定如何通过 action 来转换 state。
 
-Most of the tutorials and boilerplates have Redux already integrated, but you can use React without it (and you might not need Redux in your project at all). Redux introduces complexity and pretty strong constraints into your code. If you are learning React, you should think about learning plain React before you head over to Redux. You should definitely read “[You might not need Redux](https://medium.com/@dan_abramov/you-might-not-need-redux-be46360cf367)” by [Dan Abramov](https://medium.com/@dan_abramov).
+大多数教程和样板文件都已经集成了 Redux，但是如果没有它，你可以使用 React（你可能不需要在你的项目中使用 Redux）。 Redux 在代码中引入了复杂性和相当强的约束。如果你正在学习React，那么在你回到 Redux 之前，你应该考虑学习简单的 React。你肯定应该阅读 [Dan Abramov](https://medium.com/@dan_abramov) 的 “[你可能不需要Redux](https://medium.com/@dan_abramov/you-might-not-need-redux-be46360cf367)”。
 
-[Some developers](https://news.ycombinator.com/item?id=13151577) suggest the use of **[Mobx](https://github.com/mobxjs/mobx) instead of Redux**. You can think of it as an “automatic Redux”, which makes things much easier to use and understand at the outset. If you want to have a look, you should start with the [introduction](https://mobxjs.github.io/mobx/getting-started.html). You can also read this [useful comparison between Redux & MobX](https://www.robinwieruch.de/redux-mobx-confusion/) by Robin. The same author also offers information on [moving from Redux to MobX](https://www.robinwieruch.de/mobx-react/). [This list](https://github.com/voronianski/flux-comparison) is useful if you want to check on other Flux libraries. And if you are coming from an MVC-world, you’ll want to read the article “[Thinking in Redux (when all you’ve known is MVC)](https://medium.com/p/thinking-in-redux-when-all-youve-known-is-mvc-c78a74d35133?source=user_popover)” by [Mikhail Levkovsky](https://medium.com/@mlovekovsky).
+[有些开发人员](https://news.ycombinator.com/item?id=13151577) 建议使用 **[Mobx](https://github.com/mobxjs/mobx) 而不是 Redux**。你可以把它看作是一个 “自动 Redux”，这使得事情一开始就更容易使用和理解。如果你想看看，你应该从 [介绍](https://mobxjs.github.io/mobx/getting-started.html) 开始。你也可以阅读Robin 的 [Redux 和 MobX的比较](https://www.robinwieruch.de/redux-mobx-confusion/)。他还提供了有关 [从 Redux 移动到 MobX](https://www.robinwieruch.de/mobx-react/) 的信息。如果您想查找其他 Flux 库，[此列表](https://github.com/voronianski/flux-comparison) 非常有用。如果你是来自 MVC 世界，那么你应该阅读 [Mikhail Levkovsky](https://medium.com/@mlovekovsky) 的文章 “[Redux 中的思考（当你所知道的是 MVC）](https://medium.com/p/thinking-in-redux-when-all-youve-known-is-mvc-c78a74d35133?source=user_popover)”。
 
-Vue can make use of Redux — but it offers [Vuex](https://github.com/vuejs/vuex) as its own solution.
+Vue 可以使用 Redux，但它提供了 [Vuex](https://github.com/vuejs/vuex) 作为自己的解决方案。
 
-A big difference between React and Angular is **one-way vs. two-way binding**. Angular’s two-way-binding changes the model state when the UI element (e.g. a user input) is updated. React only goes one way: it updates the model first and then it renders the UI element. Angular’s method is cleaner in the code and easier for the developer to implement. React’s way results in a better data overview, because the data only flows in one direction (this makes debugging easier).
+React 和 Angular 之间的巨大差异是 **单向与双向绑定**。当 UI 元素（例如，用户输入）被更新时，Angular 的双向绑定改变模型状态。 React 只有一种方法：先更新模型，然后呈现 UI 元素。 Angular 的方法在代码中更干净，开发人员更容易实现。 React 的方式导致更好的数据总览，因为数据只能在一个方向上流动（这使得调试更容易）。
 
-Both concepts have there pros and cons. You need to understand the concepts and determine if this influences your framework decision. The article “[Two-way-data binding: Angular 2 and React](https://www.accelebrate.com/blog/two-way-data-binding-angular-2-and-react/)” and [this Stackoverflow question](https://stackoverflow.com/questions/34519889/can-anyone-explain-the-difference-between-reacts-one-way-data-binding-and-angula) both offer a good explanation. [Here](http://n12v.com/2-way-data-binding/) you can find some interactive code examples (3 years old, for Angular 1 & React only). Last but not least, Vue supports both [one-way-binding and two-way-binding](https://medium.com/js-dojo/exploring-vue-js-reactive-two-way-data-binding-da533d0c4554) (one-way by default).
+这两个概念都有优点和缺点。您需要了解这些概念，并确定这是否会影响您的框架决策。文章 “[双向数据绑定：Angular 2 和 React](https://www.accelebrate.com/blog/two-way-data-binding-angular-2-and-react/)” 和  [这个 Stackoverflow 上的问题](https://stackoverflow.com/questions/34519889/can-anyone-explain-the-difference-between-reacts-one-way-data-binding-and-angula) 都提供了一个很好的解释。[在这里](http://n12v.com/2-way-data-binding/) 你可以找到一些交互式的代码示例（3 年前的示例，只适用于 Angular 1 和 React）。最后但并非最不重要的，Vue 支持 [单向绑定和双向绑定](https://medium.com/js-dojo/exploring-vue-js-reactive-two-way-data-binding-da533d0c4554)（默认为单向绑定）。
 
-There is a long article about different types of states and the [state management in Angular applications](https://blog.nrwl.io/managing-state-in-angular-applications-22b75ef5625f) (by [Victor Savkin](https://medium.com/@vsavkin)) if you want to read further.
+如果您想进一步阅读，这有一篇长文，是有关 [Angular 应用程序中不同类型状态和状态管理](https://blog.nrwl.io/managing-state-in-angular-applications-22b75ef5625f) （[Victor Savkin](https://medium.com/@vsavkin)）。
 
 ### 其他一些编程概念
 
@@ -242,7 +242,7 @@ Javascript 框架在客户端上渲染页面。 这对于性能，整体用户�
 
 ### 学习曲线
 
-Angular 的学习曲线确实很陡。 它有全面的文档，但有时你可能会感到沮丧，因为 [事情比听起来更难](https://www.reddit.com/r/webdev/comments/5ho71i/why_we_chose_vuejs_over_react/db1vppj/)。 即使你对 Javascript 有深入的了解，也需要了解框架的底层原理。 刚开始初始化项目是很神奇的，它提供了很多被引入的软件包和代码。 因为有一个大的，预先存在的生态系统，你需要随着时间的推移学习，这很不利。 另一方面，由于已经做出了很多决定，所以在特定情况下可能会很好。 对于 React，您可能需要针对第三方库进行大量重大决策。仅仅 React 中就有 16 种 [不同的 flux 软件包来用于状态管理](https://github.com/voronianski/flux-comparison)可供选择。
+Angular 的学习曲线确实很陡。 它有全面的文档，但有时你可能会感到沮丧，因为 [事情比听起来更难](https://www.reddit.com/r/webdev/comments/5ho71i/why_we_chose_vuejs_over_react/db1vppj/)。 即使你对 Javascript 有深入的了解，也需要了解框架的底层原理。 刚开始初始化项目是很神奇的，它提供了很多被引入的软件包和代码。 因为有一个大的，预先存在的生态系统，你需要随着时间的推移学习，这很不利。 另一方面，由于已经做出了很多决定，所以在特定情况下可能会很好。 对于 React，您可能需要针对第三方库进行大量重大决策。仅仅 React 中就有 16 种 [不同的 flux 软件包来用于状态管理](https://github.com/voronianski/flux-comparison) 可供选择。
 
 Vue 很容易学习。 公司转向 Vue 是因为它对初级开发者来说似乎更容易。 这里有一片说他们团队为什么 [从 Angular 转到 Vue](https://medium.com/@Hemantisme/moving-from-angular-to-vue-a-vuetiful-journey-c29842ab2039) 的文章。[另一位用户](https://news.ycombinator.com/item?id=13151716) 表示，他公司的 React 应用程序非常复杂，以至于新开发人员无法跟上代码。 通过 Vue，初级和高级开发人员之间的差距缩小了，他们可以更轻松地协作，减少 bug，解决问题和时间。
 
@@ -254,7 +254,9 @@ Vue 很容易学习。 公司转向 Vue 是因为它对初级开发者来说似�
 
 ### Angular, React 和 Vue 底层原理
 
-你想自己阅读源代码吗？ 你想看看事情到底是怎么样的？ 可能首先要查看 Github 存储库：React（[github.com/facebook/react](https://github.com/facebook/react)），Angular（[github.com/angular/angular](https://github.com/angular/angular)）和Vue（[github.com/vuejs/vue](https://github.com/vuejs/vue)）。
+你想自己阅读源代码吗？ 你想看看事情到底是怎么样的？ 
+
+可能首先要查看 Github 存储库：React（[github.com/facebook/react](https://github.com/facebook/react)），Angular（[github.com/angular/angular](https://github.com/angular/angular)）和Vue（[github.com/vuejs/vue](https://github.com/vuejs/vue)）。
 
 语法看起来如何？ ValueCoders [比较 Angular，React 和 Vue 的语法](http://www.valuecoders.com/blog/technology-and-apps/vue-js-comparison-angular-react/)。
 
@@ -270,7 +272,6 @@ Vue 很容易学习。 公司转向 Vue 是因为它对初级开发者来说似�
 - [phoenix-trello](https://github.com/bigardone/phoenix-trello/blob/master/README.md)（仿 Trello）
 - [slack-clone](https://github.com/avrj/slack-clone) 和 [其他教程](https://medium.com/@benhansen/lets-build-a-slack-clone-with-elixir-phoenix-and-react-part-1-project-setup-3252ae780a1) (仿Slack)
 
-There are some apps for Angular:
 以下是 Angular 版的 app：
 
 - [angular2-hn](https://github.com/housseindjirdeh/angular2-hn) 和 [hn-ng2](https://github.com/hswolff/hn-ng2) （仿 Hacker News，[一个由 Ashwin Sureshkumar 创建另一个很好的教程](https://medium.com/@Sureshkumar_Ash/angular-2-hackernews-clone-dynamic-components-routing-params-and-refactor-340773d82e6f)）
