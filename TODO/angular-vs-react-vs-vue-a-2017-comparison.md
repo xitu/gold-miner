@@ -3,12 +3,12 @@
 > * 原文作者：[Jens Neuhaus](https://medium.com/@jensneuhaus?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/angular-vs-react-vs-vue-a-2017-comparison.md](https://github.com/xitu/gold-miner/blob/master/TODO/angular-vs-react-vs-vue-a-2017-comparison.md)
-> * 译者：
+> * 译者：[Hyde Song](https://github.com/HydeSong)
 > * 校对者：
 
 # Angular、React、Vue 三剑客: 在 2017 年的比较
 
-决定 web 应用的 JavaScript 开发框架是一件很费劲的事。现如今 [Angular](https://angular.io/) 和 [React](https://facebook.github.io/react/) 非常流行， 并且有一个新贵，最近引起了很大的关注： [VueJS](https://vuejs.org/)。 更重要的是，这只是一些 [新事物](https://hackernoon.com/top-7-javascript-frameworks-c8db6b85f1d0).
+决定 web 应用的 JavaScript 开发框架是一件很费劲的事。现如今 [Angular](https://angular.io/) 和 [React](https://facebook.github.io/react/) 非常流行， 并且有一个新贵，最近引起了很大的关注： [VueJS](https://vuejs.org/)。 更重要的是，这只是一些 [新事物](https://hackernoon.com/top-7-javascript-frameworks-c8db6b85f1d0)。
 
 ![2017 年的 Javascript— 现在事情并不简单！](https://cdn-images-1.medium.com/max/800/1*xRhs4h2a_rGpXNpoSNlA9w.png)
 
@@ -86,68 +86,68 @@ Angular 和 Vue 都可以在 **MIT license** 许可下获得，而 React 带有 
 
 Facebook [在其设计原则中指出](https://facebook.github.io/react/contributing/design-principles.html#stability)，React API 非常稳定。还有一些脚本可以帮助您从当前的API移到更新的版本：请查阅 [react-codemod](https://github.com/reactjs/react-codemod)。迁移是非常容易的，没有这样的东西（需要）作为长期支持的版本。在这篇 Reddit 文章中，人们注意到升级 [从来不是问题](https://www.reddit.com/r/reactjs/comments/5a45ai/is_react_a_good_choice_for_a_stable_longterm_app/)。React 团队写了一篇关于他们 [版本控制方案](https://facebook.github.io/react/blog/2016/02/19/new-versioning-scheme.html) 的博客文章。当他们添加弃用警告时，在下一个主要版本中的行为发生更改之前，他们会保留当前版本的其余部分。没有计划更改为新的主要版本 - v14 于 2015 年 10 月发布，v15 于 2016 年 4 月发布，而 v16 还没有发布日期。最近 [React核心开发人员指出](https://github.com/facebook/react/issues/8854#issuecomment-312527769)，升级不应该是一个问题。
 
-Regarding Angular, there is a blog post [about versioning and releasing](http://angularjs.blogspot.de/2016/10/versioning-and-releasing-angular.html) Angular starting with the v2 release. There will be one major update every six months, and there will be a deprecation period of at least six months (two major releases). There are some experimental APIs marked in the documentation with shorter deprecation periods. There is no official announcement yet, but according [to this article](https://www.infoq.com/news/2017/04/ng-conf-2017-keynote), the Angular team has announced **long-term-support versions starting with Angular 4**. Those will be supported for at least one year beyond the next major version release. This means Angular 4 will be supported until at least **September 2018** with bug-fixes and important patches. In most cases, updating Angular from v2 to v4 is as easy as updating the Angular dependencies. Angular also [offers a guide](https://angular-update-guide.firebaseapp.com/) with information as to whether further changes are needed.
+关于 Angular，从 v2 发布开始，有一篇 [关于版本管理和发布 Angular](http://angularjs.blogspot.de/2016/10/versioning-and-releasing-angular.html) 的博客文章。每六个月会有一次重大更新，至少有六个月的时间（两个主要版本）。在文档中有一些实验性的 API 被标记为较短的弃用期。目前还没有官方公告，但 [根据这篇文章](https://www.infoq.com/news/2017/04/ng-conf-2017-keynote)，Angular 团队已经宣布了以 Angular 4 开始的长期支持版本。这些将在下一个主要版本发布之后至少一年得到支持。这意味着至少在 **2018 年 9 月** 之前，将支持 Angular 4，并提供 bug 修复和重要补丁。在大多数情况下，将 Angular 从 v2 更新到 v4 与更新 Angular 依赖关系一样简单。Angular 还提供了有关是否需要进一步更改的 [信息指南](https://angular-update-guide.firebaseapp.com/)。
 
-The update process for Vue 1.x to 2.0 should be easy for a small app — the developer team has asserted [that 90% of the APIs](https://vuejs.org/v2/guide/migration.html) stayed the same. There is a [nice upgrade-diagnostic migration-helper](https://github.com/vuejs/vue-migration-helper) tool working on the console. One developer [noted](https://news.ycombinator.com/item?id=13151966) that the update from v1 to v2 was still no fun in a big app. Unfortunately, there is no clear (public) roadmap about the next major version or information on plans for LTS versions.
+Vue 1.x 到 2.0 的更新过程对于一个小应用程序来说应该很容易 - 开发者团队已经声称 90% 的 API 保持不变。在控制台上有一个很好的升级 - 诊断迁移 - 辅助工具。 一位开发人员 [指出](https://news.ycombinator.com/item?id=13151966)，从 v1 到 v2 的更新在大型应用程序中仍然没有挑战。 不幸的是，关于 LTS 版本的下一个主要版本或计划信息没有清晰的（公共）路线图。
 
-One more thing: Angular is a full framework and offers a lot of things bundled together. React is more flexible than Angular, and you will probably wind up using more independent, unsettled, fast-moving libraries — this means that you need to take care of the corresponding updates and migrations on your own. It could also be a detriment if certain packages are no longer maintained or some other package becomes the de facto standard at some point.
+还有一件事：Angular 是一个完整的框架，提供了很多捆绑在一起的东西。 React 比 Angular 更灵活，你可能会使用更多独立的，不稳定的，快速更新的库 - 这意味着你需要自己维护相应的更新和迁移。 如果某些包不再被维护，或者其他一些包在某些时候成为事实上的标准，这也可能是不利的。
 
 
 ### 人力资源和招聘
 
-If you have in-house HTML developers who do not want to learn more Javascript, you are better off choosing Angular or Vue. React entails more Javascript (we talk about this later).
+如果你的团队有不需要了解更多 Javascript 技术的 HTML 开发人员，则最好选择 Angular 或 Vue。React 需要了解更多的 JavaScript 技术（我们稍后再谈）。
 
-Do you have designers working close to the code? The user “pier25” notes on Reddit [that React makes sense if you are working for Facebook, where everyone is a superhero developer](https://www.reddit.com/r/webdev/comments/5ho71i/why_we_chose_vuejs_over_react/deuynwc/). In the real world, you won’t always find a designer who can modify JSX — as such, working with HTML templates will be much easier.
+你的团队有工作时接触代码的设计师吗？ Reddit 上的用户 “pier25” 指出，如果你在 Facebook 工作，[每个人都是一个大神开发者，React 是有意义的](https://www.reddit.com/r/webdev/comments/5ho71i/why_we_chose_vuejs_over_react/deuynwc/)。在现实世界中，你不会总是找到一个可以修改 JSX 的设计师，因此使用 HTML 模板将会更容易。
 
-The good thing about the Angular framework is that a new Angular 2 developer from another company will quickly familiarize themselves with all the requisite conventions. React projects are each different in terms of architectural decisions, and developers need to get familiar with the particular project setup.
+Angular 框架的好处是来自另一家公司的新的 Angular 2 开发人员将很快熟悉所有必要的约定。 React 项目在架构决策方面各不相同，开发人员需要熟悉特定的项目设置。
 
-Angular is also good if you have developers with an object-oriented background or who don’t like Javascript. To drive that point home, here is [a quote from Mahesh Chand](http://www.c-sharpcorner.com/article/angular-2-or-react-for-decision-makers/):
+如果您的开发人员具有面向对象的背景或者不喜欢 Javascript，Angular 也是很好的选择。 为了推动这一点，这里是[Mahesh Chand 引述](http://www.c-sharpcorner.com/article/angular-2-or-react-for-decision-makers/)：
 
-> I am not a JavaScript developer. My background is building large-scale enterprise systems using “real” software platforms. I started in 1997 building applications using C, C++, Pascal, Ada, and Fortran. (…) I can clearly say that JavaScript is just gibberish to me. Being a Microsoft MVP and expert, I have a good understanding of TypeScript. I also don’t see Facebook as a software development company. However, Google and Microsoft are already the largest software innovators. I feel more comfortable working with a product that has strong backing from Google and Microsoft. Also (…) with my background, I know Microsoft has even bigger plans for TypeScript.
+> 我不是一个 JavaScript 开发人员。 我的背景是使用 “真正的” 软件平台构建大型企业系统。 我从 1997 年开始使用 C，C ++，Pascal，Ada 和 Fortran 构建应用程序。 （...）我可以清楚地说，JavaScript 对我来说简直是胡言乱语。 作为 Microsoft MVP 和专家，我对 TypeScript 有很好的理解。 我也不认为 Facebook 是一家软件开发公司。 但是，Google 和微软已经是最大的软件创新者。 我觉得使用 Google 和微软强大支持的产品会更舒服。 另外（...）与我的背景，我知道微软有更大的 TypeScript 计划。
 
-Well, then… I should probably mention that Mahesh is a Regional Director at Microsoft.
+那么，那么......我应该提到，Mahesh是微软的区域总监。
 
-## Comparison of React, Angular & Vue
+## React，Angular 和 Vue 的比较
 
-### Components
+### 组件
 
-The frameworks in question are all component-based. A component gets an input, and after some internal behavior / computing, it returns a rendered UI template (a sign in / sign out area or a to-do list item) as output. The defined components should be easy to reuse on the webpage or within other components. For example, you could have a grid component (consisting of a header component and several row components) with various properties (columns, header information, data rows, etc.) and be able to reuse the component with different data sets on another page. Here is [a comprehensive article about components](https://derickbailey.com/2015/08/26/building-a-component-based-web-ui-with-modern-javascript-frameworks/), in case you’d like to learn more about this.
+我们所讨论的框架都是基于组件的。 一个组件得到一个输入，并且在一些内部的行为/计算之后，它返回一个渲染的 UI 模板（一个登录/注销区或一个待办事项列表项）作为输出。 定义的组件应该易于在网页或其他组件中重用。 例如，您可以使用具有各种属性（列，标题信息，数据行等）的网格组件（由一个标题组件和多个行组件组成），并且能够在另一个页面上使用具有不同数据集的组件。 这里有一篇 [关于组件的综合性文章](https://derickbailey.com/2015/08/26/building-a-component-based-web-ui-with-modern-javascript-frameworks/)，如果你想了解更多这方面的信息。
 
-React and Vue both excel at handling dumb components: small, stateless functions that receive an input and return elements as output.
+React 和 Vue 都擅长处理组件：小型的无状态的函数接收输入和返回元素作为输出。
 
-### Typescript vs. ES6 vs. ES5
+### Typescript，ES6 和 ES5
 
-React focuses on the use of Javascript ES6. Vue uses Javascript ES5 or ES6.
+React 专注于使用 Javascript ES6。Vue 使用 Javascript ES5 或 ES6。
 
-Angular relies on **TypeScript**. This offers more consistency in related examples and open source projects (React examples can be found in either ES5 or ES6). This also introduces concepts like decorators and static types. Static types are useful for code intelligence tools, like automatic refactoring, jump to definitions, etc. — they are also supposed to reduce the number of bugs in an application., though there certainly isn’t consensus on this topic. [Eric Elliott](https://medium.com/@_ericelliott) disagrees in his article “[The shocking secret about static types](https://medium.com/javascript-scene/the-shocking-secret-about-static-types-514d39bf30a3)”. Daniel C Wang says that the [cost of using static types does no harm](https://medium.com/@danwang74/the-economics-between-testing-and-types-4a3f8c8a86eb) and that it’s good to have both test-driven development (TDD) and static typing.
+Angular 依赖于TypeScript。这在相关示例和开源项目中提供了更多的一致性（React 示例可以在 ES5 或 ES6 中找到）。 这也引入了像装饰器和静态类型的概念。 静态类型对于代码智能工具非常有用，比如自动重构，跳转到定义等等 - 它们也可以减少应用程序中的错误数量，尽管这个话题当然没有共识。 [Eric Elliott](https://medium.com/@_ericelliott) 在他的文章 “[静态类型的令人震惊的秘密](https://medium.com/javascript-scene/the-shocking-secret-about-static-types-514d39bf30a3)” 中不同意。 Daniel C Wang 表示，[使用静态类型的代价并没有什么坏处](https://medium.com/@danwang74/the-economics-between-testing-and-types-4a3f8c8a86eb)，同时也有测试驱动开发（TDD）和静态类型。
 
-You should also probably know that you [can use Flow to enable type-checking within React](https://www.sitepoint.com/writing-better-javascript-with-flow/). It’s a static type-checker developed by Facebook for JavaScript. Flow can [also be integrated into VueJS](https://alligator.io/vuejs/components-flow/).
+你也应该知道你 [可以使用 Flow 在 React 中启用类型检查](https://www.sitepoint.com/writing-better-javascript-with-flow/)。 这是 Facebook 为 JavaScript 开发的静态类型检查器。 Flow [也可以集成到 VueJS 中](https://alligator.io/vuejs/components-flow/)。
 
-If you are writing your code in TypeScript, you are not writing standard JavaScript anymore. Even though it’s growing, TypeScript still has a tiny user base compared to that of the whole JavaScript language. One risk could be that you’re moving in the wrong direction because TypeScript may — however unlikely it is — also disappear over time. Additionally, TypeScript adds a lot of (learning) overhead to projects — you can read more about this in the [Angular 2 vs. React comparison](https://medium.com/javascript-scene/angular-2-vs-react-the-ultimate-dance-off-60e7dfbc379c) by [Eric Elliott](https://medium.com/@_ericelliott).
+如果你在用 TypeScript 编写代码，那么你不需要再编写标准的 JavaScript 了。尽管它在不断增长，但与整个 JavaScript 语言相比，TypeScript 的用户群仍然很小。一个风险可能是你正在向错误的方向发展，因为 TypeScript 可能 - 也许不太可能 - 随着时间的推移也会消失。此外，TypeScript 为项目增加了很多（学习）开销 - 您可以在 [Eric Elliott](https://medium.com/@_ericelliott) 的 [Angular 2 vs. React 比较](https://medium.com/javascript-scene/angular-2-vs-react-the-ultimate-dance-off-60e7dfbc379c) 中阅读更多关于这方面的内容。
 
-**Update**: [James Ravenscroft](https://medium.com/@jrwebdev) wrote in a comment to this article, that [TypeScript has first-class support for JSX](https://medium.com/@jrwebdev/id-argue-that-if-you-love-typescript-then-react-may-be-a-better-choice-ceec950ee543) — components can be type-checked seamlessly. So if you like TypeScript and you want to use React, this should not be a problem.
+**更新**: [James Ravenscroft](https://medium.com/@jrwebdev) 在对这篇文章的评论中写道，[TypeScript 对 JSX 有一流的支持](https://medium.com/@jrwebdev/id-argue-that-if-you-love-typescript-then-react-may-be-a-better-choice-ceec950ee543) - 可以无缝地对组件进行类型检查。 所以，如果你喜欢 TypeScript 并且你想使用 React，这应该不成问题。
 
-### Templates — JSX or HTML
+### 模板 — JSX 还是 HTML
 
-React breaks with long-standing best practices. For decades, developers were trying to separate UI templates and inline Javascript logic, but with JSX, these are intermixed again. This might sound terrible, but you should listen to Peter Hunt’s talk “[React: Rethinking best practices](https://www.youtube.com/watch?v=x7cQ3mrcKaY)” (from October 2013). He points out that separating templates and logic is merely a separation of technologies, not concerns. You should build components instead of templates. Components are reusable, composable and unit-testable.
+React 打破了长期以来的最佳实践。几十年来，开发人员试图分离 UI 模板和内联的 Javascript 逻辑，但是使用 JSX，这些又被混合了。这听起来很糟糕，但是你应该听彼得·亨特（Peter Hunt）的演讲 “[React：反思最佳实践](https://www.youtube.com/watch?v=x7cQ3mrcKaY)” （2013 年 10 月）。他指出，分离模板和逻辑仅仅是技术的分离，而不是关注的分离。您应该构建组件而不是模板。组件是可重用的，可组合的和单元可测试的。
 
-JSX is an optional preprocessor for HTML-like syntax which will be compiled in Javascript later. It has some quirks — for example, you need to use className instead of class, because the latter is a protected name in Javascript. JSX is a big advantage for development, because you have everything in one place, and code completion and compile-time checks work better. When you make a typo in JSX, React won’t compile, and it prints out the line number where the typo occurred. Angular 2 fails quietly at run time (this is argument is probably invalid if you use AOT with Angular).
+JSX 是一个类似 HTML 语法的可选预处理器，稍后将在 JavaScript 中进行编译。JSX 有一些奇怪 - 例如，您需要使用 className 而不是 class，因为后者是 Javascript 中的受保护名称。 JSX 对于开发来说是一个很大的优势，因为你在一个地方拥有了所有的东西，可以在代码完成和编译时更好地检查工作成果。当您在 JSX 中输入错误时，React 将不会编译，并打印输出错误的行号。 Angular 2 在运行时静默失败（如果你使用 AOT 和 Angular，这个参数可能是无效的）。
 
-JSX implies that everything in React is Javascript — it is used for both the JSX templates and the logic. [C]ory House](https://medium.com/@housecor) points this out in [his article](https://medium.freecodecamp.org/angular-2-versus-react-there-will-be-blood-66595faafd51) from January 2016: “Angular 2 continues to put ‘JS’ into HTML. React puts ‘HTML’ into JS.”. This is a good thing, because Javascript is more powerful than HTML.
+JSX 意味着 React 中的所有内容都是 Javascript -- 用于JSX模板和逻辑。[Cory House](https://medium.com/@housecor) 在 [2016 年 1 月的文章](https://medium.freecodecamp.org/angular-2-versus-react-there-will-be-blood-66595faafd51) 中指出：“Angular 2 继续把 'JS' 放到 HTML 中。 React 把 'HTML' 放到JS 中。“这是一件好事，因为 Javascript 比 HTML 更强大。
 
-The Angular templates are enhanced HTML with special Angular language (Things like ngIf or ngFor). While React requires knowledge of JavaScript, Angular forces you to learn [Angular-specific syntax](https://angular.io/guide/cheatsheet).
+Angular 模板使用特殊的 Angular 语法（比如 ngIf 或 ngFor）来增强 HTML。虽然 React 需要 JavaScript 的知识，但 Angular 会迫使你学习 [Angular 特有的语法](https://angular.io/guide/cheatsheet)。
 
-Vue features “[single-file components](https://vuejs.org/v2/guide/single-file-components.html)”. This seems like a trade-off with regard to the separation of concerns — templates, scripts and styles are in one file but in three different, ordered sections. This means you get syntax highlighting, CSS support and easier use of preprocessors like Jade or SCSS. I have read in other articles, that JSX is easier for debugging because Vue will not show bad HTML syntax errors. This is not true because Vue [converts HTML to render functions](https://vuejs.org/v2/guide/render-function.html) — so errors are shown without problems (Thanks to [Vinicius Reis](https://medium.com/@luizvinicius73) for commenting and the correction!).
+Vue 具有“[单个文件组件](https://vuejs.org/v2/guide/single-file-components.html)”。这似乎是对于关注分离的权衡 - 模板，脚本和样式在一个文件中，但在三个不同的有序部分中。这意味着您可以获得语法高亮，CSS 支持以及更容易使用预处理器（如 Jade 或 SCSS）。我已经阅读过其他文章，JSX 更容易调试，因为 Vue 不会显示错误的 HTML 语法错误。这是不正确的，因为 Vue [转换 HTML 来渲染函数](https://vuejs.org/v2/guide/render-function.html) - 所以错误显示没有问题（感谢 [Vinicius Reis](https://medium.com/@luizvinicius73) 的评论和更正！）。
 
-Side note: If you like the idea of JSX and want to use it in Vue, you can use [babel-plugin-transform-vue-jsx](https://github.com/vuejs/babel-plugin-transform-vue-jsx).
+注意：如果你喜欢 JSX 的思路，并想在 Vue 中使用它，可以使用 [babel-plugin-transform-vue-jsx](https://github.com/vuejs/babel-plugin-transform-vue-jsx)。
 
-### Framework vs. library
+### 框架和库
 
-Angular is a framework rather than a library because it provides strong opinions as to how your application should be structured and also has more functionality out of the box. Angular is a “complete solution” — batteries included and ready to provide you with a pleasant start. You don’t need to analyze libraries, routing solutions or the like — you can just start working.
+Angular 是一个框架而不是一个库，因为它提供了关于如何构建应用程序的强有力的意见，并且还提供了更多开箱即用的功能。 Angular 是一个 “完整的解决方案” - 包括电池接口，并且你可以愉快的开始开发。 你不需要分析库，路由解决方案或类似的东西 - 你只要开始工作就好了。
 
-React and Vue, on the other hand, are universally flexible. Their libraries can be paired to all kinds of packages (there are quite a lot for React on [npm](https://www.npmjs.com/search?q=react&page=1&ranking=popularity), but Vue has fewer packages because it’s still quite young). With React, you can even exchange the library itself for API-compatible alternatives like [Inferno](https://infernojs.org/). However, with great flexibility comes great responsibility — there are no rules and limited guidance with React. Every project requires a decision regarding its architecture, and things can go wrong more easily.
+另一方面，React 和 Vue 是普遍灵活的。他们的库可以配对各种软件包（在 [npm](https://www.npmjs.com/search?q=react&page=1&ranking=popularity) 上有很多 React 的软件包，但 Vue 的软件包比较少，因为毕竟这个框架还比较新）。 有了 React，你甚至可以交换库本身的 API 兼容替代品，如 [Inferno](https://infernojs.org/)。 然而，灵活性越大，责任就越大 - React 没有规则和有限的指导。 每个项目都需要决定架构，而且事情可能更容易出错。 
 
-Angular, on the other hand, comes with a confusing nest of build tools, boilerplate, linters & time-sinks to deal with. This is also true of React if starter kits or boilerplates are used. They’re naturally very helpful, but React works out of the box, and that’s probably the way you should learn it. Sometimes the variety of tools needed for a working in a Javascript environment is referred to as “Javascript fatigue”. There is an [article](https://medium.com/@ericclemmons/javascript-fatigue-48d4011b6fc4) about it by [Eric Clemmons](https://medium.com/@ericclemmons), who has this to say:
+另一方面，Angular 还有一个令人困惑的构建工具，样板，检查器（linter）和时间片来处理。 如果使用项目初始套件或样板，React 也是如此。 他们自然是非常有帮助的，但是 React 可以开箱即用，这也许是你应该学习的方式。 有时，在 Javascript 环境下工作所需的各种工具被称为 “Javascript 疲劳”。有时，在 JavaScript 环境中工作要使用各种工具被称为 “Javascript 疲劳”。 [Eric Clemmons](https://medium.com/@ericclemmons) 在他的 [文章](https://medium.com/@ericclemmons/javascript-fatigue-48d4011b6fc4) 中说：
 
 > There are still a bunch of installed tools, you are not used to, when starting with the framework. These are generated but probably a lot of developers do not understand, what is happening under the hood — or it takes a lot of time for them to do.
 
@@ -163,7 +163,7 @@ Another blogpost [about a shift towards](http://pixeljets.com/blog/why-we-chose-
 
 There are interesting discussions about the blog post on [Hacker news](https://news.ycombinator.com/item?id=13151317) and [Reddit](https://www.reddit.com/r/webdev/comments/5ho71i/why_we_chose_vuejs_over_react/) — there are arguments from dissenters and further supporters of Vue alike.
 
-### State management & data binding
+### 状态管理和数据绑定
 
 Building UIs is hard, because there are states everywhere — data changing over time entails complexity. Defined state workflows are a big help when apps grow and get more complex. For limited applications, this is probably overkill and something like Vanilla JS would be sufficient.
 
@@ -189,25 +189,25 @@ Both concepts have there pros and cons. You need to understand the concepts and 
 
 There is a long article about different types of states and the [state management in Angular applications](https://blog.nrwl.io/managing-state-in-angular-applications-22b75ef5625f) (by [Victor Savkin](https://medium.com/@vsavkin)) if you want to read further.
 
-### Other programming concepts
+### 其他一些编程概念
 
-Angular includes dependency injection, a pattern in which one object supplies the dependencies (a service) to another object (a client). This leads to more flexibility and cleaner code. The article “[Understanding dependency injection](https://github.com/angular/angular.js/wiki/Understanding-Dependency-Injection)” explains this concept in more detail.
+Angular 包含依赖注入（dependency injection），即一个对象将依赖项（服务）提供给另一个对象（客户端）的模式。 这导致更多的灵活性和更干净的代码。 文章 “[理解依赖注入](https://github.com/angular/angular.js/wiki/Understanding-Dependency-Injection)” 更详细地解释了这个概念。
 
-The [model-view-controller](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) pattern (MVC) splits a project into three components: model, view and controller. Angular as an MVC-framework has MVC out of the box. React only has the V — you need to solve the M and C on your own.
+[模型 - 视图 - 控制器模式](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller)（MVC）将项目分为三个部分：模型，视图和控制器。 Angular（MVC 模式的框架）有开箱即用的 MVC 特性。React 只有 V 层 - 你需要自己解决 M 和 C。
 
-### Flexibility & downsizing to microservices
+### 灵活性和缩小到微服务
 
-You can work with React or Vue by simply adding the Javascript library to the source code. This is not possible with Angular because of its use of TypeScript.
+您可以通过简单地将 JavaScript 库添加到源代码来使用 React 或 Vue。 因为使用了 TypeScript，Angular 是不可能这样用的。
 
-We’re now moving more towards microservices and microapps. React and Vue give you more control to size an application by selecting only the things which are really necessary. They offer more flexibility to shift from an SPA to microservices using parts of a former application. Angular work best for SPA, as it is probably too bloated to be used for microservices.
+现在我们正在更多地转向微服务和 microapps。React 和 Vue 通过只选择真正需要的东西，你可以更多地控制应用程序的大小。使用以前的应用程序的部分从 SPA 转移到微服务，他们提供了更多的灵活性。 Angular 最适合 SPA，因为它可能太臃肿而不能用于微服务。
 
-As [Cory House](https://medium.com/@housecor) notes:
+正如 [Cory House](https://medium.com/@housecor) 所说:
 
-> JavaScript moves fast, and React allows you to swap out small pieces of your application for better libraries instead of waiting around and hoping your framework will innovate. **The philosophy of small, composable, single-purpose tools never goes out of style**.
+> JavaScript 发展速度很快，而且 React 可以让你将应用程序的一小部分替换成更好用的 JS 库，而不是期待你的框架能够创新。 **小巧，可组合的单一用途工具的理念永远不会过时**。
 
-Some people use React for non-SPA websites as well (e.g. for complex forms or wizards). Even Facebook uses React — not for the main page, but rather for specific pages and features.
+有些人对非 SPA 网站也使用 React（例如复杂的表单或向导）。 即使 Facebook 使用 React - 不是用在 Facebook 的主页，而是用在特定的页面和功能。
 
-### Size & performance
+### 体积和性能
 
 There is a flip-side to all the functionality: the Angular framework is quite bloated. The gzipped file size is 143k, compared to 23K for Vue and 43k for React.
 
@@ -217,143 +217,148 @@ To check the performance, I had a look at the great [js-framework-benchmark](htt
 
 ![](https://cdn-images-1.medium.com/max/800/1*YpbalqSUMYIYjXCduq7dcA.png)
 
-The Performance of Angular, React and Vue ([Source](http://www.stefankrause.net/js-frameworks-benchmark6/webdriver-ts-results/table.html))
+Angular，React 和 Vue 比较（[源文件](http://www.stefankrause.net/js-frameworks-benchmark6/webdriver-ts-results/table.html)）
 
 ![](https://cdn-images-1.medium.com/max/800/1*gpq0Y-rRczJ5C3DI5_EUlw.png)
 
-Memory allocation in MB ([Source](http://www.stefankrause.net/js-frameworks-benchmark6/webdriver-ts-results/table.html))
+内存分配（[源文件](http://www.stefankrause.net/js-frameworks-benchmark6/webdriver-ts-results/table.html)）
 
-To summarize: Vue has great performance and the deepest memory allocation, but all these frameworks are really pretty close to each other when compared to particularly slow or fast frameworks (like [Inferno](http://www.stefankrause.net/js-frameworks-benchmark6/webdriver-ts-results/table.html)). Keep in mind that performance benchmarks should only be considered as side note, not as a verdict.
+结论：具有很好的性能和最深的内存分配，但是与特别慢或者更快的框架相比，所有这些框架都非常接近（比如 [Inferno](http://www.stefankrause.net/js-frameworks-benchmark6/webdriver-ts-results/table.html)）。 请记住，性能基准只能作为附注来考虑，而不是作为判断。
 
-### Testing
+### 测试
 
-Facebook [uses Jest](http://facebook.github.io/jest/) to tests its React code. Here is a [comparison between Jest and Mocha](https://spin.atomicobject.com/2017/05/02/react-testing-jest-vs-mocha/) — and there is an article on [how to use Enzyme with Mocha](https://semaphoreci.com/community/tutorials/testing-react-components-with-enzyme-and-mocha). [Enzyme](https://github.com/airbnb/enzyme) is a JavaScript testing utility used at Airbnb (in conjunction with Jest, Karma and other test runners). If you want to read more, there are some older articles on testing in React ([here](https://medium.com/@bruderstein/the-missing-piece-to-the-react-testing-puzzle-c51cd30df7a0) and [here](http://reactkungfu.com/2015/07/approaches-to-testing-react-components-an-overview/)).
+Facebook使用 Jest 来测试其 React 代码。这里有篇文章 Jest 和 Mocha 之间的比较 - 还有一篇关于 [Enzyme 和 Mocha 如何一起使用](https://semaphoreci.com/community/tutorials/testing-react-components-with-enzyme-and-mocha) 的文章。Enzyme 是 Airbnb 使用的 JavaScript 测试工具（与 Jest，Karma 和其他测试框架一起使用）。如果你想了解更多，有一些关于在 React（[这里](https://medium.com/@bruderstein/the-missing-piece-to-the-react-testing-puzzle-c51cd30df7a0) 和 [这里](http://reactkungfu.com/2015/07/approaches-to-testing-react-components-an-overview/)）测试的旧文章。
 
-Then there is **Jasmine** as a testing framework in Angular 2. There’s rant in an article by [Eric Elliott](https://medium.com/@_ericelliott) that says Jasmine “results in millions of ways to write tests and assertions, needing to carefully read each one to understand what it´s doing”. The output is also very bloated and laborious to read. There are some informative articles on the integration of Angular 2 [with Karma](https://medium.com/@laco0416/setting-up-angular-2-testing-environment-with-karma-and-webpack-e9b833befd99) and [Mocha](https://medium.com/@PeterNagyJob/angular2-configuration-and-unit-testing-with-mocha-and-chai-4ada9484e569). Here is an old video (from 2015) about [the testing strategies with Angular 2](https://www.youtube.com/watch?v=C0F2E-PRm44).
+Angular 2 中使用 **Jasmine** 作为测试框架。[Eric Elliott](https://medium.com/@_ericelliott) 在一篇文章中抱怨说 Jasmine “以数百种方式编写测试和断言，需要仔细阅读每一个，来了解它在做什么”。输出也是非常臃肿和难以阅读。有关 Angular 2 [与 Karma](https://medium.com/@laco0416/setting-up-angular-2-testing-environment-with-karma-and-webpack-e9b833befd99) 和 [Mocha](https://medium.com/@PeterNagyJob/angular2-configuration-and-unit-testing-with-mocha-and-chai-4ada9484e569) 的整合的一些有用的文章。这里有一个关于 [Angular 2 测试策略](https://www.youtube.com/watch?v=C0F2E-PRm44) 的旧视频（2015年）。
 
-Vue lacks testing guidance, but Evan wrote in his 2017 preview that [the team plans to work on this](https://medium.com/the-vue-point/vue-in-2016-8df71d98bfb3). They recommend using [Karma](http://karma-runner.github.io/1.0/index.html). Vue works [together with Jest](https://github.com/locoslab/vue-jest-utils), and there’s also [avoriaz as a test utility](https://github.com/eddyerburgh/avoriaz).
+Vue 缺乏测试指导，但是 Evan 在 2017 年的展望中写道，[该团队计划在这方面开展工作](https://medium.com/the-vue-point/vue-in-2016-8df71d98bfb3)。他们推荐使用 [Karma](http://karma-runner.github.io/1.0/index.html)。[Vue 和 Jest 结合使用](https://github.com/locoslab/vue-jest-utils)，还有 [avoriaz 作为测试工具](https://github.com/eddyerburgh/avoriaz)。
 
-### Universal & native apps
+### 全平台 app 和原生 app 
 
-Universal apps are introducing apps into the web, onto the desktop and into the world of native apps, as well.
+Server-side pre-rendering is a plus. All three frameworks have libraries to find help with that. For React there is [next.js](https://github.com/zeit/next.js) , Vue has [nuxt.js](https://nuxtjs.org/), and Angular has….[Angular Universal](https://universal.angular.io/).
+全平台 app 正在将应用程序引入 Web、桌面以及原生 app 的世界。
 
-React and Angular both support native development. Angular has [NativeScript](https://docs.nativescript.org/tutorial/ng-chapter-0) (backed by Telerik) for native apps and Ionic Framework for hybrid apps. With React, you can check out [react-native-renderer](http://angularjs.blogspot.de/2016/04/angular-2-react-native.html) to build cross-plattform iOS and Android apps, or [react-native](https://facebook.github.io/react-native/) for native apps. A lot of apps (including Facebook; check the [Showcase](https://facebook.github.io/react-native/showcase.html) for more) are built with react-native.
+React 和 Angular 都支持原生开发。 Angular 拥有用于原生应用的 [NativeScript](https://docs.nativescript.org/tutorial/ng-chapter-0)（由 Telerik 支持）和用于混合开发的 Ionic 框架。借助 React，您可以查看 react-native-renderer 来构建跨平台的 iOS 和 Android 应用程序，或者用 [react-native](https://facebook.github.io/react-native/) 开发原生 app。许多 app（包括 Facebook；查看更多的 [展示](https://facebook.github.io/react-native/showcase.html)）都是用 react-native 构建的。
 
-Javascript frameworks render pages on the client. This is bad for perceived performance, overall user experience and SEO. Server-side pre-rendering is a plus. All three frameworks have libraries to find help with that. For React there is [next.js](https://github.com/zeit/next.js) , Vue has [nuxt.js](https://nuxtjs.org/), and Angular has….[Angular Universal](https://universal.angular.io/).
+Javascript 框架在客户端上渲染页面。 这对于性能，整体用户体验和 SEO 是不利的。服务器端预渲染是一个好办法。所有这三个框架都有相应的库来实现服务端渲染。 React 有next.js，Vue 有 nuxt.js，而 Angular 有......[Angular Universal](https://universal.angular.io/)。
 
-### Learning curve
+### 学习曲线
 
-There is definitely a steep learning curve for Angular. It has comprehensive documentation, but sometimes you might feel frustrated with it because things are [more difficult than they sound](https://www.reddit.com/r/webdev/comments/5ho71i/why_we_chose_vuejs_over_react/db1vppj/). Even when you have a deep understanding of Javascript, you need to learn what’s going on under the hood of the framework. Setup is magical in the beginning, and it offers a lot of included packages and code. This can be seen as a negative because there is a big, pre-existing ecosystem you need to learn over time. On the other hand, it could be good in a given situation because a lot of decisions have already made. With React, you’ll probably need to make a lot of imposing decisions with regard to third party libraries. There are 16 [different flux packages for state management](https://github.com/voronianski/flux-comparison) to choose from in React alone.
+Angular 的学习曲线确实很陡。 它有全面的文档，但有时你可能会感到沮丧，因为 [事情比听起来更难](https://www.reddit.com/r/webdev/comments/5ho71i/why_we_chose_vuejs_over_react/db1vppj/)。 即使你对 Javascript 有深入的了解，也需要了解框架的底层原理。 刚开始初始化项目是很神奇的，它提供了很多被引入的软件包和代码。 因为有一个大的，预先存在的生态系统，你需要随着时间的推移学习，这很不利。 另一方面，由于已经做出了很多决定，所以在特定情况下可能会很好。 对于 React，您可能需要针对第三方库进行大量重大决策。仅仅 React 中就有 16 种 [不同的 flux 软件包来用于状态管理](https://github.com/voronianski/flux-comparison)可供选择。
 
-Vue is pretty easy to learn. Companies switch to Vue because its seems to be much easier for junior developers. Here you can read about somebody describing his team’s move [from Angular to Vue](https://medium.com/@Hemantisme/moving-from-angular-to-vue-a-vuetiful-journey-c29842ab2039). According to [another user](https://news.ycombinator.com/item?id=13151716), the React app at his company was so complex that a new developer couldn’t keep up with the code. With Vue, the gap between junior and senior developers shrinks, and they can collaborate more easily and with fewer bugs, problems and time to develop.
-
-Some people claim that things they have done in React would have been better written in Vue. If you are an unexperienced Javascript developer — or if you worked mainly with jQuery in the last decade — you should think about using Vue. The paradigm shift is more pronounced when moving to React. Vue looks more like plain Javascript while also introducing some new ideas: components, an event-driven-model, and one-way data flow. It also has a small footprint.
+Vue 很容易学习。 公司转向 Vue 是因为它对初级开发者来说似乎更容易。 这里有一片说他们团队为什么 [从 Angular 转到 Vue](https://medium.com/@Hemantisme/moving-from-angular-to-vue-a-vuetiful-journey-c29842ab2039) 的文章。[另一位用户](https://news.ycombinator.com/item?id=13151716) 表示，他公司的 React 应用程序非常复杂，以至于新开发人员无法跟上代码。 通过 Vue，初级和高级开发人员之间的差距缩小了，他们可以更轻松地协作，减少 bug，解决问题和时间。
 
 Meanwhile, Angular and React have their own way of doing things. They may get in your way, because you need to adjust your practices to make things work their way. That can be a detriment because you are less flexible, and there is a steeper learning curve. It could also be a benefit because you are forced to learn the right concepts while learning the technology. With Vue, you can do the things the old-Javascript-fashioned way. This can be easier in the beginning, but could become a problem in the long-run if things are not done properly.
 
 When it comes to debugging, it’s a plus that React and Vue have less magic. The hunt for bugs is easier because there are fewer places to look and the stack traces have better distinctions between their own code and that of the libraries. People working with React report that they never have to read the source code of the library. However, when debugging your Angular application, you often need to debug the internals of Angular to understand the underlying model. On the bright side, the error messages are supposed to be clearer and more informative starting with Angular 4.
+有些人声称他们用 React 实现的东西比用 Vue 实现的更好。如果你是一个没有经验的 Javascript 开发人员 - 或者如果你在过去十年中主要使用 jQuery，那么你应该考虑使用 Vue。转向 React 时，思维方式的转换更为明显。 Vue 看起来更像是简单的 Javascript，同时也引入了一些新的概念：组件，事件驱动模型和单向数据流。它也有一个小痕迹。
 
-### Angular, React and Vue under the hood
+同时，Angular和React也有自己的做事方式。他们可能会阻碍你，因为你需要调整自己的做法，让事情顺利进行。这可能是一个不利因素，因为你不够灵活，学习曲线陡峭。这也可能是一个好处，因为你在学习技术时被迫学习正确的概念。用Vue，你可以用老式的方式来做事情。这一开始可能会比较容易，但如果做得不好，可能会长期成为一个问题。
 
-Do you want to check the source code yourself? Do you want to see how things feel?
-You’ll probably want to check out the Github repositories first: React ([github.com/facebook/react](https://github.com/facebook/react)), Angular ([github.com/angular/angular](https://github.com/angular/angular)), and Vue ([github.com/vuejs/vue](https://github.com/vuejs/vue))
+在调试方面，React和Vue的魔力更少。寻找错误更容易，因为有更少的地方看，堆栈跟踪有更好的自己的代码和图书馆之间的区别。使用React的人员报告说，他们永远不必阅读库的源代码。但是，在调试Angular应用程序时，通常需要调试Angular的内部来理解底层模型。从好的一面来看，从Angular 4开始，错误信息应该更清晰，更具信息性。
 
-How does the syntax look? ValueCoders [compares the syntax for Angular, React and Vue](http://www.valuecoders.com/blog/technology-and-apps/vue-js-comparison-angular-react/).
+### Angular, React 和 Vue 底层原理
+
+你想自己阅读源代码吗？ 你想看看事情到底是怎么样的？ 可能首先要查看 Github 存储库：React（[github.com/facebook/react](https://github.com/facebook/react)），Angular（[github.com/angular/angular](https://github.com/angular/angular)）和Vue（[github.com/vuejs/vue](https://github.com/vuejs/vue)）。
+
+语法看起来如何？ ValueCoders [比较 Angular，React 和 Vue 的语法](http://www.valuecoders.com/blog/technology-and-apps/vue-js-comparison-angular-react/)。
 
 It is also good to see things in production — in conjunction with the underlying source code. [TodoMVC](http://todomvc.com/) lists dozens of the same Todo app, written with different Javascript frameworks — you can compare the [Angular](http://todomvc.com/examples/angularjs), [React](http://todomvc.com/examples/react/#/) and [Vue](http://todomvc.com/examples/vue/) solutions. [RealWorld](https://realworld.io/#) creates a real-world-application (a Medium-clone), and they have solutions for [Angular](https://github.com/gothinkster/angular-realworld-example-app) (4+) and [React](https://github.com/gothinkster/react-redux-realworld-example-app) (with Redux) ready. [Vue](https://github.com/mchandleraz/realworld-vue) is a work-in-progress.
+在生产环境中也很好查看 - 连同底层的源代码。 [TodoMVC](http://todomvc.com/) 列出了几十个相同的 Todo 应用程序，用不同的 Javascript 框架编写 - 你可以比较 [Angular](http://todomvc.com/examples/angularjs)，[React](http://todomvc.com/examples/react/#/) 和 [Vue](http://todomvc.com/examples/vue/) 的解决方案。 [RealWorld](https://realworld.io/#) 创建了一个真实世界的应用程序（一个中等克隆），他们已经准备好了 [Angular](https://github.com/gothinkster/angular-realworld-example-app)（4+） 和 [React](https://github.com/gothinkster/react-redux-realworld-example-app)（带Redux）的解决方案。 [Vue](https://github.com/mchandleraz/realworld-vue) 的开发正在进行中。
 
-There are also some real-world apps you could have a look at. Here are solutions for React:
+你可以看到许多真实的 app，以下是 React 的方案：
 
-- [Do](https://github.com/1ven/do) (a nice real-world notes management application built with **React & Redux**)
-- [sound-redux](https://github.com/andrewngu/sound-redux) (a Soundcloud client built with React & Redux)
-- [Brainfock](https://github.com/Brainfock/Brainfock) (a project & team management solution built with React)
-- [react-hn](https://github.com/insin/react-hn) & [react-news](https://github.com/echenley/react-news) (Hacker news clones)
-- [react-native-whatsapp-ui](https://github.com/himanshuchauhan/react-native-whatsapp-ui) + a [tutorial](https://www.codementor.io/codementorteam/build-a-whatsapp-messenger-clone-in-react-part-1-4l2o0waav) (Whatsapp clone with react-native)
-- [phoenix-trello](https://github.com/bigardone/phoenix-trello/blob/master/README.md) (Trello clone)
-- [slack-clone](https://github.com/avrj/slack-clone) + [another tutorial](https://medium.com/@benhansen/lets-build-a-slack-clone-with-elixir-phoenix-and-react-part-1-project-setup-3252ae780a1) (Slack clones)
+- [Do](https://github.com/1ven/do) （一款很好用的笔记管理 app ，用 **React 和 Redux** 实现）
+- [sound-redux](https://github.com/andrewngu/sound-redux) （用 React 和 Redux 实现的 Soundcloud 客户端）
+- [Brainfock](https://github.com/Brainfock/Brainfock) （用 React 实现的项目和团队管理解决方案）
+- [react-hn](https://github.com/insin/react-hn) 和 [react-news](https://github.com/echenley/react-news)（仿 Hacker news）
+- [react-native-whatsapp-ui](https://github.com/himanshuchauhan/react-native-whatsapp-ui) 和 [教程](https://www.codementor.io/codementorteam/build-a-whatsapp-messenger-clone-in-react-part-1-4l2o0waav) （仿 Whatsapp 的 react-native 版）
+- [phoenix-trello](https://github.com/bigardone/phoenix-trello/blob/master/README.md)（仿 Trello）
+- [slack-clone](https://github.com/avrj/slack-clone) 和 [其他教程](https://medium.com/@benhansen/lets-build-a-slack-clone-with-elixir-phoenix-and-react-part-1-project-setup-3252ae780a1) (仿Slack)
 
 There are some apps for Angular:
+以下是 Angular 版的 app：
 
-- [angular2-hn](https://github.com/housseindjirdeh/angular2-hn) & [hn-ng2](https://github.com/hswolff/hn-ng2) (Hacker News clones + [a nice tutorial about creating another one by Ashwin Sureshkumar)
-- Redux-and-angular-2](https://medium.com/@Sureshkumar_Ash/angular-2-hackernews-clone-dynamic-components-routing-params-and-refactor-340773d82e6f) (a Twitter clone)
+- [angular2-hn](https://github.com/housseindjirdeh/angular2-hn) 和 [hn-ng2](https://github.com/hswolff/hn-ng2) （仿 Hacker News，[一个由 Ashwin Sureshkumar 创建另一个很好的教程](https://medium.com/@Sureshkumar_Ash/angular-2-hackernews-clone-dynamic-components-routing-params-and-refactor-340773d82e6f)）
+- [Redux-and-angular-2](https://medium.com/@Sureshkumar_Ash/angular-2-hackernews-clone-dynamic-components-routing-params-and-refactor-340773d82e6f) （仿 Twitter）
 
-There are also solutions for Vue:
+以下是 Vue 版的 app：
 
-- [vue-hackernews-2.0](https://github.com/vuejs/vue-hackernews-2.0) & [Loopa news](https://github.com/Angarsk8/loopa-news) (Hacker News clones)
-- [vue-soundcloud](https://github.com/mul14/vue-soundcloud) (a Soundcloud demo)
+- [vue-hackernews-2.0](https://github.com/vuejs/vue-hackernews-2.0) 和 [Loopa news](https://github.com/Angarsk8/loopa-news) （仿Hacker News）
+- [vue-soundcloud](https://github.com/mul14/vue-soundcloud)（Soundcloud 演示）
 
-## Conclusion
+## 总结
 
-### Decide on a framework now
+### 现在决定使用一个框架
 
-React, Angular and Vue are all pretty cool, and none of them stands clearly above the others. Trust your gut feeling. This [last bit of entertaining cynicism](https://wildermuth.com/2017/02/12/Why-I-Moved-to-Vue-js-from-Angular-2#comment-3153455874) might help your decision:
+React，Angular 和 Vue 都很酷，而且没有一个能明显的超过对方。 相信你的直觉。 [最后一点有趣的玩世不恭的言辞](https://wildermuth.com/2017/02/12/Why-I-Moved-to-Vue-js-from-Angular-2#comment-3153455874)可能会有助于你的决定：
 
-> The dirty little secret is that most “modern JavaScript development” is nothing to do with actually building websites — it’s building packages that can be used by people who build libraries that can be used by people who build frameworks that people who write tutorials and teach courses can teach.I’m not sure anyone is actually building anything for actual users to interact with.
+> 这个肮脏的小秘密就是大多数 “现代 JavaScript 开发” 与实际构建网站无关 - 它正在构建可供构建可供人们使用的库的人使用的软件包，这些人可以为编写教程和教授课程的人构建框架。我不确定任何人实际上正在为实际用户建立任何交互。
 
-This is an exaggeration, of course, but there is probably a grain of truth to it. Yes, there is a lot of buzzing in the Javascript ecosystem. You’ll probably find a lot of other attractive alternatives during your search — try not to be blinded by the newest, shiniest framework.
+当然，这是夸张的，但是可能有一点点道理。 是的，Javascript生态系统中有很多嗡嗡声。 在您的搜索过程中，您可能会发现很多其他有吸引力的选择 - 尽量不要被最新，最闪亮的框架蒙蔽。
 
-### What should I choose?
+### 我应该选什么？
 
-If you work at Google: **Angular**
+如果你在Google工作： **Angular**
 
-If you love TypeScript: **Angular ([or React](https://medium.com/@jrwebdev/id-argue-that-if-you-love-typescript-then-react-may-be-a-better-choice-ceec950ee543))**
+如果你热爱 TypeScript: **Angular （[或 React](https://medium.com/@jrwebdev/id-argue-that-if-you-love-typescript-then-react-may-be-a-better-choice-ceec950ee543)）**
 
-If you love object-orientated-programming (OOP): **Angular**
+如果你热爱面向对象编程（OOP）: **Angular**
 
-If you need guidance, structure and a helping hand: **Angular**
+如果你需要指导手册，架构和帮助： **Angular**
 
-If you work at Facebook: **React**
+如果你在Facebook工作：**React**
 
-If you like flexibility: **React**
+如果你喜欢灵活性：**React**
 
-If you love big ecosystems: **React**
+如果你热爱大型的技术生态系统：**React**
 
-If you like choosing among dozens of packages: **React**
+如果你喜欢在几十个软件包中进行选择：**React**
 
-If you love JS & the “everything-is-Javascript-approach”: **React**
+如果你喜欢JS和“一切都是 Javascript 的方法”：**React**
 
-If you like really clean code: **Vue**
+如果你喜欢真正干净的代码：**Vue**
 
-If you want the easiest learning curve: **Vue**
+如果你想要最简单的学习曲线：**Vue**
 
-If you want the most lightweight framework: **Vue**
+如果你想要最轻量级的框架：**Vue**
 
-If you want separation of concerns in one file: **Vue**
+如果你想在一个文件中分离关注点：**Vue**
 
-If you are working alone or have a small team: **Vue (or React)**
+如果你一个人工作，或者有一个小团队：**Vue（或 React）**
 
-If your app tends to get really large: **Angular (or React)**
+如果你的应用程序往往变得非常大：**Angular（或 React）**
 
-If you want to build an app with react-native: **React**
+如果你想用 react-native 构建一个应用程序：**React**
 
-If you want to have a lot of developers in the pool: **Angular or React**
+如果你想在圈子中有很多的开发者：**Angular 或 React**
 
-If you work with designers and need clean HTML files: **Angular or Vue**
+如果你与设计师合作，并需要干净的 HTML 文件：**Angular or Vue**
 
-If you like Vue but are afraid of the limited ecosystem: **React**
+如果你喜欢 Vue 但是害怕有限的技术生态系统：**React**
 
-If you can’t decide, first learn **React**, then **Vue**, then **Angular**.
+如果你不能决定，先学习 **React**，然后 **Vue**， 然后 **Angular**。
 
-**So, have you made your decision?**
+**所以，你决定了吗？**
 
-![Yeeesss, you did it!](https://cdn-images-1.medium.com/max/800/1*Eq7k6tq-LbMpCJKNN5SZ3Q.png)
+![Yeeesss，你做到了！](https://cdn-images-1.medium.com/max/800/1*Eq7k6tq-LbMpCJKNN5SZ3Q.png)
 
-Well done! Read about how to **start developing in either Angular, React or Vue** (coming soon, follow me [on Twitter](http://www.twitter.com/jensneuhaus/) for updates).
+很好！ 阅读关于如何 **开始 Angular，React 或 Vue** 开发（即将推出，在 [Twitter](http://www.twitter.com/jensneuhaus/) 上关注我的更新）。
 
-### More resources
+### 更多资源
 
-- [React JS, Angular & Vue JS — Quickstart & Comparison](https://www.udemy.com/angular-reactjs-vuejs-quickstart-comparison/) (an 8-hour long introduction and comparison of the three frameworks)
-- [Angular vs. React (vs. Vue) — the DEAL breaker](https://hackernoon.com/angular-vs-react-the-deal-breaker-7d76c04496bc) (a short but excellent comparison by [Dominik T](https://medium.com/@dominik.t))
-- [Angular 2 vs. React — the ultimate dance off](https://medium.com/javascript-scene/angular-2-vs-react-the-ultimate-dance-off-60e7dfbc379c) (a nice comparison by [Eric Elliott](https://medium.com/@_ericelliott))
-- [React vs. Angular vs. Ember vs. Vue.js](https://medium.com/@gsari/react-vs-angular-vs-ember-vs-vue-js-e186c0afc1be) (a comparison of the three frameworks in note form by [Gökhan Sari](https://medium.com/@gsari))
-- [React vs. Angular](https://www.sitepoint.com/react-vs-angular/) (a clear comparison of the two frameworks)
-- [Can Vue fight for the Throne with React?](https://rubygarage.org/blog/vuejs-vs-react-battle) (a nice comparison with a lot of code examples)
-- [10 reasons, why I moved from Angular to React](https://www.robinwieruch.de/reasons-why-i-moved-from-angular-to-react/) (another nice comparison by Robin Wieruch)
-- [All JavaScript frameworks are terrible](https://medium.com/@mattburgess/all-javascript-frameworks-are-terrible-e68d8865183e) (a great rant about all major frameworks by [Matt Burgess](https://medium.com/@mattburgess))
+- [React JS，Angular 和 Vue JS — 快速开始和比较](https://www.udemy.com/angular-reactjs-vuejs-quickstart-comparison/)（对这三个框架进行了 8 小时的介绍和比较)
+- [Angular React（和 Vue） - DEAL破坏者](https://hackernoon.com/angular-vs-react-the-deal-breaker-7d76c04496bc)（一个简短但很好的比较 [Dominik T](https://medium.com/@dominik.t)）
+- [Angular 2 和 React — 终极之舞](https://medium.com/javascript-scene/angular-2-vs-react-the-ultimate-dance-off-60e7dfbc379c) （[Eric Elliott](https://medium.com/@_ericelliott) 一个很好的比较）
+- [React Angular Ember 和 Vue.js](https://medium.com/@gsari/react-vs-angular-vs-ember-vs-vue-js-e186c0afc1be) （[Gökhan Sari](https://medium.com/@gsari) 的三种框架的比较）
+- [React 和 Angular](https://www.sitepoint.com/react-vs-angular/)（两个框架的明确比较）
+- [Vue 可以战胜 React 吗？](https://rubygarage.org/blog/vuejs-vs-react-battle)（很多代码示例的一个很好的比较）
+- [10 个理由，为什么我从 Angular 转到 React](https://www.robinwieruch.de/reasons-why-i-moved-from-angular-to-react/)（Robin Wieruch另一个很好的比较）
+- [所有的JavaScript框架都很糟糕](https://medium.com/@mattburgess/all-javascript-frameworks-are-terrible-e68d8865183e) （[Matt Burgess](https://medium.com/@mattburgess) 对所有主要框架的大肆抨击）
 
-**Thanks for your interest. Did I forget something important? Do you have a different opinion? I’m always glad to get feedback.**
+**感谢您的关注。 我忘了重要的事吗？ 你有不同的意见吗？ 我总是很高兴得到反馈。**
 
-**Follow me on Twitter for updates & more: [@jensneuhaus](http://www.twitter.com/jensneuhaus/) — **🙌
+**在 Twitter 上关注我的更新和获取更多内容：** [@jensneuhaus](http://www.twitter.com/jensneuhaus/) — 🙌
 
 
 ---
