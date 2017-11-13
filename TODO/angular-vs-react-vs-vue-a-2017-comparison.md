@@ -208,15 +208,15 @@ Angular 包含依赖注入（dependency injection），即一个对象将依赖�
 
 ### 体积和性能
 
-There is a flip-side to all the functionality: the Angular framework is quite bloated. The gzipped file size is 143k, compared to 23K for Vue and 43k for React.
+所有框架都有缺点：Angular 框架非常臃肿。 gzip 文件大小为 143k，而 Vue 为 23K，React 为43k。
 
-React and Vue both have a Virtual DOM , which is supposed to improve performance. If you’re interested in this, you can read about the [differences between the Virtual DOM & DOM](http://reactkungfu.com/2015/10/the-difference-between-virtual-dom-and-dom/), as well as [the real benefits of the Virtual DOM in react.js](https://www.accelebrate.com/blog/the-real-benefits-of-the-virtual-dom-in-react-js/). Also, one of the authors of the Virtual-DOM itself [answers a performance-related question](https://stackoverflow.com/questions/21109361/why-is-reacts-concept-of-virtual-dom-said-to-be-more-performant-than-dirty-mode) on Stackoverflow.
+React 和 Vue 都有一个虚拟的 DOM，这应该能提高性能。 如果您对此感兴趣，可以阅读有关 [虚拟 DOM 和 DOM 之间的差异](http://reactkungfu.com/2015/10/the-difference-between-virtual-dom-and-dom/)以及 [react.js 中虚拟 DOM 的实际优势](https://www.accelebrate.com/blog/the-real-benefits-of-the-virtual-dom-in-react-js/)。 此外，虚拟 DOM 的作者之一在 Stackoverflow 上回答了 [有关性能的相关问题](https://stackoverflow.com/questions/21109361/why-is-reacts-concept-of-virtual-dom-said-to-be-more-performant-than-dirty-mode)。
 
-To check the performance, I had a look at the great [js-framework-benchmark](https://github.com/krausest/js-framework-benchmark). You can download and run it yourself, or have a look at the [interactive result table](http://www.stefankrause.net/js-frameworks-benchmark6/webdriver-ts-results/table.html).
+为了检查性能，我看了一下很棒的 [js 框架基准](https://github.com/krausest/js-framework-benchmark)。 您可以自己下载并运行它，或者查看 [交互式结果表](http://www.stefankrause.net/js-frameworks-benchmark6/webdriver-ts-results/table.html)。 在检查结果之前，您应该知道，框架在基准测试中作弊 - 这种性能检查不应该用来做出决定。
 
 ![](https://cdn-images-1.medium.com/max/800/1*YpbalqSUMYIYjXCduq7dcA.png)
 
-Angular，React 和 Vue 比较（[源文件](http://www.stefankrause.net/js-frameworks-benchmark6/webdriver-ts-results/table.html)）
+Angular，React 和 Vue 性能比较（[源文件](http://www.stefankrause.net/js-frameworks-benchmark6/webdriver-ts-results/table.html)）
 
 ![](https://cdn-images-1.medium.com/max/800/1*gpq0Y-rRczJ5C3DI5_EUlw.png)
 
@@ -234,7 +234,6 @@ Vue 缺乏测试指导，但是 Evan 在 2017 年的展望中写道，[该团队
 
 ### 全平台 app 和原生 app 
 
-Server-side pre-rendering is a plus. All three frameworks have libraries to find help with that. For React there is [next.js](https://github.com/zeit/next.js) , Vue has [nuxt.js](https://nuxtjs.org/), and Angular has….[Angular Universal](https://universal.angular.io/).
 全平台 app 正在将应用程序引入 Web、桌面以及原生 app 的世界。
 
 React 和 Angular 都支持原生开发。 Angular 拥有用于原生应用的 [NativeScript](https://docs.nativescript.org/tutorial/ng-chapter-0)（由 Telerik 支持）和用于混合开发的 Ionic 框架。借助 React，您可以查看 react-native-renderer 来构建跨平台的 iOS 和 Android 应用程序，或者用 [react-native](https://facebook.github.io/react-native/) 开发原生 app。许多 app（包括 Facebook；查看更多的 [展示](https://facebook.github.io/react-native/showcase.html)）都是用 react-native 构建的。
@@ -247,14 +246,11 @@ Angular 的学习曲线确实很陡。 它有全面的文档，但有时你可�
 
 Vue 很容易学习。 公司转向 Vue 是因为它对初级开发者来说似乎更容易。 这里有一片说他们团队为什么 [从 Angular 转到 Vue](https://medium.com/@Hemantisme/moving-from-angular-to-vue-a-vuetiful-journey-c29842ab2039) 的文章。[另一位用户](https://news.ycombinator.com/item?id=13151716) 表示，他公司的 React 应用程序非常复杂，以至于新开发人员无法跟上代码。 通过 Vue，初级和高级开发人员之间的差距缩小了，他们可以更轻松地协作，减少 bug，解决问题和时间。
 
-Meanwhile, Angular and React have their own way of doing things. They may get in your way, because you need to adjust your practices to make things work their way. That can be a detriment because you are less flexible, and there is a steeper learning curve. It could also be a benefit because you are forced to learn the right concepts while learning the technology. With Vue, you can do the things the old-Javascript-fashioned way. This can be easier in the beginning, but could become a problem in the long-run if things are not done properly.
-
-When it comes to debugging, it’s a plus that React and Vue have less magic. The hunt for bugs is easier because there are fewer places to look and the stack traces have better distinctions between their own code and that of the libraries. People working with React report that they never have to read the source code of the library. However, when debugging your Angular application, you often need to debug the internals of Angular to understand the underlying model. On the bright side, the error messages are supposed to be clearer and more informative starting with Angular 4.
 有些人声称他们用 React 实现的东西比用 Vue 实现的更好。如果你是一个没有经验的 Javascript 开发人员 - 或者如果你在过去十年中主要使用 jQuery，那么你应该考虑使用 Vue。转向 React 时，思维方式的转换更为明显。 Vue 看起来更像是简单的 Javascript，同时也引入了一些新的概念：组件，事件驱动模型和单向数据流。它也有一个小痕迹。
 
-同时，Angular和React也有自己的做事方式。他们可能会阻碍你，因为你需要调整自己的做法，让事情顺利进行。这可能是一个不利因素，因为你不够灵活，学习曲线陡峭。这也可能是一个好处，因为你在学习技术时被迫学习正确的概念。用Vue，你可以用老式的方式来做事情。这一开始可能会比较容易，但如果做得不好，可能会长期成为一个问题。
+同时，Angular 和 React 也有自己的做事方式。他们可能会阻碍你，因为你需要调整自己的做法，让事情顺利进行。这可能是一个不利因素，因为你不够灵活，学习曲线陡峭。这也可能是一个好处，因为你在学习技术时被迫学习正确的概念。用 Vue，你可以用老式的方式来做事情。这一开始可能会比较容易，但如果做得不好，可能会长期成为一个问题。
 
-在调试方面，React和Vue的魔力更少。寻找错误更容易，因为有更少的地方看，堆栈跟踪有更好的自己的代码和图书馆之间的区别。使用React的人员报告说，他们永远不必阅读库的源代码。但是，在调试Angular应用程序时，通常需要调试Angular的内部来理解底层模型。从好的一面来看，从Angular 4开始，错误信息应该更清晰，更具信息性。
+在调试方面，React 和 Vue 的魔力更少。寻找错误更容易，因为有更少的地方看，堆栈跟踪有更好的自己的代码和图书馆之间的区别。使用 React 的人员报告说，他们永远不必阅读库的源代码。但是，在调试 Angular 应用程序时，通常需要调试 Angular 的内部来理解底层模型。从好的一面来看，从 Angular 4 开始，错误信息应该更清晰，更具信息性。
 
 ### Angular, React 和 Vue 底层原理
 
