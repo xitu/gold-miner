@@ -50,7 +50,9 @@ Let’s say moving a box is analogous to printing a line. So, in our sample prog
 
 ```
 package main
+
 import "fmt"
+
 func main() {
 	fmt.Println("Box 1")
 	fmt.Println("Box 2")
@@ -63,6 +65,7 @@ func main() {
 	fmt.Println("Box 9")
 	fmt.Println("Box 10")
 }
+
 ```
 
 Since go-routines are not declared, the above code produces the following output.
@@ -92,7 +95,9 @@ So, if we want to use an additional core in moving our boxes, we declare a go-ro
 
 ```
 package main
+
 import "fmt"
+
 func main() {
 	go func() {
 		fmt.Println("Box 1")
@@ -107,6 +112,7 @@ func main() {
 	fmt.Println("Box 9")
 	fmt.Println("Box 10")
 }
+
 ```
 
 Here, a go-routine has been declared for the first 3 statements. Meaning whatever core has taken up the execution of the main method, will execute only statements 4–10. And a different core assigned to statements 1–3 will take up the responsibility of executing that block.
@@ -233,20 +239,24 @@ To understand it better, let’s consider a simple scenario where there are only
 
 ```
 package main
+
 import "fmt"
+
 var zero int = 0
+
 func main() {
-   var one int = 1
-   child := func() {
-       var two int = 3
-       fmt.Println(zero)
-       fmt.Println(one)
-       fmt.Println(two) 
-       fmt.Println(three)   // causes compilation Error
-   }
-   child()
-   var three int = 2
+	var one int = 1
+	child := func() {
+		var two int = 3
+		fmt.Println(zero)
+		fmt.Println(one)
+		fmt.Println(two)
+		fmt.Println(three) // causes compilation Error
+	}
+	child()
+	var three int = 2
 }
+
 ```
 
 There are 2 functions here — main and child, where child is defined inside main. Child gets access to
@@ -267,28 +277,32 @@ Now the same with nesting.
 
 ```
 package main
+
 import "fmt"
+
 var global func()
+
 func closure() {
- var A int = 1
- func() {
-  var B int = 2
-  func() {
-   var C int = 3
-   global = func() {
-    fmt.Println(A, B, C)
-    fmt.Println(D, E, F) // causes compilation error
-   }
-   var D int = 4
-  }()
-  var E int = 5
- }()
- var F int = 6
+	var A int = 1
+	func() {
+		var B int = 2
+		func() {
+			var C int = 3
+			global = func() {
+				fmt.Println(A, B, C)
+				fmt.Println(D, E, F) // causes compilation error
+			}
+			var D int = 4
+		}()
+		var E int = 5
+	}()
+	var F int = 6
 }
 func main() {
- closure()
- global()
+	closure()
+	global()
 }
+
 ```
 
 If we consider the innermost function assigned to “global” declared above in the global scope.
@@ -405,24 +419,28 @@ If N≤R, we can solve the problem as shown below.
 
 ```
 package main
+
 import "fmt"
+
 var N int = 100
+
 func Task(i int) {
- fmt.Println("Box", i)
+	fmt.Println("Box", i)
 }
 func main() {
- ack := make(chan bool, N)    // Acknowledgement channel
-for i := 0; i < N; i++ {
-   go func(arg int) {         // Point #1
-    Task(arg)
-    ack <- true              // Point #2
-   }(i)                      // Point #3
- }
- 
- for i := 0; i < N; i++ {
-   <-ack                     // Point #2
- }
+	ack := make(chan bool, N) // Acknowledgement channel
+	for i := 0; i < N; i++ {
+		go func(arg int) { // Point #1
+			Task(arg)
+			ack <- true // Point #2
+		}(i) // Point #3
+	}
+
+	for i := 0; i < N; i++ {
+		<-ack // Point #2
+	}
 }
+
 ```
 
 What we have done here is…
@@ -497,53 +515,57 @@ Therefore, to implement complete abstraction, we are going to introduce a “cli
 
 ```
 package main
+
 import "fmt"
+
 var N int = 100
 var R int = 100
+
 func Task(i int) {
- fmt.Println("Box", i)
+	fmt.Println("Box", i)
 }
 func Workers(task func(interface{}), climax func()) chan interface{} {
- input := make(chan interface{})
- ack := make(chan bool)
- for i := 0; i < R; i++ {
-   go func() {
-     for {
-       v, ok := <-input
-        if ok {
-          task(v)
-          ack <- true
-        } else {
-          return
-        }
-      }
-   }()
- }
- go func() {
-   for i := 0; i < R; i++ {
-     <-ack
-   }
-   climax()
- }()
- return input
+	input := make(chan interface{})
+	ack := make(chan bool)
+	for i := 0; i < R; i++ {
+		go func() {
+			for {
+				v, ok := <-input
+				if ok {
+					task(v)
+					ack <- true
+				} else {
+					return
+				}
+			}
+		}()
+	}
+	go func() {
+		for i := 0; i < R; i++ {
+			<-ack
+		}
+		climax()
+	}()
+	return input
 }
 func main() {
- 
- exit := make(chan bool)
- 
- workers := Workers(func(a interface{}) {
-  Task(a.(int))
- }, func() {
-  exit <- true
- })
- 
- for i := 0; i < N; i++ {
-  workers <- i
- }
- close(workers)
- 
- <-exit
+
+	exit := make(chan bool)
+
+	workers := Workers(func(a interface{}) {
+		Task(a.(int))
+	}, func() {
+		exit <- true
+	})
+
+	for i := 0; i < N; i++ {
+		workers <- i
+	}
+	close(workers)
+
+	<-exit
 }
+
 ```
 
 With this, I have attempted to demonstrate the power of Golang. We also looked at how one can write expressive code in Golang that delivers high performance.
