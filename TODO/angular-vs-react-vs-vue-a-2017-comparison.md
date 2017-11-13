@@ -262,7 +262,6 @@ When it comes to debugging, it’s a plus that React and Vue have less magic. Th
 
 语法看起来如何？ ValueCoders [比较 Angular，React 和 Vue 的语法](http://www.valuecoders.com/blog/technology-and-apps/vue-js-comparison-angular-react/)。
 
-It is also good to see things in production — in conjunction with the underlying source code. [TodoMVC](http://todomvc.com/) lists dozens of the same Todo app, written with different Javascript frameworks — you can compare the [Angular](http://todomvc.com/examples/angularjs), [React](http://todomvc.com/examples/react/#/) and [Vue](http://todomvc.com/examples/vue/) solutions. [RealWorld](https://realworld.io/#) creates a real-world-application (a Medium-clone), and they have solutions for [Angular](https://github.com/gothinkster/angular-realworld-example-app) (4+) and [React](https://github.com/gothinkster/react-redux-realworld-example-app) (with Redux) ready. [Vue](https://github.com/mchandleraz/realworld-vue) is a work-in-progress.
 在生产环境中也很好查看 - 连同底层的源代码。 [TodoMVC](http://todomvc.com/) 列出了几十个相同的 Todo 应用程序，用不同的 Javascript 框架编写 - 你可以比较 [Angular](http://todomvc.com/examples/angularjs)，[React](http://todomvc.com/examples/react/#/) 和 [Vue](http://todomvc.com/examples/vue/) 的解决方案。 [RealWorld](https://realworld.io/#) 创建了一个真实世界的应用程序（一个中等克隆），他们已经准备好了 [Angular](https://github.com/gothinkster/angular-realworld-example-app)（4+） 和 [React](https://github.com/gothinkster/react-redux-realworld-example-app)（带Redux）的解决方案。 [Vue](https://github.com/mchandleraz/realworld-vue) 的开发正在进行中。
 
 你可以看到许多真实的 app，以下是 React 的方案：
