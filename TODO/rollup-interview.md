@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/rollup-interview.md](https://github.com/xitu/gold-miner/blob/master/TODO/rollup-interview.md)
 > * 译者：[Raoul1996](https://github.com/Raoul1996)
-> * 校对者：[Usey95](https://github.com/Usey95)
+> * 校对者：[Usey95](https://github.com/Usey95)、[Aladdin-ADD](https://github.com/Aladdin-ADD)
 
 # Rollup - 下一代 ES6 模块化打包工具 - 对 Rich Harris 的采访
 
@@ -11,7 +11,7 @@
 
 为了深入探讨这个话题，我们正在采访 Rollup 的作者  [Rich Harris](https://twitter.com/Rich_Harris)。
 
-> 我早些时候已经采访过 [UI 框架 Svelte 的作者 Rich](https://survivejs.com/blog/svelte-interview/) 。
+> 我早些时候已经采访过 [Rich，他同样是 UI 框架 Svelte 的作者](https://survivejs.com/blog/svelte-interview/)。
 
 ## 你可以介绍下自己吗？
 
@@ -19,9 +19,9 @@
 
 ## 你会怎样把 _Rollup_ 介绍给一个从未听说过它的人？
 
-Rollup 是一个模块化的打包工具。基本上，它会合并 JavaScript 文件。而且你不需要去手动指定它们的顺序，或者去担心文件之间的变量名冲突。引擎内部实现会比说的复杂一点，但是它就是这么做的 —— 合并。
+Rollup 是一个模块化的打包工具。本质上，它会合并 JavaScript 文件。而且你不需要去手动指定它们的顺序，或者去担心文件之间的变量名冲突。它的内部实现会比说的复杂一点，但是它就是这么做的 —— 合并。
 
-这么做的原因是你可以使用 ES2015 新增到语言中的 `import` 和 `export` 关键字来模块化编程，这样在很多方面上更加明智。因为浏览器和 Node.js 还没有提供原生的 ES2015 module（ESM）支持，所以我们模块必须在打包之后才能运行。
+这么做的原因是你可以使用 ES2015 中新增的 `import` 和 `export` 关键字来模块化编程，这样在很多方面上更加明智。因为浏览器和 Node.js 还没有提供原生的 ES2015 module（ESM）支持，所以我们模块必须在打包之后才能运行。
 
 Rollup 可以打包出自执行（self-executing）的 `<script>` 文件，AMD 模块，Node 友好的 CommonJS 模块，UMD 模块（兼容三者），甚至是可以在 _其他_ 项目中使用的 ESM 模块。
 
@@ -45,11 +45,12 @@ import foo from './foo.js';
 
 相反，Rollup 事实上只是会合并你的代码 —— 没有任何浪费。所产生的包也可以更好的缩小。有人称之为 “作用域提升（scope hoisting）”。
 
-其次。他把你导入的模块中的未使用代码移除。这被称为“（摇树优化）treeshaking”。原因没人知道。
+其次。它把你导入的模块中的未使用代码移除。这被称为“（摇树优化）treeshaking”。没有什么确切的原因。
 
-值得注意的是，webpack 最新版本实现了作用域提升和摇树优化，所以它在打包体积和启动时间上赶上了 Rollup（尽管我们还是遥遥领先）。如果你构建的不是一个库，那么通常 webpack 是一个更好的选择，因为他有很多 Rollup 不具有的功能 —— 比如代码分割，动态导入等等。
+值得注意的是，webpack 最新版本实现了作用域提升和摇树优化，所以它在打包体积和启动时间上赶上了 Rollup（尽管我们还是遥遥领先）。如果你构建的不是一个库，那么通常 webpack 是一个更好的选择，因为它有很多 Rollup 不具有的功能 —— 比如代码分割，动态导入等等。
 
-> 理解工具间的差异，[请阅读 “Webpack 和 Rollup：似是而非”](https://medium.com/webpack/webpack-and-rollup-the-same-but-different-a41ad427058c)。
+> 理解工具间的差异，[请阅读 “同中有异的 Webpack 与 Rollup”](https://medium.com/webpack/webpack-and-rollup-the-same-but-different-a41ad427058c) 或者[[译] 同中有异的 Webpack 与 Rollup](https://juejin.im/post/58edb865570c350057f199a7)。
+> 
 
 ## 为什么你要开发 _Rollup_ 呢？
 
@@ -76,9 +77,9 @@ import foo from './foo.js';
 
 一方面，Rollup 会变得越来越过时。一旦浏览器提供原生的本地模块支持的时候，将会有一大类把打包（以及与之相关的一切 —— 编译，压缩等）作为一个可选而非必须的性能优化的应用。这将是 _大趋势_ ，尤其是对于 web 开发的新手来说。
 
-但是与此同时，我们越来越多地使用构建流程为我们的应用添加复杂的功能。我是这个的支持者 —— [Svelte](https://svelte.technology) 基本上是从声明模板开始为你编写应用程序的一个编译器。而且伴随着 WASM 以及其他东西的横空出世，他只会变得更激烈。
+但是与此同时，我们越来越多地使用构建流程为我们的应用添加复杂的功能。我是这个的支持者 —— [Svelte](https://svelte.technology) 基本上是从声明模板开始为你编写应用程序的一个编译器。而且伴随着 WASM 以及其他东西的横空出世，它只会变得更激烈。
 
-所以有两个看起来矛盾的趋势同时发生了，看看他们怎么发展将会是很有趣的。
+所以有两个看起来矛盾的趋势同时发生了，看看它们怎么发展将会是很有趣的。
 
 ## 您对进行 web 开发的程序员有什么建议呢？
 
@@ -91,7 +92,7 @@ import foo from './foo.js';
 
 我真的很喜欢跟随跨越 JavaScript 和其他学科（例如 DataGL，WebGL，制图和动画等）的人们的工作 —— 像 [Vladimir Agafonkin](https://twitter.com/mourner)，[Matthew Conlen](https://twitter.com/mathisonian)，[Sarah Drasner](https://twitter.com/sarah_edo)，[Robert Monfera](https://twitter.com/monfera) 和 [Tom MacWright](https://twitter.com/tmcw) 这样的人。
 
-在更广泛的 web 开发前沿，我一直喜欢和 [Dylan Piercey](https://twitter.com/dylan_piercey) 交流 [Rill](https://rill.site)。这是一个可以让你编写在浏览器中运行的 Express 风格应用的通用的路由（router），这个想法很棒。对我来说，它达到了提高生产力而不过度自以为是的最佳状态。
+在更广泛的 web 开发前沿，我一直喜欢和 [Dylan Piercey](https://twitter.com/dylan_piercey) 交流 [Rill](https://rill.site)。这是一个可以让你编写在浏览器中运行的 Express 风格应用的通用的路由（router），这个想法很棒。对我来说，它达到了提高生产力而不过多限制使用者的最佳状态。
 
 
 ## 最后随意说点什么？
