@@ -2,28 +2,28 @@
 > * 原文作者：[Keith Cirkel](https://twitter.com/keithamus)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/metaprogramming-in-es6-part-3-proxies.md](https://github.com/xitu/gold-miner/blob/master/TODO/metaprogramming-in-es6-part-3-proxies.md)
-> * 译者：
+> * 译者：[yoyoyohamapi](https://github.com/yoyoyohamapi)
 > * 校对者：
 
-# Metaprogramming in ES6: Part 3 - Proxies
+# ES6 中的元编程： 第三部分 - 代理（Proxies）
 
-In the third and final installment of my Metaprogramming in ES6 series - remember, those posts I wrote over a year ago and promised I wouldn’t take ages to complete but did? In this last post, we’ll be looking at possibly the coolest ES6 Reflection feature: Proxies. Those of you versed in my back catalogue will have already read [my last post, when we had a look at the ES6 Reflect API](/metaprogramming-in-es6-part-2-reflect/), and [the post before where we took a look at ES6 Symbols](/metaprogramming-in-es6-symbols/) - those of you haven’t should go ahead and get versed, the Reflect will be particularly relevant here and is required reading before we continue. Just like the other posts, I’m going to quote a point I made in Part 1:
+这是我的 ES6 元编程系列的第三部分，也是最后一部分，还记得这个系列的文章我一年之前就开始动笔了，并且承诺不会花一年才写完，但现实就是我还真花费了如此多的时间去完成。在最后这篇文章中，我们要看看可能是 ES6 中最酷的反射特性：代理。已经读过了[上一篇讲述 ES6 Reflect API 的文章](/metaprogramming-in-es6-part-2-reflect/)，以及[更早的、讲述 ES6 Symbols 的文章](/metaprogramming-in-es6-symbols/)，由于反射和本文的部分内容有关，如果你还没读过它们，先倒回去阅读一下才能继续阅读本文。正如其他部分一样，我先引用一下在第一部分提到过的观点：
 
-> * Symbols are all about Reflection within implementation - you sprinkle them on your existing classes and objects to change the behaviour.
-> * Reflect is all about Reflection through introspection - used to discover very low level information about your code.
-> * Proxy is all about Reflection through intercession - wrapping objects and intercepting their behaviours through traps.
+* Symbols 是 **实现了的反射（Reflection within implementation）**—— 你将 Symbols 应用到你已有的类和对象上去改变它们的行为。
+* Reflect 是 **通过自省（introspection）实现反射（Reflection through introspection）** —— 通常用来探索非常底层的代码信息。
+* Proxy 是 **通过调解（intercession）实现反射（Reflection through intercession）** —— 包裹对象并通过自陷（trap）来拦截对象行为。
 
-So, `Proxy` is a new global constructor (like `Date` or `Number`) that you pass an Object, a bunch of hooks, and it spits out a _new_ Object that wraps the old one with all these fancy hooks. Voilà, you have a proxy! Post over, hope you enjoyed it, let’s all go home!
+因此，`Proxy` 是一个全新的全局构造函数（类似 `Date` 或者 `Number`），你可以传递给其一个对象，以及一些钩子（hook），它能为你返回一个 **新的** 对象，该对象由这些充满魔力的钩子包裹了老对象得到。现在你拥有了代理，希望你喜欢它，我也高兴你回到这个系列中来。
 
-Ok, so there’s definitely some more to it. For starters, let’s have a look at the constructor.
+关于代理，有很多需要阐述的。但对新手来书，先让我们看看这个构造函数。
 
-## Creating Proxies
+## 创建代理
 
-The Proxy constructor takes two arguments, an initial Object that you want to proxy, and a set of handler hooks. Let’s forget about the hooks for the moment and take a look at how we create proxies on objects. The clue is in the name with Proxies: they hold a reference to the Object you create, but if you have a reference to the original Object then you can still interact with it, and the Proxy will also be affected, similarly, any alterations you make with Proxy will be reflected onto the original object. In other words, Proxies return a new object which wraps the passed in object, but anything you do with either effects the other. To demonstrate:
+Proxy 构造函数接受两个参数，其一是你想要代理的初始对象，其二是一系列处理钩子（handler hooks）。我们先忽略第二个钩子参数，看看怎么为现有对象创建代理。线索即在代理这个名字中：它们维持了一个你创建对象的引用，但是如果你有了一个原始对象对象的引用，任何你和原始对象的交互，都会影响到代理，类似地，任何你对代理做的改变，反过来也都会影响到原始对象。换句话说，Proxy 返回了一个包裹了传入对象的新对象，但是任何你对二者的操作，都会影响到它们彼此。为了证实这一点，看到代码：
 
-```
+```js
 var myObject = {};
-var proxiedMyObject = new Proxy(myObject, {/*handler hooks*/});
+var proxiedMyObject = new Proxy(myObject, {/*以及一系列处理钩子*/});
 
 assert(myObject !== proxiedMyObject);
 
@@ -34,32 +34,32 @@ proxiedMyObject.bar = true;
 assert(myObject.bar === true);
 ```
 
-So far we’ve achieved nothing, our Proxy doesn’t give us any benefits over just using the normal object. To do interesting stuff with it, we’ll need to use the handler hooks.
+目前为止，我们什么目的也没打到，相较于直接使用被代理对象，代理并不能提供任何额外收益。只有用上了处理钩子，我们才能在代理上做一些有趣的事儿。
 
-## Proxy Handler Hooks
+## 代理的处理钩子
 
-The handler hooks are a set of functions, each one has a specific name that Proxy is aware of, and each one controls the behaviour of how you interact with the Proxy (and therefore, its wrapped object). The handler hooks JavaScript’s “internal methods”, and if this is sounding familiar that’s because we already discussed Internal Methods in [the post on the Reflect API](/metaprogramming-in-es6-part-2-reflect/#internal-methods).
+处理钩子是一系列的函数，每一个钩子都有一个具体名字以供代理识别，每一个钩子也控制了你如何和代理交互（因此，也控制了你和被包裹对象的交互）。处理钩子勾住了 JavaScript 的 “内置方法”，如果你听到这里感觉有点熟悉的话，是因为我们在 [上一篇介绍 Reflect API 的文章](/metaprogramming-in-es6-part-2-reflect/#internal-methods) 中提到了内置方法。
 
-Ok, it’s time to spill the beans. There’s a good reason I saved Proxy until last; that’s because we needed to understand how Reflect works, because Proxy and Reflect are intertwined, like star crossed lovers. You see, every handler hook Proxy has Reflect has a method for, or to put it another way, every one of the Reflect methods has a Proxy Handler Hook. The full list of Reflect methods/Proxy handler hooks is:
+是时候铺开来说代理的。我把代理放到系列的最后一部分的重要原因是：由于代理和反射就像明星和粉丝一样，是相互交织的，因此我们需要先知道反射是如何工作的。如你所见，每一个代理钩子都对应到一个反射方法，也可以反过来说，每一个反射方法都有一个代理钩子。完整的反射方法/代理处理钩子如下：
 
-* `apply` (call a function with a `this` argument and a set of `arguments`)
-* `construct` (call a class/constructor function with a set of `arguments` and optional constructor for prototype)
-* `defineProperty` (define a property on an Object, including metadata about its enumerability and whatnot)
-* `getOwnPropertyDescriptor` (get a properties “property descriptor”: the metadata about an object property such as its enumerability)
-* `deleteProperty` (delete a property from an object)
-* `getPrototypeOf` (get an instances prototype)
-* `setPrototypeOf` (set an instances prototype)
-* `isExtensible` (determine if an object is “extensible” (can have properties added to it))
-* `preventExtensions` (prevent the object from being extensible)
-* `get` (get the value of a property on an object)
-* `set` (set the value of a property on an object)
-* `has` (check if an object has a particular property without asserting on the value)
-* `ownKeys` (retreive all of the own keys of a Object: the keys it has, but not the keys its prototype has)
+* `apply` （以一个 `this` 参数和一系列 `arguments`（参数序列） 调用函数）
+* `construct`（以一系列 `arguments` 及一个可选的、指明了原型的构造函数调用一个类函数或者构造函数）
+* `defineProperty` （在对象上定义一个属性，并声明该属性诸如对象可迭代性这样的元信息）
+* `getOwnPropertyDescriptor` （获得一个属性的 “属性描述子”：描述子包含了诸如对象可迭代性这样的元信息）
+* `deleteProperty` （从对象上删除某个属性）
+* `getPrototypeOf` （获得某实例的原型）
+* `setPrototypeOf` （设置某实例的原型）
+* `isExtensible` （判断一个对象是否是 “可扩展的”，亦即是否可以为其添加属性）
+* `preventExtensions` （防止对象被扩展）
+* `get` （得到对象的某个属性）
+* `set` （设置对象的某个属性）
+* `has` （在不断言属性值的情况下，判断对象是否含有某个属性）
+* `ownKeys` （获得某个对象自身所有的 key，排除掉其原型上的 key）
 
-We went over all of these methods (with code samples) in the [Reflect post](/metaprogramming-in-es6-part-2-reflect/) (one more time: go read it if you haven’t). Proxy implements every one of these, with exactly the same argument set. In fact, Proxy’s default behaviour essentially implements Reflect calls for every handler hook (the internal mechanics of JavaScript engines might be slightly different, but we can just pretend that unspecified hooks will just default to their Reflect counterparts). This also means that any hook you don’t specify will behave just like it normally would, as if it was never proxied:
+在[反射那一部分中](/metaprogramming-in-es6-part-2-reflect/)（再啰嗦一遍，如果你没看过，赶快去看），我们已经浏览过所有这些方法了（并附带有例子）。代理用相同的参数集实现了每一个方法。实际上，代理的默认行为已经实现了在每个处理钩子中完成反射函数的调用（其内部机制对于不同的 JavaScript 引擎可能会有所区别，但对于没有说明的钩子，我们只需要认为它和对应的反射方法行为一致即可）。这也意味着，任何你没有指定的钩子，都具有和默认状况一致的行为，就像它从未被代理过一样：
 
-```
-// Here is a Proxy where we're defining the same behaviour as the default:
+```js
+// 我们新创建了代理，并定义了与默认创建时一样的行为
 proxy = new Proxy({}, {
   apply: Reflect.apply,
   construct: Reflect.construct,
@@ -77,19 +77,19 @@ proxy = new Proxy({}, {
 });
 ```
 
-Now, I could go into detail about how each of these Proxy handler hooks works, but it’d basically be me copy/pasting the Reflect examples with a few minor edits. It’d also be a bit unfair for Proxy, because Proxy is all about the cool use cases, not the utility of individual methods. So the rest of this post is going to show you cool things you can do with proxies, including some you could never do without them.
+现在，我可以深入到每个代理钩子的工作细节中去了，但我不会直接复制/粘贴反射中的例子来偷懒。如果只是介绍每个钩子的功能，对代理来说就不太公平，因为代理是去实现一些炫酷用例的。所以，本文剩余内容都将为你展示通过代理完成的炫酷的东西，甚至是一些你没了代理就无法完成的事。
 
-Also, to make things a bit more interactive, I’ve created small libraries for each of the examples, which demonstrate the functionality. I’ll link the repos to each example.
+同时，为了让内容更具交互性，我为每个例子都创建一个小的库来展示对应的功能。我会给出每个例子对应的代码仓库链接。
 
-## Using Proxy to…
+## 用代理来......
 
-### …make an infinitely chainable API
+### 构建一个可无限链式调用的 API
 
 Building on the previous example - using the same `[[Get]]` trap: with a little bit more magic we can make an API which has an infinite number of methods, and when you finally call one of those it’ll return everything you chained. This could be useful, for example, in making a [fluent API](https://en.wikipedia.org/wiki/Fluent_interface) that constructs URLs for web requests, or maybe some kind of Test Assertion framework that chains together English words to make readable assertions, kind of like [Chai](https://github.com/chaijs/chai).
 
 For this we need to hook into `[[Get]]`, and push the retrieved prop into an array. The Proxy will wrap a function which returns the Array of all retrieved props and empty the array, so it can be re-used. We’ll also hook into `[[HasProperty]]` because, like before, we want to demonstrate to our users that any property exists.
 
-```
+```js
 function urlBuilder(domain) {
   var parts = [];
   var proxy = new Proxy(function () {
@@ -113,7 +113,7 @@ assert(google.search.products.bacon.and.eggs() === 'http://google.com/search/pro
 
 You could also use this same pattern to make a tree traversal fluent API, something like you might see as part of jQuery or perhaps a React selector tool:
 
-```
+```js
 function treeTraverser(tree) {
   var parts = [];
   var proxy = new Proxy(function (parts) {
@@ -172,13 +172,13 @@ assert(myDomIsh.div.span.b().textContent === 'World');
 
 I’ve made a slightly more reusable version of this over at [github.com/keithamus/proxy-fluent-api](https://github.com/keithamus/proxy-fluent-api), available on npm with the same name.
 
-### …implement a “method missing” hook
+### 实现一个 “方法缺失” 钩子
 
 Various other programming languages give you the ability to override the behaviour of a class using a well-known reflection methods, for example in PHP it is `__call`, in Ruby it is `method_missing`, in Python you can emulate this behaviour with `__getattr__`. JavaScript has no such mechanism - but now we have Proxies which allow us to do cool things like this.
 
 To get an idea of what we’re after, let’s look at a Ruby example for some inspiration:
 
-```
+```rb
 class Foo
   def bar()
     print "you called bar. Good job!"
@@ -199,7 +199,7 @@ So for any method that exists, in this case `bar`, that method is executed like 
 
 We could do something similar with a mixture of ES6 Symbols, and a function that can wrap the class and return a Proxy with the `get` (`[[Get]]`) trap:
 
-```
+```js
 function Foo() {
   return new Proxy(this, {
     get: function (object, property) {
@@ -227,7 +227,7 @@ foo.this_method_does_not_exist()
 
 This really comes into use where you have a set of methods whose functionality is largely the same, where the differences can be inferred from the method name. Effectively moving what would be function parameters into the function name for a more readable syntax. As an example of this - you could quickly and easily make an API for switching between two pairs of values like currencies, or perhaps bases:
 
-```
+```js
 const baseConvertor = new Proxy({}, {
   get: function baseConvert(object, methodName) {
     var methodParts = methodName.match(/base(\d+)toBase(\d+)/);
@@ -250,14 +250,14 @@ Of course, you could manually type out all 1,296 permutations of the available m
 
 A more concrete example of this exists in Ruby on Rails ActiveRecord, which comes with “dynamic finders”. It essentially implements `method_missing` to allow you to query a table by its columns. Rather than passing in a complex object, your parameters become values matched to the method name, for example:
 
-```
+```js
 Users.find_by_first_name('Keith'); # [ Keith Cirkel, Keith Urban, Keith David ]
 Users.find_by_first_name_and_last_name('Keith', 'David');  # [ Keith David ]
 ```
 
 We could implement something similar in JavaScript using our above pattern:
 
-```
+```js
 function RecordFinder(options) {
   this.attributes = options.attributes;
   this.table = options.table;
@@ -272,7 +272,7 @@ function RecordFinder(options) {
 
 Like the rest of these examples, I’ve made a little lib out of this - over at [github.com/keithamus/proxy-method-missing](https://github.com/keithamus/proxy-method-missing). It’s on npm too.
 
-### …hide all properties from all enumeration methods including `getOwnPropertyNames`, `Object.keys`, `in` etc.
+### 从 `getOwnPropertyNames`、`Object.keys`、`in` 等所有迭代方法中隐藏所有的属性
 
 We can use Proxies to make every property in an object completely hidden, except for when getting the value. Here’s all of the ways you can find out if a property exists on an Object in JavaScript:
 
@@ -281,7 +281,7 @@ We can use Proxies to make every property in an object completely hidden, except
 * `Object.entries` (an upcoming ES2017 feature), also uses `[[OwnPropertyKeys]]` - again - trapped by `ownKeys`.
 * `Object.getOwnPropertyDescriptor` which uses `[[GetOwnProperty]]`. Proxy can trap this with, surprise surprise, `getOwnPropertyDescriptor`.
 
-```
+```js
 var example = new Proxy({ foo: 1, bar: 2 }, {
   has: function () { return false; },
   ownKeys: function () { return []; },
@@ -299,13 +299,13 @@ assert.deepEqual(Object.getOwnPropertyNames(example), [ ]);
 
 I’m not going to lie, I cannot think of any super useful uses of this pattern. Nevertheless, I have made a library to go with this, available at [github.com/keithamus/proxy-hide-properties](https://github.com/keithamus/proxy-hide-properties) which also lets you specify individual properties to hide, rather than blanket hiding all properties.
 
-### …implement the Observer pattern, aka Object.observe.
+### 实现一个观察者模式，也称作 Object.observe
 
 Those of you who keenly follow the additions of new specs may have noticed `Object.observe` being considered for inclusion in ES2016\. Recently, however, the champions of `Object.observe` have planned to [withdraw their proposal to include Object.observe](https://esdiscuss.org/topic/an-update-on-object-observe), and with good reason: it was originally created to answer a problem framework authors had around Data Binding. Now, with React and Polymer 1.0, the trend of data binding frameworks is declining, and instead immutable data structures are becoming more prevalent.
 
 Thankfully, Proxy actually makes specs like Object.observe redundant, as now we have a low level API through Proxy, we can actually implement something like Object.observe. To get close feature parity with Object.observe, we need to hook on the `[[Set]]`, `[[PreventExtensions]]`, `[[Delete]]`, and `[[DefineOwnProperty]]` internal methods - that’s the `set`, `preventExtensions`, `deleteProperty` and `defineProperty` Proxy traps respectively:
 
-```
+```js
 function observe(object, observerCallback) {
   var observing = true;
   const proxyObject = new Proxy(object, {
@@ -382,11 +382,11 @@ assert.equal(changes[4].type, 'preventExtensions');
 
 As you can see, we have a relatively complete Object.observe implementation in a small chunk of code. The main differences between the proposed spec and this implementation is that Object.observe could mutate an object, where as Proxy has to return a new one - that and the unobserve function is not a global.
 
-## Bonus Round: Revocable Proxies
+## 加分环节：可撤回代理
 
 Proxies have one last trick up their sleeve: some Proxies can be revoked. To create a revocable Proxy, you need to use `Proxy.revocable(target, handler)` (instead of `new Proxy(target, handler)`), and instead of returning the Proxy directly, it’ll return an Object that looks like `{ proxy, revoke(){} }`. An example:
 
-```
+```js
 function youOnlyGetOneSafetyNet(object) {
   var revocable = Proxy.revocable(object, {
     get(property) {
@@ -417,7 +417,7 @@ Sadly, as you can see right at the end in the example, a revoked Proxy will thro
 
 Like the other examples, this one has been codified up, and is available at [github.com/keithamus/proxy-object-observe](https://github.com/keithamus/proxy-object-observe) - and also on npm.
 
-## Conclusion
+## 总结
 
 I hope this post has shown you that Proxy is an incredibly powerful tool for messing with (what used to be) JavaScript internals. In many ways, Symbol, Reflect, and Proxy are opening up a new chapter of JavaScript - in as much as const and let, or classes and arrow functions. While const & let make code less confusing, and classes & arrow functions make code more terse, Symbol, Reflect, and Proxy are beginning to give developers really low level metaprogramming hooks within JavaScript.
 
