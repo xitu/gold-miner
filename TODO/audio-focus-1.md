@@ -3,7 +3,6 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/audio-focus-1.md](https://github.com/xitu/gold-miner/blob/master/TODO/audio-focus-1.md)
 > * 译者：[oaosj](https://github.com/oaosj)
-> * 校对者：
 
 # 理解音频焦点 (第1/3部分)：常见的音频焦点用例
 
