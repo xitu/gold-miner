@@ -511,14 +511,18 @@ Between the official persistent modal sheets and these third-party alternatives,
 
 ## CoordinatorLayout 故障解决
 
-`CoordinatorLayout` 非常强大但是容易出错。如果你在使用 behavior 时遇到了问题，请查看下面的建议：
+`CoordinatorLayout` 非常强大但容易出错。如果你在使用 behavior 时遇到了问题，请查看下面的建议：
 `CoordinatorLayout` is very powerful but error-prone at first. If you are running into issues with coordinating behavior, check the following tips below:
 
-* 
+* 关于如何高效使用 CoordinatorLayout 的例子请仔细参考 [cheesesquare 源码](https://github.com/chrisbanes/cheesesquare)。这个仓库是一个被 Google 持续更新的示例仓库，反映了 behavior 的最佳实践。尤其是  [layout for a tabbed ViewPager list](https://github.com/chrisbanes/cheesesquare/blob/master/app/src/main/res/layout/include_list_viewpager.xml) 和 [this for a layout for a detail view](https://github.com/chrisbanes/cheesesquare/blob/master/app/src/main/res/layout/activity_detail.xml) 这两个。可以仔细比较一下你的代码与 cheesesquare 的源码。
 *   The best example of how to use coordinator layout effectively is to refer carefully to the [source code for cheesesquare](https://github.com/chrisbanes/cheesesquare). This repository is a sample repo kept updated by Google to reflect best practices with coordinating behaviors. In particular, see the [layout for a tabbed ViewPager list](https://github.com/chrisbanes/cheesesquare/blob/master/app/src/main/res/layout/include_list_viewpager.xml) and [this for a layout for a detail view](https://github.com/chrisbanes/cheesesquare/blob/master/app/src/main/res/layout/activity_detail.xml). Compare your code carefully to the cheesesquare source code.
+* 确保在 **`CoordinatorLayout` 的直接子 view** 上使用了 `app:layout_behavior="@string/appbar_scrolling_view_behavior"` 属性。例如，在一个下拉刷新的例子中，这个属性应该放在包含了 `RecyclerView` 的 `SwipeRefreshLayout` 中而不是第二层以下的后代中。
 *   Make sure that the `app:layout_behavior="@string/appbar_scrolling_view_behavior"` property is applied to the **direct child of the `CoordinatorLayout`**. For example, if there's pull-to-refresh that the property is applied to the `SwipeRefreshLayout` that contains the `RecyclerView` rather than the 2nd-level descendant.
+* 在一个使用了内部有 items 列表的 `ViewPager` 的 fragment 和一个父 activity 之间使用协调时，你想像[这里描述](https://github.com/chrisbanes/cheesesquare/blob/master/app/src/main/res/layout/include_list_viewpager.xml#L49)的那样在 `ViewPager` 上添加 `app:layout_behavior` 属性，认为这样就可以将 pager 中的滚动事件向上传递然后就可以被 `CoordinatorLayout` 管理。但是，记住，你**不应该**将 `app:layout_behavior` 属性放到 fragment 或者它内部列表上的任何一个位置。
 *   When coordinating between a fragment with a list of items inside of a `ViewPager` and a parent activity, you want to put the `app:layout_behavior` property on the `ViewPager` [as outlined here](https://github.com/chrisbanes/cheesesquare/blob/master/app/src/main/res/layout/include_list_viewpager.xml#L49) so the scrolls within the pager are bubbled up and can be managed by the `CoordinatorLayout`. Note that you **should not** put that `app:layout_behavior` property anywhere within the fragment or the list within.
+* 谨记 `ScrollView` 不能与 `CoordinatorLayout` 一起使用。你将需要像[这个示例](https://github.com/chrisbanes/cheesesquare/blob/master/app/src/main/res/layout/activity_detail.xml#L61)中展示的那样用 `NestedScrollView` 来代替。将你的内容包含在 `NestedScrollView` 中，然后在其上添加 `app:layout_behavior` 就会使你的滚动行为预期工作。
 *   Keep in mind that `ScrollView` **does not work** with `CoordinatorLayout`. You will need to use the `NestedScrollView` instead as shown in [this example](https://github.com/chrisbanes/cheesesquare/blob/master/app/src/main/res/layout/activity_detail.xml#L61). Wrapping your content in the `NestedScrollView` and applying the `app:layout_behavior` property will cause the scrolling behavior to work as expected.
+* 确保你的 activity 或者 fragment 的根布局是 `CoordinatorLayout`。滚动事件不会响应其他任何布局。
 *   Make sure that the root layout of your activity or fragment is a `CoordinatorLayout`. Scrolls will not react to any of the other layouts.
 
 There's a lot of ways coordinating layouts can go wrong. Add tips here as you discover them.
