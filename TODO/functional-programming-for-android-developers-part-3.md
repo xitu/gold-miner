@@ -5,26 +5,26 @@
 > * 译者：
 > * 校对者：
 
-# Functional Programming for Android Developers — Part 3
+# Android 开发者如何函数式编程 （三）
 
 ![](https://cdn-images-1.medium.com/max/800/1*exgznl7z65gttRxLsMAV2A.png)
 
-In the last post, we learned about _immutability_ and _concurrency_. In this one, we’ll look at _Higher Order Functions_ and _Closures._
+在上一章，我们学习了不可变性和并发。在这一章，我们将学习高阶函数和闭包。
 
-If you haven’t read part 1 and part 2, please read it here:
+如果你还没有阅读过第一部分和第二部分，可以点击这里阅读：
 
 - [Android 开发者如何函数式编程 （一）](https://github.com/xitu/gold-miner/blob/master/TODO/functional-programming-for-android-developers-part-1.md)
 - [Android 开发者如何函数式编程 （二）](https://github.com/xitu/gold-miner/blob/master/TODO/functional-programming-for-android-developers-part-2.md)
 
-### Higher Order Functions
+### 高阶函数
 
-Higher Order Functions are functions that can take functions as parameters and returns functions as results. Cool, huh?
+高阶函数是可以把函数作为参数并以函数作为结果返回的函数。很酷吧？
 
-But why would anyone wanna do that?
+但是为什么有人想要那样做呢？
 
-Let’s take an example. Suppose I want to compress a bunch of files. I want to do this two ways — using ZIP or RAR format. To do this in traditional Java, we would use something like the [Strategy Pattern](https://en.wikipedia.org/wiki/Strategy_pattern).
+让我们看一个例子。假设我想压缩一堆文件。我想用两种压缩格式来做-ZIP或者RAR格式。 如果用传统的Java来实现，通常会使用 [策略模式](https://en.wikipedia.org/wiki/Strategy_pattern)。
 
-Firstly, I’d make an interface that defines the strategy:
+首先，创建一个定义策略的接口：
 
 ```
 public interface CompressionStrategy {
@@ -32,7 +32,7 @@ public interface CompressionStrategy {
 }
 ```
 
-Then I would implement the two strategies like so:
+然后，像以下代码一样实现两种策略：
 
 ```
 public class ZipCompressionStrategy implements CompressionStrategy {
@@ -47,7 +47,7 @@ public class RarCompressionStrategy implements CompressionStrategy {
 }
 ```
 
-Then at runtime, I can use one of these strategies:
+在运行时，我们就可以使用任意一种策略：
 
 ```
 public CompressionStrategy decideStrategy(Strategy strategy) {
@@ -60,15 +60,15 @@ public CompressionStrategy decideStrategy(Strategy strategy) {
 }
 ```
 
-That’s a lot of code and ceremony.
+使用这种方式有一堆的代码和需要遵循的格式。
 
-All we are trying to do here is try to do two different bits of business logic depending on some variable. Since business logic can’t live on it’s own in Java, we have to dress it up in classes and interfaces.
+其实所要做的就是根据一些变量实现两个不同的业务逻辑。由于业务逻辑不能在Java中独立存在，所以必须用类和接口去修饰。
 
-Wouldn’t it be great if we could directly pass in the business logic? That is, if we could treat functions as variables, could we pass business logic around just as easily as variables and data?
+如果能够直接传递业务逻辑，那不是很好吗？也就是说，如果可以把函数当作变量来处理，那么是否可以像变量和数据一样容易地传递业务逻辑呢？
 
-This is **exactly** what higher order functions are for!
+这 **正是** 高阶函数的功能！
 
-Let’s see the same example with Higher Order Functions. I’m going to use [Kotlin](https://kotlinlang.org/) here, since Java 8 lambdas still involve [some ceremony of creating functional interfaces](https://stackoverflow.com/a/13604748/1369222) which we’d like to avoid.
+现在，从高阶函数的角度来看这同一个例子。这里我要使用 [Kotlin](https://kotlinlang.org/) ， 因为Java 8 的 lambdas 表达式仍然包含了我们想要避免的 【一些创建函数接口的方式】(https://stackoverflow.com/a/13604748/1369222) 。
 
 ```
 fun compress(files: List<File>, applyStrategy: (List<File>) -> CompressedFiles){
@@ -76,22 +76,22 @@ fun compress(files: List<File>, applyStrategy: (List<File>) -> CompressedFiles){
 }
 ```
 
-The `compress` method takes two parameters — a list of files and a function called `applyStrategy` which a function of type `List<File> -> CompressedFiles.`That is, it’s a function that takes a list of files and returns `CompressedFiles`.
+`compress` 方法接受两个参数 — 一个文件列表和一个类型为`List<File> -> CompressedFiles`的 `applyStrategy` 函数。也就是说，它是一个函数，它接受一个文件列表并返回`CompressedFiles`。
 
-Now we can call `compress` with any function that takes a list of files and returns compressed files:
+现在我们可以使用任何带有文件列表的函数来调用`compress` ，并返回压缩文件：
 
 ```
 compress(fileList, {files -> // ZIP it})
 compress(fileList, {files -> // RAR it})
 ```
 
-Better. Much better.
+这看起来就好很多了。
 
-So Higher Order Functions allow us to pass logic around and treat code as data. Neat.
+所以高阶函数允许我们传递逻辑并将代码当作数据处理。 
 
-### Closures
+### 闭包
 
-Closures are functions that capture their environments. Let’s understand this with an example. Suppose I have a click listener on a view and we want to print some value inside it:
+闭包是可以捕捉其环境的函数。 让我们通过一个例子来理解这个概念。假设给一个view设置了一个 click listener ，在其方法内部想要打印一些值：
 
 ```
 int x = 5;
@@ -103,13 +103,13 @@ view.setOnClickListener(new View.OnClickListener() {
 });
 ```
 
-Java won’t let us do this since `x` isn’t final. `x` has to be final in Java since the click listener can be executed anytime and at the time it is executed, `x` might not be around anymore or it’s value might have changed. Java forces us to make this variable final to effectively make it immutable.
+Java里面不允许我们这样做，因为 `x` 不是final的。在Java里 `x` 必须声明为 final 是因为 click listener 可能在任意时间执行，而 `x` 的值有可能已经发生了改变。Java强制我们将这样的变量定义为 final 从而有效地将其设置为了不可变变量。
 
-Once it’s immutable, Java will know that `x` is always going to be `5` whenever the click listener is executed. This system isn’t perfect since `x` can point to a list which can be mutated even though the reference to the list is the same.
+一旦它是不可变的，Java就知道不管 click listener 什么时候执行， `x` 都等于 `5` 。 这样的系统不是完美的，因为 `x` 可以指向一个可变的列表，而列表的引用是一样的。
 
-Java doesn’t have a mechanism for a function to capture and respond to variables that are outside it’s scope. Java functions cannot capture or _close_ over their environment.
+Java没有一个机制可以让函数去捕捉和响应超过它作用域的变量。Java函数不能捕捉或者关闭它们的环境（？）。
 
-Let’s try doing the same thing in Kotlin. We don’t even need an anonymous inner class since we have first class functions in Kotlin:
+让我们尝试在Kotlin中做相同的事。 我们甚至不需要匿名的内部类，因为我们在Kotlin中拥有一流的函数：
 
 ```
 var x = 5
@@ -117,21 +117,21 @@ var x = 5
 view.setOnClickListener { println(x) }
 ```
 
-This is perfectly valid in Kotlin. Functions in Kotlin are _closures._ They can keep track of and respond to updates in their environment.
+这在Kotlin中是完全有效的。Kotlin中的函数都是闭包。 他们可以跟踪和响应其环境中的更新。
 
-The first time the click listener is triggered, it will print `5`. If we then change the value of `x` and say `x = 9` and trigger the click listener again, it will print `9` this time.
+第一次触发 click listener 时, 会打印 `5`. 如果我们改变 `x` 的值比如令 `x = 9` ，将再次触发 click listener ，这次会打印`9`。
 
-#### So what can I do with these closures?
+#### 我们能利用闭包做什么？
 
-Closures have many nifty use cases. Anytime you want business logic to respond to some state in the environment, you can use closures.
+闭包有很多非常好的用例。任何时候你想让业务逻辑响应环境的某个状态，你可以使用闭包。
 
-Suppose you have a click listener on a button that shows a dialog with a bunch of messages to the user. If you don’t have closures, you’d have to initialize a new listener with the new list of messages every time the messages change.
+假设在一个按钮上有一个listener，点击按钮会向用户显示一串消息的对话框。 如果没有闭包，则每次消息更改时都必须使用新的消息列表并且初始化新的listener。
 
-With closures, you can store the list of messages somewhere and pass the reference to the list in the listener, like we did above, and the listener will always show the latest set of messages.
+有了闭包，你可以在某个地方存储消息列表并把列表的引用传递给listener，就像我们上面做的一样， 这个listener就会一直展示最新的消息。
 
-**Closures can also be used to completely replace objects.** This is often used in functional languages where you might need some OOP like behavior and the language doesn’t support them.
+**闭包也可以用来彻底替换对象。** 这在函数式编程中经常使用。你可能需要一些类似OOP的行为，但是语言并不支持。
 
-Let’s see an example:
+我们来看个例子：
 
 ```
 class Dog {
@@ -148,7 +148,7 @@ class Dog {
 }
 ```
 
-I have dog that gains weight when we feed it and loses weight when it exercises. Can we describe the same behavior with closures?
+我有一条狗在喂食时体重增加，运动时体重减轻。我们能用闭包来描述相同的行为吗？
 
 ```
 fun main(args: Array<String>) {
@@ -166,27 +166,27 @@ enum class Action {
 }
 ```
 
-The `dog` function takes an `Action` and depending on the action, will either feed the dog or get it to workout. When we call `dog(Action.feed)(5)` in the `main` function, the result will be `15`. The `dog` function is taking a `feed` action and returning another function that will feed the dog. When we pass the value `5` to this returned function, it will increment the dog’s weight to `10 + 5 = 15` and print it out.
+`dog` 函数接受一个 `Action` 参数，这个action要么是给狗喂食，要么是让它去运动。当在 `main` 中调用 `dog(Action.feed)(5)`，结果将是 `15` 。 `dog` 函数接受了一个 `feed` 动作，并返回了另外一个真正去给狗喂食的函数。如果把 `5` 传递给这个返回的函数，它将把狗狗的体重增加到 `10 + 5 = 15` 并打印出来。
 
-> So combining Closures and Higher Order Functions, we can get Objects without OOP.
+> 所以结合闭包和高阶函数，我们可以不通过OOP就能获取到对象。
 
 ![](https://cdn-images-1.medium.com/max/800/1*qOekxkFDrnQQIekBjkouiQ.gif)
 
-You probably don’t wanna do this in real code but it’s fun to know it can be done. Indeed, Closures are called the [_poor man’s objects_](http://wiki.c2.com/?ClosuresAndObjectsAreEquivalent)_._
+可能你在真正写代码的时候不会这样做，但是知道可以这样做也是蛮有趣的。确实，闭包被称为 Indeed,  [可怜人的对象](http://wiki.c2.com/?ClosuresAndObjectsAreEquivalent)_._
 
-### Summary
+### 总结
 
-Higher Order Functions allow us to encapsulate business logic better than OOP in many cases and we can pass them around and treat them as data. Closures capture their surrounding environment and help us use Higher Order Functions effectively.
+在许多情况下，高阶函数允许我们比OOP更好地封装业务逻辑，我们可以将它们当做数据一样传递。闭环捕捉周围的环境，帮助我们有效地使用高阶函数。
 
-In the next part, we’ll learn about error handling in a functional way.
+在下一部分，我们将学习如何以函数式的方法去处理错误。
 
 * * *
 
-_If you liked this, click the 👏 below. I notice each one and I’m grateful for every one of them._
+_如果你喜欢这篇文字，可以点击下面的👏按钮。我通知了他们每一个人，我也感激他们每一个人。_
 
-_For more musings about programming, follow me so you’ll get notified when I write new posts._
+_想了解更多关于编程的思考，请关注我，以便在我写新帖时你能及时得到通知。_
 
-Thanks to [Abhay Sood](https://medium.com/@abhaysood?source=post_page) and [s0h4m](https://medium.com/@s0h4m?source=post_page).
+感谢 [Abhay Sood](https://medium.com/@abhaysood?source=post_page) 和 [s0h4m](https://medium.com/@s0h4m?source=post_page).
 
 
 ---
