@@ -7,7 +7,7 @@
 
 # JavaScript工作原理: 内存管理 + 处理常见的4种内存泄漏
 
-A few weeks ago we started a series aimed at digging deeper into JavaScript and how it actually works: we thought that by knowing the building blocks of JavaScript and how they come to play together you’ll be able to write better code and apps.
+几周前，我们开始了一系列旨在深入挖掘JavaScript及其工作原理的研究。我们的结论是：通过了解构建JavaScript代码块以及它们组合在一起的方式，我们将能够编写更好的代码和应用程序。
 
 The first post of the series focused on providing [an overview of the engine, the runtime, and the call stack](https://blog.sessionstack.com/how-does-javascript-actually-work-part-1-b0bacc073cf). Thе [second post examined closely the internal parts of Google’s V8 JavaScript engine](https://blog.sessionstack.com/how-javascript-works-inside-the-v8-engine-5-tips-on-how-to-write-optimized-code-ac089e62b12e) and also provided a few tips on how to write better JavaScript code.
 
