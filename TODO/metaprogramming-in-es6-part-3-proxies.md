@@ -7,15 +7,15 @@
 
 # ES6 中的元编程： 第三部分 - 代理（Proxies）
 
-这是我的 ES6 元编程系列的第三部分，也是最后一部分，还记得这个系列的文章我一年之前就开始动笔了，并且承诺不会花一年才写完，但现实就是我还真花费了如此多的时间去完成。在最后这篇文章中，我们要看看可能是 ES6 中最酷的反射特性：代理。已经读过了[上一篇讲述 ES6 Reflect API 的文章](/metaprogramming-in-es6-part-2-reflect/)，以及[更早的、讲述 ES6 Symbols 的文章](/metaprogramming-in-es6-symbols/)，由于反射和本文的部分内容有关，如果你还没读过它们，先倒回去阅读一下才能继续阅读本文。正如其他部分一样，我先引用一下在第一部分提到过的观点：
+这是我的 ES6 元编程系列的第三部分，也是最后一部分，还记得这个系列的文章我一年之前就开始动笔了，并且承诺不会花一年才写完，但现实就是我还真花费了如此多的时间去完成。在最后这篇文章中，我们要看看可能是 ES6 中最酷的反射特性：代理（Proxy）。由于反射和本文的部分内容有关，如果你还没读过[上一篇讲述 ES6 Reflect API 的文章](/metaprogramming-in-es6-part-2-reflect/)，以及[更早的、讲述 ES6 Symbols 的文章](/metaprogramming-in-es6-symbols/)，先倒回去阅读一下，这样才能更好地理解本文。和其他部分一样，我先引用一下在第一部分提到过的观点：
 
 * Symbols 是 **实现了的反射（Reflection within implementation）**—— 你将 Symbols 应用到你已有的类和对象上去改变它们的行为。
 * Reflect 是 **通过自省（introspection）实现反射（Reflection through introspection）** —— 通常用来探索非常底层的代码信息。
 * Proxy 是 **通过调解（intercession）实现反射（Reflection through intercession）** —— 包裹对象并通过自陷（trap）来拦截对象行为。
 
-因此，`Proxy` 是一个全新的全局构造函数（类似 `Date` 或者 `Number`），你可以传递给其一个对象，以及一些钩子（hook），它能为你返回一个 **新的** 对象，该对象由这些充满魔力的钩子包裹了老对象得到。现在你拥有了代理，希望你喜欢它，我也高兴你回到这个系列中来。
+因此，`Proxy` 是一个全新的全局构造函数（类似 `Date` 或者 `Number`），你可以传递给其一个对象，以及一些钩子（hook），它能为你返回一个 **新的** 对象，新的对象使用这些充满魔力的钩子包裹了老对象。现在，你拥有了代理，希望你喜欢它，我也高兴你回到这个系列中来。
 
-关于代理，有很多需要阐述的。但对新手来书，先让我们看看这个构造函数。
+关于代理，有很多需要阐述的。但对新手来说，先让我们看看怎么创建一个代理。
 
 ## 创建代理
 
@@ -38,25 +38,25 @@ assert(myObject.bar === true);
 
 ## 代理的处理钩子
 
-处理钩子是一系列的函数，每一个钩子都有一个具体名字以供代理识别，每一个钩子也控制了你如何和代理交互（因此，也控制了你和被包裹对象的交互）。处理钩子勾住了 JavaScript 的 “内置方法”，如果你听到这里感觉有点熟悉的话，是因为我们在 [上一篇介绍 Reflect API 的文章](/metaprogramming-in-es6-part-2-reflect/#internal-methods) 中提到了内置方法。
+处理钩子是一系列的函数，每一个钩子都有一个具体名字以供代理识别，每一个钩子也控制了你如何和代理交互（因此，也控制了你和被包裹对象的交互）。处理钩子勾住了 JavaScript 的 “内置方法”，如果你对此感觉熟悉，是因为我们在 [上一篇介绍 Reflect API 的文章](/metaprogramming-in-es6-part-2-reflect/#internal-methods) 中提到了内置方法。
 
-是时候铺开来说代理的。我把代理放到系列的最后一部分的重要原因是：由于代理和反射就像明星和粉丝一样，是相互交织的，因此我们需要先知道反射是如何工作的。如你所见，每一个代理钩子都对应到一个反射方法，也可以反过来说，每一个反射方法都有一个代理钩子。完整的反射方法/代理处理钩子如下：
+是时候铺开来说代理了。我把代理放到系列的最后一部分的重要原因是：由于代理和反射就像明星和粉丝一样相互交织，因此我们需要先知道反射是如何工作的。如你所见，每一个代理钩子都对应到一个反射方法，反之亦然，每一个反射方法都有一个代理钩子。完整的反射方法及对应的代理处理钩子如下：
 
-* `apply` （以一个 `this` 参数和一系列 `arguments`（参数序列） 调用函数）
+* `apply` （以一个 `this` 参数和一系列 `arguments`（参数序列）调用函数）
 * `construct`（以一系列 `arguments` 及一个可选的、指明了原型的构造函数调用一个类函数或者构造函数）
-* `defineProperty` （在对象上定义一个属性，并声明该属性诸如对象可迭代性这样的元信息）
+* `defineProperty` （在对象上定义一个属性，并声明该属性中诸如对象可迭代性这样的元信息）
 * `getOwnPropertyDescriptor` （获得一个属性的 “属性描述子”：描述子包含了诸如对象可迭代性这样的元信息）
 * `deleteProperty` （从对象上删除某个属性）
 * `getPrototypeOf` （获得某实例的原型）
 * `setPrototypeOf` （设置某实例的原型）
-* `isExtensible` （判断一个对象是否是 “可扩展的”，亦即是否可以为其添加属性）
+* `isExtensible` （判断一个对象是否是 “可扩展的”，亦即判断是否可以为其添加属性）
 * `preventExtensions` （防止对象被扩展）
 * `get` （得到对象的某个属性）
 * `set` （设置对象的某个属性）
-* `has` （在不断言属性值的情况下，判断对象是否含有某个属性）
+* `has` （在不断言（assert）属性值的情况下，判断对象是否含有某个属性）
 * `ownKeys` （获得某个对象自身所有的 key，排除掉其原型上的 key）
 
-在[反射那一部分中](/metaprogramming-in-es6-part-2-reflect/)（再啰嗦一遍，如果你没看过，赶快去看），我们已经浏览过所有这些方法了（并附带有例子）。代理用相同的参数集实现了每一个方法。实际上，代理的默认行为已经实现了在每个处理钩子中完成反射函数的调用（其内部机制对于不同的 JavaScript 引擎可能会有所区别，但对于没有说明的钩子，我们只需要认为它和对应的反射方法行为一致即可）。这也意味着，任何你没有指定的钩子，都具有和默认状况一致的行为，就像它从未被代理过一样：
+在[反射那一部分中](/metaprogramming-in-es6-part-2-reflect/)（再啰嗦一遍，如果你没看过，赶快去看），我们已经浏览过上述所有方法了（并附带有例子）。代理用相同的参数集实现了每一个方法。实际上，代理的默认行为已经实现了在每个处理钩子中完成反射函数的调用（其内部机制对于不同的 JavaScript 引擎可能会有所区别，但对于没有说明的钩子，我们只需要认为它和对应的反射方法行为一致即可）。这也意味着，任何你没有指定的钩子，都具有和默认状况一致的行为，就像它从未被代理过一样：
 
 ```js
 // 我们新创建了代理，并定义了与默认创建时一样的行为
@@ -77,17 +77,17 @@ proxy = new Proxy({}, {
 });
 ```
 
-现在，我可以深入到每个代理钩子的工作细节中去了，但我不会直接复制/粘贴反射中的例子来偷懒。如果只是介绍每个钩子的功能，对代理来说就不太公平，因为代理是去实现一些炫酷用例的。所以，本文剩余内容都将为你展示通过代理完成的炫酷的东西，甚至是一些你没了代理就无法完成的事。
+现在，我可以深入到每个代理钩子的工作细节中去了，但我不会直接复制粘贴反射中的例子来偷懒。如果只是介绍每个钩子的功能，对代理来说就不太公平，因为代理是去实现一些炫酷用例的。所以，本文剩余内容都将为你展示通过代理完成的炫酷的东西，甚至是一些你没了代理就无法完成的事。
 
 同时，为了让内容更具交互性，我为每个例子都创建一个小的库来展示对应的功能。我会给出每个例子对应的代码仓库链接。
 
 ## 用代理来......
 
-### 构建一个可无限链式调用的 API
+### 构建一个可无限链接（chainable）的 API
 
-Building on the previous example - using the same `[[Get]]` trap: with a little bit more magic we can make an API which has an infinite number of methods, and when you finally call one of those it’ll return everything you chained. This could be useful, for example, in making a [fluent API](https://en.wikipedia.org/wiki/Fluent_interface) that constructs URLs for web requests, or maybe some kind of Test Assertion framework that chains together English words to make readable assertions, kind of like [Chai](https://github.com/chaijs/chai).
+以前面的例子为基础 —— 我们仍使用 `[[Get]]` 自陷：只需要再施加一点魔法，我们就能构建一个拥有无数方法的 API，当你最终调用其中某个方法时，将返回所有你被你链接的值。[fluent API（流畅 API）](https://en.wikipedia.org/wiki/Fluent_interface) 为 web 请求构建了各个 URL，[Chai](https://github.com/chaijs/chai) 这类的测试框架将各个英文单词链接组成高可读的测试断言，通过这些，我们知道可无限链接的 API 是多么有用。
 
-For this we need to hook into `[[Get]]`, and push the retrieved prop into an array. The Proxy will wrap a function which returns the Array of all retrieved props and empty the array, so it can be re-used. We’ll also hook into `[[HasProperty]]` because, like before, we want to demonstrate to our users that any property exists.
+为了实现这个 API，我们就需要钩子勾住 `[[Get]]`，将取到的属性保存到数组中。我们代理（即包裹）一个函数，调用该函数，它将返回保存了所有取到属性的数组，并清空该数组，因此它是可重用的。我们也会勾住 `[[HasProperty]]`，因为我们想告诉 API 的使用者，任何属性都是存在的。
 
 ```js
 function urlBuilder(domain) {
@@ -111,18 +111,18 @@ var google = urlBuilder('http://google.com');
 assert(google.search.products.bacon.and.eggs() === 'http://google.com/search/products/bacon/and/eggs')
 ```
 
-You could also use this same pattern to make a tree traversal fluent API, something like you might see as part of jQuery or perhaps a React selector tool:
+你也可以用相同的模式实现一个树遍历的 fluent API，这类似于你在 jQuery 或者 React 中看到的选择器：
 
 ```js
 function treeTraverser(tree) {
   var parts = [];
   var proxy = new Proxy(function (parts) {
-    let node = tree; // start the node at the root
+    let node = tree; // 以树根为起始
     for (part of parts) {
       if (!node.props || !node.props.children || node.props.children.length === 0) {
         throw new Error(`Node ${node.tagName} has no more children`);
       }
-      // If the part is a child tag, drill down into that child for the next traversal step
+      // 如果该部分是一个孩子节点，就深入到该孩子节点进行下一次遍历
       let index = node.props.children.findIndex((child) => child.tagName == part);
       if(index === -1) {
         throw new Error(`Cannot find child: ${part} in ${node.tagName}`);
@@ -170,13 +170,13 @@ assert(myDomIsh.div.span.i().textContent === 'Hello');
 assert(myDomIsh.div.span.b().textContent === 'World');
 ```
 
-I’ve made a slightly more reusable version of this over at [github.com/keithamus/proxy-fluent-api](https://github.com/keithamus/proxy-fluent-api), available on npm with the same name.
+我已经发布了一个更加可复用的版本到 [github.com/keithamus/proxy-fluent-api](https://github.com/keithamus/proxy-fluent-api) 上，npm 上也有其同名的包。
 
 ### 实现一个 “方法缺失” 钩子
 
-Various other programming languages give you the ability to override the behaviour of a class using a well-known reflection methods, for example in PHP it is `__call`, in Ruby it is `method_missing`, in Python you can emulate this behaviour with `__getattr__`. JavaScript has no such mechanism - but now we have Proxies which allow us to do cool things like this.
+许多其他的编程语言都允许你使用一个内置的反射方法去重写一个类的行为，例如，在 PHP 中有 `__call`，在 Ruby 中有 `method_missing`，在 Python 中则有 `__getattr__`。JavaScript 缺乏这个机制，但现在我们有了代理去实现它。
 
-To get an idea of what we’re after, let’s look at a Ruby example for some inspiration:
+在开始介绍代理的实现之前，我们先看下 Ruby 是怎么做的，从中获得一些灵感：
 
 ```rb
 class Foo
@@ -192,12 +192,12 @@ foo = Foo.new
 foo.bar()
 #=> you called bar. Good job!
 foo.this_method_does_not_exist()
-#=> you called this_method_does_not_exist but it doesn't exist
+#=》 you called this_method_does_not_exist but it doesn't exist!
 ```
 
-So for any method that exists, in this case `bar`, that method is executed like you’d expect. For methods which don’t exist, like `foo` or `this_method_does_not_exist`, then the `method_missing` method is executed in place of it. In addition, it gets the called method name as the first argument, which is super useful for determining what the user wanted.
+对于任何存在方法，在此例中是 `bar`，该方法能够按预期被执行。对于不存在方法，比如 `foo` 或者 `this_method_does_not_exist`，在调用时会被 `method_missing` 替代。另外，`method_missing` 接受方法名作为第一个参数，这对于判断用户意图非常有用。
 
-We could do something similar with a mixture of ES6 Symbols, and a function that can wrap the class and return a Proxy with the `get` (`[[Get]]`) trap:
+我们可以通过混入 ES6 Symbol 实现类似的功能：使用一个函数包裹类，该函数将返回使用了 `get`（`[[Get]]`）自陷的代理，或者说是拦截了 `get` 行为的代理：
 
 ```js
 function Foo() {
@@ -220,12 +220,12 @@ Foo.prototype.bar = function () {
 
 foo = new Foo();
 foo.bar();
-//=> you called bar. Good job!
-foo.this_method_does_not_exist()
-//=> you called this_method_does_not_exist but it doesn't exist
+// you called bar. Good job!
+foo.this_method_does_not_exist();
+// you called this_method_does_not_exist but it doesn't exist!
 ```
 
-This really comes into use where you have a set of methods whose functionality is largely the same, where the differences can be inferred from the method name. Effectively moving what would be function parameters into the function name for a more readable syntax. As an example of this - you could quickly and easily make an API for switching between two pairs of values like currencies, or perhaps bases:
+当你有若干方法功能非常类似，并且可以从函数名推测功能间的差异性，上面的做法就非常有用。将函数的功能区分从参数转移到函数名，将带来更好的可读性。作为此的一个例子 —— 你可以快速轻易地创建一个单位转换 API，如货币或者是进制的转化：
 
 ```js
 const baseConvertor = new Proxy({}, {
@@ -246,16 +246,16 @@ baseConvertor.base16toBase2('deadbeef') === '11011110101011011011111011101111';
 baseConvertor.base2toBase16('11011110101011011011111011101111') === 'deadbeef';
 ```
 
-Of course, you could manually type out all 1,296 permutations of the available methods, or make a loop to create all of those methods individually, but both require much more code.
+当然，你也可以手动创建总计 1296 组合情况的方法，或者单独通过一个循环动态创建这些方法，但是二者的代码量比上面多多了。
 
-A more concrete example of this exists in Ruby on Rails ActiveRecord, which comes with “dynamic finders”. It essentially implements `method_missing` to allow you to query a table by its columns. Rather than passing in a complex object, your parameters become values matched to the method name, for example:
+一个更加具体的例子是 Ruby on Rails 中的 ActiveRecord，其源于 “动态查找器（dynamic finders）”。ActiveRecord 基本上实现了 “method_missing” 来允许你根据列查询一个表。使用函数名作为查询关键字，避免了使用传递一个复杂对象来创建查询语句：
 
 ```js
 Users.find_by_first_name('Keith'); # [ Keith Cirkel, Keith Urban, Keith David ]
 Users.find_by_first_name_and_last_name('Keith', 'David');  # [ Keith David ]
 ```
 
-We could implement something similar in JavaScript using our above pattern:
+在 JavaScript 中，我们也能实现类似功能：
 
 ```js
 function RecordFinder(options) {
@@ -270,16 +270,16 @@ function RecordFinder(options) {
 });
 ```
 
-Like the rest of these examples, I’ve made a little lib out of this - over at [github.com/keithamus/proxy-method-missing](https://github.com/keithamus/proxy-method-missing). It’s on npm too.
+和其他例子一样，我已经写了一个关于此的库放到了 [github.com/keithamus/proxy-method-missing](https://github.com/keithamus/proxy-method-missing)，npm 上也可以到同名的包。
 
 ### 从 `getOwnPropertyNames`、`Object.keys`、`in` 等所有迭代方法中隐藏所有的属性
 
-We can use Proxies to make every property in an object completely hidden, except for when getting the value. Here’s all of the ways you can find out if a property exists on an Object in JavaScript:
+我们可以使用代理让一个对象的所有的属性都隐藏起来，除非是要获得属性的值。下面罗列了所有 JavaScript 中你可以判断某属性是否存在于一个对象的方法：
 
-* `Reflect.has`,`Object.hasOwnProperty`,`Object.prototype.hasOwnProperty`, and the `in` operator all use `[[HasProperty]]`. Proxy can trap this with `has`.
-* `Object.keys`/`Object.getOwnPropertyNames`, which uses `[[OwnPropertyKeys]]`. Proxy can trap this with `ownKeys`.
-* `Object.entries` (an upcoming ES2017 feature), also uses `[[OwnPropertyKeys]]` - again - trapped by `ownKeys`.
-* `Object.getOwnPropertyDescriptor` which uses `[[GetOwnProperty]]`. Proxy can trap this with, surprise surprise, `getOwnPropertyDescriptor`.
+* `Reflect.has`、`Object.hasOwnProperty`、`Object.prototype.hasOwnProperty` 以及 `in` 运算符全部使用了 `[[HasProperty]]`。代理可以通过 `has` 拦截它。
+* `Object.keys`/`Object.getOwnPropertyNames` 都使用了 `[[OwnPropertyKeys]]`。代理可以通过 `ownKeys` 进行拦截。
+* `Object.entries` （一个即将到来的 ES2017 特性），也使用了 `[[OwnPropertyKeys]]`，代理仍然可以通过 `ownKeys` 进行拦截。
+* `Object.getOwnPropertyDescriptor` 使用了 `[[GetOwnProperty]]`。特别特别让人兴奋的是，代理可以通过 `getOwnPropertyDescriptor` 进行拦截。
 
 ```js
 var example = new Proxy({ foo: 1, bar: 2 }, {
@@ -297,13 +297,13 @@ assert.deepEqual(Object.keys(example), [ ]);
 assert.deepEqual(Object.getOwnPropertyNames(example), [ ]);
 ```
 
-I’m not going to lie, I cannot think of any super useful uses of this pattern. Nevertheless, I have made a library to go with this, available at [github.com/keithamus/proxy-hide-properties](https://github.com/keithamus/proxy-hide-properties) which also lets you specify individual properties to hide, rather than blanket hiding all properties.
+老实说，我也没有发现这个模式有特别大的用处。但是，我还是创建了一个关于此的一个库，并放在了[github.com/keithamus/proxy-hide-properties](https://github.com/keithamus/proxy-hide-properties)，它能让你单独地设置某个属性不可见了，而不是一锅端地让全部属性不可见。
 
 ### 实现一个观察者模式，也称作 Object.observe
 
-Those of you who keenly follow the additions of new specs may have noticed `Object.observe` being considered for inclusion in ES2016\. Recently, however, the champions of `Object.observe` have planned to [withdraw their proposal to include Object.observe](https://esdiscuss.org/topic/an-update-on-object-observe), and with good reason: it was originally created to answer a problem framework authors had around Data Binding. Now, with React and Polymer 1.0, the trend of data binding frameworks is declining, and instead immutable data structures are becoming more prevalent.
+对新规范所添加的内容一直敏锐追踪的人们可能已经注意到了， `Object.observe` 开始被考虑纳入 ES2016 了。`Object.observe` 的拥护者已经开始计划 [起草包含有有 Object.observe 的提案](https://esdiscuss.org/topic/an-update-on-object-observe)，他们对此有一个非常好的理由：草案初衷就是要帮助框架作者解决数据绑定（Data Binding）的问题。现在，随着 React 和 Polymer 1.0 的发布，数据绑定框架有所降温，不可变数据（immutable data）开始变得流行。 
 
-Thankfully, Proxy actually makes specs like Object.observe redundant, as now we have a low level API through Proxy, we can actually implement something like Object.observe. To get close feature parity with Object.observe, we need to hook on the `[[Set]]`, `[[PreventExtensions]]`, `[[Delete]]`, and `[[DefineOwnProperty]]` internal methods - that’s the `set`, `preventExtensions`, `deleteProperty` and `defineProperty` Proxy traps respectively:
+庆幸的是，代理让诸如 Object.observe 这样的规范变得多余，现在我们可以通过代理实现一个更加底层的 Object.observe。为了更加接近 Object.observe 所具有的特性，我们需要钩住 `[[Set]]`、`[[PreventExtensions]]`、`[[Delete]]` 以及 `[[DefineOwnProperty]]` 这些内置方法 —— 代理分别可以使用 `set`、`preventExtensions`、`deleteProperty` 及 `defineProperty` 进行拦截：
 
 ```js
 function observe(object, observerCallback) {
@@ -380,18 +380,20 @@ assert.equal(changes[4].object, object);
 assert.equal(changes[4].type, 'preventExtensions');
 ```
 
-As you can see, we have a relatively complete Object.observe implementation in a small chunk of code. The main differences between the proposed spec and this implementation is that Object.observe could mutate an object, where as Proxy has to return a new one - that and the unobserve function is not a global.
+正如你所看到的，我们用一小段代码实现了一个相对完整的 Object.observe。该实现和规范之间的差异在于，Object.observe 是能够改变对象的，而代理则返回了一个新对象，并且 unobserver 函数也不是全局的。
 
-## 加分环节：可撤回代理
+和其他例子一样，我也写了关于此的一个库并放在了 [github.com/keithamus/proxy-object-observe](https://github.com/keithamus/proxy-object-observe) 以及 npm 上。
 
-Proxies have one last trick up their sleeve: some Proxies can be revoked. To create a revocable Proxy, you need to use `Proxy.revocable(target, handler)` (instead of `new Proxy(target, handler)`), and instead of returning the Proxy directly, it’ll return an Object that looks like `{ proxy, revoke(){} }`. An example:
+## 奖励关卡：可撤销代理
+
+代理还有最后一个大招：一些代理可以被撤销。为了创建一个可撤销的代理，你需要使用 `Proxy.revocable(target, handler)` （而不是 `new Proxy(target, handler)`），并且，最终返回一个结构为 `{proxy, revoke()}` 的对象来替代直接返回一个代理对象。例子如下：
 
 ```js
 function youOnlyGetOneSafetyNet(object) {
   var revocable = Proxy.revocable(object, {
-    get(property) {
-      if (Reflect.has(this, property)) {
-        return Reflect.get(this, property);
+    get(target, property) {
+      if (Reflect.has(target, property)) {
+        return Reflect.get(target, property);
       } else {
         revocable.revoke();
         return 'You only get one safety net';
@@ -413,18 +415,16 @@ myObject.bar // TypeError
 Reflect.has(myObject, 'bar') // TypeError
 ```
 
-Sadly, as you can see right at the end in the example, a revoked Proxy will throw a TypeError when any of the handlers are triggered - even if those handlers haven’t been set. I feel like this neuters the ability of a Revocable Proxy. If all handlers returned to their Reflect equivalents (effectively making the Proxy redundant, and the object behave as if the Proxy was never in place) this would make for a much more useful feature. Sadly, that isn’t the case. As such this feature has been left in the proverbial footnotes of this post, as I’m not really sure of a concrete use case for a revocable Proxy.
-
-Like the other examples, this one has been codified up, and is available at [github.com/keithamus/proxy-object-observe](https://github.com/keithamus/proxy-object-observe) - and also on npm.
+遗憾的是，你可以看到例子中最后一行的右侧，如果代理已经被撤销，任何在代理对象上的操作都会抛出 TypeError —— 即便这些操作句柄还没有被代理。我觉得这可能是可撤销代理的一种能力。如果所有的操作都能与对应的 Reflect 返回一致（这会使得代理冗余，并让对象表现得好像从未设置过代理一样），将使该特性更加有用。这个特性被放在了本文压轴部分，也是因为我也不真正确定可撤回代理的具体用例。
 
 ## 总结
 
-I hope this post has shown you that Proxy is an incredibly powerful tool for messing with (what used to be) JavaScript internals. In many ways, Symbol, Reflect, and Proxy are opening up a new chapter of JavaScript - in as much as const and let, or classes and arrow functions. While const & let make code less confusing, and classes & arrow functions make code more terse, Symbol, Reflect, and Proxy are beginning to give developers really low level metaprogramming hooks within JavaScript.
+我希望这篇文章让你认识到代理是一个强大到不可思议的工具，它弥补了 JavaScript 内部曾经的缺失。在方方方面，Symbol、Reflect、以及代理都为 JavaScript 开启了新的篇章 —— 就如同 const 和 let，类和箭头函数那样。当 const 和 let 使得代码更贱清晰，类和箭头函数使得代码更加简洁，Symbol、Reflect、和 Proxy 则开始给予开发者在 JavaScript 中进行底层的元编程。
 
-These new metaprogramming tools are also not slowing down any time soon: new proposals for future EcmaScript versions are shaping up and adding additional interesting behaviours, such as [this proposal for `Reflect.isCallable` & `Reflect.isConstructor`](https://github.com/caitp/TC39-Proposals/blob/master/tc39-reflect-isconstructor-iscallable.md), [or this stage 0 proposal for `Reflect.type`](https://github.com/alex-weej/es-reflect-type-proposal), or [this proposal for `function.sent` meta property](https://github.com/allenwb/ESideas/blob/master/Generator%20metaproperty.md), [or this one for a bunch more function metaproperties](https://github.com/allenwb/ESideas/blob/master/ES7MetaProps.md). Also, these new APIs have inspired some interesting discussions about some great new features, such as [this proposal about adding `Reflect.parse`](https://esdiscuss.org/topic/reflect-parse-from-re-typeof-null), subsequently leading to discussion around making a AST (Abstract Syntax Tree) standard.
+这些新的元编程工具不会在短时间内放慢发展的速度：EcamScript 的新版本正逐渐完善，并添加了更多有趣的行为，例如 [`Reflect.isCallable` 和 `Reflect.isConstructor` 的提案](https://github.com/caitp/TC39-Proposals/blob/master/tc39-reflect-isconstructor-iscallable.md)，亦或 [stage 0 关于 `Reflect.type` 的提案](https://github.com/alex-weej/es-reflect-type-proposal)，亦或 [`function.sent` 这个元属性的提案](https://github.com/allenwb/ESideas/blob/master/Generator%20metaproperty.md)
+，亦或[这个包含了更多函数元属性的提案](https://github.com/allenwb/ESideas/blob/master/ES7MetaProps.md)。这些新的 API 也引起了一些新特性的有趣讨论，例如 [这个关于添加 `Reflect.parse` 的提案](https://esdiscuss.org/topic/reflect-parse-from-re-typeof-null)，就引起了关于创建一个 AST（Abstract Syntax Tree：抽象语法树）标准的讨论。
 
-What do you think about the new Proxy API? Plan on using it in your project? Let me know, in the comments below or on Twitter, where I’m [@keithamus](https://twitter.com/keithamus).
-
+你是怎么看待新的 Proxy API 的？已经计划用在你的项目里面了？可以在 Twitter 上给我留言让我知道你的想法，我是 [@keithamus](https://twitter.com/keithamus)。
 
 ---
 
