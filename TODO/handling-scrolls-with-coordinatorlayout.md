@@ -6,11 +6,11 @@
 > * 校对者：
 
 
-# 用 CoordinatorLayout 处理滚动操作
+# 用 CoordinatorLayout 处理滚动
 
 ## 总览
 
-[CoordinatorLayout](https://developer.android.com/reference/android/support/design/widget/CoordinatorLayout.html) 扩展完成了 Google's Material Design 中的多种[滚动效果](http://www.google.com/design/spec/patterns/scrolling-techniques.html) 的能力。目前，此框架提供了几种不需要写任何自定义动画代码就可以（使动画）工作的方式。这些效果包括：
+[CoordinatorLayout](https://developer.android.com/reference/android/support/design/widget/CoordinatorLayout.html) 扩展了完成 Google's Material Design 中的多种[滚动效果](http://www.google.com/design/spec/patterns/scrolling-techniques.html)的能力。目前，此框架提供了几种不需要写任何自定义动画代码就可以（使动画）工作的方式。这些效果包括：
 
 * 上下滑动 Floating Action Button 以给 Snackbar 提供空间。
 
