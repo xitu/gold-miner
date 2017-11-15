@@ -40,7 +40,7 @@
 
 CoordinatorLayout 可以通过使用 `layout_anchor` 和 `layout_gravity` 属性来创建悬浮效果。更多信息请参见 [Floating Action Buttons](/android/Floating-Action-Buttons) 指南。
 
-当渲染一个 [Snackbar](/android/Displaying-the-Snackbar) is rendered 时，它通常出现在可见屏幕的底部。Floating action button 必须上移以便腾出空间。
+当渲染一个 [Snackbar](/android/Displaying-the-Snackbar) 时，它通常出现在可见屏幕的底部。Floating action button 必须上移以便腾出空间。
 
 ![](https://imgur.com/zF9GGsK.gif)
 
@@ -74,7 +74,7 @@ CoordinatorLayout 可以通过使用 `layout_anchor` 和 `layout_gravity` 属性
 
 ![](https://imgur.com/X5AIH0P.gif)
 
-首先确保你使用的不是过时的 ActionBar。并确保遵循了 [将 ToolBar 用作 ActionBar](/android/Using-the-App-Toolbar#using-toolbar-as-actionbar) 指南。还要确保的是 CoordinatorLayout 作为主布局容器。
+首先确保你使用的不是过时的 ActionBar。并确保遵循了 [将 ToolBar 用作 ActionBar](/android/Using-the-App-Toolbar#using-toolbar-as-actionbar) 指南。还要确保的是以 oordinatorLayout 作为主布局容器。
 
 ```
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -116,7 +116,7 @@ CoordinatorLayout 可以通过使用 `layout_anchor` 和 `layout_gravity` 属性
 
 **注意**：根据官方的 [Google 文档](http://developer.android.com/reference/android/support/design/widget/AppBarLayout.html)，目前 AppBarLayout 需要作为直接子元素被嵌入 CoordinatorLayout 中。
 
-然后，我们需要在 AppBarLayout 和 期望被滚动的 View 之间定义一个关联。在 RecyclerView 或其他类似  [NestedScrollView](http://stackoverflow.com/questions/25136481/what-are-the-new-nested-scrolling-apis-for-android-l) 这样的可以嵌套滚动的 View 中加入 `app:layout_behavior`。Support library 中有一个映射到 [AppBarLayout.ScrollingViewBehavior](https://developer.android.com/reference/android/support/design/widget/AppBarLayout.ScrollingViewBehavior.html) 的特殊字符串资源 `@string/appbar_scrolling_view_behavior`，它可以在某个特定的 view 上发生滚动事件时通知 `AppBarLayout`。Behavior 必须建立在触发（滚动）事件的 view 上。
+然后，我们需要在 AppBarLayout 和 期望被滚动的 View 之间定义一个关联。在 RecyclerView 或其他类似  [NestedScrollView](http://stackoverflow.com/questions/25136481/what-are-the-new-nested-scrolling-apis-for-android-l) 这样的可以嵌套滚动的 View 中加入 `app:layout_behavior`。支持库中有一个映射到 [AppBarLayout.ScrollingViewBehavior](https://developer.android.com/reference/android/support/design/widget/AppBarLayout.ScrollingViewBehavior.html) 的特殊字符串资源 `@string/appbar_scrolling_view_behavior`，它可以在某个特定的 view 上发生滚动事件时通知 `AppBarLayout`。Behavior 必须建立在触发（滚动）事件的 view 上。
 
 ```
  <android.support.v7.widget.RecyclerView
@@ -242,11 +242,11 @@ RecyclerView 的滚动事件触发了 `AppBarLayout` 中用 `app:layout_scrollFl
 
 ### 创建视差动画
 
-CollapsingToolbarLayout 可以让我们做出更高级动画，例如使用一个在折叠的同时可以渐隐的 ImageView。在用户滑动时，标题的高度也可以改变。
+CollapsingToolbarLayout 可以让我们做出更高级的动画，例如使用一个在折叠的同时可以渐隐的 ImageView。在用户滑动时，标题的高度也可以改变。
 
 ![](https://imgur.com/ah4l5oj.gif)
 
-要想创建这种效果，我们添加一个 ImageView 并且在 ImageView 标签中声明 `app:layout_collapseMode="parallax"` 属性。
+要想创建这种效果的话，我们需要添加一个 ImageView 并在 ImageView 标签中声明 `app:layout_collapseMode="parallax"` 属性。
 
 ```
 <android.support.design.widget.CollapsingToolbarLayout
@@ -427,7 +427,7 @@ Modal 形式的底部表基本上是从底部滑入的 Dialog Fragments。关于
 
 ### 高级的底部表示例
 
-有很多复杂的使用了 floating action button 的底部表的例子，它随着用户滑动或展开或收缩或改变表状态。最著名的例子就是使用了多阶表的 Google Maps：
+有很多复杂的使用了 floating action button 的底部表的例子，button 随着用户滑动或展开或收缩或改变表状态。最著名的例子就是使用了多阶表的 Google Maps：
 
 ![](https://i.imgur.com/lLSdNus.gif)
 
