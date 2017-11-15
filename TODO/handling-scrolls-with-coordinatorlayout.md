@@ -31,7 +31,6 @@
 [![](https://i.imgur.com/aA8aGSg.png)](https://github.com/chrisbanes/cheesesquare)
 
 在 github 上可以查看[完整源码](https://github.com/chrisbanes/cheesesquare)。这个项目是最容易理解 `CoordinatorLayout` 的方式之一。
-The [full source code](https://github.com/chrisbanes/cheesesquare) can be found on github. This project is one of the easiest ways to understand `CoordinatorLayout`.
 
 ### 设置
 
