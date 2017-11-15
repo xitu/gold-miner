@@ -9,7 +9,7 @@
 
 几周前，我们开始了一系列旨在深入挖掘JavaScript及其工作原理的研究。我们的结论是：通过了解构建JavaScript代码块以及它们组合在一起的方式，我们将能够编写更好的代码和应用程序。
 
-The first post of the series focused on providing [an overview of the engine, the runtime, and the call stack](https://blog.sessionstack.com/how-does-javascript-actually-work-part-1-b0bacc073cf). Thе [second post examined closely the internal parts of Google’s V8 JavaScript engine](https://blog.sessionstack.com/how-javascript-works-inside-the-v8-engine-5-tips-on-how-to-write-optimized-code-ac089e62b12e) and also provided a few tips on how to write better JavaScript code.
+本系列的第一篇文章着重于提供 [引擎概览, 运行时间, 以及堆栈调用](https://blog.sessionstack.com/how-does-javascript-actually-work-part-1-b0bacc073cf).  [第二篇文章仔细审查了Google的V8 JavaScript引擎的内部区块](https://blog.sessionstack.com/how-javascript-works-inside-the-v8-engine-5-tips-on-how-to-write-optimized-code-ac089e62b12e) 并且提供了一些关于怎样编写更好JavaScript代码的提示。
 
 In this third post, we’ll discuss another critical topic that’s getting ever more neglected by developers due to the increasing maturity and complexity of programming languages that are being used on a daily basis — memory management. We’ll also provide a few tips on how to handle memory leaks in JavaScript that we at [SessionStack](https://www.sessionstack.com/?utm_source=medium&utm_medium=blog&utm_content=Post-3-v8-intro) follow as we need to make sure SessionStack causes no memory leaks or doesn’t increase the memory consumption of the web app in which we are integrated.
 
