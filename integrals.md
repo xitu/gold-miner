@@ -1169,10 +1169,11 @@
 |[2017 年了，这么多前端框架，你会怎样选择？](https://juejin.im/post/597022c6f265da6c2f0add39)|校对|1|
 |[如何应用最新版的谷歌表格 API](https://gold.xitu.io/entry/5773acce0a2b58006a3fd7fe)|校对|1|
 
-## 译者：[jamweak](https://github.com/jamweak) 历史贡献积分：72 当前积分：12
+## 译者：[jamweak](https://github.com/jamweak) 历史贡献积分：73 当前积分：13
 
 |文章|类型|积分|
 |------|-------|-------|
+|[管中窥豹：RxJava 与 Kotlin 协程的对比](https://juejin.im/post/5a0ab91451882533d0229556)|校对|1|
 |[RxJava 中的 Subscriptions 是怎样泄露内存的](https://gold.xitu.io/entry/58b43c908ac2475ccb5d8e39)|校对|1|
 |[ConstraintLayout ( 这到底是什么 ) (小贴士及小技巧) 第二部分](https://gold.xitu.io/entry/58aaedd5ac502e006974e868)|翻译|6|
 |[2017年2月份兑换章鱼猫一大只 + 一小只]()|减去积分|45|
@@ -1234,10 +1235,11 @@
 |[使用 Zopfli 优化 PNG 图片](http://gold.xitu.io/entry/578e3a34c4c971005e059ee9)|翻译|3|
 |[让你的网站更炫酷的一些小 tips](https://gold.xitu.io/entry/577f402b79bc4400329db962)|校对|3|
 
-## 译者：[llp0574](https://github.com/llp0574) 历史贡献积分：69 当前积分：19
+## 译者：[llp0574](https://github.com/llp0574) 历史贡献积分：70 当前积分：20
 
 |文章|类型|积分|
 |------|-------|-------|
+|[在 Android O 上用到 MediaStyle 的提醒功能](https://juejin.im/post/5a015d696fb9a04524053bce)|校对|1|
 |[性能指标都是些什么鬼？](https://juejin.im/entry/59e855b45188250989513220/detail)|翻译|5|
 |[翻译 GraphQL 网站](#)|翻译|5|
 |[优秀产品背后的设计原则](https://gold.xitu.io/entry/58b04c49570c35006960d764)|校对|4|
@@ -2042,10 +2044,11 @@
 |[成为一个编译器之「使用 JavaScript 来制作编译器」](http://gold.xitu.io/entry/582343555bbb500059056d4b/)|校对|1|
 |[给 iOS App 开发者的 39 个开源的 Swift UI 库](http://gold.xitu.io/entry/58209322570c350060b73588)|校对|1|
 
-## 译者：[phxnirvana](https://github.com/phxnirvana) 历史贡献积分：77 当前积分：42
+## 译者：[phxnirvana](https://github.com/phxnirvana) 历史贡献积分：80 当前积分：45
 
 |文章|类型|积分|
 |------|-------|-------|
+|[管中窥豹：RxJava 与 Kotlin 协程的对比](https://juejin.im/post/5a0ab91451882533d0229556)|翻译|3|
 |[2017 年 8 月 16 日兑换杯子一个]()|减去积分|5|
 |[将 Android 项目迁移到 Kotlin 语言](https://juejin.im/post/599b8cd9f265da24874d0226)|校对|1|
 |[探索 Kotlin 的隐性成本（第三部分）](https://juejin.im/post/597eb2e26fb9a03c4844e2e1)|翻译|6|
@@ -2237,10 +2240,11 @@
 |------|-------|-------|
 |[推荐文章 Why Design](https://github.com/xitu/gold-miner/blob/master/TODO/android-why-your-canvas-shapes-arent-smooth.md)|奖励|1|
 
-## 译者：[zhiw](https://github.com/Zhiw) 历史贡献积分：35 当前积分：35
+## 译者：[zhiw](https://github.com/Zhiw) 历史贡献积分：36 当前积分：36
 
 |文章|类型|积分|
 |------|-------|-------|
+|[ViewModel 和 LiveData：为设计模式打 Call 还是唱反调？](https://juejin.im/post/5a040585f265da43346f5d57)|校对|1|
 |[将 Android 项目迁移到 Kotlin 语言](https://juejin.im/post/599b8cd9f265da24874d0226)|校对|1|
 |[探索 Kotlin 的隐性成本（第三部分）](https://juejin.im/post/597eb2e26fb9a03c4844e2e1)|校对|1|
 |[Kotlin:小菜一碟](https://juejin.im/entry/5956f47a5188250d9848abe7/detail)|校对|1|
@@ -2571,10 +2575,11 @@
 |[创建和使用 WebAssembly 组件](https://juejin.im/post/58d0bbe144d90400684c0f3a)|翻译|5|
 |[Web 分享 API 赋予浏览器原生分享能力](https://gold.xitu.io/entry/58c174ec44d9040069777f17/)|校对|1|
 
-## 译者：[iridescentmia](https://github.com/IridescentMia) 历史贡献积分：22.5 当前积分：22.5
+## 译者：[iridescentmia](https://github.com/IridescentMia) 历史贡献积分：23.5 当前积分：23.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[重建 slack.com：使用 CSS Grid 重新设计，并针对性能和可访问性进行了优化。](https://juejin.im/post/5a029d986fb9a044fb072efb)|校对|1|
 |[JavaScript 让 Monad 更简单（软件编写）（第十一部分）](https://juejin.im/post/59e55dbbf265da43333d7652)|校对|1.5|
 |[借助函数完成可组合的数据类型（软件编写）（第十部分）](https://juejin.im/post/59e3f3786fb9a0450166ff7b)|校对|0.5|
 |[为什么在使用了类之后会使得组合变得愈发困难（第九部分）](https://juejin.im/post/59cf43ce6fb9a00a4e67cd36)|校对|1.5|
@@ -2593,10 +2598,11 @@
 |------|-------|-------|
 |[跨站请求伪造已死](http://gold.xitu.io/entry/58c669b6a22b9d0058b3c630/)|校对|1|
 
-## 译者：[zhaochuanxing](https://github.com/zhaochuanxing) 历史贡献积分：8 当前积分：8
+## 译者：[zhaochuanxing](https://github.com/zhaochuanxing) 历史贡献积分：9 当前积分：9
 
 |文章|类型|积分|
 |------|-------|-------|
+|[在 Android O 上用到 MediaStyle 的提醒功能](https://juejin.im/post/5a015d696fb9a04524053bce)|校对|1|
 |[ViewModels 简单入门指北](https://juejin.im/post/5a0905ad51882531bb6c4d98)|校对|1|
 |[V8 性能优化杀手](https://juejin.im/post/5959edfc5188250d83241399)|校对|1|
 |[Android 如何实现气泡选择动画](https://juejin.im/post/58e5ec838d6d8100616d82e2)|校对|1|
@@ -2706,6 +2712,7 @@
 
 |文章|类型|积分|
 |------|-------|-------|
+|[ViewModel 和 LiveData：为设计模式打 Call 还是唱反调？](https://juejin.im/post/5a040585f265da43346f5d57)|翻译|5|
 |[当设计模式遇上 Kotlin](https://juejin.im/post/594b2ac00ce4630057425bd5)|翻译|4|
 |[一个人的 Android 开发](https://juejin.im/entry/58dca515b123db00603887fd)|翻译|5|
 |[当发布安卓开源库时我希望知道的东西](https://juejin.im/post/58d247b00ce4630057e92e9c)|校对|2|
@@ -2837,10 +2844,11 @@
 |------|-------|-------|
 |[在 Apache 和 Nginx 日志里检测爬虫机器人](https://juejin.im/post/58ea5758ac502e4957c78808)|校对|1|
 
-## 译者：[aladdin-add](https://github.com/Aladdin-ADD) 历史贡献积分：71 当前积分：71
+## 译者：[aladdin-add](https://github.com/Aladdin-ADD) 历史贡献积分：72 当前积分：72
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Rollup - 下一代 ES6 模块化打包工具 - 对 Rich Harris 的采访](https://juejin.im/post/5a09b4e56fb9a0451170a22e)|校对|1|
 |[找出可能影响性能的代码模式](https://juejin.im/post/59e87b89f265da433226b0f3)|翻译|5|
 |[webpack & HTTP/2](https://juejin.im/post/59e87b89f265da433226b0f3)|翻译|2|
 |[修改 JavaScript 帧](https://juejin.im/entry/59d2ed6f6fb9a00a681b01f8/detail)|校对|2|
@@ -3492,10 +3500,11 @@
 |[结构体指针](https://juejin.im/post/59a60cc1f265da249a201ae9)|校对|1|
 |[iOS 响应式编程：Swift 中的轻量级状态容器](https://juejin.im/post/599652ee6fb9a024903a8d59)|校对|1|
 
-## 译者：[lampui](https://github.com/lampui) 历史贡献积分：46 当前积分：31
+## 译者：[lampui](https://github.com/lampui) 历史贡献积分：47 当前积分：32
 
 |文章|类型|积分|
 |------|-------|-------|
+|[14 个你可能不知道的 JavaScript 调试技巧](https://github.com/xitu/gold-miner/pull/2404)|校对|1|
 |[性能指标都是些什么鬼？](https://juejin.im/entry/59e855b45188250989513220/detail)|校对|1.5|
 |[lampui 翻译开源库 JavaScript 100 个](https://juejin.im/post/59e3f3786fb9a0450166ff7b)|翻译|10|
 |[借助函数完成可组合的数据类型（软件编写）（第十部分）](https://juejin.im/post/59e3f3786fb9a0450166ff7b)|校对|0.5|
@@ -3550,10 +3559,11 @@
 |[RxJava 中的错误处理](https://juejin.im/post/59a66001518825242e5c2906)|翻译|3|
 |[在 Go 语言中增强 Cookie 的安全性](https://juejin.im/post/59aa7a4d6fb9a0249c007e16)|校对|2|
 
-## 译者：[Yuuoniy](https://github.com/Yuuoniy) 历史贡献积分：11.5 当前积分：11.5
+## 译者：[Yuuoniy](https://github.com/Yuuoniy) 历史贡献积分：12.5 当前积分：12.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[14 个你可能不知道的 JavaScript 调试技巧](https://github.com/xitu/gold-miner/pull/2404)|校对|1|
 |[你不知道的 Node](https://juejin.im/post/59cf06caf265da0665640008)|校对|1|
 |[如何安全地使用 CSS-in-JS？](https://juejin.im/post/59c90a6df265da065270b004)|翻译|4|
 |[学习 JavaScript：9个常见错误阻碍你进步](https://juejin.im/post/59bb4a7c6fb9a00a53274cd7)|校对|0.5|
@@ -3613,10 +3623,12 @@
 |[在 HTTP/2 的世界里管理 CSS 和 JS](https://juejin.im/post/59bb463d51882519777c5a85)|校对|0.5|
 |[Coursera 的 GraphQL 之路](https://juejin.im/post/59b8d1d36fb9a00a3f24c439)|校对|1|
 
-## 译者：[Usey95](https://github.com/Usey95) 历史贡献积分：12.5 当前积分：12.5
+## 译者：[Usey95](https://github.com/Usey95) 历史贡献积分：14.5 当前积分：14.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[重建 slack.com：使用 CSS Grid 重新设计，并针对性能和可访问性进行了优化。](https://juejin.im/post/5a029d986fb9a044fb072efb)|校对|1|
+|[Rollup - 下一代 ES6 模块化打包工具 - 对 Rich Harris 的采访](https://juejin.im/post/5a09b4e56fb9a0451170a22e)|校对|1|
 |[usey95 翻译开源库 CSS 100 个](#)|翻译|10|
 |[V8 引擎中的快速属性](https://juejin.im/post/59c1df855188257e826779f8)|校对|2|
 |[在 HTTP/2 的世界里管理 CSS 和 JS](https://juejin.im/post/59bb463d51882519777c5a85)|校对|0.5|
@@ -3813,10 +3825,11 @@
 |------|-------|-------|
 |[如何为通知设计更好的用户体验](https://juejin.im/post/59f9b14f518825295f5d411f)|校对|3|
 
-## 译者：[ppp-man](https://github.com/ppp-man) 历史贡献积分：4 当前积分：4
+## 译者：[ppp-man](https://github.com/ppp-man) 历史贡献积分：7 当前积分：7
 
 |文章|类型|积分|
 |------|-------|-------|
+|[在 Android O 上用到 MediaStyle 的提醒功能](https://juejin.im/post/5a015d696fb9a04524053bce)|翻译|3|
 |[Spotify 每周推荐功能：基于机器学习的音乐推荐](https://juejin.im/post/59fbd0d9518825299a468a8b)|校对|1.5|
 |[什么是蒙特卡洛树搜索](https://juejin.im/post/59f16e8c5188250385371302)|校对|1|
 |[性能指标都是些什么鬼？](https://juejin.im/entry/59e855b45188250989513220/detail)|校对|1.5|
@@ -3839,14 +3852,29 @@
 |------|-------|-------|
 |[RNN 循环神经网络系列 4: 注意力机制](https://juejin.im/post/59f72f61f265da432002871c)|校对|2|
 
-## 译者：[Raoul1996](https://github.com/Raoul1996) 历史贡献积分：1 当前积分：1
+## 译者：[Raoul1996](https://github.com/Raoul1996) 历史贡献积分：9 当前积分：9
 
 |文章|类型|积分|
 |------|-------|-------|
+|[重建 slack.com：使用 CSS Grid 重新设计，并针对性能和可访问性进行了优化。](https://juejin.im/post/5a029d986fb9a044fb072efb)|翻译|4|
+|[Rollup - 下一代 ES6 模块化打包工具 - 对 Rich Harris 的采访](https://juejin.im/post/5a09b4e56fb9a0451170a22e)|翻译|4|
 |[前端 Console 调试小技巧](https://juejin.im/post/5a08087f6fb9a04529363d71)|校对|1|
 
-## 译者：[miguoer](https://github.com/miguoer) 历史贡献积分：1 当前积分：1
+## 译者：[miguoer](https://github.com/miguoer) 历史贡献积分：2 当前积分：2
 
 |文章|类型|积分|
 |------|-------|-------|
+|[ViewModel 和 LiveData：为设计模式打 Call 还是唱反调？](https://juejin.im/post/5a040585f265da43346f5d57)|校对|1|
 |[ViewModels 简单入门指北](https://juejin.im/post/5a0905ad51882531bb6c4d98)|校对|1|
+
+## 译者：[ParadeTo](https://github.com/ParadeTo) 历史贡献积分：3 当前积分：3
+
+|文章|类型|积分|
+|------|-------|-------|
+|[14 个你可能不知道的 JavaScript 调试技巧](https://github.com/xitu/gold-miner/pull/2404)|翻译|3|
+
+## 译者：[jerry-shao](https://github.com/jerry-shao) 历史贡献积分：1 当前积分：1
+
+|文章|类型|积分|
+|------|-------|-------|
+|[管中窥豹：RxJava 与 Kotlin 协程的对比](https://juejin.im/post/5a0ab91451882533d0229556)|翻译|1|
