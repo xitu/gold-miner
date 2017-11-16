@@ -2593,7 +2593,7 @@
 |------|-------|-------|
 |[跨站请求伪造已死](http://gold.xitu.io/entry/58c669b6a22b9d0058b3c630/)|校对|1|
 
-## 译者：[zhaochuanxing](https://github.com/zhaochuanxing) 历史贡献积分：7 当前积分：7
+## 译者：[zhaochuanxing](https://github.com/zhaochuanxing) 历史贡献积分：8 当前积分：8
 
 |文章|类型|积分|
 |------|-------|-------|
