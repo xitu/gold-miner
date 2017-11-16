@@ -3,13 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/metaprogramming-in-es6-symbols.md](https://github.com/xitu/gold-miner/blob/master/TODO/metaprogramming-in-es6-symbols.md)
 > * 译者：[yoyoyohamapi](https://github.com/yoyoyohamapi)
-> * 校对者：
+> * 校对者：[Usey95](https://github.com/Usey95) [IridescentMia](https://github.com/IridescentMia)
 
 # 元编程：Symbol，了不起的 Symbol
 
 你已经听说过 ES6 了，是吧？这是一个在多方面表现卓著的 JavaScript 的新版本。每当在 ES6 中发现令人惊叹的新特性，我就会开始对我的同事滔滔不绝起来（但是因此占用了别人的午休时间并不是所有人乐意的）。
 
-一系列优秀的 ES6 的新特性都来自于新的元编程工具，这些工具提供了到代码。目前，介绍 ES6 元编程的文章寥寥，所以我认为我将撰写 3 篇关于它们的博文（附带一句，我太懒了，这篇完成度 90% 的博文都在我的草稿箱里面躺了三个月了，自打我说了要撰文之后，[更多内容都已在这里完成](https://hacks.mozilla.org/2015/06/es6-in-depth-symbols/)）：
+一系列优秀的 ES6 的新特性都来自于新的元编程工具，这些工具将底层钩子（hooks）注入到了代码机制中。目前，介绍 ES6 元编程的文章寥寥，所以我认为我将撰写 3 篇关于它们的博文（附带一句，我太懒了，这篇完成度 90% 的博文都在我的草稿箱里面躺了三个月了，自打我说了要撰文之后，[更多内容都已在这里完成](https://hacks.mozilla.org/2015/06/es6-in-depth-symbols/)）：
 
 第一部分：Symbols（本篇文章）、[第二部分：Reflect](/metaprogramming-in-es6-part-2-reflect/) 、[第三部分： Proxies](/metaprogramming-in-es6-part-3-proxies/)
 
@@ -67,9 +67,9 @@ console.log(Symbol('foo')); // 输出 "Symbol(foo)" 至控制台
 assert(Symbol('foo').toString() === 'Symbol(foo)');
 ```
 
-### Symbols 能过用作对象的 key
+### Symbols 能被用作对象的 key
 
-这是 Symbols 真正有趣之处。它们和对象紧密的交织在一起。Symbols 能指定作对象的 key （类似字符串 key），这意味着你可以分配无限多的具有唯一性的 Symbols 到一个对象上，这些 key 保证不会和现有的字符串 key 冲突，或者和其他 Symbol key 冲突：
+这是 Symbols 真正有趣之处。它们和对象紧密的交织在一起。Symbols 能用作对象的 key （类似字符串 key），这意味着你可以分配无限多的具有唯一性的 Symbols 到一个对象上，这些 key 保证不会和现有的字符串 key 冲突，或者和其他 Symbol key 冲突：
 
 ```js
 var myObj = {};
@@ -119,7 +119,7 @@ assert(object[foo2] === 2);
 
 ### ......等等，也有例外
 
-稍安勿躁，这有一个小小的警告 —— JavaScript 也有另一个创建 Symbol 的方式来轻易地实现 Symbol 的获得和重用：`Symbol.for`。该方法在 “全局 Symbol 注册中心” 创建了一个 Symbol。额外注意的一点：这个注册中心也是跨域的，意味着 iframe 或者 service worker 中的 Symbol 会与当前 frame Symbol 相等：
+稍安勿躁，这有一个小小的警告 —— JavaScript 也有另一个创建 Symbol 的方式来轻易地实现 Symbol 的获得和重用：`Symbol.for()`。该方法在 “全局 Symbol 注册中心” 创建了一个 Symbol。额外注意的一点：这个注册中心也是跨域的，意味着 iframe 或者 service worker 中的 Symbol 会与当前 frame Symbol 相等：
 
 ```js
 assert.notEqual(Symbol('foo'), Symbol('foo'));
@@ -156,7 +156,7 @@ assert(Symbol.for(Symbol.keyFor(globalFooSymbol)) === Symbol.for('foo'));
 
 ### Symbols 是什么，又不是什么？
 
-上面我们的对于 Symbol 做得还不错，但更重要的是，我们得知道 Symbol 适合和不适合什么场景，如果认识寥寥，很可能会对 Symbol 产生误区：
+上面我们对于 Symbol 是什么以及它们如何工作有一个概览，但更重要的是，我们得知道 Symbol 适合和不适合什么场景，如果认识寥寥，很可能会对 Symbol 产生误区：
 
 * **Symbols 绝不会与对象的字符串 key 冲突**。这一特性让 Symbol 在扩展已有对象时表现卓著（例如，Symbol 作为了一个函数参数），它不会显式地影响到对象：
 
@@ -195,7 +195,7 @@ log(log.levels.INFO, 'info message');
 
 ### 2. 作为一个对象中放置元信息（metadata）的场所
 
-你也可以用 Symbol 来存储一些对于真实对象来说较为次要的元信息属性。把这看作是不可迭代性的另一层面（毕竟，不可迭代的 keys 仍然会出现在 `Object.getOwnProperties` 中）。让我们创建一个受信的集合类，并为其添加一个 size 引用来获得集合规模这一元信息，该信息借助于 Symbol 不会暴露给外部（只要记住，**Symbols 不是私有的** —— 并且只有当你不在乎应用的其他部分会修改到 Symbols 属性时，再使用 Symbol）：
+你也可以用 Symbol 来存储一些对于真实对象来说较为次要的元信息属性。把这看作是不可迭代性的另一层面（毕竟，不可迭代的 keys 仍然会出现在 `Object.getOwnProperties` 中）。让我们创建一个可靠的集合类，并为其添加一个 size 引用来获得集合规模这一元信息，该信息借助于 Symbol 不会暴露给外部（只要记住，**Symbols 不是私有的** —— 并且只有当你不在乎应用的其他部分会修改到 Symbols 属性时，再使用 Symbol）：
 
 ```js
 var size = Symbol('size');
@@ -270,7 +270,7 @@ console.log = function (…items) {
 
 ## Symbol.hasInstance: instanceof
 
-`Symbol.hasInstance` 是一个实现了 `instanceof` 行为的 Symbol。当一个 ES6 兼容引擎在某个表达式中看到了 `instanceof` 运算符，它会调用 `Symbol.hasInstance`。例如，表达式 `lho instanceos rho` 将会调用 `rho[Symbol.hasInstance](lho)` （`rho` 是运算符的右操作数，而 `lho` 则是左运算数）。然后，该方法能够决定是否某个对象继承自某个特殊实例，你可以像下面这样实现这个方法：
+`Symbol.hasInstance` 是一个实现了 `instanceof` 行为的 Symbol。当一个兼容 ES6 的引擎在某个表达式中看到了 `instanceof` 运算符，它会调用 `Symbol.hasInstance`。例如，表达式 `lho instanceof rho` 将会调用 `rho[Symbol.hasInstance](lho)` （`rho` 是运算符的右操作数，而 `lho` 则是左运算数）。然后，该方法能够决定是否某个对象继承自某个特殊实例，你可以像下面这样实现这个方法：
 
 ```js
 class MyClass {
@@ -283,7 +283,7 @@ assert([] instanceof MyClass);
 
 ### Symbol.iterator
 
-如果你或多或少听说过了 Symbols，你可能也听说过 `Symbol.iterator`。ES6 带来了一个新的模式 —— `for of` 循环，该循环是调用 `Symbol.iterator` 作为右手操作数来取得当前值进行迭代的。换言之，下面两端代码是等效的：
+如果你或多或少听说过了 Symbols，你很可能听说的是 `Symbol.iterator`。ES6 带来了一个新的模式 —— `for of` 循环，该循环是调用 `Symbol.iterator` 作为右手操作数来取得当前值进行迭代的。换言之，下面两端代码是等效的：
 
 ```js
 var myArray = [1,2,3];
@@ -359,7 +359,7 @@ assert.deepEqual(spreadableTest, [1, 2, 3, 4, <Collection>]);
 
 ### Symbol.unscopables
 
-这个 Symbol 有一些有趣的历史。实际上，当开发 ES6 的时候，TC（Technical Committees：技术委员会） 发现在一些流行的 JavaScript 库中，有这样一些老代码：
+这个 Symbol 有一些有趣的历史。实际上，当开发 ES6 的时候，TC（Technical Committees：技术委员会）发现在一些流行的 JavaScript 库中，有这样一些老代码：
 
 ```js
 var keys = [];
@@ -496,7 +496,7 @@ assert.deepEqual(barSplitter, ['foo', '']);
 
 ### Symbol.species
 
-`Symbol.species` 是一个非常机智的 Symbol，它指出了一个类的构造函数，这允许类能够创建属于自己的、某个方法的新版本。以 `Array#map` 为例，其能创建一个新的数组，新数组中的值来源于传入的回调函数每次的返回值 —— ES5 的 `Array#map` 实现可能是下面这个样子：
+`Symbol.species` 是一个非常机智的 Symbol，它指向了一个类的构造函数，这允许类能够创建属于自己的、某个方法的新版本。以 `Array#map` 为例，其能创建一个新的数组，新数组中的值来源于传入的回调函数每次的返回值 —— ES5 的 `Array#map` 实现可能是下面这个样子：
 
 ```js
 Array.prototype.map = function (callback) {
@@ -594,11 +594,11 @@ var x = new Collection();
 Object.prototype.toString.call(x) === '[object Collection]'
 ```
 
-关于此的另一件事儿是 —— 如果你使用了 [Chai](http://chaijs.com) 来做测试，它现在 已经在底层使用了 Symbol 来做类型检测，所以，你能够在你的测试中写 `expect(x).to.be.a('Collection')` （`x` 有一个类似上面 `Symbol.toStringTag` 的属性，这段代码需要运行在支持该 Symbol 的浏览器上）。
+关于此的另一件事儿是 —— 如果你使用了 [Chai](http://chaijs.com) 来做测试，它现在已经在底层使用了 Symbol 来做类型检测，所以，你能够在你的测试中写 `expect(x).to.be.a('Collection')` （`x` 有一个类似上面 `Symbol.toStringTag` 的属性，这段代码需要运行在支持该 Symbol 的浏览器上）。
 
 ## 缺失的 Symbol：Symbol.isAbstractEqual
 
-你可能已经知晓了 ES6 中的 Symbol 的意义和用法，但我真的很喜欢 Symbol 中有关反射的想法，因此还想再多说两句。对于我来说，这还缺失了一个我会为之兴奋的 Symbol：`Symbol.isAbstractEqual`。这个 Symbol 能够让抽象相等性运算符（`==`）重现荣光。像 Ruby、Python 等语言那样，我们能够用我们自己的方式，针对我们自己的类，使用它。当你看见诸如 `lho == rho` 这样的代码时，JavaScript 能够转换为 `rho[Symbol.isAbstractEqual](lho)`，允许类重载运算符 `==` 的意义。这可以以一种向后兼容的方式实现 —— 通过为所有现在的原始值原型（例如 `Number.prototype`）定义默认值，该 Symbol 将是的很多规范更加清晰，并给开发者一个重新拾回 `==` 使用的理由。
+你可能已经知晓了 ES6 中的 Symbol 的意义和用法，但我真的很喜欢 Symbol 中有关反射的想法，因此还想再多说两句。对于我来说，这还缺失了一个我会为之兴奋的 Symbol：`Symbol.isAbstractEqual`。这个 Symbol 能够让抽象相等性运算符（`==`）重现荣光。像 Ruby、Python 等语言那样，我们能够用我们自己的方式，针对我们自己的类，使用它。当你看见诸如 `lho == rho` 这样的代码时，JavaScript 能够转换为 `rho[Symbol.isAbstractEqual](lho)`，允许类重载运算符 `==` 的意义。这可以以一种向后兼容的方式实现 —— 通过为所有现在的原始值原型（例如 `Number.prototype`）定义默认值，该 Symbol 将使得很多规范更加清晰，并给开发者一个重新拾回 `==` 使用的理由。
 
 ## 结论
 
