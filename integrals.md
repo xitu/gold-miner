@@ -67,10 +67,11 @@
 |[MVVM 模式介绍](http://gold.xitu.io/entry/56cbf38771cfe40054eb3a34)|翻译|15|
 |[第一次翻译计划文章已兑换Octocat小]()|减去积分|15|
 
-## 译者：[huanglizhuo](https://github.com/huanglizhuo) 历史贡献积分：59 当前积分：44
+## 译者：[huanglizhuo](https://github.com/huanglizhuo) 历史贡献积分：64 当前积分：49
 
 |文章|类型|积分|
 |------|-------|-------|
+|[ViewModels 简单入门指北](https://juejin.im/post/5a0905ad51882531bb6c4d98)|翻译|5|
 |[开发 Electron app 必知的 4 个 tips](http://gold.xitu.io/entry/58025536bf22ec0064d5f3d9)|翻译|5|
 |[CSS writing-mode 的特别技巧](http://gold.xitu.io/entry/57b08227165abd005426657b)|翻译|4|
 |[如何理解 JavaScript 中的 Promise 机制](http://gold.xitu.io/entry/57890b881532bc0061d5ac52)|翻译|7|
@@ -2596,6 +2597,7 @@
 
 |文章|类型|积分|
 |------|-------|-------|
+|[ViewModels 简单入门指北](https://juejin.im/post/5a0905ad51882531bb6c4d98)|校对|1|
 |[V8 性能优化杀手](https://juejin.im/post/5959edfc5188250d83241399)|校对|1|
 |[Android 如何实现气泡选择动画](https://juejin.im/post/58e5ec838d6d8100616d82e2)|校对|1|
 |[拉模式和推模式，命令式和响应式 – 响应式编程 [Android RxJava2]（这到底是什么）：第二部分](https://juejin.im/entry/58d78547a22b9d006465ca57/detail)|校对|1|
@@ -2735,10 +2737,11 @@
 |[你正在阅读的用户体验文章是不是在向你进行推销？](https://juejin.im/post/58d4c501a22b9d00645544d9)|校对|2|
 |[震惊，还可以用这种姿势学习编程](https://juejin.im/post/58d3ebd4128fe1006cb43722)|翻译|3|
 
-## 译者：[lsvih](https://github.com/lsvih) 历史贡献积分：185 当前积分：150
+## 译者：[lsvih](https://github.com/lsvih) 历史贡献积分：188 当前积分：153
 
 |文章|类型|积分|
 |------|-------|-------|
+|[前端 Console 调试小技巧](https://juejin.im/post/5a08087f6fb9a04529363d71)|翻译|3|
 |[RNN 循环神经网络系列 5: 自定义单元](https://juejin.im/post/59fbd28b6fb9a045204b91f2)|翻译|3|
 |[Spotify 每周推荐功能：基于机器学习的音乐推荐](https://juejin.im/post/59fbd0d9518825299a468a8b)|翻译|5|
 |[Keras 中构建神经网络的 5 个步骤](https://juejin.im/post/59e43b5b6fb9a0452a3b5f4f)|翻译|4|
@@ -2965,10 +2968,11 @@
 |[使登录页面变得正确](https://juejin.im/post/5951e7905188250d98489c6a)|翻译|5|
 |[针对失败者的体验设计](hhttps://juejin.im/post/59013f6eda2f60005de40516)|校对|1|
 
-## 译者：[zhangqippp](https://github.com/zhangqippp) 历史贡献积分：23 当前积分：8
+## 译者：[zhangqippp](https://github.com/zhangqippp) 历史贡献积分：27 当前积分：12
 
 |文章|类型|积分|
 |------|-------|-------|
+|[处理 iOS 中复杂的 Table Views 并保持优雅](https://juejin.im/post/5a078ec3f265da431955c0d5)|翻译|4|
 |[在 Facebook 发一张登机牌，你就有可能被盗号了](https://juejin.im/post/59ccdeec51882531b21f1835)|校对|1|
 |[通过 Metal 来使用 ARKit (下)](https://juejin.im/post/59bb2a99f265da0650750e56)|校对|1|
 |[语句，消息和归约器](https://juejin.im/post/596f17366fb9a06bc17c53db)|翻译|6|
@@ -3726,10 +3730,11 @@
 |------|-------|-------|
 |[JavaScript 让 Monad 更简单（软件编写）（第十一部分）](https://juejin.im/post/59e55dbbf265da43333d7652)|校对|1.5|
 
-## 译者：[Ice](https://github.com/Ice) 历史贡献积分：6.7 当前积分：6.7
+## 译者：[Ice](https://github.com/Ice) 历史贡献积分：6.7 当前积分：1.7
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Ice 2017 年 11 月兑 水杯 1 个](#)|减去积分|5|
 |[Ice 翻译开源库 Shell 67 个](#)|翻译|6.7|
 
 ## 译者：[RIChardLeeH](https://github.com/RIChardLeeH) 历史贡献积分：17.1 当前积分：17.1
@@ -3833,3 +3838,15 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[RNN 循环神经网络系列 4: 注意力机制](https://juejin.im/post/59f72f61f265da432002871c)|校对|2|
+
+## 译者：[Raoul1996](https://github.com/Raoul1996) 历史贡献积分：1 当前积分：1
+
+|文章|类型|积分|
+|------|-------|-------|
+|[前端 Console 调试小技巧](https://juejin.im/post/5a08087f6fb9a04529363d71)|校对|1|
+
+## 译者：[miguoer](https://github.com/miguoer) 历史贡献积分：1 当前积分：1
+
+|文章|类型|积分|
+|------|-------|-------|
+|[ViewModels 简单入门指北](https://juejin.im/post/5a0905ad51882531bb6c4d98)|校对|1|
