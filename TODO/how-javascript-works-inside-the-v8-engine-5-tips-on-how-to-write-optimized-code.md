@@ -85,7 +85,9 @@ var p1 = new Point(1, 2);
 
 &emsp;&emsp;当第一条语句 “this.x = x” 开始执行 (在 “Point” 函数中), V8 将会基于 “C0” 创建第二个隐藏类叫做 “C1”。“C1” 描述了属性值 x 在内存中的位置(相对于对象指针)。在这个例子中, “x” 被存在 [偏移值](http://en.wikipedia.org/wiki/Offset_%28computer_science%29) 为 0 的地方, 这意味着当在内存中把 point 对象视为一段连续的 buffer 时，它的第一个偏移量对应的属性就是 “x”。V8 也会使用类转换更新 “C0”，如果一个属性 “x” 被添加到这个 point 对象中，隐藏类就会从 “C0” 切换到 “C1”。那么，现在这个point 对象的隐藏类就是 “C1” 了。
 
-![每当一个新属性添加到对象，老的隐藏类就会通过一个转换路径更新成一个新的隐藏类。隐藏类转换非常重要，因为它们允许以相同方法创建的对象共享隐藏类。如果两个对象共享一个隐藏类，并给它们添加相同的属性，隐藏类转换能够确保这两个对象都获得新的隐藏类以及与之相关联的优化代码。](https://cdn-images-1.medium.com/max/800/1*QsVUE3snZD9abYXccg6Sgw.png)
+![](https://cdn-images-1.medium.com/max/800/1*QsVUE3snZD9abYXccg6Sgw.png)
+
+&emsp;&emsp;每当一个新属性添加到对象，老的隐藏类就会通过一个转换路径更新成一个新的隐藏类。隐藏类转换非常重要，因为它们允许以相同方法创建的对象共享隐藏类。如果两个对象共享一个隐藏类，并给它们添加相同的属性，隐藏类转换能够确保这两个对象都获得新的隐藏类以及与之相关联的优化代码。
 
 &emsp;&emsp;当执行语句 “this.y = y” (同样，在 Point 函数内部，“this.x = x” 语句之后) 时，将重复此过程。
 
@@ -122,7 +124,9 @@ p2.a = 8;
 
 &emsp;&emsp;同时，内联缓存也是同类型对象共享隐藏类如此重要的原因。如果我们使用不同的隐藏类创建了两个同类型的对象(就如同我们前面做的那样)，V8 就不能使用内联缓存，因为即使两个对象是相同的，但是它们对应的隐藏类对它们的属性分配了不同的偏移值。
 
-![这两个对象基本相同，但是属性 “a” 和 “b” 是以不同的顺序创建的](https://cdn-images-1.medium.com/max/800/1*iHfI6MQ-YKQvWvo51J-P0w.png)
+![](https://cdn-images-1.medium.com/max/800/1*iHfI6MQ-YKQvWvo51J-P0w.png)
+
+&emsp;&emsp;这两个对象基本相同，但是属性 “a” 和 “b” 是以不同的顺序创建的
 
 #### 编译成机器代码
 
@@ -148,7 +152,9 @@ p2.a = 8;
 
 &emsp;&emsp;这将意味着整个 V8 将拥有更简单、更易维护的架构。
 
-![在 web 和 Node.js 上的改进](https://cdn-images-1.medium.com/max/800/0*pohqKvj9psTPRlOv.png)
+![](https://cdn-images-1.medium.com/max/800/0*pohqKvj9psTPRlOv.png)
+
+&emsp;&emsp;在 web 和 Node.js 上的改进
 
 &emsp;&emsp;当然这些改进仅仅是个开始。全新的 Ignition 和 TurboFan 管线为进一步的优化铺平了道路，这将在未来几年提高 JavaScript 性能以及使得 V8 在 chrome 和 Node.js 中节省更多的资源。
 
