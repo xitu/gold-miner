@@ -8,7 +8,7 @@
 
 # 2017 年比较 Angular、React、Vue 三剑客 
 
- 为 web 应用选择 JavaScript 开发框架是一件很费脑筋的事。现如今 [Angular](https://angular.io/) 和 [React](https://facebook.github.io/react/) 非常流ßß行，并且最近出现的新贵 [VueJS](https://vuejs.org/) 同样博得了很多人的关注。更重要的是，这只是一些[街头顽童](https://hackernoon.com/top-7-javascript-frameworks-c8db6b85f1d0)。
+ 为 web 应用选择 JavaScript 开发框架是一件很费脑筋的事。现如今 [Angular](https://angular.io/) 和 [React](https://facebook.github.io/react/) 非常流行，并且最近出现的新贵 [VueJS](https://vuejs.org/) 同样博得了很多人的关注。更重要的是，这只是一些[街头顽童](https://hackernoon.com/top-7-javascript-frameworks-c8db6b85f1d0)。
 ![Javascripts in 2017 —— things aren’t easy these days!](https://cdn-images-1.medium.com/max/800/1*xRhs4h2a_rGpXNpoSNlA9w.png)
 
 那么我们如何选择使用哪个框架呢？列出他们的优劣是极好的。我们将按照先前文章的方式去做，“[共有9步：为 Web 应用选择一个技术栈](https://medium.com/unicorn-supplies/9-steps-how-to-choose-a-technology-stack-for-your-web-application-a6e302398e55)”。
