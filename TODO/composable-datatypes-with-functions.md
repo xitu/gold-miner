@@ -4,18 +4,21 @@
 Eric Elliott](https://medium.com/@_ericelliott?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/composable-datatypes-with-functions.md](https://github.com/xitu/gold-miner/blob/master/TODO/composable-datatypes-with-functions.md)
-> * 译者：
-> * 校对者：
+> * 译者：[yoyoyohamapi](https://github.com/yoyoyohamapi)
+> * 校对者：[IridescentMia](https://github.com/IridescentMia) [lampui](https://github.com/lampui)
 
-# Composable Datatypes with Functions
+# 借助函数完成可组合的数据类型（软件编写）（第十部分）
 
 ![Smoke Art Cubes to Smoke — MattysFlicks — (CC BY 2.0)](https://cdn-images-1.medium.com/max/800/1*uVpU7iruzXafhU2VLeH4lw.jpeg)
 
-> Note: This is part of the “Composing Software” series on learning functional programming and compositional software techniques in JavaScript ES6+ from the ground up. Stay tuned. There’s a lot more of this to come!
+（译注：该图是用 PS 将烟雾处理成方块状后得到的效果，参见 [flickr](https://www.flickr.com/photos/68397968@N07/11432696204)。）
 
-In JavaScript, the easiest way to compose is function composition, and a function is just an object you can add methods to. In other words, you can do this:
+> 注意：这是 “软件编写” 系列文章的第十部分，该系列主要阐述如何在 JavaScript ES6+ 中从零开始学习函数式编程和组合化软件（compositional software）技术（译注：关于软件可组合性的概念，参见维基百科 [Composability](https://en.wikipedia.org/wiki/Composability)）。后续还有更多精彩内容，敬请期待！
+> [<上一篇](https://medium.com/javascript-scene/why-composition-is-harder-with-classes-c3e627dcd0aa) | [<< 返回第一章](https://github.com/xitu/gold-miner/blob/master/TODO/the-rise-and-fall-and-rise-of-functional-programming-composable-software.md)
 
-```
+在 JavaScript 中，最简单的方式完成组合就是函数组合，并且一个函数只是一个你能够为之添加方法的对象。换言之，你可以这么做：
+
+```js
 const t = value => {
   const fn = () => value;
   fn.toString = () => `t(${ value })`;
@@ -28,21 +31,21 @@ console.log(
 );
 ```
 
-This is a factory that returns instances of a numerical data type, `t`. But notice that those instances aren't simple objects. Instead, they're functions, and like any other function, you can compose them. Let's assume the primary use case for it is to sum its members. Maybe it would make sense to sum them when they compose.
+这是一个返回数字类型实例的工厂函数 `t`。但是要注意，这些实例不是简单的对象，它们是函数，并且是可组合的函数。假定我们使用 `t()` 来完成求和任务，那么当我们组合若干个函数 `t()` 来求和也就是合情合理的。 
 
-First, let’s establish some rules (four = means “equivalent to”):
+首先，假定我们为 `t()` 确立了一些规则（`====` 意味着 “等于”）：
 
 - `t(x)(t(0)) ==== t(x)`
 - `t(x)(t(1)) ==== t(x + 1)`
 
-You can express this in JavaScript using the convenient `.toString()` method we already created:
+在 JavaScript 中，你也可以通过我们创建好的 `.toString()` 方法进行比较：
 
 - `t(x)(t(0)).toString() === t(x).toString()`
 - `t(x)(t(1)).toString() === t(x + 1).toString()`
 
-And we can translate those into a simple kind of unit test:
+我们也能将上述代码翻译为一种简单的单元测试：
 
-```
+```js
 const assert = {
   same: (actual, expected, msg) => {
     if (actual.toString() !== expected.toString()) {
@@ -71,7 +74,7 @@ const assert = {
 }
 ```
 
-These tests will fail at first:
+起初，测试会失败：
 
 ```
 NOT OK: a value t(x) composed with t(0) ==== t(x)
@@ -79,15 +82,15 @@ NOT OK: a value t(x) composed with t(0) ==== t(x)
         Actual:   20
 ```
 
-But we can make them pass with 3 simple steps:
+但是我们经过下面 3 步能让测试通过：
 
-1. Change the `fn` function into an `add` function that returns `t(value + n)` where `n` is the passed argument.
-2. Add a `.valueOf()` method to the `t` type so that the new `add()` function can take instances of `t()` as arguments. The `+` operator will use the result of `n.valueOf()` as the second operand.
-3. Assign the methods to the `add()` function with `Object.assign()`.
+1. 将函数 `fn` 变为 `add` 函数，该函数返回 `t(value + n)` ，`n` 表示传入参数。
+2. 为函数 `t` 添加一个 `.valueOf()` 方法，使得新的 `add()` 函数能够接受 `t()` 返回的实例作为参数。 `+` 运算符会使用 `n.valueOf()` 的结果作为第二个操作数。
+3. 使用 `Object.assign()` 将 `toString()`，`.valueOf()` 方法分配给 `add()` 函数
 
-When you put it all together, it looks like this:
+将 1 至 3 步综合起来得到：
 
-```
+```js
 const t = value => {
   const add = n => t(value + n);
   return Object.assign(add, {
@@ -97,19 +100,20 @@ const t = value => {
 };
 ```
 
-And then the tests pass:
+之后，测试便能通过：
 
 ```
 "OK: a value t(x) composed with t(0) ==== t(x)"
 "OK: a value t(x) composed with t(1) ==== t(x + 1)"
 ```
 
-Now you can compose values of t() with function composition:
+现在，你可以使用函数组合来组合 t() ，从而达到求和任务：
 
-```
-// Compose functions from top to bottom:
+```js
+// 自顶向下的函数组合：
 const pipe = (...fns) => x => fns.reduce((y, f) => f(y), x);
-// Sugar to kick off the pipeline with an initial value:
+// 求和函数为 pipeline 传入需要的初始值
+// curry 化的 pipeline 复用度更好，我们可以延迟传入任意的初始值
 const sumT = (...fns) => pipe(...fns)(t(0));
 sumT(
   t(2),
@@ -118,11 +122,11 @@ sumT(
 ).valueOf(); // 5
 ```
 
-## You Can Do This with Any Data Type
+## 任何数据类型都适用
 
-It doesn’t matter what shape your data takes, as long as there is some composition operation that makes sense. For lists or strings, it could be concatenation. For DSP, it could be signal summing. Of course lots of different operations might make sense for the same data. The question is, which operation best represents the concept of composition? In other words, which operation would benefit most expressed like this?:
+无论你的数据形态是什么样子的，只要它存在有意义的组合操作，上面的策略都能帮到你。对于列表或者字符串来说，组合能够完成连接操作。对于 DSP（数字信号处理）来说，组合完成的就是信号的求和。当然，其他的操作也能为你带来想要的结果。那么问题来了，哪种操作最能反映组合的观念？换言之，哪种操作能更受益于下面的代码组织方式：
 
-```
+```js
 const result = compose(
   value1,
   value2,
@@ -130,89 +134,90 @@ const result = compose(
 );
 ```
 
-## Composable Currency
+## 可组合的货币
 
-[Moneysafe](https://github.com/ericelliott/moneysafe) is an open source library that implements this style of composable functional datatypes. JavaScript’s `Number` type can't accurately represent certain fractions of dollars.
+[Moneysafe](https://github.com/ericelliott/moneysafe) 是一个实现了这个可组合的、函数式数据类型风格的开源库。JavaScript 的 `Number` 类型无法精确地表示美分的计算：
 
-```
+```js
 .1 + .2 === .3 // false
 ```
 
-Moneysafe solves the problem by lifting dollar amounts to cents:
+Moneysafe 通过将美元类型提升为美分类型解决了这个问题：
 
 ```
 npm install --save moneysafe
 ```
 
-Then:
+之后：
 
-```
+```js
 import { $ } from 'moneysafe';
 $(.1) + $(.2) === $(.3).cents; // true
 ```
 
-The ledger syntax takes advantage of the fact that Moneysafe lifts values into composable functions. It exposes a simple function composition utility called the ledger:
+ledger 语法利用了 Moneysafe 将一般的值提升为可组合函数的优势。它暴露一个简单的、称之为 ledger 的函数组合套件：
 
-```
+```js
 import { $ } from 'moneysafe';
 import { $$, subtractPercent, addPercent } from 'moneysafe/ledger';
 $$(
   $(40),
   $(60),
-  // subtract discount
+  // 减去折扣
   subtractPercent(20),
-  // add tax
+  // 上税
   addPercent(10)
 ).$; // 88
 ```
 
-The returned value is a value of the lifted money type. It exposes the convenient `.$` getter which converts the internal floating-point cents value into dollars, rounded to the nearest cent.
+该函数的返回值类型是提升后 money 类型。该返回值暴露一个 `.$` getter 方法，这个 getter 能够将内部的浮点美分值四舍五入为美元。
 
-The result is an intuitive interface for performing ledger-style money calculations.
+该结果是执行 ledger 风格的金币计算一个直观反映。
 
-## Test Your Understanding
+## 测试一下你是否真的懂了
 
-Clone Moneysafe:
+克隆 Moneysafe 仓库:
 
 ```
 git clone git@github.com:ericelliott/moneysafe.git
 ```
 
-Run the installer:
+
+执行安装过程：
 
 ```
 npm install
 ```
 
-Run the unit tests using the watch console. They should all pass:
+运行单元测试，监控控制台输出。所有的用例都会通过：
 
 ```
 npm run watch
 ```
 
-In a new terminal window, delete the implementation:
+打开一个新的终端，删除 moneysafe 的实现：
 
 ```
 rm source/moneysafe.js && touch source/moneysafe.js
 ```
 
-Take a look at the watch console tests again. You should see an error.
+回到之前的终端窗口，你将会看到一个错误。
 
-Your mission is to reimplement `moneysafe.js` from scratch using the unit tests and documentation as your guide.
+你现在的任务是利用单元测试输出及文档的帮助，从头实现 `moneysafe.js` 并通过所有测试。
 
-[Next: JavaScript Monads Made Simple >](https://medium.com/javascript-scene/javascript-monads-made-simple-7856be57bfe8)
+[下一篇: JavaScript Monads 让一切变得简单 >](https://medium.com/javascript-scene/javascript-monads-made-simple-7856be57bfe8)
 
-## Next Steps
+## 接下来
 
-Want to learn more about object composition with JavaScript?
+想学习更多 JavaScript 函数式编程吗？
 
-[Learn JavaScript with Eric Elliott.](http://ericelliottjs.com/product/lifetime-access-pass/) If you’re not a member, you’re missing out!
+[跟着 Eric Elliott 学 Javacript](http://ericelliottjs.com/product/lifetime-access-pass/)，机不可失时不再来！
 
-![](https://cdn-images-1.medium.com/max/800/1*3njisYUeHOdyLCGZ8czt_w.jpeg)
+[<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*3njisYUeHOdyLCGZ8czt_w.jpeg">](https://ericelliottjs.com/product/lifetime-access-pass/)
 
-**Eric Elliott** is the author of [“Programming JavaScript Applications”](http://pjabook.com/) (O’Reilly), and [“Learn JavaScript with Eric Elliott”](http://ericelliottjs.com/product/lifetime-access-pass/). He has contributed to software experiences for **Adobe Systems**, **Zumba Fitness**, **The Wall Street Journal**, **ESPN**, **BBC**, and top recording artists including **Usher**, **Frank Ocean**, **Metallica**, and many more.
+**Eric Elliott** 是  [**“编写 JavaScript 应用”**](http://pjabook.com) （O’Reilly） 以及 [**“跟着 Eric Elliott 学 Javascript”**](http://ericelliottjs.com/product/lifetime-access-pass/) 两书的作者。他为许多公司和组织作过贡献，例如 **Adobe Systems**、**Zumba Fitness**、**The Wall Street Journal**、**ESPN** 和 **BBC** 等 , 也是很多机构的顶级艺术家，包括但不限于 **Usher**、**Frank Ocean** 以及 **Metallica**。
 
-He spends most of his time in the San Francisco Bay Area with the most beautiful woman in the world.
+大多数时间，他都在 San Francisco Bay Area，同这世上最美丽的女子在一起。
 
 
 ---

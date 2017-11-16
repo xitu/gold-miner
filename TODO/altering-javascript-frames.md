@@ -3,38 +3,38 @@
 > * 原文作者：[michael stanton](https://ripsawridge.github.io/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/altering-javascript-frames.md](https://github.com/xitu/gold-miner/blob/master/TODO/altering-javascript-frames.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Jiang Haichao](https://github.com/AceLeeWinnie)
+> * 校对者：[Hyde Song](https://github.com/HydeSong), [薛定谔的猫](https://github.com/Aladdin-ADD)
 
-# Altering JavaScript frames
+# 修改 JavaScript 帧
 
-For a while I’ve been working on a project in [V8](https://code.google.com/p/v8/) to encode type feedback into simple data structures rather than embedding it in compiled code.
+曾经有段时间我一直在开发 [V8](https://code.google.com/p/v8/) 中的一个项目，将类型反馈编码到简单的数据结构中，而不是将其嵌入到编译代码中。
 
-The V8 inline cache system typically compiles a “dispatcher” which checks an incoming object map against a constant. If there is a match, control is dispatched to a handler, which may be a stock stub or be specially compiled for this object. The inline cache (IC) patches this dispatcher code into a compiled function. The dispatcher improves performance, because many decisions have been reduced to a comparison of a map against a constant (we call this a map check). We can also examine the dispatcher later for it’s embedded maps to determine what it knows when creating optimized code.
+V8 内联缓存系统通常编译一个 "dispatcher" 用于检查传入的对象是否映射到一个常量上。如果匹配上了，则将 control 发送给处理程序，该处理程序可能是一个 stock stub，也可能是为该对象专门编译产生的。内联缓存（IC）将此 dispatcher 代码粘贴到已编译函数中。dispatcher 起到了提高性能的作用，因为许多决策都被简化为相对于常量的映射比较（我们称之为映射检查）。我们还可以在以后对它的嵌入式映射进行检查，以确定它在创建优化代码时了解到的内容是否正确。
 
-After this thumbnail sketch of how ICs work (here is [a much better one](http://mrale.ph/blog/2012/06/03/explaining-js-vms-in-js-inline-caches.html)), you may think, why change it? Well, it would be nice to avoid patching code for security reasons and the fact that it causes a flush of the instruction cache which hampers performance on some platforms. Storing our maps in arrays is natural and makes extending the information we collect easier. For example, we might want to store polymorphic call counts. When we use a data structure, we can just store a triple for each map: the map, the “handler” that we jump to, and finally an integer count. That could be used later to order polymorphic calls. You might even coalesce this data by shunting rarely used maps to a generic handler and therefore reduce the degree of polymorphism.
+在简要阐述了 ICs 如何工作之后（这里是 [进阶介绍](http://mrale.ph/blog/2012/06/03/explaining-js-vms-in-js-inline-caches.html)），你可能会想，为什么要改变它呢？答案是，出于安全考虑，避免补丁代码是好的，但事实上它同时会导致指令缓存的刷新，而这会妨碍在某些平台上的性能。而将 Map 存储在数组中是很自然的，这使得我们能够更加容易地收集额外信息。例如，我们可能需要存储多态调用计数。当我们使用数据结构时，我们可以为每个 map 存储一个三元组: 映射，跳转到的 "处理程序"，以及整数计数。这可以用于以后多态调用的排序。您甚至可以通过分流不常使用的 map 将这些数据合并到一个普通的处理程序中，从而减少多态。
 
-So that’s why it would be nice to embed information in data structures rather than code. But the V8 IC system is rich, complex and performance sensitive. Becuase of that introducing data structures for feedback has been slow. A year ago I began using the “type feedback vector” to record data for calls from one JavaScript function to another. Now I’m working on making loads (like `x = obj.foo` and keyed loads like `x = obj[h]`) use the type feedback vector, and avoid patching code completely.
+这就是为什么在数据结构而不是代码中嵌入信息的原因。但 V8 IC 系统庞大、复杂、性能敏感。由于这种引入数据结构的反馈速度很慢。一年前，我开始使用“类型反馈向量”来记录从一个 JavaScript 函数到另一个函数调用的数据。现在我正在开发负载（比如 `x = obj.foo` 和 keyed 负载如 `x = obj[h]`）的类型反馈向量使用，并且完全地避免补丁代码。
 
-It’s difficult because a data structure solution means more memory loads no matter how you slice it. Here we come to another potential beneft of a type vector: it could be used in optimized code for which we only have partial type feedback. Normally, V8 will deoptimize an optimized function if it begins running a section for which we never ran before in full code. This could happen if the function is considered “hot” but there is a branch that was never yet taken. With the type feedback vector, we could install vector-based ICs in those information-poor locations, allow them to learn for a while, then reoptimize after achieving a certain threshold of new information.
+数据结构解决方案的难点在于无论如何分配都存在比嵌入方案更多的内存负载问题。此处我们来看类型向量的另一个潜在好处：它可以被用于那些只有部分类型反馈的优化代码中。通常情况下，如果 V8 开始运行一段在完整代码中从未运行过的部分，它将会反优化一个已优化的函数。这可能发生在一个函数被认为是“热门”，但其中有一个分支从未被执行时。对于类型反馈向量，我们可以在这些信息贫乏的位置安装基于向量的 ICs，允许他们学习一段时间，然后在得到一定量新信息后再进行优化。
 
-Deoptimizing functions is expensive for V8, and I’ll go into that more later - it’s just a tremendous amount of work and complexity. Type vectors offer the possibility to smooth out and moderate the optimized/un-optimized transition curve over the lifetime of an application.
+对 V8 来说，反优化函数代价高昂，我稍后再讲 —— 这只是大量的工作和复杂度。在应用程序的生命周期中，类型向量提供了平滑和适度优化/不优化的转换曲线的可能性。
 
-So that is my motivation. V8 is using the type vector for call ICs as mentioned, but loads are the important case because there are so many of them. If that can be achieved, then we have license to go the rest of the way and eliminate patching entirely. It’s a tremendously fun project.
+这就是我所希望的。正如前文所提，V8 使用类型向量调用 ICs，但是负载这一重要的情况必须解决，因为负载超荷的情况很多。如果这能实现，那么才允许我们完成剩下的工作，最终实现完全消除补丁。这是一个非常有趣的项目。
 
-I’ve been writing this document as I learned about the area, and was inspired by [Vyacheslav Egorov’s article explaining inline caches](http://mrale.ph/blog/2012/06/03/explaining-js-vms-in-js-inline-caches.html) in a readable and entertaining way. I loved the way his drawings looked, as it reminded me of the only way I seem to be able to internalize most concepts: by drawing them on paper. Vyacheslav built [a tool](https://moe-js.googlecode.com/git/talks/jsconfeu2012/tools/shaky/deploy/shaky.html) to create attractive “box and pointer” drawings from ASCII, and I started using it to think about the process along the way. Creating these pictures because a major part of the fun in the last few days :D.
+我写这篇文章的时候，我已经了解了这个领域，灵感来自于 [Vyacheslav Egorov 解释内联缓存的文章](http://mrale.ph/blog/2012/06/03/explaining-js-vms-in-js-inline-caches.html)，他以一种可读和有趣的方式来解释内联缓存。我喜欢他的示意图，因为它让我想起了我似乎能够将大多数概念内化的唯一方法：把它们画在纸上。Vyacheslav 构建了一个 [工具](https://moe-js.googlecode.com/git/talks/jsconfeu2012/tools/shaky/deploy/shaky.html) 来创建具有吸引力的 ASCII “盒子和指针”示意图，我开始用它来思考过程中的步骤。创作这些照片在过去的几天里产生了很大的乐趣。
 
-## Too many loads
+## 负载过多
 
-I’ve already spent time micro-optimizing my data-driven dispatcher, which grovels about in the vector to complete it’s map-checks and dispatches. That is the subject of another article, but suffice to say here that when I’m contemplating doing 2 levels of speculative reads into data carefully constructed to guarantee crash avoidance, just in order to save one additional read…I’ve probably hit the end of the line for that activity.
+我已经花了一些时间来微调数据驱动调度程序，它搜索 vector 以完成 map 的校验和 dispatch。那是另一篇文章的主题，但能在这儿说的是我正在考虑对数据进行 2 级预测读取，以确保避免崩溃，只是为了保证额外的读取操作... 这个工作已经进行到尾声了。
 
-Now I turn to the number of reads required before the call to the dispatcher. The type vector is an array attached to the SharedFunctionInfo for a JavaScript function. It’s indexed by a “slot,” and these slots are handed out at compilation time to compilation nodes that request them. The IC receives a pointer to the vector and an integer index into the vector (the index is derived from the slot but not the same thing).
+现在，来讨论在调用 dispatcher 之前需要读取的次数。类型向量是一个为 JavaScript 函数附加到 SharedFunctionInfo 的数组。它通过 "slot" 索引，这些 slot 在编译时分发给请求它们的编译节点。IC 接收一个指向向量的指针，并将整数索引指向向量(索引是从 slot 中派生出来的，而不是相同的东西)。
 
-Fair enough, but how do we load the vector into a register for the call? I could just embed it in the code, as it’s a constant, but experimentally, this changed the code size so much even just when using it for calls, that it would bloat the code unacceptably if I do this for all IC types. It threw off our profiler calculations, highlighting a weakness there that the profiler is based on code size in bytes rather than say, number of abstract syntax tree nodes (this should be tackled and solved, of course!). What proved a better solution for production was a series of loads. The `JSFunction` associated with this function is available in the stack frame. I load that, then walk through to the vector hanging off the SharedFunctionInfo. It seems that these loads aren’t too expensive because the data is in the cache.
+很好，但是我们如何为这次调用将这个向量加载到寄存器中呢？由于向量是个常量，可以嵌入到代码中，但实验表明，这改变了代码的大小，甚至只是在调用时使用它的时候，如果我对所有的 IC 类型都这样做，会让代码变得难以忍受。它摆脱了 profiler 计算，同时暴露了一个弱点，即 profiler 是基于代码的字节大小，而不是抽象语法树节点的数量（当然，应该处理和转换成语法树）。这证明了使用一系列的负载是更好的适用于生产的解决方案。与此功能相关的 "JSFunction" 在堆栈帧中可用。加载后，遍历 vector 找到目标向量并挂在到 SharedFunctionInfo 上。看起来负载并不大，因为数据都在缓存中。
 
 ![](drawings/frame-jsfunction.png)
 
-But for wider deployment of the type vector concept, this many loads becomes hard to support. Consider function **foo**:
+但是对于更广泛的类型向量概念的应用，负载变得难以支持。来看函数 **foo**：
 
 ```
 function foo(obj, x) {
@@ -46,71 +46,71 @@ function foo(obj, x) {
 
 ```
 
-The expressions `x.length`, the second `x[i]`, `obj.foo`, and `check(i)` all need the type vector. Just considering that the vector needs 3 loads, that is `3 * 4 * x.length` loads.
+表达式 `x.length`，第二个 `x[i]`，`obj.foo` 和 `check(i)` 均需要类型向量。仅考虑需要 3 个负载的向量情况，就有 `3 * 4 * x.length` 个负载。
 
-Ideally, we would just have 3 loads, by hoisting the vector load out of the loop. But that involves more architecture than we want to invest in full code. Usage of the type vector in optimized code isn’t supposed to be very heavy, but by introducing the vector as a node in those compilations we’ll get that kind of hoisting there. But I can reduce the number of loads by storing the feedback vector in the frame, meaning we’ll have `4 * x.length` loads (or at least until the profiler decides the function is hot enough and drops in an optimized version in place via on-stack-replacement (OSR), which is a fantastic thing). Whats more, these loads are all from a stack address in the frame and should remain in the cache.
+理想情况下，通过从循环中提升向量负载，我们会只有 3 个负载。但这更多地涉及到架构，而不是我们想要专注的完整代码。在优化的代码中使用类型向量并不会很重，但是在这些编译中引入向量作为节点，这个部分将得到类型变量提升。但是我可以通过将反馈向量存储在帧中来减少负载的数量，意味着我们将有 `4 * x.length` 个负载。（或者至少在 profiler 确定函数足够常用，并通过堆栈替换（OSR）在一个优化的版本中减少长度，这是一个奇妙的事情）。更重要的是，这些负载都来自帧中的堆栈地址，应该保留在缓存中。  
 
-This means I’ll have to alter the frame layout. Gulp.
+这意味着我必须改变帧布局。
 
-## Unoptimized JavaScript frames get a Vector
+## 未优化的 JavaScript 帧获得向量
 
-First off, why only add the vector to unoptimized JavaScript frames? Well, an optimized JavaScript frame actually contains many vectors, one for each function that it inlines. The vector for the ostensibly optimized function is only partially useful, and couldn’t be referred to by any of the inlined functions. Of course, there could be a load/restore step surrounding inlined calls, but that seems like a lot of work in code that should be tight, and ideally, shouldn’t use the type vector at all. Ideally we’ve learned from all ICs seen thus far. Also, if we need to refer to a type feedback vector in optimized code, we could let sophisticated technologies like GVN and the register allocator decide where to put the constant vector address and when to load it.
+首先，为什么只将向量添加到未优化的 JavaScript 帧中？一个优化的 JavaScript 帧实际上包含了很多向量，每一个函数都有一个内联向量。表面上优化的函数的向量只是部分有用，不能被任何内联函数引用。当然，在内联调用中可能会有一个加载/恢复步骤，但是在代码中似乎有很多工作应该是紧凑的，所以理想情况下，不应该使用类型向量。理想情况下，我们已经了解了迄今为止看到的所有 IC。另外，如果我们需要在优化的代码中引用类型反馈向量，我们可以让诸如 GVN 和寄存器分配器之类的先进技术决定在何处放置常量向量地址以及何时加载它。
 
-Therefore, here is a V8 JavaScript Frame, with a type vector field added just after the JSFunction. The stack is positioned just before making a call to another function:
+因此，下图演示了一个 V8 JavaScript 帧，它在 JSFunction 之后添加了一个类型向量字段。此堆栈在调用另一个函数之前就被定位了：
 
 ![](drawings/frame1.png)
 
-An optimized frame looks a bit different. There is no vector, but there is an alignment word on 32 bit platforms that indicates whether the stack has been aligned or not. Here is a case where no alignment occurred, and just before a call to another function:
+优化后的帧看起来有点不同。没有向量，但 32 位平台上有一个对齐字，表示堆栈是否已对齐。这里有一个不发生对齐的情况，即在调用另一个函数之前:
 
 ![](drawings/frame2.png)
 
-Alignment introduces some complication. When we are about to save the previous `$ebp` to the stack, we check to see if `$esp` is aligned. If so, we proceed normally, saving the value 0 in the alignment slot in the frame. Otherwise, we’ll move the receiver, arguments and return address down one word on the stack, putting a “zap value” (`0x12345678`) where the receiver used to be. Then in the alignment slot we’ll store the value 2 as a signal when it’s time to dismantle the frame. When we encounter that value on return, we know we need to clear one more word from the stack on return (the “zap value”). We have to read the alignment slot before we dismantle the frame, then after taking the frame down we have to take care of the receiver and arguments. The example below is a function with one argument, and a receiver. The optimized frame just has one real spill slot, the other is reserved for the alignment word.
+对齐方式引入了一些复杂度。当我们要将之前的 `$ebp` 保存到堆栈时，检查 `$ebp` 是否对齐。如果对齐了，正常运行，将 0 保存在帧的对齐 slot 中。否则，我们将把接收方、参数和返回地址在堆栈中下移 1 word，并将 “zap 值”（`0x12345678`）放入接收方所在的位置。然后当它需要删除帧的时候，在对齐 slot 中存入 2 作为一个信号。当我们在返回时遇到这个值时，我们知道我们需要从堆栈中再清除一个字（“zap值”）。在删除帧之前，我们必须先阅读对齐 slot，然后在删除帧之后，我们就必须处理接收方和参数。下面的示例是带有一个参数的函数和一个接收方。优化后的帧只有一个真实的溢出 slot，另一个为对齐字保留。
 
 ![](drawings/frame-align.png)
 
-The need for alignment of an optimized frame is recognized on entry, before setting up the frame. A “zap value” is inserted and the stack values get moved down one word. In step (3), the optimized frame has been built, and the alignment word contains the value 2 as a hint that the zap value also needs to be popped from the stack on return.
+在设置帧之前，需要对一个优化帧进行对齐。插入一个“zap值”，堆栈下移 1 word。在步骤(3)中，已经构建了优化的帧，而对齐字包含了 2 值，提示返回时 zap 值也需要从堆栈中弹出。
 
-## Deoptimization
+## 逆优化
 
-If an optimized function needs to deoptimize, then it’s frame needs to be translated into several output frames, since a single optimized function may contain many inlined functions as well. We end up with one `InputFrame` and several `OutputFrames`.
+如果一个优化的函数需要还原，那么对应帧需要被转译成几个输出帧，因为一个优化的函数也可能包含许多内联函数。我们最后得到一个 `InputFrame` 和几个 `outputframe`。
 
-Let’s take an optimized function with no arguments that deopts on entry. The function has two spill slots, one for the alignment word. The deopt process is begun with a call to a function that pushes a Bailout ID. The deoptimization function then pushes registers to the stack and prepares to create a `Deoptimizer` object.
+我们来看看一个没有参数的优化函数逆优化。该函数有两个溢出 slot，一个用于对齐字。逆优化进程开始时调用一个函数，该进程推送一个 Bailout ID，然后，逆优化函数将寄存器推送到堆栈，并准备创建一个“逆优化”对象。
 
 ![](drawings/frame-deopt.png)
 
-The function has deopted, and is preparing to create the Deoptimizer object. All of the necessary information is on the stack. This information is used to build the Deoptimizer. We then unwind the whole stack, copying all the registers and then the frame to the input `FrameDescription` object allocated when the Deoptimizer was created. At this point we go to C++ and compute all of the output frames. After this, we check the alignment word, and pop off the alignment “zap value” if it’s present (not in the example above). We end up at a completely empty stack, with no way to do anything or go anywhere, because we’ve even popped off the return address.
+该函数已被逆优化，并且正在准备创建逆优化对象。所有必要的信息都在堆栈上。这些信息用于构建逆优化器。然后我们展开整个堆栈，复制所有寄存器，然后在创建逆优化器时分配给输入 "FrameDescription" 对象的帧。这时我们使用 C++ 并计算所有输出帧。在此之后，我们检查对齐字，并弹出对齐的 "zap 值"，如果它还存在（不在上面的例子中）。我们最终得到一个全空的堆栈，无法执行任何操作或跳转到别处，因为返回地址已经弹出堆栈。
 
-We loop over all the output frames, pushing their contents to the stack from the higher (deepest) addresses to the lower (most shallow) addresses:
+循环所有的输出帧，将其内容从较高(最深)地址推到较低(最浅)的地址:
 
 ![](drawings/frame-deopt2.png)
 
-The OutputFrames have been computed, and are being copied to the stack in the appropriate place. Finally, continuation data and register state are propped to the stack. We’ll pop the registers into place, return to the continuation address, and finally state and pc are consumed to deposit us rather prettily into frame N-1.
+计算出 OutputFrame，并将其复制到堆栈的适当位置中。最后，后续数据和寄存器状态继续送入堆栈。我们将寄存器的值弹出，返回到后续地址，最后把状态和 pc 完美地放入 N - 1 帧中。
 
-With a `popad` instruction, we restore the saved registers to the CPU, then execute a `ret` instruction to pop the continuation address from the stack and jump to it’s code. The state and pc addresses will be consumed to appropriately enter unoptimized code at the right point with the right registers. The stack will gradually unwind correctly.
+使用 `popad` 指令，将保存的寄存器恢复到 CPU 中，然后执行一个 `ret` 指令从堆栈中弹出后续地址，然后跳转到对应的代码。读取状态和 pc 地址以适当地在正确的位置上输入未优化的代码。堆栈将逐渐正确地展开。
 
-The output frames have a different fixed size thanks to the addition of the type feedback vector in full-code JavaScript frames. Here is a side-by-side translation of the bottom-most frame in a one argument, non-aligned example where the output frame has no locals:
+由于在完整的 JavaScript 代码帧中添加了额外的类型反馈向量，因此输出帧的固定大小不同。这是一个参数，非对齐例子的底层帧一对一转换示意图，输出帧没有局部变量。
 
 ![](drawings/frame-deopt3.png)
 
-Alternatively, if the bottom-most optimized frame was aligned, we’d have to remove the alignment zap value and shift values to higher stack addresses (forgive me for focusing so much on alignment…it was rather a bear):
+另外,如果最底层的优化帧是对齐的,我们必须删除对齐 zap 值并把值转移到堆栈高地址区（原谅我这么关注对齐... 这是最基本的）:
 
 ![](drawings/frame-deopt4.png)
 
-An aligned, optimized InputFrame gets replaced on the stack like so. Note that the output frame is the same as that in the previous unaligned case.
+一个对齐的，已优化的 InputFrame 在如上堆栈中会被替换。注意，输出帧与之前未对齐的情况相同。
 
-## On Stack Replacement (OSR)
+## 栈替换（OSR）
 
-If we run a tight loop, we may want to optimize and replace code before we finish. This means optimizing and installing our optimized frame over the current frame. In fact, we think of simply appending the new parts of our new frame to the end of the existing JavaScriptFrame. Optimized frames have spill slots. These will go right after the locals of the frame already there. The first job on entry to the optimized code (mid-loop, how exciting!) is to copy those locals into spill slots where the register allocator can track them.
+如果运行一个紧凑的循环，我们可能想在结束之前优化和替换代码。这意味着在当前帧上优化和安装已优化帧。实际上，我们只是简单地将新帧的新增部分追加到现有的 JavaScriptFrame 的末尾。已优化帧有溢出 slot。这些将会在已经存在的帧中进行。进入优化代码的第一个任务（中等长度的循环, 多兴奋!）是把那些局部变量复制到寄存器分配程序可以跟踪它们的溢出 slot 中。
 
-I altered the OSR entry point to shift those locals up one word on the stack, overwriting the vector slot from the unoptimized frame. My first approach, which ended in a hail of mysterious test failures was to leave the vector in place, and try to get the optimizing compiler to treat it as an “extra” spill slot. This became very complicated. For one thing, the deoptimizer had to figure out if it was deoptimizing a function with OSR entries or not, and do the right thing with the “extra” word in the former case. Also, Crankshaft optimized functions with an OSR entry can later be entered from the start, and this starting prologue would have to push an extra dummy value in order to remain in sync with the offsets to locals and spill slots established at the OSR entry point. Life was way better when I abandoned this approach!
+我修改了 OSR 入口点，将这些局部变量移到堆栈上，重写未优化代码中的向量 slot。我的第一个方法以测试失败告终，具体方法是将这个向量放在适当的位置，并尝试让优化编译器将它当作一个“额外的”溢出 slot 来处理。这很复杂。首先，逆优化器必须弄清楚它是否对 OSR 条目的函数进行了逆优化，并在前一种情况下使用“额外”的字来继续处理。此外，Crankshaft 优化函数与 OSR 条目可以在一开始就输入，而这个输入会使堆栈多一个额外的虚拟值，以便使局部偏移量和 OSR 入口点创建的溢出 slot 保持同步。当我放弃这种方法的时候，人生都亮了！
 
-Consider also that optimized frames want to be aligned, so the replacement of code to use OSR also means moving the existing parts of the frame. Here is an example, showing the unoptimized stack on the left, and the optimized one on the right. In the before/after diagram, note that the fixed part gets smaller with the removal of the vector in the optimized frame:
+因为要考虑优化帧的对齐，所以替换使用 OSR 的代码也意味着要移动对应帧的现有部分。这里有一个示例，左侧显示未优化的堆栈，右侧显示已优化的堆栈。在优化前后对比图中，请注意，在优化帧中，删除向量后，固定部分变得更小:
 
 ![](drawings/frame-osr.png)
 
-## Virtual deoptimization for the debugger
+## 虚拟逆优化调试器
 
-We have a test [**debug-evaluate-locals-optimized.js**](https://chromium.googlesource.com/v8/v8.git/+/master/test/mjsunit/debug-evaluate-locals-optimized.js) which verifies that the debugger can interpret locals and arguments of all functions on the stack, even if some of the functions are optimized. The example sets up a series of calls from function `f` down to function `h` and invokes the debugger in function `h` to verify expected values.
+我们有一个测试 [**debug-evaluate-locals-optimized.js**](https://chromium.googlesource.com/v8/v8.git/+/master/test/mjsunit/debug-evaluate-locals-optimized.js) 来验证调试器可以解释堆栈上所有函数的局部变量和参数，即便是经过优化的函数。这个示例设置了一系列从函数 `f` 到函数 `h` 的调用，并调用函数 `h` 中的调试器来验证预期值。
 
 ```
 Function  Locals           Notes
@@ -122,17 +122,17 @@ g3        a1 = 3, b1 = 4   call h (not inlined)
 h         a0 = 1, b0 = 2   breakpoint
 ```
 
-The deoptimization infrastructure is used by the debugger to compute and store these local values in a data structure for later perusal. We “deoptimize” function `f` without actually doing so, but only to harvest the output frames created in a buffer from that process. `f` decomposes into 7 output frames. Here is the input frame layed out on the stack from the call `f(4, 11, 12)`, and on the right is the bottommost output frame representing the unoptimized function `f`:
+调试器使用逆优化基础方法来计算并在数据结构中储存这些局部值以供以后使用。我们在没有实际操作的情况下 “逆优化” 函数 `f`，但仅仅是为了从这个步骤中获取一个缓冲区中创建的输出帧。函数 `f` 分解为 7 个输出帧。这是在堆栈上调用 `f(4,11,12)` 的输入帧“，右侧是代表未优化的函数 `f` 的最底层的输出帧:
 
 ![](drawings/debug-example-f.png)
 
-The locals and parameters for the full code frame of `f` can be queried according to known frame layouts.
+根据已知的帧结构，可以查询函数 `f` 完整代码帧的局部变量和参数。
 
-Note the literal `g1`, which is on the stack, not part of the locals, but simply an expression saved before the call out to g1\. Below are the remaining interesting OutputFrame data structures, one each for g1, g2 and g3\. In the g1 frame, I expected to see a literal expression for the call to g2 on the stack and was initially worried about a bug. However g2 is called with `new g2(...)`, and constructor calls don’t push an expression onto the stack before the call.
+注意字面上的 `g1`，它在堆栈中，但不是局部变量的一部分，而是在调用 `g1` 之前简单保存的表达式。下面是其他有趣的 OutputFrame 数据结构，分别为函数g1、g2和g3\。在函数 g1 的帧中，我期望看到在堆栈上调用 g2 的字面表达式，最初担心有 bug。但是 g2 作为 `new g2(…)` 调用, 在调用之前，构造函数调用不会将表达式推入堆栈上。
 
 ![](drawings/debug-example-rest.png)
 
-`g2` is called with 3 arguments, but it only accepts one so an arguments adaptor frame is inserted (not displayed here). `g3` is called with three arguments as expected, so no adaptor frame is inserted. In total, 7 OutputFrames are computed:
+`g2` 有3个参数，但它只接受一个，因此插入了一个参数适配器帧(此处没有显示)。`g3` 按照预期的三个参数调用，因此不会插入适配器帧。总共有7个输出帧：
 
 1. f
 2. arguments adaptor
@@ -144,18 +144,19 @@ Note the literal `g1`, which is on the stack, not part of the locals, but simply
 
 Now we start copying this information into a data structure for debugging. First we examine the frame for `g3`.
 
-Although my changes in the deoptimizer resulted in correct OutputFrames, the interpretation was broken. I had to change the `FrameDescription` class to return local offsets correctly according to whether it was describing an `OPTIMIZED` frame or a `JAVA_SCRIPT` frame. This would correctly reflect the variation I’ve introduced with the type feedback vector. With that change made, the test passes, finding all of the local variables with their correct values.
+现在我们开始将这些信息复制到数据结构中进行调试。首先，我们来检查 `g3` 的对应帧。
 
-## Conclusion
+虽然我在逆优化器中的更改产生了正确的 OutputFrame，但破坏了代码解释。我必须修改 `FrameDescription` 类，根据它描述的是 `已优化` 帧还是 `JAVA_SCRIPT`帧来正确地返回局部偏移量。这将正确地反映我引入的类型反馈向量的变化。通过这些变化，测试通过，并找到所有带有正确值的局部变量。
 
-Well, this picture shows I get what I want if the system in is place:
+## 结语
+
+下图展示了系统成型后的结构图：
 
 ![](drawings/frame-vector.png)
 
-But how about performance? It looks good for most benchmarks, but there are a few SunSpider tests that are short enough that we don’t manage to run optimized code, and there is a net loss because our unmanaged frames are 1 word bigger. I do have to pay for that. Before making this part of the tree, I’ll need to validate that the cost is worthwhile when considering the type vector passage as a whole. On the whole, I’m optimistic.
+性能如何？大多数 benchmark 表现都很好，但是一些 SunSpider 测试很短，我们无法运行优化代码，这是一个净损失，因为我们的未优化帧是 1 word 的大小。我必须为此付出代价。在做优化工作之前，我需要验证处理成类型向量的整个过程代价是值得的。总的来说,我很乐观。
 
-My changelist for the work on all platforms is [here](https://codereview.chromium.org/942513002/). Thank you for following this meandering course through some V8 internals :).
-
+所有平台上的工作的变更列表在[这里](https://codereview.chromium.org/942513002/)。感谢您通过深入 V8 内部，阅读完本复杂曲折的课程。
 
 ---
 
