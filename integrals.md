@@ -2708,7 +2708,7 @@
 |[CSS很棒，只是真的太难了](https://juejin.im/entry/58eae24a61ff4b0061a6a102/detail)|校对|1|
 |[编写整洁 CSS 代码的黄金法则](https://juejin.im/post/58d34bed128fe1006caf8b6b)|校对|1|
 
-## 译者：[boileryao](https://github.com/boileryao) 历史贡献积分：19 当前积分：19
+## 译者：[boileryao](https://github.com/boileryao) 历史贡献积分：24 当前积分：24
 
 |文章|类型|积分|
 |------|-------|-------|
