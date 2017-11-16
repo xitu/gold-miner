@@ -104,8 +104,6 @@ Angular 框架的好处是来自另一家公司的新的 Angular 2 开发人员�
 
 emmmmmmmm...... 我应该提到的，Mahesh是微软的区域总监。
 
-（译者注：[上一个翻译文章的人](https://github.com/HydeSong)简直就是混蛋牲口，机翻不说，译文我给他找了将近 100 个错误，后来索性我重新翻译得了。想哭啊~~~）
-
 ## React，Angular 和 Vue 的比较
 
 ### 组件
