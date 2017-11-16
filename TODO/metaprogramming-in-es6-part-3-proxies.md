@@ -3,9 +3,9 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/metaprogramming-in-es6-part-3-proxies.md](https://github.com/xitu/gold-miner/blob/master/TODO/metaprogramming-in-es6-part-3-proxies.md)
 > * 译者：[yoyoyohamapi](https://github.com/yoyoyohamapi)
-> * 校对者：
+> * 校对者：[caoyi0905](https://github.com/caoyi0905)
 
-# ES6 中的元编程： 第三部分 - 代理（Proxies）
+# ES6 中的元编程： 第三部分 —— 代理（Proxies）
 
 这是我的 ES6 元编程系列的第三部分，也是最后一部分，还记得这个系列的文章我一年之前就开始动笔了，并且承诺不会花一年才写完，但现实就是我还真花费了如此多的时间去完成。在最后这篇文章中，我们要看看可能是 ES6 中最酷的反射特性：代理（Proxy）。由于反射和本文的部分内容有关，如果你还没读过[上一篇讲述 ES6 Reflect API 的文章](/metaprogramming-in-es6-part-2-reflect/)，以及[更早的、讲述 ES6 Symbols 的文章](/metaprogramming-in-es6-symbols/)，先倒回去阅读一下，这样才能更好地理解本文。和其他部分一样，我先引用一下在第一部分提到过的观点：
 
@@ -19,7 +19,7 @@
 
 ## 创建代理
 
-Proxy 构造函数接受两个参数，其一是你想要代理的初始对象，其二是一系列处理钩子（handler hooks）。我们先忽略第二个钩子参数，看看怎么为现有对象创建代理。线索即在代理这个名字中：它们维持了一个你创建对象的引用，但是如果你有了一个原始对象对象的引用，任何你和原始对象的交互，都会影响到代理，类似地，任何你对代理做的改变，反过来也都会影响到原始对象。换句话说，Proxy 返回了一个包裹了传入对象的新对象，但是任何你对二者的操作，都会影响到它们彼此。为了证实这一点，看到代码：
+Proxy 构造函数接受两个参数，其一是你想要代理的初始对象，其二是一系列处理钩子（handler hooks）。我们先忽略第二个钩子参数，看看怎么为现有对象创建代理。线索即在代理这个名字中：它们维持了一个你创建对象的引用，但是如果你有了一个原始对象对象的引用，任何你和原始对象的交互，都会影响到代理，类似地，任何你对代理做的改变，反过来也都会影响到原始对象。换句话说，Proxy 返回了一个包裹了传入对象的新对象，但是任何你对二者的操作，都会影响到它们彼此。为了证实这一点，请看代码：
 
 ```js
 var myObject = {};
@@ -40,7 +40,7 @@ assert(myObject.bar === true);
 
 处理钩子是一系列的函数，每一个钩子都有一个具体名字以供代理识别，每一个钩子也控制了你如何和代理交互（因此，也控制了你和被包裹对象的交互）。处理钩子勾住了 JavaScript 的 “内置方法”，如果你对此感觉熟悉，是因为我们在 [上一篇介绍 Reflect API 的文章](/metaprogramming-in-es6-part-2-reflect/#internal-methods) 中提到了内置方法。
 
-是时候铺开来说代理了。我把代理放到系列的最后一部分的重要原因是：由于代理和反射就像明星和粉丝一样相互交织，因此我们需要先知道反射是如何工作的。如你所见，每一个代理钩子都对应到一个反射方法，反之亦然，每一个反射方法都有一个代理钩子。完整的反射方法及对应的代理处理钩子如下：
+是时候铺开来说代理了。我把代理放到系列的最后一部分的重要原因是：由于代理和反射就像一对苦命鸳鸯交织在一起，因此我们需要先知道反射是如何工作的。如你所见，每一个代理钩子都对应到一个反射方法，反之亦然，每一个反射方法都有一个代理钩子。完整的反射方法及对应的代理处理钩子如下：
 
 * `apply` （以一个 `this` 参数和一系列 `arguments`（参数序列）调用函数）
 * `construct`（以一系列 `arguments` 及一个可选的、指明了原型的构造函数调用一个类函数或者构造函数）
@@ -50,7 +50,7 @@ assert(myObject.bar === true);
 * `getPrototypeOf` （获得某实例的原型）
 * `setPrototypeOf` （设置某实例的原型）
 * `isExtensible` （判断一个对象是否是 “可扩展的”，亦即判断是否可以为其添加属性）
-* `preventExtensions` （防止对象被扩展）
+* `preventExtensions` （阻止对象被扩展）
 * `get` （得到对象的某个属性）
 * `set` （设置对象的某个属性）
 * `has` （在不断言（assert）属性值的情况下，判断对象是否含有某个属性）
@@ -77,7 +77,7 @@ proxy = new Proxy({}, {
 });
 ```
 
-现在，我可以深入到每个代理钩子的工作细节中去了，但我不会直接复制粘贴反射中的例子来偷懒。如果只是介绍每个钩子的功能，对代理来说就不太公平，因为代理是去实现一些炫酷用例的。所以，本文剩余内容都将为你展示通过代理完成的炫酷的东西，甚至是一些你没了代理就无法完成的事。
+现在，我可以深入到每个代理钩子的工作细节中去了，但是基本上都是复制粘贴反射中的例子（只需要修改很少的部分）。如果只是介绍每个钩子的功能，对代理来说就不太公平，因为代理是去实现一些炫酷用例的。所以，本文剩余内容都将为你展示通过代理完成的炫酷的东西，甚至是一些你没了代理就无法完成的事。
 
 同时，为了让内容更具交互性，我为每个例子都创建一个小的库来展示对应的功能。我会给出每个例子对应的代码仓库链接。
 
@@ -117,12 +117,12 @@ assert(google.search.products.bacon.and.eggs() === 'http://google.com/search/pro
 function treeTraverser(tree) {
   var parts = [];
   var proxy = new Proxy(function (parts) {
-    let node = tree; // 以树根为起始
+    let node = tree; // 从树的根节点开始
     for (part of parts) {
       if (!node.props || !node.props.children || node.props.children.length === 0) {
         throw new Error(`Node ${node.tagName} has no more children`);
       }
-      // 如果该部分是一个孩子节点，就深入到该孩子节点进行下一次遍历
+      // 如果该部分是一个子节点，就深入到该子节点进行下一次遍历
       let index = node.props.children.findIndex((child) => child.tagName == part);
       if(index === -1) {
         throw new Error(`Cannot find child: ${part} in ${node.tagName}`);
@@ -176,7 +176,7 @@ assert(myDomIsh.div.span.b().textContent === 'World');
 
 许多其他的编程语言都允许你使用一个内置的反射方法去重写一个类的行为，例如，在 PHP 中有 `__call`，在 Ruby 中有 `method_missing`，在 Python 中则有 `__getattr__`。JavaScript 缺乏这个机制，但现在我们有了代理去实现它。
 
-在开始介绍代理的实现之前，我们先看下 Ruby 是怎么做的，从中获得一些灵感：
+在开始介绍代理的实现之前，我们先看下 Ruby 是怎么做的，来从中获得一些灵感：
 
 ```rb
 class Foo
@@ -246,9 +246,9 @@ baseConvertor.base16toBase2('deadbeef') === '11011110101011011011111011101111';
 baseConvertor.base2toBase16('11011110101011011011111011101111') === 'deadbeef';
 ```
 
-当然，你也可以手动创建总计 1296 组合情况的方法，或者单独通过一个循环动态创建这些方法，但是二者的代码量比上面多多了。
+当然，你也可以手动创建总计 1296 组合情况的方法，或者单独通过一个循环来创建这些方法，但是这两者都需要用更多的代码来完成。
 
-一个更加具体的例子是 Ruby on Rails 中的 ActiveRecord，其源于 “动态查找器（dynamic finders）”。ActiveRecord 基本上实现了 “method_missing” 来允许你根据列查询一个表。使用函数名作为查询关键字，避免了使用传递一个复杂对象来创建查询语句：
+一个更加具体的例子是 Ruby on Rails 中的 ActiveRecord，其源于 “动态查找（dynamic finders）”。ActiveRecord 基本上实现了 “method_missing” 来允许你根据列查询一个表。使用函数名作为查询关键字，避免了使用传递一个复杂对象来创建查询语句：
 
 ```js
 Users.find_by_first_name('Keith'); # [ Keith Cirkel, Keith Urban, Keith David ]
@@ -297,7 +297,7 @@ assert.deepEqual(Object.keys(example), [ ]);
 assert.deepEqual(Object.getOwnPropertyNames(example), [ ]);
 ```
 
-老实说，我也没有发现这个模式有特别大的用处。但是，我还是创建了一个关于此的一个库，并放在了[github.com/keithamus/proxy-hide-properties](https://github.com/keithamus/proxy-hide-properties)，它能让你单独地设置某个属性不可见了，而不是一锅端地让全部属性不可见。
+老实说，我也没有发现这个模式有特别大的用处。但是，我还是创建了一个关于此的一个库，并放在了[github.com/keithamus/proxy-hide-properties](https://github.com/keithamus/proxy-hide-properties)，它能让你单独地设置某个属性不可见了，而不是一锅端地让所有属性不可见。
 
 ### 实现一个观察者模式，也称作 Object.observe
 
@@ -419,7 +419,7 @@ Reflect.has(myObject, 'bar') // TypeError
 
 ## 总结
 
-我希望这篇文章让你认识到代理是一个强大到不可思议的工具，它弥补了 JavaScript 内部曾经的缺失。在方方方面，Symbol、Reflect、以及代理都为 JavaScript 开启了新的篇章 —— 就如同 const 和 let，类和箭头函数那样。当 const 和 let 使得代码更贱清晰，类和箭头函数使得代码更加简洁，Symbol、Reflect、和 Proxy 则开始给予开发者在 JavaScript 中进行底层的元编程。
+我希望这篇文章让你认识到代理是一个强大到不可思议的工具，它弥补了 JavaScript 内部曾经的缺失。在方方面面，Symbol、Reflect、以及代理都为 JavaScript 开启了新的篇章 —— 就如同 const 和 let，类和箭头函数那样。const 和 let 不再让代码显得混乱肮脏，类和箭头函数让代码更简洁，Symbol、Reflect、和 Proxy 则开始给予开发者在 JavaScript 中进行底层的元编程。
 
 这些新的元编程工具不会在短时间内放慢发展的速度：EcamScript 的新版本正逐渐完善，并添加了更多有趣的行为，例如 [`Reflect.isCallable` 和 `Reflect.isConstructor` 的提案](https://github.com/caitp/TC39-Proposals/blob/master/tc39-reflect-isconstructor-iscallable.md)，亦或 [stage 0 关于 `Reflect.type` 的提案](https://github.com/alex-weej/es-reflect-type-proposal)，亦或 [`function.sent` 这个元属性的提案](https://github.com/allenwb/ESideas/blob/master/Generator%20metaproperty.md)
 ，亦或[这个包含了更多函数元属性的提案](https://github.com/allenwb/ESideas/blob/master/ES7MetaProps.md)。这些新的 API 也引起了一些新特性的有趣讨论，例如 [这个关于添加 `Reflect.parse` 的提案](https://esdiscuss.org/topic/reflect-parse-from-re-typeof-null)，就引起了关于创建一个 AST（Abstract Syntax Tree：抽象语法树）标准的讨论。
