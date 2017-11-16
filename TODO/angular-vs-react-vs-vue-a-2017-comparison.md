@@ -4,11 +4,11 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/angular-vs-react-vs-vue-a-2017-comparison.md](https://github.com/xitu/gold-miner/blob/master/TODO/angular-vs-react-vs-vue-a-2017-comparison.md)
 > * 译者：[Raoul1996](https://github.com/raoul1996)
-> * 校对者：[ylq167](https://github.com/ylq167)
+> * 校对者：[caoyi0905](https://github.com/caoyi0905)、[PCAaron](https://github.com/PCAaron)
 
 # 2017 年比较 Angular、React、Vue 三剑客 
 
- 为 web 应用选择 JavaScript 开发框架是一件很费脑筋的事。现如今 [Angular](https://angular.io/) 和 [React](https://facebook.github.io/react/) 非常流行，并且最近出现的新贵 [VueJS](https://vuejs.org/) 同样博得了很多人的关注。更重要的是，这只是一些[街区上的新孩子](https://hackernoon.com/top-7-javascript-frameworks-c8db6b85f1d0)。
+ 为 web 应用选择 JavaScript 开发框架是一件很费脑筋的事。现如今 [Angular](https://angular.io/) 和 [React](https://facebook.github.io/react/) 非常流ßß行，并且最近出现的新贵 [VueJS](https://vuejs.org/) 同样博得了很多人的关注。更重要的是，这只是一些[街头顽童](https://hackernoon.com/top-7-javascript-frameworks-c8db6b85f1d0)。
 ![Javascripts in 2017 —— things aren’t easy these days!](https://cdn-images-1.medium.com/max/800/1*xRhs4h2a_rGpXNpoSNlA9w.png)
 
 那么我们如何选择使用哪个框架呢？列出他们的优劣是极好的。我们将按照先前文章的方式去做，“[共有9步：为 Web 应用选择一个技术栈](https://medium.com/unicorn-supplies/9-steps-how-to-choose-a-technology-stack-for-your-web-application-a6e302398e55)”。
@@ -19,7 +19,7 @@
 
 ## 今日首发：Angular，React 和 Vue
 
-首先，我想从**生命周期和战略考虑**角度讨论。然后，我们再讨论这三个 javascript 框架的**功能和概念**。最后，我们再做**结论**。
+首先，我想从**生命周期和战略考虑**角度讨论。然后，我们再讨论这三个 JavaScript 框架的**功能和概念**。最后，我们再做**结论**。
 
 以下是我们今天要解决的问题：
 
@@ -42,19 +42,19 @@
 
 ### 一些历史
 
-**Angular** 是基于 TypeScript 的 Javascript 框架。由 Google 进行开发和维护，它被描述为“超级厉害的 JavaScript [MVW](https://plus.google.com/+AngularJS/posts/aZNVhj355G2) 框架”。Angular（也被称为 “Angular 2+”，“Angular 2” 或者 “ng2”）已被重写，是与 AngularJS（也被称为 “Angular.js” 或 “AngularJS 1.x”）不兼容的后续版本。当 AngularJS（旧版本）最初于2010年10月发布时，仍然在[修复 bug](https://github.com/angular/angular.js)，等等 —— 新的 Angular（sans JS）于 2016 年 9 月推出，版本为 2。最新的主版本是 4，[因为版本 3 被跳过了](http://www.infoworld.com/article/3150716/application-development/forget-angular-3-google-skips-straight-to-angular-4.html)。Google，Vine，Wix，Udemy，weather.com，healthcare.gov 和 Forbes 都使用 Angular（根据 [madewithangular](https://www.madewithangular.com/)，[stackshare](https://stackshare.io/angular-2) 和 [libscore.com](http://libscore.com/#angular) 提供的数据）。
+**Angular** 是基于 TypeScript 的 Javascript 框架。由 Google 进行开发和维护，它被描述为“超级厉害的 JavaScript [MVW](https://plus.google.com/+AngularJS/posts/aZNVhj355G2) 框架”。Angular（也被称为 “Angular 2+”，“Angular 2” 或者 “ng2”）已被重写，是与 AngularJS（也被称为 “Angular.js” 或 “AngularJS 1.x”）不兼容的后续版本。当 AngularJS（旧版本）最初于2010年10月发布时，仍然在[修复 bug](https://github.com/angular/angular.js)，等等 —— 新的 Angular（sans JS）于 2016 年 9 月推出版本 2。最新的主版本是 4，[因为版本 3 被跳过了](http://www.infoworld.com/article/3150716/application-development/forget-angular-3-google-skips-straight-to-angular-4.html)。Google，Vine，Wix，Udemy，weather.com，healthcare.gov 和 Forbes 都使用 Angular（根据 [madewithangular](https://www.madewithangular.com/)，[stackshare](https://stackshare.io/angular-2) 和 [libscore.com](http://libscore.com/#angular) 提供的数据）。
 
-**React** 被描述为 “用于构建用户界面的 JavaScript 库”。React 最初于 2013 年 3 月发布，由 Facebook 进行开发和维护，Facebook 在多个页面上使用 React 组件（但不是作为单页应用程序）。根据 [Chris Cordle](https://medium.com/@chriscordle) 的[这篇文章](https://medium.com/@chriscordle/why-angular-2-4-is-too-little-too-late-ea86d7fa0bae)，React 在 Facebook 上的使用远远多于 Angular 在 Google 上的使用。React 还被 Airbnb，Uber，Netflix，Twitter，Pinterest，Reddit，Udemy，Wix，Paypal，Imgur，Feedly，Stripe，Tumblr，Walmart 等使用（根据 [Facebook](https://github.com/facebook/react/wiki/Sites-Using-React), [stackshare](https://stackshare.io/react) 和 [libscore.com](http://libscore.com/#React) 提供的数据）。
+**React** 被描述为 “用于构建用户界面的 JavaScript 库”。React 最初于 2013 年 3 月发布，由 Facebook 进行开发和维护，Facebook 在多个页面上使用 React 组件（但不是作为单页应用程序）。根据 [Chris Cordle](https://medium.com/@chriscordle) [这篇文章](https://medium.com/@chriscordle/why-angular-2-4-is-too-little-too-late-ea86d7fa0bae)的统计，React 在 Facebook 上的使用远远多于 Angular 在 Google 上的使用。React 还被 Airbnb，Uber，Netflix，Twitter，Pinterest，Reddit，Udemy，Wix，Paypal，Imgur，Feedly，Stripe，Tumblr，Walmart 等使用（根据 [Facebook](https://github.com/facebook/react/wiki/Sites-Using-React), [stackshare](https://stackshare.io/react) 和 [libscore.com](http://libscore.com/#React) 提供的数据）。
 
 Facebook 正在开发 **React Fiber**。它会改变 React 的底层 - 渲染速度应该会更快 - 但是在变化之后，版本会向后兼容。Facebook 将会在 2017 年 4 月的开发者大会上[讨论](https://developers.facebook.com/videos/f8-2017/the-evolution-of-react-and-graphql-at-facebook-and-beyond/)新变化，并发布一篇非官方的[关于新架构的文章](https://github.com/acdlite/react-fiber-architecture)。React Fiber 可能与 React 16 一起发布。
 
-**Vue** 是 2016 年发展最为迅速的 JS 框架之一。Vue 将自己描述为一款“用于构建直观，快速和组件化交互式界面的 [MVVM](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel) 框架”。它于 2014 年 2 月首次由 Google 前员工 [Evan You](https://github.com/yyx990803) 发布（顺便说一句：尤雨溪那时候发表了一篇 [vue 发布首周的营销活动和数据](http://blog.evanyou.me/2014/02/11/first-week-of-launching-an-oss-project/) 的博客文章）。这无疑是非常成功的，尤其是考虑到 Vue 在没有大公司的支持的情况下，作为一个人开发的框架获得这么多的吸引力。尤雨溪目前有一个数十人核心开发者的团队。2016 年，版本 2 发布。Vue 被阿里巴巴，百度，Expedia，任天堂，GitLab 使用 — 可以在 [madewithvuejs.com](https://madewithvuejs.com/) 找到一些小型项目的列表。
+**Vue** 是 2016 年发展最为迅速的 JS 框架之一。Vue 将自己描述为一款“用于构建直观，快速和组件化交互式界面的 [MVVM](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel) 框架”。它于 2014 年 2 月首次由 Google 前员工 [Evan You](https://github.com/yyx990803) 发布（顺便说一句：尤雨溪那时候发表了一篇 [vue 发布首周的营销活动和数据](http://blog.evanyou.me/2014/02/11/first-week-of-launching-an-oss-project/) 的博客文章）。尤其是考虑到 Vue 在没有大公司的支持的情况下，作为一个人开发的框架还能获得这么多的吸引力，这无疑是非常成功的。尤雨溪目前有一个包含数十名核心开发者的团队。2016 年，版本 2 发布。Vue 被阿里巴巴，百度，Expedia，任天堂，GitLab 使用 — 可以在 [madewithvuejs.com](https://madewithvuejs.com/) 找到一些小型项目的列表。
 
 Angular 和 Vue 都遵守 **MIT license** 许可，而 React 遵守 **[BSD3-license](https://en.wikipedia.org/wiki/BSD_licenses#3-clause_license_.28.22BSD_License_2.0.22.2C_.22Revised_BSD_License.22.2C_.22New_BSD_License.22.2C_or_.22Modified_BSD_License.22.29) 许可证**。在专利文件上有很多讨论。[James Ide](https://medium.com/@ji)（前 Facebook 工程师）解释专利文件背后的[原因和历史](https://medium.com/@ji/the-react-license-for-founders-and-ctos-b38d2538f3e5)：Facebook 的专利授权是在保护自己免受专利诉讼的能力的同时分享其代码。专利文件被更新了一次，有些人声称，如果你的公司不打算起诉 Facebook，那么使用 React 是可以的。你可以[在 Github 的这个 issue 上](https://github.com/facebook/react/issues/7293) 查看讨论。我不是律师，所以如果 React 许可证对你或你的公司有问题，你应该自己决定。关于这个话题还有很多文章：[Dennis Walsh](https://medium.com/@dwalsh.sdlr) 写到，[你为什么不该害怕](https://medium.com/@dwalsh.sdlr/react-facebook-and-the-revokable-patent-license-why-its-a-paper-25c40c50b562)。[Raúl Kripalani](https://medium.com/@raulk) 警告：[反对创业公司使用 React](https://medium.com/@raulk/if-youre-a-startup-you-should-not-use-react-reflecting-on-the-bsd-patents-license-b049d4a67dd2)，他还写了一篇[备忘录概览](https://medium.com/@raulk/further-notes-and-questions-arising-from-facebooks-bsd-3-strong-patent-retaliation-license-c6386e8e1d60)。此外，Facebook上还有一个最新的声明：[解释 React 的许可证](https://code.facebook.com/posts/112130496157735/explaining-react-s-license/)。
 
 ### 核心开发
 
-如前所述，Angular 和 React 得到大公司的支持和使用。Facebook，Instagram 和 WhatsApp 正在它们的页面使用 React。Google 在很多项目中使用 Angular，例如，新的 Adwords 用户界面是使用 [Angular 和 Dart](http://news.dartlang.org/2016/03/the-new-adwords-ui-uses-dart-we-asked.html?m=1)。再次，Vue 是由一群通过 Patreon 和其他赞助方式支持的个人实现的，是对是错任你评说。[Matthias Götzke](https://medium.com/@mgoetzke) 认为 Vue 小团队的好处是 [用了更简洁和更少的过度设计的代码或 API](https://medium.com/@mgoetzke/some-people-have-been-asking-about-the-dependability-of-vue-jss-9dc2842b3709)。
+如前所述，Angular 和 React 得到大公司的支持和使用。Facebook，Instagram 和 WhatsApp 正在它们的页面使用 React。Google 在很多项目中使用 Angular，例如，新的 Adwords 用户界面是使用 [Angular 和 Dart](http://news.dartlang.org/2016/03/the-new-adwords-ui-uses-dart-we-asked.html?m=1)。再次，Vue 是由一群通过 Patreon 和其他赞助方式支持的个人实现的，是好坏你自己确定。[Matthias Götzke](https://medium.com/@mgoetzke) 认为 Vue 小团队的好处是 [用了更简洁和更少的过度设计的代码或 API](https://medium.com/@mgoetzke/some-people-have-been-asking-about-the-dependability-of-vue-jss-9dc2842b3709)。
 
 我们来看看一些统计数据：Angular 在团队介绍页[列出 36 人](https://angular.io/about?group=Angular)，Vue [列出 16 人](https://vuejs.org/v2/guide/team.html)，而 React 没有团队介绍页。**在 Github 上**，Angular 有 25,000+ 的 star 和 463 位代码贡献者，React 有 70,000+ 的 star 和 1,000+ 位代码贡献者，而 Vue 有近 60,000 的 star 和只有 120 位代码贡献者。你也可以查看 [Angular，React 和 Vue 的 Github Star 历史](http://www.timqian.com/star-history/#facebook/react&angular/angular&vuejs/vue)。又一次说明 Vue 的趋势似乎很好。根据 [bestof.js](https://bestof.js.org/tags/framework/trending/last-3-months) 提供的数据显示，在过去三个月 Angular 2 平均每天获得 31 个 star，React 74 个，Vue.JS 107 个。
 
@@ -74,7 +74,7 @@ Angular 和 Vue 都遵守 **MIT license** 许可，而 React 遵守 **[BSD3-lice
 
 Vue 没有在 2014 年之前创建 - 所以这里有什么不对劲。La Vue是法语的 “view” ，“sight” 或 “opinion”。也许就是这样。“VueJS” 和 “Angular” 或 “React” 的比较也是不公平的，因为 VueJS 几乎没有搜索到任何结果。
 
-那我们试试别的吧。ThoughtWorks 的 [Technology Radar](https://www.thoughtworks.com/de/radar#) 技术随时间推移的变化。ThoughtWorks 的 [Technology Radar](https://www.thoughtworks.com/de/radar#) 随着时间推移，技术的演进过程给人深刻的印象。Redux 是[在采用阶段](https://www.thoughtworks.com/de/radar/languages-and-frameworks/redux)（被 ThoughtWorks 项目采用的！），它在许多 ThoughtWorks 项目中的价值是不可估量的。Vue.js 是[在试用阶段](https://www.thoughtworks.com/de/radar/languages-and-frameworks/vue-js)（被试着用的）。Vue 被称为是 Angular 的轻量级和灵活的替代品，学习曲线较平缓。Angular 2 是[正在处于评估阶段](https://www.thoughtworks.com/de/radar/languages-and-frameworks/angular-2) 使用 —— 已被 ThoughtWork 团队成功实践，但是还没有强烈推荐。
+那我们试试别的吧。ThoughtWorks 的 [Technology Radar](https://www.thoughtworks.com/de/radar#) 技术随时间推移的变化。ThoughtWorks 的 [Technology Radar](https://www.thoughtworks.com/de/radar#) 随着时间推移，技术的演进过程给人深刻的印象。Redux 是[在采用阶段](https://www.thoughtworks.com/de/radar/languages-and-frameworks/redux)（被 ThoughtWorks 项目采用的！），它在许多 ThoughtWorks 项目中的价值是不可估量的。Vue.js 是[在试用阶段](https://www.thoughtworks.com/de/radar/languages-and-frameworks/vue-js)（被试着用的）。Vue 被称为是 Angular 的轻量级和灵活的替代品，学习曲线较平缓。Angular 2 是[正在处于评估阶段](https://www.thoughtworks.com/de/radar/languages-and-frameworks/angular-2) 使用 —— 已被 ThoughtWork 团队成功实践，但是还没有被强烈推荐。
 
 根据 [2017 年 Stackoverflow 的最新调查](https://insights.stackoverflow.com/survey/2017#most-loved-dreaded-and-wanted)，被调查的开发者中，喜爱 Reat 有 67%，喜欢 AngularJS 的有 52%。“没有兴趣在开发中继续使用”的开发者占了更高的数量，AngularJS（48%）和 React（33%）。在这两种情况下，Vue都不在前十。然后是 statejs.com 关于比较 “[前端框架](http://stateofjs.com/2016/frontend/)” 的调查。最有意思的事实是：React 和 Angular 有 100% 的认知度，23% 的受访者不了解 Vue。关于满意度，92% 的受访者愿意“再次使用” React ，Vue 有 89% ,而 Angular 2 只有 65%。
 
@@ -82,7 +82,7 @@ Vue 没有在 2014 年之前创建 - 所以这里有什么不对劲。La Vue是�
 
 ### 长期支持和迁移
 
-Facebook [在其设计原则中指出](https://facebook.github.io/react/contributing/design-principles.html#stability)，React API 非常稳定。还有一些脚本可以帮助你从当前的API移到更新的版本：请查阅 [react-codemod](https://github.com/reactjs/react-codemod)。迁移是非常容易的，没有这样的东西（需要）作为长期支持的版本。在这篇 Reddit 文章中，人们注意到升级[从来不是问题](https://www.reddit.com/r/reactjs/comments/5a45ai/is_react_a_good_choice_for_a_stable_longterm_app/)。React 团队写了一篇关于他们[版本控制方案](https://facebook.github.io/react/blog/2016/02/19/new-versioning-scheme.html) 的博客文章。当他们添加弃用警告时，在下一个主要版本中的行为发生更改之前，他们会保留当前版本的其余部分。没有计划更改为新的主要版本 - v14 于 2015 年 10 月发布，v15 于 2016 年 4 月发布，而 v16 还没有发布日期。最近 [React核心开发人员指出](https://github.com/facebook/react/issues/8854#issuecomment-312527769)，升级不应该是一个问题。
+Facebook [在其设计原则中指出](https://facebook.github.io/react/contributing/design-principles.html#stability)，React API 非常稳定。还有一些脚本可以帮助你从当前的API移到更新的版本：请查阅 [react-codemod](https://github.com/reactjs/react-codemod)。迁移是非常容易的，没有这样的东西（需要）作为长期支持的版本。在这篇 Reddit 文章中，人们注意到升级[从来不是问题](https://www.reddit.com/r/reactjs/comments/5a45ai/is_react_a_good_choice_for_a_stable_longterm_app/)。React 团队写了一篇关于他们[版本控制方案](https://facebook.github.io/react/blog/2016/02/19/new-versioning-scheme.html) 的博客文章。当他们添加弃用警告时，在下一个主要版本中的行为发生更改之前，他们会保留当前版本的其余部分。没有计划更改为新的主要版本 - v14 于 2015 年 10 月发布，v15 于 2016 年 4 月发布，而 v16 还没有发布日期。（译者注：[v16 于 2017 年 9 月底发布](https://reactjs.org/blog/2017/09/26/react-v16.0.html)）最近 [React核心开发人员指出](https://github.com/facebook/react/issues/8854#issuecomment-312527769)，升级不应该是一个问题。
 
 关于 Angular，从 v2 发布开始，有一篇[关于版本管理和发布 Angular](http://angularjs.blogspot.de/2016/10/versioning-and-releasing-angular.html) 的博客文章。每六个月会有一次重大更新，至少有六个月的时间（两个主要版本）。在文档中有一些实验性的 API 被标记为较短的弃用期。目前还没有官方公告，但[根据这篇文章](https://www.infoq.com/news/2017/04/ng-conf-2017-keynote)，Angular 团队已经宣布了以 Angular 4 开始的长期支持版本。这些将在下一个主要版本发布之后至少一年得到支持。这意味着至少在 **2018 年 9 月** 之前，将支持 Angular 4，并提供 bug 修复和重要补丁。在大多数情况下，将 Angular 从 v2 更新到 v4 与更新 Angular 依赖关系一样简单。Angular 还提供了有关是否需要进一步更改的[信息指南](https://angular-update-guide.firebaseapp.com/)。
 
@@ -122,7 +122,7 @@ Angular 依赖于 TypeScript。这在相关示例和开源项目中提供了更�
 
 你也应该知道你[可以使用 Flow 在 React 中启用类型检查](https://www.sitepoint.com/writing-better-javascript-with-flow/)。这是 Facebook 为 JavaScript 开发的静态类型检查器。Flow [也可以集成到 VueJS 中](https://alligator.io/vuejs/components-flow/)。
 
-如果你在用 TypeScript 编写代码，那么你不需要再编写标准的 JavaScript 了。尽管它在不断增长，但与整个 JavaScript 语言相比，TypeScript 的用户群仍然很小。一个风险可能是你正在向错误的方向发展，因为 TypeScript 可能 - 也许不太可能 - 随着时间的推移也会消失。此外，TypeScript 为项目增加了很多（学习）开销 - 你可以在 [Eric Elliott](https://medium.com/@_ericelliott) 的 [Angular 2 vs. React 比较](https://medium.com/javascript-scene/angular-2-vs-react-the-ultimate-dance-off-60e7dfbc379c) 中阅读更多关于这方面的内容。
+如果你在用 TypeScript 编写代码，那么你不需要再编写标准的 JavaScript 了。尽管它在不断发展，但与整个 JavaScript 语言相比，TypeScript 的用户群仍然很小。一个风险可能是你正在向错误的方向发展，因为 TypeScript 可能 - 也许不太可能 - 随着时间的推移也会消失。此外，TypeScript 为项目增加了很多（学习）开销 - 你可以在 [Eric Elliott](https://medium.com/@_ericelliott) 的 [Angular 2 vs. React 比较](https://medium.com/javascript-scene/angular-2-vs-react-the-ultimate-dance-off-60e7dfbc379c) 中阅读更多关于这方面的内容。
 
 **更新**: [James Ravenscroft](https://medium.com/@jrwebdev) 在对这篇文章的评论中写道，[TypeScript 对 JSX 有一流的支持](https://medium.com/@jrwebdev/id-argue-that-if-you-love-typescript-then-react-may-be-a-better-choice-ceec950ee543) - 可以无缝地对组件进行类型检查。所以，如果你喜欢 TypeScript 并且你想使用 React，这应该不成问题。
 
@@ -142,11 +142,11 @@ Vue 具有“[单个文件组件](https://vuejs.org/v2/guide/single-file-compone
 
 ### 框架和库
 
-Angular 是一个框架而不是一个库，因为它提供了关于如何构建应用程序的强有力的约束，并且还提供了更多开箱即用的功能。Angular 是一个 “完整的解决方案” - 包括电池接口，并且你可以愉快的开始开发。你不需要分析库，路由解决方案或类似的东西 - 你只要开始工作就好了。
+Angular 是一个框架而不是一个库，因为它提供了关于如何构建应用程序的强有力的约束，并且还提供了更多开箱即用的功能。Angular 是一个 “完整的解决方案” - 功能齐全，你可以愉快的开始开发。你不需要研究库，路由解决方案或类似的东西 - 你只要开始工作就好了。
 
 另一方面，React 和 Vue 是很灵活的。他们的库可以和各种包搭配。（在 [npm](https://www.npmjs.com/search?q=react&page=1&ranking=popularity) 上有很多 React 的包，但 Vue 的包比较少，因为毕竟这个框架还比较新）。有了 React，你甚至可以交换库本身的 API 兼容替代品，如 [Inferno](https://infernojs.org/)。然而，灵活性越大，责任就越大 - React 没有规则和有限的指导。每个项目都需要决定架构，而且事情可能更容易出错。
 
-另一方面，Angular 还有一个令人困惑的构建工具，样板，检查器（linter）和时间片来处理。如果使用项目初始套件或样板，React 也是如此。他们自然是非常有帮助的，但是 React 可以开箱即用，这也许是你应该学习的方式。有时，在 JavaScript 环境中工作要使用各种工具被称为 “Javascript 疲劳”。[Eric Clemmons](https://medium.com/@ericclemmons) 在他的[文章](https://medium.com/@ericclemmons/javascript-fatigue-48d4011b6fc4) 中说：
+另一方面，Angular 还有一个令人困惑的构建工具，样板，检查器（linter）和时间片来处理。如果使用项目初始套件或样板，React 也是如此。他们自然是非常有帮助的，但是 React 可以开箱即用，这也许是你应该学习的方式。有时，在 JavaScript 环境中工作要使用各种工具被称为 “Javascript 疲劳症”。[Eric Clemmons](https://medium.com/@ericclemmons) 在他的[文章](https://medium.com/@ericclemmons/javascript-fatigue-48d4011b6fc4) 中说：
 
 > 当开始使用框架，还有一堆安装的工具，你可能会不习惯。这些都是框架生成的。很多开发人员不明白，框架内部发生了什么 —— 或者需要花费很多时间才能搞明白。
 
@@ -170,9 +170,9 @@ Vue 似乎是三个框架中最轻量的。GitLab 有一篇[关于 Vue.js（2016
 
 React 经常与 Redux 在一起使用。**Redux** 以三个[基本原则](http://redux.js.org/docs/introduction/ThreePrinciples.html) 来自述：
 
-- 单一真相来源
-- 状态是唯读的
-- 更动只能由纯函数来进行
+- 单一数据源（Single source of truth）
+- State 是只读的（State is read-only）
+- 使用纯函数执行修改（Changes are made with pure functions）
 
 换句话说：整个应用程序的状态存储在单个 store 的状态树中。这有助于调试应用程序，一些功能更容易实现。状态是只读的，只能通过 action 来改变，以避免竞争条件（这也有助于调试）。编写 Reducer 来指定如何通过 action 来转换 state。
 
