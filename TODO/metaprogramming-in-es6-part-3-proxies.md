@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/metaprogramming-in-es6-part-3-proxies.md](https://github.com/xitu/gold-miner/blob/master/TODO/metaprogramming-in-es6-part-3-proxies.md)
 > * 译者：[yoyoyohamapi](https://github.com/yoyoyohamapi)
-> * 校对者：[caoyi0905](https://github.com/caoyi0905)
+> * 校对者：[caoyi0905](https://github.com/caoyi0905) [PCAaron](https://github.com/PCAaron)
 
 # ES6 中的元编程： 第三部分 —— 代理（Proxies）
 
@@ -19,7 +19,7 @@
 
 ## 创建代理
 
-Proxy 构造函数接受两个参数，其一是你想要代理的初始对象，其二是一系列处理钩子（handler hooks）。我们先忽略第二个钩子参数，看看怎么为现有对象创建代理。线索即在代理这个名字中：它们维持了一个你创建对象的引用，但是如果你有了一个原始对象对象的引用，任何你和原始对象的交互，都会影响到代理，类似地，任何你对代理做的改变，反过来也都会影响到原始对象。换句话说，Proxy 返回了一个包裹了传入对象的新对象，但是任何你对二者的操作，都会影响到它们彼此。为了证实这一点，请看代码：
+Proxy 构造函数接受两个参数，其一是你想要代理的初始对象，其二是一系列处理钩子（handler hooks）。我们先忽略第二个钩子参数，看看怎么为现有对象创建代理。线索即在代理这个名字中：它们维持了一个你创建对象的引用，但是如果你有了一个原始对象的引用，任何你和原始对象的交互，都会影响到代理，类似地，任何你对代理做的改变，反过来也都会影响到原始对象。换句话说，Proxy 返回了一个包裹了传入对象的新对象，但是任何你对二者的操作，都会影响到它们彼此。为了证实这一点，请看代码：
 
 ```js
 var myObject = {};
@@ -34,11 +34,11 @@ proxiedMyObject.bar = true;
 assert(myObject.bar === true);
 ```
 
-目前为止，我们什么目的也没打到，相较于直接使用被代理对象，代理并不能提供任何额外收益。只有用上了处理钩子，我们才能在代理上做一些有趣的事儿。
+目前为止，我们什么目的也没达到，相较于直接使用被代理对象，代理并不能提供任何额外收益。只有用上了处理钩子，我们才能在代理上做一些有趣的事儿。
 
 ## 代理的处理钩子
 
-处理钩子是一系列的函数，每一个钩子都有一个具体名字以供代理识别，每一个钩子也控制了你如何和代理交互（因此，也控制了你和被包裹对象的交互）。处理钩子勾住了 JavaScript 的 “内置方法”，如果你对此感觉熟悉，是因为我们在 [上一篇介绍 Reflect API 的文章](/metaprogramming-in-es6-part-2-reflect/#internal-methods) 中提到了内置方法。
+处理钩子是一系列的函数，每一个钩子都有一个具体名字以供代理识别，每一个钩子也控制了你如何和代理交互（因此，也控制了你和被包裹对象的交互）。处理钩子勾住了 JavaScript 的 “内置方法”，如果你对此感觉熟悉，是因为我们在 [上一篇介绍 Reflect API 的文章](https://juejin.im/post/5a0e66386fb9a04523417418) 中提到了内置方法。
 
 是时候铺开来说代理了。我把代理放到系列的最后一部分的重要原因是：由于代理和反射就像一对苦命鸳鸯交织在一起，因此我们需要先知道反射是如何工作的。如你所见，每一个代理钩子都对应到一个反射方法，反之亦然，每一个反射方法都有一个代理钩子。完整的反射方法及对应的代理处理钩子如下：
 
@@ -56,7 +56,7 @@ assert(myObject.bar === true);
 * `has` （在不断言（assert）属性值的情况下，判断对象是否含有某个属性）
 * `ownKeys` （获得某个对象自身所有的 key，排除掉其原型上的 key）
 
-在[反射那一部分中](/metaprogramming-in-es6-part-2-reflect/)（再啰嗦一遍，如果你没看过，赶快去看），我们已经浏览过上述所有方法了（并附带有例子）。代理用相同的参数集实现了每一个方法。实际上，代理的默认行为已经实现了在每个处理钩子中完成反射函数的调用（其内部机制对于不同的 JavaScript 引擎可能会有所区别，但对于没有说明的钩子，我们只需要认为它和对应的反射方法行为一致即可）。这也意味着，任何你没有指定的钩子，都具有和默认状况一致的行为，就像它从未被代理过一样：
+在[反射那一部分中](https://juejin.im/post/5a0e66386fb9a04523417418)（再啰嗦一遍，如果你没看过，赶快去看），我们已经浏览过上述所有方法了（并附带有例子）。代理用相同的参数集实现了每一个方法。实际上， 代理的默认行为实际上已经实现了对每个处理程序钩子的反射调用（其内部机制对于不同的 JavaScript 引擎可能会有所区别，但对于没有说明的钩子，我们只需要认为它和对应的反射方法行为一致即可）。这也意味着，任何你没有指定的钩子，都具有和默认状况一致的行为，就像它从未被代理过一样：
 
 ```js
 // 我们新创建了代理，并定义了与默认创建时一样的行为
@@ -87,7 +87,7 @@ proxy = new Proxy({}, {
 
 以前面的例子为基础 —— 我们仍使用 `[[Get]]` 自陷：只需要再施加一点魔法，我们就能构建一个拥有无数方法的 API，当你最终调用其中某个方法时，将返回所有你被你链接的值。[fluent API（流畅 API）](https://en.wikipedia.org/wiki/Fluent_interface) 为 web 请求构建了各个 URL，[Chai](https://github.com/chaijs/chai) 这类的测试框架将各个英文单词链接组成高可读的测试断言，通过这些，我们知道可无限链接的 API 是多么有用。
 
-为了实现这个 API，我们就需要钩子勾住 `[[Get]]`，将取到的属性保存到数组中。我们代理（即包裹）一个函数，调用该函数，它将返回保存了所有取到属性的数组，并清空该数组，因此它是可重用的。我们也会勾住 `[[HasProperty]]`，因为我们想告诉 API 的使用者，任何属性都是存在的。
+为了实现这个 API，我们就需要钩子勾住 `[[Get]]`，将取到的属性保存到数组中。代理 ( Proxy ) 将包装一个函数，返回所有检索到的支持的Array，并清空数组，以便可以重用它。我们也会勾住 `[[HasProperty]]`，因为我们想告诉 API 的使用者，任何属性都是存在的。
 
 ```js
 function urlBuilder(domain) {
@@ -422,7 +422,7 @@ Reflect.has(myObject, 'bar') // TypeError
 我希望这篇文章让你认识到代理是一个强大到不可思议的工具，它弥补了 JavaScript 内部曾经的缺失。在方方面面，Symbol、Reflect、以及代理都为 JavaScript 开启了新的篇章 —— 就如同 const 和 let，类和箭头函数那样。const 和 let 不再让代码显得混乱肮脏，类和箭头函数让代码更简洁，Symbol、Reflect、和 Proxy 则开始给予开发者在 JavaScript 中进行底层的元编程。
 
 这些新的元编程工具不会在短时间内放慢发展的速度：EcamScript 的新版本正逐渐完善，并添加了更多有趣的行为，例如 [`Reflect.isCallable` 和 `Reflect.isConstructor` 的提案](https://github.com/caitp/TC39-Proposals/blob/master/tc39-reflect-isconstructor-iscallable.md)，亦或 [stage 0 关于 `Reflect.type` 的提案](https://github.com/alex-weej/es-reflect-type-proposal)，亦或 [`function.sent` 这个元属性的提案](https://github.com/allenwb/ESideas/blob/master/Generator%20metaproperty.md)
-，亦或[这个包含了更多函数元属性的提案](https://github.com/allenwb/ESideas/blob/master/ES7MetaProps.md)。这些新的 API 也引起了一些新特性的有趣讨论，例如 [这个关于添加 `Reflect.parse` 的提案](https://esdiscuss.org/topic/reflect-parse-from-re-typeof-null)，就引起了关于创建一个 AST（Abstract Syntax Tree：抽象语法树）标准的讨论。
+，亦或[这个包含了更多函数元属性的提案](https://github.com/allenwb/ESideas/blob/master/ES7MetaProps.md)。这些新的 API 也激发了一些关于新特性的有趣讨论，例如 [这个关于添加 `Reflect.parse` 的提案](https://esdiscuss.org/topic/reflect-parse-from-re-typeof-null)，就引起了关于创建一个 AST（Abstract Syntax Tree：抽象语法树）标准的讨论。
 
 你是怎么看待新的 Proxy API 的？已经计划用在你的项目里面了？可以在 Twitter 上给我留言让我知道你的想法，我是 [@keithamus](https://twitter.com/keithamus)。
 
