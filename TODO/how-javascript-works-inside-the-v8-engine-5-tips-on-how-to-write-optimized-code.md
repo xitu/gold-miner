@@ -5,7 +5,7 @@
 > * 译者：[春雪](https://github.com/balancelove)
 > * 校对者：
 
-# 【译】JavaScript 如何工作：在 V8 引擎里 5 个优化代码的技巧
+# JavaScript 如何工作：在 V8 引擎里 5 个优化代码的技巧
 
 &emsp;&emsp;几个星期前我们开始了一个旨在深入挖掘 JavaScript 以及它是如何工作的系列文章。我们通过了解它的底层构建以及它是怎么发挥作用的，可以帮助我们写出更好的代码与应用。
 
@@ -20,7 +20,7 @@
 * [**V8**](https://en.wikipedia.org/wiki/V8_%28JavaScript_engine%29 "V8 (JavaScript engine)") — 由 Google 开发，使用 C++ 编写的开源引擎
 * [**Rhino**](https://en.wikipedia.org/wiki/Rhino_%28JavaScript_engine%29 "Rhino (JavaScript engine)") — 由 Mozilla 基金会管理，完全使用 Java 开发的开源引擎
 * [**SpiderMonkey**](https://en.wikipedia.org/wiki/SpiderMonkey_%28JavaScript_engine%29 "SpiderMonkey (JavaScript engine)") — 第一个 JavaScript 引擎，在当时支持了 Netscape Navigator，现在是 Firefox 的引擎
-* [**JavaScriptCore**](https://en.wikipedia.org/wiki/JavaScriptCore "JavaScriptCore") — 是一个开源引擎，由苹果公司开发，作为 Safari 的引擎，并以 Nitro 的名字推广
+* [**JavaScriptCore**](https://en.wikipedia.org/wiki/JavaScriptCore "JavaScriptCore") — 由苹果公司为 Safari 浏览器开发，并以 Nitro 的名字推广的开源引擎。
 * [**KJS**](https://en.wikipedia.org/wiki/KJS_%28KDE%29 "KJS (KDE)") — KDE 的引擎，最初是由 Harri Porten 为 KDE 项目的 Konqueror 网络浏览器开发
 * [**Chakra** (JScript9)](https://en.wikipedia.org/wiki/Chakra_%28JScript_engine%29 "Chakra (JScript engine)") — IE 引擎
 * [**Chakra** (JavaScript)](https://en.wikipedia.org/wiki/Chakra_%28JavaScript_engine%29 "Chakra (JavaScript engine)") — 微软 Edge 的引擎
@@ -29,17 +29,17 @@
 
 #### 为什么要创建 V8 引擎？
 
-&emsp;&emsp;V8 引擎是由 Google 用 **C++** 开发的开源引擎，这个引擎也在 Google chrome 中使用。和其他的引擎不同的是，V8 引擎也用于 Node.js 的运行时。
+&emsp;&emsp;V8 引擎是由 Google 用 **C++** 开发的开源引擎，这个引擎也在 Google chrome 中使用。和其他的引擎不同的是，V8 引擎也用于运行 Node.js。
 
 ![](https://cdn-images-1.medium.com/max/800/1*AKKvE3QmN_ZQmEzSj16oXg.png)
 
-&emsp;&emsp;V8 最初被设计出来是为了提高浏览器内部 JavaScript 的执行性能。为了获取更快的速度，V8 将 JavaScript 代码编译成了更加高效的机器代码，而不是使用解释器。 它通过实现 **JIT (Just-In-Time) compiler** 编译器（就像 SpiderMonkey 或 Rhino（Mozilla）等许多现代 JavaScript 引擎一样）来将 JavaScript 代码编译为机器代码。而这之中最主要的区别就是 V8 不生成字节码或者任何中间代码。
+&emsp;&emsp;V8 最初被设计出来是为了提高浏览器内部 JavaScript 的执行性能。为了获取更快的速度，V8 将 JavaScript 代码编译成了更加高效的机器码，而不是使用解释器。它就像 SpiderMonkey 或者 Rhino (Mozilla) 等许多现代JavaScript 引擎一样，通过运用即时编译器将 JavaScript 代码编译为机器码。而这之中最主要的区别就是 V8 不生成字节码或者任何中间代码。
 
 #### V8 曾经有两个编译器
 
 &emsp;&emsp;在 V8 的 v5.9 版本出来之前（今年早些时候发布的）有两个编译器：
 
-*   full-codegen — 一个简单并且速度非常快的编译器，可以生成简单但相对比较慢的机器代码。
+*   full-codegen — 一个简单并且速度非常快的编译器，可以生成简单但相对比较慢的机器码。
 *   Crankshaft — 一个更加复杂的 (即时) 优化编译器，生成高度优化的代码。
 
 &emsp;&emsp;V8 引擎在内部也使用了多个线程：
@@ -49,15 +49,15 @@
 *   一个 `Profiler` (分析器) 线程，它会告诉运行时在哪些方法上我们花了很多的时间，以便 `Crankshaft` 可以去优化它们
 *   还有一些线程处理垃圾回收扫描
 
-&emsp;&emsp;当第一次执行 JavaScript 代码的时候，V8 利用 **full-codegen** 直接将解析的 JavaScript 代码不经过任何转换翻译成机器代码。这使得它可以 **非常快速** 的开始执行机器代码，请注意，V8 不使用任何中间字节码表示，从而不需要解释器。
+&emsp;&emsp;当第一次执行 JavaScript 代码的时候，V8 利用 **full-codegen** 直接将解析的 JavaScript 代码不经过任何转换翻译成机器码。这使得它可以 **非常快速** 的开始执行机器码，请注意，V8 不使用任何中间字节码表示，从而不需要解释器。
 
-&emsp;&emsp;当你的代码已经运行了一段时间了，分析器线程已经收集了足够的数据来告诉运行时那个方法应该被优化。
+&emsp;&emsp;当你的代码已经运行了一段时间了，分析器线程已经收集了足够的数据来告诉运行时哪个方法应该被优化。
 
-&emsp;&emsp;然后， **Crankshaft** 在另一个线程开始优化。它将 JavaScript 抽象语法树转换成一个叫 **Hydrogen** 的高级静态单元分配表示(SSA)，并且尝试去优化这个 Hydrogen 图。大多数优化都是在这个级别完成。
+&emsp;&emsp;然后， **Crankshaft** 在另一个线程开始优化。它将 JavaScript 抽象语法树转换成一个叫 **Hydrogen** 的高级静态单元分配表示(SSA)，并且尝试去优化这个 Hydrogen 图。大多数优化都是在这个级完成。
 
 #### 代码嵌入 (Inlining)
 
-&emsp;&emsp;这第一个优化就是提前尽可能的嵌入更多的代码。代码嵌入就是将使用函数的地方(调用函数的那一行)替换成调用函数的本体。这简单的一步就会使接下来的优化更加有用。
+&emsp;&emsp;首次优化就是尽可能的提前嵌入更多的代码。代码嵌入就是将使用函数的地方(调用函数的那一行)替换成调用函数的本体。这简单的一步就会使接下来的优化更加有用。
 
 ![](https://cdn-images-1.medium.com/max/800/0*RRgTDdRfLGEhuR7U.png)
 
@@ -65,7 +65,7 @@
 
 &emsp;&emsp;JavaScript 是一门基于原型的语言: 没有类和对象是通过克隆来创建的。同时 JavaScript 也是一门动态语言，这意味着在实例化之后也能够方便的从对象中添加或者删除属性。
 
-&emsp;&emsp;大多数 JavaScript 解释器使用类似字典的结构 (基于[散列函数](http://en.wikipedia.org/wiki/Hash_function)) 去存储对象属性值在内存中的位置。这种结构使得在 JavaScript 中检索一个属性值比在像 Java 或者 C# 这种非动态语言中计算量大得多。在 Java 中, 编译之前所有的属性值以一种固定的对象布局确定下来了，并且在运行时不能动态的增加或者删除 (当然，C# 也有 [动态类型](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/dynamic)，但这是另外一个话题了)。因此，属性值 (或者说指向这些属性的指针) 能够以连续的 buffer 存储在内存中，并且每个值之间有一个固定的偏移量。这个偏移长度能够很容易的通过属性的类型来确定，但是这在运行时属性类型能够改变的 JavaScript 中确是不可能实现的。
+&emsp;&emsp;大多数 JavaScript 解释器使用类似字典的结构 (基于[散列函数](http://en.wikipedia.org/wiki/Hash_function)) 去存储对象属性值在内存中的位置。这种结构使得在 JavaScript 中检索一个属性值比在像 Java 或者 C# 这种非动态语言中计算量大得多。在 Java 中, 编译之前所有的属性值以一种固定的对象布局确定下来了，并且在运行时不能动态的增加或者删除 (当然，C# 也有 [动态类型](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/dynamic)，但这是另外一个话题了)。因此，属性值 (或者说指向这些属性的指针) 能够以连续的 buffer 存储在内存中，并且每个值之间有一个固定的偏移量。根据属性类型可以很容易地确定偏移量的长度，而在 JavaScript 中这是不可能的，因为属性类型可以在运行时更改。
 
 &emsp;&emsp;由于采用字典的方式去内存中查找对象属性的位置效率很低，因此 V8 就采用了一种不一样的方法：**隐藏类**。隐藏类与 Java 等语言中使用的固定对象布局（类）的工作方式很类似，除了它们是在运行时创建的。现在，来让我们看看它们实际的样子：
 
@@ -77,7 +77,7 @@ function Point(x, y) {
 var p1 = new Point(1, 2);
 ```
 
-&emsp;&emsp;一旦 “new Point(1, 2)” 调用发生, V8 将会创建一个隐藏类叫“C0”。
+&emsp;&emsp;一旦 “new Point(1, 2)” 被调用,V8 将会创建一个叫 “C0” 的隐藏类。
 
 ![](https://cdn-images-1.medium.com/max/800/1*pVnIrMZiB9iAz5sW28AixA.png)
 
@@ -132,7 +132,7 @@ p2.a = 8;
 
 &emsp;&emsp;一旦 Hydrogen 图被优化，Crankshaft 就会把这个图降低到一个比较低层次的表现形式 —— 叫做 Lithium。大多数 Lithium 实现都是面向特定的结构的。寄存器分配就发生在这一层次。
 
-&emsp;&emsp;最后，Lithium 被编译成机器代码。然后，OSR就开始了：一种运行时替换正在运行的栈帧的技术(on-stack replacement)。在我们开始编译和优化一个明显耗时的方法时，我们可能会运行它。V8 不会把它之前运行的慢的代码抛在一旁，然后再去执行优化后的代码。相反，V8 会转换这些代码的上下文(栈， 寄存器)，以便在执行这些慢代码的途中转换到优化后的版本。这是一个非常复杂的任务，要知道 V8 已经在其他的优化中将代码嵌入了。当然了，V8 不是唯一能做到这一点的引擎。
+&emsp;&emsp;最后，Lithium 被编译成机器码。然后，OSR就开始了：一种运行时替换正在运行的栈帧的技术(on-stack replacement)。在我们开始编译和优化一个明显耗时的方法时，我们可能会运行它。V8 不会把它之前运行的慢的代码抛在一旁，然后再去执行优化后的代码。相反，V8 会转换这些代码的上下文(栈， 寄存器)，以便在执行这些慢代码的途中转换到优化后的版本。这是一个非常复杂的任务，要知道 V8 已经在其他的优化中将代码嵌入了。当然了，V8 不是唯一能做到这一点的引擎。
 
 &emsp;&emsp;V8 还有一种保护措施叫做反优化，能够做相反的转换，将代码逆转成没有优化过的代码以防止引擎做的猜测不再正确。
 
