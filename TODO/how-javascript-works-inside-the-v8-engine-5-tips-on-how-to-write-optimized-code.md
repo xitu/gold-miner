@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/how-javascript-works-inside-the-v8-engine-5-tips-on-how-to-write-optimized-code.md](https://github.com/xitu/gold-miner/blob/master/TODO/how-javascript-works-inside-the-v8-engine-5-tips-on-how-to-write-optimized-code.md)
 > * 译者：[春雪](https://github.com/balancelove)
-> * 校对者：
+> * 校对者：[PCAaron](https://github.com/PCAaron) [Raoul1996](https://github.com/Raoul1996)
 
 # JavaScript 如何工作：在 V8 引擎里 5 个优化代码的技巧
 
