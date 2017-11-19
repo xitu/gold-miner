@@ -4,7 +4,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/new-in-python-3.7.md](https://github.com/xitu/gold-miner/blob/master/TODO/new-in-python-3.7.md)
 > * 译者：[winjeysong](https://github.com/winjeysong)
-> * 校对者：
+> * 校对者：[LynnShaw](https://github.com/LynnShaw)
 
 # Python 3.7 新特性
 - 版本：3.7.0a1
@@ -14,7 +14,7 @@
 
 详见[更新日志](https://docs.python.org/3.7/whatsnew/changelog.html#changelog)。
 
-**注意：** 预发布版本的用户要留意，本文档目前还属于草案。随着Python 3.7的发布，后续将会有很显著的更新，所以即使在阅读早期版本之后，也值得检查。
+**注意：** 预发布版本的用户要留意，本文档目前还属于草案。随着Python 3.7的发布，后续将会有很显著的更新，所以即使阅读过早期版本，也值得再回来看看。
 
 ## 版本亮点总结
 ### 新特性
@@ -27,7 +27,7 @@
 
 [**PEP 11**](https://www.python.org/dev/peps/pep-0011) 中有关平台支持的定义也已经更新，限制了对于全文处理的支持，变为适当的基于非 ASCII 的本地化编码配置。
 
-作为变化的一部分，当使用任一强制转换的已定义目标编码（当前为 `C.UTF-8`，`C.utf8` 和 `UTF-8`），`stdin` 及 `stdout` 的默认错误处理器现在为 `surrogateescape`（而不是 `strict`）；而 `stderr` 的默认错误处理器仍然是 `backslashreplace`，尽管转换了本地化编码。
+作为变化的一部分，当使用任一强制转换的已定义目标编码（当前为 `C.UTF-8`，`C.utf8` 和 `UTF-8`），`stdin` 及 `stdout` 的默认错误处理器现在为 `surrogateescape`（而不是 `strict`）；而 `stderr` 的默认错误处理器仍然是 `backslashreplace`，与语言环境无关。
 
 默认的本地化编码强制转换是隐式的，但是为了能帮助调试潜在的与本地化相关的集成问题，可以通过设置 `PYTHONCOERCECLOCALE=warn` 来请求直接用 `stderr` 发出明确的警告。当核心解释器初始化时，如果遗留的C语言本地化编码仍是活动状态，那么该设置会导致 Python 运行时发出警告。
 
@@ -37,13 +37,13 @@
 
 [**PEP 538**](https://www.python.org/dev/peps/pep-0538) —— 把遗留的C语言本地化编码强制转换为基于 UTF-8 的编码。
 
-PEP 由 Nick Coghlan 撰写及落实。
+PEP 由 Nick Coghlan 撰写及实施。
 
 ### 其他的语言更新
 
 * 现在传递给某个函数的参数（ *argument* ）可以超过255个，且一个函数的形参（ *parameter* ）可以超过255个。(由 Serhiy Storchaka 参与贡献的 [bpo-12844](https://bugs.python.org/issue12844) 和 [bpo-18896](https://bugs.python.org/issue18896)。)
 * [`bytes.fromhex()`](https://docs.python.org/3.7/library/stdtypes.html#bytes.fromhex) 及 [`bytearray.fromhex()`](https://docs.python.org/3.7/library/stdtypes.html#bytearray.fromhex) 现在将忽略所有的 ASCII 空白符，而不止空格。(由 Robert Xiao 参与贡献的 [bpo-28927](https://bugs.python.org/issue28927)。)
-* 现在当 `from ... import ...` 展示失败的时候，[`ImportError`](https://docs.python.org/3.7/library/exceptions.html#ImportError) 会展示模块名及模块 `__file__` 路径。(由 Matthias Bussonnier 参与贡献的 [bpo-29546](https://bugs.python.org/issue29546)。)
+* 现在当 `from ... import ...` 失败的时候，[`ImportError`](https://docs.python.org/3.7/library/exceptions.html#ImportError) 会展示模块名及模块 `__file__` 路径。(由 Matthias Bussonnier 参与贡献的 [bpo-29546](https://bugs.python.org/issue29546)。)
 * 现在已支持将包含绝对 imports 的循环 imports 通过名称绑定到一个子模块上。(由 Serhiy Storchaka 参与贡献的 [bpo-30024](https://bugs.python.org/issue30024)。)
 * 现在，`object.__format__(x,'')` 等价于 `str(x)` ，而不是 `format(str(self),'')`。(由 Serhiy Storchaka 参与贡献的 [bpo-28974](https://bugs.python.org/issue28974)。)
 
@@ -93,7 +93,7 @@ README.rst 现已包含在 distutils 的标准自述文件列表中，进而它�
 
 #### math 
 
-新的 [`remainder()`](https://docs.python.org/3.7/library/math.html#math.remainder) 函数实现了 IEEE 754-style 的余项操作。(由 Mark Dickinson 参与贡献的 [bpo-29962](https://bugs.python.org/issue29962)。)
+新的 [`remainder()`](https://docs.python.org/3.7/library/math.html#math.remainder) 函数实现了 IEEE 754-style 的取余操作。(由 Mark Dickinson 参与贡献的 [bpo-29962](https://bugs.python.org/issue29962)。)
 
 #### os
 
@@ -138,7 +138,7 @@ README.rst 现已包含在 distutils 的标准自述文件列表中，进而它�
 ### 优化
 
 * 添加了两个新的操作码：`LOAD_METHOD` 及 `CALL_METHOD`，从而避免为了方法调用的绑定方法对象的实例化，这将导致方法调用的速度提升20%。(由 Yury Selivanov 及 INADA Naoki 参与贡献的 [bpo-26110](https://bugs.python.org/issue26110)。)
-* 当在一字符串内查找某些 Unicode 字符（如乌克兰大写字母 “Є”）时，将会比查找其他字符慢25倍，但现在最差情况下也只慢了3倍。(由 Serhiy Storchaka 参与贡献的 [bpo-24821](https://bugs.python.org/issue24821)。)
+* 当在一字符串内查找某些特殊的 Unicode 字符（如乌克兰大写字母 “Є”）时，将会比查找其他字符慢25倍，但现在最差情况下也只慢了3倍。(由 Serhiy Storchaka 参与贡献的 [bpo-24821](https://bugs.python.org/issue24821)。)
 * 标准C语言库的快速执行现在能用于 [`math`](https://docs.python.org/3.7/library/math.html#module-math) 模块内的 [`erf()`](https://docs.python.org/3.7/library/math.html#math.erf) 和 [`erfc()`](https://docs.python.org/3.7/library/math.html#math.erfc) 函数。(由 Serhiy Storchaka 参与贡献的 [bpo-26121](https://bugs.python.org/issue26121)。)
 * 由于使用了 [`os.scandir()`](https://docs.python.org/3.7/library/os.html#os.scandir) 函数，[`os.fwalk()`](https://docs.python.org/3.7/library/os.html#os.fwalk) 函数的效率已经提升了2倍。 (由 Serhiy Storchaka 参与贡献的 [bpo-25996](https://bugs.python.org/issue25996)。)
 * 优化了对于大小写忽略的匹配及对于 [`regular expressions`](https://docs.python.org/3.7/library/re.html#module-re) 的查找。 对一些字符的查找速度现在能提升至原来的20倍。(由 Serhiy Storchaka 参与贡献的 [bpo-30285](https://bugs.python.org/issue30285)。)
@@ -175,15 +175,15 @@ README.rst 现已包含在 distutils 的标准自述文件列表中，进而它�
 ### 仅Windows平台
 
 * Python 启动器（py.exe）能接收32及64位说明符，且无需指定次要版本。所以 `py -3-32` 与 `py -3-64` 也会和 `py -3.7-32` 一样有效，并且现在能接受 -*m*-64 与 -*m.n*-64 来强制使用64位 Python，即使32位在使用中也是如此。如果指定版本不可用，py.exe将会报错退出。(由 Steve Barnes 参与贡献的 [bpo-30291](https://bugs.python.org/issue30291)。)
-* The launcher can be run as “py -0” to produce a list of the installed pythons, *with default marked with an asterix*. Running “py -0p” will include the paths. If py is run with a version specifier that cannot be matched it will also print the *short form* list of available specifiers. 启动器可以通过命令 “py -0” 运行，生成已安装 Python 的版本列表，*标有星号的是为默认*，运行 “py -0p” 将包含安装路径。如果 py 使用无法匹配的版本说明符运行，也会打印*缩略形式*的不可用说明符列表。(由 Steve Barnes 参与贡献的 [bpo-30362](https://bugs.python.org/issue30362)。)
+* 启动器可以通过命令 “py -0” 运行，生成已安装 Python 的版本列表，*标有星号的是为默认*，运行 “py -0p” 将包含安装路径。如果 py 使用无法匹配的版本说明符运行，也会打印*缩略形式*的可用说明符列表。(由 Steve Barnes 参与贡献的 [bpo-30362](https://bugs.python.org/issue30362)。)
 
 ## 移除的内容
 
 ### 移除的API及特性
 
-* 在使用 [`re.sub()`](https://docs.python.org/3.7/library/re.html#re.sub) 的替换模板中，由 `'\'` 及一个 ASCII 字母组成的未知转义符已被弃用，现在使用将会报错。
+* 在使用 [`re.sub()`](https://docs.python.org/3.7/library/re.html#re.sub) 的替换模板中，由 `'\'` 及一个 ASCII 字母组成的未知转义符已在 Python 3.5 中被弃用，现在使用将会报错。
 * 移除了 [`tarfile.TarFile.add()`](https://docs.python.org/3.7/library/tarfile.html#tarfile.TarFile.add) 中的实参 _exclude_ 。它已在 Python 2.7 和 3.2 版本被弃用，取而代之的是使用实参 *filter*。
-* `ntpath` 模块中的 `splitunc()` 函数在 Python 3.1 被弃用，现在已被移除。使用 [`splitdrive()`](https://docs.python.org/3.7/library/os.path.html#os.path.splitdrive) 函数来取代它。
+* `ntpath` 模块中的 `splitunc()` 函数在 Python 3.1 被弃用，现在已被移除。使用 [`splitdrive()`](https://docs.python.org/3.7/library/os.path.html#os.path.splitdrive) 函数来替代。
 * [`collections.namedtuple()`](https://docs.python.org/3.7/library/collections.html#collections.namedtuple) 不再支持 *verbose* 参数和 `_source` 属性，该属性用于显示为已命名元组类所生成的源码。这是用来提升类创建速度的优化设计的一部分。(由 Jelle Zijlstra 贡献并由 INADA Naoki，Serhiy Storchaka，和 Raymond Hettinger 进一步完善的 [bpo-28638](https://bugs.python.org/issue28638)。)
 * 函数 [`bool()`](https://docs.python.org/3.7/library/functions.html#bool)，[`float()`](https://docs.python.org/3.7/library/functions.html#float)，[`list()`](https://docs.python.org/3.7/library/stdtypes.html#list) 和 [`tuple()`](https://docs.python.org/3.7/library/stdtypes.html#tuple) 不再使用关键字参数。[`int()`](https://docs.python.org/3.7/library/functions.html#int) 的第一个参数现在只能作为位置参数传递。
 * 移除了先前在 Python 2.4 版本已被弃用的在 [`plistlib`](https://docs.python.org/3.7/library/plistlib.html#module-plistlib) 模块中的类 `Plist`，`Dict` 和 `_InternalDict`。函数 [`readPlist()`](https://docs.python.org/3.7/library/plistlib.html#plistlib.readPlist) 和 [`readPlistFromBytes()`](https://docs.python.org/3.7/library/plistlib.html#plistlib.readPlistFromBytes) 返回结果中的 dict 类型值现在就是标准的 dict 类型。你再也不能使用属性访问来访问到这些字典里的项。
