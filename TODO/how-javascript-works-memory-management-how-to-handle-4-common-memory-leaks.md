@@ -11,37 +11,37 @@
 
 本系列的第一篇文章着重于提供 [引擎概览, 运行时间, 以及堆栈调用](https://blog.sessionstack.com/how-does-javascript-actually-work-part-1-b0bacc073cf).  [第二篇文章仔细审查了Google的V8 JavaScript引擎的内部区块](https://blog.sessionstack.com/how-javascript-works-inside-the-v8-engine-5-tips-on-how-to-write-optimized-code-ac089e62b12e) 并且提供了一些关于怎样编写更好JavaScript代码的提示。
 
-In this third post, we’ll discuss another critical topic that’s getting ever more neglected by developers due to the increasing maturity and complexity of programming languages that are being used on a daily basis — memory management. We’ll also provide a few tips on how to handle memory leaks in JavaScript that we at [SessionStack](https://www.sessionstack.com/?utm_source=medium&utm_medium=blog&utm_content=Post-3-v8-intro) follow as we need to make sure SessionStack causes no memory leaks or doesn’t increase the memory consumption of the web app in which we are integrated.
+在第三篇文章中, 我们将讨论另外一个越来越被开发人员忽视的主题，原因是应用于日常基础内存管理的程序语言越来越成熟和复杂。我们也将会在[SessionStack网](https://www.sessionstack.com/?utm_source=medium&utm_medium=blog&utm_content=Post-3-v8-intro) 提供一些关于如何处理JavaScript内存泄漏的提示，我们需要确认SessionStack不会导致内存泄漏，或者不会增加我们集成的web应用程序的消耗。
 
-#### Overview
+#### 概览
 
-Languages, like C, have low-level memory management primitives such as `malloc()` and `free()`. These primitives are used by the developer to explicitly allocate and free memory from and to the operating system.
+关于语言，像C语言，内置基础层次的内存管理原生函数比如`malloc()`和`free()`。开发人员使用这些原生函数从操作系统、往操作系统显式分配和释放内存。
 
-At the same time, JavaScript allocates memory when things (objects, strings, etc.) are created and “automatically” frees it up when they are not used anymore, a process called _garbage collection_. This seemingly “automatical” nature of freeing up resources is a source of confusion and gives JavaScript (and other high-level-language) developers the false impression they can choose not to care about memory management. **This is a big mistake.**
+与此同时，JavaScrip在对象被创建时分配内存，并在对象不被使用时“自动”释放内存，这个过程被称为垃圾回收。这种看似“自动”释放资源的特性是导致混乱的来源，它给了JavaScript（和其他高级语言）开发者们一种错觉，他们可以选择不去关心内存管理。**这是一个很大的错误**
 
-Even when working with high-level languages, developers should have an understanding of memory management (or at least the basics). Sometimes there are issues with the automatic memory management (such as bugs or implementation limitations in the garbage collectors, etc.) which developers have to understand in order to handle them properly (or to find a proper workaround, with a minimum trade off and code debt).
+即使使用高级语言，开发者也应该对内存管理有一些理解（至少关于基本的内存管理）。有时，自动内存管理存在的问题（比如垃圾回收器的错误或内存限制等）需要开发者需要理解内存管理，才能处理的更合适（或找到适合的处理方法，具有最少的权衡工作和开发量）。
 
-#### Memory life cycle
-
-No matter what programming language you’re using, memory life cycle is pretty much always the same:
+#### 内存生命周期
+无论你使用哪种程序语言，内存生命周期总是大致相同的：
 
 ![](https://cdn-images-1.medium.com/max/800/1*slxXgq_TO38TgtoKpWa_jQ.png)
 
-Here is an overview of what happens at each step of the cycle:
+以下是对循环中每一步具体情况的概述：
 
-*   **Allocate memory **— memory is allocated by the operating system which allows your program to use it. In low-level languages (e.g. C) this is an explicit operation that you as a developer should handle. In high-level languages, however, this is taken care of for you.
-*   **Use memory — **this is the time when your program actually makes use of the previously allocated memory. **Read** and **write** operations are taking place as you’re using the allocated variables in your code.
-*   **Release memory** — now is the time to release the entire memory that you don’t need so that it can become free and available again. As with the **Allocate memory** operation, this one is explicit in low-level languages.
+*   **内存分配** — 内存由操作系统分配，它允许你的应用程序使用。在基础语言中 (比如C语言)，这是一个开发人员应该处理的显示操作。然而在高级系统中，语言已经帮你完成了这些工作。
+*   **内存使用** — 这是你的程序真正使用之前分配内存的时候，**读写**操作在你使用代码中分配的变量时发生。
 
-For a quick overview of the concepts of the call stack and the memory heap, you can read our [first post on the topic](https://blog.sessionstack.com/how-does-javascript-actually-work-part-1-b0bacc073cf).
+*   **内存释放** — 现在是释放全部你不需要的内存的时候，这样对于基础语言中明确的**内存分配**操作来说，内存变得再一次空闲和可用。
 
-#### What is memory?
+关于调用栈和内存堆的概念的快速概览，可以阅读我们的[关于主题的第一篇文章](https://blog.sessionstack.com/how-does-javascript-actually-work-part-1-b0bacc073cf).
 
-Before jumping straight to memory in JavaScript, we’ll briefly discuss what memory is in general and how it works in a nutshell.
+#### 内存是什么?
 
-On a hardware level, computer memory consists of a large number of
-[flip flops](https://en.wikipedia.org/wiki/Flip-flop_%28electronics%29). Each flip flop contains a few transistors and is capable of storing one bit. Individual flip flops are addressable by a **unique identifier**, so we can read and overwrite them. Thus, conceptually, we can think of our entire computer memory as a just one giant array of bits that we can read and write.
+在直接跳到有关JavaScript中的内存部分之前，我们将简要地讨论一下内存的概况以及它是如何工作的：
 
+在硬件层面上，内存包含大量的[触发器](https://en.wikipedia.org/wiki/Flip-flop_%28electronics%29)。 每一个触发器包含一些晶体管并能够存储一位。 单独的触发器可通过**唯一标识符**寻址, 所以我们可以读取和覆盖它们。 因此，从概念上讲，我们可以把整个计算机内存看作是我们可以读写的一个大的位组。
+
+作为人类，我们并不擅长在位操作中实现我们所有的思路和算法，我们把它们组织成可以一起用来表示数字的更大的组。8位称为1个字节。 除字节外，还有单词（有时是16，有时是32位）。
 Since as humans, we are not that good at doing all of our thinking and arithmetic in bits, we organize them into larger groups, which together can be used to represent numbers. 8 bits are called 1 byte. Beyond bytes, there are words (which are sometimes 16, sometimes 32 bits).
 
 A lot of things are stored in this memory:
