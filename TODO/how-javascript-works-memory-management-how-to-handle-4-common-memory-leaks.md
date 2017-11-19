@@ -41,17 +41,16 @@
 
 在硬件层面上，内存包含大量的[触发器](https://en.wikipedia.org/wiki/Flip-flop_%28electronics%29)。 每一个触发器包含一些晶体管并能够存储一位。 单独的触发器可通过**唯一标识符**寻址, 所以我们可以读取和覆盖它们。 因此，从概念上讲，我们可以把整个计算机内存看作是我们可以读写的一个大的位组。
 
-作为人类，我们并不擅长在位操作中实现我们所有的思路和算法，我们把它们组织成可以一起用来表示数字的更大的组。8位称为1个字节。 除字节外，还有单词（有时是16，有时是32位）。
-Since as humans, we are not that good at doing all of our thinking and arithmetic in bits, we organize them into larger groups, which together can be used to represent numbers. 8 bits are called 1 byte. Beyond bytes, there are words (which are sometimes 16, sometimes 32 bits).
+作为人类，我们并不擅长在位操作中实现我们所有的思路和算法，我们把它们组装成更大的组，它可以用来表示数字。8位称为1个字节。除字节外，还有单词（有时是16，有时是32位）。
 
-A lot of things are stored in this memory:
+很多东西存储在内存中:
 
-1.  All variables and other data used by all programs.
-2.  The programs’ code, including the operating system’s.
+1.  所有程序使用的所有变量和其他数据。
+2.  程序的代码，包括操作系统的代码。
 
-The compiler and the operating system work together to take care of most of the memory management for you, but we recommend that you take a look at what’s going on under the hood.
+编译器和操作系统一起为您处理了大部分的内存管理，但是我们建议您看看底层发生了什么。
 
-When you compile your code, the compiler can examine primitive data types and calculate ahead of time how much memory they will need. The required amount is then allocated to the program in the call **stack space**. The space in which these variables are allocated is called the stack space because as functions get called, their memory gets added on top of the existing memory. As they terminate, they are removed in a LIFO (last-in, first-out) order. For example, consider the following declarations:
+当你编译代码时，编译器可以检查原始数据类型，并提前计算它们需要多少内存。然后所需的数量被分配给**堆栈空间**中的程序。分配这些变量的空间称为堆栈空间，因为随着函数被调用，它们的内存被添加到现有的内存之上。当它们终止时，它们以LIFO（后进先出）顺序被移除。 例如，请考虑以下声明：
 
 ```
 int n; // 4 bytes
@@ -59,10 +58,10 @@ int x[4]; // array of 4 elements, each 4 bytes
 double m; // 8 bytes
 ```
 
-The compiler can immediately see that the code requires
+编译器可以立即计算到代码需要
 4 + 4 × 4 + 8 = 28 bytes.
+> 这是它处理integers和doubles类型当前大小的方式。 大约20年前，integers通常是2个字节，double通常是4个字节。 您的代码不应该依赖于某一时刻基本数据类型的大小。
 
-> That’s how it works with the current sizes for integers and doubles. About 20 years ago, integers were typically 2 bytes, and double 4 bytes. Your code should never have to depend on what is at this moment the size of the basic data types.
 
 The compiler will insert code that will interact with the operating system to request the necessary number of bytes on the stack for your variables to be stored.
 
