@@ -2,8 +2,8 @@
 > * 原文作者：[Xiaohan Zeng](https://medium.com/@XiaohanZeng?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/i-interviewed-at-five-top-companies-in-silicon-valley-in-five-days-and-luckily-got-five-job-offers.md](https://github.com/xitu/gold-miner/blob/master/TODO/i-interviewed-at-five-top-companies-in-silicon-valley-in-five-days-and-luckily-got-five-job-offers.md)
-> * 译者：[Rambo Zhu](http://freerambo.com/)
-> * 校对者：[hadeswith666](https://github.com/hadeswith666) ，[Germxu](https://github.com/Germxu)   
+> * 译者：[Rambo Zhu](https://github.com/freerambo)
+> * 校对者：[hadeswith666](https://github.com/hadeswith666)，[Germxu](https://github.com/Germxu)   
 
 
 # 我的硅谷之路-五天拿下五家顶级互联网公司 offer
