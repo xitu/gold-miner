@@ -17,7 +17,7 @@
 
 关于语言，像C语言，内置基础层次的内存管理原生函数比如`malloc()`和`free()`。开发人员使用这些原生函数从操作系统、往操作系统显式分配和释放内存。
 
-与此同时，JavaScrip在对象被创建时分配内存，并在对象不被使用时“自动”释放内存，这个过程被称为垃圾回收。这种看似“自动”释放资源的特性是导致混乱的来源，它给了JavaScript（和其他高级语言）开发者们一种错觉，他们可以选择不去关心内存管理。**这是一个很大的错误**
+与此同时，JavaScrip在对象被创建时分配内存，并在对象不被使用时“自动”释放内存，这个过程被称为垃圾回收。这种看似“自动”释放资源的特性是导致混乱的来源，它给了JavaScript（和其他高级语言）开发者们一种错觉，他们可以选择不去关心内存管理。**这是一种错误的观念**
 
 即使使用高级语言，开发者也应该对内存管理有一些理解（至少关于基本的内存管理）。有时，自动内存管理存在的问题（比如垃圾回收器的错误或内存限制等）需要开发者需要理解内存管理，才能处理的更合适（或找到适合的处理方法，具有最少的权衡工作和开发量）。
 
@@ -62,42 +62,40 @@ double m; // 8 bytes
 4 + 4 × 4 + 8 = 28 bytes.
 > 这是它处理integers和doubles类型当前大小的方式。 大约20年前，integers通常是2个字节，double通常是4个字节。 您的代码不应该依赖于某一时刻基本数据类型的大小。
 
+编译器将插入与操作系统交互的代码，为堆栈中的变量请求存储所需的字节数。
 
-The compiler will insert code that will interact with the operating system to request the necessary number of bytes on the stack for your variables to be stored.
+在上面的例子中，编译器知道每个变量的具体内存地址。 事实上，只要我们写入变量`n`，它就会在内部被翻译成类似“内存地址4127963”的内容。
 
-In the example above, the compiler knows the exact memory address of each variable. In fact, whenever we write to the variable `n`, this gets translated into something like “memory address 4127963” internally.
-
-Notice that if we attempted to access `x[4]` here, we would have accessed the data associated with m . That’s because we’re accessing an element in the array that doesn’t exist — it’s 4 bytes further than the last actual allocated element in the array which is `x[3]`, and may end up reading (or overwriting) some of `m`’s bits. This would almost certainly have very undesired consequences for the rest of the program.
+注意，如果我们试图在这里访问`x[4]`，我们将访问与m关联的数据。 这是因为我们正在访问数组中不存在的一个元素 - 它比数组中最后一个实际分配的元素`x [3]`深了4个字节，并且最终可能会读取（或覆盖）一些`m`的位。这对项目的其余部分有预料之外的影响。
 
 ![](https://cdn-images-1.medium.com/max/800/1*5aBou4onl1B8xlgwoGTDOg.png)
 
-When functions call other functions, each gets its own chunk of the stack when it is called. It keeps all its local variables there, but also a program counter that remembers where in its execution it was. When the function finishes, its memory block is once again made available for other purposes.
+当函数调用其他函数时，每个其他函数调用时都会产生自己的堆栈块。堆栈块保留了它所有的局部变量和一个记录了执行地点程序计数器。当函数调用完成时，其内存块可再次用于其他方面。
 
-#### Dynamic allocation
+#### 动态分配
 
-Unfortunately, things aren’t quite as easy when we don’t know at compile time how much memory a variable will need. Suppose we want to do something like the following:
+遗憾的是，当我们不知道编译时变量需要多少内存时，事情变得不再简单。 假设我们想要做如下的事情：
 
 ```
 int n = readInput(); // reads input from the user
 ...
 // create an array with "n" elements
 ```
+这里，在编译时，编译器不知道数组需要多少内存，因为它是由用户提供的值决定的。
 
-Here, at compile time, the compiler does not know how much memory the array will need because it is determined by the value provided by the user.
-
-It, therefore, cannot allocate room for a variable on the stack. Instead, our program needs to explicitly ask the operating system for the right amount of space at run-time. This memory is assigned from the **heap space**. The difference between static and dynamic memory allocation is summarized in the following table:
+因此，它不能为堆栈上的变量分配空间。相反，我们的程序需要在运行时明确地向操作系统请求正确的内存量。这个内存是从**堆空间**分配的。下表总结了静态和动态内存分配之间的区别：
 
 ![](https://cdn-images-1.medium.com/max/800/1*qY-yRQWGI-DLS3zRHYHm9A.png)
 
-Differences between statically and dynamically allocated memory
+静态和动态内存分配的区别
 
-To fully understand how dynamic memory allocation works, we need to spend more time on **pointers,** which might be a bit too much of a deviation from the topic of this post. If you’re interested in learning more, just let me know in the comments and we can go into more details about pointers in a future post.
+为了充分理解动态内存分配是如何工作的，我们需要在**指针**上花费更多的时间，这可能与本文的主题略有偏差。如果您有兴趣了解更多信息，请在评论中告诉我们，我们可以在以后的文章中详细介绍指针。
 
-#### Allocation in JavaScript
+#### JavaScript中的内存分配
 
-Now we’ll explain how the first step (allocate memory**)** works in JavaScript.
+现在我们将解释第一步（**分配内存**）是如何在JavaScript中工作的。
 
-JavaScript relieves developers from the responsibility to handle memory allocations — JavaScript does it by itself, alongside declaring values.
+JavaScript减轻了开发人员处理内存分配的责任 - JavaScript自己执行了内存分配，同时声明了值。
 
 ```
 var n = 374; // allocates memory for a number
@@ -117,7 +115,7 @@ someElement.addEventListener('click', function() {
 }, false);
 ```
 
-Some function calls result in object allocation as well:
+一些函数调用也会导致对象分配：
 
 ```
 var d = new Date(); // allocates a Date object
@@ -125,7 +123,7 @@ var d = new Date(); // allocates a Date object
 var e = document.createElement('div'); // allocates a DOM element
 ```
 
-Methods can allocate new values or objects:
+方法可以分配新的值或对象：
 
 ```
 var s1 = 'sessionstack';
@@ -140,29 +138,29 @@ var a3 = a1.concat(a2);
 // the concatenation of a1 and a2 elements
 ```
 
-#### Using memory in JavaScript
+#### 在JavaScript中使用内存
 
-Using the allocated memory in JavaScript basically, means reading and writing in it.
+基础的使用JavaScript分配的内存，意味着在其中进行读写。
 
-This can be done by reading or writing the value of a variable or an object property or even passing an argument to a function.
+这可以通过读取或写入变量或对象属性的值，甚至传递一个变量给函数来完成。
 
-#### Release when the memory is not needed anymore
+#### 在内存不再需要时释放内存
 
-Most of the memory management issues come at this stage.
+绝大部分内存管理问题都处于这个阶段。
 
-The hardest task here is to figure out when the allocated memory is not needed any longer. It often requires the developer to determine where in the program such piece of memory is not needed anymore and free it.
+这里最困难的任务是确定何时不再需要分配的内存。它通常需要开发人员确定程序中的哪个部分不再需要这些内存，并将其释放。
 
-High-level languages embed a piece of software called **garbage collector** which job is to track memory allocation and use in order to find when a piece of allocated memory is not needed any longer in which case, it will automatically free it.
+高级语言嵌入了一个称为**垃圾回收器**的软件，其工作是跟踪内存分配和使用情况，以便找到何时何种情况下不再需要分配的内存，它将自动释放内存。
 
-Unfortunately, this process is an approximation since the general problem of knowing whether some piece of memory is needed is [undecidable](http://en.wikipedia.org/wiki/Decidability_%28logic%29) (can’t be solved by an algorithm).
+不幸的是，这个过程是一个近似值，因为预估是否需要某些内存的问题通常是[不可判定的](http://en.wikipedia.org/wiki/Decidability_%28logic%29)（无法通过算法解决）。
 
-Most garbage collectors work by collecting memory which can no longer be accessed, e.g. all variables pointing to it went out of scope. That’s, however, an under-approximation of the set of memory spaces that can be collected, because at any point a memory location may still have a variable pointing to it in scope, yet it will never be accessed again.
+大多数垃圾收集器通过收集不能再访问的内存来工作，例如，所有指向它的变量都超出了作用域。然而，这是可以收集的一组内存空间的近似值，因为在某种情况下内存位置可能仍然有一个指向它的变量，但它将不会被再次访问。
 
-#### Garbage collection
+#### 垃圾收集
 
-Due to the fact that finding whether some memory is “not needed anymore” is undecidable, garbage collections implement a restriction of a solution to the general problem. This section will explain the necessary notions to understand the main garbage collection algorithms and their limitations.
+由于发现一些内存是否“不再需要”事实上是不可判定的，所以垃圾收集在实施一般问题解决方案时具有局限性。本节将解释主要垃圾收集算法及其局限性的基本概念。
 
-#### Memory references
+#### 内存引用
 
 The main concept garbage collection algorithms rely on is the one of **reference**.
 
