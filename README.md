@@ -28,6 +28,16 @@
 
 # 近期文章列表
 
+## 官方文档及手册
+
+* [TensorFlow 中文文档](https://github.com/xitu/tensorflow)
+* [GraphQL 中文文档](https://github.com/xitu/graphql.github.io)
+* [Under-the-hood-ReactJS 系列教程](https://github.com/xitu/Under-the-hood-ReactJS)
+* [系统设计入门教程](https://github.com/xitu/system-design-primer)
+* [Google Interview University 面试指北](https://github.com/xitu/google-interview-university)
+* [前端开发者指南（2017）](https://github.com/xitu/front-end-handbook-2017)
+* [macOS Security and Privacy Guide](https://github.com/xitu/macOS-Security-and-Privacy-Guide)
+
 ## 区块链
 
 * [从零到一用 Python 写一个区块链](https://juejin.im/entry/59faa0ed51882576ea3507de/detail?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([cdpath](https://github.com/cdpath) 翻译)
