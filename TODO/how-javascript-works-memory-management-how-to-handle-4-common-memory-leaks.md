@@ -162,19 +162,19 @@ var a3 = a1.concat(a2);
 
 #### 内存引用
 
-The main concept garbage collection algorithms rely on is the one of **reference**.
+垃圾收集算法所依赖的主要概念来源于**附录参考资料**其中一个。
 
-Within the context of memory management, an object is said to reference another object if the former has an access to the latter (can be implicit or explicit). For instance, a JavaScript object has a reference to its [prototype](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Inheritance_and_the_prototype_chain) (**implicit reference**) and to its properties’ values (**explicit reference**).
+在内存管理的情况下，如果一个对象可以访问另一个对象（可以是隐含的或显式的），则称该对象引用另一个对象。例如, 一个JavaScript引用了它的[prototype](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Inheritance_and_the_prototype_chain) (**隐式引用**)和它的属性值(**显式引用**).
 
-In this context, the idea of an “object” is extended to something broader than regular JavaScript objects and also contains function scopes (or the global **lexical scope**).
+在这种情况下，“对象”的概念扩展到比普通JavaScript对象更广泛的范围，并包含函数范围（或全局**词法范围**）。
 
-> Lexical Scoping defines how variable names are resolved in nested functions: inner functions contain the scope of parent functions even if the parent function has returned.
+> 词法作用域定义了变量名如何在嵌套函数中解析：即使父函数已经返回，内部函数仍包含父函数的作用域。
 
-#### Reference-counting garbage collection
+#### 引用计数垃圾收集
 
-This is the simplest garbage collection algorithm. An object is considered “garbage collectible” if there are **zero** references pointing to it.
+这是最简单的垃圾收集算法。 如果有**零个指向它**的引用，则该对象被认为是“可垃圾回收的”。
 
-Take a look at the following code:
+请看下面的代码:
 
 ```
 var o1 = {
@@ -209,9 +209,9 @@ o4 = null; // what was the 'o2' property of the object originally in
            // It can be garbage collected.
 ```
 
-#### Cycles are creating problems
+#### 周期产生问题
 
-There is a limitation when it comes to cycles. In the following example, two objects are created and reference one another, thus creating a cycle. They will go out of scope after the function call, so they are effectively useless and could be freed. However, the reference-counting algorithm considers that since each of the two objects is referenced at least once, neither can be garbage-collected.
+在周期循环中有一个限制。在下面的例子中，两个对象被创建并相互引用，这就创建了一个循环。在函数调用之后，它们会超出界限，所以它们实际上是无用的，并且可以被释放。 然而，引用计数算法认为，由于两个对象中的每一个都被至少引用了一次，所以两者都不能被垃圾收集。
 
 ```
 function f() {
@@ -226,59 +226,59 @@ f();
 
 ![](https://cdn-images-1.medium.com/max/800/1*GF3p99CQPZkX3UkgyVKSHw.png)
 
-#### Mark-and-sweep algorithm
+#### 标记和扫描算法
 
-In order to decide whether an object is needed, this algorithm determines whether the object is reachable.
+为了确定是否需要某个对象，本算法判断该对象是否可访问。
 
-The Mark-and-sweep algorithm goes through these 3 steps:
+标记和扫描算法经过这3个步骤：
 
-1.  Roots: In general, roots are global variables which get referenced in the code. In JavaScript for example, a global variable that can act as a root is the “window” object. The identical object in Node.js is called “global”. A complete list of all roots gets built by the garbage collector.
-2.  The algorithm then inspects all roots and their children and marks them as active (meaning, they are not garbage). Anything that a root cannot reach will be marked as garbage.
-3.  Finally, the garbage collector frees all memory pieces that are not marked as active and returns that memory to the OS.
+1.根节点：一般来说，根是代码中引用的全局变量。例如，在JavaScript中，可以充当根节点的全局变量是“window”对象。 Node.js中的全局对象被称为“global”。完整的根节点列表由垃圾收集器构建。
+2.然后算法检查所有根节点和他们的孩子并且把他们标记为活跃的（意思是他们不是垃圾）。任何根节点不能访问的变量将被标记为垃圾。
+3.最后，垃圾收集器释放所有未被标记为活跃的内存块，并将这些内存返回给操作系统。
 
 ![](https://cdn-images-1.medium.com/max/800/1*WVtok3BV0NgU95mpxk9CNg.gif)
 
-A visualization of the mark and sweep algorithm in action.
+标记和扫描算法行为的可视化。
 
-This algorithm is better than the previous one since “an object has zero reference” leads to this object being unreachable. The opposite is not true as we have seen with cycles.
+因为“一个对象有零引用”导致该对象不可达，所以这个算法比前一个算法更好。我们在周期中看到的情形恰巧相反，是不正确的。
 
-As of 2012, all modern browsers ship a mark-and-sweep garbage-collector. All improvements made in the field of JavaScript garbage collection (generational/incremental/concurrent/parallel garbage collection) over the last years are implementation improvements of this algorithm (mark-and-sweep), but not improvements over the garbage collection algorithm itself, nor its goal of deciding whether an object is reachable or not.
+截至2012年，所有现代浏览器都内置了标记扫描式的垃圾回收器。 去年在JavaScript垃圾收集（通用/增量/并发/并行垃圾收集）领域中所做的所有改进都是基于这种算法（标记和扫描）的实现改进，但这不是对垃圾收集算法本身的改进，也不是对判断一个对象是否可达这个目标的改进。
 
-[In this article](https://en.wikipedia.org/wiki/Tracing_garbage_collection), you can read in a greater detail about tracing garbage collection that also covers mark-and-sweep along with its optimizations.
+[在本文中](https://en.wikipedia.org/wiki/Tracing_garbage_collection), 您可以阅读有关垃圾回收跟踪的更详细的信息，文章也包括标记和扫描算法以及其优化。
 
-#### Cycles are not a problem anymore
+#### 周期不再是问题
 
-In the first example above, after the function call returns, the two objects are not referenced anymore by something reachable from the global object. Consequently, they will be found unreachable by the garbage collector.
+在上面的第一个例子中，函数调用返回后，两个对象不再被全局对象中的某个变量引用。 因此，垃圾收集器会认为它们不可到达。
 
 ![](https://cdn-images-1.medium.com/max/800/1*FbbOG9mcqWZtNajjDO6SaA.png)
 
-Even though there are references between the objects, they’re not reachable from the root.
+即使两个对象之间有引用，从根节点它们也不再可达。
 
-#### Counter intuitive behavior of Garbage Collectors
+#### 统计垃圾收集器的直观行为
 
-Although Garbage Collectors are convenient they come with their own set of trade-offs. One of them is _non-determinism_. In other words, GCs are unpredictable. You can’t really tell when a collection will be performed. This means that in some cases programs use more memory that it’s actually required. In other cases, short-pauses may be noticeable in particularly sensitive applications. Although non-determinism means one cannot be certain when a collection will be performed, most GC implementations share the common pattern of doing collection passes during allocation. If no allocations are performed, most GCs stay idle. Consider the following scenario:
+尽管垃圾收集器很方便，但他们也有自己的一套权衡策略。 其中之一是不确定性。换句话说，GCs（垃圾收集器）们是不可预测的。你不能确定一个垃圾收集器何时会执行收集。 这意味着在某些情况下，程序其实需要使用更多的内存。其他情况下，在特别敏感的应用程序中，短暂暂停可能是显而易见的。尽管不确定性意味着不能确定一个垃圾收集器何时执行收集，大多数GC共享分配中的垃圾收集通用模式。 如果没有执行分配，大多数GC保持空闲状态。 考虑如下场景：
 
-1.  A sizable set of allocations is performed.
-2.  Most of these elements (or all of them) are marked as unreachable (suppose we null a reference pointing to a cache we no longer need).
-3.  No further allocations are performed.
+1. 大量的分配被执行。
+2. 大多数这些元素（或全部）被标记为不可到达（假设我们废除一个指向我们不再需要的缓存的引用）。
+3. 没有执行更深的内存分配。
 
-In this scenario, most GCs will not run any further collection passes. In other words, even though there are unreachable references available for collection, these are not claimed by the collector. These are not strictly leaks but still, result in higher-than-usual memory usage.
+在这种情况下，大多数GC不会运行任何更深层次的收集。换句话说，即使存在不可用的引用可用于收集，收集器也不会声明这些引用。这些并不是严格的泄漏，但仍会导致高于日常的内存使用率。
 
-#### What are memory leaks?
+#### 什么是内存泄漏?
 
-Just like the memory suggests, memory leaks are pieces of memory that the application have used in the past but is not needed any longer but has not yet been return back to the OS or the pool of free memory.
+就像内存描述的那样，内存泄漏是应用程序过去使用但不再需要的尚未返回到操作系统或可用内存池的内存片段。
 
 ![](https://cdn-images-1.medium.com/max/800/1*0B-dAUOH7NrcCDP6GhKHQw.jpeg)
 
-Programming languages favor different ways of managing memory. However, whether a certain piece of memory is used or not is actually an [undecidable problem](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Memory_Management#Release_when_the_memory_is_not_needed_anymore). In other words, only developers can make it clear whether a piece of memory can be returned to the operating system or not.
+编程语言偏好不同的内存管理方式。但是，某段内存是否被使用实际上是一个[不可判定问题](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Memory_Management#Release_when_the_memory_is_not_needed_anymore)。 换句话说，只有开发人员可以明确某块内存是否可以返回给操作系统。
 
-Certain programming languages provide features that help developers do this. Others expect developers to be completely explicit about when a piece of memory is unused. Wikipedia has good articles on [manual](https://en.wikipedia.org/wiki/Manual_memory_management) and [automatic](https://en.wikipedia.org/wiki/Garbage_collection_%28computer_science%29) memory management.
+某些编程语言提供了帮助开发人员执行上述操作的功能。 其他人则希望开发人员能够完全明确某段内存何时处于未使用状态。 维基百科在如何[手工](https://en.wikipedia.org/wiki/Manual_memory_management) 和 [自动](https://en.wikipedia.org/wiki/Garbage_collection_%28computer_science%29)内存管理方面有很好的文章。
 
-#### The four types of common JavaScript leaks
+#### JavaScript 常见的四种内存泄漏
 
 #### 1: Global variables
 
-JavaScript handles undeclared variables in an interesting way: when a undeclared variable is referenced, a new variable gets created in the _global_ object. In a browser, the global object would be `window`, which means that
+JavaScript用一种有趣的方式处理未声明的变量：当引用一个未声明的变量时，在_global_对象中创建一个新变量。在浏览器中，全局对象将是`window`，这意味着
 
 ```
 function foo(arg) {
@@ -286,7 +286,7 @@ function foo(arg) {
 }
 ```
 
-is the equivalent of:
+等同于:
 
 ```
 function foo(arg) {
@@ -294,9 +294,9 @@ function foo(arg) {
 }
 ```
 
-Let’s say the purpose of `bar` is to only reference a variable in the foo function. A redundant global variable will be created, however, if you don’t use `var` to declare it. In the above case, this won’t cause much harm. You can surely imagine a more damaging scenario though.
+我们假设`bar`的目的只是引用foo函数中的一个变量。然而，如果你不使用`var`来声明它，就会创建一个冗余的全局变量。 在上面的情况中，这不会造成很严重的后果。 你可以想象一个更具破坏性的场景。
 
-You can also accidentally create a global variable using `this`:
+你也可以用`this`意外地创建一个全局变量：
 
 ```
 function foo() {
@@ -307,11 +307,11 @@ function foo() {
 foo();
 ```
 
-> You can avoid all this by adding `‘use strict’;` at the beginning of your JavaScript file which would switch on a much stricter mode of parsing JavaScript which prevents the unexpected creation of global variables.
+> 你可以通过在JavaScript文件的开头添加`'use strict';`来避免这些后果，这将开启一种更严格的JavaScript解析模式，从而防止意外创建全局变量。
 
-Unexpected globals is certainly an issue, however, more often than not your code would be infested with explicit global variables which by definition cannot be collected by the garbage collector. Special attention needs to be given to global variables used to temporarily store and process large bits of information. Use global variables to store data if you must but when you do, make sure to **assign it as null or reassign it** once you are done with it.
+意外的全局变量当然是个问题，然而更常出现的情况是，你的代码会受到显式的全局变量的影响，而这些全局变量无法通过垃圾收集器收集。 需要特别注意用于临时存储和处理大量信息的全局变量。 如果你必须使用全局变量来存储数据，当你这样做的时候，要保证一旦完成使用就把他们**赋值为null或重新赋值** 。
 
-#### 2: Timers or callbacks that are forgotten
+#### 2: 忘记定时器或者回调
 
 Let’s take `setInterval` for example as it’s often used in JavaScript.
 
