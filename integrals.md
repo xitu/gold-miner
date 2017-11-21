@@ -2578,10 +2578,11 @@
 |[创建和使用 WebAssembly 组件](https://juejin.im/post/58d0bbe144d90400684c0f3a)|翻译|5|
 |[Web 分享 API 赋予浏览器原生分享能力](https://gold.xitu.io/entry/58c174ec44d9040069777f17/)|校对|1|
 
-## 译者：[iridescentmia](https://github.com/IridescentMia) 历史贡献积分：23.5 当前积分：23.5
+## 译者：[iridescentmia](https://github.com/IridescentMia) 历史贡献积分：25 当前积分：25
 
 |文章|类型|积分|
 |------|-------|-------|
+|[ES6 中的元编程：第二部分 —— 反射（Reflect）](https://juejin.im/post/5a0e66386fb9a04523417418)|校对|1.5|
 |[重建 slack.com：使用 CSS Grid 重新设计，并针对性能和可访问性进行了优化。](https://juejin.im/post/5a029d986fb9a044fb072efb)|校对|1|
 |[JavaScript 让 Monad 更简单（软件编写）（第十一部分）](https://juejin.im/post/59e55dbbf265da43333d7652)|校对|1.5|
 |[借助函数完成可组合的数据类型（软件编写）（第十部分）](https://juejin.im/post/59e3f3786fb9a0450166ff7b)|校对|0.5|
@@ -2887,10 +2888,11 @@
 |[同中有异的 Webpack 与 Rollup](https://juejin.im/post/58edb865570c350057f199a7)|校对|1|
 |[webpack 拾翠：充分利用 CommonsChunkPlugin()](https://juejin.im/post/58ec4e3f5c497d0062c470bf)|校对|1|
 
-## 译者：[yoyoyohamapi](https://github.com/yoyoyohamapi) 历史贡献积分：30.5 当前积分：-4.5
+## 译者：[yoyoyohamapi](https://github.com/yoyoyohamapi) 历史贡献积分：36.5 当前积分：1.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[ES6 中的元编程：第二部分 —— 反射（Reflect）](https://juejin.im/post/5a0e66386fb9a04523417418)|翻译|6|
 |[yoyoyohamapi 2017 年 11 月兑 贴纸 1 个](#)|减去积分|5|
 |[yoyoyohamapi 2017 年 10 月兑 大猫 1 个](#)|减去积分|30|
 |[JavaScript 让 Monad 更简单（软件编写）（第十一部分）](https://juejin.im/post/59e55dbbf265da43333d7652)|翻译|5|
@@ -3800,10 +3802,11 @@
 |[CSV 注入：被人低估的风险](https://juejin.im/post/59eca3fef265da430b7a63c8)|校对|3|
 |[HTTP/2 下网站资源打包的正确方法](https://juejin.im/post/59f74d20f265da431523326b)|翻译|4|
 
-## 译者：[ParadeTo](https://github.com/ParadeTo) 历史贡献积分：1 当前积分：1
+## 译者：[ParadeTo](https://github.com/ParadeTo) 历史贡献积分：2.5 当前积分：2.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[ES6 中的元编程：第二部分 —— 反射（Reflect）](https://juejin.im/post/5a0e66386fb9a04523417418)|校对|1.5|
 |[HTTP/2 下网站资源打包的正确方法](https://juejin.im/post/59f74d20f265da431523326b)|校对|1|
 
 ## 译者：[altairlu](https://github.com/altairlu) 历史贡献积分：7 当前积分：7
@@ -3866,10 +3869,11 @@
 |------|-------|-------|
 |[RNN 循环神经网络系列 4: 注意力机制](https://juejin.im/post/59f72f61f265da432002871c)|校对|2|
 
-## 译者：[Raoul1996](https://github.com/Raoul1996) 历史贡献积分：11 当前积分：11
+## 译者：[Raoul1996](https://github.com/Raoul1996) 历史贡献积分：13 当前积分：13
 
 |文章|类型|积分|
 |------|-------|-------|
+|[JavaScript 如何工作：在 V8 引擎里 5 个优化代码的技巧](https://juejin.im/post/5a102e656fb9a044fd1158c6)|校对|2|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|2|
 |[重建 slack.com：使用 CSS Grid 重新设计，并针对性能和可访问性进行了优化。](https://juejin.im/post/5a029d986fb9a044fb072efb)|翻译|4|
 |[Rollup - 下一代 ES6 模块化打包工具 - 对 Rich Harris 的采访](https://juejin.im/post/5a09b4e56fb9a0451170a22e)|翻译|4|
@@ -3925,10 +3929,11 @@
 |------|-------|-------|
 |[Vue Report 2017](https://juejin.im/post/5a138fae5188254d28732899)|翻译|4|
 
-## 译者：[PCAaron](https://github.com/PCAaron) 历史贡献积分：4 当前积分：4
+## 译者：[PCAaron](https://github.com/PCAaron) 历史贡献积分：6 当前积分：6
 
 |文章|类型|积分|
 |------|-------|-------|
+|[JavaScript 如何工作：在 V8 引擎里 5 个优化代码的技巧](https://juejin.im/post/5a102e656fb9a044fd1158c6)|校对|2|
 |[Vue Report 2017](https://juejin.im/post/5a138fae5188254d28732899)|翻译|4|
 
 ## 译者：[caoyi0905](https://github.com/caoyi0905) 历史贡献积分：3 当前积分：-7
@@ -3998,3 +4003,15 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[僵尸币时代即将到来?](https://juejin.im/post/5a0e82315188252ae93a843a)|校对|0.5|
+
+## 译者：[oaosj](https://github.com/oaosj) 历史贡献积分：4 当前积分：4
+
+|文章|类型|积分|
+|------|-------|-------|
+|[理解音频焦点（第1/3部分）：常见的音频焦点用例](https://juejin.im/entry/5a0e6f3a5188251c1140315b)|翻译|4|
+
+## 译者：[balancelove](https://github.com/balancelove) 历史贡献积分：7 当前积分：7
+
+|文章|类型|积分|
+|------|-------|-------|
+|[JavaScript 如何工作：在 V8 引擎里 5 个优化代码的技巧](https://juejin.im/post/5a102e656fb9a044fd1158c6)|翻译|7|
