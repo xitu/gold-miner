@@ -37,6 +37,7 @@
 * [Google Interview University 面试指北](https://github.com/xitu/google-interview-university)
 * [前端开发者指南（2017）](https://github.com/xitu/front-end-handbook-2017)
 * [macOS Security and Privacy Guide](https://github.com/xitu/macOS-Security-and-Privacy-Guide)
+* [State of Vue.js report 2017 中文版](https://github.com/xitu/gold-miner/blob/master/TODO/state-of-vue-report-2017.md)
 
 ## 区块链
 
