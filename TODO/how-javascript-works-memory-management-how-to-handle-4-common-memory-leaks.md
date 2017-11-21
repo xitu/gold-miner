@@ -9,9 +9,9 @@
 
 几周前，我们开始了一系列旨在深入挖掘JavaScript及其工作原理的研究。我们的结论是：通过了解构建JavaScript代码块以及它们组合在一起的方式，我们将能够编写更好的代码和应用程序。
 
-本系列的第一篇文章着重于提供 [引擎概览, 运行时间, 以及堆栈调用](https://blog.sessionstack.com/how-does-javascript-actually-work-part-1-b0bacc073cf).  [第二篇文章仔细审查了Google的V8 JavaScript引擎的内部区块](https://blog.sessionstack.com/how-javascript-works-inside-the-v8-engine-5-tips-on-how-to-write-optimized-code-ac089e62b12e) 并且提供了一些关于怎样编写更好JavaScript代码的提示。
+本系列的第一篇文章着重于提供 [引擎概览, 运行时间, 以及堆栈调用](https://blog.sessionstack.com/how-does-javascript-actually-work-part-1-b0bacc073cf).  第二篇文章仔细审查了[Google的V8 JavaScript引擎的内部区块](https://blog.sessionstack.com/how-javascript-works-inside-the-v8-engine-5-tips-on-how-to-write-optimized-code-ac089e62b12e) 并且提供了一些关于怎样编写更好JavaScript代码的提示。
 
-在第三篇文章中, 我们将讨论另外一个越来越被开发人员忽视的主题，原因是应用于日常基础内存管理的程序语言越来越成熟和复杂。我们也将会在[SessionStack网](https://www.sessionstack.com/?utm_source=medium&utm_medium=blog&utm_content=Post-3-v8-intro) 提供一些关于如何处理JavaScript内存泄漏的提示，我们需要确认SessionStack不会导致内存泄漏，或者不会增加我们集成的web应用程序的消耗。
+在第三篇文章中, 我们将讨论另外一个越来越被开发人员忽视的主题，原因是应用于日常基础内存管理的程序语言越来越成熟和复杂。我们也将会在[SessionStack](https://www.sessionstack.com/?utm_source=medium&utm_medium=blog&utm_content=Post-3-v8-intro) 提供一些关于如何处理JavaScript内存泄漏的提示，我们需要确认SessionStack不会导致内存泄漏，或者不会增加我们集成的web应用程序的消耗。
 
 #### 概览
 
@@ -66,7 +66,7 @@ double m; // 8 bytes
 
 在上面的例子中，编译器知道每个变量的具体内存地址。 事实上，只要我们写入变量`n`，它就会在内部被翻译成类似“内存地址4127963”的内容。
 
-注意，如果我们试图在这里访问`x[4]`，我们将访问与m关联的数据。 这是因为我们正在访问数组中不存在的一个元素 - 它比数组中最后一个实际分配的元素`x [3]`深了4个字节，并且最终可能会读取（或覆盖）一些`m`的位。这对项目的其余部分有预料之外的影响。
+注意，如果我们试图在这里访问`x[4]`，我们将访问与m关联的数据。 这是因为我们正在访问数组中不存在的一个元素 - 它比数组中最后一个实际分配的元素`x[3]`深了4个字节，并且最终可能会读取（或覆盖）一些`m`的位。这对项目的其余部分有预料之外的影响。
 
 ![](https://cdn-images-1.medium.com/max/800/1*5aBou4onl1B8xlgwoGTDOg.png)
 
@@ -276,7 +276,7 @@ f();
 
 #### JavaScript 常见的四种内存泄漏
 
-#### 1: Global variables
+#### 1: 全局变量
 
 JavaScript用一种有趣的方式处理未声明的变量：当引用一个未声明的变量时，在_global_对象中创建一个新变量。在浏览器中，全局对象将是`window`，这意味着
 
@@ -313,9 +313,9 @@ foo();
 
 #### 2: 忘记定时器或者回调
 
-Let’s take `setInterval` for example as it’s often used in JavaScript.
+我们以经常在JavaScript中使用的`setInterval`为例。
 
-Libraries which provide observers and other instruments that accept callbacks usually make sure all references to the callbacks become unreachable once their instances are unreachable too. Still, the code below is not a rare find:
+提供观察者和其他接受回调的工具库通常确保所有对回调的引用在其实例无法访问时也变得无法访问。然而，下面的代码并不鲜见：
 
 ```
 var serverData = loadData();
@@ -326,16 +326,15 @@ setInterval(function() {
     }
 }, 5000); //This will be executed every ~5 seconds.
 ```
+上面的代码片段显示了使用定时器引用节点或无用数据的后果。
 
-The snippet above shows the consequences of using timers that reference nodes or data that’s no longer needed.
+`renderer`对象可能会在某些时候被替换或删除，这会使得间隔处理程序封装的块变得冗余。如果发生这种情况，处理程序及其依赖项都不会被收集，因为间隔处理需要先备停止（请记住，它仍然是活动的）。这一切都归结为一个事实，即事实存储和处理负载数据的`serverData`也不会被收集。
 
-The `renderer` object may be replaced or removed at some point which would make the block encapsulated by the interval handler redundant. If this happens, neither the handler, nor its dependencies would be collected as the interval would need to be stopped first (remember, it’s still active). It all boils down to the fact that `serverData` which surely stores and processes loads of data will not be collected either.
+当使用观察者时，你需要确保一旦依赖于它们的事务已经处理完成，你编写了明确的调用来删除它们（不再需要观察者，或者对象将变得不可用时）。
 
-When using observers, you need to make sure you make an explicit call to remove them once you are done with them (either the observer is not needed anymore, or the object will become unreachable).
+幸运的是，大多数现代浏览器都会为你做这件事：即使你忘记删除监听器，当观察对象变得无法访问时，它们也会自动收集观察者处理程序。过去一些浏览器无法处理这些情况（旧的IE6）。
 
-Luckily, most modern browsers would do the job for you: they’ll automatically collect the the observer handlers once the observed object becomes unreachable even if you forgot to remove the listener. In the past some browsers were unable to handle these cases (good old IE6).
-
-Still, though, it’s in line with best practices to remove the observers once the object becomes obsolete. See the following example:
+但是，尽管如此，一旦对象变得过时，移除观察者才是符合最佳实践的。看下面的例子：
 
 ```
 var element = document.getElementById('launch-button');
@@ -352,13 +351,13 @@ element.parentNode.removeChild(element);
 // both element and onClick will be collected even in old browsers // that don't handle cycles well.
 ```
 
-You no longer need to call `removeEventListener` before making a node unreachable as modern browsers support garbage collectors that can detect these cycles and handle them appropriately.
+现在的浏览器支持检测这些循环并适当地处理它们的垃圾收集器，因此在制造一个无法访问的节点之前，你不再需要调用`removeEventListener`。
 
-If you leverage the `jQuery` APIs (other libraries and frameworks support this too) you can also have the listeners removed before a node is made obsolete. The library would also make sure there are no memory leaks even when the application is running under older browser versions.
+如果您利用`jQuery` API（其他库和框架也支持这个），您也可以在节点废弃之前删除监听器。 即使应用程序在较旧的浏览器版本下运行，这些库也会确保没有内存泄漏。
 
-3: Closures
+3: 闭包
 
-A key aspect of JavaScript development are closures: an inner function that has access to the outer (enclosing) function’s variables. Due to the implementation details of the JavaScript runtime, it is possible to leak memory in the following way:
+JavaScript开发的一个关键方面是闭包：一个内部函数可以访问外部（封闭）函数的变量。 由于JavaScript运行时的实现细节，可能以如下方式泄漏内存：
 
 ```
 var theThing = null;
@@ -378,19 +377,19 @@ var replaceThing = function () {
 setInterval(replaceThing, 1000);
 ```
 
-Once `replaceThing` is called, `theThing` gets a new object which consists of a big array and a new closure (`someMethod`). Yet, `originalThing` is referenced by a closure that’s held by the `unused` variable (which is `theThing` variable from the previous call to `replaceThing`). The thing to remember is that **once a scope for closures is created for closures in the same parent scope, the scope is shared.**
+一旦调用了`replaceThing`函数，`theThing`就得到一个新的对象，它由一个大数组和一个新的闭包（`someMethod`）组成。然而`originalThing`被一个由`unused`变量（这是从前一次调用`replaceThing`变量的`Thing`变量）所持有的闭包所引用。需要记住的是**一旦为同一个父作用域内的闭包创建作用域，作用域将被共享。**
 
-In this case, the scope created for the closure `someMethod` is shared with `unused`. `unused` has a reference to `originalThing`. Even though `unused` is never used, `someMethod` can be used through `theThing` outside of the scope of `replaceThing` (e.g. somewhere globally). And as `someMethod` shares the closure scope with `unused`, the reference `unused` has to `originalThing` forces it to stay active (the whole shared scope between the two closures). This prevents its collection.
+在个例子中，`someMethod`创建的作用域与`unused`共享。`unused`包含一个关于`originalThing`的引用。即使`unused`从未被引用过，`someMethod`也可以通过`replaceThing`作用域之外的`theThing`来使用它（例如全局的某个地方）。由于`someMethod`与`unused`共享闭包范围，`unused`指向`originalThing`的引用强制它保持活动状态（两个闭包之间的整个共享范围）。这阻止了它们的垃圾收集。
 
-In the above example, the scope created for the closure `someMethod` is shared with `unused`, while `unused` references `originalThing`. `someMethod` can be used through `theThing` outside of the `replaceThing` scope, despite the fact that `unused` is never used. The fact that unused references `originalThing` requires that it remains active since `someMethod` shares the closure scope with unused.
+在上面的例子中，为闭包`someMethod`创建的作用域与`unused`共享，而`unused`又引用`originalThing`。 `someMethod`可以通过`replaceThing`范围之外的`theThing`来引用，尽管`unused`从来没有被引用过。事实上，unused对`originalThing`的引用要求它保持活跃，因为`someMethod`与unused的共享封闭范围。
 
-All this can result in a considerable memory leak. You can expect to see a spike in memory usage when the above snippet is run over and over again. Its size won’t shrink when the garbage collector runs. A linked list of closures is created (its root is `theThing` variable in this case), and each the closure scopes carries forward an indirect reference to the big array.
+所有这些都可能导致大量的内存泄漏。当上面的代码片段一遍又一遍地运行时，您可以预期到内存使用率的上升。当垃圾收集器运行时，其大小不会缩小。一个闭包链被创建（在例子中它的根就是`theThing`变量），并且每个闭包作用域都包含对大数组的间接引用。
 
-This issue was found by the Meteor team and [they have a great article](https://blog.meteor.com/an-interesting-kind-of-javascript-memory-leak-8b47d2e7f156) that describes the issue in great detail.
+Meteor团队发现了这个问题，[它们有一篇很棒的文章](https://blog.meteor.com/an-interesting-kind-of-javascript-memory-leak-8b47d2e7f156)详细地描述了这个问题。
 
-#### 4: Out of DOM references
+#### 4: 超出DOM的引用
 
-There are cases in which developers store DOM nodes inside data structures. Suppose you want to rapidly update the contents of several rows in a table. If you store a reference to each DOM row in a dictionary or an array, there will be two references to the same DOM element: one in the DOM tree and another in the dictionary. If you decide to get rid of these rows, you need to remember to make both references unreachable.
+有些情况下开发人员在数据结构中存储DOM节点。假设你想快速更新表格中几行的内容。如果在字典或数组中存储对每个DOM行的引用，就会产生两个对同一个DOM元素的引用：一个在DOM树中，另一个在字典中。如果你决定删除这些行，你需要记住让两个引用都无法到达。
 
 ```
 var elements = {
@@ -409,15 +408,15 @@ function removeImage() {
 }
 ```
 
-There’s an additional consideration that has to be taken into account when it comes to references to inner or leaf nodes inside a DOM tree. If you keep a reference to a table cell (a `<td>` tag) in your code and decide to remove the table from the DOM yet keep the reference to that particular cell, you can expect a major memory leak to follow. You might think that the garbage collector would free up everything but that cell. This will not be the case, however. Since the cell is a child node of the table and children keep references to their parents, **this single reference to the table cell would keep the whole table in memory**.
+在涉及DOM树内的内部节点或叶节点时，还有一个额外的因素需要考虑。如果你在代码中保留对表格单元格（`td`标记）的引用，并决定从DOM中删除该表格但保留对该特定单元格的引用，则可以预见到严重的内存泄漏。你可能会认为垃圾收集器会释放除了那个单元格之外的所有东西。但情况并非如此。由于单元格是表格的子节点，并且子节点保持对父节点的引用，所以**对表格单元格的这种单引用将把整个表格保存在内存中**。
 
-We at [SessionStack](https://www.sessionstack.com/?utm_source=medium&utm_medium=blog&utm_content=Post-3-v8-outro) try to follow these best practices in writing code that handles memory allocation properly, and here’s why:
+我们在[SessionStack](https://www.sessionstack.com/?utm_source=medium&utm_medium=blog&utm_content=Post-3-v8-outro)尝试遵循这些最佳实践，编写正确处理内存分配的代码，原因如下：
 
-Once you integrate SessionStack into your production web app, it starts recording everything: all DOM changes, user interactions, JavaScript exceptions, stack traces, failed network requests, debug messages, etc.
-With SessionStack, you replay issues in your web apps as videos and see everything that happened to your user. And all of this has to take place with no performance impact for your web app.
-Since the user can reload the page or navigate your app, all observers, interceptors, variable allocations, etc. have to be handled properly, so they don’t cause any memory leaks or don’t increase the memory consumption of the web app in which we are integrated.
+一旦将SessionStack集成到你的生产环境的Web应用程序中，它就会开始记录所有的事情：所有的DOM更改，用户交互，JavaScript异常，堆栈跟踪，失败网络请求，调试消息等。
+通过SessionStack，你可以像视频一样回放web应用程序中的问题，并查看所有的用户行为。所有这些都必须在您的网络应用程序没有性能影响的情况下进行。
+由于用户可以重新加载页面或导航你的应用程序，所有的观察者，拦截器，变量分配等都必须正确处理，这样它们才不会导致任何内存泄漏，也不会增加我们正在整合的Web应用程序的内存消耗。
 
-There is a free plan so you can [give it a try now](https://www.sessionstack.com/?utm_source=medium&utm_medium=blog&utm_content=Post-3-v8-getStarted).
+这里有一个免费的计划所以你可以[试试看](https://www.sessionstack.com/?utm_source=medium&utm_medium=blog&utm_content=Post-3-v8-getStarted).
 
 ![](https://cdn-images-1.medium.com/max/800/1*kEQmoMuNBDfZKNSBh0tvRA.png)
 
