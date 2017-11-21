@@ -2578,10 +2578,11 @@
 |[创建和使用 WebAssembly 组件](https://juejin.im/post/58d0bbe144d90400684c0f3a)|翻译|5|
 |[Web 分享 API 赋予浏览器原生分享能力](https://gold.xitu.io/entry/58c174ec44d9040069777f17/)|校对|1|
 
-## 译者：[iridescentmia](https://github.com/IridescentMia) 历史贡献积分：25 当前积分：25
+## 译者：[iridescentmia](https://github.com/IridescentMia) 历史贡献积分：27 当前积分：27
 
 |文章|类型|积分|
 |------|-------|-------|
+|[元编程：Symbol，了不起的 Symbol](https://juejin.im/post/5a0e65c1f265da430702d6b9)|校对|2|
 |[ES6 中的元编程：第二部分 —— 反射（Reflect）](https://juejin.im/post/5a0e66386fb9a04523417418)|校对|1.5|
 |[重建 slack.com：使用 CSS Grid 重新设计，并针对性能和可访问性进行了优化。](https://juejin.im/post/5a029d986fb9a044fb072efb)|校对|1|
 |[JavaScript 让 Monad 更简单（软件编写）（第十一部分）](https://juejin.im/post/59e55dbbf265da43333d7652)|校对|1.5|
@@ -2888,10 +2889,12 @@
 |[同中有异的 Webpack 与 Rollup](https://juejin.im/post/58edb865570c350057f199a7)|校对|1|
 |[webpack 拾翠：充分利用 CommonsChunkPlugin()](https://juejin.im/post/58ec4e3f5c497d0062c470bf)|校对|1|
 
-## 译者：[yoyoyohamapi](https://github.com/yoyoyohamapi) 历史贡献积分：36.5 当前积分：1.5
+## 译者：[yoyoyohamapi](https://github.com/yoyoyohamapi) 历史贡献积分：48.5 当前积分：13.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[ES6 中的元编程： 第三部分 - 代理（Proxies）](https://juejin.im/post/5a0f05496fb9a04508093ac4)|翻译|5|
+|[元编程：Symbol，了不起的 Symbol](https://juejin.im/post/5a0e65c1f265da430702d6b9)|翻译|7|
 |[ES6 中的元编程：第二部分 —— 反射（Reflect）](https://juejin.im/post/5a0e66386fb9a04523417418)|翻译|6|
 |[yoyoyohamapi 2017 年 11 月兑 贴纸 1 个](#)|减去积分|5|
 |[yoyoyohamapi 2017 年 10 月兑 大猫 1 个](#)|减去积分|30|
@@ -3636,10 +3639,11 @@
 |[在 HTTP/2 的世界里管理 CSS 和 JS](https://juejin.im/post/59bb463d51882519777c5a85)|校对|0.5|
 |[Coursera 的 GraphQL 之路](https://juejin.im/post/59b8d1d36fb9a00a3f24c439)|校对|1|
 
-## 译者：[Usey95](https://github.com/Usey95) 历史贡献积分：14.5 当前积分：14.5
+## 译者：[Usey95](https://github.com/Usey95) 历史贡献积分：16.5 当前积分：16.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[元编程：Symbol，了不起的 Symbol](https://juejin.im/post/5a0e65c1f265da430702d6b9)|校对|2|
 |[重建 slack.com：使用 CSS Grid 重新设计，并针对性能和可访问性进行了优化。](https://juejin.im/post/5a029d986fb9a044fb072efb)|校对|1|
 |[Rollup - 下一代 ES6 模块化打包工具 - 对 Rich Harris 的采访](https://juejin.im/post/5a09b4e56fb9a0451170a22e)|校对|1|
 |[usey95 翻译开源库 CSS 100 个](#)|翻译|10|
@@ -3869,10 +3873,11 @@
 |------|-------|-------|
 |[RNN 循环神经网络系列 4: 注意力机制](https://juejin.im/post/59f72f61f265da432002871c)|校对|2|
 
-## 译者：[Raoul1996](https://github.com/Raoul1996) 历史贡献积分：13 当前积分：13
+## 译者：[Raoul1996](https://github.com/Raoul1996) 历史贡献积分：23 当前积分：23
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Angular、React、Vue 三剑客: 在 2017 年的比较](https://juejin.im/post/5a0d5df1f265da43062a542f)|翻译|10|
 |[JavaScript 如何工作：在 V8 引擎里 5 个优化代码的技巧](https://juejin.im/post/5a102e656fb9a044fd1158c6)|校对|2|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|2|
 |[重建 slack.com：使用 CSS Grid 重新设计，并针对性能和可访问性进行了优化。](https://juejin.im/post/5a029d986fb9a044fb072efb)|翻译|4|
@@ -3929,17 +3934,21 @@
 |------|-------|-------|
 |[Vue Report 2017](https://juejin.im/post/5a138fae5188254d28732899)|翻译|4|
 
-## 译者：[PCAaron](https://github.com/PCAaron) 历史贡献积分：6 当前积分：6
+## 译者：[PCAaron](https://github.com/PCAaron) 历史贡献积分：10.5 当前积分：10.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[ES6 中的元编程： 第三部分 - 代理（Proxies）](https://juejin.im/post/5a0f05496fb9a04508093ac4)|校对|1.5|
+|[Angular、React、Vue 三剑客: 在 2017 年的比较](https://juejin.im/post/5a0d5df1f265da43062a542f)|校对|3|
 |[JavaScript 如何工作：在 V8 引擎里 5 个优化代码的技巧](https://juejin.im/post/5a102e656fb9a044fd1158c6)|校对|2|
 |[Vue Report 2017](https://juejin.im/post/5a138fae5188254d28732899)|翻译|4|
 
-## 译者：[caoyi0905](https://github.com/caoyi0905) 历史贡献积分：3 当前积分：-7
+## 译者：[caoyi0905](https://github.com/caoyi0905) 历史贡献积分：7.5 当前积分：-2.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[ES6 中的元编程： 第三部分 - 代理（Proxies）](https://juejin.im/post/5a0f05496fb9a04508093ac4)|校对|1.5|
+|[Angular、React、Vue 三剑客: 在 2017 年的比较](https://juejin.im/post/5a0d5df1f265da43062a542f)|校对|3|
 |caoyi0905 2017 年 11 月兑 GitHub 贴纸 1 个|减去积分|10|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|1|
 |[Vue Report 2017](https://juejin.im/post/5a138fae5188254d28732899)|翻译|2|
