@@ -3795,10 +3795,11 @@
 |------|-------|-------|
 |[HTTP/2 下网站资源打包的正确方法](https://juejin.im/post/59f74d20f265da431523326b)|校对|1|
 
-## 译者：[altairlu](https://github.com/altairlu) 历史贡献积分：1 当前积分：1
+## 译者：[altairlu](https://github.com/altairlu) 历史贡献积分：7 当前积分：7
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Vue Report 2017](https://juejin.im/post/5a138fae5188254d28732899)|翻译|6|
 |[HTTP/2 下网站资源打包的正确方法](https://juejin.im/post/59f74d20f265da431523326b)|校对|1|
 
 ## 译者：[perseveringman](https://github.com/perseveringman) 历史贡献积分：0.5 当前积分：0.5
@@ -3867,10 +3868,11 @@
 |[ViewModel 和 LiveData：为设计模式打 Call 还是唱反调？](https://juejin.im/post/5a040585f265da43346f5d57)|校对|1|
 |[ViewModels 简单入门指北](https://juejin.im/post/5a0905ad51882531bb6c4d98)|校对|1|
 
-## 译者：[ParadeTo](https://github.com/ParadeTo) 历史贡献积分：3 当前积分：3
+## 译者：[ParadeTo](https://github.com/ParadeTo) 历史贡献积分：16 当前积分：16
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Vue Report 2017](https://juejin.im/post/5a138fae5188254d28732899)|翻译|13|
 |[14 个你可能不知道的 JavaScript 调试技巧](https://github.com/xitu/gold-miner/pull/2404)|翻译|3|
 
 ## 译者：[jerry-shao](https://github.com/jerry-shao) 历史贡献积分：1 当前积分：1
@@ -3878,3 +3880,57 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[管中窥豹：RxJava 与 Kotlin 协程的对比](https://juejin.im/post/5a0ab91451882533d0229556)|翻译|1|
+
+## 译者：[html5challenge](https://github.com/html5challenge) 历史贡献积分：8 当前积分：8
+
+|文章|类型|积分|
+|------|-------|-------|
+|[Vue Report 2017](https://juejin.im/post/5a138fae5188254d28732899)|翻译|8|
+
+## 译者：[zwwill](https://github.com/zwwill) 历史贡献积分：10 当前积分：10
+
+|文章|类型|积分|
+|------|-------|-------|
+|[Vue Report 2017](https://juejin.im/post/5a138fae5188254d28732899)|翻译|10|
+
+## 译者：[vxqqb](https://github.com/vxqqb) 历史贡献积分：10 当前积分：10
+
+|文章|类型|积分|
+|------|-------|-------|
+|[Vue Report 2017](https://juejin.im/post/5a138fae5188254d28732899)|翻译|10|
+
+## 译者：[ly525](https://github.com/ly525) 历史贡献积分：5 当前积分：5
+
+|文章|类型|积分|
+|------|-------|-------|
+|[Vue Report 2017](https://juejin.im/post/5a138fae5188254d28732899)|翻译|5|
+
+## 译者：[sasa-m](https://github.com/sasa-m) 历史贡献积分：4 当前积分：4
+
+|文章|类型|积分|
+|------|-------|-------|
+|[Vue Report 2017](https://juejin.im/post/5a138fae5188254d28732899)|翻译|4|
+
+## 译者：[PCAaron](https://github.com/PCAaron) 历史贡献积分：4 当前积分：4
+
+|文章|类型|积分|
+|------|-------|-------|
+|[Vue Report 2017](https://juejin.im/post/5a138fae5188254d28732899)|翻译|4|
+
+## 译者：[caoyi0905](https://github.com/caoyi0905) 历史贡献积分：2 当前积分：2
+
+|文章|类型|积分|
+|------|-------|-------|
+|[Vue Report 2017](https://juejin.im/post/5a138fae5188254d28732899)|翻译|2|
+
+## 译者：[JohnJiangLA](https://github.com/JohnJiangLA) 历史贡献积分：2 当前积分：2
+
+|文章|类型|积分|
+|------|-------|-------|
+|[Vue Report 2017](https://juejin.im/post/5a138fae5188254d28732899)|翻译|2|
+
+## 译者：[iFwu](https://github.com/iFwu) 历史贡献积分：2 当前积分：2
+
+|文章|类型|积分|
+|------|-------|-------|
+|[Vue Report 2017](https://juejin.im/post/5a138fae5188254d28732899)|翻译|2|
