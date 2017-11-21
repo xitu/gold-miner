@@ -565,7 +565,6 @@ Chess.com 团队首先要做的事情之一就是将不同的页面从 Vue 重�
 
 #### 成果
 
-For a big app like Chess.com, one thing about Vue brings more benefits than the rest.
 对于一个像 Chess.com 这么大的应用来说，Vue 带来的好处远远超过其他。
 
 > 单个文件组件绝对是构建和维护我们库的不二法则，这样使得团队能够仅仅在有官方的状态管理系统的框架部分中进行投入。我们相信这些事情会一起工作——这都是集体愿景的一部分。
