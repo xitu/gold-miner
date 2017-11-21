@@ -2529,10 +2529,11 @@
 |[Redux 异步四兄弟](https://juejin.im/post/58c75f9444d90400699add86)|翻译|7|
 |[为多个品牌和应用构建 React 组件](http://gold.xitu.io/entry/58b92529128fe1007e4493da/)|校对|1|
 
-## 译者：[germxu](https://github.com/Germxu) 历史贡献积分：8 当前积分：8
+## 译者：[germxu](https://github.com/Germxu) 历史贡献积分：10 当前积分：10
 
 |文章|类型|积分|
 |------|-------|-------|
+|[五天拿下硅谷五家顶级互联网公司 offer](https://juejin.im/post/5a1247d26fb9a0452a3bec33)|校对|2|
 |[你是如何拆分组件的](https://juejin.im/post/59aa7f8c6fb9a024747f13b7)|校对|1|
 |[别让你的偏爱拖了后腿：快拥抱箭头函数吧！](https://juejin.im/post/59158c92a0bb9f005fd58fd7)|校对|2|
 |[为何 TypeScript 愈发流行了？](https://juejin.im/post/59152911a22b9d0058fd5fe8)|校对|1|
@@ -2541,10 +2542,11 @@
 |[再谈 CSS 中的代码味道](https://juejin.im/post/58c2034dac502e0062cf8e2a/)|校对|1|
 |[Google 是如何构建 web 框架的](https://gold.xitu.io/entry/58bcdda4128fe1007e5b44db/)|校对|1|
 
-## 译者：[atuooo](https://github.com/atuooo) 历史贡献积分：30.5 当前积分：15.5
+## 译者：[atuooo](https://github.com/atuooo) 历史贡献积分：31 当前积分：16
 
 |文章|类型|积分|
 |------|-------|-------|
+|[僵尸币时代即将到来?](https://juejin.im/post/5a0e82315188252ae93a843a)|校对|0.5|
 |[从零到一用 Python 写一个区块链](https://juejin.im/entry/59faa0ed51882576ea3507de/detail)|校对|1.5|
 |[探究 Swift 中的 Futures & Promises](https://juejin.im/post/59afcf5d51882524434163dd)|翻译|4|
 |[模块化 Swift 中的状态](https://juejin.im/post/597962875188253dda0f05a9)|校对|1|
@@ -2885,10 +2887,11 @@
 |[同中有异的 Webpack 与 Rollup](https://juejin.im/post/58edb865570c350057f199a7)|校对|1|
 |[webpack 拾翠：充分利用 CommonsChunkPlugin()](https://juejin.im/post/58ec4e3f5c497d0062c470bf)|校对|1|
 
-## 译者：[yoyoyohamapi](https://github.com/yoyoyohamapi) 历史贡献积分：30.5 当前积分：0.5
+## 译者：[yoyoyohamapi](https://github.com/yoyoyohamapi) 历史贡献积分：30.5 当前积分：-4.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[yoyoyohamapi 2017 年 11 月兑 贴纸 1 个](#)|减去积分|5|
 |[yoyoyohamapi 2017 年 10 月兑 大猫 1 个](#)|减去积分|30|
 |[JavaScript 让 Monad 更简单（软件编写）（第十一部分）](https://juejin.im/post/59e55dbbf265da43333d7652)|翻译|5|
 |[借助函数完成可组合的数据类型（软件编写）（第十部分）](https://juejin.im/post/59e3f3786fb9a0450166ff7b)|翻译|1.5|
@@ -3828,10 +3831,11 @@
 |------|-------|-------|
 |[RNN 循环神经网络系列 2：文本分类](https://juejin.im/post/59f0c6b3f265da4319557de4)|校对|1|
 
-## 译者：[winjeysong](https://github.com/winjeysong) 历史贡献积分：3 当前积分：3
+## 译者：[winjeysong](https://github.com/winjeysong) 历史贡献积分：7 当前积分：7
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Python 3.7 的新特性](https://juejin.im/post/5a127e60f265da430f31b45b)|翻译|4|
 |[如何为通知设计更好的用户体验](https://juejin.im/post/59f9b14f518825295f5d411f)|校对|3|
 
 ## 译者：[ppp-man](https://github.com/ppp-man) 历史贡献积分：7 当前积分：7
@@ -3927,10 +3931,11 @@
 |------|-------|-------|
 |[Vue Report 2017](https://juejin.im/post/5a138fae5188254d28732899)|翻译|4|
 
-## 译者：[caoyi0905](https://github.com/caoyi0905) 历史贡献积分：3 当前积分：3
+## 译者：[caoyi0905](https://github.com/caoyi0905) 历史贡献积分：3 当前积分：-7
 
 |文章|类型|积分|
 |------|-------|-------|
+|caoyi0905 2017 年 11 月兑 GitHub 贴纸 1 个|减去积分|10|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|1|
 |[Vue Report 2017](https://juejin.im/post/5a138fae5188254d28732899)|翻译|2|
 
@@ -3963,3 +3968,33 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|1.5|
+
+## 译者：[LynnShaw](https://github.com/LynnShaw) 历史贡献积分：1.5 当前积分：1.5
+
+|文章|类型|积分|
+|------|-------|-------|
+|[Python 3.7 的新特性](https://juejin.im/post/5a127e60f265da430f31b45b)|校对|1.5|
+
+## 译者：[freerambo](https://github.com/freerambo) 历史贡献积分：5 当前积分：5
+
+|文章|类型|积分|
+|------|-------|-------|
+|[五天拿下硅谷五家顶级互联网公司 offer](https://juejin.im/post/5a1247d26fb9a0452a3bec33)|翻译|5|
+
+## 译者：[hadeswith666](https://github.com/hadeswith666) 历史贡献积分：2 当前积分：2
+
+|文章|类型|积分|
+|------|-------|-------|
+|[五天拿下硅谷五家顶级互联网公司 offer](https://juejin.im/post/5a1247d26fb9a0452a3bec33)|校对|2|
+
+## 译者：[wendylinlin](https://github.com/wendylinlin) 历史贡献积分：2 当前积分：2
+
+|文章|类型|积分|
+|------|-------|-------|
+|[僵尸币时代即将到来?](https://juejin.im/post/5a0e82315188252ae93a843a)|翻译|2|
+
+## 译者：[MRNIU](https://github.com/MRNIU) 历史贡献积分：0.5 当前积分：0.5
+
+|文章|类型|积分|
+|------|-------|-------|
+|[僵尸币时代即将到来?](https://juejin.im/post/5a0e82315188252ae93a843a)|校对|0.5|
