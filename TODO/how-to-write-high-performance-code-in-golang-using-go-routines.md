@@ -12,10 +12,10 @@
 ![](https://cdn-images-1.medium.com/max/800/1*jdAaUNHvhS0n1FjS2RUxgw.jpeg)
 
 In order to write fast code in Golang, you need to check out this video by Rob Pike on [Go-Routines](https://www.youtube.com/watch?v=f6kdp27TYZs).
-Golang 中为了写出很快的代码，你需要看一下 Rob Pike 的视频 - [Go-Routines](https://www.youtube.com/watch?v=f6kdp27TYZs)。
+为了用 Golang 写出快速的代码，你需要看一下 Rob Pike 的视频 - [Go-Routines](https://www.youtube.com/watch?v=f6kdp27TYZs)。
 
 He is one of Golang’s creators. And if you haven’t seen it yet, keep reading, since this blog is my own take on the contents of that video. I don’t feel the video is complete. I guess Rob omitted some of the topics he felt were too trivial to deserve a mention in his time constrained video. But I, on the other hand with time at my disposal have written a comprehensive blog about go-routines. I have not covered all of the topics covered in the video. And I have included code from my own projects I use to solve common problems in Golang.
-他是 Golang 的作者之一。如果你还没有看过视频，请继续阅读，这篇文章是我对那个视频内容的一些个人见解。我感觉视频不是很完整。我猜 Rob 因为时间关系忽略掉了一些他认为不值的讲的观点。不过我在 go-routines 上花了很多时间，写了一个综合全面的文章来讲它。我没有涵盖视频中涵盖的所有主题。我会介绍一些自己用来解决 Golang 常见问题的项目。
+他是 Golang 的作者之一。如果你还没有看过视频，请继续阅读，这篇文章是我对那个视频内容的一些个人见解。我感觉视频不是很完整。我猜 Rob 因为时间关系忽略掉了一些他认为不值得讲的观点。不过我花了很多的时间来写了一篇综合全面的关于 go-routines 的文章。我没有涵盖视频中涵盖的所有主题。我会介绍一些自己用来解决 Golang 常见问题的项目。
 
 So, There are 3 concepts you need to absolutely understand, in order to write fast code in Golang. They are Go-Routines, Closures & Channels.
 好的，为了写出很快的 Golang 程序，有三个概念你需要完全了解，那就是 Go-Routines，闭包，还有管道。
@@ -24,7 +24,7 @@ So, There are 3 concepts you need to absolutely understand, in order to write fa
 ## Go-Routines
 
 Let’s say your task is to move 100 boxes from one room to another. Let’s also say, you can carry only one box at a time and you will take 1 min to move one box. So, you will end up taking 100 mins to move 100 boxes.
-让我们假设你的任务是将 100 个盒子从一个房间移到另一个房间。再假设，你一次只能搬一个盒子，而且移动一次会花费一分钟时间。所有，最终你搬这 100 个箱子花了 100 分钟。
+让我们假设你的任务是将 100 个盒子从一个房间移到另一个房间。再假设，你一次只能搬一个盒子，而且移动一次会花费一分钟时间。所以，你会花费 100 分钟的时间搬完这 100 个箱子。
 
 Now, to speed up the process of moving 100 boxes, you can either figure out a way to move one box faster (which is analogous to finding a better algorithm to solve the problem) or you can hire an additional person to help you with moving boxes (which is analogous to increasing the number of CPU cores used to execute your algorithm).
 现在，为了让加快移动 100 个盒子这个过程，你可以找到一个方法更快的移动这个盒子（这类似于找一个更好的算法去解决问题）或者你可以额外雇佣一个人去帮你移动盒子（这类似于增加 CPU 核数用于执行算法）
@@ -33,11 +33,11 @@ The focus of this blog is the second approach. Writing go-routines and utilizing
 这篇文章重点讲第二种方法。编写 go-routines 并利用一个或者多个 CPU 核心去加快应用的执行。
 
 Any block of code is executed only by a single core by default unless that block of code has go-routines declared in it. So, if you have a program that is 70 lines long without go-routines. It will be taken up for execution only by a single core. And like our example, a single core can execute only one instruction at a time. So, you would need to use all the cores available in your system in order to speed up your application.
-任何代码块在默认情况下只会使用一个 CPU 核心，除非这个代码块中声明了 go-routines。所以，如果你有一个 70 行的，没有包含 go-routines 的程序。它将会被单个核心执行。就像我们的例子，一个核心一次只能执行一个指令，因此，你需要使用系统的所有核心才能加快应用程序的速度。
+任何代码块在默认情况下只会使用一个 CPU 核心，除非这个代码块中声明了 go-routines。所以，如果你有一个 70 行的，没有包含 go-routines 的程序。它将会被单个核心执行。就像我们的例子，一个核心一次只能执行一个指令。因此，如果你想加快应用程序的速度，就必须把所有的 CPU 核心都利用起来。
 
 
 ## So, What is a go-routine and How do we declare one in Golang ?
-所以，什么是 go-routine，如何在 Golang 中声明它？
+所以，什么是 go-routine。如何在 Golang 中声明它？
 
 Let’s take a sample program and introduce go-routines in it.
 让我们看一个简单的程序并介绍其中的 go-routine。
@@ -88,7 +88,7 @@ Box 10
 ```
 
 So, if we want to use an additional core in moving our boxes, we declare a go-routine.
-所以，如果我们想在在移动盒子这个过程中使用额外的 CPU 核心，我们声明一个 go-routine。
+所以，如果我们想在在移动盒子这个过程中使用额外的 CPU 核心，我们需要声明一个 go-routine。
 
 ### Sample Program 2 with Go-Routines
 ### 包含 Go-Routines 的示例程序 2
@@ -138,15 +138,15 @@ Box 10
 ## 分析输出
 
 Whats happening here is, there are 2 cores running at the same time, trying to execute it’s tasks and both cores depend on stdout to accomplish it’s respective tasks (since we have used print statements in our example).
-这里发生的是，有两个 CPU 核心同时运行，试图执行他们的任务，并且这两个核心都依赖标准输出来完成它们相应的任务（因为这个示例中我们使用了 print 语句）
+在这段代码中，有两个 CPU 核心同时运行，试图执行他们的任务，并且这两个核心都依赖标准输出来完成它们相应的任务（因为这个示例中我们使用了 print 语句）
 stdout (running on a single core of it’s own) on the other hand can accept only one task at a time. So, what you are seeing here is, the random order in which stdout decided to accept tasks from both core1 and core2.
-标准输出（运行在它自己的一个核心上）换句话来说，一次只能接受一个任务。所以，你在这儿看到的是一种随机的排序，这取决于标准输出决定接受 core1 core2 哪个的任务。
+换句话来说，标准输出（运行在它自己的一个核心上）一次只能接受一个任务。所以，你在这儿看到的是一种随机的排序，这取决于标准输出决定接受 core1 core2 哪个的任务。
 
 ## How we declared the go-routine?
 ## 如何声明 go-routine？
 
 There are 3 things we are doing here in order to declare our go-routine.
-为了声明我们的 go-routine 有三件事我们要做。
+为了声明我们自己的 go-routine，我们需要做三件事。
 
 1. We are creating an anonymous function
 1. 我们创建一个匿名函数
@@ -193,29 +193,29 @@ And step 3 is accomplished by prepending it with the go keyword. What a go keywo
 > 答案：示例程序2的结果和1一模一样。
 >
 > #TryItYourself 2: Try adding 8 statements to the anonymous function instead of 3. Does the output change?
-> #自己试试之2：将8个语句而不是3个，添加到匿名函数中。结果改变了吗？
+> #自己试试之 2：将匿名函数中的语句从 3 增加至 8 个。结果改变了吗？
 >
 > Answer: Yes. The main function is the mother go-routine (It’s the go-routine in which all go-routines are declared or created). So, when the mother go-routine completes execution, all other go-routines are killed even if they are midway to completion and the program returns.
-> 答案：是的。main 函数是一个母亲 go-routine（所有其他 go-routines 都被声明和创建在它里面）。所以，当母亲 go-routine 执行结束，即使其他 go-routines 执行到中途，它们也会被杀掉然后返回。
+> 答案：是的。main 函数是一个母亲 go-routine（其他所有的 go-routine 都在它里面被声明和创建）。所以，当母亲 go-routine 执行结束，即使其他 go-routines 执行到中途，它们也会被杀掉然后返回。
 
 We have seen what go-routines are now. Let’s move onto **Closures**.
-我们现在已近知道 go-routines 是什么了。接下来让我们来看看闭包。
+我们现在已经知道 go-routines 是什么了。接下来让我们来看看闭包。
 
 For those of you who don’t know what closures are from python or Javascript, you can learn it now in Golang here. Others can save time by skipping this part as closures in Golang are just the same as they are in python or javascript.
-如果没有从 Python 或者 JavaScript 学到什么闭包，你现在可以在 Golang 中学习它了。学到的人可以跳过这部分来节省时间，因为 Golang 中的闭包和 Python 或者 JavaScript 中是一样的。
+如果之前没有在 Python 或者 JavaScript 中学过闭包，你可以现在在 Golang 中学习它。学到的人可以跳过这部分来节省时间，因为 Golang 中的闭包和 Python 或者 JavaScript 中是一样的。
 
 Before we dive into closures. Let’s look at languages like C, C++ and Java where closure property is not supported. In these languages,
-在我们深入理解闭包之前。让我们先看看不支持闭包属性的语言比如 C，C++ 和 Java，
+在我们深入理解闭包之前。让我们先看看不支持闭包属性的语言比如 C，C++ 和 Java，在这些语言中，
 
 1. Functions have access to only two types of variables, variables declared in the global scope and variables declared in the local scope (body of the function).
-1. 函数只访问两种类型的变量，全局变量和局部变量（函数体重）。
+1. 函数只访问两种类型的变量，全局变量和局部变量（函数内部的变量）。
 2. No function gets access to variables declared in other functions.
 2. 没有函数可以访问声明在其他函数里的变量。
 3. And all variables declared inside a function cease to exist once it’s execution gets completed.
-3. 一旦函数执行完毕，函数中声明的所有变量都会消失。
+3. 一旦函数执行完毕，这个函数中声明的所有变量都会消失。
 
 None of the above hold true in the case of languages like Golang, python & javascript where closure property is supported. The reason being, these languages allow the following flexibilities.
-对 Golang，Python 或者 JavaScript 这些支持闭包属性的语言，以上都是不正确的，原因在于，这些语言允许以下的灵活性。
+对 Golang，Python 或者 JavaScript 这些支持闭包属性的语言，以上都是不正确的，原因在于，这些语言拥有以下的灵活性。
 
 1. Functions can be declared inside functions.
 1. 函数可以声明在函数内。
@@ -232,6 +232,7 @@ To understand why these 2 flexibilities completely change the game, let’s see 
 ## 所以什么是闭包？
 
 On top of getting access to local variables and global variables, functions get access to all local variables declared in functions enclosing it’s definition provided they are declared before (including all arguments passed to the enclosing function at runtime). And in the case of nesting, functions get access to variables of all functions enclosing it’s definition (irrespective of the level of enclosure).
+除了访问局部变量和全局变量，函数还可以访问函数声明中声明的所有局部变量，只要它们是在之前声明的（包括在运行时传递给闭包函数的所有参数），在嵌套的情况下，函数可以访问所有函数的变量（无论闭包的级别如何）。
 
 
 To understand it better, let’s consider a simple scenario where there are only 2 functions one enclosing the other. We can bother about nesting after that.
@@ -306,7 +307,7 @@ func main() {
 ```
 
 If we consider the innermost function assigned to “global” declared above in the global scope.
-如果我们考虑赋值给全局变量「global」的内部方法。
+如果我们考虑一下将一个最内层的函数关联给一个全局变量「global」。
 
 1. It has access to A,B,C since the layer of enclosure does not matter.
 1. 它可以访问到 A、B、C 变量，和闭包无关。
@@ -314,7 +315,7 @@ If we consider the innermost function assigned to “global” declared above in
 1. 它无法访问 D、E、F 变量，因为它们之前没有定义。
 
 > Note: Even after execution of “closure” function, it’s local variables were not destroyed. They were accessible in the call to “global” function.
-> 注意：即使闭包执行完了，它的局部变量任然不会被销毁。它们仍然允许「global」方法去访问。
+> 注意：即使闭包执行完了，它的局部变量任然不会被销毁。它们仍然能够通过名字是 「global」的函数名去访问。
 
 Moving on to **Channels**.
 下面介绍一下 **Channels**。
@@ -327,7 +328,7 @@ ch := make(chan string)
 ```
 
 We have declared a string channel here called ch. Only strings can be communicated via this channel.
-我们定义了一个叫做 ch 的 string 类型的 channel。只有字符可以通过此 channel 通信。
+我们定义了一个叫做 ch 的 string 类型的 channel。只有 string 类型的变量可以通过此 channel 通信。
 
 ```
 ch <- "Hi"
@@ -482,7 +483,7 @@ func Workers(task func(int)) chan int { // Point #4
 1. Creates a pool of ‘R’ go-routines. No less and no more, all listening to the ‘input’ channel referenced via closure property.
 1. 创建一个包含有「R」个 go-routines 的池。不多也不少，所有对「input」channel 的监听通过闭包属性来引用。
 2. Creates go-routines that can kill itself if the input channel is closed by checking the ok parameter every time inside the for loop.
-2. 创建可以通过在 for 循环内每次检查 ok 参数来关闭输入 channel 的自定义程序。
+2. 创建 go-routines，它通过在每次循环中检查 ok 参数来判断 channel 是否关闭，如果 channel 关闭则杀死自己。
 3. Returns the input channel to allow the caller function to assign tasks to the pool.
 3. 返回 input channel 来允许调用者函数分配任务给池。
 4. Takes in a ‘task’ argument to allow the caller function to define the body of the go-routines.
@@ -511,7 +512,7 @@ Here, (Point #1) By cleverly adding the call to acknowledgement channel using cl
 通过将语句（Point #1）添加到 worker 方法中（Point #2），闭包属性巧妙的在任务参数定义中添加了对确认 channel 的调用，我们使用这个循环（Point #3）来使 main 函数有一个机制去知道池中的所有 go-routine 是否都完成了任务。所有和 go-routines 相关的逻辑都应该包含在 worker 自己中，因为它们是在其中创建的。main 函数不应该知道内部 worker 函数们的工作细节。
 
 Therefore, to implement complete abstraction, we are going to introduce a “climax” function that runs only after all go-routines in the pool have completed. This is accomplished by setting up another go-routine that solely checks the status of the pool. Also different problem statements would require channels of different type. The same int channel cannot be used in all situations. Therefore, in order to write a more generic workers function, we will redefine workers function using [empty interface](https://tour.golang.org/methods/14).
-因此，为了实现完全的抽象，我们要引入一个『高潮』函数，只有在池中所有 go-routine 全部完成之后才运行。这是通过设置另一个单独检查池状态的 go-routine 来实现的，另外不同的问题需要不同类型的 channel 类型。相同的 int cannel 不能在所有情况下使用，所以，为了写一个更通用的 worker 函数，我们将使用[空接口类型](https://tour.golang.org/methods/14)重新定义一个 worker 函数。
+因此，为了实现完全的抽象，我们要引入一个『climax』函数，只有在池中所有 go-routine 全部完成之后才运行。这是通过设置另一个单独检查池状态的 go-routine 来实现的，另外不同的问题需要不同类型的 channel 类型。相同的 int cannel 不能在所有情况下使用，所以，为了写一个更通用的 worker 函数，我们将使用[空接口类型](https://tour.golang.org/methods/14)重新定义一个 worker 函数。
 
 ```
 package main
