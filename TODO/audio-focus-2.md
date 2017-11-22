@@ -3,9 +3,8 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/audio-focus-2.md](https://github.com/xitu/gold-miner/blob/master/TODO/audio-focus-2.md)
 > * 译者：[oaosj](https://github.com/oaosj)
-> * 校对者：
 
-# 理解音频焦点 (第2/3部分)：更多的音频焦点用例
+# 理解音频焦点 (第 2/3 部分)：更多的音频焦点用例
 
 ![](https://cdn-images-1.medium.com/max/2000/1*2_mUAwAihjBYMszQCCL0Mw.png)
 
@@ -40,14 +39,14 @@
 
 #### **您的应用处理了音频焦点的情况下：**
 
-在Android O中，有一个应对诸如本用例的音频焦点的功能，叫做**延迟音频聚焦**。
+在 Android O 中，有一个应对诸如本用例的音频焦点的功能，叫做**延迟音频聚焦**。
 
 假如当用户在通话中打开游戏，他们想玩游戏，不想听到游戏声音。但是当他们通话结束的时候他们想听到游戏声音（通话应用暂时持有音频焦点）。如果您的应用支持**延迟音频聚焦**，会发生如下情况：
 
 1. 当您的应用申请音频焦点的时候，会被拒绝并锁住，通话应用继续持有音频焦点，您的应用因此不播放音频。因为您的应用是游戏，可以正常继续操作，只是没有声音。
 2. 当通话结束，您的应用会被授权**延迟音频聚焦**。这个授权是来自刚才申请音频聚焦被拒绝后锁住的那个请求，它只是被延迟一段时间后再授权给您。您可以像上文建议应对音频焦点得失的处理方式那样处理，在本例中，此时便可以开始恢复播放。
 
-目前低于Android O的版本是不支持**延迟音频聚焦**这个功能的，所以本用例在其它版本下，应用并不会延迟获得音频焦点。
+目前低于 Android O 的版本是不支持**延迟音频聚焦**这个功能的，所以本用例在其它版本下，应用并不会延迟获得音频焦点。
 
 ### 用例三 ：导航应用或其它能生成音频通知的应用程序
 
@@ -71,20 +70,20 @@
 
 另一个应用程序可以请求并抢占音频焦点。在这种情况下，您的应用程序应该暂停播放或降低其音量，以便让用户更清晰地听到新的音频来源。
 
-在Android O上，如果您的应用程序在请求音频焦点时被拒，系统可以等音频焦点空闲时发送给您的应用程序（延迟聚焦）。
+在 Android O 上，如果您的应用程序在请求音频焦点时被拒，系统可以等音频焦点空闲时发送给您的应用程序（延迟聚焦）。
 
 想详细了解如何在您的应用中用代码实现音频焦点，请阅读 [第三篇文章](https://github.com/xitu/gold-miner/blob/master/TODO/audio-focus-3.md)。
 
-[**理解音频焦点 (第3/3部分) - Nazmul Idris (Naz) - Medium**](https://github.com/xitu/gold-miner/blob/master/TODO/audio-focus-3.md)
+[**理解音频焦点 (第 3/3 部分) - Nazmul Idris (Naz) - Medium**](https://github.com/xitu/gold-miner/blob/master/TODO/audio-focus-3.md)
 
 ### Android多媒体开发资源
 
 *   [示例代码 — MediaBrowserService](https://github.com/googlesamples/android-MediaBrowserService)
-*   [示例代码 — MediaSession Controller Test （带有音频焦点测试）](https://github.com/googlesamples/android-media-controller)
+*   [示例代码 — MediaSession Controller Test（带有音频焦点测试）](https://github.com/googlesamples/android-media-controller)
 *   [了解 MediaSession](https://medium.com/google-developers/understanding-mediasession-part-1-3-e4d2725f18e4)
-*   [多媒体API指南 — 多媒体应用程序概述](https://developer.android.com/guide/topics/media-apps/media-apps-overview.html)
-*   [多媒体API指南 — 使用MediaSession](https://developer.android.com/guide/topics/media-apps/working-with-a-media-session.html)
-*   [使用MediaPlayer构建简单的音频应用程序](https://medium.com/google-developers/building-a-simple-audio-app-in-android-part-1-3-c14d1a66e0f1)
+*   [多媒体 API 指南 — 多媒体应用程序概述](https://developer.android.com/guide/topics/media-apps/media-apps-overview.html)
+*   [多媒体 API 指南 — 使用MediaSession](https://developer.android.com/guide/topics/media-apps/working-with-a-media-session.html)
+*   [使用 MediaPlayer 构建简单的音频应用程序](https://medium.com/google-developers/building-a-simple-audio-app-in-android-part-1-3-c14d1a66e0f1)
 
 
 ---
