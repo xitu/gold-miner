@@ -4,7 +4,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/how-to-write-high-performance-code-in-golang-using-go-routines.md](https://github.com/xitu/gold-miner/blob/master/TODO/how-to-write-high-performance-code-in-golang-using-go-routines.md)
 > * 译者：[tmpbook](https://github.com/tmpbook)
-> * 校对者：
+> * 校对者：[altairlu](https://github.com/altairlu)
 
 # How to write high-performance code in Golang using Go-Routines
 # 如何使用 Golang 中的 Go-Routines 写出高性能的代码
