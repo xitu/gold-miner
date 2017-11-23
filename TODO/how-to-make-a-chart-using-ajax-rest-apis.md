@@ -1,4 +1,4 @@
-> * 原文地址：[How To Make A Chart Using AJAX & REST API's]()https://blog.zingchart.com/2017/11/16/how-to-make-a-chart-using-ajax-rest-apis/?utm_source=frontendfocus&utm_medium=email
+> * 原文地址：[How To Make A Chart Using AJAX & REST API's](https://blog.zingchart.com/2017/11/16/how-to-make-a-chart-using-ajax-rest-apis/?utm_source=frontendfocus&utm_medium=email)
 > * 原文作者：[Derek Fletes](https://blog.zingchart.com/author/derek/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/how-to-make-a-chart-using-ajax-rest-apis.md](https://github.com/xitu/gold-miner/blob/master/TODO/how-to-make-a-chart-using-ajax-rest-apis.md)
