@@ -4,6 +4,7 @@
 > * 译者：[ZhangFe](https://github.com/zhangfe)
 > * 校对者：[sunshine940326](https://github.com/sunshine940326),[sunui](https://github.com/sunui)
 
+
 # 统一样式语言
 
 在过去几年中，我们见证了  [CSS-in-JS](https://github.com/MicheleBertoli/css-in-js) 的兴起，尤其是在 [React](https://facebook.github.io/react) 社区。但它也饱含争议，很多人，尤其是那些已经精通 CSS 的人，对此持怀疑态度。
@@ -141,6 +142,7 @@ export default injectSheet(styles)(Button)
 ```
 
 通过在代码层面上将样式和组件更加紧密的结合，我们得到了合乎 BEM 逻辑的结果。但是，CSS-in-JS 社区的许多人觉在所有绑定样式的样板中都没有体现出提取、命名和复用组件的重要性。
+
 
 [Glen Maddern](https://twitter.com/glenmaddern) 和 [Max Stoiber](https://twitter.com/mxstbr) 提出了一个全新的思路来解决这个问题 —— [styled-components](https://github.com/styled-components/styled-components)。
 
@@ -410,7 +412,9 @@ import { render } from 'react-dom'
 
 JSX 不仅仅可以用于虚拟 DOM，他可以用在任何的虚拟视图上。
 
-这就是 [React Native](https://facebook.github.io/react-native) 能够用 JavaScript 编写真正 native 应用的原理，编写组件并对其 native 副本进行虚拟表现形式的渲染，比如我们用 **View** 和 **Text** 取代了 **div** 和 **span**。
+
+这就是 [React Native](https://facebook.github.io/react-native) 的工作原理，我们通过编写那些渲染成 native 的组件以实现用 JavaScript 编写真正的 native 应用，比如我们用 **View** 和 **Text** 取代了 **div** 和 **span**。
+
 
 从 CSS 的角度来看，React Native 最有趣的就是它拥有自己特有的 [StyleSheet API](https://facebook.github.io/react-native/docs/stylesheet.html)：
 

@@ -3,175 +3,176 @@
 > * 原文作者：[KATE MEYER](https://www.nngroup.com/articles/author/kate-meyer/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/flat-ui-less-attention-cause-uncertainty.md](https://github.com/xitu/gold-miner/blob/master/TODO/flat-ui-less-attention-cause-uncertainty.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Changkun Ou](https://github.com/changkun)
+> * 校对者：[lampui](https://github.com/lampui)、[thisisandy](https://github.com/thisisandy)
 
-# Flat UI Elements Attract Less Attention and Cause Uncertainty
+# 扁平化的 UI 元素既朴实又玄乎
 
-**Summary:** Flat interfaces often use weak signifiers. In an eyetracking experiment comparing different kinds of clickability clues, UIs with weak signifiers required more user effort than strong ones.
+> **摘要**：扁平化界面通常伴随着**弱指示符**（weak signifier）。通过在眼球追踪试验中比较不同类别的点击提示发现，具有弱指示符的 UI 元素比起具有**强指示符**（strong signifier）的 UI 元素来说，需要用户耗费更多精力。
 
-The popularity of [flat design](https://www.nngroup.com/articles/flat-design/) in digital interfaces has coincided with a scarcity of [signifiers](http://jnd.org/dn.mss/signifiers_not_affordances.html). Many modern UIs have ripped out the perceptible cues that users rely on to understand what is clickable.
+数字界面中[扁平化设计](https://www.nngroup.com/articles/flat-design/)的流行伴随着与之相关的[指示符（signifier）](http://jnd.org/dn.mss/signifiers_not_affordances.html)的缺失。许多现代 UI 已经被用户依赖的那些用于理解什么是可点击的明显提示所破坏。
 
-Using eyetracking equipment to track and visualize users’ eye movements across interfaces, we investigated how **strong clickability signifiers** (traditional clues such as underlined, blue text or a glossy 3D button) and **weak or absent signifiers** (for example, linked text styled as static text or a ghost button) impact the ways users process and understand web pages.
+我们利用眼球追踪实验来记录并可视化用户的眼睛在界面上的移动行为，研究了**强点击性指示符**（strong clickability signifier）（传统的提示诸如下划线、蓝色字眼或臃肿的 3D 按钮）、**弱指示符**（weak signifier）及**零指示符**（absent signifier）对用户处理和理解网页的影响。
 
-## About the Study
+## 研究描述
 
-### Webpages Used as Stimuli
+### 网页作为刺激
 
-There are many factors that influence a user’s interaction with an interface. To directly investigate the differences between traditional, weak, and absent signifiers in the visual treatments of interactive elements, we needed to remove any confounding variables.
+影响用户与界面交互的因素有很多。为了直接研究交互元素视觉处理中强、弱的和零指示符之间的区别，我们需要去除全部的混淆变量。
 
-We took 9 web pages from live websites and modified them to create two nearly identical versions of each page, with the same layout, content and visual style. The two versions differed only in the use of strong, weak, or absent signifiers for interactive elements (buttons, links, tabs, sliders).
+我们从实时网站中选取了九个 Web 页面，并对它们进行了修改，创建了两个几乎完全相同的页面，它们的布局、内容和视觉风格完全一样。这两种版本的不同之处在于交互元素（按钮、链接、标签、滑动条）的强、弱和零指示符。
 
-In some cases, that meant taking an already flat page and adding shadows, gradients, and text treatments to add depth and increase the strength of the clickability signifiers. In other cases, we took a page that already had strong, traditional signifiers, and we created an ultraflat version. We were careful that the modifications we provided were reasonable and realistic.
+在某些情况下，这意味着要使用一个已经是扁平化设计的页面，对其添加阴影、渐变及增加文本的深度，从而提升指示符点击性的强度。在其他情况下，我们使用的页面已经有了传统意义上的强指示符，并为其创建了一个极致扁平的版本。我们谨慎地认为，我们所提供的修改是合理且现实的。
 
 ![](https://media.nngroup.com/media/editor/2017/08/28/cos-cow-blank-1.png)
 
-Two modified versions of a detail page for a hotel room: The strong version (left) included slightly 3D style buttons, and the light purple color was used only on interactive elements; The weak version (right) had flat ghost buttons instead.
+酒店房间的某个具体页面的两个修改版本：具有强指示符的版本（左）包含了具有轻微 3D 样式按钮，而淡紫色的颜色只在交互元素上使用；而具有弱指示符的版本（右）则是扁平化的按钮。
 
-We chose these interfaces as study materials because, for the most part, they’re decent designs that are representative of the better sites on the web. We set out to isolate the differences between signifier-rich and signifier-poor interfaces, not to evaluate the design of these sites.
+我们选择的界面研究对象在大多数情况下都是相当不错的设计，代表了网络上的诸多优秀网站。同时，我们打算隔离指示符丰富和指示符匮乏的界面之间的差异，而不是去评估这些站点的设计。
 
-We selected 9 sites from 6 different domains:
+为此，我们选择了来自六个不同领域的九个网站：
 
-- Ecommerce (bookstore, sunglass retailer, fine jewelry)
-- Nonprofit
-- Hotel
-- Travel (car rental, flight search engine)
-- Technology
-- Finance
+- 电子商务（书店、太阳镜零售店、高级珠宝店）
+- 非盈利
+- 宾馆
+- 旅行（汽车租赁、航班搜索引擎）
+- 科技
+- 金融
 
-For each of the stimuli pairs, we wrote a short task to direct the user’s attention to a specific interactive element on the page. For example, for the hotel site, the task was: “You will see a page from a hotel website. Reserve this hotel room. Please tell us when you have found where you would click.”
+对于每一个刺激组，我们编写了一个简短的任务，用以将用户的注意力引导到页面上的一个特定的交互元素上。例如，对于酒店网站，任务是：「你会看到酒店网站上的某一页。预订这家酒店的房间。当你找到你要点击的地方时，请告诉我们。」
 
 
-[All 18 page designs and the wording of all 9 tasks](http://www.nngroup.com/articles/heatmap-visualizations-signifiers/) are available in a sidebar.
+所有十八个页面的设计和所有九个用户任务的措辞均可以在[这里](http://www.nngroup.com/articles/heatmap-visualizations-signifiers/)查看。
 
-### Methodology
+### 方法
 
-We conducted a quantitative experiment using [eyetracking](https://www.nngroup.com/reports/how-to-conduct-eyetracking-studies/) equipment and a desktop computer. We recruited 71 general web-users to participate in the experiment. Each participant was presented with one version of the 9 sites and given the corresponding task for that page. As soon as participants saw the target UI element that they wanted to click to complete the task, they said “I found it” and stopped.
+我们使用了[眼球追踪](https://www.nngroup.com/reports/how-to-conduct-eyetracking-studies/)设备和一台桌面电脑进行了一次定量实验。我们招募了 71 名普通的网络用户来参与这个实验。每个参与者被展示了九不同网站的两个版本中的一个，并给出了相应的任务。当参与者看到他们想要点击完成任务的目标 UI 元素时，他们说「我找到了」并停止当前任务。
 
-We tracked the eye movements of the participants as they were performing these tasks. We measured the number of fixations on each page, as well as the task time. (A fixation happens when the gaze lingers on a spot of interest on the page).
+我们记录了参与者在执行这些任务时的眼球运动。我们测量了每个页面上的凝视次数（number of fixations）以及任务时间（当目光注视并停留在页面上感兴趣的地方时，记为一次凝视）。
 
-Both of these measures reflect user effort: the more fixations and time spent doing the task, the higher the processing effort, and the more difficult the task. In addition, we created heatmap visualizations by aggregating the areas that participants looked at the most on the pages.
+这两种方法都反映了用户耗费的精力：完成任务的时间花费越多，处理的工作量就越高，任务也就越困难。此外，我们还通过叠加参与者在页面上查看最多的区域来创建可视化的热图。
 
-The study was conducted as a between-subjects design — each participant saw only one version of each page. We randomized assignment to either version of each page, as well as the order in which participants saw the pages. (See our course on [Measuring User Experience](https://www.nngroup.com/courses/measuring-ux/) for more on designing quantitative studies.)
+这个研究采用被试间设计（between-subjects design）（译注：又称组间设计，between-groups design），每个参与者只能看到每个页面的一个版本。我们随机分配到每个页面的版本，以及参与者看到页面的顺序（请参考我们的课程了解更多关于[用户体验度量](https://www.nngroup.com/courses/measuring-ux/)的定量研究设计）。
 
-All participants began with a practice task on the same stimulus to make sure they understood the instructions before they began the real tasks. Especially with quantitative studies like this one, it’s a good idea to use a practice task to ensure that participants understand the instructions. (It’s also best to conduct [pilot testing](https://www.nngroup.com/articles/pilot-testing/) before even starting the real study to iron out any methodology issues.)
+所有的参与者都是在同一刺激下开始的实践任务，从而确保他们在开始真正的任务之前能够理解这些步骤。特别是在像这样的定量研究中，使用练习来确保参与者理解任务步骤是一个好的想法（在开始真正的研究之前，最好进行[试点测试（pilot testing）](https://www.nngroup.com/articles/pilot-testing/)，进而消除任何关于方法论的问题）。
 
-This experiment was not a usability study. Our goal was to see how users processed individual page designs, and how easily they could find the target elements, not to identify usability problems in the designs. (Usability studies of live sites rarely involve a single page on a website; most often, people are asked to navigate through an entire site to accomplish a goal.)
+这个试验不是一项可用性研究。我们的目标是了解用户如何处理单个页面的设计以及他们如何更加容易地找到目标元素，而不是识别设计中的可用性问题（网站的可用性研究很少涉及到网站上的单一页面；大多数情况下，参与者会被要求浏览整个网站来完成一个目标）。
 
-## Results
+## 结果
 
-### Number of Fixations and Time on Page
+### 页面上的凝视次数及时间
 
-When we compared average number of fixations and average amount of time people spent looking at each page, we found that:
+当我们比较了平均凝视次数和人们在每一页上完成目标任务花费的平均时间，我们发现：
 
-- The **average amount of time** was significantly higher on the weak-signifier versions than the strong-signifier versions. On average participants spent **22% more time** (i.e., slower task performance) looking at the pages with weak signifiers.
+- 在带有弱指示符的版本上花费的**平均时间**比带有强指示符的版本要高得多。参与者平均**多花 22% 的时间**（例如：完成任务的性能更差，花费的时间更长）来查看带有弱指示符的页面。
 
-- The **average number of fixations** was significantly higher on the weak-signifier versions than the strong-signifier versions. On average, people had **25% more fixations** on the pages with weak signifiers.
+- 在具有弱指示符的版本中，**平均凝视次数**也要明显高于带有强指示符的版本。平均而言，人们在页面上的凝视次数**增加了 25%**。
 
-(Both findings were significant by a paired t-test with sites as the random factor, p < 0.05.)
+（以网站作为随机因子实施配对 t 检验，两个研究项结果显著，p < 0.05。）
 
-This means that, when looking at a design with weak signifiers, **users spent more time looking at the page, and they had to look at more elements on the page**. Since this experiment used targeted findability tasks, **more time and effort spent looking around the page are not good**. These findings don’t mean that users were more “engaged” with the pages. Instead, they suggest that participants struggled to locate the element they wanted, or weren’t confident when they first saw it.
+这意味着，当查看带有弱指示符的设计时，**用户花费更多的时间查看页面，他们必须查看页面上更多的元素。**由于这个实验使用了有针对性的可检索性（findability）任务，**花更多的时间和精力在页面目标周围进行浏览是不好的。**这些发现并不意味着用户更「专注于」页面的交互。相反，它们暗示了参与者其实是在努力寻找他们想要的元素，或者表明了当他们第一次看到目标时的不确定。
 
-22% longer task time for the weak-signifier designs may seem terrible. But remember that our metrics reflect time spent while looking for where to click. The tasks we measured were very specific and represent just a small component of real web tasks. In regular web use, people spend more time on other task aspects such as reading the information on a page. When you add in these other aspects, the slowdown for a full task (such as shopping for a new pair of shoes) would often be less than the 22% we measured.
+22% 任务时间的增加，对于使用弱指示符的设计来说可能看起来很糟糕。但请记住，我们的度量标准反映了在寻找点击目标时所花费的时间。我们测量的任务非常具体，只代表了真实 Web 任务的一小部分。在常规的 Web 使用中，人们花费更多的时间在其他任务方面，比如阅读页面上的信息。当你增加其他方面的时候，对于一个完整的任务花费时间的增加（比如买一双新鞋）的通常会低于我们所测量的 22%。
 
-On the other hand, the increased click uncertainty in weak-signifier designs is likely to sometimes cause people to click the wrong thing occasionally — something we didn’t measure in this study. Recovering from incorrect clicks can easily consume more time, especially since users don’t always realize their mistake immediately. Beyond the actual time wasted, the emotional impact of increased uncertainty and decreased empowerment is an example of how mediocre [experience design can hurt brand perception](https://www.nngroup.com/articles/brand-intention-interpretation/).
+另一方面，在采用弱指示符的设计中增加的点击不确定性，很可能有时会导致人们偶然地点击错误的东西 —— 这是我们在本研究中没有进行测量的。从错误的点击中回过神来可以很容易地消耗更多的时间，尤其是因为用户并不能总是马上意识到他们的错误。除了浪费的时间之外，情绪影响所增加的点击不确定性和减少的用户权力的是一个典型的[用户体验设计损害品牌认知的例子](https://www.nngroup.com/articles/brand-intention-interpretation/)。
 
-### Heatmaps
+### 热图
 
-[Heatmaps](http://www.nngroup.com/articles/heatmap-visualizations-signifiers) are quantitative visualizations that aggregate the number and duration of eye fixations on a stimulus (the UI). They can be created from the gaze data of many participants, as long as they all look at the same stimulus with the same task.
+[热图（heatmap）](http://www.nngroup.com/articles/heatmap-visualizations-signifiers)是一种量化的可视化技术，它可以累计在刺激（也就是 UI）上的眼睛凝视数和持续时间。它们可以根据参与者的凝视数据创建出来，只要它们都属于同样的任务并接受相同的刺激。
 
-Heatmaps based on all participants’ data convey important information about the page areas that are relevant for the task (provided that the number of participants is high enough). In our color coding, the red areas were those which received the most and longest fixations. Orange, yellow, and purple areas received less attention, and areas with no overlay color were not viewed by any of the test participants.
+基于所有参与者数据的热图传达了与任务相关的页面区域的重要信息（前提是参与者的数量足够多）。在我们的颜色编码中，红色区域是接收次数最多和时间最长的凝视区域。橙色、黄色和紫色区域受到的关注较少，没有覆盖颜色的区域没有被测试参与者看到。
 
-When comparing the two versions of each page pair (strong signifiers vs. weak signifiers) we found that the pages fell into two groups: those with nearly identical user gaze patterns for the two versions, and those with different user gaze patterns (as indicated by the heatmaps).
+当比较每组页面对的两种版本（强指示符 vs. 弱指示符）时，我们发现页面变成两组：具有几乎相同的用户凝视模式的两个版本的页面、具有不同用户凝视模式的页面（如热图所示）。
 
-### Page Pairs with Different User Gaze Patterns
+### 具有不同用户凝视模式的页面对
 
-Of the pages we tested, **6 out of the 9 pairs had different user gaze patterns**. With the exception of the signifier strength, we eliminated all other variations in page design within a given pair, so we can conclude that **the signifiers changed how users processed the page in their task**.
+在我们测试的页面中，**九对页面对中的六对有不同的用户凝视模式。**除了指示符的强度之外，我们在给定的一对页面中消除了页面设计中所有的其他变化，因此我们可以得出结论，**指示符改变了用户在任务中处理页面的方式。**
 
-One major overarching difference emerged when comparing the 6 pairs of page. The weak-signifier versions of the pages resulted in a broader distribution of fixations across the page: **people had to look around more**. This result reinforced our findings that weak-signifier pages required more fixations and more time than strong-signifier ones.
+当比较这六对页面时，一个主要的差异出现了。具备弱指示符版本的页面导致了整个页面的凝视位置分布更加广泛：**人们不得不查看更多的内容。**这一结果进一步印证了我们的发现：弱指示符需要更多的凝视次数和更多的凝视时间，而强指示符则不是。
 
-We never saw the reverse pattern: no strong-signifier version had a more outspread distribution than its weak-signifier counterpart.
+我们从来没有看过这种相反的模式：弱指示符版本比强指示符具有更广泛的凝视分布区域。
 
 ![](https://media.nngroup.com/media/editor/2017/08/28/prs-prw-heat.png)
 
-Priceline search results: The strong-signifier version (left) shows that fixations were focused above the target element (departure-time slider). The weak-signifier version (right) shows a larger area of ‘heat,’ indicating that fixations were more evenly distributed across the page.
+> Priceline 的搜索结果：强指示符版（左）显示了凝视在目标元素之上（出发时间的滑动条）。弱指示符版（右）显示了一个更大的「热」区域，这表明在页面中，凝视的分布更加均匀。
 
-This difference suggests that participants had to **consider more potentially interactive elements in the weak-signifier versions**. Because the target elements (links, tabs, buttons, sliders) lacked strong, traditional signifiers, they **didn’t have the same power to draw the participants’ attention or confidence**. In many cases, participants fixated on the target element, but then moved on to other elements on the page — presumably because they hadn’t immediately recognized it as the solution to the task.
+这一差异表明，参与者必须**思考具有弱指示符的版本中存在的更多潜在的交互元素**。因为目标元素（链接、标签、按钮、滑动条）缺乏强大的、传统意义上的标志，它们**没有相同的能力来吸引参与者的注意力或信心**。在大部分情况下，参与者都盯着目标元素，然后转移到页面上的其他元素上 —— 大概是因为他们没有马上意识到这是任务的解决方案。
 
 ![](https://media.nngroup.com/media/editor/2017/08/28/hzs-hzw-blank.png)
 
-Hertz homepage: Closeup of the target tabs (View/Modify/Cancel a Reservation) for the strong (left) and weak (right) versions
+> Hertz 主页：关闭目标标签（查看、修改、取消预订）的强（左）和弱（右）指示符版本的局部放大图
 
 ![](https://media.nngroup.com/media/editor/2017/08/28/hzs-25ppts-radius142-max17.png)
 
-Hertz homepage, strong-signifier version: Participants were asked to cancel their rental-car reservation on this page. The heatmap shows most fixations focused around the target tab (as indicated by the red area).
+> Hertz 主页的强指示符版本：参与者被要求取消他们在这一页上的租车预订。热图显示了围绕目标标签的大多数凝视区域（如红色区域所示）。
 
 ![](https://media.nngroup.com/media/editor/2017/08/28/hzw-29ppts-radius142-max-20.png)
 
-Hertz homepage, weak-signifier version: In addition to the focus on the target tab, this heatmap shows many fixations concentrated on the footer links, promotional items, and other items on the reservation form near the target tab. The increased focus on the weak page’s footer is especially troubling, because it’s a signal that the users were getting desperate.
+> Hertz 主页的弱指示符版本：除了关注目标标签外，这个热图显示了很多集中在页脚链接、促销项目以及在目标标签附近的预订表单上的其他项目。对页面页脚的关注增加尤其令人不安，因为这个信号表明用户已经变得非常绝望了。
 
-Of the six sites, one page pair displayed a particularly dramatic difference in the heatmaps. The original interface used to create the stimuli was a zig-zag layout from a fine-jewelry website. The page layout featured three sections, each with a heading, short paragraph of text, product image, and text link.
+在这六个网站中，有一个页面对的图片在热图上出现了天差地别。最初用于产生刺激的界面布局是一个精致珠宝网站的「之字型（zig-zag）」布局。页面布局有三个部分，每个部分都有标题、短段文字、产品图片和文字链接。
 
-To create the strong version of the page, the text links were given a traditional link treatment: blue color and underlined text. To create the weak version, we took inspiration from a common tactic of ultraflat designs, and made the text links identical to the static text. The placement of the text links (below the paragraphs) was left the same in both stimuli.
+为了该页面创建具有强指示符的版本，文本链接做了传统的链接样式的处理：蓝色和下划线的文本。为了创建弱指示符版本，我们从一种常用的极致扁平化设计策略中获得灵感，并使文本链接与静态文本完全相同。文本链接（段落下方）的放置位置在两个刺激中都是相同的。
 
 ![](https://media.nngroup.com/media/editor/2017/08/28/bes-blank.png)
 
-Brilliant Earth, strong-signifier version
+> Brilliant Earth 的强指示符版本
 
-Participants were asked to find the pearl jewelry on the site. The intended target was a Shop Pearl link at the bottom of the page.
+参与者被要求在网站上寻找指定的珠宝首饰。预定的目标是在页面底部的一个「Shop Pearl」链接。
 
 ![](https://media.nngroup.com/media/editor/2017/08/28/bes-bew-blank.png)
 
-Brilliant Earth: Closeup of the target link (Shop Pearl) for the strong (left) and weak (right) versions
+> Brilliant Earth：点击强指示符（左）和弱指示符（右）版本目标链接（图中的 Shop Pearl）的局部放大图
 
 ![](https://media.nngroup.com/media/editor/2017/08/28/bes-bew-heat.png)
 
-Brilliant Earth: The heatmap of the strong-signifier version (left) shows that participants concentrated their fixations on the area of interest, with a focus around the target link. In contrast, the heatmap of the weak-signifier version (right) indicates that, although most fixations were focused on the pearl-jewelry section, they were concentrated on the section heading rather than on the target link.
+> Brilliant Earth：强指示符版（左）的热图显示，参与者将注意力集中在感兴趣的区域上，并将注意力集中在目标链接上。相比之下，弱指示符版（右）的热图显示，尽管大多数的注意力都集中在珍珠珠宝部分，但它们主要集中在标题上，而不是目标链接上。
 
-The weak-signifier version showed red areas on the primary navigation, as well as on the 3 Year: Pearl heading. In contrast, the target link received most fixations in the strong-signifier variant. When we inspected the individual-participant data, we discovered that many users (9 of the 24 participants) who saw the weak signifier version stopped at the subheading, and never looked at the text link. They believed they could click on that subheading to reach the pearl jewelry and didn’t continue down to see the link.
+弱指示符版本显示红色区域主要位于顶部的主要导航区，页面上的「3 Year: Pearl」标题也是如此。相比之下，在强指示符版本中，目标链接则获得了更多的凝视数。当我们检查单个参与者数据时，我们发现许多用户（ 24 个参与者中的 9 个）在查看弱指示符版本时候，看到在子标题就停止了，并且从未查看过文本链接。他们相信，他们可以点击那个子标题去接触珍珠首饰，而没有继续下去看这个链接。
 
-In the strong signifier version, 86% (25 out of 29) participants first fixated on the heading, and then moved to the Shop Pearl target link. In the weak version, only 50% (12 out of 24) followed this pattern. (This difference is statistically significant; p < 0.005.) The links styled like static text didn’t draw users’ eyes down from the subheading, while the strong, traditionally styled links did.
+在强指示符版中，86% 的参与者（ 29 名中有 25 名）首先关注标题，然后转移到「Shop Pearl」目标链接上。在弱指示符版中，只有 50%（ 24 名中有 12 名）遵循这种模式（这种差异在统计学上是显著的；p < 0.005）。类似静态文本那样的链接风格并没有将用户的视线从子标题往下吸引，相反传统的链接风格则能够做到。
 
-### Page Pairs with Nearly Identical User Gaze Patterns
+### 具有几乎相同用户凝视模式的页面对
 
-3 of the 9 sites resulted in no differences in the gaze patterns between strong and weak signifiers. Why are these three page pairs nearly identical, while the other six pairs showed substantial differences?
+九个网站中有三个在强指示符和指示符版本之间没有区别。为什么这三页对几乎是一样的，而其他的六对却有大量的差异呢?
 
-The answers give us some interesting information about **when flat UIs can work without damaging interaction**.
+下面这些答案为我们提供了一些有趣的信息，这些信息可以告诉我们**在不破坏交互的情况下，扁平化 UI 什么时候可以奏效**。
 
-One of the stimulus pairs had in-line text links as the target element: light purple, nonunderlined links vs. traditional blue, underlined links. In this pair, the weak-stimulus heatmap only showed a very slightly wider distribution of fixations on the paragraph containing the target link.
+众多刺激对中的一种是将目标元素的内嵌文本链接作为刺激：淡紫色、无下划线的链接 vs. 传统的蓝色、下划线的链接。在这个对，弱指示符刺激的热图只显示了包含目标链接的一段稍微更宽的凝视分布。
 
 ![](https://media.nngroup.com/media/editor/2017/08/28/abs-abw-blank.png)
 
-Ally Bank stimulus pair: The strong version (left) uses underlined, blue text links, while the weak version (right) uses purple text links.
+> Ally Bank 的刺激对：强指示符版本（左）使用下划线、蓝色文本链接，而弱指示符版本（右）使用紫色文本链接。
 
-This suggests that the low-contrast presentation of in-line links, compared with regular text, may be a slightly weaker signifier, but not perceptibly so. In the case of Brilliant Earth, the lack of contrasting color for links, however, had a big impact, as shown above. We can speculate that there is a contrast continuum: the stronger the color contrast between links and surrounding text, the higher the chance that users will recognize them.  If we had used a light grey highlight color in the weak version of Ally Bank, we might expect to the see a more dramatic difference in the gaze patterns. **As long as in-line text links are [presented in a contrasting color](https://www.nngroup.com/articles/clickable-elements/), users will recognize their purpose**, even without an underline.
+这表明，与普通文本相比，低对比度内嵌链接表明这可能是一个轻微的弱指示符，但不够明显。然而，在 Brilliant Earth 的例子中，如上图所示缺乏对比色的链接有很大的影响。我们可以推测，存在一个对比度的序列：链接和文本之间的颜色对比度越强，用户识别它们的几率就越高。如果我们在 Ally Bank 的弱指示符版本中使用了浅灰色的高光颜色，我们可能会期望看到在凝视模式上有更大的不同。**只要在行内文本链接[以一种对比色显示](https://www.nngroup.com/articles/clickable-elements/)，用户就能识别他们的目的**，即使没有下划线。
 
-- **Low information density**. The pages contained relatively little content and ample white space, meaning that even things that didn’t stand out much still did stand out, because they weren’t competing with many other page elements.
-- **Traditional layout**. Elements (buttons, links, navigation) were located in standard positions, where users typically expect them to be.
-- **Salient, high-contrast targets**. The target elements were high-contrast compared to the items around them, and had plenty of space to separate them from those elements, making them more noticeable.
+其他没有明显的热图差异的两种刺激对，在弱指示符和强指示符的版本之间有一些共同的特征，与其他刺激相比，它们：
 
-## Weak Signifiers Increase Interaction Cost
+- **信息密度低。**这些页面包含的内容相对较少，空白的地方也很大，这意味着即使是那些不太显眼的东西也会脱颖而出，因为它们并没有与其他页面元素竞争。
+- **布局传统。**元素（按钮、链接、导航）位于标准位置，用户通常也期望它们在那个位置。
+- **目标突出、且对比度高。**目标元素与周围的元素形成了鲜明的对比，并且有足够的空间将它们与这些元素分开，使它们更加引人注目。
 
-We want our users to have experiences that are easy, seamless, and enjoyable. Users need to be able to look at a page, and understand their options immediately. They need to be able to glance at what they’re looking for and know instantly, “Yep, that’s it.”
+## 弱指示符增加了交互成本
 
-The problem is not that users never see a weakly signified UI element. It’s that even when they do see the weak element, they don’t feel confident that it is what they want, so they keep looking around the page.
+我们希望我们的用户拥有简单、无缝和愉快的体验。用户需要能够查看页面，并立即了解他们的选择。他们需要能够一眼看到他们想要的东西就马上知道：「没错，就它了。」
 
-Designs with **weak clickability signifiers waste users’ time**: people need to look at more UI elements and spend more time on the page, as captured by heatmaps, average counts of fixations, and average task time. These findings all suggest that with weak signifiers, users are [getting less of that feeling of empowerment and decisiveness](https://www.nngroup.com/articles/flat-design-long-exposure/). They’re experiencing click uncertainty.
+但问题本身并不在于用户永远不会注意到那个带有弱指示符的 UI 元素。真正的问题在于，即使当他们看到弱指示符时，他们也相信这不是他们想要的，所以他们会一直在看页面的其他部分。
 
-## When Flat Designs Can Work
+具有**弱点击性的指示符**的设计其实是在**浪费用户的时间**：根据捕获的热图显示（平均凝视数、平均任务时间），人们在页面上查看更多的 UI 元素需要花费更多的时间。这些发现都表明，在使用弱指示符时，[用户所能感受到的网站给予他们的权力和判断力更为匮乏](https://www.nngroup.com/articles/flat-design-long-exposure/)。他们经历的是其实是「点击的未知性」。
 
-These findings also confirm that flat or flat-ish designs can work better in certain conditions than others. As we saw in this experiment, the potential negative consequences of weak signifiers are diminished when the site has a low information density, traditional or consistent layout, and places important interactive elements where they stand out from surrounding elements.
+## 扁平化设计何时奏效
 
-Ideally, to avoid click uncertainty, all three of those criteria should be met, not just one or two. A site with a substantial amount of potentially overwhelming content, or radically new page layouts or patterns, should proceed with caution when adopting an ultraflat design. These characteristics echo [our recommendations for adopting a flat UI without damaging the interaction](https://www.nngroup.com/articles/flat-design-best-practices/) on your site.
+这些发现另一方面也证实了扁平化设计在某些条件下可以比其他的更好。正如我们在这个实验中所看到的，当网站的信息密度低、布局较为传统或一致，并将重要交互元素放置在周围元素中时，弱指示符的潜在负面影响就会减少。
 
-Notice that those characteristics are also just good, **basic UX design best practice: visual simplicity, external consistency, clear visual hierarchy, and contrast**. In general, if you have an experienced UX team that cares about user research, you’ll do better with a flat design than other product teams that don’t. If your designs are already strong, any potential weakness introduced by flat design will be mitigated. If you’re conducting regular user research, any mistakes you make in implementing a flat UI will be identified and corrected.
+理想情况下，为了避免点击的未知性，三个标准都应该满足，而不仅仅是一两个。一个拥有大量潜在内容的站点，或者是全新的页面布局或模式，在采用极致扁平设计时应该小心谨慎。这些特性与我们在不破坏交互的情况下采用扁平化 UI 的[建议](https://www.nngroup.com/articles/flat-design-best-practices/)相呼应。
 
-## Limitations of the Study
+注意，这些特征同样也是非常好的**基本 UX 设计的最佳实践：视觉简单性、外部一致性、清晰的视觉层次结构及对比**。一般来说，如果你有一个经验丰富的 UX 团队，他们关心用户研究，你会比其他的产品团队做得更好。如果你的设计已经很强大，那么扁平化的设计所带来的任何潜在的弱点都将被削弱。如果你正在进行常规的用户研究，那么在实现一个扁平 UI 时所犯的任何错误都将被识别和纠正。
 
-To get comparable, interpretable results from this experiment, we had to ask users to do very focused, short tasks on a single page. In real life, users don’t do tasks that way. They arrive to your site, and don’t know who you are or what you do. They navigate to pages, and don’t know for sure that they’ll find what they’re looking for there. They explore offerings and options.
+## 研究的局限性
 
-Remember that there’s a difference between [findability and discoverability](https://www.nngroup.com/articles/navigation-ia-tests/). Strong signifiers are helpful in situations where users care about finding something specific. They’re absolutely crucial in situations where you care that users discover a feature that they didn’t know existed.
+为了从这个试验中获得可比较、可解释的结果，我们必须让用户在单个页面上做非常集中而且简短的任务。但在实际生活中，用户并不会这样做。他们访问你的网站时，不知道这个网站是什么，也不知道这个网站是干什么的。他们使用页面的导航访问其他不同的页面，并不知道他们能否会找到他们想要的东西，他们只是在探索这里有些什么选择。
 
+记住，[可检索性和可发现性（discoverability）](https://www.nngroup.com/articles/navigation-ia-tests/)是有区别的。在用户关心寻找特定内容的情况下，强指示符是很有帮助的。在你关心用户能否发现一个他们不知道的功能时，他们起到了决定性的作用。
 
 ---
 

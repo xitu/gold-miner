@@ -1,335 +1,335 @@
 
-  > * 原文地址：[SQL Tutorial: How To Write Better Queries](https://medium.com/towards-data-science/sql-tutorial-how-to-write-better-queries-108ae91d5f4e)
-  > * 原文作者：[Karlijn Willems](https://medium.com/@kacawi)
-  > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-  > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/sql-tutorial-how-to-write-better-queries.md](https://github.com/xitu/gold-miner/blob/master/TODO/sql-tutorial-how-to-write-better-queries.md)
-  > * 译者：
-  > * 校对者：
+> * 原文地址：[SQL Tutorial: How To Write Better Queries](https://medium.com/towards-data-science/sql-tutorial-how-to-write-better-queries-108ae91d5f4e)
+> * 原文作者：[Karlijn Willems](https://medium.com/@kacawi)
+> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/sql-tutorial-how-to-write-better-queries.md](https://github.com/xitu/gold-miner/blob/master/TODO/sql-tutorial-how-to-write-better-queries.md)
+> * 译者：[临书](https://github.com/tmpbook)
+> * 校对者：[steinliber](https://github.com/steinliber), [xiaoyusilen](https://github.com/xiaoyusilen)
 
-  # SQL Tutorial: How To Write Better Queries
+# SQL 指引：如何写出更好的查询
 
-  Structured Query Language (SQL) is an indispensable skill in the data science industry and generally speaking, learning this skill is fairly easy. However, most forget that SQL isn’t just about writing queries, which is just the first step down the road. Ensuring that queries are performant or that they fit the context that you’re working in is a whole other thing.
+结构化查询语言（SQL）是数据科学行业的一种不可或缺的技能，一般来说，学习这项技能是相当简单的。然而大多数人都忘记 SQL 不仅仅是写查询语句，这只是第一步。确保查询高性能，或者符合上下文语意又完全是另外一回事了。
 
-That’s why this SQL tutorial will provide you with a small peek at some steps that you can go through to evaluate your query:
+这就是为什么本篇 SQL 教程要引导你，可以通过以下步骤来评估你的查询：
 
-- First off, you’ll start with a short overview of the [importance of learning SQL](https://www.datacamp.com/community/tutorials/sql-tutorial-query#importance) for jobs in data science;
-- Next, you’ll first learn more about how [SQL query processing and execution](https://www.datacamp.com/community/tutorials/sql-tutorial-query#execution) so that you can properly understand the importance of writing qualitative queries: more specifically, you’ll see that the query is parsed, rewritten, optimized and finally evaluated;
-- With that in mind, you’ll not only go over some [query anti-patterns](https://www.datacamp.com/community/tutorials/sql-tutorial-query#antipattern) that beginners make when writing queries, but you’ll also learn more about alternatives and solutions to those possible mistakes; You’ll also learn more about the [set-based versus the procedural approach](https://www.datacamp.com/community/tutorials/sql-tutorial-query#setbased) to querying.
-- You’ll also see that these anti-patterns stem from performance concerns and that, besides the “manual” approach to improving SQL queries, you can [analyze your queries](https://www.datacamp.com/community/tutorials/sql-tutorial-query#queryplan) also in a more structured, in-depth way by making use of some other tools that help you to see the query plan; And,
-- You’ll briefly go more into [time complexity and the big O notation](https://www.datacamp.com/community/tutorials/sql-tutorial-query#bigo) to get an idea about the time complexity of an execution plan before you execute your query; Lastly,
-- You’ll briefly get some pointers on how you can [tune your query](https://www.datacamp.com/community/tutorials/sql-tutorial-query#tune) further.
+- 首先，你将以数据科学工作中[学习 SQL 的重要性](https://www.datacamp.com/community/tutorials/sql-tutorial-query#importance)的简要概述为开始。
+- 接着，你将学习更多有关如何[ SQL 查询处理和执行](https://www.datacamp.com/community/tutorials/sql-tutorial-query#execution)，这样你才能够正确地理解编写高性能查询的重要性：更具体地说，你会看到查询被解析，重写，优化和最终被执行；
+- 考虑到这一点，你不仅可以复习初学者编写查询时的一些[反模式查询](https://www.datacamp.com/community/tutorials/sql-tutorial-query#antipattern)，而且还可以学习关于针对那些可能出现的错误的替代和解决方案，你还将学习更多有关[基于集合还是程序方法](https://www.datacamp.com/community/tutorials/sql-tutorial-query#setbased)进行查询的内容。
+- 你还将看到这些出于性能问题考虑的反模式，除了“手动”方法改进 SQL 查询之外，你还可以通过使用一些其他可帮助你查看查询计划的工具，以更加结构化，深入的方式[分析你的查询](https://www.datacamp.com/community/tutorials/sql-tutorial-query#queryplan)；而且，
+- 在执行查询之前，你将简要了解[时间复杂度和大 O 符号](https://www.datacamp.com/community/tutorials/sql-tutorial-query#bigo)来在你执行查询之前了解执行计划的时间复杂度；最后，
+- 你将简要地了解如何进一步[调整你的查询](https://www.datacamp.com/community/tutorials/sql-tutorial-query#tune)。
 
 ![](https://cdn-images-1.medium.com/max/1600/0*zaI1WPqkM52wDdC-.jpeg)
 
-Are you interested in an SQL course? Take DataCamp’s [Intro to SQL for Data Science](https://www.datacamp.com/courses/intro-to-sql-for-data-science) course!
+你对 SQL 课程感兴趣吗？那就来学习 DataCamp 的[数据科学的 SQL 简介](https://www.datacamp.com/courses/intro-to-sql-for-data-science)课程吧！
 
-### Why Should I Learn SQL For Data Science?
+### 为什么我应该为数据科学学习 SQL？
 
-SQL is far from dead: it’s one of the most in-demand skills that you find in job descriptions from the data science industry, whether you’re applying for a data analyst, a data engineer, a data scientist or [any other roles](https://www.datacamp.com/community/tutorials/data-science-industry-infographic). This is confirmed by 70% of the respondents of the 2016 O’Reilly Data Science Salary Survey, who indicate that they use SQL in their professional context. What’s more, in this survey, SQL stands out way above the R (57%) and Python (54%) programming languages.
+SQL 远未消亡：无论你是申请数据分析师，数据工程师，数据科学家还是[任何其他职位](https://www.datacamp.com/community/tutorials/data-science-industry-infographic)，你都可以从数据科学行业的职位描述中发现 SQL 是最需要的技能之一。参加 O'Reilly 数据科学工资调查报告的 70％ 的受访者证实了这一点，他们表示他们会在专业场景中使用 SQL。而且，在本次调查中，SQL（70%）远胜于 R（57％）和 Python（54％）编程语言。
 
-You get the picture: SQL is a must-have skill when you’re working towards getting a job in the data science industry.
+你得知一个情况：当你正在努力找数据科学行业的工作时，SQL 是一项必须具备的技能。
 
-Not bad for a language that was developed in the early 1970s, right?
+对于一个20世纪70年代初开发的语言来说，还不错，对吧？
 
-But why exactly is it that it is so frequently used? And why isn’t it dead even though it has been around for such a long time?
+但是为什么被使用的如此频繁？为什么 SQL 不会消失，即使它已经存在了很长时间了？
 
-There are several reasons: one of the first reasons would be that companies mostly store data in Relational Database Management Systems (RDBMS) or in Relational Data Stream Management Systems (RDSMS) and you need SQL to access that data. SQL is the lingua franca of data: it gives you the ability to interact with almost any database or to even build your own locally!
+有几个原因：第一个原因是大多数公司将数据存储在关系型数据库管理系统（RDBMS）或关系数据流管理系统（RDSMS）中，你需要 SQL 才能访问这些数据。 SQL 是数据的通用语言：它使你能够与几乎任何数据库进行交互，甚至可以在本地建立自己的数据库！
 
-As if this wasn’t enough yet, keep in mind that there are quite a few SQL implementations that are incompatible between vendors and do not necessarily follow standards. Knowing the standard SQL is thus a requirement for you to find your way around in the (data science) industry.
+如果这还不够，请记住有很多 SQL 的实现在供应商之间不兼容，并不一定遵守标准。因而，了解标准 SQL 是你在（数据科学）行业中找到一条路的要求之一。
 
-On top of that, it’s safe to say that SQL has also been embraced by newer technologies, such as Hive, a SQL-like query language interface to query and manage large datasets, or Spark SQL, which you can use to execute SQL queries. Once again, the SQL that you find there will differ from the standard that you might have learned, but the learning curve will be considerably easier.
+除此之外，可以肯定地说，SQL 也被更新的技术所接受，例如 Hive，用于查询和管理大型数据集的类 SQL 查询语言界面，或可用于执行 SQL 查询的 Spark SQL。虽然你发现标准可能与你已知的有所不同，但学习曲线将会更加容易。
 
-If you do want to make a comparison, consider it as learning linear algebra: by putting all that effort into this one subject, you know that you will be able to use it to master machine learning as well!
+如果你想做一个比较，认为它和学线性代数一样：通过把所有的精力放在这个主题上，你甚至可以使用它来掌握机器学习！
 
-In short, this is why you should learn this query language:
+简而言之，这就是为什么你应该学习这门查询语言：
 
-- It’s is fairly easy to learn, even for total newbies. The learning curve is quite easy and gradual, so you’ll be writing queries in no time.
-- It follows the “learn once, use anywhere” principle, so it’s a great investment of your time!
-- It’s an excellent addition to programming languages; In some cases, writing a query is even preferred over writing code because it’s more performant!
+- 即使对于新手它也是相当容易学习的。学习曲线是相当容易和平滑的，以至于在学习的任何阶段你都能写出查询。
+- 遵循“一旦学习，处处适用”的原则，所以这是一个对你时间的伟大投资！
+- 它是对编程语言的极好补充; 在某些情况下，编写查询甚至比编写代码更为优先，因为它性能更高！
 - …
 
-What are you still waiting for? :)
+你还在等什么呢？
 
-### SQL Processing & Query Execution
+### SQL 处理 & 查询执行
 
-To improve the performance of your SQL query, you first have to know what happens internally when you press the shortcut to run the query.
+为了提高你 SQL 查询的性能，当你按快捷方式运行查询时，你首先需要知道内部发生了什么。
 
-First, the query is parsed into a “parse tree”; The query is analyzed to see if it satisfies the syntactical and semantical requirements. The parser creates an internal representation of the input query. This output is then passed on to the rewrite engine.
+首先，查询被解析成“解析树”；分析查询，看是否符合语法和语义要求。解析器创建输入查询的内部表示。然后将输出传递给重写引擎。
 
-It is then the task of the optimizer to find the optimal execution or query plan for the given query. The execution plan defines exactly what algorithm is used for each operation, and how the execution of the operations is coordinated.
+然后，优化器的任务是找到给定查询的最佳执行或查询的计划。执行计划准确地定义了每个操作使用什么算法，以及如何协调操作的执行。
 
-To indeed find the most optimal execution plan, the optimizer enumerates all possible execution plans, determines the quality or cost of each plan, takes information about the current database state and then chooses the best one as the final execution plan. Because query optimizers can be imperfect, database users and administrators sometimes need to manually examine and tune the plans produced by the optimizer to get better performance.
+为了找到最佳的执行计划，优化器列举所有可能的执行计划，确定每个计划的性质或成本，获取有关当前数据库状态的信息，然后选择其中最佳的一个作为最终的执行计划。由于查询优化器可能并不完善，因此数据库用户和管理员有时需要手动检查并调整优化器生成的计划以获得更好的性能。
 
-Now you probably wonder what is considered to be a “good query plan”.
+现在你可能想知道什么是一个“好的查询计划”。
 
-As you already read, the quality of cost of a plan plays a huge role. More specifically, things such as the number of disk I/Os that are required to evaluate the plan, the plan’s CPU cost and the overall response time that can be observed by the database client and the total execution time are essential. That is where the notion of time complexity will come in. You’ll read more about this later on.
+如你所见，一个计划的质量在查询中起着重要的作用。更具体地说，评估计划所需的磁盘 I/O，CPU成本和数据库客户端可以观察到的总体响应时间以及总执行时间等因素至关重要。这就涉及到了时间复杂度的概念，在后面你将会看到更多与此相关的内容。
 
-Next, the chosen query plan is executed, evaluated by the system’s execution engine and the results of your query are returned.
+接下来，执行所选择的查询计划，由系统的执行引擎进行评估并返回查询结果。
 
 ![](https://cdn-images-1.medium.com/max/1600/0*0nMJKb-YmCGAsrdX.png)
 
-What might not have become clear from the previous section is that the Garbage In, Garbage Out (GIGO) principle naturally surfaces within the query processing and execution: the one who formulates the query also holds the keys to the performance of your SQL queries. If the optimizer gets a badly formulated query, it will only be able to do as much…
+在上节中描述的可能不是很清楚的是，Garbage In, Garbage Out（GIGO）原则在查询处理和执行中会自然地显现：制定查询的人掌握着你 SQL 查询性能的关键，如果优化器得到的是一个不好的查询语句，那么那么它也只能做到这么多...
 
-That means that there are some things that *you* can do when you’re writing a query. As you already saw in the introduction, the responsibility is two-fold: it’s not only about writing queries that live up to a certain standard, but also about gathering an idea of where performance problems might be lurking within your query.
+这意味着*你*在编写查询时可以执行一些操作。如你在介绍中所见，责任是双重的：它不仅仅是写出符合一定标准的查询，而且还涉及收集查询中性能问题可能潜伏在哪里的意识。
 
-An ideal starting point is to think of “spots” within your queries where issues might sneak in. And, in general, there are four clauses and keywords where newbies can expect performance issues to occur:
+一个理想的出发点是在你的查询中考虑可能会潜入问题的“地方”。新手通常会在以下四个子句和关键字中遇到性能问题。
 
-- The `WHERE` clause;
-- Any `INNER JOIN` or `LEFT JOIN` keywords; And,
-- The `HAVING` clause;
+- `WHERE` 子句
+- 任何 `INNER JOIN` 或 `LEFT JOIN` 关键字; 还有，
+- `HAVING` 子句；
 
-Granted, this approach is simple and naive, but as a beginner, these clauses and statements are nice pointers and it’s safe to say that when you’re just starting out, these spots are the ones where mistakes happen and, ironically enough, where they’re also hard to spot.
+当然，这种方法简单而原始，但作为初学者，这些子句和声明是很好的指引，而且确切地说，当你刚开始时，这些地方就是容易出错的地方，更讽刺的是这些错误很难被发现。
 
-However, you should also realize that performance is something that needs a context to become meaningful: simply saying that these clauses and keywords are bad isn’t the way to go when you’re thinking about SQL performance. Having a `WHERE` or `HAVING` clause in your query doesn’t necessarily mean that it’s a bad query…
+然而，你也应该意识到，性能只有在实际场景中才有意义：只是单纯的说这些子句和关键字是不好的没有任何意义。当然，查询中有 `WHERE` 或 `HAVING` 子句不一定意味着这是一个坏的查询...
 
-Take a look at the following section to learn more about anti-patterns and alternative approaches to building up your query. These tips and tricks are meant as a guide. How and if you actually need to rewrite your query depends on the amount of data, the database and the number of times you need to execute the query, among other things. It entirely depends on the goal of your query and having some prior knowledge about the database that you want to query is crucial!
+查看以下内容，了解更多有关的构建查询的反模式和可替代的方法。这些提示和技巧可作为指导。如何重写以及是否真的需要重写取决于数据量，数据库，以及查询所需的次数等等。它完全取决于你查询的目标，并且有一些你要查询的数据库的之前的了解也是至关重要的！
 
-### 1. Only Retrieve The Data You Need
+### 1. 仅检索你需要的数据
 
-The mindset of “the more data, the better” isn’t one that you should necessarily live by when you’re writing SQL queries: not only do you risk obscuring your insights by getting more than what you actually need, but also your performance might suffer from the fact that your query pulls up too much data.
+当编写 SQL 查询时，「数据越多越好」的思维方式是不应该的：获取比你实际需求更多的数据不仅会有看错的风险，而且性能可能会因为查询太多数据而受到影响。
 
-That’s why it’s generally a good idea to look out for the `SELECT` statement, the `DISTINCT` clause and the `LIKE` operator.
+这就是小心处理 `SELECT` 语句，`DISTINCT` 子句和 `LIKE` 运算符是个不错的主意。
 
-A first thing that you can already check when you have written your query is whether the `SELECT` statement is as compact as possible. Your aim here should be to remove unncessary columns from `SELECT`. This way you force yourself to only pull up data that serves your query goal.
+当你写好你的查询时，你能检查的第一件事情就是 `SELECT` 语句是否已经是最紧凑了。你的目标应该是从 `SELECT` 中删除不必要的列。这样，你强制自己只提取符合查询目的的数据。
 
-In case you have correlated subqueries that have `EXISTS`, you should try to use a constant in the `SELECT` statement of that subquery instead of selecting the value of an actual column. This is especially handy when you’re checking the existence only.
+如果具有 `EXISTS` 的相关子查询，则应尝试在该子查询的 `SELECT` 语句中使用常量，而不是选择实际列的值。当你只检查数据是否存在时，这是特别方便的。
 
-**Remember** that a correlated subquery is a subquery that uses values from the outer query. And note that, even though `NULL` can work in this context as a “constant”, it’s very confusing!
+**记住**相关子查询是使用外部查询中的值的子查询。注意，尽管 `NULL` 可以在此上下文中当作“常量”使用，但是这会令人非常困惑！
 
-Consider the following example to understand what is meant by using a constant:
+考虑下面这个例子，并理解使用常量的意义在哪：
 
     SELECT driverslicensenr, name
     FROM Drivers
     WHERE EXISTS (SELECT '1' FROM Fines
                   WHERE fines.driverslicensenr = drivers.driverslicensenr);
 
-**Tip**: it’s handy to know that having a correlated subquery isn’t always a good idea. You can always consider getting rid of them by, for example, rewriting them with an `INNER JOIN`:
+**提示**：可以很方便知道，使用相关子查询通常不是一个好主意。你应该考虑使用 `INNER JOIN` 重写来避免它们：
 
     SELECT driverslicensenr, name
     FROM drivers
     INNER JOIN fines ON fines.driverslicensenr = drivers.driverslicensenr;
 
-The `SELECT DISTINCT` statement is used to return only distinct (different) values. `DISTINCT` is a clause that you should definitely try to avoid if you can; Like you have read in other examples, the execution time only increases if you add this clause to your query. It’s therefore always a good idea to consider whether you really need this `DISTINCT` operation to take place to get the results that you want to accomplish.
+`SELECT DISTINCT` 语句是用来返回不同的值的。如果可以，你应该你要尽量避免使用 `DISTINCT` 这个子句；就像你在其他例子中看到的一样，如果你把这个子句添加到你的查询中，执行时间肯定会增加。因此，经常考虑是否真的需要 `DISTINCT` 操作来获取想要的结果是一个好主意。。
 
-When you use the `LIKE` operator in a query, the index isn’t used if the pattern starts with `%` or `_`. It will prevent the database from using an index (if it exists). Of course, from another point of view, you could also argue that this type of query potentially leaves the door open to retrieve too many records that don’t necessarily satisfy your query goal.
+当你在一个查询中使用 `LIKE` 操作符时，如果匹配模式以 `%` 或者 `_` 开始，那么是不会使用索引的。它将阻止数据库使用索引（如果存在）。当然，在另一个方面看，这种类型的查询会潜在地返回过多的记录，这不一定满足你的查询目标。
 
-Once again, your knowledge of the data that is stored in the database can help you to formulate a pattern that will filter correctly through all the data to find only the rows that really matter for your query.
+再次，你对存储在数据库中的数据的了解程度可以帮助你制订一个模式，这可以帮助你从所有数据中正确过滤出和你的查询真正相关的行。
 
-### 2. Limit Your Results
+### 2. 不要输出太多结果
 
-When you can not avoid filtering down on your `SELECT` statement, you can consider limiting your results in other ways. Here’s where approaches such as the `LIMIT` clause and data type conversions come in.
+当你不能过滤掉 `SELECT` 语句中的列时，你可以考虑用其他方法限制你的结果。以下是 `LIMIT` 语句和数据类型的转换方法。
 
-You can add the `LIMIT` or `TOP` clauses to your queries to set a maximum number of rows for the result set. Here are some examples:
+你可以通过为查询添加 `LIMIT` 或者 `TOP` 子句来为查询结果设置最大行数。这儿是一些例子：
 
     SELECT TOP 3 * FROM Drivers;
 
-**Note** that you can further specify the `PERCENT`, for example, if you change the first line of the query by `SELECT TOP 50 PERCENT *`.
+**注意** 你可以进一步指定 `PERCENT`，比如，你可以通过 `SELECT TOP 50 PERCENT *` 这个查询语句来替换第一行。
 
     SELECT driverslicensenr, name FROM Drivers LIMIT 2;
 
-Additionally, you can also add the `ROWNUM` clause, which is equivalent to using `LIMIT` in your query:
+此外，你还可以添加 `ROWNUM` 子句，这相当于在查询中使用 `LIMIT`：
 
     SELECT *
     FROM Drivers
     WHERE driverslicensenr = 123456 AND ROWNUM <= 3;
 
-You should always use the most efficient, that is, smallest, data types possible. There’s always a risk when you provide a huge data type when a smaller one will be more sufficient.
+你应该始终使用最有效的，也就是最小的数据类型。当小的数据类型已经足够的时候你提供一个巨大的数据类型总是有风险的。
 
-However, when you add data type conversion to your query, you only increase the execution time.
+然而，当你将数据类型转换添加到查询中时，你肯定增加了它的执行时间。
 
-An alternative is just to avoid data type conversion as much as possible. Note also here that it’s not always possible to remove or omit the data type conversion from your queries, but that you should definitely aim to be careful in including them and that when you do, you test the effect of the addition before you run the query.
+一个替代方案是尽量避免数据类型转换。但是还要注意，数据类型转换不是总能从查询中被删除或者省略的，而且当你在查询语句包含它们的时候一定要注意，你可以在执行查询之前测试添加它们的影响。
 
-### 3. Don’t Make Queries More Complex Than They Need To Be
+### 3. 不要让查询比需求更复杂
 
-The data type conversions bring you to a next point: you should not over-engineer your queries. Try to keep them simple and efficient. This might seem too simple or stupid to even be a tip, especially because queries can get complex.
+数据类型转换将你带到了下一个关键点：你不应该过度设计你的查询。试着保持简单高效。作为一个提示，这可能看起来太简单或者愚蠢了，特别是在查询可能变得复杂的情况下。
 
-However, you’ll see in the examples that are mentioned in the next sections that you can easily start making simple queries more complex than they need to be.
+然而，你将会在下一部分提到的示例中看到，你可以很轻松的把本应更复杂的查询变得简单。
 
-When you use the `OR` operator in your query, it’s likely that you’re not using an index.
+当你在你的查询里使用 `OR` 操作符时，很可能你没有使用索引。
 
-**Remember** that an index is a data structure that improves the speed of the data retrieval in your database table, but it comes at a cost: there will be additional writes and additional storage space is needed to maintain the index data structure. Indexes are used to quickly locate or look up data without having to search every row in a database every time the database table is accessed. Indexes can be created by using one or more columns in a database table.
+**记住**索引是一种数据结构，可以提高数据库表中的数据检索速度，但它是有代价的：它需要额外的写入和额外的存储空间来维护索引结构。索引用来快速定位或查找数据而无需在每次访问数据库时查询每一行。索引可以使用数据库表中的一列或多列来创建。
 
-If you don’t make use of the indexes that the database includes, your query will inevitably take longer to run. That’s why it’s best to look for alternatives to using the `OR` operator in your query;
+如果你不使用数据库包含的索引，你的查询会花费更长的时间来执行。这就是为什么最好在查询中找到使用 `OR` 运算符的替换方案；
 
-Consider the following query:
+考虑以下查询：
 
     SELECT driverslicensenr, name
     FROM Drivers
     WHERE driverslicensenr = 123456 OR driverslicensenr = 678910 OR driverslicensenr = 345678;
 
-You can replace the operator by:
+你可以将运算符替换为：
 
     SELECT driverslicensenr, name
     FROM Drivers
     WHERE driverslicensenr IN (123456, 678910, 345678);
 
-- Two `SELECT` statements with a `UNION`.
+- 包含 `UNION` 的两个 `SELECT` 语句。
 
-**Tip**: here, you need to be careful not to unnecessarily use the `UNION` operation because you go through the same table multiple times. At the same time, you have to realize that when you use a `UNION` in your query, the execution time will increase. Alternatives to the `UNION` operation are: reformulating the query in such a way that all conditions are placed in one `SELECT` instruction, or using an `OUTER JOIN` instead of `UNION`.
+**提示**：这儿你需要小心，没有必要就不要使用 `UNION` 运算符，因为你会多次查询同一个表多次，这是不必要的。同时，你必须意识到当你在查询语句里使用 `UNION` 时，执行时间会变长。`UNION` 操作符的替代是：将所有条件都放在一个 `SELECT` 结构中，或者使用 `OUTER JOIN` 替代 `UNION` 来重新构建查询。
 
-**Tip**: keep in mind also here that, even though `OR` -and also the other operators that will be mentioned in the following sections- likely isn’t using an index, index lookups aren’t always preferred!
+**提示**：在这里也要记住的一点是，尽管 `OR` 以及下面将要提到的其他运算符可能不使用索引，索引查找不总是更好的。
 
-When your query contains the `NOT` operator, it’s likely that the index is not used, just like with the `OR` operator. This will inevitably slow down your query. If you don’t know what is meant here, consider the following query:
+就像 `OR` 运算符一样，当你的查询包含 `NOT` 操作符时，也很可能不使用索引。这将不可避免的减慢你的查询。如果你不明白这是什么意思，考虑下以下查询：
 
     SELECT driverslicensenr, name FROM Drivers WHERE NOT (year > 1980);
 
-This query will definitely run slower than you would maybe expect, mainly because it’s formulated a lot more complex than it could be: in cases like this one, it’s best to look for an alternative. Consider replacing `NOT` by comparison operators, such as `>`, `<>` or `!>`; The example above might indeed be rewritten and become something like this:
+这个查询跑起来肯定比你预料还要慢，主要是因为它构建的太过于复杂了：在这样的情况下，最好寻找一个替代方案。考虑使用比较运算符替换 `NOT`，比如 `>`，`<>` 或者 `!>`；上面的例子可能会被重写为这样：
 
     SELECT driverslicensenr, name FROM Drivers WHERE year <= 1980;
 
-That already looks way neater, doesn’t it?
+看起来已经更加整洁了，不是吗？
 
-The `AND` operator is another operator that doesn’t make use of the index and that can slow your query down if used in an overly complex and inefficient way, like in the example below:
+`AND` 是另一个不使用索引的操作符，如果以过于复杂和低效的方式使用，它会减慢你的查询，就像下面的例子：
 
     SELECT driverslicensenr, name
     FROM Drivers
     WHERE year >= 1960 AND year <= 1980;
 
-It’s better to rewrite this query and use `BETWEEN` operator:
+最好使用 `BETWEEN` 运算符重写这个查询：
 
     SELECT driverslicensenr, name
     FROM Drivers
     WHERE year BETWEEN 1960 AND 1980;
 
-Also the `ALL` and `ALL` operators are some that you should be careful with because, by including these into your queries, the index won’t be used. Alternatives that will come in handy here are aggregation functions like `MIN` or `MAX`.
+`ALL` 和 `ALL` 运算符你也应该小心使用，将他们包含进查询中会导致不使用索引。替代方法使用聚合功能，在这里比较方便的方法是使用像 `MIN` 或者 `MAX` 的聚合函数。
 
-**Tip**: in cases where you make use of the proposed alternatives, you should be aware of the fact that all aggregation functions like `SUM`, `AVG`, `MIN`, `MAX` over many rows can result in a long-running query. In such cases, you can try to either minimize the amount of rows to handle or pre-calculate these values. You see once again that it’s important to be aware of your environment, your query goal, … when you make decisions on which query to use!
+**提示**：在你使用所提出的方案的情况下，你应该意识到，所有的聚合函数比如 `SUM`，`AVG`，`MIN`，`MAX` 在多行的时候会导致很长时间的查询，在这种情况下，你可以尝试减少要处理的行数或预先计算这些值。当你决定使用哪个查询时，最重要的是清楚你的环境和查询目标。
 
-Also in cases where a column is used in a calculation or in a scalar function, the index isn’t used. A possible solution would be to simply isolate the specific column so that it no longer is a part of the calculation or the function. Consider the following example:
+在使用列进行计算或者列作为标量函数的参数时，也是不会使用索引的。一个特定的解决方案是简单的隔离这个特殊列，使其不再是计算或者函数的一部分或参数。请考虑一下示例：
 
     SELECT driverslicensenr, name
     FROM Drivers
     WHERE year + 10 = 1980;
 
-This is looks funky, huh? Instead, try to reconsider the calculation and rewrite the query to something like this:
+这看起来很有趣，是不？相反，试着重新考虑如何计算，然后像这样重写查询：
 
     SELECT driverslicensenr, name
     FROM Drivers
     WHERE year = 1970;
 
-### 4. No Brute Force
+### 4. 不要暴力查询
 
-This last tip actually means that you shouldn’t try to restrict the query too much because it can affect its performance. This is especially true for joins and for the `HAVING` clause.
+最后一个提示，你不应该总是太限制查询，因为这也会影响性能。特别是 `join` 语句和 `HAVING` 子句。
 
-When you join two tables, it can be important to consider the order of the tables in your join. If you notice that one table is considerably larger than the other one, you might want to rewrite your query so that the biggest table is placed last in the join.
+当你对两个表使用 `join` 时，考虑你 join 的两张表的顺序是很重要的。如果一张表比另一张大很多，你最好重写你的查询让最大的表最后做 join 操作。
 
-- **Redundant Conditions on Joins**
+- **减少 Joins 的条件**
 
-When you add too many conditions to your joins, you basically obligate SQL to choose a certain path. It could be, though, that this path isn’t always the more performant one.
+当你加了太多的条件到你的 joins 语句，你有义务选择一个特定的路径，虽然这个路径并不总是最高效的那个。
 
-The `HAVING` clause was originally added to SQL because the `WHERE` keyword could not be used with aggregate functions. `HAVING` is typically used with the `GROUP BY` clause to restrict the groups of returned rows to only those that meet certain conditions. However, if you use this clause in your query, the index is not used, which -as you already know- can result in a query that doesn’t really perform all that well.
+将 `HAVING` 子句添加进 SQL 是因为 `WHERE` 关键字不能和聚合方法一起使用。`HAVING` 的典型的用法就是和 `GROUP BY` 子句来约束分组聚合后的结果，使其满足一些精确匹配条件。然而，你知道的，使用这个子句是不会用到索引的，会导致查询不能很好的执行。
 
-If you’re looking for an alternative, consider using the `WHERE` clause. Consider the following queries:
+如果你在寻找替代的方案，考虑使用 `WHERE` 子句，请看如下的查询：
 
     SELECT state, COUNT(*) FROM Drivers WHERE state IN ('GA', 'TX') GROUP BY state ORDER BY state
 
     SELECT state, COUNT(*) FROM Drivers GROUP BY state HAVING state IN ('GA', 'TX') ORDER BY state
 
-The first query uses the `WHERE` clause to restrict the number of rows that need to be summed, whereas the second query sums up all the rows in the table and then uses `HAVING` to throw away the sums it calculated. In these types of cases, the alternative with the `WHERE` clause is obviously the better one, as you don’t waste any resources.
+第一个查询使用 `WHERE` 子句限制需要求和的行数，而第二个查询对表中的所有行进行了求和，然后使用 `HAVING` 子句来舍弃其中的部分。在这种情况下，选择使用 `WHERE` 子句显然是更好的，因为你不会浪费任查询资源。
 
-You see that this is not about limiting the result set, rather about limiting the intermediate number of records within a query.
+你会发现，这并不是限制最终结果集，而是限制查询中的中间记录的数量。
 
-**Note** that the difference between these two clauses lies in the fact that the `WHERE` clause introduces a condition on individual rows, while the `HAVING` clause introduces a condition on aggregations or results of a selection where a single result, such as `MIN`, `MAX`, `SUM`,… has been produced from multiple rows.
+**注意** 这两个子句之间的区别在于，`WHERE` 子句引入了单行的条件，而 `HAVING` 子句引入了一个选择集合或结果的条件，比如 `MIN`，`MAX`，`SUM`，… 这些都已经从多行生成了的。
 
-You see, evaluating the quality, writing and rewriting of queries is not an easy job when you take into account that they need to be as performant as possible; Avoiding anti-patterns and considering alternatives will also be a part of responsibility when you write queries that you want to run on databases in a professional environment.
+你看，当你想以尽可能的提高性能为前提的时候，评估语句质量，构建查询还有改写查询并不是一件容易的工作；当你构建运行在专业环境中的查询的时候，避免反模式和考虑替代方案也将成为你责任的一部分。
 
-This list was just a small overview of some anti-patterns and tips that will hopefully help beginners; If you’d like to get an insight into what more senior developers consider the most frequent anti-patterns, check out [this discussion](https://stackoverflow.com/questions/346659/what-are-the-most-common-sql-anti-patterns).
+这个清单只是一些小的反模式的概述和技巧，可能对新手有些帮助；如果你想了解更多高级开发人员常见的反模式，查看 stackoverflow 的[这个讨论](https://stackoverflow.com/questions/346659/what-are-the-most-common-sql-anti-patterns)。
 
-### Set-based versus Procedural Approaches to Querying
+### 基于集合与程序方法的查询
 
-What was implicit in the above anti-patterns is the fact that they actually boil down to the difference in set-based versus procedural approach to building up your queries.
+上述反模式隐含的点实际上归结为基于集合与程序方法构建查询的差异。
 
-The procedural approach of querying is an approach that is much like programming: you tell the system what to do and how to do it.
+程序方法的查询是一种很像编程的一种查询方式：你告诉系统做什么，怎么做。
 
-An example of this is the redudant conditions in joins or cases where you abuse the `HAVING` clause, like in the above examples, in which you query the database by performing a function and then calling another function, or you use logic that contains loops, conditions, User Defined Functions (UDFs), cursors, … to get the final result. In this approach, you’ll often find yourself asking a subset of the data, then requesting another subset from the data and so on.
+一个例子是你使用冗余的连接操作或者滥用 `HAVING` 子句的情况下，就像上面的例子，你可以通过执行一个函数调用另一个函数来查询数据库，或者使用包含循环，用户定义方法，游标等，来获取最终结果。在这个方法中，你会经常发现你自己请求一个数据的子集，然后再请求这个数据的子集等等。
 
-It’s no surprise that this approach is often called “step-by-step” or “row-by-row” querying.
+毫不奇怪，这个方法经常被称为「逐步」或者「逐行」查询。
 
-The other approach is the set-based approach, where you just specify what to do. Your role consists of specifying the conditions or requirements for the result set that you want to obtain from the query. How your data is retrieved, you leave to the internal mechanisms that determine the implementation of the query: you let the database engine determine the best algorithms or processing logic to execute your query.
+另一种方法是基于集合的方法，你只需要指定做什么。你的职责包含从查询中指定要获得的结果集的条件或要求。至于你的数据是如何获取到的，这取决于内部决定查询实现的机制：让数据库引擎来确定查询最好的算法和执行逻辑。
 
-Since SQL is set-based, it’s hardly a surprise that this approach will be quite more effective than the procedural one and it also explains why, in some cases, SQL can work faster than code.
+由于 SQL 是基于集合的，这种方法（基于集合）比程序方法更有效几乎不会让人感到惊讶，这也是一个惊喜，也解释了为什么在某些情况下，SQL 可以比代码更快的工作。
 
-**Tip** the set-based approach of querying is also the one that most top employers in the data science industry will ask of you to master! You’ll often need to switch between these two types of approaches.
+**提示** 在查询中基于集合的方法也是数据科学行业最顶级的雇主所要求你掌握的方法！你经常需要在这两种方法之间切换。
 
-**Note** that if you ever find yourself with a procedural query, you should consider rewriting or refactoring it.
+**注意** 如果你发现你自己有程序类型的查询，你应该考虑重写或者重构它。
 
-### From Query to Execution Plans
+### 从查询到执行计划
 
-Knowing that anti-patterns aren’t static and evolve as you grow as an SQL developer and the fact that there’s a lot to consider when you’re thinking about alternatives also means that avoiding query anti-patterns and rewriting queries can be quite a difficult task. Any help can come in handy and that’s why a more structured approach to optimize your query with some tools might be the way to go.
+-------------知道反模式不是静态的，而是随着你做为 SQL 开发者的成长而演进，当你考虑替代方案的时候也意味着你正在避免反模式查询和重写查询的这个事实，这是一个十分困难的任务。任何帮助都可以派上用场，这就是为什么使用一些工具通过更结构化的方式来优化你的查询或许是个不错的选择。
 
-**Note** also that some of the anti-patterns mentioned in the last section had roots in performance concerns, such as the `AND`, `OR` and `NOT` operators and their lack of index usage. Thinking about performance doesn’t only require a more structured approach but also a more in-depth one.
+**注意** 还有一些上一节提到的反模式源于性能的问题的考虑，比如 `AND`，`OR` 和 `NOT` 操作符缺少索引的使用。对性能的思考不仅需要结构化的方法，还需要更多的深入的方法。
 
-Be however it may, this structured and in-depth approach will mostly be based on the query plan, which, as you remember, is the result of the query that’s first parsed into a “parse tree” and defines exactly what algorithm is used for each operation and how the execution of operations is coordinated.
+然而可能的是，这种结构化和深入的方法更多是基于查询计划的，即首先被解析为「解析树」，然后在确定每个操作具体使用什么算法，还有如何使执行操作更协调。
 
-As you have read in the introduction, it could be that you need to examine and tune the plans that are produced by the optimizer manually. In such cases, you will need to analyze your query again by looking at the query plan.
+正如你在介绍中读到的，你可能需要手动检查优化器的生成计划。在这种情况下，你将需要通过查看查询计划来再次分析你的查询。
 
-To get a hold of this plan, you will need to use the tools that your database management system provides to you. Some tools that you might have at your disposal are the following:
+要掌握这种查询计划，你将需要使用数据库管理系统为你提供工具，你可以使用的工具如下：
 
-- Some packages feature tools which will generate a graphical representation of a query plan. Take a look at this example:
+- 生成查询计划的图形表示的一些工具包，看以下这个例子：
 
 ![](https://cdn-images-1.medium.com/max/1600/0*-TmIkwjfmJvRLngf.gif)
 
-- Other tools will be able to provide you with a textual description of the query plan. One example is the `EXPLAIN PLAN` statement in Oracle, but the name of the instruction varies according to the RDBMS that you’re working with. Elsewhere, you might find `EXPLAIN` (MySQL, PostgreSQL) or `EXPLAIN QUERY PLAN` (SQLite).
+- 其他工具将能够为你提供查询计划的文本描述。一个例子是 Oracle 中的 `EXPLAIN PLAN` 语句，但指令的名称根据你使用的 RDBMS 而有所不同。在其他数据库，你可能会看到 `EXPLAN`（MySQL，PostgreSQL）或者 `EXPLAIN QUERY PLAN`（SQLite）。
 
-**Note** that if you’re working with PostgreSQL, you make the difference between `EXPLAIN`, where you just get a description that states the idea of how the plannner intends to execute the query without running it, while `EXPLAIN ANALYZE` actually executes the query and returns to you an analysis of the expected versus actual query plans. Generally speaking, an actual execution plan is one where you actually run the query, whereas an estimated execution plan works out what it would do without executing the query. Although logically equivalent, an actual execution plan is much more useful as it contains additional details and statistics about what actually happened when executing the query.
+**注意**如果你平时使用 PostgreSQL，你可以在 `EXPLAIN` 之间做出区分，这里你只得到了一个描述，它是说明还未执行的查询计划会如何执行，而 `EXPLAIN ANALYZE` 实际上执行了查询然后返回对预期与实际的查询计划的分析。一般来说，一个实际的执行计划就是一个实际的查询计划，虽然在逻辑上是等价的，一个实际的执行计划更为有用，因为它包含执行查询时实际发生的其他细节和统计信息。
 
-[In the remainder of this section](https://www.datacamp.com/community/tutorials/sql-tutorial-query), you’ll learn more about `EXPLAIN` and `ANALYZE` and how you can use these two to learn more about your query plan and the possible performance of your query.
+[在本节的剩余部分](https://www.datacamp.com/community/tutorials/sql-tutorial-query)，你将会学习到更多关于 `EXPLAIN` 和 `ANALYZE` 的信息，以及如何使用这两个去了解更多你的查询计划和查询性能的信息。
 
-**Tip**: if you want to get to know more about `EXPLAIN` or see the examples in more detail, consider reading the book [“Understanding Explain”](http://www.dalibo.org/_media/understanding_explain.pdf), written by Guillaume Lelarge.
+**提示**：如果你想了解更多关于 `EXPLAIN` 或更详细的查看实例，考虑阅读 Guillaume Lelarge 写的这本书 [“Understanding Explain”](http://www.dalibo.org/_media/understanding_explain.pdf)。
 
-### Time Complexity & The Big O
+### 时间复杂度和大 O
 
-Now that you have examined the query plan briefly, you can start digging deeper and think about the performance in more formal terms with the help of the computational complexity theory. This area in theoretical computer science that focuses on classifying computational problems according to their difficulty, among other things; These computational problems can be algorithms, but also queries.
+现在你已经简要的检查了查询计划，你可以在复杂度计算的帮助下开始更深入的研究具体的性能问题。理论计算机科学这一领域着重于根据难度对问题进行分类；这些计算问题可以是算法，也可以是查询。
 
-For queries, however, you’re not necessarily classifying them according to their difficulty, but rather to the time it takes to run it and get some results back. This specifically is referred to as time complexity and to articulate or measure this type of complexity, you can use the big O notation.
+然而，对于查询，你并不一定是根据他们的困难程度分类，而是根据运行它然后拿到返回结果的时间来分类。这个被叫做时间复杂度，你可以使用大 O 符号来表达和衡量这种复杂性。
 
-With the big O notation, you express the runtime in terms of how quickly it grows relative to the input, as the input gets arbitrarily large. The big O notation excludes coefficients and lower order terms so that you can focus on the important part of your query’s running time: its rate of growth. When expressed this way, dropping coefficients and lower order terms, the time complexity is said to be described asymptotically. That means that the input size goes to infinity.
+使用大 O 符号，输入任意大时，你可以根据输入与运行时间的相对增长速度来衡量运行时间。大 O 表示法排除系数和低阶的项，以便于你关注查询运行时间的关键部分：增长率。当以这种方式表示时，丢弃系数与低阶的项，时间复杂度被认为是渐进式描述的。这意味着输入会变为无穷大。
 
-In database language, the complexity measures how much longer it takes a query to run as the size of the data tables, and therefore the database, increase.
+在数据库语言中，复杂度衡量了数据库表数据增加之后，查询该表数据所花时间相对增加了多少的过程。
 
-**Note** that the size of your database doesn’t only increase as more data is stored in tables, but also the mere fact that indexes are present in the database also plays a role in the size.
+**注意**你的数据库大小不仅仅因为表里存储的数据增多而变大，索引在其中对大小影响也起了很大的作用。
 
-As you have seen before, the execution plan defines, among other things, what algorithm is used for each operation, which makes that every query execution time can be logically expressed as a function of the table size involved in the query plan, which is referred to as a complexity function. In other words, you can use the big O notation and your execution plan to estimate the query complexity and the performance.
+正如前面所述，执行计划除了前面所说的以外，还定义了每一步操作使用什么算法，这使得每次查询执行的时间可以在逻辑上表示为查询计划中涉及表大小的函数。换句话说，你可以使用大 O 符号和执行计划预估查询的复杂性和性能。
 
-In the following subsections, you’ll get a general idea about the four types of time complexities and you’ll see some examples of how queries’ time complexity can vary according to the context in which you run it.
+在接下来的小节中，你会了解关于四种时间复杂度类型的一般概念，你将会看到一些示例，说明查询的时间复杂度如何根据你运行它们上下文的不同而有所不同的。
 
-Hint: the indexes are part of the story here!
+提示：索引是故事的一部分！
 
-**Note**, though, that there are different types of indexes, different execution plans and different implementations for different databases to consider, so that the time complexities listed below are very general and can vary according to your specific setting.
+**注意**，因为不同的数据库有不同类型的索引、不同的执行计划、不同的实现，所以下面列出的几个时间复杂度是很通用的，会根据你配置的不同而变化。
 
-Read more [here](https://www.datacamp.com/community/tutorials/sql-tutorial-query).
+更多阅读在[这儿](https://www.datacamp.com/community/tutorials/sql-tutorial-query)。
 
-To summarize, you can also look at the [following cheat sheet](http://bigocheatsheet.com/) to estimate the performance of queries according to their time complexity and how well they would be performing:
+总而言之，你可以查看[以下备忘单](http://bigocheatsheet.com/)，以根据时间复杂度以及其执行情况估计查询的性能：
 
 ![](https://cdn-images-1.medium.com/max/1600/0*1-0Qyw-DIAsqJNA0.png)
 
-### SQL Tuning
+### SQL 调优
 
-With the query plan and the time complexity in mind, you can consider tuning your SQL query further. You could start off by paying special attention to the following points:
+考虑到查询计划和时间复杂性，你可以考虑进一步调整 SQL 查询，特别注意以下几点：
 
-- Replace unnecessary large-table full table scans with index scans;
-- Make sure that you’re applying the optimal table join order;
-- Make sure that you’re using the indexes optimally; And
-- Cache small-table full table scans.
+- 大表的全表扫描替换为索引的扫描；
+- 确保你正在使用最佳的表连接顺序；
+- 确保的使用索引优化；还有
+- 缓存小表的全表扫描。
 
-Congrats! You have made it to the end of this blog post, which just gave you a small peek at SQL query performance. You hopefully got more insights into anti-patterns, the query optimizer, and the tools you can use to review, estimate and interpret the complexity your query plan. There is, however, much more to discover! If you want to know more, consider reading the book “Database Management Systems”, written by R. Ramakrishnan and J. Gehrke.
+祝贺！你已经看到了这篇博文的结尾，这只是帮助你对 SQL 查询性能的一瞥。你希望对反模式，查询优化器，审查工具，预估和解释查询计划的复杂性有更多的见解，然而，还有更多的东西等你去发现！如果你想知道更多，可以考虑读这本由R. Ramakrishnan 和 J. Gehrke 写的「Database Management Systems」。
 
-Finally, I don’t want to withhold you this quote from a StackOverflow user:
+最后，我不想错过这个来自 StackOverFlow 用户那里的引用
 
-> “My favorite antipattern is not testing your queries.
+> 「我最喜欢的反模式不是测试你的查询。
 >
-> This applies when:
+> 这适用于：
 >
-> - Your query involves more than one table.
+> - 你的查询涉及了不止一张表。
 >
-> - You think you have an optimal design for a query, but don’t bother to test your assumptions.
+> - 你认为你的查询有一个优化的设计，但不愿意去验证你的假设。
 >
-> - You accept the first query that works, with no clue about whether it’s even close to optimized.”
+> - 你会接受第一个成功的查询，它是否是最优的，你并不清楚。」
 >
-If you want to get started with SQL, consider taking DataCamp’s [Intro to SQL for Data Science](https://www.datacamp.com/courses/intro-to-sql-for-data-science) course!
+如过你想开始使用 SQL，可以考虑学习 DataCamp 的 [Intro to SQL for Data Science](https://www.datacamp.com/courses/intro-to-sql-for-data-science) 课程！
 
 
-  ---
+---
 
-  > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[React](https://github.com/xitu/gold-miner#react)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计) 等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
+> [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[React](https://github.com/xitu/gold-miner#react)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计) 等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
   
