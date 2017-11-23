@@ -1,120 +1,123 @@
 > * 原文地址：[Yeah, redesign(Part 1)](https://medium.muz.li/yeah-redesign-part-1-b61af07eb41a)
 > * 原文作者：[Jingxi Li](https://medium.muz.li/@jingxili)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
-> * 校对者：
+> * 译者：[dongpeiguo](https://github.com/dongpeiguo)
+> * 校对者：[horizon13th](https://github.com/horizon13th)
 
 ![](https://cdn-images-1.medium.com/max/2000/1*ZZP4Og3NWAYova0lgaTqHg.jpeg)
 
-# Yeah, redesign(Part 1) #
+# 是的, 重新设计(第一部分) #
 
-## How to approach redesign in the mobile world ##
+## 如何在移动世界中重新设计 ##
 
-As a design leader, I ask myself constantly: “How can my team continuously deliver the best product experience to our Users?” My answer is always the same, ‘we need to consider our Users’ constantly changing and evolving tastes in a rapidly growing community’. However, if redesigning the product experience is the solution, how do we begin an internal conversation to get that process started? How do we achieve a scalable solution, balancing new features and designs, while also maintaining the product’s identity?
+作为一个设计领导者，我经常问自己：“我的团队怎样才能够持续向我们的用户提供最好的产品体验？”我的答案总是相同的：我们需要考虑到我们用户是在持续变化以及在迅速发展的社会中不断提升的品位。但是，如果重新设计产品的体验就是解决方案的话，怎样从内部对话入手来开始这个过程呢？如何实现一个能够平衡新功能和设计的同时还能保持产品的一致性的可拓展的解决方案呢？
 
-If you are facing the same design challenges, I hope this article will help you find the answers you need to the following questions:
+如果你也面临着同样的设计挑战，我希望这篇文章能够帮你找到以下问题的答案：
 
-> **1. Why does a product need redesign when its users already love it?**
+> **1. 为什么当用户已经爱上这个产品的时候仍需要重新设计？**
 
-> **2. How do you execute redesign in a fast paced data driven company?**
+> **2. 如何在一个以数据驱动快节奏的公司中执行重新设计？**
 
-> **3. How do you measure results?**
+> **3. 你如何衡量结果？**
 
-> **4. What is the next step?**
+> **4. 下一步是什么？**
 
-To help answer these questions, I would like to share the redesign experience we had on our flagship product Sing! Karaoke and walk you through the approach our team took to overcome obstacles along the way.
+为了帮助解答这些问题，我想通过分享我们对龙头产品 “唱吧！卡拉OK”（原文：sing！karaoke）的重新设计的经验，来带你看到我们团队在这一路上所克服的障碍。
 
-When I first joined the company two and a half years ago, we had four teams, each assigned to one of the following apps: Sing! Karaoke, Magic Piano, Autoharp and Guitar. Each of the teams consisted of one designer, one product manager, and two or three engineers. With different growth speeds, we saw Sing! become the leading app in the Smule family. The company decided to shift focus from an app based development structure to a feature based structure. This means more efforts and features were added to Sing and more design collaboration is needed between the designers. With business changes, we knew our existing product design and process would not meet the needs for scaling the team and satisfying our Users.
+两年半以前，当我第一次加入公司的时候，我们有四个团队，每个团队负责下列应用的其中一个： 唱吧！卡拉OK（Sing! Karaoke，以下简称唱吧！），魔术钢琴（Magic Piano），电子竖琴（Autoharp），弹吉他（Guitar）。每个团队由一名设计师，一名产品经理和两到三名工程师组成。随着成长速度的不同，我们看到“唱吧！”成为了 Smule 家族中领先的应用。公司决定将重点从基于应用开发的架构转变为基于功能的架构，这意味着更多的功能，更多的心血将倾注于“唱吧！”应用中，设计师们也需要更多的设计合作。随着业务变化，我们知道我们现有的产品设计和流程不能满足团队的扩展和用户的需求。
 
-We knew that a redesign would not be a solitary project and would need to engage our users, designers, product managers, engineers and executive staffs. Have these parties buy into at early stage for the reasons of redesign and provide feedback for “how” the redesign should happen helped us set a clear goal what redesign would achieve in four areas:
+我们知道重新设计不会是一个孤立的项目，而是需要与用户，设计师，产品经理，工程师和执行人员的共同参与。为了重新设计，每一部分的人员都在项目初期就参与进来，针对“如何”重新设计提供意见反馈。这帮助我们设定了明确的目标，重新设计将从以下四个方面实现：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*ZsWu9BZbUZzS0FqMxTPcPA.jpeg)
 
-source:shutterstock
+来源：shutterstock
 
-> **Improve users experience**
+> **提升用户体验**
 
-> **Empower design team for scale**
+> **授权设计团队进行规范化**
 
-> **Increase product engagement**
+> **提升产品参与度**
 
-> **Build a sustainable engineering solution**
+> **建立可持续的工程解决方案**
 
 
-### **1. Improving Sing! user experience by** ###
+### **1. 改善“唱吧！”的用户体验通过** ###
 
-#### *Bring the consistency and continuity into Sing! experience* ####
+#### 给“唱吧”加入体验上的一致性和连续性 ####
 
-From many users research, we have known that consistency is one of the strongest contributors to usability. Sing! is a fun product with many features. When the product was released in 2012, it had fewer features and a smaller user base. These fewer features, resulted in a design that employed different colors to represent separate content in different contexts. For example, previous versions of Sing! had more than four colors to display ‘Call to Actions’ on various uses. While the old design aimed to please its users, we noticed that the multiple colors CTAs also confused new Users. This means that the redesign needs to establish a consistent UI language to improve our current user experiences.
+从许多用户研究中，我们已经知道一致性是可用性最强的因素之一。“唱吧！”是一个有着很多功能的有趣产品。在 2012 年产品发布的时候，只有很少的功能和用户基础。由于功能很少，设计采用不同颜色来区分不同场景下的内容。比如，在“唱吧！”的早起版本中，我们用超过四种颜色来展示不同的“行为召唤”（在商场超市里，我们经常会看见一些新品上市，会推出免费试用以及低价促销的活动，用以刺激、吸引用户的购买行为。这就是行为召唤中的一种。译者注）的不同用途，旧的设计原本旨在取悦用户，但我们注意到这种花花绿绿的“行为召唤”反而会给新用户造成困惑。这意味着重新设计需要建立一致的 UI 语言来改善我们当前的用户体验。
 
-#### *Improve new user engagement* ####
+#### 提升新用户的参与度 ####
 
-From conducting user studies, we noticed that new users brought their previous experiences, interacting with UIs from other apps and products, into assumptions about how their first time interactions with Sing! would function. And, most importantly, when the Sing! interface did not correspond with the user’s expectations, extra energy was spent learning and understanding the interface, which made trying this new product both exciting but also nerve-wracking. We surmised that increasing standard UIs, or updating custom UIs to match patterns that have developed in the redesign would help Users get more familiar with our product more quickly and easily. It helps user ease into understanding the product quickly which led to better engagement.
+通过进行用户研究，我们发现新用户往往会带着他们之前的经验，和其他应用或产品的 UI 交互的经历来假设他们和“唱吧！”的第一次交互也会如此。最重要的是，当“唱吧！”的界面没有符合用户的预期时，用户需要花费额外的精力来学习和理解这个界面，这将使得产品试用既让人兴奋又让人头疼。我们推测，用户界面的标准化，或者更新定制化的界面设计，使其与重新设计的设计模式相匹配，可以帮用户更快更容易地熟悉我们的产品。它可以帮助用户快速了解产品，从而更好的参与进来。
 
-#### *Increase existing user retention* ####
+#### 增加现有用户存留 ####
 
-Interactions with apps have quantifiable costs that are both physical and mental. Physical costs measure the number of steps required of a user to achieve a specific goal, or time. Mental costs measure the intrinsic and extraneous cognitive load required of a user to complete a task or achieve a goal, or stress. For example, when Sing! users want to start a duet with another user, they have to navigate through multiple UIs to achieve this goal, which costs the user both time and stress which does not enhance understanding of the content. It is the belief and plan that using clear standard interactions and UI design, will significantly reduce user’s physical and mental costs.
+与应用程序的交互具有可量化的物理和心理成本。物理成本是用户达到特定目标所需的步骤数量或时间来衡量。心理成本是通过让用户完成一个任务，或达到一个目标所需的内在和外在的认知负荷以及压力。比如，当“唱吧！”用户想要和其他用户开启一段合唱时，他们不得不在多个界面进行操作才能达到这个目的，这不仅仅消耗了用户时间成本，造成了用户心理压力，也没有帮助用户理解内容。有计划有信念地使用明确的标准交互和UI设计，将显著降低用户的身心成本。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*ZH2VNJu33_eaMvPVikPUxg.jpeg)
 
-source:shutterstock
+来源:shutterstock
 
-### 2. Empowering design team for scale ###
 
-#### *Create a new font for Sing!* ####
 
-Sing! started with Gotham font, a font inspired by mid-century architecture setting of New York City. Gotham is a great font to celebrates Smule’s fun, whimsical and welcoming feelings. It still represents Smule’s brand identity through today. However, Gotham is a font intended to be used in print and media applications. When rendered on mobile devices, it caused many issues. Gotham has a wide kerning and takes more space in a given word or sentence. Mobile devices have limited real estate (screen size), therefore designers must always make the extra effort to make sure the text works well in both iOS and Android environments. Many times, the font size has to be reduced to make it fit in the small space, causing a readability issue for users. Another issue caused by Gotham is it’s lower baseline. Because of this, the engineers have to manually, and visually, make sure copy is centered. As you can see by these examples, we encountered many design bugs during development as a result. We know now that finding a scalable and platform standard font is one of the critical decisions we have to make during the redesign.
+### 2. 赋予设计团队可拓展性 ###
 
-#### *Sing! needs to standardize its’ design language* ####
+#### 为“唱吧！”创造一个新字体 ####
 
-Design is a creative process that is both organic and nostalgic. Without a standard UX/UI design guideline in place, the product can become a hodge podge of the aesthetics of each designer who worked on the project. Keep working on these designs caused confusion within the design team, limited designers’ output, and reduced product quality. We knew that our previous Sing! design standard was not clearly defined. This ambiguity caused further delays and difficulties during our design critique and review process. When no one on the team can articulate the design standard that we are aiming for, all feedback and review is judged based on personal preference, thereby invalidating much of it. As a team we understand it will take a collaborative effort to deliver the best product and experience to our users. To that end we recognize that we need a clearly defined standard that is communicated to all design team members for use throughout the redesign and moving forward. This will set the foundation for every product design decision made by the team.
+“唱吧！”开始使用的是 Gotham 字体，是一种灵感来自纽约市中世纪建筑设计的字体。Gotham 是一款非常棒的字体，可以庆祝 Smule 的乐趣，异想天开的感觉。它仍然代表了 Smule 在今天的品牌形象。然而，Gotham 是用于打印和媒体应用程序的字体。在移动设备上呈现时，会引起许多问题。Gotham 有着较宽的字间距，会在同样的词句上占据更多的位置。移动设备具有有限的屏幕尺寸，因此设计师必须总是做出额外的努力，以确保文字在 iOS 和 Android 环境中都能显示正常。很多时候，由于存在用户可读性的问题，字体的大小需要缩小以适合小空间。Gotham 引起的另一个问题是基线较低。因此，工程师必须手动，在视觉上确保副本是居中的。正如你所看到的这些例子，我们在开发阶段遇到了很多设计问题。我们现在知道，找到可扩展和平台标准字体是我们在重新设计过程中必须做出的关键决定之一。
 
-Tremendous growth in the design team has made us realize that a set of rules needs to be established. This guideline will establish the treatment of , IA, layout, fonts, color, imagery, and interactions. The advantage of a guideline is that it will act as a framework that will apply to most design issues speeding up the design process by helping designers to make right design decisions the first time. More importantly the design team needs to create a shared, central repository, updated as frequently as needed, that documents our styles, components, and patterns. With this shared hub in place, improvements in the consistency of designs as well as the quality and quantity of designs is sure to follow. That means, along with the Sing! Redesign, the design team needs to create this guideline so that there is less room for disjointed, personal design styles and the visual appeal of the product will remain consistent. It is our goal that, eventually, the designers won’t have to work on specing icons and think about what the right spec is. Instead, they can focus more on creative design solutions for users.
+####  “唱吧！”需要规范其设计语言 ####
 
-#### *Design team needs to scale up* ####
 
-With more product features being added and more users joining our Sing family, our design team needs to grow and improve our collaboration. Without a common understanding of building blocks that forms the basis for collaboration, pressures on the team to keep up with this growth can result in communications getting complicated. To ensure our teams are successful, we know our design approach and workflows need to be modularized. This means the redesign team needs need to create some design building blocks that will be the foundation of the redesign and all design efforts. These individual building blocks will help our designers to collaborate easily and split up their works when needed. Furthermore, when a new designer joins, senior members of the team can utilize these building blocks to lead projects and set up clear plans for new members.
+设计是一个既活泼又严肃的创作过程。如果没有一个标准的 UX/UI 设计指南，该产品将成为项目中的不同设计师对于美学理解的大杂烩。继续研究这些设计会使设计团队产生混乱，限制设计人员的产出，并降低了产品质量。我们知道我们以前的“唱吧！”没有明确定义设计标准。这种模糊标准加重了我们设计评审过程中的延迟和难点。当团队中没有人能够阐明我们的目标设计标准时，所有的反馈和审查都是基于个人偏好来判断的，其中大部分都是无效的。作为一个团队，我们明白我们需要共同努力为用户提供最好的产品和体验。为此，我们认识到，我们需要一个明确界定的标准，传达给所有设计团队成员，以便在整个重新设计和推进过程中使用。这将为团队的每个产品设计决策奠定基础。
+
+设计团队的巨大增长使我们意识到需要建立一套规则。这个规范的建立是对于信息框架，布局，字体，颜色，图像和交互的处理。优点是，它将作为一个框架，适用于大多数设计问题，帮助设计人员在第一次就做出正确的设计决策来加快设计的过程。更重要的是，设计团队需要创建一个共享的中央存储库，根据需要经常更新，记录我们的样式，组件和规范。随着这个共享中心的到位，设计的一致性以及设计的质量和数量将得到改善。这意味着在“唱吧！”的重新设计中，设计团队需要制定这个指导方针，以减少脱节的空间，个人设计风格和产品的视觉吸引力将保持一致。我们的目标是最终，设计师们不必致力于图标的细节刻画，不必思考究竟什么才是正确的规范。相反，他们可以更多地关注用户的创意设计解决方案。
+
+
+#### 设计团队需要扩大规模 ####
+
+随着产品功能的更新，更多的用户加入了我们的“唱吧！”大家庭。我们的设计团队需要扩张，以及更多的合作。没有对于建立合作基础的模块的共识，压力将会在团队增长的同时一直伴随，使得沟通变得复杂。为了确保我们的团队成功，我们知道我们的设计方法和工作流程需要模块化。这意味着重新设计团队需要创建一些设计构建模块，这将是重新设计和所有设计工作的基础。这些单独的模块既能帮助我们的设计师轻松协作，又能在必要时进行产品分割。此外，当新设计师加入时，团队的高级成员可以利用这些模块来引导项目，并为新成员制定明确的计划。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*Jh6XD2B8Nx3P7mOKZSqJGA.jpeg)
 
-source:shutterstock
+来源:shutterstock
 
-### 3. Increasing product engagement by ###
+### 3. 增加产品参与度 ###
 
-#### *Improve the new user onboarding experience* ####
+#### 提升新用户的初体验 ####
 
-When new users try a new app, they are learning two things at once: (1) features of this app and (2) how to access those features. Without a clear and standardized UI/UX design, users might not fully understand the individual interface elements in the app and get lost. In order to let the user focus on using the product functions rather than navigating interface designs, we need to understand new users’ expectations and clearly communicate information valuable to them. Overall, the new design should simplify the confusing portions of our app and allow the user to feel comfortable to try and interact with new features.
+当新用户尝试新应用时，他们他们会同时学习两件事情（1）此应用程序的功能和（2）如何访问这些功能。没有明确和标准化的 UI/UX 设计，用户可能无法完全了解应用程序中的各个界面元素并感到迷失。为了让用户专注于使用产品功能而不是导航界面设计，我们需要了解新用户的期望并明确传达对他们有价值的信息。总体而言，新设计应该简化我们应用程序的混乱部分，使得用户在尝试和新功能进行交互时感到舒服。
 
-#### *Increase user retention* ####
+#### 增加用户留存 ####
 
-At Smule, we closely monitor user retention defined as how many of the new users come back to the app after their first time experience in subsequent days, such as day 2 and day 7. If a user didn’t have a good first time experience, they are less likely to come back on day 2. Through user studies, we found users enjoyed many of the features if they found the entry point. Or they requested features that already existed. These findings indicated that our design navigation wasn’t aligned with users’ intentions. If the design is not helping users know where they are and how they can access the features in their mind, they might get confused and lost their interests to continue to use Sing. With the redesign, we need to come up a better navigation what meet users intention and product business goals.
+在 Smule，我们密切监视用户存留，定义为在第一次使用体验后接下来的几天（例如第 2 天和第 7 天），有多少新用户回到应用程序。如果用户在第一次没有得到很好的体验他们在第 2 天不太可能回来。通过用户研究我们发现，如果用户找到了兴趣接入点，他们便会在乐享在新功能中，否则他们仍会停留于已有功能。这些发现表明，我们的设计导航与用户的意图不一致。如果设计没有帮助用户知道他们在哪里，以及他们如何访问他们所想的功能，他们可能会感到困惑，对于继续使用“唱吧！”失去了兴趣。通过重新设计，我们需要提供更好的导航，满足用户意图和产品商业目标。
 
-#### *Improve development and release cycle* ####
+#### 提升开发和发布周期 ####
 
-By the time we started to consider redesign in 2014, the product features on iOS and Android were not the same. Sing! iOS was more feature rich than Sing! Android. This lack of consistency between iOS and Android doubled the work for the design team and delayed development cycles. Sing! had gained a lot of new users by the time we started to think redesign. We wanted to carry that momentum and speed up our product design and development cycles. With that in mind, we know the redesign needs to improve our internal design team work flow and efficiency. The redesign can cut design and development time by 50%, which will give us more chances to test and release new features with current resources.
+在 2014 年，我们开始考虑重新设计时，iOS 和 Android 上的产品功能是不一样的。“唱吧！”在 iOS 上的功能要比 Android 上的功能多，iOS 和 Android 的不一致使设计团队的工作翻了一番，延迟了开发周期。当我们开始思考重新设计时，“唱吧！”已经获得了很多新用户。我们想，趁着这股势头，加快产品设计和开发周期。考虑到这一点，我们知道重新设计需要改进我们内部设计团队的工作流程和效率。重新设计可以将设计和开发时间缩短 50％，这将为我们提供更多的机会来测试和发布具有当前资源的新功能。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*P4nIML48uPpJuVX-ut1tcg.jpeg)
 
-source:shutterstock
+来源:shutterstock
 
-### 4. Building sustainable engineering solution by ###
+### 4. 建设可持续发展的工程解决方案 ###
 
-#### *Improve development process* ####
+#### 完善开发进程 ####
 
-Inconsistent UI not only caused usability issues but also created additional work overload for designers and engineers. For example, for a single icon, designers created multiple colors or sizes assets to be used in different scenarios. To make sure engineers placed the assets in the right screen, designers spent almost an extra 40% of their time to spec and create assets for engineers. On the other side, engineers needed to follow the specs, writing customized code to make sure each asset is in the right location. It sounds simple on paper, but when accounting for other variables like screen sizes and platform (iOS & Android), the process became hideous. After talking with engineers, both designers and engineers want to collaborate with each other in a better way. This brought up another perspective on the needs of the redesign: create a systematic approach on how designers and engineers can set up and build product efficiently.
+不一致的 UI 不仅引起了可用性问题，而且为设计师和工程师创造了额外的工作负担。例如，对于单个图标，设计人员创建了多种颜色或大小的组件以在不同的场景中使用。为了确保工程师将组件放在屏幕的正确位置上，设计人员花费了大约 40％的时间来为工程师规划和创建组件。另一方面，工程师需要遵循规范，编写自定义代码，以确保每个组件都位于正确的位置。这些听起来很容易，但是当考虑到其他变量时，比如屏幕尺寸和不同平台（IOS/Android），这过程简直可怕。在与工程师交谈之后，设计师和工程师都希望以更好的方式相互协作。这再次提出了重新设计需求的另一个视角：创造一个可以使设计师和工程师建立并构造产品更加有效的一套系统的方法。
 
-#### *Increase product development quality* ####
+#### 提升产品开发质量 ####
 
-It is designers’ responsibility to do the design QA, and ensure the design was implemented correctly. The most frustrating moment for designers and engineer was: engineering fixing a design bug by changing some part of the design, which created another bug. As a consequence, engineers spend more time fixing design bugs, and there were still no guarantee that the implementation will match the design without bugs . We know that it is unrealistic to ask the redesign to address all the design bugs that may be encountered up front, but creating a standard central design guideline on how to set margins, how to create icon sizes, and how to apply for pressed status, etc. would limit the chances that previous scenarios happen.
+做设计质量保证是设计者的责任，并确保设计得到正确实施。对设计师和工程师来说，最令人沮丧的时刻是：工程师为了修复设计 bug，不得不修改设计的某些部分，当然这将会产生另一个设计 bug。这导致，工程师花费更多的时间来修复设计 bug，却仍然不能保证工程实现和设计是匹配没有 bug 的。我们知道，要重新设计解决可能遇到的所有设计错误是不切实际的，但是，创建一个统一设计规范，以界定如何设置边距，如何创建图标大小，如何申请压缩状态等等，将减少上述场景的发生。
 
-#### *Prepare for global localization* ####
+#### 准备全球本地化 ####
 
-By the time we started to think redesign, Sing had moved from US centric app to an international product. To serve the community of global users, we localized Sing! from 12 languages to 20 languages. When applying foreign language into an English-based app, the UI could easily break. For example, compared to English, German or Russian takes more characters to express the same meanings. A defined limited space that would normally fit English labels would not work for German and Russian. Without a clear rule on how to set spacing and apply the right hierarchy, our localized languages were either cut off or presented in the smaller sizes. Addressing these issues for each language one by one consumed a lot of efforts from our engineers and QA. We know through the redesign, we need to find a sustainable solution that could optimize for all the different languages that we have or might have in the future.
+当我们开始思考重新设计时，“唱吧！”从以美国为中心的应用程序转型为国际产品。为了适应不同国家地区用户的社区本地化，我们把“唱吧！”从12种语言发展到20种语言。将原本为英文的应用程序更新多语言时，用户界面很容易出问题。例如，与英语比起来，德语或俄语需要更多的字符来表达相同的含义。通常适合英文标签的限定空间将不适用于德语和俄语。如果没有一个清晰的规则，来制定如何设置间距，如何应用层级关系，当地语言字符会就被裁剪，或者以较小的尺寸呈现。逐一解决每种语言的这些问题，花费了我们工程师和质量保证团队的大量精力。我们知道，通过重新设计我们需要找到一个可持续的解决方案，可以优化我们现有以及未来会有的不同的语言。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*cAPZbmDZEe5byrPDOB7QVA.jpeg)
 
-source:shutterstock
-
+来源:shutterstock
 
 ---
 

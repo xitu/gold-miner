@@ -1,30 +1,30 @@
 > * 原文地址：[11 things I learned reading the flexbox spec](https://hackernoon.com/11-things-i-learned-reading-the-flexbox-spec-5f0c799c776b)
-> * 原文作者：[David Gilbertson](https://hackernoon.com/@david.gilbertson)
+> * 原文作者：本文已获原作者 [David Gilbertson](https://hackernoon.com/@david.gilbertson) 授权
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
-> * 校对者：
+> * 译者：[XatMassacrE](https://github.com/XatMassacrE)
+> * 校对者：[zaraguo](https://github.com/zaraguo)，[reid3290](https://github.com/reid3290)
 
-# 11 things I learned reading the flexbox spec #
+# 读完 flexbox 细则之后学到的 11 件事
 
-I’ve always found flexbox pretty easy to work with — a breath of fresh air after years of floating and clearfixing.
+在经历了多年的浮动布局和清除浮动的折磨之后，flexbox 就像新鲜空气一般，使用起来是如此的简单方便。
 
-Recently though, I found myself fighting against it; something was flexing when I didn’t think it should be flexing. I fixed it, something else got squashed. I fixed that, then something else got pushed right off the screen. What in the George W Bush was going on?
+然而最近我发现了一些问题。当我认为它不应该是弹性的时候它却是弹性的。修复了之后，别的地方又出问题了。再次修复之后，一些元素又被推到了屏幕的最右边。这到底是什么情况？
 
-In the end I got it all working, but the sun had set and my process had been the old CSS fiddle-a-roo. Or … what’s that game where you have to whack a mole and then another mole pops up and you have to whack that one too?
+当然了，最后我把它们都解决了，但是黄花菜都凉了而且我的处理方式也基本上没什么规范，就好像那个砸地鼠的游戏，当你砸一个地鼠的时候，另一个地鼠又冒出来，很烦。
 
-Anyhoo, I decided it was about time that I behaved like a grown up developer and learned flexbox properly. But rather than read another 10 blog posts, I decided to go straight to the source and read [The CSS Flexible Box Layout Module Level 1 Spec](https://www.w3.org/TR/css-flexbox-1/).
+不管怎么说，我发现要成为一个成熟的开发者并且真正地学会 flexbox 是需要花时间的。但是不是再去翻阅另外的 10 篇博客，而是决定直接去追寻它的源头，那就是阅读 [The CSS Flexible Box Layout Module Level 1 Spec](https://www.w3.org/TR/css-flexbox-1/)。
 
-Here’s the good bits.
+下面这些就是我的收获。
 
-### 1. Margins have special powers ###
+### 1. Margins 有特别的功能
 
-I used to think that if you wanted, say, a header with a logo and site title on the left, and a sign in button over on the right…
+我过去常常想，如果你想要一个 logo 和 title 在左边，sign in 按钮在右边的 header ...
 
 ![](https://cdn-images-1.medium.com/max/800/1*Y1xY5s_DFPRaZzTwpfb_WQ.png)
 
-Dotted lines for clarity
+点线为了更清晰
 
-…you should give the title a flex of 1 to push the other items to either end of the row.
+... 那么你应该给 title 的 flex 属性设置为 1 就可以把其他的条目推到两头了。
 
 ```
 .header {
@@ -41,17 +41,17 @@ Dotted lines for clarity
 }
 ```
 
-This is why flexbox is a Very Good Thing. Simple things are so simple.
+这就是为什么说 flexbox 是个好东西了。看看代码，多简单啊。
 
-But maybe, for some reason, you don’t want to stretch an item just to push another item to the right. It might be a box with an underline, an image, or some third reason I can’t think of.
+但是，从某种角度讲，你并不想仅仅为了把一个元素推到右边就拉伸其他的元素。它有可能是一个有下划线的盒子，一张图片或者是因为其他的什么元素需要这样做。
 
-Great news! You can be more direct and instead say “push this item to the right” by defining `margin-left: auto` on that item. Think of it like `float: right`.
+好消息！你可以不用说“把这么条目推到右边去”而是更直接地给那个条目定义 `margin-left: auto`，就像 `float: right`。
 
-For example if the item on the left was an image:
+举个例子，如果左边的条目是一张图片：
 
 ![](https://cdn-images-1.medium.com/max/800/1*hFLefXP4fsgnFDIjPIcrTQ.png)
 
-I don’t need to apply any flex to image, I don’t need to apply `space-between` to the flex container, I just set `margin-left: auto` on the ‘Sign in’ button:
+我不需要给图片使用任何的 flex，也不需要给 flex 容器设置 `space-between`，只需要给 'Sign in' 按钮设置 `margin-left: auto` 就可以了。
 
 ```
 .header {
@@ -65,23 +65,23 @@ I don’t need to apply any flex to image, I don’t need to apply `space-betwee
 }
 ```
 
-You might think that seems a bit hacky, but nope, it’s right there in the [overview](https://www.w3.org/TR/css-flexbox-1/#overview) of the spec as *the* method used to push a flex item to the end of a flexbox. It even has its own chapter, “[Aligning with auto margins](https://www.w3.org/TR/css-flexbox-1/#auto-margins)”.
+你或许会想这有一点钻空子，但是并不是，在 [概述](https://www.w3.org/TR/css-flexbox-1/#overview) 里面**这个**方法就是用来将一个 flex 条目推到 flexbox 的末端的。它甚至还有自己单独的章节，[使用 auto margins 对齐](https://www.w3.org/TR/css-flexbox-1/#auto-margins)。
 
-Oh I should add here that I’m assuming `flex-direction: row` everywhere in this post, but it all applies just the same to `row-reverse` or `column` or `column-reverse`.
+哦对了，我应该在这里添加一个说明，在这篇博客中我会假设所有的地方都设置了 `flex-direction: row`。但是对于 `row-reverse`，`column` 和 `column-reverse` 也都是适用的。
 
-### 2. min-width matters ###
+### 2. min-width 问题
 
-You might think that it would be straightforward to ensure that all of the flex items within a container shrink to fit. Surely if you have `flex-shrink: 1` on the items, that’s what they do, right?
+你或许会想一定有一个直截了当的方法确保在一个容器中所有的 flex 条目都适应地收缩。当然了，如果你给所有的条目设置 `flex-shrink: 1`，这不就是它的作用吗？
 
-An example, perhaps.
+还是举例说吧。
 
-Let’s say you’ve got a bit of DOM that shows a book for sale and a button to buy it.
+假设你有很多的 DOM 元素来显示出售的书籍并且有个按钮来购买它。
 
 ![](https://cdn-images-1.medium.com/max/800/1*kx1Xl4o5at3whroR9gB0Dw.png)
 
-(Spoiler: the butterfly dies in the end)
+(剧透：蝴蝶最后死了)
 
-You’ve laid it out with flexbox and all is well.
+你已经用 flexbox 安排地很好了。
 
 ```
 .book {
@@ -98,27 +98,27 @@ You’ve laid it out with flexbox and all is well.
 }
 ```
 
-(You want the ‘Buy now’ button to be on the right — even for really short titles — so you’ve cleverly given it `margin-left: auto`.)
+(你想让 'Buy now' 按钮在右边，即使是很短的标题的时候，那么你就要给他设置 `margin-left: auto`。)
 
-The title is quite long so it uses up as much space as it can, then wraps to the next row. You are happy, life is good. You blissfully ship your code to production with confidence that it will handle anything.
+这个标题太长了，所以他占用了尽可能多的空间，然后换到了下一行。你很开心，生活真美好。你洋洋得意地将代码发布到生产环境并且自信地认为没有任何问题。
 
-Then you get a nasty surprise. And not the good kind.
+然后你就会得到一个惊喜，但不是好的那种。
 
-Some pretentious muppet has written a book with a long word in the title.
+一些自命不凡的作者在标题中用了一个很长的单词。
 
 ![](https://cdn-images-1.medium.com/max/800/1*skXsBLXnoul3J64xKb1HmA.png)
 
-That’s totes broken!
+那就完了！
 
-If that red border represents the width of a phone, and you’re hiding overflow, you’ve just lost your ‘Buy now’ button. Your conversion rates — and the poor author’s ego — are going to suffer.
+如果那个红色的边框代表手机的宽度，并且你隐藏了溢出，那么你就失去你的 'Buy now' 按钮。你的转换率，可怜的作者的自我感觉都会遭殃。
 
-(Side note: luckily where I work we have a good QA team that have populated our database with all sorts of nasty text like this. It was this issue in particular that prompted me to read the spec.)
+(注：幸运的是我工作的地方有一个很棒的 QA 团队，他们维护了一个拥有各种类似于这样的令人不爽的文本的数据库。也正是这个问题特别的促使我去阅读这些细则。)
 
-As it turns out, this behaviour is because the `min-width` of the description item is initially set to `auto`, which in this case equates to the width of the word *Electroencephalographically.* The flex item is literally not allowed to be any narrower than that word.
+就像图片展示的那样，这样的表现是因为描述条目的 `min-width` 初始被设置为 `auto`，在这种情况下就相当于 **Electroencephalographically** 这个单词的宽度。这个 flex 条目就如它的字面意思一样不允许被任何的压缩。
 
-The solution? Override this troublesome `min-width: auto` by setting `min-width: 0`, instructing flexbox that it’s OK for this item to be narrower than the content within it.
+那么解决办法是什么呢？重写这个有问题的属性，将 `min-width: auto` 改为 `min-width: 0`，给 flexbox 指明了对于这个条目可以比它里面的内容更窄。
 
-It’s then up to you to handle the text inside the item. I’d suggest wrapping the word. So your CSS would look like this:
+这样就可以在条目里面处理文本了。我建议包裹单词。那么你的 CSS 代码就会是下面这个样子：
 
 ```
 .book {
@@ -137,41 +137,41 @@ It’s then up to you to handle the text inside the item. I’d suggest wrapping
 }
 ```
 
-The result will be this:
+这样的结果就是这个样子：
 
 ![](https://cdn-images-1.medium.com/max/800/1*lM96U8XNZJEGPrVwqJk91w.png)
 
-Again, `min-width: 0` is not some hack to work around a quirk, it’s the [suggested behavior right from the spec](https://www.w3.org/TR/css-flexbox-1/#min-size-auto).
+重申一下，`min-width: 0` 不是什么为了特定结果取巧的技术，它是[细则中建议的行为 ](https://www.w3.org/TR/css-flexbox-1/#min-size-auto)。
 
-In the next section I’ll address that ‘Buy now’ button being not at all 80px wide like I quite clearly told it to be.
+下个章节我会处理尽管我明确写明了但是 ‘Buy now’ 按钮仍然不总是 80px 宽的问题。
 
-### 3. The flexbox authors have crystal balls ###
+### 3. flexbox 作者的水晶球
 
-As you probably know, the `flex` property is shorthand for `flex-grow`, `flex-shrink` and `flex-basis`.
+就像你知道的，`flex` 属性其实是 `flex-grow`，`flex-shrink` 和 `flex-basis` 的简写。
 
-I must admit I’ve spent quite a few minutes guessing-and-checking different values for these three when trying to get things to flex the way I want.
+我必须承认为了达到我想要的效果，我在不停地尝试和验证这三个属性上面花费了很多时间。
 
-What I didn’t know until now is that I generally only want one of three combinations:
+但是直到现在我才明白，我其实只是需要这三者的一个组合。
 
-- If I want an item to squish in a bit if there isn’t enough room, but not to stretch any wider than it needs to: `flex: 0 1 auto`
-- If my flex item should stretch to fill the available space and squish in a bit if there’s not enough room: `flex: 1 1 auto`
-- If my item should not flex at all: `flex: 0 0 auto`
+- 如果我想当空间不够的时候条目可以被压缩，但是不要伸展，那么我们需要：`flex: 0 1 auto`
+- 如果我的条目需要尽可能地填满空间，并且空间不够时也可以被压缩，那么我们需要：`flex: 1 1 auto`
+- 如果我们要求条目既不伸展也不压缩，那么我们需要：`flex: 0 0 auto`
 
-I hope you’re not at maximum amazement yet — it’s about to get more amazing.
+我希望你还不是很惊奇，因为还有让你更惊奇的。
 
-You see, the Flexbox Crew (I like to think the flexbox team have leather jackets that say this across the back — available in women’s and men’s sizes). Where was this sentence. Ah yes, the Flexbox Crew knew that these are the three flex property combinations I want most of the time, so they gave them [keywords just for me](https://www.w3.org/TR/css-flexbox-1/#flex-common).
+你看，Flexbox Crew (我通常认为 flexbox 团队的皮衣是男女都能穿的尺寸)。对，Flexbox Crew 知道我用得最多的就是这三个属性的组合，所以他们给予了这些组合 [对应的关键字](https://www.w3.org/TR/css-flexbox-1/#flex-common)。
 
-The first scenario is the `initial` value so doesn’t need the keyword. `flex: auto` is what to use for the second scenario, and `flex: none` is the remarkably simple solution to make something not flex at all.
+第一个场景是 `initial` 的值，所以并不需要关键字。`flex: auto` 适用于第二种场景，`flex: none` 是条目不伸缩的最简单的解决办法。
 
-Who woulda thunk it.
+早就该想到它了。
 
-It’s kinda like having `box-shadow: garish` and that defaulting to `2px 2px 4px hotpink` because it’s considered a ‘useful default’.
+它就好像用 `box-shadow: garish` 来默认表示 `2px 2px 4px hotpink`，因为它被认为是一个 ‘有用的默认值’。
 
-So back to that extremely ugly book example from before. To make that ‘Buy now’ button a consistently fat tap target…
+让我们再回到之前那个丑陋的图书的例子。让我们的 'Buy now' 按钮更胖一点...
 
 ![](https://cdn-images-1.medium.com/max/800/1*oaBk_GjcSHAvSkdhJhwkSA.png)
 
-…I only need to set `flex: none` on it:
+... 我只要设置 `flex: none`：
 
 ```
 .book {
@@ -191,89 +191,90 @@ So back to that extremely ugly book example from before. To make that ‘Buy now
 }
 ```
 
-(Yes, I could have done `flex: 0 0 80px;` and saved a line of CSS. But there’s something nice about the way that `flex: none` clearly represents the intention of the code. This is good for poor Future David who will have forgotten how all this works.)
+(是的，我可以设置 `flex: 0 0 80px;` 来节省一行 CSS。但是设置为 `flex: none`可以更清楚地表示代码的语义。这对于那些忘记这些代码是如何工作的人来说就友好多了。 )
 
-### 4. inline-flex is a thing ###
+### 4. inline-flex
 
-OK to be honest I learned a few months ago that `display: inline-flex` was a thing. And that it would create a flex container that was inline, instead of a block.
+坦白讲，几个月前我才知道 `display: inline-flex` 这个属性。它会代替块容器创建一个内联的 flex 容器。
 
-But I estimate that 28% of people did not yet know this, so … now you do, bottom 28%.
+但是我估计有 28% 的人还不知道这件事，所以现在你就不是那 28% 了。
 
-### 5. vertical-align has no effect on a flex-item ###
+### 5. vertical-align 不会对 flex 条目起作用
 
-Maybe this is something that I *half* knew, but I’m sure at some point when trying to get something to align just right I may have tried `vertical-align: middle` then shrugged when it didn’t work.
+或者这件事我并不是完全的懂，但是从某种意义上我可以确定，当使用 `vertical-align: middle` 来尝试对齐的时候，它并不会起作用。
 
-Now I know for sure, straight from the spec, that “[vertical-align has no effect on a flex item](https://www.w3.org/TR/css-flexbox-1/#flex-containers)” (same as `float`, for the record).
+现在我知道了，细则里面直接写了，[vertical-align 在 flex 条目上不起作用](https://www.w3.org/TR/css-flexbox-1/#flex-containers)” (注意：就好像 `float` 一样)。
 
-### 6. Don’t use % margins or padding ###
+### 6. margins 和 padding 不要使用 %
 
-This is not just a best practice type situation, it’s advice-from-grandma level stuff, just do what you’re told and don’t ask questions.
+这并不仅仅是一个最佳实践，它类似于外婆说的话，去遵守就好了，不要问为什么。
 
-“Authors should avoid using percentages in paddings or margins on flex items entirely” — love, the flexbox spec.
+"开发者们在 flex 条目上使用 paddings 和 margins 时，应该避免使用百分比" — 爱你的，flexbox 细则。
 
-This follows my favourite quote from any spec ever:
+下面是我在细则里面看到的最喜欢的一段话。
 
-> Note: This variance sucks, but it accurately captures the current state of the world (no consensus among implementations, and no consensus within the CSSWG)…
+> 注解：这个变化糟透了，但是它精准地抓住了世界的当前状态(实现无定法，CSS 无定则)
 
-Look out! Honesty-bombing in progress.
+> 当心，糖衣炮弹进行中。
 
-### 7. The margins of adjacent flex items don’t collapse ###
+### 7. 相邻的 flex 条目的边缘不会塌陷
 
-You may already know that margins collapse onto each other sometimes. You may also know that margins *don’t* collapse onto each other at some other times.
+你或许知道有时候会出现相邻条目的边缘塌陷。你或许也知道其他的时候**不会**出现边缘塌陷。
 
-And now we all know that the margins of adjacent flex items do not ever collapse onto each other.
+现在我们都知道相邻的 flex 条目是不会发生边缘塌陷的。
 
-### 8. z-index works even if position: static ###
+### 8. 即使 position: static，z-index 也会有效
 
-I’m not sure that I really care about this one. But I feel like one day, maybe, it will come in handy. It’s exactly the same reason I have a bottle of lemon juice in the fridge.
+我不确定我是否真的在乎这一点。但是我想到或许有一天，它就会真地有用。就好像我冰箱里有一瓶柠檬汁。
 
-I’ll have another human in my house one day and they’ll be all like “hey, you got any lemon juice?” and I’ll be all like “sure do, in the fridge” and they’ll be like, “thanks, mate. Hey, if I want to set z-index on a flex item, do I need to specify a position?” and I’ll be all “nah bro, not for flex items.”
+某一天我家来了其他人，然后他会问："嗨，你这里有柠檬汁吗？"，我这时就会告诉他："有的，就在冰箱里"，他会接着说："谢谢，大兄弟。那么如果我想给一个 flex 条目设置 z-index，我需要指定 position 吗？"，我会说："兄弟，不需要，flex 条目不需要这样。"
 
-### 9. Flex-basis is subtle and important ###
+### 9. Flex-basis 是精细且重要的
 
-Once your requirements go beyond the keywords `initial`, `auto` and `none`, things get a bit more complex, and now that I *get*`flex-basis`, it’s funny, you know, I can’t quite work out how to end this sentence. Feel free to leave a comment if you’ve got any ideas.
+一旦 `initial`，`auto` 和 `none` 都不能满足你的需求时，事情就有点复杂了，但是我们**有** `flex-basis`，有趣的是，你知道的，我不知道怎么结束这句话。如果你们有好的建议的话，欢迎留言。
 
-If you have three flex items with flex values of 3, 3, and 4. Then they *will* take up 30%, 30% and 40% of the available space, regardless of their content, if their `flex-basis` is `0`. And *only* if it’s zero.
+如果你有 3 个 flex 条目，它们的 flex 值分别为 3，3 和 4。那么当 `flex-basis` 为 `0` 的话它们就会忽略他们的内容，占据可用空间的 30%，30%，40%。
 
-However, if you want flex to behave in a friendlier, but less predictable way, use `flex-basis: auto`. This will take your flex values into consideration, but also take other factors into account, have a bit of a think about it, then come up with some widths it thinks will work for you.
+然而，如果你想要 flex 更友好但是有点不太可预测的话，使用 `flex-basis: auto`。这个会将你的 flex 的值设置得更合理，同时也会考虑到一些其他因素，然后为你给出相对合理的宽度。
 
-Check out this neato diagram from the spec:
+看看这个很棒的示意图。
 
 ![](https://cdn-images-1.medium.com/max/800/1*eiAn12jGzun4F7U3mfqUtQ.png)
 
-I’m quite sure this is mentioned in at least one of the flex blog posts I’ve read, but for whatever reason, it didn’t really click until I saw this schmick pic in the spec (triple rhyme if you’re from New Zealand).
+我十分确定我读到的关于 flex 的博客中至少有一篇提到了这一点，但是我也不知道为什么，直到我看到上面这张图才想起来。
 
-### 10. align-items: baseline ###
+### 10. align-items: baseline
 
-If I wanted my flex items to align vertically, I’ve always used `align-items: center`. But just like `vertical-align`, you also have the option to set the value to `baseline` which might be more appropriate if your items have different font sizes and you want their baselines to align.
+如果我想让我的 flex 条目垂直对齐，我总是使用 `align-items: center`。但是就像 `vertical-align`一样，这样当你的条目有不同的字体大小并且你希望它们基于 baselines 对齐的时，你需要设置 `baseline` 才能对齐的更完美。
 
-`align-self: baseline` also works, perhaps obviously.
+`align-self: baseline` 也可以，或许更直观。
 
-### 11. I’m pretty stupid ###
+### 11. 我很蠢
 
-No matter how many times I read the following paragraph, I remain incapable of comprehending it…
+下面这段话不论我读几遍，都无法理解它的含义...
 
-> The content size is the min-content size in the main axis, clamped, if it has an aspect ratio, by any definite min and max cross size properties converted through the aspect ratio, and then further clamped by the max main size property if that is definite.
+> 在主轴上内容大小是最小内容大小的尺寸，并且是加紧的，如果它有一个宽高比，那么任何定义的 min 和 max 的大小属性都会通过宽高比转换，并且如果主轴的 max 尺寸是确定的话会进一步加紧。
 
-The words make their way into my holes, are converted to electrical impulses that travel up my optic nerve, arriving just in time to see my brain running out the back door in a puff of smoke.
+这些单词通过我的眼睛被转化成电信号穿过我的视神经，刚刚抵达的时候就看到我的大脑打开后门一溜烟跑了。
 
-It’s like Minnie Mouse and Mad Max had a child seven years ago and now he’s drunk on peppermint schnapps, verbally abusing anyone within ear-distance using words he learned when Mummy and Daddy were fighting.
+就像米老鼠和疯狂麦克斯 7 年前生了个孩子，现在和薄荷酒喝醉了，使用他从爸爸妈妈吵架时学到的语言肆意的辱骂周围的人。
 
-Ladies and Gentlemen we have begun our descent into nonsense, which means it’s time to wrap it up (or stop reading if you’re just here for the learnin’).
+女士们，先生们，我已经放弃了体面开始胡言乱语了，这意味着你可以关闭这篇文章了(如果你看这个是为了学习的话你可以在这里停止了)。
 
-The most interesting thing I learned reading the spec was exactly how un-thorough my understanding was, despite the half-dozen or so blog posts I’d read, and how relatively simple flexbox is. It turns out that ‘experience’ isn’t just doing the same thing over and over for years on end.
 
-I can report with delight that my time spent reading has paid for itself already. I’ve gone back through old code and set auto margins, flex values to the shorthand auto or none, and defined a min-width of zero wherever it was needed.
+读这篇细则我学到的最有趣的事情是，尽管我看过大量的博文，以及 flexbox 也算是相对简单的知识点，但是我对其的了解曾是那么的不彻底。事实证明 '经验' 不总是起作用的。
 
-I feel better about this code now, knowing that I’m doing it properly.
+我可以很开心的说花时间来阅读这些细则已经得到了回报。我已经优化的我的代码，设置了 auto margins，flex 的值也设置成了 auto 或者 none，并在需要的地方定义了 min-width 为 0。
 
-My other learning was that although the spec is — in places — exactly as dense and vendor-focused as I thought it would be, there is still a lot of friendly words and examples. It even highlights the parts that lowly web developers can skip over.
+现在这些代码看起来好多了，因为我知道这样做是正确的。
 
-However this is a moot point because I’ve told you all the good bits so you needn’t bother reading it for yourself.
+我的另外一个收获就是，尽管这些细则在某些方面正如我所想的基于编者视角并有些庞杂，但是仍然有有很多友好的说明和例子。甚至还高亮了那些初级开发者容易忽略的部分。
 
-Now, if you’ll excuse me, I have to go and read all the other CSS specs.
+然而，这个是多余的，因为我已经告诉了你所有有用知识点，你就不用再自己去阅读了。
 
-P.S. I highly recommend reading this, a list of all the flexbox bugs by browser: [https://github.com/philipwalton/flexbugs](https://github.com/philipwalton/flexbugs).
+现在，如果你们要求，那么我会再去阅读所有其他的 CSS 细则。
+
+PS：我强烈建议读读这个，一个浏览器 flexbox bugs 的清单：[https://github.com/philipwalton/flexbugs](https://github.com/philipwalton/flexbugs).
 
 ---
 
