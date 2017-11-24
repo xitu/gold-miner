@@ -6,6 +6,7 @@
 > * 校对者：
 
 # How To Make A Chart Using AJAX & REST API's
+# 如何使用 AJAX 和 REST API创建一个图表
 
 Pulling data from REST API's is a very common programming pattern. Using this data to render charts is equally as common.
 
