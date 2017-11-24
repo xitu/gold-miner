@@ -14,7 +14,7 @@
  
 ## 关于TensorFlow
  
-TensorFLow是一个开源的深度学习框架，在2015年底在Apache 2.0许可下发布。从那时起, 它已成为世界上最广泛采用的深层学习框架之一 (依据GitHub 项目的Star数量)。
+TensorFLow是一个开源的深度学习框架，于2015年底在Apache 2.0许可下发布。从那时起, 它已成为世界上最广泛采用的深层学习框架之一 (依据GitHub 项目的Star数量)。
  
 
 TensorFLow源于Google DistBelief, 一个由谷歌大脑项目开发的专业化产品级的深度学习系统。谷歌为分布式处理设计了 TensorFlow, 并在其生产数据中心的 "张量处理单元 (TPU)" 的自定义应用专用集成电路 (ASIC) 上进行了最佳的运行。这种设计使 TensorFlow高效应用于在深度学习上。
