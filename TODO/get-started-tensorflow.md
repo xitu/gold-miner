@@ -10,6 +10,9 @@
 In the context of machine learning, _tensor_ refers to the multidimensional array used in the mathematical models that describe neural networks. In other words, a tensor is usually a higher-dimension generalization of a matrix or a vector.
 
 Through a simple notation that uses a rank to show the number of dimensions, tensors allow the representation of complex _n_-dimensional vectors and hyper-shapes as _n_-dimensional arrays. Tensors have two properties: a datatype and a shape.
+ 
+# TensorFlow入门
+在机器学习的语境里，_tensor_(张量)指的是用于描述神经网络的数学模型里的多维数组。换句话说，张量就是矩阵和向量的高维泛化。
 
 ## About TensorFlow
 
