@@ -28,41 +28,41 @@
 
 这看起来还是有些意义的！总的来说，我们发现在小于 100 MB 的情况下，APK 大小和下载转化率之间存在负相关。**一个 APK 的尺寸每增长 6 MB，下载转化率就降低 1% **。在市场团队使用 A/B 测试来优化下载转化率的情况下，APK 大小会有重大影响。
 
-A significant amount of the decline in this conversion rate is not only due to people simply choosing not to install, but also the install not completing for a variety of reasons. We found that the download completion rate of an app with an APK size of around 10MB will be **~30% higher** than an app with an APK size of 100MB.
+这个下降中的一个重要部分不是因为用户选择了不下载，而是下载由于种种原因没有成功。我们发现，一个 10MB 的 app 的下载完成率将比 100MB 的 app 高**30%**。
 
-This may result from:
+这可能是因为：
 
-1.  People considering **how much data** the app needs to download (and the **cost** of that data).
-2.  **How long it will take to download** on their cellular network or wifi (often people have the mindset of “_I need the app now!”_).
-3.  **Internet connectivity issues** that arise during download sessions.
+1. 用户考虑了需要下载的数据量（以及数据的**价格**）。
+2. 在他们的移动网络或 wifi 中的 **下载所需时间** （人们经常陷入“我现在就要这个 app！”的思维模式）。
+3. 下载过程中的 **网络连接性问题**。
 
-### **Do people’s preferences and conversion rates for APK sizes vary by geography?**
+### **人们对 APK 大小的偏好和下载转化率是否会因地理位置而异？**
 
-This is a great question, and they do. APK size has a real data cost for many, and many people in emerging markets lack consistent access to wifi.
+这是一个好问题，答案是肯定的。新兴市场中有许多没有稳定 wifi 的用户，他们是要根据下载 APK 的大小来付费的。
 
-**>50% of Indian and Indonesia Android smartphone users do not have any access to wifi**. So if a user wants to download an app, they likely will be paying data costs for every MB of the APK (Google internal data, 2017).
+**超过 50% 的印度和印尼安卓智能手机用户完全没有 wifi**。所以如果一个用户需要下载一个 app，他很可能要为 APK 的每一个 MB 付费（Google 内部数据，2017年）。
 
 ![](https://cdn-images-1.medium.com/max/800/0*TNaKtrVPw31uV3me.)
 
-Indian wifi availability survey (Google internal Android user survey)
+印度 wifi 普及率调查 (Google 内部安卓用户调查)
 
-Similarly, **~70% of people in emerging markets consider the size of an app before downloading it** out of concerns for data cost and phone storage space.
+与之相似, **新兴市场中大约 70% 的用户会在下载前考虑 app 的大小** out of concerns for data cost and phone storage space.
 
 ![](https://cdn-images-1.medium.com/max/800/0*OH32EpFgpqb-tm2P.)
 
-% of Indonesian users surveyed who consider the size of an app when installing (Google internal Android user survey)
+被调查的印尼用户中会在安装时考虑 app 大小的人所占百分比 (Google 内部安卓用户调查)
 
 ![](https://cdn-images-1.medium.com/max/800/0*juzFS4rHk1SJqa5a.)
 
-Of the Indonesian users who consider the size of an app when installing, the reasons they cite as to why (Google internal Android user survey)
+安装时会考虑 app 大小的用户这样做的原因 (Google 内部安卓用户调查)
 
-We can see these market preferences play out in the data. For example, the average app APK downloaded in emerging markets, such as by people in the Middle East, Africa and South East Asia, are a **quarter of the size of apps downloaded by people in developed markets**, such as in the US and Western Europe.
+我们可以看到，这些市场偏好非常显著。比如，新兴市场（如中东、发非洲和东南亚）用户下载的 APK 的平均大小，**是发达市场（如美国和西欧）的四分之一**。
 
 ![](https://cdn-images-1.medium.com/max/800/0*PgaK63Sz_T4s0Ezw.)
 
-Median APK Size, weighted by install volume, by Market. Green = larger median APK, Red = smaller median APK (Google internal data)
+APK 大小中位数，根据下载量加权，按市场分类。绿色 = 更大的中位数 APK 大小，红色 = 更小的 中位数 APK 大小（Google 内部数据）。
 
-Diving into the conversion rate data, there is a sizeable distinction between how people react to increasing APK sizes in emerging markets (like India and Brazil), versus those in developed markets (such as Japan, USA, and Germany).
+研究下载转化率数据，就可以发现新兴市场（如印度和巴西）和发达市场（如日本、美国和德国）相比，在面对越来越大的 APK 时会有不同的反应。
 
 ![](https://cdn-images-1.medium.com/max/800/1*oa_4HPWrqANWG7WKwJl3OQ.png)
 
