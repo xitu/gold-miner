@@ -16,17 +16,17 @@
 
 下载的APK的平均大小随时间的变化（Google 内部数据）
 
-发现 APK 在变大之后，我们分析了 APK 大小对下载转化率的影响。我们发现，**更小的 APK 对应着更高的下载转化率**，对于新兴市场中的用户而言尤其如此。随着许多开发者把注意力投入到扩张市场（特别是）中去，Understanding that APK sizes are growing, we analyzed the effect an APK size has on install conversion rate. We found that **smaller APK sizes correlate with higher install conversion rates,** with an even larger impact on conversion rates for users in emerging markets. As many developers are shifting their focus towards expansion into new markets, particularly emerging markets, it is important to be cognizant of your app’s size.
+发现 APK 在变大之后，我们分析了 APK 大小对下载转化率的影响。我们发现，**更小的 APK 对应着更高的下载转化率**，对于新兴市场中的用户而言尤其如此。因为许多开发者把注意力投入到向新市场（特别是新兴市场）扩张中去，所以关注 app 的大小就显得很重要。
 
-### **Does APK size impact install conversion rate?**
+### **APK 尺寸是否会影响下载转化率？**
 
-To see if APK size has a demonstrable impact on the choices your user makes, we analyzed **the** **percentage of users who successfully installed an app after visiting a Play store listing**.
+为了研究 APK 大小对用户的选择是否有显著影响，我们分析了**用户在浏览了 Play store 中的一个项目之后成功下载这个 app 的百分比**。
 
 ![](https://cdn-images-1.medium.com/max/800/1*XxnZXaLarvTKJD-pnhVBUg.png)
 
-You can see the size of an app on its store listing, after tapping “Read More”.
+在点击“Read More”之后，你可以在 App store 的相应页面中看到一个 app 的大小。
 
-…and there seems to be something to it! Globally, we see a negative correlation between APK size and install conversion rate for apps with sizes below 100MB.**For every 6 MB increase to an APK’s size, we see a decrease in the install conversion rate of 1%.** In a world where marketing teams use A/B tests to optimize for fractions of improvements in install conversion rates, APK size has a big impact.
+这看起来还是有些意义的！总的来说，我们发现在小于 100 MB 的情况下，APK 大小和下载转化率之间存在负相关。**一个 APK 的尺寸每增长 6 MB，下载转化率就降低 1% **。在市场团队使用 A/B 测试来优化下载转化率的情况下，APK 大小会有重大影响。
 
 A significant amount of the decline in this conversion rate is not only due to people simply choosing not to install, but also the install not completing for a variety of reasons. We found that the download completion rate of an app with an APK size of around 10MB will be **~30% higher** than an app with an APK size of 100MB.
 
