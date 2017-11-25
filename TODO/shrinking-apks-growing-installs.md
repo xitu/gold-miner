@@ -2,22 +2,21 @@
 > * 原文作者：[Sam Tolomei](https://medium.com/@samueltolomei?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/shrinking-apks-growing-installs.md](https://github.com/xitu/gold-miner/blob/master/TODO/shrinking-apks-growing-installs.md)
-> * 译者：
+> * 译者：[tanglie1993](https://github.com/tanglie1993)
 > * 校对者：
 
-# Shrinking APKs, growing installs
+# 缩小APK，增加下载量
 
-## How your app’s APK size impacts install conversion rates
+## 你的APK大小是如何影响下载转化率的
 
 ![](https://cdn-images-1.medium.com/max/800/0*f1gQ1k1n3_d4-x9t.)
 
-Since the launch of Android Marketplace in March 2012, the precursor to Google Play, the **average app size has** **quintupled.** As the mobile app space has matured over time, developers have added new features to serve and attract users, which has benefited many. However, as an increasing number of features are added to apps — more SDKs, higher resolution images, and better graphics — the larger APK sizes become. In this article I discuss the significance of APK size and analyze results in UX studies conducted by Google over the past 2 years.
-
+自从 Android Marketplace （Google Play 的前身）在 2012 年 3 月上线以来，**app 的平均大小增长了四倍**。随着移动 app 的不断成熟，开发者们不断增加新的特性来服务和吸引用户，这使不少人从中受益。然而，随着 app 的特性越来越多——更多 SDK、更高分辨率的图片、更好的图形——APK 也变得越来越大。在本文中，我讨论了 APK 大小的重要性，并且分析了 Google 在过去 2 年中所做的用户体验研究的结果。
 ![](https://cdn-images-1.medium.com/max/800/0*nLLV6VxsHaagxgCk.)
 
-Average downloaded APK size over time (Google internal data)
+下载的APK的平均大小随时间的变化（Google 内部数据）
 
-Understanding that APK sizes are growing, we analyzed the effect an APK size has on install conversion rate. We found that **smaller APK sizes correlate with higher install conversion rates,** with an even larger impact on conversion rates for users in emerging markets. As many developers are shifting their focus towards expansion into new markets, particularly emerging markets, it is important to be cognizant of your app’s size.
+发现 APK 在变大之后，我们分析了 APK 大小对下载转化率的影响。我们发现，**更小的 APK 对应着更高的下载转化率**，对于新兴市场中的用户而言尤其如此。随着许多开发者把注意力投入到扩张市场（特别是）中去，Understanding that APK sizes are growing, we analyzed the effect an APK size has on install conversion rate. We found that **smaller APK sizes correlate with higher install conversion rates,** with an even larger impact on conversion rates for users in emerging markets. As many developers are shifting their focus towards expansion into new markets, particularly emerging markets, it is important to be cognizant of your app’s size.
 
 ### **Does APK size impact install conversion rate?**
 
