@@ -13,7 +13,7 @@
 Smoke Art Cubes to Smoke — MattysFlicks — (CC BY 2.0) （译注：该图是用 PS 将烟雾处理成方块状后得到的效果，参见 [flickr](https://www.flickr.com/photos/68397968@N07/11432696204)。））
 
 > 注意：这是 “软件编写” 系列文章的第七部分，该系列主要阐述如何在 JavaScript ES6+ 中从零开始学习函数式编程和组合化软件（compositional software）技术（译注：关于软件可组合性的概念，参见维基百科
-> [< 上一篇](https://github.com/xitu/gold-miner/blob/master/TODO/functors-categories.mdf) | [<< 返回第一篇](https://github.com/xitu/gold-miner/blob/master/TODO/the-rise-and-fall-and-rise-of-functional-programming-composable-software.mda)
+> [< 上一篇](https://github.com/xitu/gold-miner/blob/master/TODO/functors-categories.md) | [<< 返回第一篇](https://github.com/xitu/gold-miner/blob/master/TODO/the-rise-and-fall-and-rise-of-functional-programming-composable-software.md) | [下一篇 >](https://github.com/xitu/gold-miner/blob/master/TODO/javascript-factory-functions-with-es6.md)
 
 **函数式 Mixins** 是通过管道（pipeline）连接起来的、可组合的工厂函数。每一个工厂函数就类似于流水线上的工人，负责为原始对象添加一个额外的属性或者行为。函数式 Mixin 不依赖一个基础工厂函数或者构造函数，我们仅仅需要向 Mixin 管道入口塞入任意一个对象，在管道出口就能获得该对象的增强版本。
 
