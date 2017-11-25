@@ -66,15 +66,15 @@ APK 大小中位数，根据下载量加权，按市场分类。绿色 = 更大�
 
 ![](https://cdn-images-1.medium.com/max/800/1*oa_4HPWrqANWG7WKwJl3OQ.png)
 
-Install conversion rate increase per 10MB decrease in APK size by select market (Google internal data)
+APK 每减小 10MB 对应下载转化率的增加，按市场分类（Google 内部数据）。
 
-From the above graph, we can see a 10MB decrease in APK size has a larger impact in India and Brazil than Germany, USA and Japan. The removal of 10MB from an app’s APK size in emerging markets correlates **with an increase in install conversion rate by ~2.5%**.
+从上图中，我们可以看到 APK 减小 10MB，在印度和巴西造成的影响会比德国、美国和日本更大。从 APK 中移除 10MB 内容，在新兴市场中对应着 **下载转化率 2.5% 的增长**。
 
-Let’s put some real numbers to these conversion rate improvements: if your app gets 10,000 installs per month in India, at a conversion rate of 20%, a 10MB reduction could result in an extra ~1,140 installs per month.
+让我们把实际的数字填入下载转化率的增长中：如果你的 app 在印度每个月有 10000 下载量，转化率 20%，减小 10MB 可以使得下载量每月增加 1140 左右。
 
-Lastly, when comparing apps (which aren’t games) to games, we see similar correlations between install conversion rates and APK size. However, one thing to note for games with APK sizes greater than 500MB, is that we see that people become much less sensitive to small changes in APK size. For games in the range of 500MB-3,000MB, install conversion rate only increases by 1% for every 200MB decrease in APK size.
+最后，当把非游戏的 app 和游戏比较时，我们可以在下载转化率和 APK 大小之间看到类似的关系。但是，对于超过 500MB 的游戏而言，用户们对于 APK 尺寸的微小变化更不敏感。对于 500-3000MB 的游戏而言，APK 每减小 200MB，下载转化率只增加 1%。
 
-### **Given all this, should I reduce my APK size? If so, how?**
+### **那么，我是否应该减小 APK 尺寸？如果应该，该怎么做？**
 
 From the above data, it’s pretty clear APK size matters to people around the world.
 
