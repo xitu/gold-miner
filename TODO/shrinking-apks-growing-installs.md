@@ -26,7 +26,7 @@
 
 在点击“Read More”之后，你可以在 App store 的相应页面中看到一个 app 的大小。
 
-这看起来还是有些意义的！总的来说，我们发现在小于 100 MB 的情况下，APK 大小和下载转化率之间存在负相关。**一个 APK 的尺寸每增长 6 MB，下载转化率就降低 1% **。在市场团队使用 A/B 测试来优化下载转化率的情况下，APK 大小会有重大影响。
+这看起来还是有些意义的！总的来说，我们发现在小于 100 MB 的情况下，APK 大小和下载转化率之间存在负相关。**一个 APK 的尺寸每增长 6 MB，下载转化率就有  1% 的降低**。在市场团队使用 A/B 测试来优化下载转化率的情况下，APK 大小会有重大影响。
 
 这个下降中的一个重要部分不是因为用户选择了不下载，而是下载由于种种原因没有成功。我们发现，一个 10MB 的 app 的下载完成率将比 100MB 的 app 高**30%**。
 
@@ -40,13 +40,13 @@
 
 这是一个好问题，答案是肯定的。新兴市场中有许多没有稳定 wifi 的用户，他们是要根据下载 APK 的大小来付费的。
 
-**超过 50% 的印度和印尼安卓智能手机用户完全没有 wifi**。所以如果一个用户需要下载一个 app，他很可能要为 APK 的每一个 MB 付费（Google 内部数据，2017年）。
+**超过 50% 的印度和印尼安卓智能手机用户完全没有 wifi**。所以如果一个用户需要下载一个 app，他很可能要为 APK 的每一 MB 付费（Google 内部数据，2017年）。
 
 ![](https://cdn-images-1.medium.com/max/800/0*TNaKtrVPw31uV3me.)
 
 印度 wifi 普及率调查 (Google 内部安卓用户调查)
 
-与之相似, **新兴市场中大约 70% 的用户会在下载前考虑 app 的大小** out of concerns for data cost and phone storage space.
+与之相似, 出于流量价格和存储空间的考虑，**新兴市场中大约 70% 的用户会在下载前考虑 app 的大小**。
 
 ![](https://cdn-images-1.medium.com/max/800/0*OH32EpFgpqb-tm2P.)
 
@@ -56,7 +56,7 @@
 
 安装时会考虑 app 大小的用户这样做的原因 (Google 内部安卓用户调查)
 
-我们可以看到，这些市场偏好非常显著。比如，新兴市场（如中东、发非洲和东南亚）用户下载的 APK 的平均大小，**是发达市场（如美国和西欧）的四分之一**。
+我们可以看到，这些市场偏好非常显著。比如，新兴市场（如中东、非洲和东南亚）用户下载的 APK 的平均大小，**是发达市场（如美国和西欧）的四分之一**。
 
 ![](https://cdn-images-1.medium.com/max/800/0*PgaK63Sz_T4s0Ezw.)
 
@@ -82,18 +82,18 @@ APK 每减小 10MB 对应下载转化率的增加，按市场分类（Google 内
 
 *   [**减小 APK 尺寸**](https://developer.android.com/topic/performance/reduce-apk-size.html)安卓开发者网站上的入门教材，它包含了移除不使用的资源和压缩图片文件。
 
-*   [**Building for Billions guidelines**](https://developer.android.com/develop/quality-guidelines/building-for-billions.html), on the Android Developers website, which discusses APK downsizing along with other considerations for apps being used in emerging markets.
+*   [**Building for Billions guidelines**](https://developer.android.com/develop/quality-guidelines/building-for-billions.html), 在安卓开发者网站上，它讨论了缩小 APK，以及其它针对新兴市场的措施。
 *   [**如何针对新兴市场优化你的应用**](https://medium.com/googleplaydev/how-to-optimize-your-android-app-for-emerging-markets-7124c4180fc), 我们团队的另一篇 medium 文章，关于三个 app 的案例分析，分析它们针对新兴市场的优化起到了怎样的帮助作用。
 
 至于其他的针对新兴市场的考虑，可以去 Google Play 的 [Building for Billions](https://developer.android.com/topic/billions/index.html) 网站上寻找指导。
 
-我花很多篇幅讨论了在新兴市场中减小 APK 尺寸的好处，但另一个用例时 Android Instant App，它要求更小的 APK 尺寸。 Instant App 允许安卓用户不经过安装直接使用，是另一种让你的用户发现你的 app 的方式。关于开始使用 [Android Instant App](https://developer.android.com/topic/instant-apps/index.html)，你可以在这里找到更多信息。你也可以学习更多 [管理下载内容大小的最佳实践](https://android-developers.googleblog.com/2017/08/android-instant-apps-best-practices-for.html)。
+我花很多篇幅讨论了在新兴市场中减小 APK 尺寸的好处，但另一个例子是 Android Instant App，它要求更小的 APK 尺寸。Instant App 允许安卓用户不经过安装直接使用，是另一种让你的用户发现你的 app 的方式。关于开始使用 [Android Instant App](https://developer.android.com/topic/instant-apps/index.html)，你可以在这里找到更多信息。你也可以学习更多 [管理下载内容大小的最佳实践](https://android-developers.googleblog.com/2017/08/android-instant-apps-best-practices-for.html)。
 
 * * *
 
 ### 你怎么看？
 
-我希望你觉得这些观点有用。你有没有关于 APK 大小的问题或观点，或者关于缩小 app 所占空间的故事？在评论区中继续讨论或在twitter中使用 #AskPlayDev 的标签。我们将从 [@GooglePlayDev](http://twitter.com/googleplaydev) 回复。我们定期在这里分享新闻，以及如何在 Google Play 上成功的建议。
+我希望你觉得这些观点有用。你有没有关于 APK 大小的问题或观点，或者关于缩小 app 所占空间的故事？在评论区中继续讨论或在 twitter 中使用 #AskPlayDev 的标签。我们将从 [@GooglePlayDev](http://twitter.com/googleplaydev) 回复。我们定期在这里分享新闻，以及如何在 Google Play 上成功的建议。
 
 
 ---
