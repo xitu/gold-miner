@@ -82,7 +82,7 @@ APK 每减小 10MB 对应下载转化率的增加，按市场分类（Google 内
 
 *   [**减小 APK 尺寸**](https://developer.android.com/topic/performance/reduce-apk-size.html)安卓开发者网站上的入门教材，它包含了移除不使用的资源和压缩图片文件。
 
-*   [**Building for Billions guidelines**](https://developer.android.com/develop/quality-guidelines/building-for-billions.html), 在安卓开发者网站上，它讨论了缩小 APK，以及其它针对新兴市场的措施。
+*   [**Building for Billions 指南**](https://developer.android.com/develop/quality-guidelines/building-for-billions.html), 在安卓开发者网站上，它讨论了缩小 APK，以及其它针对新兴市场的措施。
 *   [**如何针对新兴市场优化你的应用**](https://medium.com/googleplaydev/how-to-optimize-your-android-app-for-emerging-markets-7124c4180fc), 我们团队的另一篇 medium 文章，关于三个 app 的案例分析，分析它们针对新兴市场的优化起到了怎样的帮助作用。
 
 至于其他的针对新兴市场的考虑，可以去 Google Play 的 [Building for Billions](https://developer.android.com/topic/billions/index.html) 网站上寻找指导。
