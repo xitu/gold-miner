@@ -76,23 +76,24 @@ APK 每减小 10MB 对应下载转化率的增加，按市场分类（Google 内
 
 ### **那么，我是否应该减小 APK 尺寸？如果应该，该怎么做？**
 
-From the above data, it’s pretty clear APK size matters to people around the world.
+根据以上数据，很容易看出 APK 大小对于全世界人民来说是很重要的。
 
-“That’s great and all” you say, “but what can I actually do to reduce my APK size?” I’m glad you asked! There are several great primers available on how to reduce the size of your existing APK:
+“这很重要，” 你说，“但是我具体可以如何缩小 APK 呢？” 我很高兴你这样问了！缩小 APK 有以下几个入门要点：
 
-*   [**Reduce APK Size**](https://developer.android.com/topic/performance/reduce-apk-size.html)primer on the Android Developers website, which covers topics including removing unused resources and compressing image files.
+*   [**减小 APK 尺寸**](https://developer.android.com/topic/performance/reduce-apk-size.html)安卓开发者网站上的入门教材，它包含了移除不使用的资源和压缩图片文件。
+
 *   [**Building for Billions guidelines**](https://developer.android.com/develop/quality-guidelines/building-for-billions.html), on the Android Developers website, which discusses APK downsizing along with other considerations for apps being used in emerging markets.
-*   [**How to Optimize Your Android App for Emerging Markets**](https://medium.com/googleplaydev/how-to-optimize-your-android-app-for-emerging-markets-7124c4180fc), another Medium post by our team, which focuses on three apps case studies and how readying their apps for emerging markets helped their performance.
+*   [**如何针对新兴市场优化你的应用**](https://medium.com/googleplaydev/how-to-optimize-your-android-app-for-emerging-markets-7124c4180fc), 我们团队的另一篇 medium 文章，关于三个 app 的案例分析，分析它们针对新兴市场的优化起到了怎样的帮助作用。
 
-For other considerations for your app in emerging markets, check out Google Play’s [Building for Billions](https://developer.android.com/topic/billions/index.html) guidelines site.
+至于其他的针对新兴市场的考虑，可以去 Google Play 的 [Building for Billions](https://developer.android.com/topic/billions/index.html) 网站上寻找指导。
 
-I talked a lot about the benefit of reducing your APK size in emerging markets, but another use case is Android Instant Apps, which require a smaller APK size. Instant Apps allows Android users to run your apps without installation and are another way for users to discover your apps. Find more information on getting started with [Android Instant Apps](https://developer.android.com/topic/instant-apps/index.html). You can also learn more [best practices for managing download size](https://android-developers.googleblog.com/2017/08/android-instant-apps-best-practices-for.html).
+我花很多篇幅讨论了在新兴市场中减小 APK 尺寸的好处，但另一个用例时 Android Instant App，它要求更小的 APK 尺寸。 Instant App 允许安卓用户不经过安装直接使用，是另一种让你的用户发现你的 app 的方式。关于开始使用 [Android Instant App](https://developer.android.com/topic/instant-apps/index.html)，你可以在这里找到更多信息。你也可以学习更多 [管理下载内容大小的最佳实践](https://android-developers.googleblog.com/2017/08/android-instant-apps-best-practices-for.html)。
 
 * * *
 
-### What do you think?
+### 你怎么看？
 
-I hope you found these insights helpful. Do you have questions or thoughts about APK sizes, or stories of how you were able to reduce your app’s size? Continue the discussion in the comments below or tweet using the hashtag #AskPlayDev and we’ll reply from [@GooglePlayDev](http://twitter.com/googleplaydev), where we regularly share news and tips on how to be successful on Google Play.
+我希望你觉得这些观点有用。你有没有关于 APK 大小的问题或观点，或者关于缩小 app 所占空间的故事？在评论区中继续讨论或在twitter中使用 #AskPlayDev 的标签。我们将从 [@GooglePlayDev](http://twitter.com/googleplaydev) 回复。我们定期在这里分享新闻，以及如何在 Google Play 上成功的建议。
 
 
 ---
