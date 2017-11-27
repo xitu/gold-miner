@@ -2,21 +2,29 @@
 > * 原文作者：[Rachel Andrew](https://www.smashingmagazine.com/author/rachel-andrew)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/css-grid-supporting-browsers-without-grid.md](https://github.com/xitu/gold-miner/blob/master/TODO/css-grid-supporting-browsers-without-grid.md)
-> * 译者：
+> * 译者：[Raoul1996](https://github.com/Raoul1996)
 > * 校对者：
 
-# Using CSS Grid: Supporting Browsers Without Grid
+# 使用 CSS Grid: 支持没有 Grid 的浏览器
 
-**Quick Summary**
+**摘要**
+
+当使用任何 CSS 的新特性的时候，浏览器的兼容问题都必须去解决。与 Flexbox 和 CSS Grid 一样，当使用CSS的新特性去布局的时候，这更是一个考虑的因素，反而不是我们可能会考虑的增强性能。
 
 When using any new CSS, the question of browser support has to be addressed. This is even more of a consideration when new CSS is used for layout as with Flexbox and CSS Grid, rather than things we might consider an enhancement.
 
+在这篇文章中，我将探索 **现今处理浏览器兼容问题** 的方法。为了让我们现在就用上 CSS 的新特性，我们可以做出哪些努力，仍然给那些不支持新特性的浏览器提供很好的体验？
+
 In this article, I explore approaches to **dealing with browser support today**. What are the practical things we can do to allow us to use new CSS now and still give a great experience to the browsers that don’t support it?
 
+### 我们说的支持到底是什么？
+
 ### What Do We Mean By Support?
+在阐明如何在去支持那些本身不支持栅格的浏览器之前，很有必要搞明白 _支持_ 的含义。支持可能意味着站点必须在列表中的浏览器上看起来完全相同。这可能意味着对于所有的浏览器，你都可以不用去做一些收尾工作。这可能意味着你在测试这些浏览器的时候对他们能获得简化的体验而感到十分高兴。
 
 Before deciding how you are going to support browsers without grid support, it is worth working out what you mean by _support_. Support might mean that the site has to look absolutely identical in all the browsers on your list. It might mean that you are happy for some finishing touches not to be available in all browsers. It might mean that you are testing these browsers but are completely happy for them to receive a much simplified experience.
 
+一个相关的问题就是 **你怎么拿出支持的浏览器的列表？** 即使是一个全新的网站，这也不应该是一个猜测。对于大多数的企业来说，一个新网站不会成为他们建设的第一个网站。
 A linked question is **how do you come up with your list of supported browsers?** Even for a brand new website, this shouldn’t need to be a guess. For most businesses today, a new website won’t be the first site they have ever built. You probably have some analytics you can look at to see the browsers in use, although you need to take care that they are not skewed by a site that is entirely mobile unfriendly for example. People won’t be visiting the site on mobile if it is impossible to use on a small screen!
 
 If you don’t have any relevant analytics you can look at data on [Can I Use](https://caniuse.com/), where you can import the data for your location.
