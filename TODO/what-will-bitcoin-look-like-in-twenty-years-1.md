@@ -31,7 +31,7 @@
 
 ![](https://cdn-images-1.medium.com/max/600/1*atKKENKEpjOeoEodiqmIlQ.jpeg)
 
-_卡俄斯-混沌_由[洛伦佐·洛托](https://en.wikipedia.org/wiki/Lorenzo_Lotto "Lorenzo Lotto")(Lorenzo Lotto)设计，目前存放于自意大利[贝加莫](https://en.wikipedia.org/wiki/Santa_Maria_Maggiore,_Bergamo "Santa Maria Maggiore, Bergamo")的[圣母玛利亚教堂](https://en.wikipedia.org/wiki/Bergamo "Bergamo")。
+**卡俄斯-混沌**由[洛伦佐·洛托](https://en.wikipedia.org/wiki/Lorenzo_Lotto "Lorenzo Lotto")(Lorenzo Lotto)设计，目前存放于自意大利[贝加莫](https://en.wikipedia.org/wiki/Santa_Maria_Maggiore,_Bergamo "Santa Maria Maggiore, Bergamo")的[圣母玛利亚教堂](https://en.wikipedia.org/wiki/Bergamo "Bergamo")。
 
 混沌理论告诉了我们预测未来是不可能的。
 
