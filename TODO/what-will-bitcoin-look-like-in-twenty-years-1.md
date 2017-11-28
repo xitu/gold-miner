@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/what-will-bitcoin-look-like-in-twenty-years-1.md](https://github.com/xitu/gold-miner/blob/master/TODO/what-will-bitcoin-look-like-in-twenty-years-1.md)
 > * 译者：[ZiXYu](https://github.com/ZiXYu)
-> * 校对者：
+> * 校对者：[Raoul1996](https://github.com/Raoul1996) [atuooo](https://github.com/atuooo)
 
 - [What Will Bitcoin Look Like in Twenty Years? - Part 1](https://github.com/xitu/gold-miner/blob/master/TODO/what-will-bitcoin-look-like-in-twenty-years-1.md)
 - [What Will Bitcoin Look Like in Twenty Years? - Part 2](https://github.com/xitu/gold-miner/blob/master/TODO/what-will-bitcoin-look-like-in-twenty-years-2.md)
