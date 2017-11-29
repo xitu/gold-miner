@@ -15,7 +15,7 @@ REST API 基本上是一个公开的数据集（通常是JSON），它位于某�
 
 **免责声明，本教程将在一般的 JavaScript 中运用。**
 
-我选择了 [Star Wars REST API]（https://swapi.co/） 作为REST端点，从中获取数据。 我之所以选择它，是因为它会返回易于使用的JSON数据，还不需要身份验证。
+我选择了 [Star Wars REST API]（https://swapi.co/） 作为 REST 端点，从中获取数据。 我之所以选择它，是因为它会返回易于使用的 JSON 数据，还不需要身份验证。
 
 ## 目录
 
@@ -52,9 +52,9 @@ var xhr = new XMLHttpRequest();
 
 ## 加载请求
 
-我们的AJAX过程的下一步将是添加一个事件监听器到我们的请求。 我们的事件监听器将响应一个 `load` 事件，一旦我们的请求加载就会触发。 接下来是一个回调函数。
+我们的 AJAX 过程的下一步将是添加一个事件监听器到我们的请求。 我们的事件监听器将响应一个 `load` 事件，一旦我们的请求加载就会触发。 接下来是一个回调函数。
 
-在我们的事件监听器中，回调函数将在if语句流中运行。 如果我们从 API 端点收到“200”状态（意味着请求完成），那么我们会做一些事情。
+在我们的事件监听器中，回调函数将在if语句流中运行。 如果我们从 API 端点收到 “200” 状态（意味着请求完成），那么我们会做一些事情。
 
 整个顺序将如下所示：
 
@@ -114,9 +114,9 @@ var characterInfo = [];
 
 `forEach` 方法需要一个回调函数，它将传入一个 `character` 参数。 character 参数与 for 循环中的 `character[i]` 相同。 它代表着它正在循环的对象。 我们可以使用 JSON 点符号来访问我们在循环过程中需要的任何对象。
 
-我们将从每个对象中提取两条数据; `name` 和 `height`。 这是我们之前的空数组发挥作用的地方。 在我们循环的每个对象中，我们可以使用回调函数内的`array.push（）` 方法将值推送到我们空的`characterInfo`数组的末尾。
+我们将从每个对象中提取两条数据： `name` 和 `height`。 这是我们之前的空数组发挥作用的地方。 在我们循环的每个对象中，我们可以使用回调函数内的`array.push（）` 方法将值推送到我们空的`characterInfo`数组的末尾。
 
-我们可以以数组格式插入值，以便我们可以有一个包含 character name 和 height 的数组数组。 这些值将作为字符串值返回，这对于name属性是很好的。 但是，我们可以使用 `parseInt（）` 方法将每个高度值从一个字符串转换为一个数字。
+我们可以以数组格式插入值，以便我们可以有一个包含 character name 和 height 的数组数组。 这些值将作为字符串值返回，这对于 name 属性是很好的。 但是，我们可以使用 `parseInt（）` 方法将每个高度值从一个字符串转换为一个数字。
 
 我们的代码将如下所示：
 
@@ -136,15 +136,15 @@ xhr.addEventListener('load', function() {
 
 ## 创建请求
 
-AJAX请求的最后两个步骤实际上是促使其发生的。 首先是 open 方法，打开了我们的请求。 这个请求是一个 GET 请求，是 XMLHttpRequest（）方法的HTTP部分。
+AJAX 请求的最后两个步骤实际上是促使其发生的。 首先是 open 方法，打开了我们的请求。 这个请求是一个 GET 请求，是 XMLHttpRequest（）方法的 HTTP 部分。
 
-GET请求是实际到达API端点并获取数据。 我会告诉你它是什么样子，然后我们解析它。
+GET 请求是实际到达API端点并获取数据。 我会告诉你它是什么样子，然后我们解析它。
 
 ```
 xhr.open('GET', 'https://swapi.co/api/people/');  
 ```
 
-使用 `.open` ，我们打开这个请求到指定的 URL: `https://swapi.co/api/people/` 。 这将返回一个包含 Star Wars characters 和一些额外的数据的对象数组。 REST API 通常具有一个可以获取数据的API URL。 如果您感兴趣，请查看 Star Wars API [docs]（https://swapi.co/documentation） 查看您可以获取的不同数据集。
+使用 `.open` ，我们打开这个请求到指定的 URL: `https://swapi.co/api/people/` 。 这将返回一个包含 Star Wars characters 和一些额外的数据的对象数组。 REST API 通常具有一个可以获取数据的 API URL。 如果您感兴趣，请查看 Star Wars API [docs]（https://swapi.co/documentation） 查看您可以获取的不同数据集。
 
 REST API 几乎可以让你通过操作 URL 来指定你想要的数据。 稍后在自己的 demo 中玩 Star Wars API，看看你能得到什么。
 
@@ -156,7 +156,7 @@ REST API 几乎可以让你通过操作 URL 来指定你想要的数据。 稍�
 xhr.send();  
 ```
 
-现在我们已经有了AJAX请求的框架，我们可以使用从 Star Wars REST API 端点返回的响应。
+现在我们已经有了 AJAX 请求的框架，我们可以使用从 Star Wars REST API 端点返回的响应。
 
 ## 渲染一个图表
 
@@ -172,7 +172,7 @@ xhr.send();
 
 ### HTML
 
-为了渲染一个图表，我们需要一个图表容器。 我们可以用 `<div>` 做这个。 我们还需要给这个 `<div>` 唯一的ID：
+为了渲染一个图表，我们需要一个图表容器。 我们可以用 `<div>` 做这个。 我们还需要给这个 `<div>` 唯一的 ID：
 
 ```
 <div id="chartOne"></div>  
@@ -182,7 +182,7 @@ xhr.send();
 
 ### CSS
 
-我们将在我们的CSS中使用这个唯一的ID来声明一个高度和宽度：
+我们将在我们的 CSS 中使用这个唯一的 ID 来声明一个高度和宽度：
 
 ```
 #chartOne {
@@ -207,7 +207,7 @@ xhr.send();
 
 ### 声明一个图表类型
 
-ZingChart有一个可声明的语法，所以选择一个图表类型就像声明一个键值对一样简单：
+ZingChart 有一个可声明的语法，所以选择一个图表类型就像声明一个键值对一样简单：
 
 ```
 var chartOneData = {  
@@ -253,7 +253,7 @@ zingchart.render({
 })
 ```
 
-现在我们已经完成了，我们应该有一个完整的图表，它已经成功地从REST API中提取数据。太好了！
+现在我们已经完成了，我们应该有一个完整的图表，它已经成功地从 REST API 中提取数据。太好了！
 
 
 ## 完整演示
