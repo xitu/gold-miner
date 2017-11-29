@@ -2,8 +2,8 @@
 > * 原文作者：[Derek Fletes](https://blog.zingchart.com/author/derek/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/how-to-make-a-chart-using-ajax-rest-apis.md](https://github.com/xitu/gold-miner/blob/master/TODO/how-to-make-a-chart-using-ajax-rest-apis.md)
-> * 译者：
-> * 校对者：
+> * 译者：sakila1012
+> * 校对者：easy-blue，Usey95
 
 # 如何使用 AJAX 和 REST API 创建一个图表
 
