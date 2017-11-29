@@ -2,8 +2,8 @@
 > * 原文作者：[Derek Fletes](https://blog.zingchart.com/author/derek/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/how-to-make-a-chart-using-ajax-rest-apis.md](https://github.com/xitu/gold-miner/blob/master/TODO/how-to-make-a-chart-using-ajax-rest-apis.md)
-> * 译者：sakila1012
-> * 校对者：easy-blue，Usey95
+> * 译者：[sakila1012](https://github.com/sakila1012)
+> * 校对者：[easy-blue](https://github.com/easy-blue)，[Usey95](https://github.com/usey95)
 
 # 如何使用 AJAX 和 REST API 创建一个图表
 
@@ -88,7 +88,7 @@ xhr.addEventListener('load', function() {
 var response = JSON.parse(this.responseText);  
 ```
 
-现在我们有一个存储在变量中的对象数组。你可以通过 `console.log（response）;` 来查看完整的数组。
+现在我们有一个存储在变量中的对象数组。你可以通过 `console.log(response);` 来查看完整的数组。
 
 在这个数组中，有一个我们想要使用的特定对象叫做 `results`。这个对象包含 Star Wars 的 `characters` 和关于他们的信息。我们将把这个对象保存在一个变量中，这样我们就可以在接下来的步骤中循环。
 
@@ -116,7 +116,7 @@ var characterInfo = [];
 
 我们将从每个对象中提取两条数据：`name` 和 `height`。这是我们之前的空数组发挥作用的地方。在我们循环的每个对象中，我们可以使用回调函数内的`array.push()` 方法将值推送到我们空的 `characterInfo` 数组的末尾。
 
-我们可以以数组格式插入值，以便我们可以有一个包含 character name 和 height 的数组数组。这些值将作为字符串值返回，这对于 name 属性是很好的。但是，我们可以使用 `parseInt()` 方法将每个高度值从一个字符串转换为一个数字。
+我们可以以数组格式插入值，以便我们可以有一个包含 character name 和 height 数组的数组。这些值将作为字符串值返回，这对于 name 属性是很好的。但是，我们可以使用 `parseInt()` 方法将每个高度值从一个字符串转换为一个数字。
 
 我们的代码将如下所示：
 
@@ -257,13 +257,8 @@ zingchart.render({
 
 
 ## 完整 demo
-```
-<iframe height="500" scrolling="no" title="REST API AJAX Request" src="//codepen.io/zingchart/embed/de8544d3f634ae7c88144b3b237f19c0/?height=500&amp;theme-id=dark,result&amp;embed-version=2" frameborder="no" allowtransparency="true" allowfullscreen="true" style="width: 100%;">
-See the Pen 
-<a href='https://codepen.io/zingchart/pen/de8544d3f634ae7c88144b3b237f19c0/'>REST API AJAX Request</a> 
-by ZingChart (<a href='https://codepen.io/zingchart'>@zingchart</a>) on <a href='https://codepen.io'>CodePen</a>.
-</iframe>
-```
+
+<iframe height="500" scrolling="no" title="REST API AJAX Request" src="//codepen.io/zingchart/embed/de8544d3f634ae7c88144b3b237f19c0/?height=500&amp;theme-id=dark,result&amp;embed-version=2" frameborder="no" allowtransparency="true" allowfullscreen="true" style="width: 100%;">See the Pen <a href='https://codepen.io/zingchart/pen/de8544d3f634ae7c88144b3b237f19c0/'>REST API AJAX Request</a> by ZingChart (<a href='https://codepen.io/zingchart'>@zingchart</a>) on <a href='https://codepen.io'>CodePen</a>.</iframe>
 
 
 ---
