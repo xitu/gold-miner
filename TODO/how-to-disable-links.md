@@ -111,7 +111,7 @@ a:link, a:visited { /* or a[href] */
 <span class="isDisabled"><a href="https://unfetteredthoughts.net">Disabled Link</a></span>
 ```
 
-将一个链接包裹在 `<span>` 标签中并添加 `isDisabled` 类给了我们一半禁用视觉样式。一个很好的效果是这个 `isDisabled 类是通用的`，可以用在其他元素上，例如按钮和表单元素。实际的锚点标签现在有设置为 `none` 的 `pointer-events` 和 `text-decoration` 属性。
+将一个链接包裹在 `<span>` 标签中并添加 `isDisabled` 类给了我们一半禁用视觉样式。一个很好的效果是这个 `isDisabled` 类是通用的，可以用在其他元素上，例如按钮和表单元素。实际的锚点标签现在有设置为 `none` 的 `pointer-events` 和 `text-decoration` 属性。
 
 那么键盘用户呢？键盘用户会使用回车键激活链接。`pointer-events` 只用于光标，没有键盘事件。我们还需要防止不支持 `pointer-events` 的旧浏览器激活链接，现在我们将介绍一些 JavaScript。
 
