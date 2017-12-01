@@ -2,63 +2,63 @@
 > * 原文作者：[Eric Elliott](https://medium.com/@_ericelliott?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/mocking-is-a-code-smell.md](https://github.com/xitu/gold-miner/blob/master/TODO/mocking-is-a-code-smell.md)
-> * 译者：
+> * 译者：[yoyoyohamapi](https://github.com/yoyoyohamapi)
 > * 校对者：
 
-# Mocking is a Code Smell
+# 模拟是一种代码异味（Code Smell）
 
 ![](https://cdn-images-1.medium.com/max/800/1*uVpU7iruzXafhU2VLeH4lw.jpeg)
 
 Smoke Art Cubes to Smoke — MattysFlicks — (CC BY 2.0)
 
 > _Note: This is part of the “Composing Software” series on learning functional programming and compositional software techniques in JavaScript ES6+ from the ground up. Stay tuned. There’s a lot more of this to come!
-> _[_< Previous_](https://medium.com/javascript-scene/javascript-monads-made-simple-7856be57bfe8) _|_ [_<< Start Over_](https://medium.com/javascript-scene/composing-software-an-introduction-27b72500d6ea)
+> _[_< Previous_](https://medium.com/javascript-scene/javascript-monads-made-simple-7856be57bfe8) _|_ [_<< Start Over_](https://medium.cm/javascript-scene/composing-software-an-introduction-27b72500d6ea)
 
-One of the biggest complaints I hear about TDD and unit tests is that people struggle with all of the mocking required to isolate units. Some people struggle to understand how their unit tests are even meaningful. In fact, I’ve seen developers get so lost in mocks, fakes, and stubs that they wrote entire files of unit tests where _no actual implementation code was exercised at all._ Oops.
+关于 TDD （Test Driven Development：测试驱动开发）和单元测试，我最常听到的抱怨就是，开发者经常要和隔离单元所要求的 mock（模拟）作斗争。部分开发者并不知道单元测试是一件非常有意义的事。实际上，我发现开发者迷失在了他们单元测试文件中的 mock（模拟）、fake（伪造对象）、和 stub（桩）（译注：三者都是[ Test Double（测试替身）](https://www.wikiwand.com/en/Test_double)，可参看[单元测试中Mock与Stub的浅析](https://segmentfault.com/a/1190000004936516)，[Unit Test - Stub, Mock, Fake 簡介](http://blog.csdn.net/wauit/article/details/21470255)），这些单元测试中**并没有任何实际中的实现代码被执行**。
 
-On the other end of the spectrum, it’s common to see developers get so sucked into the dogma of TDD that they think they absolutely must achieve 100% code coverage, _by any means necessary_, even if that means they have to make their codebase more complex to pull it off.
+另一方面，开发者容易卷入 TDD 的教条中，千方百计地要完成 100% 的代码覆盖率，即便这样做会使他们的代码越来越复杂。
 
-I frequently tell people that mocking is a code smell, but most developers pass through a stage in their TDD skills where they want to achieve 100% unit test coverage, and can’t imagine a world in which they do not use mocks extensively. In order to squeeze mocks into their application, they tend to wrap dependency injection functions around their units or (worse), pack services into dependency injection containers.
+我经常告诉开发者模拟是一种代码异味，但是大多数开发者的 TDD 陷入到了追求 100% 单元测试覆盖率的阶段，他们无法想象去掉一个个的模拟该怎么办。为了将模拟置入到应用中，他们尝试对测试单元包裹依赖注入函数，更糟糕地，还会将服务打包进依赖注入容器。
 
-Angular takes this to an extreme by baking dependency injection right into all Angular component classes, tempting users to view dependency injection as the primary means of decoupling. But dependency injection is not the best way to accomplish decoupling.
+Angular 做得很极端，它为所有的组件添加了依赖注入，试图让人们将依赖注入看作是解耦的主要方式。但事实并非如此，依赖注入并不是完成解耦的最佳手段。
 
-### TDD should lead to better design
+### TDD 应该有更好的设计
 
-> The process of learning effective TDD is the process of learning how to build more modular applications.
+> 学习高效的 TDD 的过程也是学习如何构建更加模块化应用的过程。
 
-TDD tends to have a simplifying effect on code, not a complicating effect. If you find that your code gets harder to read or maintain when you make it more testable, or you have to bloat your code with dependency injection boilerplate, you’re doing TDD wrong.
+TDD 不是要复杂化代码，而是要简化代码。如果你发现当你为了让代码更可测试缺牺牲掉代码的可读性和可维护性时，或者你的代码因为引入了依赖注入的样板代码而变臃肿时，你正在错误地实践 TDD。
 
-Don’t waste your time wedging dependency injection into your app so you can mock the whole world. Chances are very good that it’s hurting you more than it’s helping. Writing more testable code should simplify your code. It should require fewer lines of code and more readable, flexible, maintainable constructions. Dependency injection has the opposite effect.
+不要浪费时间在引入依赖注入到项目中来模拟整个世界了。它们未必能帮到你，相反还会坑了你。更多可测试代码的撰写应当能够简化你的代码。可测试代码不仅要求更少的代码行数，还要求代码更加可读、灵活以及可维护，依赖注入却与此相反。
 
-This text exists to teach you two things:
+本文将教会你两件事：
 
-1.  You can write decoupled code without dependency injection, and
-2.  Maximizing code coverage brings diminishing returns — the closer you get to 100% coverage, the more you have to complicate your application code to get even closer, which can subvert the important goal of reducing bugs in your application.
+1. 你不需要依赖注入来解耦代码
+2. 最大化代码覆盖率将引起受益递减（diminishing returns） —— 你越接近 100% 的覆盖率，你就越可能让你的应用变复杂，这与测试的目的（减少程序中的 bug）就背道而驰了。
 
-More complex code is often accompanied by more cluttered code. You want to produce uncluttered code for the same reasons you want to keep your house tidy:
+更复杂的代码通常伴有更加臃肿的代码。你对整洁代码的渴望就像你对房屋整洁的渴望那样：
 
-*   More clutter leads to more convenient places for bugs to hide, which leads to more bugs, and
-*   It’s easier to find what you’re looking for when there’s less clutter to get lost in.
+* 代码越臃肿，意味着 bug 有更多空间藏身，亦即程序将存在更多 bug。
+* 代码如果整洁精致，你也不会迷失在当中了。
 
-### What is a code smell?
+### 什么是代码异味（code smell）？
 
-> _“A code smell is a surface indication that usually corresponds to a deeper problem in the system.” ~ Martin Fowler_
+> “代码异味指的是系统深层次问题反映出来的表面迹象” ~ Martin Fowler
 
-A code smell does not mean that something is definitely wrong, or that something must be fixed right away. It is a rule of thumb that should alert you to a possible opportunity to improve something.
+代码异味并不意味着某个东西完全错了，或者是某个东西必须得到修正。它只是一个经验法则来提醒你需要优化某个事物了。
 
-This text and its title in no way imply that all mocking is bad, or that you should never mock anything.
+本文以及本文的标题没有暗示所有的模拟都是不好的，也没有暗示你别再使用模拟了。
 
-Additionally, different types of code need different levels (and different kinds) of mocks. Some code exists primarily to facilitate I/O, in which case, there is little to do other than test I/O, and reducing mocks might mean your unit test coverage would be close to 0.
+另外，不同类型的代码需要不同程度（或者说不同类型）的模拟。如果代码是为了方便 I/O 操作的，那么测试就应当着眼于模拟 I/O，否则你的单元测试覆盖率将趋近于 0。
 
-If there is no logic in your code (just pipes and pure compositions), 0% unit test coverage might be acceptable, assuming your integration or functional test coverage is close to 100%. However, if there is logic (conditional expressions, assignments to variables, explicit function calls to units, etc…), you probably do need unit test coverage, and there may be opportunities to simplify your code and reduce mocking requirements.
+如果你的代码不存在任何逻辑（只有含有纯函数组成的管道或者组合），0% 的单元测试覆盖率也是可以接受的，此时你的集成测试或者功能测试的覆盖率接近 100%。然而，如果代码中存在逻辑（条件表达式，变量赋值，显式函数调用等），你可能需要单元测试覆盖率，此时你需要简化代码并减少模拟需求。
 
-### What is a mock?
+### 模拟是什么？
 
-A mock is a test double that stands in for real implementation code during the unit testing process. A mock is capable of producing assertions about how it was manipulated by the test subject during the test run. If your test double produces assertions, it’s a mock in the specific sense of the word.
+模拟是一个测试替身（test double），在单元测试过程中，它负责真正的代码实现。在整个测试的运行期内，一个模拟能够产生有关它如何被测试对象操纵的断言。如果你的测试替身产生了断言，在特定的意义上，它就是一个模拟。
 
-The term “mock” is also used more generally to refer to the use of any kind of test double. For the purpose of this text, we’ll use the words “mock” and “test double” interchangeably to match popular usage. All test doubles (dummies, spies, fakes, etc…) stand in for real code that the test subject is tightly coupled to, therefore, all test doubles are an indication of coupling, and there may be an opportunity to simplify the implementation and improve the quality of the code under test. At the same time, eliminating the need for mocking can radically simplify the tests themselves, because you won’t have to construct the mocks.
+“模拟” 一词更常用来反映任何测试替身的使用。考虑到本文的创作初衷，我们将交替使用 “模拟” 和 “测试替身” 以符合潮流。所有的测试替身（dummy、spy、fake 等等）都负责与测试对象紧耦合的真实代码，因此，所有的测试替身都是耦合的标识，因此，优化测试，也间接帮助优化了代码质量。与此同时，减少对于模拟的需求能够大幅简化测试本身，因为你不再需要构建模拟。
 
-### What is a unit test?
+### 什么是单元测试？
 
 Unit tests test individual units (modules, functions, classes) in isolation from the rest of the program.
 
@@ -66,7 +66,7 @@ Contrast unit tests with integration tests, which test integrations between two 
 
 In general, units are tested using only the public interface of the unit (aka “public API” or “surface area”). This is referred to as black box testing. Black box testing leads to less brittle tests, because the implementation details of a unit tend to change more over time than the public API of the unit. If you use white box testing, where tests are aware of implementation details, any change to the implementation details could break the test, even if the public API continues to function as expected. In other words, white-box testing leads to wasted rework.
 
-### What is test coverage?
+### 什么是测试覆盖率？
 
 Code coverage refers to the amount of code covered by test cases. Coverage reports can be created by instrumenting the code and recording which lines were exercised during a test run. In general, we try to produce a high level of coverage, but code coverage starts to deliver diminishing returns as it gets closer to 100%.
 
@@ -91,7 +91,7 @@ Because use-cases may involve the environment, multiple units, users, and networ
 
 Developers targeting 100% code coverage are chasing the wrong metric.
 
-### What is tight coupling?
+### 什么是紧耦合？
 
 The need to mock in order to achieve unit isolation for the purpose of unit tests is caused by coupling between units. Tight coupling makes code more rigid and brittle: more likely to break when changes are required. In general, less coupling is desirable for its own sake because it makes code easier to extend and maintain. The fact that it also makes testing easier by eliminating the need for mocks is just icing on the cake.
 
@@ -107,7 +107,7 @@ Coupling takes different forms:
 *   **State shape dependencies:** Code that shares data structures with other code, and only uses a subset of the structure. If the shape of the shared structure changes, it could break the dependent code.
 *   **Event/message coupling:** Code that communicates with other units via message passing, events, etc…
 
-### What causes tight coupling?
+### 什么造成了紧耦合？
 
 Tight coupling has many causes:
 
@@ -131,7 +131,7 @@ How do pure functions reduce coupling?
 *   **Do one thing:** Pure functions do one thing: Map some input to some corresponding output, avoiding the responsibility overload that tends to plague object and class-based code.
 *   **Structure, not instructions:** Pure functions can be safely memoized, meaning that, if the system had infinite memory, any pure function could be replaced with a lookup table that uses the function’s input as an index to retrieve a corresponding value from the table. In other words, pure functions describe structural relationships between data, not instructions for the computer to follow, so two different sets of conflicting instructions running at the same time can’t step on each other’s toes and cause problems.
 
-### What does composition have to do with mocking?
+### 组合与模拟
 
 Everything. The essence of all software development is the process of breaking a large problem down into smaller, independent pieces (decomposition) and composing the solutions together to form an application that solves the large problem (composition).
 
@@ -207,7 +207,7 @@ Assuming `f` and `g` have their own unit tests, and `pipe()` has its own unit te
 
 In order for this style to work correctly, the units we compose need to be _decoupled._
 
-### How do we remove coupling?
+### 我们如何消除组合？
 
 To remove coupling, we first need a better understanding of where coupling dependencies come from. Here are the main sources, roughly in order of how tight the coupling is:
 
@@ -253,7 +253,7 @@ That bears repeating:
 
 It’s perfectly OK to mock and fake for integration tests.
 
-### Use pure functions
+### 使用纯函数
 
 Using pure functions takes a little practice, and without that practice, it’s not always clear how to write a pure function to do what you want to do. Pure functions can’t directly mutate global variables, the arguments passed into them, the network, the disk, or the screen. All they can do is return a value.
 
@@ -301,7 +301,7 @@ Another property of pure functions is that, because they have no side-effects, i
 
 In other words, mutation isn’t always faster, and it is often orders of magnitude slower because it takes a micro-optimization at the expense of macro-optimizations.
 
-### Isolate side-effects from the rest of your program logic
+### 隔离副作用与程序逻辑
 
 There are several strategies that can help you isolate side-effects from the rest of your program logic. Here are some of them:
 
@@ -309,7 +309,7 @@ There are several strategies that can help you isolate side-effects from the res
 2.  Isolate logic from I/O e.g., compose functions which return promises using `asyncPipe()`.
 3.  Use objects that represent future computations rather than directly triggering computation with I/O, e.g., `call()` from [redux-saga](https://github.com/redux-saga/redux-saga) doesn't actually call a function. Instead, it returns an object with a reference to a function and its arguments, and the saga middleware calls it for you. That makes `call()` and all the functions that use it _pure functions_, which are easy to unit test with _no mocking required._
 
-#### Use pub/sub
+#### 使用 Pub/Sub 模型
 
 Pub/sub is short for the publish/subscribe pattern. In the publish/subscribe pattern, units don’t directly call each other. Instead, they publish messages that other units (subscribers) can listen to. Publishers don’t know what (if any) units will subscribe, and subscribers don’t know what (if any) publishers will publish.
 
@@ -319,7 +319,7 @@ Pub/sub is also baked into Redux. In Redux, you create a global model for applic
 
 It also makes it trivial to patch into the dispatcher via middleware and trigger cross-cutting concerns, such as action logging/analytics, syncing state with storage or the server, and patching in realtime communication features with servers and network peers.
 
-#### Isolate logic from I/O
+#### 将逻辑从 I/O 中隔离
 
 Sometimes you can use monad compositions (like promises) to eliminate dependent logic from your compositions. For example, the following function contains logic that you can’t unit test without mocking all of the async functions:
 
@@ -392,7 +392,7 @@ With those conditions met, it’s trivial to test each of these functions in iso
 > Remember: _Logic and I/O are separate concerns.
 > Logic is thinking. Effects are actions. Think before you act!_
 
-#### Use objects that represent future computations
+#### 使用对象来描述未来计算
 
 The strategy used by redux-saga is to use objects that represent future computations. The idea is similar to returning a monad, except that it doesn’t always have to be a monad that gets returned. Monads are capable of composing functions with the chain operation, but you can manually chain functions using imperative-style code, instead. Here’s a rough sketch of how redux-saga does it:
 
@@ -470,7 +470,7 @@ Using generators and representations of computations in your unit tests, you can
 
 Using this style, there’s no need to mock anything in unit tests, even for complex integrational workflows with lots of side-effects.
 
-### “Code smells” are warning signs, not laws. Mocks are not evil.
+### “代码” 异味是警告，而非定律。模拟并非恶魔。
 
 All this stuff about using better architecture is great, but in the real world, we have to use other people’s APIs, and integrate with legacy code, and there are lots of APIs that aren’t pure. Isolated test doubles may be useful in those cases. For example, express passes shared mutable state and models side-effects via continuation passing.
 
@@ -542,7 +542,7 @@ app.listen(port, handleListen(port, log));
 
 You still need integration tests for this file, but further unit tests won’t meaningfully enhance your case coverage. We use some very minimal dependency injection to pass a logger into `handleListen()`, but there is certainly no need for any dependency injection framework for express apps.
 
-### Mocking is great for integration tests
+### 模拟很适合集成测试
 
 Because integration tests test collaborative integrations between units, it’s perfectly OK to fake servers, network protocols, network messages, and so on in order to reproduce all the various conditions you’ll encounter during communication with other units, potentially distributed across clusters of CPUs or separate machines on a network.
 
@@ -552,7 +552,7 @@ There are lots of useful integration testing tools that throttle network bandwid
 
 It’s impossible to achieve 100% case coverage without integration tests. Don’t skip them even if you manage to achieve 100% unit test coverage. Sometimes 100% is not 100%.
 
-### Next Steps
+### 接下来
 
 *   Learn why I think [every development team should be using TDD](https://crosscuttingconcerns.com/Podcast-061-Eric-Elliott-on-TDD) on the Cross Cutting Concerns podcast.
 *   JS Cheerleader is documenting [our adventures on Instagram](https://www.instagram.com/js_cheerleader/).
