@@ -11,7 +11,7 @@
 - [基于 Metal 的 ARKit 使用指南（上）](https://github.com/xitu/gold-miner/blob/master/TODO/using-arkit-with-metal.md)
 - [基于 Metal 的 ARKit 使用指南（下）](https://github.com/xitu/gold-miner/blob/master/TODO/using-arkit-with-metal-part-2.md)
 
-**增强现实**提供了一种将虚拟内容渲染到通过移动设备摄像头捕获的真实世界场景之上的方法。上个月，在 `WWDC 2017` 上，我们都很兴奋的看到了 `苹果` 的新 **ARKit** 高级 API 框架，它运行于搭载 A9 处理器或更高配置的 `iOS 11` 设备上。我们看到的一些 ARKit 实验已相当出色，比如下面这个：
+**增强现实**提供了一种将虚拟内容渲染到通过移动设备摄像头捕获的真实世界场景之上的方法。上个月，在 `WWDC 2017` 上，我们都非常兴奋地看到了 `苹果` 的新 **ARKit** 高级 API 框架，它运行于搭载 A9 处理器或更高配置的 `iOS 11` 设备上。我们看到的一些 ARKit 实验已相当出色，比如下面这个：
 
 ![alt text](https://github.com/MetalKit/images/blob/master/ARKit.gif?raw=true "ARKit")
 
@@ -45,9 +45,9 @@ if ARWorldTrackingSessionConfiguration.isSupported {
 }
 ```
 
- `ARFrame` 包含捕获的图像，跟踪信息以及通过 **ARAnchor **对象的场景信息，**ARAnchor ** 对象包含有关真实世界位置和方向的信息，并且可以轻松地添加，更新或从会话中删除。`跟踪`是实时确定物理位置的能力。 然而，`世界追踪`决定了位置和方向，它与物理距离一起工作，相对于起始位置并提供`3D`特征点。
+ `ARFrame` 包含捕获的图像，跟踪信息以及通过 **ARAnchor** 对象获取的场景信息，，**ARAnchor ** 对象包含有关真实世界位置和方向的信息，并且可以轻松地添加，更新或从会话中删除。`跟踪`是实时确定物理位置的能力。 然而，`世界追踪`决定了位置和方向，它与物理距离一起工作，相对于起始位置并提供`3D`特征点。
 
-`ARFrame` 的最后一个组件是便于转换（平移，旋转，缩放）和携带跟踪状态和相机内在的 **ARCamera** 对象。 跟踪质量在很大程度上依赖于不间断的传感器数据，静态场景，并且在场景纹理复杂的环境中更加准确。跟踪状态有三个值：**不可用**（摄像机只有单位矩阵），**限制**（场景功能不足或不够静态）和 **正常**（摄像机被填充数据）。 会话中断是由于相机输入不可用或停止跟踪造成的：
+`ARFrame` 的最后一个组件是 **ARCamera** 对象，它便于转换（平移，旋转，缩放），并且包含了跟踪的状态和相机的相关方法。跟踪质量在很大程度上依赖于不间断的传感器数据，静态场景，并且在场景纹理复杂的环境中更加准确。跟踪状态有三个值：**不可用**（摄像机只有单位矩阵），**限制**（场景功能不足或不够静态）和 **正常**（摄像机被填充数据）。 会话中断是由于相机输入不可用或停止跟踪造成的：
 
 ```
 func session(_ session: ARSession, cameraDidChangeTrackingState camera: ARCamera) { 
@@ -64,16 +64,16 @@ func sessionInterruptionEnded(_ session: ARSession) {
 }
 ```
 
-在 `SceneKit` 中使用 `ARSCNView` 的代理进行`渲染`，包括添加，更新或者删除节点。类似的，`SpriteKit` 使用  `ARSKView` 的代理将`SKNodes` 映射为 `ARAnchor` 对象。由于 `SpriteKit` 为 `2D`，因此它不能使用真实世界的摄像头位置，所以它将锚点位置投影到 `ARSKView` 并在投影的位置渲染精灵，因此精灵需要一直面对摄像头。对于 `Metal`，没有自定义的 `AR` 视图，所以重任就落在了程序员手里。为了处理渲染的图像，我们需要：
+在 `SceneKit` 中使用 `ARSCNView` 的代理进行`渲染`，包括添加，更新或者删除节点。类似的，`SpriteKit` 使用  `ARSKView` 的代理将`SKNodes` 映射为 `ARAnchor` 对象。由于 `SpriteKit` 为 `2D`，因此它不能使用真实世界的摄像头位置，所以它将锚点的位置投影到 `ARSKView`，并在投影的位置上将精灵渲染为一个广告牌（平面），所以精灵会一直面对着摄像头。对于 `Metal`，没有自定义的 `AR` 视图，所以重任就落在了程序员手里。为了处理渲染的图像，我们需要：
 
 - 绘制背景摄像机图像 (从像素缓冲区生成一个纹理)
 - 更新虚拟摄像头
 - 更新光照
 - 更新几何图形的变换
 
-所有这些信息都在 `ARFrame` 对象中。获取 frame，有两种方式：轮询或使用委托。我们将简单介绍后者。我拿了金属的ARKit模板，把它精简到最小，这样我就能更好地理解它是如何工作的。我做的第一件事是移除所有的 `C` 依赖，这样就不需要桥接。它在未来将会很有用，因此类型和枚举常量可以在  `API` 代码和着色器之间共享，但这篇文章的目的并不需要。
+所有这些信息都在 `ARFrame` 对象中。获取 frame，有两种方式：轮询或使用代理。我们将简单介绍后者。我使用了 `Metal` 的 `ARKit` 模板，把它精简到最小，这样我就能更好地理解它是如何工作的。我做的第一件事是移除所有的 `C` 依赖，这样就不需要桥接。它在以后会很有用，因为类型和枚举常量可以在 `API` 代码和着色器之间共享，但这篇文章的目的并不需要。
 
-接着，在 **ViewController** 种我们需要设置 `MTKView` 和 `ARSession` 的代理。我们创建一个 `Renderer` 实例，用于同代理一起实时更新应用：
+接着，回到 **ViewController** 上，它需要作为 `MTKView` 和 `ARSession` 的代理。我们创建一个 `Renderer` 实例，用于同代理一起实时更新应用：
 
 
 ```
@@ -95,7 +95,7 @@ override func viewDidLoad() {
 }
 ```
 
-正如你所看到的，我们还添加了一个手势识别，用于在场景中添加虚拟内容。首先，我们获取会话的当前坐标系，接着创建一个变换将我们的实体放到摄像头前（本例中 **0.3** 米），最后使用这个变换在会话中添加一个新的锚点。
+正如你所看到的，我们还添加了一个手势识别，用于在场景中添加虚拟内容。首先，我们获取会话的当前帧，接着创建一个变换将我们的实体放到摄像头前（本例中 **0.3** 米），最后使用这个变换在会话中添加一个新的锚点。
 
 ```
 func handleTap(gestureRecognize: UITapGestureRecognizer) {
@@ -191,7 +191,7 @@ func updateBufferStates() {
 }
 ```
 
-在 **updateSharedUniforms()** 方法中，我们更新 frame 的共享元素并设置场景的光照：
+在 **updateSharedUniforms()** 方法中，我们更新 `frame` 的共享 `uniform` 变量并设置场景的光照：
 
 ```
 func updateSharedUniforms(frame: ARFrame) {
@@ -244,7 +244,7 @@ func updateCapturedImageTextures(frame: ARFrame) {
 }
 ```
 
-在 **updateImagePlane()** 方法中，我们将图像平面的纹理坐标更新到显示窗口：
+在 **updateImagePlane()** 方法中，我们更新图像屏幕的纹理坐标，让它能够保持比例并填满整个视图：
 
 ```
 func updateImagePlane(frame: ARFrame) {
@@ -277,7 +277,7 @@ func drawCapturedImage(renderEncoder: MTLRenderCommandEncoder) {
 }
 ```
 
-最后，在 **drawAnchorGeometry()** 中为我们创建的虚拟内容添加锚点：
+最后，在 **drawAnchorGeometry()** 中为我们创建的虚拟内容绘制锚点：
 
 ```
 func drawAnchorGeometry(renderEncoder: MTLRenderCommandEncoder) {
@@ -327,7 +327,7 @@ fragment float4 capturedImageFragmentShader(ImageColorInOut in [[stage_in]],
 }
 ```
 
-对于第二个几何锚点的着色器，在顶点着色器中，我们计算我们顶点在剪辑空间中的位置，并输出剪裁和光栅化，然后为每个面着色不同的颜色，然后计算观察坐标空间中顶点的位置，最后将我们的法线旋转到世界坐标：
+对于第二个几何锚点的着色器，在顶点着色器中，我们计算我们顶点在剪辑空间中的位置，并输出剪裁和光栅化，然后为每个面着色不同的颜色，然后计算观察坐标空间中顶点的位置，最后将我们的坐标系转换到世界坐标系：
 
 
 ```
@@ -355,7 +355,7 @@ vertex ColorInOut anchorGeometryVertexTransform(Vertex in [[stage_in]],
 }
 ```
 
-在片段着色器中，我们计算定向光的贡献作为漫反射和镜面反射项的总和，然后我们通过将颜色映射的样本乘以片段的光照值来计算最终的颜色，最后使用我们刚才计算的颜色 该片段的 alpha 值的颜色映射的 alpha 通道：
+在片段着色器中，我们计算定向光的贡献作为漫反射和镜面反射项的总和，然后我们通过将颜色映射的采样乘以片段的光照值来计算最终的颜色，最后我们用刚刚计算出来的颜色和颜色映射的 alpha 通道的值作为该片段的 alpha 的值：
 
 ```
 fragment float4 anchorGeometryFragmentLighting(ColorInOut in [[stage_in]],
