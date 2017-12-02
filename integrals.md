@@ -3161,10 +3161,11 @@
 |[消息同步 —— 在 Airbnb 我们是怎样扩展移动消息的](https://juejin.im/post/593a7647128fe1006acafaf9)|校对|1|
 |[对元素持有弱引用的 Swift 数组](https://juejin.im/post/5927a34c0ce46300575a81e1)|校对|1|
 
-## 译者：[feximin](https://github.com/Feximin) 历史贡献积分：22 当前积分：22
+## 译者：[feximin](https://github.com/Feximin) 历史贡献积分：27 当前积分：27
 
 |文章|类型|积分|
 |------|-------|-------|
+|[ViewModel：持久化、onSaveInstanceState()、UI 状态恢复和 Loader](https://juejin.im/post/5a17b3965188255ea95ba2d9)|翻译|5|
 |[探索 Kotlin 的隐性成本（第三部分）](https://juejin.im/post/597eb2e26fb9a03c4844e2e1)|校对|1|
 |[从金属巨人到深度学习](https://juejin.im/post/596f4cecf265da6c2f0adb04)|校对|2|
 |[探索 Kotlin 中的隐性成本（第二部分）](https://juejin.im/post/5970432c6fb9a06bb34f551b)|翻译|4|
@@ -4015,10 +4016,12 @@
 |------|-------|-------|
 |[僵尸币时代即将到来?](https://juejin.im/post/5a0e82315188252ae93a843a)|校对|0.5|
 
-## 译者：[oaosj](https://github.com/oaosj) 历史贡献积分：4 当前积分：4
+## 译者：[oaosj](https://github.com/oaosj) 历史贡献积分：12 当前积分：12
 
 |文章|类型|积分|
 |------|-------|-------|
+|[理解音频焦点（第3/3部分）：三个步骤实现音频聚焦](https://juejin.im/post/5a153ee7f265da432717e070)|翻译|5|
+|[理解音频焦点（第2/3部分）：更多的音频焦点用例](https://juejin.im/post/5a153a906fb9a044fa198228)|翻译|3|
 |[理解音频焦点（第1/3部分）：常见的音频焦点用例](https://juejin.im/entry/5a0e6f3a5188251c1140315b)|翻译|4|
 
 ## 译者：[balancelove](https://github.com/balancelove) 历史贡献积分：7 当前积分：7
