@@ -85,10 +85,11 @@
 |[第一次翻译计划文章已兑换Octocat小]()|减去积分|15|
 |[Vector For All (slight return)](http://gold.xitu.io/entry/5756697ea341310063dd532c)|翻译|4|
 
-## 译者：[joyking7](https://github.com/joyking7) 历史贡献积分：44.5 当前积分：9.5
+## 译者：[joyking7](https://github.com/joyking7) 历史贡献积分：52.5 当前积分：17.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TensorFlow 官方文档翻译校对]()|翻译|8|
 |[并发编程](https://juejin.im/post/59ecb058f265da43346f10e5)|校对|1.5|
 |[什么是蒙特卡洛树搜索](https://juejin.im/post/59f16e8c5188250385371302)|校对|1|
 |[探索 Python 3 加密技术](http://gold.xitu.io/entry/575fae92df0eea0062c5a1dc)|校对|1|
@@ -197,10 +198,11 @@
 |[JavaScript 开发者年度调查报告](http://gold.xitu.io/entry/56ca985071cfe40054d98994)|翻译|15|
 |[第一次翻译计划文章已兑换Octocat小]()|减去积分|15|
 
-## 译者：[edvardhua](https://github.com/edvardHua) 历史贡献积分：66 当前积分：51
+## 译者：[edvardhua](https://github.com/edvardHua) 历史贡献积分：83 当前积分：68
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TensorFlow 官方文档翻译校对]()|翻译|13|
 |[基于 TensorFlow 的上下文聊天机器人](https://juejin.im/entry/5992cd385188252433704fa3)|翻译|5|
 |[深度学习系列2：卷积神经网络](https://juejin.im/post/598ac6a55188257dd366367f)|校对|1|
 |[在使用过采样或欠采样处理类别不均衡的数据后，如何正确的做交叉验证？](https://juejin.im/entry/5976dde9f265da6c2e0fc2f9/detail)|翻译|9|
@@ -2354,10 +2356,11 @@
 |[防守式编程的艺术](https://gold.xitu.io/entry/58980dbc1b69e6005997f069)|校对|1|
 |[为何我抵制使用缓存？](https://gold.xitu.io/entry/5884184f1b69e60058dc7fc6)|校对|1|
 
-## 译者：[vuuihc](https://github.com/vuuihc) 历史贡献积分：20 当前积分：20
+## 译者：[vuuihc](https://github.com/vuuihc) 历史贡献积分：32 当前积分：32
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TensorFlow 官方文档翻译校对]()|翻译|12|
 |[React 组件的 8 个关键决策](https://juejin.im/post/59f7e2c5f265da4318760a5f)|校对|1|
 |[Preload，Prefetch 和它们在 Chrome 之中的优先级](https://juejin.im/post/58e8acf10ce46300585a7a42)|校对|1|
 |[看动画，学 RxJS](https://juejin.im/post/58cd146a61ff4b0060277d32)|校对|1|
@@ -3359,10 +3362,11 @@
 |------|-------|-------|
 |[是的，ES2017 （ES8）来了](https://juejin.im/post/596713b75188250da20604cb)|翻译|3|
 
-## 译者：[tobiaslee](https://github.com/tobiaslee) 历史贡献积分：42 当前积分：12
+## 译者：[tobiaslee](https://github.com/tobiaslee) 历史贡献积分：45.5 当前积分：15.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TensorFlow 官方文档翻译校对]()|翻译|3.5|
 |[RNN 循环神经网络系列 4: 注意力机制](https://juejin.im/post/59f72f61f265da432002871c)|翻译|6|
 |[RNN 循环神经网络系列 2：文本分类](https://juejin.im/post/59f0c6b3f265da4319557de4)|校对|1|
 |[RNN 循环神经网络系列 1：基本 RNN 与 CHAR-RNN](https://juejin.im/post/59f0c5b0f265da43085d3e94)|校对|1|
@@ -3853,10 +3857,11 @@
 |[Python 3.7 的新特性](https://juejin.im/post/5a127e60f265da430f31b45b)|翻译|4|
 |[如何为通知设计更好的用户体验](https://juejin.im/post/59f9b14f518825295f5d411f)|校对|3|
 
-## 译者：[ppp-man](https://github.com/ppp-man) 历史贡献积分：7 当前积分：7
+## 译者：[ppp-man](https://github.com/ppp-man) 历史贡献积分：11 当前积分：11
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TensorFlow 官方文档翻译校对]()|翻译|4|
 |[在 Android O 上用到 MediaStyle 的提醒功能](https://juejin.im/post/5a015d696fb9a04524053bce)|翻译|3|
 |[Spotify 每周推荐功能：基于机器学习的音乐推荐](https://juejin.im/post/59fbd0d9518825299a468a8b)|校对|1.5|
 |[什么是蒙特卡洛树搜索](https://juejin.im/post/59f16e8c5188250385371302)|校对|1|
@@ -3952,10 +3957,11 @@
 |[JavaScript 如何工作：在 V8 引擎里 5 个优化代码的技巧](https://juejin.im/post/5a102e656fb9a044fd1158c6)|校对|2|
 |[Vue Report 2017](https://juejin.im/post/5a138fae5188254d28732899)|翻译|4|
 
-## 译者：[caoyi0905](https://github.com/caoyi0905) 历史贡献积分：7.5 当前积分：-2.5
+## 译者：[caoyi0905](https://github.com/caoyi0905) 历史贡献积分：17.5 当前积分：7.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TensorFlow 官方文档翻译校对]()|翻译|10|
 |[ES6 中的元编程： 第三部分 - 代理（Proxies）](https://juejin.im/post/5a0f05496fb9a04508093ac4)|校对|1.5|
 |[Angular、React、Vue 三剑客: 在 2017 年的比较](https://juejin.im/post/5a0d5df1f265da43062a542f)|校对|3|
 |caoyi0905 2017 年 11 月兑 GitHub 贴纸 1 个|减去积分|10|
@@ -3974,10 +3980,11 @@
 |------|-------|-------|
 |[Vue Report 2017](https://juejin.im/post/5a138fae5188254d28732899)|翻译|2|
 
-## 译者：[witmax](https://github.com/witmax) 历史贡献积分：3 当前积分：3
+## 译者：[witmax](https://github.com/witmax) 历史贡献积分：7 当前积分：7
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TensorFlow 官方文档翻译校对]()|翻译|4|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|3|
 
 ## 译者：[linbaiwpi](https://github.com/linbaiwpi) 历史贡献积分：2.5 当前积分：2.5
@@ -4016,10 +4023,11 @@
 |------|-------|-------|
 |[僵尸币时代即将到来?](https://juejin.im/post/5a0e82315188252ae93a843a)|翻译|2|
 
-## 译者：[MRNIU](https://github.com/MRNIU) 历史贡献积分：0.5 当前积分：0.5
+## 译者：[MRNIU](https://github.com/MRNIU) 历史贡献积分：5 当前积分：5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TensorFlow 官方文档翻译校对]()|翻译|4.5|
 |[僵尸币时代即将到来?](https://juejin.im/post/5a0e82315188252ae93a843a)|校对|0.5|
 
 ## 译者：[oaosj](https://github.com/oaosj) 历史贡献积分：12 当前积分：12
@@ -4054,3 +4062,53 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[如何使用 AJAX 和 REST API 创建一个图表](https://juejin.im/post/5a20e18bf265da4318768b22)|翻译|2|
+
+## 译者：[shi-xiaopeng](https://github.com/shi-xiaopeng) 历史贡献积分：5 当前积分：5
+
+|文章|类型|积分|
+|------|-------|-------|
+|[TensorFlow 官方文档翻译校对]()|翻译|5|
+
+## 译者：[LilianYe](https://github.com/LilianYe) 历史贡献积分：2 当前积分：2
+
+|文章|类型|积分|
+|------|-------|-------|
+|[TensorFlow 官方文档翻译校对]()|翻译|2|
+
+
+## 译者：[elijahxyc](https://github.com/elijahxyc) 历史贡献积分：3.5 当前积分：3.5
+
+|文章|类型|积分|
+|------|-------|-------|
+|[TensorFlow 官方文档翻译校对]()|翻译|3.5|
+
+## 译者：[carriecc](https://github.com/carriecc) 历史贡献积分：6 当前积分：6
+
+|文章|类型|积分|
+|------|-------|-------|
+|[TensorFlow 官方文档翻译校对]()|翻译|6|
+
+## 译者：[charsdavy](https://github.com/charsdavy) 历史贡献积分：7 当前积分：7
+
+|文章|类型|积分|
+|------|-------|-------|
+|[TensorFlow 官方文档翻译校对]()|翻译|7|
+
+## 译者：[xiaoxi666](https://github.com/xiaoxi666) 历史贡献积分：2 当前积分：2
+
+|文章|类型|积分|
+|------|-------|-------|
+|[TensorFlow 官方文档翻译校对]()|翻译|2|
+
+## 译者：[missmisslonely](https://github.com/missmisslonely) 历史贡献积分：6 当前积分：6
+
+|文章|类型|积分|
+|------|-------|-------|
+|[TensorFlow 官方文档翻译校对]()|翻译|6|
+
+
+## 译者：[gzponline](https://github.com/gzponline) 历史贡献积分：6 当前积分：6
+
+|文章|类型|积分|
+|------|-------|-------|
+|[TensorFlow 官方文档翻译校对]()|翻译|6|
