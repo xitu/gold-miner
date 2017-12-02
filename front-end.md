@@ -1,3 +1,5 @@
+* [如何使用 AJAX 和 REST API 创建一个图表](https://juejin.im/post/5a20e18bf265da4318768b22) ([sakila1012](https://github.com/sakila1012) 翻译)
+* [JavaScript 如何工作的: 事件循环和异步编程的崛起 + 5 个关于如何使用 async/await 编写更好的技巧](https://juejin.im/post/5a221d35f265da43356291cc) ([balancelove](https://github.com/balancelove) 翻译)
 * [前端 Console 调试小技巧](https://juejin.im/post/5a08087f6fb9a04529363d71) ([lsvih](https://github.com/lsvih) 翻译)
 * [ES6 中的元编程： 第三部分 - 代理（Proxies）](https://juejin.im/post/5a0f05496fb9a04508093ac4) ([yoyoyohamapi](https://github.com/yoyoyohamapi) 翻译)
 * [Angular、React、Vue 三剑客: 在 2017 年的比较](https://juejin.im/post/5a0d5df1f265da43062a542f) ([Raoul1996](https://github.com/Raoul1996) 翻译)
