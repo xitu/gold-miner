@@ -2749,10 +2749,11 @@
 |[你正在阅读的用户体验文章是不是在向你进行推销？](https://juejin.im/post/58d4c501a22b9d00645544d9)|校对|2|
 |[震惊，还可以用这种姿势学习编程](https://juejin.im/post/58d3ebd4128fe1006cb43722)|翻译|3|
 
-## 译者：[lsvih](https://github.com/lsvih) 历史贡献积分：196.5 当前积分：161.5
+## 译者：[lsvih](https://github.com/lsvih) 历史贡献积分：196.5 当前积分：155.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[2017 年 11 月兑换多态卡]()|减去积分|6|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|8.5|
 |[前端 Console 调试小技巧](https://juejin.im/post/5a08087f6fb9a04529363d71)|翻译|3|
 |[RNN 循环神经网络系列 5: 自定义单元](https://juejin.im/post/59fbd28b6fb9a045204b91f2)|翻译|3|
@@ -3048,10 +3049,11 @@
 |------|-------|-------|
 |[开发者（也就是我）与Rx Observable 类的对话 [ Android RxJava2 ] ( 这到底是什么？) 第五部分](https://juejin.im/post/590ab4f7128fe10058f35119)|校对|1|
 
-## 译者：[leviding](https://github.com/leviding) 历史贡献积分：54 当前积分：39
+## 译者：[leviding](https://github.com/leviding) 历史贡献积分：54 当前积分：9
 
 |文章|类型|积分|
 |------|-------|-------|
+|[2017 年 11 月兑换 套头衫和各一个]()|减去积分|30|
 |[学习 JavaScript：9个常见错误阻碍你进步](https://juejin.im/post/59bb4a7c6fb9a00a53274cd7)|翻译|3|
 |[为什么 context.Value 重要，如何改进](https://juejin.im/post/59b20d6ff265da249517c14a)|校对|2|
 |[2017 年 9 月 6 日兑换小猫一个]()|减去积分|15|
