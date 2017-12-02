@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/from-app-explorer-to-first-time-buyer.md](https://github.com/xitu/gold-miner/blob/master/TODO/from-app-explorer-to-first-time-buyer.md)
 > * 译者：[ppp-man](https://github.com/ppp-man)
-> * 校对者：
+> * 校对者：[RoarTiger](https://github.com/RoarTiger);[LeviDing](https://github.com/leviding)
 
 # 从应用探索者到初次购买者
 
@@ -17,7 +17,7 @@
 
 当所有或大或小的资深或初学开发者一同为了成功而努力时，一些人忘记了一旦错过某些基本要素，那应用就很难赚到钱了。甚至一些成功的开发者也会不小心在他们最新的应用里忽略了这些基本要素。
 
-虽然许多商业模式也能促进成功，但我着眼的是**促使应用内购买** － 买应用里的产品或者是订阅的形式。这不只是关于收入。有时候如果用户不购买，他们就不了解一个应用或者游戏的所有功能，也就未必能被吸引和给应用评高分，和朋友分享 － 你明白其重点。因此，回到基本要素：当用户想买东西时购买过程应该越简单越好。
+虽然许多商业模式也能促进成功，但我着眼的是**促使应用内购买** － 买应用里的产品或者是订阅的形式。这不只是关于收入。有时候如果用户不购买，他们就不了解一个应用或者游戏的所有功能，也就未必能被吸引和给应用评高分甚至和朋友分享 － 你明白其中的重点。因此，回到基本要素：当用户想买东西时购买过程应该越简单越好。
 
 这不是简单的挑战。2016年五月，[Appsflyer](https://www.appsflyer.com/pr/new-report-global-app-spending-habits-finds-asian-consumers-spend-40-apps-rest-world/) 发现仅有 5.2% 的用户会在移动端有应用内购买的行为。因此，增长初次购买者的转化率（不购买人群成为初次购买者比率）能大大影响你的赚钱能力。
 
@@ -25,7 +25,7 @@
 
 对于一些应用，其卖的产品会很明确 － 例如新闻应用里的付费内容 － 然而对于另一些应用，特别是游戏，未必有那么简单。**出售有限资源还是提供付费内容**这类决策是常有的。
 
-**有限的资源意味着有限的产品**。[Candy Crush](https://play.google.com/store/apps/details?id=com.king.candycrushsaga&hl=en_GB&e=-EnableAppDetailsPageRedesign) 让玩家在游戏里买生命和炸弹等等资源正是这个方法的体现。与之相对，提供付费内容是为了提升用户体验，例如免费版游戏不能玩特殊关卡。付费内容同时也包括与游戏情节没直接联系的内容，如角色的衣着或某情景里的家具。后者常被应用于角色扮演或个性化的建筑游戏（玩家通过建造某些东西来表达个性的游戏）。例如 [部落冲突](https://play.google.com/store/apps/details?id=com.supercell.clashofclans) 和 [Farmville](https://play.google.com/store/apps/details?id=com.zynga.FarmVille2CountryEscape)和[开心农场](https://play.google.com/store/apps/details?id=com.zynga.FarmVille2CountryEscape) 的玩家可以买灌木丛然后添加到他们的村庄和农场。
+**有限的资源意味着有限的产品**。[Candy Crush](https://play.google.com/store/apps/details?id=com.king.candycrushsaga&hl=en_GB&e=-EnableAppDetailsPageRedesign) 让玩家在游戏里买生命和炸弹等等资源正是这个方法的体现。与之相对，提供付费内容是为了提升用户体验，例如免费版游戏不能玩特殊关卡。付费内容同时也包括与游戏情节没直接联系的内容，如角色的衣着或某情景里的家具。后者常被应用于角色扮演或个性化的建筑游戏（玩家通过建造某些东西来表达个性的游戏）。例如 [部落冲突](https://play.google.com/store/apps/details?id=com.supercell.clashofclans) 和 [开心农场](https://play.google.com/store/apps/details?id=com.zynga.FarmVille2CountryEscape) 的玩家可以买灌木丛然后添加到他们的村庄和农场。
 
 根据用户找到合适的产品风格并不是游戏的专利，所有的包含内购买功能的应用都能用得上这个原则。例如室外活动的应用或许会考虑把国家公园的地图卖给用户，而地图上的爬山路线则免费。或者设计成地图免费，提供能浏览爬山路线的游戏币。正确地配对产品风格和用户期望与体验能增加成功销售的概率。
 
@@ -43,7 +43,7 @@
 
 > [炉石传说](https://play.google.com/store/apps/details?id=com.blizzard.wtcg.hearthstone&hl=en) 则给用户数次免费购买的机会，让他们了解和熟悉购买的流程以便日后的购买。
 
-如果你的应用提供订阅，那么可以让用户**免费试用付费功能**。在 [谷歌 Play Console 上是容易实现](https://support.google.com/googleplay/android-developer/answer/140504#trial)这些功能的，而且这些功能在应用和游戏上同样好用！
+如果你的应用提供订阅，那么可以让用户**免费试用付费功能**。在 [谷歌 Play Console 上是容易实现](https://support.google.com/googleplay/android-developer/answer/140504#trial) 这些功能的，而且这些功能在应用和游戏上同样好用！
 
 ### **使用户的第一次（和每一次）的购买都尽可能简单**
 
@@ -55,7 +55,7 @@
 *   **例子优先**。通过初使用教程的详细讲解确保用户​​能轻松地掌握流程。
 *   **时效性是至关重要**。观察典型用户的体验并在你想他们买第一样东西时合理地展示教程。
 *   **可视化结帐选项**。让用户在购买过程中清楚简单地看到结帐选项。向用户展示如何购买对他们往后的购买都至关重要，记得当用户想结帐时结帐选项要始终就绪！
-*   **做调查**。即使你觉得你知道你的用户在应用里行为和他们会被购买教程的哪个部分说服，再想一想！用户们的行为常与你期望的相悖，因此值得做一个 [应用内的 A/B 测试](https://developer.android.com/distribute/best-practices/develop/in-app-a-b-testing.html)寻找最佳方案。[Memrise](https://play.google.com/store/apps/details?id=com.memrise.android.memrisecompanion&hl=en_GB&e=-EnableAppDetailsPageRedesign) 测试他们什么时候终止用户的免费试用,这使得他们的 [转化率增长了 50%](https://android-developers.googleblog.com/2016/11/learn-tips-from-memrise-to-increase-in-app-conversions-with-pricing-experiments.html)。
+*   **做调查**。即使你觉得你知道你的用户在应用里行为和他们会被购买教程的哪个部分说服，再想一想！用户们的行为常与你期望的相悖，因此值得做一个 [应用内的 A/B 测试](https://developer.android.com/distribute/best-practices/develop/in-app-a-b-testing.html) 寻找最佳方案。[Memrise](https://play.google.com/store/apps/details?id=com.memrise.android.memrisecompanion&hl=en_GB&e=-EnableAppDetailsPageRedesign) 测试他们什么时候终止用户的免费试用,这使得他们的 [转化率增长了 50%](https://android-developers.googleblog.com/2016/11/learn-tips-from-memrise-to-increase-in-app-conversions-with-pricing-experiments.html)。
 
 然而「简单」因人而异。你的用户们在很多特征上都互不相同。不要假定每个人都和你跟你的团队一样对技术了如指掌，因为一般人不一定能够轻松掌握。设定你应用内商店时：
 
