@@ -4,7 +4,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/using-arkit-with-metal.md](https://github.com/xitu/gold-miner/blob/master/TODO/using-arkit-with-metal.md)
 > * 译者：[RichardLeeH](https://github.com/RichardLeeH)
-> * 校对者：
+> * 校对者：[Danny1451](https://github.com/Danny1451)
 
 # 基于 Metal 的 ARKit 使用指南（上）
 
