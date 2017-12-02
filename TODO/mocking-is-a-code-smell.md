@@ -60,76 +60,76 @@ TDD 不是要复杂化代码，而是要简化代码。如果你发现当你为�
 
 ### 什么是单元测试？
 
-Unit tests test individual units (modules, functions, classes) in isolation from the rest of the program.
+单元测试测试各个单个工作单元（模块，函数，类），测试期间，将隔离单元与程序剩余部分。
 
-Contrast unit tests with integration tests, which test integrations between two or more units, and functional tests, which test the application from the point of view of the user, including complete user interaction workflows from simulated UI manipulation, to data layer updates, and back to the user output (e.g., the on-screen representation of the app). Functional tests are a subset of integration tests, because they test all of the units of an application, integrated in the context of the running application.
+集成测试是测试两个或多个单元间集成的，功能测试则是从用户视角来测试应用的，包含了完整的用户交互工作流，从模拟 UI 操作，到数据层更新，再对用户输出（例如应用在屏幕上的展示） 。功能测试是集成测试的一个子集，因为他们测试了应用的所有单月，这些单元集成在了当前运行应用的一个上下文中。
 
-In general, units are tested using only the public interface of the unit (aka “public API” or “surface area”). This is referred to as black box testing. Black box testing leads to less brittle tests, because the implementation details of a unit tend to change more over time than the public API of the unit. If you use white box testing, where tests are aware of implementation details, any change to the implementation details could break the test, even if the public API continues to function as expected. In other words, white-box testing leads to wasted rework.
+一般而言，只会使用单元的公共接口（也叫做 “公共 API” 或者 “表面积”）来测试单元。这被称为黑盒测试。黑盒测试对于测试的健壮度更有利，因为对于某个测试单元，其公共 API 的变化频度通常小于实现细节的变化频度，即公共 API 一般是稳定的。如果你写白盒测试，这种测试就能知道功能实现细节，因此任何实现细节的改变都将破坏测试，即便公共 API 的功能仍然不变。换言之，白盒测试会导致耗时的重复工作。
 
 ### 什么是测试覆盖率？
 
-Code coverage refers to the amount of code covered by test cases. Coverage reports can be created by instrumenting the code and recording which lines were exercised during a test run. In general, we try to produce a high level of coverage, but code coverage starts to deliver diminishing returns as it gets closer to 100%.
+测试覆盖率与被测试用例所覆盖的代码数量有关。覆盖率反映了。一般来说，我们追求高测试覆盖率，但是当覆盖率趋近于 100% 时，将造成收益递减。
 
-In my experience, increasing coverage beyond ~90% seems to have little continued correlation with lower bug density.
+就我个人来说，将测试覆盖率提高到 90% 以上似乎也并不能再降低更多的 bug。
 
-Why would that be? Doesn’t 100% tested code mean that we know with 100% certainty that the code does what it was designed to do?
+为什么会这样呢？100% 的覆盖率不是意味着我们 100% 确定代码已经按照预期实现了吗？
 
-It turns out, it’s not that simple.
+事实证明，没那么简单。
 
-What most people don’t realize is that there are two kinds of coverage:
+大多数开发者并不知道其实存在着两种覆盖率：
 
-1.  **Code coverage:** how much of the code is exercised, and
-2.  **Case coverage:** how many of the use-cases are covered by the test suites
+1. **代码覆盖率：**测试单元覆盖了多少代码逻辑
+2. **用例覆盖率：**测试集覆盖了多少用例
 
-Case coverage refers to use-case scenarios: How the code will behave in the context of real world environment, with real users, real networks, and even hackers intentionally trying to subvert the design of the software for nefarious purposes.
+用例覆盖率与用例场景有关：代码在真实环境的上下文将如何工作，该环境包含有真实用户，真实网络状况甚至还有黑客的非法攻击。
 
-Coverage reports identify code-coverage weaknesses, not case-coverage weaknesses. The same code may apply to more than one use-case, and a single use-case may depend on code outside the subject-under-test, or even in a separate application or 3rd party API.
+覆盖率标识了代码覆盖上的弱点或威胁，而不是用例覆盖上的弱点和威胁。相同的代码可能服务于不同的用例，单一用例可能依赖了当前测试对象以外的代码，甚至依赖了另一个应用或者第三方 API。
 
-Because use-cases may involve the environment, multiple units, users, and networking conditions, it is impossible to cover all required use-cases with a test suite that only contains unit tests. Unit tests by definition test units in isolation, not in integration, meaning that a test suite containing only unit tests will always have close to 0% case coverage for integration and functionaluse-case scenarios.
+由于用例可能涉及环境、多个单元、用户以及网络状况，所以不太可能在只包含了一个测试单元的测试集下覆盖所有所要求的用例。从定义上来说，单元测试对各个单元进行独立地测试，而非集成测试，这也意味着，对于只包含了一个测试单元的测试集来说，集成或者功能用例场景下的用例覆盖率趋近于 0%
 
-100% code coverage does not guarantee 100% case coverage.
+100% 的代码覆盖率不能保证 100% 的用例覆盖率。
 
-Developers targeting 100% code coverage are chasing the wrong metric.
+开发者对于 100% 代码覆盖率的追求看来是走错路了。
 
 ### 什么是紧耦合？
 
-The need to mock in order to achieve unit isolation for the purpose of unit tests is caused by coupling between units. Tight coupling makes code more rigid and brittle: more likely to break when changes are required. In general, less coupling is desirable for its own sake because it makes code easier to extend and maintain. The fact that it also makes testing easier by eliminating the need for mocks is just icing on the cake.
+需要使用模拟来完成单元测试中单元隔离的原因是各个单元间的耦合。紧耦合会让代码变得呆板而脆弱：当需要改变时，代码很可能会被破坏。一般来说，耦合越少，代码更易扩展和维护。锦上添花的是，耦合的减少也会减少测试对于模拟的依赖，从而让测试变得更加容易。
 
-From this we can deduce that if we’re mocking something, there may be an opportunity to make our code more flexible by reducing the coupling between units. Once that’s done, you won’t need the mocks anymore.
+从中不难推测，如果我们正模拟某个事物，就存在着通过减少单元间的耦合来提升代码灵活性的空间。
 
-Coupling is the degree to which a unit of code (module, function, class, etc…) depends upon other units of code. Tight coupling, or a high degree of coupling, refers to how likely a unit is to break when changes are made to its dependencies. In other words, the tighter the coupling, the harder it is to maintain or extend the application. Loose coupling reduces the complexity of fixing bugs and adapting the application to new use-cases.
+耦合反映了某个单元的代码（模块、函数、类等等）对于其他单元代码的依赖程度。紧耦合，或者说一个高度的耦合，反映了一个单元在其依赖修改时有多大可能会损坏。换言之，耦合越紧，应用越难维护和扩展。松耦合则可以降低修复 bug 和为应用引入新的用例时的复杂度。
 
-Coupling takes different forms:
+耦合会有不同形式的反映：
 
-*   **Subclass coupling:** Subclasses are dependent on the implementation and entire hierarchy of the parent class: the tightest form of coupling available in OO design.
-*   **Control dependencies:** Code that controls its dependencies by telling them what to do, e.g., passing method names, etc… If the control API of the dependency changes, the dependent code will break.
-*   **Mutable state dependencies:** Code that shares mutable state with other code, e.g., can change properties on a shared object. If relative timing of mutations change, it could break dependent code. If timing is nondeterministic, it may be impossible to achieve program correctness without a complete overhaul of all dependent units: e.g., there may be an irreparable tangle of race conditions. Fixing one bug could cause others to appear in other dependent units.
-*   **State shape dependencies:** Code that shares data structures with other code, and only uses a subset of the structure. If the shape of the shared structure changes, it could break the dependent code.
-*   **Event/message coupling:** Code that communicates with other units via message passing, events, etc…
+* **子类耦合**：子类依赖于整个继承层级上父类的实现：这是面向对象中耦合最紧的形式。
+* **控制依赖**：代码通过告知做什么来控制其依赖，例如，传递一个方法名给告诉依赖该做什么等。如果控制依赖的 API 改变了，该代码就将损坏。
+* **可变状态依赖**：代码之间共享了可变状态，例如，可以改变共享对象上的属性。可变对象的变化时序改变将破坏依赖该对象的代码。如果时序是不定的，除非你对所有依赖单元来个彻底检修，否则就无法保证程序的正确性：一个例子就是当前存在一个无法修缮的竞态紊乱。修复了某个 bug 可能又造成其他单元出现 bug。
+* **状态形态依赖**：代码之间共享了数据结构，并且也只用了结构的一个子集。如果共享的结构发生了变化，那么依赖于这个结构的代码也会损坏。
+* **事件/消息 耦合**：各个单元间的代码通过消息传递、时间等进行通信。
 
 ### 什么造成了紧耦合？
 
-Tight coupling has many causes:
+紧耦合有许多成因：
 
-*   **Mutation** vs _immutability_
-*   **Side-Effects** vs _purity/isolated side-effects_
-*   **Responsibility overload** vs _Do One Thing (DOT)_
-*   **Procedural instructions** vs _describing structure_
-*   **Imperative composition** vs _declarative composition_
+* **可变性** 与 **不可变性**
+* **副作用** 与 **纯度/隔离副作用**
+* **职责过重** 与 **单一职责（只做一件事：DOT —— Do One Thing）**
+* **过程式指令** 与 **描述性结构**
+* **命令式组合** 与 **声明式组合**
 
-Imperative and object-oriented code is more susceptible to tight coupling than functional code. That doesn’t mean that programming in a functional style makes your code immune to tight coupling, but functional code uses pure functions as the elemental unit of composition, and pure functions are less vulnerable to tight coupling by nature.
+相较于函数式代码，命令式以及面向对象代码更易遭受紧耦合问题。这并非是说函数式编程风格能让你的代码免于紧耦合困扰，只是函数式代码使用了纯函数作为组合的基本单元，并且纯函数天然不易遭受紧耦合问题。
 
-Pure functions:
+纯函数：
 
-*   Given the same input, always return the same output, and
-*   Produce no side-effects
+* 给定相同输入，总是返回相同输出
+* 不产生副作用
 
-How do pure functions reduce coupling?
+纯函数是如何减少耦合的？
 
-*   **Immutability:** Pure functions don’t mutate existing values. They return new ones, instead.
-*   **No side effects:** The only observable effect of a pure function is its return value, so there’s no chance for it to interfere with the operation of other functions that may be observing external state such as the screen, the DOM, the console, standard out, the network, or the disk.
-*   **Do one thing:** Pure functions do one thing: Map some input to some corresponding output, avoiding the responsibility overload that tends to plague object and class-based code.
-*   **Structure, not instructions:** Pure functions can be safely memoized, meaning that, if the system had infinite memory, any pure function could be replaced with a lookup table that uses the function’s input as an index to retrieve a corresponding value from the table. In other words, pure functions describe structural relationships between data, not instructions for the computer to follow, so two different sets of conflicting instructions running at the same time can’t step on each other’s toes and cause problems.
+* **不可变性：**纯函数不会改变现有的值，它总是返回新的值。
+* **没有副作用：**纯函数唯一可观测的作用就是它的返回值，因此，也就不会和其他观测了外部变量的函数交互，例如屏幕、DOM、控制台、标准输出、网络以及磁盘。
+* **单一职责：**纯函数只完成一件事：映射输入到对应的输出，避免了职责过重时污染对象以及基于类的代码。
+* **结构，而非指令：**纯函数可以被安全地记忆（memoized），这意味着，如果系统有无限的内存，任何纯函数都能够被替代为一个查找表，该查找表的索引是函数输入，其在表中检索到的值即为函数输出。换言之，纯函数描述了数据间的结构关系，而不是计算机需要遵从的指令，因此，同一时刻，两个正在运行且因为无法跟上彼此而发生了冲突的指令集将造成问题。
 
 ### 组合与模拟
 
