@@ -1759,10 +1759,11 @@
 |------|-------|-------|
 |[快速构建原型最好用的 10 个 ReactJS UI 框架](http://gold.xitu.io/entry/57ea0bc2a3413100624e62ff/)|校对|1|
 
-## 译者：[danny1451](https://github.com/Danny1451) 历史贡献积分：59.9 当前积分：29.9
+## 译者：[danny1451](https://github.com/Danny1451) 历史贡献积分：60.9 当前积分：30.9
 
 |文章|类型|积分|
 |------|-------|-------|
+|[基于 Metal 的 ARKit 使用指南（上）](https://juejin.im/post/5a225ffcf265da432153daa4)|校对|1|
 |[翻译 Swift 开源库 19 个](#)|翻译|1.9|
 |[巧用 ARKit 和 SpriteKit 从零开始做 AR 游戏](https://juejin.im/post/599aaf746fb9a02477072380)|翻译|7|
 |[开发者眼中 iOS 11 都更新了什么？](https://juejin.im/post/595f1f2c5188250d8a605d69)|校对|3|
@@ -2186,10 +2187,11 @@
 |[CSS 继承深度解析](http://gold.xitu.io/entry/585a29c01b69e6006cb89465/)|校对|2|
 |[Webhook 该做和不该做的: 我们在整合超过 100 个 API 中所学到的](https://gold.xitu.io/entry/5840df86a22b9d007a882f5d)|校对|1|
 
-## 译者：[zixyu](https://github.com/ZiXYu) 历史贡献积分：28 当前积分：28
+## 译者：[zixyu](https://github.com/ZiXYu) 历史贡献积分：32 当前积分：32
 
 |文章|类型|积分|
 |------|-------|-------|
+|[20 年后比特币将会变成什么样 - 第一部分](https://juejin.im/post/5a1e9c2d6fb9a044fa19a036)|翻译|4|
 |[Redux 有多棒？](https://juejin.im/entry/599cff2551882524397f95c1/detail)|翻译|7|
 |[我是如何做到在 5 分钟之内将应用大小减少 60% 的](https://juejin.im/post/58d9b6a1a22b9d0064719f9e)|校对|1|
 |[如何让你的 React Native 应用在键盘弹出时优雅地响应](https://juejin.im/entry/58c7ceab0ce4630054834b07/)|校对|1|
@@ -2542,10 +2544,11 @@
 |[再谈 CSS 中的代码味道](https://juejin.im/post/58c2034dac502e0062cf8e2a/)|校对|1|
 |[Google 是如何构建 web 框架的](https://gold.xitu.io/entry/58bcdda4128fe1007e5b44db/)|校对|1|
 
-## 译者：[atuooo](https://github.com/atuooo) 历史贡献积分：31 当前积分：16
+## 译者：[atuooo](https://github.com/atuooo) 历史贡献积分：32.5 当前积分：17.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[20 年后比特币将会变成什么样 - 第一部分](https://juejin.im/post/5a1e9c2d6fb9a044fa19a036)|校对|1.5|
 |[僵尸币时代即将到来?](https://juejin.im/post/5a0e82315188252ae93a843a)|校对|0.5|
 |[从零到一用 Python 写一个区块链](https://juejin.im/entry/59faa0ed51882576ea3507de/detail)|校对|1.5|
 |[探究 Swift 中的 Futures & Promises](https://juejin.im/post/59afcf5d51882524434163dd)|翻译|4|
@@ -3566,10 +3569,11 @@
 |------|-------|-------|
 |[为什么我们渴求女性来设计 AI ](https://juejin.im/post/599c1e45518825242a02596e)|校对|1|
 
-## 译者：[tmpbook](https://github.com/tmpbook) 历史贡献积分：16 当前积分：16
+## 译者：[tmpbook](https://github.com/tmpbook) 历史贡献积分：20 当前积分：20
 
 |文章|类型|积分|
 |------|-------|-------|
+|[如何使用 Golang 中的 Go-Routines 写出高性能的代码](https://juejin.im/post/5a17c0f9f265da431a42e060)|翻译|4|
 |[2017年日志生态系统概述](https://juejin.im/post/59b8e345f265da0660296161)|校对|1|
 |[SQL 事务隔离实用指南](https://juejin.im/post/59b7ce03f265da0672281fcc)|校对|2|
 |[为什么 context.Value 重要，如何改进](https://juejin.im/post/59b20d6ff265da249517c14a)|翻译|7|
@@ -3816,10 +3820,11 @@
 |[ES6 中的元编程：第二部分 —— 反射（Reflect）](https://juejin.im/post/5a0e66386fb9a04523417418)|校对|1.5|
 |[HTTP/2 下网站资源打包的正确方法](https://juejin.im/post/59f74d20f265da431523326b)|校对|1|
 
-## 译者：[altairlu](https://github.com/altairlu) 历史贡献积分：7 当前积分：7
+## 译者：[altairlu](https://github.com/altairlu) 历史贡献积分：11 当前积分：11
 
 |文章|类型|积分|
 |------|-------|-------|
+|[如何使用 Golang 中的 Go-Routines 写出高性能的代码](https://juejin.im/post/5a17c0f9f265da431a42e060)|校对|4|
 |[Vue Report 2017](https://juejin.im/post/5a138fae5188254d28732899)|翻译|6|
 |[HTTP/2 下网站资源打包的正确方法](https://juejin.im/post/59f74d20f265da431523326b)|校对|1|
 
@@ -3876,10 +3881,11 @@
 |------|-------|-------|
 |[RNN 循环神经网络系列 4: 注意力机制](https://juejin.im/post/59f72f61f265da432002871c)|校对|2|
 
-## 译者：[Raoul1996](https://github.com/Raoul1996) 历史贡献积分：23 当前积分：23
+## 译者：[Raoul1996](https://github.com/Raoul1996) 历史贡献积分：24.5 当前积分：24.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[20 年后比特币将会变成什么样 - 第一部分](https://juejin.im/post/5a1e9c2d6fb9a044fa19a036)|校对|1.5|
 |[Angular、React、Vue 三剑客: 在 2017 年的比较](https://juejin.im/post/5a0d5df1f265da43062a542f)|翻译|10|
 |[JavaScript 如何工作：在 V8 引擎里 5 个优化代码的技巧](https://juejin.im/post/5a102e656fb9a044fd1158c6)|校对|2|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|2|
@@ -4024,8 +4030,27 @@
 |[理解音频焦点（第2/3部分）：更多的音频焦点用例](https://juejin.im/post/5a153a906fb9a044fa198228)|翻译|3|
 |[理解音频焦点（第1/3部分）：常见的音频焦点用例](https://juejin.im/entry/5a0e6f3a5188251c1140315b)|翻译|4|
 
-## 译者：[balancelove](https://github.com/balancelove) 历史贡献积分：7 当前积分：7
+## 译者：[balancelove](https://github.com/balancelove) 历史贡献积分：17 当前积分：17
 
 |文章|类型|积分|
 |------|-------|-------|
+|[JavaScript 如何工作的: 事件循环和异步编程的崛起 + 5 个关于如何使用 async/await 编写更好的技巧](https://juejin.im/post/5a221d35f265da43356291cc)|翻译|10|
 |[JavaScript 如何工作：在 V8 引擎里 5 个优化代码的技巧](https://juejin.im/post/5a102e656fb9a044fd1158c6)|翻译|7|
+
+## 译者：[tvChan](https://github.com/tvChan) 历史贡献积分：4 当前积分：4
+
+|文章|类型|积分|
+|------|-------|-------|
+|[JavaScript 如何工作的: 事件循环和异步编程的崛起 + 5 个关于如何使用 async/await 编写更好的技巧](https://juejin.im/post/5a221d35f265da43356291cc)|校对|4|
+
+## 译者：[athena0304](https://github.com/athena0304) 历史贡献积分：4 当前积分：4
+
+|文章|类型|积分|
+|------|-------|-------|
+|[JavaScript 如何工作的: 事件循环和异步编程的崛起 + 5 个关于如何使用 async/await 编写更好的技巧](https://juejin.im/post/5a221d35f265da43356291cc)|校对|4|
+
+## 译者：[sakila1012](https://github.com/sakila1012) 历史贡献积分：2 当前积分：2
+
+|文章|类型|积分|
+|------|-------|-------|
+|[如何使用 AJAX 和 REST API 创建一个图表](https://juejin.im/post/5a20e18bf265da4318768b22)|翻译|2|
