@@ -2,22 +2,22 @@
 > * 原文作者：[Dominik Kundel](https://www.twilio.com/blog/author/dominik)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/securing-your-express-app.md](https://github.com/xitu/gold-miner/blob/master/TODO/securing-your-express-app.md)
-> * 译者：
+> * 译者：[lsvih](https://github.com/lsvih)
 > * 校对者：
 
-# Putting the helmet on – Securing your Express app
+# 为你的网站带上帽子 — 使用 helmet 保护 Express 应用
 
 ![](https://www.twilio.com/blog/wp-content/uploads/2017/11/4Txtn2Pl8SQnB241Dz1jvqSmUCLJksk6M97TAJYyNHPsIZE8Q9PA1NKBYZtua-v2C5UqpyBKBCFr2SaljImM2DGDGkK-XfJs1mfMkbJ7_Sc_hGP4Q70cnqgJHpVjd7NYIgjU4AJj.png)
 
-[Express](https://expressjs.com/) is a great way to build a web server using [Node.js](https://nodejs.org/). It’s easy to get started with and allows you to configure and extend it easily thanks to its concept of middleware. While there are a [variety of frameworks to create web applications](https://www.twilio.com/blog/2016/07/how-to-receive-a-post-request-in-node-js.html) in Node.js, my first choice is always Express. However, out of the box Express doesn’t adhere to all security best practices. Let’s look at how we can use modules like [`helmet`](https://helmetjs.github.io/) to improve the security of an application.
+[Express](https://expressjs.com/) 基于 [Node.js](https://nodejs.org/)，是一款用于构建 Web 服务的优秀的框架。它很容易上手，且得益于其中间件的概念，可以很方便地进行配置与拓展。尽管现在有[各种各样的用于创建 Web 应用的框架](https://www.twilio.com/blog/2016/07/how-to-receive-a-post-request-in-node-js.html)，但我的第一选择始终是 Express。然而，直接使用 Express 不能完全遵循安全性的最佳实践。因此我们需要使用类似 [`helmet`](https://helmetjs.github.io/) 的模块来改善应用的安全性。
 
-### Set Up
+### 部署
 
-Before we get started make sure you have Node.js and npm (or yarn) installed. You can find the [download and installation instructions on the Node.js website](https://nodejs.org/en/download/).
+在开始之前，请确认你已经安装好了 Node.js 以及 npm（或 yarn）。你可以[在 Node.js 官网下载以及查看安装指南](https://nodejs.org/en/download/)。
 
-We’ll work on a new project but you can also apply these features to your existing project.
+我们将以一个新的工程为例，不过你也可以将这些功能应用于现有的工程中。
 
-Start a new project in your command line by running:
+在命令行中运行以下命令创建一个新的工程：
 
 ```
 mkdir secure-express-demo
@@ -25,13 +25,13 @@ cd secure-express-demo
 npm init -y
 ```
 
-Install the Express module by running:
+运行以下命令安装 Express 模块：
 
 ```
 npm install express --save
 ```
 
-Create a new file called `index.js` in the `secure-express-demo` folder and add the following lines:
+在 `secure-express-demo` 目录下创建一个名为 `index.js` 的文件，加入以下代码：
 
 ```
 const express = require('express');
@@ -47,29 +47,29 @@ app.listen(PORT, () => {
 });
 ```
 
-Save the file and let’s see if everything is working. Start the server by running:
+保存文件，试运行看看它是否能正常工作。运行以下命令启动服务：
 
 ```
 node index.js
 ```
 
-Navigate to [http://localhost:3000](http://localhost:3000) and you should be greeted with `Hello World`.
+访问 [http://localhost:3000](http://localhost:3000)，你应该可以看到 `Hello World`。
 
 ![hello-world.png](https://www.twilio.com/blog/wp-content/uploads/2017/11/iWq7mudUzwNSEw_IBcqBqZ9ah771qXS-SOzOng3EGIkBPVG6LoDhADeDKyCCFiF53KKrU0ZIDhEeSDz4HdjRzK3JsvigkR5wq4vYMLQS9ffmGhZ_omI9oBvTocxI_7QPLeUcsPNT.png)
 
-### Inspecting the Headers
+### 检查 Headers
 
 ![giphy.gif](https://www.twilio.com/blog/wp-content/uploads/2017/11/M4qx6F5BhzDuSPYBHPEx74-xorzQFM8qD-Zi7FPS4In-cPvifztKGkHsRKE7wInEw9w6717-_GAC3HczMoXtFo-otYsS3DGTwQsj1IwdBw1gnssD2fW-sMdPuTz2QxBCcseUyIgP.png)
 
-We’ll start by adding and removing a few HTTP headers that will help improve our security. To inspect these headers you can use a tool like `curl` by running:
+现在让我们通过增加与删除一些 HTTP headers 来改善应用安全性。你可以用一些工具来检查它的 headers，例如使用 `curl` 运行以下命令：
 
 ```
 curl http://localhost:3000 --include
 ```
 
-The `--include` flag makes sure to print out the HTTP headers of the response. If you don’t have `curl` installed you can also use your favorite browser developer tools and the networking pane.
+`--include` 标志可以让其输出 response 的 HTTP headers。如果你没有安装 `curl`，也可以用浏览器开发者工具的 network 面板代替。
 
-At the moment you should see the following HTTP headers being transmitted in the response:
+你可以看到在收到的 response 中包含的以下 HTTP headers：
 
 ```
 HTTP/1.1 200 OK
@@ -81,19 +81,19 @@ Date: Wed, 01 Nov 2017 13:36:10 GMT
 Connection: keep-alive
 ```
 
-One header that you should keep an eye on is `X-Powered-By`. Generally speaking headers that start with `X-` are non-standard headers. This one gives away which framework you are using. For an attacker, this cuts the attack space down for them as they can concentrate on the known vulnerabilities in that framework.
+一般来说，由 `X-` 开头的 header 是非标准头部。请注意那个 `X-Powered-By` 的 header，它会暴露你使用的框架。对于攻击者来说，这可以降低攻击成本，因为他们只专注攻击此框架的已知漏洞即可。
 
-### Putting the helmet on
+### 戴上头盔（helmet）
 
 ![giphy.gif](https://www.twilio.com/blog/wp-content/uploads/2017/11/24T5xMrL0RCEEObLniOCuiZ4f4p-w6QUJWDJb4UlbayqlUnzn51IvLbbWH04jjVi1GxRzUX12_lseIPgJo0ZeW3TbO6ArTOS_B32kjbeUWfxb6qKp0_HNHbwolL40zF_1gCr3dbC.png)
 
-Let’s see what happens if we start using `helmet`. Install `helmet` by running:
+来看看如果我们使用 `helmet` 会发生什么。运行以下命令安装 `helmet`：
 
 ```
 npm install helmet --save
 ```
 
-Now add the `helmet` middleware to your application. Modify the `index.js` accordingly:
+将 `helmet` 中间件加入你的应用中。对 `index.js` 进行如下修改：
 
 ```
 const express = require('express');
@@ -112,13 +112,13 @@ app.listen(PORT, () => {
 });
 ```
 
-This is using the default configuration of `helmet`. Let’s take a look at what it actually does. Restart the server and inspect the HTTP headers again by running:
+这样就使用了 `helmet` 的默认配置。接下来看看它做了什么事情。重启服务，再次通过以下命令检查 HTTP headers：
 
 ```
 curl http://localhost:3000 --inspect
 ```
 
-The new headers should look something like this:
+新的 headers 会类似于下面这样：
 
 ```
 HTTP/1.1 200 OK
@@ -135,17 +135,18 @@ Date: Wed, 01 Nov 2017 13:50:42 GMT
 Connection: keep-alive
 ```
 
-The `X-Powered-By` header is gone, which is a good start, but now we have a bunch of new headers. What are they all doing?
+首先值得庆祝的是 `X-Powered-By` header 不见了。但现在又多了好些新的 header，它们是做什么的呢？
 
 #### X-DNS-Prefetch-Control
 
-This header isn’t much of an added security benefit as much as an added privacy benefit. By setting the value to `off` it turns off the DNS lookups that the browser does for URLs in the page. The DNS lookups are done for performance improvements and according to MDN they can [improve the performance of loading images by 5% or more](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-DNS-Prefetch-Control). However this look up can make it appear like the user visited things they never visited.
+这个 header 对增加安全性并没有太大作用。它的值为 `off` 时，将关闭浏览器对页面中 URL 的 DNS 预读取。DNS 预读取可以提高你的网站的性能，根据 MDN 描述，它可以[增加 5% 或更高的图片加载速度](https://developer.mozilla.org/zh-CN/docs/Controlling_DNS_prefetching)。不过开启这项功能也可能会使用户在多次访问同一个网页时缓存出现问题。
+> 译注：缓存问题未查到资料，如果您了解这块请留言
 
-The default for this is `off` but if you care about the added performance benefit you can enable it by passing `{ dnsPrefetchControl: { allow: true }}` to the `helmet()` call.
+它的默认值是 `off`，如果你希望通过它提升性能，可以在调用 `helmet()` 时传入 `{ dnsPrefetchControl: { allow: true }}` 开启 DNS 预读取。
 
 #### X-Frame-Options
 
-`X-Frame-Options` allows you to control whether the page can be loaded in a frame like `<frame/>` `<iframe/>` or `<object/>`. Unless you really need to frame your page you should just disable it entirely by passing the option to the `helmet()` call:
+`X-Frame-Options` 可以让你控制页面是否能在 `<frame/>`、`<iframe/>` 或者 `<object/>` 之类的页框内加载。除非你的确需要通过这些方式来打开页面，否则请通过下面的配置完全禁用它：
 
 ```
 app.use(helmet({
@@ -155,49 +156,49 @@ app.use(helmet({
 }));
 ```
 
-[`X-Frame-Options` is supported by all modern browsers](http://caniuse.com/#feat=x-frame-options). It can however also be controlled via a Content Security Policy as we’ll see later.
+[所有的现代浏览器都支持 `X-Frame-Options`](http://caniuse.com/#feat=x-frame-options)。你也可以通过稍后将介绍的内容安全策略来控制它。
 
 #### Strict-Transport-Security
 
-This is also known as HSTS (HTTP Strict Transport Security) and is used to ensure that there is no protocol downgrade when you are using HTTPS. If a user visited the website once on HTTPS it makes sure that the browser will not allow any future communication via HTTP. This feature is helpful to avoid Man-In-The-Middle attacks.
+它也被称为 HSTS（严格安全 HTTP 传输），用于确保在访问 HTTPS 网站时不出现协议降级（回到 HTTP）的情况。如果用户一旦访问了带有此 header 的 HTTPS 网站，浏览器就会确保将来再次访问次网站时不允许使用 HTTP 进行通信。此功能有助于防范中间人攻击。
 
-You might have seen this feature in action if you tried to access a page like https://google.com while being on a public WiFi with a captive portal. The WiFi is trying to redirect you to their captive portal but since you visited `google.com` before via HTTPS and it set the `Strict-Transport-Security` header, the browser will block this redirect.
+有时，当你使用公共 WiFi 时尝试访问 https://google.com 之类的门户网页时就能看到此功能运作。WiFi 尝试将你重定向到他们的门户网站去，但你曾经通过 HTTPS 访问过 `google.com`，且它带有 `Strict-Transport-Security` 的 header，因此浏览器将阻止重定向。
 
-You can read more about it on the [MDN page](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security) or the [OWASP wiki page](https://www.owasp.org/index.php/HTTP_Strict_Transport_Security_Cheat_Sheet).
+你可以访问 [MDN](https://developer.mozilla.org/zh-CN/docs/Security/HTTP_Strict_Transport_Security) 或者 [OWASP wiki](https://www.owasp.org/index.php/HTTP_Strict_Transport_Security_Cheat_Sheet) 查看更多相关信息。
 
 #### X-Download-Options
 
-This header is only protecting you from an old IE security vulnerability. Basically if you host untrusted HTML files for download, users were able open these directly (rather than saving them to disk first) and they would execute in the context of your app. This header ensures that users download files before they open them so that they can’t execute in your app’s security context.
+这个 header 仅用于保护你的应用免受老版 IE 漏洞的困扰。一般来说，如果你部署了不能被信任的 HTTP 文件用于下载，用户可以直接打开这些文件（而不需要先保存到硬盘去）并且可以直接在你 app 的上下文中执行。这个 header 可以确保用户在访问这种文件前必须将其下载到本地，这样就能防止这些文件在你 app 的上下文中执行了。
 
-You can find more information about this on the [helmet page](https://helmetjs.github.io/docs/ienoopen/) and this [MSDN blog post](https://blogs.msdn.microsoft.com/ie/2008/07/02/ie8-security-part-v-comprehensive-protection/).
+你可以访问 [helmet 文档](https://helmetjs.github.io/docs/ienoopen/)和 [MSDN 博文](https://blogs.msdn.microsoft.com/ie/2008/07/02/ie8-security-part-v-comprehensive-protection/)查看更多相关信息。
 
 #### X-Content-Type-Options
 
-Some browsers perform “MIME sniffing” meaning that rather than loading things based on the `Content-Type` that the server will send, the browser will try to determine the content type based on the file content and execute it based on that.
+一些浏览器不使用服务器发送的 `Content-Type` 来判断文件类型，而使用“MIME 嗅探”，根据文件内容来判断内容类型并基于此执行文件。
 
-Say your page offers a way to upload pictures and an attacker uploads some HTML instead, if the browser performs MIME sniffing, it could execute the code as HTML and the attacker would have performed a successful XSS attack.
+假设你在网页中提供了一个上传图片的途径，但攻击者上传了一些内容为 HTML 代码的图片文件，如果浏览器使用 MIME 嗅探则会将其作为 HTML 代码执行，攻击者就能执行成功的 XSS 攻击了。
 
-By setting this header to `nosniff` we are disabling this MIME sniffing.
+通过设置 header 为 `nosniff` 可以禁用这种 MIME 嗅探。
 
 #### X-XSS-Protection
 
-This header is used to turn on basic XSS protections in the user’s browser. It can’t avoid every XSS opportunity but it can determine basic ones. For example, if it detects that the query string contains something like a script tag, the browser could block the execution of the same code in the page knowing that it’s likely an XSS attack. This header can have three different values. `0`, `1` and `1; mode=block`. If you want to learn more about which mode you should choose, make sure to [check out this blog post about `X-XSS-Protection` and it’s potential dangers](https://blog.innerht.ml/the-misunderstood-x-xss-protection/).
+此 header 能在用户浏览器中开启基本的 XSS 防御。它不能避免一切 XSS 攻击，但它可以防范基本的 XSS。例如，如果浏览器检测到查询字符串中包含类似 `<script>` 标签之类的内容，则会阻止这种疑似 XSS 攻击代码的执行。这个 header 可以设置三种不同的值：`0`、`1` 和 `1; mode=block`。如果你想了解更多关于如何选择模式的知识，请查看 [`X-XSS-Protection` 及其潜在危害](https://blog.innerht.ml/the-misunderstood-x-xss-protection/) 一文。
 
-#### Upgrading your helmet
+#### 升级你的 helmet
 
-These are just the default settings that [`helmet`](https://helmetjs.github.io/docs/) provides. Additionally it allows you to configure headers like the [`Expect-CT`](https://helmetjs.github.io/docs/expect-ct/), [`Public-Key-Pins`](https://helmetjs.github.io/docs/hpkp/), [`Cache-Control`](https://helmetjs.github.io/docs/nocache/) and [`Referrer-Policy`](https://helmetjs.github.io/docs/referrer-policy/). You can find more about the respective headers and how to configure them in the [`helmet` documentation](https://helmetjs.github.io/docs/).
+以上只是 [`helmet`](https://helmetjs.github.io/docs/) 提供的默认设置。除此之外，它还可以让你设置 [`Expect-CT`](https://helmetjs.github.io/docs/expect-ct/)、[`Public-Key-Pins`](https://helmetjs.github.io/docs/hpkp/)、[`Cache-Control`](https://helmetjs.github.io/docs/nocache/) 和 [`Referrer-Policy`](https://helmetjs.github.io/docs/referrer-policy/) 之类的 header。你可以在 [`helmet` 文档](https://helmetjs.github.io/docs/) 中查找更多相关配置。
 
-### Protecting your page from unwanted content
+### 保护你的网页免受非预期内容的侵害
 
 ![giphy.gif](https://www.twilio.com/blog/wp-content/uploads/2017/11/CiDkwYBIJX1JQmhyaq8kYH0dkEpphioLjjva6KUWc5pS4KuSyX94eKxSfohWC_v574aYYn6Z2c6ALeyw0hizq7f66Po8ibiV1d_naYdPaoO1B8C72mQ4pLZij6ytKGH0v5WsQSPB.png)
 
-Cross-site scripting is a constant threat to web applications. If an attacker can inject and run code in your application it can be a nightmare for you and your users. One solution that tries to stop the risk of unwanted code being executed on your page is a `Content Security Policy` or `CSP`.
+跨站脚本执行对于 web 应用来说是无法根绝的威胁。如果攻击者可以在你的应用中注入并运行代码，其后果对于你和你的用户来说可能是一场噩梦。有一种能试图阻止在你网页中运行非预期代码的方案：`CSP`（内容安全策略）。
 
-A CSP allows you to specify a set of rules that define the origins from which your page can load various resources. Any resource that violates these rules will be blocked by the browser automatically.
+CSP 允许你设定一组规则，以定义你的页面能够加载资源的来源。任何违反规则的资源都会被浏览器自动阻止。
 
-You can specify these rules via the `Content-Security-Policy` HTTP header but you can also set them in an HTML meta tag if you don’t have a way to modify the HTTP headers.
+你可以通过修改 `Content-Security-Policy` HTTP header 来指定规则，或者你不能改 header 时也可以使用 meta 标签来设定。
 
-This is what such a header might look like:
+这个 header 类似于这样：
 
 ```
 Content-Security-Policy: default-src 'none';
@@ -210,26 +211,26 @@ Content-Security-Policy: default-src 'none';
     frame-ancestors 'none';
 ```
 
-In this example you can see that for fonts we only allow them if they are from our own domain or from fonts.gstatic.com aka Google Fonts. Images we’ll only allow from our own domain and not any external domain. For scripts and styles, however, we only allow them if they have a certain `nonce`. This means we don’t even care about the origin but we care about a very specific value. This nonce has to be specified in a way like below:
+在这个例子中，你可以看到我们只允许从自己的域名或者 Google Fonts 的 fonts.gstatic.com 来获取字体；只允许加载本域名下的图片；只允许加载不指定来源，但必须包含指定 `nonce` 值的脚本及样式文件。这个 nonce 值需要用下面这样的方式指定：
 
 ```
 <script src="myscript.js" nonce="XQY ZwBUm/WV9iQ3PwARLw=="></script>
 <link rel="stylesheet" href="mystyles.css" nonce="XQY ZwBUm/WV9iQ3PwARLw==" />
 ```
 
-When the browser receives the HTML it will make sure to clear out the nonce for security purposes, so other scripts won’t be able to access them to add additional unwanted scripts.
+当浏览器收到 HTML 时，为了安全起见它会清除所有的 nonce 值，其它的脚本无法得到这个值，也就无法添加进网页中了。
 
-We are also disabling any mixed content meaning that HTTP content inside our HTTPS page is not permitted. Other things that we don’t permit are any `<object />` elements and anything that isn’t an image, stylesheet or script since the `default-src` is mapping to `none`. Additionally we are disabling iframing with the `frame-ancestors` value.
+你还可以禁止所有在 HTTPS 页面中包含的 HTTP 混合内容和所有 `<object />` 元素，以及通过设置 `default-src` 为 `none` 来禁用一切不为图片、样式表以及脚本的内容。此外，你还可以通过 `frame-ancestors` 来禁用 iframe。
 
-We could write these headers manually but luckily there are plenty of solutions to use CSP in Express. [`helmet` comes with support for CSP](https://helmetjs.github.io/docs/csp/) but in the case of `nonce` it forces you to generate them yourself. I’m personally using a module called `express-csp-header` for this.
+你可以自己手动去编写这些 header，不过走运的是 Express 中已经有了许多现成的 CSP 解决方案。[`helmet` 支持 CSP](https://helmetjs.github.io/docs/csp/)，但 `nonce` 需要你自己去生成。我个人为此使用了一个名为 `express-csp-header` 的模块。
 
-Install `express-csp-header` by running:
+安装及运行 `express-csp-header`：
 
 ```
 npm install express-csp-header --save
 ```
 
-Consume and enable CSP by adding the following lines to your `index.js`
+为你的 `index.js` 添加并修改以下内容，启用 CSP：
 
 ```
 const express = require('express');
@@ -274,29 +275,30 @@ app.listen(PORT, () => {
 });
 ```
 
-Restart your server and navigate to [http://localhost:3000](http://localhost:3000) you should see one paragraph with a blue background because the styles have been loaded. The other paragraph is not styled because of the missing nonce.
+重启服务，访问 [http://localhost:3000](http://localhost:3000)，可以看到一个带有蓝色背景的段落，因为相关的样式成功被加载了。而另一个段落没有样式，因为其样式缺少了 nonce 值。
 
 ![csp-output.png](https://www.twilio.com/blog/wp-content/uploads/2017/11/OYQ_GhVogC6bcGAZOtqKO9DL4l4KhV8YatnWhJP9sjliXdN7beuXhTbPLwyvCQmqyxmy-z5FN4_mDySsRorhjOxarh2p1EAWKusxZ4qSIsI0CAq_1p_BlrhFiCoG6mPa4iZhR2WO.png)
 
-The CSP header allows you also to specify a report URL that a violation report should be sent to and you can even execute CSP in report-only mode if you want to gather some data first before enforcing it strictly.
+CSP header 还可以设定报告违规的 URL，你还可以在严格启用 CSP 之前仅开启报告模式，收集相关数据。
 
-You can find more information about [CSP on the respective MDN page](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy) and the [current browser support on the caniuse.com page](http://caniuse.com/#feat=contentsecuritypolicy) but overall all major browsers support it.
+你可以在 [MDN CSP 介绍](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Content-Security-Policy__by_cnvoid)查看更多信息，并浏览 [“Can I Use” 网站查看 CSP 兼容性](http://caniuse.com/#feat=contentsecuritypolicy)。大多数主流浏览器都支持这项特性。
 
-### Summary
+### 总结
 
 ![giphy.gif](https://www.twilio.com/blog/wp-content/uploads/2017/11/JtIZ-AdTwknGCyMvERM7uj2ttVknsuo6KgKDzKGlOS-TWUu3GVTEtqu-TxByxxaptnsZsvoXPll__9_5ScxtUnoTDqPzuPuGcGSuYNDKHljkTF6XP8xUYWuqtCuqScWryS3me3M5.png)
 
-Unfortunately there is no silver bullet in security and new vulnerabilities constantly pop up but setting these HTTP headers in your web applications is easy to do and significantly improve your app’s security. If you want to do a quick check of how your HTTP headers hold up to security best practices, make sure to [check out securityheaders.io](https://securityheaders.io/).
+可惜的是，在安全性方面不存在银弹，新的漏洞也层出不穷。但是，你可以很轻松地在你的 web 应用中设置这些 HTTP header，并显著提升你应用的安全性，何乐而不为呢？如果你想了解更多有关 HTTP header 提高安全性的最佳实践，请浏览 [securityheaders.io](https://securityheaders.io/)。
 
-If you want to learn more about web security best practices, make sure to [check out the Open Web Applications Security Project aka. OWASP](https://www.owasp.org/index.php/Main_Page). It covers a wide selection of topics and links to additional helpful resources.
+如果你想了解更多 web 安全方面的最佳实践，请访问 [Open Web Applications Security Project（OWASP）](https://www.owasp.org/index.php/Main_Page)，它涵盖了广泛的主题及有用的资源。
 
-If you have any questions or any other helpful tools to improve the security of your Node.js web applications, feel free to ping me:
+如果你有任何问题，或有其它用于提升 Node.js web 应用的工具，请随时联系我：
 
-*   Twitter: [@dkundel](https://twitter.com/dkundel)
-*   Email: [dkundel@twilio.com](mailto:dkundel@twilio.com)
-*   GitHub: [dkundel](https://github.com/dkundel)
+*   Twitter：[@dkundel](https://twitter.com/dkundel)
+*   Email：[dkundel@twilio.com](mailto:dkundel@twilio.com)
+*   GitHub：[dkundel](https://github.com/dkundel)
 
 
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
+
