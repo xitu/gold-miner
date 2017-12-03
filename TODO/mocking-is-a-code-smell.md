@@ -131,46 +131,46 @@ TDD 不是要复杂化代码，而是要简化代码。如果你发现当你为�
 * **单一职责：**纯函数只完成一件事：映射输入到对应的输出，避免了职责过重时污染对象以及基于类的代码。
 * **结构，而非指令：**纯函数可以被安全地记忆（memoized），这意味着，如果系统有无限的内存，任何纯函数都能够被替代为一个查找表，该查找表的索引是函数输入，其在表中检索到的值即为函数输出。换言之，纯函数描述了数据间的结构关系，而不是计算机需要遵从的指令，因此，同一时刻，两个正在运行且因为无法跟上彼此而发生了冲突的指令集将造成问题。
 
-### 组合与模拟
+### 组合能为模拟做什么？
 
-Everything. The essence of all software development is the process of breaking a large problem down into smaller, independent pieces (decomposition) and composing the solutions together to form an application that solves the large problem (composition).
+一切皆可。软件开发的实质是一个将大的问题划分为若干小的、独立的问题（分解），再组合各个小问题的解决方式来构成应用去解决大问题（合成）的过程。
 
-> Mocking is required when our decomposition strategy has failed.
+> 当我们的分解策略失败时，我们需要模拟。
 
-Mocking is required when the units used to break the large problem down into smaller parts depend on each other. Put another way, _mocking is required when our supposed atomic units of composition are not really atomic,_ and our decomposition strategy has failed to decompose the larger problem into smaller, independent problems.
+当测试单元把大问题分解为若干相互依赖的小问题时，我们需要引入模拟。换句话说，**如果我们假定的原子测试单元并不是真正原子的，那么就需要模拟**，此时，分解策略也没能将大的问题划分为小的、独立的问题。
 
-When decomposition succeeds, it’s possible to use a generic composition utility to compose the pieces back together. Examples:
+当分解成功时，就能使用一个通用的组合工具来组合分解结果。例如下面这些组合工具：
 
-*   **Function composition** e.g., `lodash/fp/compose`
-*   **Component composition** e.g., composing higher-order components with function composition
-*   **State store/model composition** e.g., [Redux combineReducers](http://redux.js.org/docs/api/combineReducers.html)
-*   **Object or factory composition** e.g., mixins or functional mixins
-*   **Process composition** e.g., transducers
-*   **Promise or monadic composition** e.g., `asyncPipe()`, Kleisli composition with `composeM()`, `composeK()`, etc...
-*   etc…
+* **函数组合**：例如有 `lodash/fp/compose`
+* **组件组合**：例如使用函数组合来组合高阶组件
+* **状态 store/model 组合**：例如 [Redux combineReducers](http://redux.js.org/docs/api/combineReducers.html)
+* **过程组合**：例如 transducer
+* **Promise 或者 monadic 组合**：例如 `asyncPipe()`，使用 `composeM()`、`composeK()` 的 Kleisli 组合。
+* 等等
 
-When you use generic composition utilities, each element of the composition can be unit tested in isolation _without mocking the others._
+当你使用通用组合工具时，组合的每个元素都可以在不使用彼此模拟时进行独立的单元测试。
 
-The compositions themselves will be declarative, so they’ll contain _zero unit-testable logic_ (presumably the composition utility is a third party library with its own unit tests).
+组合自身将是声明式的，所以它们包含了 **0 个可单元测试的逻辑** （可以假定组合工具是一个自己有单元测试的第三方库）。
 
-Under those circumstances, there’s nothing meaningful to unit test. You need integration tests, instead.
+在这些条件下，使用单元测试是没有意义的，你需要使用集成测试替代之。
 
-Let’s contrast imperative vs declarative composition using a familiar example:
+我们用一个大家熟悉的例子来比较命令式和声明式的组合：
 
-```
-// Function composition OR
+
+```js
+// 函数组合
 // import pipe from 'lodash/fp/flow';
 const pipe = (...fns) => x => fns.reduce((y, f) => f(y), x);
-// Functions to compose
+// 待待组合
 const g = n => n + 1;
 const f = n => n * 2;
-// Imperative composition
+// 命令式组合
 const doStuffBadly = x => {
   const afterG = g(x);
   const afterF = f(afterG);
   return afterF;
 };
-// Declarative composition
+// 声明式组合
 const doStuffBetter = pipe(g, f);
 console.log(
   doStuffBadly(20), // 42
@@ -178,136 +178,136 @@ console.log(
 );
 ```
 
-Function composition is the process of applying a function to the return value of another function. In other words, you create a pipeline of functions, then pass a value to the pipeline, and the value will go through each function like a stage in an assembly line, transforming the value in some way before it’s passed to the next function in the pipeline. Eventually, the last function in the pipeline returns the final value.
+函数组合是将一个函数的返回值应用到另一个函数的过程。换句话说，你创建了一个函数管道（pipeline），之后向管道传入了一个值，这个值将流过每个函数，这些函数就像是流水线上的某一步，在传入下一个函数之前，这个值都会以某种方式被改变。最终，管道中的最后一个函数将返回最终的值。
 
-```
+```js
 initialValue -> [g] -> [f] -> result
 ```
 
-It is the primary means of organizing application code in every mainstream language, regardless of paradigm. Even Java uses functions (methods) as the primary message passing mechanism between different class instances.
+在每个主流编程语言中，组合都是组织应用代码的主要手段，无论这门语言是什么范式。甚至 Java 也是使用函数（方法）作为两个不同类实例间传递消息的机制。
 
-You can compose functions manually (imperatively), or automatically (declaratively). In languages without first-class functions, you don’t have much choice. You’re stuck with imperative. In JavaScript (and almost all the other major popular languages), you can do it better with declarative composition.
+你可以手动地组合函数（命令式的），也可以自动地组合函数（声明式的）。在非函数第一类（first-class functions）语言中，你别无选择，只能以命令式的方式来组合函数。但在 JavaScript 中（以及其他所有主流语言中），你可以使用声明式组合来更好地组织代码。
 
-Imperative style means that we’re commanding the computer to do something step-by-step. It’s a how-to guide. In the example above, the imperative style says:
+命令式编程风格意味着我们正在命令计算机一步步步地做某件事。这是一种如何做（how-to）的引导。在上面的例子中，命令式风格就像在说：
 
-1.  Take an argument and assign it to `x`
-2.  Create a binding called `afterG` and assign the result of `g(x)` to it
-3.  Create a binding called `afterF` and assign the result of `f(afterG)` to it
-4.  Return the value of `afterF`.
+1. 接受一个参数并将它分配给 `x`。
+2. 创建一个叫做 `afterG` 的绑定，将 `g(x)` 的结果分配给它。
+3. 创建一个叫做 `afterF` 的绑定，将 `f(afterG)` 的结果分配给它。
+4. 返回 `afterF` 的结果。
 
-The imperative style version requires logic that should be tested. I know those are just simple assignments, but I’ve frequently seen (and written) bugs where I pass or return the wrong variable.
+命令式风格的组合要求逻辑也要被测试。虽然我知道这里只有一些简单的赋值操作，但是我已经经常在我传递或者返回错误的变量时，看到过（并且自己也写过）bug。
 
-Declarative style means we’re telling the computer the relationships between things. It’s a description of structure using equational reasoning. The declarative example says:
+声明式风格的组合以为着我们仅只告诉计算机事物间的关系。它是一个使用了等式推理（[equational reasoning](http://www.haskellforall.com/2013/12/equational-reasoning.html)）的结构描述。声明式的例子就像在说：
 
-*   `doStuffBetter` _is_ the piped composition of `g` and `f`.
+* `doStuffBetter` **是** 函数 `g` 和 `f` 的管道化组合。
 
-That’s it.
+仅此而已。
 
-Assuming `f` and `g` have their own unit tests, and `pipe()` has its own unit tests (use `flow()` from Lodash or `pipe()` from Ramda, and it will), there's no new logic here to unit test.
+假定 `f` 和 `g` 都有它们自己的单元测试，并且 `pipe()` 也有其自己的单元测试（在 Lodash 中是 [`flow()`](https://lodash.com/docs/4.17.2#flow)，在 Ramda 中是 [`pipe()`](http://ramdajs.com/docs/#pipe)），因此也就没有需要进行单元测试的逻辑。
 
-In order for this style to work correctly, the units we compose need to be _decoupled._
+为了让声明式风格正确工作，我们组合的单元需要被 **解耦**。
 
-### 我们如何消除组合？
+### 我们如何消除耦合？
 
-To remove coupling, we first need a better understanding of where coupling dependencies come from. Here are the main sources, roughly in order of how tight the coupling is:
+为了去除耦合，我们首先需要对于耦合来源有更好的认识。下面罗列了一些耦合的主要来源，它们被按照耦合的松紧程度进行了排序：
 
-Tight coupling:
+紧耦合：
 
-*   Class inheritance (coupling is multiplied by each layer of inheritance and each descendant class)
-*   Global variables
-*   Other mutable global state (browser DOM, shared storage, network, etc…)
-*   Module imports with side-effects
-*   Implicit dependencies from compositions, e.g., `const enhancedWidgetFactory = compose(eventEmitter, widgetFactory, enhancements);` where `widgetFactory` depends on `eventEmitter`
-*   Dependency injection containers
-*   Dependency injection parameters
-*   Control parameters (an outside unit is controlling the subject unit by telling it what to do)
-*   Mutable parameters
+* 类继承（耦合随着每一层继承和每一个子孙类而倍增）
+* 全局变量
+* 其他可变的全局状态（浏览器 DOM、共享存储、网络等等）
+* 引入了包含副作用的模块
+* 来自组合的隐式依赖，例如在 `const enhancedWidgetFactory = compose(eventEmitter, widgetFactory, enhancements);` 中，`widgetFactory` 依赖了 `eventEmitter`
+* 依赖注入容器
+* 依赖注入参数
+* 控制变量（一个外部单元控制了主题单元该做什么事）
+* 可变参数
 
-Loose coupling:
+松耦合：
 
-*   Module imports without side-effects (in black box testing, not all imports need isolating)
-*   Message passing/pubsub
-*   Immutable parameters (can still cause shared dependencies on state shape)
+* 引入的模块不包含副作用（在黑盒测试中，不是所有引入的模块都需要进行隔离）
+* 消息的传递/发布订阅
+* 不可变参数（在状态形态中，仍然会造成共享依赖）
 
-Ironically, most of the sources of coupling are mechanisms originally designed to reduce coupling. That makes sense, because in order to recompose our smaller problem solutions into a complete application, they need to integrate and communicate somehow. There are good ways, and bad ways. The sources that cause tight coupling should be avoided whenever it’s practical to do so. The loose coupling options are generally desirable in a healthy application.
+讽刺的是，多数耦合恰恰产生于减少耦合时设计的机制中。但这是可以理解的，为了能够将分解的小问题你组成完整的应用，它们彼此就需要以某种方式进行集成或者是通信。方式有好的，也有不好的。只要有必要，就应当避免紧耦合产生来源，一个健壮的应用更需要的是松耦合。
 
-You might be confused that I classified dependency injection containers and dependency injection parameters in the “tight coupling” group, when so many books and blog post categorize them as “loose coupling”. Coupling is not binary. It’s a gradient scale. That means that any grouping is going to be somewhat subjective and arbitrary.
+对于我将依赖注入容器和依赖注入参数划分到 “紧耦合” 一组中，你可能感到疑惑，因为在许多书上或者是博客上，它们都被分到了 “松耦合” 一组。耦合不是个是非问题，它是一种程度。所以，任何分组都带有主观和独断色彩。
 
-I draw the line with a simple, objective litmus test:
+对于耦合的松紧界限划分，我有一个立见分晓的检验方法：
 
-Can the unit be tested without mocking dependencies? If it can’t, it’s _tightly coupled_ to the mocked dependencies.
+测试单元是否能在不引入模拟依赖的前提下进行测试？如果不行，那么测试单元就 **紧耦合** 于模拟依赖。
 
-The more dependencies your unit has, the more likely it is that there may be problematic coupling. Now that we understand how coupling happens, what can we do about it?
+你的测试单元依赖越多，越可能存在耦合问题。现在我们明白了耦合是怎么发生的，我们可以做什么呢？
 
-1.  **Use pure functions** as the atomic unit of composition, as opposed to classes, imperative procedures, or mutating functions.
-2.  **Isolate side-effects** from the rest of your program logic. That means don’t mix logic with I/O (including network I/O, rendering UI, logging, etc…).
-3.  **Remove dependent logic** from imperative compositions so that they can become declarative compositions which don’t need their own unit tests. If there’s no logic, there’s nothing meaningful to unit test.
+1. **使用纯函数** 来作为组合的原子单元，而不是类、命令式过程或者包含可变对象的函数。
+2. **隔离副作用** 与程序逻辑。这意味着不要混合逻辑和 I/O（包括有网络 I/O、渲染的 UI、日志等等）。 
+3. **删除命令式组合中的依赖逻辑** ，这样组合能够变为自身不需要单元测试的、声明式的组合。如果组合中不含逻辑，就不需要被单元测试。
 
-That means that the code you use to set up network requests and request handlers won’t need unit tests. Use integration tests for those, instead.
+以上意味着那些你用来建立网络请求和操纵请求的代码都不需要单元测试，它们需要的是集成测试。
 
-That bears repeating:
+再唠叨一下：
 
-> _Don’t unit test I/O._
+> **不要对 I/O 进行单元测试。**
 
-> _I/O is for integrations. Use integration tests, instead._
+> **I/O 针对于集成测试。**
 
-It’s perfectly OK to mock and fake for integration tests.
+在集成测试中，模拟和伪造（fake）都是完全 OK 的。
 
 ### 使用纯函数
 
-Using pure functions takes a little practice, and without that practice, it’s not always clear how to write a pure function to do what you want to do. Pure functions can’t directly mutate global variables, the arguments passed into them, the network, the disk, or the screen. All they can do is return a value.
+纯函数的使用需要多加练习，在缺乏练习的情况下，如何写一个符合预期的纯函数不是那么清晰明了。纯函数不能直接改变全局变量以及传给它的参数，如网络对象、磁盘对象或者是屏幕对象。纯函数唯一能做的就是返回一个值。
 
-If you’re passed an array or an object, and you want to return a changed version of that object, you can’t just make the changes to the object and return it. You have to create a new copy of the object with the required changes. You can do that with the array [accessor methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/prototype) (**not** the mutator methods), `Object.assign()`, using a new empty object as the target, or the array or object spread syntax. For example:
+如果你向纯函数传入了一个数组或者一个对象，并且你要返回对象或者数组变化了的版本，你不要直接改变并返回它们。你应当创建一个满足对应变化的对象拷贝。对此，你可以考虑使用数组的[访问器方法](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/prototype) (**而不是** 可变方法，例如 `Array.prototype.spilce`、`Array.prototype.sort` 等)，以及在 `Object.assign()` 中令目标对象为一个新创建的空对象，或者使用数组或者对象的展开语法。例子如下：
 
-```
-// Not pure
+```js
+// 非纯函数
 const signInUser = user => user.isSignedIn = true;
 const foo = {
   name: 'Foo',
   isSignedIn: false
 };
-// Foo was mutated
+// Foo 被改变了
 console.log(
   signInUser(foo), // true
   foo              // { name: "Foo", isSignedIn: true }
 );
 ```
 
-vs…
+与：
 
-```
-// Pure
+```js
+// 纯函数
 const signInUser = user => ({...user, isSignedIn: true });
 const foo = {
   name: 'Foo',
   isSignedIn: false
 };
-// Foo was not mutated
+// Foo 被改变了
 console.log(
   signInUser(foo), // { name: "Foo", isSignedIn: true }
   foo              // { name: "Foo", isSignedIn: false }
 );
 ```
 
-Alternatively, you can try a library for immutable data types, such as [Mori](http://swannodette.github.io/mori/) or [Immutable.js](https://facebook.github.io/immutable-js/). I’m hopeful that we’ll someday get a nice set of immutable datatypes similar to Clojure’s in JavaScript, but I’m not holding my breath.
+或者，你可以选择一个针对于不可变对象类型的第三方库，例如 [Mori]() 或者是 [Immutable.js]()。我希望有朝一日，在 JavaScript 中，有类似于 Clojure 中的不可变数据类型，但我可等不到那会儿了。
 
-You may think that returning new objects could cause a performance hit because we’re creating a new object instead of reusing the existing ones, but a fortunate side-effect of that is that we can detect changes to objects by using an identity comparison (`===` check), so we don't have to traverse through the entire object to discover if anything has changed.
+你可能觉得返回新的对象会造成一定的性能开销，因为我们创建了新对象，而不是直接重用现有对象，但是一个利好是我们可以使用严格比较（相同比较：identity equality）运算符（`===` 检查）来检查对象是否发生了改变，这时，我们不再需要遍历整个对象来检测其是否发生了改变。
 
-You can use that trick to make React components render faster if you have a complex state tree that you may not need to traverse in depth with each render pass. Inherit from `PureComponent` and it implements `shouldComponentUpdate()` with a shallow prop and state comparison. When it detects identity equality, it knows that nothing has changed in that part of the state tree and it can move on without a deep state traversal.
+这个技巧可以在你的 React 组件有一个复杂的状态树时渲染更快，因为你不要在每次渲染时进行状态的深度遍历。继承 `PureComponent` 组件，它通过状态（state）和属性（prop）的浅比较实现了 `shouldComponentUpdate()`。当它检测到对象相同时，它便知道对应的状态子树没有发生改变，因此也就不会再进行状态的深度遍历。
 
-Pure functions can also be memoized, meaning that you don’t have to build the whole object again if you’ve seen the same inputs before. You can trade computation complexity for memory and store pre-calculated values in a lookup table. For computationally expensive processes which don’t require unbounded memory, this may be a great optimization strategy.
+纯函数也能够记忆化（memoized），这意味着如果接收到了相同输入，你不要再重复构建完整对象。利用内存和存储，你可以将预先计算好的结果存入一张查找表中，从而降低计算复杂度。对于开销较大、但不会无限需求内存的计算任务来说，这个是非常好的优化策略。
 
-Another property of pure functions is that, because they have no side-effects, it’s safe to distribute complex computations over large clusters of processors, using a divide-and-conquer strategy. This tactic is often employed to process images, videos, or audio frames using massively parallel GPUs originally designed for graphics, but now commonly used for lots of other purposes, like scientific computing.
+纯函数的另一个属性是，由于它们没有副作用，就能够在拥有大型集群的处理器上安全地使用一个分治策略来部署计算任务。该策略通常用在处理图像、视频或者声音帧，具体说来就是利用服务于图形学的 GPU 并行计算，但现在这个策略有了更广的使用，例如科学计算。
 
-In other words, mutation isn’t always faster, and it is often orders of magnitude slower because it takes a micro-optimization at the expense of macro-optimizations.
+换句话说，可变性不总是很快，某些时候，其优化代价远远大于优化受益，因此还会让性能变慢。
 
 ### 隔离副作用与程序逻辑
 
-There are several strategies that can help you isolate side-effects from the rest of your program logic. Here are some of them:
+有若干策略能帮助你将副作用从逻辑中隔离出来，下面罗列了当中的一些：
 
-1.  Use pub/sub to decouple I/O from views and program logic. Rather than directly triggering side-effects in UI views or program logic, emit an event or action object describing an event or intent.
-2.  Isolate logic from I/O e.g., compose functions which return promises using `asyncPipe()`.
-3.  Use objects that represent future computations rather than directly triggering computation with I/O, e.g., `call()` from [redux-saga](https://github.com/redux-saga/redux-saga) doesn't actually call a function. Instead, it returns an object with a reference to a function and its arguments, and the saga middleware calls it for you. That makes `call()` and all the functions that use it _pure functions_, which are easy to unit test with _no mocking required._
+1. 使用发布/订阅（pub/sub）来将 I/O 从视图和程序逻辑中解耦出来。避免直接在 UI 视图或者程序逻辑中调用副作用，而应当发送一个事件或者描述了事件或意图的动作（action）对象。
+2. 将逻辑从 I/O 中隔离出来，例如，使用 `asyncPipe()` 来组合那些返回 promise 的函数。
+3. 使用对象来描述未来的计算而不是直接使用 I/O 来驱动计算，例如 [redux-saga](https://github.com/redux-saga/redux-saga) 中的 `call()` 不会立即调用一个函数。取而代之的是，它会返回一个包含了待调用函数引用及所需参数的对象，saga 中间件来负责调用该函数。这样，`call()` 以及所有使用了它的函数都是**纯函数**，这些函数不需要模拟，从而也利于单元测试。
 
 #### 使用 Pub/Sub 模型
 
@@ -323,7 +323,7 @@ It also makes it trivial to patch into the dispatcher via middleware and trigger
 
 Sometimes you can use monad compositions (like promises) to eliminate dependent logic from your compositions. For example, the following function contains logic that you can’t unit test without mocking all of the async functions:
 
-```
+```js
 async function uploadFiles({user, folder, files}) {
   const dbUser = await readUser(user);
   const folderInfo = await getFolderInfo(folder);
@@ -337,7 +337,7 @@ async function uploadFiles({user, folder, files}) {
 
 Let’s throw in some helper pseudo-code to make it runnable:
 
-```
+```js
 const log = (...args) => console.log(...args);
 // Ignore these. In your real code you'd import
 // the real things.
@@ -365,7 +365,7 @@ uploadFiles({user, folder, files})
 
 And now refactor it to use promise composition via `asyncPipe()`:
 
-```
+```js
 const asyncPipe = (...fns) => x => (
   fns.reduce(async (y, f) => f(await y), x)
 );
@@ -396,7 +396,7 @@ With those conditions met, it’s trivial to test each of these functions in iso
 
 The strategy used by redux-saga is to use objects that represent future computations. The idea is similar to returning a monad, except that it doesn’t always have to be a monad that gets returned. Monads are capable of composing functions with the chain operation, but you can manually chain functions using imperative-style code, instead. Here’s a rough sketch of how redux-saga does it:
 
-```
+```js
 // sugar for console.log we'll use later
 const log = msg => console.log(msg);
 const call = (fn, ...args) => ({ fn, args });
@@ -429,7 +429,7 @@ Want to simulate what happens in your app when a network error occurs? Simply ca
 
 Elsewhere, some library middleware is driving the function, and actually triggering the side-effects in the production application:
 
-```
+```js
 const iter = sendMessageSaga('Hello, world!');
 // Returns an object representing the status and value:
 const step1 = iter.next();
@@ -447,20 +447,20 @@ log(step1);
 
 Destructure the `call()` object from the yielded value to inspect or invoke the future computation:
 
-```
+```js
 const { value: {fn, args }} = step1;
 ```
 
 Effects run in the real middleware. You can skip this part when you’re testing and debugging.
 
-```
+```js
 const step2 = fn(args);
 step2.then(log); // "some response"
 ```
 
 If you want to simulate a network response without mocking APIs or the http calls, you can pass a simulated response into `.next()`:
 
-```
+```js
 iter.next(simulatedNetworkResponse);
 ```
 
@@ -476,7 +476,7 @@ All this stuff about using better architecture is great, but in the real world, 
 
 Let’s look at a common example. People try to tell me that the express server definition file needs dependency injection because how else will you unit test all the stuff that goes into the express app? E.g.:
 
-```
+```js
 const express = require('express');
 const app = express();
 app.get('/', function (req, res) {
@@ -499,13 +499,13 @@ Let’s refactor the Hello World express example to make it more testable:
 
 Pull the `hello` handler into its own file and write unit tests for it. No need to mock the rest of the app components. This obviously isn't a pure function, so we'll need to spy or mock the response object to make sure we call `.send()`.
 
-```
+```js
 const hello  = (req, res) => res.send('Hello World!');
 ```
 
 You could test it something like this. Swap out the `if` statement for your favorite test framework expectation:
 
-```
+```js
 {
   const expected = 'Hello World!';
   const msg = `should call .send() with ${ expected }`;
@@ -523,13 +523,13 @@ You could test it something like this. Swap out the `if` statement for your favo
 
 Pull the listen handler into its own file and write unit tests for it, too. We have the same problem here. Express handlers are not pure, so we need to spy on the logger to make sure it gets called. Testing is similar to the previous example:
 
-```
+```js
 const handleListen = (log, port) => () => log(`Example app listening on port ${ port }!`);
 ```
 
 All that’s left in the server file now is integration logic:
 
-```
+```js
 const express = require('express');
 const hello = require('./hello.js');
 const handleListen = require('./handleListen');
