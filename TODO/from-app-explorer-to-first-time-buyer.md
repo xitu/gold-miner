@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/from-app-explorer-to-first-time-buyer.md](https://github.com/xitu/gold-miner/blob/master/TODO/from-app-explorer-to-first-time-buyer.md)
 > * 译者：[ppp-man](https://github.com/ppp-man)
-> * 校对者：[RoarTiger](https://github.com/RoarTiger);[LeviDing](https://github.com/leviding)
+> * 校对者：[RoarTiger](https://github.com/RoarTiger) [LeviDing](https://github.com/leviding)
 
 # 从应用探索者到初次购买者
 
