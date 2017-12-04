@@ -289,7 +289,7 @@ console.log(
 );
 ```
 
-或者，你可以选择一个针对于不可变对象类型的第三方库，例如 [Mori]() 或者是 [Immutable.js]()。我希望有朝一日，在 JavaScript 中，有类似于 Clojure 中的不可变数据类型，但我可等不到那会儿了。
+或者，你可以选择一个针对于不可变对象类型的第三方库，例如 [Mori](http://swannodette.github.io/mori/) 或者是 [Immutable.js](https://facebook.github.io/immutable-js/)。我希望有朝一日，在 JavaScript 中，有类似于 Clojure 中的不可变数据类型，但我可等不到那会儿了。
 
 你可能觉得返回新的对象会造成一定的性能开销，因为我们创建了新对象，而不是直接重用现有对象，但是一个利好是我们可以使用严格比较（相同比较：identity equality）运算符（`===` 检查）来检查对象是否发生了改变，这时，我们不再需要遍历整个对象来检测其是否发生了改变。
 
@@ -309,15 +309,15 @@ console.log(
 2. 将逻辑从 I/O 中隔离出来，例如，使用 `asyncPipe()` 来组合那些返回 promise 的函数。
 3. 使用对象来描述未来的计算而不是直接使用 I/O 来驱动计算，例如 [redux-saga](https://github.com/redux-saga/redux-saga) 中的 `call()` 不会立即调用一个函数。取而代之的是，它会返回一个包含了待调用函数引用及所需参数的对象，saga 中间件来负责调用该函数。这样，`call()` 以及所有使用了它的函数都是**纯函数**，这些函数不需要模拟，从而也利于单元测试。
 
-#### 使用 Pub/Sub 模型
+#### 使用 Pub/sub 模型
 
-Pub/sub is short for the publish/subscribe pattern. In the publish/subscribe pattern, units don’t directly call each other. Instead, they publish messages that other units (subscribers) can listen to. Publishers don’t know what (if any) units will subscribe, and subscribers don’t know what (if any) publishers will publish.
+Pub/sub 是 publish/subscribe（发布/订阅） 模式的简写。在该模式中，测试单元不会直接调用彼此。取而代之的是，他们发布消息到监听消息的单元（订阅者）。发布者不知道是否有单元会订阅它的消息，订阅者也不知到是否有发布者会发布消息。
 
-Pub/sub is baked into the Document Object Model (DOM). Any component in your application can listen to events dispatched from DOM elements, such as mouse movements, clicks, scroll events, keystrokes, and so on. Back when everyone built web apps with jQuery, it was common to jQuery custom events to turn the DOM into a pub/sub event bus to decouple view rendering concerns from state logic.
+Pub/sub 模式被内置到了文档对象模型（DOM）中了。你应用中的任何组件都能监听到来自 DOM 元素分发的事件，例如鼠标移动、点击、滚动条事件、按键事件等等。回到每个人都使用 jQuery 构建 web 应用的时代，常见到使用 jQuery 来自定义事件使得 DOM 转变为一个 pub/sub 的 event bus，从而将视图渲染这个关注点从状态逻辑中解耦出来。
 
-Pub/sub is also baked into Redux. In Redux, you create a global model for application state (called the store). Instead of directly manipulating models, views and I/O handlers dispatch action objects to the store. An action object has a special key, called `type` which various reducers can listen for and respond to. Additionally, Redux supports middleware, which can also listen for and respond to specific action types. This way, your views don't need to know anything about how your application state is handled, and the state logic doesn't need to know anything about the views.
+Pub/sub 也内置到了 Redux 中。在 Redux 中，你为应用状态（被称为 store）创建一个全局模型。视图和 I/O 操作没有直接修改模型（model），而是分派一个 action 对象到 store。一个 action 有一个称之为 `type` 的属性，不同的 reducer 按照该属性进行监听及响应。另外，Redux 支持中间件，它们也可以监听并且响应特殊的 action 类型。这种方式下，你的视图不需要知道你的应用状态是如何被操纵的，状态逻辑也不需要知道关于视图的任何事。
 
-It also makes it trivial to patch into the dispatcher via middleware and trigger cross-cutting concerns, such as action logging/analytics, syncing state with storage or the server, and patching in realtime communication features with servers and network peers.
+通过中间件，也能够轻易地打包新的特性到 dispatcher 中，从而驱动[横切关注点（cross-cutting concerns）](https://www.wikiwand.com/en/Cross-cutting_concern)，例如对 action 的日志/分析，使用 storage 或者 server 来同步状态，或者加入 server 和网络节点的实时通信特性。
 
 #### 将逻辑从 I/O 中隔离
 
