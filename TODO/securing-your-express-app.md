@@ -3,13 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/securing-your-express-app.md](https://github.com/xitu/gold-miner/blob/master/TODO/securing-your-express-app.md)
 > * 译者：[lsvih](https://github.com/lsvih)
-> * 校对者：
+> * 校对者：[swants](http://www.swants.cn)
 
 # 为你的网站带上帽子 — 使用 helmet 保护 Express 应用
 
 ![](https://www.twilio.com/blog/wp-content/uploads/2017/11/4Txtn2Pl8SQnB241Dz1jvqSmUCLJksk6M97TAJYyNHPsIZE8Q9PA1NKBYZtua-v2C5UqpyBKBCFr2SaljImM2DGDGkK-XfJs1mfMkbJ7_Sc_hGP4Q70cnqgJHpVjd7NYIgjU4AJj.png)
 
-[Express](https://expressjs.com/) 基于 [Node.js](https://nodejs.org/)，是一款用于构建 Web 服务的优秀的框架。它很容易上手，且得益于其中间件的概念，可以很方便地进行配置与拓展。尽管现在有[各种各样的用于创建 Web 应用的框架](https://www.twilio.com/blog/2016/07/how-to-receive-a-post-request-in-node-js.html)，但我的第一选择始终是 Express。然而，直接使用 Express 不能完全遵循安全性的最佳实践。因此我们需要使用类似 [`helmet`](https://helmetjs.github.io/) 的模块来改善应用的安全性。
+[Express](https://expressjs.com/) 基于 [Node.js](https://nodejs.org/)，是一款用于构建 Web 服务的优秀框架。它很容易上手，且得益于其中间件的概念，可以很方便地进行配置与拓展。尽管现在有[各种各样的用于创建 Web 应用的框架](https://www.twilio.com/blog/2016/07/how-to-receive-a-post-request-in-node-js.html)，但我的第一选择始终是 Express。然而，直接使用 Express 不能完全遵循安全性的最佳实践。因此我们需要使用类似 [`helmet`](https://helmetjs.github.io/) 的模块来改善应用的安全性。
 
 ### 部署
 
@@ -67,7 +67,7 @@ node index.js
 curl http://localhost:3000 --include
 ```
 
-`--include` 标志可以让其输出 response 的 HTTP headers。如果你没有安装 `curl`，也可以用浏览器开发者工具的 network 面板代替。
+`--include` 标志可以让其输出 response 的 HTTP headers。如果你没有安装 `curl`，也可以用你最常用浏览器开发者工具的 network 面板代替。
 
 你可以看到在收到的 response 中包含的以下 HTTP headers：
 
@@ -287,7 +287,7 @@ CSP header 还可以设定报告违规的 URL，你还可以在严格启用 CSP 
 
 ![giphy.gif](https://www.twilio.com/blog/wp-content/uploads/2017/11/JtIZ-AdTwknGCyMvERM7uj2ttVknsuo6KgKDzKGlOS-TWUu3GVTEtqu-TxByxxaptnsZsvoXPll__9_5ScxtUnoTDqPzuPuGcGSuYNDKHljkTF6XP8xUYWuqtCuqScWryS3me3M5.png)
 
-可惜的是，在安全性方面不存在银弹，新的漏洞也层出不穷。但是，你可以很轻松地在你的 web 应用中设置这些 HTTP header，并显著提升你应用的安全性，何乐而不为呢？如果你想了解更多有关 HTTP header 提高安全性的最佳实践，请浏览 [securityheaders.io](https://securityheaders.io/)。
+可惜的是，在安全性方面不存在所谓的万能方案，新的漏洞层出不穷。但是，你可以很轻松地在你的 web 应用中设置这些 HTTP header，显著地提升你应用的安全性，何乐而不为呢？如果你想了解更多有关 HTTP header 提高安全性的最佳实践，请浏览 [securityheaders.io](https://securityheaders.io/)。
 
 如果你想了解更多 web 安全方面的最佳实践，请访问 [Open Web Applications Security Project（OWASP）](https://www.owasp.org/index.php/Main_Page)，它涵盖了广泛的主题及有用的资源。
 
@@ -301,4 +301,5 @@ CSP header 还可以设定报告违规的 URL，你还可以在严格启用 CSP 
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
+
 
