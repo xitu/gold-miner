@@ -2,40 +2,42 @@
 > * 原文作者：[Michael Jackson](https://cdb.reacttraining.com/@mjackson?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/use-a-render-prop.md](https://github.com/xitu/gold-miner/blob/master/TODO/use-a-render-prop.md)
-> * 译者：
+> * 译者：[yoyoyohamapi](https://github.com/yoyoyohamapi)
 > * 校对者：
 
-# Use a Render Prop!
+# 用 Render props 吧！
 
-_Update:_ [_I made a PR to add Render Props to the official React docs_](https://github.com/facebook/react/pull/10741)_._
+**更新**：[我提交了一个 PR 到 React 官方文档，为其添加了 Render props](https://github.com/facebook/react/pull/10741)。
 
-_Update 2: Added some language to clarify that “children as a function” is the same concept, just a different prop name._
+**更新2**：添加一部分内容来说明 “children 作为一个函数” 也是相同的概念，只是 prop 名称不同罢了。
 
 * * *
 
-A few months ago, I tweeted:
+几个月前，我发了一个 twitter：
 
 ![](https://ws1.sinaimg.cn/large/006LnBnPly1fliue6zyrcj30ed068jri.jpg)
 
-I was suggesting that the [higher-order component pattern](https://facebook.github.io/react/docs/higher-order-components.html) that is a popular method of code reuse in many React codebases could be replaced 100% of the time with a regular component with a “render prop”. The “come fight me” part was a friendly taunt to the rest of the React community, and a good discussion ensued, but I was ultimately frustrated by my inability to fully express what I was trying to say in bursts of 140 chars apiece. I [determined instead that I’d need to write something longer](https://twitter.com/mjackson/status/885918220154134528) at some point in the future to really do it justice.
+> 译注：@reactjs 我可以在一个普通组件上使用一个 render prop 来完成 HOC（高阶组件） 能够做到的事情。不服来辩。
 
-When [Tyler](https://twitter.com/tylercollier) invited me to speak at the [Phoenix ReactJS meetup](https://www.meetup.com/Phoenix-ReactJS/events/242296327/) two weeks ago, I thought it’d be a great chance to explore the idea further. I was already going to be in Phoenix running [our React Fundamentals and Advanced React workshops](https://reacttraining.com) that week, and I’d heard great things about the meetup from my business partner [Ryan](https://medium.com/@ryanflorence) who [spoke there in April](https://www.youtube.com/watch?v=hEGg-3pIHlE).
+我认为，[高阶组件模式](https://facebook.github.io/react/docs/higher-order-components.html) 作为一个在许多基于 React 的代码中流行的代码复用手段，是可以被一个具有 “render prop” 的一般组件 100% 地替代的。“不服来辩” 一词是我对 React 社区朋友们的友好 “嘲讽”，随之而来的是一个系列好的讨论，但最终，我对我自己无法用 140 字来完整描述我想说的而感到失望。 我 [决定在未来的某个时间点写一篇更长的文章](https://twitter.com/mjackson/status/885918220154134528) 来公平公正的探讨这个主题。
 
-At the meetup, I gave a talk with the most click-bait-y title (sorry!) I could think of: _Never Write Another HOC_. You can watch the talk [on Phoenix ReactJS’ YouTube channel](https://www.youtube.com/watch?v=BcVAq3YFiuc), or in the embed below:
+两周后，当 [Tyler](https://twitter.com/tylercollier) 邀请我到 [Phoenix ReactJS ](https://www.meetup.com/Phoenix-ReactJS/events/242296327/) 演讲时，我认为是时候去对此进行更进一步的探讨了。那周我已经到达 Phoenix 去启动 [我们的 React 基础和进阶补习课](https://reacttraining.com) 了，关于大会，还有一件令我高兴的事儿就是我的商业伙伴 [Ryan](https://medium.com/@ryanflorence) 在[四月份做了演讲](https://www.youtube.com/watch?v=hEGg-3pIHlE)。
+
+在大会上，我的演讲似乎有点标题党的嫌疑：**不要再写另一个 HOC 了**.你可以在 [Phoenix ReactJS 的 YouTube 官方频道]() 上观看我的演讲，也可以通过下面这个内嵌的视频进行观看：
 
 <iframe width="700" height="393" src="https://www.youtube.com/embed/BcVAq3YFiuc" frameborder="0" gesture="media" allowfullscreen></iframe>
 
-What follows is a brief summary of the talk in case you’d prefer to read it without watching the video. But seriously: watch the video. It’s more fun. 😀
+后文大致记述了演讲的主要内容，如果你不想观看视频的话，你可以阅读它。但是严肃地说：视频要有趣多了 😀。
 
-If you skip the video and start reading, but you don’t quite grasp what I’m talking about, please _go watch the video_ instead. There’s a lot more nuance in the spoken word!
+如果你直接跳过视频开始阅读，但仍没有领会我所说的意思，就**折回去看视频**吧。演讲时的细节会更丰富。
 
-### The Problem with Mixins
+### Mixin 存在的问题
 
-I started the talk by discussing the main problem that higher-order components were designed to solve: **code reuse**.
+我的演讲始于高阶组件主要解决的问题：**代码重用**。
 
-Let’s back up a little bit to 2015–to the days of `React.createClass`. Let’s say you have a simple React app that tracks the mouse position and displays it on the page. The following is an example of how you might have built it:
+让我们回到 2015 年使用 `React.createClass` 那会儿。假定你现在有一个简单的 React 应用需要跟踪并在页面上实时显示鼠标位置。下面的例子可能是你会构建的。
 
-```
+```js
 import React from 'react'
 import ReactDOM from 'react-dom'
 
@@ -65,18 +67,16 @@ const App = React.createClass({
 ReactDOM.render(<App/>, document.getElementById('app'))
 ```
 
-Now, let’s imagine that we want to track the mouse position in another component as well. Can we reuse any of the code from our `<App>`?
+现在，假定我们在另一个组件中也需要跟踪鼠标位置。我们可以重用 `<App>` 中的代码吗？
 
-In the `createClass` paradigm, the problem of code reuse was solved using a technique called “mixins”. Let’s create a `MouseMixin` that anyone can use to track the mouse position.
+在 `createClass` 这个范式中，代码重用问题是通过被称为 “mixin” 的技术解决的。我们创建一个 `MouseMixin`，让任何人都能通过它来追踪鼠标位置。
 
-```
+```js
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-// This mixin contains the boilerplate code that
-// you'd need in any app that tracks the mouse position.
-// We can put it in a mixin so we can easily share
-// this code with other components!
+// mixin 中含有了你需要在任何应用中追踪鼠标位置的样板代码。
+// 我们可以将样板代码放入到一个 mixin 中，这样其他组件就能共享这些代码
 const MouseMixin = {
   getInitialState() {
     return { x: 0, y: 0 }
@@ -91,7 +91,7 @@ const MouseMixin = {
 }
 
 const App = React.createClass({
-  // Use the mixin!
+  // 使用这个 mixin！
   mixins: [ MouseMixin ],
   
   render() {
@@ -108,9 +108,9 @@ const App = React.createClass({
 ReactDOM.render(<App/>, document.getElementById('app'))
 ```
 
-Problem solved, right?! Now anyone can simply “mix in” `MouseMixin` to their component class to get the `x` and `y` of the mouse in `this.state`!
+问题解决了，对吧？现在，任何人都能轻松地将 `MouseMixin` 混入他们的组件中，并通过 `this.state` 对象获得鼠标的 `x` 和 `y` 坐标。
 
-### HOCs Are the New Mixins
+### HOC 是新的 Mixin
 
 Then last year, [ES6 classes](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes) arrived and ultimately the React team decided to move away from using `createClass` to use them instead. It was a wise decision. Who wants to maintain their own class model when JavaScript already has one built-in?
 
