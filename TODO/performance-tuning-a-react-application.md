@@ -2,8 +2,8 @@
 > * 原文作者：[Joshua Comeau](https://codeburst.io/@joshuawcomeau?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/performance-tuning-a-react-application.md](https://github.com/xitu/gold-miner/blob/master/TODO/performance-tuning-a-react-application.md)
-> * 译者：
-> * 校对者：
+> * 译者：[ZhangFe](https://github.com/ZhangFe)
+> * 校对者：[atuooo](https://github.com/atuooo),[jonjia](https://github.com/jonjia)
 
 # React 应用性能调优
 
@@ -53,9 +53,9 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*116YOrGo-_hRvGUjMCieSA.png)
 
-首次有效渲染: ~5000ms
-首张图片加载: ~6500ms
-所有请求结束: >15,000ms
+首次有效渲染：~5000ms
+首张图片加载：~6500ms
+所有请求结束：>15,000ms
 
 天哪，直到 5s 左右页面才展示了一些有意义的内容。第一张图片在 6.5s 左右的时候加载完成，所有的网络请求足足花了 15s 才结束。
 
@@ -102,10 +102,10 @@ app.use(express.static(path.join(rootDir, 'build')));
 
 ![](https://cdn-images-1.medium.com/max/800/1*N1pczEBknaQ_P6u-1S_FQw.png)
 
-首次有效渲染: 5000ms -> **3100ms**
-首张图片加载: 6500ms -> **4600ms
-**所有数据加载完成: 6500ms -> **4750ms
-**所有图片加载完成: ~15,000ms -> ~13,000ms
+首次有效渲染：5000ms -> **3100ms**
+首张图片加载：6500ms -> **4600ms
+**所有数据加载完成：6500ms -> **4750ms
+**所有图片加载完成：~15,000ms -> ~13,000ms
 
 代码体积从 526kb 压缩到只有 156kb，并且它对页面加载速度造成了巨大的变化。
 
@@ -188,8 +188,8 @@ store.subscribe(() => {
 
 棒极了！虽然通过这些很小的截屏很难说明什么，但是我们在 2600ms 时的那次渲染已经可以展示一些内容了；它包括一个完整的节目列表以及从之前的会话里保存的剧集信息。
 
-首次有效渲染: 3100ms -> **2600ms
-**获取剧集数据: 4750ms -> **2600ms (!)**
+首次有效渲染：3100ms -> **2600ms
+**获取剧集数据：4750ms -> **2600ms (!)**
 
 虽然这并没有影响到实际的加载时间（我们仍然需要调用哪些 API，并且在这上面耗时），但是用户可以直接拿到数据，所以**感知**速度的提升非常明显。
 
@@ -209,7 +209,7 @@ store.subscribe(() => {
 
 ![](https://cdn-images-1.medium.com/max/800/1*wIhn8j9QkPIBvxAA6ulTxQ.jpeg)
 
-**左边**: 被下载的图片 ················ **右边**: 真正用到的图片
+**左边**：被下载的图片 ················ **右边**：真正用到的图片
 
 为了解决这个问题，我一开始的想法是使用一个类似于 ImageMagick 的 CLI 工具，我在制作 [**ColourMatch**](http://colourmatch.ca/) 时使用过它。
 
@@ -315,8 +315,8 @@ import LazyLoad from 'react-lazyload';
 
 我们的首次有效渲染时间没什么变化，但是图片加载的时间有了明显的降低：
 
-首张图片: 4600ms -> **3900ms**
-所有可见范围内的图片: ~9000ms -> **4100ms**
+首张图片：4600ms -> **3900ms**
+所有可见范围内的图片：~9000ms -> **4100ms**
 
 > 眼尖的读者可能已经注意到了，这个时间线上只下载了 6 集的数据而不是全部的 16集。因为我最初的尝试（也是我记忆中唯一一个尝试）就是懒加载节目卡片，而并不仅仅是懒加载图片。
 
@@ -334,8 +334,8 @@ import LazyLoad from 'react-lazyload';
 
 ![](https://cdn-images-1.medium.com/max/800/1*0eWlF3VGsWLqHulZtLzkDQ.png)
 
-首次有效渲染: 2600ms -> **2300ms**
-首张图片加载: 3900ms -> **3700ms**
+首次有效渲染：2600ms -> **2300ms**
+首张图片加载：3900ms -> **3700ms**
 
 > 通过这次尝试让我学到了一件事：代码分割的效果很大程度上取决于你的应用类型。在我这个 case 里，最大的依赖就是 React 和它生态系统里的一些库，然而这些代码是整站都需要的并且不需要被分离出来
 >
@@ -381,7 +381,7 @@ Webpack 使得这很容易实现；你可以通过定义 _externals_ 关键字�
 
 ![](https://cdn-images-1.medium.com/max/800/1*JaujId8Or-HOxLuJGcKWSw.png)
 
-首次有效渲染时间: **2300ms** -> 2650ms
+首次有效渲染时间：**2300ms** -> 2650ms
 
 你可能会发现 React 和 React DOM 是和我的主要软件包并行下载的，并且它确实拖慢了整体的时间。
 
@@ -400,7 +400,7 @@ Webpack 使得这很容易实现；你可以通过定义 _externals_ 关键字�
 2. 每个应用都是不同的，这篇文章详细介绍了 Tello 的一些技巧，但是这些技巧的关注点比较特别。即使这些技巧不适用于你的应用，但我希望我已经把理念表达清楚了：性能取决于 web 开发者的创造性。
 
 
-	 举个例子，在一些传统的观念看来，服务端渲染是一个必经之路。但是我在的应用里，基于 local-storage 或者 service-workers 来做前端渲染则是一个更好的选择！也许你可以在编译时做一些工作，减少 SSR 的耗时，又或者学习 Netflix，[完全不将 React 传递给前端](https://jakearchibald.com/2017/netflix-and-react/)！
+举个例子，在一些传统的观念看来，服务端渲染是一个必经之路。但是我在的应用里，基于 local-storage 或者 service-workers 来做前端渲染则是一个更好的选择！也许你可以在编译时做一些工作，减少 SSR 的耗时，又或者学习 Netflix，[完全不将 React 传递给前端](https://jakearchibald.com/2017/netflix-and-react/)！
 	
 	当你做性能优化时，你会发现这非常需要创造力和开阔的思路，而这也是它最有趣的的地方。
 
