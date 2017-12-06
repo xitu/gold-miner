@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/an-introduction-to-in-app-a-b-testing.md](https://github.com/xitu/gold-miner/blob/master/TODO/an-introduction-to-in-app-a-b-testing.md)
 > * 译者：[mnikn](https://github.com/mnikn/)
-> * 校对者：[swants](https://github.com/swants),[winry01](https://github.com/winry01)
+> * 校对者：[swants](https://github.com/swants), [winry01](https://github.com/winry01)
 
 # app 里的 A/B 测试简介
 
