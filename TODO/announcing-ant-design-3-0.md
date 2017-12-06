@@ -5,21 +5,31 @@
 > * 译者：
 > * 校对者：
 
+
 # Announcing Ant Design 3.0
+# Ant Design 3.0 驾到
 
 ![](https://cdn-images-1.medium.com/max/2000/1*LipB3O0Bt3sdeP4V9ZILeQ.png)
 
 > [**Ant Design**](https://ant.design/) _which is specially created for enterprise internal desktop applications, is committed to improving the experience of users, designers and developers._
 
+> [**Ant Design**](https://ant.design/index-cn) 是一个致力于提升【用户】和【设计者】使用体验，提高【研发者】开发效率的企业中后台设计体系。
+
 We released **Ant Design 2.0** 14 months ago. In those 14 months we received PRs from more than 200 contributors.Underwent about 4,000 commit and over 60 [releases](https://github.com/ant-design/ant-design/releases).
+
+14 个月前我们发布了 **Ant Design 2.0**。期间我们收到了 200 多位贡献者的 PRs，经历了大约 4000 个提交和超过 60 个版本
 
 ![](https://cdn-images-1.medium.com/max/800/1*lo18e8-74pk6w5jLPy7npA.png)
 
 The number of GitHub star also rose all the way from 6k to 20k.
 
+GitHub 上的关注数也从 6k 上升到了 20k。
+
 ![](https://cdn-images-1.medium.com/max/1000/1*pn8DEp6GwBgoVksi9kwMuw.png)
 
 GitHub trending since 2015.
+
+自 2015 年以来的 GitHub 关注度趋势。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Pyy85SEu0fYxthrWe7vv-A.png)
 
@@ -27,25 +37,42 @@ GitHub trending since 2015.
 
 Here is our home page: [http://ant.design/](http://ant.design/)
 
+**今天，我们很高兴地宣布，Ant Design 3.0 正式发布了。**在这个版本中，我们为组件和网站做了全新的设计，引入了新的颜色系统，重构了多个底层组件，采用了新的特性和优化，同时最小化不兼容的更改。[这里](https://ant.design/changelog-cn#3.0.0)可查看到完整的更改日志。
+
+这是我们的主页：[https://ant.design/index-cn](https://ant.design/index-cn)
+
 ### New Color System
+### 全新的颜色系统
 
 Our new color system is inspired by the sky, because its inclusiveness coincide with the tone of our brand. Based on the natural sky color change with time and the research on the light and shade rules, we rewrote our color algorithm to generate a [brand new palettes](https://ant.design/docs/spec/colors), and the corresponding gradation levels are optimized too. The senses of new color palette is younger, brighter, and grayscale transitions more natural, a perfect blend of sensual and rational beauty. In addition, all dominant color values ​​take into account accessibility standards.
+
+我们的新颜色系统基于天空的启发，因为她的包容性与我们品牌基调一致。基于对天空色彩随时间自然变化的观察，对光和阴影规则的研究，我们重新编写了颜色算法来生成一个[全新的调色板](https://ant.design/docs/spec/colors-cn)，相应的层次也进行了优化。新调色板的感官更年轻，更明亮，灰度过渡得更自然，是感性美和理性美的完美结合。此外，所有主流色值都参照了信息获取标准。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*PzbgW3jZA9uyR8JszwLgAw.png)
 
 ### New Design of Components
+### 组件的新设计
 
 In previous version, the basic font size of the component was 12px, and we received many feedbacks from community to request us increasing the font size. Our designers are also aware that today the big screen is very common, 14px is a more appropriate font size. So we increased the base font size for to 14px and resized the dimensions of all the components to accommodate this change.
+
+在之前的版本中，组件的基本字体大小是 12px，我们收到了很多来自社区的反馈，建议我们加大字号。我们的设计师也意识到，在大屏幕普及的今天，14px 是更合适的字体大小。因此，我们将基本字体大小增大到了 14px，并调整所有组件的尺寸以适应这种变化。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*NIlj0-TdLMbo_hzSBP8tmg.png)
 
 ### Rewrote components
+### 组件重写
 
 We rewrote the `Table` component to resolve some long living issues. A new prop `components` was introduced, with this props you can highly customize `Table` component now, here is a [example](http://beta.ant.design/components/table/#components-table-demo-drag-sorting) to add drag & drop feature to table.
 
+我们重写了 `Table` 组件来解决一些历史性问题。引入了一个新的工具 `components`，现在你可以使用这个工具来高度定制 `Table` 组件，这里有一个[示例](https://ant.design/components/table-cn/#components-table-demo-drag-sorting)，可以添加拖拽功能。
+
 `Form` component also has been rewrote to provide a better support for nested fields.
 
+`Form` 组件也被重新编写，为表单嵌套提供更好的支持。
+
 Another rewrote component is `Steps`, with this rewrote `Steps` has a simpler DOM structure and IE9 compatibility.
+
+另一个重写的组件是 `Steps`，这个重写的 `Steps` 着更简单的 DOM 结构并且兼容到IE9。
 
 ### New Components
 
