@@ -74,41 +74,69 @@ Another rewrote component is `Steps`, with this rewrote `Steps` has a simpler DO
 
 另一个重写的组件是 `Steps`，这个重写的 `Steps` 着更简单的 DOM 结构并且兼容到IE9。
 
+
 ### New Components
+### 全新的组件
 
 This version we added two new components, _List_ and _Divider_.
 
+这个版本，我们新增了两个组件， _List_ 和 _Divider_。
+
 List components can be very convenient for text, lists, pictures, paragraphs and other data display. And easy integration with third-party libraries, for example, you can use [react-virtualized](https://github.com/bvaughn/react-virtualized) to achieve infinite loading list. More detailed examples can refer to the [List](https://ant.design/components/list/) document.
+
+`List` 组件对于文本、列表、图片、段落和其他数据的显示非常方便。与第三方库集成也很简单，例如，您可以使用 [react-virtualized](https://github.com/bvaughn/react-virtualized) 来实现无限加载列表。更详细的例子可以参考 [List](https://ant.design/components/list-cn/) 文档。
 
 The Divider component can be used to split paragraphs of text in different chapters or to split in-line text / links, such as the action column of a table. Detailed examples can refer to the [Divider](https://ant.design/components/divide) document.
 
+`Divider` 组件可用于在不同的章节中分割文本段落，或者将行内文本/链接分开，如表的动态列。详细的示例可以参考 [Divider](https://ant.design/components/divider-cn/) 文档。
+
 ### Full support for React 16 and ES Module
+### 全面支持 React 16 和 ES 模块
 
 In this version we added support for React 16 and ES module. If you are using webpack 3 then you can now enjoy the optimization of antd’s components by Tree Shaking and Module Concatenation. If you’re using `babel-import-plugin`, just set `libraryDirectory` to the `es` directory.
 
+在这个版本中，我们增加了对 React 16 和 ES 模块的支持。如果你正在使用 webpack 3，那么你现在可以通过 `tree-shaking` 和 `ModuleConcatenationPlugin` 来享受 antd 对组件的优化。如果你使用的是 `babel-import-plugin`，只需将 `libraryDirectory` 设置到 `es` 目录。
+
 ### More friendly TypeScript support
+### 更友好的 TypeScript 支持
 
 We’ve removed all the implicit `any` types in our code, and we no longer requires `"allowSyntheticDefaultImports": true` in your project. If you happen to have projects that you plan to write using TypeScript, please refer to our new documentation “[Using in TypeScript](https://ant.design/docs/react/use-in-typescript/)” .
 
+在我们的代码中，我们已经删除了所有的隐式 `any` 类型，在您的项目中不再需要配置 `"allowSyntheticDefaultImports": true`。如果您计划使用 TypeScript 来编写项目，请参考我们的新文档 “[在 TypeScript 中使用](https://ant.design/docs/react/use-in-typescript-cn/)”。
+
 ### 😍 One More Thing…
+### 😍 还有…
 
 ![](https://cdn-images-1.medium.com/max/1000/1*YHn_dMzMYfkIL2Hr5TvXcQ.png)
 
 Some people may already know it, we are working on another project named [Ant Design Pro](https://pro.ant.design/), it’s a out-of box UI solution and a React boilerplate for enterprise applications based on Ant Design 3.0\. Though it has not reached its [1.0 release](https://github.com/ant-design/ant-design-pro/issues/333) yet. But with antd 3.0 releasing, you can use it in production now.
 
-### What’s Next
+有些人可能已经知道了，我们正在开发另一个名为 [Ant Design Pro](https://pro.ant.design/) 的项目，它是一个企业级中后台前端/设计解决方案，是基于 Ant Design 3.0 的 React Boilerplate。尽管它还没有达到[ 1.0 版本](https://github.com/ant-design/ant-design-pro/issues/333)。但是随着 antd 3.0 的发布，现在可以投入使用了。
 
-Our designers are working on rewritting our design guideline documentation and designing a new website for Ant Design. We are very exited to provide a better design language to inspire more ideas of building enterprise applications.
+### What’s Next
+### 接下来
+
+Our designers are working on rewritting our design guideline documentation and designing a new website for Ant Design. We are very excited to provide a better design language to inspire more ideas of building enterprise applications.
+
+我们的设计师正在重新编写我们的设计指南，并设计一个新的 Ant Design 官网。我们非常高兴能够提供更好的设计语言，以激发更多构建企业级应用程序的灵感。
 
 And our engineers are working hard on Ant Design Pro to make 1.0 happen, which also need your help to [translate our documents](https://github.com/ant-design/ant-design-pro/issues/120).
 
+为了使 1.0 早日成型，我们的工程师正在投入到 Ant Design Pro 努力工作，同时我们也需要你的帮助来[翻译我们的文档](https://github.com/ant-design/ant-design-pro/issues/120)
+
 ### Conclusion
+### 最后
 
 It’s not possible to reach here without your supports, feedbacks, and participations. Thanks to the awesome Ant Design community. If you encounter any problems when using antd, feel free to [file a new issue](https://github.com/ant-design/ant-design/issues/new) on GitHub.
 
 Thanks for reading. Go install it, star it, and give it a try! 🎉
 
+如果没有你们的支持、反馈和参与，就不可能有今天的成功。感谢优秀的 Ant Design 社区。如果您在使用 antd 时遇到任何问题，可随时在 GitHub [提交问题](https://github.com/ant-design/ant-design/issues/new)。
+
+感谢你的阅读。去安装、关注她，试一试吧。 🎉
+
 #### Links
+### 连接
 
 *   [Ant Design](https://ant.design)
 *   [Ant Design Github Repository](http://github.com/ant-design/ant-design)
