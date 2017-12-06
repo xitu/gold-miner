@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/performance-tuning-a-react-application.md](https://github.com/xitu/gold-miner/blob/master/TODO/performance-tuning-a-react-application.md)
 > * 译者：[ZhangFe](https://github.com/ZhangFe)
-> * 校对者：[atuooo](https://github.com/atuooo),[jonjia](https://github.com/jonjia)
+> * 校对者：[atuooo](https://github.com/atuooo), [jonjia](https://github.com/jonjia)
 
 # React 应用性能调优
 
