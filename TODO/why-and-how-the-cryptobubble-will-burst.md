@@ -2,116 +2,118 @@
 > * 原文作者：[DK](https://medium.com/@dennyk?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/why-and-how-the-cryptobubble-will-burst.md](https://github.com/xitu/gold-miner/blob/master/TODO/why-and-how-the-cryptobubble-will-burst.md)
-> * 译者：
-> * 校对者：
+> * 译者：[十七粒](https://github.com/GreenLim)
+> * 校对者：[Damon Yuan](https://github.com/damonYuan)
 
-# Why and how the Cryptobubble will burst
+# 为什么加密货币泡沫会破裂？
 
 ![](https://cdn-images-1.medium.com/max/800/0*idzMb5bMLqYRdbWU.png)
 
-Cryptobubble, Source: TechCrunch
+加密货币泡沫（Cryptobubble），图片来源：TechCrunch
 
-For someone who has lived through the .com bubble the madness currently unfolding in the crypto space is just plain breathtaking. It is quite awe inspiring to see people make the exact same mistakes they made 17 years ago. Of course, today’s investors are likely different people who, for the most part, have not lived through the .com bubble.
+即便是对于一个经历过互联网泡沫的人来说，如今加密货币市场的火爆程度也令人叹为观止。17 年前的错误今天再次重演，是如此震慑人心。当然，今天的投资者也许和以前不同，他们的大多数并没有经历过互联网泡沫。
 
-Those of you who are looking to read more about the topic or learn some basics about cryptoassets can check the end of this blog post, where I am simply collecting some interesting links that I believe are worth a look.
+想了解更多关于加密资产（Cryptoassets）的内容，本文末尾有我收集的更多趣文:)。
 
-**Before we start**
+**写在前面**
 
-I need to establish some basic definitions. To me, there are three different kinds of Cryptoassets:
+首先我需要给出几个基本定义。对我来说，加密资产主要分为下列三种：
 
-a) Cryptocurrencies := Cryptoassets that are mainly used to store value, speculate or transact on the blockchain. Examples are Bitcoin, Litecoin and Dash as well as ZCash.
+a) 加密货币：是一种主要用于在区块链上储藏价值、进行投机或者交易的加密资产。例如 Bitcoin、Litecoin、Dash 和 ZCash。
 
-b) Platforms or true Utility token := Cryptoasstets that enable decentralized applications (DApps) or enable other token to trade on their blockchain. Examples would include Ethereum, Lisk, Blockstack or Tezos (when they launch)
+b) 平台或功用代币：是一种用于构建去中心化应用（DApps）的加密资产，或用于构建其它代币使其能在它们的区块链上进行交易。例如 Ethereum、Lisk、Blockstack 和 Tezos。
 
-c) Security token := any and all ICOs that are sold to investors so that they can speculate on the progress of a start up. This would include TenX, Monaco, Status and Iconomi amongst a host of others.
+c) 证券代币：通过 ICO[[1]](https://baike.baidu.com/item/ICO/21498451) 渠道售卖给投资者的代币，用于投资创业公司。这包括 TenX、Monaco、Status、Iconomi 等。
 
-**Parallels to the .com bubble**
+**对比互联网泡沫**
 
-Back in 1999 and 2000 the stock market went crazy about anything related to the internet. These are the parallels to today:
+让我们回到 1999～2000 年的那个年代，在当时，有任何与互联网沾边的事物，都会让整个股票市场为之疯狂。如今，历史重演：
 
-*   ICO = IPO
+* ICO = IPO
 
-In the late nineties and early 2000s there was an IPO (initial public offering) boom. The Nasdaq was driving new highs every day and new public companies would list there or on any of the “New” or “Tech” market segments established by other stock exchanges. If you took part in the bookbuilding process and bid for stock during the IPO, you were often able to double your money on day one of trading. Everyone was taking part — institutions, high net worth investors and your local retail guy who worked at Walmart or drove a cab. As a matter of fact cab drivers handed out tips of the next hot IPO to their riders. Most IPOs only needed a business idea that was vaguely related to the internet to achieve success.
+在上世纪 90 年代末和本世纪初，IPO（首次公开募股）空前繁荣。纳斯达克指数日日创新高，新兴公司将在各个交易所的“新兴板”或“科技板”上市。如果你在 IPO 期间参与了某只股票的询价申购，那么你通常能在上市交易的第一天就实现本钱翻番。所有人都在参与 —— 不仅仅是机构和高净值投资者，甚至你家门口超市的员工和出租车师傅都来凑热闹。出租车师傅将即将大热的 IPO 项目宣传给乘客。大多数 IPO 项目，只要有和互联网沾边的商业计划，就能成功上市。
 
-Today this is very much the same story in ICO world. It appears everyone has taken part in an ICO or a pre-sale of some random token that promises to use the blockchain to deliver your local groceries or some other ridiculous idea that could potentially benefit from a Dapp but certainly does not need a token to work. Some of these ICOs, especially in early 2017 have indeed 10x the money of people who invested, which has fueled the boom. Note that the list of non-scam ICOs (looking at you, Veritaseum and not because you are legit…) that have actually done well for their buyers in Bitcoin terms (not in US Dollar terms) is quite short. The one difference today is that the token, most of which are using the Ethereum blockchain to trade, have absolutely no ownership rights. But that is a point I will come to later. For now, let’s just remember that the ICO mania mirrors the IPO mania nearly two decades ago.
+如今发生在 ICO 世界的故事和历史是惊人的相似。似乎所有人都在参与 ICO 或者代币预售，项目承诺使用区块链来交付商品，或者使用区块链来实现其它一些荒谬的点子，这些项目可能会从 Dapp 中收益，但完全不需要靠代币来运转。其中一些 ICO（17 年初尤甚）使投资者获得了 10 倍的收益，正是它们推动了 ICO 的繁荣。需要注意的是，能够以比特币（而非美元）为结算单位，良好完成售卖的非诈骗 ICO 是相当少的。今天与历史不同，大部分靠以太坊区块链完成交易的代币完全没有所有权。这一点我将在后文提到。现在，你只需要记住 ICO 狂热就是约 20 年前的 IPO 狂热的翻版。
 
-*   Anything blockchain soars
+* 任何区块链相关的都在飙升
 
-In the .com bubble existing technology firms listed on the Nasdaq sometimes decided to add “.com” to their company name and saw their shares surge, sometimes 30–50%.
+在互联网泡沫时代，纳斯达克的一些科技公司给自己的公司名字加上“.com”，然后股价便有 30~50% 的涨幅。
 
-Well, guess what is happening now… There have already been a handful of companies that simply added “Blockchain” to their company name. Note that this is just a name change in many cases… And of course their value has soared just because of that.
+猜猜现在发生的是什么...已经有一些公司将公司名字加了上了“区块链”。请注意，大多数情况他们仅仅是给公司换个名字而已...然而，它们的股价却因此而大幅上涨。
 
-*   New valuation paradigms are being thought up
+* 正在考虑新的估值模型
 
-During the .com bubble, the major problem for analysts and investors was that most of the companies had losses and not profits, so there was hardly anything to value them on. Traditionally, things like Free Cash Flow yield, EV/EBITDA and P/E multiples or DCF analysis are being used to value equities. The problem with all these methods is that if profits are forecast to be negative for a substantial period of time or very tiny in relation to market cap, the ratios do not make sense and DCF will rely mostly on the “terminal value”, which is an assumed value in perpetuity based on profits 10 or 20 years out. As none of these methods made sense (not because they did not work, but because the shares traded at ridiculous levels), analysts thought up new methods to value internet stocks. This went so far that the oft-read standard volume “Valuation” added an entire chapter on the valuation of internet stocks that was later taken out again as it was obvious bogus.
+在换联网泡沫期间，分析师和投资者面临的主要问题是，大多数公司一直在亏损而没有利润，几乎没有可行的估值方法。分析股票的传统方式有：自由现金流息率、EV/EBITDA、P/E 倍数或 DCF（现金流折现）分析。这些方法都存在一个问题，如果在未来相当长的一段时间内利润预计为负数，或与市值的比值为一个相当小的数，靠计算比率来估值的方法都将不起作用，而 DCF 又相当依赖于“终端价值”（基于未来 10 年或 20 年利润的一个恒定假定值）。因为这些方法都行不通（并不是这些方法不管用，而是股价被炒得离谱），当时分析师想出了用于互联网股票估值的种种新方法。这甚至在经常阅读的“估值”标准卷对互联网股票估值增加了大量内容，不过随后又被删除了，因为当时的市场显然是一个虚假的市场。
 
-Fast forward to today — the same is happening again. While I want to be clear that there are important differences in that Bitcoin does have some sort of a value as a “store of value”, people making up new ideas like network value for token (not so much for Bitcoin) just makes no sense. Analysts and investors alike are ignoring valuation methods and seem to be fine with projects that offer nothing in return to carry “kick starter” valuations of 100m USD+.
+快进到今天 —— 同样的事情再次上演。我承认在"价值储藏"上比特币具有独特价值，但人们赋予代币以网络价值的行为却显得十分荒谬。今天，分析师和投资者都不再关心估值方法，即使项目没有任何回报、启动就估值过亿美金，他们也不会觉得有任何问题。
 
-**Some worrying differences of the blockchain bubble and the .com bubble**
+**区块链泡沫和互联网泡沫之间令人担忧的差异**
 
-While there are obviously worrying parallels between the two bubbles, there are even more worrying differences.
+尽管这两个泡沫之间存在着明显的相似之处，但更令人担忧的是它们的差异。
 
-*   The object of speculation
+* 投机的对象
 
-While during the .com bubble at least people were receiving actual equity for their hard-earned cash, when they invest in most ICOs (the ones of the security token type above) they receive no rights in return. Let me stress this: they receive NADA, ZILCH, NOTHING of any value. They are invested in hot air. This is especially true for those ICOs that offer a product or service that does not really need a token. Let that sink in for a minute: because someone said “blockchain” you have bought hot air off a person that you do not know in the hope that someone else will buy it from you for a higher price. The only thing that helps you is the “greater fool theory” (if you do not know what that is, it is probably you).
+在互联网泡沫期间，人们至少用血汗钱至少换回了实打实的股权，但大多数的 ICO（前面说的证券代币）投资不会获得任何权利。让我强调一下：**他们不会获得任何权利**。他们投资的完全是空气。对于那些提供商品或服务并不需要代币的 ICO 来说尤其如此。我们花一分钟来理解一下：你从一个你不知道的人那里购买了“区块链”空气，然后希望别人能以更高的价格从你那买走。唯一能对你起到帮助的是“博傻理论”（意思就是：在这个世界上，傻不可怕，可怕的是做最后一个傻子）。
 
-*   The idea of market cap
+* 市值的含义
 
-I have written about this before. Market cap is defined as the value of all (ALL) shares outstanding in equities.
+我以前写过相关的东西。市值被定义为所有普通股的当前股票价值。
 
-However, if you look at coinmarketcap.com, the “go-to” site for crypto market caps, you will notice that they only count the “Circulating Supply”, which is generally the amount of coins NOT held by team members of the firms that are selling them. In other words, they are showing only “free float” market cap if you were to compare it to equities.
+然而，如果你看看统计加密市场市值的首选网站 coinmarketcap.com，你就会发现它们只统计了“流通供应”部分，这通常是被销售出去的那部分货币总量，而并未包括销售该代币的公司团队成员所持有的那部分。换句话说，如果与股票进行比较，该网站只显示了“自由浮动”的那部分市值。
 
-Think about it — when you say Project XYZ is “only” worth 100m USD on coinmarket cap, it should be at least 200m (which is already crazy), you are probably ignoring about 50% of the token held by the founders of the project. These can be sold too… So not only are the valuations of 100m USD and more for hot air, these are not even the full story.
+你想一想 —— 当你认为 XYZ 项目市值 1 亿美金时，实际上它的市值可能有 2 亿美金，因为你忽略了项目创始人还持有 50% 的代币。这些代币同样可以在市场上销售...所以除了在估值上的泡沫，还有更多的不为人知的风险。
 
-Coinmarketcap.com, by the way, used to have a feature to show “Total market Cap”, which they have conveniently dropped from the site. (Edit: in an answer below I was told that you can still find this feature in the coins and assets separately, it just disappeared from the main overview site. In case you were wondering, it shows total crypto market cap at $700bn+)
+顺便提一下，Coinmarketcap.com 以前有显示“全部市值”的功能，不过后来被随意的去掉了。（编辑：实际上，该网站现在还有“全部市值”功能，它隐藏在 Coins 标签下面。）
 
-A new website shows total market cap as default and even marks the known scams: https://onchainfx.com ‬
+一个默认显示全部市值甚至还标记诈骗信息的网站：https://onchainfx.com ‬
 
-*   The amount of scams
+* 诈骗的数量
 
-In equity markets, of course there are occasional scams and there were IPOs that turned out to be founded on not much more than a pyramid scheme. However, looking at crypto ICOs, the sheer amount of obvious scams is breathtaking.
+在股票市场，当然也偶尔有骗局，甚至还发现有些公司的 IPO 建立在传销基础上。然而，看看加密行业的 ICO，明显就是骗局的项目数目惊人。
 
-Projects such as Veritaseum, Monkey Capital or WCX all reek of pyramid schemes, scammers and unprofessional conduct. While WCX still has a chance to turn out differently (as the ICO is not over yet, but things look quite spooky with no team members public and the nominated escrow for the money confirming that he holds no coins in escrow), the other two by now are confirmed scams (as for VERI, check the links below, as for Monkey do the same). This is truly terrible as it combines the worst of no regulation, internet anonymity and greed.
+像 Veritaseum、Monkey Capital 或 WCX 等项目都充斥着传销、骗局、不专业的味道。尽管 WCX 仍然还有机会翻身（ICO 还没有结束，但事情看上去相当怪异，没有公开的团队成员，提名的资金托管方表示并未为其托管任何资产），而其它两个项目已经被证实为骗局。真正令人可怕的是 ICO 结合了无监管、互联网匿名以及人性的贪婪。
 
-*   The type of investor
+* 投资者类型
 
-While the .com bubble had its fair share of retail investors, the main driver were the institutions. In the crypto bubble, the field is made up almost exclusively of newcomer retail investors that probably have never held a stock in their life. This is the reason why things like technical analysis work much better in crypto than in equities, because these markets are quite obviously more likely to be driven by fear and greed than established markets. TA is only a way to structure analysis of fear and greed after all.
+尽管互联网泡沫有相当一部分的散户投资者，但主要驱动力仍然是机构投资者。在加密泡沫中，该领域几乎完全由新晋散户投资者组成，他们可能一辈子都没有持有过股票。这就是为什么像技术分析这样的东西在加密市场比股票市场受欢迎的原因，因为这明显是一个由恐惧和贪婪驱动的市场，这不是一个成熟的市场。技术分析只是一种分析恐惧和贪婪的方法而已。
 
-What I am really getting at here though is that most of these people have no experience whatsoever with losing money in investments. When the bubble bursts all of them will be headed for the exit at the same exact time. Furthermore they lack the skills of recognizing that we are in a bubble and that they are invested in hot air. If anything like that is suggested in any of the numerous slack or telegram channels of any of the hot air projects, whoever posted it directly gets blocked in the channel or showered with “this is FUD” accusations (fear uncertainty doubt, a crypto acronym that is supposed to say “this is just fearmongering, if you just hold your investments you will do great”).
+我真正想说的是，大多数人在投资亏损方面没有任何经验。当泡沫破灭时，他们会在第一时间被清场。此外，他们缺乏认识到我们正处于泡沫之中的能力，而且他们投资的都是空气。在任何空气项目的 Slack 或 Telegram 的交流群中，不论是谁发表类似的言论，他都会被禁言，或者被指责为 “FUD”（fear uncertainty doubt，恐惧/不确定/怀疑，加密领域中的一个缩写词，意思就是说“他在散布恐慌，只要你不割肉，你就能赚到钱”）。
 
-Little do all these people suspect that the only reason they are not already crying is that their invested security token have only lost value in bitcoin terms but held stable or only lost a little in USD terms. However, if you look at any chart of any security token vs bitcoin, you can quite clearly see that the only thing these are good for are short “pump and dumps”. After a pump they ALWAYS dump to a lower level. Now imagine what happens if Bitcoin ever falls again…
+这些人确信他们还未痛哭的唯一原因就是，他们投资的证券代币仅仅只是在"比特币交易对"上有所亏损，但对美元仍然保持稳定或损失甚微。然而，如果你看一看任何一个证券代币或比特币的走势图，你可以清楚的看到，好的行情仅仅是短暂的“哄抬价格-拉高出货”。在涨一波之后通常会跌到比之前还低的位置。现在想象一下，如果比特币再次下跌，会发生什么？
 
-*   Missing (enforcement of) regulation
+* 缺乏强制的监管
 
-It is quite obvious that all governments have been surprised by the ICO boom. Therefore regulation in the space is scarce, inconsistent and unclear. Not only does this give rise to the scams mentioned above, but also consider the following:
+显然，所有政府都被 ICO 的繁荣所震惊。因此，该领域的监管是匮乏、不一致和不明确的。这不仅催生了上述骗局的出现，还请考虑如下几点：
 
-a) as long as token are not clearly classified as securities wash trading, insider trading, spoofing and literally any kind of negative market conduct is not specifically outlawed. It might be seen as legal by the people who engage in it and of course it is extremely easy to do for those involved in a project or having gained a following in social media.
+a) 只要代币不被明确界定为证券虚假交易、内幕交易、欺骗以及任何一种负面的市场行为，都不是被勒令禁止。代币可能会被参与其中的人认为是合法的，尤其是项目成员或社交媒体大号。
 
-b) most token actually fit the definition of a security by the SEC. Note that to be a security, a token needs to EITHER offer security-like rights (dividends, share of profit, voting rights) OR be offered to people who buy it in the expectation to sell it for a higher price later. Practically, if the token gets listed on an exchange and that is part of the ICO promise then it is a security. Most people do not want to understand that the second part of this definition currently covers ALL (all…) ICOs. Rightly, securities need to follow certain regulations before they can be sold and investors need to be educated.
+b) 许多代币实际上符合美国证监会对证券的定义。注意，作为一种证券，代币需要提供类似证券的权利（股息、利润分红、投票权），或提供给期望低买高卖的投机者。实际上，如果代币在交易所上市交易，并且这是 ICO 承诺的一部分，那么它就是一种证券。而大部分的既得利益者并不想承认该定义的第二部分实际上已经涵盖了所有的 ICOs 以逃避监管。如果要符合章程，证券需要满足特定的规约才能进行销售，并且只能卖给合格的投资者。
 
-c) the Cryptoworld seems to think it is immune to regulation in the future. This is a mistake. The moment a government like the US or the EU attaches a prison sentence to trading securities that are not properly following regulations (hint), to selling these securities or even owning them, watch law abiding citizens flee crypto. Of course Bitcoin won’t disappear, but it also won’t be trading at 6000 USD or more… Instead crypto should welcome regulation. It solves a lot of problems, ethical and otherwise. Note also that currently the biggest exchanges are actually located in the US with people who have addresses and lives running them. These are not immune to regulation.
+c) "加密世界"似乎认为它对未来的监管是免疫的，然而这是错误的。像美国或欧盟这样政府，对于那些不符合监管规定（监管提示）的证券，出售甚至是拥有它们都将被判入狱。当然，比特币不会消失，而加密行业应该拥抱监管。这能解决许多道德和其它方面的问题。值得注意的是，目前世界最大的交易所的实际位置位于美国，而交易所由有合法身份的人来运转。这些都不是对监管免疫的。
 
-**So what will happen in my view?**
+**那么在我看来将发生什么呢?**
 
-I believe that there is currently a massive bubble going on in the space of “security token” defined above. This bubble somewhat extends to “utility token” and “cryptocurrencies” as well, but it is clearly home in the ICO space.
+我认为目前在开篇定义的“证券代币”行业中存在大量的泡沫。这个泡沫一定程度上会扩散到“功用代币”和“加密货币”，但显然主要还是在 ICO 领域中。
 
-The likeliest scenario is that the two elephants in the room (US, EU) issue some sort of regulatory framework for ICOs and cryptoassets in general. I expect them to distinguish between pure network token or cryptocurrencies (which will likely include Bitcoin, Ethereum and some others) and security token. Almost all of the existing ICO space will firmly fall under the security token regulations. (Edit: SEC chairman Clayton: “I have yet to see an ICO that doesn’t have a sufficient number of hallmarks of a security.”, Wall Street Journal Nov 9 2017)
+最有可能的情况是，房间里面的两头大象（美国和欧盟）为 ICO 和加密资产出台某种监管框架。我希望他们能够区分纯粹的网络代币、加密货币（Bitcoin、Ethereum 等）和证券代币三者。几乎所有的现有 ICO 市场都将严格按照证券代币监管规则实行。（编辑：美国证监会主席 Clayton 说：“我还没见过哪个 ICO 没有太多证券的印记。”，华尔街日报，2017 年 11 月 9 日。）
 
-As a result, all major exchanges that have any kind of human owners, developers or known actors will be mandated to de-list all of these security token with immediate effect and they will follow this order. As for decentralized exchanges, given the trade in these token will be illegal and the projects that sold them might well have to refund investors, I am not so sure these are the way out that solves everything. I actually hope they aren’t because regulatory certainty is a positive, not a negative.
+因此，所有的由人管理运作的大型交易所都将被强制要求立即去除所有证券代币，他们都将遵守这一指令。对于去中心化交易所，这些代币的交易将是非法的，而项目发起者将会向投资者退款，我不敢肯定这种方式能解决所有问题。我希望他们不会走到这一步，因为监管必然会是积极的。
 
-When this happens, all ICOs will lose 90%+ of their value (just like during the .com bubble…) regardless of the strength of their projects. I keep bringing this up, but Amazon fell to 5.5 USD / share in 2001\. It now trades at 1000 USD+. So also the good projects will fall 80–90%…
+当这些发生后，所有的 ICO 都将下跌 90％（就像在互联网泡沫中一样），不管项目多么强大。我经常提到的一点：2001 年亚马逊股价下跌到 5.5 美元每股，但现在价格是 1000 美元。所以在这个过程中，好的项目仍然会下跌 80～90%。
 
-At the same time the utility token related to the ICO boom will probably crash in tandem (after potentially spiking as most people first sell their security token for utility token and then for bitcoin and then for fiat), but possibly not as deep and they will recover in time. Most of these are valuable technologies that nobody wants to harm in the long term. Cryptocurrencies such as Bitcoin will also be impacted, but I would expect an almost V-shaped recovery there as the listing of futures on the major exchanges, the formation of ETFs and more regulatory certainty will undoubtedly introduce institutional money to the space and more than 90% of that will flow into Bitcoin. Make no mistake though, Bitcoin will also suffer.
+与此同时，与 ICO 繁荣息息相关的功用代币可能会串联暴跌（因为大部分人将证券代币换成功用代币，再换成比特币，最后换成法币），但可能不会太严重并且能够及时恢复。这些都是有价值的技术，没人想长期伤害它们。类似比特币这样的加密货币也会受到影响，但随着各大交易所推出比特币期货，我预计很可能是一个 V 型修复的走势，ETF基金的形式和监管无疑将引入机构投资者，并且其中 90% 的资金必将流向比特币。不过，毫无疑问的是比特币仍然会受到影响。
 
-In the aftermath of this ICO carnage, I would expect the same story as with the internet firms from 2001\. Really good projects will give their token holders equity-like rights and fulfill securities regulations. New ICOs will be strong companies that will have a good value proposition and again, will actually be selling something valuable and not just hot air. When this ICO 2.0 phase starts, platforms such as Ethereum will also strongly recover. Just like it happened with the .com firms, I expect this wash out to be a positive medium term effect and to unlock a lot of value. There is not a doubt in my mind that the blockchain (and with it networks like Ethereum and currencies like Bitcoin) will to a large extent replace current market infrastructure and even actors (like banks and clearing houses or stock exchanges). But the wash out will need to happen before that and it will happen. It is not a question of IF, but WHEN.
+在这场 ICO 大地震的余波中，我预计将发生和 2001 年互联网公司同样的故事。真正优质的项目会给他们的代币持有者带来类似股票的权利，并且履行证券监管。新的 ICO 将是那些强大的公司，这些项目具有很好价值定位，它们也会出售一些有价值的东西，这肯定不会是空气。当 ICO 2.0 时代来临时，以太坊这样的平台也会强劲复苏。就像过去互联网公司一样，我希望这场冲击是一个积极的中期效应，并释放出大量的价值。我确信，区块链（像以太坊这样的网络、像比特币这样的货币）将在很大程度上取代目前的市场基础设施，甚至取代某些市场参与者（例如银行、清算所、股票交易所）。但在这之前，需要发生一场冲击，并且一定会发生。这不是“是否发生”，而是“何时发生”的问题。
 
-Oh and dare I throw in that I highly doubt the legality of the USD Tether project. Do you really think the US government will allow a third party to offer their currency as a custodian without any public audits or licenses? I don’t…
+对了，我敢打赌，我严重怀疑 USDT 项目的合法性。你真的认为美国政府会允许第三方机构在没有任何公开审计和牌照的情况下用他们自己发行的货币进行资产托管吗？我是不信的...
 
-I would therefore personally not invest into any random ICOs at all nor their respective token at this late stage in the game. The likelihood you can buy all of these cheaper at some point over the next 12 months is extremely high. Again, this is not to say that the blockchain is not the future and it is not even a case against Bitcoin (I would claim it is probably a case for it) or Ethereum. But I do hope this serves as a small wake up call to everyone getting delusional about the potential riches of the crypto world at this precise point in time.
+因此，在这场游戏的尾声，我个人不会对任何 ICO 项目进行投资，也不会投资它们的代币。在未来 12 个月的某个时间点，你入手的任何价格都可能是一个相当高的点位。再重申一遍，这并不是说区块链不是未来，这也不是反对比特币或以太坊的理由。但我希望这是给当下那些幻想加密世界让自己一夜暴富的人的一个小小的警钟。
 
-_Finally a short but important disclaimer: none of what I write here is to be construed as advice to buy or sell any kind of asset. It is merely my personal and not professional opinion. Any asset can go to zero._
+**最后，一个简短而重要的声明：我所写内容不构成任何资产投资建议。这仅仅是我不专业的个人观点。一切资产都可能归零。**
 
-**Links**
+**更多趣文**
+
+- [**ICO**](https://baike.baidu.com/item/ICO/21498451)
 
 - [**Everything I Learned About Investing I Learned While Crying**](https://medium.com/the-mission/everything-i-learned-about-investing-i-learned-while-crying-1cf239ef8da5)
 
