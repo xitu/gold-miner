@@ -112,17 +112,17 @@ ReactDOM.render(<App/>, document.getElementById('app'))
 
 ### HOC 是新的 Mixin
 
-Then last year, [ES6 classes](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes) arrived and ultimately the React team decided to move away from using `createClass` to use them instead. It was a wise decision. Who wants to maintain their own class model when JavaScript already has one built-in?
+去年，随着[ES6 class](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes) 的到来，React 团队最终决定使用 ES6 class 来代替 `createClass`。
 
-But there was a problem: **ES6 classes don’t support mixins**. Also, besides the fact they aren’t part of the ES6 class spec, mixins have other shortcomings too, many of which [Dan](https://medium.com/@dan_abramov) discussed at length in [a post on the React blog](https://facebook.github.io/react/blog/2016/07/13/mixins-considered-harmful.html).
+但就存在一个问题：**ES6 class 不支持 mixin**。除了不是 ES6 规范的一部分，Dan 已经在[一篇 React 博客](https://facebook.github.io/react/blog/2016/07/13/mixins-considered-harmful.html)上发布的博文上详细讨论了 mixin 存在的其他问题。
 
-To summarize, problems with mixins are:
+minxin 的问题总结下来就是
 
-*   **ES6 classes**. They don’t support mixins.
-*   **Indirection**. Mixins that modify state make it tricky to tell where that state is coming from, especially when there’s more than one mixin.
-*   **Naming collisions**. Two mixins that try to update the same piece of state may overwrite one another. The `createClass` API included a check that would warn you if two mixins had a `getInitialState` value with the same keys, but it wasn’t airtight.
+* **ES6 class**。其不支持 mixin。
+* **不够直接**。minxin 改变了 state，因此也就很难知道一些 state 是从哪里来的，尤其是当不止存在一个 mixin 时。
+* **名字冲突**。两个要更新同一段 state 的 mixin 可能会相互覆盖。`createClass` API 会对两个 mixin 的 `getInitialState` 是否具有相同的 key 做检查，如果具有，则会发出警告，但该手段并不牢靠。
 
-So instead of using mixins, many in the React community eventually settled on an alternative technique for code reuse known as [higher-order components](https://facebook.github.io/react/docs/higher-order-components.html), or HOCs. In this paradigm, code is shared using a similar technique to [**decorators**](https://en.wikipedia.org/wiki/Decorator_pattern); you start with the component that defines the bulk of the markup to be rendered and then wrap it in more components that contain the behavior you’d like to share. Instead of _mixing in_ the behavior you need, you can just _decorate_ your component! 😎
+所以，为了替代 mixin，React 社区中的不少开发者最终决定用[高阶组件](https://facebook.github.io/react/docs/higher-order-components.html)（简称 HOC）来做代码复用。在这个范式下，代码通过一个类似于 [**装饰器（decorator）**](https://en.wikipedia.org/wiki/Decorator_pattern) 的技术进行共享。首先，你的一个组件定义了大量需要被渲染的标记，之后用若干具有你想用共享的行为的组件包裹它。从而，你现在是在 **装饰** 你的组件，而不是**混入**你需要的行为！
 
 ```
 import React from 'react'
