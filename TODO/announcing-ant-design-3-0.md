@@ -24,7 +24,7 @@ GitHub 上的 star 数也从 6k 上升到了 20k。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Pyy85SEu0fYxthrWe7vv-A.png)
 
-**今天，我们很高兴地宣布，Ant Design 3.0 正式发布了。**在这个版本中，我们为组件和网站做了全新的设计，引入了新的颜色系统，重构了多个底层组件，加入了新的特性和优化，同时最小化不兼容的更改。[这里](https://ant.design/changelog-cn#3.0.0)可查看到完整的更改日志。
+**今天，我们很高兴地宣布，Ant Design 3.0 正式发布了**。在这个版本中，我们为组件和网站做了全新的设计，引入了新的颜色系统，重构了多个底层组件，加入了新的特性和优化，同时最小化不兼容的更改。[这里](https://ant.design/changelog-cn#3.0.0)可查看到完整的更改日志。
 
 这是我们的主页：[https://ant.design/index-cn](https://ant.design/index-cn)
 
