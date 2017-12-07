@@ -10,7 +10,7 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/1*LipB3O0Bt3sdeP4V9ZILeQ.png)
 
-> **[Ant Design](https://ant.design/index-cn) 是一个致力于提升【用户】和【设计者】使用体验，提高【研发者】开发效率的企业中后台设计体系。**
+> **[Ant Design](https://ant.design/index-cn) 是一个致力于提升「用户」和「设计者」使用体验，提高「研发者」开发效率的企业中后台设计体系。**
 
 14 个月前我们发布了 **Ant Design 2.0**。期间我们收到了 200 多位贡献者的 PR，经历了大约 4000 个提交和超过 60 个[版本](https://github.com/ant-design/ant-design/releases)
 
@@ -62,7 +62,7 @@ GitHub 上的 star 数也从 6k 上升到了 20k。
 
 ### 更友好的 TypeScript 支持
 
-在我们的代码中，我们已经删除了所有的隐式 `any` 类型，在您的项目中不再需要配置 `"allowSyntheticDefaultImports": true`。如果您计划使用 TypeScript 来编写项目，请参考我们的新文档 “[在 TypeScript 中使用](https://ant.design/docs/react/use-in-typescript-cn/)”。
+在我们的代码中，我们已经删除了所有的隐式 `any` 类型，在您的项目中不再需要配置 `"allowSyntheticDefaultImports": true`。如果您计划使用 TypeScript 来编写项目，请参考我们的新文档 「[在 TypeScript 中使用](https://ant.design/docs/react/use-in-typescript-cn/)」。
 
 ### 😍 还有一件事儿
 
