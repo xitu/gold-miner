@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/announcing-ant-design-3-0.md](https://github.com/xitu/gold-miner/blob/master/TODO/announcing-ant-design-3-0.md)
 > * 译者：[木羽](https://github.com/zwwill)
-> * 校对者：[Usey95](https://github.com/Usey95) [swants](http://www.swants.cn)
+> * 校对者：[Usey95](https://github.com/Usey95)、 [swants](http://www.swants.cn)
 
 
 # Ant Design 3.0 驾到
