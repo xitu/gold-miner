@@ -13,23 +13,23 @@
 
 > [**Ant Design**](https://ant.design/) _which is specially created for enterprise internal desktop applications, is committed to improving the experience of users, designers and developers._
 
-> [**Ant Design**](https://ant.design/index-cn) 是一个致力于提升【用户】和【设计者】使用体验，提高【研发者】开发效率的企业中后台设计体系。
+> **[Ant Design](https://ant.design/index-cn) 是一个致力于提升【用户】和【设计者】使用体验，提高【研发者】开发效率的企业中后台设计体系。**
 
 We released **Ant Design 2.0** 14 months ago. In those 14 months we received PRs from more than 200 contributors.Underwent about 4,000 commit and over 60 [releases](https://github.com/ant-design/ant-design/releases).
 
-14 个月前我们发布了 **Ant Design 2.0**。期间我们收到了 200 多位贡献者的 PRs，经历了大约 4000 个提交和超过 60 个版本
+14 个月前我们发布了 **Ant Design 2.0**。期间我们收到了 200 多位贡献者的 PR，经历了大约 4000 个提交和超过 60 个[版本](https://github.com/ant-design/ant-design/releases)
 
 ![](https://cdn-images-1.medium.com/max/800/1*lo18e8-74pk6w5jLPy7npA.png)
 
 The number of GitHub star also rose all the way from 6k to 20k.
 
-GitHub 上的关注数也从 6k 上升到了 20k。
+GitHub 上的 star 数也从 6k 上升到了 20k。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*pn8DEp6GwBgoVksi9kwMuw.png)
 
 GitHub trending since 2015.
 
-自 2015 年以来的 GitHub 关注度趋势。
+自 2015 年以来的 GitHub star 趋势。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Pyy85SEu0fYxthrWe7vv-A.png)
 
@@ -46,7 +46,7 @@ Here is our home page: [http://ant.design/](http://ant.design/)
 
 Our new color system is inspired by the sky, because its inclusiveness coincide with the tone of our brand. Based on the natural sky color change with time and the research on the light and shade rules, we rewrote our color algorithm to generate a [brand new palettes](https://ant.design/docs/spec/colors), and the corresponding gradation levels are optimized too. The senses of new color palette is younger, brighter, and grayscale transitions more natural, a perfect blend of sensual and rational beauty. In addition, all dominant color values ​​take into account accessibility standards.
 
-我们的新颜色系统基于天空的启发，因为她的包容性与我们品牌基调一致。基于对天空色彩随时间自然变化的观察，对光和阴影规则的研究，我们重新编写了颜色算法来生成一个[全新的调色板](https://ant.design/docs/spec/colors-cn)，相应的层次也进行了优化。新调色板的感官更年轻，更明亮，灰度过渡得更自然，是感性美和理性美的完美结合。此外，所有主流色值都参照了信息获取标准。
+我们的新颜色系统源于天空的启发，因为她的包容性与我们品牌基调一致。基于对天空色彩随时间自然变化的观察，对光和阴影规则的研究，我们重新编写了颜色算法来生成一个[全新的调色板](https://ant.design/docs/spec/colors-cn)，相应的层次也进行了优化。新调色板的感官更年轻，更明亮，灰度过渡得更自然，是感性美和理性美的完美结合。此外，所有主流色值都参照了信息获取标准。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*PzbgW3jZA9uyR8JszwLgAw.png)
 
@@ -72,7 +72,7 @@ We rewrote the `Table` component to resolve some long living issues. A new prop 
 
 Another rewrote component is `Steps`, with this rewrote `Steps` has a simpler DOM structure and IE9 compatibility.
 
-另一个重写的组件是 `Steps`，这个重写的 `Steps` 着更简单的 DOM 结构并且兼容到IE9。
+另一个重写的组件是 `Steps`，这个重写的 `Steps` 有着更简单的 DOM 结构并且兼容到IE9。
 
 
 ### New Components
@@ -118,7 +118,7 @@ Some people may already know it, we are working on another project named [Ant De
 
 Our designers are working on rewritting our design guideline documentation and designing a new website for Ant Design. We are very excited to provide a better design language to inspire more ideas of building enterprise applications.
 
-我们的设计师正在重新编写我们的设计指南，并设计一个新的 Ant Design 官网。我们非常高兴能够提供更好的设计语言，以激发更多构建企业级应用程序的灵感。
+我们的设计师正在重新编写我们的设计指南，并设计一个新的 Ant Design 官网。我们非常高兴能够提供更好的设计语言，以激发更多构建企业级应用的灵感。
 
 And our engineers are working hard on Ant Design Pro to make 1.0 happen, which also need your help to [translate our documents](https://github.com/ant-design/ant-design-pro/issues/120).
 
@@ -133,7 +133,7 @@ Thanks for reading. Go install it, star it, and give it a try! 🎉
 
 如果没有你们的支持、反馈和参与，就不可能有今天的成功。感谢优秀的 Ant Design 社区。如果您在使用 antd 时遇到任何问题，可随时在 GitHub [提交问题](https://github.com/ant-design/ant-design/issues/new)。
 
-感谢你的阅读。敬请安装、关注，试一试吧。 🎉
+感谢你的阅读。敬请安装、star、尝试。 🎉
 
 #### Links
 ### 连接
