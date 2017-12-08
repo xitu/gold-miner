@@ -72,7 +72,7 @@ Rust 允许我们编写快速有效的代码。
 
 ### 如何编译一个 Rust 应用？
 
-根据 [https://rustup.rs](https://rustup.rs)指南，我们可以用 `rustc` 编译器，但是我们现在更应该关心的是 `cargo`。我不想深入描述它是如何工作的，如果你感兴趣，请移步至我们[以前的 Rust 博文](https://blog.risingstack.com/how-to-use-rust-with-node-when-performance-matters/)。
+根据 [https://rustup.rs](https://rustup.rs) 指南，我们可以用 `rustc` 编译器，但是我们现在更应该关心的是 `cargo`。我不想深入描述它是如何工作的，如果你感兴趣，请移步至我们[以前的 Rust 博文](https://blog.risingstack.com/how-to-use-rust-with-node-when-performance-matters/)。
 
 ### 创建新的 Rust 工程
 
