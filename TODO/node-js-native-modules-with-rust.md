@@ -205,7 +205,7 @@ fn get_query(call: Call) -> JsResult<JsString> {
     });
 ```
 
-上述代码中，新类型 `JsString`、`Call` 和 `JsResult` 是对 JavaScript 类型的封装，这让我们就可以接入 JavaScript VM ，执行上面的代码。`Scope` 将我们的新变量绑定到当前的 JavaScript 域中，这让我们的变量就可以被垃圾收集器回收。
+上述代码中，新类型 `JsString`、`Call` 和 `JsResult` 是对 JavaScript 类型的封装，这样我们就可以接入 JavaScript VM ，执行上面的代码。`Scope` 将我们的新变量绑定到当前的 JavaScript 域中，这让我们的变量就可以被垃圾收集器回收。
 
 这和我之前写的博文中 [使用 C++ 编写原生 Node.js 模块](https://blog.risingstack.com/writing-native-node-js-modules/) 解释地非常类似。
 
