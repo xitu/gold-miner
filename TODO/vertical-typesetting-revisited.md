@@ -506,7 +506,7 @@ Just saying 😎.
 
 ## Issues and bugs list
 
-* [Firefox Bug 1102175: <body> with writing-mode: vertical-rl doesn’t align children to the right](https://bugzilla.mozilla.org/show_bug.cgi?id=1102175)
+* [Firefox Bug 1102175: `<body>` with writing-mode: vertical-rl doesn’t align children to the right](https://bugzilla.mozilla.org/show_bug.cgi?id=1102175)
 * [Firefox Bug 1189131: flex align-items center displaces text when writing-mode is vertical-rl](https://bugzilla.mozilla.org/show_bug.cgi?id=1189131)
 * [Firefox Bug 1223180: Flex + vertical writing-mode: flex items / text disappear](https://bugzilla.mozilla.org/show_bug.cgi?id=1223180)
 * [Firefox Bug 1332555: [writing-mode] Vertical writing-mode child results in wrong intrinsic size for the parent and thus the child doesn’t fit later when reflowed](https://bugzilla.mozilla.org/show_bug.cgi?id=1332555)
