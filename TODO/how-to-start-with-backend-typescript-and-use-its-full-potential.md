@@ -2,14 +2,19 @@
 > * 原文作者：[idchlife](https://medium.com/@igorandreev?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/how-to-start-with-backend-typescript-and-use-its-full-potential.md](https://github.com/xitu/gold-miner/blob/master/TODO/how-to-start-with-backend-typescript-and-use-its-full-potential.md)
-> * 译者：
+> * 译者：xilihuasi[https://github.com/xilihuasi]
 > * 校对者：
 
 # How to start with backend TypeScript and use it’s full potential.
+# 如何用 TypeScript 玩转后端？
 
 I will describe several dealbreaker libraries from one developer. They can give you most of the features you will want from your backend application. Power of decorators and metadata is shining through these libraries, making them very powerful and easy to use.
 
+我将从一个开发者的角度介绍几个优秀的库。他们可以满足你后端应用的绝大部分特性。装饰器和元数据的能力在这些库中得到的充分的应用，使其能力强大并且简单易用。
+
 I hope this article will help people like me, who like TypeScript and want to write backend code in it with such ease like I’m doing it after discovering all of these libraries.
+
+我希望这篇文章可以帮到像我这样，喜欢 TypeScript 而且想用它编写后端代码的人，让他们像我发现这些库之后一样乐在其中。
 
 **TL;DR - stack making your backend app as powerful as many enterprise static typed solutions in other languages:**
 
