@@ -18,19 +18,32 @@ I hope this article will help people like me, who like TypeScript and want to wr
 
 **TL;DR - stack making your backend app as powerful as many enterprise static typed solutions in other languages:**
 
+**TL; DR - 堆栈使你的后端应用像许多使用其他语言的企业静态解决方案一样强大:**
+
 * library for routing and controllers with decorators, parameters, body injection
 * library for dependency injection and your services with decorators
 * ORM with decorators for convenient work with entities like it’s Doctrine/Hibernate
 * Small tip for writing backend TypeScript for those who are not yet familiar with it
 
+* 使用装饰器，参数，依赖注入的路由和控制器的库
+* 依赖注入和使用装饰器的 services 的库
+* 使用装饰器的 ORM 就像 Doctrine/Hibernate 那样方便操作实体
+* 对那些还不熟悉使用 TyepScript 写后端的朋友的小建议
+
 **Routing-controllers: controllers, actions, requests, etc**
+
+**Routing-controllers: 控制器，行为，请求等**
 
 [**pleerock/routing-controllers**
 _routing-controllers - Create structured, declarative and beautifully organized class-based controllers with heavy…_github.com](https://github.com/pleerock/routing-controllers)
 
 Despite this library was built as TypeScript helper for Express/Koa, this it will help you write your controllers like you are using some kind of enterprise framework in Java/PHP/C#
 
+尽管这个库是作为 Express/Koa 的 TypeScript helper 编写的，它也会对你编写控制器有所帮助，就像你在使用 Java/PHP/C# 的企业级框架里用到的那样。
+
 Here is small example of controller:
+
+下面是一个控制器的小例子：
 
 ```
 import {JsonController, Param, Body, Get, Post, Put, Delete} from "routing-controllers";
@@ -58,21 +71,37 @@ export class UserController {
 
 For some people it will be like waking up from a nightmare: no more modules with routes, filled with middleware on middleware on middleware and also middleware for injecting, validating and required parameters (yes, you can even define that parameter can be validated for type and required! like @Body({ required: true, validate: true }) and you’re good to go, it will drop badrequest bomb if something is missing/not right in request)
 
+对于一些人来说这简直摆脱了噩梦：再也没有带路由的组件，充满中间件中的中间件中的中间件以及注入，验证和请求参数的中间层（是的，你甚至可以定义参数类型和是否必传！如 @Body({ required: true, validate: true }) 这种写法就可以实现，这样以来缺少参数或者不正确的异常请求就会被抛弃）
+
 Many useful features in decorators, like @Controller for your basic controllers, where in actions you will define what type of content it serves etc and @JsonController for serving and accepting json.
+
+装饰器有很多有用的特性，如 基础控制器的 @Controller，定义 actions 服务什么类型的内容等以及使用 @JsonController 服务和接收 json。
 
 I’m using it with Express, and since we have async/await (I don’t stop praising it even after several months of development TS nodejs) we might not need to use Koa (routing-controllers support for express is slightly better now). And Express has bigger set of types at @types
 
+我正在 Express 中使用它，既然我们有了 async/await （即使 TS nodejs 开发已经过了好几个月我还是忍不住赞美）我们似乎不再需要 Koa 了（现在 routing-controllers 可以更好的支持 express ）。而且 Express 有更大的类型集 @types。
+
 Here is example from my project, using routing-controllers and other @pleerock libraries (VSCode, if someone interested, references are from TypeLens plugin):
+
+下面是我项目中使用 routing-controllers 和其他 @pleerock 库（VSCode, 如果有兴趣的话，引用来自 TypeLens 插件）的例子：
 
 ![](https://cdn-images-1.medium.com/max/800/1*DdYJb1pIl3JYBfoCQPvSRw.png)
 
 As you can see, routing-controllers provide even undefined result code (there are also decorators for empty and null) and many other features. About this.playerService — it’s another fascinating library, which I will describe next.
 
+如你所见，routing-controllers 甚至提供了 undefined 返回码（也有 empty 和 null 的装饰器）以及许多其他特性。关于 this.playerService，这是另一个迷人的库，稍后我将介绍它。
+
 Overall, library has powerful documentation, it will help you understand and build your application with custom middlewares that apply to action or even whole controller (that was whoa cool moment for me). Url inheritance as you can see also there. Very convenient.
+
+总体来看，库有强大的文档，可以帮助你理解和使用自定义应用在 action 或者整个控制器的中间件构建你的应用（这对我来说是个绝妙的时刻）。链接地址如你所见就在那，非常方便。
 
 Of course, you can pump your app with many express/koa middlewares out there, also configuration for views (library also has special decorator for view), authentication (which can be applied via middleware to the whole controller!), error handling etc.
 
+当然，你也可以使用很多 express/koa 中间件把你的应用抽离出来，以及视图配置（库也有针对试图的装饰器），认证（可以通过中间件应用到整个控制层），错误处理等。
+
 Usually I store them in /controllers folder
+
+通常我把他们存在 /controllers 文件夹。
 
 **TypeDI: dependency injection, services**
 
