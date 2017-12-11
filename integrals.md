@@ -198,10 +198,11 @@
 |[JavaScript 开发者年度调查报告](http://gold.xitu.io/entry/56ca985071cfe40054d98994)|翻译|15|
 |[第一次翻译计划文章已兑换Octocat小]()|减去积分|15|
 
-## 译者：[edvardhua](https://github.com/edvardHua) 历史贡献积分：83 当前积分：68
+## 译者：[edvardhua](https://github.com/edvardHua) 历史贡献积分：83 当前积分：23
 
 |文章|类型|积分|
 |------|-------|-------|
+|[2017 年 11 月兑 树莓派套餐 1 个]()|减去积分|45|
 |[TensorFlow 官方文档翻译校对]()|翻译|13|
 |[基于 TensorFlow 的上下文聊天机器人](https://juejin.im/entry/5992cd385188252433704fa3)|翻译|5|
 |[深度学习系列2：卷积神经网络](https://juejin.im/post/598ac6a55188257dd366367f)|校对|1|
@@ -3640,12 +3641,13 @@
 |[Swift 上的高性能数组](https://juejin.im/post/59e84129f265da43128005ed)|翻译|2.5|
 |[MVVM, Coordinators 和 RxSwift 的抽丝剥茧](https://juejin.im/post/59acf7dcf265da24722fe6a1)|翻译|5|
 
-## 译者：[alfred-zhong](https://github.com/alfred-zhong) 历史贡献积分：15.9 当前积分：15.9
+## 译者：[alfred-zhong](https://github.com/alfred-zhong) 历史贡献积分：15.9 当前积分：10.9
 
 |文章|类型|积分|
 |------|-------|-------|
+|[2017 年 12 月兑 Github 贴纸 Pack-3 1 个]()|减去积分|5|
 |[并发编程](https://juejin.im/post/59ecb058f265da43346f10e5)|校对|1.5|
-|[alfred-zhong 翻译开源库 Go 100 个](#)|翻译|10|
+|[翻译开源库 Go 100 个](#)|翻译|10|
 |[翻译 Go 开源库 29 个](#)|翻译|2.9|
 |[在 HTTP/2 的世界里管理 CSS 和 JS](https://juejin.im/post/59bb463d51882519777c5a85)|校对|0.5|
 |[Coursera 的 GraphQL 之路](https://juejin.im/post/59b8d1d36fb9a00a3f24c439)|校对|1|
@@ -4111,3 +4113,9 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[TensorFlow 官方文档翻译校对]()|翻译|6|
+
+## 译者：[jonjia](https://github.com/jonjia) 历史贡献积分：5 当前积分：5
+
+|文章|类型|积分|
+|------|-------|-------|
+|[推荐多篇英文文章]()|翻奖励|5|
