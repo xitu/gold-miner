@@ -584,10 +584,11 @@
 |[使用 BEM 来模块化你的 CSS 代码](http://gold.xitu.io/entry/5757ce7b7db2a200540d51eb)|翻译|7|
 |[关于 Swift 编译时性能优化的一些思考](http://gold.xitu.io/entry/5757f29279bc440061f5822c)|翻译|4|
 
-## 译者：[bobmayuze](https://github.com/bobmayuze) 历史贡献积分：38 当前积分：23
+## 译者：[bobmayuze](https://github.com/bobmayuze) 历史贡献积分：48 当前积分：33
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TensorFlow 官方文档翻译校对]()|翻译|10|
 |[建立更好的代码审查制度](https://juejin.im/entry/5934bafb2f301e006b055f57/detail)|翻译|10|
 |[某些2017年的 UX 趋势啊，扎心了](https://juejin.im/post/58cf5dc22f301e007e52fb2b)|校对|1|
 |[设计思考，不只是流行词而已](https://gold.xitu.io/entry/5873faf4da2f6035a7f4a025)|翻译|4|
@@ -1839,10 +1840,11 @@
 |[JavaScript ES6 核心功能一览](http://gold.xitu.io/entry/58189177128fe100559efd51/)|校对|1|
 |[Swift 3，这些陷阱在等你](http://gold.xitu.io/entry/57f6fa03816dfa0056a4d782/)|校对|1|
 
-## 译者：[XatMassacrE](https://github.com/XatMassacrE) 历史贡献积分：46 当前积分：46
+## 译者：[XatMassacrE](https://github.com/XatMassacrE) 历史贡献积分：60 当前积分：60
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|14|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|6|
 |[从金属巨人到深度学习](https://juejin.im/post/596f4cecf265da6c2f0adb04)|翻译|8|
 |[如何在无损的情况下让图片变的更小](https://juejin.im/post/5959fbe0f265da6c2518d740)|翻译|7|
@@ -3970,10 +3972,11 @@
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|1|
 |[Vue Report 2017](https://juejin.im/post/5a138fae5188254d28732899)|翻译|2|
 
-## 译者：[JohnJiangLA](https://github.com/JohnJiangLA) 历史贡献积分：2 当前积分：2
+## 译者：[JohnJiangLA](https://github.com/JohnJiangLA) 历史贡献积分：17 当前积分：17
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TensorFlow 官方文档翻译校对]()|翻译|15|
 |[Vue Report 2017](https://juejin.im/post/5a138fae5188254d28732899)|翻译|2|
 
 ## 译者：[iFwu](https://github.com/iFwu) 历史贡献积分：2 当前积分：2
@@ -4025,10 +4028,11 @@
 |------|-------|-------|
 |[僵尸币时代即将到来?](https://juejin.im/post/5a0e82315188252ae93a843a)|翻译|2|
 
-## 译者：[MRNIU](https://github.com/MRNIU) 历史贡献积分：5 当前积分：5
+## 译者：[MRNIU](https://github.com/MRNIU) 历史贡献积分：11 当前积分：11
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TensorFlow 官方文档翻译校对]()|翻译|6|
 |[TensorFlow 官方文档翻译校对]()|翻译|4.5|
 |[僵尸币时代即将到来?](https://juejin.im/post/5a0e82315188252ae93a843a)|校对|0.5|
 
@@ -4119,3 +4123,21 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[推荐多篇英文文章]()|翻奖励|5|
+
+## 译者：[San-greal](https://github.com/San-greal) 历史贡献积分：6 当前积分：6
+
+|文章|类型|积分|
+|------|-------|-------|
+|[TensorFlow 官方文档翻译校对]()|翻译|6|
+
+## 译者：[asdf2014](https://github.com/asdf2014) 历史贡献积分：2 当前积分：2
+
+|文章|类型|积分|
+|------|-------|-------|
+|[TensorFlow 官方文档翻译校对]()|翻译|2|
+
+## 译者：[MoutainOne](https://github.com/MoutainOne) 历史贡献积分：2 当前积分：2
+
+|文章|类型|积分|
+|------|-------|-------|
+|[TensorFlow 官方文档翻译校对]()|翻译|2|
