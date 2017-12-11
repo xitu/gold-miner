@@ -2,135 +2,134 @@
 > * 原文作者：[Paul Tarjan](https://stripe.com/about#pt)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：
-> * 校对者：
+> * 校对者：[xiaoyusilen](https://github.com/xiaoyusilen), [GangsterHyj](https://github.com/GangsterHyj)
 
-# [Scaling your API with rate limiters](/blog/rate-limiters) #
-
-
-Availability and reliability are paramount for all web applications and APIs. If you’re providing an API, chances are you’ve already experienced sudden increases in traffic that affect the quality of your service, potentially even leading to a service outage for all your users.
-
-The first few times this happens, it’s reasonable to just add more capacity to your infrastructure to accommodate user growth. However, when you’re running a production API, not only do you have to make it robust with techniques like [idempotency](/blog/idempotency), you also need to build for scale and ensure that one bad actor can’t accidentally or deliberately affect its availability.
-
-Rate limiting can help make your API more reliable in the following scenarios:
-
-- One of your users is responsible for a spike in traffic, and you need to stay up for everyone else.
-- One of your users has a misbehaving script which is accidentally sending you a lot of requests. Or, even worse, one of your users is intentionally trying to overwhelm your servers.
-- A user is sending you a lot of lower-priority requests, and you want to make sure that it doesn’t affect your high-priority traffic. For example, users sending a high volume of requests for analytics data could affect critical transactions for other users.
-- Something in your system has gone wrong internally, and as a result you can’t serve all of your regular traffic and need to drop low-priority requests.
-
-At Stripe, we’ve found that carefully implementing a few [rate limiting](https://en.wikipedia.org/wiki/Rate_limiting) strategies helps keep the API available for everyone. In this post, we’ll explain in detail which rate limiting strategies we find the most useful, how we prioritize some API requests over others, and how we started using rate limiters safely without affecting our existing users’ workflows.
+# [使用速率限制扩展你的 API](/blog/rate-limiters) #
 
 
-## Rate limiters and load shedders
+可用性和可靠性对于所有 web 应用和 API 来说都是至关重要的。如果你是一个 API 提供者，那么可能你遇到过未预见的影响你服务质量的流量增长，甚至会导致你的服务中断。
 
-A *rate limiter* is used to control the rate of traffic sent or received on the network. When should you use a rate limiter? If your users can afford to change the pace at which they hit your API endpoints without affecting the outcome of their requests, then a rate limiter is appropriate. If spacing out their requests is not an option (typically for real-time events), then you’ll need another strategy outside the scope of this post (most of the time you just need more infrastructure capacity).
+这种现象最初发生时，在基础设施中增加容量以承载用户增长是一种合理的解决方式。但是，对于运行在生产环境的 API，不仅要使用类似[idempotency](/blog/idempotency)的技术以确保健壮性，还需要为扩展建立基础，并保证一个异常用户不论是否故意都无法影响服务的可利用性。
 
-Our users can make a lot of requests: for example, batch processing payments causes sustained traffic on our API. We find that clients can always (barring some extremely rare cases) spread out their requests a bit more and not be affected by our rate limits.
+下面这些情况中，速率限制可以让你的 API 更可靠：
 
-Rate limiters are amazing for day-to-day operations, but during incidents (for example, if a service is operating more slowly than usual), we sometimes need to drop low-priority requests to make sure that more critical requests get through. This is called *load shedding*. It happens infrequently, but it is an important part of keeping Stripe available.
+- 一个用户导致流量达到峰值，而你还有其他用户，不能挂掉。
+- 一个用户使用异常的脚本，意外地发送了许多请求。或者，更糟的情况下，一个用户故意想要压垮你的服务器。
+- 一个用户发送了许多低优先级的请求，你需要保证它们不会影响到高优先级的流量。比如，一个用户对分析数据的大量请求可能影响到其他用户的关键事务。
+- 系统内部发生一些问题，不能为所有正常请求提供服务，需要放弃一些低优先级的请求。
 
-A *load shedder* makes its decisions based on the whole state of the system rather than the user who is making the request. Load shedders help you deal with emergencies, since they keep the core part of your business working while the rest is on fire.
+
+在 Stripe，我们发现一些精心实现的[速率限制](https://en.wikipedia.org/wiki/Rate_limiting)策略有助于保证 API 对所有用户的可利用性。在这篇文章中，我们会解释我们所发现的最有效的速率限制策略，怎样提高一部分 API 请求的优先级，以及怎么在没有影响到现有用户的工作流的情况下，开始安全地使用速率限制的。
+
+## 速率限制与减载
+
+速率限制器可以控制在网络上发送或接收数据的比率。什么时候可以使用速率限制器呢？如果在用户向你的 API 端点发送请求的频率被改变的情况下，用户请求的结果不会受到影响。那么在这种情况下是适合使用速率限制器的。如果在单位时间间隔内限制请求频率是不可行的（通常对于实时事件而言），那么你需要使用本文范围以外的其他策略（大多数时候你只是需要给基础设施中增加容量）。
+
+我们的用户可以发送很多请求：例如，支付的批处理会给我们的 API 造成持续的流量。我们发现客户端总是可以（除了某些极端少见的情况）分散请求，以保证不会受到我们速率限制的影响。
+
+速率限制器对于日常的操作来说很有用，但是当意外发生时（例如，服务比延迟比平时大），我们有时需要放弃低优先级的请求，以保证更重要的请求被及时处理。这个过程叫做*减载*。这并不会经常发生，但对于保持 Stripe 的可利用性很重要。
+
+减载器是基于整个系统的状态，而不是发出请求的用户来做决策的。减载器能帮助你处理紧急情况，因为当系统其他部分出问题的时候，它会保持你的业务核心稳定运行。
 
 
-## Using different kinds of rate limiters in concert
+## 协调使用不同种类的速率限制器
 
-Once you know rate limiters can improve the reliability of your API, you should decide which types are the most relevant.
+当你知道速率限制器可以提高你的 API 的可靠性之后，你需要决定哪一种最符合你的需要。
 
-At Stripe, we operate 4 different types of limiters in production. The first one, the *Request Rate Limiter*, is by far the most important one. We recommend you start here if you want to improve the robustness of your API.
+在 Stripe，我们在生产环境使用 4 种不同的限制器。第一种，*请求速率限制（Request Rate Limiter）*，是最重要的。如果你想提高你的 API 的健壮性，我们建议你从这一种开始。
 
-### Request rate limiter
+### 请求速率限制（Request Rate Limiter）
 
-This rate limiter restricts each user to *N* requests per second. Request rate limiters are the first tool most APIs can use to effectively manage a high volume of traffic.
+这种速率限制限定了每个用户每秒最多 *N* 个请求。在有效的管理高流量这个问题上，请求速率限制器是大多数API用于有效管理高流量的首选工具。
 
-Our rate limits for requests is constantly triggered. It has rejected millions of requests this month alone, especially for test mode requests where a user inadvertently runs a script that’s gotten out of hand.
+我们对于请求的速率限制一直处于被触发的状态。仅仅这一个月，它就拒绝了多达百万的请求，其中主要是用户漫不经心地运行脚本发出的测试模式请求。
 
-Our API provides the same rate limiting behavior in both test and live modes. This makes for a good developer experience: scripts won't encounter side effects due to a particular rate limit when moving from development to production.
+在测试和实时模式，我们的 API 提供了相同的速率限制行为。这会给开发者带来更好的体验：脚本从开发环境迁移到生产环境的过程中，不会遇到因为特定的速率限制而产生的问题。
 
-After analyzing our traffic patterns, we added the ability to briefly burst above the cap for sudden spikes in usage during real-time events (e.g. a flash sale.)
+在分析了我们的流量模式之后，我们对实时事件（比如：秒杀活动）加入了一项新能力，在突然的使用高峰到来时，暂时性地允许流量超过限制。
 
 ![](https://stripe.com/img/blog/posts/rate-limiters/1-request-rate-limiter.svg)
 
-Request rate limiters restrict users to a maximum number of requests per second.
+请求速率限制限定了用户每秒钟可以发送的最大请求数。
 
-### Concurrent requests limiter
+### 并发请求限制
 
-Instead of “You can use our API 1000 times a second”, this rate limiter says “You can only have 20 API requests in progress at the same time”. Some endpoints are much more resource-intensive than others, and users often get frustrated waiting for the endpoint to return and then retry. These retries add more demand to the already overloaded resource, slowing things down even more. The concurrent rate limiter helps address this nicely.
+这种速率限制不会有“你每一秒钟最多可以使用我们的 API 1000 次”这种限制，而是使用“你最多只能同时有 20 个正在被处理的请求”这种限制。有一些端点会比其他端点有更密集地使用资源，等待端点返回结果接着又重试的过程会使用户也变得很沮丧。这些重试请求会给本来已经负荷过重的资源增加更多需求，让整个过程更加缓慢。并发请求限制可以很好的帮助你解决这个问题。
 
-Our concurrent request limiter is triggered much less often (12,000 requests this month), and helps us keep control of our CPU-intensive API endpoints. Before we started using a concurrent requests limiter, we regularly dealt with resource contention on our most expensive endpoints caused by users making too many requests at one time. The concurrent request limiter totally solved this.
+我们的并发请求限制并不会那么经常被触发（这个月发生了 12000 次），它帮助我们控制那些 CPU 密集型的 API 端点。在我们开始使用并发请求限制之前，我们经常要处理，由于用户一次发出过多请求导致的，发生在我们最昂贵的端点上的资源争夺。并发请求限制完全解决了这个问题。
 
-It is completely reasonable to tune this limiter up so it rejects more often than the Request Rate Limiter. It asks your users to use a different programming model of “Fork off X jobs and have them process the queue” compared to “Hammer the API and back off when I get a HTTP 429”. Some APIs fit better into one of those two patterns so feel free to use which one is most suitable for the users of your API.
-
-![](https://stripe.com/img/blog/posts/rate-limiters/2-concurrent-requests-limiter.svg)
-
-Concurrent request limiters manage resource contention for CPU-intensive API endpoints.
-
-### Fleet usage load shedder
-
-Using this type of load shedder ensures that a certain percentage of your fleet will always be available for your most important API requests.
-
-We divide up our traffic into two types: critical API methods (e.g. creating charges) and non-critical methods (e.g. listing charges.) We have a Redis cluster that counts how many requests we currently have of each type.
-
-We always reserve a fraction of our infrastructure for critical requests. If our reservation number is 20%, then any non-critical request over their 80% allocation would be rejected with status code 503.
-
-We triggered this load shedder for a very small fraction of requests this month. By itself, this isn’t a big deal—we definitely had the ability to handle those extra requests. But we’ve had other months where this has prevented outages.
+调整这种限制使它拒绝的请求比请求速率限制更多，这也是一种合理的做法。这会要求你的用户使用一种“分支出 X 个作业对队列做处理”的模式，而不是“连续对 API 发出请求并在收到 HTTP 429 响应时退避（back off）”（译注：这里的退避（back off）的意思是等待一定时间后重新发送请求）。有些 API 更适合这两种模式中的一种，所以请选择更适于你的 API 的使用者的模式。
 
 ![](https://stripe.com/img/blog/posts/rate-limiters/2-concurrent-requests-limiter.svg)
 
-Fleet usage load shedders reserves fleet resources for critical requests.
+并发请求限制为 CPU 密集型的 API 端点管理资源竞争。
 
-### Worker utilization load shedder
+### 机队（fleet）使用量减载
 
-Most API services use a set of workers to independently respond to incoming requests in a parallel fashion. This load shedder is the final line of defense. If your workers start getting backed up with requests, then this will shed lower-priority traffic.
+使用这类减载保证了对于你最重要的 API 请求来说，你的机队（fleet）中一定的百分比一直是可利用的。
 
-This one gets triggered very rarely, only during major incidents.
+我们将流量分为两类：关键的 API 方法（比如：创建费用记录）和非关键的方法（比如：列出费用记录）。我们有一个 Redis 集群用来计算当前每种类型的请求分别有多少。
 
-We divide our traffic into 4 categories:
+我们一直为关键请求预留出我们基础设施的一部分。如果预留比例是 20%，那么任何超出 80% 配额的非关键请求都会被以 503 状态码拒绝。
 
-1. Critical methods
-2. POSTs
-3. GETs
-4. Test mode traffic
+这个月，只有很小比例的请求触发了我们的减载器。这些请求数量并不大——我们当时绝对有能力处理这些多余的请求。但是此前，这帮我们阻止了数次服务中断。
 
-We track the number of workers with available capacity at all times. If a box is too busy to handle its request volume, it will slowly start shedding less-critical requests, starting with test mode traffic. If shedding test mode traffic gets it back into a good state, great! We can start to slowly bring traffic back. Otherwise, it’ll escalate and start shedding even more traffic.
+![](https://stripe.com/img/blog/posts/rate-limiters/2-concurrent-requests-limiter.svg)
 
-It’s very important that shedding and bringing load happen slowly, or you can end up flapping (“I got rid of testmode traffic! Everything is fine! I brought it back! Everything is awful!”). We used a lot of trial and error to tune the rate at which we shed traffic, and settled on a rate where we shed a substantial amount of traffic within a few minutes.
+机队（fleet）使用量减载为关键请求预留机队（fleet）资源。
 
-Only 100 requests were rejected this month from this rate limiter, but in the past it’s done a lot to help us recover more quickly when we have had load problems. This load shedder limits the impact of incidents that are already happening and provides damage control, while the first three are more preventative.
+### Worker 使用率减载
+
+大多数 API 服务都有一组 worker 以并行的方式独立地响应请求。Worker 使用率减载是系统的最后一道防线。如果你的 worker 开始备份一些请求，那么之后低优先级的流量会被放弃。
+
+这种减载器被触发的情况很少见，只有在一些重大事件发生时会被触发。
+
+我们把我们的流量分成四类：
+
+1. 关键方法
+2. POST 请求
+3. GET 请求
+4. 测试模式流量
+
+我们时刻记录 worker 的数量及可利用的容量。如果一台主机太过繁忙以至于无法处理它的请求容量，它会一点点开始去除一些不那么关键的请求，从测试模式的流量开始。如果去掉测试模式的流量之后，它回到了正常状态，很好！我们可以开始慢慢地处理更多流量。否则，它会扩大减载的规模，并开始减去更多的流量。
+
+非常重要的一点是缓慢的减去和增加负载量，否则你会陷入持续的状态变动（“我摆脱了测试模式的流量！一切正常！我把它们拿回来处理了！一切糟透了！”）。我们用试错法多次调整我们减载的速率，最终确定了一个在几分钟的时间范围内减掉大量流量的速率。
+
+这个月只有 100 个请求被这种速率限制器拒绝，但是过去它帮助我们从负载过大的问题中更迅速的恢复。这种减载限制了已经发生的事故的影响，提供了对损失的控制，而前三种减载机制更具预防性。
 
 ![](https://stripe.com/img/blog/posts/rate-limiters/4-worker-utilization-load-shedder.svg)
 
-Worker utilization load shedders reserve workers for critical requests.
+Worker 使用率减载为关键请求预留出一部分 worker。
 
 
-## Building rate limiters in practice
+## 速率限制实现
 
-Now that we’ve outlined the four basic kinds of rate limiters we use and what they’re for, let’s talk about their implementation. What rate limiting algorithms are there? How do you actually implement them in practice?
+现在，我们已经概述了四种基本类型的速率限制器，以及在什么情况下使用它们，我们再来谈谈它们是怎么实现的。有哪些速率限制算法？怎么在实际应用中实现它们？
 
-We use the [token bucket algorithm](https://en.wikipedia.org/wiki/Token_bucket) to do rate limiting. This algorithm has a centralized bucket host where you take tokens on each request, and slowly drip more tokens into the bucket. If the bucket is empty, reject the request. In our case, every Stripe user has a bucket, and every time they make a request we remove a token from that bucket.
+我们使用[令牌桶算法（token bucket algorithm）](https://en.wikipedia.org/wiki/Token_bucket)实现速率限制。这个算法有集中桶主机，在那里你可以为每个请求取出 token（译注：消耗令牌），同时缓慢的将更多的 token 被放进桶中（译注：生产令牌）。如果桶是空的，拒绝请求。在我们的例子中，每个 Stripe 用户都有一个桶，每次他们发出一个请求，我们就从令牌桶中移除一个 token。
 
-We implement our rate limiters using Redis. You can either operate the Redis instance yourself, or, if you use Amazon Web Services, you can use a managed service like [ElastiCache](https://aws.amazon.com/elasticache/).
+我们使用 Redis 实现速率限制。你可以自己操作 Redis 实例，或者，如果你使用 AWS，你可以使用一个有管理的服务，比如[ElastiCache](https://aws.amazon.com/elasticache/)。
 
-Here are important things to consider when implementing rate limiters:
+这里有一些实现速率限制时需要考虑的重要事项：
 
-- **Hook the rate limiters into your middleware stack safely.** Make sure that if there were bugs in the rate limiting code (or if Redis were to go down), requests wouldn’t be affected. This means catching exceptions at all levels so that any coding or operational errors would fail open and the API would still stay functional.
-- **Show clear exceptions to your users.** Figure out what kinds of exceptions to show your users. In practice, you should decide if you want [HTTP 429](https://tools.ietf.org/html/rfc6585#section-4) (Too Many Requests) or [HTTP 503](https://tools.ietf.org/html/rfc7231#section-6.6.4) (Service Unavailable) and what is the most accurate depending on the situation. The message you return should also be actionable.
-- **Build in safeguards so that you can turn off the limiters.** Make sure you have kill switches to disable the rate limiters should they kick in erroneously. Having feature flags in place can really help should you need a human escape valve. Set up alerts and metrics to understand how often they are triggering.
-- **Dark launch each rate limiter to watch the traffic they would block.** Evaluate if it is the correct decision to block that traffic and tune accordingly. You want to find the right thresholds that would keep your API up without affecting any of your users’ existing request patterns. This might involve working with some of them to change their code so that the new rate limit would work for them.
+- **安全地连接你的中间件堆栈和速率限制器。** 确保如果速率限制代码有 bug（或者如果 Redis 挂了），请求处理不会受到影响。这意味着要捕捉（来自速率限制的）所有级别的异常，这样任何代码或操作失误都会失败后继续运行，并且 API 还可以正常工作。
+- **向用户明确显示异常。** 确定要显示给用户的异常类型。在实际操作中，你应该决定你想用[HTTP 429](https://tools.ietf.org/html/rfc6585#section-4) (Too Many Requests) 还是 [HTTP 503](https://tools.ietf.org/html/rfc7231#section-6.6.4) (Service Unavailable)，针对不同的情况来决定哪个是最准确的。你返回的信息也应该是可操作的。
+- **内置保障措施，使你能够关闭限制器。** 确保你的关闭按钮能够在速率限制器犯错的时候禁用它们。使用人工安全阀的同时，特性标记（feature flags）也是非常有帮助的。设置警报和指标以便了解它们被触发的频率。
+- **对速率限制使用灰度上线，以观察它们会阻挡哪些流量。** 评估阻止那些流量是否是正确的决定，并做出相应的调整。你希望找到一个合适的阈值，它可以既保证你的 API 一直是可利用的，同时不会影响你的用户既有的请求模式。这可能涉及与部分用户一起修改他们的代码，以保证新的速率限制对他们来说是可行的。
 
 
-## Conclusion
+## 结论
 
-Rate limiting is one of the most powerful ways to prepare your API for scale. The different rate limiting strategies described in this post are not all necessary on day one, you can gradually introduce them once you realize the need for rate limiting.
+速率限制是为你的 API 扩大使用规模做好准备最有效的方法之一。这篇文章中描述的不同的速率限制策略并不需要在上线的第一天就全部实现，你可以逐渐引入它们，当你发现有速率限制的需要的时候。
 
-Our recommendation is to follow the following steps to introduce rate limiting to your infrastructure:
+我们建议根据以下步骤将速率限制引入你的基础设施：
 
-1. Start by building a Request Rate Limiter. It is the most important one to prevent abuse, and it’s by far the one that we use the most frequently.
-2. Introduce the next three types of rate limiters over time to prevent different classes of problems. They can be built slowly as you scale.
-3. Follow good launch practices as you're adding new rate limiters to your infrastructure. Handle any errors safely, put them behind feature flags to turn them off easily at any time, and rely on very good observability and metrics to see how often they’re triggering.
+1. 从实现一个请求速率限制器开始。这是最重要的，也是目前为止最常用的一种防止滥用的方法。
+2. 逐步引入后续三种速率限制以预防不同类别的问题发生。可以在缓慢扩大规模的过程中逐渐实现它们。
+3. 将新的速率限制引入你的基础设施时，应当遵循良好的上线实践。安全地处理错误，使用特性标记（feature flags）以便在任何时候可以将它们关闭，依靠良好的可观测性和指标以便观察它们被触发的频率。
 
-To help you get started, we’ve created a [GitHub gist](https://gist.github.com/ptarjan/e38f45f2dfe601419ca3af937fff574d) to share implementation details based on the code we actually use in production at Stripe.
+为了帮助你更好地开始使用速率限制，我们创建了一个[GitHub gist](https://gist.github.com/ptarjan/e38f45f2dfe601419ca3af937fff574d)，用来分享基于我们在 Stripe 生产环境使用的代码的一些实现细节。
 
-  Like this post? Join the Stripe engineering team. [View Openings](/jobs?ref=blog#engineering)    
 
 
 ---

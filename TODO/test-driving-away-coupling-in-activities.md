@@ -1,25 +1,25 @@
 > * 原文地址：[Test Driving away Coupling in Activities](https://www.philosophicalhacker.com/post/test-driving-away-coupling-in-activities/)
 > * 原文作者：[philosohacker](https://twitter.com/philosohacker)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
-> * 校对者：
+> * 译者：[mnikn](https://github.com/mnikn)
+> * 校对者：[phxnirvana](https://github.com/phxnirvana)，[stormrabbit](https://github.com/stormrabbit)
 
-# Test Driving away Coupling in Activities #
+# 通过测试来解耦Activity
 
-`Activity`s and `Fragment`s, perhaps by [some strange historical accidents](/post/why-android-testing-is-so-hard-historical-edition/), have been seen as *the optimal* building blocks upon which we can build our Android applications for much of the time that Android has been around. Let’s call this idea – the idea that `Activity`s and `Fragment`s are the best building blocks for our apps – “android-centric” architecture.
+`Activity` 和 `Fragment`，可能是因为一些[奇怪的历史巧合](https://www.philosophicalhacker.com/post/why-android-testing-is-so-hard-historical-edition/)，从 Android 推出之时起就被视为构建 Android 应用的**最佳**构件。我们把`Activity` 和 `Fragment` 是应用的最佳构件这种想法称为“android-centric”架构。
 
-This series of posts is about the connection between the testability of android-centric architecture and the other problems that are now leading Android developers to reject it; it’s about how our unit tests are trying to tell us that `Activity`s and `Fragment`s – like the cracking bricks in the above image – don’t make the best building blocks for our apps because they tempt us to write code with *tight coupling* and *low cohesion*.
+本系列博文是关于 android-centric 架构的可测试性和其它问题之间的联系的，而这些问题正导致 Android 开发者们排斥这种架构。这些博文也涉及单元测试怎样试图告诉我们：`Activity` 和 `Fragment` 不是应用的最佳构件，因为它们迫使我们写出**高耦合**和**低内聚**的代码。
 
 
-[Last time](/post/what-unit-tests-are-trying-to-tell-us-about-activities-pt-2/), we saw `Activity`s and `Fragment`s tend to have low cohesion. This time, we’ll see how our tests can tell us that code within `Activity`s have tight coupling. We’ll also see how test driving the functionality leads to a design that has looser coupling, which makes it easier to change the app and also opens up opportunities for removing duplication. As with the the other posts in the series, we’ll be discussing all of this using the Google I/O app as an example.
+[上次](https://www.philosophicalhacker.com/post/what-unit-tests-are-trying-to-tell-us-about-activities-pt-2/)，我们发现`Activity` 和 `Fragment`有低内聚的倾向。这次，通过测试我们将会发现 `Activity` 是高耦合的。我们还会发现如何通过测试来驱使实现一个耦合度更低的设计，这样我们就能轻易地改变应用和有更多的机会来减去重复代码。像本系列博文中的其他文章一样，我们依然以 Google I/O 应用为例子进行探讨。
 
-### The Target Code ###
+### 目标代码
 
-The code that we want to test, the “target code”, does the following: when the user navigates to the map view that shows where all the Google I/O sessions are, it asks for their location. If they reject the permission, we show a toast notifying the user that they’ve disabled an app permission. Here’s a screenshot of this:
+我们想要测试的“目标代码”，做了以下工作：当用户进入展示所有 Google I/O session 的地图界面时，app 会请求当前位置。如果用户拒绝提供定位权限，我们会弹出一个 toast 来提示用户已禁用此权限。这是其中的截图：
 
-![permission denied toast](https://www.philosophicalhacker.com/images/permission-denied-snackbar.png)
+![拒绝请求的 toast](https://www.philosophicalhacker.com/images/permission-denied-snackbar.png)
 
-Here’s the code that accomplishes this:
+这是实现代码：
 
 ```
 @Override
@@ -48,9 +48,9 @@ public void onRequestPermissionsResult(final int requestCode,
 }
 ```
 
-### The Test Code ### (#the-test-code)
+### 测试代码 
 
-Let’s take a stab at testing this. Here’s what that would look like:
+让我们尝试测试下这些代码，我们的测试代码看起来是这样的：
 
 ```
 @Test
@@ -67,15 +67,15 @@ public void showsToastIfPermissionIsRejected()
 }
 ```
 
-Hopefully, you’re wondering what the implementation of `assertToastDisplayed()` looks like. Here’s the thing: there isn’t a straight forward implementation of that method. In order to implement without refactoring our code, we’d need to use a combination of roboelectric and powermock.
+当然你很希望能知道 `assertToastDisplayed()` 是怎么实现的。重点来了：我们不会直接实现该方法。为了避免实现后再重构我们的代码，我们需要使用 Roboelectric 和 Powermock。（译者注：Roboelectric 和 Powermock 均为测试框架）
 
-However, since we are trying to listen to our tests and [change the way we write code, rather than change the way we write tests](/post/why-i-dont-use-roboletric/), we are going to stop for a moment and think about what this test is trying to tell us:
+不过，既然我们更希望根据测试来[改变我们写代码的方式，而不是仅仅改变写测试的方式](https://www.philosophicalhacker.com/post/why-i-dont-use-roboletric/)，我们要停一会来想一想这些测试想要告诉我们什么事情：
 
-> Our presentation logic that lives inside of `MapActivity` is tightly coupled with `Toast`.
+> 我们在 `MapActivity` 里面的代码逻辑和 `Toast` 紧密地耦合在一起。
 
-This coupling is what drives us to use roboelectric to give us mocked android behavior and  powermock to mock the static `Toast.makeText` method. Instead, let’s listen to our test and remove the coupling.
+这之间的耦合驱使我们使用 Roboelectric 来模拟 android 行为和 powermock 来模拟静态的 `Toast.makeText` 方法。作为替换，让我们以测试为驱动来去除耦合。
 
-To guide our refactoring, let’s write our test first. This will ensure that our *new* classes are loosely coupled. We have to create a new class in this particular case in order to avoid Roboelectric, but ordinarily, we could just refactor already existing classes to reduce coupling.
+为了让我们重构有个方向，我们先写测试。这将确保我们的**新**类已经解耦。为了避免使用 Roboelectric 框架，我们需要在这特殊情况下创建一个新类，但是通常来说，我们只需重构已存在的类来解耦。
 
 ```
 @Test
@@ -93,7 +93,7 @@ public void displaysErrorWhenPermissionRejected() throws Exception {
 }
 ```
 
-We’ve introduced a `OnPermissionResultListener` whose job is just to handle the result of request permission from a user. Here’s the code for that:
+我们已经介绍过 `OnPermissionResultListener`，它的工作就是处理用户对 app 请求权限的反应。代码如下：
 
 ```
 void onPermissionResult(final int requestCode,
@@ -115,7 +115,7 @@ void onPermissionResult(final int requestCode,
 }
 ```
 
-The calls to `MapFragment` and `Toast` have been replaced with method calls on the `PermittedView`, an object that gets passed in through the constructor. `PermittedView` is an interface:
+我们把对 `MapFragment` 和 `Toast` 的调用替换为对 `PermittedView` 里面方法的调用，这个对象通过构造函数来传递。`PermittedView` 是一个接口：
 
 ```
 interface PermittedView {
@@ -125,7 +125,7 @@ interface PermittedView {
 }
 ```
 
-And it gets implemented by the `MapActivity`:
+它在 `MapActivity` 里实现:
 
 ```
 public class MapActivity extends BaseActivity
@@ -140,23 +140,23 @@ public class MapActivity extends BaseActivity
 }
 ```
 
-This may not the *best* solution, but it gets us to a point where we can test things. This *required* that `OnPermissionResultListener` be loosely coupled with its `PermittedView`. Loose coupling == definitely an improvement.
+这也许不是**最好**的解决方案，但是这能让我们抓住可以在哪里测试这一重心。这**要求** `OnPermissionResultListener` 降低和 `PermittedView` 的耦合度。解耦 == 显而易见的进步。
 
-### Who cares? ###
+### 有必要么？
 
-At this point, some readers might be skeptical. “Is this definitely an improvement?,” they may wonder to themselves. Here are two reasons why this *design* is better.
+对于这一点，一些读者可能会有所怀疑。“这样真的算优化代码吗？”他们会大惑不解。有两点理由可以确认为什么这样设计**更好**。
 
-(Neither reason I give, you’ll notice is “the design is better because its testable.” That would be circular reasoning.)
+（无论我给出哪一个理由，你都会发现其解释是“因为它的可测试性更好，所以它设计得更好”，这是一个很重要的原因。）
 
-#### Easier Changes ####
+#### 更容易改变
 
-First, its going to be easier to change this code now that it consists of loosely coupled components, and here’s the kicker: the code that we’ve just tested from the Google I/O app *actually did change*, and with the tests that we have in place, making those changes will be easier. The code I tested was from [an older commit](https://github.com/google/iosched/blob/bd31a838ce4ddc123c71025c859959517c7ae178/android/src/main/java/com/google/samples/apps/iosched/map/MapActivity.java). Later on, the folks working on the I/O app decided to replace the `Toast` with a `Snackbar`:
+首先，因为所组成的内容耦合度低，从而能够更容易地改变代码，而且更精彩的是：我们刚刚测试 Google I/O 应用的代码**实际上已经改变了**，通过我们的测试，能让其改代码变得更容易。所测试的代码来自[一个较旧的 commit](https://github.com/google/iosched/blob/bd31a838ce4ddc123c71025c859959517c7ae178/android/src/main/java/com/google/samples/apps/iosched/map/MapActivity.java)。之后，写 I/O 应用的人们决定把 `Toast` 替换为 `Snackbar`：
 
-![snackbar permission rejected](http：/images/permission-denied-snackbar.png)
+![snackbar 拒绝请求](https://www.philosophicalhacker.com/images/permission-denied-snackbar.png)
 
-Its a small change, but because we’ve separated `OnPermissionResultListener` from `PermittedView`, we can make the change on the `MapActivity`s implementation of `PermittedView` without having to think at all about the `OnPermissionResultListener`.
+这是一个小改变，但是因为我们已经把 `OnPermissionResultListener` 从 `PermittedView` 中分离出来，我们可以只专注于改变 `PermittedView` 在 `MapActivity` 里面的实现，而无需担心 `OnPermissionResultListener`。
 
-Here’s what that change would have looked like, using their little `PermissionUtils` class they wrote for displaying `SnackBar`s.
+这是我们改变代码后的样子，使用他们的 `PermissionUtils` 类来显示 `SnackBar`。
 
 ```
 @Override
@@ -167,33 +167,33 @@ public void displayPermissionDenied() {
 }
 ```
 
-Again, notice that we can make this change without thinking about the `OnPermissionResultListener` at all. This is actually exactly what Larry Constantine was talking about when he first defined the concept of coupling back in the 70s:
+请再留意，我们可以不用考虑 `OnPermissionResultListener` 就直接改变其内容。这实际就是 Larry Constantine 在 70 年代提出对耦合这一概念的定义：
 
-> what we are striving for is loosely coupled systems…in which one can study (or debug, or maintain) any one module without having to know very much about any other modules in the system
+> 我们尽力让系统解耦。。。这样我们就能研究（或者调试、维护）其中一个模块而无需考虑系统中的其他模块
 > 
 > –Edward Yourdon and Larry Constantine, Structured Design
 
-#### Reducing Duplication ####
+#### 去重
 
-Here’s another interesting reason to why the fact that our tests have forced us to remove coupling is a good thing: coupling often leads to duplication. Here’s Kent Beck on this:
+另一个“为什么实际上通过我们的测试来迫使我们解耦是一件好事”的有趣原因是：耦合通常会导致重复。Kent Beck 曾对此有相关看法：
 
-> Dependency is the key problem in software development at all scales…if dependency is the problem, duplication is the symptom.
+> 依赖是任意规模的软件开发的重点问题。。。如果依赖成为了问题，这就会体现在重复上。
 > 
 > -Kent Beck, TDD By Example, pg 7.
 
-If this is true, when we remove coupling, we will often see opportunities to reduce duplication. Indeed, this is precisely what we find in this case. It turns out that there is  another classes whose `onRequestPermissionsResult` is nearly identical to the one in `MapActivity`: [`AccountFragment`](https://github.com/google/iosched/blob/bd31a838ce4ddc123c71025c859959517c7ae178/android/src/main/java/com/google/samples/apps/iosched/welcome/AccountFragment.java#L139). Our tests drove us to create two classes `OnPermissionResultListener` and `PermittedView` that – without much modification – can be reused in these other classes.
+如果这是对的，当我们解耦，我们将会发现更多的去重机会。的确，在我们这次案例中这个观点显得很准确。事实上有另外一个类的 `onRequestPermissionsResult` 和 `MapActivity` 的几乎一样：[`AccountFragment`](https://github.com/google/iosched/blob/bd31a838ce4ddc123c71025c859959517c7ae178/android/src/main/java/com/google/samples/apps/iosched/welcome/AccountFragment.java#L139)。我们的测试指引我们来创建 `OnPermissionResultListener` 和 `PermittedView` 这两个接口，因此无需任何修改就可以在其他类中复用。
 
-### Conclusion ###
+### 结论
 
-So, when we have a hard time testing our `Activity`s and `Fragment`s, its often because our tests are trying to tell us that our code is tightly coupled. The test’s warning about coupling often come in the form of an inability to make an assertion against the code we’re trying to test.1
+所以，当我们难以测试 `Activity` 和 `Fragment`时，通常是因为我们的测试尝试告诉我们所写的代码耦合度太高。测试对耦合度的警告通常以我们无法对代码做出断言的形式表现出来。
 
-When we listen to our tests, instead of changing them by using Roboelectric our powermock, we’re lead to change in our code in a way that makes it less coupled, which makes it easier to make changes and opens up opportunities to reduce duplication.
+当我们听从我们的测试时，与其通过 Roboelectric 和 powermock 替换测试代码，不如改变被测代码，让其耦合度降低，这样我们就能更容易改代码和有更多的机会去重。
 
-### Notes ###
+### 注意
 
-1. It could also show up as an inability to get your target code into the right state for testing. That’s what we saw [in this post](in this post), for example.
+1. 这也可能表现为无法让你的被测代码在测试中以一个正确的状态表现出来。例如我们在本篇中所看到的。
 
-### We're hiring mid-senior Android developers at [Unikey](http://www.unikey.com/). Email me if you want to work for a Startup in the smart lock space in Orlando ###
+### 我们在 [Unikey](http://www.unikey.com/) 招聘中级 Android 开发者。如果你想要在 Orlando 智能锁定空间里的一间初创公司工作，请发邮件给我。
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[React](https://github.com/xitu/gold-miner#react)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计) 等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)。

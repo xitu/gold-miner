@@ -1,23 +1,22 @@
-> * 原文地址：[Swift Lazy Initialization with Closures](https://blog.bobthedeveloper.io/swift-lazy-initialization-with-closures-a9ef6f6312c)
-> * 原文作者：[Bob Lee](https://blog.bobthedeveloper.io/@bobthedev)
-> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
-> * 校对者：
+> * 原文地址：[Swift Lazy Initialization with Closures][1]
+> * 原文作者：本文已获原作者 [Bob Lee][2] 授权
+> * 译文出自：[掘金翻译计划][3]
+> * 译者：[lsvih][4]
+> * 校对者：[zhangqippp](https://github.com/zhangqippp),[Zheaoli](https://github.com/Zheaoli)
 
+# 在 Swift 中使用闭包实现懒加载
 
-# Swift Lazy Initialization with Closures #
-
-## Learn how to create objects with modularity and readability ##
+## 学习如何兼顾模块化与可读性来创建对象
 
 ![](https://cdn-images-1.medium.com/max/2000/1*KNmIy5QAOeokXPW86TtVyA.png)
 
-Magic Keyboard 2 and Magic Mouse 2
+（图为苹果的 Magic Keyboard 2 与 Magic Mouse 2）
 
-*Welcome my lovely readers. Good to see you here today. For those who are new, I’m Bob. Just for real quick, if you wish to be on my mailing list, you can sign up* [*here*](https://boblee.typeform.com/to/oR9Nt2) *and get more value for your learning with iOS development :)*
+**亲爱的读者你们好！我是 Bob，很高兴能在这篇文章中与你们相遇！如你想加入我的邮件列表，获取更多学习 iOS 开发的文章，请点击**[**这儿**][5]**注册，很快就能完成的哦 :)**
 
-### Motivation ###
+### 动机
 
-In the beginning of my iOS journey, I followed tutorials on YouTube. I saw a few using something like below to create UI objects.
+在我刚开始学习 iOS 开发的时候，我在 YouTube 上找了一些教程。我发现这些教程有时候会用下面这种方式来创建 UI 对象:
 
 ```
 let makeBox: UIView = {
@@ -26,42 +25,42 @@ let makeBox: UIView = {
 }()
 ```
 
-As a learner, I copied the practice and used it. One day, however, one of my readers asked me, “why do you add `{}` and why does `()` exist at the end? Is it a computed property?” I could not answer. I was a zombie.
+作为一个初学者，我自然而然地复制并使用了这个例子。直到有一天，我的一个读者问我：“为什么你要加上`{}`呢？最后为什么要加上一对`()`呢？这是一个计算属性吗？”我哑口无言，因为我自己也不知道答案。
 
-I wrote this tutorial for my younger self. Yet, some may find it useful.
+因此，我为过去年轻的自己写下了这份教程。说不定还能帮上其他人的忙。
 
-### Objectives ###
+### 目标
 
-There are three objectives. First, understand how to initialize an object using the unconventional way as shown above. Second, learn when to use `lazy var` in Swift. Last, join my mailing list.
+这篇教程有一下三个目标：第一，了解如何像前面的代码一样，非常规地创建对象；第二，知道编在写 Swfit 代码时，什么时候该使用 `lazy var`；第三，快加入我的邮件列表呀。
 
-#### Prerequisites ####
+#### 预备知识
 
-To fully enjoy the ride with me, I highly recommend you to be familiar with the topics below.
+为了让你能轻松愉快地和我一起完成这篇教程，我强烈推荐你先了解下面这几个概念。
 
-1. [*Closures*](https://blog.bobthedeveloper.io/no-fear-closure-in-swift-3-with-bob-72a10577c564)
-2. [*Capture List and retention cycle [weak self]*](https://blog.bobthedeveloper.io/swift-retention-cycle-in-closures-and-delegate-836c469ef128)
-3. *Descent Object Oriented Programming*
+1. [**闭包**][6]
+2. [**捕获列表与循环引用 \[weak self\]** ][7]
+3. **面向对象程序设计**
 
-### Create UI Components ###
+### 创建 UI 组件
 
-Before I explain the unconventional method above, let’s look into your past. In order to create a button in Swift, you probably have done something like this,
+在我介绍“非常规”方法之前，让我们先复习一下“常规”方法。在 Swift 中，如果你要创建一个按钮，你应该会这么做：
 
 ```
-// Determine Size
+// 设定尺寸
 let buttonSize = CGRect(x: 0, y: 0, width: 100, height: 100)
 
-// Create Instance
+// 创建控件
 let bobButton = UIButton(frame: buttonSize)
 bobButton.backgroundColor = .black
 bobButton.titleLabel?.text = "Bob"
 bobButton.titleLabel?.textColor = .white
 ```
 
-This is *Okay.*
+这样做**没问题**。
 
-Assume, you have to create three other buttons, you probably have to copy the code above and then change the name from `bobButton` to `bobbyButton`.
+假设现在你要创建另外三个按钮，你很可能会把上面的代码复制，然后把变量名从 `bobButton` 改成 `bobbyButton`。
 
-It’s quite tedious.
+这未免也太枯燥了吧。
 
 ```
 // New Button 
@@ -71,13 +70,13 @@ bobbyButton.titleLabel?.text = "Bob"
 bobbyButton.titleLabel?.textColor = .white
 ```
 
-To make things just a bit easier, you may
+为了方便，你可以：
 
 ![](https://cdn-images-1.medium.com/max/800/1*oDIPy0i4YzUnKVR4XYI4kg.gif)
 
-This works too with the keyboard shortcut: ctrl-cmd-e
+使用快捷键：ctrl-cmd-e 来完成这个工作。
 
-If you don’t wish to repeat yourself, you may create a function instead.
+如果你不想做重复的工作，你也可以创建一个函数。
 
 ```
 func createButton(enterTitle: String) -> UIButton {
@@ -86,27 +85,26 @@ func createButton(enterTitle: String) -> UIButton {
  button.titleLabel?.text = enterTitle
  return button
 }
-
 createButton(enterTitle: "Yoyo") //  👍
 ```
 
-However, in iOS development, it is rare that custom buttons look similar. Therefore, a function may require a lot more parameters including background color, title, border radius, shadow, and so on. You function may end up looking like,
+然而，在 iOS 开发中，很少会看到一堆一模一样的按钮。因此，这个函数需要接受更多的参数，如背景颜色、文字、圆角尺寸、阴影等等。你的函数最后可能会变成这样：
 
 ```
 func createButton(title: String, borderWidth: Double, backgrounColor, ...) -> Button 
 ```
 
-The code above is not ideal even if you add default parameters to the function. It decreases readability. Therefore, it’s better to stay with the tedious method above.
+但是，即使你为这个函数加上了默认参数，上面的代码依然不理想。这样的设计降低了代码的可读性。因此，比起这个方法，我们还是采用上面那个”单调“的方法为妙。
 
-But, is there any way we can make it less tedious and more organized? Of course. We’ve looked into your past — It’s time to step up and look into your future.
+到底有没有办法让我们既不那么枯燥，还能让代码更有条理呢？当然咯。我们现在只是复习你过去的做法——是时候更上一层楼，展望你未来的做法了。
 
-### Introducing the Unconventional Way ###
+### 介绍”非常规“方法
 
-Before we create UI components with the unconventional way, let’s first answer the initial questions my reader asked. What does `{}` mean, and is it a `computed property`?
+在我们使用”非常规“方法创建 UI 组件之前，让我们先回答一下最开始那个读者的问题。`{}`是什么意思，它是一个`计算属性`吗？
 
-*Nope, it’s just a* ***closure block***.
+**当然不是，它只是一个闭包**。
 
-First, let’s demonstrate how to create an object using a closure. We will design a struct called `Human`.
+首先，让我来示范一下如何用闭包来创建一个对象。我们设计一个名为`Human`的结构：
 
 ```
 struct Human {
@@ -116,7 +114,7 @@ struct Human {
 }
 ```
 
-Now, this is how you create an object with a closure
+现在，让你看看怎么用闭包创建对象：
 
 ```
 let createBob = { () -> Human in
@@ -127,11 +125,11 @@ let createBob = { () -> Human in
 let babyBob = createBob() // "Born 1996"
 ```
 
-*If the syntax above doesn’t look familiar to you, you may stop reading now, and go to* [*Fear No Closure with Bob*](https://blog.bobthedeveloper.io/no-fear-closure-in-swift-3-with-bob-72a10577c564) *, and bring some bullets.*
+**如果你不熟悉这段语法，请先停止阅读这篇文章，去看看** [**Fear No Closure with Bob**][8] **充充电吧。**
 
-Just to explain, `createBob` is a closure whose type is `() -> Human`. You’ve created an instance called, `babyBob` by calling `createBob()` .
+解释一下，`createBob` 是一个类型为 `()-> Human` 的闭包。你已经通过调用 `createBob()` 创建好了一个 `babyBob` 实例。
 
-However, you had to create two constants: `createBob` and `babyBob`. What if you want to do everything in a single statement? Here you go.
+然而，这样做你创建了两个常量：`createBob` 与 `babyBob`。如何把所有的东西都放在一个声明中呢？请看：
 
 ```
 let bobby = { () -> Human in
@@ -140,11 +138,11 @@ let bobby = { () -> Human in
 }()
 ```
 
-Now, the closure block executes itself through adding `()` at the end and `bobby` now has a `Human` object attached. Pretty good stuff.
+现在，这个闭包通过在最后加上 `()` 执行了自己，`bobby` 现在被赋值为一个 `Human` 对象。干的漂亮！
 
-**You’ve learned how to initialize an object with a closure block.**
+**现在你已经学会了使用闭包来创建一个对象**
 
-Now, let’s apply to creating an UI object which should be similar to the example right above.
+让我们应用这个方法，模仿上面的例子来创建一个 UI 对象吧。
 
 ```
 let bobView = { () -> UIView in
@@ -153,8 +151,7 @@ let bobView = { () -> UIView in
  return view
 }()
 ```
-
-Great, we can make it shorter. In fact, we don’t need to specify the type of the closure block. Instead, all we have to do is specify the type of the instance, `bobView`, for example.
+很好，我们还能让它更简洁。实际上，我们不需要为闭包指定类型，我们只需要指定 `bobView` 实例的类型就够了。例如：
 
 ```
 let bobbyView: **UIView** = {
@@ -164,17 +161,17 @@ let bobbyView: **UIView** = {
 }()
 ```
 
-Swift is able to infer that the closure block is `() -> UIView` based on the keyword, `return`.
+Swift 能够通过关键字 `return` 推导出这个闭包的类型是 `() -> UIView`。
 
-Now, take a look. The example right above should look identical to the “unconventional way” I feared.
+现在看看，上面的例子已经和我之前害怕的“非常规方式”一样了。
 
-### Benefits of Init with Closures ###
+### 使用闭包创建的好处
 
-We discussed the tediousness of creating objects and the problem that arises from using a function. In your head, you must be thinking, “why should I use a closure block instead?”
+我们已经讨论了直接创建对象的单调和使用构造函数带来的问题。现在你可能会想“为什么我非得用闭包来创建？”
 
-#### Easy to Duplicate ####
+#### 重复起来更容易
 
-I don’t like to use Storyboard, I love copy and pasting UI objects. In fact, I’ve a “library” of code in my computer. Let us assume that there is a button as shown below in the library.
+我不喜欢用 Storyboard，我比较喜欢复制粘贴用代码来创建 UI 对象。实际上，在我的电脑里有一个“代码库”。假设库里有个按钮，代码如下：
 
 ```
 let myButton: UIButton = {
@@ -188,14 +185,14 @@ return button
 }()
 ```
 
-All I have to do is copy the entire lines, and then just change the name of `myButton` to `newButton` for the usage. Had I not used the closure method, I probably had to change the name of `button` to `newButton` 7–8 times. We could use the Xcode shortcut above, but why not make it just simpler.
+我只需要把它整个复制，然后把名字从 `myButton` 改成 `newButtom` 就行了。在我用闭包之前，我得重复地把 `myButton` 改成 `newButtom` ，甚至要改上七八遍。我们虽然可以用 Xcode 的快捷键，但为啥不使用闭包，让这件事更简单呢？
 
-#### Look Cleaner ####
+#### 看起来更简洁
 
-Since objects are grouped together, it feels cleaner based on my eyes. Let’s compare
+由于对象对象会自己编好组，在我看来它更加的简洁。让我们对比一下：
 
 ```
-// Init with Closure 
+// 使用闭包创建 
 let leftCornerButton: UIButton = {
  let button = UIButton(frame: buttonSize)
  button.backgroundColor = .black
@@ -220,7 +217,7 @@ return button
 vs
 
 ```
-// Init With Fingers 
+// 手动创建
 let leftCornerButton = UIButton(frame: buttonSize)
 leftCornerButton.backgroundColor = .black
 leftCornerButton.titleLabel?.text = "Button"
@@ -236,81 +233,81 @@ rightCornerButton.layer.cornerRadius =
 rightCornerButton.layer.masksToBounds = true
 ```
 
-Although creating an object with the closure add a couple lines more, I feel less overwhelmed since I only have to add attributes to `button` rather than `rightCornerButton` or `leftCornerButton`.
+尽管使用闭包创建对象要多出几行，但是比起要在 `rightCornerButton` 或者 `leftCornerButton` 后面狂加属性，我还是更喜欢在 `button` 后面加属性。
 
-*In fact, if the name of a button gets more descriptive, often times it requires fewer lines to create an object with a closure block.*
+**实际上如果按钮的命名特别详细时，用闭包创建对象还可以少几行。**
 
-**You’ve accomplished the first objective. Congratulations**
+**恭喜你，你已经完成了我们的第一个目标**
 
-### Lazy Init Application ###
+### 懒加载的应用
 
-You’ve come a long way. It’s time to meet the second objective of this tutorial.
+辛苦了！现在让我们来看看这个教程的第二个目标吧。
 
-You might have seen something like this below
+你可能看过与下面类似的代码：
 
 ```
 class IntenseMathProblem {
- lazyvar complexNumber: Int = {
-  // imagine it requires a lot of CPU
+ lazy var complexNumber: Int = {
+  // 请想象这儿要耗费很多CPU资源
   1 * 1
  }()
 }
 ```
 
-What `lazy` allows you to do is, the `complexNumber` property will be only calculated when you try to access it. For example,
+`lazy` 的作用是，让 `complexNumber` 属性只有在你试图访问它的时候才会被计算。例如：
 
 ```
 let problem = IntenseMathProblem 
-problem()  // No value for complexNumber 
+problem()  // 此时complexNumber没有值
 ```
 
-Currently, there is no value for `complexNumber`. However, once you access the property,
+没错，现在 `complexNumber` 没有值。然而，一旦你访问这个属性：
 
 ```
-problem().complexNumber // Now returns 1
+problem().complexNumber // 现在回返回1
 ```
 
-The `lazy var` is often used to sort database and fetch data from any backend services because you definitely don’t want to calculate and sort everything when you create an object.
+`lazy var` 经常用于数据库排序或者从后端取数据，因为你并不想在创建对象的时候就把所有东西都计算、排序。
 
-*In fact, your phone will crash since the object is super bloated and the RAM can’t handle.*
+**实际上，由于对象太大了导致 RAM 撑不住，你的手机就会崩溃。**
 
-### Application ###
+### 应用
 
-Below is just an application of `lazy var`.
+以下是 `lazy var` 的应用：
 
-#### Sorting ####
+#### 排序
 
 ```
 class SortManager {
  lazy var sortNumberFromDatabase: [Int] = {
-  // Sorting logic
+  // 排序逻辑
   return [1, 2, 3, 4]
  }()
 }
 ```
 
-#### Image Compression ####
+#### 图片压缩
 
 ```
 class CompressionManager {
  lazy var compressedImage: UIImage = {
   let image = UIImage()
-  // Compress the image
-  // Logic
+  // 压缩图片的
+  // 逻辑
   return image
  }()
 }
 ```
 
-### Rules with `Lazy` ###
+### `Lazy`的一些规定
 
-1. You can’t use `lazy` with `let` since there is no initial value, and it is attained later when it is accessed.
-2. You can’t use it with a `computed property` since computed property is always recalculated (requires CPU) when you modify any of the variables that has a relationship with the `lazy` property.
-3. `Lazy` is only valid for members of a struct or class
+1. 你不能把 `lazy` 和 `let` 一起用，因为用 `lazy` 时没有初值，只有当被访问时才会获得值。
+2. 你不能把它和 `计算属性` 一起用，因为在你修改任何与 `lazy` 的计算属性有关的变量时，计算属性都会被重新计算（耗费 CPU 资源）。
+3. `Lazy` 只能是结构或类的成员。
 
-### Does Lazy Capture? ###
+### Lazy 能被捕获吗？
 
-So, if you’ve read the previous article on [Retention Cycle in Closures and Delegate](https://blog.bobthedeveloper.io/swift-retention-cycle-in-closures-and-delegate-836c469ef128) , you might wonder. Let’s test it out. Create a class called `BobGreet`. It has two properties: `name` whose type is `String` and `greeting` whose type is also `String` but initialized with a closure block.
+如果你读过我的前一篇文章[《Swift 闭包和代理中的循环引用》][9]，你就会明白这个问题。让我们试一试吧。创建一个名叫 `BobGreet` 的类，它有两个属性：一个是类型为 `String` 的 `name`，一个是类型为 `String` 但是使用闭包创建的 `greeting`。
 
 ```
 class BobGreet {
@@ -320,43 +317,75 @@ class BobGreet {
  }()
 
 deinit { 
-  print("I'm gone, bruh 🙆&zwj;")}
+  print("I'm gone, bruh 🙆")}
  }
 }
 ```
 
-The closure block *might* have a strong reference to `BobGuest` but let’s attempt to deallocate.
+闭包**可能**对 `BobGuest` 有强引用，让我们尝试着 deallocate 它。
 
 ```
 var bobGreet: BobGreet? = BobClass()
 bobGreet?.greeting
-bobClass = nil // I'm gone, bruh 🙆&zwj;
+bobClass = nil // I'm gone, bruh 🙆
 ```
 
-No need to worry about `[unowned self]` The closure block does not have a reference to the object. Instead, it just copies `self` within the closure block. If you are confused by the previous statement, feel free to read [Swift Capture Lists](https://blog.bobthedeveloper.io/swift-capture-list-in-closures-e28282c71b95) to learn more. 👍
+不用担心 `[unowned self]`，闭包并没有对对象存在引用。相反，它仅仅是在闭包内复制了 `self`。如果你对前面的代码声明有疑问，可以读读 [Swift Capture Lists][10] 来了解更多这方面的知识。👍
 
-### Last Remarks ###
+### 最后的唠叨
 
-I learned a quite a bit while preparing for this tutorial. I hope you did as well. I’d appreciate your genuine fat ❤️. But, there is just one more. As the last objective, if you wish to on my mailing list and receive greater value from me, you can sign up right [**here**](https://boblee.typeform.com/to/oR9Nt2) .
+我在准备这篇教程的过程中也学到了很多，希望你也一样。感谢你们的热情❤️！不过这篇文章还剩一点：我的最后一个目标。如果你希望加入我的邮件列表以获得更多有价值的信息的话，你可以点 [**这里**][11]注册。
 
-As you can see by the cover photo, I recently bought Magic Keyboard and Mouse. They are pretty good and increase my productivity a lot. You can get the mouse [here](http://amzn.to/2noHxgl)  or the keyboard [here](http://amzn.to/2noHxgl). I never regret despite the price. 😓
+正如封面照片所示，我最近买了 Magic Keyboard 和 Magic Mouse。它们超级棒，帮我提升了很多的效率。你可以在 [这儿][12]买鼠标，在 [这儿][13]买键盘。我才不会因为它们的价格心疼呢。😓
 
-> [Source Code](https://github.com/bobthedev/Blog_Lazy_Init_with_Closures) 
+> [本文的源码][14] 
 
-### Swift Conference I Will Join ###
+### 我将要参加 Swift 讨论会 
 
-I will be joining my first conference @[SwiftAveir](https://twitter.com/SwiftAveiro) o from June 1–2. A friend of mine, [Joao](https://twitter.com/NSMyself) , is helping organize the conference, so I’m super excited. You can learn more about the event [here](http://swiftaveiro.xyz) !
+我将在 6 月 1 日至 6 月 2 日 参加我有生以来的第一次讨论会 @[SwiftAveir][15]， 我的朋友 [Joao][16]协助组织了这次会议，所以我非常 excited。你可以点[这儿][17]了解这件事 的详情！
 
-#### Recommended Articles ####
+#### 文章推荐
 
-> Intro to Functional Programming ([Blog](https://blog.bobthedeveloper.io/intro-to-swift-functional-programming-with-bob-9c503ca14f13))
+> 函数式编程简介 ([Blog][18])
 
-> My Favorite Xcode Shortcuts ([Blog](https://blog.bobthedeveloper.io/intro-to-swift-functional-programming-with-bob-9c503ca14f13) )
+> 我最爱的 XCode 快捷键 ([Blog][19] )
 
-### Bob the Developer ###
+### 关于我 
 
-I’m an iOS instructor from Seoul, 🇰🇷. Feel free to get to know me on [Instagram](https://instagram.com/bobthedev) . I post regular updates on [Facebook Page](https://facebook.com/bobthedeveloper)  and 🖨 on Sat 8pm EST.
+我是一名来自首尔的 iOS 课程教师，你可以在 [Instagram][20] 上了解我。我会经常在 [Facebook Page][21] 投稿，投稿时间一般在北京时间上午9点（Sat 8pm EST）。
 
 ---
 
-> [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[React](https://github.com/xitu/gold-miner#react)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计) 等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)。
+> [掘金翻译计划][22] 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金][23] 上的英文分享文章。内容覆盖 [Android][24]、[iOS][25]、[React][26]、[前端][27]、[后端][28]、[产品][29]、[设计][30] 等领域，想要查看更多优质译文请持续关注 [掘金翻译计划][31]。
+
+[1]:	https://blog.bobthedeveloper.io/swift-lazy-initialization-with-closures-a9ef6f6312c
+[2]:	https://blog.bobthedeveloper.io/@bobthedev
+[3]:	https://github.com/xitu/gold-miner
+[4]:	https://github.com/lsvih
+[5]:	https://boblee.typeform.com/to/oR9Nt2
+[6]:	https://blog.bobthedeveloper.io/no-fear-closure-in-swift-3-with-bob-72a10577c564
+[7]:	https://juejin.im/post/58e4ac5d44d904006d2a9a19
+[8]:	https://blog.bobthedeveloper.io/no-fear-closure-in-swift-3-with-bob-72a10577c564
+[9]:	https://juejin.im/post/58e4ac5d44d904006d2a9a19
+[10]:	https://blog.bobthedeveloper.io/swift-capture-list-in-closures-e28282c71b95
+[11]:	https://boblee.typeform.com/to/oR9Nt2
+[12]:	http://amzn.to/2noHxgl
+[13]:	http://amzn.to/2noHxgl
+[14]:	https://github.com/bobthedev/Blog_Lazy_Init_with_Closures
+[15]:	https://twitter.com/SwiftAveiro
+[16]:	https://twitter.com/NSMyself
+[17]:	http://swiftaveiro.xyz
+[18]:	https://blog.bobthedeveloper.io/intro-to-swift-functional-programming-with-bob-9c503ca14f13
+[19]:	https://blog.bobthedeveloper.io/intro-to-swift-functional-programming-with-bob-9c503ca14f13
+[20]:	https://instagram.com/bobthedev
+[21]:	https://facebook.com/bobthedeveloper
+[22]:	https://github.com/xitu/gold-miner
+[23]:	https://juejin.im
+[24]:	https://github.com/xitu/gold-miner#android
+[25]:	https://github.com/xitu/gold-miner#ios
+[26]:	https://github.com/xitu/gold-miner#react
+[27]:	https://github.com/xitu/gold-miner#%E5%89%8D%E7%AB%AF
+[28]:	https://github.com/xitu/gold-miner#%E5%90%8E%E7%AB%AF
+[29]:	https://github.com/xitu/gold-miner#%E4%BA%A7%E5%93%81
+[30]:	https://github.com/xitu/gold-miner#%E8%AE%BE%E8%AE%A1
+[31]:	https://github.com/xitu/gold-miner

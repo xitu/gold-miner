@@ -1,138 +1,138 @@
 > * 原文地址：[How to pretend you’re a great designer](https://thedesignteam.io/how-to-pretend-youre-a-great-designer-3625de90d79f)
 > * 原文作者：[Pablo Stanley](https://thedesignteam.io/@pablostanley?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
-> * 校对者：
-# How to pretend you’re a great designer #
+> * 译者：[Changkun Ou](https://github.com/changkun)
+> * 校对者：[ylq167](https://github.com/ylq167)
 
-## Practical tips and principles to trick people into thinking you’re an industry thought leader. ##
+# 设计师装腔指南 #
+
+## 假装成为行业思想领袖的经验和技巧 ##
 
 ![](https://cdn-images-1.medium.com/max/1000/1*8ted6GIeOq2hxnr9cxwtMw.gif)
 
-Gabrielle will use delight until your pupils explode
+> Gabrielle 将使用「喜悦」来解释全部的设计，直到你的瞳孔爆炸。
 
-### **Distract with delight** ###
+### **使用「喜悦」来分散注意力** ###
 
-Don’t know how to justify your excessive use of animations, clever copy, or generic *cute* illustrations? Just throw the word “delight” in the mix! Talk about how you understand the user’s psychology–how you’re creating an experience people will love. Who cares if your solution is not functional, expensive to build, or if there’s no data to back up your intuition. Remind everyone that you’re building a lasting and emotional connection with the user.
+不知道如何解释你的过度使用动画、巧妙的抄袭，或者通用**可爱**的图案吗？只需要说它们通常伴随着「喜悦」就够了！谈谈你是如何理解用户的心理的 —— 如何打造一个人们会喜欢的体验。没有人关心你的方案是否功能健全、是否成本高昂，或者是否有数据支撑你的直觉。提醒所有人，你正在与用户建立持久的感情联系。
 
-***PRO TIP:*** *Show everyone a graph of Maslow’s Hierarchy of Needs and point out how the warm-and-fuzzy stuff is on the top.*
+**_装腔技巧_**: **向所有人展示马斯洛需求层次理论图，并指出最上层的「自我实现」是多么高层次的追求。**
 
 
 ![](https://cdn-images-1.medium.com/max/1000/1*U0hzgnxBdy6UWp-9mJsIOQ.gif)
 
-Toby is a walking jargon-encyclopedia.
+Toby 是一本活脱脱的百科全书.
 
-### Confuse them using industry language ###
+### 使用行业术语来迷惑他们 ###
 
-Never mind that part of your job is making things easy to understand. Use phrases like *“A holistic approach”* or *“brand storytelling”* or other jargon that will keep people scratching their heads, afraid to ask what that even means. The more buzzwords you use, the less you have to explain your actual design thinking.
+不要在意你的工作是否让事情变得容易理解。使用短语像「**整体分析**」或「**品牌故事**」亦或其他让人即使摸不着头脑也不敢问是什么意思的行业术语。你使用的流行语越多，你就越不需要解释你的实际设计思路。
 
-If a stakeholder asks about your reasoning for a design, just say something like *“It’s social-minded, guided by our brand values, and built with personality to engage our users through empathy and emotional design”*, even when you’re just designing a coupon input box.
-
+如果一个利益相关人士询问你的设计理由，只要告诉他们诸如「这种设计以社会为导向，以品牌价值为指导，围绕其特性所建立，从而通过共鸣和情感设计来吸引用户」之类的话就可以了，哪怕你只是在设计一个优惠券的输入框。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*QsVGLGmSStDhlhNY_LKM9w.gif)
 
-Fran advises to be, above all, consistent!
+Fran 建议：首先，要保持一致！
 
-### Use Consistency as your ONLY guiding principle ###
+### 使用一致性作为你的唯一指导原则 ###
 
-Ignore context––consistency is more important! Your users might have become familiar with iOS, Android, or web patterns but those patterns go against your style guide. You have to be consistent, even if it means the user needs to learn new ways of doing things––they have to check out your unique and sophisticated drop-down menu.
+忽略情景 —— 一致性更重要！也许你的用户已经熟悉了 iOS、Android 或 Web 模式，但这些模式与你的设计风格是不一样的。你必须保持设计的一致，即便是需要增加用户学习成本 —— 但他们必须查看你独特且复杂的下拉菜单。
 
-If your PM asks for a design that is best suited for mobile, just say that you’re striving for consistency. And, can’t the developer just make everything responsive and stuff? Being consistent allows you to not think of different solutions for specific scenarios––you can just copy-paste from the kitchen sink and call it a day!
+如果你的产品经理想要一个最适合移动端的设计，只需要说你正在努力让所有平台的设计保持一致。开发者难道不能让所有元素都做到响应式吗？保持一致性可以让你不用考虑特定场景下的不同解决方案 —— 你只用从所有的东西里复制粘贴就算是完成一天的工作了！
 
 ![](https://cdn-images-1.medium.com/max/1000/1*hm7Fr-D0-u4Rav6Og-hmLA.gif)
 
-Paul understands aesthetics
+Paul 理解美学。
 
-### **Make aesthetics a priority over functionality** ###
+### **美学优于功能** ###
 
-Forget about solving the problem with a flow that actually works. Obviously, you just need to copy all those flashy, unpractical effects you saw on Dribbble and apply them to your design. Who cares if research shows that sole icons are inefficient and hard to memorize or that stock photos rarely add value? Stakeholders will be so wowed by all the bouncy animations, Apple-like white space, and left-aligned Swiss types that no one will question if it even works.
+忘记用实际有用的工作流程来解决问题。显然，你只需要复制所有在 Dribbble 上看到那些华而不实的效果，并将其运用到你的设计之中。没有人关心调查显示的单个图标效率很低且很难被记住，以及库存的图片根本没有价值这些结论。所有的利益相关者都会因为那些具有弹性动画、像苹果一样的大量留白，和左对齐的瑞士主义设计风格一样感到震惊，没有人会怀疑它能否奏效。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*BVWmKNOrZ5uVQs9YU2Hw-Q.gif)
 
-Gabrielle uses her magic to turn other products’ solutions into her own!
+Gabrielle 用她的魔力将其他产品的解决方案变成了自己的！
 
-### **Learn (copy) from the best** ###
+### **学习（照搬）最佳实践** ###
 
-Don’t know how to solve a problem? Just replicate the solution from Amazon, Apple, or Facebook and apply your own style on top of it. When someone challenges you, just say *“that’s how Amazon does it”*. That will teach them to keep questions to themselves next time! If it worked for Amazon, it must work for you, right? Who cares if you’re not even a marketplace or e-commerce product.
+不知道如何解决问题？只需要复制亚马逊、苹果或者 Facebook 的解决方案，并运用自己的风格即可。当有人质疑你时，只要说 **「亚马逊就是这么干的」**。这将教会他们将问题保留到下一次再提问！如果它适用于亚马逊，它肯定适合你，对吧？因为根本没有人在乎你搞的是不是一个电商产品。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*_rH6r2v-eKIY9doQOz86jw.gif)
 
-Claude knows how to make a pie chart!
+Claude 知道如何制作一个饼状图。
 
-### **Use research bias** ###
+### **使用调查偏差** ###
 
-Do you have to justify that design that you spent time on all week? Just create a beautiful graph with cherry-picked data from a survey or test you conducted. The bigger the numbers, the more you’ll impress people with your interpretation!
+你是否必须为你花了一整个星期时间搞出来的设计辩护？只需用你进行过的调查或测试中精心挑选的数据创建一个花哨的图表就可以了。数字越大，你的解释就会让人们的印象越深刻！
 
-If anyone asks to see your methods or sources or wants to see the raw data, just tell them you should take that conversation offline and avoid them for the rest of the month.
+假如有人要求查看你的方法或来源或想要查看原始数据，只需告诉他们你们的对话应该结束了，然后在这个月剩下的时间里躲避他们就好。
 
-***PRO TIP:*** *If you have the skills, make a spurious correlation slide that will have everyone nodding their heads. E.g. “The bounce rate of our landing page correlates with the downloads of Pokemon Go, therefore, we should add Augmented Reality to our page”.*
+**_装腔技巧_:** **如果你有能力，做一个假的幻灯片，让大家接受你的结论。 比如，「我们的登录页的跳出率与 Pokemon Go 的下载量相关，因此我们应该将增强现实添加到我们的页面」。**
 
 ![](https://cdn-images-1.medium.com/max/1000/1*mgeKX-DlW-obHhFUGBB6xA.gif)
 
-Fran looks at her work in deep silence.
+Fran 在沉默中看着她的工作。
 
-### **Make people think you’re busy** ###
+### **让人们觉得你很忙** ###
 
-There’s nothing better than having a wall full of other people’s work to impress passers-by. Print screenshots of other products and call it “competitive analysis”. Add all your Pinterest pins from other talented designers and call it “inspiration”. Make collages of all the terrible iterations you explored and call it “ideation”. Go for quantity, not quality. It doesn’t matter if what’s pinned to the wall makes any sense or if there’s any actual substance. The important thing is to make people believe that you have a creative and busy mind.
+没有什么比满墙贴满他人的作品更能给路人留下深刻印象的了。打印其他产品的截屏，这叫「竞品分析」；把所有的 Pinterest 上有才华的设计都放上去，这叫「灵感来源」；把所有你探索过的糟糕的迭代过程做成拼图放在一起，这叫「想法形成」。始终追求数量，而不是质量。不管是有意义还是没意义的，钉上在墙后都是有意义的。重要的是要让人们相信你有一个有创造力且忙碌的头脑。
 
-***PRO TIP:*** *Stare at the wall for hours in silence. Your coworkers will think you’re really contemplative.*[*Draw eyes on your eyelids*](https://www.youtube.com/watch?v=U6qBnykH0DU) *and you can sleep while doing this.*
+**_装腔技巧_:** **默默地盯着墙看几个小时，你的同事会认为你在沉思。如果你 [在你的眼皮上画上眼睛](https://www.youtube.com/watch?v=U6qBnykH0DU) ，还能打会盹儿。**
 
 ![](https://cdn-images-1.medium.com/max/1000/1*gB-SyYrl3WXBYDW2Up7lWQ.gif)
 
-Petunia is becoming a great designer!
+Petunia 马上就要成为一个伟大的设计师了!
 
-### Use ambiguous visuals ###
+### **使用模棱两可的视觉表现** ###
 
-Everybody can draw a Venn Diagram, but can they do it with perfect equilateral triangles?
+大家都会画韦恩图，但他们能用完美的等边三角形来做吗？
 
-Impress your coworkers with a double ▲▲ or a triple▲▲▲ triangle diagram. It won’t only make everyone nod at your confusing concepts, but it will establish you as a creative mind that uses simplicity to explain complex ideas.
+你可以使用双重 ▲▲ 甚至三重 ▲▲▲ 三角形图来打动你的同事。这不仅会让每个人都同意你偷换的概念，还会让他们觉得你你具有创造性思维，并用简单的方式解释复杂的想法。
 
-***PRO TIP:*** *Always put the word “VALUE” in the overlapping area of the diagram!*
+**_装腔技巧_:** **总是将「价值」写在图标相交的区域里！**
 
 ![](https://cdn-images-1.medium.com/max/1000/1*VImvvTlomv4aX8E_UbUlUQ.gif)
 
-Paul knows how to create a tailor-made product.
+Paul 知道如何创建一个量身定做的产品。
 
-### **Misinterpret Human-Centered Design** ###
+### **扭曲用户中心设计** ###
 
-You’re not a modern designer if you don’t use Human-Centered Design (HCD for pros). And when I say “use”, I actually mean “talk about it”. Lecture everyone about how they need to understand the needs and abilities of the users. How building empathy is crucial to creating meaningful products. Who cares if other things have been successfully designed in the past without this approach? Don’t bother if this process might not be the best for you. Never mind if tailoring a product to a certain demographic can alienate others. It doesn’t matter if sometimes it’s in the user’s best interest if you ignore their suggestions. Better to impress everyone with how deeply you *care* about the user.
+如果你不用「用户中心设计」（HCD），那么你不够现代。当我们谈论「用」时，我们实际在谈论「讨论它」而已。让每个人都知道他们需要如何理解用户的需求和能力。如何建立共鸣对创造有意义的产品至关重要。如果没有用户中心设计，谁还会在意其他事情是否已经成功地设计好了呢？不用在意这个方法是否适合你，更不用在意如果把产品定制为某种特定的人群是否会疏远他人。如果你忽略了他们的建议，这并不重要。用你是多么地「**关心**」用户来打动大家就可以了。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*J0AFQkt36gUyNqjaFm3lIw.gif)
 
-Paul sure understands his main user.
+Paul 确实了解他的主要用户。
 
-### **Stay focused on your market, which is you** ###
+### **专注你独占的市场** ###
 
-Oh, crap. They actually believed you on the whole human-centered thing and now they want an accessible design? Don’t worry, just point out that making a site accessible can take a long time and money. Say that your target market has state-of-the-art computers and internet connection, and they’re all healthy millennials that never even see the doctor. How do you know? You’re one of them! You’re exactly like your users!
+好吧，他们信任你的那套「用户中心设计」了，现在他们想要一个无障碍设计怎么办？不要担心，你只需要指出，对网站进行无障碍需要花很长时间和很多钱。然后假设你的目标市场有着最先进的计算机和互联网连接，而且用户都是健康、甚至都没有见过医生的 00 后就可以了。你怎么知道的？因为你是他们中的一员！你自己就是用户！
 
-And, let’s be honest, accessible design could keep you away from all those marvelous scroll-jacking animations you added to your landing page.
+而且，老实说，无障碍设计可能让你永远没法在页面上添加的那些炫酷动画了。
 
-> Text labels? Ugly!
-> High contrast combinations? Awful!
-> Clear navigation? Despicable!
+> 文本标签？太丑了!
+> 高对比度组合？很糟糕！
+> 清晰的导航？毫无意义！
 
-Don’t concern yourself with reaching a bigger audience by making your design accessible, or with how it actually improves usability or makes your site SEO friendly. You need those parallax animations and that subtle low-contrast color palette that works only on a thunderbolt display.
+不用担心那些为了能获得更多受众而进行的无障碍设计、可用性提升，或者是让网站变得 SEO 友好。你只需要使用视差滚动效果和一台具有精细的低对比度调色板的雷电接口的显示器就足够了。
 
-### On a serious note ###
+### 严肃的说 ###
 
-While all of these “tips” are meant to be tongue-in-cheek, they illustrate sins I myself have committed in the past. And I could say that it’s just a byproduct of how we’re all figuring stuff out as we go. That we’re experimenting with different things, seeing what works and what doesn’t–adapting to the ever-changing user’s needs and technology. And all would be understandable on the surface, but deep down, I have to admit… I sometimes don’t know if what I’m doing is right.
+而上面所有这些「技巧」都是不靠谱的，它们其实展示了我自己曾经犯过的错误。可以这么说，这些只是我们所做的一切事情的副作用。我们正在不断尝试不同的事物，看看什么是有效的、什么是不适应不断变化的用户的需求和技术。从表面上看，一切都是可以理解的，但我必须承认，我有时不知道我所做的事情是否正确。
 
-Do you ever feel like that? Fear of the moment when everyone realizes you’re some kind of fraud? That you’re in the process of faking-it-till-you-make-it? I recently learned they call it the “Impostor Syndrome”. I had never felt this as strongly as when I moved to San Francisco. As soon as I started working at a startup, I realized there was a lot I needed to learn. I found myself feeling insecure and lost–utilizing my charm to get other people’s approval. I didn’t think my design work was enough.
+不知道你是否有这样的感觉：当所有人都意识到你是一个骗子的时候，你是否会感到害怕吗？你是否曾今假装自己能做到？我最近听说这叫「骗子综合症」。我从来没有像搬到旧金山之后感受如此强烈。当我开始在一家创业公司工作时，我发现我需要学习很多东西。我感到不安，且失去了利用我的个人魅力来获得别人认可的能力。所以我觉得我的设计工作还做得不够好。
 
-But anyway, I believe it’s getting better. Or at least I’ve gotten better at pretending.
+无论如何，我相信情况正在好转。或者至少我已经变得更加善于伪装了。
 
-**The Design Team**
+**设计团队**
 
-New comic every other Taco Tuesday at[thedesignteam.io](http://thedesignteam.io)
-[Subscribe](http://eepurl.com/cbWwtz) to get my spam.I’m [Pablo Stanley](https://twitter.com/pablostanley) . Among many things, I teach [courses on design](https://www.youtube.com/c/sketchtogethertv) , and I work on a healthcare startup called [Carbon Health](https://carbonhealth.com/).
+- [thedesignteam.io](http://thedesignteam.io) 上的漫画每周二更新。
+- 我是 [Pablo Stanley](https://twitter.com/pablostanley) 。点击 [订阅](http://eepurl.com/cbWwtz) 可以收到我的「垃圾邮件」。我教授一门 [设计课程](https://www.youtube.com/c/sketchtogethertv)，同时我还在一家名为 [Carbon Health](https://carbonhealth.com/) 的医疗保健创业公司工作。
 
-Thanks to [Courtney M. Sawyer](https://medium.com/@courtneymsawyer) , [Michael Lorton](https://medium.com/@michaellorton) , [Edgar chaparro](https://medium.com/@Echaparro), and [Frances Tung](https://medium.com/@francestung) for all their support.
+- 感谢 [Courtney M. Sawyer](https://medium.com/@courtneymsawyer) , [Michael Lorton](https://medium.com/@michaellorton) , [Edgar chaparro](https://medium.com/@Echaparro), 和 [Frances Tung](https://medium.com/@francestung) 的全部支持。
 
 > [Read Previous: The Design Process](https://thedesignteam.io/the-design-process-67df3e8ec68f#.lv47slyvv) 
 > [Another cool one: From a Product Perspective](https://thedesignteam.io/from-a-product-perspective-2f5185a43827) 
 > [The First One: The Onboard-a-Buddy](https://medium.com/the-design-team/the-onboard-a-buddy-71169e460f04#.iru2t3tub) 
 
-Thanks to Edgar Chaparro, Michael Lorton, and Courtney Sawyer.
+- 感谢 Edgar Chaparro, Michael Lorton 以及 Courtney Sawyer.
 
 ---
 
