@@ -5,18 +5,20 @@
 > * 译者：
 > * 校对者：
 
-# Getting started with TensorFlow
+ 
+# TensorFlow入门
 
-In the context of machine learning, _tensor_ refers to the multidimensional array used in the mathematical models that describe neural networks. In other words, a tensor is usually a higher-dimension generalization of a matrix or a vector.
+在机器学习的语境里，_tensor_(张量)指的是用于描述神经网络的数学模型里的多维数组。换句话说，张量就是矩阵和向量的高维泛化。
+通过使用秩来显示维数的简单表示法, 张量允许将复杂的 n 维向量和超形状表示为 n 维数组。张量有两个属性: 数据类型和形状。
 
-Through a simple notation that uses a rank to show the number of dimensions, tensors allow the representation of complex _n_-dimensional vectors and hyper-shapes as _n_-dimensional arrays. Tensors have two properties: a datatype and a shape.
+ 
+## 关于TensorFlow
+ 
+TensorFLow是一个开源的深度学习框架，于2015年底在Apache 2.0许可下发布。从那时起, 它已成为世界上最广泛采用的深层学习框架之一 (依据GitHub 项目的Star数量)。
+ 
 
-## About TensorFlow
-
-TensorFlow is an open source deep learning framework that was released in late 2015 under the Apache 2.0 license. Since then, it has become one of the most widely adopted deep learning frameworks in the world (going by the number of GitHub projects based on it.).
-
-TensorFlow traces its origins from Google DistBelief, a proprietary production deep learning system developed by the Google Brain project. Google designed TensorFlow from the ground up for distributed processing and to run optimally on Google's custom application-specific integrated circuit (ASIC) called the Tensor Processing Unit (TPU) in its production data centers. This design makes TensorFlow efficient for deep learning applications.
-
+TensorFLow源于Google DistBelief, 一个由谷歌大脑项目开发的专业化产品级的深度学习系统。谷歌为分布式处理设计了 TensorFlow, 并在其生产数据中心的 "张量处理单元 (TPU)" 的自定义应用专用集成电路 (ASIC) 上进行了最佳的运行。这种设计使 TensorFlow高效应用于在深度学习上。
+ 
 The framework can run on the CPU, GPU, or TPU on servers, desktops, and mobile devices. Developers can deploy TensorFlow on multiple operating systems and platforms either locally or in the cloud. Many developers consider TensorFlow to have better support for distributed processing and greater flexibility and performance for commercial applications than similar deep learning frameworks such as Torch and Theano, which are also capable of hardware acceleration and widely used in academia.
 
 Deep learning neural networks typically consist of many layers. They transfer data or perform operations between layers using multidimensional arrays. A tensor flows between the layers of a neural network—thus, the name TensorFlow.
