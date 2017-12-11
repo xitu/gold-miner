@@ -4193,7 +4193,7 @@
 |------|-------|-------|
 |[加密货币泡沫为什么会破裂？](https://juejin.im/post/5a28038351882561a20a5aed)|翻译|5|
 
-## 译者：[damonYuan](https://github.com/damonYuan) 历史贡献积分：5 当前积分：5
+## 译者：[damonYuan](https://github.com/damonYuan) 历史贡献积分：3 当前积分：3
 
 |文章|类型|积分|
 |------|-------|-------|
