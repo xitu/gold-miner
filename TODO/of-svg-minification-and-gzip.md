@@ -3,13 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/of-svg-minification-and-gzip.md](https://github.com/xitu/gold-miner/blob/master/TODO/of-svg-minification-and-gzip.md)
 > * 译者：[lsvih](https://github.com/lsvih)
-> * 校对者：
+> * 校对者：[HuskyDoge](https://github.com/HuskyDoge), [atuooo](https://github.com/atuooo)
 
 # 从 Gzip 压缩 SVG 说起 — 论如何减小资源文件的大小
 
 ![](https://cdn-images-1.medium.com/max/800/1*p926hOBc0YrbqPceYbLk0A.png)
 
-文件越小，下载的也就越快。因此在向客户端发送资源文件前，使其变得更小是很有必要的事情。
+文件越小，意味着下载速度就越快。因此在向客户端发送资源文件前，使文件变得更小是很有必要的事情。
 
 其实，精简与压缩资源文件不仅是一件很棒的事情，同时也是每一位现代开发者应该尽量去做的事情。但是，用于精简的工具通常无法做到完美精简；用于压缩的压缩器效果好坏会取决于用于压缩的数据。下面介绍一些小技巧与方法，用于调整这些工具，使其达到最好的工作状态。
 
@@ -21,7 +21,7 @@
 
 这个`<svg>`图像的内容为一个 10x10 像素的区域（`viewBox`）包含了两个 6x6 的正方形（`<rect>`）。原始文件大小为 176 字节，经过 gzip 压缩过后大小为 138 字节。
 
-当然这个图像并没有什么艺术感，但它对于这篇篇幅短小的文章来说够意思了。（不然就要写篇论文了）
+当然这个图像并没有什么艺术感，但它足以满足这篇文章想要表达的意思，并且防止这篇文章变成长篇大论。
 
 ### 第 0 步：Svgo
 
