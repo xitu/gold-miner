@@ -39,6 +39,7 @@ As part of this migration into our single-page app, I wanted to investigate any 
 **通过解析、修复、再解析的流程，我们极大地提高了这个关键页的交互性能，使得预订体验更加顺畅，更令人满意**。在这篇文章中，您将了解到我用来解析这个页面的技术，用来优化它的工具，以及在解析结果给出的火焰图表中感受影响的程度。
 
 ### Methodology
+### 方法
 
 These profiles were recorded via Chrome’s Performance tool by:
 
@@ -48,13 +49,25 @@ These profiles were recorded via Chrome’s Performance tool by:
 4. Interacting with the page _(e.g. scrolling, clicking, typing)_
 5. Clicking the record button 🔴 again and interpreting the results
 
+这些配置项通过Chrome的性能工具被记录下来:
+
+1. 打开隐身窗口（这样我的浏览器扩展工具不会干扰我的解析）。
+2. 使用 `?react_perf` 在查询字符串中进行配置访问本地开发页面（启用 React 的 User Timing 注释，并禁用一些仅限于 dev-only 的功能，例如 [axe-core](https://www.axe-core.org/)）
+3. 点击 record 按钮 ⚫️
+4. 操作页面（如：滚动，点击，打字）
+5. 再次点击 record 按钮 🔴，分析结果
+
 ![](https://cdn-images-1.medium.com/max/800/1*w_bDwdT9s_d25W7qE-DZ1g.gif)
 
 _Normally, I advocate for profiling on mobile hardware like a Moto C Plus or with CPU throttling set to 6x slowdown, to understand what folks on slower devices experience. However, since these problems were bad enough it was plainly obvious what the opportunities were on my super fast laptop even without throttling._
 
+**通常情况下，我推荐在移动硬件上进行解析以了解在较慢的设备上的用户体验，比如 Moto C Plus，或者 CPU 节流设置为 6x 减速。然而，由于这些问题已经够很严重了，以至于在我的高性能笔记本电脑上即使是在没有节流的情况下，结果表现也是明显得糟糕。**
+
 ### Initial render
+### 初始化渲染
 
 When I started working on this page, I noticed a warning in my console: 💀
+在我开始优化这个页面时，我注意到控制台上有一个警告:💀
 
 ```
 webpack-internal:///36:36 Warning: React attempted to reuse markup in a container but the checksum was invalid. This generally means that you are using server rendering and the markup generated on the server was not what the client was expecting. React injected new markup to compensate which works but you have lost many of the benefits of server rendering. Instead, figure out why the markup being generated is different on the client or server: (client) ut-placeholder-label screen-reader-only" (server) ut-placeholder-label" data-reactid="628"
@@ -62,7 +75,11 @@ webpack-internal:///36:36 Warning: React attempted to reuse markup in a containe
 
 This is the dreaded server/client mismatch, which happens when the server renders something differently than what the client renders on the initial mount. This forces your web browser to do work that it shouldn’t have to do when using server rendering, so React gives you this handy ✋ warning whenever it happens.
 
+这是可怕的 server/client 不匹配问题，当服务器渲染不同于客户端初始化渲染时发生。这会迫使您的 Web 浏览器执行在使用服务器渲染时不应该做的工作，所以每当发生这种情况时 React 就会做出这样的提醒 ✋ 。
+
 Unfortunately, the error message isn’t super clear about exactly where this happens or what the cause might be, but we do have some clues. 🔎 I noticed a bit of text that looked like a CSS class, so I hit the terminal with:
+
+不过，错误信息并不是很清楚的表述到底发生了什么，或者原因可能是什么，但确实给了我们一些线索。🔎 我注意到一些看起来像CSS类的文本，所以我用下面的命令打开了终端：
 
 ```
 ~/airbnb ❯❯❯ ag ut-placeholder-label
@@ -79,11 +96,17 @@ spec/javascripts/components/o2/PlaceholderLabel_spec.jsx
 
 This narrowed down my search pretty quickly to something called `o2/PlaceHolderLabel.jsx`, which is the component that is rendered at the top of the reviews section for searching. 🔍
 
+很快地我将搜索范围缩小了 `o2/PlaceHolderLabel.jsx`，一个在顶部渲染的搜索组件。
+
 ![](https://cdn-images-1.medium.com/max/800/0*M_D7Zs1HFsSoY7Po.)
 
 It turned out that we used some feature detection to make sure the placeholder was visible in older browsers, like Internet Explorer, by rendering the input differently if placeholders were not supported in the current browser. Feature detection is the right way to do this (as opposed to user agent sniffing), but since there is no browser to feature detect against when server rendering, the server would always render a little bit of extra content than what most browsers will render.
 
+事实上，我们使用了一些特征检测，以确保在旧浏览器(如 IE)中可以看到 `placeholder`，如果在当前的浏览器中不支持 `placeholder`，则会以不同的方式呈现 `input`。特征检测是正确的方法(与用户代理嗅探相反)，但是由于在服务器渲染时没有浏览器检测功能，导致服务器总是会渲染一些额外的内容，而不是大多数浏览器将呈现的内容。 
+
 Not only did this hurt performance, it also caused an extra label to be visibly rendered and then removed from the page every time. Janky! I fixed this by moving the rendering of this content into React state and set it in `componentDidMount`, which is not run until the client renders. 🥂
+
+这不仅降低了性能，还导致了一个额外的标签被渲染出来，然后每次再从页面上删除。赞！我将此内容的渲染转化为 React 的 state，并将其设置到了 `componentDidMount`，直到客户端渲染时才呈现，解决了问题。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*Dz_-rY84jnCQrWhrlNkECw.png)
 
