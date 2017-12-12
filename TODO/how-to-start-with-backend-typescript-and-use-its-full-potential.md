@@ -105,15 +105,23 @@ Usually I store them in /controllers folder
 
 **TypeDI: dependency injection, services**
 
+**TypeDI: 依赖注入，services**
+
 [https://github.com/pleerock/typedi](https://github.com/pleerock/typedi)
 
 This one gave my project structure and easement to code and not think “well where to store service, is this even service? hmm maybe another, but… how it will depend on to another? how one service will be using another hm..”
 
+这个库帮我定好了项目结构，方便编码并且不用去想“好吧 service 存在哪里，这个是 service ？唔或许是另一个，但是。。。它怎么依赖另一个 service ？怎么引用其他 service 呣。。。”
+
 Returning to my PlayerService, here part of it for you to observer what it has as dependencies (which are another services):
+
+回到我的 PlayerService，下面这部分你可以看到它依赖了什么 （其他 services）：
 
 ![](https://cdn-images-1.medium.com/max/800/1*lpTGJEYWTCr18jjm8uAnbg.png)
 
 @Inject is one of the most useful decorators I discovered for myself in terms of working with services and serious logic-full backend application.
+
+
 
 (if you are wondering about @OrmEntityManager — it’s from another @pleerock library, which will be described later)
 
