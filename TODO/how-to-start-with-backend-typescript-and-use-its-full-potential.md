@@ -121,19 +121,31 @@ Returning to my PlayerService, here part of it for you to observer what it has a
 
 @Inject is one of the most useful decorators I discovered for myself in terms of working with services and serious logic-full backend application.
 
-
+@Inject 对我来说是在处理 services 和逻辑完整的后端应用方面最好用的装饰器。
 
 (if you are wondering about @OrmEntityManager — it’s from another @pleerock library, which will be described later)
 
+（如果你想了解 @OrmEntityManager —— 另一个来自 @pleerock 的库，稍后我将讲解）
+
 Yes, you can have many services that depend on another services. And even if you have circular service dependency, you can overcome this issue by defining type explicitly (library documentation covers most of issues and cases)
+
+是的，你可以有很多依赖其他 services 的 services。并且如果你有 service 循环依赖，你可以通过明确地定义类型来解决这个问题（库的文档涵盖了大部分的问题和情景）
 
 For those who is not familiar with services, service container, dependency injection in services etc. Short info:
 
+对那些不熟悉 services， service 容器， services 依赖注入等的朋友。简要说明：
+
 You have functionality of some sort, and you want it to be stored in class, and you want one instance of this class and also you want this class to be dependent on another, another etc. Dependency Injection with service container got you covered. You will get services from Container and it will handle all the dependencies of services by itself, giving you your working instance with all other instances injected automatically.
+
+你有某种功能，想把它存在类中，然后你想要类的实力并且想让这个类依赖另一个，另一个等。service 容器的依赖注入可以为你保驾护航。你可以从容器中获取 services 并且他会自己处理 services 的所有依赖，给你你的工作实例其他实例自动注入。
 
 My description of this library doesn’t cover its full potential (you can check it’s documentation and see for yourself — there is much more to work with): you can define services with names, you can define constructor injection etc.
 
+我关于这个库的描述并不涵盖所有潜能（你可以自己查看它的文档——有更多的特性可以使用）：你可以在定义 services 时给它命名，还可以定义构造器注入等。
+
 Usually I store my services under /services folder.
+
+通常我把我的 services 存在 /services 文件夹。
 
 **TypeORM: very easy to use ORM for defining entities with relations, different column types and different data storing solutions (relation, non-relation)**
 
