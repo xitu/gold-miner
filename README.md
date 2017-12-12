@@ -41,40 +41,42 @@
 
 ## 区块链
 
+* [20 年后比特币将会变成什么样 - 第一部分](https://juejin.im/post/5a1e9c2d6fb9a044fa19a036) ([ZiXYu](https://github.com/ZiXYu) 翻译)
 * [僵尸币时代即将到来?](https://juejin.im/post/5a0e82315188252ae93a843a) ([wendylinlin](https://github.com/wendylinlin) 翻译)
 * [从零到一用 Python 写一个区块链](https://juejin.im/entry/59faa0ed51882576ea3507de) ([cdpath](https://github.com/cdpath) 翻译)
 * [区块链中的共识机制 DBFT](https://juejin.im/entry/59cba85ef265da06507542a4) ([Romeo0906](https://github.com/Romeo0906) 翻译)
+* [所有区块链译文>>](https://github.com/xitu/gold-miner/blob/master/blockchain.md)
 
 ## 人工智能
 
+* [如何使用 Golang 中的 Go-Routines 写出高性能的代码](https://juejin.im/post/5a17c0f9f265da431a42e060) ([tmpbook](https://github.com/tmpbook) 翻译)
 * [RNN 循环神经网络系列 4: 注意力机制](https://juejin.im/post/59f72f61f265da432002871c?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([TobiasLee](https://github.com/TobiasLee) 翻译)
 * [Keras 中构建神经网络的 5 个步骤](https://juejin.im/post/59e43b5b6fb9a0452a3b5f4f?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lsvih](https://github.com/lsvih) 翻译)
 * [RNN 循环神经网络系列 3：编码、解码器](https://juejin.im/post/59fc1616f265da432b4a2d44?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([changkun](https://github.com/changkun) 翻译)
-* [RNN 循环神经网络系列 5: 自定义单元](https://juejin.im/post/59fbd28b6fb9a045204b91f2?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lsvih](https://github.com/lsvih) 翻译)
 * [所有 AI 译文>>](https://github.com/xitu/gold-miner/blob/master/AI.md)
 
 ## Android
 
-* [在 Android O 上用到 MediaStyle 的提醒功能](https://juejin.im/post/5a015d696fb9a04524053bce) ([ppp-man](https://github.com/ppp-man) 翻译)
+* [ViewModel：持久化、onSaveInstanceState()、UI 状态恢复和 Loader](https://juejin.im/post/5a17b3965188255ea95ba2d9) ([Feximin](https://github.com/Feximin) 翻译)
+* [理解音频焦点（第3/3部分）：在应用中实施音频聚焦的 3 个步骤](https://juejin.im/post/5a153ee7f265da432717e070) ([oaosj](https://github.com/oaosj) 翻译)
+* [理解音频焦点（第2/3部分）：更多的音频焦点用例](https://juejin.im/post/5a153a906fb9a044fa198228) ([oaosj](https://github.com/oaosj) 翻译)
 * [理解音频焦点（第1/3部分）：常见的音频焦点用例](https://juejin.im/entry/5a0e6f3a5188251c1140315b) ([oaosj](https://github.com/oaosj) 翻译)
-* [ViewModels 简单入门指北](https://juejin.im/post/5a0905ad51882531bb6c4d98) ([huanglizhuo](https://github.com/huanglizhuo) 翻译)
-* [ViewModel 和 LiveData：为设计模式打 Call 还是唱反调？](https://juejin.im/post/5a040585f265da43346f5d57) ([boileryao](https://github.com/boileryao) 翻译)
 * [所有 Android 译文>>](https://github.com/xitu/gold-miner/blob/master/android.md)
 
 ## iOS
 
+* [基于 Metal 的 ARKit 使用指南（上）](https://juejin.im/post/5a225ffcf265da432153daa4) ([RichardLeeH](https://github.com/RichardLeeH) 翻译)
 * [处理 iOS 中复杂的 Table Views 并保持优雅](https://juejin.im/post/5a078ec3f265da431955c0d5?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([zhangqippp](https://github.com/zhangqippp) 翻译)
 * [Swift 上的高性能数组](https://juejin.im/post/59e84129f265da43128005ed?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([jingzhilehuakai](https://github.com/jingzhilehuakai) 翻译)
 * [如何在 iOS 上实现类似 Airbnb 中的可展开式菜单](https://juejin.im/post/59acdf2b6fb9a024763806cf?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([RichardLeeH](https://github.com/RichardLeeH) 翻译)
-* [结构体指针](https://juejin.im/post/59a60cc1f265da249a201ae9?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([swants](https://github.com/swants) 翻译)
 * [所有 iOS 译文>>](https://github.com/xitu/gold-miner/blob/master/ios.md)
 
 ## 前端
 
-* [前端 Console 调试小技巧](https://juejin.im/post/5a08087f6fb9a04529363d71) ([lsvih](https://github.com/lsvih) 翻译)
-* [ES6 中的元编程： 第三部分 - 代理（Proxies）](https://juejin.im/post/5a0f05496fb9a04508093ac4) ([yoyoyohamapi](https://github.com/yoyoyohamapi) 翻译)
+* [如何使用 AJAX 和 REST API 创建一个图表](https://juejin.im/post/5a20e18bf265da4318768b22) ([sakila1012](https://github.com/sakila1012) 翻译)
+* [JavaScript 如何工作的: 事件循环和异步编程的崛起 + 5 个关于如何使用 async/await 编写更好的技巧](https://juejin.im/post/5a221d35f265da43356291cc) ([balancelove](https://github.com/balancelove) 翻译)
 * [Angular、React、Vue 三剑客: 在 2017 年的比较](https://juejin.im/post/5a0d5df1f265da43062a542f) ([Raoul1996](https://github.com/Raoul1996) 翻译)
-* [元编程：Symbol，了不起的 Symbol](https://juejin.im/post/5a0e65c1f265da430702d6b9) ([yoyoyohamapi](https://github.com/yoyoyohamapi) 翻译)
+* [前端 Console 调试小技巧](https://juejin.im/post/5a08087f6fb9a04529363d71) ([lsvih](https://github.com/lsvih) 翻译)
 * [所有前端译文>>](https://github.com/xitu/gold-miner/blob/master/front-end.md)
 
 ## 后端

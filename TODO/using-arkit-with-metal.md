@@ -3,37 +3,39 @@
 > * 原文作者：[Marius Horga](https://twitter.com/gpu3d)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/using-arkit-with-metal.md](https://github.com/xitu/gold-miner/blob/master/TODO/using-arkit-with-metal.md)
-> * 译者：
-> * 校对者：
+> * 译者：[RichardLeeH](https://github.com/RichardLeeH)
+> * 校对者：[Danny1451](https://github.com/Danny1451)
 
-# Using ARKit with Metal
+# 基于 Metal 的 ARKit 使用指南（上）
 
 - [基于 Metal 的 ARKit 使用指南（上）](https://github.com/xitu/gold-miner/blob/master/TODO/using-arkit-with-metal.md)
 - [基于 Metal 的 ARKit 使用指南（下）](https://github.com/xitu/gold-miner/blob/master/TODO/using-arkit-with-metal-part-2.md)
 
-**Augmented Reality** provides a way of overlaying virtual content on top of real world views usually obtained from a mobile device camera. Last month at `WWDC 2017` we were all thrilled to see `Apple`’s new **ARKit** framework which is a high level `API` that works with `A9`-powered devices or newer, running on `iOS 11`. Some of the ARKit experiments we’ve already seen are outstanding, such as this one below:
+**增强现实**提供了一种将虚拟内容渲染到通过移动设备摄像头捕获的真实世界场景之上的方法。上个月，在 `WWDC 2017` 上，我们都非常兴奋地看到了 `苹果` 的新 **ARKit** 高级 API 框架，它运行于搭载 A9 处理器或更高配置的 `iOS 11` 设备上。我们看到的一些 ARKit 实验已相当出色，比如下面这个：
 
 ![alt text](https://github.com/MetalKit/images/blob/master/ARKit.gif?raw=true "ARKit")
 
-There are three distinct layers in an `ARKit` application:
+一个 `ARKit` 应用中包含 3 种不同的层：
 
-- **Tracking** - no external setup is necessary to do world tracking using visual inertial odometry.
-- **Scene Understanding** - the ability of detecting scene attributes using plane detection, hit-testing and light estimation.
-- **Rendering** - can be easily integrated because of the template `AR` views provided by `SpriteKit` and `SceneKit` but it can also be customized for `Metal`. All the pre-render processing is done by `ARKit` which is also responsible for image capturing using `AVFoundation` and `CoreMotion`.
 
-In this first part of the series we will be looking mostly at `Rendering` in `Metal` and talk about the other two stages in the next part of this series. In an `AR` application, the `Tracking` and `Scene Understanding` are handled entirely by the `ARKit` framework while `Rendering` can be handled by either `SpriteKit`, `SceneKit` or `Metal`:
+- **追踪层** - 不需要额外的配置就可以采用视觉惯性定位追踪场景。
+- **场景理解层** - 利用平面检测，点击检测和光照估计来检测场景属性的能力。
+- **渲染层** - 由于 SpriteKit 和 SceneKit 提供的模板 AR 视图，因此可以轻松集成，也可以使用 `Metal`自定义视图。所有的预渲染处理都是由 ARKit 完成的，它还负责使用 AVFoundation 和 CoreMotion 捕获图像。
+
+在本系列的第一部分中，我们将主要关注 `Metal` 下的 `渲染`，并在本系列的下一部分讨论其他两个部分。在一个 `AR` 应用中，`追踪层` 和 `场景理解层` 完全由 `ARKit` 框架处理，而 `渲染层` 由 `SpriteKit`、`SceneKit` 或 `Metal` 处理：
 
 ![alt text](https://github.com/MetalKit/images/blob/master/ARKit1.png?raw=true "ARKit 1")
 
-To get started, we need to have an **ARSession** instance that is set up by an **ARSessionConfiguration** object. Then, we call the **run()** function on this configuration. The session also has **AVCaptureSession** and **CMMotionManager** objects running at the same time to get image and motion data for tracking. Finally, the session will output the current frame to an **ARFrame** object:
+开始之前，我们需要通过一个 **ARSessionConfiguration** 对象创建一个 **ARSession** 实例，接着我们在这个配置上调用 **run()** 方法。ARSession 同时会依赖 **AVCaptureSession** 和 **CMMotionManager** 运行对象来获取追踪的图像和运动数据。最后，ARSession 将会输出当前 frame 到一个 **ARFrame** 对象。
 
 ![alt text](https://github.com/MetalKit/images/blob/master/ARKit2.png?raw=true "ARKit 2")
 
-The `ARSessionConfiguration` object contains information about the type of tracking the session will have. The `ARSessionConfiguration` base configuration class provides **3** degrees of freedom tracking (the device _orientation_) while its subclass, **ARWorldTrackingSessionConfiguration**, provides **6** degrees of freedom tracking (the device _position_ and _orientation_).
+`ARSessionConfiguration` 对象包含了会话将会使用的追踪类型信息。 `ARSessionConfiguration` 基础配置类提供了 **3** 个自由度的运动追踪 (设备 **方向**) 而其子类 **ARWorldTrackingSessionConfiguration**，提供了 **6** 个自由度的运动追踪 (设备 **位置** 和 **方向**)。
 
 ![alt text](https://github.com/MetalKit/images/blob/master/ARKit4.png?raw=true "ARKit 4")
 
-When a device does not support world tracking, it falls back to the base configuration:
+当设备不支持真实场景追踪时，它会采用基本配置：
+
 
 ```
 if ARWorldTrackingSessionConfiguration.isSupported { 
@@ -43,9 +45,9 @@ if ARWorldTrackingSessionConfiguration.isSupported {
 }
 ```
 
-An `ARFrame` contains the captured image, tracking information and well as scene information via **ARAnchor** objects that contain information about real world position and orientation and can be easily added, updated or removed from sessions. `Tracking` is the ability to determine the physical location in real time. The `World Tracking` however, determines both position and orientation, it works with physical distances, it’s relative to the starting position and provides `3D`-feature points.
+ `ARFrame` 包含捕获的图像，跟踪信息以及通过 **ARAnchor** 对象获取的场景信息，，**ARAnchor ** 对象包含有关真实世界位置和方向的信息，并且可以轻松地添加，更新或从会话中删除。`跟踪`是实时确定物理位置的能力。 然而，`世界追踪`决定了位置和方向，它与物理距离一起工作，相对于起始位置并提供`3D`特征点。
 
-The last component of an `ARFrame` are **ARCamera** objects which facilitate transforms (translation, rotation, scaling) and carry tracking state and camera intrinsics. The quality of tracking relies heavily on uninterrupted sensor data, static scenes and is more accurate when scenes have textured environment with plenty of complexity. Tracking state has three values: **Not Available** (camera only has the identity matrix), **Limited** (scene has insufficient features or is not static enough) and **Normal** (camera is populated with data). Session interruptions are caused by camera input not being available or when tracking is stopped:
+`ARFrame` 的最后一个组件是 **ARCamera** 对象，它便于转换（平移，旋转，缩放），并且包含了跟踪的状态和相机的相关方法。跟踪质量在很大程度上依赖于不间断的传感器数据，静态场景，并且在场景纹理复杂的环境中更加准确。跟踪状态有三个值：**不可用**（摄像机只有单位矩阵），**限制**（场景功能不足或不够静态）和 **正常**（摄像机被填充数据）。 会话中断是由于相机输入不可用或停止跟踪造成的：
 
 ```
 func session(_ session: ARSession, cameraDidChangeTrackingState camera: ARCamera) { 
@@ -62,16 +64,17 @@ func sessionInterruptionEnded(_ session: ARSession) {
 }
 ```
 
-`Rendering` can be done in `SceneKit` using the `ARSCNView`’s delegate to add, update or remove nodes. Similarly, rendering can be done in `SpriteKit` using the `ARSKView` delegate which maps `SKNodes` to `ARAnchor` objects. Since `SpriteKit` is `2D`, it cannot use the real world camera position, so it projects the anchor positions into the `ARSKView` and then renders the sprite as a billboard (plane) at this projected location, so the sprite will always be facing the camera. For `Metal`, there is no customized `AR` view so that responsibility falls in programmer’s hands. For processing of rendered images we need to:
+在 `SceneKit` 中使用 `ARSCNView` 的代理进行`渲染`，包括添加，更新或者删除节点。类似的，`SpriteKit` 使用  `ARSKView` 的代理将`SKNodes` 映射为 `ARAnchor` 对象。由于 `SpriteKit` 为 `2D`，因此它不能使用真实世界的摄像头位置，所以它将锚点的位置投影到 `ARSKView`，并在投影的位置上将精灵渲染为一个广告牌（平面），所以精灵会一直面对着摄像头。对于 `Metal`，没有自定义的 `AR` 视图，所以重任就落在了程序员手里。为了处理渲染的图像，我们需要：
 
-- draw background camera image (generate a texture from the pixel buffer)
-- update the virtual camera
-- update the lighting
-- update the transforms for geometry
+- 绘制背景摄像机图像 (从像素缓冲区生成一个纹理)
+- 更新虚拟摄像头
+- 更新光照
+- 更新几何图形的变换
 
-All this information is in the `ARFrame` object. To access the frame, there are two options: _polling_ or using a _delegate_. We are going to describe the latter. I took the `ARKit` template for `Metal` and stripped it down to a minimum so I can better understand how it works. First thing I did was to remove all the `C` dependencies so bridging is not necessary anymore. It will be useful in the future to have it in place so types and enum constants can be shared between `API` code and shaders but for the purpose of this article it is not needed.
+所有这些信息都在 `ARFrame` 对象中。获取 frame，有两种方式：轮询或使用代理。我们将简单介绍后者。我使用了 `Metal` 的 `ARKit` 模板，把它精简到最小，这样我就能更好地理解它是如何工作的。我做的第一件事是移除所有的 `C` 依赖，这样就不需要桥接。它在以后会很有用，因为类型和枚举常量可以在 `API` 代码和着色器之间共享，但这篇文章的目的并不需要。
 
-Next, on to **ViewController** which will act as both our `MTKView` and `ARSession` delegates. We create a `Renderer` instance that will work with the delegates for real time updates to the application:
+接着，回到 **ViewController** 上，它需要作为 `MTKView` 和 `ARSession` 的代理。我们创建一个 `Renderer` 实例，用于同代理一起实时更新应用：
+
 
 ```
 var session: ARSession!
@@ -92,7 +95,7 @@ override func viewDidLoad() {
 }
 ```
 
-As you can see, we also added a gesture recognizer which we will use to add virtual content to our view. We first get the session’s current frame, then create a translation to put our object in front of the camera (**0.3** meters in this case) and finally add a new anchor to our session using this transform:
+正如你所看到的，我们还添加了一个手势识别，用于在场景中添加虚拟内容。首先，我们获取会话的当前帧，接着创建一个变换将我们的实体放到摄像头前（本例中 **0.3** 米），最后使用这个变换在会话中添加一个新的锚点。
 
 ```
 func handleTap(gestureRecognize: UITapGestureRecognizer) {
@@ -106,7 +109,7 @@ func handleTap(gestureRecognize: UITapGestureRecognizer) {
 }
 ```
 
-We use the **viewWillAppear()** and **viewWillDisappear()** methods to start and pause the session:
+我们分别使用 **viewWillAppear()** 和 **viewWillDisappear()** 方法启动和暂停会话：
 
 ```
 override func viewWillAppear(_ animated: Bool) {
@@ -121,7 +124,7 @@ override func viewWillDisappear(_ animated: Bool) {
 }
 ```
 
-What’s left is only the delegate methods which we need to react to view updates or session errors and interruptions:
+剩下的就是我们需要实现视图更新、会话错误和中断的代理方法：
 
 ```
 func mtkView(_ view: MTKView, drawableSizeWillChange size: CGSize) {
@@ -139,7 +142,7 @@ func sessionWasInterrupted(_ session: ARSession) {}
 func sessionInterruptionEnded(_ session: ARSession) {}
 ```
 
-Let’s move to the **Renderer.swift** file now. The first thing to notice is the use of a very handy protocol that will give us access to all the `MTKView` properties we need for the draw call later:
+打开 **Renderer.swift** 文件。要注意的第一件事是使用一个非常方便的协议，它可以让我们访问所有的 `MTKView`属性：
 
 ```
 protocol RenderDestinationProvider {
@@ -151,13 +154,13 @@ protocol RenderDestinationProvider {
 }
 ```
 
-Now you can simply extend the `MTKView` class (in `ViewController`) so it conforms to this protocol:
+现在我们可以扩展  `MTKView` 类(在 `ViewController`中)，以便其遵守这个协议：
 
 ```
 extension MTKView : RenderDestinationProvider {}
 ```
 
-To have a high level view of the `Renderer` class, here is the pseudocode:
+`Renderer` 类的高级视图，以下为伪代码：
 
 ```
 init() {
@@ -176,7 +179,7 @@ func update() {
 }
 ```
 
-As always, we first setup the pipeline, here with the **setupPipeline()** function. Then, in **setupAssets()** we create our model which will be loaded every time we use our tap gesture recognizer. The `MTKView` delegate will call the **update()** function for the needed updates and draw calls. Let’s look at each of them in detail. First we have **updateBufferStates()** which updates the locations we write to in our buffers for the current frame (we use a ring buffer with **3** slots in this case):
+和往常一样，我们首先使用 **setupPipeline()** 函数设置管道。 然后，在 **setupAssets()**中，我们创建了模型，每当我们使用我们的单击手势时，模型将被加载。 `MTKView` 委托将调用 **update()** 函数获取所需更新并绘制。 我们详细介绍他们。 首先我们看看  **updateBufferStates()**，它更新我们写入当前帧的缓冲区的位置（本实例中，我们使用一个  **3** 个槽的环形缓冲区）：
 
 ```
 func updateBufferStates() {
@@ -188,7 +191,7 @@ func updateBufferStates() {
 }
 ```
 
-Next, in **updateSharedUniforms()** we update the shared uniforms of the frame and set up lighting for the scene:
+在 **updateSharedUniforms()** 方法中，我们更新 `frame` 的共享 `uniform` 变量并设置场景的光照：
 
 ```
 func updateSharedUniforms(frame: ARFrame) {
@@ -210,7 +213,7 @@ func updateSharedUniforms(frame: ARFrame) {
 }
 ```
 
-Next, in **updateAnchors()** we update the anchor uniform buffer with transforms of the current frame’s anchors:
+在 **updateAnchors()** 方法中，我们用当前 frame 的锚点的变换来更新锚定元素缓冲区：
 
 ```
 func updateAnchors(frame: ARFrame) {
@@ -230,7 +233,7 @@ func updateAnchors(frame: ARFrame) {
 }
 ```
 
-Next, in **updateCapturedImageTextures()** we create two textures from the provided frame’s captured image:
+在 **updateCapturedImageTextures()** 方法中，我们从提供的帧捕获的图像中创建两个纹理：
 
 ```
 func updateCapturedImageTextures(frame: ARFrame) {
@@ -241,7 +244,7 @@ func updateCapturedImageTextures(frame: ARFrame) {
 }
 ```
 
-Next, in **updateImagePlane()** we update the texture coordinates of our image plane to aspect fill the viewport:
+在 **updateImagePlane()** 方法中，我们更新图像屏幕的纹理坐标，让它能够保持比例并填满整个视图：
 
 ```
 func updateImagePlane(frame: ARFrame) {
@@ -257,7 +260,7 @@ func updateImagePlane(frame: ARFrame) {
 }
 ```
 
-Next, in **drawCapturedImage()** we draw the camera feed in the scene:
+在 **drawCapturedImage()** 方法中，我们在场景中绘制摄像头：
 
 ```
 func drawCapturedImage(renderEncoder: MTLRenderCommandEncoder) {
@@ -274,7 +277,7 @@ func drawCapturedImage(renderEncoder: MTLRenderCommandEncoder) {
 }
 ```
 
-Finally, in **drawAnchorGeometry()** we draw the anchors for the virtual content we created:
+最后，在 **drawAnchorGeometry()** 中为我们创建的虚拟内容绘制锚点：
 
 ```
 func drawAnchorGeometry(renderEncoder: MTLRenderCommandEncoder) {
@@ -297,7 +300,7 @@ func drawAnchorGeometry(renderEncoder: MTLRenderCommandEncoder) {
 }
 ```
 
-Back to the **setupPipeline()** function which we briefly mentioned earlier. We create two render pipeline state objects, one for the captured image (the camera feed) and one for the anchors we create when placing virtual objects in the scene. As expected, each of the state objects will have their own pair of vertex and fragment functions - which brings us to the last file we need to look at - the **Shaders.metal** file. In the first pair of shaders for the captured image, we pass through the image vertex’s position and texture coordinate in the vertex shader:
+回到我们前面简要提到的 **setupPipeline()** 方法。我们创建两个渲染管道状态的对象，一个用于捕获的图像(摄像头) ，另一个用于在场景中放置虚拟对象时创建的锚点。正如预期的那样，每个状态对象都有自己的一对顶点和片段函数 - 它把我们带到我们需要查看的最后一个文件 -  **Shaders.metal** 文件。在第一对被捕获图像的着色部分，在顶点着色器中，我们传入图像的顶点位置和纹理坐标参数：
 
 ```
 vertex ImageColorInOut capturedImageVertexTransform(ImageVertex in [[stage_in]]) {
@@ -308,7 +311,7 @@ vertex ImageColorInOut capturedImageVertexTransform(ImageVertex in [[stage_in]])
 }
 ```
 
-In the fragment shader we sample the two textures to get the color at the given texture coordinate after which we return the converted `RGB` color:
+在片段着色器中，我们对两个纹理进行采样，得到给定纹理坐标下的颜色，然后返回转换后的 `RGB` 颜色：
 
 ```
 fragment float4 capturedImageFragmentShader(ImageColorInOut in [[stage_in]],
@@ -324,7 +327,8 @@ fragment float4 capturedImageFragmentShader(ImageColorInOut in [[stage_in]],
 }
 ```
 
-In the second pair of shaders for the anchor geometry, in the vertex shader we calculate the position of our vertex in clip space and output for clipping and rasterization, then color each face a different color, then calculate the positon of our vertex in eye space and finally rotate our normals to world coordinates:
+对于第二个几何锚点的着色器，在顶点着色器中，我们计算我们顶点在剪辑空间中的位置，并输出剪裁和光栅化，然后为每个面着色不同的颜色，然后计算观察坐标空间中顶点的位置，最后将我们的坐标系转换到世界坐标系：
+
 
 ```
 vertex ColorInOut anchorGeometryVertexTransform(Vertex in [[stage_in]],
@@ -351,7 +355,7 @@ vertex ColorInOut anchorGeometryVertexTransform(Vertex in [[stage_in]],
 }
 ```
 
-In the fragment shader, we calculate the contribution of the directional light as a sum of diffuse and specular terms, then we compute the final color by multiplying the sample from the color maps by the fragment’s lighting value and finally use the color we just computed and the alpha channel of the color map for this fragment’s alpha value:
+在片段着色器中，我们计算定向光的贡献作为漫反射和镜面反射项的总和，然后我们通过将颜色映射的采样乘以片段的光照值来计算最终的颜色，最后我们用刚刚计算出来的颜色和颜色映射的 alpha 通道的值作为该片段的 alpha 的值：
 
 ```
 fragment float4 anchorGeometryFragmentLighting(ColorInOut in [[stage_in]],
@@ -374,14 +378,13 @@ fragment float4 anchorGeometryFragmentLighting(ColorInOut in [[stage_in]],
 }
 ```
 
-If you run the app, you should be able to tap on the screen to add cubes on top of your live camera view, and move away or closer or around the cubes to see their different colors on each face, like this:
+如果你运行这个程序，你就可以点击屏幕并在实时摄像头视图中添加立方体，然后移动或靠近这些立方体观察每个面的不同颜色，就像这样：
 
 ![alt text](https://github.com/MetalKit/images/blob/master/ARKit1.gif?raw=true "ARKit 1")
 
-In the next part of the series we will look more into `Tracking` and `Scene Understanding` and see how plane detection, hit-testing, collisions and physics can make our experience even greater. The [source code](https://github.com/MetalKit/metal) is posted on `Github` as usual.
+在本系列的下一部分，我们将会更深入的研究 `追踪层` 和 `场景解析层` 并了解并了解平面检测，撞击测试，碰撞和物理效果如何使我们的体验更加丰富。 [源代码](https://github.com/MetalKit/metal) 已经发布到 `GitHub`。
 
-Until next time!
-
+下次见！
 
 ---
 
