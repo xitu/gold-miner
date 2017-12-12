@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/shrinking-apks-growing-installs.md](https://github.com/xitu/gold-miner/blob/master/TODO/shrinking-apks-growing-installs.md)
 > * 译者：[tanglie1993](https://github.com/tanglie1993)
-> * 校对者：
+> * 校对者：[swants](http://www.swants.cn), [corresponding](https://github.com/corresponding)
 
 # 缩小APK，增加下载量
 
@@ -11,24 +11,24 @@
 
 ![](https://cdn-images-1.medium.com/max/800/0*f1gQ1k1n3_d4-x9t.)
 
-自从 Android Marketplace （Google Play 的前身）在 2012 年 3 月上线以来，**app 的平均大小增长了四倍**。随着移动 app 的不断成熟，开发者们不断增加新的特性来服务和吸引用户，这使不少人从中受益。然而，随着 app 的特性越来越多——更多 SDK、更高分辨率的图片、更好的图形——APK 也变得越来越大。在本文中，我讨论了 APK 大小的重要性，并且分析了 Google 在过去 2 年中所做的用户体验研究的结果。
+自从 Android Marketplace （Google Play 的前身）在 2012 年 3 月上线以来，**app 的平均大小增长了四倍**。随着移动 app 的不断成熟，开发者们不断增加新的特性来服务和吸引用户，这使不少人从中受益。然而，随着 app 的特性越来越多——更多 SDK、更高分辨率的图片、更好的图形—— APK 也变得越来越大。在本文中，我讨论了 APK 大小的重要性，并且分析了 Google 在过去 2 年中所做的用户体验研究的结果。
 ![](https://cdn-images-1.medium.com/max/800/0*nLLV6VxsHaagxgCk.)
 
-下载的APK的平均大小随时间的变化（Google 内部数据）
+下载的 APK 的平均大小随时间的变化（Google 内部数据）
 
-发现 APK 在变大之后，我们分析了 APK 大小对下载转化率的影响。我们发现，**更小的 APK 对应着更高的下载转化率**，对于新兴市场中的用户而言尤其如此。因为许多开发者把注意力投入到向新市场（特别是新兴市场）扩张中去，所以关注 app 的大小就显得很重要。
+发现 APK 在变大之后，我们分析了 APK 大小对下载转化率的影响。我们发现，**更小的 APK 对应着更高的下载转化率**，对于新兴市场中的用户而言尤其如此。在许多开发者把注意力投入到向新市场（特别是新兴市场）扩张中去的情况下，关注 app 的大小就显得很重要。
 
-### **APK 尺寸是否会影响下载转化率？**
+### **APK 大小是否会影响下载转化率？**
 
 为了研究 APK 大小对用户的选择是否有显著影响，我们分析了**用户在浏览了 Play store 中的一个项目之后成功下载这个 app 的百分比**。
 
 ![](https://cdn-images-1.medium.com/max/800/1*XxnZXaLarvTKJD-pnhVBUg.png)
 
-在点击“Read More”之后，你可以在 App store 的相应页面中看到一个 app 的大小。
+在 App store  的相应页面中，你可以通过点击“Read More”看到一个 app 的大小。
 
-这看起来还是有些意义的！总的来说，我们发现在小于 100 MB 的情况下，APK 大小和下载转化率之间存在负相关。**一个 APK 的尺寸每增长 6 MB，下载转化率就有 1% 的降低**。在市场团队使用 A/B 测试来优化下载转化率的情况下，APK 大小会有重大影响。
+这看起来还是有些意义的！总的来说，我们发现在小于 100 MB 的情况下，APK 大小和下载转化率之间存在负相关。**一个 APK 的大小每增长 6 MB，下载转化率就有 1% 的降低**。在市场团队使用 A/B 测试来优化下载转化率的情况下，APK 大小会有重大影响。
 
-这个下降中的一个重要部分不是因为用户选择了不下载，而是下载由于种种原因没有成功。我们发现，一个 10MB 的 app 的下载完成率将比 100MB 的 app 高**30%**。
+这个下降中的一个重要部分不是因为用户选择了不下载，而是下载由于种种原因没有成功。我们发现，一个 10MB 的 app 的下载完成率将比 100MB 的 app 高**大约 30%**。
 
 这可能是因为：
 
@@ -36,9 +36,9 @@
 2. 在他们的移动网络或 wifi 中的 **下载所需时间** （人们经常陷入“我现在就要这个 app！”的思维模式）。
 3. 下载过程中的 **网络连接性问题**。
 
-### **人们对 APK 大小的偏好和下载转化率是否会因地理位置而异？**
+### **人们对 APK 大小的偏好和下载转化率是否会因地域而异？**
 
-这是一个好问题，答案是肯定的。新兴市场中有许多没有稳定 wifi 的用户，他们是要根据下载 APK 的大小来付费的。
+这是一个好问题，答案是肯定的。在新兴市场中，有许多没能使用到稳定 wifi 的用户，他们需要支付流量的费用。
 
 **超过 50% 的印度和印尼安卓智能手机用户完全没有 wifi**。所以如果一个用户需要下载一个 app，他很可能要为 APK 的每一 MB 付费（Google 内部数据，2017年）。
 
@@ -66,28 +66,29 @@ APK 大小中位数，根据下载量加权，按市场分类。绿色 = 更大�
 
 ![](https://cdn-images-1.medium.com/max/800/1*oa_4HPWrqANWG7WKwJl3OQ.png)
 
-APK 每减小 10MB 对应下载转化率的增加，按市场分类（Google 内部数据）。
+APK 每缩小 10MB 对应下载转化率的增加，按市场分类（Google 内部数据）。
 
-从上图中，我们可以看到 APK 减小 10MB，在印度和巴西造成的影响会比德国、美国和日本更大。从 APK 中移除 10MB 内容，在新兴市场中对应着 **下载转化率 2.5% 的增长**。
+从上图中，我们可以看到 APK 缩小 10MB，在印度和巴西造成的影响会比德国、美国和日本更大。从 APK 中移除 10MB 内容，在新兴市场中对应着 **下载转化率 2.5% 的增长**。
 
-让我们把实际的数字填入下载转化率的增长中：如果你的 app 在印度每个月有 10000 下载量，转化率 20%，减小 10MB 可以使得下载量每月增加 1140 左右。
+让我们把实际的数字填入下载转化率的增长中：如果你的 app 在印度每个月有 10000 下载量，转化率 20%，缩小 10MB 可以使得下载量每月增加 1140 左右。
 
-最后，当把非游戏的 app 和游戏比较时，我们可以在下载转化率和 APK 大小之间看到类似的关系。但是，对于超过 500MB 的游戏而言，用户们对于 APK 尺寸的微小变化更不敏感。对于 500-3000MB 的游戏而言，APK 每减小 200MB，下载转化率只增加 1%。
+最后，当把非游戏的 app 和游戏比较时，我们可以在下载转化率和 APK 大小之间看到类似的关系。但是，对于超过 500MB 的游戏而言，用户们对于 APK 大小的微小变化更不敏感。对于 500-3000MB 的游戏而言，APK 每缩小 200MB，下载转化率只增加 1%。
 
-### **那么，我是否应该减小 APK 尺寸？如果应该，该怎么做？**
+### **那么，我是否应该缩小 APK？如果应该，该怎么做？**
 
-根据以上数据，很容易看出 APK 大小对于全世界人民来说是很重要的。
+根据以上数据很容易看出，对于全世界人民来说 APK 大小都是很重要的。
 
 “这很重要，” 你说，“但是我具体可以如何缩小 APK 呢？” 我很高兴你这样问了！缩小 APK 有以下几个入门要点：
 
-*   [**减小 APK 尺寸**](https://developer.android.com/topic/performance/reduce-apk-size.html)安卓开发者网站上的入门教材，它包含了移除不使用的资源和压缩图片文件。
+*   [**缩小 APK**](https://developer.android.com/topic/performance/reduce-apk-size.html)安卓开发者网站上的入门教材，它包含了移除不使用的资源和压缩图片文件。
 
 *   [**Building for Billions 指南**](https://developer.android.com/develop/quality-guidelines/building-for-billions.html), 在安卓开发者网站上，它讨论了缩小 APK，以及其它针对新兴市场的措施。
-*   [**如何针对新兴市场优化你的应用**](https://medium.com/googleplaydev/how-to-optimize-your-android-app-for-emerging-markets-7124c4180fc), 我们团队的另一篇 medium 文章，关于三个 app 的案例分析，分析它们针对新兴市场的优化起到了怎样的帮助作用。
+*   [**如何针对新兴市场优化你的应用**](https://medium.com/googleplaydev/how-to-optimize-your-android-app-for-emerging-markets-7124c4180fc), 我们团队的另一篇 medium 文章。针对新兴市场，通过三个 app去分析优化带来的好处。
 
 至于其他的针对新兴市场的考虑，可以去 Google Play 的 [Building for Billions](https://developer.android.com/topic/billions/index.html) 网站上寻找指导。
 
-我花很多篇幅讨论了在新兴市场中减小 APK 尺寸的好处，但另一个例子是 Android Instant App，它要求更小的 APK 尺寸。Instant App 允许安卓用户不经过安装直接使用，是另一种让你的用户发现你的 app 的方式。关于开始使用 [Android Instant App](https://developer.android.com/topic/instant-apps/index.html)，你可以在这里找到更多信息。你也可以学习更多 [管理下载内容大小的最佳实践](https://android-developers.googleblog.com/2017/08/android-instant-apps-best-practices-for.html)。
+我花很多篇幅讨论了在新兴市场中缩小 APK 的好处。还有一个另外的缩小 APK 的原因，
+这就是 Android Instant App 要求更小的 APK。Instant App 允许安卓用户不经过安装直接使用，是另一种让你的用户发现你的 app 的方式。关于开始使用 [Android Instant App](https://developer.android.com/topic/instant-apps/index.html)，你可以在这里找到更多信息。你也可以学习更多 [管理下载内容大小的最佳实践](https://android-developers.googleblog.com/2017/08/android-instant-apps-best-practices-for.html)。
 
 * * *
 
