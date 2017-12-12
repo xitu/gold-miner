@@ -7,21 +7,36 @@
 
 # React Performance Fixes on Airbnb Listing Pages
 
+# 针对 Airbnb 清单页的 React 性能优化
+
 **_TL;DR:_** _There may be a lot of low-hanging fruit 🥝 affecting performance in areas you might not track very closely but are still very important._
+
+**简要：可能在某些领域存在一些触手可及的性能优化点，虽不常见但依然很重要。**
 
 * * *
 
 We have been hard at work migrating the airbnb.com core booking flow into a single-page server-rendered app using [React Router](https://github.com/ReactTraining/react-router) and [Hypernova](https://github.com/airbnb/hypernova). At the beginning of the year, we rolled this out for the landing page and search results with good success. Our next step is to expand the single-page app to include the [listing detail page](https://www.airbnb.com/rooms/8357).
 
+我们一直在努力迁移 airbnb.com 的核心预订流成到一个使用 [React Router](https://github.com/ReactTraining/react-router) 和 [Hypernova](https://github.com/airbnb/hypernova) 技术的服务端渲染的单页应用。年初，我们推出了登陆页面，搜索引擎表现很好。我们的下一步是将[清单详情页](https://www.airbnb.com/rooms/8357)扩展到单页应用程序里去。
+
 ![](https://cdn-images-1.medium.com/max/600/1*E__f8FixGkfXtq7tia8leg.png)
 
 airbnb.com listing detail page: [https://www.airbnb.com/rooms/8357](https://www.airbnb.com/rooms/8357)
 
+airbnb.com 的清单详情页: [https://www.airbnb.com/rooms/8357](https://www.airbnb.com/rooms/8357)
+
 This is the page you visit when deciding which listing to book. Throughout your search, you might visit this page many times to view different listings. This is one of the most visited and most important pages on airbnb.com, so it is critical that we nail all of the details!
+
+这是您在抉择清单时所访问的页面。在整个搜索过程中，您可能会多次访问该页面以查看不同的清单。这是 airbnb 网站访问量最大也最重要的页面之一，因此，我们必须做好每一个细节。
 
 As part of this migration into our single-page app, I wanted to investigate any lingering performance issues affecting interactions on the listing page (e.g. scrolling, clicking, typing). This fits with our goal to make pages _start fast and stay fast_, and generally just makes people feel better about using the site.
 
+作为迁移到我们的单页应用的一部分，我希望能研究出所有影响清单页交互性能的遗留问题(例如，滚动、点击、输入)。这符合我们的目标，让页面**启动更快延迟更短**，而且通常会让人们对使用我们网站的感觉更好。
+
+
 **Through a process of profiling, making a fix, and profiling again, we dramatically improved the interaction performance of this critical page, which makes the booking experience smoother and more satisfying.** In this post, you’ll learn about the techniques I used to profile this page, the tools I used to optimize it, and see the scale of this impact in the flame charts produced by my profiling.
+
+**通过解析、修复、再解析的流程，我们极大地提高了这个关键页的交互性能，使得预订体验更加顺畅，更令人满意**。在这篇文章中，您将了解到我用来解析这个页面的技术，用来优化它的工具，以及在解析结果给出的火焰图表中感受影响的程度。
 
 ### Methodology
 
