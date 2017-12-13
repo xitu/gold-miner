@@ -11,7 +11,7 @@
 
 # 官方指南
 
-[**申请加入 Android 文档抓虫计划**](https://github.com/xitu/gold-miner/issues/new?title=%E7%94%B3%E8%AF%B7%E5%8A%A0%E5%85%A5Android%E6%96%87%E6%A1%A3%E6%8A%93%E8%99%AB%E8%AE%A1%E5%88%92&body=-%20%E5%85%AC%E5%8F%B8/%E5%AD%A6%E6%A0%A1%EF%BC%9A%0A-%20%E5%B7%A5%E4%BD%9C%E5%86%85%E5%AE%B9/%E4%B8%93%E4%B8%9A%EF%BC%9A%0A-%20%E5%B8%B8%E6%B5%8F%E8%A7%88%E7%9A%84%E5%9B%BD%E5%A4%96%E7%BD%91%E7%AB%99%EF%BC%9A%0A-%20%E8%8B%B1%E8%AF%AD%E6%B0%B4%E5%B9%B3%EF%BC%9A%0A-%20%E6%9C%89%E6%97%A0%E7%BF%BB%E8%AF%91%E7%BB%8F%E9%AA%8C%EF%BC%9A%0A-%20%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%EF%BC%9A%0A-%20%E4%B8%AA%E4%BA%BA%E4%BB%8B%E7%BB%8D%EF%BC%9A)
+[**申请加入 Android 文档抓虫计划**](http://t.cn/RTxczrV)
 
 [**推荐优质英文文章到掘金翻译计划**](https://github.com/xitu/gold-miner/issues/new?title=推荐优秀英文文章&body=-%20原文链接：推荐文章前%20Google%20一下，尽量保证本文未被翻译%0A-%20简要介绍：介绍一下好不好啦，毕竟小编也看不太懂哎_(:з」∠)_)
 
