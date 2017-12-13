@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/use-a-render-prop.md](https://github.com/xitu/gold-miner/blob/master/TODO/use-a-render-prop.md)
 > * 译者：[yoyoyohamapi](https://github.com/yoyoyohamapi)
-> * 校对者：[MechanicianW](https://github.com/MechanicianW)
+> * 校对者：[MechanicianW](https://github.com/MechanicianW) [Usey95](https://github.com/Usey95)
 
 # 用 Render props 吧！
 
@@ -21,15 +21,15 @@
 
 我认为，[高阶组件模式](https://facebook.github.io/react/docs/higher-order-components.html) 作为一个在许多基于 React 的代码中流行的代码复用手段，是可以被一个具有 “render prop” 的普通组件 100% 地替代的。“不服来辩” 一词是我对 React 社区朋友们的友好 “嘲讽”，随之而来的是一个系列好的讨论，但最终，我对我自己无法用 140 字来完整描述我想说的而感到失望。 我 [决定在未来的某个时间点写一篇更长的文章](https://twitter.com/mjackson/status/885918220154134528) 来公平公正的探讨这个主题。
 
-两周前，当 [Tyler](https://twitter.com/tylercollier) 邀请我到 [Phoenix ReactJS] (https://www.meetup.com/Phoenix-ReactJS/events/242296327/) 演讲时，我认为是时候去对此进行更进一步的探讨了。那周我已经到达 Phoenix 去启动 [我们的 React 基础和进阶补习课](https://reacttraining.com) 了，关于大会，还有一件令我高兴的事儿就是我的商业伙伴 [Ryan](https://medium.com/@ryanflorence) 在[四月份做了演讲](https://www.youtube.com/watch?v=hEGg-3pIHlE)。
+两周前，当 [Tyler](https://twitter.com/tylercollier) 邀请我到 [Phoenix ReactJS](https://www.meetup.com/Phoenix-ReactJS/events/242296327/) 演讲时，我认为是时候去对此进行更进一步的探讨了。那周我已经到达 Phoenix 去启动 [我们的 React 基础和进阶补习课](https://reacttraining.com) 了，而且我还从我的商业伙伴 [Ryan](https://medium.com/@ryanflorence) 听到了关于大会的好消息，他在[四月份做了演讲](https://www.youtube.com/watch?v=hEGg-3pIHlE)。
 
-在大会上，我的演讲似乎有点标题党的嫌疑：**不要再写另一个 HOC 了**.你可以在 [Phoenix ReactJS 的 YouTube 官方频道](https://www.youtube.com/watch?v=BcVAq3YFiuc) 上观看我的演讲，也可以通过下面这个内嵌的视频进行观看：
+在大会上，我的演讲似乎有点标题党的嫌疑：**不要再写另一个 HOC 了**。你可以在 [Phoenix ReactJS 的 YouTube 官方频道](https://www.youtube.com/watch?v=BcVAq3YFiuc) 上观看我的演讲，也可以通过下面这个内嵌的视频进行观看：
 
 <iframe width="700" height="393" src="https://www.youtube.com/embed/BcVAq3YFiuc" frameborder="0" gesture="media" allowfullscreen></iframe>
 
 如果你不想看视频的话，可以阅读后文对于演讲主要内容的介绍。但是严肃地说：视频要有趣多了 😀。
 
-如果你直接跳过视频开始阅读，但仍没有领会我所说的意思，就**折回去看视频**吧。演讲时的细节会更丰富。
+如果你直接跳过视频开始阅读，但并没有领会我所说的意思，就**折回去看视频**吧。演讲时的细节会更丰富。
 
 ### Mixins 存在的问题
 
@@ -186,9 +186,9 @@ ReactDOM.render(<AppWithMouse/>, document.getElementById('app'))
 
 总而言之：**使用 ES6 class 创建的 HOC 仍然会遇到和使用 `createClass` 时一样的问题，它只能算一次重构。**
 
-现在不要说拥抱 HOC 了，我们不过在拥抱新的 mixin ！🤗
+现在不要说拥抱 HOC 了，我们不过在拥抱新的 mixin！🤗
 
-除了上述缺陷，由于 HOC 的实质是 **包裹** 组件并创建了一个**混入**现有组件的 mixin 替代，因此，**HOC 将引入大量的繁文缛节**。从 HOC 中返回的组件需要表现得和它包裹的组件尽可能一样（它需要和包裹组件接收一样的 props 等等）。这一事实使得构建健壮的 HOC 需要大量的样板代码（boilerplate code）。
+除了上述缺陷，由于 HOC 的实质是**包裹**组件并创建了一个**混入**现有组件的 mixin 替代，因此，**HOC 将引入大量的繁文缛节**。从 HOC 中返回的组件需要表现得和它包裹的组件尽可能一样（它需要和包裹组件接收一样的 props 等等）。这一事实使得构建健壮的 HOC 需要大量的样板代码（boilerplate code）。
 
 上面我所讲到的，以 [React Router](https://github.com/ReactTraining/react-router) 中的 [`withRouter` HOC](https://github.com/ReactTraining/react-router/blob/master/packages/react-router/modules/withRouter.js) 为例，你可以看到 [props 传递](https://github.com/ReactTraining/react-router/blob/f77440ec9025d463c6713039ab1a6db1faca99bb/packages/react-router/modules/withRouter.js#L14)、[wrappedComponentRef](https://github.com/ReactTraining/react-router/blob/f77440ec9025d463c6713039ab1a6db1faca99bb/packages/react-router/modules/withRouter.js#L22)、[被包裹组件的静态属性提升（hoist）](https://github.com/ReactTraining/react-router/blob/f77440ec9025d463c6713039ab1a6db1faca99bb/packages/react-router/modules/withRouter.js#L25)等等这样的样板代码，当你需要为你的 React 添加 HOC 时，就不得不撰写它们。
 
@@ -202,7 +202,7 @@ ReactDOM.render(<AppWithMouse/>, document.getElementById('app'))
 
 更通俗的说法是：不同于通过 “混入” 或者装饰来共享组件行为，**一个普通组件只需要一个函数 prop 就能够进行一些 state 共享**。
 
-继续到上面的例子，我们将通过一个类型为函数的 `render` 的 prop 来简化 `withMouse` HOC 到一个普通的 `<Mouse>` 组件。然后，在 `<Mouse>` 的 `render` 方法中，我们可以使用一个 render prop 来让组价知道如何渲染：
+继续到上面的例子，我们将通过一个类型为函数的 `render` 的 prop 来简化 `withMouse` HOC 到一个普通的 `<Mouse>` 组件。然后，在 `<Mouse>` 的 `render` 方法中，我们可以使用一个 render prop 来让组件知道如何渲染：
 
 ```js
 import React from 'react'
