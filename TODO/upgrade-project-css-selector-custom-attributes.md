@@ -5,23 +5,23 @@
 > * 译者：
 > * 校对者：
 
-# Upgrade Your Project with CSS Selector and Custom Attributes
+# 用 CSS 选择器和自定义属性来升级你的项目
 
-_This article was originally published by [TestProject](https://blog.testproject.io/2017/08/10/css-selector-custom-attributes/). Thank you for supporting the partners who make SitePoint possible._
+_这篇文章原文刊登在 [TestProject](https://blog.testproject.io/2017/08/10/css-selector-custom-attributes/)。感谢你们的支持，让 SitePoint 成为可能。_
 
-Element selectors for [Selenium WebDriver](https://blog.testproject.io/2016/11/07/selenium-webdriver-3/) are one of the core components of an [automation framework](https://blog.testproject.io/2017/03/26/test-automation-infrastructure-fundamentals/) and are the key to interaction with any web application. In this review of [automation element selectors](https://blog.testproject.io/2017/02/09/inspect-web-elements-chrome-devtools/), we will discuss the various strategies, explore their capabilities, weigh their pros and cons, and eventually recommend the [best selector strategy](https://blog.testproject.io/2017/08/10/css-selector-custom-attributes/#CustomAttributes) – custom attributes with CSS selector.
+[Selenium WebDriver](https://blog.testproject.io/2016/11/07/selenium-webdriver-3/) 的元素选择器是一种 [自动化框架](https://blog.testproject.io/2017/03/26/test-automation-infrastructure-fundamentals/) 的核心组件，同时也是与 web 应用进行交互的关键。在对 [自动化元素选择器](https://blog.testproject.io/2017/02/09/inspect-web-elements-chrome-devtools/) 的回顾中， 我们讨论了很多不同的选择器应用策略，探究其功能，权衡优缺点，最终我们推荐 [最佳的选择器应用策略](https://blog.testproject.io/2017/08/10/css-selector-custom-attributes/#CustomAttributes) —— 带有自定义属性的 CSS 选择器。
 
-## Selenium Element Selectors
+## Selenium 的元素选择器
 
-Choosing the best [element selector](https://blog.testproject.io/2017/02/09/inspect-web-elements-chrome-devtools/#ElementSelector) strategy is critical to the success and ease of maintenance of your automation effort. Therefore, when choosing your selector, you should consider aspects such as ease of use, versatility, online support, documentation and performance. Strong consideration for a proper selector strategy will pay dividends in the future through easy to maintain automation.
+选择最好的 [元素选择器](https://blog.testproject.io/2017/02/09/inspect-web-elements-chrome-devtools/#ElementSelector) 策略是成功的关键，也减轻了自动化工作的维护压力。因此，做出选择的时候应该从使用难度，多功能性，是否具有在线支持，文档丰富程度以及性能等多方面进行考虑。前期的充分考虑是有回报的，自动化工作会更容易维护。
 
-Just as the technological aspect of element selectors should be considered, so too should the culture of your organization. A mature culture of collaboration between developers and QA will unlock high tiers of success when implementing element selectors in your automation. This benefits the organization beyond just the automation effort by laying the foundation for collaboration in other areas of the Software Development Life Cycle.
+就像从技术方面考虑一样，也要考虑到团队文化。在自动化工作中采用元素选择器时，开发者与 QA 成熟的协作文化可以解锁更高成就，取得更好的效果。夯实软件开发周期中其它方面的协作基础不仅对自动化工作有益，更是对团队有益。
 
-All code examples will be in [Python](https://www.python.org/) and [Selenium WebDriver](https://blog.testproject.io/2016/11/07/selenium-webdriver-3/) commands but should be generally applicable to any programming language and framework.
+所有的代码示例都是由 [Python](https://www.python.org/) 和 [Selenium WebDriver](https://blog.testproject.io/2016/11/07/selenium-webdriver-3/) 命令编写而成，但也普适于其它编程语言与框架。
 
-### HTML Example:
+### HTML 代码示例:
 
-I will use the following HTML snippet of a navigation menu for examples in each section:
+在每一段的示例中，都是使用以下导航菜单的 HTML 片段代码：
 
 ```
 <div id="main-menu">
@@ -36,76 +36,76 @@ I will use the following HTML snippet of a navigation menu for examples in each 
 </div>
 ```
 
-## Bad: Tag Name, Link Text, Partial Link Text and Name
+## 糟糕的选择器： 标签名，链接文本，部分链接文本和 name 属性选择器
 
-I won’t spend too much time on these because they all have limited use. They are generally not a good option for wide adoption across the entire automation framework. They solve specific needs that can be easily covered with other element selector strategies. Only use these if you have a specific need to handle a special case. Even then, most special cases are not special enough to use these. You would use these in a scenario where there is no other selector option available to you (such as custom tags or id).
+关于这部分内容不需要花太多时间来讲，因为这些选择器的使用场景都很有限。在整个自动化框架中广泛使用这些选择器不是一个好选择。它们解决了可以通过其它元素选择器轻松实现的特定需求。只在有特定需求去处理特殊场景的时候使用这几种选择器。即使如此，大多数特殊场景并没有特殊到非要使用这几种选择器才能解决。你可以在没有其他选择器选项可用（例如自定义标签或 id ）的情况下使用。
 
-### Example:
+### 举个栗子：
 
-With tag name, you can select large groups of elements that all match the tag name you provided. This has limited use because it would only work as a solution in situations where you need to select large groups of elements of the same type. The example below would return all 4 div elements in the example HTML.
+使用标签名称选择器，会选择到非常多的匹配到标签名称的元素。它的用途非常有限，只能作为在需要选择相同类型的大量元素的这一唯一情况下的解决方案。下面这个例子会返回示例 HTML 代码中全部 4个 div 元素。
 
 ```
 driver.find_elements(By.TAG_NAME, "div")
 ```
 
-You can select the links with these examples below. As you can see, they can only target anchor tags and only the text of those anchor tags:
+也可以像下面的例子这样通过链接来选择。 如你所见，这样只能定位到锚点标签而且只能定位这些锚点标签的文本：
 
 ```
 driver.find_elements(By.LINK_TEXT, "Home")
 driver.find_elements(By.PARTIAL_LINK_TEXT, "Sprock")
 ```
 
-Lastly, you can select elements by the name attribute, but as you can see in the example HTML, there are no tags with a name attribute. This would be a common problem in almost any application, since adding a name attribute in every HTML attribute is not a common practice. If the main menu element had a name attribute like this:
+最近，也可以通过 name 属性来选择元素， 但是在 HTML 代码示例中可以看出，是没有标签具有 name 属性的。这在任何应用中都是一个常见问题，因为给每个 HTML 属性中添加一个 nmae 属性不是常规的代码实践。假如主菜单元素有一个 name 属性：
 
 ```
 <div id="main-menu" name="menu"></div>
 ```
 
-You could select it like this:
+就可以这样选择到这个元素：
 
 ```
 driver.find_elements(By.NAME, "menu")
 ```
 
-As you can see, these element selector strategies have limited use. The approaches that follow are all better approaches because they are much more versatile and capable.
+如你所见，以上这些元素选择策略的使用场景都很有限。下面的方法都会更好一些，它们更灵活多变。
 
-### Summary: Tag Name, Link Text, Partial Link Text, and Name
+### 总结: 标签名，链接文本，部分链接文本和 name 属性选择器
 
-| **Pros** | **Cons** |
+| **优点** | **缺点** |
 | -------- | -------- |
-| Easy to use | Not versatile |
-| Extremely limited use |
-| May not even apply in some cases |
+| 使用简单 | 不够灵活 |
+| 使用场景极其有限 |
+| 在某些场景甚至可能用不了 |
 
-## Good: XPath
+## 好的选择器： XPath
 
-XPath is a versatile and capable element selector strategy. This is also my personal preference and favorite. XPath can select any element in the page regardless of whether or not you have classes and IDs to use (although without classes or IDs, it becomes difficult to maintain and sometimes brittle). This option is particularly versatile because you can select [parent elements](https://www.w3schools.com/jsref/prop_node_parentelement.asp). XPath also has many built-in functions which allow you to customize your element selection.
+XPath 是一种灵活多变的选择器策略。这也是我个人喜欢的一种。XPath 可以选择页面中的任意元素，无论它有没有 class 和 id （虽然没有 class 和 id 的话很难维护）。 它是一个通用选项，因为你可以选择 [父元素](https://www.w3schools.com/jsref/prop_node_parentelement.asp)。XPath也有许多内置的功能，可以让你自定义元素选择。
 
-However, with versatility comes complexity. Given the ability to do so much with XPath, you also have a steeper learning curve compared to other element selector strategies. This is offset by great online documentation which is easily found. One great resource is the [XPath tutorial found at W3Schools.com](https://www.w3schools.com/xml/xpath_intro.asp)
+但是，多功能性也带来了复杂性。鉴于 XPath 可以做这么多事，相比于其它选择器，它的学习曲线也更陡峭。这一不足是可以被它非常赞的在线文档抵消的。一个很不错的资源是 [W3Schools.com 上找到的 XPath 入门指南](https://www.w3schools.com/xml/xpath_intro.asp)。
 
-It should also be noted that there is a trade-off when using XPath. While you can select parent elements and have use of very versatile built-in functions, XPath performs poorly in Internet Explorer. You should consider this trade-off when selecting your element selector strategy. If you need to be able to select parent elements, you need to consider the impact it will have on your [cross-browser](https://blog.testproject.io/2017/02/09/cross-browser-testing-selenium-webdriver/) testing in Internet Explorer. Essentially, it will take longer to run your automated tests in Internet Explorer. If your application’s user base does not have high Internet Explorer usage, this would be a good option for you as you might consider running tests in Internet Explorer less often than other browsers. If your user base has significant Internet Explorer usage, you should consider XPath only as a fallback if other better approaches do not work for your organization.
+还应该指出，使用 XPath 的时候有一件事需要进行权衡。虽然可以通过 XPath 选择父元素并使用一系列内置函数，但是 XPath 在 IE 浏览器的表现不佳。进行元素选择器策略的选择时，应该考虑这个问题。如果你有选择父元素的需要的话，要考虑它对 IE 上进行的 [跨浏览器](https://blog.testproject.io/2017/02/09/cross-browser-testing-selenium-webdriver/) 测试的影响。本质上，在 IE 中运行自动化测试的耗时更长。如果你的用户群体的 IE 使用率不高的话，考虑到在 IE 上跑测试的时候更少，XPath 依然是一个好选择。如果你的用户基本上都是 IE 重度使用者的话，XPath 就只能作为没有其它更好方式时的备胎选择了。
 
-### Example:
+### 举个栗子：
 
-If you have a requirement to select parent elements, you must select XPath. Here’s how you do that: using our example, let’s say you want to target the parent main-menu element based on one of the anchor elements:
+如果你有需求要选择父元素，那就必须采用 XPath。下面是做法，依然使用我们的示例，假设你要定位一个基于锚点元素的主菜单元素的父元素：
 
 ```
 driver.find_elements(By.XPATH, "//a[id=menu]/../")
 ```
 
-This element selector will target the first instance of the anchor tag that has the id equal to “menu”, then with “/../”, targets the parent element. The result is that you will have targeted the main-menu element.
+这个元素选择器会定位到第一个 id 等于 “menu” 的锚点标签，然后通过 “/../” 定位到它的父元素。最终结果就是你会定位到主菜单元素。
 
-### Summary: XPath
+### 总结： XPath
 
-| **Pros** | **Cons** |
+| **优点** | **缺点** |
 | -------- | -------- |
-| Can select parent element | Poor performance in IE |
-| Highly versatile | Slight learning curve |
-| Lots of support online |
+| 可以定位到父元素 | IE 上表现欠佳 |
+| 非常灵活 | 陡峭的学习曲线 |
+| 非常多的在线支持 |
 
-<div class="widget maestro maestro-content-type-html " id="maestro-652"><span data-sumome-listbuilder-embed-id="a5047315669ea28f9652485dfd816e21a7b7d3873736b516d897111b300bf50b"></span><script>ga('SitePointPlugin:observeImpressions', 'maestro-652')</script></div>
 
-## Great: ID and Class
+
+## 炒鸡棒的元素选择器： ID 和 Class
 
 ID and Class element selectors are two different options in automation and perform different functions in an application. However, for considering what element selector strategy to use in your automation, they differ so little, that we don’t need to consider them separately. In the application, the “id” and “class” attributes of elements, when defined, allow the UI developer to manipulate and style the application. For automation, we use it to target a specific element for interaction in automation.
 
@@ -135,7 +135,7 @@ driver.find_elements(By.CLASS_NAME, "menu")
 | Easy to learn |
 | Least impacted by page structure change |
 
-## Best: Custom Attributes­­­­­­­­ with CSS Selector
+## 最佳的元素选择器: 具有自定义属性的 CSS 选择器
 
 If your QA organization has a good collaborative relationship with development, chances are you will be able to use this best practice approach for your automation. Using custom attributes and CSS Selectors to target elements has multiple benefits for both the QA team and the organization. For the QA team, this allows automation engineers to target specific elements they need without creating complicated element selectors. However, this requires the ability to add custom attributes that the automation team can use in the application. To take advantage of this best practice approach, your development and QA teams should work in cooperation to implement this strategy.
 
