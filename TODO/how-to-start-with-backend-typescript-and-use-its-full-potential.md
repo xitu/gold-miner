@@ -10,29 +10,29 @@
 
 I will describe several dealbreaker libraries from one developer. They can give you most of the features you will want from your backend application. Power of decorators and metadata is shining through these libraries, making them very powerful and easy to use.
 
-我将从一个开发者的角度介绍几个优秀的库。他们可以满足你后端应用的绝大部分特性。装饰器和元数据的能力在这些库中得到的充分的应用，使其能力强大并且简单易用。
+我将从一个开发者的角度介绍几个优秀的库。它们可以满足你后端应用的绝大部分特性。装饰器和元数据的能力在这些库中得到的充分的应用，使其非常强大并且简单易用。
 
 I hope this article will help people like me, who like TypeScript and want to write backend code in it with such ease like I’m doing it after discovering all of these libraries.
 
-我希望这篇文章可以帮到像我这样，喜欢 TypeScript 而且想用它编写后端代码的人，让他们像我发现这些库之后一样乐在其中。
+我希望这篇文章可以帮到像我这样，喜欢 TypeScript 而且想用它编写后端代码的人，让他们像我一样发现这些库之后乐在其中。
 
 **TL;DR - stack making your backend app as powerful as many enterprise static typed solutions in other languages:**
 
-**TL; DR - 堆栈使你的后端应用像许多使用其他语言的企业静态解决方案一样强大:**
+**TL;DR —— 堆栈使你的后端应用像许多使用其他语言的企业静态解决方案一样强大：**
 
 * library for routing and controllers with decorators, parameters, body injection
 * library for dependency injection and your services with decorators
 * ORM with decorators for convenient work with entities like it’s Doctrine/Hibernate
 * Small tip for writing backend TypeScript for those who are not yet familiar with it
 
-* 使用装饰器，参数，依赖注入的路由和控制器的库
+* 使用装饰器，参数，body 注入的路由和控制器的库
 * 依赖注入和使用装饰器的 services 的库
 * 使用装饰器的 ORM 就像 Doctrine/Hibernate 那样方便操作实体
 * 对那些还不熟悉使用 TyepScript 写后端的朋友的小建议
 
 **Routing-controllers: controllers, actions, requests, etc**
 
-**Routing-controllers: 控制器，行为，请求等**
+**Routing-controllers：控制器，行为，请求等**
 
 [**pleerock/routing-controllers**
 _routing-controllers - Create structured, declarative and beautifully organized class-based controllers with heavy…_github.com](https://github.com/pleerock/routing-controllers)
@@ -75,7 +75,7 @@ For some people it will be like waking up from a nightmare: no more modules with
 
 Many useful features in decorators, like @Controller for your basic controllers, where in actions you will define what type of content it serves etc and @JsonController for serving and accepting json.
 
-装饰器有很多有用的特性，如 基础控制器的 @Controller，定义 actions 服务什么类型的内容等以及使用 @JsonController 服务和接收 json。
+装饰器有很多有用的特性，如基础控制器的 @Controller，定义 actions 用于什么类型的内容等以及使用 @JsonController 服务和接收 json。
 
 I’m using it with Express, and since we have async/await (I don’t stop praising it even after several months of development TS nodejs) we might not need to use Koa (routing-controllers support for express is slightly better now). And Express has bigger set of types at @types
 
@@ -89,7 +89,7 @@ Here is example from my project, using routing-controllers and other @pleerock l
 
 As you can see, routing-controllers provide even undefined result code (there are also decorators for empty and null) and many other features. About this.playerService — it’s another fascinating library, which I will describe next.
 
-如你所见，routing-controllers 甚至提供了 undefined 返回码（也有 empty 和 null 的装饰器）以及许多其他特性。关于 this.playerService，这是另一个迷人的库，稍后我将介绍它。
+如你所见，routing-controllers 甚至提供了 undefined 返回码（也有 empty 和 null 的装饰器）以及许多其他特性。关于 this.playerService —— 这是另一个迷人的库，稍后我将介绍它。
 
 Overall, library has powerful documentation, it will help you understand and build your application with custom middlewares that apply to action or even whole controller (that was whoa cool moment for me). Url inheritance as you can see also there. Very convenient.
 
@@ -105,17 +105,17 @@ Usually I store them in /controllers folder
 
 **TypeDI: dependency injection, services**
 
-**TypeDI: 依赖注入，services**
+**TypeDI：依赖注入，services**
 
 [https://github.com/pleerock/typedi](https://github.com/pleerock/typedi)
 
 This one gave my project structure and easement to code and not think “well where to store service, is this even service? hmm maybe another, but… how it will depend on to another? how one service will be using another hm..”
 
-这个库帮我定好了项目结构，方便编码并且不用去想“好吧 service 存在哪里，这个是 service ？唔或许是另一个，但是。。。它怎么依赖另一个 service ？怎么引用其他 service 呣。。。”
+这个库帮我定好了项目结构，方便编码并且不用去想“好吧 service 存在哪里，这个是 service ？唔或许是另一个，但是。。。它怎么依赖另一个 service ？怎么引用其他 service 唔。。。”
 
 Returning to my PlayerService, here part of it for you to observer what it has as dependencies (which are another services):
 
-回到我的 PlayerService，下面这部分你可以看到它依赖了什么 （其他 services）：
+回到我的 PlayerService，下面这部分你可以看到它依赖了什么（其他 services）：
 
 ![](https://cdn-images-1.medium.com/max/800/1*lpTGJEYWTCr18jjm8uAnbg.png)
 
@@ -133,11 +133,11 @@ Yes, you can have many services that depend on another services. And even if you
 
 For those who is not familiar with services, service container, dependency injection in services etc. Short info:
 
-对那些不熟悉 services， service 容器， services 依赖注入等的朋友。简要说明：
+对那些不熟悉 services，service 容器，services 依赖注入等的朋友。简要说明：
 
 You have functionality of some sort, and you want it to be stored in class, and you want one instance of this class and also you want this class to be dependent on another, another etc. Dependency Injection with service container got you covered. You will get services from Container and it will handle all the dependencies of services by itself, giving you your working instance with all other instances injected automatically.
 
-你有某种功能，想把它存在类中，然后你想要类的实力并且想让这个类依赖另一个，另一个等。service 容器的依赖注入可以为你保驾护航。你可以从容器中获取 services 并且他会自己处理 services 的所有依赖，给你你的工作实例其他实例自动注入。
+你有某种功能，想把它存在类中，然后你想要类的实例并且想让这个类依赖另一个，另一个等。service 容器的依赖注入可以为你保驾护航。你可以从容器中获取 services 并且他会自己处理 services 的所有依赖，给你带有其他实例的工作实例自动注入。
 
 My description of this library doesn’t cover its full potential (you can check it’s documentation and see for yourself — there is much more to work with): you can define services with names, you can define constructor injection etc.
 
@@ -149,18 +149,18 @@ Usually I store my services under /services folder.
 
 **TypeORM: very easy to use ORM for defining entities with relations, different column types and different data storing solutions (relation, non-relation)**
 
-**TypeORM: 使用 ORM 定义关系型实体,不同列类型和不同数据存储方案非常方便（关系型，非关系型）**
+**TypeORM：使用 ORM 定义关系型实体,不同列类型和不同数据存储方案非常方便（关系型，非关系型）**
 
 [**typeorm/typeorm**
 _typeorm - Data-Mapper ORM for TypeScript and JavaScript (ES7, ES6, ES5). Supports MySQL, PostgreSQL, MariaDB, SQLite…_github.com](https://github.com/typeorm/typeorm)
 
 This one here is what gave me feeling that TypeScript with nodejs can finally compete with other languages and ORMs out there.
 
-这给我的感觉就是， 用 TypeScript 写 nodejs 最终会跟其他语言和 ORMS 竞争。
+这给我的感觉就是，用 TypeScript 写 nodejs 最终有能力跟其他语言和 ORMS 竞争。
 
 Powerful ORM, which can be used to write your entities very easy and in understandable way. I’m not fan of many other nodejs ORMs out there like:
 
-强大的 ORM 可以让你很方便地用一种可理解的方式编写实体。我不是很多像这样 nodejs ORMS 的粉丝：
+强大的 ORM 可以让你很方便地用一种可理解的方式编写实体。我不是其他许多类似这种 nodejs ORMS 的粉丝：
 
 ```
 module.exports = { id: SomeORM.Integer, name: SomeOrm.String({ …})}
@@ -182,7 +182,7 @@ As you can see, I’m not even writing what type of property is in decorator (yo
 
 It is very powerful, you will have all the neat stuff which you had/saw in another ORMs like this one (doctrine, hibernate).
 
-它非常强大，你将拥有所有你在其他 ORMs 中拥有 / 看到的东西，比如（doctrine, hibernate）。
+它非常强大，你将拥有所有你在其他 ORMs 中拥有/看到的东西，比如（doctrine, hibernate）。
 
 When used with routing-controllers and typedi it provides useful decorators to inject EntityManager (as you saw in screenshot of my PlayerService) or even Connection into your controllers, services (it’s **very** handy)
 
@@ -214,11 +214,11 @@ But, when using all three of these libraries you are getting framework which is 
 
 * **Yeah thank you for covering those libraries but say again, how to write TypeScript for node?…**
 
-* **是的感谢涵盖了那些库但是再说一次，如何在 node 中使用 TypeScript ？。。。**
+* **是的感谢涵盖了那些库但是再说一次，如何在 node 中使用 TypeScript？。。。**
 
 Well it’s simple as it can get. You write typescript like usually, making target es2015 (node has many features now, no need to transpile it to something more than es2015), module commonjs.
 
-好吧，这再简单不过了。你可以像平时一样写 typescript ，使用 es2015 （node 现在有很多特性，不用把它编译成高于 es2015 版本），commonjs 实现模块。
+好吧，这再简单不过了。你可以像平时一样写 typescript ，使用 es2015 （node 现在有很多特性，不用把它编译成高于 es2015 版本），commonjs 实现模块。『麻烦校对者对这段翻译提下建议』
 
 And you use pm2 or something to start your index/server/app.js after compilation. Basically production code is ready. No need for ts-node or something.
 
@@ -230,11 +230,11 @@ And you use pm2 or something to start your index/server/app.js after compilation
 
 As you can see, not many people know about routing-controllers and typedi and these are one of the most useful and powerful libraries I used for TypeScript nodejs projects. If you like them, please spend a second to star them and spread the word. They helped me a lot and I hope they will help you and other fellow TypeScript-ers out there!
 
-如你所见，没有很多人知道 routing-controllers 和 typedi，这些是我 TypeScript nodejs 项目用到的最有用并且强大的库了。如果你喜欢它们，请花一秒钟 star 它们并且宣传一下。它们帮了我很多，所以我希望它们可以帮到你和其他同行的 TypeScript 使用者！
+如你所见，没有很多人知道 routing-controllers 和 typedi，这些是我 TypeScript nodejs 项目用到的最强大并且好用的库了。如果你喜欢它们，请花一秒钟 star 它们并且宣传一下。它们帮了我很多，所以我希望它们可以帮到你和其他同样的 TypeScript 使用者！
 
 There are also gitter channels for libraries, you can find them easily by googling “gitter library-name”.
 
-这些库也有 gitter 栏目，你可以通过谷歌搜索“ gitter 库名”很方便地找到它们。
+这些库也有 gitter 栏目，你可以通过谷歌搜索“gitter 库名”很方便地找到它们。
 
 Thank you for reading and happy TypeScript-ing. Feel free to comment and ask questions!
 
