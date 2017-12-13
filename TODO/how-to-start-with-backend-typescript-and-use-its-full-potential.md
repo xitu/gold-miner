@@ -149,12 +149,18 @@ Usually I store my services under /services folder.
 
 **TypeORM: very easy to use ORM for defining entities with relations, different column types and different data storing solutions (relation, non-relation)**
 
+**TypeORM: 使用 ORM 定义关系型实体,不同列类型和不同数据存储方案非常方便（关系型，非关系型）**
+
 [**typeorm/typeorm**
 _typeorm - Data-Mapper ORM for TypeScript and JavaScript (ES7, ES6, ES5). Supports MySQL, PostgreSQL, MariaDB, SQLite…_github.com](https://github.com/typeorm/typeorm)
 
 This one here is what gave me feeling that TypeScript with nodejs can finally compete with other languages and ORMs out there.
 
+这给我的感觉就是， 用 TypeScript 写 nodejs 最终会跟其他语言和 ORMS 竞争。
+
 Powerful ORM, which can be used to write your entities very easy and in understandable way. I’m not fan of many other nodejs ORMs out there like:
+
+强大的 ORM 可以让你很方便地用一种可理解的方式编写实体。我不是很多像这样 nodejs ORMS 的粉丝：
 
 ```
 module.exports = { id: SomeORM.Integer, name: SomeOrm.String({ …})}
@@ -162,42 +168,77 @@ module.exports = { id: SomeORM.Integer, name: SomeOrm.String({ …})}
 
 I always wanted entity to be class. And class with typed properties, which will be discovered by ORM with simple decorator. Even without type.
 
+我总是想让实体写成类。被赋予类型的属性的类，会被带有简单装饰器的 ORM 发现。甚至是没有类型的。
+
 TypeORM gives you this. Another example from my project:
+
+TypeORM 给你这种能力。我项目中的另一个例子：
 
 ![](https://cdn-images-1.medium.com/max/800/1*VJEWGi8ycPxqaLNzjev7nA.png)
 
 As you can see, I’m not even writing what type of property is in decorator (you can do this, don’t worry, for explicitly defining type, default, nullable etc)! TypeORM doing all the work for me here, learning what type (thanks to TypeScript reflect:metadata extended functionality) and applying it to my database.
 
+如你所见，我甚至没在装饰器中写属性的类型（你可以这样做，不要担心，明确地定义类型，默认的，可空的等）！TypeORM 为我做了所有这些工作，了解什么类型（感谢 TypeScript 反射：元数据扩展功能）以及把它应用在我的数据库。
+
 It is very powerful, you will have all the neat stuff which you had/saw in another ORMs like this one (doctrine, hibernate).
+
+它非常强大，你将拥有所有你在其他 ORMs 中拥有 / 看到的东西，比如（doctrine, hibernate）。
 
 When used with routing-controllers and typedi it provides useful decorators to inject EntityManager (as you saw in screenshot of my PlayerService) or even Connection into your controllers, services (it’s **very** handy)
 
+当使用 routing-controllers 和 typedi，它会为你注入实体管理器（就像你在我的 PlayerService 截图中看到的一样）提供非常有用的装饰器或者连接你的控制器和 services（这**非常**方便）。
+
 There is official documentation that covers huge functionality of this ORM, you can read it and learn all the things you need to start using it.
+
+这个 ORM 有一个涵盖了大量功能的官方文档，你可以看看并且从中了解所有你开始使用它需要了解的东西。
 
 I usually store my db config in /config folder and entities in /entities folder
 
+我通常把我的数据库配置放在 /config 文件夹，实体放在 /entities 文件夹。
+
 * **Why one article for all of these libraries?**
+
+* **为什么一篇文章涵盖了所有这些库？**
 
 That’s the interesting part.
 
+这正是有趣的部分。
+
 Routing-controllers is like your application foundation. It gives you possibility to attach those 2 libraries with ease (covered in library documentation). You may not if you don’t want to, of course. It can work with any ORM out there.
+
+Routing-controllers 就像是你应用的地基。它给你轻松连接那两个库的可能（涵盖在库文档中）。当然，如果你不想的话可以不用。它可以和任何 ORM 一同使用。
 
 But, when using all three of these libraries you are getting framework which is way too powerful (at least it is for me) when comparing to other solutions out there. You have controllers, parameters injection, body injection, parameter validation, dependency injection with which you can forget about manually providing dependencies and defining their type) entities with decorated properties, query builder. And it is all with TypeScript! So yay, compile-time backend types check!
 
+但是，当你使用全部这三个库时，你会让框架对比其他解决方案时显得太过强大（至少对我来说是这样）。你有控制器，参数注入，body 注入，参数验证，依赖注入，有了这些你可以忘掉手动提供依赖和定义类型，装饰属性的实体，查询 builder。这全都是靠 TypeScript。所以，编译时后端类型检查同理！
+
 * **Yeah thank you for covering those libraries but say again, how to write TypeScript for node?…**
+
+* **是的感谢涵盖了那些库但是再说一次，如何在 node 中使用 TypeScript ？。。。**
 
 Well it’s simple as it can get. You write typescript like usually, making target es2015 (node has many features now, no need to transpile it to something more than es2015), module commonjs.
 
+好吧，这再简单不过了。你可以像平时一样写 typescript ，使用 es2015 （node 现在有很多特性，不用把它编译成高于 es2015 版本），commonjs 实现模块。
+
 And you use pm2 or something to start your index/server/app.js after compilation. Basically production code is ready. No need for ts-node or something.
+
+并且使用 pm2 或其他东西在编译后启动 index/server/app.js 。基本上生产代码已经就绪。不用 ts-node 或者其他什么。
 
 **Don’t forget to show some love if you liked those libraries!**
 
+**如果你喜欢这些库，不要忘了表达你的喜爱**
+
 As you can see, not many people know about routing-controllers and typedi and these are one of the most useful and powerful libraries I used for TypeScript nodejs projects. If you like them, please spend a second to star them and spread the word. They helped me a lot and I hope they will help you and other fellow TypeScript-ers out there!
+
+如你所见，没有很多人知道 routing-controllers 和 typedi，这些是我 TypeScript nodejs 项目用到的最有用并且强大的库了。如果你喜欢它们，请花一秒钟 star 它们并且宣传一下。它们帮了我很多，所以我希望它们可以帮到你和其他同行的 TypeScript 使用者！
 
 There are also gitter channels for libraries, you can find them easily by googling “gitter library-name”.
 
+这些库也有 gitter 栏目，你可以通过谷歌搜索“ gitter 库名”很方便地找到它们。
+
 Thank you for reading and happy TypeScript-ing. Feel free to comment and ask questions!
 
+感谢阅读并且快乐使用 TypeScript。快来评论或提问吧！
 
 ---
 
