@@ -2,33 +2,37 @@
 > * 原文作者：[Mert Şimşek](https://medium.com/@iammert?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/new-android-injector-with-dagger-2-part-1.md](https://github.com/xitu/gold-miner/blob/master/TODO/new-android-injector-with-dagger-2-part-1.md)
-> * 译者：
+> * 译者：[MummyDing](https://github.com/MummyDing)
 > * 校对者：
 
-# New Android Injector with Dagger 2 — part 1
+# Android Injector 和 Dagger 2  详解(一)
 
 ![](https://cdn-images-1.medium.com/max/2000/1*mUOY8duji6LKT9dKFpDvoA.jpeg)
 
 - [New Android Injector with Dagger 2 — part 1](https://github.com/xitu/gold-miner/blob/master/TODO/new-android-injector-with-dagger-2-part-1.md)
 - [New Android Injector with Dagger 2 — part 2](https://github.com/xitu/gold-miner/blob/master/TODO/new-android-injector-with-dagger-2-part-2.md)
 
-Dagger 2.10 released with android support module and android compiler. I think this was a huge change for us and all android developers should switch to new dagger android injection as soon as possible.
+Dagger 2.10 新增了 Android Support 和 Android Compiler 两大模块。对我们来说，本次改动非常之大，所有 Android 开发者都应尽快地将目光投向这个新的 Android 依赖注入框架。
 
-Before I start to explain new AndroidInjector class and dagger 2.11 library, If you are not familiar and never used dagger 2 before, I highly recommend you to read dagger 2 tutorials and understand what dependency injection is. Why am I saying that? Because android-dagger is all about annotations and I think It’s learning curve is a bit hard. In my opinion, Dagger 2 and dependency injection should be understood before we use dagger-android. Here is tutorials and blogpost about dependency injection and dagger 2 version. [Blog 1](https://blog.mindorks.com/introduction-to-dagger-2-using-dependency-injection-in-android-part-1-223289c2a01b) and [Blog 2](https://blog.mindorks.com/introduction-to-dagger-2-using-dependency-injection-in-android-part-2-b55857911bcd) about Dagger 2.
+在我开始介绍新的 AndroidInjector 类以及 Dagger 2.11 库之前，如果你对 Dagger 2 还不熟悉甚至之前根本没用过，那我强烈建议你先去看看 Dagger 入门指南，弄清楚什么是依赖注入。 为什么这么说呢？ 因为 Android Dagger 涉及到大量注解，学起来会比较吃力。在我看来，学Android Dagger 之前你最好先去学学 Dagger 2 和依赖注入。这里有一篇关于依赖注入的入门文章 [Blog 1](https://blog.mindorks.com/introduction-to-dagger-2-using-dependency-injection-in-android-part-1-223289c2a01b) 以及一篇关于 Dagger 2 的文章 [Blog 2](https://blog.mindorks.com/introduction-to-dagger-2-using-dependency-injection-in-android-part-2-b55857911bcd) 。
 
-### Old Way
+### 老用法
 
-Before Dagger 2.10 version, I used to use dagger 2 like,
+Dagger 2.10 之前，Dagger 2 是这样用的：
 
+```java
+((MyApplication) getApplication())        
+.getAppComponent()        
+.myActivity(new MyActivityModule(userId))       
+.build()        
+.inject(this);
 ```
-((MyApplication) getApplication())        .getAppComponent()        .myActivity(new MyActivityModule(userId))        .build()        .inject(this);
-```
 
-What is wrong with that? We want to use dependency injection. But what is dependency injection’s core principle?
+这会有什么问题呢？ 我们想用依赖注入，但是依赖注入的核心原则是什么？
 
-> **A class shouldn’t know anything about how it is injected.**
+> **一个类不应该关心它是如何被注入的**
 
-So we have to get rid of these builder methods and module instance creation.
+因此我们必须把这些 Builder 方法和 Module 实例创建部分去掉
 
 ### **Sample Project**
 
