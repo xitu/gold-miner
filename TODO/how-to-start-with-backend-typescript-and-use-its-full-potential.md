@@ -35,7 +35,7 @@ I hope this article will help people like me, who like TypeScript and want to wr
 **Routing-controllers：控制器，行为，请求等**
 
 [**pleerock/routing-controllers**
-routing-controllers - Create structured, declarative and beautifully organized class-based controllers with heavy…_github.com](https://github.com/pleerock/routing-controllers)
+routing-controllers - Create structured, declarative and beautifully organized class-based controllers with heavy…github.com](https://github.com/pleerock/routing-controllers)
 
 Despite this library was built as TypeScript helper for Express/Koa, this it will help you write your controllers like you are using some kind of enterprise framework in Java/PHP/C#
 
