@@ -5,15 +5,15 @@
 > * 译者：
 > * 校对者：
 
-# Getting started with TensorFlow
+# IBM 工程师的 TensorFlow 入门指北
 
-In the context of machine learning, _tensor_ refers to the multidimensional array used in the mathematical models that describe neural networks. In other words, a tensor is usually a higher-dimension generalization of a matrix or a vector.
+在机器学习的世界中， _tensor_ 是指数学模型中用来描述神经网络的多维数组。换句话说，一个 tensor 通常是一个广义上的高维矩阵或者向量。
 
-Through a simple notation that uses a rank to show the number of dimensions, tensors allow the representation of complex _n_-dimensional vectors and hyper-shapes as _n_-dimensional arrays. Tensors have two properties: a datatype and a shape.
+通过使用矩阵的秩来显示维数的简单方法，tensor 能够将复杂的 **n** 维向量和超形状表示成 **n** 维数组。Tensor 有两个属性：数据类型和形状。
 
-## About TensorFlow
+## 关于 TensorFlow
 
-TensorFlow is an open source deep learning framework that was released in late 2015 under the Apache 2.0 license. Since then, it has become one of the most widely adopted deep learning frameworks in the world (going by the number of GitHub projects based on it.).
+TensorFlow 是一个开源的深度学习框架，它基于 Apache 2.0 许可发布于 2015年底。从那时起，它就成为世界上最广泛采用的深度学习框架之一（通过 Github 上基于它的项目证明）。
 
 TensorFlow traces its origins from Google DistBelief, a proprietary production deep learning system developed by the Google Brain project. Google designed TensorFlow from the ground up for distributed processing and to run optimally on Google's custom application-specific integrated circuit (ASIC) called the Tensor Processing Unit (TPU) in its production data centers. This design makes TensorFlow efficient for deep learning applications.
 
