@@ -5,7 +5,7 @@
 > * 译者：[Cherry](https://github.com/sunshine940326)
 > * 校对者：
 
-# 介绍 Turbo：比 Tarn 和 NPM 快 5 倍，可以在本地浏览器中运行🔥
+# 介绍 Turbo：比 Yarn 和 NPM 快 5 倍，可以在本地浏览器中运行🔥
 ![](https://cdn-images-1.medium.com/max/800/1*ZM5-cr-PRyZxEV7gegcU_g.png)
 
 **注意** ：这是我在 Google’s Mountain View campus 演讲的一部分，[**欢迎加入！**](https://www.meetup.com/modernweb/events/244544544/)
