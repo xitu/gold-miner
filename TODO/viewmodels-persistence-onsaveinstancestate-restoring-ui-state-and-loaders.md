@@ -2,147 +2,148 @@
 > * 原文作者：[Lyla Fujiwara](https://medium.com/@lylalyla?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/viewmodels-persistence-onsaveinstancestate-restoring-ui-state-and-loaders.md](https://github.com/xitu/gold-miner/blob/master/TODO/viewmodels-persistence-onsaveinstancestate-restoring-ui-state-and-loaders.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Feximin](https://github.com/Feximin/)
 
 # ViewModels: Persistence, onSaveInstanceState(), Restoring UI State and Loaders
 
-### Introduction
+### 介绍
 
-In the [last blog post](https://medium.com/google-developers/viewmodels-a-simple-example-ed5ac416317e) I explored a simple use case with the new [ViewModel](https://developer.android.com/reference/android/arch/lifecycle/ViewModel.html) class for saving basketball score data during a configuration change. ViewModels are designed to hold and manage UI-related data in a life-cycle conscious way. ViewModels allow data to survive configuration changes such as screen rotations.
+我在[上篇博文](https://medium.com/google-developers/viewmodels-a-simple-example-ed5ac416317e)中用新的 [ViewModel](https://developer.android.com/reference/android/arch/lifecycle/ViewModel.html) 类开发了一个简单的用例来保存配置更改过程中的篮球分数。ViewModel 被设计用来以与生命周期相关的方式保存和管理 UI 相关的数据。ViewModel 允许数据在例如屏幕旋转这样的配置更改后依然保留。
 
-At this point, you might have a few questions about the breadth of what ViewModels do. In this post I’ll be answering:
+现在，你可能会有几个问题是关于 ViewModel 到底能做什么。本文我将解答：
 
-*   **Do ViewModels persist my data?** TL;DR No.Persist as normal!
-*   **Are ViewModels a replacement for** [**onSaveInstanceState**](https://developer.android.com/reference/android/app/Activity.html#onSaveInstanceState%28android.os.Bundle%29)**?** TL;DR No, but they are related so keep reading.
-*   **How do I use ViewModels to save and restore UI state efficiently?** TL;DRYou use a combination of ViewModels, `onSaveInstanceState()` and local persistence.
-*   **Are ViewModels a replacement for Loaders?** TL;DR. Yes, ViewModels used in conjunction with a few other classes can replace Loaders.
+* **ViewModel 是否对数据进行了持久化？** 简而言之，没有，还像平常那样去持久化。
+* **ViewModel 是** [**onSaveInstanceState**](https://developer.android.com/reference/android/app/Activity.html#onSaveInstanceState%28android.os.Bundle%29) **的替代品吗？** 简而言之，不是，但是他们不无关联，请继续读。
+* **我如何高效地使用 ViewModel 来保存和恢复 UI 状态？** 简而言之，你可以混合混合 ViewModels、 `onSaveInstanceState()`、本地持久化一起使用。
+* **ViewModel 是 Loader 的一个替代品吗？** 简而言之，对，ViewModel 结合其他几个类可以代替 Loader 使用。
 
-### Do ViewModels persist my data?
+### 图模型是否对数据进行了持久化？
 
-**TL;DR No.** Persist as normal!
+**简而言之，没有。** 还像平常那样去持久化。
 
-ViewModels hold **transient data used in the UI** but they don’t persist data. Once the associated UI Controller (fragment/activity) is destroyed or the process is stopped, the ViewModel and all the contained data gets marked for garbage collection.
+ViewModel 持有 **UI 中的临时数据**，但是他们不会进行持久化。一旦相关联的 UI 控制器（fragment/activity）被销毁或者进程停止了，ViewModel 和所有被包含的数据都将被垃圾回收机制标记。
 
-Data used over multiple runs of the application should be persisted like normal in a [local database, Shared Preferences, and/or in the cloud](https://developer.android.com/guide/topics/data/data-storage.html). If you want the user to be able to put the app into the background and then come back three hours later to the exact same state, you should also persist data. This is because as soon as your activity goes into the background, your app process can be stopped if the device is running low on memory. There’s a [handy table in the activity class documentation](https://developer.android.com/reference/android/app/Activity.html#ActivityLifecycle) which describes in which activity lifecycle states your app is stoppable:
+那些被多个应用共用的数据应该像正常那样通过 [本地数据库，Shared Preferences，和/或者云存储](https://developer.android.com/guide/topics/data/data-storage.html)被持久化。如果你想让用户在应用运行在后台三个小时候后再返回到与之前完全相同的状态，你也需要将数据持久化。这是因为一旦你的活动进入后台，此时如果你的设备运行在低内存的情况下，你的应用进程是可以被终止的。下面是 activity 类文档中的一个[手册表](https://developer.android.com/reference/android/app/Activity.html#ActivityLifecycle)，它描述了在 activity 的哪个生命周期状态时你的应用是可被终止的：
 
 ![](https://cdn-images-1.medium.com/max/800/1*OlXDJ7WENwiFBgOeKWjH7g.png)
 
-[Activity lifecycle documentation](https://developer.android.com/reference/android/app/Activity.html#ActivityLifecycle)
+[Activity 生命周期文档](https://developer.android.com/reference/android/app/Activity.html#ActivityLifecycle)
 
-As a reminder, when an app processes is stopped due to resource constraints, it’s stopped without ceremony and **no additional lifecycle callbacks are called.** This means that you can’t rely on `[onDestroy](https://developer.android.com/reference/android/app/Activity.html#onDestroy%28%29)` being called. You **do not** have a chance to persist data at the time of process shutdown. Therefore, if you want to be the _most_ sure that you won’t lose data, persist it as soon as the user enters it. This means that even if your app process is shut down due to resource constraints or if the device runs out of battery, the data will be saved. If you’re willing to concede losing data in instances of sudden device shutdown, you can save the data in the `[onStop()](https://developer.android.com/reference/android/app/Activity.html#onStop%28%29)`callback**,** which happens right as the activity is going into the background.
+在此提醒，如果一个应用进程由于资源限制而被终止的话，则不是正常终止并且没有额外的生命周期回调。这意味着你不能依赖于 [`onDestroy`](https://developer.android.com/reference/android/app/Activity.html#onDestroy%28%29) 调用。在进程终止的时候你**没有**机会持久化数据。因此如果你想最大可能的保持数据不丢失，你应该在用户一进入（activity）的时候就进行持久化。也就是说即便你的应用在由于资源限制而被终止或者设备电量用完了的时候数据也将会被保存下来。如果你允许在类似设备突然关机的情况下丢失数据，你可以在 ['onStop()']((https://developer.android.com/reference/android/app/Activity.html#onStop%28%29))回调的时候将其保存，这个方法在 activity 一进入后台的时候就会被调用。
 
-### Are ViewModels a replacement for onSaveInstanceState?
+### ViewModel 是 onSaveInstanceState 的替代品吗？
 
-**TL;DR No,** but they are related so keep reading.
+**简而言之，不是，** 但是他们不无关联，请继续读。
 
-To understand the subtleties of this difference, it’s helpful to understand the difference between `[onSaveInstanceState()](https://developer.android.com/reference/android/app/Activity.html#onSaveInstanceState%28android.os.Bundle,%20android.os.PersistableBundle%29)` and `[Fragment.setRetainInstance(true)](https://developer.android.com/reference/android/app/Fragment.html#setRetainInstance%28boolean%29)`
+理解 [`onSaveInstanceState()`](https://developer.android.com/reference/android/app/Activity.html#onSaveInstanceState%28android.os.Bundle,%20android.os.PersistableBundle%29) 和 [`Fragment.setRetainInstance(true)`](https://developer.android.com/reference/android/app/Fragment.html#setRetainInstance%28boolean%29) 二者之间的不同有助于理解了解这种差异的微妙之处。
 
-**onSaveInstanceState():** This callback is meant to retain a **small** amount of UI related data in two situations:
+**onSaveInstanceState():** 这个回调是为了保存两种情况下的**少量** UI 相关的数据：
 
-*   The app’s process is stopped when it’s in the background due to memory constraints.
-*   Configuration changes.
+* 应用的进程在后台的时候由于内存限制而被终止。
+* 配置更改。
 
-`onSaveInstanceState()` is called in situations in which the activity is [stopped](https://developer.android.com/reference/android/app/Activity.html#onStop%28%29), but not [finished](https://developer.android.com/reference/android/app/Activity.html#finish%28%29), by the system. It is **not** called when the user explicitly closes the activity or in other cases when `[finish()](https://developer.android.com/reference/android/app/Activity.html#finish%28%29)` is called.
+`onSaveInstanceState()` 是被系统在 activity [stopped](https://developer.android.com/reference/android/app/Activity.html#onStop%28%29) 但没有 [finished](https://developer.android.com/reference/android/app/Activity.html#finish%28%29) 时调用的，而**不是**在用户显式地关闭 activity 或者在其他情形而导致 [`finish()`](https://developer.android.com/reference/android/app/Activity.html#finish%28%29) 被调用的时候调用。
 
-Note that a lot of UI data is automatically saved and restored for you:
+注意，很多 UI 数据会自动地被保存和恢复：
 
-> “The default implementation of this method saves transient information about the state of the activity’s view hierarchy, such as the text in an [EditText](https://developer.android.com/reference/android/widget/EditText.html) widget or the scroll position of a [ListView](https://developer.android.com/reference/android/widget/ListView.html) widget.” — [Saving and Restoring Instance State Documentation](https://developer.android.com/guide/components/activities/activity-lifecycle.html#saras)
+> “该方法的默认实现保存了关于 activity 的视图层次状态的临时信息，例如 [EditText](https://developer.android.com/reference/android/widget/EditText.html) 控件中的文本或者 [ListView](https://developer.android.com/reference/android/widget/ListView.html) 控件中的滚动条位置。” — [Saving and Restoring Instance State Documentation](https://developer.android.com/guide/components/activities/activity-lifecycle.html#saras)。
 
-These are also good examples of the type of data that is meant to be stored in `onSaveInstanceState()`. `onSaveInstanceState()` [is not designed to](https://developer.android.com/guide/topics/resources/runtime-changes.html#RetainingAnObject) store large amounts of data, such as bitmaps.`onSaveInstanceState()` is designed to store data that is small, related to the UI and not complicated to serialize or deserialize. Serialization can consume lots of memory if the objects being serialized are complicated. Because this process happens on the main thread during a configuration change, it needs to be fast so that you don’t drop frames and cause visual stutter.
+这些也是很好的例子说明了 `onSaveInstanceState()` 方法中存储的数据的类型。`onSaveInstanceState()` [不是被设计](https://developer.android.com/guide/topics/resources/runtime-changes.html#RetainingAnObject)来存储类似 bitmap 这样的大的数据的。`onSaveInstanceState()` 方法被设计用来存储那些小的与 UI 相关的并且序列化或者反序列化不复杂的数据。如果被序列化的对象是复杂的话，序列化会消耗大量的内存。由于这一过程发生在主线程的配置更改期间，它需要快速处理才不会丢帧和引起视觉上的卡顿。
 
-**Fragment.setRetainInstance(true)**: The [Handling Configuration Changes documentation](https://developer.android.com/guide/topics/resources/runtime-changes.html#RetainingAnObject) describes a process for storing data during a configuration change using a retained fragment. This _sounds_ less useful than `onSaveInstanceState()` which covers both configuration changes as well as process shutdown. The usefulness of creating a retained fragment is that it’s meant to retain large sets of data such as images or to retain complex objects like network connections.
+**Fragment.setRetainInstance(true)**：[Handling Configuration Changes documentation](https://developer.android.com/guide/topics/resources/runtime-changes.html#RetainingAnObject) 描述了在配置更改期间的一个用来存储数据的进程使用了一个保留的 fragment。这听起来没有 `onSaveInstanceState()` 涵盖了配置更改和进程关闭两种情况那么有用。创建一个保留 fragment 的好处是这可以保存类似 image 那样的大型数据集或者网络连接那样的复杂对象。
 
-**ViewModels only survive configuration change-related destruction; they do not survive the process being stopped.** This makes ViewModels a replacement for using a fragment with `setRetainInstance(true)` (in fact ViewModels use a fragment with [setRetainInstance](https://developer.android.com/reference/android/app/Fragment.html#setRetainInstance%28boolean%29) set to true behind the scenes).
+**ViewModel 只能在配置更改相关的销毁的情况下保留，而不能在被终止的进程中存留。** 这使 ViewModel 成为搭配 `setRetainInstance(true)`（实际上，ViewModel 在幕后使用了一个 fragment 并将 [setRetainInstance](https://developer.android.com/reference/android/app/Fragment.html#setRetainInstance%28boolean%29) 方法中的参数设置为 true） 一块使用的 fragment 的一种替代品。
 
-#### Additional ViewModel benefits
+####  ViewModel 的其他好处
 
-ViewModels and `onSaveInstanceState()` address UI data in very different ways. `onSaveInstanceState()` is a lifecycle callback, whereas ViewModels fundamentally change the way UI data is managed in your app. Here are a few more thoughts on the benefits of using ViewModel in addition to `onSaveInstanceState()`:
+ViewModel 和 `onSaveInstanceState()` 在 UI 数据的存储方法上有很大差别。`onSaveInstanceState()` 是生命周期的一个回调函数，而 ViewModel 从根本上改变了 UI 数据在你的应用中的管理方式。下面是使用了 ViewModel 后比 `onSaveInstanceState()` 之外的更多的一些好处：
 
-*   **ViewModels encourage good architectural design. Your data is separated from your UI code**, which makes the code more modular and simplifies testing.
-*   `onSaveInstanceState()` is designed to save a small amount of transient data, but not complex lists of objects or media data. **A ViewModel can delegate the loading of complex data and also act as temporary storage once this data is loaded**.
-*   `onSaveInstanceState()` is called during configuration changes and when the activity goes into the background; in both of these cases you actually do **not** need to reload or process the data if you keep it in a ViewModel.
+*   **ViewModel 鼓励良好的架构设计。数据与 UI 代码分离**，这使代码更加模块化且简化了测试。
+*   `onSaveInstanceState()` 被设计用来存储少量的临时数据，而不是复杂的对象或者媒体数据列表。**一个 ViewModel 可以代理复杂数据的加载，一旦加载完成也可以作为临时的存储**。
+*   `onSaveInstanceState()` 在配置更改期间和 activity 进入后台时被调用；在这两种情况下，如果你的数据被保存在 ViewModel 中，实际上并不需要重新加载或者处理他们。
 
-### How do I use ViewModels to save and restore UI state efficiently?
+### 我如何高效地使用 ViewModel 来保存和恢复 UI 状态？
 
-**TL;DR** You use **a combination of ViewModels,** `**onSaveInstanceState()**` **and local persistence**.Read on to see how.
+**简而言之**，你可以**混合**使用 **ViewModel**、 **`onSaveInstanceState()`**、**本地持久化**。继续读看看如何使用。
 
-It’s important that your activity maintains the state a user expects, even as it is rotated, shut down by the system or restarted by the user. As I just mentioned, it’s also important that you don’t clog up `onSaveInstanceState` with complex objects. You also don’t want to reload data from the database when you don’t need to. Let’s look at an example of an activity that allows you to search through your library of songs:
+重要的是你的 activity 维持着用户期望的状态，即便是屏幕旋转，系统关机或者用户重启。如我刚才所说，不要用复杂对象阻塞 `onSaveInstanceState` 方法同样也很重要。你也不想在你不需要的时候重新从数据库加载数据。让我们看一个 activity 的例子，在这个 activity 中你可以搜索你的音乐库：
 
 ![](https://cdn-images-1.medium.com/max/800/1*KjsvodQeJCZwSWiwtPET2g.png)
 
-Example of the clean state of the activity and the state after a search.
+Activity 未搜索时及搜索后的状态示例。
 
-There are two general ways a user can leave an activity, and two different outcomes the user will expect:
+用户离开一个 activity 有两种常用的方式，用户期望的也是两种不同的结果：
 
-*   The first is if the user **completely closes** the activity. A user can completely close the activity if they swipe an activity off of the [recents screen](https://developer.android.com/guide/components/activities/recents.html) or if a user [navigates up or back](https://developer.android.com/training/design-navigation/ancestral-temporal.html) out of an activity. The assumption in these cases is that **the user has permanently navigated away from the activity, and if they ever re-open the activity, they will expect to start from a clean state**. For our song app, if a user completely closes the song search activity and later re-opens the activity, the song search box will be cleared and so will the search results.
-*   On the other hand, if a user rotates the phone or puts the activity in the background and then comes back to it, the user expects that the search results and song they searched for are there, exactly as before. There are a few ways the user could put the activity in the background. They could press the home button or navigate somewhere else in the app. Or they could receive a phone call or notification in the middle of looking at search results. In the end, though, the user expects when they come back to the activity, that the state is the same as they left it.
+*  第一个是用户是否**彻底关闭**了 activity。如果用户将一个 activity 从 [recents screen](https://developer.android.com/guide/components/activities/recents.html) 中滑出或者[导航出去或退出](https://developer.android.com/training/design-navigation/ancestral-temporal.html)一个 activity 就可以彻底关闭它。这两种情形都假设**用户永久退出了这个 activity，如果重新进入那个 activity，他们所期望的是一个干净的页面**。对我们的音乐应用来说，如果用户完全关闭了音乐搜索的 activity 然后重新打开它，音乐搜索框和搜索结果都将被清除。
+*  另一方面，如果用户旋转手机或者 在activity 进入后台然后回来，用户希望搜索结果和他们想搜索的音乐仍存在，就像进入后台前那样。用户有数种途径可以使 activity 进入后台。他们可以按 home 键或者通过应用的其他地方导航（出去）。抑或在查看搜索结果的时候电话打了进来或收到通知。然而用户最终希望的是当他们返回到那个 activity 的时候页面状态与离开前完全一样。
 
-To implement this behavior in both situations, you will use local persistence, ViewModels and `onSaveInstanceState()` together. Each will store different data the activity uses:
+为了实现这两种情形下的行为，用可以将本地持久化、ViewModel 和 `onSaveInstanceState()` 一起使用。每一种都会存储 activity 中使用的不同数据：
 
-*   **Local persistence** is used for storing all data you don’t want to lose if you open and close the activity.  
-    **Example:** The collection of all song objects, which could include audio files and metadata
-*   **ViewModels** are used for storing all the data needed to display the associated UI Controller.  
-    **Example:** The results of the most recent search, the most recent search query
-*   **onSaveInstanceState** is used for storing a small amount of data needed to easily reload activity state if the UI Controller is stopped and recreated by the system. Instead of storing complex objects here, persist the complex objects in local storage and store a unique ID for these objects in `onSaveInstanceState()`.  
-    **Example:** The most recent search query
+*  **本地持久化**是用于存储当打开或关闭 activity 的时所有你不想丢失的数据。
 
-In the song search example, here’s how different events should be handled:
+   **举例：** 包含了音频文件和元数据的所有音乐对象的集合。
+*  **ViewModel** 是用于存储显示相关 UI 控制器的所需的所有数据。
+  
+   **举例：** 最近的搜索结果。
+*  **onSaveInstanceState** 是用于存储在 UI 控制器被系统终止又重建后可以轻松地重新加载 activity 状态时所需的少量数据。在本地存储中持久化复杂对象，在 `onSaveInstanceState()` 中为这些对象存储唯一的 ID，而不是直接存储复杂对象。
+   **举例：** 最近的搜索查询。
 
-**When the user adds a song — **The ViewModel will immediately delegate persisting this data locally. If this newly added song is something that should be shown in the UI, you should also update the data in ViewModel to reflect the addition of the song. Remember to do all database inserts off of the main thread.
+在音乐搜索的例子中，不同的事件应该被这样处理：
 
-**When the user searches for a song — **Whatever complex song data you load from the database for the UI Controller should be immediately stored in the ViewModel. You should also save the search query itself in the ViewModel.
+**用户添加一首音乐的时候 —** ViewModel 会迅速代理本地持久化这条数据。如果新添加的音乐需要在 UI 上显示，你还应该更新 ViewModel 中的数据来反应音乐的添加。谨记切勿在主线程中向数据库插入数据。 
 
-**When the activity goes into the background and the activity is stopped by the system — **When the activity goes into the background, `onSaveInstanceState()` will be called. You should save the search query in the `onSaveInstanceState()` bundle. This small amount of data is easy to save. It’s also all the information you need to get the activity back into its current state.
+**当用户搜索音乐的时候 —** 任何从数据库为 UI 控制器加载的复杂音乐数据应该马上存入 ViewModel。你也应该将搜索查询本身存入 ViewModel。
 
-**When the activity is created **— There are three different ways this could happen:
+**当这个 activity 处于后台并且被系统终止的时候 —** 一旦 activity 进入后台 `onSaveInstanceState()` 就会被调用。你应将搜索查询存入 `onSaveInstanceState()` 的 bundle 里。这些少量数据易于保存。这同样也是使 activity 恢复到当前状态所需的所有数据。
 
-*   **The activity is created for the first time**: In this case, you’ll have no data in the `onSaveInstanceState()` bundle and an empty ViewModel. When creating the ViewModel, you’ll pass an empty query and the ViewModel will know that there’s no data to load yet. The activity will start in a clean empty state.
-*   **The activity is created after being stopped by the system**: The activity will have the query saved in an `onSaveInstanceState()` bundle. The activity should pass the query to the ViewModel. The ViewModel will see that it has no search results cached and will delegate loading the search results, using the given search query.
-*   **The activity is created after a configuration change**: The activity will have the query saved in an `onSaveInstanceState()` bundle AND the ViewModel will already have the search results cached. You pass the query from the `onSaveInstanceState()` bundle to the ViewModel, which will determine that it already has loaded the necessary data and that it does **not** need to re-query the database.
+**当 activity 被创建的时候 —** 可能出现三种不同的方式：
 
-This is one sane way to handle saving and restoring activity state. Depending on your activity implementation, you might not need to use `onSaveInstanceState()` at all. For example, some activities don’t open in a clean state after the user closes them. Currently, when I close and re-open Chrome on Android, it takes me back to the exact webpage I was looking at before closing it. If your activity behaves this way, you can ditch `onSaveInstanceState()` and instead persist everything locally. In the song searching example, that would mean persisting the most recent query, for example, in [Shared Preferences](https://developer.android.com/reference/android/content/SharedPreferences.html).
+*   **Activity 是第一次被创建**：在这种情况下，`onSaveInstanceState()`方法中的 bundle 里是没有数据的，ViewModel 也是空的。创建 ViewModel 时，你传入一个空查询，ViewModel 会意识到还没有数据可以加载。这个 activity 以一种全新的状态启动起来。
+*   **Activity 在被系统终止后创建**：activity 的 `onSaveInstanceState()` 的 bundle 中保存了查询。Activity 会将这个查询传入 ViewModel。ViewModel发现缓存中没有搜索结果，就会使用给定的搜索查询代理加载搜索结果。
+*   **Activity 在配置更改后被创建**：Activity 会将本次查询保存在 `onSaveInstanceState()` 的 bundle 参数中并且 ViewModel 也会将搜索结果缓存起来。你通过 `onSaveInstanceState()` 的 bundle 将查询传入 ViewModel，这将决定它已加载了必须的数据从而**不**需要重新查询数据库。
 
-Additionally, when you open an activity from an intent, the bundle of extras is delivered to you on both configuration changes and when the system restores an activity. If the search query were passed in as an intent extra, you could use the extras bundle instead of the `onSaveInstanceState()` bundle.
+这是一个良好的保存和恢复 activity 状态的方法。基于你的 activity 的实现，你可能根本不需要 `onSaveInstanceState()`。例如，有些 activity 在被用户关闭后不会以一个全新的状态打开。一般地，当我在 Android 手机上关闭然后重新打开 Chrome 时，返回到了关闭 Chrome 之前正在浏览的页面。如果你的 activity 行为如此，你可以不使用 `onSaveInstanceState()` 而在本地持久化所有数据。同样以音乐搜索为例，那意味着在例如 [Shared Preferences](https://developer.android.com/reference/android/content/SharedPreferences.html) 中持久化最近的查询。
 
-In both of these scenarios, though, you’d still use a ViewModel to avoid wasting cycles reloading data from the database during a configuration change!
+此外，当你通过 intent 打开一个 activity，配置更改和系统恢复这个 activity 时 bundle 参数都会被传进来。如果搜索查询是通过 intent 的 extras 传进来，那么你就可以使用 extras 中的 bundle 代替 `onSaveInstanceState()` 中的 bundle。
 
-### Are ViewModels a replacement for Loaders?
+不过，在这两种场景中，你仍需要一个 ViewModel 来避免因配置更改而重新从数据库中加载数据导致的资源浪费。
 
-**TL;DR.** Yes, ViewModels used in conjunction with a few other classes can replace Loaders.
+### ViewModel 是 Loader 的一个替代品吗？ 
 
-[**Loaders**](https://developer.android.com/guide/components/loaders.html) are for loading data for UI Controllers. In addition, Loaders can survive configuration changes, if, for example, you rotate the device in the middle of a load. This sounds familiar!
+**简而言之**，对，ViewModel 结合其他几个类可以代替 Loader 使用。
 
-A common use case for Loaders, in particular [CursorLoaders](https://developer.android.com/reference/android/content/CursorLoader.html), is to have the Loader observe the content of a database and keep the data the UI displays in sync. Using a CursorLoader, if a value in the database changes, the Loader will automatically trigger a reload of the data and update the UI.
+[**Loader**](https://developer.android.com/guide/components/loaders.html) 是 UI 控制器用来加载数据的。此外，Loader 可以在配置更改期间保留，比如说在加载的过程中你旋转了手机屏幕。这听起来很耳熟吧！
+
+Loader ，特别是 [CursorLoader](https://developer.android.com/reference/android/content/CursorLoader.html)，的常见用法是观察数据库的内容并保持数据与 UI 同步。使用 CursorLoader 后，如果数据库其中的一个值发生改变，Loader 就会自动触发数据重新加载并且更新 UI。
 
 ![](https://cdn-images-1.medium.com/max/800/1*QuZeqCSgKlrfD7CGQq1laA.png)
 
-ViewModels, used with other Architecture Components, [LiveData](https://developer.android.com/topic/libraries/architecture/livedata.html) and [Room](https://developer.android.com/topic/libraries/architecture/room.html), can replace Loaders. The ViewModel ensures that the data can survive a configuration change. LiveData ensures that your UI can update when the data updates. Room ensures that when your database updates, your LiveData is notified.
+ViewModel 与其他架构组件 [LiveData](https://developer.android.com/topic/libraries/architecture/livedata.html) 和 [Room](https://developer.android.com/topic/libraries/architecture/room.html) 一起使用可以替代 Loader。ViewModel 保证配置更改后数据不丢失。LiveData 保证 UI 与数据同步更新。Room 确保你的数据库更新时，LiveData 被通知到。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Zc2mtVLw7y10MFZq4za7EA.png)
 
-Loaders are implemented as callbacks within your UI Controller, so an added benefit of ViewModels is they detangle your UI Controller and data loading. This makes you have fewer strong references between classes.
+由于 Loader 在 UI 控制器中作为回调被实现，因此 ViewModel 的一个额外优点是将 UI 控制器与数据加载分离开来。这可以减少类之间的强引用。
 
-There are a few approaches to using ViewModels and LiveData to load data:
+一些使用 ViewModels 、LiveData 为加载数据的方法：
 
-*   In [this blog post](https://medium.com/google-developers/lifecycle-aware-data-loading-with-android-architecture-components-f95484159de4), [Ian Lake](https://medium.com/@ianhlake) outlines how you can use a ViewModel and LiveData to replace an [AsyncTaskLoader](https://developer.android.com/reference/android/content/AsyncTaskLoader.html).
-*   As your code gets more complex, you can consider having the actual data loading take place in a separate class. The purpose of a ViewModel class is to contain data for a UI controller such that that data survives configuration changes. Loading, persisting, and managing data are complicated functions that are outside of the scope of what a ViewModel traditionally does. The [Guide to Android App Architecture](https://developer.android.com/topic/libraries/architecture/guide.html#fetching_data) suggests building a **repository** class.
+*   在[这篇文章](https://medium.com/google-developers/lifecycle-aware-data-loading-with-android-architecture-components-f95484159de4)中，[Ian Lake](https://medium.com/@ianhlake) 概述了如何使用 ViewModel 和 LiveData 来代替 [AsyncTaskLoader](https://developer.android.com/reference/android/content/AsyncTaskLoader.html)。
+*   随着代码变得越来越复杂，你可以考虑在一个单独的类里进行实际的数据加载。一个 ViewModel 类的目的是为 UI 控制器持有数据。加载、持久化、管理数据这些复杂的方法超出了 ViewModel 传统功能的范围。[Guide to Android App Architecture](https://developer.android.com/topic/libraries/architecture/guide.html#fetching_data) 建议创建一个**仓库**类。
 
-> “Repository modules are responsible for handling data operations. They provide a clean API to the rest of the app. They know where to get the data from and what API calls to make when data is updated. You can consider them as mediators between different data sources (persistent model, web service, cache, etc.).” — [Guide to App Architecture](https://developer.android.com/topic/libraries/architecture/guide.html#fetching_data)
+> “仓库模块负责处理数据操作。他们为应用的其他部分提供了一套干净的 API。当数据更新时他们知道从哪里获取数据以及调用哪个 API。你可以把他们当做是不同数据源（持久模型、web service、缓存等）之间的协调员。” — [Guide to App Architecture](https://developer.android.com/topic/libraries/architecture/guide.html#fetching_data)
 
-### Conclusion and further learning
+### 结论以及进一步学习
 
-In this post, I answered a few questions about what the ViewModel class is and what it’s not. The key takeaways are:
+在本文中，我回答了几个关于 ViewModel 类是什么和不是什么的问题。关键点是：
 
-*   ViewModels are not a replacement for persistence — persist your data like normal when it’s changed.
-*   ViewModels are not a replacement for `onSaveInstanceState()` because they only survive configuration change related destruction; they do not survive the OS stopping the app’s process.
-*   `onSaveInstanceState()` is not meant for complex data that require lengthy serialization/deserialization.
-*   To efficiently save and restore UI state, use a combination of persistence, `onSaveInstanceState()` and ViewModels. Complex data is saved in local persistence and `onSaveInstanceState()` is used to store unique identifiers to that complex data. ViewModels store the complex data in memory after it is loaded.
-*   In this scenario, ViewModels still retain the data when the activity is rotated or goes into the background, which is something that you can’t easily do by using purely `onSaveInstanceState()`.
-*   ViewModels and LiveData, used in conjunction, can replace Loaders. You can use Room to replace CursorLoader functionality.
-*   Repository classes are created to support a scalable architecture for loading, caching and syncing data.
+*   ViewModel 不是持久化的替代品 — 当数据改变时像平常那样持久化他们。
+*   ViewModel 不是 `onSaveInstanceState()` 的替代品，因为他们在与配置更改相关的销毁时保存数据，而不能在系统杀死应用进程时保存。
+*   `onSaveInstanceState()` 并不适用于那些需要长时间序列化/反序列化的数据。
+*   为了高效的保存和恢复 UI 状态，可以混合使用 持久化、`onSaveInstanceState()` 和 ViewModel。复杂数据通过本地持久化保存然后用 `onSaveInstanceState()` 来保存那些复杂数据的唯一 ID。ViewModel 在数据加载后将他们保存在内存中。
+*   在这个场景下，ViewModel 在 activity 旋转或者进入后台时仍保留数据，而单纯用 `onSaveInstanceState()` 并没那么容易实现。
+*   结合 ViewModel 和 LiveData 一起使用可以代替 Loader。你可以使用 Room 来代替 CursorLoader 的功能。
+*   创建仓库类来支持一个可伸缩的加载、缓存和同步数据的架构。
 
-Want more ViewModel-ly goodness? Check out:
+想要更多 ViewModel 相关的干货？请看：
 
 *   [Instructions for adding the gradle dependencies](https://developer.android.com/topic/libraries/architecture/adding-components.html)
 *   [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel.html) documentation
@@ -150,7 +151,7 @@ Want more ViewModel-ly goodness? Check out:
 *   Helpful samples that include ViewModel [[Architecture Components](https://github.com/googlesamples/android-architecture-components)] [[Architecture Blueprint using Lifecycle Components](https://github.com/googlesamples/android-architecture/tree/dev-todo-mvvm-live/)]
 *   The [Guide to App Architecture](https://developer.android.com/topic/libraries/architecture/guide.html)
 
-The architecture components were created based on your feedback. If you have questions or comments about ViewModel or any of the architecture components, check out our [feedback page](https://developer.android.com/topic/libraries/architecture/feedback.html). Questions about this series? Leave a comment!
+架构组件是基于你反馈来创建的。如果你有关于 ViewModel 或者任何架构组件的问题，请查看我们的[反馈页面](https://developer.android.com/topic/libraries/architecture/feedback.html)。关于本系列的任何问题，敬请留言。
 
 
 ---

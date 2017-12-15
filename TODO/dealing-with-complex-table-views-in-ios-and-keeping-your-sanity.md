@@ -3,28 +3,27 @@
 > * 原文作者：[Marin Benčević](https://medium.cobeisfresh.com/@marinbenc?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/dealing-with-complex-table-views-in-ios-and-keeping-your-sanity.md](https://github.com/xitu/gold-miner/blob/master/TODO/dealing-with-complex-table-views-in-ios-and-keeping-your-sanity.md)
-> * 译者：
-> * 校对者：
+> * 译者：[zhangqippp](https://github.com/zhangqippp)
 
-# Dealing with Complex Table Views in iOS and Keeping Your Sanity
+# 处理 iOS 中复杂的 Table Views 并保持优雅
 
-Table views are one of the most important layout components in iOS development. Usually some of our most important screens are table views: feeds, settings, lists of items etc.
+Table views 是 iOS 开发中最重要的布局组件之一。通常我们的一些最重要的页面都是 table views：feed 流，设置页，条目列表等。
 
-Every iOS developer that’s worked on a complex table view knows that it can get pretty gnarly pretty quickly. Huge view controllers with massive `UITableViewDataSource` methods and tons of ifs and switch statements. Add to that array index math and the occasional, very fun, out of bounds error and you’ve got yourself a nice sandwich of frustration.
+每个开发复杂的 table view 的 iOS 开发者都知道这样的 table view 会使代码很快就变的很粗糙。这样会产生包含大量 `UITableViewDataSource` 方法和大量 if 和 switch 语句的巨大的 view controller。加上数组索引计算和偶尔的越界错误，你会在这些代码中遭受很多挫折。
 
-I’ve come to a set of principles that I am (at least of the time being) somewhat happy with, which help me get over these problems. The good thing about these tips is that they’re not only for complex table views, but are also good pieces of advice to apply on all your table views.
+我会给出一些我认为有益（至少在现在是有益）的原则，它们帮助我解决了很多问题。这些建议并不仅仅针对复杂的 table view，对你所有的 table view 来说它们都能适用。
 
-Let’s look at an example of a complex `UITableView`.
+我们来看一下一个复杂的 `UITableView` 的例子。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*qzuG8HnLA5c5qA2HbP6jAA.png)
 
-The awesome selfie illustration is by [LazyAmphy](https://lazyamphy.deviantart.com/)
+这些很棒的截屏插图来自 [LazyAmphy](https://lazyamphy.deviantart.com/)
 
-This is PokeBall, a social network for Pokémon. Like all social networks, it needs a feed that shows different events relevant to the user. These events include new photos and status messages, grouped by day. So, we have two axes to worry about here: the table view has different states, and multiple cells and sections.
+这是 PokeBall，一个为 Pokémon 定制的社交网络。像其它社交网络一样，它需要一个 feed 流来显示跟用户相关的不同事件。这些事件包括新的照片和状态信息，按天进行分组。所以，现在我们有两个需要担心的问题：一是 table view 有不同的状态，二是多个 cell 和 section。
 
-## 1. Make the cell do the work
+## 1. 让 cell 处理一些逻辑
 
-I see a lot of developers putting cell configuration inside their `cellForRowAt:` method. When you think about it, that method’s purpose is to create a cell. The `UITableViewDataSource`’s purpose is to supply data. **The data source is not supposed to set the font on a button.**
+我见过很多开发者将 cell 的配置逻辑放到  `cellForRowAt:` 方法中。仔细思考一下，这个方法的目的是创建一个 cell。`UITableViewDataSource` 的目的是提供数据。**数据源的作用不是用来设置按钮字体的。**
 
 ```
 func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -41,7 +40,7 @@ func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> U
 }
 ```
 
-You should put the code needed to style and configure a cell inside the actual cell. If it’s something that’s going to be there during the whole lifecycle of the cell, like a label’s font, put it in the `awakeFromNib` method.
+你应该把配置和设置 cell 样式的代码放到 cell 中。如果是一些在 cell 的整个生命周期都存在的东西，例如一个 label 的字体，就应该把它放在 `awakeFromNib` 方法中。
 
 ```
 class StatusTableViewCell: UITableViewCell {
@@ -57,7 +56,7 @@ class StatusTableViewCell: UITableViewCell {
 }
 ```
 
-Otherwise you can use property observers to set the data of the cell.
+另外你也可以给属性添加观察者来设置 cell 的数据。
 
 ```
 var status: Status! {
@@ -68,7 +67,7 @@ var status: Status! {
 }
 ```
 
-That way your `cellForRow` method is clear, readable and concise.
+那样的话你的 `cellForRow` 方法就变得简洁易读了。
 
 ```
 func tableView(_ tableView: UITableView, 
@@ -81,11 +80,11 @@ func tableView(_ tableView: UITableView,
 }
 ```
 
-What’s more, cell-specific logic is now in a single place, instead of being scattered between the cell and the view controller.
+此外，cell 的设置逻辑现在被放置在一个单独的地方，而不是散落在 cell 和 view controller 中。
 
-## 2. Make the model do the work
+## 2. 让 model 处理一些逻辑
 
-Usually, you fill a table view with an array of model objects that you’ve got from some sort of a backend service. A cell then needs to make changes on itself based on that model.
+通常，你会用从某个后台服务中获取的一组 model 对象来填充一个 table view。然后 cell 需要根据 model 来显示不同的内容。
 
 ```
 var status: Status! {
@@ -108,7 +107,7 @@ var status: Status! {
 }
 ```
 
-You can create a cell-specific model which you will initialize with your model object, and it will compute titles, images and other properties for the cell.
+你可以创建一个适配 cell 的对象，传入上文提到的 model 对象来初始化它，在其中计算 cell 中需要的标题，图片以及其它属性。
 
 ```
 class StatusCellModel {
@@ -133,7 +132,7 @@ class StatusCellModel {
 }
 ```
 
-Now you can move a lot of the logic of presenting the cell to the model itself. You can then instantiate and unit test the model separately, without having to do complex mocking and fetching cells in your unit tests. This also means that your cells are dead-simple and easy to read.
+现在你可以将大量的展示 cell 的逻辑移到 model 中。你可以独立地实例化并单元测试你的 model 了，不需要在单元测试中做复杂的数据模拟和 cell 获取了。这也意味着你的 cell 会变得非常简单易读。
 
 ```
 var model: StatusCellModel! {
@@ -146,13 +145,13 @@ var model: StatusCellModel! {
 }
 ```
 
-This is a similar pattern to [MVVM](http://artsy.github.io/blog/2015/09/24/mvvm-in-swift/), but applied to a single table view cell.
+这是一种类似于 [MVVM](http://artsy.github.io/blog/2015/09/24/mvvm-in-swift/) 的模式，只是应用在一个单独的 table view 的 cell 中。
 
-## 3. See the matrix (but make it prettier)
+## 3. 使用矩阵（但是把它弄得漂亮点）
 
 ![Just a regular iOS developer making some table views](https://cdn-images-1.medium.com/max/1600/1*EnFp796gd61cMcpnUv3Vcg.jpeg)
 
-Sectioned table views are usually a huge mess. Have you ever seen this?
+分组的 table view 经常乱成一团。你见过下面这种情况吗？
 
 ```
 func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -164,13 +163,13 @@ func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -
 }
 ```
 
-This is a lot of code, and a lot of hard-coded indices for something that should be pretty simple and easy to change and swap around. There’s an easy solution for this problem: a matrix.
+这一大团代码中，使用了大量的硬编码的索引，而这些索引本应该是简单并且易于改变和转换的。对这个问题有一个简单的解决方案：矩阵。
 
-Remember matrices? It’s something Machine Learning people and first-year Computer Science students use, but app developers usually don’t. Yet, if you think of a sectioned table view, what’s really happening is that you’re presenting a list of sections. Each section is a list of cells. That sounds like an array of arrays, or a matrix.
+记得矩阵么？搞机器学习的人以及一年级的计算机科学专业的学生会经常用到它，但是应用开发者通常不会用到。如果你考虑一个分组的 table view，其实你是在展示分组的列表。每个分组是一个 cell 的列表。听起来像是一个数组的数组，或者说矩阵。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*DrkAd_ssNhl2ezokmXH_Zg.png)
 
-That’s the way you should model sectioned table views. Instead of a flat array, use an array of arrays. That’s how `UITableViewDataSource` methods are structured: you're asked to return the nth cell of mth section, and not the nth cell in the table view itself.
+矩阵才是你组织分组 table view 的正确姿势。用数组的数组来替代一维的数组。 `UITableViewDataSource` 的方法也是这样组织的：你被要求返回第 m 组的第 n 个 cell，而不是 table view 的第 n 个 cell。
 
 ```
 var cells: [[Status]] = [[]]
@@ -184,7 +183,7 @@ func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> U
 }
 ```
 
-We can then expand on this concept, by defininig a Section container type. This type will not only hold the cells for a specific section, but also things like the section title.
+我们可以通过定义一个分组容器类型来扩展这个思路。这个类型不仅持有一个特定分组的 cell，也持有像分组标题之类的信息。
 
 ```
 struct Section {
@@ -194,7 +193,7 @@ struct Section {
 var sections: [Section] = []
 ```
 
-Now we can avoid having hard-coded indices that we switch on, and can instead define an array of sections and return their titles directly.
+现在我们可以避免之前 switch 中使用的硬编码索引了，我们定义一个分组的数组并直接返回它们的标题。
 
 ```
 func tableView(_ tableView: UITableView, 
@@ -203,15 +202,15 @@ func tableView(_ tableView: UITableView,
 }
 ```
 
-This way, we have less code in our data source methods, and thus less potential for out-of-bounds errors. The code also becomes more expressive and readable.
+这样在我们的数据源方法中代码更少了，相应地也减少了越界错误的风险。代码的表达力和可读性也变得更好。
 
-## 4. Enums are your friend
+## 4. 枚举是你的朋友
 
-Working with multiple cell types can be really tricky. Consider some sort of feed, where you have to show different types of cells, like photos and statuses. To keep your sanity and avoid weird array index math, you should store both of these in the same array.
+处理多种 cell 的类型有时候会很棘手。例如在某种 feed 流中，你不得不展示不同类型的 cell，像是图片和状态信息。为了保持代码优雅以及避免奇怪的数组索引计算，你应该将各种类型的数据存储到同一个数组中。
 
-However, arrays are homogenuous, which means you can’t have an array of different types. The first solution that comes to mind are protocols. Swift is protocol-oriented, after all!
+然而数组是同质的，意味着你不能在同一个数组中存储不同的类型。面对这个问题首先想到的解决方案是协议。毕竟 Swift 是面向协议的。
 
-You can define a protocol FeedItem, and make sure our cells’ models conform to that protocol.
+你可以定义一个 FeedItem 协议，并且让我们的 cell 的 model 对象都遵守这个协议。
 
 ```
 protocol FeedItem {}
@@ -219,13 +218,13 @@ struct Status: FeedItem { ... }
 struct Photo: FeedItem { ... }
 ```
 
-Then you can define an array of `FeedItem`s.
+然后定义一个持有 FeedItem 类型对象的数组。
 
 ```
 var cells: [FeedItem] = []
 ```
 
-However, when implementing cellForRowAt: with this solution, we can see a small problem.
+但是，用这个方案实现 cellForRowAt: 方法时，会有一个小问题。
 
 ```
 func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -243,13 +242,13 @@ func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> U
 }
 ```
 
-In upcasting the models to a protocol, you’ve lost a lot of information that you actually need. You have abstracted away your cells, but you actually need concrete instances. So, you end up having to check whether you can cast into a type, and then display a cell based on that.
+在让 model 对象遵守协议的同时，你丢失了大量你实际上需要的信息。你对 cell 进行了抽象，但是实际上你需要的是具体的实例。所以，你最终必须检查是否可以将 model 对象转换成某个类型，然后才能据此显示 cell。
 
-This will work, but it’s not pretty. Downcasting is inherently unsafe and leads to optionals. You also don’t know if you’ve covered all cases or not, because an infinite number of types can implement your protocol. That’s why you need to call `fatalError` if you get an unexpected type.
+这样也能达到目的，但是还不够好。向下转换对象类型内在就是不安全的，而且会产生可选类型。你也无法得知是否覆盖了所有的情况，因为有无限的类型可以遵守你的协议。所以你还需要调用 `fatalError` 方法来处理意外的类型。
 
-When you try to cast an instance of a protocol into a concrete type, it’s usually code smell. Protocols are there when you don’t need specific information, but can instead work with a subset of the original data.
+当你试图把一个协议类型的实例转化成具体的类型时，代码的味道就不对了。使用协议是在你不需要具体的信息时，只要有原始数据的一个子集就能完成任务。
 
-A better approach would be to use an enum. That way you can switch on it, and the code won’t compile if you haven’t handled all cases.
+更好的实现是使用枚举。那样你可以用 switch 来处理它，而当你没有处理全部情况时代码就无法编译通过。
 
 ```
 enum FeedItem {
@@ -258,9 +257,9 @@ enum FeedItem {
 }
 ```
 
-Enums can also have associated values, so you can put the data you need inside the actual enum value.
+枚举也可以具有关联的值，所以也可以在实际的值中放入需要的数据。
 
-Your array definition stays the same, but your `cellForRowAt:`method now looks much cleaner:
+数组依然是那样定义，但你的 `cellForRowAt:` 方法会变的清爽很多：
 
 ```
 func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -277,32 +276,32 @@ func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> U
 }
 ```
 
-This way, you have no casting, no optionals and no unhandled cases, so we have no bugs.
+这样你就没有类型转换，没有可选类型，没有未处理的情况，所以也不会有 bug。
 
-## 5. Make the state explicit
+## 5. 让状态变得明确
 
 ![](https://cdn-images-1.medium.com/max/2000/1*qzuG8HnLA5c5qA2HbP6jAA.png)
 
-The awesome selfie illustration is by [LazyAmphy](https://lazyamphy.deviantart.com/)
+这些很棒的截屏插图来自 [LazyAmphy](https://lazyamphy.deviantart.com/)
 
-Because it’s confusing to see a blank screen, we usually show some sort of a message when the table view is empty. We also show an indicator while the data is loading. However, if things are amiss, it would be nice to tell the user what’s up so that they know how to fix the problem.
+空白的页面可能会使用户困惑，所以我们一般在 table view 为空时在页面上显示一些消息。我们也会在加载数据时显示一个加载标记。但是如果页面出了问题，我们最好告诉用户发生了什么，以便他们知道如何解决问题。
 
-Our table views often have all these states, and more. Managing them can be painful.
+我们的 table view 通常拥有所有的这些状态，有时候还会更多。管理这些状态就有些痛苦了。
 
-Let’s say you have two possible states: either you show the data, or a no-data view. A naive developer would show the “no data” state by simply hiding the table view, and showing the no data view.
+我们假设你有两种可能的状态：显示数据，或者一个提示用户没有数据的视图。初级开发者可能会简单的通过隐藏 table view，显示无数据视图来表明“无数据”的状态。
 
 ```
 noDataView.isHidden = false
 tableView.isHidden = true
 ```
 
-Changing state in this case means you have to change two boolean properties. In another part of the view controller, you might want to set the state to something else, and you need to remember to set both properties.
+在这种情况下改变状态意味着你要修改两个布尔值属性。在 view controller 的另一部分中，你可能想修改这个状态，你必须牢记你要同时修改这两个属性。
 
-In reality, those two bools should always be in sync. You can’t have the no data view up, and also be showing some data.
+实际上，这两个布尔值总是同步变化的。不能显示着无数据视图的时候，又在列表里显示一些数据。
 
-It’s useful to think of the difference between real-world number of states, and the possible number of states in your app. **Two boolean values have four possible combinations**. This means that you have two invalid states that you can accidentally enter, and that you need to handle.
+我们有必要思考一下实际中状态的数值和应用中可能出现的状态数值有何不同。**两个布尔值有四种可能的组合。**这表示你有两种无效的状态，在某些情况下你可能会变成这些无效的状态值，你必须处理这种意外情况。
 
-You can work around this by defining a `State` enum that will encompass all the possible states your screen can be in.
+你可以通过定义一个 `State` 枚举来解决这个问题，枚举中只列举你的页面可能出现的状态。
 
 ```
 enum State {
@@ -312,7 +311,7 @@ enum State {
 var state: State = .noData
 ```
 
-You can also define a single `state` property, which will be the only way to change the state of the screen. Every time that property gets changed, you will update the screen to show that state.
+你也可以定义一个单独的 `state` 属性，来作为修改页面状态的唯一入口。每当该属性变化时，你就更新页面到相应的状态。
 
 ```
 var state: State = .noData {
@@ -329,14 +328,14 @@ var state: State = .noData {
 }
 ```
 
-If you only ever modify the state trough this property, you can be sure that you’ll never forget to update a property, and will never enter invalid states. Changing the state is now simple.
+如果你只通过这个属性来修改状态，就能保证不会忘记修改某个布尔值属性，也就不会使页面处于无效的状态中。现在改变页面状态就变得简单了。
 
 ```
 self.state = .noData
 ```
 
-The more possible states you have, the more useful this pattern is.
-You can even improve this by using associated values for our error message and our items.
+可能的状态数量越多，这种模式就越有用。
+你甚至可以通过关联值将错误信息和列表数据都放置在枚举中。
 
 ```
 enum State {
@@ -366,15 +365,16 @@ var state: State = .noData {
 }
 ```
 
-This way you have defined a single data structure that is a complete representation of our table view controller. It’s [easily testable](https://medium.cobeisfresh.com/unit-testing-in-swift-part-1-the-philosophy-9bc85ed5001b) (since it’s a pure Swift value), and provides a **single point of update** and a **single source of truth** for our table view. Welcome to a brave new world of easy debugging!
+至此你定义了一个单独的数据结构，它完全满足了整个 table view controller 的数据需求。它[
+易于测试](https://medium.cobeisfresh.com/unit-testing-in-swift-part-1-the-philosophy-9bc85ed5001b)（因为它是一个纯 Swift 值），为 table view 提供了一个**唯一更新入口**和**唯一数据源**。欢迎来到易于调试的新世界！
 
-## Quick tips
+## 几点建议
 
-Here are some more minor tips that didn’t warrant their own section, but are still really useful:
+还有几点不值得单独写一节的小建议，但是它们依然很有用：
 
-**Be reactive!**
+**响应式！**
 
-Make sure the table view always represents the current state of the source array. Use a property observer to refresh the table view, don’t try to keep them in sync manually.
+确保你的 table view 总是展示数据源的当前状态。使用一个属性观察者来刷新 table view，不要试图手动控制刷新。
 
 ```
 var cells: [Cell] = [] {
@@ -386,33 +386,33 @@ var cells: [Cell] = [] {
 
 **Delegate != View Controller**
 
-Anything and anyone can implement a protocol! Remember that next time you’re writing a complex table view data source or delegate. It’s perfectly valid (and better) to define a type whose sole purpose is to be a table view’s data source. This keeps your view controller clean, and separates logic and responsibilities into their respective objects.
+任何对象和结构都可以实现某个协议！你下次写一个复杂的 table view 的数据源或者代理时一定要记住这一点。有效而且更优的做法是定义一个类型专门用作 table view 的数据源。这样会使你的 view controller 保持整洁，把逻辑和责任分离到各自的对象中。
 
-**Never assume indices!**
+**不要操作具体的索引值！**
 
-If you ever find yourself checking the index path for a specific index, switching on the section, or some other sorcery like that, you are most likely doing something wrong. If you have specific cells at specific places, represent that in your source array. Don’t hide those cells in your code.
+如果你发现自己在处理某个特定的索引值，在分组中使用 switch 语句以区别索引值，或者其它类似的逻辑，那么你很有可能做了错误的设计。如果你在特定的位置需要特定的 cell，你应该在源数据的数组中体现出来。不要在代码中手动地隐藏这些 cell。
 
-**Remember the Law of Demeter**
+**牢记迪米特法则**
 
-In short, the Law of Demeter (or principle of least knowledge) states that, in programming, friends should only talk to their friends, not their friends’ friends. Wait, what?
+简而言之，迪米特法则（或者最少知识原则）指出，在程序设计中，实例应该只和它的朋友交谈，而不能和朋友的朋友交谈。等等，这是说的啥？
 
-In other words, this means that one object should only ever access its properties. The properties of those properties should be left alone. So, the `UITableViewDataSource` should not set the `text`property of the cell's label. If you see two dots in one expression (`cell.label.text = ...`), it usually means you know too much.
+换句话说，一个对象只应访问它自身的属性。不应该访问其属性的属性。因此， `UITableViewDataSource` 不应该设置 cell 的 label 的 `text` 属性。如果你看见一个表达式中有两个点（`cell.label.text = ...`），通常说明你的对象访问的太深入了。
 
-If you don’t follow the Law of Demeter, changing the cell would also mean you have to change the data source. Decoupling the cell from the data source allows you to change and refactor one without affecting the other.
+如果你不遵循迪米特法则，当你修改 cell 的时候你也不得不同时修改数据源。将 cell 和数据源解耦使得你在修改其中一项时不会影响另一项。
 
-**Beware of Wrong Abstractions**
+**小心错误的抽象**
 
-Sometimes it’s better to have multiple similar `UITableViewCellclasses` than a single class with a bunch of if statements. You never know how they will diverge in the future, and abstracting them can be a trap. YAGNI (You Aren't Gonna Need It) is a good principle to follow, but sometimes YJMNI (You Just Might Need It).
+有时候，多个相近的 `UITableViewCell 类` 会比一个包含大量 if 语句的 cell 类要好得多。你不知道未来它们会如何分歧，抽象它们可能会是设计上的陷阱。YAGNI（你不会需要它）是个好的原则，但有时候你会实现成 YJMNI（你只是可能需要它）。
 
-I hope these tips will help you keep the gorgeous set of hair I’m sure you have next time you’re making a table view. Here’s some extra reading for you to help you even more:
+希望这些建议能帮助你，我确信你肯定会有下一次做 table view 的时候。这里还有一些扩展阅读的资源可以给你更多的帮助：
 
-- [Law of Demeter](https://en.wikipedia.org/wiki/Law_of_Demeter)
-- [The Wrong Abstraction](https://www.sandimetz.com/blog/2016/1/20/the-wrong-abstraction?duplication)
-- [You aren’t gonna need it](https://en.wikipedia.org/wiki/You_aren%27t_gonna_need_it)
+- [迪米特法则](https://en.wikipedia.org/wiki/Law_of_Demeter)
+- [错误的抽象](https://www.sandimetz.com/blog/2016/1/20/the-wrong-abstraction?duplication)
+- [你并不需要它](https://en.wikipedia.org/wiki/You_aren%27t_gonna_need_it)
 
-If you have any questions or comments, feel free to comment below.
+如果你有任何问题或建议，欢迎在下方留言。
 
-Marin is an iOS developer at COBE, a [blogger](https://medium.cobeisfresh.com/marinbenc.com), and a Computer Science student. He likes to program, learn about stuff and then write about them, ride bicycles and drink coffee. Mostly, though, he just causes SourceKit crashes. He has a chubby cat called Amigo. He totally didn’t write this bio himself.
+Marin 是 COBE 的一名 iOS 开发人员，一名[博主](https://medium.cobeisfresh.com/marinbenc.com)和一名计算机科学学生。他喜欢编程，学习东西，然后写下它们，还喜欢骑自行车和喝咖啡。大多数情况下，他只会把 SourceKit 搞崩溃。他有一只叫 Amigo 的胖猫。他基本上不是靠自己写完的这篇文章。
 
 
 ---

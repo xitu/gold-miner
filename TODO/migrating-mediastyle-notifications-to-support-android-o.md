@@ -2,29 +2,29 @@
 > * 原文作者：[Nazmul Idris (Naz)](https://medium.com/@nazmul?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/migrating-mediastyle-notifications-to-support-android-o.md](https://github.com/xitu/gold-miner/blob/master/TODO/migrating-mediastyle-notifications-to-support-android-o.md)
-> * 译者：
-> * 校对者：
+> * 译者： [ppp-man](https://github.com/ppp-man)
+> * 校对者：[llp0574](https://github.com/llp0574) [zhaochuanxing](https://github.com/zhaochuanxing)
 
-# Migrating MediaStyle notifications to support Android O
+# 在 Android O 上用到 MediaStyle 的提醒功能
 
-## Make MediaStyle notifications work for you on O
+## 让 MediaStyle 的提醒功能在 Android O 上为你服务
 
 ![](https://cdn-images-1.medium.com/max/2000/1*tnLgad0_ePYanfSAQ3F7pA.png)
 
-### Introduction
+### 简介
 
-If you are using `MediaStyle` notifications on API level 25 and lower, this article serves as a migration guide to moving these to Android O. `MediaStyle` notifications are typically used by bound and started services that allow audio playback to occur in the background.
+如果你在 API level 25 或以下的版本上用 `MediaStyle` 的提醒功能，这篇文章充当把这功能迁移到 Android O 上的指引。`MediaStyle` 的提醒功能通常是有限制的，并在后台开启那些允许音频回放的服务。
 
-There are a few major differences in Android O that have to be taken into account.
+Android O 的一些主要的区别需要被考虑到。
 
-1. Background services now have to be started with `[startForegroundService(Intent)](https://developer.android.com/preview/features/background.html#services)` and then a persistent notification must be shown within 5 seconds.
-2. Notification channels must be used in order to display notifications.
+1. 后台要以 `[startForegroundService(Intent)](https://developer.android.google.cn/preview/features/background.html#services)` 开头， 而且五秒内一定要出现个持续性的提醒。
+2. 如果要显示提醒就一定要用到提醒渠道。
 
-The migration to O requires a few short steps that are outlined here.
+整合到 Android O 的迁移需要以下几个小步骤。
 
-### Step 1 — Change your import statements
+### 第一步：改变导入的语句
 
-Make sure to add the following lines to your import statements:
+记得把下面的代码加到你的导入语句中：
 
 ```
 import android.support.v4.app.NotificationCompat;  
@@ -32,41 +32,41 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.media.app.NotificationCompat.MediaStyle;</pre>
 ```
 
-You might have an import statement from v7, that you no longer need:
+或许之前会有 v7 的导入语句，但现在已经不再需要：
 
 ```
 import android.support.v7.app.NotificationCompat;</pre>
 ```
 
-In your `build.gradle`, you now only need to import the `media-compat` support library. The `media-compat` library is where the `MediaStyle` class is located. The `media-compat` library is where the `MediaStyle` class is located.
+现在你的 `build.gradle` 文件里，只需要导入包含 `MediaStyle` 类的 `media-compat` 函数库。
 
 ```
 implementation ‘com.android.support:support-media-compat:26.+’</pre>
 ```
 
-`MediaStyle` is in the `android.support.v4.**media**` package because it is now part of the `[media-compat](https://developer.android.com/topic/libraries/support-library/packages.html#v4-media-compat)` dependency. They are specifically not in the `support-compat` library due to separation of concerns within the support library modules.
+`MediaStyle` 在 `android.support.v4.media` 这个包里因为它现在是 `[media-compat](https://developer.android.google.cn/topic/libraries/support-library/packages.html#v4-media-compat)` 依赖的一部分。特意不将它们放在 `support-compat` 库里的原因是保持支持库模块里的关注点分离。
 
-### Step 2 — Use NotificationCompat with channels
+### 第二步：用 NotificationCompat 和渠道
 
-In order to use notifications in O, you must use notification channels. The v4 support library now has a new constructor for creating notification builders:
+为了在 Android O 里用到提醒功能，你一定要用提醒渠道。v4 支持库现在有为了创建提醒的新构造器：
 
 ```
 NotificationCompat.Builder notificationBuilder =  
         new NotificationCompat.Builder(mContext, CHANNEL_ID);</pre>
 ```
 
-The old constructor is deprecated as of version 26.0.0 of the Support Library and will cause your notifications to fail to appear once you target API 26 (as a channel is a requirement for all notifications when targeting API 26 or higher):
+老的构造器到了 26.0.0 版的支持库就不能用了，因而你在用 API 26 的时候提醒就不会显示（因为渠道在 API 26 里是提醒功能的先要条件）：
 
 ```
 NotificationCompat.Builder notificationBuilder =  
         new NotificationCompat.Builder(mContext);</pre>
 ```
 
-To understand channels better in Android O, please read all about it on [developer.android.com](https://developer.android.com/preview/features/notification-channels.html). Google Play Music has fine grained controls about what you wish to be notified. For example, if you only care about “Playback” related notifications, you can enable those and disable the rest.
+为了更好地理解 Android O 里的渠道，请在 [developer.android.google.cn](https://developer.android.google.cn/preview/features/notification-channels.html) 上阅读所有相关信息。Google Play Music 可以让你自定义提醒消息。例如，如果你只关心”重放“相关的提醒，就可以只启用与之相关的提醒并禁用其他。
 
 ![](https://cdn-images-1.medium.com/max/800/0*I8gqatqtqnPtzCZP.)
 
-The `NotificationCompat` class does not create a channel for you. You still have to create a [channel yourself](https://developer.android.com/preview/features/notification-channels.html#CreatingChannels). Here’s an example for Android O.
+`NotificationCompat` 这个类并不帮你创建渠道，你依然要[自己创建一个](https://developer.android.google.cn/preview/features/notification-channels.html#CreatingChannels)。这里有一个 Android O 的例子。
 
 ```
 private static final String CHANNEL_ID = "media_playback_channel";
@@ -77,15 +77,15 @@ private static final String CHANNEL_ID = "media_playback_channel";
                 mNotificationManager =
                 (NotificationManager) mContext
                         .getSystemService(Context.NOTIFICATION_SERVICE);
-        // The id of the channel.
+        // 渠道 ID
         String id = CHANNEL_ID;
-        // The user-visible name of the channel.
+        // 用户看到的渠道名字
         CharSequence name = "Media playback";
-        // The user-visible description of the channel.
+        // 用户看到的渠道描述
         String description = "Media playback controls";
         int importance = NotificationManager.IMPORTANCE_LOW;
         NotificationChannel mChannel = new NotificationChannel(id, name, importance);
-        // Configure the notification channel.
+        // 渠道的配置
         mChannel.setDescription(description);
         mChannel.setShowBadge(false);
         mChannel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
@@ -93,7 +93,7 @@ private static final String CHANNEL_ID = "media_playback_channel";
     }
 ```
 
-Here’s code that creates a `MediaStyle` notification with `NotificationCompat`.
+这段代码利用 `NotificationCompat` 生成 `MediaStyle` 提醒。
 
 ```
 import android.support.v4.app.NotificationCompat;
@@ -102,7 +102,7 @@ import android.support.v4.media.app.NotificationCompat.MediaStyle;
 
 //...
 
-// You only need to create the channel on API 26+ devices
+// 你只需要在 API 26 以上的版本创建渠道
 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
   createChannel();
 }
@@ -130,9 +130,9 @@ notificationBuilder
 view rawMediaStyleNotification.java hosted with ❤ by GitHub
 ```
 
-### Step 3 — Use ContextCompat in order to startForegroundService()
+### 第三步：用 ContextCompat 来激活 startForegroundService()
 
-In Android O, services that are meant to run in the background, such as music playback services, are required to be started using `Context.startForegroundService()` instead of `Context.startService()`. In order to do this, you can use the `ContextCompat` class that automatically does this for you if you are on O, and still uses `startService(Intent)` on N and prior versions of Android.
+在 Android O里，像音乐重放这类理应是在后台运行的服务需要用 `Context.startForegroundService()` 而不是 `Context.startService()` 来启动。如果你在 Android O 上，就可以用 `ContextCompat` 这个类来自动帮你完成，如果你在 Android N 或之前的版本就需要用 `startService(Intent)` 来启动。
 
 ```
 if (isPlaying && !mStarted) {
@@ -143,16 +143,16 @@ if (isPlaying && !mStarted) {
 }
 ```
 
-That’s it! These are 3 simple steps to get you to migrate your pre-Android O `MediaStyle` notifications that are tied to background services.
+就是那么简单！三个简单步骤就能帮你把 `MediaStyle` 的后台提醒功能从 Android O 之前的版本迁移到 Android O 上。
 
-For more information about the change to `MediaStyle`, read the [change log](https://developer.android.com/topic/libraries/support-library/revisions.html#26-0-0) for the support lib.
+关于 `MediaStyle` 更新的更多资讯，请看[这里](https://developer.android.google.cn/topic/libraries/support-library/revisions.html#26-0-0)
 
-### Android Media Resources
+### 安卓（Android）媒体资源
 
 * [Understanding MediaSession](https://medium.com/google-developers/understanding-mediasession-part-1-3-e4d2725f18e4)
 * [Building a simple audio playback app using MediaPlayer](https://medium.com/google-developers/building-a-simple-audio-app-in-android-part-1-3-c14d1a66e0f1)
-* [Android Media API Guides — Media Apps Overview](https://developer.android.com/guide/topics/media-apps/media-apps-overview.html)
-* [Android Media API Guides — Working with a MediaSession](https://developer.android.com/guide/topics/media-apps/working-with-a-media-session.html)
+* [Android Media API Guides — Media Apps Overview](https://developer.android.google.cn/guide/topics/media-apps/media-apps-overview.html)
+* [Android Media API Guides — Working with a MediaSession](https://developer.android.google.cn/guide/topics/media-apps/working-with-a-media-session.html)
 
 
 ---
