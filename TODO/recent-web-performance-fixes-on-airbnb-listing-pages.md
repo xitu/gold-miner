@@ -106,17 +106,23 @@ It turned out that we used some feature detection to make sure the placeholder w
 
 Not only did this hurt performance, it also caused an extra label to be visibly rendered and then removed from the page every time. Janky! I fixed this by moving the rendering of this content into React state and set it in `componentDidMount`, which is not run until the client renders. 🥂
 
-这不仅降低了性能，还导致了一个额外的标签被渲染出来，然后每次再从页面上删除。赞！我将此内容的渲染转化为 React 的 state，并将其设置到了 `componentDidMount`，直到客户端渲染时才呈现，解决了问题。
+这不仅降低了性能，还导致了一些额外的标签被渲染出来，然后每次再从页面上删除。赞！我将此内容的渲染转化为 React 的 state，并将其设置到了 `componentDidMount`，直到客户端渲染时才呈现，解决了问题。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*Dz_-rY84jnCQrWhrlNkECw.png)
 
 I ran the profiler again and noticed that `<SummaryContainer>` updates shortly after mounting.
 
+我重新运行了一遍 profiler 发现，`<SummaryContainer>` 在 mounting 后瞬间发生了更新。 
+
 ![](https://cdn-images-1.medium.com/max/1000/0*ZPHyNBzpm6oT1dqu.)
 
 101.63 ms spent re-rendering Redux-connected SummaryContainer
 
+Redux 连接的 SummaryContainer 重绘消耗了 101.64 ms
+
 This ends up re-rendering a `<BreadcrumbList>`, two`<ListingTitles>`, and a `<SummaryIconRow>` when it updates. However, none of these have any differences, so we can make this operation significantly cheaper by using `React.PureComponent` on these three components. This was about as straightforward as changing this:
+
+更新后会重新渲染一个 `<BreadcrumbList>`、两个`<ListingTitles>` 和一个 `<SummaryIconRow>` 组件，但是他们前后并没有任何区别，所以我们可以通过使用 `React.PureComponent` 使这三个组件到渲染得到显著的优化。
 
 ```
 export default class SummaryIconRow extends React.Component {
@@ -126,6 +132,8 @@ export default class SummaryIconRow extends React.Component {
 
 into this:
 
+改成这样：
+
 ```
 export default class SummaryIconRow extends React.PureComponent {
   ...
@@ -134,47 +142,72 @@ export default class SummaryIconRow extends React.PureComponent {
 
 Up next, we can see that `<BookIt>` also goes through a re-render on the initial pageload. According to the flame 🔥 chart, most of the time is spent rendering `<GuestPickerTrigger>` and `<GuestCountFilter>`.
 
+接下来，我们可以看到 `<BookIt>` 在页面初始载入时也发生了重新渲染的操作。根据火焰图可以看出，大部分时间都消耗在渲染 `<GuestPickerTrigger>` 和 `<GuestCountFilter>` 组件上。
+
 ![](https://cdn-images-1.medium.com/max/800/0*0Houn_bWBi4x1rhe.)
 
 103.15 ms spent re-rendering BookIt
+BookIt 的重绘消耗了 103.15ms
+
 
 The funny thing here is that these components aren’t even visible 👻 unless the guest input is focused.
+
+有趣的是，除非用户操作，这些组件基本是不可见的 👻 。
 
 ![](https://cdn-images-1.medium.com/max/800/0*VicFFl6VVoKEvWp1.)
 
 The fix for this is to not render these components when they are not needed. This speeds up the initial render as well as any re-renders that may end up happening. 🐎 If we go a little further and drop in some more PureComponents, we can make this area even faster.
 
+解决这个问题的方法是在不需要的时候不渲染这些组件。这加快了初始化的渲染清除了一些不必要的重绘。🐎 如果我们进一步地进行优化，产出更多无多余重绘的组件，那么初始化渲染可以变得更快。
+
 ![](https://cdn-images-1.medium.com/max/800/0*A9Fk9rNQc-hlT4cq.)
 
 8.52 ms spent re-rendering BookIt
+BookIt 的重绘消耗了 8.52ms
 
 ### Scrolling around
+### 来回滚动
 
 While doing some work to modernize a smooth scrolling animation we sometimes use on the listing page, I noticed the page felt very janky when scrolling. 📜 People usually get an uncomfortable and unsatisfying feeling when animations aren’t hitting a smooth 60 fps (Frames Per Second), [and maybe even when they aren’t hitting 120 fps](https://dassur.ma/things/120fps/). **Scrolling is a special kind of animation that is directly connected to your finger movements, so it is even more sensitive to bad performance than other animations.**
 
+通常我们会在清单页面上做一些平滑滚动的效果，让滚动效果感觉很赞。📜 当动画没有达到平滑的 60 fps(每秒帧)，[甚至是 120 fps](https://dassur.ma/things/120fps/)，人们通常会感到不舒服也不会满意。**滚动是一种特殊的动画，是你的手指动作的直接反馈，所以它比其他动画更加敏感**。
+
 After a little profiling, I discovered that we were doing a lot of unnecessary re-rendering of React components inside our scroll event handlers! This is what really bad jank looks like:
+
+稍微分析一下后，我发现我们在滚动事件处理机制中做了很多不必要的 React 组件的重绘！看起来真的很糟糕：
 
 ![](https://cdn-images-1.medium.com/max/800/0*CFcV7cUQMP2tuiLb.)
 
 Really bad scrolling performance on Airbnb listing pages before any fixes
+在没做修复之前，Airbnb 上的滚动性能真的很糟糕
 
 I was able to resolve most of this problem by converting three components in these trees to use `React.PureComponent`: `<Amenity>`, `<BookItPriceHeader>`, and `<StickyNavigationController>`. This dramatically reduced the cost of these re-renders. While we aren't quite at 60 fps (Frames Per Second) yet, we are much closer:
+
+我可以使用 `React.PureComponent` 转化 `<Amenity>`、`<BookItPriceHeader>` 和 `<StickyNavigationController>` 这三个组件来解决绝大部分问题。这大大降低了页面重绘的成本。虽然我们还没能达到 60 fps（每秒帧数），但已经很接近了。
 
 ![](https://cdn-images-1.medium.com/max/800/0*fV_INfZNo5ochcKA.)
 
 Slightly improved scrolling performance of Airbnb listing pages after some fixes
+经过一些修改后，Airbnb 清单页面的滚动性能略有改善
 
 However, there is still more opportunity to improve. Zooming 🚗 into the flame chart a little, we can see that we still spend a lot of time re-rendering `<StickyNavigationController>`. And, if we look down component stack, we notice that there are four similar looking chunks of this:
+
+另外还有一些可以优化的部分。展开火焰图表，我们可以看到，`<StickyNavigationController>` 也产生了耗时的重绘。如果我们细看他的组件堆栈信息，可以发现四个相似的模块。
 
 ![](https://cdn-images-1.medium.com/max/800/0*m34rAJcm9zDr2IWu.)
 
 58.80 ms spent re-rendering StickyNavigationController
+StickyNavigationController 的重绘消耗了 8.52ms
 
 The `<StickyNavigationController>` is the part of the listing page that sticks to the top of the viewport. As you scroll between sections, it highlights the section that you are currently inside of. Each of the chunks in the flame 🚒 chart corresponds to one of the four links that we render in the sticky navigation. And, when we scroll between sections, we highlight a different link, so some of it needs to re-render. Here's what it looks like in the browser.
+
+`<StickyNavigationController>` 是清单页面顶部的一个部分，当我们滚动两个屏时，它会联动高亮您当前所在的位置。火焰图表中的每一块都对应着常驻导航的四个链接之一。
 
 ![](https://cdn-images-1.medium.com/max/800/1*sFbuI4zjaunWiOhINQiV6Q.gif)
 
 Now, I noticed that we have four links here, but only two change appearance when transitioning between sections. But still, in our flame chart, we see that all four links re-render every time. This was happening because our `<NavigationAnchors>` component was creating a new function in render and passing it down to `<NavigationAnchor>` as a prop every time, which de-optimizes pure components.
+
+现在，我注意到我们这里有四个链接，在状态切换时改变外观的只有两个，但在我们的火焰图表中显示，四个连接每都做了重绘操作。
 
 ```
 const anchors = React.Children.map(children, (child, index) => {      
@@ -187,6 +220,8 @@ const anchors = React.Children.map(children, (child, index) => {
 
 We can fix this by ensuring that the `<NavigationAnchor>` always receives the same function every time it is rendered by `<NavigationAnchors>`:
 
+我们可以通过确保 `<NavigationAnchor>` 每次被 `<NavigationAnchors>` 渲染时接受到的都是同一个 function。以下是 `<NavigationAnchors>` 中的部分代码：
+
 ```
 const anchors = React.Children.map(children, (child, index) => {      
   return React.cloneElement(child, {
@@ -198,6 +233,8 @@ const anchors = React.Children.map(children, (child, index) => {
 ```
 
 And then in `<NavigationAnchor>`:
+
+接下来是 `<NavigationAnchor>`：
 
 ```
 class NavigationAnchor extends React.Component {
@@ -218,27 +255,41 @@ class NavigationAnchor extends React.Component {
 
 Profiling after this change, we see that only two links are re-rendered! That's half 🌗 the work! And, if we use more than four links here, the amount of work that needs to be done won’t increase much anymore.
 
+在优化后的解析中我们可以看到，只有两个连接被重绘，事半功倍！并且，如果我们这里有更多的链接块，那么渲染的工作量将不再增加。
+
 ![](https://cdn-images-1.medium.com/max/800/0*UwwNS6-WeByC0sYm.)
 
 32.85 ms spent re-rendering StickyNavigationController
+StickyNavigationController 的重绘消耗了 8.52ms
 
 [_Dounan Shi_](https://medium.com/@dounanshi) _at_ [_Flexport_](https://medium.com/@Flexport) _has been working on_ [_Reflective Bind_](https://github.com/flexport/reflective-bind)_, which uses a Babel plugin to perform this type of optimization for you. It’s still pretty early so it might not be ready for production just yet, but I’m pretty excited about the possibilities here._
 
+[Flexport](https://medium.com/@Flexport) 的 [Dounan Shi](https://medium.com/@dounanshi) 一直在维护 [Reflective Bind](https://github.com/flexport/reflective-bind)，这是供你用来做这类优化的 Babel 插件。这个项目还处于起步阶段，还不足以正式发布，但我已经对他未来的可能性感到兴奋了。
+
 Looking down at the Main panel in the Performance recording, I notice that we have a very suspicious-looking `_handleScroll` block that eats up 19ms on every scroll event. Since we only have 16ms if we want to hit 60 fps, this is way too much. 🌯
+
+继续看 Performance 记录的 Main 面板，我注意到我们有一个非常可疑的模块 `handleScroll`，每次滚动事件都会消耗 19ms。
 
 ![](https://cdn-images-1.medium.com/max/800/0*xRqIpxSt6fH22tCt.)
 
 18.45 ms spent in `_handleScroll`
+`_handleScroll` 消耗了 18.45ms
 
 The culprit seems to be somewhere inside of `onLeaveWithTracking`. Through some code searching, I track this down to the `<EngagementWrapper>`. And looking a little closer at these call stacks, I notice that most of the time spent is actually inside of React's `setState`, but the weird thing is that we aren't actually seeing any re-renders happening here. Hmm...
 
+罪魁祸首好像是 `onLeaveWithTracking` 内的某个部位。通过代码排查，问题定位到了 `<EngagementWrapper>`。然后在看看他的调用栈，发现大部分的时间消耗在了 React `setState` 的内部，但奇怪的是，我们并没有发现期间有产生任何重绘。
+
 Digging into `<EngagementWrapper>` a little more, I notice that we are using React state 🗺 to track some information on the instance.
+
+深入挖掘 `<EngagementWrapper>`，我注意到，我们使用了 React 的 state 跟踪了实例上的一些信息。
 
 ```
 this.state = { inViewport: false };
 ```
 
 However, **we never use this state in the render path at all and never need these state changes to cause re-renders, so we end up paying an extra cost**. 💸 Converting all of these uses of React state to be simple instance variables really helps us speed up these scrolling animations.
+
+然而，**在渲染的流程中我们从来没有使用过这个 state，也没有监听它的变化来做重绘，也就是说，我们做了无用功**。将所有 React 的此类 state 用法转换为简单的实例变量可以让这些滚动动画更流畅。
 
 ```
 this.inViewport = false;
@@ -247,14 +298,20 @@ this.inViewport = false;
 ![](https://cdn-images-1.medium.com/max/800/0*FIGmkF_IXHbb36Rx.)
 
 1.16ms spent in scroll event handler
+滚动事件的 handler 消耗了 18.45ms
 
 I also noticed that the `<AboutThisListingContainer>` was re-rendering, which caused an expensive 💰 and unnecessary re-render of the `<Amenities>` component.
+
+我还注意到，`<AboutThisListingContainer>` 的重绘导致了组件 `<Amenities>` 高消耗且多余的重绘。
 
 ![](https://cdn-images-1.medium.com/max/800/0*jL45wVOeK7404zcb.)
 
 32.24 ms spent in AboutThisListingContainer re-render
+AboutThisListingContainer 的重绘消耗了 32.24ms
 
 This ended up being partly caused by our `withExperiments` higher-order component which we use to help us run experiments. This HOC was written in a way that it always passes down a newly created object as a prop to the component it wraps—deoptimizing anything in its path.
+
+最终确认是我们用来尝试的高阶组件 `withExperiments` 造成的。HOC 每次都会创建一个新的对象作为参数传递给组件，整个流程都没有做任何优化。
 
 ```
 render() {
@@ -273,6 +330,8 @@ render() {
 ```
 
 I fixed this by bringing in [reselect](https://github.com/reactjs/reselect) for this work, which memoizes the previous result so that it will remain referentially equal between successive renders.
+
+我通过引入 [reselect](https://github.com/reactjs/reselect) 来修复这个问题，他可以缓存上一次的结果以便在连续的渲染中保持相同。
 
 ```
 const getExperiments = createSelector(
@@ -301,6 +360,8 @@ render() {
 
 The second part of the problem was similar. In this code path we were using a function called `getFilteredAmenities` which took an array as its first argument and returned a filtered version of that array, similar to:
 
+问题的第二个部分也是相似的。我们使用了 `getFilteredAmenities` 方法将一个数组作为第一个参数，并返回该数组的过滤版本，类似于：
+
 ```
 function getFilteredAmenities(amenities) {
   return amenities.filter(shouldDisplayAmenity);
@@ -309,49 +370,74 @@ function getFilteredAmenities(amenities) {
 
 Although this looks innocent enough, this will create a new instance of the array every time it is run, even if it produces the same result, which will deoptimize any pure components receiving this array as a prop. I fixed this as well by bringing in reselect to memoize the filtering. I don’t have a flame chart for this one because the entire re-render completely disappeared! 👻
 
+虽然看上去没什么问题，但是每次运行即使结果相同也会会创建一个新的数组实例，这使得即使是很单纯的组件也会重复的接收这个数组。我同样是通过引入 `reselect` 缓存这个过滤器来解决这个问题。
+
 There’s probably still some more opportunity here (e.g. [CSS containment](https://developer.mozilla.org/en-US/docs/Web/CSS/contain)), but scrolling performance is already looking much better!
+
+可能还有更多的优化空间，(比如 [CSS containment](https://developer.mozilla.org/en-US/docs/Web/CSS/contain))，不过现在看起来已经很好了。
 
 ![](https://cdn-images-1.medium.com/max/800/1*7vX8RmLIIDkqHPWPzGPOhA.png)
 
 Improved scrolling performance on Airbnb listing pages after these fixes
+修复后的 Airbnb 清单页的优化滚动表现
 
 ### Clicking on things
+### 点击操作
 
 Interacting with the page a little more, I felt some noticeable lag ✈️ when clicking on the “Helpful” button on a review.
+
+更多得体验过这个页面后，我明显得感觉到在点击「Helpful」按钮时存在延时问题。
 
 ![](https://cdn-images-1.medium.com/max/800/0*tMXuKO1LSSx-FGM8.)
 
 My hunch was that clicking this button was causing all of the reviews on the page to be re-rendered. Looking at the flame chart, I wasn’t too far off:
 
+我的直觉告诉我，点击这个按钮导致页面上的所有评论都被重新渲染了。看一看火焰图表，和我预计的一样：
+
 ![](https://cdn-images-1.medium.com/max/1000/0*qfYVyzrWQRqeDFXQ.)
 
 42.38 ms re-rendering ReviewsContent
+ReviewsContent 重绘消耗了 42.38ms
 
 After dropping in `React.PureComponent` in a couple of places, we make these updates much more efficient.
+
+在这两个地方引入 `React.PureComponent` 之后，我们让页面的更新更高效。
 
 ![](https://cdn-images-1.medium.com/max/800/0*IPNN14uZ5LqOS8B3.)
 
 12.38 ms re-rendering ReviewsContent
+ReviewsContent 重绘消耗了 12.38ms
 
 ### Typing stuff
+### 键盘操作
 
 Going back to our old friend with the server/client mismatch, I noticed that typing in this box felt really unresponsive.
+
+再回到之前的客户端和服务端不匹配的老问题上，我注意到，在这个输入框里打字好像却是有反应迟钝的感觉。
 
 ![](https://cdn-images-1.medium.com/max/800/0*iWJlliBeKUNDmSu3.)
 
 In my profiling I discovered that every keypress was causing the entire review section header and every review to be re-rendered! 😱 That is not so Raven. 🐦
 
+分析后发现，每次按键操作都会造成整个评论区头部的重绘。这是在逗我吗？😱
+
 ![](https://cdn-images-1.medium.com/max/800/0*GCSQEZAZyaSBjgXA.)
 
 61.32 ms re-rendering Redux-connected ReviewsContainer
 
+Redux-connected ReviewsContainer 重绘消耗 61.32ms
+
 To fix this I extracted part of the header to be its own component so I could make it a `React.PureComponent`, and then sprinkled in a few `React.PureComponent`s throughout the tree. This made it so each keypress only re-rendered the component that needed to be re-rendered: the input.
+
+为了解决这个问题，我把头部的一部分提成自己的组件以便我可以把它做成一个 `React.PureComponent`，然后再把这个几个 `React.PureComponent` 分散在构建树上。这使得每次按键操作就只能重绘需要重绘的组件了，也就是 `input`。
 
 ![](https://cdn-images-1.medium.com/max/800/0*NWzbAAPcfys13iFh.)
 
 3.18 ms re-rendering ReviewsHeader
+ReviewsHeader 重绘消耗 3.18ms
 
 ### What did we learn?
+### 我们学到了什么？
 
 * We want pages to start fast and stay _fast_.
 * This means we need to look at more than just time to interactive, we need to also profile interactions on the page, like scrolling, clicking, and typing.
@@ -360,15 +446,28 @@ To fix this I extracted part of the header to be its own component so I could ma
 * React gives us a lot of power, but it can be easy to write code that deoptimizes your app.
 * Cultivate the habit of profiling, making a change, and then profiling again.
 
+* 我们希望页面可以启动得更快延迟更短
+* 这意味着我们需要关注不仅仅是页面交互时间，还需要对页面上的交互进行剖析，比如滚动、点击和键盘事件。
+* `React.PureComponent` 和 `reselect` 在我们性能优化的方法中是非常有用的两个工具。
+* 当实例变量这种轻量级的工具可以完美地满足你的需求时，就不要使用像 React state 这种重量级的工具了。
+* 虽然 React 很强大，但有时编写代码来优化你的应用反而更容易。
+* 培养分析优化再分析的习惯。
+
 * * *
 
 _If you enjoyed reading this, we are always looking for talented, curious people to_ [_join the team_](https://www.airbnb.com/careers/departments/engineering)_. We are aware that there is still a lot of opportunity to improve the performance of Airbnb, but if you happen to notice something that could use our attention or just want to talk shop, hit me up on Twitter any time_ [_@lencioni_](https://twitter.com/lencioni)
+
+**如果你喜欢做性能优化**，[那就加入我们吧](https://www.airbnb.com/careers/departments/engineering)，**我们正在寻找才华横溢、对一切都很好奇的你。我们知道，Airbnb 还有大优化的空间，如果你发现了一些我们可能感兴趣的事，亦或者只是想和我聊聊天，你可以在 Twitter 上找到我** [_@lencioni_](https://twitter.com/lencioni)。
 
 * * *
 
 Big shout out to [Thai Nguyen](https://medium.com/@thaingnguyen) for helping to review most of these changes, and for working on bringing the listing page into the core booking flow single-page app. ♨️ Get hyped! Major thanks goes to the team working on Chrome DevTools — these performance visualizations are top-notch! Also, huge props to Netflix for _Stranger Things 2_. 🙃
 
 Thanks to [Adam Neary](https://medium.com/@AdamRNeary?source=post_page).
+
+着重感谢 [Thai Nguyen](https://medium.com/@thaingnguyen) 在 review 代码和清单页迁移到单页应用的过程中作出的贡献。♨️ 得以实施主要得感谢 Chrome DevTools 团队，这些性能可视化的工具实在是太棒了！另外 Netflix 是第二项优化的功臣。
+
+感谢 [Adam Neary](https://medium.com/@AdamRNeary?source=post_page)。
 
 
 ---
