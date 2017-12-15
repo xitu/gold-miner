@@ -34,13 +34,13 @@ Dagger 2.10 之前，Dagger 2 是这样用的：
 
 因此我们必须把这些 Builder 方法和 Module 实例创建部分去掉
 
-### **Sample Project**
+### **示例工程**
 
-I created [sample project](https://github.com/iammert/dagger-android-injection/tree/master) that does nothing. Yes. I wanted to keep it as simple as possible. It has MainActivity and DetailActivity. Both activities inject to their presenter implementations and make api call(not actually http call, I created a fake method.).
+我创建的[示例工程](https://github.com/iammert/dagger-android-injection/tree/master) 中没做什么，我想让它尽可能地简单。它里面包含 MainActivity 和 DetailActivity， 这两个Activity 都注入到了相应的Presenter实现类并且请求了网络接口(并不是真的发起了HTTP请求, 我只是写了一个**假方法**)。
 
-### Setup
+### 准备工作
 
-Add these dependencies to your build.gradle.
+在 build.gradle中加入以下依赖：
 
 ```
 compile 'com.google.dagger:dagger:2.11-rc2'
@@ -48,11 +48,11 @@ annotationProcessor 'com.google.dagger:dagger-compiler:2.11-rc2'
 compile 'com.google.dagger:dagger-android-support:2.11-rc2'
 ```
 
-### **Project Package Structure**
+### **工程包结构**
 
 ![](https://cdn-images-1.medium.com/max/600/1*DxXk2aFznom6sWQWwsjUpg.png)
 
-Application class build a graph using AppComponent. AppComponent has **@Component** annotation top of its class. When AppComponent is build with its modules, we have a graph with all provided instances in our graph. For instance, If app module provides ApiService, we will have ApiService instance when we build component which has app module.
+AppComponent 类的头部添加了**@Component** 注解，Application 类利用 AppComponent 构建了一张图。当 AppComponent 构建 Module 的时候，我们将得到一张拥有所有相关实例的图。举个例子，当 App Module 提供了 ApiService，我们在构建带有App Module的 Component 时将会拥有 ApiService 实例。
 
 If we want to attach our activity to dagger graph to get instances from ancestor, we simply create a **@Subcomponent** for it. In this case, DetailActivityComponent and MainActivityComponent classes are marked with **@Subcomponent** annotation. Then, last step we have to take, we need to tell ancestor about subcomponent info. So all subcomponents have to be known by its ancestor.
 
@@ -288,7 +288,6 @@ In part 2 , I want to simplify android-dagger injection by using some new annota
 Part 2 is ready [here](https://medium.com/@iammert/new-android-injector-with-dagger-2-part-2-4af05fd783d0).
 
 Thanks for reading. Happy coding.
-
 
 ---
 
