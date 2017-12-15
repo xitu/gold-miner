@@ -15,7 +15,7 @@
 
 TensorFlow 是一个开源的深度学习框架，它基于 Apache 2.0 许可发布于 2015年底。从那时起，它就成为世界上最广泛采用的深度学习框架之一（通过 Github 上基于它的项目证明）。
 
-TensorFlow traces its origins from Google DistBelief, a proprietary production deep learning system developed by the Google Brain project. Google designed TensorFlow from the ground up for distributed processing and to run optimally on Google's custom application-specific integrated circuit (ASIC) called the Tensor Processing Unit (TPU) in its production data centers. This design makes TensorFlow efficient for deep learning applications.
+TensorFlow 源自 Google DistBelief，它是由 Google Brain 项目组开发并所有的深度学习系统。Google 从零开始设计它，用于分布式处理，并在 Google产品数据中心中最佳运行在它定制的应用专用集成电路（ASIC）上，这种集成电路通常也被叫做 Tensor Processing Unit（TPU）。这种设计能够开发出有效的深度学习应用。
 
 The framework can run on the CPU, GPU, or TPU on servers, desktops, and mobile devices. Developers can deploy TensorFlow on multiple operating systems and platforms either locally or in the cloud. Many developers consider TensorFlow to have better support for distributed processing and greater flexibility and performance for commercial applications than similar deep learning frameworks such as Torch and Theano, which are also capable of hardware acceleration and widely used in academia.
 
