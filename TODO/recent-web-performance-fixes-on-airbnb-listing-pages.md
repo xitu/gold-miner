@@ -2,7 +2,7 @@
 > * 原文作者：[Joe Lencioni](https://medium.com/@lencioni?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/recent-web-performance-fixes-on-airbnb-listing-pages.md](https://github.com/xitu/gold-miner/blob/master/TODO/recent-web-performance-fixes-on-airbnb-listing-pages.md)
-> * 译者：
+> * 译者：zwwill
 > * 校对者：
 
 # React Performance Fixes on Airbnb Listing Pages
@@ -55,7 +55,7 @@ These profiles were recorded via Chrome’s Performance tool by:
 2. 使用 `?react_perf` 在查询字符串中进行配置访问本地开发页面（启用 React 的 User Timing 注释，并禁用一些仅限于 dev-only 的功能，例如 [axe-core](https://www.axe-core.org/)）
 3. 点击 record 按钮 ⚫️
 4. 操作页面（如：滚动，点击，打字）
-5. 再次点击 record 按钮 🔴，分析结果
+5. 再次点击 record 按钮 🔴 ，分析结果
 
 ![](https://cdn-images-1.medium.com/max/800/1*w_bDwdT9s_d25W7qE-DZ1g.gif)
 
