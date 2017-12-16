@@ -5,7 +5,7 @@
 > * 译者：[MummyDing](https://github.com/MummyDing)
 > * 校对者：
 
-# Android Injector 和 Dagger 2  详解(一)
+# 全新 Android Injector : Dagger 2  (一)
 
 ![](https://cdn-images-1.medium.com/max/2000/1*mUOY8duji6LKT9dKFpDvoA.jpeg)
 
@@ -14,7 +14,7 @@
 
 Dagger 2.10 新增了 Android Support 和 Android Compiler 两大模块。对我们来说，本次改动非常之大，所有 Android 开发者都应尽早尝试使用这个新的 Android 依赖注入框架。
 
-在我开始介绍新的 AndroidInjector 类以及 Dagger 2.11 库之前，如果你对 Dagger 2 还不熟悉甚至之前根本没用过，那我强烈建议你先去看看 Dagger 入门指南，弄清楚什么是依赖注入。 为什么这么说呢？ 因为 Android Dagger 涉及到大量注解，学起来会比较吃力。在我看来，学Android Dagger 之前你最好先去学学 Dagger 2 和依赖注入。这里有一篇关于依赖注入的入门文章 [Blog 1](https://blog.mindorks.com/introduction-to-dagger-2-using-dependency-injection-in-android-part-1-223289c2a01b) 以及一篇关于 Dagger 2 的文章 [Blog 2](https://blog.mindorks.com/introduction-to-dagger-2-using-dependency-injection-in-android-part-2-b55857911bcd) 。
+在我开始介绍新的 AndroidInjector 类以及 Dagger 2.11 库之前，如果你对 Dagger 2 还不熟悉甚至之前根本没用过，那我强烈建议你先去看看 Dagger 入门指南，弄清楚什么是依赖注入。 为什么这么说呢？ 因为 Android Dagger 涉及到大量注解，学起来会比较吃力。在我看来，学 Android Dagger 之前你最好先去学学 Dagger 2 和依赖注入。这里有一篇关于依赖注入的入门文章 [Blog 1](https://blog.mindorks.com/introduction-to-dagger-2-using-dependency-injection-in-android-part-1-223289c2a01b) 以及一篇关于 Dagger 2 的文章 [Blog 2](https://blog.mindorks.com/introduction-to-dagger-2-using-dependency-injection-in-android-part-2-b55857911bcd) 。
 
 ### 老用法
 
@@ -36,7 +36,7 @@ Dagger 2.10 之前，Dagger 2 是这样用的：
 
 ### **示例工程**
 
-我创建的[示例工程](https://github.com/iammert/dagger-android-injection/tree/master) 中没做什么，我想让它尽可能地简单。它里面包含 MainActivity 和 DetailActivity， 这两个Activity 都注入到了相应的Presenter实现类并且请求了网络接口（并不是真的发起了HTTP请求, 我只是写了一个**假方法**）。
+我创建的[示例工程](https://github.com/iammert/dagger-android-injection/tree/master)中没做什么，我想让它尽可能地简单。它里面仅包含 `MainActivity` 和 `DetailActivity` 两个 Activity，它们都注入到了相应的 Presenter 实现类并且请求了网络接口（并不是真的发起了HTTP请求, 我只是写了一个**假方法**）。
 
 ### 准备工作
 
@@ -52,11 +52,11 @@ compile 'com.google.dagger:dagger-android-support:2.11-rc2'
 
 ![](https://cdn-images-1.medium.com/max/600/1*DxXk2aFznom6sWQWwsjUpg.png)
 
-`Application` 类利用` AppComponent` 构建了一张图谱。 `AppComponent ` 类的头部都被加上**@Component** 注解，当 `AppComponent` 构建它的 Module 的时候，我们将得到一张拥有所有所需实例的图谱。举个例子，当 App Module 提供了` ApiService`，我们在构建拥有 App Module 的 Component 时将会得到 `ApiService` 实例。
+`Application` 类利用 `AppComponent` 构建了一张图谱。 `AppComponent` 类的头部都被加上**@Component** 注解，当 `AppComponent`  利用它的 Module 进行构建的时候， 我们将得到一张拥有所有所需实例对象的图谱。举个例子，当 App Module 提供了` ApiService`，我们在构建拥有 App Module 的 Component 时将会得到 `ApiService` 实例对象。
 
-如果我们想将 Activity 加入到 Dagger 图谱中从而能够直接从父 Compponent 直接获取所需实例， 我们只需简单地将 Activity 加上  **@Subcomponent** 注解即可。在我们的示例中， `DetailActivityComponent ` 和`MainActivityComponent` 类都被加上了 **@Subcomponent** 注解。 最后我们还有一个必需步骤，我们需要告诉父 Compponent 相关的子 Component 信息，因此所有的根Compponent 都能知道它所有的子Component。
+如果我们想将 Activity 加入到 Dagger 图谱中从而能够直接从父 Compponent 直接获取所需实例， 我们只需简单地将 Activity 加上  **@Subcomponent** 注解即可。在我们的示例中， `DetailActivityComponent ` 和 `MainActivityComponent` 类都被加上了 **@Subcomponent** 注解。 最后我们还有一个必需步骤，我们需要告诉父 Component 相关的子 Component 信息，因此所有的根 Compponent 都能知道它所有的子 Component。
 
-先别着急，我后面会解释 **@Subcomponent**， **@Component** 以及 `DispatchActivity` 都是什么的。现在只是想让你对 component 和 subcomponent 有一个大概了解。
+先别着急，我后面会解释 **@Subcomponent**， **@Component** 以及 `DispatchActivity` 都是什么的。现在只是想让你对 **@Component** 和 **@Subcomponent** 有一个大概了解。
 
 #### **@Component and @Component.Builder**
 
@@ -77,9 +77,9 @@ public interface AppComponent {
 }
 ```
 
-**@Component:** Component 是一个图谱。我们构建一个 Component，Component 将利用 **module** 提供被注入的实例
+**@Component:** Component 是一个图谱。当我们构建一个 Component时，Component 将利用 **Module** 提供被注入的实例对象
 
-**@Component.Builder:**  我们可能需要绑定一些实例到 Component 中，这种情况我们可以通过创建一个带 **@Component.Builder**  注解的类，然后就可以向 builder 中任意添加我们想要的方法。在我的示例中，我想将 `Application` 加入到 `AppComponent`中
+**@Component.Builder:**  我们可能需要绑定一些实例对象到 Component 中，这种情况我们可以通过创建一个带 **@Component.Builder**  注解的接口，然后就可以向 builder 中任意添加我们想要的方法。在我的示例中，我想将 `Application` 加入到 `AppComponent`中
 
 > 注意: 如果你想为你的 **Component** 创建一个 Builder，那你的 Builder 接口中需要有一个返回类型为你所创建的 Component 的 `builder()` 方法
 
@@ -124,10 +124,10 @@ public interface AppComponent {
 }
 ```
 
-每个 Android 应用都有一个 `Application` 类， 这就是为什么我也有一个 **Application Component **的原因。这个 Component 表示是为应用层面提供实例的 （例如 OkHttp, Database, SharedPrefs）。 这个 Component 是Dagger 图谱的根，在我们的应用中 **Application Component** 提供了三个 **Module**
+每个 Android 应用都有一个 `Application` 类， 这就是为什么我也有一个 **Application Component** 的原因。这个 Component 表示是为应用层面提供实例的 （例如 OkHttp, Database, SharedPrefs）。 这个 Component 是 Dagger 图谱的根，在我们的应用中 **Application Component** 提供了三个 **Module**
 
-* **AndroidInjectionModule** : 这个类不是我们写的，它是 Dagger 2.10 中的一个内部类，通过给定的 **Module** 为我们提供了 Activity 和 Fragment 
-* **ActivityBuilder** : 我们自己创建的 **Module**。 This is a given module to dagger，我们将所有的Activity 映射都放在了这里 。 Dagger 在编译期间能获取到所有的 Activity，我们的 App 中有 MainActivity 和 DetailActivity 两个 Activity， 因此我将这个两个 Activity 都放在这里。
+* **AndroidInjectionModule** : 这个类不是我们写的，它是 Dagger 2.10 中的一个内部类，通过给定的 **Module** 为我们提供了 Activity 和 Fragment
+**ActivityBuilder** : 我们自己创建的 **Module**，这个 **Module** 是给 Dagger 用的，我们将所有的 Activity 映射都放在了这里 。 Dagger 在编译期间能获取到所有的 Activity，我们的 App 中有 MainActivity 和 DetailActivity 两个 Activity， 因此我将这两个 Activity 都放在这里
 
 ```
 @Module
@@ -146,7 +146,7 @@ public abstract class ActivityBuilder {
 }
 ```
 
-* **AppModule:** 我们在这里提供了 retrofit, okhttp, 持久化数据库, shared pref 。其中有一个很重要的细节，我们必须将子 **Component** 加入到 AppModule 中，这样 Dagger 图谱才能识别
+* **AppModule:** 我们在这里提供了 retrofit, okhttp, 持久化数据库, SharedPrefs。其中有一个很重要的细节，我们必须将子 **Component** 加入到 AppModule 中，这样 Dagger 图谱才能识别
 
 ```
 @Module(subcomponents = {
@@ -165,9 +165,9 @@ public class AppModule {
 
 #### Activity Components
 
-我们有两个 Activity : `MainActivity` and `DetailActivity`。 它们都拥有自己的 **Module** 和 **component**，但是它们与我在上面 `AppModule` 中定义的一样，也是子 Component 。
+我们有两个 Activity : `MainActivity` and `DetailActivity`。 它们都拥有自己的 **Module** 和 **Component**，但是它们与我在上面 `AppModule` 中定义的一样，也是子 **Component** 。
 
-* **MainActivityComponent:** 这个 component 是连接 MainActivityModule 的桥梁，但是有一个很关键的不同点就是不需要在 Component 中添加 inject() 和 build() 方法。 MainActivityComponent 会从父类中集成这些方法。 AndroidInjector 类是 dagger-android 框架中新增的。
+* **MainActivityComponent:** 这个 **Component** 是连接 MainActivityModule 的桥梁，但是有一个很关键的不同点就是不需要在 **Component** 中添加 inject() 和 build() 方法。 MainActivityComponent 会从父类中集成这些方法。 AndroidInjector 类是 dagger-android 框架中新增的。
 
 ```
 @Subcomponent(modules = MainActivityModule.class)
@@ -245,11 +245,11 @@ public class DetailActivity extends AppCompatActivity implements HasSupportFragm
 }
 ```
 
-如果你没有子 Fragment 你不需要注入任何东西到 Fragment， 那你也不需要实现**_HasSupportFragmentInjector_ ** 接口了。但是在我们的示例中需要在 `DetailActivity` 创建一个 `DetailFragment` 。
+如果你没有子 Fragment 你不需要注入任何东西到 Fragment， 那你也不需要实现**_HasSupportFragmentInjector_**   接口了。但是在我们的示例中需要在 `DetailActivity` 创建一个 `DetailFragment` 。
 
 ### AndroidInjection.inject(this)
 
-做这些都是为了什么？ 这是因为 Activity 和 Fragment 都不应该是如何被注入的。那我们应该如何注入呢？
+做这些都是为了什么？ 这是因为 Activity 和 Fragment 都不应该是如何被注入的，那我们应该如何注入呢？
 
 在 Activity 中
 
@@ -273,7 +273,7 @@ public void onAttach(Context context) {
 
 没错，恭喜你，所有工作都完成了！
 
-我知道这有点复杂，学习曲线很陡峭 ，但是我们还是达到目的了。 现在，我们的类是不知道如何被注入的。我们可以将所需实例对象通过 **_@Inject_ annotation **注解注入到我们的 UI 元素.
+我知道这有点复杂，学习曲线很陡峭，但是我们还是达到目的了。 现在，我们的类是不知道如何被注入的。我们可以将所需实例对象通过 **_@Inject_ annotation** 注解注入到我们的 UI 元素.
 
 你可以在我的 GitHub 主页找到这个工程，我建议你对照着 Dagger 2 的官方文档看。
 
