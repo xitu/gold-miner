@@ -17,27 +17,27 @@ TensorFlow 是一个开源的深度学习框架，它基于 Apache 2.0 许可发
 
 TensorFlow 源自 Google DistBelief，它是由 Google Brain 项目组开发并所有的深度学习系统。Google 从零开始设计它，用于分布式处理，并在 Google产品数据中心中最佳运行在它定制的应用专用集成电路（ASIC）上，这种集成电路通常也被叫做 Tensor Processing Unit（TPU）。这种设计能够开发出有效的深度学习应用。
 
-The framework can run on the CPU, GPU, or TPU on servers, desktops, and mobile devices. Developers can deploy TensorFlow on multiple operating systems and platforms either locally or in the cloud. Many developers consider TensorFlow to have better support for distributed processing and greater flexibility and performance for commercial applications than similar deep learning frameworks such as Torch and Theano, which are also capable of hardware acceleration and widely used in academia.
+这个框架能运行在 CPU、 GPU 或者 TPU 上，可以在服务器、台式机或者移动设备上使用。开发者可以在不同的操作系统和平台上部署 TensorFlow，不论是在本地环境还是云上。许多开发者认为 TensorFlow 与相似的深度学习框架（比如 Torch 和 Theano，它们也支持硬件加速技术并被学术界广泛使用）相比，能够更好地支持分布式处理以及拥有更好的服务弹性和运行性能。
 
-Deep learning neural networks typically consist of many layers. They transfer data or perform operations between layers using multidimensional arrays. A tensor flows between the layers of a neural network—thus, the name TensorFlow.
+深度学习神经网络通常是由多个层组成。它们使用多维数组在层之间传递数据执行操作。一个 tensor 在神经网络的各层之间“流动”（Flow），因此，命名为 TensorFlow。
 
-The main programming language for TensorFlow is Python. `C`++, the Java® language, and the Go application programming interface (API) are also available without stability promises, as are many third-party bindings for `C`#, Haskell, Julia, Rust, Ruby, Scala, R, and even PHP. Google recently announced a mobile-optimized TensorFlow-Lite library to run TensorFlow applications on Android.
+TensorFlow 使用的主要编程语言是 Python。为 `C`++、 Java® 语言和 Go 提供了可用不可信的的应用程序接口（API），同样也有很多为 `C`#，Haskell， Julia，Rust，Ruby，Scala，R 甚至是 PHP 设计的第三方的绑定。Google 近来发布了一个为移动设备优化的 TensorFlow-Lite 库，以使 TensorFlow 应用程序能在 Android 上运行。
 
-This tutorial provides an overview of the TensorFlow system, including the framework's benefits, supported platforms, installation considerations, and supported languages and bindings.
+这个教程提供了 TensorFlow 系统的概述，包括框架的优点，支持的平台，安装的注意事项以及支撑的语言和绑定。
 
-## Benefits of TensorFlow
+## TensorFlow 的好处
 
-TensorFlow offers developers many benefits:
+TensorFlow 为开发者提供了很多的好处：
 
-*   Computational graph model. TensorFlow uses data flow graphs called directed graphs to express computational models. This makes it intuitive for developers who can easily visualize what's going on within the neural network layers by using built-in tools and perfect their neural network models by adjusting parameters and configurations interactively.
-*   Simple-to-use API. Python developers can use either the TensorFlow raw, low-level API, or core API, to develop their own models or use the higher-level API libraries for built-in models. TensorFlow has many built-in and contributed libraries, and it is also possible to overlay a higher-level deep learning framework such as Keras to act as a high-level API.
-*   Flexible architecture. A major advantage of using TensorFlow is that it has a modular, extensible, and flexible design. Developers can easily move models across CPU, GPU, or TPU processors with few code changes. Although originally designed for large-scale distributed training and inference, developers also can use TensorFlow to experiment with other machine learning models and system optimization of existing models.
-*   Distributed processing. Google Brain designed TensorFlow from the ground up for distributed processing on its custom ASIC TPU. In addition, TensorFlow can run on multiple NVIDIA GPU cores. Developers can take advantage of the Intel Xeon and Xeon Phi-based x64 CPU architectures or ARM64 CPU architectures. TensorFlow can run on multiarchitecture and multicore systems as well as a distributed process that farms out compute-intensive processing as worker tasks. Developers can create clusters of TensorFlow servers and distribute the computational graph across those clusters for training. TensorFlow can perform distributed training either synchronously or asynchronously, both within the graph and between graphs and can share the common data in memory or across networked compute nodes.
-*   Performance. Performance is often a contentious topic, but most developers understand that any deep learning framework depends on the underlying hardware to run optimally to achieve high performance with a low energy cost. Typically, the native development platform of any framework would achieve the best optimization. TensorFlow performs best on Google TPUs, but it manages to achieve high performance on various platforms—not just servers and desktops but also embedded systems and mobile devices. The framework supports a surprising number of programming languages, as well. Although another framework running natively, such as IBM Watson® on the IBM platform, might sometimes outperform TensorFlow, it's still a favorite with developers because artificial intelligence projects can span platforms and programming languages targeting multiple end applications, all of which need to produce consistent results.
+*   计算的模型图。TensorFlow使用叫做有向图的数据流图来表示计算模型。这让开发者能够简易直接的使用原生工具查看神经网络层间发生了什么，并能够交互式地调整参数和配置来完善他们的神经网络结构。
+*   简单易用的 API。Python 开发者既可以使用 TensorFlow 原生的底层 API 接口或者核心 API 来开发他们自己的模型，也可以使用高级 API 库来构建内置模型。TensorFlow 有很多内建和社区的库，它也可以覆盖更高级的深度学习框架比如 Keras 上充当一个高级 API。
+*   灵活的架构。使用 TensorFlow 的一个主要有点是它具有模块化，可扩展和灵活的设计。开发者只需更改很少的一些代码，轻松的在 CPU， GPU 或 TPU 处理器之间转换模型。尽管最初是为了大规模分布式训练和推测而设计的，开发者也可以使用 TensorFlow 来尝试其他机器学习模型和现有模型的系统优化。
+*   分布式处理。Google 从零设计了 TensorFlow，目的是让它能在它定制的 ASIC TPU 上分布式运行。另外，TensorFlow 可以在多重 NVIDIA GPU 内核上运行。开发人员能够充分利用基于 Intel Xeon 和 Xeon Phi 的 X64 CPU 架构或者基于 ARM64 的CPU 架构的优势。TensorFlow 可以在多架构和多核心系统上像在分布式进程中一样运行，它能将计算密集型进程当做生产任务移交。开发者能够创建 TensorFlow 集群。并将这些计算图分发到这些集群中进行训练。Tensor 可以同步或异步执行分布式训练，既可以在图形内部也可以跨图形进行，并且可以在网络计算节点间共享内存中的公共数据。
+*   运行性能。性能通常是一个有争议的话题，但是大部分开发者都明白，任何深度学习框架都依赖于底层硬件，以达到最优的方式运行，以低能耗实现高性能。通常，任何框架的原生开发平台都应该实现最佳优化。TensorFlow 在 Google TPU 上表现良好，但令人高兴的是，不仅是在服务器和台式机上，还是在嵌入式系统和移动设备上，它在各种平台上都能达到高性能。该框架同样还支持了各种编程语言，数量令人惊讶。尽管另一个框架在原生环境（比如 在 IBM 平台上运行的  IBM Watson®）上运行有时可能会胜过 TensorFlow，但它仍然是开发人员的最爱，因为人工只能项目会跨越平台和编程语言，并以多样的终端应用为设计目标，并且所有这些都需要生成一致的结果。
 
-## TensorFlow applications
+## TensorFlow 应用
 
-This section looks at the applications that TensorFlow is good at. Obviously, because Google was using its proprietary version of TensorFlow for text and voice search, language translation, and image search applications, the major strengths of TensorFlow are in classification and inference. For example, Google implemented RankBrain, the engine that ranks Google search results, in TensorFlow.
+本节将介绍 TensorFlow 擅长的应用程序。显然，由于 Google 使用其专有版本的 TensorFlow 开发文本和语音搜索，语言翻译，和图像搜索的应用程序，因此 TensorFlow 的的主要优势在于分类和推测。例如，Google 在 TensorFlow 中应用 RankBrain（Google 的搜索结果排名引擎）。
 
 TensorFlow can be used to improve speech recognition and speech synthesis in differentiating multiple voices or filtering speech in high-ambient-noise environments, mimicking voice patterns for more natural-sounding text to speech. In addition, it handles sentence structure in different languages to produce better translations. It can also be used for image and video recognition as well as classification of objects, landmarks, people, sentiments, or activities. This has resulted in major improvements in image and video search.
 
