@@ -7,7 +7,7 @@
 
 # IBM 工程师的 TensorFlow 入门指北
 
-在机器学习的世界中， _tensor_ 是指数学模型中用来描述神经网络的多维数组。换句话说，一个 tensor 通常是一个广义上的高维矩阵或者向量。
+在机器学习的世界中， __tensor__ 是指数学模型中用来描述神经网络的多维数组。换句话说，一个 tensor 通常是一个广义上的高维矩阵或者向量。
 
 通过使用矩阵的秩来显示维数的简单方法，tensor 能够将复杂的 **n** 维向量和超形状表示成 **n** 维数组。Tensor 有两个属性：数据类型和形状。
 
@@ -39,79 +39,79 @@ TensorFlow 为开发者提供了很多的好处：
 
 本节将介绍 TensorFlow 擅长的应用程序。显然，由于 Google 使用其专有版本的 TensorFlow 开发文本和语音搜索，语言翻译，和图像搜索的应用程序，因此 TensorFlow 的的主要优势在于分类和推测。例如，Google 在 TensorFlow 中应用 RankBrain（Google 的搜索结果排名引擎）。
 
-TensorFlow can be used to improve speech recognition and speech synthesis in differentiating multiple voices or filtering speech in high-ambient-noise environments, mimicking voice patterns for more natural-sounding text to speech. In addition, it handles sentence structure in different languages to produce better translations. It can also be used for image and video recognition as well as classification of objects, landmarks, people, sentiments, or activities. This has resulted in major improvements in image and video search.
+TensorFlow 可用于优化语音识别和语音合成，比如区分多重声音或者在高噪背景下过滤噪声提取语音，在文本生成语音过程中模拟语音模式以获得更自然的语音。另外，它能够处理不同语言中的句型结构以生成更好的翻译效果。它也同样能被用于图像和视频识别以及对象、地标、人物、情绪、或活动的分类。这带来了图像和视频搜索的重大改进。
 
-Because of its flexible, extensible, and modular design, TensorFlow doesn't limit developers to specific models or applications. Developers have used TensorFlow to implement not only machine learning and deep learning algorithms but also statistical and general computational models. For more information about applications and contributed models, see [TensorFlow in Use](https://www.tensorflow.org/about/uses).
+因为其灵活，可扩展和模块化的设计，TensorFlow 不会限制开发人员使用特定的模型或者应用。开发者使用 TensorFlow 不仅实现了机器学习和深度学习算法，还实现了统计和通用计算模型。有关应用程序和社区模型的耕读信息请查看[使用 TensorFlow](https://www.tensorflow.org/about/uses)。
 
-## Which platforms support TensorFlow?
+## 哪些平台支持 TensorFlow？
 
-Various platforms that support Python development environments can support TensorFlow. However, to access a supported GPU, TensorFlow depends on other software such as the NVIDIA CUDA toolkit and cuDNN. Prebuilt Python binaries for TensorFlow version 1.3 (current at the time of publication) are available for the operating systems listed in the following table.
+各种只要支持 Python 开发环境的平台就能支持 TensorFlow。但是，要接入一个受支持的 GPU，TensorFlow 需要依赖其他的软件，比如 NVIDIA CUDA 工具包和 cuDNN。为 TensorFlow（1.3 版本）预构建的 Python 二进制文件（当前发布）可用于下表中列出的操作系统。
 
-![Operating systems that support TensorFlow](https://www.ibm.com/developerworks/opensource/library/cc-get-started-tensorflow/image1.png)
+![支持 TensorFlow 的操作系统](https://www.ibm.com/developerworks/opensource/library/cc-get-started-tensorflow/image1.png)
 
-**Note:** GPU support on Ubuntu or Windows requires CUDA Toolkit 8.0 and cuDNN 6 or later and a GPU card compatible with the toolkit version and CUDA Compute Capability 3.0 or later. GPU support on macOS beyond TensorFlow version 1.2 is no longer available.
+**注意：** 在 Ubuntu 或 Windows 上获得 GPU 加速支持需要 CUDA 工具包 8.0 和 cuDNN 6 或更高版本，以及一块能够兼容这个版本的工具包和 CUDA Computer Capability 3.0 或更高版本的 GPU 卡。macOS 上 1.2 版本以上的 TensorFlow 不再支持 GPU 加速。
 
-For details, refer to [Installing TensorFlow](https://www.tensorflow.org/install).
+详情请参考[安装 TensorFlow] (https://www.tensorflow.org/install)。
 
-### Building TensorFlow from source
+### 从源代码构建 TensorFlow
 
-The official build process uses the Bazel build system to build TensorFlow from source on Ubuntu and macOS. The Windows build using Bazel for Windows or CMake for Windows is highly experimental. For more information, see [Installing TensorFlow from Sources](https://www.tensorflow.org/install/install_sources).
+官方使用 Bazel 在 Ubuntu 和 macOS 构建 TensorFlow。在 Windows 系统下使用 Windows 版本 Bazel 或者 Windows 版 CMake 构建现在还在试验过程中，查看[ 从源代码构建 TensorFlow ]。
 
-IBM optimized PowerAI for deep learning on the S822LC high-performance computing (HPC) system by using NVIDIA NVLink interconnects between two POWER8 processors and four NVIDIA Tesla P100 GPU cards. Developers can build TensorFlow on IBM Power Systems running OpenPOWER Linux. For more information, see [Deep Learning on OpenPOWER: Building TensorFlow on OpenPOWER Linux Systems](https://www.ibm.com/developerworks/community/blogs/fe313521-2e95-46f2-817d-44a4f27eba32/entry/Building_TensorFlow_on_OpenPOWER_Linux_Systems?lang=en).
+IBM 在 S822LC 高性能计算系统上使用 NVIDIA NVLink 连接线连接两块 POWER8 处理器和四块 NVIDIA Tesla P100 GPU 以使 PowerAI 适合进行深度学习。开发者能够在运行 OpenPOWER Linux 的 IBM Power System 上构建 TensorFlow。要了解更多信息可以查看[Deep Learning on OpenPOWER: Building TensorFlow on OpenPOWER Linux Systems] (https://www.ibm.com/developerworks/community/blogs/fe313521-2e95-46f2-817d-44a4f27eba32/entry/Building_TensorFlow_on_OpenPOWER_Linux_Systems?lang=en)。
 
-Many community- or vendor-supported build procedures are available, as well.
+很多社区或供应商支持的构建程序也可用。
 
-## How does TensorFlow use hardware acceleration?
+## TensorFlow 怎样使用硬件加速？
 
-To support TensorFlow on a wider variety of processor and nonprocessor architectures, Google has introduced a new abstract interface for vendors to implement new hardware back ends for Accelerated Linear Algebra (XLA), a domain-specific compiler for linear algebra that optimizes TensorFlow computations.
+为了支持在更广泛的处理器和非处理器架构上使用 TensorFlow，Google 为供应商提供了一个新的抽象接口，实现用于加速线性代数（XLA）的新硬件后端，XLA 是一个专为线性代数计算的特定领域编译器，它可以用于优化 TensorFlow 计算过程。
 
 ### CPU
 
-Currently, because XLA is still experimental, TensorFlow is supported, tested, and built for x64 and ARM64 CPU architectures. On CPU architectures, TensorFlow accelerates linear algebra by using the vector processing extensions.
+当前，由于 XLA 还是实验性的，TensorFlow 还是在 X64 和 ARM64 CPU 架构上受支持，被测试和构建。在 CPU 架构上，TensorFlow 通过使用矢量处理扩展来实现加速线性代数计算。
 
-Intel CPU-centric HPC architectures such as the Intel Xeon and Xeon Phi families accelerate linear algebra by using Intel Math Kernel Library for Deep Neural Networks primitives. Intel also provides prebuilt, optimized distributions of Python with optimized linear algebra libraries.
+以 Intel CPU 为中心的 HPC 体系结构（如 Intel Xeon 和 Xeon Phi 系列）通过使用 Intel 数学核心函数库来实现深度神经网络基元，从而获得加速线性代数计算。Intel 也提供了拥有优化线性代数库的预构建的 Python 优化发行版。
 
-Other vendors, such as Synopsys and CEVA, use mapping and profiler software to translate a TensorFlow graph and generate optimized code to run on their platforms. Developers need to port, profile, and tune the resulting code when using this approach.
+其他供应商，例如 Synopsys 和 CEVA，使用映射和分析器程序转换 TensorFlow 图和生成优化代码在他们的平台上运行。开发者在使用这种途径时需要移植，分析并调整结果代码。
 
 ### GPU
 
-TensorFlow supports specific NVIDIA GPUs compatible with the related version of the CUDA toolkit that meets specific performance criteria. OpenCL support is a roadmap item, although some community efforts have run TensorFlow on OpenCL 1.2-compatible GPUs such as AMD.
+TensorFlow 支持特定的 NVIDIA GPU ，这些 GPU 能够兼容相关版本的 CUDA 工具包并符合相关的性能标准。尽管一些社区努力在 OpenCL 1.2 兼容的 GPU （比如 AMD 的）上运行 TensorFlow，OpenCl 支持仍是一个正在计划建设的项目，
 
 ### TPU
 
-According to Google, TPU-based graphs perform 15 - 30 times better than on CPU or GPU and are extremely energy-efficient. Google designed TPU as an external accelerator that fits into a serial ATA hard disk slot and connects to the host by PCI Express Gen3 x16, which allows high-bandwidth throughput.
+据 Google 称，基于 TPU 的图形比 CPU 或 GPU 上执行性能好 15-30 倍，并且非常节能。Google 将 TPU 设计成一个外部加速器，可以插入串行 ATA 硬盘插槽，并通过 PCI Express Gen3 x16 接口连接主机，从而实现高带宽吞吐。
 
-Google TPUs are matrix processors rather than vector processors and use the fact that neural networks do not need high-precision math but rather massively parallel, low-precision integer math. Not surprisingly, the matrix processor (MXU) architecture has 65,536, 8-bit integer multipliers and pushes data in waves through a systolic array architecture, much like blood through a heart.
+Google TPU 是矩阵处理器而不是矢量处理器，并且神经网络不需要高精度的数学运算，而是使用大规模并行的低精度整数运算。毫不奇怪，矩阵处理器（MXU）结构具有 65,536 8-bit 乘法器，并通过脉动阵列结构波动推动数据，就像通过心脏的血液一样。
 
-This design is a form of complex instruction set computing (CISC) architecture that, although single-threaded, allows a single high-level instruction to trigger multiple low-level operations on the MXU, which potentially can perform 128,000 instructions per cycle without needing to access memory.
+这种设计是一种复杂的指令集计算（CISC）结构，虽然是单线程的，但允许单个高级指令触发 MXU 上的多个低级操作，每次循环可能会执行 128,000 条指令，而不用访问内存。
 
-As a result, a TPU sees massive performance gains and energy efficiency compared with GPU arrays or multiple instruction, multiple data CPU HPC clusters. The TPU massively reduces training time for deep learning neural networks over other architectures by evaluating every ready-to-execute node in a TensorFlow graph in each cycle.
+因此，与 GPU 阵列或者多指令集、多数据 CPU HPC 集群相比，TPU 可以获得巨大的性能提升和能效比率。通过评估每个周期中 TensorFlow 图中每个预备执行节点，TPU 相比其他架构，大大减少了深度学习神经网络训练时间，
 
-## TensorFlow installation considerations
+## TensorFlow 安装注意事项
 
-In general, TensorFlow runs on any platform that supports a 64-bit Python development environment. This environment is sufficient to train and test most simple examples and tutorials. However, most experts agree that for research or professional development, an HPC platform is strongly recommended.
+一般来说，TensorFlow 可以在任何支持 64 位 Python 开发环境的平台上运行。这个环境足以训练和测试大多数简单的例子和教程。然而，大多数专家认为，对于研究或专业开发，强烈推荐使用 HPC 平台。
 
-### Processor and memory requirements
+### 处理器和内存性能要求
 
-Because deep learning is quite computationally intensive, a fast, multicore CPU with vector extensions and one or more high-end CUDA-capable GPU cards is the norm for a deep learning environment. Most experts also recommend having significant CPU and GPU RAM because memory-transfer operations are energy expensive and detrimental to performance.
+由于深度学习计算量非常大，因此具有向量扩展的高速多核 CPU 以及一个或多个具有高端 CUDA 支持的 GPU 是深度学习的普通标准。大多数专家还建议要注意 CPU 和 GPU 缓存，因为内存传输操作的能源消耗大，对性能不利。
 
-There are two modes to consider in the performance of deep learning networks:
+深度学习的性能表现有两种模式需要考虑：
 
-*   Development mode. Typically, in this mode, training time and performance and the sample and dataset sizes drive the processing power and memory requirements. These elements decide the limits of computational performance and the training time of the neural network.
-*   Application mode. Typically, real-time performance of classification or inference of the trained neural network drives processing power and memory requirements. Convolutional networks need more low-precision arithmetic power, while fully connected neural networks need more memory.
+*   开发模式。通常情况下，在这种模式下，训练时间、性能表现、样本、数据集大小都会影响处理性能和内存要求。这些元素决定额神经网络计算性能和训练时间的极限。
+*   应用模式。通常，在受训过的神经网络处理过程中，处理性能和内存决定了分类或推测的实时性能。卷积神经网络需要更多的低精度计算能力，而全连接神经网络需要更多的内存。
 
-### Virtual machine options
+### Virtual machine options虚拟机选项
 
-Virtual machines (VMs) for deep learning are currently best suited to CPU-centric hardware where many cores are available. Because the host operating system controls the physical GPU, GPU acceleration is complex to implement on VMs. Two main methods exist:
+用于深度学习的虚拟机（VMS）现在最适用于 CPU 为中心多核心可用的硬件体系。因为主机操作系统控制了 CPU， GPU 这些物理设备，所以在虚拟机上实现加速很复杂。有两种已知方法：
 
-*   GPU pass-through:
-    *   Only works on Type-1 hypervisors such as Citrix Xen, VMware ESXi, Kernel Virtual Machine, and IBM Power.
-    *   Pass-through has overheads that can vary based on specific combinations of CPU, chipset, hypervisor, and operating system. In general, overhead is significantly less for the latest generations of hardware.
-    *   A given hypervisor-operating system combination supports specific NVIDIA GPU cards only.
-*   GPU virtualization:
-    *   Supported by all major GPU vendors-NVIDIA (GRID), AMD (MxGPU), and Intel (GVT-G).
-    *   Latest versions support OpenCL on specific newer GPU cards (no official OpenCL on TensorFlow).
-    *   The latest version of NVIDIA GRID supports CUDA and OpenCL for specific newer GPU cards.
+*   GPU 挂载:
+    *   只能在 Type-1 管理程序上运行，例如  Citrix Xen， VMware ESXi， Kernel Virtual Machine， 和 IBM Power。
+    *   挂载的开销会根据 CPU，芯片组，管理程序和操作系统的特定组合而变化。一般来说，最新一代硬件的开销要小得多。
+    *   给定的管理程序-操作系统组合支持特定的NVIDIA GPU。
+*   GPU 虚拟化:
+    *   支持所有的主流 GPU 供应商，比如 NVIDIA（GRID），AMD（MxGPU）和 Intel（GVT-G）。
+    *   在特定的新 GPU 上支持最新版本的 OpenCL（TensorFlow 没有官方支持 OpenCL）。
+    *   在特定的新 GPU 上最新版本的 NVIDIA GRID 支持 CUDA 和 OpenCL。
 
 ### Docker installation options
 
