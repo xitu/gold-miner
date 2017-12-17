@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/how-to-start-with-backend-typescript-and-use-its-full-potential.md](https://github.com/xitu/gold-miner/blob/master/TODO/how-to-start-with-backend-typescript-and-use-its-full-potential.md)
 > * 译者：[xilihuasi](https://github.com/xilihuasi)
-> * 校对者：[tvChan](https://github.com/tvChan),[noahziheng](https://github.com/noahziheng)
+> * 校对者：[tvChan](https://github.com/tvChan), [noahziheng](https://github.com/noahziheng)
 
 # 如何用 TypeScript 玩转后端？
 
