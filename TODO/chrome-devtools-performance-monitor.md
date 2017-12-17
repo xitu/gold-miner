@@ -46,7 +46,8 @@
 
 所有的这些都在 Paul Irish 的文章 [为什么使用 Translate() 移动元素优于 Top/left](https://www.paulirish.com/2012/why-moving-elements-with-translate-is-better-than-posabs-topleft/)。为了测量差异，Paul 使用“时间轴”，展示了触发绘制和布局动作。但是近些年，Paul 正在致力于使用 Chrome DevTools 进行改良，这并不令人惊讶，我们终于有了一个合适的方法来衡量实时 CSS 性能。（我 fork 了他动画切换的示例代码）
 
-![](https://static.hospodarets.com/img/blog/1511532158184634000.gif)
+
+![](https://user-gold-cdn.xitu.io/2017/12/17/1606485cac9627b6?w=972&h=424&f=gif&s=4926541)
 
 [示例](https://codepen.io/malyw/pen/QOQvyz)
 
