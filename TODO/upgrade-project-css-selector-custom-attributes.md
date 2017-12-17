@@ -2,20 +2,20 @@
 > * 原文作者：[Tim Harrison](https://www.sitepoint.com/author/tharrison/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/upgrade-project-css-selector-custom-attributes.md](https://github.com/xitu/gold-miner/blob/master/TODO/upgrade-project-css-selector-custom-attributes.md)
-> * 译者：
+> * 译者：[MechanicianW](https://github.com/mechanicianw)
 > * 校对者：
 
 # 用 CSS 选择器和自定义属性来升级你的项目
 
 _这篇文章原文刊登在 [TestProject](https://blog.testproject.io/2017/08/10/css-selector-custom-attributes/)。感谢你们的支持，让 SitePoint 成为可能。_
 
-[Selenium WebDriver](https://blog.testproject.io/2016/11/07/selenium-webdriver-3/) 的元素选择器是一种 [自动化框架](https://blog.testproject.io/2017/03/26/test-automation-infrastructure-fundamentals/) 的核心组件，同时也是与 web 应用进行交互的关键。在对 [自动化元素选择器](https://blog.testproject.io/2017/02/09/inspect-web-elements-chrome-devtools/) 的回顾中， 我们讨论了很多不同的选择器应用策略，探究其功能，权衡优缺点，最终我们推荐 [最佳的选择器应用策略](https://blog.testproject.io/2017/08/10/css-selector-custom-attributes/#CustomAttributes) —— 带有自定义属性的 CSS 选择器。
+[Selenium WebDriver](https://blog.testproject.io/2016/11/07/selenium-webdriver-3/) 的元素选择器是一种 [自动化测试框架](https://blog.testproject.io/2017/03/26/test-automation-infrastructure-fundamentals/) 的核心组件，同时也是与 web 应用进行交互的关键。在对 [自动化元素选择器](https://blog.testproject.io/2017/02/09/inspect-web-elements-chrome-devtools/) 的回顾中， 我们讨论了很多不同的选择器应用策略，探究其功能，权衡优缺点，最终我们推荐 [最佳的选择器应用策略](https://blog.testproject.io/2017/08/10/css-selector-custom-attributes/#CustomAttributes) —— 带有自定义属性的 CSS 选择器。
 
 ## Selenium 的元素选择器
 
 选择最好的 [元素选择器](https://blog.testproject.io/2017/02/09/inspect-web-elements-chrome-devtools/#ElementSelector) 策略是成功的关键，也减轻了自动化工作的维护压力。因此，做出选择的时候应该从使用难度，多功能性，是否具有在线支持，文档丰富程度以及性能等多方面进行考虑。前期的充分考虑是有回报的，自动化工作会更容易维护。
 
-就像从技术方面考虑一样，也要考虑到团队文化。在自动化工作中采用元素选择器时，开发者与 QA 成熟的协作文化可以解锁更高成就，取得更好的效果。夯实软件开发周期中其它方面的协作基础不仅对自动化工作有益，更是对团队有益。
+就像从技术方面考虑一样，也要考虑到团队文化。在自动化工作中采用元素选择器时，开发者与 QA 成熟的合作文化可以解锁更高成就，取得更好的效果。夯实软件开发周期中其它方面的合作基础不仅对自动化工作有益，更是对团队有益。
 
 所有的代码示例都是由 [Python](https://www.python.org/) 和 [Selenium WebDriver](https://blog.testproject.io/2016/11/07/selenium-webdriver-3/) 命令编写而成，但也普适于其它编程语言与框架。
 
@@ -55,7 +55,7 @@ driver.find_elements(By.LINK_TEXT, "Home")
 driver.find_elements(By.PARTIAL_LINK_TEXT, "Sprock")
 ```
 
-最近，也可以通过 name 属性来选择元素， 但是在 HTML 代码示例中可以看出，是没有标签具有 name 属性的。这在任何应用中都是一个常见问题，因为给每个 HTML 属性中添加一个 nmae 属性不是常规的代码实践。假如主菜单元素有一个 name 属性：
+最近，也可以通过 name 属性来选择元素，但是在 HTML 代码示例中可以看出，是没有标签具有 name 属性的。这在任何应用中都是一个常见问题，因为给每个 HTML 属性中添加一个 nmae 属性不是常规的代码实践。假如主菜单元素有一个 name 属性：
 
 ```
 <div id="main-menu" name="menu"></div>
@@ -77,7 +77,7 @@ driver.find_elements(By.NAME, "menu")
 | 使用场景极其有限 |
 | 在某些场景甚至可能用不了 |
 
-## 好的选择器： XPath
+## 还不错的选择器： XPath
 
 XPath 是一种灵活多变的选择器策略。这也是我个人喜欢的一种。XPath 可以选择页面中的任意元素，无论它有没有 class 和 id （虽然没有 class 和 id 的话很难维护）。 它是一个通用选项，因为你可以选择 [父元素](https://www.w3schools.com/jsref/prop_node_parentelement.asp)。XPath也有许多内置的功能，可以让你自定义元素选择。
 
@@ -93,7 +93,7 @@ XPath 是一种灵活多变的选择器策略。这也是我个人喜欢的一�
 driver.find_elements(By.XPATH, "//a[id=menu]/../")
 ```
 
-这个元素选择器会定位到第一个 id 等于 “menu” 的锚点标签，然后通过 “/../” 定位到它的父元素。最终结果就是你会定位到主菜单元素。
+这个元素选择器会定位到第一个 id 等于 "menu" 的锚点标签，然后通过 “/../” 定位到它的父元素。最终结果就是你会定位到主菜单元素。
 
 ### 总结： XPath
 
@@ -104,54 +104,53 @@ driver.find_elements(By.XPATH, "//a[id=menu]/../")
 | 非常多的在线支持 |
 
 
-
 ## 炒鸡棒的元素选择器： ID 和 Class
 
-ID and Class element selectors are two different options in automation and perform different functions in an application. However, for considering what element selector strategy to use in your automation, they differ so little, that we don’t need to consider them separately. In the application, the “id” and “class” attributes of elements, when defined, allow the UI developer to manipulate and style the application. For automation, we use it to target a specific element for interaction in automation.
+ID 和 Class 元素选择器在自动化中是两个不同的选项，会在应用程序中执行不同的功能。然而作为自动化工作的选择器策略，这两种选择器的区别很小，我们没必要将它们分开考虑。在应用程序中，UI 界面开发者可以设置定义了 "id" 和 "class" 属性的元素的样式。对于自动化工作来说，我们使用它们来针对特定元素进行交互。
 
-A large benefit to using IDs and Class element selectors is that they are least impacted by structural changes in the application. Hypothetically speaking, if you were to create an XPath or CSS selector that relied on a chain of few elements and some [child elements](https://www.w3schools.com/jsref/prop_element_children.asp), what happens when a feature request interrupts that chain by adding new elements? When using ID and Class element selectors, you can target specific elements instead of relying on page structure. You retain the robustness of your automation without being too lenient on change. Change should be detected through automation by creating test cases that focus on the location of specific elements. Change should not break your entire automation suite. However, if the developer makes a change directly to an ID or class utilized in automation, that will impact your tests.
+使用 ID 和 Class 原则器的一大好处是它们受应用程序结构变化的影响最小。假设，你要创建一个链式地依赖于一些元素和 [子元素](https://www.w3schools.com/jsref/prop_element_children.asp) 的 XPath 或 CSS 选择器，如果此时有一个功能需要增加一些新元素从而中断了这个链条，会发生什么？这样，你可以保持代码的健壮性，同时也没有过于宽松易变。应该通过给特定元素的位置创建测试用例来自动检测改动。改动不应该毁坏你的整个自动化套件。但是，如果开发者直接对自动化中使用的 ID 或 class 进行更改的话，还是会影响到你的测试。
 
-This element selector strategy would not be usable if the application under test does not implement IDs and classes as a part of development best practices. If HTML tags do not have IDs and classes you can use in your automation, this approach becomes hard to use.
+如果被测试的程序没有把应用 ID 和 Class 选择器作为最佳实践的一部分，这种策略就无法使用。如果 HTML 标签没有自动化程序中可使用的 ID 和 Class 属性的话，这种方法就很难使用。
 
-### Example:
+### 举个栗子：
 
-In our example, if we were to select the top level menu element, that would look like this:
+在示例中，如果我们想选择到顶级的菜单元素，那应该是这样的：
 
 ```
 driver.find_elements(By.ID, "main-menu")
 ```
 
-If we were to select the first menu item, that would look like this:
+如果要选择第一个菜单项，则是这样：
 
 ```
 driver.find_elements(By.CLASS_NAME, "menu")
 ```
 
-### Summary: ID and Class
+### 总结： ID 和 Class 选择器
 
-| **Pros** | **Cons** |
+| **优点** | **缺点** |
 | -------- | -------- |
-| Easy to maintain | Developer may change them, breaking automation |
-| Easy to learn |
-| Least impacted by page structure change |
+| 易于维护 | 开发人员可能会直接修改它们，自动化工作就无法进行了 |
+| 学习难度低|
+| 受页面结构的影响最小 |
 
 ## 最佳的元素选择器: 具有自定义属性的 CSS 选择器
 
-If your QA organization has a good collaborative relationship with development, chances are you will be able to use this best practice approach for your automation. Using custom attributes and CSS Selectors to target elements has multiple benefits for both the QA team and the organization. For the QA team, this allows automation engineers to target specific elements they need without creating complicated element selectors. However, this requires the ability to add custom attributes that the automation team can use in the application. To take advantage of this best practice approach, your development and QA teams should work in cooperation to implement this strategy.
+如果你们的 QA 团队与开发部门合作良好的话，你们很有可能会选择这种最佳实践方法应用到自动化工作中。使用自定义属性和 CSS 选择器来定位元素对于 QA 团队和整个组织来说都有很多好处。对于 QA 团队来说，这可以让自动化工程师直接定位到特定元素，无需创建复杂的元素原则器。但是，这需要能够在应用程序中添加自动化团队所需的属性。为了充分发挥最佳实践的优势，开发部门和 QA 团队应共同实施这一策略。
 
-I’d like to take a minute to note that the CSS Selector approach is not dependent on custom attributes. CSS Selectors can target any tag and attribute within an HTML document just like XPath.
+我想简短地提示一下，CSS 选择器方法并不依赖于自定义属性。CSS 选择器可以像 XPath 一样定位到 HTML 文档流中的任意标签和属性。
 
-Now let’s look at what this approach entails. To best execute this, your automation team should understand what they want to target in their automation. Working with the developers, most likely the front end engineers, they would then work out a pattern for a custom attribute to place into each target the automation team needs to hook into. For this example, we attach a “tid” attribute to the target elements.
+现在我们来看这个方法需要我们做什么。为了能最好地执行这一策略，你们的自动化团队了解自己在自动化工作中想要定位什么。在与开发人员的合作中，最有可能是与前端工程师的合作中，QA 团队需要制定一个自定义属性的应用模式，放到团队每一个需要连接合作的目标中。对于这个例子来说，我们把 "tid" 属性附加到了目标元素上。
 
-One technical note to highlight here is a limitation in CSS Selectors. They are intentionally not allowed to select parent elements like XPath can. This is done to avoid infinite loops in CSS styling on web pages. While this is a good thing for web design, it is a limitation for its use as an automation element selector strategy. Fortunately, this limitation can be avoided with custom attributes implemented by development. QA should request the appropriate custom attributes so that there is no need to select a parent element.
+这里需要强调的一个技术上的注意事项是 CSS 选择器的限制。CSS 选择器是不允许像 XPath 一样选择父元素的。这是为了避免页面上 CSS 样式的无限循环。这对网页设计来说是件好事，但它作为自动化的元素选择器时是一种限制。幸运的是，这种限制可以由开发实现自定义属性来避免。QA 应请求合适的自定义属性，以便无需选择父元素。
 
-If the collaboration between your development and QA team doesn’t exist yet in your organization, don’t worry! You should implement this strategy because it can be the mechanism that drives that collaboration. Regardless of whether that culture exists or not, you should take on this approach and watch what comes of it. Not only will you have an easy to maintain element selector strategy, but you will see benefits from the collaboration spill-over into other areas of your organization. The collaborative relationship this will build will benefit you across many aspects of quality assurance such as reduced defects, reduced time to market, and increased productivity.
+如果你们公司的开发部门和 QA 团队不存在合作文化的话，也不用担心！应该实施这个策略，因为它是可以推动合作的途径。无论这种合作文化是否存在，你也应该先采用这种方式然后看看效果怎么样。你不仅会拥有一个易于维护的选择器策略，你还会看到遍及整个公司的协作文化，然后从中受益。这种合作关系会在质量保障的多个方面受益，比如减少缺陷，缩短上市时间并提高生产力。
 
-To best implement this element selector strategy and to create that collaboration, your QA team should be involved with the design process from the beginning. Working with development, they should review the requirements. As development designs the feature, QA should suggest where custom attributes can be implemented to best support the automation effort. By encouraging this collaboration at the beginning of the design phase, you will move the QA and development teams closer together in terms of collaboration and improve efficiency in the development process. This will likely have a beneficial spill-over effect into other areas of the Software Development Life Cycle. Encouraging collaboration here will familiarize development and QA with each other so that collaboration in other areas is likely to occur as well.
+为了最好地实行这个策略并创建合作关系，QA 团队应该从一开始就参与到设计过程中，与开发部门合作并 review 需求。随着开发部门设计功能，QA 应该建议可以实现自定义属性的位置，以最好地支持自动化工作。通过在设计阶段初期就鼓励这种合作，能够让 QA 团队和开发部门会在合作关系中走得更近，提高开发效率。这也可能会对软件开发周期的其它领域产生溢出效应。在鼓励开发部门与 QA 团队的合作中，他们彼此更将熟悉，同样的，这种关系也会映射到其它领域的合作中。
 
-### Example:
+### 举个栗子：
 
-Implementing custom attributes on the anchor tags in our example HTML would result in something like this:
+在示例 HTML 代码中的锚点元素上使用自定义属性：
 
 ```
 <div id="main-menu">
@@ -166,42 +165,42 @@ Implementing custom attributes on the anchor tags in our example HTML would resu
 </div>
 ```
 
-Notice the new attribute in some of the elements. We created a new attribute that does not conflict with any standard HTML attribute called “tid”. With this custom attribute, we can use a CSS selector to target it:
+注意，一些元素上有了新属性。我们创建了一个叫 "tid" 的新属性，与标准的 HTML 属性并无任何充冲突。有了自定义属性，我们可以通过一个 CSS 元素选择器去定位它：
 
 ```
 driver.find_element(By. CSS_SELECTOR, "[tid=home-link]")
 ```
 
-Let’s say you wanted to select all of the links in the menu, regardless of whether it’s a top level menu item or a submenu. With CSS Selectors, you can create highly versatile element selectors:
+假设说你想选上菜单中所有的链接，无论一级菜单还是二级菜单。你可以通过 CSS 选择器，创建灵活多变的元素选择器组：
 
 ```
 driver.find_element(By.CSS_SELECTOR, "#main-menu [tid*='-link']")
 ```
 
-What the “*=” does is do a wildcard search for the value “-link” within the tid field of any element. Placing this behind the #main-menu ID specifier, it focuses the search for elements to within the main menu.
+"*=" 做的是，在所有元素的 "tid" 字段中由通配符搜索 "-link"。把它放到 "#main-menu" ID 选择符的后面，它就只搜索主菜单内的元素了。
 
-If you want to select this strategy without the use of custom attributes, you are still on the right track. For example, you can target the links in the Shop submenu using the following approach:
+如果你想脱离自定义属性来使用这个策略，也依然是正确路线。举例说，你可以通过如下方式定位到 Shop 的子菜单中的链接：
 
 ```
 driver.find_element(By. CSS_SELECTOR, "#main-menu .submenu a")
 ```
 
-This strategy will allow automation engineers the ability to create solid automation that is easy to maintain and is not broken by irrelevant changes in the UI. Selecting this strategy is the best possible approach. It will not only be an easily maintainable solution for automation but will encourage collaboration between your QA team and your developers.
+这一策略可以使得工程师创建易于维护且不受 UI 界面中无关变化影响的自动化工作。选择这一策略是最好的方法。这不仅是一个易于维护的自动化解决方案，而且还会鼓励 QA 团队和开发人员之间的合作。
 
-### Summary: Custom Attributes with CSS Selectors
+### 总结：具有自定义属性的 CSS 选择器
 
-| **Pros** | **Cons** |
+| **优点** | **缺点** |
 | -------- | -------- |
-| Easy to learn | Initial effort involved in establishing a collaborative relationship with the development team |
-| Lots of support online |
-| Versatile |
-| Excellent performance in all browsers |
+| 学习难度低 | 初始阶段就涉及到与开发人员合作|
+| 丰富的在线支持 |
+| 灵活多变 |
+| 超级棒的兼容性 |
 
-## Conclusion
+## 结论
 
-There are some great options for implementing an enterprise standard element selector strategy in your automation framework. Options like the tag name or link text should be avoided unless it’s your only option. XPath, ID, and Class selectors are a good route. By far, the best approach is to implement custom attributes and target them with CSS Selectors. This also encourages collaboration between the development and QA team.
+在自动化框架中实现企业标准级的元素选择器策略有一些很好的选择。应该避免选择像是标签名或链接文本选择器，除非它们是你唯一的选择。XPath，ID 和 Class 选择器则是一个好路线。到目前为止，最好的方法是实现自定义属性并用 CSS 选择器来定位。这也鼓励了开发部门与 QA 团队之间的合作。
 
-Here are your options compared side-by-side:
+这是所有选项的比较表：
 
 ![1511434384(1).jpg](https://i.loli.net/2017/11/23/5a16a89cdb6db.jpg)
 
