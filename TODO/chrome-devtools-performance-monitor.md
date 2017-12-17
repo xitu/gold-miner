@@ -35,8 +35,8 @@
 
 但是我想要分享一些新内容：
 
-- “Layouts / sec” and
-- “Style recalcs / sec”
+* “Layouts / sec” 和
+* “Style recalcs / sec”
  
 允许你实时的检测你的 CSS 性能，例如：
 
@@ -45,12 +45,12 @@
 但是如果你使用 CSS 的 `transform` 属性的 `translateX/Y` 来切换动画，你将会发现，[这并不会触发绘制和布局，仅仅会触发组合这一阶段](https://csstriggers.com/top)，因为这是基于 GPU 的，会将你的 CPU 使用率降低为基本为 0%。
 
 所有的这些都在 Paul Irish 的文章 [为什么使用 Translate() 移动元素优于 Top/left](https://www.paulirish.com/2012/why-moving-elements-with-translate-is-better-than-posabs-topleft/)。为了测量差异，Paul 使用“时间轴”，展示了触发绘制和布局动作。但是近些年，Paul 正在致力于使用 Chrome DevTools 进行改良，这并不令人惊讶，我们终于有了一个合适的方法来衡量实时 CSS 性能。（我 fork 了他动画切换的示例代码）
+[![](https://static.hospodarets.com/img/blog/1511532158184634000.gif)](https://codepen.io/malyw/pen/QOQvyz) 
 
-![示例](https://static.hospodarets.com/img/blog/1511532158184634000.gif)](https://codepen.io/malyw/pen/QOQvyz) 
-
-![示例](https://codepen.io/malyw/pen/QOQvyz)
+[示例](https://codepen.io/malyw/pen/QOQvyz)
 
 一般来说，Chrome 中的性能监视器有很多用途。现在，您可以获得实时的应用程序性能数据。
+
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
