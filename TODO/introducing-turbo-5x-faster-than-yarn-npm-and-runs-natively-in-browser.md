@@ -2,90 +2,95 @@
 > * 原文作者：[Eric Simons](https://medium.com/@ericsimons?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/introducing-turbo-5x-faster-than-yarn-npm-and-runs-natively-in-browser.md](https://github.com/xitu/gold-miner/blob/master/TODO/introducing-turbo-5x-faster-than-yarn-npm-and-runs-natively-in-browser.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Cherry](https://github.com/sunshine940326)
+> * 校对者：[萌萌](https://github.com/yanyixin)、[noahziheng](https://github.com/noahziheng)
 
-# Introducing Turbo: 5x faster than Yarn & NPM, and runs natively in-browser 🔥
-
+# 介绍 Turbo：比 Yarn 和 NPM 快 5 倍，可以在本地浏览器中运行🔥
 ![](https://cdn-images-1.medium.com/max/800/1*ZM5-cr-PRyZxEV7gegcU_g.png)
 
-_Note: This is part of a talk I’m giving at Google’s Mountain View campus on Wednesday, December 6th — _[**_come join_**](https://www.meetup.com/modernweb/events/244544544/)_!_
+**注意** ：这是我在 12 月6 日在谷歌山景学校演讲的一部分，[**欢迎加入！**](https://www.meetup.com/modernweb/events/244544544/)
 
-After four months of hard work, I’m excited to finally announce **Turbo**! 🎉
+在经过四个月的努力，我很兴奋的宣布 **Turbo** 诞生了！🎉
 
-Turbo is a blazing fast NPM client originally built for [StackBlitz](https://stackblitz.com) that:
+Turbo 是一个速度极快的 NPM 客户端，最初是为了 [StackBlitz](https://stackblitz.com) 创建的：
 
-* **Installs packages ≥5x faster than Yarn & NPM 🔥**
-* **Reduces the size of** `**node_modules**` **up to two orders of magnitude 😮**
-* **Has multiple layers of redundancy for production grade reliability** 💪
-* **Works _entirely_ within your web browser, enabling lightning fast dev environments ⚡️**
+- **安装包的速度最少是 Yarn 和 NPM 的五倍 🔥**
 
-![](https://cdn-images-1.medium.com/max/800/1*flSBzkA6MwhaGdXnHE9B1g.gif)
+- **将 **`node_modules`** 的大小减少到两个数量级😮**
+- **用于生产级可靠性的多层冗余** 💪
+- **完全在 Web 浏览器中工作，能够拥有闪电般的开发环境 ⚡️**
+
+![在 StackBlitz.com 中使用 Turbo 安装 NPM 包的实际速度](https://cdn-images-1.medium.com/max/800/1*flSBzkA6MwhaGdXnHE9B1g.gif)
 
 Actual installation speed of NPM packages using Turbo on [StackBlitz.com](https://stackblitz.com/)
 
-### Why?
+在 [StackBlitz.com](https://stackblitz.com/) 中使用 Turbo 安装 NPM 包的实际速度
+### 为什么呢？
 
-When we first [started working on StackBlitz](https://medium.com/@ericsimons/stackblitz-online-vs-code-ide-for-angular-react-7d09348497f4), our goal was to create an online IDE that gave you the same feeling as being behind the wheel of a supercar: that giggly delight of receiving instantaneous responses to your every command.
+当我们刚开始开发 [StackBlitz](https://medium.com/@ericsimons/stackblitz-online-vs-code-ide-for-angular-react-7d09348497f4) 的时候，我们的目标就是创建一个在线的 IDE，这个 IDE 可以让你感觉和超级跑车的轮子一样快：你只需要接受瞬间响应命令的喜悦即可。
 
-This contrasts with the experience NPM & Yarn can provide locally. Since they’re designed to handle massive dependencies backend codebases require for native binaries & other assets, their install process requires something more akin to a semi-truck than a supercar. But frontend code rarely relies on such massive dependencies, so what’s the problem? Well, those dependencies still slip into the install process as dev & sub-dependencies and are downloaded & extracted all the same, resulting in the infamous black hole known as `node_modules`:
 
-![](https://cdn-images-1.medium.com/max/600/1*liNzl2MQKqg4tLMCF4jY5g.png)
+和 Turbo 不同的是，NPM 和 Yarn 是本地的。因为设计 NPM 和 Yarn 就是用来处理大量依赖后台代码库，需要本地二进制或和其他资源。他们的安装速度和超级跑车的速度比就是卡车的速度。但前端代码很少有这种大规模的依赖，难道有什么问题吗？当然，这些依赖仍然会作为 devDependencies 和 sub-dependencies 进入安装流程，并且依旧被下载和引用。将形成那个臭名昭著的黑洞：`node_modules`。 
 
-Dank, relevant meme (pictured above)
 
-This is the crux of what prevents NPM from working natively in-browser. Resolving, downloading, and extracting the hundreds of megabytes (or gigabytes) typical frontend projects contain in their `node_modules` folder is a challenge browsers just aren’t well suited for. Additionally, this is also why existing server side solutions to this problem have proven to be [slow, unreliable, and cost prohibitive to scale](https://github.com/unpkg/unpkg/issues/35#issuecomment-317128917).
+![Dank, relevant meme](https://cdn-images-1.medium.com/max/600/1*liNzl2MQKqg4tLMCF4jY5g.png)
 
-> So, if NPM itself can’t work in the browser, what if we built a brand new NPM client from the ground up that could?
 
-### The solution: A smarter, faster package manager built specifically for the web 📦
+为什么 NPM 不在本地的浏览器中工作，这是问题的关键。在 `node_modules` 文件夹中解析、下载、提取百兆字节（或千兆字节）的典型前端项目是一个挑战，在浏览器中并不适合这样做。此外，这也证明了为什么这个问题的服务器端解决方法是 [慢、不可靠、并且成本较高的](https://github.com/unpkg/unpkg/issues/35#issuecomment-317128917)。
 
-Turbo’s speed & efficiency is largely achieved by utilizing the same techniques modern frontend applications use for snappy performance—tree-shaking, lazy-loading, and plain ol’ XHR/fetch with gzip.
+> 所以，如果 NPM 本身不能在浏览器端运行，那我们从底层建一个新的 NPM 客户端会怎么样呢？
 
-#### **_Retrieves only_ the files you need, on-demand** 🚀
 
-Instead of downloading entire tarballs, Turbo is smart and only retrieves the files that are directly required from the main, typings and other relevant fields. This eliminates a surprising amount of dead weight in individual packages and even more so in larger projects:
+### 解决方案：一个专门为 Web 构建的更聪明、更快的包管理器📦
+Turbo 的速度和效率大部分是通过利用与现代前端应用程序相同的技术来完成的，他们使用了 snappy performance—tree-shaking、懒加载和启用了 gzip 压缩的普通 XHR/fetch 请求。
 
-![](https://cdn-images-1.medium.com/max/800/1*zl-KV3eL7lSnAI45Hb_Rcw.png)
+#### **按需检索文件** 🚀
+Turbo 很巧妙的只检索 main、typings、和其他相关文件需要的文件而不是下载整个压缩包。无论是个人项目还是大型项目，这都减轻了惊人的负载。
 
-Comparison of total compressed payload size for [RxJS](http://npmjs.com/package/rxjs) and [RealWorld Angular](https://github.com/gothinkster/angular-realworld-example-app)
+![ RxJS 和 RealWorld Angular 总有效载荷大小的比较](https://cdn-images-1.medium.com/max/800/1*zl-KV3eL7lSnAI45Hb_Rcw.png)
 
-So what happens if you import a file that’s not required by the main field, like [a Sass file](https://stackblitz.com/edit/angular-material?file=theme.scss) for example? No problem—Turbo simply lazy-loads it on-demand and persists it for future use, similar to how Microsoft’s new [GVFS Git protocol](https://blogs.msdn.microsoft.com/devops/2017/02/03/announcing-gvfs-git-virtual-file-system/) works.
+ [RxJS](http://npmjs.com/package/rxjs) 和 [RealWorld Angular](https://github.com/gothinkster/angular-realworld-example-app) 总有效载荷大小的比较
 
-#### Robust caching with multiple failover strategies 🏋️
+那么如果你的重要文件并没有被主文件引用会怎么样呢？例如一个 [Sass 文件
+](https://stackblitz.com/edit/angular-material?file=theme.scss)，不用担心，Turb 按需进行懒加载并且一直保存以便将来使用，这个和微软新推出的 [GVFS Git protocol](https://blogs.msdn.microsoft.com/devops/2017/02/03/announcing-gvfs-git-virtual-file-system/) 工作原理有些类似。
 
-We recently rolled out a Turbo-specific CDN that hydrates any NPM package in one gzipped JSON request, providing massive speed boosts to package installations. This concept is similar to NPM’s tarballs which concats all files in a package and gzips them, whereas Turbo’s cache intelligently concats only the files your application needs and gzips them.
+#### 具有多种故障转移策略的健壮缓存 🏋️
 
-Every Turbo client runs standalone in-browser and automatically downloads the appropriate files on-demand directly from [jsDelivr’s production grade CDN](https://www.jsdelivr.com/) if a package fails to be retrieved from our cache. But what if jsDelivr goes down too? No sweat—it then switches over to using [Unpkg’s CDN](https://unpkg.com) instead, giving you three separate layers of redundancy for ultra reliable package installations 👌
+我们最近推出了一个具有 Turbo 特征的 CDN，所有的 NPM 包都在一个使用 gzip 打包的 JSON 请求中，大大提高了包安装的速度。这个概念类似于 npm 的 tarball，它合并了所有的文件并且压缩他们。然而，Turbo 的缓存智能的只包含你项目需要的文件并压缩他们。
 
-#### Lightning fast dependency resolution ⚡️
 
-To ensure minimal payload sizes, Turbo uses a custom resolution algorithm to aggressively resolve common package versions whenever possible. It’s also insanely fast & redundant: the serverless version of the resolver has access to NPM’s entire dataset in-memory and **resolves any package.json in <85ms**. Should Turbo have any problems connecting to the serverless resolver, it gracefully fails over to running completely in-browser and retrieves all required metadata for resolution.
+每一个 Turbo 的客户端都是在浏览器中独立运行的，并且如果你引用的包文件在我们的缓存中，那么会直接从 [jsDelivr 提供的大量的 CDN 资源](https://www.jsdelivr.com/) 中自动按需下载。如果 jsDelivr 访问不了了怎么办？不要担心，会自动替换成 [Unpkg CDN](https://unpkg.com)，提供三层超可靠的独立的包安装工具👌。
 
-Doing dependency resolution on the client also opens up some new & exciting possibilities, like the ability to install missing peer dependencies in just one click 😮:
+#### 快如闪电的依赖解决方案 ⚡️
+
+为了确保最小的有效负载大小，Turbo 使用一个定制的解析算法，在可能的情况下积极解决通用包版本。这也是出奇的快和冗余：无服务版本的解析器有权使用 NPM 在内存中的整个数据集并且**在 85ms 内**解析任何 package.json 文件。Turbo 在连接无服务器版本的解析器时有任何的问题，即便失败的时候也可以优雅的在浏览器中完整运行并且保留所有用于解决问题所必需的元数据。
+
+在客户端完成依赖管理也会带来一些新的令人兴奋的可能性，比如只需单击一次就可以安装缺少的对等依赖关系 😮:
+
 
 ![](https://cdn-images-1.medium.com/max/800/1*BTe1Q-cZda_1dB3H0wROzQ.gif)
 
-Because no one reads those warnings that npm pipes into the console 😜
+因为没有人读这些 NPM 在控制台输出的警告 😜
 
-#### Proven to work at scale 📈
+#### Turbo可以大规模使用的证据 📈
 
-Turbo is now reliably handling tens of millions of requests every month with negligible overhead cost, and we’re also excited to announce that Google’s Angular team recently chose StackBlitz to power all the live examples that millions of developers use in their docs!
+Turbo 目前能够可靠地处理每个月百万级别的请求数，并且开销可以忽略不计。我们很兴奋的宣布：Google 的 Angular 团队最近选择 StackBlitz 来支持他们文档中的实例，而有数以百万计的开发人员在使用他们的文档。
 
-### Now in technology preview 🙌
+### 技术预览 🙌
 
-Turbo is live on [StackBlitz.com](https://stackblitz.com) and during the technology preview phase we’ll be running a ton of tests & releasing speed, efficiency, and reliability improvements, all of which your feedback is critical on — so please don’t hesitate to [file any issues](https://github.com/stackblitz/core/issues) you run into or to chat with us in [our Discord community](http://discord.gg/stackblitz)! 🍻
+Turbo 是依赖于 [StackBlitz.com](https://stackblitz.com) 的，并且通过技术预览阶段我们将会运行大量的测试和测速，检验效能和可靠性的改进，你的每一个反馈都是至关重要的，所以在使用中遇到问题，不假思索的向我们 [提 issues](https://github.com/stackblitz/core/issues) 和在我们的 [Discord 社区](http://discord.gg/stackblitz)里和我们沟通🍻
 
-While Turbo was originally designed for production grade usage in [a real IDE](https://stackblitz.com), parts of it have already found their way into a handful of online playgrounds & folks in our community have even started prototyping a way to enable [script type=module](https://www.chromestatus.com/feature/5365692190687232) to work with Turbo (how cool is that??). We can’t wait to see all the other amazing stuff people come up with, so once our API churn smooths out we’ll be open sourcing all of it (and many other parts of StackBlitz) in our [**our Github repo**](https://github.com/stackblitz/core) for the world to use 🤘
 
-Lastly, we want to give a huge thanks to Google’s Angular team for deciding to take a bet on our technology & to the Google Cloud team for their amazing service + sponsoring the servers that Turbo runs on! ❤️
+然而 Turbo 最初是为生产级的使用而设计的，但在现实的 IDE（[stackblitz](https://stackblitz.com)）中，Turbo 已经找到了少数的在线应用场所，在社区，人们已经开始设计一种方法，使用 Turbo 使脚本类型与模块相等（很酷有没有！！！），我们迫不及待地想看到人们提出的其他惊人的东西，所以，一旦我们的 API 更加完善，我们会将其在[**我们的 Github**](https://github.com/stackblitz/core) 中完全开源（和 StackBlitz 的其他部分一起）以供全世界人们使用 🤘。
 
-#### As always, please feel free to tweet me [@ericsimons40](https://twitter.com/ericsimons40) or @[stackblitz](https://twitter.com/stackblitz) with any questions, feedback, ideas, etc :)
+最后，我们非常感谢 Google 的 Angular 团队在我们的技术下的赌注，同时感谢 Google Cloud 团队将他们令人惊叹的服务赞助给 Turbo 使用！❤️
 
-PS — If you’re interested in supporting our work, please consider grabbing a [Thinkster Pro](https://thinkster.io/pro) subscription! We’re creating a brand new series on how we built Turbo & StackBlitz, as well as revamping our entire content catalog :)
+#### 一如既往，请随时通过 Tweet 联系我 
+有任何的疑问、反馈、想法等等都可以通过 [@ericsimons40](https://twitter.com/ericsimons40) 或者 @[stackblitz](https://twitter.com/stackblitz) 联系我 ：）
 
-Rock on & I hope to see y‘all in [Mountain View on Wednesday, December 6th](https://www.meetup.com/modernweb/events/244544544/)!
+另外，如果你有兴趣支持我们的工作，请考虑订阅 [Thinkster Pro](https://thinkster.io/pro)！我们正在创建一个新系列关于我们是如何创建 Turbo 和 StackBlitz 的，以及修改我们的目录：）
 
+我希望你们能看下我 12 月 6 日在 [Mountain View 的视频](https://www.meetup.com/modernweb/events/244544544/)。
 
 ---
 
