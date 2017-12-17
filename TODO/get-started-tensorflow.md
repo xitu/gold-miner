@@ -51,13 +51,13 @@ TensorFlow 可用于优化语音识别和语音合成，比如区分多重声音
 
 **注意：** 在 Ubuntu 或 Windows 上获得 GPU 加速支持需要 CUDA 工具包 8.0 和 cuDNN 6 或更高版本，以及一块能够兼容这个版本的工具包和 CUDA Computer Capability 3.0 或更高版本的 GPU 卡。macOS 上 1.2 版本以上的 TensorFlow 不再支持 GPU 加速。
 
-详情请参考[安装 TensorFlow] (https://www.tensorflow.org/install)。
+详情请参考[安装 TensorFlow](https://www.tensorflow.org/install)。
 
 ### 从源代码构建 TensorFlow
 
 官方使用 Bazel 在 Ubuntu 和 macOS 构建 TensorFlow。在 Windows 系统下使用 Windows 版本 Bazel 或者 Windows 版 CMake 构建现在还在试验过程中，查看[ 从源代码构建 TensorFlow ]。
 
-IBM 在 S822LC 高性能计算系统上使用 NVIDIA NVLink 连接线连接两块 POWER8 处理器和四块 NVIDIA Tesla P100 GPU 以使 PowerAI 适合进行深度学习。开发者能够在运行 OpenPOWER Linux 的 IBM Power System 上构建 TensorFlow。要了解更多信息可以查看[Deep Learning on OpenPOWER: Building TensorFlow on OpenPOWER Linux Systems] (https://www.ibm.com/developerworks/community/blogs/fe313521-2e95-46f2-817d-44a4f27eba32/entry/Building_TensorFlow_on_OpenPOWER_Linux_Systems?lang=en)。
+IBM 在 S822LC 高性能计算系统上使用 NVIDIA NVLink 连接线连接两块 POWER8 处理器和四块 NVIDIA Tesla P100 GPU 以使 PowerAI 适合进行深度学习。开发者能够在运行 OpenPOWER Linux 的 IBM Power System 上构建 TensorFlow。要了解更多信息可以查看[Deep Learning on OpenPOWER: Building TensorFlow on OpenPOWER Linux Systems](https://www.ibm.com/developerworks/community/blogs/fe313521-2e95-46f2-817d-44a4f27eba32/entry/Building_TensorFlow_on_OpenPOWER_Linux_Systems?lang=en)。
 
 很多社区或供应商支持的构建程序也可用。
 
