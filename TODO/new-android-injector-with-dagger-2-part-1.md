@@ -5,7 +5,7 @@
 > * 译者：[MummyDing](https://github.com/MummyDing)
 > * 校对者：
 
-# 全新 Android Injector : Dagger 2  (一)
+# 全新 Android 注入器 : Dagger 2  (一)
 
 ![](https://cdn-images-1.medium.com/max/2000/1*mUOY8duji6LKT9dKFpDvoA.jpeg)
 
@@ -127,7 +127,7 @@ public interface AppComponent {
 每个 Android 应用都有一个 `Application` 类， 这就是为什么我也有一个 **Application Component** 的原因。这个 Component 表示是为应用层面提供实例的 （例如 OkHttp, Database, SharedPrefs）。 这个 Component 是 Dagger 图谱的根，在我们的应用中 **Application Component** 提供了三个 **Module**
 
 * **AndroidInjectionModule** : 这个类不是我们写的，它是 Dagger 2.10 中的一个内部类，通过给定的 **Module** 为我们提供了 Activity 和 Fragment
-**ActivityBuilder** : 我们自己创建的 **Module**，这个 **Module** 是给 Dagger 用的，我们将所有的 Activity 映射都放在了这里 。 Dagger 在编译期间能获取到所有的 Activity，我们的 App 中有 MainActivity 和 DetailActivity 两个 Activity， 因此我将这两个 Activity 都放在这里
+  **ActivityBuilder** : 我们自己创建的 **Module**，这个 **Module** 是给 Dagger 用的，我们将所有的 Activity 映射都放在了这里 。 Dagger 在编译期间能获取到所有的 Activity，我们的 App 中有 MainActivity 和 DetailActivity 两个 Activity， 因此我将这两个 Activity 都放在这里
 
 ```
 @Module
@@ -285,7 +285,7 @@ A fast dependency injector for Android and Java.google.github.io](https://google
 
 在第二部分 ，我想利用 Dagger 提供的新注解来简化 android-dagger 注入，但是在简化之前我想先给大家看看它原来的样子。
 
-第二部分在[这里](https://medium.com/@iammert/new-android-injector-with-dagger-2-part-2-4af05fd783d0)了
+第二部分在[这里](https://github.com/xitu/gold-miner/blob/master/TODO/new-android-injector-with-dagger-2-part-2.md)了
 
 感谢阅读，祝你编码愉快！
 
