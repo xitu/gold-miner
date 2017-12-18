@@ -5,7 +5,7 @@
 > * 译者：[MummyDing](https://github.com/MummyDing)
 > * 校对者：
 
-# 全新 Android 注入器 : Dagger 2  (一)
+# 全新 Android 注入器 : Dagger 2 （一）
 
 ![](https://cdn-images-1.medium.com/max/2000/1*mUOY8duji6LKT9dKFpDvoA.jpeg)
 
