@@ -113,58 +113,58 @@ Google TPU 是矩阵处理器而不是矢量处理器，并且神经网络不需
     *   在特定的新 GPU 上支持最新版本的 OpenCL（TensorFlow 没有官方支持 OpenCL）。
     *   在特定的新 GPU 上最新版本的 NVIDIA GRID 支持 CUDA 和 OpenCL。
 
-### Docker installation options
+### Docker 安装选项
 
-Running TensorFlow in a Docker container or Kubernetes cluster has many advantages. TensorFlow can distribute a graph as execution tasks to clusters of TensorFlow servers that are mapped to container clusters. The added advantage of using Docker is that TensorFlow servers can access physical GPU cores (devices) and assign them specific tasks.
+在 Docker 容器或者 Kubernetes 容器集群系统上运行 TensorFlow 有很多优势。TensorFlow 可以将流图作为执行任务分发给 TensorFlow 服务器集群，而这些服务集群其实是映射到容器集群的。使用 Docker 的附加优势是 TensorFlow 服务器可以访问物理 GPU 核心（设备）并为其分配特定的任务。
 
-Developers can also deploy TensorFlow in a Kubernetes cluster on PowerAI OpenPOWER servers by installing a community-built Docker image, as described in "[TensorFlow Training with Kubernetes on OpenPower Servers using PowerAI](https://developer.ibm.com/linuxonpower/2017/04/21/tensorflow-training-kubernetes-openpower-servers-using-powerai)."
+开发者还可以通过安装社区构建的 Docker 镜像，在 PowerAI OpenPOWER 服务器上的 Kubernetes 容器集群系统中部署 TensorFlow，如“[TensorFlow Training with Kubernetes on OpenPower Servers using PowerAI](https://developer.ibm.com/linuxonpower/2017/04/21/tensorflow-training-kubernetes-openpower-servers-using-powerai)”。
 
-### Cloud installation options
+### 云安装选项
 
-TensorFlow has several options for cloud-based installation:
+TensorFlow 云安装有几种选项：
 
-*   Google Cloud TPU. For researchers, Google has an Alpha offering of TensorFlow on cloud TPU instances called TensorFlow Research Cloud.
-*   Google Cloud. Google offers custom TensorFlow machine instances with access to one, four, or eight NVIDIA GPU devices in specific regions.
-*   IBM Cloud data science and data management. IBM offers a Python environment with Jupyter Notebook and Spark. TensorFlow is preinstalled.
-*   Amazon Web Services (AWS). Amazon offers AWS Deep Learning Amazon Machine Images (AMIs) with optional NVIDIA GPU support that can run on various Amazon Elastic Compute Cloud instances. TensorFlow, Keras, and other deep learning frameworks are preinstalled. AMIs can support up to 64 CPU cores and up to 8 NVIDIA GPUs (K80).
-*   Azure. TensorFlow can be set up on Docker instances using Azure Container Service or on an Ubuntu server. Azure machine instances can support up to 24 CPU cores and up to 4 NVIDIA GPUs (M60 or K80).
-*   IBM Cloud Kubernetes cluster. Kubernetes clusters on IBM Cloud can run TensorFlow. A community-built Docker image is available. GPU support is available on PowerAI servers.
+*   Google Cloud TPU。对于研究人员来说，Google 有一个Alpha 版本的 TensorFlow Research Cloud，可以提供在线的 TPU 实例。
+*   Google Cloud。Google 在一些特定的区域提供了自定义的 TensorFlow 机器实例，可以访问一个，四个或者八个 NVIDIA GPU 设备。
+*   IBM Cloud 数据科学与管理。IBM 提供了一个附带 Jupyter Notebook 和 Spark 的 Python 环境。TensorFlow 已经预安装了。
+*   Amazon Web Services (AWS)。Amazon 提供 AWS Deep Learning Amazon 机器镜像（AMIs)，可选 NVIDIA GPU 支持，可在各种 Amazon Elastic Compute Cloud 实例上运行。TensorFlow， Keras 和其他的深度学习框架都已经预装。AMI 可以支持多达 64 个 CPU 内核和 8 个 NVIDIA GPU（K80）。
+*   Azure。可以在使用 Azure 容器服务的 Docker 实例上或者一个 Ubuntu 服务器上设置 TensorFlow。Azure 机器实例可以支持 24 个 CPU内核和多达 4 个 NVIDIA GPU（M60 或 K80）。
+*   IBM Cloud Kubernetes 集群。IBM Clound 上的 Kubernetes 集群 可以运行 TensorFlow。一个社区构建的 Docker 镜像可用。POWERAI 服务器提供 GPU 支持。
 
-## Which programming languages does TensorFlow support?
+## TensorFlow 支持那些编程语言？
 
-Although Google implemented the TensorFlow core in `C`++, its main programming language is Python, and that API is the most complete, robust, and easiest to use. For more information, see the [Python API documentation](https://www.tensorflow.org/api_docs/python). The Python API also has the most extensive documentation and extensibility options as well as widespread community support.
+尽管 Google 在 `C`++ 中实现了 TensorFlow 核心，但是它的主要编程语言是 Python，而且这个 API 是最完整的，最强大的，最易用的。更多有关信息，请参阅 [Python API 文档](https://www.tensorflow.org/api_docs/python)。Python API 还具有最广泛的文档和可扩展性选项以及广泛的社区支持。
 
-Other than Python, TensorFlow supports APIs for the following languages without stability promises:
+除了 Python 之外，TensorFlow还支持以下语言的 API，但不保证稳定性：
 
-*   `C`++. The TensorFlow `C`++ API is the next most robust API and is available both for constructing and executing a data flow graph as well as for TensorFlow serving. For more information about the `C`++ API, see the [C++ API](https://www.tensorflow.org/api_guides/cc/guide). For more information about the `C`++ Serving API, see [TensorFlow Servicing API Reference](https://www.tensorflow.org/api_docs/serving).
-*   Java language. Although this API is experimental, the recent announcement of Android Oreo support for TensorFlow is likely to make this API more prominent. For more information, see [tensorflow.org](https://www.tensorflow.org/api_docs/java/reference/org/tensorflow/package-summary).
-*   Go. This API is a highly experimental binding to the Google Go programming language. For more information, see [package tensorflow](https://godoc.org/github.com/tensorflow/tensorflow/tensorflow/go).
+*   `C`++。TensorFlow `C`++ API 是下一个最强大的 API，可用于构建和执行数据流图以及 TensorFlow 服务。更多有关 `C`++ API 的信息，请参阅[C++ API](https://www.tensorflow.org/api_guides/cc/guide)。有关 `C`++ 服务 API 的更多信息，请参阅 [TensorFlow 服务 API 参考](https://www.tensorflow.org/api_docs/serving)。
+*   Java 语言。尽管这个 API 是实验性的，但最新发布的 Android Oreo 支持 TensorFlow 可能会使这个 API 更加突出。更多有关信息，请参考[tensorflow.org](https://www.tensorflow.org/api_docs/java/reference/org/tensorflow/package-summary)。
+*   Go。这个 API 是对 Google Go 语言高度实验性的绑定。更多有关信息，请参考 [package tensorflow](https://godoc.org/github.com/tensorflow/tensorflow/tensorflow/go)。
 
-### Third-party bindings
+### 第三方绑定
 
-Google has defined a foreign function interface (FFI) to support other language bindings. This interface exposes TensorFlow `C`++ core functions with a `C` API. The FFI is new and might not be in use by existing third-party bindings.
+Google 已经定义了一个外部函数接口（FFI）来支持其他语言绑定。该接口使用 `C` API 暴露了 TensorFlow `C`++ 核心函数。FFI 是新的，可能不会被现有的第三方绑定使用。
 
-A survey of GitHub reveals that there are community- or vendor-developed third-party TensorFlow bindings for the following languages: `C`#, Haskell, Julia, Node.js, PHP, R, Ruby, Rust, and Scala.
+一项对 GitHub 的调查显示，有以下语言的社区或供应商开发的第三方 TensorFlow 绑定 `C`#，Haskell， Julia，Node.js，PHP，R，Ruby，Rust 和 Scala。
 
 ### Android
 
-There is now a new, optimized TensorFlow-Lite Android library to run TensorFlow applications. For more information, see [What's New in Android: O Developer Preview 2 & More](https://android-developers.googleblog.com/2017/05/whats-new-in-android-o-developer.html).
+现在有一个经过优化的新 TensorFlow-Lite Android 库来运行 TensorFlow 应用程序。更多有关信息，请参考 [What's New in Android: O Developer Preview 2 & More](https://android-developers.googleblog.com/2017/05/whats-new-in-android-o-developer.html)。
 
-## Simplifying TensorFlow with Keras
+## 使用 Keras 简化 TensorFlow
 
-Keras layers and models are fully compatible with pure-TensorFlow tensors. As a result, Keras makes a great model definition add-on for TensorFlow. Developers can even use Keras alongside other TensorFlow libraries. For details, see [Keras as a simplified interface to TensorFlow: tutorial](https://blog.keras.io/keras-as-a-simplified-interface-to-tensorflow-tutorial.html).
+Keras 的层和模型完全兼容纯粹的 TensorFlow tensor。因此，Keras 为 TensorFlow 提供了一个很好的模型定义插件。开发者甚至可以将 Keras 与 其他 TensorFlow 库一起使用。有关详细信息，请参考 [使用 Keras 作为 TensorFlow 的简要接口: 教程](https://blog.keras.io/keras-as-a-simplified-interface-to-tensorflow-tutorial.html)。
 
-## Conclusion
+## 结论
 
-TensorFlow is just one of the many open source software libraries for machine learning. But, it has become one of the most widely adopted deep learning frameworks going by the number of GitHub projects based on it. In this tutorial, you got an overview of TensorFlow, learned which platforms support it, and looked at installation considerations.
-
+TensorFlow 只是许多用于机器学习的开源软件库之一。但是，根据它的 GitHub 项目数量，它已经成为被最广泛采用的深度学习框架之一。在本教程中，您了解了 TensorFlow 的概述，了解了哪些平台支持它，并查看了安装注意事项。
 If you're ready to see some samples using TensorFlow, take a look at the [Accelerate training of machine learning algorithms](https://developer.ibm.com/code/journey/accelerate-training-of-machine-learning-algorithms/) and [Image recognition training with PowerAI notebooks](https://developer.ibm.com/code/journey/image-recognition-training-powerai-notebooks/) developer code patterns.
+如果你准备使用 TensorFlow 查看一些示例，请查看 [机器学习算法加快训练过程](https://developer.ibm.com/code/journey/accelerate-training-of-machine-learning-algorithms/) 和 [使用 PowerAI notebooks 进行图像识别训练](https://developer.ibm.com/code/journey/image-recognition-training-powerai-notebooks/)中的开发者代码模式。
 
 * * *
 
-#### Downloadable resources
+#### 资源下载
 
-* [PDF of this content](cc-get-started-tensorflow-pdf.pdf)
+* [此篇文章的 PDF 文件](cc-get-started-tensorflow-pdf.pdf)
 
 
 ---
