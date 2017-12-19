@@ -1,7 +1,7 @@
 > * 原文地址：[New Android Injector with Dagger 2 — part 3](https://android.jlelse.eu/new-android-injector-with-dagger-2-part-3-fe3924df6a89)
 > * 原文作者：[Mert Şimşek](https://android.jlelse.eu/@iammert?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/.md](https://github.com/xitu/gold-miner/blob/master/TODO/.md)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/new-android-injector-with-dagger-2-part-3.md](https://github.com/xitu/gold-miner/blob/master/TODO/new-android-injector-with-dagger-2-part-3.md)
 > * 译者：
 > * 校对者：
 
