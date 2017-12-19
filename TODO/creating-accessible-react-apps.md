@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/creating-accessible-react-apps.md](https://github.com/xitu/gold-miner/blob/master/TODO/creating-accessible-react-apps.md)
 > * 译者：[llp0574](https://github.com/llp0574)
-> * 校对者：
+> * 校对者：[smancang](https://github.com/smancang)，[zhaoyi0113](https://github.com/zhaoyi0113)
 
 # 创建无障碍 React 应用
 
