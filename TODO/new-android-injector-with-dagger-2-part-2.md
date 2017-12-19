@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/new-android-injector-with-dagger-2-part-2.md](https://github.com/xitu/gold-miner/blob/master/TODO/new-android-injector-with-dagger-2-part-2.md)
 > * 译者：[woitaylor](https://github.com/woitaylor)
-> * 校对者：
+> * 校对者：[XPGSnail](https://github.com/XPGSnail) [LeviDing](https://github.com/leviding)
 
 # 全新 Android 注入器 : Dagger 2 （二）
 
