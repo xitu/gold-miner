@@ -54,7 +54,7 @@ public abstract class DaggerAppCompatActivity extends AppCompatActivity
 
 从上面的代码可以看出 `DaggerAppCompatActivity` 跟我们自己写的 `Activity` 并没有多大的区别，所以可以让我们的 `Activity` 以继承 `DaggerAppCompatActivity` 的方式来减少样板代码。
 
-我们的 `DetailActivity` 类如下：
+`DetailActivity` 类如下：
 
 ```
 public class DetailActivity extends AppCompatActivity implements HasSupportFragmentInjector, DetailView {
