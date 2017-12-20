@@ -100,7 +100,7 @@ DaggerAppComponent
 
 ### Component/Module 结构
 
-使用 Dagger 的时候我们可以将App 分为三层：
+使用 Dagger 的时候我们可以将 App 分为三层：
 
 * Application Component
 * Activity Components
