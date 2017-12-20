@@ -49,7 +49,7 @@
 
 举个例子，`tabindex` 这个属性需要写成 `tabIndex`（注意到大写的 “I” 字母）。这个规则的例外情况是任何 `data-*` 或 `aria-*` 类型的属性仍旧保持原来的写法。
 
-在 JavaScript 里还有一些[保留字](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Lexical_grammar#Reserved_keywords_as_of_ECMAScript_2015)，它们会匹配上一些特定的 HTML 属性名。这些属性就不能按照你所期望的方式来写：
+还有一些[ JavaScript 保留字](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Lexical_grammar#Reserved_keywords_as_of_ECMAScript_2015)，它们会匹配上一些特定的 HTML 属性名。这些属性就不能按照你所期望的方式来写：
 
 * `for` 在 JavaScript 里是用来遍历项目的保留字。当在 React 组件里创建 `label` 元素的时候，你必须使用 `htmlFor` 属性来替代 `for`，从而明确地设置 `label` 和 `input` 的关系。
 * `class` 也是 JavaScript 里的保留字。当需要在一个 HTML 元素上指派一个 `class` 属性来添加样式的时候，它必须替代写成 `className`。
@@ -82,7 +82,7 @@ componentWillMount() {
 
 让我们来讨论一下焦点管理，这对于确保你的应用同时具备无障碍和成功的用户体验来说是一个很重要的因素。如果你的客户试图填满一个多“页面”表单，并且你没有对每个视图进行焦点管理，那么就很可能会导致用户的困扰，而且如果他们正在使用辅助技术，那么他们可能很难继续完成这个表单。你可能会为此完全失去他们成为客户的可能。
 
-为了在组件内的特定元素上设置键盘焦点，你需要创建一个叫 “function ref” 的东西，或者简称 `ref`。如果你只是刚开始学习 React 的话，你可以认为 `ref` 就像是使用 jQuery 来选择 DOM 上的 HTML 元素，比如： 
+为了在组件内的特定元素上设置键盘焦点，你需要创建一个叫 “function ref” 的东西，或者简称 `ref`。如果你只是刚开始学习 React 的话，你可以认为 `ref` 就像是使用 jQuery 来选择 DOM 上的 HTML 元素，并将其缓存在一个变量里，比如： 
 
 ```
 var myBtn = $('#myBtn');
@@ -98,9 +98,9 @@ var myBtn = $('#myBtn');
 </div>
 ```
 
-当这个组件渲染的时候，`function ref` 就会触发并通过创建一个新的类属性来创建这个元素的一个“引用”。在这个例子里，我们对 `div` 元素创建了一个叫 “loadingContainer” 的引用，并将其值通过 `this.loadingContainer = loadingContainer` 赋值语句传递给了一个新的类属性。
+当这个组件渲染完成后，`function ref` 就会触发并通过创建一个新的类属性来创建这个元素的一个“引用”。在这个例子里，我们对 `div` 元素创建了一个叫 “loadingContainer” 的引用，并将其值通过 `this.loadingContainer = loadingContainer` 赋值语句传递给了一个新的类属性。
 
-我们在 `componentDidMount()` 生命周期钩子函数里使用 `ref`，当组件加载 `{[Loader.js:12](https://github.com/simplyaccessible/tv-db/blob/master/src/components/Loader.js#L12)}` 的时候，明确地给“加载”容器设置焦点 ：
+当组件加载 {[Loader.js:12](https://github.com/simplyaccessible/tv-db/blob/master/src/components/Loader.js#L12)} 的时候，我们在 `componentDidMount()` 生命周期钩子函数里使用 `ref`，明确地给“加载”容器设置焦点 ：
 
 ```
 componentDidMount() {
@@ -194,7 +194,7 @@ this.setState({announcementMessage: `Total results found: ${data.length}`});
 
 #### 配置 ref
 
-要决定焦点的走向，你需要检查组件是如何配置的，以及使用了哪些小部件。举个例子，如果你有一个“页面”组件，由许多子组件组成剩下的页面内容，那么你可能需要将焦点移动到页面最外城的父元素，有可能是一个 `div` 元素。从这里开始，用户就可以浏览页面内容的其他内容，就像经历了一次浏览器的整体刷新。
+要决定焦点的走向，你需要检查组件是如何配置的，以及使用了哪些小部件。举个例子，如果你有一个“页面”组件，由许多子组件组成剩下的页面内容，那么你可能需要将焦点移动到页面最外层的父元素，有可能是一个 `div` 元素。从这里开始，用户就可以浏览页面内容的其他内容，就像经历了一次浏览器的整体刷新。
 
 让我们来在最外层的父亲 `div` 上创建一个叫 `contentContainer` 的 `ref`，就像 `{[Details.js:84](https://github.com/simplyaccessible/tv-db/blob/master/src/pages/Details.js#L84)}`：
 
@@ -206,7 +206,7 @@ this.setState({announcementMessage: `Total results found: ${data.length}`});
 
 > 提示：就像焦点管理，有意地使用 `tabIndex="-1"` 并按照一个明确的计划来处理。
 
-`aria-labelledby` 属性值将程序化地关联页面的标题（也行是一个 id 为 “pageHeading” 的 `h1` 或 `h2` 元素），来帮助描述当前键盘焦点位置的上下文。
+`aria-labelledby` 属性值将程序化地关联页面的标题（也许是一个 id 为 “pageHeading” 的 `h1` 或 `h2` 元素），来帮助描述当前键盘焦点位置的上下文。
 
 既然我们创建了 `ref`，让我们来看看如何**真正地**使用它来转移焦点。
 
@@ -220,7 +220,7 @@ componentDidMount() {
 }
 ```
 
-上面的代码告诉 React：“在组件加载的时候，将焦点转移到容器元素”。从这一点上，浏览会从页面的顶部开始，并且如果发生全页面刷新的话，内容就将是可以清楚看见的。
+上面的代码告诉 React：“在组件加载的时候，将键盘焦点转移到容器元素”。从这一点上，浏览会从页面的顶部开始，并且如果发生全页面刷新的话，内容就将是可以清楚看见的。
 
 ## React 的无障碍性代码分析器
 
@@ -244,7 +244,7 @@ componentDidMount() {
 
 ### 安装 eslint-plugin-jsx-a11y
 
-下个步骤就是通过 `npm` 安装 `eslint-plugin-jsx-a11y`。只需运行以下命令即可安装 ESLint 并在编辑器里使用它：
+下个步骤就是通过 `npm` 安装 `eslint-plugin-jsx-a11y`。只需运行以下命令即可安装它和 ESLint，并在编辑器里使用它：
 
 ```
 npm install eslint eslint-plugin-jsx-a11y --save-dev
@@ -254,9 +254,9 @@ npm install eslint eslint-plugin-jsx-a11y --save-dev
 
 ### 更新 ESLint 配置
 
-如果在项目的根目录里没有 `.eslintrc` 文件，可以轻易地以这个文件名创建一个新文件。查看[如何配置 `.eslintrc` 文件](https://eslint.org/docs/user-guide/configuring)，以及一些可以添加配置 ESLint 的[规则]((https://eslint.org/docs/rules/)，以此满足项目的需求。
+如果在项目的根目录里没有 `.eslintrc` 文件，可以轻易地以这个文件名创建一个新文件。查看[如何配置 `.eslintrc` 文件](https://eslint.org/docs/user-guide/configuring)，以及一些可以添加配置 ESLint 的[规则](https://eslint.org/docs/rules/)，以此满足项目的需求。
 
-在 `.eslintrc` 文件创建好之后，打开它进行编辑并在 “plugins” 部分添加下面的代码 `{[.eslintrc:43](https://github.com/simplyaccessible/tv-db/blob/master/.eslintrc#L43)}`：
+在 `.eslintrc` 文件创建好之后，打开它进行编辑并在 “plugins” 部分添加下面的代码 {[.eslintrc:43](https://github.com/simplyaccessible/tv-db/blob/master/.eslintrc#L43)}：
 
 ```
 "plugins": [
@@ -276,7 +276,7 @@ npm install eslint eslint-plugin-jsx-a11y --save-dev
 ]
 ```
 
-这一行告诉 ESLint 使用默认推荐的规则集合，也是我发现最为好用的。
+这一行告诉 ESLint 使用默认推荐的规则集合，并且我发现非常好用。
 
 在完成这些编辑及重启编辑器之后，在出现无障碍相关问题的时候，你应该就可以看到一些类似下面截图的提示：
 
@@ -284,7 +284,7 @@ npm install eslint eslint-plugin-jsx-a11y --save-dev
 
 ## 继续编写语义化 HTML
 
-在 [“Thinking in React” 帮助文档](https://reactjs.org/docs/thinking-in-react.html)里，鼓励读者去创建组件模块，或者组件驱动开发，编写小型、可复用的代码片段。这么做的好处是可以在不同项目之间复用代码。想象一下，在某个站点创建了一个无障碍部件，然后如果在另一个站点需要同样的不见，只需复制粘贴代码！
+在 [“Thinking in React” 帮助文档](https://reactjs.org/docs/thinking-in-react.html)里，鼓励读者去创建组件模块，或者组件驱动开发，编写小型、可复用的代码片段。这么做的好处是可以在不同项目之间复用代码。想象一下，在某个站点创建了一个无障碍部件，然后如果在另一个站点需要同样的部件，只需复制粘贴代码！
 
 从这里可以看出，你通过模块套模块创建出更大的组件来构建你的 UI，然后最终拼凑成一个“页面”。起初这可能会带来一些学习曲线，但不久你就会习惯以这种方式思考，并最终在编写 HTML 的时候享受这种分解过程。
 
