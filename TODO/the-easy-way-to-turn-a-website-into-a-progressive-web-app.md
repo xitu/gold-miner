@@ -3,23 +3,23 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/the-easy-way-to-turn-a-website-into-a-progressive-web-app.md](https://github.com/xitu/gold-miner/blob/master/TODO/the-easy-way-to-turn-a-website-into-a-progressive-web-app.md)
 > * 译者：[bambooom](https://github.com/bambooom)
-> * 校对者：
+> * 校对者：[MechanicianW](https://github.com/MechanicianW)
 
 ## 什么是渐进式 Web 应用程序？
 
-基本上来说，PWA 是一个网站，当用手机访问时，网站可以保存在手机，并且体验就像一个原生应用程序一样。它会有一个加载显示，你可以删除 Chrome 的界面，如果网络连接断开，它仍然可以正常显示内容。最重要的是它提高了用户的参与度：在 Android 上的 Chrome 浏览器（其他移动端浏览器不确定是否行为一致）如果检测到网站是 PWA，它会提示用户使用你选择的图标将其保存在设备的主屏幕上。
+基本上来说，PWA 是一个网站，当用手机访问时，网站可以保存在手机，并且体验就像一个原生应用程序一样。它会有一个加载显示，你可以删除 Chrome 的界面，如果网络连接断开，它仍然可以正常显示内容。最重要的是它提高了用户的参与度：在 Android 上的 Chrome 浏览器（不确定其他移动端浏览器上行为是否一致）如果检测到网站是 PWA，它会提示用户使用你选择的图标将其保存在设备的主屏幕上。
 
 ## 为何它如此重要？
 
-**PWA 对客户的业务有好处。**中国的亚马逊，阿里巴巴注意到由于浏览器的提示“安装”网站，用户的参与度提高了 48%（[来源](https://developers.google.com/web/showcase/2016/alibaba)）。
+**PWA 对客户端上的业务有好处。**中国的亚马逊，阿里巴巴注意到由于浏览器的提示“安装”网站，用户的参与度提高了 48%（[来源](https://developers.google.com/web/showcase/2016/alibaba)）。
 
-这说明完全值得为之努力奋斗！
+这说明 PWA 完全值得为之努力奋斗！
 
 这极大可能要归功于一种叫 **Service Workers** 的技术，它允许你在用户系统中保存静态资源（html、css、javascript、json…），同时还有一个 `manifest.json` 文件，指定网站如何像一个已安装的应用一样运行。
 
 ## 例子
 
-这些是我用这里描述的相同的技术做的网站：
+这些都是我用本教程里描述的相同的方法做的网站：
 
 * [plancomptablebelge.be](https://plancomptablebelge.be) （一个单页网站）
 * [didiermotte.be](https://didiermotte.be) （一个基于 WordPress 的网站）
@@ -31,6 +31,8 @@
 将网站变成 PWA 可能听上去很复杂（Service workers？是什么？），但其实并不难。
 
 ### 1. 要求：https 而不是 http
+
+
 最困难的部分就是 PWA 只能在安全域的网站上运行（也就是在 **https://** 后，而不是 http://）。
 
 通常这些很难手动设置，但是如果你有自己的服务器，你可以使用 [letsencrypt](https://letsencrypt.org/) 很简单并自动化的完成这个步骤，并且完全**免费**。
@@ -46,13 +48,13 @@
 
 #### 2.2 realfavicongenerator.net
 
-[realfavicongenerator.net](https://realfavicongenerator.net) 注重你的 PWA 的视觉层。它会生成上面提到的 `manifest.json` 文件，以及网站保存到任意移动设备上时所需要的各个版本的图标文件，以及添加到页面 `<head>` 标记的一段 html 代码。
+[realfavicongenerator.net](https://realfavicongenerator.net) 注重你的 PWA 的视觉层。它会生成上面提到的 `manifest.json` 文件，以及网站保存到任意移动设备上时所需要的各个版本的图标文件，以及添加到页面 `<head>` 标签的一段 html 代码。
 
-**注意**：虽然 RFG 将你的资源放在子文件夹中，但这会使得启用 PWA 更困难。所以为了简单方便，将所有图片等资源全部放在根目录下即可。
+**建议**：虽然 RFG 将你的资源放在子文件夹中，但这会使得启用 PWA 更困难。所以为了简单方便，将所有图片等资源全部放在根目录下即可。
 
 #### 2.3 通过 upup.js 使用 service workers
 
-Service workers 是一项 JavaScript 技术，对我疲倦而急躁的大脑来说很难理解。但幸运的是，[一位德国的聪明女孩](https://vimeo.com/103221949)告诉我 [Tal Atler](https://twitter.com/TalAter)，她希望推进“离线优先”的想法，所以她创建了一个 JavaScript 库很简单地让你的网站在网络掉线的时候依然可以正常运作。谢谢你，Ola Gasidlo！
+Service workers 是一项 JavaScript 技术，对我疲倦而急躁的大脑来说很难理解。但幸运的是，[一位聪明的德国女孩](https://vimeo.com/103221949)告诉我 [Tal Atler](https://twitter.com/TalAter)，她希望推进“离线优先”的理念，所以她创建了一个 JavaScript 库能够让你的网站在掉线的时候依然轻松保持正常运作。谢谢你，Ola Gasidlo！
 
 只需要快速浏览一下 [UpUp 的教程](https://www.talater.com/upup/getting-started-with-offline-first.html)就够了。
 
