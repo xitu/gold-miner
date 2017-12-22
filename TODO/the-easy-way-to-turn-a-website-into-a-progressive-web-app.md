@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/the-easy-way-to-turn-a-website-into-a-progressive-web-app.md](https://github.com/xitu/gold-miner/blob/master/TODO/the-easy-way-to-turn-a-website-into-a-progressive-web-app.md)
 > * 译者：[bambooom](https://github.com/bambooom)
-> * 校对者：[MechanicianW](https://github.com/MechanicianW)
+> * 校对者：[MechanicianW](https://github.com/MechanicianW) [tvChan](https://github.com/tvChan)
 
 ## 什么是渐进式 Web 应用程序？
 
@@ -11,7 +11,7 @@
 
 ## 为何它如此重要？
 
-**PWA 对客户端上的业务有好处。**中国的亚马逊，阿里巴巴注意到由于浏览器的提示“安装”网站，用户的参与度提高了 48%（[来源](https://developers.google.com/web/showcase/2016/alibaba)）。
+**PWA 对客户端上的业务有好处。**中国的亚马逊，阿里巴巴注意到由于浏览器“安装”网站的提示，用户的参与度提高了 48%（[来源](https://developers.google.com/web/showcase/2016/alibaba)）。
 
 这说明 PWA 完全值得为之努力奋斗！
 
