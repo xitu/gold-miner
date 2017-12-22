@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/new-android-injector-with-dagger-2-part-3.md](https://github.com/xitu/gold-miner/blob/master/TODO/new-android-injector-with-dagger-2-part-3.md)
 > * 译者：[woitaylor](https://github.com/woitaylor)
-> * 校对者：
+> * 校对者：[corresponding](https://github.com/corresponding) [shengye102](https://github.com/shengye102)
 
 # 全新 Android 注入器 : Dagger 2 （三）
 
@@ -11,9 +11,9 @@
 
 #### 概要
 
-你可以使用 `DaggerActivity`，`DaggerFragment`，`DaggerApplication` 来减少 `Activity/Fragment/Application` 类里面的样板代码。
+你可以使用 `DaggerActivity`，`DaggerFragment`，`DaggerApplication` 来减少 `Activity/Fragment/Application` 类里面的模板代码。
 
-同样的在你的 `dagger components` 中使用 `AndroidInjector<T>` 也可以减少模板代码。
+同样的，在 `dagger` 的 `component` 中，你也可以通过 `AndroidInjector<T>` 去减少模板代码。
 
 ### DaggerAppCompatActivity and DaggerFragment
 
@@ -52,7 +52,7 @@ public abstract class DaggerAppCompatActivity extends AppCompatActivity
 }
 ```
 
-从上面的代码可以看出 `DaggerAppCompatActivity` 跟我们自己写的 `Activity` 并没有多大的区别，所以可以让我们的 `Activity` 以继承 `DaggerAppCompatActivity` 的方式来减少样板代码。
+从上面的代码可以看出 `DaggerAppCompatActivity` 跟我们自己写的 `Activity` 并没有多大的区别，所以可以让我们的 `Activity` 以继承 `DaggerAppCompatActivity` 的方式来减少模板代码。
 
 `DetailActivity` 类如下：
 
@@ -105,7 +105,7 @@ public class DetailActivity extends DaggerAppCompatActivity implements DetailVie
 
 ### DaggerApplication, AndroidInjector, AndroidSupportInjectionModule
 
-看看还有哪些办法能够减少样板代码。我发现 `AndroidInjector` 能够帮助简化 `AppComponent`。你可以通过阅读 `AndroidInjector` 相关[文档](https://google.github.io/dagger/api/2.10/dagger/android/AndroidInjector.html)来获取相关信息。
+看看还有哪些办法能够减少模板代码。我发现 `AndroidInjector` 能够帮助简化 `AppComponent`。你可以通过阅读 `AndroidInjector` 相关[文档](https://google.github.io/dagger/api/2.10/dagger/android/AndroidInjector.html)来获取相关信息。
 
 下面是 `AppComponent` 类的代码。
 
@@ -143,11 +143,11 @@ interface AppComponent extends AndroidInjector<AndroidSampleApp> {
 }
 ```
 
-你有没有意识到我们的 `modules` 属性也改变了？我从 `@Component` 注解的 `modules` 属性中移除了 `AndroidInjectionModule.class` 并且添加了 `AndroidSupportInjectionModule.class`。这是因为我们使用的是支持库（v4库）的 `Fragmen`。而 `AndroidInjectionModule` 是用来绑定 `app` 包的 `Fragment` 到 `dagger`。所以如果你想在 `v4.fragment` 中使用注射，那么你应该在你的 `AppComponent modules` 中添加 `AndroidSupportInjectionModule.class`。
+你有没有意识到我们的 `modules` 属性也改变了？我从 `@Component` 注解的 `modules` 属性中移除了 `AndroidInjectionModule.class` 并且添加了 `AndroidSupportInjectionModule.class`。这是因为我们使用的是支持库（v4库）的 `Fragment`。而 `AndroidInjectionModule` 是用来绑定 `app` 包的 `Fragment` 到 `dagger`。所以如果你想在 `v4.fragment` 中使用注入，那么你应该在你的 `AppComponent modules` 中添加 `AndroidSupportInjectionModule.class`。
 
 我们改变了 `AppComponent` 的注入方式。那么 `Application` 类需要做什么改变。
 
-就跟 `DaggerActivity` 和 `DaggerFragment` 一样，我们同样地让 `Application` 类继承 `DaggerApplication`。
+跟 `DaggerActivity` 和 `DaggerFragment` 一样，我们也让 `Application` 类继承 `DaggerApplication` 类。
 
 之前的 `Application` 类的代码如下：
 
@@ -198,7 +198,7 @@ public class AndroidSampleApp extends DaggerApplication {
 
 ### PS.
 
-我并不是说这是 `dagger` 的最优美的实践方式。这只是我在自己项目中使用 `dagger` 的方式。如果喜欢的话，你也可以在自己的项目中这样使用。当然如果你们有更好的建议还请多多指教。
+我并不是说这是 `dagger` 的最优美的实践方式。这只是我在自己项目中使用 `dagger` 的方式。如果喜欢的话，你也可以在自己的项目中这样使用。如果你实在不想让自己的 `Application` 类继承第三方的 `Application` 类就别这样使用，你高兴就好。最后，如果你们有更好的建议还请多多指教。
 
 
 ---
