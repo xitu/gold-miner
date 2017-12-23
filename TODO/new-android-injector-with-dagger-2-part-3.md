@@ -5,9 +5,13 @@
 > * 译者：[woitaylor](https://github.com/woitaylor)
 > * 校对者：[corresponding](https://github.com/corresponding) [shengye102](https://github.com/shengye102)
 
-# 全新 Android 注入器 : Dagger 2 （三）
+# 全新 Android 注入器 : Dagger 2（三）
 
-如果你还没有阅读（一）和（二），我建议你先阅读它们。文章底部有链接。
+如果你还没有阅读（一）和（二），我建议你先阅读它们。
+
+
+- [全新 Android 注入器 : Dagger 2 （一）](https://juejin.im/post/5a39f26df265da4324809685)
+- [全新 Android 注入器 : Dagger 2 （二）](https://juejin.im/post/5a3a1883f265da4321542fc1)
 
 #### 概要
 
@@ -22,7 +26,7 @@
 
 最近，我把这些相关代码移到 `BaseActivity` 和 `BaseFragment`。因为与其在每个 `activity` 中声明这些，还不如把共同的代码放到基类里面。
 
-于是我在研究 `dagger` 项目的时候发现 `DaggerAppCompatActivity` 、 `DaggerFragment` 这些类正好是我所需要的。如果说 `Android` 喜欢继承，那么我们也可以假装喜欢继承。😛
+于是我在研究 `dagger` 项目的时候发现 `DaggerAppCompatActivity` 、`DaggerFragment` 这些类正好是我所需要的。如果说 `Android` 喜欢继承，那么我们也可以假装喜欢继承 😛
 
 让我们看看这些类做了些神马。
 
@@ -128,7 +132,7 @@ public interface AppComponent {
 
 `build()` 和 `seedInstance()` 方法已经在 `AndroidInjector.Builder` 抽象类中定义了，所以我们的 `Builder` 类可以通过继承 `AndroidInjection.Builder<Application>` 来去掉上面代码中 `application()` 和 `build()` 这两个方法。
 
-同样的，`AndroidInjector` 接口中已经有 `inject()` 方法了。所以我们可以通过继承 `AndroidInjector<Application>` 接口（接口是可以继承接口的）来删除 `inject()` 方法
+同样的，`AndroidInjector` 接口中已经有 `inject()` 方法了。所以我们可以通过继承 `AndroidInjector<Application>` 接口（接口是可以继承接口的）来删除 `inject()` 方法。
 
 那么我们简化后的 `AppComponent` 接口的代码如下：
 
@@ -191,10 +195,6 @@ public class AndroidSampleApp extends DaggerApplication {
 你可以从我的 [GitHub](http://github.com/iammert) 上获取修改后的源码。我没有把这些代码 `merge` 到主分支上，是因为我想在各个分支中保存 `dagger` 使用方式的历史记录。这样读者们就能够知道我是如何一步步简化 `dagger` 的使用方式。
 
 - [Demo](https://github.com/iammert/dagger-android-injection)
-
-- [全新 Android 注入器 : Dagger 2 （一）](https://github.com/xitu/gold-miner/blob/master/TODO/new-android-injector-with-dagger-2-part-1.md)
-
-- [全新 Android 注入器 : Dagger 2 （二）](https://github.com/xitu/gold-miner/blob/master/TODO/new-android-injector-with-dagger-2-part-2.md)
 
 ### PS.
 
