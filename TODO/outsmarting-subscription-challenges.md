@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/outsmarting-subscription-challenges.md](https://github.com/xitu/gold-miner/blob/master/TODO/outsmarting-subscription-challenges.md)
 > * 译者：[pot-code](https://github.com/pot-code)
-> * 校对者：[Wangalan30](https://github.com/Wangalan30)、[IllllllIIl](https://github.com/IllllllIIl)
+> * 校对者：[Wangalan30](https://github.com/Wangalan30), [IllllllIIl](https://github.com/IllllllIIl)
 
 # 智对订阅难点
 
@@ -17,7 +17,7 @@
 
 ### **引流和转化**
 
-#### **难点 1:** “不知客从何处来”
+#### **难点 1**：“不知客从何处来”
 
 ![](https://cdn-images-1.medium.com/max/800/0*jK7Jet9zQQNpoGy7.)
 
@@ -30,17 +30,17 @@
 *   用户所在地区分布情况
 *   在同类应用中的表现
 
-#### **难点 2:**“ 用户对会员服务并不感冒”
+#### **难点 2**：“用户对会员服务并不感冒”
 
 ![](https://cdn-images-1.medium.com/max/800/0*gwlqCkHQx58lw6lp.)
 
 这里有两种解决方案，第一种是多样化切入应用的卖点所在。
 
-举个例子，健身类应用 [Freeletics](https://play.google.com/store/apps/developer?id=Freeletics&hl=en_GB&e=-EnableAppDetailsPageRedesign) 重新设计了它们的欢迎页，为了强调他们的卖点 —— 真正教你变强壮，他们采用问卷形式来挖掘用户健身的目的（像是为了练肌肉、减肥或是塑形），而不是一上来就直接列出这个 app 的所有功能，这样至少能提高 10 % 的转化率。
+举个例子，健身类应用 [Freeletics](https://play.google.com/store/apps/developer?id=Freeletics&hl=en_GB&e=-EnableAppDetailsPageRedesign) 重新设计了它们的欢迎页，为了强调他们的卖点 —— 真正教你变强壮，他们采用问卷形式来挖掘用户健身的目的（像是为了练肌肉、减肥或是塑形），而不是一上来就直接列出这个 app 的所有功能，这样至少能提高 10% 的转化率。
 
-另一种方法同样也十分常见 —— 在用户购买前为他们提供**免费试用**。我们发现，[**78 % 的会员都是先试用再订阅的**](http://services.google.com/fh/files/misc/subscription_apps_on_google_play.pdf)。值得一提的是，Google Play 也调整了试用政策，现在可以提供仅 3 天的试用期（以前最少 7 天） —— 一些边际成本比较高的商家可能会比较关心
+另一种方法同样也十分常见 —— 在用户购买前为他们提供**免费试用**。我们发现，[**78% 的会员都是先试用再订阅的**](http://services.google.com/fh/files/misc/subscription_apps_on_google_play.pdf)。值得一提的是，Google Play 也调整了试用政策，现在可以提供仅 3 天的试用期（以前最少 7 天）—— 一些边际成本比较高的商家可能会比较关心。
 
-#### **难点 3:** “用户支付中途放弃”
+#### **难点 3**：“用户支付中途放弃”
 
 ![](https://cdn-images-1.medium.com/max/800/0*p3edHCauwiAoDg7p.)
 
@@ -48,21 +48,21 @@
 
 ![](https://cdn-images-1.medium.com/max/800/0*MVbUsr1w4H9uZFAC.)
 
-此外，从 2018 年 1 月 1 日开始， Google Play 将调整付费用户的交易税率，针对那些订阅超过一年的付费用户，税率下降到 15 %。 此举是为了凸显出那些拥有长期客户的商家，以便提供更好的用户体验。
+此外，从 2018 年 1 月 1 日开始，Google Play 将调整付费用户的交易税率，针对那些订阅超过一年的付费用户，税率下降到 15%。此举是为了凸显出那些拥有长期客户的商家，以便提供更好的用户体验。
 
-#### **难点 4:** “付费用户太少”
+#### **难点 4**：“付费用户太少”
 
 ![](https://cdn-images-1.medium.com/max/800/0*Z4bR3O6wG45Epx1f.)
 
 针对这个问题，可以使用[**推广价**](https://support.google.com/googleplay/android-developer/answer/140504?hl=en#intro)来吸引顾客，即在特殊节日进行打折。
 
-例如 [Cookpad](https://play.google.com/store/apps/details?id=com.mufumbo.android.recipe.search&hl=en_GB&e=-EnableAppDetailsPageRedesign)，一个在日本很火的烹饪 app，在每年的斋月（该月内伊斯兰教徒每日从黎明到日落禁食）放出 50 % 的折扣价，相比平时，在这期间每天订阅的用户数能以至少 4.5 倍的速度增长。
+例如 [Cookpad](https://play.google.com/store/apps/details?id=com.mufumbo.android.recipe.search&hl=en_GB&e=-EnableAppDetailsPageRedesign)，一个在日本很火的烹饪 app，在每年的斋月（该月内伊斯兰教徒每日从黎明到日落禁食）放出 50% 的折扣价，相比平时，在这期间每天订阅的用户数能以至少 4.5 倍的速度增长。
 
 ![](https://cdn-images-1.medium.com/max/800/0*qq5kcYw0fOg8cdsB.)
 
 ### **黏度和挽回**
 
-#### **难点 5**: “用户缺乏黏性”
+#### **难点 5**：“用户缺乏黏性”
 
 ![](https://cdn-images-1.medium.com/max/800/0*LuGZIoqgAlyQ33e5.)
 
@@ -75,29 +75,29 @@
 3.  可以考虑加入一些激励，必要的话也可以加入现金奖励。当用户的参与度达到了一定程度之后，可以向用户发放这些激励。
 4.  将真正有价值的激励限制在订阅付费用户范围内，从而减少付费用户的流失。
 
-以下是一个囊括了以上要素的语言学习类应用  [Duolingo](https://play.google.com/store/apps/details?id=com.duolingo&hl=en_GB&e=-EnableAppDetailsPageRedesign)。
+以下是一个囊括了以上要素的语言学习类应用 [Duolingo](https://play.google.com/store/apps/details?id=com.duolingo&hl=en_GB&e=-EnableAppDetailsPageRedesign)。
 
 ![](https://cdn-images-1.medium.com/max/800/0*-RGr53dMELlCf-D6.)
 
 第二种方式比较直白，直接告诉用户你这里提供了长期订阅套餐，这样，你只需要说服用户买单。比如，你告诉用户，订阅的时间越长越优惠，最好能突出显示长期订阅的月均消费和单月订阅的价差（不要让用户自己去算）。此外，你还可以使用漏斗推广模型，同时推出一些季度套餐 (这样能获得更高的 LTV)。
 
-例如韩国的付费点播平台 [WatchaPlay](https://play.google.com/store/apps/details?id=com.frograms.watcha&hl=en&e=-EnableAppDetailsPageRedesign)，就从原有的单月套餐发展成现在的四种套餐（1 个月/3 个月/6 个月/12 个月），并且发现 40 % 的用户选择了多月套餐。
+例如韩国的付费点播平台 [WatchaPlay](https://play.google.com/store/apps/details?id=com.frograms.watcha&hl=en&e=-EnableAppDetailsPageRedesign)，就从原有的单月套餐发展成现在的四种套餐（1/3/6/12 个月），并且发现 40% 的用户选择了多月套餐。
 
 ![](https://cdn-images-1.medium.com/max/800/0*3Sp8GzzykR1Fs1f2.)
 
-#### **难点 6:** “用户流失”
+#### **难点 6**：“用户流失”
 
 ![](https://cdn-images-1.medium.com/max/800/0*UMMjwcYUuBfrOpmE.)
 
 根据 [Google I/O ](https://android-developers.googleblog.com/2017/05/make-more-money-with-subscriptions-on.html?hl=mk)大会上的声明，Google Play Console 可以向开发者提供用户流失的原因：是用户主动还是被动（例如因为交易失败），甚至还能通知开发者用户卸载了你的应用。
 
-#### **难点 7**: “对用户的流失并不知情”
+#### **难点 7**：“对用户的流失并不知情”
 
 ![](https://cdn-images-1.medium.com/max/800/0*ObCXKkYnAo1NvF2U.)
 
 这个问题比前几个还要棘手，不过好在 Google play 提供了[**即时通知**](https://developer.android.com/google/play/billing/billing_subscriptions.html#realtime-notifications) 的功能，当用户的订阅状态发生变更时会即时通知开发者，方便尽快作出回应。
 
-#### **难点 8**: “用户不再续订”
+#### **难点 8**：“用户不再续订”
 
 ![](https://cdn-images-1.medium.com/max/800/0*FP9LQ38OgWkTpaOW.)
 
@@ -107,16 +107,16 @@
 
 为了方便订阅用户的回归，Google Play 提供了[**订阅恢复**](https://developer.android.com/google/play/billing/billing_subscriptions.html#restore)的功能，可以让你使用以下方式来挽留用户：
 
-1.  用户取消了订阅
-2.  Google Play 即时通知你
-3.  你向用户发送挽留的信息
-4.  如果挽留成功，用户只需点击一个按钮就能立刻恢复订阅（见下图）
+1. 用户取消了订阅。
+2. Google Play 即时通知你。
+3. 你向用户发送挽留的信息。
+4. 如果挽留成功，用户只需点击一个按钮就能立刻恢复订阅（见下图）。
 
 ![](https://cdn-images-1.medium.com/max/800/0*seGMbZYMvuwJOjmk.)
 
 Google Play 在这方面也在持续改进，建议时刻关注新的进展！
 
-#### **难点 9:** “交易失败”
+#### **难点 9**：“交易失败”
 
 ![](https://cdn-images-1.medium.com/max/800/0*5TxC7Yszcfj9LFJL.)
 
@@ -124,7 +124,7 @@ Google Play 在这方面也在持续改进，建议时刻关注新的进展！
 
 对于这个问题同样有两种解决方案，分开或者结合使用都可以。
 
-第一种，在 Play Console 里启用宽限期，这样能给予用户 3 -7 天的宽限期来解决支付问题。统计得出，提供了宽限期的商家提高了至少 50 % 因支付失败的客户回归率。
+第一种，在 Play Console 里启用宽限期，这样能给予用户 3 -7 天的宽限期来解决支付问题。统计得出，提供了宽限期的商家提高了至少 50% 因支付失败的客户回归率。
 
 我个人极力推荐各位开启宽限期，也就打开一个开关的事。尝试不同的期限，寻找最适合你的情况的时长。
 
@@ -134,19 +134,19 @@ Google Play 在这方面也在持续改进，建议时刻关注新的进展！
 
 ![](https://cdn-images-1.medium.com/max/800/0*5vIqduvJtdzohpZb.)
 
-约会应用 [Tinder](https://play.google.com/store/apps/details?id=com.tinder&hl=en_GB) 作为账户保持（account hold）功能的最初尝试者之一， 已经提高了 3 倍的回归率。
+约会应用 [Tinder](https://play.google.com/store/apps/details?id=com.tinder&hl=en_GB) 作为账户保持（account hold）功能的最初尝试者之一，已经提高了 3 倍的回归率。
 
 ![](https://cdn-images-1.medium.com/max/800/0*TNavY97X9WlQwn9T.)
 
-#### **难点 10**: “放着钱不赚”
+#### **难点 10**：“放着钱不赚”
 
 ![](https://cdn-images-1.medium.com/max/800/0*_M3eu3-hGwOcgzg-.)
 
 不要忘了还有定价这个问题，我已经被问过很多次这个问题了。产品定价本身就是一门学科，也无怪乎开发者们不确定自己的定价是否合理。
 
-对此也有两种解决方案
+对此也有两种解决方案：
 
-第一种是[使用 Firebase 做远程配置](https://firebase.google.com/products/remote-config/)来测试不同定价的表现:
+第一种是[使用 Firebase 做远程配置](https://firebase.google.com/products/remote-config/)来测试不同定价的表现：
 
 1.  设置两个 SKU（最小货存单元）
 2.  针对不同的用户群体使用不同的价格配置
