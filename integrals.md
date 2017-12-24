@@ -2102,7 +2102,7 @@
 |[我在手撕 SVG 条形图时踩过的定位坑](http://gold.xitu.io/entry/58306b428ac2470061b60ede/)|校对|1|
 |[构建 Android APP 一定要绕过的 30 个坑](http://gold.xitu.io/entry/58217b84570c350060bc40f8/)|校对|1|
 
-## 译者：[aceleewinnie](https://github.com/AceLeeWinnie) 历史贡献积分：51.5 当前积分：36.5
+## 译者：[aceleewinnie](https://github.com/AceLeeWinnie) 历史贡献积分：81.5 当前积分：36.5
 
 |文章|类型|积分|
 |------|-------|-------|
@@ -4097,7 +4097,7 @@
 |[JavaScript 如何工作的: 事件循环和异步编程的崛起 + 5 个关于如何使用 async/await 编写更好的技巧](https://juejin.im/post/5a221d35f265da43356291cc)|翻译|10|
 |[JavaScript 如何工作：在 V8 引擎里 5 个优化代码的技巧](https://juejin.im/post/5a102e656fb9a044fd1158c6)|翻译|7|
 
-## 译者：[tvChan](https://github.com/tvChan) 历史贡献积分：12 当前积分：12
+## 译者：[tvChan](https://github.com/tvChan) 历史贡献积分：14 当前积分：14
 
 |文章|类型|积分|
 |------|-------|-------|
@@ -4306,13 +4306,13 @@
 
 |文章|类型|积分|
 |------|-------|-------|
-|[全新 Android 注入器 : Dagger 2 （一）](https://juejin.im/post/5a39f26df265da4324809685)|翻译|1|
+|[全新 Android 注入器 : Dagger 2 （一）](https://juejin.im/post/5a39f26df265da4324809685)|校对|1|
 
 ## 译者：[livmortis](https://github.com/livmortis) 历史贡献积分：1 当前积分：1
 
 |文章|类型|积分|
 |------|-------|-------|
-|[全新 Android 注入器 : Dagger 2 （一）](https://juejin.im/post/5a39f26df265da4324809685)|翻译|1|
+|[全新 Android 注入器 : Dagger 2 （一）](https://juejin.im/post/5a39f26df265da4324809685)|校对|1|
 
 ## 译者：[corresponding](https://github.com/corresponding) 历史贡献积分：2 当前积分：2
 
