@@ -5,9 +5,9 @@
 > * 译者：
 > * 校对者：
 
-# 从函数是 Java 到函数式 Kotlin
+# 函数式 Java 到函数式 Kotlin 的转换
 
-## Converting @FunctionalInterface to Kotlin
+## 将 @FunctionalInterface 转换到 Kotlin 中
 
 Java 8 中引入了新的注解 [@FunctionalInterface](https://docs.oracle.com/javase/8/docs/api/java/lang/FunctionalInterface.html). 目的是为创建一个带有非默认方法的接口，这样这个接口就可以模拟面向对象语言中的一等公民。 比如, [Comparable](https://docs.oracle.com/javase/8/docs/api/java/lang/Comparable.html) 就是只带有一个 [compareTo](https://docs.oracle.com/javase/8/docs/api/java/lang/Comparable.html#compareTo-T-) 方法的 `@FunctionalInterface` .
 
