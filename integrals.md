@@ -1841,10 +1841,11 @@
 |[JavaScript ES6 核心功能一览](http://gold.xitu.io/entry/58189177128fe100559efd51/)|校对|1|
 |[Swift 3，这些陷阱在等你](http://gold.xitu.io/entry/57f6fa03816dfa0056a4d782/)|校对|1|
 
-## 译者：[XatMassacrE](https://github.com/XatMassacrE) 历史贡献积分：60 当前积分：60
+## 译者：[XatMassacrE](https://github.com/XatMassacrE) 历史贡献积分：84 当前积分：84
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|24|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|14|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|6|
 |[从金属巨人到深度学习](https://juejin.im/post/596f4cecf265da6c2f0adb04)|翻译|8|
@@ -2765,10 +2766,11 @@
 |[你正在阅读的用户体验文章是不是在向你进行推销？](https://juejin.im/post/58d4c501a22b9d00645544d9)|校对|2|
 |[震惊，还可以用这种姿势学习编程](https://juejin.im/post/58d3ebd4128fe1006cb43722)|翻译|3|
 
-## 译者：[lsvih](https://github.com/lsvih) 历史贡献积分：203.5 当前积分：162.5
+## 译者：[lsvih](https://github.com/lsvih) 历史贡献积分：205.5 当前积分：164.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|2|
 |[从 Gzip 压缩 SVG 说起 — 论如何减小资源文件的大小](https://juejin.im/post/5a30a7fdf265da4309452517)|翻译|4|
 |[为你的网站带上帽子 — 使用 helmet 保护 Express 应用](https://juejin.im/post/5a24fd8f51882509e5438247)|翻译|3|
 |[2017 年 11 月兑换多态卡]()|减去积分|6|
@@ -4056,10 +4058,11 @@
 |------|-------|-------|
 |[僵尸币时代即将到来?](https://juejin.im/post/5a0e82315188252ae93a843a)|翻译|2|
 
-## 译者：[MRNIU](https://github.com/MRNIU) 历史贡献积分：11 当前积分：11
+## 译者：[MRNIU](https://github.com/MRNIU) 历史贡献积分：12.5 当前积分：12.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|1.5|
 |[TensorFlow 官方文档翻译校对]()|翻译|6|
 |[TensorFlow 官方文档翻译校对]()|翻译|4.5|
 |[僵尸币时代即将到来?](https://juejin.im/post/5a0e82315188252ae93a843a)|校对|0.5|
