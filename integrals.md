@@ -3274,10 +3274,11 @@
 |[一封写给 CSS 的情书](https://juejin.im/post/594c75c0f265da6c2b765b25)|校对|2|
 |[REST 2.0 在此，它的名字叫 GraphQL](https://juejin.im/post/5947b45c128fe1006a505189)|校对|2|
 
-## 译者：[wilsonandusa](https://github.com/wilsonandusa) 历史贡献积分：32 当前积分：32
+## 译者：[wilsonandusa](https://github.com/wilsonandusa) 历史贡献积分：32 当前积分：17
 
 |文章|类型|积分|
 |------|-------|-------|
+|[2017 年 12 月 兑换小猫 1 个]()|减去积分|15|
 |[将 Android 项目迁移到 Kotlin 语言](https://juejin.im/post/599b8cd9f265da24874d0226)|翻译|5|
 |[GraphQL vs. REST](https://juejin.im/post/59793f625188253ded721c70)|翻译|7|
 |[第一次走进 Android 中的 Kotlin 协程](https://juejin.im/post/596308af5188250d8860f6dc)|校对|1|
@@ -3951,10 +3952,11 @@
 |------|-------|-------|
 |[Vue Report 2017](https://juejin.im/post/5a138fae5188254d28732899)|翻译|8|
 
-## 译者：[zwwill](https://github.com/zwwill) 历史贡献积分：15 当前积分：15
+## 译者：[zwwill](https://github.com/zwwill) 历史贡献积分：15 当前积分：0
 
 |文章|类型|积分|
 |------|-------|-------|
+|[2017 年 12 月 兑换小猫 1 个]()|减去积分|15|
 |[Ant Design 3.0 驾到](https://juejin.im/post/5a28aab66fb9a0450a673c5e)|翻译|3|
 |[JavaScript 工作原理：内存管理 + 处理常见的 4 种内存泄漏](https://juejin.im/post/5a2559ae6fb9a044fe4634ba)|校对|2|
 |[Vue Report 2017](https://juejin.im/post/5a138fae5188254d28732899)|翻译|10|
