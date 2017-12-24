@@ -15,7 +15,7 @@
 
 ### 我们说的支持是什么？
 
-在阐明如何在去支持那些本身不支持网格的浏览器之前，很有必要搞明白 _支持_ 的含义。支持也许是站点必须在列表中的浏览器上看起来完全相同。这可能意味着对于所有的浏览器，你都可以不用去做一些收尾工作。这可能意味着你在测试这些浏览器的时候对他们能获得一致的体验而感到十分高兴。
+在阐明如何在去支持那些本身不支持网格的浏览器之前，很有必要搞明白 **支持** 的含义。支持也许是站点必须在列表中的浏览器上看起来完全相同。这可能意味着对于所有的浏览器，你都可以不用去做一些收尾工作。这可能意味着你在测试这些浏览器的时候对他们能获得一致的体验而感到十分高兴。
 
 一个相关的问题就是**你怎么确定要支持的浏览器列表？**即使是一个全新的网站，也不应该拍脑袋就定了。对于今天的大多数的企业都曾经创建过网站。你可能有一些分析工具用于查看网站支持的浏览器，但是要注意这些工具不会检测对移动端的支持情况。如果在较小屏幕上表现不佳，人们便不会在手机上访问这个网站！
 
@@ -31,14 +31,14 @@
 
 截止发稿，Edge，Chrome，Firefox，Opera，Safari，iOS Safari 都支持了网格布局。
 
-IE10 和 IE11 支持带有 `-ms` 前缀的原始规格。对于你正在使用的 _旧_ 浏览器来说：
+IE10 和 IE11 支持带有 `-ms` 前缀的原始规格。对于你正在使用的 **旧** 浏览器来说：
 
-*	Internet Explorer 9（如果仅考虑新的规范，则为IE 11及更低版本）
-* 	Edge 15 及以下
-*  	Firefox 52 之前的版本
-*   Safari 和 iOS Safari 10.1 版本之前
-*   Chrome 57 之前的版本
-*   Samsung Internet 6.2 之前的版本
+*	Internet Explorer 9（如果仅考虑新的规范，则为 IE 11 及更低版本）
+* Edge 15 及以下
+* Firefox 52 之前的版本
+* Safari 和 iOS Safari 10.1 版本之前
+* Chrome 57 之前的版本
+* Samsung Internet 6.2 之前的版本
 
 然而，正如上一节所述，这些流行的桌面端和移动端浏览器在新兴市场中已经更常用。**这些浏览器还不支持网格布局**。比如说从世界范围来看，UC 浏览器占用了 8.1% 的流量，俨然是世界第三大流行的浏览器。但是如果碰巧你住在美国或者欧洲，可能你从来都没有听说过。
 
@@ -78,15 +78,15 @@ UC 浏览器不支持网格布局。它不仅针对低功耗设备进行了优�
 
 我经常使用 CSS `display: table-cell` 来创建一个列布局，并在非支持网格的浏览器中对齐项目，因为这样 `vertical-align` 属性可以生效。
 
-如果你以前不知道, 阅读 [CSS 布局的反英雄 — “display:table”](https://colintoh.com/blog/display-table-anti-hero)。我不建议你今天使用这个作为主要的布局方式，但是它可以作为一个非常有用的回退方案。
+如果你以前不知道, 阅读 [CSS 布局的反英雄 — “display:table”](https://colintoh.com/blog/display-table-anti-hero)。我不建议你现在使用这个作为主要的布局方式，但是它可以作为一个非常有用的回退方案。
 
-当你使用 `display: table-cell` 创建列，CSS 将创建所谓的 _匿名框_ 。这些是表格的缺失部分 —— 真正的 HTML 表格中的单元格将在 `table` 元素里边的 `tr` 元素内。匿名框基本上解决了这些失踪的父元素。如果你的 `table-cell` 元素变成了一个网格元素。这样这个元素的 table 显示同样会失效，就像什么也没有发生。
+当你使用 `display: table-cell` 创建列，CSS 将创建所谓的 **匿名框**。这些是表格的缺失部分 —— 真正的 HTML 表格中的单元格将在 `table` 元素里边的 `tr` 元素内。匿名框基本上解决了这些失踪的父元素。如果你的 `table-cell` 元素变成了一个网格元素。这样这个元素的 table 显示同样会失效，就像什么也没有发生。
 
-`vertical-align` 属性在网格布局中仍然不适用。因此如果你可以在 CSS 表格布局或 `inline-block`中使用它，则可以安全的忽略该属性，尽情使用网格布局的框对齐方式。你可以在下一个CodePen中看到一个使用 CSS Grid 覆盖 `display：table-cell` 和 `vertical-align` 的布局。
+`vertical-align` 属性在网格布局中仍然不适用。因此如果你可以在 CSS 表格布局或 `inline-block`中使用它，则可以安全的忽略该属性，尽情使用网格布局的框对齐方式。你可以在下一个 CodePen 中看到一个使用 CSS Grid 覆盖 `display:table-cell` 和 `vertical-align` 的布局。
 
 可以看下 rachelandrew ([@rachelandrew](https://codepen.io/rachelandrew)) 在 [CodePen](https://codepen.io) 写的这个 Pen [display: grid 覆盖 display: table-cell 和 vertical-align](https://codepen.io/rachelandrew/pen/NwjaKp/)。
 
-你同样可以使用 Flexbox 作为一个回退方案，一旦你在一个使用 `flex` 属性或者独立的 `flex-grow`，`flex-shrink` 或者 `flex-basis` 属性的元素上使用 grid 布局，它们（flex等）同样会失效。
+你同样可以使用 Flexbox 作为一个回退方案，一旦你在一个使用 `flex` 属性或者独立的 `flex-grow`，`flex-shrink` 或者 `flex-basis` 属性的元素上使用 grid 布局，它们（flex 等）同样会失效。
 
 最后，请不要忘记多列布局在某种情况下可以作为一个回退方案。当对卡片或图像进行布局时，它将以列而不是行来显示每一项。但是在某些情况下可能是有用的。在容器上应用 `column-count` 或者 `column-width` 使其成为多列容器。然后应用 `display:grid` 将忽略 `column-*` 行为。
 
