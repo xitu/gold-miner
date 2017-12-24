@@ -1,3 +1,6 @@
+* [如何用 TypeScript 玩转后端？](https://juejin.im/post/5a36837d6fb9a045167d4644) ([xilihuasi](https://github.com/xilihuasi) 翻译)
+* [使用 Rust 来写原生 Node.js 模块](https://juejin.im/post/5a2b51bff265da4332277ee0) ([LeopPro](https://github.com/LeopPro) 翻译)
+* [使用 helmet 库来保护你的 Express 网站](https://juejin.im/post/5a24fd8f51882509e5438247) ([lsvih](https://github.com/lsvih) 翻译)
 * [Python 3.7 的新特性](https://juejin.im/post/5a127e60f265da430f31b45b) ([winjeysong](https://github.com/winjeysong) 翻译)
 * [HTTP/2 下网站资源打包的正确方法](https://juejin.im/post/59f74d20f265da431523326b?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([yct21](https://github.com/yct21) 翻译)
 * [Go并发编程中的那些事](https://juejin.im/post/59ecb058f265da43346f10e5?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([kobehaha](https://github.com/kobehaha) 翻译)
