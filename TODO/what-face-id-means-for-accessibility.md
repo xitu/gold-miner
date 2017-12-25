@@ -3,8 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/what-face-id-means-for-accessibility.md](https://github.com/xitu/gold-miner/blob/master/TODO/what-face-id-means-for-accessibility.md)
 > * 译者：[winry](https://github.com/winry01)
-> * 校对者：[Ziheng Gao](https://github.com/noahziheng)
-           [Yong Li](https://github.com/NeilLi1992)
+> * 校对者：[Ziheng Gao](https://github.com/noahziheng) [Yong Li](https://github.com/NeilLi1992)
 
 # FACE ID 对易用性意味着什么
 
