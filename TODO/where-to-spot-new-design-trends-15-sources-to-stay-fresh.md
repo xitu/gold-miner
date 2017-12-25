@@ -2,64 +2,64 @@
 > * 原文作者：[Laura Busche](https://medium.com/@laurabusche?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/where-to-spot-new-design-trends-15-sources-to-stay-fresh.md](https://github.com/xitu/gold-miner/blob/master/TODO/where-to-spot-new-design-trends-15-sources-to-stay-fresh.md)
-> * 译者：
+> * 译者：[kk](https://github.com/kangkai124)
 > * 校对者：
 
-# Where to Spot New Design Trends: 15 Sources to Stay Fresh
+# 如何追踪未来的设计趋势：15个保持创意和新鲜感的资源
 
-In planning content for the [Creative Market blog](http://www.creativemarket.com/blog), I spend countless hours trying to detect what it is that will reshape the industry next. As a designer, you’ve also probably found yourself looking for _that_ new podcast episode, blog post, or portfolio piece that pushes the envelope and triggers new ideas for your own projects. Sourcing industry trends is a vital part of professional development, and designers are no exception. But where do we start searching for the latest and greatest, and most importantly, how can we tell whether the trends we find are truly relevant? Throughout this article, I’ll share our team’s favorite sources to spot up-and-coming design trends.
+在为 [Creative Market blog](http://www.creativemarket.com/blog) 写稿的时候，我花了很长时间去探索下一个颠覆这个行业的趋势是什么。作为一个设计者，你会发现自己从一些新的播客片段或博客中为你的项目寻找灵感。资源行业的发展趋势是专业发展的重要组成部分，当然设计者也不例外。但是，我们应该从哪里搜索到最新最好的资源呢，而且重要的是，我们该如何确定我们找到的资源确实是和趋势相关呢？通过这篇文章，我会分享我们团队最喜欢的资源，来追踪崭露头角的设计趋势。
 
-### **But first, let’s address “trendy”**
+### **我们先来谈一谈「新潮」**
 
-While many of us may agree that great design should be timeless, being aware of emerging trends in our space will help keep our point of view fresh and informed. Many look at “trendy design” as a red flag and, if that sounds like you, please rest assured: that’s not what this is about. Creating inventive, unique work isn’t at odds with incorporating design directions that break new grounds. It’s a matter of seeing trendspotting as a necessary step in bringing new tools and processes to your arsenal. _Combination_ is an amazing foundation for creativity. In [Einstein’s](https://www.brainpickings.org/2013/08/14/how-einstein-thought-combinatorial-creativity/) words to one of his colleagues, “combinatory play seems to be the essential feature in productive thought”.
+我们大多数都认为那些很棒的设计经得起时间考验，并且认同新兴的趋势对于让我们观点保持新鲜感和有见识很有帮助。很多人把「新潮的设计」看作是危险信号，如果你也这样认为，请放心，它并不是你想的那样。创作独特且有创意的作品和吸收新颖的创作方式之间并不矛盾。It’s a matter of seeing trendspotting as a necessary step in bringing new tools and processes to your arsenal.**组合**是创造力非常重要的基础。就像爱因斯坦对他的一个同事说的那样，「组合游戏似乎是创造性思维的基本特征」。
 
-Bottom line: this isn’t about creating “trendy” work at all, it’s about fueling design innovation.
+总之：我们讨论的不是创造「新潮」，而是推动设计创新。
 
-On to our sources!
+开始分享干货！
 
-### Places to learn about branding and print design trends
+### 了解品牌和印刷设计趋势
 
-[**UnderConsideration’s Brand New**](https://www.underconsideration.com/brandnew/) is an all-time designer favorite, and with good reason. Edited and written by Armin Vit, co-founder of UnderConsideration, Brand New covers and reviews outstanding brand identity projects. The blog has built such an engaged community of designers that some of the most interesting insights can be found in the comments section. If you’re constantly working on print design, make sure you also check out [Art of the Menu](http://www.underconsideration.com/artofthemenu/), a specialized division by UnderConsideration.
+[**UnderConsideration’s Brand New**](https://www.underconsideration.com/brandnew/) 作为设计师们的最爱，肯定是有充分理由的。而由 UnderConsideration 杂志的联合创始人 Armin Vit 编写的 Brand New 专栏，则是涵盖和评论了优秀的品牌标识项目。该专栏已经形成了一个非常活跃的设计师社区，在评论区里经常可以找到一些非常有趣的见解。如果你一直在做平面设计，那么你也可以关注下 [Art of the Menu](http://www.underconsideration.com/artofthemenu/) ，它也是 UnderConsideration 的一个分支。
 
 ![](https://cdn-images-1.medium.com/max/800/1*TTBnRu5b9sjhJ7ZEmuj2RQ.jpeg)
 
-Brand New by UnderConsideration
+图为 UnderConsideration 的 Brand New 专栏
 
-[**The Dieline**](http://www.thedieline.com/blog) is another classic resource for those who find inspiration in innovative packaging. The team behind this site looks at well-designed brand packaging around the world and publishes a detailed recount of the rationale behind each project as well as lessons learned. You can even filter articles by packaging substrate if you’re only interested in trends related to paper, plastic, wood, or metal — for instance.
+对于那些喜欢从创新的包装中寻找灵感的人来说，[**The Dieline**](http://www.thedieline.com/blog) 是另外一个很经典的资源。这个网站的团队着眼于世界各地精心设计的品牌包装，并详细介绍每个项目背后的基本原理以及经验教训。如果你只对例如纸张、塑料、木材或者金属等这类趋势感兴趣的话，你就可以过滤包装材料来找到适合你的文章。
 
-### Places to catch new illustration and general graphic design trends
+### 查看插画和一般平面设计的趋势
 
-[**Best of Behance**](https://www.behance.net/)displays the latest work from popular creative portfolios around the world. You can also filter it by field (Graphic Design, Photography, Illustration, etc.) and then sort it by “Featured”. The result is a list of projects curated by the Behance team, in a timeframe of your choice (this month/week/today/all time).
+[**Best of Behance**](https://www.behance.net/) 展示了来自世界各地流行的创意组合的最新作品。你可以通过关键字（平面设计，摄影，插图等）进行过滤，然后按照「特性」分类。结果就是 Behance 团队会根据你选择的时间（当月、周、天、不限）为你列出项目的列表。
 
-[**Dribbble’s Hot Shots of the Week**](https://dribbble.com/shots/week/2017-10-30?utm_content=hot-shots-see-all-link) is a special view within Dribbble that lists each week’s most popular uploads. Just navigate to the week you’re interested in and check out the most viewed or commented shots (your choice). With Dribbble’s unobtrusive grid, you can easily appreciate the types of color palettes and visual styles that are dominating the platform. Some of these shots are also featured in their [Weekly Replay](https://dribbble.com/stories/categories/weekly-replay) blog series, under a section called _Hot Shots._
+[**Dribbble’s Hot Shots of the Week**](https://dribbble.com/shots/week/2017-10-30?utm_content=hot-shots-see-all-link) 是 Dribbble 网站的一个特殊视角，它列出了这一周最受欢迎的上传作品。停留在你感兴趣的那一周，看看被浏览次数或者评论次数非常多的作品。Dribbble 的布局十分简洁，因此你可以专注于欣赏作品的配色和视觉样式。其中一些作品还出现在他们的 [Weekly Replay](https://dribbble.com/stories/categories/weekly-replay) 系列博客中的 Hot Shots 区域。
 
 ![](https://cdn-images-1.medium.com/max/800/1*6e9aBZ3PSkKq0CuuBEjRbg.jpeg)
 
-Dribbble’s Hot Shots of the Week
+图为 Dribbble 的 Hot Shots of the Week
 
-**Abduzeedo’s** [**Weekly Roundup**](http://abduzeedo.com/tags/weekly-roundup) **and** [**Daily Inspiration**](http://abduzeedo.com/tags/daily-inspiration) **Series** are both great recounts of emerging creative work that is worth noting. Their selection is diverse, and spans everything from 3D work to architecture and fine arts. Aside from subscribing via RSS, you can now [sign up for their newsletter](http://abduzeedo.com/mailchimp-subscribe-abduzeedo-mailing-list) to receive inspiration periodically.
+**Abduzeedo** 的 [**Weekly Roundup**](http://abduzeedo.com/tags/weekly-roundup) **和** [**Daily Inspiration**](http://abduzeedo.com/tags/daily-inspiration) **系列** 为你列出的都是值得注意的新兴的创新性作品。他们的选择的作品是多样性的，涵盖了从3D作品到建筑美术。除了订阅 RSS ，你现在也可以通过[订阅他们的 newsletter](http://abduzeedo.com/mailchimp-subscribe-abduzeedo-mailing-list) 来定期的获取灵感。
 
-[**Sidebar.io**](https://sidebar.io) curates the top 5 design-related links that you should check out every day and serves them in a clean interface. You can also choose to receive these picks in your inbox every day by subscribing to their email list.
+[**Sidebar.io**](https://sidebar.io) 每天都会为你列出5个需要查看的设计相关的链接，并且以干净的界面展示他们。你也可以订阅他们的电子邮件，在你的收件箱里接收这些推送。
 
-### Places to learn about user experience design trends
+### 了解用户体验设计趋势
 
-[**Pattern Tap**](https://zurb.com/patterntap), by Zurb, is a handpicked collection of user interaction patterns to inspire designers to do more of what works. The Zurb team offers it as part of their larger library, which in their words has “accumulated an arsenal of tools and knowledge that serve as an invaluable resource to both inspire and empower designers around the world.”
+Zurb 创办的 [**Pattern Tap**](https://zurb.com/patterntap) 精心收集了很多用户交互模型，并激励设计者做出更优秀的作品。Zurb 团队把它作为他们的大型图书馆的一部分，用他们的话说就是「Pattern Tap 积累了大量的工具和知识，这些工具和知识作为一种无价的资源将会激励和鼓舞世界各地的设计师们」。
 
 ![](https://cdn-images-1.medium.com/max/800/1*w3T0VLKyy2qTolK5uNVfdw.jpeg)
 
-Zurb’s PatternTap
+图为 Zurb 的 PatternTap
 
-[**UI Interactions of the Week**](https://medium.muz.li/)is an inspiring weekly series published on Muzli’s Medium blog. You can also download their Chrome extension and get noteworthy creative projects served every time you open a new tab. Muzli joined InVision in 2016.
+[**UI Interactions of the Week**](https://medium.muz.li/) 是一个发布在 Muzli’s Medium blog 上的启发性的周刊。你可以下载他们的 Chrome 扩展， 这样每当你打开一个新的标签页时， 他们会为你推动值得注意的创新性项目。Muzli 在 2016 年加入了 InVision。
 
-### Places to find emerging web design trends
+### 发现新兴网页设计趋势
 
-[**Httpster**](https://httpster.net/) is where you go to spot inspiring page grids and unique typographic treatments. The site does tend to lean towards a minimal aesthetic, but is equally helpful if you’re working on a more elaborate design. Interestingly enough, it was born when two colleagues (@guvnor and @dominicwhittle) found they were losing inspiring links for not having a better way to capture them. Httpster is their better way.
+在 [**Httpster**](https://httpster.net/) 上你可以发现有启发性的页面布局，和一些独特的排版设计。该网站倾向于简洁性的审美，但是它对设计一个很复杂的作品同样有借鉴意义。有趣的是，它恰好出现在两位同事（@guvnor 和 @dominicwhittle）found they were losing inspiring links for not having a better way to capture them. Httpster 是他们更好的选择。
 
-[**Siteinspire**](https://www.siteinspire.com/) is another place to find innovative web layouts created by designers around the world. The websites listed here are curated by Howell Studio. Just browse by “latest” to get a sense of what’s trending in the web design world.
+[**Siteinspire**](https://www.siteinspire.com/) 是另外一个可以发现世界各地设计师们设计的创新性网页布局的地方。这个网站所列出的内容均由 Howell 工作室整理。选择「最新」，你就可以了解到 web 设计领域新的趋势。
 
-### Places to spot typography trends
+### 发现排版趋势
 
-[**Typewolf’s Favorite Sites of the Month**](https://www.typewolf.com/blog)Seriesprovides a detailed description of the typographic details behind compelling new websites. With the keen eye for type that has always characterized Jeremiah Shoaf (@typewolf himself), you can rest assured there’s always something fresh to trigger new ideas for your own work. Also interesting is the ability to find inspiration by font, which might be useful when you’re trying to visualize how a certain type family is used in context.
+[**Typewolf’s Favorite Sites of the Month**](https://www.typewolf.com/blog) 系列对一些很热门的新网站的排版做了很详细的描述。With the keen eye for type that has always characterized Jeremiah Shoaf (@typewolf himself)，你可以放心，在这里总有一些新鲜的东西激发你的灵感。有趣的是，你可以通过字体找到灵感，尤其是你尝试在上下文中如何使用字体集时，这回非常有用。
 
 ![](https://cdn-images-1.medium.com/max/800/1*dGNyyGU6gCdXQ1PhHJuXyQ.png)
 
