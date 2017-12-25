@@ -84,7 +84,7 @@
 
 Maintainers are the friends we want and the employees companies look for. They have passion, willingness to share, and persistence. They are the real MVP and they deserve a thank-you note.
 
-#### 什么是 [Thank you, open source](httpswww.thankyouopensource.com) 🎉
+#### 什么是 [Thank you, open source](https://www.thankyouopensource.com) 🎉
 
 这是一个非官方的，为大家向开源项目作者和维护者表达感谢的平台。同时它还为项目维护者们宣传其他项目提供了一个平台 🤙 
 
