@@ -98,7 +98,7 @@ public abstract class BaseDialog extends DialogFragment implements DialogMvpView
 
 #### [Feed 部分:](https://github.com/MindorksOpenSource/android-mvp-architecture/tree/master/app/src/main/java/com/mindorks/framework/mvp/ui/feed)
 
-1. 这个包里面包含了 `FeedActivity` 和它的 `MVP` 组件，`FeedPagerAdapter`, `blog` 包以及 `opensource` 包。
+1. 这个包里面包含了 `FeedActivity` 和它的 `MVP` 组件，`FeedPagerAdapter`，`blog` 包以及 `opensource` 包。
 2. **blog**: 这个包里面有 `BlogFragment` 和它的 `MVP` 组件以及 `RecyclerView` 的 `BlogAdapter`。
 3. **opensource**: 这个包里面有 `OpenSourceFragment` 和它的 `MVP` 组件以及  `RecyclerView` 的 `OpenSourceAdapter`。
 4. `FragmentStatePagerAdapter` 用于创建 `BlogFragment` 和 `OpenSourceFragment`。
@@ -107,7 +107,7 @@ public abstract class BaseDialog extends DialogFragment implements DialogMvpView
 
 `OpenSourceAdapter` 和 `BlogAdapter` 是 `RecyclerView.Adapter<BaseViewHolder>` 的实现类。 在这个项目里面，当没有可用数据的时候会显示一个空视图。用户可以点击 `RETRY` 按钮来重新获取数据，并在获取到数据的时候删除该空视图。
 
-> 可以把它当成 `API` 数据分页和处理网络状态的练习.
+> 你可以把它当成 `API` 数据分页和处理网络状态的练习.
 
 **现在请通过项目来研究代码，仔细研究XML中的布局以及如何通过代码操作视图。**
 
