@@ -7,8 +7,7 @@
 
 # 自动化持续集成/持续分发，以节省更多时间编写代码
 
-**该文章由 [微软 Visual Studio 应用中心](https://appcenter.ms/signup?utm_source=Sitecore&utm_medium=Blog&utm_campaign=appcenter_connect) 
-赞助。请支持我们的合作方，是他们让 SitePoint 成为可能。**
+**该文章由 [微软 Visual Studio 应用中心](https://appcenter.ms/signup?utm_source=Sitecore&utm_medium=Blog&utm_campaign=appcenter_connect) 赞助。请支持我们的合作方，是他们让 SitePoint 成为可能。**
 
 什么是软件开发中最棒的部分？编写漂亮的代码。
 
