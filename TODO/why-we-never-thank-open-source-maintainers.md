@@ -50,7 +50,7 @@
 >
 > “我想他们更喜欢收到捐款。”
 
-但是他们真的很在意，[有时候，开源项目维护者真的需要你对他说一声谢谢](https://news.ycombinator.com/itemid=15623604)。当然，如果你能为项目捐款再好不过了，但是我知道的大多数开源项目维护者目的并不是赚钱。他们最终可能赚了钱，但与开发项目的动机相比，顶多算是一个副产品。我注意到，开源项目常常比非开源项目要好。因为最出色的开发者是出于激情和利他主义来开发产品的。如果你没能力或者不想捐钱，你可以给他们写句感谢的话。
+但是他们真的很在意，[有时候，开源项目维护者真的需要你对他说一声谢谢](https://news.ycombinator.com/item?id=15623604)。当然，如果你能为项目捐款再好不过了，但是我知道的大多数开源项目维护者目的并不是赚钱。他们最终可能赚了钱，但与开发项目的动机相比，顶多算是一个副产品。我注意到，开源项目常常比非开源项目要好。因为最出色的开发者是出于激情和利他主义来开发产品的。如果你没能力或者不想捐钱，你可以给他们写句感谢的话。
 
 #### 我们真的太“忙”了
 
@@ -91,4 +91,4 @@ Maintainers are the friends we want and the employees companies look for. They h
 
 ---
 
- [掘金翻译计划](httpsgithub.comxitugold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](httpsjuejin.im) 上的英文分享文章。内容覆盖 [Android](httpsgithub.comxitugold-miner#android)、[iOS](httpsgithub.comxitugold-miner#ios)、[前端](httpsgithub.comxitugold-miner#前端)、[后端](httpsgithub.comxitugold-miner#后端)、[区块链](httpsgithub.comxitugold-miner#区块链)、[产品](httpsgithub.comxitugold-miner#产品)、[设计](httpsgithub.comxitugold-miner#设计)、[人工智能](httpsgithub.comxitugold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](httpsgithub.comxitugold-miner)、[官方微博](httpweibo.comjuejinfanyi)、[知乎专栏](httpszhuanlan.zhihu.comjuejinfanyi)。
+> [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
