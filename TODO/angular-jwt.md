@@ -419,7 +419,7 @@ JWT 也适用于企业，在大家对安全措施的认知里，预认证设置�
 * 如果签名正确，则用户身份正确，请求能够通过
 * 如果签名不正确，应用服务器会直接拒绝请求
 结果是，我们现在认证工作运作正常，即使是在私人网络上！
-我们不再需要盲目相信包含用户名的HTTP Header。我们可以确认HTTP header的正确性，由代理发出，而防止攻击者假装其他用户登录。
+我们不再需要盲目相信包含用户名的 HTTP Header。我们可以确认 HTTP header 的正确性，由代理发出，而防止攻击者假装其他用户登录。
 ### 结语
 我们对 JWT 有了一个全面的了解，它是什么，它们是怎么被运用于用户验证的。JWTs仅仅是具有易于验证和不可伪造特性的JSON 载荷。
 而且，JWT 不是身份验证独有的，我们可以使用它们在网络任何地方发送任何声明。
@@ -436,15 +436,13 @@ JWT 也适用于企业，在大家对安全措施的认知里，预认证设置�
 
 [JSON Web Key Set (JWKS)](https://auth0.com/docs/jwks)
 
-### Video Lessons Available on YouTube
+### YouTube上的视频教程
+看看 Angular 大学的 Youtube 频道，我们发布了大约25％到三分之一的视频教程，新视频会陆续推出。
 
-Have a look at the Angular University Youtube channel, we publish about 25% to a third of our video tutorials there, new videos are published all the time.
-看看Angular大学的Youtube频道，我们发布了大约25％到三分之一的视频教程，新视频会陆续推出。
-[Subscribe](http://www.youtube.com/channel/UC3cEGKhg3OERn-ihVsJcb7A?sub_confirmation=1) to get new video tutorials:
 [订阅](http://www.youtube.com/channel/UC3cEGKhg3OERn-ihVsJcb7A?sub_confirmation=1)获取新的视频教程：
-## Other posts on Angular
-有关angular的其他文章
-Have also a look also at other popular posts that you might find interesting:
+
+## 有关 angular 的其他文章
+
 还可以看看其他有趣的帖子：
 * [Getting Started With Angular - Development Environment Best Practices With Yarn, the Angular CLI, Setup an IDE](http://blog.angular-university.io/getting-started-with-angular-setup-a-development-environment-with-yarn-the-angular-cli-setup-an-ide/)
 * [Why a Single Page Application, What are the Benefits ? What is a SPA ?](http://blog.angular-university.io/why-a-single-page-application-what-are-the-benefits-what-is-a-spa/)
