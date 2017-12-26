@@ -7,7 +7,7 @@
 
 # 在 React & Redux 中使用 AJAX 轮询
 
-> 更新：查看关于在 redux-saga 中使用轮询的最新文章： [http://notjoshmiller.com/ajax-polling-part-2-sagas/](http://notjoshmiller.com/ajax-polling-part-2-sagas/)
+> 更新：查看最新关于使用 redux-saga 进行轮询的文章： [http://notjoshmiller.com/ajax-polling-part-2-sagas/](http://notjoshmiller.com/ajax-polling-part-2-sagas/)
 
 正如生活不总是给予你所需之物，你所用的 API 也不总是支持流式事件。因此，当你需要把一些有时序依赖的状态从服务端同步到客户端时，一个常用的 “曲线救国” 方法就是使用 AJAX 进行接口轮询。我们大部分人都知道使用 `setInterval` 并不是处理轮询的 “最佳人选”，不过它的堂兄 `setTimeout` 配合 [递归解法](http://stackoverflow.com/questions/14027005/simple-long-polling-example-with-javascript-and-jquery) 却可以大展身手。
 
@@ -37,7 +37,7 @@ export function data (state = initialState, action) {
 }
 ```
 
-我不会在这里去讲解如何处理 Redux 中的异步 Action 创建函数，想更好地了解这方面知识请参考 Redux 文档中的异步示例。 现在只需假设我们已有相关的 Redux 中间件来处理本文提到的各种 Action 。我会使用与 [real-world example](https://github.com/rackt/redux/tree/master/examples/real-world) 中相似形式的 Action 创建函数。
+我不会在这里去讲解如何处理 Redux 中的异步 Action 创建函数，想更好地了解这方面知识请参考 Redux 文档中的异步示例。 现在只需假设我们已有相关的 Redux 中间件来处理本文提到的各种 Action 。我会使用与 [real-world example](https://github.com/rackt/redux/tree/master/examples/real-world)（译注：原文链接的仓库已不存在，可以参考 Redux 文档中同名例子）中相似形式的 Action 创建函数。
 
 对应上方的数据模型，我们的 Action 创建函数可能为：
 
@@ -52,7 +52,7 @@ export function dataFetch() {
 }
 ```
 
-回到最初的问题，让我们想想你会如何实现 API 接口的轮询。你会把轮询的定时器设置在 Reducer 中？还是 Action 创建函数里？或许是中间件里？如果把定时器放到 “聪明” 的组件中怎么样呢？我会选择在组件中设置定时器，不仅是因为组件需要控制自身的数据依赖，而且我们可以通过组件的生命周期方法控制这些定时器，看看如何做到？
+回到最初的问题，让我们想想你会如何实现 API 接口的轮询。你会把轮询的定时器设置在 Reducer 中？还是 Action 创建函数里？或许是中间件里？如果把定时器放到 Smart 组件（译注：参看 [Smart and Dumb Components - Medium](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)）中怎么样呢？我会选择在组件中设置定时器，不仅是因为组件需要控制自身的数据依赖，而且我们可以通过组件的生命周期方法控制这些定时器，看看如何做到？
 
 ```javascript
 import React from 'react';  
@@ -60,7 +60,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';  
 import * as DataActions from 'actions/DataActions';
 
-// 有哪些 Redux 全局状态，组件需要它们并且会以 props 形式传入？   
+// 组件需要哪些 Redux 全局状态作为 props 传入？
 function mapStateToProps(state) {  
     return {
         data: state.data.data,
@@ -68,7 +68,7 @@ function mapStateToProps(state) {
     };
 }
 
-// 有哪些 Action 创建函数，组件需要它们并且会以 props 形式传入？       
+// 组件需要哪些 Action 创建函数作为 props 传入？
 function mapDispatchToProps(dispatch) {  
     return {
         dataActions: bindActionCreators(DataActions, dispatch)
@@ -107,7 +107,7 @@ export default class AppContainer {
 
 好了，大功告成。因为上面的组件需要一些额外数据进行渲染，所以它会在挂载的时候尝试获取这些数据。 当 `dataFetch` 发送了一个新 Action 后，我们的 Reducer 会返回新的状态， 进而触发组件的 `componentWillReceiveProps` 方法。在这个生命周期方法内会首先清除所有进行中的定时器，若当前没有进行数据请求则随即启动一个新定时器。
 
-诚然还有很多方法可以处理这里的接口轮询问题，并且当有任何长轮询方法可用时此处的轮询方法相形见绌。不过我还是希望这篇文章可以帮助阐明结合 React 生命周期方法和 Redux 数据流的处 “事” 之道。
+诚然还有很多方法可以处理这里的接口轮询问题，并且如果有任何长轮询方法可用时，此处的轮询方法便相形见绌。不过我还是希望这篇文章可以帮助阐明结合 React 生命周期方法和 Redux 数据流的处 “事” 之道。
 
 ---
 
