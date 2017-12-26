@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ba7f9469-824f-4ae2-8298-42484f977126" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/TODO/how-to-use-generators.md" afterPath="$PROJECT_DIR$/TODO/how-to-use-generators.md" />
-    </list>
+    <list default="true" id="ba7f9469-824f-4ae2-8298-42484f977126" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -19,8 +17,8 @@
       <file leaf-file-name="how-to-use-generators.md" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/TODO/how-to-use-generators.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="690">
-              <caret line="46" column="43" lean-forward="false" selection-start-line="46" selection-start-column="43" selection-end-line="46" selection-end-column="43" />
+            <state relative-caret-position="-2948">
+              <caret line="42" column="29" lean-forward="false" selection-start-line="42" selection-start-column="29" selection-end-line="42" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -117,12 +115,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1514284074294</updated>
-      <workItem from="1514284075667" duration="69000" />
+      <workItem from="1514284075667" duration="125000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="69000" />
+    <option name="totallyTimeSpent" value="125000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-407" y="-1177" width="1920" height="1177" extended-state="0" />
@@ -160,8 +158,8 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/TODO/how-to-use-generators.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="690">
-          <caret line="46" column="43" lean-forward="false" selection-start-line="46" selection-start-column="43" selection-end-line="46" selection-end-column="43" />
+        <state relative-caret-position="-2948">
+          <caret line="42" column="29" lean-forward="false" selection-start-line="42" selection-start-column="29" selection-end-line="42" selection-end-column="29" />
           <folding />
         </state>
       </provider>
