@@ -50,7 +50,7 @@ class MyAwesomeAsyncService(private val callback: AwesomeCallback) {
 }
 ```
 
-转换结果是创建了一个一对一个转换接口，但存在更优的转换。
+转换结果是创建了一个一对一个转换接口，但这可以进一步优化吗？
 在 Kotlin 中有个 [SAM（Single Abstract Method）单个抽象方法](https://kotlinlang.org/docs/reference/java-interop.html#sam-conversions)概念.这正是 Java 8 中 `@FunctionalInterface` 的注解，但在文档中却没有创建 SAM 的例子，只讲了如何使用 SAM。
 
 在构造函数中把接口转换为函数后，`@FunctionalInterface` 部分的样板代码从 96 个字符减少到 38 个字符，这可是减少了 40 %。
