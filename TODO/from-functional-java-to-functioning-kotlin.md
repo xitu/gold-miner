@@ -3,15 +3,15 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/from-functional-java-to-functioning-kotlin.md](https://github.com/xitu/gold-miner/blob/master/TODO/from-functional-java-to-functioning-kotlin.md)
 > * 译者：[huanglizhuo](https://github.com/huanglizhuo)
-> * 校对者：[atuooo](https://github.com/atuooo) 、[hanliuxin5](https://github.com/hanliuxin5)
+> * 校对者：[atuooo](https://github.com/atuooo)，[hanliuxin5](https://github.com/hanliuxin5)
 
 # 函数式 Java 到函数式 Kotlin 的转换
 
 ## 将 @FunctionalInterface 转换到 Kotlin 中
 
-Java 8 中引入了新的注解 [@FunctionalInterface](https://docs.oracle.com/javase/8/docs/api/java/lang/FunctionalInterface.html)。 目的是为创建一个带有非默认方法的接口，这样这个接口就可以将函数模拟成面向对象语言中的一等公民。。 比如, [Comparable](https://docs.oracle.com/javase/8/docs/api/java/lang/Comparable.html) 就是只带有一个 [compareTo](https://docs.oracle.com/javase/8/docs/api/java/lang/Comparable.html#compareTo-T-) 方法的 `@FunctionalInterface` 。
+Java 8 中引入了新的注解 [@FunctionalInterface](https://docs.oracle.com/javase/8/docs/api/java/lang/FunctionalInterface.html)。目的是为创建一个带有非默认方法的接口，这样这个接口就可以将函数模拟成面向对象语言中的一等公民。比如，[Comparable](https://docs.oracle.com/javase/8/docs/api/java/lang/Comparable.html) 就是只带有一个 [compareTo](https://docs.oracle.com/javase/8/docs/api/java/lang/Comparable.html#compareTo-T-) 方法的 `@FunctionalInterface`。
 
-回调在函数式接口中很常见。想象一下下面的场景，我们想要进行一些异步操作， 稍后将结果返回给调用的客户端。在 Java 中，我们可以创建一个下面这样的类：
+回调在函数式接口中很常见。想象一下下面的场景，我们想要进行一些异步操作，稍后将结果返回给调用的客户端。在 Java 中，我们可以创建一个下面这样的类：
 
 ```
 public class MyAwesomeAsyncService {
@@ -51,9 +51,9 @@ class MyAwesomeAsyncService(private val callback: AwesomeCallback) {
 ```
 
 转换结果是创建了一个一对一个转换接口，但这可以进一步优化吗？
-在 Kotlin 中有个 [SAM（Single Abstract Method）单个抽象方法](https://kotlinlang.org/docs/reference/java-interop.html#sam-conversions)概念.这正是 Java 8 中 `@FunctionalInterface` 的注解，但在文档中却没有创建 SAM 的例子，只讲了如何使用 SAM。
+在 Kotlin 中有个 [SAM（Single Abstract Method）单个抽象方法](https://kotlinlang.org/docs/reference/java-interop.html#sam-conversions)概念。这正是 Java 8 中 `@FunctionalInterface` 的注解，但在文档中却没有创建 SAM 的例子，只讲了如何使用 SAM。
 
-在构造函数中把接口转换为函数后，`@FunctionalInterface` 部分的样板代码从 96 个字符减少到 38 个字符，这可是减少了 40 %。
+在构造函数中把接口转换为函数后，`@FunctionalInterface` 部分的样板代码从 96 个字符减少到 38 个字符，这可是减少了 40%。
 
 
 ```
