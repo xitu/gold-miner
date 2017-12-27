@@ -3,15 +3,15 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/how-to-use-generators.md](https://github.com/xitu/gold-miner/blob/master/TODO/how-to-use-generators.md)
 > * 译者：[jonjia](https://github.com/jonjia)
-> * 校对者：
+> * 校对者：[vuuihc](https://github.com/vuuihc) [congFly](https://github.com/congFly)
 
 # 如何在 JavaScript 中使用 Generator
 
-Generator 是一种非常强力的语法，但它的使用并不广泛（参见下图 twitter 的投票）。为什么这样？相比于 async/await，它的使用更复杂，调试起来也不太容易（大多数情况又回到了从前），即使我们可以通过非常简单的方式获得类似体验，但是一般人们会更喜欢 async/await。
+Generator 是一种非常强力的语法，但它的使用并不广泛（参见下图 twitter 上的调查！）。为什么这样？相比于 async/await，它的使用更复杂，调试起来也不太容易（大多数情况又回到了从前），即使我们可以通过非常简单的方式获得类似体验，但是人们一般会更喜欢 async/await。
 
 ![1513838054(1).jpg](https://i.loli.net/2017/12/21/5a3b56e1f35e4.jpg)
 
-无论如何，Generator 允许我们通过 `yield` 关键字遍历我们自己的代码，这是一种超级强大的语法，实际上，我们可以操纵执行过程！从不太明显的取消操作开始，让我们先从同步操作开始吧。
+无论如何，Generator 允许我们通过 `yield` 关键字遍历我们自己的代码！这是一种超级强大的语法，实际上，我们可以操纵执行过程！从不太明显的取消操作开始，让我们先从同步操作开始吧。
 
 > 我为文中提到的功能创建了一个代码仓库 – [https://github.com/Bloomca/obscure-generator-fns](https://github.com/Bloomca/obscure-generator-fns)
 
@@ -40,7 +40,7 @@ function* renderItems(items) {
 }
 ```
 
-没有什么区别吧？那么，这里的区别在于，现在我们可以在不改变源代码的情况下以不同方式运行这个函数。实际上，正如我之前提到的，实际上没必要等待，我们可以同步执行它。所以，来调整下我们的代码。在每个 `yield` 后边加一个 4 ms（JavaScript VM 中的一个心跳） 的延迟怎么样？我们有 10000 个项目，下载将需要 4 秒 - 还不错，但如果我想在 2 秒之内渲染完毕，很容易想到的方法是每次渲染 2 个。突然使用 Promise 的解决方案将变得更加复杂 - 我们必须要传递另一个参数：每次渲染的项目个数。通过我们的执行器，我们仍然需要传递这个参数，但好处是对我们的 `renderItems` 方法完全没有影响。
+没有什么区别吧？那么，这里的区别在于，现在我们可以在不改变源代码的情况下以不同方式运行这个函数。实际上，正如我之前提到的，没有必要等待，我们可以同步执行它。所以，来调整下我们的代码。在每个 `yield` 后边加一个 4 ms（JavaScript VM 中的一个心跳） 的延迟怎么样？我们有 10000 个项目，下载将需要 4 秒 - 还不错，假设我想在 2 秒之内渲染完毕，很容易想到的方法是每次渲染 2 个。突然使用 Promise 的解决方案将变得更加复杂 - 我们必须要传递另一个参数：每次渲染的项目个数。通过我们的执行器，我们仍然需要传递这个参数，但好处是对我们的 `renderItems` 方法完全没有影响。
 
 
 ```
@@ -225,7 +225,7 @@ function runWithPause(genFn, ...args) {
 
 ## 错误处理
 
-我们有个神秘的 `onRejected` 调用，这是我们这部分谈论的主题。如果我们使用正常的 async/await 或 Promise 链式写法，我们将通过 try/catch 语句来进行错误处理，如果不添加大量的逻辑代码就很难进行错误处理。通常情况下，如果我们需要以某种方式处理错误（比如重试），我们只是在 Promise 内部进行处理，这将会回调自己，可能再次回到同样的点。而且，这还不是一个通用的解决方案 - 可悲的是，在这里甚至 Generator 也不能帮助我们。我们发现了 Generator 的局限 - 虽然我们可以控制执行流程，但不能移动 Generator   函数的主体；所以我们不能后退一步，重新执行我们的命令。一个可行的解决方案是使用  [command pattern](https://en.wikipedia.org/wiki/Command_pattern), 它告诉了我们 `yield` 的结果的数据结构 - 应该是我们需要执行此命令需要的所有信息，这样我们就可以再次执行它了。所以，我们的方法需要改为：
+我们有个神秘的 `onRejected` 调用，这是我们这部分谈论的主题。如果我们使用正常的 async/await 或 Promise 链式写法，我们将通过 try/catch 语句来进行错误处理，如果不添加大量的逻辑代码就很难进行错误处理。通常情况下，如果我们需要以某种方式处理错误（比如重试），我们只是在 Promise 内部进行处理，这将会回调自己，可能再次回到同样的点。而且，这还不是一个通用的解决方案 - 可悲的是，在这里甚至 Generator 也不能帮助我们。我们发现了 Generator 的局限 - 虽然我们可以控制执行流程，但不能移动 Generator   函数的主体；所以我们不能后退一步，重新执行我们的命令。一个可行的解决方案是使用 [command pattern](https://en.wikipedia.org/wiki/Command_pattern), 它告诉了我们 `yield` 的结果的数据结构 - 应该是我们需要执行此命令需要的所有信息，这样我们就可以再次执行它了。所以，我们的方法需要改为：
 
 
 ```
