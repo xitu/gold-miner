@@ -3,17 +3,17 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/ajax-polling-in-react-with-redux.md](https://github.com/xitu/gold-miner/blob/master/TODO/ajax-polling-in-react-with-redux.md)
 > * 译者：[刘嘉一](https://github.com/lcx-seima)
-> * 校对者：
+> * 校对者：[yoyoyohamapi](https://github.com/yoyoyohamapi)，[FateZeros](https://github.com/FateZeros)
 
 # 在 React & Redux 中使用 AJAX 轮询
 
-> 更新：查看最新关于使用 redux-saga 进行轮询的文章： [http://notjoshmiller.com/ajax-polling-part-2-sagas/](http://notjoshmiller.com/ajax-polling-part-2-sagas/)
+> 更新：查看最新关于使用 redux-saga 进行轮询的文章：[http://notjoshmiller.com/ajax-polling-part-2-sagas/](http://notjoshmiller.com/ajax-polling-part-2-sagas/)
 
 正如生活不总是给予你所需之物，你所用的 API 也不总是支持流式事件。因此，当你需要把一些有时序依赖的状态从服务端同步到客户端时，一个常用的 “曲线救国” 方法就是使用 AJAX 进行接口轮询。我们大部分人都知道使用 `setInterval` 并不是处理轮询的 “最佳人选”，不过它的堂兄 `setTimeout` 配合 [递归解法](http://stackoverflow.com/questions/14027005/simple-long-polling-example-with-javascript-and-jquery) 却可以大展身手。
 
 React & Redux 为我们提供了响应式的数据流，我们如何才能使普通的轮询方法与其和谐共处？RxJS 以及其他 Observable 类库是处理轮询的不错选择，不过除非你的项目已经集成了 Observable 类库，否则仅为解决轮询而引入相关类库显得并不值当。当前通过结合 React 组件的生命周期方法和 Redux 的 Action 就已经足够处理 AJAX 轮询，下面来看看如何得解？
 
-首先通过 Redux 的 Reducer 来说明当前 State:
+首先通过 Redux 的 Reducer 来说明当前 State：
 
 ```javascript
 const initialState = {  
