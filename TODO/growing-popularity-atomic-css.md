@@ -2,7 +2,7 @@
 > * 原文作者：[OLLIE WILLIAMS](https://css-tricks.com/author/olliew/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/growing-popularity-atomic-css.md](https://github.com/xitu/gold-miner/blob/master/TODO/growing-popularity-atomic-css.md)
-> * 译者：Cherry[https://github.com/sunshine940326]
+> * 译者：[Cherry](https://github.com/sunshine940326)
 > * 校对者：[Tina92](https://github.com/Tina92)、[ClarenceC](https://github.com/ClarenceC)
 
 # 论原子 CSS 的日益普及
