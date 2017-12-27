@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/essential-guide-for-designing-your-android-app-architecture-mvp-part-3.md](https://github.com/xitu/gold-miner/blob/master/TODO/essential-guide-for-designing-your-android-app-architecture-mvp-part-3.md)
 > * 译者：[woitaylor](https://github.com/woitaylor)
-> * 校对者：
+> * 校对者：[hanliuxin5](https://github.com/hanliuxin5)
 
 # Android MVP 架构必要知识：第三部分（Dialog，ViewPager，RecyclerView 以及 Adapters)
 
@@ -12,7 +12,7 @@
 
 Android MVP架构系列文章的第1部分和第2部分自发布以来非常受欢迎，对此我感到很高兴。并且因为你们的建议和贡献，项目也优化得更好了。
 
-在这个开发过程中，许多人都问了如何在这个架构中使用 `Dialog` 以及基于 `Adapter` 的视图。因此，我会在这篇博客中补充这两点。
+在这个开发过程中，许多人询问过如何在这个架构中使用 `Dialog` 以及基于 `Adapter` 的视图。因此，我会在这篇博客中补充这两点。
 
 如果你还没有阅读前面两篇博客，那么我会强烈建议在阅读本文之前阅读这两篇博客。下面是博客的链接地址：
 
@@ -25,7 +25,7 @@ Android MVP架构系列文章的第1部分和第2部分自发布以来非常受�
 
 > 译者：`Feed` 指的是 `RSS` 订阅源，[Feed 百科](https://baike.baidu.com/item/Feed/15181?fr=aladdin),下面的译文中我就直接使用 `Feed` 或者 `RSS`。
 
-> 美在于精确性
+> 精益求精
 
 我们先看下效果图:
 
@@ -39,13 +39,13 @@ Android MVP架构系列文章的第1部分和第2部分自发布以来非常受�
 #### 评分对话框
 
 1. 评分对话框显示 5 个星星，用户可以根据自己的满意度来选择星星的个数。
-2. 如果星星数量小于 5，我们将以反馈的形式修改对话框，用来询问用户的改进建议。
+2. 如果星星数量小于 5，我们将会修改对话框来显示一个反馈表单，用来询问用户的改进建议。
 3. 如果星星个数为 5。我们就在对话框中显示一个跳转到应用商城（这里指的是 `google play`）的选项。用户可以在那里进行评论。
 4. 评分信息会发送到应用的后台服务端。
 
 注意：从用户的角度来看评分对话框并不是必须的，但是对我们开发者来说却很重要。所以，应用需要很巧妙地设计这个执行流程。
 
-> 我建议把对话框里面相邻控件的间距调大点.
+> 我建议把对话框里面相邻控件的间距调大点。
 
 #### Feed 界面
 
@@ -55,13 +55,13 @@ Android MVP架构系列文章的第1部分和第2部分自发布以来非常受�
 
 #### 博客 `RSS` 子界面
 
-1. 从服务器获取数据.
+1. 从服务器获取数据。
 2. 用数据填充 `RecyclerView` 中的 `CardView`。
 
 #### 开源项目 `RSS` 子界面
 
 1. 从服务器获取仓库数据。
-2. 这些仓库数据用来填充 `RecyclerView` 里面的 `CardView`.
+2. 这些仓库数据用来填充 `RecyclerView` 里面的 `CardView`。
 
 现在，我们明确了业务需求，接下来就是根据这些需求来扩展已有的架构。
 
@@ -107,7 +107,7 @@ public abstract class BaseDialog extends DialogFragment implements DialogMvpView
 
 `OpenSourceAdapter` 和 `BlogAdapter` 是 `RecyclerView.Adapter<BaseViewHolder>` 的实现类。 在这个项目里面，当没有可用数据的时候会显示一个空视图。用户可以点击 `RETRY` 按钮来重新获取数据，并在获取到数据的时候删除该空视图。
 
-> 你可以把它当成 `API` 数据分页和处理网络状态的练习.
+> `API` 数据分页和网络状态的处理就留给你作为练习。
 
 **现在请通过项目来研究代码，仔细研究XML中的布局以及如何通过代码操作视图。**
 
