@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/ajax-polling-part-2-sagas.md](https://github.com/xitu/gold-miner/blob/master/TODO/ajax-polling-part-2-sagas.md)
 > * 译者：[刘嘉一](https://github.com/lcx-seima)
-> * 校对者：
+> * 校对者：[yoyoyohamapi](https://github.com/yoyoyohamapi)，[FateZeros](https://github.com/FateZeros)
 
 # 在 Redux 中使用 AJAX 轮询（二）：Saga 篇
 
