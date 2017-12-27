@@ -2,74 +2,74 @@
 > * 原文作者：[Tobias Knoke](https://medium.com/@tobias.knoke?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/women-and-mobile-games-learnings-for-developers.md](https://github.com/xitu/gold-miner/blob/master/TODO/women-and-mobile-games-learnings-for-developers.md)
-> * 译者：
+> * 译者：[corresponding](https://github.com/corresponding)
 > * 校对者：
 
-# Women and mobile games: learnings for developers
+# 开发者须知：女性用户和手机游戏
 
-## The market opportunity in making mobile gaming more diverse, more inclusive, and more engaging
+## 得益于当前市场中的机会，手机游戏类型变得更加多样，内容变得更加有包容性，显得生机勃勃
 
 ![](https://cdn-images-1.medium.com/max/800/0*U3P6oAG_I-73IuY6.)
 
-There are now over two billion active Android devices which means more people are playing mobile games than ever before. The growth of the mobile games audience had led to an expansion of diversity in characteristics, needs, and motivations of those playing games. In our previous post [Who plays mobile games](https://medium.com/googleplaydev/who-plays-mobile-games-8b33f76bb6d8) we discussed the opportunity to think of players in terms of the needs met by playing games, rather than in terms of stereotypes and demographics. At the same time, there is a lot of conversation in the gaming community about gender and inclusivity, but relatively little research or discussion about the experiences of **women who play mobile games**.
+目前世界上有两亿多的安卓设备，与以前相比有更多的人会玩手机游戏。这些新增的用户会要求游戏角色的多样性，对游戏也有不同的需求。我们之前文章[Who plays mobile games](https://medium.com/googleplaydev/who-plays-mobile-games-8b33f76bb6d8)，我们抛开刻板的观念去讨论，玩家通过玩游戏来满足自己需求的可能性。 现在在游戏界有很多关于性别和包容的讨论，而关于女性手机游戏玩家的研究和讨论却很少。 
 
-We wanted to understand more about this so we partnered with gaming intelligence provider Newzoo to produce a quantitative research study to understand the experiences and perceptions of women who play games in the United States. We worked with dozens of game makers, critics, players, and academics to contextualize our research. Dive deeper into the insights through [this interactive experience](https://play.google.com/about/changethegame) or [discover more learnings in a summary](http://services.google.com/fh/files/misc/changethegame_white_paper.pdf) of our findings. Read on to find out how you as a developer can make your game more inclusive and appealing to all players out there.
+我们想更多的了解这方面，所以我们和游戏新闻商NewZoo合作，进行定量的研究，希望以此了解美国女性玩家的经历和看法。我们和数十位游戏作者，评价家，玩家和学者一起合作研究。通过[交互性的体验](https://play.google.com/about/changethegame) 和 [在一次总结中学到更多知识](http://services.google.com/fh/files/misc/changethegame_white_paper.pdf) ，我们深入研究。请继续读下去，了解开发者如何让游戏更具包容性，更吸引玩家。
 
 ![](https://cdn-images-1.medium.com/max/800/0*CJxXRMyFuqRKo9kU.)
 
-### **Know your audience**
+### **了解你的用户**
 
-There is significant market potential in women who play mobile games, both in terms of volume and preference for the platform. In our research we found a significant number of women in the US play mobile games today (65% of those aged between 10–65 years). This is a higher percentage than those who have watched a movie at a movie theater (62%), or read a book (44%), in the last year. It’s clear that women engage significantly more in mobile gaming than in other forms of entertainment, and that’s not it… Research has shown that they are just as likely to play mobile games as men — **women represent half of all mobile game players**! They are not only more likely to prefer mobile compared to other platforms, **women also tend to play more frequently than men**.
+无论从人数上和偏好上来说，女性手机游戏玩家有巨大市场潜力。在我们的调查中，美国有大量女性手机游戏玩家（其中65%都处于10-65岁年龄段）。在过去的一年里，这比去电影院看电影的比例（62%）和阅读（44%）更加高。这里可以清晰的看出，比起其他娱乐活动，女性更愿意玩手机游戏。报告也表明，女性也和男性一样喜欢玩游戏 — **有一半的玩家是女性**! 相比其他平台，女性更喜欢在手机上游戏，而且**女性玩的频率比男性更高**。
 
-As a games developer, do you consider the opportunity presented women for your games? There may be an opportunity for you to grow your business in untapped markets by better understanding your players. As a starting point you might want to measure and evaluate the percentage of players who are women. **Are women well represented in your player base? Is there a difference in their user experience compared to your male players?**
+作为游戏开发者，你意识到女性游戏的机会了吗？这可能是个机会，通过了解这些用户而进入这个未开发的市场。第一步，你要统计女性玩家的比例。 **在你的用户群体中，女性是否被很好的代表了？她们和男性是否有不同的游戏体验？**
 
-The same goes for new developments: when designing your game, or thinking of future development, it can be a useful exercise to think of the range of people who may play your game, rather than gravitating to the ‘typical’ player. Could there be a difference in the user experience of some players? By thoroughly analysing and researching user audiences you can potentially make a strong business case to capture an underserved audience — such as women who play games.
+对新开发者的建议：当你在设计游戏或者思考未来的发展方向时，多去想想那些目标用户，而不用去讨好那些你所认为的"普通"用户。 不同用户的游戏体验是否会不一样？通过彻底分析和研究用户，你可以从那些尚未被顾及的用户（比如那些女性游戏玩家）中寻找商机。
 
 ![](https://cdn-images-1.medium.com/max/800/0*0Cc60YU1-Qd9vLyl.)
 
-### **Build more inclusive games**
+### **制作更具包容性的游戏**
 
-If you look at popular games on [Google Play](https://play.google.com/store), the nature of much of the imagery and icons would imply women are a relatively niche group in the world of gaming: among the top 100 revenue generating games on Google Play, characters who are men are featured in their app icons 44% more often than characters who are women. Consequently our research found women often do not feel like they belong to this community although they are playing games very actively. Using alternative, or less alienating, iconography, characters, and imagery when promoting your game could help differentiate it clearly from your competition, and ensure you don’t miss out on reaching potential players. Try the following quick tips:
+如果你观察[Google应用市场](https://play.google.com/store)中最受欢迎的游戏， 通过查看大部分图标和介绍图片可以发现女性玩家是一个不受重视的群体: 在Google应用市场收入前100的游戏中, 以男性角色作为图标的游戏数量比以女性角色作为图标的游戏数量多44%。所以在我们的调查中，尽管女性玩家玩的更多，但是她们还是认为自己不属于现在的游戏世界。在推广游戏时，更换更合适的图标和介绍图片，会减少你错过潜在玩家的可能。 请尝试以下几点：
 
-* **Test more inclusive imagery** when running [store listing experiments](https://support.google.com/googleplay/android-developer/answer/6227309?hl=en-GB).
-* **Pay attention to your icon, screenshots, and videos**, and consider testing the impact of different imagery on conversion rates.
-* Think of **launching with characters who are women**, or **testing new ones** when running **LiveOps**.
-* Track how people are resonating with the characters, and, invaluably, **listen to the feedback of your community**.
+* 在做 [用户A/B测试](https://support.google.com/googleplay/android-developer/answer/6227309?hl=en-GB)时，**测试更有包容性的图像** 。
+* **多关注应用的图标，截图和视频**, 测试不同图片下的用户互动率。
+* 考虑下**女性用户点开应用**, 或者在运行**电话回访**时**尝试新的可能性**。
+* 记录用户对游戏角色的共鸣， 同时 **倾听用户群体的反馈**也很重要。
 
-### **Grow a diverse team**
+### **发展一个多样性的开发团队**
 
-It is very difficult to have the empathy and perspective needed to build a product that meets the needs of a wide range of potential people. It’s human nature to build games _you_ want to play. To reduce potential bias, **request feedback from a broad representation of your potential players at several stages throughout your game’s lifecycle**.
+在一大群人中提取共同需求很难。 我们都想开发人人都想玩的游戏。 为了减少偏见， **在游戏生命周期的几个阶段，都需要获取潜在用户的反馈**。
 
-The profile of your development team also impacts your ability to build games that appeal to a wide spectrum of players. Despite the high proportion of women playing mobile games, men are overrepresented in the gaming industry: according to the IDGA, only [27.8% of the gaming industry globally](http://c.ymcdn.com/sites/www.igda.org/resource/resmgr/files__2016_dss/IGDA_DSS_2016_Summary_Report.pdf) are women, transgender, or other people. This imbalanced representation is felt by players who responded to our research with only 23% of women and 40% of men believing there is equal treatment and opportunity for all in the games industry.
+你们的开发团队当然希望，你能提高自己的水平去取悦更多的用户。 尽管有如此高的女性玩家，游戏行业仍然只关注男性用户: IDGA的调查发现，[全球27.8%的博彩业](http://c.ymcdn.com/sites/www.igda.org/resource/resmgr/files__2016_dss/IGDA_DSS_2016_Summary_Report.pdf) 中只有女性或跨性别者。在我们的研究中，只有23％的女性和40％的男性认为在游戏行业中人人享有平等的待遇和机会。
 
-Diversity of perspectives from your team members will help you build truly innovative and exciting games that will appeal to a broad spectrum of potential players. Look at your team and compare it with the user composition of your game. Is your team truly representative of your audience? Is it well equipped to help you capture the maximum potential audience possible by making your game appealing to everyone?
+来自团队成员的观点多样性，将帮助您开发真正创新且有意思的游戏，吸引更多的潜在玩家。 现在就看下自己的团队和用户对你游戏的评价。你的团队成员能代表你的用户群体吗？ 让游戏适合每个人，是否能帮你吸引到潜在用户？
 
 ![](https://cdn-images-1.medium.com/max/800/0*yzQKH9Q6AmI0Ex-x.)
 
-### **Take advantage of this opportunity**
+### **把握这个机会**
 
-While there is great potential in the sheer volume of women playing mobile games, it is striking from the research how less likely they are than men to truly embrace their play habits. With a few notable exceptions, there is a sense that women don’t belong in the world of gaming. They are less likely to talk about games with their friends, pay for content, or feel good when they do pay.
+尽管未来女性玩家数量巨大，但研究结果却让人惊讶，他们比男性更难以真正改变自己的游戏习惯。有些明显的例子表明，女性玩家不属于游戏世界。 她们会更喜欢和朋友交谈，为内容付费，以及享受购物的快感。
 
-We believe this represents a great opportunity for the industry to truly engage with women who play games. As user acquisition costs rise, think of the potential virality of building a game that resonates with and excites all players. This can only be achieved by recognizing and addressing the barriers for women to engage with your game.
+我们相信，这是真正与女性玩家互动的绝佳机会。随着用户获取成本的上升，需要想一想如何激发更多玩家的共鸣。 只有让女性玩家参与到游戏中，你才能解决这个问题。
 
-### **The road ahead**
+### **未来的方向**
 
-We believe there is a great opportunity in market growth and making mobile gaming more diverse, more inclusive, and more engaging for all players. The first steps for you in order to take advantage of this opportunity are:
+我们相信，游戏市场还有很大的空间，但是要让手机游戏更加多元化，更具包容性，更吸引所有玩家。把握这个机会，你需要：
 
-* Know your audience: current and potential
-* Consider how your games may exclude some potential players
-* Assess the range of perspectives in your team, and how this affects the games you build
-* Brainstorm how you may produce the next game that all players could embrace
+* 了解你的用户：当前用户和潜在用户
+* 考虑你的游戏是如何排斥那些潜在用户的
+* 评估你的团队的组成，这将如何影响你开发的游戏
+* 头脑风暴，你可能会想出所有人都喜欢的游戏
 
-Mobile games are for everyone. To celebrate and empower women who play games and creators, we’re launching [CHANGE THE GAME](http://g.co/changethegame); a new Google Play initiative to promote diversity in games, celebrate all women who play games, and empower the next generation of game-makers through ongoing research, development programs, and partnerships.
+手机游戏为每个人设计的。 为了几年女性玩家和女性开发者，我们启动了[改变游戏](http://g.co/changethegame)的计划。这是Google应用商店的一项旨在促进游戏多样性，庆祝所有女性玩家，并通过的研究和合作为下一代游戏开发者提供支持的计划。 
 
-As a mobile developer, you have a major influence on how future games will look like. We hope you can join our efforts of making the gaming world a more inclusive community; if we all contribute to this, mobile games will bring us even more joy than they do today.
+作为一个应用开发者，你能影响未来游戏的走向。我希望你能参与到我们活动中，和我们一起让游戏世界变得更加多样性。如果你能参与，手机游戏的世界会变得更加有趣。
 
 * * *
 
-### What do you think?
+### 你是怎么想的呢?
 
-Do you have thoughts on how developers can build more inclusive games? Join the discussion in the comments below or tweet using the hashtag **#AskPlayDev** and we’ll reply from [@GooglePlayDev](http://twitter.com/googleplaydev), where we regularly share news and tips on how to be successful on Google Play.
+你有没有想过去设计更有包容性的游戏呢？在文章下面留言或者twitter中添加**#AskPlayDev**标签后发言，我们会通过[@GooglePlayDev](http://twitter.com/googleplaydev)（那里我们会展示如何在Google应用商店获得成功）回复。
 
 
 ---
