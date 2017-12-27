@@ -5,19 +5,19 @@
 > * 译者：
 > * 校对者：
 
-# A Look Back at the State of JavaScript in 2017
+# 2017 年 JavaScript 发展状况回顾
 
-## In advance of the 2017 State of JS survey results, our panel of experts looks back on the past year
+## 在 2017 年的 JavaScript 状态调查报告的前面，我们专家小组对 JavaScript 过去一年的发展进行了回顾
 
 ![](https://cdn-images-1.medium.com/max/1600/1*k7XARFeR0RqgZhY1p5w8uA.png)
 
-One of the highlights of last year’s [State of JavaScript survey results](http://stateofjs.com/2016/introduction/) was the great panel of experts we assembled to analyze the results.
+[去年的 JavaScript 状况调查报告](http://stateofjs.com/2016/introduction/)的亮点之一就是，我们组建了一个专家小组对调查结果进行深入分析。
 
-This year, we took a slightly different approach and decided to let the data speak for itself.
+今年呢，我们换了一种稍微不同的方法，我们决定用数据说话。
 
-But I still wanted to know what our previous panelists (along with two new special guests) had been up to for the past 12 months, so I got in touch to ask them a few questions about their year in JavaScript.
+但是我仍然想知道我们以前专家组成员（以及两位新的特邀嘉宾）的看法，于是我联系他们，问了些过去一年关于 JavaScript 的问题。
 
-### Meet the Panelists
+### 与专家组成员会面
 
 ![](https://cdn-images-1.medium.com/max/1000/1*Y54NpBPSXUyPr0p84xSVqg.jpeg)
 
@@ -25,22 +25,22 @@ But I still wanted to know what our previous panelists (along with two new speci
 * [Jennifer Wong](http://mochimachine.org): [Build Tools](http://2016.stateofjs.com/2016/buildtools/)
 * [Tom Coleman](https://twitter.com/tmeasday): [State Management](http://2016.stateofjs.com/2016/statemanagement/)
 * [Michael Rambeau](https://michaelrambeau.com/): [Full-Stack Frameworks](http://2016.stateofjs.com/2016/fullstack/)
-* Extra Special Guest Panelist #1: [Wes Bos](http://wesbos.com/)
-* Extra Special Guest Panelist #2: [Raphaël Benitte](https://twitter.com/benitteraphael) (creator of [Nivo](http://nivo.rocks/#/))
+* 特邀嘉宾 #1: [Wes Bos](http://wesbos.com/)
+* 特邀嘉宾 #2: [Raphaël Benitte](https://twitter.com/benitteraphael) ([Nivo](http://nivo.rocks/#/) 的作者)
 
 * * *
 
-### Looking back at what you wrote last year, what are your thoughts on how that specific domain has evolved since?
+### 回顾下去年你写了些什么，关于这个特定领域你认为今后会如何发展
 
 #### Michael Shilman
 
-Among the survey choices from last year, Jest has exploded and has surpassed Jasmine in [NPM downloads](https://npm-stat.com/charts.html?package=jest&package=jasmine&package=mocha&from=2016-11-10&to=2017-11-10).
+去年的调查报告中显示，Jest 的 [NPM 下载量](https://npm-stat.com/charts.html?package=jest&package=jasmine&package=mocha&from=2016-11-10&to=2017-11-10)产生了爆炸式增长，并且超过了 Jasmine。
 
-Jest supports snapshot testing, I’ve seen lots of people using snapshotting as a cheaper alternative to unit tests for basic input/output behavior. This is especially popular in the UI space, with [Storyshots](https://github.com/storybooks/storybook/tree/master/addons/storyshots), as well a whole ecosystem of related tools such as [Loki](https://loki.js.org/), [Percy](https://percy.io/), [Screener](https://screener.io/), and [Chromatic](https://blog.hichroma.com/introducing-chromatic-ui-testing-for-react-c5cc01a79aaa).
+Jest 支持 snapshot testing，我已经看到许多人将 snapshot testing 作为基本 input/output 单元测试的选择。这在 [Storyshots](https://github.com/storybooks/storybook/tree/master/addons/storyshots) 以及[Loki](https://loki.js.org/)、[Percy](https://percy.io/)、[Screener](https://screener.io/) 和 [Chromatic](https://blog.hichroma.com/introducing-chromatic-ui-testing-for-react-c5cc01a79aaa) 等相关工具构成整个生态系统的 UI 领域更受欢迎。
 
 #### Jennifer Wong
 
-Last year’s survey has definitely predicted some of the trends of 2017. With the continued popularity of all things shiny and new, it’s no wonder Webpack’s still going strong. Yarn wasn’t even part of the survey last year, but has been picking up steam since its first full release in September. I’m curious to see what happens as Yarn and npm fight it out.
+去年的调查报告也预测了 2017 年的一些发展趋势。随着各种新鲜事物的不断普及，Webpack 的发展势不可挡。Yarn 去年还没有能够成为调查对象之一，但是自从 9 月份首次发布以来，Yarn 的影响力就在不断扩大。我很好奇，看看 Yarn 和 npm 能擦出怎样的火花。
 
 [![](https://cdn-images-1.medium.com/max/800/1*3sLM8_CMXFf7pdtPWI1YYw.png)](https://yarnpkg.com/)
 
@@ -48,59 +48,57 @@ Yarn
 
 #### Tom Coleman
 
-I’m not sure a real competitor to Redux has emerged, but perhaps in the community there has been a movement to what the creator Dan Abramov has always said: “not every app needs Redux, and in many cases it brings more complexity than it solves”.
+我不确定 Redux 真正的竞争对手是否已经出现，但或许在社区中有一种正如创建者 Dan Abramov 所说的趋势：“并不是每个应用都需要使用 Redux，而且在很多情况下使用 Redux 带来的问题的复杂性高于其所解决的问题”。
 
-With the increasing usage of server data management tools, especially for GraphQL data (see Apollo and Relay Modern), the need for complex client-side data tools has probably lessened somewhat. It’ll be interesting to see how the movements of those tools towards supporting local data also plays out.
+随着服务器数据管理工具（尤其是 GraphQL）的使用日益增加（请参阅 Apollo 和 Relay Modern），对复杂的客户端数据工具的需求可能会有所减少。看这些工具是如何逐步向本地数据支持发展将是一件非常有趣的事。
 
 * * *
 
-### What cool new JavaScript tools/libraries/frameworks/etc. have you used in 2017?
+### 你在 2017 年用过什么新的 JavaScript 工具/库/框架等等吗？
 
 #### Michael Shilman
 
-My biggest testing discovery of 2017 was [Cypress](https://www.cypress.io/) as a very convenient OSS/commercial option for end-to-end testing, though I find it to be still rough around the edges.
+我今年在测试领域发现的最好用的工具就是 [Cypress](https://www.cypress.io/)，[Cypress](https://www.cypress.io/) 是一个 OSS/商业上进行端到端（End-to-End）测试的一个很好的选择。尽管它现在还不是那么完善。
 
-Also, I’m maintaining [Storybook](https://storybook.js.org/), which is the most popular UI development tool for React, React Native, and Vue.
+另外，我正在维护 [Storybook]（https://storybook.js.org/），这是 React、React Native 和 Vue 最流行的 UI 开发工具。
 
 #### Jennifer Wong
 
-We’re in the process of transitioning much of our frontend code at work to React, Redux, Webpack, and Yarn. It’s been an interesting and complicated transition, but many hands have made lighter work. This was in part prompted by the creation of a shared design system and component library.
+我们正在将大部分前端代码转换为使用 React、Redux、Webpack 和 Yarn。这个过渡过程有趣也复杂，但这将会让今后的一些工作变得轻松不少。部分原因是由于共享设计系统和组件库的建立。我们这样做的部分原因是共享设计系统和组件库的建立。
 
 #### Tom Coleman
 
-[Prettier](https://github.com/prettier/prettier)! I can’t write code anymore I am so reliant on this tool. I’ve used [Jest](https://facebook.github.io/jest/) a lot more and have been really happy with it. I’ve really gotten into [Storybook](https://storybook.js.org/) and have made more and more use of it (and started helping maintain it!)
+[Prettier](https://github.com/prettier/prettier)！没有这个工具我就写不了代码了。 我用 [Jest](https://facebook.github.io/jest/) 很长时间了，我感觉它真的好用。我已经深深爱上了 [Storybook](https://storybook.js.org/)，使用的越来越频繁（并且开始帮助进行维护）。
 
 [![](https://cdn-images-1.medium.com/max/800/1*mjiXB1CfVNcS5QFJKlvDXw.png)](https://prettier.io/)
 
 Prettier
 
-Otherwise I’ve been heads down developing [Chromatic](https://blog.hichroma.com/introducing-chromatic-ui-testing-for-react-c5cc01a79aaa) a visual regression testing tool for Storybook. Really exciting to see some companies start finally getting their front end tested properly (ourselves included!)
+此外，我一直在开发一个名叫 [Chromatic](https://blog.hichroma.com/introducing-chromatic-ui-testing-for-react-c5cc01a79aaa) 的 Storybook 可视化 regression 测试工具。当看到一些公司（包括我自己的）使用这个工具完成前端测试，我真的是十分高兴。
 
 #### Michael Rambeau
 
-The favorite tool I found in 2017 was [Prettier](https://github.com/prettier/prettier). It makes me save a lot of time when I write code, since I don’t worry about “styling” my code anymore.
+我在 2017 年发现的最喜欢的工具是 [Prettier](https://github.com/prettier/prettier)。它让我写代码时不用再担心代码“风格化”了，这让我节省了大量时间。
 
-I don’t care about tabs or semi-columns anymore… Just Ctrl S in the IDE and everything is well formatted! Moreover, it reduces friction with other teams members when working on the same code base.
+我不再关心 tabs 或 semi-columns 等，只需在 IDE 中按住 Ctrl S 键，一切就都格式化了！此外，它还可以减少与其他团队成员在相同一个代码库上进行协作时的冲突。
 
 #### Wes Bos
 
-All kinds of stuff! [date-fns](https://date-fns.org/) has replaced my [moment.js](https://momentjs.com/) usage. [Next.js](https://github.com/zeit/next.js/) has been big for me for building server rendered React apps. Been also learning Apollo for working with GraphQL.
+各种各样的东西！[date-fns](https://date-fns.org/) 已经取代了我 [moment.js](https://momentjs.com/) 的用法。[Next.js](https://github.com/zeit/next.js/) 对我来说，在做构建服务端渲染的 React 应用程序时越来越重要。我也在学习如何将 Apollo 与 GraphQL 一起用好。
 
 #### Raphaël Benitte
 
-Working both on several open-source projects and at work, it’s really important to be able to improve automation. Using Prettier, ESLint, Jest, [Validate-commit-msg](https://github.com/willsoto/validate-commit) with [Lint-staged](https://github.com/okonet/lint-staged) really helped in that.
+同时工作于几个开源项目，能够自动化改善就显得尤为重要。Prettier、ESLint、Jest、[Validate-commit-msg](https://github.com/willsoto/validate-commit) 和 [Lint-staged](https://github.com/okonet/lint-staged) 在这方面确实很有用。
 
-I also built [Nivo](http://nivo.rocks/#/), a data visualization library for React.
-
-[![](https://cdn-images-1.medium.com/freeze/max/30/1*Dwl7zseAHT2n6W63COQiUA.png?q=20)](http://nivo.rocks/#/)
+我还构建为 React 构建了一个名叫 [Nivo](http://nivo.rocks/#/) 的数据可视化的库。
 
 [![](https://cdn-images-1.medium.com/max/800/1*Dwl7zseAHT2n6W63COQiUA.png)](http://nivo.rocks/#/)
 
-Finally, with the rise of Async/Await and its now native support in Node.js I have also tried [Koa](http://koajs.com/). While its ecosystem is narrower than Express, I found it easy to get started with, and if you’re familiar with Express you won’t be lost.
+最后，随着 Async/Await 的兴起，以及 Node.js 现在的本地支持情况，我也尝试了使用了 [Koa](http://koajs.com/)。虽然其生态系统比 Express 更窄，但我发现它很容易上手，而且如果你熟悉 Express，那就不会有陌生感。
 
 * * *
 
-### If someone wanted to learn JavaScript from scratch today, which 3 technologies would you recommend they focus on?
+### 如果有人想从头开始学习 JavaScript，那么你会推荐他专注于哪三种技术呢？
 
 #### Michael Shilman
 
@@ -110,115 +108,115 @@ Finally, with the rise of Async/Await and its now native support in Node.js I ha
 
 #### Jennifer Wong
 
-Any framework, any build tool, and Node. Many of the concepts translate between frameworks and build tools, so hopefully learning one well can help map to others. If I had to choose one of each, perhaps React and Webpack because they’re trending — and trending technologies present well to people in the industry.
+任何框架，任何构建工具和 Node。许多概念都是在框架和构建工具之间进行转换的，所以你可以通过仔细学习其中之一，这可以帮助你学习其他的内容。如果我必须选择其中的一个，可能是 React 和 Webpack，因为它们正在趋势化，并且在业内看来，他们的发展趋势也很不错。
 
 #### Tom Coleman
 
-Certainly React, although the other frontends are interesting, the mindshare of React is getting pretty huge these days. A must have.
+当然是 React，尽管其他前端相关的东西也很有意思，但是 React 生态系统相当庞大且完善。这是你必须掌握的技术。
 
-GraphQL, I think most experienced front-end devs recognize that the problems it solves are pretty universal, and it’s a pleasure to work with.
+GraphQL，我认为大多数有经验的前端开发都能认识到，GraphQL 所能解决的问题非常广，并且用起来也很舒服。
 
 [![](https://cdn-images-1.medium.com/max/800/1*slDxUJmZvHd-wV4GsAJmAw.png)](http://graphql.org/)
 
 GraphQL
 
-Storybook, I think building from components their states up is the future of app development, and Storybook is the leading tool to do this with.
+Storybook，我认为从组件构建其状态是应用程序开发的未来，而 Storybook 就是这样做的。
 
 #### Michael Rambeau
 
-* React, as the front-end layer
-* Express, as the back-end server
-* Jest, as the testing solution for both front-end and back-end code.
+* 前端部分：React
+* 后端部分：Express
+* 前后端测试部分：Jest
 
 #### Wes Bos
 
-If you are just learning, you need to have small wins to keep you excited about the language. So, I’d say along with the fundamentals, learn the DOM API, Learn Async + Await, and learn a new visual API like web animations.
+如果你正在学习，那你需要有一些小成果，这种成就感会让你学这门语言的时候很快乐。所以我只说些基础知识，学习 DOM API，学习 Async 和 Await，并学习新的可视化 API，如网页动画等。
 
 #### Raphaël Benitte
 
-* If you’re really new to JavaScript, start with the basics — and ES6, which is now part of the basics.
-* Obviously, React for building UIs
-* [GraphQL](http://graphql.org/), which is becoming mature and is now used by big companies Facebook, GitHub, Twitter and [many more](http://graphql.org/users/)…
+* 如果你是个 JavaScript 方面的小白，那就从基础学起吧，并且 ES6 现在已经是 JavaScript 基础的一部分了。
+* 当然还有 React for building UIs
+* [GraphQL](http://graphql.org/)正在变得越来越成熟，现在已经被 Facebook、GitHub、Twitter and [其他很多大公司](http://graphql.org/users/) 使用…
 
 * * *
 
-### What’s your biggest JavaScript pain point today?
+### 现在你在 JavaScript 方向最大的痛点是什么
 
 #### Michael Shilman
 
-Hoping a best practice and library-of-choice emerges for CSS-in-JS. While there are lots of good choices, it still feels fragmented, and a lot of the world is still doing CSS-in-CSS, so lots of confusion unless that’s your focus.
+最佳实践方法和怎么选 CSS-in-JS 的库。虽然有很多不错的选择，但感觉仍然碎片化，并且现在还有很多人在做 CSS-in-CSS，所以有很多痛点。
 
 #### Jennifer Wong
 
-The constant changes. By the time I learn one new technology, we’re onto the next. Also, stop stealing my CSS, JavaScript!
+不断的变化。当我学习一项新技术的时候，我们正在走向下一个。 另外，停止偷我的CSS，JavaScript！前端这块技术是日新月异，学了这个又有新的蹦出来了。喂 JavaScript 你就别来抢我 CSS 的饭碗了，中不中？
 
 #### Tom Coleman
 
-Webpack. Extraordinarily powerful tool that lies way too far over on the “configuration over convention” spectrum.
+Webpack。卓越强大的工具在"越配置越方便"的错误观念道路下越走越远了。
 
-It’s very hard to avoid having to learn its intricacies to work on JS apps, but often times they are details you shouldn’t really need to care about. I’m still hoping that Meteor can regain the throne as the best way to build a modern JS app.
+要避免学习复杂的 JS 应用程序是非常困难的，但通常情况下，你不用太纠结于这些细枝末节。我仍然希望 Meteor 能够重得宝座，成为构建现代 JS 应用程序的最佳方式。
 
 #### Michael Rambeau
 
-The lack of standard, the fact that you have a lot of things to consider when you pick your stack before starting a new project. But things are improving!
+缺乏标准，在开始一个新项目之前选择技术栈时，需要考虑考虑方方面面。但是这种状况正在逐步改善。
 
 #### Wes Bos
 
-`checking && checking.for && checking.for.nested && checking.for.nested.properties`. I know there are utility functions out there to do this, but it looks like we might get this in the language soon.
+`checking && checking.for && checking.for.nested && checking.for.nested.properties`。我知道这里有一些实用的功能，但是看起来我们可能很快就会用到这个语言。
 
 #### Raphaël Benitte
 
-There are too many tools… It’s difficult to pick the right one, and we must be really careful about trends as they can move really fast in the JS ecosystem.
+有太多的工具了...选择合适的工具太困难，我们必须非常小心，因为在 JS 生态系统变化速度太快。
 
 * * *
 
-### What are you most looking forward to in 2018 in the JavaScript ecosystem?
+### 在 JavaScript 生态系统中，你最期待在 2018 年做什么？
 
 #### Michael Shilman
 
-Wishlist (no idea whether any of these will happen in 2018):
+心愿单（不知道这些会不会在 2018 年发生）：
 
-* GraphQL reaches Meteor’s level of convenience for data sync.
-* Universal (web/mobile) stabilizes and takes off for React Native.
-* Cypress or a competitor emerges for end-to-end testing.
+* GraphQL 在数据同步方便程度达到 Meteor 的水平。
+* React Native 的通用（Web 端/移动端）稳定性得到提升。
+* Cypress 或其他端到端的测试工具出现。
 
 #### Jennifer Wong
 
-Stabilization. I’m crossing my fingers that the JavaScript “stack” and community will begin to settle down a bit, and we’ll get into a groove that causes less churn.
+稳定性。我掐指一算啊，JavaScript 栈和 JavaScript 社区会平静一段时间，我们会进入到一个新的流失度较低的新阶段。
 
 #### Tom Coleman
 
-The end of Babel! I love Babel but with Node 8 I pretty much don’t need babel any more. It’s great to be working so close to the interpreter again.
+Babel 的末日到了！我很喜欢 Babel，但是自从有了 Node 8，babel 就被我嫌弃了。能够再次和 interpreter 合作简直太棒了。
 
-Obviously the ES standards will keep moving forward but with modules and async/await a lot of the more frustrating corners of JS have been ironed out and many projects will probably be fine with the JS version shipped with node and **all** modern browsers pretty soon!
+很显然，ES 标准将继续向前发展，但是随着 JavaScript modules 和 async/await 的很多痛点被解决掉，JS 新版本和 node 及所有现代浏览器融合度的提升，很多项目会在短时间内发展的非常好。
 
 #### Michael Rambeau
 
-I’m curious to see how GraphQL will grow. Will it become the new standard when releasing an API?
+我很想看看 GraphQL 是如何发展的。它会在发布新的 API 的时候成为标准吗？
 
 #### Wes Bos
 
-Now that Node stable and all the browsers have Async+Await, I’m looking forward to native promises becoming common place in frameworks, utility libraries and the code that you write day to day.
+既然 Node 变得稳定了，所有的浏览器都有了 Async 和 Await。那么我期待 native promises 成为框架，实用程序库和日常编写的代码的常见位置。I’m looking forward to native promises becoming common place in frameworks, utility libraries and the code that you write day to day.
 
 #### Raphaël Benitte
 
-Most languages have a dedicated/preferred build tool (eg. Maven for Java). Although we do have a lot of options when it comes to JavaScript, those solutions are too often dedicated to the front-end. I’d like to see npm (or Yarn) add support for basic features such as documentation, autocompletion, script dependencies, etc. Otherwise I’ll probably keep using GNU Make.
+大多数语言都有一个 专用/首选 的构建工具（例如 Java 的 Maven）。尽管在 JavaScript 方面我们有很多选择，但这些解决方案往往是专门用于前端的。我想看看 npm（或 Yarn）添加对基本功能的支持，如文档，自动完成，脚本依赖等。否则，我可能会继续使用 GNU Make。
 
-And this one is quite controversial, but we’ve seen that people are really interested in solutions like [TypeScript](https://www.typescriptlang.org/) (or [Flow](https://flow.org/)). Node.js and browsers have made a clear effort to move faster, but if you want static typing you’ll still have to add another transpilation phase for it. So how about native statically typed Javascript? You can find a discussion on the subject [here](https://esdiscuss.org/topic/es8-proposal-optional-static-typing).
+虽然这个问题很有争议，但是我们已经看到有人对 [TypeScript](https://www.typescriptlang.org/) （或 [Flow](https://flow.org/)） 很感兴趣。Node.js 和浏览器已经明显加快了发展速度，但是如果你想要静态输入的话，你仍然需要为它添加一个扩展阶段。那么原生静态类型的 Javascript 呢？ 你可以在 [这儿](https://esdiscuss.org/topic/es8-proposal-optional-static-typing)  找到关于这个的讨论。
 
 * * *
 
-### Conclusion
+### 总结
 
-It seems like our panel agrees on at least a few things: React is a safe bet, Prettier is a great tool, and yes, the JavaScript ecosystem is still too complex…
+通过上面的内容，我们的小组有几点一致性意见：React 是一个明智的选择，Prettier 是一个很好的工具，JavaScript 生态系统仍然太复杂了...
 
-Which is exactly what we were trying to address in the first place when we did that survey!
+这正是我们做这个调查的时候试图找到的问题。
 
-We’ll be launching our results site very soon. One week from now in fact, on December 12.
+我们很快就会在我们的网站上将报告发布出来。 大概在 12 月 12 号之后的那周吧。
 
-We’ll hold a [launch livestream + Q&A](https://medium.com/@sachagreif/announcing-the-stateofjs-2017-launch-livestream-14e4aeeeec3a) so you can ask us all the questions you want - or just hang out! And who knows, we might even have special guests drop in… ;)
+我们将举行[直播 + Q＆A 环节](https://medium.com/@sachagreif/announcing-the-stateofjs-2017-launch-livestream-14e4aeeeec3a)，所以大家可以在那问你想问的问题 - 或者就过来看看呗。我们还有可能为大家带来神秘嘉宾哟... :)
 
-If you want to know when the results are live and get a notification for the hangout, you can [leave us your email](http://stateofjs.com/) and we’ll let you know.
+如果你想知道活动啥时候开始，结果是啥，你想收到及时的通知的话可以[在这留下您的 Email](http://stateofjs.com/)，我们会通知你的。
 
 
 ---
