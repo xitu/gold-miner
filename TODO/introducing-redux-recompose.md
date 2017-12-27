@@ -15,7 +15,7 @@
 
 ### 痛点所在
 
-当初看 [Dan Abramov’s 在 Egghead 上发布的 Redux 教程](https://egghead.io/courses/getting-started-with-redux) 的时候，发现他大量使用了 `switch` 语句：我闻到了点__坏代码的味道__。
+当初看 [Dan Abramov’s 在 Egghead 上发布的 Redux 教程](https://egghead.io/courses/getting-started-with-redux) 的时候，发现他大量使用了 `switch` 语句：我闻到了点 __坏代码的味道__。
 
 在我接手的第一个 React Native 项目中，我按照教程上讲的，使用 `switch` 编写分发逻辑。开发不久后就发现，这种写法实在是不好维护：
 
@@ -190,7 +190,7 @@ function createReducer(initialState, reducerObject) {
 export default createReducer(initialState, reducerDescription);
 ```
 
-__SUCCESS__ 和 __FAILURE__ 的 action 和之前看来没啥区别，只是 action 的操作目标变了 —— 这里将 action 和操作它对应的 state 里的那部分数据的函数进行了一一对应。例如，我们分发了一个 action.aList 来修改一个列表的内容，那么‘aList‘就是找到对应的 reducer 函数的关键词。
+__SUCCESS__ 和 __FAILURE__ 的 action 和之前看来没啥区别，只是 action 的操作目标变了 —— 这里将 action 和操作它对应的 state 里的那部分数据的函数进行了一一对应。例如，我们分发了一个 action.aList 来修改一个列表的内容，那么‘aList’就是找到对应的 reducer 函数的关键词。
 
 ### 靶向化 action
 
@@ -200,7 +200,7 @@ __SUCCESS__ 和 __FAILURE__ 的 action 和之前看来没啥区别，只是 acti
 
 __我们可以把 action 想象成一个“差使”，action 不关心 state 的变化 —— 那是 reducer 的事__。
 
-那么，为什么就不能反其道而行之呢，如果 action 就是要去管 state 的变化呢？有了这种想法，我们就能引申出__靶向化 action__ 的概念了。何谓靶向化 action？就像这样：
+那么，为什么就不能反其道而行之呢，如果 action 就是要去管 state 的变化呢？有了这种想法，我们就能引申出 __靶向化 action__ 的概念了。何谓靶向化 action？就像这样：
 
 ```javascript
 const privateActionCreators = {
@@ -371,7 +371,7 @@ export default actionCreators;
 
 但是，如果我们想要在调用和分发过程中间执行一些自定义代码呢？
 
-我们可以使用__注入器（injections）__来实现，在下面的例子中我们就用这个函数为 baseThunkAction 添加了一些自定义行为。
+我们可以使用 __注入器（injections）__ 来实现，在下面的例子中我们就用这个函数为 baseThunkAction 添加了一些自定义行为。
 
 这两个例子要传达的思想是一样的：
 
