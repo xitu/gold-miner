@@ -11,7 +11,7 @@
 
 在 Redux 生态中，已有不少管理副作用（side effect）的类库，从最基础的 [redux-thunk](https://github.com/gaearon/redux-thunk)，到受 Elm 熏陶的 [redux-loop](https://github.com/raisemarketplace/redux-loop)，最后还有使用 Generator 函数强力驱动的 [redux-saga](https://github.com/yelouafi/redux-saga/)。
 
-理想情况下，我喜欢把所有的异步请求都放置到一个 API 中间件中，这种用法可以参考 Redux 官方实例 [real-world example](https://github.com/reactjs/redux/tree/master/examples/real-world)。若使用 thunk 会使我的 Action 创建函数被异步逻辑所污染， 所以 `redux-thunk` 已然出局。使用 `redux-loop` 则会与我的中间件相冲突，作为 store 的一个 enhancer 它却修改了 store 的 signature，进而导致其下游的所有中间件都需要调整。所以综上我决定探索 `redux-saga`，它本质上提供给我的是在应用后台执行任务的能力。使用 `redux-saga` 可以保证我利用中间件集中控制异步逻辑的用法不变，同时通过设定各类不同的观察者（watcher）来触发副作用。那么如何使用 redux-sage 处理 AJAX 轮询呢？
+理想情况下，我喜欢把所有的异步请求都放置到一个 API 中间件中，这种用法可以参考 Redux 官方实例 [real-world example](https://github.com/reactjs/redux/tree/master/examples/real-world)。若使用 thunk 会使我的 Action 创建函数被异步逻辑所污染，所以 `redux-thunk` 已然出局。使用 `redux-loop` 则会与我的中间件相冲突，作为 store 的一个 enhancer 它却修改了 store 的 signature，进而导致其下游的所有中间件都需要调整。所以综上我决定探索 `redux-saga`，它本质上提供给我的是在应用后台执行任务的能力。使用 `redux-saga` 可以保证我利用中间件集中控制异步逻辑的用法不变，同时通过设定各类不同的观察者（watcher）来触发副作用。那么如何使用 redux-sage 处理 AJAX 轮询呢？
 
 ```
 // 延时副作用的工具函数
@@ -64,7 +64,7 @@ export default function* root() {
 
 `pollData` -- 先阻塞 Generator 函数的执行，20秒后再调用 `dataFetch` 并 dispatch `dataFetch` 产生的 Action。
 
-此处用到的 `take`、 `put`、 `race`、 `call` 和  `fork` 作用符，都可以在 [redux-saga documentation](http://yelouafi.github.io/redux-saga/docs/api/index.html#effect-creators) 中找到。
+此处用到的 `take`、 `put`、 `race`、 `call` 和 `fork` 作用符，都可以在 [redux-saga documentation](http://yelouafi.github.io/redux-saga/docs/api/index.html#effect-creators) 中找到。
 
 你可以将本文的新方法与前一篇文章中在组件内做控制的方法作比较，使用 saga 后更利于预测和集中管理我的副作用。需要注意的是并不是所有的浏览器都支持 Generator 函数，如果你使用了 ES2015 和 Babel，那么它们已经提供了 Generator 函数的浏览器 polyfill 兼容支持。
 
