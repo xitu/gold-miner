@@ -445,6 +445,7 @@ MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDdlatRjRjogo3WojgGHFHYLugdUWAY9iR3fy4arWNA
 它看起来有一点可怕，但它其实只是一个像 OpenSSL 或[在线RSA密钥生成工具](http://travistidwell.com/jsencrypt/demo/)那样的独特密钥的命令行生成工具，
 
 同样，这个密钥 _可以被公开_，它实际上就是公开的，因此攻击者不需要猜测这个密钥：通常他们早已拥有了它。
+
 但也有相应的 RSA 私钥：
 
 ```
@@ -574,6 +575,7 @@ EkN-DOsnsuRjRO6BxXemmJDm3HbxrbRzXglbN2S4sOkopdU4IsDxTI8jO19W_A4K8ZPJijNLis4EZsHe
 应用服务器只需要连接到该服务器获取公要，并定期重新检查，以防它发生变化，无论是因为突发事件还是周期性的密钥旋转。
 
 因此，不需要同时关闭应用服务器和认证服务器，并一次性更新密钥。
+
 那公钥是怎么发布的？这有个很可能形式。
 
 ### JWKS (JSON Web Key Set)终端
