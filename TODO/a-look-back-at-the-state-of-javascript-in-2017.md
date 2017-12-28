@@ -2,20 +2,20 @@
 > * 原文作者：[Sacha Greif](https://medium.freecodecamp.org/@sachagreif?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/a-look-back-at-the-state-of-javascript-in-2017.md](https://github.com/xitu/gold-miner/blob/master/TODO/a-look-back-at-the-state-of-javascript-in-2017.md)
-> * 译者：
-> * 校对者：
+> * 译者：[LeviDing](https://leviding.com)
+> * 校对者：[yanyixin]()，[https://github.com/yanyixin](https://github.com/zhouzihanntu)
 
 # 2017 年 JavaScript 发展状况回顾
 
-## 在 2017 年的 JavaScript 状态调查报告的前面，我们专家小组对 JavaScript 过去一年的发展进行了回顾
+## 在 2017 年 JavaScript 状态调查结果出来之前，我们专家小组对 JavaScript 过去一年的发展进行了回顾
 
 ![](https://cdn-images-1.medium.com/max/1600/1*k7XARFeR0RqgZhY1p5w8uA.png)
 
 [去年的 JavaScript 状况调查报告](http://stateofjs.com/2016/introduction/)的亮点之一就是，我们组建了一个专家小组对调查结果进行深入分析。
 
-今年呢，我们换了一种稍微不同的方法，我们决定用数据说话。
+今年呢，我们决定换一种稍微不同的方法：用数据说话。
 
-但是我仍然想知道我们以前专家组成员（以及两位新的特邀嘉宾）的看法，于是我联系他们，问了些过去一年关于 JavaScript 的问题。
+但是我仍然想知道我们之前专家组成员（以及两位新的特邀嘉宾）的看法，于是我联系了他们，问了些过去一年关于 JavaScript 的问题。
 
 ### 与专家组成员会面
 
@@ -34,13 +34,13 @@
 
 #### Michael Shilman
 
-去年的调查报告中显示，Jest 的 [NPM 下载量](https://npm-stat.com/charts.html?package=jest&package=jasmine&package=mocha&from=2016-11-10&to=2017-11-10)产生了爆炸式增长，并且超过了 Jasmine。
+去年的调查报告显示，Jest 的 [NPM 下载量](https://npm-stat.com/charts.html?package=jest&package=jasmine&package=mocha&from=2016-11-10&to=2017-11-10)呈现出爆炸式增长，并且超过了 Jasmine。
 
-Jest 支持 snapshot testing，我已经看到许多人将 snapshot testing 作为基本 input/output 单元测试的选择。这在 [Storyshots](https://github.com/storybooks/storybook/tree/master/addons/storyshots) 以及[Loki](https://loki.js.org/)、[Percy](https://percy.io/)、[Screener](https://screener.io/) 和 [Chromatic](https://blog.hichroma.com/introducing-chromatic-ui-testing-for-react-c5cc01a79aaa) 等相关工具构成整个生态系统的 UI 领域更受欢迎。
+Jest 支持 snapshot testing，我已经看到许多人将快照测试（snapshot testing）作为基本 input/output 单元测试的选择。这在 [Storyshots](https://github.com/storybooks/storybook/tree/master/addons/storyshots) 以及由 [Loki](https://loki.js.org/)、[Percy](https://percy.io/)、[Screener](https://screener.io/) 和 [Chromatic](https://blog.hichroma.com/introducing-chromatic-ui-testing-for-react-c5cc01a79aaa) 等工具构成的整个生态系统的 UI 领域更受欢迎。
 
 #### Jennifer Wong
 
-去年的调查报告也预测了 2017 年的一些发展趋势。随着各种新鲜事物的不断普及，Webpack 的发展势不可挡。Yarn 去年还没有能够成为调查对象之一，但是自从 9 月份首次发布以来，Yarn 的影响力就在不断扩大。我很好奇，看看 Yarn 和 npm 能擦出怎样的火花。
+去年的调查报告也预测了 2017 年的一些发展趋势。随着各种新鲜事物的不断普及，Webpack 的发展势不可挡。Yarn 去年还不在调查对象之列，但是自从 9 月份首次发布以来，Yarn 的影响力就在不断扩大。我很好奇，看看 Yarn 和 npm 能擦出怎样的火花。
 
 [![](https://cdn-images-1.medium.com/max/800/1*3sLM8_CMXFf7pdtPWI1YYw.png)](https://yarnpkg.com/)
 
@@ -60,41 +60,41 @@ Yarn
 
 我今年在测试领域发现的最好用的工具就是 [Cypress](https://www.cypress.io/)，[Cypress](https://www.cypress.io/) 是一个 OSS/商业上进行端到端（End-to-End）测试的一个很好的选择。尽管它现在还不是那么完善。
 
-另外，我正在维护 [Storybook]（https://storybook.js.org/），这是 React、React Native 和 Vue 最流行的 UI 开发工具。
+另外，我正在维护 [Storybook](https://storybook.js.org/)，这是 React、React Native 和 Vue 最流行的 UI 开发工具。
 
 #### Jennifer Wong
 
-我们正在将大部分前端代码转换为使用 React、Redux、Webpack 和 Yarn。这个过渡过程有趣也复杂，但这将会让今后的一些工作变得轻松不少。部分原因是由于共享设计系统和组件库的建立。我们这样做的部分原因是共享设计系统和组件库的建立。
+我们正在将大部分前端代码转换为使用 React、Redux、Webpack 和 Yarn。这个过渡过程有趣也复杂，但这将会让今后的一些工作变得轻松不少。部分原因是共享设计系统和组件库的建立。
 
 #### Tom Coleman
 
-[Prettier](https://github.com/prettier/prettier)！没有这个工具我就写不了代码了。 我用 [Jest](https://facebook.github.io/jest/) 很长时间了，我感觉它真的好用。我已经深深爱上了 [Storybook](https://storybook.js.org/)，使用的越来越频繁（并且开始帮助进行维护）。
+[Prettier](https://github.com/prettier/prettier)！没有这个工具我就写不了代码了。 我用 [Jest](https://facebook.github.io/jest/) 已经很长时间了，而且真的很好用。[Storybook](https://storybook.js.org/) 也是，使用的越来越频繁（并且开始帮助进行维护）。
 
 [![](https://cdn-images-1.medium.com/max/800/1*mjiXB1CfVNcS5QFJKlvDXw.png)](https://prettier.io/)
 
 Prettier
 
-此外，我一直在开发一个名叫 [Chromatic](https://blog.hichroma.com/introducing-chromatic-ui-testing-for-react-c5cc01a79aaa) 的 Storybook 可视化 regression 测试工具。当看到一些公司（包括我自己的）使用这个工具完成前端测试，我真的是十分高兴。
+此外，我一直在开发一个名叫 [Chromatic](https://blog.hichroma.com/introducing-chromatic-ui-testing-for-react-c5cc01a79aaa) 的 Storybook 可视化回归测试（regression testing）工具。当看到一些公司（包括我自己的）使用这个工具完成前端测试，我真的是十分高兴。
 
 #### Michael Rambeau
 
-我在 2017 年发现的最喜欢的工具是 [Prettier](https://github.com/prettier/prettier)。它让我写代码时不用再担心代码“风格化”了，这让我节省了大量时间。
+我在 2017 年发现的最喜欢的工具是 [Prettier](https://github.com/prettier/prettier)。它让我写代码时不用再担心代码“风格”了，节省了我大量时间。
 
-我不再关心 tabs 或 semi-columns 等，只需在 IDE 中按住 Ctrl S 键，一切就都格式化了！此外，它还可以减少与其他团队成员在相同一个代码库上进行协作时的冲突。
+我不再关心 tab 和代码是否整齐这类问题，只需在 IDE 中按下 Ctrl S，一切就都格式化了！此外，它还可以减少与其他团队成员在相同一个代码库上进行协作时的冲突。
 
 #### Wes Bos
 
-各种各样的东西！[date-fns](https://date-fns.org/) 已经取代了我 [moment.js](https://momentjs.com/) 的用法。[Next.js](https://github.com/zeit/next.js/) 对我来说，在做构建服务端渲染的 React 应用程序时越来越重要。我也在学习如何将 Apollo 与 GraphQL 一起用好。
+各种各样的东西！[date-fns](https://date-fns.org/) 让我放弃了对 [moment.js](https://momentjs.com/) 的使用。[Next.js](https://github.com/zeit/next.js/) 对于构建服务端渲染的 React 应用越来越重要。我也在学习如何将 Apollo 与 GraphQL 一起用好。
 
 #### Raphaël Benitte
 
-同时工作于几个开源项目，能够自动化改善就显得尤为重要。Prettier、ESLint、Jest、[Validate-commit-msg](https://github.com/willsoto/validate-commit) 和 [Lint-staged](https://github.com/okonet/lint-staged) 在这方面确实很有用。
+同时服务于几个开源项目，并且要兼顾工作，提高项目的自动化程度就显得尤为重要。Prettier、ESLint、Jest、[Validate-commit-msg](https://github.com/willsoto/validate-commit) 和 [Lint-staged](https://github.com/okonet/lint-staged) 在这方面确实很有用。
 
-我还构建为 React 构建了一个名叫 [Nivo](http://nivo.rocks/#/) 的数据可视化的库。
+我还为 React 构建了一个名叫 [Nivo](http://nivo.rocks/#/) 的数据可视化的库。
 
 [![](https://cdn-images-1.medium.com/max/800/1*Dwl7zseAHT2n6W63COQiUA.png)](http://nivo.rocks/#/)
 
-最后，随着 Async/Await 的兴起，以及 Node.js 现在的本地支持情况，我也尝试了使用了 [Koa](http://koajs.com/)。虽然其生态系统比 Express 更窄，但我发现它很容易上手，而且如果你熟悉 Express，那就不会有陌生感。
+最后，随着原生的 Node.js 对 Async/Await 的支持越来越好，我也尝试使用了 [Koa](http://koajs.com/)。虽然其生态系统比 Express 更窄，但我发现它很容易上手，而且如果你熟悉 Express，那就不会有陌生感。
 
 * * *
 
@@ -108,7 +108,7 @@ Prettier
 
 #### Jennifer Wong
 
-任何框架，任何构建工具和 Node。许多概念都是在框架和构建工具之间进行转换的，所以你可以通过仔细学习其中之一，这可以帮助你学习其他的内容。如果我必须选择其中的一个，可能是 React 和 Webpack，因为它们正在趋势化，并且在业内看来，他们的发展趋势也很不错。
+任意一种框架、任意一种构建工具和 Node。许多概念都是在框架和构建工具之间进行转换的，所以你仔细学习其中之一，还会对你理解其他的内容有帮助。如果必须要我选一个框架和构建工具，我应该会选 React 和 Webpack，因为它们正在趋势化，并且在业内看来，他们的发展趋势也很不错。
 
 #### Tom Coleman
 
@@ -130,13 +130,13 @@ Storybook，我认为从组件构建其状态是应用程序开发的未来，�
 
 #### Wes Bos
 
-如果你正在学习，那你需要有一些小成果，这种成就感会让你学这门语言的时候很快乐。所以我只说些基础知识，学习 DOM API，学习 Async 和 Await，并学习新的可视化 API，如网页动画等。
+如果你还在学习阶段，你需要通过一些小小的成就感来保持你对这门语言的兴趣。所以我只说些基础知识，学习 DOM API，学习 Async 和 Await，并学习新的可视化 API，如网页动画等。
 
 #### Raphaël Benitte
 
 * 如果你是个 JavaScript 方面的小白，那就从基础学起吧，并且 ES6 现在已经是 JavaScript 基础的一部分了。
 * 当然还有 React for building UIs
-* [GraphQL](http://graphql.org/)正在变得越来越成熟，现在已经被 Facebook、GitHub、Twitter and [其他很多大公司](http://graphql.org/users/) 使用…
+* [GraphQL](http://graphql.org/)正在走向成熟，现在已经被 Facebook、GitHub、Twitter 和 [其他很多大公司](http://graphql.org/users/) 使用…
 
 * * *
 
@@ -158,7 +158,7 @@ Webpack。卓越强大的工具在"越配置越方便"的错误观念道路下�
 
 #### Michael Rambeau
 
-缺乏标准，在开始一个新项目之前选择技术栈时，需要考虑考虑方方面面。但是这种状况正在逐步改善。
+缺乏标准，在开始一个新项目之前选择技术栈时，需要考虑方方面面。但是这种状况正在逐步改善。
 
 #### Wes Bos
 
@@ -166,23 +166,23 @@ Webpack。卓越强大的工具在"越配置越方便"的错误观念道路下�
 
 #### Raphaël Benitte
 
-有太多的工具了...选择合适的工具太困难，我们必须非常小心，因为在 JS 生态系统变化速度太快。
+有太多的工具了...选择合适的工具太困难，我们必须非常小心，因为 JS 生态系统中的趋势变化速度太快。
 
 * * *
 
-### 在 JavaScript 生态系统中，你最期待在 2018 年做什么？
+### 你最期待 JavaScript 生态系统在 2018 年中有什么发展？
 
 #### Michael Shilman
 
 心愿单（不知道这些会不会在 2018 年发生）：
 
-* GraphQL 在数据同步方便程度达到 Meteor 的水平。
+* GraphQL 在数据同步方面的方便程度达到 Meteor 的水平。
 * React Native 的通用（Web 端/移动端）稳定性得到提升。
 * Cypress 或其他端到端的测试工具出现。
 
 #### Jennifer Wong
 
-稳定性。我掐指一算啊，JavaScript 栈和 JavaScript 社区会平静一段时间，我们会进入到一个新的流失度较低的新阶段。
+稳定性。我掐指一算啊，JavaScript 栈和 JavaScript 社区会平静一段时间，我们会进入到一个流失度较低的新阶段。
 
 #### Tom Coleman
 
@@ -196,13 +196,13 @@ Babel 的末日到了！我很喜欢 Babel，但是自从有了 Node 8，babel �
 
 #### Wes Bos
 
-既然 Node 变得稳定了，所有的浏览器都有了 Async 和 Await。那么我期待 native promises 成为框架，实用程序库和日常编写的代码的常见位置。I’m looking forward to native promises becoming common place in frameworks, utility libraries and the code that you write day to day.
+既然 Node 已经稳定并且所有浏览器都有了 Async 和 Await，我期待原生 promise 在众多框架、工具库和你日常编写的代码中越来越普遍。
 
 #### Raphaël Benitte
 
-大多数语言都有一个 专用/首选 的构建工具（例如 Java 的 Maven）。尽管在 JavaScript 方面我们有很多选择，但这些解决方案往往是专门用于前端的。我想看看 npm（或 Yarn）添加对基本功能的支持，如文档，自动完成，脚本依赖等。否则，我可能会继续使用 GNU Make。
+大多数语言都有一个 专用/首选 的构建工具（例如 Java 的 Maven）。尽管在 JavaScript 方面我们有很多选择，但这些解决方案往往是专门用于前端的。我希望看到 npm（或 Yarn）添加对基本功能的支持，如文档，自动完成，脚本依赖等。否则，我可能会继续使用 GNU Make。
 
-虽然这个问题很有争议，但是我们已经看到有人对 [TypeScript](https://www.typescriptlang.org/) （或 [Flow](https://flow.org/)） 很感兴趣。Node.js 和浏览器已经明显加快了发展速度，但是如果你想要静态输入的话，你仍然需要为它添加一个扩展阶段。那么原生静态类型的 Javascript 呢？ 你可以在 [这儿](https://esdiscuss.org/topic/es8-proposal-optional-static-typing)  找到关于这个的讨论。
+虽然这个问题很有争议，但是我们已经看到有人对 [TypeScript](https://www.typescriptlang.org/) （或 [Flow](https://flow.org/)） 很感兴趣。Node.js 和浏览器已经明显加快了发展速度，但是如果你想要静态类型的话，你仍要为它再添加一个编译转换层。那么原生静态类型的 Javascript 呢？ 你可以在 [这儿](https://esdiscuss.org/topic/es8-proposal-optional-static-typing)  找到关于这个的讨论。
 
 * * *
 
