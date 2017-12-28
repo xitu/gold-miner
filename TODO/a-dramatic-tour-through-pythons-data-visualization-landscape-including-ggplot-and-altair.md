@@ -1,4 +1,3 @@
-
 > * 原文地址：[A Dramatic Tour through Python’s Data Visualization Landscape (including ggplot and Altair)](https://dansaber.wordpress.com/2016/10/02/a-dramatic-tour-through-pythons-data-visualization-landscape-including-ggplot-and-altair/)
 * 原文作者：[Dan Saber](https://dansaber.wordpress.com/about-me/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
