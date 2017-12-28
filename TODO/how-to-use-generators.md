@@ -11,7 +11,7 @@ Generator 是一种非常强力的语法，但它的使用并不广泛（参见�
 
 ![1513838054(1).jpg](https://i.loli.net/2017/12/21/5a3b56e1f35e4.jpg)
 
-无论如何，Generator 允许我们通过 `yield` 关键字遍历我们自己的代码！这是一种超级强大的语法，实际上，我们可以操纵执行过程！从不太明显的取消操作开始，让我们先从同步操作开始吧。
+然而，Generator 允许我们通过 `yield` 关键字遍历我们自己的代码！这是一种超级强大的语法，实际上，我们可以操纵执行过程！从不太明显的取消操作开始，让我们先从同步操作开始吧。
 
 > 我为文中提到的功能创建了一个代码仓库 – [https://github.com/Bloomca/obscure-generator-fns](https://github.com/Bloomca/obscure-generator-fns)
 
@@ -30,8 +30,7 @@ function renderItems(items) {
 }
 
 // 函数将由我们的执行器遍历执行
-// 实际上，我们可以在相同的情况下执行它
-// 同步的方式！
+// 实际上，我们可以用相同的同步方式来执行它！
 function* renderItems(items) {
   // 我使用 for..of 遍历方法来避免新函数的产生
   for (item of items) {
@@ -225,7 +224,7 @@ function runWithPause(genFn, ...args) {
 
 ## 错误处理
 
-我们有个神秘的 `onRejected` 调用，这是我们这部分谈论的主题。如果我们使用正常的 async/await 或 Promise 链式写法，我们将通过 try/catch 语句来进行错误处理，如果不添加大量的逻辑代码就很难进行错误处理。通常情况下，如果我们需要以某种方式处理错误（比如重试），我们只是在 Promise 内部进行处理，这将会回调自己，可能再次回到同样的点。而且，这还不是一个通用的解决方案 - 可悲的是，在这里甚至 Generator 也不能帮助我们。我们发现了 Generator 的局限 - 虽然我们可以控制执行流程，但不能移动 Generator   函数的主体；所以我们不能后退一步，重新执行我们的命令。一个可行的解决方案是使用 [command pattern](https://en.wikipedia.org/wiki/Command_pattern), 它告诉了我们 `yield` 的结果的数据结构 - 应该是我们需要执行此命令需要的所有信息，这样我们就可以再次执行它了。所以，我们的方法需要改为：
+我们有个神秘的 `onRejected` 调用，这是我们这部分谈论的主题。如果我们使用正常的 async/await 或 Promise 链式写法，我们将通过 try/catch 语句来进行错误处理，如果不添加大量的逻辑代码就很难进行错误处理。通常情况下，如果我们需要以某种方式处理错误（比如重试），我们只是在 Promise 内部进行处理，这将会回调自己，可能再次回到同样的点。而且，这还不是一个通用的解决方案 - 可悲的是，在这里甚至 Generator 也不能帮助我们。我们发现了 Generator 的局限 - 虽然我们可以控制执行流程，但不能移动 Generator  函数的主体；所以我们不能后退一步，重新执行我们的命令。一个可行的解决方案是使用 [command pattern](https://en.wikipedia.org/wiki/Command_pattern), 它告诉了我们 `yield` 的结果的数据结构 - 应该是我们需要执行此命令需要的所有信息，这样我们就可以再次执行它了。所以，我们的方法需要改为：
 
 
 ```
@@ -253,7 +252,7 @@ function runWithIgnore(fn, ...args) {
 
     // 这些是 yield 返回的错误
     // 我们想忽略它们
-    // 所以我们像往常一样，但不去传递出错误
+    // 所以我们像往常一样做，但不去传递出错误
     function onRejected(error) {
       proceed({ error });
     }
