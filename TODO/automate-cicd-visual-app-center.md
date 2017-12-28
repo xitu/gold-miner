@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/automate-cicd-visual-app-center.md](https://github.com/xitu/gold-miner/blob/master/TODO/automate-cicd-visual-app-center.md)
 > * 译者：[Yong Li](https://github.com/NeilLi1992)
-> * 校对者：
+> * 校对者：[zhaoyi0113](https://github.com/zhaoyi0113)，[LeviDing](https://github.com/leviding)
 
 # 自动化持续集成/持续分发，以节省更多时间编写代码
 
