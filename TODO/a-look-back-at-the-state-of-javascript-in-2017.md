@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/a-look-back-at-the-state-of-javascript-in-2017.md](https://github.com/xitu/gold-miner/blob/master/TODO/a-look-back-at-the-state-of-javascript-in-2017.md)
 > * 译者：[LeviDing](https://leviding.com)
-> * 校对者：[yanyixin]()，[https://github.com/yanyixin](https://github.com/zhouzihanntu)
+> * 校对者：[yanyixin](https://github.com/yanyixin)，[zhouzihanntu](https://github.com/zhouzihanntu)
 
 # 2017 年 JavaScript 发展状况回顾
 
