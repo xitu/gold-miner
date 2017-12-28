@@ -622,8 +622,7 @@ JWT 也适用于企业，在大家对安全措施的认知里，预认证设置�
 * 如果签名不正确，应用服务器会直接拒绝请求
 
 结果是，我们现在认证工作运作正常，即使是在私人网络上！
-
-我们不再需要盲目相信包含用户名的HTTP Header。我们可以确认HTTP header的正确性，由代理发出，而防止攻击者假装其他用户登录。
+我们不再需要盲目相信包含用户名的 HTTP Header。我们可以确认 HTTP header 的正确性，由代理发出，而防止攻击者假装其他用户登录。
 ### 结语
 我们对 JWT 有了一个全面的了解，它是什么，它们是怎么被运用于用户验证的。JWTs仅仅是具有易于验证和不可伪造特性的JSON 载荷。
 
@@ -647,14 +646,12 @@ JWT 也适用于企业，在大家对安全措施的认知里，预认证设置�
 
 [JSON Web Key Set (JWKS)](https://auth0.com/docs/jwks)
 
-### Video Lessons Available on YouTube
+### YouTube上的视频教程
+看看 Angular 大学的 Youtube 频道，我们发布了大约25％到三分之一的视频教程，新视频会陆续推出。
 
-看看Angular大学的Youtube频道，我们发布了大约25％到三分之一的视频教程，新视频会陆续推出。
-[Subscribe](http://www.youtube.com/channel/UC3cEGKhg3OERn-ihVsJcb7A?sub_confirmation=1) to get new video tutorials:
 [订阅](http://www.youtube.com/channel/UC3cEGKhg3OERn-ihVsJcb7A?sub_confirmation=1)获取新的视频教程：
 
-## Other posts on Angular
-有关angular的其他文章
+## 有关 angular 的其他文章
 
 还可以看看其他有趣的帖子：
 
