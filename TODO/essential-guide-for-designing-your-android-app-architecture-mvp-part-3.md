@@ -10,7 +10,7 @@
 ![](https://cdn-images-1.medium.com/max/2000/1*pjBVelQ5lYEA_yLHK7j1Jg.png)
 
 
-Android MVP架构系列文章的第1部分和第2部分自发布以来非常受欢迎，对此我感到很高兴。并且因为你们的建议和贡献，项目也优化得更好了。
+Android MVP 架构系列文章的第1部分和第2部分自发布以来非常受欢迎，对此我感到很高兴。并且因为你们的建议和贡献，项目也优化得更好了。
 
 在这个开发过程中，许多人询问过如何在这个架构中使用 `Dialog` 以及基于 `Adapter` 的视图。因此，我会在这篇博客中补充这两点。
 
@@ -27,7 +27,7 @@ Android MVP架构系列文章的第1部分和第2部分自发布以来非常受�
 
 > 精益求精
 
-我们先看下效果图:
+我们先看下效果图：
 
 ![](https://cdn-images-1.medium.com/max/400/1*DRA1PXswO3sl-_a3aebk9Q.png)
 
@@ -50,8 +50,8 @@ Android MVP架构系列文章的第1部分和第2部分自发布以来非常受�
 #### Feed 界面
 
 1. 这个界面会有两个子界面。
-2. 子界面 1: 博客 `RSS` 的列表界面。
-3. 子界面 2: 开源代码 `RSS` 的列表界面。
+2. 子界面 1：博客 `RSS` 的列表界面。
+3. 子界面 2：开源代码 `RSS` 的列表界面。
 
 #### 博客 `RSS` 子界面
 
@@ -73,9 +73,9 @@ Android MVP架构系列文章的第1部分和第2部分自发布以来非常受�
 
 (在[项目](https://github.com/MindorksOpenSource/android-mvp-architecture)的 [com.mindorks.framework.mvp.ui.base](https://github.com/MindorksOpenSource/android-mvp-architecture/tree/master/app/src/main/java/com/mindorks/framework/mvp/ui/base) 包里面查看代码 )
 
-1. **BaseDialog**: 这个类里面我们添加 `Dialog` 的模板代码，以及一些通用的方法。实际项目用到的 `Dialog` 可以通过扩展该基类来实现。
-2. **DialogMvpView**: 这个接口定义了 `Presenter` 与 `Dialogs` 交互的API。
-3. **BaseViewHolder**: 它定义了 `RecyclerView` 绑定框架，并实现了 `ViewHolder` 被复用时自动清理视图的功能。
+1. **BaseDialog**：这个类里面我们添加 `Dialog` 的模板代码，以及一些通用的方法。实际项目用到的 `Dialog` 可以通过扩展该基类来实现。
+2. **DialogMvpView**：这个接口定义了 `Presenter` 与 `Dialogs` 交互的API。
+3. **BaseViewHolder**：它定义了 `RecyclerView` 绑定框架，并实现了 `ViewHolder` 被复用时自动清理视图的功能。
 
 ``` java
 public abstract class BaseDialog extends DialogFragment implements DialogMvpView
@@ -105,13 +105,13 @@ public abstract class BaseDialog extends DialogFragment implements DialogMvpView
 
 > 永远不要在任何 `Adapter` 类里面实例化任何对象，或者使用 `new` 操作符生成对象。请通过 `dagger` 注入来获取它们。
 
-`OpenSourceAdapter` 和 `BlogAdapter` 是 `RecyclerView.Adapter<BaseViewHolder>` 的实现类。 在这个项目里面，当没有可用数据的时候会显示一个空视图。用户可以点击 `RETRY` 按钮来重新获取数据，并在获取到数据的时候删除该空视图。
+`OpenSourceAdapter` 和 `BlogAdapter` 是 `RecyclerView.Adapter<BaseViewHolder>` 的实现类。在这个项目里面，当没有可用数据的时候会显示一个空视图。用户可以点击 `RETRY` 按钮来重新获取数据，并在获取到数据的时候删除该空视图。
 
 > `API` 数据分页和网络状态的处理就留给你作为练习。
 
 **现在请通过项目来研究代码，仔细研究XML中的布局以及如何通过代码操作视图。**
 
-如果您觉得有困难或需要任何帮助或改善，请在 `Mindorks` 社区提出你的问题: 点击[**这里**](https://mindorks.com/join-community)加入 `Mindorks Android` 社区，在这里我们可以相互学习。
+如果您觉得有困难或需要任何帮助或改善，请在 `Mindorks` 社区提出你的问题：点击[**这里**](https://mindorks.com/join-community)加入 `Mindorks Android` 社区，在这里我们可以相互学习。
 
 * * *
 
