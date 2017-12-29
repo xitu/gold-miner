@@ -67,7 +67,7 @@
 
 * * *
 
-### 你是怎么想的呢?
+### 你是怎么想的呢？
 
 你有没有想过开发人员怎样去设计更有包容性的游戏呢？在文章下面留言或者twitter中添加**#AskPlayDev**标签后发言，我们会通过 [@GooglePlayDev](http://twitter.com/googleplaydev) （那里我们会展示在Google应用商店获得成功的窍门）回复。
 
