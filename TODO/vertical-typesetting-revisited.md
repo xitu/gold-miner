@@ -5,13 +5,13 @@
 > * 译者：
 > * 校对者：
 
-# 垂直排版：重提 writing-mode
+# 垂直排版：重提 writing-mode
 
 大约一年前， 我写了在一次 Web 中文字体垂直排版的尝试中的[一些发现](https://www.chenhuijing.com/blog/chinese-web-typography/)。结果是一个[简单的 demo](https://www.chenhuijing.com/zh-type)，它允许你通过 hack 复选框来切换书写模式。
 
 我在不久后遇到了 [Yoav Weiss](https://blog.yoav.ws/)，并聊了一下[响应式图片社区小组](http://ricg.io/)，因为我提到如果可以通过媒体查询得到 `picture` 元素的 `writing-mode`，我就不必在切换排版的时候通过一些比较 hack 的方式对图像进行变形。他建议我把它写成[一个响应式图像用例](https://github.com/ResponsiveImagesCG/ri-usecases/issues/63)。
 
-但当我重新打开这个一年没打开的 demo 的时候，我的表情在最初的五分钟由 😱 变成了 😩（我还能说什么呢，我就是这么表情丰富 🤷）。所以为了宣泄，我将一步步写下谁（也就是各种浏览器）破坏了什么以及目前可能的解决办法。
+但当我重新打开这个一年没打开的 demo 的时候，我的表情在最初的五分钟由 😱 变成了 😩（我还能说什么呢，我就是这么表情丰富 🤷）。所以为了宣泄，我将一步步写下谁（也就是各种浏览器）破坏了什么以及目前可能的解决办法。
 
 帖子很长，可以使用链接来跳转。
 
@@ -59,7 +59,7 @@
 
 ![vertical-rl on Firefox](https://www.chenhuijing.com/images/posts/vertical-typesetting/firefox-640.jpg)
 
-天哪，这，我都无语了。Firefox Nightly 是我的默认浏览器，所以我的最初反应是一切都被破坏了。一切确实都被破坏了，看看这无限滚动的滚动条，到底发生了什么？！a
+天哪，这，我都无语了。Firefox Nightly 是我的默认浏览器，所以我的最初反应是一切都被破坏了。一切确实都被破坏了，看看这无限滚动的滚动条，到底发生了什么？！
 
 ![horizontal-tb on Firefox](https://www.chenhuijing.com/images/posts/vertical-typesetting/firefox2-640.jpg)
 
@@ -73,7 +73,7 @@
 
 ![horizontal-tb on Safari TP](https://www.chenhuijing.com/images/posts/vertical-typesetting/stp2-640.jpg)
 
-噢噢噢，这有点居中。不看代码，我也能确定我尝试过一些很奇怪的转译来改变整个内容块，因此在每个浏览器中行为不一致。但这是个令人欣慰的惊喜。
+噢噢噢，这有点居中。不看代码，我也能确定我尝试过一些很奇怪的转译来改变整个内容块，因此在每个浏览器中行为不一致。但这是个令人欣慰的惊喜。
 
 ### Edge 16.17046
 
@@ -120,7 +120,7 @@ iOS 11 WebKit 上的 horizontal-tb
 ### 一些背景
 
 切换器的实现可以用两种形式，一是通过 Javascript 切换类，二是 hack 复选框。我通常倾向于只使用 CSS 的解决方案，所以决定 hack 复选框。这个 demo 足够简单，所以不会有太多键盘控制方面的干扰。我的意思是，你可以像其它任何的复选框一样用 tab 切换到它然后切换。
-我真的需要研究可访问性的问题以确定我是否会在屏幕阅读器上搞砸它，但那是另一回事了。今天优先处理布局问题。
+我真的需要研究可访问性的问题以确定我是否会在屏幕阅读器上搞砸它，但那是另一回事了。今天优先处理布局问题。
 
 如果你没有尝试过 hack 复选框，它涉及到 `:checked` 伪选择器的使用和兄弟或子选择器，你可以通过这种方式用 CSS hack 复选框的状态。
 
@@ -139,7 +139,7 @@ iOS 11 WebKit 上的 horizontal-tb
 </body>
 ```
 
-问题就在复杂度上。在同一个页面上混合使用不同的嵌套的书写模式确实会搞垮浏览器。我不是浏览器工程师，但我有足够的常识知道渲染东西不是微不足道的。但是我是一个执着的人，所以必受其苦。
+问题就在复杂度上。在同一个页面上混合使用不同的嵌套的书写模式确实会搞垮浏览器。我不是浏览器工程师，但我有足够的常识知道渲染东西不是微不足道的。但是我是一个执着的人，所以必受其苦。
 
 ![](https://www.chenhuijing.com/images/posts/vertical-typesetting/diagram.svg)
 
@@ -149,7 +149,7 @@ iOS 11 WebKit 上的 horizontal-tb
 
 ### 调试 101: 重置为基准
 
-记住，这是一个大脑转储条目，如果你觉得无聊，我对此表示抱歉。我做的第一件事就是删除所有样式，重新开始。再次重申，这个 demo 有效是因为它十分简单。上下文才是一切，朋友们。
+记住，这是一个大脑转储条目，如果你觉得无聊，我对此表示抱歉。我做的第一件事就是删除所有样式，重新开始。再次重申，这个 demo 有效是因为它十分简单。上下文才是一切，朋友们。
 
 ```
 html {
@@ -175,7 +175,7 @@ body {
 
 这个 demo 几乎全是中文，所以我只添加了中文字体，把系统自带的 sans-serif 作为后备。不过大多数情况来说，优先选择基于拉丁语的字体是个普遍的共识。但在这里，中文字体支持基本的拉丁字符，而反过来情况就不一样了。
 
-当浏览器遇到中文字符时，它不会在基于拉丁语的字体中寻找，所以它会选用下一种备选字体，直到找到合适的。如果你先将中文字体列出来，浏览器将使用中文字体中的拉丁语字符，有时候这些字形没被打磨，看起来也不太好，尤其是在 Windows 上。
+当浏览器遇到中文字符时，它不会在基于拉丁语的字体中寻找，所以它会选用下一种备选字体，直到找到合适的。如果你先将中文字体列出来，浏览器将使用中文字体中的拉丁语字符，有时候这些字形没被打磨，看起来也不太好，尤其是在 Windows 上。
 
 接下来是一些不太影响布局的美化（`line-height` 算吗？🤔）
 
@@ -205,7 +205,7 @@ figcaption {
 
 每一个元素的 `writing-mode` 的默认值都是 `horizontal-tb`，而且它是一个继承属性。如果你设置了一个元素的 `writing-mode`，这个值将传递到它所有的子元素。
 
-如果我们将 `main` 元素的 `writing-mode` 设置为 `vertical-rl` ，在每个浏览器上，所有的文字和图像都被正确渲染了。Firefox 有轻微的垂直溢出，我怀疑是因为滚动条，不过我不能确定。其它的浏览器一点水平溢出都没有。
+如果我们将 `main` 元素的 `writing-mode` 设置为 `vertical-rl` ，在每个浏览器上，所有的文字和图像都被正确渲染了。Firefox 有轻微的垂直溢出，我怀疑是因为滚动条，不过我不能确定。其它的浏览器一点水平溢出都没有。
 
 ![vertical-rl on the main element](https://www.chenhuijing.com/images/posts/vertical-typesetting/main-640.jpg)
 
@@ -280,11 +280,11 @@ function changeEventHandler(event) {
 
 有趣的是，在垂直书写模式，我们可以用 `margin-top: auto` 和 `margin-bottom: auto` 来垂直居中。但相信我，水平居中将比你想象的更令人痛苦。在下一个 hack 复选框的部分你将看到。
 
-**意外的 TIL**: Microsoft Edge 遵守 ECMAScript5「**严格模式下不允许分配只读属性**」的规范，但是 Chrome 和 Firefox 在严格怪异模式下仍然允许，很可能是为了代码兼容。我最初尝试使用 `classList` 来切换类名，但它是一个只读属性，而 `className` 则不是。相关阅读在[下面的链接](#further-reading)。
+**意外的 TIL**: Microsoft Edge 遵守 ECMAScript5「**严格模式下不允许分配只读属性**」的规范，但是 Chrome 和 Firefox 在严格怪异模式下仍然允许，很可能是为了代码兼容。我最初尝试使用 `classList` 来切换类名，但它是一个只读属性，而 `className` 则不是。相关阅读在[下面的链接](#further-reading)。
 
 ### 解决方案 2: 复选框 hack
 
-这个方案的原理类似使用 Javascript，区别在于我们不使用 CSS 类来改变状态，而是使用 `:checked` 伪元素。如我们前面所讨论的，复选框元素必须和 `main` 元素在同一层级才会生效。
+这个方案的原理类似使用 Javascript，区别在于我们不使用 CSS 类来改变状态，而是使用 `:checked` 伪元素。如我们前面所讨论的，复选框元素必须和 `main` 元素在同一层级才会生效。
 
 ```
 .c-switcher__checkbox:checked ~ main {
@@ -302,7 +302,7 @@ function changeEventHandler(event) {
 ```
 
 布局代码与 `.vertical` 和 `.horizontal` 一样，但，结果却不一样。垂直居中是好的，看起来好像是我们在用 Javascript。但是水平居中歪向了右边。自动 margin 在这一部分似乎完全没有发挥作用。
-但仔细一想，这其实是「正确」的行为，因为我们同样不能用这种方式在水平书写模式下实现垂直居中。为什么呢？让我们来看一下规范。
+但仔细一想，这其实是「正确」的行为，因为我们同样不能用这种方式在水平书写模式下实现垂直居中。为什么呢？让我们来看一下规范。
 
 所有的 CSS 属性都有值，一旦你的浏览器解析了一个文档并构建了 DOM 树，每个元素的每个属性都需要赋值。[Lin Clark](http://lin-clark.com/) 写了[一个精彩的代码漫画](https://hacks.mozilla.org/2017/08/inside-a-super-fast-css-engine-quantum-css-aka-stylo/)来解释 CSS 引擎如何工作，你不能错过它！话说回来，值，规范里说：
 
@@ -337,7 +337,7 @@ function changeEventHandler(event) {
 
 ### 经典的属性
 
-既然我们正在一个干净的页面工作，让我们试试最基础的居中技术：`text-align`。默认情况下，图像和文本是内联元素。给 figure 元素设置 `text-align: center`，天呐，成功了 😱！
+既然我们正在一个干净的页面工作，让我们试试最基础的居中技术：`text-align`。默认情况下，图像和文本是内联元素。给 figure 元素设置 `text-align: center`，天呐，成功了 😱！
 
 水平和垂直书写模式下的图像都已经成功地居中了。我现在非常担心一年前我做这个的时候的智商。显然，为了我的目的和意图，弹性盒模型是不必要的。我首先尝试了新的技术，但它让我付出了代价。
 
@@ -484,7 +484,7 @@ Firefox 上一个有趣的观察是，弹性容器的宽被视窗的宽度限制
 
 ![Grid inspector tool issue in vertical writing-mode](https://www.chenhuijing.com/images/posts/vertical-typesetting/gridtool-640.jpg)
 
-我需要为使用 grid 的垂直书写模式创建一个简化的测试用例，那会成为一个简单得多的 demo 并单独写一篇文章（可能还有相关的错误报告）。
+我需要为使用 grid 的垂直书写模式创建一个简化的测试用例，那会成为一个简单得多的 demo 并单独写一篇文章（可能还有相关的错误报告）。
 
 ## 成功的解决方案？
 
