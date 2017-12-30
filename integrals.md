@@ -1796,10 +1796,11 @@
 |[Swift 中的面向协议编程是如何点亮我的人生的](http://gold.xitu.io/entry/58044fc5a22b9d005b4f56b2)|翻译|4|
 |[Swift 3，这些陷阱在等你](http://gold.xitu.io/entry/57f6fa03816dfa0056a4d782/)|校对|1|
 
-## 译者：[tina92](https://github.com/Tina92) 历史贡献积分：54.5 当前积分：24.5
+## 译者：[tina92](https://github.com/Tina92) 历史贡献积分：56 当前积分：26
 
 |文章|类型|积分|
 |------|-------|-------|
+|[论原子 CSS 的日益普及](https://juejin.im/post/5a4387af6fb9a045186b04d1)|校对|1.5|
 |[React 组件的 8 个关键决策](https://juejin.im/post/59f7e2c5f265da4318760a5f)|校对|1|
 |[React 系列教程](#)|翻译|3|
 |[React 16 带来了什么以及对 Fiber 架构的解释](https://juejin.im/post/59de1b2a51882578c70c0833)|校对|1|
@@ -2919,10 +2920,11 @@
 |[同中有异的 Webpack 与 Rollup](https://juejin.im/post/58edb865570c350057f199a7)|校对|1|
 |[webpack 拾翠：充分利用 CommonsChunkPlugin()](https://juejin.im/post/58ec4e3f5c497d0062c470bf)|校对|1|
 
-## 译者：[yoyoyohamapi](https://github.com/yoyoyohamapi) 历史贡献积分：63.5 当前积分：28.5
+## 译者：[yoyoyohamapi](https://github.com/yoyoyohamapi) 历史贡献积分：64.5 当前积分：29.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[在 Redux 中使用 AJAX 轮询（二）：Saga 篇](https://juejin.im/post/5a43b80df265da43176a6e4e)|校对|1|
 |[用 Render props 吧！](https://juejin.im/post/5a3087746fb9a0450c4963a5)|翻译|5|
 |[模拟是一种代码异味（软件编写）（第十二部分）](https://juejin.im/post/5a2d363e6fb9a0450b6652c8)|翻译|10|
 |[ES6 中的元编程： 第三部分 - 代理（Proxies）](https://juejin.im/post/5a0f05496fb9a04508093ac4)|翻译|5|
@@ -3435,10 +3437,11 @@
 |------|-------|-------|
 |[深度学习的未来](https://juejin.im/post/597843506fb9a06ba4747db5)|校对|2|
 
-## 译者：[sunshine940326](https://github.com/sunshine940326) 历史贡献积分：77.8 当前积分：37.8
+## 译者：[sunshine940326](https://github.com/sunshine940326) 历史贡献积分：82.8 当前积分：42.8
 
 |文章|类型|积分|
 |------|-------|-------|
+|[论原子 CSS 的日益普及](https://juejin.im/post/5a4387af6fb9a045186b04d1)|翻译|5|
 |[Chrome DevTools - 性能监控](https://juejin.im/post/5a37b2f56fb9a0451e3fe73d)|翻译|2|
 |[介绍 Turbo：比 Yarn 和 NPM 快 5 倍，可以在本地浏览器中运行](https://juejin.im/post/5a35d58ef265da431a434441)|翻译|3.5|
 |[区块链中的共识机制 DBFT](https://juejin.im/entry/59cba85ef265da06507542a4/detail)|校对|2|
@@ -4365,8 +4368,26 @@
 |------|-------|-------|
 |[使用 CSS Grid：以兼容不支持栅格化布局的浏览器](https://juejin.im/post/5a3f494d6fb9a0450a678f8d)|校对|2|
 
-## 译者：[proYang ](https://github.com/proYang ) 历史贡献积分：3 当前积分：3
+## 译者：[proYang](https://github.com/proYang) 历史贡献积分：3 当前积分：3
 
 |文章|类型|积分|
 |------|-------|-------|
 |[推荐多篇优秀英文文章奖励]()|奖励|3|
+
+## 译者：[ClarenceC](https://github.com/ClarenceC) 历史贡献积分：1.5 当前积分：1.5
+
+|文章|类型|积分|
+|------|-------|-------|
+|[论原子 CSS 的日益普及](https://juejin.im/post/5a4387af6fb9a045186b04d1)|校对|1.5|
+
+## 译者：[lcx-seima](https://github.com/lcx-seima) 历史贡献积分：3 当前积分：3
+
+|文章|类型|积分|
+|------|-------|-------|
+|[在 Redux 中使用 AJAX 轮询（二）：Saga 篇](https://juejin.im/post/5a43b80df265da43176a6e4e)|翻译|3|
+
+## 译者：[FateZeros](https://github.com/FateZeros) 历史贡献积分：1 当前积分：1
+
+|文章|类型|积分|
+|------|-------|-------|
+|[在 Redux 中使用 AJAX 轮询（二）：Saga 篇](https://juejin.im/post/5a43b80df265da43176a6e4e)|校对|1|
