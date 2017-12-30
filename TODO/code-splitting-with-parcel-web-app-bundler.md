@@ -2,64 +2,64 @@
 > * 原文作者：[Ankush Chatterjee](https://hackernoon.com/@ankushc?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/code-splitting-with-parcel-web-app-bundler.md](https://github.com/xitu/gold-miner/blob/master/TODO/code-splitting-with-parcel-web-app-bundler.md)
-> * 译者：
-> * 校对者：
+> * 译者：[kk](https://github.com/kangkai124)
+> * 校对者：[noahziheng](https://github.com/noahziheng) [pot-code](https://github.com/pot-code)
 
-# Code Splitting with Parcel Web App Bundler
+# 使用 web 应用打包工具 Parcel 实现代码分割
 
 ![](https://cdn-images-1.medium.com/max/800/1*3Tp8OGHuIlun20JS84i7DA.gif)
 
-Code Splitting!! Quite a buzzword in web development nowadays. Today, we will explore code splitting and see how can we do it super easily with parcel.
+代码分割可谓是当今 web 开发中很热门的话题。今天，我们将探索如何使用 parcel 轻松地实现代码分割。
 
-#### What is Code Splitting?
+#### 什么是代码分割？
 
-If you are already familiar with it… you may skip this part, others, ride along…
+如果你对它很熟悉，那么你可以跳过这部分。不然的话，还是接着往下看吧。
 
-If you have done frontend web development with any JavaScript framework, you have surely packed all of your modules into one big bundle JavaScript file, which you attach to your webpage and do amazing stuff. But hey, those bundles are quite big! You have written your awesome(and complicated) web app, with so many parts… they ought to produce big bundles; and bigger the things, longer it takes to download them on slow networks. Ask yourself the question, does the user need _all of it_ at once?
+如果你使用过 JavaScript 框架进行前端开发的话，那么最后肯定会打包成一个很大的 JavaScript 文件。可能因为你写的应用比较复杂，有很多模块之类，总之，这些包都太大了。文件一大，下载的时间就越长，在带宽较低的网络环境下问题尤为显著。所以，请仔细斟酌一下：用户是否真的需要一次性加载所有的功能？
 
-Imagine it’s an e-commerce single page app. The user logs in to see the product listing, he may have come just to check out the products, but he has already spent a lot of time and data not just to download the JavaScript to render the product listing, but also the JavaScript to render about, filters, product detail, offers… and so on and so forth.
+想象有这么一个电子商务的单页面应用。用户登录进来能只是想看一下产品清单，但是他已经花了很长时间，下载到的 JavaScript 不仅仅是渲染产品那部分，还渲染了过滤、产品详情、供货等等等等。
 
-By doing this we are doing the users injustice!! Wont it be awesome, if we could _give the users what they need,only when they need it?._
+如果这样做的话，那对用户太不公平了！如果我们只加载用户需要的那部分代码，是不是特别赞？
 
-So, this idea of splitting your large bundle into multiple smaller bundles is called code splitting. These smaller bundles are loaded on demand and asynchronously. It surely sounds tough to do, but modern bundlers like Webpack make it quite easy, and parcel takes this easiness to whole another level.
+所以，这种把比较大的包拆分成多个更小的包的方法就是代码分割。这些更小的包可以按需或者异步加载。虽然听上去很难实现，但是像 webpack 这种现代打包工具就能帮你做这件事，而 parcel 使用起来更加简单。
 
 ![](https://cdn-images-1.medium.com/max/800/1*WKxqnQQJjn03TXiBM4TYfw.png)
 
-The parent is divided into these cute babies. Courtesy [Shreya](https://medium.com/@shreyawriteshere) [[Instagram](https://www.instagram.com/shreyadoodles/)]
+文件拆分成了这些可爱的小 baby 们。来自 [Shreya](https://medium.com/@shreyawriteshere) [[Instagram](https://www.instagram.com/shreyadoodles/)]
 
-#### So, what is this new Parcel thing??
+#### Parcel 到底是什么呢？
 
-[Parcel](https://parceljs.org/) is the
+[Parcel](https://parceljs.org/) 是一个
 
-> Blazing fast, zero configuration web application bundler
+> 极速零配置 web 应用打包工具
 
-It makes module bundling really very easy!! If you haven’t heard about it, I recommend [this article](https://medium.freecodecamp.org/all-you-need-to-know-about-parcel-dbe151b70082) by [Indrek Lasn](https://medium.com/@wesharehoodies).
+它使得模块打包变得十分简单！如果你还不知道 Parcel，推荐你先看一下 [Indrek Lasn](https://medium.com/@wesharehoodies) 写的 [这篇文章](https://medium.freecodecamp.org/all-you-need-to-know-about-parcel-dbe151b70082)。
 
-#### Let’s get Splitting!
+#### 开始吧！
 
-To the coding part… I wont use any framework here(which you normally would), but framework or no framework, the process would remain the same. This example would have really really simple code to demonstrate the process.
+嗯...代码部分，我不会使用任何框架，用不用框架并不影响操作。下面例子会用非常简单的代码展示如何拆分代码。
 
-Create a new empty directory, and `init` a project, by
+创建一个新的文件夹， `初始化` 一个项目：
 
 ```
 npm init
 ```
 
-Or,
+或者，
 
 ```
 yarn init
 ```
 
-Start it with whatever your favorite is(yarn in my case 😉) and create the files like show below.
+选择你喜欢的方式（yarn 是我的菜 😉），然后按照下图创建一些文件。
 
 ![](https://cdn-images-1.medium.com/max/800/1*oZy87TFDpGZYXf05uunBxA.png)
 
-World’s simplest file structure
+世界上最简单的结构有没有？
 
-The idea is, we will only include the contents of `index.js` in our `index.html` and on an event(it will be a button click in this case) we will load `someModule.js` and render some content with it.
+这个例子中，我们只在 `index.html` 中引入 `index.js` 文件，然后通过一个事件（这个例子中我们使用点击按钮）加载 `someModule.js` 文件，并用它里面的方法来渲染一些内容。
 
-Open `index.html` and add the following code.
+打开 `index.html` 添加如下代码。
 
 ```
 <!DOCTYPE html>
@@ -77,9 +77,9 @@ Open `index.html` and add the following code.
 </html>
 ```
 
-Nothing special, just basic HTML boiler plate, with a button and a `div` where we will render the content from `someModule.js`
+例子很简单，只是一个 HTML 模板，包括一个 button 按钮和渲染 `someModule.js` 内容的 `div`。
 
-So, lets write the code for the module `someModule`
+接着我们来写 `someModule` 文件：
 
 ```
 console.log("someModule.js loaded");
@@ -90,13 +90,13 @@ module.exports = {
 }
 ```
 
-We are exporting an object, which has a function `render` which takes in an element and sets its inner HTML to “You clicked a button”.
+我们 export 了一个对象，它有一个 `render` 方法，接收一个元素并将「You clicked a button」渲染到这个元素内部。
 
-Now, comes the magic. In our `index.js` file we have to handle the button click event and dynamically load `someModule`
+现在有意思了。在我们的 `index.js` 中，我们要处理 button 按钮的点击事件，动态的加载 `someModule`。
 
-For the dynamic asynchronous loading we will use the `import()` function syntax. This function loads a module on demand and asynchronously.
+对于动态的异步加载，我们使用 `import()` 语法，它会按需异步加载一个模块。
 
-Look at the usage,
+看一下如何使用，
 
 ```
 import('./path/to/module').then(function(page){
@@ -104,9 +104,9 @@ import('./path/to/module').then(function(page){
 });
 ```
 
-As `import` is asynchronous it returns a promise which we handle with `then`. In `then` we pass a function which accepts the object loaded from the module. It is similar to `const page = require('./path/to/module');`, only done dynamically and asynchronously.
+因为 `import` 是异步的，所以我们用 `then` 来处理它返回的 promise 对象。在 `then` 方法中，我们传入一个函数，这个函数接收从该模块加载进来的对象。这和 `const page = require('./path/to/module');` 很相似，只是动态异步执行而已。
 
-In our case,
+在我们的例子中这么写，
 
 ```
 import('./someModule').then(function (page) {
@@ -114,9 +114,9 @@ import('./someModule').then(function (page) {
 });
 ```
 
-We load `someModule` and call its render function.
+于是我们加载了 `someModule` 并调用了它的 render 方法。
 
-Lets add it up inside a button’s click event listener.
+接着把它加到按钮点击事件的监听函数中。
 
 ```
 console.log("index.js loaded");
@@ -130,29 +130,29 @@ window.onload = function(){
 }
 ```
 
-Now that the code is all written, let’s run parcel. Parcel will automatically handle all the configuration work!
+至此代码已经写完了，接下来只需要运行 parcel 即可，它会自动完成所有的配置工作！
 
 ```
 parcel index.html
 ```
 
-It produces, the following files.
+它会产生以下的文件。
 
 ![](https://cdn-images-1.medium.com/max/800/1*NEtHUZA1zchHSsWuOqB6mQ.png)
 
-Run it in your browser and observe.
+在你的浏览器中运行，观察结果。
 
 ![](https://cdn-images-1.medium.com/max/800/1*RIhun_YTgvmtvHgeqKWNkw.png)
 
-Console output
+控制台输出
 
 ![](https://cdn-images-1.medium.com/max/800/1*kS4YO7jH-6sA49LuWs-lsA.png)
 
-Network tab
+网络活动记录
 
-Notice in the console output, `someModule` is loaded only after the button click. In the network tab see how the module is loaded by `codesplit-parcel.js` after `import` function call.
+可以从控制台输出看到，`someModule` 在按钮被点击之后才被加载。通过 network 可以看到调用 import 后，`codesplit-parcel.js` 是如何加载模块的。
 
-Code Splitting is something awesome, and if it can be done so easily, there is no reason we should step back from it. 💞💞
+代码分割是多么神奇的一件事，既然我们可以这么简单的实现，那我们还有理由不用吗？💞💞
 
 
 ---
