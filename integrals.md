@@ -85,10 +85,11 @@
 |[第一次翻译计划文章已兑换Octocat小]()|减去积分|15|
 |[Vector For All (slight return)](http://gold.xitu.io/entry/5756697ea341310063dd532c)|翻译|4|
 
-## 译者：[joyking7](https://github.com/joyking7) 历史贡献积分：52.5 当前积分：17.5
+## 译者：[joyking7](https://github.com/joyking7) 历史贡献积分：59.5 当前积分：24.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|7|
 |[TensorFlow 官方文档翻译校对]()|翻译|8|
 |[并发编程](https://juejin.im/post/59ecb058f265da43346f10e5)|校对|1.5|
 |[什么是蒙特卡洛树搜索](https://juejin.im/post/59f16e8c5188250385371302)|校对|1|
@@ -1146,10 +1147,11 @@
 |[Java 不可变类的整洁之道](https://gold.xitu.io/entry/5774fe212e958a22d884a49c)|校对|1|
 |[深度讲解 Android 主题层级](https://gold.xitu.io/entry/576b9f912e958a005715c7a0)|校对|1|
 
-## 译者：[owenlyn](https://github.com/owenlyn) 历史贡献积分：32 当前积分：32
+## 译者：[owenlyn](https://github.com/owenlyn) 历史贡献积分：35 当前积分：35
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|3|
 |[真正行动之前 你将一无所成](https://juejin.im/entry/58f6136861ff4b00580aef28)|翻译|3|
 |[探索 Firebase 在 Android 和 iOS 的使用: Analytics (分析模块)](http://gold.xitu.io/entry/5816ac62a22b9d00678ee434/)|校对|2|
 |[如何使用 UIFeedbackGenerator 让应用支持 iOS 10 的触觉反馈](http://gold.xitu.io/entry/5810433ac4c9710058a74100)|翻译|3|
@@ -1979,10 +1981,11 @@
 |[理解 iOS 应用程序的代码签名 (CODE SIGN) 机制](http://gold.xitu.io/entry/5826ef85570c3500586b241d/)|校对|1|
 |[Swift 3 语言中的全模块优化](http://gold.xitu.io/entry/5818b6f52f301e005cf0ef8e/)|校对|1|
 
-## 译者：[romeo0906](https://github.com/Romeo0906) 历史贡献积分：118 当前积分：23
+## 译者：[romeo0906](https://github.com/Romeo0906) 历史贡献积分：118.5 当前积分：23.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|0.5|
 |[2017 年 10 月兑 树莓派套餐 1 个](#)|减去积分|45|
 |[区块链中的共识机制 DBFT](https://juejin.im/entry/59cba85ef265da06507542a4/detail)|翻译|8|
 |[何为 HTML API，如何设计之？](https://juejin.im/entry/59131ee7a0bb9f0058ba4a88/)|翻译|9|
@@ -3078,10 +3081,11 @@
 |------|-------|-------|
 |[开发者（也就是我）与Rx Observable 类的对话 [ Android RxJava2 ] ( 这到底是什么？) 第五部分](https://juejin.im/post/590ab4f7128fe10058f35119)|校对|1|
 
-## 译者：[leviding](https://github.com/leviding) 历史贡献积分：55 当前积分：10
+## 译者：[leviding](https://github.com/leviding) 历史贡献积分：66 当前积分：21
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|11|
 |[全新 Android 注入器 : Dagger 2（二）](https://juejin.im/post/5a3a1883f265da4321542fc1)|校对|1|
 |[2017 年 11 月兑换 套头衫和各一个]()|减去积分|30|
 |[学习 JavaScript：9个常见错误阻碍你进步](https://juejin.im/post/59bb4a7c6fb9a00a53274cd7)|翻译|3|
@@ -3122,10 +3126,11 @@
 |[前端调试技巧与诀窍](https://juejin.im/post/5901e8d6a0bb9f0065e64f63)|校对|2|
 |[别让你的偏爱拖了后腿：快拥抱箭头函数吧！](https://juejin.im/post/59158c92a0bb9f005fd58fd7)|校对|2|
 
-## 译者：[changkun](https://github.com/changkun) 历史贡献积分：85.2 当前积分：85.2
+## 译者：[changkun](https://github.com/changkun) 历史贡献积分：93.2 当前积分：93.2
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|8|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|7|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|1.5|
 |[RNN 循环神经网络系列 4: 注意力机制](https://juejin.im/post/59f72f61f265da432002871c)|校对|2|
@@ -4005,10 +4010,11 @@
 |[JavaScript 如何工作：在 V8 引擎里 5 个优化代码的技巧](https://juejin.im/post/5a102e656fb9a044fd1158c6)|校对|2|
 |[Vue Report 2017](https://juejin.im/post/5a138fae5188254d28732899)|翻译|4|
 
-## 译者：[caoyi0905](https://github.com/caoyi0905) 历史贡献积分：17.5 当前积分：7.5
+## 译者：[caoyi0905](https://github.com/caoyi0905) 历史贡献积分：25.5 当前积分：15.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|8|
 |[TensorFlow 官方文档翻译校对]()|翻译|10|
 |[ES6 中的元编程： 第三部分 - 代理（Proxies）](https://juejin.im/post/5a0f05496fb9a04508093ac4)|校对|1.5|
 |[Angular、React、Vue 三剑客: 在 2017 年的比较](https://juejin.im/post/5a0d5df1f265da43062a542f)|校对|3|
@@ -4016,10 +4022,11 @@
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|1|
 |[Vue Report 2017](https://juejin.im/post/5a138fae5188254d28732899)|翻译|2|
 
-## 译者：[JohnJiangLA](https://github.com/JohnJiangLA) 历史贡献积分：23 当前积分：23
+## 译者：[JohnJiangLA](https://github.com/JohnJiangLA) 历史贡献积分：34 当前积分：34
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|11|
 |[IBM 工程师的 TensorFlow 入门指北](https://juejin.im/post/5a3d1ecb518825256362de6a)|翻译|6|
 |[TensorFlow 官方文档翻译校对]()|翻译|15|
 |[Vue Report 2017](https://juejin.im/post/5a138fae5188254d28732899)|翻译|2|
@@ -4073,10 +4080,11 @@
 |------|-------|-------|
 |[僵尸币时代即将到来?](https://juejin.im/post/5a0e82315188252ae93a843a)|翻译|2|
 
-## 译者：[MRNIU](https://github.com/MRNIU) 历史贡献积分：12.5 当前积分：12.5
+## 译者：[MRNIU](https://github.com/MRNIU) 历史贡献积分：15.5 当前积分：15.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|3|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|1.5|
 |[TensorFlow 官方文档翻译校对]()|翻译|6|
 |[TensorFlow 官方文档翻译校对]()|翻译|4.5|
@@ -4356,3 +4364,9 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[使用 CSS Grid：以兼容不支持栅格化布局的浏览器](https://juejin.im/post/5a3f494d6fb9a0450a678f8d)|校对|2|
+
+## 译者：[proYang ](https://github.com/proYang ) 历史贡献积分：3 当前积分：3
+
+|文章|类型|积分|
+|------|-------|-------|
+|[推荐多篇优秀英文文章奖励]()|奖励|3|
