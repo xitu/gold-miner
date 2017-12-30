@@ -1,3 +1,5 @@
+* [智对订阅难点：教你如何应对工作中 10 种常见订阅问题](https://juejin.im/post/5a406644f265da430d583cb7) ([pot-code](https://github.com/pot-code) 翻译)
+* [Android MVP 架构必要知识：第三部分（Dialog，ViewPager，RecyclerView 以及 Adapters)](https://juejin.im/post/5a45fe846fb9a0450c49bba0) ([woitaylor](https://github.com/woitaylor) 翻译)
 * [app 里的 A／B 测试简介](https://juejin.im/post/5a2df63551882531ba10e313) ([mnikn](https://github.com/mnikn) 翻译)
 * [从应用探索者到初次购买者](https://juejin.im/post/5a24b9fc6fb9a04519696a06) ([ppp-man](https://github.com/ppp-man) 翻译)
 * [用 CoordinatorLayout 处理滚动](https://juejin.im/post/5a27b353f265da430d57e36e) ([Feximin](https://github.com/Feximin) 翻译)
