@@ -1619,10 +1619,11 @@
 |[如何创建高度模块化的 Android 应用](http://gold.xitu.io/entry/57b12cf4165abd00542a3ee1)|校对|1|
 |[这样做才能设计出更好的数据表](http://gold.xitu.io/entry/57af3cbc5bbb500062cb38a5)|校对|1|
 
-## 译者：[zhouzihanntu](https://github.com/zhouzihanntu) 历史贡献积分：35 当前积分：0
+## 译者：[zhouzihanntu](https://github.com/zhouzihanntu) 历史贡献积分：39 当前积分：4
 
 |文章|类型|积分|
 |------|-------|-------|
+|[2017 年 JavaScript 发展状况回顾](https://juejin.im/entry/5a44a500f265da43271887f0/)|校对|4|
 |[2017 04 月份兑换兑换 Octoplush 和贴纸 part 1 一个]()|减去积分|35|
 |[关于在 Node.js 中引用模块，知道这些就够了](https://juejin.im/post/58eb3812da2f60005f0bae9b)|翻译|9|
 |[创建和使用 WebAssembly 组件](https://juejin.im/post/58d0bbe144d90400684c0f3a)|校对|1|
@@ -2368,10 +2369,11 @@
 |[防守式编程的艺术](https://gold.xitu.io/entry/58980dbc1b69e6005997f069)|校对|1|
 |[为何我抵制使用缓存？](https://gold.xitu.io/entry/5884184f1b69e60058dc7fc6)|校对|1|
 
-## 译者：[vuuihc](https://github.com/vuuihc) 历史贡献积分：32 当前积分：32
+## 译者：[vuuihc](https://github.com/vuuihc) 历史贡献积分：33 当前积分：33
 
 |文章|类型|积分|
 |------|-------|-------|
+|[如何在 JavaScript 中使用 Generator?](https://juejin.im/post/5a44968df265da4335630fb9)|校对|1|
 |[TensorFlow 官方文档翻译校对]()|翻译|12|
 |[React 组件的 8 个关键决策](https://juejin.im/post/59f7e2c5f265da4318760a5f)|校对|1|
 |[Preload，Prefetch 和它们在 Chrome 之中的优先级](https://juejin.im/post/58e8acf10ce46300585a7a42)|校对|1|
@@ -2920,10 +2922,11 @@
 |[同中有异的 Webpack 与 Rollup](https://juejin.im/post/58edb865570c350057f199a7)|校对|1|
 |[webpack 拾翠：充分利用 CommonsChunkPlugin()](https://juejin.im/post/58ec4e3f5c497d0062c470bf)|校对|1|
 
-## 译者：[yoyoyohamapi](https://github.com/yoyoyohamapi) 历史贡献积分：64.5 当前积分：29.5
+## 译者：[yoyoyohamapi](https://github.com/yoyoyohamapi) 历史贡献积分：65.5 当前积分：30.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[在 Redux 中使用 AJAX 轮询](https://juejin.im/post/5a43b6da5188257d167a7aef)|校对|1|
 |[在 Redux 中使用 AJAX 轮询（二）：Saga 篇](https://juejin.im/post/5a43b80df265da43176a6e4e)|校对|1|
 |[用 Render props 吧！](https://juejin.im/post/5a3087746fb9a0450c4963a5)|翻译|5|
 |[模拟是一种代码异味（软件编写）（第十二部分）](https://juejin.im/post/5a2d363e6fb9a0450b6652c8)|翻译|10|
@@ -3083,10 +3086,13 @@
 |------|-------|-------|
 |[开发者（也就是我）与Rx Observable 类的对话 [ Android RxJava2 ] ( 这到底是什么？) 第五部分](https://juejin.im/post/590ab4f7128fe10058f35119)|校对|1|
 
-## 译者：[leviding](https://github.com/leviding) 历史贡献积分：66 当前积分：21
+## 译者：[leviding](https://github.com/leviding) 历史贡献积分：79 当前积分：34
 
 |文章|类型|积分|
 |------|-------|-------|
+|[自动化持续集成/持续分发，以节省更多时间编写代码](https://juejin.im/post/5a44aab86fb9a044ff31c418)|校对|1|
+|[为什么我们从来不去感谢开源项目维护者](https://juejin.im/post/5a40c20b518825696f7e3c23)|翻译|4|
+|[2017 年 JavaScript 发展状况回顾](https://juejin.im/entry/5a44a500f265da43271887f0/)|翻译|8|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|11|
 |[全新 Android 注入器 : Dagger 2（二）](https://juejin.im/post/5a3a1883f265da4321542fc1)|校对|1|
 |[2017 年 11 月兑换 套头衫和各一个]()|减去积分|30|
@@ -3715,10 +3721,11 @@
 |[翻译 Java 开源库 8 个](#)|翻译|0.8|
 |[2017年，日志系统的一次概述](https://juejin.im/post/59b8e345f265da0660296161)|翻译|6|
 
-## 译者：[yanyixin](https://github.com/yanyixin) 历史贡献积分：2 当前积分：2
+## 译者：[yanyixin](https://github.com/yanyixin) 历史贡献积分：6 当前积分：6
 
 |文章|类型|积分|
 |------|-------|-------|
+|[2017 年 JavaScript 发展状况回顾](https://juejin.im/entry/5a44a500f265da43271887f0/)|校对|4|
 |[Chrome DevTools - 性能监控](https://juejin.im/post/5a37b2f56fb9a0451e3fe73d)|校对|0.5|
 |[介绍 Turbo：比 Yarn 和 NPM 快 5 倍，可以在本地浏览器中运行](https://juejin.im/post/5a35d58ef265da431a434441)|校对|1|
 |[离线友好的表单](https://juejin.im/post/59c138e35188253fbd46c5fc)|校对|0.5|
@@ -4183,10 +4190,11 @@
 |------|-------|-------|
 |[TensorFlow 官方文档翻译校对]()|翻译|6|
 
-## 译者：[jonjia](https://github.com/jonjia) 历史贡献积分：11.5 当前积分：11.5
+## 译者：[jonjia](https://github.com/jonjia) 历史贡献积分：15.5 当前积分：15.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[如何在 JavaScript 中使用 Generator?](https://juejin.im/post/5a44968df265da4335630fb9)|翻译|4|
 |[如何取消你的 Promise？](https://juejin.im/post/5a32705a6fb9a045117127fa)|翻译|4|
 |[你想学 React.js 吗？](https://juejin.im/post/5a2f8ea5f265da43305e6f6b)|校对|1|
 |[React 应用性能调优](https://juejin.im/post/5a289cc6f265da43346fcc8d)|校对|1.5|
@@ -4274,10 +4282,11 @@
 |------|-------|-------|
 |[从 Gzip 压缩 SVG 说起 — 论如何减小资源文件的大小](https://juejin.im/post/5a30a7fdf265da4309452517)|校对|1|
 
-## 译者：[noahziheng](https://github.com/noahziheng) 历史贡献积分：2.5 当前积分：2.5
+## 译者：[noahziheng](https://github.com/noahziheng) 历史贡献积分：3.5 当前积分：3.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Face ID 对易用性意味着什么](https://juejin.im/post/5a41d01cf265da432c241943)|校对|1|
 |[Chrome DevTools - 性能监控](https://juejin.im/post/5a37b2f56fb9a0451e3fe73d)|校对|0.5|
 |[如何用 TypeScript 玩转后端？](https://juejin.im/post/5a36837d6fb9a045167d4644)|校对|1|
 |[介绍 Turbo：比 Yarn 和 NPM 快 5 倍，可以在本地浏览器中运行](https://juejin.im/post/5a35d58ef265da431a434441)|校对|1|
@@ -4288,16 +4297,18 @@
 |------|-------|-------|
 |[如何取消你的 Promise？](https://juejin.im/post/5a32705a6fb9a045117127fa)|校对|1|
 
-## 译者：[winry01](https://github.com/winry01) 历史贡献积分：2 当前积分：2
+## 译者：[winry01](https://github.com/winry01) 历史贡献积分：6 当前积分：6
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Face ID 对易用性意味着什么](https://juejin.im/post/5a41d01cf265da432c241943)|翻译|4|
 |[app 里的 A／B 测试简介](https://juejin.im/post/5a2df63551882531ba10e313)|校对|2|
 
-## 译者：[woitaylor](https://github.com/woitaylor) 历史贡献积分：5 当前积分：5
+## 译者：[woitaylor](https://github.com/woitaylor) 历史贡献积分：8 当前积分：8
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Android MVP 架构必要知识：第三部分（Dialog，ViewPager，RecyclerView 以及 Adapters)](https://juejin.im/post/5a45fe846fb9a0450c49bba0)|翻译|3|
 |[全新 Android 注入器 : Dagger 2（三）](https://juejin.im/post/5a3e49eb5188252582279839)|翻译|3|
 |[全新 Android 注入器 : Dagger 2（二）](https://juejin.im/post/5a3a1883f265da4321542fc1)|翻译|2|
 
@@ -4350,10 +4361,11 @@
 |------|-------|-------|
 |[创建无障碍 React 应用](https://llp0574.github.io/2017/12/20/creating-accessible-react-apps/)|校对|2|
 
-## 译者：[zhaoyi0113](https://github.com/zhaoyi0113) 历史贡献积分：1 当前积分：1
+## 译者：[zhaoyi0113](https://github.com/zhaoyi0113) 历史贡献积分：2 当前积分：2
 
 |文章|类型|积分|
 |------|-------|-------|
+|[自动化持续集成/持续分发，以节省更多时间编写代码](https://juejin.im/post/5a44aab86fb9a044ff31c418)|校对|1|
 |[创建无障碍 React 应用](https://llp0574.github.io/2017/12/20/creating-accessible-react-apps/)|校对|1|
 
 ## 译者：[ironmaxtory](https://github.com/ironmaxtory) 历史贡献积分：2 当前积分：2
@@ -4380,14 +4392,53 @@
 |------|-------|-------|
 |[论原子 CSS 的日益普及](https://juejin.im/post/5a4387af6fb9a045186b04d1)|校对|1.5|
 
-## 译者：[lcx-seima](https://github.com/lcx-seima) 历史贡献积分：3 当前积分：3
+## 译者：[lcx-seima](https://github.com/lcx-seima) 历史贡献积分：5 当前积分：5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[在 Redux 中使用 AJAX 轮询](https://juejin.im/post/5a43b6da5188257d167a7aef)|翻译|2|
 |[在 Redux 中使用 AJAX 轮询（二）：Saga 篇](https://juejin.im/post/5a43b80df265da43176a6e4e)|翻译|3|
 
-## 译者：[FateZeros](https://github.com/FateZeros) 历史贡献积分：1 当前积分：1
+## 译者：[FateZeros](https://github.com/FateZeros) 历史贡献积分：2 当前积分：2
 
 |文章|类型|积分|
 |------|-------|-------|
+|[在 Redux 中使用 AJAX 轮询](https://juejin.im/post/5a43b6da5188257d167a7aef)|校对|1|
 |[在 Redux 中使用 AJAX 轮询（二）：Saga 篇](https://juejin.im/post/5a43b80df265da43176a6e4e)|校对|1|
+
+## 译者：[congFly](https://github.com/congFly) 历史贡献积分：1 当前积分：1
+
+|文章|类型|积分|
+|------|-------|-------|
+|[如何在 JavaScript 中使用 Generator?](https://juejin.im/post/5a44968df265da4335630fb9)|校对|1|
+
+## 译者：[NeilLi1992](https://github.com/NeilLi1992) 历史贡献积分：4 当前积分：4
+
+|文章|类型|积分|
+|------|-------|-------|
+|[Face ID 对易用性意味着什么](https://juejin.im/post/5a41d01cf265da432c241943)|校对|1|
+|[自动化持续集成/持续分发，以节省更多时间编写代码](https://juejin.im/post/5a44aab86fb9a044ff31c418)|翻译|3|
+
+## 译者：[hanliuxin5](https://github.com/hanliuxin5) 历史贡献积分：1 当前积分：1
+
+|文章|类型|积分|
+|------|-------|-------|
+|[Android MVP 架构必要知识：第三部分（Dialog，ViewPager，RecyclerView 以及 Adapters)](https://juejin.im/post/5a45fe846fb9a0450c49bba0)|校对|1|
+
+## 译者：[pot-code](https://github.com/pot-code) 历史贡献积分：5 当前积分：5
+
+|文章|类型|积分|
+|------|-------|-------|
+|[智对订阅难点：教你如何应对工作中 10 种常见订阅问题](https://juejin.im/post/5a406644f265da430d583cb7)|翻译|5|
+
+## 译者：[Wangalan30](https://github.com/Wangalan30) 历史贡献积分：1.5 当前积分：1.5
+
+|文章|类型|积分|
+|------|-------|-------|
+|[智对订阅难点：教你如何应对工作中 10 种常见订阅问题](https://juejin.im/post/5a406644f265da430d583cb7)|校对|1.5|
+
+## 译者：[IllllllIIl](https://github.com/IllllllIIl) 历史贡献积分：1.5 当前积分：1.5
+
+|文章|类型|积分|
+|------|-------|-------|
+|[智对订阅难点：教你如何应对工作中 10 种常见订阅问题](https://juejin.im/post/5a406644f265da430d583cb7)|校对|1.5|
