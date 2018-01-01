@@ -2,24 +2,24 @@
 > * 原文作者：[Manuel V Battan](https://medium.com/@manuelvbattan?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/introducing-redux-recompose.md](https://github.com/xitu/gold-miner/blob/master/TODO/introducing-redux-recompose.md)
-> * 译者：
+> * 译者：[pot-code](https://github.com/pot-code)
 > * 校对者：
 
-# Introducing redux-recompose: Tools to ease Redux actions and reducers development
+# redux-recompose：优雅的编写 Redux 中的 action 和 reducer
 
 ![](https://cdn-images-1.medium.com/max/2000/1*YFWtliBac9cTpe5gKKMixQ.png)
 
-I have been working on many React and React Native projects this past year, and all of them use Redux. Thanks to the various patterns present in those projects, at Wolox we developed [redux-recompose](https://github.com/Wolox/redux-recompose) in order to abstract and improve these patterns.
+去年一年做了不少 React 和 React Native 项目的开发，而且这些项目都使用了 Redux 来管理组件状态 。碰巧，这些项目里有很多具有代表性的开发模式，所以趁着我还在 Wolox，在分析、总结了这些模式之后，开发出了 [redux-recompose](https://github.com/Wolox/redux-recompose)，算是对这些模式的抽象和提升。
 
 * * *
 
-### The ‘problem’
+### 痛点所在
 
-When I watched the lessons of [Dan Abramov’s Egghead course](https://egghead.io/courses/getting-started-with-redux) to learn Redux for Wolox trainings, I felt that _using a switch in a reducer was smelly_.
+当初看 [Dan Abramov’s 在 Egghead 上发布的 Redux 教程](https://egghead.io/courses/getting-started-with-redux) 的时候，发现他大量使用了 `switch` 语句：我闻到了点 __坏代码的味道__。
 
-We started writing reducers in a traditional way, with that switch. In the first project we developed in React Native, this pattern became unhandy:
+在我接手的第一个 React Native 项目中，我按照教程上讲的，使用 `switch` 编写分发逻辑。开发不久后就发现，这种写法实在是不好维护：
 
-```
+```javascript
 import { actions } from './actions';
 
 const initialState = {
@@ -77,11 +77,11 @@ function reducer(state = initialState, action) {
 export default reducer;
 ```
 
-Since reducers grew too much, we started to disable `complexity` from `eslint` rules.
+到后面 reducer 里的条件实在是太多了，索性就把 eslint 的复杂度检测关掉了。
 
-Another issue we have encountered is that _async actions, nearly in a 90% of cases dispatched a SUCCESS or a FAILURE action._ Although this is not an issue per se, it introduced too much duplicated code:
+另一个问题集中在异步调用上，action 的定义中大量充斥着 __SUCCESS__ 和 __FAILURE__ 这样的代码，虽然这可能也不是什么问题，但是还是引入了太多重复代码。
 
-```
+```javascript
 import SoccerService from '../services/SoccerService';
 
 export const actions = createTypes([
@@ -114,15 +114,15 @@ const privateActionCreators = {
 
 const actionCreators = {
   getMatches: () => async dispatch => {
-    // Puts loadingMatches in true
+    // 将 loading 状态置为 true
     dispatch({ type: actions.GET_MATCHES });
     // -> api.get('/matches');
     const response = await SoccerService.getMatches();
     if (response.ok) {
-      // Stores matches, put loading in false
+      // 存储 matches 数组数据，将 loading 状态置为 false
       dispatch(privateActionCreators.getMatchesSuccess(response.data));
     } else {
-      // Store the error, put loading in false
+      // 存储错误信息，将 loading 状态置为 false
       dispatch(privateActionCreators.getMatchesFailure(response.problem));
     }
   },
@@ -140,18 +140,18 @@ const actionCreators = {
 export default actionCreators;
 ```
 
-### Reducer handlers as Objects
+### 对象即过程
 
-One day, one of my coworkers said:
+某天，我的同事建议：
 
-‘We can try using an object instead of a switch for reducers. Switch cases can be extracted in smaller, testeable functions.’
+’要不试试把 `switch` 改成对象属性的形式？这样之前 `switch` 里的条件就都能抽离成单个的函数了，也方便测试。‘
 
-[From a Dan Abramov comment](https://github.com/reactjs/redux/issues/929#issuecomment-150314197):
-_Reducer is just a function. How you structure it and whether you split it into many and call other functions is completely up to you._
+再者，[Dan Abramov 早就说过](https://github.com/reactjs/redux/issues/929#issuecomment-150314197)：
+__Reducer 就是一个很普通的函数，怎么高兴怎么写，你可以抽出一些代码独立成函数，也可以在里面调用其他的函数。__
 
-That comment encouraged us to explore other ways to write reducers. Which lead us to this:
+有了这句话，我们就更加放心开干了，于是开始探索有没有更加优雅的方式编写 reducer 的代码。最终，我们得出了这么一种写法：
 
-```
+```javascript
 const reducerDescription = {
   [actions.GET_MATCHES]: (state, action) => ({ ...state, matchesLoading: true }),
   [actions.GET_MATCHES_SUCCESS]: (state, action) => ({
@@ -180,7 +180,7 @@ const reducerDescription = {
 };
 ```
 
-```
+```javascript
 function createReducer(initialState, reducerObject) {
   return (state = initialState, action) => {
     (reducerObject[action.type] && reducerObject[action.type](state, action)) || state;
@@ -190,19 +190,19 @@ function createReducer(initialState, reducerObject) {
 export default createReducer(initialState, reducerDescription);
 ```
 
-Handlers for _SUCCESS_ and _FAILURE_ actions still looked too similar; only the ‘target’ of these actions were different. We denote **target** of an action from that part of the state being modified. For example, if we update a list from `action.aList`, ‘aList’ is the target of the reducer.
+__SUCCESS__ 和 __FAILURE__ 的 action 和之前看来没啥区别，只是 action 的操作目标变了 —— 这里将 action 和操作它对应的 state 里的那部分数据的函数进行了一一对应。例如，我们分发了一个 action.aList 来修改一个列表的内容，那么‘aList’就是找到对应的 reducer 函数的关键词。
 
-### Targeted actions
+### 靶向化 action
 
-What if we can define from the action-side what part of the state will be affected by the action?
+有了上面的尝试，我们不妨更进一步思考：何不从 action 的角度来定义 state 的哪些部分会被这个 action 影响？
 
-[From Dan:](https://github.com/reactjs/redux/issues/1167#issuecomment-166642708)
+[ Dan 这么说过：](https://github.com/reactjs/redux/issues/1167#issuecomment-166642708)
 
-_Think of action as a “message”. The_ **_action doesn’t know how the state changes_**_. It’s precisely reducers’ job._
+__我们可以把 action 想象成一个“差使”，action 不关心 state 的变化 —— 那是 reducer 的事__。
 
-What if actions know _what part_ of the state change? That’s the concept of targeted actions. **Targeted actions**look like this:
+那么，为什么就不能反其道而行之呢，如果 action 就是要去管 state 的变化呢？有了这种想法，我们就能引申出 __靶向化 action__ 的概念了。何谓靶向化 action？就像这样：
 
-```
+```javascript
 const privateActionCreators = {
   getMatchesSuccess: matchList => ({
     type: actions.GET_MATCHES_SUCCESS,
@@ -227,13 +227,13 @@ const privateActionCreators = {
 };
 ```
 
-### Introducing the concept of effect
+### effects 的概念
 
-If you’ve ever used [redux saga](https://github.com/redux-saga/redux-saga) you’ve probably thought about those effects. Well, these are a little bit different.
+如果你以前用过 [redux saga](https://github.com/redux-saga/redux-saga) 的话，应该对 effects 有点印象，但这里要讲的还不是这个 effects 的意思。
 
-The idea here is to _decouple reducers from the operations that they do over the state._ These operations can be extracted as **effects**— functions that always do the same over the state, but they don’t know what part of the state changes:
+这里讲的是将 reducer 和 reducer 对 state 的操作进行解耦合，而这些抽离出来的操作（即函数）就称为 __effects__ —— 这些函数具有幂等性质，而且对 state 的变化一无所知：
 
-```
+```javascript
 export function onLoading(selector = (action, state) => true) {
   return (state, action) => ({ ...state, [`${action.target}Loading`]: selector(action, state) });
 }
@@ -256,19 +256,19 @@ export function onFailure(selector = (action, state) => action.payload) {
 }
 ```
 
-Notice that we can handle a function with these effects. These functions are called **selectors.** Selectors may lend a hand for relevant data wrapped in an object:
+注意上面的代码是如何使用这些 effects 的。你会发现里面有很多 selector 函数，它主要用来从封装对象中取出你需要的数据域：
 
-```
-// if action.payload is like: { matches: [] }; 
+```javascript
+// 假设 action.payload 的结构是这个样子: { matches: [] }; 
 const reducerDescription = {
-  // This will store the array of matches instead of the whole object comming from payload
+  // 这里只引用了 matches 数组，不用处理整个 payload 对象
   [actions.GET_MATCHES_SUCCESS]: onSuccess(action => action.payload.matches)
 };
 ```
 
-With that in mind, these handlers now look like this:
+有了以上思想，最终处理函数的代码变成这样：
 
-```
+```javascript
 const reducerDescription = {
   [actions.MATCHES]: onLoading(),
   [actions.MATCHES_SUCCESS]: onSuccess(),
@@ -281,19 +281,17 @@ const reducerDescription = {
 export default createReducer(initialState, reducerDescription);
 ```
 
-This idea isn’t new:
+当然，我并不是这种写法的第一人：
 
 ![](https://i.loli.net/2017/12/26/5a41ed61266b0.jpg)
 
-But, there is code that is _still_ being repeated. For every **primary action** (i.e. actions that have associated SUCCESS and FAILURE actions), we must write a SUCCESS and a FAILURE effect. Is there a way to extract code patterns like this one?
+到这一步你会发现代码还是有重复的。针对每个基础 action（有配对的 SUCCESS 和 FAILURE），我们还是得写相应的 SUCCESS 和 FAILURE 的 effects。 那么，能否再做进一步改进呢？
 
-### Completers to the rescue
+### 你需要 Completer
 
-Completers are meant to extract patterns that cause repeated logic. For example, we could extract _SUCCESS-FAILURE_ from the reducer.
+Completer 可以用来抽取代码中重复的逻辑。所以，用它来抽取 __SUCCESS__ 和 __FAILURE__ 的处理代码的话，代码会从：
 
-We can reduce this code:
-
-```
+```javascript
 const reducerDescription: {
   [actions.GET_MATCHES]: onLoading(),
   [actions.GET_MATCHES_SUCCESS]: onSuccess(),
@@ -306,9 +304,9 @@ const reducerDescription: {
 
 export default createReducer(initialState, reducerDescription);
 ```
-To this:
+变成以下更简洁的写法：
 
-```
+```javascript
 const reducerDescription: {
   primaryActions: [actions.GET_MATCHES, actions.GET_PITCHES],
   override: {
@@ -319,11 +317,11 @@ const reducerDescription: {
 export default createReducer(initialState, completeReducer(reducerDescription))
 ```
 
-`completeReducer` is a function that takes a reducer description and extends SUCCESS and FAILURE cases for all primary actions. Also, it supports a field named `override` to provide actions that aren’t primary.
+`completeReducer` 接受一个 reducer description 对象，它可以帮基础 action 扩展出相应的 SUCCESS 和 FAILURE 处理函数。同时，它也提供了重载机制，用于配制非基础 action 。
 
-Since writing state fields from SUCCESS and FAILURE cases also might be a bit annoying, `completeState` adds `loading` and `error` for us:
+根据 SUCCESS 和 FAILURE 这两种情况定义状态字段也比较麻烦，对此，可以使用 `completeState` 自动为我们添加 loading 和 error 这两个字段：
 
-``
+```javascript
 const stateDescription = {
   matches: [],
   pitches: [],
@@ -331,30 +329,30 @@ const stateDescription = {
 };
 
 const initialState = completeState(stateDescription, ['counter']);
-``
-
-And for action names, adding `SUCCESS` and `FAILURE` actions:
-
 ```
+
+还可以自动为 action 添加配对的 `SUCCESS` 和 `FAILURE`：
+
+```javascript
 export const actions = createTypes(
   completeTypes(['GET_MATCHES', 'GET_PITCHES'], ['INCREMENT_COUNTER']),
   '@@SOCCER'
 );
 ```
 
-These completers take another param for the **exceptions cases** — those items that we don’t want to extend.
+这些 completer 都有第二个参数位 —— 用于配制例外的情况。
 
-Since SUCCESS-FAILURE is a very common pattern, completers are oriented to complete this by default. Currently, we are working on custom completers that take custom rules for completion, they will be available soon.
+鉴于 SUCCESS-FAILURE 这种模式比较常见，目前的实现只会自动加 SUCCESS 和 FAILURE。不过，后期我们会支持用户自定义规则的，敬请期待！
 
-### Craft your own async action with Injections
+### 使用注入器（Injections）处理异步操作
 
-What about async actions? Do they work here?
+那么，异步 action 的支持如何呢？
 
-Yes! They do. In most cases, we write async actions to fetch things from a service and put them in the store’s state.
+当然也是支持的，多数情况下，我们写的异步 action 无非是从后端获取数据，然后整合到 store 的状态树中。
 
-We can write async actions as:
+写法如下：
 
-```
+```javascript
 import SoccerService from '../services/SoccerService';
 
 export const actions = createTypes(completeTypes['GET_MATCHES','GET_PITCHES'], '@SOCCER');
@@ -369,15 +367,15 @@ const actionCreators = {
 export default actionCreators;
 ```
 
-Those are conceptually the same as the first ones: they put loading flag in true, and according to the service response, dispatch a _SUCCESS_ or a _FAILURE_ action. This way, we have extracted the many repeated logic; also eliminated the need of declaring a `privateActionsCreators` object.
+思路和刚开始是一样的：加载数据时先将 loading 标志置为 `true` ，然后根据后端的响应结果，选择分发 __SUCCESS__ 还是 __FAILURE__。使用这种方法，我们抽取出了大量的重复逻辑，也不用再创建 `privateActionsCreators` 对象了。
 
-But, what if we want to customize this behavior, by adding code between calls or dispatches?
+但是，如果我们想要在调用和分发过程中间执行一些自定义代码呢？
 
-We could achieve that with **injections** — functions that add behavior to baseThunkAction.
+我们可以使用 __注入器（injections）__ 来实现，在下面的例子中我们就用这个函数为 baseThunkAction 添加了一些自定义行为。
 
-These examples are both equal conceptually:
+这两个例子要传达的思想是一样的：
 
-```
+```javascript
 const actionCreators = {
   fetchSomething: () => async dispatch => {
     dispatch({ type: actions.FETCH });
@@ -395,7 +393,7 @@ const actionCreators = {
 }
 ```
 
-```
+```javascript
 const actionCreators = {
   fetchSomething: () => composeInjections(
     baseThunkAction(actions.FETCH, 'fetchTarget', Service.fetch),
@@ -407,23 +405,22 @@ const actionCreators = {
 
 * * *
 
-More detailed documentation is available at h[ttps://github.com/Wolox/redux-recompose](https://github.com/Wolox/redux-recompose)
-Also a `npm` package is available:
+以上是对这个库的一些简介，详情请参考 [https://github.com/Wolox/redux-recompose](https://github.com/Wolox/redux-recompose)。
+安装姿势：
 
 ```
 npm install --save redux-recompose
 ```
 
-I’d like to thanks [Andrew Clark](https://github.com/acdlite) for creating [recompose](https://github.com/acdlite/recompose), whose library inspired this work, and to thanks to [Dan Abramov](https://github.com/gaearon) for those wiseful comments 📚.
+感谢 [Andrew Clark](https://github.com/acdlite)，他创建的 [recompose](https://github.com/acdlite/recompose) 给了我很多灵感。同时也感谢 redux 的创始人 [Dan Abramov](https://github.com/gaearon)，他说过的话很具有思考价值。
 
-Also I’d like to thanks everyone at Wolox who helped build this project.
+当然，也不能忘了同在 Wolox 里的战友们，是大家一起合力才完成了这个项目。
 
-If you have any suggestions, any ideas you want to talk about, or find a bug, please post an issue or create a PR on GitHub and I’ll gladly reply it. Let us know what you think !
+欢迎各位积极提出意见，如果在使用中发现任何 bug，一定要记得在 GitHub 上给我们反馈，或者提交你的修复补丁，总之，我希望大家都能积极参与到这个项目中来！
 
-In later posts, we are going to explore available effects, injectors and completers, and how to integrate them with other libraries like `[apisauce](https://github.com/infinitered/apisauce)` or `[seamless-immutable](https://github.com/rtfeldman/seamless-immutable)`.
+在以后的文章中，我们将会讨论更多有关 effects、注入器（injectors）和 completers 的话题，同时还会教你如何将其集成到 [apisauce](https://github.com/infinitered/apisauce) 或 [seamless-immutable](https://github.com/rtfeldman/seamless-immutable) 中使用。
 
-Stay tuned !
-
+希望你能继续关注！
 
 ---
 
