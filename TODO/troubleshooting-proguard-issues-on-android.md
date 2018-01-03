@@ -41,14 +41,14 @@ builds, as it’s an additional step that makes the build slower and can make de
   
   release {
     minifyEnabled true
-    ProGuardFiles getDefaultProGuardFile(‘ProGuard-android.txt’), ‘ProGuard-rules.pro’
+    proguardFiles getDefaultProguardFile(‘proguard-android.txt’), ‘proguard-rules.pro’
   }
 }
 ```
 
-Progurad 自身的配置已经在另外一个单独的配置文件中完成了。您可以在上面的几行代码中看到我已经包含了 Android Gradle 打包插件中的默认提供的配置[¹](#9ca6)和一些项目相关的配置放在 `ProGuard-rules.pro` 文件中。
+ProGuard 自身的配置已经在另外一个单独的配置文件中完成了。您可以在上面的几行代码中看到我已经包含了 Android Gradle 打包插件中的默认提供的配置[¹](#9ca6)和一些项目相关的配置放在 `proguard-rules.pro` 文件中。
 
-在 ProGuard 官网您可以找到一个 [使用手册](https://www.guardsquare.com/en/ProGuard/manual/usage#keepoptions)。
+在 ProGuard 官网您可以找到一个 [使用手册](https://www.guardsquare.com/en/proguard/manual/usage#keepoptions)。
 在您深入研究这些配置之前，最好先大概理解 ProGuard 是如何工作的和我们为什么要指定一些额外的选项。
 
 ![](https://cdn-images-1.medium.com/max/800/0*Y0tJVDd5RnFy_qUL.)
@@ -61,9 +61,9 @@ Progurad 自身的配置已经在另外一个单独的配置文件中完成了�
 
 想要正确配置 ProGuard，最重要的就是让它知道运行时您的哪些代码不应该被移除（如果开启混淆的话，当然也要保持他们的名称不变）。当一些类和方法会被动态访问到时（如使用反射），ProGuard 在构建调用图时有时不能正确的决定他们的「生死」，导致会被错误的移除掉。当您只从 XML 资源引用您的代码会时（通常使用底层的反射），这个情况也会发生。
 
-在一次 Android 典型的构建过程中，AAPT（处理资源的工具）会生成一个额外的 ProGuard 规则文件。它会为 Android 应用添加一些特别的 [**keep 规则**](https://www.guardsquare.com/en/ProGuard/manual/usage#keepoptions)，所以您在 Android Manifest.xml 中记录的 Activities、Services、BroadcastReceivers 和 ContentProviders  会保持不动. 这就是为什么在上面动图中 `MyActivity` 类没有被被移除或者重命名.
+在一次 Android 典型的构建过程中，AAPT（处理资源的工具）会生成一个额外的 ProGuard 规则文件。它会为 Android 应用添加一些特别的 [**keep 规则**](https://www.guardsquare.com/en/proguard/manual/usage#keepoptions)，所以您在 Android Manifest.xml 中记录的 Activities、Services、BroadcastReceivers 和 ContentProviders  会保持不动. 这就是为什么在上面动图中 `MyActivity` 类没有被被移除或者重命名.
 
-AAPT 也会 **keep** 住所有在 XML 布局文件使用到的 View 类（和它们的构造函数）和其他一些类，如在过渡动画资源中引用到的过渡类。 您可以在构建后直接看这个 AAPT 生成的配置文件，位置是：`<your_project>/<app_module>/build/intermediates/ProGuard-rules/<variant>/aapt_rules.txt`。
+AAPT 也会 **keep** 住所有在 XML 布局文件使用到的 View 类（和它们的构造函数）和其他一些类，如在过渡动画资源中引用到的过渡类。 您可以在构建后直接看这个 AAPT 生成的配置文件，位置是：`<your_project>/<app_module>/build/intermediates/proguard-rules/<variant>/aapt_rules.txt`。
 
 ![](https://cdn-images-1.medium.com/max/800/0*nVWailJWyOyv4sa5.)
 
@@ -94,13 +94,13 @@ OkHttp 库在 3.8.0 版本的类中添加了新的注解（`javax.annotation.Nul
 
 您应该经历过类似的过程，在输出消息中看到这些警告，然后重新构建直到构建通过。重要的是去理解为什么您会收到这些警告以及您在构建时是否真的缺少这些类。
 
-现在您可能会尝试使用 **-**[**ignorewarnings**](https://www.guardsquare.com/en/ProGuard/manual/usage#ignorewarnings) 选项直接忽略所有的警告，但这通常不是个好注意。在某些情况下，ProGuard 的警告确实有助于您发现阻止您应用正常工作的罪魁祸首和关于[您配置上的其他问题](https://www.guardsquare.com/en/ProGuard/manual/troubleshooting#dynamicalclass)。
+现在您可能会尝试使用 **-**[**ignorewarnings**](https://www.guardsquare.com/en/proguard/manual/usage#ignorewarnings) 选项直接忽略所有的警告，但这通常不是个好注意。在某些情况下，ProGuard 的警告确实有助于您发现阻止您应用正常工作的罪魁祸首和关于[您配置上的其他问题](https://www.guardsquare.com/en/proguard/manual/troubleshooting#dynamicalclass)。
 
 您可能需要了解一下 Progard的 _notes_ （优先级低于警告的消息），它可以帮您发现一些反射相关的问题。不过它不会打断您的构建，所以会导致您运行时发生一些不愉快的崩溃当……
 
 ## 当 ProGuard 移除过多的类
 
-在某些情况下，ProGuard 并不知道一个类或者方法被使用了，如这个类仅在反射时或者从 XML 中被引用。为了阻止这样的代码被移除或混淆，您应当在 ProGuard 配置中指定额外 [**keep** 规则](https://www.guardsquare.com/en/ProGuard/manual/usage#keepoptions)。这取决于您，即应用的开发者，来找到哪些部分您的代码有这些问题并提供必要的规则。
+在某些情况下，ProGuard 并不知道一个类或者方法被使用了，如这个类仅在反射时或者从 XML 中被引用。为了阻止这样的代码被移除或混淆，您应当在 ProGuard 配置中指定额外 [**keep** 规则](https://www.guardsquare.com/en/proguard/manual/usage#keepoptions)。这取决于您，即应用的开发者，来找到哪些部分您的代码有这些问题并提供必要的规则。
 
 当运行时发生了 `ClassNotFoundException` 或 `MethodNotFoundException` 异常意味着您肯定缺失了某些类或者方法，也许是 ProGuard  移除了他们，又或者是您缺失了这部分依赖. 所以生产环境的构建（开启 ProGuard 时）一定要注重彻底的测试并正视这些错误。
 
@@ -111,7 +111,7 @@ OkHttp 库在 3.8.0 版本的类中添加了新的注解（`javax.annotation.Nul
 * **keepclassmembers **— 当且仅当它们的类因为其他的原因被保留时（被其他调用点引用到或者被其他的规则 keep 住），指定 keep 住一些成员
 * **keepclasseswithmembers **— 当且仅当所有的成员在匹配的类中存在时，会 keep 住 这些类和它的成员
 
-我建议您从 ProGuard 的这篇 [class specification syntax](https://www.guardsquare.com/en/ProGuard/manual/usage#classspecification) 开始熟悉，此文讨论了上述所有的 keep 规则和前一段讨论到的 **-dontwarn** 选项。另外这三个 keep 规则也各有一个不同的版本支持仅保留混淆（重命名），不保留压缩。您可以在 ProGuard 官网的[表格](https://www.guardsquare.com/en/ProGuard/manual/usage#keepoverview)看一下概览。
+我建议您从 ProGuard 的这篇 [class specification syntax](https://www.guardsquare.com/en/proguard/manual/usage#classspecification) 开始熟悉，此文讨论了上述所有的 keep 规则和前一段讨论到的 **-dontwarn** 选项。另外这三个 keep 规则也各有一个不同的版本支持仅保留混淆（重命名），不保留压缩。您可以在 ProGuard 官网的[表格](https://www.guardsquare.com/en/proguard/manual/usage#keepoverview)看一下概览。
 
 作为一个可选的方案来写 ProGuard 规则，您可以直接在某个不想被混淆和移除的类、方法、属性上添加 [**@Keep**](https://developer.android.com/reference/android/support/annotation/Keep.html)  注解。注意，如果这样做的话，您需要把 Android 默认的 ProGuard 配置加入到您的构建中。
 
@@ -123,7 +123,7 @@ Android Studio 集成的 [APK Analyzer](https://developer.android.com/studio/bui
 
 加载 ProGuard 映射文件到 APK Analyzer 可以看到 DEX 视图中更多的信息
 
-当您加载了映射文件到 APK Analyzer时（点击 _“Load ProGuard mappings… “_ 按钮）， 您可以在 DEX 视图树中看到一些额外功能：
+当您加载了映射文件到 APK Analyzer时（点击 _“Load Proguard mappings… “_ 按钮）， 您可以在 DEX 视图树中看到一些额外功能：
 
 * 所有的名字都是混淆前的（即您可以看到原始的名字）
 * 被 ProGuard 配置规则 **kept** 的包，类，方法和属性会显示成粗体
@@ -139,7 +139,7 @@ Android 内置的 ProGuard 规则包含一些安全的默认规则允许所有�
 
 使用 `-whyareyoukeeping <class-specification>` 选项来观察为什么这些类没有被移除
 
-如果您实在不确定为什么 ProGuard 没有移除您期望它移除的部分代码，您可以添加 [**-whyareyoukeeping**](https://www.guardsquare.com/en/ProGuard/manual/usage#whyareyoukeeping) 选项至 ProGuard 配置文件中，然后重新构建您的应用。在构建输出中，您会看到是什么调用链决定了 ProGuard 保留这些代码。
+如果您实在不确定为什么 ProGuard 没有移除您期望它移除的部分代码，您可以添加 [**-whyareyoukeeping**](https://www.guardsquare.com/en/proguard/manual/usage#whyareyoukeeping) 选项至 ProGuard 配置文件中，然后重新构建您的应用。在构建输出中，您会看到是什么调用链决定了 ProGuard 保留这些代码。
 
 ![](https://cdn-images-1.medium.com/max/800/0*SFubaEvLatNnVmDr.)
 
@@ -166,11 +166,11 @@ Android 内置的 ProGuard 规则包含一些安全的默认规则允许所有�
 
 ```
 release { //or your own build type  
-  consumerProGuardFiles ‘consumer-ProGuard.txt’  
+  consumerProguardFiles ‘consumer-proguard.txt’  
 }
 ```
 
-您写入在 `consumer-ProGuard.txt` 文件中的规则将会在应用构建时附加到应用主 ProGuard 配置并被使用。
+您写入在 `consumer-proguard.txt` 文件中的规则将会在应用构建时附加到应用主 ProGuard 配置并被使用。
 
 * * *
 
@@ -183,7 +183,7 @@ release { //or your own build type
 
 * * *
 
-[¹](#6c8e) ProGuard-android.txt 文件之前是在 SDK tools 目录下（`SDK/tools/ProGuard/ProGuard-android.txt`），但在新版的 SDK Tools 和 Android Gradle 插件版本2.2.0+上，它将会在构建时从 Android 插件的 jar 中解压出来。在构建您的项目后，您可以在 `<your_project>/build/intermediates/ProGuard-files/` 目录下找到这个配置文件。
+[¹](#6c8e) proguard-android.txt 文件之前是在 SDK tools 目录下（`SDK/tools/proguard/proguard-android.txt`），但在新版的 SDK Tools 和 Android Gradle 插件版本2.2.0+上，它将会在构建时从 Android 插件的 jar 中解压出来。在构建您的项目后，您可以在 `<your_project>/build/intermediates/proguard-files/` 目录下找到这个配置文件。
 
 感谢 [Daniel Galpin](https://medium.com/@dagalpin?source=post_page)。
 
