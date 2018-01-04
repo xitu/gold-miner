@@ -2,70 +2,70 @@
 > * 原文作者：[Codesmith Staffing](https://codeburst.io/@codesmith.staff?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/understanding-javascripts-engine-with-cartoons.md](https://github.com/xitu/gold-miner/blob/master/TODO/understanding-javascripts-engine-with-cartoons.md)
-> * 译者：
+> * 译者：[MechanicianW](https://github.com/MechanicianW)
 > * 校对者：
 
-# Understanding JavaScript’s Engine with Cartoons: let jsCartoons = ‘Awesome’;
+# 漫画图解 JavaScript 引擎： let jsCartoons = ‘Awesome’;
 
 ![](https://cdn-images-1.medium.com/max/1000/1*NV7LTr8xvs9p5BSzL79qsw.jpeg)
 
-### Overview
+### 概述
 
-[In a previous article](https://codeburst.io/javascript-what-are-you-ad28fabebdf1), we detailed how JavaScript’s engine works in terms of event execution and briefly mentioned compilation. Yes, you read that correctly. JavaScript is compiled, though unlike other language compilers that have build stages that allow for early optimization, JavaScript’s compilers are forced to compile the code at the last second — literally. The technology used to compile JavaScript is aptly named Just-In-Time(JIT). This “compilation on the fly” has appeared in modern JavaScript engines to speed up the browsers that implement them.
+[在之前的文章中](https://codeburst.io/javascript-what-are-you-ad28fabebdf1)， 我们从事件执行机制详细地讲解了 JavaScript 引擎是如何工作的，同时也简略地提到了编译的知识。是的，你没看错。JavaScript 是编译的，尽管它并不像其它语言编译器有可以进行早优化的构建阶段，JavaScript 不得不在最后一秒编译代码 —— 从字面上看。用于编译 JavaScript 的技术有一个十分恰当的名字，即时编译器（JIT）。这种 "即时编译" 技术已经应用到现代 JavaScript 引擎中，用于加速浏览器呈现。
 
-It can get a bit confusing when developers call JavaScript an interpreted language. That’s because JavaScript engines have, until recently, always been associated with an interpreter. Now, with engines like Google’s [V8](https://v8project.blogspot.bg/2017/05/launching-ignition-and-turbofan.html) engine, developers can have their cake and eat it too — an engine can have both an interpreter and a compiler.
+开发者将 JavaScript 称为解释型语言，这会让人有点困惑。因为直到最近，JavaScript 引擎总是和解释器联系在一起。现在，伴随着像 Google [V8](https://v8project.blogspot.bg/2017/05/launching-ignition-and-turbofan.html) 这样的引擎出现，开发者们实现了鱼与熊掌兼得 —— 既拥有解释器也拥有编译器的引擎。
 
-We’re going to show you how JavaScript code is processed using one of those new-fangled JIT compilers. What we’re not going to show you is the complex mechanisms by which these new JavaScript engines optimize code. These mechanisms include techniques like inlining(removing white space), taking advantage of hidden classes, and eliminating redundancy. Instead, this article will graze the broad concepts of compilation theory to give you an idea of how JavaScript’s modern engines work internally.
+下面我们将展示这些流行的 JIT 编译器是怎么处理 JavaScript 代码的。引擎优化代码的复杂机制（如内联（去除空格），利用隐藏类以及消除冗余代码等）不在本文的讨论范围内。与之相反，本文着眼于编译原理，让你了解现代的 JavaScript 引擎内部是如何工作的。
 
-**Disclaimer:** you might become a code-vegan.
+**免责声明：** 看完这篇文章你可能会变成代码素食主义者。
 
-### **Language and Code**
+### **语言与代码**
 
 ![](https://cdn-images-1.medium.com/max/800/0*I6a0MwHn5e7QzGs1.)
 
-In order to _grok_ how a compiler reads code, it is helpful to think of the language you’re using to read this article: English. We’ve all encountered the glaring red `SyntaxError` in our development consoles, but as we’ve scratched our heads, searching for the missing semicolon, we’ve probably never stopped to think about Noam Chomsky. Chomsky defines syntax as:
+为了能够 **心意相通** 地领会编译器是怎么读懂代码的，你可以先想一下你此刻读文章时使用的语言：英语。我们都在开发控制台里看到过鲜红的 `SyntaxError` 报错，当我们抓破脑袋去找是哪里少了一个分号时，也许都想起过 Noam Chomsky。他将语法定义为：
 
-> “the study of principles and processes by which sentences are constructed in particular languages.”
+> “研究以特定语言构造句子的原则和过程。”
 
-We’ll call our “built-in” `simplify()` function on Noam Chomsky’s definition.
+我们在 Noam Chomsky 的定义的基础上调用 “内置” 的 `simplify()` 函数。
 
 `simplify(quote, "grossly")`
 
 `//Result: Languages order their words differently.`
 
-Of course, Chomsky was referring to languages like German and Swahili rather than JavaScript and Ruby. Nevertheless, high level programming languages are patterned off of the languages we speak. Essentially, JavaScript compilers have been “taught” to read JavaScript by savvy engineers, just as our parents and teachers have trained our brain to read sentences.
+当然，Chomsky 的定义是指德语和斯瓦西里等语言，而不是 JavaScript 和 Ruby。尽管如此，高级编程语言脱离了我们所说的语言。实质上，JavaScript 编译器已经被精明的工程师们 “教会” 阅读 JavaScript 代码，像我们的父母老师训练我们读懂句子一样。
 
-There are three areas of linguistic study that we can observe in relation to compilers: lexical units, syntax, and semantics. In other words, the study of the meaning of words and their relations, the study of the arrangement of words, and the study of sentence meanings(we’ve limited the definition of semantics to suit our purpose).
+我们可以观察出，语言学中的三个方面都与编译器有关：词法单元，语法和语义。换句话说，也就是研究单词的含义及其关系，研究单词的排列以及研究句子的含义（为了适应我们的场景，在此处限制了语义的定义）。
 
-Take this sentence: _We_ _ate beef._
+以这个句子为例： _We_ _ate beef._
 
-#### lexical unit
+#### 词法单元
 
-Notice how each word in the sentence can be broken down into units of lexical meaning: We/ate/beef
+请注意句子里的每个单词是如何被分解成具有词汇含义的单位：We/ate/beef
 
-#### syntax
+#### 语法
 
-That basic sentence syntactically follows the Subject/Verb/Object agreement. Let us assume that this is how every English sentence must be constructed. Why? Because compilers must work according to strict guidelines in order to detect syntax errors. So, _Beef we ate,_ though understandable_,_ will be incorrect in our oversimplified English.
+这个基础的句子在语法上遵循了主语 / 动词 / 宾语的协议。假设这就是每个英文句子必须遵从的构造方式。为什么要做这样的假设？因为编译器必须在严格的规定下工作，这样才能检测到语法错误。因此，_Beef we ate,_ 虽然仍是一个可以理解的句子，但在我们假设出的极简版英文语法规定中会是错误的。
 
-#### semantics
+#### 语义
 
-Semantically, the sentence has proper meaning. We know that multiple people have eaten beef in the past. We can strip it of meaning by rewriting the sentence as, _We+ beef ate_.
+从语义上讲，每个句子都有它的含义。我们知道许许多多的人过去都吃过牛肉。我们就可以通过把句子改写成 _We+ beef ate_ 来剥离出它的语义。
 
 * * *
 
-Now, let’s translate our original English _sentence_ into a JavaScript _expression._
+现在，我们英文中原有的 **句子** 翻译成 JavaScript **表达式**。
 
 `let sentence = “We ate beef”;`
 
-#### lexical unit
+#### 词法单元
 
-Expressions can be broken down into lexemes: let/sentence/=/ “We ate beef”/;
+表达式可以被分解成词素： let/sentence/=/ “We ate beef”/;
 
-#### syntax
+#### 语法
 
-Our expression, like a sentence, must be syntactic. JavaScript, along with most other programming languages, follows the (Type) /Variable/ Assignment/Value order. Type is applicable based on context. If you’re as bothered as we are by the looseness of type declaration, you can simply add `“use strict”;` to the global scope of your program. `“use strict”;` is an overbearing grammarian that enforces JavaScript’s syntax. The benefits of using it outweigh the nuisances. Trust us.
+我们的表达式，像句子一样必须是遵从语法构造的。JavaScript 以及大多数其它编程语言都遵从 (类型) / 变量 / 赋值 / 值 的顺序。类型是适应于上下文的。如果你也困扰于宽松的类型声明，可以给程序的全局作用域加上 `“use strict”;`。`“use strict”;` 是一种可以强制执行 JavaScript 语法规则的霸道语法。相信我，使用 `“use strict”;` 利远大于弊。
 
-#### semantics
+#### 语义
 
 Semantically, our code has meaning that our machines will eventually understand via the compiler. In order to achieve semantic meaning from code, the compiler must read code. We’ll delve into that in the next section.
 
