@@ -2,26 +2,26 @@
 > * 原文作者：[Gian G Spicuzza](https://android-developers.googleblog.com/2017/12/double-stuffed-security-in-android-oreo.html)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/double-stuffed-security-in-android-oreo.md](https://github.com/xitu/gold-miner/blob/master/TODO/double-stuffed-security-in-android-oreo.md)
-> * 译者：
+> * 译者：一只胖蜗牛
 > * 校对者：
 
-# [Double Stuffed Security in Android Oreo](https://android-developers.googleblog.com/2017/12/double-stuffed-security-in-android-oreo.html)
+# [Android Oreo中的双塞安全](https://android-developers.googleblog.com/2017/12/double-stuffed-security-in-android-oreo.html)
 
 Posted by Gian G Spicuzza, Android Security team
 
-Android Oreo is stuffed full of security enhancements. Over the past few months, we've covered how we've improved the security of the Android platform and its applications: from [making it safer to get apps](https://android-developers.googleblog.com/2017/08/making-it-safer-to-get-apps-on-android-o.html), dropping [insecure network protocols](https://android-developers.googleblog.com/2017/04/android-o-to-drop-insecure-tls-version.html), providing more [user control over identifiers](https://android-developers.googleblog.com/2017/04/changes-to-device-identifiers-in.html), [hardening the kernel](https://android-developers.googleblog.com/2017/08/hardening-kernel-in-android-oreo.html), [making Android easier to update](https://android-developers.googleblog.com/2017/07/shut-hal-up.html), all the way to [doubling the Android Security Rewards payouts](https://android-developers.googleblog.com/2017/06/2017-android-security-rewards.html). Now that Oreo is out the door, let's take a look at all the goodness inside.  
+Android Oreo新增了许多安全验证功能.几个月以来,我们讨论了如何增强Android平台及应用的安全性: 从[更安全的获取应用](https://android-developers.googleblog.com/2017/08/making-it-safer-to-get-apps-on-android-o.html),减少[网络挟持](https://android-developers.googleblog.com/2017/04/android-o-to-drop-insecure-tls-version.html),提供更多[用户控制符](https://android-developers.googleblog.com/2017/04/changes-to-device-identifiers-in.html),[加固内核](https://android-developers.googleblog.com/2017/08/hardening-kernel-in-android-oreo.html),[使Android更易于升级](https://android-developers.googleblog.com/2017/07/shut-hal-up.html),直到[doubling the Android Security Rewards payouts](https://android-developers.googleblog.com/2017/06/2017-android-security-rewards.html).如今Oreo正式和大家见面了,让我们回顾下这其中的改进.  
 
-### Expanding support for hardware security
+### 扩大硬件安全支持
 
-Android already supports [Verified Boot](https://source.android.com/security/verifiedboot/), which is designed to prevent devices from booting up with software that has been tampered with. In Android Oreo, we added a reference implementation for Verified Boot running with [Project Treble](https://source.android.com/devices/architecture/treble), called Android Verified Boot 2.0 (AVB). AVB has a couple of cool features to make updates easier and more secure, such as a common footer format and rollback protection. Rollback protection is designed to prevent a device to boot if downgraded to an older OS version, which could be vulnerable to an exploit. To do this, the devices save the OS version using either special hardware or by having the Trusted Execution Environment (TEE) sign the data. Pixel 2 and Pixel 2 XL come with this protection and we recommend all device manufacturers add this feature to their new devices.
+Android早已支持[开机验证模式(Verified Boot)](https://source.android.com/security/verifiedboot/),旨在防止设备启动软件被篡改.在Android Oreo中,我们随着[Project Treble](https://source.android.com/devices/architecture/treble)添加了一个实现了开机验证模式(Verified Boot)的实例,称之为Android开机验证模式2.0(Android Verified Boot 2.0)(AVB). AVB有一些很酷的功能使得更新更加容易,更加安全,例如通用页脚格式以及回滚保护.回滚保护旨在保护设备OS降级到低版本的系统后可能被人利用.为此,设备保存OS版本通过使用专用硬件及可信执行环境(Trusted Execution Environment)(TEE)签名数据.Pixel2和Pixel2XL有这种保护,并且我们建议所有设备制造商将这个功能添加到他们的新设备.
 
-Oreo also includes the new [OEM Lock Hardware Abstraction Layer](https://android-review.googlesource.com/#/c/platform/hardware/interfaces/+/527086/-1..1/oemlock/1.0/IOemLock.hal) (HAL) that gives device manufacturers more flexibility for how they protect whether a device is locked, unlocked, or unlockable. For example, the new Pixel phones use this HAL to pass commands to the bootloader. The bootloader analyzes these commands the next time the device boots and determines if changes to the locks, which are securely stored in Replay Protected Memory Block (RPMB), should happen. If your device is stolen, these safeguards are designed to prevent your device from being reset and to keep your data secure. This new HAL even supports moving the lock state to dedicated hardware.
+Oreo还包包括新的[原始设备制造商(OEM)锁定硬件抽象层](https://android-review.googlesource.com/#/c/platform/hardware/interfaces/+/527086/-1..1/oemlock/1.0/IOemLock.hal)(HAL)使得设备制造商能够更加灵活的保护设备锁定、解锁或者可解锁性.例如,新的Pixel手机使用HAL通过命令来引导装载程序.引导装载程序会在下次开机分析这些命令来确定是否更锁,这个锁被安全的存储在重放保护内存快(RPMB).如果你的设备被偷了,这些保护措施旨在保护你的设备被重制从而保护你的数据安全.新的HAL甚至支持将锁移动到专用的硬件中.
 
-Speaking of hardware, we've invested support in tamper-resistant hardware, such as the [security module](https://android-developers.googleblog.com/2017/11/how-pixel-2s-security-module-delivers.html) found in every Pixel 2 and Pixel 2 XL. This physical chip prevents many software and hardware attacks and is also resistant to physical penetration attacks. The security module prevents deriving the encryption key without the device's passcode and limits the rate of unlock attempts, which makes many attacks infeasible due to time restrictions.
+谈到硬件,我们添加了防伪硬件支持,例如在每一个Piexl2和Piexl2 XL中内嵌的[安全模块](https://android-developers.googleblog.com/2017/11/how-pixel-2s-security-module-delivers.html).这种物理芯片防止很多软硬件攻击,并且还抵抗物理渗透攻击. 安全薄块防止推导设备密码及限制解锁尝试的次数,使得很多攻击由于时间限制而失效.
 
-While the new Pixel devices have the special security module, all new [GMS](https://www.android.com/gms/) devices shipping with Android Oreo are required to implement [key attestation](https://android-developers.googleblog.com/2017/09/keystore-key-attestation.html). This provides a mechanism for strongly [attesting IDs](https://source.android.com/security/keystore/attestation#id-attestation) such as hardware identifiers.
+而新的Pixel设备有特殊的安全模块,所有搭载Android Oreo的[GMS](https://www.android.com/gms/)设备需要实现[key验证](https://android-developers.googleblog.com/2017/09/keystore-key-attestation.html).这提供了一种强[验证IDs](https://source.android.com/security/keystore/attestation#id-attestation)机制,例如硬件标示.
 
-We added new features for enterprise-managed devices as well. In work profiles, encryption keys are now ejected from RAM when the profile is off or when your company's admin remotely locks the profile. This helps secure enterprise data at rest.
+我们也为企业设备管理添加了新的功能. In work profiles, encryption keys are now ejected from RAM when the profile is off or when your company's admin remotely locks the profile.这有助于企业数据的安全.
 
 ### Platform hardening and process isolation
 
