@@ -2,196 +2,193 @@
 > * 原文作者：[Eric Elliott](https://medium.com/@_ericelliott?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/top-javascript-libraries-tech-to-learn-in-2018.md](https://github.com/xitu/gold-miner/blob/master/TODO/top-javascript-libraries-tech-to-learn-in-2018.md)
-> * 译者：
-> * 校对者：
+> * 译者：[gy134340](https://github.com/gy134340)
+> * 校对者：[moods445](https://github.com/moods445), [vuuihc](https://github.com/vuuihc)
 
-# Top JavaScript Libraries & Tech to Learn in 2018
+# 2018 要学习的优秀 JavaScript 库与知识
 
 ![](https://cdn-images-1.medium.com/max/2000/1*POlkeGC7T-F0jIqYJpom_A.jpeg)
 
-Alex Proimos — New York Public Library Grand Study Hall (CC BY 2.0)
+Alex Proimos — 纽约公共图书馆自修室 (CC BY 2.0)
 
-Last year, I wrote an article rounding up the [top tech to learn in 2017](https://medium.com/javascript-scene/top-javascript-frameworks-topics-to-learn-in-2017-700a397b711). This year there are some surprises.
+去年，我写了一篇关于 [2017 需要学习的技术](https://medium.com/javascript-scene/top-javascript-frameworks-topics-to-learn-in-2017-700a397b711) 的文章。今年有一些惊喜。
 
-> We set out to answer “which learning topics will give you the highest chance of a return on the time you invest learning them?”
+> 我们致力于回答 “在你投资学习的时候，哪些最高效？” 的问题
 
 ![](https://cdn-images-1.medium.com/max/800/1*eLeegNau5KrKlpE0MDh61Q.png)
 
-JavaScript has the most packages, by a landslide.
+JavaScript 有最多的包，取得压倒性胜利。
 
-First, software ate the world, the web ate software, and JavaScript ate the web. In 2018, React is eating JavaScript.
+首先，软件吞噬了世界，web 吞噬了软件，同时 JavaScript 吞噬了 web。而在 2018 年，React 正在吞噬 JavaScript。
 
-### 2018: The Year of React
+### 2018: React 之年
 
-React won the popularity battle in 2017.
+React 在 2017 年赢得了人气之战。
 
-There are still lots of developers working on Angular code bases, which shows up in Google trends:
+从 Google 趋势可以看出，还是有很多开发者基于 Angular 开发：
 
 ![](https://cdn-images-1.medium.com/max/800/1*Z5dxtF877QndConbs0Tglg.png)
 
-But as React continues to win customer satisfaction surveys, React growth has left Angular (and everything else) in the dust.
+但是 React 持续的赢得用户满意度。它迅速增长并远远抛开 Angular (以及其他) 框架。
 
-#### What About Vue.js? I Heard it’s Hot
+#### Vue.js 呢? 我听说它很火
 
-Everybody loves paying lip service to alternatives like Vue.js. Here’s what I said about it last year:
+每个人都喜欢口头上谈及相关的替代选项，比如 Vue.js。这是我去年说的：
 
-> [**Vue.js**](https://vuejs.org/) has a ton of GitHub stars and downloads. If things continue the way they are going, it will do very well in 2017, but I don’t think it will unseat either React or Angular (both of which are also growing fast) in the next year or so. Learn this **after** you have learned React or Angular.
+> [**Vue.js**](https://vuejs.org/) 有很多的 GitHub star 和下载量。如果情况继续发展的话，它在 2017 年将会表现的很好，但我不认为它会在下一年里替换 Angular 或者 React。所以在你学习 React 或者 Angular  **之后**再学习它吧。
 
-Vue.js did do very well in 2017\. It got a lot of headlines and a lot of people got interested. As I predicted, it **_did not come close_** to unseating React, and I’m confident to predict it won’t unseat React in 2018, either. That said, it could overtake Angular in 2018:
+Vue.js 在 2017 年表现出色，赢得了很多新闻头条和人们的兴趣。像我所预测的那样，它没有**赶上 React**, 同时我也肯定的说在 2018 年也不会发生。即便如此，它可能在 2018 年超过 Angular:
 
 ![](https://cdn-images-1.medium.com/max/800/1*IWIeZaJGBd82ZnIk4vYtnw.png)
 
-Vue.js downloads/month
+Vue.js 下载量/月
 
-As you can see, Vue.js is gaining on Angular downloads:
+如你所见, Vue.js 正在赶上 Angular 的下载量：
 
 ![](https://cdn-images-1.medium.com/max/800/1*AOyTSi4Fs5uKNHZoyFcfHQ.png)
 
-angular/core downloads/month
+angular/core 下载量/月
 
-But React has a strong lead and a strong growth rate to match:
+但是 React 有很强的领先趋势和与之相同的增长率：
 
 ![](https://cdn-images-1.medium.com/max/800/1*XKJokKyWBzwqNgG2Nzckiw.png)
 
-React downloads/month
+React 下载量/月
 
-Vue.js is still growing faster than React. Why should it be any different than React vs Angular in 2017?
+Vue.js 比 React 增长的更快，那与 2017 年 React 和 Angular 的对比有什么不同呢？
 
-At the end of 2016, the JavaScript world was ready for a new framework. Angular users were very unsatisfied, React users were very satisfied, lots of people wanted to learn React, and very few wanted to learn Angular. At the end of 2017, Angular 2+ user satisfaction is still less than half, at 49%.
+在 2016 年末，JavaScript 世界准备好迎接新的框架了。Angular 的用户非常的不满，React 的用户则与之相反，许多人想学习 React，很少人愿意学习 Angular。在 2017 年年尾，Angular 2 之后的用户满意度还是不到一半，只有 49%。
 
-**The story is very different for React vs Vue.js.** [React is beating Vue.js in user satisfaction](https://stateofjs.com/2017/front-end/results) (93% to 90%). The big incentive to switch from React in early 2017 was because of confusion over the React license. Facebook heard the users and switched the license.
+**React 和 Vue.js 则是完全不同的情节** [React 的用户满意度更高](https://stateofjs.com/2017/front-end/results) (93% to 90%)。2017 年早期，从 React 转向 Vue 的最大的刺激是 React 的开源许可证的问题。。Facebook 听取了用户的建议后来更改了协议。
 
-At this stage, I simply don’t see compelling evidence that the market is motivated to switch from React to anything else. Vue.js is going to have a much harder time stealing users from React than they are having stealing users from jQuery and Angular.
+在这一阶段，我看不到任何迹象可以让市场从 React 切换到其他的。Vue.js 从 React 手中夺取用户要比从 jQuery 和 Angular 那里难的多。
 
-There’s plenty of room for Vue.js to pick up a lot of Angular and jQuery users at a fast clip, but they will likely hit a brick wall when they have to start stealing users from React to continue the growth streak.
+从 Angular 和 jQuery 那里夺取用户有很多空间，但是从 React 那里获取用户来获得持续的增长将会很快碰到瓶颈。
 
-I predict strong Vue.js growth for another year or two, followed by a much harder battle with React in the top spot and Vue.js relegated to second fiddle unless something big changes to upset the balance.
+我预测 Vue.js 这种快速的增长只会持续一到两年，它会在顶部与 React 进行激烈的竞争，然后会停在第二位，除非有大的改变可以打破这个平衡。
 
-### Jobs
+### 职位
 
-> jQuery has fallen.
+> jQuery 凉了。
 
-In the job listings, React completely took off and blew right past jQuery — the **_first library to pass jQuery in job popularity in a decade_**.¹ What we’re witnessing here is the end of an era.
+在职位列表中, React 完全取代了 jQuery 之前的位置———**_这是十年来第一个超越 jQuery 的库_**¹。我们看到一个时代的终结。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Zsfr-vAuQXc95A7j1ebyEg.png)
 
-React Rising — the first library to unseat jQuery this decade (source: Indeed.com)
+React 取代了十年来 jQuery 第一的位置
+ (来源: Indeed.com)
 
-Compare to last year’s chart:
+对比一下去年的图:
 
 ![](https://cdn-images-1.medium.com/max/800/1*ZruXZe2HKfu2av8h4WBDfA.png)
 
-jQuery is so 2016
+jQuery 2016 年是这样的
 
-What’s really interesting in these charts is that other libraries grew a lot more than jQuery fell. The total open jobs mentioning a front-end framework are up by more than ~10k over last year.
+有趣的点在于其他库的增长值大于 jQuery 滑落的值。总的来说，库相关的职位在去年增长了 10k 或更多。
 
-With the job growth, we have also seen a boost in average salaries, too: [$110k](https://www.indeed.com/salaries/Javascript-Developer-Salaries) compared to $93k at the end of 2016\. The inflation rate for the same period [stayed below 2%](https://data.bls.gov/timeseries/CUUR0000SA0L1E?output_view=pct_12mths), accounting for only a small percentage of the salary boost.
+在职位的增加下，我们还看到平均工资的增长 [$110k](https://www.indeed.com/salaries/Javascript-Developer-Salaries) 对比 2016 年的 $93k。通货膨胀同期保持在[2% 一下](https://data.bls.gov/timeseries/CUUR0000SA0L1E?output_view=pct_12mths)，并不会过多的影响这一爆炸式增长。
 
-Clearly, it’s still a candidate’s market in 2018.
+显然，在 2018 还有是卖方市场。
 
-> **1. Methodology:** Job searches were conducted on Indeed.com. To weed out false positives, I paired searches with the keyword “software” to strengthen the chance of relevance, and then multiplied by ~1.5 (roughly the difference between programming job listings that use the word “software” and those that don’t.) All SERPS were sorted by date and spot checked for relevance. The resulting figures aren’t 100% accurate, but they’re good enough for the relative approximations used in this article.
+> **1. 方法:** 职位的搜索在 Indeed.com 完成。为了增强数据的可靠性，我成对的搜索 “软件” 相关的关键字扩大相关性，然后乘以大约 1.5 （粗糙的区分那些编程工作列表使用 “软件” 关键字和不使用的）。所有相关的都按日期排序记录相关性，其结果不一定 100% 准确，但是已经足够用来在此文中表示粗略的度。
 
-### Framework Recommendations
+### 框架推荐
 
-After looking at this year’s numbers, I’m prepared to strongly recommend React for most general app development use cases, including mobile apps (PWAs, React Native), web applications, most office productivity applications, and desktop media content production apps (see [Electron](https://electronjs.org/)).
+在看了今年的数据之后，我强烈用最广泛使用的 React 来开发应用，包括移动端应用（PWAs, React Native），web 应用，大部分的生产力工具，以及桌面媒体应用（[Electron](https://electronjs.org/)）。
 
-Notable category exceptions where something else may serve you better: Featherweight marketing landing pages (skip the framework entirely), 3D games, AR/VR. For 3D content, check out [Unity](https://unity3d.com/), [Unreal](https://www.unrealengine.com/en-US/what-is-unreal-engine-4), or [PlayCanvas](https://playcanvas.com/). That said, React is being used for 3D content UIs, too.
+某些明显的情况下，其他的可能更为适用好：轻量的营销页面（完全不需要框架），3D 游戏，AR/VR。对于 3D 的内容，看看 [Unity](https://unity3d.com/), [Unreal](https://www.unrealengine.com/en-US/what-is-unreal-engine-4), 或者 [PlayCanvas](https://playcanvas.com/)。即便如此，React 也可以作为 3D 内容的 UI 库。
 
-I’m rating all other front-end frameworks strictly optional this year. This doesn’t mean they’re not cool, just not serious contenders to React in the job market. Remember, this list is about learning ROI, not which tech is the “best”.
+我强烈不建议转向其他可以备选的前端框架。这并不是说它们不好，只是它们不是市场上 React 有力的竞争者。记住，这个列表是关于投资回报率，而不是哪一个技术是最棒的。
 
-### Why so Much Interest in React?
+### 为什么对 React 这么感兴趣?
 
-Browsing through the React job listings, I noticed an interesting trend — a lot of them were for things that we don’t think of as front-end web work:
+浏览 React 的职位列表，我注意到很多本不应该属于前端工作的有趣的趋势：
 
-* React Native (for perspective, there are more of these openings than the total number of Vue.js openings)
-* React for IoT
-* React for AR/VR (with Oculus Rift leading the hiring charge)
-* React for obscure computing thing you’ve never heard of
+* React Native (看起来, 这些需求总量比 Vue.js 的还多)
+* React IoT
+* React AR/VR (Oculus Rift 主导需求市场)
+* React 对那些你从来没听说的模糊计算
 
-> React has broken free of its web roots.
+> React 已经脱离了它 web 的土壤
 
-Versatility is one of the big selling points of React. Unlike many other frameworks, buying into React doesn’t entail buying into some baked in data model, or even the browser or DOM itself. In fact, I found quite a few React job listings that didn’t even mention JavaScript.
+灵活性是 React 最大的卖点。不像其他框架，采用 React 并不意味着关注它的数据模型，甚至浏览器和 DOM。事实上，我发现不少 React 的工作需求完全没有提到 JavaScript。
 
-React also offers a rich, vibrant ecosystem piggybacking on React’s de-facto standards — something the JavaScript world hasn’t seen since jQuery plugins ruled the web.
+React 提供了基于其标准的丰富的充满活力的生态系统，这些从 jQuery 统治 web 以来从来没有看到过。
 
-> The question is no longer “which framework?”
-> The question is “which tech pairs best with React?”
+> 问题不再是“哪一个框架？”
+> 问题是 “什么技术可以更好的搭配 React?”
 
-Nothing is going to unseat React in 2018 (maybe even 2019). You’re safe. JavaScript fatigue seems to be settling down. We have a great framework to build apps on now, and there’s a great ecosystem settling in around React.
+没有任何事物可以在 2018 改变 React（也许 2019 也是）。你很安全。JavaScript 疲劳渐渐稳定了。我们有了一个伟大的构造应用的框架，同时有着相关的优秀的生态系统。
 
-### Which Topics Should You Study?
+### 你应该学习哪些话题?
 
-Like last year, you can’t go wrong focusing on the essentials, but you should place more emphasis on functional programming for React apps.
+像去年一样，你不能错误的关注一些要点，但是你应该更加重视 React 应用的函数式编程。
 
-React is great for two primary reasons:
+React 有两点优秀之处:
 
-* Deterministic view renders
-* Abstracting the view layer away from direct DOM manipulation
+* 确定性的视图渲染
+* 将视图层从 DOM 操作中抽象出来
 
-Determinism is best served by building applications using pure functions, which is essentially the definition of functional programming.
+确定性通过使用纯函数构建应用来实现，这本质上也是函数式编程的定义。
 
-With that in mind, here are some topics you should study:
+考虑这一点, 这是一些你需要学习的内容:
 
-* [**Basic ES6 syntax**](https://medium.com/javascript-scene/a-functional-programmers-introduction-to-javascript-composing-software-d670d14ede30)
-* [**Class syntax and its many pitfalls**](https://medium.com/javascript-scene/why-composition-is-harder-with-classes-c3e627dcd0aa) — It’s OK to use `class` for React components, but avoid extending from your own classes, avoid `instanceof`, and avoid forcing users of your classes to use the `new` keyword.
-* [**Functional programming & software composition**](https://medium.com/javascript-scene/composing-software-an-introduction-27b72500d6ea)
+* [**基础的 ES6 语法**](https://medium.com/javascript-scene/a-functional-programmers-introduction-to-javascript-composing-software-d670d14ede30)
+* [**类的语法和它的各种陷阱**](https://medium.com/javascript-scene/why-composition-is-harder-with-classes-c3e627dcd0aa) — 可以对 React 组件使用类，但是应该避免继承你自己的类，避免 `instanceof`, 避免类的使用者使用 `new`关键字。
+* [**函数式编程 和 软件组成**](https://medium.com/javascript-scene/composing-software-an-introduction-27b72500d6ea)
 * [**Currying**](https://medium.com/javascript-scene/a-functional-programmers-introduction-to-javascript-composing-software-d670d14ede30#0355)
-* [**Closures**](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-a-closure-b2f0d2152b36)
-* [**Pure functions**](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-a-pure-function-d1c076bec976)
+* [**闭包**](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-a-closure-b2f0d2152b36)
+* [**纯函数**](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-a-pure-function-d1c076bec976)
 * [**Promises**](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-a-promise-27fc71e77261)
-* [**Generators**](https://medium.com/javascript-scene/7-surprising-things-i-learned-writing-a-fibonacci-generator-4886a5c87710) **&** [**async functions**](https://medium.com/javascript-scene/the-hidden-power-of-es6-generators-observable-async-flow-control-cfa4c7f31435)
+* [**Generators**](https://medium.com/javascript-scene/7-surprising-things-i-learned-writing-a-fibonacci-generator-4886a5c87710) **和** [**异步函数**](https://medium.com/javascript-scene/the-hidden-power-of-es6-generators-observable-async-flow-control-cfa4c7f31435)
 * [**TDD**](https://medium.com/javascript-scene/the-outrageous-cost-of-skipping-tdd-code-reviews-57887064c412)
-* [**The RAIL performance model**](https://www.smashingmagazine.com/2015/10/rail-user-centric-model-performance/)
-* **Progressive Web Applications (PWAs):** See [“Native Apps are Doomed”](https://medium.com/javascript-scene/native-apps-are-doomed-ac397148a2c0) & [“Why Native Apps Really Are Doomed”](https://medium.com/javascript-scene/why-native-apps-really-are-doomed-native-apps-are-doomed-pt-2-e035b43170e9)
-* **GraphQL** matured a lot in 2017, and is quickly taking over from REST APIs. Apollo is adding built-in offline first client cache architecture that will make Apollo+GraphQL a serious alternative (or complement) to Redux in 2018.
+* [**RAIL 性能模型**](https://www.smashingmagazine.com/2015/10/rail-user-centric-model-performance/)
+* **Progressive Web Applications (PWAs):** 看一下 [“Native Apps are Doomed”](https://medium.com/javascript-scene/native-apps-are-doomed-ac397148a2c0) 和 [“Why Native Apps Really Are Doomed”](https://medium.com/javascript-scene/why-native-apps-really-are-doomed-native-apps-are-doomed-pt-2-e035b43170e9)
+* **GraphQL** 在 2017 年成熟了很多，非常快速的取代 REST API, Apollo 采用了内置的离线客户端缓存架构让 Apollo 和 GraphQL 成为 2018 Redux 的一个真正的备选方案（或补充）。
 
-### Libraries & Tools
+### 库和工具
 
-These are the libraries and tools I’m finding most useful:
+这里是一些我发现的最有用的库和工具：
 
 * [**React**](https://reactjs.org/)
 * [**Redux**](https://redux.js.org/)
-* [**Redux-Saga**](https://github.com/redux-saga/redux-saga) to manage async I/O and isolate side-effects
-* [**Next.js**](https://github.com/zeit/next.js/) — SSR with Node & Express, automatic bundle splitting, styled-jsx
+* [**Redux-Saga**](https://github.com/redux-saga/redux-saga) 管理异步 IO 分离副作用
+* [**Next.js**](https://github.com/zeit/next.js/) — Node 和 Express 的服务端喧嚷, 自动的分离打包, styled-jsx
 * [**Material UI**](http://www.material-ui.com/)
 * [**Storybook**](https://github.com/storybooks/storybook)
-* [**Cheerio**](https://github.com/cheeriojs/cheerio) for unit testing React components (I prefer this over Enzyme)
-* [**Lodash**](https://lodash.com/) (I prefer utilities from `lodash/fp`). Import just the utilities you need to avoid blowing up your bundle size.
-* [**Babel**](https://babeljs.io/)**:** Used to compile ES6 to work on older browsers.
-* [**Webpack**](https://webpack.github.io/)**:** The most popular bundler for standard JavaScript look for simple starter kit/boilerplate config examples to get things running fast)
-* [**ESLint:**](http://eslint.org/) Catch syntax errors and style issues early. After code review and TDD, the third best thing you can do to reduce bugs in your code.
-* [**Ramda**](http://ramdajs.com/)— mostly for lenses and transducers.
+* [**Cheerio**](https://github.com/cheeriojs/cheerio) 用来做 React 组件的单元测试（相比 Enzyme 我更喜欢它）
+* [**Lodash**](https://lodash.com/) (我更倾向于 `lodash/fp`)。只导入需要的包避免增大打包体积。 
+* [**Babel**](https://babeljs.io/)**:** 编译 ES6 使它在更老的浏览器上运行
+* [**Webpack**](https://webpack.github.io/)**:** 最流行 JavaScript 打包工具，向 [kit/boilerplate](https://github.com/kriasoft/react-starter-kit)找一些简单的样例来快速的开始。
+* [**ESLint:**](http://eslint.org/) 提早检测语法错误和样式问题，在 code review 和测试驱动开发之外最好的可以减少你代码里错误的工具。
+* [**Ramda**](http://ramdajs.com/)— 主要是为了 lenses 和 transducers.
 * [**Node & Express**](https://medium.com/javascript-scene/introduction-to-node-express-90c431f9e6fd#.gl2r6gcnn)
-* [**RxJS**](http://reactivex.io/rxjs/)**:** Observables for JavaScript. I’ve been using transducers more, lately. Remember to [use patch imports](https://github.com/ReactiveX/rxjs#es6-via-npm) to avoid blowing up your bundle size.
+* [**RxJS**](http://reactivex.io/rxjs/)**:** 让 JavaScript 可观察，最近我一直在使用 transducers，记着使用 [patch imports](https://github.com/ReactiveX/rxjs#es6-via-npm) 来减小包体积。
 
-**TypeScript** did well in 2017, but I’ve seen it get in the way and complicate apps more than it helped. It’s primary shortcomings are over reliance on annotations as opposed to inference, and an inability to properly type higher-order functions without indescribable contortions. I gave it a full-time daily trial for a while, but these still apply: [“The Shocking Secret About Static Types”](https://medium.com/javascript-scene/the-shocking-secret-about-static-types-514d39bf30a3) &[“You Might Not Need TypeScript”](https://medium.com/javascript-scene/you-might-not-need-typescript-or-static-types-aa7cb670a77b). Flow shares the same problems and the developer tools are not as good as TypeScript’s.
+**TypeScript**2017 年表现不错, 但我认为它增加应用的复杂度的弊端大于它的帮助，它的主要缺点是过分依赖注释而不是接口，同时对高阶函数的类型有无法形容的扭曲，我做了一整天的试用，这些情况仍然存在：[“静态类型之秘”](https://medium.com/javascript-scene/the-shocking-secret-about-static-types-514d39bf30a3) 和 [“你也许不需要呀 JavaScript”](https://medium.com/javascript-scene/you-might-not-need-typescript-or-static-types-aa7cb670a77b)。Flow 跟 TypeScript 有相同的问题同时开发者工具也不如 TypeScript 的棒。
 
-### Tech to Watch in 2018
 
-All of these areas of R&D are creating real jobs in 2018:
+### 2018 技术展望
+
+所有的这些都是 2018 研究与开发领域真实的工作：
 
 * Progressive Web Apps (PWAs)
-* Blockchain & fintech
-* Medical technology
-* AR/VR — Hololens, Meta, and ODG are shipping today. ODG R-9 was scheduled to ship in 2017 but will likely ship in 2018 instead. MagicLeap has promised to ship in 2018\. AR will transform the human experience more than the cell phone did.
-* 3D printing
+* 区块链与金融科技
+* 医疗科技
+* AR/VR — Hololens, Meta, 和 ODG 现在可以出货了。 ODG R-9 本来预计 2017 发售但是很有可能放在 2018。MagicLeap 承诺 2018 发布。AR 将会比过去手机更加改变人们的体验。
+* 3D 打印
 * AI
-* Drones
+* 无人驾驶
 
-Quantum computing is also poised to transform the world, but it may be 2019 or later before the disruption really starts. There are working quantum computers online, but they can’t do much yet. It’s still too early for most developers to even begin to experiment productively. Microsoft recently announced its [Q# programming language](https://arstechnica.com/gadgets/2017/12/microsofts-q-quantum-programming-language-out-now-in-preview/) for quantum computing. Meanwhile, [IBM](https://www.forbes.com/sites/alexkonrad/2017/12/14/why-companies-like-jpmorgan-chase-and-samsung-are-partnering-with-ibm-in-quantum-computing/#123ce0592c4d) and [Google](https://www.inverse.com/article/38917-google-quantum-simulator-creates-a-butterfly) also continue to invest heavily to own the embryonic cloud quantum computing market.
+量子计算也将改变世界，但是也许在 2019 或者更晚改变才会开始。目前有在网上工作的量子计算机，但是他们还做的不是很多。现在对于大多数开发者来说开始试验性生产还太早。微软最近发布了它的量子计算编程语言 [Q#](https://arstechnica.com/gadgets/2017/12/microsofts-q-quantum-programming-language-out-now-in-preview/)，[IBM](https://www.forbes.com/sites/alexkonrad/2017/12/14/why-companies-like-jpmorgan-chase-and-samsung-are-partnering-with-ibm-in-quantum-computing/#123ce0592c4d) 和 [Google](https://www.inverse.com/article/38917-google-quantum-simulator-creates-a-butterfly) 也继续大量投资自己的量子云计算市场。
 
-If you want to be prepared to learn quantum computing, you’ll want to study up on [linear algebra](https://mitpress.mit.edu/books/quantum-algorithms-linear-algebra). There are also functional explorations of quantum computing based on [lambda calculus](https://plato.stanford.edu/entries/lambda-calculus/).
+如果你想学习量子计算，你也许需要学习 [线性代数](https://mitpress.mit.edu/books/quantum-algorithms-linear-algebra)，同时也有对于量子计算也有一些基于 [lambda 演算](https://plato.stanford.edu/entries/lambda-calculus/) 的函数式探索。
 
-It’s likely that, as we’ve seen with AI, cloud APIs will be developed that will let people with less math background take advantage of some of the capabilities of quantum computing.
+很有可能，像我们看到的 AI, 云 API 将会被开发出来让有不同数学背景的人来更好的利用好量子计算的能力。
 
-### Need React Training for Your Team?
+### 需要为你的团队教授 React?
 
-DevAnywhere offers live remote training plus 1:1 mentorship to teach the functional programming and software composition principles critical to getting the most from React.
-
-* Live lessons
-* Flexible hours
-* 1:1 mentorship
-* Build real production apps
+DevAnywhere 提供一些 React 的线上教程，和一对一的关于 React 中函数式编程及软件构建原理的指导。
 
 [![](https://cdn-images-1.medium.com/max/800/1*pskrI-ZjRX_Y0I0zZqVTcQ.png)](https://devanywhere.io/)
 
