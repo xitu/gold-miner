@@ -3,11 +3,11 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/a-guide-to-automating-scraping-the-web-with-javascript-chrome-puppeteer-node-js.md](https://github.com/xitu/gold-miner/blob/master/TODO/a-guide-to-automating-scraping-the-web-with-javascript-chrome-puppeteer-node-js.md)
 > * 译者：[pot-code](https://github.com/pot-code)
-> * 校对者：
+> * 校对者：[bambooom](https://github.com/bambooom)
 
 # JavaScript 自动化爬虫入门指北（Chrome + Puppeteer + Node JS）
 
-## 和 Headless Chrome 一起带你装逼带你飞
+## 和 Headless Chrome 一起装逼一起飞
 
 ![](https://cdn-images-1.medium.com/max/800/1*kk8ovQKB-45FsZ8TZM-vjg.png)
 
@@ -17,7 +17,7 @@
 
 本文将会教你如何用 JavaScript 自动化 web 爬虫，技术上用到了 Google 团队开发的 Puppeteer。 [__Puppeteer__](https://github.com/GoogleChrome/puppeteer) 运行在 Node 环境，可以用来操作 headless Chrome。何谓 [__Headless Chrome__](https://developers.google.com/web/updates/2017/04/headless-chrome)？通俗来讲就是在不打开 Chrome 浏览器的情况下使用提供的 API 模拟用户的浏览行为。
 
-**如果你还是不理解，你可以想象成全自动化操作 Chrome 浏览器。**
+**如果你还是不理解，你可以想象成使用 JavaScript 全自动化操作 Chrome 浏览器。**
 
 #### 前言
 
@@ -33,7 +33,7 @@ npm install --save puppeteer
 
 #### 例 1 —— 网页截图
 
-Puppeteer 安装好之后，我们就可以开始写一个简单的例子。这个例子直接照搬自官方文档，它可以对给定的网站进行截图保存。
+Puppeteer 安装好之后，我们就可以开始写一个简单的例子。这个例子直接照搬自官方文档，它可以对给定的网站进行截图。
 
 首先创建一个 js 文件，名字随便起，这里我们用 `test.js` 作为示例，输入以下代码：
 
@@ -58,7 +58,7 @@ getPic();
 * **第 3–10 行：** 核心代码，自动化过程在这里完成。
 * **第 12 行：** 执行 `getPic()` 方法。
 
-细心的读者会发现，`getPic()` 前面有个 `async` 前缀，它表示 `getPic()` 方法是个异步方法。`async` 和 `await` 成对出现，属于 ES 2017 新加入的功能。介于它是个异步方法，所以调用之后返回的是 `Promise` 对象。当 `async` 方法返回值时，对应的 `Promise` 对象会将这个值传递给 `resolve`（如果抛出异常，那么会将错误信息传递给 `Reject`)。
+细心的读者会发现，`getPic()` 前面有个 `async` 前缀，它表示 `getPic()` 方法是个异步方法。`async` 和 `await` 成对出现，属于 ES 2017 新特性。介于它是个异步方法，所以调用之后返回的是 `Promise` 对象。当 `async` 方法返回值时，对应的 `Promise` 对象会将这个值传递给 `resolve`（如果抛出异常，那么会将错误信息传递给 `Reject`)。
 
 在 `async` 方法中，可以使用 `await` 表达式暂停方法的执行，直到表达式里的 `Promise` 对象完全解析之后再继续向下执行。看不懂没关系，后面我再详细讲解，到时候你就明白了。
 
@@ -194,7 +194,7 @@ scrape().then((value) => {
 
 首先，还是引入 `puppeteer` 依赖，然后定义一个 `scrape()` 方法，用来写爬虫代码。这个方法返回一个值，到时候我们会处理这个返回值（示例代码是直接打印出这个值）
 
-先输入下面的代码测试一下：
+先在 scrape 方法中添加下面这一行测试一下：
 
 ```javascript
 let scrape = async () => {
@@ -206,7 +206,7 @@ let scrape = async () => {
 
 **步骤 1：前期准备**
 
-和例 1 一样，先获取浏览器实例，再创建一个 `page` 对象，然后加载 URL：
+和例 1 一样，先获取浏览器实例，再新建一个页面，然后加载 URL：
 
 ```javascript
 let scrape = async () => {
@@ -416,8 +416,8 @@ node scrape.js
 ```javascript
 const result = await page.evaluate(() => {
   let data = []; // 创建一个空数组
-  let elements = document.querySelectorAll('xxx'); // 选择所有的？
-  // 遍历所有的？
+  let elements = document.querySelectorAll('xxx'); // 选择所有相关元素
+  // 遍历所有的元素
     // 提取标题信息
     // 提取价格信息
     data.push({title, price}); // 将数据插入到数组中
@@ -427,7 +427,7 @@ const result = await page.evaluate(() => {
 
 * * *
 
-如果提示了还是做不出来的话......好吧，以下是我给的参考答案。在以后的教程中，我会在以下代码的基础上再做一些拓展，同时也会涉及一些更高级的爬虫技术。你可以在 [**这里**](https://docs.google.com/forms/d/e/1FAIpQLSeQYYmBCBfJF9MXFmRJ7hnwyXvMwyCtHC5wxVDh5Cq--VT6Fg/viewform) 提交你的邮箱地址进行订阅，有新的内容更新时我们会通知你。
+如果提示了还是做不出来的话，好吧，以下是参考答案。在以后的教程中，我会在下面这段代码的基础上再做一些拓展，同时也会涉及一些更高级的爬虫技术。你可以在 [**这里**](https://docs.google.com/forms/d/e/1FAIpQLSeQYYmBCBfJF9MXFmRJ7hnwyXvMwyCtHC5wxVDh5Cq--VT6Fg/viewform) 提交你的邮箱地址进行订阅，有新的内容更新时我们会通知你。
 
 **参考答案：**
 
@@ -465,7 +465,9 @@ scrape().then((value) => {
 
 ### 结语：
 
-谢谢观看。
+谢谢观看！如果你有学习 NodeJS 的意向，可以移步 [**Learn Node JS — The 3 Best Online Node JS Courses**](https://codeburst.io/learn-node-js-the-3-best-online-node-js-courses-87e5841f4c47)。
+
+每周我都会发布 4 篇有关 web 开发的技术文章，[**欢迎订阅**](https://docs.google.com/forms/d/e/1FAIpQLSeQYYmBCBfJF9MXFmRJ7hnwyXvMwyCtHC5wxVDh5Cq--VT6Fg/viewform)！或者你也可以在 Twitter 上 [**关注我**](https://twitter.com/BrandonMorelli)
 
 ---
 
