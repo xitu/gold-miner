@@ -19,7 +19,7 @@ Oreo还包括新的[原始设备制造商(OEM)锁定硬件抽象层](https://and
 
 谈到硬件,我们添加了防伪硬件支持,例如在每一个Piexl2和Piexl2 XL中内嵌的[安全模块](https://android-developers.googleblog.com/2017/11/how-pixel-2s-security-module-delivers.html).这种物理芯片防止很多软硬件攻击,并且还抵抗物理渗透攻击. 安全薄块防止推导设备密码及限制解锁尝试的次数,使得很多攻击由于时间限制而失效.
 
-而新的Pixel设备有特殊的安全模块,所有搭载Android Oreo的[谷歌移动服务(GMS)](https://www.android.com/gms/)设备需要实现[key验证](https://android-developers.googleblog.com/2017/09/keystore-key-attestation.html).这提供了一种强[验证IDs](https://source.android.com/security/keystore/attestation#id-attestation)机制,例如硬件标示.
+而新的Pixel设备有特殊的安全模块,所有搭载Android Oreo的[谷歌移动服务(GMS)](https://www.android.com/gms/)设备需要实现[key验证](https://android-developers.googleblog.com/2017/09/keystore-key-attestation.html).这提供了一种强[验证IDs](https://source.android.com/security/keystore/attestation#id-attestation)机制,例如硬件标识.
 
 我们也为企业设备管理添加了新的功能.加密密钥会被移除RAM当移除配置文件或者公司管理员远程锁定配置文件.这有助于企业数据的安全.
 
@@ -27,7 +27,7 @@ Oreo还包括新的[原始设备制造商(OEM)锁定硬件抽象层](https://and
 
 作为[Treble项目](https://android-developers.googleblog.com/2017/05/here-comes-treble-modular-base-for.html)的一部分,Android架构重构为了使设备厂商更容易花费较小的代价进行升级.这种分离的平台和供应商代码也是为了提高安全性.根据[最小特权原则](https://en.wikipedia.org/wiki/Principle_of_least_privilege),这些硬件抽象层(HALs)运行在[自己的沙盒](https://android-developers.googleblog.com/2017/07/shut-hal-up.html),只有访问驱动和权限才是必须的.
 
-追随着Android牛轧糖中[媒体堆栈优化](https://android-developers.googleblog.com/2016/05/hardening-media-stack.html)脚步,在Android Oreeo中移除了媒体框架中许多直接访问硬件的模块,从而分离开了这两层.此外,我们确保了在所有媒体组建中控制流完整性(CFI).许多通过破坏应用的正常控制流的缺陷如今被开发利用,从而利用应用程序的特权来执行恶意的活动. CFI是一个健全的安全验证机制,不允许随意更改原来编译后二进制文件的控制流程图,从而是的难以执行这样的攻击.
+追随着Android牛轧糖中[媒体堆栈优化](https://android-developers.googleblog.com/2016/05/hardening-media-stack.html)的脚步,在Android Oreeo中移除了媒体框架中许多直接访问硬件的模块,从而分离开了这两层.此外,我们确保了在所有媒体组件中控制流完整性(CFI).许多通过破坏应用的正常控制流的缺陷如今被开发利用,从而利用应用程序的特权来执行恶意的活动. CFI是一个健全的安全验证机制,不允许随意更改原来编译后二进制文件的控制流程图,使得这样的攻击难以执行.
 
 除了这些架构改变和CFI以外,Android Oreo还带来了其他美味的平台安全增强的盛宴:
 
