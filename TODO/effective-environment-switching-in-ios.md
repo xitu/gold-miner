@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/effective-environment-switching-in-ios.md](https://github.com/xitu/gold-miner/blob/master/TODO/effective-environment-switching-in-ios.md)
 > * 译者：[swants](http://www.swants.cn)
-> * 校对者：
+> * 校对者：[charsdavy](https://github.com/charsdavy) [VernonVan](https://github.com/VernonVan)
 
 # Xcode 环境配置最佳实践
 
@@ -11,13 +11,13 @@
 
 ### 前言
 
-工欲善其事，必先利其器。在 iOS 中,如何处理 **配置环境** 和根据需求自定义的 **设置** 关系也尤为重要。虽然 Xcode 提供了一系列的工具帮助我们进行妥善地配置。但遗憾的是，我见过的很多团队在绝大多数时候都没有充分利用这些辅助工具。这并不是他们的错：苹果只为我们提供了一些 **不怎么好用** 的默认配置，而没有更好的帮助我们学习如何达到最佳实践。
+工欲善其事，必先利其器。在 iOS 中,如何处理 **配置环境** 和根据需求自定义的 **设置** 关系也尤为重要。虽然 Xcode 提供了一系列的工具帮助我们进行妥善地配置。但遗憾的是，我见过的很多团队在绝大多数时候都没有充分利用这些辅助工具。这并不是他们的错：苹果只为我们提供了一些不怎么好用的默认配置，而没有更好的帮助我们学习如何达到最佳实践。
 
-在这篇文章里，我们将探索如何更好地利用 Xcode 配置，如何把 APP 设置定义的更加有条理。
+在这篇文章里，我们将探索如何更好地利用 Xcode 配置，如何把 APP 的设置定义得更加有条理。
 
 ### Xcode 配置
 
-Xcode 通过配置来将各种设置打包到你的 APP 版本。通俗地讲，配置就是告诉编译器如何构建版本的一系列设置。IDE 允许你根据不同的配置来自定义一些设置。你可能经常看到这些：
+Xcode 可以通过各种配置构建不同设置的包。通俗地讲，配置就是告诉编译器如何构建版本的一系列设置。IDE 允许你根据不同的配置来自定义一些设置。你可能经常看到这些：
 
 ![](https://cdn-images-1.medium.com/max/800/1*3M9G9pHYcupklR3xdFX7PA.png)
 
@@ -25,7 +25,7 @@ Xcode 通过配置来将各种设置打包到你的 APP 版本。通俗地讲，
 
 #### Debug vs. Release
 
-Debug 和 Release 是 Xcode 提供的两种默认配置。你完全也可以创建你自己的配置，但我们通常不这么做，因为自定义的配置是否有效可能取决于项目，iOS 开发者们对哪些配置可以对项目普遍有效还没有达成 **共识**。 
+Debug 和 Release 是 Xcode 提供的两种默认配置。你完全也可以创建你自己的配置，但我们通常不这么做，因为自定义的配置是否有效可能取决于项目，iOS 开发者们对哪些配置可以对项目普遍有效还没有达成共识。 
 
 这两种默认配置有几处差别，具体的差别在这里我不会详细讨论，只是简单概括下：
 
@@ -33,11 +33,11 @@ Debug 和 Release 是 Xcode 提供的两种默认配置。你完全也可以创�
 
 至于这两种配置的用途，**debug** 通常会在我们日常开发中使用。而 **release** 我们通常会在需要将 APP 分发给其他非开发人员如：测试人员、项目经理、客户或用户时使用。
 
-需要注意的是，这两个配置通常是不能完全满足需求的。而且开发者经常把 ≪__debug vs. release__≫ 和 ≪__staging vs. production__≫ 这两个概念搞混，这完全是不应该的。
+需要注意的是，这两个配置通常是不能完全满足需求的。而且开发者经常把 ≪debug vs. release≫ 和 ≪staging vs. production≫ 这两个概念搞混，这完全是不应该的。
 
 #### 我们可以继续完善
 
-一些项目使用不同的配置环境：开发环境、临时环境、生产环境、预生产环境等等，用你最想用的那个就好。这种分类方式和上面讨论的两种默认配置没有直接联系。就算我们强制这么分类，用的时候达到的效果也没有想象中的那样好。比如，你想准备构建一个 **_release_** 版本，但这并不意味着你的 APP 一定要指向 **生产服务器**：想像一下，你需要为 QA 打个 release 的版本的包，而这个包需要在临时服务器上进行测试。 这时就连 debug & release 两个默认的配置也不能满足需求了。
+一些项目使用不同的配置环境：开发环境、临时环境、生产环境、预生产环境等等，用你最想用的那个就好。这种分类方式和上面讨论的两种默认配置没有直接联系。就算我们强制这么分类，用的时候达到的效果也没有想象中的那样好。比如，你想准备构建一个 **_release_** 版本，但这并不意味着你的 APP 一定要指向 **生产** 服务器：想像一下，你需要为 QA 打个 release 的版本的包，而这个包需要在临时服务器上进行测试。 这时就连 debug & release 两个默认的配置也不能满足需求了。
 
 因此，我想用可以满足我们更多需求的其他配置方案来代替基本的 debug & release 配置。为了足够简单，在我的方案中只会保留临时环境和生产环境，在你需要使用其它环境配置时，你会发现在我的方案里可以轻松添加。
 
@@ -50,10 +50,12 @@ Debug 和 Release 是 Xcode 提供的两种默认配置。你完全也可以创�
 * TestFlight Staging
 * TestFlight Production
 
-从它们的名字上，你就能猜到它们大概的设置，下面就是他们的详细设置：
+
+从它们的名字上，你就能猜到它们大概的设置，下面就是它们的详细设置：
+
 
 * 前两个（Debug Staging & Debug Production）和默认的 Debug 配置一样，但 **每个都指向不同的服务器环境**。
-* 后两个配置环境（两个 TestFlight 配置环境 ）也是这样，他们和默认的 Release 配置一样，包含完整的调试信息和代码优化，但 **每个都在对应的服务器环境下使用**。
+* 后两个配置环境（两个 TestFlight 配置环境 ）也是这样，它们和默认的 Release 配置一样，包含完整的调试信息和代码优化，但 **每个都在对应的服务器环境下使用**。
 
 ![](https://cdn-images-1.medium.com/max/800/1*E24WkTnP6IXFceTvE3MtxQ.png)
 
@@ -67,7 +69,7 @@ Debug 和 Release 是 Xcode 提供的两种默认配置。你完全也可以创�
 
 #### 第五种配置环境
 
-我使用 “ __TestFlight__” 命名 release 配置，而不是使用原来的 “__Release__” 命名是有原因的。因为代码中有些特定事件只在最终用户使用时触发，而在测试人员和客户使用时不触发。一个具体的场景就是使用用户统计来跟踪事件，这时配置需要达到的效果可能就得是只对最终用户进行事件跟踪，而忽略掉生产环境下的测试人员。在这种情况下，我们就要重新考虑带有细微差别的 __TestFlight Production__ 配置，因此我们需要将这个配置继续细分下去。引进第五种配置：
+我使用 “ __TestFlight__” 命名 release 配置，而不是使用原来的 “__Release__” 命名是有原因的。因为代码中有些特定事件只在最终用户使用时触发，而在测试人员和客户使用时不触发。一个具体的场景就是使用用户统计来跟踪事件，这可能要求跟踪事件仅作用于最终用户，而不是生产环境下的测试人员。在这种情况下， 我们就要考虑 __TestFlight Production__ 配置具有的细微差别，因此我们需要将这个配置继续细分下去。引进第五种配置：
 
 * AppStore
 
@@ -77,7 +79,7 @@ Debug 和 Release 是 Xcode 提供的两种默认配置。你完全也可以创�
 
 ### 自定义设置
 
-如何根据所选配置来执行不同操作，做到这一点有很多方式：预编译器指令、环境变量、各种 plist 文件等等。这些方式都有自己的优缺点，这里只讨论我将采取的比较纯净的方式。
+有很多方式可以做到根据所选不同配置来执行不同的操作：预编译器指令、环境变量、各种 plist 文件等等。这些方式都有自己的优缺点，这里只讨论我将采取的比较纯净的方式。
 
 需要根据配置执行的各种操作通常可以由变量来控制，通过这些变量来决定 APP 的行为。这些变量通常称为 **settings** 。比如一些像这样的 settings ：服务器 API 的 base URL、Facebook App ID、日志的详细级别、是否支持离线访问等等。
 
@@ -119,15 +121,14 @@ struct Settings {
 
 #### User-Defined Settings
 
-想一下，在所有的工程内 **什么会随配置的不同而改变** ？ 对，编译器的代码优化级别、header 的搜索路径、描述文件等等。如果我们能够定义我们自己的随所选配置改变的设置，那不是很妙吗！事实证明，我们确实可以创建用户自定义的设置。
+想一下，在所有的工程内 **什么会随配置的不同而改变** ？ 对，编译器的代码优化级别、header 的搜索路径、描述文件等等。如果我们能够定义我们自己的随所选配置改变的设置，那不就简单了！事实证明，我们确实可以创建用户自定义的设置。
 
 ![](https://cdn-images-1.medium.com/max/800/1*ilzKZsI_BCcgal5tzhkUWw.png)
 
 创建 User-Defined settings 非常简单，只需要在你的 Target > Build Settings 中，点击 + 按钮，然后选择 “Create User-Defined Setting”。这些也可以在 project > Build Settings 下创建，但我觉得在 Target > Build Settings 创建更合适。
 
-因为刚创建的 User-Defined Settings 还需你创建些其他的设置来搭配使用。所以建议最好用合适的前缀来命名。
+ 因为你刚创建的 User-Defined Settings 可能还需与其他的 Settings 来搭配使用，所以建议最好用合适的前缀来命名。
 
->【还需你创建些其他的设置来搭配使用】 希望两位校对者对这句润色一下。谢谢！
 
 ![](https://cdn-images-1.medium.com/max/800/1*25yr4QF6vBFNK2F1DOh6nw.png)
 
@@ -145,7 +146,7 @@ $(YOUR_USER_DEFINED_SETTING_NAME)
 
 ![](https://cdn-images-1.medium.com/max/1000/1*UMNV9ZDKIjr3J3UpWKOIbA.png)
 
-当 `Info.plist` 文件被编译时，它会获取所选配置对应的所有 settings 属性值。而这些属性值也会在编译时对应到每个 settings 上。
+当 `Info.plist` 文件被编译时，它会获取所选配置对应的所有 settings 属性值，而这些属性值也会在编译时对应到每个 settings 上。
 
 现在，你就可以在你的代码里随时随地 *优雅* 地获取到这些 settings 的属性值：
 
@@ -155,7 +156,7 @@ if Settings.shared.isOfflineAccessEnabled {
 }
 ```
 
-最后，在 Xcode 中选择所需的编译配置就是小菜一碟了：
+最后，在 Xcode 中选择所需的编译配置就非常简单了：
 
 ![](https://cdn-images-1.medium.com/max/800/1*D5Z2ipWESxi1MW5s0xvmMw.png)
 
@@ -176,7 +177,7 @@ if Settings.shared.isOfflineAccessEnabled {
 
 * 在运行时不能灵活地更改设置，因为设置在编译时就被打包到版本内了。
 * 在配置之间切换时体验并不是很好：每次更改配置后，Xcode 都会重新创建一个版本，也就是说你必须等待整个项目重新编译。
-* 只能在 `.xcodeproj` 中修改这些设置的值，而不能在外部 [灵活](https://hackernoon.com/system-settings-9ed72d5ef629)  地修改这些设置的值。
+* 只能在 `.xcodeproj` 中修改这些设置的值，而不能在外部 [灵活](https://hackernoon.com/system-settings-9ed72d5ef629)  修改这些设置的值。
 * User-Defined Settings [暴露给了所有能够接触到代码的人](https://medium.freecodecamp.org/how-to-securely-store-api-keys-4ff3ea19ebda) , **所以千万不要把任何重要的 key 值放到这里** 。
 
 虽然这些隐患可以一一排除，但是，这个方案的初衷只是为了从这片几乎空白的领域摸索出这些工具更好的使用方法。解决这些问题就意味着更多更复杂的修改，而且这些已经超出了本文讨论的内容，我不希望这篇文章跑题。但相信我，我们做的已经足够完善了。**在下篇文章里，我们将研究如何处理这些隐患，并让我们的项目变得更加完善...**
