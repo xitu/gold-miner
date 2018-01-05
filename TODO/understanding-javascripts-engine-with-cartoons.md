@@ -67,17 +67,17 @@
 
 #### 语义
 
-Semantically, our code has meaning that our machines will eventually understand via the compiler. In order to achieve semantic meaning from code, the compiler must read code. We’ll delve into that in the next section.
+从语义上讲，我们的代码都具有最终能被机器通过编译器来理解的含义。为了取到代码中的语义，编译器必须去读代码。我们在下一节深入研究这一环节。
 
-**Note:** Context differs from scope. Explaining further would go beyond the “scope” of this article.
+**提示：** 上下文与作用域是不一样的。做更深层的阐述的话就超出了本文的 “作用域”。
 
 ### **LHS/RHS**
 
-We read English from left to right while the compiler reads code in both directions. How? With Left -Hand-Side(LHS) look-ups and Right-Hand-Side (RHS) look-ups. Let’s break them down.
+我们读英文是按照从左往右的顺序，编译器读代码却是从右往左。编译器是怎么做到的？通过左手边查找 (LHS) 与 右手边查找 (RHS)。我们来深入看看它们是怎么一回事。
 
-LHS look-ups focus are the “left hand side” of an assignment. What this really means is that it is responsible for the target of the assignment. We should conceptualize _target_ rather than _position_ because an LHS look-up’s target can vary in its position. Also, _assignment_ does not explicitly refer to the _assignment operator_.
+LHS 查找聚焦于赋值操作的 “左边”。意思就是 LHS 负责查找赋值操作的 **目标**。我们要使用 **目标** 这个概念而不是 **位置**，因为 LHS 查找的目标可能位置不同。并且，**赋值操作** 也并不一定显式地指向 **赋值运算符**。
 
-Check out the example below for clarification:
+为了解释地更清楚，我们来看看下面这个例子：
 
 ```
 function square(a){
@@ -88,33 +88,33 @@ function square(a){
 square(5);
 ```
 
-The function call triggers an LHS lookup for `a`. Why? Because passing `5` as an argument implicitly assigns value to a. Notice how the target can’t be determined by positioning at first glance and must be inferred.
+这个函数会调起一次针对 `a` 的 LHS 查找。为什么？因为我们把 `5` 作为参数传入这个函数，并隐式地将它的值赋给了 a。注意，不可能一眼就看出赋值目标是什么，必须通过推断得出。
 
-Conversely, RHS look-ups focus on the values themselves. So if we go back to our previous example, an RHS lookup will find the value of a in the expression `a*a;`
+相反地，RHS 查找聚焦于值本身。回顾刚才的例子，RHS 查找会在 `a*a;` 表达式里找到 a 的值。
 
-It is important to keep in mind that these look-ups occur in the last phase of compilation, the code-generation phase. We’ll elaborate further once we get to that stage. For now, let’s explore the compiler.
+还有很重要的一点，这些查找操作是出现在编译的最后阶段，代码生成阶段。等讲到那一步我们将进一步阐述。现在我们来探索一下编译器。
 
-### The Compiler
+### 编译器
 
-Think of the compiler as a meat processing plant with several mechanisms that grind the code into a package that our computer deems edible or executable. In this example, we will be processing Expression.
+把编译器想象成一个肉制品加工厂，有几种机制把代码研磨成计算机认为可食用或可执行的包。在这个例子中，我们将处理表达式。
 
 ![](https://cdn-images-1.medium.com/max/800/1*3lcS4meTcK8-nGZ6zIxyEQ.jpeg)
 
-#### Tokenizer
+#### 标记解析器
 
-First, the tokenizer dissects code into units called tokens.
+首先，标记解析器将代码分解成称为 token 的单元。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*aIyeA-blspqI0_EcQ0ZdnQ.jpeg)
 
-These tokens are then identified by the tokenizer. A lexical error will occur when the tokenizer finds an “alphabet” that does not belong to the language. Remember, this is different from a syntactical error. For example, if we had used an @ symbol instead of an assignment operator, the tokenizer would’ve seen that @ symbol and said, “Hmmm…This lexeme is not found within JavaScript’s lexicon… SHUT EVERYTHING DOWN. CODE RED.”
+这些 token 随后会被标记解析器标记。当标记解析器发现一个不属于该语言的 “字母” 时，会出现词法错误。请记住，这和语法错误不一样。例如，如果我们使用了 @ 符号而不是赋值运算符，那么标记解析器就会看到 @ 符号，并且说：“嗯......这个词法在 JavaScript 的词典里找不到......**红色警戒，关掉所有东西**。
 
-**Note:** If this same system is able to make associations between one token and another token, and then group them together like a parser, it will be considered a **lexer**.
+**提示：** 如果这个系统能够在一个标记和另一个标记之间进行关联，然后像解析器一样将它们组合在一起，那么它将被视为一个**词法分析器**。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*cpak2aD6ghUw62aqdbTehQ.jpeg)
 
-#### Parser
+#### 解析器
 
-The parser looks for syntactical errors. If there are no errors, it packages the tokens into a data structure called a Parse Tree. At this point in the compilation process, the JavaScript code is considered to be parsed and is then semantically analyzed. Once again, if the rules of JavaScript are followed, a new data structure called an Abstract Syntax Tree(AST) is produced.
+解析器会去查找语法错误。如果没有错误的话，解析器会把 token 打包成被一种被称为解析语法树的结构。在编译的这一环节，JavaScript 代码被视为已解析过，将要进行语义分析的。再一次，如果遵循了 JavaScript 规则，则会产生一个被称为抽象语法树 (AST) 的数据结构。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*WxknfoF76q_SZkHg382xhA.jpeg)
 
