@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/angular-jwt.md](https://github.com/xitu/gold-miner/blob/master/TODO/angular-jwt.md)
 > * 译者：[rottenpen](https://github.com/rottenpen)
-> * 校对者：
+> * 校对者：[FateZeros](https://github.com/FateZeros)，[tvChan](https://github.com/tvChan)
 
 # JWT: JSON Web Tokens 全方位指南
 
