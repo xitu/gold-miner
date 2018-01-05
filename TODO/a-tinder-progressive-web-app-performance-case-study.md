@@ -17,7 +17,7 @@
 
 Tinder Online 肩负着打开新市场的使命，它背后的团队希望把它打造成一个全平台无缝体验的在线聊天平台。
 
-**整个产品的 MVP 研发足足花了 3 个月，其中 UI 库使用了** [**React**](https://reactjs.com)  **，状态管理自然是**[**Redux**](https://redux.js.org) **。**最后的成果还是显著的，在不影响用户体验的前提下，数据传输量减少到了原来的十分之一：
+**产品的 MVP 开发花了 3 个月，UI 库用了 [React](https://reactjs.com)，状态管理用的是 [Redux](https://redux.js.org)**。最后的成果还是显著的，在不影响用户体验的前提下，数据传输量减少到了原来的十分之一：
 
 ![](https://cdn-images-1.medium.com/max/1000/1*cqYbI-L0zukfYS0ZAwUtqA.png)
 
@@ -62,7 +62,7 @@ Tinder 为了加快页面的加载使用了很多技术，例如基于路由的�
 
 ### 基于路由的代码分割
 
-起初打包的文件非常巨大，严重拖慢了交互就绪的速度，对用户体验影响很大。因为打包的文件里包含了除核心交互以外的代码，这就需要使用 [代码分割（code-splitting）](https://webpack.js.org/guides/code-splitting/) **抽离出暂时不需要的代码，只保留核心功能 。 **
+起初打包的文件非常巨大，严重拖慢了交互就绪的速度，对用户体验影响很大。因为打包的文件里包含了除核心交互以外的代码，这就需要使用 [代码分割（code-splitting）](https://webpack.js.org/guides/code-splitting/) **抽离出暂时不需要的代码，只保留核心功能。**
 
 针对这个问题，Tinder 引入了 [React Router](https://reacttraining.com/react-router/) 和 [React Loadable](https://github.com/thejameskyle/react-loadable)。得益于前期架构的优势，整个应用非常适合使用基于配置的方式处理路由和渲染，因此，代码分割也能很顺利的在顶层上实现。
 
@@ -139,11 +139,11 @@ Tinder 将核心体验相关的资源文件进行了预加载处理，最终加�
 
 Tinder 主要用它来分析以下几类优化问题：
 
-* **Polyfills 代码占比：**因为 Tinder 的目标平台包括了 IE11 和 Android 4.4，免不了使用一些 Polyfills，但是又不希望这些代码占据太多数据量，所以直接用了 [**babel-preset-env**](https://github.com/babel/babel-preset-env) 和 [**core-js**](https://github.com/zloirock/core-js)。
-* **是否引入了不必要的第三方库：**最后移除了 [localForage](https://github.com/localForage/localForage) ，使用 IndexedDB 作为替代。
-* **分割方案是否最优：**将首次绘制/交互中用不到的组件从主干代码中剔除。
-* **代码的复用情况：**将子模块中使用超过三次的公共代码抽出成异步加载的代码块。
-* **CSS：**把 [critical CSS](https://www.smashingmagazine.com/2015/08/understanding-critical-css/) 从核心包中移除（转而使用服务器端渲染的方式）。
+* **Polyfills 代码占比：** 因为 Tinder 的目标平台包括了 IE11 和 Android 4.4，免不了使用一些 Polyfills，但是又不希望这些代码占据太多数据量，所以直接用了 [**babel-preset-env**](https://github.com/babel/babel-preset-env) 和 [**core-js**](https://github.com/zloirock/core-js)。
+* **是否引入了不必要的第三方库：** 最后移除了 [localForage](https://github.com/localForage/localForage) ，使用 IndexedDB 作为替代。
+* **分割方案是否最优：** 将首次绘制/交互中用不到的组件从主干代码中剔除。
+* **代码的复用情况：** 将子模块中使用超过三次的公共代码抽出成异步加载的代码块。
+* **CSS：** 把 [critical CSS](https://www.smashingmagazine.com/2015/08/understanding-critical-css/) 从核心包中移除（转而使用服务器端渲染的方式）。
 
 ![](https://cdn-images-1.medium.com/max/800/1*ZL3i2BRHo8Sq_dv1NyA8Dw.png)
 
