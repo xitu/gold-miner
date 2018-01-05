@@ -44,16 +44,16 @@ Oreo还包括新的[原始设备制造商(OEM)锁定硬件抽象层](https://and
 
 最后,我们针对[设备标识做了重大的改变](https://android-developers.googleblog.com/2017/04/changes-to-device-identifiers-in.html)给了用户更多的控制权,包括:
 
-* 移动静态的_Android ID_和_Widevine_值到一个应用特殊的值中,这帮助限制设备中不可重制IDs的使用.
+* 移动静态的_Android ID_和_Widevine_值到一个应用特殊的值中,这有助于限制设备中不可重置IDs的使用.
 * 依照[IETF RFC 7844](https://tools.ietf.org/html/rfc7844#section-3.7)匿名摘要 profile, `net.hostname` is now empty and the DHCP client no longer sends a hostname.
 * 对于应用需要设备的ID,我们新增了一个`Build.getSerial() API`并且通过一个权限保护
-* 与安全研究人员一起<sup>1</sup>,我们针对Wi-Fi扫描在各种芯片组中设计了一个健壮的MAC地址随机化功能e.
+* 与安全研究人员一起<sup>1</sup>,我们针对Wi-Fi扫描在各种芯片组中设计了一个健壮的MAC地址随机化功能.
 
 Android Oreo带来远不止这些改进,还有[更多](https://www.android.com/versions/oreo-8-0/).一如既往,如果您有关于Android提升的建议,我们欣然接受.请发送至security@android.com.
 
 ---
 
-1:Glenn Wilkinson及新加坡的团队,UK, Célestin Matte, Mathieu Cunche:里昂大学,里昂国立应用科学学, CITI实验室, Mathy Vanhoef, KU Leuven
+1:Glenn Wilkinson及新加坡的团队,英国, Célestin Matte, Mathieu Cunche:里昂大学,里昂国立应用科学学, CITI实验室, Mathy Vanhoef, KU Leuven
 
 ---
 
