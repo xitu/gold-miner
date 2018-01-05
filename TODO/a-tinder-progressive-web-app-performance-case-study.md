@@ -13,7 +13,7 @@
 
 ![](https://cdn-images-1.medium.com/max/1000/1*1HmfQhMAQL8kukiNtMZRjA.png)
 
-### Journey to a Progressive Web App
+### 开发历程
 
 Tinder Online 肩负着打开新市场的使命，它背后的团队希望把它打造成一个全平台无缝体验的在线聊天平台。
 
