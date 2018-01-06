@@ -3,10 +3,8 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/nodejs-best-practices-how-to-become-a-better-developer-in-2018.md](https://github.com/xitu/gold-miner/blob/master/TODO/nodejs-best-practices-how-to-become-a-better-developer-in-2018.md)
 > * 译者：[Yong Li](https://github.com/NeilLi1992)
-> * 校对者：
-
+> * 校对者：[guoyang](https://github.com/gy134340)
 # Node.js 最佳实践 —— 如何在 2018 年成为更好的 Node.js 开发者
-
 在过去两年中，每年写一篇关于来年如何成为更好的 Node.js 开发者的建议已经成了我自己的传统。今年也不例外！🤗
 
 如果你对我之前的新年建议感兴趣，你可以在 RisingStack 博客上阅读：
@@ -18,7 +16,7 @@
 
 ## 采用 `async-await`
 
-随着 Node.js 8 的发布，`async` 函数已经普遍可用了。有了 `async` 函数的存在，你可以写出读起来和同步代码一样的异步代码。
+随着 Node.js 8 的发布，`async` 函数已经普遍可用了。有了 `async` 函数的存在，你可以替换掉回调，写出读起来和同步代码一样的异步代码。
 
 但什么是 `async` 函数？让我们回顾一下 [Node.js Async 函数最佳实践](https://nemethgergely.com/async-function-best-practices/) 一文：
 
@@ -28,9 +26,9 @@
 
 如果你想掌握 `async` 函数，我推荐你浏览这些资源：
 
-* [再次学习抛出](https://hueniverse.com/learning-to-throw-again-79b498504d28)
-* [无等待捕获](https://hueniverse.com/catching-without-awaiting-b2cb7df45790)
-* [Node.js async 函数最佳实践](https://nemethgergely.com/async-function-best-practices/)
+* [Learning to throw again](https://hueniverse.com/learning-to-throw-again-79b498504d28)
+* [Catching without awating](https://hueniverse.com/catching-without-awaiting-b2cb7df45790)
+* [Node.js async function best practices](https://nemethgergely.com/async-function-best-practices/)
 
 ## 让你的应用优雅中止
 
@@ -46,7 +44,7 @@
 
 如果你正是工作在这种团队氛围中，我发现最好的办法是信任某位经验丰富的程序员，和其他人共同努力来决定风格指南包含哪些准则，但他要有最终决定权。在所有人都能遵循同一套准则之前，该准则的具体内容并不重要（我不想引发关于分号的争吵）。重要的是必须在某一刻有所决定。
 
-## 把安全当做需求
+## 把安全当做必备条件
 
 我们看到越来越多的公司被列在 [haveibeenpwned](https://haveibeenpwned.com/) 上 —— 我打赌你不想成为下一个。当你向你的用户发布一段新代码的时候，代码审核应该包含安全领域的专家。如果你公司内没有这样的人才，或者他们非常非常忙，一个很好的解决办法是和类似 [Lift Security](https://liftsecurity.io/reviews/) 这样的公司合作。
 
@@ -64,13 +62,13 @@
 
 一旦你有了一个想要在会议上分享的主题，你可以在 Github 上查看到 [2018 Web 会议](https://github.com/asciidisco/web-conferences-2018/blob/master/README.md) 征文集合，这太棒了！
 
-## 编写直接使用新的浏览器 API 的模块
+## 直接使用新的浏览器 API 编写模块
 
 九月时 [Mikeal](https://medium.com/@mikeal) 在 [Modern Modules](https://medium.com/@mikeal/modern-modules-d99b6867b8f1) 上发布了一篇很好的文章。其中一个我最爱的重点，就是使用浏览器 API 来编写模块，当必要时填补（polyfill）Node.js。由此而来的显著优势就是你可以将更小的 JavaScript 代码发布进浏览器中（并且让页面加载得更快）。另一方面，没人会在意你的后端依赖是不是太过繁重。
 
 ## 采纳应用开发的 12-Factors 法则
 
-应用开发的 12-Factors 宣言，描述了网络应用应当如何编写的最佳实践，因此它也出现在今年我的建议列表中了。
+应用开发的 12-Factors 原则，描述了网络应用应当如何编写的最佳实践，因此它也出现在今年我的建议列表中了。
 
 随着 Kubernetes 和其它编排引擎的使用率不断提升，遵循 12-Factors 法则变得越来越重要。它们涵盖了以下领域：
 
