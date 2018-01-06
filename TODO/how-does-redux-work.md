@@ -3,17 +3,17 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/how-does-redux-work.md](https://github.com/xitu/gold-miner/blob/master/TODO/how-does-redux-work.md)
 > * 译者：[hexianga](https://github.com/hexianga)
-> * 校对者：[薛定谔的猫](https://github.com/Aladdin-ADD)  [guoyang](https://github.com/gy134340)
+> * 校对者：[薛定谔的猫](https://github.com/Aladdin-ADD)，[guoyang](https://github.com/gy134340)
 
 # Redux 的工作过程: 一个计数器例子
 
 在学习了一些 React 后开始学习 Redux，Redux 的工作过程让人感到很困惑。
 
-Actions, reducers, action creators（Action 创建函数）, middleware（中间件）, pure functions（纯函数）, immutability（不变性）…
+Actions，reducers，action creators（Action 创建函数），middleware（中间件），pure functions（纯函数），immutability（不变性）…
 
 这些术语看起来非常陌生。
 
-所以在这篇文章中我将用一种有利于大家理解的反向剖析的方法去揭开 Redux **怎样**工作的神秘面纱。在 [上一篇](https://daveceddia.com/what-does-redux-do/) 中, 在提出专业术语之前我将尝试用简单易懂的语言去解释 Redux。
+所以在这篇文章中我将用一种有利于大家理解的反向剖析的方法去揭开 Redux **怎样**工作的神秘面纱。在 [上一篇](https://daveceddia.com/what-does-redux-do/) 中，在提出专业术语之前我将尝试用简单易懂的语言去解释 Redux。
 
 如果你还不明确 **Redux 是干什么的** 或者为什么要使用它，请先移步 [这篇文章](https://daveceddia.com/what-does-redux-do/) 然后再回到这里继续阅读。
 
@@ -111,15 +111,15 @@ $ yarn add redux react-redux
 
 #### redux vs react-redux
 
-等等 – 这是两个库吗? 你可能会问 “react-redux 是什么” ? 对不起，我一直在骗你。
+等等 — 这是两个库吗？你可能会问 “react-redux 是什么”？对不起，我一直在骗你。
 
-你看，`redux` 给了你一个状态树 store，让你可以把状态 state 存在里面，然后可以把状态取出来，当状态改变的时候可以做出响应。然而这是他它做的所有事。实际上正是 `react-redux` 将 state 与 React 组件联系起来。实际上: `redux` 和 React **一点儿也没有**关系。
+你看，`redux` 给了你一个状态树 store，让你可以把状态 state 存在里面，然后可以把状态取出来，当状态改变的时候可以做出响应。然而这是他它做的所有事。实际上正是 `react-redux` 将 state 与 React 组件联系起来。实际上：`redux` 和 React **一点儿也没有**关系。
 
 这些库就像豌豆荚里面的两粒豌豆，99.999% 的时候当有人在 React 的背景下提到 “Redux” 的时候，他们指的是这两个库。所以记住：当你在 StackOverflow 或者 Reddit 或者[其它任何地方](https://daveceddia.com/keeping-up-with-javascript/)看到 Redux 时，他指的是这两个库。
 
 ## 最后一件事
 
-大多数教程一开始就创建一个 store 状态树，设置 Redux ，写一个 reducer，等等，出现在屏幕上的任何效果在展现出来之前都会经过大量的操作。 
+大多数教程一开始就创建一个 store 状态树，设置 Redux，写一个 reducer，等等，出现在屏幕上的任何效果在展现出来之前都会经过大量的操作。 
 
 我将采用一种反向推导的方法，使用同样多的代码展现出同样的效果。但是希望每一个步骤后面的原理都能展现地更加清楚。
 
@@ -158,7 +158,7 @@ export default Counter;
 
 ## 计数器的流程
 
-我们注意到 `{this.state.count}` 改变成了 `{this.props.count}`. 当然这不会起作用，因为计数器组件还没有接受 `count` 属性，我们通过 Redux 注入这个属性。
+我们注意到 `{this.state.count}` 改变成了 `{this.props.count}`。当然这不会起作用，因为计数器组件还没有接受 `count` 属性，我们通过 Redux 注入这个属性。
 
 为了从 Redux 中获得状态 count，我们需要在模块的顶部导入 `connect` 方法：
 
@@ -187,7 +187,7 @@ export default connect(mapStateToProps)(Counter);
 
 以前我们导出函数本身，现在我们把它用 `connect` 函数包装后调用。
 
-#### 什么是 `connect`?
+#### 什么是 `connect`？
 
 你可能注意到这个函数调用看起来有一些奇怪。为什么是 `connect(mapStateToProps)(Counter)` 而不是 `connect(mapStateToProps, Counter)` 或者 `connect(Counter, mapStateToProps)`？这将发生什么呢？
 
@@ -197,9 +197,9 @@ export default connect(mapStateToProps)(Counter);
 
 `connect` 连接整个状态到了Redux，通过你自己提供的 `mapStateToProps` 函数， 这需要一个自定义的函数因为只有你自己知道状态在 Redux 中的模型。
 
-`connect` 连接了所有的状态, “嘿，告诉我你需要从混乱的状态中得到什么”
+`connect` 连接了所有的状态，“嘿，告诉我你需要从混乱的状态中得到什么”。
 
-从 `mapStateToProps` 函数中返回的状态作为属性注入到你的组件中。上面例子中的 `state.count` 作为 `count` 属性：对象中的键名作为属性名，它们对应的值作为属性的值。所以你看，从函数的字面意思上是**定义了状态到属性的映射**.
+从 `mapStateToProps` 函数中返回的状态作为属性注入到你的组件中。上面例子中的 `state.count` 作为 `count` 属性：对象中的键名作为属性名，它们对应的值作为属性的值。所以你看，从函数的字面意思上是**定义了状态到属性的映射**。
 
 ## 错误意味着有进展!
 
