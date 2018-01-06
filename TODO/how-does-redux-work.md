@@ -2,30 +2,30 @@
 > * 原文作者：[Dave Ceddia](https://daveceddia.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/how-does-redux-work.md](https://github.com/xitu/gold-miner/blob/master/TODO/how-does-redux-work.md)
-> * 译者：
-> * 校对者：
+> * 译者：[hexianga](https://github.com/hexianga)
+> * 校对者：[薛定谔的猫](https://github.com/Aladdin-ADD)，[guoyang](https://github.com/gy134340)
 
-# How Redux Works: A Counter-Example
+# Redux 的工作过程: 一个计数器例子
 
-After learning a bit about React and getting into Redux, it’s really confusing how it all works.
+在学习了一些 React 后开始学习 Redux，Redux 的工作过程让人感到很困惑。
 
-Actions, reducers, action creators, middleware, pure functions, immutability…
+Actions，reducers，action creators（Action 创建函数），middleware（中间件），pure functions（纯函数），immutability（不变性）…
 
-Most of these terms seem totally foreign.
+这些术语看起来非常陌生。
 
-So in this post we’re going to demystify _how_ Redux works with a backwards approach that I think will help your understanding. As in the [last post](https://daveceddia.com/what-does-redux-do/), I’ll try to explain Redux in simple terms before tackling the terminology.
+所以在这篇文章中我将用一种有利于大家理解的反向剖析的方法去揭开 Redux **怎样**工作的神秘面纱。在 [上一篇](https://daveceddia.com/what-does-redux-do/) 中，在提出专业术语之前我将尝试用简单易懂的语言去解释 Redux。
 
-If you’re not yet sure _what Redux is for_ or why you should use it, read [this post first](https://daveceddia.com/what-does-redux-do/) and then come back here.
+如果你还不明确 **Redux 是干什么的** 或者为什么要使用它，请先移步 [这篇文章](https://daveceddia.com/what-does-redux-do/) 然后再回到这里继续阅读。
 
-## First: Plain React State
+## 第一：明白 React 的状态 state
 
-We’ll start with an example of plain old React state, and then add Redux piece-by-piece.
+我们将从一个简单的使用 React 状态的例子开始，然后一点一点地添加Redux。
 
-Here is a counter:
+这是一个计数器：
 
-![Counter component](https://daveceddia.com/images/counter-plain.png)
+![计数器组件](https://daveceddia.com/images/counter-plain.png)
 
-And here’s the code (I left out the CSS to keep this simple, so it won’t be as pretty as the image):
+这里是代码 (为了使代码简单我没有贴出 CSS 代码，所以下面代码的效果会不会像上面图片一样美观)：
 
 ```
 import React from 'react';
@@ -62,22 +62,22 @@ class Counter extends React.Component {
 export default Counter;
 ```
 
-As a quick review, here’s how this works:
+简单的看一下他是怎样跑起来的：
 
-* The `count` state is stored in the top level `Counter` component
-* When the user clicks “+”, the button’s `onClick` handler is called, which is bound to the `increment` function in the `Counter` component.
-* The `increment` function updates the state with the new count.
-* Because state was changed, React re-renders the `Counter` component (and its children), and the new counter value is displayed.
+* 这个 `count` 状态被存储在最外层组件 `Counter` 里面
+* 当用户点击 “+”，这个按钮的 `onClick` 回调函数被触发, 也就是组件 `Counter` 里面的 `increment` 方法被调用。
+*  `increment` 方法用新的数字更新状态 count。
+* 由于状态被改变了, React 重新渲染 `Counter` 组件 (还有它的子组件), 然后显示新的计数器的值.
 
-If you need more detail about how state changes work, go read [A Visual Guide to State in React](https://daveceddia.com/visual-guide-to-state-in-react/) and then come back here. Seriously: if the above was _not_ review for you, you need to learn how React state works _before_ you learn Redux.
+如果你想要了解更多的状态怎么被改变的细节，去阅读 [React 中状态的图形化指南](https://daveceddia.com/visual-guide-to-state-in-react/) 然后再回到这里。严格来讲：如果上面的例子没有帮助你回顾起 React 的 state ，那么在你学习 Redux 之前应该去学习 React 的 state 是怎么工作的。
 
-#### Quick Setup
+#### 快速开始
 
-If you’d like to follow along with the code, create a project now:
+如果你想通过代码学习，现在就创建一个项目:
 
-* Install create-react-app if you don’t have it (`npm install -g create-react-app`)
-* Create a project: `create-react-app redux-intro`
-* Open `src/index.js` and replace it with this:
+* 如果你之前没有安装 create-react-app ，那么先安装 (`npm install -g create-react-app`)
+* 创建一个项目: `create-react-app redux-intro`
+* 打开 `src/index.js` 然后用下面的代码进行替换:
 
 ```
 import React from 'react';
@@ -93,17 +93,17 @@ const App = () => (
 render(<App />, document.getElementById('root'));
 ```
 
-* Create a `src/Counter.js` with the code from the Counter example above.
+* 用上面的计数器代码创建一个 `src/Counter.js` 
 
-## Now: Add Redux
+## 现在: 添加 Redux
 
-As [discussed in Part 1](https://daveceddia.com/what-does-redux-do/), Redux keeps the **state** of your app in a single **store**. Then, you can extract parts of that state and plug it into your components as props. This lets you keep data in one global place (the store) and feed it directly to _any_ component in the app, without the gymnastics of passing props down multiple levels.
+在 [第一部分中讨论到](https://daveceddia.com/what-does-redux-do/)，Redux 保存应用程序的状态 **state** 在单一的状态树 **store**中。然后你可以将 state 的部分抽离出来，然后以 props 的方式传入组件。这使你可以把数据保存在一个全局的位置（状态树 store ）然后将其注入到应用程序中的**任何一个**组件中，而不用通过多层级的属性传递。
 
-Side note: you’ll often see the words “state” and “store” used interchangably. Technically, the **state** is the data, and the **store** is where it’s kept.
+注意：你可能经常看到 “state” 和 “store” 混着使用，但是严格来讲： **state**是数据，而 **store** 是数据保存的地方。
 
-As we go through the steps below, follow along in your editor! It will help you understand how this works (and we’ll get to work through some errors together).
+我们接着往下走，利用你的编辑器继续编辑我们下面的代码，它将帮助你理解 Redux 怎么工作（我们通过讲解一些错误来继续）。
 
-Add Redux to the project:
+添加 Redux 到你的项目中:
 
 ```
 $ yarn add redux react-redux
@@ -111,32 +111,32 @@ $ yarn add redux react-redux
 
 #### redux vs react-redux
 
-Wait – 2 libraries? “What’s react-redux,” you say? Well, I’ve kinda been lying to you (sorry).
+等等 — 这是两个库吗？你可能会问 “react-redux 是什么”？对不起，我一直在骗你。
 
-See, `redux` gives you a store, and lets you keep state in it, and get state out, and respond when the state changes. But that’s all it does. It’s actually `react-redux` that lets you connect pieces of the state to React components. That’s right: `redux` knows nothing about React _at all_.
+你看，`redux` 给了你一个状态树 store，让你可以把状态 state 存在里面，然后可以把状态取出来，当状态改变的时候可以做出响应。然而这是他它做的所有事。实际上正是 `react-redux` 将 state 与 React 组件联系起来。实际上：`redux` 和 React **一点儿也没有**关系。
 
-These libraries are like two peas in a pod. 99.999% of the time, when anyone mentions “Redux” in the context of React, they are referring to both of these libraries in tandem. So keep that in mind when you see Redux mentioned on StackOverflow, or Reddit, or [elsewhere](https://daveceddia.com/keeping-up-with-javascript/).
+这些库就像豌豆荚里面的两粒豌豆，99.999% 的时候当有人在 React 的背景下提到 “Redux” 的时候，他们指的是这两个库。所以记住：当你在 StackOverflow 或者 Reddit 或者[其它任何地方](https://daveceddia.com/keeping-up-with-javascript/)看到 Redux 时，他指的是这两个库。
 
-## Last Things First
+## 最后一件事
 
-Most tutorials start by creating a store, setting up Redux, writing a reducer, and so on. Lots must happen before anything appears on screen.
+大多数教程一开始就创建一个 store 状态树，设置 Redux，写一个 reducer，等等，出现在屏幕上的任何效果在展现出来之前都会经过大量的操作。 
 
-I’m going to take a backwards approach, and it will take just as much code to make things appear on screen, but hopefully the motivation behind each step will be clearer.
+我将采用一种反向推导的方法，使用同样多的代码展现出同样的效果。但是希望每一个步骤后面的原理都能展现地更加清楚。
 
-Back to the Counter app, let’s just imagine for a second that we moved the component’s state into Redux.
+回到计数器的应用程序，我们把组件的状态转移到 Redux。
 
-We’ll remove the state from the component, since we’ll be getting that from Redux soon:
+我们把状态从组件里面移除，因为我们很快可以从 Redux 中获取它们：
 
 ```
 import React from 'react';
 
 class Counter extends React.Component {
   increment = () => {
-    // fill in later
+    // 后面填充
   }
 
   decrement = () => {
-    // fill in later
+    // 后面填充
   }
 
   render() {
@@ -156,74 +156,74 @@ class Counter extends React.Component {
 export default Counter;
 ```
 
-## Wiring Up The Counter
+## 计数器的流程
 
-Notice that `{this.state.count}` changed to `{this.props.count}`. This won’t work yet, of course, because the Counter is not receiving a `count` prop. We’re gonna use Redux to inject that.
+我们注意到 `{this.state.count}` 改变成了 `{this.props.count}`。当然这不会起作用，因为计数器组件还没有接受 `count` 属性，我们通过 Redux 注入这个属性。
 
-To get the count out of Redux, we first need to import the `connect` function at the top:
+为了从 Redux 中获得状态 count，我们需要在模块的顶部导入 `connect` 方法：
 
 ```
 import { connect } from 'react-redux';
 ```
 
-Then we need to “connect” the Counter component to Redux at the bottom:
+然后接下来我们需要 “connect” 计数器组件到 Redux 中：
 
 ```
-// Add this function:
+// 添加这个函数：
 function mapStateToProps(state) {
   return {
     count: state.count
   };
 }
 
-// Then replace this:
-// export default Counter;
+// 然后这样替换：
+// 默认导出计数器组件；
 
-// With this:
+// 这样导出：
 export default connect(mapStateToProps)(Counter);
 ```
 
-This will fail with an error (more on that in a second).
+这将发生错误 (在第二部分会有更多错误)。
 
-Where previously we were exporting the component itself, now we’re wrapping it with this `connect` function call.
+以前我们导出函数本身，现在我们把它用 `connect` 函数包装后调用。
 
-#### What’s `connect`?
+#### 什么是 `connect`？
 
-You might notice the call looks little… weird. Why `connect(mapStateToProps)(Counter)` and not `connect(mapStateToProps, Counter)` or `connect(Counter, mapStateToProps)`? What’s that doing?
+你可能注意到这个函数调用看起来有一些奇怪。为什么是 `connect(mapStateToProps)(Counter)` 而不是 `connect(mapStateToProps, Counter)` 或者 `connect(Counter, mapStateToProps)`？这将发生什么呢？
 
-It’s written this way because `connect` is a _higher-order function_, which is a fancy way of saying it returns a function when you call it. And then calling _that_ function with a component returns a new (wrapped) component.
+之所以这样写是因为 `connect` 是一个**高阶函数**，当你调用它的时候会返回一个函数，然后用一个组件做参数调用**那个函数**返回一个新的包装过的组件。
 
-Another name for this is a [_higher-order component_](https://daveceddia.com/extract-state-with-higher-order-components/) (aka “HOC”). HOCs have gotten some bad press lately, but they’re still quite useful, and `connect` is a good example of a useful one.
+返回的组件另一个名字叫做[高阶组件](https://daveceddia.com/extract-state-with-higher-order-components/) (又叫做 “HOC”)。高阶组件被指责有很多的缺点，但是他们仍然非常有用，`connect` 就是一个很好的例子。
 
-What `connect` does is hook into Redux, pull out the entire state, and pass it through the `mapStateToProps` function that you provide. This needs to be a custom function because only _you_ will know the “shape” of the state in Redux.
+`connect` 连接整个状态到了Redux，通过你自己提供的 `mapStateToProps` 函数， 这需要一个自定义的函数因为只有你自己知道状态在 Redux 中的模型。
 
-`connect` passes the entire state as if to say, “Hey, tell me what you need out of this jumbled mess.”
+`connect` 连接了所有的状态，“嘿，告诉我你需要从混乱的状态中得到什么”。
 
-The object you return from `mapStateToProps` gets fed into your component as props. The example above will pass `state.count` as the value of the `count` prop: the keys in the object become prop names, and their corresponding values become the props’ values. So you see, this function literally _defines a mapping from state into props_.
+从 `mapStateToProps` 函数中返回的状态作为属性注入到你的组件中。上面例子中的 `state.count` 作为 `count` 属性：对象中的键名作为属性名，它们对应的值作为属性的值。所以你看，从函数的字面意思上是**定义了状态到属性的映射**。
 
-## Errors Mean Progress!
+## 错误意味着有进展!
 
-If you’re following along, you will see an error like this in the console:
+代码进行到这里，你会在控制台里面看到下面的错误：
 
 > Could not find “store” in either the context or props of “Connect(Counter)”. Either wrap the root component in a <provider>, or explicitly pass "store" as a prop to "Connect(Counter)".</provider>
 
-Since `connect` pulls data from the Redux store, and we haven’t set up a store or told the app how to find it, this error is pretty logical. Redux has no dang idea what’s going on right now.
+因为 `connect` 从 Redux store 树里面获取状态，而我们还没有创建状态树或者说告诉 app 怎样去找到 store 树，这是一个合乎逻辑的错误，Redux 还不知道现在发生了什么事。
 
-## Provide a Store
+## 提供一个状态树 store
 
-Redux holds the global state for the entire app, and by wrapping the entire app with the `Provider` component from `react-redux`, _every component_ in the app tree will be able to use `connect` to access the Redux store if it wants to.
+Redux 控制着整个 app 的全部状态，通过 `react-redux` 里面的 `Provider` 组件包裹着整个 app，app 里面的**每一个组件**都可以通过 `connect` 去进入到 Redux store 里面获取状态。
 
-This means `App`, and children of `App` (like `Counter`), and children of their children, and so on – all of them can now access the Redux store, but only if they are explicitly wrapped by a call to `connect`.
+这意味着最外围的 `App` 组件，以及 `App` 的子组件（像 `Counter`），甚至他们子组件的子组件等等，所有的组件都可以访问状态树 store，只要把他们通过 `connect` 函数调用。
 
-I’m not saying to actually do that – `connect`ing every single component would be a bad idea (messy design, and slow too).
+我不是说要把每一个组件都用 `connect` 函数调用，那是一个很糟糕的做法(设计混乱而且太慢了)。
 
-This `Provider` thing might seem like total magic right now. It is a little bit; it actually uses React’s “context” feature under the hood.
+`Provider` 看起来很具有魔性，实际上在挂载的时候使用了 React 的 “context” 特性。
 
-It’s like a secret passageway connected to every component, and using `connect` opens the door to the passageway.
+ `Provider` 就像一个秘密通道连接到了每一个组件，使用 `connect` 打开了通向每一个组件的大门。
 
-Imagine pouring syrup on a pile of pancakes, and how it manages to make its way into ALL the pancakes even though you just poured it on the top one. `Provider` does that for Redux.
+想象一下，把糖浆倒在一堆煎饼上，假如你只把糖浆倒在了最上面的煎饼上，怎么才能让所有的煎饼都能蘸到糖浆呢。 `Provider` 为 Redux 做了这件事。 
 
-In `src/index.js`, import the `Provider` and wrap the contents of `App` with it.
+在文件 `src/index.js`中，导入 `Provider` 组件并且用它来包裹 `App` 组件的内容。
 
 ```
 import { Provider } from 'react-redux';
@@ -236,11 +236,11 @@ const App = () => (
 );
 ```
 
-We’re still getting that error though – that’s because `Provider` needs a store to work with. It’ll take the store as a prop, but we need to create one first.
+我们仍然会遇到报错，因为 `Provider` 需要一个 store 状态树才能起作用，它会把 store 作为属性，所以我们首先需要创建一个 store。
 
-## Create the Store
+## 创建一个 store
 
-Redux comes with a handy function that creates stores, and it’s called `createStore`. Yep. Let’s make a store and pass it to Provider:
+Redux 使用一个方便的函数来创建 stores，这个函数就是 `createStore`。好了，现在让我们来创建一个 store 然后把它作为属性传入 Provider 组件：
 
 ```
 import { createStore } from 'redux';
@@ -254,13 +254,13 @@ const App = () => (
 );
 ```
 
-Another error, but different this time:
+又产生了另外一个不同的错误：
 
 > Expected the reducer to be a function.
 
-So, here’s the thing about Redux: it’s not very smart. You might expect that by creating a store, it would give you a nice default value for the state inside that store. Maybe an empty object?
+现在是 Redux 的问题了，Redux 不是那么的智能，你可能希望创建一个 store，它就会从 store 中 给你一个中很好的默认的值，哪怕是一个空对象？
 
-But no: Redux makes _zero_ assumptions about the shape of your state. It’s up to you! It could be an object, or a number, or a string, or whatever you need. So we have to provide a function that will return the state. That function is called a **reducer** (we’ll see why in a minute). So let’s make the simplest one possible, pass it into `createStore`, and see what happens:
+但是绝不会这样，Redux 不会对你的状态的组成做出任何的猜测，状态的组成结构完全取决于你自己。他可以是一个对象, 一个数字, 一个字符串, 或者是你需要的任何形式。所以我们必须提供一个函数去返回这个状态，这个函数就叫做**reducer**(后面会解释为什么这么命名)。让我们来看看函数最简单的情况，将它作为函数 `createStore` 的参数，看看会发生什么：
 
 ```
 function reducer() {
@@ -271,17 +271,17 @@ function reducer() {
 const store = createStore(reducer);
 ```
 
-## The Reducer Should Always Return Something
+## Reducer 必须要有返回值
 
-The error is different now:
+又产生了另外的错误：
 
 > Cannot read property ‘count’ of undefined
 
-It’s breaking because we’re trying to access `state.count`, but `state` is undefined. Redux expected our `reducer` function to return a value for `state`, except that it (implicitly) returned `undefined`. Things are rightfully broken.
+产生这个错误是因为我们试图去取得 `state.count`，但是 `state` 却没有定义。Redux 希望 `reducer` 函数为 `state`  返回一个值，而不是返回一个 `undefined`。
 
-The reducer is expected to return the state. It’s actually supposed to take the _current_ state and return the _new_ state, but nevermind; we’ll come back to that.
+reducer 函数应该返回一个状态，实际上它应该用利用**当前状态**去返回**新的状态**。
 
-Let’s make the reducer return something that matches the shape we need: an object with a `count` property.
+让我们用 reducer 函数去返回满足我们需要的状态形式：一个含有 `count` 属性的对象。
 
 ```
 function reducer() {
@@ -291,38 +291,38 @@ function reducer() {
 }
 ```
 
-Hey! It works! The count now appears as “42”. Awesome.
+嘿！这个 count 现在显示为 “42”，神奇吧。
 
-Just one thing though: the count is forever stuck at 42.
+只是有一个问题：count 一直显示为42。
 
-## The Story So Far
+## 目前为止
 
-Before we get into how to actually _update_ the counter, let’s look at what we’ve done up til now:
+在我们进一步了解怎么**更新**计数器的值之前，我们先来了解一下到目前为止我们做了些什么：
 
-* We wrote a `mapStateToProps` function that does what the name says: transforms the Redux state into an object containing props.
-* We connected the Redux store to our `Counter` component with the `connect` function from `react-redux`, using the `mapStateToProps` function to configure how the connection works.
-* We created a `reducer` function to tell Redux what our state should look like.
-* We used the ingeniously-named `createStore` function to create a store, and passed it the `reducer`.
-* We wrapped our whole app in the `Provider` component that comes with `react-redux`, and passed it our store as a prop.
-* The app works flawlessly, except the fact that the counter is stuck at 42.
+* 我们写了一个 `mapStateToProps` 函数，该函数的作用是：把 Redux 中的状态转换成一个包含属性的对象。
+* 我们用模块 `react-redux` 中的函数 `connect` 把 Redux store 状态树和 `Counter` 组件连接起来，使用 `mapStateToProps` 函数配置了怎么联系。
+* 我们创建了一个 `reducer` 函数去告诉 Redux 我们的状态应该是什么形式的。
+* 我们使用 `reducer` 做 `createStore` 函数的参数，用它创建了一个 store。
+* 我们把整个组件包裹在了 `react-redux` 中的组件 `Provider` 中，向该组件传入了 store 作为属性。
+* 这个程序工作的很好，唯一的问题是计数器显示停留在了42。
 
-With me so far?
+你跟着我做到现在了吗？
 
-## Interactivity (Making It Work)
+## 互动起来 (让计数器工作)
 
-So far this is pretty lame, I know. You could’ve written a static HTML page with the number “42” and 2 broken buttons in 60 seconds flat, yet here you are, reading how to overcomplicate that very same thing with React and Redux and who knows what else.
+我知道到目前为止我们的程序是很差劲的，你们已经写了一个显示着数字 “42” 和两个无效的按钮的静态的 HTML 页面，不过你还在继续阅读，接下来将继续用 React 和 Redux 和其它的一些东西让我们的程序变得复杂起来。
 
-I promise this next section will make it all worthwhile.
+我保证接下来做的事情会让上面做的一切都值得。
 
-Actually, no. I take that back. A simple Counter app is a great teaching tool, but Redux is absolutely overkill for something like this. React state is _perfectly fine_ for something so simple. Heck, even plain JS would work great. Pick the right tool for the job. Redux is not always that tool. But I digress.
+事实上，我收回刚才那句话，一个简单的计数器的例子是一个很好的教学例子，但是 Redux 让应用变得复杂了，React 的 state 应用起来其实也很简单，甚至一般的 JS 代码也能够实现的很好，挑选正确的工具做正确的事，Redux 不总是那个合适的工具，不过我偏题了。
 
-## Initial State
+## 初始化状态
 
-So we need a way to tell Redux to change the counter.
+我们需要一个方式去告诉 Redux 改变计数器的值。
 
-Remember the `reducer` function we wrote? (of course you do, it was 2 minutes ago)
+还记得我们写的 `reducer` 函数吗？（当然你肯定记得，因为那是两分钟之前的事）。
 
-Remember how I mentioned it takes the _current state_ and returns the _new state_? Well, I lied again. It actually takes the current state and an _action_, and then it returns the new state. We should have written it like this:
+还记得我说过它会使用**当前状态**返回**新的状态**吗？好的，我再重复一次，实际上，它使用当前状态和一个 **action** 作为参数，然后返回一个新的状态，我们应该这样写：
 
 ```
 function reducer(state, action) {
@@ -332,9 +332,9 @@ function reducer(state, action) {
 }
 ```
 
-The very first time Redux calls this function, it will pass `undefined` as the `state`. That is your cue to return the _initial state_. For us, that’s probably an object with a `count` of 0.
+Redux 第一次调用这个函数的时候会以 `undefined` 作为实参替代 `state`，意味着返回的是**初始状态**，对于我们来说，可能返回的是一个属性 `count` 值为 0 的对象。
 
-It’s common to write the initial state above the reducer, and use ES6’s default argument feature to provide a value for the `state` argument when it’s undefined.
+在 reducer 上面写初始状态是很常见的，当 `state` 参数未定义的时候，使用 ES6 的默认参数的特性为 `state` 参数提供一个参数。
 
 ```
 const initialState = {
@@ -346,13 +346,13 @@ function reducer(state = initialState, action) {
 }
 ```
 
-Try this out. It should still work, except now the counter is stuck at 0 instead of 42. Awesome.
+这样子试试呢，代码仍然会起作用，不过现在计数器停留在了 0 而不是 42，多么让人惊讶。
 
 ## Action
 
-We’re finally ready to talk about the `action` parameter. What is it? Where does it come from? How can we use it to change the damn counter?
+我们最后谈谈 `action` 参数，这是什么呢？它来自哪里呢？ 我们怎么用它去改变不变的 counter 呢？
 
-An “action” is a JS object that describes a change that we want to make. The only requirement is that the object needs to have a `type` property, and its value should be a string. Here’s an example of an action:
+一个 “action” 是一个描述了我们想要改变什么的 JS 对象，为一个要求就是对象必须要有一个 `type` 属性，它的值应该是一个字符串，这里有一个例子：
 
 ```
 {
@@ -360,7 +360,7 @@ An “action” is a JS object that describes a change that we want to make. The
 }
 ```
 
-Here’s another one:
+这是另外一个例子：
 
 ```
 {
@@ -368,13 +368,13 @@ Here’s another one:
 }
 ```
 
-Are the gears turning in your head? Do you know what we’re gonna do next?
+你的大脑在快速运转吗？你知道接下来我们要做什么吗？
 
-## Respond to Actions
+## 对 Actions 做出响应
 
-Remember the reducer’s job is to take the _current state_ and an _action_ and figure out the new state. So if the reducer received an action like `{ type: "INCREMENT" }`, what might you want to return as the new state?
+还记得 reducer 的作用是用**当前状态**和一个**action**去计算出新的状态吧。所以如果一个 reducer 接受了一个 action 例如 `{ type: "INCREMENT" }`，你想要返回什么作为新的状态呢？
 
-If you answered something like this, you’re on the right track:
+如果你像下面这样想，那么你就想对了：
 
 ```
 function reducer(state = initialState, action) {
@@ -388,7 +388,7 @@ function reducer(state = initialState, action) {
 }
 ```
 
-It’s common to use a `switch` statement with `case`s for each action you want to handle. Change your reducer to look like this:
+使用 `switch` 语句和 `case` 语句处理每一个 action 是很常见的写法把你的 reducer 函数写成下面这样子：
 
 ```
 function reducer(state = initialState, action) {
@@ -407,67 +407,67 @@ function reducer(state = initialState, action) {
 }
 ```
 
-#### Always Return a State
+#### 总是返回一个状态
 
-You’ll notice that there’s always the _fallback_ case where all it does is `return state`. This is important, because Redux can (will) call your reducer with actions that it doesn’t know what to do with. In fact, the very first action you’ll receive is `{ type: "@@redux/INIT" }`. Try putting a `console.log(action)` above the `switch` and see.
+你会注意到**函数**默认返回的是 `return state`。这很重要，因为 action 不知道要做什么，Redux 通过 action 去调用你的 reducer 函数。实际上 你接受的第一个 action 是 `{ type: "@@redux/INIT" }`。试着在 `switch` 前面写一个 `console.log(action)` 看看会打印出什么。
 
-Remember that the reducer’s job is to return a _new state_, even if that state is unchanged from the current one. You never want to go from “having a state” to “state = undefined”, right? That’s what would happen if you left off the `default` case. Don’t do that.
+还记得 reducer 的工作是返回一个**新状态**吧，即使当前状态没有发生改变也要返回。 你不想从 “有一个状态” 变成 “state = undefined” 吧？ 在你忘了 `default` 情况的时候就会发生这样的事，不要这样做。
 
-#### Never Change State
+#### 永远不要改变状态
 
-One more thing to never do: do not _mutate_ the `state`. State is immutable. You must never change it. That means you can’t do this:
+永远不要去做这件事：不要**改变** `state`。State 是不可变的。你不可以改变它，意味着你不能这样做：
 
 ```
 function brokenReducer(state = initialState, action) {
   switch(action.type) {
     case 'INCREMENT':
-      // NO! BAD: this is changing state!
+      // 不，不要这样做，这样正在改变状态
       state.count++;
       return state;
 
     case 'DECREMENT':
-      // NO! BAD: this is changing state too!
+      // 不要这样做，这也是在改变状态
       state.count--;
       return state;
 
     default:
-      // this is fine.
+      // 这样做是很好的.
       return state;
   }
 }
 ```
 
-You also can’t do things like `state.foo = 7`, or `state.items.push(newItem)`, or `delete state.something`.
+你也不要做这样的事，比如写 `state.foo = 7` 或者 `state.items.push(newItem)`，或者 `delete state.something`。
 
-Think of it like a game where the only thing you can do is `return { ... }`. It’s a fun game. Maddening at first. But you’ll get better at it with practice.
+把这想象为一场游戏，你唯一能做的事就是 `return { ... }`，这是一个有趣的游戏，一开始游戏有些让人抓狂，但是随着你的练习你会觉得游戏越来越有意思。
 
-I put together a short guide on how to do immutable updates, showing 7 common patterns for updating state within objects and arrays.
+我编写了一个简短的指南关于怎么去处理不可变的更新，展示了七种常见的包括对象和数组在内的更新模式。
 
-#### All These Rules…
+#### 所有的规则…
 
-Always return a state, never change state, don’t connect every component, eat your broccoli, don’t stay out past 11… it’s exhausting. It’s like a rules factory, and I don’t even know what that is.
+总是返回一个状态，不要去改变状态，不要连接到每一个组件，吃你自己的西蓝花，不要在外面待着超过 11 点...，真累啊。这就像一个规则工厂，我甚至不知道那是什么。
 
-Yeah, Redux can be like an overbearing parent. But it comes from a place of love. Functional programming love.
+是的，Redux 可能就像一个霸道的父母。但是都是出于爱。来自函数式编程的爱。
 
-Redux is built on the idea of immutability, because mutating global state is the road to ruin.
+Redux 建立在不变性的基础上，因为改变全局的状态就是一条通向毁灭的道路。
 
-Have you ever kept a global object and used it to pass state around an app? It works great at first. Nice and easy. And then the state starts changing in unpredictable ways and it becomes impossible to find the code that’s changing it.
+你是否使用一个全局对象去保存整个 app 的状态？一开始运行的很好，很容易，然后状态在没有任何预测的情况下发生了改变，而且几乎不可能去找到改变状态的代码。
 
-Redux avoids these problems with some simple rules. State is read-only, and actions are the only way to modify it. Changes happen one way, and one way only: action -> reducer -> new state. The reducer function must be “pure” – it cannot modify its arguments.
+Redux 使用一些简单的规则去避免了这样的问题，State 是只读的，actions 是唯一修改状态的方式，改变状态只有一种方式：这个方式就是：action -> reducer -> 新的状态。reducer 必须是一个**纯函数**，它不能修改它的参数。
 
-There are even addon packages that let you log every action that comes through, rewind and replay them, and anything else you could imagine. Time-travel debugging was one of the original motivations for creating Redux.
+有插件可以帮助你去记录每一个 action，追溯它们，你可以想象到的一切。从时间上追溯调试是创建  Redux 的动机之一。
 
-## Where Do Actions Come From?
+## Actions 来自哪里呢？
 
-One piece of this puzzle remains: we need a way to feed an action into our reducer function so that we can increment and decrement the counter.
+让人迷惑的一部分仍然存在：我们需要一个方式去让一个 action 进入到我们的 reducer 中，我们才能增加或者减少这个计数器。
 
-Actions are not born, but they _are_ **dispatched**, with a handy function called `dispatch`.
+Action 不是被生成的，它们是被**dispatched**的，有一个小巧的函数叫做dispatch。
 
-The `dispatch` function is provided by the instance of the Redux store. That is to say, you can’t just `import { dispatch }` and be on your way. You can call `store.dispatch(someAction)`, but that’s not very convenient since the `store` instance is only available in one file.
+`dispatch` 函数由 Redux store 的实例提供，也就是说，你不可以仅仅通过 `import { dispatch }`获得 `dispatch` 函数。你可以调用 `store.dispatch(someAction)`，但是那不是很方便，因为 `store` 的实例只在一个文件里面可以被获得。
 
-As luck would have it, the `connect` function has our back. In addition to injecting the result of `mapStateToProps` as props, `connect` _also_ injects the `dispatch` function as a prop. And with that bit of knowledge, we can finally get the counter working again.
+很幸运，我们还有 `connect` 函数。除了注入 `mapStateToProps` 函数的返回值作为属性以外，`connect` 函数**也**把 `dispatch` 函数作为属性注入了组件，使用这么一点知识，我们又可以让计数器工作起来了。
 
-Here is the final component in all its glory. If you’ve been following along, the only things that changed are the implementations of `increment` and `decrement`: they now call the `dispatch` prop, passing it an action.
+这里是最后的组件形式，如果你一直跟着写到了这里，那么唯一要改变的实现就是 `increment` 和 `decrement`：它们现在可以调用 `dispatch` 属性，通过它分发一个 action。
 
 ```
 import React from 'react';
@@ -505,24 +505,23 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps)(Counter);
 ```
 
-The code for the entire project (all two files of it) can be found [on Github](https://github.com/dceddia/redux-intro).
+整个项目的代码（它的两个文件）可以在[ Github](https://github.com/dceddia/redux-intro)上面找到。
 
-## What Now?
+## 现在怎样了呢？
 
-With the Counter app under your belt, you are well-equipped to learn more about Redux.
+利用 Counter 程序作为一个传送带，你可以继续学习会更多的 Redux 知识了。
 
-> “What?! There’s more?!”
+> “什么?! 还有更多?!”
 
-There is much I haven’t covered here, in hopes of making this guide easily digestible – action constants, action creators, middleware, thunks and asynchronous calls, selectors, and on and on. There’s a lot. The [Redux docs](https://redux.js.org/) are well-written and cover all that and more.
+还有很多的地方我没有讲到，我希望这个介绍是容易理解的 – action constants, action 创建函数, 中间件, thunks 和异步调用, selectors, 等等。 还有很多。这个 [Redux docs](https://redux.js.org/) 文档写的很好，覆盖了我讲到的所有知识和更多的知识。
 
-But you’ve got the basic idea now. Hopefully you understand how data flows in Redux (`dispatch(action) -> reducer -> new state -> re-render`), and what a reducer does, and what an action is, and how that all fits together.
+你已经了解到了基本的思想，希望你理解了数据怎么 Redux 里面变化 (`dispatch(action) -> reducer -> new state -> re-render`)，reducer 做了什么，action 又做了什么，它们是怎么作用在一起的。
 
-I’m putting together a new course that will cover all of this and more! [Sign up here](#ck_modal) to be notified.
+我将会发布一个新的课程，课程涵盖到所有的这些东西和更多的知识！[这里登录](#ck_modal) 去关注.
 
-For a step-by-step approach to learning React,
-check out my [book](https://daveceddia.com/pure-react/?utm_campaign=after-post) — grab 2 free sample chapters.
+以循序渐进的方式学习 React，查看我的[书](https://daveceddia.com/pure-react/?utm_campaign=after-post) - 免费查看两个示例章节。
 
-As far as I am concerned, even the intro which is free is worth the price. — Isaac
+就我而言，即使是免费的介绍也是值得的。 — Isaac
 
 
 ---
