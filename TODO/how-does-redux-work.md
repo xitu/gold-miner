@@ -3,29 +3,29 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/how-does-redux-work.md](https://github.com/xitu/gold-miner/blob/master/TODO/how-does-redux-work.md)
 > * 译者：[hexianga](https://github.com/hexianga)
-> * 校对者：
+> * 校对者：[薛定谔的猫](https://github.com/Aladdin-ADD)  [guoyang](https://github.com/gy134340)
 
-# Redux 的工作原理: 一个计数器例子
+# Redux 的工作过程: 一个计数器例子
 
-在学习了一些 React 后开始学习 Redux，Redux 的工作原理让人感到很困惑。
+在学习了一些 React 后开始学习 Redux，Redux 的工作过程让人感到很困惑。
 
 Actions, reducers, action creators（Action 创建函数）, middleware（中间件）, pure functions（纯函数）, immutability（不变性）…
 
-这些知识点看似完全不相关。
+这些术语看起来非常陌生。
 
-所以在这篇文章中我将用一种有利于大家理解的反向剖析的方法去揭开 Redux **怎样**工作的神秘面纱。在 [最后一篇](https://daveceddia.com/what-does-redux-do/) 中, 在提出专业术语之前我将尝试用简单易懂的语言去解释 Redux。
+所以在这篇文章中我将用一种有利于大家理解的反向剖析的方法去揭开 Redux **怎样**工作的神秘面纱。在 [上一篇](https://daveceddia.com/what-does-redux-do/) 中, 在提出专业术语之前我将尝试用简单易懂的语言去解释 Redux。
 
 如果你还不明确 **Redux 是干什么的** 或者为什么要使用它，请先移步 [这篇文章](https://daveceddia.com/what-does-redux-do/) 然后再回到这里继续阅读。
 
 ## 第一：明白 React 的状态 state
 
-我们将从一个普通的使用 React 状态的例子开始，然后一点一点地添加Redux。
+我们将从一个简单的使用 React 状态的例子开始，然后一点一点地添加Redux。
 
 这是一个计数器：
 
 ![计数器组件](https://daveceddia.com/images/counter-plain.png)
 
-这里是代码 (为了使代码简单我没有贴出 CSS 代码，所以下面代码的效果会不会像上面图片一样美观I)：
+这里是代码 (为了使代码简单我没有贴出 CSS 代码，所以下面代码的效果会不会像上面图片一样美观)：
 
 ```
 import React from 'react';
@@ -62,14 +62,14 @@ class Counter extends React.Component {
 export default Counter;
 ```
 
-下面是代码的工作过程：
+简单的看一下他是怎样跑起来的：
 
 * 这个 `count` 状态被存储在最外层组件 `Counter` 里面
 * 当用户点击 “+”，这个按钮的 `onClick` 回调函数被触发, 也就是组件 `Counter` 里面的 `increment` 方法被调用。
 *  `increment` 方法用新的数字更新状态 count。
-* 由于状态被改变了, React 重新渲染 `Counter` 组件 (还有它的子组件), 然后新的计数器的值被显示.
+* 由于状态被改变了, React 重新渲染 `Counter` 组件 (还有它的子组件), 然后显示新的计数器的值.
 
-如果你想要了解更多的状态怎么被改变的细节，去阅读 [React 中状态的视觉导向](https://daveceddia.com/visual-guide-to-state-in-react/) 然后再回到这里。严格来讲：如果上面的例子没有帮助你回顾起 React 的 state ，那么在你学习 Redux 之前你应该去学习 React 的 state 是怎么工作的。
+如果你想要了解更多的状态怎么被改变的细节，去阅读 [React 中状态的图形化指南](https://daveceddia.com/visual-guide-to-state-in-react/) 然后再回到这里。严格来讲：如果上面的例子没有帮助你回顾起 React 的 state ，那么在你学习 Redux 之前应该去学习 React 的 state 是怎么工作的。
 
 #### 快速开始
 
@@ -97,11 +97,11 @@ render(<App />, document.getElementById('root'));
 
 ## 现在: 添加 Redux
 
-在 [第一部分中讨论到](https://daveceddia.com/what-does-redux-do/)，Redux 保存应用程序的状态 **state** 在单一的状态树 **store**中。然后你可以选取部分状态以属性的形式插入到你的组件中。这使你可以把数据保存在一个全局的位置（状态树 store ）然后将其注入到应用程序中的**任何一个**组件中，而不用通过多层级的属性传递。
+在 [第一部分中讨论到](https://daveceddia.com/what-does-redux-do/)，Redux 保存应用程序的状态 **state** 在单一的状态树 **store**中。然后你可以将 state 的部分抽离出来，然后以 props 的方式传入组件。这使你可以把数据保存在一个全局的位置（状态树 store ）然后将其注入到应用程序中的**任何一个**组件中，而不用通过多层级的属性传递。
 
 注意：你可能经常看到 “state” 和 “store” 混着使用，但是严格来讲： **state**是数据，而 **store** 是数据保存的地方。
 
-我们接着往下走，利用好你的编辑器，它将帮助你理解 Redux 怎么工作（我们通过讲解一些错误来继续）。
+我们接着往下走，利用你的编辑器继续编辑我们下面的代码，它将帮助你理解 Redux 怎么工作（我们通过讲解一些错误来继续）。
 
 添加 Redux 到你的项目中:
 
@@ -113,7 +113,7 @@ $ yarn add redux react-redux
 
 等等 – 这是两个库吗? 你可能会问 “react-redux 是什么” ? 对不起，我一直在骗你。
 
-你看，`redux` 给了你一个状态树 store，让你可以把状态 state 存在里面，然后可以把状态取出来，当状态改变的时候可以做出响应。然而这是他它做的所有事。实际上是 `react-redux` 让你连接部分状态到 React 组件。实际上: `redux` 和 React **一点儿也没有**关系。
+你看，`redux` 给了你一个状态树 store，让你可以把状态 state 存在里面，然后可以把状态取出来，当状态改变的时候可以做出响应。然而这是他它做的所有事。实际上正是 `react-redux` 将 state 与 React 组件联系起来。实际上: `redux` 和 React **一点儿也没有**关系。
 
 这些库就像豌豆荚里面的两粒豌豆，99.999% 的时候当有人在 React 的背景下提到 “Redux” 的时候，他们指的是这两个库。所以记住：当你在 StackOverflow 或者 Reddit 或者[其它任何地方](https://daveceddia.com/keeping-up-with-javascript/)看到 Redux 时，他指的是这两个库。
 
@@ -125,7 +125,7 @@ $ yarn add redux react-redux
 
 回到计数器的应用程序，我们把组件的状态转移到 Redux。
 
-我们把状态从组件里面移除，因为我们很快可以获取它们从 Redux 中：
+我们把状态从组件里面移除，因为我们很快可以从 Redux 中获取它们：
 
 ```
 import React from 'react';
@@ -201,7 +201,7 @@ export default connect(mapStateToProps)(Counter);
 
 从 `mapStateToProps` 函数中返回的状态作为属性注入到你的组件中。上面例子中的 `state.count` 作为 `count` 属性：对象中的键名作为属性名，它们对应的值作为属性的值。所以你看，从函数的字面意思上是**定义了状态到属性的映射**.
 
-## 错误意味着进步!
+## 错误意味着有进展!
 
 代码进行到这里，你会在控制台里面看到下面的错误：
 
@@ -211,10 +211,9 @@ export default connect(mapStateToProps)(Counter);
 
 ## 提供一个状态树 store
 
-Redux 控制着整个 app
-的全部状态，通过 `react-redux` 里面的 `Provider` 组件包裹着整个 app，app 里面的**每一个组件**都可以通过 `connect` 去进入到 Redux store 里面获取状态。
+Redux 控制着整个 app 的全部状态，通过 `react-redux` 里面的 `Provider` 组件包裹着整个 app，app 里面的**每一个组件**都可以通过 `connect` 去进入到 Redux store 里面获取状态。
 
-这意味着最外围的 `App` 组件，以及 `App` 的子组件（像 `Counter`），甚至他们子组件的子组件等等，所有的组件都可以访问状态树 store，只要把他们通过`connect` 函数调用。
+这意味着最外围的 `App` 组件，以及 `App` 的子组件（像 `Counter`），甚至他们子组件的子组件等等，所有的组件都可以访问状态树 store，只要把他们通过 `connect` 函数调用。
 
 我不是说要把每一个组件都用 `connect` 函数调用，那是一个很糟糕的做法(设计混乱而且太慢了)。
 
@@ -292,7 +291,7 @@ function reducer() {
 }
 ```
 
-嘿！这个 count 现在显示为 “42”，多让人惊叹啊。
+嘿！这个 count 现在显示为 “42”，神奇吧。
 
 只是有一个问题：count 一直显示为42。
 
@@ -301,7 +300,7 @@ function reducer() {
 在我们进一步了解怎么**更新**计数器的值之前，我们先来了解一下到目前为止我们做了些什么：
 
 * 我们写了一个 `mapStateToProps` 函数，该函数的作用是：把 Redux 中的状态转换成一个包含属性的对象。
-* 我们用模块 `react-redux` 中的函数 `connect` 把 Redux store 状态树和 `Counter` 组件联系起来，使用 `mapStateToProps` 函数配置了怎么联系。
+* 我们用模块 `react-redux` 中的函数 `connect` 把 Redux store 状态树和 `Counter` 组件连接起来，使用 `mapStateToProps` 函数配置了怎么联系。
 * 我们创建了一个 `reducer` 函数去告诉 Redux 我们的状态应该是什么形式的。
 * 我们使用 `reducer` 做 `createStore` 函数的参数，用它创建了一个 store。
 * 我们把整个组件包裹在了 `react-redux` 中的组件 `Provider` 中，向该组件传入了 store 作为属性。
@@ -416,7 +415,7 @@ function reducer(state = initialState, action) {
 
 #### 永远不要改变状态
 
-永远不要去做这件事：不要**改变** `state`。State 是不可变的。你不可以改变它，意味着你不能这样做：u can’t do this:
+永远不要去做这件事：不要**改变** `state`。State 是不可变的。你不可以改变它，意味着你不能这样做：
 
 ```
 function brokenReducer(state = initialState, action) {
@@ -452,7 +451,7 @@ function brokenReducer(state = initialState, action) {
 
 Redux 建立在不变性的基础上，因为改变全局的状态就是一条通向毁灭的道路。
 
-你是否使用一个全局对象去保存整个 app 的状态？一开始运行的很好，很容易，然后状态在没有任何预测的情况下发生了改变，而且去找到改变状态的代码是不可能的。
+你是否使用一个全局对象去保存整个 app 的状态？一开始运行的很好，很容易，然后状态在没有任何预测的情况下发生了改变，而且几乎不可能去找到改变状态的代码。
 
 Redux 使用一些简单的规则去避免了这样的问题，State 是只读的，actions 是唯一修改状态的方式，改变状态只有一种方式：这个方式就是：action -> reducer -> 新的状态。reducer 必须是一个**纯函数**，它不能修改它的参数。
 
