@@ -15,7 +15,7 @@ Android Oreo 中包含很多安全性提升的更新。几个月以来，我们�
 
 Android 早已支持[开机验证模式(Verified Boot)](https://source.android.com/security/verifiedboot/)，旨在防止设备软件被篡改的情况下启动。在 Android Oreo 中，我们随着[ Project Treble ](https://source.android.com/devices/architecture/treble)一同运行的验证开机模式(Verified Boot)，称之为 Android 验证开机模式2.0(Android Verified Boot 2.0)(AVB)。AVB 有一些使得更新更加容易、安全的功能，例如通用的分区尾部（AVB 中位于文件系统分区尾部的结构）以及回滚保护。回滚保护旨在保护 OS 降级的设备，防止降级到到低版本的系统后被人攻击。为此，设备将通过专用的硬件保存系统版本信息或使用可信执行环境（Trusted Execution Environment, TEE）对数据进行签名。 Pixel 2 和 Pixel 2 XL 自带这种保护，并且我们建议所有设备制造商将这个功能添加到他们的新设备中。
 
-Oreo 还包括新的[原始设备制造商锁(OEM Lock)硬件抽象层(HAL)](https://android-review.googlesource.com/#/c/platform/hardware/interfaces/+/527086/-1..1/oemlock/1.0/IOemLock.hal)(HAL)使得设备制造商能够更加灵活的保护设备，无论设备处于锁定、解锁或者可解锁状态。例如，新的 Pixel 设备通过硬件抽象层命令向启动引导程序（bootloader）传递命令。启动引导装载程序会在下次开机分析这些命令并检查安全存储于有重放保护的内存区（Replay Protected Memory Block, RPMB）中对锁更改的信息是否合法。如果你的设备被偷了，这些保护措施旨在保护你的设备被重置，从而保护你的数据安全。新的硬件抽象层(HAL)甚至支持将锁移动到专用的硬件中。
+Oreo 还包括新的[原始设备制造商锁(OEM Lock)硬件抽象层(HAL)](https://android-review.googlesource.com/#/c/platform/hardware/interfaces/+/527086/-1..1/oemlock/1.0/IOemLock.hal)使得设备制造商能够更加灵活的保护设备，无论设备处于锁定、解锁或者可解锁状态。例如，新的 Pixel 设备通过硬件抽象层命令向启动引导程序（bootloader）传递命令。启动引导装载程序会在下次开机分析这些命令并检查安全存储于有重放保护的内存区（Replay Protected Memory Block, RPMB）中对锁更改的信息是否合法。如果你的设备被偷了，这些保护措施旨在保护你的设备被重置，从而保护你的数据安全。新的硬件抽象层(HAL)甚至支持将锁移动到专用的硬件中。
 
 谈到硬件，我们添加了防伪硬件支持，例如在每一个 Piexl 2 和 Piexl 2 XL 设备中内嵌的[安全模块](https://android-developers.googleblog.com/2017/11/how-pixel-2s-security-module-delivers.html)。这种物理芯片可以防止很多软硬件攻击，并且还抵抗物理渗透攻击. 安全模块防止推导设备密码及限制解锁尝试的频率，使得很多攻击由于时间限制而失效。
 
