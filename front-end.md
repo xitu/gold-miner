@@ -1,3 +1,8 @@
+* [2017 年 JavaScript 发展状况回顾](https://juejin.im/entry/5a44a500f265da43271887f0/) ([LeviDing](https://github.com/leviding) 翻译)
+* [如何在 JavaScript 中使用 Generator?](https://juejin.im/post/5a44968df265da4335630fb9) ([jonjia](https://github.com/jonjia) 翻译)
+* [在 React & Redux 中使用 AJAX 轮询](https://juejin.im/post/5a43b6da5188257d167a7aef) ([lcx-seima](https://github.com/lcx-seima) 翻译)
+* [在 Redux 中使用 AJAX 轮询（二）：Saga 篇](https://juejin.im/post/5a43b80df265da43176a6e4e) ([lcx-seima](https://github.com/lcx-seima) 翻译)
+* [论原子 CSS 的日益普及](https://juejin.im/post/5a4387af6fb9a045186b04d1) ([sunshine940326](https://github.com/sunshine940326) 翻译)
 * [使用 CSS Grid：以兼容不支持栅格化布局的浏览器](https://juejin.im/post/5a3f494d6fb9a0450a678f8d) ([Raoul1996](https://github.com/Raoul1996) 翻译)
 * [用 CSS 选择器和自定义属性来升级你的项目](https://juejin.im/post/5a3c47386fb9a044fd11f278) ([MechanicianW](https://github.com/MechanicianW) 翻译)
 * [将网站转换为渐进式 Web 应用程序之简易教程](https://juejin.im/post/5a3cdf52f265da4321543c95) ([bambooom](https://github.com/bambooom) 翻译)
