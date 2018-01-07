@@ -118,47 +118,47 @@ square(5);
 
 ![](https://cdn-images-1.medium.com/max/1000/1*WxknfoF76q_SZkHg382xhA.jpeg)
 
-This is an oversimplified AST
+这就是简化版的 AST
 
 * * *
 
-There is an **intermediary step** where the source code is transformed into intermediate code — usually bytecode — by an interpreter, statement by statement. The bytecode is then executed within a virtual machine.
+还有一个 **中间步骤** ，解释器将源码按照声明语句，逐个转换为中间代码（通常为字节码）。字节码随后在虚拟机内执行。
 
-Afterwards, the **code is optimized**. This involves the removal of white space, dead code, and redundant code, among many other optimization processes.
-
-* * *
-
-#### **Code-Generator**
-
-Once the code is optimized, the code-generator’s job is to take the intermediate code and turn it into a low level assembly language that a machine can readily understand. At this juncture, the generator is responsible for:
-
-(1) making sure that the low level code retains the same instructions as the source code
-
-(2) mapping bytecode to the target machine
-
-(3) deciding whether values should be stored in register or memory and where values should be retrieved.
+然后，**代码会被优化**，这其中包含了移除空格，不会被执行的死码和冗余代码，以及其它很多优化过程。
 
 * * *
 
-Here is where a code-generator performs LHS and RHS look-ups. Simply put, an LHS look-up writes to memory the target’s value and an RHS look-up reads value from memory.
+#### **代码生成器**
 
-If a value is stored in both cache and register, the generator will have to optimize by taking the value from register. Taking values from memory should be the least preferred method.
+一旦代码优化完毕，代码生成器的工作是将中间代码转换为机器可以理解的底层汇编语言。此时，生成器负责：
+
+(1) 确保底层代码保留与源代码相同的指令
+
+(2) 将字节码映射到目标机器
+
+(3) 决定值是否应该存储在寄存器或内存中，以及值可以在哪里检索读取
 
 * * *
 
-And, finally…
+这是代码生成器执行 LHS 和 RHS 查找的环节。简而言之，LHS 查找会将目标值写入内存，RHS 查找会从内存中读取目标值。
 
-(4) deciding the order in which instruction should be executed.
+如果值既被存入内存又被存入寄存器，代码生成器就会将其移出寄存器来进行优化。从内存中取值是最次选择。
+
+* * *
+
+到了最后……
+
+(4) 决定了指令的执行顺序。
 
 ![](https://cdn-images-1.medium.com/max/800/1*aAzbHCGv1aeWGUUi0Zo7Eg.jpeg)
 
-### **Final Thoughts**
+### **最后的一点思考**
 
-One other way to understand JavaScript’s engine is to look at your [brain](https://www.brainson.org/books-how-theyre-made-and-how-your-brain-reads-them/). As you’re reading this, your brain is fetching data from your retina. This data, transferred by your optic nerve, is an inverted version of this web page. Your brain compiles the image by flipping it so that it is interpretable.
+理解 JavaScript 引擎的另一个方法是看看你的 [大脑](https://www.brainson.org/books-how-theyre-made-and-how-your-brain-reads-them/)。当你读到这里，你的大脑正在从视网膜获取数据。通过视神经传递的数据是网页的翻转版本，你的大脑为了能解释图像，通过反转它来进行编译。
 
-Beyond just flipping images and colorizing them, your brain can fill in blank spaces based on its ability to recognize patterns, like a compiler’s ability to read values from cached memory.
+除了翻转图像并着色之外，大脑可以根据识别模式的能力来填充空格，就像编译器从缓存中读取数据一样。
 
-So if we write, _please give us a round of ______,_you should easily be able to execute that code.
+因此如果我们写下 _please give us a round of ______,_ 这句话，你就很容易地执行这段代码。
 
 * * *
 
@@ -166,9 +166,9 @@ code in peace
 
 Raji Ayinla,
 
-Intern Technical Content Writer @ [Codesmith Staffing](http://codesmithstaffing.com/)
+科技内容实习作家 @ [Codesmith Staffing](http://codesmithstaffing.com/)
 
-**Resources**
+**参考内容**
 
 * [Anatomy of a Compiler by James Alan Farrel](http://www.cs.man.ac.uk/~pjj/farrell/comp3.html)
 * [You Don’t Know JS Chapter 1](https://github.com/getify/You-Dont-Know-JS/blob/master/scope%20%26%20closures/ch1.md)
