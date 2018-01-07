@@ -45,11 +45,11 @@ Oreo 还包括新的[原始设备制造商锁(OEM Lock)硬件抽象层(HAL)](htt
 最后，我们针对[设备标识做了重大的改变](https://android-developers.googleblog.com/2017/04/changes-to-device-identifiers-in.html)开放给用户更多的控制权，包括：
 
 * 静态的 Android ID 和 Widevine 将变为基于应用变化的值，这有助于限制设备中无法重置的标识符的使用。
-* 依照[IETF RFC 7844](https://tools.ietf.org/html/rfc7844#section-3.7)，现在`net.hostname` 将为空且 DHCP 客户端也将不再发送主机名称（hostname)。
-* 对于需要设备标识符的应用，我们新增了一个`Build.getSerial() API`并且通过权限对其进行保护。
-* 我们与安全研究人员一起<sup>1</sup>在各种芯片组固件中的 Wi-Fi 扫描环节中新增一个健全的MAC地址随机化功能.
+* 依照 [IETF RFC 7844](https://tools.ietf.org/html/rfc7844#section-3.7)，现在 `net.hostname` 将为空且 DHCP 客户端也将不再发送主机名称（hostname)。
+* 对于需要设备标识符的应用，我们新增了一个 `Build.getSerial() API` 并且通过权限对其进行保护。
+* 我们与安全研究人员一起 <sup>1</sup> 在各种芯片组固件中的 Wi-Fi 扫描环节中新增一个健全的MAC地址随机化功能.
 
-Android Oreo 带来远不止这些改进, 还有[更多](https://www.android.com/versions/oreo-8-0/)。一如既往，如果您有关于 Android 的反馈或是改进建议。欢迎发送邮件至security@android.com.
+Android Oreo 带来远不止这些改进，还有[更多](https://www.android.com/versions/oreo-8-0/)。一如既往，如果您有关于 Android 的反馈或是改进建议。欢迎发送邮件至 security@android.com。
 
 ---
 
