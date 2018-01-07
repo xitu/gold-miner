@@ -2,8 +2,8 @@
 > * 原文作者：[Gian G Spicuzza](https://android-developers.googleblog.com/2017/12/double-stuffed-security-in-android-oreo.html)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/double-stuffed-security-in-android-oreo.md](https://github.com/xitu/gold-miner/blob/master/TODO/double-stuffed-security-in-android-oreo.md)
-> * 译者：一只胖蜗牛
-> * 校对者：corresponding，SumiMakito
+> * 译者：[一只胖蜗牛](https://github.com/XPGSnail)
+> * 校对者：[corresponding](https://github.com/corresponding)，[SumiMakito](https://github.com/SumiMakito)
 
 # [Android Oreo 中安全加固](https://android-developers.googleblog.com/2017/12/double-stuffed-security-in-android-oreo.html)
 
