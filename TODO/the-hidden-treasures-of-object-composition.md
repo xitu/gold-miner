@@ -2,70 +2,66 @@
 > * 原文作者：[Eric Elliott](https://medium.com/@_ericelliott?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/the-hidden-treasures-of-object-composition.md](https://github.com/xitu/gold-miner/blob/master/TODO/the-hidden-treasures-of-object-composition.md)
-> * 译者：
+> * 译者：[yoyoyohamapi](https://github.com/yoyoyohamapi)
 > * 校对者：
 
-# The Hidden Treasures of Object Composition
+# 对象组合中的宝藏
 
 ![](https://cdn-images-1.medium.com/max/800/1*uVpU7iruzXafhU2VLeH4lw.jpeg)
 
-Smoke Art Cubes to Smoke — MattysFlicks — (CC BY 2.0)
+（译注：该图是用 PS 将烟雾处理成方块状后得到的效果，参见 [flickr](https://www.flickr.com/photos/68397968@N07/11432696204)。）
 
-> _Note: This is part of the “Composing Software” series on learning functional programming and compositional software techniques in JavaScript ES6+ from the ground up. Stay tuned. There’s a lot more of this to come!
-> _[_< Previous_ ](https://medium.com/javascript-scene/mocking-is-a-code-smell-944a70c90a6a)_|_ [_<< Start Over_](https://medium.com/javascript-scene/composing-software-an-introduction-27b72500d6ea)
+> 这是 “软件编写” 系列文章的第十一部分，该系列主要阐述如何在 JavaScript ES6+ 中从零开始学习函数式编程和组合化软件（compositional software）技术（译注：关于软件可组合性的概念，参见维基百科
+> [< 上一篇](https://juejin.im/post/5a2d363e6fb9a0450b6652c8) | [<< 返回第一篇](https://github.com/xitu/gold-miner/blob/master/TODO/the-rise-and-fall-and-rise-of-functional-programming-composable-software.md)
 
-* * *
+> “通过对象的组合装配或者组合对象来获得更复杂的行为” ~ Gang of Four，[《设计模式：可复用面向对象软件的基础》](https://www.amazon.com/Design-Patterns-Elements-Reusable-Object-Oriented/dp/0201633612//ref=as_li_ss_tl?ie=UTF8&linkCode=ll1&tag=eejs-20&linkId=06ccc4a53e0a9e5ebd65ffeed9755744)
+>
+> “优先考虑对象组合而不是类继承。” ~ Gang of Four，[《设计模式：可复用面向对象软件的基础》](https://www.amazon.com/Design-Patterns-Elements-Reusable-Object-Oriented/dp/0201633612//ref=as_li_ss_tl?ie=UTF8&linkCode=ll1&tag=eejs-20&linkId=06ccc4a53e0a9e5ebd65ffeed9755744)
 
-> “Object Composition Assembling or composing objects to get more complex behavior.” ~ Gang of Four, [“Design Patterns: Elements of Reusable Object-Oriented Software”](https://www.amazon.com/Design-Patterns-Elements-Reusable-Object-Oriented/dp/0201633612//ref=as_li_ss_tl?ie=UTF8&linkCode=ll1&tag=eejs-20&linkId=06ccc4a53e0a9e5ebd65ffeed9755744)
+软件开发中最常见的错误之一就是对于类继承的过度使用。类继承是一个代码复用机制，实例对象和基类构成了 **是一个（is-a）**关系。如果你想要使用 is-a 关系来构建应用程序，你将陷入麻烦，因为在面向对象设计中，类继承是最紧的耦合形式，这种耦合会引起下面这些常见问题：
 
-> “Favor object composition over class inheritance.” ~ Gang of Four, “Design Patterns”.
+* 脆弱的基类问题
+* 猩猩/香蕉问题
+* 不得已的重复问题
 
-One of the most common mistakes in software development is the tendency to overuse class inheritance. Class inheritance is a code reuse mechanism where instances form **is-a** relations with base classes. If you’re tempted to model your domain using _is-a_ relations (e.g., a duck _is-a_ bird) you’re bound for trouble, because class inheritance is the tightest form of coupling available in object-oriented design, which leads to many common problems, including (among others):
+类继承是通过从基类中抽象出一个可供子类继承或者重载的公共接口来实现复用的。**抽象**有两个重要的方面：
 
-* The fragile base class problem
-* The gorilla/banana problem
-* The duplication by necessity problem
+* **泛化（Generalization）**：该过程提取了服务于一般用例的共享属性和行为。
+* **具化（Specialization）**：该过程提供了一个被特殊用例需要的实现细节。
 
-Class inheritance accomplishes reuse by abstracting a common interface away into a base class that subclasses can inherit from, add to, and override. There are two important parts of **abstraction**:
+目前，在代码中有许多能够完成泛化和具化的方式。注入简单函数、高阶函数、以及**对象组合**都能很好地代替类继承。
 
-* **Generalization** The process of extracting only the shared properties and behaviors that serve the general use case
-* **Specialization** The process of providing the implementation details required to serve the special case
+不幸的是，对象组合非常容易被曲解，许多开发者都难于用对象组合的方式来思考。现在是时候更深层次地探索这一主题了。
 
-There are lots of ways to accomplish generalization and specialization in code. Some good alternatives to class inheritance include simple functions, higher order functions, and _object composition_.
+### 什么是对象组合？
 
-Unfortunately, object composition is very misunderstood, and many people struggle to think in terms of object composition. It’s time to explore the topic in a bit more depth.
+> “在计算机科学中，一个组合数据类型或是复合数据类型是任意的一个可以通过编程语言原始数据类型或者其他数据类型构造而成的数据类型。构成一个复合类型的操作又称为组合。” ~ Wikipedia
 
-### What is Object Composition?
+造成对象组合疑云的原因之一就是，任何将原始数据类型组装到一个复合对象的过程都是是对象组合的一个形式，但是继承技术却经常与对象组合作对比，即便它们是全然不同的两件事。这种二义性的产生是由于对象组合的语法（grammer）和语义（semantic）间存在着一个差别。
 
-> “In computer science, a composite data type or compound data type is any data type which can be constructed in a program using the programming language’s primitive data types and other composite types. […] The act of constructing a composite type is known as composition.” ~ Wikipedia
+当我们谈论到对象组合 vs 类继承时，我们并非在谈论一个具体的技术：我们是在谈论组件对象（component objects）间的**语义关联**和**耦合程度**。我们谈论的是**意义**而非**语法**，人们通常一叶障目而不见泰山，无法区别二者，并陷入到语法细节中去。
 
-One of the reasons for the confusion surrounding object composition is that any assembly of primitive types to form a composite object is a form of object composition, but inheritance techniques are often discussed in contrast to object composition as if they are different things. The reason for the dual meaning is that there is a difference between the grammar and semantics of object composition.
+GoF 建议道 “优先使用对象组合而不是类继承”，这启示了我们将对象看作是更小，耦合更松的对象的组合，而不是大量从一个统一的基类继承而来。GoF 将紧耦合对象描述为 “它们形成了一个统一的系统，你无法在对其他类不知情或者不更改的情况下修改或者删除某个类。该系统结构变得紧密，从而难于认知、修改及维护。”
 
-When discussing object composition vs class inheritance, we’re not talking about specific techniques: We’re talking about the _semantic relationships_ and _degree of coupling_ between the component objects. We’re talking about _meaning_ as opposed to _grammar_. People often fail to make the distinction and get mired in the grammar details. They can’t see the forest for the trees.
+### 三种不同形式的对象组合
 
-There are many different ways to compose objects. Different forms of composition will produce different composite structures and different relationships between the objects. When objects depend on the objects they’re related to, those objects are coupled, meaning that changing one object could break the other.
+在《设计模式中》，GoF 声称：“你讲一次又一次的在设计模式中看到对象组合”，并且描述了不同类型的组合关系，包括有聚合（aggregation）和委托（delegation）。
 
-The Gang of Four advice to “favor object composition over class inheritance” invites us to think of our objects as a composition of smaller, loosely coupled objects rather than wholesale inheritance from a monolithic base class. The GoF describes tightly coupled objects as “monolithic systems, where you can’t change or remove a class without understanding and changing many other classes. The system becomes a dense mass that’s hard to learn, port, and maintain.”
+《设计模式》的作者最初是使用 C++ 和 Smalltalk（Java 的前身）进行工作的。相较于 JavaScript，他们在运行时构建和改变对象关系要更加复杂，所以，GoF 在叙述对象组合时没用牵涉任何的实现细节也是可以理解的。然而，在 JavaScript 中，脱离动态对象扩展（也称为 **连接（concatenation）**）去讨论对象组合是不可能的。
 
-### Three Different Forms of Object Composition
+相较于《设计模式》中对于对象组合的定义，出于对 JavaScript 适用性以及构造一个更清晰的泛化的考虑，我们会**稍有**发散。例如，我们不会要求聚合需要**隐式**控制子类对象的生命期。对于动态对象扩展的语言来说，这并不正确。
 
-In “Design Patterns”, the Gang of Four states, “you’ll see object composition applied again and again in design patterns”, and goes on to describe various types of compositional relationships, including _aggregation_ and _delegation_.
+选择一个错误的公理会将会让我们在得出有用泛化是受到不必要的限制，强制我们去对相同泛化思路的特殊用例起一个名字。软件开发者不喜欢重复做不需要的事儿。
 
-The authors of “Design Patterns” were primarily working with C++ and Smalltalk (later Java). Building and changing object relations at runtime in those languages is a lot more complicated than it is in JavaScript, so they understandably did not include many details on the subject. However, no discussion of object composition in JavaScript would be complete without a discussion of dynamic object extension, aka _concatenation._
+* **聚合（Aggregation）**：一个对象是由一个可枚举的子对象集合构成。换言之，一个对象可以**包含**其他对象。每个子对象都保留了它自己的引用，因此它可以在信息不丢失的情况下直接从聚合对象中解构出来。
+* **连接（Concatenation）**：一个对象通过向现有对象增加属性而构成。属性可以一个个连接或者是从现有对象中拷贝。例如，jQuery 插件通过连接新的方法到 jQuery 委托原型 —— `jQuery.fn` 上而构建。
+* **委托（Delegation）**：一个对象直接指向或者**委托**到另一个对象。例如，[Ivan Sutherland 的画板](https://www.youtube.com/watch?v=BKM3CmRqK2o) 中的实例都含有 “master” 的引用，其被委托来共享属性。Photoshop 中的 “smart objects” z额作为了委托到外部资源的局部代理。JavaScript 的原型（prototype）也是代理：数组实例的方法指向了内置的数组原型 `Array.prototype` 上的方法，对象实例则指向了 `Object.prototype`，等等。
 
-For reasons of applicability to JavaScript and to form cleaner generalizations, we’ll diverge _slightly_ from the definitions used in “Design Patterns”. For instance, we won’t require that aggregations _imply_ control over subobject lifecycles. That simply isn’t true in a language with dynamic object extension.
+需要注意的是这三种对象组合形式并不是彼此**互斥的**。我们能够使用聚合来实现委托，在 JavaScript 中，类继承也是通过委托实现的。许多软件系统用了不止一种组合，例如 jQuery 插件使用了连接来扩展 jQuery 委托原型 —— `jQuery.fn`。当客户端代码调用插件上的方法，请求将会被委托给连接到 `jQuery.fn` 上的方法。
 
-Selecting the wrong axioms can unnecessarily restrict a useful generalization, and force us to come up with another name for a special case of the same general idea. Software developers don’t like to repeat ourselves when we don’t need to.
+> 后文的代码实例中的将会共享下面这段初始化代码：
 
-* **Aggregation** When an object is formed from an enumerable collection of subobjects. In other words, an object which _contains_ other objects. Each subobject retains its own reference identity, such that it could be destructured from the aggregation without information loss.
-* **Concatenation** When an object is formed by adding new properties to an existing object. Properties can be concatenated one at a time or copied from existing objects, e.g., jQuery plugins are created by concatenating new methods to the jQuery delegate prototype, `jQuery.fn`.
-* **Delegation** When an object forwards or _delegates to_ another object. e.g., [Ivan Sutherland’s Sketchpad](https://www.youtube.com/watch?v=BKM3CmRqK2o) (1962) included instances with references to “masters” which were delegated to for shared properties. Photoshop includes “smart objects” that serve as local proxies which delegate to an external resource. JavaScript’s prototypes are also delegates: Array instances forward built-in array method calls to `Array.prototype`, objects to `Object.prototype`, etc...
-
-It’s important to note that these different forms of composition are **not mutually exclusive.** It’s possible to implement delegation using aggregation, and class inheritance is implemented using delegation in JavaScript. Many software systems use more than one type of composition, e.g., jQuery’s plugins use concatenation to extend the jQuery delegate prototype, `jQuery.fn`. When client code calls a plugin method, the request is delegated to the method that was concatenated to the delegate prototype.
-
-> _Note on code examples The code examples below will share the following setup code:_
-
-```
+```javascript
 const objs = [
   { a: 'a', b: 'ab' },
   { b: 'b' },
@@ -254,7 +250,6 @@ DevAnywhere is the fastest way to level up to advanced JavaScript skills with co
 **_Eric Elliott_** _is the author of_ [_“Programming JavaScript Applications”_](http://pjabook.com) _(O’Reilly), and cofounder of_ [_DevAnywhere.io_](https://devanywhere.io/)_. He has contributed to software experiences for_ **_Adobe Systems_**_,_ **_Zumba Fitness_**_,_ **_The Wall Street Journal_**_,_ **_ESPN_**_,_ **_BBC_**_, and top recording artists including_ **_Usher_**_,_ **_Frank Ocean_**_,_ **_Metallica_**_, and many more._
 
 _He works anywhere he wants with the most beautiful woman in the world._
-
 
 ---
 
