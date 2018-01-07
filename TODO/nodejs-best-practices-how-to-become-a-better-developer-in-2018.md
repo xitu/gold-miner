@@ -3,8 +3,10 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/nodejs-best-practices-how-to-become-a-better-developer-in-2018.md](https://github.com/xitu/gold-miner/blob/master/TODO/nodejs-best-practices-how-to-become-a-better-developer-in-2018.md)
 > * 译者：[Yong Li](https://github.com/NeilLi1992)
-> * 校对者：[guoyang](https://github.com/gy134340)
+> * 校对者：[guoyang](https://github.com/gy134340) [moods445](https://github.com/moods445)
+
 # Node.js 最佳实践 —— 如何在 2018 年成为更好的 Node.js 开发者
+
 在过去两年中，每年写一篇关于来年如何成为更好的 Node.js 开发者的建议已经成了我自己的传统。今年也不例外！🤗
 
 如果你对我之前的新年建议感兴趣，你可以在 RisingStack 博客上阅读：
