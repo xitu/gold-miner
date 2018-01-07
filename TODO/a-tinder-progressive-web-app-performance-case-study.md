@@ -9,7 +9,7 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/1*j2n8zzLYxoum1ob-1mjUcw.png)
 
-最近 Tinder 在 web 端发力，公布了他们使用 [Progressive Web App](https://developers.google.com/web/progressive-web-apps/)  技术开发的 [Tinder Online](https://tinder.com) ，而且全平台支持。在技术实现中，为了应对 [JavaScript 性能优化问题](https://medium.com/dev-channel/the-cost-of-javascript-84009f51e99e) 采用了最前沿的技术，例如，使用 [Service Workers](https://developers.google.com/web/fundamentals/primers/service-workers/) 来应对网络弹性问题、使用 [消息推送（Push Notifications）](https://developers.google.com/web/fundamentals/push-notifications/) 来支撑聊天业务。本文将向各位讲解大佬们是如何处理开发中的性能优化问题的。
+最近 Tinder 在 web 端发力，公布了 [PWA](https://developers.google.com/web/progressive-web-apps/)  应用 [Tinder Online](https://tinder.com) ，现已全平台支持。在技术实现上，为了应对 [JavaScript 性能优化问题](https://medium.com/dev-channel/the-cost-of-javascript-84009f51e99e) 采用了最前沿的技术，例如，使用 [Service Workers](https://developers.google.com/web/fundamentals/primers/service-workers/) 来应对网络弹性问题、使用 [消息推送（Push Notifications）](https://developers.google.com/web/fundamentals/push-notifications/) 来支撑聊天业务。本文将向各位讲解大佬们是如何处理开发中的性能优化问题的。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*1HmfQhMAQL8kukiNtMZRjA.png)
 
@@ -166,7 +166,7 @@ plugins: [
       })
 ```
 
-经过一系列优化之后，剩下的 JavaScript 代码主要也就是主干代码了。这些代码暂时就不用动了，除非架构发生变化。
+经过一系列优化之后，剩下的主要是主干部分代码。这些代码暂时就不用动了，除非架构发生变化。
 
 ### CSS 的优化策略
 
@@ -255,7 +255,7 @@ Tinder 还用了 [Workbox Webpack 插件](https://developers.google.com/web/tool
 
 ### 总结
 
-虽然 Tinder 还在继续迭代他们的产品，但是已经初见成效了，你也可以随时访问 Tinder.com 关注最新进展。
+虽然 Tinder 还在继续迭代他们的产品，但是已经初见成效了，你可以随时访问 Tinder.com 关注最新进展。
 
 **感谢和祝贺 Roderick Hsiao、 Jordan Banafsheha 以及 Erik Hellenbrand，恭喜你们成功发布了 Tinder Online，谢谢你们对我的文章提出的意见和指导，还有 Cheney Tsai，你的观点给了我很多启发。**
 
@@ -265,7 +265,7 @@ Tinder 还用了 [Workbox Webpack 插件](https://developers.google.com/web/tool
 * [A Treebo React & Preact performance case study](https://medium.com/dev-channel/treebo-a-react-and-preact-progressive-web-app-performance-case-study-5e4f450d5299)
 * [Twitter Lite and high-performance PWAs at scale](https://medium.com/@paularmstrong/twitter-lite-and-high-performance-react-progressive-web-apps-at-scale-d28a00e780a3)
 
-本文转载自 [Performance Planet](https://calendar.perfplanet.com/2017/a-tinder-progressive-web-app-performance-case-study/)。 如果你还对 React 不熟悉，可以参考我推荐的教程：[React for Beginners](https://goo.gl/G1WGxU)，对新手十分友好。
+本文转载自 [Performance Planet](https://calendar.perfplanet.com/2017/a-tinder-progressive-web-app-performance-case-study/)。 如果你对 React 还不熟悉，可以参考我推荐的教程：[React for Beginners](https://goo.gl/G1WGxU)，对新手十分友好。
 
 ---
 
