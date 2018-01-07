@@ -5,7 +5,7 @@
 > * 译者：[一只胖蜗牛](https://github.com/XPGSnail)
 > * 校对者：[corresponding](https://github.com/corresponding)，[SumiMakito](https://github.com/SumiMakito)
 
-# [Android Oreo 中安全加固](https://android-developers.googleblog.com/2017/12/double-stuffed-security-in-android-oreo.html)
+# [像奥利奥一样的双重安全措施，尽在 Android Oreo](https://android-developers.googleblog.com/2017/12/double-stuffed-security-in-android-oreo.html)
 
 由 Android 安全团队的 Gian G Spicuzza 发表
 
