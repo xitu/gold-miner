@@ -5,7 +5,7 @@
 > * 译者：[Fatezeros](https://github.com/fatezeros)
 > * 校对者：
 
-# 关于 Parcel 你所需要知道的一切：快速的 Web 应用打包器 🚀
+# 关于 Parcel 你所需要知道的一切：快速的 Web 应用打包工具 🚀
 
 ![](https://cdn-images-1.medium.com/max/800/1*-Tcq85crClCEu_gYzn06gg.gif)
 
