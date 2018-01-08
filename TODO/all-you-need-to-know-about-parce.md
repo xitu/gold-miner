@@ -17,17 +17,17 @@
 
 当 webpack 以高复杂性的代价给我们带来了很多配置的时候 —— **Parcel 却很简单**。它号称“零配置"。
 
-**揭开上面的疑惑** —— Parcel 有一个开箱即用的开发服务器。它会在你更改文件的时候自动重建你的应用程序，并支持[模块热替换](https://parceljs.org/hmr.html)以实现快速开发。
+**揭开上面的疑惑** —— Parcel 有一个开箱即用的开发服务器。它会在你更改文件的时候自动重建你的应用程序，并支持 [模块热替换](https://parceljs.org/hmr.html) 以实现快速开发。
 
 #### **Parcel 有什么优势？**
 
-* 快速打包时间 —— Parcel 比 Wabpack，Rollup 和 Browserify 打包更快。
+* 快速打包 —— Parcel 比 Wabpack，Rollup 和 Browserify 打包更快。
 
 ![](https://cdn-images-1.medium.com/max/800/1*jovxixL_dfSEnp9f6r8eEA.png)
 
-Parcel 基准
+Parcel benchmarks
 
-我们需要考虑的一些事情是：Webpack 仍然是极好的，并且有时候能更快
+需要考虑到的一点是：Webpack 仍然是极好的，并且有时候能更快
 
 ![](https://cdn-images-1.medium.com/max/800/1*e9ZNxTRvxQSgAHFIegC-6w.png)
 
@@ -45,7 +45,7 @@ Parcel 错误处理
 
 #### 那么 —— 我们应该在什么时候使用 Parcel, Webpack 或者 Rollup 呢?
 
-这完全取决于你，但我个人会在以下情况使用不同打包器：
+这完全取决于你，但我个人会在以下情况使用不同的打包工具：
 
 **Parcel** —— 中小型项目（<1.5万行代码）
 
@@ -83,13 +83,13 @@ npm install parcel-bundler --save-dev
 
 这就是所有的配置 —— 惊人的节省时间吧！
 
-接下来，开启我们的服务器。
+接下来，启动我们的服务器。
 
 ![](https://cdn-images-1.medium.com/max/600/1*Yq8tQPP6Qv80xwV3N-1lIw.gif)
 
 ![](https://cdn-images-1.medium.com/max/600/1*tWzj5lTbPm2rEZKndCgKhQ.png)
 
-工作就是这样的有魅力！注意构建时间。
+立竿见影！注意构建时间。
 
 ![](https://cdn-images-1.medium.com/max/800/1*6PKBaYyEQrK889opDE72Vg.png)
 
@@ -157,7 +157,7 @@ npm install --save react react-dom babel-preset-env babel-preset-react && touch 
 
 ![](https://cdn-images-1.medium.com/max/800/1*8LV0jtqGPIRN-Z05nZjWZQ.png)
 
-那么！！！就让我们开始吧！在滚动页面前，你自己可以尝试写一个初始 react 组件。
+那么！！！就让我们使出杀手锏吧！继续往下看之前，你自己可以尝试写一个初始 react 组件。
 
 ![](https://cdn-images-1.medium.com/max/600/1*w6prJQoCeWWClTIGe-2eCg.png)
 
@@ -187,15 +187,15 @@ $ npm i --save vue parcel-plugin-vue
 $ npm i --save vue parcel-plugin-vue
 ```
 
-We need to add our root element, import the vue index file and initialize Vue.
+ 
 
-Start by making a vue directory and let’s also create `index.js` and `app.vue`
+ 
 
 ```
 $ mkdir vue && cd vue && touch index.js app.vue
 ```
 
-现在将 `index.js` 链接到 `index.html`
+现在将 `index.js` 挂载到 `index.html`
 
 ![](https://cdn-images-1.medium.com/max/800/1*PJ7L4G15cDpvreu6NkdXLQ.png)
 
@@ -229,13 +229,13 @@ npm i --save typescript
 
 ![](https://cdn-images-1.medium.com/max/1000/1*QpIDy402yydKokM1bO5l7A.png)
 
-让我们继续！
+准备好了就去做吧！
 
 ### [Github源码](https://github.com/wesharehoodies/parcel-examples-vue-react-ts)
 
 * * *
 
-如果你发现这个有用，请给我一些鼓励，并让更多的人看到它！
+如果你认为这篇文章有用，请给我一些鼓励，并让更多的人看到它！
 
 可以关注我的 [twitter](https://twitter.com/lasnindrek) 了解更多！
 
