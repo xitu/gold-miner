@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/all-you-need-to-know-about-parce.md](https://github.com/xitu/gold-miner/blob/master/TODO/all-you-need-to-know-about-parce.md)
 > * 译者：[Fatezeros](https://github.com/fatezeros)
-> * 校对者：
+> * 校对者：[MechanicianW](https://github.com/MechanicianW) [tvChan](https://github.com/tvChan)
 
 # 关于 Parcel 你所需要知道的一切：快速的 Web 应用打包工具 🚀
 
