@@ -2,104 +2,104 @@
 > * 原文作者：[Indrek Lasn](https://medium.freecodecamp.org/@wesharehoodies?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/all-you-need-to-know-about-parce.md](https://github.com/xitu/gold-miner/blob/master/TODO/all-you-need-to-know-about-parce.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Fatezeros](https://github.com/fatezeros)
+> * 校对者：[MechanicianW](https://github.com/MechanicianW) [tvChan](https://github.com/tvChan)
 
-# Everything You Need To Know About Parcel: The Blazing Fast Web App Bundler 🚀
+# 关于 Parcel 你所需要知道的一切：快速的 Web 应用打包工具 🚀
 
 ![](https://cdn-images-1.medium.com/max/800/1*-Tcq85crClCEu_gYzn06gg.gif)
 
-_Really?_ Yet another bundler/build tool? Yep — you betcha, evolution and innovation combined brings you [Parcel](https://parceljs.org/).
+**真的吗?** 又一个打包/构建工具? 是的 —— 你应该相信, 进步和创新相结合给你带来了 [Parcel](https://parceljs.org/)。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Gjhk6qvPM5zAy1iPPS1ttg.png)
 
-#### **What’s so special about Parcel and why should I care?**
+#### **Parcel 有什么特别的，我为什么要关心呢？**
 
-While webpack brings a lot of configurability with the cost of complexity — **Parcel brings simplicity**. Parcel brands itself as “zero configuration”.
+当 webpack 以高复杂性的代价给我们带来了很多配置的时候 —— **Parcel 却很简单**。它号称“零配置"。
 
-_Unravelling the above_ — Parcel has a development server built in out of the box. The development server will automatically rebuild your app as you change files and supports [hot module replacement](https://parceljs.org/hmr.html) for fast development.
+**揭开上面的疑惑** —— Parcel 有一个开箱即用的开发服务器。它会在你更改文件的时候自动重建你的应用程序，并支持 [模块热替换](https://parceljs.org/hmr.html) 以实现快速开发。
 
-#### **What are the benefits of Parcel?**
+#### **Parcel 有什么优势？**
 
-* Fast bundle times — Parcel is faster than Webpack, Rollup and Browserify.
+* 快速打包 —— Parcel 比 Webpack，Rollup 和 Browserify 打包更快。
 
 ![](https://cdn-images-1.medium.com/max/800/1*jovxixL_dfSEnp9f6r8eEA.png)
 
 Parcel benchmarks
 
-Something to consider: Webpack is still awesome and sometimes can be faster
+需要考虑到的一点是：Webpack 仍然是极好的，并且有时候能更快
 
 ![](https://cdn-images-1.medium.com/max/800/1*e9ZNxTRvxQSgAHFIegC-6w.png)
 
-[Source](https://github.com/TheLarkInn/bundler-performance-benchmark/blob/master/README.md)
+[来源](https://github.com/TheLarkInn/bundler-performance-benchmark/blob/master/README.md)
 
-* Parcel has out of the box support for JS, CSS, HTML, file assets, and more — **no plugins needed — More user friendly.**
-* Zero configuration required. Out of the box code splitting, hot module reloading, css preprocessors, development server, caching, and many more!
-* Friendlier error logs.
+* Parcel 支持 JS，CSS，HTML，文件资源等 —— **无需插件 —— 对用户更加友好。**
+* 无需配置。开箱即用的代码拆分，热模块更新，css预处理，开发服务器，缓存等等！
+* 更友好的错误日志。
 
 ![](https://cdn-images-1.medium.com/max/800/1*miFAZZhZpaloYs1fj3jB0A.png)
 
 ![](https://cdn-images-1.medium.com/max/400/1*2MnJM2-lQHND-icGggt4Ug.png)
 
-Parcel error handling
+Parcel 错误处理
 
-#### Alright — so when should I use Parcel, Webpack or Rollup?
+#### 那么 —— 我们应该在什么时候使用 Parcel, Webpack 或者 Rollup 呢?
 
-It’s completely up to you but I personally would use each bundler in the following situations:
+这完全取决于你，但我个人会在以下情况使用不同的打包工具：
 
-**_Parcel _**— Small to medium sized projects (<15k lines of code)
+**Parcel** —— 中小型项目（<1.5万行代码）
 
-**_Webpack_** — Large to enterprise sized projects.
+**Webpack** —— 大到企业级规模的项目。
 
-**_Rollup_** — For NPM packages.
+**Rollup** —— NPM 包。
 
-_Let’s give Parcel a shot!_
+**让我们赶紧试下 Parcel 吧!**
 
 * * *
 
-#### Installation is fairly straight-forward
+#### 安装非常简单
 
 ```
 npm install parcel-bundler --save-dev
 ```
 
-We installed the [parcel-bundler npm package](https://www.npmjs.com/package/parcel-bundler) locally. Now we need to initialize a node project.
+我们在本地安装了 [parcel-bundler npm package](https://www.npmjs.com/package/parcel-bundler)。现在我们需要初始化一个 Node 项目。
 
 ![](https://cdn-images-1.medium.com/max/800/1*ncsWSVcZ9H2GvCryk1bjbw.png)
 
-Next, create `index.html` and `index.js` file.
+接下来，创建 `index.html` 和 `index.js` 文件。
 
 ![](https://cdn-images-1.medium.com/max/800/1*42o-xydISJg7RFPJEV8vXQ.png)
 
-Let’s connect our `index.html` and `index.js`
+将 `index.js` 链接到 `index.html` 中
 
 ![](https://cdn-images-1.medium.com/max/600/1*mnvGwOAj77U0ukki4s4LZQ.png)
 
 ![](https://cdn-images-1.medium.com/max/600/1*0SsOP82bxYkYIt-H9XL8Zw.png)
 
-And finally add parcel script to our `package.json`
+最后添加 parcel 脚本到 `package.json`
 
 ![](https://cdn-images-1.medium.com/max/800/1*n3Al1gXiv4tNNGo3pWc-ug.png)
 
-That’s all there is to configuration — amazing time saver!
+这就是所有的配置 —— 惊人的节省时间吧！
 
-Next up — let’s start our server.
+接下来，启动我们的服务器。
 
 ![](https://cdn-images-1.medium.com/max/600/1*Yq8tQPP6Qv80xwV3N-1lIw.gif)
 
 ![](https://cdn-images-1.medium.com/max/600/1*tWzj5lTbPm2rEZKndCgKhQ.png)
 
-Work like a charm! Notice the build times.
+立竿见影！注意构建时间。
 
 ![](https://cdn-images-1.medium.com/max/800/1*6PKBaYyEQrK889opDE72Vg.png)
 
-**_15ms?!_ **Wow, that’s blazing fast indeed!
+**15 ms?!** 哇，真是太快了！
 
-How’s the HMR?
+添加一些 HMR 会怎么样呢?
 
 ![](https://cdn-images-1.medium.com/max/800/1*KHATEDXNqL5fshf3S0B5Zw.gif)
 
-Also feels very fast.
+也感觉非常快。
 
 * * *
 
@@ -107,13 +107,13 @@ Also feels very fast.
 
 ![](https://cdn-images-1.medium.com/max/800/1*dMNikHR10Nfw1Z0PtmITXA.png)
 
-All we need is the `node-sass` package and we’re good to go!
+我们所需要的只是 `node-sass` 包，让我们开始吧！
 
 ```
 npm i node-sass && touch styles.scss
 ```
 
-Next up, add some styling and import the `styles.scss` to `index.js`
+接下来，添加一些样式并且将 `styles.scss` 引入到 `index.js`
 
 ![](https://cdn-images-1.medium.com/max/600/1*lhF1lxmw4RQNyTpI1Y1Hdw.png)
 
@@ -123,21 +123,21 @@ Next up, add some styling and import the `styles.scss` to `index.js`
 
 * * *
 
-### Production Build
+### 生产环境构建
 
-All we need is to add a `build` script to our `package.json`
+我们所需要做的就是添加一个 `build` 脚本到 `package.json`
 
 ![](https://cdn-images-1.medium.com/max/800/1*BbfYCV5-PaFwDX_Y68oXgw.png)
 
-Running our build script.
+运行我们的 build 脚本。
 
 ![](https://cdn-images-1.medium.com/max/800/1*bPzZxDj7qAwfMFkPBy44Ow.gif)
 
-See how easy Parcel makes our lives?
+看，Parcel 让我们的生活变得多么轻松？
 
 ![](https://cdn-images-1.medium.com/max/800/1*TVPM_3Zm60KkLxnhdDVMOQ.png)
 
-You can specify a specific build path like so:
+你也可以像这样指定一个特定的构建路径：
 
 ```
 parcel build index.js -d build/output
@@ -149,7 +149,7 @@ parcel build index.js -d build/output
 
 ![](https://cdn-images-1.medium.com/max/800/1*6kK9j74vyOmXYm1gN6ARhQ.png)
 
-Setting up react is really simple, all we need to do is install our dependencies and setup our `.babelrc`
+配置 React 也相当简单, 我们所需要做的只是安装 React 依赖并配置 `.babelrc`
 
 ```
 npm install --save react react-dom babel-preset-env babel-preset-react && touch .babelrc
@@ -157,7 +157,7 @@ npm install --save react react-dom babel-preset-env babel-preset-react && touch 
 
 ![](https://cdn-images-1.medium.com/max/800/1*8LV0jtqGPIRN-Z05nZjWZQ.png)
 
-Alllllriiighty, let’s bring out the big guns! Try writing our initial react component yourself before scrolling!
+那么！！！就让我们使出杀手锏吧！继续往下看之前，你自己可以尝试写一个初始的 react 组件。
 
 ![](https://cdn-images-1.medium.com/max/600/1*w6prJQoCeWWClTIGe-2eCg.png)
 
@@ -171,35 +171,35 @@ Alllllriiighty, let’s bring out the big guns! Try writing our initial react co
 
 ![](https://cdn-images-1.medium.com/max/800/1*lJPS840gMBZYhHeZ6aop_g.png)
 
-**As requested, here’s the Vue example.**
+**同样，这是个 Vue 的例子**
 
-Start by installing `vue` and `parcel-plugin-vue` — the latter for `.vue` components support.
-
-```
-$ npm i --save vue parcel-plugin-vue
-```
-
-We need to add our root element, import the vue index file and initialize Vue.
-
-Start by making a vue directory and let’s also create`index.js` and `app.vue`
+首先安装 `vue` 和 `parcel-plugin-vue` —— 后者用于支持 `.vue` 组件。
 
 ```
 $ npm i --save vue parcel-plugin-vue
 ```
 
-We need to add our root element, import the vue index file and initialize Vue.
+我们需要添加根元素，引入 vue 的 index 文件并初始化 Vue。
 
-Start by making a vue directory and let’s also create `index.js` and `app.vue`
+首先创建一个 vue 目录，并创建 `index.js` 和 `app.vue`
+
+```
+$ npm i --save vue parcel-plugin-vue
+```
+
+ 
+
+ 
 
 ```
 $ mkdir vue && cd vue && touch index.js app.vue
 ```
 
-Now lets hook our `index.js` and `index.html`
+现在将 `index.js` 挂载到 `index.html`
 
 ![](https://cdn-images-1.medium.com/max/800/1*PJ7L4G15cDpvreu6NkdXLQ.png)
 
-Finally, let’s initialize vue and write our first vue component!
+最后，让我们实例化 vue，并写第一个 vue 组件！
 
 ![](https://cdn-images-1.medium.com/max/600/1*EHKOgp5Yc69NBCImVJUJcg.png)
 
@@ -207,7 +207,7 @@ Finally, let’s initialize vue and write our first vue component!
 
 ![](https://cdn-images-1.medium.com/max/1000/1*XDZ71d55e8vGY8QoVeJGlw.png)
 
-Voila! We have Vue installed with `.vue` support!
+瞧！我们安装了 Vue，并支持 `.vue` 文件
 
 * * *
 
@@ -215,13 +215,13 @@ Voila! We have Vue installed with `.vue` support!
 
 ![](https://cdn-images-1.medium.com/max/800/1*SwI4JNcok6yj8b6a0Mykvg.png)
 
-This one is extremely easy. Just install TypeScript and we’re good to go!
+这部分非常容易。只需安装 TypeScript，让我们开始吧！
 
 ```
 npm i --save typescript
 ```
 
-Make a file called `index.ts` and insert it into the `index.html`
+创建一个 `index.ts` 文件，并将它插入到 `index.html` 中
 
 ![](https://cdn-images-1.medium.com/max/600/1*zp1272l6v1XxLmX8QSndkA.png)
 
@@ -229,17 +229,17 @@ Make a file called `index.ts` and insert it into the `index.html`
 
 ![](https://cdn-images-1.medium.com/max/1000/1*QpIDy402yydKokM1bO5l7A.png)
 
-Good to go!
+准备好了就去做吧！
 
-### [Github Source Code](https://github.com/wesharehoodies/parcel-examples-vue-react-ts)
+### [Github源码](https://github.com/wesharehoodies/parcel-examples-vue-react-ts)
 
 * * *
 
-If you found this useful, please give me some claps so more people can see it!
+如果你认为这篇文章有用，请给我一些鼓励，并让更多的人看到它！
 
-Make sure to follow my [twitter](https://twitter.com/lasnindrek) for more!
+可以关注我的 [twitter](https://twitter.com/lasnindrek) 了解更多！
 
-Thanks for reading! ❤
+感谢阅读！ ❤
 
 
 ---
