@@ -2,14 +2,14 @@
 > * 原文作者：[Chen Hui Jing](https://www.chenhuijing.com/blog/vertical-typesetting-revisited/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/vertical-typesetting-revisited.md](https://github.com/xitu/gold-miner/blob/master/TODO/vertical-typesetting-revisited.md)
-> * 译者：
-> * 校对者：
+> * 译者：[DEARPORK](https://github.com/Usey95)
+> * 校对者：[congFly](https://github.com/congFly) [PLDaily](https://github.com/PLDaily)
 
 # 垂直排版：重提 writing-mode
 
-大约一年前， 我写了在一次 Web 中文字体垂直排版的尝试中的[一些发现](https://www.chenhuijing.com/blog/chinese-web-typography/)。结果是一个[简单的 demo](https://www.chenhuijing.com/zh-type)，它允许你通过 hack 复选框来切换书写模式。
+大约一年前， 我写了在一次 Web 中文垂直排版的尝试中的[一些发现](https://www.chenhuijing.com/blog/chinese-web-typography/)。这是一个[简单的 demo](https://www.chenhuijing.com/zh-type)，它允许你通过复选框来切换书写模式。
 
-我在不久后遇到了 [Yoav Weiss](https://blog.yoav.ws/)，并聊了一下[响应式图片社区小组](http://ricg.io/)，因为我提到如果可以通过媒体查询得到 `picture` 元素的 `writing-mode`，我就不必在切换排版的时候通过一些比较 hack 的方式对图像进行变形。他建议我把它写成[一个响应式图像用例](https://github.com/ResponsiveImagesCG/ri-usecases/issues/63)。
+我在不久后遇到了 [Yoav Weiss](https://blog.yoav.ws/)，并聊了一下[响应式图片社区小组](http://ricg.io/)，因为我提到如果可以通过媒体查询得到 `picture` 元素的 `writing-mode`，我就不必在切换排版的时候通过一些比较 hack 的方式对图像进行转换。他建议我把它写成[一个响应式图像用例](https://github.com/ResponsiveImagesCG/ri-usecases/issues/63)。
 
 但当我重新打开这个一年没打开的 demo 的时候，我的表情在最初的五分钟由 😱 变成了 😩（我还能说什么呢，我就是这么表情丰富 🤷）。所以为了宣泄，我将一步步写下谁（也就是各种浏览器）破坏了什么以及目前可能的解决办法。
 
@@ -47,7 +47,7 @@
 
 ![vertical-rl on Chrome](https://www.chenhuijing.com/images/posts/vertical-typesetting/chrome-640.jpg)
 
-好的，这看起来非常棒。我说所有东西都被破坏了其实有点夸张。所有的文字和图片都占满，在垂直书写模式下没有主要的渲染问题。做的好，Chrome。
+好的，这看起来非常棒。我说所有东西都被破坏了其实有点夸张。所有的文字和图片都占满，在垂直书写模式下没有重大的渲染问题。做的好，Chrome。
 
 ![horizontal-tb on Chrome](https://www.chenhuijing.com/images/posts/vertical-typesetting/chrome2-640.jpg)
 
@@ -59,7 +59,7 @@
 
 ![vertical-rl on Firefox](https://www.chenhuijing.com/images/posts/vertical-typesetting/firefox-640.jpg)
 
-天哪，这，我都无语了。Firefox Nightly 是我的默认浏览器，所以我的最初反应是一切都被破坏了。一切确实都被破坏了，看看这无限滚动的滚动条，到底发生了什么？！
+天哪，这，我都无语了。Firefox Nightly 是我的默认浏览器，所以我的最初反应是一切都被破坏了。一切确实都被破坏了，看看这无限滚动的水平滚动条，到底发生了什么？！
 
 ![horizontal-tb on Firefox](https://www.chenhuijing.com/images/posts/vertical-typesetting/firefox2-640.jpg)
 
@@ -205,7 +205,7 @@ figcaption {
 
 每一个元素的 `writing-mode` 的默认值都是 `horizontal-tb`，而且它是一个继承属性。如果你设置了一个元素的 `writing-mode`，这个值将传递到它所有的子元素。
 
-如果我们将 `main` 元素的 `writing-mode` 设置为 `vertical-rl` ，在每个浏览器上，所有的文字和图像都被正确渲染了。Firefox 有轻微的垂直溢出，我怀疑是因为滚动条，不过我不能确定。其它的浏览器一点水平溢出都没有。
+如果我们将 `main` 元素的 `writing-mode` 设置为 `vertical-rl` ，在每个浏览器上，所有的文字和图像都被正确渲染了。Firefox 有 15px 轻微的垂直溢出，我怀疑是因为滚动条，不过我不能确定。其它的浏览器一点水平溢出都没有。
 
 ![vertical-rl on the main element](https://www.chenhuijing.com/images/posts/vertical-typesetting/main-640.jpg)
 
@@ -312,11 +312,11 @@ function changeEventHandler(event) {
 
 ![Margins resolving to zero](https://www.chenhuijing.com/images/posts/vertical-typesetting/zero-640.jpg)
 
-当我们将书写模式设置成垂直，「height」似乎在计算的时候会变成水平坐标。我说似乎是因为我老实说并不百分百确定它真的是这样计算的。它让我意识到 Javascript 解决方案真神奇。
+当我们将书写模式设置成垂直，「height」似乎在计算的时候会变成水平坐标。我说似乎是因为我并不百分百确定它真的是这样计算的。它让我觉得 Javascript 解决方案很神奇。
 
 开个玩笑，实际上因为我们在 Javascript 解决方案中没有混用书写模式，所以将各自的值解析为 `0` 并不影响我们想要的居中效果。可能你需要重读这一句话几次 🤷。
 
-想要在切换到垂直书写模式的时候实现水平居中，我们需要使用好的变幻技巧。
+想要在切换到垂直书写模式的时候将 `main` 元素水平居中，我们需要使用好的变换技巧。
 
 ```
 .c-switcher__checkbox:not(:checked) ~ main {
@@ -327,7 +327,7 @@ function changeEventHandler(event) {
 }
 ```
 
-这在 Chrome，Firefox 和 Safari 上可行。不幸的是，Edge 上有点毛病，东西都歪向页面中间的某个地方以及左边。是时候记录下这个 Edge 的 bug。并且，滚动条出现在了左边而不是右边。
+这在 Chrome，Firefox 和 Safari 上可行。不幸的是，Edge 上有点毛病，东西都歪向页面中间的某个地方以及左边。是时候记录下这个 Edge 的 bug。另外，滚动条出现在了左侧而不是右侧。
 
 ![Seems to be buggy on Edge](https://www.chenhuijing.com/images/posts/vertical-typesetting/troublemaker-640.jpg)
 
@@ -339,7 +339,7 @@ function changeEventHandler(event) {
 
 既然我们正在一个干净的页面工作，让我们试试最基础的居中技术：`text-align`。默认情况下，图像和文本是内联元素。给 figure 元素设置 `text-align: center`，天呐，成功了 😱！
 
-水平和垂直书写模式下的图像都已经成功地居中了。我现在非常担心一年前我做这个的时候的智商。显然，为了我的目的和意图，弹性盒模型是不必要的。我首先尝试了新的技术，但它让我付出了代价。
+水平和垂直书写模式下的图像都已经成功地居中了。我现在非常怀疑一年前我做这个的时候的智商。显然，为了我的目的和意图，弹性盒模型是不必要的。我首先尝试了新的技术，但它让我付出了代价。
 
 真是醉了 🥃。
 
@@ -364,7 +364,7 @@ function changeEventHandler(event) {
 }
 ```
 
-问题是，当你旋转了一个元素，浏览器仍然会记住它原来的宽高（我想），所以再我的 demo 中，当视窗变得非常窄的时候，它将触发水平溢出。可能有办法修复这个问题，但我没有找到。欢迎指教。
+问题是，当你旋转了一个元素，浏览器仍然会记住它原来的宽高（我想），所以在我的 demo 中，当视窗变得非常窄的时候，它将触发水平溢出。可能有办法修复这个问题，但我没有找到。欢迎指教。
 
 这就是我将为 RICG 编写的用例。想法是，如果可以通过媒体查询得到书写模式，我就可以使用 `srcset` 定义一个垂直的图像和一个水平的图像，分别为对应的书写模式提供图片。
 
@@ -389,13 +389,13 @@ function changeEventHandler(event) {
 
 ### 使用弹性盒模型居中
 
-我怀疑我选择弹性盒模型做居中的理由，尽管老实说我想不起来到底为什么我觉得这是一个好主意。明显的是，我不需要弹性盒模型的任何特点。那我应该也做个大脑转储？
+我怀疑我选择弹性盒模型实现居中的理由，尽管老实说我想不起来到底为什么我觉得这是一个好主意。显然，我不需要弹性盒模型的任何特点。那我应该也做个大脑转储？
 
 但看了一眼我的源码，我才发现我给包裹图像的应该堆叠的 `div` 设置了 `display: flex`，这让图像成为了弹性容器的子元素，导致 Firefox 的垂直书写模式渲染混乱。
 
 ![Flexbox issue with vertical writing-mode on Firefox](https://www.chenhuijing.com/images/posts/vertical-typesetting/ffbug-640.jpg)
 
-使用这种方法，东西看上去都很美好，而且我测试过的 Chrome，Edge 以及 Safari 的所有版本（前面提到的列表）都可行，因此图像在垂直和水平两种模式下都居中。但 Firefox 不行，真的，切换到垂直书写模式时，图片在我的页面上不可见，虽然在水平模式下很好。
+使用这种方法，东西看上去都很美好，而且我测试过的 Chrome，Edge 以及 Safari 的所有版本（前面提到的列表）都可行，因此图像在垂直和水平两种模式下都居中对齐。但 Firefox 不行，真的，切换到垂直书写模式时，图片在我的页面上不可见，虽然在水平模式下很好。
 
 ![Flexbox issue with vertical writing-mode on Firefox](https://www.chenhuijing.com/images/posts/vertical-typesetting/ffbug2-640.jpg)
 
@@ -407,7 +407,7 @@ function changeEventHandler(event) {
 
 抛开垂直书写模式，我和 [Jen Simmons](http://jensimmons.com/) 交流过不同浏览器的 flexbox 实现，她发现在所有的浏览器中，缩小图像的处理都是不同的。[这个问题](https://github.com/w3c/csswg-drafts/issues/1322)仍在 CSS 工作组中讨论，敬请期待更新。
 
-这个缩小的问题与固有尺寸的概念有关，尤其是含有固有长宽比例的图像。CSS 工作组对此有过[相当长的讨论](https://github.com/w3c/csswg-drafts/issues/1112)，因为它不是一个不重要的错误。
+这个缩小的问题与固有尺寸的概念有关，尤其是含有固有长宽比例的图像。CSS 工作组对此有过[相当长的讨论](https://github.com/w3c/csswg-drafts/issues/1112)，因为这不是一个小问题。
 
 Firefox 上一个有趣的观察是，弹性容器的宽被视窗的宽度限制，但目前没有在别的浏览器上发现这个问题。当容器内所有的图片的宽度之和超过了视窗宽度，在 Firefox 上，图像会缩小以适应宽度，但在别的所有的浏览器上，它们只会溢出然后你会得到一个水平滚动条 🤔。
 
@@ -474,7 +474,7 @@ Firefox 上一个有趣的观察是，弹性容器的宽被视窗的宽度限制
 
 ```
 
-复选框 hack 的实现完全一样。我从中学习到的是，浏览器对于元素的区域计算需要下很大功夫，尤其是具有固有尺寸比例的。
+复选框 hack 的实现完全一样。我从中学习到的是，浏览器对于元素的区域计算需要下很大功夫，尤其是具有固有尺寸比例的。
 
 ### Grid 怎么样？
 
@@ -484,13 +484,13 @@ Firefox 上一个有趣的观察是，弹性容器的宽被视窗的宽度限制
 
 ![Grid inspector tool issue in vertical writing-mode](https://www.chenhuijing.com/images/posts/vertical-typesetting/gridtool-640.jpg)
 
-我需要为使用 grid 的垂直书写模式创建一个简化的测试用例，那会成为一个简单得多的 demo 并单独写一篇文章（可能还有相关的错误报告）。
+我需要为使用 grid 的垂直书写模式创建一个简化的测试用例，那将是一个简单得多的 demo，我还会单独写一篇文章（可能还有相关的错误报告）。
 
 ## 成功的解决方案？
 
 当前完成的我的[独立 demo](https://www.chenhuijing.com/zh-type/) 使用的是不用弹性盒模型的复选框 hack 解决方案。我将保留复选框 hack 的版本以追踪 Edge 的 bug。但弹性盒模型解决方案，如果你不介意多余的包裹，也是可以的。用于 Javascript 实现的标记也看起来更好，因为你将切换器包裹在一个 `div` 中然后写样式。
 
-在最后，有很多方法可以实现同样的结果。从别的地方拷贝代码倒无所谓，但是出现莫名其妙的问题就麻烦了。你不必从头开始编写所有东西，但要确保里面没有无法破译的「魔法」。
+在最后，有很多方法可以实现同样的结果。从别的地方拷贝代码也可以，但是出现莫名其妙的问题就麻烦了。你不必从头开始编写所有东西，但要确保里面没有无法破译的「魔法」。
 
 说说而已 😎。
 
