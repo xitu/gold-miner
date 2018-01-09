@@ -21,7 +21,7 @@
 
 #### **Parcel 有什么优势？**
 
-* 快速打包 —— Parcel 比 Wabpack，Rollup 和 Browserify 打包更快。
+* 快速打包 —— Parcel 比 Webpack，Rollup 和 Browserify 打包更快。
 
 ![](https://cdn-images-1.medium.com/max/800/1*jovxixL_dfSEnp9f6r8eEA.png)
 
@@ -157,7 +157,7 @@ npm install --save react react-dom babel-preset-env babel-preset-react && touch 
 
 ![](https://cdn-images-1.medium.com/max/800/1*8LV0jtqGPIRN-Z05nZjWZQ.png)
 
-那么！！！就让我们使出杀手锏吧！继续往下看之前，你自己可以尝试写一个初始 react 组件。
+那么！！！就让我们使出杀手锏吧！继续往下看之前，你自己可以尝试写一个初始的 react 组件。
 
 ![](https://cdn-images-1.medium.com/max/600/1*w6prJQoCeWWClTIGe-2eCg.png)
 
@@ -207,7 +207,7 @@ $ mkdir vue && cd vue && touch index.js app.vue
 
 ![](https://cdn-images-1.medium.com/max/1000/1*XDZ71d55e8vGY8QoVeJGlw.png)
 
-瞧！我们安装了 Vue，并支持 `.vue`
+瞧！我们安装了 Vue，并支持 `.vue` 文件
 
 * * *
 
