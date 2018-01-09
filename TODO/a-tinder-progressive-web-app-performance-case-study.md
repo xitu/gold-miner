@@ -115,7 +115,7 @@ new webpack.optimize.UglifyJsPlugin({
 
 ### 预加载潜在需求资源
 
- [<link rel=preload>](https://developers.google.com/web/fundamentals/performance/resource-prioritization) 算是一个新的概念，它告诉浏览器这是一个关键文件，后期会用到，需要尽早加载。在单页应用（SPA）中，这些资源可以是打包后的 JavaScript 文件。
+这里用到了 [`<link rel=preload>`](https://developers.google.com/web/fundamentals/performance/resource-prioritization)，它告诉浏览器这是一个关键资源，马上要用到，需要尽早加载。在单页应用（SPA）中，这些资源可以是打包后的 JavaScript 文件。
 
 ![](https://cdn-images-1.medium.com/max/800/1*CaObLc_tGJvnllyV3CGD5w.png)
 
