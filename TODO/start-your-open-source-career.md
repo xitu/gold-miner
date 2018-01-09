@@ -6,24 +6,39 @@
 > * 校对者：
 
 # Start your open-source career
+# 开启你的开源生涯
 
 This year I gave a talk about how to make open-source projects successful by ensuring everything is in place to attract all kinds of contributions: issues, documentation or code updates. After the talk, the feedback I got was “It’s nice, you showed how to make projects successful, but **how do I even start** **doing open-source?**“. This blog post is an answer to that question; it explains how and where to start contributing to projects and then how to create your own projects.
 
+今年我做了一次关于如果让开源项目获得成功的演讲，讨论如何通过确保所有的东西都到位来吸引各种各样的贡献，包括提问、撰写文档或更新代码。之后我获得一个反馈信息，「你展示了如何让开源项目成功，这很棒，但我的开源之路究竟该从何入手呢」”。这篇文章就是对这个问题的回答，它解释了如何以及从何开始为开源项目做出贡献，以及如何开源自己的项目。
+
 The knowledge shared here is based on our experience: at Algolia, [we have released](https://github.com/algolia) and maintained multiple open-source projects that proved to be successful over time, and I have spent a good amount of time practicing and creating [open-source projects](https://github.com/vvo) too.
 
+这里所分享的知识都是有经验可寻的：在 [Algolia](https://github.com/algolia) 中我们已经发布并维护了多个开源项目，时间证明这些项目都是成功的，我也花费了大量的时间来维系和启动[开源项目](ttps://github.com/vvo)。
+
 ## Getting your feet wet
+## 千里之行始于足下
 
 ![](https://blog.algolia.com/wp-content/uploads/2017/12/Pastebot-Dragged-Image-21-12-2017-140501-2.png)
 
 A key moment for my career was six years ago at [Fasterize](https://www.fasterize.com/en/) (a website performance accelerator). We faced an important [memory leak](https://en.wikipedia.org/wiki/Memory_leak) on our [Node.js](https://nodejs.org/en/) workers. After searching everywhere except inside the actual Node.js codebase, we found nothing that could cause it. Our workaround was to restart the workers every day (this reset the memory usage to zero) and just live with it, but we knew this was not a very elegant solution and so **I wanted to understand the problem** **as a whole**.
 
+六年前在 [Fasterize](https://www.fasterize.com/en/) （一个网站性能加速器供应商）是我职业生涯的关键时刻。我们在 [Node.js](https://nodejs.org/en/) workers 上遇到了严重的 [内存泄露问题](https://en.wikipedia.org/wiki/Memory_leak)。在检查完除 Node.js 源码外的所有代码后，我们并没有发现任何可操成此问题的线索。我们的变通策略是每天重启这些 workers 以释放内存，仅此而已，但我们知道这并不是一个优雅的解决方案，因此**我想整体地去了解这个问题**。
+
 When my co-founder [Stéphane](https://www.linkedin.com/in/stephanerios/) suggested I have a look at the Node.js codebase, I almost laughed. I thought to myself: “If there’s a bug, it’s most probably our code, not the code from the developers who created a revolutionary server-side framework. But, OK, I’ll have a look”. Two days later [my two character fix](https://github.com/nodejs/node-v0.x-archive/pull/3181#issue-4313777) to the http layer of Node.js was merged, and solved our own memory leak.
+
+当我的联合创始人 [Stéphane](https://www.linkedin.com/in/stephanerios/) 建议我去看看 Node.js 的源码时，我几乎要笑出来。心想：「如果这里有 bug，最大的可能是我们的，而不是那些创造了革命性服务端框架的工程师们造成的。那好吧，我去看看」。两天后，我的两个针对 Node.js http 层的个人修复请求被通过合并，同时解决了我们自己的内存泄露问题。
 
 Doing this was a major confidence boost for me. Amongst the thirty other people who had contributed to the http.js file were folks I admired, like [isaacs](https://github.com/isaacs/) (npm creator)— making me realize that code is just… code, regardless of who wrote it.
 
+这样做让我信心大增。在我敬重的其他 30 个对 http.js 文件作出贡献的人中，npm 的创造者 [isaacs](https://github.com/isaacs/) 让我明白，代码就是代码，不管是谁写的。
+
 Are you experiencing a bug with an open-source project? Dig in and don’t stop at your local workaround. Your solution can benefit others and lead you to more open-source contributions. **Read other people’s code**. You might not fix your issue right away, it might take some time to understand the code base, but you will learn new modules, new syntax and different ways to code that will make you grow as a developer.
 
+你是否正在经历开源项目的 bug？深入挖掘，不要停留在本地的绕行。你的解决方案会让更多人受益并且获得更多开源贡献。**读别人的代码**。你可能不会马上修复你的问题，它可能需要一些时间来理解，但是您将学习新的模块、新的语法和不同的编码形式，这都将促使你成为一个开源项目的开发者。
+
 ## Opportunistic contributions
+## 
 
 [![First contributions labels on the the Node.js repository](https://blog.algolia.com/wp-content/uploads/2017/12/image6.png)](https://blog.algolia.com/wp-content/uploads/2017/12/image6.png)_First contributions labels on the the [Node.js repository](https://github.com/nodejs/node/labels/good%20first%20issue)_
 
