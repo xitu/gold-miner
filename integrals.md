@@ -1560,10 +1560,11 @@
 |------|-------|-------|
 |[ES6 中 的 var、let 和 const 应该如何选择？](http://gold.xitu.io/entry/57962ef22e958a00651f7387)|校对|1|
 
-## 译者：[rottenpen](https://github.com/rottenpen) 历史贡献积分：30 当前积分：30
+## 译者：[rottenpen](https://github.com/rottenpen) 历史贡献积分：43 当前积分：43
 
 |文章|类型|积分|
 |------|-------|-------|
+|[JWT：JSON Web Tokens 全方位指南](https://juejin.im/entry/5a4f300f6fb9a01cb912b3c7/)|翻译|13|
 |[将函数作为子组件的组件](https://juejin.im/entry/590c29a11b69e6006839b8d1/detail)|翻译|3|
 |[阅读 NodeJS 文档，我学到了这 19 件事情](http://gold.xitu.io/entry/583ad71d128fe1006be5ddd6/)|校对|1|
 |[CSS 变量的条件](http://gold.xitu.io/entry/58354e50a22b9d006bc01c06/)|翻译|5|
@@ -1620,10 +1621,11 @@
 |[如何创建高度模块化的 Android 应用](http://gold.xitu.io/entry/57b12cf4165abd00542a3ee1)|校对|1|
 |[这样做才能设计出更好的数据表](http://gold.xitu.io/entry/57af3cbc5bbb500062cb38a5)|校对|1|
 
-## 译者：[zhouzihanntu](https://github.com/zhouzihanntu) 历史贡献积分：39 当前积分：4
+## 译者：[zhouzihanntu](https://github.com/zhouzihanntu) 历史贡献积分：44 当前积分：9
 
 |文章|类型|积分|
 |------|-------|-------|
+|[前端 2017: 举要删芜](https://juejin.im/post/5a523271f265da3e2f00c7ab)|校对|5|
 |[2017 年 JavaScript 发展状况回顾](https://juejin.im/entry/5a44a500f265da43271887f0/)|校对|4|
 |[2017 04 月份兑换兑换 Octoplush 和贴纸 part 1 一个]()|减去积分|35|
 |[关于在 Node.js 中引用模块，知道这些就够了](https://juejin.im/post/58eb3812da2f60005f0bae9b)|翻译|9|
@@ -2371,10 +2373,11 @@
 |[防守式编程的艺术](https://gold.xitu.io/entry/58980dbc1b69e6005997f069)|校对|1|
 |[为何我抵制使用缓存？](https://gold.xitu.io/entry/5884184f1b69e60058dc7fc6)|校对|1|
 
-## 译者：[vuuihc](https://github.com/vuuihc) 历史贡献积分：33 当前积分：33
+## 译者：[vuuihc](https://github.com/vuuihc) 历史贡献积分：35 当前积分：35
 
 |文章|类型|积分|
 |------|-------|-------|
+|[2018 年要学习的优秀 JavaScript 库与知识](https://juejin.im/post/5a4e23f0f265da3e377bce4f)|校对|2|
 |[如何在 JavaScript 中使用 Generator?](https://juejin.im/post/5a44968df265da4335630fb9)|校对|1|
 |[TensorFlow 官方文档翻译校对]()|翻译|12|
 |[React 组件的 8 个关键决策](https://juejin.im/post/59f7e2c5f265da4318760a5f)|校对|1|
@@ -2648,10 +2651,13 @@
 |[汇编快速入门](https://juejin.im/post/58ca1f47ac502e0058864116)|校对|1|
 |[如果只有一个月入门 iOS：我该如何学习呢？](https://juejin.im/post/58c9f436a22b9d0064187e39)|校对|1|
 
-## 译者：[gy134340.com](http://gy134340.com/) 历史贡献积分：36 当前积分：6
+## 译者：[gy134340.com](http://gy134340.com/) 历史贡献积分：53 当前积分：23
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Redux 的工作原理](https://juejin.im/post/5a532e466fb9a01ca9154a98)|校对|2|
+|[前端 2017: 举要删芜](https://juejin.im/post/5a523271f265da3e2f00c7ab)|翻译|10|
+|[2018 年要学习的优秀 JavaScript 库与知识](https://juejin.im/post/5a4e23f0f265da3e377bce4f)|翻译|5|
 |[利用“Immutability（不可变性）”编写更为简洁高效的代码](https://juejin.im/post/592eb8bfa22b9d005776d6df)|翻译|3|
 |[2017 04 月份兑换大猫一只]()|减去积分|30|
 |[为什么用 JavaScript 学习函数式编程？（软件编写）（第二部分）](https://juejin.im/post/58f5a2ecb123db2fa2b1b244)|翻译|7|
@@ -2888,10 +2894,11 @@
 |------|-------|-------|
 |[在 Apache 和 Nginx 日志里检测爬虫机器人](https://juejin.im/post/58ea5758ac502e4957c78808)|校对|1|
 
-## 译者：[aladdin-add](https://github.com/Aladdin-ADD) 历史贡献积分：72 当前积分：72
+## 译者：[aladdin-add](https://github.com/Aladdin-ADD) 历史贡献积分：74 当前积分：74
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Redux 的工作原理](https://juejin.im/post/5a532e466fb9a01ca9154a98)|校对|2|
 |[Rollup - 下一代 ES6 模块化打包工具 - 对 Rich Harris 的采访](https://juejin.im/post/5a09b4e56fb9a0451170a22e)|校对|1|
 |[找出可能影响性能的代码模式](https://juejin.im/post/59e87b89f265da433226b0f3)|翻译|5|
 |[webpack & HTTP/2](https://juejin.im/post/59e87b89f265da433226b0f3)|翻译|2|
@@ -3705,10 +3712,11 @@
 |[在 HTTP/2 的世界里管理 CSS 和 JS](https://juejin.im/post/59bb463d51882519777c5a85)|校对|0.5|
 |[Coursera 的 GraphQL 之路](https://juejin.im/post/59b8d1d36fb9a00a3f24c439)|校对|1|
 
-## 译者：[Usey95](https://github.com/Usey95) 历史贡献积分：24 当前积分：24
+## 译者：[Usey95](https://github.com/Usey95) 历史贡献积分：32 当前积分：32
 
 |文章|类型|积分|
 |------|-------|-------|
+|[垂直排版：重提 writing-mode](https://juejin.im/post/5a5570fb6fb9a01c9e45d749)|翻译|8|
 |[用 Render props 吧！](https://juejin.im/post/5a3087746fb9a0450c4963a5)|校对|1.5|
 |[如何禁用链接](https://juejin.im/post/5a240aa66fb9a0452577f06a)|翻译|3|
 |[Ant Design 3.0 驾到](https://juejin.im/post/5a28aab66fb9a0450a673c5e)|校对|1|
@@ -4124,10 +4132,13 @@
 |[JavaScript 如何工作的: 事件循环和异步编程的崛起 + 5 个关于如何使用 async/await 编写更好的技巧](https://juejin.im/post/5a221d35f265da43356291cc)|翻译|10|
 |[JavaScript 如何工作：在 V8 引擎里 5 个优化代码的技巧](https://juejin.im/post/5a102e656fb9a044fd1158c6)|翻译|7|
 
-## 译者：[tvChan](https://github.com/tvChan) 历史贡献积分：14 当前积分：14
+## 译者：[tvChan](https://github.com/tvChan) 历史贡献积分：24 当前积分：24
 
 |文章|类型|积分|
 |------|-------|-------|
+|[关于 Parcel 你所需要知道的一切：快速的 Web 应用打包器 🚀](https://juejin.im/post/5a545c94518825733d68edae)|校对|1|
+|[前端 2017: 举要删芜](https://juejin.im/post/5a523271f265da3e2f00c7ab)|校对|5|
+|[JWT：JSON Web Tokens 全方位指南](https://juejin.im/entry/5a4f300f6fb9a01cb912b3c7/)|校对|4|
 |[用 CSS 选择器和自定义属性来升级你的项目](https://juejin.im/post/5a3c47386fb9a044fd11f278)|校对|2|
 |[将网站转换为渐进式 Web 应用程序之简易教程](https://juejin.im/post/5a3cdf52f265da4321543c95)|校对|1|
 |[针对 Airbnb 清单页的 React 性能优化 ](https://juejin.im/post/5a3a733f6fb9a045263bbdf5)|校对|3|
@@ -4273,17 +4284,19 @@
 |------|-------|-------|
 |[翻译开源库 JS 分类 100 个]()|翻译|10|
 
-## 译者：[kangkai124](https://github.com/kangkai124) 历史贡献积分：3 当前积分：3
+## 译者：[kangkai124](https://github.com/kangkai124) 历史贡献积分：6 当前积分：6
 
 |文章|类型|积分|
 |------|-------|-------|
+|[使用 web 应用打包工具 Parcel 实现代码分割](https://juejin.im/post/5a478289f265da430d5859ff)|翻译|3|
 |[如何取消你的 Promise？](https://juejin.im/post/5a32705a6fb9a045117127fa)|校对|1|
 |[你想学 React.js 吗？](https://juejin.im/post/5a2f8ea5f265da43305e6f6b)|校对|2|
 
-## 译者：[MechanicianW](https://github.com/MechanicianW) 历史贡献积分：8.5 当前积分：8.5
+## 译者：[MechanicianW](https://github.com/MechanicianW) 历史贡献积分：9.5 当前积分：9.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[关于 Parcel 你所需要知道的一切：快速的 Web 应用打包器 🚀](https://juejin.im/post/5a545c94518825733d68edae)|校对|1|
 |[用 CSS 选择器和自定义属性来升级你的项目](https://juejin.im/post/5a3c47386fb9a044fd11f278)|翻译|6|
 |[将网站转换为渐进式 Web 应用程序之简易教程](https://juejin.im/post/5a3cdf52f265da4321543c95)|校对|1|
 |[用 Render props 吧！](https://juejin.im/post/5a3087746fb9a0450c4963a5)|校对|1.5|
@@ -4294,19 +4307,21 @@
 |------|-------|-------|
 |[从 Gzip 压缩 SVG 说起 — 论如何减小资源文件的大小](https://juejin.im/post/5a30a7fdf265da4309452517)|校对|1|
 
-## 译者：[noahziheng](https://github.com/noahziheng) 历史贡献积分：3.5 当前积分：3.5
+## 译者：[noahziheng](https://github.com/noahziheng) 历史贡献积分：4.5 当前积分：4.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[使用 web 应用打包工具 Parcel 实现代码分割](https://juejin.im/post/5a478289f265da430d5859ff)|校对|1|
 |[Face ID 对易用性意味着什么](https://juejin.im/post/5a41d01cf265da432c241943)|校对|1|
 |[Chrome DevTools - 性能监控](https://juejin.im/post/5a37b2f56fb9a0451e3fe73d)|校对|0.5|
 |[如何用 TypeScript 玩转后端？](https://juejin.im/post/5a36837d6fb9a045167d4644)|校对|1|
 |[介绍 Turbo：比 Yarn 和 NPM 快 5 倍，可以在本地浏览器中运行](https://juejin.im/post/5a35d58ef265da431a434441)|校对|1|
 
-## 译者：[hexianga](https://github.com/hexianga) 历史贡献积分：1 当前积分：1
+## 译者：[hexianga](https://github.com/hexianga) 历史贡献积分：9 当前积分：9
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Redux 的工作原理](https://juejin.im/post/5a532e466fb9a01ca9154a98)|翻译|8|
 |[如何取消你的 Promise？](https://juejin.im/post/5a32705a6fb9a045117127fa)|校对|1|
 
 ## 译者：[winry01](https://github.com/winry01) 历史贡献积分：6 当前积分：6
@@ -4411,17 +4426,22 @@
 |[在 Redux 中使用 AJAX 轮询](https://juejin.im/post/5a43b6da5188257d167a7aef)|翻译|2|
 |[在 Redux 中使用 AJAX 轮询（二）：Saga 篇](https://juejin.im/post/5a43b80df265da43176a6e4e)|翻译|3|
 
-## 译者：[FateZeros](https://github.com/FateZeros) 历史贡献积分：2 当前积分：2
+## 译者：[FateZeros](https://github.com/FateZeros) 历史贡献积分：10.5 当前积分：10.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[关于 Parcel 你所需要知道的一切：快速的 Web 应用打包器 🚀](https://juejin.im/post/5a545c94518825733d68edae)|翻译|3|
+|[JWT：JSON Web Tokens 全方位指南](https://juejin.im/entry/5a4f300f6fb9a01cb912b3c7/)|校对|4|
+|[Redux-recompose 介绍：优雅的编写 Redux 中的 action 和 reducer](https://juejin.im/post/5a4e0d7651882573315c28a1)|校对|1.5|
 |[在 Redux 中使用 AJAX 轮询](https://juejin.im/post/5a43b6da5188257d167a7aef)|校对|1|
 |[在 Redux 中使用 AJAX 轮询（二）：Saga 篇](https://juejin.im/post/5a43b80df265da43176a6e4e)|校对|1|
 
-## 译者：[congFly](https://github.com/congFly) 历史贡献积分：1 当前积分：1
+## 译者：[congFly](https://github.com/congFly) 历史贡献积分：4.5 当前积分：4.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[垂直排版：重提 writing-mode](https://juejin.im/post/5a5570fb6fb9a01c9e45d749)|校对|2|
+|[Redux-recompose 介绍：优雅的编写 Redux 中的 action 和 reducer](https://juejin.im/post/5a4e0d7651882573315c28a1)|校对|1.5|
 |[如何在 JavaScript 中使用 Generator?](https://juejin.im/post/5a44968df265da4335630fb9)|校对|1|
 
 ## 译者：[NeilLi1992](https://github.com/NeilLi1992) 历史贡献积分：4 当前积分：4
@@ -4437,10 +4457,12 @@
 |------|-------|-------|
 |[Android MVP 架构必要知识：第三部分（Dialog，ViewPager，RecyclerView 以及 Adapters)](https://juejin.im/post/5a45fe846fb9a0450c49bba0)|校对|1|
 
-## 译者：[pot-code](https://github.com/pot-code) 历史贡献积分：12 当前积分：12
+## 译者：[pot-code](https://github.com/pot-code) 历史贡献积分：18 当前积分：18
 
 |文章|类型|积分|
 |------|-------|-------|
+|[使用 web 应用打包工具 Parcel 实现代码分割](https://juejin.im/post/5a478289f265da430d5859ff)|翻译|1|
+|[Redux-recompose 介绍：优雅的编写 Redux 中的 action 和 reducer](https://juejin.im/post/5a4e0d7651882573315c28a1)|翻译|5|
 |[JavaScript 自动化爬虫入门指北（Chrome + Puppeteer + Node JS）](https://juejin.im/post/5a4e1038f265da3e591e1247)|翻译|7|
 |[智对订阅难点：教你如何应对工作中 10 种常见订阅问题](https://juejin.im/post/5a406644f265da430d583cb7)|翻译|5|
 
@@ -4467,3 +4489,15 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[JavaScript 是如何工作的：深入 WebSockets 和使用了 SSE+ 的 HTTP/2，如何在二者当中做出选择](https://juejin.im/post/5a522647518825732d7f6cbb)|校对|3|
+
+## 译者：[moods445](https://github.com/moods445) 历史贡献积分：2 当前积分：2
+
+|文章|类型|积分|
+|------|-------|-------|
+|[2018 年要学习的优秀 JavaScript 库与知识](https://juejin.im/post/5a4e23f0f265da3e377bce4f)|校对|2|
+
+## 译者：[PLDaily](https://github.com/PLDaily) 历史贡献积分：2 当前积分：2
+
+|文章|类型|积分|
+|------|-------|-------|
+|[垂直排版：重提 writing-mode](https://juejin.im/post/5a5570fb6fb9a01c9e45d749)|校对|2|
