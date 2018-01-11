@@ -2,35 +2,35 @@
 > * 原文作者：[Florina Muntenescu](https://medium.com/@florina.muntenescu?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/developers-are-users-too-part-2.md](https://github.com/xitu/gold-miner/blob/master/TODO/developers-are-users-too-part-2.md)
-> * 译者：
+> * 译者：[tanglie1993](https://github.com/tanglie1993)
 > * 校对者：
 
-# Developers are users too — part 2: 5 More guidelines for a better UI and API usability
+# 开发者也是用户 - 第二部分：改善 UI 和 API 可用性的五条指导原则
 
-We have the same usability expectations from everything we’re interacting with, UIs or APIs. Therefore, the guidelines that we use for UI can also be translated to API. We’ve gone over the first 5 guidelines in a previous article. Now, it’s time for the rest.
+我们对自己与之交互的所有东西的可用性都有相同的预期，包括 UI 和 API。所以，我们用于 UI 的指导原则也可以被翻译到 API。我们在前一篇文章中已经看到了五条指导原则。现在，是时候看看剩下的了。
 
-[**Developers are users too — part 1**
+[**开发者也是用户 — 第一部分**
 _5 Guidelines for a better UI and API usability_medium.com](https://medium.com/google-developers/developers-are-users-too-part-1-c753483a50dc)
 
-### 6. Recognition rather than recall
+### 6. 识别而不是回忆
 
-**UI:** Recognizing something as familiar involves a minimum amount of cognitive energy and is triggered by the context. Recall implies retrieving details from memory and takes much more time. It’s easier to choose from a set of options, than to write those options from memory. A simple UI, using generally known icons is based on recognition. A command-line interface is based on recall. Information and functions should be made visible, intuitive and easily accessible.
+**UI:** 识别类似的东西所需要的精力是最少的，它可以通过上下文自动触发。回忆意味着从记忆中取出细节，它需要多很多的时间。从一系列选项中选择，比根据记忆写出选项容易很多。一个使用常见 icon 的简单 UI 是基于识别的，一个命令行界面是基于回忆的。信息和功能应该可见，符合直觉并且容易使用。
 
 ![](https://cdn-images-1.medium.com/max/800/1*eHPxVsUoCufUaKTmMgleTg.png)
 
-The pencil icon is a symbol for editing, easy to recognize, independent of the app.
+铅笔 icon 是一个表示编辑的符号，容易识别，与 app 无关。
 
-#### Make names clear and understandable
+#### 使名称清晰、易于理解
 
-A **variable** name should say what it represents, not how it’s used: `isLoading`, `animationDurationMs`.
+A **变量** 名称应该说明它代表什么，而不是如何使用： `isLoading`, `animationDurationMs`.
 
-A **class** name should be a noun and should say what it represents: `RoomDatabase`, `Field`.
+A **类** 名称应该是一个名词，说明它代表什么：`RoomDatabase`, `Field`.
 
-A **method** name should be a verb and should say what the method does: `query()`, `runInTransaction()`.
+A **方法** 名称应该是一个动词，说明它做什么：`query()`, `runInTransaction()`.
 
-### 7. Flexibility and efficiency of use
+### 7. 使用的灵活性和效率
 
-**UI:** Your application might be used by both inexperienced and experienced users. Create a UI that it caters to both of these types of users and allows them to adapt frequent actions. It is said that 20% of the features are used by 80% of the users. You need to create a balance between simplicity and power. Find out what those 20% are for your app, and make those parts of the app as easy and as simple to use as possible. Apply the [principle of progressive disclosure](https://www.nngroup.com/articles/progressive-disclosure/) and allow the rest of your users to access advanced features in a secondary screen.
+**UI:** 你的应用可能被没有经验和经验丰富的用户同时使用。创建一个 UI使其迎合这两种用户的需求，并允许他们Your application might be used by both inexperienced and experienced users. Create a UI that it caters to both of these types of users and allows them to adapt frequent actions. It is said that 20% of the features are used by 80% of the users. You need to create a balance between simplicity and power. Find out what those 20% are for your app, and make those parts of the app as easy and as simple to use as possible. Apply the [principle of progressive disclosure](https://www.nngroup.com/articles/progressive-disclosure/) and allow the rest of your users to access advanced features in a secondary screen.
 
 ![](https://cdn-images-1.medium.com/max/800/1*DenvAOded-MXjFI1v5iXFQ.png)
 
