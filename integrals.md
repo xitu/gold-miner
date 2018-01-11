@@ -2728,10 +2728,11 @@
 |------|-------|-------|
 |[编写整洁 CSS 代码的黄金法则](https://juejin.im/post/58d34bed128fe1006caf8b6b)|校对|1|
 
-## 译者：[bambooom](https://github.com/bambooom) 历史贡献积分：42 当前积分：42
+## 译者：[bambooom](https://github.com/bambooom) 历史贡献积分：44 当前积分：44
 
 |文章|类型|积分|
 |------|-------|-------|
+|[JavaScript 自动化爬虫入门指北（Chrome + Puppeteer + Node JS）](https://juejin.im/post/5a4e1038f265da3e591e1247)|校对|2|
 |[将网站转换为渐进式 Web 应用程序之简易教程](https://juejin.im/post/5a3cdf52f265da4321543c95)|翻译|3|
 |[Coursera 的 GraphQL 之路](https://juejin.im/post/59b8d1d36fb9a00a3f24c439)|翻译|4|
 |[你不需要基于 CSS Grid 的栅格布局系统](https://juejin.im/post/5960e73f6fb9a06bb5403f87)|校对|1|
@@ -2926,10 +2927,11 @@
 |[同中有异的 Webpack 与 Rollup](https://juejin.im/post/58edb865570c350057f199a7)|校对|1|
 |[webpack 拾翠：充分利用 CommonsChunkPlugin()](https://juejin.im/post/58ec4e3f5c497d0062c470bf)|校对|1|
 
-## 译者：[yoyoyohamapi](https://github.com/yoyoyohamapi) 历史贡献积分：65.5 当前积分：30.5
+## 译者：[yoyoyohamapi](https://github.com/yoyoyohamapi) 历史贡献积分：72.5 当前积分：37.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[JavaScript 是如何工作的：深入 WebSockets 和使用了 SSE+ 的 HTTP/2，如何在二者当中做出选择](https://juejin.im/post/5a522647518825732d7f6cbb)|翻译|7|
 |[在 Redux 中使用 AJAX 轮询](https://juejin.im/post/5a43b6da5188257d167a7aef)|校对|1|
 |[在 Redux 中使用 AJAX 轮询（二）：Saga 篇](https://juejin.im/post/5a43b80df265da43176a6e4e)|校对|1|
 |[用 Render props 吧！](https://juejin.im/post/5a3087746fb9a0450c4963a5)|翻译|5|
@@ -4133,10 +4135,11 @@
 |[你想学 React.js 吗？](https://juejin.im/post/5a2f8ea5f265da43305e6f6b)|翻译|3|
 |[JavaScript 如何工作的: 事件循环和异步编程的崛起 + 5 个关于如何使用 async/await 编写更好的技巧](https://juejin.im/post/5a221d35f265da43356291cc)|校对|4|
 
-## 译者：[athena0304](https://github.com/athena0304) 历史贡献积分：8 当前积分：8
+## 译者：[athena0304](https://github.com/athena0304) 历史贡献积分：11 当前积分：11
 
 |文章|类型|积分|
 |------|-------|-------|
+|[JavaScript 是如何工作的：深入 WebSockets 和使用了 SSE+ 的 HTTP/2，如何在二者当中做出选择](https://juejin.im/post/5a522647518825732d7f6cbb)|校对|3|
 |[模拟是一种代码异味（软件编写）（第十二部分）](https://juejin.im/post/5a2d363e6fb9a0450b6652c8)|校对|3|
 |[如何禁用链接](https://juejin.im/post/5a240aa66fb9a0452577f06a)|校对|1|
 |[JavaScript 如何工作的: 事件循环和异步编程的崛起 + 5 个关于如何使用 async/await 编写更好的技巧](https://juejin.im/post/5a221d35f265da43356291cc)|校对|4|
@@ -4434,10 +4437,11 @@
 |------|-------|-------|
 |[Android MVP 架构必要知识：第三部分（Dialog，ViewPager，RecyclerView 以及 Adapters)](https://juejin.im/post/5a45fe846fb9a0450c49bba0)|校对|1|
 
-## 译者：[pot-code](https://github.com/pot-code) 历史贡献积分：5 当前积分：5
+## 译者：[pot-code](https://github.com/pot-code) 历史贡献积分：12 当前积分：12
 
 |文章|类型|积分|
 |------|-------|-------|
+|[JavaScript 自动化爬虫入门指北（Chrome + Puppeteer + Node JS）](https://juejin.im/post/5a4e1038f265da3e591e1247)|翻译|7|
 |[智对订阅难点：教你如何应对工作中 10 种常见订阅问题](https://juejin.im/post/5a406644f265da430d583cb7)|翻译|5|
 
 ## 译者：[Wangalan30](https://github.com/Wangalan30) 历史贡献积分：1.5 当前积分：1.5
@@ -4457,3 +4461,9 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|7|
+
+## 译者：[NeoyeElf](https://github.com/NeoyeElf) 历史贡献积分：3 当前积分：3
+
+|文章|类型|积分|
+|------|-------|-------|
+|[JavaScript 是如何工作的：深入 WebSockets 和使用了 SSE+ 的 HTTP/2，如何在二者当中做出选择](https://juejin.im/post/5a522647518825732d7f6cbb)|校对|3|
