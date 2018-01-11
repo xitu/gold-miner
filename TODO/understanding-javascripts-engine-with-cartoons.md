@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/understanding-javascripts-engine-with-cartoons.md](https://github.com/xitu/gold-miner/blob/master/TODO/understanding-javascripts-engine-with-cartoons.md)
 > * 译者：[MechanicianW](https://github.com/MechanicianW)
-> * 校对者：
+> * 校对者：[FateZeros](https://github.com/FateZeros) [tvChan](https://github.com/tvChan)
 
 # 漫画图解 JavaScript 引擎： let jsCartoons = ‘Awesome’;
 
@@ -11,7 +11,7 @@
 
 ### 概述
 
-[在之前的文章中](https://codeburst.io/javascript-what-are-you-ad28fabebdf1)， 我们从事件执行机制详细地讲解了 JavaScript 引擎是如何工作的，同时也简略地提到了编译的知识。是的，你没看错。JavaScript 是编译的，尽管它并不像其它语言编译器有可以进行早优化的构建阶段，JavaScript 不得不在最后一秒编译代码 —— 从字面上看。用于编译 JavaScript 的技术有一个十分恰当的名字，即时编译器（JIT）。这种 "即时编译" 技术已经应用到现代 JavaScript 引擎中，用于加速浏览器呈现。
+[在之前的文章中](https://codeburst.io/javascript-what-are-you-ad28fabebdf1)，我们从事件执行机制详细地讲解了 JavaScript 引擎是如何工作的，同时也简略地提到了编译的知识。是的，你没看错。JavaScript 是编译的，尽管它并不像其它语言编译器有可以进行提前优化的构建阶段，JavaScript 不得不在最后一秒编译代码 —— 从字面上看。用于编译 JavaScript 的技术有一个十分恰当的名字，即时编译器（JIT）。这种 "即时编译" 技术已经应用到现代 JavaScript 引擎中，用于实现浏览器的加速。
 
 开发者将 JavaScript 称为解释型语言，这会让人有点困惑。因为直到最近，JavaScript 引擎总是和解释器联系在一起。现在，伴随着像 Google [V8](https://v8project.blogspot.bg/2017/05/launching-ignition-and-turbofan.html) 这样的引擎出现，开发者们实现了鱼与熊掌兼得 —— 既拥有解释器也拥有编译器的引擎。
 
@@ -31,7 +31,7 @@
 
 `simplify(quote, "grossly")`
 
-`//Result: Languages order their words differently.`
+`// 结果：语言的顺序并不相同`
 
 当然，Chomsky 的定义是指德语和斯瓦西里等语言，而不是 JavaScript 和 Ruby。尽管如此，高级编程语言脱离了我们所说的语言。实质上，JavaScript 编译器已经被精明的工程师们 “教会” 阅读 JavaScript 代码，像我们的父母老师训练我们读懂句子一样。
 
@@ -63,7 +63,7 @@
 
 #### 语法
 
-我们的表达式，像句子一样必须是遵从语法构造的。JavaScript 以及大多数其它编程语言都遵从 (类型) / 变量 / 赋值 / 值 的顺序。类型是适应于上下文的。如果你也困扰于宽松的类型声明，可以给程序的全局作用域加上 `“use strict”;`。`“use strict”;` 是一种可以强制执行 JavaScript 语法规则的霸道语法。相信我，使用 `“use strict”;` 利远大于弊。
+我们的表达式，像句子一样必须是遵从语法构造的。JavaScript 以及大多数其它编程语言都遵从 (类型) / 变量 / 赋值 / 值 的顺序。类型是适应于上下文的。如果你也困扰于宽松的类型声明，可以给程序的全局作用域加上 `“use strict”;`。`“use strict”;` 是一种可以强制执行 JavaScript 语法规则的严格语法。相信我，使用 `“use strict”;` 利远大于弊。
 
 #### 语义
 
@@ -73,7 +73,7 @@
 
 ### **LHS/RHS**
 
-我们读英文是按照从左往右的顺序，编译器读代码却是从右往左。编译器是怎么做到的？通过左手边查找 (LHS) 与 右手边查找 (RHS)。我们来深入看看它们是怎么一回事。
+我们读英文是按照从左往右的顺序，编译器读代码却是双向的。编译器是怎么做到的？通过 LHS 查询 和 RHS 查询。我们来深入看看它们是怎么一回事。
 
 LHS 查找聚焦于赋值操作的 “左边”。意思就是 LHS 负责查找赋值操作的 **目标**。我们要使用 **目标** 这个概念而不是 **位置**，因为 LHS 查找的目标可能位置不同。并且，**赋值操作** 也并不一定显式地指向 **赋值运算符**。
 
@@ -112,9 +112,9 @@ square(5);
 
 ![](https://cdn-images-1.medium.com/max/1000/1*cpak2aD6ghUw62aqdbTehQ.jpeg)
 
-#### 解析器
+#### 语法分析器
 
-解析器会去查找语法错误。如果没有错误的话，解析器会把 token 打包成被一种被称为解析语法树的结构。在编译的这一环节，JavaScript 代码被视为已解析过，将要进行语义分析的。再一次，如果遵循了 JavaScript 规则，则会产生一个被称为抽象语法树 (AST) 的数据结构。
+语法分析器会去查找语法错误。如果没有错误的话，语法分析器会把 token 打包成被一种被称为解析语法树的结构。在编译的这一环节，JavaScript 代码被视为已解析过，将要进行语义分析的。再一次，如果遵循了 JavaScript 规则，则会产生一个被称为抽象语法树 (AST) 的数据结构。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*WxknfoF76q_SZkHg382xhA.jpeg)
 
@@ -142,7 +142,7 @@ square(5);
 
 这是代码生成器执行 LHS 和 RHS 查找的环节。简而言之，LHS 查找会将目标值写入内存，RHS 查找会从内存中读取目标值。
 
-如果值既被存入内存又被存入寄存器，代码生成器就会将其移出寄存器来进行优化。从内存中取值是最次选择。
+如果值既被存入内存又被存入寄存器，代码生成器就会从寄存器中取值来进行优化。从内存中取值是最次选择。
 
 * * *
 
@@ -154,7 +154,7 @@ square(5);
 
 ### **最后的一点思考**
 
-理解 JavaScript 引擎的另一个方法是看看你的 [大脑](https://www.brainson.org/books-how-theyre-made-and-how-your-brain-reads-them/)。当你读到这里，你的大脑正在从视网膜获取数据。通过视神经传递的数据是网页的翻转版本，你的大脑为了能解释图像，通过反转它来进行编译。
+理解 JavaScript 引擎的另一个方法是看看你的 [大脑](https://www.brainson.org/books-how-theyre-made-and-how-your-brain-reads-them/)。当你读到这里，你的大脑正在从视网膜获取数据。通过视神经传递的数据是网页的翻转版本，为了能解释图像，你的大脑会通过反转它来进行编译。
 
 除了翻转图像并着色之外，大脑可以根据识别模式的能力来填充空格，就像编译器从缓存中读取数据一样。
 
