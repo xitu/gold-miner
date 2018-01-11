@@ -67,7 +67,7 @@
 |[MVVM 模式介绍](http://gold.xitu.io/entry/56cbf38771cfe40054eb3a34)|翻译|15|
 |[第一次翻译计划文章已兑换Octocat小]()|减去积分|15|
 
-## 译者：[huanglizhuo](https://github.com/huanglizhuo) 历史贡献积分：64 当前积分：49
+## 译者：[huanglizhuo](https://github.com/huanglizhuo) 历史贡献积分：66 当前积分：51
 
 |文章|类型|积分|
 |------|-------|-------|
