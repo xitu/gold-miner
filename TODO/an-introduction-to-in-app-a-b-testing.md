@@ -2,164 +2,165 @@
 > * 原文作者：[Gavin Kinghall Were](https://medium.com/@gavink?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/an-introduction-to-in-app-a-b-testing.md](https://github.com/xitu/gold-miner/blob/master/TODO/an-introduction-to-in-app-a-b-testing.md)
-> * 译者：
-> * 校对者：
+> * 译者：[mnikn](https://github.com/mnikn/)
+> * 校对者：[swants](https://github.com/swants), [winry01](https://github.com/winry01)
 
-# An introduction to in-app A/B testing
+# app 里的 A/B 测试简介
 
-## How A/B testing can help you get more out of your app
+## A/B 测试如何帮助您从 app 中获得更多收益
 
-A/B testing is a controlled experimentation method that compares two or more variants so a hypothesis may be confirmed or refuted. The test isolates the specific test variants from the rest of the system to generate reliable results. A/B testing is most effective when performed in a live environment when the test population is unaware the test is running.
+A/B 测试是一种对照实验方法，用来根据假设比较两个及以上版本之间的差别，其假设可以被证实或推翻。该测试会根据原有版本派生出特定的测试版本，以此来产生可靠的结果。当 A/B 测试在被测人不知情的真实场景中测试，其得出的结果才是最有效的。
 
 ![](https://cdn-images-1.medium.com/max/600/1*Yy0xUTqhw0-VX7rxIDNNPw.png)
 
-Leveraging a representative sample population for each variant, an A/B testing platform randomly exposes each user to variant A or variant B, or excludes them from the test. It then ensures each user sees a consistent experience (always A or always B) for the lifetime of the test and provides additional metadata to an analytics platform to determine the effect on metrics. Once the metrics are analysed and a variant chosen as the best performer, you can use the A/B testing platform to incrementally roll out the winning variant to all users.
+要构建每个版本的代表性样本群体，A/B 测试平台需要随机地让用户使用版本 A 或版本 B，或者将其排除在测试之外。然后确保用户在整个测试中保持一致的 A/B 体验（总是 A 或总是 B），并向分析平台提供额外的元数据以确定指标的影响。一旦指标分析完成，表现最佳的版本将会被选中，您可以使用 A/B 测试平台逐步向所有用户推出获胜版本。
 
-For example, you may hypothesize that [bottom navigation](https://material.google.com/components/bottom-navigation.html) will drive more user engagement than [tabs](https://material.google.com/components/tabs.html) in your app. You can design an A/B test comparing your tabs (variant A) with a bottom navigation (variant B). Your A/B testing platform then generates a user-base sample that is randomly and representatively allocated to variant A or variant B, and each user continues to see the same variant for the duration of the test. When the test is over, variant A user engagement can be compared to that of variant B to see if there is a [statistically significant](https://en.wikipedia.org/wiki/Statistical_significance) improvement for variant B. If variant B is better, you have the data to back your decision to move to bottom navigation for all users.
+例如，你可以假设在你的 app 中 [底部导航](https://material.google.com/components/bottom-navigation.html) 的用户参与度将超过 [标签](https://material.google.com/components/tabs.html)。您可以设计一个 A/B 测试比较标签（版本 A）和底部导航（版本 B）。
+然后，你的 A/B 测试平台将生成一个样本，该样本基于用户随机分配到版本 A 或版本 B。并且每个用户在测试期间会持续看到相同的版本。当测试结束时，可以将版本 A 用户参与度与版本 B 的用户参与度进行比较，看看版本 B 是否具有 [统计显着性](https://en.wikipedia.org/wiki/Statistical_significance) 的改进。如果版本 B 更好，这就有数据支持你把导航风格改为底部导航，并让所有用户看到这一版本。
 
 ![](https://cdn-images-1.medium.com/max/600/1*zQPA1R3det25wJDZ6zdWxw.png)
 
 ![](https://cdn-images-1.medium.com/max/600/1*sjA3GNa2KIsqHom-ubhebg.png)
 
-Left — Variant A, Tabs; Right — Variant B, Bottom Navigation
+左边 —— 版本 A，标签；右边 —— 版本 B，底部导航
 
-> **_A note on store listing experiments in the Google Play Console_**
+> **_关于 Google Play 控制台中商品详情实验的说明_**
 
-> The Google Play Console also supports a form of A/B testing on your store listing, which I’m not focusing on in this post. [Store listing experiments](https://developer.android.com/distribute/users/experiments.html), let you test different icons, feature graphics, promo videos, short descriptions and long descriptions on your store listing to see if you can increase your installs. Store listing experiments are focused on improving conversions whereas the remainder of my post discusses in-app A/B testing targeted at improving post-install metrics such as user retention, user engagement and in-app purchase revenue.
+> Google Play 控制台还支持在你的商品详情中进行 A/B 测试，本文不会重点关注这一部分。[商品详情实验](https://developer.android.com/distribute/users/experiments.html)，让你在商品详情中测试不同的图标，功能图，促销视频，简短描述和详细描述，看看这些变化是否可以增加应用的安装。 商品详情实验侧重于提高转化次数，而我的文章的其余部分讨论了应用内的 A/B 测试，旨在改善用户存留率，用户参与度和应用内购买收入等安装后的指标。
 
-In my post, I’ll take your through the five key steps of in-app A/B testing:
+在我的文章中，我将介绍 app 里 A/B 测试的五个关键步骤：
 
-1.  Construct your hypothesis
-2.  Integrate an A/B testing platform
-3.  Test your hypothesis
-4.  Analyse and draw conclusions
-5.  Take action
+1.  建立假设
+2.  整合 A/B 测试平台
+3.  测试假设
+4.  分析并得出结论
+5.  采取行动
 
-Then, I’ll also touch on more advanced techniques you can explore.
+然后，我还会涉及更多可以探索的高级技巧。
 
-### Step 1. Construct your hypothesis
+### 第一步，建立假设
 
-A hypothesis is a proposed explanation for a phenomenon, and A/B testing is a method for determining whether or not the hypothesis is true. The hypothesis may arise by examining existing data, it may be more speculative, or it may be ‘just a hunch.’ (The ‘hunch’ hypothesis is particularly common for new features that enable new metrics.) In the navigation example, the hypothesis could be articulated in this way: ‘Switching to bottom navigation instead of tabs will increase user engagement’. You can then use this hypothesis to inform your decision about what, if any, change to make in the navigation style of your app, and what effect that change will have on user engagement. The important thing to remember is that the only purpose of the test is to prove that bottom navigation has a direct, positive impact on average revenue per user (or ARPU).
+假设是根据一种现象提供相应的解释，而 A/B 测试是一种确定假设是否为真的方法。这个假设可能是通过检查现有的数据而产生的，也可能猜测的成分多一点，或者仅仅只是一种“预测”。（对于新功能所涉及到的新指标，假设常常是基于“预测”。）在导航的例子中，可以用这种方式来表达假设：“采用底部导航会较标签增加用户的参与度“。然后，如果你的 app 有对导航风格进行了更改，以及该更改对用户参与度的有影响，你可以根据这个假设来进行相应决策。重要一点的是要记住，测试的唯一目的是证明底部导航对每个用户的平均收入（或者 ARPU）有着直接，积极的影响。
 
-#### What to test (What is A? What is B? Etc.)
+#### 要测试什么（A 是什么？B 又是什么？）
 
-The following table outlines broad scenarios that can help you determine how to choose what variants to test. I’ll use our hypothetical navigation experiment as an example.
+下面的表格列出了大部分的情景，可以帮助你确定要如何选择测试的版本。以我们假设的导航实验为例。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*fY2cSb5ZzM0xmWy0J3SbRA.png)
 
-1 The ‘Excluded from test’ column represents the users who aren’t included in the test; their behaviour will not contribute to the test outcome. See Who to test on.
+“排除测试”这一列表示不参与测试的用户。他们的行为将不会有助于测试结果。我们看看谁是测试用户。
 
-The choice between scenarios 2 and 3 is based on what the hypothesis is trying to measure. If it’s something only relevant to the new feature (e.g., if the new feature is in-app purchases, then in-app purchase revenue as a measure is only relevant if that feature is implemented), then choose scenario 2\. If the hypothesis relates to something that’s relevant (and measurable) before the new feature is implemented (e.g., if the new feature is a ‘favourites’ mechanism and the measure is user engagement), then choose scenario 3.
+我们根据假设想要度量什么来选择情景 2 或者情景 3。如果仅与新功能有关（例如，如果新功能是需要 app 内购，则这个功能仅和 app 内购买收入相关），那么选择情景 2。如果假设要实现的新功能（例如，如果新功能是“最爱”机制，并且度量指标是用户参与度）与之前的东西（并且是可测量的）相关，则选择情景 3。
 
-> **Note:** In the following sections up to Take Action, I’ll use Scenario 1 for the sake of brevity. The same method is equally applicable to Scenarios 2 and 3 with the ‘existing’ and ‘new’ variants replacing the ‘new 1’ and the ‘new 2’ variants.
+> **注意：** 在接下来的部分中，为了简洁起见，我将使用情景 1。 同样的方法同样适用于情景 2 和情景 3，以“现有”和“新”版本这些称号代替“新 1”和“新 2”版本。
 
-#### Who to test on
+#### 谁来测试
 
-If the observed behaviour is known to vary by some factor outside of the hypothesis — for example, the behaviour is known to vary by country of residence when the hypothesis is only looking at the global effect on revenue — target a single value for that factor (a single country) or use a representative sample of the whole population (all countries).
+如果已知观察到的行为会因为假设外的某个因素发生变化 —— 例如，当假设仅考虑全球收入的影响时，已知行为会因居住国而异 —— 需要让该因素（单一国家）的值唯一，或者使用全体人口（所有国家）的代表性样本。
 
-The size of the controlled, representative sample can also be defined as a percentage of the total population. For example, 10% of the total population is included in the test — with 5% receiving variant A and 5% getting variant B, and the remaining 90% excluded from the test. The 90% sees either the existing feature implementation or no new features at all, and their behaviour is excluded from the test metrics.
+受控的代表性样本的大小也可以设定为总人口的百分比。例如，测试样本大小是总人口的 10％，其中 5％ 收到版本 A，5％ 收到版本 B，其余 90％ 排除在测试之外。也就是 90％ 的用户只会看到现有的功能，并不会看到任何新功能，他们的行为被排除在测试指标之外。
 
-#### How long to test for
+#### 要测试多久
 
-**Maximum time:** User behaviour often varies by time of day, day of week, month, season, etc. To capture enough of this variance, you’ll want to balance the need for statistical significance and the business need. (Your business may not be able to wait for statistical completeness.) If it’s known that a specific metric varies over a shorter period — such as time of day or day of week — then try to cover the entirety of that period. For longer periods, it may be more beneficial to run a test for only a couple of weeks and extrapolate based on the known variation in the metric over time.
+**最长时间：** 用户的行为通常会随着时间，这周的第几天，月份，季节等类似因素而变化。为了让版本之间体现出足够的差异，您需要平衡统计显着性和业务的需求。（您的业务可能无法等到你有足够的数据可以完整的统计。）如果知道某个特定指标会在较短的时间段内发生变化，例如一天中的某个时间或一周中的某一天  —— 那么就尝试让测试涵盖这一整个时期。对于需要较长的时间段的指标，只测试几周可能会更好一点，并要根据度量标准随时间的变化进行相应地推测。
 
-**Minimum time:** The test should run long enough to capture enough data to provide a statistically significant result. This typically means a test population of 1,000 users (at a minimum). But reaching a significant result depends on the typical distribution of the metric derived from the hypothesis. You can do this in a reasonable amount of time by estimating how many users are eligible for testing in the desired time period, and then choosing a percentage of that population to include so your test achieves statistical significance within that time. Some A/B testing platforms manage this automatically and may also allow you to increase the test sample rate to reach statistical significance sooner.
+**最短时间：** 测试运行的时间要足够长，来获取足够的数据从而能够提供具备统计意义的结果。通常对应的测试人数是 1,000 个用户（至少）。但是，能否得到明显的结果取决于从假设推导出来的指标分布。你可以通过估计有多少用户能够在所需的时间段内进行测试，从而在合理的时间内完成此操作，然后选择估计用户数量的百分比，以便让你的测试在这个时间段内达到统计显著性。一些 A/B 测试平台能自动管理这些操作，同时也可以提高你的测试采样率，让你的测试更快地达到统计显著性。
 
-### Step 2. Integrate an A/B testing platform
+### 第 2 步，整合 A/B 测试平台
 
 ![](https://cdn-images-1.medium.com/max/600/1*8iHKjuY5xYGOaQTM6BEqGg.png)
 
-Several A/B testing platforms already exist, either as standalone products or as components of broader analytics platforms, such as [Firebase Remote Config with Analytics](https://firebase.google.com/docs/remote-config/config-analytics). Via a client-side library, the platforms send the app a set of configuration instructions. The app doesn’t know _why_ a certain parameter value was returned and, therefore, has no knowledge about what test it is a part of or even whether it is part of a test at all. The client should just configure itself as it is told. On the other hand, the platform doesn’t concern itself with the meaning of each parameter value it returns to the client; it’s up to the client to interpret that value. In the simplest of cases, the returned parameter could be simple key-value pairs that control whether a given feature is enabled and, if so, which variant should be activated.
+已经有几种 A/B 测试平台，既可以作为一个独立产品进行测试，也可以作为一个更大分析平台的组件，例如 [Firebase 远程配置分析](https://firebase.google.com/docs/remote-config/config-analytics)。通过客户端库，平台会向 app 发送一组配置指令。app 不知道**为什么**要返回某个参数，因此不知道它在测试哪一部分，甚至不知道是否这是测试的一部分。客户端应该按照配置指令自己进行相应配置，由客户端来解释其中的价值。 在最简单的情况下，返回的参数可以是简单的键值对，用于控制是否启用给定功能，如果是，则激活对应的版本。
 
-In more advanced cases, where extensive remote app configuration is needed, the app may send parameters to the A/B testing platform that may be used to decide more finely-grained test eligibility. For example, if a hypothesis relates only to devices with xxxhdpi screen density, then the app will need to send its screen density to the A/B testing platform.
+在更复杂的情况下，如果需要进行大量的远程 app 配置，app 会将参数发送到 A/B 测试平台，测试平台会跟据这些参数来选出更精细的测试配置。例如，如果假设只涉及具有 xxxhdpi 屏幕密度的设备，那么 app 将需要将其屏幕密度发送到 A/B 测试平台。
 
-#### Don’t re-invent the wheel
+#### 不要重复发明轮子
 
-Pick an existing platform that will scale with your A/B testing needs. Beware: A/B testing and the data-driven decision-making it enables is habit-forming.
+直接从现有平台中选择一个可以满足 A/B 测试需求的。注意：需要养成相应习惯来做到 A/B 测试和数据驱动决策。
 
-> **Note:** Managing consistent test state and fairly allocating test participants for many users and many tests is **hard**. There’s no need to write it from scratch.
+> **注意：** 管理许多用户，让其保持一致的测试状态，并公平地分配测试参与者很**难**。没有必要从头开始写。
 
-It is, of course, necessary to write the code for each variant you want to test. However, it should not be up to the app or some custom service to decide which variant to use at any given time. This should always be left to the A/B testing platform so a standard methodology can be applied and multiple, simultaneous tests on the same population can be managed centrally. Writing a simple A/B test mechanism manually only makes sense if you know for a fact you’re only going to perform one test. For the cost of hard coding two tests, you could integrate an off-the-shelf A/B testing platform.
+当然，你要为每个要测试的版本写代码。但是，不应该由 app 或某个定制服务来决定在给定时间内使用哪个版本。这要交给 A/B 测试平台来处理，应用这种标准方法，可以在集中管理同一时间内同一人群的多个测试。当你在平台上只执行一个测试时，亲自实现一个简单的 A/B 测试机制才有意义。 对于硬编码两个测试的成本，您可以集成一个现成的 A/B 测试平台。和写两个硬编码测试的成本相比，不如把这些测试集成进一个现成的 A/B 测试平台。
 
-#### Integration with analytics
+#### 整合分析功能
 
-So you can automatically segment the population under test, pick an analytics platform that can provide detailed, test-state information directly to your existing analytics platform. The tightest integration mechanism relies on the specific configurations for each test and the variants being passed directly between the A/B testing and analytics platforms. A globally unique reference is assigned to each variant and passed by the A/B testing platform to both the client and the analytics platform. Then, this allows the client to only need to pass that reference to the analytics platform, rather than the entire configuration of the variant.
+选一个可以提供详细的测试状态信息的现有分析平台，可以自动帮你可以把测试人群进行分类。要紧密地把这两个平台集成在一起，取决于每个测试的具体配置，和要直接在 A/B 测试平台和分析平台之间传递的版本。A/B 测试平台会为每个版本分配一个唯一的引用，并将其传递给客户端和分析平台。然后，只允许客户端把该引用而不是整个版本的配置传递给分析平台。
 
-#### Remote configuration
+#### 远程配置
 
-Apps that have a remote configuration capability already have most of the code needed to implement A/B testing. Essentially, the A/B test adds some server-side rules that determine what configuration is sent to the app. For apps that don’t have a remote configuration capability, an A/B testing platform is a great way to introduce one.
+一个具有远程配置功能的 app，已经有了实现 A/B 测试时所需的大部分代码。实质上，A/B 测试添加了一些服务器端的规则用来确定什么配置发送到 app。 对于没有远程配置功能的 app，那么引入 A/B 测试平台是让你引入这一功能的其中一个好方法。
 
-### Step 3. Test the hypothesis
+### 第 3 步，测试假设
 
-Once your hypothesis is identified, your test designed, and your A/B testing platform integrated, implementing your test variants is the easiest step. Next, run your test. The A/B testing platform allocates a sample set of users to the test population and then to each variant within the test. The platform then continues to allocate populations for the desired test period. For more advanced platforms, the platform will run your test until it has reached statistical significance.
+一旦确定好你的假设和设计好测试，而且也集成了 A/B 测试平台，实现你的测试版本就是一个最简单的操作了。下一步，开始你的测试。A/B测试平台将一组样本用户分配在测试群体上，然后给每个测试用户分配版本。然后平台继续在理想时间段内的分配用户。对于更高级的平台，平台会一直执行测试，直至达到统计显著性。
 
-#### Monitor the test
+#### 监控测试
 
-During the course of the test, I recommend monitoring the impact of new variants, including metrics not mentioned in the test hypothesis. If you observe a detrimental effect, it may be necessary to stop the test early so your users are reverted back to the existing variant as quickly as possible — and you minimise a poor user experience. Some A/B testing platforms are capable of monitoring and alerting automatically if a test is having an unexpectedly negative impact. Otherwise, any impact seen in your pre-existing monitoring systems will need to be cross-referenced with existing tests so that the ‘bad’ variant can be identified.
+我建议在测试过程中监控新版本所造成的影响，包括测试假设中未提及的指标。如果你发现它会造成不良的影响，那么可能要尽早停止测试，尽可能快地让用户恢复到之前的版本 —— 最大限度地减少糟糕的用户体验。一些 A/B 测试平台能够自动监控并会提醒测试可能会有意想不到的负面影响。如果你的平台不能做到这一点，你需要把现有的监控系统中看到的任何影响和目前的测试相互参考，来识别“不良”版本。
 
-> **Note:** If the test does need to be stopped early, the data you gather should be treated with extreme caution as there’s no guarantee that the test population sample is representative.
+> **注意：** 如果测试确实需要提前停止，那么你应该要对收集到的数据谨慎处理，因为它不能保证测试群体样本具有代表性。
 
-### Step 4. Analyse and draw conclusions
+### 第 4 步，分析并得出结论
 
-Once the test has ended normally, the data gathered by your analytics platform can be used to determine the outcome of the test. If the hypothesis is verified by the resulting metrics, then you can conclude the hypothesis is correct. Otherwise, it is not. Determining whether the observed result is [statistically significant](https://en.wikipedia.org/wiki/Statistical_significance) depends upon the nature and distribution of the metric.
+一旦测试正常结束，你就可以用在分析平台中收集到的数据确定测试的结果。如果结果指标和假设相符，那么你可以认为这个假设是正确的。否则，你猜错了。确定观察结果是否具有 [统计显著性](https://en.wikipedia.org/wiki/Statistical_significance) 取决于指标的性质和分布。
 
-If the hypothesis is false — because there’s no effect or a negative effect on the relevant metric(s) — then there’s no reason to keep the new variant. It may be the case, however, that the new variant had a positive effect on a related, but unexpected metric. This may be a valid reason to choose the new variant, although it’s often useful to run an additional test specifically targeting the secondary metric to confirm the effect. In fact, the result of one experiment often gives rise to additional questions and hypotheses.
+如果假设错误 —— 因为相关指标没有正面或者负面影响 —— 那么就没有理由继续保留这一版本了。然而，新的版本可能会对相关但意想不到的指标产生积极的影响。这可能是一个选择新版本的理由，但通常来说执行一个专门针对辅助指标的附加测试来确认其影响会更好一点。实际上，一个实验的结果经常会引起额外的问题和假设。
 
-### Step 5. Take action
+### 第 5 步，采取行动
 
-If the hypothesis is true, and the new variant is preferred to the old, the ‘default’ configuration parameters being passed back to the app can be updated to instruct it to use the new variant. Once the new variant has become the default for a sufficient amount of time, the code and resources for the old variant can be removed from the app in your next release.
+如果假设是真的，并且新的版本比旧的好，那么我们可以更新要传递给 app 的“默认”配置参数，指示它使用新的版本。一旦新的版本为成为默认后持续了足够的时间，你就可以把旧版本的代码和资源从下一个版本的 app 中删除。
 
-#### Incremental rollout
+#### 迭代展示
 
-A common use case for A/B testing platforms is to re-purpose them as an incremental rollout mechanism, where the winning variant of the A/B test gradually replaces the old variant for all users. This can be viewed as an A/B design test, whereas the incremental rollout is a Vcurr/Vnext test to confirm that the chosen variant causes no adverse effects on a larger segment of your user base. Incremental rollout can be performed by stepping up the percentage of users (for example, you can go from 0.01%, 0.1%, 1%, 3%, 7.5%, 25%, 50%, 100%) receiving the new variant and checking that no adverse results are observed before advancing to the next step. Other segments can be used as well, including country, device type, user segment, etc. You can also choose to roll out the new variant to specific user groups (e.g., internal users).
+A/B 测试平台的一个常见用法是将其重新作为迭代展示的机制，其中 A/B 测试的获胜版本会逐渐取代旧版本。这可以视为 A/B 设计测试，而迭代展示是 Vcurr／Vnext 测试，用来确认所选的版本不会对大部分的用户产生不利影响。可以通过提高接收新版本的用户百分比（例如，从 0.01％，0.1％，1％，3％，7.5％，25％，50％，100％ 开始）来迭代展示并确定在进入下一步之前没有不利的结果。同时你还可以用其他方式进行分类，例如国家，设备类型，用户组等。你还可以选择将新的版本展示给特定的用户组（例如内部用户）。
 
-### Advanced experimentation
+### 更进一步的实验
 
-You can build on simple A/B testing to, for example, support a deeper understanding of the range of user behaviour. You can also gain more efficiency by running multiple tests in parallel and by comparing many variants in a single test.
+例如，你可以构建一个简单的 A/B 测试，用于更深入的理解用户行为范围。您还可以同时运行多个测试，并在单个测试中比较多个版本来来让测试更高效。
 
-#### Deep segmentation and targeting
+#### 深度分组和定位
 
-A/B test results can be examined for changes in outcome across different segments as well as analysed for targeting methodology. In both cases, it may be necessary to increase the sample rate or duration of the test to achieve statistical significance for each unique segment. For example, the results of testing the [tabs versus bottom navigation hypothesis](https://uxplanet.org/perfect-bottom-navigation-for-mobile-app-effabbb98c0f) may show a different effect on a country-by-country basis; in other cases, some countries may show a big user engagement increase, some show no change, and some show a slight decrease. In these scenarios, the A/B testing platform could set a different ‘default’ variant on a country-by-country basis to maximise total user engagement.
+A/B 测试结果可以检测不同组结果的变化，并定位是哪个方法所造成的。在这两种情况下，可能需要提高采样率或测试持续时间来达到每个组的统计显著性。例如，[标签 vs 底部导航假设](https://uxplanet.org/perfect-bottom-navigation-for-mobile-app-effabbb98c0f) 的测试结果可能会根据国家的不同有不同的影响。在某些情况下，一些国家的用户参与度可能会大幅度增长，有些则没有变化，有的略有下降。 在这种情景下，A/B 测试平台可以根据国家设置不同的“默认”版本，以最大限度地提高用户总体参与度。
 
-The same segmentation data may be used to target a test at only a specific segment. For example, you could test for users who live in the USA and who previously used a particular feature found in the tab navigation style.
+可以针对特定组使用同一组的数据进行测试。例如，您可以测试居住在美国的用户和之前使用过标签导航风格的用户。
 
-#### A/n testing
+#### A/n 测试
 
-An A/n test is shorthand for a test with more than two variants. This may be several new variants to replace an existing variant or several variants of an entirely new feature, plus the absence of any new feature. When combined with deep segmentation, you may find different variants perform best with different segments.
+A/n 测试是测试两种以上版本的简写。这可能是多个新的版本要取代现有的版本，如有全新功能的几个版本要取代没有任何新功能的版本。当你进行了深度地分组后，可能会发现不同的版本会在不同的组中表现最好。
 
-#### Multi-variate testing
+#### 多变量测试
 
-A multi-variate test is a single test that varies many aspects of an app at once. It then treats each unique set of values as a separate variant in an A/n test. For example:
+一个多变量测试是一个单一的测试，它一次性改变 app 多个部分。然后，在 A/n 测试中，将唯一的一组值作为一个单独变量处理。例如：
 
 ![](https://cdn-images-1.medium.com/max/800/1*DbBtyfDwZwCLPbFD2eIMVg.png)
 
-Multi-variate tests are appropriate when there are several related aspects that could affect the overall performance of a metric, but the effect of specific aspects isn’t distinguishable.
+当多个方面可能都会影响整体指标性能时，使用多变量测试是适当的，但是无法区分该效果是由哪一特定方面带来。
 
-#### Testing at scale
+#### 扩大测试规模
 
-Multiple tests running in parallel on the same population must be managed by the same platform. Some platforms are capable of scaling to thousands of tests running in parallel, some completely in isolation (so a user is only in that one test at a time), and some on a shared population (so a user is in multiple tests simultaneously). The former case is easier to manage but will quickly exhaust the test population and lead to an upper bound on the number of statistically significant parallel tests. The latter case is harder for the A/B testing platform to manage, but removes the upper bound on the number of parallel tests. The platform does this by fundamentally treating each test as additional segmentation outside of each other test.
+如果在同一个人群中同时运行多个测试，那么这些测试必须由同一个平台管理。有些平台能够扩展到支持数千个测试同时运行，有些平台则把完全测试孤立起来（所以用户一次只能进行一次测试），而有些平台可以共享一个测试用户（所以用户同时进行多个测试）。前一种情况更容易管理，但会迅速用完测试用户，并导致统计显著性的上限取决于并行测试的数量。而后一种情况，A/B 测试平台难以管理，但是并行测试的数量没有上限。平台通过完全把每个测试视为另一个测试的附加组来实现这一点。
 
-#### Self opt-in
+#### 自我选择
 
-Self opt-in allows a user to knowingly be exposed to a specific variant of a specific test. The user could self-select the variant or be allocated it by the A/B testing platform. In either case, the user should be excluded from the metrics analysis as they are not a blind participant in the test — they know it’s a test, so they could show a biased response.
+自我选择让用户知道自己正在使用特定测试中的特定版本。用户可以自行选择版本，或者让 A/B 测试平台给他们分配。无论是哪种情况，这些用户都应该被排除在指标分析之外，因为他们不是在不知情的状态下参与测试 —— 他们知道这是一个测试，所以他们可能会表现出一个有偏见的回应。
 
-### Conclusion
+### 结论
 
-In-app A/B testing is an extremely flexible tool for making data-driven decisions about your app and, as I’ve highlighted in this article, can help you make informed choices about new features. A/B testing allows you to test variants of any aspect of your app with real users in the real world. To simplify in-app A/B testing design, integration, execution and analysis, Google offers a suite of tools, including:
+app 内的 A/B 测试是一个非常灵活的工具，它可以让你对你的 app 做出由数据驱动的决策，正如我在本文中所强调的，这可以帮助你对新功能做出明智的选择。A/B 测试允许你在真实世界中使用真实用户测试 app 的各个方面的版本。为了简化 app 内的 A/B 测试设计，集成，执行和分析，Google 提供了一套工具，其中包括：
 
-*   [Firebase Remote Config](https://firebase.google.com/docs/remote-config/) (FRC) offers a client library that allows apps to request and receive a configuration from Firebase, plus a cloud-side, rule-based mechanism to define user configuration. Remote configuration can help you update (and upgrade) your app without the need to release a new version.
-*   [Firebase Remote Config with Analytics](https://firebase.google.com/docs/remote-config/config-analytics) enables the formal use of A/B testing methods for deciding and tracking variant deployment.
-*   [Firebase Analytics](https://firebase.google.com/docs/analytics/) give you a metrics breakdown by variant and connects directly into FRC.
-
-* * *
-
-#### What do you think?
-
-Do you have questions or thoughts on using A/B testing? Continue the discussion in the comments below or tweet using the hashtag #AskPlayDev and we’ll reply from [@GooglePlayDev](http://twitter.com/googleplaydev), where we regularly share news and tips on how to be successful on Google Play.
+*   [Firebase 远程配置](https://firebase.google.com/docs/remote-config/) （FRC）提供了一个客户端库，允许 app 请求 Firebase 和并接收相应配置，另外还有一个基于规则的云端机制来定义用户配置。远程配置可以在而无需发布新版本的情况下帮你更新（和升级）你的 app。
+*   [Firebase 远程配置与分析](https://firebase.google.com/docs/remote-config/config-analytics) 支持根据 A/B 测试来决定和跟踪版本部署。
+*   [Firebase 分析](https://firebase.google.com/docs/analytics/) 根据版本给出一个指标分类，并直接连接到 FRC。
 
 * * *
 
-**Remember:** Analysis is crucial when it comes to A/B testing. Together, A/B testing and analysis can give you the insight you need to drive your app’s future design and development and maximise its performance.
+#### 你怎么看？
+
+对使用 A/B 测试还有任何疑问或想法吗？可以在下面的评论中发布讨论，或者使用标签 #AskPlayDev，我们将会在 [@GooglePlayDev](http://twitter.com/googleplaydev) 里回复，我们会定期分享有关如何在 Google 上做得更好的新闻和提示。
+
+* * *
+
+**记住：** 分析对于 A/B 测试至关重要。 A/B 测试和分析结合在一起，可以开拓你的视野，推动你的 app 之后的设计和开发，最大限度地让其做到最好。
 
 
 ---
