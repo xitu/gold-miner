@@ -84,8 +84,8 @@ _如果你发现有错误或者遗漏了什么重要的东西,请在下方评论
 
 像屏幕旋转或窗口大小改变，这种配置变化应该能够让用户在变化后继续无缝使用。
 
-* activity 会被完全 destroy，但是**应用的状态会被保存下来并在下一个应用实例中恢复**。
-* 在`onCreate` 和 `onRestoreInstanceState` 的 Bundle 对象也是一样会被保存。
+* activity 会被完全 destroy，但是 **activity 的状态会被保存下来并在下一个实例中恢复**。
+* 在`onCreate` 和 `onRestoreInstanceState` 中的 Bundle 对象是相同的。
 
 * * *
 
