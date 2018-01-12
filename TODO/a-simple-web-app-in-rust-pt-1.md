@@ -166,7 +166,9 @@ $ cargo new -h
 
 选项:
     -h, --help          显示帮助信息
-    --vcs <vcs>         指定初始化的版本管理系统（git or hg）或者不使用版本管理系统
+    --vcs <vcs>         指定初始化的版本管理系统
+                        使用 git 或者 hg
+                        或者不使用版本管理系统（none）
     --bin               创建可执行文件工程而不是库工程
     --name <name>       设置结果包名
     -v, --verbose       使用详细的输出
