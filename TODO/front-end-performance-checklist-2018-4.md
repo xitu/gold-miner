@@ -6,35 +6,62 @@
 > * 校对者：
 
 # Front-End Performance Checklist 2018 - Part 4
+# 2018 前端性能优化清单 - 第 4 部分
 
 Below you’ll find an overview of the front-end performance issues you mightneed to consider to ensure that your response times are fast and smooth.
+
+下面是前端性能问题的概述，您可能需要考虑已确保您的响应时间是快速和平滑的。
 
 - [Front-End Performance Checklist 2018 - Part 1](https://github.com/xitu/gold-miner/blob/master/TODO/front-end-performance-checklist-2018-1.md)
 - [Front-End Performance Checklist 2018 - Part 2](https://github.com/xitu/gold-miner/blob/master/TODO/front-end-performance-checklist-2018-2.md)
 - [Front-End Performance Checklist 2018 - Part 3](https://github.com/xitu/gold-miner/blob/master/TODO/front-end-performance-checklist-2018-3.md)
 - [Front-End Performance Checklist 2018 - Part 4](https://github.com/xitu/gold-miner/blob/master/TODO/front-end-performance-checklist-2018-4.md)
 
+- [2018 前端性能优化清单 - 第 1 部分](https://github.com/xitu/gold-miner/blob/master/TODO/front-end-performance-checklist-2018-1.md)
+- [2018 前端性能优化清单 - 第 2 部分](https://github.com/xitu/gold-miner/blob/master/TODO/front-end-performance-checklist-2018-2.md)
+- [2018 前端性能优化清单 - 第 3 部分](https://github.com/xitu/gold-miner/blob/master/TODO/front-end-performance-checklist-2018-3.md)
+- [2018 前端性能优化清单 - 第 4 部分](https://github.com/xitu/gold-miner/blob/master/TODO/front-end-performance-checklist-2018-4.md)
+
 ***
 
 31. **Do you warm up the connection to speed up delivery?**
+31. **你是否对连接进行了热身以加快传输？**
 
 Use [resource hints](https://w3c.github.io/resource-hints) to save time on [`dns-prefetch`](http://caniuse.com/#search=dns-prefetch) (which performs a DNS lookup in the background), [`preconnect`](http://www.caniuse.com/#search=preconnect) (which asks the browser to start the connection handshake (DNS, TCP, TLS) in the background), [`prefetch`](http://caniuse.com/#search=prefetch) (which asks the browser to request a resource) and [`preload`](https://www.smashingmagazine.com/2016/02/preload-what-is-it-good-for/) (which prefetches resources without executing them, among other things).
 
+使用 [资源提示](https://w3c.github.io/resource-hints) 来节约时间，如 [`dns-prefetch`](http://caniuse.com/#search=dns-prefetch) （在后台执行 DNS 查询），[`preconnect`](http://www.caniuse.com/#search=preconnect) （告诉浏览器在后台进行连接握手（DNS, TCP, TLS）），[`prefetch`](http://caniuse.com/#search=prefetch) (告诉浏览器请求一个资源) and [`preload`](https://www.smashingmagazine.com/2016/02/preload-what-is-it-good-for/) (预先获取资源而不执行他们)。
+
+
 Most of the time these days, we'll be using at least `preconnect` and `dns-prefetch`, and we'll be cautious with using `prefetch` and `preload`; the former should only be used if you are very confident about what assets the user will need next (for example, in a purchasing funnel). Notice that `prerender` has been deprecated and is no longer supported.
+
+大部分时间，我们至少会使用 `preconnect` 和 `dns-prefetch`，我们会小心使用 `prefetch` 和 `preload`；前者只能用在你对用户接下来需要什么资源非常确定的情况中（类似于采购渠道）。注意，`prerender` 已被弃用，不再被支持。
 
 Note that even with `preconnect` and `dns-prefetch`, the browser has a limit on the number of hosts it will look up/connect to in parallel, so it's a safe bet to order them based on priority (_thanks Philip!_).
 
+请注意，即使使用 `preconnect` 和 `dns-prefetch`，浏览器也会对它将并行查找或连接的主机数量进行限制，因此最好是将它们根据优先级进行排序。
+
 In fact, using resource hints is probably the easiest way to boost performance, and [it works well indeed](https://medium.com/reloading/preload-prefetch-and-priorities-in-chrome-776165961bbf). When to use what? As Addy Osmani [has explained](https://medium.com/reloading/preload-prefetch-and-priorities-in-chrome-776165961bbf), we should preload resources that we have high-confidence will be used in the current page. Prefetch resources likely to be used for future navigations across multiple navigation boundaries, e.g. Webpack bundles needed for pages the user hasn't visited yet.
 
+事实上，使用资源提示可能是最简单的提高性能的方法，[它确实很有效](https://medium.com/reloading/preload-prefetch-and-priorities-in-chrome-776165961bbf)。什么时候该使用什么？Addy Osmani [解释了](https://medium.com/reloading/preload-prefetch-and-priorities-in-chrome-776165961bbf)，我们应该 preload 确定将在当前页面中使用的资源。prefetch 可能用于未来页面的资源，例如用户尚未访问的页面所需的 webpack 包。
+
 Addy's article on Loading Priorities in Chrome [shows](https://medium.com/reloading/preload-prefetch-and-priorities-in-chrome-776165961bbf) how exactly Chrome interprets resource hints, so once you've decided which assets are critical for rendering, you can assign high priority to them. To see how your requests are prioritized, you can enable a "priority" column in the Chrome DevTools network request table (as well as Safari Technology Preview).
+
+Add 的关于 Chrome 中加载优先级的文章[展示了](https://medium.com/reloading/preload-prefetch-and-priorities-in-chrome-776165961bbf) Chrome 是如何精确的解析资源提示的，因此一旦你决定哪些资源对页面渲染比较重要，你就可以给它们赋予比较高的优先级。
 
 ![the priority column in DevTools](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/34f6f27f-88a9-425a-910e-39100034def3/devtools-priority-segixq.gif)
 
 The 'Priority' column in DevTools. Image credit: Ben Schwarz, [The Critical Request](https://css-tricks.com/the-critical-request/)
 
+DevTools 中的 "Priority" 列。图片来源于：Ben Schwarz，[重要的请求](https://css-tricks.com/the-critical-request/)
+
 For example, since fonts usually are important assets on a page, it's always a good idea to [request the browser to download fonts with](https://css-tricks.com/the-critical-request/#article-header-id-2) [`preload`](https://css-tricks.com/the-critical-request/#article-header-id-2). You could also [load JavaScript dynamically](https://www.smashingmagazine.com/2016/02/preload-what-is-it-good-for/#dynamic-loading-without-execution), effectively lazy-loading execution. Also, since `<link rel="preload">` accepts a `media` attribute, you could choose to [selectively prioritize resources](https://css-tricks.com/the-critical-request/#article-header-id-3) based on `@media` query rules.
 
+例如，由于字体通常是页面上的重要资源，所以使用 [`preload`](https://css-tricks.com/the-critical-request/#article-header-id-2) [请求浏览器下载字体](https://css-tricks.com/the-critical-request/#article-header-id-2)总是一个好主意。你也可以[动态加载 JavaScript ](https://www.smashingmagazine.com/2016/02/preload-what-is-it-good-for/#dynamic-loading-without-execution)，从而有效的执行延迟加载。同样的，因为 `<link rel="preload">` 接收一个 `media` 的属性，你可以基于 `@media` 查询规则来有选择性的优先加载资源。
+
+
 A few [gotchas to keep in mind](https://dexecure.com/blog/http2-push-vs-http-preload/): preload is good for [moving the start download time of an asset](https://www.youtube.com/watch?v=RWLzUnESylc) closer to the initial request, but preloaded assets land in the memory cache which is tied to the page making the request. It means that preloaded requests cannot be shared across pages. Also, `preload` plays well with the HTTP cache: a network request is never sent if the item is already there in the HTTP cache.
+
+一些[必须牢记于心](https://dexecure.com/blog/http2-push-vs-http-preload/)的点：preload 适用于[将资源的下载时间移到](https://www.youtube.com/watch?v=RWLzUnESylc)请求开始时，但是这些缓存在内存中的预先加载的资源是绑定在所发送请求的页面上，也就意味着预先加载的请求不能被页面所共享。再者，`preload` 与 HTTP 缓存配合得也很好：如果缓存命中则不会发送网络请求。
 
 Hence, it's useful for late-discovered resources, a hero image loaded via background-image, inlining critical CSS (or JavaScript) and pre-loading the rest of the CSS (or JavaScript). Also, a `preload` tag can initiate a preload only after the browser has received the HTML from the server and the lookahead parser has found the `preload` tag. Preloading via the HTTP header is a bit faster since we don't to wait for the browser to parse the HTML to start the request. [Early Hints](https://tools.ietf.org/html/draft-ietf-httpbis-early-hints-05) will help even further, enabling preload to kick in even before the response headers for the HTML are sent.
 
