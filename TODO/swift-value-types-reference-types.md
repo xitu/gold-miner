@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/swift-value-types-reference-types.md](https://github.com/xitu/gold-miner/blob/master/TODO/swift-value-types-reference-types.md)
 > * 译者：[Deepmissea](http://deepmissea.blue)
-> * 校对者：
+> * 校对者：[VernonVan](https://github.com/VernonVan)，[LeviDing](https://leviding.com)
 
 # Swift 中的值类型与引用类型使用指北
 
@@ -11,11 +11,11 @@
 
 ## Swift 中的值类型和引用类型
 
-Swift 是一种多范式的编程语言。它有类，这是构成面向对象编程的基石。类在 Swift 中可以定义属性和方法，特定构造器，符合协议，支持集成和多态。Swift 也是一种面向协议的编程语言，通过功能丰富的协议和结构体，可以在没有继承的情况下实现抽象和多态。在 Swift 中，函数式第一类型，它可以赋给变量，作为参数和返回值在多个函数之间传递。因此 Swift 也适用于函数式编程。
+Swift 是一种多范式的编程语言。它有类，这是构成面向对象编程的基石。类在 Swift 中可以定义属性和方法，指定构造器，符合协议，支持集成和多态。Swift 也是一种面向协议的编程语言，通过功能丰富的协议和结构体，可以在没有继承的情况下实现抽象和多态。在 Swift 中，函数是第一类型，它可以赋给变量，作为参数和返回值在多个函数之间传递。因此 Swift 也适用于函数式编程。
 
 对于多数面向对象语言的开发者来说，Swift 中最大的不同就是结构体的丰富功能。除了继承以外，你在一个类里可以做什么，在结构体中同样可以做到。这就引发了问题 —— 何时并如何使用结构体和类。更通俗的说，问题是在 Swift 中何时并如何使用值类型和引用类型。
 
-为了完整需要提醒一下，结构体并不仅是 Swift 中的值类型。枚举和元组也是值类型。同样地，类也并不只是引用类型，函数也是引用类型。不过函数、枚举和元组在使用时更加特定化。Swift 在值类型和引用类型的争论中心都集中在结构体和类上。这是本文中的主要重点，所以在本文中术语值类型和引用类型可以和术语结构体和类相互转换。
+为了完整需要提醒一下，Swift 中的值类型并不仅仅只有结构体。枚举和元组也是值类型。同样地，引用类型并不只有类，函数也是引用类型。不过函数、枚举和元组在使用时更加特定化。Swift 在值类型和引用类型的争论中心都集中在结构体和类上。这是本文中的主要重点，所以在本文中术语值类型和引用类型可以和术语结构体和类相互转换。
 
 现在让我们从一些基本原理开始，即值和引用语义的区别。
 
@@ -154,11 +154,11 @@ Swift 使用自动引用计数，并在没有引用的情况下，释放引用�
 
 如上面提到过的，把引用类型的属性封装为值类型的实例，以达到封装状态，表示业务规则并且暴露行为的目的是非常可取的。这些值类型可以高效传递，而不用担心意外后果，如线程安全性等。但是，值类型应该保存引用类型的实例吗？这通常应该避免，因为在值类型上使用引用类型属性会引入堆分配，引用计数和隐式数据共享，影响值类型的性能和其他优点。事实上，它会导致值类型失去其基于属性的平等，淡化标识和可替代性的特点。因此，重要的是要遵守规则，不能以损害两者完整性的方式来结合值与引用语义。
 
-有很多方式描述了值类型和引用类型是如何在实际应用中工作的。如 [Andy Matuschak](https://twitter.com/andy_matuschak) 在[此这篇文章](https://www.objc.io/issues/16-swift/swift-classes-vs-structs/)中所说的：把对象看作是可预测的纯净的值层之上的一个轻薄的必要的层。在 Andy 的文章的参考文献部分是 [Gary Bernhardt](https://twitter.com/garybernhardt) 的[这次演讲](https://www.destroyallsoftware.com/talks/boundaries)，一种使用他称之为的函数性核心和命令式外壳来构建系统的方法。函数核心由纯粹的值，特定领域逻辑和业务规则组成。很容易得出，这套系统有利于并发并且易于测试，因为它通过命令式外壳与外部依赖隔离，因此保留了状态并连接到用户界面，持久性机制，网络等等。
+有很多方式描述了值类型和引用类型是如何在实际应用中工作的。如 [Andy Matuschak](https://twitter.com/andy_matuschak) 在[这篇文章](https://www.objc.io/issues/16-swift/swift-classes-vs-structs/)中所说的：把对象看作是可预测的纯净的值层之上的一个轻薄的必要的层。在 Andy 的文章的参考文献部分是 [Gary Bernhardt](https://twitter.com/garybernhardt) 的[这次演讲](https://www.destroyallsoftware.com/talks/boundaries)，一种使用他称之为的函数性核心和命令式外壳来构建系统的方法。函数核心由纯粹的值，特定领域逻辑和业务规则组成。很容易得出，这套系统有利于并发并且易于测试，因为它通过命令式外壳与外部依赖隔离，因此保留了状态并连接到用户界面，持久化机制，网络等等。
 
 ## Swift 标准库与 Cocoa 框架
 
-Swift 的标准库主要由值类型组成。所有的内建基本类型和集合都被实现为结构体。构成 Cocoa 框架的部分主要由类构成。有些地方需要类的原因是，类对于 MVC，用户界面元素，网络连接，文件处理等等是很恰当的方式。
+Swift 的标准库主要由值类型组成。所有的内建基本类型和集合都是用结构体实现的。构成 Cocoa 框架的部分主要由类构成。有些地方需要类的原因是，类对于 MVC，用户界面元素，网络连接，文件处理等等是很恰当的方式。
 
 但是 Cocoa 在 Foundation 框架里也有很多类是值类型的，不过作为引用类型而存在，因为他们是用 Objective-C 来编写的。这就是 Swift 标准覆盖的地方，为越来越多的 Objective-C 引用类型提供了值类型的桥接。更多桥接类型和 Swift 与 Cocoa 框架之间交互的细节，可以看看[苹果开发者网站上的这一页](https://developer.apple.com/library/content/documentation/Swift/Conceptual/BuildingCocoaApps/WorkingWithCocoaDataTypes.html#//apple_ref/doc/uid/TP40014216-CH6-ID61)。
 
