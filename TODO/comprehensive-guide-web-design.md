@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/comprehensive-guide-web-design.md](https://github.com/xitu/gold-miner/blob/master/TODO/comprehensive-guide-web-design.md)
 > * 译者：[horizon13th](https://github.com/horizon13th)
-> * 校对者：
+> * 校对者：[pot-code](https://github.com/pot-code)
         
 # A Comprehensive Guide To Web Design
 # 网站设计综合指南
