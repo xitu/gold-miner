@@ -2,253 +2,254 @@
 > * 原文作者：[Player Research](https://medium.com/@player_research?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/how-to-build-mobile-games-with-people-in-mind.md](https://github.com/xitu/gold-miner/blob/master/TODO/how-to-build-mobile-games-with-people-in-mind.md)
-> * 译者：
-> * 校对者：
+> * 译者：[hanliuxin5](https://github.com/hanliuxin5)
+> * 校对者：[Potpot](https://github.com/pot-code)，[Quorafind](https://github.com/Quorafind)
 
-# How to build mobile games with people in mind
+# 如何打造以人为本的移动游戏
 
-User experience design principles to help you build games people want to play by [Seb Long](https://twitter.com/seb_long), [Harvey Owen](https://medium.com/@harvey_2330) and [Gareth Lloyd](https://medium.com/@garethlloyd)
+用户体验的设计原则，用来帮助您打造人们想要的游戏。来自 [Seb Long](https://twitter.com/seb_long)，[Harvey Owen](https://medium.com/@harvey_2330) 和 [Gareth Lloyd](https://medium.com/@garethlloyd)。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*LsuiN_0VYxDOVHYSuyDPKg.png)
 
-The audience for mobile games continues to expand globally. As a result, developers face the challenge of building games that meet the needs of a wide range of users, while wanting to differentiate their game from the crowd with a great user experience. The complexity of this challenge means that despite the best intentions, sometimes the players’ experience of a mobile game differs from the intention of the design. There are many nuanced and player-centric reasons why this might happen. The most difficult disparities to uncover are rooted in human psychology; influencing factors such as how your player audience thinks, learns, perceives, and interacts with your games.
+随着移动游戏的受众在全球范围内不断扩大。带来的结果是，开发者不仅要满足各种玩家的胃口，还要努力打造良好的用户体验来让自己的游戏从竞争激烈的市场中脱颖而出。这项挑战的复杂性在于不管您的初衷有多好，有时候移动游戏用户的体验还是会与设计的初衷相背离。在这里面有许多不易察觉并且植根于玩家本身的原因，而这些原因能解释为什么这些情况会发生。而其中最难以察觉的差异源于人们的内心；至于影响因素则例如，如您的玩家是怎样看待，如何了解，怎么感受以及是如何参与您的游戏这些影响因素。
 
-We are [Player Research](http://www.playerresearch.com/); playtesting, and user research specialists. Google Play asked us to leverage our experience assessing hundreds of games, to build a set of principles to help you create an engaging, accessible, learnable, and rewarding game for all your players. Using these principles as ‘lenses’ on your game can help identify player experience risks, assumptions, and flaws. Addressing them will increase your chances of crafting an engaging, learnable, and rewarding game for all your players by factoring human psychology into game design.
+我们来自 [Player Research](http://www.playerresearch.com/)，是游戏测试以及用户研究方面的专家。Google Play 邀请我们利用我们评估过数以百计的游戏的经验，来建立一套可以帮助您为所有玩家创造一个引人入胜的，易于学习的，有益的游戏的原则。在评估中秉承这些原则可以帮你发现用户体验中的风险、瑕疵和未能达到设计预期的地方；在开发中遵守这几项原则能提高玩家的参与度和积极性，游戏也更容易上手，可玩性也会提高。当然，这需要在设计中使用一些心理学的技巧。
 
-The principles are presented alongside questions to ask about your audience, to discuss as a team, or to help guide your playtests with players. While not exhaustive, these questions should prompt teams to identify disparities between design intent and a player’s experience.
+这些原则和问题一起提出的目的，是为了您可以咨询您的受众，或是为了可以作为一个团队来讨论，还或是为了可以指导您开展让玩家参与的测试。也许这些问题算不上详细，但是它们应该能促使团队找出设计初衷与玩家体验之间的差异。
 
-We’ve grouped these UX principles into two main focus areas:
+我们将这些用户体验原则分成了两大主要领域：
 
-* **Breaking barriers**: Eliminating hidden ‘barriers to fun’ by accommodating how players see, hear, think, interact, and live with a game.
-* **Building structure**: Helping players understand, learn, and progress by designing a game to be learnable, and with a clearly presented and understood sense of progression and depth.
+* **打破障碍**：通过遵循玩家如何看待，听闻，思考，参与游戏并与其相伴的方式，消除隐藏的“乐趣障碍”。
+* **构造体系**：通过设计一个可以学习的游戏帮助玩家理解，掌握和进步，并且能够清晰呈现出玩家理解程度的进度和深度。
 
-By addressing these areas, you can ensure that a game’s challenge, frustration, and confusion originate from where you intend, rather than from unforeseen consequences of design decisions.
+通过解决这些问题，您可以确保游戏中的挑战，挫折和困境都是预料之中的，而不是因为设计决策而产生的预料之外的结果。
 
 ![](https://cdn-images-1.medium.com/max/800/1*JzehAQxovGnC1jSopxIZfA.png)
 
-### **Breaking barriers**
+### **打破障碍**
 
-**Accommodating how players see, hear, think, interact, and live**
+**遵循玩家如何看待，听闻，思考，参与游戏并与其相伴的方式**
 
-The _first set of principles_ ask you to consider your players physical and psychological constraints; and whether your players can enjoy your game as part of their everyday lives. Games that break these principles are ripe for a quick uninstall. Players who immediately find frustration or confusion in their basic interactions with a game, or blockers that prevent them from understanding the game, are unlikely to progress beyond the first experience: _“This game just isn’t for me”._
+第一大原则要求您考虑你的玩家生理和心理上的承受能力；以及您的玩家们能否将您的游戏看作他们日常生活的一部分来享受。那些不遵守这条原则的游戏很快就会被卸载。有些玩家，初次上手就立即有了挫折感或者迷惑感，又或者出现一些阻碍他们理解游戏的东西的话，他们应该不太可能再打开你的游戏了：**“我可能不太适合这款游戏”。**
 
-> _Take a look at what your games do to usher in new players. No-one says you have to implement your findings if you don’t want to, no-one says you have to dial back on the challenge in a game or sacrifice complexity. Maybe your game isn’t meant to be more accessible, [but] maybe you’ll find that it is a good idea to reconsider.
-> _ — Rami Ismail, Vlambeer ([source](https://www.gamasutra.com/blogs/RamiIsmail/20121105/180905/An_argument_for_easy_achievements.php))
+> **看一看你的游戏是如何欢迎新手的。不是说要让你必须对玩家的诉求百依百顺，不是说要让你必须降低游戏的挑战或是牺牲复杂度。有可能你的游戏本来就是硬核游戏，[但是] 重新思考一下这些问题何尝不是一个好主意呢。**
+>  —  Rami Ismail,Vlambeer([source](https://www.gamasutra.com/blogs/RamiIsmail/20121105/180905/An_argument_for_easy_achievements.php))
 
-#### **Principle 1: Audience-suitable complexity**
+#### **原则 1：适众的复杂**
 
-Complexity is not just something you design into your game; as perceived by players, **complexity arises from both the game’s design and players’ capabilities**. You’re likely to be a master at your game; but players’ cognitive, motor, and perceptual abilities won’t necessarily match yours. Your target players — regardless of age or gaming experience — will have their limits regarding acceptable game complexity. Unless these limits are accounted for in design, games can quickly become too complicated or demanding.
+复杂度不仅仅是一些您放进游戏设计里的东西；还有玩家的感受，**复杂度产生于游戏设计和玩家能耐间的化学反应**。或许您可能非常精通您的游戏；但玩家的认知，运动和感知能力并不一定赶得上您。您的目标玩家 － 无论年龄或游戏经验如何 － 都会对游戏的复杂度有一个可接受的上限。除非在设计上就考虑到这些限度，否则游戏可能很快就会变得过于复杂或苛刻。
 
-Designing audience-suitable complexity means knowing who your audience are, and understanding their **capabilities** across functional domains, such as memory, attention, language processing, and motor skills. These functional domains can happily work in parallel, allowing us to carry out everyday tasks that draw on them all at the same time, or focus on a single domain to tackle a new or exceptionally demanding task. But, high demands in any one domain can reduce the effectiveness of the others; and high demands in multiple domains is a recipe for bad performance and confusion. So, assess the **demands** of your game in terms of those various domains. What changes can be made so that they match up? Could you reduce complexity without affecting the core gameplay?
+设计适众复杂度意味着清楚谁是您的受众，了解他们跨功能域的**能力**，比如记忆力，注意力，语言能力和运动能力。这些功能域能够顺利地并行工作，使我们能够同时进行所有的日常任务，或者专注在某单一领域来解决全新的或特别苛刻的任务。但是，对任意单一领域的高要求都会导致降低在其他领域的能力；而对多个领域的高要求正中坏表现且难理解的游戏的下怀。所以，根据这些不同的领域来评估你游戏的需求。什么样的改变能够被作出以用来满足其需求？能在不影响核心游戏体验的情况下降低复杂度吗？
 
-By understanding the relationship between capabilities and demands, games can be designed to fit any target audience. Here are some questions you can use to assess the audience-complexity fit of your game:
+通过理解玩家的能力和其需求之间的关系，游戏可以被设计成来适应任何目标受众。以下是一些您可以用来评估游戏适众复杂度的问题：
 
-Questions to ask about your players
+一些有关您玩家的问题
 
-* What are our target audience’s visual, motor, and cognitive capabilities?
-* How do our target audience vary in terms of abilities including language and numeracy?
+* 我们目标受众的视觉，运动和认知能力是怎么样的？
+* 我们的目标受众如何在语言和算术能力方面有所不同？
 
-Questions to ask your team
+一些问您团队的问题
 
-* How have we ensured that our game is accessible and offers an optimal challenge considering our target audience’s current visual, motor, and cognitive capabilities?
-* Should we adapt our game experience to accommodate differences in abilities?
-* How early should we bring in users to test the experience?
-* How might we protect our game from ‘complexity creep’ during development?
+* 我们如何确保我们的游戏是易于上手的，并考虑过根据目标受众当前的视觉，运动和认知能力来提供最佳挑战？
+* 我们是否应该调整我们的游戏体验来适应不同能力间的差异
+* 我们应该多早让用户进入游戏来测试其体验？
+* 我们应该如何在游戏开发过程中避免“复杂多变的需求”？
 
-Questions to ask your players
+问问您的玩家
 
-* Did you feel confused at any point while you were playing?
-* While playing, did you feel like you had all the information you needed? Did you know where to find it?
-* Can you show me how to find [feature] in the menus? Were you able to use the menus easily?
-* Do you feel like this game is ‘for you’? Is it aimed at you? If not, who is it aimed at?
+* 在玩游戏时，您有过感到困惑的时候吗？
+* 在玩游戏时，您是否觉得自己拥有了所有您需要知道的信息？您知道在哪里找到它吗？
+* 您能告诉我如何在菜单中找到[功能]吗？您是否能够容易地使用菜单？
+* 您觉得这款游戏“对您的胃口“吗？这是针对您设计的吗？如果不是，那是针对谁设计的呢？
 
-#### **Principle 2: Designing for flexibility**
+#### **原则 2：灵活的设计**
 
-Designing towards your target audience’s capabilities is a great start. But no matter how well you do that, there will always be differences among your players, in terms of their experiences, preferences, and the environments where they play. **Accommodating for differences among players in your target audience is just as important as defining your audience**.
+向着您的目标受众设计游戏是一个很好的开始。但是不管您做得多好，就拿您玩家的经验，偏好，和所处的环境来说，他们之间总会存在差异。**接受您目标受众中存在的差异与定义您的受众同样重要**。
 
-Games are a part of everyday life for people, so where possible games should be designed to be flexible to allow for the various contexts in which they are played. The real world offers interruptions, both on the device and off. To ensure your game fits neatly into people’s lives, make sure it supports flexible session lengths, customizable control and audiovisual settings, and accommodates for distraction and task-switching.
+游戏是人们日常生活的一部分，所以在尽可能的情况下，应该将游戏设计得灵活一些以适应玩游戏的不同环境。真实世界里到处都是打断，不论你是否打开了设备。为了使您的游戏适合人们的生活，请您确保它支持灵活的游戏时间，可定制化的控制和视听设置，并可以适应碎片化的游戏节奏。
 
-For example, in [Hearthstone Blizzard](https://play.google.com/store/apps/details?id=com.blizzard.wtcg.hearthstone) built in features to accommodate long interruptions in play:
+比如，在 [炉石传说](https://play.google.com/store/apps/details?id=com.blizzard.wtcg.hearthstone) 中的内置功能可以应付长时间的暂离：
 
-> _Players returning to Hearthstone after a break often still think of themselves as experts, so a traditional hand holding tutorial could be seen as oversimplified and insulting. Instead, we offer a set of quick pop-ups to let them know what’s changed and a couple of unique daily quests to guide them back into the flow of the game.
-> _— John Hopson, Senior User Research Manager, Blizzard Entertainment
+> **那些离开了炉石传说一段时间的玩家回归后往往仍然认为自己很厉害，如果再次手把手地教他们游戏会让他们觉得浪费时间和你在侮辱他们的智商。取而代之的是，我们提供了一些快速弹出的窗口，让他们了解当前的游戏有哪些变化，以及一些独特的日常任务，来引导他们重回旅店。**
+>  — John Hopson，暴雪娱乐高级用户研究经理
 
-Here are some questions to ask that can help you assess flexibility in your game:
+以下是一些可以帮助您评估游戏灵活性的问题：
 
-Questions to ask about your players
+一些有关您玩家的问题
 
-* Where, when, and on which devices are our players playing the game?
-* What aspects of that context could impact gameplay?
-* Does our projected session length match players’ _actual_ session lengths, and fit into their real lives?
-* Do we provide enough time for players to perceive and comprehend gameplay feedback?
+* 我们的玩家何时何地在何种设备上玩游戏？
+* 哪些方面的内容可能会影响游戏性？
+* 我们预计的游戏时长和玩家**真实的**游戏时长相匹配吗？和他们的现实生活相协调吗？
+* 我们给予了足够的时间来感知和理解玩家的游戏反馈吗？
 
-Questions to ask your team
+一些问您团队的问题
 
-* How might we let players personalize their experience to their everyday _preferences and capabilities_, such as offering video and audio settings?
-* Can we design gameplay that accommodates interruptions?
-* How could we accommodate players returning to the game after a long period away?
-* Do the game controls reflect players’ ergonomic restrictions when holding their device, for example, require them to reach across the screen or potentially cover elements with their fingers?
-* Can we give players the option to automate, hide, or turn off gameplay features that are not core mechanics?
+* 我们如何让玩家将他们的个性化体验应用在为他们的日常**偏好**和**功能**上，如提供视频和音频设置？
+* 我们需要将游戏设计成可中断式的吗？
+* 如何对待那些离开了很长时间后重返游戏的老玩家呢？
+* 操作游戏的方式是否科学合理，比如是否在双手持设备时再让他们用右手点击屏幕左上角的按钮？
+* 我们是否给予了玩家选择可以“挂机”，隐藏或关闭非核心游戏机制的功能呢？
 
-Questions to ask your players
+问问您的玩家
 
-* How often do you find that you are interrupted during game play?
-* When your game was interrupted, what happened when you returned to the game? Was that what you expected to happen? If not, why not?
-* Did you change any settings in the game?
-* Was there anything about the game or the controls that you would have liked to be able to change?
+* 在进行游戏时您被中断的频率是怎么样的？
+* 当您的游戏被中断后，再次返回游戏会发生什么呢？那是您期望发生的吗？如果不是，为什么呢？
+* 您改变过游戏的任何设置吗？
+* 你是否会希望关于游戏本身或其操作方式有任何改变呢？
 
 ![](https://cdn-images-1.medium.com/max/800/1*yi7pXoB8CGviwAURA6GLKg.png)
 
-### **Building structure**
+### **构造体系**
 
-**Helping players to understand, learn, and progress**
+**帮助玩家理解，掌握和进步**
 
-While it’s important to address potential barriers to play, player experience also plays a role in converting an audience of first-time players into experts and fans. By emphasizing learnability and the connectivity of features in your game, you can communicate game knowledge and skills to players, and guide them along the journey you have designed. In turn, they will play the game as you have envisioned.
+在解决潜在的阻止游戏的障碍是很重要的同时，玩家的体验也扮演着将新进入游戏的玩家转变成老手和爱好者的角色。通过强调您游戏中的可学习性和各功能之间的关联性，您可以向玩家传授游戏知识和技巧，并且引导他们踏上您设计的游戏旅程。最终，他们会按照您设想的方式来进行游戏。
 
-#### **Principle 3: Leverage familiarity**
+#### **原则 3：＂熟悉＂的力量**
 
-Players learn game features effortlessly when aspects are already known to them in some way: as platform or genre standards, or because they mirror the real world. Players recognize progression structures from similar games, such as earning a certain number of stars to progress to a new area. Widely-used and immediately recognizable real-world iconography and behaviors can also be employed, such as pulling and releasing a slingshot. When designed with familiarity in mind, players can make valid, educated guesses about how items, features, or interactions will behave.
+玩家可以毫不费力地学习游戏的功能，前提是它们已经以某种方式被人们所熟知：比如某种体系或者大众标准，或者它们和现实世界是如出一辙的。玩家可以辨别出相似的通关策略，比如获得一定的评分后才能解锁进入下一环节。可以运用来自真实世界里广为人并且能轻易识别的影像和行为，比如拉动和发射弹弓。当以熟悉为本来设计游戏时，玩家可以对游戏元素，特性，或者交互行为进行有效的，启发性的猜测。
 
-Familiarity can also come from internal consistency. As players spend more time with the game, its visual language becomes familiar and recognizable. Associating consistent iconography, terminology, and coloration with game features and functions helps players build a strong mental model of a game. Maintaining this consistency will help players to predict the function of new features, without having to be explicitly taught.
+熟悉也可以来自于内部的一致性。随着玩家花在游戏中的时间越来越多，其视觉表现也变得熟悉和可识别。将拥有一致性的图像，术语，颜色表现和游戏特性相关联，可以帮助玩家建立强大的游戏思维。保持这种一致性将有助于玩家预测游戏的新功能和特性，而省去明确地教导他们的步骤。
 
-> _When we design UX at King, understanding and responding to our player’s expectations is paramount. All products exist within their context, and our players have grown to recognize and expect the visual shorthand of mobile games. Adhering to these expectations (and knowing when to break them!) helps us to craft delightful experiences, where the player can focus on the fun with minimal cognitive load._
-> — Caitlin Goodale, User Experience Designer, [King](https://play.google.com/store/apps/dev?id=6577204690045492686)
+> **当我们在设计 King 的用户体验时，理解和响应我们玩家的期望是最重要的。所有的产品都要有它们的背景，而我们的玩家已经发展到可以识别并且预测出移动游戏里答案板。秉承这些期望（并知道何时打破它们！）帮助我们创造令人愉悦的游戏体验，玩家可以用最小的认知代价来专注于乐趣。**
+>  — Caitlin Goodale，用户体验设计师，[King](https://play.google.com/store/apps/dev？id=6577204690045492686)
 
-Questions to ask about your players
+一些有关您玩家的问题
 
-* What are the players’ norms and expectations around gameplay mechanics?
+* 玩家对关于游戏机制的规范和期望是什么？
 
-Questions to ask your team
+一些问您团队的问题
 
-* Is the UI laid out in a manner that is consistent with players’ existing mental models?
-* How can our mechanics, features, and interactions be made more intuitive and understandable using our players’ _real-world knowledge_?
-* How can our mechanics, features, and interactions be made more intuitive and understandable by being consistent with _other aspects of our game_? And _other games_ that our audience may have played?
-* Can we ensure our iconography and terminology is distinct and can be recognized quickly?
+* 用户界面是否与玩家现有的心智模式一致？
+* 如何通过我们玩家的**真实世界知识**来使得我们的游戏机制，特性和交互更加直观和更加易于理解？
+* 如何通过保持**我们游戏的其他方面**的一致性来使得我们的游戏机制，特性和交互更加直观和更加易于理解？或者我们玩家玩过的**别人的游戏** ？
+* 我们能够确保我们的图像和术语是独特的并且可以快速识别的吗？
 
-Questions to ask your players
+问问您的玩家
 
-* What do you think these icons mean at first glance?
-* How might you expect this feature to work?
-* Did this feature work as you expected it to? If not, why not?
-* Was there anything in the game that didn’t work as you expected it to?
-* Is this feature something that you’ve seen in other games?
+* 您认为这些图标初看之下是什么意思呢？
+* 在您的预想中这项特性是如何工作的呢？
+* 这个特性是否达到了您的预期呢？如果没有，为什么呢？
+* 游戏中有任何事情没能够按照您预期的那样运作吗？
+* 这些个特性您有在其他游戏中瞧见吗？
 
-#### **Principle 4: Assistance nearby**
+#### **原则 4：适当的帮助**
 
-New players usually start with a game by trying to play it, even if they don’t fully understand it. Motivated players will most likely learn through play, trial, and error.
+新玩家往往是抱着试试看的心态来接触一款游戏的，即使他们并没有完全理解它。积极主动的玩家则一般会通过进行游戏，不断摸索和试错体验来学习游戏之道。
 
-But successful learning through exploration doesn’t come for free; comprehensive feedback systems and safeguards are needed as players inexpertly interact with the game while they figure it out. To learn, players need feedback that is rich, relevant, and timely, allowing them to understand their effect on the gameworld.
+但是通过自主探索来获得有效的游戏之道是有代价的；由于玩家在不知不觉地随时与游戏进行着交互，所以全面的反馈系统和保护措施是必须的。为了学习游戏之道，玩家需要全面的，有关联的的和及时的反馈，来让他们了解其行为对游戏世界的影响。
 
-Learning through discovery is also more effective when players are in a safe environment. This should emphasize practice, perhaps by appropriate “chunking” game concepts into approachable trial-and-error sections. It should also allow players to recover from errors, whether by design — for example, by being generous with resources early on — or by providing options to undo in-game actions while learning to play.
+当玩家处在安全的环境中时，通过自主发现学习如何游戏才会更加有效。这里应该注重的是实践，也许可以通过适当的“分块”游戏概念来使游戏进入平易近人的试错阶段。并且它也应该允许玩家从错误中恢复到正常状态，无论是通过游戏机制还是其他方式 － 比如在学习如何游戏时，慷慨地尽早提供资源或者提供选项来使得玩家可以撤销其操作。
 
-Players feeling confused — or simply wanting to learn more — can also be prompted with extra information: ‘read more’ help, ‘information’ buttons, and even full-blown manuals or customer support contact information. However, avoid relying on these resources as the only way for players to understand your game. Although the instructional needs of each game are different, it’s best to enable players to learn as a result of playing with your game.
+玩家感到困惑或者只是单纯想要了解更多时，也可以提供一些额外的信息：“获取更多“的帮助提示，“信息“按钮，甚至是全面的游戏手册或是客户支持的联系信息。然而，需要尽量避免依靠这些方法作为玩家理解您游戏的唯一途径。尽管每个游戏的上手攻略都不尽相同，但是最好通过让玩家在进行游戏的过程中来学习如何游戏。
 
-Questions to ask about your players
+一些有关您玩家的问题
 
-* Are your players more likely to learn by exploring your game or by relying on help?
+* 您的玩家更可能通过探索游戏来学习还是者更可能通过依靠帮助来学习？
 
-Questions to ask your team
+一些问您团队的问题
 
-* What are the ideal times (and locations) to present players with supportive information?
-* What undesirable errors might players make in our game, and how might we elegantly protect them from that negative experience?
-* How might our gameplay feedback better communicate player’s influence on the gameworld?
+* 向玩家提供帮助支持信息的理想时间和地点是什么？
+* 玩家会在我们的游戏中制造出什么不应该的错误，我们如何巧妙地保护他们免受这样的负面体验？
+* 我们的玩法反馈如何更好地向玩家传达其对游戏世界的影响？
 
-Questions to ask your players
+问问您的玩家
 
-* Did you ever make any mistakes that you couldn’t recover from? If so, what happened?
-* Do you prefer to figure out how to play these sorts of games on your own? Could you do that in this game?
-* Did you see any help messages in the game while you were playing? Did you take their advice, and were they useful?
-* Did you go looking for further help or information about how to play? Where would you expect to find that information?
-* Did you feel like you knew when you were doing well or badly in the game?
+* 您有没有犯过任何您无法从其中恢复正常的错误？如果是这样，发生了什么？
+* 您倾向于自己去弄清楚如何玩这些游戏吗？您能在这个游戏中做到吗？
+* 在玩游戏时，您有没有在游戏中看到过任何帮助信息？你有没有听取它们的意见呢？它们起作用了吗？
+* 您有没有进一步地去寻求一些如何进行游戏的帮助或信息？您期望在哪里找到这些信息呢？
+* 您有觉得自己有知道自己在游戏里的表现是优秀还是差劲吗？
 
-#### **Principle 5: Effective, minimal tutorials**
+#### **原则 5：精简的教程**
 
 ![](https://cdn-images-1.medium.com/max/600/1*b5AAnrLnYQWCn-QJGEVLSw.png)
 
-In situations where teaching methods based on player intuition, familiarity, and trial-and-error discovery aren’t effective, games need to explain themselves clearly. Tutorials, text prompts, and ‘click here’ sequences are common methods of teaching.
+在基于玩家直觉，熟悉度和试错体验的教学方法都无效的情况下，游戏就需要自己来清楚地来解释自己。教程，文字提示，和“点击下一步“的方法是比较常见的教学方法。
 
-Excessive reliance on tutorials can overwhelm players by asking them to remember too much, or make them feel stifled by an inflexible experience. However, in the absence of other methods for players to learn how to play your game, a lack of tutorials can leave players lost.
+过度依赖教程来让玩家记忆大量的东西很可能会压跨玩家，或是因为其死板的体验让玩家窒息。然而，在缺乏其他让玩家学习如何进行游戏的方法的情况下，教程的缺失很可能带来玩家的流失。
 
-Playtesting and iterative design can help to pin down the ‘Goldilocks’ tutorial for your audience: the right amount to teach your players the fundamental concepts and features of your game, while balancing explicit tuition with learning through familiarity, intuition, and assistance.
+游戏测试和迭代设计有助于为您的受众确定“金发姑娘原则”教程：适度的来教导您的玩家关于您游戏的基本概念和特性，同时通过熟悉度，直觉和一些协助来平衡学习成本。
 
-Questions to ask about your players
+一些有关您玩家的问题
 
-* Are your players likely to be particularly resistant to tutorials?
+* 你的玩家是否可能对教程特别有抵触情绪？
 
-Questions to ask your team
+一些问您团队的问题
 
-* Is our UI accurately communicating the game structure to players?
-* Can players recognize our gameplay feedback and are they able to respond as we want them to?
-* Which areas need more — or less — tutorialization?
-* Have we maximized opportunities to teach players (for example through loading screens, pause menus, teaching through menu interactions, videos, or cutscenes)?
-* Are we using tutorials in the right places?
+* 我们的 UI 是否准确地向玩家传达了游戏本身？
+* 玩家是否可以识别我们游戏的玩法反馈，并且能够按照我们的想法做出回应？
+* 哪些领域需要更多或更少的教程？
+* 我们尽了最大限度的努力来教导玩家（例如通过加载屏幕，暂停菜单，菜单交互，视频或过场动画）吗？
+* 我们是否在正确的地方使用了教程？
 
-Questions to ask your players
+问问您的玩家
 
-* Are tutorials something you feel comfortable using while learning a new game?
-* Did you feel restricted by the tutorials in the game? Were there times where you would have preferred to learn on your own?
-* Were you able to understand each tutorial? Did you manage to quickly learn what it was trying to teach you?
+* 在学习新游戏的过程中，教程是否让您感觉自在？
+* 你觉得游戏中的教程会显得愚蠢吗？是否有时候您会更喜欢自己来学习如何游戏？
+* 您能理解每一个教程吗？您有没有设法去快速地学习它想教您什么？
 
-#### **Principle 6: Clarity of depth**
+#### **原则 6： 清晰的深度**
 
-Once your players understand the basics, what’s next?
+一旦您的玩家具备了基础知识，然后呢？
 
-Clear goals give players purpose, things to work towards in a play session, and reasons to return to the game. Communicating goals in term of the structure and depth of a game — the _metagame_ — fosters _confidence_, is _rewarding_, and encourages _retention_.
+明确的目标给予了玩家游戏的意义，游戏过程中要努力的事情，以及重返游戏的理由。通过游戏的体系和其**元游戏**的深度—游戏信心的培养，奖励机制和鼓励留存，来传达游戏的目的。
 
-It’s often a challenge to communicate to players how a deeper metagame links to core gameplay loops, typically as the result of weak, abstract relationship between the two. Many games lean on familiar models to communicate basic structure and progression, such as ‘collect 3 stars’ and ‘complete the previous level to advance.’
+向玩家传达一个更深的元游戏如何关联到核心游戏体系往往是一个挑战，而结果通常是由两者之间的脆弱的，抽象的关系来决定的。许多游戏依靠熟悉的机制来向传达其基本体系和游戏进展，比如“收集到3颗星“和“完成上一等级才能继续冒险“。
 
-Rewards and incentives can also be used to communicate metagame systems; but like goals, they need to be clearly understood by players. A misunderstood reward can confuse rather than reinforce players’ understanding of how and why they progress in the game.
+奖励也可以用来表现元游戏系统；但是就像游戏目标一样，它们需要被玩家清楚地理解。一个被误解的奖励可能会混淆而不是加强玩家对游戏进展的理解。
 
-Other players can also provide a source of depth, and potentially an endless metagame. Social interaction and competition between players — via leaderboards, player versus player, co-operative play, ‘clans’, social sharing or simply just chat — can be an incredibly engaging and may be a potentially limitless source of depth. These methods can be challenging to implement however: not only because of the technical demands involved, but also in terms of communicating how multiplayer and social interactions complement the game’s single-player content and mechanics.
+来自其他地方的玩家也可以提供游戏深度的来源，并有可能是一个无尽的元游戏。社交互动和玩家之间的竞争 — 通过排行榜，玩家对玩家，合作模式，“家族“，社交分享或者仅仅只是聊天 — 可以让玩家以不可思议的方式参与其中，这可能是一个潜在的有无限的深度的来源。然而，这些方法可能难以实施：不仅是因为涉及技术上的要求，而是在于多人模式和社交互动应该怎么样来补充游戏的单机内容和机制。
 
-These are challenging — but critical — UX issues to address, because a strong metagame means an engaged audience in the long-term. Communicating metagame systems effectively will ensure players can make confident and informed decisions about in-game purchases, and increase the likelihood that they remain active for longer before uninstalling. This is also true outside of free-to-play models: a good metagame means a captive audience for your sequels or follow-ups.
+这些亟待解决的 UX 问题不仅富有挑战性并且还很严重，因为一款牛逼的元游戏意味着受众的长期参与。有效地表现元游戏系统将确保玩家可以对游戏中的购买行为做出自信且明智的决定，并增加在玩家卸载之前花费更多游戏时间的可能性。免费模式之外也是如此：一款好的元游戏意味着有可能又一位被您后续运营所俘获的玩家。
 
-Questions to ask about your players
+一些有关您玩家的问题
 
-* Do your players seek out games with longer-term goals?
-* To what extent do players seek out this type of game for its social aspects? Do they want to play with or against other players?
+* 您的玩家是否会选择有长期目标的游戏？
+* 玩家会在多大程度上因为其社交属性来寻找这种类型的游戏？他们是想和其他玩家一起玩呢还是对抗其他玩家呢？
 
-Questions to ask your team
+一些问您团队的问题
 
-* Are we presenting longer-term goals in an understandable manner?
-* How do we meaningfully communicate the presence of other real players and how multiplayer and social interactions fit into our metagame?
-* How might we reinforce the relationship between gameplay progression and metagame progression?
-* Which features are designed to bring players back, and are they presented meaningfully to players in the first-time user experience?
+* 我们是否以可理解的方式提出了长期目标？
+* 我们如何有意义地传达其他真实玩家的存在以及如何让多人模式和社交互动融入我们的元游戏？
+* 我们如何加强游戏进程和元游戏进程之间的关系？
+* 哪些功能旨在让玩家重新回到游戏中，并且在用户的首次体验中向其呈现了有意义的内容？
 
-Questions to ask your players
+问问您的玩家
 
-* How do you progress in this game?
-* What are you trying to do in this game now?
-* What do you need to do in this game [in the long term]?
-* How do you get better at this game?
-* Will this game get more difficult?
-* Can you interact with other people in this game? How?
-* What can you buy in this game? Can you buy things to help you?
-* What do you spend to buy things in this game? How do you get more of them?
+* 您如何在这款游戏中取得进展？
+* 您现在想在这个游戏中做什么？
+* 在这个游戏中您需要做什么（从长远来看）？
+* 您如何在这款游戏中变得更好？
+* 这个游戏会变得更困难吗？
+* 您能在这个游戏中与其他人互动吗？感觉如何？
+* 您能够在这个游戏中买什么东西？您可以买东西来帮助您吗？
+* 您在这个游戏中花钱买了什么东西吗？您如何才能得到更多呢？
 
 ![](https://cdn-images-1.medium.com/max/800/1*86fbAfv5Zjh3ubVCxIP-QA.png)
 
-### **Refining focus**
+### **划重点**
 
-**Getting the balance right**
+**正确地平衡**
 
-We have discussed several ways in which you can make your game intuitive without adding complexity. But, remember, no-one wants a game that’s boring, ‘vanilla’, or uninteresting. Successful games challenge players and provide them with a sense of achievement.
+我们已经讨论过几种可以让游戏变得直观易懂而不增加其复杂度的方法。但是，请记住，没有人想要一个无聊的，没有新意的，无趣的游戏。成功的游戏挑战着玩家，并为他们提供成就感。
 
-As creative game developers, you can ignore any of these principles in the name of fun. Many successfully games use visual complexity, awkward controls, unfamiliar gameworlds, and so on. In some cases, deliberate complexity and friction can become the ‘source of challenge’ unique to the game.
+作为富有创造力的游戏开发者，您可以以有趣的名义忽略任何这些原则。许多成功的游戏有着复杂的视觉性，尴尬的控制，不熟悉的游戏世界等等。在某些情况下，故意设置的复杂性和不愉快可能成为游戏独有的“挑战来源”。
 
-However, neglecting (or making assumptions about) these principles increases the risk that your game will have unintentional barriers, and add unintended friction to players’ experiences. In short: choose your battles wisely, and try to ensure that your game is only demanding in the ways that you want it to be.
+然而，对这些原则的忽视（或认为其只是假设）会增加您的游戏存在无意义障碍的风险，并会给玩家的体验增加意想不到的不愉快。简而言之：明智地选择您的战斗，并确保您的游戏只会按照您想要的方式来展现。
 
-We hope that bringing these player-centric principles into development discussions will help you craft the experience you envision for your game. Careful and deliberate experimentation with these visual, motor, cognitive, and fundamentally _human_ design choices will increase the chances of players finding the fun you’ve made for them, and keep them coming back for more.
+我们希望将这些以玩家为中心的设计原则融入您的开发讨论中将有助于出您设计的游戏体验符合预期。从这些视觉，运动，认知上以及和在对根本的人性化设计思考后来进行仔细和深思熟虑的实验将增加玩家找到您为他们所创造的乐趣的机会，并让他们回到游戏中来以得到更多。
 
-In future articles, we will share the results of working with games developers to apply these principles to their game design.
+在将来的文章中，我们将分享我们与那些将这些原则应用于他们的游戏设计中的游戏开发者所合作的结果。
 
 * * *
 
-**What do you think?**
+**您觉得怎样？**
 
-Do you have thoughts on designing user experience for games and how human factors affect gamer behaviour? Let us know in the comments below or tweet using **#AskPlayDev** and we’ll reply from [@GooglePlayDev](http://twitter.com/googleplaydev), where we regularly share news and tips on how to be successful on Google Play.
+你有没有想过去设计游戏的用户体验以及人为因素是如何影响游戏玩家的行为的？在文章下面留言或者 twitter 中添加 **#AskPlayDev** 标签后发言，我们会通过 @GooglePlayDev（我们会在那里展示在 Google 应用商店获得成功的窍门）回复。
 
 
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
+
