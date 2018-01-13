@@ -1,4 +1,4 @@
-常用于显示用户当前在网站的位置。> * 原文地址：[A Comprehensive Guide To Web Design](https://www.smashingmagazine.com/2017/11/comprehensive-guide-web-design/?utm_source=frontendfocus&utm_medium=email)
+> * 原文地址：[A Comprehensive Guide To Web Design](https://www.smashingmagazine.com/2017/11/comprehensive-guide-web-design/?utm_source=frontendfocus&utm_medium=email)
 > * 原文作者：[Nick Babich](https://www.smashingmagazine.com/author/nickbabich)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/comprehensive-guide-web-design.md](https://github.com/xitu/gold-miner/blob/master/TODO/comprehensive-guide-web-design.md)
