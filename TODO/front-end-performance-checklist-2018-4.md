@@ -65,13 +65,23 @@ A few [gotchas to keep in mind](https://dexecure.com/blog/http2-push-vs-http-pre
 
 Hence, it's useful for late-discovered resources, a hero image loaded via background-image, inlining critical CSS (or JavaScript) and pre-loading the rest of the CSS (or JavaScript). Also, a `preload` tag can initiate a preload only after the browser has received the HTML from the server and the lookahead parser has found the `preload` tag. Preloading via the HTTP header is a bit faster since we don't to wait for the browser to parse the HTML to start the request. [Early Hints](https://tools.ietf.org/html/draft-ietf-httpbis-early-hints-05) will help even further, enabling preload to kick in even before the response headers for the HTML are sent.
 
+因此，它对后发现的资源也非常有用，如：通过 background-image 加载的一幅 hero image，内联临界 CSS （或 JavaScript），并预先加载其他 CSS （或 JavaScript）。此外，只有当浏览器从服务器接收 HTML，并且前面的解析器找到了 `preload` 标签后，`preload` 标签才可以启动预加载。由于我们不等待浏览器解析 HTML 以启动请求，所以通过 HTTP 头进行预加载要快一些。[早期提示](https://tools.ietf.org/html/draft-ietf-httpbis-early-hints-05)将有助于进一步，在发送 HTML 响应标头之前启动预加载。
+
 Beware: if you're using `preload`, `as` **must** be defined or [nothing loads](https://twitter.com/yoavweiss/status/873077451143774209), plus [Preloaded fonts without the](https://medium.com/reloading/preload-prefetch-and-priorities-in-chrome-776165961bbf) [`crossorigin`](https://medium.com/reloading/preload-prefetch-and-priorities-in-chrome-776165961bbf) [attribute will double fetch](https://medium.com/reloading/preload-prefetch-and-priorities-in-chrome-776165961bbf).
+
+请注意：如果你正在使用 `preload`，`as` **必须**定义否则[什么都不会加载](https://twitter.com/yoavweiss/status/873077451143774209)，还有，[预加载字体时如果没有 `crossorigin` 属性将会获取两次](https://medium.com/reloading/preload-prefetch-and-priorities-in-chrome-776165961bbf)
 
 32. **Have you optimized rendering performance?**
 
+32. **你优化渲染性能了吗？**
+
 Isolate expensive components with [CSS containment](http://caniuse.com/#search=contain) — for example, to limit the scope of the browser's styles, of layout and paint work for off-canvas navigation, or of third-party widgets. Make sure that there is no lag when scrolling the page or when an element is animated, and that you're consistently hitting 60 frames per second. If that's not possible, then at least making the frames per second consistent is preferable to a mixed range of 60 to 15\. Use CSS' [`will-change`](http://caniuse.com/#feat=will-change) to inform the browser of which elements and properties will change.
 
-Also, measure [runtime rendering performance](https://aerotwist.com/blog/my-performance-audit-workflow/#runtime-performance) (for example, [in DevTools](https://developers.google.com/web/tools/chrome-devtools/rendering-tools/)). To get started, check Paul Lewis' free [Udacity course on browser-rendering optimization](https://www.udacity.com/course/browser-rendering-optimization--ud860) and Emily Hayman's article on [Performant Web Animations and Interactions](https://blog.algolia.com/performant-web-animations/).
+使用 [CSS containment](http://caniuse.com/#search=contain) 隔离昂贵的组件 - 例如，限制浏览器样式、隐藏导航栏的布局和绘制，第三方组件的范围。确保在滚动页面时没有延迟，或者当一个元素进行动画时，持续地达到每秒 60 帧。如果这是不可能的，那么至少要使每秒帧数持续保持在 60 到 15 的范围。使用 CSS 的 [`will-change`](http://caniuse.com/#feat=will-change) 通知浏览器哪个元素的哪个属性将要发生变化。
+
+Also, measure [runtime rendering performance](https://aerotwist.com/blog/my-performance-audit-workflow/#runtime-performance) (for example, [in DevTools](https://developers.google.com/web/tools/chrome-devtools/rendering-tools/)). To get started, check Paul Lewis' free [Udacity course on browser-rendering optimization](https://www.udacity.com/course/browser-rendering-optimization--ud860) and Emily Hayman's article on [Performant Web Animations and Interactions](https://blog.algolia.com/performant-web-animations/)。
+
+此外，评估[运行时渲染性能](https://aerotwist.com/blog/my-performance-audit-workflow/#runtime-performance)（例如，[使用 DevTools](https://developers.google.com/web/tools/chrome-devtools/rendering-tools/)）。可以通过学习 Paul Lewis 免费的[关于浏览器渲染优化的 Udacity 课程](https://www.udacity.com/course/browser-rendering-optimization--ud860)和 Emily Hayman 的文章[优化网页动画和交互](https://blog.algolia.com/performant-web-animations/)来入门。
 
 We also have a lil' article by Sergey Chikuyonok on how to [get GPU animation right](https://www.smashingmagazine.com/2016/12/gpu-animation-doing-it-right/). Quick note: changes to GPU-composited layers are the [least expensive](https://blog.algolia.com/performant-web-animations/), so if you can get away by triggering only compositing via `opacity` and `transform`, you'll be on the right track.
 
