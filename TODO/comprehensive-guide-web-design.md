@@ -1,4 +1,4 @@
-> * 原文地址：[A Comprehensive Guide To Web Design](https://www.smashingmagazine.com/2017/11/comprehensive-guide-web-design/?utm_source=frontendfocus&utm_medium=email)
+常用于显示用户当前在网站的位置。> * 原文地址：[A Comprehensive Guide To Web Design](https://www.smashingmagazine.com/2017/11/comprehensive-guide-web-design/?utm_source=frontendfocus&utm_medium=email)
 > * 原文作者：[Nick Babich](https://www.smashingmagazine.com/author/nickbabich)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/comprehensive-guide-web-design.md](https://github.com/xitu/gold-miner/blob/master/TODO/comprehensive-guide-web-design.md)
@@ -12,7 +12,7 @@
 
 **（此博文为赞助博文）** 网站设计往往是个棘手的问题。在设计网站时，设计师和开发者往往需要考虑很多要素，从视觉表现（网页看起来如何）到功能设计（网站用起来如何）。为了细化网站设计任务，我们为读者呈上此文。
 
-本文将着重讲述设计主旨，设计启发，设计方法，为你的网站打造更好的用户体验。我们从大方向着手，例如用户旅程（怎样定义网站“骨架”），细化到单一页面（网页设计需要考虑什么）。同时我们也会提及其他的设计要素，例如移动端测试考量。
+本文将着重讲述设计主旨，设计启发，设计方法，为你的网站打造更好的用户体验。我们从大方向着手，例如用户旅程（怎样定义网站“骨架”），细化到单一页面（网页设计需要考虑什么）。同时我们也会提及其他的设计要素，例如移动端支持与测试。
 
 #### 目录
 
@@ -22,7 +22,7 @@
 2.  [全局导航 Global Navigation](#global-navigation)
 3.  [链接与菜单项 Links and Navigation Options](#links-and-navigation－Options)
 4.  [浏览器的“后退”按钮 “Back” Button in Browser ](#back-button-in-browser)
-5.  [面包屑 Breadcrumbs](#breadcrumbs)
+5.  [面包屑导航 Breadcrumbs](#breadcrumbs)
 6.  [搜索栏 Search](#search)
 
 **设计独立页面 Designing Individual Pages**
@@ -39,7 +39,7 @@
 10.  [网页表单 Web Forms](#web-forms)
 11.  [动画 Animation](#animation)
 
-**移动端考量 Mobile Considerations**
+**移动端支持 Mobile Considerations**
 
 1.  [响应式网页设计 Practice Responsive Web Design](#practice-responsive-web-design)
 2.  [从鼠标点击到手势 Going From Clickable to Tappable](#going-from-clickable-to-tappable)
@@ -49,7 +49,7 @@
 1.  [弱视用户 Users With Poor Eyesight](#users-with-poor-eyesight)
 2.  [色盲用户 Color Blind Users](#color-blind-users)
 3.  [盲人用户 Blind Users](#blind-users)
-4.  [键盘友好的体验 Keyboard-Friendly Experience](#keyboard-friendly-experience)
+4.  [键盘流用户体验 Keyboard-Friendly Experience](#keyboard-friendly-experience)
 
 **测试 Testing**
 
@@ -65,11 +65,11 @@
 
 #### Information Architecture 信息架构
 
-“信息架构”（IA）这个术语通常被误用来表示网站的目录结构。但其实这是不正确的，尽管网站菜单是信息架构的一部分，但它也仅仅是一个侧面。
+“信息架构”（IA）这个术语通常被误用来表示网站的目录结构。但其实这是不正确的，尽管网站菜单是信息架构的一部分，但它也仅仅是一个方面。
 
 信息架构指，将信息以清晰逻辑的方式组织。这种结果遵循一个目标：**帮助用户在复杂信息集合中导航**。好的信息架构提供了与用户预期一致的层级结构。然而优秀的层级结构，直观的导航都不是偶然出现的，而是用户调研和用户测试的结果。
 
-调研用户需求的方法众多。通常来说，信息架构多用于用户调研（如用户访谈，卡片分类法）：调研人员倾听用户期望，观察潜在用户如何将复杂的信息组进行归类。信息架构同样需要可用性测试的结果，来看用户是否可以有效地导航。
+调研用户需求的方法众多。通常来说，信息架构多用于用户调研（如用户访谈，卡片分类法）：调研人员倾听用户期望，观察潜在用户如何将复杂的信息组进行归类。信息架构同样需要可用性测试的结果，来看用户是否可以方便地导航。
 
 [![](https://www.smashingmagazine.com/wp-content/uploads/2017/11/37-A-Comprehensive-Guide-To-Web-Design-800w-opt.jpg)](https://www.smashingmagazine.com/wp-content/uploads/2017/11/37-A-Comprehensive-Guide-To-Web-Design-800w-opt.jpg)
 
@@ -84,7 +84,7 @@
 
 #### Global Navigation 全局导航
 
-导航是可用性的基石。如果用户在网站中难以定位，无所适从，网站再怎么好也没用。
+导航是可用性的基石。如果用户在网站中难以定位，无所适从，网站再怎么好也没用。网站导航设计需要遵从下列原则：
 
 *   **简易性** 导航应以这样的方式设计，访问者到达目的地点击次数越少越好。
 *   **清晰性** 用户不需要猜测导航选项的含义，每一个菜单项对于来访者来说不言自明。
@@ -94,7 +94,7 @@
 
 *   **根据用户需求选择导航模式** 导航设计必须遵循主流用户的需求。目标用户群期望某种特定类型的网站交互，那就以你独到的方式，让用户满足预期吧～例如：如果大部分用户都不知道汉堡包图标是啥意思，就避免使用该图标展示导航。
 *   **将导航选项区分优先次序** 有一种简单的方法来区分导航选项优先级：将用户行为任务按照不同优先级排序（高级，中级，低级），然后在布局中突出显示高优先级的用户行为路径，以及被频繁访问的节点。
-*   **使重要选项可见** 正如 [Jakob Nielsen](https://www.nngroup.com/articles/ten-usability-heuristics/) 所言，识别出某事比回忆起某事容易。为了减小用户记忆负担，将所有重要菜单项设为永久可见。这些最重要的菜单项应该一直可用，而不仅在我们预期用户需要的时候展现。
+*   **使重要选项可见** 正如 [Jakob Nielsen](https://www.nngroup.com/articles/ten-usability-heuristics/) 所言，识别出某事比回忆起某事容易。为了减小用户记忆负担，将所有重要菜单项设为一直可见。这些最重要的菜单项应该一直可用，而不仅在我们预期用户需要的时候展现。
 *   **传达当前位置信息** “我在哪”是用户进行有效导航时需要回答的最基本问题。许多网站有此常见错误：不显示用户的当前位置，因而如何定位的问题也值得深究。
 
 #### Links and Navigation Options 链接与菜单项
@@ -116,13 +116,13 @@
 
 后退按钮是浏览器上第二重要的界面控制（仅次于最最重要的 URL 地址栏），要确认“后退”按钮符合用户预期。当用户跟着链接来到某页面，然后点击“后退”键时，他们期望恰好返回到前一网页的离开的位置。**尤其要避免点击“后退”按钮却回到了原页面顶端的情况**。失去用户原先的焦点会使用户被迫重复浏览已读内容。由于没有恰好“后退”原位，用户会迅速失去耐心。
 
-#### Breadcrumbs 面包屑
+#### Breadcrumbs 面包屑导航
 
-面包屑是系列链接的集合，用于索引网站的当前位置。它是一种次级定位规则，常用于用户在网站的当前位置。
+面包屑导航是系列链接的集合，用于索引网站的当前位置。它是一种次级定位规则，常用于显示用户当前在网站的位置。
 
 虽然该元素不需要过多解释，有几点还是值得注意：
 
-*   **不要使用面包屑作为主导航的替代品** 主导航是引导用户的主导元素，然而面包屑只是支持元素。使用面包屑作为主导航，而非使用其他元素，通常意味着导航设计较差。
+*   **不要使用面包屑作为主导航的替代品** 主导航是引导用户的主导元素，然而面包屑只是支持元素。使用面包屑而非其他元素作为主导航，通常意味着导航设计较差。
 *   **使用箭头作为分隔符，而非斜杠。清晰分离导航层级** 推荐使用大于号（>）或右箭头（→），因为此类符号包含方向信息。不推荐在电商网站中使用左斜杠（／）作为分隔符。如果你非要用的话，请确保商品类别不包含斜杠。
 
 [![](https://www.smashingmagazine.com/wp-content/uploads/2017/11/27-A-Comprehensive-Guide-To-Web-Design-800w-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2017/11/27-A-Comprehensive-Guide-To-Web-Design-large-opt.png)
@@ -135,19 +135,19 @@
 
 设计搜索栏时考虑下列基本规则：
 
-*   **将搜索栏放在用户所期望的地方** 下图是基于 A. Dawn Shaikh 和 Keisi Lenz研究，通过对 142 名参与者的问卷调查，画出的用户对于搜索栏的期望位置。这一研究发现，搜索栏的最佳摆放位置是网站的左上角和右上角。这样用户通过F型浏览模式可以轻易找到搜索栏。
+*   **将搜索栏放在用户所期望的地方** 下图是基于 A. Dawn Shaikh 和 Keisi Lenz 的研究，通过对 142 名参与者的问卷调查，画出的用户对于搜索栏的期望位置。这一研究发现，搜索栏的最佳摆放位置是网站的左上角和右上角。这样用户通过"F-型"浏览模式可以轻易找到搜索栏。
 
 [![](https://www.smashingmagazine.com/wp-content/uploads/2017/11/34-A-Comprehensive-Guide-To-Web-Design-preview-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2017/11/34-A-Comprehensive-Guide-To-Web-Design-preview-opt.png)
 
 *   **富文本网站中突出显示搜索功能**
     如果搜索功能是你的网站重要功能，显著地显示出来，因为这可以是用户探索的最快路径。
 *   **合理设计输入栏尺寸**
-    输入框太窄是设计者的常犯错误。诚然，用户可以在短文本框中输入长文字，但是一次只能显示部分文字。这固然是不好的设计，因为不能同一时刻显示整个查询条件。实际上，当搜索栏很短时，用户被迫使用短小，模糊的查询条件，因为长搜索条件将难以阅读。Nielsen Norman Group 推荐使用 [27-字符输入框](https://www.nngroup.com/articles/top-ten-guidelines-for-homepage-usability/) ，适用于 90% 的查询。
+    输入框太窄是设计者的常犯错误。诚然，用户可以在短文本框中输入长文字，但是一次只能显示部分文字。这固然是不好的设计，因为不能同一时刻显示整个查询条件。实际上，当搜索栏很短时，用户被迫使用短小，模糊的查询条件，因为搜索条件太长看不到。Nielsen Norman Group 推荐使用 [27-字符输入框](https://www.nngroup.com/articles/top-ten-guidelines-for-homepage-usability/) ，适用于 90% 的查询。
 
 [![](https://www.smashingmagazine.com/wp-content/uploads/2017/11/35-A-Comprehensive-Guide-To-Web-Design-800w-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2017/11/35-A-Comprehensive-Guide-To-Web-Design-800w-opt.png)
 
 *   **在所有页面放置搜索栏**
-    在所有页面放置搜索栏的好处是，当用户不能定位他们想要查看的内容时，便会尝试搜索功能，无论他们当时在哪个页面。
+    在所有页面放置搜索栏的好处是，当用户不能定位他们想要查看的内容时，便会尝试搜索功能，无论他们当时在页面哪个地方。
 
 ### Designing Individual Pages 设计独立页面
 
@@ -164,7 +164,7 @@
 (图片来源: [Witteia](https://twitter.com/witteia)) ([点击查看大图](https://www.smashingmagazine.com/wp-content/uploads/2017/11/43-A-Comprehensive-Guide-To-Web-Design-large-opt.png))
 
 *   **避免生僻词和专业术语** 页面上任意一个生僻难懂的术语都会激增用户的认知负载。最安全的策略是将受众定位所有阶段用户，选择清晰易懂的词语以适应不同类组的用户。
-*   **长段落细分** 对于信息过载这一点，除非网站定位主打内容消费，否则在设计时要尽量避免长段文字。举例说明，如果你想写个服务介绍或产品介绍，尽量一步一步来，慢慢展开细节。使用短小、视野内可见的模块以让用户逐步探索。
+*   **长段落细分** 对于信息过载这一点，除非网站定位主打内容消费，否则在设计时要尽量避免长段文字。举例说明，如果你想写个服务介绍或产品介绍，尽量一步一步来，慢慢展开细节。使用短小、视野内可见的模块以让用户逐步探索。根据 [Robert Gunning](https://www.amazon.com/How-Take-Fog-Business-Writing/dp/0850132320) 的《看透商业评论编写》，一句话字数最好在 20 个字以内。
 
 [![](https://www.smashingmagazine.com/wp-content/uploads/2017/11/29-A-Comprehensive-Guide-To-Web-Design-800w-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2017/11/29-A-Comprehensive-Guide-To-Web-Design-800w-opt.png)
 
@@ -181,13 +181,13 @@
 一个结构恰当的页面会使用户界面布局上的元素清晰。尽管我们没有适用于所有场景的统一的尺寸标准，遵循下列几个指导方针有助于设计一个靠谱的页面结构：
 
 *   **使结构具有可预见性** 设计要与用户预期保持一致，在设计时考虑相似类型的网站，看看它们都使用了什么元素，摆放在哪里。尽量使用目标受众熟悉的视觉模式。
-*   **使用网格布局** 网格布局将页面分割成几个主要区块，根据元素大小、位置定义元素之间的关系。使用网格布局，众多元素组合成高内聚性的布局变得容易了许多。
+*   **使用网格布局** 网格布局将页面分割成几个主要区块，根据元素大小、位置定义元素之间的关系。使用网格布局，可以轻松的将众多元素组合成高内聚型的布局。
 
 [![](https://www.smashingmagazine.com/wp-content/uploads/2017/11/15-A-Comprehensive-Guide-To-Web-Design-preview-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2017/11/15-A-Comprehensive-Guide-To-Web-Design-preview-opt.png)
 
 网格和布局系统是设计届的传统，Adobe XD 的网格布局帮助设计稿适用于多种屏幕尺寸的设备并保持一致性，定制化网格系统以调整元素间比例。
 
-*   **使用低保真的线框图避免杂乱** 乱七八糟的杂项使界面超负荷难以理清。每个新增的按钮，图片，甚至文字都会增加页面的复杂度。在使用真实元素构造页面前，先画简单的线框原型并分析，删除所有非必须元素。
+*   **使用低保真的线框稿图避免杂乱** 乱七八糟的杂项使界面超负荷难以理清。每个新增的按钮，图片，甚至文字都会增加页面的复杂度。在使用真实元素构造页面前，先画简单的线框原型并分析，删除所有非必须元素。
 
 [![](https://www.smashingmagazine.com/wp-content/uploads/2017/11/06-A-Comprehensive-Guide-to-Web-Design-800w-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2017/11/06-A-Comprehensive-Guide-to-Web-Design-large-opt.png)
 
@@ -197,15 +197,15 @@
 
 人们通常更喜欢快速浏览页面，而不是细细品味每一个细节。因此，当来访者想找某个内容或者完成某个任务时，往往会扫视页面寻找目标。此时，设计师对视觉层级关系的良好呈现就帮用户了一个大忙。视觉层级特指：元素的展示方式能够表现其重要程度。简单来说就是，用户第一眼该看哪儿，第二眼该看哪。一个好的视觉层级使页面浏览更加便捷。
 
-*   **遵循本能的浏览布局** 作为设计师，我们可以在很多方面操控用户浏览页面的焦点。为访客的眼动设定正确的浏览路径，我们可以遵循两类本能的浏览布局：[F 式布局](https://uxplanet.org/f-shaped-pattern-for-reading-content-80af79cd3394) 和 [Z 式布局](https://uxplanet.org/z-shaped-pattern-for-reading-web-content-ce1135f92f1c). 对于富文本页面，如文章、搜索结果，F 式布局效果更好；Z 式布局更适用于非文本式页面。
+*   **遵循本能的浏览布局** 作为设计师，我们可以在很多方面操控用户浏览页面的焦点。为访客的眼动设定正确的浏览路径，我们可以遵循两类本能的浏览布局：[“F-形”布局](https://uxplanet.org/f-shaped-pattern-for-reading-content-80af79cd3394) 和 [“Z-形”布局](https://uxplanet.org/z-shaped-pattern-for-reading-web-content-ce1135f92f1c). 对于富文本页面，如文章、搜索结果，“F-形”布局效果更好；“Z-形”布局更适用于非文本式页面。
 
 [![](https://www.smashingmagazine.com/wp-content/uploads/2017/11/09-A-Comprehensive-Guide-To-Web-Design-800w-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2017/11/09-A-Comprehensive-Guide-To-Web-Design-large-opt.png)
 
-CNN 使用的 F 式布局 ([点击查看大图](https://www.smashingmagazine.com/wp-content/uploads/2017/11/09-A-Comprehensive-Guide-To-Web-Design-large-opt.png))
+CNN 使用的“F-形”布局 ([点击查看大图](https://www.smashingmagazine.com/wp-content/uploads/2017/11/09-A-Comprehensive-Guide-To-Web-Design-large-opt.png))
 
 [![](https://www.smashingmagazine.com/wp-content/uploads/2017/11/40-A-Comprehensive-Guide-To-Web-Design-800w-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2017/11/40-A-Comprehensive-Guide-To-Web-Design-large-opt.png)
 
-Basecamp 使用的 Z 式布局 ([点击查看大图](https://www.smashingmagazine.com/wp-content/uploads/2017/11/40-A-Comprehensive-Guide-To-Web-Design-large-opt.png))
+Basecamp 使用的“Z-形”布局 ([点击查看大图](https://www.smashingmagazine.com/wp-content/uploads/2017/11/40-A-Comprehensive-Guide-To-Web-Design-large-opt.png))
 
 *   **重要元素视觉优先** 使页面标题、登录表单、导航栏、这类重要内容成为焦点，供用户更好地使用。
 
@@ -213,7 +213,7 @@ Basecamp 使用的 Z 式布局 ([点击查看大图](https://www.smashingmagazin
 
 图中 Learn More About Brains 按钮（了解更多关于大脑产品）突出吸引用户行为，突出显示。([点击查看大图](https://www.smashingmagazine.com/wp-content/uploads/2017/11/01-A-Comprehensive-Guide-to-Web-Design-large-opt.png))
 
-*   **画原型使视觉层级更清晰** 原型设计帮助设计师通览整个布局，它将在上线后包含真实的数据。而且，在原型中重组元素比开发过程中再重新排列要简单得多。
+*   **画原型使视觉层级更清晰** 原型设计（Mockup）帮助设计师通览整个布局，看到页面填充真实数据之后可能的样子。而且，在原型中重组元素比开发过程中再重新排列要简单得多。
 
 [![](https://www.smashingmagazine.com/wp-content/uploads/2017/11/28-A-Comprehensive-Guide-To-Web-Design-800w-opt.jpg)](https://www.smashingmagazine.com/wp-content/uploads/2017/11/28-A-Comprehensive-Guide-To-Web-Design-large-opt.jpg)
 
@@ -221,20 +221,20 @@ Basecamp 使用的 Z 式布局 ([点击查看大图](https://www.smashingmagazin
 
 #### Scrolling Behavior 滚动行为
 
-很多网页设计者有个固执的错误观念：用户不会使用滚动条。今天搞清楚点：[人人都会用滚动条](http://www.hugeinc.com/ideas/perspective/everybody-scrolls)!
+很多网页设计者有个固执的错误观念：用户不会使用滚动条。我再重申一次：如今，[人人都会用滚动条](http://www.hugeinc.com/ideas/perspective/everybody-scrolls)!
 
 提高网页滚动体验可以通过以下几点：
 
 *   **鼓励用户的滚动行为** 尽管用户实际在页面加载时就开始[滚动滑轮](http://www.lukew.com/ff/entry.asp?1946)，页面顶端的内容同样非常重要。顶端的内容限定了用户对网站的印象和期望。用户的确会向下拉滚动条，但仅仅会发生在非隐藏内容足够吸引人。因而，记得将最引人注目的内容放在页面顶端：
     *   **展示好的[网站介绍](https://www.nngroup.com/articles/blah-blah-text-keep-cut-or-kill/).** 优秀的网站简介创造了良好的内容场景，回答用户最初的疑问“这是干什么的网站？”
     *   **使用[吸引人的影像](https://www.smashingmagazine.com/2017/01/more-than-just-pretty-how-图片来源ry-drives-user-experience/)** 用户会对相关的图片影像特别感兴趣。
-*   **固定导航栏** 当你需要建一个长页面时，记住：用户需要有定位感（当前位置）和方向感（访问其他路径）。长页面会使用户有定位困难。当页面很深时，如果下滑时顶部导航消失，用户必须持续向上滑动返回顶端。
+*   **固定导航栏** 当你需要建一个长页面时，记住：用户需要有定位感（当前位置）和方向感（访问其他路径）。长页面会使用户有定位困难。当页面很深时，如果下滑时顶部导航消失，用户必须持续向上滑动返回顶端。 显然， [粘性导航栏](https://www.smashingmagazine.com/2012/09/sticky-menus-are-quicker-to-navigate/) 既可以显示当前位置，又可以使屏幕长时间保持一致性。
 
 [![](https://www.smashingmagazine.com/wp-content/uploads/2017/11/14-A-Comprehensive-Guide-To-Web-Design.gif)](https://www.smashingmagazine.com/wp-content/uploads/2017/11/14-A-Comprehensive-Guide-To-Web-Design.gif)
 
 滚动触发的粘性导航栏 (图片: Zenman)
 
-*   **加载新内容时提供视觉反馈** 当网页是动态加载时，视觉反馈异常重要（比如新闻流）。由于滚动时内容加载速度需要很快（不能超过 10 秒 ），你可以使用[加载中](https://www.smashingmagazine.com/2016/12/best-practices-for-animated-progress-indicators/#types-of-progress-indicators)动画表示系统正在处理。
+*   **加载新内容时提供视觉反馈** 当网页是动态加载时，视觉反馈异常重要（比如新闻流）。由于滚动时内容需要很快加载（不能超过 10 秒 ），你可以使用[加载中](https://www.smashingmagazine.com/2016/12/best-practices-for-animated-progress-indicators/#types-of-progress-indicators)动画表示系统正在处理。
 
 [![](https://www.smashingmagazine.com/wp-content/uploads/2017/11/04-A-Comprehensive-Guide-to-Web-Design-800w-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2017/11/04-A-Comprehensive-Guide-to-Web-Design-800w-opt.png)
 
@@ -248,7 +248,7 @@ Tumbler 的注册页对用户的滚动条进行绑架 ([点击查看大图](http
 
 #### Content Loading 内容加载
 
-内容加载值得多说几句讲清楚些。尽管立即响应是最好的，但在某些场景下你的网站需要多点时间来为访客传递内容。网络链接差会减慢反应速度，或者有些操作需要多点时间来完成。但是不论这些行为是由什么原因造成的，网站必须看起来是快速响应的。
+内容加载得多说几句才讲得清楚些。尽管立即响应是最好的，但在某些场景下你的网站需要多点时间来为访客传递内容。网络链接差会减慢反应速度，或者有些操作需要多点时间来完成。但是不论这些行为是由什么原因造成的，网站必须看起来是快速响应的。
 
 *   **确保常态加载不需要过多时间** 网站访客的注意力范围和耐心都较低。根据 [Nielsen Norman Group 的研究](https://www.nngroup.com/articles/powers-of-10-time-scales-in-ux/)，10 秒大概是用户在同一任务上集中注意力的极限了。当访客不得不等待网站加载时，他们会非常沮丧，如果响应速度不够快用户很可能马上关窗口走人。
 
@@ -256,7 +256,7 @@ Tumbler 的注册页对用户的滚动条进行绑架 ([点击查看大图](http
 
 [![](https://www.smashingmagazine.com/wp-content/uploads/2017/11/10-A-Comprehensive-Guide-To-Web-Design-800w-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2017/11/10-A-Comprehensive-Guide-To-Web-Design-large-opt.png)
 
-Facebook 使用网站框架，填充页面时内容逐步加载。([点击查看大图](https://www.smashingmagazine.com/wp-content/uploads/2017/11/10-A-Comprehensive-Guide-To-Web-Design-large-opt.png))
+Facebook 使用网站骨架，填充页面时内容逐步加载。([点击查看大图](https://www.smashingmagazine.com/wp-content/uploads/2017/11/10-A-Comprehensive-Guide-To-Web-Design-large-opt.png))
 
 #### Buttons 按钮
 
@@ -286,7 +286,7 @@ Facebook 使用网站框架，填充页面时内容逐步加载。([点击查看
 
 下列原则可以帮助你在网站设计中融入图像元素：
 
-*   **确保图像相关性** 设计中最怕传递错误信息的图像。选择最符合你产品目标的图像，确保它于上下文相关。
+*   **确保图像相关性** 设计中最怕传递错误信息的图像。选择最符合你产品目标的图像，确保它与上下文相关。
 
 [![](https://www.smashingmagazine.com/wp-content/uploads/2017/11/space-image25-800w-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2017/11/space-图片来源25-large-opt.png)
 
@@ -308,7 +308,7 @@ Facebook 使用网站框架，填充页面时内容逐步加载。([点击查看
 
 随着网速的提快，视频越来越流行，尤其考虑到视频[延长了用户停留时长](https://www.forbes.com/sites/forbesagencycouncil/2017/02/03/video-marketing-the-future-of-content-marketing/). 如今视频无处不在：PC 端，平板端，移动端。将视频有效利用起来，它能最有效的吸引用户 —— 视频传递更多情感，更用心的带给用户产品服务体验。
 
-*   **将视频设置为默认静音，用户可以选择性开启音量** 当用户访问一个页面时，并没有对声音的预期。而且大多数用户并不会使用耳机，这时他们会突然紧张想要快点关闭声音。甚至在大多数情况下，一听到声音立即关闭网站。
+*   **将视频设置为默认静音，用户可以选择性开启音量** 当用户访问一个页面时，并没有对声音的预期。而且大多数用户并不会使用耳机，这时他们会紧张的想要快点关闭声音。甚至在大多数情况下，一听到声音立即关闭网站。
 
 
 [![](https://www.smashingmagazine.com/wp-content/uploads/2017/11/22-A-Comprehensive-Guide-To-Web-Design-800w-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2017/11/22-A-Comprehensive-Guide-To-Web-Design-large-opt.png)
@@ -349,7 +349,7 @@ Facebook 的视频会在用户访问时自动播放，除非用户主动打开�
 
 [![](https://www.smashingmagazine.com/wp-content/uploads/2017/11/16-A-Comprehensive-Guide-To-Web-Design-800w-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2017/11/16-A-Comprehensive-Guide-To-Web-Design-large-opt.png)
 
- 旧版本的 Dropbox 主页是使用对比空间来突出 CTA 的很好例证。深蓝色的“免费注册” CTA 按钮与淡蓝色的背景形成对比反差。([点击查看大图](https://www.smashingmagazine.com/wp-content/uploads/2017/11/16-A-Comprehensive-Guide-To-Web-Design-large-opt.png))
+ 旧版本的 Dropbox 主页是使用对比空间来突出 CTA 的很好例证。深蓝色的“免费注册”CTA 按钮与淡蓝色的背景形成对比反差。([点击查看大图](https://www.smashingmagazine.com/wp-content/uploads/2017/11/16-A-Comprehensive-Guide-To-Web-Design-large-opt.png))
 
 *   **基于行为的文案** 编写吸引用户行动的文案。以“开始”，“获取”或“加入”这类动词开头。
 
@@ -361,7 +361,7 @@ Facebook 的视频会在用户访问时自动播放，除非用户主动打开�
 
 [![](https://www.smashingmagazine.com/wp-content/uploads/2017/11/02-A-Comprehensive-Guide-to-Web-Design-800w-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2017/11/02-A-Comprehensive-Guide-to-Web-Design-large-opt.png)
 
-<figcaption>模糊测试是一种检验设计焦点和视觉层次的技术。 ([点击查看大图](https://www.smashingmagazine.com/wp-content/uploads/2017/11/02-A-Comprehensive-Guide-to-Web-Design-large-opt.png))
+<figcaption>模糊测试是一种检验设计焦点和视觉层次的技术。([点击查看大图](https://www.smashingmagazine.com/wp-content/uploads/2017/11/02-A-Comprehensive-Guide-to-Web-Design-large-opt.png))
 
 #### Web Forms 网页表单
 
@@ -387,13 +387,13 @@ Facebook 的视频会在用户访问时自动播放，除非用户主动打开�
 
  用户看到动画后，秒懂问题出在哪 (图片来源： [The Kinetic UI](http://thekineticui.com/your-app-login-is-boring/))
 
-*   **系统状态的可见性**[Jakob Nielsen 的十大启发式可用性](http://www.nngroup.com/articles/ten-usability-heuristics/)中，系统状态的可见性是用户界面设计最重要的原则之一。用户随时随地都想知道当前的位置，而不能让他们一直猜测 —— 应用应该通过适当的视觉反馈告诉用户现在的状态。数据上传和下载操作是功能性动画的常见场景。例如，加载栏动画显示了任务的进度，并为用户提供任务完成预期。
+*   **系统状态的可见性**[Jakob Nielsen 的十大启发式可用性](http://www.nngroup.com/articles/ten-usability-heuristics/)中，系统状态的可见性是用户界面设计最重要的原则之一。用户随时随地都想知道当前的位置，而不能让他们一直猜测 —— 应用应该通过适当的视觉反馈告诉用户现在的状态。数据上传和下载操作是功能性动画的常见场景。例如，加载动画显示了任务的进度、处理的速度，并在用户心中奠定了后续可能的处理速度。
 
 [![](https://www.smashingmagazine.com/wp-content/uploads/2017/11/39-A-Comprehensive-Guide-To-Web-Design.gif)](https://www.smashingmagazine.com/wp-content/uploads/2017/11/39-A-Comprehensive-Guide-To-Web-Design.gif)
 
 (图片来源： [xjw](https://dribbble.com/xjw))
 
-*   **导航式动画** 导航式动画是指网站上各个状态间的切换 —— 例如，从概述视图到详细视图。状态切换往往涉及到大面积场景更换，有时候用户思维难以跟上。功能性动画能简化用户对场景转变过程的适应，在场景切换之间平滑过渡，并通过创建模块之间的视觉连接解释变化。
+*   **导航式动画** 导航式动画是指网站上各个状态间的切换 —— 例如，从概述视图到详细视图。状态切换往往涉及到大面积场景更换，有时候用户思维难以跟上。功能性动画能简化用户对场景转变过程的适应，在场景切换之间平滑过渡，并通过在场景的状态变化中插入视觉连接来凸出变化所在。
 
 [![](https://www.smashingmagazine.com/wp-content/uploads/2017/11/47-A-Comprehensive-Guide-To-Web-Design.gif)](https://www.smashingmagazine.com/wp-content/uploads/2017/11/47-A-Comprehensive-Guide-To-Web-Design.gif)
 
@@ -405,20 +405,20 @@ Facebook 的视频会在用户访问时自动播放，除非用户主动打开�
 
 (图片来源： [Heco](https://www.helloheco.com/))
 
-### 移动端考量
+### 移动端支持
 
-如今，将近 [50% 的用户](https://www.statista.com/topics/779/mobile-internet/)通过移动设备访问网页。这对网站设计师意味着什么？这意味着我们设计的每一个页面都必须有移动端策略。
+如今，将近 [50% 的用户](https://www.statista.com/topics/779/mobile-internet/)通过移动设备访问网页。这对网站设计师意味着什么？这意味着我们设计的每一个页面都必须支持移动端。
 
 #### 响应式网页设计
 
-针对不同的桌面浏览器、移动浏览器优化你的网站，每一款浏览器都有不同的屏幕分辨率，技术支持和用户基础。
+针对不同的桌面浏览器、移动浏览器优化你的网站，每一平台的浏览器都有不同的屏幕分辨率，技术支持和用户基础。
 
 *   **单栏布局目标** 单栏布局通常在移动设备上效果很好。单栏布局不仅能有效应对小屏幕的有限空间，而且在不同分辨率的设备上、横竖屏模式中自如伸缩。
 *   **使用 Priority+ 模式优化断点式导航栏** [Priority+](http://justmarkup.com/log/2012/06/19/responsive-multi-level-navigation/) 是 Michael Scharnagl 提出的术语，用来描述导航栏展示重要的导航选项，隐藏次要的导航选项于“更多”按钮中。这种模式充分利用了可用的屏幕空间。当屏幕拉伸时，导航选项随之增加，从而提高了网站的可视性和参与度。这种模式在多模块富内容的网站尤为有效（例如新闻网站、大型电商网站）。图例中卫报使用 Priority+ 模式进行模块导航。次要选项仅在用户点击“All”按钮时显示。
 
 [![](https://www.smashingmagazine.com/wp-content/uploads/2017/11/51-A-Comprehensive-Guide-To-Web-Design.gif)](https://www.smashingmagazine.com/wp-content/uploads/2017/11/51-A-Comprehensive-Guide-To-Web-Design.gif)
 
-卫报使用 Priority+ 模式进行模块导航  (图片来源： [Brad Frost](http://bradfrost.com/blog/post/revisiting-the-priority-pattern/))
+卫报使用 Priority+ 模式进行模块导航(图片来源： [Brad Frost](http://bradfrost.com/blog/post/revisiting-the-priority-pattern/))
 
 *   **确保图像在多个设备端适应尺寸** 网站必须完美适应于所有设备，适应不同分辨率的屏幕、像素密度、放置方向。在设计者构建响应式网站时，主要挑战之一便是图像的管理适配与呈现。为了简化这个任务，可以使用 [响应式图片断点生成器](http://www.responsivebreakpoints.com/) 这类工具处理图像。
 
@@ -508,7 +508,7 @@ Facebook 的视频会在用户访问时自动播放，除非用户主动打开�
 *  所有“有含义的”图像都需要描述性的替代文字。（“有含义的”图片为信息传达提供场景）
 *  如果图像仅仅是装饰性效果，未提供帮助用户理解页面内容的有用信息，则文本描述并非必要。
 
-#### Keyboard-Friendly Experience 键盘友好的体验
+#### Keyboard-Friendly Experience 键盘流用户体验
 
 一些用户使用键盘而非鼠标浏览网站。例如，有运动障碍的用户在使用鼠标这类精细运动工具时有困难。可以为此类用户简化交互和网页定位，通过将交互元素适配 Tab 键，并显示键盘指示符。
 键盘导航的基本规则如下：
