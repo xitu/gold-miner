@@ -2,32 +2,32 @@
 > * 原文作者：[KHAWER KHALIQ](https://khawerkhaliq.com)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/swift-value-types-reference-types.md](https://github.com/xitu/gold-miner/blob/master/TODO/swift-value-types-reference-types.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Deepmissea](http://deepmissea.blue)
+> * 校对者：[VernonVan](https://github.com/VernonVan)，[LeviDing](https://leviding.com)
 
-# When and how to use Value and Reference Types in Swift
+# Swift 中的值类型与引用类型使用指北
 
-In this post, we will explore the semantic differences between value and reference types, some of the defining characteristics of values and key benefits of using value types in Swift. We will then look at when to use value and reference types when designing applications.
+在本文中，我们将探索值类型与引用类型语义的不同之处，在 Swift 中使用值类型的一些鲜明特征和关键的好处。然后我们会关注在设计程序时，何时使用值类型或者引用类型。
 
-## Value and reference types in Swift
+## Swift 中的值类型和引用类型
 
-Swift is a multi-paradigm programming language. It has classes, which are the building blocks of object-oriented programming. Classes in Swift can define properties and methods, specify initializers, conform to protocols, support inheritance and enable polymorphism. Swift is also a protocol-oriented programming language, with feature-rich protocols and structs, enabling abstraction and polymorphism without using inheritance. In Swift, functions are first-class types which can be assigned to variables, passed into other functions as arguments and returned from other functions. Swift thus also lends itself to functional programming.
+Swift 是一种多范式的编程语言。它有类，这是构成面向对象编程的基石。类在 Swift 中可以定义属性和方法，指定构造器，符合协议，支持集成和多态。Swift 也是一种面向协议的编程语言，通过功能丰富的协议和结构体，可以在没有继承的情况下实现抽象和多态。在 Swift 中，函数是第一类型，它可以赋给变量，作为参数和返回值在多个函数之间传递。因此 Swift 也适用于函数式编程。
 
-The biggest difference that programmers coming from many object-oriented languages to Swift notice is the rich functionality offered by structs. Swift structs can define properties and methods, specify initializers and conform to protocols. With the exception of inheritance, whatever you can do with a class, you can also do with a struct. This triggers the question of when and how to use structs and classes. In a more general sense, it is a question of when and how to use value types and reference types in Swift.
+对于多数面向对象语言的开发者来说，Swift 中最大的不同就是结构体的丰富功能。除了继承以外，你在一个类里可以做什么，在结构体中同样可以做到。这就引发了问题 —— 何时并如何使用结构体和类。更通俗的说，问题是在 Swift 中何时并如何使用值类型和引用类型。
 
-Just for the sake of completeness, structs are not the only value types in Swift. Enums and tuples are also value types. Similarly, classes are not the only reference types. Functions are also reference types. Functions, enums and tuples, however, are more specialized in how and when they are used. The debate about value and reference types in Swift centres mostly around structs and classes. This is the primary focus of this post and the terms value type and reference type will be used interchangeably with the terms struct and class respectively.
+为了完整需要提醒一下，Swift 中的值类型并不仅仅只有结构体。枚举和元组也是值类型。同样地，引用类型并不只有类，函数也是引用类型。不过函数、枚举和元组在使用时更加特定化。Swift 在值类型和引用类型的争论中心都集中在结构体和类上。这是本文中的主要重点，所以在本文中术语值类型和引用类型可以和术语结构体和类相互转换。
 
-Let’s start with some first principles, the difference between value and reference semantics.
+现在让我们从一些基本原理开始，即值和引用语义的区别。
 
-## Value vs. reference semantics
+## 值与引用
 
-With value semantics, a variable and the data assigned to the variable are logically unified. Since variables exist on the stack, value types in Swift are said to be stack-allocated. To be precise, all value type instances will not always be on the stack. Some may exist only in CPU registers while others may actually be allocated on the heap. In a logical sense though, value type instances can be thought of as being _contained_ in the variables to which they are assigned. There is a one-to-one relationship between the variable and the data. The value held by a variable cannot be manipulated independently of the variable.
+使用值语义，变量和分配给变量的数据在逻辑上是统一的。由于变量存在于栈上，值类型在 Swift 中被称为栈分配。确切地说，所有的值类型实例并不一直在栈上。一些可能只存在于 CPU 寄存器中，另一些可能实际在堆上分配。从逻辑上讲，值类型的实例可以被认为是**包含**在被赋值的变量之中。在变量和值之间存在一对一的关系。变量所包有的值不能独立于变量进行操作。
 
-With reference semantics, on the other hand, the variable and the data are distinct. Reference type instances are allocated on the heap and the variable contains only a reference to the location in memory where the data is stored. It is possible and quite common for there to be multiple variables with references to the same instance. Any of these references can be used to manipulate the instance.
+另一方面，在使用引用语义时，变量和数据是不同的。引用类型的实例在堆中分配，变量只包含一个对存储数据的内存位置的引用。一个实例引用多个变量是可以的也是很常见的。任何这些引用都可以用来操作实例。
 
-This has implications for what happens when a value or reference type instance is assigned to a new variable or passed into a function. Since a value type instance can have only one owner, the instance is copied and the copy is assigned to the new variable or passed into the function. Each copy can be amended without affecting the others. With reference types, only the reference gets copied and the new variable or the function gets the new reference to the same instance. If a reference type instance is amended using any of the references, it will affect all other owners as they hold references to the same instance.
+这会对将值或引用类型实例分配给新变量或传递给函数时发生一些影响。由于值类型实例只能拥有一个所有者，实例被复制，并将副本分配给新变量或传入某函数。每个副本都可以修改而互不影响。对于引用类型，只有引用被复制，并且新变量或函数获得对同一实例的新引用。如果使用任何引用修改引用类型实例，则会影响所有其他引用持有者，因为它们持有的都是对同一实例的引用。
 
-Let’s look at some code to see this in action.
+我们来看看代码。
 
 ```
 struct CatStruct {
@@ -42,9 +42,9 @@ print(a.name)   // Whiskers
 print(b.name)   // Fluffy
 ```
 
-We define a struct to represent a cat, with a `name` property. We create a `CatStruct` instance, assign it to a variable, then assign this variable to a new variable and modify the `name` property using this new variable. Since structs have value semantics, the act of assignment to the new variable results in the instance being copied and we get two separate `CatStruct` instances with different names.
+我们定义了一个结构体表示一只猫，有一个 `name` 属性。我们创建一个 `CatStruct` 实例，把它赋给一个变量，然后把这个变量赋给一个新的变量，并用新变量改变 `name` 属性。由于结构体是值语义，赋值给新变量的行为会导致实例被复制，然后我们得到了两个不同名字的 `CatStruct`。
 
-Now, let’s do the same using a class:
+现在，我们用类做同样的事：
 
 ```
 class CatClass {
@@ -63,108 +63,108 @@ print(x.name)   // Fluffy
 print(y.name)   // Fluffy
 ```
 
-In this case, modifying the `name` property using the new variable modifies the `name` property for the first variable as well. This is because classes have reference semantics and the act of assignment to the new variable does not create a new instance. Both variables hold references to the same instance. This leads to **implicit data sharing**, which can have implications for how and when reference types should be used.
+在这种情况下，用新变量改变 `name` 属性也会修改第一个变量的 `name` 属性。这是因为类是引用语义，赋值给新变量的行为不会创建一个新的实例，两个变量持有对同一个实例的引用，这导致**隐式数据共享**，这可能会对你如何并何时使用引用类型产生影响。
 
-## Different notions of Mutability
+## 可变性的不同概念
 
-To understand the difference between mutability in value and reference types, we have to distinguish between **variable mutability** and **instance mutability**.
+为了理解可变性在值类型和引用类型之间的差异，我们必须要分清楚**变量可变性**和**实例可变性**。
 
-As already noted, value type instances and the variables they are assigned to are logically unified. Therefore, if a variable is immutable, it makes the instance it holds immutable regardless of whether the instance has mutable properties or mutating methods. Only when a value type instance is assigned to a mutable variable does instance mutability come into play.
+我们上面已经知道，值类型实例和被赋值的变量在逻辑上是一致的。因此，如果变量是不可变的，那无论该实例是否有可变属性或者可变方法，变量都会忽略让实例不可变。只有当值类型的实例赋给一个可变变量时，实例的可变性才可以起作用。
 
-With reference types, the instance and the variable it is assigned to are distinct and so is their mutability. When we declare a variable holding a reference to a class instance as immutable, what we are ensuring is that the reference this variable holds will never change, i.e., it will always point to the same instance. Mutable properties of the instance can still by modified using this or any other reference to the instance. To make a class instance immutable, all its stored properties must be immutable.
+对于引用类型，实例和被赋值的变量是不同的，因此他们的可变性也是不同的。当我们声明一个不可变的变量引用一个实例，我们能确定的是，这个变量的引用永远不会改变。即它总会指向同一个实例。实例的可变属性还是可以通过这个或者其他的引用改变。如果要让类实例不可变，必须保证它的所有存储属性都是不可变的。
 
-In the code we just saw, it is okay to declare `a` which holds the first `CatStruct` instance as a `let` constant since its value is never modified. `b` must be declared as a `var` since we have modified its `name` property and thus its value. For `CatClass`, both `x`and `y` are declared as `let` constants, yet we were able to modify the value of the `name` property.
+在刚才的代码中，我们看到，可以声明 `a` 将第一个 `CatStruct` 实例作为 `let` 常量，因为它不会被修改。而 `b` 必须被声明为一个 `var`，因为我们修改了它的 `name` 属性和值。对于 `CatClass`，`x` 和 `y` 都被声明为 `let` 常量，然而我们能修改 `name` 属性。
 
-## Defining characteristics of values
+## 定义为值类型的特征
 
-To gain a better understanding of when and how to use value types, we need to look at some of the defining characteristics of values:
+为了能更好的理解什么时候以及如何使用值类型，我们需要看一下定义为值类型的一些特征：
 
-1. **Attribute-based equality:** Any two values of the same type whose corresponding attributes are equal can always be considered equal. Consider a `Money` type that represents monetary amounts with attributes for the currency and the amount. If we create an instance representing 5 US dollars, it will be equal to any other instance representing 5 US Dollars.
-2. **Lack of Identity or lifecycle:** A value does not have inherent identity. It is defined only by the values of its attributes. This is true for simple values like the number 2 or the string “Swift”. It is equally true for more complex values. A value also does not have a lifecycle through which state changes need to be preserved. It can be created, destroyed or recreated at any time. An instance of `Money` representing 5 US dollars is equal to any other instance representing 5 US dollars regardless of when or how the two instances were created.
-3. **Substitutability:** Not having a distinct identity or lifecycle gives value types substitutability, which means that any instance can be freely substituted for another provided the two instances are equal, i.e., they pass the test of attribute-based equality. Going back to our `Money` type example, once we create an instance representing 5 US dollars, the application is free to create or discard copies of this instance as it sees fit. Any time we are handed an instance representing 5 US dollars, it is immaterial whether it is the same instance that we had created earlier. All we care about are the values of the attributes.
+1. **基于属性的相等：**任何两个同类型值，其属性相等，都可以认为他们是相等的。考虑一个`货币`类型，它表示货币具有货币和金额属性。如果我们创建一个 5 美元的实例，它与任何其他 5 美元实例都相等。
+2. **淡化的标识及生明周期：**值类型没有固定的身份。它仅由其属性而定义。对于数字 2 或者 “Swift” 这种简单的值就是这种情况。对于复杂的值来说也是如此。值也没有需要保存状态变化的生命周期。它可以随时被创建、销毁或重建。代表 5 美元的`货币`实例，等于代表 5 美元的任何其他实例，无论这两个实例是何时或如何创建。
+3. **可替代性:**没有明确的标识和生命周期给了值类型可替代性，这意味着，如果两个实例相等，即它们通过了基于属性的相等测试，那么任何实例都可以被自由地替代。回到我们的`货币`类型例子，一旦我们创建了一个代表 5 美元的实例，程序可以根据情况自由的创建或放弃这个实例的副本。无论何时我们需要递交一个 5 美元的实例，这个 5 美元的实例是否是先前创建的那个已经无关紧要，我们要关心的是值的属性。
 
-## Advantages of using value types
 
-#### 1. Efficiency
+## 使用值类型的优点
 
-Reference type instances are allocated on the heap, which is more expensive than stack allocation. In order to ensure that the allocated memory is freed up when a reference type instance is no longer required, there is a need to keep a count of all active references to every reference type instance and deallocate instances when there are no more references to them. Value types do not suffer from this overhead, leading to efficient instance creation and copying. Copies of value types are said to be _cheap_ because value type instances can be copied in constant time.
+#### 1. 效率
 
-Swift implements built-in extensible data structures such as `String`, `Array`, `Dictionary`, etc., as value types. However, these cannot be allocated on the stack because their size is not known at compile time. To be able to use heap allocation efficiently and maintain value semantics, Swift uses an optimization technique called **copy-on-write**. What this means is that while each copied instance is a copy in the logical sense, an actual copy on the heap is made only when a copied instance is mutated. Until then, all logical copies continue to point to the same underlying instance. This provides better performance characteristics because fewer copies are made and, when copying does take place, it involves a fixed number of reference counting operations. This performance optimization can be also be used, where required, for custom value types.
+引用类型在堆上分配，这比在栈上分配要昂贵的多。为了确保在引用类型不需要时内存被释放，需要保持一个对每个引用类型的所有活动的引用计数，并在没有引用时销毁实例。值类型没有这种开销，所以在创建和复制上很高效。值类型的复制是廉价的，因为值类型的实例在不变(constant)的时间被复制。
 
-#### 2. Predictable code
+Swift 实现了内置的可扩展的数据结构，比如 `String`，`Array`，`Dictionary` 等等。然而，这些并不能在栈上分配，因为他们的大小在编译时是不知道的。为了能有效地使用堆分配并且保有值语义，Swift 使用一种名为**写时复制**的优化技术。这意味着每个复制的实例都是逻辑意义上的副本，只有当复制的实例发生变化时才会在堆上创建实际的副本，在此之前，所有的逻辑副本都会指向相同的底层实例。因为更少的副本被创建，并且在创建的时候，涉及了固定数量的引用计数操作，所以提供了更好的性能。如果需要，这种性能优化还可以对自定义值类型使用。
 
-With a reference type, any part of the code that holds a reference to an instance cannot be certain about what that instance contains since it can be modified using any other reference. Since value type instances are copied on assignment with no implicit data sharing, we don’t need to think about unintended consequences of an action taken in one part of the code affecting the behavior of others. Moreover, when we see a variable declared as a `let` constant holding a value type instance, we can be sure that the value can never be modified regardless of how the value type is defined. This provides strong guarantees and fine-grained control over how certain parts of the code will behave, making code easier to reason about and more predictable.
+#### 2. 可预测的代码
 
-One could argue that code could be written such that each time a reference type instance is handed to a new owner, a copy is created. But that would lead to a lot of defensive copying, which would be quite inefficient since copying a reference type involves significant overhead. If the reference type instance being copied has properties which are also reference type instances and we want to avoid any implicit data sharing, a **deep copy** would have to be created every time, which would make the performance characteristics even worse. We could also try to address the issue of shared state and mutability by making all reference types immutable. But this would still involve a lot of inefficient copying and not being able to mutate the state of a reference type would pretty much defeat the purpose of using reference types.
+使用引用类型时，持有对实例的引用的代码的任何部分都不能确定该实例包含的内容，因为可以使用任何其他引用来修改该实例包含的内容。由于值类型实例在复制时没有隐式数据共享，所以我们不需要考虑代码的某部分的行为会影响其他部分行为所造成的意外后果。而且，当我们看到一个变量声明为 `let` 常量并持有一个值类型的实例时，我们可以肯定，无论如何定义值类型，该值都不能被修改。这为代码的行为提供了强有力的守护以及细粒度的控制，让代码变的易于推理和预测。
 
-#### 3. Thread safety
+有人可能会争辩说，可以编写代码，使得每次将引用类型实例交给新所有者时，都会创建一个副本。 但是这会导致很多防御性复制，这样效率会非常低，因为复制一个引用类型会带来很大的开销。如果正在复制的引用类型实例具有也是引用类型实例的属性，并且我们希望避免任何隐式数据共享，则每次都必须创建**深度拷贝**，这会使让性能更糟。我们也可以尝试通过使所有引用类型不可变来解决共享状态和可变性的问题。但是这仍然会涉及到很多低效率的复制，而且无法改变引用类型的状态会失去引用类型的用意。
 
-Value type instances can be used in a multi-threaded environment without having to worry about one thread mutating the state of an instance being used by another. Since there are no race conditions or deadlocks, there is no need to implement synchronization mechanisms. Writing multi-threaded code with value types thus becomes simpler, safer and more efficient.
+#### 3. 线程安全
 
-#### 4. No memory leaks
+值类型实例可以在多线程环境中使用，而不用担心一个线程正在改变另一个线程实例的状态。由于没有竞态条件和死锁，所以没有必要实现同步机制。使用值类型编写多线程的代码变得更简单、更安全、更高效。
 
-Swift uses automatic reference counting and deallocates a reference type instance when there are no references to it. This addresses the issue of memory leaks during the normal course of events. However, there can still be memory leaks through strong reference cycles, where two class instances hold strong references to each other and prevent each other from being deallocated. The same thing can happen when there is a strong reference cycle between a class instance and a closure, which are also reference types in Swift. Since value types have no references, the question of memory leaks does not arise.
+#### 4. 无内存泄漏
 
-#### 5. Easier testability
+Swift 使用自动引用计数，并在没有引用的情况下，释放引用类型实例。这解决了正常事件过程中的内存泄漏问题。不过，通过强循环引用仍会内存泄漏，即当两个类实例彼此强引用互相阻止彼此的释放。当一个类与一个闭包（在 Swift 中也是引用类型）彼此强引用也会发生相同的情况。由于值类型没有引用，所以内存泄漏的问题也就不存在。
 
-Because a reference type maintains state over its lifecycle, unit testing reference types often involves using mocking frameworks to observe the effects of various method calls on the state and behavior of the object under test. Moreover, since behaviour of reference type instances can change with changes in state, setup code is usually required to get the object under test in the correct state. With value types, all that matters is the value of the attributes. All we need to do, therefore, is to create a new value with the same attributes as the expected value and compare them for equality.
+#### 5. 易于测试
 
-## Designing applications with value and reference types
+因为引用类型的生命周期会保有状态，所以在对引用类型进行单元测试时，经常使用模拟框架来观察各种方法被调用时对测试对象的状态和行为的影响。而且由于引用类型实例的行为会随状态的变化而改变，通常需要设置代码来保证测试对象处于正确的状态。对值类型而言，要关心的全部是值类型的属性。所以我们需要做的，就是创建一个新的值，这个值的属性和期望的值属性相同。
 
-Value and reference types should not be seen as somehow competing with each other. They have different semantics and behaviour, which make them suitable for different purposes. The goal should be to understand and leverage the interplay of value and reference semantics to combine value and reference types in a way that best satisfies the goals of the application.
+## 用值类型和引用类型设计程序
 
-#### 1. Reference types to model entities with identity
+值类型和引用类型不应该被看作是相互竞争的。他们不同的语义和行为，让他们适用于不同的情景。我们的目的是理解并运用值和引用语义，让他们以最能满足应用目标的方式结合起来。
 
-Most real-world domains have entities that must maintain identity and preserve state over their lifecycles. Such entities should be modeled using classes.
+#### 1. 使用引用类型模拟具有标识的实体
 
-Consider a payroll application that uses an `Employee` type to represent members of staff. For simplicity, let’s assume we store the first and last name of each employee. There could be two or more `Employee` instances with the same first and last names, but this does not make them equal, as these instances represent distinct employees in the real world.
+几乎所有现实世界领域都有在生命周期里保持着标识和状态的实体。这些实体应该使用类来建模。
 
-If we assign an `Employee` class instance to a new variable or pass it into a function, the new reference will point to the same instance. This will ensure, for instance, that if we use one reference to record the number of hours worked by the employee in one module of the application, when another module of the application computes the monthly pay, it will use the same instance that has the correct number of hours worked. Similarly, if we update the residential address of an employee in one place, all references we have to that employee will reflect the correct address because they are references to the same instance.
+考虑有一个使用`员工`类型来代表员工的薪酬应用。简单地，假设只存储员工的姓和名。可能有两个或者更多的`员工`实例的姓名相同，但是这并不能让他们相等，因为在现实世界中，这些实例代表着不同的员工。
 
-Trying to use a struct to model an employee will lead to errors and inconsistencies in the application since each time an `Employee` instance is assigned to a new variable or passed into a function, it will be copied. Different parts of the program will end up with their own separate instances and state changes made in one part will not reflect in the others.
+如果把一个`员工`类实例赋给一个新的变量或者把它传到一个函数里，新的引用会指向相同的实例。这是我们可以确定的。例如，如果我们在应用的某个模块中使用一个引用来记录员工的工时，那么当应用另一个模块计算每月工资时，它使用的都是具有正确工时的同一个实例。同样，如果在某个位置更新员工的地址，那么我们对员工的所有引用都会更新为正确的地址，因为他们是对同一实例的引用。
 
-#### 2. Value types to encapsulate state and expose behaviour
+如果尝试使用结构体来模拟员工的话会导致错误并且前后矛盾，因为每次把`员工`实例赋给一个变量或者传给一个函数时，它会被复制。程序中不同的部分会以它们各自的实例结束，并且其中某部分状态改变并不会在其他部分体现出来。
 
-While entities in the domain that have identity and a lifecycle should be modeled using classes, value types should be used to encapsulate their state, express relevant business rules and expose behaviour.
+#### 2. 用值类型来封装状态和暴露行为
 
-Let us take our `Employee` type. Let’s assume we need to maintain information about each employee’s personal data, compensation and performance. We can create value types `PersonalData`, `Compensation` and `Performance` to bring together related elements of state, business rules and behaviour. This keeps the class from getting bloated as it is directly responsible only for maintaining identity, while value type instances it holds take care of various elements of that state and related behaviour.
+虽然有标识和生命周期的实体需要用类来建模，但是需要用值类型来封装它们的状态，表示相关的业务并且暴露行为。
 
-This also fits nicely with the **Single Responsibility Principle**. Rather than the `Employee` type having to implement methods to expose various aspects of behaviour, client code that is interested in an employee’s performance, for instance, can be handed an instance of the `Performance` type. Because we are dealing with value types, we do not have to worry about implicit data sharing and client mode making changes behind our back which would affect the state of our `Employee` instance.
+继续以`员工`类型为例。假设要保留每个员工的个人数据，工资绩效信息。我们可以创建`个人信息`，`工资`和`绩效`值类型，将状态、业务规则和行为这些元素联系在一起。这可以让类不那么臃肿，因为它只负责维护标识，而它包含的值类型实例会处理该状态的各种元素和相关行为。
 
-This approach can also encourage more code to be written in a multi-threaded fashion. Copies of value type instances representing various elements of the state of a reference type instance can freely be handed over to processes running on different threads without the need for synchronization. This can lead to performance gains and increasing responsiveness of interactive applications.
+这也非常符合**单一原则**。例如，相比于`员工`类型不得不实现一些方法来暴露各种层面的行为，客户代码只对员工的绩效感兴趣，所以交给绩效实例来处理。因为处理的是值类型，我们无需担心隐式数据共享与客户端背后变化，而对`员工`实例的状态产生影响。
 
-#### 3. The importance of context
+这种方式也更加适用于多线程。表示引用类型实例状态的各种元素的值类型实例副本，可以自由地切换到不同线程上的进程，而不需要同步。这可以提高性能，并提高应用交互的响应。
 
-It is important to bear in mind that sometimes the choice between a value and reference type is driven by the context. Application development is not an exercise in modeling the real world in an absolute sense but rather about modeling specific aspects of the problem domain to satisfy the given use cases. The same real-world entity could, therefore, require value or reference semantics in the context of the application depending on what role the entity plays in the relevant problem domain.
+#### 3. 上下文的重要性
 
-Consider the `CatStruct` and `CatClass` types introduced earlier. Which one would we rather use to model our pet cat? Since the instance we create would represent an actual cat, we should use a class. When we hand over our cat to the vet to get vaccinated, for instance, we would not want the vet to vaccinate a copy of the cat, which is what would happen if we used a struct. If, however, we are designing an application dealing with dietary habits of pet cats, we should use a struct as we would be dealing with cats in a general sense and not looking to identify a specific cat. For such an application, our `CatStruct` will not have a `name` property but will likely have properties for the types of food consumed, number of servings per day, etc.
+要注意的是，有时值类型和引用类型的选择是由上下文驱动的。应用开发不是绝对意义上的对现实世界的建模练习，而是建模问题的具体方面，以满足给定的用例。因此，要判断在应用程序的上下文中使用值语义还是引用语义，具体取决于实体在相关领域问题中扮演的角色。
 
-Earlier, we used the `Money` type as an example of a concept best modeled as a value. This is true in the context of a banking, financial or other application where we are concerned with just the attributes of money, i.e., how much and in what currency. If, however, we are building an application to control the printing, distribution and eventual disposal of physical currency, we need to think about each currency note as an entity with a unique identity and lifecycle.
+想一想前面介绍的 `CatStruct` 和 `CatClass` 类型。我们更愿意使用哪一种模型来模拟宠物猫呢？由于实例将代表一只真正的猫，所以应该使用一个类。例如，当我们把猫交给兽医来打疫苗时，我们不希望兽医给一只猫的副本打疫苗，如果使用一个结构体，就会发生这样的事情。但是，如果我们正在设计一个处理宠物猫的饮食习惯的应用，那么就应该使用结构体来处理一般意义上的猫，而不是寻找一只特定标识的猫。对于这样的应用，我们的 `CatStruct` 不会拥有 `name` 属性，但可能有消耗食物类型，每天的服务数量等的属性。
 
-Similarly, for an application developed for a tire manufacturer, each tire would likely be an entity with a unique identity and lifecycle, which would extend beyond the point of sale to track returns, warranty claims, etc. However, a company manufacturing cars would probably see tires for their attributes and may not want to keep track of which individual tire is used in which car, although they would see the cars they manufacture as having unique identities and lifecycles.
+不久前，我们使用`货币`类型作为一个值为模型的概念的绝佳例子。在银行，金融或其他应用的情况下，我们只关心货币的属性，即货币的多少和种类。但是，如果我们正在建立一个实物货币的印刷，分配和最终处理的应用，我们就需要将每个纸币视为具有唯一标识和生命周期的实体。
 
-#### 4. The _attribute-based equality_ test
+相同地，对于为轮胎制造商开发的应用程序来说，每个轮胎都可能是一个具有唯一标识和生命周期的实体，用于销售点以追踪退货，保修索赔等。但是，对制造汽车的公司而言，他们也许不想看轮胎的属性来跟踪哪辆车使用哪个轮胎，尽管他们可以看到他们制造的汽车具有独特的标识和生命周期。
 
-Value types have no inherent identity to distinguish once instances of a type from another. The only way to compare them is to compare their attributes. In fact, the concept of attribute-based equality is so fundamental to value types that it can be used a guide when deciding whether a particular type should be a value type or a reference type. If two instances of a type cannot be compared for equality based solely on their attributes, then we are likely dealing with some element of identity. This usually means that either the type should be a reference type or it should be split to separate the value and reference semantics.
+#### 4. *基于属性相等*的测试
 
-In practice, this means that we should be able to compare any two instances of a given value type using the Swift `==` operator. It follows that all value types must conform to the `Equatable` protocol.
+值类型没有固定的标识来区分它是否是那个类型实例。唯一比较它们的方式就是比较它们的属性。事实上，基于属性相等性的概念在值类型中是非常基本的，所以决定一个特定的类型是值类型还是引用类型，它可以作为一个指引。如果一个类型的两个实例不能仅使用基于属性的相等来比较的话，那我们就要处理一些元素的标识，这通常意味着他们是引用类型，或者它们可以用值和引用语义区分。
 
-#### 5. Combining value and reference types
+实际上，这意味着要比较任何两个实例是否相等都要使用 `==` 运算符。因此，所有的值类型都必须符合 `Equatable` 协议。
 
-As already noted, it is quite normal and in fact desirable for reference types to have properties that are instances of value types to encapsulate state, express business rules and expose behaviour. These value types can be passed around in an efficient manner without having to worry about unintended consequences, thread safety, etc. But should a value type hold instances of reference types? This should generally be avoided because use of reference type properties on value types can negate the performance and other advantages of value types by introducing heap allocation, reference counting and implicit data sharing. In fact, it may cause the value type to lose its attribute-based equality, lack of identity and substitutability. It is important, therefore, to respect these boundaries and not to combine value and reference semantics in a way that will compromise the integrity of either.
+#### 5. 结合值类型和引用类型
 
-There are various ways to describe how value and reference types can work together in real-world applications. As [Andy Matuschak](https://twitter.com/andy_matuschak) put it in [this blog post](https://www.objc.io/issues/16-swift/swift-classes-vs-structs/): Think of objects as a thin, imperative layer above the predictable, pure value layer. In the References section of Andy’s post is a link to [this talk](https://www.destroyallsoftware.com/talks/boundaries) by [Gary Bernhardt](https://twitter.com/garybernhardt), where he proposes a way of building systems using what he calls a functional core and an imperative shell. The functional core is composed of pure values, domain logic and business rules. It is easy to reason about, facilitates concurrency and simplifies testing because it is isolated from external dependencies by the imperative shell, which preserves state and connects to the world of user interfaces, persistence mechanisms, networks, etc.
+如上面提到过的，把引用类型的属性封装为值类型的实例，以达到封装状态，表示业务规则并且暴露行为的目的是非常可取的。这些值类型可以高效传递，而不用担心意外后果，如线程安全性等。但是，值类型应该保存引用类型的实例吗？这通常应该避免，因为在值类型上使用引用类型属性会引入堆分配，引用计数和隐式数据共享，影响值类型的性能和其他优点。事实上，它会导致值类型失去其基于属性的平等，淡化标识和可替代性的特点。因此，重要的是要遵守规则，不能以损害两者完整性的方式来结合值与引用语义。
 
-## The Swift Standard Library and the Cocoa frameworks
+有很多方式描述了值类型和引用类型是如何在实际应用中工作的。如 [Andy Matuschak](https://twitter.com/andy_matuschak) 在[这篇文章](https://www.objc.io/issues/16-swift/swift-classes-vs-structs/)中所说的：把对象看作是可预测的纯净的值层之上的一个轻薄的必要的层。在 Andy 的文章的参考文献部分是 [Gary Bernhardt](https://twitter.com/garybernhardt) 的[这次演讲](https://www.destroyallsoftware.com/talks/boundaries)，一种使用他称之为的函数性核心和命令式外壳来构建系统的方法。函数核心由纯粹的值，特定领域逻辑和业务规则组成。很容易得出，这套系统有利于并发并且易于测试，因为它通过命令式外壳与外部依赖隔离，因此保留了状态并连接到用户界面，持久化机制，网络等等。
 
-The Swift Standard Library is composed predominantly of value types. All basic built-in types and collections have been implemented as structs. The frameworks that form part of Cocoa, however, are composed mostly of classes. Some of this is required because classes are the appropriate way to model view controllers, user interface elements, network connections, file handlers, etc.
+## Swift 标准库与 Cocoa 框架
 
-But Cocoa also has a number of classes in the Foundation framework that would rather be value types but exist as reference types because they are written in Objective-C. This is where the Swift Foundation overlay comes in, providing bridged value types for a growing number of Objective-C reference types. For more details on bridged types and how Swift interoperates with Cocoa frameworks, see [this page in the Apple developer library](https://developer.apple.com/library/content/documentation/Swift/Conceptual/BuildingCocoaApps/WorkingWithCocoaDataTypes.html#//apple_ref/doc/uid/TP40014216-CH6-ID61).
+Swift 的标准库主要由值类型组成。所有的内建基本类型和集合都是用结构体实现的。构成 Cocoa 框架的部分主要由类构成。有些地方需要类的原因是，类对于 MVC，用户界面元素，网络连接，文件处理等等是很恰当的方式。
 
-## Conclusion
+但是 Cocoa 在 Foundation 框架里也有很多类是值类型的，不过作为引用类型而存在，因为他们是用 Objective-C 来编写的。这就是 Swift 标准覆盖的地方，为越来越多的 Objective-C 引用类型提供了值类型的桥接。更多桥接类型和 Swift 与 Cocoa 框架之间交互的细节，可以看看[苹果开发者网站上的这一页](https://developer.apple.com/library/content/documentation/Swift/Conceptual/BuildingCocoaApps/WorkingWithCocoaDataTypes.html#//apple_ref/doc/uid/TP40014216-CH6-ID61)。
 
-Swift provides powerful and efficient value types that can be used to make parts of our code more efficient, predictable and thread-safe. This requires understanding the differences between value and reference semantics to be able to combine value and reference types in a way that best satisfies the goals of the application.
+## 结论
 
+Swift 提供了强大而高效的值类型，让我们的代码更加高效，可预测而且线程安全。这就需要理解值和引用语义之间的差异，才能以最能满足应用程序目标的方式来结合值类型和引用类型。
 
 ---
 
