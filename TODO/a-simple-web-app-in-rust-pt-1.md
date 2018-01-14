@@ -436,12 +436,12 @@ cargo run
 
 系列文章：使用 Rust 开发一个简单的 Web 应用
 
-* [Part 1](http://joelmccracken.github.io/entries/a-simple-web-app-in-rust-pt-1/)
-* [Part 2a](http://joelmccracken.github.io/entries/a-simple-web-app-in-rust-pt-2a/)
-* [Part 2b](http://joelmccracken.github.io/entries/a-simple-web-app-in-rust-pt-2b/)
-* [Part 3](http://joelmccracken.github.io/entries/a-simple-web-app-in-rust-pt-3/)
-* [Part 4](http://joelmccracken.github.io/entries/a-simple-web-app-in-rust-pt-4-cli-option-parsing/)
-* [Conclusion](http://joelmccracken.github.io/entries/a-simple-web-app-in-rust-conclusion/)
+* [Part 1](https://github.com/xitu/gold-miner/blob/master/TODO/a-simple-web-app-in-rust-pt-1.md)
+* [Part 2a](https://github.com/xitu/gold-miner/blob/master/TODO/a-simple-web-app-in-rust-pt-2a.md)
+* [Part 2b](https://github.com/xitu/gold-miner/blob/master/TODO/a-simple-web-app-in-rust-pt-2b.md)
+* [Part 3](https://github.com/xitu/gold-miner/blob/master/TODO/a-simple-web-app-in-rust-pt-3.md)
+* [Part 4](https://github.com/xitu/gold-miner/blob/master/TODO/a-simple-web-app-in-rust-pt-4-cli-option-parsing.md)
+* [Conclusion](https://github.com/xitu/gold-miner/blob/master/TODO/a-simple-web-app-in-rust-conclusion.md)
 
 ## 脚注:
 
