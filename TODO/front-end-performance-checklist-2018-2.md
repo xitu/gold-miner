@@ -6,25 +6,37 @@
 > * 校对者：
 
 # Front-End Performance Checklist 2018 - Part 2
+# 前端性能目录2 2018
 
 Below you’ll find an overview of the front-end performance issues you mightneed to consider to ensure that your response times are fast and smooth.
+下面你将会前端性能问题的总览，
 
 - [Front-End Performance Checklist 2018 - Part 1](https://github.com/xitu/gold-miner/blob/master/TODO/front-end-performance-checklist-2018-1.md)
 - [Front-End Performance Checklist 2018 - Part 2](https://github.com/xitu/gold-miner/blob/master/TODO/front-end-performance-checklist-2018-2.md)
 - [Front-End Performance Checklist 2018 - Part 3](https://github.com/xitu/gold-miner/blob/master/TODO/front-end-performance-checklist-2018-3.md)
 - [Front-End Performance Checklist 2018 - Part 4](https://github.com/xitu/gold-miner/blob/master/TODO/front-end-performance-checklist-2018-4.md)
 
+- [前端性能目录1 2018](https://github.com/xitu/gold-miner/blob/master/TODO/front-end-performance-checklist-2018-1.md)
+- [前端性能目录2 2018](https://github.com/xitu/gold-miner/blob/master/TODO/front-end-performance-checklist-2018-2.md)
+- [前端性能目录3 2018](https://github.com/xitu/gold-miner/blob/master/TODO/front-end-performance-checklist-2018-3.md)
+- [前端性能目录4 2018](https://github.com/xitu/gold-miner/blob/master/TODO/front-end-performance-checklist-2018-4.md)
+
 ***
 
 11. **Will you be using AMP or Instant Articles?**
+11. **你会使用 AMP 和即时文章么？**
 
 Depending on the priorities and strategy of your organization, you might want to consider using Google's [AMP](https://www.ampproject.org/) or Facebook's [Instant Articles](https://instantarticles.fb.com/) or Apple's [Apple News](https://www.apple.com/news/). You can achieve good performance without them, but AMP does provide a solid performance framework with a free content delivery network (CDN), while Instant Articles will boost your visibility and performance on Facebook.
+依赖于你的组织优先性和战略性，你可能想考虑使用谷歌的 [AMP](https://www.ampproject.org/)和 Facebook 的[即时文章](https://instantarticles.fb.com/)或者苹果的[苹果的新闻](https://www.apple.com/news/)。没有它们，你可以实现很好的性能，但是 AMP 通过免费的内容分发网络(CDN)提供一个稳定的性能框架，而且在 Facebook 上，即时文章将会改善你的关注度和性能。
 
 The main benefit of these technologies for users is _guaranteed performance_, so at times they might even prefer AMP-/Apple News/Instant Pages-links over "regular" and potentially bloated pages. For content-heavy websites that are dealing with a lot of third-party content, these options could help speed up render times dramatically.
+对于用户而言，这些技术主要的优势是确保性能，但是有时他们宁愿喜欢 AMP-/Apple News/Instant Pages-链路，也不愿是“规则”和潜在的臃肿页面。对于以内容为主的网站，主要处理很多第三方法内容，这些选择有助于加速渲染的时间。
 
 A benefit for the website owner is obvious: discoverability of these formats on their respective platforms and [increased visibility in search engines](https://ethanmarcotte.com/wrote/ampersand/). You could build [progressive web AMPs](https://www.smashingmagazine.com/2016/12/progressive-web-amps/), too, by reusing AMPs as a data source for your PWA. Downside? Obviously, a presence in a walled garden places developers in a position to produce and maintain a separate version of their content, and in case of Instant Articles and Apple News [without actual URLs](https://www.w3.org/blog/TAG/2017/07/27/distributed-and-syndicated-content-whats-wrong-with-this-picture/). _(thanks Addy, Jeremy!)_
+对于网站的所有者优势是明显的：
 
 12. **Choose your CDN wisely.**
+12. **明智地选择你的 CDN**
 
 Depending on how much dynamic data you have, you might be able to "outsource" some part of the content to a [static site generator](https://www.smashingmagazine.com/2015/11/static-website-generators-jekyll-middleman-roots-hugo-review/), pushing it to a CDN and serving a static version from it, thus avoiding database requests. You could even choose a [static-hosting platform](https://www.smashingmagazine.com/2015/11/modern-static-website-generators-next-big-thing/) based on a CDN, enriching your pages with interactive components as enhancements ([JAMStack](https://jamstack.org/)).
 
