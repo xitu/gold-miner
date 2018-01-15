@@ -92,35 +92,37 @@ LiveData<List<User>> getUsers();
 
 如果你不能在编译期失败，最好尽快在运行时失败。
 
-#### 异常应当用于指示不寻常的情况
+#### 异常应当用于指示异常的情况
 
 **API:** 用户不应当使用在控制流中使用异常。异常应当仅用于例外情况，或者 API 的不正确使用。尽可能使用返回值来指示这些情况，因为捕获并处理异常几乎总是比测试返回值要慢。
 
-例如，试图把 `null` 值插入一个有 `NON NULL` 限制的列中 is an exceptional condition and leads to an `SQLiteConstraintException` being thrown.
+例如，试图把 `null` 值插入一个有 `NON NULL` 限制的列中，就是一种异常的情况，会抛出 `SQLiteConstraintException`。
 
-#### Throw specific exceptions. Prefer already existing exceptions
+#### 抛出具体的异常。尽量使用已有的异常
 
-**API:** Developers already know what `IllegalStateException` or `IllegalArgumentException` mean, even if they don’t know the reason this happened in your API. Help your API users by throwing existing exceptions, preferring more specific exceptions to general ones, with a good error message.
+**API:** 开发者知道 `IllegalStateException` 和 `IllegalArgumentException` 是什么意思，哪怕他们不知道你的 API 中发生了什么。通过抛出已有的异常来帮助你的 API 用户，使用尽量具体而不是笼统的异常，并好好填写错误信息。
 
-When creating a new `Bitmap` via `[createBitmap](https://developer.android.com/reference/android/graphics/Bitmap.html#createBitmap%28android.graphics.Bitmap,%20int,%20int,%20int,%20int%29)` method, you need to provide elements like the width and the height of the new bitmap. If you’re providing values <= 0 as arguments, then the method will throw an `IllegalArgumentException`.
+在通过  `[createBitmap](https://developer.android.com/reference/android/graphics/Bitmap.html#createBitmap%28android.graphics.Bitmap,%20int,%20int,%20int,%20int%29)` 方法创建 `Bitmap` 时，你需要提供新 bitmap 的宽高等信息。如果你传入小于 0 的值作为参数，这个方法将会抛出 `IllegalArgumentException`。
 
-#### Error messages should precisely indicate the problem
+#### 错误消息应当准确指示问题
 
-**API:** The same guidelines for writing error messages for the UI apply to the API also. Provide detailed messages that will help your users fix their code.
+**API:** 为 UI 写错误信息的指导原则，也适用于 API。提供细致的错误信息，以帮助用户修复他们的代码。
 
-For example, in Room, if a query is run on the main thread, the user will get a `java.lang.IllegalStateException: Cannot access database on the main thread since it may potentially lock the UI for a long period of time`. This indicates that the state in which the query is being executed (main thread) is illegal for this action.
+比如，在 Room 中，如果一个查找在主线程运行，用户将会获得 `java.lang.IllegalStateException: 不能在主线程访问数据库，因为它有可能把 UI 锁住较长的一段时间`。这表明查询被执行时的状态（在主线程）是不合法的。
 
-### 10. Help and documentation
+比如，在 Room 中，如果一个查找在主线程运行，用户将会获得 `java.lang.IllegalStateException: 不能在主线程访问数据库，因为它有可能把 UI 锁住较长的一段时间`。这表明查询被执行时的状态（在主线程）是不合法的。
 
-**UI:** Your users should be able to use your application without any documentation. For complex or very domain-specific apps, this might not be possible so, if documentation is needed, make sure it’s easy to find, easy to search, and that it answers common questions.
+### 10. 帮助和文档
+
+**UI:** 你的用户应当能够不用文档使用你的应用。对于非常复杂或者领域专门化的 app，这也许是不可能的。所以，如果需要文档，确保它易于寻找、易于使用，并解答了常见的问题。
 
 ![](https://cdn-images-1.medium.com/max/800/1*uZnbab0y0Hv44odGp7AblQ.png)
 
-Elements like “Help” and “Send feedback” are usually placed at the bottom of the navigation drawer
+诸如 “帮助” 或者 “发送反馈” 之类的元素通常在导航菜单底部
 
-#### API should be self documenting
+#### API 应当是自说明的
 
-**API:** Good naming of methods, classes and members makes an API self documenting. But no matter how good an API is, it won’t be used without a good documentation. This is why every public element — method, class, field, parameter — should be documented. Whatever is easy and obvious for you, as an API developer, might not be as easy and obvious for your API users.
+**API:** 好的方法、类和成员命名使 API 能够阐明自身的意义。但无论 API 多好，没有好的文档就无法被使用。 This is why every public element — method, class, field, parameter — should be documented. Whatever is easy and obvious for you, as an API developer, might not be as easy and obvious for your API users.
 
 #### Example code should be exemplary
 
