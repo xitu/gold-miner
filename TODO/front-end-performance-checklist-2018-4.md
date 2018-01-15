@@ -85,37 +85,70 @@ Also, measure [runtime rendering performance](https://aerotwist.com/blog/my-perf
 
 We also have a lil' article by Sergey Chikuyonok on how to [get GPU animation right](https://www.smashingmagazine.com/2016/12/gpu-animation-doing-it-right/). Quick note: changes to GPU-composited layers are the [least expensive](https://blog.algolia.com/performant-web-animations/), so if you can get away by triggering only compositing via `opacity` and `transform`, you'll be on the right track.
 
+同样，我们有 Sergey Chikuyonok 这篇文章关于如何[正确使用 GPU 动画](https://www.smashingmagazine.com/2016/12/gpu-animation-doing-it-right/)。注意：对 GPU-composited 层的更改是[代价最小的](https://blog.algolia.com/performant-web-animations/)，如果你能通过“不透明”和“变形”来触发合成，那么你就是在正确的道路上。
+
 33. **Have you optimized rendering experience?**
+
+33. **你优化过渲染体验吗？**
 
 While the sequence of how components appear on the page, and the strategy of how we serve assets to the browser matter, we shouldn't underestimate the role of [perceived performance](https://www.smashingmagazine.com/2015/09/why-performance-matters-the-perception-of-time/), too. The concept deals with psychological aspects of waiting, basically keeping customers busy or engaged while something else is happening. That's where [perception management](https://www.smashingmagazine.com/2015/11/why-performance-matters-part-2-perception-management/), [preemptive start](https://www.smashingmagazine.com/2015/11/why-performance-matters-part-2-perception-management/#preemptive-start), [early completion](https://www.smashingmagazine.com/2015/11/why-performance-matters-part-2-perception-management/#early-completion) and [tolerance management](https://www.smashingmagazine.com/2015/12/performance-matters-part-3-tolerance-management/) come into play.
 
+组件以何种顺序显示在页面上以及我们如何给浏览器提供资源固然重要，但是我们同样也不能低估了[感知性能](https://www.smashingmagazine.com/2015/09/why-performance-matters-the-perception-of-time/)的角色。这一概念涉及到等待的心理学，主要是让顾客在其他事情发生时保持忙碌。这就涉及到了[感知管理](https://www.smashingmagazine.com/2015/11/why-performance-matters-part-2-perception-management/)，[优先开始](https://www.smashingmagazine.com/2015/11/why-performance-matters-part-2-perception-management/#preemptive-start)，[提前完成](https://www.smashingmagazine.com/2015/11/why-performance-matters-part-2-perception-management/#early-completion)和[宽容管理](https://www.smashingmagazine.com/2015/12/performance-matters-part-3-tolerance-management/)。
+
+
+
 What does it all mean? While loading assets, we can try to always be one step ahead of the customer, so the experience feels swift while there is quite a lot happening in the background. To keep the customer engaged, we can use [skeleton screens](https://twitter.com/lukew/status/665288063195594752) ([implementation demo](https://twitter.com/razvancaliman/status/734088764960690176)) instead of loading indicators, add transitions/animations and basically [cheat the UX](https://blog.stephaniewalter.fr/en/cheating-ux-perceived-performance-and-user-experience/) when there is nothing more to optimize.
+
+这一切意味着什么？在加载资产时，我们可以尝试始终领先于客户一步，所以在后台有很多事情发生时，体验会很快。让客户参与进来，我们可以用[骨架屏幕](https://twitter.com/lukew/status/665288063195594752)（[实例演示](https://twitter.com/razvancaliman/status/734088764960690176)），而不是当没有更多优化可做时、用加载指示，添加一些动画/过渡[欺骗用户体验](https://blog.stephaniewalter.fr/en/cheating-ux-perceived-performance-and-user-experience/)。
 
 ### HTTP/2
 
 34. **Migrate to HTTPS, then turn on HTTP/2.**
 
+34. **迁移到 HTTPS，然后打开 HTTP/2.**
+
 With Google [moving towards a more secure web](https://security.googleblog.com/2016/09/moving-towards-more-secure-web.html) and eventual treatment of all HTTP pages in Chrome as being "not secure," a switch to [HTTP/2 environment](https://http2.github.io/faq/) is unavoidable. HTTP/2 is [supported very well](http://caniuse.com/#search=http2); it isn't going anywhere; and, in most cases, you're better off with it. Once running on HTTPS already, you can get a [major performance boost](https://www.youtube.com/watch?v=RWLzUnESylc&t=1s&list=PLNYkxOF6rcIBTs2KPy1E6tIYaWoFcG3uj&index=25) with service workers and server push (at least long term).
+
+在谷歌提出[向更安全的网页进军](https://security.googleblog.com/2016/09/moving-towards-more-secure-web.html)以及认为 Chrome 中所有的 HTTP 网页都是“不安全”的后，迁移到[HTTP/2]((https://http2.github.io/faq/)是不可避免的。HTTP/2[支持得非常好]it isn't going anywhere; and, in most cases, you're better off with it.（不知道啥意思，求助）。一旦运行在 HTTPS 上，你至少能够在服务人员和服务器推送方面获得[显著的性能提升](https://www.youtube.com/watch?v=RWLzUnESylc&t=1s&list=PLNYkxOF6rcIBTs2KPy1E6tIYaWoFcG3uj&index=25)。
+
 
 ![HTTP/2](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/30dd1821-9800-4f01-91a8-1375d4812144/http-pages-chrome-opt.png)
 
 Eventually, Google plans to label all HTTP pages as non-secure, and change the HTTP security indicator to the red triangle that Chrome uses for broken HTTPS. ([Image source](https://security.googleblog.com/2016/09/moving-towards-more-secure-web.html))
 
+最终，谷歌计划将所有 HTTP 页面标记为不安全的，并将有问题的 HTTPS 的 HTTP 安全指示器更改为红色三角形。（[图片来源](https://security.googleblog.com/2016/09/moving-towards-more-secure-web.html)）
+
 The most time-consuming task will be to [migrate to HTTPS](https://https.cio.gov/faq/), and depending on how large your HTTP/1.1 user base is (that is, users on legacy operating systems or with legacy browsers), you'll have to send a different build for legacy browsers performance optimizations, which would require you to adapt a [different build process](https://rmurphey.com/blog/2015/11/25/building-for-http2). Beware: Setting up both migration and a new build process might be tricky and time-consuming. For the rest of this article, I'll assume that you're either switching to or have already switched to HTTP/2.
+
+最耗时的任务将是[迁移到 HTTPS](https://https.cio.gov/faq/)，取决于你的 HTTP/1.1 用户基础有多大（即使用旧版操作系统或浏览器的用户），你将不得不为旧版的浏览器性能优化发送不同的构建版本，这需要你采用[不同的构建流程](https://rmurphey.com/blog/2015/11/25/building-for-http2)。注意：开始迁移和新的构建过程可能会很棘手，而且耗费时间。对于本文的其余部分，我假设您将要么切换到 HTTP/2，要么已经切换到 HTTP/2。
+
+
 
 35. **Properly deploy HTTP/2.**
 
+35. **正确地部署 HTTP/2.**
+
 Again, [serving assets over HTTP/2](https://www.youtube.com/watch?v=yURLTwZ3ehk) requires a partial overhaul of how you've been serving assets so far. You'll need to find a fine balance between packaging modules and loading many small modules in parallel. In the end of the day, still [the best request is no request](http://alistapart.com/article/the-best-request-is-no-request-revisited), however the goal is to find a fine balance between quick first delivery of assets and caching.
+
+再次，[通过 HTTP/2 提供资源](https://www.youtube.com/watch?v=yURLTwZ3ehk)需要对现阶段正如何提供资源服务进行局部检查。您需要在打包模块和并行加载多个小模块之间找到一个良好的平衡。最终，仍然是[最好的请求就是没有请求](http://alistapart.com/article/the-best-request-is-no-request-revisited)，然而我们的目标是在快速传输资源和缓存之间找到一个好的平衡点。
 
 On the one hand, you might want to avoid concatenating assets altogether, instead breaking down your entire interface into many small modules, compressing them as a part of the build process, referencing them via the ["scout" approach](https://rmurphey.com/blog/2015/11/25/building-for-http2) and loading them in parallel. A change in one file won't require the entire style sheet or JavaScript to be re-downloaded. It also [minimizes parsing time](https://css-tricks.com/musings-on-http2-and-bundling/) and keeps the payloads of individual pages low.
 
+一方面，你可能想要避免合并所有资源，而不是把整个界面分解成许多小模块，压缩他们（作为构建过程的一部分），通过[“侦察”的方法](https://rmurphey.com/blog/2015/11/25/building-for-http2)引用和并行加载它们。一个文件的更改不需要重新下载整个样式表或 JavaScript。这样还可以[最小化解析时间](https://css- s.com/musings-on-http2-and-bundling/)，并将单个页面的负荷保持在较低的水平。
+
 On the other hand, [packaging still matters](http://engineering.khanacademy.org/posts/js-packaging-http2.htm). First, **compression will suffer**. The compression of a large package will benefit from dictionary reuse, whereas small separate packages will not. There's standard work to address that, but it's far out for now. Secondly, browsers have **not yet been optimized** for such workflows. For example, Chrome will trigger [inter-process communications](https://www.chromium.org/developers/design-documents/inter-process-communication) (IPCs) linear to the number of resources, so including hundreds of resources will have browser runtime costs.
+
+另一方面，[打包仍然很重要](http://engineering.khanacademy.org/posts/js-packaging-http2.htm)。首先，**压缩将获益**。大包的压缩将从字典重用中获益，而小的单独的包则不会。有标准的工作来解决这个问题，但现在还远远不够。其次，浏览器还**没有为这种工作流优化**。例如，Chrome 将触发[进程间通信](https://www.chromium.org/developers/design-documents/inter-process-communication)（IPCs），与资源的数量成线性关系，因此页面中如果包含数以百计的资源将会造成浏览器性能损失。
 
 ![Progressive CSS loading](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/24d7fcb0-40c3-4ada-abb3-22b8524f9b2d/progressive-css-loading-opt.png)
 
 To achieve best results with HTTP/2, consider to [load CSS progressively](https://jakearchibald.com/2016/link-in-body/), as suggested by Chrome's Jake Archibald.
 
+为了获得使用 HTTP/2 最好的效果，可以考虑使用[渐进地加载 CSS](https://jakearchibald.com/2016/link-in-body/)，正如 Chrome 的 Jake Archibald 所推荐的。
+
 Still, you can try to [load CSS progressively](https://jakearchibald.com/2016/link-in-body/). Obviously, by doing so, you are actively penalizing HTTP/1.1 users, so you might need to generate and serve different builds to different browsers as part of your deployment process, which is where things get slightly more complicated. You could get away with [HTTP/2 connection coalescing](https://daniel.haxx.se/blog/2016/08/18/http2-connection-coalescing/), which allows you to use domain sharding while benefiting from HTTP/2, but achieving this in practice is difficult.
+
+你可以尝试[渐进地加载 CSS](https://jakearchibald.com/2016/link-in-body/)。显然，通过这样做，您会伤害 HTTP/1.1 用户，因此您可能需要为不同的浏览器生成和提供不同的构建流程，作为部署过程的一部分，这是事情变得稍微复杂的地方。你可以使用 [HTTP/2 连接合并](https://daniel.haxx.se/blog/2016/08/18/http2-connection-coalescing/)，它允许您使用 HTTP/2 提供的域分片，但在实践中实现这一目标是很困难的。
 
 What to do? If you're running over HTTP/2, sending around **6–10 packages** seems like a decent compromise (and isn't too bad for legacy browsers). Experiment and measure to find the right balance for your website.
 
