@@ -24,10 +24,10 @@ Below you’ll find an overview of the front-end performance issues you mightnee
 ***
 
 11. **Will you be using AMP or Instant Articles?**
-11. **你会使用 AMP 和即时文章么？**
+11. **你会使用 AMP 和 Instant Articles 么？**
 
 Depending on the priorities and strategy of your organization, you might want to consider using Google's [AMP](https://www.ampproject.org/) or Facebook's [Instant Articles](https://instantarticles.fb.com/) or Apple's [Apple News](https://www.apple.com/news/). You can achieve good performance without them, but AMP does provide a solid performance framework with a free content delivery network (CDN), while Instant Articles will boost your visibility and performance on Facebook.
-依赖于你的组织优先性和战略性，你可能想考虑使用谷歌的 [AMP](https://www.ampproject.org/)和 Facebook 的[即时文章](https://instantarticles.fb.com/)或者苹果的[苹果的新闻](https://www.apple.com/news/)。没有它们，你可以实现很好的性能，但是 AMP 通过免费的内容分发网络(CDN)提供一个稳定的性能框架，而且在 Facebook 上，即时文章将会改善你的关注度和性能。
+依赖于你的组织优先性和战略性，你可能想考虑使用谷歌的 [AMP](https://www.ampproject.org/)和 Facebook 的[Instant Articles](https://instantarticles.fb.com/)或者苹果的[苹果的新闻](https://www.apple.com/news/)。没有它们，你可以实现很好的性能，但是 AMP 通过免费的内容分发网络(CDN)提供一个稳定的性能框架，而且在 Facebook 上，即时文章将会改善你的关注度和性能。
 
 The main benefit of these technologies for users is _guaranteed performance_, so at times they might even prefer AMP-/Apple News/Instant Pages-links over "regular" and potentially bloated pages. For content-heavy websites that are dealing with a lot of third-party content, these options could help speed up render times dramatically.
 对于用户而言，这些技术主要的优势是确保性能，但是有时他们宁愿喜欢 AMP-/Apple News/Instant Pages-链路，也不愿是“规则”和潜在的臃肿页面。对于以内容为主的网站，主要处理很多第三方法内容，这些选择有助于加速渲染的时间。
@@ -43,6 +43,7 @@ Depending on how much dynamic data you have, you might be able to "outsource" so
 Notice that CDNs can serve (and offload) dynamic content as well. So, restricting your CDN to static assets is not necessary. Double-check whether your CDN performs compression and conversion (e.g. image optimization in terms of formats, compression and resizing at the edge), smart HTTP/2 delivery, edge-side includes, which assemble static and dynamic parts of pages at the CDN's edge (i.e. the server closest to the user), and other tasks.
 
 ### Build Optimizations
+### 构建优化
 
 13. **Set your priorities straight.**
 
@@ -51,12 +52,14 @@ It's a good idea to know what you are dealing with first. Run an inventory of al
 Set up a spreadsheet. Define the basic _core_ experience for legacy browsers (i.e. fully accessible core content), the _enhanced_ experience for capable browsers (i.e. the enriched, full experience) and the _extras_ (assets that aren't absolutely required and can be lazy-loaded, such as web fonts, unnecessary styles, carousel scripts, video players, social media buttons, large images). We published an article on "[Improving Smashing Magazine's Performance](https://www.smashingmagazine.com/2014/09/improving-smashing-magazine-performance-case-study/)," which describes this approach in detail.
 
 14. **Consider using the "cutting-the-mustard" pattern.**
+14. **考虑使用“cutting-the-mustard”模式**
 
 Albeit quite old, we can still use the [cutting-the-mustard technique](http://responsivenews.co.uk/post/18948466399/cutting-the-mustard) to send the core experience to legacy browsers and an enhanced experience to modern browsers. Be strict in loading your assets: Load the core experience immediately, then enhancements, and then the extras. Note that the technique deduces device capability from browser version, which is no longer something we can do these days.
 
 For example, cheap Android phones in developing countries mostly run Chrome and will cut the mustard despite their limited memory and CPU capabilities. That's where [PRPL pattern](https://developers.google.com/web/fundamentals/performance/prpl-pattern/) could serve as a good alternative. Eventually, using the [Device Memory Client Hints Header](https://github.com/w3c/device-memory), we'll be able to target low-end devices more reliably. At the moment of writing, the header is supported only in Blink (it goes for [client hints](https://caniuse.com/#search=client%20hints) in general). Since Device Memory also has a JavaScript API which is [already available in Chrome](https://developers.google.com/web/updates/2017/12/device-memory), one option could be to feature detect based on the API, and fallback to "cutting the mustard" technique only if it's not supported (_thanks, Yoav!_)
 
 15. **Parsing JavaScript is expensive, so keep it small.**
+15. **解析 JavaScript 的代价很大，应保持其较小**
 
 When dealing with single-page applications, you might need some time to initialize the app before you can render the page. Look for modules and techniques to speed up the initial rendering time (for example, [here's how to debug React performance](https://building.calibreapp.com/debugging-react-performance-with-react-16-and-chrome-devtools-c90698a522ad), and [here's how to improve performance in Angular](https://www.youtube.com/watch?v=p9vT0W31ym8)), because most performance issues come from the initial parsing time to bootstrap the app.
 
@@ -71,10 +74,12 @@ That's why it's critical to examine every single JavaScript dependency, and tool
 [Webpack Bundle Analyzer](https://www.npmjs.com/package/webpack-bundle-analyzer) visualizes JavaScript dependencies.
 
 16. **Are you using an ahead-of-time compiler?**
+16. **你使用 AOT编译么？**
 
 Use an [ahead-of-time compiler](https://www.lucidchart.com/techblog/2016/09/26/improving-angular-2-load-times/) to [offload some of the client-side rendering](https://www.smashingmagazine.com/2016/03/server-side-rendering-react-node-express/) to the [server](http://redux.js.org/docs/recipes/ServerRendering.html) and, hence, output usable results quickly. Finally, consider using [Optimize.js](https://github.com/nolanlawson/optimize-js) for faster initial loading by wrapping eagerly invoked functions (it [might not be necessary](https://twitter.com/tverwaes/status/809788255243739136) any longer, though).
 
 17. **Are you using tree-shaking, scope hoisting and code-splitting?**
+17. **你使用 tree-shaking，scope hoisting，code-splitting 么**
 
 [Tree-shaking](https://medium.com/@roman01la/dead-code-elimination-and-tree-shaking-in-javascript-build-systems-fb8512c86edf) is a way to clean up your build process by only including code that is actually used in production and eliminate unused exports [in Webpack](http://www.2ality.com/2015/12/webpack-tree-shaking.html). With Webpack 3 and Rollup, we also have [scope hoisting](https://medium.com/webpack/brief-introduction-to-scope-hoisting-in-webpack-8435084c171f) that allows both tools to detect where `import` chaining can be flattened and converted into one inlined function without compromising the code. With Webpack 4, you can now use [JSON Tree Shaking](https://react-etc.net/entry/json-tree-shaking-lands-in-webpack-4-0) as well. [UnCSS](https://github.com/giakki/uncss) or [Helium](https://github.com/geuis/helium-css) can help you remove unused styles from CSS.
 
@@ -105,6 +110,7 @@ Study what JavaScript engines dominate in your user base, then explore ways of o
 [Progressive booting](https://aerotwist.com/blog/when-everything-is-important-nothing-is/) means using server-side rendering to get a quick first meaningful paint, but also include some minimal JavaScript to keep the time-to-interactive close to the first meaningful paint.
 
 19. **Client-side rendering or server-side rendering?**
+19. **客户端渲染或者服务端渲染？**
 
 In both scenarios, our goal should be to set up [progressive booting](https://aerotwist.com/blog/when-everything-is-important-nothing-is/): Use server-side rendering to get a quick first meaningful paint, but also include some minimal necessary JavaScript to **keep the time-to-interactive close to the first meaningful paint**. If JavaScript is coming too late after the First Meaningful Paint, the browser might [lock up the main thread](https://davidea.st/articles/measuring-server-side-rendering-performance-is-tricky) while parsing, compiling and executing late-discovered JavaScript, hence handcuffing the [interactivity of site or application](https://philipwalton.com/articles/why-web-developers-need-to-care-about-interactivity/).
 
@@ -115,6 +121,7 @@ In its essence, Time to Interactive (TTI) tells us how the length of time betwee
 Once we reached Interactive, we can then, either on demand or as time allows, boot non-essential parts of the app. Unfortunately, as [Paul Lewis noticed](https://aerotwist.com/blog/when-everything-is-important-nothing-is/#which-to-use-progressive-booting), frameworks typically have no concept of priority that can be surfaced to developers, and hence progressive booting is difficult to implement with most libraries and frameworks. If you have the time and resources, use this strategy to ultimately boost performance.
 
 20. **Do you constrain the impact of third-party scripts?**
+20. **你限制第三方脚本的影响么？**
 
 With all performance optimizations in place, often we can't control third-party scripts coming from business requirements. Third-party-scripts metrics aren't influenced by end user experience, so too often one single script ends up calling a long tail of obnoxious third-party scripts, hence ruining a dedicated performance effort. To contain and mitigate performance penalties that these scripts bring along, it's not enough to just load them asynchronously ([probably via defer](https://www.twnsnd.com/posts/performant_third_party_scripts.html)) and accelerate them via resource hints such as `dns-prefetch` or `preconnect`.
 
@@ -133,6 +140,7 @@ To [stress-test third parties](https://csswizardry.com/2017/07/performance-and-r
 Image credit: [Harry Roberts](https://csswizardry.com/2017/07/performance-and-resilience-stress-testing-third-parties/#request-blocking)
 
 21. **Are HTTP cache headers set properly?**
+21. **HTTP 头缓存设置是否合理？**
 
 Double-check that `expires`, `cache-control`, `max-age` and other HTTP cache headers have been set properly. In general, resources should be cacheable either for a very short time (if they are likely to change) or indefinitely (if they are static) — you can just change their version in the URL when needed. Disable the `Last-Modified` header as any asset with it will result in a conditional request with an `If-Modified-Since`-header even if the resource is in cache. Same with `Etag`, though it has its uses.
 
