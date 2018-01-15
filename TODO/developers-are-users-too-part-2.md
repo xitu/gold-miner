@@ -30,15 +30,15 @@ A **方法** 名称应该是一个动词，说明它做什么：`query()`, `runI
 
 ### 7. 使用的灵活性和效率
 
-**UI:** 你的应用可能被没有经验和经验丰富的用户同时使用。创建一个 UI使其迎合这两种用户的需求，并允许他们Your application might be used by both inexperienced and experienced users. Create a UI that it caters to both of these types of users and allows them to adapt frequent actions. It is said that 20% of the features are used by 80% of the users. You need to create a balance between simplicity and power. Find out what those 20% are for your app, and make those parts of the app as easy and as simple to use as possible. Apply the [principle of progressive disclosure](https://www.nngroup.com/articles/progressive-disclosure/) and allow the rest of your users to access advanced features in a secondary screen.
+**UI:** 你的应用可能被没有经验和经验丰富的用户同时使用。创建一个 UI使其迎合这两种用户的需求，并让他们习惯常用的操作。据说，20% 的功能被 80% 的用户使用。你需要在简洁和功能之间权衡。找出你的 app 中的那 20%，然后把它们变得尽可能简单易用。使用 [逐步展现原则](https://www.nngroup.com/articles/progressive-disclosure/) ，以允许你的用户在次要的页面使用进阶功能。
 
 ![](https://cdn-images-1.medium.com/max/800/1*DenvAOded-MXjFI1v5iXFQ.png)
 
-The Wi-Fi settings defaults to basic options but also contains advanced options. It fits the needs of the user.
+Wi-Fi 设置默认显示基本选项，但也包含进阶选项。它适合用户的需求。
 
-#### Build a flexible API
+#### 写有弹性的 API
 
-Users should be able to accomplish their tasks with the API efficiently and the API needs to be flexible. For example, when querying a database, Room provides different return values allowing them to do synchronous queries, use LiveData or, if they prefer, use APIs from RxJava 2.
+用户应当能够使用 API 高效地完成任务，API 需要有弹性。比如，在查询数据库时，Room 提供不同的返回值，允许用户进行同步查询，使用LiveData，或者如果他们喜欢的话，使用 RxJava2 中的 API。
 
 ```
 @Query(“SELECT * FROM Users”)
