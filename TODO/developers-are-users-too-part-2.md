@@ -64,27 +64,27 @@ LiveData<List<User>> getUsers();
 
 [Pocket Casts](https://play.google.com/store/apps/details?id=au.com.shiftyjelly.pocketcasts&hl=en_GB) app 使用极简设计
 
-In the episode lists screen, this podcast app shows minimum, contextual and relevant amount of information: if the user hasn’t downloaded an episode, the download size and the download button are visible; if the user has downloaded it — the duration and a play button. At the same time, all of these and more are present in the details screen for the curious user.
+这个 app 的集列表页面显示最少量的，和上下文相关的信息：如果用户没有下载某集，这一集的大小和下载页面是可见的；如果用户已经下载，就可以见到时长和播放按钮。同时，对于那些好奇的用户而言，细节页面包含所有这些信息，并且不止于此。
 
-**API:** API users have one goal: to solve their problem faster with the help of your API. So make their path as short and direct as possible.
+**API:** 用户们有一个目标：用你的 API 更快解决问题。所以把它们的路径做得尽可能短和直接。
 
-#### Don’t expose internal API logic
+#### 不要暴露内部 API 逻辑
 
-**API:** Unnecessarily exposing internal API logic can confuse the user and lead to bad usability. Don’t expose methods and classes that are not needed
+**API:** 不必要地暴露 API 内部逻辑会让你的用户困惑，并降低你的 API 的可用性。不要暴露不必要的方法和类。
 
-#### Don’t make the user do anything that the API could do
+#### 不要让用户做任何 API 能够做的事情
 
-**API:** Starting with 22.1.0, the Android Support Library provides the `RecyclerView` suite of objects to enable creation of UI elements based on large data sets or data that changes frequently. Whenever the list changes, the `RecyclerView.Adapter` needs to be notified with the data that was updated. That lead to developers creating their own solutions for computing the differences between lists. In the 25.1.0 version of the Support Library, this boilerplate was drastically reduced by the `[DiffUtil](https://developer.android.com/reference/android/support/v7/util/DiffUtil.html)` class. Moreover, `DiffUtil` uses an optimized algorithm, reducing the amount of code you need to write and increasing performance.
+**API:** 从 22.1.0 开始，Android Support Library 提供 `RecyclerView` 相关的一系列对象，使用户可以基于频繁改变的大型数据集创建 UI 元素。当列表改变时，`RecyclerView.Adapter` 需要被通知哪些数据被更新了。这使得开发者创造他们自己的用于比较列表的方法。在 25.1.0 版本的 Support Library, 这类反复出现的代码被 `[DiffUtil](https://developer.android.com/reference/android/support/v7/util/DiffUtil.html)` 类极大简化了。 而且，`DiffUtil` 使用经过优化的算法，减少你需要写的代码量并且增强性能。
 
-### 9. Help users recognize, diagnose and recover from errors
+### 9. 帮助用户识别、诊断并摆脱错误
 
-**UI:** Provide your app’s users with error messages that help them recognize, diagnose and recover from errors. Good error messages contain a clear indication that something has gone wrong, with a precise description of the problem in polite and human readable language, containing constructive advice on how to fix the problem. Avoid showing a status code or an Exception class name. The user won’t know what to do with that information.
+**UI:** 向你的用户提供有助于识别、诊断并摆脱错误的错误信息。好的错误信息明确指出有东西出错了，使用礼貌而易读的语言准确描述问题，包含有助于解决问题的建议。避免显示状态码或者 Exception 类名称，用户不会知道如何处理这些信息的。
 
 ![](https://cdn-images-1.medium.com/max/800/1*oJ8PMLg3ayTfHR7dOFvGEA.png)
 
-Error messages when creating an event. [Source](https://material.io/guidelines/patterns/errors.html#errors-user-input-errors)
+创建事件时的错误信息。 [Source](https://material.io/guidelines/patterns/errors.html#errors-user-input-errors)
 
-Show an error on an input field as soon as it’s defocused, don’t wait until the user presses a button to submit the entire form, or, even worse, wait for the errors to come from the backend. Use the TextView’s [capabilities](https://developer.android.com/reference/android/widget/TextView.html#setError%28java.lang.CharSequence%29) to display an error message. If you’re creating an event form for example, prevent your users from creating events in the past by setting constraints directly to the UI widgets.
+在输入区域失去焦点时尽快显示错误信息，不要等到用户点击提交表单的按钮。更不要等到服务端传来错误信息。使用 TextView 的[功能](https://developer.android.com/reference/android/widget/TextView.html#setError%28java.lang.CharSequence%29) 来显示错误信息。如果你在创建一个事件表单，你要通过直接给 UI 控件设置限制的方法，防止用户创建发生在过去的事件。
 
 #### Fail fast
 
