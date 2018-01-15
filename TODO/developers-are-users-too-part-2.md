@@ -52,17 +52,17 @@ Flowable<List<User>> getUsers();
 LiveData<List<User>> getUsers();
 ```
 
-#### Put related methods in related classes
+#### 把相关的方法放在相关的类中
 
-Methods placed in a class that has no direct relation to the code that the developer has already written are hard to find. Even more, “Util” or “Helper” classes that tend to group a lot of useful methods can be hard to find. When using Kotlin, the solution for this is to use [extension functions](https://kotlinlang.org/docs/reference/extensions.html).
+如果一个类和一个开发者写出的代码没有直接关系，那么他通常很难找到其中的某个方法。而且，通常包含大量有用方法的 Util 和 Helper 类 会很难找到。在使用 Kotlin 时，解决这个问题的方案是使用 [扩展函数](https://kotlinlang.org/docs/reference/extensions.html).
 
-### 8. Aesthetic and minimalist design
+### 8. 美观和极简的设计
 
-**UI:** The UI should be kept simple, containing only the information relevant for the user at that time. Irrelevant or rarely needed information should be removed or moved to other screens since their presence distracts the user and decreases the importance of the information that is indeed relevant.
+**UI:** UI 应当保持简单，只包含当时和用户相关的信息。不相关或很少使用的信息应当被删除或者移到其它屏幕，因为它们的存在使用户分心，并且减少了相关信息的重要性。
 
 ![](https://cdn-images-1.medium.com/max/800/1*HBsvBFRg_ueZvG5Qfmk3ZA.png)
 
-[Pocket Casts](https://play.google.com/store/apps/details?id=au.com.shiftyjelly.pocketcasts&hl=en_GB) app uses a minimalist design
+[Pocket Casts](https://play.google.com/store/apps/details?id=au.com.shiftyjelly.pocketcasts&hl=en_GB) app 使用极简设计
 
 In the episode lists screen, this podcast app shows minimum, contextual and relevant amount of information: if the user hasn’t downloaded an episode, the download size and the download button are visible; if the user has downloaded it — the duration and a play button. At the same time, all of these and more are present in the details screen for the curious user.
 
