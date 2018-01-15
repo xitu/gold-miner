@@ -122,11 +122,11 @@ LiveData<List<User>> getUsers();
 
 #### API 应当是自说明的
 
-**API:** 好的方法、类和成员命名使 API 能够阐明自身的意义。但无论 API 多好，没有好的文档就无法被使用。 This is why every public element — method, class, field, parameter — should be documented. Whatever is easy and obvious for you, as an API developer, might not be as easy and obvious for your API users.
+**API:** 好的方法、类和成员命名使 API 能够阐明自身的意义。但无论 API 多好，没有好的文档就无法被使用。这就是每个 public 的元素——方法，类，域，参数——应当用文档说明的原因。对于你，一个 API 开发者来说简单易见的东西，也许对于你的 API 用户来说就不那么容易和显然了。
 
-#### Example code should be exemplary
+#### 示例代码应该是模范代码
 
-**API:** The code examples have several roles: they help the users understand the purpose of the API, the usage, and also the usage context. **Code snippets** are intended to demonstrate how to access the basic API functionality. **Tutorials** teach developers a specific aspect of the API. **Code samples** are more complex examples, usually an entire application. Of these three, the biggest problems appear when you don’t have code samples because developers are missing the bigger picture — how all of your classes and methods work together and how they should work together with the system.
+**API:** 示例代码有若干用途：他们帮助用户理解 API 的目的，用途，以及上下文。**代码片段** 用于解释如何使用基本的 API 功能。 **教程** 教用户关于 API 特定层面的知识。**代码示例** 是are more complex examples, usually an entire application. Of these three, the biggest problems appear when you don’t have code samples because developers are missing the bigger picture — how all of your classes and methods work together and how they should work together with the system.
 
 If your API becomes popular, chances are you will have thousands of developers using those examples and those samples will become the model of how your API should be used. Therefore, every mistake you make will come back to bite you.
 
