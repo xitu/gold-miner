@@ -78,7 +78,7 @@ LiveData<List<User>> getUsers();
 
 ### 9. 帮助用户识别、诊断并摆脱错误
 
-**UI:** 向你的用户提供有助于识别、诊断并摆脱错误的错误信息。好的错误信息明确指出有东西出错了，使用礼貌而易读的语言准确描述问题，包含有助于解决问题的建议。避免显示状态码或者 Exception 类名称，用户不会知道如何处理这些信息的。
+**UI:** 向你的用户提供有助于识别、诊断并摆脱错误的错误信息。好的错误信息明确指出有东西出错了，使用礼貌而易读的语言准确描述问题，包含有助于解决问题的建议。避免显示状态码或者异常类名称，用户不会知道如何处理这些信息的。
 
 ![](https://cdn-images-1.medium.com/max/800/1*oJ8PMLg3ayTfHR7dOFvGEA.png)
 
@@ -86,17 +86,17 @@ LiveData<List<User>> getUsers();
 
 在输入区域失去焦点时尽快显示错误信息，不要等到用户点击提交表单的按钮。更不要等到服务端传来错误信息。使用 TextView 的[功能](https://developer.android.com/reference/android/widget/TextView.html#setError%28java.lang.CharSequence%29) 来显示错误信息。如果你在创建一个事件表单，你要通过直接给 UI 控件设置限制的方法，防止用户创建发生在过去的事件。
 
-#### Fail fast
+#### 快速失败
 
-**API:** The sooner a bug is reported, the less damage it will do. Therefore, the best time to fail is at compile time. For example, Room will report any problems with incorrect queries or wrongly annotated classes at compile time.
+**API:** 一个 bug 被报告得越早，它就会造成越少的损失。因此，失败的最好时机就是在编译期。例如，Room 会在编译期报告任何不正确的查询或者类注解。
 
-If you can’t fail at compile time, then try to fail at run time as soon as possible.
+如果你不能在编译期失败，最好尽快在运行时失败。
 
-#### Exceptions should indicate exceptional conditions
+#### 异常应当用于指示不寻常的情况
 
-**API:** Users shouldn’t be using exceptions for control flow. Exceptions should only be used for exceptional conditions or incorrect API usages. Use return values to indicate this, where possible. Catching and handling exceptions is almost always slower than than testing a return value.
+**API:** 用户不应当使用在控制流中使用异常。异常应当仅用于例外情况，或者 API 的不正确使用。尽可能使用返回值来指示这些情况，因为捕获并处理异常几乎总是比测试返回值要慢。
 
-For example, trying to insert a `null` value in a column that has a `NON NULL` constraint is an exceptional condition and leads to an `SQLiteConstraintException` being thrown.
+例如，试图把 `null` 值插入一个有 `NON NULL` 限制的列中 is an exceptional condition and leads to an `SQLiteConstraintException` being thrown.
 
 #### Throw specific exceptions. Prefer already existing exceptions
 
