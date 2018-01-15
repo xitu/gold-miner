@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/outside-in-development-with-double-loop-tdd.md](https://github.com/xitu/gold-miner/blob/master/TODO/outside-in-development-with-double-loop-tdd.md)
 > * 译者：[Yong Li](https://github.com/NeilLi1992)
-> * 校对者：
+> * 校对者：[Liao Malin](https://github.com/liaodalin19903)
 
 # 利用双环 TDD 进行由外向内的开发
 
@@ -13,7 +13,7 @@
 
 [![london_school_001](http://coding-is-like-cooking.info/wp-content/uploads/2013/05/london_school_001-300x162.jpg)](http://coding-is-like-cooking.info/wp-content/uploads/2013/05/london_school_001.jpg)
 
-当你进行双环 TDD 时，你在内环上花费的时间是以分钟计的，而在外环上花费的时间是以小时或天计的。外环测试是从系统的外部用户的角度来写的，通常覆盖了粗粒度的功能，并且已部署在真实的（或至少接近真实的）环境中。在 [我的书中](https://leanpub.com/codingdojohandbook) 我把这类测试称之为「指导测试」（Guiding Test），而 Freeman 和 Pryce 称之为 「验收测试」（Acceptance Tests）。这些测试应当在客户期望不能满足时失败 —— 换而言之，它们提供了良好的回溯保护。它们也记载了系统应有的行为。（另见我的文章「[敏捷自动化测试设计的原则](http://coding-is-like-cooking.info/2013/03/principles-for-agile-test-automation-2nd-edition/)」）
+当你进行双环 TDD 时，你在内环上花费的时间是以分钟计的，而在外环上花费的时间是以小时或天计的。外环测试是从系统的外部用户的角度来写的，通常覆盖了粗粒度的功能，并且已部署在真实的（或至少接近真实的）环境中。在 [我的书中](https://leanpub.com/codingdojohandbook) 我把这类测试称之为「指导测试」（Guiding Test），而 Freeman 和 Pryce 称之为 「验收测试」（Acceptance Tests）。这些测试应当在客户期望不能满足时失败 —— 换而言之，它们提供了良好的回溯保护。它们也记载了系统应有的行为。（另见我的文章「[敏捷自动化测试设计的原则](http://coding-is-like-cooking.info/2013/03/principles-for-agile-test-automation-2nd-edition/)」）
 
 我不认为双环 TDD 是伦敦派 TDD 特有的，我相信传统 TDD 开发者也会采用。这一理念早在 Kent Beck 的第一本关于极限编程的书中就存在了。但我认为伦敦派的独到之处在于由外向内的设计，并且辅之以 mock 的使用。
 
