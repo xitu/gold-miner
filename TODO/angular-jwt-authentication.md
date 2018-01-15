@@ -6,201 +6,314 @@
 > * 校对者：
 
 # Angular 安全 —— 使用 JSON 网络令牌（JWT）验证：完全指南
+本文是在 Angular 应用程序中设计和实现基于 JWT（JSON Web Tokens）身份验证的分步指南。
 
-这篇文章是以一步一步的指导，在一个 Angular 应用中从设计和实现两方面实现基于 JWT 认证。
+我们的目标是系统的讨论**基于 JWT 的认证设计和实现**，衡量取舍不同的设计方案，并将其应用到 Angular 程序特定的上下文中。
 
-The goal here is to discuss **JWT-based Authentication Design and Implementation** in general, by going over the multiple design options and design compromises involved, and then apply those concepts in the specific context of an Angular Application.
+我们将追踪一个 JWT 被从认证服务器上创建开始，然后它被返回客户端，然后再回到应用服务器的全程。并且我们将讨论涉及的所有涉及方案以及做出的决策。
 
-We will follow the complete journey of a JWT from creation on the Authentication server and back to the client, and then back to the Application server and talk about all the design options and decisions involved.
+由于身份验证同样需要一些服务端代码，所以我们将同时显示这些信息。以便我们可以掌握整个上下文，并且看清楚各个部分之间如何协作。
 
-Because Authentication also requires some server code, we will show that too so that we have the whole context and can see how all the multiple parts work together.
+服务端代码是 Node/Typescript，Angular 开发者会对这些应该是非常熟悉的。但是涵盖的概念并不是特定于 Node 的。
 
-The server code will be in Node / Typescript, as it's very familiar to Angular developers, but the concepts covered are not Node-specific.
+如果你使用另一种服务平台，主需要在 [jwt.io](https://jwt.io) 上为你的平台选择一个 JWT 库，这些概念仍然适用。
 
-If you use another server platform, it's just a matter of choosing a JWT library for your platform at [jwt.io](https://jwt.io), and with it, all the concepts will still apply.
+### 目录
+在这篇文章中，我们将介绍一下主题：
 
-### Table of Contents
+* 第一步 —— 登陆页面
+  * 基于 JWT 的身份验证  
+  * 用户在 Angular 程序中登录
+  * 为什么要使用单独托管的登陆页面？
+  * 在我们的单页应用（SPA）中直接登录
+* 第二步 —— 创建基于 JWT 的用户会话
+  * 使用 [node-jsonwebtoken](https://github.com/auth0/node-jsonwebtoken) 创建 JWT 会话令牌（Session Token）
+* 第三步 —— 将 JWT 返回到客户端
+  * 在哪里存储 JWT 会话令牌？
+  * Cookie 与 Local Storage
+* 第四步 —— 在客户端存储使用 JWT  
+  * 检查用户到期时间
+* 第五步 —— 每次请求携带 JWT 发回到服务器  
+  * 如何构建一个身份验证 HTTP 拦截器H
+* 第六步 —— 验证用户请求
+  * 构建用于 JWT 验证的定制 Express 中间件
+  * 使用 [express-jwt](https://github.com/auth0/express-jwt) 配置 JWT 验证中间件
+  * 验证 JWT 签名（Signatures）—— RS256
+  * RS256 与 HS256
+  * JWKS (JSON Web 密钥集) 终节点和密钥旋转
+  * 使用 [node-jwks-rsa](https://github.com/auth0/node-jwks-rsa) 实现 JWKS 密钥旋转
+* 总结
 
-In this post we will cover the following topics:
+无需再费周折（without further ado），我们开始学习基于 JWT 的 Angular 的认证吧！
 
-* Step 1 - The Login Page
-  * JWT-based Authentication in a Nutshell
-  * User Login in an Angular Application
-  * Why use a separately hosted Login Page?
-  * Login directly in our single page application
-* Step 2 - Creating a JWT-based user Session
-  * Creating a JWT Session Token using [node-jsonwebtoken](https://github.com/auth0/node-jsonwebtoken)
-* Step 3 - Sending a JWT back to the client
-  * Where to store a JWT Session Token?
-  * Cookies vs Local Storage
-* Step 4 - Storing and using the JWT on the client side
-  * Checking User Expiration
-* Step 5 - Sending The JWT back to the server on each request
-  * How to build an Authentication HTTP Interceptor
-* Step 6 - Validating User Requests
-  * Building a custom Express middleware for JWT validation
-  * Configuring a JWT validation middleware using [express-jwt](https://github.com/auth0/express-jwt)
-  * Validating JWT Signatures - RS256
-  * RS256 vs HS256
-  * JWKS (JSON Web Key Set) endpoints and key rotation
-  * Implementing JWKS key rotation using [node-jwks-rsa](https://github.com/auth0/node-jwks-rsa)
-* Summary and Conclusions
+### 基于 JWT 的用户会话
+首先介绍如何使用 JSON Web Tokens 来建立用户会话：简而言之，JWT 是数字签名以 URL 友好的字符串格式编码的 JSON 有效载荷（payload）。
 
-So without further ado, let's get started learning JWT-based Angular Authentication!
+JWT 通常可以包含任何有效载荷，但最常见的用例是使用有效载荷定于用户会话。
 
-### JWT-based User Sessions
+JWT 的关键在于，我们只需要检查令牌本身就可以确定它们是否有效，而无需为此单独联系服务器，不需要将令牌保存到内存中，也不需要在请求的时候保存到服务器。
 
-Let's start by introducing how JSON Web Tokens can be used to establish a user session: in a nutshell, JWTs are digitally signed JSON payloads, encoded in a URL-friendly string format.
+如果使用 JWT 身份验证，则它们将至少包含用户 ID 和到期时间戳。
 
-A JWT can contain any payload in general, but the most common use case is to use the payload to define a user session.
+如果你想要深入了解有关 JWT 格式的详细信息（包括最常用的签名类型如何工作），请参阅本文后面的 [JWT: The Complete Guide to JSON Web Tokens](https://blog.angular-university.io/angular-jwt) 一文。
 
-The key thing about JWTs is that in order to confirm if they are valid, we only need to inspect the token itself and validate the signature, without having to contact a separate server for that, or keeping the tokens in memory or in the database between requests.
-
-If JWTs are used for Authentication, they will contain at least a user ID and an expiration timestamp.
-
-If you would like to know all the details about the JWT format in-depth including how the most common signature types work, have a look at this post [JWT: The Complete Guide to JSON Web Tokens](https://blog.angular-university.io/angular-jwt).
-
-If you are curious to know what a JWT looks like, here is an example:
+如果想知道 JWT 是什么样子的话，下面是一个例子：
 
 ```
 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzNTM0NTQzNTQzNTQzNTM0NTMiLCJleHAiOjE1MDQ2OTkyNTZ9.zG-2FvGegujxoLWwIQfNB5IT46D-xC4e8dEDYwi6aRM
 ```
 
-You might be thinking: this does not look like JSON! Where is the JSON then?
+你可能会想：这看起来不像 JSON！那么 JSON 在哪里？
 
-To see it, let's head over to [jwt.io](https://jwt.io/) and paste the complete JWT string into the validation tool, we will then see the JSON Payload:
+为了看到他，让我们回到 [jwt.io](https://jwt.io/) 并将完成的 JWT 字符串粘贴到验证工具中，然后我们就能看到 JSON 的有效内容：
 
-The `sub` property contains the user identifier, and the `exp` property contains the expiration timestamp. This type of token is known as a Bearer Token, meaning that it identifies the user that owns it, and defines a user session.
+```
+{
+  "sub": "353454354354353453",
+  "exp": 1504699256
+}
+```
+查看 [raw01.ts](https://gist.github.com/jhades/2375d4f784938d28eaa41f321f8b70fe#file-01-ts) ❤托管于 [GitHub](https://github.com)
 
-> A bearer token is a signed temporary replacement for the username/password combination!
+`sub` 属性包含用户标识符，`exp` 包含用户到期时间戳.这种类型的令牌被称为不记名令牌（Bearer Token），意思是它标识拥有它的用户，并定义一个用户会话。
 
-If you would like to learn further about JWTs, have a look [here](https://blog.angular-university.io/angular-jwt). For the remainder of this post, we will assume that a JWT is a string containing a verifiable JSON payload, which defines a user session.
+> 不记名令牌是用户名/密码组合的签名临时替换！
 
-The very first step for implementing JWT-based Authentication is to issue a bearer token and give it to the user, and that is the main purpose of a Login / Sign up page.
+如果想进一步了解 JWT，请看看[这里](https://blog.angular-university.io/angular-jwt)。对于本文的其余部分，我们将假定 JWT 是一个包含可验证 JSON 有效载荷的字符串，它定义了一个用户会话。
 
-### Step 1 - The Login Page
+实现基于 JWT 的身份验证第一步是发布不记名令牌并将其提供给用户，这是登录/注册页面的主要目的。
 
-Authentication starts with a Login page, which can be hosted either in our domain or in a third-party domain. In an enterprise scenario, the login page is often hosted on a separate server, which is part of a company-wide Single Sign-On solution.
+### 第一步 —— 登陆页面
+身份验证以登陆页面开始，该页面可以托管在我们的域中或者第三方域中。在企业场景中，登陆页面一般会托管在单独的服务器上。这是公司范围内单点登录（ Single Sign-On）解决方案的一部分。
 
-On the public Internet, the login page might also be:
+在公网（Public Internet）上，登录页面也可能是：
 
-* hosted by a third-party Authentication provider such as Auth0
-* available directly in our single page application using a login screen route or a modal
+* 由第三方身份验证程序（如 Auth0）托管
+* 使用直接在我们的单页应用中可用的登录页面路径或模式。
 
-A separately hosted login page is an improvement security-wise because this way the password is never directly handled by our application code in the first place.
+单独托管的登录页面是一种安全性的改进，因为这样密码永远不会直接由我们的应用程序代码来处理。
 
-The separately hosted login page can have minimal Javascript or even none at all, and it could be styled to make it look and feel as part of the whole application.
+单独托管的登录页面可以具有最少量的 JavaScript 甚至完全没有，并且可以将其做到不论看起来还是用起来都像是整体应用程序的一部分的效果。
 
-But still, logging in a user via a login screen inside our application is also a viable and commonly used solution, so let's cover that too.
+但是，用户在我们应用程序中通过内置登录页面登录也是一种可性行且常用的解决方案，所以我们也会介绍一下。
 
-### Login page directly on the SPA application
+### 直接在 SPA 应用程序上的登录页面
+如果直接在我们的 SPA 程序中创建登录页面，它将看起来是这样的：
 
-If we would create a login page directly in our SPA, this is what it would look like:
+```
+@Component({
+  selector: 'login',
+  template: `
+<form [formGroup]="form">
+    <fieldset>
+        <legend>Login</legend>
+        <div class="form-field">
+            <label>Email:</label>
+            <input name="email" formControlName="email">
+        </div>
+        <div class="form-field">
+            <label>Password:</label>
+            <input name="password" formControlName="password" 
+                   type="password">
+        </div>
+    </fieldset>
+    <div class="form-buttons">
+        <button class="button button-primary" 
+                (click)="login()">Login</button>
+    </div>
+</form>`})
+export class LoginComponent {
+    form:FormGroup;
 
-As we can see, this page would be a simple form with two fields: the email and the password. When the user clicks the Login button, the user and password are then sent to a client-side Authentication service via a `login()` call.
+    constructor(private fb:FormBuilder, 
+                 private authService: AuthService, 
+                 private router: Router) {
 
-### Why create a separate Authentication service?
+        this.form = this.fb.group({
+            email: ['',Validators.required],
+            password: ['',Validators.required]
+        });
+    }
 
-Putting all our client authentication logic in a centralized application-wide singleton `AuthService` will help us keep our code organized.
+    login() {
+        const val = this.form.value;
 
-This way, if for example later we need to change security providers or refactor our security logic, we only have to change this class.
+        if (val.email && val.password) {
+            this.authService.login(val.email, val.password)
+                .subscribe(
+                    () => {
+                        console.log("User is logged in");
+                        this.router.navigateByUrl('/');
+                    }
+                );
+        }
+    }
+}
+```
+查看 [raw02.ts](https://gist.github.com/jhades/2375d4f784938d28eaa41f321f8b70fe#file-02-ts) ❤托管于 [GitHub](https://github.com)
 
-Inside this service, we will either use some Javascript API for calling a third-party service, or the Angular HTTP Client directly for doing an HTTP POST call.
+正如我们所看到的，这个页面是一个简单的表单，包含两个字段：电子邮件和密码。当用户点击登录按钮的时候，用户和密码将通过 `login()` 调用发送到客户端身份验证服务。
 
-In both cases, the goal is the same: to get the user and password combination across the network to the Authentication server via a POST request, so that the password can be validated and the session initiated.
+### 为什么要创建一个单独的认证服务器
+把我们所有的客户端身份验证逻辑放在一个集中的应用程序范围内的单个 `AuthService`（认证服务）将帮助我们保持我们代码的组织。
 
-Here is how we would build the HTTP POST ourselves using the Angular HTTP Client:
+这样，如果以后我们需要更改安全提供者或者重构我们的安全逻辑，我们只需要改变这个类。
 
-We are calling `shareReplay` to prevent the receiver of this Observable from accidentally triggering multiple POST requests due to multiple subscriptions.
+在这个服务里边，我们将使用一些 JavaScript API 来调用第三方服务，或者使用 Angular HTTP Client 进行 HTTP POST 调用。
 
-Before processing the login response, let's first follow the flow of the request and see what happens on the server.
+这两种方案的目标是一致的：通过 POST 请求将用户和密码组合通过网络传送到认证服务器，以便可以验证密码并启动会话。
 
-### Step 2 - Creating a JWT Session Token
+以下是我们如何使用 Angular HTTP Client 构建自己的 HTTP POST：
 
-Whether we use a login page at the level of the application or a hosted login page, the server logic that handles the login POST request will be the same.
+```
+@Injectable()
+export class AuthService {
+     
+    constructor(private http: HttpClient) {
+    }
+      
+    login(email:string, password:string ) {
+        return this.http.post<User>('/api/login', {email, password})
+            // this is just the HTTP call, 
+            // we still need to handle the reception of the token
+            .shareReplay();
+    }
+}
+```
+       
+查看 [raw03.ts](https://gist.github.com/jhades/2375d4f784938d28eaa41f321f8b70fe#file-03-ts) ❤托管于 [GitHub](https://github.com)
 
-The goal is in both cases to validate the password and establish a session. If the password is correct, then the server will issue a bearer token saying:
+我们调用的 `shareReplay`可以防止这个 Observable 的接收者由于多次订阅而意外触发多个 POST 请求。
 
-> The bearer of this token is the user with the technical ID 353454354354353453, and the session is valid for the next two hours
+在处理登录响应之前，我们先来看看请求的流程，看看服务器上发生了什么。
 
-The token should then be signed and sent back to the user browser! The key part is the JWT digital signature: that is the only thing that prevents an attacker from forging session tokens.
+### 第二步 —— 创建 JWT 会话令牌
+无论我们在应用程序级别使用登录页面还是托管登录页面，处理登录 POST 请求的服务器逻辑是相同的。
 
-This is what the code looks like for creating a new JWT session token, using Express and the node package [node-jsonwebtoken](https://github.com/auth0/node-jsonwebtoken):
+目标是在这两种情况下都会验证密码并建立一个会话。如果密码是正确的，那么服务器将会发出一个不记名令牌，说：
 
-There is a lot going on in this code, so we will break it down line by line:
+> 该令牌的持有者的专业 ID 是 353454354354353453, 该会话在接下来的两个小时有效
 
-* We start by creating an Express appplication
-* next, we configure the `bodyParser.json()` middleware, to give Express the ability to read JSON payloads from the HTTP request body
-*   We then defined a route handler named `loginRoute`, that gets triggered if the server receives a POST request targetting the `/api/login` URL
+然后应该对令牌进行签名并发送回用户浏览器！关键部分是 JWT 签名：这是防止攻击者伪造会话令牌的唯一方式。
 
-Inside the `loginRoute` method we have some code that shows how the login route can be implemented:
+这是使用 Express 和 Node 包 [node-jsonwebtoken](https://github.com/auth0/node-jsonwebtoken) 创建新的 JWT 会话令牌的代码：
 
-* we can access the JSON request body payload using `req.body`, due to the presence of the `bodyParser.json()` middleware
-* we start by retrieving the email and password from the request body
-* then we are going to validate the password, and see if it's correct
-* if the password is wrong then we send back the HTTP status code 401 Unauthorized
-* if the password is correct, we start by retrieving the user technical identifier
-* we then create a a plain Javascript object with the user ID and an expiration timestamp and we send it back to the client
-* We sign the payload using the [node-jsonwebtoken](https://github.com/auth0/node-jsonwebtoken) library and choose the RS256 signature type (more on this in a moment)
-* The result of the `.sign()` call is the JWT string itself
+```
+import {Request, Response} from "express";
+import * as express from 'express';
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+import * as jwt from 'jsonwebtoken';
+import * as fs from "fs";
 
-To summarize, we have validated the password and created a JWT session token. Now that we have a good picture of how this code works, let's focus on the key part which is the signing of the JWT containing the user session details, using an RS256 signature.
+const app: Application = express();
 
-Why is the type of signature important? Because without understanding it we won't understand the Application server code that we will need to validate this token.
+app.use(bodyParser.json());
 
-#### What are RS256 Signatures?
+app.route('/api/login')
+    .post(loginRoute);
 
-RS256 is a JWT signature type that is based on RSA, which is a widely used public key encryption technology.
+const RSA_PRIVATE_KEY = fs.readFileSync('./demos/private.key');
 
-> One of the main advantages of using a RS256 signature is that we can separate the ability of creating tokens from the ability to verify them.
+export function loginRoute(req: Request, res: Response) {
 
-You can read all about the advantages of using this type of signatures in the [JWT Guide](https://blog.angular-university.io/angular-authentication-jwt/), if you would like to know how to manually reproduce them.
+    const email = req.body.email,
+          password = req.body.password;
 
-In a nutshell, RS256 signatures work in the following way:
+    if (validateEmailAndPassword()) {
+       const userId = findUserIdForEmail(email);
 
-* a private key (like `RSA_PRIVATE_KEY` in our code) is used for signing JWTs
-* a public key is used to validate them
-* the two keys are not interchangeable: they can either only sign tokens, or only validate them, but neither key can do both things
+        const jwtBearerToken = jwt.sign({}, RSA_PRIVATE_KEY, {
+                algorithm: 'RS256',
+                expiresIn: 120,
+                subject: userId
+            }
 
-### Why RS256?
+          // send the JWT back to the user
+          // TODO - multiple options available                              
+    }
+    else {
+        // send status 401 Unauthorized
+        res.sendStatus(401); 
+    }
+}
+```
+查看 [raw04.ts](https://gist.github.com/jhades/2375d4f784938d28eaa41f321f8b70fe#file-04-ts) ❤托管于 [GitHub](https://github.com)
 
-Why use public key crypto to sign JWTs? Here are some examples of both security and operational advantages:
+代码很多，我们逐行分解：
 
-* we only have to deploy the private signing key in the Authentication Server, and not on the multiple Application servers that use the same Authentication Server
-* We don't have to shut down the Authentication and the Application servers in a coordinated way, in order to change a shared key everywhere at the same time
-* the public key can be published in a URL and automatically read by the Application server at startup time and periodically
+* 我们首先创建一个 Express 应用程序
+* 接下来，我们配置 `bodyParser.json()` 中间件，使 Express 能够从 HTTP 请求体中读取 JSON 有效载荷
+* 然后，我们定义了一个名为 `loginRoute` 的路由处理程序，如果服务器收到一个 POST 请求，就会触发 `/api/login` URL
 
-This last part is a great feature: being able to publish the validating key gives us built-in key rotation and revocation, and we will implement that in this post!
+在 `loginRoute` 方法中，我们有一些代码展示了如何实现登录路由：
 
-This is because in order to enable a new key pair we simply publish a new public key, and we will see that in action.
+* 由于 `bodyParser.json()` 中间件的存在，我们可以使用 `req.body` 访问 JSON 请求主体有效载荷。
+* 我们先从请求主体中检索电子邮件和密码
+* 然后我们要验证密码，看看它是否正确
+* 如果密码错误，那么我们发回 HTTP 状态码 401 未经授权
+* 如果密码正确，我们从检索用户专用标识开始
+* 然后我们使用用户 ID 和过期时间戳创建一个普通的 JavaScript 对象，然后将其发送回客户端
+* 我们使用  [node-jsonwebtoken](https://github.com/auth0/node-jsonwebtoken) 库对有效载荷进行签名，然后选择 RS256 签名类型（稍后详细介绍）
+* `.sign()` 调用 结果是 JWT 字符串本身
+
+总而言之，我们验证了密码并创建一个 JWT 会话令牌。现在我们已经对这个代码的工作原理有了一个很好的了解，让我们来关注使用了 RS256 签名的包含用户会话详细信息的 JWT 签名的关键部分。
+
+为什么签名的类型很重要？因为没有理解它，我们将无法理解我们将需要验证次令牌的应用程序服务端代码。
+
+#### 什么是 RS256 签名?
+
+RS256 是基于 RSA 的 JWT 签名类型，是一种广泛使用的公钥加密技术。
+
+> 使用 RS256 签名的主要优点之一是我们可以将创建令牌的能力与验证他们的能力分开。
+
+如果您想知道如何手动重现它们，可以阅读 [JWT 指南](https://blog.angular-university.io/angular-authentication-jwt/)中使用此类签名的所有优点。
+
+简而言之，RS256 签名的工作方式如下：
+
+* 私钥（如我们的代码中的 `RSA_PRIVATE_KEY`）用于对 JWT 进行签名
+* 一个公钥用来验证它们
+* 这两个秘钥是不可互换的：它们只能标记 token，或者只能验证它们，但是两个秘钥不能做两件事
+
+### 为什么用 RS256?
+
+为什么使用公钥加密签署 JWT ？ 以下是一些安全和运营优势的例子：
+
+* 我们只需要在认证服务器部署签名私钥，而不是在使用相同认证服务器的多个应用服务器上。
+* 我们不必为了同时更改每个地方的共享秘钥而以协同的方式关闭认证服务器和应用服务器。
+* 公钥可以在 URL 中公布并且被应用服务器在启动时以及定时自动读取。
+
+最后一部分是一个很好的特性：能够发布验证密钥给我们内置的密钥旋转或者撤销，我们将在这篇文章中实现！
+
+这是因为（使用 RS256）为了启用一个新的密钥对，我们只需要发布一个新的公钥，并且我们会看到这个公钥。
 
 ### RS256 vs HS256
 
-Another commonly used signature is HS256, that does not have these advantages.
+另一个常用的签名是 HS256，没有这些优势。
 
-HS256 is still commonly used, but for example providers such as Auth0 are now using RS256 by default. If you would like to learn more about HS256, RS256 and JWT signatures in general, have a look at this [post](https://blog.angular-university.io/angular-authentication-jwt/).
+HS256 仍然是常用的，例如 Auth0 等供应商现在默认使用 RS256.如果你想了解有关 HS256，RS256 和 JWT 签名的更多信息，请查看这篇 [文章](https://blog.angular-university.io/angular-authentication-jwt/)
 
-Independently of the signature type that we use, we need to send the freshly signed token back to the user browser.
+抛开我们使用的签名类型不谈，我们需要将新签名的令牌发送回用户浏览器。
 
-### Step 3 - Sending a JWT back to the client
+### 第三步 —— 将 JWT 发送回客户端
 
-We have several different ways of sending the token back to the user, for example:
+我们有几种不同的方式将令牌发回给用户，例如：
 
-* In a Cookie
-* In the Request Body
-* In a plain HTTP Header
+* 在 Cookie 中
+* 在请求正文中
+* 在一个普通的 HTTP 头
 
-#### JWTs and Cookies
+#### JWT 和 Cookie
 
-Let's start with cookies, why not use them? JWTs are sometimes mentioned as an alternative to Cookies, but these are two very different concepts. Cookies are a browser data storage mechanism, a place where we can safely store a small amount of data.
+让我们从 cookie 开始，为什么不使用呢？JWT 有时候被称为 Cookie 的替代品，但这是两个完全不同的概念。 Cookie 是一种浏览器数据存储机制，可以安全地存储少量数据。
 
-That data could be anything such as for example the user preferred language, but it can also contain a user identification token such as for example a JWT.
+该数据可以使注诸如用户首选语言之类的任何数据。但是其也可以包含诸如 JWT 的用户识别令牌。
 
-So we can for example, store a JWT _in_ a cookie! Let's then talk about the advantages and disadvantages of using cookies to store JWTs, when compared to other methods.
+因此，我们可以将 JWT 存储在 cookie 中！然后，我们来谈谈使用 Cookie 存储 JWT 与其他方法相比较的优点和缺点。
 
-#### How the browser handles cookies
+#### 浏览器如何处理 Cookie
 
-A unique aspect of cookies is that the browser will automatically with each request append the cookies for a particular domain or sub-domain to the headers of the HTTP request.
+Cookie 的一个独特之处在于，浏览器会自动为每个请求附加到特定于和子域的 cookie 到 HTTP 请求的头部。
 
 This means that if we store the JWT in a cookie, we will not need any further client logic for sending back the cookie to the application server with each request, assuming the login page and the application share the same root domain.
 
