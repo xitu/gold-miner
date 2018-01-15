@@ -3,29 +3,29 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/the-android-lifecycle-cheat-sheet-part-i-single-activities.md](https://github.com/xitu/gold-miner/blob/master/TODO/the-android-lifecycle-cheat-sheet-part-i-single-activities.md)
 > * 译者：[IllllllIIl](https://github.com/IllllllIIl)
-> * 校对者：
+> * 校对者：[tanglie1993](https://github.com/tanglie1993)，[atuooo](https://github.com/atuooo)
 
 # Android 生命周期备忘录 — 第一部分: 单一 Activities
 
 Android 系统的目的是让用户增强控制权并且让他们简便地使用应用程序。例如，一个 app 的用户可能会旋转屏幕，回复一条通知信息，或者切换到另一个任务，而用户应该能够在这类操作后继续流畅地使用这个 app。
 
-为了提供这种用户体验，你应该知道怎么管理组件的生命周期。组件可以是一个 Activity， 一个 Fragment, 一个 Service，Application 本身或者甚至是在默默运行的进程。组件有生命周期，生命周期会在多种状态中变换。当状态发生变化时，系统会通过一个生命周期回调方法通知你。
+为了提供这种用户体验，你应该知道怎么管理组件的生命周期。组件可以是一个 Activity， 一个 Fragment， 一个 Service，或者 Application 本身，甚至是在默默运行的进程。组件有生命周期，生命周期会在多种状态中变换。当状态发生变化时，系统会通过一个生命周期回调方法通知你。
 
 为了更好解释生命周期是怎么运作的，我们定义了根据现有组件进行分类的一系列用户场景。
 
-**第一部分： Activities** — 单一 activity 生命周期 (就是本文)
+**第一部分： Activities** — 单一 activity 的生命周期 (就是本文)
 
 [**第二部分： 多个 activities** — 跳转和返回栈（back stack)](https://medium.com/@JoseAlcerreca/the-android-lifecycle-cheat-sheet-part-ii-multiple-activities-a411fd139f24)
 
 [**第三部分： Fragments** — activity 和 fragment 的生命周期](https://medium.com/@JoseAlcerreca/the-android-lifecycle-cheat-sheet-part-iii-fragments-afc87d4f37fd)
 
-下面的图表可通过 [PDF格式备忘录](https://github.com/JoseAlcerreca/android-lifecycles) 查阅。
+它们的图表也提供了 [PDF格式备忘录](https://github.com/JoseAlcerreca/android-lifecycles)，以方便查阅。
 
 * * *
 
-除非特别说明，接下来的这些用户场景展示了这些组件的默认行为。
+除非特别说明，接下来的这些场景展示了这些组件的默认行为。
 
-_如果你发现有错误或者遗漏了什么重要的东西,请在下方评论。_
+**如果你发现有错误或者遗漏了什么重要的东西，请在下方评论。**
 
 ### **第一部分: Activities**
 
@@ -103,8 +103,8 @@ _如果你发现有错误或者遗漏了什么重要的东西,请在下方评论
 
 这个场景不适用于以下情况:
 
-* 对话框属于同一个应用。弹出一个警告对话框或者一个 DialogFragment 并不会 pause 被遮挡住的 activity。
-* 通知。用户收到一个新通知或者拉下通知栏不会 pause 被遮挡住的 activity。
+* 对话框属于同一个应用。弹出一个警告对话框或者一个 DialogFragment 并不会暂停（执行 onPause 方法）被遮挡住的 activity。
+* 通知。用户收到一个新通知或者拉下通知栏不会暂停被遮挡住的 activity。
 
 ### 延伸阅读
 
