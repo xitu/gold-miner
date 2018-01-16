@@ -174,9 +174,9 @@ export class AuthService {
       
     login(email:string, password:string ) {
         return this.http.post<User>('/api/login', {email, password})
-            // this is just the HTTP call, 
-            // we still need to handle the reception of the token
-            .shareReplay();
+            // 这只是一个 HTTP 调用, 
+            // 我们还需要去处理 token 的接收
+        	.shareReplay();
     }
 }
 ```
@@ -229,11 +229,11 @@ export function loginRoute(req: Request, res: Response) {
                 subject: userId
             }
 
-          // send the JWT back to the user
-          // TODO - multiple options available                              
+          // 将 JWT 发回给用户
+          // TODO - 多种可选方案                              
     }
     else {
-        // send status 401 Unauthorized
+        // 发送状态 401 Unauthorized（未经授权）
         res.sendStatus(401); 
     }
 }
@@ -315,106 +315,133 @@ HS256 仍然是常用的，例如 Auth0 等供应商现在默认使用 RS256.如
 
 Cookie 的一个独特之处在于，浏览器会自动为每个请求附加到特定于和子域的 cookie 到 HTTP 请求的头部。
 
-This means that if we store the JWT in a cookie, we will not need any further client logic for sending back the cookie to the application server with each request, assuming the login page and the application share the same root domain.
+这就意味着，如果我们将 JWT 存储到了 cookie 中，假设登录页面和应用共享一个根域，那么在客户端上，我们不需要任何其他的的逻辑，就可以让 cookie 随每一个请求发送到应用程序服务器。
 
-Let's then store our JWT in a cookie, and see what happens. Here is how we would finish the implementation of our login route, by sending the JWT back to the browser in a cookie:
+然后，让我们把 JWT 存储到 cookie 中，看看会发生什么。下面是我们如何完成我们登录路由的实现，发送 JWT 到浏览器，存入 cookie：
 
-Besides setting a cookie with the JWT value, we also set a couple of security properties that we are going to cover next.
 
-#### Unique security properties of Cookies - HttpOnly and Secure Flags
+```
+... continuing the implementation of the Express login route
 
-Another unique aspect of Cookies is that they have some security-related properties that help with ensuring secure data transfer.
+// this is the session token we created above
+const jwtBearerToken = jwt.sign(...);
 
-A Cookie can be marked as Secure, meaning that the browser will only append the cookie to the request if it's being made over an HTTPS connection.
+// set it in an HTTP Only + Secure Cookie
+res.cookie("SESSIONID", jwtBearerToken, {httpOnly:true, secure:true});
+```
+查看 [raw05.ts](https://gist.github.com/jhades/2375d4f784938d28eaa41f321f8b70fe#file-05-ts) ❤托管于 [GitHub](https://github.com)
 
-A Cookie can also be marked as Http Only, meaning that it's not accessible by the Javascript code _at all_! Note that the browser will still append the cookie to each request sent back to the server, just like with any other cookie.
+除了使用 JWT 值设置 cookie 外，我们还设置了一些我们将要讨论的安全属性。
 
-This means for example that in order to delete a HTTP Only cookie, we need to send a request to the server, like for example to logout the user.
+#### Cookie 独特的安全属性 —— HttpOnly 和安全标志
 
-#### Advantages of HTTP Only cookies
+Cookie 另一个独特之处在与它有着一些与安全相关的属性，有助于确保数据的安全传输。
 
-One advantage of an HTTP Only cookie is that if the application suffers, for example, a script injection attack (or XSS), the Http Only flag would still, in this disastreous scenario, prevent the attacker from getting access to the cookie and use it to impersonate the user.
+一个 Cookie 可以标记为“安全”，这意味着如果浏览器通过 HTTPS 连接发起了请求，那么它只会附加到请求中。
 
-The two flags Secure and Http Only can and are often used together for maximum security, which might make us think that Cookies are the ideal place for storing a JWT.
+一个 Cookie 同样可以被标记为 Http Only，这就意味着它 **根本不能** 被 JavaScript 代码访问！请注意，浏览器依旧会将 cookie 附加到对服务器的每个请求中，就像使用其他 cookie 一样。
 
-But Cookies have some disadvantages too, so let's talk about those: this will help us decide if storing cookies in a JWT is a good approach for our application.
+这意味着，当我们删除 HTTP Only 的 cookie 的时候，我们需要向服务器发送请求，例如注销用户。
 
-#### Disadvantages of Cookies - XSRF
+#### HTTP Only cookie 的优点
 
-Applications with Bearer tokens stored in a Cookie suffer from a vulnerability called Cross-Site Request Forgery, also known as XSRF or CSRF. Here is how it works:
+HTTP Only 的 cookie 的一个优点是，如果应用程序遭受脚本注入攻击（或称 XSS），在这种荒谬的情况下， Http Only 标志仍然会阻止攻击者访问 cookie ，阻止使用它模仿用户。
 
-* somebody sends you a link and you click on it
-* The link ends up sending an HTTP request to the site under attack containing all the cookies linked to the site
-* And if you were logged into the site this means the Cookie containing our JWT bearer token will be forwarded too, this is done automatically by the browser
-* The server receives a valid JWT, so there is no way for the server to distinguish this attack from a valid request
+Secure 和 Http Only 标志经常可以一起使用，以获得最大的安全性，这可能使我们认为 Cookie 是存储 JWT 的理想场所。
 
-This means that an attacker could trick a user to do certain actions on its behalf, just by sending an email, or posting a link in a public forum.
+但是 Cookie 也有一些缺点，那么我们来谈谈这些： 这将有助于我们知晓在 JWT 中存储 cookie 是否是一种适合我们应用的好方案。（译者注：原文是 “this will help us decide if storing cookies in a JWT is a good approach for our application”，但是上面的部分讲的是将 JWT 存入 cookie 中，所以译者认为原文有误，但是还是选择尊重原文）
 
-This attack is less powerful than it might look but the problem is that it's very easy to perform: all it takes is an email or a post on social media.
+#### Cookie 的缺点 —— XSRF（跨站请求伪造）
 
-We will cover in detail this attack in a future post, right now it's important to realize that if we choose to store our JWT in a cookie then we need to also put in place some defenses against XSRF.
+将不记名令牌存储在 cookie 中的应用程序，因此（因为这个 cookie）遭受的攻击被称为跨站请求伪造（Cross-Site Request Forgery），也成为 XSRF 或者 CSRF。下面是其原理：
 
-The good news is that all major frameworks come with defenses that can be easily put in place against XSRF, as it's such a well-known vulnerability.
+* 有人发给你一个链接，并且你点击了它
+* 这个链接向受到攻击的网站最终发送了一个 HTTP 请求，其中包含了所有链接到该网站的 cookie
+* 如果你登陆了网站，这意味着包含我们 JWT 不记名令牌的 Cookie 也会被转发，这是由浏览器自动完成的
+* 服务器接收到有效的 JWT，因此服务器无法区分这是攻击请求还是有效请求
 
-Like it happens many times, there is a design tradeoff going on here with Cookies: using them means leveraging HTTP Only which is a great defense against script injection, but on the other hand, it introduces a new problem - XSRF.
+这就意味着攻击者可以欺骗用户代表他去执行某些操作，只需要发送一封电子邮件或者公共论坛上发布链接即可。
 
-#### Cookies and Third-Party Authentication providers
+这个攻击不像看起来那么吓人，但问题是执行起来很简单：只需要一封电子邮件或者社交媒体上的帖子。
 
-A potential problem with receiving the session JWT in a cookie is that we would not be able to receive it from a third-party web domain, that handles the authentication logic.
+我们在后文会详细介绍这种攻击，现在认识到如果我们选择将我们的 JWT 存储到 cookie 中，那么我们还需要对 XSRF 进行一些防御。
 
-This is because an application running on `app.example.com` cannot access cookies from another domain like `security-provider.com`.
+好消息是，所有的主流框架都带有防御措施，可以很容易地对抗 XSRF，因为它是一个众所周知的漏洞。
 
-So in that scenario, we would not be able to access the cookie containing the JWT, and send it to our server for validation, making the use of cookies unfeasible.
+就像是发生过很多次一样，Cookie 设计上鱼和熊掌不能兼得：使用 cookie 意味着利用 HTTP Only 可以很好的防御脚本注入，但是另一方面，它引入了一个新的问题 —— XSRF。
 
-#### Can we get the best of the two solutions?
+#### Cookie 和第三方认证提供商
 
-Third-party authentication providers might allow us to run the externally hosted login page in a configurable subdomain of our website, such as for example `login.example.com`.
+在 cookie 中接收会话 JWT 的潜在问题是，我们无法从处理验证逻辑的第三方域接收到它。
 
-So it would be possible to get the best of all these solutions combined. Here is what the solution would look like:
+这是因为在 `app.example.com` 运行的应用程序不能从 `security-provider.com` 等其他域访问 cookie。
+因此在这种情况下，我们将无法访问包含 JWT 的 Cookie，并将其发送到我们的服务器进行验证，使 cookie 不可用。
 
-* an externally hosted login page running on our own subdomain `login.example.com`, and an application running on `example.com`
-* that page sets an HTTP Only and Secure Cookie containing the JWT, giving us good protection against many types of XSS attacks that rely on stealing user identity
-* Plus we need to add some XSRF defenses, but there are well-understood solutions for that
+#### 我们可以得到两个方案中的最优解吗？
 
-This would give us maximum protection against both password and identity token theft scenarios:
+第三方认证提供商可能会允许我们在我们自己网站的可配置子域名中运行外部托管的登录页面，例如 `login.example.com`.
 
-* the Application never gets the password in the first place
-* the Application code never accesses the session JWT, only the browser
-* the application is not vulnerable to request forgery (XSRF)
+因此，将所有这些解决方案中最好的部分组合起来是有可能的。下面是解决方案的样子：
 
-This scenario is sometimes used in enterprise portals and gives great security features. However, this relies on the security provider or enterprise security proxy that we are using to support a custom domain for hosted login pages.
+* 将外部托管的登录页面托管到我们自己的子域 `login.example.com` 上，`example.com` 上运行应用程序
+* 该页面设置了仅包含 JWT 的 HTTP Only 和 Secure 的 Cookie，为我们提供了很好的保护，以低于依赖窃取用户身份的多种类型的 XSS 攻击
+* 此外，我们需要添加一些 XSRF 防御功能，这里有一个很好理解的解决方案
 
-This feature (custom subdomain for hosted login page) is however not always available, and that would render the HTTP Only cookie approach undoable.
+这将为我们提供最大限度的保护，防止密码和身份令牌被盗：
 
-If your application falls into that case or if you are looking for alternatives that don't rely on cookies, let's go back to the drawing board and find what else we can do.
+* 应用程序永远不会获取密码
+* 应用程序代码从不访问会话 JWT，只访问浏览器
+* 该应用的请求不容易被伪造（XSRF）
 
-### Sending the JWT back in the HTTP response body
+这种情况又是用于企业门户，可以提供很好的安全功能。但是这需要我们的登录页面支持托管到自定义域，且使用了安全提供程序或企业安全代理。
 
-Cookies with their unique HTTP Only property are a solid choice for storing JWTs, but there are other good choices available. For example, instead of cookies we are going to send the JWT back to the client in the HTTP Response body.
+但是，此功能（登录页面托管到自定义子域）并不总是可用，这使得 HTTP Only cookie 方法可能失效。
 
-Not only do we want to send back the JWT itself, but it's better to send also the expiration timestamp as a separate property.
+如果你的应用属于这种情况，或者你正寻找不依赖 Cookie 的替代方案，那么让我们回到最初的起点，看看我们可以做什么。
 
-It's true that the expiration timestamp is also available inside the JWT, but we want to make it simple for the client to obtain the session duration without having to install a JWT library just for that.
+#### 在 HTTP 响应正文中发回 JWT
 
-Here is how we can send the JWT back to the client in the HTTP response body:
+具有 HTTP Only 特性的 Cookie 是存储 JWT 的可靠选择，但是还会有其他很好的选择。例如我们不使用 cookie，而是在 HTTP 响应体中将 JWT 发送回客户端。
 
-And with this, the client will receive both the JWT and its expiration timestamp.
+我们不仅要发送 JWT 本身，而且还有将过期时间戳作为单独的属性发送。
 
-#### Design compromises of not using Cookies for JWT storage
+的确，到期时间戳在 JWT 中也可以获取到，但是我们希望让客户端能够简单地获得会话持续时间，儿不必要为此再安装一个 JWT 库。
 
-Not using cookies has the advantage that our application is no longer vulnerable to XSRF, which is one advantage of this approach.
+以下使我们如何在 HTTP 响应体中将 JWT 发送回客户端：
 
-But this also means that we will have to add some client code to handle the token, because the browser will no longer forward it to the application server with each request.
+```
+... 继续 Express 登录路由的实现
 
-This also means that the JWT token is now readable by an attacker in case of a successful script injection attack, while with the HTTP Only cookie that was not possible.
+// 这是我们上面创建的会话令牌
+const jwtBearerToken = jwt.sign(...);
 
-This is a good example of the design compromises that are often associated with choosing a security solution: there is usually a security vs convenience trade-off going on.
+// 将其放入 HTTP 响应体中
+res.status(200).json({
+  idToken: jwtBearerToken, 
+  expiresIn: ...
+});
 
-Let's then continue following the journey of our JWT Bearer Token. Since we are sending the JWT back to the client in the request body, we will need to read it and handle it.
+```
+查看 [raw06.ts](https://gist.github.com/jhades/2375d4f784938d28eaa41f321f8b70fe#file-06-ts) ❤托管于 [GitHub](https://github.com)
 
-### Step 4 - Storing and using the JWT on the client side
+这样，客户端将收到 JWT 及其到期时间戳。
 
-Once we receive the JWT on the client, we need to store it somewhere, otherwise, it will be lost if we refresh the browser and would have to log in again.
+#### 为了不使用 Cookie 存储 JWT 所进行的设计妥协
+
+不使用 cookie 的优点是我们的应用程序不再容易受到 XSRF 攻击，这是这种方法的优点之一。
+
+但是这同样意味着我们将不得不添加一些客户端代码来处理令牌，因为浏览器将不再为每个向应用服务器发送的请求转发它。
+
+这也意味着，在成功的脚本注入攻击的情况下，攻击者此时可以读取到 JWT 令牌，而存储到 HTTP Only Cookie 则不可能读取到。
+
+这是与选择安全解决方案有关的设计折衷的一个好例子：通常是安全与便利的权衡。
+
+让我们继续跟随我们的 JWT 不记名令牌的旅程。由于我们将 JWT 通过请求体发回给客户端，我们需要阅读并处理它。（译者注：原文是“Since we are sending the JWT back to the client in the request body”，译者认为应该是响应体（response body），但是尊重原文）
+
+
+### 第四步 —— 在客户端存储使用 JWT
+
+一旦我们在客户端收到了 JWT，我们需要把它存储在某个地方。否则，如果我们刷新浏览器，他将会丢失。那么我们就必须要重新登录了。
 
 There are many places where we could save the JWT (other than cookies). A practical place to store the JWT is on Local Storage, which is a key/value store for string values that is ideal for storing a small amount of data.
 
