@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/developers-are-users-too-part-1.md](https://github.com/xitu/gold-miner/blob/master/TODO/developers-are-users-too-part-1.md)
 > * 译者：[lsvih](https://github.com/lsvih)
-> * 校对者：
+> * 校对者：[tanglie1993](https://github.com/tanglie1993), [hanliuxin5](https://github.com/hanliuxin5)
 
 # 开发者也是用户 — 第一部分：构建更具可用性的 UI 与 API 的 5 个方针
 
@@ -30,7 +30,7 @@ _可用性 - 学于 UI，用于 API_](https://github.com/xitu/gold-miner/blob/ma
 
 ![](https://cdn-images-1.medium.com/max/800/1*uyWN73Fvr91jvuw9AfrUTQ.gif)
 
-通过进度条告知用户状态。 [图片来源](https://material.io/guidelines/components/progress-activity.html#progress-activity-types-of-indicators)
+上图：告知用户当前状态。 [图片来源](https://material.io/guidelines/components/progress-activity.html#progress-activity-types-of-indicators)
 
 **API：**API 应当提供某种可以查询当前状态的方式。例如，[`AnimatedVectorDrawable`](https://developer.android.com/reference/android/graphics/drawable/AnimatedVectorDrawable.html) 类提供了一个方法来检查动画是否正在运行：
 
@@ -64,7 +64,7 @@ API 可以采用回调机制来给出反馈，让 API 用户知道对象在何�
 
 #### API 应允许中断或重置操作，并能简单地将 API 恢复到正常状态
 
-**API：**例如，Retrofit 提供了一个 [Call#cancel](https://square.github.io/retrofit/2.x/retrofit/retrofit2/Call.html#cancel--) 的方法，此方法会尝试取消本实例（call）的调用，如果 call 还没有调用 execute 执行，则确保这个 call 之后也不能被执行。此外，如果你在使用 NotificationManager，你会发现既可以创建通知也可以取消[（cancel）](https://developer.android.com/reference/android/app/NotificationManager.html#cancel%28int%29)通知。
+**API：**例如，Retrofit 提供了一个 [Call#cancel](https://square.github.io/retrofit/2.x/retrofit/retrofit2/Call.html#cancel--) 的方法，此方法会尝试取消飞行模式下的 call 调用，以及取消还未被 execute 执行的 call 调用，让其之后也不再会执行。此外，如果你在使用 NotificationManager，你会发现既可以创建通知也可以取消[（cancel）](https://developer.android.com/reference/android/app/NotificationManager.html#cancel%28int%29)通知。
 
 ### 4. 一致性与标准
 
@@ -131,7 +131,7 @@ void setNotificationUri( Uri notifyUri,
 
 为了解决这种问题，你可以使用建造者模式，或者应用 Kotlin 的 [命名参数（named parameters）](https://kotlinlang.org/docs/reference/functions.html)。
 
-#### 方法的参数应小于 4 个
+#### 方法的参数应不大于 4 个
 
 参数越多，意味着方法越复杂。用户需要理解每个参数在方法中起到的作用以及与其它参数的关系，也就是说每增加一个参数都会导致方法的复杂度呈指数形式增加。当一个方法的参数超过 4 个时，就可以考虑将其中一些参数封装在其它类中或使用构造器了。
 
@@ -154,7 +154,7 @@ void insertData(Data data);
 
 > 创建防范于未然的设计。
 
-**UI：**用户经常会一心动用，因此你应当防止用户在无意识下造成的错误，减少用户“翻车”的机会。比方说你可以在毁灭性操作前弹框要求确认，或者提供正确的缺省值。
+**UI：**用户经常会一心多用，因此你应当防止用户在无意识下造成的错误，减少用户“翻车”的机会。比方说你可以在毁灭性操作前弹框要求确认，或者提供正确的缺省值。
 
 For example, Google Photos makes sure you’re not deleting albums by mistake by adding a confirmation dialog. Inbox allows you to snooze an email and provides one-click defaults.
 
@@ -183,4 +183,5 @@ API 应当易于使用，且能防止误用。通过提供缺省值可以帮助�
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
+
 
