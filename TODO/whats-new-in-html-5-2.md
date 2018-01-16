@@ -137,7 +137,7 @@ document.getElementById("close").addEventListener("click", () => {
 
 ### `<legend>` 中的标题元素
 
-在表单中，`<legend>` 元素表示 `<fieldset>` 表单域中的标题。在 HTML 5.2 前，legend 元素的内容必须为纯文本。而现在，它可以包含标题元素（<h1>等）了。
+在表单中，`<legend>` 元素表示 `<fieldset>` 表单域中的标题。在 HTML 5.2 前，legend 元素的内容必须为纯文本。而现在，它可以包含标题元素（ `<h1>` 等）了。
 
 ```
 <fieldset>  
