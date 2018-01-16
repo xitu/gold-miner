@@ -129,7 +129,7 @@ document.getElementById("close").addEventListener("click", () => {
 </body>  
 ```
 
-然而仍需注意的是，**由于性能问题，样式还是应当优先考虑放在 <head> 中**。参见 [规范](https://www.w3.org/TR/html52/document-metadata.html#elementdef-style)，
+然而仍需注意的是，**由于性能问题，样式还是应当优先考虑放在 `<head>` 中**。参见 [规范](https://www.w3.org/TR/html52/document-metadata.html#elementdef-style)，
 
 > 样式元素最好用于文档的 head 中。在文档的 body 中使用样式可能导致重复定义样式，触发重布局、导致重绘，因此需要小心使用。
 
