@@ -3,23 +3,23 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/whats-new-in-html-5-2.md](https://github.com/xitu/gold-miner/blob/master/TODO/whats-new-in-html-5-2.md)
 > * 译者：[lsvih](https://github.com/lsvih)
-> * 校对者：
+> * 校对者：[Raoul1996](https://github.com/Raoul1996), [吃土小二叉](https://github.com/xunge0613)
 
 #HTML 5.2 有哪些新内容？
 
-就在不到一个月前，HTML 5.2 正式成为了 W3C 的推荐标准（REC）。当一个规范到达 REC 阶段，就意味着它已经正式得到了 W3C 成员和理事长的认可。并且 W3C 将正式推荐用户部署、web 开发者实现此规范。
+就在不到一个月前，HTML 5.2 正式成为了 W3C 的推荐标准（REC）。当一个规范到达 REC 阶段，就意味着它已经正式得到了 W3C 成员和理事长的认可。并且 W3C 将正式推荐浏览器厂商部署、web 开发者实现此规范。
 
-在 REC 阶段有个原则叫做[“任何新事物都至少要有两种独立的实现”](https://www.slideshare.net/rachelandrew/where-does-css-come-from/27?src=clipshare)。此时对于我们 web 开发者来说是一个实践新特征的绝佳机会。
+在 REC 阶段有个原则叫做[“任何新事物都至少要有两种独立的实现”](https://www.slideshare.net/rachelandrew/where-does-css-come-from/27?src=clipshare)，这对于我们 web 开发者来说是一个实践新特性的绝佳机会。
 
-在 HTML 5.2 中增加与删除了许多事物，具体改变可以参考官方的 [HTML 5.2 变动内容](https://www.w3.org/TR/html52/changes.html#changes)网页。本文将介绍一些我认为与我的开发有关的改动。
+在 HTML 5.2 中有一些添加和删除，具体改变可以参考官方的 [HTML 5.2 变动内容](https://www.w3.org/TR/html52/changes.html#changes)网页。本文将介绍一些我认为与我的开发有关的改动。
 
-## 新特征
+## 新特性
 
 ### 原生的 `<dialog>` 元素
 
 在 HTML 5.2 的所有改动中，最让我激动的就是关于 [`<dialog>` 元素](https://www.w3.org/TR/html52/interactive-elements.html#elementdef-dialog)这个原生对话框的介绍。在 web 中，对话框比比皆是，但是它们的实现方式都各有不同。对话框很难实现可访问性，这导致大多数的对话框对那些不方便以视觉方式访问网页的用户来说都是不可用的。
 
-新的 `<dialog>` 元素旨在改变这种状况，它提供了一种简单、无坑的方式来实现模态对话框。之后我会单独写一篇文章专门介绍这个元素的工作方式，在此先简单介绍一下。
+新的 `<dialog>` 元素旨在改变这种状况，它提供了一种简单的方式来实现模态对话框。之后我会单独写一篇文章专门介绍这个元素的工作方式，在此先简单介绍一下。
 
 由一个 `<dialog>` 元素创建对话框：
 
@@ -30,13 +30,13 @@
 </dialog>  
 ```
 
-除了使用 `open` 属性之外的默认情况下，此对话框会在视图中（以及 DOM 访问中）隐藏。
+默认情况下，对话框会在视图中（以及 DOM 访问中）隐藏，只有设置 open 属性后，对话框才会显示。
 
 ```
 <dialog open>  
 ```
 
-`open` 属性可以通过调用 `show()` 与 `close()` 方法开启或关闭，这两个方法位于所有  `HTMLDialogElement` 下。
+`open` 属性可以通过调用 `show()` 与 `close()` 方法开启或关闭，任何 `HTMLDialogElement` 都可以调用这两个方法。
 
 ```
 <button id="open">Open Dialog</button>  
@@ -60,13 +60,13 @@ document.getElementById("close").addEventListener("click", () => {
 </script>  
 ```
 
-目前，Chrome 浏览器已经支持 `<dialog>` 元素，Firefox 也处于即将支持（behind a flag）状态。 
+目前，Chrome 浏览器已经支持 `<dialog>` 元素，Firefox 也即将支持（behind a flag）。 
 
 [![](https://bitsofco.de/content/images/2018/01/caniuse-dialog.png)](http://caniuse.com/#feat=dialog) 
 
-上图为 caniuse.com 关于 dialog 特征主流浏览器兼容情况的数据
+上图为 caniuse.com 关于 dialog 特性主流浏览器兼容情况的数据
 
-### 在 iFrame 中使用 Payment Request API（Web 支付接口）
+### 在 iFrame 中使用 Payment Request API（支付请求 API）
 
 [Payment Request API](https://www.w3.org/TR/payment-request/) 是支付结算表单的原生替代方案。它将支付信息置于浏览器处理，用来代替之前各个网站各不相同的结算表单，旨在为用户提供一种标准、一致的支付方式。
 
@@ -95,7 +95,7 @@ document.getElementById("close").addEventListener("click", () => {
 
 ## 新的有效实践
 
-除了新特征之外，HTML 5.2 还将一些之前无效的 HTML 写法认定为有效。
+除了新特性之外，HTML 5.2 还将一些之前无效的 HTML 写法认定为有效。
 
 ### 多个 `<main>` 元素
 
@@ -111,7 +111,7 @@ document.getElementById("close").addEventListener("click", () => {
 <main hidden>...</main>  
 ```
 
-我们都知道，[使用 CSS 有多种方式来隐藏元素](https://bitsofco.de/hiding-elements-with-css/)，但多余的 `<main>` 元素必须使用 `hidden` 属性进行隐藏。任何其它隐藏此元素的方法（如 `display: none;` 和 `visibility: hidden;`）都将无效。
+我们都知道，[通过 CSS 来隐藏元素的方法有很多](https://bitsofco.de/hiding-elements-with-css/)，但多余的 `<main>` 元素必须使用 `hidden` 属性进行隐藏。任何其它隐藏此元素的方法（如 `display: none;` 和 `visibility: hidden;`）都将无效。
 
 ### 在 `<body>` 中写样式
 
@@ -150,11 +150,11 @@ document.getElementById("close").addEventListener("click", () => {
 </fieldset>  
 ```
 
-当我们想用 `fieldset` 对表单中不同部分进行分组时，这个特征非常有用。在这种情况下使用标题元素是有意义的，因为这能让那些依赖于文档大纲的用户可以轻松导航至表单的对应部分。
+当我们想用 `fieldset` 对表单中不同部分进行分组时，这个特性非常有用。在这种情况下使用标题元素是有意义的，因为这能让那些依赖于文档大纲的用户可以轻松导航至表单的对应部分。
 
-## 移除的特征
+## 移除的特性
 
-在 HTML 5.2 中移除了少数元素，具体为：
+在 HTML 5.2 中移除了一些元素，具体为：
 
 * `keygen`：曾经用于帮助表单生成公钥
 * `menu` 与 `menuitem`：曾经用于创建导航与内容菜单
@@ -187,3 +187,5 @@ document.getElementById("close").addEventListener("click", () => {
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
+
+
