@@ -5,7 +5,7 @@
 > * 译者：[lsvih](https://github.com/lsvih)
 > * 校对者：[Raoul1996](https://github.com/Raoul1996), [吃土小二叉](https://github.com/xunge0613)
 
-#HTML 5.2 有哪些新内容？
+# HTML 5.2 有哪些新内容？
 
 就在不到一个月前，HTML 5.2 正式成为了 W3C 的推荐标准（REC）。当一个规范到达 REC 阶段，就意味着它已经正式得到了 W3C 成员和理事长的认可。并且 W3C 将正式推荐浏览器厂商部署、web 开发者实现此规范。
 
