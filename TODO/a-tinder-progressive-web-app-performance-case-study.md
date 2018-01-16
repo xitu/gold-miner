@@ -17,15 +17,15 @@
 
 Tinder Online 肩负着打开新市场的使命，它背后的团队希望把它打造成一个全平台无缝体验的在线聊天平台。
 
-**产品的 MVP 开发花了 3 个月，UI 库用了 [React](https://reactjs.com)，状态管理用的是 [Redux](https://redux.js.org)**。最后的成果还是显著的，在不影响用户体验的前提下，数据传输量减少到了原来的十分之一：
+**产品的 MVP 开发花了 3 个月，UI 库用了 [React](https://reactjs.com)，状态管理用的是 [Redux](https://redux.js.org)**。最后的成果还是显著的，在不影响功能体验的前提下，数据传输量减少到了原来的十分之一：
 
 ![](https://cdn-images-1.medium.com/max/1000/1*cqYbI-L0zukfYS0ZAwUtqA.png)
 
-上图是 Tinder Online 和手机 app 在安装过程中所需数据量大小的比较，虽然这两个类型不同，但是还是具有参考意义的。 相对手机 app 来说，PWA 只有在需要时才加载新的代码。用户边使用边下载，因为下载过程分散在整个使用过程中，所以用户并不会察觉到。即使用户在使用中访问了应用的其他部分，但是综合下载量也还是少于直接下载整个 app 所需的数据量。
+上图是 Tinder Online 和手机 app 在安装过程中所需数据量大小的比较，虽然这两个类型不同，但是还是具有参考意义的。 相对手机 app 来说，PWA 只有在需要时才加载新的代码。用户边使用边下载，因为下载过程分散在整个使用过程中，所以用户并不会察觉到。即使用户在使用中访问了应用的其他部分，综合下载量也还是少于直接下载整个 app 所需的数据量。
 
-上线后的前期表现还是不错的，用户刷屏、聊天频率以及在线时长均优于在手机 app 上的表现。总之，使用 PWA 之后：
+上线后的前期表现还是不错的，用户划一划频率、发信频率以及在线时长均优于在手机 app 上的表现。总之，使用 PWA 之后（针对 PWA 和原生的比较）：
 
-* 用户刷屏的频率变高了
+* 用户划一划的频率变高了
 * 用户的发信更频繁了
 * 不影响用户买买买
 * 用户更加卖力的经营自己的账户
@@ -50,7 +50,7 @@ Tinder Online 肩负着打开新市场的使命，它背后的团队希望把它
 
 ![](https://cdn-images-1.medium.com/max/1000/1*e-EHgbBBNXyuce8Z836Sgg.png)
 
-相比高端机型，配置 [相对一般](https://www.webpagetest.org/lighthouse.php?test=171224_NP_f7a489992a86a83b892bf4b4da42819d&run=3) 的机型（例如 Moto G4）的性能表现还有很大的提升空间，这类机型对 CPU 资源会更加敏感：
+相比高端机型，配置 [相对一般](https://www.webpagetest.org/lighthouse.php?test=171224_NP_f7a489992a86a83b892bf4b4da42819d&run=3) 的机型（例如 Moto G4）的性能表现还有很大的提升空间，这类机型的 CPU 资源比较吃紧：
 
 ![](https://cdn-images-1.medium.com/max/1000/1*VJ3ZbSQtIjxsIW8Feuiejw.png)
 
@@ -125,7 +125,7 @@ Tinder 将核心体验相关的资源文件进行了预加载处理，最终加�
 
 ### 性能预算
 
-为了达到移动端的性能期望，Tinder 引入了 **性能预算**。Alex Russell 在他发表过的一篇文章（[Can you afford it?: real-world performance budgets](https://infrequently.org/2017/10/can-you-afford-it-real-world-web-performance-budgets/)）中指出：难就难在要在网络环境不好、配置也一般的移动端上提供良好的用户体验，因为提升空间非常有限。
+为了达到移动端的性能期望，Tinder 引入了 **性能预算**。Alex Russell 在他发表过的一篇文章（[Can you afford it?: real-world performance budgets](https://infrequently.org/2017/10/can-you-afford-it-real-world-web-performance-budgets/)）中指出：难就难在要在网络环境不好、配置也一般的移动设备上提供良好的用户体验，因为提升空间非常有限。
 
 为了保证应用能快速就绪，Tinder 规定公共依赖和主干代码的大小要维持在 155KB 左右，分配给异步加载（懒加载）的数据量大约 55KB 左右、其他部分代码 35KB 左右，CSS 则限制在 20KB 左右。 这个规划保证了最坏情况下的性能表现。
 
@@ -133,7 +133,7 @@ Tinder 将核心体验相关的资源文件进行了预加载处理，最终加�
 
 ### Webpack 打包分析
 
-开源工具 [Webpack Bundle Analyzer](https://github.com/webpack-contrib/webpack-bundle-analyzer) 可以对依赖进行可视化分析，暴露出那些明显的优化问题。
+开源工具 [Webpack Bundle Analyzer](https://github.com/webpack-contrib/webpack-bundle-analyzer) 可以对依赖进行可视化分析，暴露出那些明显的可优化问题。
 
 ![](https://cdn-images-1.medium.com/max/800/1*qsiUA0G50a4p3y2e4p7CyA.png)
 
@@ -142,16 +142,16 @@ Tinder 主要用它来分析以下几类优化问题：
 * **Polyfills 代码占比：** 因为 Tinder 的目标平台包括了 IE11 和 Android 4.4，免不了使用一些 Polyfills，但是又不希望这些代码占据太多数据量，所以直接用了 [**babel-preset-env**](https://github.com/babel/babel-preset-env) 和 [**core-js**](https://github.com/zloirock/core-js)。
 * **是否引入了不必要的第三方库：** 最后移除了 [localForage](https://github.com/localForage/localForage) ，使用 IndexedDB 作为替代。
 * **分割方案是否最优：** 将首次绘制/交互中用不到的组件从主干代码中剔除。
-* **代码的复用情况：** 将子模块中使用超过三次的公共代码抽出成异步加载的代码块。
+* **是否可提炼复用代码：** 将子模块中使用超过三次的公共代码抽出成异步加载的代码块。
 * **CSS：** 把 [critical CSS](https://www.smashingmagazine.com/2015/08/understanding-critical-css/) 从核心包中移除（转而使用服务器端渲染的方式）。
 
 ![](https://cdn-images-1.medium.com/max/800/1*ZL3i2BRHo8Sq_dv1NyA8Dw.png)
 
-这个工具可以搭配 Webpack 的 [Lodash Module Replacement 插件](https://github.com/lodash/lodash-webpack-plugin) 使用，它将模块中使用到的一些特定方法替换成实现上更简单、功能上等效的代码，从而减小打包文件大小：
+这个工具可以搭配 Webpack 的 [Lodash Module Replacement 插件](https://github.com/lodash/lodash-webpack-plugin) 使用。这个插件将模块中使用到的一些特定方法替换成实现上更简单、功能上等效的代码，从而减小打包文件大小：
 
 ![](https://cdn-images-1.medium.com/max/1000/1*of2Mv5ypTySRpTZQZVRj7A.png)
 
-Webpack Bundle Analyzer 可以和 Webpack 的进行配置集成。来自 Tinder 的配置参考：
+Webpack Bundle Analyzer 可以集成到 Webpack 的配置中。来自 Tinder 的配置参考：
 
 ```javascript
 plugins: [
@@ -170,7 +170,7 @@ plugins: [
 
 ### CSS 的优化策略
 
-Tinder 使用 [Atomic CSS](https://acss.io/) 创建了许多高可用的 CSS 样式，其中一些做了内联处理，在初始化绘制过程中生效，剩下的则分散在外部 CSS 文件中（可以把动画或者 base/reset 等样式放进去）。关键样式（Critical styles）使用 gzip 压缩之后大小不超过 20KB，最近的一次构建则压缩到了 11KB 以下。
+Tinder 使用 [Atomic CSS](https://acss.io/) 创建了许多高复用的 CSS 样式，其中一些做了内联处理，在初始化绘制过程中生效，剩下的则分散在外部 CSS 文件中（包括动画或者 base/reset 等样式）。关键样式（Critical styles）使用 gzip 压缩之后大小不超过 20KB，最近的一次构建则压缩到了 11KB 以下。
 
 Tinder 还使用了 [CSS stats](http://cssstats.com/stats?url=https%253A%252F%252Ftinder.com&ua=Browser%2520Default%0A) 和 Google Analytics 跟踪每次发版的变化。在使用 Atomic CSS 前，页面的平均加载时间在 6.75s 左右，使用之后降到 5.75s 左右。
 
@@ -235,7 +235,7 @@ new webpack.optimize.ModuleConcatenationPlugin()
 
 React 16 优化了打包之后的文件大小，新的打包算法（Rollup）会剔除一些暂时用不到的代码。
 
-**Tinder 从 React 15 升级到 React 16 后，gzip 压缩后的依赖大小减小了约 7%。**
+**Tinder 从 React 15 升级到 React 16 后，gzip 压缩后的依赖大小减小了约 7%**。
 
 最后，react + react-dom 压缩后从之前的 50KB 降到现在的 **35KB** 左右，效果拔群。这里要特别感谢 [Dan Abramov](https://twitter.com/dan_abramov)、[Dominic Gannaway](https://twitter.com/trueadm) 和 [Nate Hunzaker](https://twitter.com/natehunzaker) 的付出，他们在 React 16 中为降低打包文件大小做了不少贡献。
 
@@ -247,7 +247,7 @@ Tinder 还用了 [Workbox Webpack 插件](https://developers.google.com/web/tool
 
 ### 更上一层楼
 
-用 [source-map-explorer](https://www.npmjs.com/package/source-map-explorer) （又一个包分析工具）再次对包进行深入分析，发现还有继续缩小网络负载的优化空间。在登陆场景中，用户还没登录的情况下，Facebook 图片、通知、私信以及验证码这些组件并不需要加载，将这些组件从关键路径（critical path）移除之后又从主干代码中省下了 20% 的数据量：
+用 [source-map-explorer](https://www.npmjs.com/package/source-map-explorer) （又一个包分析工具）再次对包进行深入分析，发现还有继续缩小网络负载的优化空间。在登陆场景中，用户还没登录的情况下，Facebook 图片、通知、私信以及验证码这些组件并不需要加载，将这些组件从关键路径（critical path）移除之后可为主干代码省下 20% 的数据量：
 
 ![](https://cdn-images-1.medium.com/max/1000/1*G1nq7BNZPEo2mFr_my5zjA.png)
 
@@ -257,7 +257,7 @@ Tinder 还用了 [Workbox Webpack 插件](https://developers.google.com/web/tool
 
 虽然 Tinder 还在继续迭代他们的产品，但是已经初见成效了，你可以随时访问 Tinder.com 关注最新进展。
 
-**感谢和祝贺 Roderick Hsiao、 Jordan Banafsheha 以及 Erik Hellenbrand，恭喜你们成功发布了 Tinder Online，谢谢你们对我的文章提出的意见和指导，还有 Cheney Tsai，你的观点给了我很多启发。**
+**感谢并祝贺 Roderick Hsiao、 Jordan Banafsheha 以及 Erik Hellenbrand，恭喜你们成功发布了 Tinder Online，谢谢你们对我的文章提出的指导意见，还有 Cheney Tsai，你的观点给了我很多启发。**
 
 **相关阅读：**
 
