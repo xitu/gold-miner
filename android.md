@@ -1,3 +1,7 @@
+* [函数式 Java 到函数式 Kotlin 的转换](https://juejin.im/post/5a52fac96fb9a01c9657fa4e) ([huanglizhuo](https://github.com/huanglizhuo) 翻译)
+* [开发者须知：女性用户和手机游戏](https://juejin.im/post/5a4d96fd5188253865099818) ([corresponding](https://github.com/corresponding) 翻译)
+* [像奥利奥一样的双重安全措施，尽在 Android Oreo](https://juejin.im/post/5a5376b06fb9a01c927e8be0) ([XPGSnail](https://github.com/XPGSnail) 翻译)
+* [ProGuard 在 Android 上的使用姿势](https://juejin.im/post/5a5c08ca6fb9a01ca47a7834) ([dieyidezui](https://github.com/dieyidezui) 翻译)
 * [智对订阅难点：教你如何应对工作中 10 种常见订阅问题](https://juejin.im/post/5a406644f265da430d583cb7) ([pot-code](https://github.com/pot-code) 翻译)
 * [Android MVP 架构必要知识：第三部分（Dialog，ViewPager，RecyclerView 以及 Adapters)](https://juejin.im/post/5a45fe846fb9a0450c49bba0) ([woitaylor](https://github.com/woitaylor) 翻译)
 * [app 里的 A／B 测试简介](https://juejin.im/post/5a2df63551882531ba10e313) ([mnikn](https://github.com/mnikn) 翻译)
