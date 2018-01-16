@@ -109,7 +109,7 @@ What does it all mean? While loading assets, we can try to always be one step ah
 
 With Google [moving towards a more secure web](https://security.googleblog.com/2016/09/moving-towards-more-secure-web.html) and eventual treatment of all HTTP pages in Chrome as being "not secure," a switch to [HTTP/2 environment](https://http2.github.io/faq/) is unavoidable. HTTP/2 is [supported very well](http://caniuse.com/#search=http2); it isn't going anywhere; and, in most cases, you're better off with it. Once running on HTTPS already, you can get a [major performance boost](https://www.youtube.com/watch?v=RWLzUnESylc&t=1s&list=PLNYkxOF6rcIBTs2KPy1E6tIYaWoFcG3uj&index=25) with service workers and server push (at least long term).
 
-在谷歌提出[向更安全的网页进军](https://security.googleblog.com/2016/09/moving-towards-more-secure-web.html)以及认为 Chrome 中所有的 HTTP 网页都是“不安全”的后，迁移到[HTTP/2]((https://http2.github.io/faq/)是不可避免的。HTTP/2[支持得非常好]it isn't going anywhere; and, in most cases, you're better off with it.（不知道啥意思，求助）。一旦运行在 HTTPS 上，你至少能够在服务人员和服务器推送方面获得[显著的性能提升](https://www.youtube.com/watch?v=RWLzUnESylc&t=1s&list=PLNYkxOF6rcIBTs2KPy1E6tIYaWoFcG3uj&index=25)。
+在谷歌提出[向更安全的网页进军](https://security.googleblog.com/2016/09/moving-towards-more-secure-web.html)以及认为 Chrome 中所有的 HTTP 网页都是“不安全”的后，迁移到[HTTP/2]((https://http2.github.io/faq/)是不可避免的。HTTP/2[支持得非常好]it isn't going anywhere; and, in most cases, you're better off with it.（不知道啥意思，求助）。一旦运行在 HTTPS 上，你至少能够在 service workers 和 server push 方面获得[显著的性能提升](https://www.youtube.com/watch?v=RWLzUnESylc&t=1s&list=PLNYkxOF6rcIBTs2KPy1E6tIYaWoFcG3uj&index=25)。
 
 
 ![HTTP/2](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/30dd1821-9800-4f01-91a8-1375d4812144/http-pages-chrome-opt.png)
@@ -152,84 +152,178 @@ Still, you can try to [load CSS progressively](https://jakearchibald.com/2016/li
 
 What to do? If you're running over HTTP/2, sending around **6–10 packages** seems like a decent compromise (and isn't too bad for legacy browsers). Experiment and measure to find the right balance for your website.
 
+怎么做呢？如果你运行在 HTTP/2 之上，发送 **6-10 个包**是个理想的折中（对旧版浏览器也不会太差）。对于你自己的网站，你可以通过实验和测量来找到最佳的折中。
+
 36. **Do your servers and CDNs support HTTP/2?**
+
+36. **你的服务和 CDNs 支持 HTTP/2 吗？**
 
 Different servers and CDNs are probably going to support HTTP/2 differently. Use [Is TLS Fast Yet?](https://istlsfastyet.com) to check your options, or quickly look up how your servers are performing and which features you can expect to be supported.
 
+不同的服务和 CDNs 可能对 HTTP/2 的支持情况不一样。使用[TLS 够快了吗？](https://istlsfastyet.com)来查看你的可选服务，或者快速的查看你的服务的性能以及你想要其支持的特性。
+
 ![Is TLS Fast Yet?](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/f12ff2f5-9349-46a1-9c51-7a05dc906322/istlsfastyet-opt.png)
+
+[TLS 够快了吗？](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/f12ff2f5-9349-46a1-9c51-7a05dc906322/istlsfastyet-opt.png)
 
 [Is TLS Fast Yet?](https://istlsfastyet.com) allows you to check your options for servers and CDNs when switching to HTTP/2.
 
+当你想迁移到 HTTP/2 时 [TLS 够快了吗？](https://istlsfastyet.com)可以让你查看你的可选服务和 CDNs。
+
 37. **Is OCSP stapling enabled?**
+
+37. **是否启动了 OCSP stapling？**
 
 By [enabling OCSP stapling on your server](https://www.digicert.com/enabling-ocsp-stapling.htm), you can speed up your TLS handshakes. The Online Certificate Status Protocol (OCSP) was created as an alternative to the Certificate Revocation List (CRL) protocol. Both protocols are used to check whether an SSL certificate has been revoked. However, the OCSP protocol does not require the browser to spend time downloading and then searching a list for certificate information, hence reducing the time required for a handshake.
 
+通过[在你的服务上启动 OCSP stapling](https://www.digicert.com/enabling-ocsp-stapling.htm)，你可以加速 TLS 握手。在线证书状态协议（OCSP）的提出是为了替代证书注销列表（CRL）协议。两个协议都是用于检查一个 SSL 证书是否已被撤回。但是，OCSP 协议不需要浏览器花时间下载然后在列表中搜索认证信息，因此减少了握手时间。
+
 38. **Have you adopted IPv6 yet?**
+
+38. **你是否已采用了 IPv6？**
 
 Because we're [running out of space with IPv4](https://en.wikipedia.org/wiki/IPv4_address_exhaustion) and major mobile networks are adopting IPv6 rapidly (the US has [reached](https://www.google.com/intl/en/ipv6/statistics.html#tab=ipv6-adoption&tab=ipv6-adoption) a 50% IPv6 adoption threshold), it's a good idea to [update your DNS to IPv6](https://www.paessler.com/blog/2016/04/08/monitoring-news/ask-the-expert-current-status-on-ipv6) to stay bulletproof for the future. Just make sure that dual-stack support is provided across the network — it allows IPv6 and IPv4 to run simultaneously alongside each other. After all, IPv6 is not backwards-compatible. Also, [studies show](https://www.cloudflare.com/ipv6/) that IPv6 made those websites 10 to 15% faster due to neighbor discovery (NDP) and route optimization.
 
+因为[ IPv4 即将用完](https://en.wikipedia.org/wiki/IPv4_address_exhaustion)以及主要的移动网络正在迅速采用 IPv6（美国已经[达到](https://www.google.com/intl/en/ipv6/statistics.html#tab=ipv6-adoption&tab=ipv6-adoption)50% 的 IPv6 使用阈值），[将你的 DNS 更新到 IPv6]((https://www.paessler.com/blog/2016/04/08/monitoring-news/ask-the-expert-current-status-on-ipv6) 以应对未来是一个好的想法。只要确保在网络上提供双栈支持，就可以让 IPv6 和 IPv4 同时运行。毕竟，IPv6 不是向后兼容的。[研究显示](https://www.cloudflare.com/ipv6/)，多亏了邻居发现（NDP）和路由优化，IPv6 使得这些网站快了 10% 到 15%。
+
 39. **Is HPACK compression in use?**
 
+39. **使用了 HPACK 压缩吗？**
+
 If you're using HTTP/2, double-check that your servers [implement HPACK compression](https://blog.cloudflare.com/hpack-the-silent-killer-feature-of-http-2/) for HTTP response headers to reduce unnecessary overhead. Because HTTP/2 servers are relatively new, they may not fully support the specification, with HPACK being an example. [H2spec](https://github.com/summerwind/h2spec) is a great (if very technically detailed) tool to check that. [HPACK works](https://www.keycdn.com/blog/http2-hpack-compression/).
+
+如果你使用 HTTP/2，请再次检查，确保您的服务针对 HTTP 响应头部[实现 HPACK 压缩](https://blog.cloudflare.com/hpack-the-silent-killer-feature-of-http-2/)以减少不必要的开销。由于 HTTP/2 服务相对较新，它们可能不完全支持该规范，HPACK就是一个例子。可以使用[H2spec](https://github.com/summerwind/h2spec) 这个伟大的（如果技术上很详细）工具来检查。[HPACK作品](https://www.keycdn.com/blog/http2-hpack-compression/)。
 
 ![h2spec](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/efc02119-9155-4126-b7b9-bc83c4b16436/h2spec-example-750w-opt.png)
 
 H2spec ([View large version](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/15891f86-c883-434a-8517-209273356ee6/h2spec-example-large-opt.png)) ([Image source](https://github.com/summerwind/h2spec))
 
+H2spec ([超大图](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/15891f86-c883-434a-8517-209273356ee6/h2spec-example-large-opt.png)) ([图片来源](https://github.com/summerwind/h2spec))
+
 40. **Make sure the security on your server is bulletproof.**
+
+40. **确保你的服务安全性是“防弹”的**
 
 All browser implementations of HTTP/2 run over TLS, so you will probably want to avoid security warnings or some elements on your page not working. Double-check that your [security headers are set properly](https://securityheaders.io/), [eliminate known vulnerabilities](https://www.smashingmagazine.com/2016/01/eliminating-known-security-vulnerabilities-with-snyk/), and [check your certificate](https://www.ssllabs.com/ssltest/). Also, make sure that all external plugins and tracking scripts are loaded via HTTPS, that cross-site scripting isn't possible and that both [HTTP Strict Transport Security headers](https://www.owasp.org/index.php/HTTP_Strict_Transport_Security_Cheat_Sheet) and [Content Security Policy headers](https://content-security-policy.com/) are properly set.
 
+的所有实现了 HTTP/2 的浏览器都在 TLS 上运行，因此您可能希望避免安全警告或页面上的某些元素不起作用。仔细检查你的[安全头部被正确设置](https://securityheaders.io/)，[消除已知的漏洞](https://www.smashingmagazine.com/2016/01/eliminating-known-security-vulnerabilities-with-snyk/)，[检查你的证书](https://www.ssllabs.com/ssltest/)。同时，确保所有外部插件和跟踪脚本通过 HTTPS 加载，不允许跨站点脚本，[HTTP 严格传输安全头](https://www.owasp.org/index.php/HTTP_Strict_Transport_Security_Cheat_Sheet)和[内容安全策略头](https://content-security-policy.com/)是正确的设置。
+
 41. **Are service workers used for caching and network fallbacks?**
+
+41. **是否使用了 service workers 来缓存以及用作网络回退？**
 
 No performance optimization over a network can be faster than a locally stored cache on user's machine. If your website is running over HTTPS, use the "[Pragmatist's Guide to Service Workers](https://github.com/lyzadanger/pragmatist-service-worker)" to cache static assets in a service worker cache and store offline fallbacks (or even offline pages) and retrieve them from the user's machine, rather than going to the network. Also, check Jake's [Offline Cookbook](https://jakearchibald.com/2014/offline-cookbook/) and the free Udacity course "[Offline Web Applications](https://www.udacity.com/course/offline-web-applications--ud899)." Browser support? As stated above, it's [widely supported](http://caniuse.com/#search=serviceworker) (Chrome, Firefox, Safari TP, Samsung Internet, Edge 17+) and the fallback is the network anyway. Does it help boost performance? [Oh yes, it does](https://developers.google.com/web/showcase/2016/service-worker-perf).
 
+没有什么网络性能优化能快过用户机器上的本地缓存。如果你的网站运行在 HTTPS 上，使用 “[Service Workers 的实用指南](https://github.com/lyzadanger/pragmatist-service-worker)” 在一个 service worker 中缓存静态资源并存储离线回退（甚至脱机页面）并从用户的机器中检索它们，而不是访问网络。同时，参考
+Jake 的 [Offline Cookbook](https://jakearchibald.com/2014/offline-cookbook/) 和 Udacity 免费课程“[离线 Web 应用程序](https://www.udacity.com/course/offline-web-applications--ud899)”。浏览器支持？如上所述，它得到了[广泛支持](http://caniuse.com/#search=serviceworker) （Chrome、Firefox、Safari TP、Samsung Internet、Edge 17+），但不管怎么说，它都是网络。它有助于提高性能吗？[哦，是的，它确实](https://developers.google.com/web/showcase/2016/service-worker-perf)。
+
 ### Testing And Monitoring
+
+### 测试和监控
 
 42. **Have you tested in proxy browsers and legacy browsers?**
 
+42. **你是否在代理浏览器和旧版浏览器中测试过？**
+
 Testing in Chrome and Firefox is not enough. Look into how your website works in proxy browsers and legacy browsers. UC Browser and Opera Mini, for instance, have a [significant market share in Asia](http://gs.statcounter.com/#mobile_browser-as-monthly-201511-201611) (up to 35% in Asia). [Measure average Internet speed](https://www.webworldwide.io/) in your countries of interest to avoid big surprises down the road. Test with network throttling, and emulate a high-DPI device. [BrowserStack](https://www.browserstack.com) is fantastic, but test on real devices as well.
+
+在 Chrome 和 Firefox 中进行测试是不够的。看看你的网站在代理浏览器和旧版浏览器中是如何工作的。例如，UC 浏览器和 Opera Mini，[在亚洲有大量的市场份额](http://gs.statcounter.com/#mobile_browser-as-monthly-201511-201611) （达到 35%）。在你感兴趣的国家[测量平均网络速度](https://www.webworldwide.io/)从而避免在未来发现“大惊喜”。测试网络节流，并仿真一个高 DPI 设备。[BrowserStack](https://www.browserstack.com) 很不错，但也要在实际设备上测试。
 
 [![](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/96fa3207-4fff-4b7b-bfa0-c115062d826a/demo-unit-perf-tests.gif)](https://github.com/loadimpact/k6)
 
 
 [k6](https://github.com/loadimpact/k6) allows you write unit tests-alike performance tests.
 
+[k6](https://github.com/loadimpact/k6) 可以让你像写单元测试一样编写性能测试用例。
+
 43. **Is continuous monitoring set up?**
+
+43. **是否启用了持续监控？**
 
 Having a private instance of [WebPagetest](http://www.webpagetest.org/) is always beneficial for quick and unlimited tests. However, a continuous monitoring tool with automatic alerts will give you a more detailed picture of your performance. Set your own user-timing marks to measure and monitor business-specific metrics. Also, consider adding [automated performance regression alerts](https://calendar.perfplanet.com/2017/automating-web-performance-regression-alerts/) to monitor changes over time.
 
+有一个[WebPagetest](http://www.webpagetest.org/)私人的实例总是有利于快速和无限的测试。但是，一个带有自动警报的连续监视工具将会给您提供更详细的性能描述。设置您自己的用户计时标记来度量和监视特定的业务指标。同时，考虑添加[自动化性能回归警报](https://calendar.perfplanet.com/2017/automating-web-performance-regression-alerts/)来监控随着时间而发生的变化。
+
 Look into using RUM-solutions to monitor changes in performance over time. For automated unit-test-alike load testing tools, you can use [k6](https://github.com/loadimpact/k6) with its scripting API. Also, look into [SpeedTracker](https://speedtracker.org), [Lighthouse](https://github.com/GoogleChrome/lighthouse) and [Calibre](https://calibreapp.com).
+
+使用 RUM 解决方案来监视性能随时间的变化。对于自动化的类单元测试的负载测试工具，您可以使用 [k6](https://github.com/loadimpact/k6) 脚本 API。此外，可以了解下 [SpeedTracker](https://speedtracker.org)、[Lighthouse](https://github.com/GoogleChrome/lighthouse) 和 [Calibre](https://calibreapp.com)。
 
 ### Quick Wins
 
+### 速效方案
+
 This list is quite comprehensive, and completing all of the optimizations might take quite a while. So, if you had just 1 hour to get significant improvements, what would you do? Let's boil it all down to **10 low-hanging fruits**. Obviously, before you start and once you finish, measure results, including start rendering time and SpeedIndex on a 3G and cable connection.
 
+这个列表非常全面，完成所有的优化可能需要很长时间。所以，如果你只有一个小时的时间来进行重大的改进，你会怎么做？让我们把这一切归结为**10个低挂的水果**。显然，在你开始之前和完成之后，测量结果，包括开始渲染时间以及在 3G 和电缆连接下的速度指数。
+
 1. Measure the real world experience and set appropriate goals. A good goal to aim for is First Meaningful Paint < 1 s, a SpeedIndex value < 1250, Time to Interactive < 5s on slow 3G, for repeat visits, TTI < 2s. Optimize for start rendering time and time-to-interactive.
+
+1. 测量实际环境的体验并设定适当的目标。一个好的目标是：第一次有意义的绘制 < 1 s，速度指数 < 1250，在慢速的 3G 网络上的交互 < 5s，对于重复访问，TTI < 2s。优化渲染开始时间和交互时间。
+
 2. Prepare critical CSS for your main templates, and include it in the `<head>` of the page. (Your budget is 14 KB). For CSS/JS, operate within a critical file size [budget of max. 170Kb gzipped](https://infrequently.org/2017/10/can-you-afford-it-real-world-web-performance-budgets/) (0.8-1MB decompressed).
+
+2. 为您的主模板准备关键的 CSS，并将其包含在页面的 `<head>` 中。（你的预算是 14 KB）。对于 CSS/JS，文件大小[不超过 170 KB gzipped](https://infrequently.org/2017/10/can-you-afford-it-real-world-web-performance-budgets/)（解压后 0.8-1 MB）。
+
 3. Defer and lazy-load as many scripts as possible, both your own and third-party scripts — especially social media buttons, video players and expensive JavaScript.
+
+3. 延迟加载尽可能多的脚本，包括您自己的和第三方的脚本——特别是社交媒体按钮、视频播放器和耗时的 JavaScript 脚本。
+
 4. Add resource hints to speed up delivery with faster `dns-lookup`, `preconnect`, `prefetch` and `preload`.
+
+4. 添加资源提示，使用 `dns-lookup`、`preconnect`、`prefetch` 和 `preload` 加速传输。
+
 5. Subset web fonts and load them asynchronously (or just switch to system fonts instead).
+
+5. 分离 web 字体，并以异步方式加载它们（或切换到系统字体）。
+
 6. Optimize images, and consider using WebP for critical pages (such as landing pages).
+
+6. 优化图像，并在重要页面（例如登录页面）中考虑使用 WebP。
+
 7. Check that HTTP cache headers and security headers are set properly.
+
+7. 检查 HTTP 缓存头和安全头是否设置正确。
+
 8. Enable Brotli or Zopfli compression on the server. (If that's not possible, don't forget to enable Gzip compression.)
+
+8. 在服务器上启用 Brotli 或 Zopfli 压缩。（如果做不到，不要忘记启用 Gzip 压缩。）
+
 9. If HTTP/2 is available, enable HPACK compression and start monitoring mixed-content warnings. If you're running over LTS, also enable OCSP stapling.
+
+9. 如果 HTTP/2 可用，启用 HPACK 压缩并开启混合内容警告监控。如果您正在运行 LTS，也可以启用 OCSP stapling。
+
 10. Cache assets such as fonts, styles, JavaScript and images — actually, as much as possible! — in a service worker cache.
+
+10. 在 service worker 缓存中尽可能多的缓存资产，如字体、样式、JavaScript 和图像。
 
 ### Download The Checklist (PDF, Apple Pages)
 
+### 清单下载（PDF, Apple Pages）
+
 With this checklist in mind, you should be prepared for any kind of front-end performance project. Feel free to download the print-ready PDF of the checklist as well as an **editable Apple Pages document** to customize the checklist for your needs:
+
+记住了这个清单，您就已经为任何类型的前端性能项目做好了准备。请随意下载该清单的打印版PDF，以及一个**可编辑的苹果页面文档**，以定制您需要的清单：
 
 * [Download the checklist PDF](https://www.dropbox.com/s/8h9lo8ee65oo9y1/front-end-performance-checklist-2018.pdf?dl=0) (PDF, 0.129 MB)
 * [Download the checklist in Apple Pages](https://www.dropbox.com/s/yjedzbyj32gzd9g/performance-checklist-1.1.pages?dl=0) (.pages, 0.236 MB)
 
+
 If you need alternatives, you can also check the [front-end checklist by Dan Rublic](https://github.com/drublic/checklist) and the "[Designer's Web Performance Checklist](http://jonyablonski.com/designers-wpo-checklist/)" by Jon Yablonski.
+
+如果你需要其他选择，你也可以参考 [Rublic 的前端清单](https://github.com/drublic/checklist)和 Jon Yablonski 的“[设计师的 Web 性能清单](http://jonyablonski.com/designers-wpo-checklist/)”。
 
 ### Off We Go!
 
+### 我们
+
 Some of the optimizations might be beyond the scope of your work or budget or might just be overkill given the legacy code you have to deal with. That's fine! Use this checklist as a general (and hopefully comprehensive) guide, and create your own list of issues that apply to your context. But most importantly, test and measure your own projects to identify issues before optimizing. Happy performance results in 2018, everyone!
 
+一些优化可能超出了您的工作或预算范围，或者由于需要处理遗留代码而显得过度滥用。没问题！使用这个清单作为一个通用（并且希望是全面的）指南，并创建适用于你的环境的你自己的问题清单。但最重要的是，测试和度量您自己的项目，以在优化前确定问题。祝大家 2018 年的性能大涨！
+
 _A huge thanks to Guy Podjarny, Yoav Weiss, Addy Osmani, Artem Denysov, Denys Mishunov, Ilya Pukhalski, Jeremy Wagner, Colin Bendell, Mark Zeman, Patrick Meenan, Leonardo Losoviz, Andy Davies, Rachel Andrew, Anselm Hannemann, Patrick Hamann, Andy Davies, Tim Kadlec, Rey Bango, Matthias Ott, Mariana Peralta, Philipp Tellis, Ryan Townsend, Mohamed Hussain S H, Jacob Groß, Tim Swalling, Bob Visser, Kev Adamson, Aleksey Kulikov and Rodney Rehm for reviewing this article, as well as our fantastic community, which has shared techniques and lessons learned from its work in performance optimization for everybody to use. You are truly smashing!_
+
+_非常感谢 Guy Podjarny, Yoav Weiss, Addy Osmani, Artem Denysov, Denys Mishunov, Ilya Pukhalski, Jeremy Wagner, Colin Bendell, Mark Zeman, Patrick Meenan, Leonardo Losoviz, Andy Davies, Rachel Andrew, Anselm Hannemann, Patrick Hamann, Andy Davies, Tim Kadlec, Rey Bango, Matthias Ott, Mariana Peralta, Philipp Tellis, Ryan Townsend, Mohamed Hussain S H, Jacob Groß, Tim Swalling, Bob Visser, Kev Adamson, Aleksey Kulikov and Rodney Rehm 对这篇文章的校对，同样也感谢我们出色的社区，分享了他们在性能优化工作中学习到的技术和经验，供大家使用。你们真正的非常了不起！
+_
 
 
 ---
