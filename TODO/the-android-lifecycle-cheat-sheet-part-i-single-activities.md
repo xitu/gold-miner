@@ -5,7 +5,7 @@
 > * 译者：[IllllllIIl](https://github.com/IllllllIIl)
 > * 校对者：[tanglie1993](https://github.com/tanglie1993)，[atuooo](https://github.com/atuooo)
 
-# Android 生命周期备忘录 — 第一部分: 单一 Activities
+# Android 生命周期备忘录 — 第一部分：单一 Activities
 
 Android 系统的目的是让用户增强控制权并且让他们简便地使用应用程序。例如，一个 app 的用户可能会旋转屏幕，回复一条通知信息，或者切换到另一个任务，而用户应该能够在这类操作后继续流畅地使用这个 app。
 
