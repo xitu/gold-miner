@@ -2416,10 +2416,11 @@
 |[安卓界面导航初识](https://juejin.im/post/5992f8c1518825242238b77b)|校对|2|
 |[Netflix: 使用 React 构建高性能的电视用户界面](https://gold.xitu.io/entry/589a93100ce4630056194875/)|校对|1|
 
-## 译者：[yazhi1992](https://github.com/yazhi1992) 历史贡献积分：17 当前积分：17
+## 译者：[yazhi1992](https://github.com/yazhi1992) 历史贡献积分：17 当前积分：-3
 
 |文章|类型|积分|
 |------|-------|-------|
+|[2018 年 1 月 兑小猫和杯子各一个]()|减去积分|20|
 |[Kotlin 中我讨厌什么](https://juejin.im/entry/594335c18d6d810058ce06a0/detail)|校对|1|
 |[使用 Espresso 隔离测试视图](https://juejin.im/post/59088d650ce463006182a07a)|翻译|3|
 |[RxJava 中的多线程](https://juejin.im/post/58ff6259da2f60005dd81459)|校对|1|
