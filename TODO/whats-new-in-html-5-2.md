@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/whats-new-in-html-5-2.md](https://github.com/xitu/gold-miner/blob/master/TODO/whats-new-in-html-5-2.md)
 > * 译者：[lsvih](https://github.com/lsvih)
-> * 校对者：[Raoul1996](https://github.com/Raoul1996), [吃土小二叉](https://github.com/xunge0613)
+> * 校对者：[Raoul1996](https://github.com/Raoul1996), [吃土小2叉](https://github.com/xunge0613)
 
 # HTML 5.2 有哪些新内容？
 
