@@ -1,3 +1,5 @@
+* [利用双环 TDD 进行由外向内的开发](https://juejin.im/post/5a5dea0d6fb9a01cab28443c) ([NeilLi1992](https://github.com/NeilLi1992) 翻译)
+* [Node.js 最佳实践 —— 如何在 2018 年成为更好的 Node.js 开发者](https://juejin.im/post/5a52242e6fb9a01c914037f3) ([NeilLi1992](https://github.com/NeilLi1992) 翻译)
 * [如何用 TypeScript 玩转后端？](https://juejin.im/post/5a36837d6fb9a045167d4644) ([xilihuasi](https://github.com/xilihuasi) 翻译)
 * [使用 Rust 来写原生 Node.js 模块](https://juejin.im/post/5a2b51bff265da4332277ee0) ([LeopPro](https://github.com/LeopPro) 翻译)
 * [使用 helmet 库来保护你的 Express 网站](https://juejin.im/post/5a24fd8f51882509e5438247) ([lsvih](https://github.com/lsvih) 翻译)
