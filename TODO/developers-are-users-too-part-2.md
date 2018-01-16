@@ -82,7 +82,7 @@ LiveData<List<User>> getUsers();
 
 ![](https://cdn-images-1.medium.com/max/800/1*oJ8PMLg3ayTfHR7dOFvGEA.png)
 
-创建事件时的错误信息。 [Source](https://material.io/guidelines/patterns/errors.html#errors-user-input-errors)
+创建事件时的错误信息。 [来源](https://material.io/guidelines/patterns/errors.html#errors-user-input-errors)
 
 在输入区域失去焦点时尽快显示错误信息，不要等到用户点击提交表单的按钮。更不要等到服务端传来错误信息。使用 TextView 的[功能](https://developer.android.com/reference/android/widget/TextView.html#setError%28java.lang.CharSequence%29) 来显示错误信息。如果你在创建一个事件表单，你要通过直接给 UI 控件设置限制的方法，防止用户创建发生在过去的事件。
 
