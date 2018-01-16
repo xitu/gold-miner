@@ -54,7 +54,7 @@ LiveData<List<User>> getUsers();
 
 #### 把相关的方法放在相关的类中
 
-如果一个类和一个开发者写出的代码没有直接关系，那么他通常很难找到其中的某个方法。而且，通常包含大量有用方法的 Util 和 Helper 类 会很难找到。在使用 Kotlin 时，解决这个问题的方案是使用 [扩展函数](https://kotlinlang.org/docs/reference/extensions.html).
+如果一个类和一个开发者写出的代码没有直接关系，那么他通常很难找到其中的某个方法。而且，通常包含大量有用方法的 Util 和 Helper 类会很难找到。在使用 Kotlin 时，解决这个问题的方案是使用 [扩展函数](https://kotlinlang.org/docs/reference/extensions.html).
 
 ### 8. 美观和极简的设计
 
@@ -74,7 +74,7 @@ LiveData<List<User>> getUsers();
 
 #### 不要让用户做任何 API 能够做的事情
 
-**API:** 从 22.1.0 开始，Android Support Library 提供 `RecyclerView` 相关的一系列对象，使用户可以基于频繁改变的大型数据集创建 UI 元素。当列表改变时，`RecyclerView.Adapter` 需要被通知哪些数据被更新了。这使得开发者创造他们自己的用于比较列表的方法。在 25.1.0 版本的 Support Library, 这类反复出现的代码被 `[DiffUtil](https://developer.android.com/reference/android/support/v7/util/DiffUtil.html)` 类极大简化了。 而且，`DiffUtil` 使用经过优化的算法，减少你需要写的代码量并且增强性能。
+**API:** 从 22.1.0 开始，Android Support Library 提供 `RecyclerView` 相关的一系列对象，使用户可以基于频繁改变的大型数据集创建 UI 元素。当列表改变时，`RecyclerView.Adapter` 需要被通知哪些数据被更新了。这使得开发者创造他们自己的用于比较列表的方法。在 25.1.0 版本的 Support Library, 这类反复出现的代码被 `[DiffUtil](https://developer.android.com/reference/android/support/v7/util/DiffUtil.html)` 类极大简化了。而且，`DiffUtil` 使用经过优化的算法，减少你需要写的代码量并且增强性能。
 
 ### 9. 帮助用户识别、诊断并摆脱错误
 
@@ -107,8 +107,6 @@ LiveData<List<User>> getUsers();
 #### 错误消息应当准确指示问题
 
 **API:** 为 UI 写错误信息的指导原则，也适用于 API。提供细致的错误信息，以帮助用户修复他们的代码。
-
-比如，在 Room 中，如果一个查找在主线程运行，用户将会获得 `java.lang.IllegalStateException: 不能在主线程访问数据库，因为它有可能把 UI 锁住较长的一段时间`。这表明查询被执行时的状态（在主线程）是不合法的。
 
 比如，在 Room 中，如果一个查找在主线程运行，用户将会获得 `java.lang.IllegalStateException: 不能在主线程访问数据库，因为它有可能把 UI 锁住较长的一段时间`。这表明查询被执行时的状态（在主线程）是不合法的。
 
