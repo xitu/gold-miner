@@ -58,34 +58,34 @@
 
 ## Android
 
-* [智对订阅难点：教你如何应对工作中 10 种常见订阅问题](https://juejin.im/post/5a406644f265da430d583cb7) ([pot-code](https://github.com/pot-code) 翻译)
-* [Android MVP 架构必要知识：第三部分（Dialog，ViewPager，RecyclerView 以及 Adapters)](https://juejin.im/post/5a45fe846fb9a0450c49bba0) ([woitaylor](https://github.com/woitaylor) 翻译)
-* [app 里的 A／B 测试简介](https://juejin.im/post/5a2df63551882531ba10e313) ([mnikn](https://github.com/mnikn) 翻译)
-* [从应用探索者到初次购买者](https://juejin.im/post/5a24b9fc6fb9a04519696a06) ([ppp-man](https://github.com/ppp-man) 翻译)
+* [函数式 Java 到函数式 Kotlin 的转换](https://juejin.im/post/5a52fac96fb9a01c9657fa4e) ([huanglizhuo](https://github.com/huanglizhuo) 翻译)
+* [开发者须知：女性用户和手机游戏](https://juejin.im/post/5a4d96fd5188253865099818) ([corresponding](https://github.com/corresponding) 翻译)
+* [像奥利奥一样的双重安全措施，尽在 Android Oreo](https://juejin.im/post/5a5376b06fb9a01c927e8be0) ([XPGSnail](https://github.com/XPGSnail) 翻译)
+* [ProGuard 在 Android 上的使用姿势](https://juejin.im/post/5a5c08ca6fb9a01ca47a7834) ([dieyidezui](https://github.com/dieyidezui) 翻译)
 * [所有 Android 译文>>](https://github.com/xitu/gold-miner/blob/master/android.md)
 
 ## iOS
 
+* [Swift 中的值类型与引用类型使用指北](https://juejin.im/post/5a5c2c046fb9a01cbe654b48) ([DeepMissea](https://github.com/DeepMissea) 翻译)
+* [Xcode 环境配置最佳实践](https://juejin.im/post/5a4f120cf265da3e3d48f1f6) ([swants](https://github.com/swants) 翻译)
 * [基于 Metal 的 ARKit 使用指南（上）](https://juejin.im/post/5a225ffcf265da432153daa4) ([RichardLeeH](https://github.com/RichardLeeH) 翻译)
 * [处理 iOS 中复杂的 Table Views 并保持优雅](https://juejin.im/post/5a078ec3f265da431955c0d5?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([zhangqippp](https://github.com/zhangqippp) 翻译)
-* [Swift 上的高性能数组](https://juejin.im/post/59e84129f265da43128005ed?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([jingzhilehuakai](https://github.com/jingzhilehuakai) 翻译)
-* [如何在 iOS 上实现类似 Airbnb 中的可展开式菜单](https://juejin.im/post/59acdf2b6fb9a024763806cf?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([RichardLeeH](https://github.com/RichardLeeH) 翻译)
 * [所有 iOS 译文>>](https://github.com/xitu/gold-miner/blob/master/ios.md)
 
 ## 前端
 
-* [2017 年 JavaScript 发展状况回顾](https://juejin.im/entry/5a44a500f265da43271887f0/) ([LeviDing](https://github.com/leviding) 翻译)
-* [如何在 JavaScript 中使用 Generator?](https://juejin.im/post/5a44968df265da4335630fb9) ([jonjia](https://github.com/jonjia) 翻译)
-* [在 React & Redux 中使用 AJAX 轮询](https://juejin.im/post/5a43b6da5188257d167a7aef) ([lcx-seima](https://github.com/lcx-seima) 翻译)
-* [在 Redux 中使用 AJAX 轮询（二）：Saga 篇](https://juejin.im/post/5a43b80df265da43176a6e4e) ([lcx-seima](https://github.com/lcx-seima) 翻译)
+* [JavaScript 自动化爬虫入门指北（Chrome + Puppeteer + Node JS）：和 Headless Chrome 一起带你装逼带你飞](https://juejin.im/post/5a4e1038f265da3e591e1247) ([pot-code](https://github.com/pot-code) 翻译)
+* [JavaScript 是如何工作的：深入 WebSockets 和使用了 SSE+ 的 HTTP/2，如何在二者当中做出选择](https://juejin.im/post/5a522647518825732d7f6cbb) ([yoyoyohamapi](https://github.com/yoyoyohamapi) 翻译)
+* [Redux-recompose 介绍：优雅的编写 Redux 中的 action 和 reducer](https://juejin.im/post/5a4e0d7651882573315c28a1) ([pot-code](https://github.com/pot-code) 翻译)
+* [2018 要学习的优秀 JavaScript 库与知识](https://juejin.im/post/5a4e23f0f265da3e377bce4f) ([gy134340](https://github.com/gy134340) 翻译)
 * [所有前端译文>>](https://github.com/xitu/gold-miner/blob/master/front-end.md)
 
 ## 后端
 
+* [利用双环 TDD 进行由外向内的开发](https://juejin.im/post/5a5dea0d6fb9a01cab28443c) ([NeilLi1992](https://github.com/NeilLi1992) 翻译)
+* [Node.js 最佳实践 —— 如何在 2018 年成为更好的 Node.js 开发者](https://juejin.im/post/5a52242e6fb9a01c914037f3) ([NeilLi1992](https://github.com/NeilLi1992) 翻译)
 * [如何用 TypeScript 玩转后端？](https://juejin.im/post/5a36837d6fb9a045167d4644) ([xilihuasi](https://github.com/xilihuasi) 翻译)
 * [使用 Rust 来写原生 Node.js 模块](https://juejin.im/post/5a2b51bff265da4332277ee0) ([LeopPro](https://github.com/LeopPro) 翻译)
-* [使用 helmet 库来保护你的 Express 网站](https://juejin.im/post/5a24fd8f51882509e5438247) ([lsvih](https://github.com/lsvih) 翻译)
-* [Python 3.7 的新特性](https://juejin.im/post/5a127e60f265da430f31b45b) ([winjeysong](https://github.com/winjeysong) 翻译)
 * [所有后端译文>>](https://github.com/xitu/gold-miner/blob/master/backend.md)
 
 ## 教程
@@ -99,10 +99,10 @@
 
 ## 设计
 
+* [如何紧跟未来的设计趋势：15 个让你永远不过时的资料](https://juejin.im/post/5a52d2226fb9a01c9525ebbe) ([kangkai124](https://github.com/kangkai124) 翻译)
+* [网站设计综合指南](https://juejin.im/post/5a5abb97518825733f6df3d9) ([horizon13th](https://github.com/horizon13th) 翻译)
 * [Face ID 对易用性意味着什么](https://juejin.im/post/5a41d01cf265da432c241943) ([winry01](https://github.com/winry01) 翻译)
 * [iPhone X 网页设计](https://juejin.im/post/59e445816fb9a0450670ab82?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([HydeSong](https://github.com/HydeSong) 翻译)
-* [如何为通知设计更好的用户体验](https://juejin.im/post/59f9b14f518825295f5d411f?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([dongpeiguo](https://github.com/dongpeiguo) 翻译)
-* [扁平化的 UI 元素既朴实又玄乎](https://juejin.im/post/59c0d3305188256bce40e884?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([changkun](https://github.com/changkun) 翻译)
 * [所有设计译文>>](https://github.com/xitu/gold-miner/blob/master/design.md)
 
 
@@ -117,6 +117,7 @@
 
 ## 其他
 
+* [开启你的开源生涯](https://juejin.im/post/5a5c029d51882573432d21ff) （[zwwill](https://github.com/zwwill) 翻译）
 * [自动化持续集成/持续分发，以节省更多时间编写代码](https://juejin.im/post/5a44aab86fb9a044ff31c418) （[NeilLi1992](https://github.com/NeilLi1992) 翻译）
 * [为什么我们从来不去感谢开源项目维护者](https://juejin.im/post/5a40c20b518825696f7e3c23) （[leviding](https://github.com/leviding) 翻译）
 * [五天拿下硅谷五家顶级互联网公司 offer](https://juejin.im/post/5a1247d26fb9a0452a3bec33) ([freerambo](https://github.com/freerambo) 翻译)
