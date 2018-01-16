@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/whats-new-in-html-5-2.md](https://github.com/xitu/gold-miner/blob/master/TODO/whats-new-in-html-5-2.md)
 > * 译者：[lsvih](https://github.com/lsvih)
-> * 校对者：[Raoul1996](https://github.com/Raoul1996), [吃土小二叉](https://github.com/xunge0613)
+> * 校对者：[Raoul1996](https://github.com/Raoul1996), [吃土小2叉](https://github.com/xunge0613)
 
 # HTML 5.2 有哪些新内容？
 
@@ -129,7 +129,7 @@ document.getElementById("close").addEventListener("click", () => {
 </body>  
 ```
 
-然而仍需注意的是，**由于性能问题，样式还是应当优先考虑放在 <head> 中**。参见 [规范](https://www.w3.org/TR/html52/document-metadata.html#elementdef-style)，
+然而仍需注意的是，**由于性能问题，样式还是应当优先考虑放在 `<head>` 中**。参见 [规范](https://www.w3.org/TR/html52/document-metadata.html#elementdef-style)，
 
 > 样式元素最好用于文档的 head 中。在文档的 body 中使用样式可能导致重复定义样式，触发重布局、导致重绘，因此需要小心使用。
 
