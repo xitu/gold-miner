@@ -39,17 +39,22 @@ A benefit for the website owner is obvious: discoverability of these formats on 
 12. **明智地选择你的 CDN**
 
 Depending on how much dynamic data you have, you might be able to "outsource" some part of the content to a [static site generator](https://www.smashingmagazine.com/2015/11/static-website-generators-jekyll-middleman-roots-hugo-review/), pushing it to a CDN and serving a static version from it, thus avoiding database requests. You could even choose a [static-hosting platform](https://www.smashingmagazine.com/2015/11/modern-static-website-generators-next-big-thing/) based on a CDN, enriching your pages with interactive components as enhancements ([JAMStack](https://jamstack.org/)).
+根据你拥有的动态数据量，你可以将部分内容外包给[静态站点生成器](https://www.smashingmagazine.com/2015/11/static-website-generators-jekyll-middleman-roots-hugo-review/)，将其放在 CDN 中或者充当一个静态版本。因此可以避免数据的请求。你甚至可以选择一个基于 CDN 的[静态主机平台](https://www.smashingmagazine.com/2015/11/modern-static-website-generators-next-big-thing/)，丰富你的页面交互组件作为增强([jamstack](https://jamstack.org/))。
 
 Notice that CDNs can serve (and offload) dynamic content as well. So, restricting your CDN to static assets is not necessary. Double-check whether your CDN performs compression and conversion (e.g. image optimization in terms of formats, compression and resizing at the edge), smart HTTP/2 delivery, edge-side includes, which assemble static and dynamic parts of pages at the CDN's edge (i.e. the server closest to the user), and other tasks.
+注意，CDN也可以服务（卸载）动态内容。因此，限制你的 CDN 到静态资源是不必要的。仔细检查你的CDN是否进行压缩和转换（比如：图像优化方面的格式，压缩和调整边缘的大小），智能HTTP/2交付，边侧包括，在CDN边缘组装页面的静态和动态部分（比如：离用户最近的服务端），和其他任务。
 
 ### Build Optimizations
 ### 构建优化
 
 13. **Set your priorities straight.**
+13. **分清轻重缓急**
 
 It's a good idea to know what you are dealing with first. Run an inventory of all of your assets (JavaScript, images, fonts, third-party scripts and "expensive" modules on the page, such as carousels, complex infographics and multimedia content), and break them down in groups.
+优先知道你在处理什么是个好主意。管理你所有资产的清单（JavaScript，图片，字体，第三方脚本和页面中“昂贵的”模块，比如：旋转木马，复杂的图表和多媒体内容），并将它们划分成组。
 
 Set up a spreadsheet. Define the basic _core_ experience for legacy browsers (i.e. fully accessible core content), the _enhanced_ experience for capable browsers (i.e. the enriched, full experience) and the _extras_ (assets that aren't absolutely required and can be lazy-loaded, such as web fonts, unnecessary styles, carousel scripts, video players, social media buttons, large images). We published an article on "[Improving Smashing Magazine's Performance](https://www.smashingmagazine.com/2014/09/improving-smashing-magazine-performance-case-study/)," which describes this approach in detail.
+建立电子表格。针对传统的浏览器，定义基本的_核心_体验（比如：完全可访问的核心内容），针对多功能浏览器_提升_体验（比如：丰富多彩的，完美的体验）和其他的（不是绝对需要而且可以被延迟加载的资源，如Web字体、不必要的样式、旋转木马脚本、视频播放器、社交媒体按钮、大型图像。）。我们在“[Improving Smashing Magazine's Performance](https://www.smashingmagazine.com/2014/09/improving-smashing-magazine-performance-case-study/)”发布了一篇文章，上面详细描述了该方法。
 
 14. **Consider using the "cutting-the-mustard" pattern.**
 14. **考虑使用“cutting-the-mustard”模式**
@@ -100,6 +105,7 @@ Finally, with ES2015 being [remarkably well supported in modern browsers](http:/
 For lodash, [use `babel-plugin-lodash`](https://github.com/lodash/babel-plugin-lodash) that will load only modules that you are using in your source. This might save you quite a bit of JavaScript payload.
 
 18. **Take advantage of optimizations for your target JavaScript engine.**
+18. **利用目标JavaScript引擎的优化。**
 
 Study what JavaScript engines dominate in your user base, then explore ways of optimizing for them. For example, when optimizing for V8 which is used in Blink-browsers, Node.js runtime and Electron, make use of [script streaming](https://blog.chromium.org/2015/03/new-javascript-techniques-for-rapid.html) for monolithic scripts. It allows `async` or `defer scripts` to be parsed on a separate background thread once downloading begins, hence in some cases improving page loading times by up to 10%. Practically, [use `<script defer>`](https://medium.com/reloading/javascript-start-up-performance-69200f43b201#3498) in the `<head>`, so that the [browsers can discover the resource](https://medium.com/reloading/javascript-start-up-performance-69200f43b201#3498) early and then parse it on the background thread.
 
