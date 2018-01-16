@@ -33,7 +33,7 @@ The main benefit of these technologies for users is _guaranteed performance_, so
 对于用户而言，这些技术主要的优势是确保性能，但是有时他们宁愿喜欢 AMP-/Apple News/Instant Pages-链路，也不愿是“规则”和潜在的臃肿页面。对于以内容为主的网站，主要处理很多第三方法内容，这些选择有助于加速渲染的时间。
 
 A benefit for the website owner is obvious: discoverability of these formats on their respective platforms and [increased visibility in search engines](https://ethanmarcotte.com/wrote/ampersand/). You could build [progressive web AMPs](https://www.smashingmagazine.com/2016/12/progressive-web-amps/), too, by reusing AMPs as a data source for your PWA. Downside? Obviously, a presence in a walled garden places developers in a position to produce and maintain a separate version of their content, and in case of Instant Articles and Apple News [without actual URLs](https://www.w3.org/blog/TAG/2017/07/27/distributed-and-syndicated-content-whats-wrong-with-this-picture/). _(thanks Addy, Jeremy!)_
-对于网站的所有者优势是明显的：
+对于网站的所有者优势是明显的：在各个平台规范的可发现性和[增加搜索引擎的可用性](https://ethanmarcotte.com/wrote/ampersand/)。你也可以通过使用 AMP 作为针对你自己的 PWA 来构建[响应式 web AMPs](https://www.smashingmagazine.com/2016/12/progressive-web-amps/)。下降趋势？显然，在一个有围墙的区域里，开发商可以创造并维持其内容的单独版本，防止 Instant Articles 和 Apple News [没有实际的URLs](https://www.w3.org/blog/TAG/2017/07/27/distributed-and-syndicated-content-whats-wrong-with-this-picture/)。_(谢谢 Addy，Jeremy)_
 
 12. **Choose your CDN wisely.**
 12. **明智地选择你的 CDN**
