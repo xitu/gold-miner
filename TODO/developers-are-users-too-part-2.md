@@ -126,19 +126,19 @@ LiveData<List<User>> getUsers();
 
 #### 示例代码应该是模范代码
 
-**API:** 示例代码有若干用途：他们帮助用户理解 API 的目的，用途，以及上下文。**代码片段** 用于解释如何使用基本的 API 功能。 **教程** 教用户关于 API 特定层面的知识。**代码示例** 是are more complex examples, usually an entire application. Of these three, the biggest problems appear when you don’t have code samples because developers are missing the bigger picture — how all of your classes and methods work together and how they should work together with the system.
+**API:** 示例代码有若干用途：他们帮助用户理解 API 的目的，用途，以及上下文。**代码片段** 用于解释如何使用基本的 API 功能。 **教程** 教用户关于 API 特定层面的知识。**代码示例** 是更加复杂的例子，通常是一整个应用。这三者之中，缺少代码示例会引起最严重的问题，因为开发者看不到整体图景——你所有的方法和类是如何协作的，以及它们是如何与系统协作的。
 
-If your API becomes popular, chances are you will have thousands of developers using those examples and those samples will become the model of how your API should be used. Therefore, every mistake you make will come back to bite you.
-
-* * *
-
-We’ve learned a lot along the years about the usability of user interfaces; we know what our users need and how they think. They want UIs that are intuitive, efficient, correct, that help them do a specific task, in an appropriate way. All of these concepts go beyond UIs and are applied to APIs also, because developers are users too. So let’s help them (and us) and build usable APIs.
-
-> _APIs should be easy to use and hard to misuse — it should be easy to do simple things, possible to do complex things and impossible, or at least difficult, to do wrong things._ Joshua Bloch — [source](https://dl.acm.org/citation.cfm?id=1176622)
+如果你的 API 流行起来了，有可能会有数以千计的开发者使用这些例子。他们将会成为如何使用你的 API 的例子。因此，你犯的每个错误都会重新浮现，并伤害到你。
 
 * * *
 
-#### References
+这些年，我们学习了很多关于 UI 可用性的知识；我们知道用户们需要什么，以及他们在想什么。他们需要符合直觉、高效、正确的 UI，并且要能帮助他们用合适的方式完成特定任务。这些概念都不止于 UI，还适用于 API，因为开发者也是用户。所以，让我们通过可用的 API 帮助他们（也是帮助我们自己）吧。
+
+> _API应当易用且不易滥用——它应该易于做简单的事，可能做复杂的事，不可能——至少难以——做错误的事。_ Joshua Bloch — [source](https://dl.acm.org/citation.cfm?id=1176622)
+
+* * *
+
+#### 参考文献
 
 * [10 Usability Heuristics for User Interface Design](https://www.nngroup.com/articles/ten-usability-heuristics/)
 * [http://www.apiusability.org/](http://www.apiusability.org/)
@@ -151,7 +151,7 @@ We’ve learned a lot along the years about the usability of user interfaces; we
 * [Error Message Guidelines](https://www.nngroup.com/articles/error-message-guidelines/)
 * [Material Design Patterns and Guidelines](https://material.io/)
 
-Thanks to [Nick Butcher](https://medium.com/@crafty?source=post_page) and [Tao Dong](https://medium.com/@taodong?source=post_page).
+感谢 [Nick Butcher](https://medium.com/@crafty?source=post_page) 和 [Tao Dong](https://medium.com/@taodong?source=post_page).
 
 
 ---
