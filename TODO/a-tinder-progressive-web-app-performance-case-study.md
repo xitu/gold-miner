@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/a-tinder-progressive-web-app-performance-case-study.md](https://github.com/xitu/gold-miner/blob/master/TODO/a-tinder-progressive-web-app-performance-case-study.md)
 > * 译者：[pot-code](https://github.com/pot-code)
-> * 校对者：
+> * 校对者：[zwwill](https://github.com/zwwill)
 
 # PWA 实战：Tinder 的性能优化之道
 
