@@ -2,49 +2,49 @@
 > * 原文作者：[Joel's Journal](http://joelmccracken.github.io/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/a-simple-web-app-in-rust-pt-1.md](https://github.com/xitu/gold-miner/blob/master/TODO/a-simple-web-app-in-rust-pt-1.md)
-> * 译者：
+> * 译者：[LeopPro](https://github.com/LeopPro)
 > * 校对者：
 
-# A Simple Web App in Rust, Part 1
+# 使用 Rust 开发一个简单的 Web 应用，第 1 部分
 
-## 1 Intro & Background
+## 1 简介 & 背景
 
-What is it like to write a tiny web app in Rust from the perspective of an experienced programmer who is new to the ecosystem? Read on to find out.
+站在一个经验丰富的但处于新生态系统的开发者的角度，开发一个小型的 Web 应用是什么感觉？请拭目以待。
 
-I've been interested in Rust since I first heard about it. A systems language that supports macros & has room to grow towards higher-level abstractions? Awesome.
+我第一次听说 Rust 的时候就对他产生了兴趣。一个支持宏的系统级语言，并且在高级抽象方面有非常大的成长空间。真棒！
 
-So far, I have only written read blog posts about Rust & done some very basic "hello world" style programs. So, I guess I'm saying that my perspective is pretty raw.
+到目前为止，我只写过关于 Rust 的博客，做了一些很基础的“Hello World”级程序。所以，我估计我的观点会欠一些火候。
 
-A while back I saw [this article](http://artyom.me/learning-racket-1) about learning Racket, and I thought it was really great. We need more people writing about their experiences as beginners with a technology, especially those who already have a fair amount of experience with technology [1](#fn.1). I also liked its stream-of-consciousness approach, and think it would be a nice experiment to write one for Rust.
+不久之前，我通过[这篇文章](http://artyom.me/learning-racket-1)学习 Racket，我觉得特别好。我们需要更多的人分享他们作为技术初学者时获得的经验，尤其是那些已经有相当丰富的技术经验的人[1](#fn.1)。我也非常喜欢它的“思维流”方法。我想，像这样写一个 Rust 教程，应该是一个非常好的尝试。
 
-So, with the preliminaries out of the way, let's get started.
+好了，前言说完了，我们开始吧！
 
-## 2 The App
+## 2 需求
 
-The app I want to build serves a simple need of mine: A brain-dead-easy way to record when I take my medication each day. I want tap a link on my home screen and have it record the visit, and this will preserve a record of when I've taken my medication.
+我想构建的应用要实现我的一个简单需求：用一种无脑的方式记录我每天服药时间。我想我点一下家里屏幕上的链接，它就能记录访问时间，并且维护一份我服药时间的记录表。
 
-Rust seems to be suited for this app. It's fast. Running a single, simple server takes relatively few resources, so it won't be taxing to my VPS. And, I have wanted to do something more real with Rust.
+Rust 似乎很适合这个应用。它速度快，运行一个简单的服务器消耗的资源特别少，所以它不会对我的 VPS 造成负担。我还想用 Rust 做一些更实际的事。
 
-The MVP is very small, but there room for it to grow if I want to add more features. Sounds perfect.
+MVP 非常小巧，但如果我想添加更多功能，它也有增长空间。听起来完美！
 
-## 3 The Plan
+## 3 计划
 
-So, I'm going to quickly admit something here: I lost an earlier version of this project. This has some disadvantages: as I recreate this, I won't have the same level of unfamiliarity I did when I approached it some weeks ago. However, I think I remember those pain points, and will do my best to recreate them.
+我不得不承认一件事：我弄丢了这个项目的早期版本，这将产生以下弊端：当我重建它的时候，我已经没有几周之前那么熟悉它了。然而，我想我记得那些计划，我会尽力重建他们。
 
-However, there is one thing that I learned that I want to apply here: it is much easier to build separate, individual programs while exploring APIs instead of trying to do everything all at once.
+我知道一个道理有必要在这里讲一下：对于一个独立的个人程序来说，利用现有 API 要比试着独立完成所有的工作容易得多。
 
-To that end, I have the following plan:
+为了达成目的，我制定了如下计划：
 
-1. Build a simple web server that displays "hello world" when I visit.
-2. Build a tiny program that logs the formatted date and time whenever it is run.
-3. Integrate the two into a single application.
-4. Deploy this application to my server, a Digital Ocean VPS.
+1. 构建一个简单的 Web 服务器，当我访问他的时候它能在屏幕上显示“Hello World”。
+2. 构建一个小型程序，每当他运行的时候，它会按照一定格式记录当前时间。
+3. 将上面两个整合到一个程序中。
+4. 将此应用程序部署到我的 Digital Ocean VPS 上。
 
-## 4 Writing The "Hello World" Web App
+## 4 编写一个“Hello World” Web 应用
 
-So, I'm starting an empty git repo & have homebrew installed. Lets install Rust. I know this much, at least.
+好，我要建立一个 Git 仓库然后自制软件。我至少知道，我先要安装 Rust。
 
-### 4.1 Installing Rust
+### 4.1 安装 Rust
 
 ```
 $ brew update
@@ -63,7 +63,7 @@ zsh completion has been installed to:
    /usr/local/Cellar/rust/1.0.0: 13947 files, 353M
 ```
 
-Oook, before anything else, lets do a regular "hello world" program.
+Ok，在开始之前，我们先写一个常规的“Hello World”程序。
 
 ```
 $ cat > hello_world.rs
@@ -78,11 +78,11 @@ hello world
 $
 ```
 
-So far, so good. Rust is working! Or, at least, the compiler is.
+到目前为止一切顺利。Rust 正常工作。编译器也是。
 
-A friend suggested I try [nickle.rs](http://nickel.rs/) as a web application framework for Rust. It looks good to me!
+有位朋友建议我尝试使用 [nickle.rs](http://nickel-org.github.io/)，那是 Rust 的 一个 Web 应用框架。我觉得不错。
 
-As of today, the first example it uses is:
+截止到今天，它的第一个示例是：
 
 ```
 #[macro_use] extern crate nickel;
@@ -102,79 +102,79 @@ fn main() {
 }
 ```
 
-So, the first time I did this, I got a little side tracked and learned a bit about cargo. This time, I notice that there's this ["getting started" link](http://nickel.rs/getting-started.html), so I think I'll try that instead of getting everything set up on my own.
+我第一次做这些的时候，我有一点小分心，去学了一点 Cargo。这次我注意到了这个[入门指南](http://nickel-org.github.io/getting-started.html)，所以我打算跟着它走而不是什么都靠自己误打误撞。
 
-There's a script that I'm supposed to `curl` and pipe into a root shell, but that makes me paranoid so I'm going to download it and look over it first.
+这里有一个脚本，我应该通过 `curl` 下载然后使用 root 权限执行。但是“患有强迫症的”我打算先把脚本下载下来检查一下。
 
 `curl -LO https://static.rust-lang.org/rustup.sh`
 
 
-Ok, this actually doesn't look like its going to do what I want. At least, there's a lot going on in this script, more than I want to deal with right now. Hmm. I _wonder_ if `cargo` got installed with `rustc`?
+Ok，这事实上并不像我预想的那样，这个脚本完成了很多工作，比我预想的还要多。令我惊讶的是，`cargo` 居然是使用 `rustc` 安装的。
 
 ```
 $ which cargo
 /usr/local/bin/cargo
 $ cargo -v
-Rust's package manager
+Rust 包管理器
 
-Usage:
-    cargo <command> [<args>...]
-    cargo [options]
+用法:
+    cargo <命令> [<参数>...]
+    cargo [选项]
 
-Options:
-    -h, --help       Display this message
-    -V, --version    Print version info and exit
-    --list           List installed commands
-    -v, --verbose    Use verbose output
+选项:
+    -h, --help       显示帮助信息
+    -V, --version    显示版本信息并退出
+    --list           安装命令列表
+    -v, --verbose    使用详细的输出
 
-Some common cargo commands are:
-    build       Compile the current project
-    clean       Remove the target directory
-    doc         Build this project's and its dependencies' documentation
-    new         Create a new cargo project
-    run         Build and execute src/main.rs
-    test        Run the tests
-    bench       Run the benchmarks
-    update      Update dependencies listed in Cargo.lock
-    search      Search registry for crates
+常见的 cargo 命令:
+    build       编译当前工程
+    clean       删除目标目录
+    doc         编译此工程及其依赖项文档
+    new         创建一个新的 cargo 工程
+    run         编译并执行 src/main.rs
+    test        运行测试
+    bench       运行基准测试
+    update      更新 Cargo.lock 中的依赖项
+    search      搜索注册过的 crates
 
-See 'cargo help <command>' for more information on a specific command.
+运行 'cargo help <command>' 获取指定命令的更多帮助信息。
 ```
 
-Ok, that looks good I guess? I'll go with it for now.
+Ok，我猜这看起来不错吧？我现在就开始用它。
 
 `$ rm rustup.sh`
 
-### 4.2 Setting Up the Project
+### 4.2 设置工程
 
-So, the next step is to generate a new project directory. But I already have a project directory =(. I'll try it like this, anyway.
+下一步是生成一个新的项目目录，但是我已经有了一个项目目录。不管怎样，我还是要试一试。
 
 ```
 $ cargo new . --bin
-Destination `/Users/joel/Projects/simplelog/.` already exists
+目标 `/Users/joel/Projects/simplelog/.` 已经存在
 ```
 
-Ugh, that didn't work.
+嗯……它不工作。
 
 ```
-$ cargo -h
-Create a new cargo package at <path>
+$ cargo new -h
+在 <路径> 处创建一个新的 Cargo 包。
 
-Usage:
-    cargo new [options] <path>
+用法:
+    cargo new [选项] <路径>
     cargo new -h | --help
 
-Options:
-    -h, --help          Print this message
-    --vcs <vcs>         Initialize a new repository for the given version
-                        control system (git or hg) or do not initialize any version
-                        control at all (none) overriding a global configuration.
-    --bin               Use a binary instead of a library template
-    --name <name>       Set the resulting package name
-    -v, --verbose       Use verbose output
+选项:
+    -h, --help          显示帮助信息
+    --vcs <vcs>         指定初始化的版本管理系统
+                        使用 git 或者 hg
+                        或者不使用版本管理系统（none）
+    --bin               创建可执行文件工程而不是库工程
+    --name <name>       设置结果包名
+    -v, --verbose       使用详细的输出
 ```
 
-Yeah, it doesn't look like this is going to do what I want it to. Blah I guess I'll just redo this repo.
+嗯，它似乎不会按照我的预想去工作，我需要重建这个仓库。
 
 ```
 $ cd ../
@@ -183,7 +183,7 @@ $ cargo new simple-log --bin
 $ cd simple-log/
 ```
 
-Ok, what's up in here?
+Ok，我们看看这里有什么？
 
 ```
 $ tree
@@ -208,9 +208,9 @@ $ tree
 | |____main.rs
 ```
 
-So, it made a git repository, `Cargo.toml` and a `main.rs` in a `src` directory. Sounds fine to me.
+看，它建立了一个 Git 仓库，`Cargo.toml` 文件和在 `src` 目录中的 `main.rs` 文件，看起来不错。
 
-Next on the nickel getting started page, I add the `nickel.rs` dependency to the cargo file, and it now looks like:
+根据 Nickel 的入门指南，我向 `Cargo.toml` 文件中加入 `nickel.rs` 依赖，现在它看起来像是这样：
 
 ```
 [package]
@@ -223,13 +223,13 @@ authors = ["Joel McCracken <mccracken.joel@gmail.com>"]
 git = "https://github.com/nickel-org/nickel.rs.git"
 ```
 
-This makes sense, I think. I'm not sure what "dependencies.nickel" is actually _saying_. Is `dependencies` a hash with a `nickel` key? I do get that I'm saying "get nickel from here, yo".
+我觉得这很容易理解。然而我不确定 `dependencies.nickel` 实际的**含义**是什么。`dependencies` 是 `nickel` 的一个哈希值么？但可以肯定的是，我们已经在工程中引进 Nickel 了，真棒!
 
 
 
-### 4.3 The "Hello World" Example Running
+### 4.3 运行“Hello World”例子
 
-Anyway, moving on and pasting the example into `main.rs`:
+管他呢，我把那个例子复制到 `main.rs` 中：
 
 ```
 #[macro_use] extern crate nickel;
@@ -249,11 +249,11 @@ fn main() {
 }
 ```
 
-So, what's the deal with `macro_use`, `extern`, and then needing to `use`? All stuff I will figure out later.
+啥？`macro_use`、`extern` 都是什么东西？为什么要用 `use`？这些疑问我会在下面一一解答。
 
-_Oh snap_, I had a few sentences about how `macro_use` was probably a macro-time directive[2](#fn.2), but I didn't see any actual macros, so I deleted it. Now I see `router!`, though, so I'm even more inclined to think this is a macro directive. Also, I doubt the term 'directive' is correct, so don't pick it up.
+这里我有一些疑问，`macro_use` 似乎是一个宏指令[2](#fn.2)，但是我没有看到任何宏调用，所以我删除了它。现在我注意到了 `router!`，我倾向于这是一个宏调用，所以别删了它。
 
-Lets try it:
+我们试一下：
 
 ```
 cargo run
@@ -321,11 +321,11 @@ Ctrl-C to shutdown server
 ^C
 ```
 
-Woo hoo! Visiting `localhost:6767` in my browser worked.
+哦吼！在我的浏览器中访问 `localhost:6767`。
 
-### 4.4 One Final Challenge
+### 4.4 最终挑战
 
-Ok, now I want to try one thing and then call it a night: can I move the "hello world" into its own function? Baby steps, after all.
+Ok，现在我想尝试一件事情，然后今晚就收工：我可以将“Hello World”移动到函数中么？毕竟我们现在是婴儿学步的阶段。
 
 ```
 fn say_hello() {
@@ -345,7 +345,7 @@ fn main() {
 }
 ```
 
-Err… when I run it this time, I see "Not found". Let me try fiddling with semicolons just in case that's important:
+错误……当我这次运行的时候，我看到了“未找到”。我们这次把分号去掉，以防万一：
 
 ```
 fn say_hello() {
@@ -365,29 +365,29 @@ fn main() {
 }
 ```
 
-Ok… now I have a completely different error message:
+好吧……现在编译器报出了不同的错误信息：
 
 ```
 $ cargo run
    Compiling simple-log v0.1.0 (file:///Users/joel/Projects/simple-log)
-src/main.rs:6:5: 6:24 error: mismatched types:
- expected `()`,
-    found `&'static str`
-(expected (),
-    found &-ptr) [E0308]
+src/main.rs:6:5: 6:24 错误：不匹配的类型：
+    预期 `()`,
+    找到 `&'static str`
+   (预期 (),
+    找到 &-ptr) [E0308]
 src/main.rs:6     "Hello dear world!"
                   ^~~~~~~~~~~~~~~~~~~
-error: aborting due to previous error
-Could not compile `simple-log`.
+错误：由于先前的错误而中止
+不能编译 `simple-log`。
 
-To learn more, run the command again with --verbose.
+想查看更多信息，请加上 --verbose 重新运行命令。
 ```
 
-So, I _guess_ the presence/absence of the semicolon was important. And now I'm getting a type error, at least. Oh, and I'm 90% sure that `()` is referring to what I remember to be 'unit', the Rust idea of undefined, nil, or whatever. I'm sure this isn't quite right, but I guess it makes sense.
+根据报错信息，我**猜测**分号的有无是重要的。现在这产生了一个类型错误。哦，我有九成的把握肯定这里的 `()` 指的是“unit”，这是 Rust 中的空、未定义、或者未规定。我不确定这是对的，但我猜，这是很好理解的。
 
-I _assumed_ Rust would do type inferencing. Does it not? Or does it just not do it around function boundaries? Hmm.
+我**假设** Rust 会做类型推断。为什么没生效呢？或者为什么没在函数边界生效？嗯……
 
-So, the error message is telling me that it expected the return value to be unit, but the actual return value was a static string(?). I'm pretty sure I've seen the syntax for specifying return value types; let me see:
+错误信息告诉我，编译器希望函数的返回值是“unit”，但是实际上返回值是一个静态字符串（这是啥？）。我已经看过函数返回值的语法了，我们看一看：
 
 ```
 #[macro_use] extern crate nickel;
@@ -411,7 +411,7 @@ fn main() {
 }
 ```
 
-The type `&'static str` looks very weird to me. Does it compile? Does it work?
+在我看来 `&'static str` 类型非常的怪异。它会成功编译么？它会正常工作么？
 
 ```
 $ cargo run &
@@ -426,28 +426,28 @@ cargo run
 ^C
 ```
 
-Yay, it worked! This time around, Rust hasn't been _that_ frustrating. I'm not sure if its because I'm more familiar with some of this tooling, or I've opted to read documentation more, but I'm having fun. Also, the difference between _reading_ a language and _writing_ in a language sometimes very surprising. While I understand these code examples, I can't make edits quickly and effectively.
+耶，它工作了！这一次 Rust 没有令人失望。我不知道是不是因为我对这些工具比较熟悉，还是我选择去多看文档，我玩的很开心。**读**一门语言和**写**一门语言之间的差别非常的惊奇。虽然我理解这些代码示例，但是我仍然不能高效的编辑它们。
 
 —
 
-Next up, we will work through the process of writing the current date to a file. This can be found [here](http://joelmccracken.github.io/entries/a-simple-web-app-in-rust-pt-2a).
+在下一章中，我们将完成当前日期写入文件的过程。你可以在[这里](http://joelmccracken.github.io/entries/a-simple-web-app-in-rust-pt-2a)阅读它。
 
 —
 
-Series: A Simple Web App in Rust
+系列文章：使用 Rust 开发一个简单的 Web 应用
 
-* [Part 1](http://joelmccracken.github.io/entries/a-simple-web-app-in-rust-pt-1/)
-* [Part 2a](http://joelmccracken.github.io/entries/a-simple-web-app-in-rust-pt-2a/)
-* [Part 2b](http://joelmccracken.github.io/entries/a-simple-web-app-in-rust-pt-2b/)
-* [Part 3](http://joelmccracken.github.io/entries/a-simple-web-app-in-rust-pt-3/)
-* [Part 4](http://joelmccracken.github.io/entries/a-simple-web-app-in-rust-pt-4-cli-option-parsing/)
-* [Conclusion](http://joelmccracken.github.io/entries/a-simple-web-app-in-rust-conclusion/)
+* [Part 1](https://github.com/xitu/gold-miner/blob/master/TODO/a-simple-web-app-in-rust-pt-1.md)
+* [Part 2a](https://github.com/xitu/gold-miner/blob/master/TODO/a-simple-web-app-in-rust-pt-2a.md)
+* [Part 2b](https://github.com/xitu/gold-miner/blob/master/TODO/a-simple-web-app-in-rust-pt-2b.md)
+* [Part 3](https://github.com/xitu/gold-miner/blob/master/TODO/a-simple-web-app-in-rust-pt-3.md)
+* [Part 4](https://github.com/xitu/gold-miner/blob/master/TODO/a-simple-web-app-in-rust-pt-4-cli-option-parsing.md)
+* [Conclusion](https://github.com/xitu/gold-miner/blob/master/TODO/a-simple-web-app-in-rust-conclusion.md)
 
-## Footnotes:
+## 脚注:
 
-[1](#fnr.1) I'm not trying to say that the experiences of beginners is not valuable – far from it! However, I do think those experiences bring a separate set of insights than those from someone who has been programming for a long time, and they may notice how non-standard some things in an ecosystem are.
+[1](#fnr.1) 我并不是想说，初学者的经验是没有价值的 —— 远非如此！我认为相比于经验丰富者而言，初学者经常会带来一些独到的见解，他们可能会注意到生态系统中的某些东西是非标准的。
 
-[2](#fnr.2) I would normally say 'compile-time' directive, but that doesn't make much sense since Rust is a compiled language. So, I say 'macro-time' directive, but I really have no idea.
+[2](#fnr.2) 我通常说编译期指令，但是这对于 Rust 这样一个编译语言来说没什么意义。所以除了宏指令以外，我不知道该如何表述它了。
 
 
 ---
