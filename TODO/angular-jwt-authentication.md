@@ -40,8 +40,8 @@
   * 使用 [express-jwt](https://github.com/auth0/express-jwt) 配置 JWT 验证中间件
   * 验证 JWT 签名（Signatures）—— RS256
   * RS256 与 HS256
-  * JWKS (JSON Web 密钥集) 终节点和密钥旋转
-  * 使用 [node-jwks-rsa](https://github.com/auth0/node-jwks-rsa) 实现 JWKS 密钥旋转
+  * JWKS (JSON Web 密钥集) 终节点和密钥轮换
+  * 使用 [node-jwks-rsa](https://github.com/auth0/node-jwks-rsa) 实现 JWKS 密钥轮换
 * 总结
 
 无需再费周折（without further ado），我们开始学习基于 JWT 的 Angular 的认证吧！
@@ -283,7 +283,7 @@ RS256 是基于 RSA 的 JWT 签名类型，是一种广泛使用的公钥加密�
 * 我们不必为了同时更改每个地方的共享秘钥而以协同的方式关闭认证服务器和应用服务器。
 * 公钥可以在 URL 中公布并且被应用服务器在启动时以及定时自动读取。
 
-最后一部分是一个很好的特性：能够发布验证密钥给我们内置的密钥旋转或者撤销，我们将在这篇文章中实现！
+最后一部分是一个很好的特性：能够发布验证密钥给我们内置的密钥轮换或者撤销，我们将在这篇文章中实现！
 
 这是因为（使用 RS256）为了启用一个新的密钥对，我们只需要发布一个新的公钥，并且我们会看到这个公钥。
 
@@ -441,192 +441,333 @@ res.status(200).json({
 
 ### 第四步 —— 在客户端存储使用 JWT
 
-一旦我们在客户端收到了 JWT，我们需要把它存储在某个地方。否则，如果我们刷新浏览器，他将会丢失。那么我们就必须要重新登录了。
+一旦我们在客户端收到了 JWT，我们需要把它存储在某个地方。否则，如果我们刷新浏览器，它将会丢失。那么我们就必须要重新登录了。
 
-There are many places where we could save the JWT (other than cookies). A practical place to store the JWT is on Local Storage, which is a key/value store for string values that is ideal for storing a small amount of data.
+有很多地方可以保存 JWT（cookie 除外）。本地存储（Local Storage）是存储 JWT 的实用场所，它是字符串的键值对存储，非常适合存储少量数据。
 
-Note that Local Storage has a synchronous API. Let's have a look at an implementation of the login/logout logic using Local Storage:
+请注意，本地存储具有同步 API。让我们来看看实用本地存储的登录与注销逻辑的实现：
 
-Let's break down what is going on in this implementation, starting with the login method:
+```
+import * as moment from "moment";
 
-* We are receiving the result of the login call, containing the JWT and the `expiresIn` property, and we are passing it directly to the `setSession` method
-* inside `setSession`, we are storing the JWT directly in Local Storage in the `id_token` key entry
-* We are taking the current instant and the `expiresIn`property, and using it to calculate the expiration timestamp
-* Then we are saving also the expiration timestamp as a numeric value in the `expires_at` Local Storage entry
+@Injectable()
+export class AuthService {
 
-### Using Session Information on the client side
+    constructor(private http: HttpClient) {
 
-Now that we have all session information on the client side, we can use this information in the rest of the client application.
+    }
 
-For example, the client application needs to know if the user is logged in or logged out, in order to decide if certain UI elements such as the Login / Logout menu buttons should be displayed or not.
+    login(email:string, password:string ) {
+        return this.http.post<User>('/api/login', {email, password})
+            .do(res => this.setSession) 
+            .shareReplay();
+    }
+          
+    private setSession(authResult) {
+        const expiresAt = moment().add(authResult.expiresIn,'second');
 
-This information is now available via the methods `isLoggedIn()`, `isLoggedOut()` and `getExpiration()`.
+        localStorage.setItem('id_token', authResult.idToken);
+        localStorage.setItem("expires_at", JSON.stringify(expiresAt.valueOf()) );
+    }          
 
-### Sending The JWT to the server on each request
+    logout() {
+        localStorage.removeItem("id_token");
+        localStorage.removeItem("expires_at");
+    }
 
-Now that we have the JWT saved in the user browser, let's keep tracking its journey through the network.
+    public isLoggedIn() {
+        return moment().isBefore(this.getExpiration());
+    }
 
-Let's see how we are going to use it to tell the Application server that a given HTTP request belongs to a given user, which is the whole point of the Authentication solution.
+    isLoggedOut() {
+        return !this.isLoggedIn();
+    }
 
-Here is what we need to do: we need with each HTTP request sent to the Application server, to somehow also append the JWT!
+    getExpiration() {
+        const expiration = localStorage.getItem("expires_at");
+        const expiresAt = JSON.parse(expiration);
+        return moment(expiresAt);
+    }    
+}
+```          
+查看 [raw07.ts](https://gist.github.com/jhades/2375d4f784938d28eaa41f321f8b70fe#file-07-ts) ❤托管于 [GitHub](https://github.com)
 
-The application server is then going to validate the request and link it to a user, simply by inspecting the JWT, checking its signature and reading the user identifier from the payload.
+让我们分析一下这个实现中发生了什么，从 login 方法开始：
 
-To ensure that every request includes a JWT, we are going to use an Angular HTTP Interceptor.
+* 我们接收到包含 JWT 和 `expiresIn` 属性的 login 调用的结果，并直接将它传递给 `setSession` 方法
+* 在 `setSession` 中，我们直接将 JWT 存储到本地存储中的 `id_token` 键值中。
+* 我们使用当前时间和 `expiresIn` 属性计算到期时间戳
+* 然后我们还将到期时间戳保存为本地存储中 `expires_at` 条目中的一个数字值
 
-### How to build an Authentication HTTP Interceptor
+### 在客户端使用会话信息
 
-Here is the code for an Angular Interceptor, that includes the JWT with each request sent to the application server:
+现在我们在客户端拥有全部的会话信息，我们可以在客户端应用程序的其它部分使用这些信息。
 
-Let's then break down how this code works line by line:
+例如，客户端应用程序需要知道用户是否登陆或者注销，以判断某些 UI 元素的显示。比如登录/注销菜单按钮。
 
-* we first start by retrieving the JWT string from Local Storage directly
-* notice that we did not inject here the `AuthService`, as that would lead to a circular dependency error
-* then we are going to check if the JWT is present
-* if the JWT is not present, then the request goes through to the server unmodified
-* if the JWT is present, then we will clone the HTTP headers, and add an extra `Authorization` header, which will contain the JWT
+这些信息现在可以通过 `isLoggedIn()`, `isLoggedOut()` 和 `getExpiration()` 获取。
 
-And with this in place, the JWT that was initially created on the Authentication server, is now being sent with each request to the Application server.
 
-Let's then see how will the Application server use the JWT to identify the user.
+### 对服务器的每次请求都携带 JWT
 
-### Validating a JWT on the server side
+现在我们已经将 JWT 保存在用户浏览器中，让我们继续追随其在网络中的旅程。
 
-In order to authenticate the request, we are going to have to extract the JWT from the `Authorization` header, and check the timestamp and the user identifier.
+让我们来看看如何使用它来让应用程序服务器知道一个给定的 HTTP 请求属于特定用户。这是认证方案的全部要点。
 
-We don't want to apply this logic to all our backend routes because certain routes are publicly accessible to all users. For example, if we built our own login and signup routes, then those routes should be accessible by any user.
+以下是我们需要做的事情：我们需要用某种方式为 HTTP 附加 JWT，并发送到应用服务器，然后应用程序服务器将验证请求并将其链接到用户，只需要检查 JWT，检查其签名并从有效内容中读取用户标识。
 
-Also, we don't want to repeat the Authentication logic on a per route basis, so the best solution is to create an Express Authentication middleware and only apply it to certain routes.
+为了确保每个请求都包含一个 JWT，我们将使用一个 Angular HTTP 拦截器。
 
-Let's say that we have defined an express middleware called `checkIfAuthenticated`, this is a reusable function that contains the Authentication logic in only one place.
+### 如何构建一个身份验证 HTTP 拦截器
+
+以下是 Angular 拦截器的代码，其中包括的为每个请求附加 JWT 并发送给应用程序服务器：
+
+```
+@Injectable()
+export class AuthInterceptor implements HttpInterceptor {
+
+    intercept(req: HttpRequest<any>,
+              next: HttpHandler): Observable<HttpEvent<any>> {
+
+        const idToken = localStorage.getItem("id_token");
+
+        if (idToken) {
+            const cloned = req.clone({
+                headers: req.headers.set("Authorization",
+                    "Bearer " + idToken)
+            });
+
+            return next.handle(cloned);
+        }
+        else {
+            return next.handle(req);
+        }
+    }
+}
+
+``` 
+查看 [raw08.ts](https://gist.github.com/jhades/2375d4f784938d28eaa41f321f8b70fe#file-08-ts) ❤托管于 [GitHub](https://github.com)
+
+那么让我们来分解以下这个代码是如何工作：
+
+* 我们首先从本地存储检索 JWT 字符串
+* 请注意，我们没有在这里注入 AuthService，因为这里会导致循环依赖错误
+* 那么我们将检查 JWT 是否存在
+* 如果 JWT 不存在，那么请求将通过服务器进行修改
+* 如果 JWT 存在，那么我们就克隆 HTTP 头，并添加额外的认证（Authorization）头，其中将包含 JWT
+
+并且在此处，最初在认证服务器上创建的 JWT 现在会随着每个请求发送到应用程序服务器。
+
+我们来看看应用程序服务器如何使用 JWT 来识别用户。
+
+### 验证服务端的 JWT
+为了验证请求，我们需要从 `Authorization` 头中提取 JWT，并检查时间戳和用户标识符。
+
+我们不希望将这个逻辑应用到所有的后端路由，因为某些路由是所有用户公开访问的。例如，如果我们建立了自己的登陆和注册路由，那么这些路由应该可以被所有用户访问。
+
+另外，我们不希望在每个路由基础上都重复验证逻辑，因此最好的解决方案是创建一个 Express 认证中间件，并将其应用于特定的路由。
+
+假设我们已经定义了一个名为 `checkIfAuthenticated` 的 express 中间件，这是一个可重用的函数，它只在一个地方包含认证逻辑。
+
+以下是我们如何将其应用于特定的路由
 
 Here is how we can apply it to only certain routes:
 
-In this example, `readAllLessons` is an Express route that serves a JSON list of lessons if a GET request hits the `/api/lessons` Url.
 
-We have made this route accessible only to authenticated users, by applying the `checkIfAuthenticated` middleware before the REST endpoint, meaning that the order of middleware functions is important.
+```
+import * as express from 'express';
 
-The `checkIfAuthenticated` middleware will either report an error if no valid JWT is present, or allow the request to continue through the middleware chain.
+const app: Application = express();
 
-The middleware needs to throw an error also in the case that a JWT is present, correctly signed but expired. Note that all this logic is the same in any application that uses JWT-based Authentication.
+//... define checkIfAuthenticated middleware
+// check if user authenticated only in certain routes
+app.route('/api/lessons')
+    .get(checkIfAuthenticated, readAllLessons);
+```
 
-We could write this middleware ourselves using [node-jsonwebtoken](https://github.com/auth0/node-jsonwebtoken), but this logic is easy to get wrong so let's instead use a third-party library.
+查看 [raw10.ts](https://gist.github.com/jhades/2375d4f784938d28eaa41f321f8b70fe#file-10-ts) ❤托管于 [GitHub](https://github.com)
 
-### Configuring a JWT validation middleware using express-jwt
+在这个例子中，`readAllLessons` 是一个 Express 路由，如果一个 GET 请求到达 `/api/lessons` Url，它就会提供一个 JSON 列表。
 
-In order to create the `checkIfAuthenticated` middleware, we are going to be using the [express-jwt](https://github.com/auth0/express-jwt) library.
+我们已经通过在 REST 端点之前应用 `checkIfAuthenticated` 中间件，使得这个路由只能被认证的用户访问，这意味着中间件功能的顺序很重要。
 
-This library allows us to quickly create middleware functions for commonly used JWT-based authentication setups, so let's see how we would use it to validate JWTs like the ones that we created in the login service (signed using RS256).
+如果没有有效的 JWT，`checkIfAuthenticated` 中间件将会报错，或允许请求通过中间件链继续。
 
-Let's start by assuming that we had first installed the public signature validation key in the file system of the server. Here is how we could use it to validate JWTs:
+在 JWT 存在的情况下，如果签名正确但是过期，中间件也需要抛出错误。请注意，在使用基于 JWT 的身份验证的任何应用程序中，所有这些逻辑都是相同的。
 
-Let's now break down this code line by line:
+我们可以使用 [node-jsonwebtoken](https://github.com/auth0/node-jsonwebtoken) 自己编写的中间件，但是这个逻辑很容易出错，所以我们使用第三方库。
 
-* we started by reading the public key from the file system, which will be used to validate JWTs
-* this key can only be used to validate existing JWTs, and not to create and sign new ones
-* we passed the public key to `express-jwt`, and we got back a ready to use middleware function!
+### 使用 express-jwt 配置 JWT 验证中间件
 
-This middleware will throw an error if a correctly signed JWT is not present in the `Authorization` header. The middleware will also throw an error if the JWT is correctly signed, but it has already expired.
+为了创建 `checkIfAuthenticated` 中间件，我们将使用 [express-jwt](https://github.com/auth0/express-jwt) 库。
 
-If we would like to change the default error handling behavior, and instead of throwing an error, for example, return a status code 401 and a JSON payload with a message, that is [also possible](https://github.com/auth0/express-jwt#error-handling).
+这个库可以让我们快速创建用于常用的基于 JWT 的身份验证设置的中间件，所以我们来看看如何使用它来验证 JWT，比如我们在登录服务中创建 JWT（使用 RS256 签名）。
 
-But one of the main advantages of using RS256 signatures is that we don't have to install the public key locally in the application server, like we did in this example.
+首先假定我们首先在服务器的文件系统中安装了签名验证公钥。以下是我们如何使用它来验证 JWT：
 
-Imagine that the server had several running instances: replacing the public key everywhere at the same time would be problematic.
+```
+const expressJwt = require('express-jwt');
 
-#### Leveraging RS256 Signatures
+const RSA_PUBLIC_KEY = fs.readFileSync('./demos/public.key');
 
-Instead of installing the public key on the Application server, it's much better to have the Authentication server _publish_ the JWT-validating public key in a publicly accessible Url.
+const checkIfAuthenticated = expressJwt({
+    secret: RSA_PUBLIC_KEY
+}); 
 
-This give us a lot of benefits, such as for example simplified key rotation and revocation. If we need a new key pair, we just have to publish a new public key.
+app.route('/api/lessons')
+    .get(checkIfAuthenticated, readAllLessons);
+```
+查看 [raw11.ts](https://gist.github.com/jhades/2375d4f784938d28eaa41f321f8b70fe#file-11-ts) ❤托管于 [GitHub](https://github.com)
 
-Typically during periodic key rotation, we will have the two keys published and active for a period of time larger than the session duration, in order not to interrupt user experience, while a revocation might be effective much faster.
+现在让我们逐行分解代码：
 
-There is no danger that the attacker could leverage the public key. The only thing that an attacker can do with the public key is to validate signatures of existing JWTs, which is of no use for the attacker.
+* 我们通过从文件系统读取公钥来开始，这将用于验证 JWT
+* 此密钥只能用于验证现有的 JWT，而不能创建和签署新的 JWT
+* 我们将公钥传递给了 `express-jwt`，并且我们得到一个准备使用的中间件函数！
 
-There is no way that the attacker could use the public key to forge newly create JWTs, or somehow use the public key to guess the value of the private signing key.
+如果认证头没有正确签名的 JWT，那么这个中间件将会抛出错误。如果 JWT 签名正确，但是已经过期，中间件也会抛出错误。
 
-The question now is, how to publish the public key?
+如果我们想要改变默认的错误行为，而不是抛出一个错误。例如赶回一个状态码 401 和一个 JSON 负载的消息，这也是[可以的](https://github.com/auth0/express-jwt#error-handling)。
 
-### JWKS (JSON Web Key Set) endpoints and key rotation
+使用 RS256 签名的主要优点之一是我们不需要像我们在这个例子中所做的那样，在应用服务器上安装公钥。
 
-JWKS or [JSON Web Key Set](https://auth0.com/docs/jwks) is a JSON-based standard for publishing public keys in a REST endpoint.
+想象一下，服务器上有几个正在运行的实例：在任何地方同时替换公钥都会出现问题。
 
-The output of this type of endpoint is a bit scary, but the good news is that we won't have to consume directly this format, as this will be consumed transparently by a library:
+#### 利用 RS256 签名
 
-A couple of details about this format: `kid` stands for Key Identifier, and the `x5c` property is the public key itself (its the x509 certificate chain).
+由认证服务器在公开访问的 URL 中**发布**用于验证 JWT 的公钥。而不是在应用程序服务器上安装公钥。
 
-Again, we won't have to write code to consume this format, but we do need to have an overview of what is going on in this REST endpoint: its simply publishing a public key.
+这给我们带来了很多好处，比如说可以简化密钥轮换和撤销。如果我们需要一个新的密钥对，我们只需要发布一个新的公钥。
 
-### Implementing JWKS key rotation using the `node-jwks-rsa` library
+通常密钥周期轮换期间内，我们会将两个密钥发布和激活一段时间，这段时间一般大于会话时序时间，目的是不中断用户体验，然而撤销可能会更有效。
 
-Since the public key format is standardized, what we need is a way of reading the key, and pass it to `express-jwt` so that it can be used instead of the public key that was read from the file system.
+攻击者可以使用公钥，但是这没有危险。攻击者可以使用公钥进行攻击的唯一方法是验证现有 JWT 签名，可是这对攻击者无用。
 
-And that is exactly what the [node-jwks-rsa](https://github.com/auth0/node-jwks-rsa) library will allow us to do! Let's have a look at this library in action:
+攻击者无法使用公钥伪造新创建的 JWT，或者以某种方式使用公钥猜测私钥签名值。（译者注：这一部分主要涉及的是对称加密和非对称加密，感觉说的很啰嗦）
 
-This library will read the public key via the URL specified in property `jwksUri`, and use it to validate JWT signatures. All we have to do is configure the URL and if needed a couple of extra parameters.
+现在的问题是，如何发布公钥？
 
-#### Configuration options for consuming the JWKS endpoint
+### JWKS (JSON Web 密钥集) 端点和密钥轮换
 
-The parameter `cache` set to true is recommended, in order to prevent having to retrieve the public key each time. By default, a key will be kept for 10 hours before checking back if its still valid, and a maximum of 5 keys are cached at the same time.
+JWKS 或者 [JSON Web 密钥集](https://auth0.com/docs/jwks) 是用于在 REST 端点中基于 JSON 标准发布的公钥。
 
-The `rateLimit` property is also enabled, to make sure the library will not make more then 10 requests per minute to the server containing the public key.
+这种类型的端点输出有点吓人，但好消息是我们不必直接使用这种格式，因为有一个库直接使用了它：
 
-This is to avoid a denial of service scenario, were by some reason (including an attack, but maybe a bug), the public server is constantly rotating the public key.
+```
+{
+  "keys": [
+    {
+      "alg": "RS256",
+      "kty": "RSA",
+      "use": "sig",
+      "x5c": [
+        "MIIDJTCCAg2gAwIBAgIJUP6A\/iwWqvedMA0GCSqGSIb3DQEBCwUAMDAxLjAsBgNVBAMTJWFuZ3VsYXJ1bml2LXNlY3VyaXR5LWNvdXJzZS5hdXRoMC5jb20wHhcNMTcwODI1MTMxNjUzWhcNMzEwNTA0MTMxNjUzWjAwMS4wLAYDVQQDEyVhbmd1bGFydW5pdi1zZWN1cml0eS1jb3Vyc2UuYXV0aDAuY29tMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwUvZ+4dkT2nTfCDIwyH9K0tH4qYMGcW\/KDYeh+TjBdASUS9cd741C0XMvmVSYGRP0BOLeXeaQaSdKBi8uRWFbfdjwGuB3awvGmybJZ028OF6XsnKH9eh\/TQ\/8M\/aJ\/Ft3gBHJmSZCuJ0I3JYSBEUrpCkWjkS5LtyxeCPA+usFAfixPnU5L5lyacj3t+dwdFHdkbXKUPxdVwwkEwfhlW4GJ79hsGaGIxMq6PjJ\/\/TKkGadZxBo8FObdKuy7XrrOvug4FAKe+3H4Y5ZDoZZm5X7D0ec4USjewH1PMDR0N+KUJQMRjVul9EKg3ygyYDPOWVGNh6VC01lZL2Qq244HdxRwIDAQABo0IwQDAPBgNVHRMBAf8EBTADAQH\/MB0GA1UdDgQWBBRwgr0c0DYG5+GlZmPRFkg3+xMWizAOBgNVHQ8BAf8EBAMCAoQwDQYJKoZIhvcNAQELBQADggEBACBV4AyYA3bTiYWZvLtYpJuikwArPFD0J5wtAh1zxIVl+XQlR+S3dfcBn+90J8A677lSu0t7Q7qsZdcsrj28BKh5QF1dAUQgZiGfV3Dfe4\/P5wUaaUo5Y1wKgFiusqg\/mQ+kM3D8XL\/Wlpt3p804dbFnmnGRKAJnijsvM56YFSTVO0JhrKv7XeueyX9LpifAVUJh9zFsiYMSYCgBe3NIhIfi4RkpzEwvFIBwtDe2k9gwIrPFJpovZte5uvi1BQAAoVxMuv7yfMmH6D5DVrAkMBsTKXU1z3WdIKbrieiwSDIWg88RD5flreeTDaCzrlgfXyNybi4UTUshbeo6SdkRiGs="
+      ],
+      "n": "wUvZ-4dkT2nTfCDIwyH9K0tH4qYMGcW_KDYeh-TjBdASUS9cd741C0XMvmVSYGRP0BOLeXeaQaSdKBi8uRWFbfdjwGuB3awvGmybJZ028OF6XsnKH9eh_TQ_8M_aJ_Ft3gBHJmSZCuJ0I3JYSBEUrpCkWjkS5LtyxeCPA-usFAfixPnU5L5lyacj3t-dwdFHdkbXKUPxdVwwkEwfhlW4GJ79hsGaGIxMq6PjJ__TKkGadZxBo8FObdKuy7XrrOvug4FAKe-3H4Y5ZDoZZm5X7D0ec4USjewH1PMDR0N-KUJQMRjVul9EKg3ygyYDPOWVGNh6VC01lZL2Qq244HdxRw",
+      "e": "AQAB",
+      "kid": "QzY0NjREMjkyQTI4RTU2RkE4MUJBRDExNzY1MUY1N0I4QjFCODlBOQ",
+      "x5t": "QzY0NjREMjkyQTI4RTU2RkE4MUJBRDExNzY1MUY1N0I4QjFCODlBOQ"
+    }
+  ]
+}
+```
+查看 [raw12.ts](https://gist.github.com/jhades/2375d4f784938d28eaa41f321f8b70fe#file-12-ts) ❤托管于 [GitHub](https://github.com)
 
-This would bring the Application server to a halt very quickly so its great to have built-in defenses against that! If you would like to change these default parameters, have a look at the [library docs](https://github.com/auth0/node-jwks-rsa#caching) for further details.
+关于这种格式的一些细节：`kid` 代表密钥标识符，而 `x5c` 属性是公钥本身（它是 x509 证书链）。
 
-And with this, we have completed the JWT journey through the network!
+再次强调，我们不必要编写代码来使用这种格式，但是我们需要对这个 REST 端点中发生的事情有一点了解：他只是简单的发布一个公钥。
 
-* We have created and signed a JWT in the Application server
-* We have shown how the client can use the JWT and send it back to the server with each HTTP request
-* we have shown how the Application server can validate the JWT, and link each request to a given user
 
-And we have discussed the multiple design decisions involved in this roundtrip. Let's summarize what we have learned.
+### 使用 `node-jwks-rsa` 库实现 JWT 密钥轮换
 
-### Summary and Conclusions
+由于公钥的格式是标准化的，我们需要的是一种读取密钥的方法，并将其传递给 `express-jwt` 一边它可以代替从文件系统中读取公钥。
 
-Delegating security features like Authentication and Authorization to a third-party JWT-based provider or product is now more feasible than ever, but this does not mean that security can be added transparently to an application.
+而这正是 [node-jwks-rsa](https://github.com/auth0/node-jwks-rsa) 库让我们做的！我们来看看这个库的运作：
 
-Even if we choose a third party authentication provider or an enterprise single sign-on solution, we will still have to know how JWTs work at least to some detail, if nothing else to understand the documentation of the products and libraries that we will need to choose from.
+```
+const jwksRsa = require('jwks-rsa');
+const expressJwt = require('express-jwt');
 
-We will still have to take a lot of security design decisions ourselves, choose libraries and products, choose critical configuration options such as JWT signature types, setup hosted login pages if applicable and put in place some very critical security-related code that is easy to get wrong.
+const checkIfAuthenticated = expressJwt({
+    secret: jwksRsa.expressJwtSecret({
+        cache: true,
+        rateLimit: true,
+        jwksUri: "https://angularuniv-security-course.auth0.com/.well-known/jwks.json"
+    }),
+    algorithms: ['RS256']
+});
 
-I hope that this post helps with that and that you enjoyed it! If you have some questions or comments please let me know in the comments below and I will get back to you.
+app.route('/api/lessons')
+    .get(checkIfAuthenticated, readAllLessons);
 
-To get notified when more posts like this come out, I invite you to subscribe to our newsletter:
+```
+查看 [raw14.ts](https://gist.github.com/jhades/2375d4f784938d28eaa41f321f8b70fe#file-14-ts) ❤托管于 [GitHub](https://github.com)
 
-### Related Links
+这个库通过 `jwksUri` 属性指定 URL 读取公钥，并使用其验证 JWT 签名。我们需要做的只是匹配网址，如果需要的话还需要设置一些额外参数。
 
-[The JWT Handbook by Auth0](https://auth0.com/e-books/jwt-handbook)
+#### 使用 JWT 端点的配置选项
 
-[Navigating RS256 and JWKS](https://auth0.com/blog/navigating-rs256-and-jwks/)
+建议将 `cache` 属性设置为 true，以防每次都检索公钥。默认情况下，一个密钥会保留 10 小时，然后再检查它是否有效，同时最多缓存 5 个密钥。
 
-[Brute Forcing HS256 is Possible: The Importance of Using Strong Keys in Signing JWTs](https://auth0.com/blog/brute-forcing-hs256-is-possible-the-importance-of-using-strong-keys-to-sign-jwts/)
+`rateLimit` 属性也应该被启用，以确保库每分钟不会向包含公钥服务器发起超过 10 个请求。
 
-[JSON Web Key Set (JWKS)](https://auth0.com/docs/jwks)
+这是为了避免出现拒绝服务的情况，是由于某种情况（包括攻击，但也许是一个 bug），公共服务器会不断旋转公钥。
 
-### Video Lessons Available on YouTube
+这将使应用程序服务器很快停止，因为它有很好的内置防御措施！如果你想要更改这些默认参数，请查看[库文档](https://github.com/auth0/node-jwks-rsa#caching)来获取更多详细信息。
 
-Have a look at the Angular University Youtube channel, we publish about 25% to a third of our video tutorials there, new videos are published all the time.
+这样，我们已经完成了 JWT 的网络之旅！
 
-[Subscribe](http://www.youtube.com/channel/UC3cEGKhg3OERn-ihVsJcb7A?sub_confirmation=1) to get new video tutorials:
+* 我们已经在应用程序中创建并签名了一个 JWT
+* 我们已经展示了如何在客户端使用 JWT 并将其随每个 HTTP 请求发送回服务器
+* 我们已经展示了应用服务器如何验证 JWT，并将每个请求链接到给定用户
 
-## Other posts on Angular
+我们已经讨论了这个往返过程中涉及到的多个设计方案。让我们总结一下我们所学到的。
 
-Have also a look also at other popular posts that you might find interesting:
+### 总结和结论
 
-* [Getting Started With Angular - Development Environment Best Practices With Yarn, the Angular CLI, Setup an IDE](http://blog.angular-university.io/getting-started-with-angular-setup-a-development-environment-with-yarn-the-angular-cli-setup-an-ide/)
-* [Why a Single Page Application, What are the Benefits ? What is a SPA ?](http://blog.angular-university.io/why-a-single-page-application-what-are-the-benefits-what-is-a-spa/)
-* [Angular Smart Components vs Presentation Components: What's the Difference, When to Use Each and Why?](http://blog.angular-university.io/angular-2-smart-components-vs-presentation-components-whats-the-difference-when-to-use-each-and-why)
-* [Angular Router - How To Build a Navigation Menu with Bootstrap 4 and Nested Routes](http://blog.angular-university.io/angular-2-router-nested-routes-and-nested-auxiliary-routes-build-a-menu-navigation-system/)
-* [Angular Router - Extended Guided Tour, Avoid Common Pitfalls](http://blog.angular-university.io/angular2-router/)
-* [Angular Components - The Fundamentals](http://blog.angular-university.io/introduction-to-angular-2-fundamentals-of-components-events-properties-and-actions/)
-* [How to build Angular apps using Observable Data Services - Pitfalls to avoid](http://blog.angular-university.io/how-to-build-angular2-apps-using-rxjs-observable-data-services-pitfalls-to-avoid/)
-* [Introduction to Angular Forms - Template Driven vs Model Driven](http://blog.angular-university.io/introduction-to-angular-2-forms-template-driven-vs-model-driven/)
-* [Angular ngFor - Learn all Features including trackBy, why is it not only for Arrays ?](http://blog.angular-university.io/angular-2-ngfor/)
-* [Angular Universal In Practice - How to build SEO Friendly Single Page Apps with Angular](http://blog.angular-university.io/angular-2-universal-meet-the-internet-of-the-future-seo-friendly-single-page-web-apps/)
-* [How does Angular Change Detection Really Work ?](http://blog.angular-university.io/how-does-angular-2-change-detection-really-work/)
+将认证（authentication）和授权（authorization）等安全功能委派给第三方基于 JWT 的提供商或者产品比以往更加合适，但这并不意味着安全性可以透明地添加到应用程序中。
+
+即使我们选择第三方认证提供商或企业单一登录解决方案，我们仍然必须知道 JWT 如何工作的，至少在某些细节方面。如果不了解，我们将需要从产品和库文档中选择。
+
+我们仍然需要自己做很多安全设计方案，选择库和产品，选择关键配置选项，如 JWT 签名类型，设置托管登录页面（如果可用），并放置一些非常关键的安全相关代码，这很容易出错。
+
+希望这篇文章对你有帮助并且你能喜欢它！如果您有任何问题或者意见，请在下面的评论区告诉我，我将尽快回复您。
+
+如果有更多的贴子发布，我们将通知你订阅我们的新闻列表。
+
+### 相关链接
+
+[Auth0 的 JWT 手册](https://auth0.com/e-books/jwt-handbook)
+
+[浏览 RS256 和 JWKS](https://auth0.com/blog/navigating-rs256-and-jwks/)
+
+[爆破 HS256 是可能的: 使用强密钥在签署 JWT 的重要性](https://auth0.com/blog/brute-forcing-hs256-is-possible-the-importance-of-using-strong-keys-to-sign-jwts/)
+
+[JSON Web 密钥集（JWKS）](https://auth0.com/docs/jwks)
+
+### YouTube 上提供的视频课程
+
+看看 Angular 大学的 Youtube 频道，我们发布了大约 25％ 到三分之一的视频教程，新视频一直在出版。
+
+[订阅](http://www.youtube.com/channel/UC3cEGKhg3OERn-ihVsJcb7A?sub_confirmation=1) 获取新的视频教程：
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/PRQCAL_RMVo?list=PLOa5YIicjJ-VF39NLCZ304G6GDjvpJEca" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+## Angular 上的其他帖子
+
+同样可以看看其他很受欢迎的帖子，你可能会觉得有趣：
+
+* [Angular 入门 —— 开发环境最佳实践使用 Yarn，Angular CLI，设置 IDE](http://blog.angular-university.io/getting-started-with-angular-setup-a-development-environment-with-yarn-the-angular-cli-setup-an-ide/)
+* [SPA 应用程序有什么好处？什么是 SPA？](http://blog.angular-university.io/why-a-single-page-application-what-are-the-benefits-what-is-a-spa/)
+* [Angular 智能组件与演示组件：有什么区别，什么时候使用哪一个，为什么？](http://blog.angular-university.io/angular-2-smart-components-vs-presentation-components-whats-the-difference-when-to-use-each-and-why)
+* [Angular 路由 —— 如何使用 Bootstrap 4 和 嵌套路由建立一个导航菜单](http://blog.angular-university.io/angular-2-router-nested-routes-and-nested-auxiliary-routes-build-a-menu-navigation-system/)
+* [Angular 路由 —— 延伸导游，避免常见陷阱](http://blog.angular-university.io/angular2-router/)
+* [Angular 组件 —— 基础](http://blog.angular-university.io/introduction-to-angular-2-fundamentals-of-components-events-properties-and-actions/)
+* [如何使用可观察数据服务构建 Angular 应用程序 —— 避免陷阱](http://blog.angular-university.io/how-to-build-angular2-apps-using-rxjs-observable-data-services-pitfalls-to-avoid/)
+* [Angular 形式的介绍 —— 模板驱动与模型驱动](http://blog.angular-university.io/introduction-to-angular-2-forms-template-driven-vs-model-driven/)
+* [Angular ngFor —— 了解所有功能，包括 trackBy，为什么它不仅仅适用于数组？](http://blog.angular-university.io/angular-2-ngfor/)
+* [Angular 大学实践 —— 如何用 Angular 构建 SEO 友好的单页面应用程序](http://blog.angular-university.io/angular-2-universal-meet-the-internet-of-the-future-seo-friendly-single-page-web-apps/)
+* [Angular 的更正变化如何真正的起作用？](http://blog.angular-university.io/how-does-angular-2-change-detection-really-work/)
 
 
 ---
