@@ -579,8 +579,8 @@ import * as express from 'express';
 
 const app: Application = express();
 
-//... define checkIfAuthenticated middleware
-// check if user authenticated only in certain routes
+//... 定义 checkIfAuthenticated 中间件
+// 检查用户是否仅在某些路由进行身份验证
 app.route('/api/lessons')
     .get(checkIfAuthenticated, readAllLessons);
 ```
