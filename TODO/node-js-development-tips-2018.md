@@ -13,7 +13,7 @@
 
 ## 技巧 #1: 使用 `async` - `await`
 
-`Async` - `await` 降临 Node.js 8 中繁荣发展。它改变了我们处理异步事件的方式，并简化了以前那些令人难以阅读的代码库。如果你到现在还没有使用过 `async` - `await` ，请阅读我们的[介绍博客文章](https://blog.risingstack.com/mastering-async-await-in-nodejs/)。
+`Async` - `await` 在 Node.js 8 中繁荣发展。它改变了我们处理异步事件的方式，并简化了以前那些令人难以阅读的代码库。如果你到现在还没有使用过 `async` - `await` ，请阅读我们的[介绍博客文章](https://blog.risingstack.com/mastering-async-await-in-nodejs/)。
 
 重温[异步编程和 Promises ](https://blog.risingstack.com/node-hero-async-programming-in-node-js/)对你认识 `async` - `await` 可能也会有所帮助。
 
