@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/the-three-economic-eras-of-bitcoin.md](https://github.com/xitu/gold-miner/blob/master/TODO/the-three-economic-eras-of-bitcoin.md)
 > * 译者：[ppp-man](https://github.com/ppp-man)
-> * 校对者：[llp0574](https://github.com/llp0574),[SeanW20](https://github.com/SeanW20)
+> * 校对者：[llp0574](https://github.com/llp0574), [SeanW20](https://github.com/SeanW20)
 
 # 比特币的三个经济阶段
 
