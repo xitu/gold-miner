@@ -30,7 +30,7 @@ _可用性 - 学于 UI，用于 API_](https://github.com/xitu/gold-miner/blob/ma
 
 ![](https://cdn-images-1.medium.com/max/800/1*uyWN73Fvr91jvuw9AfrUTQ.gif)
 
-上图：告知用户当前状态。 [图片来源](https://material.io/guidelines/components/progress-activity.html#progress-activity-types-of-indicators)
+上图：告知用户当前状态。[图片来源](https://material.io/guidelines/components/progress-activity.html#progress-activity-types-of-indicators)
 
 **API：**API 应当提供某种可以查询当前状态的方式。例如，[`AnimatedVectorDrawable`](https://developer.android.com/reference/android/graphics/drawable/AnimatedVectorDrawable.html) 类提供了一个方法来检查动画是否正在运行：
 
@@ -46,7 +46,7 @@ API 可以采用回调机制来给出反馈，让 API 用户知道对象在何�
 
 ![](https://cdn-images-1.medium.com/max/800/0*wSpL4tOdQ80XTC-B.)
 
-上图：使用用户熟悉的概念。 [图片来源](https://material.io/guidelines/style/writing.html#writing-language)
+上图：使用用户熟悉的概念。[图片来源](https://material.io/guidelines/style/writing.html#writing-language)
 
 #### 类与方法的命名应符合用户的预期
 
@@ -60,7 +60,7 @@ API 可以采用回调机制来给出反馈，让 API 用户知道对象在何�
 
 ![](https://cdn-images-1.medium.com/max/800/1*6ZgbBYTkeyh-LrA96T8Nuw.png)
 
-上图：允许用户撤销当前操作。 [图片来源](http://Elements%20like%20“Help”%20and%20“Send%20feedback”%20are%20usually%20placed%20at%20the%20bottom%20of%20the%20navigation%20drawer.)
+上图：允许用户撤销当前操作。[图片来源](http://Elements%20like%20“Help”%20and%20“Send%20feedback”%20are%20usually%20placed%20at%20the%20bottom%20of%20the%20navigation%20drawer.)
 
 #### API 应允许中断或重置操作，并能简单地将 API 恢复到正常状态
 
