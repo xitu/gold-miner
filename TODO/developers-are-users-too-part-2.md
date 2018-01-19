@@ -7,14 +7,14 @@
 
 # 开发者也是用户 - 第二部分：改善 UI 和 API 可用性的五条指导原则
 
-我们对自己与之交互的所有东西的可用性都有相同的预期，包括 UI 和 API。所以，我们用于 UI 的指导原则也可以被翻译到 API。我们在前一篇文章中已经看到了五条指导原则。现在，是时候看看剩下的了。
+我们对自己与之交互的所有东西的可用性都有相同的预期，包括 UI 和 API。所以，我们用于 UI 的指导原则也可以被转化到 API。我们在前一篇文章中已经看到了前面五条指导原则。现在，是时候看看剩下的了。
 
 [**开发者也是用户 — 第一部分**
-_5 Guidelines for a better UI and API usability_medium.com](https://medium.com/google-developers/developers-are-users-too-part-1-c753483a50dc)
+_改善 UI 和 API 可用性的五条指导原则_medium.com](https://medium.com/google-developers/developers-are-users-too-part-1-c753483a50dc)
 
 ### 6. 识别而不是回忆
 
-**UI:** 识别类似的东西所需要的精力是最少的，它可以通过上下文自动触发。回忆意味着从记忆中取出细节，它需要多很多的时间。从一系列选项中选择，比根据记忆写出选项容易很多。一个使用常见 icon 的简单 UI 是基于识别的，一个命令行界面是基于回忆的。信息和功能应该可见，符合直觉并且容易使用。
+**UI:** 识别出熟悉的事物所耗费的认知代价是最小的，并且它还能被上下文环境所触发。回忆意味着从记忆中取出细节，它需要多很多的时间。从一系列选项中选择，比根据记忆写出选项容易很多。一个使用常见 icon 的简单 UI 是基于识别的，一个命令行界面是基于回忆的。信息和功能应该被设计得明显，符合直觉并且容易使用。
 
 ![](https://cdn-images-1.medium.com/max/800/1*eHPxVsUoCufUaKTmMgleTg.png)
 
@@ -30,7 +30,7 @@ A **方法** 名称应该是一个动词，说明它做什么：`query()`, `runI
 
 ### 7. 使用的灵活性和效率
 
-**UI:** 你的应用可能被没有经验和经验丰富的用户同时使用。创建一个 UI使其迎合这两种用户的需求，并让他们习惯常用的操作。据说，20% 的功能被 80% 的用户使用。你需要在简洁和功能之间权衡。找出你的 app 中的那 20%，然后把它们变得尽可能简单易用。使用 [逐步展现原则](https://www.nngroup.com/articles/progressive-disclosure/) ，以允许你的用户在次要的页面使用进阶功能。
+**UI:** 你的应用可能被没有经验和经验丰富的用户同时使用。创建一个 UI使其迎合这两种用户的需求，并让他们习惯常用的操作。据说，20% 的功能被 80% 的用户使用。你需要在简洁和功能之间权衡。找出你的 app 中的那 20%，然后把它们变得尽可能简单易用。使用 [逐步展现原则](https://www.nngroup.com/articles/progressive-disclosure/) ，让其他用户在次要的页面使用进阶功能。
 
 ![](https://cdn-images-1.medium.com/max/800/1*DenvAOded-MXjFI1v5iXFQ.png)
 
@@ -38,7 +38,7 @@ Wi-Fi 设置默认显示基本选项，但也包含进阶选项。它适合用�
 
 #### 写有弹性的 API
 
-用户应当能够使用 API 高效地完成任务，API 需要有弹性。比如，在查询数据库时，Room 提供不同的返回值，允许用户进行同步查询，使用LiveData，或者如果他们喜欢的话，使用 RxJava2 中的 API。
+用户应当能够使用 API 高效地完成任务，因此 API 需要有弹性。比如，在查询数据库时，Room 提供不同的返回值，允许用户进行同步查询，使用LiveData，或者如果他们喜欢的话，使用 RxJava2 中的 API。
 
 ```
 @Query(“SELECT * FROM Users”)
@@ -54,7 +54,7 @@ LiveData<List<User>> getUsers();
 
 #### 把相关的方法放在相关的类中
 
-如果一个类和一个开发者写出的代码没有直接关系，那么他通常很难找到其中的某个方法。而且，通常包含大量有用方法的 Util 和 Helper 类会很难找到。在使用 Kotlin 时，解决这个问题的方案是使用 [扩展函数](https://kotlinlang.org/docs/reference/extensions.html).
+如果一个类和一个开发者写出的代码没有直接关系，那么他通常很难找到其中的某个方法。而且，通常包含大量有用方法的 Util 和 Helper 类会很难找到。在使用 Kotlin 时，解决这个问题的方案是使用 [扩展函数](https://kotlinlang.org/docs/reference/extensions.html)。
 
 ### 8. 美观和极简的设计
 
@@ -64,7 +64,7 @@ LiveData<List<User>> getUsers();
 
 [Pocket Casts](https://play.google.com/store/apps/details?id=au.com.shiftyjelly.pocketcasts&hl=en_GB) app 使用极简设计
 
-这个 app 的集列表页面显示最少量的，和上下文相关的信息：如果用户没有下载某集，这一集的大小和下载页面是可见的；如果用户已经下载，就可以见到时长和播放按钮。同时，对于那些好奇的用户而言，细节页面包含所有这些信息，并且不止于此。
+这个播客 app 的集列表页面显示最少量的，和上下文相关的信息：如果用户没有下载某集，这一集的大小和下载页面是可见的；如果用户已经下载，就可以见到时长和播放按钮。同时，对于那些好奇的用户而言，详情页面包含所有这些信息，并且不止于此。
 
 **API:** 用户们有一个目标：用你的 API 更快解决问题。所以把它们的路径做得尽可能短和直接。
 
@@ -102,7 +102,7 @@ LiveData<List<User>> getUsers();
 
 **API:** 开发者知道 `IllegalStateException` 和 `IllegalArgumentException` 是什么意思，哪怕他们不知道你的 API 中发生了什么。通过抛出已有的异常来帮助你的 API 用户，使用尽量具体而不是笼统的异常，并好好填写错误信息。
 
-在通过  `[createBitmap](https://developer.android.com/reference/android/graphics/Bitmap.html#createBitmap%28android.graphics.Bitmap,%20int,%20int,%20int,%20int%29)` 方法创建 `Bitmap` 时，你需要提供新 bitmap 的宽高等信息。如果你传入小于 0 的值作为参数，这个方法将会抛出 `IllegalArgumentException`。
+在通过 `[createBitmap](https://developer.android.com/reference/android/graphics/Bitmap.html#createBitmap%28android.graphics.Bitmap,%20int,%20int,%20int,%20int%29)` 方法创建 `Bitmap` 时，你需要提供新 bitmap 的宽高等信息。如果你传入小于 0 的值作为参数，这个方法将会抛出 `IllegalArgumentException`。
 
 #### 错误消息应当准确指示问题
 
@@ -132,7 +132,7 @@ LiveData<List<User>> getUsers();
 
 这些年，我们学习了很多关于 UI 可用性的知识；我们知道用户们需要什么，以及他们在想什么。他们需要符合直觉、高效、正确的 UI，并且要能帮助他们用合适的方式完成特定任务。这些概念都不止于 UI，还适用于 API，因为开发者也是用户。所以，让我们通过可用的 API 帮助他们（也是帮助我们自己）吧。
 
-> _API应当易用且不易滥用——它应该易于做简单的事，可能做复杂的事，不可能——至少难以——做错误的事。_ Joshua Bloch — [source](https://dl.acm.org/citation.cfm?id=1176622)
+> **API应当易用且不易滥用——它应该易于做简单的事，可能做复杂的事，不可能——至少难以——做错误的事** Joshua Bloch — [source](https://dl.acm.org/citation.cfm?id=1176622)
 
 * * *
 
