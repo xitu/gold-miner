@@ -18,35 +18,35 @@
 
 ***
 
-31. **你是否对连接进行了热身以加快传输？**
+31. **你是否激活了连接以加快传输？**
 
 使用 [资源提示](https://w3c.github.io/resource-hints) 来节约时间，如 [`dns-prefetch`](http://caniuse.com/#search=dns-prefetch) （在后台执行 DNS 查询），[`preconnect`](http://www.caniuse.com/#search=preconnect) （告诉浏览器在后台进行连接握手（DNS, TCP, TLS）），[`prefetch`](http://caniuse.com/#search=prefetch) (告诉浏览器请求一个资源) and [`preload`](https://www.smashingmagazine.com/2016/02/preload-what-is-it-good-for/) (预先获取资源而不执行他们)。
 
 
 
-大部分时间，我们至少会使用 `preconnect` 和 `dns-prefetch`，我们会小心使用 `prefetch` 和 `preload`；前者只能用在你对用户接下来需要什么资源非常确定的情况中（类似于采购渠道）。注意，`prerender` 已被弃用，不再被支持。
+大部分时间，我们至少会使用 `preconnect` 和 `dns-prefetch`，我们会小心使用 `prefetch` 和 `preload`；前者只能在你非常确定用户后续需要什么资源的情况下使用（类似于采购渠道）。注意，`prerender` 已被弃用，不再被支持。
 
-Note that even with `preconnect` and `dns-prefetch`, the browser has a limit on the number of hosts it will look up/connect to in parallel, so it's a safe bet to order them based on priority (_thanks Philip!_).
+Note that even with `preconnect` and `dns-prefetch`, the browser has a limit on the number of hosts it will look up/connect to in parallel, so it's a safe bet to order them based on priority (**thanks Philip!**).
 
-请注意，即使使用 `preconnect` 和 `dns-prefetch`，浏览器也会对它将并行查找或连接的主机数量进行限制，因此最好是将它们根据优先级进行排序（_感谢 Philip！_）。
+请注意，即使使用 `preconnect` 和 `dns-prefetch`，浏览器也会对它将并行查找或连接的主机数量进行限制，因此最好是将它们根据优先级进行排序（**感谢 Philip！**）。
 
 
-事实上，使用资源提示可能是最简单的提高性能的方法，[它确实很有效](https://medium.com/reloading/preload-prefetch-and-priorities-in-chrome-776165961bbf)。什么时候该使用什么？Addy Osmani [解释了](https://medium.com/reloading/preload-prefetch-and-priorities-in-chrome-776165961bbf)，我们应该 preload 确定将在当前页面中使用的资源。prefetch 可能用于未来页面的资源，例如用户尚未访问的页面所需的 webpack 包。
+事实上，使用资源提示可能是最简单的提高性能的方法，[它确实很有效](https://medium.com/reloading/preload-prefetch-and-priorities-in-chrome-776165961bbf)。什么时候该使用什么？Addy Osmani [已经做了解释](https://medium.com/reloading/preload-prefetch-and-priorities-in-chrome-776165961bbf)，我们应该预加载确定将在当前页面中使用的资源。预获取可能用于未来页面的资源，例如用户尚未访问的页面所需的 Webpack 包。
 
-Add 的关于 Chrome 中加载优先级的文章[展示了](https://medium.com/reloading/preload-prefetch-and-priorities-in-chrome-776165961bbf) Chrome 是如何精确的解析资源提示的，因此一旦你决定哪些资源对页面渲染比较重要，你就可以给它们赋予比较高的优先级。
+Addy 的关于 Chrome 中加载优先级的文章[展示了](https://medium.com/reloading/preload-prefetch-and-priorities-in-chrome-776165961bbf) Chrome 是如何精确地解析资源提示的，因此一旦你决定哪些资源对页面渲染比较重要，你就可以给它们赋予比较高的优先级。你可以在 Chrome DevTools 网络请求表格（或者 Safari Technology Preview）中启动“priority”列来查看你的请求的优先级。
 
 ![the priority column in DevTools](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/34f6f27f-88a9-425a-910e-39100034def3/devtools-priority-segixq.gif)
 
 DevTools 中的 "Priority" 列。图片来源于：Ben Schwarz，[重要的请求](https://css-tricks.com/the-critical-request/)
 
 
-例如，由于字体通常是页面上的重要资源，所以使用 [`preload`](https://css-tricks.com/the-critical-request/#article-header-id-2) [请求浏览器下载字体](https://css-tricks.com/the-critical-request/#article-header-id-2)总是一个好主意。你也可以[动态加载 JavaScript ](https://www.smashingmagazine.com/2016/02/preload-what-is-it-good-for/#dynamic-loading-without-execution)，从而有效的执行延迟加载。同样的，因为 `<link rel="preload">` 接收一个 `media` 的属性，你可以基于 `@media` 查询规则来有选择性的优先加载资源。
+例如，由于字体通常是页面上的重要资源，所以使用 [`preload`](https://css-tricks.com/the-critical-request/#article-header-id-2) [请求浏览器下载字体](https://css-tricks.com/the-critical-request/#article-header-id-2)总是一个好主意。你也可以[动态加载 JavaScript ](https://www.smashingmagazine.com/2016/02/preload-what-is-it-good-for/#dynamic-loading-without-execution)，从而有效的执行延迟加载。同样的，因为 `<link rel="preload">` 接收一个 `media` 的属性，你可以基于 `@media` 查询规则来有选择性地优先加载资源。
 
 
-一些[必须牢记于心](https://dexecure.com/blog/http2-push-vs-http-preload/)的点：preload 适用于[将资源的下载时间移到](https://www.youtube.com/watch?v=RWLzUnESylc)请求开始时，但是这些缓存在内存中的预先加载的资源是绑定在所发送请求的页面上，也就意味着预先加载的请求不能被页面所共享。再者，`preload` 与 HTTP 缓存配合得也很好：如果缓存命中则不会发送网络请求。
+一些[必须牢记于心](https://dexecure.com/blog/http2-push-vs-http-preload/)的陷阱：preload 适用于[将资源的下载时间移到请求开始时](https://www.youtube.com/watch?v=RWLzUnESylc)，但是这些缓存在内存中的预先加载的资源是绑定在所发送请求的页面上，也就意味着预先加载的请求不能被页面所共享。再者，`preload` 与 HTTP 缓存配合得也很好：如果缓存命中则不会发送网络请求。
 
 
-因此，它对后发现的资源也非常有用，如：通过 background-image 加载的一幅 hero image，内联临界 CSS （或 JavaScript），并预先加载其他 CSS （或 JavaScript）。此外，只有当浏览器从服务器接收 HTML，并且前面的解析器找到了 `preload` 标签后，`preload` 标签才可以启动预加载。由于我们不等待浏览器解析 HTML 以启动请求，所以通过 HTTP 头进行预加载要快一些。[早期提示](https://tools.ietf.org/html/draft-ietf-httpbis-early-hints-05)将有助于进一步，在发送 HTML 响应标头之前启动预加载。
+因此，它对后发现的资源也非常有用，如：通过 background-image 加载的一幅 hero image，内联关键 CSS （或 JavaScript），并预先加载其他 CSS （或 JavaScript）。此外，只有当浏览器从服务器接收 HTML，并且前面的解析器找到了 `preload` 标签后，`preload` 标签才可以启动预加载。由于我们不等待浏览器解析 HTML 以启动请求，所以通过 HTTP 头进行预加载要快一些。[早期提示](https://tools.ietf.org/html/draft-ietf-httpbis-early-hints-05)将有助于进一步，在发送 HTML 响应标头之前启动预加载。
 
 
 请注意：如果你正在使用 `preload`，`as` **必须**定义否则[什么都不会加载](https://twitter.com/yoavweiss/status/873077451143774209)，还有，[预加载字体时如果没有 `crossorigin` 属性将会获取两次](https://medium.com/reloading/preload-prefetch-and-priorities-in-chrome-776165961bbf)
@@ -68,7 +68,7 @@ DevTools 中的 "Priority" 列。图片来源于：Ben Schwarz，[重要的请�
 
 
 
-这一切意味着什么？在加载资产时，我们可以尝试始终领先于客户一步，所以在后台有很多事情发生时，体验会很快。让客户参与进来，我们可以用[骨架屏幕](https://twitter.com/lukew/status/665288063195594752)（[实例演示](https://twitter.com/razvancaliman/status/734088764960690176)），而不是当没有更多优化可做时、用加载指示，添加一些动画/过渡[欺骗用户体验](https://blog.stephaniewalter.fr/en/cheating-ux-perceived-performance-and-user-experience/)。
+这一切意味着什么？在加载资源时，我们可以尝试始终领先于客户一步，所以将很多处理放置到后台，相应会很迅速。让客户参与进来，我们可以用[骨架屏幕](https://twitter.com/lukew/status/665288063195594752)（[实例演示](https://twitter.com/razvancaliman/status/734088764960690176)），而不是当没有更多优化可做时、用加载指示，添加一些动画/过渡[欺骗用户体验](https://blog.stephaniewalter.fr/en/cheating-ux-perceived-performance-and-user-experience/)。
 
 ### HTTP/2
 
@@ -126,13 +126,13 @@ DevTools 中的 "Priority" 列。图片来源于：Ben Schwarz，[重要的请�
 
 38. **你是否已采用了 IPv6？**
 
-因为[ IPv4 即将用完](https://en.wikipedia.org/wiki/IPv4_address_exhaustion)以及主要的移动网络正在迅速采用 IPv6（美国已经[达到](https://www.google.com/intl/en/ipv6/statistics.html#tab=ipv6-adoption&tab=ipv6-adoption)50% 的 IPv6 使用阈值），[将你的 DNS 更新到 IPv6]((https://www.paessler.com/blog/2016/04/08/monitoring-news/ask-the-expert-current-status-on-ipv6) 以应对未来是一个好的想法。只要确保在网络上提供双栈支持，就可以让 IPv6 和 IPv4 同时运行。毕竟，IPv6 不是向后兼容的。[研究显示](https://www.cloudflare.com/ipv6/)，多亏了邻居发现（NDP）和路由优化，IPv6 使得这些网站快了 10% 到 15%。
+因为[ IPv4 即将用完](https://en.wikipedia.org/wiki/IPv4_address_exhaustion)以及主要的移动网络正在迅速采用 IPv6（美国已经[达到](https://www.google.com/intl/en/ipv6/statistics.html#tab=ipv6-adoption&tab=ipv6-adoption)50% 的 IPv6 使用阈值），[将你的 DNS 更新到 IPv6]((https://www.paessler.com/blog/2016/04/08/monitoring-news/ask-the-expert-current-status-on-ipv6) 以应对未来是一个好的想法。只要确保在网络上提供双栈支持，就可以让 IPv6 和 IPv4 同时运行。毕竟，IPv6 不是向后兼容的。[研究显示](https://www.cloudflare.com/ipv6/)，多亏了“邻居”发现（NDP）和路由优化，IPv6 使得这些网站快了 10% 到 15%。
 
 
 39. **使用了 HPACK 压缩吗？**
 
 
-如果你使用 HTTP/2，请再次检查，确保您的服务针对 HTTP 响应头部[实现 HPACK 压缩](https://blog.cloudflare.com/hpack-the-silent-killer-feature-of-http-2/)以减少不必要的开销。由于 HTTP/2 服务相对较新，它们可能不完全支持该规范，HPACK就是一个例子。可以使用[H2spec](https://github.com/summerwind/h2spec) 这个伟大的（如果技术上很详细）工具来检查。[HPACK作品](https://www.keycdn.com/blog/http2-hpack-compression/)。
+如果你使用 HTTP/2，请再次检查，确保您的服务针对 HTTP 响应头部[实现 HPACK 压缩](https://blog.cloudflare.com/hpack-the-silent-killer-feature-of-http-2/)以减少不必要的开销。由于 HTTP/2 服务相对较新，它们可能不完全支持该规范，HPACK 就是一个例子。可以使用 [H2spec](https://github.com/summerwind/h2spec) 这个伟大的（如果技术上很详细）工具来检查。[HPACK作品](https://www.keycdn.com/blog/http2-hpack-compression/)。
 
 ![h2spec](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/efc02119-9155-4126-b7b9-bc83c4b16436/h2spec-example-750w-opt.png)
 
@@ -150,7 +150,7 @@ H2spec ([超大图](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42
 41. **是否使用了 service workers 来缓存以及用作网络回退？**
 
 没有什么网络性能优化能快过用户机器上的本地缓存。如果你的网站运行在 HTTPS 上，使用 “[Service Workers 的实用指南](https://github.com/lyzadanger/pragmatist-service-worker)” 在一个 service worker 中缓存静态资源并存储离线回退（甚至脱机页面）并从用户的机器中检索它们，而不是访问网络。同时，参考
-Jake 的 [Offline Cookbook](https://jakearchibald.com/2014/offline-cookbook/) 和 Udacity 免费课程“[离线 Web 应用程序](https://www.udacity.com/course/offline-web-applications--ud899)”。浏览器支持？如上所述，它得到了[广泛支持](http://caniuse.com/#search=serviceworker) （Chrome、Firefox、Safari TP、Samsung Internet、Edge 17+），但不管怎么说，它都是网络。它有助于提高性能吗？[哦，是的，它确实](https://developers.google.com/web/showcase/2016/service-worker-perf)。
+Jake 的 [Offline Cookbook](https://jakearchibald.com/2014/offline-cookbook/) 和 Udacity 免费课程“[离线 Web 应用程序](https://www.udacity.com/course/offline-web-applications--ud899)”。浏览器支持？如上所述，它得到了[广泛支持](http://caniuse.com/#search=serviceworker) （Chrome、Firefox、Safari TP、Samsung Internet、Edge 17+），但不管怎么说，它都是网络。它有助于提高性能吗？[是的，它确实做到了](https://developers.google.com/web/showcase/2016/service-worker-perf)。
 
 
 ### 测试和监控
@@ -222,14 +222,14 @@ Jake 的 [Offline Cookbook](https://jakearchibald.com/2014/offline-cookbook/) �
 如果你需要其他选择，你也可以参考 [Rublic 的前端清单](https://github.com/drublic/checklist)和 Jon Yablonski 的“[设计师的 Web 性能清单](http://jonyablonski.com/designers-wpo-checklist/)”。
 
 
-### 我们
+### 动身吧
 
 
-一些优化可能超出了您的工作或预算范围，或者由于需要处理遗留代码而显得过度滥用。没问题！使用这个清单作为一个通用（并且希望是全面的）指南，并创建适用于你的环境的你自己的问题清单。但最重要的是，测试和度量您自己的项目，以在优化前确定问题。祝大家 2018 年的性能大涨！
+一些优化可能超出了您的工作或预算范围，或者由于需要处理遗留代码而显得过度滥用。没问题！使用这个清单作为一个通用（并且希望是全面的）指南，并创建适用于你的环境的你自己的问题清单。但最重要的是，测试和权衡您自己的项目，以在优化前确定问题。祝大家 2018 年的性能大涨！
 
 
-_非常感谢 Guy Podjarny, Yoav Weiss, Addy Osmani, Artem Denysov, Denys Mishunov, Ilya Pukhalski, Jeremy Wagner, Colin Bendell, Mark Zeman, Patrick Meenan, Leonardo Losoviz, Andy Davies, Rachel Andrew, Anselm Hannemann, Patrick Hamann, Andy Davies, Tim Kadlec, Rey Bango, Matthias Ott, Mariana Peralta, Philipp Tellis, Ryan Townsend, Mohamed Hussain S H, Jacob Groß, Tim Swalling, Bob Visser, Kev Adamson, Aleksey Kulikov and Rodney Rehm 对这篇文章的校对，同样也感谢我们出色的社区，分享了他们在性能优化工作中学习到的技术和经验，供大家使用。你们真正的非常了不起！
-_
+**非常感谢 Guy Podjarny, Yoav Weiss, Addy Osmani, Artem Denysov, Denys Mishunov, Ilya Pukhalski, Jeremy Wagner, Colin Bendell, Mark Zeman, Patrick Meenan, Leonardo Losoviz, Andy Davies, Rachel Andrew, Anselm Hannemann, Patrick Hamann, Andy Davies, Tim Kadlec, Rey Bango, Matthias Ott, Mariana Peralta, Philipp Tellis, Ryan Townsend, Mohamed Hussain S H, Jacob Groß, Tim Swalling, Bob Visser, Kev Adamson, Aleksey Kulikov and Rodney Rehm 对这篇文章的校对，同样也感谢我们出色的社区，分享了他们在性能优化工作中学习到的技术和经验，供大家使用。你们真正的非常了不起！
+**
 
 
 ---
