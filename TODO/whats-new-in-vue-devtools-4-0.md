@@ -5,44 +5,44 @@
 > * 译者：
 > * 校对者：
 
-# What’s new in Vue Devtools 4.0
+# Vue Devtools 4.0 有哪些新内容
 
-A big update was released to the Vue devtools just a few days ago. Let’s dive into the new features and improvements! 🎄
+几天前，Vue devtools 发布了重大更新。让我们来看看有哪些新功能与改进！🎄
 
-### Editable component data
+### 可编辑的组件 data
 
-You can now modify the data of your component directly in the Component inspector pane.
+现在可以直接在组件检查面板中修改组件的 data 了。
 
-1. Select a component
-2. Under the `data` section in the inspector, mouse over a field
-3. Click on the pencil icon
-4. Submit your changes by clicking on the done icon or by hitting Enter. You can hit Escape to cancel the edition
+1. 选择一个组件
+2. 在检查器的 `data` 部分下，将鼠标移到你要修改的字段上
+3. 点击铅笔图标
+4. 通过点击完成图标或者敲击回车键来提交你的改动。也可以通过敲击 ESC 键来取消编辑
 
 <iframe width="700" height="525" src="https://www.youtube.com/embed/xeBRtXLrQYA" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
-The content of the field is the serialized JSON value. For example, if you want to enter a string, type `"hello"` with the double-quotes. An array should look like `[1, 2, "bar"]` and an object like `{ "a": 1, "b": "foo" }` .
+字段内容会被序列化为 JSON 。举个例子，如果你想输入一个字符串，打字输入带双引号的 `"hello"`。数组则应该像 `[1, 2, "bar"]` ，对象则为 `{ "a": 1, "b": "foo" }` 。
 
-Currently, the values of following types can be edited:
+目前可以编辑以下几种类型的值：
 
-* `null` and `undefined`
+* `null` 和 `undefined`
 * `String`
-* Literal: `Boolean` , `Number` , `Infinity` , `-Infinity` and `NaN`
+* 字面量 `Boolean` , `Number` , `Infinity` , `-Infinity` 和 `NaN`
 * Arrays
 * Plain objects
 
-For the Arrays and Plain objects, you can add and remove items using the dedicated icons. You can also rename object keys.
+对于 Arrays 和 Plain objects，可以通过专用图标来增删项。也可以重命名对象的 key 名。
 
 <iframe width="700" height="525" src="https://www.youtube.com/embed/fx1zjvHryJ0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
-A warning will be displayed if the input isn’t valid JSON. However, some values like `undefined` or `NaN` can be typed directly for more convenience.
+如果输入的不是有效的 JSON 则会显示一条警告信息。然而，为了更方便，一些像 `undefined` 或者 `NaN` 的值是可以直接输入的。
 
-More types will be supported in future releases!
+未来的新版本会支持更多类型的！
 
-#### Quick Edit
+#### 快速编辑
 
-Some types of value can be edited in a single click with the ‘Quick Edit’ feature.
+通过 “快速编辑” 功能可以实现仅仅鼠标单击一下，就可以编辑一些类型的值了。
 
-Booleans can be toggled directly with the checkbox icon:
+布尔值可以直接通过复选框进行切换：
 
 <iframe width="700" height="525" src="https://www.youtube.com/embed/llNJapRZaHo" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
