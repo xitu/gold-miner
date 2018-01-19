@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/angular-jwt-authentication.md](https://github.com/xitu/gold-miner/blob/master/TODO/angular-jwt-authentication.md)
 > * 译者：[Raoul1996](https://github.com/Raoul1996)
-> * 校对者：
+> * 校对者：[Tina92](https://github.com/Tina92)、[realYukiko](https://github.com/realYukiko)
 
 # Angular 安全 —— 使用 JSON 网络令牌（JWT）的身份认证：完全指南
 本文是在 Angular 应用中设计和实现基于 JWT（JSON Web Tokens）身份验证的分步指南。
