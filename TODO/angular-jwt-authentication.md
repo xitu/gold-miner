@@ -5,21 +5,21 @@
 > * 译者：[Raoul1996](https://github.com/Raoul1996)
 > * 校对者：
 
-# Angular 安全 —— 使用 JSON 网络令牌（JWT）验证：完全指南
-本文是在 Angular 应用程序中设计和实现基于 JWT（JSON Web Tokens）身份验证的分步指南。
+# Angular 安全 —— 使用 JSON 网络令牌（JWT）的身份认证：完全指南
+本文是在 Angular 应用中设计和实现基于 JWT（JSON Web Tokens）身份验证的分步指南。
 
-我们的目标是系统的讨论**基于 JWT 的认证设计和实现**，衡量取舍不同的设计方案，并将其应用到 Angular 程序特定的上下文中。
+我们的目标是系统的讨论**基于 JWT 的认证设计和实现**，衡量取舍不同的设计方案，并将其应用到某个 Angular 程序特定的上下文中。
 
-我们将追踪一个 JWT 被从认证服务器上创建开始，然后它被返回客户端，然后再回到应用服务器的全程。并且我们将讨论涉及的所有涉及方案以及做出的决策。
+我们将追踪一个 JWT 从被认证服务器创建开始，到它被返回到客户端，再到它被返回到应用服务器的全程，并讨论其中涉及的所有的方案以及做出的决策。
 
-由于身份验证同样需要一些服务端代码，所以我们将同时显示这些信息。以便我们可以掌握整个上下文，并且看清楚各个部分之间如何协作。
+由于身份验证同样需要一些服务端代码，所以我们将同时显示这些信息，以便我们可以掌握整个上下文，并且看清楚各个部分之间如何协作。
 
-服务端代码是 Node/Typescript，Angular 开发者会对这些应该是非常熟悉的。但是涵盖的概念并不是特定于 Node 的。
+服务端代码是 Node/Typescript，Angular 开发者对这些应该是非常熟悉的。但是涵盖的概念并不是特定于 Node 的。
 
 如果你使用另一种服务平台，主需要在 [jwt.io](https://jwt.io) 上为你的平台选择一个 JWT 库，这些概念仍然适用。
 
 ### 目录
-在这篇文章中，我们将介绍一下主题：
+在这篇文章中，我们将介绍以下主题：
 
 * 第一步 —— 登陆页面
   * 基于 JWT 的身份验证  
@@ -27,33 +27,33 @@
   * 为什么要使用单独托管的登陆页面？
   * 在我们的单页应用（SPA）中直接登录
 * 第二步 —— 创建基于 JWT 的用户会话
-  * 使用 [node-jsonwebtoken](https://github.com/auth0/node-jsonwebtoken) 创建 JWT 会话令牌（Session Token）
+  * 使用 [node-jsonwebtoken](https://github.com/auth0/node-jsonwebtoken) 创建 JWT 会话令牌
 * 第三步 —— 将 JWT 返回到客户端
   * 在哪里存储 JWT 会话令牌？
   * Cookie 与 Local Storage
 * 第四步 —— 在客户端存储使用 JWT  
   * 检查用户到期时间
 * 第五步 —— 每次请求携带 JWT 发回到服务器  
-  * 如何构建一个身份验证 HTTP 拦截器H
+  * 如何构建一个身份验证 HTTP 拦截器
 * 第六步 —— 验证用户请求
   * 构建用于 JWT 验证的定制 Express 中间件
   * 使用 [express-jwt](https://github.com/auth0/express-jwt) 配置 JWT 验证中间件
-  * 验证 JWT 签名（Signatures）—— RS256
+  * 验证 JWT 签名 —— RS256
   * RS256 与 HS256
   * JWKS (JSON Web 密钥集) 终节点和密钥轮换
   * 使用 [node-jwks-rsa](https://github.com/auth0/node-jwks-rsa) 实现 JWKS 密钥轮换
 * 总结
 
-无需再费周折（without further ado），我们开始学习基于 JWT 的 Angular 的认证吧！
+所以无需再费周折（without further ado），我们开始学习基于 JWT 的 Angular 的认证吧！
 
 ### 基于 JWT 的用户会话
-首先介绍如何使用 JSON Web Tokens 来建立用户会话：简而言之，JWT 是数字签名以 URL 友好的字符串格式编码的 JSON 有效载荷（payload）。
+首先介绍如何使用 JSON 网络令牌来建立用户会话：简而言之，JWT 是数字签名以 URL 友好的字符串格式编码的 JSON 有效载荷（payload）。
 
-JWT 通常可以包含任何有效载荷，但最常见的用例是使用有效载荷定于用户会话。
+JWT 通常可以包含任何有效载荷，但最常见的用例是使用有效载荷来定义用户会话。
 
-JWT 的关键在于，我们只需要检查令牌本身就可以确定它们是否有效，而无需为此单独联系服务器，不需要将令牌保存到内存中，也不需要在请求的时候保存到服务器。
+JWT 的关键在于，我们只需要检查令牌本身验证签名就可以确定它们是否有效，而无需为此单独联系服务器，不需要将令牌保存到内存中，也不需要在请求的时候保存到服务器或内存中。
 
-如果使用 JWT 身份验证，则它们将至少包含用户 ID 和到期时间戳。
+如果使用 JWT 身份验证，则它们将至少包含用户 ID 和过期时间戳。
 
 如果你想要深入了解有关 JWT 格式的详细信息（包括最常用的签名类型如何工作），请参阅本文后面的 [JWT: The Complete Guide to JSON Web Tokens](https://blog.angular-university.io/angular-jwt) 一文。
 
@@ -65,7 +65,7 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzNTM0NTQzNTQzNTQzNTM0NTMiLCJleHA
 
 你可能会想：这看起来不像 JSON！那么 JSON 在哪里？
 
-为了看到他，让我们回到 [jwt.io](https://jwt.io/) 并将完成的 JWT 字符串粘贴到验证工具中，然后我们就能看到 JSON 的有效内容：
+为了看到它，让我们回到 [jwt.io](https://jwt.io/) 并将完成的 JWT 字符串粘贴到验证工具中，然后我们就能看到 JSON 的有效内容：
 
 ```
 {
@@ -75,7 +75,7 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzNTM0NTQzNTQzNTQzNTM0NTMiLCJleHA
 ```
 查看 [raw01.ts](https://gist.github.com/jhades/2375d4f784938d28eaa41f321f8b70fe#file-01-ts) ❤托管于 [GitHub](https://github.com)
 
-`sub` 属性包含用户标识符，`exp` 包含用户到期时间戳.这种类型的令牌被称为不记名令牌（Bearer Token），意思是它标识拥有它的用户，并定义一个用户会话。
+`sub` 属性包含用户标识符，`exp` 包含用户过期时间戳.这种类型的令牌被称为不记名令牌（Bearer Token），意思是它标识拥有它的用户，并定义一个用户会话。
 
 > 不记名令牌是用户名/密码组合的签名临时替换！
 
@@ -84,20 +84,20 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzNTM0NTQzNTQzNTQzNTM0NTMiLCJleHA
 实现基于 JWT 的身份验证第一步是发布不记名令牌并将其提供给用户，这是登录/注册页面的主要目的。
 
 ### 第一步 —— 登陆页面
-身份验证以登陆页面开始，该页面可以托管在我们的域中或者第三方域中。在企业场景中，登陆页面一般会托管在单独的服务器上。这是公司范围内单点登录（ Single Sign-On）解决方案的一部分。
+身份验证以登陆页面开始，该页面可以托管在我们的域中或者第三方域中。在企业场景中，登陆页面一般会托管在单独的服务器上。这是公司范围内单点登录解决方案的一部分。
 
 在公网（Public Internet）上，登录页面也可能是：
 
 * 由第三方身份验证程序（如 Auth0）托管
-* 使用直接在我们的单页应用中可用的登录页面路径或模式。
+* 在我们的单页应用中可用的登录页面路径或模式下直接使用。
 
-单独托管的登录页面是一种安全性的改进，因为这样密码永远不会直接由我们的应用程序代码来处理。
+单独托管的登录页面是一种安全性的改进，因为这样密码永远不会直接由我们的应用代码来处理。
 
-单独托管的登录页面可以具有最少量的 JavaScript 甚至完全没有，并且可以将其做到不论看起来还是用起来都像是整体应用程序的一部分的效果。
+单独托管的登录页面可以具有最少量的 JavaScript 甚至完全没有，并且可以将其做到不论看起来还是用起来都像是整体应用的一部分的效果。
 
-但是，用户在我们应用程序中通过内置登录页面登录也是一种可性行且常用的解决方案，所以我们也会介绍一下。
+但是，用户在我们应用中通过内置登录页面登录也是一种可行且常用的解决方案，所以我们也会介绍一下。
 
-### 直接在 SPA 应用程序上的登录页面
+### 直接在 SPA 应用上的登录页面
 如果直接在我们的 SPA 程序中创建登录页面，它将看起来是这样的：
 
 ```
@@ -155,13 +155,13 @@ export class LoginComponent {
 正如我们所看到的，这个页面是一个简单的表单，包含两个字段：电子邮件和密码。当用户点击登录按钮的时候，用户和密码将通过 `login()` 调用发送到客户端身份验证服务。
 
 ### 为什么要创建一个单独的认证服务器
-把我们所有的客户端身份验证逻辑放在一个集中的应用程序范围内的单个 `AuthService`（认证服务）将帮助我们保持我们代码的组织。
+把我们所有的客户端身份验证逻辑放在一个集中的应用范围内的单个 `AuthService`（认证服务）中将帮助我们保持我们代码的组织结构。
 
 这样，如果以后我们需要更改安全提供者或者重构我们的安全逻辑，我们只需要改变这个类。
 
-在这个服务里边，我们将使用一些 JavaScript API 来调用第三方服务，或者使用 Angular HTTP Client 进行 HTTP POST 调用。
+在这个服务里，我们将使用一些 JavaScript API 来调用第三方服务，或者使用 Angular HTTP Client 进行 HTTP POST 调用。
 
-这两种方案的目标是一致的：通过 POST 请求将用户和密码组合通过网络传送到认证服务器，以便可以验证密码并启动会话。
+这两种方案的目标是一致的：通过 POST 请求将用户和密码组合通过网络传送到认证服务器，以便验证密码并启动会话。
 
 以下是我们如何使用 Angular HTTP Client 构建自己的 HTTP POST：
 
@@ -183,18 +183,18 @@ export class AuthService {
        
 查看 [raw03.ts](https://gist.github.com/jhades/2375d4f784938d28eaa41f321f8b70fe#file-03-ts) ❤托管于 [GitHub](https://github.com)
 
-我们调用的 `shareReplay`可以防止这个 Observable 的接收者由于多次订阅而意外触发多个 POST 请求。
+我们调用的 `shareReplay` 可以防止这个 Observable 的接收者由于多次订阅而意外触发多个 POST 请求。
 
 在处理登录响应之前，我们先来看看请求的流程，看看服务器上发生了什么。
 
 ### 第二步 —— 创建 JWT 会话令牌
-无论我们在应用程序级别使用登录页面还是托管登录页面，处理登录 POST 请求的服务器逻辑是相同的。
+无论我们在应用级别使用登录页面还是托管登录页面，处理登录 POST 请求的服务器逻辑是相同的。
 
 目标是在这两种情况下都会验证密码并建立一个会话。如果密码是正确的，那么服务器将会发出一个不记名令牌，说：
 
 > 该令牌的持有者的专业 ID 是 353454354354353453, 该会话在接下来的两个小时有效
 
-然后应该对令牌进行签名并发送回用户浏览器！关键部分是 JWT 签名：这是防止攻击者伪造会话令牌的唯一方式。
+然后服务器应该对令牌进行签名并发送回用户浏览器！关键部分是 JWT 签名：这是防止攻击者伪造会话令牌的唯一方式。
 
 这是使用 Express 和 Node 包 [node-jsonwebtoken](https://github.com/auth0/node-jsonwebtoken) 创建新的 JWT 会话令牌的代码：
 
@@ -238,28 +238,28 @@ export function loginRoute(req: Request, res: Response) {
     }
 }
 ```
-查看 [raw04.ts](https://gist.github.com/jhades/2375d4f784938d28eaa41f321f8b70fe#file-04-ts) ❤托管于 [GitHub](https://github.com)
+查看 [raw04.ts](https://gist.github.com/jhades/2375d4f7849应用38d28eaa41f321f8b70fe#file-04-ts) ❤托管于 [GitHub](https://github.com)
 
 代码很多，我们逐行分解：
 
-* 我们首先创建一个 Express 应用程序
+* 我们首先创建一个 Express 应用
 * 接下来，我们配置 `bodyParser.json()` 中间件，使 Express 能够从 HTTP 请求体中读取 JSON 有效载荷
-* 然后，我们定义了一个名为 `loginRoute` 的路由处理程序，如果服务器收到一个 POST 请求，就会触发 `/api/login` URL
+* 然后，我们定义了一个名为 `loginRoute` 的路由处理程序，如果服务器收到一个目标地址是 `/api/login` 的 POST 请求，就会触发它
 
 在 `loginRoute` 方法中，我们有一些代码展示了如何实现登录路由：
 
 * 由于 `bodyParser.json()` 中间件的存在，我们可以使用 `req.body` 访问 JSON 请求主体有效载荷。
 * 我们先从请求主体中检索电子邮件和密码
 * 然后我们要验证密码，看看它是否正确
-* 如果密码错误，那么我们发回 HTTP 状态码 401 未经授权
+* 如果密码错误，那么我们返回 HTTP 401 状态码表示未经授权
 * 如果密码正确，我们从检索用户专用标识开始
 * 然后我们使用用户 ID 和过期时间戳创建一个普通的 JavaScript 对象，然后将其发送回客户端
-* 我们使用  [node-jsonwebtoken](https://github.com/auth0/node-jsonwebtoken) 库对有效载荷进行签名，然后选择 RS256 签名类型（稍后详细介绍）
-* `.sign()` 调用 结果是 JWT 字符串本身
+* 我们使用 [node-jsonwebtoken](https://github.com/auth0/node-jsonwebtoken) 库对有效载荷进行签名，然后选择 RS256 签名类型（稍后详细介绍）
+* `.sign()` 调用结果是 JWT 字符串本身
 
 总而言之，我们验证了密码并创建一个 JWT 会话令牌。现在我们已经对这个代码的工作原理有了一个很好的了解，让我们来关注使用了 RS256 签名的包含用户会话详细信息的 JWT 签名的关键部分。
 
-为什么签名的类型很重要？因为没有理解它，我们将无法理解我们将需要验证次令牌的应用程序服务端代码。
+为什么签名的类型很重要？因为没有理解它，我们就无法理解应用程序服务端上对相关令牌的验证代码。
 
 #### 什么是 RS256 签名?
 
@@ -273,14 +273,14 @@ RS256 是基于 RSA 的 JWT 签名类型，是一种广泛使用的公钥加密�
 
 * 私钥（如我们的代码中的 `RSA_PRIVATE_KEY`）用于对 JWT 进行签名
 * 一个公钥用来验证它们
-* 这两个秘钥是不可互换的：它们只能标记 token，或者只能验证它们，但是两个秘钥不能做两件事
+* 这两个密钥是不可互换的：它们只能标记 token，或者只能验证，它们中的任何一个都不能同时做这两件事
 
 ### 为什么用 RS256?
 
-为什么使用公钥加密签署 JWT ？ 以下是一些安全和运营优势的例子：
+为什么使用公钥加密签署 JWT ？以下是一些安全和运营优势的例子：
 
-* 我们只需要在认证服务器部署签名私钥，而不是在使用相同认证服务器的多个应用服务器上。
-* 我们不必为了同时更改每个地方的共享秘钥而以协同的方式关闭认证服务器和应用服务器。
+* 我们只需要在认证服务器部署签名私钥，不是在多个应用服务器使用相同认证服务器。
+* 我们不必为了同时更改每个地方的共享密钥而以协同的方式关闭认证服务器和应用服务器。
 * 公钥可以在 URL 中公布并且被应用服务器在启动时以及定时自动读取。
 
 最后一部分是一个很好的特性：能够发布验证密钥给我们内置的密钥轮换或者撤销，我们将在这篇文章中实现！
@@ -291,7 +291,7 @@ RS256 是基于 RSA 的 JWT 签名类型，是一种广泛使用的公钥加密�
 
 另一个常用的签名是 HS256，没有这些优势。
 
-HS256 仍然是常用的，例如 Auth0 等供应商现在默认使用 RS256.如果你想了解有关 HS256，RS256 和 JWT 签名的更多信息，请查看这篇 [文章](https://blog.angular-university.io/angular-authentication-jwt/)
+HS256 仍然是常用的，但是例如 Auth0 等供应商现在都默认使用 RS256。如果你想了解有关 HS256，RS256 和 JWT 签名的更多信息，请查看这篇[文章](https://blog.angular-university.io/angular-authentication-jwt/)
 
 抛开我们使用的签名类型不谈，我们需要将新签名的令牌发送回用户浏览器。
 
@@ -305,19 +305,19 @@ HS256 仍然是常用的，例如 Auth0 等供应商现在默认使用 RS256.如
 
 #### JWT 和 Cookie
 
-让我们从 cookie 开始，为什么不使用呢？JWT 有时候被称为 Cookie 的替代品，但这是两个完全不同的概念。 Cookie 是一种浏览器数据存储机制，可以安全地存储少量数据。
+让我们从 cookie 开始，为什么不使用 Cookie 呢？JWT 有时候被称为 Cookie 的替代品，但这是两个完全不同的概念。 Cookie 是一种浏览器数据存储机制，可以安全地存储少量数据。
 
-该数据可以使注诸如用户首选语言之类的任何数据。但是其也可以包含诸如 JWT 的用户识别令牌。
+该数据可以是诸如用户首选语言之类的任何数据。但它也可以包含诸如 JWT 的用户识别令牌。
 
-因此，我们可以将 JWT 存储在 cookie 中！然后，我们来谈谈使用 Cookie 存储 JWT 与其他方法相比较的优点和缺点。
+因此，我们可以将 JWT 存储在 Cookie 中！然后，我们来谈谈使用 Cookie 存储 JWT 与其他方法相比较的优点和缺点。
 
 #### 浏览器如何处理 Cookie
 
-Cookie 的一个独特之处在于，浏览器会自动为每个请求附加到特定于和子域的 cookie 到 HTTP 请求的头部。
+Cookie 的一个独特之处在于，浏览器会自动为每个请求附加到特定域和子域的 Cookie 到 HTTP 请求的头部。
 
-这就意味着，如果我们将 JWT 存储到了 cookie 中，假设登录页面和应用共享一个根域，那么在客户端上，我们不需要任何其他的的逻辑，就可以让 cookie 随每一个请求发送到应用程序服务器。
+这就意味着，如果我们将 JWT 存储到了 Cookie 中，假设登录页面和应用共享一个根域，那么在客户端上，我们不需要任何其他的的逻辑，就可以让 Cookie 随每一个请求发送到应用服务器。
 
-然后，让我们把 JWT 存储到 cookie 中，看看会发生什么。下面是我们如何完成我们登录路由的实现，发送 JWT 到浏览器，存入 cookie：
+然后，让我们把 JWT 存储到 Cookie 中，看看会发生什么。下面是我们对登录路由的实现，发送 JWT 到浏览器，存入 ：
 
 
 ```
@@ -331,32 +331,32 @@ res.cookie("SESSIONID", jwtBearerToken, {httpOnly:true, secure:true});
 ```
 查看 [raw05.ts](https://gist.github.com/jhades/2375d4f784938d28eaa41f321f8b70fe#file-05-ts) ❤托管于 [GitHub](https://github.com)
 
-除了使用 JWT 值设置 cookie 外，我们还设置了一些我们将要讨论的安全属性。
+除了使用 JWT 值设置 Cookie 外，我们还设置了一些我们将要讨论的安全属性。
 
 #### Cookie 独特的安全属性 —— HttpOnly 和安全标志
 
-Cookie 另一个独特之处在与它有着一些与安全相关的属性，有助于确保数据的安全传输。
+Cookie 另一个独特之处在于它有着一些与安全相关的属性，有助于确保数据的安全传输。
 
 一个 Cookie 可以标记为“安全”，这意味着如果浏览器通过 HTTPS 连接发起了请求，那么它只会附加到请求中。
 
-一个 Cookie 同样可以被标记为 Http Only，这就意味着它 **根本不能** 被 JavaScript 代码访问！请注意，浏览器依旧会将 cookie 附加到对服务器的每个请求中，就像使用其他 cookie 一样。
+一个 Cookie 同样可以被标记为 Http Only，这就意味着它 **根本不能** 被 JavaScript 代码访问！请注意，浏览器依旧会将 Cookie 附加到对服务器的每个请求中，就像使用其他 Cookie 一样。
 
-这意味着，当我们删除 HTTP Only 的 cookie 的时候，我们需要向服务器发送请求，例如注销用户。
+这意味着，当我们删除 HTTP Only 的 Cookie 的时候，我们需要向服务器发送请求，例如注销用户。
 
-#### HTTP Only cookie 的优点
+#### HTTP Only Cookie 的优点
 
-HTTP Only 的 cookie 的一个优点是，如果应用程序遭受脚本注入攻击（或称 XSS），在这种荒谬的情况下， Http Only 标志仍然会阻止攻击者访问 cookie ，阻止使用它模仿用户。
+HTTP Only 的 Cookie 的一个优点是，如果应用遭受脚本注入攻击（或称 XSS），在这种荒谬的情况下， Http Only 标志仍然会阻止攻击者访问 Cookie ，阻止使用它冒充用户。
 
 Secure 和 Http Only 标志经常可以一起使用，以获得最大的安全性，这可能使我们认为 Cookie 是存储 JWT 的理想场所。
 
-但是 Cookie 也有一些缺点，那么我们来谈谈这些： 这将有助于我们知晓在 JWT 中存储 cookie 是否是一种适合我们应用的好方案。（译者注：原文是 “this will help us decide if storing cookies in a JWT is a good approach for our application”，但是上面的部分讲的是将 JWT 存入 cookie 中，所以译者认为原文有误，但是还是选择尊重原文）
+但是 Cookie 也有一些缺点，那么我们来谈谈这些： 这将有助于我们知晓在 JWT 中存储 Cookie 是否是一种适合我们应用的好方案。（译者注：原文是 “this will help us decide if storing cookies in a JWT is a good approach for our application”，但是上面的部分讲的是将 JWT 存入 Cookie 中，所以译者认为原文有误，但是还是选择尊重原文）
 
 #### Cookie 的缺点 —— XSRF（跨站请求伪造）
 
-将不记名令牌存储在 cookie 中的应用程序，因此（因为这个 cookie）遭受的攻击被称为跨站请求伪造（Cross-Site Request Forgery），也成为 XSRF 或者 CSRF。下面是其原理：
+将不记名令牌存储在 Cookie 中的应用，因此（因为这个 Cookie）遭受的攻击被称为跨站请求伪造（Cross-Site Request Forgery），也成为 XSRF 或者 CSRF。下面是其原理：
 
 * 有人发给你一个链接，并且你点击了它
-* 这个链接向受到攻击的网站最终发送了一个 HTTP 请求，其中包含了所有链接到该网站的 cookie
+* 这个链接向受到攻击的网站最终发送了一个 HTTP 请求，其中包含了所有链接到该网站的 Cookie
 * 如果你登陆了网站，这意味着包含我们 JWT 不记名令牌的 Cookie 也会被转发，这是由浏览器自动完成的
 * 服务器接收到有效的 JWT，因此服务器无法区分这是攻击请求还是有效请求
 
@@ -364,48 +364,48 @@ Secure 和 Http Only 标志经常可以一起使用，以获得最大的安全�
 
 这个攻击不像看起来那么吓人，但问题是执行起来很简单：只需要一封电子邮件或者社交媒体上的帖子。
 
-我们在后文会详细介绍这种攻击，现在认识到如果我们选择将我们的 JWT 存储到 cookie 中，那么我们还需要对 XSRF 进行一些防御。
+我们在后文会详细介绍这种攻击，现在认识到如果我们选择将我们的 JWT 存储到 Cookie 中，那么我们还需要对 XSRF 进行一些防御。
 
 好消息是，所有的主流框架都带有防御措施，可以很容易地对抗 XSRF，因为它是一个众所周知的漏洞。
 
-就像是发生过很多次一样，Cookie 设计上鱼和熊掌不能兼得：使用 cookie 意味着利用 HTTP Only 可以很好的防御脚本注入，但是另一方面，它引入了一个新的问题 —— XSRF。
+就像是发生过很多次一样，Cookie 设计上鱼和熊掌不能兼得：使用 Cookie 意味着利用 HTTP Only 可以很好的防御脚本注入，但是另一方面，它引入了一个新的问题 —— XSRF。
 
 #### Cookie 和第三方认证提供商
 
-在 cookie 中接收会话 JWT 的潜在问题是，我们无法从处理验证逻辑的第三方域接收到它。
+在 Cookie 中接收会话 JWT 的潜在问题是，我们无法从处理验证逻辑的第三方域接收到它。
 
-这是因为在 `app.example.com` 运行的应用程序不能从 `security-provider.com` 等其他域访问 cookie。
-因此在这种情况下，我们将无法访问包含 JWT 的 Cookie，并将其发送到我们的服务器进行验证，使 cookie 不可用。
+这是因为在 `app.example.com` 运行的应用不能从 `security-provider.com` 等其他域访问 Cookie。
+因此在这种情况下，我们将无法访问包含 JWT 的 Cookie，并将其发送到我们的服务器进行验证，这个问题导致了 Cookie 不可用。
 
 #### 我们可以得到两个方案中的最优解吗？
 
-第三方认证提供商可能会允许我们在我们自己网站的可配置子域名中运行外部托管的登录页面，例如 `login.example.com`.
+第三方认证提供商可能会允许我们在我们自己网站的可配置子域名中运行外部托管的登录页面，例如 `login.example.com`。
 
 因此，将所有这些解决方案中最好的部分组合起来是有可能的。下面是解决方案的样子：
 
-* 将外部托管的登录页面托管到我们自己的子域 `login.example.com` 上，`example.com` 上运行应用程序
+* 将外部托管的登录页面托管到我们自己的子域 `login.example.com` 上，`example.com` 上运行应用
 * 该页面设置了仅包含 JWT 的 HTTP Only 和 Secure 的 Cookie，为我们提供了很好的保护，以低于依赖窃取用户身份的多种类型的 XSS 攻击
 * 此外，我们需要添加一些 XSRF 防御功能，这里有一个很好理解的解决方案
 
 这将为我们提供最大限度的保护，防止密码和身份令牌被盗：
 
-* 应用程序永远不会获取密码
-* 应用程序代码从不访问会话 JWT，只访问浏览器
+* 应用永远不会获取密码
+* 应用代码从不访问会话 JWT，只访问浏览器
 * 该应用的请求不容易被伪造（XSRF）
 
-这种情况又是用于企业门户，可以提供很好的安全功能。但是这需要我们的登录页面支持托管到自定义域，且使用了安全提供程序或企业安全代理。
+这种情况有时用于企业门户，可以提供很好的安全功能。但是这需要我们的登录页面支持托管到自定义域，且使用了安全提供程序或企业安全代理。
 
-但是，此功能（登录页面托管到自定义子域）并不总是可用，这使得 HTTP Only cookie 方法可能失效。
+但是，此功能（登录页面托管到自定义子域）并不总是可用，这使得 HTTP Only Cookie 方法可能失效。
 
 如果你的应用属于这种情况，或者你正寻找不依赖 Cookie 的替代方案，那么让我们回到最初的起点，看看我们可以做什么。
 
 #### 在 HTTP 响应正文中发回 JWT
 
-具有 HTTP Only 特性的 Cookie 是存储 JWT 的可靠选择，但是还会有其他很好的选择。例如我们不使用 cookie，而是在 HTTP 响应体中将 JWT 发送回客户端。
+具有 HTTP Only 特性的 Cookie 是存储 JWT 的可靠选择，但是还会有其他很好的选择。例如我们不使用 Cookie，而是在 HTTP 响应体中将 JWT 发送回客户端。
 
-我们不仅要发送 JWT 本身，而且还有将过期时间戳作为单独的属性发送。
+我们不仅要发送 JWT 本身，而且还要将过期时间戳作为单独的属性发送。
 
-的确，到期时间戳在 JWT 中也可以获取到，但是我们希望让客户端能够简单地获得会话持续时间，儿不必要为此再安装一个 JWT 库。
+的确，过期时间戳在 JWT 中也可以获取到，但是我们希望让客户端能够简单地获得会话持续时间，而不必要为此再安装一个 JWT 库。
 
 以下使我们如何在 HTTP 响应体中将 JWT 发送回客户端：
 
@@ -424,11 +424,11 @@ res.status(200).json({
 ```
 查看 [raw06.ts](https://gist.github.com/jhades/2375d4f784938d28eaa41f321f8b70fe#file-06-ts) ❤托管于 [GitHub](https://github.com)
 
-这样，客户端将收到 JWT 及其到期时间戳。
+这样，客户端将收到 JWT 及其过期时间戳。
 
 #### 为了不使用 Cookie 存储 JWT 所进行的设计妥协
 
-不使用 cookie 的优点是我们的应用程序不再容易受到 XSRF 攻击，这是这种方法的优点之一。
+不使用 Cookie 的优点是我们的应用不再容易受到 XSRF 攻击，这是这种方法的优点之一。
 
 但是这同样意味着我们将不得不添加一些客户端代码来处理令牌，因为浏览器将不再为每个向应用服务器发送的请求转发它。
 
@@ -443,7 +443,7 @@ res.status(200).json({
 
 一旦我们在客户端收到了 JWT，我们需要把它存储在某个地方。否则，如果我们刷新浏览器，它将会丢失。那么我们就必须要重新登录了。
 
-有很多地方可以保存 JWT（cookie 除外）。本地存储（Local Storage）是存储 JWT 的实用场所，它是字符串的键值对存储，非常适合存储少量数据。
+有很多地方可以保存 JWT（Cookie 除外）。本地存储（Local Storage）是存储 JWT 的实用场所，它是字符串的键值对存储，非常适合存储少量数据。
 
 请注意，本地存储具有同步 API。让我们来看看实用本地存储的登录与注销逻辑的实现：
 
@@ -496,14 +496,14 @@ export class AuthService {
 
 * 我们接收到包含 JWT 和 `expiresIn` 属性的 login 调用的结果，并直接将它传递给 `setSession` 方法
 * 在 `setSession` 中，我们直接将 JWT 存储到本地存储中的 `id_token` 键值中。
-* 我们使用当前时间和 `expiresIn` 属性计算到期时间戳
-* 然后我们还将到期时间戳保存为本地存储中 `expires_at` 条目中的一个数字值
+* 我们使用当前时间和 `expiresIn` 属性计算过期时间戳
+* 然后我们还将过期时间戳保存为本地存储中 `expires_at` 条目中的一个数字值
 
 ### 在客户端使用会话信息
 
-现在我们在客户端拥有全部的会话信息，我们可以在客户端应用程序的其它部分使用这些信息。
+现在我们在客户端拥有全部的会话信息，我们可以在客户端应用的其它部分使用这些信息。
 
-例如，客户端应用程序需要知道用户是否登陆或者注销，以判断某些 UI 元素的显示。比如登录/注销菜单按钮。
+例如，客户端应用需要知道用户是否登陆或者注销，以判断某些 UI 元素的显示。比如登录/注销菜单按钮。
 
 这些信息现在可以通过 `isLoggedIn()`, `isLoggedOut()` 和 `getExpiration()` 获取。
 
@@ -512,15 +512,15 @@ export class AuthService {
 
 现在我们已经将 JWT 保存在用户浏览器中，让我们继续追随其在网络中的旅程。
 
-让我们来看看如何使用它来让应用程序服务器知道一个给定的 HTTP 请求属于特定用户。这是认证方案的全部要点。
+让我们来看看如何使用它来让应用服务器知道一个给定的 HTTP 请求属于特定用户。这是认证方案的全部要点。
 
-以下是我们需要做的事情：我们需要用某种方式为 HTTP 附加 JWT，并发送到应用服务器，然后应用程序服务器将验证请求并将其链接到用户，只需要检查 JWT，检查其签名并从有效内容中读取用户标识。
+以下是我们需要做的事情：我们需要用某种方式为 HTTP 附加 JWT，并发送到应用服务器，然后应用服务器将验证请求并将其链接到用户，只需要检查 JWT，检查其签名并从有效内容中读取用户标识。
 
 为了确保每个请求都包含一个 JWT，我们将使用一个 Angular HTTP 拦截器。
 
 ### 如何构建一个身份验证 HTTP 拦截器
 
-以下是 Angular 拦截器的代码，其中包括的为每个请求附加 JWT 并发送给应用程序服务器：
+以下是 Angular 拦截器的代码，其中包括的为每个请求附加 JWT 并发送给应用服务器：
 
 ```
 @Injectable()
@@ -556,9 +556,9 @@ export class AuthInterceptor implements HttpInterceptor {
 * 如果 JWT 不存在，那么请求将通过服务器进行修改
 * 如果 JWT 存在，那么我们就克隆 HTTP 头，并添加额外的认证（Authorization）头，其中将包含 JWT
 
-并且在此处，最初在认证服务器上创建的 JWT 现在会随着每个请求发送到应用程序服务器。
+并且在此处，最初在认证服务器上创建的 JWT 现在会随着每个请求发送到应用服务器。
 
-我们来看看应用程序服务器如何使用 JWT 来识别用户。
+我们来看看应用服务器如何使用 JWT 来识别用户。
 
 ### 验证服务端的 JWT
 为了验证请求，我们需要从 `Authorization` 头中提取 JWT，并检查时间戳和用户标识符。
@@ -593,7 +593,7 @@ app.route('/api/lessons')
 
 如果没有有效的 JWT，`checkIfAuthenticated` 中间件将会报错，或允许请求通过中间件链继续。
 
-在 JWT 存在的情况下，如果签名正确但是过期，中间件也需要抛出错误。请注意，在使用基于 JWT 的身份验证的任何应用程序中，所有这些逻辑都是相同的。
+在 JWT 存在的情况下，如果签名正确但是过期，中间件也需要抛出错误。请注意，在使用基于 JWT 的身份验证的任何应用中，所有这些逻辑都是相同的。
 
 我们可以使用 [node-jsonwebtoken](https://github.com/auth0/node-jsonwebtoken) 自己编写的中间件，但是这个逻辑很容易出错，所以我们使用第三方库。
 
@@ -635,7 +635,7 @@ app.route('/api/lessons')
 
 #### 利用 RS256 签名
 
-由认证服务器在公开访问的 URL 中**发布**用于验证 JWT 的公钥。而不是在应用程序服务器上安装公钥。
+由认证服务器在公开访问的 URL 中**发布**用于验证 JWT 的公钥。而不是在应用服务器上安装公钥。
 
 这给我们带来了很多好处，比如说可以简化密钥轮换和撤销。如果我们需要一个新的密钥对，我们只需要发布一个新的公钥。
 
@@ -713,11 +713,11 @@ app.route('/api/lessons')
 
 这是为了避免出现拒绝服务的情况，是由于某种情况（包括攻击，但也许是一个 bug），公共服务器会不断旋转公钥。
 
-这将使应用程序服务器很快停止，因为它有很好的内置防御措施！如果你想要更改这些默认参数，请查看[库文档](https://github.com/auth0/node-jwks-rsa#caching)来获取更多详细信息。
+这将使应用服务器很快停止，因为它有很好的内置防御措施！如果你想要更改这些默认参数，请查看[库文档](https://github.com/auth0/node-jwks-rsa#caching)来获取更多详细信息。
 
 这样，我们已经完成了 JWT 的网络之旅！
 
-* 我们已经在应用程序中创建并签名了一个 JWT
+* 我们已经在应用中创建并签名了一个 JWT
 * 我们已经展示了如何在客户端使用 JWT 并将其随每个 HTTP 请求发送回服务器
 * 我们已经展示了应用服务器如何验证 JWT，并将每个请求链接到给定用户
 
@@ -725,7 +725,7 @@ app.route('/api/lessons')
 
 ### 总结和结论
 
-将认证（authentication）和授权（authorization）等安全功能委派给第三方基于 JWT 的提供商或者产品比以往更加合适，但这并不意味着安全性可以透明地添加到应用程序中。
+将认证（authentication）和授权（authorization）等安全功能委派给第三方基于 JWT 的提供商或者产品比以往更加合适，但这并不意味着安全性可以透明地添加到应用中。
 
 即使我们选择第三方认证提供商或企业单一登录解决方案，我们仍然必须知道 JWT 如何工作的，至少在某些细节方面。如果不了解，我们将需要从产品和库文档中选择。
 
@@ -758,15 +758,15 @@ app.route('/api/lessons')
 同样可以看看其他很受欢迎的帖子，你可能会觉得有趣：
 
 * [Angular 入门 —— 开发环境最佳实践使用 Yarn，Angular CLI，设置 IDE](http://blog.angular-university.io/getting-started-with-angular-setup-a-development-environment-with-yarn-the-angular-cli-setup-an-ide/)
-* [SPA 应用程序有什么好处？什么是 SPA？](http://blog.angular-university.io/why-a-single-page-application-what-are-the-benefits-what-is-a-spa/)
+* [SPA 应用有什么好处？什么是 SPA？](http://blog.angular-university.io/why-a-single-page-application-what-are-the-benefits-what-is-a-spa/)
 * [Angular 智能组件与演示组件：有什么区别，什么时候使用哪一个，为什么？](http://blog.angular-university.io/angular-2-smart-components-vs-presentation-components-whats-the-difference-when-to-use-each-and-why)
 * [Angular 路由 —— 如何使用 Bootstrap 4 和 嵌套路由建立一个导航菜单](http://blog.angular-university.io/angular-2-router-nested-routes-and-nested-auxiliary-routes-build-a-menu-navigation-system/)
 * [Angular 路由 —— 延伸导游，避免常见陷阱](http://blog.angular-university.io/angular2-router/)
 * [Angular 组件 —— 基础](http://blog.angular-university.io/introduction-to-angular-2-fundamentals-of-components-events-properties-and-actions/)
-* [如何使用可观察数据服务构建 Angular 应用程序 —— 避免陷阱](http://blog.angular-university.io/how-to-build-angular2-apps-using-rxjs-observable-data-services-pitfalls-to-avoid/)
+* [如何使用可观察数据服务构建 Angular 应用 —— 避免陷阱](http://blog.angular-university.io/how-to-build-angular2-apps-using-rxjs-observable-data-services-pitfalls-to-avoid/)
 * [Angular 形式的介绍 —— 模板驱动与模型驱动](http://blog.angular-university.io/introduction-to-angular-2-forms-template-driven-vs-model-driven/)
 * [Angular ngFor —— 了解所有功能，包括 trackBy，为什么它不仅仅适用于数组？](http://blog.angular-university.io/angular-2-ngfor/)
-* [Angular 大学实践 —— 如何用 Angular 构建 SEO 友好的单页面应用程序](http://blog.angular-university.io/angular-2-universal-meet-the-internet-of-the-future-seo-friendly-single-page-web-apps/)
+* [Angular 大学实践 —— 如何用 Angular 构建 SEO 友好的单页面应用](http://blog.angular-university.io/angular-2-universal-meet-the-internet-of-the-future-seo-friendly-single-page-web-apps/)
 * [Angular 的更正变化如何真正的起作用？](http://blog.angular-university.io/how-does-angular-2-change-detection-really-work/)
 
 
