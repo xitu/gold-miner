@@ -514,7 +514,9 @@ export class AuthService {
 
 让我们来看看如何使用它来让应用服务器知道一个给定的 HTTP 请求属于特定用户。这是认证方案的全部要点。
 
-以下是我们需要做的事情：我们需要用某种方式为 HTTP 附加 JWT，并发送到应用服务器。然后应用服务器将验证请求并将其链接到用户，只需要检查 JWT，检查其签名并从有效内容中读取用户标识。
+以下是我们需要做的事情：我们需要用某种方式为 HTTP 附加 JWT，并发送到应用服务器。
+
+然后应用服务器将验证请求并将其链接到用户，只需要检查 JWT，检查其签名并从有效内容中读取用户标识。
 
 为了确保每个请求都包含一个 JWT，我们将使用一个 Angular HTTP 拦截器。
 
@@ -550,9 +552,9 @@ export class AuthInterceptor implements HttpInterceptor {
 
 那么让我们来分解以下这个代码是如何工作：
 
-* 我们首先从本地存储检索 JWT 字符串
+* 我们首先直接从本地存储检索 JWT 字符串
 * 请注意，我们没有在这里注入 AuthService，因为这里会导致循环依赖错误
-* 那么我们将检查 JWT 是否存在
+* 然后我们将检查 JWT 是否存在
 * 如果 JWT 不存在，那么请求将通过服务器进行修改
 * 如果 JWT 存在，那么我们就克隆 HTTP 头，并添加额外的认证（Authorization）头，其中将包含 JWT
 
@@ -569,17 +571,14 @@ export class AuthInterceptor implements HttpInterceptor {
 
 假设我们已经定义了一个名为 `checkIfAuthenticated` 的 express 中间件，这是一个可重用的函数，它只在一个地方包含认证逻辑。
 
-以下是我们如何将其应用于特定的路由
-
-Here is how we can apply it to only certain routes:
-
+以下是我们如何将其应用于特定的路由：
 
 ```
 import * as express from 'express';
 
 const app: Application = express();
 
-//... 定义 checkIfAuthenticated 中间件
+// ... 定义 checkIfAuthenticated 中间件
 // 检查用户是否仅在某些路由进行身份验证
 app.route('/api/lessons')
     .get(checkIfAuthenticated, readAllLessons);
@@ -601,7 +600,7 @@ app.route('/api/lessons')
 
 为了创建 `checkIfAuthenticated` 中间件，我们将使用 [express-jwt](https://github.com/auth0/express-jwt) 库。
 
-这个库可以让我们快速创建用于常用的基于 JWT 的身份验证设置的中间件，所以我们来看看如何使用它来验证 JWT，比如我们在登录服务中创建 JWT（使用 RS256 签名）。
+这个库可以让我们快速创建常用的基于 JWT 的身份验证设置的中间件，所以我们来看看如何使用它来验证 JWT，比如我们在登录服务中创建 JWT（使用 RS256 签名）。
 
 首先假定我们首先在服务器的文件系统中安装了签名验证公钥。以下是我们如何使用它来验证 JWT：
 
@@ -717,7 +716,7 @@ app.route('/api/lessons')
 
 这样，我们已经完成了 JWT 的网络之旅！
 
-* 我们已经在应用中创建并签名了一个 JWT
+* 我们已经在应用服务器中创建并签名了一个 JWT
 * 我们已经展示了如何在客户端使用 JWT 并将其随每个 HTTP 请求发送回服务器
 * 我们已经展示了应用服务器如何验证 JWT，并将每个请求链接到给定用户
 
@@ -725,7 +724,7 @@ app.route('/api/lessons')
 
 ### 总结和结论
 
-将认证（authentication）和授权（authorization）等安全功能委派给第三方基于 JWT 的提供商或者产品比以往更加合适，但这并不意味着安全性可以透明地添加到应用中。
+将认证和授权等安全功能委派给第三方基于 JWT 的提供商或者产品比以往更加合适，但这并不意味着安全性可以透明地添加到应用中。
 
 即使我们选择第三方认证提供商或企业单一登录解决方案，我们仍然必须知道 JWT 如何工作的，至少在某些细节方面。如果不了解，我们将需要从产品和库文档中选择。
 
@@ -757,7 +756,7 @@ app.route('/api/lessons')
 
 同样可以看看其他很受欢迎的帖子，你可能会觉得有趣：
 
-* [Angular 入门 —— 开发环境最佳实践使用 Yarn，Angular CLI，设置 IDE](http://blog.angular-university.io/getting-started-with-angular-setup-a-development-environment-with-yarn-the-angular-cli-setup-an-ide/)
+* [Angular 入门 —— 开发环境最佳实践使用 Yarn、Angular CLI，设置 IDE](http://blog.angular-university.io/getting-started-with-angular-setup-a-development-environment-with-yarn-the-angular-cli-setup-an-ide/)
 * [SPA 应用有什么好处？什么是 SPA？](http://blog.angular-university.io/why-a-single-page-application-what-are-the-benefits-what-is-a-spa/)
 * [Angular 智能组件与演示组件：有什么区别，什么时候使用哪一个，为什么？](http://blog.angular-university.io/angular-2-smart-components-vs-presentation-components-whats-the-difference-when-to-use-each-and-why)
 * [Angular 路由 —— 如何使用 Bootstrap 4 和 嵌套路由建立一个导航菜单](http://blog.angular-university.io/angular-2-router-nested-routes-and-nested-auxiliary-routes-build-a-menu-navigation-system/)
