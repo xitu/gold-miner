@@ -2,43 +2,43 @@
 > * 原文作者：[Florina Muntenescu](https://medium.com/@florina.muntenescu?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/developers-are-users-too-part-2.md](https://github.com/xitu/gold-miner/blob/master/TODO/developers-are-users-too-part-2.md)
-> * 译者：
-> * 校对者：
+> * 译者：[tanglie1993](https://github.com/tanglie1993)
+> * 校对者：[corresponding](https://github.com/corresponding)，[hanliuxin5](https://github.com/hanliuxin5)
 
-# Developers are users too — part 2: 5 More guidelines for a better UI and API usability
+# 开发者也是用户 - 第二部分：改善 UI 和 API 可用性的五条指导原则
 
-We have the same usability expectations from everything we’re interacting with, UIs or APIs. Therefore, the guidelines that we use for UI can also be translated to API. We’ve gone over the first 5 guidelines in a previous article. Now, it’s time for the rest.
+我们对自己与之交互的所有东西的可用性都有相同的预期，包括 UI 和 API。所以，我们用于 UI 的指导原则也可以被转化到 API。我们在前一篇文章中已经看到了前面五条指导原则。现在，是时候看看剩下的了。
 
-[**Developers are users too — part 1**
-_5 Guidelines for a better UI and API usability_medium.com](https://medium.com/google-developers/developers-are-users-too-part-1-c753483a50dc)
+[**开发者也是用户 — 第一部分**
+_改善 UI 和 API 可用性的五条指导原则_medium.com](https://medium.com/google-developers/developers-are-users-too-part-1-c753483a50dc)
 
-### 6. Recognition rather than recall
+### 6. 识别而不是回忆
 
-**UI:** Recognizing something as familiar involves a minimum amount of cognitive energy and is triggered by the context. Recall implies retrieving details from memory and takes much more time. It’s easier to choose from a set of options, than to write those options from memory. A simple UI, using generally known icons is based on recognition. A command-line interface is based on recall. Information and functions should be made visible, intuitive and easily accessible.
+**UI:** 识别出熟悉的事物所耗费的认知代价是最小的，并且它还能被上下文环境所触发。回忆意味着从记忆中取出细节，它需要多很多的时间。从一系列选项中选择，比根据记忆写出选项容易很多。一个使用常见 icon 的简单 UI 是基于识别的，一个命令行界面是基于回忆的。信息和功能应该被设计得明显，符合直觉并且容易使用。
 
 ![](https://cdn-images-1.medium.com/max/800/1*eHPxVsUoCufUaKTmMgleTg.png)
 
-The pencil icon is a symbol for editing, easy to recognize, independent of the app.
+铅笔 icon 是一个表示编辑的符号，容易识别，与 app 无关。
 
-#### Make names clear and understandable
+#### 使名称清晰、易于理解
 
-A **variable** name should say what it represents, not how it’s used: `isLoading`, `animationDurationMs`.
+A **变量** 名称应该说明它代表什么，而不是如何使用： `isLoading`, `animationDurationMs`.
 
-A **class** name should be a noun and should say what it represents: `RoomDatabase`, `Field`.
+A **类** 名称应该是一个名词，说明它代表什么：`RoomDatabase`, `Field`.
 
-A **method** name should be a verb and should say what the method does: `query()`, `runInTransaction()`.
+A **方法** 名称应该是一个动词，说明它做什么：`query()`, `runInTransaction()`.
 
-### 7. Flexibility and efficiency of use
+### 7. 使用的灵活性和效率
 
-**UI:** Your application might be used by both inexperienced and experienced users. Create a UI that it caters to both of these types of users and allows them to adapt frequent actions. It is said that 20% of the features are used by 80% of the users. You need to create a balance between simplicity and power. Find out what those 20% are for your app, and make those parts of the app as easy and as simple to use as possible. Apply the [principle of progressive disclosure](https://www.nngroup.com/articles/progressive-disclosure/) and allow the rest of your users to access advanced features in a secondary screen.
+**UI:** 你的应用可能被没有经验和经验丰富的用户同时使用。创建一个 UI使其迎合这两种用户的需求，并让他们习惯常用的操作。据说，20% 的功能被 80% 的用户使用。你需要在简洁和功能之间权衡。找出你的 app 中的那 20%，然后把它们变得尽可能简单易用。使用 [逐步展现原则](https://www.nngroup.com/articles/progressive-disclosure/) ，让其他用户在次要的页面使用进阶功能。
 
 ![](https://cdn-images-1.medium.com/max/800/1*DenvAOded-MXjFI1v5iXFQ.png)
 
-The Wi-Fi settings defaults to basic options but also contains advanced options. It fits the needs of the user.
+Wi-Fi 设置默认显示基本选项，但也包含进阶选项。它适合用户的需求。
 
-#### Build a flexible API
+#### 写有弹性的 API
 
-Users should be able to accomplish their tasks with the API efficiently and the API needs to be flexible. For example, when querying a database, Room provides different return values allowing them to do synchronous queries, use LiveData or, if they prefer, use APIs from RxJava 2.
+用户应当能够使用 API 高效地完成任务，因此 API 需要有弹性。比如，在查询数据库时，Room 提供不同的返回值，允许用户进行同步查询，使用LiveData，或者如果他们喜欢的话，使用 RxJava2 中的 API。
 
 ```
 @Query(“SELECT * FROM Users”)
@@ -52,91 +52,91 @@ Flowable<List<User>> getUsers();
 LiveData<List<User>> getUsers();
 ```
 
-#### Put related methods in related classes
+#### 把相关的方法放在相关的类中
 
-Methods placed in a class that has no direct relation to the code that the developer has already written are hard to find. Even more, “Util” or “Helper” classes that tend to group a lot of useful methods can be hard to find. When using Kotlin, the solution for this is to use [extension functions](https://kotlinlang.org/docs/reference/extensions.html).
+如果一个类和一个开发者写出的代码没有直接关系，那么他通常很难找到其中的某个方法。而且，通常包含大量有用方法的 Util 和 Helper 类会很难找到。在使用 Kotlin 时，解决这个问题的方案是使用 [扩展函数](https://kotlinlang.org/docs/reference/extensions.html)。
 
-### 8. Aesthetic and minimalist design
+### 8. 美观和极简的设计
 
-**UI:** The UI should be kept simple, containing only the information relevant for the user at that time. Irrelevant or rarely needed information should be removed or moved to other screens since their presence distracts the user and decreases the importance of the information that is indeed relevant.
+**UI:** UI 应当保持简单，只包含当时和用户相关的信息。不相关或很少使用的信息应当被删除或者移到其它屏幕，因为它们的存在使用户分心，并且减少了相关信息的重要性。
 
 ![](https://cdn-images-1.medium.com/max/800/1*HBsvBFRg_ueZvG5Qfmk3ZA.png)
 
-[Pocket Casts](https://play.google.com/store/apps/details?id=au.com.shiftyjelly.pocketcasts&hl=en_GB) app uses a minimalist design
+[Pocket Casts](https://play.google.com/store/apps/details?id=au.com.shiftyjelly.pocketcasts&hl=en_GB) app 使用极简设计
 
-In the episode lists screen, this podcast app shows minimum, contextual and relevant amount of information: if the user hasn’t downloaded an episode, the download size and the download button are visible; if the user has downloaded it — the duration and a play button. At the same time, all of these and more are present in the details screen for the curious user.
+这个播客 app 的集列表页面显示最少量的，和上下文相关的信息：如果用户没有下载某集，这一集的大小和下载页面是可见的；如果用户已经下载，就可以见到时长和播放按钮。同时，对于那些好奇的用户而言，详情页面包含所有这些信息，并且不止于此。
 
-**API:** API users have one goal: to solve their problem faster with the help of your API. So make their path as short and direct as possible.
+**API:** 用户们有一个目标：用你的 API 更快解决问题。所以把它们的路径做得尽可能短和直接。
 
-#### Don’t expose internal API logic
+#### 不要暴露内部 API 逻辑
 
-**API:** Unnecessarily exposing internal API logic can confuse the user and lead to bad usability. Don’t expose methods and classes that are not needed
+**API:** 不必要地暴露 API 内部逻辑会让你的用户困惑，并降低你的 API 的可用性。不要暴露不必要的方法和类。
 
-#### Don’t make the user do anything that the API could do
+#### 不要让用户做任何 API 能够做的事情
 
-**API:** Starting with 22.1.0, the Android Support Library provides the `RecyclerView` suite of objects to enable creation of UI elements based on large data sets or data that changes frequently. Whenever the list changes, the `RecyclerView.Adapter` needs to be notified with the data that was updated. That lead to developers creating their own solutions for computing the differences between lists. In the 25.1.0 version of the Support Library, this boilerplate was drastically reduced by the `[DiffUtil](https://developer.android.com/reference/android/support/v7/util/DiffUtil.html)` class. Moreover, `DiffUtil` uses an optimized algorithm, reducing the amount of code you need to write and increasing performance.
+**API:** 从 22.1.0 开始，Android Support Library 提供 `RecyclerView` 相关的一系列对象，使用户可以基于频繁改变的大型数据集创建 UI 元素。当列表改变时，`RecyclerView.Adapter` 需要被通知哪些数据被更新了。这使得开发者创造他们自己的用于比较列表的方法。在 25.1.0 版本的 Support Library, 这类反复出现的代码被 `[DiffUtil](https://developer.android.com/reference/android/support/v7/util/DiffUtil.html)` 类极大简化了。而且，`DiffUtil` 使用经过优化的算法，减少你需要写的代码量并且增强性能。
 
-### 9. Help users recognize, diagnose and recover from errors
+### 9. 帮助用户识别、诊断并摆脱错误
 
-**UI:** Provide your app’s users with error messages that help them recognize, diagnose and recover from errors. Good error messages contain a clear indication that something has gone wrong, with a precise description of the problem in polite and human readable language, containing constructive advice on how to fix the problem. Avoid showing a status code or an Exception class name. The user won’t know what to do with that information.
+**UI:** 向你的用户提供有助于识别、诊断并摆脱错误的错误信息。好的错误信息明确指出有东西出错了，使用礼貌而易读的语言准确描述问题，包含有助于解决问题的建议。避免显示状态码或者异常类名称，用户不会知道如何处理这些信息的。
 
 ![](https://cdn-images-1.medium.com/max/800/1*oJ8PMLg3ayTfHR7dOFvGEA.png)
 
-Error messages when creating an event. [Source](https://material.io/guidelines/patterns/errors.html#errors-user-input-errors)
+创建事件时的错误信息。 [来源](https://material.io/guidelines/patterns/errors.html#errors-user-input-errors)
 
-Show an error on an input field as soon as it’s defocused, don’t wait until the user presses a button to submit the entire form, or, even worse, wait for the errors to come from the backend. Use the TextView’s [capabilities](https://developer.android.com/reference/android/widget/TextView.html#setError%28java.lang.CharSequence%29) to display an error message. If you’re creating an event form for example, prevent your users from creating events in the past by setting constraints directly to the UI widgets.
+在输入区域失去焦点时尽快显示错误信息，不要等到用户点击提交表单的按钮。更不要等到服务端传来错误信息。使用 TextView 的[功能](https://developer.android.com/reference/android/widget/TextView.html#setError%28java.lang.CharSequence%29) 来显示错误信息。如果你在创建一个事件表单，你要通过直接给 UI 控件设置限制的方法，防止用户创建发生在过去的事件。
 
-#### Fail fast
+#### 快速失败
 
-**API:** The sooner a bug is reported, the less damage it will do. Therefore, the best time to fail is at compile time. For example, Room will report any problems with incorrect queries or wrongly annotated classes at compile time.
+**API:** 一个 bug 被报告得越早，它就会造成越少的损失。因此，失败的最好时机就是在编译期。例如，Room 会在编译期报告任何不正确的查询或者类注解。
 
-If you can’t fail at compile time, then try to fail at run time as soon as possible.
+如果你不能在编译期失败，最好尽快在运行时失败。
 
-#### Exceptions should indicate exceptional conditions
+#### 异常应当用于指示异常的情况
 
-**API:** Users shouldn’t be using exceptions for control flow. Exceptions should only be used for exceptional conditions or incorrect API usages. Use return values to indicate this, where possible. Catching and handling exceptions is almost always slower than than testing a return value.
+**API:** 用户不应当使用在控制流中使用异常。异常应当仅用于例外情况，或者 API 的不正确使用。尽可能使用返回值来指示这些情况，因为捕获并处理异常几乎总是比测试返回值要慢。
 
-For example, trying to insert a `null` value in a column that has a `NON NULL` constraint is an exceptional condition and leads to an `SQLiteConstraintException` being thrown.
+例如，试图把 `null` 值插入一个有 `NON NULL` 限制的列中，就是一种异常的情况，会抛出 `SQLiteConstraintException`。
 
-#### Throw specific exceptions. Prefer already existing exceptions
+#### 抛出具体的异常。尽量使用已有的异常
 
-**API:** Developers already know what `IllegalStateException` or `IllegalArgumentException` mean, even if they don’t know the reason this happened in your API. Help your API users by throwing existing exceptions, preferring more specific exceptions to general ones, with a good error message.
+**API:** 开发者知道 `IllegalStateException` 和 `IllegalArgumentException` 是什么意思，哪怕他们不知道你的 API 中发生了什么。通过抛出已有的异常来帮助你的 API 用户，使用尽量具体而不是笼统的异常，并好好填写错误信息。
 
-When creating a new `Bitmap` via `[createBitmap](https://developer.android.com/reference/android/graphics/Bitmap.html#createBitmap%28android.graphics.Bitmap,%20int,%20int,%20int,%20int%29)` method, you need to provide elements like the width and the height of the new bitmap. If you’re providing values <= 0 as arguments, then the method will throw an `IllegalArgumentException`.
+在通过 `[createBitmap](https://developer.android.com/reference/android/graphics/Bitmap.html#createBitmap%28android.graphics.Bitmap,%20int,%20int,%20int,%20int%29)` 方法创建 `Bitmap` 时，你需要提供新 bitmap 的宽高等信息。如果你传入小于 0 的值作为参数，这个方法将会抛出 `IllegalArgumentException`。
 
-#### Error messages should precisely indicate the problem
+#### 错误消息应当准确指示问题
 
-**API:** The same guidelines for writing error messages for the UI apply to the API also. Provide detailed messages that will help your users fix their code.
+**API:** 为 UI 写错误信息的指导原则，也适用于 API。提供细致的错误信息，以帮助用户修复他们的代码。
 
-For example, in Room, if a query is run on the main thread, the user will get a `java.lang.IllegalStateException: Cannot access database on the main thread since it may potentially lock the UI for a long period of time`. This indicates that the state in which the query is being executed (main thread) is illegal for this action.
+比如，在 Room 中，如果一个查找在主线程运行，用户将会获得 `java.lang.IllegalStateException: 不能在主线程访问数据库，因为它有可能把 UI 锁住较长的一段时间`。这表明查询被执行时的状态（在主线程）是不合法的。
 
-### 10. Help and documentation
+### 10. 帮助和文档
 
-**UI:** Your users should be able to use your application without any documentation. For complex or very domain-specific apps, this might not be possible so, if documentation is needed, make sure it’s easy to find, easy to search, and that it answers common questions.
+**UI:** 你的用户应当能够不用文档使用你的应用。对于非常复杂或者领域专门化的 app，这也许是不可能的。所以，如果需要文档，确保它易于寻找、易于使用，并解答了常见的问题。
 
 ![](https://cdn-images-1.medium.com/max/800/1*uZnbab0y0Hv44odGp7AblQ.png)
 
-Elements like “Help” and “Send feedback” are usually placed at the bottom of the navigation drawer
+诸如 “帮助” 或者 “发送反馈” 之类的元素通常在导航菜单底部
 
-#### API should be self documenting
+#### API 应当是自说明的
 
-**API:** Good naming of methods, classes and members makes an API self documenting. But no matter how good an API is, it won’t be used without a good documentation. This is why every public element — method, class, field, parameter — should be documented. Whatever is easy and obvious for you, as an API developer, might not be as easy and obvious for your API users.
+**API:** 好的方法、类和成员命名使 API 能够阐明自身的意义。但无论 API 多好，没有好的文档就无法被使用。这就是每个 public 的元素——方法，类，域，参数——应当用文档说明的原因。对于你，一个 API 开发者来说简单易见的东西，也许对于你的 API 用户来说就不那么容易和显然了。
 
-#### Example code should be exemplary
+#### 示例代码应该是模范代码
 
-**API:** The code examples have several roles: they help the users understand the purpose of the API, the usage, and also the usage context. **Code snippets** are intended to demonstrate how to access the basic API functionality. **Tutorials** teach developers a specific aspect of the API. **Code samples** are more complex examples, usually an entire application. Of these three, the biggest problems appear when you don’t have code samples because developers are missing the bigger picture — how all of your classes and methods work together and how they should work together with the system.
+**API:** 示例代码有若干用途：他们帮助用户理解 API 的目的，用途，以及上下文。**代码片段** 用于解释如何使用基本的 API 功能。 **教程** 教用户关于 API 特定层面的知识。**代码示例** 是更加复杂的例子，通常是一整个应用。这三者之中，缺少代码示例会引起最严重的问题，因为开发者看不到整体图景——你所有的方法和类是如何协作的，以及它们是如何与系统协作的。
 
-If your API becomes popular, chances are you will have thousands of developers using those examples and those samples will become the model of how your API should be used. Therefore, every mistake you make will come back to bite you.
-
-* * *
-
-We’ve learned a lot along the years about the usability of user interfaces; we know what our users need and how they think. They want UIs that are intuitive, efficient, correct, that help them do a specific task, in an appropriate way. All of these concepts go beyond UIs and are applied to APIs also, because developers are users too. So let’s help them (and us) and build usable APIs.
-
-> _APIs should be easy to use and hard to misuse — it should be easy to do simple things, possible to do complex things and impossible, or at least difficult, to do wrong things._ Joshua Bloch — [source](https://dl.acm.org/citation.cfm?id=1176622)
+如果你的 API 流行起来了，有可能会有数以千计的开发者使用这些例子。他们将会成为如何使用你的 API 的例子。因此，你犯的每个错误都会让你自食其果。
 
 * * *
 
-#### References
+这些年，我们学习了很多关于 UI 可用性的知识；我们知道用户们需要什么，以及他们在想什么。他们需要符合直觉、高效、正确的 UI，并且要能帮助他们用合适的方式完成特定任务。这些概念都不止于 UI，还适用于 API，因为开发者也是用户。所以，让我们通过可用的 API 帮助他们（也是帮助我们自己）吧。
+
+> **API应当易用且不易滥用——它应该易于做简单的事，可能做复杂的事，不可能——至少难以——做错误的事** Joshua Bloch — [source](https://dl.acm.org/citation.cfm?id=1176622)
+
+* * *
+
+#### 参考文献
 
 * [10 Usability Heuristics for User Interface Design](https://www.nngroup.com/articles/ten-usability-heuristics/)
 * [http://www.apiusability.org/](http://www.apiusability.org/)
@@ -149,7 +149,7 @@ We’ve learned a lot along the years about the usability of user interfaces; we
 * [Error Message Guidelines](https://www.nngroup.com/articles/error-message-guidelines/)
 * [Material Design Patterns and Guidelines](https://material.io/)
 
-Thanks to [Nick Butcher](https://medium.com/@crafty?source=post_page) and [Tao Dong](https://medium.com/@taodong?source=post_page).
+感谢 [Nick Butcher](https://medium.com/@crafty?source=post_page) 和 [Tao Dong](https://medium.com/@taodong?source=post_page).
 
 
 ---
