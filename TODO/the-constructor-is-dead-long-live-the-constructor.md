@@ -18,7 +18,7 @@ Photo by [Samuel Zeller](https://unsplash.com/photos/VLioQ2c-VwE?utm_source=unsp
 尽管无状态函数组件（SFCs）是一件趁手的神兵利器，但 ES6 类组件仍旧是创建 React 组件及其状态和生命周期钩子函数的默认方式。
 
 
-假设一个 ES6 类组件如下例所示（简化过的当然也没有纠错）。
+假设一个 ES6 类组件如下例所示（只展示简化过的部分代码）。
 
 
 ```
@@ -46,13 +46,13 @@ class Foo extends Component {
 }
 ```
 
-在 `constructor` 中初始化 `state`，并于 `componentDidMount` 中异步加载数据，然后根据 `loading` 的状态来渲染 `View` 这个组件。对我而言这是相当标准的模式，如果你对我之前的项目所有了解的话。
+在 `constructor` 中初始化 `state`，并于 `componentDidMount` 中异步加载数据，然后根据 `loading` 的状态来渲染 `View` 这个组件。对我而言这是相当标准的模式，如果你熟悉我之前的代码风格的话。
 
 
 ### 类属性
 
 
-我们都知道 `constructor` 正是我们初始化实例属性的地方，就像本例中这个 `state` 一样。如果你正胸有成竹地对自己说，『正是如此！』，那么你可说对了……但对于即将问世的 ES.next 类属性提案[class properties proposal](https://github.com/tc39/proposal-class-fields) 而言却并非如此，目前这份提案正处于第三阶段。
+我们都知道 `constructor` 正是我们初始化实例属性的地方，就像本例中这个 `state` 一样。如果你正胸有成竹地对自己说，『正是如此！』，那么你可说对了……但对于即将问世的 ES.next 类属性提案（[class properties proposal]）(https://github.com/tc39/proposal-class-fields) 而言却并非如此，目前这份提案正处于第三阶段。
 
 
 按照新的提案来说，我们可以用如下方式直接定义类属性。
@@ -70,7 +70,7 @@ Babel 将会在后台转译你的代码并添加上一个 `constructor`。下图
 
 ![](https://cdn-images-1.medium.com/max/800/1*IK4vl_NlOIdCDlFYyizEeQ.png)
 
-请注意这里 Babel 实际上是传递了所有参数到 `super` - 不仅仅是 `props`。它也会将 `super` 的返回值传递回调用者。两者虽然感觉有些小题大做，但事实上这就是它本应执行的。
+请注意这里 Babel 实际上是传递了所有参数到 `super` - 不仅仅是 `props`。它也会将 `super` 的返回值传递回调用者。两者虽然感觉有些小题大做，但确实需要这样。
 
 
 > 此处仍存在构造函数，你只是看不见而已。
@@ -98,7 +98,7 @@ class Foo extends Component {
 }
 ```
 
-但有些人用直接将函数表达式指定给一个类属性的方法完全避免了这个问题，不过这又是另一码事了。想了解更多请移步我其他关于 ES6 React 类的文章 [**Demystifying Memory Usage using ES6 React Classes**](https://medium.com/@donavon/demystifying-memory-usage-using-es6-react-classes-d9d904bc4557 "https://medium.com/@donavon/demystifying-memory-usage-using-es6-react-classes-d9d904bc4557").
+但有些人用直接将函数表达式指定给一个类属性的方法完全避免了这个问题，不过这又是另一码事了。想了解更多可以参考我写的其他基于 ES6 类的 React 文章。 [**Demystifying Memory Usage using ES6 React Classes**](https://medium.com/@donavon/demystifying-memory-usage-using-es6-react-classes-d9d904bc4557 "https://medium.com/@donavon/demystifying-memory-usage-using-es6-react-classes-d9d904bc4557").
 
 
 
@@ -157,18 +157,18 @@ class Foo extends Component {
 ### 获取数据
 
 
-那也许我们需要 `constructor` 获取数据？基本上不需要。就像我们在第一个代码示例看到的那样，任何数据的加载都应在 `componentDidMount` 里完成。但为何独独在 `componentDidMount`呢？ 因为这样可以确保在服务器端运行组件时不会执行获取数据 - 服务器端渲染（SSR）同理 — 因为 `componentDidMount` 不会在服务器端执行。
+那也许我们需要 `constructor` 获取数据？基本上不需要。就像我们在第一个代码示例看到的那样，任何数据的加载都应在 `componentDidMount` 里完成。但为何独独在 `componentDidMount`呢？因为这样可以确保在服务器端运行组件时不会执行获取数据 - 服务器端渲染（SSR）同理 — 因为 `componentDidMount` 不会在服务器端执行。
 
 ### 结论
 
-综上可以看出，我们不再需要一个 `constructor`（或者其他任何实例属性）来设置初始 `state`。我们也不需要构造函数来把函数绑定到  `this`，以及从 `props` 设置初始的 `state`。同时我们也完全不需要在 `constructor` 里面获取数据。
+综上可以看出，我们不再需要一个 `constructor`（或者其他任何实例属性）来设置初始 `state`。我们也不需要构造函数来把函数绑定到 `this`，以及从 `props` 设置初始的 `state`。同时我们也完全不需要在 `constructor` 里面获取数据。
 
 
 那为什么我们还需要在 React 组件中使用构造函数呢？
 
 怎么说呢……你还真的不需要
 
-__不过，要是你在某些模棱两可的使用实例里，遇到需要同时从客户端和服务器端在一个组件里初始化什么东西的情况，构造函数仍然是个好的出路。你还有 `componentWillMount` 这个钩子函数可以用。 从内部机制来看，React 在客户端和服务器端都新建好了这个类（既调用构造函数）以后，就会立即调用这个钩子函数。__
+__不过，要是你在某些模棱两可的使用实例里，遇到需要同时从客户端和服务器端在一个组件里初始化什么东西的情况，构造函数仍然是个好的出路。你还有 `componentWillMount` 这个钩子函数可以用。 从内部机制来看，React 在客户端和服务器端都新建好了这个类（即调用构造函数）以后，就会立即调用这个钩子函数。__
 
 
 所以对 React 组件来说，我坚信这一点：构造函数已死，构造函数万岁！
