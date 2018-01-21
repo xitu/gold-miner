@@ -52,7 +52,7 @@ class Foo extends Component {
 ### 类属性
 
 
-我们都知道 `constructor` 正是我们初始化实例属性的地方，就像本例中这个 `state` 一样。如果你正胸有成竹地对自己说，『正是如此！』，那么你可说对了……但对于即将问世的 ES.next 类属性提案（[class properties proposal]）(https://github.com/tc39/proposal-class-fields) 而言却并非如此，目前这份提案正处于第三阶段。
+我们都知道 `constructor` 正是我们初始化实例属性的地方，就像本例中这个 `state` 一样。如果你正胸有成竹地对自己说，『正是如此！』，那么你可说对了……但对于即将问世的 ES.next 类属性提案[class properties proposal](https://github.com/tc39/proposal-class-fields) 而言却并非如此，目前这份提案正处于第三阶段。
 
 
 按照新的提案来说，我们可以用如下方式直接定义类属性。
@@ -76,7 +76,7 @@ Babel 将会在后台转译你的代码并添加上一个 `constructor`。下图
 > 此处仍存在构造函数，你只是看不见而已。
 
 
-### 绑定
+### 绑定方法
 
 
 使用 `constructor` 的另一重原因是将函数绑定到 `this`，如下所示。
