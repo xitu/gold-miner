@@ -2,12 +2,12 @@
 > * 原文作者：[Rowan Oulton](https://slack.engineering/@rowanoulton?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/keep-webpack-fast-a-field-guide-for-better-build-performance.md](https://github.com/xitu/gold-miner/blob/master/TODO/keep-webpack-fast-a-field-guide-for-better-build-performance.md)
-> * 译者：
+> * 译者： [Noah Gao](https://noahgao.net)
 > * 校对者：
 
-# Keep webpack Fast: A Field Guide for Better Build Performance
+# 保持 webpack 快速运行的诀窍：一本提高构建性能的现场指导手册
 
-[webpack](https://webpack.js.org/) is a brilliant tool for bundling frontend assets. When things start to slow down, though, its batteries-included nature and the ocean of third-party tooling can make it difficult to optimize. Poor performance is the norm and not the exception. But it doesn’t have to be that way, and so — after many hours of research, trial, and error — what follows is a field guide offering up what we learned on our path towards a faster build.
+[webpack](https://webpack.js.org/) 是用于打包前端资源的绝佳工具。When things start to slow down, though, its batteries-included nature and the ocean of third-party tooling can make it difficult to optimize. Poor performance is the norm and not the exception. But it doesn’t have to be that way, and so — after many hours of research, trial, and error — what follows is a field guide offering up what we learned on our path towards a faster build.
 
 ![](https://cdn-images-1.medium.com/max/800/1*n7SFvwKvpLsW0ZcEDbgBtg.jpeg)
 
@@ -243,21 +243,21 @@ Infrastructure-level projects like webpack can be surprisingly under-funded; whe
 
 Contribution can come in the form of feedback, too. Authors are often keen to hear more from the users of their software, to understand where their efforts are best spent, and webpack has gone so far as to encourage users to [vote on the core team’s priorities](https://webpack.js.org/vote/). If build performance is a concern to you, or you have ideas for how to improve it, let your voice be heard.
 
-### Last words
+### 后话
 
 webpack is a fantastic, versatile, tool that does not need to cost the earth. These techniques have helped us reduce our median build time from 170 to 17 seconds and, while they have done much to improve the deployment experience for our engineers, they are by no means a complete work. If you have any thoughts on how to improve build performance further, we’d love to hear from you. And, of course, if you delight in solving these sorts of problems, [come and work with us](https://slack.com/careers)!
 
 A huge thank you to Mark Christian, Mioi Hanaoka, Anuj Nair, Michael “Z” Goddard, Sean Larkin and, of course, Tobias Koppers for their contributions to this post and to the webpack project.
 
-### Further reading
+### 扩展阅读
 
-* [Build performance](https://webpack.js.org/guides/build-performance/), an article from the official webpack documentation
+* [Build performance](https://webpack.js.org/guides/build-performance/)，webpack 官方文档中的介绍
 * [How we improved webpack build performance by 95%](https://blog.box.com/blog/how-we-improved-webpack-build-performance-95/) by Wenbo Yu
 * [webpack on twitter.com](https://alunny.com/articles/webpack-on-twitter-com/) by Andrew Lunny
 * [The official webpack blog](https://medium.com/webpack)
-* [How webpack works](https://raw.githubusercontent.com/sokra/slides/master/data/how-webpack-works.pdf) slides from a talk by Tobias Koppers at [EnterJS](https://www.enterjs.de)
+* [How webpack works](https://raw.githubusercontent.com/sokra/slides/master/data/how-webpack-works.pdf)，一篇 Tobias Koppers  在 [EnterJS](https://www.enterjs.de) 上的演讲幻灯片
 
-Thanks to [Matt Haughey](https://medium.com/@mathowie?source=post_page).
+感谢 [Matt Haughey](https://medium.com/@mathowie?source=post_page) 的支持。
 
 
 ---
