@@ -7,7 +7,7 @@
 
 # 前端性能目录2 2018
 
-下面你将会前端性能问题的总览，可以考虑确保你的响应时间更短，更平缓。
+下面是前端性能问题的概述，可以可能需要考虑确保你的响应时间快速和流畅性。
 
 - [前端性能目录1 2018](https://github.com/xitu/gold-miner/blob/master/TODO/front-end-performance-checklist-2018-1.md)
 - [前端性能目录2 2018](https://github.com/xitu/gold-miner/blob/master/TODO/front-end-performance-checklist-2018-2.md)
@@ -18,15 +18,15 @@
 
 11. **你会使用 AMP 和 Instant Articles 么？**
 
-依赖于你的组织优先性和战略性，你可能想考虑使用谷歌的 [AMP](https://www.ampproject.org/) 和 Facebook 的[Instant Articles](https://instantarticles.fb.com/)或者苹果的[苹果的新闻](https://www.apple.com/news/)。没有它们，你可以实现很好的性能，但是 AMP 通过免费的内容分发网络(CDN)提供一个稳定的性能框架，而且在 Facebook 上，即时文章将会改善你的关注度和性能。
+依赖于你的组织优先性和战略性，你可能想考虑使用谷歌的 [AMP](https://www.ampproject.org/) 和 Facebook 的[Instant Articles](https://instantarticles.fb.com/)或者苹果的[苹果的新闻](https://www.apple.com/news/)。没有它们，你可以实现很好的性能，但是AMP确实提供了一个免费的内容交付网络（CDN）的性能框架，而即时文章将提高你在Facebook上的关注度和性能。。
 
-对于用户而言，这些技术主要的优势是确保性能，但是有时他们宁愿喜欢 AMP-/Apple News/Instant Pages-链路，也不愿是“规则”和潜在的臃肿页面。对于以内容为主的网站，主要处理很多第三方法内容，这些选择有助于加速渲染的时间。
+对于用户而言，这些技术主要的优势是确保性能，但是有时他们宁愿喜欢 AMP-/Apple News/Instant Pages-链路，也不愿是“常规”和潜在的臃肿页面。对于以内容为主的网站，主要处理很多第三方法内容，这些选择极大地加速渲染的时间。
 
-对于网站的所有者优势是明显的：在各个平台规范的可发现性和[增加搜索引擎的可用性](https://ethanmarcotte.com/wrote/ampersand/)。你也可以通过使用 AMP 作为针对你自己的 PWA 来构建[响应式 web AMPs](https://www.smashingmagazine.com/2016/12/progressive-web-amps/)。下降趋势？显然，在一个有围墙的区域里，开发商可以创造并维持其内容的单独版本，防止 Instant Articles 和 Apple News [没有实际的URLs](https://www.w3.org/blog/TAG/2017/07/27/distributed-and-syndicated-content-whats-wrong-with-this-picture/)。_(谢谢 Addy，Jeremy)_
+对于网站的所有者优势是明显的：在各个平台规范的可发现性和[增加搜索引擎的可用性](https://ethanmarcotte.com/wrote/ampersand/)。你也可以通过把AMP作为你的PWA数据源来构建[渐进增强的 Web 体验](https://www.smashingmagazine.com/2016/12/progressive-web-amps/)。缺点？显然，在一个有围墙的区域里，开发者可以创造并维持其内容的单独版本，防止 Instant Articles 和 Apple News [没有实际的URLs](https://www.w3.org/blog/TAG/2017/07/27/distributed-and-syndicated-content-whats-wrong-with-this-picture/)。_(谢谢 Addy，Jeremy)_
 
 12. **明智地选择你的 CDN**
 
-根据你拥有的动态数据量，你可以将部分内容外包给[静态站点生成器](https://www.smashingmagazine.com/2015/11/static-website-generators-jekyll-middleman-roots-hugo-review/)，将其放在 CDN 中或者充当一个静态版本。因此可以避免数据的请求。你甚至可以选择一个基于 CDN 的[静态主机平台](https://www.smashingmagazine.com/2015/11/modern-static-website-generators-next-big-thing/)，丰富你的页面交互组件作为增强([jamstack](https://jamstack.org/))。
+根据你拥有的动态数据量，你可以将部分内容外包给[静态站点生成器](https://www.smashingmagazine.com/2015/11/static-website-generators-jekyll-middleman-roots-hugo-review/)，将其放在 CDN 中并从中提供一个静态版本。因此可以避免数据的请求。你甚至可以选择一个基于 CDN 的[静态主机平台](https://www.smashingmagazine.com/2015/11/modern-static-website-generators-next-big-thing/)，将交互组件作为增强来充实你的页面([jamstack](https://jamstack.org/))。
 
 注意，CDN 也可以服务（卸载）动态内容。因此，限制你的 CDN 到静态资源是不必要的。仔细检查你的CDN是否进行压缩和转换（比如：图像优化方面的格式，压缩和调整边缘的大小），智能 HTTP/2 交付，边侧包括，在 CDN 边缘组装页面的静态和动态部分（比如：离用户最近的服务端），和其他任务。
 
@@ -34,7 +34,7 @@
 
 13. **分清轻重缓急**
 
-优先知道你在处理什么是个好主意。管理你所有资产的清单（JavaScript，图片，字体，第三方脚本和页面中“昂贵的”模块，比如：旋转木马，复杂的图表和多媒体内容），并将它们划分成组。
+优先知道你在处理什么是个好主意。管理你所有资产的清单（JavaScript，图片，字体，第三方脚本和页面中“昂贵的”模块，比如：轮播图，复杂的图表和多媒体内容），并将它们划分成组。
 
 建立电子表格。针对传统的浏览器，定义基本的_核心_体验（比如：完全可访问的核心内容），针对多功能浏览器_提升_体验（比如：丰富多彩的，完美的体验）和其他的（不是绝对需要而且可以被延迟加载的资源，如 Web 字体、不必要的样式、旋转木马脚本、视频播放器、社交媒体按钮、大型图像。）。我们在“[Improving Smashing Magazine's Performance](https://www.smashingmagazine.com/2014/09/improving-smashing-magazine-performance-case-study/)”发布了一篇文章，上面详细描述了该方法。
 
@@ -42,7 +42,7 @@
 
 虽然很老，但我们仍然可以使用[cutting-the-mustard 技术](http://responsivenews.co.uk/post/18948466399/cutting-the-mustard)将核心经验带到传统浏览器并增强对现代浏览器的体验。严格要求加载的资源：优先加载核心传统的，然后是提升的，最后是其他的。该技术从浏览器版本中演变成了设备功能，这已经不是我们现在能做的事了。
 
-例如：在发展中国家，廉价的安卓手机主要运行 Chrome，尽管他们的内存和 CPU 有限。这就是[PRPL 模式](https://developers.google.com/web/fundamentals/performance/prpl-pattern/)可以作为一个好的选择。因此，使用[设备内存客户端提示头](https://github.com/w3c/device-memory)，我们将能够更可靠地针对低端设备。在写作的过程中，只有在 Blink 中才支持 header(Blink 支持[客户端提示](https://caniuse.com/#search=client%20hints))。因为设备存储也有一个在 [Chrome 中可以调用的](https://developers.google.com/web/updates/2017/12/device-memory) JavaScript API，一种选择是基于 API 的特性检测，只在不支持的情况下回退到 “cutting the mustard”技术（_谢谢，Yoav！_）。
+例如：在发展中国家，廉价的安卓手机主要运行 Chrome，尽管他们的内存和 CPU 有限。这就是[PRPL 模式](https://developers.google.com/web/fundamentals/performance/prpl-pattern/)可以作为一个好的选择。因此，使用[设备内存客户端提示头](https://github.com/w3c/device-memory)，我们将能够更可靠地针对低端设备。在写作的过程中，只有在 Blink 中才支持 header(Blink 支持[客户端提示](https://caniuse.com/#search=client%20hints))。因为设备存储也有一个在 [Chrome 中可以调用的](https://developers.google.com/web/updates/2017/12/device-memory) JavaScript API，一种选择是基于 API 的特性检测，只在不支持的情况下回退到 “符合标准”技术（_谢谢，Yoav！_）。
 
 15. **解析 JavaScript 的代价很大，应保持其较小**
 
@@ -64,9 +64,9 @@
 
 17. **你使用 tree-shaking，scope hoisting，code-splitting 么**
 
-[Tree-shaking](https://medium.com/@roman01la/dead-code-elimination-and-tree-shaking-in-javascript-build-systems-fb8512c86edf)是一种通过只加载生产中确实被使用的代码和[在 Webpack 中](http://www.2ality.com/2015/12/webpack-tree-shaking.html)清除无用部分，来整理你构建过程的方法。使用 Webpack 3 和 Rollup，我们还可以[提升作用域](https://medium.com/webpack/brief-introduction-to-scope-hoisting-in-webpack-8435084c171f)允许工具检测 `import` 链接以及可以转换成一个内联函数，其代码没有折中。有了 Webpack 4，你现在可以使用[JSON Tree Shaking](https://react-etc.net/entry/json-tree-shaking-lands-in-webpack-4-0)。[UnCSS](https://github.com/giakki/uncss) or [Helium](https://github.com/geuis/helium-css)可以帮助你去删除未使用 CSS 样式。
+[Tree-shaking](https://medium.com/@roman01la/dead-code-elimination-and-tree-shaking-in-javascript-build-systems-fb8512c86edf)是一种通过只加载生产中确实被使用的代码和[在 Webpack 中](http://www.2ality.com/2015/12/webpack-tree-shaking.html)清除无用部分，来整理你构建过程的方法。使用 Webpack 3 和 Rollup，我们还可以[提升作用域](https://medium.com/webpack/brief-introduction-to-scope-hoisting-in-webpack-8435084c171f)允许工具检测 `import` 链接以及可以转换成一个内联函数，不影响代码。有了 Webpack 4，你现在可以使用[JSON Tree Shaking](https://react-etc.net/entry/json-tree-shaking-lands-in-webpack-4-0)。[UnCSS](https://github.com/giakki/uncss) or [Helium](https://github.com/geuis/helium-css)可以帮助你去删除未使用 CSS 样式。
 
-而且，你想考虑学习如何[编写有效的 CSS 选择器](http://csswizardry.com/2011/09/writing-efficient-css-selectors/)以及如何[避免庞大的代价大的样式](https://benfrain.com/css-performance-revisited-selectors-bloat-expensive-styles/)。感觉好像超越了这个？你也可以使用 Webpack 缩短类名和在编译时使用作用域孤立来[动态地重命名 CSS 类名](https://medium.freecodecamp.org/reducing-css-bundle-size-70-by-cutting-the-class-names-and-using-scope-isolation-625440de600b)
+而且，你想考虑学习如何[编写有效的 CSS 选择器](http://csswizardry.com/2011/09/writing-efficient-css-selectors/)以及如何[避免臃肿和开销浪费的样式](https://benfrain.com/css-performance-revisited-selectors-bloat-expensive-styles/)。感觉好像超越了这个？你也可以使用 Webpack 缩短类名和在编译时使用作用域孤立来[动态地重命名 CSS 类名](https://medium.freecodecamp.org/reducing-css-bundle-size-70-by-cutting-the-class-names-and-using-scope-isolation-625440de600b)
 
 [Code-splitting](https://webpack.github.io/docs/code-splitting.html)是另一种 Webpack 特性，可以基于“chunks”分割你的代码然后按需加载这些代码块。并不是所有的 JavaScript 必须下载，解析和编译的。一旦在你的代码中确定了分割点，Webpack 会全权负责这些依赖关系和输出文件。在应用发送请求的时候，这样基本上确保初始的下载足够小并且实现按需加载。另外，考虑使用[preload-webpack-plugin](https://github.com/GoogleChromeLabs/preload-webpack-plugin)获取代码拆分的路径，然后使用 `<link rel="preload">` or `<link rel="prefetch">` 提示浏览器预加载它们。
 
@@ -99,7 +99,7 @@ Addy Osmani 的从[快速默认：现代加载的最佳实践]（https://speaker
 
 为了避免这样做，总是将执行函数分离成一个个，异步任务和可能用到 `requestIdleCallback`的地方。考虑 UI 的懒加载部分使用 WebPack [动态 `import` 支持](https://developers.google.com/web/updates/2017/11/dynamic-import)，避免加载，解析，和编译开销直到用户真的需要他们（_感谢 Addy!_）。
 
-在本质上，交互时间（TTI）告诉我们导航和交互之间的时间长度。度量是通过在初始内容呈现后的第一个五秒窗口来定义的，在这个过程中，JavaScript 任务没有操作 50ms 的。如果一个任务炒作 50ms 发生了，寻找一个五秒的窗口重新开始。因此，浏览器首先会假定它达到了交互式，只是切换到冻结状态，最终切换回交互式。
+在本质上，交互时间（TTI）告诉我们导航和交互之间的时间长度。度量是通过在初始内容呈现后的第一个五秒窗口来定义的，在这个过程中，JavaScript 任务没有操作 50ms 的。如果发生超过50ms的任务，寻找一个五秒的窗口重新开始。因此，浏览器首先会假定它达到了交互式，只是切换到冻结状态，最终切换回交互式。
 
 一旦我们达到交互式，然后，我们可以按需或随时间所允许的，启动应用程序的非必需部分。不幸的是，随着[Paul Lewis 提到的](https://aerotwist.com/blog/when-everything-is-important-nothing-is/#which-to-use-progressive-booting)，框架通常没有优先出现的概念，可以向开发人员展示，因此渐进式引导很难用大多数库和框架实现。如果你有时间和资源，使用该策略可以极大地改善性能。
 
@@ -109,9 +109,9 @@ Addy Osmani 的从[快速默认：现代加载的最佳实践]（https://speaker
 
 正如 Yoav Weiss 在他的 [必须关注第三方脚本的通信](http://conffab.com/video/taking-back-control-over-third-party-content/)中解释的，在很多情况下，下载资源的这些脚本是动态的。页面负载之间的资源是变化的，因此我们不必知道主机是从哪下载的资源以及这些资源是什么。
 
-这时，我们有什么选择？考虑 **通过间隔下载资源来使用 service workers**，如果在特定的时间间隔内资源没有响应，返回一个空的响应告知浏览器执行解析页面。你可以记录或者阻塞那些失败的第三方请求和没有执行特定标准请求。
+这时，我们有什么选择？考虑 **通过间隔下载资源来使用 service workers**，如果在特定的时间间隔内资源没有响应，返回一个空的响应告知浏览器执行解析页面。你可以记录或者限制那些失败的第三方请求和没有执行特定标准请求。
 
-另一个选择是建立一个 **内容安全策略(CSP)** 来限制第三方脚本的影响，比如：不允许下载音频和视频。最好的选择是通过 `<iframe>` 嵌入脚本以致于脚本运行在 iframe 环境中，因此没有接入页面 DOM 的权限，在你的域下不能运行任何代码。Iframe 可以 使用 `sandbox` 属性进一步限制，因此你可以禁止 iframe 的任何功能，比如阻止脚本运行，阻止警告、表单提交、插件、访问顶部导航等等。
+另一个选择是建立一个 **内容安全策略(CSP)** 来限制第三方脚本的影响，比如：不允许下载音频和视频。最好的选择是通过 `<iframe>` 嵌入脚本以致于脚本运行在 iframe 环境中，因此如果没有接入页面 DOM 的权限，在你的域下不能运行任何代码。Iframe 可以 使用 `sandbox` 属性进一步限制，因此你可以禁止 iframe 的任何功能，比如阻止脚本运行，阻止警告、表单提交、插件、访问顶部导航等等。
 
 例如，它可能需要允许脚本运行 `<iframe sandbox="allow-scripts">`。每一个限制都可以通过'允许'值在'sandbox'属性（[几乎处处支持](https://caniuse.com/#search=sandbox)）解除，所以把他们限制在最低限度的允许他们去做的事情上。考虑使用[Safeframe](https://github.com/interactiveadvertisingbureau/safeframe)和交叉观察；这将使广告嵌入iframe的同时仍然调度事件或需要从DOM获取信息（例如广告知名度）。注意新的策略如[特征策略](https://wicg.github.io/feature-policy/)），资源的大小限制，CPU和带宽优先级限制损害的网络功能和会减慢浏览器的脚本，例如：同步脚本，同步XHR请求，document.write 和超时的实现。
 
