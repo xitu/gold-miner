@@ -7,7 +7,7 @@
 
 # Vue Devtools 4.0 有哪些新内容
 
-几天前，Vue devtools 发布了重大更新。让我们来看看有哪些新功能与改进！🎄
+几天前，Vue devtools 发布了重大更新。让我们来看看有哪些新功能与改进！🎄（译者注： 以下视频源都是 youtube，需自备梯子）
 
 ### 可编辑的组件 data
 
@@ -46,39 +46,39 @@
 
 <iframe width="700" height="525" src="https://www.youtube.com/embed/llNJapRZaHo" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
-Numbers can be incremented or decremented with the plus or minus icons:
+数值可以通过加号和减号图标进行增减：
 
 <iframe width="700" height="525" src="https://www.youtube.com/embed/ZCToaOpId0w" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
-You can use some keyboard modifiers to increment or decrement the value faster.
+使用键盘的修改键去进行增减会更快一些。
 
-### Open component in editor
+### 在编辑器中打开一个组件
 
-If you are using vue-loader or Nuxt in your project, you can now open the selected component in your favorite code editor (provided it is a Single-File Component).
+如果项目中使用了 vue-loader 或 Nuxt 的话，现在你就可以在你最喜欢的编辑器里打开选定的组件（只要它是单文件组件）。
 
-1. Follow this [setup guide](https://github.com/vuejs/vue-devtools/blob/master/docs/open-in-editor.md) (if you are using Nuxt, you don’t need to do anything)
-2. In the Component inspector, mouse over the component name — you should see a tooltip with the file path
-3. Click on the component name and it will open in your editor
+1. 按这份 [设置指南](https://github.com/vuejs/vue-devtools/blob/master/docs/open-in-editor.md) 操作 （如果你使用的是 Nuxt，就什么都不用做）。
+2. 在组件检查器中，将鼠标移动到组件名上 —— 你会看到一个显示文件路径的提示框。
+3. 单击组件名就会直接在编辑器中打开该组件了
 
 <iframe width="700" height="525" src="https://www.youtube.com/embed/XBKStgyhY18" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
-### Show the original component names
+### 显示原始的组件名
 
-PR by [manico](https://github.com/manico)
+这一功能由 [manico](https://github.com/manico) 提出的 PR 实现
 
-By default, all the component names are formatted into CamelCase. You can disable this by toggling the ‘Format component names’ button in the Components tab. This settings will be remembered and it will also be applied to the Events tab.
+默认情况下，组件名都会被格式化为驼峰形式。你可以通过切换组件标签下的 "Format component names" 按钮来禁用这一功能。这一设置会被记忆并应用到 Event 标签页中。
 
 <iframe width="700" height="393" src="https://www.youtube.com/embed/PoZmEcCdSbU" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
-### Inspecting components just got easier
+### 检查组件更容易
 
-While you have the Vue devtools open, you can right-click on a component to inspect it:
+在 Vue devtool 开启的情况下，可以右键单击一个组件进行检查：
 
 ![](https://cdn-images-1.medium.com/max/800/1*8fhP5VTb6uev-8HfI4stYw.png)
 
-Right-click a component in the page
+在页面中右键单击一个组件
 
-You can also programmatically inspect a component using the `$inspect` special method:
+也可以通过特殊的方法 `$inspect` 以编程的方式来检查组件：
 
 ```
 <template>
@@ -98,31 +98,31 @@ export default {
 </script>
 ```
 
-Use the `$inspect` method in your components.
+在组件中使用 `$inspect` 方法。
 
-Either way, the components tree will be expanded to the newly selected component automatically.
+无论以哪种方式进行，组件树都会自动扩展到新选择的组件。
 
-### Filter events by component
+### 按组件过滤事件
 
-PR by [eigan](https://github.com/eigan)
+这一功能由 [eigan](https://github.com/eigan) 提出的 PR 实现
 
-You can now filter the Events history by the components that emitted the events. Type `<` followed by the name of the component or part of it:
+现在你可以按发出事件的组件来过滤事件历史了。输入 `<` 符号，后面跟着组件全名或组件名的一部分：
 
 <iframe width="700" height="393" src="https://www.youtube.com/embed/wytquoUPSFo" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
-### Vuex inspector filter
+### Vuex 检查器过滤功能
 
-PR by [bartlomieju](https://github.com/bartlomieju)
+这一功能由 [bartlomieju](https://github.com/bartlomieju) 提出的 PR 实现
 
-The Vuex inspector has now a filter input:
+Vuex 检查器的输入框现在有了过滤功能：
 
 <iframe width="700" height="393" src="https://www.youtube.com/embed/T095k5hI_pA" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
-### Vertical layout
+### 垂直布局
 
 PR by [crswll](https://github.com/crswll)
 
-When the devtools are not wide enough, they will now switch to an handy vertical layout. You can move the divider between the top and bottom panes just like in the default horizontal mode.
+devtool 不够宽时，将切换到更方便使用的垂直布局。你可以像水平模式下一样，移动上下窗格间的分隔线。
 
 <iframe width="700" height="525" src="https://www.youtube.com/embed/33tJ_md8bX8" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
