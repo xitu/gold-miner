@@ -2,7 +2,7 @@
 > * 原文作者：[Guillaume CHAU](https://medium.com/@Akryum?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/whats-new-in-vue-devtools-4-0.md](https://github.com/xitu/gold-miner/blob/master/TODO/whats-new-in-vue-devtools-4-0.md)
-> * 译者：
+> * 译者：[MechanicianW](https://github.com/MechanicianW)
 > * 校对者：
 
 # Vue Devtools 4.0 有哪些新内容
@@ -126,46 +126,45 @@ devtool 不够宽时，将切换到更方便使用的垂直布局。你可以像
 
 <iframe width="700" height="525" src="https://www.youtube.com/embed/33tJ_md8bX8" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
-### Improved scroll-to-component
+### 滚动到组件功能改进
 
-By default, selecting a component will no longer scroll the view to it. Instead, you need to click the new ‘Scroll into view’ icon:
+默认情况下，点击组件将不再自动滚动到该组件的视图部分。相反，你需要点击新的 "Scroll into view" 图标才能滚动到组件：
 
 ![](https://cdn-images-1.medium.com/max/800/1*TJEfzB4ifK8t-5kpbZieRw.png)
 
-Click on the eye icon to scroll to the component.
+点击眼睛图标来滚动到组件。
 
-It will now center the component on the screen.
+视图将滚动到组件居中于屏幕的位置。
 
-### Collapsible inspectors
+### 可折叠的检查器
 
-The sections of the different inspectors can now be collapsed. You can use keyboard modifier to collapse them all or expand them all in one click. This is very useful if you are, let’s say, only interested in the mutations details of the Vuex tab.
+现在不同检查器的各部分是可以被折叠的。你可以用键盘修改键来将它们都折叠，或者通过鼠标单击将它们都展开。假设你只专注于 Vuex 标签页的 mutations 详情的话，这就是一个非常有用的功能。
 
 <iframe width="700" height="393" src="https://www.youtube.com/embed/bblGueKPsjE" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
-### And more!
+### 以及更多
 
-* The ‘Inspect DOM’ button is now hidden if the environment doesn’t have this feature — by [michalsnik](https://github.com/michalsnik)
-* `-Infinity` is now supported — by [David-Desmaisons](https://github.com/David-Desmaisons)
-* The event hook had an issue fixed by [maxushuang](https://github.com/maxushuang)
-* Some code was cleaned by [anteriovieira](https://github.com/anteriovieira)
-* Date, RegExp, Component support is improved (and time-traveling should work with those types now)
-* The devtools are now using [v-tooltip](https://github.com/Akryum/v-tooltip) for rich tooltips and popovers (also fixing some issues)
+* 如果运行环境不支持这一功能的话，"Inspect DOM" 按钮会被隐藏。 —— by [michalsnik](https://github.com/michalsnik)
+* 支持 `-Infinity` —— by [David-Desmaisons](https://github.com/David-Desmaisons)
+* 事件钩子的 issue 修复 —— [maxushuang](https://github.com/maxushuang)
+* 代码清理 —— by [anteriovieira](https://github.com/anteriovieira)
+* 改进了对 Date， RegExp， Component 的支持 （现在这些类型也可以进行时间旅行了）
+* devtools 现在使用 [v-tooltip](https://github.com/Akryum/v-tooltip) 实现更丰富的信息提示与弹出功能
 
-If you already have the extension, it should update automatically to `4.0.1` . You can also install it [on Chrome](https://chrome.google.com/webstore/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd) and [on Firefox](https://addons.mozilla.org/fr/firefox/addon/vue-js-devtools/).
+如果你已经安装了扩展，扩展应用将自动更新到 `4.0.1` 版本。你也可以在 [Chrome](https://chrome.google.com/webstore/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd) 和 [Firefox](https://addons.mozilla.org/fr/firefox/addon/vue-js-devtools/) 上安装。
 
-**Thank you for all the contributors that helped make this big update possible!**
+**感谢所有的贡献者们！是你们使得本次更新成为可能！**
 
-If you find an issue or have a new feature to suggest, please [share it](https://new-issue.vuejs.org/?repo=vuejs/vue-devtools)!
-
+如果你发现任何问题或是有新的功能建议，[请分享出来](https://new-issue.vuejs.org/?repo=vuejs/vue-devtools)！
 * * *
 
-### What’s next?
+### 接下来会有什么大动作?
 
-A new release should arrive pretty soon with even more features like selecting a component in the page (color picker-style) and some UI improvements.
+具有更多功能特性的新版本即将发布，如在页面中直接选中组件（选色板风格）和一些 UI 改进。
 
-We also have a few things in the works, like a standalone Vue devtools app that will allow debugging any environment (not just Chrome and Firefox), a brand new Routing tab and an improved support for `Set` and `Map` types.
+我们也有一些仍在进行中的工作，比如允许在任意环境（不仅仅是 Chrome 和 Firefox）进行 debug 的独立 Vue devtools app，全新的路由标签页，以及对 `Set` 和 `Map` 类型的支持。
 
-Stay tuned!
+敬请关注！
 
 
 ---
