@@ -109,7 +109,7 @@ Android 系统的目的是让用户增强控制权并且让他们简便地使用
 
 ### 延伸阅读
 
-* [Android 生命周期备忘录 第二部分 — 多个 activities](https://medium.com/@JoseAlcerreca/the-android-lifecycle-cheat-sheet-part-ii-multiple-activities-a411fd139f24)
+* [Android 生命周期备忘录 第二部分 — 多个 activities](https://github.com/xitu/gold-miner/blob/master/TODO/developers-are-users-too-part-2.md)
 
 
 ---
