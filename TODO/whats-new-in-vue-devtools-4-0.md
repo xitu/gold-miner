@@ -13,14 +13,14 @@
 
 现在可以直接在组件检查面板中修改组件的 data 了。
 
-1. 选择一个组件
+1. 选中一个组件
 2. 在检查器的 `data` 部分下，将鼠标移到你要修改的字段上
 3. 点击铅笔图标
 4. 通过点击完成图标或者敲击回车键来提交你的改动。也可以通过敲击 ESC 键来取消编辑
 
 <iframe width="700" height="525" src="https://www.youtube.com/embed/xeBRtXLrQYA" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
-字段内容会被序列化为 JSON 。举个例子，如果你想输入一个字符串，打字输入带双引号的 `"hello"`。数组则应该像 `[1, 2, "bar"]` ，对象则为 `{ "a": 1, "b": "foo" }` 。
+字段内容会被序列化为 JSON 。举个例子，如果你想输入一个字符串，则打字输入带双引号的 `"hello"`。数组则应该像 `[1, 2, "bar"]` ，对象则为 `{ "a": 1, "b": "foo" }` 。
 
 目前可以编辑以下几种类型的值：
 
@@ -56,8 +56,8 @@
 
 如果项目中使用了 vue-loader 或 Nuxt 的话，现在你就可以在你最喜欢的编辑器里打开选定的组件（只要它是单文件组件）。
 
-1. 按这份 [设置指南](https://github.com/vuejs/vue-devtools/blob/master/docs/open-in-editor.md) 操作 （如果你使用的是 Nuxt，就什么都不用做）。
-2. 在组件检查器中，将鼠标移动到组件名上 —— 你会看到一个显示文件路径的提示框。
+1. 按这份 [设置指南](https://github.com/vuejs/vue-devtools/blob/master/docs/open-in-editor.md) 操作 （如果你使用的是 Nuxt，就什么都不用做）
+2. 在组件检查器中，将鼠标移动到组件名上 —— 你会看到一个显示文件路径的提示框
 3. 单击组件名就会直接在编辑器中打开该组件了
 
 <iframe width="700" height="525" src="https://www.youtube.com/embed/XBKStgyhY18" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
@@ -72,7 +72,7 @@
 
 ### 检查组件更容易
 
-在 Vue devtool 开启的情况下，可以右键单击一个组件进行检查：
+在 Vue devtools 开启的情况下，可以右键单击一个组件进行检查：
 
 ![](https://cdn-images-1.medium.com/max/800/1*8fhP5VTb6uev-8HfI4stYw.png)
 
@@ -122,7 +122,7 @@ Vuex 检查器的输入框现在有了过滤功能：
 
 PR by [crswll](https://github.com/crswll)
 
-devtool 不够宽时，将切换到更方便使用的垂直布局。你可以像水平模式下一样，移动上下窗格间的分隔线。
+devtools 不够宽时，将切换到更方便使用的垂直布局。你可以像水平模式下一样，移动上下窗格间的分隔线。
 
 <iframe width="700" height="525" src="https://www.youtube.com/embed/33tJ_md8bX8" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
@@ -154,7 +154,6 @@ devtool 不够宽时，将切换到更方便使用的垂直布局。你可以像
 如果你已经安装了扩展，扩展应用将自动更新到 `4.0.1` 版本。你也可以在 [Chrome](https://chrome.google.com/webstore/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd) 和 [Firefox](https://addons.mozilla.org/fr/firefox/addon/vue-js-devtools/) 上安装。
 
 **感谢所有的贡献者们！是你们使得本次更新成为可能！**
-
 如果你发现任何问题或是有新的功能建议，[请分享出来](https://new-issue.vuejs.org/?repo=vuejs/vue-devtools)！
 * * *
 
