@@ -2,93 +2,93 @@
 > * 原文作者：[Addy Osmani](https://medium.com/@addyosmani?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/a-tinder-progressive-web-app-performance-case-study.md](https://github.com/xitu/gold-miner/blob/master/TODO/a-tinder-progressive-web-app-performance-case-study.md)
-> * 译者：
-> * 校对者：
+> * 译者：[pot-code](https://github.com/pot-code)
+> * 校对者：[zwwill](https://github.com/zwwill)
 
-# A Tinder Progressive Web App Performance Case Study
+# PWA 实战：Tinder 的性能优化之道
 
 ![](https://cdn-images-1.medium.com/max/2000/1*j2n8zzLYxoum1ob-1mjUcw.png)
 
-Tinder recently swiped right on the web. Their new responsive [Progressive Web App](https://developers.google.com/web/progressive-web-apps/) — [Tinder Online](https://tinder.com) — is available to 100% of users on desktop and mobile, employing techniques for [JavaScript performance optimization](https://medium.com/dev-channel/the-cost-of-javascript-84009f51e99e), [Service Workers](https://developers.google.com/web/fundamentals/primers/service-workers/) for network resilience and [Push Notifications](https://developers.google.com/web/fundamentals/push-notifications/) for chat engagement. Today we’ll walk through some of their web perf learnings.
+最近 Tinder 在 web 端发力，公布了 [PWA](https://developers.google.com/web/progressive-web-apps/)  应用 [Tinder Online](https://tinder.com) ，现已全平台支持。在技术实现上，为了应对 [JavaScript 性能优化问题](https://medium.com/dev-channel/the-cost-of-javascript-84009f51e99e) 采用了最前沿的技术，例如，使用 [Service Workers](https://developers.google.com/web/fundamentals/primers/service-workers/) 来应对网络弹性问题、使用 [消息推送（Push Notifications）](https://developers.google.com/web/fundamentals/push-notifications/) 来支撑聊天业务。本文将向各位讲解大佬们是如何处理开发中的性能优化问题的。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*1HmfQhMAQL8kukiNtMZRjA.png)
 
-### Journey to a Progressive Web App
+### 开发历程
 
-Tinder Online started with the goal of getting adoption in new markets, striving to hit feature parity with V1 of Tinder’s experience on other platforms.
+Tinder Online 肩负着打开新市场的使命，它背后的团队希望把它打造成一个全平台无缝体验的在线聊天平台。
 
-**The MVP for the PWA took 3 months to implement using** [**React**](https://reactjs.com) **as their UI library and** [**Redux**](https://redux.js.org) **for state management.** The result of their efforts is a PWA that delivers the core Tinder experience in **10%** of the data-investment costs for someone in a data-costly or data-scarce market:
+**产品的 MVP 开发花了 3 个月，UI 库用了 [React](https://reactjs.com)，状态管理用的是 [Redux](https://redux.js.org)**。最后的成果还是显著的，在不影响功能体验的前提下，数据传输量减少到了原来的十分之一：
 
 ![](https://cdn-images-1.medium.com/max/1000/1*cqYbI-L0zukfYS0ZAwUtqA.png)
 
-Comparing the data-investment for Tinder Online vs the native apps. It’s important to note that this isn’t comparing apples to apples, however. The PWA loads code for new routes on demand, and the cost of additional code is amortized over the lifetime of the application. Subsequent navigations still don’t cost as much data as the download of the app.
+上图是 Tinder Online 和手机 app 在安装过程中所需数据量大小的比较，虽然这两个类型不同，但是还是具有参考意义的。 相对手机 app 来说，PWA 只有在需要时才加载新的代码。用户边使用边下载，因为下载过程分散在整个使用过程中，所以用户并不会察觉到。即使用户在使用中访问了应用的其他部分，综合下载量也还是少于直接下载整个 app 所需的数据量。
 
-Early signs show good swiping, messaging and session length compared to the native app. With the PWA:
+上线后的前期表现还是不错的，用户划一划频率、发信频率以及在线时长均优于在手机 app 上的表现。总之，使用 PWA 之后（针对 PWA 和原生的比较）：
 
-* Users swipe more on web than their native apps
-* Users message more on web than their native apps
-* Users purchase on par with native apps
-* Users edit profiles more on web than on their native apps
-* Session times are longer on web than their native apps
+* 用户划一划的频率变高了
+* 用户的发信更频繁了
+* 不影响用户买买买
+* 用户更加卖力的经营自己的账户
+* 用户在线时间更长了
 
-### Performance
+### 性能表现
 
-The mobile devices Tinder Online’s users most commonly access their web experience with include:
+数据显示，手机端用户主要使用的设备包括但不限于：
 
 * Apple iPhone & iPad
 * Samsung Galaxy S8
 * Samsung Galaxy S7
 * Motorola Moto G4
 
-Using the [Chrome User Experience report](https://developers.google.com/web/tools/chrome-user-experience-report/) (CrUX), we’re able to learn that the majority of users accessing the site are on a 4G connection:
+再使用 [Chrome User Experience report](https://developers.google.com/web/tools/chrome-user-experience-report/) （简称 CrUX）进行分析，得知用户主要使用 4G 网络进行访问：
 
 ![](https://cdn-images-1.medium.com/max/1000/1*gO4n3kBs5Zy1eAkMQqxx7w.png)
 
-_Note: Rick Viscomi recently covered CrUX on_ [_PerfPlanet_](https://calendar.perfplanet.com/2017/finding-your-competitive-edge-with-the-chrome-user-experience-report/) _and Inian Parameshwaran covered_ [_rUXt_](https://calendar.perfplanet.com/2017/introducing-ruxt-visualizing-real-user-experience-data-for-1-2-million-websites/) _for better visualizing this data for the top 1M sites._
+**注：可以参考 Rick Viscomi 在 [PerfPlanet](https://calendar.perfplanet.com/2017/finding-your-competitive-edge-with-the-chrome-user-experience-report/) 上对 CrUX 的介绍，Inian Parameshwaran 介绍的 [rUXt](https://calendar.perfplanet.com/2017/introducing-ruxt-visualizing-real-user-experience-data-for-1-2-million-websites/) 在网络可视化分析这块针对大流量网站更具优势。**
 
-Testing the new experience on [WebPageTest](https://www.webpagetest.org/result/171224_ZB_13cef955385ddc4cae8847f451db8403/) and [Lighthouse](https://github.com/GoogleChrome/lighthouse/) (using the Galaxy S7 on 4G) we can see that they’re able to load and get interactive in **under 5 seconds**:
+在常用的 web 应用测试网站（[WebPageTest](https://www.webpagetest.org/result/171224_ZB_13cef955385ddc4cae8847f451db8403/) 和 [Lighthouse](https://github.com/GoogleChrome/lighthouse/)）上进行测试，使用 4G 网络的 Galaxy S7 可以在  **5秒内** 完全加载应用：
 
 ![](https://cdn-images-1.medium.com/max/1000/1*e-EHgbBBNXyuce8Z836Sgg.png)
 
-There is of course **lots of room** to improve this further on [median mobile hardware](https://www.webpagetest.org/lighthouse.php?test=171224_NP_f7a489992a86a83b892bf4b4da42819d&run=3) (like the Moto G4), which is more CPU constrained:
+相比高端机型，配置 [相对一般](https://www.webpagetest.org/lighthouse.php?test=171224_NP_f7a489992a86a83b892bf4b4da42819d&run=3) 的机型（例如 Moto G4）的性能表现还有很大的提升空间，这类机型的 CPU 资源比较吃紧：
 
 ![](https://cdn-images-1.medium.com/max/1000/1*VJ3ZbSQtIjxsIW8Feuiejw.png)
 
-Tinder are hard at work on optimizing their experience and we look forward to hearing about their work on web performance in the near future.
+Tinder 现在也确实在针对这方面做优化，期待他们以后的表现。
 
-### Performance Optimization
+### 性能优化
 
-Tinder were able to improve how quickly their pages could load and become interactive through a number of techniques. They implemented route-based code-splitting, introduced performance budgets and long-term asset caching.
+Tinder 为了加快页面的加载使用了很多技术，例如基于路由的代码分割、性能预算（performance budgets）以及静态资源持久缓存。
 
-### Route-level code-splitting
+### 基于路由的代码分割
 
-Tinder initially had large, monolithic JavaScript bundles that delayed how quickly their experience could get interactive. These bundles contained code that wasn’t immediately needed to boot-up the core user experience, so it could be broken up using [code-splitting](https://webpack.js.org/guides/code-splitting/). **It’s generally useful to only ship code users need upfront and lazy-load the rest as needed**.
+起初打包的文件非常巨大，严重拖慢了交互就绪的速度，对用户体验影响很大。因为打包的文件里包含了除核心交互以外的代码，这就需要使用 [代码分割（code-splitting）](https://webpack.js.org/guides/code-splitting/) **抽离出暂时不需要的代码，只保留核心功能。**
 
-To accomplish this, Tinder used [React Router](https://reacttraining.com/react-router/) and [React Loadable](https://github.com/thejameskyle/react-loadable). As their application centralized all their route and rendering info a configuration base, they found it straight-forward to implement code splitting at the top level.
+针对这个问题，Tinder 引入了 [React Router](https://reacttraining.com/react-router/) 和 [React Loadable](https://github.com/thejameskyle/react-loadable)。得益于前期架构的优势，整个应用非常适合使用基于配置的方式处理路由和渲染，因此，代码分割也能很顺利的在顶层上实现。
 
-**In summary:**
+**小结：**
 
-React Loadable is a small library by James Kyle to make component-centric **code splitting** easier in React. **Loadable** is a higher-order component (a function that creates a component) which makes it easy to **split** up bundles at a component level.
+React Loadable 是 James Kyle 开发的一个轻型库，简化了 React 中基于组件的代码分割操作，它提供的 **Loadable** 函数是一个高阶（higher-order）组件（创建组件的函数），专门用于处理代码分割。
 
-Let’s say we have two components “A” and “B”. Before code-splitting, Tinder statically imported everything (A, B, etc) into their main bundle. This was inefficient as we didn’t need both A and B right away:
+下面举例说明。假如有两个组件 “A” 和 “B”，分割前，它们和入口文件一并打包，因为这两个模块目前并不需要，所以这样全部打包在一起是很低效的：
 
 ![](https://cdn-images-1.medium.com/max/1000/1*DoTby4l_-A3TNdiUSZ0LmA.png)
 
-After adding code-splitting, components A and B could be loaded as and when needed. Tinder did this by introducing React Loadable, [dynamic import()](https://webpack.js.org/guides/code-splitting/#dynamic-imports) and [webpack’s magic comment syntax](https://medium.com/faceyspacey/how-to-use-webpacks-new-magic-comment-feature-with-react-universal-component-ssr-a38fd3e296a) (for naming dynamic chunks) to their JS:
+这里要求使用代码分割之后，组件 A 和 B 只是在需要时才加载。为此，Tinder 引入了 React Loadable、[动态导入函数 import()](https://webpack.js.org/guides/code-splitting/#dynamic-imports) 以及 [webpack 神奇的注释语法](https://medium.com/faceyspacey/how-to-use-webpacks-new-magic-comment-feature-with-react-universal-component-ssr-a38fd3e296a) （用来为动态导入的模块命名）：
 
 ![](https://cdn-images-1.medium.com/max/1000/1*aPY-1uGEvPV1dNKrrD8z4Q.png)
 
-For “vendor” (library) chunking, Tinder used the webpack [**CommonsChunkPlugin**](https://webpack.js.org/plugins/commons-chunk-plugin/) to move commonly used libraries across routes up to a single bundle file that could be cached for longer periods of time:
+在公共库（即 vendor）的处理上，Tinder 使用了 webpack 官方提供的 [**CommonsChunkPlugin**](https://webpack.js.org/plugins/commons-chunk-plugin/) 插件，把路由间公用的库单独打包到一个文件中，利用浏览器的缓存机制提升性能：
 
 ![](https://cdn-images-1.medium.com/max/1000/1*R-kXPcn937BNoFXLukPJPg.png)
 
-Next, Tinder used [React Loadable’s preload support](https://github.com/thejameskyle/react-loadable#loadablecomponentpreload) to preload potential resources for the next page on control component:
+接着使用 [React Loadable 提供的预加载功能](https://github.com/thejameskyle/react-loadable#loadablecomponentpreload) 针对那些/在接下来的交互中/存在潜在加载需求/的资源/做预加载处理（译者注：注意断句）：
 
 ![](https://cdn-images-1.medium.com/max/1000/1*G2JvbNCsm4eBXbGgyW6OmA.png)
 
-Tinder also used [Service Workers](https://developers.google.com/web/fundamentals/primers/service-workers/) to precache all their route level bundles and include routes that users are most likely to visit in the main bundle without code-splitting. They’re of course also using common optimizations like JavaScript minification via UglifyJS:
+Tinder 还用 [Service Workers](https://developers.google.com/web/fundamentals/primers/service-workers/) 对所有路由做了预缓存处理，其中就包括用户经常访问而没有做代码分割的路由。最后使用 UglifyJS 对代码进行压缩：
 
-```
+```javascript
 new webpack.optimize.UglifyJsPlugin({
       parallel: true,
       compress: {
@@ -99,61 +99,61 @@ new webpack.optimize.UglifyJsPlugin({
     }),
 ```
 
-#### Impact
+#### 成果
 
-After introducing route-based code-splitting their main bundle sizes went down from 166KB to 101KB and DCL improved from 5.46s to 4.69s:
+使用代码分割后，打包文件大小从 166KB 减到 101KB，DOM 内容加载时间（DCL）也从 5.46s 降低到 4.69s：
 
 ![](https://cdn-images-1.medium.com/max/1000/1*1Tt8bnnkyIi8aEw0BjRgMw.png)
 
-### Long-term asset caching
+### 静态资源持久缓存
 
-Ensuring [long-term caching](https://webpack.js.org/guides/caching/) of static resources output by webpack benefits from using [chunkhash] to add a cache-buster to each file.
+在 webpack 的输出中配置 [chunkhash]，一方面可以用来规避开发过程中因浏览器缓存而引发的资源不更新问题，二来也可以确保缓存有效。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*nofQB3Q-8IUo9f1Eipd0xw.png)
 
-Tinder were using a number of open-source (vendor) libraries as part of their dependency tree. Changes to these libraries would originally cause the [chunkhash] to change and invalidate their cache. To address this, Tinder began defining a [whitelist of external dependencies](https://gist.github.com/tinder-rhsiao/89cd682c34d1e1307111b091801e6fe5]%28https://gist.github.com/tinder-rhsiao/89cd682c34d1e1307111b091801e6fe5) and splitting out their webpack manifest from the main chunk to improve caching. The bundle size is now about 160KB for both chunks.
+由于 Tinder 使用了大量的第三方开源库，如果其中的一个依赖发生变化都会导致 [chunkhash] 的重新计算，从而导致之前的缓存失效。为了解决这个问题，Tinder 制定了一个 [外部依赖白名单](https://gist.github.com/tinder-rhsiao/89cd682c34d1e1307111b091801e6fe5]%28https://gist.github.com/tinder-rhsiao/89cd682c34d1e1307111b091801e6fe5)，另外还将 manifest 从主干中抽出，进一步改进缓存。最后，主干代码和 manifest 的打包大小都只有 160KB。
 
-### Preloading late-discovered resources
+### 预加载潜在需求资源
 
-As a refresher, [<link rel=preload>](https://developers.google.com/web/fundamentals/performance/resource-prioritization) is a declarative instruction to the browser to load critical, late-discovered resources earlier on. In single-page applications, these resources can sometimes be JavaScript bundles.
+这里用到了 [`<link rel=preload>`](https://developers.google.com/web/fundamentals/performance/resource-prioritization)，它告诉浏览器这是一个关键资源，马上要用到，需要尽早加载。在单页应用（SPA）中，这些资源可以是打包后的 JavaScript 文件。
 
 ![](https://cdn-images-1.medium.com/max/800/1*CaObLc_tGJvnllyV3CGD5w.png)
 
-Tinder implemented support for to preload their critical JavaScript/webpack bundles that were important for the core experience. This reduced load time by 1s and first paint from 1000ms to about 500ms.
+Tinder 将核心体验相关的资源文件进行了预加载处理，最终加载时间减少了 1s，首次绘制时间也从 1000ms 减少到 500ms。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*AtzElAKy_pCvRjZN__YSsQ.png)
 
-### Performance budgets
+### 性能预算
 
-Tinder adopted **performance budgets** for helping them hit their performance goals on mobile. As Alex Russell noted in “[Can you afford it?: real-world performance budgets](https://infrequently.org/2017/10/can-you-afford-it-real-world-web-performance-budgets/)”, you have a limited headroom to deliver an experience when considering slow 3G connections being used on median mobile hardware.
+为了达到移动端的性能期望，Tinder 引入了 **性能预算**。Alex Russell 在他发表过的一篇文章（[Can you afford it?: real-world performance budgets](https://infrequently.org/2017/10/can-you-afford-it-real-world-web-performance-budgets/)）中指出：难就难在要在网络环境不好、配置也一般的移动设备上提供良好的用户体验，因为提升空间非常有限。
 
-To get and stay interactive quickly, Tinder enforced a budget of ~155KB for their main and vendor chunks, asynchronous (lazily loaded) chunks are ~55KB and other chunks are ~35KB. CSS has a limit of 20KB. This was crucial to ensuring they were able to avoid regressing on performance.
+为了保证应用能快速就绪，Tinder 规定公共依赖和主干代码的大小要维持在 155KB 左右，分配给异步加载（懒加载）的数据量大约 55KB 左右、其他部分代码 35KB 左右，CSS 则限制在 20KB 左右。 这个规划保证了最坏情况下的性能表现。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*OgDLsMxsy6IO79NmjQtcng.png)
 
-### Webpack Bundle Analysis
+### Webpack 打包分析
 
-[Webpack Bundle Analyzer](https://github.com/webpack-contrib/webpack-bundle-analyzer) allows you to discover what the dependency graph for your JavaScript bundles looks like so you can discover whether there’s low-hanging fruit to optimize.
+开源工具 [Webpack Bundle Analyzer](https://github.com/webpack-contrib/webpack-bundle-analyzer) 可以对依赖进行可视化分析，暴露出那些明显的可优化问题。
 
 ![](https://cdn-images-1.medium.com/max/800/1*qsiUA0G50a4p3y2e4p7CyA.png)
 
-Tinder used Webpack Bundle Analyzer to discover areas for improvement:
+Tinder 主要用它来分析以下几类优化问题：
 
-* **Polyfills:** Tinder are targeting modern browsers with their experience but also support IE11 and Android 4.4 and above. **To keep polyfills & transpiled code to a minimum, they use For polyfills, they use** [**babel-preset-env**](https://github.com/babel/babel-preset-env) **and** [**core-js**](https://github.com/zloirock/core-js)**.**
-* **Slimmer use of libraries:** Tinder replaced [localForage](https://github.com/localForage/localForage) with direct use of IndexedDB.
-* **Better splitting:** Split out components from the main bundles which were not required for first paint/interactive
-* **Code re-use:** Created asynchronous common chunks to abstract chunks used more than three times from children.
-* **CSS:** Tinder also removed [critical CSS](https://www.smashingmagazine.com/2015/08/understanding-critical-css/) from their core bundles (as they had shifted to server-side rendering and delivered this CSS anyway)
+* **Polyfills 代码占比：** 因为 Tinder 的目标平台包括了 IE11 和 Android 4.4，免不了使用一些 Polyfills，但是又不希望这些代码占据太多数据量，所以直接用了 [**babel-preset-env**](https://github.com/babel/babel-preset-env) 和 [**core-js**](https://github.com/zloirock/core-js)。
+* **是否引入了不必要的第三方库：** 最后移除了 [localForage](https://github.com/localForage/localForage) ，使用 IndexedDB 作为替代。
+* **分割方案是否最优：** 将首次绘制/交互中用不到的组件从主干代码中剔除。
+* **是否可提炼复用代码：** 将子模块中使用超过三次的公共代码抽出成异步加载的代码块。
+* **CSS：** 把 [critical CSS](https://www.smashingmagazine.com/2015/08/understanding-critical-css/) 从核心包中移除（转而使用服务器端渲染的方式）。
 
 ![](https://cdn-images-1.medium.com/max/800/1*ZL3i2BRHo8Sq_dv1NyA8Dw.png)
 
-Using bundle analysis led to also also taking advantage of Webpack’s [Lodash Module Replacement Plugin](https://github.com/lodash/lodash-webpack-plugin). The plugin creates smaller Lodash builds by replacing feature sets of modules with noop, identity or simpler alternatives:
+这个工具可以搭配 Webpack 的 [Lodash Module Replacement 插件](https://github.com/lodash/lodash-webpack-plugin) 使用。这个插件将模块中使用到的一些特定方法替换成实现上更简单、功能上等效的代码，从而减小打包文件大小：
 
 ![](https://cdn-images-1.medium.com/max/1000/1*of2Mv5ypTySRpTZQZVRj7A.png)
 
-Webpack Bundle Analyzer can be integrated into your Webpack config. Tinder’s setup for it looks like this:
+Webpack Bundle Analyzer 可以集成到 Webpack 的配置中。来自 Tinder 的配置参考：
 
-```
+```javascript
 plugins: [
       new BundleAnalyzerPlugin({
         analyzerMode: 'server',
@@ -166,19 +166,19 @@ plugins: [
       })
 ```
 
-The majority of the JavaScript left is the main chunk which is trickier to split out without architecture changes to Redux Reducer and Saga Register.
+经过一系列优化之后，剩下的主要是主干部分代码。这些代码暂时就不用动了，除非架构发生变化。
 
-### CSS Strategy
+### CSS 的优化策略
 
-Tinder are using [Atomic CSS](https://acss.io/) to create highly reusable CSS styles. All of these atomic CSS styles are inlined in the initial paint and some of the rest of the CSS is loaded in the stylesheet (including animation or base/reset styles). Critical styles have a maximum size of 20KB gzipped, with recent builds coming in at a lean < 11KB.
+Tinder 使用 [Atomic CSS](https://acss.io/) 创建了许多高复用的 CSS 样式，其中一些做了内联处理，在初始化绘制过程中生效，剩下的则分散在外部 CSS 文件中（包括动画或者 base/reset 等样式）。关键样式（Critical styles）使用 gzip 压缩之后大小不超过 20KB，最近的一次构建则压缩到了 11KB 以下。
 
-Tinder use [CSS stats](http://cssstats.com/stats?url=https%253A%252F%252Ftinder.com&ua=Browser%2520Default%0A) and Google Analytics for each release to keep track of what has changed. Before Atomic CSS was being used, average page load times were ~6.75s. After they were ~5.75s.
+Tinder 还使用了 [CSS stats](http://cssstats.com/stats?url=https%253A%252F%252Ftinder.com&ua=Browser%2520Default%0A) 和 Google Analytics 跟踪每次发版的变化。在使用 Atomic CSS 前，页面的平均加载时间在 6.75s 左右，使用之后降到 5.75s 左右。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*Uv_at6Xs7QYHZJ0iy8c7GQ.png)
 
-Tinder Online also uses the PostCSS [Autoprefixer plugin](https://twitter.com/autoprefixer) to parse CSS and add vendor prefixes based on rules from [Can I Use](http://caniuse.com):
+最后用 [Autoprefixer](https://twitter.com/autoprefixer) 添加浏览器前缀：
 
-```
+```javascript
 new webpack.LoaderOptionsPlugin({
     options: {
     context: paths.basePath,
@@ -197,76 +197,75 @@ new webpack.LoaderOptionsPlugin({
 }),
 ```
 
-### Runtime performance
+### 运行时性能
 
-#### Deferring non-critical work with requestIdleCallback()
+#### 使用 requestIdleCallback() 推迟非关键事务
 
-To improve runtime performance, Tinder opted to use [requestIdleCallback()](https://developers.google.com/web/updates/2015/08/using-requestidlecallback) to defer non-critical actions into idle time.
+使用 [requestIdleCallback()](https://developers.google.com/web/updates/2015/08/using-requestidlecallback) 将非关键事务推迟到空闲期运行，以提高运行时性能。
 
-```
+```javascript
 requestIdleCallback(myNonEssentialWork);
 ```
 
-This included work like instrumentation beacons. They also simplified some HTML composite layers to reduce paint count while swiping.
+什么叫非关键事务？比如做插桩标记（instrumentation beacons）。Tinder 团队为了减少刷屏时的绘制次数，对合成层（composite layers）也做了优化。
 
-**Using requestIdleCallback() for their instrumentation beacons while swiping:**
+**在刷屏操作中，是否使用 requestIdleCallback() 的对比：**
 
-before..
+使用前..
 
 ![](https://cdn-images-1.medium.com/max/800/1*oHJ8IjCs7AKdCrt9b28ZPw.png)
 
-and after..
+使用后...
 
 ![](https://cdn-images-1.medium.com/max/800/1*UTQuSSp7MGMY06mwYtQmaw.png)
 
-### Dependency upgrades
+### 依赖优化
 
-**Webpack 3 + Scope Hoisting**
+**Webpack 3 + 作用域提升**
 
-In older versions of webpack, when bundling each module in your bundle would be wrapped in individual function closures. These wrapper functions made it slower for your JavaScript to execute in the browser. [Webpack 3](https://medium.com/webpack/webpack-3-official-release-15fd2dd8f07b) introduced “scope hoisting” — the ability to concatenate the scope of all your modules into one closure and allow for your code to have a faster execution time in the browser. It accomplishes this with the Module Concatenation plugin:
+在 webpack 3 以前，每个模块在打包后都会被包裹进一个独立的闭包内，但是这些包裹起来的方法（闭包）执行效率很低。对此，[Webpack 3](https://medium.com/webpack/webpack-3-official-release-15fd2dd8f07b) 推出了“作用域提升”机制，将多个模块打包进一个闭包中（相当于合并作用域），以提高执行速度。使用这一功能需要引入 Module Concatenation 插件：
 
-```
+```javascript
 new webpack.optimize.ModuleConcatenationPlugin()
 ```
 
-**Webpack 3’s scope hoisting improved Tinder’s initial JavaScript parsing time for vendor chunk by 8%.**
+**使用作用域提升机制后，Tinder 第三方依赖初始化解析时间减少了 8%。**
 
 **React 16**
 
-React 16 introduced improvements that [decreased React’s bundle size](https://reactjs.org/blog/2017/09/26/react-v16.0.html#reduced-file-size) compared to previous versions. This was in part due to better packaging (using Rollup) as well as removing now unused code.
+React 16 优化了打包之后的文件大小，新的打包算法（Rollup）会剔除一些暂时用不到的代码。
 
-**By updating from React 15 to React 16, Tinder reduced the total gzipped size of their vendor chunk by ~7%.**
+**Tinder 从 React 15 升级到 React 16 后，gzip 压缩后的依赖大小减小了约 7%**。
 
-The size of react + react-dom used to be~50KB gzipped and is now just ~**35KB**. Thanks to [Dan Abramov](https://twitter.com/dan_abramov), [Dominic Gannaway](https://twitter.com/trueadm) and [Nate Hunzaker](https://twitter.com/natehunzaker) who were instrumental in trimming down React 16’s bundle size.
+最后，react + react-dom 压缩后从之前的 50KB 降到现在的 **35KB** 左右，效果拔群。这里要特别感谢 [Dan Abramov](https://twitter.com/dan_abramov)、[Dominic Gannaway](https://twitter.com/trueadm) 和 [Nate Hunzaker](https://twitter.com/natehunzaker) 的付出，他们在 React 16 中为降低打包文件大小做了不少贡献。
 
-### Workbox for network resilience and offline asset caching
+### 网络弹性和静态资源缓存
 
-Tinder also use the [Workbox Webpack plugin](https://developers.google.com/web/tools/workbox/get-started/webpack) for caching both their [Application Shell](https://developers.google.com/web/fundamentals/architecture/app-shell) and their core static assets like their main, vendor, manifest bundles and CSS. This enables network resilience for repeat visits and ensures that the application starts-up more quickly when a user returns for subsequent visits.
+Tinder 还用了 [Workbox Webpack 插件](https://developers.google.com/web/tools/workbox/get-started/webpack)，用于缓存 [Application Shell](https://developers.google.com/web/fundamentals/architecture/app-shell) 和核心静态资源，例如主干代码、第三方库、manifest 和 CSS。使用后，具备了较强的频繁访问抗压能力，同时用户再次使用时，启动速度也大大提高了。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*yXpAzyA1ODPk2OSOTA6Lhg.png)
 
-### Opportunities
+### 更上一层楼
 
-Digging into the Tinder bundles using [source-map-explorer](https://www.npmjs.com/package/source-map-explorer) (another bundle analysis tool), there are additional opportunities for reducing payload size. Before logging in, components like Facebook Photos, notifications, messaging and captchas are fetched. Moving these away from the critical path could save up to 20% off the main bundle:
+用 [source-map-explorer](https://www.npmjs.com/package/source-map-explorer) （又一个包分析工具）再次对包进行深入分析，发现还有继续缩小网络负载的优化空间。在登陆场景中，用户还没登录的情况下，Facebook 图片、通知、私信以及验证码这些组件并不需要加载，将这些组件从关键路径（critical path）移除之后可为主干代码省下 20% 的数据量：
 
 ![](https://cdn-images-1.medium.com/max/1000/1*G1nq7BNZPEo2mFr_my5zjA.png)
 
-Another dependency in the critical path is a 200KB Facebook SDK script. Dropping this script (which could be lazily loaded when needed) could shave 1 second off initial loading time.
+因为上一步移除了 Facebook 的组件，所以其相关依赖 Facebook SDK 也可以直接移除，后面需要用到的时候再进行加载（懒加载），这样就又节省了 200KB，而且初始加载时间也减少了 1 秒。
 
-### Conclusions
+### 总结
 
-Tinder are still iterating on their Progressive Web App but have already started to see positive results from the fruits of their labor. Check out Tinder.com and stay tuned for more progress in the near future!
+虽然 Tinder 还在继续迭代他们的产品，但是已经初见成效了，你可以随时访问 Tinder.com 关注最新进展。
 
-_With thanks and congrats to Roderick Hsiao, Jordan Banafsheha, and Erik Hellenbrand for launching Tinder Online and their input to this article. Thanks to Cheney Tsai for his review._
+**感谢并祝贺 Roderick Hsiao、 Jordan Banafsheha 以及 Erik Hellenbrand，恭喜你们成功发布了 Tinder Online，谢谢你们对我的文章提出的指导意见，还有 Cheney Tsai，你的观点给了我很多启发。**
 
-**Related reading:**
+**相关阅读：**
 
 * [A Pinterest PWA performance case study](https://medium.com/dev-channel/a-pinterest-progressive-web-app-performance-case-study-3bd6ed2e6154)
 * [A Treebo React & Preact performance case study](https://medium.com/dev-channel/treebo-a-react-and-preact-progressive-web-app-performance-case-study-5e4f450d5299)
 * [Twitter Lite and high-performance PWAs at scale](https://medium.com/@paularmstrong/twitter-lite-and-high-performance-react-progressive-web-apps-at-scale-d28a00e780a3)
 
-This article was cross-posted from [Performance Planet](https://calendar.perfplanet.com/2017/a-tinder-progressive-web-app-performance-case-study/). If you’re new to React, I’ve found [React for Beginners](https://goo.gl/G1WGxU) a comprehensive starting point.
-
+本文转载自 [Performance Planet](https://calendar.perfplanet.com/2017/a-tinder-progressive-web-app-performance-case-study/)。 如果你对 React 还不熟悉，可以参考我推荐的教程：[React for Beginners](https://goo.gl/G1WGxU)，对新手十分友好。
 
 ---
 

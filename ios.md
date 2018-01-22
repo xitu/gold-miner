@@ -1,3 +1,5 @@
+* [Swift 中的值类型与引用类型使用指北](https://juejin.im/post/5a5c2c046fb9a01cbe654b48) ([DeepMissea](https://github.com/DeepMissea) 翻译)
+* [Xcode 环境配置最佳实践](https://juejin.im/post/5a4f120cf265da3e3d48f1f6) ([swants](https://github.com/swants) 翻译)
 * [基于 Metal 的 ARKit 使用指南（上）](https://juejin.im/post/5a225ffcf265da432153daa4) ([RichardLeeH](https://github.com/RichardLeeH) 翻译)
 * [处理 iOS 中复杂的 Table Views 并保持优雅](https://juejin.im/post/5a078ec3f265da431955c0d5?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([zhangqippp](https://github.com/zhangqippp) 翻译)
 * [Swift 上的高性能数组](https://juejin.im/post/59e84129f265da43128005ed?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([jingzhilehuakai](https://github.com/jingzhilehuakai) 翻译)

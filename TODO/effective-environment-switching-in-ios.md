@@ -55,7 +55,7 @@ Debug 和 Release 是 Xcode 提供的两种默认配置。你完全也可以创�
 
 
 * 前两个（Debug Staging & Debug Production）和默认的 Debug 配置一样，但 **每个都指向不同的服务器环境**。
-* 后两个配置环境（两个 TestFlight 配置环境 ）也是这样，它们和默认的 Release 配置一样，包含完整的调试信息和代码优化，但 **每个都在对应的服务器环境下使用**。
+* 后两个配置环境（两个 TestFlight 配置环境 ）也是这样，它们和默认的 Release 配置一样，不包含调试信息并进行了代码优化，但 **每个都在对应的服务器环境下使用**。
 
 ![](https://cdn-images-1.medium.com/max/800/1*E24WkTnP6IXFceTvE3MtxQ.png)
 
