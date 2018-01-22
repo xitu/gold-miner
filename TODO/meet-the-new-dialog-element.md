@@ -134,7 +134,7 @@ modal.addEventListener('click', (event) => {
 
 我在下面的示例中演示了很多东西。亲自实践下，看你能用 `<dialog>` 做些什么。它包含了 polyfill，所以它应该能在大多数浏览器中运行。
 
-See the Pen [<dialog>](https://codepen.io/keithjgrant/pen/eyMMVL/) by Keith J. Grant ([@keithjgrant](https://codepen.io/keithjgrant)) on [CodePen](https://codepen.io).
+See the Pen [<dialog>](https://codepen.io/keithjgrant/pen/eyMMVL/) by Keith J. Grant ([@keithjgrant](https://codepen.io/keithjgrant)) [CodePen](https://codepen.io).
 
 
 ---
