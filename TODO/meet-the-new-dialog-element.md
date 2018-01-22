@@ -2,18 +2,18 @@
 > * 原文作者：[keithjgrant](https://keithjgrant.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/meet-the-new-dialog-element.md](https://github.com/xitu/gold-miner/blob/master/TODO/meet-the-new-dialog-element.md)
-> * 译者：
+> * 译者：[FateZeros](https://github.com/fatezeros)
 > * 校对者：
 
-# Meet the New Dialog Element
+# 迎接新的 Dialog 元素
 
-![Old iron mailbox with the word 'letters' emblazoned on front](https://keithjgrant.com/images/2018/iron-mailbox.jpg)
+![用字母在前面装饰的旧铁邮箱](https://keithjgrant.com/images/2018/iron-mailbox.jpg)
 
-[HTML 5.2](https://www.w3.org/TR/html52/) has introduced a new `<dialog>` element for native modal dialog boxes. At first glance, it seems fairly straightforward (and it is), but as I’ve been playing around with it, I’ve found it has some nice features that might be easy to miss.
+[HTML 5.2](https://www.w3.org/TR/html52/) 为原生弹窗对话框引入了一个新的 `<dialog>` 元素。 乍一看，它似乎相当简单（本来就是），但当我和它打交道的过程中，我发现了一些容易被忽略的很棒的特性。
 
-I’ve embedded a full working demo at the end of this article, but if you want to check it out as you read along, [you can see it here](https://codepen.io/keithjgrant/pen/eyMMVL).
+在本文的最后我加上了一个完整可行的 Demo ，但是如果你想在阅读的过程中也查看的话，[你可以看这里](https://codepen.io/keithjgrant/pen/eyMMVL).
 
-Here is the markup for a basic dialog box:
+这是一个基本的弹窗对话框标记：
 
 ```
 <dialog open>
@@ -21,49 +21,49 @@ Here is the markup for a basic dialog box:
 </dialog>
 ```
 
-The `open` attribute means that the dialog is visible. Without it, the dialog is hidden until you use JavaScript to make it appear. Before any styling is added, the dialog renders as follows:
+`open` 属性意味着对话框是可见的。没有它，除非你用 JavaSript 使它出现，否则它就是隐藏的。在添加样式之前，对话框渲染如下所示：
 
-![Text in a box with a thick black outline](https://keithjgrant.com/images/2018/native-dialog-basic.png)
+![对话框中的文本有加粗的黑色轮廓](https://keithjgrant.com/images/2018/native-dialog-basic.png)
 
-It’s absolutely positioned on the page, so it will appear in front of other content as you would expect, and is centered horizontally. By default, it’s as wide as the contents within.
+它在页面中是绝对定位的，因此它会按照你所期望的那样出现其他内容前面，并且水平居中。默认情况下，它和内容等宽。
 
-## Basic Operation
+## 基本操作
 
-JavaScript has a few methods and properties to make working with the `<dialog>` element easy. The two methods you will probably need the most are `showModal()` and `close()`.
+JavaScript 有几个方法和属性可以方便地处理 `<dialog>` 元素。你可能最需要的两个方法是 `showModal()` 和 `close()` 。
 
 ```
 const modal = document.querySelector('dialog');
 
-// makes modal appear (adds `open` attribute)
+// 使对话框出现（添加 `open` 属性）
 modal.showModal();
 
-// hides modal (removes `open` attribute)
+// 隐藏对话款（移除 `open` 属性）
 modal.close();
 ```
 
-When you use `showModal()` to open the dialog, a backdrop is added to the page, blocking user interaction with the contents outside the modal. By default, this backdrop is fully transparent, but you can make it visible with CSS (more on that below).
+当你用 `showModal()` 打开对话框的时候，页面会添加一层背景，阻止用户与对话框之外的内容交互。默认情况下，这层背景是完全透明的，但是你可以改变 CSS 使它可见（后面会有更多介绍）。
 
-Pressing Esc will close the dialog, and you can provide a close button to trigger the `close()` method.
+按 Esc 键会关闭对话框，你也可以提供一个关闭按钮来触发 `close()` 方法。
 
-There is a third method, `show()` that also make the modal appear but without the accompanying backdrop. The user will still be able to interact with elements that are visible outside the dialog box.
+还有第三种方法，`show()` 也会让对话款出现，但不会伴随背景层。用户仍可以和对话框之外的可见的元素进行交互。
 
-### Browser Support and Polyfill
+### 浏览器支持和 Polyfill
 
-Right now, `<dialog>` behavior is only supported in Chrome. Firefox provides default styling, but the JavaScript API is only enabled behind a flag. I suspect Firefox will enable it by default soon.
+现在，只有 Chrome 支持 `<dialog>` 。Firefox 提供了默认样式，但是 JavaScript API 仅在标志后启用。我猜想 Firefox 会很快支持它。
 
-Thankfully, there is [a polyfill](https://github.com/GoogleChrome/dialog-polyfill) that provides both the JavaScript behavior and a stylesheet with default styling. Install `dialog-polyfill` in npm to use it—or use a regular old `<script>` tag. It works in IE9 and up.
+庆幸地是，[polyfill](https://github.com/GoogleChrome/dialog-polyfill) 提供了 JavaScript 事件和默认样式。用 npm 安装 `dialog-polyfill` 来使用它 —— 或者使用常用的旧的 `<script>` 标签。这样 `<dialog>` 就可以在 IE9及以上版本中使用了。
 
-When using the polyfill, each dialog on the page needs to be initialized:
+当使用 polyfill 时，页面上的每个对话框都需要被初始化：
 
 ```
 dialogPolyfill.registerDialog(modal);
 ```
 
-This will not replace native behavior for browsers that have it.
+这不会替代使用它的浏览器中的原生事件。
 
-## Styling
+## 样式
 
-Opening and closing a modal is nice, but it doesn’t look very professional at first. Adding styling is as simple as styling any other element. The backdrop can be styled with the new `::backdrop` pseudo-element.
+打开和关闭对话框完成了，但是它起初看起来并不专业。我们像给其他元素添加样式那样，给对话款添加样式。背景层可以用新的 `::backdrop` 伪元素来设计。
 
 ```
 dialog {
@@ -79,7 +79,7 @@ dialog::backdrop {
 }
 ```
 
-For older browsers using the polyfill, this pseudo-element selector will not work, however. In its place, the polyfill adds a `.backdrop` element immediately following the dialog. You can target it with CSS like this:
+对于使用 polyfill 更旧版本的浏览器，这个伪元素选择器将不会起作用，然而，在这个对话框位置后，polyfill 会立即添加一个 `.backdrop` 元素。你可以像这样用 CSS 来定位它：
 
 ```
 dialog + .backdrop {
@@ -87,7 +87,7 @@ dialog + .backdrop {
 }
 ```
 
-Add a little more markup to provide styling hooks. A common approach to dialog boxes is to break it up into a header, a body, and a footer:
+添加更多的标记来提供样式的钩子。一个对话框常用的方法是将它分解为标题，正文和页脚：
 
 ```
 <dialog id="demo-modal">
@@ -102,13 +102,13 @@ Add a little more markup to provide styling hooks. A common approach to dialog b
 </dialog>
 ```
 
-Add some CSS to this, and you can make the modal look however you want:
+给它添加一些 CSS ，你可以让对话框做成任何你想要的外形：
 
-![Text in a box with a thick black outline](https://keithjgrant.com/images/2018/native-dialog-styled.png)
 
-## More control
 
-Often, we want some sort of user feedback from a dialog box. When closing a dialog, you can pass a string value to the `close()` method. This value is assigned to the `returnValue` property of the dialog DOM element, so it can be read later:
+## 更对控制
+
+通常，我们想要从对话框中获得更多用户反馈。当关闭对话框时，你可以传递一个字符串值到 `close()` 方法。该值将会被赋值给对话框 DOM 元素的 `retrunValue`属性，因此它可以在后面被读取到：
 
 ```
 modal.close('Accepted');
@@ -116,9 +116,9 @@ modal.close('Accepted');
 console.log(modal.returnValue); // logs `Accepted`
 ```
 
-There are also some events you can listen for. Two useful ones are `close` (triggered when the modal is closed) and `cancel` (triggered when the user presses Esc to close the modal).
+还有一些事件你可以监听。两个有用的事件是 `close` （当对话框关闭的时候触发）和 `cancel` （当用户按了 Esc 关闭对话框时触发）。
 
-One thing that seems to be missing is the ability to close the modal when the backdrop is clicked, but there is a workaround. Clicking the backdrop fires a click event with the `<dialog>` as the event target. And if you construct the modal such that child elements fill the entire space of the dialog, those child elements will be the target of any clicks inside the dialog. This way, you can listen for clicks on the dialog, and close it when the dialog itself is the target of the click event:
+有一件事似乎被忘掉了，当背景层被点击时能够关闭对话框，但有一个变通方案。当点击背景层时，触发 `<dialog>` 的点击事件作为事件目标。而且，如果你构造对话框使得子元素填充了整个空间，那些子元素将会作为对话框内任何点击的目标。这中方式，你可以监听对话框上的点击，当点击事件的目标时对话框本身的时候关闭它：
 
 ```
 modal.addEventListener('click', (event) => {
@@ -128,11 +128,11 @@ modal.addEventListener('click', (event) => {
 });
 ```
 
-This isn’t perfect, but it works. Please let me know if you find a better way to detect clicks on the backdrop.
+虽然不完美，但是起了作用。如果你找到了更好的方法来监听背景层上的点击，请让我知道。
 
-## Full working demo
+## 完整可行的 Demo
 
-I’ve worked a lot of stuff into the demo below. Play around with and see what else you can do with `<dialog>`. This includes the polyfill, so it should work in most browsers.
+我在下面的示例中演示了很多东西。亲自实践下，看你能用 `<dialog>` 做些什么。它包含了 polyfill，所以它应该能在大多数浏览器中运行。
 
 See the Pen [<dialog>](https://codepen.io/keithjgrant/pen/eyMMVL/) by Keith J. Grant ([@keithjgrant](https://codepen.io/keithjgrant)) on [CodePen](https://codepen.io).
 
