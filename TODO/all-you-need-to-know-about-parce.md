@@ -3,9 +3,15 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/all-you-need-to-know-about-parce.md](https://github.com/xitu/gold-miner/blob/master/TODO/all-you-need-to-know-about-parce.md)
 > * 译者：[Fatezeros](https://github.com/fatezeros)
+<<<<<<< HEAD
+> * 校对者：
+
+# 关于 Parcel 你所需要知道的一切：快速的 Web 应用打包器 🚀
+=======
 > * 校对者：[MechanicianW](https://github.com/MechanicianW) [tvChan](https://github.com/tvChan)
 
 # 关于 Parcel 你所需要知道的一切：快速的 Web 应用打包工具 🚀
+>>>>>>> upstream/master
 
 ![](https://cdn-images-1.medium.com/max/800/1*-Tcq85crClCEu_gYzn06gg.gif)
 
@@ -17,23 +23,39 @@
 
 当 webpack 以高复杂性的代价给我们带来了很多配置的时候 —— **Parcel 却很简单**。它号称“零配置"。
 
+<<<<<<< HEAD
+**揭开上面的疑惑** —— Parcel 有一个开箱即用的开发服务器。它会在你更改文件的时候自动重建你的应用程序，并支持[模块热替换](https://parceljs.org/hmr.html)以实现快速开发。
+
+#### **Parcel 有什么优势？**
+
+* 快速打包时间 —— Parcel 比 Wabpack，Rollup 和 Browserify 打包更快。
+=======
 **揭开上面的疑惑** —— Parcel 有一个开箱即用的开发服务器。它会在你更改文件的时候自动重建你的应用程序，并支持 [模块热替换](https://parceljs.org/hmr.html) 以实现快速开发。
 
 #### **Parcel 有什么优势？**
 
 * 快速打包 —— Parcel 比 Webpack，Rollup 和 Browserify 打包更快。
+>>>>>>> upstream/master
 
 ![](https://cdn-images-1.medium.com/max/800/1*jovxixL_dfSEnp9f6r8eEA.png)
 
-Parcel benchmarks
+Parcel 基准
 
+<<<<<<< HEAD
+我们需要考虑的一些事情是：Webpack 仍然是极好的，并且有时候能更快
+=======
 需要考虑到的一点是：Webpack 仍然是极好的，并且有时候能更快
+>>>>>>> upstream/master
 
 ![](https://cdn-images-1.medium.com/max/800/1*e9ZNxTRvxQSgAHFIegC-6w.png)
 
 [来源](https://github.com/TheLarkInn/bundler-performance-benchmark/blob/master/README.md)
 
+<<<<<<< HEAD
+* Parcel 支持 JS，CSS，HTML，文件资源等 —— **无需插件 —— 对用户更加友好。**
+=======
 * Parcel 支持 JS，CSS，HTML，文件资源等 —— **无需插件 —— 对用户更加友好。**
+>>>>>>> upstream/master
 * 无需配置。开箱即用的代码拆分，热模块更新，css预处理，开发服务器，缓存等等！
 * 更友好的错误日志。
 
@@ -45,7 +67,11 @@ Parcel 错误处理
 
 #### 那么 —— 我们应该在什么时候使用 Parcel, Webpack 或者 Rollup 呢?
 
+<<<<<<< HEAD
+这完全取决于你，但我个人会在以下情况使用不同打包器：
+=======
 这完全取决于你，但我个人会在以下情况使用不同的打包工具：
+>>>>>>> upstream/master
 
 **Parcel** —— 中小型项目（<1.5万行代码）
 
@@ -83,13 +109,21 @@ npm install parcel-bundler --save-dev
 
 这就是所有的配置 —— 惊人的节省时间吧！
 
+<<<<<<< HEAD
+接下来，开启我们的服务器。
+=======
 接下来，启动我们的服务器。
+>>>>>>> upstream/master
 
 ![](https://cdn-images-1.medium.com/max/600/1*Yq8tQPP6Qv80xwV3N-1lIw.gif)
 
 ![](https://cdn-images-1.medium.com/max/600/1*tWzj5lTbPm2rEZKndCgKhQ.png)
 
+<<<<<<< HEAD
+工作就是这样的有魅力！注意构建时间。
+=======
 立竿见影！注意构建时间。
+>>>>>>> upstream/master
 
 ![](https://cdn-images-1.medium.com/max/800/1*6PKBaYyEQrK889opDE72Vg.png)
 
@@ -157,7 +191,11 @@ npm install --save react react-dom babel-preset-env babel-preset-react && touch 
 
 ![](https://cdn-images-1.medium.com/max/800/1*8LV0jtqGPIRN-Z05nZjWZQ.png)
 
+<<<<<<< HEAD
+那么！！！就让我们开始吧！在滚动页面前，你自己可以尝试写一个初始 react 组件。
+=======
 那么！！！就让我们使出杀手锏吧！继续往下看之前，你自己可以尝试写一个初始的 react 组件。
+>>>>>>> upstream/master
 
 ![](https://cdn-images-1.medium.com/max/600/1*w6prJQoCeWWClTIGe-2eCg.png)
 
@@ -195,7 +233,11 @@ $ npm i --save vue parcel-plugin-vue
 $ mkdir vue && cd vue && touch index.js app.vue
 ```
 
+<<<<<<< HEAD
+现在将 `index.js` 链接到 `index.html`
+=======
 现在将 `index.js` 挂载到 `index.html`
+>>>>>>> upstream/master
 
 ![](https://cdn-images-1.medium.com/max/800/1*PJ7L4G15cDpvreu6NkdXLQ.png)
 
@@ -207,7 +249,11 @@ $ mkdir vue && cd vue && touch index.js app.vue
 
 ![](https://cdn-images-1.medium.com/max/1000/1*XDZ71d55e8vGY8QoVeJGlw.png)
 
+<<<<<<< HEAD
+瞧！我们安装了 Vue，并支持 `.vue`
+=======
 瞧！我们安装了 Vue，并支持 `.vue` 文件
+>>>>>>> upstream/master
 
 * * *
 
@@ -229,13 +275,21 @@ npm i --save typescript
 
 ![](https://cdn-images-1.medium.com/max/1000/1*QpIDy402yydKokM1bO5l7A.png)
 
+<<<<<<< HEAD
+让我们继续！
+=======
 准备好了就去做吧！
+>>>>>>> upstream/master
 
 ### [Github源码](https://github.com/wesharehoodies/parcel-examples-vue-react-ts)
 
 * * *
 
+<<<<<<< HEAD
+如果你发现这个有用，请给我一些鼓励，并让更多的人看到它！
+=======
 如果你认为这篇文章有用，请给我一些鼓励，并让更多的人看到它！
+>>>>>>> upstream/master
 
 可以关注我的 [twitter](https://twitter.com/lasnindrek) 了解更多！
 
