@@ -3,9 +3,8 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/the-future-of-state-management.md](https://github.com/xitu/gold-miner/blob/master/TODO/the-future-of-state-management.md)
 > * 译者：[yct21](https://github.com/yct21/)
-> * 校对者：
 
-# 状态管理的未来: 在 Apollo Client 中使用 apollo-link-state管理本地数据
+# 状态管理的未来：在 Apollo Client 中使用 apollo-link-state 管理本地数据
 
 ![](https://cdn-images-1.medium.com/max/1000/1*YfE1f2lBr0hnpcRESiUy1w.png)
 
@@ -13,7 +12,7 @@
 
 许多开发者告诉过我们，使用 Apollo Client 可以很好地管理远端数据，这部分数据一般会占到总数据量的 **80%** 左右。那么剩下的 20% 的本地数据（例如全局标志、设备 API 返回的结果等）应该怎样处理呢？
 
-过去，Apollo 的用户通常会使用一个单独的 Redux/Mobx store 来管理这部分本地的数据。在 Apollo Client 1.0 时期，这是一个可行的方案。但当 Apollo Client 进入 2.0 版本，不再依赖于 Redux，如何去同步本地和远端的数据，变得比原来更加棘手。我们收到了许多用户的反馈，希望能有一种方案，可以将完整的应用状态封装在 Apollo Client 中，从而实现**单一的数据源 (single source of truth)**
+过去，Apollo 的用户通常会使用一个单独的 Redux/Mobx store 来管理这部分本地的数据。在 Apollo Client 1.0 时期，这是一个可行的方案。但当 Apollo Client 进入 2.0 版本，不再依赖于 Redux，如何去同步本地和远端的数据，变得比原来更加棘手。我们收到了许多用户的反馈，希望能有一种方案，可以将完整的应用状态封装在 Apollo Client 中，从而实现**单一的数据源 (single source of truth)**。
 
 ## 解决问题的基础
 
@@ -25,9 +24,9 @@
 
 以上是 Apollo Client 的数据流架构图。
 
-## GraphQL: 一旦学会，随处可用
+## GraphQL：一旦学会，随处可用
 
-关于 GraphQL 有一个常见的误区: GraphQL 的实施依赖于服务器端某种特定的实现。事实上，GraphQL 具有很强的灵活性。GraphQL 并不在乎请求是要发送给一个 [gRPC 服务器](https://github.com/iheanyi/go-grpc-graphql-simple-example)，或是 [REST 端点](https://github.com/apollographql/apollo-link-rest)，又或是[客户端缓存](https://github.com/apollographql/apollo-link-state)。GraphQL 是一门**针对数据的通用语言**，与数据的来源毫无关联。
+关于 GraphQL 有一个常见的误区：GraphQL 的实施依赖于服务器端某种特定的实现。事实上，GraphQL 具有很强的灵活性。GraphQL 并不在乎请求是要发送给一个 [gRPC 服务器](https://github.com/iheanyi/go-grpc-graphql-simple-example)，或是 [REST 端点](https://github.com/apollographql/apollo-link-rest)，又或是[客户端缓存](https://github.com/apollographql/apollo-link-state)。GraphQL 是一门**针对数据的通用语言**，与数据的来源毫无关联。
 
 而这也就是为何 GraphQL 中的 query 与 mutation 可以完美地描述应用状态的状况。我们可以使用 GraphQL mutation 来表述应用状态的变化过程，而不是去发送某个 action。在查询应用状态时，GraphQL query 也能以一种声明式的方式描述出组件所需要的数据。
 
@@ -81,7 +80,7 @@ export const defaults = {
 fieldName: (obj, args, context, info) => result;
 ```
 
-如果你没见过以上这段类型签名，不要紧张，只需记住重要的两点: query 或者 mutation 的变量通过 `args` 参数传递给 resolver; Apollo cache 会作为 `context` 参数的一部分传递给 resolver。
+如果你没见过以上这段类型签名，不要紧张，只需记住重要的两点：query 或者 mutation 的变量通过 `args` 参数传递给 resolver；Apollo cache 会作为 `context` 参数的一部分传递给 resolver。
 
 ```
 export const defaults = { // same as before }
@@ -174,10 +173,10 @@ const withActiveState = graphql(GET_USERS_ACTIVE_TODOS, {
 
 ## 1.0 版本前的路线图
 
-尽管 `apollo-link-state` 的开发已足够稳定，可以投入实际应用的开发了，但仍有一些特性我们希望能尽快实现:
+尽管 `apollo-link-state` 的开发已足够稳定，可以投入实际应用的开发了，但仍有一些特性我们希望能尽快实现：
 
-* **客户端数据模式**: 当前，我们还不支持对客户端数据模式结构的类型校验，这是因为，如果要将用于运行时构建和校验数据模式的 `graphql-js` 模块放入依赖中，会显著增大网站资源文件的大小。为了避免这点，我们希望能将数据模式的构建转移到项目的构建阶段，从而达到对类型校验的支持，并也可以用到 GraphiQL 中的各种很酷的功能。
-* **辅助组件**: 我们的目标是让 Apollo 的状态管理尽可能地与应用无缝连接。我们会写一些 React 组件，使得某些常见需求的实现不再繁琐，譬如在代码层面上允许直接将程序中的变量作为参数传递给某个 mutation 当中，然后在内部直接以 mutation 的方式实现。
+* **客户端数据模式**：当前，我们还不支持对客户端数据模式结构的类型校验，这是因为，如果要将用于运行时构建和校验数据模式的 `graphql-js` 模块放入依赖中，会显著增大网站资源文件的大小。为了避免这点，我们希望能将数据模式的构建转移到项目的构建阶段，从而达到对类型校验的支持，并也可以用到 GraphiQL 中的各种很酷的功能。
+* **辅助组件**：我们的目标是让 Apollo 的状态管理尽可能地与应用无缝连接。我们会写一些 React 组件，使得某些常见需求的实现不再繁琐，譬如在代码层面上允许直接将程序中的变量作为参数传递给某个 mutation 当中，然后在内部直接以 mutation 的方式实现。
 
 如果你对上述问题感兴趣，可以在 [GitHub](https://github.com/apollographql/apollo-link-state) 上加入我们的开发和讨论，或者进入 Apollo Slack 的 `#local-state` 频道。欢迎你来和我们一起构建下一代的状态管理方法！
 
