@@ -2,10 +2,10 @@
 > * 原文作者：[Vitaly Friedman](https://www.smashingmagazine.com/author/vitaly-friedman)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/front-end-performance-checklist-2018-2.md](https://github.com/xitu/gold-miner/blob/master/TODO/front-end-performance-checklist-2018-2.md)
-> * 译者：
-> * 校对者：
+> * 译者：[sakila1012](https://github.com/sakila1012)
+> * 校对者：[sunshine940326](https://github.com/sunshine940326),[xingqiwu55555](https://github.com/xingqiwu55555)
 
-# 前端性能目录2 2018
+# 2018 前端性能目录 第 2 部分
 
 下面是前端性能问题的概述，你可以参考以确保流畅的阅读本文。
 
