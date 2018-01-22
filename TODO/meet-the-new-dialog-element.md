@@ -3,13 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/meet-the-new-dialog-element.md](https://github.com/xitu/gold-miner/blob/master/TODO/meet-the-new-dialog-element.md)
 > * 译者：[FateZeros](https://github.com/fatezeros)
-> * 校对者：
+> * 校对者：[ryouaki](https://github.com/ryouaki)
 
 # 迎接新的 Dialog 元素
 
 ![用字母在前面装饰的旧铁邮箱](https://keithjgrant.com/images/2018/iron-mailbox.jpg)
 
-[HTML 5.2](https://www.w3.org/TR/html52/) 为原生弹窗对话框引入了一个新的 `<dialog>` 元素。 乍一看，它似乎相当简单（本来就是），但当我和它打交道的过程中，我发现了一些容易被忽略的很棒的特性。
+[HTML 5.2](https://www.w3.org/TR/html52/) 为原生弹窗对话框引入了一个新的 `<dialog>` 元素。 乍一看，它似乎相当简单（本来就是），但当我和它打交道的过程中，我发现有一些很棒的新特性很容易被忽视掉。
 
 在本文的最后我加上了一个完整可行的 Demo ，但是如果你想在阅读的过程中也查看的话，[你可以看这里](https://codepen.io/keithjgrant/pen/eyMMVL).
 
@@ -25,7 +25,7 @@
 
 ![对话框中的文本有加粗的黑色轮廓](https://keithjgrant.com/images/2018/native-dialog-basic.png)
 
-它在页面中是绝对定位的，因此它会按照你所期望的那样出现其他内容前面，并且水平居中。默认情况下，它和内容等宽。
+它在页面中是绝对定位的，因此它会按照你所期望的那样出现在其他内容前面，并且水平居中。默认情况下，它和内容等宽。
 
 ## 基本操作
 
@@ -37,7 +37,7 @@ const modal = document.querySelector('dialog');
 // 使对话框出现（添加 `open` 属性）
 modal.showModal();
 
-// 隐藏对话款（移除 `open` 属性）
+// 隐藏对话框（移除 `open` 属性）
 modal.close();
 ```
 
@@ -45,7 +45,7 @@ modal.close();
 
 按 Esc 键会关闭对话框，你也可以提供一个关闭按钮来触发 `close()` 方法。
 
-还有第三种方法，`show()` 也会让对话款出现，但不会伴随背景层。用户仍可以和对话框之外的可见的元素进行交互。
+还有第三个方法，`show()` 也会让对话框出现，但不会伴随背景层。用户仍可以和对话框之外的可见的元素进行交互。
 
 ### 浏览器支持和 Polyfill
 
@@ -63,7 +63,7 @@ dialogPolyfill.registerDialog(modal);
 
 ## 样式
 
-打开和关闭对话框完成了，但是它起初看起来并不专业。我们像给其他元素添加样式那样，给对话款添加样式。背景层可以用新的 `::backdrop` 伪元素来设计。
+打开和关闭对话框完成了，但是它起初看起来并不专业。我们像给其他元素添加样式那样，给对话框添加样式。背景层可以用新的 `::backdrop` 伪元素来设计。
 
 ```
 dialog {
@@ -79,7 +79,7 @@ dialog::backdrop {
 }
 ```
 
-对于使用 polyfill 更旧版本的浏览器，这个伪元素选择器将不会起作用，然而，在这个对话框位置后，polyfill 会立即添加一个 `.backdrop` 元素。你可以像这样用 CSS 来定位它：
+对于那些需要使用 polyfill 的老浏览器，这个伪元素选择器将不会起作用，然而，在这个对话框位置后，polyfill 会立即添加一个 `.backdrop` 元素。你可以像这样用 CSS 来定位它：
 
 ```
 dialog + .backdrop {
@@ -87,7 +87,7 @@ dialog + .backdrop {
 }
 ```
 
-添加更多的标记来提供样式的钩子。一个对话框常用的方法是将它分解为标题，正文和页脚：
+添加更多的标记来提供样式的钩子。一个常用的做法是将对话框划分为标题，正文和页脚：
 
 ```
 <dialog id="demo-modal">
@@ -102,11 +102,11 @@ dialog + .backdrop {
 </dialog>
 ```
 
-给它添加一些 CSS ，你可以让对话框做成任何你想要的外形：
+给它添加一些 CSS ，你可以让对话框做成任何你想要的外观：
 
+  
 
-
-## 更对控制
+## 更多控制
 
 通常，我们想要从对话框中获得更多用户反馈。当关闭对话框时，你可以传递一个字符串值到 `close()` 方法。该值将会被赋值给对话框 DOM 元素的 `retrunValue`属性，因此它可以在后面被读取到：
 
@@ -118,7 +118,7 @@ console.log(modal.returnValue); // logs `Accepted`
 
 还有一些事件你可以监听。两个有用的事件是 `close` （当对话框关闭的时候触发）和 `cancel` （当用户按了 Esc 关闭对话框时触发）。
 
-有一件事似乎被忘掉了，当背景层被点击时能够关闭对话框，但有一个变通方案。当点击背景层时，触发 `<dialog>` 的点击事件作为事件目标。而且，如果你构造对话框使得子元素填充了整个空间，那些子元素将会作为对话框内任何点击的目标。这中方式，你可以监听对话框上的点击，当点击事件的目标时对话框本身的时候关闭它：
+有一件事似乎被忘掉了，当背景层被点击时能够关闭对话框，但有一个变通方案。当点击背景层时，触发 `<dialog>` 的点击事件作为事件目标。而且，如果你构造对话框使得子元素填充了整个对话框，那些子元素将会被作为对话框内任何点击的目标。这种方式，你可以监听对话框上的点击，当点击事件的目标是对话框本身的时候关闭它：
 
 ```
 modal.addEventListener('click', (event) => {
@@ -128,11 +128,11 @@ modal.addEventListener('click', (event) => {
 });
 ```
 
-虽然不完美，但是起了作用。如果你找到了更好的方法来监听背景层上的点击，请让我知道。
+虽然不完美，但是起了作用。如果你找到了更好的方法来检测背景层上的点击，请让我知道。
 
 ## 完整可行的 Demo
 
-我在下面的示例中演示了很多东西。亲自实践下，看你能用 `<dialog>` 做些什么。它包含了 polyfill，所以它应该能在大多数浏览器中运行。
+我在下面的示例中演示了很多东西。亲自实践下，看你还能用 `<dialog>` 做些什么。它包含了 polyfill，所以它应该能在大多数浏览器中运行。
 
 请参阅 Keith J. Grant ([@keithjgrant](https://codepen.io/keithjgrant)) 在 [CodePen](https://codepen.io) 上的 [<dialog>](https://codepen.io/keithjgrant/pen/eyMMVL/)。
 
