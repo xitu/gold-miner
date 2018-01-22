@@ -7,34 +7,34 @@
 
 # 前端性能目录2 2018
 
-下面是前端性能问题的概述，可以可能需要考虑确保你的响应时间快速和流畅性。
+下面是前端性能问题的概述，你可以参考以确保流畅的阅读本文。
 
-- [前端性能目录1 2018](https://github.com/xitu/gold-miner/blob/master/TODO/front-end-performance-checklist-2018-1.md)
-- [前端性能目录2 2018](https://github.com/xitu/gold-miner/blob/master/TODO/front-end-performance-checklist-2018-2.md)
-- [前端性能目录3 2018](https://github.com/xitu/gold-miner/blob/master/TODO/front-end-performance-checklist-2018-3.md)
-- [前端性能目录4 2018](https://github.com/xitu/gold-miner/blob/master/TODO/front-end-performance-checklist-2018-4.md)
+- [2018 前端性能目录 第 1 部分](https://github.com/xitu/gold-miner/blob/master/TODO/front-end-performance-checklist-2018-1.md)
+- [2018 前端性能目录 第 2 部分](https://github.com/xitu/gold-miner/blob/master/TODO/front-end-performance-checklist-2018-2.md)
+- [2018 前端性能目录 第 3 部分](https://github.com/xitu/gold-miner/blob/master/TODO/front-end-performance-checklist-2018-3.md)
+- [2018 前端性能目录 第 4 部分](https://github.com/xitu/gold-miner/blob/master/TODO/front-end-performance-checklist-2018-4.md)
 
 ***
 
-11. **你会使用 AMP 和 Instant Articles 么？**
+11. **你会在你的项目中使用 AMP 和 Instant Articles 么？**
 
-依赖于你的组织优先性和战略性，你可能想考虑使用谷歌的 [AMP](https://www.ampproject.org/) 和 Facebook 的[Instant Articles](https://instantarticles.fb.com/)或者苹果的[苹果的新闻](https://www.apple.com/news/)。没有它们，你可以实现很好的性能，但是AMP确实提供了一个免费的内容交付网络（CDN）的性能框架，而即时文章将提高你在Facebook上的关注度和性能。。
+依赖于你的组织优先性和战略性，你可能想考虑使用谷歌的 [AMP](https://www.ampproject.org/) 和 Facebook 的[Instant Articles](https://instantarticles.fb.com/)或者苹果的[Apple News](https://www.apple.com/news/)。没有它们，你可以实现很好的性能，但是 AMP 确实提供了一个免费的内容分发网络（CDN）的性能框架，而即时文章将提高你在 Facebook 上的知名度和表现。
 
-对于用户而言，这些技术主要的优势是确保性能，但是有时他们宁愿喜欢 AMP-/Apple News/Instant Pages-链路，也不愿是“常规”和潜在的臃肿页面。对于以内容为主的网站，主要处理很多第三方法内容，这些选择极大地加速渲染的时间。
+对于用户而言，这些技术主要的优势是确保性能，但是有时他们宁愿喜欢 AMP-/Apple News/Instant Pages 链路，也不愿是“常规”和潜在的臃肿页面。对于以内容为主的网站，主要处理很多第三方法内容，这些选择极大地加速渲染的时间。
 
-对于网站的所有者优势是明显的：在各个平台规范的可发现性和[增加搜索引擎的可用性](https://ethanmarcotte.com/wrote/ampersand/)。你也可以通过把AMP作为你的PWA数据源来构建[渐进增强的 Web 体验](https://www.smashingmagazine.com/2016/12/progressive-web-amps/)。缺点？显然，在一个有围墙的区域里，开发者可以创造并维持其内容的单独版本，防止 Instant Articles 和 Apple News [没有实际的URLs](https://www.w3.org/blog/TAG/2017/07/27/distributed-and-syndicated-content-whats-wrong-with-this-picture/)。_(谢谢 Addy，Jeremy)_
+对于网站的所有者优势是明显的：在各个平台规范的可发现性和[增加搜索引擎的可见性](https://ethanmarcotte.com/wrote/ampersand/)。你也可以通过把 AMP 作为你的 PWA 数据源来构建[渐进增强的 Web 体验](https://www.smashingmagazine.com/2016/12/progressive-web-amps/)。缺点？显然，在一个有围墙的区域里，开发者可以创造并维持其内容的单独版本，防止 Instant Articles 和 Apple News [没有实际的URLs](https://www.w3.org/blog/TAG/2017/07/27/distributed-and-syndicated-content-whats-wrong-with-this-picture/)。_(谢谢 Addy，Jeremy)_
 
 12. **明智地选择你的 CDN**
 
 根据你拥有的动态数据量，你可以将部分内容外包给[静态站点生成器](https://www.smashingmagazine.com/2015/11/static-website-generators-jekyll-middleman-roots-hugo-review/)，将其放在 CDN 中并从中提供一个静态版本。因此可以避免数据的请求。你甚至可以选择一个基于 CDN 的[静态主机平台](https://www.smashingmagazine.com/2015/11/modern-static-website-generators-next-big-thing/)，将交互组件作为增强来充实你的页面([jamstack](https://jamstack.org/))。
 
-注意，CDN 也可以服务（卸载）动态内容。因此，限制你的 CDN 到静态资源是不必要的。仔细检查你的CDN是否进行压缩和转换（比如：图像优化方面的格式，压缩和调整边缘的大小），智能 HTTP/2 交付，边侧包括，在 CDN 边缘组装页面的静态和动态部分（比如：离用户最近的服务端），和其他任务。
+注意，CDN 也可以服务（卸载）动态内容。因此，限制你的 CDN 到静态资源是不必要的。仔细检查你的 CDN 是否进行压缩和转换（比如：图像优化方面的格式，压缩和调整边缘的大小），智能 HTTP/2 交付，边侧包括，在 CDN 边缘组装页面的静态和动态部分（比如：离用户最近的服务端），和其他任务。
 
 ### 构建优化
 
 13. **分清轻重缓急**
 
-优先知道你在处理什么是个好主意。管理你所有资产的清单（JavaScript，图片，字体，第三方脚本和页面中“昂贵的”模块，比如：轮播图，复杂的图表和多媒体内容），并将它们划分成组。
+知道你应该优先处理什么是个好主意。管理你所有资产的清单（JavaScript，图片，字体，第三方脚本和页面中“昂贵的”模块，比如：轮播图，复杂的图表和多媒体内容），并将它们划分成组。
 
 建立电子表格。针对传统的浏览器，定义基本的_核心_体验（比如：完全可访问的核心内容），针对多功能浏览器_提升_体验（比如：丰富多彩的，完美的体验）和其他的（不是绝对需要而且可以被延迟加载的资源，如 Web 字体、不必要的样式、旋转木马脚本、视频播放器、社交媒体按钮、大型图像。）。我们在“[Improving Smashing Magazine's Performance](https://www.smashingmagazine.com/2014/09/improving-smashing-magazine-performance-case-study/)”发布了一篇文章，上面详细描述了该方法。
 
@@ -48,7 +48,7 @@
 
 但我们处理单页面应用时，在你可以渲染页面时，你需要一些时间来初始化 app。寻找模块和技术加快初始化渲染时间（例如：[这里是如何调试 React 性能](https://building.calibreapp.com/debugging-react-performance-with-react-16-and-chrome-devtools-c90698a522ad)，以及[如何提高 Angular 性能](https://www.youtube.com/watch?v=p9vT0W31ym8)），因为大多数性能问题来自于启动应用程序的初始解析时间。
 
-[JavaScript 有成本](https://youtu.be/_srJ7eHS3IM?t=9m33s)，但不一定是文件大小会影响性能。解析和执行时间的不同很大程度依赖设备的硬件。在一个普通的手机上（Moto G4），仅解析 1MB （未压缩的）的 JavaScript 大概需要 1.3-1.4 秒，会有 15 - 20% 的时间耗费在手机的解析上。在执行编译过程中，只是用在JavaScript准备平均需要 4 秒，在手机上绘排需要 11 秒。解释：在低端移动设备上，[解析和执行时间可以轻松提高2至5倍](https://medium.com/reloading/javascript-start-up-performance-69200f43b201)。
+[JavaScript 有成本](https://youtu.be/_srJ7eHS3IM?t=9m33s)，但不一定是文件大小会影响性能。解析和执行时间的不同很大程度依赖设备的硬件。在一个普通的手机上（Moto G4），仅解析 1MB （未压缩的）的 JavaScript 大概需要 1.3-1.4 秒，会有 15 - 20% 的时间耗费在手机的解析上。在执行编译过程中，只是用在JavaScript准备平均需要 4 秒，在手机上绘排需要 11 秒。解释：在低端移动设备上，[解析和执行时间可以轻松提高 2 至 5 倍](https://medium.com/reloading/javascript-start-up-performance-69200f43b201)。
 
  一种巧妙的避免解析代价发的方式是使用[二进制模板](https://emberjs.com/blog/2017/10/10/glimmer-progress-report.html#toc_binary-templates)，Ember 最近推出了实验。这些模板不需要解析。（_感谢，Leonardo！_）
 
@@ -70,9 +70,9 @@
 
 [Code-splitting](https://webpack.github.io/docs/code-splitting.html)是另一种 Webpack 特性，可以基于“chunks”分割你的代码然后按需加载这些代码块。并不是所有的 JavaScript 必须下载，解析和编译的。一旦在你的代码中确定了分割点，Webpack 会全权负责这些依赖关系和输出文件。在应用发送请求的时候，这样基本上确保初始的下载足够小并且实现按需加载。另外，考虑使用[preload-webpack-plugin](https://github.com/GoogleChromeLabs/preload-webpack-plugin)获取代码拆分的路径，然后使用 `<link rel="preload">` or `<link rel="prefetch">` 提示浏览器预加载它们。
 
-在哪里定义分离点？通过追踪使用哪些 CSS/JavaScript 块和哪些没有使用。Umar Hansa [解释了](https://vimeo.com/235431630#t=11m37s)你如何可以使用Devtools代码覆盖率来实现。
+在哪里定义分离点？通过追踪使用哪些 CSS/JavaScript 块和哪些没有使用。Umar Hansa [解释了](https://vimeo.com/235431630#t=11m37s)你如何可以使用Devtools 代码覆盖率来实现。
 
-如果你没有使用 Webpack，值得注意的是相比于 Browserify 输出结果 [Rollup](http://rollupjs.org/)展现的更加优秀。当使用 Rollup 时，我们会想要查看 [Rollupify](https://github.com/nolanlawson/rollupify)，它可以转化 ECMAScript 2015 modules 为一个大的 CommonJS module——因为取决于打包工具和模块加载系统的选择，小的模块会有[令人惊讶的高性能开销](https://nolanlawson.com/2016/08/15/the-cost-of-small-modules/)。
+如果你没有使用 Webpack，值得注意的是相比于 Browserify 输出结果 [Rollup](http://rollupjs.org/)展现的更加优秀。当使用 Rollup 时，我们会想要查看 [Rollupify](https://github.com/nolanlawson/rollupify)，它可以转化 ECMAScript 2015 modules 为一个大的 CommonJS module ——因为取决于打包工具和模块加载系统的选择，小的模块会有[令人惊讶的高性能开销](https://nolanlawson.com/2016/08/15/the-cost-of-small-modules/)。
 
 ![Addy Osmani 的'默认快速：现代负载最佳实践'](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/31237c37-d7db-4faa-9849-51657e122331/babel-preset-opt.png)
 
@@ -84,12 +84,11 @@ Addy Osmani 的从[快速默认：现代加载的最佳实践]（https://speaker
 
 18. **利用目标 JavaScript 引擎的优化。**
 
-研究 JavaScript 引擎在用户基础中占主导地位，然后探索优化它们的方法。例如，当优化的 V8 引擎是用在 Blink 浏览器，Node.js 运行和电子，对每个脚本充分利用[脚本流](https://blog.chromium.org/2015/03/new-javascript-techniques-for-rapid.html)。一旦下载开始，它允许 `async` 或 `defer scripts` 在一个单独的后台线程进行解析，因此在某些情况下，提高页面加载时间达 10%。实际上，在 `<head>` 
-中[使用 `<脚本延迟>`](https://medium.com/reloading/javascript-start-up-performance-69200f43b201#3498)，以致于[浏览器更早地可以发现资源](https://medium.com/reloading/javascript-start-up-performance-69200f43b201#3498)，然后在后台线程中解析它。
+研究 JavaScript 引擎在用户基础中占主导地位，然后探索优化它们的方法。例如，当优化的 V8 引擎是用在 Blink 浏览器，Node.js 运行和电子，对每个脚本充分利用[脚本流](https://blog.chromium.org/2015/03/new-javascript-techniques-for-rapid.html)。一旦下载开始，它允许 `async` 或 `defer scripts` 在一个单独的后台线程进行解析，因此在某些情况下，提高页面加载时间达 10%。实际上，在 `<head>` 中[使用 `<脚本延迟>`](https://medium.com/reloading/javascript-start-up-performance-69200f43b201#3498)，以致于[浏览器更早地可以发现资源](https://medium.com/reloading/javascript-start-up-performance-69200f43b201#3498)，然后在后台线程中解析它。
 
 **Caveat**：_Opera Mini [不支持 defement 脚本](https://caniuse.com/#search=defer)，如果你正在为印度和非洲开发，`defer` 将会被忽略，导致阻塞渲染直到脚本已经评估了（感谢 Jeremy）!_。
 
-[[渐进引导](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/ab06acd3-833a-4634-abf9-fc8d91939250/fmp-and-tti-opt.jpeg)](https://aerotwist.com/blog/when-everything-is-important-nothing-is/)
+[![渐进引导](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/ab06acd3-833a-4634-abf9-fc8d91939250/fmp-and-tti-opt.jpeg)](https://aerotwist.com/blog/when-everything-is-important-nothing-is/)
 
 [渐进引导](https://aerotwist.com/blog/when-everything-is-important-nothing-is/)：使用服务器端呈现获得第一个快速的有意义的绘排，而且还要包含一些最小必要的 JavaScript 来保持实时交互来接近第一次的绘排。
 
@@ -113,7 +112,7 @@ Addy Osmani 的从[快速默认：现代加载的最佳实践]（https://speaker
 
 另一个选择是建立一个 **内容安全策略(CSP)** 来限制第三方脚本的影响，比如：不允许下载音频和视频。最好的选择是通过 `<iframe>` 嵌入脚本以致于脚本运行在 iframe 环境中，因此如果没有接入页面 DOM 的权限，在你的域下不能运行任何代码。Iframe 可以 使用 `sandbox` 属性进一步限制，因此你可以禁止 iframe 的任何功能，比如阻止脚本运行，阻止警告、表单提交、插件、访问顶部导航等等。
 
-例如，它可能需要允许脚本运行 `<iframe sandbox="allow-scripts">`。每一个限制都可以通过'允许'值在'sandbox'属性（[几乎处处支持](https://caniuse.com/#search=sandbox)）解除，所以把他们限制在最低限度的允许他们去做的事情上。考虑使用[Safeframe](https://github.com/interactiveadvertisingbureau/safeframe)和交叉观察；这将使广告嵌入iframe的同时仍然调度事件或需要从DOM获取信息（例如广告知名度）。注意新的策略如[特征策略](https://wicg.github.io/feature-policy/)），资源的大小限制，CPU和带宽优先级限制损害的网络功能和会减慢浏览器的脚本，例如：同步脚本，同步XHR请求，document.write 和超时的实现。
+例如，它可能需要允许脚本运行 `<iframe sandbox="allow-scripts">`。每一个限制都可以通过'允许'值在'sandbox'属性（[几乎处处支持](https://caniuse.com/#search=sandbox)）解除，所以把他们限制在最低限度的允许他们去做的事情上。考虑使用[Safeframe](https://github.com/interactiveadvertisingbureau/safeframe)和交叉观察；这将使广告嵌入 iframe 的同时仍然调度事件或需要从 DOM 获取信息（例如广告知名度）。注意新的策略如[特征策略](https://wicg.github.io/feature-policy/)），资源的大小限制，CPU 和带宽优先级限制损害的网络功能和会减慢浏览器的脚本，例如：同步脚本，同步 XHR 请求，document.write 和超时的实现。
 
 为了[压测第三方](https://csswizardry.com/2017/07/performance-and-resilience-stress-testing-third-parties/)，在 DevTools 上自底向上概要地检查页面的性能，测试如果一个请求被阻塞了会发生什么或者对于后面的请求有超时限制，你可以使用 WebPageTest's Blackhole 服务器 `72.66.115.13`，同时可以在你的 `hosts` 文件中指定特定的域名。最好是[自我主机和使用一个单一的主机名](https://www.twnsnd.com/posts/performant_third_party_scripts.html)，但是同时[生成一个请求映射](https://www.soasta.com/blog/10-pro-tips-for-managing-the-performance-of-your-third-party-scripts/)，当脚本变化时，暴露给第四方调用和检测。
 
