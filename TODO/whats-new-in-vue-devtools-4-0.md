@@ -3,11 +3,11 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/whats-new-in-vue-devtools-4-0.md](https://github.com/xitu/gold-miner/blob/master/TODO/whats-new-in-vue-devtools-4-0.md)
 > * 译者：[MechanicianW](https://github.com/MechanicianW)
-> * 校对者：
+> * 校对者：[okaychen](https://github.com/okaychen) [FateZeros](https://github.com/FateZeros)
 
 # Vue Devtools 4.0 有哪些新内容
 
-几天前，Vue devtools 发布了重大更新。让我们来看看有哪些新功能与改进！🎄（译者注： 以下视频源都是 youtube，需自备梯子）
+几天前，Vue devtools 发布了重大更新。让我们来看看有哪些新特性与改进！🎄（译者注： 以下视频源都是 youtube，需自备梯子）
 
 ### 可编辑的组件 data
 
@@ -26,7 +26,7 @@
 
 * `null` 和 `undefined`
 * `String`
-* 字面量 `Boolean` , `Number` , `Infinity` , `-Infinity` 和 `NaN`
+* 字面量： `Boolean` , `Number` , `Infinity` , `-Infinity` 和 `NaN`
 * Arrays
 * Plain objects
 
@@ -66,7 +66,7 @@
 
 这一功能由 [manico](https://github.com/manico) 提出的 PR 实现
 
-默认情况下，组件名都会被格式化为驼峰形式。你可以通过切换组件标签下的 "Format component names" 按钮来禁用这一功能。这一设置会被记忆并应用到 Event 标签页中。
+默认情况下，组件名都会被格式化为驼峰形式。你可以通过切换组件标签下的 "Format component names" 按钮来禁用这一功能。这个设置将被记住，它也将被应用到 Events 标签页中。
 
 <iframe width="700" height="393" src="https://www.youtube.com/embed/PoZmEcCdSbU" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
@@ -106,7 +106,7 @@ export default {
 
 这一功能由 [eigan](https://github.com/eigan) 提出的 PR 实现
 
-现在你可以按发出事件的组件来过滤事件历史了。输入 `<` 符号，后面跟着组件全名或组件名的一部分：
+现在你可以按发出事件的组件来过滤历史事件了。输入 `<` 符号，后面跟着组件全名或组件名的一部分：
 
 <iframe width="700" height="393" src="https://www.youtube.com/embed/wytquoUPSFo" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
@@ -120,7 +120,7 @@ Vuex 检查器的输入框现在有了过滤功能：
 
 ### 垂直布局
 
-PR by [crswll](https://github.com/crswll)
+这一功能由 [crswll](https://github.com/crswll) 提出的 PR 实现
 
 devtools 不够宽时，将切换到更方便使用的垂直布局。你可以像水平模式下一样，移动上下窗格间的分隔线。
 
@@ -128,7 +128,7 @@ devtools 不够宽时，将切换到更方便使用的垂直布局。你可以�
 
 ### 滚动到组件功能改进
 
-默认情况下，点击组件将不再自动滚动到该组件的视图部分。相反，你需要点击新的 "Scroll into view" 图标才能滚动到组件：
+默认情况下，点击组件将不再自动滚动到该组件的视图部分。相反，你需要点击新的 "Scroll into view" 图标才能滚动到该组件：
 
 ![](https://cdn-images-1.medium.com/max/800/1*TJEfzB4ifK8t-5kpbZieRw.png)
 
@@ -157,11 +157,11 @@ devtools 不够宽时，将切换到更方便使用的垂直布局。你可以�
 如果你发现任何问题或是有新的功能建议，[请分享出来](https://new-issue.vuejs.org/?repo=vuejs/vue-devtools)！
 * * *
 
-### 接下来会有什么大动作?
+### 接下来会有什么大动作？
 
 具有更多功能特性的新版本即将发布，如在页面中直接选中组件（选色板风格）和一些 UI 改进。
 
-我们也有一些仍在进行中的工作，比如允许在任意环境（不仅仅是 Chrome 和 Firefox）进行 debug 的独立 Vue devtools app，全新的路由标签页，以及对 `Set` 和 `Map` 类型的支持。
+我们也有一些仍在进行中的工作，比如允许在任意环境（不仅仅是 Chrome 和 Firefox）进行 debug 的独立 Vue devtools app，全新的路由标签页，以及对 `Set` 和 `Map` 类型支持的改进。
 
 敬请关注！
 
