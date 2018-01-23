@@ -78,7 +78,7 @@ hello world
 $
 ```
 
-到目前为止一切顺利。Rust 正常工作了，或者至少说，Rust的编译器在正常工作。
+到目前为止一切顺利。Rust 正常工作了，或者至少说，Rust 的编译器在正常工作。
 
 有位朋友建议我尝试使用 [nickle.rs](http://nickel-org.github.io/)，那是 Rust 的 一个 Web 应用框架。我觉得不错。
 
