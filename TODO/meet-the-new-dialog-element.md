@@ -9,9 +9,9 @@
 
 ![用字母在前面装饰的旧铁邮箱](https://keithjgrant.com/images/2018/iron-mailbox.jpg)
 
-[HTML 5.2](https://www.w3.org/TR/html52/) 为原生弹窗对话框引入了一个新的 `<dialog>` 元素。 乍一看，它似乎相当简单（本来就是），但当我和它打交道的过程中，我发现有一些很棒的新特性很容易被忽视掉。
+[HTML 5.2](https://www.w3.org/TR/html52/) 为原生弹窗对话框引入了一个新的 `<dialog>` 元素。乍一看，它似乎相当简单（本来就是），但当我和它打交道的过程中，我发现有一些很棒的新特性很容易被忽视掉。
 
-在本文的最后我加上了一个完整可行的 Demo ，但是如果你想在阅读的过程中也查看的话，[你可以看这里](https://codepen.io/keithjgrant/pen/eyMMVL).
+在本文的最后我加上了一个完整可行的 Demo，但是如果你想在阅读的过程中也查看的话，[你可以看这里](https://codepen.io/keithjgrant/pen/eyMMVL)。
 
 这是一个基本的弹窗对话框标记：
 
@@ -29,7 +29,7 @@
 
 ## 基本操作
 
-JavaScript 有几个方法和属性可以方便地处理 `<dialog>` 元素。你可能最需要的两个方法是 `showModal()` 和 `close()` 。
+JavaScript 有几个方法和属性可以方便地处理 `<dialog>` 元素。你可能最需要的两个方法是 `showModal()` 和 `close()`。
 
 ```
 const modal = document.querySelector('dialog');
@@ -49,7 +49,7 @@ modal.close();
 
 ### 浏览器支持和 Polyfill
 
-现在，只有 Chrome 支持 `<dialog>` 。Firefox 提供了默认样式，但是 JavaScript API 仅在标志后启用。我猜想 Firefox 会很快支持它。
+现在，只有 Chrome 支持 `<dialog>`。Firefox 提供了默认样式，但是 JavaScript API 仅在标志后启用。我猜想 Firefox 会很快支持它。
 
 庆幸地是，[polyfill](https://github.com/GoogleChrome/dialog-polyfill) 提供了 JavaScript 事件和默认样式。用 npm 安装 `dialog-polyfill` 来使用它 —— 或者使用常用的旧的 `<script>` 标签。这样 `<dialog>` 就可以在 IE9及以上版本中使用了。
 
@@ -102,7 +102,7 @@ dialog + .backdrop {
 </dialog>
 ```
 
-给它添加一些 CSS ，你可以让对话框做成任何你想要的外观：
+给它添加一些 CSS，你可以让对话框做成任何你想要的外观：
 
   
 
@@ -116,7 +116,7 @@ modal.close('Accepted');
 console.log(modal.returnValue); // logs `Accepted`
 ```
 
-还有一些事件你可以监听。两个有用的事件是 `close` （当对话框关闭的时候触发）和 `cancel` （当用户按了 Esc 关闭对话框时触发）。
+还有一些事件你可以监听。两个有用的事件是 `close` （当对话框关闭的时候触发）和 `cancel`（当用户按了 Esc 关闭对话框时触发）。
 
 有一件事似乎被忘掉了，当背景层被点击时能够关闭对话框，但有一个变通方案。当点击背景层时，触发 `<dialog>` 的点击事件作为事件目标。而且，如果你构造对话框使得子元素填充了整个对话框，那些子元素将会被作为对话框内任何点击的目标。这种方式，你可以监听对话框上的点击，当点击事件的目标是对话框本身的时候关闭它：
 
