@@ -2,7 +2,7 @@
 > * 原文作者：[Hafiz Waleed Hussain](http://www.uwanttolearn.com/author/admin/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/continuation-summer-vs-winter-observable-dialogue-rx-observable-developer-android-rxjava2-hell-part6.md](https://github.com/xitu/gold-miner/blob/master/TODO/continuation-summer-vs-winter-observable-dialogue-rx-observable-developer-android-rxjava2-hell-part6.md)
-> * 译者：
+> * 译者：[hanliuxin5](https://github.com/hanliuxin5)
 > * 校对者：
 
 # Continuation (Summer vs Winter Observable) of Dialogue between Rx Observable and a Developer (Me) [ Android RxJava2 ] ( What the hell is this ) Part6
