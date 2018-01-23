@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/meet-the-new-dialog-element.md](https://github.com/xitu/gold-miner/blob/master/TODO/meet-the-new-dialog-element.md)
 > * 译者：[FateZeros](https://github.com/fatezeros)
-> * 校对者：[ryouaki](https://github.com/ryouaki)
+> * 校对者：[ryouaki](https://github.com/ryouaki) [PCAaron](https://github.com/PCAaron)
 
 # 迎接新的 Dialog 元素
 
@@ -41,7 +41,7 @@ modal.showModal();
 modal.close();
 ```
 
-当你用 `showModal()` 打开对话框的时候，页面会添加一层背景，阻止用户与对话框之外的内容交互。默认情况下，这层背景是完全透明的，但是你可以改变 CSS 使它可见（后面会有更多介绍）。
+当你用 `showModal()` 打开对话框的时候，页面会添加一层背景，阻止用户与对话框之外的内容交互。默认情况下，这层背景是完全透明的，但是你可以改变 CSS 属性使它可见（后面会有更多介绍）。
 
 按 Esc 键会关闭对话框，你也可以提供一个关闭按钮来触发 `close()` 方法。
 
@@ -59,7 +59,7 @@ modal.close();
 dialogPolyfill.registerDialog(modal);
 ```
 
-这不会替代使用它的浏览器中的原生事件。
+这不会替代拥有它的浏览器中的原生事件。
 
 ## 样式
 
