@@ -3,17 +3,17 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/2018-design-trends.md](https://github.com/xitu/gold-miner/blob/master/TODO/2018-design-trends.md)
 > * 译者：[pot-code](https://github.com/pot-code)
-> * 校对者：
+> * 校对者：[wzy816](https://github.com/wzy816)、[ryouaki](https://github.com/ryouaki)
 
 # 2018 设计趋势
 
 ![](https://mir-s3-cdn-cf.behance.net/project_modules/1400/ceb29959540015.5a2e0a1760c84.jpg)
 
-为项目选一个合适的设计风格越来越难，挑战也很大。如何才能吸引观众呢，怎样才能让自己的设计从竞争激烈、信息过载的市场中脱颖而出呢？即便这是个信息驱动的世界，设计还是有机会让人们在情感上产生共鸣，从而打造出符合人直觉的交互体验。
+为项目选一个合适的设计风格越来越关键，挑战也很大。如何才能吸引观众呢，怎样才能让自己的设计从竞争激烈、信息过载的市场中脱颖而出呢？即便这是个信息驱动的世界，设计还是有机会让人们在情感上产生共鸣，从而打造出符合人直觉的交互体验。
 
 ## 双色调和双重曝光
 
-2015 年末，潘通公布了 2016 年的代表色为静谧蓝（Serenity）和粉晶（Rose Quartz），这一声明震惊了设计界。可能正是因为这点，引领了数码界渐渐使用双色调的趋势。到了 2016 年，大量网站开始采用双色调的设计风格，试图营造一种富有冲击力和活力的氛围，典型的如 SpotifyBy。最后到了 2017 年，这种风格已经烂大街了。2018 年比以前还是有所进步：多了双重曝光的效果，倒也能在某些照片中表现出均衡的色感、增加一点戏剧性。
+2015 年末，Pantone（潘通）公布了 2016 年的代表色为静谧蓝（Serenity）和粉晶（Rose Quartz），这一声明震惊了设计界。可能正是因为这点，引领了数码界渐渐使用双色调的趋势。到了 2016 年，大量网站开始采用双色调的设计风格，试图营造一种富有冲击力和活力的氛围，典型的如 SpotifyBy。最后到了 2017 年，这种风格已经烂大街了。2018 年比以前还是有所进步：多了双重曝光的效果，倒也能在某些照片中表现出均衡的色感、增加一点戏剧性。
 
 ![](https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/977c3359540015.5a264983aaf6c.png)
 
@@ -135,9 +135,9 @@ Rubik，由 [molistudio ™](https://www.behance.net/moli) 和 [Peter Tarka](htt
 
 [League of Legends Mid-Season Invitational and World Championship Branding](https://www.behance.net/gallery/58298917/LEAGUE-OF-LEGENDS-RIOT-GAMES)，由 [ILOVEDUST](https://www.behance.net/ilovedust) 设计
 
-## Isometric 风格
+## 等轴设计
 
-设计也不必拘泥于二维的，可以尝试多种透视风格。Isometric 将物体分布在三个维度来隔离彼此，可以给创作带来更多机遇，或可一展宏图。
+设计也不必拘泥于二维的，可以尝试多种透视风格。等轴设计将物体分布在三个维度来隔离彼此，可以给创作带来更多机遇，或可一展宏图。
 
 ![](https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/3392d659540015.5a2661222579b.png)
 
@@ -173,10 +173,11 @@ Rubik，由 [molistudio ™](https://www.behance.net/moli) 和 [Peter Tarka](htt
 
 [Red Collar Digital Agency](http://redcollar.digital/)
 
-希望 2018 年，这些设计趋势不止成为趋势，还能成为主流！设计能更加大胆，能有更多出色、独特的设计让人记住。观众们可以期待以后的设计能带来更多沉浸式的体验，在信息量和美观度之间达到平衡的同时，还能沁人心扉。
+希望 2018 年，这些设计趋势不止成为趋势，还能成为主流；设计也能更加大胆，能有更多出色、独特的设计让人记住。观众们可以期待以后的设计能带来更多沉浸式的体验，在信息量和美观度之间达到平衡的同时，还能沁人心扉。
 
 2018 年的设计，绝对碉堡了。
 
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
+ 
