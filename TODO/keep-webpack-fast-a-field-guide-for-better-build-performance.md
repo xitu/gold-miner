@@ -109,7 +109,7 @@ webpack 的很多工作本身就是并行的。 通过把工作扩展到尽可�
 
 #### **简化压缩**
 
-压缩是一个巨大的时间沉淀 - 占据我们三分之一到一半的构建时间。我们评估了不同的工具，从[Butternut](https://github.com/Rich-Harris/butternut) 到 [babel-minify](https://github.com/babel/minify)，结果却发现 UglifyJS 在并行配置下是最快的。
+压缩是一个巨大的时间沉淀 - 占据我们三分之一到一半的构建时间。我们评估了不同的工具，从 [Butternut](https://github.com/Rich-Harris/butternut) 到 [babel-minify](https://github.com/babel/minify)，结果却发现 UglifyJS 在并行配置下是最快的。
 
 然而，对我们来说，关于要处理的性能问题相关的核心信息 [被埋在作者的长篇大论之下](https://github.com/mishoo/UglifyJS2/blob/ae67a4985073dcdaa2788c86e576202923514e0d/README.md#uglify-fast-minify-mode)
 
@@ -245,7 +245,7 @@ webpack所做的很多工作都在加载器/插件执行之外，而且大部分
 
 ### 后话
 
-webpack 是一个梦幻般的，多功能工具，不需要花费天价。这些技术帮助我们将建造时间的中位数从 170 秒缩短到了 17 秒，尽管他们为我们的工程师们提高了部署经验，但他们并不是一个已经十分完善的项目。如果您对如何进一步提高构建性能有任何想法，我们很乐意听取您的意见。当然，如果你喜欢解决这些问题 [来和我们一起工作吧](https://slack.com/careers)！
+webpack 是一个梦幻般的，多功能工具，不需要花费天价。这些技术帮助我们将建造时间的中位数从 170 秒缩短到了 17 秒，尽管他们为我们的工程师们提高了部署经验，但他们并不是一个已经十分完善的项目。如果您对如何进一步提高构建性能有任何想法，我们很乐意听取您的意见。当然，如果你喜欢解决这些问题 [来和我们一起工作吧](https://slack.com/careers)!
 
 非常感谢 Mark Christian, Mioi Hanaoka, Anuj Nair, Michael “Z” Goddard, Sean Larkin and, of course, Tobias Koppers 对这篇文章和  webpack 项目做出的贡献。
 
