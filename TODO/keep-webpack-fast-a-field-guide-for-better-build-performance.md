@@ -23,29 +23,29 @@
 
 构建性能一直是 webpack 用户群的关注重点，尽管核心团队在过去几个月里一直在努力改进，但你仍然可以采取很多方法来自行改进自己的构建。下面的这些技巧帮助我们将构建时间缩短了10倍，我们将它们分享出来，希望能帮助到大家。
 
-### Before you begin, measure
+### 开始前，先测量
 
-It’s crucial to understand where time is being spent before you attempt to optimize. webpack isn’t forthcoming with this information but there are other ways to get what you need.
+在尝试优化之前，最重要的是了解时间在哪里被浪费掉了。webpack 没有提供这些信息，但这些必需的信息还有其他的方法来得到。
 
-#### The node inspector
+#### Node.js 的 inspector
 
-Node ships with an [inspector](https://nodejs.org/en/docs/inspector/) that can be used to profile builds. Those unfamiliar with performance profiling need not be discouraged: Google has worked hard to explain how to do so in [great detail](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/reference). A rough understanding of the phases of a webpack build will be of great benefit here and while [their documentation](https://webpack.js.org/concepts/) covers this in brief you may find it just as effective to read through some of the [core](https://github.com/webpack/webpack/blob/0975d13da711904429c6dd581422c755dd04869c/lib/Compiler.js) [code](https://github.com/webpack/webpack/blob/b597322e3cb701cf65c6d6166c39eb6825316ab7/lib/Compilation.js).
+Node自带了一个可以用来分析构建的 [inspector](https://nodejs.org/en/docs/inspector/)。如果你不熟悉性能分析，不需要灰心：Google很努力地解释了 [实现的细节](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/reference)。对 webpack 构建阶段的粗略理解在这里将是非常有益的，尽管[他们的文档](https://webpack.js.org/concepts/) 简要介绍了这一点，但如果阅读一些 [核心](https://github.com/webpack/webpack/blob/0975d13da711904429c6dd581422c755dd04869c/lib/Compiler.js) [代码](https://github.com/webpack/webpack/blob/b597322e3cb701cf65c6d6166c39eb6825316ab7/lib/Compilation.js) 是非常有益的。
 
-Note that if your build is sufficiently large (think hundreds of modules or longer than a minute), you may need to break your profiling into sections to prevent your developer tools from crashing.
+请注意，如果您的构建足够大（比如有数百个模块或是需时超过一分钟），则可能需要将分析过程分解为多个部分，以防止开发人员工具崩溃。
 
-#### Long-term logging
+#### 长期记录
 
-Profiling helped us identify the slow parts of our build up front, but it wasn’t well suited to the observation of trends over time. We wanted each build to report granular timing data so that we could see how much time was spent in each of our expensive steps (transpilation, minification, and localization) and to determine whether our optimizations were working.
+分析帮助我们确定了我们构建前端的缓慢部分，但是它不适合随着时间的推移观察趋势。 我们希望每次构建都能够报告精确的时序数据，以便我们可以看到在每个昂贵的步骤（转译，简化和本地化）中花费了多少时间，并确定我们的优化是否有效。
 
-For us, the bulk of the work was done not by webpack itself but by the scores of loaders and plugins we relied on. By and large, these dependencies didn’t provide granular timing data, and while we would love to see webpack adopt a standardized way for third-parties to report this kind of information, we found we had to hand-roll some extra logging in the meantime.
+对于我们来说，大部分的工作不是由 webpack 本身完成的，而是由我们所依赖的各种加载器和插件完成的。总的来说，这些依赖并没有提供精确的时序数据，虽然我们希望看到 webpack 采用标准化的方式来向第三方报告这种信息，但是我们发现我们不得不与此同时手动进行一些额外的日志记录。
 
-For loaders, this meant forking our dependencies. Although this is not a great strategy long-term, it was incredibly useful for us to decipher slowness while we worked on optimization. Plugins, on the other hand, were much easier to profile.
+对于加载器来说，这意味着分开我们的依赖关系。虽然这不适合作为一个长期策略，但是在我们进行优化的时候，对于我们辨认出过程中缓慢的部分是非常有用的。另一方面，插件更容易分析。
 
-#### Measuring plugins on the cheap
+#### 便宜的测量插件
 
-Plugins attach themselves to [events](https://webpack.js.org/contribute/writing-a-plugin/) which correlate to the different phases of the build. By measuring the duration of these phases, we could roughly measure the execution time of our plugins.
+插件将自己附加到与构建的不同阶段相关的 [事件](https://webpack.js.org/contribute/writing-a-plugin/) 上。通过测量这些阶段的持续时间，我们可以粗略的测量我们插件的执行时间。
 
-[UglifyJSPlugin](https://github.com/webpack-contrib/uglifyjs-webpack-plugin) is an example of a plugin where this technique can be effective, as the bulk of its work is done during the [optimize-chunk-assets](https://github.com/webpack-contrib/uglifyjs-webpack-plugin/blob/d81ef5ac71481b9d5ba2055d55b27c7e18258739/src/index.js#L101) phase. Here’s a crude example of a plugin that measures this:
+[UglifyJSPlugin](https://github.com/webpack-contrib/uglifyjs-webpack-plugin) 是一个典型的测量插件，这种技术是有效的，因为其大部分工作是在 [optimize-chunk-assets](https://github.com/webpack-contrib/uglifyjs-webpack-plugin/blob/d81ef5ac71481b9d5ba2055d55b27c7e18258739/src/index.js#L101) 阶段。 下面是一个简单的插件例程：
 
 ```
 let CrudeTimingPlugin = function() {};
@@ -74,9 +74,9 @@ CrudeTimingPlugin.prototype.apply = function(compiler) {
 module.exports = CrudeTimingPlugin;
 ```
 
-Example of a plugin that crudely measures the execution time of UglifyJSPlugin. Take care to understand which phases your plugins execute in, as there may be overlap.
+上面的例子目的是粗略地测量 UglifyJSPlugin 的执行时间插。请注意了解插件将在哪些阶段执行，因为可能有重叠。
 
-Add it to your list of plugins, ahead of UglifyJS, and you’re good to go:
+把它添加到你的插件列表里，在 UglifyJS  之前，就像这样：
 
 ```
 const CrudeTimingPlugin = require('./crude-timing-plugin');
@@ -89,19 +89,19 @@ module.exports = {
 };
 ```
 
-The value of this information vastly outweighs the nuisance of getting it, and once you understand where the time is spent you can work to reduce it effectively.
+这些信息的价值大大超过了获取它的花费，一旦你明白了时间花在了哪里，就能够有效地减少花费的时间。
 
-### Parallelize
+### 并行操作
 
-A lot of the work webpack does lends itself naturally to parallelism. Dramatic gains can be had by fanning out the work to as many processors as possible, and if you have CPU cores to burn, now’s the time to burn them.
+webpack 的很多工作本身就是并行的。 通过把工作扩展到尽可能多的处理器上来获得巨大的效果，如果你有多余的CPU核心可“烧”，现在是“烧掉它”的时候了。
 
-Fortunately, there are a slew of packages built for this purpose:
+幸运的是，有一堆以此为目的打造的软件包:
 
-* [parallel-webpack](https://github.com/trivago/parallel-webpack) will perform whole webpack builds in parallel. We use this at Slack to produce assets for our five supported languages
-* [happypack](https://github.com/amireh/happypack) will execute loaders in parallel as will [thread-loader](https://github.com/webpack-contrib/thread-loader), an equivalent written and maintained by the core webpack team. These pair well with babel-loader and other transpilers
-* Users of the UglifyJS plugin can make use of the recently added [parallel option](https://github.com/webpack-contrib/uglifyjs-webpack-plugin#options)
+* [parallel-webpack](https://github.com/trivago/parallel-webpack) 将并行执行整个 webpack 构建。我们在 Slack 中使用它来为我们的五种编程语言生成对应的资源。
+* [happypack](https://github.com/amireh/happypack) 将会并行地执行加载器，就像 [thread-loader](https://github.com/webpack-contrib/thread-loader) 一样，由 webpack 核心团队编写和维护。并可以与babel-loader和其他转译器搭配起来。
+* UglifyJS 插件的用户可以使用最近添加的 [并行选项](https://github.com/webpack-contrib/uglifyjs-webpack-plugin#options)
 
-Be warned that there is a non-trivial cost to spinning up new threads. Apply them judiciously and only for operations that are costly enough to warrant it based on your profiling.
+注意，拉起新线程有一个不小的成本。建议只在消耗较大的操作中,基于你之前的分析，灵活地应用它们。
 
 ### Reduce the workload
 
@@ -237,17 +237,17 @@ When we began our quest, our build server was a member of the C3 Amazon EC2 fami
 
 If it is within your power (and budget) to do so, evaluate better hardware and benchmark to find the sweet spot for your configuration.
 
-### Contribute
+### 贡献
 
-Infrastructure-level projects like webpack can be surprisingly under-funded; whether it’s with time or with money, contributing to the tools you use will do much to improve the ecosystem for you and everyone else in the community. Slack recently donated to the webpack project to make sure the team is able to continue their work, and we encourage others to do the same.
+像 webpack 这样的基础设施项目几乎都出奇的穷; 无论是时间还是金钱，对您使用的工具做出贡献将为您和社区中的其他人改善这一工具的生态系统。Slack 最近为 webpack 项目做了捐赠，以确保团队能够继续工作，我们鼓励其他人也这样做。
 
-Contribution can come in the form of feedback, too. Authors are often keen to hear more from the users of their software, to understand where their efforts are best spent, and webpack has gone so far as to encourage users to [vote on the core team’s priorities](https://webpack.js.org/vote/). If build performance is a concern to you, or you have ideas for how to improve it, let your voice be heard.
+贡献也可以通过反馈的形式进行。作者往往热衷于听到他们的用户提供的更多信息，了解他们需要在哪里花费最多的精力，而且 webpack 甚至鼓励用户[对核心团队的优先事项投票](https://webpack.js.org/vote/)。 如果你关心构建性能，或者你已经有了改进的想法，那就让你的声音被大家听到吧。
 
 ### 后话
 
-webpack is a fantastic, versatile, tool that does not need to cost the earth. These techniques have helped us reduce our median build time from 170 to 17 seconds and, while they have done much to improve the deployment experience for our engineers, they are by no means a complete work. If you have any thoughts on how to improve build performance further, we’d love to hear from you. And, of course, if you delight in solving these sorts of problems, [come and work with us](https://slack.com/careers)!
+webpack 是一个梦幻般的，多功能工具，不需要花费天价。这些技术帮助我们将建造时间的中位数从 170 秒缩短到了 17 秒，尽管他们为我们的工程师们提高了部署经验，但他们并不是一个已经十分完善的项目。如果您对如何进一步提高构建性能有任何想法，我们很乐意听取您的意见。当然，如果你喜欢解决这些问题[来和我们一起工作吧](https://slack.com/careers)！
 
-A huge thank you to Mark Christian, Mioi Hanaoka, Anuj Nair, Michael “Z” Goddard, Sean Larkin and, of course, Tobias Koppers for their contributions to this post and to the webpack project.
+非常感谢 Mark Christian, Mioi Hanaoka, Anuj Nair, Michael “Z” Goddard, Sean Larkin and, of course, Tobias Koppers 对这篇文章和  webpack 项目做出的贡献。
 
 ### 扩展阅读
 
