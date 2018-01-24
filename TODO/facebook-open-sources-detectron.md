@@ -7,7 +7,7 @@
 
 # Facebook open sources Detectron
 
-![](http://i.niupic.com/images/2018/01/24/GhLPV7.png)
+![](https://i.loli.net/2018/01/24/5a682bb6c9193.png)
 
 Today, Facebook AI Research (FAIR) open sourced [Detectron](https://research.fb.com/downloads/detectron/) — our state-of-the-art platform for object detection research.
 
