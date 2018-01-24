@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/applying-human-centered-design-to-emerging-technologies.md](https://github.com/xitu/gold-miner/blob/master/TODO/applying-human-centered-design-to-emerging-technologies.md)
 > * 译者：[dongpeiguo](https://github.com/dongpeiguo)
-> * 校对者：
+> * 校对者：[dreamhb](https://github.com/dreamhb)  [ryouaki](https://github.com/ryouaki)
 
 
 # 新兴技术领域中以用户为中心的设计的应用
