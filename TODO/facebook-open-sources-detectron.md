@@ -9,9 +9,9 @@
 
 ![](http://i.niupic.com/images/2018/01/24/GhLPV7.png)
 
-Today, Facebook AI Research (FAIR) open sourced Detectron — our state-of-the-art platform for object detection research.
+Today, Facebook AI Research (FAIR) open sourced [Detectron](https://research.fb.com/downloads/detectron/) — our state-of-the-art platform for object detection research.
 
-The Detectron project was started in July 2016 with the goal of creating a fast and flexible object detection system built on Caffe2, which was then in early alpha development. Over the last year and a half, the codebase has matured and supported a large number of our projects, including Mask R-CNN and Focal Loss for Dense Object Detection, which won the Marr Prize and Best Student Paper awards, respectively, at ICCV 2017. These algorithms, powered by Detectron, provide intuitive models for important computer vision tasks, such as instance segmentation, and have played a key role in the unprecedented advancement of visual perception systems that our community has achieved in recent years.
+The Detectron project was started in July 2016 with the goal of creating a fast and flexible object detection system built on Caffe2, which was then in early alpha development. Over the last year and a half, the codebase has matured and supported a large number of our projects, including [Mask R-CNN](https://arxiv.org/abs/1703.06870) and [Focal Loss for Dense Object Detection](https://arxiv.org/abs/1708.02002), which won the Marr Prize and Best Student Paper awards, respectively, at ICCV 2017. These algorithms, powered by Detectron, provide intuitive models for important computer vision tasks, such as instance segmentation, and have played a key role in the unprecedented advancement of visual perception systems that our community has achieved in recent years.
 
 Beyond research, a number of Facebook teams use this platform to train custom models for a variety of applications including augmented reality and community integrity. Once trained, these models can be deployed in the cloud and on mobile devices, powered by the highly efficient Caffe2 runtime.
 
