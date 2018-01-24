@@ -35,7 +35,7 @@ Node自带了一个可以用来分析构建的 [inspector](https://nodejs.org/en
 
 #### 长期记录
 
-分析帮助我们确定了我们构建前端的缓慢部分，但是它不适合随着时间的推移观察趋势。 我们希望每次构建都能够报告精确的时序数据，以便我们可以看到在每个昂贵的步骤（转译，简化和本地化）中花费了多少时间，并确定我们的优化是否有效。
+分析帮助我们确定了我们构建前端的缓慢部分，但是它不适合随着时间的推移观察趋势。 我们希望每次构建都能够报告精确的时序数据，以便我们可以看到在每个昂贵的步骤（转译，压缩和本地化）中花费了多少时间，并确定我们的优化是否有效。
 
 对于我们来说，大部分的工作不是由 webpack 本身完成的，而是由我们所依赖的各种加载器和插件完成的。总的来说，这些依赖并没有提供精确的时序数据，虽然我们希望看到 webpack 采用标准化的方式来向第三方报告这种信息，但是我们发现我们不得不与此同时手动进行一些额外的日志记录。
 
@@ -103,19 +103,19 @@ webpack 的很多工作本身就是并行的。 通过把工作扩展到尽可�
 
 注意，拉起新线程有一个不小的成本。建议只在消耗较大的操作中,基于你之前的分析，灵活地应用它们。
 
-### Reduce the workload
+### 降低工作负载
 
-As our implementation of webpack matured, we realized it was doing more work than necessary in several places. Chipping away at these areas saved us a surprising amount of time:
+当我们的 webpack 测量实现完成时，我们意识到在几个地方做了不必要的工作。砍掉这些地方为我们节省了大量的时间：
 
-#### **Simpler minification**
+#### **简化压缩**
 
-Minification is a huge time sink — it was between half and a third of our build time. We evaluated different tooling, from [Butternut](https://github.com/Rich-Harris/butternut) to [babel-minify](https://github.com/babel/minify), but found that UglifyJS in a parallel configuration was the quickest.
+压缩是一个巨大的时间沉淀 - 占据我们三分之一到一半的构建时间。我们评估了不同的工具，从[Butternut](https://github.com/Rich-Harris/butternut) 到 [babel-minify](https://github.com/babel/minify)，结果却发现 UglifyJS 在并行配置下是最快的。
 
-What really sealed the deal for us, though, was a note on performance [buried beneath a long readme](https://github.com/mishoo/UglifyJS2/blob/ae67a4985073dcdaa2788c86e576202923514e0d/README.md#uglify-fast-minify-mode) from the author:
+然而，对我们来说，关于要处理的性能问题相关的核心信息 [被埋在作者的长篇大论之下](https://github.com/mishoo/UglifyJS2/blob/ae67a4985073dcdaa2788c86e576202923514e0d/README.md#uglify-fast-minify-mode)
 
-> It’s not well known, but whitespace removal and symbol mangling accounts for 95% of the size reduction in minified code for most JavaScript — not elaborate code transforms. One can simply disable compress to speed up Uglify builds by 3 to 4 times.
+> 同大家认为的不同，对于大多数JavaScript来说，空白的去除和符号的改变能够压缩代码的95％，是主要代码压缩的核心，而不是精心设计的代码转换。人们可以简单地禁用压缩加速Uglify构建3至4倍。
 
-We tried it and the results were staggering. As promised, minification was 3 times as fast and our bundle sizes had hardly grown at all. React users wishing to disable compression in this way should be wary of one caveat: the [detection methods](https://github.com/facebook/react-devtools/blob/7443291103bc619e7e9b8ab009fb6da1281ba302/backend/installGlobalHook.js#L52-L118) used by [react-devtools](https://github.com/facebook/react-devtools) can report that you’re shipping a development version of React. After some trial and error, we found the following configuration fixed the problem:
+我们试了一下，结果令人咋舌。就像承诺的那样，压缩速度是原来的3倍，而且我们生成的打包文件大小几乎没有增长。不过 React 用户以这种方式禁用压缩应该警惕一个警告：[detection methods](https://github.com/facebook/react-devtools/blob/7443291103bc619e7e9b8ab009fb6da1281ba302/backend/installGlobalHook.js#L52-L118) 被 [react-devtools](https://github.com/facebook/react-devtools) 用来报告你正在使用 React 的开发版本。 经过一些试验和错误，我们发现以下配置解决了这个问题：
 
 ```
 new UglifyJsPlugin({
@@ -158,11 +158,11 @@ new UglifyJsPlugin({
 }),
 ```
 
-Note: this configuration is for version 1.1.2 of the UglifyJS webpack plugin.
+注意：此配置适用于UglifyJS webpack插件的1.1.2版本。
 
-Detection varies by version and React 16 users may get away with _compress: false_ alone.
+检测变量根据版本而不同，React 16用户可能单独使用_compress：false_。
 
-Fewer bytes for the end-user is often the priority so take care to strike the right balance between the needs of your engineering team and those of the people downloading your application.
+最终发送给用户的字节数通常是优先考虑的，所以请注意在工程团队和下载应用程序的人员之间取得平衡。
 
 #### **Sharing code**
 
@@ -205,47 +205,47 @@ Keeping module IDs stable wasn’t enough. We needed to extract the module diges
 
 #### **Source maps**
 
-Source maps are a crucial tool for debugging, but generating them can be incredibly time-consuming. Consult webpack’s [menu of devtool options](https://webpack.js.org/configuration/devtool/) and see if a cheaper style will provide the debuggability you need. We found _cheap-source-map_ struck a good balance between build performance and debuggability.
+源地图（Source maps）是调试时用到的关键工具，但是生成它们将花费一定时间，改动 webpack 的 [开发工具菜单选项](https://webpack.js.org/configuration/devtool/) 并选择一个最合适自己的调试风格。 _cheap-source-map_ struck a good balance between build performance and debuggability.
 
-### Cache
+### 缓存
 
-Our deployment cadence is rapid, and this means there are usually only small differences between the current build and its ancestors. With caching in the right place we could shortcut most of the work webpack would have done otherwise.
+我们的部署节奏很快，这意味着当前的构建和之前的之间通常只有很小的差异。随着在正确的地方被缓存，我们可以加速大部分 webpack 本来会做的工作。
 
-We use [cache-loader](https://github.com/webpack-contrib/cache-loader/) to cache loader results (users of babel-loader can choose to use it’s [built-in caching](https://github.com/babel/babel-loader#options) if they prefer), UglifyJSPlugin’s [built-in caching](https://github.com/webpack-contrib/uglifyjs-webpack-plugin#options), and last but not least the [HardSourceWebpackPlugin](https://github.com/mzgoddard/hard-source-webpack-plugin).
+我们使用 [cache-loader](https://github.com/webpack-contrib/cache-loader/) 来缓存结果（babel-loader 的用户通常会优先选择使用它的 [内建缓存](https://github.com/babel/babel-loader#options)，UglifyJSPlugin 的 [内建缓存](https://github.com/webpack-contrib/uglifyjs-webpack-plugin#options)，以及加入了 [HardSourceWebpackPlugin](https://github.com/mzgoddard/hard-source-webpack-plugin)。
 
-#### A note on HardSourceWebpackPlugin
+#### 有关 HardSourceWebpackPlugin 的一点笔记
 
-A lot of the work that webpack does is outside of loader/plugin execution and much of that work has traditionally evaded caching altogether. To solve this problem, we brought in [HardSourceWebpackPlugin](https://github.com/mzgoddard/hard-source-webpack-plugin), a plugin designed to cache the intermediate results of webpack’s internal module processing.
+webpack所做的很多工作都在加载器/插件执行之外，而且大部分工作都会遵循传统避开缓存。为了解决这个问题，我们引入了一个插件 [HardSourceWebpackPlugin](https://github.com/mzgoddard/hard-source-webpack-plugin)，用于缓存 webpack 内部模块处理的中间结果。
 
-For it to work we had to carefully enumerate all the external factors that might require the cache to be broken and test it thoroughly. In our case: translations, CDN asset paths, and dependency versions. This isn’t for the faint-hearted but the results were well worth the effort — after priming the cache our warm builds were a full 20 seconds faster.
+为此，我们必须仔细列举可能需要缓存的所有外部因素，并彻底地进行测试。在我们的例子中包括：转移，CDN 资源路径和依赖版本。这不是个轻松地差事，但结果是值得的 - 启动缓存后，我们的热构建快了 20 秒。
 
-As a final note, remember to clear your cache whenever package dependencies change — something you can automate with an [npm postinstall script](https://docs.npmjs.com/misc/scripts). A stale, incompatible cache can wreak havoc on your build and break it in new and interesting ways.
+最后要注意的是，每当程序包依赖性发生变化时，请记住清除缓存 - 可以使用 [npm postinstall script](https://docs.npmjs.com/misc/scripts) 自动执行。一个陈旧、不兼容的缓存可能会以新的和有趣的方式对你的构建造成严重破坏。
 
-### Stay up to date
+### 保持版本最新
 
-In the webpack ecosystem it pays to stay up to date. Steady work has been done by the core team to improve build speed in recent times and if you aren’t using the latest release of your dependencies you may be leaving performance gains on the table. In our upgrade from webpack 3.0 to 3.4, we saw tens of seconds eliminated without any change to our configuration at all, and the improvements keep coming.
+在 webpack 生态系统中，保持最新状态是值得的。核心团队近期已经做了很多工作来提高构建速度，如果你没有使用最新版本的依赖项，你可能会错过大量的性能提升。 当我们从 webpack 3.0 升级到 3.4 时，我们发现加速了几十秒钟，而我们完全没有改变配置，并且这样的改进还在继续。
 
-Upgrade regularly and keep abreast of new functionality like the parallelism mentioned earlier. At Slack we keep an eye out for releases on Github, try to contribute where we can, and follow the inimitable efforts of [webpack](https://medium.com/webpack), [babel](https://github.com/babel/notes), and others who blog about their work.
+定期升级并跟上前面提到的如并行性等新功能的更新。在 Slack ，我们尽我们所能地留意 Github 上的发布，[webpack团队博客](https://medium.com/webpack), [babel团队博客](https://github.com/babel/notes)以及其他有关他们工作的博客。
 
-Don’t forget to keep your version of Node up to date too — packages aren’t the only avenue for improvement here.
+不要忘记让你的 Node 保持在崔新的版本 — 软件包不是唯一的改进途径。
 
-### Invest in hardware
+### 硬件上的投资
 
-At the end of the day your build has to run somewhere, and on something. That something can have a great deal of impact on your overall build performance and even the most heroic effort to optimize will be met with failure if, ultimately, the build runs on prehistoric metal.
+当一天结束的时候，你的构建必须在某个地方运行，并且要在某个东西上运行。 如果最终的构建是在史前级的设备上进行的话，那么对整体构建性能，即便进行了最优秀的优化，都会产生很大的影响。
 
-When we began our quest, our build server was a member of the C3 Amazon EC2 family. By switching to an instance type in the more recent C4 offering, where processors are faster and more plentiful, we saw a significant improvement in both build time and in the options available to us for scaling parallelism as our codebase grew. Users worried about the transition from an instance-backed machine to EBS need not despair: webpack caches file operations aggressively and we saw no measurable degradation in performance on moving to EBS.
+当我们的任务刚开始进行时，我们的构建服务器是 Amazon EC2家族的成员，C3。 通过将实例类型更新到 C4 产品（处理器更快，更强大），随着代码库的增长，我们看到了构建时间和可用于扩展的并行能力相关选项的显著改进。 用户通常担心的从实例支持的机器到 EBS 的过渡过程不需要感到绝望：webpack 积极地缓存文件操作，我们没有发现迁移到 EBS 后性能存在降低现象。
 
-If it is within your power (and budget) to do so, evaluate better hardware and benchmark to find the sweet spot for your configuration.
+如果它在您的能力（和预算）范围内，那么请评估更好的硬件和基准，以找到最佳的配置。
 
 ### 贡献
 
 像 webpack 这样的基础设施项目几乎都出奇的穷; 无论是时间还是金钱，对您使用的工具做出贡献将为您和社区中的其他人改善这一工具的生态系统。Slack 最近为 webpack 项目做了捐赠，以确保团队能够继续工作，我们鼓励其他人也这样做。
 
-贡献也可以通过反馈的形式进行。作者往往热衷于听到他们的用户提供的更多信息，了解他们需要在哪里花费最多的精力，而且 webpack 甚至鼓励用户[对核心团队的优先事项投票](https://webpack.js.org/vote/)。 如果你关心构建性能，或者你已经有了改进的想法，那就让你的声音被大家听到吧。
+贡献也可以通过反馈的形式进行。作者往往热衷于听到他们的用户提供的更多信息，了解他们需要在哪里花费最多的精力，而且 webpack 甚至鼓励用户 [对核心团队的优先事项投票](https://webpack.js.org/vote/)。 如果你关心构建性能，或者你已经有了改进的想法，那就让你的声音被大家听到吧。
 
 ### 后话
 
-webpack 是一个梦幻般的，多功能工具，不需要花费天价。这些技术帮助我们将建造时间的中位数从 170 秒缩短到了 17 秒，尽管他们为我们的工程师们提高了部署经验，但他们并不是一个已经十分完善的项目。如果您对如何进一步提高构建性能有任何想法，我们很乐意听取您的意见。当然，如果你喜欢解决这些问题[来和我们一起工作吧](https://slack.com/careers)！
+webpack 是一个梦幻般的，多功能工具，不需要花费天价。这些技术帮助我们将建造时间的中位数从 170 秒缩短到了 17 秒，尽管他们为我们的工程师们提高了部署经验，但他们并不是一个已经十分完善的项目。如果您对如何进一步提高构建性能有任何想法，我们很乐意听取您的意见。当然，如果你喜欢解决这些问题 [来和我们一起工作吧](https://slack.com/careers)！
 
 非常感谢 Mark Christian, Mioi Hanaoka, Anuj Nair, Michael “Z” Goddard, Sean Larkin and, of course, Tobias Koppers 对这篇文章和  webpack 项目做出的贡献。
 
