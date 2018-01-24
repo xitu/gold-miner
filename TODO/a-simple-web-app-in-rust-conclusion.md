@@ -5,7 +5,7 @@
 > * 译者：[mysterytony](https://github.com/mysterytony)
 > * 校对者：
 
-# 一个用 Rust 做的简单网页，结果：还是先把 Rust 放一边吧
+# 使用 Rust 开发一个简单的 Web 应用之总结篇：还是先把 Rust 放一边吧
 
 **警告：这篇文章充满了主见。虽然 Rust 社区可能不会很震惊，但我还是想列出这一系列。**
 
