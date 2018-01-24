@@ -164,31 +164,31 @@ new UglifyJsPlugin({
 
 最终发送给用户的字节数通常是优先考虑的，所以请注意在工程团队和下载应用程序的人员之间取得平衡。
 
-#### **Sharing code**
+#### **代码重用**
 
-It’s typical for the same code to find its way into more than one bundle. When this happens the minifier’s work will be multiplied unnecessarily. We put our bundles under the microscope with both the [webpack Bundle Analyzer](https://www.npmjs.com/package/webpack-bundle-analyzer) and [Bundle Buddy](https://github.com/samccone/bundle-buddy) to find duplicates and split them out into shared chunks with webpack’s [CommonsChunkPlugin](https://webpack.js.org/plugins/commons-chunk-plugin/).
+开发中需要找到并进入多个相同代码的包是很常见的事。当这种情况发生时，压缩器的工作将不必要地增加。 我们把打包通过 [webpack Bundle Analyzer](https://www.npmjs.com/package/webpack-bundle-analyzer) 和 [Bundle Buddy](https://github.com/samccone/bundle-buddy) 这两部显微镜找到重复的项，并将其用 webpack 的 [CommonsChunkPlugin](https://webpack.js.org/plugins/commons-chunk-plugin/) 分成共享块。
 
-#### **Skip parsing**
+#### **跳过部分解析**
 
-webpack will parse every JavaScript file it sees into a [syntax tree](https://en.wikipedia.org/wiki/Abstract_syntax_tree) while it hunts for dependencies. This process is expensive so if you are certain that a file (or set of files) will never use import, require, or define statements, you can tell webpack to exclude them from this process. Skipping large libraries in this way can really boost performance. See the [noParse](https://webpack.js.org/configuration/module/#module-noparse) option for more detail.
+webpack 会在查找依赖关系的同时，将每个 JavaScript 文件解析为 [语法树](https://en.wikipedia.org/wiki/Abstract_syntax_tree)。这个过程是很昂贵的，所以如果你确定一个文件（或一组文件）永远不会使用 import，require 或者 define 语句，你可以告诉 webpack 在这个过程中排除它们。以这种方式跳过大型库可以大幅提高效率。有关更多详细信息，请参见 [noParse](https://webpack.js.org/configuration/module/#module-noparse) 选项。
 
-#### **Exclusions**
+#### **排除**
 
-In a similar vein, you can [exclude](https://webpack.js.org/configuration/module/#rule-exclude) files from loaders, and many plugins offer [similar options](https://github.com/webpack-contrib/uglifyjs-webpack-plugin#options) too. This can really improve performance for tools like transpilers and minifiers that also rely on syntax trees to do their surgical work. At Slack we only transpile code we know will use ES6 features and skip minification for non-customer facing code altogether.
+通过类似的方式，你可以从加载器 [排除](https://webpack.js.org/configuration/module/#rule-exclude)  文件，许多插件提供 [类似的选项](https://github.com/webpack-contrib/uglifyjs-webpack-plugin#options)。 这可以实在的提高工具的性能，例如也依靠语法树来完成自身工作的转译器和压缩器。在Slack中，我们只编译我们确认使用了 ES6 特性的代码，并且忽略不直接提供给客户的代码的压缩。
 
-#### **The DLL plugin**
+#### **DLL 插件**
 
-[DllPlugin](https://webpack.js.org/plugins/dll-plugin/) will let you carve off prebuilt bundles for consumption by webpack at a later stage and is well suited to large, slow-moving dependencies like vendor libraries. While it has traditionally been a plugin that required an enormous amount of configuration, [autodll-webpack-plugin](https://github.com/asfktz/autodll-webpack-plugin) is paving the way to a simpler implementation and is well worth a look.
+[DllPlugin](https://webpack.js.org/plugins/dll-plugin/) 将允许你在后面的阶段剥离预先构建好的包供 webpack 使用，非常适合像 Vendor 库这样的大型，较少移动的依赖项。虽然它传统上是一个需要大量配置的插件，但是 [autodll-webpack-plugin](https://github.com/asfktz/autodll-webpack-plugin) 为更简单的实现铺平了道路， 值得一看。
 
-#### **Use records to stabilize module IDs**
+#### **使用记录来稳定模块 ID**
 
-webpack assigns an ID to every module in your dependency tree. As new modules are added and others removed, the tree changes and so too do the IDs of each module within it. These IDs are baked into every file that webpack emits and a high level of module churn can result in unnecessary rebuilds. Prevent this by using [records](https://webpack.js.org/configuration/other-options/#recordspath) to stabilize your module IDs between builds.
+webpack为依赖关系树中的每个模块分配一个 ID。随着新模块的添加以及其他模块的移除，树会发生变化，同时也会改变其中每个模块的ID。这些ID被置入每个 webpack 发出的文件中，而高级别的模块混合（译者注：应指交叉依赖，npm 一直以来的的一大严重问题）可能导致不必要的重建。 通过使用 [records](https://webpack.js.org/configuration/other-options/#recordspath) 来防止这种情况，在构建之间稳定您的模块ID。
 
-#### **Create a manifest chunk**
+#### **创建一个清单块**
 
-At Slack we use hashed filenames to cache-bust every time a new version is shipped. Open the Network tab of your browser’s developer tools and you’ll see requests for files like “_application.d4920286de51402132dc.min.js_”. This technique is fantastic for cache control, but means webpack can no longer map a module to its respective filename without the help of a digest.
+在 Slack，每次发布新版本时，我们都会使用哈希文件名来缓存破解。打开浏览器开发人员工具的“网络”选项卡，您将看到“_application.d4920286de51402132dc.min.js_”文件的请求。这种技术对于缓存控制来说是非常棒的，但是这也意味着 webpack 无法在不借助摘要的情况下将模块映射到相应的文件名。
 
-The digest is a simple map of module IDs to hashes that webpack will use to resolve a filename when [importing modules asynchronously](https://webpack.js.org/api/module-methods/#import-):
+摘要是模块 ID 到哈希的简单映射，当 [异步导入模块](https://webpack.js.org/api/module-methods/#import-)时，webpack 将用它来解析文件名：
 
 ```
 {
@@ -199,13 +199,13 @@ The digest is a simple map of module IDs to hashes that webpack will use to reso
 }
 ```
 
-By default, webpack will include this digest in the boilerplate code it adds to the top of every bundle. This was problematic as the digest had to be updated every time a module was added or removed — a daily occurrence for us. Whenever the digest changed, not only did we have to wait for all of our bundles to be rebuilt but they were cache-busted too, forcing our customers to re-download them.
+默认情况下，webpack 将在它添加到每个打包文件顶部的样板代码中包含这个摘要。然而这是有问题的，因为每次添加或删除模块时摘要都必须更新 - 这种情况我们每天都会发生。每当摘要发生变化时，我们不仅需要等待所有打包文件的重建，而且还要破坏缓存，迫使我们的客户重新下载它们。
 
-Keeping module IDs stable wasn’t enough. We needed to extract the module digest into a separate file entirely; one that could change regularly without us or our customers paying the cost of rebuilding and re-downloading everything. So we created a [manifest file](https://webpack.js.org/plugins/commons-chunk-plugin/#manifest-file) with the CommonsChunk plugin. This greatly reduced the frequency of rebuilds and had the added bonus of letting us ship only a single copy of webpack’s boilerplate code too.
+仅仅保持模块ID稳定是不够的。我们需要将模块摘要完全提取到一个单独的文件中；在没有我们或是我们的客户支付重建和重新下载任何东西的费用的情况下，就能够定期改变。所以我们用CommonsChunk插件创建了一个 [manifest文件](https://webpack.js.org/plugins/commons-chunk-plugin/#manifest-file)。这大大减少了重建的频率，而且还让我们只发送了一个 webpack 的样板代码的副本。
 
 #### **Source maps**
 
-源地图（Source maps）是调试时用到的关键工具，但是生成它们将花费一定时间，改动 webpack 的 [开发工具菜单选项](https://webpack.js.org/configuration/devtool/) 并选择一个最合适自己的调试风格。 _cheap-source-map_ struck a good balance between build performance and debuggability.
+源地图（Source maps）是调试时用到的关键工具，但是生成它们将花费一定时间，改动 webpack 的 [开发工具菜单选项](https://webpack.js.org/configuration/devtool/) 并选择一个最合适自己的调试风格。 _cheap-source-map_ 方案在构建性能和可调试性间取得了不错的平衡。
 
 ### 缓存
 
