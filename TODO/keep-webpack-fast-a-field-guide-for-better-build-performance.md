@@ -7,21 +7,21 @@
 
 # 保持 webpack 快速运行的诀窍：一本提高构建性能的现场指导手册
 
-[webpack](https://webpack.js.org/) 是用于打包前端资源的绝佳工具。When things start to slow down, though, its batteries-included nature and the ocean of third-party tooling can make it difficult to optimize. Poor performance is the norm and not the exception. But it doesn’t have to be that way, and so — after many hours of research, trial, and error — what follows is a field guide offering up what we learned on our path towards a faster build.
+[webpack](https://webpack.js.org/) 是用于打包前端资源的绝佳工具。然而，当环境开始变慢时，开箱即用的生态和大量的第三方工具使得优化变得十分困难。虽然性能不佳是一种常态而不是特例。但也不是没有办法来优化，经过几个小时的研究、试验和错误，我完成了这样一份现场指南，用于加快构建的道路上学到更多新知识。
 
 ![](https://cdn-images-1.medium.com/max/800/1*n7SFvwKvpLsW0ZcEDbgBtg.jpeg)
 
-The build tools of yore: a Loom with Jacquard machine attached.
+昔日的构建工具：连接提花机的织机。
 
-### In the land before time
+### 前言
 
-2017 was an ambitious year for the frontend team at Slack. After a few years of rapid development, we had a lot of technical debt and plans to modernize on a grand scale. Top of mind: rewriting our UI components in React and making wide use of modern JavaScript syntax. Before we could hope to achieve any of that, though, we needed a build system capable of supporting a nebula of new tooling.
+2017 年是 Slack 前端团队雄心勃勃的一年。经过几年的快速迭代开发，我们有不少的技术债务和进行大规模现代化的宏伟计划。首先，我们计划用 React 重写我们的 UI 组件，并全面使用上现代 JavaScript 语法。然而在我们希望这一点能够实现之前，我们需要一套构建系统来支持这一新的工具星云。
 
-Up to this point, we’d survived with little more than file concatenation, and while it had gotten us this far it was clear it would get us no further. A real build system was needed. And so, as a powerful starting point and for its community, familiarity, and feature set, we chose webpack.
+到目前为止，我们只能依靠文件的简单连接，虽然这一体系已经让我们走到了这一步，但显然它不会让我们再更进一步了。 我们需要一套真正的构建系统。所以，作为一个具有良好的社区支持、易用性和功能集的强大起点，我们选择了webpack。
 
-For the most part our transition to webpack was smooth. Smooth, that is, until it came to build performance. Our build took minutes, not seconds: a far cry from the sub-second concatenation we were used to. Slack’s web teams deploy up to 100 times on any given work day, so we felt this increase acutely.
+我们的项目切换到 webpack 的过渡大部分是平稳的。很平稳，直到，它遇到了构建性能问题。我们的构建花了几分钟，而不是几秒钟：与我们曾经习惯的秒级连接相差甚远。Slack 的 Web 团队在任何一个工作日都可以部署 100 次，所以我们感觉到了构建时间的急剧增长。
 
-Build performance has long been a concern among webpack’s user base and, while the core team has worked furiously over the past few months to improve it, there are many steps you can take to improve your own build. The techniques below helped us reduce our build time by a factor of 10, and we want to share them in case they help others.
+构建性能一直是 webpack 用户群的关注重点，尽管核心团队在过去几个月里一直在努力改进，但你仍然可以采取很多方法来自行改进自己的构建。下面的这些技巧帮助我们将构建时间缩短了10倍，我们将它们分享出来，希望能帮助到大家。
 
 ### Before you begin, measure
 
