@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/the-constructor-is-dead-long-live-the-constructor.md](https://github.com/xitu/gold-miner/blob/master/TODO/the-constructor-is-dead-long-live-the-constructor.md)
 > * 译者：[unicar](https://github.com/unicar9)
-> * 校对者：
+> * 校对者：[FateZeros](https://github.com/FateZeros), [pot-code](https://github.com/pot-code)
 
 # 构造函数已死，构造函数万岁！
 
