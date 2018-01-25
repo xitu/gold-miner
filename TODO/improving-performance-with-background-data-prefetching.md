@@ -2,78 +2,78 @@
 > * 原文作者：[Instagram Engineering](https://engineering.instagram.com/@InstagramEng?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/improving-performance-with-background-data-prefetching.md](https://github.com/xitu/gold-miner/blob/master/TODO/improving-performance-with-background-data-prefetching.md)
-> * 译者：
+> * 译者：[再也不悍跳的阿哲](https://juejin.im/user/5a30a026f265da43070340dd)
 > * 校对者：
 
-# Improving performance with background data prefetching
+# 通过后台数据预获取技术实现性能提升
 
-The Instagram community is bigger and more diverse than ever before. 800m people now visit every month, 80% of whom are outside of the United States. As the community grows, it becomes more and more important that our app can withstand diverse network conditions, a growing variety of devices, and non-traditional usage patterns. The client performance team at Instagram New York is focused on making Instagram fast and performant, no matter where someone is using it.
+Instagram 社区变得比从前要更加庞大和多样化。每月有 8 亿人访问 Instagram，其中有 80% 的访问来自美国之外的地方。随着社区的不断扩大，面对多样复杂的网络状况、种类繁多的设备和非传统的使用模式，我们的 app 是否能依旧表现出色，这个问题变得越来越重要。来自纽约的客户端性能优化团队正在致力于使 Instagram 变得更流畅，性能更强大，让来自任何地区的任意用户都能有较好的体验。
 
-Specifically, our team prioritizes instantaneous content delivery, zero wasted bytes over the network, and zero wasted bytes on disk. We recently decided to focus on effective background prefetching as a way to break the dependency of Instagram usability from network availability and a user’s data plan.
+具体而言，我们团队的工作重点是在不浪费任何网络和硬盘资源的情况下，做即时的内容分发。最近我们决定着重研发高效的后台数据预获取技术，通过这项技术，可以让 Instagram 在网络不可用或用户流量套餐受限的情况下依然能正常使用。
 
-### Conditions
+### 遇到的问题
 
-#### **Network availability**
+#### **网络可用性**
 
 ![](https://cdn-images-1.medium.com/max/800/1*PBdWAki8iEpmu9td-oZmuQ.png)
 
-Most of the world does not have enough network connectivity. Michael Midling, our data scientist, put together this map to represent the average network bandwidth while using Instagram in different countries around the world. Darker green regions, like Canada, have somewhere around 4+Mbps, vs. lighter green areas like India, which have an average network bandwidth of 1Mbps.
+世界上大部分地方的网络质量都不容乐观。我们的数据科学家 Michael Midling 绘制出了上方这张地图来表示世界上不同国家地区使用 Instagram 的平均网络带宽。深绿色的区域，比如加拿大，有约 4+Mbps 的带宽。相比较而言，像印度这种浅绿色的区域，就只有 1Mbps 的平均带宽。
 
-We cannot assume that media will be available to watch when a user opens Instagram and starts watching stories or scrolling through feed. If you want to build a fast media app in India, where network availability is not rich and a round-trip time could be above two seconds, you need to come up with a different strategy than fetching resources in realtime. If we want everyone to be able to access Instagram and see videos and photos from their closest friends and interests, we have to be able to react to different network bandwidth speeds. Building apps that adapt to these network conditions has its challenges.
+当用户打开 Instagram，开始查看他人的分享内容或者滑动浏览热门分享时，我们不能假设这些媒体资源都是可用的。如果你想在印度开发一款流畅的媒体应用，由于他们的网络不够发达且网络传输延迟可能高达 2 秒以上，所以你需要使用不一样的数据加载策略而不是实时加载数据。如果我们希望每个人都能畅通无阻地访问 Instagram，浏览来自亲密的朋友和兴趣列表中的视频和图片，那么我们必须能够应付不同的网络带宽速率。创造能适应所有这些网络情况的应用是一种挑战。
 
-#### **Data sensitivity**
+#### **手机网络敏感**
 
-One of our solutions was to add the user’s connection type into our logging events. This allowed us to observe the different usage patterns divided by connection type, which helped us adapt. We strive to be respectful of people’s data plans and try to maximize the data sourced over unmetered connections.
+我们的一个解决方案是将用户的网络类型写到我们的日志系统中。这样，我们便可以观察不同网络类型用户的使用情况，来帮助我们适配。我们努力做到适配每个人的数据流量套餐并最大化免费网络连接的数据传输。
 
 ![](https://cdn-images-1.medium.com/max/800/1*faugldkdFzZnbSLPJ_QZug.png)
 
-The graph shows how Instagrammers around the world access our app. For example, we need to adapt to the network patterns in Indonesia where people are switching from one SIM card to another as soon as they run out of data and mainly access the app on cellular connection. On the other hand, people in Brazil mostly use our app over wifi.
+上图展示了全球的用户是通过什么网络来访问我们的应用。比如在印尼，当人们的流量套餐快要用完时，他们会切换 SIM 卡，然后主要使用蜂窝网访问。但是，在巴西，人们大部分时间都是通过 wifi 来访问我们的应用的。
 
-#### **Network failure**
+#### **网络连接失败**
 
 ![](https://cdn-images-1.medium.com/max/800/1*FbEns6UiItiTeigVAkjLww.png)
 
-What if the network fails all together? Historically we would display a screen with grey boxes and hope for the user to come back and retry when they had a better connection. But this isn’t a good experience.
+如果网络连接全部都失败了会怎么样？之前，我们会用灰色的方块来填空未获取到的图片、视频，希望用户在网络情况变好时回来重试。但是这样体验不好。
 
 ![](https://cdn-images-1.medium.com/max/600/1*l3QwYVR5cIdtuRlhqpo3mA.png)
 
-Sporadic network connection and cellular network congestion are also concerns. When we’re in one of the light green areas of the map above, where network bandwidth is low, we need to find a way to shorten or eliminate people’s wait time.
+分散的网络连接和蜂窝网络拥塞都是我们关心的问题。当用户处于上方地图中带宽较低的浅绿色区域时，我们需要想出一个办法来减小或消除用户的加载等待时间。
 
-Our goal is for people to perceive no network connection as being online, but there is no one-size-fits-all solution for this. Below are some of the techniques we apply to adapt the offline experience to different types of usage in different conditions.
+我们的目标是让用户对于网络连接断开无感知，但是对于此并没有找到一个通用的解决方案。为了满足不同网络条件和使用场景下的离线体验，我们提出了如下几种解决方案。
 
-### Solutions
+### 解决方案
 
-We came up with a series of strategies. First, we focused on building the Offline Mode experience. With this experience we unlocked the possibility to deliver the content from disk as if it is coming from network. Second, leveraging this cache infrastructure, we built a centralized background prefetching framework, to populate this cache with unseen content.
+我们提出了一系列的解决策略。首先，我们将重点放在构建离线模式的用户体验。从中，我们实现了从磁盘获取数据进行内容分发的技术，使得数据就好像是从网络获取的一样。其次，利用这个缓存架构，我们建立了一个中心化的后台数据预获取框架，用预获取的未展现数据来填充该缓存。
 
-#### **Offline principles**
+#### **离线体验的原则**
 
-Through data analysis and user research, we’ve come up with a few principles that represent the major pain points and areas for improvement:
+通过数据分析和用户调研，我们提出了一些能代表主要痛点和地区的改进原则：
 
-1. Offline is a status, not an error
-2. The offline experience is seamless
-3. Build trust through clear communication
+1. 离线是一种状态，而不是错误
+2. 离线体验应该是无感知的
+3. 通过明确的沟通来建立信任
 
-You can see how this was implemented in the video:
+你可以看到上述原则是如何在下方视频中体现的:
 
 <iframe width="700" height="393" src="https://www.youtube.com/embed/fFH4MSrjcrY" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
-#### **Decoupling network availability and app usability**
+#### **应用是否可用与网络无关**
 
-Using the response store, image and video cache, we can deliver content to the UI screen when it’s not retrieved from the network, which simulates a successful network call.
+利用存储的请求数据以及图片、视频的缓存，当网络不可用时，我们依旧可以将内容呈现到用户的屏幕上，相当于模仿了一次成功的网络请求。
 
-There are three main components: the device screen, the device network layer that composes the HttpRequests, and the device network engine that takes care of delivering our network requests to the server.
+我们有3个主要组件：设备屏幕，组成 HttpRequests 的设备网络层和负责向服务器端发送网络请求的设备网络引擎
 
-After building the ability to deliver content from disk, we noticed improvements to how people used Instagram in high-growth markets. We decided to cache the content after downloading from the network with the belief that seeing older content would be better than seeing gray boxes and white screens. But the ideal solution was still showing new content. That’s where background prefetching came in.
+实现了从磁盘中获取数据的技术后，在高速增长的市场下，我们发现用户使用 Instagram 的体验得到了提升。我们认为与其让用户看到白屏和灰色方块，不如让用户能看到之前的内容，这样的体验应该会更好，基于此才决定将网络请求数据缓存到本地。但是，最理想的方案仍然是展现最新的内容。这就是后台数据预获取技术的由来。
 
-### Framework
+### 架构
 
-At Instagram one of our engineering values is “do the simple thing first,” so our first approach was not to build the perfect background prefetching framework. The first prototype just prefetched data when the app got backgrounded, if and only if the user was under wifi connection. This BackgroundPrefetcher iterated through a list of runnables, executing one by one.
+在 Instagram，有一句工程师口号是“从最简单的做起”，所以第一步并不是做一个完美的后台数据预获取框架。而是，当 app 在后台运行且仅在手机连着 wifi 时去做数据预获取。BackgroundPrefetcher 程序循环遍历任务列表并依次执行。
 
-This first prototype allowed us to:
+这样的首个原型程序可以做到：
 
-1. Iterate on kinds of content to prefetch
-2. Analyze the actual effects of delivering unseen cached content on the user experience
-3. Benchmark final framework (stability)
+1. 提前获取循环中的各种内容数据
+2. 从用户体验的角度去分析向用户呈现最新的媒体内容缓存的实际效果
+3. 以此作为基准去评测最终框架（的稳定性）
 
 ```
 public void registerJob(Runnable job) {
@@ -89,64 +89,62 @@ public void onAppBackgrounded() {
 }
 ```
 
-The reality is that apps are complex, and so are people! When it comes to deciding what type of media to prefetch, you have to carefully analyze usage patterns. For example, some people may use some features more than others.
+现实情况是，apps 是很复杂的，同时用户也是多种多样的！你必须很仔细地分析用户的使用习惯，才能决定到底去预获取什么类型的媒体内容。比如，一些用户会比其他人更加频繁地使用某个功能。
 
-Our home screen has a great diversity of items, from the Stories tray to individual stories media. We could also prefetch photos and videos for feed, the messages that you have pending, items for you to browse in Explore, or your most recent notifications. In our case we started simple, only prefetching some media for Explore, Stories and main feed.
+我们的主页包含缤纷多彩的内容，从热门分享到个人分享应有尽有。我们也可以预获取热门推荐 中的图片和视频、你未发出的消息，搜索的内容以及最近的通知。就我们的情况而言，我们决定从简单的开始，只去提前获取你搜索的内容、热门分享和首页推荐。
 
-Building a centralized framework that is flexible enough to adapt to different use cases helps us maintain efficiency and scale properly.
+构建一个可以灵活地适应不同使用场景的中心化架构有利于保持高效且方便扩容。
 
-Apart from the ability to schedule the jobs in our framework that prefetched data with no control on the background, we added extra logic on top. Centralizing the logic for background prefetching to a single point made it possible to apply rules and verify that certain conditions are met, like:
+除了做到在 app 后台运行时，通过我们的框架去调度任务自动预获取数据之外，我们还在 app 的顶部添加了额外的逻辑。将数据预获取逻辑集中到一个点上，让我们能够对其应用规则并验证其是否满足某些条件，比如：
 
-* Control connection type -> unmetered
-* JobCancellation -> if conditions change or app gets foregrounded, we want to be able to cancel whatever work we were doing
-* Batching requests together, and prefetching only once, at the most optimal time, in between sessions
-* Collect Metrics → how long does it take for all the work to be finished? How successful are we at scheduling and running the background prefetching jobs?
+* 控制网络连接类型 -> 不计费的
+* 任务停止 -> 如果条件变化或 app 在前台运行，我们要能够停止正在进行的后台数据预获取任务
+* 合并请求，在 2 次会话之间找到最佳时间仅做一次数据预获取
+* 指标收集 -> 所有的任务完成需要花费多长时间？调度运行后台数据预获取任务的成功率是多少？
 
-#### **Workflow**
+#### **工作流**
 
 ![](https://cdn-images-1.medium.com/max/800/1*3HPnnJvGFatk5R-nwL942A.png)
 
-Let’s take a look at the workflow for our background prefetching strategy on Android:
+让我们来看看后台数据预获取策略在安卓系统上的工作流程：
 
-* When the main activity starts (meaning that the app gets foregrounded), we instantiate our BackgroundWifiPrefetcherScheduler. We also enable what type of jobs will be run.
-* This instance registers itself as a BackgroundDetectorListener. For context, we have implemented a structure that will tell us every time that the app gets backgrounded in case we want to do something before the app gets killed (like sending analytics to the server).
-* When the BackgroundWifiPrefetcherScheduler gets notified, it calls our home-made AndroidJobScheduler to schedule the background prefetching work. It will pass in the JobInfo. This JobInfo contains information about what service to launch, and what conditions need to be met in order for this work to get kicked off.
+* 当 main activity 启动时（即 app 在前台运行），我们将 BackgroundWifiPrefetcherScheduler 实例化，同时激活即将被运行的一类任务。
+* 这个对象将它自身注册为一个 BackgroundDetectorListener。在上下文中，我们实现了这样的代码结构，每当 app 进入后台运行时都会发送通知，这样我们便可以在 app 进程被杀死前做一些事情（比如将分析数据发送到服务器）。
+* 当 BackgroundWifiPrefetcherScheduler 收到通知时，他会调用我们自己写的 AndroidJobScheduler 来对后台数据预获取任务进行调度。JobInfo 参数会被传入，该参数包含了这些信息：需要启动哪些服务以及调用这个任务需要满足哪些条件。
 
-Our main conditions are latency and unmetered connections. Depending on the Android OS, we may take other things into consideration, like if power saving mode is enabled or not. We have experimented with different values of latency, and we are still working to provide a personalized experience. Currently we prefetch on background only once in between sessions. To decide at what time we will do this after you background the app, we compute your average time in between sessions (how often do you access Instagram?) and remove outliers using the standard deviation (to not to take into account those times where you might not access the app because you went to sleep if you are a frequent user). We aim to prefetch right before your average time.
+我们主要的条件是延迟和不计费的网络连接。针对 Android 系统，其他一些条件也要被考虑进来，比如省电模式是否开启。我们已经测试了不同程度的延迟，并仍在努力提供个性化的服务体验。现阶段，我们在 2 次会话之间仅做一次后台预获取数据。当 app 进入后台运行时，到底应该在什么时刻运行这个任务，为了找到这个最佳时间，我们计算了用户每次打开会话的平均间隔时间（用户访问 Instagram 的频率是多少？），并使用标准差去除异常值（比如，一个频繁使用 Instagram 的用户的睡眠时间不应该被计算在内）。我们的目标是恰好在平均时间之前开始数据预获取。
 
-* After that time has passed by, we check if the connection conditions met our requirement (unmetered/wifi). If this is the case, we will launch the BackgroundPrefetcherJobService. If not, this will be pending until the connection condition is met. (Or device is not in battery saving mode if applicable).
-* BackgroundService will create a serialExecutor to run every background job in a serial fashion. However, after obtaining the http response, we prefetch media in an asynchronous manner.
-* After all the work is done, we notify the OS so our process can be killed and we optimize for memory/battery life. Killing this running service on Android is important to release memory resources that will not be used anymore.
+* 在这个时间点后，程序会检查网络连接是否满足条件（不计费/wifi）。如果满足条件，BackgroundPrefetcherJobService 将会被启动。如果不满足，BackgroundPrefetcherJobService 的启动会被挂起直到条件满足。（且当手机未处于省电模式下）
+* BackgroundService 将创建一个 serialExecutor 通过串行方式运行每一个后台任务。当然，在收到了 http 请求响应后，我们会以异步的方式去预获取媒体数据。
+* 在所有任务完成后，我们会向操作系统发送一个通知，告知其我们的进程可以被杀死了，这样一来可以延长内存/电池的使用寿命。在 Android 系统中，杀死这些正在运行的服务是很重要的，使得那些不会再被使用的内存资源得以释放。
 
-All of this is user scoped. We need to be able to address when someone logs out or the user switches. If the user logs out, we will cancel the scheduled work to avoid waking up the service unnecessarily.
+所有这些工作都是用户级别的。程序要能够处理用户注销或切换身份的情况。如果用户注销了，我们会停止调度的任务以避免它们做一些没必要的服务启动工作。
 
 #### **IgJobScheduler**
 
-For Android specifically, we:
+针对安卓，我们具体做了如下几点:
 
-1. Looked for an effective way to schedule jobs on background so we could persist data across sessions and specify network requirements.
-2. Analyzed how many users were under Lollipop (Android OS released on 2014) as the APIs for Android JobScheduler interface were only available starting on this OS. Turned out this was a case we could not skip…. we needed a compatible version for people using Lollipop.
-3. Researched to find an open source/existing solution to schedule jobs on Android for older OS versions. Despite of finding great libraries, none of them fit our use case, as they pulled a dependency on Google Play Service. For context, on Instagram we believe on maintaining our first in class position in terms of APK size.
-4. Finally, we ended up building a custom-performant compatible solution for Android JobScheduler APIs.
+1. 寻找一种高效的后台任务调度方法，让我们能够在会话中将数据持久化并指定网络连接需求。
+2. 在 Lollipop（安卓在 2014 年发布的操作系统）之前，Android 的 API 还不支持 JobScheduler 接口，所以我们分析了有多少用户的安卓手机系统是低于此版本的。这是一个我们无法绕过的问题...。对于这些用户，我们需要开发一个兼容的版本。
+3. 寻找一个适用于低版本安卓系统的现有开源解决方案去调度任务。尽管我们找到了很多优秀的第三方库，但是它们都不适用于我们的场景，因为它们会依赖 Google Play Service。根据现有情况，我们认为APK 的大小是 Instagram 能维持排行榜第一的主要因素。
+4. 最后，我们为 Android JobScheduler API 创造了一套定制的高性能兼容解决方案。
 
-#### **Measurement**
+#### **评测**
 
-At Instagram we are very data driven and rigorously measure the impact of the systems that we build. That is why when we were designing our background prefetching framework we were also thinking about what metrics should be in place to get the proper feedback.
+在 Instagram，我们是数据驱动的，对于我们研发的每个系统，都会严格地评估它的影响。这也就是为什么我们在设计后台数据预获取框架的同时，也会思考应该收集什么样的指标才能得到正确的反馈。
 
-The fact that we count with a centralized framework also helps us collect metrics at a higher level. We thought that it was very important to accurately evaluate the trade-offs and be able to answer questions about how many prefetched bytes were unused or what global CPU regressions were caused.
+事实是，中心化的架构也能够帮助我们在更上层来收集指标。能够准确地评估利弊，知道有多少预获取的数据字节被浪费了或者能分析是什么造成了全局 CPU 的波动，这些都是很重要的。
 
 ![](https://cdn-images-1.medium.com/max/800/1*IBawymkWEafmzIQY1y8uNg.png)
 
-One thing that helped us a lot is that we mark/associate a network request policy to every network request to indicate its behavior and type. This was already built into the app but we leveraged it to slice our prefetching metrics. We attach a request policy to the http request fired and specify if the request is a prefetch request. Another thing that we specify in the policy is the requestType. A request can be specific for Image, Video, API, analytics, etc. This will help us with:
+我们通过网络请求策略给每个网络请求打上标签来标识其行为和类型，这十分有用。它已经被内置到 app 中了，但是我们利用它来切分我们的指标。我们将请求策略关联到发出的 http 请求上，并标出它是否是预获取数据的请求。另外，请求策略还会给每个网络请求打上类型标签。请求的类型可以为图片、视频、API和分析数据等等。这可以帮助我们：
 
-* Request prioritization
-* Better analyze trade offs by dimensiom like global CPU regression, data usage, and cache efficiency
+* 设置请求优先级
+* 通过全局 CPU 使用率曲线，数据使用情况和缓存利用率等这些维度，更好地对系统做分析和权衡
 
 ```
 /**
- * The policy behavior describes whether the associated request is  
-needed to render something
- * on the screen, or not (e.g. prefetch).
+ * 网络请求策略中的 Behavior 枚举类描述了被打标的请求返回数据是否需要渲染到屏幕上（比如预获取数据的请求就不需要立刻渲染）
  */
 public enum Behavior {
  Undefined(-1),
@@ -160,43 +158,42 @@ public enum Behavior {
 }
 ```
 
-Here we can see a snapshot of that requestPolicy object as defined in our Android codebase. We define a request to be “on screen” when the request belongs to a content that the user is waiting for. offScreen requests have a probability > 1% of the user not interacting with this data requested.
+上方展示了 Android 源码中 requestPolicy 类的一部分代码片段。我们将一个请求标注为“on screen”，就意味着用户正在等待该请求的返回数据。有约大于 1% 的 offScreen 的请求返回的数据不会与用户交互。
 
-#### **Cache efficiency logger**
+#### **高效缓存日志**
 
-We wanted to know how many of our prefetched bytes were actually used, so we looked into how items placed in the cache were being used. We built our entire cache logger in a way that met the following specs:
+我们希望知道有多少预获取的字节被真正使用到了，所以我们对缓存中的数据的使用情况做了调研。我们构建了整个缓存日志系统，它满足以下几点：
 
-* Be scalable. It should be able to support new added caches instances through its API.
-* Be fault tolerant and robust. It should tolerate cache failures (no logging action) or inconsistencies across timestamps.
-* Be reliable. It should persist data across sessions.
-* Use minimal disk and latency on logging. Cache reads/writes happen very often, therefore we want to add minimal overhead. The logging during cache reads/writes can lead to more crashes and higher latency.
+* 系统可扩展。能支持通过 API 新增缓存实例。
+* 系统是健壮的，可以支持容错。能够忍受缓存失效（没有日志记录）或者某些时刻数据不一致的情况。
+* 系统是可靠的。在会话之间可以持久化数据。
+* 写日志时，使用最小的磁盘空间和最低的延迟。缓存的读/写经常发生，所以我们需要将其开销限制到最小。缓存读/写时的日志记录可能会带来更多的崩溃和更高的延迟。
 
 ![](https://cdn-images-1.medium.com/max/800/1*JVMxN09z3NE43Ev8tOvyUQ.png)
 
-We also wanted to know how much data we used when we added a new background prefetch request. We have a layered base network engine on the device, and as we mentioned, we attach a requestPolicy to every network request. This makes it super easy for us to track data usage in our app, and observe how much data we consume downloading images, videos, JSON responses, etc.
+我们也想知道，当新增一个后台数据预获取请求时，到底有多少数据被使用了。我们在手机上有一个分层的基础网络引擎，正如之前所说的，每个网络请求都被附加了一个 requestPolicy。这让我们能够很轻松地追踪 app 中的数据使用情况以及观察下载图片、视频和 JSON 数据等到底消耗了多少流量。
 
-We also wanted to analyze how the data usage gets distributed between data usage over wifi vs. data usage over cellular. This unlocked the possibility of experimenting with different prefetching patterns.
+同时，我们也想分析对比在 wifi 和 蜂窝网下的数据使用分布情况。这使得我们有可能针对不同网络连接尝试不同的数据预获取模式。
+ 
+#### **其他好处**
 
-#### **Other benefits**
+后台数据预获取技术除了可以消除对网络可用性的依赖以及降低蜂窝网的流量使用，还有什么其他的好处么？如果我们减少了大量的请求，那么我们便降低了整体的网络阻塞。通过合并未来的请求，我们可以节省开销和延长电池寿命。
 
-What other benefits can background prefetching give you beyond breaking the dependency on network availability and reducing cellular data usage? If we reduce the sheer number of requests made, we reduce overall network traffic. And by being able to bundle future requests together, we can save overhead and battery life.
+#### **防止 CPU 曲线波动**
 
-#### **Preventing regression**
+在研发后台数据预处理程序之前，我们就考虑到了它可能造成全局 CPU 使用率升高这一潜在风险。
 
-Something that we took into account before implementing background prefetching is the potential risk of causing global CPU regression.
+CPU 使用率怎么会升高呢？请看下面这个例子。假设有一个获取 Instagram 热门内容的接口。每次用户 A 打开 Instagram 获取第一页的最新内容时，他的设备便会请求一次该接口。这个接口会做一些 CPU 密集型操作，比如排序和根据用户选择的条件进行内容分类。如果在每次用户打开 Instagram 的时候去做后台数据预获取，便会增加 CPU 负载，对吧？
 
-And how can you cause regression? Let me give you an example. Imagine our endpoint that serves the API to get your Instagram main feed. Person A’s device will make a call to the main feed API every time person A opens Instagram to get the latest feed first page. This API has several heavy computational operations like ranking and categorizing content based on seen state. If we then do background prefetching every time in between sessions, we would be increasing the load considerably, right?
+为了最小化服务端的 CPU 使用率，在第一版的后台数据预获取系统中，内容推荐团队的工程师 Fei Huang 为我们新开了一个接口地址。这个接口只获取前20条没有被显示的新分享内容。
 
-In an attempt to minimize the server side regression, for our first version of the background prefetcher system, an engineer on the feed team, Fei Huang, opened up a different endpoint for background prefetching. This one just fetches new feed posts that are not in view state and return the newest N=20 items.
+### 结论
 
-### Conclusion
+这是我们构建系统时的工作流程。我们小组不会将 API 开放给其他工程师直到我们能确保框架的质量且用户能从中受益。
 
-This was our workflow process when building our system. Our team did not open the API to other engineers until we could ensure the quality of the framework and the benefit to the user.
+随着越来越多的人加入 Instagram，这项工作只会变得越来越重要。我们期望能不断提升 Instagram 的效率和性能，从而使世界各地的人都能畅快无阻地使用 Instagram。
 
-As more people join Instagram, this work only becomes more important. We look forward to keep making Instagram more efficient and performant for everyone around the world.
-
-_Lola Priego is a software engineer on the client performance team at Instagram New York._
-
+_Lola Priego 是一位来自 Instagram 纽约地区客户端性能优化团队的工程师。_
 
 ---
 
