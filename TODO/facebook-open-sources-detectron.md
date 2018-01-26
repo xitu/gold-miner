@@ -2,22 +2,22 @@
 > * 原文作者：[Ross Girshick](https://research.fb.com/people/girshick-ross/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/facebook-open-sources-detectron.md](https://github.com/xitu/gold-miner/blob/master/TODO/facebook-open-sources-detectron.md)
-> * 译者：SeanW20
+> * 译者：[SeanW20](https://github.com/SeanW20)
 > * 校对者：
 
 # Facebook开源Detectron
 
 ![](https://i.loli.net/2018/01/24/5a682bb6c9193.png)
 
-今天，Facebook AI Research(FAIR) 研究机构开源了 [Detectron](https://research.fb.com/downloads/detectron/) — 我们最先进的目标检测研究平台。
+今天，Facebook AI Research(FAIR) 研究机构开源了 [Detectron](https://research.fb.com/downloads/detectron/) —— 我们最先进的目标检测研究平台。
 
-Detectron 项目在2016年7月启动，目的是建立一个基于 Caffe2 上的快速灵活的物体检测系统。之后也应用在早期的alpha开发。在过去的一年半里，代码库已经成熟并且支持了我们大量项目，包括 [Mask R-CNN](https://arxiv.org/abs/1703.06870) 和 [Focal Loss for Dense Object Detection](https://arxiv.org/abs/1708.02002), 在2017年的ICCV上分别获得了Marr奖和最佳学生论文奖。由Detectron提供支持的这些算法是重要的计算机视觉任务，例如实现实例分割，提供了直观的模型，并且近年来在我们的社区中在取得空前成就的视觉感知系统中发挥了关键作用。
+Detectron 项目在 2016 年 7 月启动，目的是建立一个基于 Caffe2 上的快速灵活的物体检测系统。之后也应用在早期的alpha开发。在过去的一年半里，代码库已经成熟并且支持了我们大量项目，包括 [Mask R-CNN](https://arxiv.org/abs/1703.06870) 和 [Focal Loss for Dense Object Detection](https://arxiv.org/abs/1708.02002)，在 2017 年的 ICCV 上分别获得了 Marr 奖和最佳学生论文奖。由 Detectron 提供支持的这些算法为一些重要的计算机视觉任务，例如实现实例分割，提供了直观的模型，并且近年来在我们的社区中在取得空前成就的视觉感知系统中发挥了关键作用。
 
-除了研究，许多 Facebook 团队使用这个平台来训练各种应用的定制模型，包括增强现实和社区完整性。一旦接受训练，这些模型可以部署在云端和移动设备上，由高效的Caffe2 在运行时提供支持。
+除了研究，许多 Facebook 团队使用这个平台来训练各种应用的定制模型，包括增强现实和社区完整性。一旦接受训练，这些模型可以部署在云端和移动设备上，由高效的 Caffe2 在运行时提供支持。
 
 我们在开源 Detectron 的目标是使我们的研究尽可能开放，并加速在全球实验室的研究。随着其发布，研究界将能够重现我们的结果，并能够使用 FAIR 的相同软件平台。
 
-Detectron 可以在Apache2.0许可证下获得 https://github.com/facebookresearch/Detectron. 我们还发布了 70 多种预训练模型的广泛性能基准，可以从我们的模型库中下载。
+Detectron 可以在 Apache2.0 许可证下获得 [https://github.com/facebookresearch/Detectron](https://github.com/facebookresearch/Detectron). 我们还发布了 70 多种预训练模型的广泛性能基准，可以从我们的模型库中下载。
 
 ---
 
