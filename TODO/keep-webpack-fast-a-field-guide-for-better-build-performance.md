@@ -2,8 +2,8 @@
 > * 原文作者：[Rowan Oulton](https://slack.engineering/@rowanoulton?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/keep-webpack-fast-a-field-guide-for-better-build-performance.md](https://github.com/xitu/gold-miner/blob/master/TODO/keep-webpack-fast-a-field-guide-for-better-build-performance.md)
-> * 译者： [Noah Gao](https://noahgao.net)
-> * 校对者：
+> * 译者：[Noah Gao](https://noahgao.net)
+> * 校对者：[tvChan](https://github.com/tvChan)，[MechanicianW](https://github.com/MechanicianW)
 
 # 保持 webpack 快速运行的诀窍：一本提高构建性能的现场指导手册
 
