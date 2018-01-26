@@ -11,7 +11,7 @@
 
 我听说很多开发者厌恶 CSS。而在我的经验中，这往往是由于他们并没有花时间来学习 CSS。
 
-CSS 算不上是最美观的『语言』，但迄今二十多年来，它都是美化 web 举足轻重的工具。从这点来说，也还算不错吧？
+CSS 算不上是最优美的『语言』，但迄今二十多年来，它都是美化 web 举足轻重的工具。从这点来说，也还算不错吧？
 
 尽管如此，CSS 写得越多，你越容易发现一个巨大的弊端。
 
@@ -35,9 +35,9 @@ var redBox = document.getElementById('...')
 
 这样很好，对吧？
 
-但问题是这种命名法并不适用于 CSS
+但问题是这种命名法并不适用于 CSS。
 
-请切忌以如下命名方式：
+请切忌以如下方式命名：
 
 ```
 .redBox {
@@ -53,7 +53,7 @@ var redBox = document.getElementById('...')
 }
 ```
 
-这是一种非常标准的命名规范。也可以说更易读。
+这是一种非常标准的 CSS 命名规范。也可以说更易读。
 
 同时，这也和 CSS 属性名称保持了一致。
 
@@ -89,13 +89,13 @@ var redBox = document.getElementById('...')
 }
 ```
 
-这就是 BEM 命名规范
+这就是 BEM 命名规范。
 
 ### 向 5 岁小孩解释 BEM 规范
 
 BEM 规范试图将整个用户界面分解成一个个小的可重复使用的组件。
 
-让我们来看看下图
+让我们来看看下图：
 
 ![](https://cdn-images-1.medium.com/max/800/1*qFy4XIpxbWx4oaOA3TYqpQ.png)
 
@@ -103,15 +103,15 @@ BEM 规范试图将整个用户界面分解成一个个小的可重复使用的�
 
 哎，可惜并不是 :(
 
-这个火柴人代表了一个组件，比如说一个设计区块
+这个火柴人代表了一个组件，比如说一个设计区块。
 
 或许你已经猜到了 BEM 这里的 B 意为『区块』（‘Block’）。
 
 在实际中，这里『区块』可以表示一个网站导航、页眉、页脚或者其他一些设计区块。
 
-根据上述对这种做法的解释，那么这个组件的理想类名称即是 `stick-man`。
+根据上述解释，那么这个组件的理想类名称即是 `stick-man`。
 
-The component should be styled like so:
+组件的样式应写成这样：
 
 ```
 .stick-man {
@@ -123,9 +123,9 @@ The component should be styled like so:
 
 ![](https://cdn-images-1.medium.com/max/800/1*US1EoM_lvYOeJabGDhV2Eg.png)
 
-### E 代表元素 (Elements)
+### E 代表元素（Elements）
 
-‘BEM’ 中的 E 代表着元素
+BEM 中的 E 代表着元素。
 
 整体的区块设计往往并不是孤立的。
 
@@ -134,7 +134,7 @@ The component should be styled like so:
 ![](https://cdn-images-1.medium.com/max/800/1*MJO2vhGLlkQhTxGPO53YhQ.png)
 
 The `head` , `feet`, and `arms` are all elements within the component. They may be seen as child components, i.e. children of the overall parent component.
-这些 `head`、 `feet` 和 `arms` 都是组件中的元素。它们可视作子组件（child components），也就是父组件的
+这些 `head`、 `feet` 和 `arms` 都是组件中的元素。它们可视作子组件（child components），也就是父组件的组成部分。
 如果使用 BEM 命名规范的话，这些元素的类名都可以通过在**两条下划线**后加上元素名称来产生。
 
 比如说：
@@ -150,7 +150,7 @@ The `head` , `feet`, and `arms` are all elements within the component. They may 
 
 ### M 代表修饰符（Modifiers）
 
-M 在 BEM 命名法中代表修饰符
+M 在 BEM 命名法中代表修饰符。
 
 如果说这个火柴人有个 `blue` 或者 `red` 这样的修饰符怎么办呢？
 
@@ -210,7 +210,7 @@ M 在 BEM 命名法中代表修饰符
 
 如果你选择 BEM 命名规范，在看标记语言（markup）时就更容易看清各个设计组件/区块之间的关系。
 
-Feeling confident?
+感觉不错吧？
 
 ### 和 JavaScript 关联的 CSS 名称
 
@@ -223,7 +223,7 @@ Feeling confident?
 </div>
 ```
 
-因为刚好读了这篇文章，John 意识到这种命名方法在 CSS 中不是最好的尝试。于是他讲代码修改成下面这样：
+因为刚好读了这篇文章，John 意识到这种命名方法在 CSS 中不是最好的方法。于是他讲代码修改成下面这样：
 
 ```
 <div class="site-navigation">
@@ -236,7 +236,7 @@ Feeling confident?
 
 为什么会这样？
 
-在 JavaScript 代码中，有一段是和之前的类名 `siteNavigation` 有关联的。
+在 JavaScript 代码中，有一段是和之前的类名 `siteNavigation` 有关联的：
 
 ```
 // Javasript 代码
@@ -245,9 +245,9 @@ const nav = document.querySelector('.siteNavigation')
 
 由于类名的改变，`nav` 变量现在变成了 `null`。
 
-真惨啊。
+好忧桑。😔😔
 
-为了防止这种情况发生，开发们想了很多不同的策略。
+为了防止这种情况发生，开发者们想了很多不同的策略。
 
 #### 1. 使用 js- 类名
 
@@ -296,11 +296,11 @@ const nav = document.querySelector("[rel='js-site-navigation']")
 
 我对这种方法持保留态度。不过你很可能在某些代码库中看到它们。这种方法就好像在说：**“好吧，这里和 Javascript 有个关联，那么我就用 rel 属性来表示这种关联。”**
 
-互联网这个地方，解决同一个问题常常有无数种『方法』
+互联网这个地方，解决同一个问题常常有无数种『方法』。
 
 #### 3. 别用数据属性（data attributes）
 
-有些开发者用数据属性（data attributes）作为 JavaScript 钩子。这是不对的。根据定义，data 属性（data attributes）是用来 **储存自定义数据（to store custom data）** 的
+有些开发者用数据属性（data attributes）作为 JavaScript 钩子。这是不对的。根据定义，data 属性（data attributes）是用来 **储存自定义数据（to store custom data）** 的。
 
 ![](https://cdn-images-1.medium.com/max/800/1*wYSuEHKyr4gikmoEaq-9jw.png)
 
@@ -322,11 +322,11 @@ const nav = document.querySelector("[rel='js-site-navigation']")
 
 ### 准备好成为 CSS 大牛了么？
 
-我创建了一本可以让你 CSS 技能飙升的指南，[这里领取免费电子书](http://eepurl.com/dgDVRb)
+我创建了一本可以让你 CSS 技能飙升的指南。[这里领取免费电子书](http://eepurl.com/dgDVRb)
 
 ![](https://cdn-images-1.medium.com/max/800/1*fJabzNuhWcJVUXa3O5OlSQ.png)
 
-你不知道的七种 CSS 秘籍
+你不知道的七种 CSS 秘籍。
 
 
 ---
