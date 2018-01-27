@@ -6,51 +6,72 @@
 > * 校对者：
 
 # Turning Design Mockups Into Code With Deep Learning - Part 1
+# 使用深度学习自动生成HTML代码 - 第 1 部分
 
 - [Turning Design Mockups Into Code With Deep Learning - Part 1](https://github.com/xitu/gold-miner/blob/master/TODO/turning-design-mockups-into-code-with-deep-learning-1.md)
 - [Turning Design Mockups Into Code With Deep Learning - Part 2](https://github.com/xitu/gold-miner/blob/master/TODO/turning-design-mockups-into-code-with-deep-learning-2.md)
+- [使用深度学习自动生成HTML代码 - 第 1 部分](https://github.com/xitu/gold-miner/blob/master/TODO/turning-design-mockups-into-code-with-deep-learning-1.md)
+- [使用深度学习自动生成HTML代码 - 第 2 部分](https://github.com/xitu/gold-miner/blob/master/TODO/turning-design-mockups-into-code-with-deep-learning-2.md)
 
 Within three years deep learning will change front-end development. It will increase prototyping speed and lower the barrier for building software.
+在未来三年来，深度学习将改变前端的发展。它将会加快原型设计的速度和降低构建软件的门槛。
 
 The field took off last year when Tony Beltramelli introduced the [pix2code paper](https://arxiv.org/abs/1705.07962) and Airbnb launched [sketch2code](https://airbnb.design/sketching-interfaces/).
+Tony Beltramelli 去年发布了[pix2code 论文](https://arxiv.org/abs/1705.07962)，Airbnb 也发布了 [sketch2code](https://airbnb.design/sketching-interfaces/)。
 
 Currently, the largest barrier to automating front-end development is computing power. However, we can use current deep learning algorithms, along with synthesized training data, to start exploring artificial front-end automation right now.
+目前，自动化前端开发的最大屏障是计算能力。但我们可以使用目前的深度学习算法，以及同步训练数据来探索人工智能前端自动化的方法。
 
 In this post, we’ll teach a neural network how to code a basic a HTML and CSS website based on a picture of a design mockup. Here's a quick overview of the process:
+在本文中，作者将教神经网络学习如何基于一张图片和一个设计模板来编写一个 HTML 和 CSS 网站。下面是该过程的简要概述：
 
 ### 1) Give a design image to the trained neural network
+### 1) 向训练的神经网络输入一个设计图
 
 ![](https://blog.floydhub.com/static/image_to_notebookfile-3354b407064e4d95a0217612a5463434-6c1a3.png)
 
 ### 2) The neural network converts the image into HTML markup
+### 2) 神经网络将图片转换为 HTML 标记语言
 
 ![](/generate_html_markup-b6ceec69a7c9cfd447d188648049f2a4.gif)
 
 ### 3) Rendered output
+### 3) 渲染输出
 
 ![](https://blog.floydhub.com/static/render_example-4c9df7e5e8bb455c71dd7856acca7aae-6c1a3.png)
 
 We’ll build the neural network in three iterations.
+我们将分三个版本来构建神经网络。
 
 In the first version, we’ll make a bare minimum version to get a hang of the moving parts. The second version, HTML, will focus on automating all the steps and explaining the neural network layers. In the final version, Bootstrap, we’ll create a model that can generalize and explore the LSTM layer.
+在第 1 个版本，我们构建最简单地版本来掌握移动部分。第 2 个版本，HTML 专注于自动化所有步骤，并简要神经网络层。最后一个 Bootstrap 版本，我们将创建一个模型来思考和探索 LSTM 层。
 
 All the code is prepared on [Github](https://github.com/emilwallner/Screenshot-to-code-in-Keras/blob/master/README.md) and [FloydHub](https://www.floydhub.com/emilwallner/projects/picturetocode) in Jupyter notebooks. All the FloydHub notebooks are inside the `floydhub` directory and the local equivalents are under `local`.
+所有的代码准备在 [Github](https://github.com/emilwallner/Screenshot-to-code-in-Keras/blob/master/README.md) 上和在 Jupyter 笔记本上的 [FloydHub](https://www.floydhub.com/emilwallner/projects/picturetocode)。所有 FloydHub notebook 都在 floydhub 目录中，本地 notebook 在 local 目录中。
 
 The models are based on Beltramelli‘s [pix2code paper](https://arxiv.org/abs/1705.07962) and Jason Brownlee’s [image caption tutorials](https://machinelearningmastery.com/blog/page/2/). The code is written in Python and Keras, a framework on top of TensorFlow.
+本文中的模型构建是基于 Beltramelli 的论文 [pix2code](https://arxiv.org/abs/1705.07962) 和 Jason Brownlee 的[图像描述生成教程](https://machinelearningmastery.com/blog/page/2/)。代码是由 Python 和 Keras 编写，在 TensorFolw 上的框架。
 
 If you’re new to deep learning, I’d recommend getting a feel for Python, backpropagation, and convolutional neural networks. My three earlier posts on FloydHub’s blog will get you started [[1]](https://blog.floydhub.com/my-first-weekend-of-deep-learning/) [[2]](https://blog.floydhub.com/coding-the-history-of-deep-learning/) [[3]](https://blog.floydhub.com/colorizing-b&w-photos-with-neural-networks/).
+如果你是深度学习的新手，我建议你感受下 Python，反向传播和卷积神经网络。我早期个投递在 FloyHub 博客上篇文章作为你的开始 [[1]](https://blog.floydhub.com/my-first-weekend-of-deep-learning/) [[2]](https://blog.floydhub.com/coding-the-history-of-deep-learning/) [[3]](https://blog.floydhub.com/colorizing-b&w-photos-with-neural-networks/)。
 
 ## Core Logic
+## 核心逻辑
 
 Let’s recap our goal. We want to build a neural network that will generate HTML/CSS markup that corresponds to a screenshot.
+让我们回顾一下我们的目标。我们的目标是构建一个神经网络，能够生成与截图对应的 HTML/CSS 标记语言。
 
 When you train the neural network, you give it several screenshots with matching HTML.
+当你训练神经网络时，你先提供几个截图和对应的 HTML 代码。
 
 It learns by predicting all the matching HTML markup tags one by one. When it predicts the next markup tag, it receives the screenshot as well as all the correct markup tags until that point.
+网络通过逐个预测所有匹配的 HTML 标记语言来学习。预测下一个标记语言的标签时，网络接收到截图和之前所有正确的标记。
 
 Here is a simple [training data example](https://docs.google.com/spreadsheets/d/1xXwarcQZAHluorveZsACtXRdmNFbwGtN3WMNhcTdEyQ/edit?usp=sharing) in a Google Sheet.
+这里是一个在 Google Sheet [简单的训练数据示例](https://docs.google.com/spreadsheets/d/1xXwarcQZAHluorveZsACtXRdmNFbwGtN3WMNhcTdEyQ/edit?usp=sharing)。
 
 Creating a model that predicts word by word is the most common approach today. There are [other approaches](https://machinelearningmastery.com/deep-learning-caption-generation-models/), but that’s the method that we’ll use throughout this tutorial.
+
 
 Notice that for each prediction it gets the same screenshot. So if it has to predict 20 words, it will get the same design mockup twenty times. For now, don’t worry about how the neural network works. Focus on grasping the input and output of the neural network.
 
@@ -67,6 +88,7 @@ When you want to use the trained model for real-world usage, it's similar to whe
 ![](https://blog.floydhub.com/static/model_prediction-801ad7af1d2205276ba64fdc6d7c7ec8-6c1a3.png)
 
 ## **Hello World Version**
+## **Hello World 版本**
 
 Let’s build a hello world version. We’ll feed a neural network a screenshot with a website displaying “Hello World!”, and teach it to generate the markup.
 
@@ -193,6 +215,7 @@ Here we make the prediction:
 * **Picture-to-code networks are image caption models in disguise.** Even when I learned this, I still ignored many of the image caption papers, simply because they were less cool. Once I got some perspective, I accelerated my learning of the problem space.
 
 ## Running the code on FloydHub
+## 在 FloyHub 上运行代码
 
 FloydHub is a training platform for deep learning. I came across them when I first started learning deep learning and I’ve used them since for training and managing my deep learning experiments. You can install it and run your first model within 10 minutes. It’s hands down the best option to run models on cloud GPUs.
 
@@ -223,6 +246,7 @@ All the notebooks are prepared inside the floydhub directory. The local equivale
 If you want more detailed instructions and an explanation for the flags, check [my earlier post](https://blog.floydhub.com/colorizing-b&w-photos-with-neural-networks/).
 
 ## HTML Version
+## HTML 版本
 
 In this version, we’ll automate many of the steps from the Hello World model. This section will focus on creating a scalable implementation and the moving pieces in the neural network.
 
@@ -231,6 +255,7 @@ This version will not be able to predict HTML from random websites, but it’s s
 ![](/html_generation-2476413d4299a3a8b407ee9cdb6774b6.gif)
 
 ### Overview
+### 概览
 
 If we expand the components of the previous graphic it looks like this.
 
@@ -253,6 +278,7 @@ We extract the features from the layer before the final classification.
 We end up with 1536 eight by eight pixel images known as features. Although they are hard to understand for us, a neural network can extract the objects and position of the elements from these features.
 
 ##### Markup features
+##### 标记特征
 
 In the hello world version we used a one-hot encoding to represent the markup. In this version, we’ll use a word embedding for the input and keep the one-hot encoding for the output.
 
@@ -267,6 +293,7 @@ The eight digits for each word are weights similar to a vanilla neural network. 
 This is how we start developing markup features. Features are what the neural network develop to link the input data with the output data. For now, don’t worry about what they are, we’ll dig deeper into this in the next section.
 
 ### The Encoder
+### 编码器
 
 We’ll take the word embeddings and run them through an LSTM and return a sequence of markup features. These are run through a Time distributed dense layer - think of it as a dense layer with multiple inputs and outputs.
 
@@ -277,6 +304,7 @@ In parallel, the image features are first flattened. Regardless of how the digit
 This can be hard to wrap your mind around - so let’s break it down.
 
 ##### Markup features
+##### 标记特征
 
 Here we run the word embeddings through the LSTM layer. In this graphic, all the sentences are padded to reach the maximum size of three tokens.
 
@@ -285,6 +313,7 @@ Here we run the word embeddings through the LSTM layer. In this graphic, all the
 To mix signals and find higher-level patterns we apply a TimeDistributed dense layer to the markup features. TimeDistributed dense is the same as a dense layer but with multiple inputs and outputs.
 
 ##### Image features
+##### 图像特征
 
 In parallel, we prepare the images. We take all the mini image features and transform them into one long list. The information is not changed, just reorganized.
 
@@ -295,6 +324,7 @@ Again, to mix signals and extract higher level notions, we apply a dense layer. 
 In this case, we have three markup features. Thus, we end up with an equal amount of image features and markup features.
 
 ##### Concatenating the image and markup features
+##### 级联图像特征和标记特征
 
 All the sentences are padded to create three markup features. Since we have prepared the image features, we can now add one image feature for each markup feature.
 
@@ -303,6 +333,7 @@ All the sentences are padded to create three markup features. Since we have prep
 After sticking one image feature to each markup feature, we end up with three image-markup features. This is the input we feed into the decoder.
 
 ### The Decoder
+### 解码器
 
 Here we use the combined image-markup features to predict the next tag.
 
@@ -315,6 +346,7 @@ Note that the LSTM layer has the sequence set to false. Instead of returning the
 ![](https://blog.floydhub.com/static/image-markup-feature_to_vocab-eb39368b3f466914c9383d532675a622-6c1a3.png) 
 
 ##### The final prediction
+##### 最后的预测
 
 The dense layer works like a traditional feedforward neural network. It connects the 512 digits in the next tag feature with the 4 final predictions. Say we have 4 words in our vocabulary: start, hello, world, and end.
 
