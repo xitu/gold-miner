@@ -2,83 +2,83 @@
 > * 原文作者：[Guillaume CHAU](https://medium.com/@Akryum?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/whats-new-in-vue-devtools-4-0.md](https://github.com/xitu/gold-miner/blob/master/TODO/whats-new-in-vue-devtools-4-0.md)
-> * 译者：
-> * 校对者：
+> * 译者：[MechanicianW](https://github.com/MechanicianW)
+> * 校对者：[okaychen](https://github.com/okaychen) [FateZeros](https://github.com/FateZeros)
 
-# What’s new in Vue Devtools 4.0
+# Vue Devtools 4.0 有哪些新内容
 
-A big update was released to the Vue devtools just a few days ago. Let’s dive into the new features and improvements! 🎄
+几天前，Vue devtools 发布了重大更新。让我们来看看有哪些新特性与改进！🎄（译者注： 以下视频源都是 youtube，需自备梯子）
 
-### Editable component data
+### 可编辑的组件 data
 
-You can now modify the data of your component directly in the Component inspector pane.
+现在可以直接在组件检查面板中修改组件的 data 了。
 
-1. Select a component
-2. Under the `data` section in the inspector, mouse over a field
-3. Click on the pencil icon
-4. Submit your changes by clicking on the done icon or by hitting Enter. You can hit Escape to cancel the edition
+1. 选中一个组件
+2. 在检查器的 `data` 部分下，将鼠标移到你要修改的字段上
+3. 点击铅笔图标
+4. 通过点击完成图标或者敲击回车键来提交你的改动。也可以通过敲击 ESC 键来取消编辑
 
 <iframe width="700" height="525" src="https://www.youtube.com/embed/xeBRtXLrQYA" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
-The content of the field is the serialized JSON value. For example, if you want to enter a string, type `"hello"` with the double-quotes. An array should look like `[1, 2, "bar"]` and an object like `{ "a": 1, "b": "foo" }` .
+字段内容会被序列化为 JSON 。举个例子，如果你想输入一个字符串，则打字输入带双引号的 `"hello"`。数组则应该像 `[1, 2, "bar"]` ，对象则为 `{ "a": 1, "b": "foo" }` 。
 
-Currently, the values of following types can be edited:
+目前可以编辑以下几种类型的值：
 
-* `null` and `undefined`
+* `null` 和 `undefined`
 * `String`
-* Literal: `Boolean` , `Number` , `Infinity` , `-Infinity` and `NaN`
+* 字面量： `Boolean` , `Number` , `Infinity` , `-Infinity` 和 `NaN`
 * Arrays
 * Plain objects
 
-For the Arrays and Plain objects, you can add and remove items using the dedicated icons. You can also rename object keys.
+对于 Arrays 和 Plain objects，可以通过专用图标来增删项。也可以重命名对象的 key 名。
 
 <iframe width="700" height="525" src="https://www.youtube.com/embed/fx1zjvHryJ0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
-A warning will be displayed if the input isn’t valid JSON. However, some values like `undefined` or `NaN` can be typed directly for more convenience.
+如果输入的不是有效的 JSON 则会显示一条警告信息。然而，为了更方便，一些像 `undefined` 或者 `NaN` 的值是可以直接输入的。
 
-More types will be supported in future releases!
+未来的新版本会支持更多类型的！
 
-#### Quick Edit
+#### 快速编辑
 
-Some types of value can be edited in a single click with the ‘Quick Edit’ feature.
+通过 “快速编辑” 功能可以实现仅仅鼠标单击一下，就可以编辑一些类型的值了。
 
-Booleans can be toggled directly with the checkbox icon:
+布尔值可以直接通过复选框进行切换：
 
 <iframe width="700" height="525" src="https://www.youtube.com/embed/llNJapRZaHo" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
-Numbers can be incremented or decremented with the plus or minus icons:
+数值可以通过加号和减号图标进行增减：
 
 <iframe width="700" height="525" src="https://www.youtube.com/embed/ZCToaOpId0w" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
-You can use some keyboard modifiers to increment or decrement the value faster.
+使用键盘的修改键去进行增减会更快一些。
 
-### Open component in editor
+### 在编辑器中打开一个组件
 
-If you are using vue-loader or Nuxt in your project, you can now open the selected component in your favorite code editor (provided it is a Single-File Component).
+如果项目中使用了 vue-loader 或 Nuxt 的话，现在你就可以在你最喜欢的编辑器里打开选定的组件（只要它是单文件组件）。
 
-1. Follow this [setup guide](https://github.com/vuejs/vue-devtools/blob/master/docs/open-in-editor.md) (if you are using Nuxt, you don’t need to do anything)
-2. In the Component inspector, mouse over the component name — you should see a tooltip with the file path
-3. Click on the component name and it will open in your editor
+1. 按这份 [设置指南](https://github.com/vuejs/vue-devtools/blob/master/docs/open-in-editor.md) 操作 （如果你使用的是 Nuxt，就什么都不用做）
+2. 在组件检查器中，将鼠标移动到组件名上 —— 你会看到一个显示文件路径的提示框
+3. 单击组件名就会直接在编辑器中打开该组件了
 
 <iframe width="700" height="525" src="https://www.youtube.com/embed/XBKStgyhY18" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
-### Show the original component names
+### 显示原始的组件名
 
-PR by [manico](https://github.com/manico)
+这一功能由 [manico](https://github.com/manico) 提出的 PR 实现
 
-By default, all the component names are formatted into CamelCase. You can disable this by toggling the ‘Format component names’ button in the Components tab. This settings will be remembered and it will also be applied to the Events tab.
+默认情况下，组件名都会被格式化为驼峰形式。你可以通过切换组件标签下的 "Format component names" 按钮来禁用这一功能。这个设置将被记住，它也将被应用到 Events 标签页中。
 
 <iframe width="700" height="393" src="https://www.youtube.com/embed/PoZmEcCdSbU" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
-### Inspecting components just got easier
+### 检查组件更容易
 
-While you have the Vue devtools open, you can right-click on a component to inspect it:
+在 Vue devtools 开启的情况下，可以右键单击一个组件进行检查：
 
 ![](https://cdn-images-1.medium.com/max/800/1*8fhP5VTb6uev-8HfI4stYw.png)
 
-Right-click a component in the page
+在页面中右键单击一个组件
 
-You can also programmatically inspect a component using the `$inspect` special method:
+也可以通过特殊的方法 `$inspect` 以编程的方式来检查组件：
 
 ```
 <template>
@@ -98,74 +98,72 @@ export default {
 </script>
 ```
 
-Use the `$inspect` method in your components.
+在组件中使用 `$inspect` 方法。
 
-Either way, the components tree will be expanded to the newly selected component automatically.
+无论以哪种方式进行，组件树都会自动扩展到新选择的组件。
 
-### Filter events by component
+### 按组件过滤事件
 
-PR by [eigan](https://github.com/eigan)
+这一功能由 [eigan](https://github.com/eigan) 提出的 PR 实现
 
-You can now filter the Events history by the components that emitted the events. Type `<` followed by the name of the component or part of it:
+现在你可以按发出事件的组件来过滤历史事件了。输入 `<` 符号，后面跟着组件全名或组件名的一部分：
 
 <iframe width="700" height="393" src="https://www.youtube.com/embed/wytquoUPSFo" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
-### Vuex inspector filter
+### Vuex 检查器过滤功能
 
-PR by [bartlomieju](https://github.com/bartlomieju)
+这一功能由 [bartlomieju](https://github.com/bartlomieju) 提出的 PR 实现
 
-The Vuex inspector has now a filter input:
+Vuex 检查器的输入框现在有了过滤功能：
 
 <iframe width="700" height="393" src="https://www.youtube.com/embed/T095k5hI_pA" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
-### Vertical layout
+### 垂直布局
 
-PR by [crswll](https://github.com/crswll)
+这一功能由 [crswll](https://github.com/crswll) 提出的 PR 实现
 
-When the devtools are not wide enough, they will now switch to an handy vertical layout. You can move the divider between the top and bottom panes just like in the default horizontal mode.
+devtools 不够宽时，将切换到更方便使用的垂直布局。你可以像水平模式下一样，移动上下窗格间的分隔线。
 
 <iframe width="700" height="525" src="https://www.youtube.com/embed/33tJ_md8bX8" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
-### Improved scroll-to-component
+### 滚动到组件功能改进
 
-By default, selecting a component will no longer scroll the view to it. Instead, you need to click the new ‘Scroll into view’ icon:
+默认情况下，点击组件将不再自动滚动到该组件的视图部分。相反，你需要点击新的 "Scroll into view" 图标才能滚动到该组件：
 
 ![](https://cdn-images-1.medium.com/max/800/1*TJEfzB4ifK8t-5kpbZieRw.png)
 
-Click on the eye icon to scroll to the component.
+点击眼睛图标来滚动到组件。
 
-It will now center the component on the screen.
+视图将滚动到组件居中于屏幕的位置。
 
-### Collapsible inspectors
+### 可折叠的检查器
 
-The sections of the different inspectors can now be collapsed. You can use keyboard modifier to collapse them all or expand them all in one click. This is very useful if you are, let’s say, only interested in the mutations details of the Vuex tab.
+现在不同检查器的各部分是可以被折叠的。你可以用键盘修改键来将它们都折叠，或者通过鼠标单击将它们都展开。假设你只专注于 Vuex 标签页的 mutations 详情的话，这就是一个非常有用的功能。
 
 <iframe width="700" height="393" src="https://www.youtube.com/embed/bblGueKPsjE" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
-### And more!
+### 以及更多
 
-* The ‘Inspect DOM’ button is now hidden if the environment doesn’t have this feature — by [michalsnik](https://github.com/michalsnik)
-* `-Infinity` is now supported — by [David-Desmaisons](https://github.com/David-Desmaisons)
-* The event hook had an issue fixed by [maxushuang](https://github.com/maxushuang)
-* Some code was cleaned by [anteriovieira](https://github.com/anteriovieira)
-* Date, RegExp, Component support is improved (and time-traveling should work with those types now)
-* The devtools are now using [v-tooltip](https://github.com/Akryum/v-tooltip) for rich tooltips and popovers (also fixing some issues)
+* 如果运行环境不支持这一功能的话，"Inspect DOM" 按钮会被隐藏。 —— by [michalsnik](https://github.com/michalsnik)
+* 支持 `-Infinity` —— by [David-Desmaisons](https://github.com/David-Desmaisons)
+* 事件钩子的 issue 修复 —— [maxushuang](https://github.com/maxushuang)
+* 代码清理 —— by [anteriovieira](https://github.com/anteriovieira)
+* 改进了对 Date， RegExp， Component 的支持 （现在这些类型也可以进行时间旅行了）
+* devtools 现在使用 [v-tooltip](https://github.com/Akryum/v-tooltip) 实现更丰富的信息提示与弹出功能
 
-If you already have the extension, it should update automatically to `4.0.1` . You can also install it [on Chrome](https://chrome.google.com/webstore/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd) and [on Firefox](https://addons.mozilla.org/fr/firefox/addon/vue-js-devtools/).
+如果你已经安装了扩展，扩展应用将自动更新到 `4.0.1` 版本。你也可以在 [Chrome](https://chrome.google.com/webstore/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd) 和 [Firefox](https://addons.mozilla.org/fr/firefox/addon/vue-js-devtools/) 上安装。
 
-**Thank you for all the contributors that helped make this big update possible!**
-
-If you find an issue or have a new feature to suggest, please [share it](https://new-issue.vuejs.org/?repo=vuejs/vue-devtools)!
-
+**感谢所有的贡献者们！是你们使得本次更新成为可能！**
+如果你发现任何问题或是有新的功能建议，[请分享出来](https://new-issue.vuejs.org/?repo=vuejs/vue-devtools)！
 * * *
 
-### What’s next?
+### 接下来会有什么大动作？
 
-A new release should arrive pretty soon with even more features like selecting a component in the page (color picker-style) and some UI improvements.
+具有更多功能特性的新版本即将发布，如在页面中直接选中组件（选色板风格）和一些 UI 改进。
 
-We also have a few things in the works, like a standalone Vue devtools app that will allow debugging any environment (not just Chrome and Firefox), a brand new Routing tab and an improved support for `Set` and `Map` types.
+我们也有一些仍在进行中的工作，比如允许在任意环境（不仅仅是 Chrome 和 Firefox）进行 debug 的独立 Vue devtools app，全新的路由标签页，以及对 `Set` 和 `Map` 类型支持的改进。
 
-Stay tuned!
+敬请关注！
 
 
 ---

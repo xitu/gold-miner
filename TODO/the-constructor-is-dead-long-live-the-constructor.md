@@ -2,20 +2,24 @@
 > * 原文作者：[Donavon West](https://hackernoon.com/@donavon?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/the-constructor-is-dead-long-live-the-constructor.md](https://github.com/xitu/gold-miner/blob/master/TODO/the-constructor-is-dead-long-live-the-constructor.md)
-> * 译者：
-> * 校对者：
+> * 译者：[unicar](https://github.com/unicar9)
+> * 校对者：[FateZeros](https://github.com/FateZeros), [pot-code](https://github.com/pot-code)
 
-# The constructor is dead, long live the constructor!
+# 构造函数已死，构造函数万岁！
 
-## Say goodbye to the medieval class constructor in your React components.
+
+## 向 React 组件里老掉牙的类构造函数（class constructor）说再见
+
 
 ![](https://cdn-images-1.medium.com/max/2000/1*RKQ1VZhf-b7We4YN78xWlA.jpeg)
 
 Photo by [Samuel Zeller](https://unsplash.com/photos/VLioQ2c-VwE?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)
 
-While Stateless Function Components (SFCs) are a handy tool in your arsenal, ES6 Class Components are still the de-facto way to write React components that utilizes state or lifecycle hooks.
+尽管无状态函数组件（SFCs）是一件趁手的神兵利器，但 ES6 类组件仍旧是创建 React 组件及其状态和生命周期钩子函数的默认方式。
 
-A hypothetical ES6 Class Component might look something like this (over-simplified without error checking, of course).
+
+假设一个 ES6 类组件如下例所示（只展示简化过的部分代码）。
+
 
 ```
 class Foo extends Component {
@@ -42,13 +46,17 @@ class Foo extends Component {
 }
 ```
 
-We initialize our `state` in the `constructor`, asynchronously load our data in `componentDidMount`, and render our `View` component based on the `loading` state. A pretty standard pattern — at least for me, if you’ve been following my work.
+在 `constructor` 中初始化 `state`，并于 `componentDidMount` 中异步加载数据，然后根据 `loading` 的状态来渲染 `View` 这个组件。对我而言这是相当标准的模式，如果你熟悉我之前的代码风格的话。
 
-### Class properties
 
-We’ve all been taught that the `constructor` is where we initialize our instance properties, `state` in this case. And if you are saying to yourself, “Exactly!”, then you would be absolutely correct… if not for the upcoming ES.next [class properties proposal](https://github.com/tc39/proposal-class-fields), currently in stage 3.
+### 类属性
 
-With it we can now define class properties directly, like this.
+
+我们都知道 `constructor` 正是我们初始化实例属性的地方，就像本例中这个 `state` 一样。如果你正胸有成竹地对自己说，『正是如此！』，那么你可说对了……但对于即将问世的 ES.next 类属性提案[class properties proposal](https://github.com/tc39/proposal-class-fields) 而言却并非如此，目前这份提案正处于第三阶段。
+
+
+按照新的提案来说，我们可以用如下方式直接定义类属性。
+
 
 ```
 class Foo extends Component {
@@ -57,17 +65,22 @@ class Foo extends Component {
 }
 ```
 
-Babel will transpile your code and add a `constructor` for you behind the scenes. Here is the output from Babel when we transpile the code snippet above.
+Babel 将会在后台转译你的代码并添加上一个 `constructor`。下图是 Babel 将你的代码片段转译过来的结果。
+
 
 ![](https://cdn-images-1.medium.com/max/800/1*IK4vl_NlOIdCDlFYyizEeQ.png)
 
-Note that Babel is actually passing all args — not just `props` — down to `super`. It is also taking `super`’s return value and passing it back to the caller. Both may be a bit overkill, but exactly what it should be doing.
+请注意这里 Babel 实际上是传递了所有参数到 `super` - 不仅仅是 `props`。它也会将 `super` 的返回值传递回调用者。两者虽然感觉有些小题大做，但确实需要这样。
 
-> There’s still a constructor, you just don’t see it.
 
-### Binding methods
+> 此处仍存在构造函数，你只是看不见而已。
 
-Another reason that we’re taught to use the `constructor` is for binding methods to `this`, like so.
+
+### 绑定方法
+
+
+使用 `constructor` 的另一重原因是将函数绑定到 `this`，如下所示。
+
 
 ```
 class Foo extends Component {
@@ -85,11 +98,14 @@ class Foo extends Component {
 }
 ```
 
-Some people ignore this all together by assigning a function expression to a class property, but that’s a different story all-together. Read more about this in my other ES6 React Classes article [**Demystifying Memory Usage using ES6 React Classes**](https://medium.com/@donavon/demystifying-memory-usage-using-es6-react-classes-d9d904bc4557 "https://medium.com/@donavon/demystifying-memory-usage-using-es6-react-classes-d9d904bc4557").
+但有些人用直接将函数表达式指定给一个类属性的方法完全避免了这个问题，不过这又是另一码事了。想了解更多可以参考我写的其他基于 ES6 类的 React 文章。 [**Demystifying Memory Usage using ES6 React Classes**](https://medium.com/@donavon/demystifying-memory-usage-using-es6-react-classes-d9d904bc4557 "https://medium.com/@donavon/demystifying-memory-usage-using-es6-react-classes-d9d904bc4557").
+
+
 
 [**Demystifying Memory Usage using ES6 React Classes**](https://medium.com/@donavon/demystifying-memory-usage-using-es6-react-classes-d9d904bc4557)
 
-Let’s assume for a moment that you are in the `bind` camp (and even if you’re not, bear with me). We’ll need to bind in the `constructor`, right? Not necessarily. We can do the same thing that we did for class properties above.
+那让我们假设一下你隶属 `bind` 阵营（即便不是也烦请耐心看完）。我们还是得需要在 `constructor` 进行绑定对吧？那倒不一定了。我们可以在这里使用和上述处理类属性一样的方法。
+
 
 ```
 class Foo extends Component {
@@ -101,9 +117,11 @@ class Foo extends Component {
 }
 ```
 
-### Initializing state with props
+### 用 props 来初始化状态
 
-What about when you need to derive your initial `state` from `props`, say for initializing a default value? Surely we need the `constructor` for that?
+
+那如果你需要从 `props` 中派生出初始 `state`，比方说初始化一个默认值？那这样总该需要使用到 `constructor` 了吧？
+
 
 ```
 class Foo extends Component {
@@ -124,7 +142,8 @@ class Foo extends Component {
 }
 ```
 
-Nope! Again, class properties to the rescue! We have access to both `this` and `props`.
+并不是哦！类属性再次救人于水火！我们可以同时取到 `this` 和 `props`。
+
 
 ```
 class Foo extends Component {
@@ -135,21 +154,24 @@ class Foo extends Component {
 }
 ```
 
-### Data fetching
+### 获取数据
 
-Maybe we need a `constructor` to fetch data? Hardly. As we saw in our first code sample, any data loading should be done in `componentDidMount`. But why `componentDidMount`? We do it there so that the fetch isn’t performed when running the component on the server — as is the case when doing Server Side Rendering (SSR) — as `componentDidMount` is _not_ performed server side.
 
-### Conclusion
+那也许我们需要 `constructor` 获取数据？基本上不需要。就像我们在第一个代码示例看到的那样，任何数据的加载都应在 `componentDidMount` 里完成。但为何独独在 `componentDidMount`呢？因为这样可以确保在服务器端运行组件时不会执行获取数据 - 服务器端渲染（SSR）同理 — 因为 `componentDidMount` 不会在服务器端执行。
 
-We’ve seen that for setting our initial `state`, we no longer need a `constructor` (or any other instance property for that matter). We also don’t need it for binding methods to `this`. Same for setting initial `state` from `props`. And we would most definitely never fetch data in the `constructor`.
+### 结论
 
-Why then would we ever need the `constructor` in a React component?
+综上可以看出，我们不再需要一个 `constructor`（或者其他任何实例属性）来设置初始 `state`。我们也不需要构造函数来把函数绑定到 `this`，以及从 `props` 设置初始的 `state`。同时我们也完全不需要在 `constructor` 里面获取数据。
 
-Well… you don’t.
 
-_[However… If you find some obscure use case where you need to initialize something in a component, both client-side and server-side, you still have an out. There’s always_ `_componentWillMount_`_. Internally, React calls this hook right after “newing” the class (which calls the_ `_constructor_`_) on both the client and the server.]_
+那为什么我们还需要在 React 组件中使用构造函数呢？
 
-So I maintain that for React components: The constructor is dead, long live the constructor!
+怎么说呢……你还真的不需要
+
+__不过，要是你在某些模棱两可的使用实例里，遇到需要同时从客户端和服务器端在一个组件里初始化什么东西的情况，构造函数仍然是个好的出路。你还有 `componentWillMount` 这个钩子函数可以用。 从内部机制来看，React 在客户端和服务器端都新建好了这个类（即调用构造函数）以后，就会立即调用这个钩子函数。__
+
+
+所以对 React 组件来说，我坚信这一点：构造函数已死，构造函数万岁！
 
 * * *
 
