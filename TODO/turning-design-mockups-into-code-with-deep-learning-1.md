@@ -91,28 +91,36 @@ When you want to use the trained model for real-world usage, it's similar to whe
 ## **Hello World 版本**
 
 Let’s build a hello world version. We’ll feed a neural network a screenshot with a website displaying “Hello World!”, and teach it to generate the markup.
+现在让我们构建 Hello World 版实现。我们将馈送一张带有「Hello World！」字样的截屏到神经网络中，并训练它生成对应的标记语言。
 
 ![](/hello_world_generation-039d78c27eb584fa639b89d564b94772.gif)
 
 First, the neural network maps the design mockup into a list of pixel values. From 0 - 255 in three channels - red, blue, and green.
+首先，神经网络将原型设计转换为一组像素值。且每一个像素点有 RGB 三个通道，每个通道的值都在 0-255 之间。
 
 ![](https://blog.floydhub.com/static/website_pixels-6f11057880ea91a87ddc087c27d063a7-6c1a3.png)
 
 To represent the markup in a way that the neural network understands, I use [one hot encoding](https://machinelearningmastery.com/how-to-one-hot-encode-sequence-data-in-python/). Thus, the sentence “I can code”, could be mapped like the below.
+为了以神经网络能理解的方式表征这些标记，我使用了 [one-hot 编码](https://machinelearningmastery.com/how-to-one-hot-encode-sequence-data-in-python/)。因此句子「I can code」可以映射为以下形式。
 
 ![](https://blog.floydhub.com/static/one_hot_encoding-2a72d2b794b26e6e4c4cc9c5f8bd4649-6c1a3.png)
 
 In the above graphic, we include the start and end tag. These tags are cues for when the network starts its predictions and when to stop.
+在上图中，我们的编码包含了开始和结束的标签。这些标签能为神经网络提供开始预测和结束预测的位置信息。
 
 For the input data, we will use sentences, starting with the first word and then adding each word one by one. The output data is always one word.
+对于输入的数据，我们使用语句，从第一个单词开始，然后依次相加。输出的数据总是一个单词。
 
 Sentences follow the same logic as words. They also need the same input length. Instead of being capped by the vocabulary they are bound by maximum sentence length. If it’s shorter than the maximum length, you fill it up with empty words, a word with just zeros.
+语句跟着同样的逻辑。这也需要同样的输入长度。他们没有被词汇限制，而是受句子长度的限制。如果它比最大长度短，你用空的单词填充它，一个只有零的单词。
 
 ![](https://blog.floydhub.com/static/one_hot_sentence-6b3c930c8a7808b928639201cac78ebe-6c1a3.png) 
 
 As you see, words are printed from right to left. This forces each word to change position for each training round. This allows the model to learn the sequence instead of memorizing the position of each word.
+正如你所看到的，单词是从右到左打印的。对于每次训练，强制改变每个单词的位置。这需要模型学习序列而不是记住每个单词的位置。
 
 In the below graphic there are four predictions. Each row is one prediction. To the left are the images represented in their three color channels: red, green and blue and the previous words. Outside of the brackets, are the predictions one by one, ending with a red square to mark the end.
+在下图中有四个预测。每一列是一个预测。左边是颜色呈现的三个颜色通道：红绿蓝和以前的单词。在括号外面，预测是一个接一个，以红色的正方形表示结束。
 
 ![](https://blog.floydhub.com/static/model_function-068c180c2ba3efdbb54193f21a5d5d7d-6c1a3.png) 
 
@@ -172,8 +180,10 @@ In the below graphic there are four predictions. Each row is one prediction. To 
 ```
 
 In the hello world version we use three tokens: “start”, “Hello World!” and “end”. A token can be anything. It can be a character, word or sentence. Character versions require a smaller vocabulary but constrain the neural network. Word level tokens tend to perform best.
+在 Hello World 版本中，我们使用三个符号「start」、「Hello World」和「end」。字符级的模型要求更小的词汇表和受限的神经网络，而单词级的符号在这里可能有更好的性能。
 
 Here we make the prediction:
+以下是执行预测的代码：
 
 ```
     # Create an empty sentence and insert the start token
@@ -201,18 +211,25 @@ Here we make the prediction:
 ```
 
 ## Output
+## 输出
 
 * **10 epochs:** `start start start`
 * **100 epochs:** `start <HTML><center><H1>Hello World!</H1></center></HTML> <HTML><center><H1>Hello World!</H1></center></HTML>`
 * **300 epochs:** `start <HTML><center><H1>Hello World!</H1></center></HTML> end`
 
 ### Mistakes I made:
+### 我踩过的坑
 
 * **Build the first working version before gathering the data.** Early on in this project, I managed to get a copy of an old archive of the Geocities hosting website. It had 38 million websites. Blinded by the potential, I ignored the huge workload that would be required to reduce the 100K-sized vocabulary.
+* **在收集数据之前构建第一个版本。**在本项目的早期阶段，我设法获得 Geocities 托管网站的旧版存档，它有 3800 万的网站。但我忽略了减少 100K 大小词汇所需要的巨大工作量。
 * **Dealing with a terabyte worth of data requires good hardware or a lot of patience.** After having my mac run into several problems I ended up using a powerful remote server. Expect to rent a rig with 8 modern CPU cores and a 1GPS internet connection to have a decent workflow.
+* **处理一个 TB 级的数据需要优秀的硬件或极其有耐心。**在我的 Mac 遇到几个问题后，最终用上了强大的远程服务器。我预计租用 8 个现代 CPU 和 1 GPS 内部链接以运行我的工作流。
 * **Nothing made sense until I understood the input and output data.** The input, X, is one screenshot and the previous markup tags. The output, Y, is the next markup tag. When I got this, it became easier to understand everything between them. It also became easier to experiment with different architectures.
+* **在理解输入与输出数据之前，其它部分都似懂非懂。**输入 X 是屏幕的截图和以前标记的标签，输出 Y 是下一个标记的标签。当我理解这一点时，其它问题都更加容易弄清了。此外，尝试其它不同的架构也将更加容易。
 * **Be aware of the rabbit holes.** Because this project intersects with a lot of fields in deep learning, I got stuck in plenty of rabbit holes along the way. I spent a week programming RNNs from scratch, got too fascinated by embedding vector spaces, and was seduced by exotic implementations.
+* **注意兔子洞。**由于这个项目与深度学习有关联的，我在这个过程中被很多兔子洞卡住了。我花了一个星期从无到有的编程RNNs，太着迷于嵌入向量空间，并由外来实现诱惑。
 * **Picture-to-code networks are image caption models in disguise.** Even when I learned this, I still ignored many of the image caption papers, simply because they were less cool. Once I got some perspective, I accelerated my learning of the problem space.
+* **图片到代码的网络其实就是自动描述图像的模型。**即使我意识到了这一点，但仍然错过了很多自动图像摘要方面的论文，因为它们看起来不够炫酷。一旦我意识到了这一点，我对问题空间的理解就变得更加深刻了。
 
 ## Running the code on FloydHub
 ## 在 FloyHub 上运行代码
