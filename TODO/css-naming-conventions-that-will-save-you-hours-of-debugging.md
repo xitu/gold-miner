@@ -2,42 +2,42 @@
 > * 原文作者：[Ohans Emmanuel](https://medium.freecodecamp.org/@ohansemmanuel?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/css-naming-conventions-that-will-save-you-hours-of-debugging.md](https://github.com/xitu/gold-miner/blob/master/TODO/css-naming-conventions-that-will-save-you-hours-of-debugging.md)
-> * 译者：
-> * 校对者：
+> * 译者：[unicar](https://github.com/unicar9)
+> * 校对者：[dazhi1011](https://github.com/dazhi1011)，[swants](https://github.com/swants)
 
-# CSS Naming Conventions that Will Save You Hours of Debugging
+# 这些 CSS 命名规范将省下你大把调试时间
 
 ![](https://cdn-images-1.medium.com/max/1000/1*YunI3ChUVMlpmFzo75FczQ.png)
 
-I have heard lots of developers say they hate CSS. In my experience, this comes as a result of not taking the time to learn CSS.
+我听说很多开发者厌恶 CSS。而在我的经验中，这往往是由于他们并没有花时间来学习 CSS。
 
-CSS isn’t the prettiest ‘language,’ but it has successfully powered the styling of the web for over 20 years now. Not doing too badly, huh?
+CSS 算不上是最优美的『语言』，但迄今二十多年来，它都是美化 web 举足轻重的工具。从这点来说，也还算不错吧？
 
-However, as you write more CSS, you quickly see one big downside.
+尽管如此，CSS 写得越多，你越容易发现一个巨大的弊端。
 
-It is darn difficult to maintain CSS.
+因为维护 CSS 真是老大难。
 
-Poorly written CSS will quickly turn into a nightmare.
+特别是那些写得差劲的 CSS 会很快变成程序员的噩梦。
 
-Here are a few naming conventions that will save you a bit of stress and countless hours down the line.
+这里向大家介绍一些命名规范，遵照这些规范可以省时省力，少走弯路。
 
 ![](https://cdn-images-1.medium.com/max/800/1*fe0MIB3iqSruW1pgZW9rKw.jpeg)
 
-you’ve been there before, haven’t you?
+对此你一定深有体会吧？
 
-### Use Hyphen Delimited Strings
+### 使用连字符分隔的字符串
 
-If you write a lot of JavaScript, then writing variables in camel case is common practice.
+如果你常写 JavaScript，那么你知道对变量使用驼峰式命名法（camel case）是一种惯例。
 
 ```
 var redBox = document.getElementById('...')
 ```
 
-Great, right?
+这样很好，对吧？
 
-The problem is that this form of naming isn’t well-suited to CSS.
+但问题是这种命名法并不适用于 CSS。
 
-Do not do this:
+请切忌以如下方式命名：
 
 ```
 .redBox {
@@ -45,7 +45,7 @@ Do not do this:
 }
 ```
 
-Instead, do this:
+相应的，你可以这样写：
 
 ```
 .red-box {
@@ -53,9 +53,9 @@ Instead, do this:
 }
 ```
 
-This is a pretty standard CSS naming convention. It is arguably more readable.
+这是一种非常标准的 CSS 命名规范。也可以说更易读。
 
-Also, it is consistent with the CSS property names.
+同时，这也和 CSS 属性名称保持了一致。
 
 ```
 // Correct
@@ -68,17 +68,17 @@ Also, it is consistent with the CSS property names.
 }
 ```
 
-### The BEM Naming Convention
+### BEM 命名规范
 
-Teams have different approaches to writing CSS selectors. Some teams use hyphen delimiters, while others prefer to use the more structured naming convention called BEM.
+不一样的团队在写 CSS 选择器（CSS selectors）有不一样的方法。有些团队使用的是连字符分隔（hyphen delimiters）法，还有一些倾向于使用一种叫 BEM 的命名法，这种方法更加有条理。
 
-Generally, there are 3 problems that CSS naming conventions try to solve:
+总的来说，这些 CSS 命名规范试图解决 3 类问题：
 
-1. To know what a selector does, just by looking at its name
-2. To have an idea of where a selector can be used, just by looking at it
-3. To know the relationships between class names, just by looking at them
+1. 仅从名字就能知道一个 CSS 选择器具体做什么
+2. 从名字能大致清楚一个选择器可以在哪里使用
+3. 从 CSS 类的名称可以看出它们之间的联系
 
-Have you ever seen class names written like this:
+不知你是否见过这样的类名：
 
 ```
 .nav--secondary {
@@ -89,29 +89,29 @@ Have you ever seen class names written like this:
 }
 ```
 
-That is the BEM naming convention.
+这就是 BEM 命名规范。
 
-### Explaining BEM to a 5 year Old
+### 向 5 岁小孩解释 BEM 规范
 
-BEM attempts to divide the overall user interface into small reusable components.
+BEM 规范试图将整个用户界面分解成一个个小的可重复使用的组件。
 
-Consider the image below:
+让我们来看看下图：
 
 ![](https://cdn-images-1.medium.com/max/800/1*qFy4XIpxbWx4oaOA3TYqpQ.png)
 
-It is an award winning image of a stick-man :)
+这可是个足以得奖的火柴人呢 :)
 
-No, it’s not award winning :(
+哎，可惜并不是 :(
 
-The stick-man represents a component, such as a block of design.
+这个火柴人代表了一个组件，比如说一个设计区块。
 
-You may have already guessed that the B in BEM stands for ‘Block’.
+或许你已经猜到了 BEM 这里的 B 意为『区块』（‘Block’）。
 
-In the real world, this ‘block’ could represent a site navigation, header, footer, or any other block of design.
+在实际中，这里『区块』可以表示一个网站导航、页眉、页脚或者其他一些设计区块。
 
-Following the practice explained above, an ideal class name for this component would be `stick-man`.
+根据上述解释，那么这个组件的理想类名称即是 `stick-man`。
 
-The component should be styled like so:
+组件的样式应写成这样：
 
 ```
 .stick-man {
@@ -119,25 +119,25 @@ The component should be styled like so:
  }
 ```
 
-We have used delimited strings here. Good!
+在这里我们使用了连字符分隔法，很好！
 
 ![](https://cdn-images-1.medium.com/max/800/1*US1EoM_lvYOeJabGDhV2Eg.png)
 
-### E for Elements
+### E 代表元素（Elements）
 
-The E in ‘BEM’ stands for Elements.
+BEM 中的 E 代表着元素。
 
-Overall blocks of design rarely live in isolation.
+整体的区块设计往往并不是孤立的。
 
-For instance, the stick-man has a `head`, two gorgeous `arms`, and `feet`.
+比方说，这个火柴人有一个头部（`head`），两只漂亮的手臂（`arms`）和双脚（`feet`）。
 
 ![](https://cdn-images-1.medium.com/max/800/1*MJO2vhGLlkQhTxGPO53YhQ.png)
 
 The `head` , `feet`, and `arms` are all elements within the component. They may be seen as child components, i.e. children of the overall parent component.
+这些 `head`、 `feet` 和 `arms` 都是组件中的元素。它们可视作子组件（child components），也就是父组件的组成部分。
+如果使用 BEM 命名规范的话，这些元素的类名都可以通过在**两条下划线**后加上元素名称来产生。
 
-Using the BEM naming convention, element class names are derived by adding **two underscores,** followed by the element name.
-
-For example:
+比如说：
 
 ```
 .stick-man__head {
@@ -148,19 +148,19 @@ For example:
 }
 ```
 
-### M for Modifiers
+### M 代表修饰符（Modifiers）
 
-The M in ‘BEM’ stands for Modifiers.
+M 在 BEM 命名法中代表修饰符。
 
-What if the stick-man was modified and we could have a `blue` or a `red` stick- man?
+如果说这个火柴人有个 `blue` 或者 `red` 这样的修饰符怎么办呢？
 
 ![](https://cdn-images-1.medium.com/max/800/1*Uj4IOaEtYynnUUJm_hAdwQ.png)
 
-In the real world, this could be a `red` button or `blue` button. These are modifications of the component in question.
+在现实场景里，这可能是一个 `red` 或者 `blue` 的按钮。这就是之前在讲的组件当中的限定修饰。
 
-Using BEM, modifier class names are derived by adding two **hyphens** followed by the element name.
+如果使用 BEM 的话，这些修饰符的类名都可以通过在两条**连字符**后加上元素名来产生。
 
-For example:
+比如说：
 
 ```
 .stick-man--blue {
@@ -169,17 +169,17 @@ For example:
 }
 ```
 
-The last example showed the parent component being modified. This is not always the case.
+最后这个例子展示的是父组件加修饰符。不过这种情况并不经常出现。
 
-What if we had stick-men of different `head` sizes?
+假如我们这个火柴人拥有另一个不一样的头部大小呢？
 
 ![](https://cdn-images-1.medium.com/max/800/1*qTM1TfotfLSRNjZ_PnWtAg.png)
 
-This time the element has been modified. Remember, the element is a child component within the overall containing block.
+这一次元素被加上了修饰符。记住，元素指一个整体封装区块中的一个子组件。
 
-The `.stick-man` represents the `Block` , `.stick-man__head` the element.
+`.stick-man` 表示区块（`Block`）， `.stick-man__head` 表示元素（the element）。
 
-As seen in the example above, double hyphens may also be used like so:
+从上例可以看出，双连字符也可以这样使用：
 
 ```
 .stick-man__head--small {
@@ -188,145 +188,145 @@ As seen in the example above, double hyphens may also be used like so:
 }
 ```
 
-Again, note the use of the double **hyphens** in the example above. This is used to denote a modifier.
+重申一次，上例中使用的双连字符是用来指代修饰符的。
 
-Now you’ve got it.
+这样你都明白了吧。
 
-That’s basically how the BEM naming convention works.
+这就是 BEM 的基本用法。
 
-Personally, I tend to use only hyphen delimeter class names for simple projects, and BEM for more involved user interfaces.
+个人来说，我在小项目中一般只用连字符分割法来写类名，在用户界面更复杂的项目中使用 BEM 方法。
 
-You can [read more](http://getbem.com/naming/) about BEM.
+关于 BEM，从这里了解[更多](http://getbem.com/naming/)
 
 [**BEM - Block Element Modifier**: _BEM - Block Element Modifier is a methodology, that helps you to achieve reusable components and code sharing in the…_getbem.com](http://getbem.com/naming/)
 
-### Why Use Naming Conventions?
+### 为何要使用命名规范？
 
-> There are only two hard problems in Computer Science: cache invalidation and naming things — _Phil Karlton_
+> 在计算机科学当中只有两类难题：缓存失效和命名 - _Phil Karlton_
 
-Naming things is hard. We’re trying to make things easier, and save ourselves time in the future with more maintainable code.
+命名的确很难。所以我们要尽量把它变得容易点，也为以后维护代码省点时间。
 
-Naming things correctly in CSS will make your code easier to read and maintain.
+能正确命名 CSS 中的类名可以让你的代码变得更易理解和维护。
 
-If you choose to use the BEM naming convention, it will become easier to see the relationship between your design components/blocks just by looking at the markup.
+如果你选择 BEM 命名规范，在看标记语言（markup）时就更容易看清各个设计组件/区块之间的关系。
 
-Feeling confident?
+感觉不错吧？
 
-### CSS Names with JavaScript Hooks
+### 和 JavaScript 关联的 CSS 名称
 
-Today is John’s first day at work.
+今天是 John 上班第一天。
 
-He is handed over an `HTML` code that looks like this:
+他拿到了如下一段 `HTML` 代码：
 
 ```
 <div class="siteNavigation">
 </div>
 ```
 
-John has read this article and realizes this may not be the best way to name things in `CSS`. So he goes ahead and refactors the codebase like so:
+因为刚好读了这篇文章，John 意识到这种命名方法在 CSS 中不是最好的方法。于是他讲代码修改成下面这样：
 
 ```
 <div class="site-navigation">
 </div>
 ```
 
-Looks good, huh?
+看上去不错吧？
 
-Unknown to John, he had broken the codebase 😩😩😩
+不过 John 没想到的是，他把整个代码库搞砸了 😩😩😩
 
-How?
+为什么会这样？
 
-Somewhere in the JavaScript code, there was a relationship with the previous class name, `siteNavigation`:
+在 JavaScript 代码中，有一段是和之前的类名 `siteNavigation` 有关联的：
 
 ```
-//the Javasript code
+// Javasript 代码
 const nav = document.querySelector('.siteNavigation')
 ```
 
-So, with the change in the class name, the `nav` variable became `null`.
+由于类名的改变，`nav` 变量现在变成了 `null`。
 
-How sad.
+好忧桑。😔😔
 
-To prevent cases like this, developers have come up with different strategies.
+为了防止这种情况发生，开发者们想了很多不同的策略。
 
-#### 1. Use js- class names
+#### 1. 使用 js- 类名
 
-One way to mitigate such bugs is to use a `**js-***`class name to denote a relationship with the DOM element in question.
+一种减少这类 bug 的方法是使用 `**js-***` 的类名命名方法。用这种方法来表明这个 DOM 元素和 JavaScript 代码的关联。
 
-For example:
+例如：
 
 ```
 <div class="site-navigation js-site-navigation">
 </div>
 ```
 
-And in the JavaScript code:
+同样的在 JavaScript 代码中：
 
 ```
 //the Javasript code
 const nav = document.querySelector('.js-site-navigation')
 ```
 
-As a convention, anyone who sees the `**js-**site-navigation` class name would understand that there is a relationship with that DOM element in the JavaScript code.
+依照命名规范，任何人看到 `**js-**site-navigation` 这个类名称，就会知道 JavaScript 代码中有一段和这个 DOM 元素有关联的代码。
 
-#### 2. Use the Rel attribute
+#### 2. 使用 Rel 属性
 
-I don’t use this technique myself, but I have seen people do.
+我自己没用过这种方法，不过我看到其他人用过。
 
-Do you recognize this?
+你是否熟悉这样的代码？
 
 ```
 <link rel="stylesheet" type="text/css" href="main.css">
 ```
 
-Basically, the **rel attribute** defines the relationship that the linked resource has to the document from which it’s referenced.
+一般来说，**rel 属性** 定义着链接资源和引用它的文件之间的关系。
 
-In the previous example with John, proponents of this technique would do this:
+回头看 John 的例子，这种方法建议我们写成如下的形式：
 
 ```
 <div class="site-navigation" rel="js-site-navigation">
 </div>
 ```
 
-And in the JavaScript:
+同时在 JavaScript 中：
 
 ```
 const nav = document.querySelector("[rel='js-site-navigation']")
 ```
 
-I have my doubts about this technique, but you’re likely to come accross it in some codebases. The claim here is, _“well, there’s a relationship with Javascript, so I use the rel attribute to denote that”_.
+我对这种方法持保留态度。不过你很可能在某些代码库中看到它们。这种方法就好像在说：**“好吧，这里和 Javascript 有个关联，那么我就用 rel 属性来表示这种关联。”**
 
-The web is a big place with lots of different “methods” for solving the same problem.
+互联网这个地方，解决同一个问题常常有无数种『方法』。
 
-#### 3. Don’t use data attributes
+#### 3. 别用数据属性（data attributes）
 
-Some developers use data attributes as JavaScript hooks. This isn’t right. By definition, data attributes are used **to store custom data**.
+有些开发者用数据属性（data attributes）作为 JavaScript 钩子。这是不对的。根据定义，data 属性（data attributes）是用来 **储存自定义数据（to store custom data）** 的。
 
 ![](https://cdn-images-1.medium.com/max/800/1*wYSuEHKyr4gikmoEaq-9jw.png)
 
-Good use of data attributes. As seen on Twitter.
+这里数据属性（data attributes）用得很妙。正如这条 Twitter 上所说的。
 
-### Bonus Tip: Write More CSS Comments
+### 附加提议：写更多的 CSS 注释
 
-This has nothing to do with naming conventions, but it will save you some time too.
+这跟命名规范毫无关系，但也能帮你节省时间。
 
-While a lot of web developers try to NOT write JavaScript comments or stick to a few, I think you should write more CSS comments.
+尽管很多 web 开发者尽量不写 Javascript 评论或者只针对某些情况才写，但我认为你应该写更多的 CSS 注释。
 
-Since CSS isn’t the most elegant “language,” well-structured comments can save time when you’re trying to understand your code.
+这是因为 CSS 不是最简洁优雅的『语言』，有条理的注释可以让你花更少时间来理解自己的代码。
 
-It doesn’t hurt.
+有益无弊，何乐不为。
 
-Take a look at how well commented the Bootstrap [source code](https://github.com/twbs/bootstrap/blob/v4-dev/scss/_carousel.scss) is.
+你可以看看 Bootstrap 的注释写得有多好。[source code](https://github.com/twbs/bootstrap/blob/v4-dev/scss/_carousel.scss)
 
-You do not need to write comments to say `color: red` will give a red color. But, if you’re using a CSS trick that is less obvious, feel free to write a comment.
+你倒不需要写一个 `color: red` 的注释告诉自己这是把颜色定为红色。但如果你用了一个不太简单明了的 CSS 小技巧，这时候大可以写写注释说明一下。
 
-### Ready to become Pro?
+### 准备好成为 CSS 大牛了么？
 
-I have created a free CSS guide to get your CSS skills blazing, immediately. [Get the free ebook.](http://eepurl.com/dgDVRb)
+我创建了一本可以让你 CSS 技能飙升的指南。[这里领取免费电子书](http://eepurl.com/dgDVRb)
 
 ![](https://cdn-images-1.medium.com/max/800/1*fJabzNuhWcJVUXa3O5OlSQ.png)
 
-Seven CSS Secrets you didn’t know about.
+你不知道的七种 CSS 秘籍。
 
 
 ---
