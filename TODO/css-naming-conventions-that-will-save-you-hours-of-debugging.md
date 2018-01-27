@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/css-naming-conventions-that-will-save-you-hours-of-debugging.md](https://github.com/xitu/gold-miner/blob/master/TODO/css-naming-conventions-that-will-save-you-hours-of-debugging.md)
 > * 译者：[unicar](https://github.com/unicar9)
-> * 校对者：
+> * 校对者：[dazhi1011](https://github.com/dazhi1011)，[swants](https://github.com/swants)
 
 # 这些 CSS 命名规范将省下你大把调试时间
 
