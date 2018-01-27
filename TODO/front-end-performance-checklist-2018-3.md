@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/front-end-performance-checklist-2018-3.md](https://github.com/xitu/gold-miner/blob/master/TODO/front-end-performance-checklist-2018-3.md)
 > * 译者：[Cherry](https://github.com/sunshine940326)
-> * 校对者：
+> * 校对者：[Ryou](https://github.com/ryouaki)、[z](https://github.com/wzy816)
 
 # 2018 前端性能优化清单 - 第 3 部分
 
