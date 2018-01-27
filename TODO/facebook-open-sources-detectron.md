@@ -2,23 +2,22 @@
 > * 原文作者：[Ross Girshick](https://research.fb.com/people/girshick-ross/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/facebook-open-sources-detectron.md](https://github.com/xitu/gold-miner/blob/master/TODO/facebook-open-sources-detectron.md)
-> * 译者：
-> * 校对者：
+> * 译者：[SeanW20](https://github.com/SeanW20)
+> * 校对者：[noahziheng](https://github.com/noahziheng)、[dazhi1011](https://github.com/dazhi1011)
 
-# Facebook open sources Detectron
+# Facebook开源Detectron
 
 ![](https://i.loli.net/2018/01/24/5a682bb6c9193.png)
 
-Today, Facebook AI Research (FAIR) open sourced [Detectron](https://research.fb.com/downloads/detectron/) — our state-of-the-art platform for object detection research.
+今天（译者注：2018 年 1 月 24 日），Facebook AI Research(FAIR) 研究机构开源了 [Detectron](https://research.fb.com/downloads/detectron/) —— 我们最先进的目标检测研究平台。
 
-The Detectron project was started in July 2016 with the goal of creating a fast and flexible object detection system built on Caffe2, which was then in early alpha development. Over the last year and a half, the codebase has matured and supported a large number of our projects, including [Mask R-CNN](https://arxiv.org/abs/1703.06870) and [Focal Loss for Dense Object Detection](https://arxiv.org/abs/1708.02002), which won the Marr Prize and Best Student Paper awards, respectively, at ICCV 2017. These algorithms, powered by Detectron, provide intuitive models for important computer vision tasks, such as instance segmentation, and have played a key role in the unprecedented advancement of visual perception systems that our community has achieved in recent years.
+Detectron 项目在 2016 年 7 月启动，目的是建立一个基于 Caffe2 上的快速灵活的物体检测系统。当时还在进行 Alpha 阶段的开发。在过去的一年半里，代码库已经成熟并且支持了我们的大量项目，包括 [Mask R-CNN](https://arxiv.org/abs/1703.06870) 和 [Focal Loss for Dense Object Detection](https://arxiv.org/abs/1708.02002)，在 2017 年的 ICCV 上这两个项目分别获得了 Marr 奖和最佳学生论文奖。由 Detectron 提供支持的这些算法为一些重要的计算机视觉任务，例如实现实例分割，提供了直观的模型，并且近年来在由我们社区完成的视觉感知系统中发挥了重要作用，这套系统已经取得空前成就。
 
-Beyond research, a number of Facebook teams use this platform to train custom models for a variety of applications including augmented reality and community integrity. Once trained, these models can be deployed in the cloud and on mobile devices, powered by the highly efficient Caffe2 runtime.
+除了研究，许多 Facebook 团队使用这个平台来训练各种应用的定制模型，包括增强现实和社区完整性。一旦开始训练，这些模型可以部署在云端和移动设备上，由高效的 Caffe2 运行时提供支持。
 
-Our goal in open sourcing Detectron is to make our research as open as possible and to accelerate research in labs across the world. With its release, the research community will be able to reproduce our results and have access to the same software platform that FAIR uses every day.
+我们开源 Detectron 的目标是使我们的研究尽更加开放，并加速在全球实验室的研究。随着其发布，科研界同仁将能够重现我们的结果，并能够使用 FAIR 的相同软件平台。
 
-Detectron is available under the Apache 2.0 license at https://github.com/facebookresearch/Detectron. We’re also releasing extensive performance baselines for more than 70 pre-trained models that are available to download from our model zoo.
-
+Detectron 可以在 Apache2.0 许可证下获得 [https://github.com/facebookresearch/Detectron](https://github.com/facebookresearch/Detectron). 我们还发布了 70 多种预训练模型的广泛性能基准，可以从我们的模型库中下载。
 
 ---
 
