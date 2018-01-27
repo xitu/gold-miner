@@ -17,17 +17,17 @@
 
 ***
 
-### 资产优化
+### 静态资源优化
 
-22. **你是使用 Brotli 还是 Zopfli 纯文本压缩？**
+22. **你是使用 Brotli 还是 Zopfli 进行纯文本压缩？**
 
-在 2005 年，[Google 推出了](https://opensource.googleblog.com/2015/09/introducing-brotli-new-compression.html) [Brotli](https://github.com/google/brotli)，一个新的开源数据无损压缩，现在 [被所有的现代浏览器所支持](http://caniuse.com/#search=brotli)。实际上，Brotli 比 Gzip 和 Deflate [更有效](https://samsaffron.com/archive/2016/06/15/the-current-state-of-brotli-compression)。通过设置，压缩的速度可能会（非常）慢，但是虽然压缩速度慢，但是压缩率提高了。当然，会越来越快的。
+在 2005 年，[Google 推出了](https://opensource.googleblog.com/2015/09/introducing-brotli-new-compression.html) [Brotli](https://github.com/google/brotli)，一个新的开源无损数据压缩格式，现在 [被所有的现代浏览器所支持](http://caniuse.com/#search=brotli)。实际上，Brotli 比 Gzip 和 Deflate [更有效](https://samsaffron.com/archive/2016/06/15/the-current-state-of-brotli-compression)。取决于设置信息，压缩可能会非常慢。但是缓慢的压缩过程会提高压缩率，并且仍然可以快速解压。当然，解压缩速度很快。
 
-只有当用户通过 HTTPS 访问网站时，浏览器才会收到。Brotli 现在还不能预装在某些服务器上，而且只能通过 NGINX 或 Ubuntu 搭建。[不过这也并不难](https://www.smashingmagazine.com/2016/10/next-generation-server-compression-with-brotli/)。实际上，[一些 CDN 是支持的](https://community.akamai.com/community/web-performance/blog/2017/08/18/brotli-support-enablement-on-akamai)，甚至 [可以也可以通过服务器在不支持 CDN 的情况下启用 Brotli](http://calendar.perfplanet.com/2016/enabling-brotli-even-on-cdns-that-dont-support-it-yet/)。
+只有当用户通过 HTTPS 访问网站时，浏览器才会采用。Brotli 现在还不能预装在某些服务器上，而且如果不自己构建 NGINX 和 UBUNTU 的话很难部署。[不过这也并不难](https://www.smashingmagazine.com/2016/10/next-generation-server-compression-with-brotli/)。实际上，[一些 CDN 是支持的](https://community.akamai.com/community/web-performance/blog/2017/08/18/brotli-support-enablement-on-akamai)，甚至 [可以也可以通过服务器在不支持 CDN 的情况下启用 Brotli](http://calendar.perfplanet.com/2016/enabling-brotli-even-on-cdns-that-dont-support-it-yet/)。
 
-在最高级别的压缩下，Brotli 的速度会变得非常慢，以至于服务器在等待动态压缩资源时开始发送响应所花费的时间可能会使文件大小的任何潜在收益都无效。但是，在静态压缩中，[我们会优先选择更高的压缩设置](https://css-tricks.com/brotli-static-compression/) —— （**感谢 Jeremy!**）
+在最高级别的压缩下，Brotli 的速度会变得非常慢，以至于服务器在等待动态压缩资源时开始发送响应所花费的时间可能会使文件大小的任何潜在收益都无效。但是，对于静态压缩，[高压缩比的设置比较受欢迎](https://css-tricks.com/brotli-static-compression/) —— （**感谢 Jeremy!**）
 
-或者，你可以考虑使用 [Zopfli 的压缩算法](https://blog.codinghorror.com/zopfli-optimization-literally-free-bandwidth/)，将数据编码为 Deflate，Gzip 和 Zlib 格式。Zopfli 改进的 Deflate 编码使得 任何使用 Gzip 压缩的文件受益，因为这些文件比 Zlib 的最大压缩率要小 3％ 到 8％。问题在于压缩文件的时间是原来的大约 80倍。这就是为什么虽然 使用 Zopfli 是一个好主意但是变化并不大，文件都需要设计为只压缩一次可以多次下载的。
+或者，你可以考虑使用 [Zopfli 的压缩算法](https://blog.codinghorror.com/zopfli-optimization-literally-free-bandwidth/)，将数据编码为 Deflate，Gzip 和 Zlib 格式。Zopfli 改进的 Deflate 编码使得任何使用 Gzip 压缩的文件受益，因为这些文件大小比 用Zlib 最强压缩后还要小 3％ 到 8％。问题在于压缩文件的时间是原来的大约 80倍。这就是为什么虽然 使用 Zopfli 是一个好主意但是变化并不大，文件都需要设计为只压缩一次可以多次下载的。
 
 比较好的方法是你可以绕过动态压缩静态资源的成本。Brotli 和 Zopfli 都可以用于明文传输 —— HTML，CSS，SVG，JavaScript 等。
 
@@ -83,7 +83,7 @@ Zach Leatherman 的 [字体加载策略综合指南](https://www.zachleat.com/we
 
 事实证明，我们 [应该把 `defer` 改为 `async`](http://calendar.perfplanet.com/2016/prefer-defer-over-async/)（因为 ie9 及以下不支持 async）。 另外，如上所述，限制第三方库和脚本的影响，特别是使用社交共享按钮和嵌入的 `<iframe>` 嵌入（如地图）。 [大小限制](https://github.com/ai/size-limit) 有助于防止 JavaScript 库过大：如果您不小心添加了大量依赖项，该工具将通知你并抛出错误。 您可以使用 [静态社交分享按钮](https://www.savjee.be/2015/01/Creating-static-social-share-buttons/)（如通过 [SSBG](https://simplesharingbuttons.com) ）和 [静态链接](https://developers.google.com/maps/documentation/static-maps/intro) 来代替交互式地图。
 
-27. **你的懒加载是否使用 Intersection Observer 过度消耗 script**
+27. **你是否懒加载了开销很大并使用 Intersection Observer 的代码？**
 如果您需要延迟加载图片、视频、广告脚本、A/B 测试脚本或任何其他资源，则可以使用 [Intersection Observer API](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API)，它提供了一种方法异步观察目标元素与 祖先元素或顶层文档的视口。基本上，你需要创建一个新的 IntersectionObserver 对象，它接收一个回调函数和一组选项。 然后我们添加一个目标来观察。
 
 当目标变得可见或不可见时执行回调函数，所以当它拦截视口时，可以在元素变得可见之前开始采取一些行动。 事实上，我们可以精确地控制观察者的回调何时被调用，使用 `rootMargin`（根边缘）和 `threshold`（一个数字或者一个数字数组来表示目标可见度的百分比， 瞄准）。Alejandro Garcia Anglada 发表了一个 [简单的教程](https://medium.com/@aganglada/intersection-observer-in-action-efc118062366) 关于如何实际实施的方便教程。
@@ -131,7 +131,7 @@ Zach Leatherman 的 [字体加载策略综合指南](https://www.zachleat.com/we
 30. **你使用 `Save-Data` 存储数据吗**?
 特别是在新兴市场工作时，你可能需要考虑优化用户选择节省数据的体验。 [Save-Data 客户端提示请求头](https://developers.google.com/web/updates/2016/02/save-data) 允许我们和定制为成本和性能受限的用户定制应用程序和有效载荷。 实际上，您可以将 [高 DPI 图像的请求重写为低 DPI 图像](https://css-tricks.com/help-users-save-data/)，删除网页字体和花哨的特效，关闭视频自动播放，服务器推送，甚至更改提供标记的方式。
 
-该头部目前仅支持 Chromium，Android 版 Chrome 或 桌面设备上的 Data Saver 扩展。最后，你还可以使用服务器和网络信息 API 来提供基于网络类型的低/高分辨率的图像。
+该头部目前仅支持 Chromium，Android 版 Chrome 或 桌面设备上的 Data Saver 扩展。最后，你还可以使用 service worker 和 Network Information API 来提供基于网络类型的低/高分辨率的图像。
 
 ---
 
