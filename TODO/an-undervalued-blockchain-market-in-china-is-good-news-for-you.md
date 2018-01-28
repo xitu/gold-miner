@@ -5,9 +5,9 @@
 > * 译者： Vsevorod
 > * 校对者：
 
-#低估中国区块链,对你是个好消息
+# 低估中国区块链,对你是个好消息
 
-##——为什么投资中国区块链项目可能是你曾做过的最佳决策
+## ——为什么投资中国区块链项目可能是你曾做过的最佳决策
 
 ![](https://cdn-images-1.medium.com/max/800/1*UzWejIHKnttLYYFf1xzNGg.png)
 
@@ -19,8 +19,7 @@
 
 我看好的是市场中被低估的那一类，也就是中国ICO市场。但我的目标并不是让你盲目的遵从我的建议。所以，在这篇文章里，我会给出为什么我认为这个市场是被低估的来支撑我的论点，并给出我认为最有潜力的一些项目的概况。我也会给出中国区块链市场的一个概况；我们很熟悉西方的大玩家： Y-Combinator, American Express等。当这样的伙伴关系被宣布的时候，他们就拥有权重。 但是中国的等值体系同样重要，但西方大多数人并不熟悉。因此，为了有效地评估这个领域的项目，我们需要充分理解这个空间.
 
-
-###为什么是中国？
+### 为什么是中国？
 
 我曾在 [这篇文章](https://hackernoon.com/neo-versus-ethereum-why-neo-might-be-2018s-strongest-cryptocurrency-79956138bea3?source=user_profile---------1----------------) 里强调中国市场会是下一个爆发的市场。在这里我将重申其原因。
 ![](https://cdn-images-1.medium.com/max/600/1*sUfRETOP9gFh4GZTnyyfpQ.png)
@@ -29,6 +28,7 @@
 从政治角度看，中国作为一个全球性的超级力量将挑战美国。通过14年GDP的快速增长（6.7%，而美国则是1.6%），中国的GDP仅次于美国。作为边注，我也意识到GDP并不能最佳彰显经济实力和潜力，但是这足以粗略地表明中国在世界经济地位上的表现。不管美国退出TPP协议是否符合其最佳利益，清楚的是中国会从中受益。中国拥有大量劳动力和宽容的监管，有能力快速有效地利用新的经济机会。中国人在可持续能源的努力例证了这一点。中国现在虽然并不以环境意识著称，却已经成为可再生能源的最大投资者。
 
 > 并且，中国的政治体制意味着发展可以迅速发生。他们可以迅速演化并引领世界可持续能源工作，源于这是一个一党领导的国家。没有权力的平衡，也不需要像美国那样有分裂的选举基本盘拖延发展。
+
 
 
 ![](https://cdn-images-1.medium.com/max/600/1*Gj9HaEbOJZTyRn1pHVbRoA.jpeg)
@@ -45,7 +45,9 @@
 
 然而，这些项目的价值也超出了中国。他们中的很多在国际区块链应用中占有重要地位，他们拥有很棒的团队和强大的技术。但是他们所处的西方市场环境是脆弱的：糟糕的英语网站，糟糕的白皮书翻译和有限的社交媒体。这部分是因为他们不能从美国国内筹集ICO资金，而是从一开始就专注于亚洲市场。 但正因如此，西方大多数人对这些公司一无所知。 如果没有足够的公开资料，就很难有效地了解没有直接与团队联系的项目。 但是，这些项目也认识到，这是限制他们，并努力改善他们的西方营销。 与Antshares相比，优先考虑NEO。
 
+![](https://cdn-images-1.medium.com/max/800/1*GInHErPMklh_NnXbqx8YrQ.png)
 
+NEO更好...
 
 如果考虑这两个因素，西方市场的缺乏以及对中国不确定性的恐惧，人们并没有对这个市场进行有效的评估。 结合中国即将开放区块链发展的事实 - 我认为他们必将会 - 确定这些公司将会改善营销（他们已经这样做了），我认为我们有机会。 这个机会在于被低估的市场的底层。
 
@@ -53,16 +55,19 @@
 
 中国区块链项目的发展与西方完全不同。 在西方，ICO是王。 但是为了筹集大量的ICO资金，必须把重点放在早期的营销上。 通常情况下，只有在成功的ICO开始开发之后才有发展。 只有在筹资，营销和发展之后，项目办法才能建立投资者和企业。 它固有地强调营销。 这就是为什么一个Floyd MayWeather [背书](https://twitter.com/FloydMayweather/status/909911035263328256)能够这么重要。
 
-![](https://cdn-images-1.medium.com/max/800/1*GInHErPMklh_NnXbqx8YrQ.png)
+![](https://cdn-images-1.medium.com/max/800/1*bKyFcZFAHOPRC8orZT44pQ.png)
 
 
 相比之下，在中国，筹款功能则有所不同。 中国区块链与强大的首席执行官和传统风险投资公司联系起来筹集资金。 他们不主要集中在ICO生成现金。 但是，由于这种筹资差异，对营销的重视不够，而对技术和产品设计则更加重视。 风险投资公司对市场营销的关注度要低得多，而且对基础技术的关注度更高 从本质上说，这些项目得到制度支持，然后开发强大的产品，然后专注于市场营销。 这是一个自上而下的方法，而不是自下而上。 在美国是关于公共资金的。 在中国是关于私人资金的。 由于这种差异，中国项目的投资者和支持者极具发展潜力。
 
 所以重要的是要了解下面列出的中国&quot;大佬&quot;。 这些包括着名的投资公司，孵化器，企业和平台。
-![](https://cdn-images-1.medium.com/max/800/1*bKyFcZFAHOPRC8orZT44pQ.png)
-####[GBIC](http://gbic.io/)
+
+
+#### [GBIC](http://gbic.io/)
+
 GBIC是一个全球区块链项目孵化器。他们通过人力资本，营销和公共援助以及网络和开发资源来支持投资。他们的网络包括许多国际投资者和交换链接，GBIC支持星云，DeepBrain，IoT链，Aelf，Eximchain，Zeepin和WePower。
-####[Fenbushi](http://fenbushi.vc/)
+
+#### [Fenbushi](http://fenbushi.vc/)
 Vitalik Buterin是Fenbushi的普通合伙人，Fenbushi是一家投资区块链项目的中国风险投资公司。 他们最好的投资是 [TenX](https://www.tenx.tech/)， [Factom](https://www.factom.com/)， [SiaCoin](https://sia.tech/)和 [ZCash](https://z.cash/)。
 ####[Link VC](http://www.linkvc.com/)
 
@@ -70,14 +75,14 @@ Link VC是一个强大的新加坡风险资本公司，他们以及支持了TenX
 
 
 
-####[FBG Capital](https://www.fbg.capital/) (Fintech Blockchain Group)
+#### [FBG Capital](https://www.fbg.capital/) (Fintech Blockchain Group)
 
 FBG Capital是一家新加坡区块链和数字资产投资公司。 FBG Capital在亚洲区块链行业占有重要地位。 得到这家公司的支持是一个重要的信任投票。 他们支持的项目包括ADEX，Zilliqa，IoT Chain，Aelf，LoopRing和Nebulas。 它们为项目提供战略价值。 正如GBIC的理查德·李（Richard Lee）所说：&quot;他们的网络由全球顶级基金，交易所和主要投资者/影响者组成。
 
 ![](https://cdn-images-1.medium.com/max/600/1*xn8CPaox8QsTgMN7arFE2A.jpeg)
 
 
-####BAT
+#### BAT
 三个最有力量的中国公司。能够获得他们的支持或者与他们有联系都是受益巨大的。
 
 
@@ -85,18 +90,18 @@ FBG Capital是一家新加坡区块链和数字资产投资公司。 FBG Capital
 
 中国最大的私人投资集团。他们投资了OnChain。
 
-####[SequoiaDB](http://www.sequoiadb.com/en/)
+#### [SequoiaDB](http://www.sequoiadb.com/en/)
 
 SequoiaDB是中国一家主要的大数据提供商；他们负责企业大数据的集成、存储和管理
 
-####[BitMain](https://www.bitmain.com/)
+#### [BitMain](https://www.bitmain.com/)
 
 中国最大的矿业集团之一。 他们有巨大的投资能力。 他们是Elastos的主要支持者。
 
 
 ![](https://cdn-images-1.medium.com/max/600/1*3jFWRo6WAidexAEdDsPrxQ.jpeg)
 
-####[NEO Council](https://neo.org/)
+#### [NEO Council](https://neo.org/)
 
 有趣的是中国区块链领域的伙伴关系与合作。 NEO委员会建议在NEO上开发dApps; 开发人员从项目跳到项目; OnChain和NEO紧密合作。 我的观点是，它与NEO实现智慧经济的愿景是一致的。
 
@@ -104,22 +109,22 @@ NEO委员会理解，自己只能是NEO的一个组成部分。 必须存在多�
 
 
 
-####[OnChain](http://www.onchain.com/en-us/)
+#### [OnChain](http://www.onchain.com/en-us/)
 
 查看我关于NEO的文章，就可以了解OnChain-NEO生态系统的更多信息。简单的说,NEO创始人Da Hongfei和Erik Zhang创立了OnChain公司。他们不是同一家公司，但他们的利益一致，是合作伙伴关系。 OnChain的DNA系统（去中心化网络架构）旨在与中国企业和政府合作。 Neo是DNA协议的前身。 最终，DNA为企业开发公共，私人和联盟区块链。 然后这些区块链连接到NEO加入去中心化的经济。 企业则拥有私人和公共区块链的所有好处。把Neo当作是基本的公共区块链，OnChain是企业区块链（即大型企业在区块链上运作的一种手段）。 然后，他们可以联系起来，并两全其美。
 
 
-####[QTUM](https://qtum.org/en/)
+#### [QTUM](https://qtum.org/en/)
 
 作为NEO的竞争对手，QTUM也是在中国空间发展的平台。 QTUM是以太坊技术和比特币技术的混合体，其技术介于两者之间。 QTUM利用比特币的安全性，同时利用虚拟机和可定制区块链实现智能合约和去中心化应用，就像以太坊一样。 与上述NEO的段落类似，QTUM的支持表明该项目正在支持更大的生态系统。
 
-####[Roger Lim](https://www.linkedin.com/in/limroger/)
+#### [Roger Lim](https://www.linkedin.com/in/limroger/)
 
 Roger Lim是中国最重要的顾问和投资者之一。
 
 
 
-###谁被低估了？
+### 谁被低估了？
 
 我认为NEO和QTUM将从未来的中国区块链发展中受益。特别是在我看来，NEO相对于其他平台来说，其价值被低估了。但我已经广泛地写过了这个，不想做无用功。 如果您对NEO评估感兴趣，请参阅 [此处](https://hackernoon.com/neo-versus-ethereum-why-neo-might-be-2018s-strongest-cryptocurrency-79956138bea3)。
 
@@ -154,7 +159,7 @@ APEX的 [伙伴关系](http://cdn.chinapex.com.cn/med/videos/to/partners-overvie
 与许多这些平台一样，拥有成功的市场主要取决于有多少用户。 没有买家或卖家，就不会有eBay。 APEX将需要促进这方面。
 
 
-####[LoopRing](https://loopring.org/en/index.html)
+#### [LoopRing](https://loopring.org/en/index.html)
 
 **简介：**
 
@@ -180,7 +185,7 @@ FBG Capital为LoopRing带来合法性和强大支持。 QTUM和NEO看到了LoopR
 由于更新了Coinmarketcap的流通供应，我认为该项目估值过高。 734,089,390（循环供应）×1.43美元（每令牌价格）= 1,049,747,827美元。 超过10亿美元，我觉得现在不买入为好。
 
 
-####[DeepBrain](https://www.deepbrainchain.org/)
+#### [DeepBrain](https://www.deepbrainchain.org/)
 
 **简介：**
 
@@ -207,7 +212,7 @@ NEO的支持是鼓舞人心的; 对我来说，这表明NEO对自己的生态系
 一个问题是，他们将无法支持必要的发展和快速增长的可行的环境。 由于DeepBrain的市场，他们严重依赖于网络效应（用户带给平台的价值）。 为了促进这些网络效应，DeepBrain团队需要在营销方面取得长足的进步。 由GBIC支持将有助于此。
 
 
-####[Elastos](https://www.elastos.org/)
+#### [Elastos](https://www.elastos.org/)
 
 **简介：**
 
@@ -237,7 +242,7 @@ Elastos是一个大胆的项目。 对于这样大规模的项目，如果能够
 
 
 
-####[Nebula](https://nebulas.io/)
+#### [Nebula](https://nebulas.io/)
 
 **简介：**
 刚开始，星云更多地关注西方，因此受到其他地区项目面临的广告障碍的影响较小。星云具有排名算法，可以有效地分配区块链项目和合同的价值，并允许用户搜索它们。星云有自己的虚拟机，并支持dApp开发。高效的升级系统可以实现快速的可扩展性。它完全兼容以太坊智能合约。他们有一个经过认可的团队。
@@ -265,7 +270,7 @@ FBG Capital，GBIC和 [500 Startups](https://500.co/)（一家强大的VC投资�
 
 
 
-####[IoT Chain](https://iotchain.io/)
+#### [IoT Chain](https://iotchain.io/)
 
 **简介：**
 
@@ -295,7 +300,7 @@ IoT Chain拥有Link Capital和FBG Capital的投资。 他们正在与包括八�
 
 
 
-####[Ontology](https://ont.io/)
+#### [Ontology](https://ont.io/)
 
 **简介：**
 
@@ -381,7 +386,7 @@ MatrixChain得到了 [中国人工智能协会](http://caai.cn/)的支持，与H
 
 
 ![](https://cdn-images-1.medium.com/max/600/1*X0grm5hliU10oion8jIkAQ.jpeg)
-###其他重要的考虑因素
+### 其他重要的考虑因素
 
 中国区块链公司正在开发一个生态系统。在美国，他们正在开发dApps。在美国，以太坊提供了一个无方向的框架。这并不是为了减少以太坊的成功。他们赫然支持所有dApp开发的85％。不过，以太坊并没有把dApp的发展重点放在任何特定的方向上。它确实是分散的。任何人都可以开发任何东西，不管它是否对生态系统有益。相比之下，中国区块链公司，特别是NEO，正在把重点放在创造一个整体和凝聚力的视野上。企业，政府和公众可以共享资产，安全高效地连接和利用区块链。要实现这一愿景，他们必须将dApp的发展重点放在这里。
 
