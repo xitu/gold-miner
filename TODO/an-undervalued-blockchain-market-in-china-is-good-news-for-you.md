@@ -102,7 +102,7 @@ SequoiaDB是中国一家主要的大数据提供商；他们负责企业大数�
 
 ![](https://cdn-images-1.medium.com/max/600/1*3jFWRo6WAidexAEdDsPrxQ.jpeg)
 
-[NEO Council](https://neo.org/)
+####[NEO Council](https://neo.org/)
 
 有趣的是中国区块链领域的伙伴关系与合作。 NEO委员会建议在NEO上开发dApps; 开发人员从项目跳到项目; OnChain和NEO紧密合作。 我的观点是，它与NEO实现智慧经济的愿景是一致的。
 
