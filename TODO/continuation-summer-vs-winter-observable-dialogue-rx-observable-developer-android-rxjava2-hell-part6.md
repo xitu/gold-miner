@@ -5,33 +5,32 @@
 > * 译者：[hanliuxin](https://github.com/hanliuxin5)
 > * 校对者：
 
-# Continuation (Summer vs Winter Observable) of Dialogue between Rx Observable and a Developer (Me) [ Android RxJava2 ] ( What the hell is this ) Part6
+# 大话（Summer vs winter Observable）之我与 Rx Observable[Android RxJava2]（这是什么鬼）第六话
 
-WOW, we got one more day so its time to make this day awesome by learning something new 🙂.
+哇哦，又是新的一天，是时候来学习一些新的＂姿势＂了 🙂。
 
-Hello guys, hope you are doing good. This is our sixth post in series of RxJava2 Android [ [part1](https://juejin.im/entry/58ada9738fd9c5006704f5a1), [part2](https://juejin.im/entry/58d78547a22b9d006465ca57), [part3](https://juejin.im/entry/591298eea0bb9f0058b35c7f), [part4](https://github.com/xitu/gold-miner/blob/master/TODO/war-learning-curve-rx-java-2-java-8-stream-android-rxjava2-hell-part4.md), [part5](https://juejin.im/post/590ab4f7128fe10058f35119), [part6,](https://github.com/xitu/gold-miner/blob/master/TODO/continuation-summer-vs-winter-observable-dialogue-rx-observable-developer-android-rxjava2-hell-part6.md) [part7](https://github.com/xitu/gold-miner/blob/master/TODO/continuation-observable-marriage-proposal-observer-dialogue-rx-observable-developer-android-rxjava2-hell-part7.md) and [part8](https://github.com/xitu/gold-miner/blob/master/TODO/confusion-subject-observable-observer-android-rxjava2-hell-part8.md) ]. In this part we are going to continue our dialogue with Rx. One more important thing basically Summer vs Winter Observable means Hot vs Cold 🙂 .
+大家好啊，希望你目前都还感觉不错。这是我们 RxJava2 Android 系列的第六篇文章　[ [第一话](https://juejin.im/entry/58ada9738fd9c5006704f5a1), [第二话](https://juejin.im/entry/58d78547a22b9d006465ca57), [第三话](https://juejin.im/entry/591298eea0bb9f0058b35c7f), [第四话](https://github.com/xitu/gold-miner/blob/master/TODO/war-learning-curve-rx-java-2-java-8-stream-android-rxjava2-hell-part4.md), [第五话](https://juejin.im/post/590ab4f7128fe10058f35119), [第六话,](https://github.com/xitu/gold-miner/blob/master/TODO/continuation-summer-vs-winter-observable-dialogue-rx-observable-developer-android-rxjava2-hell-part6.md) [第七话](https://github.com/xitu/gold-miner/blob/master/TODO/continuation-observable-marriage-proposal-observer-dialogue-rx-observable-developer-android-rxjava2-hell-part7.md) and [第八话](https://github.com/xitu/gold-miner/blob/master/TODO/confusion-subject-observable-observer-android-rxjava2-hell-part8.md) ]。在这一篇文章中，我们将继续与 Rx 展开对话。还有一件重要的事情是，基本上 Summer vs Winter 意味着热启动和冷启动的Observale 🙂 .
 
-**Motivation:**
-Motivation is same which I share with you in [part1](http://www.uwanttolearn.com/android/reactive-programming-android-rxjava2-hell-part1/).
+**我为啥要写这个呢:**
+原因和我在 [part1](http://www.uwanttolearn.com/android/reactive-programming-android-rxjava2-hell-part1/) 与你分享过的一样。
 
-**Introduction:
-**There is no intro for this post because that is a continuation of our last post but before going to start I think we will do revise about our last post. In last part we met with a Rx Observable. He gave us some suggestions about learning Rx, after that he shared with us the methods, which we can use to create Observables and in the end he is going to tell us about Hot and Cold Observable but we paused our dialogue there.
+**引言:
+**这篇文章并没有引言，因为这其实是我们上一篇文章的延续，但在开始之前我想我们应该进行一下前景回顾。上一篇文章中我们遇到了一位 Rx Observable。他给了我们不少关于学习 Rx 的建议，然后他还分享给了我们一些可以用来创造 Observable 的方法，最后他打算告诉我们一些关于冷热 Observable 的东西，结果我们就此打住。
 
-**Continuation:**
+**紧接上一话:**
 
-Observable: There is a lot. But I think I can explain here about two types of Observables. One is called Cold Observable and the second one is called Hot Observable. Some time developers used to Hot vs Cold Observables. :). These are really simple concepts. Instead I will tell you concept by taking some really childish example so you guys have a concept and then I will tell you how you can use this concept in code. Later I think [Me] will give you some real world example. What you think [Me]?
+Observable：其实还有很多。我在这里介绍两类 Observable 对象。一种叫做 Cold Observable，第二个是 Hot Observable。有些时候开发者习惯把 Hot 和 Cold Observabels 来做比较 :)。 这些真的是很简单的概念。相反，我会通过使用一些真正不复杂的例子来给你一个概念，然后我会告诉你如何在编码中使用它们。再之后我想我会给你一些真真正在的例子，你觉得如何？
 
-Me: Yes sure, I will try in front of you so you can check am I right or wrong.
+我：当然，我会试着保持在你跟前，这样你可以随时检查我是否有做错的地方.
 
-Observable: haha ok sure. So now how many people know about the sale’s person, which are mostly available in markets, in front of shops who are trying to grab people by saying some slogans?
+Observable: 哈哈哈哈，当然了。那么有多少人了解商场的促销人员，就是那些站在商店门口希望藉由大声吆喝来招揽顾客的人？
 
-Me: I think so, not lot of people know about the culture that is mostly available in asian countries like Pakistan, India … Can you try to take some other example which will be more general. So all over the world people can grab easily this concept.
+Me: 估计没几个，很多人都不太了解这种盛行于亚洲国家比如巴基斯坦和印度的销售文化。。。你能试着采用一些更加通俗的例子吗，这样的话全世界的人都能更加轻易的理解这个概念。
 
-Observable: Yes sure no problem. How many people know about coffee cafe’s?
+Observable: 当然，没问题。有多少人了解咖啡和咖啡店呢？
+Me: 差不多每个人吧。
 
-Me: I think every one.
-
-Observable: Good. There are two cafe’s and there name is Cold Music coffee cafe and Hot Music coffee cafe. Any one who will go to Cold Music coffee cafe he can buy a coffee and after that he can go and sit any where in the cafe. In cafe there are smart headphones which are attached with every sitting place. They have a play list of three poems. Now the smartness of these headphones is, any one who will wear headphone. Headphone always start from poem 1 and if in between any one took off headphone and wear again that always start from poem 1. Also if any body took off headphone will stop poem playing.
+Observable: 很好。现在这里有两家咖啡店，一家叫做霜语咖啡店，一家叫做火舞咖啡店。Any one who will go to Cold Music coffee cafe he can buy a coffee and after that he can go and sit any where in the cafe. In cafe there are smart headphones which are attached with every sitting place. They have a play list of three poems. Now the smartness of these headphones is, any one who will wear headphone. Headphone always start from poem 1 and if in between any one took off headphone and wear again that always start from poem 1. Also if any body took off headphone will stop poem playing.
 
 Vice versa in Hot Music coffee cafe they have a complete music system. As you enter in that cafe you will start listening poems because they have a very good music system with very large speakers. They have also unlimited poems and as a first cafe boy open the cafe he/she starts the system. So there system is independent from there cafe clients, any body will enter in cafe he will start listening the poem from that point of time and he never know before he enter in the cafe how many poems already finished. Now this is the same concept in observables.
 
