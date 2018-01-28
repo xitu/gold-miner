@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/js-things-i-never-knew-existed.md](https://github.com/xitu/gold-miner/blob/master/TODO/js-things-i-never-knew-existed.md)
 > * 译者：[Yong Li](https://github.com/NeilLi1992)
-> * 校对者：
+> * 校对者：[Yukiko](https://github.com/realYukiko)
 
 # 我未曾见过的 JS 特性
 
@@ -120,7 +120,7 @@ void async function() {
 
 在学习了逗号运算符之后，我意识到了之前我并不完全清楚其工作原理。下面是来自 MDN 的引用：
 
-> 逗号运算符  对它的每个操作数求值（从左到右），并返回最后一个操作数的值。
+> 逗号运算符对它的每个操作数求值（从左到右），并返回最后一个操作数的值。
 
 ```
 function myFunc() {
@@ -176,7 +176,7 @@ console.log(formatter2.format(date)); // December 22, 2017
 
 ## [管道操作符](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Pipeline_operator)
 
-在此篇成文之时，该功能只有 Firefox 58+ 使用一个 flag 来启用支持，不过 Babel 已经有一个针对它的 [插件提议](https://github.com/babel/babel/tree/master/packages/babel-plugin-proposal-pipeline-operator)。 它看起来像是来源于 bash 的灵感，我觉得很棒！
+在此篇成文之时，该功能只有 Firefox 58+ 使用一个 flag 来启用支持，不过 Babel 已经有一个针对它的 [插件提议](https://github.com/babel/babel/tree/master/packages/babel-plugin-proposal-pipeline-operator)。它看起来像是来源于 bash 的灵感，我觉得很棒！
 
 ```
 const square = (n) => n * n;
@@ -193,7 +193,7 @@ square(increment(square(2))); // 25
 
 ### [Atomics](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Atomics)
 
-当数据被多个线程共享时，原子操作确保正在读和写的数据是符合预期的，即下一个原子操作一定会在上一个原子操作结束之后才会开始。这对于保持不同线程间的数据同步（比如 main 线程和另一条 webWorker 线程），非常有用。
+当数据被多个线程共享时，原子操作确保正在读和写的数据是符合预期的，即下一个原子操作一定会在上一个原子操作结束之后才会开始。这有利于保持不同线程间的数据同步（比如 main 线程和另一条 webWorker 线程）。
 
 我很喜欢如 Java 等其它语言中的原子性。我预感当越来越多的人使用 WebWorkers，将操作从 main 线程分离出来时，Atomics 的使用会越来越广泛。
 
@@ -209,7 +209,7 @@ const flattened = [[0, 1], [2, 3], [4, 5]].reduceRight(function(a, b) {
 // flattened array is [4, 5, 2, 3, 0, 1]
 ```
 
-### [setTimeout() 参数](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setInterval)
+### [setTimeout() 参数](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setTimeout)
 
 这个早就存在了，但如果我早点知道的话，我大概可以省去很多的 `.bind(...)`。
 
@@ -257,7 +257,7 @@ console.log(personEl.dataset.foo); // bar
 
 ## 结束语
 
-我希望你和我一样在这里学到了一些新知识。在此也赞一下 Mozila 新的 MDN 站点，看起来非常棒，我花了多到未曾预料的时间来阅读文档。
+我希望你和我一样在这里学到了一些新知识。在此也赞一下 Mozila 新的 MDN 站点，看起来非常棒，我花了比想象中更多的时间来阅读文档。
 
 _修订: 修正几处命名并且为 `async` 函数添加 `try`, `catch`。感谢 Reddit！_
 
