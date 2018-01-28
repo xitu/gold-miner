@@ -65,21 +65,11 @@
 相比之下，在中国，筹款功能则有所不同。 中国区块链与强大的首席执行官和传统风险投资公司联系起来筹集资金。 他们不主要集中在ICO生成现金。 但是，由于这种筹资差异，对营销的重视不够，而对技术和产品设计则更加重视。 风险投资公司对市场营销的关注度要低得多，而且对基础技术的关注度更高 从本质上说，这些项目得到制度支持，然后开发强大的产品，然后专注于市场营销。 这是一个自上而下的方法，而不是自下而上。 在美国是关于公共资金的。 在中国是关于私人资金的。 由于这种差异，中国项目的投资者和支持者极具发展潜力。
 
 所以重要的是要了解下面列出的中国&quot;大佬&quot;。 这些包括着名的投资公司，孵化器，企业和平台。
-
 ![](https://cdn-images-1.medium.com/max/800/1*bKyFcZFAHOPRC8orZT44pQ.png)
-
-
 ####[GBIC](http://gbic.io/)
-
 GBIC是一个全球区块链项目孵化器。他们通过人力资本，营销和公共援助以及网络和开发资源来支持投资。他们的网络包括许多国际投资者和交换链接，GBIC支持星云，DeepBrain，IoT链，Aelf，Eximchain，Zeepin和WePower。
-
-
 ####[Fenbushi](http://fenbushi.vc/)
-
 Vitalik Buterin是Fenbushi的普通合伙人，Fenbushi是一家投资区块链项目的中国风险投资公司。 他们最好的投资是 [TenX](https://www.tenx.tech/)， [Factom](https://www.factom.com/)， [SiaCoin](https://sia.tech/)和 [ZCash](https://z.cash/)。
-
-
-
 ####[Link VC](http://www.linkvc.com/)
 
 Link VC是一个强大的新加坡风险资本公司，他们以及支持了TenX, [Quoine](https://quoine.com/)， [Raiden Network](https://raiden.network/)，和IoT链 （见下文）
