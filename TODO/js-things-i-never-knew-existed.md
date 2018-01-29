@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/js-things-i-never-knew-existed.md](https://github.com/xitu/gold-miner/blob/master/TODO/js-things-i-never-knew-existed.md)
 > * 译者：[Yong Li](https://github.com/NeilLi1992)
-> * 校对者：[Yukiko](https://github.com/realYukiko)
+> * 校对者：[Yukiko](https://github.com/realYukiko)，[dz](https://github.com/dazhi1011)
 
 # 我未曾见过的 JS 特性
 
@@ -11,7 +11,7 @@
 
 ## [标记语句](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/label)
 
-有多少人知道在 JS 里你可以给 `for` 循环和语句块命名？反正我不知道…… 命名之后你可以在 `for` 循环中的 `break` 和 `continue` 语句，以及在语句块中的 `break` 语句中使用这个命名。
+有多少人知道在 JS 里你可以给 `for` 循环和语句块命名？反正我不知道…… 命名完新名称之后你可以在 `for` 循环中的 `break` 和 `continue` 之后、语句块中的 `break` 之后使用新名称。
 
 ```
 loop1: // 标记 "loop1" 
@@ -37,7 +37,7 @@ for (let i = 0; i < 3; i++) { // "loop1"
  */
 ```
 
-下面是语句块命名的例子，在语句块中你只能使用 `break` 语句。
+下面是语句块命名的例子，在语句块中你只能在 `break` 之后使用新命名。
 
 ```
 foo: {
@@ -74,7 +74,7 @@ void function iife() {
 })()
 ```
 
-使用 `void` 的一个注意点是表达式的运算结果就是空的（undefined）！
+使用 `void` 的一个注意点是，无论给定的表达式返回结果是什么，void 运算符的整体结果都是空的（undefined）！
 
 ```
 const word = void function iife() {
@@ -155,7 +155,7 @@ console.log(`isMale is "${isMale}"`);
 
 ## [国际化 API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl)
 
-即使在最有利的情况下，国际化还是很难做好。幸好现在大部分浏览器都对 [这一 API](https://caniuse.com/#feat=internationalization) 提供良好支持。其中我最爱的一个特性就是日期格式化，见下面的例子：
+即使在最有利的情况下，国际化还是很难做好。幸好还有一套大部分浏览器都支持得不错的 [API](https://caniuse.com/#feat=internationalization)。其中我最爱的一个特性就是日期格式化，见下面的例子：
 
 
 ```
@@ -176,7 +176,7 @@ console.log(formatter2.format(date)); // December 22, 2017
 
 ## [管道操作符](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Pipeline_operator)
 
-在此篇成文之时，该功能只有 Firefox 58+ 使用一个 flag 来启用支持，不过 Babel 已经有一个针对它的 [插件提议](https://github.com/babel/babel/tree/master/packages/babel-plugin-proposal-pipeline-operator)。它看起来像是来源于 bash 的灵感，我觉得很棒！
+在此篇成文之时，该功能只有 Firefox 58 及以上版本通过传入启动参数来支持，不过 Babel 已经有一个针对它的 [插件提议](https://github.com/babel/babel/tree/master/packages/babel-plugin-proposal-pipeline-operator)。它看起来应该是受到 bash 的启发，我觉得很棒！
 
 ```
 const square = (n) => n * n;
@@ -193,9 +193,9 @@ square(increment(square(2))); // 25
 
 ### [Atomics](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Atomics)
 
-当数据被多个线程共享时，原子操作确保正在读和写的数据是符合预期的，即下一个原子操作一定会在上一个原子操作结束之后才会开始。这有利于保持不同线程间的数据同步（比如 main 线程和另一条 webWorker 线程）。
+当数据被多个线程共享时，原子操作确保正在读和写的数据是符合预期的，即下一个原子操作一定会在上一个原子操作结束之后才会开始。这有利于保持不同线程间的数据同步（比如主线程和另一条 WebWorker 线程）。
 
-我很喜欢如 Java 等其它语言中的原子性。我预感当越来越多的人使用 WebWorkers，将操作从 main 线程分离出来时，Atomics 的使用会越来越广泛。
+我很喜欢如 Java 等其它语言中的原子性。我预感当越来越多的人使用 WebWorkers，将操作从主线程分离出来时，原子操作的使用会越来越广泛。
 
 ### [Array.prototype.reduceRight](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/ReduceRight)
 
