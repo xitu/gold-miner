@@ -2,7 +2,7 @@
 > * 原文作者：[Elyse Turner](https://www.detroitlabs.com/blog/author/elyse-turner/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/17-xcode-tips-and-tricks-that-every-ios-developer-should-know.md](https://github.com/xitu/gold-miner/blob/master/TODO/17-xcode-tips-and-tricks-that-every-ios-developer-should-know.md)
-> * 译者：[pthtc](https://github.com/pthtc)
+> * 译者：[PTHFLY](https://github.com/pthtc)
 > * 校对者：[Danny1451](https://github.com/Danny1451)、[ryouaki](https://github.com/ryouaki)
 
 # 17个Xcode小技巧，每个iOS开发者都该知道
