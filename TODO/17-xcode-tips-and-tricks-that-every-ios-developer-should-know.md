@@ -3,17 +3,17 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/17-xcode-tips-and-tricks-that-every-ios-developer-should-know.md](https://github.com/xitu/gold-miner/blob/master/TODO/17-xcode-tips-and-tricks-that-every-ios-developer-should-know.md)
 > * 译者：[pthtc](https://github.com/pthtc)
-> * 校对者：
+> * 校对者：[Danny1451](https://github.com/Danny1451)、[ryouaki](https://github.com/ryouaki)
 
 # 17个Xcode小技巧，每个iOS开发者都该知道
 
 ![](https://dl-blog-uploads.s3.amazonaws.com/2017/Apr/dual_screen_1745705-1492006265590.png)
 
-对于iOS开发者，尤其是新手，来说，Xcode可谓太过复杂，但是不要害怕！我们在这里帮助你。熟悉你的IDE是最简单有效增进实力的方法之一。
+对于iOS开发者，尤其是新手，来说，Xcode可谓太过复杂，但是不要害怕！我们在这里帮助你。 Xcode 可以帮助你、允许你做的事情非常多。熟悉你的IDE是最简单有效增进实力的方法之一。
 
 在对抗越来越臃肿的Xcode方面，我们底特律实验室没有新手，并且想与你分享我们的对抗策略。在底特律实验室的开发者投票之后，这是17个我们最受欢迎的Xcode小技巧。
 
-**涉及键位:**
+**键位参考：**
 
 * `⌃`: Control
 * `⌘`: Command
@@ -27,10 +27,10 @@
 
 **2)** 使用 tabs 来保持聚焦。Tab可以在不同使用情况下被单独配置和优化。Tab可以在`Behaviors`<sup><a href="#note1">[1]</a></sup>中被命名以及使用。
 
-**3)** 使用`Behaviors`来根据上下文显示有用的选项。
+**3)** 使用`Behaviors`来根据上下文显示有用的面板。
 
 * `Behaviors`在Xcode回应某个事项时是重要的偏好设置。当你开始构建的时候，你可以设置一个偏好来打开一个窗口来响应成功、失败、开始调试等等。
-* **有趣的事实:** 在测试失败的时候，你可以播放音乐作为一个`behavior`。一个这儿的开发者喜欢用『The Price is Right.』的音乐当做失败音。
+* **有趣的事实:** 在测试失败的时候，你可以将播放音乐作为一个`behavior`。一个这儿的开发者喜欢用『The Price is Right.』的音乐当做失败音。
 
 **4)** 以辅助编辑窗模式打开文件。当使用『快速打开』(`⌘ ⇧ O`)时，按住 `⌥` 的同时按 `return`。
 
@@ -40,7 +40,7 @@
 
 **7)** 在全局范围一次性更改某个变量名，可以使用 `⌘ ⇧ E`。
 
-**8)** 你是否使用终端进度一个文件夹并且不确定你的工程使用的是 Xcode 的 workspaces 或者 仅仅是 project？只需要运行 `open -a Xcode` 来打开文件夹本身 Xcode 会自动识别。专业提示：把这个加入你的`.bash_profile`，使用一个牛逼的名字（比如`workit`）来让你看起来像一个真的骇客。
+**8)** 你是否使用终端进入一个文件夹并且不确定你的工程使用的是 Xcode 的 workspaces 或者 仅仅是 project？只需要运行 `open -a Xcode` 来打开文件夹本身 Xcode 会自动识别。专业提示：把这个加入你的`.bash_profile`，使用一个牛逼的名字（比如`workit`）来让你看起来像一个真的骇客。
 
 **9)** Xcode 中显示和隐藏的快捷键。
 
@@ -48,15 +48,15 @@
 * `⌘ ⌥ ⏎`: 显示辅助编辑器
 * `⌘ ⏎`: 隐藏辅助编辑器
 
-**10)** 使用 `⌘ A ^ I` 进行自动格式化代码
+**10)** 使用 `⌘ A ^ I` 进行自动缩进代码
 
-**11)** [LICEcap](http://www.cockos.com/licecap/) 对于制作在模拟器中的GIF动图非常有帮助。在 LICEcap 上方，你可以使用 QuickTime 在屏幕上来分享你的硬件（做一个示范或者使用 LICEcap 制作GIF）。 在你的 iPhone 或者 iPad 插入的情况下，打开 QuickTime Player，点击 File -> New Movie Recording。然后点击记录按钮旁边的向下箭头，选择你的连接设备。这对于远程展示很有用，使用 LICEcap 来制作 GIF 或者为展示制作真机视频。![](https://dl-blog-uploads.s3.amazonaws.com/2017/Apr/Screen_Shot_2017_04_12_at_11_41_31_AM-1492011708141.png)
+**11)** [LICEcap](http://www.cockos.com/licecap/) 对于制作在模拟器中的GIF动图非常有帮助，用于项目评审非常棒。在 LICEcap 上方，你可以使用 QuickTime 在屏幕上来分享你的硬件（做一个示范或者使用 LICEcap 制作GIF）。 在你的 iPhone 或者 iPad 插入的情况下，打开 QuickTime Player，点击 File -> New Movie Recording。然后点击记录按钮旁边的向下箭头，选择你的连接设备。这对于远程展示很有用，使用 LICEcap 来制作 GIF 或者为展示制作真机视频。![](https://dl-blog-uploads.s3.amazonaws.com/2017/Apr/Screen_Shot_2017_04_12_at_11_41_31_AM-1492011708141.png)
 
 **12)** 按下 `⌥ ⇧` 然后点击项目导航栏中的文件打开一个选择窗口，这时你可以选择在编辑器的哪个位置显示打开的文件。 
 
 **13)** 按住 `⌥` 的同时点击一个项目导航栏中的文件，它会显示在辅助编辑器中。
 
-**14)** 把导航窗口（显示在 Xcode 界面的左边）想成是『Command』窗口。那是因为按住 `⌘` 的同时按一个数字键可以切换到导航栏内相关的『标签』。例如，`⌘ 1` 打开项目导航；`⌘ 7` 打开断点导航。相似的，把工具窗口看作『Command+Option』窗口，`⌘ ⌥ 1` 也可以打开那个窗口的第一个标签 —— 文件检查器。
+**14)** 把导航面板（显示在 Xcode 界面的左边）想成是『Command』面板。那是因为按住 `⌘` 的同时按一个数字键可以切换到导航栏内相关的『标签』。例如，`⌘ 1` 打开项目导航；`⌘ 7` 打开断点导航。相似的，把工具面板看作『Command+Option』窗口，`⌘ ⌥ 1` 也可以打开那个面板的第一个标签 —— 文件检查器。
 
 **15)** `⌥ ⌘ ↑` 和 `⌥ ⌘ ↓` 在相关文件中进行导航(例如 .m .h 和 .xib 文件)。
 
@@ -64,7 +64,7 @@
 
 **17)** 在你的层层叠叠的文件夹中讯中某个文件夹非常浪费时间。在 Xcode 8 中，你可以使用『Open Quickly』对话框或者 `⌘ ⇧ O` 来省点时间。当它打开了你可以输入你正寻找的文件的文件名的任何部分来找到它。
 
-你是一个 iOS 开发者吗？看看在这工作室怎样的体验，如果你有兴趣的话，[点此申请](https://detroitlabs.workable.com/j/F1D69FF0B5)！
+你是一个 iOS 开发者吗？看看在这里工作是怎样的体验，如果你有兴趣的话，[点此申请](https://detroitlabs.workable.com/j/F1D69FF0B5)！
 
 译者注：
 
