@@ -4,7 +4,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/how-modern-web-browsers-accelerate-performance-the-networking-layer.md](https://github.com/xitu/gold-miner/blob/master/TODO/how-modern-web-browsers-accelerate-performance-the-networking-layer.md)
 > * 译者：[yoyoyohamapi](https://github.com/yoyoyohamapi)
-> * 校对者：
+> * 校对者：[realYukiko](https://github.com/realYukiko) [MechanicianW](https://github.com/MechanicianW)
 
 # 现代浏览器是如何提升性能的：网络层
 
