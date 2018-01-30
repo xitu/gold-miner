@@ -6,18 +6,18 @@
 > * 校对者：
 
 # Turning Design Mockups Into Code With Deep Learning - Part 1
-# 使用深度学习自动生成HTML代码 - 第 1 部分
+# 使用深度学习自动生成 HTML 代码 - 第 1 部分
 
 - [使用深度学习自动生成HTML代码 - 第 1 部分](https://github.com/xitu/gold-miner/blob/master/TODO/turning-design-mockups-into-code-with-deep-learning-1.md)
 - [使用深度学习自动生成HTML代码 - 第 2 部分](https://github.com/xitu/gold-miner/blob/master/TODO/turning-design-mockups-into-code-with-deep-learning-2.md)
 
-在未来三年来，深度学习将改变前端的发展。它将会加快原型设计的速度和降低构建软件的门槛。
+在未来三年来，深度学习将改变前端的发展。它将会加快原型设计的速度和降低开发软件的门槛。
 
 Tony Beltramelli 去年发布了[pix2code 论文](https://arxiv.org/abs/1705.07962)，Airbnb 也发布了 [sketch2code](https://airbnb.design/sketching-interfaces/)。
 
-目前，自动化前端开发的最大屏障是计算能力。但我们可以使用目前的深度学习算法，以及同步训练数据来探索人工智能前端自动化的方法。
+目前，自动化前端开发的最大屏障是计算能力。但我们可以使用目前的深度学习算法，以及合成训练数据来探索人工智能前端自动化的方法。
 
-在本文中，作者将教神经网络学习如何基于一张图片和一个设计模板来编写一个 HTML 和 CSS 网站。下面是该过程的简要概述：
+在本文中，作者将教大家神经网络学习如何基于一张图片和一个设计原型来编写一个 HTML 和 CSS 网站。下面是该过程的简要概述：
 
 ### 1) 向训练的神经网络输入一个设计图
 
@@ -37,13 +37,13 @@ Tony Beltramelli 去年发布了[pix2code 论文](https://arxiv.org/abs/1705.079
 
 所有的代码准备在 [Github](https://github.com/emilwallner/Screenshot-to-code-in-Keras/blob/master/README.md) 上和在 Jupyter 笔记本上的 [FloydHub](https://www.floydhub.com/emilwallner/projects/picturetocode)。所有 FloydHub notebook 都在 floydhub 目录中，本地 notebook 在 local 目录中。
 
-本文中的模型构建是基于 Beltramelli 的论文 [pix2code](https://arxiv.org/abs/1705.07962) 和 Jason Brownlee 的[图像描述生成教程](https://machinelearningmastery.com/blog/page/2/)。代码是由 Python 和 Keras 编写，在 TensorFolw 上的框架。
+本文中的模型构建是基于 Beltramelli 的论文 [pix2code](https://arxiv.org/abs/1705.07962) 和 Jason Brownlee 的[图像描述生成教程](https://machinelearningmastery.com/blog/page/2/)。代码是由 Python 和 Keras 编写，使用 TensorFolw 框架。
 
-如果你是深度学习的新手，我建议你感受下 Python，反向传播和卷积神经网络。我早期个投递在 FloyHub 博客上篇文章作为你的开始 [[1]](https://blog.floydhub.com/my-first-weekend-of-deep-learning/) [[2]](https://blog.floydhub.com/coding-the-history-of-deep-learning/) [[3]](https://blog.floydhub.com/colorizing-b&w-photos-with-neural-networks/)。
+如果你是深度学习的新手，我建议你尝试使用下 Python，反向传播和卷积神经网络。可以从我早期个在 FloyHub 博客上发表的文章开始学习 [[1]](https://blog.floydhub.com/my-first-weekend-of-deep-learning/) [[2]](https://blog.floydhub.com/coding-the-history-of-deep-learning/) [[3]](https://blog.floydhub.com/colorizing-b&w-photos-with-neural-networks/)。
 
 ## 核心逻辑
 
-让我们回顾一下我们的目标。我们的目标是构建一个神经网络，能够生成与截图对应的 HTML/CSS 标记语言。
+让我们回顾一下我们的目标。我们的目标是构建一个神经网络，能够生成与截图对应的 HTML/CSS。
 
 当你训练神经网络时，你先提供几个截图和对应的 HTML 代码。
 
@@ -190,7 +190,7 @@ Tony Beltramelli 去年发布了[pix2code 论文](https://arxiv.org/abs/1705.079
 
 * **在理解输入与输出数据之前，其它部分都似懂非懂。**输入 X 是屏幕的截图和以前标记的标签，输出 Y 是下一个标记的标签。当我理解这一点时，其它问题都更加容易弄清了。此外，尝试其它不同的架构也将更加容易。
 
-* **注意兔子洞。**由于这个项目与深度学习有关联的，我在这个过程中被很多兔子洞卡住了。我花了一个星期从无到有的编程RNNs，太着迷于嵌入向量空间，并由外来实现诱惑。
+* **注意兔子洞。**由于这个项目与深度学习有关联的，我在这个过程中被很多兔子洞卡住了。我花了一个星期从无到有的编程RNNs，太着迷于嵌入向量空间，并被一些奇奇怪怪的实现方法所诱惑。
 
 * **图片到代码的网络其实就是自动描述图像的模型。**即使我意识到了这一点，但仍然错过了很多自动图像摘要方面的论文，因为它们看起来不够炫酷。一旦我意识到了这一点，我对问题空间的理解就变得更加深刻了。
 
@@ -245,7 +245,7 @@ floyd run --gpu --env tensorflow-1.4 --data emilwallner/datasets/imagetocode/2:d
 
 因为我们需要为每个单词插入一个截屏，这将会成为训练神经网络[案例](https://docs.google.com/spreadsheets/d/1xXwarcQZAHluorveZsACtXRdmNFbwGtN3WMNhcTdEyQ/edit#gid=0))的瓶颈。因此我们抽取生成标记语言所需要的信息来替代直接使用图像。
 
-这些抽取的信息将通过预训练的 CNN 编码到图像特征中。这个模型是在图像上预训练的。
+这些抽取的信息将通过预训练的 CNN 编码到图像特征中。这个模型是在 Imagenet 上预先训练好的。
 
 我们将使用分类层之前的层级输出以抽取特征。
 
@@ -275,7 +275,7 @@ floyd run --gpu --env tensorflow-1.4 --data emilwallner/datasets/imagetocode/2:d
 
 对于另一个平行的过程，其中图像特征首先会展开成一个向量，然后再馈送到一个全连接层而抽取出高级特征。这些图像特征随后会与标记特征相级联而作为编码器的输出。
 
-这很难把理解 - 因此将它分解。
+这个有点难理解，让我来分步描述一下。
 
 ##### 标记特征
 
@@ -287,7 +287,7 @@ floyd run --gpu --env tensorflow-1.4 --data emilwallner/datasets/imagetocode/2:d
 
 ##### 图像特征
 
-对于另一个平行的过程，我们需要将图像的所有像素值展开成一个向量，因此信息不会被改变，它们只会用来识别。
+同时，我们需要将图像的所有像素值展开成一个向量，因此信息不会被改变，只是重组了一下。
 
 ![](https://blog.floydhub.com/static/image_feature_to_image_feature-77a1cf39ed251d4243b90325e60fbdf5-6c1a3.png) 
 
@@ -317,9 +317,9 @@ floyd run --gpu --env tensorflow-1.4 --data emilwallner/datasets/imagetocode/2:d
 
 ##### 最后的预测
 
-密集层会像传统前馈网络那样工作，它将下一个标签特征中的 512 个值与最后的四个预测连接起来，即我们在词汇表所拥有的四个单词：start、hello、world 和 end。
+全连接层会像传统前馈网络那样工作，它将下一个标签特征中的 512 个值与最后的四个预测连接起来，即我们在词汇表所拥有的四个单词：start、hello、world 和 end。
 
-词汇的预测值可能是 [0.1, 0.1, 0.1, 0.7]。密集层最后采用的 softmax 函数会为四个类别产生一个 0-1 概率分布，所有预测值的和等于 1。在这个案例中，例如将预测第四个词为下一个标签。然后，你可以将 one-hot 编码 [0, 0, 0, 1] 转译成映射的值，也就是 “end”。
+词汇的预测值可能是 [0.1, 0.1, 0.1, 0.7]。密集层最后采用的 softmax 激活函数会为四个类别产生一个 0-1 概率分布，所有预测值的和等于 1。在这个案例中，例如将预测第四个词为下一个标签。然后，你可以将 one-hot 编码 [0, 0, 0, 1] 转译成映射的值，也就是 “end”。
 
 ```
     # Load the images and preprocess them for inception-resnet
