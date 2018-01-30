@@ -2,8 +2,8 @@
 > * 原文作者：[Emil Wallner](https://twitter.com/EmilWallner)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/turning-design-mockups-into-code-with-deep-learning-1.md](https://github.com/xitu/gold-miner/blob/master/TODO/turning-design-mockups-into-code-with-deep-learning-1.md)
-> * 译者：
-> * 校对者：
+> * 译者：https://github.com/sakila1012
+> * 校对者：https://github.com/sunshine940326，https://github.com/wzy816
 
 # Turning Design Mockups Into Code With Deep Learning - Part 1
 # 使用深度学习自动生成 HTML 代码 - 第 1 部分
