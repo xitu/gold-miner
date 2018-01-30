@@ -28,7 +28,7 @@
 
 2. **目标：至少要比你最快的竞争对手还快 20%。**
 
-根据[心理学的研究](https://www.smashingmagazine.com/2015/09/why-performance-matters-the-perception-of-time/#the-need-for-performance-optimization-the-20-rule)，如果你想让用户感觉你的网站比竞争对手的快，你**至少**需要比它们快 20%。 研究你的主要竞争对手，收集它们是怎么在手机和桌面设备上展示的数据，并且设置阀值来帮助你超过它们。要获取准确的结果和目标，首先要研究你的分析结果，看看你的用户都在做什么。然后，你可以模拟第百分之九十位的实验进行测试。收集数据，创建一个 [电子数据表](http://danielmall.com/articles/how-to-make-a-performance-budget/)，从中剔除 20%, 并制定你的目标（即 [性能预算](http://bradfrost.com/blog/post/performance-budget-builder/)）。现在你就有一些可以测试的东西了。
+根据[心理学的研究](https://www.smashingmagazine.com/2015/09/why-performance-matters-the-perception-of-time/#the-need-for-performance-optimization-the-20-rule)，如果你想让用户感觉你的网站比竞争对手的快，你**至少**需要比它们快 20%。 研究你的主要竞争对手，收集它们是怎么在手机和桌面设备上展示的数据，并且设置阈值来帮助你超过它们。要获取准确的结果和目标，首先要研究你的分析结果，看看你的用户都在做什么。然后，你可以模拟第百分之九十位的实验进行测试。收集数据，创建一个 [电子数据表](http://danielmall.com/articles/how-to-make-a-performance-budget/)，从中剔除 20%, 并制定你的目标（即 [性能预算](http://bradfrost.com/blog/post/performance-budget-builder/)）。现在你就有一些可以测试的东西了。
 
 如果你希望保持现在的成本不变，并尽可能的少写一些脚本，就能有一个快速的可交互时间。那么你已经走在正确的道路上了。劳拉.霍根的[指导你如何用性能预算接近设计](http://designingforperformance.com/weighing-aesthetics-and-performance/#approach-new-designs-with-a-performance-budget) 里提供了有用的方向，设计人员，[性能预算计算者](http://www.performancebudget.io/)和 [Browser Calories](https://browserdiet.com/calories/) 可以帮助我们创建预算（感谢 [Karolina Szczur](https://medium.com/@fox/talk-the-state-of-the-web-3e12f8e413b3) 的牵头）。
 
