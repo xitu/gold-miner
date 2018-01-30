@@ -47,10 +47,11 @@ Tony Beltramelli 去年发布了[pix2code 论文](https://arxiv.org/abs/1705.079
 
 当你训练神经网络时，你先提供几个截图和对应的 HTML 代码。
 
-网络通过逐个
+网络通过逐个预测所有匹配的 HTML 标记语言来学习。预测下一个标记语言的标签时，网络接收到截图和之前所有正确的标记。
+
 这里是一个在 Google Sheet [简单的训练数据示例](https://docs.google.com/spreadsheets/d/1xXwarcQZAHluorveZsACtXRdmNFbwGtN3WMNhcTdEyQ/edit?usp=sharing)。
 
-创建逐词预测的模型是现在最常用的方法。这里也有[其他方法](https://machinelearningmastery.com/deep-learning-caption-generation-models/)，但该方法也是本教程使用的方法。
+创建逐词预测的模型是现在最常用的方法。这里也有[其他方法](https://docs.google.com/spreadsheets/d/1xXwarcQZAHluorveZsACtXRdmNFbwGtN3WMNhcTdEyQ/edit?usp=sharing)，但该方法也是本教程使用的方法。
 
 注意：每次预测时，神经网络接收的是同样的截图。如果网络需要预测 20 个单词，它就会得到 20 次同样的设计截图。现在，不用管神经网络的工作原理，只需要专注于神经网络的输入和输出。
 
