@@ -2,8 +2,8 @@
 > * 原文作者：[Jeni](https://medium.com/@_jeniwren?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/design-your-app-for-decision-making.md](https://github.com/xitu/gold-miner/blob/master/TODO/design-your-app-for-decision-making.md)
-> * 译者：
-> * 校对者：
+> * 译者：[PTHFLY](https://github.com/pthtc)
+> * 校对者：[ryouaki](https://github.com/ryouaki)
 
 # 想帮助用户做决定？你的APP可以这样设计！
 
@@ -70,7 +70,7 @@ Dan Ariely 通过一个在他的书《Predictably Irrational.》中一个现在�
 
 **2. 框架效应**
 
-给你两个选择：一个付 50 美金一年，一个付 5 美金每个月，你会选哪个？许多有订阅功能的应用会向潜在购买者高亮显示年付的价格，而不是月付价格。因为这会显得被察觉的价格更低，虽然在一年中他们的花费是一样的。
+给你两个选择：一个付 60 美金一年，一个付 5 美金每个月，你会选哪个？许多有订阅功能的应用会向潜在购买者高亮显示年付的价格，而不是月付价格。因为这会显得被察觉的价格更低，虽然在一年中他们的花费是一样的。
 
 ![](https://cdn-images-1.medium.com/max/600/1*S8DAVtjS0Z48RSJyzbzkKQ.png)
 
