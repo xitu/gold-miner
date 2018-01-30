@@ -5,7 +5,7 @@
 > * 译者：[PTHFLY](https://github.com/pthtc)
 > * 校对者：[Danny1451](https://github.com/Danny1451)、[ryouaki](https://github.com/ryouaki)
 
-# 每个iOS开发者都该知道的17个Xcode小技巧
+# 每个 iOS 开发者都该知道的 17 个 Xcode 小技巧
 
 ![](https://dl-blog-uploads.s3.amazonaws.com/2017/Apr/dual_screen_1745705-1492006265590.png)
 
