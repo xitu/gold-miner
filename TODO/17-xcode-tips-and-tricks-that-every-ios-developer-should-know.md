@@ -5,13 +5,13 @@
 > * 译者：[PTHFLY](https://github.com/pthtc)
 > * 校对者：[Danny1451](https://github.com/Danny1451)、[ryouaki](https://github.com/ryouaki)
 
-# 17个Xcode小技巧，每个iOS开发者都该知道
+# 每个iOS开发者都该知道的17个Xcode小技巧
 
 ![](https://dl-blog-uploads.s3.amazonaws.com/2017/Apr/dual_screen_1745705-1492006265590.png)
 
 对于 iOS 开发者，尤其是新手，来说，Xcode 可谓太过复杂，但是不要害怕！我们在这里帮助你。 Xcode 可以帮助你、允许你做的事情非常多。熟悉你的 IDE 是最简单有效增进实力的方法之一。
 
-在对抗越来越臃肿的 Xcode 方面，我们底特律实验室没有新手，并且想与你分享我们的对抗策略。在底特律实验室的开发者投票之后，这是17个我们最受欢迎的 Xcode 小技巧。
+在对抗越来越臃肿的 Xcode 方面，我们底特律实验室没有新手，并且想与你分享我们的对抗策略。在底特律实验室的开发者投票之后，这是 17 个我们最受欢迎的 Xcode 小技巧。
 
 **键位参考：**
 
@@ -50,7 +50,7 @@
 
 **10)** 使用 `⌘ A ^ I` 进行自动缩进代码
 
-**11)** [LICEcap](http://www.cockos.com/licecap/) 对于制作在模拟器中的 GIF 动图非常有帮助，用于项目评审非常棒。在 LICEcap 上方，你可以使用 QuickTime 在屏幕上来分享你的硬件（做一个示范或者使用 LICEcap 制作GIF ）。 在你的 iPhone 或者 iPad 插入的情况下，打开 QuickTime Player，点击 File -> New Movie Recording。然后点击记录按钮旁边的向下箭头，选择你的连接设备。这对于远程展示很有用，使用 LICEcap 来制作 GIF 或者为展示制作真机视频。![](https://dl-blog-uploads.s3.amazonaws.com/2017/Apr/Screen_Shot_2017_04_12_at_11_41_31_AM-1492011708141.png)
+**11)** [LICEcap](http://www.cockos.com/licecap/) 对于制作在模拟器中的 GIF 动图非常有帮助，用于项目评审非常棒。在 LICEcap 上方，你可以使用 QuickTime 在屏幕上来分享你的硬件（做一个示范或者使用 LICEcap 制作 GIF ）。 在你的 iPhone 或者 iPad 插入的情况下，打开 QuickTime Player，点击 File -> New Movie Recording。然后点击记录按钮旁边的向下箭头，选择你的连接设备。这对于远程展示很有用，使用 LICEcap 来制作 GIF 或者为展示制作真机视频。![](https://dl-blog-uploads.s3.amazonaws.com/2017/Apr/Screen_Shot_2017_04_12_at_11_41_31_AM-1492011708141.png)
 
 **12)** 按下 `⌥ ⇧` 然后点击项目导航栏中的文件打开一个选择窗口，这时你可以选择在编辑器的哪个位置显示打开的文件。 
 
