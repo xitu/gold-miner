@@ -2,51 +2,51 @@
 > * 原文作者：[Facebook](https://github.com/facebookresearch/Starspace)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/the-introduction-of-starspace.md](https://github.com/xitu/gold-miner/blob/master/TODO/the-introduction-of-starspace.md)
-> * 译者：
+> * 译者：[Noah Gao](https://noahgao.net) [Sean Wang](https://github.com/SeanW20)
 > * 校对者：
 
 <p align="center"><img width="15%" src="https://github.com/facebookresearch/StarSpace/raw/master/examples/starspace.png" /></p>
 
-# StarSpace
+# Facebook 的 AI 万金油：StarSpace 神经网络模型简介
 
-StarSpace is a general-purpose neural model for efficient learning of entity embeddings for solving a wide variety of problems: 
-- Learning word, sentence or document level embeddings.
-- Information retrieval: ranking of sets of entities/documents or objects, e.g. ranking web documents.
-- Text classification, or any other labeling task.
-- Metric/similarity learning, e.g. learning sentence or document similarity.
-- Content-based or Collaborative filtering-based Recommendation, e.g. recommending music or videos.
-- Embedding graphs, e.g. multi-relational graphs such as Freebase.
-- <img width="5%" src="https://github.com/facebookresearch/StarSpace/raw/master/examples/new2.gif" /> Image classification, ranking or retrieval (e.g. by using existing ResNet features).
+StarSpace 是一个用于解决各种问题、进行高效的实体嵌入（译者注：entity embeddings，一种流行的类别特征处理方法）学习的通用神经网络模型:
+- 学习单词、句子或是文档级别的嵌入。
+- 信息检索：对实体或文档的集合完成排序，例如：Web 文档的排名。
+- 文本分类或是其他打标签形式的任务。
+- 度量学习、相似性学习，例如：对句子或文档的相似性进行学习。
+- 基于内容或是协同过滤进行推荐，例如：推荐音乐和视频。
+- 图嵌入，例如：完成像 Freebase 一样的多关系图。
+- <img width="5%" src="https://github.com/facebookresearch/StarSpace/raw/master/examples/new2.gif" /> 图片的分类、排名或检索（例如：使用已存在的 ResNet 特性）。
 
-In the general case, it learns to represent objects of different types into a common vectorial embedding space,
-hence the star ('*', wildcard) and space in the name, and in that space compares them against each other.
-It learns to rank a set of entities/documents or objects given a query entity/document or object, which is not necessarily the same type as the items in the set.
+在一般情况下，它会学习如何将不同类型的对象表示为一个常见的矢量嵌入空间，
+因此名称中的星号（'*'，通配符）和空格，并在该空间中将它们相互比较。（译者注：因此原词为 hence，在这里没有找到好的译法，请校对的童鞋给点意见）
+它还会学习对给定查询数据的一组实体/文档或对象进行排序，查询所用的数据不一定与该集合中的项目类型相同。
 
-See the [paper](https://arxiv.org/abs/1709.03856) for more details on how it works.
+看一看 [这篇论文](https://arxiv.org/abs/1709.03856) 来进一步了解它是如何工作的。
 
-# News
-- New license and patents: now StarSpace is under BSD license. Checkout <a href="https://github.com/facebookresearch/StarSpace/blob/master/LICENSE.md">LICENSE</a> and <a href="https://github.com/facebookresearch/StarSpace/blob/master/PATENTS">PATENTS</a> for details.
-- We added support for real-valued input and label weights: checkout the <a href="https://github.com/facebookresearch/StarSpace/#file-format">File Format</a> and <a href="https://github.com/facebookresearch/StarSpace/#imagespace-learning-image-and-label-embeddings">ImageSpace</a> section for more details on how to use weights in input and label.
+# 最新消息
+- 使用了新的许可证和专利权声明：现在 StarSpace 已经开始基于 BSD 许可证。阅读 [LICENSE 文件](https://github.com/facebookresearch/StarSpace/blob/master/LICENSE.md) 和 [PATENTS 文件](https://github.com/facebookresearch/StarSpace/blob/master/PATENTS) 可获得更多信息。
+- 我们新增了对实值输入和标签权重的支持：阅读 [文件格式](#file-format) 和 [ImageSpace](#imagespace-learning-image-and-label-embeddings) 来获取更多有关如何在输入和标签中使用权重的信息。
 
-# Requirements
+# 依赖
 
-StarSpace builds on modern Mac OS and Linux distributions. Since it uses C++11 features, it requires a compiler with good C++11 support. These include :
+StarSpace 可在现代的 Mac OS 和 Linux 发行版上构建。鉴于它使用了 C++11 的特性，所以他需要与一个具有良好的 C++11 支持的编译器。包括：
 
-* (gcc-4.6.3 or newer) or (clang-3.3 or newer)
+* gcc-4.6.3 以上或是 clang-3.3 以上
 
-Compilation is carried out using a Makefile, so you will need to have a working **make**.
+编译将会借助一个 Makefile 文件来执行，所以你需要一个能正常工作的 **make** 命令。
 
-You need to install <a href=http://www.boost.org/>Boost</a> library and specify the path of boost library in makefile in order to run StarSpace. Basically:
+你还需要安装一个 [Boost](http://www.boost.org) 库并在 makefile 中指定 boost 库的路径译运行 StarSpace。简单地来说就是：
 
     $wget https://dl.bintray.com/boostorg/release/1.63.0/source/boost_1_63_0.zip
     $unzip boost_1_63_0.zip
     $sudo mv boost_1_63_0 /usr/local/bin
 
-Optional: if one wishes to run the unit tests in src directory, <a href=https://github.com/google/googletest>google test</a> is required and its path needs to be specified in 'TEST_INCLUDES' in the makefile.
+可选步骤：如果你希望能在 src 目录中运行单元测试，你会需要 [google test](https://github.com/google/googletest) 并将 makefile 中的 'TEST_INCLUDES' 配置为它的路径。
 
-# Building StarSpace
+# 构建 StarSpace
 
-In order to build StarSpace, use the following:
+如果你想要构建 StarSpace，按顺序执行：
 
     git clone https://github.com/facebookresearch/Starspace.git
     cd Starspace
