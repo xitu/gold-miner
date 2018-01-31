@@ -46,7 +46,7 @@ StarSpace 可在现代的 Mac OS 和 Linux 发行版上构建。鉴于它使用�
 
 # 构建 StarSpace
 
-如果你想要构建 StarSpace，按顺序执行：
+想要构建 StarSpace 的话，按顺序执行：
 
     git clone https://github.com/facebookresearch/Starspace.git
     cd Starspace
