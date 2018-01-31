@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/a-simple-web-app-in-rust-conclusion.md](https://github.com/xitu/gold-miner/blob/master/TODO/a-simple-web-app-in-rust-conclusion.md)
 > * 译者：[mysterytony](https://github.com/mysterytony)
-> * 校对者：
+> * 校对者：[pthtc](https://github.com/pthtc)
 
 # 使用 Rust 开发一个简单的 Web 应用之总结篇：还是先把 Rust 放一边吧
 
