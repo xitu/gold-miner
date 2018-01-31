@@ -69,7 +69,7 @@ Tony Beltramelli 去年发布了[pix2code 论文](https://arxiv.org/abs/1705.079
 
 ## **Hello World 版本**
 
-现在让我们构建 Hello World 版实现。我们将馈送一张带有「Hello World！」字样的截屏到神经网络中，并训练它生成对应的标记语言。
+现在让我们构建 Hello World 版实现。我们将发送一张带有「Hello World！」字样的截屏到神经网络中，并训练它生成对应的标记语言。
 
 ![](/hello_world_generation-039d78c27eb584fa639b89d564b94772.gif)
 
@@ -85,13 +85,13 @@ Tony Beltramelli 去年发布了[pix2code 论文](https://arxiv.org/abs/1705.079
 
 对于输入的数据，我们使用语句，从第一个单词开始，然后依次相加。输出的数据总是一个单词。
 
-语句跟着同样的逻辑。这也需要同样的输入长度。他们没有被词汇限制，而是受句子长度的限制。如果它比最大长度短，你用空的单词填充它，一个只有零的单词。
+语句和单词的逻辑一样。这也需要同样的输入长度。他们没有被词汇限制，而是受句子长度的限制。如果它比最大长度短，你用空的单词填充它，一个只有零的单词。
 
 ![](https://blog.floydhub.com/static/one_hot_sentence-6b3c930c8a7808b928639201cac78ebe-6c1a3.png) 
 
 正如你所看到的，单词是从右到左打印的。对于每次训练，强制改变每个单词的位置。这需要模型学习序列而不是记住每个单词的位置。
 
-在下图中有四个预测。每一列是一个预测。左边是颜色呈现的三个颜色通道：红绿蓝和以前的单词。在括号外面，预测是一个接一个，以红色的正方形表示结束。
+在下图中有四个预测。每一列是一个预测。左边是颜色呈现的三个颜色通道：红绿蓝和上一个单词。在括号外面，预测是一个接一个，以红色的正方形表示结束。
 
 ![](https://blog.floydhub.com/static/model_function-068c180c2ba3efdbb54193f21a5d5d7d-6c1a3.png) 
 
@@ -197,11 +197,11 @@ Tony Beltramelli 去年发布了[pix2code 论文](https://arxiv.org/abs/1705.079
 
 ## 在 FloyHub 上运行代码
 
-FloydHub 是一个深度学习训练平台，我自从开始学习深度学习时就对它有所了解，我也常用它训练和管理深度学习实验。我们能安装它并在 10 分钟内运行第一个模型，它是在云 GPU 上训练模型最好的选择。
+FloydHub 是一个深度学习训练平台，我自从开始学习深度学习时就对它有所了解，我也常用它训练和管理深度学习实验。我们可以安装并在 10 分钟内运行第一个模型，它是在云 GPU 上训练模型最好的选择。
 
-如果读者没用过 FloydHub，你可以用了[ 2 分钟安装](https://www.floydhub.com/)或者 [5 分钟视频](https://www.youtube.com/watch?v=byLQ9kgjTdQ&t=21s)。
+如果读者没用过 FloydHub，你可以用[ 2 分钟安装](https://www.floydhub.com/) 或者观看 [5 分钟视频](https://www.youtube.com/watch?v=byLQ9kgjTdQ&t=21s)。
 
-克隆源
+拷贝仓库
 
 ```
 git clone https://github.com/emilwallner/Screenshot-to-code-in-Keras.git
@@ -221,9 +221,9 @@ floyd init s2c
 floyd run --gpu --env tensorflow-1.4 --data emilwallner/datasets/imagetocode/2:data --mode jupyter
 ```
 
-所有的 notebooks 都放在 floydbub 目录下。本地等同于本地目录下。一旦我们开始运行模型，那么在 floydhub/Helloworld/helloworld.ipynb 下可以找到第一个 Notebook。
+所有的 notebooks 都放在 floydbub 目录下。本地等同于本地目录下。一旦我们开始运行模型，那么在 floydhub/Hello_world/hello_world.ipynb 下可以找到第一个 Notebook。
 
-如果你想了解更多的指南和对 flags 的解释，请查看本项目[早期的文章](https://blog.floydhub.com/colorizing-b&w-photos-with-neural-networks/)。
+如果你想了解更多的指南和对 flags 的解释，请查看我[早期的文章](https://blog.floydhub.com/colorizing-b&w-photos-with-neural-networks/)。
 
 ## HTML 版本
 
@@ -238,13 +238,13 @@ floyd run --gpu --env tensorflow-1.4 --data emilwallner/datasets/imagetocode/2:d
 
 ![](https://blog.floydhub.com/static/model_more_details-68db3bf26f6df205ffe4c541ace33a92-6c1a3.png) 
 
-该架构主要有两个部分。首先，编码器。编码器是我们创建图像特征和前面标记特征（markup features）的部分。特征是网络创建原型设计和标记语言之间联系的构建块。在编码器的末尾，我们将图像特征传递给前面标记的每一个单词。
+该架构主要有两个部分。首先，编码器。编码器是我们创建图像特征和前面标记特征（markup features）的地方。特征是网络创建原型设计和标记语言之间联系的构建块。在编码器的末尾，我们将图像特征传递给前面标记的每一个单词。
 
 然后，解码器将结合原型设计特征和标记特征以创建下一个标签的特征，这一个特征可以通过全连接层预测下一个标签。
 
 ##### 设计原型的特征
 
-因为我们需要为每个单词插入一个截屏，这将会成为训练神经网络[案例](https://docs.google.com/spreadsheets/d/1xXwarcQZAHluorveZsACtXRdmNFbwGtN3WMNhcTdEyQ/edit#gid=0))的瓶颈。因此我们抽取生成标记语言所需要的信息来替代直接使用图像。
+因为我们需要为每个单词插入一个截屏，这将会成为训练神经网络[案例](https://docs.google.com/spreadsheets/d/1xXwarcQZAHluorveZsACtXRdmNFbwGtN3WMNhcTdEyQ/edit#gid=0)的瓶颈。因此我们抽取生成标记语言所需要的信息来替代直接使用图像。
 
 这些抽取的信息将通过预训练的 CNN 编码到图像特征中。这个模型是在 Imagenet 上预先训练好的。
 
@@ -280,7 +280,7 @@ floyd run --gpu --env tensorflow-1.4 --data emilwallner/datasets/imagetocode/2:d
 
 ##### 标记特征
 
-如下图所示，现在我们将词嵌入投入到 LSTM 层中，所有的语句都填充上最大的三个记号。。
+如下图所示，现在我们将词嵌入投入到 LSTM 层中，所有的语句都填充上最大的三个记号。
 
 ![](https://blog.floydhub.com/static/word_embedding_markup_feature-d4e76483527fefd10742c0ddc1cd3227-6c1a3.png) 
 
