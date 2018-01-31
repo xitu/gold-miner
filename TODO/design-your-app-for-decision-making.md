@@ -2,145 +2,152 @@
 > * 原文作者：[Jeni](https://medium.com/@_jeniwren?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/design-your-app-for-decision-making.md](https://github.com/xitu/gold-miner/blob/master/TODO/design-your-app-for-decision-making.md)
-> * 译者：
-> * 校对者：
+> * 译者：[PTHFLY](https://github.com/pthtc)
+> * 校对者：[ryouaki](https://github.com/ryouaki)
 
-# Design your app for decision-making
+# 想帮助用户做决定？你的APP可以这样设计！
 
-## _Post 1 of 3: Simplify, trigger, motivate — a three-step approach to optimize for user behavior_
+## _简单化，触发器，激励 — 一个优化用户行为的三步走方法_<sup><a href="#note1">[1]</a></sup>
 
 ![](https://cdn-images-1.medium.com/max/800/1*wsvauosvxPMm0R6rlKXR_g.jpeg)
 
-If you work on mobile apps, you have the potential to influence the actions of millions of people every single day. Whether it’s to engage with a new feature, visit your app daily, or subscribe to your premium product, you likely have in mind a key behavior you wish more users would do, more often. But how can you increase the chances of your users taking action?
+如果你从事移动APP行业，每一天你都有潜在机会影响几百万人的行动。无论是参与使用一个新功能，每天访问你的应用，或是订阅你的增值服务， 你往往很可能在心里有一个希望更多用户会做的关键行为。但是你如何才能增加用户行动的机会呢？
 
-Whatever the desired behavior, this blog post (the first in a three-part series drawing on insights rooted in behavioral economics, psychology, and gamification) will introduce you to a three-step approach to optimizing for behavioral outcomes — Simplify, Trigger and Motivate. We’ll cover the first two steps, ‘Simplify’ and ‘Trigger‘ in this blog post specifically.
+无论你希望的行为是什么， 这篇博文将会把一个优化用户行为结果的三步走方法介绍给你，分别是简化、触发器、积极性（其中的第一部分借鉴了来自于行为经济学、心理学和游戏化的理念）。特别地，在这篇博文中我们将覆盖前两步，也就是简化和触发器。
 
-Where should you start when considering strategies to encourage a specific user action? Dr. BJ Fogg, the director of Stanford University’s [Persuasive Tech Lab](http://captology.stanford.edu/), created the Fogg behavioral model to visualize how three elements (ability, triggers, and motivation) contribute to the likelihood of a given behavior occurring:
+当考虑鼓励某个特定的用户行为策略的时候，你应该从哪里开始？斯坦福 [Persuasive Tech Lab](http://captology.stanford.edu/) 的院长，BJ Fogg博士创建了 Fogg 行为模型，来评估三个因素（能力、触发器、积极性）对于给定行为发生可能性的影响：
 
 ![](https://cdn-images-1.medium.com/max/800/0*dP-BAPMCWX9uKBuj.)
 
-Fogg Behavioral Model
+Fogg 行为模型
 
-The model suggests three factors influencing user behavior, which map to three key steps for driving behavioral change:
+模型指出三个影响用户行为的原因，并由此导出三个驱动行为改变的关键步骤
 
-* Step 1: **Simplify** the desired behavior. Encourage action from engaged, motivated users by reducing (and ideally removing) barriers that prevent it from happening.
-* Step 2: **Trigger** behavior from motivated users. The presence of “triggers” (prompts, cues, CTAs) can drive action even when motivation levels might be slightly lower.
-* Step 3: Boost user **motivation**. Motivation is hard to influence, but if the desired behavior is relatively ‘easy’ to do, amplifying motivation levels with compelling messaging or engaging game elements can help inspire users to act.
+* 步骤一：**简化**所需的行为。通过降低（最好是移除）不利于行为发生的阻碍来鼓励有参与感、有积极性的用户发生行为。
+* 步骤二：**触发**来自于积极用户<sup><a href="#note2">[2]</a></sup>的行为。『触发器』（提示、提示音、行为召唤）的出现甚至可以在积极性水平略低的情况下驱动行为。
+* 步骤三：激发用户的**积极性**。积极性很难被影响，但是如果所需的行为相当『容易』去做，通过吸引人的信息或者加入游戏因素来提升积极性水平可以激励用户按你的想法行动。
 
-So far, so good. But how do you carry out these steps? We’ll do a deep dive into the first two below. (I’ll discuss the third step, boosting user motivation, in a future post).
+到此为止还不错。但是你如何执行这些步骤呢？以下我们将会深入探讨前两项步骤。（我会在未来的博文中讨论第三步，激发用户积极性）
 
-### Step 1. Simplify the desired behavior
+### 步骤一，简化所需行为
 
-The behavior you want your users to perform should be easy to do (with few to no barriers to act) and easy to decide on (with clearly understood benefits). Every action we take requires resources to carry out (for example time, money, and cognitive load). These resources act as barriers, and every decision is a trade-off between using these resources for the resulting benefits of the action. For example, many of us have a surge of motivation to get fit at the beginning of the year, but putting in the resources necessary to exercise leads to many broken resolutions!
+你希望用户去做的行为必须非常容易做到（做起来很少或者没有阻碍）并且容易作出决定（有清晰易懂的好处）。我们做出的每个行为都需要付出代价（比如时间、金钱和认知负担）。这些代价是一种阻碍，每个决定都在代价和收获的好处之间权衡的结果。比如，我们中许多人在年初都会有变得健康的强烈冲动，但是当真需要付出必要锻炼的时候又会导致许多决心的破产。
 
-What barriers or “asks” are decreasing the chances of your users taking action? Common barriers that drain your users’ resources can be cumbersome manual input, redundant screens, an overwhelming array of options, and confusing messaging with no clear call to action. These barriers can be identified both quantitatively via data analysis of user’s in-app actions, and qualitatively, for example, via user research. Once you’ve identified your barriers to action, it’s time to lessen or remove some of them:
+什么阻碍或者『要求』会降低你的用户进行行动的机会呢？通常用户会付出代价的阻碍包括繁琐的手动输入，冗余的界面，过量的选择，以及因为没有清晰告诉用户要干什么从而引起困惑的信息。这些阻碍可以通过分析用户在应用内的行为数据来定量辨别，也可以通过用户搜索等方式定性识别。一旦你已经识别了用户行动的阻碍，就到了降低或者移除它们的时候了。
 
-#### **REDUCE THE TIME REQUIRED TO ACT**
+#### **降低行动所需时间**
 
-It can take several clicks from the moment of app discovery to download, not to mention the download wait. These are barriers that all app developers face. However, [Android Instant Apps](https://developer.android.com/topic/instant-apps/index.html) is an option which lets users accomplish many tasks quickly (e.g. watching a video or making a purchase) by running a native experience instantly, without the barrier of installation.
+从应用被发现到下载需要有几次点击，更不用说等待下载完成的时间。然而 [Android Instant Apps](https://developer.android.com/topic/instant-apps/index.html) 是一个通过立即进行本地体验无需下载门槛，让用户快速完成许多任务的选择（例如看一个视频或者支付）。
 
 ![](https://cdn-images-1.medium.com/max/600/1*R4kv3XMr9rpphokMjS0jRA.png)
 
-Once your user opens your app, the sign-up flow can be the next minefield of cumbersome and time-intensive asks. Instead of asking users to sign in each time, developers like those at [Ticketmaster](https://play.google.com/store/apps/details?id=com.ticketmaster.mobile.android.uk) and [AliExpress](https://play.google.com/store/apps/details?id=com.alibaba.aliexpresshd) effectively removed manual password requests by integrating with [Google Smart Lock](http://get.google.com/smartlock/#for-passwords). They subsequently saw large decreases in sign-in failure rates.
+一旦你的用户打开了你的应用，注册过程是下一个繁琐、耗时的雷区。比起每次都要求用户登录，开发者们喜欢的 [Ticketmaster](https://play.google.com/store/apps/details?id=com.ticketmaster.mobile.android.uk) 和 [AliExpress](https://play.google.com/store/apps/details?id=com.alibaba.aliexpresshd) 通过整合 [Google Smart Lock](http://get.google.com/smartlock/#for-passwords) 能够有效省略手动密码这一步骤。它们随后就能看见登录失败的比例大幅下降。
 
-Developers can track user drop-off in core user journeys by conducting a funnel analysis, helping to pinpoint any barriers to desired behavior. In running a funnel analysis, food delivery company [Deliveroo](https://play.google.com/store/apps/details?id=com.deliveroo.orderapp) identified a conversion drop-off for first-time users during the checkout process. They noticed that this same drop-off wasn’t shared with existing customers whose payment and delivery details were already saved in the app. Realizing that their sign-up flow was likely part of the problem, the team prioritized efforts to roll out [Android Pay](https://developers.google.com/android-pay/) to create a simpler checkout experience for first-time users.
+通过进行漏斗分析，开发者能够跟踪核心流程中的用户流失情况，帮助定位所需行为的阻碍。在实行漏斗分析方面，食品配送公司 [Deliveroo](https://play.google.com/store/apps/details?id=com.deliveroo.orderapp) 识别了一个在首次结账环节的转换流失。他们注意到同样的流失情况并不会在已经将支付和配送信息的存储在应用中的老用户身上发生。意识到他们的注册流程可能是问题的一部分，团队优先考虑部署 [Android Pay](https://developers.google.com/android-pay/) 来为新用户创造一个简单的结账体验。
 
 ![](https://cdn-images-1.medium.com/max/600/1*bst4m7qIgfsAuyybPOIAsw.png)
 
-#### **REDUCE THE (REAL AND PERCEIVED) COST**
+#### **降低（实际存在或是可察觉的）花费**
 
-Reducing cost doesn’t mean you should reduce your price across the board! What it does mean is that prospective purchasers each have a different “sweet spot” reflecting the price they deem represents good value to them, based on factors like app engagement levels, user location, and overall user purchasing power.
+降低花费不是意味着你应该全盘降低价格！真实含义是每个预期的购买者有一个不同的『甜蜜点』，根据应用匹配程度、用户位置以及用户综合支付能力反映出他们认为合适的价格。
 
-Google Play’s Head of Western Europe Apps, Tamzin Taylor, has given a talk rounding up some key best practices for pricing optimization, such as leveraging the [Big Mac Index](http://www.economist.com/content/big-mac-index) to assess purchase parity across markets:
+Tamzin Taylor，Google Play的西欧应用主管，曾经讲出了一些有关于价格优化的最佳关键实践，比如使用 [Big Mac Index](http://www.economist.com/content/big-mac-index) 进行购买力对比，从而评估每个市场的实际支付能力。
 
-<iframe width="700" height="393" src="https://www.youtube.com/embed/LQ6MsPmUa38" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+[![Watch the video](https://raw.github.com/GabLeRoux/WebMole/master/ressources/WebMole_Youtube_Video.png)](https://www.youtube.com/embed/LQ6MsPmUa38)
 
-Another way to reduce cost as a barrier to potential purchasers is to lower the initial monetary ask. Our recent [Introductory Pricing](https://support.google.com/googleplay/android-developer/answer/140504#intro) feature for app subscriptions allows you to do exactly that.
+另一个降低成为潜在购买者门槛花费的方法是降低初始消费要求。我们最近为应用订购做的 [Introductory Pricing](https://support.google.com/googleplay/android-developer/answer/140504#intro) 功能允许你做到这件事。
 
-When we think about perceived cost, it’s important to note that the way price is presented can have a significant impact on perceptions of value. There are two main ways of shaping this perception:
+当我们考虑可察觉的花费的时候，价格显示的方式对价格的感知有重大的影响这件事很有必要被注意带。
 
-**1. Anchoring**
+**1. 锚定效应**
 
-Developers and retailers often seek to “nudge” users to purchase a particular product through the use of [“good,” “better,” “best” price tiering](https://hbr.org/2013/02/why-good-better-best-prices-are-so-effective). This works by placing the standard price alongside cheaper or more expensive price points. The higher-priced “best” option acts as a reference point — or anchor — making it more likely that the standard price appears like a cheaper and better value to users.
+开发者和零售商经常通过[堆叠『好』、『更好』、『最好』等词](https://hbr.org/2013/02/why-good-better-best-prices-are-so-effective)试图『推动』用户去购买某个特定商品。这个方法会因为标志价格与更便宜或更贵的价格点一起放置而起作用。更高价格的『最好』选择扮演了一个参考点，或者说锚点，让用户认为标准价格看起来是个更便宜和超值的选择。
 
-> We gravitate towards middle prices because they seem ‘fair,’ in context.
-
+> 在一定情境里，我们倾向于中间价格因为他们看起来『公平』。
 > — [Derek Thompson](https://medium.com/@dkthomp), The Atlantic
 
-Dan Ariely drew our attention to the now-famous example of The Economist’s pricing strategy in his book, _Predictably Irrational._ The magazine offered three options: a $59 internet subscription, a $125 print subscription, and a$125 internet and print subscription. Ariely suggests that “relative to the print-only option, the print-and-internet option looks clearly superior,” and that this persuades us to purchase third option because it’s “easier” to assess the value of something when placed next to an option it has a relative advantage over.
+Dan Ariely 通过一个在他的书《Predictably Irrational.》中一个现在很著名的关于经济学家价格策略的例子引起了我们的注意。杂志提供了三种选择：一个 59 美金的电子版，一个 125 美金的纸质版和一个 125 美金包含纸质和电子两种版本的套餐。Ariely 指出『相对于纯纸质选择，电子+纸质的选择看起来明显超值』，这个说服我们购买第三个选择因为这个『更容易』评估某物的价值当它被放置在有另一个明显不如它的选择旁边。
 
-**2. Framing**
+**2. 框架效应**
 
-Given the choice of a subscription product that costs $60 a year, or $5 per month, which would you choose? Many subscription apps highlight the cost of an annual plan as its monthly cost because this lowers the perceived cost to potential purchasers, despite them both costing the same amount over an annual period.
+给你两个选择：一个付 60 美金一年，一个付 5 美金每个月，你会选哪个？许多有订阅功能的应用会向潜在购买者高亮显示年付的价格，而不是月付价格。因为这会显得被察觉的价格更低，虽然在一年中他们的花费是一样的。
 
 ![](https://cdn-images-1.medium.com/max/600/1*S8DAVtjS0Z48RSJyzbzkKQ.png)
 
-#### **REDUCING COGNITIVE LOAD**
+#### **降低认知负担**
 
-The more choices you present to a user, the more mental effort is takes to compare options and make a decision.
+你给用户提供越多选择，用户在比较选择和做决定中的心理负担就越沉重。
 
-Besides assessing the choices you offer to users at key stages in the user journey, it’s worth assessing how you present options, as this can have a huge impact on the decision-making process.
+作为开发者，在用户使用过程的关键节点，除了评估你提供给用户的选择本身，评估你显示选择的方式也值得，因为这将会对做决定的过程有巨大的影响。
 
-**The value of limits**
+**限制的价值**
 
-For example, searches on the flight app [Skyscanner](https://play.google.com/store/apps/details?id=net.skyscanner.android.main) often yield thousands of results. Rationally, you could argue that consumers should weigh the merits of each individual result. But given the barriers of finite time and cognitive load, Skyscanner decided to limit choice by bundling the results in a more meaningful way, creating a new time-based widget to allow users to easily compare options between airlines. While the same number of results was returned, this simple change to their presentation on the page led to a 14% increase in conversions.
+比如，在航班应用 [Skyscanner](https://play.google.com/store/apps/details?id=net.skyscanner.android.main) 中搜索经常获得上千条结果。你可以理性地辩解说顾客们应该衡量每个单独结果的价值。但是在有限时间和认知负担的阻碍下，Skyscanner 决定以一种更好理解的方式聚合结果，从而限制选择。当同样数量的结果被返回，这个页面展示上的简单改变提升了 14% 的转化率。
 
-**The power of defaults**
+**默认的重要性**
 
-In general, people follow the path of least resistance. This means pre-set options are powerful tools for optimizing user behavior, especially when these defaults actively benefit the user.
+总的来说，人们跟随最少阻碍的路径行动。这意味着预先设置的选项是优化用户行为的有力工具，尤其是当这些默认选项对用户有明显好处的时候。
 
-* For example, recipe app [Simple Feast](https://play.google.com/store/apps/details?id=com.simplefeast.android.app) decided to emphasize the price of their annual subscription on their Premium page. They presented it as the default user choice by visually drawing attention to it, and found that users who opted for annual subscriptions increased as a result.
-* A seemingly small change to a checkbox can have profound impact, too. The power of defaults has been utilized to great effect in government policy like organ donation, where countries whose forms have an “opt-out” policy [see much higher organ donation consent rates](http://www.dangoldstein.com/papers/JohnsonGoldstein_Defaults_Transplantation2004.pdf). Why? People prefer to stick with the “status quo”.
+* 例如，食谱应用 [Simple Feast](https://play.google.com/store/apps/details?id=com.simplefeast.android.app) 决定在增值服务的页面强调他们年付订阅。他们用视觉强调的方式展示，并设定为默认用户选择。结果他们发现选择年付订阅的用户增加了。
 
-### Step 2. Trigger behavior from motivated users
+* 复选框一个表面上的小改变也有巨大的影响。默认的力量已经被利用并产生了巨大的影响，并在诸如器官捐献领域，很多国家的表格都有『自愿退出』的政策。[点击查看更高的器官捐献同意比例](http://www.dangoldstein.com/papers/JohnsonGoldstein_Defaults_Transplantation2004.pdf)。为什么？因为人们倾向于继续维持现状。
 
-The second step to encouraging desired user behavior is the presence of actionable, relevant triggers in the paths of motivated users. A memorable BJ Fogg mantra is to “place hot triggers in the path of motivated users.” Triggers tend to be external to the user — a developer-initiated prompt, reminder or call to action that intends to influence what the user does next. A push notification is a trigger in this sense, and can be especially effective when it’s actionable, personalized, and timely.
+### Step 2. 触发积极用户的行为
 
-[Antoine Sakho](https://medium.com/@antoinesakho), Head of Product at language-learning app [Busuu](https://play.google.com/store/apps/dev?id=8335366955203612525), describes in [his Medium article](https://medium.com/@antoinesakho/designing-push-notifications-that-dont-suck-af6aaa0ea85) how they applied [Nir Eyal](https://medium.com/@nireyal)’s [Hooked Model](http://www.nirandfar.com/hooked) to their push notification strategy, which drove a 300% increase in push open rates. He writes:
+鼓励所需用户行为的第二步是在主动用户的相关路径中设置相关触发，从而表现出可操作性。BJ Fogg有一个一个值得纪念名言：『在积极用户的使用路径上放置热点触发器』。触发器往往对于用户来说是陌生的，因为它是一个从开发者角度给出的想要影响用户下一步行为的提示、提醒或者行为召唤。一个推送在这个意义上是一个触发器，并且当它是可操作、定制化、时间合适的时候会非常有效。
 
-> _First, we prompt the user with a personalized push notification_ **_(external trigger)_** _which sparks curiosity_ **_(internal trigger)_**_. Tapping on the push, they go through a quiz_ **_(action)_**_. At the end of the quiz, they get a congratulations screen with their score_ **_(reward)_**_. Finally, by training the vocabulary they had learned, they have strengthened their long-term memory_ **_(investment)_**_._
+语言学习软件的 [Busuu](https://play.google.com/store/apps/dev?id=8335366955203612525) 的产品主管 [Antoine Sakho](https://medium.com/@antoinesakho) 在他的 [Medium 文章](https://medium.com/@antoinesakho/designing-push-notifications-that-dont-suck-af6aaa0ea85) 中介绍了他们如何在他们的推送策略中应用 [Nir Eyal](https://medium.com/@nireyal)的[钩子模型](http://www.nirandfar.com/hooked) ，从而获得推送打开率300%的增长。他写道：
+
+> _首先，我们通过个性化推送提示用户_ **_ (外部触发) _** _从而引发好奇_ **_(内部触发)_**_. 点击推送， 他们会经历一个测试 **_(行为)_**_。 在测试的最后， 他们会看到一个包含分数的恭喜页面_ **_(奖励)_**_。 最后，通过训练他们已经学到的词汇，他们强化了长期记忆_ **_(投入)_**.
 
 ![](https://cdn-images-1.medium.com/max/800/0*rEsZdKUne9TjMfzu.)
 
-The Hooked Model, applied to Busuu’s re-engagement campaigns
+钩子模型，应用于 Busuu 的用户召回活动
 
-Despite the promise that push notifications hold for re-engaging users, you should avoid these common pitfalls:
+尽管推送对于有效召回用户有一定保证，你还是应该避开这些常见陷阱：
 
-1. Push notifications sent at inopportune times, or containing content irrelevant to the user’s context produce a real backfire effect.
-2. Sending the same push notification messaging becomes stale quickly: Follow Busuu’s lead and never send the same push notification twice.
-3. Don’t over-rely on push notifications to drive user action. App habits are ultimately formed when the user proactively engages with your content without needing a prompt to do so. [Nir Eyal](https://medium.com/@nireyal) sums this up in his [Medium article](https://medium.com/behavior-design/the-psychology-of-notifications-how-to-send-triggers-that-work-25c7be3d84d3#.e4sbkzj7l):
+1. 在不合适的时间推送通知或者推送与用户环境无关的信息，只会产生巨大的反作用。
+2. 总是推送相同消息会很快被用户厌烦：跟随Busuu的指引，永远不要把同一条通知推送两遍。
+3. 不要归于依赖推送来驱动用户行为。当无需提醒用户也能主动参与应用内容的时候，应用习惯才会最终养成。[Nir Eyal](https://medium.com/@nireyal) 在他 [Medium 文章](https://medium.com/behavior-design/the-psychology-of-notifications-how-to-send-triggers-that-work-25c7be3d84d3#.e4sbkzj7l)中总结了这些：
 
-> _Habit-forming products align the external trigger (a push notification for example) with the moment when the internal trigger is felt (say the feeling of uncertainty or boredom)._
+> _能让人养成习惯的产品会在内部触发被感知的时候（比如不确定感或者无聊感）结合外部触发器（例如推送），让用户养成习惯。_
 
-The most successful external triggers are immediately actionable. So how can you build upon the idea that the user should take action at a precise moment? According to [Prospect theory](https://en.wikipedia.org/wiki/Prospect_theory), people act to avoid losses because the pain of loss is greater than the pleasure of an equivalent gain. This means we’re more likely to act to prevent missing out on something, than to secure a guaranteed gain.
+最成功的外部刺激是立即反馈。因此你如何构建清晰的时刻。所以你如何在用户应该在确定时刻采取行动的思想下构建这种反馈？根据 [Prospect 理论](https://en.wikipedia.org/wiki/Prospect_theory)，人们行动会倾向于避免损失，因为同样数量下损失的痛苦会大于获得。这意味着比起有维护的已得的事物，我们更倾向于避免错过一些事情。
 
-Limited-time, limited-quantity sales are a core lever that many developers use to drive users to purchase now rather than later. These tactics are driven by our aversion to loss. After all, failure to act quickly entails the possibility of “missing out” on deals and items in scarce supply. This idea can also be used to construct more persuasive messaging. For example, you could choose to focus on what your users might lose if they don’t act, versus what they gain if they do.
+限时限量促销是核心工具，许多开发者用它来驱动用户立即购买而不是之后再说。这些手段被我们对失去的厌恶驱动。毕竟，不行动很快导致一种可能性 —— 『错过』交易或者物品。这个点子也可以被用作构建更具说服力的信息。例如，你可以选择聚焦在你用户在不行动可能失去，行动了才会获得的东西。
 
 ![](https://cdn-images-1.medium.com/max/800/0*WtMs-w9cf21LbpB0.)
 
-Health and lifestyle app [Lifesum](https://play.google.com/store/apps/details?id=com.sillens.shapeupclub) saw a 15% increase in 1st-day conversion after introducing a limited-time “starter kit” for new users. The “today only” messaging urges the user to act now, instilling a sense of urgency to prevent missing out.
+健康和生活方式 app [Lifesum](https://play.google.com/store/apps/details?id=com.sillens.shapeupclub) 在加入为新用户准备的限时『新手套装』的第一天就看到了 15% 的增长。 『仅在今天』的信息形成了一种防止错过的紧迫感，驱使用户立即行动。
 
-**Summarizing the key takeaways:**
+**关键结论总结:**
 
-* Users won’t perform the desired behavior if the cost or resources necessary don’t clearly align with resulting value
-* Users are also less likely to act if it’s difficult to assess and choose between the options available
-* Users are more likely to perform the desired behavior if you provide them with relevant, actionable triggers in context
+* 在代价和必要资源没有清晰地与最终价值挂钩的时候，用户将不会行动。
+* 如果在可选项之间很难进行评估和选择，用户也不倾向于行动。
+* 如果你在内容中给用户提供相关、可操作的触发，用户更倾向于进行按开发者意愿行动。
 
-You can learn more about the ideas in this post by attending or watching my [Google I/O talk, “Boost User Retention with Behavioral Insights,”](https://events.google.com/io/schedule/?sid=b187c653-5143-4b2d-addc-103e1f04fbc2#may-19) on **Friday May 19th** at **8:30 am (PST)**. Along with Sami Ben Hassine, CEO of [The Fabulous](https://play.google.com/store/apps/details?id=co.thefabulous.app), I’ll be discussing how developers can apply behavioral insights to build more engaging app experiences.
-
-* * *
-
-#### What do you think?
-
-Do you have questions or thoughts on optimizing your app for decision making? Continue the discussion in the comments below or tweet using the hashtag #AskPlayDev and we’ll reply from [@GooglePlayDev](http://twitter.com/googleplaydev), where we regularly share news and tips on how to be successful on Google Play.
+在 **3月19日周五****8:30 am (PST)** 加入或者访问 [Google I/O talk, “Boost User Retention with Behavioral Insights”](https://events.google.com/io/schedule/?sid=b187c653-5143-4b2d-addc-103e1f04fbc2#may-19) ，你可以获得更多的信息
+。我将会和 [The Fabulous](https://play.google.com/store/apps/details?id=co.thefabulous.app) 的 CEO Sami Ben Hassine 一起，讨论开发者如何才能应用行为观点来构建更多有吸引力的应用体验。
 
 * * *
 
-_In the_ [_second Medium post_](https://medium.com/googleplaydev/the-right-app-rewards-to-boost-motivation-c1ec86390450)_, I reveal some details behind the third step of behavior change — boosting user motivation. I’ll be exploring the psychology of motivation, its relationship to gamification, and approaching rewards in the right way._
+#### 你怎么想?
 
-_Special thank you to_ [_Aaron Otani_](https://medium.com/@aaronotani) _for providing feedback on a draft version of this post._
+你有关于在优化用户决定方面的问题或者想法吗？在下面评论区继续讨论或者通过井号标签 #AskPlayDev 通知我们，我们会在 [@GooglePlayDev](http://twitter.com/googleplaydev) （我们会定期分享在上面就如何在Google Play成功的话题分享新闻和小贴士）上回复。
+* * *
 
+_在我_ [第二篇博文](https://medium.com/googleplaydev/the-right-app-rewards-to-boost-motivation-c1ec86390450)_，我会解释一些行为改变第三步 —— 激发用户积极性的细节。我将探索积极性心理，它与游戏化的关系以及，正确的奖励方法。_
+
+_尤其感谢_ [Aaron Otani](https://medium.com/@aaronotani) _为写这篇博文草稿时提供的反馈。_
 
 ---
 
-> [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
+译者注：
+
+1. <a name="note1"></a> 这篇文章是作者三部曲的第一篇，续集详见：[传送门](https://medium.com/googleplaydev/the-right-app-rewards-to-boost-motivation-c1ec86390450)
+2. <a name="note2"></a> 原文为`motivated users`，此处翻译为积极用户，期待指正
+
+---
+
+> [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juej
+
