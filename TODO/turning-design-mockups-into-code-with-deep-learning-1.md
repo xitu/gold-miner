@@ -2,95 +2,95 @@
 > * 原文作者：[Emil Wallner](https://twitter.com/EmilWallner)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/turning-design-mockups-into-code-with-deep-learning-1.md](https://github.com/xitu/gold-miner/blob/master/TODO/turning-design-mockups-into-code-with-deep-learning-1.md)
-> * 译者：
-> * 校对者：
+> * 译者：[sakila1012](https://github.com/sakila1012)
+> * 校对者：[sunshine940326](https://github.com/sunshine940326)，[wzy816](https://github.com/wzy816)
 
-# Turning Design Mockups Into Code With Deep Learning - Part 1
+# 使用深度学习自动生成 HTML 代码 - 第 1 部分
 
-- [Turning Design Mockups Into Code With Deep Learning - Part 1](https://github.com/xitu/gold-miner/blob/master/TODO/turning-design-mockups-into-code-with-deep-learning-1.md)
-- [Turning Design Mockups Into Code With Deep Learning - Part 2](https://github.com/xitu/gold-miner/blob/master/TODO/turning-design-mockups-into-code-with-deep-learning-2.md)
+- [使用深度学习自动生成HTML代码 - 第 1 部分](https://github.com/xitu/gold-miner/blob/master/TODO/turning-design-mockups-into-code-with-deep-learning-1.md)
+- [使用深度学习自动生成HTML代码 - 第 2 部分](https://github.com/xitu/gold-miner/blob/master/TODO/turning-design-mockups-into-code-with-deep-learning-2.md)
 
-Within three years deep learning will change front-end development. It will increase prototyping speed and lower the barrier for building software.
+在未来三年来，深度学习将改变前端的发展。它将会加快原型设计的速度和降低开发软件的门槛。
 
-The field took off last year when Tony Beltramelli introduced the [pix2code paper](https://arxiv.org/abs/1705.07962) and Airbnb launched [sketch2code](https://airbnb.design/sketching-interfaces/).
+Tony Beltramelli 去年发布了[pix2code 论文](https://arxiv.org/abs/1705.07962)，Airbnb 也发布了 [sketch2code](https://airbnb.design/sketching-interfaces/)。
 
-Currently, the largest barrier to automating front-end development is computing power. However, we can use current deep learning algorithms, along with synthesized training data, to start exploring artificial front-end automation right now.
+目前，自动化前端开发的最大屏障是计算能力。但我们可以使用目前的深度学习算法，以及合成训练数据来探索人工智能前端自动化的方法。
 
-In this post, we’ll teach a neural network how to code a basic a HTML and CSS website based on a picture of a design mockup. Here's a quick overview of the process:
+在本文中，作者将教大家神经网络学习如何基于一张图片和一个设计原型来编写一个 HTML 和 CSS 网站。下面是该过程的简要概述：
 
-### 1) Give a design image to the trained neural network
+### 1) 向训练的神经网络输入一个设计图
 
 ![](https://blog.floydhub.com/static/image_to_notebookfile-3354b407064e4d95a0217612a5463434-6c1a3.png)
 
-### 2) The neural network converts the image into HTML markup
+### 2) 神经网络将图片转换为 HTML 标记语言
 
 ![](/generate_html_markup-b6ceec69a7c9cfd447d188648049f2a4.gif)
 
-### 3) Rendered output
+### 3) 渲染输出
 
 ![](https://blog.floydhub.com/static/render_example-4c9df7e5e8bb455c71dd7856acca7aae-6c1a3.png)
 
-We’ll build the neural network in three iterations.
+我们将分三个版本来构建神经网络。
 
-In the first version, we’ll make a bare minimum version to get a hang of the moving parts. The second version, HTML, will focus on automating all the steps and explaining the neural network layers. In the final version, Bootstrap, we’ll create a model that can generalize and explore the LSTM layer.
+在第 1 个版本，我们构建最简单地版本来掌握移动部分。第 2 个版本，HTML 专注于自动化所有步骤，并简要神经网络层。最后一个 Bootstrap 版本，我们将创建一个模型来思考和探索 LSTM 层。
 
-All the code is prepared on [Github](https://github.com/emilwallner/Screenshot-to-code-in-Keras/blob/master/README.md) and [FloydHub](https://www.floydhub.com/emilwallner/projects/picturetocode) in Jupyter notebooks. All the FloydHub notebooks are inside the `floydhub` directory and the local equivalents are under `local`.
+所有的代码准备在 [Github](https://github.com/emilwallner/Screenshot-to-code-in-Keras/blob/master/README.md) 上和在 Jupyter 笔记本上的 [FloydHub](https://www.floydhub.com/emilwallner/projects/picturetocode)。所有 FloydHub notebook 都在 floydhub 目录中，本地 notebook 在 local 目录中。
 
-The models are based on Beltramelli‘s [pix2code paper](https://arxiv.org/abs/1705.07962) and Jason Brownlee’s [image caption tutorials](https://machinelearningmastery.com/blog/page/2/). The code is written in Python and Keras, a framework on top of TensorFlow.
+本文中的模型构建是基于 Beltramelli 的论文 [pix2code](https://arxiv.org/abs/1705.07962) 和 Jason Brownlee 的[图像描述生成教程](https://machinelearningmastery.com/blog/page/2/)。代码是由 Python 和 Keras 编写，使用 TensorFolw 框架。
 
-If you’re new to deep learning, I’d recommend getting a feel for Python, backpropagation, and convolutional neural networks. My three earlier posts on FloydHub’s blog will get you started [[1]](https://blog.floydhub.com/my-first-weekend-of-deep-learning/) [[2]](https://blog.floydhub.com/coding-the-history-of-deep-learning/) [[3]](https://blog.floydhub.com/colorizing-b&w-photos-with-neural-networks/).
+如果你是深度学习的新手，我建议你尝试使用下 Python，反向传播和卷积神经网络。可以从我早期个在 FloyHub 博客上发表的文章开始学习 [[1]](https://blog.floydhub.com/my-first-weekend-of-deep-learning/) [[2]](https://blog.floydhub.com/coding-the-history-of-deep-learning/) [[3]](https://blog.floydhub.com/colorizing-b&w-photos-with-neural-networks/)。
 
-## Core Logic
+## 核心逻辑
 
-Let’s recap our goal. We want to build a neural network that will generate HTML/CSS markup that corresponds to a screenshot.
+让我们回顾一下我们的目标。我们的目标是构建一个神经网络，能够生成与截图对应的 HTML/CSS。
 
-When you train the neural network, you give it several screenshots with matching HTML.
+当你训练神经网络时，你先提供几个截图和对应的 HTML 代码。
 
-It learns by predicting all the matching HTML markup tags one by one. When it predicts the next markup tag, it receives the screenshot as well as all the correct markup tags until that point.
+网络通过逐个预测所有匹配的 HTML 标记语言来学习。预测下一个标记语言的标签时，网络接收到截图和之前所有正确的标记。
 
-Here is a simple [training data example](https://docs.google.com/spreadsheets/d/1xXwarcQZAHluorveZsACtXRdmNFbwGtN3WMNhcTdEyQ/edit?usp=sharing) in a Google Sheet.
+这里是一个在 Google Sheet [简单的训练数据示例](https://docs.google.com/spreadsheets/d/1xXwarcQZAHluorveZsACtXRdmNFbwGtN3WMNhcTdEyQ/edit?usp=sharing)。
 
-Creating a model that predicts word by word is the most common approach today. There are [other approaches](https://machinelearningmastery.com/deep-learning-caption-generation-models/), but that’s the method that we’ll use throughout this tutorial.
+创建逐词预测的模型是现在最常用的方法。这里也有[其他方法](https://docs.google.com/spreadsheets/d/1xXwarcQZAHluorveZsACtXRdmNFbwGtN3WMNhcTdEyQ/edit?usp=sharing)，但该方法也是本教程使用的方法。
 
-Notice that for each prediction it gets the same screenshot. So if it has to predict 20 words, it will get the same design mockup twenty times. For now, don’t worry about how the neural network works. Focus on grasping the input and output of the neural network.
+注意：每次预测时，神经网络接收的是同样的截图。如果网络需要预测 20 个单词，它就会得到 20 次同样的设计截图。现在，不用管神经网络的工作原理，只需要专注于神经网络的输入和输出。
 
 ![](https://blog.floydhub.com/static/neural_network_overview-82bea09299f242ad5d6e1236b9661ec6-6c1a3.png)
 
-Let’s focus on the previous markup. Say we train the network to predict the sentence “I can code”. When it receives “I”, then it predicts “can”. Next time it will receive “I can” and predict “code”. It receives all the previous words and only has to predict the next word.
+我们先来看前面的标记（markup）。假如我们训练神经网络的目的是预测句子“I can code”。当网络接收“I”时，预测“can”。下一次时，网络接收“I can”，预测“code”。它接收所有前面的单词，但只预测下一个单词。
 
 ![](https://blog.floydhub.com/static/input_and_output_data-555f7b04c75a202041f0a4438af5cd51-6c1a3.png)
 
-From the data the neural network creates features. The neural network builds features to link the input data with the output data. It has to create representations to understand what is in each screenshot, the HTML syntax, that it has predicted. This builds the knowledge to predict the next tag.
+神经网络根据数据创建特征。神经网络构建特征以连接输入数据和输出数据。它必须创建表征来理解每个截图的内容和它所需要预测的 HTML 语法，这些都是为预测下一个标记构建知识。
 
-When you want to use the trained model for real-world usage, it's similar to when you train the model. The text is generated one by one with the same screenshot each time. Instead of feeding it with the correct HTML tags, it receives the markup it has generated so far. Then it predicts the next markup tag. The prediction is initiated with a "start tag" and stops when it predicts an “end tag” or reaches a max limit. Here's another example in [a Google Sheet](https://docs.google.com/spreadsheets/d/1yneocsAb_w3-ZUdhwJ1odfsxR2kr-4e_c5FabQbNJrs/edit?usp=sharing).
+把训练好的模型应用到真实世界中和模型训练过程差不多。我们无需输入正确的 HTML 标记，网络会接收它目前生成的标记，然后预测下一个标记。预测从「起始标签」（start tag）开始，到「结束标签」（end tag）终止，或者达到最大限制时终止
 
 ![](https://blog.floydhub.com/static/model_prediction-801ad7af1d2205276ba64fdc6d7c7ec8-6c1a3.png)
 
-## **Hello World Version**
+## **Hello World 版本**
 
-Let’s build a hello world version. We’ll feed a neural network a screenshot with a website displaying “Hello World!”, and teach it to generate the markup.
+现在让我们构建 Hello World 版实现。我们将发送一张带有「Hello World！」字样的截屏到神经网络中，并训练它生成对应的标记语言。
 
 ![](/hello_world_generation-039d78c27eb584fa639b89d564b94772.gif)
 
-First, the neural network maps the design mockup into a list of pixel values. From 0 - 255 in three channels - red, blue, and green.
+首先，神经网络将原型设计转换为一组像素值。且每一个像素点有 RGB 三个通道，每个通道的值都在 0-255 之间。
 
 ![](https://blog.floydhub.com/static/website_pixels-6f11057880ea91a87ddc087c27d063a7-6c1a3.png)
 
-To represent the markup in a way that the neural network understands, I use [one hot encoding](https://machinelearningmastery.com/how-to-one-hot-encode-sequence-data-in-python/). Thus, the sentence “I can code”, could be mapped like the below.
+为了以神经网络能理解的方式表征这些标记，我使用了 [one-hot 编码](https://machinelearningmastery.com/how-to-one-hot-encode-sequence-data-in-python/)。因此句子「I can code」可以映射为以下形式。
 
 ![](https://blog.floydhub.com/static/one_hot_encoding-2a72d2b794b26e6e4c4cc9c5f8bd4649-6c1a3.png)
 
-In the above graphic, we include the start and end tag. These tags are cues for when the network starts its predictions and when to stop.
+在上图中，我们的编码包含了开始和结束的标签。这些标签能为神经网络提供开始预测和结束预测的位置信息。
 
-For the input data, we will use sentences, starting with the first word and then adding each word one by one. The output data is always one word.
+对于输入的数据，我们使用语句，从第一个单词开始，然后依次相加。输出的数据总是一个单词。
 
-Sentences follow the same logic as words. They also need the same input length. Instead of being capped by the vocabulary they are bound by maximum sentence length. If it’s shorter than the maximum length, you fill it up with empty words, a word with just zeros.
+语句和单词的逻辑一样。这也需要同样的输入长度。他们没有被词汇限制，而是受句子长度的限制。如果它比最大长度短，你用空的单词填充它，一个只有零的单词。
 
 ![](https://blog.floydhub.com/static/one_hot_sentence-6b3c930c8a7808b928639201cac78ebe-6c1a3.png) 
 
-As you see, words are printed from right to left. This forces each word to change position for each training round. This allows the model to learn the sequence instead of memorizing the position of each word.
+正如你所看到的，单词是从右到左打印的。对于每次训练，强制改变每个单词的位置。这需要模型学习序列而不是记住每个单词的位置。
 
-In the below graphic there are four predictions. Each row is one prediction. To the left are the images represented in their three color channels: red, green and blue and the previous words. Outside of the brackets, are the predictions one by one, ending with a red square to mark the end.
+在下图中有四个预测。每一列是一个预测。左边是颜色呈现的三个颜色通道：红绿蓝和上一个单词。在括号外面，预测是一个接一个，以红色的正方形表示结束。
 
 ![](https://blog.floydhub.com/static/model_function-068c180c2ba3efdbb54193f21a5d5d7d-6c1a3.png) 
 
@@ -148,10 +148,9 @@ In the below graphic there are four predictions. Each row is one prediction. To 
     # Train the neural network
     model.fit([features, html_input], next_words, batch_size=2, shuffle=False, epochs=1000)
 ```
+在 Hello World 版本中，我们使用三个符号「start」、「Hello World」和「end」。字符级的模型要求更小的词汇表和受限的神经网络，而单词级的符号在这里可能有更好的性能。
 
-In the hello world version we use three tokens: “start”, “Hello World!” and “end”. A token can be anything. It can be a character, word or sentence. Character versions require a smaller vocabulary but constrain the neural network. Word level tokens tend to perform best.
-
-Here we make the prediction:
+以下是执行预测的代码：
 
 ```
     # Create an empty sentence and insert the start token
@@ -178,33 +177,36 @@ Here we make the prediction:
         print(vocabulary[np.argmax(i)], end=' ')
 ```
 
-## Output
+## 输出
 
 * **10 epochs:** `start start start`
 * **100 epochs:** `start <HTML><center><H1>Hello World!</H1></center></HTML> <HTML><center><H1>Hello World!</H1></center></HTML>`
 * **300 epochs:** `start <HTML><center><H1>Hello World!</H1></center></HTML> end`
 
-### Mistakes I made:
 
-* **Build the first working version before gathering the data.** Early on in this project, I managed to get a copy of an old archive of the Geocities hosting website. It had 38 million websites. Blinded by the potential, I ignored the huge workload that would be required to reduce the 100K-sized vocabulary.
-* **Dealing with a terabyte worth of data requires good hardware or a lot of patience.** After having my mac run into several problems I ended up using a powerful remote server. Expect to rent a rig with 8 modern CPU cores and a 1GPS internet connection to have a decent workflow.
-* **Nothing made sense until I understood the input and output data.** The input, X, is one screenshot and the previous markup tags. The output, Y, is the next markup tag. When I got this, it became easier to understand everything between them. It also became easier to experiment with different architectures.
-* **Be aware of the rabbit holes.** Because this project intersects with a lot of fields in deep learning, I got stuck in plenty of rabbit holes along the way. I spent a week programming RNNs from scratch, got too fascinated by embedding vector spaces, and was seduced by exotic implementations.
-* **Picture-to-code networks are image caption models in disguise.** Even when I learned this, I still ignored many of the image caption papers, simply because they were less cool. Once I got some perspective, I accelerated my learning of the problem space.
+* **在收集数据之前构建第一个版本。**在本项目的早期阶段，我设法获得 Geocities 托管网站的旧版存档，它有 3800 万的网站。但我忽略了减少 100K 大小词汇所需要的巨大工作量。
 
-## Running the code on FloydHub
+* **处理一个 TB 级的数据需要优秀的硬件或极其有耐心。**在我的 Mac 遇到几个问题后，最终用上了强大的远程服务器。我预计租用 8 个现代 CPU 和 1 GPS 内部链接以运行我的工作流。
 
-FloydHub is a training platform for deep learning. I came across them when I first started learning deep learning and I’ve used them since for training and managing my deep learning experiments. You can install it and run your first model within 10 minutes. It’s hands down the best option to run models on cloud GPUs.
+* **在理解输入与输出数据之前，其它部分都似懂非懂。**输入 X 是屏幕的截图和以前标记的标签，输出 Y 是下一个标记的标签。当我理解这一点时，其它问题都更加容易弄清了。此外，尝试其它不同的架构也将更加容易。
 
-If you are new to FloydHub, do their [2-min installation](https://www.floydhub.com/) or [my 5-minute walkthrough.](https://www.youtube.com/watch?v=byLQ9kgjTdQ&t=21s)
+* **注意兔子洞。**由于这个项目与深度学习有关联的，我在这个过程中被很多兔子洞卡住了。我花了一个星期从无到有的编程RNNs，太着迷于嵌入向量空间，并被一些奇奇怪怪的实现方法所诱惑。
 
-Clone the repository
+* **图片到代码的网络其实就是自动描述图像的模型。**即使我意识到了这一点，但仍然错过了很多自动图像摘要方面的论文，因为它们看起来不够炫酷。一旦我意识到了这一点，我对问题空间的理解就变得更加深刻了。
+
+## 在 FloyHub 上运行代码
+
+FloydHub 是一个深度学习训练平台，我自从开始学习深度学习时就对它有所了解，我也常用它训练和管理深度学习实验。我们可以安装并在 10 分钟内运行第一个模型，它是在云 GPU 上训练模型最好的选择。
+
+如果读者没用过 FloydHub，你可以用[ 2 分钟安装](https://www.floydhub.com/) 或者观看 [5 分钟视频](https://www.youtube.com/watch?v=byLQ9kgjTdQ&t=21s)。
+
+拷贝仓库
 
 ```
 git clone https://github.com/emilwallner/Screenshot-to-code-in-Keras.git
 ```
 
-Login and initiate FloydHub command-line-tool
+登录并初始化 FloyHub 命令行工具
 
 ```
 cd Screenshot-to-code-in-Keras
@@ -212,113 +214,112 @@ floyd login
 floyd init s2c
 ```
 
-Run a Jupyter notebook on a FloydHub cloud GPU machine:
+在 FloydHub 云 GPU 机器上运行 Jupyter notebook：
 
 ```
 floyd run --gpu --env tensorflow-1.4 --data emilwallner/datasets/imagetocode/2:data --mode jupyter
 ```
 
-All the notebooks are prepared inside the floydhub directory. The local equivalents are under local. Once it’s running, you can find the first notebook here: floydhub/Hello_world/hello_world.ipynb .
+所有的 notebooks 都放在 floydbub 目录下。本地等同于本地目录下。一旦我们开始运行模型，那么在 floydhub/Hello_world/hello_world.ipynb 下可以找到第一个 Notebook。
 
-If you want more detailed instructions and an explanation for the flags, check [my earlier post](https://blog.floydhub.com/colorizing-b&w-photos-with-neural-networks/).
+如果你想了解更多的指南和对 flags 的解释，请查看我[早期的文章](https://blog.floydhub.com/colorizing-b&w-photos-with-neural-networks/)。
 
-## HTML Version
+## HTML 版本
 
-In this version, we’ll automate many of the steps from the Hello World model. This section will focus on creating a scalable implementation and the moving pieces in the neural network.
+在这个版本中，我们将从 Hello World 模型自动化很多步骤，并关注与创建一个可扩展的神经网络模型。
 
-This version will not be able to predict HTML from random websites, but it’s still a great setup to explore the dynamics of the problem.
-
+该版本并不能直接从随机网页预测 HTML，但它是探索动态问题不可缺少的步骤。
 ![](/html_generation-2476413d4299a3a8b407ee9cdb6774b6.gif)
 
-### Overview
+### 概览
 
-If we expand the components of the previous graphic it looks like this.
+如果我们将前面的架构扩展为以下图展示的结构。
 
 ![](https://blog.floydhub.com/static/model_more_details-68db3bf26f6df205ffe4c541ace33a92-6c1a3.png) 
 
-There are two major sections. First, the encoder. This is where we create image features and previous markup features. Features are the building blocks that the network creates to connect the design mockups with the markup. At the end of the encoder, we glue the image features to each word in the previous markup.
+该架构主要有两个部分。首先，编码器。编码器是我们创建图像特征和前面标记特征（markup features）的地方。特征是网络创建原型设计和标记语言之间联系的构建块。在编码器的末尾，我们将图像特征传递给前面标记的每一个单词。
 
-The decoder then takes the combined design and markup feature and creates a next tag feature. This feature is run through a fully connected neural network to predict the next tag.
+然后，解码器将结合原型设计特征和标记特征以创建下一个标签的特征，这一个特征可以通过全连接层预测下一个标签。
 
-##### Design mockup features
+##### 设计原型的特征
 
-Since we need to insert one screenshot for each word, this becomes a bottleneck when training the network ([example](https://docs.google.com/spreadsheets/d/1xXwarcQZAHluorveZsACtXRdmNFbwGtN3WMNhcTdEyQ/edit#gid=0)). Instead of using the images, we extract the information we need to generate the markup.
+因为我们需要为每个单词插入一个截屏，这将会成为训练神经网络[案例](https://docs.google.com/spreadsheets/d/1xXwarcQZAHluorveZsACtXRdmNFbwGtN3WMNhcTdEyQ/edit#gid=0)的瓶颈。因此我们抽取生成标记语言所需要的信息来替代直接使用图像。
 
-The information is encoded into image features. This is done by using an already pre-trained convolutional neural network (CNN). The model is pre-trained on Imagenet.
+这些抽取的信息将通过预训练的 CNN 编码到图像特征中。这个模型是在 Imagenet 上预先训练好的。
 
-We extract the features from the layer before the final classification.
+我们将使用分类层之前的层级输出以抽取特征。
 
 ![](https://blog.floydhub.com/static/ir2_to_image_features-5455a0516284ac036482417b56a57d49-6c1a3.png) 
 
-We end up with 1536 eight by eight pixel images known as features. Although they are hard to understand for us, a neural network can extract the objects and position of the elements from these features.
+我们最终得到 1536 个 8x8 的特征图，虽然我们很难直观地理解它，但神经网络能够从这些特征中抽取元素的对象和位置。
 
-##### Markup features
+##### 标记特征
 
-In the hello world version we used a one-hot encoding to represent the markup. In this version, we’ll use a word embedding for the input and keep the one-hot encoding for the output.
+在 Hello World 版本中，我们使用 one-hot 编码以表征标记。而在该版本中，我们将使用词嵌入表征输入并使用 one-hot 编码表示输出。
 
-The way we structure each sentence stays the same, but how we map each token is changed. One-hot encoding treats each word as an isolated unit. Instead, we convert each word in the input data to lists of digits. These represent the relationship between the markup tags.
+我们构建每个句子的方式保持不变，但我们映射每个符号的方式将会变化。one-hot 编码将每一个词视为独立的单元，而词嵌入会将输入数据表征为一个实数列表，这些实数表示标记标签之间的关系。
 
 ![](https://blog.floydhub.com/static/embedding-2146c151fd4dbf5dcce6257444931a79-6c1a3.png) 
 
-The dimension of this word embedding is eight but often vary between 50 - 500 depending on the size of the vocabulary.
+上面词嵌入的维度为 8，但一般词嵌入的维度会根据词汇表的大小在 50 到 500 间变动。
 
-The eight digits for each word are weights similar to a vanilla neural network. They are tuned to map how the words relate to each other ([Mikolov alt el., 2013](https://arxiv.org/abs/1301.3781)).
+以上每个单词的八个数值就类似于神经网络中的权重，它们倾向于刻画单词之间的联系（[Mikolov alt el., 2013](https://arxiv.org/abs/1301.3781)）。
 
-This is how we start developing markup features. Features are what the neural network develop to link the input data with the output data. For now, don’t worry about what they are, we’ll dig deeper into this in the next section.
+这就是我们开始部署标记特征（markup features）的方式，而这些神经网络训练的特征会将输入数据和输出数据联系起来。现在，不用担心他们是什么，我们将在下一部分进一步深入挖掘。
 
-### The Encoder
+### 编码器
 
-We’ll take the word embeddings and run them through an LSTM and return a sequence of markup features. These are run through a Time distributed dense layer - think of it as a dense layer with multiple inputs and outputs.
+我们现在将词嵌入馈送到 LSTM 中，并期望能返回一系列的标记特征。这些标记特征随后会馈送到一个 Time Distributed 密集层，该层级可以视为有多个输入和输出的全连接层。
 
 ![](https://blog.floydhub.com/static/encoder-78498407f393e83128abed5eec86dd4c-6c1a3.png) 
 
-In parallel, the image features are first flattened. Regardless of how the digits where structured they are transformed into one large list of numbers. Then we apply a dense layer on this layer to form a high-level features. These image features are then concatenated to the markup features.
+对于另一个平行的过程，其中图像特征首先会展开成一个向量，然后再馈送到一个全连接层而抽取出高级特征。这些图像特征随后会与标记特征相级联而作为编码器的输出。
 
-This can be hard to wrap your mind around - so let’s break it down.
+这个有点难理解，让我来分步描述一下。
 
-##### Markup features
+##### 标记特征
 
-Here we run the word embeddings through the LSTM layer. In this graphic, all the sentences are padded to reach the maximum size of three tokens.
+如下图所示，现在我们将词嵌入投入到 LSTM 层中，所有的语句都填充上最大的三个记号。
 
 ![](https://blog.floydhub.com/static/word_embedding_markup_feature-d4e76483527fefd10742c0ddc1cd3227-6c1a3.png) 
 
-To mix signals and find higher-level patterns we apply a TimeDistributed dense layer to the markup features. TimeDistributed dense is the same as a dense layer but with multiple inputs and outputs.
+为了混合信号并寻找高级模式，我们运用了一个 TimeDistributed 密集层以抽取标记特征。TimeDistributed 密集层和一般的全连接层非常相似，且它有多个输入与输出。
 
-##### Image features
+##### 图像特征
 
-In parallel, we prepare the images. We take all the mini image features and transform them into one long list. The information is not changed, just reorganized.
+同时，我们需要将图像的所有像素值展开成一个向量，因此信息不会被改变，只是重组了一下。
 
 ![](https://blog.floydhub.com/static/image_feature_to_image_feature-77a1cf39ed251d4243b90325e60fbdf5-6c1a3.png) 
 
-Again, to mix signals and extract higher level notions, we apply a dense layer. Since we are only dealing with one input value, we can use a normal dense layer. To connect the image features to the markup features, we copy the image features.
+如上，我们会通过全连接层混合信号并抽取更高级的概念。因为我们并不只是处理一个输入值，因此使用一般的全连接层就行了。
 
-In this case, we have three markup features. Thus, we end up with an equal amount of image features and markup features.
+在这个案例中，它有三个标记特征。因此，我们最终得到的图像特征和标记特征是同等数量的。
 
-##### Concatenating the image and markup features
+##### 级联图像特征和标记特征
 
-All the sentences are padded to create three markup features. Since we have prepared the image features, we can now add one image feature for each markup feature.
+所有的语句都被填充以创建三个标记特征。因为我们已经预处理了图像特征，所以我们能为每一个标记特征添加图像特征。
 
 ![](https://blog.floydhub.com/static/concatenate-747c07d8c62a2e026212d20860514188-6c1a3.png) 
 
-After sticking one image feature to each markup feature, we end up with three image-markup features. This is the input we feed into the decoder.
+如上，在复制图像特征到对应的标记特征后，我们得到了三个新的图像-标记特征（image-markup features），这就是我们馈送到解码器的输入值。
 
-### The Decoder
+### 解码器
 
-Here we use the combined image-markup features to predict the next tag.
+现在，我们使用图像-标记特征来预测下一个标签。
 
 ![](https://blog.floydhub.com/static/decoder-1592aedab9a95e07a513234aa258d777-6c1a3.png) 
 
-In the below example, we use three image-markup feature pairs and output one next tag feature.
+在下面的案例中，我们使用三个图像-标签特征对来输出下一个标签特征。
 
-Note that the LSTM layer has the sequence set to false. Instead of returning the length of the input sequence it only predicts one feature. In our case, it’s a feature for the next tag. It contains the information for the final prediction.
+注意 LSTM 层不应该返回一个长度等于输入序列的向量，而只需要预测预测一个特征。在我们的案例中，这个特征将预测下一个标签，它包含了最后预测的信息。
 
 ![](https://blog.floydhub.com/static/image-markup-feature_to_vocab-eb39368b3f466914c9383d532675a622-6c1a3.png) 
 
-##### The final prediction
+##### 最后的预测
 
-The dense layer works like a traditional feedforward neural network. It connects the 512 digits in the next tag feature with the 4 final predictions. Say we have 4 words in our vocabulary: start, hello, world, and end.
+全连接层会像传统前馈网络那样工作，它将下一个标签特征中的 512 个值与最后的四个预测连接起来，即我们在词汇表所拥有的四个单词：start、hello、world 和 end。
 
-The vocabulary prediction could be [0.1, 0.1, 0.1, 0.7]. The softmax activation in the dense layer distributes a probability from 0 - 1, with the sum of all predictions equal to 1\. In this case, it predicts that the 4th word is the next tag. Then you translate the one-hot encoding [0, 0, 0, 1] into the mapped value, say “end”.
+词汇的预测值可能是 [0.1, 0.1, 0.1, 0.7]。密集层最后采用的 softmax 激活函数会为四个类别产生一个 0-1 概率分布，所有预测值的和等于 1。在这个案例中，例如将预测第四个词为下一个标签。然后，你可以将 one-hot 编码 [0, 0, 0, 1] 转译成映射的值，也就是 “end”。
 
 ```
     # Load the images and preprocess them for inception-resnet
