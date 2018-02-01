@@ -1774,10 +1774,11 @@
 |------|-------|-------|
 |[快速构建原型最好用的 10 个 ReactJS UI 框架](http://gold.xitu.io/entry/57ea0bc2a3413100624e62ff/)|校对|1|
 
-## 译者：[danny1451](https://github.com/Danny1451) 历史贡献积分：60.9 当前积分：30.9
+## 译者：[danny1451](https://github.com/Danny1451) 历史贡献积分：60.9 当前积分：-4.1
 
 |文章|类型|积分|
 |------|-------|-------|
+|[2017 年 12 月兑 树莓派套餐 1 个（管理员优惠）]()|减去积分|35|
 |[基于 Metal 的 ARKit 使用指南（上）](https://juejin.im/post/5a225ffcf265da432153daa4)|校对|1|
 |[翻译 Swift 开源库 19 个](#)|翻译|1.9|
 |[巧用 ARKit 和 SpriteKit 从零开始做 AR 游戏](https://juejin.im/post/599aaf746fb9a02477072380)|翻译|7|
@@ -3004,10 +3005,11 @@
 |------|-------|-------|
 |[从形式到功能，设计思维的改变](https://juejin.im/post/58fedca744d9040069f720e4)|校对|1|
 
-## 译者：[mnikn](https://github.com/mnikn) 历史贡献积分：50 当前积分：45
+## 译者：[mnikn](https://github.com/mnikn) 历史贡献积分：50 当前积分：0
 
 |文章|类型|积分|
 |------|-------|-------|
+|[2018 年 1 月兑 树莓派套餐 1 个]()|减去积分|45|
 |[app 里的 A／B 测试简介](https://juejin.im/post/5a2df63551882531ba10e313)|翻译|7|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|2|
 |[CSV 注入：被人低估的风险](https://juejin.im/post/59eca3fef265da430b7a63c8)|翻译|5|
@@ -3297,10 +3299,11 @@
 |[用动效创建的可用性：动效中的用户体验宣言](https://juejin.im/post/595c77a66fb9a06bcb7f92ff)|校对|2|
 |[为复杂产品制定设计规范](https://juejin.im/post/5944b8e55c497d006bdc261a)|校对|1|
 
-## 译者：[cacppuccino](https://github.com/CACppuccino) 历史贡献积分：54.5 当前积分：54.5
+## 译者：[cacppuccino](https://github.com/CACppuccino) 历史贡献积分：54.5 当前积分：9.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[2018 年 1 月兑 树莓派套餐 1 个]()|减去积分|45|
 |[IBM 工程师的 TensorFlow 入门指北](https://juejin.im/post/5a3d1ecb518825256362de6a)|校对|2|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|9|
 |[CSV 注入：被人低估的风险](https://juejin.im/post/59eca3fef265da430b7a63c8)|校对|1.5|
@@ -4063,10 +4066,11 @@
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|1|
 |[Vue Report 2017](https://juejin.im/post/5a138fae5188254d28732899)|翻译|2|
 
-## 译者：[JohnJiangLA](https://github.com/JohnJiangLA) 历史贡献积分：34 当前积分：34
+## 译者：[JohnJiangLA](https://github.com/JohnJiangLA) 历史贡献积分：34 当前积分：-26
 
 |文章|类型|积分|
 |------|-------|-------|
+|[2017 年 1 月兑 小猫和树莓派套餐各 1 个]()|减去积分|60|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|11|
 |[IBM 工程师的 TensorFlow 入门指北](https://juejin.im/post/5a3d1ecb518825256362de6a)|翻译|6|
 |[TensorFlow 官方文档翻译校对]()|翻译|15|
@@ -4460,10 +4464,11 @@
 |[在 Redux 中使用 AJAX 轮询](https://juejin.im/post/5a43b6da5188257d167a7aef)|校对|1|
 |[在 Redux 中使用 AJAX 轮询（二）：Saga 篇](https://juejin.im/post/5a43b80df265da43176a6e4e)|校对|1|
 
-## 译者：[congFly](https://github.com/congFly) 历史贡献积分：4.5 当前积分：4.5
+## 译者：[congFly](https://github.com/congFly) 历史贡献积分：4.5 当前积分：-0.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[2018 年 1 月兑 杯子 1 个]()|减去积分|5|
 |[垂直排版：重提 writing-mode](https://juejin.im/post/5a5570fb6fb9a01c9e45d749)|校对|2|
 |[Redux-recompose 介绍：优雅的编写 Redux 中的 action 和 reducer](https://juejin.im/post/5a4e0d7651882573315c28a1)|校对|1.5|
 |[如何在 JavaScript 中使用 Generator?](https://juejin.im/post/5a44968df265da4335630fb9)|校对|1|
@@ -4551,3 +4556,9 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[ProGuard 在 Android 上的使用姿势](https://juejin.im/post/5a5dea0d6fb9a01cab28443c)|翻译|6|
+
+## 译者：[wizardforcel](https://github.com/wizardforcel) 历史贡献积分：5 当前积分：5
+
+|文章|类型|积分|
+|------|-------|-------|
+|[推荐多篇优秀英文文章]()|奖励|5|
