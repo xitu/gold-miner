@@ -2,142 +2,142 @@
 > * 原文作者：[Sean T. Larkin](https://medium.com/@TheLarkInn?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/webpack-4-beta-try-it-today.md](https://github.com/xitu/gold-miner/blob/master/TODO/webpack-4-beta-try-it-today.md)
-> * 译者：
-> * 校对者：
+> * 译者：[FateZeros](https://github.com/FateZeros)
+> * 校对者：[kangkai124](https://github.com/kangkai124)  [MechanicianW](https://github.com/MechanicianW)
 
-# 🚀webpack 4 beta — try it today!🚀
+# 🚀webpack 4 测试版 —— 现在让我们先一睹为快吧！🚀
 
 ![](https://cdn-images-1.medium.com/max/2000/1*BxhnE90lRYeLTxatyRDmqQ.jpeg)
 
-To support millions of features, use-cases, and needs, it takes a secure, stable, reliable, and scale-able foundation. Only with webpack, are the possibilities limitless!
+为了支持数以百万计的功能，用例和需求，它需要一个安全，稳定，可靠和可拓展的基础。只有 webpack 具有无限的可能性。
 
-##  The road to stable release!
+## 稳定的发布之路！
 
-Since the beginning of August — when we forked `**webpack/webpack#master**`for the `**next**` branch — we’ve seen an incredible influx of contributions!
+自八月初以来 —— 当我们从 `**webpack/webpack#master**` 中分出 `**next**` 分支的时候 —— 我们看到了惊人的贡献量涌入。
 
 ![](https://cdn-images-1.medium.com/max/800/1*kJm7dIWWR7DzZa-OW_z6gQ.png)
 
-Git contribution stats for the webpack **next** branch at a glance using [gitinspector!](https://github.com/ejwa/gitinspector) Try it on your project to see insights. **PS: This doesn’t include the incredible work done in our webpack-cli team and webpack-contrib organization supporting our loaders and plugins.**
+可以使用 [gitinspector](https://github.com/ejwa/gitinspector) 一目了然地查看 webpack **next** 分支上的 Git 贡献统计信息。可以在你的项目上尝试一下，来仔细研究下。 **PS：这还不包括我们的 webpack-cli 团队 和 webpack-contrib 组织，他们在支持加载器和插件上面做了大量的工作。**
 
-**🎉 Today, the we are proud to share the culmination of that work by releasing webpack 4.0.0-beta.0!** **🎉**
+**🎉 今天，我们很自豪能够通过发布 webpack 4.0.0 - beta.0 来分享这项工作的成果！** **🎉**
 
-#### 🎁A Promise Fulfilled — Predictable Release Cycle
+#### 🎁一个实现的承诺 —— 可预测的发布周期
 
-When we finished the release of webpack 3, we promised the community that we’d give you a longer development cycle between major versions.
+当我们完成了 webpack 3 的发布之后，我们向社区保证，主要版本的更迭会有一个更长的开发周期。
 
-We’ve delivered on that promise [and continue to deliver on it] by bringing you a great set of features, improvements, and bug fixes that we can’t wait for you to get your hands on! Here’s how you get started!
+我们已经兑现了这个承诺[并继续为之付诸实施]，给你们带来了一大套特性，改进和错误修复，我们已经迫不及待地期待你们的实践！开始吧！
 
-#### 🤷‍How to install [v4.0.0-beta.0]
+#### 🤷‍怎么安装 [v4.0.0-beta.0]
 
-If you are using `yarn`:
+如果你用的是 `yarn`:
 
 `yarn add webpack@next webpack-cli --dev`
 
-or `npm`:
+或者 `npm`:
 
 `npm install webpack@next webpack-cli --save-dev`
 
-#### 🛠How to migrate?
+#### 🛠怎么迁移？
 
-The more folks trying and reporting plugin and loader incompatibilities while testing webpack 4, the more we can build up a living migration guide.
+只有更多的人帮助测试 webpack 4，并且反馈不兼容的插件和加载器，我们才能构建一份更加生动的迁移指南。
 
-**_So we need you to check out the_ **[**_official change log,_**](https://github.com/webpack/webpack/releases/tag/v4.0.0-beta.0)** _and also_ **[**_our migration draft_**](https://github.com/webpack/webpack/issues/6357)** _and provide feedback where missing! This will help our documentation team create our official stable release migration guide!_**
+**因此我们需要你看看**[**官方的更新日志**](https://github.com/webpack/webpack/releases/tag/v4.0.0-beta.0) **还有**[**我们的迁移草案**](https://github.com/webpack/webpack/issues/6357)**并提供我们有所缺失的反馈！这将帮助我们的文档团队创建我们的官方稳定版本迁移指南！**
 
-### What’s new in webpack 4?
+### webpack 4 中有什么新功能呢？
 
-Below are some of the more _notable_ features that you will enjoy reading about. For the **_full list_ **of changes, features, and internal API modifications, [**_please refer to our change log!!!_**](https://github.com/webpack/webpack/releases/tag/v4.0.0-beta.0)
+下面就是一些你将会喜欢看到的更值得注意的功能。若想了解更新，功能和内部 API 修改的**完整的清单**,[**请参阅我们的修改日志**](https://github.com/webpack/webpack/releases/tag/v4.0.0-beta.0)
 
-### 🚀Performance
+### 🚀更好的性能
 
-Performance will be significantly enhanced in multiple scenarios for webpack 4. Here are just a few of the notable changes we made to accomplish this:
+在 webpack 4 的多个场景中，性能将显着增强。下面是我们为实现这一目标而做出的一些显著改动：
 
-* By default**,** when using `production` mode, we will automatically parallelize and cache the minification work done by UglifyJS.
-* We shipped a new version of [**our plugin system**](https://github.com/webpack/tapable) so that event hooks and handlers are monomorphic.
-* In addition, webpack now has dropped Node v4 support, allowing us to add a considerable amount of newer ES6 syntax and data structures, also optimized by V8. **So far we have seen real-life reports of 9**[**h to 12min**](https://github.com/webpack/webpack/issues/6248)**!**
+* 默认情况下，在使用 `production` 模式时，我们会使用 UglifyJS 自动并行编译和缓存来减少工作量 。
+* 我们发布了一个新版的[**插件系统**](https://github.com/webpack/tapable)以便事件钩子和处理函数是单一形态的。
+* 另外，webpack 现已放弃对 Node v4 的支持，使我们能够添加大量的新型 ES6 语法和数据结构，并且也通过 V8 进行了优化。**迄今为止，我们已经收到几份[构建时间由 1 小时减少到 12 分钟](https://github.com/webpack/webpack/issues/6248)的真实报告**！
 
-_PS: we haven’t even implemented full caching and parallelism_ 😉 _[webpack 5 milestone]._
+PS: 我们还没有完全实现缓存和并行化 😉 这是[webpack 5 的里程碑]。
 
-### 🔥Better Defaults — #0CJS
+### 🔥更好的默认配置 —— 零配置
 
-Up until today, webpack has always required you to explicitly set your `entry` and `output` properties. With webpack 4, webpack will automatically assume your `entry` property is `./src/` and bundles will output to `./dist` by default.
+直到今天，webpack 一直要求你明确设置你的 `entry` 和 `output` 属性。对于 webpack 4 ，webpack 会自动假设你的 `entry` 属性是 `./src`，并且打包会默认输出到 `./dist` 中。
 
-This means that **_you no longer need a configuration to get started with webpack!!!_**
+这意味着 **你开始使用 webpack 不再需要一个配置！**
 
 ![](https://cdn-images-1.medium.com/max/1000/1*SmNPl3vyqGNg6Mqy0GqKyg.png)
 
-webpack 4.0.0-beta.0 running a build w/o a configuration! #0CJS 🔥
+webpack 4.0.0-beta.0 运行一个没有配置的版本
 
-Now that webpack is a #0CJS (Zero Configuration) out-of-the-box bundler, we will lay groundwork in **4.x** and **5.0 to provide more default capabilities down the road.**
+现在 webpack 是一个零配置开箱即用的打包器，我们将为 **4.x** 和 **5.0** 奠定基础，以便将来提供更多的默认功能。
 
-### 💪Better Defaults — mode
+### 💪更好的默认模式 —— mode
 
-You have to choose (`mode` or `--mode`) between two modes now: `“production”` or `“development”.`
+你现在必须在两种模式之间选择 (`mode` 或 `--mode`)：`production` 或 `development`
 
-* Production Mode enables all sorts of optimizations out of the box for you. This includes, minification, scope hoisting, tree-shaking, side-effect-free module pruning, and includes plugins you would have to manually use like `NoEmitOnErrorsPlugin.`
-* Development Mode optimized for speed and developer experience. In the same way, we automatically include features like path names in your bundle output, eval-source-maps, that are meant for easy-to-read code, and fast build times!
+* 生产模式可以为你提供各种优化。这包含代码压缩，作用域提升，未引用模块移除，无副作用模块修剪，还包含引入一些像 `NoEmitOnErrorsPlugin` 这样需要你手动使用的插件。
+* 开发模式优化了开发速度和开发体验。同样，我们会自动在你的包输出中包含像路径名，eval-source-maps 这样的功能，以便阅读代码和快速构建！
 
-### 🍰sideEffects — Huge win for bundle sizes
+### 🍰sideEffects 设置 —— 在打包体积上巨大的胜利
 
-We introduced support for `sideEffects: false` in package.json. When this field is added, it signals to webpack that there are no sideEffects in the library being consumed. This means that webpack can safely eliminate any used re-exports from your code.
+我们在 package.json 中引入了对 `sideEffects: false` 的支持。当这个字段被添加时，它向 webpack 发出信号，表示被使用的库没有副作用。这意味着 webpack 可以安全地清除你代码中使用的任何重复导出模块。
 
-For example, importing only as _single_`_export_`from `lodash-es` would cost ~223 KiB [minified]. **_In webpack 4, this cost is now ~3 KiB!!!_**
+例如，从 `lodash-es` 中单独导入 `export` 将会花费 ~223 KiB [压缩后的]。**在 webpack 4 中，现在这只花费 ~3 KiB !**
 
 ![Snipaste_2018-01-27_16-52-08.png](https://i.loli.net/2018/01/27/5a6c3dc6a8391.png)
 
-### 🌳JSON Support & Tree Shaking
+### 🌳支持 JSON 和 Tree Shaking
 
-When you `import` JSON with ESModule syntax, webpack will eliminate unused exports from the “JSON Module”. _For those who are already importing JSON into your code with lot’s of unused pieces, you should see_ **_a significant size decrease in your bundle sizes._**
+当你使用 ESModule 语法 `import` JSON 时，webpack 会消除 “JSON Module” 中未使用的导出。对于那些已经将大量未使用模块的 JSON 导入到你的代码的应用，你会看到 **你打包体积明显减小**。
 
-### 😍Upgrade to UglifyJS2
+### 😍升级到 UglifyJS2
 
-This means that you can use ES6 Syntax, minify it, without a transpiler first.
+这意味着你可以使用 ES6 语法，压缩它，而无需使用转换器。
 
-_We would like to thank the UglifyJs2 team of contributors for the selfless and hard work they have done to land ES6 support. This was no easy task and we’d love for you to_ [_stop by their repository and express your appreciation and support._](https://github.com/mishoo/UglifyJS2/graphs/contributors?from=2017-01-14&to=2018-01-25&type=c)
+我们要感谢 UglifyJs2 的贡献者团队为支持 ES6 而付出的无私和辛勤的努力。这不是一件简单的任务，我们很乐意拜访[你们的代码仓库来表达对你们的感谢和支持](https://github.com/mishoo/UglifyJS2/graphs/contributors?from=2017-01-14&to=2018-01-25&type=c)。
 
 ![](https://cdn-images-1.medium.com/max/800/1*rt3uFkb9IAHddXLxYMjCgw.png)
 
-UglifyJS2 now supports ES6 JavaScript syntax!
+UglifyJS2 现在支持 ES6 JavaScript 语法！
 
-### 🐐 Module Type’s Introduced + .mjs support
+### 🐐 模块类型的引入 + 支持 .mjs
 
-Historically, JavaScript has been the only first-class module type in webpack. This caused a lot of awkward pains for users where they would not be able to effectively have CSS/HTML Bundles, etc. We have completely abstracted the JavaScript specificity from our code base to allow for this new API. Currently built, we now have 5 module types implemented:
+历史上，JavaScript 是 webpack 中唯一的一流模块类型。这给那些不能高效的打包 CSS/HTML 的用户带来了很多尴尬的痛苦。我们完全从我们的代码库中抽象出了 JavaScript 特性，以允许这个新的 API。目前建成，我们现在有5个模块类型实现引入：
 
-* `javascript/auto`: _(The default one in_ **_webpack 3_**_)_ Javascript module with all module systems enabled: CommonJS, AMD, ESM
-* `javascript/esm`: EcmaScript modules, all other module system are not available _(the default for .mjs files)_
-* `javascript/dynamic`: Only CommonJS and, EcmaScript modules are not available
-* `json`: JSON data, it’s available via require and import _(the default for .json files)_
-* `webassembly/experimental`: WebAssembly modules _(currently experimental and the default for .wasm files)_
-* In addition webpack now looks for the `.wasm`, `.mjs`, `.js` and `.json` extensions in this order to resolve
+* `javascript/auto`: (在 **webpack 3** 默认启用) 启用了所有的 Javascript 模块系统：CommonJS，AMD，ESM
+* `javascript/esm`: EcmaScript 模块，所有的其他模块系统不可用（默认 .mjs 文件）
+* `javascript/dynamic`: 只有 CommonJS 和，EcmaScript 模块不可用
+* `json`: JSON 数据，它可以通过 require 和 import 来引入使用（默认 .json 的文件）
+* `webassembly/experimental`: WebAssembly模块（当前为 .wasm 文件的实验文件和默认文件）
+* 另外 webpack 现在支持查找 `.wasm`, `.mjs`, `.js` 和 `.json` 拓展文件来解析
 
-**What’s most exciting about this feature, is that now we can continue to work on our CSS and HTML module types (4.x).** This would allow capabilities like HTML as your entry-point!
+**这个功能最让人兴奋的是，我们可以继续使用 CSS 和 HTML 模块模型 （4.x）。**这将允许像 HTML 这样的功能作为你的入口点！
 
-### 🔬WebAssembly Support
+### 🔬支持 WebAssembly
 
-Webpack now by default supports `import` and `export` of any local WebAssembly module. This means that you can also write loaders that allow you to `import` Rust, C++, C and other WebAssembly host lang files directly:
+Webpack 现在默认支持任何本地 WebAssembly 模块的 `import` 和 `export`。这意味着你也可以写加载器，让你可以直接 `import` Rust，C++，C 和其他 WebAssembly 语言：
 
-### 💀Goodbye CommonsChunkPlugin
+### 💀去除 CommonsChunkPlugin
 
-We have also removed `CommonsChunkPlugin`and enabled many of its features by default. In addition, for those who need fine-grained control over their caching-strategy, we have added `optimization.splitChunks` and `optimization.runtimeChunk` [with a richer, more flexible set of capabilities](https://gist.github.com/sokra/1522d586b8e5c0f5072d7565c2bee693)
+我们也删除了 `CommonsChunkPlugin`，并默认启用了它的许多功能。另外，对于需要对其缓存策略进行细粒度控制的用户，我们已经添加了 `optimization.splitChunks` 和 `optimization.runtimeChunk` [它们具有更丰富，更灵活的功能](https://gist.github.com/sokra/1522d586b8e5c0f5072d7565c2bee693)
 
-### 💖And so much more!
+### 💖还有更多！
 
-There are so many more features **that we heavily recommend you check them all out** on our [**_official change log._**](https://github.com/webpack/webpack/releases/tag/v4.0.0-beta.0)
+还有很多的功能 **我们强烈建议你在我们的**[**官方更新日志**](https://github.com/webpack/webpack/releases/tag/v4.0.0-beta.0)上查看所有。
 
-### ⌚The clock starts now
+### ⌚ 从现在开始倒计时
 
-**As promised, we will wait a month from today before releasing webpack 4 stable.** This gives our plugin, loaders, and integrations ecosystem time to test, report, and upgrade to webpack 4.0.0!
+**正如所承诺的那样，我们将从今天开始等待一个月，然后再发布 webpack 4 稳定版。** 这使我们的插件，加载器和集成生态系统有时间去测试，报告并升级到 webpack 4.0.0 中！
 
 ![Snipaste_2018-01-27_16-54-02.png](https://i.loli.net/2018/01/27/5a6c3e33c6cd1.png)
 
-We need you to help us upgrade and test this beta. The more we can have testing it today, the faster we can help triage and identify any issues that could come up down the road!
+我们需要你帮助我们升级和测试这个测试版。我们今天测试的越多，我们就可以更快的分诊和识别任何可能出现的问题！
 
-Thank you so much to all of our contributors who have helped make wepback 4 what it is today. As we always say, webpack’s power is the sum of our parts and ecosystem.
+非常感谢所有帮助我们完成 webpack 4 的贡献者。正如我们所说，wepack 的成就是我们大家和生态系统的的共同努力造就的。
 
 * * *
 
-_No time to help contribute? Want to give back in other ways? Become a Backer or Sponsor to webpack by_ [_donating to our open collective_](https://opencollective.com/webpack)_. Open Collective not only helps support the Core Team, but also supports contributors who have spent significant time improving our organization on their free time! ❤_
+没有时间帮忙贡献？想要以其他方式回馈？通过[捐助给我们的开放集体](https://opencollective.com/webpack)成为 webpack 的支持者或赞助商。开放集体不仅有助于支持核心团队，也支持花费了大量空闲时间改善组织的贡献者！ ❤
 
-Thanks to [Florent Cailhol](https://medium.com/@ooflorent?source=post_page), [Tobias Koppers](https://medium.com/@sokra?source=post_page), and [John Reilly](https://medium.com/@johnny_reilly?source=post_page).
+感谢[Florent Cailhol](https://medium.com/@ooflorent?source=post_page), [Tobias Koppers](https://medium.com/@sokra?source=post_page), 和[John Reilly](https://medium.com/@johnny_reilly?source=post_page).
 
 
 ---
