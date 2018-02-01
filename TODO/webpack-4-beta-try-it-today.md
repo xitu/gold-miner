@@ -2,22 +2,22 @@
 > * 原文作者：[Sean T. Larkin](https://medium.com/@TheLarkInn?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/webpack-4-beta-try-it-today.md](https://github.com/xitu/gold-miner/blob/master/TODO/webpack-4-beta-try-it-today.md)
-> * 译者：[FatZeros](https://github.com/FateZeros)
-> * 校对者：[kangkai124](https://github.com/kangkai124)
+> * 译者：[FateZeros](https://github.com/FateZeros)
+> * 校对者：[kangkai124](https://github.com/kangkai124)  [MechanicianW](https://github.com/MechanicianW)
 
-# 🚀webpack 4 测试版 —— 现在让我们先一睹为快吧!🚀
+# 🚀webpack 4 测试版 —— 现在让我们先一睹为快吧！🚀
 
 ![](https://cdn-images-1.medium.com/max/2000/1*BxhnE90lRYeLTxatyRDmqQ.jpeg)
 
 为了支持数以百万计的功能，用例和需求，它需要一个安全，稳定，可靠和可拓展的基础。只有 webpack 具有无限的可能性。
 
-## 稳定的发布之路!
+## 稳定的发布之路！
 
 自八月初以来 —— 当我们从 `**webpack/webpack#master**` 中分出 `**next**` 分支的时候 —— 我们看到了惊人的贡献量涌入。
 
 ![](https://cdn-images-1.medium.com/max/800/1*kJm7dIWWR7DzZa-OW_z6gQ.png)
 
-使用 [gitinspector!](https://github.com/ejwa/gitinspector) 查看在 webpack **next** 分支上的 Git 贡献统计信息一目了然。可以在你的项目上尝试一下，来仔细研究下。 **PS：这还不包括我们的 webpack-cli 团队 和 webpack-contrib 组织，他们在支持加载器和插件上面做了大量的工作。**
+可以使用 [gitinspector](https://github.com/ejwa/gitinspector) 一目了然地查看 webpack **next** 分支上的 Git 贡献统计信息。可以在你的项目上尝试一下，来仔细研究下。 **PS：这还不包括我们的 webpack-cli 团队 和 webpack-contrib 组织，他们在支持加载器和插件上面做了大量的工作。**
 
 **🎉 今天，我们很自豪能够通过发布 webpack 4.0.0 - beta.0 来分享这项工作的成果！** **🎉**
 
@@ -45,17 +45,17 @@
 
 ### webpack 4 中有什么新功能呢？
 
-下面就是一些你将会喜欢看到的更值得注意的功能。想了解更新，功能和内部 API 修改的**完整的清单**,[**请参阅我们的修改日志**](https://github.com/webpack/webpack/releases/tag/v4.0.0-beta.0)
+下面就是一些你将会喜欢看到的更值得注意的功能。若想了解更新，功能和内部 API 修改的**完整的清单**,[**请参阅我们的修改日志**](https://github.com/webpack/webpack/releases/tag/v4.0.0-beta.0)
 
 ### 🚀更好的性能
 
-在 webpack 4 的多个场景中，性能将显着增强。下面是我们为实现这一目标而做出的一些显着变化：
+在 webpack 4 的多个场景中，性能将显着增强。下面是我们为实现这一目标而做出的一些显著改动：
 
 * 默认情况下，在使用 `production` 模式时，我们会使用 UglifyJS 自动并行编译和缓存来减少工作量 。
-* 我们发布了一个新版的[**我们的插件系统**](https://github.com/webpack/tapable)以便事件钩子和处理函数是单一形态的。
-* 另外，webpack 现已放弃对 Node v4 的支持，使我们能够添加大量的新型 ES6 语法和数据结构，并且也使用 V8 进行了优化。**So far we have seen real-life reports of 9**[**h to 12min**](https://github.com/webpack/webpack/issues/6248)**!**
+* 我们发布了一个新版的[**插件系统**](https://github.com/webpack/tapable)以便事件钩子和处理函数是单一形态的。
+* 另外，webpack 现已放弃对 Node v4 的支持，使我们能够添加大量的新型 ES6 语法和数据结构，并且也通过 V8 进行了优化。**迄今为止，我们已经收到几份[构建时间由 1 小时减少到 12 分钟](https://github.com/webpack/webpack/issues/6248)的真实报告**！
 
-PS: 我们还没有完全实现缓存和并行化 😉 [webpack 5 的里程碑]。
+PS: 我们还没有完全实现缓存和并行化 😉 这是[webpack 5 的里程碑]。
 
 ### 🔥更好的默认配置 —— 零配置
 
@@ -80,7 +80,7 @@ webpack 4.0.0-beta.0 运行一个没有配置的版本
 
 我们在 package.json 中引入了对 `sideEffects: false` 的支持。当这个字段被添加时，它向 webpack 发出信号，表示被使用的库没有副作用。这意味着 webpack 可以安全地清除你代码中使用的任何重复导出模块。
 
-例如，从 `lodash-es` 中单独导入 `export` 将会花费 ～223 KiB [压缩后的]。**在 webpack 4 中，现在这只花费 ～3 KiB !**
+例如，从 `lodash-es` 中单独导入 `export` 将会花费 ~223 KiB [压缩后的]。**在 webpack 4 中，现在这只花费 ~3 KiB !**
 
 ![Snipaste_2018-01-27_16-52-08.png](https://i.loli.net/2018/01/27/5a6c3dc6a8391.png)
 
@@ -117,19 +117,19 @@ Webpack 现在默认支持任何本地 WebAssembly 模块的 `import` 和 `expor
 
 ### 💀去除 CommonsChunkPlugin
 
-我们也删除了 `CommonsChunkPlugin`，并默认启用了它的许多功能。另外，对于需要对其缓存策略进行细粒度控制的用户，我们已经添加了 `optimization.splitChunks` 和 `optimization.runtimeChunk` [具有更丰富，更灵活的功能](https://gist.github.com/sokra/1522d586b8e5c0f5072d7565c2bee693)
+我们也删除了 `CommonsChunkPlugin`，并默认启用了它的许多功能。另外，对于需要对其缓存策略进行细粒度控制的用户，我们已经添加了 `optimization.splitChunks` 和 `optimization.runtimeChunk` [它们具有更丰富，更灵活的功能](https://gist.github.com/sokra/1522d586b8e5c0f5072d7565c2bee693)
 
 ### 💖还有更多！
 
-还有很多的功能 **我们强烈建议你在我们的**[**_官方更新日志._**](https://github.com/webpack/webpack/releases/tag/v4.0.0-beta.0)上查看所有。
+还有很多的功能 **我们强烈建议你在我们的**[**官方更新日志**](https://github.com/webpack/webpack/releases/tag/v4.0.0-beta.0)上查看所有。
 
 ### ⌚ 从现在开始倒计时
 
-**正如所承诺的那样，我们将从今天开始等待一个月，然后再发布 webpack 4 稳定版。**这使我们的插件，加载器和集成生态系统有时间去测试，报告并升级到 webpack 4.0.0中！
+**正如所承诺的那样，我们将从今天开始等待一个月，然后再发布 webpack 4 稳定版。** 这使我们的插件，加载器和集成生态系统有时间去测试，报告并升级到 webpack 4.0.0 中！
 
 ![Snipaste_2018-01-27_16-54-02.png](https://i.loli.net/2018/01/27/5a6c3e33c6cd1.png)
 
-我们需要你帮助我们升级和测试这个测试版。我们今天测试的越多，我们就可以更快的分类和识别任何可能出现的问题！
+我们需要你帮助我们升级和测试这个测试版。我们今天测试的越多，我们就可以更快的分诊和识别任何可能出现的问题！
 
 非常感谢所有帮助我们完成 webpack 4 的贡献者。正如我们所说，wepack 的成就是我们大家和生态系统的的共同努力造就的。
 
