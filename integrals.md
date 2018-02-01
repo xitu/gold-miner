@@ -1384,10 +1384,12 @@
 |[好的与坏的，Swift 语言面面观（一）](http://gold.xitu.io/entry/578c647a6be3ff006ce49e91)|校对|1|
 |[Android 中美腻的下划线](http://gold.xitu.io/entry/578705faa34131005b46e9c2)|校对|1|
 
-## 译者：[tanglie1993](https://github.com/tanglie1993/) 历史贡献积分：65.5 当前积分：65.5
+## 译者：[tanglie1993](https://github.com/tanglie1993/) 历史贡献积分：70.5 当前积分：70.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[构建更具可用性的 UI 与 API 的 5 个方针](https://juejin.im/post/5a653a65f265da3e317e43e7)|校对|1|
+|[开发者也是用户 - 第二部分：改善 UI 和 API 可用性的五条指导原则](https://juejin.im/post/5a728eef6fb9a01ca0722990)|翻译|4|
 |[开发者须知：女性用户和手机游戏](https://juejin.im/post/5a4d96fd5188253865099818)|校对|1.5|
 |[缩小 APK，增加下载量](https://juejin.im/post/5a388c73518825696f7e1ddb)|翻译|3|
 |[探索 Kotlin 中的隐性成本（第二部分）](https://juejin.im/post/5970432c6fb9a06bb34f551b)|校对|1|
@@ -2799,10 +2801,12 @@
 |[你正在阅读的用户体验文章是不是在向你进行推销？](https://juejin.im/post/58d4c501a22b9d00645544d9)|校对|2|
 |[震惊，还可以用这种姿势学习编程](https://juejin.im/post/58d3ebd4128fe1006cb43722)|翻译|3|
 
-## 译者：[lsvih](https://github.com/lsvih) 历史贡献积分：211.5 当前积分：170.5
+## 译者：[lsvih](https://github.com/lsvih) 历史贡献积分：216.5 当前积分：175.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[构建更具可用性的 UI 与 API 的 5 个方针](https://juejin.im/post/5a653a65f265da3e317e43e7)|翻译|3|
+|[开发者也是用户 - 简介](https://juejin.im/post/5a6536e6518825734216ff06)|翻译|2|
 |[HTML 5.2 有哪些新内容？](https://juejin.im/post/5a5dab05518825734107edda)|翻译|4|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|2|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|2|
@@ -4396,10 +4400,11 @@
 |------|-------|-------|
 |[全新 Android 注入器 : Dagger 2 （一）](https://juejin.im/post/5a39f26df265da4324809685)|校对|1|
 
-## 译者：[corresponding](https://github.com/corresponding) 历史贡献积分：13 当前积分：13
+## 译者：[corresponding](https://github.com/corresponding) 历史贡献积分：15 当前积分：15
 
 |文章|类型|积分|
 |------|-------|-------|
+|[开发者也是用户 - 第二部分：改善 UI 和 API 可用性的五条指导原则](https://juejin.im/post/5a728eef6fb9a01ca0722990)|校对|2|
 |[ProGuard 在 Android 上的使用姿势](https://juejin.im/post/5a5dea0d6fb9a01cab28443c)|校对|3|
 |[像奥利奥一样的双重安全措施，尽在 Android Oreo](https://juejin.im/post/5a5376b06fb9a01c927e8be0)|校对|4|
 |[开发者须知：女性用户和手机游戏](https://juejin.im/post/5a4d96fd5188253865099818)|翻译|4|
@@ -4491,18 +4496,23 @@
 |[Face ID 对易用性意味着什么](https://juejin.im/post/5a41d01cf265da432c241943)|校对|1|
 |[自动化持续集成/持续分发，以节省更多时间编写代码](https://juejin.im/post/5a44aab86fb9a044ff31c418)|翻译|3|
 
-## 译者：[hanliuxin5](https://github.com/hanliuxin5) 历史贡献积分：6 当前积分：6
+## 译者：[hanliuxin5](https://github.com/hanliuxin5) 历史贡献积分：17 当前积分：17
 
 |文章|类型|积分|
 |------|-------|-------|
+|[构建更具可用性的 UI 与 API 的 5 个方针](https://juejin.im/post/5a653a65f265da3e317e43e7)|校对|1|
+|[开发者也是用户 - 简介](https://juejin.im/post/5a6536e6518825734216ff06)|校对|1|
+|[开发者也是用户 - 第二部分：改善 UI 和 API 可用性的五条指导原则](https://juejin.im/post/5a728eef6fb9a01ca0722990)|校对|2|
+|[如何打造以人为本的移动游戏](https://juejin.im/post/5a61663b518825732f7ecd2a)|翻译|7|
 |[开发者须知：女性用户和手机游戏](https://juejin.im/post/5a4d96fd5188253865099818)|校对|4|
 |[函数式 Java 到函数式 Kotlin 的转换](https://juejin.im/post/5a52fac96fb9a01c9657fa4e)|校对|1|
 |[Android MVP 架构必要知识：第三部分（Dialog，ViewPager，RecyclerView 以及 Adapters)](https://juejin.im/post/5a45fe846fb9a0450c49bba0)|校对|1|
 
-## 译者：[pot-code](https://github.com/pot-code) 历史贡献积分：22 当前积分：22
+## 译者：[pot-code](https://github.com/pot-code) 历史贡献积分：24 当前积分：24
 
 |文章|类型|积分|
 |------|-------|-------|
+|[如何打造以人为本的移动游戏](https://juejin.im/post/5a61663b518825732f7ecd2a)|校对|2|
 |[网站设计综合指南](https://juejin.im/post/5a5abb97518825733f6df3d9)|校对|4|
 |[使用 web 应用打包工具 Parcel 实现代码分割](https://juejin.im/post/5a478289f265da430d5859ff)|翻译|1|
 |[Redux-recompose 介绍：优雅的编写 Redux 中的 action 和 reducer](https://juejin.im/post/5a4e0d7651882573315c28a1)|翻译|5|
@@ -4516,10 +4526,11 @@
 |[如何紧跟未来的设计趋势：15 个让你永远不过时的资料](https://juejin.im/post/5a52d2226fb9a01c9525ebbe)|校对|1|
 |[智对订阅难点：教你如何应对工作中 10 种常见订阅问题](https://juejin.im/post/5a406644f265da430d583cb7)|校对|1.5|
 
-## 译者：[IllllllIIl](https://github.com/IllllllIIl) 历史贡献积分：1.5 当前积分：1.5
+## 译者：[IllllllIIl](https://github.com/IllllllIIl) 历史贡献积分：2.5 当前积分：2.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[开发者也是用户 - 简介](https://juejin.im/post/5a6536e6518825734216ff06)|校对|1|
 |[智对订阅难点：教你如何应对工作中 10 种常见订阅问题](https://juejin.im/post/5a406644f265da430d583cb7)|校对|1.5|
 
 ## 译者：[pkuwwt](https://github.com/pkuwwt) 历史贡献积分：52 当前积分：52
@@ -4574,8 +4585,9 @@
 |------|-------|-------|
 |[推荐多篇优秀英文文章]()|奖励|5|
 
-## 译者：[Quorafind](https://github.com/Quorafind) 历史贡献积分：4 当前积分：4
+## 译者：[Quorafind](https://github.com/Quorafind) 历史贡献积分：6 当前积分：6
 
 |文章|类型|积分|
 |------|-------|-------|
+|[如何打造以人为本的移动游戏](https://juejin.im/post/5a61663b518825732f7ecd2a)|校对|2|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|4|
