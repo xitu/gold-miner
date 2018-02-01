@@ -96,110 +96,110 @@ StarSpace 支持下列几种训练模式（默认是第一个）：
     * 如果文件格式是‘labelDoc’那么这些标签就是特征包，其中一个包被选中（参见上面的 **文件格式** 一节）。
     * **用例：**  检索/搜索任务，每个例子包括一个后跟了一组相关文件的查询。
 * trainMode = 1:
-    * 每个示例都包含一组标签。 在训练时，随机选取集合中的一个标签作为标签量，其余标签作为输入。
+    * 每个示例都包含一组标签。在训练时，随机选取集合中的一个标签作为标签量，其余标签作为输入。
     * **用例：**  基于内容或协同过滤进行推荐，参见后面的 PageSpace 示例。
 * trainMode = 2:
-    * 每个示例都包含一组标签。 在培训的时候，随机选取一个来自集合的标签作为输入量，集合中其余的标签成为标签量。
+    * 每个示例都包含一组标签。在培训的时候，随机选取一个来自集合的标签作为输入量，集合中其余的标签成为标签量。
     * **用例：** 学习从一个对象到它所属的一组对象的映射，例如，从句子（文档内的）到文档。
 * trainMode = 3:
-    * Each example contains a collection of labels. At training time, two labels from the collection are randomly picked as the input and label.
-    * **Use case:** learn pairwise similarity from collections of similar objects, e.g. sentence similiarity.
+    * 每个示例都包含一组标签。在训练时，随机选取集合中的两个标签作为输入量和标签量。
+    * **用例：** 从类似对象的集合中学习成对的相似性，例如：句子的相似性。
 * trainMode = 4:
-    * Each example contains two labels. At training time, the first label from the collection will be picked as input and the second label will be picked as the label.
-    * **Use case:** learning from multi-relational graphs.
+    * 每个示例都包含两个标签。在训练时，集合中的第一个标签将被选为输入量，第二个标签将被选为标签量。
+    * **用例：** 从多关系图中学习。
 * trainMode = 5:
-    * Each example contains only input. At training time, it generates multiple training examples: each feature from input is picked as label, and other features surronding it (up to distance ws) are picked as input features.
+    * 每个示例只包含输入量。在训练期间，它会产生多个训练样例：从输入的每个特征被选为标签量，其他特征（到距离 ws（译者注：单词级别训练的上下文窗口大小，一个可选的输入参数））被挑选为输入特征。
     * **用例：** 通过无监督的方式学习单词嵌入。
 
 # 典型用例
 
 ## TagSpace 单词、标签的嵌入
 
-**用途:** Learning the mapping from a short text to relevant hashtags, e.g. as in <a href="https://research.fb.com/publications/tagspace-semantic-embeddings-from-hashtags/">this paper</a>. This is a classical classification setting.
+**用途:** 学习从短文到相关主题标签的映射,例如，在 [这篇文章](https://research.fb.com/publications/tagspace-semantic-embeddings-from-hashtags/) 中的描述。这是一个典型的分类应用。
 
-**Model:** the mapping learnt goes from bags of words to bags of tags, by learning an embedding of both. 
-For instance,  the input “restaurant has great food <\tab> #restaurant <\tab> #yum” will be translated into the following graph. (Nodes in the graph are entities for which embeddings will be learned, and edges in the graph are relationships between the entities).
+**模型：** 通过学习两者的嵌入，学习的映射从单词集到标签集。
+例如，输入“restaurant has great food <\tab> #restaurant <\tab> #yum”将被翻译成下图。（图中的节点是要学习嵌入的实体，图中的边是实体之间的关系。
 
 ![word-tag](https://github.com/facebookresearch/Starspace/blob/master/examples/tagspace.png)
 
-**Input file format**:
+**输入文件的格式**:
 
     restaurant has great food #yum #restaurant
 
-**Command:**
+**命令：**
 
     $./starspace train -trainFile input.txt -model tagspace -label '#'
 
-### Example scripts:
-We apply the model to the problem of text classification on <a href="https://github.com/mhjabreel/CharCNN/tree/master/data/ag_news_csv">AG's News Topic Classification Dataset</a>. Here our tags are news article categories, and we use the hits@1 metric to measure classification accuracy. <a href="https://github.com/facebookresearch/Starspace/blob/master/examples/classification_ag_news.sh">This example script</a> downloads the data and run StarSpace model on it under the examples directory:
+### 示例脚本：
+我们将该模型应用于 [AG的新闻主题分类数据集](https://github.com/mhjabreel/CharCNN/tree/master/data/ag_news_csv) 的文本分类问题。在这一问题中我们的标签是新闻文章类别，我们使用 hit@1 度量来衡量分类的准确性。[这个示例脚本](https://github.com/facebookresearch/Starspace/blob/master/examples/classification_ag_news.sh) 下载数据并在示例目录下运行StarSpace模型：
 
     $bash examples/classification_ag_news.sh
     
 ## PageSpace 用户和页面的嵌入
 
-**Setting:** On Facebook, users can fan (follow) public pages they're interested in. When a user fans a page, the user can receive all things the page posts on Facebook. We want to learn page embeddings based on users' fanning data, and use it to recommend users new pages they might be interested to fan (follow). This setting can be generalized to other recommendation problems: for instance, embedding and recommending movies to users based on movies watched in the past; embed and recommend restaurants to users based on the restaurants checked-in by users in the past, etc.
+**用途：** 在Facebook上，用户可以粉（关注）他们感兴趣的公共页面。当用户浏览页面时，用户可以在 Facebook 上收到所有页面发布的内容。 我们希望根据用户的喜爱数据学习页面嵌入，并用它来推荐用户可能感兴趣（可能关注）的新页面。 这个用法可以推广到其他推荐问题：例如，根据过去观看的电影记录学习嵌入，向用户推荐电影; 根据过去用户登录的餐厅学习嵌入，向用户推荐餐馆等。
 
-**Model：** Users are represented as the bag of pages that they follow (fan). That is, we do not learn a direct embedding of users, instead, each user will have an embedding which is the average embedding of pages fanned by the user. Pages are embedded directly (with a unique feature in the dictionary). This setup can work better in the case where the number of users is larger than the number of pages, and the number of pages fanned by each user is small on average (i.e. the edges between user and page is relatively sparse). It also generalizes to new users without retraining. However, the more traditional recommendation setting can also be used.
+**模型：** 用户被表示为他们关注的页面（粉了）。也就是说，我们不直接学习用户的嵌入，相反，每个用户都会有一个嵌入，这个嵌入就是用户煽动的页面的平均嵌入。页面直接嵌入（在字典中具有独特的功能）。在用户数量大于页面数量的情况下，这种设置可以更好地工作，并且每个用户喜欢的页面平均数量较少（即用户和页面之间的边缘相对稀疏）。它也推广到新用户而无需再重新训练。 也可以使用更传统的推荐设置。
 
 ![user-page](https://github.com/facebookresearch/Starspace/blob/master/examples/user-page.png)
 
-Each user is represented by the bag-of-pages fanned by the user, and each training example is a single user.
+每个用户都由用户展开的集合表示，每个训练实例都是单个用户。
 
-**Input file format:**
+**输入文件格式：**
 
     page_1 page_2 ... page_M
 
-At training time, at each step for each example (user), one random page is selected as a label and the rest of bag of pages are selected as input. This can be achieved by setting flag -trainMode to 1. 
+在训练时，在每个实例（用户）的每个步骤中，选择一个随机页面作为标签量，并且剩余的页面被选择为输入量。 这可以通过将标志 -trainMode 设置为 1 来实现。
 
-**Command:**
+**命令：**
 
     $./starspace train -trainFile input.txt -model pagespace -label 'page' -trainMode 1
 
 
-## DocSpace document recommendation
+## DocSpace 文档推荐
 
-**Setting:** We want to embed and recommend web documents for users based on their historical likes/click data. 
+**用途：** 我们希望根据用户的历史喜好和点击数据为用户生成嵌入和推荐网络文档。
 
-**Model:** Each document is represented by a bag-of-words of the document. Each user is represented as a (bag of) the documents that they liked/clicked in the past. 
-At training time, at each step one random document is selected as the label and the rest of the bag of documents are selected as input. 
+**模型：** 每个文件都由文件的一个集合来表示。 每个用户都被表示为他们过去喜欢/点击过的文档（集合）。
+在训练时，在每一步选择一个随机文件作为标签量，剩下的文件被选为输入量。
 
 ![user-doc](https://github.com/facebookresearch/Starspace/blob/master/examples/user-doc.png)
 
 
-**Input file format:**
+**输入文件格式：**
 
     roger federer loses <tab> venus williams wins <tab> world series ended
     i love cats <tab> funny lolcat links <tab> how to be a petsitter  
     
-Each line is a user, and each document (documents separated by tabs) are documents that they liked.
-So the first user likes sports, and the second is interested in pets in this case.
+每行是一个用户，每个文档（由标签分隔的文档）是他们喜欢的文档。
+所以第一个用户喜欢运动，而第二个用户对这种情况感兴趣。
     
-**Command:**
+**命令：**
 
     ./starspace train -trainFile input.txt -model docspace -trainMode 1 -fileFormat labelDoc
     
     
-## GraphSpace: Link Prediction in Knowledge Bases ##
+## GraphSpace 知识库中的链接预测
 
-**Setting:** Learning the mapping between entities and relations in <a href="http://www.freebase.com">Freebase</a>. In freebase, data comes in the format 
+**用途：** 学习 [Freebase](http://www.freebase.com) 中的实体与关系之间的映射。在 freebase 中，数据以格式输入。
 
     (head_entity, relation_type, tail_entity)
 
-Performing link prediction can be formalized as filling in incomplete triples like 
+执行链接预测可以将数据格式化为填充不完整的三元组
 
     (head_entity, relation_type, ?) or (?, relation_type, tail_entity)
 
-**Model:** We learn the embeddings of all entities and relation types. For each realtion_type, we learn two embeddings: one for predicting tail_entity given head_entity, one for predicting head_entity given tail_entity.
+**模型：** 我们学习所有实体和关系类型的嵌入。对于每一个 realtion_type，我们学习两个嵌入：一个用于预测给定 head_entity 的 tail_entity，一个用于预测给定 tail_entity 的 head_entity。
 
 ![multi-rel](https://github.com/facebookresearch/StarSpace/blob/master/examples/multi-relations.png)
 
-### Example scripts:
-<a href="https://github.com/facebookresearch/Starspace/blob/master/examples/multi_relation_example.sh">This example script</a> downloads the Freebase15k data from <a href="https://everest.hds.utc.fr/doku.php?id=en:transe">here</a> and runs the StarSpace model on it:
+### 示例脚本：
+[这个示例脚本](https://github.com/facebookresearch/Starspace/blob/master/examples/multi_relation_example.sh) 将会从 [这里](https://everest.hds.utc.fr/doku.php?id=en:transe) 下载 Freebase15k 数据并在其上运行 StarSpace 模型：
 
     $bash examples/multi_relation_example.sh
    
     
-## SentenceSpace: 学习句子的嵌入
+## SentenceSpace 学习句子的嵌入
 
 **用途：** 学习句子之间的映射。给定一个句子的嵌入，可以找到语义上相似或相关的句子。
 
@@ -218,142 +218,142 @@ Performing link prediction can be formalized as filling in incomplete triples li
     $bash examples/wikipedia_sentence_matching_full.sh
     
     
-## ArticleSpace：学习句子和文章的嵌入
+## ArticleSpace 学习句子和文章嵌入
 
-**Setting:** Learning the mapping between sentences and articles. Given the embedding of one sentence, one can find the most relevant articles.
+**用途：** 学习句子和文章之间的映射关系。给定句子的嵌入，可以找到相关文章。
 
-**Model:** Each example is an article which contains multiple sentences. At training time, one sentence is picked at random as the input, the remaining sentences in the article becomes the label, other articles are picked as random negatives (trainMode 2).
+**模型：** 每个例子都是包含多个文章的句子。 训练时，随机选取的句子作为输入，那么文章中剩余的句子成为标签，其他文章可以作为随机底片。 (trainMode 2).
 
-### Example scripts:
-<a href="https://github.com/facebookresearch/Starspace/blob/master/examples/wikipedia_article_search.sh">This example script</a> downloads data where each example is a Wikipedia article and runs the StarSpace model on it:
+### 示例脚本：
+[这个示例脚本](https://github.com/facebookresearch/Starspace/blob/master/examples/wikipedia_article_search.sh) 将下载数据，其中的每个示例都是维基百科的文章，并在其上运行 StarSpace 模型：
 
     $bash examples/wikipedia_article_search.sh
     
-To run the full experiment on Wikipedia Article Search presented in [this paper](https://arxiv.org/abs/1709.03856), 
-use <a href="https://github.com/facebookresearch/Starspace/blob/master/examples/wikipedia_article_search_full.sh">this script</a> (warning: it takes a long time to download data and train the model):
+为了能运行 [这篇论文](https://arxiv.org/abs/1709.03856) 中提出的 Wikipedia Sentence Matching 问题的完整实验，
+请使用 [这个脚本](https://github.com/facebookresearch/Starspace/blob/master/examples/wikipedia_article_search_full.sh)（提示：这将需要一些时间去下载数据并训练模型）：
 
     $bash examples/wikipedia_article_search_full.sh
     
-## ImageSpace: Learning Image and Label Embeddings
+## ImageSpace 学习图像和标签的嵌入
 
-With the most recent update, StarSpace can also be used to learn joint embeddings with images and other entities. For instance, one can use ResNet features (the last layer of a pre-trained ResNet model) to represent an image, and embed images with other entities (words, hashtags, etc.). Just like other entities in Starspace, images can be either on the input or the label side, depending on your task.
+通过最新的更新，StarSpace 也可以用来学习图像和其他实体的嵌入。例如，可以使用 ResNet 特征（预先训练的 ResNet 模型的最后一层）来表示图像，并将图像和其他实体（单词，主题标签等）一起嵌入。就像 StarSpace 中的其他实体一样，图像可以在输入或标签上，这取决于不同的任务。
 
-Here we give an example using <a href="https://www.cs.toronto.edu/~kriz/cifar.html">CIFAR-10</a> to illustrate how we train images with other entities (in this example, image class): we train a <a href="https://github.com/facebookresearch/ResNeXt">ResNeXt</a> model on CIFAR-10  which achieves 96.34% accuracy on test dataset, and use the last layer of ResNeXt as the features for each image. We embed 10 image classes together with image features in the same space using StarSpace. For an example image from class 1 with last layer (0.8, 0.5, ..., 1.2), we convert it to the following format:
+这里我们给出一个使用 [CIFAR-10](https://www.cs.toronto.edu/~kriz/cifar.html) 的例子以说明我们如何与其他实体进行图像训练 (在这个例子中，指为图像类)：我们训练模型 [ResNeXt](https://github.com/facebookresearch/ResNeXt) 在 CIFAR-10  在测试数据集上达到 96.34％ 的准确率，并将最后一层 ResNet 作为每幅图像的特征。我们使用 StarSpace 将 10 个图像类与图像特征一起嵌入到相同的空间中。对于最后一层（0.8,0.5，...，1.2）的类 1 的示例，我们将其转换为以下格式：
     
     d1:0.8  d2:0.5   ...    d1024:1.2   __label__1
 
-After converting train and test examples of CIFAR-10 to the above format, we ran <a href="https://github.com/facebookresearch/StarSpace/blob/master/examples/image_feature_example_cifar10.sh">this example script</a>:
+将 CIFAR-10 的训练和测试例转换成上述格式后，我们运行 [这个示例脚本](https://github.com/facebookresearch/StarSpace/blob/master/examples/image_feature_example_cifar10.sh)：
 
     $bash examples/image_feature_example_cifar10.sh
 
-and achieved 96.56% accuracy on an average of 5 runs.
+平均每 5 次达到 96.56％ 的准确度。
 
-# Full Documentation of Parameters
+# 完整的参数文档
     
-    Run "starspace train ..." or "starspace test ..."
+    运行 "starspace train ..." 或 "starspace test ..."
     
-    The following arguments are mandatory for train: 
-      -trainFile       training file path
-      -model           output model file path
+    以下参数是训练时必须的：
+      -trainFile       训练文件路径。
+      -model           模型文件输出路径。
 
-    The following arguments are mandatory for test: 
-      -testFile        test file path
-      -model           model file path
+    以下参数是训练时必须的：
+      -testFile        测试文件路径。
+      -model           模型文件路径。
 
-    The following arguments for the dictionary are optional:
-      -minCount        minimal number of word occurences [1]
-      -minCountLabel   minimal number of label occurences [1]
-      -ngrams          max length of word ngram [1]
-      -bucket          number of buckets [2000000]
-      -label           labels prefix [__label__]. See file format section.
+    以下是字典相关的可选参数：
+      -minCount        单词量的最少个数，默认为 1。
+      -minCountLabel   标签量的最少个数，默认为 1。
+      -ngrams          单词元数的最大长度，默认为 1。
+      -bucket          buckets 的数量，默认为 2000000。
+      -label           标签量前缀，默认为 __label__，可参加文件格式一节。
 
-    The following arguments for training are optional:
-      -initModel       if not empty, it loads a previously trained model in -initModel and carry on training.
-      -trainMode       takes value in [0, 1, 2, 3, 4, 5], see Training Mode Section. [0]
-      -fileFormat      currently support 'fastText' and 'labelDoc', see File Format Section. [fastText]
-      -saveEveryEpoch  save intermediate models after each epoch [false]
-      -saveTempModel   save intermediate models after each epoch with an unique name including epoch number [false]
-      -lr              learning rate [0.01]
-      -dim             size of embedding vectors [10]
-      -epoch           number of epochs [5]
-      -maxTrainTime    max train time (secs) [8640000]
-      -negSearchLimit  number of negatives sampled [50]
-      -maxNegSamples   max number of negatives in a batch update [10]
-      -loss            loss function {hinge, softmax} [hinge]
-      -margin          margin parameter in hinge loss. It's only effective if hinge loss is used. [0.05]
-      -similarity      takes value in [cosine, dot]. Whether to use cosine or dot product as similarity function in  hinge loss.
-                       It's only effective if hinge loss is used. [cosine]
-      -adagrad         whether to use adagrad in training [1]
-      -shareEmb        whether to use the same embedding matrix for LHS and RHS. [1]
-      -ws              only used in trainMode 5, the size of the context window for word level training. [5]
-      -dropoutLHS      dropout probability for LHS features. [0]
-      -dropoutRHS      dropout probability for RHS features. [0]
-      -initRandSd      initial values of embeddings are randomly generated from normal distribution with mean=0, standard deviation=initRandSd. [0.001]
+    以下参数是训练时可选的：
+      -initModel       如果非空，则在 -initModel 中加载先前训练过的模型并进行训练。
+      -trainMode       选择 [0, 1, 2, 3, 4, 5] 中的一个值，参见训练模式一节，默认为 0。
+      -fileFormat      当前支持‘fastText’和‘labelDoc’，参见文件格式一节，默认为 fastText。
+      -saveEveryEpoch  在每次迭代后保存中间模型，默认为 false。
+      -saveTempModel   在每次迭代之后用包括迭代词的的唯一名字保存中间模型，默认为 false。
+      -lr              学习速度，默认为 0.01。
+      -dim             嵌入矢量的大小，默认为 10。
+      -epoch           迭代次数，默认为 5。
+      -maxTrainTime    最长训练时间（秒），默认为 8640000。
+      -negSearchLimit  抽样中的拒绝上限，默认为 50。
+      -maxNegSamples   一批更新中的拒绝上限，默认为 10。
+      -loss            loss 函数，可能是 hinge 或 softmax 中的一个，默认为 hinge。
+      -margin          hinge loss 的边缘参数。只在 loss 为 hinge 时有意义，默认为0.05。
+      -similarity      选择 [cosine, dot] 中的一个，用于在 hinge loss 选定相似度函数。
+                       只在 loss 为 hinge 时有意义，默认为 cosine。
+      -adagrad         是否在训练中使用 adagrad，默认为 1。
+      -shareEmb        是否对LHS和RHS使用相同的嵌入矩阵，默认为 1。
+      -ws              在 trainMode 5 时有效，单词级别训练的上下文窗口大小，默认为 5。
+      -dropoutLHS      LHS特征的放弃概率，默认为 0。
+      -dropoutRHS      RHS特征的放弃概率，默认为 0。
+      -initRandSd      嵌入的初始值是从正态分布随机生成的，其中均值为 0，标准差为 initRandSd，默认为 0.001。
 
-    The following arguments for test are optional:
-      -basedoc         file path for a set of labels to compare against true label. It is required when -fileFormat='labelDoc'.
-                       In the case -fileFormat='fastText' and -basedoc is not provided, we compare true label with all other labels in the dictionary.
-      -predictionFile  file path for save predictions. If not empty, top K predictions for each example will be saved.
-      -K               if -predictionFile is not empty, top K predictions for each example will be saved.
+    以下参数是测试时可选的：
+      -basedoc         一组标签的文件路径与真实标签进行比较。 -fileFormat='labelDoc' 时需要。
+                       在 -fileFormat ='fastText' 且 不提供 -basedoc 的情况下，我们将会对真正的标签与字典中的所有其他标签进行比较。
+      -predictionFile  保存预测的文件路径。如果不为空，则将保存每个示例的前K个预测。
+      -K               如果 -predictionFile 参数非空，为每个实例进行的顶层的 K 预测将被保存。
 
-    The following arguments are optional:
-      -normalizeText   whether to run basic text preprocess for input files [0]
-      -useWeight       whether input file contains weights [0]
-      -verbose         verbosity level [0]
-      -debug           whether it's in debug mode [0]
-      -thread          number of threads [10]
+    以下参数是可选的：
+      -normalizeText   是否为输入文件运行基本的文本预处理，默认为 0，不进行预处理。
+      -useWeight       输入文件是否自带权重，默认为 0，不自带权重。
+      -verbose         消息输出详细程度，默认为 0，普通输出。
+      -debug           是否使用调试模式，默认为 0，关闭调试模式。
+      -thread          线程数量，默认为 10。
 
 
-Note: We use the same implementation of word n-grams for words as in <a href="https://github.com/facebookresearch/fastText">fastText</a>. When "-ngrams" is set to be larger than 1, a hashing map of size specified by the "-bucket" argument is used for n-grams; when "-ngrams" is set to 1, no hash map is used, and the dictionary contains all words within the minCount and minCountLabel constraints.
+注意：我们使用与在 [fastText](https://github.com/facebookresearch/fastText) 中相同的单词 n-gram 实现。当“-ngrams”被设置为大于1时，由“-bucket”参数指定的大小的哈希映射被用于 n-gram；当“-ngrams”设置为 1 时，不使用哈希映射，并且该字典包含 minCount 和 minCountLabel 约束内的所有单词。
 
 
 ## Utility Functions
 
-We also provide a few utility functions for StarSpace:
-### Show Predictions for Queries
+我们还为 StarSpace 提供了一些实用功能：
+### 显示查询的预测
 
-A simple way to check the quality of a trained embedding model is to inspect the predictions when typing in an input. To build and use this utility function, run the following commands:
+检查经过训练的嵌入模型质量的一个简单方法是在键入输入时检查预测。要构建和使用该实用程序功能，请运行以下命令：
 
     make query_predict
     ./query_predict <model> k [basedocs]
     
-where "\<model\>" specifies a trained StarSpace model and the optional K specifies how many of the top predictions to show (top ranked first). "basedocs" points to the file of documents to rank, see also the argument of the same name in the starspace main above. If "basedocs" is not provided, the labels in the dictionary are used instead.
+其中 `<model>` 指定一个受过训练的 StarSpace 模型，可选的 K 指定显示多少个顶部预测（排名第一）。 “basedocs” 指向要排序的文件的文件，也参见上面主要 StarSpace 中同名的参数。如果没有提供“基类”，则使用词典中的标签。
 
-After loading the model, it reads a line of entities (can be either a single word or a sentence / document), and outputs the predictions.
+加载模型后，它读取一行实体（可以是一个单词或一个句子/文档），并输出预测。
 
-### Nearest Neighbor Queries
+### 最近相邻量查询
 
-Another simple way to check the quality of a trained embedding model is to inspect nearest neighbors of entities. To build and use this utility function, run the following commands:
+检查训练好的嵌入模型质量的另一种简单方法是检查实体的最近相邻量。 要构建和使用该实用程序功能，请运行以下命令：
 
     make query_nn
     ./query_nn <model> [k]
     
-where "\<model\>" specifies a trained StarSpace model and the optional K (default value is 5) specifies how many nearest neighbors to search for.
+其中 `<model>` 指定一个受过训练的 StarSpace 模型，可选的 K（ 默认值是 5 ） 指定要搜索的最近相邻量。
 
-After loading the model, it reads a line of entities (can be either a single word or a sentence / document), and output the nearest entities in embedding space.
+加载模型后，它读取一行实体（可以是一个单词或一个句子/文档），并在嵌入空间输出最近的实体。
 
-### Print Ngrams
+### 打印 Ngrams
 
-As the ngrams used in the model are not saved in tsv format, we also provide a separate function to output n-grams embeddings from the model. To use that, run the following commands:
+由于模型中使用的 ngram 不是以 tsv 格式保存的，我们还提供了一个单独的函数来输出模型中的 n 元嵌入。要使用它，请运行以下命令：
 
     make print_ngrams
     ./print_ngrams <model>
     
-where "\<model\>" specifies a trained StarSpace model with argument -ngrams > 1.
+其中 `<model>` 指定了的参数 -ngrams > 1 的受过训练的StarSpace模型。
 
-### Print Sentence / Document Embedding
+### 打印句子/文档嵌入
 
-Sometimes it is useful to print out sentence / document embeddings from a trained model. To use that, run the following commands:
+在有时需要从训练的模型中打印句子或文档的嵌入时是非常有用的。 要使用它，请运行以下命令：
 
     make embed_doc
     ./embed_doc <model> [filename]
     
-where "\<model\>" specifies a trained StarSpace model. If filename is provided, it reads each sentence / document from file, line by line, and outputs vector embeddings accordingly. If the filename is not provided, it reads each sentence / document from stdin.
+其中 `<model>` 指定了训练过的 StarSpace 模型。如果提供了文件名，则从文件逐行读取每个句子/文档，并相应地输出向量嵌入。如果没有提供文件名，它会从 stdin 中读取每个句子/文档。
 
 
-## Citation
+## 引用
 
-Please cite the [arXiv paper](https://arxiv.org/abs/1709.03856) if you use StarSpace in your work:
+如果您在工作中使用了 StarSpace，请引用这篇 [arXiv 论文](https://arxiv.org/abs/1709.03856)：
 
 ```
 @article{wu2017starspace,
@@ -363,8 +363,8 @@ Please cite the [arXiv paper](https://arxiv.org/abs/1709.03856) if you use StarS
   year={2017}
 }
 ```
-## Contact
-* Facebook group: [StarSpace Users](https://www.facebook.com/groups/532005453808326)
+## 联系我们
+* Facebook 小组: [StarSpace Users](https://www.facebook.com/groups/532005453808326)
 * emails: ledell@fb.com, jase@fb.com
 
 
