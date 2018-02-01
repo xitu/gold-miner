@@ -52,57 +52,55 @@ StarSpace 可在现代的 Mac OS 和 Linux 发行版上构建。鉴于它使用�
     cd Starspace
     make
 
-# File Format
+# 文档格式
 
-StarSpace takes input files of the following format. 
-Each line will be one input example, in the simplest case the input has k words, and each
-labels 1..r is a single word:
+StarSpace 通过以下格式进行文件的输入。
+这是一个每行只有一个输入的例子，在最简单的情况下，输入有 k 个单词，后面跟着的每个标签也是一个独立的单词：
 
     word_1 word_2 ... word_k __label__1 ... __label__r
+默认情况下，标签是以字符串 \_\_label\_\_ 为前缀的单词，前缀字符串可以由 `-label` 参数来设置。
 
-This file format is the same as in <a href="https://github.com/facebookresearch/fastText">fastText</a>. It assumes by default that labels are words that are prefixed by the string \_\_label\_\_, and the prefix string can be set by "-label" argument. 
-
-In order to learn the embeddings, do:
+执行这条命令来学习这种嵌入：
 
     $./starspace train -trainFile data.txt -model modelSaveFile
 
-where data.txt is a training file containing utf-8 encoded text. At the end of optimization the program will save two files: model and modelSaveFile.tsv. modelSaveFile.tsv is a standard tsv format file containing the entity embedding vectors, one per line. modelSaveFile is a binary file containing the parameters of the model along with the dictionary and all hyper parameters. The binary file can be used later to compute entity embedding vectors or to run evaluation tasks.
+这里的 data.txt 是一个包含utf-8编码文本的训练文件。在优化结束时，程序将保存两个文件：model 和 modelSaveFile.tsv。modelSaveFile.tsv 是一个包含实体嵌入向量的标准tsv格式文件，每行一个。modelSaveFile 是一个二进制文件，包含模型的参数以及字典，还包括所有超参数。二进制文件稍后可用于计算实体嵌入的向量或运行评估任务。
 
-In the more general case, each label also consists of words:
+在更普遍的情况下，每个标签也会包含单词：
 
-    word_1 word_2 ... word_k <tab> label_1_word_1 label_1_word_2 ... <tab> label_r_word_1 .. 
+    word_1 word_2 ... word_k <tab> label_1_word_1 label_1_word_2 ... <tab> label_r_word_1 ..
 
-Embedding vectors will be learned for each word and label to group similar inputs and labels together. 
+嵌入向量将学习每个单词和标签，并将相似的输入和标签组合在一起。
 
-In order to learn the embeddings in the more general case where each label consists of words, one needs to specify the -fileFormat flag to be 'labelDoc', as follows:
+为了学习更一般情况下的嵌入，每个标签由单词组成，需要指定 `-fileFormat` 标志为”labelDoc”，如下所示：
 
     $./starspace train -trainFile data.txt -model modelSaveFile -fileFormat labelDoc
 
-We also extend the file format to support real-valued weights (in both input and label space) by setting argument "-useWeight" to true (default is false). If "-useWeight" is true, we support weights by the following format
+我们还可以通过将参数 `-useWeight` 设置为 true（默认为 false）来扩展文件格式以支持实值权值（在输入和标签空间中）。如果 `-useWeight` 为 true，我们支持使用以下格式定义权重。
 
     word_1:wt_1 word_2:wt_2 ... word_k:wt_k __label__1:lwt_1 ...    __label__r:lwt_r
     
-e.g.,
+例如，
 
     dog:0.1 cat:0.5 ...
     
-The default weight is 1 for any word / label that does not contain weights.
+对于不包括权重的任意单词和标签，其默认权重为 1。
 
-## Training Mode
+## 训练模式
 
-StarSpace supports the following training modes (the default is the first one):
+StarSpace 支持下列几种训练模式（默认是第一个）：
 * trainMode = 0:
-    * Each example contains both input and labels.
-    * If fileFormat is 'fastText' then the labels are individuals features/words specified (e.g. with a prefix __label__, see file format above).
-    * **Use case:**  classification tasks, see _tagspace_ example below.
-    * If fileFormat is 'labelDoc' then the labels are bags of features, and one of those bags is selected (see file format, above).
-    * **Use case:**  retrieval/search tasks, each example consists of a query followed by a set of relevant documents.
+    * 每个实例都包括输入和标签。
+    * 如果文件格式是‘fastText’，那么标签会有特定的独立特征或是单词（例如，带有 __label__前缀，参见上面的 **文件格式** 一节。
+    * **用例：**  分类任务，参见后面的 TagSpace 示例。
+    * 如果文件格式是‘labelDoc’那么这些标签就是特征包，其中一个包被选中（参见上面的 **文件格式** 一节）。
+    * **用例：**  检索/搜索任务，每个例子包括一个后跟了一组相关文件的查询。
 * trainMode = 1:
-    * Each example contains a collection of labels. At training time, one label from the collection is randomly picked as the label, and the rest of the labels in the collection become the input.
-    * **Use case:**  content-based or collaborative filtering-based recommendation, see _pagespace_ example below.
+    * 每个示例都包含一组标签。 在训练时，随机选取集合中的一个标签作为标签量，其余标签作为输入。
+    * **用例：**  基于内容或协同过滤进行推荐，参见后面的 PageSpace 示例。
 * trainMode = 2:
-    * Each example contains a collection of labels. At training time, one label from the collection is randomly picked as the input, and the rest of the labels in the collection become the label.
-    * **Use case:** learning a mapping from an object to a set of objects of which it is a part, e.g. sentence (from within document) to document.
+    * 每个示例都包含一组标签。 在培训的时候，随机选取一个来自集合的标签作为输入量，集合中其余的标签成为标签量。
+    * **用例：** 学习从一个对象到它所属的一组对象的映射，例如， （从文件内）到文件。learning a mapping from an object to a set of objects of which it is a part, e.g. sentence (from within document) to document.
 * trainMode = 3:
     * Each example contains a collection of labels. At training time, two labels from the collection are randomly picked as the input and label.
     * **Use case:** learn pairwise similarity from collections of similar objects, e.g. sentence similiarity.
@@ -111,13 +109,13 @@ StarSpace supports the following training modes (the default is the first one):
     * **Use case:** learning from multi-relational graphs.
 * trainMode = 5:
     * Each example contains only input. At training time, it generates multiple training examples: each feature from input is picked as label, and other features surronding it (up to distance ws) are picked as input features.
-    * **Use case:** learn word embeddings in unsupervised way.
+    * **用例：** 通过无监督的方式学习单词嵌入。
 
-# Example use cases
+# 典型用例
 
-## TagSpace word / tag embeddings
+## TagSpace 单词、标签的嵌入
 
-**Setting:** Learning the mapping from a short text to relevant hashtags, e.g. as in <a href="https://research.fb.com/publications/tagspace-semantic-embeddings-from-hashtags/">this paper</a>. This is a classical classification setting.
+**用途:** Learning the mapping from a short text to relevant hashtags, e.g. as in <a href="https://research.fb.com/publications/tagspace-semantic-embeddings-from-hashtags/">this paper</a>. This is a classical classification setting.
 
 **Model:** the mapping learnt goes from bags of words to bags of tags, by learning an embedding of both. 
 For instance,  the input “restaurant has great food <\tab> #restaurant <\tab> #yum” will be translated into the following graph. (Nodes in the graph are entities for which embeddings will be learned, and edges in the graph are relationships between the entities).
@@ -137,7 +135,7 @@ We apply the model to the problem of text classification on <a href="https://git
 
     $bash examples/classification_ag_news.sh
     
-## PageSpace user / page embeddings 
+## PageSpace 用户和页面的嵌入
 
 **Setting:** On Facebook, users can fan (follow) public pages they're interested in. When a user fans a page, the user can receive all things the page posts on Facebook. We want to learn page embeddings based on users' fanning data, and use it to recommend users new pages they might be interested to fan (follow). This setting can be generalized to other recommendation problems: for instance, embedding and recommending movies to users based on movies watched in the past; embed and recommend restaurants to users based on the restaurants checked-in by users in the past, etc.
 
@@ -201,26 +199,26 @@ Performing link prediction can be formalized as filling in incomplete triples li
     $bash examples/multi_relation_example.sh
    
     
-## SentenceSpace: Learning Sentence Embeddings
+## SentenceSpace: 学习句子的嵌入
 
-**Setting:** Learning the mapping between sentences. Given the embedding of one sentence, one can find semantically similar/relevant sentences.
+**用途：** 学习句子之间的映射。给定一个句子的嵌入，可以找到语义上相似或相关的句子。
 
-**Model:** Each example is a collection of sentences which are semantically related. Two are picked at random using trainMode 3: one as the input and one as the label, other sentences are picked as random negatives. One easy way to obtain semantically related sentences without labeling is to consider all sentences in the same document are related, and then train on those documents.
+**模型：** 每个例子是语义相关的句子的集合。 随机采用 trainMode 3 来选择两个：一个作为输入，一个作为标签，其他句子被挑选为随机的否定。 在没有标注的情况下获取语义相关句子的一个简单方法是考虑同一文档中的所有句子是相关的，然后在这些文档上进行训练。
 
 ![sentences](https://github.com/facebookresearch/StarSpace/blob/master/examples/sentences.png)
 
-### Example scripts:
-<a href="https://github.com/facebookresearch/Starspace/blob/master/examples/wikipedia_sentence_matching.sh">This example script</a> downloads data where each example is a set of sentences from the same Wikipedia page and runs the StarSpace model on it:
+### 示例脚本：
+[这个示例脚本](https://github.com/facebookresearch/Starspace/blob/master/examples/wikipedia_sentence_matching.sh) 会下载一些数据，其中每个示例都是来自同一维基百科页面的一组语句，并在其上运行StarSpace模型：
 
     $bash examples/wikipedia_sentence_matching.sh
     
-To run the full experiment on Wikipedia Sentence Matching presented in [this paper](https://arxiv.org/abs/1709.03856), 
-use <a href="https://github.com/facebookresearch/Starspace/blob/master/examples/wikipedia_sentence_matching_full.sh">this script</a> (warning: it takes a long time to download data and train the model):
+为了能运行 [这篇论文](https://arxiv.org/abs/1709.03856) 中提出的 Wikipedia Sentence Matching 问题的完整实验，
+请使用 [这个脚本](https://github.com/facebookresearch/Starspace/blob/master/examples/wikipedia_sentence_matching_full.sh)（警告：下载数据和训练模型需要很长时间）：
 
     $bash examples/wikipedia_sentence_matching_full.sh
     
     
-## ArticleSpace: Learning Sentence and Article Embeddings
+## ArticleSpace：学习句子和文章的嵌入
 
 **Setting:** Learning the mapping between sentences and articles. Given the embedding of one sentence, one can find the most relevant articles.
 
