@@ -2,8 +2,8 @@
 > * 原文作者：[Alan Ostanik](https://cheesecakelabs.com/blog/author/alan/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/breakpoints-debugging-like-pro.md](https://github.com/xitu/gold-miner/blob/master/TODO/breakpoints-debugging-like-pro.md)
-> * 译者：
-> * 校对者：
+> * 译者：[PTHFLY](https://github.com/pthtc)
+> * 校对者：[ryouaki](https://github.com/ryouaki)
 
 # 断点：像专家一样调试代码
 
