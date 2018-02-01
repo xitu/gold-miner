@@ -100,7 +100,7 @@ StarSpace 支持下列几种训练模式（默认是第一个）：
     * **用例：**  基于内容或协同过滤进行推荐，参见后面的 PageSpace 示例。
 * trainMode = 2:
     * 每个示例都包含一组标签。 在培训的时候，随机选取一个来自集合的标签作为输入量，集合中其余的标签成为标签量。
-    * **用例：** 学习从一个对象到它所属的一组对象的映射，例如， （从文件内）到文件。learning a mapping from an object to a set of objects of which it is a part, e.g. sentence (from within document) to document.
+    * **用例：** 学习从一个对象到它所属的一组对象的映射，例如，从句子（文档内的）到文档。
 * trainMode = 3:
     * Each example contains a collection of labels. At training time, two labels from the collection are randomly picked as the input and label.
     * **Use case:** learn pairwise similarity from collections of similar objects, e.g. sentence similiarity.
