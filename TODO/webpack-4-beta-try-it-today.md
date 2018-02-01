@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/webpack-4-beta-try-it-today.md](https://github.com/xitu/gold-miner/blob/master/TODO/webpack-4-beta-try-it-today.md)
 > * 译者：[FatZeros](https://github.com/FateZeros)
-> * 校对者：
+> * 校对者：[kangkai124](https://github.com/kangkai124)
 
 # 🚀webpack 4 测试版 —— 现在让我们先一睹为快吧!🚀
 
@@ -13,11 +13,11 @@
 
 ## 稳定的发布之路!
 
-自八月初以来 —— 当我们从 `**webpack/webpack#master**` 中分出 `**next**` 分支时 —— 我们看到了惊人的贡献量涌入。
+自八月初以来 —— 当我们从 `**webpack/webpack#master**` 中分出 `**next**` 分支的时候 —— 我们看到了惊人的贡献量涌入。
 
 ![](https://cdn-images-1.medium.com/max/800/1*kJm7dIWWR7DzZa-OW_z6gQ.png)
 
-使用 [gitinspector!](https://github.com/ejwa/gitinspector) 在 webpack **next** 分支上的 Git 贡献统计信息一目了然。可以在你的项目上尝试一下，来仔细研究下。 **PS：这不包括我们的 webpack-cli 团队 和 webpack-contrib 组织为支持我们的加载器和插件所做的令人难以执行的工作。**
+使用 [gitinspector!](https://github.com/ejwa/gitinspector) 查看在 webpack **next** 分支上的 Git 贡献统计信息一目了然。可以在你的项目上尝试一下，来仔细研究下。 **PS：这还不包括我们的 webpack-cli 团队 和 webpack-contrib 组织，他们在支持加载器和插件上面做了大量的工作。**
 
 **🎉 今天，我们很自豪能够通过发布 webpack 4.0.0 - beta.0 来分享这项工作的成果！** **🎉**
 
@@ -25,7 +25,7 @@
 
 当我们完成了 webpack 3 的发布之后，我们向社区保证，主要版本的更迭会有一个更长的开发周期。
 
-我们已经兑现了这个承诺[并继续为之付诸实施]，给你们带来了一大套功能，改进和错误修复，我们已经迫不及待地期待你们的实践！开始吧！
+我们已经兑现了这个承诺[并继续为之付诸实施]，给你们带来了一大套特性，改进和错误修复，我们已经迫不及待地期待你们的实践！开始吧！
 
 #### 🤷‍怎么安装 [v4.0.0-beta.0]
 
@@ -39,7 +39,7 @@
 
 #### 🛠怎么迁移？
 
-在测试 webpack 4 的时候，如果越来越多的人报告插件和加载器的不兼容性，我们就可以构建一个生动的迁移指南。
+只有更多的人帮助测试 webpack 4，并且反馈不兼容的插件和加载器，我们才能构建一份更加生动的迁移指南。
 
 **因此我们需要你看看**[**官方的更新日志**](https://github.com/webpack/webpack/releases/tag/v4.0.0-beta.0) **还有**[**我们的迁移草案**](https://github.com/webpack/webpack/issues/6357)**并提供我们有所缺失的反馈！这将帮助我们的文档团队创建我们的官方稳定版本迁移指南！**
 
@@ -78,7 +78,7 @@ webpack 4.0.0-beta.0 运行一个没有配置的版本
 
 ### 🍰sideEffects 设置 —— 在打包体积上巨大的胜利
 
-我们在 package.json 中引入了对 `sideEffects: false` 的支持。当这个字段被添加时，它向 webpack 发出信号，表示被使用的库没有副作用。这意味着 webpack 可以安全地清除你代码中使用的任何重新导出。
+我们在 package.json 中引入了对 `sideEffects: false` 的支持。当这个字段被添加时，它向 webpack 发出信号，表示被使用的库没有副作用。这意味着 webpack 可以安全地清除你代码中使用的任何重复导出模块。
 
 例如，从 `lodash-es` 中单独导入 `export` 将会花费 ～223 KiB [压缩后的]。**在 webpack 4 中，现在这只花费 ～3 KiB !**
 
