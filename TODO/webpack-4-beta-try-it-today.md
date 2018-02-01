@@ -2,7 +2,7 @@
 > * 原文作者：[Sean T. Larkin](https://medium.com/@TheLarkInn?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/webpack-4-beta-try-it-today.md](https://github.com/xitu/gold-miner/blob/master/TODO/webpack-4-beta-try-it-today.md)
-> * 译者：
+> * 译者：[FateZeros](https://github.com/fatezeros)
 > * 校对者：
 
 # 🚀webpack 4 beta — try it today!🚀
