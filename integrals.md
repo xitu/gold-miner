@@ -3569,7 +3569,7 @@
 |[REST API 已死，GraphQL 长存](https://juejin.im/post/5991667b518825485d28dfb1)|校对|2|
 |[机器之魂：聊天机器人是怎么工作的](https://juejin.im/post/599155d86fb9a03c467c151d)|校对|1|
 
-## 译者：[undead25](https://github.com/undead25) 历史贡献积分：38.5 当前积分：38.5
+## 译者：[undead25](https://github.com/undead25) 历史贡献积分：40.5 当前积分：40.5
 
 |文章|类型|积分|
 |------|-------|-------|
@@ -4701,13 +4701,11 @@
 |[这些 CSS 命名规范将省下你大把调试时间](https://juejin.im/post/5a6c5881518825733201daf7)|校对|2|
 |[Facebook 开源了物体检测研究项目 Detectron](https://juejin.im/post/5a6c2ba56fb9a01cb64f0591)|校对|0.5|
 
-
 ## 译者：[xingqiwu55555](https://github.com/xingqiwu55555) 历史贡献积分：2 当前积分：2
 
 |文章|类型|积分|
 |------|-------|-------|
 |[2018 前端性能优化清单 - 第 2 部分](https://juejin.im/post/5a654e686fb9a01cb42c7894)|校对|2|
-
 
 ## 译者：[okaychen](https://github.com/okaychen) 历史贡献积分：1 当前积分：1
 
