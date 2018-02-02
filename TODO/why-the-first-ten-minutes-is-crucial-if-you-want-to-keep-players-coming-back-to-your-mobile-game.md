@@ -5,98 +5,98 @@
 > * 译者：
 > * 校对者：
 
-# Why the first ten minutes are crucial if you want to keep players coming back
+# 如果你想让用户回来，为什么前十分钟是至关重要的？
 
-## Post 1 of 3: How to analyze your mobile game’s retention data
+## Post 1 of 3: 如何分析你的手机游戏的保留数据
 
 ![](https://cdn-images-1.medium.com/max/800/0*BwtoKf5kjO7zc98V.)
 
-As a mobile developer, one of the most powerful tools you have is **data**. Leveraging game data in the right way provides an incredible opportunity to identify problems, optimize performance, provide value to players, and ultimately grow your businesses.
+作为一个移动开发者，你拥有的最强大的工具之一就是**数据**。以正确的方式利用游戏数据为识别问题、优化性能、为玩家提供价值以及最终拓展业务提供了难以置信的机会。
 
-In this post I’ll discuss the signals in your new installers’ first day performance which can help identify where you might be losing players in your game. I’ll also share a number of meaningful benchmarks from Google Play for you to better understand your game’s performance and identify opportunities for improvement.
+在这篇文章中，我将讨论新用户第一天的表现，这可以帮助你确定游戏中可能会在哪些地方失去玩家。 我还会从 Google Play 分享的一些有意义的数据，以便更好地了解你的游戏性能并找出改进的机会。
 
-### Average player retention for games on Google Play
+### Google Play 游戏平均玩家保留率
 
-Retention is one of the key installs performance metrics, along with buyer conversion and average revenue per install. In many ways, retention is the primary metric, sinceif you can retain your new players, you can always figure out how to make money**.** If you can’t retain any players, you have no ability to make money.
+保留率是安装的关键性能指标之一，同时还有买方转换和每次安装的平均收入。 在很多方面，保留是主要的指标，因为如果你能保留你的新玩家，你总能弄清楚如何赚钱**。**如果你不能保留任何玩家，你就没有能力赚钱。
 
-The retention equation itself is very simple, it’s the **number of users active on a given retention day divided by the number of installs in your cohort**. For top grossing free to download games on Google Play, the median day 2 retention is 38%. Exceeding 46% day 2 retention places your game in the top quartile, which means you would be doing better than 75% of titles in the top charts.
+保留的计算方法本身非常简单，在给定的保留日期内活跃的用户数**除以安装数**。 如果玩家在 Google Play 上免费下载游戏，2 天的平均保留率是 38%。超过 46％ 的玩家第 2 天保留游戏并能将你的游戏玩到四等分的第一等分的玩家，这意味着你已经超过排行榜中的 75％。
 
 ![](https://cdn-images-1.medium.com/max/800/0*USxPiUCAW1yHihsl.)
 
-_Day 2 retention rates (where day 2 is the day after the first player session)_
+**（第二天保留率）**
 
-However, it’s also important to think about what this means. A Day 2 retention of 22% to 52% actually means that 48% to 78% of all users who play a game for the first time today won’t come back tomorrow. Considering all the time and effort you devote to building and promoting games, you should do everything you can to improve this.
+然而，思考这些数据的含义也很重要。第二天保留率在 22% 到 52% 之间实际上意味着 48% 至 78% 的用户第一天玩了游戏第二天不会再玩。如果你想构建和推广游戏，你应该尽你所能去提示。
 
-### What to focus on to improve retention
+### 专注于提高保留率
 
-Many developers focus on metrics like the level players reached on their first day, or the tutorial checkpoint their users passed. However, such metrics are game specific and do not help you understand how you compare to your peers.
+许多开发人员将注意力放在第一天达到的级别玩家或用户通过的教程检查点等指标上。 但是，这些衡量指标是针对游戏的，并不能帮助你了解与类似游戏的比较情况。
 
-One key metric compares ‘Day 1 minutes played’ to the ‘Day 2 retention’. This metric, **D1 minutes played vs. D2 retention**, is much more of an apples to apples comparison, and is used at Google to help partners identify early deficiencies and increase their new installers’ performance.
+一个关键指标比较了“第一天的游戏时间”和“第二天的保留时间”。 这个度量标准，即 **D1 的分钟数与 D2 保留率**相比，更多的是苹果和苹果之间的比较，并用于 Google 来帮助合作伙伴识别早期的缺陷并提高他们的新安装者的性能。
 
 ![](https://cdn-images-1.medium.com/max/800/0*LTwqY-WB_Pq90xHk.)
 
-_Day 1 is the date of the first player session_
+**Day 1 初次玩游戏的玩家的数据**
 
-This graph shows the length of time a new player plays on their very first day, versus the percentage of users who return the next day. The trend shows that **the longer people spend in a game on their first day, the more likely they are to return**.
+此图显示新玩家在第一天玩的时间长度，和第二天返回的玩家的百分比。 这个趋势表明**第一天在游戏中花费的时间越长，他们返回的可能性就越大**
 
-This make instinctive sense. It’s reasonable to assume that the more time someone plays on their first day, they more they are enjoying themselves, and the greater the chance they’ll want to return to keep having fun.
+我们可以直观的感受到。假设有人在第一天花很多时间玩这款游戏，他们玩的越开心，他们想要回来继续玩的机会就越大。
 
-However, where it gets really interesting is when we split the top performing games into quartiles based on their Day 2 retention. The first quartile, the top performers, have an average Day 2 retention of 52%. Their retention starts off strong at about 22% and steadily rises with each successive minute played. The second quartile, comes in with a Day 2 retention of 42% average, and the third quartile has an average of 32% on Day 2.
+但是，真正有趣的地方在于，我们根据第 2 天的保留情况将顶级游戏分为四等分。 第一个等分，表现最佳的人，第二天的平均保留率为 52％。 他们的保持率在 22％ 左右的时候开始强劲上升，并在每一分钟的比赛中稳步上升。 第二个四等分，第二天保留了 42％ 的平均水平，第三个四等分平均为第二天的 32％。
 
 ![](https://cdn-images-1.medium.com/max/800/0*vYdHUUVA2Ly99q2g.)
 
-We can see that most quartiles exhibit a very similar trend after the first 10 minutes; they all curve up and to the right with a steadily diminishing slope. However, it’s the **first ten minutes where the most interesting patterns are visible**.
+我们可以看到，大部分四等分在第一个十分钟之后呈现出非常相似的趋势; 他们都向上和向右弯曲，斜率逐渐减小。 然而，这就是**前十分钟，最有趣的模式是可见的**。
 
-### The first ten minutes is crucial
+### 第一个十分钟是至关重要的 
 
-This chart zooms into those first 10 minutes, and this is where we can see very distinct patterns emerge.
+这个图表放大到前10分钟，这是我们可以看到出现了非常明显的不同的模式。
 
 ![](https://cdn-images-1.medium.com/max/800/0*YrkjzozmTK6OOgt5.)
 
-For the **top performers** (green line), their retention starts out strong and steadily rises. The **second quartile** (blue line) shows a different pattern, whereby we can see retention is largely flat across the first minute and a half, and only then does it begin to increase steadily. For the third quartile (orange), retention is predominantly flat until minute four, following which it then begins to increase but at a slower rate than higher performing apps. Finally in the fourth quartile (red line), retention actually declines in the first 2 minutes, and it isn’t until minute five that the games show a higher retention compared to those who played for less than a minute on their first day.
+对于那些 **优秀的玩家**（绿色的线），他们的保留率开始强劲而稳步上升，第二个四等分的玩家（蓝色的线）显示了不同的模式，由此我们可以看到保留率在前一分半的时间里保持平稳，然后才开始稳步增加。对于第三个四等分的玩家（橙色的线），保留率在前四分钟基本没有变化，随后开始增加。但速度较慢。最后一个四等分的玩家（红色的线）保留率实际上在前两分钟是下降的，直到第五分钟，保留率才超过了起点。
 
-Now, let’s take a look at how the **early patterns impact our users**. The chart below compares the cumulative players lost by minute for the top quartile (green line), versus the bottom quartile (red line).
+现在，我们来看看**早期的模式如何影响我们的用户**。 下面的图表比较了最高四等分用户（绿线）与最低四等分用户（红线）的累计流失率。
+
 
 ![](https://cdn-images-1.medium.com/max/800/0*6l_OD0QngrUKGuvX.)
 
-The worst performers lose 46% of their new installs by the fifth minute. By the 10th minute, they’ve lost 58% of their new installs. Basically, over half their new installs don’t even last 10 minutes in the game. In contrast, top performers only lose 17% of players by the fifth minute, and only 24% by minute 10.
+表现最差的是在第五分钟的时候就失去了 46％ 的新用户。 到第十分钟，他们已经损失了 58％ 的新用户。 基本上，超过一半的新用户甚至不会在游戏中持续十分钟。 相比之下，表现最好的是在第五分钟只流失了 17％ 的用户，而第十分钟只流失了 24％ 的用户。
 
-> **_The first 5 to 10 minutes are critical and they will make or break your day 2 retention._**
+> **前五到十分钟是至关重要的，它们改变第二天的保留率**
 
-These top performing games have managed to retain over twice as many players as the lowest performing peers. There is however still a key question: if you could retain twice as many users on Day 2 and all following retention days, how would that help your daily active users (DAU)? How much would that improve your revenue? By leveraging Google Play data, we have identified two key patterns.
+这些顶级的游戏比同等的表现较差的游戏成功的保留了两倍的用户。但仍然有一个关键的问题：如果你可以保留两倍及以下的 Day 2 保留的用户，那对你的每日活跃用户（DAU）有什么帮助呢？这样会增加你的收入吗？通过利用 Google Play 的数据，我们确定了两个关键模式。
 
-### Avoid the retention ‘flats’ and the ‘gorge’
+### 不要使保留率是“平地”和“峡谷”
 
-The first pattern is called the “**Flats**”. This anti-pattern shows largely flat retention for up to 10 minutes, with the percentages only rising meaningfully after the 5th to 10th minute. The second is the “**Gorge**”, whereby retention appears to drop minute by minute for the first five minutes or so, and then begins to rise again.
+第一种模式被称为“**平地**”。这种反模式在十分钟内基本保持平稳，第五到第十分钟后的百分比才有意义地上升。第二个是“**峡谷**”，即保留在前五分钟左右一分钟一分钟地下降，然后又开始上升。
 
 ![](https://cdn-images-1.medium.com/max/800/0*P7z6AeRbUS0z7QOQ.)
 
-As a broad estimate, it’s likely that between 25% and 50% of games exhibit one of these anti-patterns. Leveraging the data in your own data warehouses, you can generate these plots and see what patterns emerge in your games. If you see the **‘Flats’** or the ‘**Gorge**’ in your own data, here’s a few things to examine:
+作为一个广泛的估计，很可能在 25% 到 50% 的游戏中展示了其中一种反模式。利用自己数据仓库中的数据，可以生成这些图表，看看游戏中出现了哪些模式。如果你在你自己的数据看到** 平地**或**峡谷**，有几件事要检查：
 
-* Does your game have a very large secondary download? This can cause players to quit if they are not on a good wireless connection.
-* Are your tutorials fun? Do they give players a good sense of what the game is like?
-* What are your loading times like? New players are especially susceptible to long loading times as they aren’t yet invested in the game.
-* Does your lobby make instinctive sense to new players? Does someone coming out of the tutorial know how to get back into the action, how to build their base, and how to start having fun again? All of these considerations are important in ensuring users stick with your game.
-* Are you running a large number of discount sales or offers on the first day? This tactic might earn some short term revenue at the expense of lower overall retention. Consider running tests which eliminate offers on the first day, but instead makes players feel rich to maximize their fun.
+* 你的游戏可以通过其他渠道下载吗？这可能会导致无线不好的玩家退出。
+* 你的教程有趣吗？可以提升玩家对游戏的好感吗？
+* 你的加载时间是什么样的？新玩家特别容易受到长时间的影响，因为他们还没有进入到游戏中。
+* 你们的游戏对新手有直觉感吗？从教程中出来的人是否知道如何该如何操作，如何建立他们的基础，以及如何开始重新获得乐趣？所有这些考虑对于确保用户坚持游戏非常重要。
+* 你是不是在第一天就做了大量的打折销售？这种策略可能会获得一些短期收益，但是会降低整体保留率。考虑运行在第一天取消报价的测试，但是让玩家感觉富有，最大限度地发挥他们的乐趣。
 
-A great benefit of optimizing the first 10 minutes of gameplay is that you can iterate quickly on experimental changes, and get results back from A/B tests in a couple days.
+优化游戏前十分钟的一大好处是，你可以快速迭代实验变化，并在几天内从 A/ 测试中得到结果。
 
-### Start an upwards trend in your player retention
+### 开始增加你应用的保留率
 
-The first few minutes in a game are a critical time in a player’s life cycle. At this point, their only investment in your game has been the time and effort spent downloading it. Any negative experiences may lead players to quit, or switch to another game.
+比赛的前几分钟是应用生命周期中的关键时刻。在这个时候，他们在游戏中的唯一投资就是下载它所花费的时间和精力。任何负面的经验都会导致玩家退出，或者转向另一个应用。
 
-If you find either “Flats” or “Gorge” anti-patterns in your game, or that your retention by minute starts out too low, then look even further to identify what might be causing it. Consider whether secondary downloads, long load times, or any other factors may be having a negative impact. If you can correlate adverse retention in the first 10 minutes to any particular factor, test changes to moderate or eliminate the cause, and you should see improvements in your game’s retention, daily active users, and ultimately revenue.
-
-* * *
-
-### What do you think?
-
-Do you have any comments on anti-patterns in game data and player retention? Continue the discussion in the comments below or tweet using the hashtag #AskPlayDev and we’ll reply from [@GooglePlayDev](http://twitter.com/googleplaydev), where we regularly share news and tips on how to be successful on Google Play.
+如果你在游戏中发现了“平地”或“峡谷”的反模式，或者在开始时的保留率太低，那么再看看可能导致它的原因。考虑二次下载、长负荷时间或其他因素是否会产生负面影响。如果你能将前十分钟内的不利于保留与任何特定因素联系起来，测试适度改变或消除原因，你应该看到你的游戏保留率、每日活跃用户以及最终收益的改善。
 
 * * *
 
-_This is the first post of a 3 part series; look out for my second post in the next month, where I will be further discussing how to use data to understand and improve player engagement. Then in my third and final post, I will be exploring whether players and ‘payers’ are happy, and how to use these insights to drive conversions._
+### 你觉得怎么样?
 
+你对游戏数据中的反模式和玩家保留率有什么意见吗？在下面的评论中继续讨论或使用标签 # AskPlayDev 我们会 [@GooglePlayDev](http://twitter.com/googleplaydev)回复，我们经常分享如何在  Google Play 中成功的新闻和技巧。
+
+* * *
+
+**这是 3 部分系列文章的第一篇文章，下个月请注意我的第二篇文章，我将在这里进一步讨论如何使用数据来理解和提高玩家的参与度。然后在我的第三篇文章和最后一篇文章中，我将探究玩家和“付费者”是否快乐，以及如何利用这些洞察力来推动转换。**
 
 ---
 
