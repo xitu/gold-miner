@@ -1,3 +1,8 @@
+* [8 个技巧让你在 2018 年构建更好的 Node.js 应用程序](https://juejin.im/post/5a617c436fb9a01c9e46074f) ([PLDaily](https://github.com/PLDaily) 翻译)
+* [状态管理的未来: 在 Apollo Client 中使用 apollo-link-state管理本地数据](https://juejin.im/post/5a728da26fb9a01cb74eb328) ([yct21](https://github.com/yct21) 翻译)
+* [使用 Rust 开发一个简单的 Web 应用之总结篇：还是先把 Rust 放一边吧](https://juejin.im/post/5a71cf15f265da3e4f0a7d0a) ([mysterytony](https://github.com/mysterytony) 翻译)
+* [使用 Rust 开发一个简单的 Web 应用，第 1 部分](https://juejin.im/post/5a673ba16fb9a01ca5609f35) ([LeopPro](https://github.com/LeopPro) 翻译)
+* [通过后台数据预获取技术实现性能提升](https://juejin.im/post/5a71a9c3f265da3e2f01459b) ([NeoyeElf](https://github.com/NeoyeElf) 翻译)
 * [利用双环 TDD 进行由外向内的开发](https://juejin.im/post/5a5dea0d6fb9a01cab28443c) ([NeilLi1992](https://github.com/NeilLi1992) 翻译)
 * [Node.js 最佳实践 —— 如何在 2018 年成为更好的 Node.js 开发者](https://juejin.im/post/5a52242e6fb9a01c914037f3) ([NeilLi1992](https://github.com/NeilLi1992) 翻译)
 * [如何用 TypeScript 玩转后端？](https://juejin.im/post/5a36837d6fb9a045167d4644) ([xilihuasi](https://github.com/xilihuasi) 翻译)
