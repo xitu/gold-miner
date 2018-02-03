@@ -1,3 +1,4 @@
+* [使用深度学习自动生成HTML代码 - 第 1 部分](https://juejin.im/post/5a72744e6fb9a01cb64f1d66) ([sakila1012](https://github.com/sakila1012) 翻译)
 * [JavaScript 自动化爬虫入门指北（Chrome + Puppeteer + Node JS）：和 Headless Chrome 一起带你装逼带你飞](https://juejin.im/post/5a4e1038f265da3e591e1247) ([pot-code](https://github.com/pot-code) 翻译)
 * [JavaScript 是如何工作的：深入 WebSockets 和使用了 SSE+ 的 HTTP/2，如何在二者当中做出选择](https://juejin.im/post/5a522647518825732d7f6cbb) ([yoyoyohamapi](https://github.com/yoyoyohamapi) 翻译)
 * [Redux-recompose 介绍：优雅的编写 Redux 中的 action 和 reducer](https://juejin.im/post/5a4e0d7651882573315c28a1) ([pot-code](https://github.com/pot-code) 翻译)
