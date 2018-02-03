@@ -2,61 +2,61 @@
 > * 原文作者：[Eric Elliott](https://medium.com/@_ericelliott?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/nested-ternaries-are-great.md](https://github.com/xitu/gold-miner/blob/master/TODO/nested-ternaries-are-great.md)
-> * 译者：
+> * 译者：[yoyoyohamapi](https://github.com/yoyoyohamapi)
 > * 校对者：
 
-# Nested Ternaries are Great
+# 嵌套三元表达式棒极了（软件编写）（第十四部分）
 
 ![](https://cdn-images-1.medium.com/max/800/1*uVpU7iruzXafhU2VLeH4lw.jpeg)
 
-Smoke Art Cubes to Smoke — MattysFlicks — (CC BY 2.0)
+（译注：该图是用 PS 将烟雾处理成方块状后得到的效果，参见 [flickr](https://www.flickr.com/photos/68397968@N07/11432696204)。）
 
-> Note: This is part of the “Composing Software” series on learning functional programming and compositional software techniques in JavaScript ES6+ from the ground up. Stay tuned. There’s a lot more of this to come!
+> 这是 “软件编写” 系列文章的第十四部分，该系列主要阐述如何在 JavaScript ES6+ 中从零开始学习函数式编程和组合化软件（compositional software）技术（译注：关于软件可组合性的概念，参见维基百科
 >
-> [< Previous](https://medium.com/javascript-scene/the-hidden-treasures-of-object-composition-60cd89480381) | [<< Start over at Part 1](https://medium.com/javascript-scene/composing-software-an-introduction-27b72500d6ea)
+> [< 上一篇](https://juejin.im/post/5a648ed0518825733201b818) | [<< 返回第一篇](https://medium.com/javascript-scene/composing-software-an-introduction-27b72500d6ea)
 
-Conventional wisdom would have you believe that nested ternaries are unreadable, and should be avoided.
+传统智慧会让你相信，嵌套三元组是不可读的，应当尽量避免。
 
-> Conventional wisdom is sometimes unwise.
+> 传统智慧有时候是愚蠢的。
 
-The truth is, _ternaries are usually much simpler than if statements._ People believe the reverse for two reasons:
+真相其实是，**三元表达式通常比 if 语句更加简单**。人们会站在真相的对立面，是出于下面两个原因：
 
-1. They’re more familiar with if statements. Familiarity bias can lead us to believe things that aren’t true, even when we’re presented with evidence to the contrary.
-2. People try to use ternary statements as if they’re if statements. That doesn’t work, because ternary expressions are _expressions, not statements._
+1. 他们更熟悉 if 语句。熟悉带来的偏见可能会让我们相信一些并不正确的事物，即便我们为真相提供了佐证。
+2. 人们尝试像使用 if 语句那样去使用三元表达式。这样的代码是不能工作的，因为三元表达式是**表达式（expression）**，而非**语句（statement）**。
 
-Before we get into the details, let’s define a ternary expression:
+在我们深入细节之前，先为三元表达式做一个定义：
 
-A ternary expression is a conditional expression that evaluates to a value. It consists of a conditional, a truthy clause (the value to produce if the conditional evaluates to a truthy value), and a falsy clause (the value to produce if the conditional evaluates to a falsy value).
+一个三元表达式是一个进行求值的条件表达式。它由一个条件判断，一个真值子句（truthy value，当条件为真时返回的值）和一个假值子句（falsy clause，当条件为假时返回的值）构成。
 
-They look like this:
+它们就像下面这样：
 
-```
+```js
 (conditional)
   ? truthyClause
   : falsyClause
 ```
 
-### Expressions vs Statements
+### 表达式 vs 语句
 
-Several programming languages (including Smalltalk, Haskell, and most functional programming languages) don’t have if statements at all. They have `if` _expressions_, instead.
+一些编程语言（包括 Smalltalk、Haskell 以及大多数函数式编程语言）不再含有 if 语句了。取而代之的是，`if` 表达式。
 
-An if expression is a conditional expression that evaluates to a value. It consists of a conditional, a truthy clause (the value to produce if the conditional evaluates to a truthy value), and a falsy clause (the value to produce if the conditional evaluates to a falsy value).
+一个 if 表达式就是进行求值的条件表达式。它由一个条件判断，一个真值子句（truthy value，当条件为真时返回的值）和一个假值子句（falsy clause，当条件为假时返回的值）构成。
 
-Does that look familiar? Most functional programming languages use _ternary expressions_ for their `if` keyword. Why?
+这个定义看起来是不是很熟悉？大多数函数式编程语言都使用了**三元表达式**来服务于它们的 `if` 关键字。这是为什么呢？
 
-An expression is a chunk of code that evaluates to a single value.
+一个表达式是一个求取单值的代码块。
 
-A statement is a chunk of code that may not evaluate to a value at all. In JavaScript if statements _don’t evaluate to values_. In order for an if statement in JavaScript to do anything useful, it _must_ cause a side-effect or return a value from the containing function.
+一条语句则是一个不一定进行求值的代码段。在 JavaScript 中，一个 if 语句不会进行 **求值**。为了让 JavaScript 中的 if 语句有用，就**必须造成一个副作用（side-effect）或者是在 if 语句包裹的代码块中返回一个值**。
 
-In functional programming, we tend to _avoid_ mutations and other side-effects. Since `if` in JavaScript naturally _affords_ mutation and side effects, many functional programmers reach for ternaries instead — nested or not. Including me.
+在函数式编程中，我们试图避免可变性以及其他的副作用。由于 JavaScript 中的 `if` 先天会带来可变性和副作用，所以包括我在内的一些函数式编程的拥趸会使用三元表达式来替换它。
 
-Thinking in terms of ternary expressions is a bit different from thinking in terms of if statements, but if you practice a lot for a couple of weeks, you’ll start to gravitate towards ternaries naturally, if only because it’s less typing, as you’ll soon see.
+三元表达式的思维模式与 if 语句有所不同，但如果你尝试实践几周，你也会自然而然的转到三元表达式。这可不只是因为它缩小了代码量，另一些优势你也将在后文中看到。
 
-### Familiarity Bias
+### 熟悉带来的偏见
 
-The common claim I hear is that nested ternary expressions are “hard to read”. Let’s shatter that myth with some code examples:
+我最常听到的关于三元表达式的抱怨就是 “难于阅读”。让我们通过一些代码范例来粉碎谣言：
 
-```
+```js
 const withIf = ({
   conditionA, conditionB
 }) => {
@@ -70,11 +70,11 @@ const withIf = ({
 };
 ```
 
-Note that in this version, there are nesting conditions and braces visually separating the truthy clause from the falsy clauses, making them feel very disconnected. This is fairly simple logic, but it’s a little taxing to parse.
+注意到，这个版本中，通过嵌套的条件和可见的括号来分离真值和假值，这让真假值看起来失去了联系。这只是一个很简单的逻辑，但却需要花力气理解。
 
-Here’s the same logic written in ternary expression form:
+让我们再看看同样的逻辑，用三元表达式是怎么完成的：
 
-```
+```js
 const withTernary = ({
   conditionA, conditionB
 }) => (
@@ -86,21 +86,38 @@ const withTernary = ({
 );
 ```
 
-There are a few interesting points to be made here:
+这儿一些值得分享和讨论的点：
 
-### Daisy Chaining vs Nesting
+### 菊链法 vs 嵌套
 
-First, we’ve flattened out the nesting. “Nested” ternaries is a bit of a misnomer, because ternaries are easy to write in a straight line, you never need to nest them with indent levels at all. They simply read top to bottom in a straight line, returning a value as soon as they hit a truthy condition or the fallback.
+>  译注：[菊链法（Daisy Chaining）](https://www.wikiwand.com/en/Daisy_chain_(electrical_engineering))，原意指多个设备按序或者围城一环进行连接。
 
-If you write ternaries properly, there is no nesting to parse. It’s pretty hard to get lost following a straight line.
+首先，我们已经将嵌套铺平了。“嵌套的” 三元表达式有点用词不当，因为三元表达式很容易通过一条直线进行撰写，你完全不需要使用不同的缩进来嵌套它们。它们易于按照直线的顺讯，自顶向下地进行阅读，一旦满足了某个真值或者假值就会立即返回。
 
-We should probably call them “chained ternaries” instead.
+如果你正确的书写了三元表达式，也就不需要解析任何的嵌套。跟着一条直线走，可不太容易迷失。
 
-The second thing I want to point out is that, in order to simplify this straight line chaining, I switched up the order a little bit: If you get to the end of a ternary expression and find you need to write two colon clauses (`:`), grab the last clause, move it to the top, and reverse the logic of the first conditional to simplify parsing the ternary. No more confusion!
+我们应该称其为 “链式三元表达式” 而不是 “嵌套三元表达式”。
 
-It’s worth noting that we can use the same trick to simplify the if statement form:
+还有一点我想指出的就是，为了简化直线链接，我对顺序稍作了更改：如果你到达了三元表达式末尾，并且发现你需要写两条冒号子句（`:`）：
 
+```js
+// 译者补充这种情况
+const withTernary = ({
+  conditionA, conditionB
+}) => (
+  conditionA
+    ? conditionB
+    ? valueA
+    : valueB
+    : valueC
+)
 ```
+
+将最后一条子句提到链头，并且反转第一个条件判断逻辑来简化三元表达式的解析。现在，不再有任何困惑了！
+
+值得注意的是，我们可以使用同样的手段来简化 if 语句：
+
+```js
 const withIf = ({
   conditionA, conditionB
 }) => {
@@ -112,67 +129,66 @@ const withIf = ({
 };
 ```
 
-That’s better, but it still visually breaks up the related clauses for `conditionB`, which can cause confusion. I've seen that problem lead to logic bugs during code maintenance. Even with the logic flattened, this version is still more cluttered than the ternary version.
+这好很多了，但是 `conditionB` 的关联子句被打破仍然是可见的，这还是会造成困惑。在维护代码期间，我已经看到过类似问题引起了逻辑上的 bug。即便逻辑被打平，这个版本的代码相较于三元表达式版本，还是稍显混乱。
 
-### Syntax Clutter
+### 语法混乱
 
-The `if` version contains a bit more noise: the `if` keyword vs `?`, `return` to force the statement to return a value, extra semicolons, extra braces, etc... Unlike this example, most if statements also mutate some outside state, which further adds to the extra code and complexity.
+`if` 版本的代码含有许多噪声：`if` 关键字 vs `?`、使用 `return` 来强制语句返回一个值、额外的分号、额外的括号等等。 不同于本文的例子，大多数 if 语句也改变了外部状态，这不仅增多了代码，还提高了代码复杂度。
 
-Extra code is bad for a few important reasons. I’ve said all this before but it’s worth repeating until every developer has it burned into their brain:
+对于一些重要的考虑，额外的代码是件坏事儿。在此之前，我已经讨论过，但在每个开发者都了然于胸前，我还是愿意不厌其烦地再唠叨一下：
 
-#### Working Memory
+#### 工作记忆
 
-The average human brain has only a few shared resources for discrete [quanta in working memory](https://www.nature.com/articles/nn.3655), and each variable potentially consumes one of those quanta. As you add more variables, your ability to accurately recall the meaning of each variable is diminished. Working memory models typically involve 4–7 discrete quanta. Above those numbers, error rates dramatically increase.
+平均下来，人类大脑只有一小部分共享资源提供给对于离散的[存储在工作记忆中的量子](https://www.nature.com/articles/nn.3655)，并且每一个变量潜移默化地消费这些量子。当你添加更多的变量，你就会丧失对这些变量的含义的精确记忆能力。典型的，工作记忆模型涉及 4-7 个离散两字。超过这个数，错误率就会陡增。
 
-When we force mutation or side-effects with if statements as opposed to ternaries, that often entails adding variables to the mix that don’t need to be there.
+与三元表达式相反，我们不得不将可变性和副作用融入 if 语句中，这通常会造成添加一些本不需要的变量进去。
 
-#### Signal to Noise Ratio
+#### 信噪比
 
-Concise code also improves the signal-to-noise ratio of your code. It’s like listening to a radio — when the radio is not tuned properly to the station, you get a lot of interfering noise, and it’s harder to hear the music. When you tune it to the correct station, the noise goes away, and you get a stronger musical signal.
+简练的代码也会提高你代码的信噪比。这就像在听收音机 —— 如果收音机没有正确的调到某个频道，你就会听到许多干扰噪声，因此很难听到音乐。当你正确的调到某个频道，噪声就会远离，你听到的将是强烈的音乐信号。
 
-Code is the same way. More concise code expression leads to enhanced comprehension. Some code gives us useful information, and some code just takes up space. If you can reduce the amount of code you use without reducing the meaning that gets transmitted, you’ll make the code easier to parse and understand for other people who need to read it.
+代码也类似。表达式越精简，则越容易理解。一些代码给了我们有用的信息，一些则让我们云里雾里。如果你可以在不丢失所要传达的信息的前提下，缩减了代码量，你将会让代码更易于解析，也让其他的开发者更容易理解当中的意思。
 
-#### Surface Area for Bugs
+#### 藏匿 Bug 的表面积
 
-Take a look at the before and after functions. It looks like the function went on a diet and lost a ton of weight. That’s important because extra code means extra surface area for bugs to hide in, which means more bugs will hide in it.
+看一眼函数的前前后后。这就好像函数进行了节食，减去了成吨的体重。这是非常重要的，因为额外的代码就意味着更大的藏匿 Bug 的表面积，也就意味着更多的 bug。
 
-> _Less code = less surface area for bugs = fewer bugs._
+> 更少的代码 = 更小的藏匿 bug 的表面积 = 更少的 bug。
 
-### Side Effects and Shared Mutable State
+### 副作用与共享状态
 
-Many if statements do more than evaluate to a value. They also cause side-effects, or mutate variables, so you can’t see the complete effect of the if statement without also knowing the impact of those side effects and the full history of everything else that touches its shared mutable state.
+许多 if 语句不只进行了求值。它们也造成了副作用，或是改变了状态，倘若你想要知道 if 语句的完整影响，就需要知道 if 语句中的副作用的影响，对共享状态所有的变更历史等等。 
 
-Restricting yourself to returning a value forces discipline: severing dependencies so your program is easier to understand, debug, refactor, and maintain.
+将你自己限制到返回一个值，能强制你遵循这个原则：切断依赖将以让你的程序更易于理解、调试、重构以及维护。
 
-This is actually my favorite benefit of ternary expressions:
+这确实就是三元表达式中我最喜欢的益处：
 
-> _Using ternaries will make you a better developer._
+> 使用三元表达式将让你成为更好的开发者。
 
-### Conclusion
+### 结论
 
-Since all ternaries are easy to arrange in a straight line, top to bottom, calling them “nested ternaries” is a bit of a misnomer. Let’s call them “chained ternaries”, instead.
+由于所有的三元表达式都易于使用一个直线来自顶向下地分配，因此，称其为 “嵌套的三元表达式” 有点用词不当。取而代之的是，我们称其为 “链式三元表达式”。
 
-Chained ternaries have several advantages over if statements:
+相较于 if 语句，链式三元表达式有若干的优势：
 
-* It’s always easy to write them so that they read in a straight line, top to bottom. If you can follow a straight line, you can read a chained ternary.
-* Ternaries reduce syntax clutter. Less code = less surface area for bugs = fewer bugs.
-* Ternaries don’t need temporary variables, reducing load on working memory.
-* Ternaries have a better signal-to-noise ratio.
-* If statements encourage side effects and mutation. Ternaries encourage pure code.
-* Pure code decouples our expressions and functions from each other, so ternaries train us to be better developers.
+* 它总是易于通过一条直线进行自顶向下的阅读和书写。只要你能沿着直线走，就能读懂链式三元表达式。
+* 三元表达式减少了语法混乱。更少的代码 = 更小的藏匿 bug 的表面积 = 更少的 bug。
+* 三元表达式不需要临时变量，这减少了工作记忆的负荷。
+* 三元表达式有更好的信噪比。
+* if 语句鼓励副作用和可变性。三元表达式则鼓励纯代码。
+* 纯代码将我们的表达式和函数解耦，因此也将我们训练为更好的开发者。
 
-### Learn More at EricElliottJS.com
+### 在 EricElliottJS.com 上学习更多
 
-Video lessons on functional programming are available for members of EricElliottJS.com. If you’re not a member, [sign up today](https://ericelliottjs.com/).
+视频课程和函数式编程已经为  EricElliottJS.com 的网站成员准备好了。如果你还不是当中的一员，[今天就注册吧](https://ericelliottjs.com/)。
 
 [![](https://cdn-images-1.medium.com/max/800/1*3njisYUeHOdyLCGZ8czt_w.jpeg)](https://ericelliottjs.com/product/lifetime-access-pass/)
 
 * * *
 
-**_Eric Elliott_** _is the author of_ [_“Programming JavaScript Applications”_](http://pjabook.com) _(O’Reilly), and_ [_“Learn JavaScript with Eric Elliott”_](http://ericelliottjs.com/product/lifetime-access-pass/)_. He has contributed to software experiences for_ **_Adobe Systems_**_,_ **_Zumba Fitness_**_,_ **_The Wall Street Journal_**_,_ **_ESPN_**_,_ **_BBC_**_, and top recording artists including_ **_Usher_**_,_ **_Frank Ocean_**_,_ **_Metallica_**_, and many more._
+**Eric Elliott** 是  [**“编写 JavaScript 应用”**](http://pjabook.com) （O’Reilly） 以及 [**“跟着 Eric Elliott 学 Javascript”**](http://ericelliottjs.com/product/lifetime-access-pass/) 两书的作者。他为许多公司和组织作过贡献，例如 **Adobe Systems**、**Zumba Fitness**、**The Wall Street Journal**、**ESPN** 和 **BBC** 等 , 也是很多机构的顶级艺术家，包括但不限于 **Usher**、**Frank Ocean** 以及 **Metallica**。
 
-_He works remote from anywhere with the most beautiful woman in the world._
-
+大多数时间，他都在 San Francisco Bay Area，同这世上最美丽的女子在一起
 
 ---
 
