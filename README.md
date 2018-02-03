@@ -41,19 +41,19 @@
 
 ## 区块链
 
+* [比特币的三个经济阶段](https://juejin.im/post/5a61d5336fb9a01cb049667e) ([ppp-man](https://github.com/ppp-man) 翻译)
 * [加密货币泡沫为什么会破裂？](https://juejin.im/post/5a28038351882561a20a5aed) ([GreenLim](https://github.com/GreenLim) 翻译)
 * [20 年后比特币将会变成什么样 - 第一部分](https://juejin.im/post/5a1e9c2d6fb9a044fa19a036) ([ZiXYu](https://github.com/ZiXYu) 翻译)
 * [僵尸币时代即将到来?](https://juejin.im/post/5a0e82315188252ae93a843a) ([wendylinlin](https://github.com/wendylinlin) 翻译)
 * [从零到一用 Python 写一个区块链](https://juejin.im/entry/59faa0ed51882576ea3507de) ([cdpath](https://github.com/cdpath) 翻译)
-* [区块链中的共识机制 DBFT](https://juejin.im/entry/59cba85ef265da06507542a4) ([Romeo0906](https://github.com/Romeo0906) 翻译)
 * [所有区块链译文>>](https://github.com/xitu/gold-miner/blob/master/blockchain.md)
 
 ## 人工智能
 
+* [使用深度学习自动生成HTML代码 - 第 1 部分](https://juejin.im/post/5a72744e6fb9a01cb64f1d66) ([sakila1012](https://github.com/sakila1012) 翻译)
+* [Facebook 开源了物体检测研究项目 Detectron](https://juejin.im/post/5a6c2ba56fb9a01cb64f0591) ([SeanW20](https://github.com/SeanW20) 翻译)
 * [IBM 工程师的 TensorFlow 入门指北](https://juejin.im/post/5a3d1ecb518825256362de6a) ([JohnJiangLA](https://github.com/JohnJiangLA) 翻译)
 * [如何使用 Golang 中的 Go-Routines 写出高性能的代码](https://juejin.im/post/5a17c0f9f265da431a42e060) ([tmpbook](https://github.com/tmpbook) 翻译)
-* [RNN 循环神经网络系列 4: 注意力机制](https://juejin.im/post/59f72f61f265da432002871c?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([TobiasLee](https://github.com/TobiasLee) 翻译)
-* [Keras 中构建神经网络的 5 个步骤](https://juejin.im/post/59e43b5b6fb9a0452a3b5f4f?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lsvih](https://github.com/lsvih) 翻译)
 * [所有 AI 译文>>](https://github.com/xitu/gold-miner/blob/master/AI.md)
 
 ## Android
@@ -68,24 +68,24 @@
 
 * [Swift 中的值类型与引用类型使用指北](https://juejin.im/post/5a5c2c046fb9a01cbe654b48) ([DeepMissea](https://github.com/DeepMissea) 翻译)
 * [Xcode 环境配置最佳实践](https://juejin.im/post/5a4f120cf265da3e3d48f1f6) ([swants](https://github.com/swants) 翻译)
-* [基于 Metal 的 ARKit 使用指南（上）](https://juejin.im/post/5a225ffcf265da432153daa4) ([RichardLeeH](https://github.com/RichardLeeH) 翻译)
-* [处理 iOS 中复杂的 Table Views 并保持优雅](https://juejin.im/post/5a078ec3f265da431955c0d5?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([zhangqippp](https://github.com/zhangqippp) 翻译)
+* [断点：像专家一样调试代码](https://juejin.im/post/5a72be42518825733b0f374e) ([pthtc](https://github.com/pthtc) 翻译)
+* [17 个 Xcode 小技巧，每个 iOS 开发者都该知道](https://juejin.im/post/5a7198ac51882573505189c8) ([pthtc](https://github.com/pthtc) 翻译)
 * [所有 iOS 译文>>](https://github.com/xitu/gold-miner/blob/master/ios.md)
 
 ## 前端
 
-* [JavaScript 自动化爬虫入门指北（Chrome + Puppeteer + Node JS）：和 Headless Chrome 一起带你装逼带你飞](https://juejin.im/post/5a4e1038f265da3e591e1247) ([pot-code](https://github.com/pot-code) 翻译)
-* [JavaScript 是如何工作的：深入 WebSockets 和使用了 SSE+ 的 HTTP/2，如何在二者当中做出选择](https://juejin.im/post/5a522647518825732d7f6cbb) ([yoyoyohamapi](https://github.com/yoyoyohamapi) 翻译)
-* [Redux-recompose 介绍：优雅的编写 Redux 中的 action 和 reducer](https://juejin.im/post/5a4e0d7651882573315c28a1) ([pot-code](https://github.com/pot-code) 翻译)
-* [2018 要学习的优秀 JavaScript 库与知识](https://juejin.im/post/5a4e23f0f265da3e377bce4f) ([gy134340](https://github.com/gy134340) 翻译)
+* [2018 前端性能优化清单 — 第 1 部分](https://juejin.im/post/5a67e49df265da3e377c2d59) ([tvChan](https://github.com/tvChan) 翻译)
+* [2018 前端性能优化清单 - 第 2 部分](https://juejin.im/post/5a654e686fb9a01cb42c7894) ([sakila1012](https://github.com/sakila1012) 翻译)
+* [2018 前端性能优化清单 - 第 3 部分](https://juejin.im/post/5a702160f265da3e4b771109) ([sunshine940326](https://github.com/sunshine940326) 翻译)
+* [2018 前端性能优化清单 - 第 4 部分](https://juejin.im/post/5a62aa686fb9a01c91407a0b) ([ParadeTo](https://github.com/ParadeTo) 翻译)
 * [所有前端译文>>](https://github.com/xitu/gold-miner/blob/master/front-end.md)
 
 ## 后端
 
 * [利用双环 TDD 进行由外向内的开发](https://juejin.im/post/5a5dea0d6fb9a01cab28443c) ([NeilLi1992](https://github.com/NeilLi1992) 翻译)
 * [Node.js 最佳实践 —— 如何在 2018 年成为更好的 Node.js 开发者](https://juejin.im/post/5a52242e6fb9a01c914037f3) ([NeilLi1992](https://github.com/NeilLi1992) 翻译)
-* [如何用 TypeScript 玩转后端？](https://juejin.im/post/5a36837d6fb9a045167d4644) ([xilihuasi](https://github.com/xilihuasi) 翻译)
-* [使用 Rust 来写原生 Node.js 模块](https://juejin.im/post/5a2b51bff265da4332277ee0) ([LeopPro](https://github.com/LeopPro) 翻译)
+* [8 个技巧让你在 2018 年构建更好的 Node.js 应用程序](https://juejin.im/post/5a617c436fb9a01c9e46074f) ([PLDaily](https://github.com/PLDaily) 翻译)
+* [状态管理的未来: 在 Apollo Client 中使用 apollo-link-state管理本地数据](https://juejin.im/post/5a728da26fb9a01cb74eb328) ([yct21](https://github.com/yct21) 翻译)
 * [所有后端译文>>](https://github.com/xitu/gold-miner/blob/master/backend.md)
 
 ## 教程
@@ -101,8 +101,8 @@
 
 * [如何紧跟未来的设计趋势：15 个让你永远不过时的资料](https://juejin.im/post/5a52d2226fb9a01c9525ebbe) ([kangkai124](https://github.com/kangkai124) 翻译)
 * [网站设计综合指南](https://juejin.im/post/5a5abb97518825733f6df3d9) ([horizon13th](https://github.com/horizon13th) 翻译)
-* [Face ID 对易用性意味着什么](https://juejin.im/post/5a41d01cf265da432c241943) ([winry01](https://github.com/winry01) 翻译)
-* [iPhone X 网页设计](https://juejin.im/post/59e445816fb9a0450670ab82?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([HydeSong](https://github.com/HydeSong) 翻译)
+* [2018 设计趋势](https://juejin.im/post/5a695d88f265da3e58598968) ([pot-code](https://github.com/pot-code) 翻译)
+* [如何紧跟未来的设计趋势：15 个让你永远不过时的资料](https://juejin.im/post/5a52d2226fb9a01c9525ebbe) ([kangkai124](https://github.com/kangkai124) 翻译)
 * [所有设计译文>>](https://github.com/xitu/gold-miner/blob/master/design.md)
 
 
