@@ -9,7 +9,7 @@
 
 哇哦，又是新的一天，是时候来学习一些新的＂姿势＂了 🙂。
 
-大家好啊，希望你目前都还感觉不错。这是我们 RxJava2 Android 系列的第六篇文章　[ [第一话](https://juejin.im/entry/58ada9738fd9c5006704f5a1), [第二话](https://juejin.im/entry/58d78547a22b9d006465ca57), [第三话](https://juejin.im/entry/591298eea0bb9f0058b35c7f), [第四话](https://github.com/xitu/gold-miner/blob/master/TODO/war-learning-curve-rx-java-2-java-8-stream-android-rxjava2-hell-part4.md), [第五话](https://juejin.im/post/590ab4f7128fe10058f35119), [第六话,](https://github.com/xitu/gold-miner/blob/master/TODO/continuation-summer-vs-winter-observable-dialogue-rx-observable-developer-android-rxjava2-hell-part6.md) [第七话](https://github.com/xitu/gold-miner/blob/master/TODO/continuation-observable-marriage-proposal-observer-dialogue-rx-observable-developer-android-rxjava2-hell-part7.md) and [第八话](https://github.com/xitu/gold-miner/blob/master/TODO/confusion-subject-observable-observer-android-rxjava2-hell-part8.md) ]。在这一篇文章中，我们将继续与 Rx 展开对话。还有一件重要的事情是，基本上 Summer vs Winter 意味着热启动和冷启动的Observale 🙂 .
+大家好啊，希望你目前都还感觉不错。这是我们 RxJava2 Android 系列的第六篇文章　[ [第一话](https://juejin.im/entry/58ada9738fd9c5006704f5a1), [第二话](https://juejin.im/entry/58d78547a22b9d006465ca57), [第三话](https://juejin.im/entry/591298eea0bb9f0058b35c7f), [第四话](https://github.com/xitu/gold-miner/blob/master/TODO/war-learning-curve-rx-java-2-java-8-stream-android-rxjava2-hell-part4.md), [第五话](https://juejin.im/post/590ab4f7128fe10058f35119), [第六话,](https://github.com/xitu/gold-miner/blob/master/TODO/continuation-summer-vs-winter-observable-dialogue-rx-observable-developer-android-rxjava2-hell-part6.md) [第七话](https://github.com/xitu/gold-miner/blob/master/TODO/continuation-observable-marriage-proposal-observer-dialogue-rx-observable-developer-android-rxjava2-hell-part7.md) and [第八话](https://github.com/xitu/gold-miner/blob/master/TODO/confusion-subject-observable-observer-android-rxjava2-hell-part8.md) ]。在这一篇文章中，我们将继续与 Rx 展开对话。还有一件重要的事情是，基本上 Summer vs Winter 意味着 Hot 和 Cold Observale 🙂 .
 
 **我为啥要写这个呢:**
 原因和我在 [part1](http://www.uwanttolearn.com/android/reactive-programming-android-rxjava2-hell-part1/) 与你分享过的一样。
@@ -25,20 +25,20 @@ Observable：其实还有很多。我在这里介绍两类 Observable 对象。�
 
 Observable: 哈哈哈哈，当然了。那么有多少人了解商场的促销人员，就是那些站在商店门口希望藉由大声吆喝来招揽顾客的人？
 
-Me: 估计没几个，很多人都不太了解这种盛行于亚洲国家比如巴基斯坦和印度的销售文化。。。你能试着采用一些更加通俗的例子吗，这样的话全世界的人都能更加轻易的理解这个概念。
+Me: 估计没几个，很多人都不太了解这种盛行于亚洲国家比如巴基斯坦和印度的销售文化。。。你能试着采用一些更加通俗的例子吗，这样的话每个人都能更加轻易的理解这个概念。
 
 Observable: 当然，没问题。有多少人了解咖啡和咖啡店呢？
 Me: 差不多每个人吧。
 
-Observable: 很好。现在这里有两家咖啡店，一家叫做霜语咖啡店，一家叫做火舞咖啡店。Any one who will go to Cold Music coffee cafe he can buy a coffee and after that he can go and sit any where in the cafe. In cafe there are smart headphones which are attached with every sitting place. They have a play list of three poems. Now the smartness of these headphones is, any one who will wear headphone. Headphone always start from poem 1 and if in between any one took off headphone and wear again that always start from poem 1. Also if any body took off headphone will stop poem playing.
+Observable: 很好。现在这里有两家咖啡店，一家叫做霜语咖啡店，一家叫做火舞咖啡店。任何一个去霜语咖啡馆的人都可以买一杯咖啡，然后坐在咖啡馆的任何地方。咖啡厅里的每个座位上都提供了一副智能耳机。他们提供了一个有三首诗的播放列表。这些智能耳机很受欢迎，所以每个人都会戴上他们。这些耳机总是从第一首诗开始播放，如果有人中途取下了耳机后再次重新戴上，那么这些耳机仍然会重新从第一首诗开始播放。对了，如果你只是取下了耳机，那么它也就会停止播放。
 
-Vice versa in Hot Music coffee cafe they have a complete music system. As you enter in that cafe you will start listening poems because they have a very good music system with very large speakers. They have also unlimited poems and as a first cafe boy open the cafe he/she starts the system. So there system is independent from there cafe clients, any body will enter in cafe he will start listening the poem from that point of time and he never know before he enter in the cafe how many poems already finished. Now this is the same concept in observables.
+反过来，火舞咖啡馆有一套完善的且需要耳机聆听的音乐播放系统。当你进入咖啡馆的时候，你就会开始听到他们播放的诗，因为他们有着非常好的音乐播放系统和一个大号的扬声器。他们还有着一个有着无限诗歌的播放列表，他们会打开这个系统当他们每天开始营业的时候。所以说这个系统的运行与顾客无关，任何将会进入这家咖啡馆的人都能听到那个时刻正在播放的诗，并且他永远也不知道他进入之前已经播放完了多少诗了。这跟我们要讲的 observable 是一个概念。
 
-Just like Cold Music coffee cafe headphones, cold observables are always lazy. Like you will create a Observable by using Observable.fromArray() or any other method but they are just like a headphone. As you subscribe to that Observable you will start getting data same like any body wear a headphone and poem start playing. Now subscriber unsubscribed from Observable, so you will not get any new data just like a headphone took off stop playing poem.
+就像霜语咖啡馆的那些耳机，cold obervable 总是被动的。就像你用 Observable.fromArray() 或者其他任何方法来创造 Observable 一样，他们和那些耳机差不多。如同戴上耳机播放列表才会播放一样，当你开始订阅那些 Observable 后你才会开发接收到数据。而当订阅者取消了对 Observable 的订阅后，如同取下耳机后诗会停止播放一样，你也将不再能接收到数据。
 
-Last and important point Cold Music coffee cafe have a lot of headphones but every headphone always start when anybody wear a headphone. If one person is reached to a second poem and some other person will wear a other headphone he will start listening from poem 1. Its mean every person will get a separate poem playlist. In a same way if we have three subscribers and they will subscribe to Cold Observable they will get a separate data stream, means observable will call there onNext method for these three subscribers separately as they will subscribe. In that way we can say Cold Observables are dependent upon there subscriber just like a headphone.
+最后的重点是霜语咖啡馆提供了很多副耳机，每副耳机只会在有人戴上它们之后才会开始播放。如果某个人已经播放到了第二首诗，但另外的某个人才戴上耳机，那么第二个人会从第一首诗开始播放。这意味着每个人都有独立的播放列表。就如同我们有三个订阅了 Cold Observable 的订阅者一样，它们会得到各自独立的数据流，也就是说 observable 会对每个订阅者单独地去调用三次 onNext 方法。换句话说就是，Cold Observable 如同那些耳机一样依赖于订阅者的订阅(顾客戴上耳机)。
 
-Now Hot observables are just like a Hot Coffee Cafe music system. Once cafe open, music system start playing poems with out taking care of any one. It always playing poems and any body come in side, he will start listening that poem from that point of time. That is same happen in Hot Observables, once they are created and they start emitting the data, any subscriber will subscribe to that Observable and start getting data from that specific point of time and he will never get the old values. Its mean Hot Observable are independent from subscribers and they don’t care of any previous data. Any time any subscriber will subscribe will start getting data from that point. I think I will use the same example in code and later [Me] will give you some real world example.
+Hot observable 就像火舞咖啡馆的音乐系统一样。一旦咖啡馆开始营业，其音乐系统就会开始播放诗歌，不管有没有人在听。每位进来的顾客都会从那个时刻正好在播放的诗开始聆听。这跟 Hot Observable 所做的事情一样，一旦它们被创建出来就会开始发射数据，任何的订阅者都会从它们开始订阅的那个时间点开始接收到数据，并且绝不会接收到之前就发射出去的数据。任何订阅者都会在订阅之后才接收到数据。我想我会使用同样的例子来进行编码，并且之后我会给一些真真正正的例子。
 
 **Cold Observable:**
 
@@ -67,7 +67,7 @@ public class HotVsCold {
 }
 ```
 
-Now that is a really simple example in code. I have 4 clients and I have a playlist which I turn into coldMusicCoffeeCafe Observable. After that first two clients attached with the cold observable as program start and later I have a 2 second wait and then 3 and 4 client subscribe to the cold observable and in the end when we saw the output we can easily saw all subscribers or clients will get all poems from start to end.
+好吧，这是一些很简单的示例代码。我有4个顾客和1个我在霜语咖啡馆例子里提到的播放列表。当头两个顾客戴上了耳机后，我暂停了2秒的程序，然后3号和4号顾客也戴上了耳机。在最后我们查看输出数据时，我们能轻易地看出每个顾客都把3首诗从头听了一遍。
 
 Output:
 [Poem 1, Poem 2, Poem 3]
@@ -96,7 +96,7 @@ public static void main(String[] args) throws InterruptedException {
     Thread.sleep(1000); // Client two should start listening poem 3 
     connectableObservable.subscribe(client2);
 
-    Thread.sleep(4000); // Client 3 and 4 enter will start from poem 9.
+    Thread.sleep(4000); // Client 3 and 4 enter will start from poem 7.（译者注：本来是写的 poem 9, 不知道为啥会是9）
     connectableObservable.subscribe(client3);
     connectableObservable.subscribe(client4);
 
@@ -104,21 +104,20 @@ public static void main(String[] args) throws InterruptedException {
 }
 ```
 
-Hot Music Coffee cafe open and the cafe boy starts the system. Poems start playing as shown in above line where we call connect method. For the time being don’t focus on connect only try to grasp the concept. After two poems or seconds first customer enter in the cafe so he will start listening from poem 2\. Then next customer enter after 1 second so he start listening from poem 3\. Later customer 3,4 enter in a cafe after 4 seconds of a customer 2\. Now they start listening from poem 9\. You can see this Hot Observable is independent from subscriber. Once he start emitting data he don’t care any body is subscribe or not. On the other hand all subscriber will get data from the time when they subscribe they never get the history or events which are already emitted.
-Now I have a feeling you grasp the concept of Hot vs Cold Observable. Now Its time to see how to create these observables in the form of points.
+火舞咖啡馆开始营业的时候就会开启其音乐播放系统。诗歌会在以上代码里我们调用 connect 方法的时候开始播放。暂时先不需要关注 connect 方法，而只是试着理解这个概念。当经过2秒暂停，第一个顾客走进了咖啡馆后，他会从第二首诗开始听。下一个顾客会在1秒暂停后进来，并且从第三首诗开始听。之后，第三和第四位顾客会在4秒后进入，并且从第七首诗开始听。你可以看到这个音乐播放系统是独立于顾客的。一旦这个音乐系统开始运行，它并不在乎有没人顾客在听。也就是说，所有的顾客会在他们进入时听到当前正在播放的诗，而且他们绝不会听到之前已经播放过的诗。现在我觉得你已经抓住了 Hot vs Cold Observable　的概念。是时候来瞧一瞧如何创建这些不同 observables 的要点了。
 
 Cold Observable:
-1. All Observables implicitly are Cold Observables. Its mean if we use Observable.create() or Observable.fromArray() or any other method to create Observable that is Cold Observable.
-2. Any subscriber when subscribe to Cold Observable that always get independent data stream from start to end.
-3. If no subscriber subscribes with the Cold Observable they are doing nothing. They are lazy.
+1. 所有的 Observable 默认都是 Cold Obserable。这就是说我们使用诸如 Observable.create() 或者 Observable.frinArray() 这类的方法所创建出来的 Observable 都是 Cold Observable。
+2. 任何订阅 Cold Observable 的订阅者都会接收到独立的数据流。
+3. 如果没有订阅者订阅，它就什么事情也不会做。是被动的。
 
 Hot Observable:
-1. Hot Observable once created, they start emitting data without taking care of subscribers.
-2. All subscribers will get the same data from the specific point when they will do subscribe to a Hot Observable.
+1. 一旦 Hot Observable 被创建了，不管有没有订阅者，它们都会开始发送数据。
+2. 相同时间开始订阅的订阅者会得到同样的数据。
 
-Me: Hmmm good. Can you tell us how I can convert our Cold Observable into Hot Observable.
+Me: 听上去不错。你能告诉我如何将我们的 Cold Observable 转换成 Hot Observable吗。
 
-Observable: Yes. Conversion between Cold to Hot Observable is really simple.
+Observable: 当然，Cold 和 Hot Observable之间的转换很简单。
 
 ```
 List<Integer> integers = new ArrayList<>();
@@ -128,14 +127,14 @@ Observable.range(0, 10000)
 Observable<List<Integer>> listObservable = Observable.fromArray(integers);
 ```
 
-Now in above code block. listObservable is a Cold observable. Its time to see how we can convert this Cold observable into Hot observable.
+上面就是转换的代码啦。listObservable 是一个 Cold Observable。现在来看看我们怎么把这个 Cold Observable 转换成 Hot Observable 的。
 
 ```
 Observable<List<Integer>> listObservable = Observable.fromArray(integers);
 ConnectableObservable connectableObservable = listObservable.publish();
 ```
 
-In above code we converted our Cold observable into Hot observable by using publish() method. So we can say any Cold observable will be converted into Hot by calling there publish() method and this publish method always give you ConnectableObservable but currently that is not emitting data. That is a little tricky thing. As I call publish() method on any observable. Its mean from now any subscriber will subscribe with this Observable will share a same data, from that point of time when he subscribe. As we know in Hot Coffee every body will get a same poem data stream only difference is when subscriber subscribe they get data from that specific point of time. Now interesting point is, if any number of subscribers subscribe with **connectableObservable** they will get nothing. May be you guys are confused. Basically there are two things. When I will call publish() its mean from now this Observable will emit a single data or this observable have a single data source for emitting data to all subscribers but to start data emitting I need to call **connect()** method like as shown below.
+我们用 publish() 方法将我们的 Cold Observable 转换成了 Hot Observable。于是我们可以说任何的 Cold Observable都可以用调用 publish() 方法来转换成 Hot Observable，这个方法会返回给你一个 ConnectableObservable，只是此时还没有开始发射数据。有点神奇啊。当我对任意 observabale 调用 publish() 方法时，这意味着从现在开始任何开始订阅的订阅者都会分享同样的数据流。有趣的一点是，如果现在有任意的订阅者订阅了 **connectableObservable**，它们什么也得不到。也许你们感到有些疑惑了。这里有两件事需要说明。当我调用 publish() 方法时，只是说明现在这个 Observable 做好了能成为单一数据源来发射数据的准备，为了真正地发射数据，我需要调用 **connect()** 方法，如下方代码所示。
 
 ```
 Observable<List<Integer>> listObservable = Observable.fromArray(integers);
@@ -143,20 +142,21 @@ ConnectableObservable connectableObservable = listObservable.publish();
 connectableObservable.connect();
 ```
 
-Now that is really simple. Remember publish() will convert Cold Observable to Hot but never start data emission. For data emission we need to call a connect() method. As I call a connect() method on ConnectableObservable data will start emitting without any subscriber or may be with thousand subscribers. Now there are also some other methods which are really useful in real life projects like refCount(), share(), replay() but currently I am stopping here and [Me] will give you one more good example which I will do a review. So you guys really grasp this concept.
+很简单对吧。记住调用 publish() 只是会把 Cold Observable 转换成 Hot Observable，而不会开始发射数据。为了能够发射数据我们需要调用 cocnnect()。当我对一个 ConnectableObserbale 调用 connect() 时，数据才会开始被发射，不管有没有订阅者。这里还有一些在正式项目里会非常有用的方法，比如 refCount()、share()、replay()。在开始谈及它们之前，我会就此打住并再给你展示一个例子，以确保你们真正抓住了要领。
 
-Me: Oh man that is very long but easy.
+Me: 好嘞，希望不要太复杂。
 
-Observable: haha that is nothing [Me]. Only I need to explain in a way so every body should grasp the concept otherwise that is a very easy and simple topic.
+Observable: 哈哈哈，不会的。我只是需要再来详细解释一下，确保每个人都把握了这个概念，因为这个概念其实并不算是特别简单的和容易理解的。
 
-Me: Agree. So Now I am going to give a one example which may more helpful to grasp this concept more accurately.
-Now consider we have one Observable as shown below.
+Me: 我也觉得。Agree.
+
+Observable：现在我会给你一个例子来让你更好地来准确把握这个概念。比如我们有如下的一个 Observable。
 
 ```
 Observable<String> just = Observable.just("Hello guys");
 ```
 
-Now two different subscriber, subscriber to this Observable.
+还有两个不同的订阅者订阅了它。
 
 ```
 public class HotVsCold {
@@ -172,7 +172,7 @@ Output:
 Hello guys
 Hello guys
 
-Now I have a question. Is this Observable is cold or hot. Yes I know you already know there is no publish() method so that is cold. For the time being image that observable I am getting from some third party library. So I don’t know what is the type of this Observable. Now I am going to take a new example due to that lot of things will clear to everyone.
+我的问题是，这个 Observable 是　cold 还是 hot 的呢。我知道你肯定已经知道这个是 cold，因为这里没有 publish() 的调用。先暂时把这个想象成我从某个第三方库获得而来的，于是我也不知道这是哪种类型的 Observable。现在我打算写一个例子，这样很多事情就不言而喻了。
 
 ```
 public static void main(String[] args) {
@@ -183,15 +183,15 @@ public static void main(String[] args) {
 }
 ```
 
-Here I have a Random value so Its time to review program output and discuss is it Cold or Hot Observable?
+我有一段生产随机数的程序，让我们来看下输出再来讨论这是 Cold 还是 Hot。
 
 Output:
 1531768121
 607951518
 
-So both values are different. Its mean that is a cold observable because every time I am getting a new value according to definition of Cold Observable they never share the data. Every time they produce a new or fresh data or in simple words onNext() method call two times for two different subscribers.
+两个不同的值。这就是说这是一个 cold observable，因为根据 Cold Observable 的定义每次都会得到一个全新的值。每次它都会创建一个全新的值，或者简单来说 onNext() 方法会被不同的订阅者分别调用一次。
 
-Now its time to change this same Cold into Hot Observable.
+现在让我们来把这个 Cold Observable 转换成 Hot的。
 
 ```
 public static void main(String[] args) {
@@ -204,13 +204,13 @@ public static void main(String[] args) {
 }
 ```
 
-Before going to explain the above code first we should review the output of this code.
+在解释上面的代码之前，先让我们来看一下输出。
 Output:
 1926621976
 1926621976
 
-Now this time I got a same data in both subscribers. Its mean that is a Hot Observable because hot observable always send a data from a single source or in simple words we got a data only from one time call of onNext() method. Next thing I am going to explain the call of publish() and connect() method.
-As I call a publish() method, its mean now my this observable is independent of subscribers and that only share the same source of data emission with all subscribers. In simple words, this Hot Observable will push the same onNext() method call data to all subscribers. Here may be one thing is little bit confused, I called a connect() method after the subscription of two subscribers. Because I want to show you guys Hot Observable is independent and data emission should be done by one call of onNext() and we know Hot Observable only start data emitting when we call connect() method. So fist we subscribed two subscribers and then we called a connect() method, in that way both will get same data. Now I am going to give you one more taste of same example.
+我们的两个不同订阅者得到了同一份数据。根据 hot observable 总是发射一份数据只发射一次的定义说明了这是一个 Hot Obsevable，或者简单来说 onNext() 只被调用了一次。我接下来会解释　publish() 和 connect() 的调用。
+当我调用 publish()　方法时，这意味着我的这个 observable 已经独立于订阅者，并且所有订阅者只会接收到同一个数据源发射地同一份数据。简单来说，Hot Observable 将会对所有订阅者发射调用一次 onNext() 所产生的数据。As I call a publish() method, its mean now my this observable is independent of subscribers and that only share the same source of data emission with all subscribers. In simple words, this Hot Observable will push the same onNext() method call data to all subscribers. Here may be one thing is little bit confused, I called a connect() method after the subscription of two subscribers. Because I want to show you guys Hot Observable is independent and data emission should be done by one call of onNext() and we know Hot Observable only start data emitting when we call connect() method. So fist we subscribed two subscribers and then we called a connect() method, in that way both will get same data. Now I am going to give you one more taste of same example.
 
 ```
 Random random = new Random();
