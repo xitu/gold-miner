@@ -1,3 +1,7 @@
+* [如何打造以人为本的移动游戏](https://juejin.im/post/5a61663b518825732f7ecd2a) ([hanliuxin5](https://github.com/hanliuxin5) 翻译)
+* [开发者也是用户 - 第二部分：改善 UI 和 API 可用性的五条指导原则](https://juejin.im/post/5a728eef6fb9a01ca0722990) ([tanglie1993](https://github.com/tanglie1993) 翻译)
+* [开发者也是用户 - 简介](https://juejin.im/post/5a6536e6518825734216ff06) ([lsvih](https://github.com/lsvih) 翻译)
+* [构建更具可用性的 UI 与 API 的 5 个方针](https://juejin.im/post/5a653a65f265da3e317e43e7) ([lsvih](https://github.com/lsvih) 翻译)
 * [函数式 Java 到函数式 Kotlin 的转换](https://juejin.im/post/5a52fac96fb9a01c9657fa4e) ([huanglizhuo](https://github.com/huanglizhuo) 翻译)
 * [开发者须知：女性用户和手机游戏](https://juejin.im/post/5a4d96fd5188253865099818) ([corresponding](https://github.com/corresponding) 翻译)
 * [像奥利奥一样的双重安全措施，尽在 Android Oreo](https://juejin.im/post/5a5376b06fb9a01c927e8be0) ([XPGSnail](https://github.com/XPGSnail) 翻译)
