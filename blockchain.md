@@ -1,3 +1,4 @@
+* [比特币的三个经济阶段](https://juejin.im/post/5a61d5336fb9a01cb049667e) ([ppp-man](https://github.com/ppp-man) 翻译)
 * [加密货币泡沫为什么会破裂？](https://juejin.im/post/5a28038351882561a20a5aed) ([GreenLim](https://github.com/GreenLim) 翻译)
 * [20 年后比特币将会变成什么样 - 第一部分](https://juejin.im/post/5a1e9c2d6fb9a044fa19a036) ([ZiXYu](https://github.com/ZiXYu) 翻译)
 * [僵尸币时代即将到来?](https://juejin.im/post/5a0e82315188252ae93a843a) ([wendylinlin](https://github.com/wendylinlin) 翻译)
