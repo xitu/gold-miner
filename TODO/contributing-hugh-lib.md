@@ -15,7 +15,7 @@
 
 ## 发现/定位一个 bug
 
-首先你要做的是访问 Django 的 [Easy pickings](https://code.djangoproject.com/query?status=!closed&easy=1)部分。在那里你可以找到易于修复 ticket 和小错误。每天都会有新的 ticket。找到没有分配给任何人的 ticket。如下图所示： 
+首先你要做的是访问 Django 的 [Easy pickings](https://code.djangoproject.com/query?status=!closed&easy=1)部分。在那里你可以找到易于修复 ticket 和小 bug。每天都会有新的 ticket。找到没有分配给任何人的 ticket。如下图所示： 
 
 ![Alt text](https://vinta-cms.s3.amazonaws.com/media/filer_public/d7/a3/d7a34921-1f76-49f3-89e0-e0d35c0d552c/easy_pickings_search.png)
 
@@ -23,7 +23,7 @@
 
 ![Alt text](https://vinta-cms.s3.amazonaws.com/media/filer_public/25/92/2592c87c-c1e0-4a32-b8d5-97e35df7dcd6/easy_bug_card.png)
 
-正如我之前所说，我已经解决了这个错误。所以当我把这个 bug 分配给我自己，错误将被关闭，并有一些相关的 PR。因此当你选择一个 bug 时，千万不要忘记把它分配给自己。这是为了防止其他人重复选择这个 bug。你需要在 Django 的网站上登录，在 ticket 页面的顶部有链接。
+正如我之前所说，我已经解决了这个 bug。所以当我把这个 bug 分配给我自己，bug 将被关闭，并有一些相关的 PR。因此当你选择一个 bug 时，千万不要忘记把它分配给自己。这是为了防止其他人重复选择这个 bug。你需要在 Django 的网站上登录，在 ticket 页面的顶部有链接。
 
 如果你打开 ticket 页面，你可能会看到一些关于如何解决问题的意见和方案。通常这些对你都是很有帮助的。
 
