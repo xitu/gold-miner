@@ -9,11 +9,11 @@
 
 当我们准备开始编码并开源的时候，总感觉无从下手。 我知道，以自己喜欢的方式去打造一个精彩绝伦的代码库的这个想法听起来是有一点吓人的。不过幸运的是，只要你愿意，很多开源库会为你提供大显身手的空间。他们同样会给予我们所需要的支持。听起来很不错吧？
 
-你知道著名的 python 框架么？[Django](https://www.djangoproject.com/)！他们的网站上有一个部分叫 [Easy Pickings](https://code.djangoproject.com/query?status=!closed&easy=1)。假如你准备开源并为一个精彩的代码库做贡献，这就是为你而准备的！
+你知道著名的 python 框架吗？[Django](https://www.djangoproject.com/)！他们的网站上有一个部分叫 [Easy Pickings](https://code.djangoproject.com/query?status=!closed&easy=1)。假如你准备开源并为一个精彩的代码库做贡献，这就是为你而准备的！
 
-在这篇博客中，我将逐步向你展示如何通过修复一个名为 **Django easy pick** 的问题来为开源代码库做贡献的，通过这几个简单的步骤你也可以做到。接下来我将通过从头到尾修复一个 bug 来讲解，跟我来！
+在这篇博客中，我将逐步向你展示如何通过修复 Django easy pick 问题来为开源代码库做贡献的，通过这几个简单的步骤你也可以做到。接下来我将通过修复一个缺陷来从头到尾讲解这个过程，跟我来！
 
-## 发现/固定一个 bug
+## 发现/定位一个 bug
 
 首先你要做的是访问 Django 的 [Easy pickings](https://code.djangoproject.com/query?status=!closed&easy=1)部分。在那里你可以找到易于修复 ticket 和小错误。每天都会有新的 ticket。找到没有分配给任何人的 ticket。如下图所示： 
 
@@ -29,7 +29,7 @@
 
 好了！我们现在已经找到并理解了一个公开的 ticket 是什么样子的。
 
-## 开撸
+## 开始编码
 
 第一步先 fork [Django repo](https://github.com/django/django)仓库。第二步，编写你的代码，并按照建议的风格进行提交[Django's guidelines](https://docs.djangoproject.com/en/1.10/internals/contributing/committing-code/#committing-guidelines)。可以参考一下我的提交： _[1.9.x] Fixed #26026 -- Checked if the QuerySet is empty_。最后发起 pull request。
 
