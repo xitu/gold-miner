@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/a-simple-web-app-in-rust-pt-3.md](https://github.com/xitu/gold-miner/blob/master/TODO/a-simple-web-app-in-rust-pt-3.md)
 > * 译者：[LeopPro](https://github.com/LeopPro)
-> * 校对者：
+> * 校对者：[ryouaki](https://github.com/ryouaki)
 
 # 使用 Rust 开发一个简单的 Web 应用，第 3 部分 —— 整合
 
@@ -357,7 +357,7 @@ Could not compile `simple-log`.
 To learn more, run the command again with --verbose.
 ```
 
-哦，我知道从 `String` 转化到 `&str` 的方法，嗯……我想起可以用 `&`。
+因此，我知道从 `String` 转化到 `&str` 的方法，嗯……我想起可以用 `&`。
 
 ```
 fn do_log_time() -> &'static str {
@@ -507,7 +507,7 @@ To learn more, run the command again with --verbose.
 
 因为我现在是在实践而非理论学习，我想尝试一下使用 `String` 看看是否有效。
 
-Now:
+现在：
 
 ```
 fn do_log_time() -> String {
@@ -615,7 +615,7 @@ Entry Logged: Tue, Jun 23 2015 12:34:19 AM
 
 ## 3 结语
 
-整合工作比我预期的难得多。假借 / 所有权花费了我一些时间，所以我打算在这停一停，因为已经写了很长了。
+整合工作比我预期的难得多。假借（Borrowing） / 所有权（Ownership）花费了我一些时间，所以我打算在这停一停，因为已经写了很长了。
 
 幸运的是，我认为我在慢慢理解 Rust 的工作机制，尤其是它的假借功能。这给了我对未来的希望。
 
