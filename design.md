@@ -1,3 +1,4 @@
+* [2018 设计趋势](https://juejin.im/post/5a695d88f265da3e58598968) ([pot-code](https://github.com/pot-code) 翻译)
 * [如何紧跟未来的设计趋势：15 个让你永远不过时的资料](https://juejin.im/post/5a52d2226fb9a01c9525ebbe) ([kangkai124](https://github.com/kangkai124) 翻译)
 * [网站设计综合指南](https://juejin.im/post/5a5abb97518825733f6df3d9) ([horizon13th](https://github.com/horizon13th) 翻译)
 * [Face ID 对易用性意味着什么](https://juejin.im/post/5a41d01cf265da432c241943) ([winry01](https://github.com/winry01) 翻译)
