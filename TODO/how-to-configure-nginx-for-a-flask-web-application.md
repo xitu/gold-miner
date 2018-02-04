@@ -2,83 +2,83 @@
 > * 原文作者：[patricksoftware](http://www.patricksoftwareblog.com)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/how-to-configure-nginx-for-a-flask-web-application.md](https://github.com/xitu/gold-miner/blob/master/TODO/how-to-configure-nginx-for-a-flask-web-application.md)
-> * 译者：
+> * 译者：[lsvih](https://github.com/lsvih)
 > * 校对者：
 
-# How to Configure NGINX for a Flask Web Application
+# 如何为 Flask Web 应用配置 Nginx
 
-### **Introduction**
+### **简介**
 
-In this blog post, I’ll be explaining what [NGINX](https://www.nginx.com/) is and how to configure it for serving a Flask web application. This blog post is part of a larger series on [deploying Flask applications](http://www.patricksoftwareblog.com/all-posts/). I’ve found a lot of documentation about NGINX and how to configure it, but I wanted to dive into the details for how NGINX can be used in a Flask web application and how to configure it. I’ve found the configuration of NGINX to be a bit confusing, as a lot of the documentation simply shows a configuration file(s) without explaining the details of what each step does. Hopefully this blog post provides some clarity on configuring NGINX for your application.
+在本文中，我将介绍什么是 [Nginx](https://www.nginx.com/) 以及如何为 Flask Web 应用配置 Nginx。本文是[《部署 Flask 应用》](http://www.patricksoftwareblog.com/all-posts/)系列文章的一部分。我曾找到过多份关于 Nginx 及其配置的文章，但我希望能更深入其细节，了解如何使用 Nginx 为 Flask Web 应用服务以及如何为此进行配置。Nginx 的配置文件有点让人困惑，因为大多数的文档仅仅是简单罗列了一个配置文件，而没有对配置中每一步做了什么进行任何解释。希望本文能让你清晰地理解如何为你的应用配置 Nginx。
 
-### **What is NGINX?**
+### **什么是 Nginx？**
 
-From the NGINX (pronounced ‘engine-X’) website, here is the high-level description of the tool:
+在 Nginx（发音为“engine-X”）的官网中，有着这个工具的概要描述：
 
-_NGINX is a free, open-source, high-performance HTTP server and reverse proxy, as well as an IMAP/POP3 proxy server. NGINX is known for its high performance, stability, rich feature set, simple configuration, and low resource consumption._
+_Nginx 是一款免费、开源、高性能的 HTTP 服务器以及反向代理，同时也可以作为 IMAP/POP3 代理服务器。Nginx 以其高性能、稳定性、丰富的功能、简单的配置、低资源消耗而闻名。_
 
-Let’s expand on this description… NGINX is a server that handles [HTTP](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol) requests for your web application. For a typical web application, NGINX can be configured to perform the following with these HTTP requests:
+我们可以拓展理解此说明…… Nginx 是一个可以为你的 Web 应用处理 [HTTP](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol) 请求的服务器。对于典型的 Web 应用，Nginx 可以配置为 HTTP 请求进行以下操作：
 
-* [Reverse proxy](https://en.wikipedia.org/wiki/Reverse_proxy) the request to an upstream server (such as Gunicorn, uWsgi, Apache, etc.)
-* Server static content (Javascript files, CSS files, images, documents, static HTML files)
+* 将请求 [反向代理](https://en.wikipedia.org/wiki/Reverse_proxy) 至上游服务器（例如 Gunicorn、uWsgi、Apache 等）。
+* 为静态资源（Javascript 文件、CSS 文件、图像、文档、静态 HTML 文件）提供服务。
 
-NGINX also provides a [load balancing](http://nginx.org/en/docs/http/load_balancing.html) capability to allow requests to be serviced by multiple upstream servers, but that functionality is not discussed in this blog post.
+同时 Nginx 也提供了[负载均衡](http://nginx.org/en/docs/http/load_balancing.html)功能，可以让多个上游服务器为请求提供服务，不过在本文中暂不讨论此功能。
 
-Here’s a diagram illustrating how NGINX fits into a Flask web application:
+下图为描述 Nginx 如何为 Flask Web 应用提供服务的简图：
 
-[![nginx-in-production-environment](http://www.patricksoftwareblog.com/wp-content/uploads/2016/09/NGINX-in-Production-Environment.png)](http://www.patricksoftwareblog.com/wp-content/uploads/2016/09/NGINX-in-Production-Environment.png)
+[![生产环境中的 Nginx](http://www.patricksoftwareblog.com/wp-content/uploads/2016/09/NGINX-in-Production-Environment.png)](http://www.patricksoftwareblog.com/wp-content/uploads/2016/09/NGINX-in-Production-Environment.png)
 
-NGINX handles the HTTP requests that come in from the internet (ie. the users of your application). Based on how you configure NGINX, it can directly provide the static content (Javascript files, CSS files, images, documents, static HTML files) back to the requester. Additionally, it can reverse proxy the requests to your WSGI ([Web Server Gateway Interface](https://en.wikipedia.org/wiki/Web_Server_Gateway_Interface)) server to allow you to generate the dynamic content (HTML) in your Flask web application to be delivered back to the user.
+Nginx 会处理来自因特网（比如来自你应用的用户）的 Http 请求。根据你对 Nginx 的配置，它可以直接提供并向请求源返回静态内容（Javascript 文件、CSS 文件、图像、文档、静态 HTML 文件）。此外，它也能将请求反向代理至 WSGI（[Web Server Gateway Interface](https://en.wikipedia.org/wiki/Web_Server_Gateway_Interface)）以让你在 Flask Web 应用中生成动态内容（HTML）并返回给用户。
 
-This diagram assumes the use of Docker, but the configuration of NGINX would be very similar if not using Docker (just omit the concept of containers from the diagram).
+上面的示意图假定用户使用了 Docker，但不使用 Docker 时 Nginx 的配置也与此十分相似（仅仅省略了图中容器的概念）。
 
-### Why do you need NGINX and Gunicorn?
+### 为什么你需要 Nginx 与 Gunicorn？
 
-NGINX is a HTTP server that is used in lots of different application [stacks](https://www.nginx.com/resources/wiki/start/#pre-canned-configurations). It performs a lot of functions, but it is not able to directly interface with a Flask application. That is where [Gunicorn](http://gunicorn.org/) comes in to play. HTTP requests are received by NGINX and passed along to Gunicorn to be processed by your Flask application (think of the route(s) defined in your views.py). Gunicorn is a WSGI server that handles HTTP requests and routes them to any python application that is WSGI-compliant, such as Flask, Django, Pyramid, etc.
+Nginx 作为一个 HTTP 服务器，在许多应用中都被使用：[列表](https://www.nginx.com/resources/wiki/start/#pre-canned-configurations)。它提供了许多的功能，但无法直接为 Flask 应用提供服务。而 [Gunicorn](http://gunicorn.org/) 可以做到这一点。Nginx 收到 HTTP 请求，并将其传递给 Gunicorn 交由你的 Flask 应用进行处理（比如你在 view.py 中定义的路由）。Gunicorn 是一个 WSGI 服务器，可以处理 HTTP 请求，并将它们通过路由交给任何支持 WSGI 的 python 应用处理（比如 Flask、Django、Pyramid 等）。
 
-### **Structure of NGINX Configuration Files**
+### **Nginx 配置文件的结构**
 
-_NOTE: This blog post uses NGINX v1.11.3\. The configuration files could be located at different locations depending on your specific version on NGINX, such as /opt/nginx/conf/._
+_注意：本文应用的是 Nginx v1.11.3，配置文件所在的位置根据你 Nginx 版本的不同会有所变化，比如 /opt/nginx/conf/。_
 
-Depending on how you installed or are using NGINX, the structure of the configuration files will be slightly different. Both structures are presented below…
+根据你安装、使用 Nginx 方式的不同，配置文件的结构会略有不同。大多数的配置结构如下所示：
 
-#### Structure 1
+#### 结构 1
 
-If you compile NGINX from the source code or use an official Docker image, then the configuration files are located at: /etc/nginx/ and the main configuration file is /etc/nginx/nginx.conf. At the bottom of /etc/nginx/nginx.conf is a line to include any additional configuration files located in the /etc/nginx/conf.d/ directory:
+如果你使用的是从源代码编译得到的 Nginx 或者官方的 Docker 映象，那么配置文件在 /etc/nginx/ 中，主配置文件为 /etc/nginx/nginx.conf。在 /etc/nginx/nginx.conf 的最下面的一行会将位于 /etc/nginx/conf.d/ 目录下的其余配置文件内容载入配置中：
 
 * include /etc/nginx/conf.d/*.conf;
 
-#### Structure 2
+#### 结构 2
 
-If you installed NGINX using a package manager (such as apt-get on Ubuntu), then you will also have the following sub-directories in the /etc/nginx/ directory:
+如果你是通过包管理器（比如 Ubuntu 的 apt-get）安装的 Nginx，那么你的 /etc/nginx/ 下会有下面两个子目录：
 
-* sites-available – contains the different configuration files, often for different sites.
-* sites-enabled – contains a symbolic link a file defined in sites-available
+* sites-available – 包含为多个网站准备的多个配置文件。
+* sites-enabled – 包含一个指向 sites-available 目录中配置文件的软链接。
 
-These directories are holdovers from Apache that have been applied to the configuration of NGINX.
+这两个目录继承于 Apache，将应用于 Nginx 的配置。
 
-Since the Flask applications that we’re developing are using Docker, we’ll be focusing on ‘Structure 1’ in this blog post.
+由于我的 Flask 应用使用的是 Docker 部署，因此在本文将主要关注上面的结构 1。
 
-### **NGINX Configuration**
+### **Nginx 的配置**
 
-The top-level configuration file for NGINX is nginx.conf. NGINX allows for multiple layers of configuration files, which allows a lot of flexibility in configuring it just right for your application. For specific details about a parameter, the [NGINX documentation](http://nginx.org/en/docs/ngx_core_module.html) provides a nice reference.
+Nginx 中最高级的配置文件就是 nginx.conf。Nginx 接受多层级的配置文件，这也使得用户可以针对自己的应用进行有弹性的配置。如需了解配置文件中各参数的详细信息，可以参阅 [Nginx 官方文档](http://nginx.org/en/docs/ngx_core_module.html)。
 
-The configuration parameters for NGINX are grouped into blocks. Here are the blocks that we’ll be working with in this blog post:
+在 Nginx 中，由配置块（block）来组织各个配置参数。以下为在本文中我们将提到的配置块：
 
-* Main – defined in nginx.conf (anything not defined in a block)
-* Events – defined in nginx.conf
-* Http – defined in nginx.conf
-* Server – defined in _application_name_.conf
+* Main – 定义于 nginx.conf（所有不属于配置块的参数均属 Main 块）
+* Events – 定义于 nginx.conf
+* Http – 定义于 nginx.conf
+* Server – 定义于 _application_name_.conf
 
-The breakdown of these blocks into different files allows you to define the high-level configuration parameters of NGINX in nginx.conf and the specific parameters for a virtual host(s)/server(s) to be in a *.conf file(s) that is specific to your web application.
+将这些配置块拆分至不同的文件，可以让你在 nginx.conf 中定义 Nginx 的高级别配置，在其它的 *.conf 文件中为你的应用定义虚拟主机或服务器的参数。
 
-#### Details of nginx.conf
+#### nginx.conf 详细说明
 
-The default version of nginx.conf that comes with the installation of NGINX is a good starting point for most servers. Let’s investigate the details of nginx.conf and see how to expand upon the default settings…
+安装 Nginx 时自带的默认 nginx.conf 文件可以适用于大多数服务器的初步配置。让我们仔细探查 nginx.conf 的内容，并思考如何拓展这里的默认设置。
 
-##### Main Section
+##### Main 部分
 
-The main section (ie. configuration parameters not defined within blocks) of nginx.conf is:
+nginx.conf 的 main 配置块（即那些不在配置块中的参数）为：
 
 ```
 user  nginx;
@@ -88,17 +88,17 @@ error_log  /var/log/nginx/error.log warn;
 pid        /var/run/nginx.pid;
 ```
 
-The first parameter ([user](http://nginx.org/en/docs/ngx_core_module.html#user)) defines the user that will own and run the Nginx server. This default value is good to use, especially when working with NGINX via a Docker container.
+第一个参数（[user](http://nginx.org/en/docs/ngx_core_module.html#user)）会定义 Nginx 服务器的拥有与运行用户。当 Nginx 通过 Docker 容器运行时，使用默认值就够了。
 
-The second parameter ([worker_processes](http://nginx.org/en/docs/ngx_core_module.html#worker_processes)) defines the number of worker processes. A recommended value for this parameter is the number of cores that are being used by your server. For a basic virtual private server (VPS), the default value of 1 is a good choice. Increment this number as you expand the performance of your VPS.
+第二个参数（[worker_processes](http://nginx.org/en/docs/ngx_core_module.html#worker_processes)）定义了 worker processes（工作进程）的数量。此参数推荐的默认值为当前服务器使用内核的数量。对于基础的虚拟私有服务器（VPS）来说，默认值 1 就是个不错的选择。当你拓展 VPS 性能时可以增加这个数字。
 
-The third parameter ([error_log](http://nginx.org/en/docs/ngx_core_module.html#error_log)) defines the location on the file system of the error log, plus a bonus parameter for the minimum severity to log messages for. The default value for this parameter is good.
+第三个参数（[error_log](http://nginx.org/en/docs/ngx_core_module.html#error_log)）定义了错误日志在文件系统中存放的位置，并能额外定义一个参数来规定需要记录日志的最小错误等级。这个参数使用默认值即可。
 
-The fourth parameter ([pid](http://nginx.org/en/docs/ngx_core_module.html#pid)) defines the file that will store the process ID of the main NGINX process. No need to change this default value.
+第四个参数（[pid](http://nginx.org/en/docs/ngx_core_module.html#pid)）定义了用于存储 Nginx 主进程 pid 的文件位置。这个参数使用默认值即可。
 
-#### events Block
+#### events 配置块
 
-The events block defines the parameters that affect connection processing. The events block is the first block in the nginx.conf file:
+events 配置块定义了一些会影响连接处理的参数。它也是 Nginx.conf 文件中第一个配置块：
 
 ```
 events {
@@ -106,11 +106,11 @@ events {
 }
 ```
 
-This block has a single parameter ([worker_connections](http://nginx.org/en/docs/ngx_core_module.html#worker_connections)), which defines the maximum number of simultaneous connections that can be opened by a worker process. The default value for this parameter is good, as this defines 1024 total connections (but you have to count connections with users requesting sites and connections with the WSGI server).
+在这个配置块中仅有一个单独的参数（[worker_connections](http://nginx.org/en/docs/ngx_core_module.html#worker_connections)），定义了工作进程可以打开的最大并发连接数。默认值定义了总共可用 1024 个连接，无需更改（但你需要计算用户请求站点及请求 WSGI 服务器的连接数）。
 
-#### http Block
+#### http 配置块
 
-The http block defines a number of parameters for how NGINX should handle HTTP web traffic. The http block is the second block in the nginx.conf file:
+http 配置块定义了一些关于 Nginx 如何处理 HTTP Web 流量的参数。它是 nginx.conf 文件中第二个配置块：
 
 ```
 http {
@@ -134,15 +134,15 @@ http {
 }
 ```
 
-The first parameter ([include](http://nginx.org/en/docs/ngx_core_module.html#include)) specifies a configuration file to include, which is located at /etc/nginx/mime.types. This configuration files defines a long list of file types that are supported by NGINX. The default value should be kept for this parameter.
+第一个参数（[include](http://nginx.org/en/docs/ngx_core_module.html#include)）指定了需要引入的配置文件，在此引入的是位于 /etc/nginx/ 的 mime.types 文件，这个文件定义了各种 Nginx 支持的文件类型。此参数应该保持默认值。
 
-The second parameter ([default_type](http://nginx.org/en/docs/http/ngx_http_core_module.html#default_type)) specifies the default file type that is returned to the user. For a Flask application that is generating dynamic HTML files, this parameter should be changed to: default_type text/html;
+第二个参数（[default_type](http://nginx.org/en/docs/http/ngx_http_core_module.html#default_type)）指定了默认给用户返回的文件类型。对于 Flask 应用来说，返回的是动态生成的 HTML 文件，因此这个参数应改为 `default_type text/html`;
 
-The third parameter ([log_format](http://nginx.org/en/docs/http/ngx_http_log_module.html#log_format)) specifies the format of log messages. The default value should be kept for this parameter.
+第三个参数（[log_format](http://nginx.org/en/docs/http/ngx_http_log_module.html#log_format)）指定了日志的格式，应当保持默认值。
 
-The fourth parameter ([access_log](http://nginx.org/en/docs/http/ngx_http_log_module.html#access_log)) specifies the location of the log of access attempts to NGINX. The default value should be kept for this parameter.
+第四个参数（[access_log](http://nginx.org/en/docs/http/ngx_http_log_module.html#access_log)）指定了 Nginx 日志的访问位置，应当保持默认值。
 
-The fifth parameter ([send_file](http://nginx.org/en/docs/http/ngx_http_core_module.html#sendfile)) and sixth parameter ([tcp_nopush](http://nginx.org/en/docs/http/ngx_http_core_module.html#tcp_nopush)) start to get a bit more complicated. See this blog post about [optimizing NGINX](https://t37.net/nginx-optimization-understanding-sendfile-tcp_nodelay-and-tcp_nopush.html) to get more details on these parameters (plus [tcp_nodelay](http://nginx.org/en/docs/http/ngx_http_core_module.html#tcp_nodelay)). Since we’re planning to use NGINX to deliver static content, we should set these parameters as such:
+第五个参数（[send_file](http://nginx.org/en/docs/http/ngx_http_core_module.html#sendfile)）以及第六个参数（[tcp_nopush](http://nginx.org/en/docs/http/ngx_http_core_module.html#tcp_nopush)）稍微有点复杂。可以参阅[《优化 Nginx》](https://t37.net/nginx-optimization-understanding-sendfile-tcp_nodelay-and-tcp_nopush.html)一文来了解这些参数（包括 [tcp_nodelay](http://nginx.org/en/docs/http/ngx_http_core_module.html#tcp_nodelay)）的详细情况。由于我们打算用 Nginx 来传递静态内容，因此可以这么设置这些参数：
 
 ```
     sendfile        on;
@@ -150,15 +150,15 @@ The fifth parameter ([send_file](http://nginx.org/en/docs/http/ngx_http_core_mod
     tcp_nodelay    on;
 ```
 
-The seventh parameter ([keepalive_timeout](http://nginx.org/en/docs/http/ngx_http_core_module.html#keepalive_timeout)) defines the timeout value for keep-alive connections with the client. The default value should be kept for this parameter.
+第七个参数（[keepalive_timeout](http://nginx.org/en/docs/http/ngx_http_core_module.html#keepalive_timeout)）定义了与客户端保持连接的超时时长，应当保持默认值。
 
-The eighth parameter ([gzip](http://nginx.org/en/docs/http/ngx_http_gzip_module.html)) defines the usage of the gzip compression algorithm to reduce the amount of data to transmit. This reduction in data size is offset by an increase in processing needed to perform the compression. The default value (off) should be kept for this parameter.
+第八个参数（[gzip](http://nginx.org/en/docs/http/ngx_http_gzip_module.html)）定义了 gzip 压缩算法的使用方法，以减少传输数据量。虽然数据量减少了，但也因此增加平台在压缩过程中的性能消耗，好处两两抵消，因此保持它的默认值（off）。
 
-The ninth (and last) parameter ([include](http://nginx.org/en/docs/ngx_core_module.html#include)) defines additional configuration files (ending in *.conf) from /etc/nginx/conf.d/. We’ll now see how to use these additional configuration files to define the serving of static content and to define the reverse proxy to our WSGI server.
+第九个，也是最后一个参数（[include](http://nginx.org/en/docs/ngx_core_module.html#include)）定义了位于 /etc/nginx/conf.d/ 下后缀名为 .conf 的其它配置文件。现在我们将使用这些配置文件定义静态内容服务器以及 WSGI 服务器的反向代理。
 
-#### Final Configuration of nginx.conf
+#### nginx.conf 的最终配置
 
-By taking the default version on nginx.conf and adjusting a few parameters for our needs (plus adding comments), here is the final version of nginx.conf:
+在 nginx.conf 默认设置之上，我们需要根据需要调整一些参数（并加上注释），下面为最终版本的 nginx.conf：
 
 ```
 # Define the user that will own and run the Nginx server
@@ -210,9 +210,9 @@ http {
 }
 ```
 
-##### Configuring NGINX for Serving Static Content and as a Reverse Proxy
+##### 为静态内容部署及反向代理配置 Nginx
 
-If you look at the default version of /etc/nginx/conf.g/default.conf, it defines the server block and provides a simple configuration with a lot of options to uncomment if you chose. Instead of going through each item in this file, let’s discuss the key parameters that are needed for configuring NGINX to deliver static content and for reverse proxying the requests to our WSGI server. Here are the contents of _application_name_.conf that are recommended:
+如果你查看默认的 /etc/nginx/conf.g/default.conf，可以看到它提供了一个简单的服务器配置块，并给了许多取消注释即可使用的可选配置。我们不会挨个去研究这个文件中的配置，而是直接探讨对于我们部署静态内容以及 WSGI 反向代理有用的关键参数。以下是推荐的 _application_name_.conf 配置：
 
 ```
 # Define the parameters for a specific virtual host/server
@@ -252,15 +252,15 @@ server {
 }
 ```
 
-The server block defines the parameters for a specific virtual host/server, which is typically the single web application that you are hosting on a VPS.
+服务器配置块为特定的虚拟主机或服务器定义了参数。通常为你在 VPS 上部署的单个 Web 应用。
 
-The first parameter ([root](http://nginx.org/en/docs/http/ngx_http_core_module.html#root)) defines the directory where the contents being requested are stored. NGINX will start looking in this directory when it receives a request from a user. This parameter should be commented out, as it is unnecessary for this configuration since there is a default location of ‘/’ defined.
+第一个参数（[root](http://nginx.org/en/docs/http/ngx_http_core_module.html#root)）定义了请求的内容所在的目录。由于在默认的”/“路径中定义过了，因此可以注释掉这个不必要的参数。
 
-The second parameter ([index](http://nginx.org/en/docs/http/ngx_http_index_module.html)) defines the default page that will be served If no page was requested (ie. if www.kennedyfamilyrecipes.com is requested). This parameter should be commented it as we want all dynamic content, including the main page, to be generated by our Flask web application.
+第二个参数（[index](http://nginx.org/en/docs/http/ngx_http_index_module.html)）定义了在请求未指定页面时（比如访问 www.kennedyfamilyrecipes.com）所得到的默认页面。由于我们使用的是 Flask Web 应用生成的动态内容，因此需要注释掉这个参数。
 
-The first two parameters (root and index) are included in this configuration file, as they can be useful for some configurations of NGINX.
+前两个参数（root 和 index）都包含在此配置文件中，在一些情况下可以用于 Nginx 的配置。
 
-The third parameter ([server_name](http://nginx.org/en/docs/http/ngx_http_core_module.html#server_name)) and fourth parameter ([listen](http://nginx.org/en/docs/http/ngx_http_core_module.html#listen)) should be used together. If you have a single web application being served, then you should set these parameters as (note: a port does not need to be specified as it will default to port 80):
+第三个参数（[server_name](http://nginx.org/en/docs/http/ngx_http_core_module.html#server_name)）和第四个参数（[listen](http://nginx.org/en/docs/http/ngx_http_core_module.html#listen)）需要一同使用。如果你的 Web 应用程序已经部署好了，那么你需要设置这些参数为：（注，端口默认为 80，此时不需要填）
 
 ```
 server {
@@ -270,7 +270,7 @@ server {
 }
 ```
 
-If you need to want to have requests for blog.kennedyfamilyrecipes.com be served by a different Flask application than the standard www.kennedyfamilyrecipes, then you will need separate ‘server’ blocks using ‘server_name’ and ‘listen’:
+如果你除了 www.kennedyfamilyrecipes.com 之外还要部署另一个 Flask 应用 blog.kennedyfamilyrecipes.com，那么你需要将”server“配置块拆开，分别配置”user_name“和”listen“：
 
 ```
 server {
@@ -290,11 +290,11 @@ server {
 }
 ```
 
-NGINX will always select the ‘server_name’ that is the best match for the request. This means that a request for ‘blog.kennedyfamilyrecipes.com’ will be a better match to ‘blog.kennedyfamilyrecipes.com’ than ‘*.kennedyfamilyrecipes.com’.
+Nginx 将选择最匹配请求的”server_name“。也就是说对”blog.kennedyfamilyrecipes.com“的请求会优先匹配”blog.kennedyfamilyrecipes.com“而不是”*.kennedyfamilyrecipes.com“。
 
-The fifth parameter ([charset](http://nginx.org/en/docs/http/ngx_http_charset_module.html)) defines the specified charset to the “Content-Type” response header field. This value should be set to ‘’utf-8’.
+第五个参数（[charset](http://nginx.org/en/docs/http/ngx_http_charset_module.html)）定义了响应头”Content-Type“的字符集值，应当设置为”utf-8“。
 
-The first ‘location’ block defines where NGINX should deliver static content from:
+第一个”location“配置块定义了 Nginx 需要递送位于以下位置的静态内容：
 
 ```
   location /static {
@@ -302,9 +302,9 @@ The first ‘location’ block defines where NGINX should deliver static content
    }
 ```
 
-The [location](http://nginx.org/en/docs/http/ngx_http_core_module.html#location) block defines how to process the requested URI (the part of the request that comes after the domain name or IP address/port). In this first location block (/static), we are specifying that NGINX should retrieve files from the ‘/usr/src/app/project/static’ directory on the server when a request comes in for www.kennedyfamilyrecipes.com/static/. For example, a request for www.kennedyfamilyrecipes.com/static/img/img_1203.jpg will come be the picture located at /usr/src/app/project/static/img/img_1203.jpg. If this file does not exist, then the 404 error code (NOT FOUND) will be returned to the user.
+[location](http://nginx.org/en/docs/http/ngx_http_core_module.html#location) 配置块定义了如何处理请求的 URI（域名或 IP、端口号之后的部分）。在这第一个 location 配置块（/static）中，我们定义了 Nginx 将会处理来自 www.kennedyfamilyrecipes.com/static/ 的请求，检索位于 /usr/src/app/project/static 目录下的文件。例如，请求 www.kennedyfamilyrecipes.com/static/img/img_1203.jpg 将会返回位于 /usr/src/app/project/static/img/img_1203.jpg 的图片文件。如果文件不存在，则向用户返回 404 错误码（NOT FOUND）。
 
-The second location block (‘/’) defines the reverse proxy. This location block defines how NGINX should pass these requests to the WSGI server (Gunicorn) that can interface with our Flask application. Let’s look at each parameter in more detail:
+第二个 location 配置块（"/"）定义反向代理。这个 location 配置块会定义 Nginx 如何将请求传递给 我们的 Flask 应用接口所在的 WSGI（Gunicorn）服务器。仔细看看其中的每个参数：
 
 ```
    location / {
@@ -317,38 +317,38 @@ proxy_set_header X-Forwarded-Proto $scheme;
    }
 ```
 
-The first parameter ([proxy_pass](http://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_pass)) in this location block defines the location of the proxy server to send the request to. If you just want to pass the request to a local server running on the same machine:
+第一个参数（[proxy_pass](http://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_pass)）定义了接收转发请求的代理服务器的位置。如果你想将请求转发至本机的服务器时可以使用：
 
 ```
 proxy_pass http://localhost:8000/;
 ```
 
-If you want to pass the request to a specific Unix socket, such as when you have NGINX and Gunicorn running on the same server:
+如果你希望将请求转发给指定的 Unix socket 时（比如和 Nginx 运行在同一台机器中的 Gunicorn 服务器），可以使用：
 
 ```
 proxy_pass http://unix:/tmp/backend.socket:/
 ```
 
-If you are using NGINX as a Docker container that is talking to a Gunicorn container, when you simply need to include the name of the container running Gunicorn:
+如果你使用 Docker 容器运行的 Nginx，希望与容器中的 Gunicorn 进行对话，那么可以直接使用运行 Gunicorn 的容器名称：
 
 ```
 proxy_pass http://web:8000;
 ```
 
-The second parameter ([proxy_pass_header](http://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_pass_header)) allows you to redefine the header fields that NGINX sends to the upstream server (ie. Gunciorn). This parameter is used four times to define:
+第二个参数（[proxy_pass_header](http://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_pass_header)）可以让你重新定义发往上游服务器（比如 Gunicorn）的请求的头部。这个参数可以进行以下四次设置：
 
-* the name and port of the NGINX server (Host $host)
-* the schema of the original client request, as in whether it was an http or an https request (X-Forwarded-Proto $scheme)
-* the IP address of the user (X-Real-IP $remote_addr)
-* the IP addresses of every server the client has been proxied through up to this point (X-Forwarded-For $proxy_add_x_forwarded_for)
+* Nginx 服务器的名称及端口（Host $host）
+* 原始客户端请求的模式（比如是 http 请求还是 https 请求）（X-Forwarded-Proto $scheme）
+* 用户的 IP 地址（X-Real-IP $remote_addr）
+* 至当前节点位置，客户端经过的所有代理的 IP 地址（X-Forwarded-For $proxy_add_x_forwarded_for）
 
-The third parameter ([client_max_body_size](http://nginx.org/en/docs/http/ngx_http_core_module.html#client_max_body_size)) defines the maximum size for files being uploaded, which is critical if you web application allows file uploads. Given that image sizes are often 2 MBs in size, a value of 5 MB provides some flexibility to support almost any image.
+第三个参数（[client_max_body_size](http://nginx.org/en/docs/http/ngx_http_core_module.html#client_max_body_size)）定义了文件上传允许的最大大小，对于需要上传文件的 Web 应用来说非常重要。由于图像大小一般在 2 MB 内，因此在这儿设置 5 MB 基本上可以满足任何图像。
 
-### **Conclusion**
+### **总结**
 
-This blog post described what the NGINX server does and how to configure it for a Flask application. NGINX is a key component to most web applications as it serves static content to the user, reverse proxies requests to an upstream server (WSGI server in our Flask web application), and provides load balancing (not discussed in detail in this blog post). Hopefully, the configuration of NGINX is easier to understand after reading this blog post!
+本文介绍了什么是 Nginx 服务器，以及如何为一个 Flask 应用对其进行配置。Nginx 是大多数 Web 应用的关键组件，它为用户提供静态内容、反向代理请求至上游服务器（在我们的 Flask Web 应用中是 WSGI），以及负载均衡（本文未提及）。希望看完本文后你能更轻松地理解 Nginx 的配置！
 
-### **References**
+### **引用资料**
 
 [How to Configure NGINX (Linode)](https://www.linode.com/docs/websites/nginx/how-to-configure-nginx)
 
@@ -366,3 +366,5 @@ This blog post described what the NGINX server does and how to configure it for 
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
+
+
