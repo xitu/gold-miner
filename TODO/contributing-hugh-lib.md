@@ -7,9 +7,9 @@
 
 # 为 Django Framework 贡献你的力量并没有想象中的那么难
 
-当我们准备开始编码并开源的时候，总感觉无从下手。 我知道，以自己喜欢的方式去打造一个精彩绝伦的代码库的这个想法听起来是有一点吓人的。不过幸运的是，只要你愿意，很多开源库会为你提供大显身手的空间。他们同样会给予我们所需要的支持。听起来很不错吧？
+当我们准备开始编码并开源的时候，总感觉无从下手。 我知道，给一个精彩绝伦的代码库贡献代码的这个想法听起来是有一点吓人的。不过幸运的是，只要你愿意，很多这样的开源库会为你提供大显身手的空间。他们同样会给予我们所需要的支持。听起来很不错吧？
 
-你知道著名的 python 框架吗？[Django](https://www.djangoproject.com/)！他们的网站上有一个部分叫 [Easy Pickings](https://code.djangoproject.com/query?status=!closed&easy=1)。假如你准备开源并为一个精彩的代码库做贡献，这就是为你而准备的！
+你知道那个著名的 python 框架吗？[Django](https://www.djangoproject.com/)！他们的网站上有一个部分叫 [Easy Pickings](https://code.djangoproject.com/query?status=!closed&easy=1)。假如你准备开始参与开源工作并为一个精彩的代码库做贡献，这就是为你而准备的！
 
 在这篇博客中，我将逐步向你展示如何通过修复 Django easy pick 问题来为开源代码库做贡献的，通过这几个简单的步骤你也可以做到。接下来我将通过修复一个缺陷来从头到尾讲解这个过程，跟我来！
 
@@ -33,7 +33,7 @@
 
 第一步先 fork [Django repo](https://github.com/django/django)仓库。第二步，编写你的代码，并按照建议的风格进行提交[Django's guidelines](https://docs.djangoproject.com/en/1.10/internals/contributing/committing-code/#committing-guidelines)。可以参考一下我的提交： _[1.9.x] Fixed #26026 -- Checked if the QuerySet is empty_。最后发起 pull request。
 
-让我们来看一下我的 pull request 并检查一下我的代码。可以看到我用了包含 ticket 的链接来评论这个 PR。
+让我们来看一下我的 pull request 并检查一下我的代码。可以看到我用了包含 ticket 的链接来注释这个 PR。
 
 ![Alt text](https://vinta-cms.s3.amazonaws.com/media/filer_public/03/35/03350a59-e487-4d51-bcee-01a86e5c9bed/unmerged_pr.png)
 
