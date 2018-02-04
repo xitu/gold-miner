@@ -67,7 +67,7 @@ public class HotVsCold {
 }
 ```
 
-好吧，这是一些很简单的示例代码。我有4个顾客和1个我在霜语咖啡馆例子里提到的播放列表。当头两个顾客戴上了耳机后，我暂停了2秒的程序，然后3号和4号顾客也戴上了耳机。在最后我们查看输出数据时，我们能轻易地看出每个顾客都把3首诗从头听了一遍。
+好吧，这是一些很简单的示例代码。我有 4 个顾客和 1 个我在霜语咖啡馆例子里提到的播放列表。当头两个顾客戴上了耳机后，我暂停了 2 秒的程序，然后 3 号和 4 号顾客也戴上了耳机。在最后我们查看输出数据时，我们能轻易地看出每个顾客都把 3 首诗从头听了一遍。
 
 Output:
 [Poem 1, Poem 2, Poem 3]
@@ -84,19 +84,19 @@ public static void main(String[] args) throws InterruptedException {
 
     Observable<Long> hotMusicCoffeeCafe = Observable.interval(1000, TimeUnit.MILLISECONDS);
     ConnectableObservable<Long> connectableObservable = hotMusicCoffeeCafe.publish();
-    connectableObservable.connect(); //  Cafe open on this line and cafe boy start the system
+    connectableObservable.connect(); //  咖啡馆开始营业，音乐播放系统开启
 
     Consumer client1 = poem-> System.out.println("Client 1 poem"+poem);
     Consumer client2 = poem-> System.out.println("Client 2 poem"+poem);
     Consumer client3 = poem-> System.out.println("Client 3 poem"+poem);
     Consumer client4 = poem-> System.out.println("Client 4 poem"+poem);
 
-    Thread.sleep(2000); // After two poems already played client 1 enter. So he should listens from poem 2.
-    connectableObservable.subscribe(client1);
-    Thread.sleep(1000); // Client two should start listening poem 3 
+    Thread.sleep(2000); // 在２首诗已经播放完毕后第一位顾客才进来，所以他会才第二首诗开始听
+    connectableObservable.subscribe(client1);
+    Thread.sleep(1000); // 第二位顾客会从第三首诗开始听
     connectableObservable.subscribe(client2);
 
-    Thread.sleep(4000); // Client 3 and 4 enter will start from poem 7.（译者注：本来是写的 poem 9, 不知道为啥会是9）
+    Thread.sleep(4000); // 第三和第四为顾客为从第七首诗开始听（译者注：本来是写的 poem 9）
     connectableObservable.subscribe(client3);
     connectableObservable.subscribe(client4);
 
@@ -104,7 +104,7 @@ public static void main(String[] args) throws InterruptedException {
 }
 ```
 
-火舞咖啡馆开始营业的时候就会开启其音乐播放系统。诗歌会在以上代码里我们调用 connect 方法的时候开始播放。暂时先不需要关注 connect 方法，而只是试着理解这个概念。当经过2秒暂停，第一个顾客走进了咖啡馆后，他会从第二首诗开始听。下一个顾客会在1秒暂停后进来，并且从第三首诗开始听。之后，第三和第四位顾客会在4秒后进入，并且从第七首诗开始听。你可以看到这个音乐播放系统是独立于顾客的。一旦这个音乐系统开始运行，它并不在乎有没人顾客在听。也就是说，所有的顾客会在他们进入时听到当前正在播放的诗，而且他们绝不会听到之前已经播放过的诗。现在我觉得你已经抓住了 Hot vs Cold Observable　的概念。是时候来瞧一瞧如何创建这些不同 observables 的要点了。
+火舞咖啡馆开始营业的时候就会开启其音乐播放系统。诗歌会在以上代码里我们调用 connect 方法的时候开始播放。暂时先不需要关注 connect 方法，而只是试着理解这个概念。当经过 2 秒暂停，第一个顾客走进了咖啡馆后，他会从第二首诗开始听。下一个顾客会在1秒暂停后进来，并且从第三首诗开始听。之后，第三和第四位顾客会在 4 秒后进入，并且从第七首诗开始听。你可以看到这个音乐播放系统是独立于顾客的。一旦这个音乐系统开始运行，它并不在乎有没人顾客在听。也就是说，所有的顾客会在他们进入时听到当前正在播放的诗，而且他们绝不会听到之前已经播放过的诗。现在我觉得你已经抓住了 Hot vs Cold Observable 的概念。是时候来瞧一瞧如何创建这些不同 observables 的要点了。
 
 Cold Observable:
 1. 所有的 Observable 默认都是 Cold Obserable。这就是说我们使用诸如 Observable.create() 或者 Observable.frinArray() 这类的方法所创建出来的 Observable 都是 Cold Observable。
@@ -209,8 +209,8 @@ Output:
 1926621976
 1926621976
 
-我们的两个不同订阅者得到了同一份数据。根据 hot observable 总是发射一份数据只发射一次的定义说明了这是一个 Hot Obsevable，或者简单来说 onNext() 只被调用了一次。我接下来会解释　publish() 和 connect() 的调用。
-当我调用 publish()　方法时，这意味着我的这个 observable 已经独立于订阅者，并且所有订阅者只会接收到同一个数据源发射地同一份数据。简单来说，Hot Observable 将会对所有订阅者发射调用一次 onNext() 所产生的数据。As I call a publish() method, its mean now my this observable is independent of subscribers and that only share the same source of data emission with all subscribers. In simple words, this Hot Observable will push the same onNext() method call data to all subscribers. Here may be one thing is little bit confused, I called a connect() method after the subscription of two subscribers. Because I want to show you guys Hot Observable is independent and data emission should be done by one call of onNext() and we know Hot Observable only start data emitting when we call connect() method. So fist we subscribed two subscribers and then we called a connect() method, in that way both will get same data. Now I am going to give you one more taste of same example.
+我们的两个不同订阅者得到了同一份数据。根据 hot observable 总是每份数据只发射一次的定义说明了这是一个 Hot Obsevable，或者简单来说 onNext() 只被调用了一次。我接下来会解释　publish() 和 connect() 的调用。
+当我调用 publish()　方法时，这意味着我的这个 observable 已经独立于订阅者，并且所有订阅者只会接收到同一个数据源发射地同一份数据。简单来说，Hot Observable 将会对所有订阅者发射调用一次 onNext() 所产生的数据。这里或许有些让你感到困惑，我在两个订阅者订阅之后才调用了 connect() 方法。因为我想告诉你们 Hot Observable 是独立的并且数据的发射应该通过一次对 onNext()的调用，并且我们知道 Hot Observable 只会在我们调用 connect() 之后才会开始发射数据。所以首先我们让两个订阅者去订阅，然后在我们才调用 connect() 方法，于是我们就可以得到同样一份数据。现在让我们来对这个例子做些小小的改动。
 
 ```
 Random random = new Random();
@@ -221,12 +221,12 @@ publish.subscribe(s-> System.out.println(s));
 publish.subscribe(s-> System.out.println(s));
 ```
 
-Here is only one difference. I called a connect() method before any subscriber subscription. Now what will be the output? Any body can assume what will be the output.
+我们看到这里只有一处小小的变化。我在调用 connect() 之后才让订阅者订阅。大家来猜猜会输出什么？
 Output:
 
 Process finished with exit code 0
 
-Yes empty. Are you guys confused? oh ok I am going to explain. If you saw, I created an Observable from Random Int value, which only called once. As I created I converted that Cold Observable into Hot Observable by calling publish() method. After conversion I called a **connect()** method. Now because this is a Hot Observable and we know that is independent of Subscriber so that start emitting random number and we know that only generate a one random number. After connect() our subscribers, subscribed but at that time we are not getting any data because Hot Observable already emitted that one value. I think things are clearing to everyone. Now we can add log inside observable emission. So we can confirm, what I am saying that is true.
+没错，没有输出。是不是觉得有点不对劲？听我慢慢解释。如你所见，我创建了一个发射随机数的 Observabel，并且它只会调用一次了。通过调用 publish() 我将这个 Cold Observable 转换成了 Hot Observable，接着我立即调用了 **connect()** 方法。我们知道现在它是一个独立于订阅者的 Hot Observable，并且它生成了一个随机数将其发射了出去。在调用 connect() 之后我们才让两个订阅者订阅了这个 Observabel，两个订阅者没有接收到任何数据的原因是在它们订阅之前 Hot Observable 就已经将数据发射了出去。我想大家都能明白的吧。现在让我们在 Observable 内部加上日志打印输出，这样我们就可以确认这个流程是如同我所解释的一样了。
 
 ```
 public static void main(String[] args) {
@@ -250,14 +250,14 @@ Emitted data: -690044789
 
 Process finished with exit code 0
 
-Now my HotObservable start data emission after calling connect() as you can see in above output but subscribers subscribed late. That is why we are getting empty. Now I am going to revise before going to next step.
-1. All observables are implicitly Cold Observables.
-2. To convert a Cold Observable to Hot we need to call a publish() method which will return us a ConnectableObservable. Which is a Hot Observable but without start emitting data.
-3. On ConnectableObservable we need to call a connect() method to start data emission.
+如上所示，我的Hot Observable 在调用 connect() 之后开始发射数据，然后才是订阅者发起了订阅。这就是为什么我的订阅者没有得到数据。让我们在继续深入之前来复习一下。
+1. 所有的 Observable 默认都是 Cold Obserable。
+2. 通过调用 Publish() 方法我们可以将一个 Cold Observable 转换成 Hot Observable，该方法返回了一个 ConnectableObservable，它现在并不会就开始发射数据。
+3. 在对 ConnectableObservable 调用 connect() 方法后它才开始发射数据。
 
-Observable: Sorry for a interruption but [Me] before going to next level can you write a code for above Hot Observable with time interval that will be more good.
+Observable: 小小的暂停一下，在我们继续研究 Observable 之前，你如果能将以上的代码改造成能无限制间隔发射数据的话就太棒了。
 
-Me: Sure.
+Me: 小菜一叠。
 
 ```
 public static void main(String[] args) throws InterruptedException {
@@ -271,11 +271,11 @@ public static void main(String[] args) throws InterruptedException {
                             source.onNext(value);
                         });
             }
-    ); // Simple same Observable which we are using only I added a one thing now this will produce data after every one second.
-    ConnectableObservable<Integer> publish = just.publish();
+    ); // 简单的把数据源变成了每间隔一秒就发射一次数据。
+    ConnectableObservable<Integer> publish = just.publish();
     publish.connect();
 
-    Thread.sleep(2000); // Hot observable start emitting data and our new subscribers will subscribe after 2 second.
+    Thread.sleep(2000); // 我们的订阅者在 2 秒后才开始订阅。
     publish.subscribe(s -> System.out.println(s));
     publish.subscribe(s -> System.out.println(s));
 
@@ -301,11 +301,11 @@ Emitted data: -61106201
 -61106201
 -61106201
 
-Now we can easily saw in above output. Our Hot Observable working 100% according to definition which we already discuss in start of a post. As Hot Observable start data emission we got three values but there is no subscriber, after 2 seconds we subscribed 2 new subscribers to Hot Observable and they start getting new data values and both are getting same values.
-Its time to take our this concept to next level. As we already grab the concept of Cold and Hot Observables. For next level of Hot Observables I am going to explain in the form of scenarios.
+输出结果如上所示。我们的 Hot Observable 完全在按照我们之前得出的定义在工作。当它开始发射数据的 ２ 秒时间后，我们得到了 ２ 个不同的输出值，接着我们让两个订阅者去订阅它，于是它们得到了同一份第三个被发射出来的值。
+是时候来更加深入的来理解这个概念了。在我们已经对 Cold 和 Hot 有一定概念的基础上，我将针对一些场景对 Hot Observable 做更详细的介绍。
 
-Scenario 1:
-I want a Hot Observable with which any subscriber subscribed and get all previous values, which already emitted by this Hot Observable plus new values and all values should be synced. So to tackle that scenario we have a one very simple method. That is called replay(). Only we need to call that method.
+场景 1:
+我希望任意订阅者在订阅之后也能首先接收到其订阅这个时间点之前的数据，然后才是同步接收到新发射出来的数据。要解决这个问题，我们只需要简单的调用 replay() 方法就行。
 
 ```
 public static void main(String[] args) throws InterruptedException {
@@ -353,11 +353,11 @@ Subscriber 2: -498499026
 **Subscriber 1: -268791291**
 **Subscriber 2: -268791291**
 
-Here if you review our output and code together. You can get easily the concept of replay() in Hot Observable. First I created a Hot Observable which start emission of data after creation. Then after 2 seconds our first and second subscriber subscribe to that Hot observable but at that time Hot Observable already emitted four values. So you can see in output our subscribers first get the already emitted values and later they are sync with the Hot Observable data emission.
+以上所示，你能轻松得理解 Hot Observabel 里的 replay() 这个方法。我首先创建了一个每隔 0.5 秒发射数据的 Hot Observable，在２秒过后我们才让两个订阅者去订阅它。此时由于我们的 Observable 已经发射出来了 4 个数据，于是你能看到输出结果里，我们的订阅者首先得到了在其订阅这个时间点之前已经被发射出去的 4 个数据，然后才开始同步接收到新发射出来的数据。
 
-Second scenario:
-I want a Hot Observable which only start data emission when first subscriber subscribed to that Hot observable and should stop when all subscriber unsubscribed to that Hot Observable.
-Again this one is really simple to achieve.
+场景 2:
+我希望有一种 Hot Observable 能够在最少有一个订阅者的情况下才发射数据，并且如果所有它的订阅者都取消了订阅，它就会停止发射数据。
+这同样能够很轻松的办到。
 
 ```
 public static void main(String[] args) throws InterruptedException {
@@ -401,27 +401,28 @@ Subscriber 2: 7
 Subscriber 3: 0
 Subscriber 3: 1
 Subscriber 3: 2
+Subscriber 3: 3 (译者注：原文少写了一行输出)
 
-First and most important point. Here this Observable is a Hot Observable but that only start data emission when first subscriber subscribe to that observable and will stop data emission as all subscribers unsubscribed to that Hot Observable.
-As you saw in above output. When first two subscribers subscribed to Hot Observable data emission stared, later one subscriber unsubscribed but Hot Observable not stoped because there is one more subscriber currently subscribed but later that also unsubscribed so Hot Observable stoped data emission. After 2 seconds third subscriber subscribe to same Hot Observable but this time Hot Observable started data emission again but from zero not the point where that leaves.
+至关重要的一点是，这是一个 Hot Observable，并且它在第一个订阅者订阅之后才开始发射数据，然后当它没有订阅者时它会停止发射数据。
+如上面的输出所示，当头两个订阅者开始订阅它之后，它才开始发射数据，然后其中一个订阅者取消了订阅，但是它并没有停止发射数据，因为此时它还拥有另外一个订阅者。又过了一会，另外一个订阅者也取消了订阅后，它便停止了发射数据。当 2 秒过后第三个订阅者开始订阅它之后，它开始从头开始发射数据，而不是从第二个订阅者取消订阅时停留在的位置。
 
-Observable: WOW. You mazed me [Me]. You explained a concept in a good way.
+Observable: 哇哦哦，你真棒！你把这个概念解释地非超好。
 
-Me: Thanks Observable.
+Me: 多谢夸奖。
 
-Observable: So now you have any other question?
+Observable: 那么你还有其他的问题吗？
 
-Me: Yes can you tell me about the concept of a Subject and different type’s of subjects like Publish, Behaviour etc.
+Me: 是的，我有。你能告诉我一些有关不同类别的 Subject 的相关概念吗，比如 Publish，Behaviour 之类的。
 
-Observable: Hmmm. I have a feeling before going to that concept. I should tell you about Observer API’s and how they work and how you can use Lambda or Functional interfaces without using a Complete Observer interface. What you think?
+Observable: Emmmmmm。我觉我应该在教你那些个概念之前告诉你关于 Observer API 的相关知识，还有就是关于如何使用 Lambda 表达式或者叫函数式接口来代替使用完整的 Observer 接口的方法。你觉得呢？
 
-Me: Yes sure. I am with you.
+Me: 好啊，都听你的。
 
-Observable: So as we know about Observables. There is a one more concept Observer which we already using a lot in our examples…….
+Observable: 就目前我们了解到的 Observable，这里还有一个关于我们一直在使用的 Observable 的概念...
 
-Conclusion:
-Hello Friends. This dialogue is very very long but I need to stop some where. Otherwise this post will be like a giant book which may be ok but the main purpose will be die and that is, I want we should learn and know everything practically. So I am going to pause my dialogue here, I will do resume in next part. Only try your best to play with all these methods and if possible try to take your real world projects and refactor these for practice. In the end I want to say thanks to Rx Observable who give me a lot of his/her time.
-Happy Weekend Friends Bye. 🙂
+小结:
+你们好啊，朋友们。这次的对话真是有点长啊，我必须在此打住了。否则的话这篇文章就会变成一本四库全书，什么乱七八糟的东西都会出现。我希望我们能够系统地有条理地来学习这一切。所以余下的内容，我们下回再揭晓。再者，试试看尽你可能把我们这次学到的东西用在你真正的项目中。最后感谢 Rx Observabel 的到场。
+周末快乐，再见。🙂
 
 
 ---
