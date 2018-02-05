@@ -74,7 +74,7 @@ MVVM 是由 [John Gossman](https://blogs.msdn.microsoft.com/johngossman/2005/10/
 
 让我们开始吧！
 
-### 一个简单的画廊app — MVC
+### 一个简单的画廊 app — MVC
 
 我们将编写一个简单的应用程序，其中：
 
@@ -211,7 +211,7 @@ viewModel.propChanged = { in
 
 每次属性 prop 更新时，都会调用 propChanged。 所以我们就可以根据 ViewModel 的变化来更新 View。 很简单，对吗？
 
-#### 在ViewModel中进行绑定的接口
+#### 在 ViewModel 中进行绑定的接口
 
 现在，让我们开始设计我们的 ViewModel，**PhotoListViewModel**。 给定以下三个UI组件：
 
@@ -330,7 +330,7 @@ func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -
 
 这意味着一旦**func tableView（_ tableView：UITableView，willSelectRowAt indexPath：IndexPath） - > IndexPath**被调用，则该操作将被传递给**PhotoListViewModel**。 委托函数根据由**PhotoListViewModel**提供的isAllowSegue属性决定是否继续。我们就成功地从视图中删除了状态。🍻
 
-#### PhotoListViewModel的实现
+#### PhotoListViewModel 的实现
 
 这是一个漫长的过程，对吧？耐心点，我们已经触及到了 MVVM 的核心！ 在**PhotoListViewModel**中，我们有一个名为**cellViewModels**的数组，它表示 View 中的 tableView。
 
@@ -377,9 +377,9 @@ private func processFetchedPhoto( photos: [Photo] ) {
 
 它做了一个简单的工作，将照片 models 装成一个**PhotoListCellViewModel**数组。当更新**cellViewModels**属性时，View 中的 tableView 会相应的更新。
 
-耶，我们完成了MVVM 🎉
+耶，我们完成了 MVVM 🎉
 
-示例应用程序可以在我的GitHub上找到：
+示例应用程序可以在我的 GitHub 上找到：
 
 - [**koromiko/Tutorial**](https://github.com/koromiko/Tutorial/tree/MVC/MVVMPlayground)
 
@@ -395,7 +395,7 @@ private func processFetchedPhoto( photos: [Photo] ) {
 
 #### 探讨
 
-正如我上面提到的，架构都有优点和缺点。在阅读我的文章之后，如果你对MVVM的缺点有一些看法。这里有很多关于 MVVM 缺点的文章，比如：
+正如我上面提到的，架构都有优点和缺点。在阅读我的文章之后，如果你对 MVVM 的缺点有一些看法。这里有很多关于 MVVM 缺点的文章，比如：
 
 [MVVM is Not Very Good — Soroush Khanlou](http://khanlou.com/2015/12/mvvm-is-not-very-good/)
 [The Problems with MVVM on iOS — Daniel Hall](http://www.danielhall.io/the-problems-with-mvvm-on-ios)
