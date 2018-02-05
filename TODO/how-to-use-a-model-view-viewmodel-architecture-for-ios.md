@@ -68,7 +68,7 @@ MVVM 是由 [John Gossman](https://blogs.msdn.microsoft.com/johngossman/2005/10/
 
 你可能会注意到这样 ViewModel 会变得有点复杂。在本文的最后，我们将讨论 MVVM 的缺点。但无论如何，对于一个中等规模的项目来说，想一点一点完成目标，MVVM 仍然是一个很棒的选择。
 
-在下面的章节中，我们将使用 MVC 模式编写一个简单的应用程序，然后描述如何将应用程序重构为 MVVM 模式。带有单元测试的示例项目可以在我的 GitHub 上找到：
+在接下来的部分，我们将使用 MVC 模式编写一个简单的应用程序，然后描述如何将应用程序重构为 MVVM 模式。带有单元测试的示例项目可以在我的 GitHub 上找到：
 
 - [**koromiko/Tutorial**: _Tutorial - Code for https://koromiko1104.wordpress.com_github.com](https://github.com/koromiko/Tutorial/tree/master/MVVMPlayground)
 
@@ -79,10 +79,10 @@ MVVM 是由 [John Gossman](https://blogs.msdn.microsoft.com/johngossman/2005/10/
 我们将编写一个简单的应用程序，其中：
 
 1. 该应用程序从 API 中获取 500px 的照片，并在 UITableView 中列出照片。
-2. 表格视图中的每个 cell 显示标题、说明和照片的创建日期。
+2. tableView 中的每个 cell 显示标题、说明和照片的创建日期。
 3. 用户不能点击未标记为「for_sale」的照片。
 
-在这个应用程序中，我们有一个名为**Photo**的结构，它代表一张照片。下面是我们的**Photo**类：
+在这个应用程序中，我们有一个名为 **Photo** 的结构，它代表一张照片。下面是我们的 **Photo** 类：
 
 ```
 struct Photo {
@@ -96,7 +96,7 @@ struct Photo {
 }
 ```
 
-该应用程序的初始视图控制器是一个包含名为**PhotoListViewController**的 tableView 的 UIViewController。我们通过**PhotoListViewController**中的**APIService**获取**Photo**对象，并在获取照片后重新载入 tableView：
+该应用程序的初始视图控制器是一个包含名为 **PhotoListViewController** 的 tableView 的 UIViewController。我们通过 **PhotoListViewController** 中的 **APIService**获取**Photo** 对象，并在获取照片后重新载入 tableView：
 
 ```
   self?.activityIndicator.startAnimating()
@@ -111,7 +111,7 @@ struct Photo {
   }
 ```
 
-**PhotoListViewController**也是 tableView 的一个数据源：
+**PhotoListViewController** 也是 tableView 的一个数据源：
 
 ```
 func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -129,7 +129,7 @@ func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> 
 }
 ```
 
-在**func tableView（_ tableView：UITableView，cellForRowAt indexPath：IndexPath） - > UITableViewCell**中，我们选择相应的**Photo**对象并将标题、描述和日期分配给一个 cell。由于 **Photo**.date 是一个 Date 对象，我们必须使用 DateFormatter 将其转换为一个 String。
+在 **func tableView（_ tableView：UITableView，cellForRowAt indexPath：IndexPath） - > UITableViewCell** 中，我们选择相应的 **Photo** 对象并将标题、描述和日期分配给一个 cell。由于 **Photo**.date 是一个 Date 对象，我们必须使用 DateFormatter 将其转换为一个 String。
 
 以下代码是 tableView 委托的实现：
 
@@ -148,17 +148,17 @@ func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -
 }
 ```
 
-我们在**func tableView（_ tableView：UITableView，willSelectRowAt indexPath：IndexPath） - > IndexPath**中选择相应的 Photo 对象，检查**for_sale**属性。如果是 ture，就保存到**selectedIndexPath**。如果是 false，则显示错误消息并返回 nil。
+我们在 **func tableView（_ tableView：UITableView，willSelectRowAt indexPath：IndexPath） - > IndexPath** 中选择相应的 Photo 对象，检查 **for_sale** 属性。如果是 ture，就保存到 **selectedIndexPath**。如果是 false，则显示错误消息并返回 nil。
 
 **PhotoListViewController** 的源码在[这里](https://github.com/koromiko/Tutorial/blob/MVC/MVVMPlayground/MVVMPlayground/Module/PhotoList/PhotoListViewController.swift)，请参考标签「MVC」。
 
-那么上面的代码有什么问题呢？在**PhotoListViewController**中，我们可以找到显示的逻辑，如将 Date 转换为 String 以及何时启动/停止活动指示符。我们也有 Veiw 层代码，如显示/隐藏 tableView。另外，在视图控制器中还有另一个依赖项 ，API 服务。如果你打算为**PhotoListViewController**编写测试，你会发现你被卡住了，因为它太复杂了。我们必须模拟**APIService**，模拟 tableView 以及 cell 来测试整个**PhotoListViewController**。唷！
+那么上面的代码有什么问题呢？在 **PhotoListViewController** 中，我们可以找到显示的逻辑，如将 Date 转换为 String 以及何时启动/停止活动指示符。我们也有 Veiw 层代码，如显示/隐藏 tableView。另外，在视图控制器中还有另一个依赖项 ，API 服务。如果你打算为**PhotoListViewController**编写测试，你会发现你被卡住了，因为它太复杂了。我们必须模拟 **APIService**，模拟 tableView 以及 cell 来测试整个 **PhotoListViewController**。唷！
 
 记住，我们想让测试变得更容易？让我们试试 MVVM 的方法！
 
 #### 尝试 MVVM
 
-为了解决这个问题，我们的首要任务是清理视图控制器，将视图控制器分成两部分：View 和 ViewModel。具体来说，我们要：
+为了解决这个问题，我们的首要任务是整理视图控制器，将视图控制器分成两部分：View 和 ViewModel。具体来说，我们要：
 
 1. 设计一组绑定的接口。
 2. 将显示逻辑和控制器逻辑移到 ViewModel。
@@ -179,13 +179,13 @@ func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -
 
 #### Implement the Binding with Closure
 
-在 Swift 中，有很多方式来实现「binding」：
+在 Swift 中，有很多方式来实现「绑定」：
 
-1. 使用 KVO (Key-Value Observing) （键值观测）模式。
+1. 使用 KVO (Key-Value Observing) （键值观察）模式。
 2. 使用第三方库 FRP （函数式响应编程） 例如 RxSwift 和 ReactiveCocoa。
 3. 自己定制。
 
-使用 KVO 模式是个不错的注意， 但它可能会创建大量的委托方法，我们必须小心 addObserver/removeObserver，这可能会成为 View 的一个负担。理想的方法是使用FRP中的绑定方案。如果你熟悉函数式响应编程，那就放手去做吧！如果不熟悉的话，那么我不建议使用 FRP 来实现绑定，这样子就太大材小用了。[Here](http://five.agency/solving-the-binding-problem-with-swift/) 是一个很好的文章，谈论使用装饰模式来自己实现绑定。在这篇文章中，我们将把事情简单化。我们使用闭包来实现绑定。实际上，在 ViewModel 中，绑定接口/属性如下所示：
+使用 KVO 模式是个不错的注意， 但它可能会创建大量的委托方法，我们必须小心 addObserver/removeObserver，这可能会成为 View 的一个负担。理想的方法是使用 FRP 中的绑定方案。如果你熟悉函数式响应编程，那就放手去做吧！如果不熟悉的话，那么我不建议使用 FRP 来实现绑定，这样子就太大材小用了。[Here](http://five.agency/solving-the-binding-problem-with-swift/) 是一个很好的文章，谈论使用装饰模式来自己实现绑定。在这篇文章中，我们将把事情简单化。我们使用闭包来实现绑定。实际上，在 ViewModel 中，绑定接口/属性如下所示：
 
 
 ```
@@ -219,7 +219,7 @@ viewModel.propChanged = { in
 2. cells
 3. activity indicator
 
-我们在**PhotoListViewModel**中创建绑定的接口/属性：
+我们在 **PhotoListViewModel** 中创建绑定的接口/属性：
 
 ```
 private var cellViewModels: [PhotoListCellViewModel] = [PhotoListCellViewModel]() {
@@ -239,9 +239,9 @@ var isLoading: Bool = false {
 }
 ```
 
-每个**PhotoListCellViewModel**对象在 tableView 中形成一个规范显示的 cell。它提供了用于渲染 UITableView cell 的数据接口。我们把所有的**PhotoListCellViewModel**对象放入一个数组**cellViewModels**中，cell 的数量恰好是该数组中的项目数。我们可以说数组**cellViewModels**表示 tableView。一旦我们更新 ViewModel 中的**cellViewModels**，闭包**reloadTableViewClosure**将被调用并且 View 将进行相应地更新。
+每个 **PhotoListCellViewModel** 对象在 tableView 中形成一个规范显示的 cell。它提供了用于渲染 UITableView cell 的数据接口。我们把所有的 **PhotoListCellViewModel** 对象放入一个数组 **cellViewModels** 中，cell 的数量恰好是该数组中的项目数。我们可以说数组 **cellViewModels** 表示 tableView。一旦我们更新 ViewModel 中的 **cellViewModels**，闭包 **reloadTableViewClosure** 将被调用并且 View 将进行相应地更新。
 
-一个简单的**PhotoListCellViewModel** 如下所示：
+一个简单的 **PhotoListCellViewModel** 如下所示：
 
 ```
 struct PhotoListCellViewModel {
@@ -252,11 +252,11 @@ struct PhotoListCellViewModel {
 }
 ```
 
-正如你所看到的，**PhotoListCellViewModel**提供了绑定到 View 中的 UI 组件接口的属性。
+正如你所看到的，**PhotoListCellViewModel** 提供了绑定到 View 中的 UI 组件接口的属性。
 
 #### 将 View 与 ViewModel 绑定
 
-有了绑定的接口，现在我们将重点放在 View 部分。首先，在**PhotoListViewController**中，我们初始化 viewDidLoad 中的回调闭包：
+有了绑定的接口，现在我们将重点放在 View 部分。首先，在 **PhotoListViewController** 中，我们初始化 viewDidLoad 中的回调闭包：
 
 ```
 viewModel.updateLoadingStatus = { [weak self] () in
@@ -279,7 +279,7 @@ viewModel.reloadTableViewClosure = { [weak self] () in
 }
 ```
 
-然后我们要重构数据源。在 MVC 模式中，我们在**func tableView（_ tableView：UITableView，cellForRowAt indexPath：IndexPath） - > UITableViewCell**中设置了显示逻辑，现在我们必须将显示逻辑移动到 ViewModel。重构的数据源如下所示：
+然后我们要重构数据源。在 MVC 模式中，我们在 **func tableView（_ tableView：UITableView，cellForRowAt indexPath：IndexPath） - > UITableViewCell** 中设置了显示逻辑，现在我们必须将显示逻辑移动到 ViewModel。重构的数据源如下所示：
 
 ```
 
@@ -300,8 +300,8 @@ func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> U
 数据流现在变成：
 
 1. PhotoListViewModel 开始获取数据。
-2. 获取数据后，我们创建**PhotoListCellViewModel**对象并更新**cellViewModels**。
-3. **PhotoListViewController**被通知更新，然后使用更新后的**cellViewModels**布局 cells。
+2. 获取数据后，我们创建 **PhotoListCellViewModel** 对象并更新 **cellViewModels**。
+3. **PhotoListViewController** 被通知更新，然后使用更新后的 **cellViewModels** 布局 cells。
 
 如下图所示：
 
@@ -309,13 +309,13 @@ func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> U
 
 #### 处理用户交互
 
-我们来看看用户交互。在**PhotoListViewModel**中，我们创建一个函数：
+我们来看看用户交互。在 **PhotoListViewModel** 中，我们创建一个函数：
 
 ```
 func userPressed( at indexPath: IndexPath )
 ```
 
-当用户点击单个 cell 时，**PhotoListViewController**使用此函数通知**PhotoListViewModel**。所以我们可以在**PhotoListViewController**中重构委托方法：
+当用户点击单个 cell 时，**PhotoListViewController** 使用此函数通知 **PhotoListViewModel**。所以我们可以在 **PhotoListViewController** 中重构委托方法：
 
 ```
 func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {	
@@ -328,11 +328,11 @@ func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -
 }
 ```
 
-这意味着一旦**func tableView（_ tableView：UITableView，willSelectRowAt indexPath：IndexPath） - > IndexPath**被调用，则该操作将被传递给**PhotoListViewModel**。委托函数根据由**PhotoListViewModel**提供的isAllowSegue属性决定是否继续。我们就成功地从视图中删除了状态。🍻
+这意味着一旦 **func tableView（_ tableView：UITableView，willSelectRowAt indexPath：IndexPath） - > IndexPath** 被调用，则该操作将被传递给 **PhotoListViewModel**。委托函数根据由 **PhotoListViewModel** 提供的 isAllowSegue 属性决定是否继续。我们就成功地从视图中删除了状态。🍻
 
 #### PhotoListViewModel 的实现
 
-这是一个漫长的过程，对吧？耐心点，我们已经触及到了 MVVM 的核心！ 在**PhotoListViewModel**中，我们有一个名为**cellViewModels**的数组，它表示 View 中的 tableView。
+这是一个漫长的过程，对吧？耐心点，我们已经触及到了 MVVM 的核心！ 在 **PhotoListViewModel** 中，我们有一个名为 **cellViewModels** 的数组，它表示 View 中的 tableView。
 
 ```
 
@@ -342,7 +342,7 @@ private var cellViewModels: [PhotoListCellViewModel] = [PhotoListCellViewModel](
 我们如何获取并排列数据呢？实际上我们在 ViewModel 的初始化中做了两件事：
 
 1. 注入依赖项目：**APIService**
-2. 使用**APIService**获取数据
+2. 使用 **APIService** 获取数据
 
 ```
 init( apiService: APIServiceProtocol ) {
@@ -358,9 +358,9 @@ func initFetch() {
 }
 ```
 
-在上面的代码片段中，我们将属性 isLoading 设置为 true，然后开始从**APIService**中获取数据。由于我们之前所做的绑定，将 isLoading 设置为 true 意味着视图将切换活动指示器。在**APIService**的回调闭包中，我们处理提取的照片 models 并将 isLoading 设置为 false。我们不需要直接操作 UI 组件，但很显然，当我们改变 ViewModel 的这些属性时，UI 组件就会像我们所期望的那样工作。
+在上面的代码片段中，我们将属性 isLoading 设置为 true，然后开始从 **APIService** 中获取数据。由于我们之前所做的绑定，将 isLoading 设置为 true 意味着视图将切换活动指示器。在 **APIService** 的回调闭包中，我们处理提取的照片 models 并将 isLoading 设置为 false。我们不需要直接操作 UI 组件，但很显然，当我们改变 ViewModel 的这些属性时，UI 组件就会像我们所期望的那样工作。
 
-这里是**processFetchedPhoto( photos: [Photo] )**的实现：
+这里是 **processFetchedPhoto( photos: [Photo] )** 的实现：
 
 
 ```
@@ -375,7 +375,7 @@ private func processFetchedPhoto( photos: [Photo] ) {
 }
 ```
 
-它做了一个简单的工作，将照片 models 装成一个**PhotoListCellViewModel**数组。当更新**cellViewModels**属性时，View 中的 tableView 会相应的更新。
+它做了一个简单的工作，将照片 models 装成一个 **PhotoListCellViewModel** 数组。当更新 **cellViewModels** 属性时，View 中的 tableView 会相应的更新。
 
 耶，我们完成了 MVVM 🎉
 
