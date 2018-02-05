@@ -2,46 +2,46 @@
 > * 原文作者：[Evan Scott](https://medium.com/@probablyup?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/v3-1-0-such-perf-wow-many-streams.md](https://github.com/xitu/gold-miner/blob/master/TODO/v3-1-0-such-perf-wow-many-streams.md)
-> * 译者：
+> * 译者：[FateZeros](https://github.com/fateZeros)
 > * 校对者：
 
-# v3.1.0: A massive performance boost and streaming server-side rendering support
+# v3.1.0：大幅性能提升并支持流媒体服务端渲染
 
-## A new CSS injection mechanism means faster client-side rendering in production 🔥 and streaming server-side rendering support enables a faster time-to-first-byte! 🔥🔥
+## 在生产环境，一种新的 CSS 注入机制意味着更快的客户端渲染。 🔥 支持流媒体服务端渲染可以加快首屏渲染时间！ 🔥🔥
 
-### Faster CSS injection in production
+### 在生产环境更快的 CSS 注入
 
-This patch has been a long time coming and has a long history. Almost one and a half years ago (!) [Sunil Pai found a new and widely unknown DOM API:](https://twitter.com/threepointone/status/758095395482324992) `[insertRule](https://twitter.com/threepointone/status/758095395482324992)`. It allows one to insert CSS from JavaScript into the DOM at blazing speed; the only downside being that the styles aren’t editable from browser DevTools.
+这个补丁出来很久了，并有很长的历史。差不多一年半前 (!)[Sunil Pai 发现一个新的，却广泛未知的 DOM API：](https://twitter.com/threepointone/status/758095395482324992) `[insertRule](https://twitter.com/threepointone/status/758095395482324992)`。它允许人们以惊人的速度将 CSS 从 JavaScript 插入到 DOM 中；唯一的缺点就是样式不能从浏览器 DevTools 中编辑。
 
-When [Glen](https://github.com/geelen) and [Max](https://github.com/mxstbr) first built styled-components, they were 100% focused on the developer experience. Performance problems were sparse for smaller applications, so they decided against using `insertRule`. As adoption grew and people used styled-components for larger apps, style injection turned out to be a bottleneck for folks with highly dynamic use cases.
+当 [Glen](https://github.com/geelen) 和 [Max](https://github.com/mxstbr) 首次构建样式化组件时，他们 100% 关注开发人员的体验。性能问题对于较小的应用来说是很稀少的，所以他们决定并不使用 `insertRule`。随着采用量不断增加，人们在更大的应用程序中使用样式组件，样式注入成为人们使用高度动态用例的瓶颈。
 
-Thanks to [Ryan Schwers,](https://twitter.com/real_schwers) a frontend engineer at Reddit, styled-components v3.1.0 now uses `insertRule` in production by default.
+感谢 Reddit 的一名前端工程师 [Ryan Schwers](https://twitter.com/real_schwers)，样式组件 v3.1.0 现在默认在生产环境使用 `insertRule` 。
 
 ![](https://cdn-images-1.medium.com/max/1200/1*GaOQyktA0iQkF3yDExExgw.png)
 
-We ran some benchmarks against the previous version (v3.0.2) and the new one with `insertRule`, and the results were even better than our (already high) expectations:
+我们对前一个版本 (v3.0.2) 和新版本的 `insertRule` 进行了一些基准测试，结果甚至比我们的预期（已经很高的期望）还要高：
 
-**Initial mount time of the benchmark app was reduced by ~10x, and re-render time was reduced by ~20x!**
+**基准应用程序的初始安装时间减少了约 10 倍，重渲染的时间减少了约 20 倍！**
 
-Note that the benchmarks are stress testing the library, and are not representative of a real application. While your app will (probably) not mount 10x faster, **Time-To-First-Interactive dropped by hundreds of milliseconds in one of our production applications**!
+请注意，基准测试是对库进行压力测试，并不代表真实的应用程序。虽然你的应用程序安装时间（可能）不会减少 10 倍，**但在我们的一个生产环境下的应用程序中，首次交互时间会下降数百毫秒**！
 
-Here’s how styled-components holds up in comparison to other major React CSS-in-JS frameworks in those benchmarks:
+在这些基准测试中，样式组件与其他主流的 React CSS-in-JS 框架相比，效果如何：
 
 ![](https://cdn-images-1.medium.com/max/1600/1*X0KamN6FwoOMfp-n0TZYsA.png)
 
-styled-components compared to all other major React CSS-in-JS frameworks. (light red: v3.0.2; dark red: v3.1.0)
+样式组件与所有其他主流的 React CSS-in-JS 框架相比（浅红色是：v3.0.2；深红色是：v3.1.0）
 
-While it’s not (yet) the fastest CSS-in-JS framework in micro-benchmarks, it’s only marginally slower than the fastest ones — to the point where it no longer could be considered a bottleneck. The real-world results are highly encouraging and we can’t wait for you all to report back with your findings!
+在微基准测试中，虽然它不是（还不是）最快的 CSS-in-JS 框架，但它只比那些最快的框架慢少许 ——  关键的是它不再是瓶颈。现实的使用结果是最鼓舞人心的，我们已迫不及待的等你们都来报告你们的发现了！
 
-### Streaming server-side rendering
+### 流媒体服务端渲染
 
-[Streaming server-side rendering](https://hackernoon.com/whats-new-with-server-side-rendering-in-react-16-9b0d78585d67) was introduced in React v16\. It allows the application server to send HTML as it becomes available while React is still rendering, which makes for **a faster Time-To-First-Byte (TTFB)** and **allows your Node server to handle** [**back-pressure**](https://nodejs.org/en/docs/guides/backpressuring-in-streams/) **more easily**.
+在 React v16 中有介绍[流媒体服务端渲染](https://hackernoon.com/whats-new-with-server-side-rendering-in-react-16-9b0d78585d67)。在 React 还在渲染的时候，它允许应用程序服务器发送 HTML 作为可用展示页面，这有助于 **更快的首屏渲染 （TTFB）**，也允许你的 Node 服务器***更容易***处理[**后端压力**](https://nodejs.org/en/docs/guides/backpressuring-in-streams/)。
 
-That doesn’t play well with CSS-in-JS: Traditionally, we inject a `<style>` tag with all your components’ styles into the `<head>` _after_ React finishes rendering. However, in the case of streaming, the `<head>` is sent to the user _before_ any components have been rendered, so we can’t inject into it anymore.
+那不能和 CSS-in-JS 兼容：传统上，在 React 完成渲染后，我们会在所有组件样式的 `<head>` 中注入一个 `<style>` 标签。然而，在流式传输的情况下，在所有组件渲染前，`<head>` 就已发送到用户端，所以我们不能再注入样式。
 
-**The solution is to interleave the HTML with** `**<style>**` **blocks as components are rendered**, rather than waiting until the very end and injecting all the components at once. Because that messes with ReactDOM on the client (HTML being present that React wasn’t responsible for), we have to consolidate all those `style` tags back into the `<head>` before rehydration.
+**解决方案是在组件被渲染的时候，插入带 `**<style>**` 的 HTML**，而不是等到最后一次注入到所有组件。由于那样会在客户端上造成 ReactDOM 混乱（ React 不再对现在的 HTML 负责），所以我们在客户端再覆水前将所有这些 `style` 标签重新合并到 `<head>` 中。
 
-We’ve implemented exactly that; **you can now use streaming server-side rendering with styled-components!** Here’s how:
+我们已经实现了这一点；**你可以在样式组件中使用流式服务端渲染** 以下是使用方法：
 
 ```
 import { renderToNodeStream } from 'react-dom/server'
@@ -57,31 +57,31 @@ stream.pipe(res, { end: false })
 stream.on('end', () => res.end('</div></body></html>'))
 ```
 
-Later on client-side, the `consolidateStreamedStyles()` API must be called to prepare for React’s rehydration phase:
+稍后在客户端，我们必须调用 `consolidateStreamedStyles()` API 为 React 的再覆水阶段做准备：
 
 ```
 import ReactDOM from 'react-dom'
 import { consolidateStreamedStyles } from 'styled-components'
-/* Make sure you call this before ReactDOM.hydrate! */
+/* 确保你在 ReactDOM.hydrate 前面调用它！ */
 consolidateStreamedStyles()
 ReactDOM.hydrate(<App />, rootElem)
 ```
 
-That’s all there is to it! 💯 (check out [the streaming docs](http://styled-components.com/docs/advanced#streaming-rendering) for more information)
+这里就是它的所有了！💯（查看[流式文档](http://styled-components.com/docs/advanced#streaming-rendering)了解更多信息）
 
-### v3: no breaking changes
+### v3：无缝更新
 
-Good news! If you’re on v2 (or even v1), **the new version is backward-compatible** and should be a seamless upgrade. Dozens of improvements have made their way into these new versions, so please take a look and we hope you and your visitors enjoy them!
+好消息！如果你使用的是 v2 版本（或者甚至是 v1 版本），**新版本是向后兼容的**，应该是无缝升级。这些新版本已加入了许多改进，所有请看一看，我们希望你和你的访客能够享受它们！ 
 
-See [the changelog](https://www.styled-components.com/releases) for more information about both the v3.0.0 and the v3.1.0 release.
+有关 v3.0.0 和 v3.1.0 发行版更多的信息，请参阅[更新日志](https://www.styled-components.com/releases)。
 
-Stay stylish! 💅
+紧随潮流！ 💅
 
 * * *
 
-[_Discuss this post in the styled-components community._](https://spectrum.chat/thread/845da820-83f7-4228-981c-ff5723d33e61)
+[可以在样式化组件社区中讨论这篇文章](https://spectrum.chat/thread/845da820-83f7-4228-981c-ff5723d33e61)
 
-_Thanks to Gregory Shehet for his_ [_CSS-in-JS benchmarks,_](https://github.com/A-gambit/CSS-IN-JS-Benchmarks) _which are referenced throughout this post._
+感谢 Gregory Shehet 在这篇文章中被引用的[CSS-in-JS 基准测试](https://github.com/A-gambit/CSS-IN-JS-Benchmarks)。
 
 
 
