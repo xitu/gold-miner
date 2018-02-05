@@ -2,12 +2,12 @@
 > * 原文作者：[Anderson Resende](https://www.vinta.com.br/blog/author/andersonresende/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/contributing-hugh-lib.md](https://github.com/xitu/gold-miner/blob/master/TODO/contributing-hugh-lib.md)
-> * 译者：
-> * 校对者：
+> * 译者：[JayZhaoBoy](https://github.com/JayZhaoBoy)
+> * 校对者：[song-han](https://github.com/song-han), [Tina92](https://github.com/Tina92)
 
 # 为 Django Framework 贡献你的力量并没有想象中的那么难
 
-当我们准备开始编码并开源的时候，总感觉无从下手。 我知道，给一个精彩绝伦的代码库贡献代码的这个想法听起来是有一点吓人的。不过幸运的是，只要你愿意，很多这样的开源库会为你提供大显身手的空间。他们同样会给予我们所需要的支持。听起来很不错吧？
+当我们准备开始编码并开源的时候，总感觉无从下手。我知道，给一个精彩绝伦的代码库贡献代码的这个想法听起来是有一点吓人的。不过幸运的是，只要你愿意，很多这样的开源库会为你提供大显身手的空间。他们同样会给予我们所需要的支持。听起来很不错吧？
 
 你知道那个著名的 python 框架吗？[Django](https://www.djangoproject.com/)！他们的网站上有一个部分叫 [Easy Pickings](https://code.djangoproject.com/query?status=!closed&easy=1)。假如你准备开始参与开源工作并为一个精彩的代码库做贡献，这就是为你而准备的！
 
@@ -19,7 +19,7 @@
 
 ![Alt text](https://vinta-cms.s3.amazonaws.com/media/filer_public/d7/a3/d7a34921-1f76-49f3-89e0-e0d35c0d552c/easy_pickings_search.png)
 
-本文中我选择的是 [bug ticket #26026](https://code.djangoproject.com/ticket/26026) 并把它分配给我自己，接下来我们要深入的了解这个问题。 在下图中，我只是显示了 ticket 的头部。请记得阅读完整的 ticket。
+本文中我选择的是 [bug ticket #26026](https://code.djangoproject.com/ticket/26026) 并把它分配给我自己，接下来我们要深入的了解这个问题。在下图中，我只是显示了 ticket 的头部。请记得阅读完整的 ticket。
 
 ![Alt text](https://vinta-cms.s3.amazonaws.com/media/filer_public/25/92/2592c87c-c1e0-4a32-b8d5-97e35df7dcd6/easy_bug_card.png)
 
@@ -39,7 +39,7 @@
 
 ![Alt text](https://vinta-cms.s3.amazonaws.com/media/filer_public/c3/c8/c3c817a7-bef7-4fda-96ea-12f01d016847/unmerged_pr_code.png)
 
-简单吧，你觉得呢？ 这是我的解决方案，只有一行代码。但是看了下面的答案我发现：
+简单吧，你觉得呢？这是我的解决方案，只有一行代码。但是看了下面的答案我发现：
 
 ![Alt text](https://vinta-cms.s3.amazonaws.com/media/filer_public/d0/78/d07800d2-d0a4-42db-a285-a011eb4744f9/unmerge_pr_comment.png)
 
