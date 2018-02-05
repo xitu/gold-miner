@@ -2,60 +2,60 @@
 > * 原文作者：[Anderson Resende](https://www.vinta.com.br/blog/author/andersonresende/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/contributing-hugh-lib.md](https://github.com/xitu/gold-miner/blob/master/TODO/contributing-hugh-lib.md)
-> * 译者：
-> * 校对者：
+> * 译者：[JayZhaoBoy](https://github.com/JayZhaoBoy)
+> * 校对者：[song-han](https://github.com/song-han), [Tina92](https://github.com/Tina92)
 
-# Contributing to Django Framework is easier than you think
+# 为 Django Framework 贡献你的力量并没有想象中的那么难
 
-For those who are starting to code and wish to make open source, sometimes it is hard to start. The idea of contributing with that fancy and wonderful lib that you love can sound a little bit scary. Lucky for us many of those libs have room for whoever is willing to start. They also give us the support that we need. Pretty sweet, right?
+当我们准备开始编码并开源的时候，总感觉无从下手。我知道，给一个精彩绝伦的代码库贡献代码的这个想法听起来是有一点吓人的。不过幸运的是，只要你愿意，很多这样的开源库会为你提供大显身手的空间。他们同样会给予我们所需要的支持。听起来很不错吧？
 
-Do you know that famous python framework? [Django](https://www.djangoproject.com/)! There is one section on their website called [Easy Pickings](https://code.djangoproject.com/query?status=!closed&easy=1). It was made for you who is willing both to get started with Open Source and to contribute with an amazing lib!
+你知道那个著名的 python 框架吗？[Django](https://www.djangoproject.com/)！他们的网站上有一个部分叫 [Easy Pickings](https://code.djangoproject.com/query?status=!closed&easy=1)。假如你准备开始参与开源工作并为一个精彩的代码库做贡献，这就是为你而准备的！
 
-In this blog post I will show you step-by-step how I got started contributing the to open source by fixing a **Django easy pick** issue and how you can do the same in few steps. I will use a bug fixed by me to explain everything from the beginning to the end. Bear with me!
+在这篇博客中，我将逐步向你展示如何通过修复 Django easy pick 问题来为开源代码库做贡献的，通过这几个简单的步骤你也可以做到。接下来我将通过修复一个缺陷来从头到尾讲解这个过程，跟我来！
 
-## Finding a fix/bug
+## 发现/定位一个 bug
 
-The first thing that you need to do is to visit the Django section [Easy pickings](https://code.djangoproject.com/query?status=!closed&easy=1). There you can find tickets that are easy to fix and small bugs. Every day new tickets are posted there. Try to find a ticket that is not assigned to anybody. Look at the image below: 
+首先你要做的是访问 Django 的 [Easy pickings](https://code.djangoproject.com/query?status=!closed&easy=1)部分。在那里你可以找到易于修复 ticket 和小 bug。每天都会有新的 ticket。找到没有分配给任何人的 ticket。如下图所示： 
 
 ![Alt text](https://vinta-cms.s3.amazonaws.com/media/filer_public/d7/a3/d7a34921-1f76-49f3-89e0-e0d35c0d552c/easy_pickings_search.png)
 
-In my case I choose that [bug ticket #26026](https://code.djangoproject.com/ticket/26026) and assigned it to myself, let's take a deeper look into the issue. In the image below I am just showing the header of the ticket. Please read the complete ticket.
+本文中我选择的是 [bug ticket #26026](https://code.djangoproject.com/ticket/26026) 并把它分配给我自己，接下来我们要深入的了解这个问题。在下图中，我只是显示了 ticket 的头部。请记得阅读完整的 ticket。
 
 ![Alt text](https://vinta-cms.s3.amazonaws.com/media/filer_public/25/92/2592c87c-c1e0-4a32-b8d5-97e35df7dcd6/easy_bug_card.png)
 
-As I have told you before, I have already solved this bug. So I am assigned to it, the bug is closed and there are some related PRs. When you choose a bug don't forget to assign the bug to yourself. This will prevent other people from picking the bug to work with. You need to be logged on the Django site, there are links on the top of the ticket page for that.
+正如我之前所说，我已经解决了这个 bug。所以当我把这个 bug 分配给我自己，bug 将被关闭，并有一些相关的 PR。因此当你选择一个 bug 时，千万不要忘记把它分配给自己。这是为了防止其他人重复选择这个 bug。你需要在 Django 的网站上登录，在 ticket 页面的顶部有链接。
 
-If you opened the ticket you will probably have noticed some discussions where the people suggested some solutions and made comments about the problem. People in the community are normally very helpful.
+如果你打开 ticket 页面，你可能会看到一些关于如何解决问题的意见和方案。通常这些对你都是很有帮助的。
 
-Ok! We've found and understood an open ticket.
+好了！我们现在已经找到并理解了一个公开的 ticket 是什么样子的。
 
-## Let's code
+## 开始编码
 
-The first step is to fork the [Django repo](https://github.com/django/django). Second, write your code and make a commit following the style suggested by [Django's guidelines](https://docs.djangoproject.com/en/1.10/internals/contributing/committing-code/#committing-guidelines). Take a look at my commit name: _[1.9.x] Fixed #26026 -- Checked if the QuerySet is empty_. So you can finally make a pull request.
+第一步先 fork [Django repo](https://github.com/django/django)仓库。第二步，编写你的代码，并按照建议的风格进行提交[Django's guidelines](https://docs.djangoproject.com/en/1.10/internals/contributing/committing-code/#committing-guidelines)。可以参考一下我的提交： _[1.9.x] Fixed #26026 -- Checked if the QuerySet is empty_。最后发起 pull request。
 
-Let's take a look at my pull request and check the code I wrote. Note that I commented the PR with a link to the ticket it covers.
+让我们来看一下我的 pull request 并检查一下我的代码。可以看到我用了包含 ticket 的链接来注释这个 PR。
 
 ![Alt text](https://vinta-cms.s3.amazonaws.com/media/filer_public/03/35/03350a59-e487-4d51-bcee-01a86e5c9bed/unmerged_pr.png)
 
 ![Alt text](https://vinta-cms.s3.amazonaws.com/media/filer_public/c3/c8/c3c817a7-bef7-4fda-96ea-12f01d016847/unmerged_pr_code.png)
 
-Simple, don't you think? That was my solution, just one line of code. But check bellow the answer I got:
+简单吧，你觉得呢？这是我的解决方案，只有一行代码。但是看了下面的答案我发现：
 
 ![Alt text](https://vinta-cms.s3.amazonaws.com/media/filer_public/d0/78/d07800d2-d0a4-42db-a285-a011eb4744f9/unmerge_pr_comment.png)
 
-Uhumm... The problem was that I made a pull request to the wrong version of Django. Also, I forgot to write tests to my fix. Let's fix that!
+额... 问题的原因是我对错误的 Django 版本进行了 pull request。而且我忘记了写我的修复测试。让我们来解决这个问题！
 
-This is my second PR, now against master and with tests alongside my code that I had already written. Notice that the name of my commit has changed (Is the same name of my PR).
+这是我的第二次 PR，针对 master 对我已经编写的代码进行测试。请注意我的提交名称已经变了（和我的 PR 名称一致）。
 
 ![Alt text](https://vinta-cms.s3.amazonaws.com/media/filer_public/0d/fc/0dfcc5a4-dd68-4c39-b7ea-151c44933799/merged_commit_pr.png)
 
 ![Alt text](https://vinta-cms.s3.amazonaws.com/media/filer_public/3c/1b/3c1b3d9c-f8fc-4a3a-a393-2e6fa8af52d5/merged_pr_code.png)
 
-Done! My PR was merged and closed. I have contributed to the amazing Django!
+完成！我的 PR 已经被合并和关闭。我已经为了不起的 Django 库做出了我的贡献！
 
 ![Alt text](https://vinta-cms.s3.amazonaws.com/media/filer_public/fb/08/fb08867f-2c67-4bed-a7ee-d66839d92cae/dead.gif)
 
-**More from Vinta**
+**更多来自Vinta**
 
 - [**Controlling access: a Django permission apps comparison**](https://www.vinta.com.br/blog/2016/controlling-access-a-django-permission-apps-comparison/)
 - [**Python API clients with Tapioca**](https://www.vinta.com.br/blog/2016/python-api-clients-with-tapioca/)
