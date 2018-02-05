@@ -2,8 +2,8 @@
 > * 原文作者：[S.T.Huang](https://medium.com/@koromikoneo?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/how-to-use-a-model-view-viewmodel-architecture-for-ios.md](https://github.com/xitu/gold-miner/blob/master/TODO/how-to-use-a-model-view-viewmodel-architecture-for-ios.md)
-> * 译者：
-> * 校对者：
+> * 译者：[JayZhaoBoy](https://github.com/JayZhaoBoy)
+> * 校对者：[swants](https://github.com/swants)，[ryouaki](https://github.com/ryouaki)
 
 # 不再对 MVVM 感到绝望
 
