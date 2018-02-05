@@ -52,9 +52,9 @@ MVVM 是由 [John Gossman](https://blogs.msdn.microsoft.com/johngossman/2005/10/
 
 ![](https://cdn-images-1.medium.com/max/800/1*8MiNUZRqM1XDtjtifxTSqA.png)
 
-根据定义，View 只包含视觉元素。在视图中，我们只做布局、动画、初始化 UI 组件等等。View 和 Model 之间有一个称为 ViewModel 的特殊层。ViewModel 是View 的标准表示。也就是说，ViewModel 提供了一组接口，每个接口代表 View 中的 UI 组件。我们使用一种称为「绑定」的技术将 UI 组件连接到 ViewModel 接口。因此，在 MVVM 中，我们不直接操作 View，而是通过处理 ViewModel 中的业务逻辑从而使视图也相应地改变。我们会在 ViewModel 而不是 View 中编写一些显示性的东西，例如将 Date 转换为 String。因此，不必知道 View 的实现就可以为显示的逻辑编写一个简单的测试。
+根据定义，View 只包含视觉元素。在视图中，我们只做布局、动画、初始化 UI 组件等等。View 和 Model 之间有一个称为 ViewModel 的特殊层。ViewModel 是 View 的标准表示。也就是说，ViewModel 提供了一组接口，每个接口代表 View 中的 UI 组件。我们使用一种称为「绑定」的技术将 UI 组件连接到 ViewModel 接口。因此，在 MVVM 中，我们不直接操作 View，而是通过处理 ViewModel 中的业务逻辑从而使视图也相应地改变。我们会在 ViewModel 而不是 View 中编写一些显示性的东西，例如将 Date 转换为 String。因此，不必知道 View 的实现就可以为显示的逻辑编写一个简单的测试。
 
-让我们回过头再看看上面的图。通常情况下，ViewModel 从 View 接收用户交互，从 Model 中提取数据，然后将数据处理为一组即将显示的相关属性。在 ViewModel 变化后，View 就会自动更新。这就是 MVVM 的全部内容。
+让我们回过头再看看上面的图。通常情况下，ViewModel 从 View 接收用户交互，从 Model 中提取数据，然后将数据处理为一组即将显示的相关属性。在  ViewModel 变化后，View 就会自动更新。这就是 MVVM 的全部内容。
 
 具体来说，对于 iOS 开发中的 MVVM，UIView/UIViewController 表示 View。我们只做：
 
