@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/v3-1-0-such-perf-wow-many-streams.md](https://github.com/xitu/gold-miner/blob/master/TODO/v3-1-0-such-perf-wow-many-streams.md)
 > * 译者：[FateZeros](https://github.com/fateZeros)
-> * 校对者：
+> * 校对者：[ryouaki](https://github.com/ryouaki)
 
 # v3.1.0：大幅性能提升并支持流媒体服务端渲染
 
@@ -35,7 +35,7 @@
 
 ### 流媒体服务端渲染
 
-在 React v16 中有介绍[流媒体服务端渲染](https://hackernoon.com/whats-new-with-server-side-rendering-in-react-16-9b0d78585d67)。在 React 还在渲染的时候，它允许应用程序服务器发送 HTML 作为可用展示页面，这有助于 **更快的首屏渲染 （TTFB）**，也允许你的 Node 服务器***更容易***处理[**后端压力**](https://nodejs.org/en/docs/guides/backpressuring-in-streams/)。
+在 React v16 中有介绍[流媒体服务端渲染](https://hackernoon.com/whats-new-with-server-side-rendering-in-react-16-9b0d78585d67)。在 React 还在渲染的时候，它允许应用程序服务器发送 HTML 作为可用展示页面，这有助于 **更快的首屏渲染（TTFB）**，也允许你的 Node 服务器***更容易***处理[**后端压力**](https://nodejs.org/en/docs/guides/backpressuring-in-streams/)。
 
 那不能和 CSS-in-JS 兼容：传统上，在 React 完成渲染后，我们会在所有组件样式的 `<head>` 中注入一个 `<style>` 标签。然而，在流式传输的情况下，在所有组件渲染前，`<head>` 就已发送到用户端，所以我们不能再注入样式。
 
@@ -62,7 +62,7 @@ stream.on('end', () => res.end('</div></body></html>'))
 ```
 import ReactDOM from 'react-dom'
 import { consolidateStreamedStyles } from 'styled-components'
-/* 确保你在 ReactDOM.hydrate 前面调用它！ */
+/* Make sure you call this before ReactDOM.hydrate! */
 consolidateStreamedStyles()
 ReactDOM.hydrate(<App />, rootElem)
 ```
@@ -81,7 +81,7 @@ ReactDOM.hydrate(<App />, rootElem)
 
 [可以在样式化组件社区中讨论这篇文章](https://spectrum.chat/thread/845da820-83f7-4228-981c-ff5723d33e61)
 
-感谢 Gregory Shehet 在这篇文章中被引用的[CSS-in-JS 基准测试](https://github.com/A-gambit/CSS-IN-JS-Benchmarks)。
+感谢 Gregory Shehet 提出的 [CSS-in-JS 基准测试](https://github.com/A-gambit/CSS-IN-JS-Benchmarks) 为这篇文章提供了参考。
 
 
 
