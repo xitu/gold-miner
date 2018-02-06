@@ -6,10 +6,16 @@
 > * 校对者：
 
 # 12 best practices for user account, authorization and password management
+用户账户、授权和密码管理的12个最佳方法
 
 Account management, authorization and password management can be tricky. For many developers, account management is a dark corner that doesn't get enough attention. For product managers and customers, the resulting experience often falls short of expectations.
 
+账户管理、授权和密码管理问题可以变得很棘手。对于很多开发者来说，账户管理仍是一个暗角,并没有得到足够的重视。而对于产品管理者和客户来说，由此产生的体验往往达不到预期的效果。
+
+
 Fortunately, [Google Cloud Platform](https://cloud.google.com/) (GCP) brings several tools to help you make good decisions around the creation, secure handling and authentication of user accounts (in this context, anyone who identifies themselves to your system — customers or internal users). Whether you're responsible for a website hosted in [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/), an API on [Apigee](https://cloud.google.com/apigee-api-management/), an app using [Firebase](https://firebase.google.com/) or other service with authenticated users, this post will lay out the best practices to ensure you have a safe, scalable, usable account authentication system.
+
+幸运的是，[Google Cloud Platform](https://cloud.google.com/) (GCP) 有几个工具，可以帮助你在围绕用户账户进行的创新、安全处理和授权方面做出更好的决定
 
 ## Hash those passwords
 
