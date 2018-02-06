@@ -15,13 +15,19 @@ Account management, authorization and password management can be tricky. For man
 
 Fortunately, [Google Cloud Platform](https://cloud.google.com/) (GCP) brings several tools to help you make good decisions around the creation, secure handling and authentication of user accounts (in this context, anyone who identifies themselves to your system — customers or internal users). Whether you're responsible for a website hosted in [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/), an API on [Apigee](https://cloud.google.com/apigee-api-management/), an app using [Firebase](https://firebase.google.com/) or other service with authenticated users, this post will lay out the best practices to ensure you have a safe, scalable, usable account authentication system.
 
-幸运的是，[Google Cloud Platform](https://cloud.google.com/) (GCP) 有几个工具，可以帮助你在围绕用户账户进行的创新、安全处理和授权方面做出更好的决定
+幸运的是，[Google Cloud Platform](https://cloud.google.com/) (GCP) 上有几个工具，可以帮助你在围绕用户账户（在这里指那些在你的系统中认证的客户和内部用户）进行的创新、安全处理和授权方面做出好的决定。
 
 ## Hash those passwords
 
+## 将密码打乱
+
 My most important rule for account management is to safely store sensitive user information, including their password. You must treat this data as sacred and handle it appropriately.
 
+账户管理最重要的准则是安全地存储敏感的用户信息，包括他们的密码。你必须神圣地对待并恰当地处理这些数据。
+
 Do not store plaintext passwords under any circumstances. Your service should instead store a cryptographically strong hash of the password that cannot be reversed — created with, for example, PBKDF2, SHA3, Scrypt, or Bcrypt. The hash should be [salted](https://www.owasp.org/index.php/Password_Storage_Cheat_Sheet#Use_a_cryptographically_strong_credential-specific_salt) with a value unique to that specific login credential. Do not use deprecated hashing technologies such as MD5, SHA1 and under no circumstances should you use reversible encryption or [try to invent your own hashing algorithm](https://www.schneier.com/blog/archives/2011/04/schneiers_law.html).
+
+不要在任何情况下存储明文密码。相反，你的服务应该存储不可逆转的经过加密的密码的强哈希值
 
 You should design your system assuming it will be compromised eventually. Ask yourself "If my database were exfiltrated today, would my users' safety and security be in peril on my service or other services they use? What can we do to mitigate the potential for damage in the event of a leak?"
 
