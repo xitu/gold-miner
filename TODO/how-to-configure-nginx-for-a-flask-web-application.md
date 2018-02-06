@@ -15,7 +15,7 @@
 
 在 Nginx（发音为“engine-X”）的官网中，有着这个工具的概要描述：
 
-_Nginx 是一款免费、开源、高性能的 HTTP 服务器以及反向代理，同时也可以作为 IMAP/POP3 代理服务器。Nginx 以其高性能、稳定性、丰富的功能、简单的配置、低资源消耗而闻名。_
+Nginx 是一款免费、开源、高性能的 HTTP 服务器以及反向代理，同时也可以作为 IMAP/POP3 代理服务器。Nginx 以其高性能、稳定性、丰富的功能、简单的配置、低资源消耗而闻名。
 
 我们可以拓展理解此说明…… Nginx 是一个可以为你的 Web 应用处理 [HTTP](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol) 请求的服务器。对于典型的 Web 应用，Nginx 可以配置为 HTTP 请求进行以下操作：
 
@@ -38,7 +38,7 @@ Nginx 作为一个 HTTP 服务器，在许多应用中都被使用：[列表](ht
 
 ### **Nginx 配置文件的结构**
 
-_注意：本文应用的是 Nginx v1.11.3，配置文件所在的位置根据你 Nginx 版本的不同会有所变化，比如 /opt/nginx/conf/。_
+注意：本文应用的是 Nginx v1.11.3，配置文件所在的位置根据你 Nginx 版本的不同会有所变化，比如 /opt/nginx/conf/。
 
 根据你安装、使用 Nginx 方式的不同，配置文件的结构会略有不同。大多数的配置结构如下所示：
 
