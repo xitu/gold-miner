@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/how-to-configure-nginx-for-a-flask-web-application.md](https://github.com/xitu/gold-miner/blob/master/TODO/how-to-configure-nginx-for-a-flask-web-application.md)
 > * 译者：[lsvih](https://github.com/lsvih)
-> * 校对者：
+> * 校对者：[GanymedeNil](https://github.com/GanymedeNil)
 
 # 如何为 Flask Web 应用配置 Nginx
 
@@ -44,7 +44,7 @@ _注意：本文应用的是 Nginx v1.11.3，配置文件所在的位置根据�
 
 #### 结构 1
 
-如果你使用的是从源代码编译得到的 Nginx 或者官方的 Docker 映象，那么配置文件在 /etc/nginx/ 中，主配置文件为 /etc/nginx/nginx.conf。在 /etc/nginx/nginx.conf 的最下面的一行会将位于 /etc/nginx/conf.d/ 目录下的其余配置文件内容载入配置中：
+如果你使用的是从源代码编译得到的 Nginx 或者官方的 Docker 镜像，那么配置文件在 /etc/nginx/ 中，主配置文件为 /etc/nginx/nginx.conf。在 /etc/nginx/nginx.conf 的最下面的一行会将位于 /etc/nginx/conf.d/ 目录下的其余配置文件内容载入配置中：
 
 * include /etc/nginx/conf.d/*.conf;
 
@@ -61,7 +61,7 @@ _注意：本文应用的是 Nginx v1.11.3，配置文件所在的位置根据�
 
 ### **Nginx 的配置**
 
-Nginx 中最高级的配置文件就是 nginx.conf。Nginx 接受多层级的配置文件，这也使得用户可以针对自己的应用进行有弹性的配置。如需了解配置文件中各参数的详细信息，可以参阅 [Nginx 官方文档](http://nginx.org/en/docs/ngx_core_module.html)。
+Nginx 的顶层配置文件是 nginx.conf。Nginx 接受多层级的配置文件，这也使得用户可以针对自己的应用进行弹性的配置。如需了解配置文件中各参数的详细信息，可以参阅 [Nginx 官方文档](http://nginx.org/en/docs/ngx_core_module.html)。
 
 在 Nginx 中，由配置块（block）来组织各个配置参数。以下为在本文中我们将提到的配置块：
 
@@ -88,7 +88,7 @@ error_log  /var/log/nginx/error.log warn;
 pid        /var/run/nginx.pid;
 ```
 
-第一个参数（[user](http://nginx.org/en/docs/ngx_core_module.html#user)）会定义 Nginx 服务器的拥有与运行用户。当 Nginx 通过 Docker 容器运行时，使用默认值就够了。
+第一个参数（[user](http://nginx.org/en/docs/ngx_core_module.html#user)）将定义 Nginx 服务器的拥有者以及运行用户。当 Nginx 通过 Docker 容器运行时，使用默认值就够了。
 
 第二个参数（[worker_processes](http://nginx.org/en/docs/ngx_core_module.html#worker_processes)）定义了 worker processes（工作进程）的数量。此参数推荐的默认值为当前服务器使用内核的数量。对于基础的虚拟私有服务器（VPS）来说，默认值 1 就是个不错的选择。当你拓展 VPS 性能时可以增加这个数字。
 
@@ -254,7 +254,7 @@ server {
 
 服务器配置块为特定的虚拟主机或服务器定义了参数。通常为你在 VPS 上部署的单个 Web 应用。
 
-第一个参数（[root](http://nginx.org/en/docs/http/ngx_http_core_module.html#root)）定义了请求的内容所在的目录。由于在默认的”/“路径中定义过了，因此可以注释掉这个不必要的参数。
+第一个参数（[root](http://nginx.org/en/docs/http/ngx_http_core_module.html#root)）定义了被请求的内容所存储的位置。当 Nginx 收到用户请求时，它便会在此目录中查找。由于在默认的”/“路径中定义过了，因此可以注释掉这个不必要的参数。
 
 第二个参数（[index](http://nginx.org/en/docs/http/ngx_http_index_module.html)）定义了在请求未指定页面时（比如访问 www.kennedyfamilyrecipes.com）所得到的默认页面。由于我们使用的是 Flask Web 应用生成的动态内容，因此需要注释掉这个参数。
 
@@ -329,7 +329,7 @@ proxy_pass http://localhost:8000/;
 proxy_pass http://unix:/tmp/backend.socket:/
 ```
 
-如果你使用 Docker 容器运行的 Nginx，希望与容器中的 Gunicorn 进行对话，那么可以直接使用运行 Gunicorn 的容器名称：
+如果你使用 Docker 容器运行的 Nginx，希望与容器中的 Gunicorn 进行通信，那么可以直接使用运行 Gunicorn 的容器名称：
 
 ```
 proxy_pass http://web:8000;
@@ -366,5 +366,4 @@ proxy_pass http://web:8000;
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
-
 
