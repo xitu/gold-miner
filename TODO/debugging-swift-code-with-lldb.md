@@ -25,7 +25,7 @@
 
 LLDB 是一个庞大的工具，内置了很多有用的命令。我不会全部讲解，而是带你浏览最有用的命令。这是我们的计划：
 
-1. 获取变量值： `expression`, `e`, `print`, `po`, `p`
+1. 获取变量值：`expression`, `e`, `print`, `po`, `p`
 2. 获取整个应用程序的状态以及特定语言的命令：`bugreport`, `frame`, `language`
 3. 控制应用的执行流程：`process`, `breakpoint`, `thread`, `watchpoint`
 4. 荣誉奖：`command`, `platform`, `gui`
@@ -296,7 +296,7 @@ Enter your debugger command(s).  Type 'DONE' to end.
 > DONE
 ```
 
-为了确保你添加的命令是正确的，可以使用  `breakpoint command list <breakpoint id>` 子命令：
+为了确保你添加的命令是正确的，可以使用 `breakpoint command list <breakpoint id>` 子命令：
 
 ```
 (lldb) breakpoint command list 2
