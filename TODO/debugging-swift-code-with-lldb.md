@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/debugging-swift-code-with-lldb.md](https://github.com/xitu/gold-miner/blob/master/TODO/debugging-swift-code-with-lldb.md)
 > * 译者：[VernonVan](https://github.com/VernonVan)
-> * 校对者：
+> * 校对者：[ZhiyuanSun](https://github.com/ZhiyuanSun)、[Danny1451](https://github.com/Danny1451)
 
 
 
@@ -11,7 +11,7 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/1*_o1ATofHFOE2zlbbPSFz-Q.png)
 
-作为工程师，我们花了差不多70%的时间在调试上，剩下的20%用来思考架构以及和组员沟通，仅仅只有10%的时间是真的在写代码的。
+作为工程师，我们花了差不多 70% 的时间在调试上，剩下的 20% 用来思考架构以及和组员沟通，仅仅只有 10% 的时间是真的在写代码的。
 
 > 调试就像是在犯罪电影中做侦探一样，同时你也是凶手。
 >
@@ -44,9 +44,9 @@ LLDB 是一个庞大的工具，内置了很多有用的命令。我不会全部
 
 ![](https://cdn-images-1.medium.com/max/1000/1*HcuIHN3WucfxG2Mk80wldw.png)
 
-调试器的一个基础功能就是获取和修改变量的值。这就是 `expression` 或者  `e` 产生的目的（实际上是）。您可以简单的在运行时执行任何表达式或命令。
+调试器的一个基础功能就是获取和修改变量的值。这就是 `expression` 或者 `e` 被创造的原因（当然他们还有更高级的功能）。您可以简单的在运行时执行任何表达式或命令。
 
-假设你现在正在调试方法 `valueOfLifeWithoutSumOf()` ：对两个数求和，再减42得到结果。
+假设你现在正在调试方法 `valueOfLifeWithoutSumOf()` ：对两个数求和，再用42去减得到结果。
 
 ![](https://cdn-images-1.medium.com/max/800/1*ZRG-coIMk9udSc4edkMO6w.png)
 
@@ -54,7 +54,7 @@ LLDB 是一个庞大的工具，内置了很多有用的命令。我不会全部
 
 ![](https://cdn-images-1.medium.com/max/800/1*LOFplcSqjYiO2BAjPi--4A.png)
 
-或者。。。使用 LLDB 表达式在运行时修改值才是更好的方法，同时可以找出问题是在哪里出现的。首先，在你感兴趣的地方设置一个断点，然后运行你的项目。
+或者。。。使用 LLDB 表达式在运行时修改值才是更好的方法，同时可以找出问题是在哪里出现的。首先，在你感兴趣的地方设置一个断点，然后运行你的应用。
 
 为了用 LLDB 格式打印指定的变量你应该调用：
 
@@ -72,12 +72,12 @@ LLDB 是一个庞大的工具，内置了很多有用的命令。我不会全部
 
 ```
 (lldb) e sum 
-(Int) $R0 = 6 // You can also use $R0 to refer to this variable in the future (during current debug session)
+(Int) $R0 = 6 // 下面你也可以用 $R0 来引用这个变量（在本次调试过程中）
 
-(lldb) e sum = 4 // Change value of sum variable
+(lldb) e sum = 4 // 修改变量 sum 的值
 
 (lldb) e sum 
-(Int) $R2 = 4 // sum variable will be "4" till the end of debugging session
+(Int) $R2 = 4 // 直到本次调试结束变量 sum 都会是 "4" 
 ```
 
 `expression` 命令也有一些标志。在 `expression` 后面用双破折号 `--` 将标志和实际的表达式分隔开，就像这样：
@@ -90,14 +90,14 @@ LLDB 是一个庞大的工具，内置了很多有用的命令。我不会全部
 
 ```
 > lldb
-> (lldb) help # To explore all available commands
-> (lldb) help expression # To explore all expressions related sub-commands
+> (lldb) help # 获取所有变量的命令
+> (lldb) help expression # 获取所有表达式的子命令
 ```
 
 我会在下列 `expression` 的标志上多停留一会儿：
 
 - `-D <count>` (`--depth <count>`)  — 设置在转储聚合类型时的最大递归深度（默认为无穷大）。
-- `-O` (`--object-description`)  — 如果可能的话，使用指定8语言的描述API来显示。
+- `-O` (`--object-description`)  — 如果可能的话，使用指定语言的描述API来显示。
 - `-T` (`--show-types`)  — 在转储值的时候显示变量类型。
 - `-f <format>` (`--format <format>`) — 指定一种用于显示的格式。
 - `-i <boolean>` (`--ignore-breakpoints <boolean>`) — 在运行表达式时忽略断点。
@@ -113,7 +113,7 @@ LLDB 是一个庞大的工具，内置了很多有用的命令。我不会全部
 }
 ```
 
-默认情况下，LLDB 中的对象看起来就像是无穷的，会向你展示一个完整的描述给每一个嵌套的对象：
+默认情况下，LLDB 会无限地遍历该对象并且给你展示每个嵌套的对象的完整描述：
 
 ```
 (lldb) e -- logger
@@ -146,7 +146,7 @@ LLDB 是一个庞大的工具，内置了很多有用的命令。我不会全部
 
 ![](https://cdn-images-1.medium.com/max/1000/1*1OpRvgpxYDjA5ZeEpbh55Q.png)
 
-你是否经常复制粘贴崩溃日志到任务管理器中方便稍后能考虑这个问题吗？LLDB 提供了一个很好用的命令叫 `bugreport`，这个命令能生成当前 APP 状态的完整报告。在你偶然触发某些问题但是想在稍后再解决它时这个命令就会很有帮助了。为了能恢复 APP 的状态，你可以使用 `bugreport` 生成报告。 
+你是否经常复制粘贴崩溃日志到任务管理器中方便稍后能考虑这个问题吗？LLDB 提供了一个很好用的命令叫 `bugreport`，这个命令能生成当前应用状态的完整报告。在你偶然触发某些问题但是想在稍后再解决它时这个命令就会很有帮助了。为了能恢复应用的状态，你可以使用 `bugreport` 生成报告。 
 
 ```
 (lldb) bugreport unwind --outfile <path to output file>
@@ -191,7 +191,7 @@ refcount data: (strong = 4, weak = 0)
 
 
 
-### 3. 控制 APP 的执行流程
+### 3. 控制应用的执行流程
 
 `process`, `breakpoint`, `thread`
 
@@ -199,7 +199,7 @@ refcount data: (strong = 4, weak = 0)
 
 ![](https://cdn-images-1.medium.com/max/1000/1*mLGvusUvwDjWnuRGIaM6zw.png)
 
-通过 `process` 基本上你就可以控制调试的过程了，还能链接到特定的 target 或者停止调试器。 但是因为 Xcode 已经自动地帮我们做好了这个工作了（Xcode 在任何时候运行一个 target 时都会连接 LLDB）。你可以在这篇 Apple 的指南中阅读一下如何用终端连接到一个 target — [“Using LLDB as a Standalone Debugger”](https://developer.apple.com/library/content/documentation/IDEs/Conceptual/gdb_to_lldb_transition_guide/document/lldb-terminal-workflow-tutorial.html)。
+通过 `process` 基本上你就可以控制调试的过程了，还能链接到特定的 target 或者停止调试器。 但是因为 Xcode 已经自动地帮我们做好了这个工作了（Xcode 在任何时候运行一个 target 时都会连接 LLDB）。我不会在这儿讲太多，你可以在这篇 Apple 的指南中阅读一下如何用终端连接到一个 target — [“Using LLDB as a Standalone Debugger”](https://developer.apple.com/library/content/documentation/IDEs/Conceptual/gdb_to_lldb_transition_guide/document/lldb-terminal-workflow-tutorial.html)。
 
 使用 `process status` 的话，你可以知道当前调试器停住的地址：
 
@@ -223,7 +223,7 @@ frame #0: 0x000000010bbe4889 LLDB-Debugger-Exploration`ViewController.viewDidLoa
 ```
 (lldb) process continue
 
-(lldb) c // Or just type "c" which is the same as previous command
+(lldb) c // 或者只键入 "c"，这跟上一条命令是一样的
 ```
 
 这个命令等同于 Xcode 调试器工具栏上的”continue“按钮：
@@ -268,7 +268,7 @@ Breakpoint 3: where = LLDB-Debugger-Exploration`LLDB_Debugger_Exploration.ViewCo
 ```
 (lldb) breakpoint set --func-regex valueOfLifeWithoutSumOf
 
-(lldb) b -r valueOfLifeWithoutSumOf // Short version of the command above
+(lldb) b -r valueOfLifeWithoutSumOf // 上一条命令的简化版本
 ```
 
 有些时候设置断点只命中一次也是有用的，然后指示这个断点立即删除自己，当然啦，有一个命令来处理这件事：
@@ -276,7 +276,7 @@ Breakpoint 3: where = LLDB-Debugger-Exploration`LLDB_Debugger_Exploration.ViewCo
 ```
 (lldb) breakpoint set --one-shot -f ViewController.swift -l 90
 
-(lldb) br s -o -f ViewController.swift -l 91 // Shorter version of the command above
+(lldb) br s -o -f ViewController.swift -l 91 // 上一条命令的简化版本
 ```
 
 现在我们来到了最有趣的部分 — 自动化断点。你知道你可以设置一个特定的动作使它在断点停住的时候执行吗？是的，你可以！你是否会在代码中用 `print()` 来在调试的时候得到你感兴趣的值？请不要再这样做了，这里有一种更好的方法。🙂
@@ -288,11 +288,11 @@ Breakpoint 3: where = LLDB-Debugger-Exploration`LLDB_Debugger_Exploration.ViewCo
 
 Breakpoint 2: where = LLDB-Debugger-Exploration`LLDB_Debugger_Exploration.ViewController.valueOfLifeWithoutSumOf (Swift.Int, and : Swift.Int) -> Swift.Int + 45 at ViewController.swift:96, address = 0x000000010c555b4d
 
-(lldb) breakpoint command add 2 // Setup some commands 
+(lldb) breakpoint command add 2 // 准备某些命令
 
 Enter your debugger command(s).  Type 'DONE' to end.
-> p sum // Print value of "sum" variable
-> p a + b // Evaluate a + b
+> p sum // 打印变量 "sum" 的值
+> p a + b // 运行 a + b
 > DONE
 ```
 
@@ -321,12 +321,12 @@ p a + b
 太棒了！这正是我们想要的。你可以通过在命令链的末尾添加 `continue` 命令让执行过程更加顺畅，这样你就不会停在这个断点。
 
 ```
-(lldb) breakpoint command add 2 // Setup some commands
+(lldb) breakpoint command add 2 // 准备某些命令
 
 Enter your debugger command(s).  Type 'DONE' to end.
-> p sum // Print value of "sum" variable
-> p a + b // Evaluate a + b
-> continue // Resume right after first hit
+> p sum // 打印变量 "sum" 的值
+> p a + b // 运行 a + b
+> continue // 第一次命中断点后直接恢复
 > DONE
 ```
 
@@ -354,12 +354,12 @@ LLDB 同样也对这些特殊的命令预先定义好了快捷方式：
 
 ```
 (lldb) thread step-over
-(lldb) next // The same as "thread step-over" command
-(lldb) n // The same as "next" command
+(lldb) next // 和 "thread step-over" 命令效果一样
+(lldb) n // 和 "next" 命令效果一样
 
 (lldb) thread step-in
-(lldb) step // The same as "thread step-in"
-(lldb) s // The same as "step"
+(lldb) step // 和 "thread step-in" 命令效果一样
+(lldb) s // 和 "step" 命令效果一样
 ```
 
 为了获取当前线程的更多信息，我们只需要调用 `info` 子命令：
@@ -397,8 +397,8 @@ Process 50693 stopped
 在 LLDB 中你可以找到一个命令管理其他的命令，听起来很奇怪，但实际上它是非常有用的小工具。首先，它允许你从文件中执行一些 LLDB 命令，这样你就可以创建一个储存着一些实用命令的文件，然后就能立刻允许这些命令，就像是单个命令那样。这是所说的文件的简单例子：
 
 ```
-thread info // Show current thread info
-br list // Show all breakpoints
+thread info // 显示当前线程的信息
+br list // 显示所有的断点
 ```
 
 下面是实际命令的样子：
@@ -419,7 +419,7 @@ Current breakpoints:
 
 遗憾的是还有一个缺点，你不能传递任何参数给这个源文件（除非你在脚本文件本身中创建一个有效的变量）。
 
-如果你需要更高级的功能，你也可以使用 `script` 子命令，这个命令允许你用自定义的 Python 脚本 管理(`add`, `delete`, `import` 和 `list`)，通过 `script` 命令能实现真正的自动化。请阅读这个优秀的教程 [Python scripting for LLDB](http://www.fabianguerra.com/ios/introduction-to-lldb-python-scripting/)。为了演示的目的，让我们创建一个脚本文件 script.py，然后写一个简单的命令 print_hello()，这个命令会在控制台中打印出“Hello Debugger!“：
+如果你需要更高级的功能，你也可以使用 `script` 子命令，这个命令允许你用自定义的 Python 脚本 管理(`add`, `delete`, `import` 和 `list`)，通过 `script` 命令能实现真正的自动化。请阅读这个优秀的教程 [Python scripting for LLDB](http://www.fabianguerra.com/ios/introduction-to-lldb-python-scripting/)。为了演示的目的，让我们创建一个脚本文件 script.py，然后写一个简单的命令 **print_hello()**，这个命令会在控制台中打印出“Hello Debugger!“：
 
 ```
 import lldb
@@ -428,8 +428,8 @@ def print_hello(debugger, command, result, internal_dict):
 	print "Hello Debugger!"
     
 def __lldb_init_module(debugger, internal_dict):
-	debugger.HandleCommand('command script add -f script.print_hello print_hello') // Handle script initialization and add command from this module
-	print 'The "print_hello" python command has been installed and is ready for use.' // Print confirmation that everything works
+	debugger.HandleCommand('command script add -f script.print_hello print_hello') // 控制脚本的初始化同时从这个模块中添加命令
+	print 'The "print_hello" python command has been installed and is ready for use.' // 打印确认一切正常
 ```
 
 接下来我们需要导入一个 Python 模块，就能开始正常地使用我们的脚本命令了：
@@ -465,7 +465,6 @@ CD516CF7-2AE7-4127-92DF-F536FE56BA22: iPhone 5
 0D76F30F-2332-4E0C-9F00-B86F009D59A3: iPhone 5s
 3084003F-7626-462A-825B-193E6E5B9AA7: iPhone 6
 ...
-
 ```
 
 ![](https://cdn-images-1.medium.com/max/1000/1*S914ih9-vrEoXKllCJpl0g.png)
@@ -475,8 +474,7 @@ CD516CF7-2AE7-4127-92DF-F536FE56BA22: iPhone 5
 ```
 (lldb) gui
 
-// You'll see this error if you try to execute gui command in Xcode
-error: the gui command requires an interactive terminal.
+// 如果你试着在 Xcode 中执行这个 gui 命令的话，你将会看到这个错误：the gui command requires an interactive terminal。
 ```
 
 ![](https://cdn-images-1.medium.com/max/800/1*iN9X46pAI6cDv-ZL5v4L-w.png)
@@ -489,7 +487,7 @@ error: the gui command requires an interactive terminal.
 
 在这篇文章中，我只是浅析了 LLDB 的皮毛知识而已，即使 LLDB 已经有好些年头了，但是仍然有许多人并没有完全发挥出它的潜能。我只是对基本的方法做了一个概述，以及谈了 LLDB 如何自动化调试步骤。我希望这会是有帮助的。
 
-写下了很多 LLDB 的方法，然后还有一些视图调试技术我没有提及。如果你对这些话题感兴趣的话，请在下面留下你的评论，我会更加乐于写这些话题。
+还有很多 LLDB 的方法并没有写到，然后还有一些视图调试技术我没有提及。如果你对这些话题感兴趣的话，请在下面留下你的评论，我会更加乐于写这些话题。
 
 我强烈建议你打开终端，启动 LLDB，只需要敲入 `help`，就会向你展示完整的文档。你可以花费数小时去阅读，但是我保证这将是一个合理的时间投资。因为了解你的工具是工程师真正产出的唯一途径。
 
@@ -497,7 +495,7 @@ error: the gui command requires an interactive terminal.
 
 - [LLDB 官方网站](http://lldb.llvm.org) —  你会在这里找到所有与 LLDB 相关的材料。文档、指南、教程、源文件以及更多。
 - [LLDB Quick Start Guide by Apple](https://developer.apple.com/library/content/documentation/IDEs/Conceptual/gdb_to_lldb_transition_guide/document/Introduction.html#//apple_ref/doc/uid/TP40012917-CH1-SW1) — 同样地，Apple 提供了很好的文档。这篇指南能帮你快速上手 LLDB，当然，他们也叙述了怎样不通过 Xcode 地用 LLDB 调试。
-- [How debuggers work: Part 1 — Basics](http://eli.thegreenplace.net/2011/01/23/how-debuggers-work-part-1 "Permalink to How debuggers work: Part 1 - Basics") — 我非常喜欢这个系列的文章，这是对调试器实际工作方式很好的概述。文章用 C 编写的手动调试代码叙述了所有的基本原理。我强烈建议你去阅读这个优秀系列的所有部分（[第2部分](http://eli.thegreenplace.net/2011/01/27/how-debuggers-work-part-2-breakpoints), [第3部分](http://eli.thegreenplace.net/2011/02/07/how-debuggers-work-part-3-debugging-information)）。
+- [How debuggers work: Part 1 — Basics](http://eli.thegreenplace.net/2011/01/23/how-debuggers-work-part-1 "Permalink to How debuggers work: Part 1 - Basics") — 我非常喜欢这个系列的文章，这是对调试器实际工作方式很好的概述。文章介绍了用 C 语言手工编写的调试器代码要遵循的所有基本原理。我强烈建议你去阅读这个优秀系列的所有部分（[第2部分](http://eli.thegreenplace.net/2011/01/27/how-debuggers-work-part-2-breakpoints), [第3部分](http://eli.thegreenplace.net/2011/02/07/how-debuggers-work-part-3-debugging-information)）。
 - [WWDC14 Advanced Swift Debugging in LLDB](https://developer.apple.com/videos/play/wwdc2014/410/) — 关于在 LLDB 中用 Swift 调试的一篇不错的概述，也讲了 LLDB 如何通过内建的方法和特性实现完整的调试操作，来帮你变得更加高效。
 - [Introduction To LLDB Python Scripting](http://www.fabianguerra.com/ios/introduction-to-lldb-python-scripting/) — 这篇介绍 LLDB Python 脚本的指南能让你快速上手。
 - [Dancing in the Debugger. A Waltz with LLDB](https://www.objc.io/issues/19-debugging/lldb-debugging)  — 对 LLDB 一些基础知识的介绍，有些知识有点过时了（比如说 `(lldb) thread return` 命令）。遗憾的是，它不能直接用于 Swift，因为它会对引用计数带了一些潜在的隐患。但是，这仍然是你开始 LLDB 之旅不错的文章。
@@ -506,6 +504,3 @@ error: the gui command requires an interactive terminal.
 ------
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
-
-
-
