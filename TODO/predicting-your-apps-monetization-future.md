@@ -2,8 +2,8 @@
 > * 原文作者：[Ignacio Monereo](https://medium.com/@ignacio.monereo?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/predicting-your-apps-monetization-future.md](https://github.com/xitu/gold-miner/blob/master/TODO/predicting-your-apps-monetization-future.md)
-> * 译者：
-> * 校对者：
+> * 译者：[PTHFLY](https://github.com/pthtc)
+> * 校对者：[Wangalan30](https://github.com/Wangalan30)、[realYukiko](https://github.com/realYukiko)
 
 # 一文教你预测 app 未来的变现情况
 
