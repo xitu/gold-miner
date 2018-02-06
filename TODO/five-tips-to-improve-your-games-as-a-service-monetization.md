@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/five-tips-to-improve-your-games-as-a-service-monetization.md](https://github.com/xitu/gold-miner/blob/master/TODO/five-tips-to-improve-your-games-as-a-service-monetization.md)
 > * 译者：[PTHFLY](http://github.com/pthtc)
-> * 校对者：
+> * 校对者：[NeoyeElf](https://github.com/NeoyeElf)
 
 # 游戏即服务的五条建议，提升游戏变现能力
 
