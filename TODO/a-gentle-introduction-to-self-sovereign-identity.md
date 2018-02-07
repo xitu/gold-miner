@@ -174,11 +174,9 @@ A blockchain is a type of distributed ledger where all data is replicated to all
 
 
 1. Replicating all identity data to all parties breaks all kinds of regulations about keeping personal data onshore within a jurisdiction; only storing personal data that is relevant to the business; and only storing data that the customer has consented to.
-
-1. 将所有身份数据复制到所有各方，打破了关于将个人数据保存在管辖范围内的所有规定;只储存与业务有关的个人资料;并且只存储客户授权的数据。
-
 2. The cybersecurity risk is increased. If one central data store is difficult enough to secure, now you’re replicating this data to multiple parties, each with their own cybersecurity practices and gaps. This makes it easier for an attacker to steal the data.
 
+1. 将所有身份数据复制到所有各方，打破了关于将个人数据保存在管辖范围内的所有规定;只储存与业务有关的个人资料;并且只存储客户授权的数据。
 2. 网络安全风险增加。如果中心化数据存储很难保证安全，那么现在您正在将这些数据复制到多个参与方，每个参与方都有自己的网络安全实践和漏洞。这使得攻击者更容易窃取数据。
 
 What if the identity data were encrypted?
