@@ -11,12 +11,12 @@
 
 [迭代器（Iterators）](http://jakearchibald.com/2014/iterators-gonna-iterate/), [生成器（generators）](http://www.2ality.com/2015/03/es6-generators.html) 和 [数组简约式（array comprehensions）](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Array_comprehensions)；随着时间的推移，JavaScript 和 Python 越来越像，如今我已经见怪不怪了。今天我们就来讨论一个类似 Python 语法的 ECMAScript 提议：[装饰器](https://github.com/wycats/javascript-decorators)，该提案来自 Yehuda Katz。
 
-_更新 07/29/2015: 装饰器提议已经提交到TC39。最新进展你可在_ [_提议_](https://github.com/tc39/proposal-decorators) _仓库找到。现在又出了几个_ [_新的例子_](http://tc39.github.io/proposal-decorators/) _。_
+**更新 07/29/2015: 装饰器提议已经提交到TC39。最新进展你可在 [提议](https://github.com/tc39/proposal-decorators) 仓库找到。现在又出了几个 [新的例子](http://tc39.github.io/proposal-decorators/)。**
 （译注：TC39 全称 TC39 ECMA 技术委员会，受特许解决JavaScript语言相关事宜。）
 
 ### 装饰器模式
 
-到底什么是装饰器？在 Python中，装饰器提供了一个非常简单的语法，用于调用[高阶](https://en.wikipedia.org/wiki/Higher-order_function)函数。一个 Python 装饰器就是一个函数，它包装另外一个函数来拓展功能，而不需要做任何修改。[最简单](http://www.saltycrane.com/blog/2010/03/simple-python-decorator-examples/)的 Python 装饰器看起来是这样的：
+到底什么是装饰器？在 Python中，装饰器提供了一个非常简单的语法，用于调用[高阶](https://en.wikipedia.org/wiki/Higher-order_function)函数。一个 Python 装饰器就是一个函数，它包装另外一个函数来拓展功能，而不需要做显式的修改。[最简单](http://www.saltycrane.com/blog/2010/03/simple-python-decorator-examples/)的 Python 装饰器看起来是这样的：
 
 ![](https://cdn-images-1.medium.com/max/400/1*Np2xWAiiQmq9LfwOquDOuQ.png)
 
@@ -24,7 +24,7 @@ _更新 07/29/2015: 装饰器提议已经提交到TC39。最新进展你可在_ 
 
 _`@`_ 向编译器表明，我们正在使用装饰器，_mydecorator_ 指向一个同名的函数。我们的装饰器接受一个参数（被装饰的函数），拓展功能后，返回一个与参数同名的函数。
 
-装饰器帮助你添加任何你想拓展的功能，比如 memoization（译者注：一种将函数返回值缓存起来的方法），强制访问控制，身份验证，插桩，时间函数，日志，比率限制，以及列表等等。
+装饰器帮助你添加任何你想拓展的功能，比如 memoization（译者注：一种将函数返回值缓存起来的方法），强制访问控制，身份验证，插桩，时间函数，日志，比率限制，等等。
 
 ### 在 ES5 和 ES2015（即ES6） 中的装饰器
 
@@ -44,11 +44,11 @@ Yehuda 的装饰器建议寻求在设计时对 JavaScript 类、属性和对象�
 
 ![](https://cdn-images-1.medium.com/max/800/1*vgZrCKk9PtyCAkUQdJC1Dg.png)
 
-编译这个类的结果就是将 meow 函数定义到 `Cat.prototype`，大致如下：
+编译这个类的结果就是将 meow 函数加载到 `Cat.prototype`，大致如下：
 
 ![](https://cdn-images-1.medium.com/max/800/1*rsumqLVuE3FaFZy5mKBZSg.png)
 
-设想一下，我们希望标记一个属性或者方法名不能被编辑。装饰器先于语法定义属性，因此我们可以定义一个 `@readonly` 装饰器，如下：
+设想一下，我们希望标记一个属性或者方法名不能被编辑。装饰器优先级高于定义属性的语法，因此我们可以定义一个 `@readonly` 装饰器，如下：
 
 ![](https://cdn-images-1.medium.com/max/800/1*1rWYZ3XAjD-6Eu1Y_7x8QA.png)
 
@@ -58,7 +58,7 @@ Yehuda 的装饰器建议寻求在设计时对 JavaScript 类、属性和对象�
 
 装饰器就是一个表达式，它会被执行然后返回一个函数。这就是为什么 `@readonly` 和 `@something(parameter)` 都能工作。
 
-在属性定义到 `Cat.prototype` 之前，JavaScript引擎会先调用装饰器：
+在 描述符（descriptor）加载进 Cat.prototype 之前，JavaScript引擎会先调用装饰器：
 
 ![](https://cdn-images-1.medium.com/max/800/1*hSy8oLzgqEHKOOnX8dzdRg.png)
 
@@ -74,7 +74,7 @@ Yehuda 的装饰器建议寻求在设计时对 JavaScript 类、属性和对象�
 
 它还包含其他的装饰器，比如 `@deprecate` ，主要是用于，当你的API需要提示方法可能会改变：
 
-> _调用 console.warn() 打印描述信息。也可以自定义描述信息，也可以在描述信息中添加链接，以便进一步阅读。_
+> **调用 console.warn() 打印描述信息。也可以自定义描述信息，也可以在描述信息中添加链接，以便进一步阅读。**
 
 ![](https://cdn-images-1.medium.com/max/800/1*RZcsUApI6TGaIPnD9syfFw.png)
 
@@ -84,19 +84,19 @@ Yehuda 的装饰器建议寻求在设计时对 JavaScript 类、属性和对象�
 
 ![](https://cdn-images-1.medium.com/max/800/1*wRKeM_ZJmeqZoD-2sXrvlQ.png)
 
-这可以进一步拓展，使我们可以让装饰器定义成工厂函数：
+这可以进一步拓展，通过提供参数使我们可以让装饰器定义成工厂函数：
 
 ![](https://cdn-images-1.medium.com/max/800/1*HAL1EWF3ekb1nJBskLKRyg.png)
 
-ES2016 装饰器作用于属性和类。它们会自动传递属性名和目标对象，我们很快会讲到。允许装饰器通过 getter 改变属性，使得操作变得很麻烦，比如第一次访问属性自动绑定方法到当前实例。
+ES2016 装饰器作用于描述符和类。它们会自动接收被传递的属性名和目标对象，我们很快会讲到。通过对描述符的访问，装饰器可以做到更改属性使其使用 getter，或开启一些原本非常繁琐的操作，比如在第一次访问属性时自动绑定方法到当前实例。
 
 #### ES2016 装饰器 和 Mixins 模式
 
-我拜读了 Reg Braithwaite 最近的文章 [ES2016 Decorators as mixins](http://raganwald.com/2015/06/26/decorators-in-es7.html) 和之前的一篇 [Functional Mixins](http://raganwald.com/2015/06/17/functional-mixins.html)。Reg 建议通过 helper 为任意一个目标体（class prototype 或者 standalone）添加不同的行为。用来表述一个类具备特定的行为，functional mixin 将多个实例行为定义到类的 prototype 上，如下：
+我拜读了 Reg Braithwaite 最近的文章 [ES2016 Decorators as mixins](http://raganwald.com/2015/06/26/decorators-in-es7.html) 和之前的一篇 [Functional Mixins](http://raganwald.com/2015/06/17/functional-mixins.html)。Reg 提出使用一个 helper 将不同行为混入任意一个目标（类原型或者 standalone），并表述为一个类专属的版本。这种功能性的混入会把实例行为混入类原型，使其看起来像这样：
 
 ![](https://cdn-images-1.medium.com/max/800/1*bB77ghg773qnwCA1aeKPBg.png)
 
-很好，我们现在可以定义一些 mixins ，然后尝试用它们装饰一个类。假设我们有一个简单的 `ComicBookCharacter` 类：
+好了，我们现在可以定义一些 mixins ，然后尝试用它们装饰一个类。假设我们有一个简单的 `ComicBookCharacter` 类：
 
 ![](https://cdn-images-1.medium.com/max/800/1*1YMyHF0gp8F4mVRBtloJ-A.png)
 
@@ -114,7 +114,7 @@ ES2016 装饰器作用于属性和类。它们会自动传递属性名和目标�
 
 这些类的装饰器相对紧凑，我可以将它们用作函数调用的替代方法，或者作为高阶组件的助手。
 
-_注: @WebReflection 有一些替代方案，用于本节中使用的mixin模式，您可以点击_ [_了解更多_](https://gist.github.com/addyosmani/a0ccf60eae4d8e5290a0#comment-1489585)_。_
+**注: @WebReflection 有一些替代方案，用于本节中使用的mixin模式，您可以点击 [了解更多](https://gist.github.com/addyosmani/a0ccf60eae4d8e5290a0#comment-1489585)。**
 
 ### 通过 Babel 使用装饰器
 
@@ -134,7 +134,7 @@ $ babel --optional es7.decorators
 
 ### 有趣的实验
 
-我很幸运坐在 Paul Lewis 的旁边，他在[尝试写装饰器](https://github.com/GoogleChrome/samples/tree/gh-pages/decorators-es7/read-write)，用来控制 DOM 的读写权限。它借鉴了 Wilson Page 的 FastDOM，但是提供了更精简的API。Paul 的 read/write 装饰器可以通过 `console` 来提醒你，如果你在改变布局时使用 @write 后调用方法或者属性（或者使用 @read 后改变DOM）。
+我很幸运坐在 Paul Lewis 的旁边，他在[尝试用装饰器](https://github.com/GoogleChrome/samples/tree/gh-pages/decorators-es7/read-write)重新调度读写 DOM 的代码。它借鉴了 Wilson Page 的 FastDOM，但是提供了更精简的API。Paul 的 read/write 装饰器可以通过 `console` 来提醒你，如果你在改变布局时使用 @write 后调用方法或者属性（或者使用 @read 后改变DOM）。
 
 下面是 Paul 的一个实验例子，在使用 @read 后尝试改变 DOM，会在 `console` 中打印异常：
 
