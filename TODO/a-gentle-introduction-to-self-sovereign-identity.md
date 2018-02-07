@@ -20,7 +20,7 @@ It is clear that the central identity repository model has deficiencies. This po
 
 Self-sovereign identity is the concept that people and businesses can store their own identity data on their own devices, and provide it efficiently to those who need to validate it, without relying on a central repository of identity data. It’s a digital way of doing what we do today with bits of paper. This has benefits compared with both current manual processes and central repositories such as India’s Aadhaar.
 
-自主权身份的含义是人们和企业将自己的身份数据存储在自己的设备上，并能有效地提供给需要的人进行验证，而不用依赖中心化的身份数据存储。相对如今的纸质处理方式，自主权身份是一种数字化方式。与手动处理和中心化存储如印度的 Aadhaar 相比，自主权身份更有益。
+自主权身份的含义是人们和企业将自己的身份数据存储在自己的设备上，并能有效地提供给需要的人进行验证，而不用依赖中心化的身份数据存储。相对如今的纸质处理，自主权身份是一种数字化方式。与手动处理和中心化存储如印度的 Aadhaar 相比，自主权身份更有益。
 
 Efficient identification processes promote financial inclusion. By lowering the cost to banks of opening accounts for small businesses, financing becomes profitable for the banks and therefore accessible for the small businesses.
 
@@ -111,6 +111,7 @@ The technical solution for **proving authenticity of identity proofs** is **digi
 1. Digital signatures become invalid if there are any changes to the signed document. In other words, they guarantee the integrity of the document.
 
 1、如果签名文档发生任何更改，数字签名将失效。换句话说，它保证文件的完整性。
+
 2. Digital signatures cannot be ‘lifted’ and copied from one document to another.
 
 2、数字签名不能被取消，并从一个文档复制到另一个文档。
@@ -140,7 +141,7 @@ Being in charge of this identity repository is a double-edged sword. On the one 
 
 If a hacker can get into the systems and copy the data, they can sell the digital identities and their documentary evidence to other baddies. These baddies can then steal the identities and commit fraud and crimes while using the names of the innocent. This can and does wreck the lives of the innocent, and creates a significant liability for the operator.
 
-如果黑客可以进入系统并拷贝数据，他们可以将数字身份和书面证据出售给其他坏人。这些坏人就可以以无辜者的名义窃取身份、欺诈和犯罪。这样会而且确实破坏了无辜者的生活，并给运营商造成重大的不利。
+如果黑客可以侵入系统并拷贝数据，他们可以将数字身份和书面证据出售给其他坏人。这些坏人就可以以无辜者的名义窃取身份、欺诈和犯罪。这样会而且确实破坏了无辜者的生活，并给运营商造成重大的不利。
 
 #### 2. Jurisdictional politics
 #### 2、司法政治
@@ -170,6 +171,7 @@ A blockchain is a type of distributed ledger where all data is replicated to all
 1. Replicating all identity data to all parties breaks all kinds of regulations about keeping personal data onshore within a jurisdiction; only storing personal data that is relevant to the business; and only storing data that the customer has consented to.
 
 1、将所有身份数据复制到所有各方，打破了关于将个人数据保存在管辖范围内的所有规定;只储存与业务有关的个人资料;并且只存储客户授权的数据。
+
 2. The cybersecurity risk is increased. If one central data store is difficult enough to secure, now you’re replicating this data to multiple parties, each with their own cybersecurity practices and gaps. This makes it easier for an attacker to steal the data.
 
 2、网络安全风险增加。如果中心化数据存储很难保证安全，那么现在您正在将这些数据复制到多个参与方，每个参与方都有自己的网络安全实践和漏洞。这使得攻击者更容易窃取数据。
@@ -181,6 +183,7 @@ What if the identity data were encrypted?
 1. Encrypted personal data can still fall foul of personal data regulations.
 
 1、加密个人数据仍可能违反个人数据规定。
+
 2. Why would the parties (eg banks) store and manage a bunch of identity data that they can’t see or use? What’s the upside?
 
 2、为什么各方(如银行)会存储和管理一些他们看不到或不使用的身份数据?积极的一面是什么?
@@ -189,7 +192,7 @@ What if the identity data were encrypted?
 
 The emerging answer is “**self-sovereign identity**“. This digital concept is very similar to the way we keep our non-digital identities today
 
-最新的解决方案是自主权身份。这个数字概念与我们今天保持非数字身份的方式非常相似。
+最新的解决方案是自主权身份。这个数字概念与我们今天保管非数字身份的方式非常相似。
 
 Today, we keep passports, birth certificates, utility bills at home under our own control, maybe in an “important drawer”, and we share them when needed. We don’t store these bits of paper with a third party. Self-sovereign identity is the digital equivalent of what we do with bits of paper now.
 
@@ -240,7 +243,7 @@ You can then use these attested claims as your identity information.
 
 Sharing this kind of data is **safer both for the identity provider and the recipient**. The provider doesn’t need to overshare, and the recipient doesn’t need to store unnecessarily sensitive data – for example, if the recipient gets hacked, they are only storing “Over 18” flags, not dates of birth.
 
-共享这类数据对于身份提供者和接收者来说都更安全。提供者不需要过度共享，而接收者不需要存储不必要的敏感数据 —— 例如，如果接收者被入侵，他们只存储“超过18岁”的标志，而不是出生日期。
+共享这类数据对于身份提供者和接收者来说都更安全。提供者不需要过度共享，而接收者不需要存储不必要的敏感数据 — 例如，如果接收者被入侵，它们只存储“超过18岁”的标志，而不是出生日期。
 
 Even banks themselves could attest to the person having an account with them. We would first need to understand what liability they take on when they create these attestations. I would assume it would be no more than the liability they currently take on when they send you a bank statement, which you use as a proof of address elsewhere.
 
@@ -251,7 +254,7 @@ Even banks themselves could attest to the person having an account with them. We
 
 Data would be stored on the person’s device (as pieces of paper are currently stored at home today), and then when requested, the person would approve a third party to collect specific data, by tapping a notification on their device, We already have something similar to this – if you have ever used a service by “linking” your Facebook or LinkedIn account, this is similar – but instead of going to Facebook’s servers to collect your personal data, it requests it from your phone, and you have granular control over what data is shared.
 
-数据将存储在个人设备上(如同今天将纸质文件存储在家里），且在需要时，个人通过打开设备上的通知同意第三方收集特定数据。我们已经有一些类似的——如果你曾使用过“连接”你的 Facebook 或 LinkedIn 账户服务，这是相似的——但是，不是去 Facebook 服务器收集你的个人数据，而是从你的手机中请求它，同时你对共享的数据有粒度控制。
+数据将存储在个人设备上(如同今天将纸质文件存储在家里），且在需要时，个人通过打开设备上的通知同意第三方收集特定数据。我们已经有一些类似的 - 如果你曾使用过“连接”你的 Facebook 或 LinkedIn 账户服务，这是相似的 - 但是，不是去 Facebook 服务器收集你的个人数据，而是从你的手机中请求它，同时你对共享的数据有粒度控制。
 
 ![self_sovereign_identity_platform](https://bitsonblocks.files.wordpress.com/2017/05/self_sovereign_identity_platform.png?w=594)
 
@@ -264,7 +267,7 @@ Who would orchestrate this? Well perhaps this is where a distributed ledger may 
 
 **A non-blockchain distributed ledger would be an ideal platform for this.** R3’s Corda (Note: I work at R3) already has many of the necessary elements – coordinated workflow, digital signatures, rules about data evolution, and a consortium of over 80 financial institutions experimenting with this exact self-sovereign identity concept.
 
-非区块链分布式账本将是一个理想的平台。R3的Corda(注:我在R3中工作)已经具备了许多必要的元素 —— 协调工作流、数字签名、数据演化规则，以及一个由 80 多个金融机构组成的联盟，他们正在尝试这种精确的自我权身份概念。
+非区块链分布式账本将是一个理想的平台。R3 的 Corda (注:我在 R3 中工作)已经具备了许多必要的元素 —— 协调工作流、数字签名、数据演化规则，以及一个由 80 多个金融机构组成的联盟，他们正在尝试这种精确的自我权身份概念。
 
 
 ---
