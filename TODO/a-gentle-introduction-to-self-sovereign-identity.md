@@ -115,11 +115,11 @@ The technical solution for **proving authenticity of identity proofs** is **digi
 
 1. Digital signatures become invalid if there are any changes to the signed document. In other words, they guarantee the integrity of the document.
 
-1、如果签名文档发生任何更改，数字签名将失效。换句话说，它保证文件的完整性。
+1. 如果签名文档发生任何更改，数字签名将失效。换句话说，它保证文件的完整性。
 
 2. Digital signatures cannot be ‘lifted’ and copied from one document to another.
 
-2、数字签名不能被取消，并从一个文档复制到另一个文档。
+2. 数字签名不能被取消，并从一个文档复制到另一个文档。
 
 ### What’s the centralised solution?
 ### 什么是中心化解决方案？
@@ -175,11 +175,11 @@ A blockchain is a type of distributed ledger where all data is replicated to all
 
 1. Replicating all identity data to all parties breaks all kinds of regulations about keeping personal data onshore within a jurisdiction; only storing personal data that is relevant to the business; and only storing data that the customer has consented to.
 
-1、将所有身份数据复制到所有各方，打破了关于将个人数据保存在管辖范围内的所有规定;只储存与业务有关的个人资料;并且只存储客户授权的数据。
+1. 将所有身份数据复制到所有各方，打破了关于将个人数据保存在管辖范围内的所有规定;只储存与业务有关的个人资料;并且只存储客户授权的数据。
 
 2. The cybersecurity risk is increased. If one central data store is difficult enough to secure, now you’re replicating this data to multiple parties, each with their own cybersecurity practices and gaps. This makes it easier for an attacker to steal the data.
 
-2、网络安全风险增加。如果中心化数据存储很难保证安全，那么现在您正在将这些数据复制到多个参与方，每个参与方都有自己的网络安全实践和漏洞。这使得攻击者更容易窃取数据。
+2. 网络安全风险增加。如果中心化数据存储很难保证安全，那么现在您正在将这些数据复制到多个参与方，每个参与方都有自己的网络安全实践和漏洞。这使得攻击者更容易窃取数据。
 
 What if the identity data were encrypted?
 
@@ -187,11 +187,11 @@ What if the identity data were encrypted?
 
 1. Encrypted personal data can still fall foul of personal data regulations.
 
-1、加密个人数据仍可能违反个人数据规定。
+1. 加密个人数据仍可能违反个人数据规定。
 
 2. Why would the parties (eg banks) store and manage a bunch of identity data that they can’t see or use? What’s the upside?
 
-2、为什么各方(如银行)会存储和管理一些他们看不到或不使用的身份数据?积极的一面是什么?
+2. 为什么各方(如银行)会存储和管理一些他们看不到或不使用的身份数据?积极的一面是什么?
 ### So what’s the answer?
 ### 那么解决方案究竟是什么？
 
