@@ -136,7 +136,7 @@ $ babel --optional es7.decorators
 
 我很幸运坐在 Paul Lewis 的旁边，他在[尝试写装饰器](https://github.com/GoogleChrome/samples/tree/gh-pages/decorators-es7/read-write)，用来控制 DOM 的读写权限。它借鉴了 Wilson Page 的 FastDOM，但是提供了更精简的API。Paul 的 read/write 装饰器可以通过 `console` 来提醒你，如果你在改变布局时使用 @write 后调用方法或者属性（或者使用 @read 后改变DOM）。
 
-下面的例子，在使用 @read 后尝试改变 DOM，会在 `console` 中打印异常：
+下面是 Paul 的一个实验例子，在使用 @read 后尝试改变 DOM，会在 `console` 中打印异常：
 
 ![](https://cdn-images-1.medium.com/max/800/1*A3gYGXlTPdXGtCkfgK_NRA.png)
 
