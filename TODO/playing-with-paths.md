@@ -139,7 +139,7 @@ canvas.drawPath(polygon.path, dotPaint)
 
 你们可能已经注意到 PathDashPathEffect 构造方法中最后的参数：[Style](https://developer.android.com/reference/android/graphics/PathDashPathEffect.Style.html)。这个枚举类控制在 path 上面的 stamp 在每个位置上是如何被绘制的。为了展示这个参数的使用，下面的例子使用了一个三角形 stamp 代替圆形，去展示`平移（translate）`和`旋转（rotate）`的效果差别：
 
-![](https://cdn-images-1.medium.com/max/800/0*QpO_ClLfUcmbzHKC.)
+![](https://github.com/IllllllIIl/Translation/blob/master/path.gif?raw=true)
 
 比较`平移`和`旋转`效果的异同
 
