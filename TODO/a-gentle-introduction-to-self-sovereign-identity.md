@@ -77,10 +77,15 @@ The problems are:
 问题在于：
 
 * Proofs are usually **unstructured data**, taking the form of images and photocopies. This means that someone in the bank has to manually read and scan the documents to extract the relevant data to type into a system for storage and processing.
+
 * 证明通常是图片和复印件形式的非结构化数据。这意味着银行工作人员必须手动读取和扫描文档以提取相关数据，然后输入系统进行存储和处理。
+
 * When the **data changes** in real life (such as a change of address, or a change in a company’s ownership structure), the customer is obliged to tell the various financial service providers they have relationships with.
+
 * 当数据在现实生活中发生变化时（如地址变更、公司所有权结构变更），客户有义务通知与他们有关系的各种金融服务提供商。
+
 * Some forms of proof (eg photocopies of original documents) can be **easily faked**, meaning extra steps to prove authenticity need to be taken, such as having photocopies notarised, leading to extra friction and expense.
+
 * 某些形式的证据（如原始文件的复印件）容易被伪造，这就需要采取额外的步骤来证明真实性，如经过公证的复印件，从而导致其他的矛盾和费用。
 
 This results in expensive, time-consuming and troublesome processes that annoy everyone.
