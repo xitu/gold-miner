@@ -11,12 +11,15 @@
 ![](https://bitsonblocks.files.wordpress.com/2017/05/self_sovereign_identity_platform.png?w=594&h=434&crop=1)
 
 In May 2017, the Indian [Centre for Internet and Society](http://cis-india.org/) think tank published a [report](http://cis-india.org/internet-governance/information-security-practices-of-aadhaar-or-lack-thereof-a-documentation-of-public-availability-of-aadhaar-numbers-with-sensitive-personal-financial-information-1) detailing the ways in which India’s national identity database ([Aadhaar](https://uidai.gov.in/)) is leaking potentially compromising personal information. The information relates to over 130 million Indian nationals. The leaks create a great opportunity for financial fraud, and cause irreversible harm to the privacy of the individuals concerned.
+
 2017 年 5 月，印度互联网与社会智库中心(http://cis-india.org/)发布了一份报告(http://cis-india.org/internet-governance/information-security-practices-of-aadhaar-or-lack-thereof-a-documentation-of-public-availability-of-aadhaar-numbers-with-sensitive-personal-financial-information-1)，详细介绍了印度国家身份数据库（ Adahaar（https://uidai.gov.in/））泄漏可能危及个人信息的方式。这些信息涉及 1.3 亿印度国民。信息泄漏给金融诈骗创造了机会，同时对个人隐私造成不可挽回的伤害。
 
 It is clear that the central identity repository model has deficiencies. This post describes a new paradigm for managing our digital identities: self-sovereign identity.
+
 很明显，中心化身份存储模型存在缺陷。本文描述了一种管理数字身份的新方式：自主权身份。
 
 Self-sovereign identity is the concept that people and businesses can store their own identity data on their own devices, and provide it efficiently to those who need to validate it, without relying on a central repository of identity data. It’s a digital way of doing what we do today with bits of paper. This has benefits compared with both current manual processes and central repositories such as India’s Aadhaar.
+
 自主权身份的含义是人们和企业将自己的身份数据存储在自己的设备上，并能有效地提供给需要的人进行验证，而不用依赖中心化的身份数据存储。相对如今的纸质处理方式，自主权身份是一种数字化方式。与手动处理和中心化存储如印度的 Aadhaar 相比，自主权身份更有益。
 
 Efficient identification processes promote financial inclusion. By lowering the cost to banks of opening accounts for small businesses, financing becomes profitable for the banks and therefore accessible for the small businesses.
