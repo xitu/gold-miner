@@ -2,86 +2,85 @@
 > * 原文作者：[Dustin Driver](https://www.smashingmagazine.com/author/dustindriver-jasonlaster)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/javascript-firefox-debugger.md](https://github.com/xitu/gold-miner/blob/master/TODO/javascript-firefox-debugger.md)
-> * 译者：
+> * 译者：[Serendipity96](https://github.com/Serendipity96)
 > * 校对者：
 
-# Debugging JavaScript With A Real Debugger You Did Not Know You Already Have
+# 你前所未知的 JavaScript 调试器
 
-`console.log` can tell you a lot about your app, but it can't truly debug your code. For that, you need a full-fledged JavaScript debugger. The new Firefox JavaScript debugger can help you write fast, bug-free code. Here's how it works.
+`console.log` 可以告诉你很多关于应用程序的信息，但它不能真正调试你的代码。因此，你需要一个完整的 JavaScript 调试器。新的 Firefox JavaScript 调试器能够帮你写快速且无缺陷的代码。下文写的是它如何使用的。
 
-In this example, we'll crack open a very simple to-do app with Debugger. [Here's the app](https://mozilladevelopers.github.io/sample-todo/01-variables/), based on basic open-source JavaScript frameworks. Open it up in the latest version of [Firefox Developer Edition](https://www.mozilla.org/firefox/developer/) and then launch `debugger.html` by hitting `Option` + `Cmd` + `S` on Mac or `Shift` + `Ctrl` + `S` on Windows. The Debugger is divided into three panes: the source list pane, the source pane, and the tool pane.
+在这个例子中，我们将用 Debugger 打开一个非常简单的应用程序。此[应用程序](https://mozilladevelopers.github.io/sample-todo/01-variables/)是基于一个基础的 JavaScript 开源框架开发的。在最新版本的[Firefox Developer Edition](https://www.mozilla.org/firefox/developer/)中打开此程序，Mac系统按 `Option` + `Cmd` + `S` 或者 Windows系统按 `Shift` + `Ctrl` + `S` 启动 `debugger.html`。调试器共分为三个窗格：源列表窗格，源代码窗格和工具窗格。
 
 ![](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_2000/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/dd605d5c-e94d-43e3-a7ef-94eea52cff9e/image2.png)
 
-[Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/dd605d5c-e94d-43e3-a7ef-94eea52cff9e/image2.png)
+[大图预览](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/dd605d5c-e94d-43e3-a7ef-94eea52cff9e/image2.png)
 
-The Tools pane is further divided into the toolbar, watch expressions, breakpoints, the call stack, and scopes.
+工具窗格进一步分为工具栏，监视表达式，断点，调用堆栈和范围。
 
 ![](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/2b99b781-28e8-4bff-a5ff-d1ee43c2d432/image3.png)
 
-[Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/2b99b781-28e8-4bff-a5ff-d1ee43c2d432/image3.png)
+[大图预览](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/2b99b781-28e8-4bff-a5ff-d1ee43c2d432/image3.png)
 
-### Stop Using `console.log`
+### 停止使用 `console.log`
 
-It's tempting to use `console.log` to debug your code. Just stick a call into your code to find the value of a variable, and you're set, right? Sure, that can work, but it can be cumbersome and time-consuming. In this example, we'll use `debugger.html` to step through the todo app code to find the value of a variable.
+使用 `console.log` 来调试代码是很便捷的。你只需在代码中添加一句 `console.log` ，然后执行即可找到变量的值，对不对？这确实可以奏效，它可能是麻烦且费时的。在这个例子中，我们将使用 `debugger.html` 单步执行待办事项应用的代码来查找变量的值。
 
-We can use `debugger.html` to dive deeper into the todo app by simply adding a breakpoint to a line of code. Breakpoints tell the Debugger to pause on a line so you can click into the code to see what's going on. In this example, we'll add a breakpoint to line 13 of the `app.js` file.
+我们在 debugger.html 的一行代码中添加一个断点，来深入了解待办事项应用程序。断点告诉调试器在这一行上暂停，这样你可以点击代码来看看发生了什么。在这个例子中，我们在 app.js 文件的第 13 行添加一个断点。
 
 ![](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/a3633871-65f2-4815-9270-2b5e19b316f4/image5.gif)
 
-[Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/a3633871-65f2-4815-9270-2b5e19b316f4/image5.gif)
+[大图预览](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/a3633871-65f2-4815-9270-2b5e19b316f4/image5.gif)
 
-Now add a task to the list. The code will pause at the addTodo function, and we can dive into the code to see the value of the input and more. Hover over a variable to see the value and more. You can see anchors and applets and children and all sorts of things:
+现在添加一个任务到列表中。代码将会暂停到 addTodo 函数，我们可以深入代码来查看输入的值等。将鼠标悬停在变量上可以看到更多信息。你可以看到锚点和子程序，以及其他多样的信息：
 
 ![](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/5f23c4d0-5b4d-41ff-9367-e534d0f96168/image4.png)
 
-[Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/5f23c4d0-5b4d-41ff-9367-e534d0f96168/image4.png)
+[大图预览](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/5f23c4d0-5b4d-41ff-9367-e534d0f96168/image4.png)
 
-You can also dive into the Scopes panel to get the same info.
+你也可以进入 Scopes 面板获取相同的信息。
 
-Now that the script is paused, we can step through it using the Toolbar. The play/pause button does just what it says on the tin. "Step Over" steps across the current line of code, "Step In" steps into the function call, and "Step Out" runs the script until the current function exits.
+现在脚本已经暂停，我们可以使用工具栏来逐步调试。开始/暂停按钮正如工具栏上所显示的含义，" Step Over " 跨越当前代码行，" Step In " 步入函数调用，" Step Out " 运行脚本，直到当前函数退出。
 
 ![](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/2c04dd57-b4b4-42c7-be87-685a71c8df56/image1.png)
 
-[Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/2c04dd57-b4b4-42c7-be87-685a71c8df56/image1.png)
+[大图预览](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/2c04dd57-b4b4-42c7-be87-685a71c8df56/image1.png)
 
-We can also use a watch expression to keep an eye on the value of a variable. Just type an expression in the Watch Expression field, and the debugger will keep an eye on it as you step through the code. In the example above, you can add the expressions "title" and "to-do" and the debugger will spit out the values when they're available. This is especially useful when:
+我们也可以使用监视表达式来跟踪变量的值。只需在监视表达式字段中输入一个表达式，调试器将在你逐步执行代码时进行跟踪。在上面的例子中，你可以添加表达式 " title "和 " to-do "，当它们被调用时，调试器会显示它们的值。以下情况特别有用：
+* 你正单步执行并想看变量值的变化；
+* 你正多次调试同样的东西，并希望看到相同的变量值；
+* 你想弄清楚为什么那个该死的按钮不起作用。
 
-* You're stepping and want to watch values change;
-* You're debugging the same thing many times and want to see common values;
-* You're trying to figure out why that damn button won't work.
+你也可以用 `debugger.html` 去调试 React / Redux 应用程序。以下是使用步骤：
 
-You can also use `debugger.html` to debug your React/Redux apps. Here's how it works:
+* 跳转到你要调试的组件。
+* 参阅左侧的组件大纲（类中的函数）。
+* 添加断点到相关的函数中。
+* 暂停并查看组件 props 和 state。
+* 调用堆栈是已经被简化的，这便于你查看应用程序代码和框架的交集。
 
-* Navigate to a component you want to debug.
-* See the component outline on the left (functions in the class).
-* Add breakpoints to the relevant functions.
-* Pause and see component props and state.
-* The call stack is simplified so that you see your application code interleaved with the framework.
-
-Finally, `debugger.html` lets you see obfuscated or minified code that could be triggering errors, which is especially useful when you're dealing with common frameworks like React/Redux. The Debugger knows about components you're paused in and will show a simplified call stack, component outline, and properties. Here's developer Amit Zur explaining how he uses the Firefox debugger to dive into code at [JS Kongress](https://2017.js-kongress.de/):
+最后，`debugger.html` 让你看到可能引起错误、混淆或压缩的代码，这在处理像 React / Redux 这样的通用框架时特别有用。调试器知道你已暂停的组件，并显示简化的堆栈调用，组件大纲和属性。以下是开发人员 Amit Zur 在 [JS Kongress](https://2017.js-kongress.de/) 上描述他是如何使用 Firefox 调试器调试代码的：
 
 <iframe width="841" height="400" src="https://www.youtube.com/embed/Rop3EgPvBMw" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
-If you're interested in an in-depth walkthrough on the new `debugger.html`, head over to the [Mozilla Developer Playground](https://mozilladevelopers.github.io/playground/debugger). We've built a tutorial series to help developers learn how to effectively use the tool to debug their code.
+如果你在新的 `debugger.html` 中对深入代码走查感兴趣，请转到[Mozilla Developer Playground](https://mozilladevelopers.github.io/playground/debugger)。我们构建了一个系列教程，帮助开发人员学习如何有效地使用该工具来调试代码。
 
-### Open-Source DevTools
+### 开源的开发工具
 
-The [`debugger.html` project](https://github.com/devtools-html/debugger.html) was launched about two years ago along with a full overhaul of all the Firefox DevTools. We wanted to rebuild DevTools using modern web technologies, to open them up to developers around the world. And when a technology is open, it's free to grow beyond anything our small group at Mozilla can imagine.
+[`debugger.html` project](https://github.com/devtools-html/debugger.html)大约于两年前推出，同时对所有 Firefox DevTools 进行了全面改革。我们希望使用现代网络技术重建 DevTools，并对全世界的开发者开放。当一项技术开放的时候，能够自由扩展到我们 Mozilla 小团队所能想象的范围之外的任何地方。
 
-JavaScript is essential to any advanced web app, so a strong debugger was a key part of the toolset. We wanted to build something that was fast, easy to use, and adaptable—able to debug any new JavaScript frameworks that may emerge. We decided to use popular web technologies because we wanted to work closer with the community. This approach would also improve the Debugger itself — if we adopted WebPack and started using a build tool and source maps internally, we'd want to improve source mapping and hot reloading.
+JavaScript对于任何高级 Web 应用程序都是必不可少的，所以强大的调试器是该工具集的关键部分。我们希望构建一些快速，易于使用且适应性强 —— 能够调试未来可能出现的任何新 JavaScript 框架的产品。我们决定使用流行的网络技术，因为我们想与社区紧密合作。这种方法也将改善调试器本身 —— 如果我们采用了 WebPack 并开始在内部使用构建工具和源映射，我们希望改进源映射和热加载。
 
-The `debugger.html` is built with React, Redux, and Babel. The React components are lightweight, testable, and easy to design. We use React Storybook for quick UI prototyping and documenting shared components. Our Components are tested with Jest and Enzyme, which make it easier to iterate on top of the UI. This makes it easier to work with various JavaScript frameworks (like React). Our Babel front-end lets us do things like show the Component class and its functions in the left sidebar. We are also able to do cool things like pinning breakpoints to functions, so they don't move when you change your code.
+`debugger.html` 是用 React，Redux 和 Babel 构建的。React 组件轻量，可测试又易于设计。我们使用 React Storybook 进行快速的 UI 原型设计和记录共享组件。我们的组件使用 Jest 和 Enzyme 进行测试，这使得在 UI 上迭代更容易。这让使用各种 JavaScript 框架（如 React ）更容易。Babel 前端能让我们做一些像显示左侧边栏中 Component 类和它功能的事情。我们也可以做一些很酷的事情，例如把断点固定到函数中，当你改变你的代码时，它们不会移动。
 
-The Redux actions are a clean API for the UI, but could just as easily be used to build a standalone CLI JS Debugger. The Redux store has selectors for querying the current debugging state. Our redux unit test fires Redux actions and simulates browser responses. Our integration tests drive the browser with debugger Redux actions. The functional architecture itself is designed to be testable.
+Redux 操作对于 UI 来说是一个简单的 API，但它也可以很容易地构建一个独立的 CLI JS 调试器。Redux store有查询当前调试状态的选择器。我们的 Reduce 单元测试激发了 Redux 操作并模拟浏览器响应。我们的集成测试使用调试器 Redux 操作来驱动浏览器。功能架构本身被设计为可测试的。
 
-We relied on the Mozilla developer community every step of the way. The project was posted on [GitHub](https://github.com/devtools-html/debugger.html) and our team reached out to developers worldwide to help out. When we started, automated tests were a critical component for community development. Tests prevent regressions and document behavior that's easy to miss. This is why one of the first steps we took was to add unit tests for Redux actions and Flow types for the Redux store. In fact, the community ensured that our Flow and Jest coverage would help make sure every file was typed and tested.
+我们每一步都依靠 Mozilla 开发人员社区。该项目在 [GitHub](https://github.com/devtools-html/debugger.html)  上发布，我们的团队联系世界各地的开发人员向他们寻求帮助。当我们开始时，自动化测试是社区发展的重要组成部分，它可以防止容易遗漏的回归测试和文档测试。这就是为什么我们采取的第一步是为 Redux store 添加 Redux 操作和 Flow 类型的单元测试。事实上，社区确保我们的 Flow 和 Jest 覆盖率有助于确保每个文件都被打印和测试。
 
-As developers, we believe tools are stronger the more people are involved. Our core team has always been small (2 people), but we average 15 contributors a week. The community brings a diversity of perspectives that helps us anticipate challenges and build features we would not have dreamed of. We now format call stacks for 24 different libraries, many of which we had never heard of. We also show WebPack and Angular maps in the source tree.
+作为开发者，我们相信工具越强，参与的人越多。我们的核心团队一直很小（2 人），但我们平均每周有 15 个贡献者。社区带来了多样的视角，帮助我们预测挑战并创造了我们从未想到的功能。我们现在整理了 24 个不同库的调用堆栈，其中有许多我们从未听说过。我们还在源代码树中显示 WebPack 和 Angular 映射。
 
-We plan to move all the Firefox DevTools to GitHub so they can be used and improved by a wider audience. We'd love for you to contribute. Head over to our GitHub project page for `[debugger.html](https://github.com/devtools-html/debugger.html)` to get started. We've created a full list of instructions on how to run the debugger on your own machine, where you can modify it to do whatever you'd like. Use it to debug JavaScript code for anything — browsers, terminals, servers, phones, robots. And if you see ways to improve it, let us know via GitHub.
+我们计划将所有的 Firefox DevTools 移到 GitHub 上，以便更广泛的受众使用和改进它们。我们很乐意为您做出贡献。转到 `[debugger.html](https://github.com/devtools-html/debugger.html)` 的 GitHub 项目页面。我们已经创建了一个关于如何在自己的机器上运行调试器的完整的指令列表，在列表里你可以修改使它做任何你想做的事。使用它来调试任何 JavaScript 代码 —— 浏览器，终端，服务器，手机，机器人。如果您有改进的方法，请通过 GitHub 告诉我们。
 
-_You can download the latest version of Firefox (and DevTools) over [here](https://www.mozilla.org/firefox)._
+您可以在[这里](https://www.mozilla.org/firefox)下载最新版本的 Firefox（和 DevTools）。
 
 
 ---
