@@ -768,9 +768,11 @@ server.utilize({
     let mut router = ::nickel::Router::new();
     {
         router.get("**",{
-            use nickel::{MiddlewareResult, Responder, Response, Request};
+            use nickel::{MiddlewareResult, Responder, 
+                        Response, Request};
             #[inline(always)]
-            fn restrict<'a, R: Responder>(r: R, res: Response<'a>) -> MiddlewareResult<'a> {
+            fn restrict<'a, R: Responder>(r: R, res: Response<'a>) 
+                                            -> MiddlewareResult<'a> {
                 res.send(r)
             }
             #[inline(always)]
@@ -790,6 +792,14 @@ server.utilize({
     }
 });
 ```
+
+
+
+
+
+
+
+
 
 好吧，信息量很大。我们来抽丝剥茧。
 
