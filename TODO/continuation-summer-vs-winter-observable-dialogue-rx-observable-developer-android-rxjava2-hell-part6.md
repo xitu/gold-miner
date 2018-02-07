@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/continuation-summer-vs-winter-observable-dialogue-rx-observable-developer-android-rxjava2-hell-part6.md](https://github.com/xitu/gold-miner/blob/master/TODO/continuation-summer-vs-winter-observable-dialogue-rx-observable-developer-android-rxjava2-hell-part6.md)
 > * 译者：[hanliuxin](https://github.com/hanliuxin5)
-> * 校对者：[JayZhaoBoy](https://github.com/JayZhaoBoy)
+> * 校对者：[JayZhaoBoy](https://github.com/JayZhaoBoy)，[Lixiang](https://github.com/LeeSniper)
 
 # 大话（Summer vs Winter Observable）之我与 Rx Observable[Android RxJava2]（这是什么鬼）第六话
 
