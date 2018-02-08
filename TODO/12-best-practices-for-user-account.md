@@ -31,7 +31,7 @@ Do not store plaintext passwords under any circumstances. Your service should in
 
 You should design your system assuming it will be compromised eventually. Ask yourself "If my database were exfiltrated today, would my users' safety and security be in peril on my service or other services they use? What can we do to mitigate the potential for damage in the event of a leak?"
 
-你应该设计自己的
+你应该假设
 
 Another point: If you could possibly produce a user's password in plaintext at any time outside of immediately after them providing it to you, there's a problem with your implementation.
 
