@@ -31,21 +31,35 @@ Do not store plaintext passwords under any circumstances. Your service should in
 
 You should design your system assuming it will be compromised eventually. Ask yourself "If my database were exfiltrated today, would my users' safety and security be in peril on my service or other services they use? What can we do to mitigate the potential for damage in the event of a leak?"
 
-你应该假设
+在设计系统时，应该假设你的系统会受到攻击，并以此为前提设计系统。设计系统时要考虑“如果我的数据库今天受损，用户在我或者其他服务上的安全和保障会有危险吗？我们怎样做才能减小事件中的潜在损失。”
 
 Another point: If you could possibly produce a user's password in plaintext at any time outside of immediately after them providing it to you, there's a problem with your implementation.
 
+另外一点：如果你随时都能将用户提供给你的密码生成明文密码，那么你的系统就是有问题的。
+
 ## Allow for third-party identity providers if possible
+
+## 如果可以的话，允许第三方提供身份验证
 
 Third-party identity providers enable you to rely on a trusted external service to authenticate a user's identity. Google, Facebook and Twitter are commonly used providers.
 
+使用第三方提供身份验证，你就可以依赖一个可靠地外部设备来对用户的身份进行验证。Google，Facebook 和 Twitter 都是常用的身份验证提供者。
+
 You can implement external identity providers alongside your existing internal authentication system using a platform such as [Firebase Auth](https://firebase.google.com/docs/auth/). There are a number of benefits that come with Firebase Auth, including simpler administration, smaller attack surface and a multi-platform SDK. We'll touch on more benefits throughout this list. See our [case studies](https://firebase.google.com/docs/auth/case-studies/) on companies that were able to integrate Firebase Auth in as little as one day.
+
+你可以使用 [Firebase Auth](https://firebase.google.com/docs/auth/) 这样的平台在你已有的内部身份验证系统旁设置外部身份验证方式。使用 Firebase Auth 有许多好处，比如更简单的管理、更小的受攻击面和一个多平台的 SDK。通过这个清单我们可以接触更多的益处。查看我们有关公司的 [case studies](https://firebase.google.com/docs/auth/case-studies/)，可以尽可能小的整合 Firebase Auth。
 
 ## Separate the concept of user identity and user account
 
+## 区分用户身份和用户账户的概念
+
 Your users are not an email address. They're not a phone number. They're not the unique ID provided by an OAUTH response. Your users are the culmination of their unique, personalized data and experience within your service. A well designed user management system has low coupling and high cohesion between different parts of a user's profile.
 
+你的用户并不是一个邮件地址，不是一个电话号码，不是由一个 OAUTH 回复提供的特有 ID。他们是你的服务上，所有与之相关的独特、个性化的数据和经验呈现的最终结果。一个设计优良的用户管理系统在不同用户的个人简介之间低耦合、高内聚。
+
 Keeping the concepts of user account and credentials separate will greatly simplify the process of implementing third-party identity providers, allowing users to change their username and linking multiple identities to a single user account. In practical terms, it may be helpful to have an internal global identifier for every user and link their profile and authentication identity via that ID as opposed to piling it all in a single record.
+
+
 
 ## Allow multiple identities to link to a single user account
 
