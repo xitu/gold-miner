@@ -5,7 +5,7 @@
 > * 译者：[yoyoyohamapi](https://github.com/yoyoyohamapi)
 > * 校对者：[StarrieC](https://github.com/StarrierC) [goldEli](https://github.com/goldEli)
 
-# 嵌套三元表达式棒极了（软件编写）（第十四部分）
+# 优秀的嵌套三元表达式（软件编写）（第十四部分）
 
 ![](https://cdn-images-1.medium.com/max/800/1*uVpU7iruzXafhU2VLeH4lw.jpeg)
 
