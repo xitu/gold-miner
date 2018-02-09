@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/nested-ternaries-are-great.md](https://github.com/xitu/gold-miner/blob/master/TODO/nested-ternaries-are-great.md)
 > * 译者：[yoyoyohamapi](https://github.com/yoyoyohamapi)
-> * 校对者：
+> * 校对者：[StarrieC](https://github.com/StarrierC) [goldEli](https://github.com/goldEli)
 
 # 嵌套三元表达式棒极了（软件编写）（第十四部分）
 
