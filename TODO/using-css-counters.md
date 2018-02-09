@@ -6,34 +6,43 @@
 > * 校对者：
 
 # Using CSS Counters
+# 使用 CSS 计数器
 
 **The CSS counters are variables which we can increment or decrement with the specific property. With the help of it, we can achieve some generic iteration like in a programming language.**
+**CSS 计数器是我们可以用特定属性递增或递减的变量。有了它，我们可以在编程语言中实现一些通用的迭代。**
 
 This method can be used for some creative solution which includes a counter for some repeating part of your code.
+这种方法可以用于一些创造性的解决方案，其中包括一些重复代码的计数器
 
-To control your counters you need the `counter-reset` and `counter-increment` property and also the `counter()` and `counters()` function pair. This methodology not worth anything without the counter display, for that we can use the simplified content property.
+To control your counters you need the `counter-reset` and `counter-increment` property and also the `counter()`  `counter()` and `counters()` function pair. This methodology not worth anything without the counter display, for that we can use the simplified content property.
+为了控制你的计数器，你需要 `counter-increment` 和 `counter-increment` 属性，以及 `counter()` 和 `counters()` 函数。这种方法如果计数展示，没有任何价值，因此我们可以使用简化的内容属性。
 
 The behavior is simple. You have an unordered list, and you want to count your li items. You specify a new counter on the ul element, and you increment it on the li elements.
 
 ## counter-reset property
+## counter-reset 属性
 
 We can define our counter variable with the `counter-reset` property; for this, we have to give any name and optionally a start value. The default start data is zero. This property goes to the wrapper element.
 
 ## counter-increment property
+## counter-increment 属性
 
 With the use of the `counter-increment` property, we can increase or decrease our counter value. This property also has an optional second value which specifies the increment/decrement volume.
 
 ## counter() function
+## counter() 函数
 
 The `counter()` function is responsible for the dump. The place of the dump is the content property because this is where you can give back data to your HTML through CSS. The function has two parameters; the first is the name of the counter variable and the second is the [counter type](https://drafts.csswg.org/css-counter-styles-3/#typedef-counter-style) (optional).
 
 **Note:** in CSS there aren’t any concatenation operator so if you want to connect two value in the content property merely use space.
 
 ## counters() function
+## counters() 函数
 
 This function does the same job as the `counter()` function. The main difference is that with the `counters()` you can embed the counter iterations to another like in a multi-level ul list. It has three parameters, the first is the name of the counter, the second is the separator, and the third is the counter type (optional).
 
 ## Use Case #1 – Automatic Documentation Issue Tracking
+## 使用场景 #1 - 自动追踪文档问题
 
 This solution can be handy when you have some repetitive element, and you also want to count them.
 
@@ -42,24 +51,28 @@ We create a `counter-reset` on our `.container` wrapper element. After this, we 
 See the Pen [CSS Counter Example](https://codepen.io/adamlaki/pen/RrKBpJ/) by Adam Laki ([@adamlaki](https://codepen.io/adamlaki)) on [CodePen](https://codepen.io).
 
 ## Use Case #2 – Nested Lists
+## 使用场景 #2 - 嵌套列表
 
 Using the `counters()` function, we can make nested list counter as we do in our text editor program.
 
 See the Pen [Nesting Counters](https://codepen.io/adamlaki/pen/a1907874b8b6eb2395cf0af7742e8f9d/) by Adam Laki ([@adamlaki](https://codepen.io/adamlaki)) on [CodePen](https://codepen.io).
 
 ## Use Case #3 – Counting Checked Checkboxes
+## 使用场景 #3 - 计算已经勾选的 checkbox
 
 Using the input fields `:checked` pseudo-class value we can check if a checkbox is checked and if so we can increment our counter.
 
 See the Pen [Checkbox Counter](https://codepen.io/adamlaki/pen/f1ce9eef0a19069b883da8ec855e4b71/) by Adam Laki ([@adamlaki](https://codepen.io/adamlaki)) on [CodePen](https://codepen.io).
 
 ## Summary in a Video
+## 视频总结
 
 [Steve Griffith](https://www.youtube.com/channel/UCTBGXCJHORQjivtgtMsmkAQ) made an excellent and informative overall video on this topic. It is covering almost everything you need to know about CSS counters.
 
 <iframe width="911" height="537" src="https://www.youtube.com/embed/TJR7qGCOjTk" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 ## Other Use Case(s)
+## 其他使用案例
 
 1. Šime Vidas posted a [great example with footnotes](https://codepen.io/simevidas/pen/xpbLmV?editors=0100).
 2. Sam Dutton made an [interesting line numbering example](https://codepen.io/samdutton/pen/xpGxbY).
