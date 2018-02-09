@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/javascript-firefox-debugger.md](https://github.com/xitu/gold-miner/blob/master/TODO/javascript-firefox-debugger.md)
 > * 译者：[Serendipity96](https://github.com/Serendipity96)
-> * 校对者：
+> * 校对者：[ZhiyuanSun](https://github.com/ZhiyuanSun)，[noahziheng](https://github.com/noahziheng)
 
 # 来试试这个真正的 JavaScript 调试器吧！
 
