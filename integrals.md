@@ -4154,10 +4154,11 @@
 |------|-------|-------|
 |[僵尸币时代即将到来?](https://juejin.im/post/5a0e82315188252ae93a843a)|翻译|2|
 
-## 译者：[MRNIU](https://github.com/MRNIU) 历史贡献积分：18.5 当前积分：18.5
+## 译者：[MRNIU](https://github.com/MRNIU) 历史贡献积分：20 当前积分：20
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译校对|1.5|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|3|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|3|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|1.5|
@@ -4660,10 +4661,11 @@
 |[断点：像专家一样调试代码](https://juejin.im/post/5a72be42518825733b0f374e)|校对|1|
 |[17 个 Xcode 小技巧，每个 iOS 开发者都该知道](https://juejin.im/post/5a7198ac51882573505189c8)|校对|1|
 
-## 译者：[wzy816](https://github.com/wzy816) 历史贡献积分：12.5 当前积分：12.5
+## 译者：[wzy816](https://github.com/wzy816) 历史贡献积分：17.5 当前积分：17.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译校对|5|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译校对|6|
 |[2018 前端性能优化清单 - 第 3 部分](https://juejin.im/post/5a702160f265da3e4b771109)|校对|2|
 |[使用深度学习自动生成HTML代码 - 第 1 部分](https://juejin.im/post/5a72744e6fb9a01cb64f1d66)|校对|2.5|
