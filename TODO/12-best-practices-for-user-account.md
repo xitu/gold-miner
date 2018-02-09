@@ -55,13 +55,15 @@ You can implement external identity providers alongside your existing internal a
 
 Your users are not an email address. They're not a phone number. They're not the unique ID provided by an OAUTH response. Your users are the culmination of their unique, personalized data and experience within your service. A well designed user management system has low coupling and high cohesion between different parts of a user's profile.
 
-你的用户并不是一个邮件地址，不是一个电话号码，不是由一个 OAUTH 回复提供的特有 ID。他们是你的服务上，所有与之相关的独特、个性化的数据和经验呈现的最终结果。一个设计优良的用户管理系统在不同用户的个人简介之间低耦合、高内聚。
+你的用户并不是一个邮件地址，也不是一个电话号码，更不是由一个 OAUTH 回复提供的特有 ID。他们是你的服务中，所有与之相关的独特、个性化的数据和经验呈现的最终结果。一个设计优良的用户管理系统在不同用户的个人简介之间低耦合且高内聚。
 
 Keeping the concepts of user account and credentials separate will greatly simplify the process of implementing third-party identity providers, allowing users to change their username and linking multiple identities to a single user account. In practical terms, it may be helpful to have an internal global identifier for every user and link their profile and authentication identity via that ID as opposed to piling it all in a single record.
 
-
+将用户账户和证书的概念区分开可以极大地简化使用第三方身份验证的过程，允许用户修改自己的用户名，并关联多个身份到单一用户账户上。在实用阶段，这样可以使我们对每个用户都有一个内部的全局标识符，并通过这个 ID 将他们的个人简介与身份验证相关联，而不是将它全部堆放在一条记录里。
 
 ## Allow multiple identities to link to a single user account
+
+## 允许单一用户账户关联多重身份
 
 A user who authenticates to your service using their [username and password](https://firebase.google.com/docs/auth/web/password-auth) one week might choose [Google Sign-In](https://firebase.google.com/docs/auth/web/google-signin) the next without understanding that this could create a duplicate account. Similarly, a user may have very good reason to link multiple email addresses to your service. If you properly separated user identity and authentication, it will be a simple process to [link several identities](https://firebase.google.com/docs/auth/web/account-linking) to a single user.
 
