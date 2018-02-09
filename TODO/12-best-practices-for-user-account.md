@@ -67,19 +67,35 @@ Keeping the concepts of user account and credentials separate will greatly simpl
 
 A user who authenticates to your service using their [username and password](https://firebase.google.com/docs/auth/web/password-auth) one week might choose [Google Sign-In](https://firebase.google.com/docs/auth/web/google-signin) the next without understanding that this could create a duplicate account. Similarly, a user may have very good reason to link multiple email addresses to your service. If you properly separated user identity and authentication, it will be a simple process to [link several identities](https://firebase.google.com/docs/auth/web/account-linking) to a single user.
 
+一个每星期用 [用户名和密码](https://firebase.google.com/docs/auth/web/password-auth) 在你的服务上认证的用户，会选择 [Google 登录](https://firebase.google.com/docs/auth/web/google-signin)，而不需要去理解这一操作会创建重复的账户的问题。简单来说，一个用户可能有非常好的理由来将多个邮件地址关联到你的服务上。如果你能够正确地将用户的身份和认证区分开，那么 [关联多个身份](https://firebase.google.com/docs/auth/web/account-linking) 到一个单一用户上将是一件十分简单的事情。
+
 Your backend will need to account for the possibility that a user gets part or all the way through the signup process before they realize they're using a new third-party identity not linked to their existing account in your system. This is most simply achieved by asking the user to provide a common identifying detail, such as email address, phone or username. If that data matches an existing user in your system, require them to also authenticate with a known identity provider and link the new ID to their existing account.
+
+在用户意识到他们正在使用一个与他们在你的系统中已有的账户毫无关联的新的第三方身份之前，你需要对用户这种对于注册方式所知部分或全部的可能性负责。大多数情况下，要解决这个问题可以简单地要求客户提供一份普通的身份细节，比如邮件地址、电话或用户名等。如果这份数据与系统中已有的用户相匹配，则需要他们使用已知的身份认证，并将新的 ID 关联到他们已有的账户上。
 
 ## Don't block long or complex passwords
 
+## 不要限制较长或者复杂的密码
+
 NIST has recently updated guidelines on [password complexity and strength](https://pages.nist.gov/800-63-3/sp800-63b.html#appendix-astrength-of-memorized-secrets). Since you are (or will be very soon) using a strong cryptographic hash for password storage, a lot of problems are solved for you. Hashes will always produce a fixed-length output no matter the input length, so your users should be able to use passwords as long as they like. If you must cap password length, only do so based on the maximum POST size allowable by your servers. This is commonly well above 1MB. Seriously.
+
+NIST 最近在 [密码的复杂度和强度](https://pages.nist.gov/800-63-3/sp800-63b.html#appendix-astrength-of-memorized-secrets) 上更新了指南。既然你正在（或者很快就要）使用一个强加密的哈希值来进行密码存储，那么这里为你解决了很多问题。无论输入内容的长短，哈希值总会生成一个固定长度的输出值，所以你的用户应该根据自己喜好的长度设置自己的用户密码。如果你必须限制密码的长度，请按照你的服务器所允许的 POST 的最大值来设置。这通常超过1M。真的。
 
 Your hashed passwords will be comprised of a small selection of known ASCII characters. If not, you can easily convert a binary hash to [Base64](https://en.wikipedia.org/wiki/Base64). With that in mind, you should allow your users to use literally any characters they wish in their password. If someone wants a password made of [Klingon](https://en.wikipedia.org/wiki/Klingon_alphabets), [Emoji](https://en.wikipedia.org/wiki/Emoji#Unicode_blocks) and control characters with whitespace on both ends, you should have no technical reason to deny them.
 
+你的哈希密码将包含一小部分已知的 ASCII 码。如果不是，你可以轻易地将一个二进制的哈希值转成 [Base64](https://en.wikipedia.org/wiki/Base64)。考虑到这一点，你应该允许你的用户在设置密码时自由地使用任何他们想要的字符。如果有人想要一个由 [Klingon](https://en.wikipedia.org/wiki/Klingon_alphabets)、[Emoji](https://en.wikipedia.org/wiki/Emoji#Unicode_blocks) 以及两端带有空格的控制字符组成的密码，你应该无需任何技术理由地拒绝他们。
+
 ## Don't impose unreasonable rules for usernames
+
+## 不要对用户名强加不合理的规则
 
 It's not unreasonable for a site or service to require usernames longer than two or three characters, block hidden characters and prevent whitespace at the beginning and end of a username. However, some sites go overboard with requirements such as a minimum length of eight characters or by blocking any characters outside of 7-bit ASCII letters and numbers.
 
+如果一个网站或服务要求用户名长度必须大于两个或三个字 符、限制隐藏字符或不允许用户名的两端带有空格，这都不属于不合理的范畴。然而，有些网站的要求未免有些极端，比如，最小长度为八个字符或不允许使用任何大于 7bit 的 ASCII 字母和数字。
+
 A site with tight restrictions on usernames may offer some shortcuts to developers, but it does so at the expense of users and extreme cases will drive some users away.
+
+
 
 There are some cases where the best approach is to assign usernames. If that's the case for your service, ensure the assigned username is user-friendly insofar as they need to recall and communicate it. Alphanumeric IDs should avoid visually ambiguous symbols such as "Il1O0." You're also advised to perform a dictionary scan on any randomly generated string to ensure there are no unintended messages embedded in the username. These same guidelines apply to auto-generated passwords.
 
