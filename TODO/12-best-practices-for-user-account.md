@@ -95,9 +95,11 @@ It's not unreasonable for a site or service to require usernames longer than two
 
 A site with tight restrictions on usernames may offer some shortcuts to developers, but it does so at the expense of users and extreme cases will drive some users away.
 
-
+一个对用户名要求严格的站点会给开发者提供一些捷径，但这却是以用户的损失为代价的，同时，一些极端的情况也会带走一定数量的用户。
 
 There are some cases where the best approach is to assign usernames. If that's the case for your service, ensure the assigned username is user-friendly insofar as they need to recall and communicate it. Alphanumeric IDs should avoid visually ambiguous symbols such as "Il1O0." You're also advised to perform a dictionary scan on any randomly generated string to ensure there are no unintended messages embedded in the username. These same guidelines apply to auto-generated passwords.
+
+
 
 ## Allow users to change their username
 
