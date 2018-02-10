@@ -9,117 +9,117 @@
 - [What Will Bitcoin Look Like in Twenty Years? - Part 2](https://github.com/xitu/gold-miner/blob/master/TODO/what-will-bitcoin-look-like-in-twenty-years-2.md)
 - [What Will Bitcoin Look Like in Twenty Years? - Part 3](https://github.com/xitu/gold-miner/blob/master/TODO/what-will-bitcoin-look-like-in-twenty-years-3.md)
 
-# What Will Bitcoin Look Like in Twenty Years? - Part 2
+# 二十年后比特币会变成什么样？-第二部分
 
 ![](https://cdn-images-1.medium.com/max/2000/1*9cntgSCQQES9fogbSwWIoQ.jpeg)
 
-### The Rise of Bitcoin, Crypto and Decentralization
+### 比特币，加密技术和去中心化技术的兴起
 
-We’ll start with a few easy predictions and move on to some more complex and far reaching ones as well as some seriously controversial ones.
+我们将开始一些简单的预测,并逐渐的进行一些更加复杂的和遥不可及的预测以及一些对这些预测严肃的讨论。
 
-I’ll also include a confidence meter to let you know how strongly I feel about the scenario playing out.
+我也将包括一个信心表，让你们知道，这种预测场景的发生我有多强烈的感觉。
 
-### 1) The Bubble Bursts
+### 1) 泡沫破裂
 
-People in and out of crypto see them as bubble that will pop, causing prices to crash badly.
+经常关注加密技术的一群人把它看做泡沫，迟早会破裂，造成价格崩溃。
 
-**They’re right.**
+**他们是对的**
 
-**But so what?**
+**但是那又怎样？**
 
-**That’s not the end of the story. It’s just the beginning.**
+**这不是故事的结束，恰恰相反，这是故事的开始.**
 
 ![](https://cdn-images-1.medium.com/max/600/1*kwdBoz8WFuqp5Q61nQk5_g.jpeg)
 
-Right now we’re in the grips of tremendous euphoria. There’s so much potential. We can practically taste the decentralized future. It’s just around the corner! Any day now.
+现在，我们正沉浸在比特币收益带来巨大的快感当中。这里有很多潜在的风险。我们几乎可以预测分布式技术的未来。近在咫尺！现在的任意一天都有可能发生。
 
-Of course, that’s almost certainly not how it will work out. **The bubble will pop.** [**Vitalik is right. 90% of tokens will fail**](https://coinjournal.net/vitalik-buterin-90-icos-will-fail/)**.**
+当然，毫无疑问，泡沫的破裂并不能解决问题。 **泡沫将会破裂** [**Vitalik 是对的. 90% 的虚拟货币将失败**](https://coinjournal.net/vitalik-buterin-90-icos-will-fail/)**.**
 
-But after the pop comes the real working ideas.
+但是，泡沫破裂以后才能给区块链技术带来真正有用的想法。
 
 ![](https://cdn-images-1.medium.com/max/600/1*GDW2WTPat06YRs5uNxxiEQ.jpeg)
 
-**Eight years into the crypto experiment, everyone is working on the railroad tracks of the future but we don’t have much to show for it other than speculative trading and some smart contracts.** The apps are hideous and practically unusable. It’s nerve wracking when you push “send” and blast $5000 across the web to someone. Better hope you copy and pasted that address right so your money doesn’t disappear into the void!
+**8年加密技术经验，每个人工作在未来铁路的轨道上，但是我们没有太多东西可以拿出来展示，除了投机交易和一些精明的合约。** 用这种技术做成应用程序是十分可怕的，并且几乎无法使用。 这是需要很大勇气去通过网络“发送”$5000给某个人。 最好祈祷你的复制，粘贴的地址是正确的，这才能保证你的钱才不会消失！
 
-When the Internet bubble burst many of today’s marquee companies saw their stocks crash 85%. Yet they survived and the best was yet to come. Amazon and Google went on to dominate the world.
+彼时互联网泡沫破碎的时候，很多今天的巨头公司经历了股价蒸发85%。 它们幸存下来了并且最好的事情也发生了。Amazon和Google支配了全世界。
 
-**The same will happen in crypto.**
+**加密技术也会是同样的情况**
 
-**The 10% of projects that make it through the bloodbath will turn into the Amazon, Google and Facebook of tomorrow and likely even the JP Morgan and Goldman Sachs as well, not to mention maybe even the governments of the future, like digital direct democracies or liquid democracies.**
+**有10%的项目通过市场的洗礼，将会变成明天的亚马逊，谷歌和Facebook，甚至可能是摩根大通和高盛，更不用说甚至是未来的政府，譬如数字民主，或者液态民主。**
 
-Innovation is hard work. You’re literally trying to create something that doesn’t exist!
+发明家夜以继日的努力工作。真正创造一个理论存在，而真实不存在的东西！
 
-There are no guidelines, no working templates, no business models to clone. There’s nothing. You’re on your own! It’s just you and your imagination. With those odds of course 90% of people and companies fail!
+这里没有指南，没有模板，没有业务逻辑可以克隆。什么也没有。你就是你自己！这里仅仅有你和你的想象。有这么奇怪的特性，当然有90％的人和公司会失败了！
 
-It doesn’t matter.
+不过这不是问题。
 
-[**Crypto, blockchain and triple entry accounting are probably the most important invention of the last 500 years**](https://hackernoon.com/why-everyone-missed-the-most-important-invention-in-the-last-500-years-c90b0151c169) **so they’re not going to go gently into that good night.**
+[**加密，区块链和第三方支付可能是过去500年来最重要的发明**](https://hackernoon.com/why-everyone-missed-the-most-important-invention-in-the-last-500-years-c90b0151c169) **因此所以他们不会温柔地进入那个美好的夜晚。（这里形容过程曲折）**
 
-The bubble burst is just the next step. Three years after that the tech will really mature and take off running.
+泡沫破裂是下一步。 三年后，这个技术才会真正的成熟然后高速发展。
 
-### 2) Government Cryptocurrencies will Flourish
+### 2) 政府的加密货币将繁荣
 
-The community won’t like this one, but it’s a no brainer.
+大众可能不喜欢这一条，但是这不是闻风而动。
 
 ![](https://cdn-images-1.medium.com/max/600/1*kwdBoz8WFuqp5Q61nQk5_g.jpeg)
 
-**Many governments will not sit by and lose control of the money supply without a vicious fight. Anyone working on a project right now should be anticipating protocol level assaults on decentralized cryptos and designing defenses against them.**
+**很多政府将不会坐视不管，如果不进行恶意斗争就会丧失对供应货币的控制能力。任何正在从事这方面工作的人应该预测对区块加密技术协议级的攻击，并针对这些攻击进行设计防御措施。**
 
-A distributed, decentralized DDoS stopping grid, like the one from [**Gladius**](http://gladius.io) is a great first step but there is a lot more work to be done. We’ll talk about some additional defenses cryptos needs to survive later when I come to the evolution of protocols.
+分布式，去中心化的DDoS防御手段, 像 [**Gladius**](http://gladius.io) 是很好的起步，但是这里仍然有很多事情要做。我们将讨论一些额外的防御手段，就是当协议变革的时候，我们的加密技术能够幸存下来。
 
-Governments will lose the battle in the long run, probably in thirty to one hundred years (maybe faster depending on how many wars or financial crises strike). That’s provided we survive as a race, don’t nuke ourselves, and push out into space. But in ten or twenty years expect very strong government cryptocurrencies to come to power and dominate the flow of money for many, if not most, people around the world.
+也许在30到100年左右（也许更快，取决于有多少次金融危机），政府将在长期的战斗中失败。这让我们将在这场比赛中幸存下来，不要用核弹炸自己，把它送到太空去。但是，在十或二十年预计会有一个非常强势的政府加密货币为世界各地的很多人控制的现金流。
 
-“But no one will adopt them!” scream the crypto faithful!
+"但是没人会采用它们！"加密技术忠实的呐喊!
 
-Of course, they will.
+当然，它们将被人们采用。
 
-The average person has zero understanding of just about anything that actually matters and they absolutely don’t see a need for privacy and security until it’s physically ripped away from them under extreme circumstances like a war. When soldiers invade your house and take everything you own suddenly the need for privacy becomes very real to people.
+普通人并不理解加密货币真正重要的事情，并且他们也完全不需要隐私和安全，直到在很极端的情况下，像战争，剥夺了他们的身体。当士兵入侵了你的房子,并拿走了你的一切，在那一刻才会真正的需要隐私，从而变成一个真正的人。
 
-Remember this interview with Snowden about government surveillance on the John Oliver show?
+记得斯诺登在John Oliver的脱口秀中对政府监控的采访吗？
 
-Watch the look on Snowden’s face when he realizes that the average man on the street doesn’t know a damn thing about privacy and doesn’t care about it in the least! The only time they care is when the government has a picture of their dick on file. Seriously.
+看看斯诺登的表情，他意识到街上的普通人一点也不关心他们自己的隐私！他们只关心自己的私处(dick)照片是否被存到政府的硬盘里。
 
-People will adopt government cryptos like good little sheep without a second thought. Even better, they’ll think it’s absolutely the right thing to do and they’ll even be willing to kill for it if told that’s right. Count on it!
+人们采用了政府的加密货币像一个小绵羊一样没有任何其他的想法。甚至，他们认为这绝对是一件十分正确的事情，如果被告知是正确的事情，他们甚至愿意为此而杀人！
 
-Of course, in many ways government issued cryptocurrencies are utterly ridiculous, as Naval Ravikant points out in his epic blockchain tweetstorm:
+当然，在很多方面政府会说加密货币是可笑的，正如Naval Ravikant在在史诗般的区块链tweetstorm中指出:
 
 ![XEX0H$32R3VW`LS%2DV]UWU.png](https://i.loli.net/2017/11/07/5a0161a24d8f7.png)
 
-**They’re nonsense because _the very purpose of blockchain is to distribute power across a system_.** By not allowing a single group to control or change the rules arbitrarily, **decentralized cryptos and apps provide a powerful set of checks and balances against harmful actions to the system.**
+**他们是无稽之谈，因为区块链的目的是通过系统分配权力。** 通过不允许单个组织任意地控制或更改规则, **去中心化加密技术和应用程序提供了一套强大的检查和平衡机制，以防止对系统的有害操作。**
 
-When five different banks own a blockchain, that’s not a blockchain, that’s a database. Only when the banks, the regulators, the shareholders and the customers of the bank hold the keys to the blockchain at the same time and can counteract each other’s power is it a true blockchain.
+当五个不同的银行拥有区块链时，这不是区块链，而是一个数据库。 只有当银行，监管机构，股东和客户同时拥有区块链的钥匙，才能抵消彼此的力量，才是真正的区块链。
 
-**The checks and balances on power are exactly the point!**
+**对权利的检查和平衡才是真正的要点。!**
 
-Government crypto will represent a total and complete corruption of that idea.
+政府加密货币的想法将完全代表腐败。
 
-But it won’t matter. They’ll do it any way.
+但是这不是问题。他们会做到这一点采用任何方式。
 
-In fact, instead of distributing power, they’ll look to concentrate _even more power_, by giving themselves the ability to track every single citizen’s spending with impunity and automatically collect taxes from wages and sales of goods and services. That’s why authoritarian governments are racing to build official state cryptos. **They can’t wait to have panopticon money in your pocket as soon as possible.**
+事实上，他们不是分配权力，而是集中更多的权力，让自己有能力不费吹灰之力跟踪每一个公民的支出，并自动从工资和销售货物和服务中征税。 这就是为什么独裁政府正在竞相建立官方的密码。 他们迫不及待要尽快在你的口袋里放置全景图。**
 
-They will absolutely outlaw physical cash and they will do it under the guise of one of three excuses:
+他们将绝对会取缔实物现金，他们会以三个借口之一的幌子来做:
 
-*   Stopping money laundering
-*   Stopping terrorists
-*   Stopping crime
+*   防止洗钱
+*   防止恐怖袭击
+*   防止犯罪
 
-Of course, knowing that you spend half your paycheck on Amazon, groceries and rent has nothing to do with any of those things but hey, if you trot out any or all of the above reasons you can easily get half the population to do whatever you want and even better they’ll believe it with all their hearts.
+当然，知道你在亚马逊上花了一半的工资，杂货和房租与这些东西没有任何关系，但是嘿，如果你抛出了上述任何一个或所有的原因，你可以很容易地让其他人做你想要所做的一切，甚至更好的情况是，他们会全心全意相信。
 
 ![](https://cdn-images-1.medium.com/max/600/1*etJecOqa4iPT5GpdrDtEng.jpeg)
 
-Remember American psychologist [Gustave Gilbert’s talk with Nazi Herman Goring during the Nuremberg trials](https://en.wikiquote.org/wiki/Hermann_G%C3%B6ring)? Goring told him that most people will go along with whatever their leaders tell them to do without question, whether it’s a democracy or fascist dictatorship.
+记住美国心理学家 [古斯塔夫•吉尔伯特（Gustave Gilbert）在纽伦堡审判期间与纳粹赫尔曼•戈林（Neri Hermann Goering）的谈话?](https://en.wikiquote.org/wiki/Hermann_G%C3%B6ring)? 戈林告诉他，大多数人会毫不犹豫地跟相信他们的领导人所说，无论是民主还是法西斯独裁。
 
-Naively, Gilber replied, “There is one difference. In a democracy, the people have some say in the matter through their elected representatives, and in the United States only Congress can declare wars.”
+天真地，Gilber回答说："有一个区别。 在一个民主国家，人民通过他们的民选代表就可以发言，而在美国，只有国会可以宣战。"
 
-But Goring only laughed and said, “Oh, that is all well and good, but, voice or no voice, **the people can always be brought to the bidding of the leaders. That is easy. All you have to do is tell them they are being attacked and denounce the pacifists for lack of patriotism and exposing the country to danger. It works the same way in any country.**”
+但是，戈林只是笑了起来，说："哦，这是很好的，但是，选举或者没有选举， **人们总是可以被领导说服。这很容易。你所要做的就是告诉他们，他们将要找到袭击，并谴责和平主义者缺乏爱国主义，使国家面临危险。 它在任何国家都很有效。**”
 
-Government cryptos will be a very, very bitter pill to swallow for current true believers in the crypto space but they better get used to them.
+政府的加密货币，对于对加密技术执着的人来说，将是一个非常痛苦的药丸，但是，这些执着的人会很好的尝试习惯它们。
 
-A better bet is to assume there’ll be hybrid systems of decentralized and centralized crypto and to design for it right now to avoid getting swallowed in the tsunami to come. Better to embrace the current system with blockchain and then overwhelm it from within rather than ignore it so that it becomes hostile.
+一个更好的选择是假设会有去中心化和中心化加密的混合系统，并且为了避免在金融海啸中被吞没而设计它。最好是用区块链技术接受现有的系统，然后从内部感染它而不是忽略它，这样就会变得很难对付。
 
-### 3) Decentralized Cryptocurrencies Will Become a Parallel Economic Operating System for the Planet
+### 3) 去中心化加密货币将变成这个星球的一个平行的经济操作系统
 
-Just because centralized cryptos rise to prominence doesn’t mean the decentralized cryptos will go away. Oh, many governments will try, but in the end they’ll fail to stamp them out. The reasons are simple.
+仅仅因为中心化密码技术体现了突出优势，并不意味着去中心化密码技术将会消失。哦，很多国家的政府都会去尝试，但最后他们还是不能把它们剔除出去。 原因很简单。
 
 ![](https://cdn-images-1.medium.com/max/600/1*SauOTxerkM449xCtL2aBtQ.jpeg)
 
