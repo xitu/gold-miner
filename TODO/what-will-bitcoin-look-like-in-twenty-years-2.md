@@ -33,7 +33,7 @@
 
 现在，我们正沉浸在比特币收益带来巨大的快感当中。这里有很多潜在的风险。我们几乎可以预测分布式技术的未来。近在咫尺！现在的任意一天都有可能发生。
 
-当然，毫无疑问，泡沫的破裂并不能解决问题。 **泡沫将会破裂** [**Vitalik 是对的. 90% 的虚拟货币将失败**](https://coinjournal.net/vitalik-buterin-90-icos-will-fail/)**.**
+当然，毫无疑问，泡沫的破裂并不能解决问题。 **泡沫将会破裂** [**Vitalik 是对的. 90% 的代币将失败**](https://coinjournal.net/vitalik-buterin-90-icos-will-fail/)**.**
 
 但是，泡沫破裂以后才能给区块链技术带来真正有用的想法。
 
@@ -83,7 +83,7 @@
 
 当然，在很多方面政府会说加密货币是可笑的，正如Naval Ravikant在在史诗般的区块链tweetstorm中指出:
 
-![XEX0H$32R3VW`LS%2DV]UWU.png](https://i.loli.net/2017/11/07/5a0161a24d8f7.png)
+![XEX0H$32R3VWLS%2DVUWU.png](https://i.loli.net/2017/11/07/5a0161a24d8f7.png)
 
 **他们是无稽之谈，因为区块链的目的是通过系统分配权力。** 通过不允许单个组织任意地控制或更改规则, **去中心化加密技术和应用程序提供了一套强大的检查和平衡机制，以防止对系统的有害操作。**
 
@@ -117,174 +117,174 @@
 
 一个更好的选择是假设会有去中心化和中心化加密的混合系统，并且为了避免在金融海啸中被吞没而设计它。最好是用区块链技术接受现有的系统，然后从内部感染它而不是忽略它，这样就会变得很难对付。
 
-### 3) 去中心化加密货币将变成这个星球的一个平行的经济操作系统
+### 3) 去中心化加密货币将变成地球上的一个平行的经济操作系统
 
 仅仅因为中心化密码技术体现了突出优势，并不意味着去中心化密码技术将会消失。哦，很多国家的政府都会去尝试，但最后他们还是不能把它们剔除出去。 原因很简单。
 
 ![](https://cdn-images-1.medium.com/max/600/1*SauOTxerkM449xCtL2aBtQ.jpeg)
 
-**The same factors that make it hard to form consensus across a blockchain, make it hard for all the world’s governments to agree on anything.** They won’t be able to do it. Some governments will love decentralization and others will hate it.
+**共同的因素是关于区块链技术这很难达到共识，这使全世界的政府很难在任何事情上同意。** 他们将无法做到这一点。 有些政府会热爱分布式技术，其他政府会讨厌去中心化技术。
 
-Even as some countries openly rail against them, many others will **openly embrace decentralized cryptocurrencies, especially the ones who suffered the worst under the dominance of Europe and the US dollar over the last century.**
+甚至有一些政府明令禁止这项技术，很多其他国家将 **拥抱分布式加密货币，特别是上个世纪以来遭受欧元和美元控制的国家们。**
 
-I see the Latin American countries, freewheeling no-holds-barred globalists like Singapore, historical bankers-to-the-world Switzerland and many of the Asian and African countries welcoming decentralized crypto with open arms, if only to stick it to the current empires.
+到目前为止，我看到一些拉丁美洲国家，以及像新加坡那样毫无阻拦的全球主义者，以及历史悠久拥有很多银行家的瑞士以及许多亚洲和非洲国家张开双臂欢迎去中心化加密技术。
 
-If all the countries don’t agree, then decentralized cryptos are never going away, even as centralized cryptos come to power.
+如果所有的国家不同意，那么去中心化加密技术将走不长远，那么中心化的加密技术就会掌握大权。
 
-But to remain relevant, decentralized cryptos need to move fast. **They need a killer app.** Right now they’re vulnerable to attack. **To really take root they need that killer app to spread virally across the globe.** It’s got to be something so indispensable that people can’t imagine their lives without it. This will bring existing power players into the system and they will then use that power to defend it against attacks from outside powers.
+但为了保持相关性，中心化密码技术需要快速转移。 它们需要一个杀手级应用程序。 现在它们很容易受到攻击。 为了真正扎根到日常生活中，它们需要杀手级的应用程序，使它们在全球范围内进行病毒式的传播。 它必须是不可或缺的东西，人们不能想象没有它的生活。 这将使现有的强大参与者进入系统，然后他们将使用该力量来抵御来自外部力量的攻击。
 
-I outlined one of the ways that can happen in my article for [**gamifying the distribution of money**](https://hackernoon.com/gamifying-the-delivery-of-money-c55c25cecaee). But that’s just one way it can play out. There are many, many more. If you’re working on a platform now, know that it’s a race against time before central cryptos take root.
+我的文章中概述了可能会发生的一些分配货币的方法。 但这只是其中一种方式。 还有很多很多 如果你现在在一个平台上工作，那么要知道，在中央密码产生根之前，这是一场与时间赛跑的比赛。
 
-### 4) The Killer App for Crypto is NOT a Browser
+### 4) 加密技术的杀手锏应用程序不是一个浏览器
 
 ![](https://cdn-images-1.medium.com/max/600/1*SauOTxerkM449xCtL2aBtQ.jpeg)
 
-This is a classic example of grafting old inventions onto a new system. The [**Brave Browser**](https://brave.com/) is awesome and I bet I’ll really love it as it gets paired with [**BAT**](https://basicattentiontoken.org/) and/or a **universal payment system that** [**automatically swaps cryptocurrencies**](https://themerkle.com/what-is-an-atomic-swap/) without the need for an exchange but I don’t see it as the final interface to the blockchain. I see it as a potential intermediate step.
+这是一个老的发明创造移植到新系统中的典型例子。 [**Brave 浏览器**](https://brave.com/) 是很棒，并且我打赌，我将十分喜欢用它作为 [**BAT**](https://basicattentiontoken.org/) （注:Basic Attention Token）的搭配产品或者一个 **通用的支付系统，这个系统** [**自动交换加密货币**](https://themerkle.com/what-is-an-atomic-swap/) 不需要任何的手动交换，但是我并不认为这是接入区块链的最终接口。我认为它只是一个潜在的过度工具。
 
-So what does the killer app look like?
+因此，杀手级的应用程序会张什么样子的?
 
-I don’t know.
+我不知道。
 
-But I know it is:
+但是我知道这些：
 
-*   **Ubiquitous**
-*   **Easy to use**
-*   Acts as a **platform** for everything from changing money to getting tickets to protecting privacy and information.
-*   **Open source**
+*   **普世性**
+*   **方便使用**
+*   行为作为 **平台** 的一切，从变化货币到拿到票据到保护隐私和信息。
+*   **开源**
 
-It’s also something totally new and original that expands and extends the best characteristics of the blockchain while minimizing its greatest weaknesses.
+它应该也是完全新的，原创的，具有很好的扩张性这也是区块链的最佳特征，同时能够最大程度上减少它的弱点。
 
-Maybe a decentralized AI assistant or attention filter? The possibilities are endless so get moving!
+也许分布式AI助手或关注点过滤器？无穷的可能性，所以行动起来吧！
 
-### 5) Blockchain is Just the Beginning of Decentralized Consensus
+### 5) 区块链技术仅仅是去中心化技术的开始
 
-Blockchain systems are only the first successful implementation of decentralized consensus mechanisms.
-
-![](https://cdn-images-1.medium.com/max/600/1*kwdBoz8WFuqp5Q61nQk5_g.jpeg)
-
-People are already inventing new ones like [**IOTA’s Tangle**](https://iota.org/) and the [**HashGraph**](http://hashgraph.com/).
-
-It doesn’t really matter if both of those projects prove failures in the long run because some other project will create another method. This is virtually guaranteed.
-
-Over the next twenty years, I predict dozens, if not hundreds of experimental distributed consensus protocols, capable of transaction levels that blow away Visa level processing, augmented by artificial intelligence systems.
-
-It’s also strongly possible that none of these systems will be designed by humans.
-
-Instead AI’s will rapidly iterate on ideas and come up with systems that no human ever could if they had a hundred years. They’ll draw their inspiration from nature and systems of insects or roots or other biological systems like proteins.
-
-One or two of these systems will come to dominate all coins and become the meta-system to rule them all, uniting many different kinds of coins and running the entire system like a massive fractal that enables countless daughter networks to flourish inside of it.
-
-### 6) Crypto Will Get a LOT Easier to Use
-
-Today’s user experience in crypto is awful.
-
-If I mistype something or copy and paste wrong, my money disappears forever. If there’s a software glitch I lose my money forever. If someone hacks my computer or phone my money is gone forever.
-
-See a trend there? Make any mistake you’re toast. It’s like driving a motorcycle on the edge of a one inch mountain road with no rail.
+区块链系统仅仅是去中心化机制第一个应用成功的技术。
 
 ![](https://cdn-images-1.medium.com/max/600/1*kwdBoz8WFuqp5Q61nQk5_g.jpeg)
 
-The core wallets are slow, hard to use and ugly. When I last upgraded Ethereum, it forgot to keep my private keys so I had to go restore them all. Earlier this year I had an old Bitcoin stuck in an ancient version of Multibit from 2013\. It took me a week to free it after the software mistakenly thought I had sent a transaction that was never actually broadcast.
+人们正准备发明新的应用像 [**IOTA’s Tangle**](https://iota.org/) 和 [**HashGraph**](http://hashgraph.com/) 这样。
 
-Imagine these wallets going into cold storage and coming out five years later. Will they even be usable? What happens when quantum computers come out and we need to completely update the basic protocols that underscore the system?
+如果这些技术在长时间使用过程中都被证明失败，这不是问题，因为其他的一些项目会用另一种方式重新创建。这实际上是有保证的。
 
-The average person will never be able to do these procedures. Zero chance. Two decades in IT taught me that people can and will screw up their machines in ways that are utterly unimaginable to tech people. Murphy’s Law rules.
+在下一个二十年里，我预测了很多，进行成百上千的实验使得分布式协议到达共识，有能力承担交易级别的压力，Visa级别的处理能力，在辅助以人工智能将会更加完美。
 
-Even worse, there’s no way to reverse any transaction or to secure it against mistakes. I foresee many _algorithmic methods_ to freeze, roll back and protect transactions, as well as ways to self-escrow money and recover stolen money. Think of them as automated versions of calling the bank and declaring a card stolen.
+也有很大可能人们没有做出这些系统。
+
+相反，人工智能会迅速迭代思想，并提出一个系统。如果提出这个系统需要一百年的时间，人们是不可能做到的。他们将从昆虫或根系或其他生物系统（如蛋白质）的自然界和系统中吸取灵感。
+
+一个或两个这种系统将控制所有的货币，并且变成元系统支配所有的货币。联合不同种类的货币并像整个体系一样运行整个系统，使无数子网络在它内部蓬勃发展。
+
+### 6) 加密货币将变得更加容易
+
+现在加密货币的体验非常的差劲。
+
+如果我输错一些东西或者复制粘贴出错，我的钱就会永远消失。如果软件出现故障我也会永远的失去我的钱。如果某人攻击了我的电脑或者我的手机我的钱就被永远的偷走了。
+
+想看这里的趋势？看看你们吐槽的错误。这就像在只有单行道的山路上的摩托车一样没有别的路可以走，只能优化用户体验。
+
+![](https://cdn-images-1.medium.com/max/600/1*kwdBoz8WFuqp5Q61nQk5_g.jpeg)
+
+核心钱包十分的慢，难用和丑陋。当我最后一次升级以太坊，我忘记保存我的私钥，因此我不得不重新弄所有的一切。更早的时候我有一个古董级别版本的2013年多比特的比特币卡。在软件错误地认为我发送了一个从未实际播出的交易后，花了我一个星期的时间才将其释放。
+
+想象这些钱包在冰冷的存储空间里面，并在五年后出现。他们仍然可用么？量子计算机出来后会发生什么，我们需要完全更新系统的基本协议？
+
+普通人将永远无法做到这些程序。 没有任何机会。 IT部门长达20年的时间告诉我，人们可以并且将会以技术人员完全无法想象的方式搞砸他们的机器。 墨菲的法律规则。
+
+更糟糕的是，没有办法扭转任何交易或防止错误发生。我估计会有许多算法出现，这些算法会冻结，回滚和保护交易，以及自我托管和追回赃物的方式。把这些算法想象成银行电话服务的自动化版本，并宣称一张卡片被盗。
 
 ![](https://cdn-images-1.medium.com/max/600/1*ZJuCf81drd-6hQiHGB0-Ug.jpeg)
 
-If grandma can’t do it, forget it. Everyone is not an IT person who can bang away at the Linux terminal.
+如果你的祖母不会做这些，原谅她吧。毕竟并不是所有人都是跟狗使用Linux终端计算机相关人士。
 
-**Only systems that provide all the features of the old system _plus brand new features_ achieve mass adoption.**
+**只有系统提供了旧的功能的同时，加上新的功能，才能大规模推广。**
 
-Think about CD-ROM books from the 80’s again. They had a bunch of new features, like charts and color and you could back them up.
+想一下上个世纪80年代CD-ROM书籍。它们有一些列的新功能，像表格和颜色，你可以随身携带它们。
 
-But it wasn’t good enough because CD’s had fatal flaws. **Ray Kurzweil** calls this the “[false pretender](https://www.technologyreview.com/s/402705/kurzweils-rules-of-invention/)” phase of evolutionary development in his book [**_The Singularity is Near_**](http://amzn.to/2ihZKeQ)**_._** The new tech has some advantages but too many disadvantages to really make it with the wider world and replace the old technology.
+但是，这还不够好，因为CD有致命的缺点。 **Ray Kurzweil** 在他的 “[false pretender](https://www.technologyreview.com/s/402705/kurzweils-rules-of-invention/)” 书中称这是进化发展作 [**冒牌伪装者**](http://amzn.to/2ihZKeQ)**_._** 阶段。新技术有一定的优势，但也有太多的缺点，无法与更广阔的世界真正做到，取而代之的是旧技术。
 
 ![](https://cdn-images-1.medium.com/max/600/1*7n8RXqspp7bLnZq_6_CT7g.jpeg)
 
-It wasn’t until Kindles and iPads came along that eReaders had all the old features of reading a book, such as portability and being easy on the eyes, plus new features like the ability to carry a thousand books with you at once, something no dead tree could compete with, that it could really take off.
+直到Kindle和iPad出现，电子书阅读器才具备了阅读书籍的所有旧功能，如便携性和易于阅读的功能，以及一次性携带一千本书籍的新功能，没有任何一个老技术可以与它竞争，所以发展的很快。
 
-Cryptos must follow a similar path from fatally flawed to bringing untold new powers to people and businesses to acheive world dominance.
+加密货币遵循类似的途径，从致命的缺陷中走出来，到为个人和企业带来无与伦比的新的权利，从而实现主导世界的目标。
 
-I also see many of the kinds of systems we really need arising from the desire to pass digital money down to your children. For that we will need ad-hock banks formed with groups of people as needed or algorithmic banks and bullet proof multi-signature wallets with decentralized cloud or foglet services to act as the final arbiter.
+我还看到了很多我们真正需要的系统出现，这些系统都是将数字资金传递给后代的愿望引发的。为此，我们根据需要组建群体银行或算法银行和来防止多签名钱包，并且采用去中心化云或云服务作为最后的仲裁者。
 
-It won’t be enough to simply shard up your keys and give them to trusted friends or loved ones. That is a first pass solution. Friends stop being friends, people get divorced or die or worse. We need something better and completely automated.
+简单地把你的钥匙分开，交给可信赖的朋友或亲人是不够的。这是第一手解决方案。你的朋友可能会不再是你的朋友，人都会离开或死亡或者其他糟糕的事情发生。我们需要更好的东西，完全自动化。
 
-**Think about how hard it would be to pass your Bitcoin down to your loved ones now.** What if you died tomorrow or got hit on the head and forgot your password?
+**想想现在把你的比特币传给你的亲人有多难。** 如果你明天去世或被击中头部并忘记密码怎么办？
 
-Even if you plan for it, it kind of sucks too.
+即使你打算这样做，也有点不好。
 
 ![](https://cdn-images-1.medium.com/max/600/1*WEH21y_aUF2W-dYtScGRjA.png)
 
-You would have to create a will, lock a backup of your private keys and wallet in a safe, give the password to an estate lawyer and hope that he doesn’t make off with it or the USB stick or [**Trezor/Nano**](http://amzn.to/2iPesOp) doesn’t die. You could also create a multi-signature wallet with some friends and family members and [hope someone doesn’t check a different version into Github with a backdoor or bug and screw it up](https://blog.ethcore.io/the-multi-sig-hack-a-postmortem/). All of it is ugly and immature. It’s unacceptable.
+你不得已产生了一个需求，将你的私钥和钱包的备份锁在一个安全的地方，把密码交给一个房地产律师，并希望他不会偷走它，或者记忆棒或 [**Trezor/Nano**](http://amzn.to/2iPesOp)不会坏。 你和一些朋友，家庭成员， [一些不会在Github查找不同版本来找后门和Bug并且破坏它的人](https://blog.ethcore.io/the-multi-sig-hack-a-postmortem/)可以创建一个多签名钱包。.这一切都是丑陋的，不成熟的。 这是不可接受的。
 
-**By the way, if you want to start a cyrpto business that everyone will need in the future, solve the inheritance problem.** Everyone will pay you gladly.
+**顺便说一句，如果你想启动一个人人将来需要的加密业务，请先解决继承问题。** 每个人都因为你的付出而高兴。
 
-I foresee drag and drop smart contracts and AI generated wills with self-escrowing money. In essence, the blockchain itself will be the bank and the customer service department, perhaps using your biometric markers and third party proof-of-staked groups or a decentralized AI that can verify your loved ones, as well as trigger events like your end of days. Automated password and key recovery will be STOP.
+我可以预见智能合约的发展和人工智能所产生的意愿将会以自我管理的形式进行。本质上，区块链自己就是银行和客户服务部分，也许用你的生物特征和第三方验证机构的证明或一个去中心化的AI可以证明你的亲人，当你日子不多的时候，自动触发。自动密码和秘钥恢复将停止。
 
-**Whatever it looks like, we’ll need algorithmic approximations of the controls we have now for giving money to people we want and keeping it out of the hands of people who want to rob us.** We also need the system to protect us from accidents, death and going nuts.
+**不管它看起来如何，我们都需要对我们现在控制的算法进行近似处理，以便把钱交给我们想要的人，并使之免于那些想要抢劫我们的人。** 我们也需要这个系统来保护我们免受事故，死亡和其他疯狂的伤害。
 
-### 7) The protocols of Coins will Get Abstracted from the Coins Themselves
+### 7) 货币的协议将完全抽象自货币本身
 
-Right now all the coins that exist are inextricably bound to their protocols.
+现在所有的货币与它们的协议都存在千丝万缕的联系。
 
-**I expect us to abstract away the protocols for exchanging, sending and receiving as well as securing, defending and storing our coins.**
+**我预测我们抽象掉交换，传输和接受甚至安全协议，防御和存储我们的货币。**
 
-This will mirror the evolution of today’s servers from bare metal to virtualization to containers to serverless.
+这将反映当今服务器从裸机到虚拟化到容器技术到无服务器的发展。
 
 ![](https://cdn-images-1.medium.com/max/600/1*kwdBoz8WFuqp5Q61nQk5_g.jpeg)
 
-To start with, most coins can’t scale. We can’t even come close to hitting Visa level transaction processing on chain, the holy grail of any crypto system and the subject of much in-fighting and controversy. [Bitcoin can do 7 transactions per second at its peak](https://en.bitcoin.it/wiki/Scalability).
+首先，大多数虚拟货币不能大规模交易。 我们甚至无法接近进行Visa级别的交易处理，这是任何加密系统的圣杯，也是很多争斗和争议的主题。 [比特币可以在峰值时每秒处理7笔交易](https://en.bitcoin.it/wiki/Scalability)。_
 
-Some people have gone so far as to consider this a virtue of the coin as it encourages people to save and store it rather than send it.
+有些人甚至认为这是虚拟货币的优点，因为它鼓励人们保存并存储它，而不是发送它。
 
-That’s just absurd.
+这太荒唐了。
 
-We should be able to move the coin as fast and as far and as often as we like.
+我们应该尽可能快的移动货币。
 
-Let’s face it, the 1 MB limit is nothing but a hack. **Originally Bitcoin had no limit.** Then Satoshi snuck it in overnight with no mention of it and no explanation in the source code. It was most likely nothing but a ham-fisted way to prevent DDoS attacks.
+让我们面对这个问题，1MB限制只是一种黑客行为， **比特币本身是没有限制的。** 然后，中本聪在一夜之间偷偷把它放在一边，没有提到它，在源代码中没有解释。 这很可能只是防范DDoS攻击的一种手段。
 
-**We can and will come up with better flooding protections.**
+**我们能并且将要实现更好的洪攻击防御措施。**
 
-Are you a 1MB adherent? How about SegWit2X’s 2MB? Maybe you go for Bitcoin Cash’s 8MB block?
+你是1MB的信徒？ SegWit2X的2MB怎么样？ 也许你想要比特币的8MB块？
 
-Wrong. All of them wrong and ridiculous.
+所有的这些人都是错误和可笑的。
 
 ![](https://cdn-images-1.medium.com/max/600/1*-zUw0FetF3A2VSHuLCfrMw.png)
 
-According to the folks at the [**Lightning Network**](https://lightning.network/) if we had seven billion people doing a mere two transactions a day it would take:
+根据 [**Lightning Network**](https://lightning.network/) 公司的人说, 如果我们有70亿人每天只进行两次交易，它将会消耗：
 
-*   **24 GB blocks**
-*   **3.5 TB/day**
-*   **1.27 PB per year**
+*   **24 GB 块**
+*   **3.5 TB/天**
+*   **1.27 PB/年**
 
-We need to think differently and evolve beyond petty nonsense to design real solutions. To survive Bitcoin and crypto must change. It’s got to be easy to integrate new defenses, newer cryptographic algorithms when quantum computers come knocking and better speeds and innovations.
+我们需要不同的思维方式，并且不断的改进繁琐的部分，来设计真正的解决方法。来让比特币和加密技术能够生存下去。当量子计算机出现的时候，新的防御措施，新的密码算法将会变得十分简单并且得到更好的速度提升和创新力提升。
 
-We can’t just rest on the laurels of the Satoshi vision and assume he thought of everything.
+我们不能在任何事情上听领头羊中本聪，并假设他想到了一切。
 
-He didn’t.
+他没有。
 
-And frankly, who gives a fuck what Satoshi thinks? He left the project. If he really wanted to guide it he could have stuck around like Linus did with Linux. But he didn’t. He left it up to the rest of us to figure it all out.
+坦率地说，天知道他中本聪在想什么？他已经离开了这个项目。如果他真的想引导这个项目，他就应该像Linus一样一直在做Linux。但他没有。他把它留给了我们其余的人，全力以赴。
 
-So let’s really start to do that because the current system won’t stand or will just become dominated by mega-payment processors just like the system we have right now.
+因此，我们真的应该开始做这些了，因为当前的系统将不会受限制于昂贵的处理器仅仅用我们现在依旧有的系统就可以了。
 
-One way to do that is to abstract all the protocols and run all the older coins as something equivalent to virtual machines or containers. Then the rules are separate from the coins themselves.
+一种方法是抽象所有的协议，并运行所有旧的硬币，相当于虚拟机或容器。 然后规则与硬币本身是分开的。
 
-That’s just one way, but to really become the promised breakthrough technology, blockchain needs real innovation.
+这只是一种方式，但要真正成为承诺的突破性技术，区块链仍然需要真正的创新。
 
-Either way, people need to think quick, or we’ll still be debating 1 MB versus 2 MB while the CryptoRuble and CryptoYuan blow past us.
+无论哪种方式，人们需要快速思考，否则我们仍然在辩论1 MB与2 MB，而CryptoRuble（俄罗斯官方加密货币）和CryptoYuan（加密元？不存在的）则超越了我们。
 
-We’ll also need this because it will become necessary to defend against hostile actors and [APTs (advanced persistent threat)](https://www.fireeye.com/current-threats/anatomy-of-a-cyber-attack.html) protocol level attacks. Think the Great Firewall of China attacking or blocking transactions by screwing with packets and headers with [state level man in the middle attacks](https://blog.thousandeyes.com/deconstructing-great-firewall-china/). The [**NEM** architecture](https://nem.io/technology/) is a good first step, as it includes firewall like protection for nodes.
+我们也需要这样做，因为它将抵御敌对行动者和 [APTs (高级持续性威胁)](https://www.fireeye.com/current-threats/anatomy-of-a-cyber-attack.html) 协议级别的攻击。 想想中国的防火墙或 [中间人攻击中](https://blog.thousandeyes.com/deconstructing-great-firewall-china/) 用数据包和头部攻击来攻击或阻止交易。 The [**NEM** 体系结构](https://nem.io/technology/) 是一个很好的第一步，因为它包括类似防火墙的节点保护。
 
-But it needs to go further to stop even more insidious and devastating assaults and it can’t take fours years and a hard fork to implement the solution.
+但是，要进一步阻止更加阴险和破坏性的攻击，多年不能掉以轻心。
 
 ![](https://cdn-images-1.medium.com/max/600/1*bJYTzJyty17c8gla-poFTA.jpeg)
 
-The best solutions will likely be **externalized security rule chains downloaded to all nodes in the network that act as intrusion detection, firewalls and protocol inspectors and AI based auto-evolving rulesets and countermeasures.**
+最好的解决方案可能是最好的解决方案可能是 **下载到网络中所有节点的外部化安全规则链，这些节点充当入侵检测，防火墙和协议检查器以及基于人工智能的自动演进规则集和对策。**
 
-Think [**Neuromancer’s**](http://amzn.to/2hp02Ry)[**ICE**](http://williamgibson.wikia.com/wiki/Intrusion_Countermeasures_Electronics).
+感谢 [**Neuromancer’s**](http://amzn.to/2hp02Ry)[**ICE**](http://williamgibson.wikia.com/wiki/Intrusion_Countermeasures_Electronics).
 
 
 ---
