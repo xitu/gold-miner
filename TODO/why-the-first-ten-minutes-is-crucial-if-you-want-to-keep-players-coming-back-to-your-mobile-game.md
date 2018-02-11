@@ -2,8 +2,8 @@
 > * 原文作者：[Adam Carpenter](https://medium.com/@Adam_Carpenter?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/why-the-first-ten-minutes-is-crucial-if-you-want-to-keep-players-coming-back-to-your-mobile-game.md](https://github.com/xitu/gold-miner/blob/master/TODO/why-the-first-ten-minutes-is-crucial-if-you-want-to-keep-players-coming-back-to-your-mobile-game.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Cherry](https://github.com/sunshine940326)
+> * 校对者：[hanliuxin5](https://github.com/hanliuxin5)、[ryouaki](https://github.com/ryouaki)、[baileilei](https://github.com/baileilei)
 
 # 想拥有更多回头客？为什么前十分钟是至关重要的？
 
