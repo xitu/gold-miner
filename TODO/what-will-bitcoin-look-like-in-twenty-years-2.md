@@ -282,7 +282,7 @@
 
 ![](https://cdn-images-1.medium.com/max/600/1*bJYTzJyty17c8gla-poFTA.jpeg)
 
-最好的解决方案可能是 **下载到网络中所有节点的外部化安全规则链，这些节点充当入侵检测，防火墙和协议检查器,以及基于人工智能的自动演进规则集和对策。**
+最好的解决方案可能是 **下载网络中所有节点的外部化安全规则链，这些节点充当入侵检测，防火墙和协议检查器,和基于人工智能的自动演进规则集和决策。**
 
 感谢 [**Neuromancer’s**](http://amzn.to/2hp02Ry)[**ICE**](http://williamgibson.wikia.com/wiki/Intrusion_Countermeasures_Electronics).
 
