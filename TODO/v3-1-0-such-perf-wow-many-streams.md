@@ -39,7 +39,7 @@
 
 但不能和 CSS-in-JS 兼容：传统上，在 React 完成渲染后，我们会在所有组件样式的 `<head>` 中注入一个 `<style>` 标签。然而，在流式传输的情况下，在所有组件渲染前，`<head>` 就已发送到用户端，所以我们不能再注入样式。
 
-**解决方案是在组件被渲染的时候，插入带 `**<style>**` 的 HTML**，而不是等到再一次性注入所有组件。由于那样会在客户端上造成 ReactDOM 混乱（ React 不再对现在的 HTML 负责），所以我们在客户端再覆水前将所有这些 `style` 标签重新合并到 `<head>` 中。
+**解决方案是在组件被渲染的时候，插入带 `**<style>**` 的 HTML**，而不是等到再一次性注入所有组件。由于那样会在客户端上造成 ReactDOM 混乱（ React 不再对现在的 HTML 负责），所以我们在客户端再重构前将所有这些 `style` 标签重新合并到 `<head>` 中。
 
 我们已经实现了这一点；**你可以在样式组件中使用服务端流式渲染** 以下是使用方法：
 
@@ -57,7 +57,7 @@ stream.pipe(res, { end: false })
 stream.on('end', () => res.end('</div></body></html>'))
 ```
 
-稍后在客户端，我们必须调用 `consolidateStreamedStyles()` API 为 React 的再覆水阶段做准备：
+稍后在客户端，我们必须调用 `consolidateStreamedStyles()` API 为 React 的再重构阶段做准备：
 
 ```
 import ReactDOM from 'react-dom'
