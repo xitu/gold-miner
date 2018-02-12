@@ -99,19 +99,31 @@ A site with tight restrictions on usernames may offer some shortcuts to develope
 
 There are some cases where the best approach is to assign usernames. If that's the case for your service, ensure the assigned username is user-friendly insofar as they need to recall and communicate it. Alphanumeric IDs should avoid visually ambiguous symbols such as "Il1O0." You're also advised to perform a dictionary scan on any randomly generated string to ensure there are no unintended messages embedded in the username. These same guidelines apply to auto-generated passwords.
 
-有些情况需要我们分配用户名。如果你的服务属于这些情况，要确保用户名能够使用户在回想或交流时感觉足够友好。由字母和数字组成的 ID 应该尽量避免在视觉上会产生歧义的符号，比如“Il1O0”。
+有些情况需要我们分配用户名。如果你的服务属于这些情况，要确保用户名能够使用户在回想或交流时感觉到足够友好。由字母和数字组成的 ID 应该尽量避免会在视觉上会产生歧义的符号，比如“Il1O0”。
 
 ## Allow users to change their username
 
+## 允许用户修改用户名
+
 It's surprisingly common in legacy systems or any platform that provides email accounts not to allow users to change their username. There are [very good reasons](https://www.computerworld.com/article/2838283/facebook-yahoo-prevent-use-of-recycled-email-addresses-to-hijack-accounts.html) not to automatically release usernames for reuse, but long-term users of your system will eventually come up with a good reason to use a different username and they likely won't want to create a new account.
+
+令人普遍感到惊讶的是，原有系统或是其他提供邮箱账户的平台都不允许用户修改他们的用户名。我们有很多 [非常好的理由](https://www.computerworld.com/article/2838283/facebook-yahoo-prevent-use-of-recycled-email-addresses-to-hijack-accounts.html) 不去自动释放用户名以供重新使用，但是你系统的长期用户终将会想要一个新的用户名，且无须创建一个新的账户。
 
 You can honor your users' desire to change their usernames by allowing aliases and letting your users choose the primary alias. You can apply any business rules you need on top of this functionality. Some orgs might only allow one username change per year or prevent a user from displaying anything but their primary username. Email providers might ensure users are thoroughly informed of the risks before detaching an old username from their account or perhaps forbid unlinking old usernames entirely.
 
+你可以允许使用别名，并让你的用户选择一个首要的别名，以此来满足他们想要修改自己用户名的要求。你可以在此功能之上应用任何你需要的商务规则。有些系统可能会允许用户一年修改一次用户名或者只显示用户的别名。电子邮件服务提供商应该可以确保用户在将旧用户名与他们的账户分离开，或是完全禁止断开旧用户名之前，已经充分的了解了其中的风险。
+
 Choose the right rules for your platform, but make sure they allow your users to grow and change over time.
+
+为你的平台选择正确的规则，但是要确保他们允许你的用户随着时间增长和变化。
 
 ## Let your users delete their accounts
 
+## 让你的用户删掉他们的账户
+
 A surprising number of services have no self-service means for a user to delete their account and associated data. There are a number of good reasons for a user to close an account permanently and delete all personal data. These concerns need to be balanced against your security and compliance needs, but most regulated environments provide specific guidelines on data retention. A common solution to avoid compliance and hacking concerns is to let users schedule their account for automatic future deletion.
+
+
 
 In some circumstances, you may be [legally required to comply](http://ec.europa.eu/justice/data-protection/files/factsheets/factsheet_data_protection_en.pdf) with a user's request to delete their data in a timely manner. You also greatly increase your exposure in the event of a data breach where the data from "closed" accounts is leaked.
 
