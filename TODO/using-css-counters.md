@@ -2,8 +2,8 @@
 > * 原文作者：[Adam Laki](https://pineco.de/author/laki/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/using-css-counters.md](https://github.com/xitu/gold-miner/blob/master/TODO/using-css-counters.md)
-> * 译者：
-> * 校对者：
+> * 译者：https://github.com/sakila1012
+> * 校对者：https://github.com/snowyyu，https://github.com/ryouaki
 
 # 教你使用 CSS 计数器
 
