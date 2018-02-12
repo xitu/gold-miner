@@ -2,10 +2,10 @@
 > * 原文作者：[antonylewis2015](https://bitsonblocks.net/author/antonylewis2015/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/a-gentle-introduction-to-self-sovereign-identity.md](https://github.com/xitu/gold-miner/blob/master/TODO/a-gentle-introduction-to-self-sovereign-identity.md)
-> * 译者：foxxnuaa
-> * 校对者：
+> * 译者：[foxxnuaa](https://github.com/foxxnuaa)
+> * 校对者：[ryouaki](https://github.com/ryouaki)
 
-自主权身份简介
+# 自主权身份简介
 
 ![](https://bitsonblocks.files.wordpress.com/2017/05/self_sovereign_identity_platform.png?w=594&h=434&crop=1)
 
