@@ -99,7 +99,7 @@ A site with tight restrictions on usernames may offer some shortcuts to develope
 
 There are some cases where the best approach is to assign usernames. If that's the case for your service, ensure the assigned username is user-friendly insofar as they need to recall and communicate it. Alphanumeric IDs should avoid visually ambiguous symbols such as "Il1O0." You're also advised to perform a dictionary scan on any randomly generated string to ensure there are no unintended messages embedded in the username. These same guidelines apply to auto-generated passwords.
 
-
+有些情况需要我们分配用户名。如果你的服务属于这些情况，要确保用户名能够使用户在回想或交流时感觉足够友好。由字母和数字组成的 ID 应该尽量避免在视觉上会产生歧义的符号，比如“Il1O0”。
 
 ## Allow users to change their username
 
