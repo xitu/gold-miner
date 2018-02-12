@@ -13,7 +13,7 @@ React 16.3-alpha  于不久前[推至 npmjs](https://twitter.com/brian_d_vaughn/
 
 ### 全新的 context API
 
-Context API 一直很神秘 —— 本来它是一个官方推出的、文档化的 API，但开发者们又提醒我们尽量不要用这个 API，因为这个 API 还没完全确定下来，以后可能会再作修改，而文档尚不完备。不过，是时候让它发光发热了，[RFC 流程](https://github.com/reactjs/rfcs/blob/master/text/0002-new-version-of-context.md)已经通过了，新的 API 代码也已经合并了，用起来也更加顺手了。至少在状态管理这方面，如果项目并不复杂的话，完全可以不用 Redux 和 MobX。
+Context API 一直很神秘 —— 本来它是一个官方推出的、文档化的 API，但开发者们又提醒我们尽量不要用这个 API，因为这个 API 还没完全确定下来，以后可能会再作修改，而且文档尚不完备。不过，是时候让它发光发热了，[RFC 流程](https://github.com/reactjs/rfcs/blob/master/text/0002-new-version-of-context.md)已经通过了，新的 API 代码也已经合并了，用起来也更加顺手了。至少在状态管理这方面，如果项目并不复杂的话，完全可以不用 Redux 和 MobX。
 
 新的 API 方法主要体现在 `React.createContext()` 上，调用之后会创建两个组件：
 
@@ -38,7 +38,7 @@ Provider 组件用来为其所有子层级组件提供数据，示例如下：
 PS：
 
 * Consumer 组件只能获取到对应的 Context 里设置的数据，即使新创建了一个 Context，传入和已有的 Context 一样的参数，不属于这个 Context 的 Consumer 是获取不到它设置的数据的。所以，不妨把 Context 看成一个组件，相同用途的 Context 只创建一次，再根据需要作导入导出（export/import）。
-* 新的写法采用的是”方法即子组件模式”（即 [function as child pattern](https://medium.com/merrickchristensen/function-as-child-components-5f3920a9ace9)，有时候也称作 render prop 模式），如果你对这种模式很陌生，可以参考[这里](https://medium.com/merrickchristensen/function-as-child-components-5f3920a9ace9)。
+* 新的写法采用的是”方法即子组件模式”（即 [function as child pattern](https://medium.com/merrickchristensen/function-as-child-components-5f3920a9ace9)，有时也称作 render prop 模式），如果你对这种模式很陌生，可以参考[这里](https://medium.com/merrickchristensen/function-as-child-components-5f3920a9ace9)。
 * 新的 API 不用再通过 `prop-types` 设置 `contextProps` 了。
 
 `Consumer` 下的 `context` 参数对应了 `Provider` 组件里设置的 `value` 属性，修改 Provider 里设置的数据会导致对应的 Consumer 下的组件重新渲染。
