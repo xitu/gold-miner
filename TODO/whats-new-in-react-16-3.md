@@ -3,19 +3,23 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/whats-new-in-react-16-3.md](https://github.com/xitu/gold-miner/blob/master/TODO/whats-new-in-react-16-3.md)
 > * 译者：[pot-code](https://github.com/pot-code)
-> * 校对者：
+> * 校对者：[ryouaki](https://github.com/ryouaki)、[goldeli](https://github.com/goldeli)
 
-# 也谈 React 16.3(.0-alpha)
+# React 16.3(.0-alpha) 新特性
 
-React 16.3-alpha  于不久前[推至 npmjs](https://twitter.com/brian_d_vaughn/status/959535914480357376)，你最关心哪些变化呢？
+React 16.3-alpha  于不久前[推至 npmjs](https://twitter.com/brian_d_vaughn/status/959535914480357376)，已经可以用在项目中了，你最关心哪些变化呢？
 
-### 亮闪闪的 context API
+>2018 年 2 月 5 日更新 —— 之前我误解了 `createContext` 的一些行为，所以更新了这一节的内容，主要为了反映出工厂方法的一些行为。
 
-听人说，尽量不要用 Context API，因为这个 API 还没完全确定下来，说不上哪天就重构了，而且官方还故意不写文档，这给 Context API 蒙上了一层神秘面纱。不过，是时候让它发光发热了，RFC 现在已经[收录了这个技术](https://github.com/reactjs/rfcs/blob/master/text/0002-new-version-of-context.md)，新的 API 代码也已经合并了，反正比以前好用的多，至少在状态管理这方面，不用再受制于 Redux 和 MobX 那一套了。
+### 全新的 context API
 
-首先是创建  Context 的语法：`React.createContext()`，调用之后会自动创建两个组件（一个 Provider 组件和一个 Consumer 组件）：
+Context API 一直很神秘 —— 本来它是一个官方推出的、文档化的 API，但开发者们又提醒我们尽量不要用这个 API，因为这个 API 还没完全确定下来，以后可能会再作修改，而文档尚不完备。不过，是时候让它发光发热了，[RFC 流程](https://github.com/reactjs/rfcs/blob/master/text/0002-new-version-of-context.md)已经通过了，新的 API 代码也已经合并了，用起来也更加顺手了。至少在状态管理这方面，如果项目并不复杂的话，完全可以不用 Redux 和 MobX。
+
+新的 API 方法主要体现在 `React.createContext()` 上，调用之后会创建两个组件：
 
 ![](https://cdn-images-1.medium.com/max/800/1*HgQMzO2N59Z20NeK5ACGzQ.png)
+
+调用 `React.createContext()` 创建一个上下文（context）对象
 
 这个工厂方法返回的对象包含“Provider”和“Consumer”两个属性，即上文提到的两个组件。
 
@@ -33,19 +37,19 @@ Provider 组件用来为其所有子层级组件提供数据，示例如下：
 
 PS：
 
-* Consumer 组件只能获取到对应的 Context 或者 Context.Provider 里设置的数据，即使新创建了一个 Context，传入和已有的 Context 一样的参数，不属于这个 Context 的 Consumer 是获取不到它的数据的。所以，不妨把 Context 看成一个组件，相同用途的 Context 只创建一次，再根据需要再作导入导出（export/import）。
-* 新的写法采用的是 [child pattern](https://medium.com/merrickchristensen/function-as-child-components-5f3920a9ace9)。
-* 新 API 不需要再设置 `contextProps` 了。
+* Consumer 组件只能获取到对应的 Context 里设置的数据，即使新创建了一个 Context，传入和已有的 Context 一样的参数，不属于这个 Context 的 Consumer 是获取不到它设置的数据的。所以，不妨把 Context 看成一个组件，相同用途的 Context 只创建一次，再根据需要作导入导出（export/import）。
+* 新的写法采用的是”方法即子组件模式”（即 [function as child pattern](https://medium.com/merrickchristensen/function-as-child-components-5f3920a9ace9)，有时候也称作 render prop 模式），如果你对这种模式很陌生，可以参考[这里](https://medium.com/merrickchristensen/function-as-child-components-5f3920a9ace9)。
+* 新的 API 不用再通过 `prop-types` 设置 `contextProps` 了。
 
 `Consumer` 下的 `context` 参数对应了 `Provider` 组件里设置的 `value` 属性，修改 Provider 里设置的数据会导致对应的 Consumer 下的组件重新渲染。
 
-### 杀敌一千，自损八百
+### 新的生命周期方法
 
-因为 RFC 的缘故，有一些个生命周期方法 **正考虑被废除**，同时还会引进了一个新的方法。
+另一个促使其进入 alpha 阶段的 [RFC](https://github.com/reactjs/rfcs/blob/master/text/0006-static-lifecycle-methods.md) 和某些生命周期方法的废除有关，同时也还会引进一个（译者注：其实还有另外三个方法 —— 要废除的生命周期方法前面加个“UNSAFE_”前缀构成的新方法）新的方法。
 
-这个更新算是逼你使用最佳的异步实践方法（即将被废除的这些生命周期方法在异步场景下会导致一些奇怪的问题，具体可以参考我写的[另一篇文章](https://medium.com/@baphemot/understanding-reactjs-component-life-cycle-823a640b3e8d)）。
+这些改变旨在引导开发者作出最佳实践（将被废除的这些生命周期方法颇具坑点，具体可以参考我写的[另一篇文章](https://medium.com/@baphemot/understanding-reactjs-component-life-cycle-823a640b3e8d)），这也有益于适应将来全面开放的异步渲染模式（这也是 React 16 “Fiber” 的首要目标）。
 
-具体改变如下：
+即将被废除的方法如下：
 
 * `componentWillMount` —— 即将废除，使用 `componentDidMount` 作为替代
 * `componentWillUpdate` —— 即将废除，使用 `componentDidUpdate` 作为替代
@@ -57,7 +61,7 @@ PS：
 
 Dan 表示，“故事还长，大家别慌”，然而仍有群众表示恐慌。
 
-如果你开启了 `StrictMode` 或是 `AsyncMode`，它顶多提示你已经废除了，不想看到这些提示信息可以进行压制：
+如果你开启了 `StrictMode` 或是 `AsyncMode`，它只会提示你方法已经废除了，不想看到这些提示信息可以使用如下方法替代：
 
 * `UNSAFE_componentWillMount`
 * `UNSAFE_componentWillReceiveProps`
@@ -65,15 +69,15 @@ Dan 表示，“故事还长，大家别慌”，然而仍有群众表示恐慌�
 
 ### 静态方法：getDerivedStateFromProps
 
-既然 `componentWillReceiveProps` 要被废除了，那么，我们还能用啥来处理 prop 的更新呢？这里就要用到新引进的那个静态方法了。
+既然 `componentWillReceiveProps` 要被废除了，那么，还有其他的方法能根据 prop 的改变更新 state 吗（不推荐使用这种开发模式）？这里就要用到新引进的那个静态方法了。
 
 这里说的静态和其他语言的概念是一样的，它是存在于类自身的方法，不依赖实例的创建。与一般的类方法的区别在于它不能访问 `this` 关键字，还有就是方法前面有个 `static` 修饰符。
 
-嗯，那行，但是有一个问题，既然访问不到 `this` 了，那还怎么用 `this.setState` 来更新状态呢？答案是，“压根就不需要用这个方法了”。可能你一脸懵逼，待我娓娓道来 —— 你只需要返回新的状态就行了，直接 return 出去，不需要用方法去设置。如果不需要更新状态，返回 `null` 就行了：
+嗯，那行，但是有一个问题，既然访问不到 `this` 了，那还怎么用 `this.setState` 来更新状态呢？答案是，“压根就不需要用这个方法了”，你只需要返回新的状态就行了，直接 return 出去，不需要用方法去设置。如果不需要更新状态，返回 `null` 就行了：
 
 ![](https://cdn-images-1.medium.com/max/800/1*iIRN5UAvsf-6d84NweGlzQ.png)
 
-此外，返回值的机制和使用 `setState` 的机制是一样的 —— 只需要返回需要更新的那部分数据就完了，其余部分数据都会保留。
+此外，返回值的机制和使用 `setState` 的机制是类似的 —— 你只需要返回发生改变的那部分状态，其他的值会保留。
 
 #### 敲黑板：
 
@@ -83,13 +87,13 @@ Dan 表示，“故事还长，大家别慌”，然而仍有群众表示恐慌�
 
 * * *
 
-这个方法在组件首次挂载和将要重新渲染的时候会调用，所以你也可以拿它作为构造器的替代。
+这个方法在组件首次挂载和将要重新渲染的时候会调用，所以你可以在它里面初始化状态，来代替在构造函数里面初始化。
 
 * * *
 
 ![](https://cdn-images-1.medium.com/max/800/1*Wv-6Yyg7Wd5gIIBu2IKH7w.png)
 
-如果同时定义了 `getDerivedStateFromProps` 和 `componentWillReceiveProps`，以 `getDerivedStateFromProps` 为准，同时 React 还会扔你一脸警告信息。
+如果同时定义了 `getDerivedStateFromProps` 和 `componentWillReceiveProps`，只有 `getDerivedStateFromProps` 会被调用，同时 React 还会打印出警告信息。
 
 * * *
 
@@ -103,17 +107,17 @@ Dan 表示，“故事还长，大家别慌”，然而仍有群众表示恐慌�
 
 ### StrictMode
 
-Strict mode 是新加入的组件，和 `'use strict'` 的良苦用心是一样的 —— 旨在逼你写出最佳实践代码。把需要进行约束的组件簇放在它的下面就完事了:
+Strict mode 是新加入的组件，旨在引导你遵循最佳实践。把需要进行约束的组件簇放在它的下面就完事了:
 
 ![](https://cdn-images-1.medium.com/max/800/1*cT32zSlTdDHMDbNDkpOwdw.png)
 
 完全一变相的 `'use strict'`
 
-如果其下的组件不小心用了上文提到的要废除的生命周期方法，控制台会打印出警告信息（开发环境下）:
+如果其下的组件不小心用了上文提到的要废除的生命周期方法，控制台会打印出错误信息（开发环境下）:
 
 ![](https://cdn-images-1.medium.com/max/800/1*etTOl69nI0EmND_D68W7xA.png)
 
-错误信息提供的链接地址目前指向的是一个 [RFC issue](https://fb.me/react-strict-mode-warnings)，也是提出移除这些生命周期方法的那个。
+错误信息提供的链接地址目前指向的是一个 [RFC issue](https://fb.me/react-strict-mode-warnings)，也是因为生命周期方法被废除导致的。
 
 ### AsyncMode
 
@@ -132,13 +136,13 @@ Strict mode 是新加入的组件，和 `'use strict'` 的良苦用心是一样�
 
 ![](https://cdn-images-1.medium.com/max/800/0*VzzTmbTx7dmzll94.png)
 
-React. __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED（译者注：红头组件，用了你就 GG 了）表示不服。
+React. __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED（译者注：红头组件，用了你就怕是要被炒鱿鱼了）表示不服。
 
 Firefox 用户就有福了，完全支持：
 
 ![](https://cdn-images-1.medium.com/max/800/1*DN9BX9MC4xDjdXKKAAAf7Q.png)
 
-可以看到 `AsyncMode` 组件直接就识别了。
+可以看到 `AsyncMode` 组件可以直接被识别。
 
 ### 后日谈
 
