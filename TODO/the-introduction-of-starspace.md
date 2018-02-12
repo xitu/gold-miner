@@ -3,13 +3,14 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/the-introduction-of-starspace.md](https://github.com/xitu/gold-miner/blob/master/TODO/the-introduction-of-starspace.md)
 > * 译者：[Noah Gao](https://noahgao.net) [Sean Wang](https://github.com/SeanW20)
-> * 校对者：
+> * 校对者：[ryouaki](https://github.com/ryouaki)
 
 <p align="center"><img width="15%" src="https://github.com/facebookresearch/StarSpace/raw/master/examples/starspace.png" /></p>
 
 # Facebook 的 AI 万金油：StarSpace 神经网络模型简介
 
 StarSpace 是一个用于解决各种问题、进行高效的实体嵌入（译者注：entity embeddings，一种流行的类别特征处理方法）学习的通用神经网络模型:
+
 - 学习单词、句子或是文档级别的嵌入。
 - 信息检索：对实体或文档的集合完成排序，例如：Web 文档的排名。
 - 文本分类或是其他打标签形式的任务。
@@ -19,12 +20,13 @@ StarSpace 是一个用于解决各种问题、进行高效的实体嵌入（译�
 - <img width="5%" src="https://github.com/facebookresearch/StarSpace/raw/master/examples/new2.gif" /> 图片的分类、排名或检索（例如：使用已存在的 ResNet 特性）。
 
 在一般情况下，它会学习如何将不同类型的对象表示为一个常见的矢量嵌入空间，
-因此名称中的星号（'*'，通配符）和空格，并在该空间中将它们相互比较。（译者注：因此原词为 hence，在这里没有找到好的译法，请校对的童鞋给点意见）
+从名称中的星号（'*'，通配符）和空格开始，并在该空间中将它们相互比较。
 它还会学习对给定查询数据的一组实体/文档或对象进行排序，查询所用的数据不一定与该集合中的项目类型相同。
 
 看一看 [这篇论文](https://arxiv.org/abs/1709.03856) 来进一步了解它是如何工作的。
 
 # 最新消息
+
 - 使用了新的许可证和专利权声明：现在 StarSpace 已经开始基于 BSD 许可证。阅读 [LICENSE 文件](https://github.com/facebookresearch/StarSpace/blob/master/LICENSE.md) 和 [PATENTS 文件](https://github.com/facebookresearch/StarSpace/blob/master/PATENTS) 可获得更多信息。
 - 我们新增了对实值输入和标签权重的支持：阅读 [文件格式](#file-format) 和 [ImageSpace](#imagespace-learning-image-and-label-embeddings) 来获取更多有关如何在输入和标签中使用权重的信息。
 
@@ -55,10 +57,10 @@ StarSpace 可在现代的 Mac OS 和 Linux 发行版上构建。鉴于它使用�
 # 文档格式
 
 StarSpace 通过以下格式进行文件的输入。
-这是一个每行只有一个输入的例子，在最简单的情况下，输入有 k 个单词，后面跟着的每个标签也是一个独立的单词：
+每一行都作为一个输入例子，在最简单的情况下，输入有 k 个单词，后面跟着的每个标签也是一个独立的单词：
 
     word_1 word_2 ... word_k __label__1 ... __label__r
-默认情况下，标签是以字符串 \_\_label\_\_ 为前缀的单词，前缀字符串可以由 `-label` 参数来设置。
+这种描述格式与 [fastText](https://github.com/facebookresearch/fastText) 一样，默认情况下，标签是以字符串 \_\_label\_\_ 为前缀的单词，前缀字符串可以由 `-label` 参数来设置。
 
 执行这条命令来学习这种嵌入：
 
@@ -79,37 +81,38 @@ StarSpace 通过以下格式进行文件的输入。
 我们还可以通过将参数 `-useWeight` 设置为 true（默认为 false）来扩展文件格式以支持实值权值（在输入和标签空间中）。如果 `-useWeight` 为 true，我们支持使用以下格式定义权重。
 
     word_1:wt_1 word_2:wt_2 ... word_k:wt_k __label__1:lwt_1 ...    __label__r:lwt_r
-    
+
 例如，
 
     dog:0.1 cat:0.5 ...
-    
+
 对于不包括权重的任意单词和标签，其默认权重为 1。
 
 ## 训练模式
 
 StarSpace 支持下列几种训练模式（默认是第一个）：
+
 * trainMode = 0:
-    * 每个实例都包括输入和标签。
-    * 如果文件格式是‘fastText’，那么标签会有特定的独立特征或是单词（例如，带有 __label__前缀，参见上面的 **文件格式** 一节。
-    * **用例：**  分类任务，参见后面的 TagSpace 示例。
-    * 如果文件格式是‘labelDoc’那么这些标签就是特征包，其中一个包被选中（参见上面的 **文件格式** 一节）。
-    * **用例：**  检索/搜索任务，每个例子包括一个后跟了一组相关文件的查询。
+  * 每个实例都包括输入和标签。
+  * 如果文件格式是‘fastText’，那么标签会有特定的独立特征或是单词（例如，带有 __label__前缀，参见上面的 **文件格式** 一节。
+  * **用例：**  分类任务，参见后面的 TagSpace 示例。
+  * 如果文件格式是‘labelDoc’那么这些标签就是特征包，其中一个包被选中（参见上面的 **文件格式** 一节）。
+  * **用例：**  检索/搜索任务，每个例子包括一个后跟了一组相关文件的查询。
 * trainMode = 1:
-    * 每个示例都包含一组标签。在训练时，随机选取集合中的一个标签作为标签量，其余标签作为输入。
-    * **用例：**  基于内容或协同过滤进行推荐，参见后面的 PageSpace 示例。
+  * 每个示例都包含一组标签。在训练时，随机选取集合中的一个标签作为标签量，其余标签作为输入。
+  * **用例：**  基于内容或协同过滤进行推荐，参见后面的 PageSpace 示例。
 * trainMode = 2:
-    * 每个示例都包含一组标签。在培训的时候，随机选取一个来自集合的标签作为输入量，集合中其余的标签成为标签量。
-    * **用例：** 学习从一个对象到它所属的一组对象的映射，例如，从句子（文档内的）到文档。
+  * 每个示例都包含一组标签。在培训的时候，随机选取一个来自集合的标签作为输入量，集合中其余的标签成为标签量。
+  * **用例：** 学习从一个对象到它所属的一组对象的映射，例如，从句子（文档内的）到文档。
 * trainMode = 3:
-    * 每个示例都包含一组标签。在训练时，随机选取集合中的两个标签作为输入量和标签量。
-    * **用例：** 从类似对象的集合中学习成对的相似性，例如：句子的相似性。
+  * 每个示例都包含一组标签。在训练时，随机选取集合中的两个标签作为输入量和标签量。
+  * **用例：** 从类似对象的集合中学习成对的相似性，例如：句子的相似性。
 * trainMode = 4:
-    * 每个示例都包含两个标签。在训练时，集合中的第一个标签将被选为输入量，第二个标签将被选为标签量。
-    * **用例：** 从多关系图中学习。
+  * 每个示例都包含两个标签。在训练时，集合中的第一个标签将被选为输入量，第二个标签将被选为标签量。
+  * **用例：** 从多关系图中学习。
 * trainMode = 5:
-    * 每个示例只包含输入量。在训练期间，它会产生多个训练样例：从输入的每个特征被选为标签量，其他特征（到距离 ws（译者注：单词级别训练的上下文窗口大小，一个可选的输入参数））被挑选为输入特征。
-    * **用例：** 通过无监督的方式学习单词嵌入。
+  * 每个示例只包含输入量。在训练期间，它会产生多个训练样例：从输入的每个特征被选为标签量，其他特征（到距离 ws（译者注：单词级别训练的上下文窗口大小，一个可选的输入参数））被挑选为输入特征。
+  * **用例：** 通过无监督的方式学习单词嵌入。
 
 # 典型用例
 
@@ -126,15 +129,16 @@ StarSpace 支持下列几种训练模式（默认是第一个）：
 
     restaurant has great food #yum #restaurant
 
-**命令：**
+**命令**：
 
     $./starspace train -trainFile input.txt -model tagspace -label '#'
 
 ### 示例脚本：
+
 我们将该模型应用于 [AG的新闻主题分类数据集](https://github.com/mhjabreel/CharCNN/tree/master/data/ag_news_csv) 的文本分类问题。在这一问题中我们的标签是新闻文章类别，我们使用 hit@1 度量来衡量分类的准确性。[这个示例脚本](https://github.com/facebookresearch/Starspace/blob/master/examples/classification_ag_news.sh) 下载数据并在示例目录下运行StarSpace模型：
 
     $bash examples/classification_ag_news.sh
-    
+
 ## PageSpace 用户和页面的嵌入
 
 **用途：** 在Facebook上，用户可以粉（关注）他们感兴趣的公共页面。当用户浏览页面时，用户可以在 Facebook 上收到所有页面发布的内容。 我们希望根据用户的喜爱数据学习页面嵌入，并用它来推荐用户可能感兴趣（可能关注）的新页面。 这个用法可以推广到其他推荐问题：例如，根据过去观看的电影记录学习嵌入，向用户推荐电影; 根据过去用户登录的餐厅学习嵌入，向用户推荐餐馆等。
@@ -145,16 +149,15 @@ StarSpace 支持下列几种训练模式（默认是第一个）：
 
 每个用户都由用户展开的集合表示，每个训练实例都是单个用户。
 
-**输入文件格式：**
+**输入文件格式**：
 
     page_1 page_2 ... page_M
 
 在训练时，在每个实例（用户）的每个步骤中，选择一个随机页面作为标签量，并且剩余的页面被选择为输入量。 这可以通过将标志 -trainMode 设置为 1 来实现。
 
-**命令：**
+**命令**：
 
     $./starspace train -trainFile input.txt -model pagespace -label 'page' -trainMode 1
-
 
 ## DocSpace 文档推荐
 
@@ -165,20 +168,18 @@ StarSpace 支持下列几种训练模式（默认是第一个）：
 
 ![user-doc](https://github.com/facebookresearch/Starspace/blob/master/examples/user-doc.png)
 
-
-**输入文件格式：**
+**输入文件格式**：
 
     roger federer loses <tab> venus williams wins <tab> world series ended
     i love cats <tab> funny lolcat links <tab> how to be a petsitter  
-    
+
 每行是一个用户，每个文档（由标签分隔的文档）是他们喜欢的文档。
 所以第一个用户喜欢运动，而第二个用户对这种情况感兴趣。
-    
-**命令：**
+
+**命令**：
 
     ./starspace train -trainFile input.txt -model docspace -trainMode 1 -fileFormat labelDoc
-    
-    
+
 ## GraphSpace 知识库中的链接预测
 
 **用途：** 学习 [Freebase](http://www.freebase.com) 中的实体与关系之间的映射。在 freebase 中，数据以格式输入。
@@ -194,11 +195,11 @@ StarSpace 支持下列几种训练模式（默认是第一个）：
 ![multi-rel](https://github.com/facebookresearch/StarSpace/blob/master/examples/multi-relations.png)
 
 ### 示例脚本：
+
 [这个示例脚本](https://github.com/facebookresearch/Starspace/blob/master/examples/multi_relation_example.sh) 将会从 [这里](https://everest.hds.utc.fr/doku.php?id=en:transe) 下载 Freebase15k 数据并在其上运行 StarSpace 模型：
 
     $bash examples/multi_relation_example.sh
-   
-    
+
 ## SentenceSpace 学习句子的嵌入
 
 **用途：** 学习句子之间的映射。给定一个句子的嵌入，可以找到语义上相似或相关的句子。
@@ -208,16 +209,16 @@ StarSpace 支持下列几种训练模式（默认是第一个）：
 ![sentences](https://github.com/facebookresearch/StarSpace/blob/master/examples/sentences.png)
 
 ### 示例脚本：
+
 [这个示例脚本](https://github.com/facebookresearch/Starspace/blob/master/examples/wikipedia_sentence_matching.sh) 会下载一些数据，其中每个示例都是来自同一维基百科页面的一组语句，并在其上运行StarSpace模型：
 
     $bash examples/wikipedia_sentence_matching.sh
-    
+
 为了能运行 [这篇论文](https://arxiv.org/abs/1709.03856) 中提出的 Wikipedia Sentence Matching 问题的完整实验，
 请使用 [这个脚本](https://github.com/facebookresearch/Starspace/blob/master/examples/wikipedia_sentence_matching_full.sh)（警告：下载数据和训练模型需要很长时间）：
 
     $bash examples/wikipedia_sentence_matching_full.sh
-    
-    
+
 ## ArticleSpace 学习句子和文章嵌入
 
 **用途：** 学习句子和文章之间的映射关系。给定句子的嵌入，可以找到相关文章。
@@ -225,6 +226,7 @@ StarSpace 支持下列几种训练模式（默认是第一个）：
 **模型：** 每个例子都是包含多个文章的句子。 训练时，随机选取的句子作为输入，那么文章中剩余的句子成为标签，其他文章可以作为随机底片。 (trainMode 2).
 
 ### 示例脚本：
+
 [这个示例脚本](https://github.com/facebookresearch/Starspace/blob/master/examples/wikipedia_article_search.sh) 将下载数据，其中的每个示例都是维基百科的文章，并在其上运行 StarSpace 模型：
 
     $bash examples/wikipedia_article_search.sh
@@ -239,7 +241,7 @@ StarSpace 支持下列几种训练模式（默认是第一个）：
 通过最新的更新，StarSpace 也可以用来学习图像和其他实体的嵌入。例如，可以使用 ResNet 特征（预先训练的 ResNet 模型的最后一层）来表示图像，并将图像和其他实体（单词，主题标签等）一起嵌入。就像 StarSpace 中的其他实体一样，图像可以在输入或标签上，这取决于不同的任务。
 
 这里我们给出一个使用 [CIFAR-10](https://www.cs.toronto.edu/~kriz/cifar.html) 的例子以说明我们如何与其他实体进行图像训练 (在这个例子中，指为图像类)：我们训练模型 [ResNeXt](https://github.com/facebookresearch/ResNeXt) 在 CIFAR-10  在测试数据集上达到 96.34％ 的准确率，并将最后一层 ResNet 作为每幅图像的特征。我们使用 StarSpace 将 10 个图像类与图像特征一起嵌入到相同的空间中。对于最后一层（0.8,0.5，...，1.2）的类 1 的示例，我们将其转换为以下格式：
-    
+
     d1:0.8  d2:0.5   ...    d1024:1.2   __label__1
 
 将 CIFAR-10 的训练和测试例转换成上述格式后，我们运行 [这个示例脚本](https://github.com/facebookresearch/StarSpace/blob/master/examples/image_feature_example_cifar10.sh)：
@@ -249,9 +251,10 @@ StarSpace 支持下列几种训练模式（默认是第一个）：
 平均每 5 次达到 96.56％ 的准确度。
 
 # 完整的参数文档
-    
+
+```plain
     运行 "starspace train ..." 或 "starspace test ..."
-    
+
     以下参数是训练时必须的：
       -trainFile       训练文件路径。
       -model           模型文件输出路径。
@@ -302,21 +305,21 @@ StarSpace 支持下列几种训练模式（默认是第一个）：
       -verbose         消息输出详细程度，默认为 0，普通输出。
       -debug           是否使用调试模式，默认为 0，关闭调试模式。
       -thread          线程数量，默认为 10。
-
+```
 
 注意：我们使用与在 [fastText](https://github.com/facebookresearch/fastText) 中相同的单词 n-gram 实现。当“-ngrams”被设置为大于1时，由“-bucket”参数指定的大小的哈希映射被用于 n-gram；当“-ngrams”设置为 1 时，不使用哈希映射，并且该字典包含 minCount 和 minCountLabel 约束内的所有单词。
-
 
 ## Utility Functions
 
 我们还为 StarSpace 提供了一些实用功能：
+
 ### 显示查询的预测
 
 检查经过训练的嵌入模型质量的一个简单方法是在键入输入时检查预测。要构建和使用该实用程序功能，请运行以下命令：
 
     make query_predict
     ./query_predict <model> k [basedocs]
-    
+
 其中 `<model>` 指定一个受过训练的 StarSpace 模型，可选的 K 指定显示多少个顶部预测（排名第一）。 “basedocs” 指向要排序的文件的文件，也参见上面主要 StarSpace 中同名的参数。如果没有提供“基类”，则使用词典中的标签。
 
 加载模型后，它读取一行实体（可以是一个单词或一个句子/文档），并输出预测。
@@ -327,7 +330,7 @@ StarSpace 支持下列几种训练模式（默认是第一个）：
 
     make query_nn
     ./query_nn <model> [k]
-    
+
 其中 `<model>` 指定一个受过训练的 StarSpace 模型，可选的 K（ 默认值是 5 ） 指定要搜索的最近相邻量。
 
 加载模型后，它读取一行实体（可以是一个单词或一个句子/文档），并在嵌入空间输出最近的实体。
@@ -338,7 +341,7 @@ StarSpace 支持下列几种训练模式（默认是第一个）：
 
     make print_ngrams
     ./print_ngrams <model>
-    
+
 其中 `<model>` 指定了的参数 -ngrams > 1 的受过训练的StarSpace模型。
 
 ### 打印句子/文档嵌入
@@ -347,15 +350,14 @@ StarSpace 支持下列几种训练模式（默认是第一个）：
 
     make embed_doc
     ./embed_doc <model> [filename]
-    
-其中 `<model>` 指定了训练过的 StarSpace 模型。如果提供了文件名，则从文件逐行读取每个句子/文档，并相应地输出向量嵌入。如果没有提供文件名，它会从 stdin 中读取每个句子/文档。
 
+其中 `<model>` 指定了训练过的 StarSpace 模型。如果提供了文件名，则从文件逐行读取每个句子/文档，并相应地输出向量嵌入。如果没有提供文件名，它会从 stdin 中读取每个句子/文档。
 
 ## 引用
 
 如果您在工作中使用了 StarSpace，请引用这篇 [arXiv 论文](https://arxiv.org/abs/1709.03856)：
 
-```
+```plain
 @article{wu2017starspace,
   title={StarSpace: Embed All The Things!},
   author = {{Wu}, L. and {Fisch}, A. and {Chopra}, S. and {Adams}, K. and {Bordes}, A. and {Weston}, J.},
@@ -363,10 +365,11 @@ StarSpace 支持下列几种训练模式（默认是第一个）：
   year={2017}
 }
 ```
+
 ## 联系我们
+
 * Facebook 小组: [StarSpace Users](https://www.facebook.com/groups/532005453808326)
 * emails: ledell@fb.com, jase@fb.com
-
 
 ---
 
