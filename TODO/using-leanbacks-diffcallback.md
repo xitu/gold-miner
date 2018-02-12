@@ -7,9 +7,9 @@
 
 # 使用 leanback 的 DiffCallback： 和 DiffUtil 回调之间的区别
 
-[24.2 版本的 support library]（https://developer.android.com/topic/libraries/support-library/rev-archive.html#24-2-0-api-updates） 里引入了一个叫做 '[DiffUtil](https://developer.android.com/reference/android/support/v7/util/DiffUtil.html)' 的类，它让刷新 `[RecyclerView.Adapter](https://developer.android.com/reference/android/support/v7/widget/RecyclerView.Adapter.html)` 变得更简单。在 [27.0 版本的 leanback support library](https://developer.android.com/topic/libraries/support-library/revisions.html#27-0-0) 里面又增加了一个支持 `[ArrayObjectAdapter](https://developer.android.com/reference/android/support/v17/leanback/widget/ArrayObjectAdapter.html)` 的抽象 `DiffUtil`。
+[24.2 版本的 support library](https://developer.android.com/topic/libraries/support-library/rev-archive.html#24-2-0-api-updates) 里引入了一个叫做 [DiffUtil](https://developer.android.com/reference/android/support/v7/util/DiffUtil.html) 的类，它让刷新 [RecyclerView.Adapter](https://developer.android.com/reference/android/support/v7/widget/RecyclerView.Adapter.html) 变得更简单。在 [27.0 版本的 leanback support library](https://developer.android.com/topic/libraries/support-library/revisions.html#27-0-0) 里面又增加了一个支持 [ArrayObjectAdapter](https://developer.android.com/reference/android/support/v17/leanback/widget/ArrayObjectAdapter.html) 的抽象 `DiffUtil`。
 
-`[ArrayObjectAdapter](https://developer.android.com/reference/android/support/v17/leanback/widget/ArrayObjectAdapter.html)` 有一个新的方法叫做 `[setItems(final List itemList, final DiffCallback callback)](https://developer.android.com/reference/android/support/v17/leanback/widget/ArrayObjectAdapter.html#setItems%28java.util.List,%20android.support.v17.leanback.widget.DiffCallback%29)`，它接收一个新的类叫做 `[DiffCallback](https://developer.android.com/reference/android/support/v17/leanback/widget/DiffCallback.html)`。`DiffCallback` 看上去很像 `[DiffUtil.Callback](https://developer.android.com/reference/android/support/v7/util/DiffUtil.Callback.html)`，但是少了几个方法。
+[ArrayObjectAdapter](https://developer.android.com/reference/android/support/v17/leanback/widget/ArrayObjectAdapter.html) 有一个新的方法叫做 [setItems(final List itemList, final DiffCallback callback)](https://developer.android.com/reference/android/support/v17/leanback/widget/ArrayObjectAdapter.html#setItems%28java.util.List,%20android.support.v17.leanback.widget.DiffCallback%29)，它接收一个新的类叫做 [DiffCallback](https://developer.android.com/reference/android/support/v17/leanback/widget/DiffCallback.html)。`DiffCallback` 看上去很像 [DiffUtil.Callback](https://developer.android.com/reference/android/support/v7/util/DiffUtil.Callback.html)，但是少了几个方法。
 
 ```
 public abstract class DiffCallback<Value> {
@@ -27,7 +27,7 @@ public abstract class DiffCallback<Value> {
 }
 ```
 
-获取 list 大小的方法不见了！这个 adapter 里的 `setItems()` 方法知道旧的数据和新的数据，当 adapter 创建 `DiffUtil.Callback` 的时候，它重写了 `[getOldListSize()](https://developer.android.com/reference/android/support/v7/util/DiffUtil.Callback.html#getOldListSize%28%29)` 和 `[getNewListSize()](https://developer.android.com/reference/android/support/v7/util/DiffUtil.Callback.html#getNewListSize%28%29)` 方法，让你能够专心比较 list 中数据的异同。
+获取 list 大小的方法不见了！这个 adapter 里的 `setItems()` 方法知道旧的数据和新的数据，当 adapter 创建 `DiffUtil.Callback` 的时候，它重写了 [getOldListSize()](https://developer.android.com/reference/android/support/v7/util/DiffUtil.Callback.html#getOldListSize%28%29) 和 [getNewListSize()](https://developer.android.com/reference/android/support/v7/util/DiffUtil.Callback.html#getNewListSize%28%29) 方法，让你能够专心比较 list 中数据的异同。
 
 ```
 val diffCallback = object : DiffCallback<DummyItem>() {
@@ -57,9 +57,9 @@ ArrayObjectAdapter 会播放合适的动画。
 
 ![](https://cdn-images-1.medium.com/max/800/1*1AIJuAbtOBUPxUT0_ib8Eg.png)
 
-ArrayObjectAdapter 里面 'setItems()' 方法的部分源码。
+ArrayObjectAdapter 里面 `setItems()` 方法的部分源码。
 
-如果你想尝试使用 'DiffCallback'，可以从参考这篇 [gist](https://gist.github.com/benbaxter/6c9fbb568d05d8cb4b3829dbdb23e0cb) 开始。
+如果你想尝试使用 `DiffCallback`，可以从参考这篇 [gist](https://gist.github.com/benbaxter/6c9fbb568d05d8cb4b3829dbdb23e0cb) 开始。
 
 如果你在开发 Android TV 平台上的应用，我很想了解开发过程中你最喜欢的是什么，还有你的痛点是什么。如果你想继续这个话题，请在 [Twitter](https://twitter.com/benjamintravels) 上给我评论或者留言。
 
