@@ -2,24 +2,23 @@
 > * 原文作者：[Joel's Journal](http://joelmccracken.github.io/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/a-simple-web-app-in-rust-pt-2a.md](https://github.com/xitu/gold-miner/blob/master/TODO/a-simple-web-app-in-rust-pt-2a.md)
-> * 译者：
-> * 校对者：
+> * 译者：[LeopPro](https://github.com/LeopPro)
 
-# A Simple Web App in Rust, Part 2a
+# 使用 Rust 开发一个简单的 Web 应用，第 2a 部分
 
-## 1 Context
+## 1 来龙去脉
 
-If you haven't checked out part 1 of this series, I would start [there](http://joelmccracken.github.io/entries/a-simple-web-app-in-rust-pt-1).
+如果你还没看过这个系列的第一部分，请从[这里](http://joelmccracken.github.io/entries/a-simple-web-app-in-rust-pt-1)开始。
 
-In the first part, we successfully set up the Rust project and built a simple "hello world" web app.
+在第一部分，我们成功的创建了一个 Rust 工程并且编写了一个“Hello World” Web 应用。
 
-Originally, in this part, I wanted to write a program that writes dates to the filesystem. However, I ended up fighting with the type checker so much that this post ended up mostly being about that.
+起初，在这个部分中我想写一个可以将日期写入文件系统的程序。但是在这个过程中，我和类型检查斗争了好久，所以这个部分主要写这个。
 
-## 2 Starting Out
+## 2 开始
 
-The last time wasn't too bad. When I did some of this earlier, I remember this being the hardest part.
+上一次还不算太糟。但当我之前做这部分的时候，我记得这是最难的部分。
 
-Let's start by moving the existing `main.rs` out of the way so that we can work with a fresh file.
+让我们从移动已存在的 `main.rs` 开始，这样我们就可以使用一个新文件。
 
 ```
 $ pwd
@@ -31,11 +30,11 @@ $ mv main.rs web_main.rs
 $ touch main.rs
 ```
 
-## 3 Remembering "hello world"
+## 3 回忆“Hello World”
 
-Can I write a hello world without needing to look?
+我可以不借助任何参考独立写出“Hello World”么？
 
-Let me try:
+让我试试：
 
 ```
 fn main() {
@@ -43,7 +42,7 @@ fn main() {
 }
 ```
 
-Then:
+然后：
 
 ```
 $ cargo run
@@ -52,11 +51,11 @@ $ cargo run
 Hello, world
 ```
 
-So, I guess I remember it OK. I was a little unsure about needing to import something for `println!`, but it must be unnecessary.
+哦，我想我还记得它。我只是有一点不太肯定，我是否需要为 `println!` 导入些什么，现在看来，这是不必要的。
 
-## 4 A Naive Approach
+## 4 天真的方法
 
-Ok, moving on. Searching the Internet for "rust create a file" leads me to this page on `std::fs::File`: [https://doc.rust-lang.org/std/fs/struct.File.html](https://doc.rust-lang.org/std/fs/struct.File.html). Let's try a piece from one example:
+好了，继续。上网搜索“Rust 创建文件”，我找到了 `std::fs::File`：[https://doc.rust-lang.org/std/fs/struct.File.html](https://doc.rust-lang.org/std/fs/struct.File.html)。让我们来试试一个例子：
 
 ```
 use std::fs::File;
@@ -66,7 +65,7 @@ fn main() {
 }
 ```
 
-Building:
+编译：
 
 ```
 $ cargo run
@@ -84,21 +83,21 @@ error: aborting due to previous error
 Could not compile `simple-log`.
 ```
 
-When I wrote the first version of this, this error took a _really_ longtime to figure out. I don't get on IRC very often anymore, so figuring things out like this can be pretty rough. Figuring it out left a big impression on me, so I know the answer right away.
+当我编写第一个版本的时候，解决这个错误真是花费了我很多时间。我不再经常活跃于社区，所以这些问题的解决方案可能是比较粗糙的。弄清楚这个问题给我留下了深刻的印象，所以我马上就知道答案了。
 
-The problem with the above code is that `try!` expands to something that returns early with an `Err` type in case of an error. Since `main` returns Unit ("`()`")[1](#fn.1), this causes a type error.
+上面代码的问题是 `try!` 宏的展开代码在出现错误的情况下返回 `Err` 类型。然而 `main` 返回单元类型（`()`）[1](#fn.1)，这会导致一个类型错误。
 
-I think three things make this complicated:
+我认为有三点难以理解：
 
-1. At this point, I'm not really sure how to read the error message. What does 'expected' and 'found' refer to? Since I know the answer, I can see that 'expected' refers to the return value of `main`, but I could easily see 'expected'/'found' going either way.
-2. For me, reading [the documentation](https://doc.rust-lang.org/std/macro.try!.html) for `try!` does not immediately indicate to me how `try!` impacts the return value of the function it is called from. Of course, I should have noticed the `return` in the macro definition. At any rate, I didn't figure the problem out until I found a remark in [the Rust book](http://doc.rust-lang.org/stable/book/) about how `try!` can't be called from `main` because of this exact problem.
-3. The error actually occurs inside a macro. It didn't hit me at the time, but the rust compiler can output the code after macros have been expanded. That makes this kind of thing much easier to debug.
+1. 在这一点上，我不是很确定要如何理解错误信息。'expected' 和 'found'都指什么？我知道答案之后，我明白 'expected' 指的是 `main` 的返回值，我可以清楚的明白 'expected' 和 'found'。
+2. 于我而言，查阅[文档](https://doc.rust-lang.org/std/macro.try!.html)并没有让我立刻明白 `try!` 是如何影响调用它的函数返回值的。当然，我应该查阅 `return` 在宏中的定义。然而，当我找到一个在 [Rust 文档](http://doc.rust-lang.org/stable/book/) 中的评论时，我才明白在这个例子中为什么 `try!` 不能在 `main` 中调用。
+3. 这个错误事实上可以在宏中体现。我当时没明白，但 Rust 编译器可以输出经过宏扩展后的源代码。这个功能让这类问题易于调试。
 
-In number 3, expanding macros is alluded to. Viewing expanded macro is such a useful way to debug these kinds of issues that its worth discussing in more depth.
+在第三点中，我们提到了扩展宏。查阅扩展宏是调试这类问题非常有效的方法，这值得我们深究。
 
-## 5 Debugging by Expanding Macros
+## 5 调试扩展宏
 
-First off, I figured this out by searching for "rust expand macros". Given this code:
+首先，我通过搜索“Rust 扩展宏”查阅到这些代码：
 
 ```
 use std::fs::File;
@@ -108,7 +107,7 @@ fn main() {
 }
 ```
 
-… we can run the compiler to show us the expanded macro output this way:
+……我们可以通过这种方式使编译器输出宏扩展：
 
 ```
 $ rustc src/main.rs --pretty=expanded -Z unstable-options
@@ -131,13 +130,13 @@ fn main() {
 }
 ```
 
-This is _way_ easier to debug. Macros are a very powerful tool, but like any tool you need to know when and how to use them.
+这次就易于调试了。宏是非常有效的工具，但是同其他工具一样，我们要知道何时、怎样使用它们。
 
-So, see that `return` statement in the above output? That's the problem. Its trying to return an `Err` result from `main`, which again has the return type Unit.
+看看吧，上面输出中的 `return` 定义，问题就出在这里。它尝试返回一个 `Err` 结果，但是 `main` 函数期望得到一个单元类型。
 
-## 6 Fighting with Types
+## 6 和类型斗争
 
-I need to know how to resolve this type problem. I'm going to start by imitating the `try!` macro, but this time only returning Unit:
+我要知道如何解决这个类型问题。我尝试模仿 `try!` 宏，但是这次只返回单元类型：
 
 ```
 use std::fs::File;
@@ -150,7 +149,7 @@ fn main() {
 }
 ```
 
-Running:
+运行：
 
 ```
 $ cargo run
@@ -171,7 +170,7 @@ error: aborting due to previous error
 Could not compile `simple-log`.
 ```
 
-Huh. So, I'm not really sure how to say "don't do anything, here". I guess the type 'val' must be 'std::fs::File', and so its assuming that _any_ match return value must be that. Can I make the `Ok` branch not return anything, either?
+我不知道该如何表述，“这里不应该做任何事”。我猜 `val` 一定是 `std::fs::File` 类型，所以编译器推断 `match`的**所有**分支都应该返回它。我可以令 `Ok` 分支也不返回任何东西么？
 
 ```
 use std::fs::File;
@@ -184,7 +183,7 @@ fn main() {
 }
 ```
 
-Running:
+运行：
 
 ```
 $ cargo run
@@ -200,7 +199,7 @@ $ ls
 Cargo.lock      Cargo.toml      foo.txt         src             target
 ```
 
-It created `foo.txt`! Of course, the code could be cleaner, but thats fine for now. Let me try something else:
+它创建了 `foo.txt`！当然，代码可以更优雅，但是它现在很不错。让我们试试其他的方法：
 
 ```
 use std::fs::File;
@@ -229,7 +228,7 @@ Could not compile `simple-log`.
 To learn more, run the command again with --verbose.
 ```
 
-I've seen this before. This must mean `main` is returning the result of `File::create`. I was thinking it would return nothing, but I guess I didn't really think that through. What if I add a semicolon?
+我之前看到过这个。它的意思是 `main` 函数返回了 `File::create` 的结果。我想，这里不应该返回任何东西，但是我没有往这个方向思考。如果我添加一个分号呢？
 
 ```
 use std::fs::File;
@@ -245,8 +244,8 @@ fn main() {
 $ rm foo.txt
 $ cargo run
    Compiling simple-log v0.1.0 (file:///Users/joel/Projects/simple-log)
-src/main.rs:5:5: 5:29 warning: unused result which must be used, #[warn(unused_must_use)] on by def
-ault
+src/main.rs:5:5: 5:29 warning: unused result which must be used, #[warn(unused_must_use)] on by default
+
 src/main.rs:5     File::create("foo.txt");
                   ^~~~~~~~~~~~~~~~~~~~~~~~
      Running `target/debug/simple-log`
@@ -254,7 +253,7 @@ $ ls
 Cargo.lock      Cargo.toml      foo.txt         src             target
 ```
 
-So, we now get an "unused result" warning, although it still runs and creates the file. Let's go back and try doing something that handles the results:
+好了，我们成功运行且创建了文件，但是现在有一个“未使用的结果”警告。让我们去做点什么来处理这个结果：
 
 ```
 use std::fs::File;
@@ -283,7 +282,7 @@ src/main.rs:7         Err(err) => println!("Error: could not create file.")
 File created!
 ```
 
-Now there are unused variables. My hunch is that either ellipses or removing the variable name will fix this:
+现在出现了未使用的变量警告。我的直觉是，我们可以使用省略号或删除变量名来解决这个问题：
 
 ```
 use std::fs::File;
@@ -305,7 +304,7 @@ cargo run
 File created!
 ```
 
-So, ellipses worked. What happens when I instead remove the ellipses?
+看，使用省略号可行，那么如果我删除省略号会发生什么？
 
 ```
 $ cargo run
@@ -320,7 +319,7 @@ error: aborting due to 2 previous errors
 Could not compile `simple-log`.
 ```
 
-It didn't like that. I'm guessing that "nullary" means "zero-arity", and it needs those removed. If I remove the parentheses totally:
+这和我预想的不一样。我猜测“nullary”的意思是空元组，它需要被删除。如果我把括号删掉：
 
 ```
 $ cargo run
@@ -339,17 +338,17 @@ Could not compile `simple-log`.
 To learn more, run the command again with --verbose.
 ```
 
-This makes sense, and is basically what I expected. My mental model is starting to form!
+这很好理解，基本上是我所预想的。我的思维正在形成！
 
-## 7 Writing to a file
+## 7 写入文件
 
-Let's try something a little harder. How about this:
+让我们尝试一些更难的东西。这个怎么样：
 
-1. Try to create the log file. If it exists, great; if not, boo.
-2. Try to write a string to the log file.
-3. Clean everything up.
+1. 尝试创建日志文件。如果日志文件不存在则创建它。
+2. 尝试写一个字符串到日志文件。
+3. 把一切理清。
 
-This first example doesn't even attempt half of that, but we'll go with it:
+第一个例子进度还没有过半，我们继续：
 
 ```
 use std::fs::File;
@@ -381,7 +380,7 @@ To learn more, run the command again with --verbose.
 $
 ```
 
-So I guess function arguments need must have type annotations:
+所以我想函数参数必须要声明类型：
 
 ```
 use std::fs::File;
@@ -451,9 +450,9 @@ Could not compile `simple-log`.
 To learn more, run the command again with --verbose.
 ```
 
-That's a lot of errors. Looking at the first error, I'm guessing that `log_something` needs to have a return value specified. I've tried a few things, but right now I'm stuck. To the search engines!
+出现了好多错误。我们看第一个错误，我猜 `log_something` 函数需要规定一个返回值。我尝试了一些方法，但是我卡住了。求助于搜索引擎！
 
-A few minutes have passed, and I finally have _an_ answer. I did [some searching on GitHub](https://github.com/search?p=15&q=Result+language:rust&ref=simplesearch&type=Code&utf8=%E2%9C%93), but it wasn't fruitful. I tried about 50 different things, but got this to work:
+几分钟过去了，我终于找到了答案。我在 GitHub 上找到了一些[相关信息](https://github.com/search?p=15&q=Result+language:rust&ref=simplesearch&type=Code&utf8=%E2%9C%93)，但是它并不有效。我大约尝试了 50 种不同方案，最终得以解决：
 
 ```
 use std::io::prelude::*;
@@ -472,9 +471,9 @@ fn main() {
 }
 ```
 
-I'm not really sure _why_ it works. If I understand correctly, the return value is of `Result` type that's parameterized with the types `File` and `std::io::error::Error`. What does this mean, exactly? It seems strange to me that of the two types, one type is the actual result (a file), yet the second is an `Error` type. Why? I'm thinking that once I fix the remaining error(s), this will need fixing again.
+我不知道它能正常工作的原因。如果我理解的正确，返回值的类型 `Result` 的参数应该是 `File` 和 `std::io::error::Error`。这究竟是什么意思？对我来说，这两种类型很奇怪，一种是实际结果（文件），另一种是 `Error` 类型。为什么？我想，我修复了剩余错误之后，这还需要再次修复。
 
-So, now when I try to run it, I get:
+现在当我尝试运行它时，我得到如下错误信息：
 
 ```
 $ cargo run
@@ -494,7 +493,7 @@ Could not compile `simple-log`.
 To learn more, run the command again with --verbose.
 ```
 
-Ok, so I saw in the example that they prefixed the string with a `b`, which I neglected to do just to see what would happen. Fixing the parameters:
+我在例子中看到他们在字符串前加了一个 `b` Ok，我忽略它只是为了看看会发生什么。修复参数：
 
 ```
 use std::io::prelude::*;
@@ -525,9 +524,9 @@ error: aborting due to previous error
 Could not compile `simple-log`.
 ```
 
-Ugh – I knew this was going to be a problem. Time to do some searching and reading.
+我知道这将出现问题。花一些时间查阅资料。
 
-The Rust book has [a section](https://doc.rust-lang.org/book/error-handling.html) on `Result`. Hmm. It seems like what I'm doing may not be idiomatic? I'd say that it seems like the "best" way to handle what is going on, but I _am_ confused. I've seen this `unwrap` thing a few times, and it seems like it could be what I want. If I try unwrap, things might be different:
+Rust 文档有[一章](https://doc.rust-lang.org/book/error-handling.html)介绍 `Result`。看起来我做了一些非常规的操作。我是说，这似乎是“最好”的方式来处理当前的错误，但是我很疑惑。我曾见过这个 `unwrap` 几次，这看起来可能是我想要的。如果我尝试 `unwrap`，事情可能会有所不同：
 
 ```
 fn log_something(filename: &'static str, string: &'static [u8; 12]) {
@@ -556,17 +555,17 @@ $ cat log.txt
 ITS ALIVE!!!
 ```
 
-So, that worked, although there is a warning. I think this is not "the Rust way", since its failing early/throwing errors away.
+看，虽然有一个警告，它还是工作了。但我想，这不是 Rust 的方式，Rust 提倡提前失败或抛出错误。
 
-The real problem with `try!` and returning a `Result` is that there's this weirdness dealing with this line in the `try!` macro:
+真正的问题是 `try!` 和 `try!` 宏返回古怪 `Result` 的分支：
 
 ```
 return $crate::result::Result::Err($crate::convert::From::from(err))
 ```
 
-This means that whatever I pass in has to have a `From::from` trait implemented on an enum, but I really have no idea how traits or enums work, and I think the whole thing is overkill anyway for what I'm trying to do.
+这意味着无论我传入什么都必须在枚举上实现一个 `From::from` 特征。但是我真的不知道特征或枚举是如何工作的，而且我认为整个事情对于我来说都是矫枉过正。
 
-I've gone to the documentation for `Result`, and it looks like I may be going in the wrong direction: [https://doc.rust-lang.org/std/result/](https://doc.rust-lang.org/std/result/). This `io::Result` example seems to be similar enough to what I'm doing, so let me see if I can fix that up:
+我去查阅 `Result` 的文档，看起来我走错了方向：[https://doc.rust-lang.org/std/result/](https://doc.rust-lang.org/std/result/)。这里的 `io::Result` 例子似乎于我做的相似，所以让我看看我是否能解决问题：
 
 ```
 use std::io::prelude::*;
@@ -603,11 +602,11 @@ Could not compile `simple-log`.
 To learn more, run the command again with --verbose.
 ```
 
-After some time thinking, I see the problem: an `Ok(())` statement must be added as the final statement in `log_something`. I realized this because I saw that this is how things happen in the `Result` documentation.
+经过一段时间的思考，我发现了问题：必须在 `log_something` 的最后添加 `OK(())` 语句。我通过参考 `Result` 文档得出这样的结论。
 
-I've been used to the idea that not having something after the final semicolon means `return ()`; however, the message "not all control paths return a value" doesn't make sense – to me, this is a type mismatch. Unless, of course, `()` is not a value, which it might not be, but I still think that's confusing.
+我已经习惯了在函数最后的无分号语句意思是 `return ()`；而错误消息“不是所有的分支都返回同一类型”不好理解 —— 对我来说，这是类型不匹配问题。当然，`()` 可能不是一个值，我仍然认为这是令人困惑的。
 
-Our final result (for this post):
+我们最终的结果（这篇文章）：
 
 ```
 use std::io::prelude::*;
@@ -639,26 +638,26 @@ $ cat log.txt
 ITS ALIVE!!!
 ```
 
-Ok, it works. Great. I'm going to end here because this has been pretty challenging. I'm sure improvements could be made on this code, but this is a good stopping point and a good time to research dates and times in Rust, which will be the [the next post](http://joelmccracken.github.io/entries/a-simple-web-app-in-rust-pt-2b/).
+好了，它工作了，美滋滋！我想在这里结束本章，因为本章内容非常富有挑战性。我确信这个代码是可以做出改进的，但这里暂告一段落，[下一章](https://github.com/xitu/gold-miner/blob/master/TODO/a-simple-web-app-in-rust-pt-2b.md)我们将研究 Rust 中的日期和时间.
 
-## 8 Updates
+## 8 更新
 
-1. NMSpaz pointed out [on Reddit](https://www.reddit.com/r/rust/comments/38ahgr/a_simple_web_app_in_rust_part_2a/crvvhkf) that one of my examples had an error in it.
+1. NMSpaz 在 [Reddit](https://www.reddit.com/r/rust/comments/38ahgr/a_simple_web_app_in_rust_part_2a/crvvhkf) 指出了我例子中的一个错误。
 
 —
 
-Series: A Simple Web App in Rust
+系列文章：使用 Rust 开发一个简单的 Web 应用
 
-* [Part 1](http://joelmccracken.github.io/entries/a-simple-web-app-in-rust-pt-1/)
-* [Part 2a](http://joelmccracken.github.io/entries/a-simple-web-app-in-rust-pt-2a/)
-* [Part 2b](http://joelmccracken.github.io/entries/a-simple-web-app-in-rust-pt-2b/)
-* [Part 3](http://joelmccracken.github.io/entries/a-simple-web-app-in-rust-pt-3/)
-* [Part 4](http://joelmccracken.github.io/entries/a-simple-web-app-in-rust-pt-4-cli-option-parsing/)
-* [Conclusion](http://joelmccracken.github.io/entries/a-simple-web-app-in-rust-conclusion/)
+* [Part 1](https://github.com/xitu/gold-miner/blob/master/TODO/a-simple-web-app-in-rust-pt-1.md)
+* [Part 2a](https://github.com/xitu/gold-miner/blob/master/TODO/a-simple-web-app-in-rust-pt-2a.md)
+* [Part 2b](https://github.com/xitu/gold-miner/blob/master/TODO/a-simple-web-app-in-rust-pt-2b.md)
+* [Part 3](https://github.com/xitu/gold-miner/blob/master/TODO/a-simple-web-app-in-rust-pt-3.md)
+* [Part 4](https://github.com/xitu/gold-miner/blob/master/TODO/a-simple-web-app-in-rust-pt-4-cli-option-parsing.md)
+* [Conclusion](https://github.com/xitu/gold-miner/blob/master/TODO/a-simple-web-app-in-rust-conclusion.md)
 
-## Footnotes:
+## 脚注:
 
-[1](#fnr.1) lol.
+[1](#fnr.1) 哈哈哈哈。
 
 
 ---
