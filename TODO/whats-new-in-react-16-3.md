@@ -7,7 +7,7 @@
 
 # React 16.3(.0-alpha) 新特性
 
-React 16.3-alpha  于不久前[推至 npmjs](https://twitter.com/brian_d_vaughn/status/959535914480357376)，已经可以用在项目中了，你最关心哪些变化呢？
+React 16.3-alpha 于不久前[推至 npmjs](https://twitter.com/brian_d_vaughn/status/959535914480357376)，已经可以用在项目中了，你最关心哪些变化呢？
 
 >2018 年 2 月 5 日更新 —— 之前我误解了 `createContext` 的一些行为，所以更新了这一节的内容，主要为了反映出工厂方法的一些行为。
 
