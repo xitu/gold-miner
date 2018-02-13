@@ -111,7 +111,7 @@ Strict mode 是新加入的组件，旨在引导你遵循最佳实践。把需�
 
 ![](https://cdn-images-1.medium.com/max/800/1*cT32zSlTdDHMDbNDkpOwdw.png)
 
-完全一变相的 `'use strict'`
+完全一变相的 `'use strict'`。
 
 如果其下的组件不小心用了上文提到的要废除的生命周期方法，控制台会打印出错误信息（开发环境下）:
 
