@@ -123,23 +123,39 @@ Choose the right rules for your platform, but make sure they allow your users to
 
 A surprising number of services have no self-service means for a user to delete their account and associated data. There are a number of good reasons for a user to close an account permanently and delete all personal data. These concerns need to be balanced against your security and compliance needs, but most regulated environments provide specific guidelines on data retention. A common solution to avoid compliance and hacking concerns is to let users schedule their account for automatic future deletion.
 
-
+没有提供自助服务的服务系统数量惊人，这对一个用户来说就意味着删掉他们的账户和相关数据。对一个用户来说，永久地关掉一个账户并删掉所有的个人数据有很多的好理由。这些需求点需要与你的安全性和顺从性需求相平衡，但大多数受监管的环境都会提供有关数据存储的相关指导。为避免顺从性以及黑客的关注，一个较普遍的做法是让用户安排他们的账户，以便未来自动删除。
 
 In some circumstances, you may be [legally required to comply](http://ec.europa.eu/justice/data-protection/files/factsheets/factsheet_data_protection_en.pdf) with a user's request to delete their data in a timely manner. You also greatly increase your exposure in the event of a data breach where the data from "closed" accounts is leaked.
 
+在某些情况下，你可能会 [被合法地要求遵照](http://ec.europa.eu/justice/data-protection/files/factsheets/factsheet_data_protection_en.pdf) 用户的需求及时的删掉他们的数据。同样，当“已关闭”账户的数据泄漏时，你也会极大的增加你的曝光率。
+
 ## Make a conscious decision on session length
+
+## 在对话长度上做出理智的选择
 
 An often overlooked aspect of security and authentication is [session length](https://firebase.google.com/docs/auth/web/auth-state-persistence). Google puts a lot of effort into [ensuring users are who they say they are](https://support.google.com/accounts/answer/7162782?co=GENIE.Platform%3DAndroid&hl=en) and will double-check based on certain events or behaviors. Users can take steps to [increase their security even further](https://support.google.com/accounts/answer/7519408?hl=en&ref_topic=7189123).
 
+安全和认证中一个经常被忽视的方面是 [会话长度](https://firebase.google.com/docs/auth/web/auth-state-persistence)。Google 在 [确保用户是他们所说的人](https://support.google.com/accounts/answer/7162782?co=GENIE.Platform%3DAndroid&hl=en) 方面做了很多努力，并将基于某些事件或行为进行二次确认。用户可以采取措施 [进一步提高自己的安全度](https://support.google.com/accounts/answer/7519408?hl=en&ref_topic=7189123)。
+
 Your service may have good reason to keep a session open indefinitely for non-critical analytics purposes, but there should be [thresholds](https://pages.nist.gov/800-63-3/sp800-63b.html#aal1reauth) after which you ask for password, 2nd factor or other user verification.
+
+你的服务可能有充分的理由为非关键的分析目的保持一段会话无限期开放，但是这应该有 [门槛](https://pages.nist.gov/800-63-3/sp800-63b.html#aal1reauth)，要求输入密码，第二因素或其他用户验证。
 
 Consider how long a user should be able to be inactive before re-authenticating. Verify user identity in all active sessions if someone performs a password reset. Prompt for authentication or 2nd factor if a user changes core aspects of their profile or when they're performing a sensitive action. Consider whether it makes sense to disallow logging in from more than one device or location at a time.
 
+考虑一个用户在重新认证之前需要保持多长时间的非活跃状态。如果某人想要执行密码重置，需要在所有活跃会话中验证用户身份。如果一个用户想要更改他们个人信息的核心内容，或者当他们在执行一次敏感的行为时，提示进行身份验证或第二因素。要考虑不允许同时在不同设备或地址登录是否有意义。
+
 When your service does expire a user session or require re-authentication, prompt the user in real-time or provide a mechanism to preserve any activity they have unsaved since they were last authenticated. It's very frustrating for a user to fill out a long form, submit it some time later and find out all their input has been lost and they must log in again.
+
+当你的服务终止用户会话或需要再次验证时，实时提示用户或提供一种机制来保存自他们上次验证后还没来得及保存的全部活动。对用户来说，当他们填好一份很长的表格并在之后提交，却发现他们输入的所有信息全部丢失且他们必须再次登录，这是十分令人沮丧的。
 
 ## Use 2-Step Verification
 
+## 使用两步身份验证
+
 Consider the practical impact on a user of having their account stolen when choosing from [2-Step Verification](https://www.google.com/landing/2step/) (also known as 2-factor authorization or just 2FA) methods. SMS 2FA auth has been [deprecated by NIST](https://pages.nist.gov/800-63-3/sp800-63b.html) due to multiple weaknesses, however, it may be the most secure option your users will accept for what they consider a trivial service. Offer the most secure 2FA auth you reasonably can. Enabling third-party identity providers and piggybacking on their 2FA is a simple means to boost your security without great expense or effort.
+
+
 
 ## Make user IDs case insensitive
 
