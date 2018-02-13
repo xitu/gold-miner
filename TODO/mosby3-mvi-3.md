@@ -5,17 +5,17 @@
 > * 译者：
 > * 校对者：
 
-# REACTIVE APPS WITH MODEL-VIEW-INTENT - PART3 - STATE REDUCER
+# 使用MVI开发响应式APP - 第三部分 - 状态减少（state reducer）
 
-In the [previous part](http://hannesdorfmann.com/android/mosby3-mvi-2) we have discussed how to implement a simple screen with the **M**odel-**V**iew-**I**ntent pattern with an unidirectional data flow. In this blog post we are going to build a more complex screen with MVI with the help of a state reducer.
+在[前面的系列里](http://hannesdorfmann.com/android/mosby3-mvi-2) 我们已经讨论了如何用 Model-View-Intent 模式和单向数据流去实现一个简单的页面。在这篇博客里我们将要实现更加复杂页面，这个页面将有助于我们理解状态减少(state reducer)。
 
-If you haven’t read [part 2](http://hannesdorfmann.com/android/mosby3-mvi-2) yet, you should read that before continue with this blog post, because there is described how we connect the View via Presenter with the business logic and how data flows unidirectional.
+如果你没读[第二部分](http://hannesdorfmann.com/android/mosby3-mvi-2),你应该先去读一下第二部分，然后再读这篇博客, 因为第二部分博客描述我们如何将业务逻辑通过 Presenter 与 View 进行沟通，如果让数据进行单向流动。
 
-Now let’s build a more complex screen like this:
+现在我们构建一个更加复杂的场景，像下面演示的内容:
 
 <iframe width="894" height="503" src="https://www.youtube.com/embed/WWeRn0tMoXM" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
-As you see in the video above this screen displays a list of items (products) grouped by category. The app only displays 3 items for each category and the user can click on a “load more button” to load all items of that category (http request). Additionally, the user can do pull-to-refresh and once the user has scrolled down to the end of the list more categories are loaded (pagination). Of course all this actions can be executed simultaneously and each of them could also fail (i.e. no internet connection).
+正如你所见，上面的演示内容，就是根据不同的类型显示商品列表。这个 APP 中每个类型只显示三个项。另外, the user can do pull-to-refresh and once the user has scrolled down to the end of the list more categories are loaded (pagination). Of course all this actions can be executed simultaneously and each of them could also fail (i.e. no internet connection).
 
 Let’s implement this step by step. First, let’s define the View interface.
 
