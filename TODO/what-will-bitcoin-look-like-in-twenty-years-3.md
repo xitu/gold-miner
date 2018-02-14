@@ -64,13 +64,13 @@
 
 ### 10) 一个 DAO 会变成世界 500 强
 
-达成这一里程碑的最有可能的 DAO 将是一个反映开放版Visa的DAO，因为它可能会削减交易和矿工在最占主导地位的网络，并将有助于资助该网络的未来发展和管理。
+达成这一里程碑的最有可能的 DAO 将是一个反映开放版 Visa 的 DAO，因为它可能会削减交易和矿工在最占主导地位的网络，并将有助于资助该网络的未来发展和管理。
 
 ![](https://cdn-images-1.medium.com/max/600/1*s70767X_wJBDhrgFEqf8ug.jpeg)
 
 它不会囤积所有资金，而是充当一种联系，通过智能合约将资金流向其他业务和 DAO，以及国家和地方政府，和其他有利于网络的非政府实体。
 
-要做到这一点，DAO必须发展。
+要做到这一点，DAO 必须发展。
 
 现在我们认为DAO是一个智能合约，还差的很远。
 
@@ -81,11 +81,11 @@ DAO 需要人工智能来帮助管理和减轻其规则集，它需要能够自�
 
 每个人都认为他们是首席，没有人愿意放下姿态。
 
-当每个人都是DAO中的国王时，很难否认。
+当每个人都是 DAO 中的国王时，很难否认。
 
 **要有效发挥作用，团队需要角色扮演者和明星。**人们也必须理解他们的角色并接受它，即使他们在系统中建立优点和经验后会发生变化。
 
-管理很难像企业环境一样。 你如何在 DAO 中解雇一个不履行职责人？ 你如何确保负责 ICO 安全的人实际上是合格的，而不是因为每个人都喜欢他而当选？ 你不能因为鲍勃他关于燃烧人的伟大故事和他的绘画技巧而当选，而冒险让其以 4500 万美元的比特币流失。
+管理很难像企业环境一样。 你如何在 DAO 中解雇一个不履行职责人？你如何确保负责 ICO 安全的人实际上是合格的，而不是因为每个人都喜欢他而当选？你不能因为鲍勃他关于燃烧人的伟大故事和他的绘画技巧而当选，而冒险让其以 4500 万美元的比特币流失。
 
 未来的自动化企业和非营利机构将不得不为**持续管理和决策制定令人难以置信的工具，以及像代码一样运作的操作协议并成为现实**。
 
@@ -107,7 +107,7 @@ DAO 需要人工智能来帮助管理和减轻其规则集，它需要能够自�
 
 它可以用于制造业和各种蓝领工作，这可以使我们今天看到的富有和无分界线产生巨大的影响。
 
-[香港地铁人工智能](https://gizmodo.com/the-worlds-best-subway-system-is-powered-by-an- advanced-1601103048)也许是这种网络的第一个原型，甚至如果这不是一个完美的比喻。它预测地铁上会发生什么故障，并派遣工程师提前解决故障。 这使全球最繁忙的地铁的正常运行时间达到 99％。
+[香港地铁人工智能](https://gizmodo.com/the-worlds-best-subway-system-is-powered-by-an- advanced-1601103048)也许是这种网络的第一个原型，甚至如果这不是一个完美的比喻。它预测地铁上会发生什么故障，并派遣工程师提前解决故障。这使全球最繁忙的地铁的正常运行时间达到 99％。
 
 其中大部分将由外部化[**声誉银行**](https://github.com/the-laughing-monkey/cicada-platform/blob/master/Identity-Without-Authority-2017.21.3.BETA.pdf)管理，由区块链驱动，将成为未来的社会信用。
 
@@ -167,89 +167,88 @@ Yeah.
 
 ### 13) 比特币有一半的存活率
 
-Most true believers will not like this one but honestly, 50/50 might be really, really high here.
+大多数真正的信徒不会喜欢这个，但老实说，50/50存活率真的很高。
 
 ![](https://cdn-images-1.medium.com/max/600/1*s70767X_wJBDhrgFEqf8ug.jpeg)
 
-I know, I know. You’ve heard it all before! The Money Badger can’t be stopped! New ATH!!!! Buy and HODLz forever!
+我知道我知道。你以前听说过这一切！钱纠结不能停止 新的ATH !!!! 购买和 HODLz 永远！
 
-Look you stuck with me this long so stick with me a little longer so I can explain.
+看你卡住了这么久，所以我可以解释一下。
 
-First off, I’m rooting for Bitcoin to live until my dying days but let’s look at this objectively for a few minutes to see why it might go down hard. It’s probably not what you think.
+首先，我为比特币生存直到我死去，但让我们客观地看几分钟，看看为什么它可能会下降。这可能不是你的想法。
 
-Bitcoin has first mover advantage. It’s the absolute first of its kind and still dominates the global market share but it also suffers from a number of major flaws that could kill it.
+比特币具有先发优势。这是绝对的第一次，仍占据全球市场份额的主导地位，但同时也面临着一些可能杀死它的重大缺陷。
 
 ![](https://cdn-images-1.medium.com/max/600/1*3Hrfnp399fFqKYsZiLdKNA.jpeg)
 
-Basically, it’s the Model T of the blockchain revolution.
+基本上，它是区块链演进的模型 T。
 
-How many Model T’s do you see on the street today?
+你今天在街上看到了多少个模型 T？
 
-Can you retrofit a Model T to make it burn rubber like a Lamborghini? Can you add sophisticated electronics to make it a self-driving Tesla? Nope.
+你能否改装T型车使它像兰博基尼一样燃烧橡胶？你可以添加复杂的电子设备，使其成为自动驾驶的特斯拉？不。
 
-To start with, Bitcoin has no built-in governance. This is a crucial flaw. Only a few ways to change it exist. The first is to [submit a proposal](https://coin.dance/blocks/proposals) where almost everyone agrees and as we have seen with SegWit, that’s incredibly hard. It took four years for the change to get adopted.
+首先，比特币没有内置的管理。这是一个重要的缺陷。只有几种方法可以改变它。首先是[提交提案](https://coin.dance/blocks/proposals)，几乎每个人都同意，正如我们在 SegWit 看到的那样，这非常困难。经过四年的变革才获得通过。
 
-The second is to start a new project and hard fork it. This might be the only way this actually works in the end. A team might fork it and build in governance, but it’s a long shot.
+第二个是开始一个新项目并硬 fork 它。这可能是最终实际工作的唯一方式。一个团队可能会分叉并建立管理，但这是一个很长的过程。
+、
+具有设计良好，广泛内置的管理的币将比比特币具有巨大的优势，并且可以轻松取代它，因为它使升级更加顺畅。
 
-A coin with well designed, widespread, build-in governance will have a massive advantage over Bitcoin and could easily replace it, as it makes upgrades seamless and smooth.
+对资金充足的敌对力量的攻击进行升级和应对，需要在数小时甚至数天而不是几年内迅速渗透整个网络。
 
-Upgrades and responses to attacks by well funded hostile forces will need to move fast and percolate throughout the network in hours or days, not years.
-
-What about scaling? We already talked about that problem. Changing the blocksize won’t cut it. It will require something more radical.
+如何缩放？我们已经讨论过这个问题。改变块大小不会削减它。这将需要更激进的东西。
 
 ![](https://cdn-images-1.medium.com/max/600/1*8DuarABxVGDxsyJGN0NicA.jpeg)
 
-What if China turns the Great Firewall on it? Would it even be possible to retrofit private relays and other anti-interference code into the system at this late stage?
+如果中国改变了防火墙的话呢？ 在这个后期阶段甚至有可能将专用中继和其他抗干扰代码加入系统中？
 
-What if governments simply decide that they will spend a billion dollars on a datacenter and secretly designed ASICs to run the system? Could any miners compete?
+如果政府只是决定将数十亿美元投入数据中心并秘密设计ASIC来运行该系统呢？任何矿工都可以竞争吗？
 
-What if hostiles just decided to round up all the core developers? How easy would it be to replace them considering the tremendous shortage of talent in the crypto world now?
+如果敌对方决定召集所有核心开发者，会怎么样？ 考虑到现在加密世界中人才的巨大短缺，替换它们有多容易？
 
-These are only some of the nearly insurmountable problems of my favorite crypto. I point them out not to kill it but to make people think. If you can really see a problem you can find a way to fix it. But if we’re only going to deal with fake problems like the blocksize limit we will get nowhere.
+这些只是我最喜欢的加密技术中几乎不可逾越的问题。我指出他们不要杀死它，而是让人们思考。如果你真的能看到问题，你可以找到解决问题的方法。 但是，如果我们只是要处理像块大小限制这样的假问题，我们将无处可去。
 
-Bitcoin is a beautiful, brilliant idea and it’s already changed the world. It won’t fail because it’s a fraud or a scam, but because of its own hard coded rules, in-fighting and lack of governance.
+比特币是一个美丽的，辉煌的想法，它已经改变了世界。 它不会失败，因为它是一种欺诈或骗局，但由于它自己的硬编码规则，内部斗争和缺乏管理。
 
-Of course, it doesn’t have to fail. We can start thinking about how to save it right here, right now.
+当然，它不一定会失败。我们现在可以开始考虑如何在这里保存它。
 
-As I noted earlier, some kind of virtualization or containerization that allows Bitcoin to adapt and evolve by migrating to an abstracted set of protocols and defenses would help ensure that it not only survives but thrives.
+正如我前面提到的那样，某种虚拟化或集装箱化让比特币能够适应和发展，通过迁移到一套抽象的协议和防御措施，有助于确保比特币不仅能够存活下来，而且还能够蓬勃发展。
 
-I’m rooting for it. I’m betting if you’re reading this, you are too.
+我正在为此而生。我打赌，如果你正在阅读这篇文章，你也会有这样的想法。
 
-The best way to make sure it survives is to understand all the real reasons it could fail and start designing real solutions to those problems today, so that when they do arrive, we’re ready.
+确保它能够存活下来的最好方法是了解它可能发生故障的所有真正原因，并开始为当今的这些问题设计真正的解决方案，以便当它们到达时，我们已做好准备。
 
 ### The Final Frontier
 ### 最后的边界
 
-I have a lot more predictions but I’ll save them for [**my fiction**](https://www.amazon.com/Daniel-Jeffries/e/B00D1HG62U). Maybe I’ll do a followup if this article goes viral.
+我有更多的预测，但我会保存他们[**我的小说**](https://www.amazon.com/Daniel-Jeffries/e/B00D1HG62U) 如果这篇文章发生病毒，也许我会做后续。
 
-I also left a few evil ideas off the table because I don’t want to see them come to pass. If someone else comes up with them, there’s nothing I can do about it but the worst scenarios in the Monte Carlo pathways of tomorrow will not come from my keyboard.
+我还从桌面上留下了一些邪恶的想法，因为我不想看到他们成功。如果有人想到他们，我无能为力，但明天蒙特卡罗路线中最糟糕的情景不会来自我的键盘。
 
-**Cryptocurrencies represent a fundamental upgrade to the economic systems of the world.** Once they’re fully booted up and integrated into the global and interplanetary networks of the future, the world will look very, very different in ways we can only begin to understand.
+**加密货币代表着对世界经济体系的根本升级。**一旦它们完全启动并融入未来的全球和行星际网络中，世界将看起来与我们只能开始的方式截然不同 了解。
 
-Hundreds of years from now, today’s economies will look like the feudal economies of the past.
+从现在起数百年，今天的经济将看起来像过去的封建经济。
 
 ![](https://cdn-images-1.medium.com/max/600/1*SUddgH7g770fXRjiMemq9g.png)
 
-Cyrptocurrencies, decentralized apps and DAOs even hold the possibility of bootstrapping us into **Star Trek like post-scarcity economies** but it will take time.
+加密货币，去中心化应用程序和 DAO 甚至有可能将我们带入 **Star Trek，就像后稀缺经济** 一样，但这需要时间。
 
-I’m not betting on Singularity level acceleration taking us there tomorrow, even if I sprinkle the Singularity into all my sci-fi work because it’s the stuff of great fiction. But it’s probably not reality.
+即使我将 Singularity 加入我的所有科幻作品中，我都不会以奇点级别的加速度下将我们带到那里，因为这是很棒的小说。 但它可能不是现实。
 
-If I’m wrong, then my uploaded and snapshotted virtual mind, running on a global fog of computronium in a [Matroishka brain](https://www.youtube.com/watch?v=Ef-mxjYkllw) will just have to deal with it.
+如果我错了，那么我上传和快照的虚拟头脑，在 [Matroishka 大脑](https://www.youtube.com/watch?v=Ef-mxjYkllw)上运行在全球大量的计算机上，只需要 处理它。
 
-But I doubt it.
+但我怀疑它。
 
-So where does that leave us?
+那么，我们在哪里？
 
-Crypto will be both good and evil like everything in life.
+加密将会像生活中的一切一样成为善与恶。
 
-If you’re working on crypto then you’re building the world of tomorrow but don’t expect it to arrive next week.
+如果你在加密工作，那么你正在构建明天的世界，但不要指望它会在下周到达。
 
-Inertia has a way of slowing down even the fastest rockets.
+惯性有一种放慢速度的办法，即使是最快的火箭也是如此。
 
-Just enjoy the ride while we boldly go where no one has gone before.
+只要我们大胆地走到没有人去过的地方，就可以享受骑行。
 
-As always, thanks for reading.
-一如既往，谢谢阅读。
+谢谢一如既往的阅读。
 
 ---
 
