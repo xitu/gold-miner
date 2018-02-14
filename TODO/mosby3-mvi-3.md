@@ -15,49 +15,49 @@
 
 <iframe width="894" height="503" src="https://www.youtube.com/embed/WWeRn0tMoXM" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
-正如你所见，上面的演示内容，就是根据不同的类型显示商品列表。这个 APP 中每个类型只显示三个项。另外, the user can do pull-to-refresh and once the user has scrolled down to the end of the list more categories are loaded (pagination). Of course all this actions can be executed simultaneously and each of them could also fail (i.e. no internet connection).
+正如你所见，上面的演示内容，就是根据不同的类型显示商品列表。这个 APP 中每个类型只显示三个项,用户可以点击加载更多，来加载更多的商品（http请求）。另外, 另外，用户可以使用上拉刷新去更新不同类型下的商品，并且，当用户加载到最低端的时候，可以加载更多类型的商品（加载下一页的商品）。 当然，当出现异常的时候，所有的这些动作执行过程与正常加载时候类似，只不过显示的内容不同（例如：显示网络错误）。
 
-Let’s implement this step by step. First, let’s define the View interface.
+让我们一步一步实现这个页面。第一步定义View的接口。
 
 ```
 public interface HomeView {
 
   /**
-   * The intent to load the first page
+   * 加载首页意图
    *
    * @return The value of the emitted item (boolean) can be ignored. true or false has no different meaning.
    */
   public Observable<Boolean> loadFirstPageIntent();
 
   /**
-   * The intent to load the next page (pagination)
+   * 加载下一页意图
    *
    * @return The value of the emitted item (boolean) can be ignored. true or false has no different meaning.
    */
   public Observable<Boolean> loadNextPageIntent();
 
   /**
-   * The intent to react on pull-to-refresh
+   * 上拉刷新意图
    *
    * @return The value of the emitted item (boolean) can be ignored. true or false has no different meaning.
    */
   public Observable<Boolean> pullToRefreshIntent();
 
   /**
-   * The intent to load more items from a given category
+   * 下拉加载更多意图
    *
    * @return Observable with the name of the category
    */
   public Observable<String> loadAllProductsFromCategoryIntent();
 
   /**
-   * Renders the viewState
+   * 渲染
    */
   public void render(HomeViewState viewState);
 }
 ```
 
-The concrete View implementation is pretty straight forward and therefore I won’t show the code here (can be found [on github](https://github.com/sockeqwe/mosby/blob/master/sample-mvi/src/main/java/com/hannesdorfmann/mosby3/sample/mvi/view/home/HomeFragment.java)). Next let’s focus on the Model. As already said in previous posts the Model should reflect the State. So let’s introduce a Model called **HomeViewState**:
+View的具体实现灰常简单，并且我不想把代码贴在这里(你可以在[github上看到](https://github.com/sockeqwe/mosby/blob/master/sample-mvi/src/main/java/com/hannesdorfmann/mosby3/sample/mvi/view/home/HomeFragment.java))。下一步，让我们聚焦Model。我前面的文章也说过Model应该代表状态(State)。因此让我们去实现我们的 **HomeViewState**:
 
 ```
 public final class HomeViewState {
@@ -75,7 +75,7 @@ public final class HomeViewState {
 }
 ```
 
-Note that **FeedItem** is just a interface every item has to implement that is displayable by the RecyclerView. For example **Product implements FeedItem**. Also the category title displayed in the recycler **SectionHeader implements FeedItem**. The UI element that indicates that more items of that category can be loaded is a FeedItem and holds internally it’s own little State to indicate whether or not we are loading more Items of a certain category:
+注意 **FeedItem**  是一个将要显示在RecyclerView上项的接口。例如**上例中的每一项产品实现FeedItem接口**。那么每一个在RecycleView上，种类的标示文字 **SectionHeader实现FeedItem**。加载更多的UI元素也是需要实现FeedItem，并且，它内部有一个小的状态，去标示我们在当前类型下是否加载更多项:
 
 ```
 public class AdditionalItemsLoadable implements FeedItem {
@@ -88,7 +88,7 @@ public class AdditionalItemsLoadable implements FeedItem {
    // ... getters  ...
 ```
 
-And last but not least there is a business logic component **HomeFeedLoader** responsible to load **FeedItems**:
+最后，也是比较重要的是我们的业务逻辑部分 **HomeFeedLoader** 的责任是加载 **FeedItems**:
 
 ```
 public class HomeFeedLoader {
@@ -107,7 +107,7 @@ public class HomeFeedLoader {
 }
 ```
 
-Now let’s connect the dots step by step in our Presenter. Please note that some code shown here as part of the Presenter should rather be moved into an Interactor in a real world application (which I didn’t for the sake of better readability). First, lets start with loading the initial data
+现在让我们一步一步的将上面分开的部分用Presenter连接起来。请注意，当在正式环境中这里展现的一部分Presenter的代码需要被移动到一个Interactor中（我没按照规范写是因为可以更好理解）。第一，让我们开始加载初始化数据
 
 ```
 class HomePresenter extends MviBasePresenter<HomeView, HomeViewState> {
@@ -129,7 +129,7 @@ class HomePresenter extends MviBasePresenter<HomeView, HomeViewState> {
 }
 ```
 
-So far so good, no big difference to how we have implemented the “search screen” as described in [part 2](http://hannesdorfmann.com/android/mosby3-mvi-2). Now let’s try to add support for pull-to-refresh.
+到现在为止，貌似和我们在[第二部分(已翻译)](https://juejin.im/post/5a7ef3af6fb9a0634a390d20)描述的构建搜索页面是一样的。 现在，我们需要添加上拉刷新的功能。
 
 ```
 class HomePresenter extends MviBasePresenter<HomeView, HomeViewState> {
@@ -155,15 +155,15 @@ class HomePresenter extends MviBasePresenter<HomeView, HomeViewState> {
 }
 ```
 
-Use Observable.merge() to merge together multiple intents.
+使用Observable.merge（）将多个意图合并在一起。
 
-But wait: **feedLoader.loadNewestPage()** only returns “newer” items but what about the previous items we have already loaded? In “traditional” MVP one would call something like **view.addNewItems(newItems)** but we have already discussed in [part 1](http://hannesdorfmann.com/android/mosby3-mvi-1) why this is a bad idea (“The State Problem”). The problem we are facing now is that pull-to-refresh depends on the previous HomeViewState since we want to “merge” the previous items with the items returned from pull-to-refresh.
+但是等等: **feedLoader.loadNewestPage()** 仅仅返回"最新"的项，但是关于前面我们已经加载的项如何处理？在"传统"的MVP中，那么可以通过调用类似于 **view.addNewItems(newItems)** 来处理这个问题。但是我们已经在这个系列的[第一篇(已翻译)](https://juejin.im/post/5a52e4445188257334228b28)中讨论过这为什么是一个不好的办法（“状态问题”）。现在我们面临的问题是上拉刷新依赖于先前的HomeViewState,我们想当下拉刷新完成以后，将新取得的项与原来的项合并。
 
-**Ladies and Gentlemen please give a warm welcome to the STATE REDUCER**
+**女士们，先生们让我们掌声有请--Mr.状态减少（STATE REDUCER）**
 
 ![MVI](/images/mvi-mosby3/standingovation3.gif)
 
-State Reducer is a concept from functional programming that takes the previous state as input and computes a new state from the previous state like this:
+状态减少(STATE REDUCER)是函数式编程里面的重要内容，它提供了一种机制能够让以前的状态作为输入现在的状态作为输出，例如:
 
 ```
 public State reduce( State previous, Foo foo ){
@@ -173,7 +173,7 @@ public State reduce( State previous, Foo foo ){
 }
 ```
 
-The idea is that such a reduce() function combines the previous state with foo to compute a new state. Foo typically represents the changes we want to apply to the previous state. In our case we want to “reduce” the previous HomeViewState (originally computed from loadFirstPageIntent) with the result from pull-to-refresh. Guess what, RxJava has an operator for that called **scan()**. Let’s refactor our code a little bit. We have to introduce another class representing the partial change (the thing we have called Foo in the previous code snipped) that will be used to compute the new state.
+这个想法是这样一个reduce()函数结合了前一个状态和foo来计算一个新的状态。Foo类型代表我们想让先前状态发生的变化。在这个案例中，我们通过下拉刷新，想"减少(reduce)"HomeViewState的先前状态生成我们希望的结果。你猜如何，RxJava提供了一个操作符叫做 **scan()**. 让我们重构一点我们的代码。我们不得不去描述另一个代表部分变化（在先前的代码片段中，我们称之为Foo）的类，这个类将用来计算新的状态。
 
 ```
 class HomePresenter extends MviBasePresenter<HomeView, HomeViewState> {
@@ -209,7 +209,7 @@ class HomePresenter extends MviBasePresenter<HomeView, HomeViewState> {
 }
 ```
 
-So what we did here is, that each Intent now returns an Observable<PartialState> rather then directly Observable<HomeViewState>. Then we merge them all into one observable stream with **Observable.merge()** and finally apply the reducer function (**Observable.scan()**). Basically what this means is that, whenever the user starts an intent, this intent will produce **PartialState** objects which then will be “reduced” to a **HomeViewState** that then eventually will be displayed in the View (HomeView.render(HomeViewState)). The only missing part is the state reducer function itself. The HomeViewState class itself hasn’t changed (scroll up to see the class definition), but we have added a Builder (Builder pattern) so that we can create new HomeViewState objects in a convenient way. So let’s implement the state reducer function:
+因此，我们这里在做的是。每个意图(Intent)现在会返回一个Observable<PartialState> 而不是直接返回Observable<HomeViewState>。然后，我们用Observable.merge()去合并它们到一个观察流，最后再应用减少(reducer)方法(Observable.scan())。这也就意味着，无论何时用户开启一个意图，这个意图将生成一个 **PartialState** 对象，这个对象将被"减少(reduced)"成为 **HomeViewState** 然后将被显示到View上(HomeView.render(HomeViewState))。还有一点剩下的部分，就是reducer函数自己的状态。HomeViewState类它自己没有变化(向上滑动你可看到这个类的定义)。但是我们需要添加一个Builder(Builder模式)因此我们可以创建一个新的HomeViewState 对象用一种比较方便的方式。因此让我们实现状态减少(state reducer)的方法:
 
 ```
 private HomeViewState viewStateReducer(HomeViewState previousState, PartialState changes){
@@ -260,9 +260,9 @@ private HomeViewState viewStateReducer(HomeViewState previousState, PartialState
 }
 ```
 
-I know, all these **instanceof** checks are not super pretty but that is not the point of this blog post. Why does technical bloggers write “ugly” code like the one shown above? It’s because we want to make a point on a certain topic without requiring the reader to have a full mental model of the source code i.e. of our shopping cart app nor prior knowledge of certain design patterns. Therefore, I think it is better to avoid design patterns in blog posts which would produce nicer code but may lead to harder readable blog posts. The focus of this blog post is set on state reducer. By looking at the state reducer with instanceof checks everybody can understand what the reducer does. Should you use instanceof checks in your app? No, use design patterns or other solutions like defining PartialState as interface with a method like **public HomeViewState computeNewState(previousState)**. In general you may find [RxSealedUnions](https://github.com/pakoito/RxSealedUnions) by Paco Estevez useful when building apps with MVI.
+我知道，所有的 **instanceof** 检查不是一个特别好的方法，但是，这个不是这篇博客的重点。为啥技术博客就不能写"丑"的代码？我仅仅是想让我的观点能够让读者很快的理解和明白。我认为这是一个好的方法去避免一些博客写的一手好代码但是没几个人能看懂。我们这篇博客的聚焦点在状态减少上。通过 instanceof 检查所有的东西，我们可以理解状态减少到底是什么玩意。你应该用 instanceof 检查在你的 APP 中么？不应该，用设计模式或者其他的解决方法像定义 PartialState 作为接口带有一个 **public HomeViewState computeNewState(previousState)**。方法。通常情况下Paco Estevez 的 [RxSealedUnions](https://github.com/pakoito/RxSealedUnions) 库变得十分有用当我们使用MVI构建App的时候。
 
-Alright, I think you get the idea how a state reducer works. Let’s implement the remaining features as well: Pagination and the ability to load more items of a certain category:
+好的，我认为你已经理解了状态减少(state reducer)的工作原理。让我们实现剩下的方法：当前种类加载更多的功能:
 
 ```
 class HomePresenter extends MviBasePresenter<HomeView, HomeViewState> {
@@ -372,11 +372,11 @@ class HomePresenter extends MviBasePresenter<HomeView, HomeViewState> {
 }
 ```
 
-Implementing pagination (loading next “page” of items) is pretty the same as pull-to-refresh except that we are adding the loaded items at the end of the list instead of the top of the list as we do with pull-to-refresh. More interesting is how we deal with loading more items of a certain category. Well, for displaying a loading indicator and an error / retry button for a given category we only have to search for the corresponding AdditionalItemsLoadable object in the list of all FeedItems. Then we change that item to either show loading indicator or error / retry button. If we have loaded all items of a certain category successfully we search for the SectionHeader and AdditionalItemsLoadable and replace all items in between with the newly loaded items. That’s it.
+实现分页功能（加载下一页的项）类似于下拉刷新，除了在下拉刷新中，我们把数据是更新到上面，而在这里我们把数据更新到当前分类数据的后面。当然，显示加载指示器，错误/重试按钮的实现，我们仅仅秩序需要找到对应的 AdditionalltemsLoadable 对象在 FeedItems 列表中。然后，我们改变项的显示为错误/重新加载按钮。如果我们已经成功的加载了当前分类的所有的项，我们找到 SectionHeader和AdditionaltemsLoadable，并且替换所有的项在新的项加载项之前。
 
-## Conclusion
+## 总结
 
-The aim of this blog post was to show you how a state reducer can help us to build complex screens with very little and understandable code. Just step back and think how you would have implemented that with “traditional” MVP or MVVM without a state reducer? The key to be able to use a state reducer is obviously that we have a Model class that is reflecting the State. Therefore, it was very important to understand what a Model actually is as described in the [first part](http://hannesdorfmann.com/android/mosby3-mvi-1) of this blog post series. Also, a state reducer can only be used if we are sure that the State (or Model to be precise) comes from a single source of truth. Therefore, a unidirectional data flow is very important. I hope that now it makes more sense why we have spend part 1 and part 2 on these topics and that you now got this “aha” moment where all the dots connect together. If not, no worries, it took quite some time for me too (and a lot of practice and a lot of mistakes and retries).
+这个篇博客的目标是为了向大家展示什么是状态减少，状态减少如何帮助大家用很少的代码去实现构建复杂的的页面。回过头来看，你可以实现"传统"的MVP或MVVM而不用状态减少?用状态减少的关键是我们用一个Model类来反应一种状态。因此，理解第一篇博客所写的什么是Model是十分重要的。并且，状态减少有且被用在如果我们明确的知道状态来自单个源头。因此，单项数据流也是十分重要的。我希望在理解这篇博客值钱吗需要先理解前几篇博客的内容。将所有分离的知识点联系起来。不要慌，这花了我很多时间（很多联系，错误和重试），你会比我花更少的时间的。
 
 You may be wondering why we haven’t used a state reducer for the “Search Screen” (see [part 2](http://hannesdorfmann.com/android/mosby3-mvi-2)). State Reducer make mostly sense if we are depending on the previous state somehow. In the “Search Screen” we are not depending on the previous state.
 
