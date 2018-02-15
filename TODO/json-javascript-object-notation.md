@@ -13,7 +13,7 @@
 
 ## 编码，解析简单的数据类型
 
-JSON 编码器原生支持 Python 的基本类型 (`str`, `int`, `float`, `list`, `tuple`, and `dict`).
+JSON 编码器原生支持 Python 的基本类型 (`str`, `int`, `float`, `list`, `tuple`, 和 `dict`).
 
 ```
 # json_simple_types.py
@@ -70,7 +70,7 @@ DECODED : <class 'list'>
 
 ## 可读性 vs. 紧凑型输出
 
-相较于[`pickle`](https://pymotw.com/3/pickle/index.html#module-pickle)，JSON 可读性更好。 `dumps（）` 函数接收若干参数来优化输出的可读性。例如，`sort_keys`参数告诉编码器以排序而不是随机顺序输出字典的键的值。
+相较于[`pickle`](https://pymotw.com/3/pickle/index.html#module-pickle)，JSON 可读性更好。 `dumps()` 函数接收若干参数来优化输出的可读性。例如，`sort_keys`参数告诉编码器以排序而不是随机顺序输出字典的键的值。
 
 ```
 # json_sort_keys.py
