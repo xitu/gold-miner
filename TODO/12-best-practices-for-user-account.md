@@ -154,14 +154,20 @@ When your service does expire a user session or require re-authentication, promp
 ## 使用两步身份验证
 
 Consider the practical impact on a user of having their account stolen when choosing from [2-Step Verification](https://www.google.com/landing/2step/) (also known as 2-factor authorization or just 2FA) methods. SMS 2FA auth has been [deprecated by NIST](https://pages.nist.gov/800-63-3/sp800-63b.html) due to multiple weaknesses, however, it may be the most secure option your users will accept for what they consider a trivial service. Offer the most secure 2FA auth you reasonably can. Enabling third-party identity providers and piggybacking on their 2FA is a simple means to boost your security without great expense or effort.
-
-
-
+ 
+要考虑当用户选择 [两步验证](https://www.google.com/landing/2step/) (也称两因素验证或只是 2FA)方法而账户被盗后的实际影响。由于有许多缺陷,SMS 2FA 认证 [被 NIST 反对](https://pages.nist.gov/800-63-3/sp800-63b.html),然而,它或许是你的用户考虑到这是一项微不足道的服务时会接受的最安全的选择了。请尽可能提供你能提供的最安全的 2FA 认证。支持第三方身份验证和在他们的 2FA 上面打包是个十分简单的方法,使你能够不花费太多力气就能提高你的安全度。
+ 
 ## Make user IDs case insensitive
-
+ 
+## 用户 ID 不区分大小写
+ 
 Your users don't care and may not even remember the exact case of their username. Usernames should be fully case-insensitive. It's trivial to store usernames and email addresses in all lowercase and transform any input to lowercase before comparing.
-
+ 
+你的用户不会关心或者甚至可能并不记得他们确切的用户名。用户名应该完全不区分大小写。与输入时将所有字符转换为小写相比,存储时将用户名和邮件地址全部保存为小写显得十分微不足道。
+ 
 Smartphones represent an ever-increasing percentage of user devices. Most of them offer autocorrect and automatic capitalization of plain-text fields. Preventing this behavior at the UI level might not be desirable or completely effective, and your service should be robust enough to handle an email address or username that was unintentionally auto-capitalized.
+
+
 
 ## Build a secure auth system
 
