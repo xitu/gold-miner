@@ -378,16 +378,16 @@ class HomePresenter extends MviBasePresenter<HomeView, HomeViewState> {
 
 这个篇博客的目标是为了向大家展示什么是状态减少，状态减少如何帮助大家用很少的代码去实现构建复杂的的页面。回过头来看，你可以实现"传统"的MVP或MVVM而不用状态减少?用状态减少的关键是我们用一个Model类来反应一种状态。因此，理解第一篇博客所写的什么是Model是十分重要的。并且，状态减少有且被用在如果我们明确的知道状态来自单个源头。因此，单项数据流也是十分重要的。我希望在理解这篇博客值钱吗需要先理解前几篇博客的内容。将所有分离的知识点联系起来。不要慌，这花了我很多时间（很多联系，错误和重试），你会比我花更少的时间的。
 
-You may be wondering why we haven’t used a state reducer for the “Search Screen” (see [part 2](http://hannesdorfmann.com/android/mosby3-mvi-2)). State Reducer make mostly sense if we are depending on the previous state somehow. In the “Search Screen” we are not depending on the previous state.
+你也许会想，为什么我们在第二部分搜索页面不用状态减少(看[第二部分](http://hannesdorfmann.com/android/mosby3-mvi-2))。状态减少大多数用在，我们依赖于上一次状态的场景下。在“搜索页面下”我们不依赖于先前状态。
 
-Last but not least, I would like to point out, if you haven’t noticed that yet (without going to much into details), that all our data is immutable (we always create a new HomeViewState, we never call a setter method on any object). Therefore, also mutli-threading is super easy. The user can start pull-to-refresh at the same time as loading the next page and load more items of a certain category because the state reducer is able to produce the correct state without depending on any particular order of the http responses. Additionally, we have written our code with pure functions, no [side-effects](https://en.wikipedia.org/wiki/Side_effect_(computer_science)). This makes our code super testable, reproducible, simple to reason about and highly parallelizable (mutli-threading).
+最后但是同样重要的是，我想指出，如果你也同样注意到（没有太多细节）,就是我们所有的数据都是不变的(我们总是在不停的创建新的 HomeViewState,我们没有在任何一个对象里调用任何一个 setter 方法)。因此，多线程将变得非常简单。用户可以上拉刷新的同时下拉加载更多和加载当前分类的更多项因为状态减少生成当前状态不依赖于特有的 HTTP 请求。另外，我们写我们的代码用的是纯函数没有[副作用](https://en.wikipedia.org/wiki/Side_effect_(computer_science))。它使我们的代码非常容易的测试，重构，简单的逻辑和高度可并行化（多线程）。
 
-Of course state reducer wasn’t invented for MVI. You find the concept of a state reducer in many other libraries, frameworks and systems across multiple programming languages. A state reducer fits perfectly into the philosophy of Model-View-Intent with an unidirectional data flow and a Model representing the State.
+当然，状态减少不是MVI创造的。你可以在其他库，架构和其他多语言中找到状态减少的概念。状态减少机制非常符合MVI中的单项数据流和Model代表状态的这种特性。
 
-In the next part we are focusing on how to build reusable and reactive UI components with MVI.
+在下一个部分我们将关注与如何用MVI来构建可复用的响应式UI组件。
 
-**This post is part of the blog post series "Reactive Apps with Model-View-Intent".
-Here is the Table of Content:**
+这篇博客是"Reactive Apps with Model-View-Intent"这个系列博客的一部分。
+这里是内容表:
 
 * [Part 1: Model](http://hannesdorfmann.com/android/mosby3-mvi-1)
 * [Part 2: View and Intent](http://hannesdorfmann.com/android/mosby3-mvi-2)
