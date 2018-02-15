@@ -166,9 +166,9 @@ Your users don't care and may not even remember the exact case of their username
 你的用户不会关心或者甚至可能并不记得他们确切的用户名。用户名应该完全不区分大小写。与输入时将所有字符转换为小写相比,存储时将用户名和邮件地址全部保存为小写显得十分微不足道。
  
 Smartphones represent an ever-increasing percentage of user devices. Most of them offer autocorrect and automatic capitalization of plain-text fields. Preventing this behavior at the UI level might not be desirable or completely effective, and your service should be robust enough to handle an email address or username that was unintentionally auto-capitalized.
-
-
-
+ 
+智能手机的使用代表用户设备所占的比重不断增加。他们大多数提供纯文本字段的自动更正和自动资本化功能。
+ 
 ## Build a secure auth system
 
 If you're using a service like Firebase Auth, a lot of security concerns are handled for you automatically. However, your service will always need to be engineered properly to prevent abuse. Core considerations include implementing a [password reset](https://firebase.google.com/docs/auth/web/manage-users#send_a_password_reset_email) instead of password retrieval, detailed account activity logging, rate limiting login attempts, locking out accounts after too many unsuccessful login attempts and requiring 2-factor authentication for unrecognized devices or accounts that have been idle for extended periods. There are many more aspects to a secure authentication system, so please see the section below for links to more information.
