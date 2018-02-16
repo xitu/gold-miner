@@ -159,7 +159,6 @@ Consider the practical impact on a user of having their account stolen when choo
 要考虑当用户选择 [两步验证](https://www.google.com/landing/2step/) (也称两因素验证或只是 2FA)方法而账户被盗后的实际影响。由于有许多缺陷,SMS 2FA 认证 [被 NIST 反对](https://pages.nist.gov/800-63-3/sp800-63b.html),然而,它或许是你的用户考虑到这是一项微不足道的服务时会接受的最安全的选择了。请尽可能提供你能提供的最安全的 2FA 认证。支持第三方身份验证和在他们的 2FA 上面打包是个十分简单的方法,使你能够不花费太多力气就能提高你的安全度。
  
 ## Make user IDs case insensitive
- 
 ## 用户 ID 不区分大小写
 
 Your users don't care and may not even remember the exact case of their username. Usernames should be fully case-insensitive. It's trivial to store usernames and email addresses in all lowercase and transform any input to lowercase before comparing.
@@ -170,22 +169,38 @@ Your users don't care and may not even remember the exact case of their username
 
 Smartphones represent an ever-increasing percentage of user devices. Most of them offer autocorrect and automatic capitalization of plain-text fields. Preventing this behavior at the UI level might not be desirable or completely effective, and your service should be robust enough to handle an email address or username that was unintentionally auto-capitalized.
  
+ 
 智能手机的使用代表用户设备所占的比重不断增加。他们大多数提供纯文本字段的自动更正和自动资本化功能。
  
 ## Build a secure auth system
 
+
+## 建立一个安全认证系统
+ 
 If you're using a service like Firebase Auth, a lot of security concerns are handled for you automatically. However, your service will always need to be engineered properly to prevent abuse. Core considerations include implementing a [password reset](https://firebase.google.com/docs/auth/web/manage-users#send_a_password_reset_email) instead of password retrieval, detailed account activity logging, rate limiting login attempts, locking out accounts after too many unsuccessful login attempts and requiring 2-factor authentication for unrecognized devices or accounts that have been idle for extended periods. There are many more aspects to a secure authentication system, so please see the section below for links to more information.
 
+
+如果你在使用一个像 Firebase Auth 一样的设备,大量的安全隐患都会自动帮你处理。然而,你的设备总是需要正确地设计以防滥用。核心的问题包括实现 [密码重置](https://firebase.google.com/docs/auth/web/manage-users#send_a_password_reset_email)而不是密码检索,详细账户活动日志,限制登录尝试率,多次登录尝试不成功后锁定账户以及需双因素识别已长时间限制的未知设备或账户。安全认证系统还有很多方面,所以请查看下方的链接获取更多信息。
+ 
 ## Further reading
+ 
+## 进一步阅读
 
 There are a number of excellent resources available to guide you through the process of developing, updating or migrating your account and authentication management system. I recommend the following as a starting place:
 
+
+还有很多优秀的可用资源可以指导你的开发进程,更新或迁移你的账户和认证管理系统。我建议以下为出发点:
+  
 - NIST 800-063B covers Authentication and Lifecycle Management 
 - OWASP continually updates their Password Storage Cheat Sheet 
 - OWASP goes into even more detail with the Authentication Cheat Sheet 
 - Google's Firebase Authentication site has a rich library of guides, reference materials and sample code
-
-
+ 
+ 
+- NIST 800-063B 包含认证和生命周期管理
+- OWASP 持续更新密码存储备忘单
+- OWASP 使用认证备忘单进行深入研究
+- Google 的 Firebase 认证网站有丰富的指南库,参考资料和示例代码
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
