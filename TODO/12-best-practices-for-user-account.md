@@ -196,7 +196,8 @@ There are a number of excellent resources available to guide you through the pro
 - Google's Firebase Authentication site has a rich library of guides, reference materials and sample code
  
  
-- NIST 800-063B 包含认证和生命周期管理
+
+- NIST 800-063B 包含认证和生命周期管理
 - OWASP 持续更新密码存储备忘单
 - OWASP 使用认证备忘单进行深入研究
 - Google 的 Firebase 认证网站有丰富的指南库,参考资料和示例代码
