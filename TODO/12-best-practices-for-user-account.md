@@ -183,7 +183,6 @@ If you're using a service like Firebase Auth, a lot of security concerns are han
 如果你在使用一个像 Firebase Auth 一样的设备,大量的安全隐患都会自动帮你处理。然而,你的设备总是需要正确地设计以防滥用。核心的问题包括实现 [密码重置](https://firebase.google.com/docs/auth/web/manage-users#send_a_password_reset_email)而不是密码检索,详细账户活动日志,限制登录尝试率,多次登录尝试不成功后锁定账户以及需双因素识别已长时间限制的未知设备或账户。安全认证系统还有很多方面,所以请查看下方的链接获取更多信息。
  
 ## Further reading
- 
 ## 进一步阅读
 
 There are a number of excellent resources available to guide you through the process of developing, updating or migrating your account and authentication management system. I recommend the following as a starting place:
