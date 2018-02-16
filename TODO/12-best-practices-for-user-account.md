@@ -176,7 +176,7 @@ Smartphones represent an ever-increasing percentage of user devices. Most of the
 
 
 ## 建立一个安全认证系统
- 
+
 If you're using a service like Firebase Auth, a lot of security concerns are handled for you automatically. However, your service will always need to be engineered properly to prevent abuse. Core considerations include implementing a [password reset](https://firebase.google.com/docs/auth/web/manage-users#send_a_password_reset_email) instead of password retrieval, detailed account activity logging, rate limiting login attempts, locking out accounts after too many unsuccessful login attempts and requiring 2-factor authentication for unrecognized devices or accounts that have been idle for extended periods. There are many more aspects to a secure authentication system, so please see the section below for links to more information.
 
 
@@ -191,17 +191,21 @@ There are a number of excellent resources available to guide you through the pro
 还有很多优秀的可用资源可以指导你的开发进程,更新或迁移你的账户和认证管理系统。我建议以下为出发点:
   
 - NIST 800-063B covers Authentication and Lifecycle Management 
-- OWASP continually updates their Password Storage Cheat Sheet 
-- OWASP goes into even more detail with the Authentication Cheat Sheet 
-- Google's Firebase Authentication site has a rich library of guides, reference materials and sample code
- 
- 
- 
 
 - NIST 800-063B 包含认证和生命周期管理
+
+- OWASP continually updates their Password Storage Cheat Sheet 
+
 - OWASP 持续更新密码存储备忘单
+
+- OWASP goes into even more detail with the Authentication Cheat Sheet 
+
 - OWASP 使用认证备忘单进行深入研究
+
+- Google's Firebase Authentication site has a rich library of guides, reference materials and sample code
+
 - Google 的 Firebase 认证网站有丰富的指南库,参考资料和示例代码
+ 
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
