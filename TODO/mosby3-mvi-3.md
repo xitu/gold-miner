@@ -5,7 +5,7 @@
 > * 译者：
 > * 校对者：
 
-# 使用MVI开发响应式APP - 第三部分 - 状态减少（state reducer）
+# 使用 MVI 开发响应式 APP - 第三部分 - 状态减少（state reducer）
 
 在[前面的系列里](http://hannesdorfmann.com/android/mosby3-mvi-2) 我们已经讨论了如何用 Model-View-Intent 模式和单向数据流去实现一个简单的页面。在这篇博客里我们将要实现更加复杂页面，这个页面将有助于我们理解状态减少(state reducer)。
 
