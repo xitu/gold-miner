@@ -15,7 +15,7 @@
 
 - [**7 Steps To Room**: A step by step guide on how to migrate your app to Room medium.com](https://medium.com/google-developers/7-steps-to-room-27a5fe5f99b2)
 
-不过，如果你的数据库较大的话或者有复杂的查询操作，实现所有 entity 类，DAO 类，DAO的测试类并且替换 `SQLiteOpenHelper` 的使用就会耗费很多时间。你最终会需要一个大改动的 pull request，去实现这些和检查。让我们看看你怎么通过可管理的 PR（pull request），逐步从 SQLite 迁移到 Room。 
+不过，如果你的数据库较大或者有复杂的查询操作的话，实现所有 entity 类，DAO 类，DAO的测试类并且替换 `SQLiteOpenHelper` 的使用就会耗费很多时间。你最终会需要一个大改动的 pull request，去实现这些和检查。让我们看看你怎么通过可管理的 PR（pull request），逐步从 SQLite 迁移到 Room。 
 
 #### 文长不读的话，可以看下面的概括点：
 
@@ -86,7 +86,7 @@ public abstract class AppDatabase extends RoomDatabase {
 
 ### 更新使用 SQLiteOpenHelper 的类
 
-一开始，我们的 `LocalDataSource` 类是使用 `CustomOpenHelper` 进行工作，现在我要把它更新为使用 `**SupportSQLiteOpenHelper**`，这个类可以从  [`RoomDatabase.getOpenHelper()`](https://developer.android.com/reference/android/arch/persistence/room/RoomDatabase.html#getOpenHelper%28%29) 获得。
+一开始，我们的 `LocalDataSource` 类使用 `CustomOpenHelper` 进行工作，现在我要把它更新为使用 `**SupportSQLiteOpenHelper**`，这个类可以从  [`RoomDatabase.getOpenHelper()`](https://developer.android.com/reference/android/arch/persistence/room/RoomDatabase.html#getOpenHelper%28%29) 获得。
 
 ```
 public class LocalUserDataSource {
@@ -169,7 +169,7 @@ public User getFirstUserAlphabetically() {
     }
 ```
 
-> 如果你没有对你的 SQLiteOpenHelper 实现类进行测试的话，那我强烈推荐你先测试下再进行这个迁移的工作，避免发生更新了性能反而下降的问题。
+> 如果你没有对你的 SQLiteOpenHelper 实现类进行测试的话，那我强烈推荐你先测试下再进行这个迁移的工作，避免产生相关 bug。
 
 ### 其余的 PR
 
@@ -198,7 +198,7 @@ public class LocalDataSource {
 
 * * *
 
-在单一一个 PR 中，把 SQLite 迁移一个大型的数据库到 Room 会生成很多新文件和更新过后的文件。这需要一定时间去实现，所以会导致后续的 PR 难以检查。在最开始的 PR，先使用 `RoomDatabase` 提供的 OpenHelper 从而让代码最小程度地改动，然后在接下来的 PR 中才逐渐创建 DAO 类去替换 `Cursor` 和 `ContentValue` 的代码。
+在单一一个 PR 中，把 SQLite 迁移一个大型的数据库到 Room 会生成很多新文件和更新过后的文件。这需要一定时间去实现，因此导致 PR 更难检查。在最开始的 PR，先使用 `RoomDatabase` 提供的 OpenHelper 从而让代码最小程度地改动，然后在接下来的 PR 中才逐渐创建 DAO 类去替换 `Cursor` 和 `ContentValue` 的代码。
 
 想了解 Room 的更多相关信息，请阅读下面这些文章：
 
