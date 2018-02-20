@@ -3,9 +3,9 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/incrementally-migrate-from-sqlite-to-room.md](https://github.com/xitu/gold-miner/blob/master/TODO/incrementally-migrate-from-sqlite-to-room.md)
 > * 译者：[IllllllIIl](https://github.com/IllllllIIl)
-> * 校对者：
+> * 校对者：[tanglie1993](https://github.com/tanglie1993), [jaymz1439](https://github.com/jaymz1439)
 
-# 从 SQLite 逐步迁移到 Room 
+# 从 SQLite 逐步迁移到 Room
 
 ![](https://cdn-images-1.medium.com/max/2000/1*zoWpyj2lq7EpWiRuIhBwuQ.png)
 
