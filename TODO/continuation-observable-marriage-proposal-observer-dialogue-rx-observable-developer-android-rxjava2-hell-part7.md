@@ -5,7 +5,7 @@
 > * 译者：[dieyidezui](http://dieyidezui.com)
 > * 校对者：
 
-# Continuation (Observable Marriage Proposal to Observer) of Dialogue between Rx Observable and a Developer (Me) [ Android RxJava2 ] ( What the hell is this ) Part7
+# 大话（Observable 向 Observer 求婚）之我与 Rx Observable [Android RxJava2]（这是什么鬼）第七话
 
 又是新的一天，是时候学些新知识了。
 
