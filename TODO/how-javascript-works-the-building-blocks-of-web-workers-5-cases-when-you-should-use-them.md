@@ -3,13 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/how-javascript-works-the-building-blocks-of-web-workers-5-cases-when-you-should-use-them.md](https://github.com/xitu/gold-miner/blob/master/TODO/how-javascript-works-the-building-blocks-of-web-workers-5-cases-when-you-should-use-them.md)
 > * 译者：[刘嘉一](https://github.com/lcx-seima)
-> * 校对者：
+> * 校对者：[缪宇](https://github.com/goldEli)，[MechanicianW](https://github.com/MechanicianW)
 
 # JavaScript 工作原理：Web Worker 的内部构造以及 5 种你应当使用它的场景
 
 ![](https://cdn-images-1.medium.com/max/800/0*b5WMJNTRt9QqN-Zy.jpg)
 
-这是探索 JavaScript 及其内建组件系列文章的第 7 篇。在认识和描述这些核心元素的过程中，我们也会分享我们在构建 [SessionStack](https://www.sessionstack.com/?utm_source=medium&utm_medium=source&utm_content=javascript-series-web-workers-intro) 时所遵循的一些经验规则。SessionStack 是一个轻量级 JavaScript 应用，它协助用户们构造出实时性要求高的 Web 应用，因此其自身不仅需要足够健壮还要有不俗的性能表现。
+这是探索 JavaScript 及其内建组件系列文章的第 7 篇。在认识和描述这些核心元素的过程中，我们也会分享我们在构建 [SessionStack](https://www.sessionstack.com/?utm_source=medium&utm_medium=source&utm_content=javascript-series-web-workers-intro) 时所遵循的一些经验规则。SessionStack 是一个轻量级 JavaScript 应用，它协助用户实时查看和复现他们的 Web 应用缺陷，因此其自身不仅需要足够健壮还要有不俗的性能表现。
 
 如果你错过了前面的文章，你可以在下面找到它们：
 
@@ -17,12 +17,12 @@
 * [深入 V8 引擎以及 5 个写出更优代码的技巧](https://juejin.im/post/5a102e656fb9a044fd1158c6)
 * [内存管理以及四种常见的内存泄漏的解决方法](https://juejin.im/post/59ca19ca6fb9a00a42477f55)
 * [事件循环和异步编程的崛起以及 5 个如何更好的使用 async/await 编码的技巧](https://juejin.im/post/5a221d35f265da43356291cc)
-* [深入剖析 WebSockets 和拥有 SSE 技术 的 HTTP/2，以及如何在二者中做出正确的选择](https://blog.sessionstack.com/how-javascript-works-deep-dive-into-websockets-and-http-2-with-sse-how-to-pick-the-right-path-584e6b8e3bf7?source=collection_home---4------0----------------)
-* [How JavaScript works: A comparison with WebAssembly + why in certain cases it’s better to use it over JavaScript](https://blog.sessionstack.com/how-javascript-works-a-comparison-with-webassembly-why-in-certain-cases-its-better-to-use-it-d80945172d79)
+* [JavaScript 是如何工作的：深入剖析 WebSockets 和拥有 SSE 技术 的 HTTP/2，以及如何在二者中做出正确的选择](https://juejin.im/post/5a522647518825732d7f6cbb)
+* [JavaScript 工作原理：与 WebAssembly 一较高下 + 为何 WebAssembly 在某些情况下比 JavaScript 更为适用](https://blog.sessionstack.com/how-javascript-works-a-comparison-with-webassembly-why-in-certain-cases-its-better-to-use-it-d80945172d79)
 
 这一次我们将剖析 Web Worker：对它进行简单概述后，我们将分别讨论不同类型的 Worker 以及它们内部组件的运作方法，同时也会以场景为例说明它们各自的优缺点。在文章的最后，我们将讲解最适合使用 Web Worker 的 5 个场景。
 
-我们在 [之前的文章](https://blog.sessionstack.com/how-does-javascript-actually-work-part-1-b0bacc073cf) 中已经详尽地讨论了 JavaScript 的单线程运行机制，对此你应当已经了然于胸。不管怎样，JavaScript 是允许开发者在单线程模型上书写异步代码的。
+我们在 [之前的文章](https://juejin.im/post/5a522647518825732d7f6cbb) 中已经详尽地讨论了 JavaScript 的单线程运行机制，对此你应当已经了然于胸。然而，JavaScript 是允许开发者在单线程模型上书写异步代码的。
 
 #### 异步编程的 “天花板”
 
@@ -119,7 +119,7 @@ function averageAsync(numbers, callback) {
 
 Web Worker 是内建在浏览器中的轻量级 **线程**，使用它执行 JavaScript 代码不会阻塞 event loop。
 
-非常神奇吧，本来 JavaScript 中的所有范例都是基于单线程模型实现的，但这里的 Web Worker 却（在一定程度上）打破了这一限制。
+非常神奇吧，本来 JavaScript 中的所有范例都是基于单线程模型实现的，但这里的 Web Worker 却（在一定程度上）突破了这一限制。
 
 从此开发者可以远离 UI 阻塞的困扰，通过把一些执行时间长、计算密集型的任务放到后台交由 Web Worker 完成，使他们的应用响应变得更加迅速。更重要的是，我们再也不需要对 event loop 施加任何的 `setTimeout` 黑魔法。
 
@@ -131,7 +131,7 @@ Web Worker 允许你在执行大量计算密集型任务时，还不阻塞 UI �
 
 你可能想说 — ”JavaScript 不是一个在单线程上执行的语言吗？“。
 
-你可能会惊讶 JavaScript 作为一门编程语言，却没有定义任何的线程模型。因此 Web Worker 并不属于 JavaScript 语言的一部分，它仅仅是浏览器提供的一项特性，只是它使用了 JavaScript 作为访问中介罢了。过往的众多浏览器都是单线程程序（以前的理所当然，现在也有了些许变化），并且浏览器一直以来也是 JavaScript 主要的运行环境。对比在 Node.JS 中就没有 Web Worker 的相关实现 — 虽然 Web Worker 对应着 Node.JS 中的 “cluster” 或 “child_process” 概念，不过它们还是有所区别的。
+你可能会惊讶 JavaScript 作为一门编程语言，却没有定义任何的线程模型。因此 Web Worker 并不属于 JavaScript 语言的一部分，它仅仅是浏览器提供的一项特性，只是它可以被 JavaScript 访问、调用罢了。过往的众多浏览器都是单线程程序（以前的理所当然，现在也有了些许变化），并且浏览器一直以来也是 JavaScript 主要的运行环境。对比在 Node.JS 中就没有 Web Worker 的相关实现 — 虽然 Web Worker 对应着 Node.JS 中的 “cluster” 或 “child_process” 概念，不过它们还是有所区别的。
 
 值得注意的是，Web Worker 的 [定义](http://www.whatwg.org/specs/web-workers/current-work/) 中一共包含了 3 种类型的 Worker：
 
@@ -155,7 +155,7 @@ Shared Worker 可以被同一域（浏览器中不同的 tab、iframe 或其他 
 
 Shared Worker 浏览器兼容一览
 
-#### Service worker（服务 Worker）
+#### Service Worker（服务 Worker）
 
 Service Worker 是一个事件驱动型 Worker，它的初始化注册需要网页/站点的 origin 和路径信息。一个注册好的 Service Worker 可以控制相关网页/网站的导航、资源请求以及进行粒度化的资源缓存操作，因此你可以极好地控制应用在特定环境下的表现（如：无网络可用时）。
 
@@ -277,7 +277,7 @@ bc.close()
 
 #### Web Worker 中支持的 JavaScript 特性
 
-因为 Web Worker 的多线程天性使然，它只能访问 **一小撮** JavaScript 提供的特性，列表如下：
+因为 Web Worker 的多线程天性使然，它只能使用 **一小撮** JavaScript 提供的特性，列表如下：
 
 * `navigator` 对象
 * `location` 对象（只读）
@@ -296,7 +296,7 @@ bc.close()
 * `document` 对象
 * `parent` 对象
 
-这意味着 Web Worker 不能做任何的 DOM 操作（也就是 UI 层面的工作）。刚开始这会显得略微棘手，不过一旦你学会了如何正确使用 Web Worker。你就只会把 Web Worker 用作单独的 ”计算机器“ ，而把所有的 UI 操作放到页面代码中。你可以把所有的脏活累活都交给 Web Worker 完成，再将它劳作的结果传到页面并在那里进行必要的 UI 操作。
+这意味着 Web Worker 不能做任何的 DOM 操作（也就是 UI 层面的工作）。刚开始这会显得略微棘手，不过一旦你学会了如何正确使用 Web Worker。你就只会把 Web Worker 用作单独的 ”计算机器“，而把所有的 UI 操作放到页面代码中。你可以把所有的脏活累活都交给 Web Worker 完成，再将它劳作的结果传到页面并在那里进行必要的 UI 操作。
 
 #### 异常处理
 
@@ -336,9 +336,9 @@ self.addEventListener('message', function(e) {
 
 * **光线追踪（Ray Tracing）：**：光线追踪属于计算机图形学中的 [渲染（Rendering）](https://en.wikipedia.org/wiki/Rendering_%28computer_graphics%29 "Rendering (computer graphics)") 技术，它会追踪并转换[光线](https://en.wikipedia.org/wiki/Light "Light") 的轨迹为一个个像素点，最终生成一张完整的图片。为模拟光线的轨迹，光线追踪需要 CPU 进行大量的数学计算。光线追踪包括模拟光的反射、折射及物质效果等。以上所有的计算逻辑都可以交给 Web Worker 完成，从而不阻塞 UI 线程的执行。或者更好的方案是使用多个 Worker （以及多个 CPU）来完成图片渲染。这有一个使用 Web Worker 进行光线追踪的 demo — [https://nerget.com/rayjs-mt/rayjs.html](https://nerget.com/rayjs-mt/rayjs.html).
 
-* **加密：** 针对个人敏感数据的保护条例变得日益严格，端对端的数据加密也变得更为流行。当程序中需要经常加密大量数据时（如向服务器发送数据），加密成为了非常耗时的工作。Web Worker 可以非常好的切入此类场景，因为这里不涉及任何的 DOM 操作，Worker 中仅仅运行一些专为加密的算法。Worker 会勤恳地默默工作，丝毫不被打扰用户，也绝不会影响用户的体验。
+* **加密：** 针对个人敏感数据的保护条例变得日益严格，端对端的数据加密也变得更为流行。当程序中需要经常加密大量数据时（如向服务器发送数据），加密成为了非常耗时的工作。Web Worker 可以非常好的切入此类场景，因为这里不涉及任何的 DOM 操作，Worker 中仅仅运行一些专为加密的算法。Worker 会勤恳地默默工作，丝毫不会打扰用户，也绝不会影响用户的体验。
 
-* **数据预读：** 为优化你的网站或 web 应用的数据加载时长，你可以使用 Web Worker 预先获取一些数据，存储起来以备后续使用。Web Worker 在这里发挥着重要作用，因为它绝不会影响应用的 UI 体验，若不使用 Web Worker 情况会变得异常糟糕。
+* **数据预获取：** 为优化你的网站或 web 应用的数据加载时长，你可以使用 Web Worker 预先获取一些数据，存储起来以备后续使用。Web Worker 在这里发挥着重要作用，因为它绝不会影响应用的 UI 体验，若不使用 Web Worker 情况会变得异常糟糕。
 
 * **Progressive Web App：** 当网络状态不是很理想时，你仍需保证 PWA 有较快的加载速度。这就意味着 PWA 的数据需要被持久化到本地浏览器中。在此背景下，一些与 [IndexDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API) 类似的 API 便应运而生了。从根本上来说，客户端一侧需要有数据存储能力。为保证存取时不阻塞 UI 线程，这部分工作理应交给 Web Worker 完成。好吧，在 IndexDB 中你可以不使用 Web Worker，因为它提供的异步 API 同样不会阻塞 UI。但是在这之前，IndexDB 提供的是同步API（可能会被再次引入），这种情况使用 Web Worker 还是非常有必要的。
 
@@ -346,7 +346,7 @@ self.addEventListener('message', function(e) {
 
 对 [SessionStack](https://www.sessionstack.com/?utm_source=medium&utm_medium=source&utm_content=javascript-series-web-workers-outro) 来说，保持高性能和高可靠性是极其重要的. 持有这种理念的主要原因是，一旦你的应用集成 SessionStack 后，它会开始记录从 DOM 变化、用户交互行为到网络请求、未捕获异常和 debug 信息的所有数据。收集到的跟踪数据会被 **实时** 发送到后台服务器，以视频的形式向你还原应用中出现的问题，帮助你从用户的角度重现错误现场。这一切功能的实现需要足够的快并且不能给你的应用带来任何性能上的负担。
 
-这就是为什么我们尽可能地把 SessionStack 中，值得优化的业务逻辑交给 Web Worker 完成的原因。诸如在核心监控库和播放器中，都包含了像 hash 数据完整性验证、渲染等 CPU 密集型任务，这些都是值得使用 Web Worker 优化的地方。
+这就是为什么我们尽可能地把 SessionStack 中，值得优化的业务逻辑交给 Web Worker 完成。诸如在核心监控库和播放器中，都包含了像 hash 数据完整性验证、渲染等 CPU 密集型任务，这些都是值得使用 Web Worker 优化的地方。
 
 Web 技术持续向前变更和发展，所以我们宁肯先行一步也要保证 SessionStack 是一个不会给用户 app 带来任何性能损耗的轻量级应用。
 
