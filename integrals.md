@@ -3179,10 +3179,11 @@
 |[前端调试技巧与诀窍](https://juejin.im/post/5901e8d6a0bb9f0065e64f63)|校对|2|
 |[别让你的偏爱拖了后腿：快拥抱箭头函数吧！](https://juejin.im/post/59158c92a0bb9f005fd58fd7)|校对|2|
 
-## 译者：[changkun](https://github.com/changkun) 历史贡献积分：99.2 当前积分：99.2
+## 译者：[changkun](https://github.com/changkun) 历史贡献积分：108.2 当前积分：108.2 年度积分：9
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译校对|9|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|6|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|8|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|7|
@@ -3458,10 +3459,11 @@
 |------|-------|-------|
 |[是的，ES2017 （ES8）来了](https://juejin.im/post/596713b75188250da20604cb)|翻译|3|
 
-## 译者：[tobiaslee](https://github.com/tobiaslee) 历史贡献积分：60.5 当前积分：30.5
+## 译者：[tobiaslee](https://github.com/tobiaslee) 历史贡献积分：61.5 当前积分：31.5 年度积分：1
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译校对|1|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|6|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|9|
 |[TensorFlow 官方文档翻译校对]()|翻译|3.5|
@@ -3568,10 +3570,11 @@
 |[深度学习系列4: 为什么你需要使用嵌入层](https://juejin.im/post/599183c6f265da3e2e5717d2)|校对|1|
 |[深度学习系列3 - CNNs 以及应对过拟合的详细探讨](https://juejin.im/post/598f25b15188257d8643173d)|翻译|4|
 
-## 译者：[jasonxia23](https://github.com/jasonxia23) 历史贡献积分：16 当前积分：16
+## 译者：[jasonxia23](https://github.com/jasonxia23) 历史贡献积分：23 当前积分：23 年度积分：7
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译校对|7|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译校对|5|
 |[基于 TensorFlow 的上下文聊天机器人](https://juejin.im/entry/5992cd385188252433704fa3)|校对|1|
 |[关于 Node.js 的认证方面的教程（很可能）是有误的](https://juejin.im/post/599f955d51882511264e7f69)|校对|2|
@@ -4108,10 +4111,11 @@
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|1|
 |[Vue Report 2017](https://juejin.im/post/5a138fae5188254d28732899)|翻译|2|
 
-## 译者：[JohnJiangLA](https://github.com/JohnJiangLA) 历史贡献积分：44 当前积分：-16
+## 译者：[JohnJiangLA](https://github.com/JohnJiangLA) 历史贡献积分：63 当前积分：3 年度积分：29
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译校对|19|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|10|
 |[2017 年 1 月兑 小猫和树莓派套餐各 1 个]()|减去积分|60|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|11|
@@ -4600,10 +4604,11 @@
 |[开发者也是用户 - 简介](https://juejin.im/post/5a6536e6518825734216ff06)|校对|1|
 |[智对订阅难点：教你如何应对工作中 10 种常见订阅问题](https://juejin.im/post/5a406644f265da430d583cb7)|校对|1.5|
 
-## 译者：[pkuwwt](https://github.com/pkuwwt) 历史贡献积分：52 当前积分：52
+## 译者：[pkuwwt](https://github.com/pkuwwt) 历史贡献积分：77 当前积分：77 年度积分：25
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译校对|25|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|45|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|7|
 
@@ -4695,10 +4700,11 @@
 |[断点：像专家一样调试代码](https://juejin.im/post/5a72be42518825733b0f374e)|校对|1|
 |[17 个 Xcode 小技巧，每个 iOS 开发者都该知道](https://juejin.im/post/5a7198ac51882573505189c8)|校对|1|
 
-## 译者：[wzy816](https://github.com/wzy816) 历史贡献积分：17.5 当前积分：17.5
+## 译者：[wzy816](https://github.com/wzy816) 历史贡献积分：26 当前积分：26 年度积分：26
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译校对|8.5|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译校对|5|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译校对|6|
 |[2018 前端性能优化清单 - 第 3 部分](https://juejin.im/post/5a702160f265da3e4b771109)|校对|2|
@@ -4803,10 +4809,11 @@
 |------|-------|-------|
 |[为 Django Framework 贡献你的力量并没有想象中的那么难](https://juejin.im/post/5a77cd6e5188257a79247fe1)|校对|1|
 
-## 译者：[GanymedeNil](https://github.com/GanymedeNil) 历史贡献积分：2 当前积分：2
+## 译者：[GanymedeNil](https://github.com/GanymedeNil) 历史贡献积分：3 当前积分：3 年度积分：3
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译校对|1|
 |[为 Flask Web 应用配置 Nginx](https://juejin.im/post/5a795febf265da4e94499949)|校对|2|
 
 ## 译者：[Vsevorod](https://github.com/Vsevorod) 历史贡献积分：12 当前积分：12
@@ -4832,3 +4839,21 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[如果你想让用户回来，为什么前十分钟是至关重要的？](https://juejin.im/entry/5a7fe27f5188257a6854ce6a)|校对|1|
+
+## 译者：[filosfino](https://github.com/filosfino) 历史贡献积分：7 当前积分：7 年度积分：7
+
+|文章|类型|积分|
+|------|-------|-------|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译校对|7|
+
+## 译者：[PeterChenYijie](https://github.com/PeterChenYijie) 历史贡献积分：2 当前积分：2 年度积分：2
+
+|文章|类型|积分|
+|------|-------|-------|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译校对|2|
+
+## 译者：[jaymz1439](https://github.com/jaymz1439) 历史贡献积分：1.5 当前积分：1.5 年度积分：1.5
+
+|文章|类型|积分|
+|------|-------|-------|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译校对|1.5|
