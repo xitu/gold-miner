@@ -4,7 +4,6 @@
 > * 译者：[rottenpen](https://github.com/rottenpen)
 > * 校对者：[loveky](https://github.com/loveky) [avocadowang](https://github.com/avocadowang) 
 
-
 # 将函数作为子组件的组件 #
 
 我最近在 Twitter 上发起了关于高阶组件和将函数作为子类的组件的投票，得到的结果让我很意外。
@@ -286,9 +285,10 @@ exportdefault connect(...., MyComponent);
 2. [react-motion](https://github.com/chenglou/react-motion) 这个项目在讲了很长一段时间这个概念之后，高阶组件才演变出函数作为子类组件的组件。
 
 ### 不好之处（补充翻译 by 老教授） ###
-虽然函数作为子组件的组件这种模式可以让你在渲染的时候更灵活，但是，在不特地改动你的组件的前提下，你没法用标准的SCU对它进行优化。这个Dan（Redux作者）在tweeter上说过了。
 
-不过Dan也提到这里有一个灰色地带：“很多情况下其实这并不是问题，react-motion就用了这种模式，依然跑得好好的”。
+虽然函数作为子组件的组件这种模式可以让你在渲染的时候更灵活，但是，在不特地改动你的组件的前提下，你没法用标准的 SCU 对它进行优化。这个 Dan（Redux 作者）在 tweeter 上说过了。
+
+不过 Dan 也提到这里有一个灰色地带：“很多情况下其实这并不是问题，react-motion 就用了这种模式，依然跑得好好的”。
 
 目前为止我个人并没有发现它成为性能的阻碍。即便是高阶组件也会有类似问题，也时常要接收一些未知的属性，所以也经常要做些特殊优化。
 
