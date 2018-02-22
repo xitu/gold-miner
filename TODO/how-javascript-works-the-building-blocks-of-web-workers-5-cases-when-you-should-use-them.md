@@ -2,60 +2,60 @@
 > * 原文作者：[Alexander Zlatkov](https://blog.sessionstack.com/@zlatkov?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/how-javascript-works-the-building-blocks-of-web-workers-5-cases-when-you-should-use-them.md](https://github.com/xitu/gold-miner/blob/master/TODO/how-javascript-works-the-building-blocks-of-web-workers-5-cases-when-you-should-use-them.md)
-> * 译者：
-> * 校对者：
+> * 译者：[刘嘉一](https://github.com/lcx-seima)
+> * 校对者：[缪宇](https://github.com/goldEli)，[MechanicianW](https://github.com/MechanicianW)
 
-# How JavaScript works: The building blocks of Web Workers + 5 cases when you should use them
+# JavaScript 工作原理：Web Worker 的内部构造以及 5 种你应当使用它的场景
 
 ![](https://cdn-images-1.medium.com/max/800/0*b5WMJNTRt9QqN-Zy.jpg)
 
-This is post # 7 of the series dedicated to exploring JavaScript and its building components. In the process of identifying and describing the core elements, we also share some rules of thumb we use when building [SessionStack](https://www.sessionstack.com/?utm_source=medium&utm_medium=source&utm_content=javascript-series-web-workers-intro), a lightweight JavaScript application that has to be robust and highly-performant to help users see and reproduce their web app defects real-time.
+这是探索 JavaScript 及其内建组件系列文章的第 7 篇。在认识和描述这些核心元素的过程中，我们也会分享我们在构建 [SessionStack](https://www.sessionstack.com/?utm_source=medium&utm_medium=source&utm_content=javascript-series-web-workers-intro) 时所遵循的一些经验规则。SessionStack 是一个轻量级 JavaScript 应用，它协助用户实时查看和复现他们的 Web 应用缺陷，因此其自身不仅需要足够健壮还要有不俗的性能表现。
 
-If you missed the previous chapters, you can find them here:
+如果你错过了前面的文章，你可以在下面找到它们：
 
-* A[n overview of the engine, the runtime, and the call stack](https://blog.sessionstack.com/how-does-javascript-actually-work-part-1-b0bacc073cf?source=collection_home---2------1----------------)
-* [Inside Google’s V8 engine + 5 tips on how to write optimized code](https://blog.sessionstack.com/how-javascript-works-inside-the-v8-engine-5-tips-on-how-to-write-optimized-code-ac089e62b12e?source=collection_home---2------2----------------)
-* [Memory management + how to handle 4 common memory leaks](https://blog.sessionstack.com/how-javascript-works-memory-management-how-to-handle-4-common-memory-leaks-3f28b94cfbec?source=collection_home---2------0----------------)
-* [The event loop and the rise of Async programming + 5 ways to better coding with async/await](https://blog.sessionstack.com/how-javascript-works-event-loop-and-the-rise-of-async-programming-5-ways-to-better-coding-with-2f077c4438b5)
-* [Deep dive into WebSockets and HTTP/2 with SSE + how to pick the right path](https://blog.sessionstack.com/how-javascript-works-deep-dive-into-websockets-and-http-2-with-sse-how-to-pick-the-right-path-584e6b8e3bf7?source=collection_home---4------0----------------)
-* [How JavaScript works: A comparison with WebAssembly + why in certain cases it’s better to use it over JavaScript](https://blog.sessionstack.com/how-javascript-works-a-comparison-with-webassembly-why-in-certain-cases-its-better-to-use-it-d80945172d79)
+* [对引擎、运行时和调用栈的概述](https://juejin.im/post/5a05b4576fb9a04519690d42)
+* [深入 V8 引擎以及 5 个写出更优代码的技巧](https://juejin.im/post/5a102e656fb9a044fd1158c6)
+* [内存管理以及四种常见的内存泄漏的解决方法](https://juejin.im/post/59ca19ca6fb9a00a42477f55)
+* [事件循环和异步编程的崛起以及 5 个如何更好的使用 async/await 编码的技巧](https://juejin.im/post/5a221d35f265da43356291cc)
+* [JavaScript 是如何工作的：深入剖析 WebSockets 和拥有 SSE 技术 的 HTTP/2，以及如何在二者中做出正确的选择](https://juejin.im/post/5a522647518825732d7f6cbb)
+* [JavaScript 工作原理：与 WebAssembly 一较高下 + 为何 WebAssembly 在某些情况下比 JavaScript 更为适用](https://blog.sessionstack.com/how-javascript-works-a-comparison-with-webassembly-why-in-certain-cases-its-better-to-use-it-d80945172d79)
 
-This time we’ll be taking apart Web Workers: we’ll offer an overview, discuss the different types of workers, how their building components come to play together, and what advantages and limitations they offer in different scenarios. Finally, we’ll provide 5 use cases in which Web Workers will be the right choice.
+这一次我们将剖析 Web Worker：对它进行简单概述后，我们将分别讨论不同类型的 Worker 以及它们内部组件的运作方法，同时也会以场景为例说明它们各自的优缺点。在文章的最后，我们将讲解最适合使用 Web Worker 的 5 个场景。
 
-You should already be familiar with the fact that JavaScript runs on a single thread as we have [discussed it previously](https://blog.sessionstack.com/how-does-javascript-actually-work-part-1-b0bacc073cf) in great detail. JavaScript, however, gives developers the opportunity to write asynchronous code too.
+我们在 [之前的文章](https://juejin.im/post/5a522647518825732d7f6cbb) 中已经详尽地讨论了 JavaScript 的单线程运行机制，对此你应当已经了然于胸。然而，JavaScript 是允许开发者在单线程模型上书写异步代码的。
 
-#### Limitations of Async programming
+#### 异步编程的 “天花板”
 
-We have discussed [async programming](https://blog.sessionstack.com/how-javascript-works-event-loop-and-the-rise-of-async-programming-5-ways-to-better-coding-with-2f077c4438b5?source=---------2----------------) previously and when it should be used.
+我们已经讨论过了 [异步编程](https://blog.sessionstack.com/how-javascript-works-event-loop-and-the-rise-of-async-programming-5-ways-to-better-coding-with-2f077c4438b5?source=---------2----------------) 的概念及其使用场景。
 
-Async programming enables your app UI to be responsive, by “scheduling” parts of the code to be executed a bit later in the event loop, thus allowing the UI rendering to be performed first.
+异步编程通过把部分代码 “放置” 到事件循环较后的时间点执行，保证了 UI 渲染始终处于较高的优先级，这样你的 UI 就不会出现卡顿无响应的情况。
 
-A good use case for async programming is making AJAX requests. Since requests can take a lot of time, they can be made asynchronously, and while the client is waiting for a response, other code can be executed.
+AJAX 请求是异步编程的最佳实践之一。通常网络请求不会在短时间内得到响应，因此异步的网络请求能让客户端在等待响应结果的同时执行其他业务代码。
 
 ```
-// This is assuming that you're using jQuery
+// 假设你使用了 jQuery
 jQuery.ajax({
     url: 'https://api.example.com/endpoint',
     success: function(response) {
-        // Code to be executed when a response arrives.
+        // 正确响应后需要执行的代码
     }
 });
 ```
 
-This, however, poses a problem — requests are handled by the WEB API of the browser, but how can other code be made asynchronous? For example, what if the code that is inside the success callback is very CPU intensive:
+当然这里有个问题，上例能够进行异步请求是依靠了浏览器提供的 API，其他代码又该如何实现异步执行呢？例如，在上例 success 回调函数中存在 CPU 密集型计算：
 
 ```
 
 var result = performCPUIntensiveCalculation();
 ```
 
-If the `performCPUIntensiveCalculation` is not an HTTP request but a blocking code (e.g. a huge `for` loop), there is no way to free up the event loop and unblock the UI of the browser — it will freeze and be unresponsive to the user.
+假如 `performCPUIntensiveCalculation` 不是一个 HTTP 请求，而是一段可以阻塞线程的代码（例：一段巨型 `for` 循环代码）。这样会使 event loop 不堪重负，浏览器 UI 也随之阻塞 —— 用户将面对卡顿无响应的网页。
 
-This means that asynchronous functions solve only a small part of the single-thread limitations of the JavaScript language.
+这就说明了使用异步函数只能解决 JavaScript 单线程模型带来的一小部分问题。
 
-In some cases, you can achieve good results in unblocking the UI from longer-running computations by using `setTimeout.` For example, by batching a complex computation in separate `setTimeout` calls, you can put them on separate “locations” in the event loop and this way buy time for the UI rendering/responsiveness to be performed.
+在一些因大量计算引起的 UI 阻塞问题中，使用 `setTimeout` 来解决阻塞的效果还不错。例如，我们可以把一系列的复杂计算分批放到单独的 `setTimeout` 中执行，这样做等于是把连续的计算分散到了 event loop 中的不同位置，以此为 UI 的渲染和事件响应让出了时间。
 
-Let’s take a look at a simple function that calculates the average of a numeric array:
+让我们来看一个简单的计算数组均值的函数：
 
 ```
 
@@ -76,7 +76,7 @@ function average(numbers) {
 }
 ```
 
-This is how you can rewrite the code above and “emulate” asynchronicity:
+下面是对上方代码的一个重写，使其获得了异步性：
 
 ```
 function averageAsync(numbers, callback) {
@@ -89,13 +89,13 @@ function averageAsync(numbers, callback) {
 
     function calculateSumAsync(i) {
         if (i < len) {
-            // Put the next function call on the event loop.
+            // 把下一次函数调用放入 event loop
             setTimeout(function() {
                 sum += numbers[i];
                 calculateSumAsync(i + 1);
             }, 0);
         } else {
-            // The end of the array is reached so we're invoking the callback.
+            // 计算完数组中所有元素后，调用回调函数返回结果
             callback(sum / len);
         }
     }
@@ -104,101 +104,101 @@ function averageAsync(numbers, callback) {
 }
 ```
 
-This will make use of the `setTimeout` function which will add each step of the calculation further down the event loop. Between each calculation, there will be enough time for other calculations to take place, necessary to unfreeze the browser.
+通过使用 `setTimeout` 可以把每一步计算都放置到 event loop 较后的时间点执行。在每两次的计算间隔，event loop 便会有足够的时间执行其他计算，从而保证浏览器不会一 ”冻“ 不动。
 
-#### Web Workers will save the day
+#### 拯救你于水火之中的 Web Worker
 
-[HTML5](https://www.w3schools.com/html/html5_intro.asp) has brought us lots of great things out of the box, including:
+[HTML5](https://www.w3schools.com/html/html5_intro.asp) 已经提供了不少开箱即用的好东西，包括：
 
-* SSE (which we have described and compared to WebSockets in a [previous post](https://blog.sessionstack.com/how-javascript-works-deep-dive-into-websockets-and-http-2-with-sse-how-to-pick-the-right-path-584e6b8e3bf7))
-* Geolocation
-* Application cache
-* Local Storage
-* Drag and Drop
-* **Web Workers**
+* SSE （在 [上一篇文章](https://blog.sessionstack.com/how-javascript-works-deep-dive-into-websockets-and-http-2-with-sse-how-to-pick-the-right-path-584e6b8e3bf7) 中已经谈过它的特性并与 WebSocket 进行了对比)
+* 地理信息
+* 应用缓存
+* LocalStorage
+* 拖放手势
+* **Web Worker**
 
-Web Workers are lightweight, in-browser **threads** that can be used to execute JavaScript code without blocking the event loop.
+Web Worker 是内建在浏览器中的轻量级 **线程**，使用它执行 JavaScript 代码不会阻塞 event loop。
 
-This is truly amazing. The whole paradigm of JavaScript is based on the idea of single-threaded environment but here come Web Workers which remove (partially) this limitation.
+非常神奇吧，本来 JavaScript 中的所有范例都是基于单线程模型实现的，但这里的 Web Worker 却（在一定程度上）突破了这一限制。
 
-Web Workers allow developers to put long-running and computationally intensive tasks on the background without blocking the UI, making your app even more responsive. What’s more, no tricks with the `setTimeout` are needed in order to hack your way around the event loop.
+从此开发者可以远离 UI 阻塞的困扰，通过把一些执行时间长、计算密集型的任务放到后台交由 Web Worker 完成，使他们的应用响应变得更加迅速。更重要的是，我们再也不需要对 event loop 施加任何的 `setTimeout` 黑魔法。
 
-Here is a simple [demo](http://afshinm.github.io/50k/) that shows the difference between sorting an array with and without Web Workers.
+这里有一个简单的数组排序 [demo](http://afshinm.github.io/50k/) ，其中对比了使用 Web Worker 和不使用 Web Worker 时的区别。
 
-#### **Overview of Web Workers**
+#### **Web Worker 概览**
 
-Web Workers allow you to do things like firing up long-running scripts to handle computationally intensive tasks, but without blocking the UI. In fact, it all takes place in parallel . Web Workers are truly multi-threaded.
+Web Worker 允许你在执行大量计算密集型任务时，还不阻塞 UI 进程。事实上，二者互不不阻塞的原因就是它们是并行执行的，可以看出 Web Worker 是货真价实的多线程。
 
-You might say — “Wasn’t JavaScript a single-threaded language?”.
+你可能想说 — ”JavaScript 不是一个在单线程上执行的语言吗？“。
 
-This should be your ‘aha!’ moment when you realize that JavaScript is a language, which doesn’t define a threading model. Web Workers are not part of JavaScript, they’re a browser feature which can be accessed through JavaScript. Most browsers have historically been single-threaded (this has, of course, changed), and most JavaScript implementations happen in the browser. Web Workers are not implemented in Node.JS — it has a concept of “cluster” or “child_process” which is a bit different.
+你可能会惊讶 JavaScript 作为一门编程语言，却没有定义任何的线程模型。因此 Web Worker 并不属于 JavaScript 语言的一部分，它仅仅是浏览器提供的一项特性，只是它可以被 JavaScript 访问、调用罢了。过往的众多浏览器都是单线程程序（以前的理所当然，现在也有了些许变化），并且浏览器一直以来也是 JavaScript 主要的运行环境。对比在 Node.JS 中就没有 Web Worker 的相关实现 — 虽然 Web Worker 对应着 Node.JS 中的 “cluster” 或 “child_process” 概念，不过它们还是有所区别的。
 
-It’s worth noting that the [specification](http://www.whatwg.org/specs/web-workers/current-work/) mentions three types of Web Workers:
+值得注意的是，Web Worker 的 [定义](http://www.whatwg.org/specs/web-workers/current-work/) 中一共包含了 3 种类型的 Worker：
 
-* [Dedicated Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers)
-* [Shared Workers](https://developer.mozilla.org/en-US/docs/Web/API/SharedWorker)
-* [Service workers](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorker_API)
+* [Dedicated Worker（专用 Worker）](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers)
+* [Shared Worker（共享 Worker）](https://developer.mozilla.org/en-US/docs/Web/API/SharedWorker)
+* [Service worker（服务 Worker）](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorker_API)
 
-#### Dedicated Workers
+#### Dedicated Worker（专用 Worker）
 
-Dedicated Web Workers are instantiated by the main process and can only communicate with it.
+Dedicated Worker 由主线程实例化且只能与它通信。
 
 ![](https://cdn-images-1.medium.com/max/800/1*ya4zMDfbNUflXhzKz9EBIw.png)
 
-Dedicated Workers browser support
+Dedicated Worker 浏览器兼容性一览
 
-#### Shared Workers
+#### Shared Worker（共享 Worker）
 
-Shared workers can be reached by all processes running on the same origin (different browser tabs, iframes or other shared workers).
+Shared Worker 可以被同一域（浏览器中不同的 tab、iframe 或其他 Shared Worker）下的所有线程访问。
 
 ![](https://cdn-images-1.medium.com/max/800/1*lzOIevUBVy5eWyf2kHf--w.png)
 
-Shared Workers browser support
+Shared Worker 浏览器兼容一览
 
-#### Service Workers
+#### Service Worker（服务 Worker）
 
-A Service Worker is an event-driven worker registered against an origin and a path. It can control the web page/site it is associated with, intercepting and modifying the navigation and resource requests, and caching resources in a very granular fashion to give you great control over how your app behaves in certain situations (e.g. when the network is not available.)
+Service Worker 是一个事件驱动型 Worker，它的初始化注册需要网页/站点的 origin 和路径信息。一个注册好的 Service Worker 可以控制相关网页/网站的导航、资源请求以及进行粒度化的资源缓存操作，因此你可以极好地控制应用在特定环境下的表现（如：无网络可用时）。
 
 ![](https://cdn-images-1.medium.com/max/800/1*6o2TRDmrJlS97vh1wEjLYw.png)
 
-Service Workers browser support.
+Service Worker 浏览器兼容一览
 
-In this post, we’ll focus on Dedicated Workers and refer to them as “Web Workers” or “Workers”.
+在本文中，我们主要讨论 Dedicated Worker，后文的 ”Web Worker“ 或 “Worker” 都默认指代它。
 
-#### How Web Workers work
+#### Web Worker 工作原理
 
-Web Workers are implemented as `.js` files which are included via asynchronous HTTP requests in your page. These requests are completely hidden from you by the [Web Worker API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API).
+最终实现 Web Worker 的是一堆 `.js` 文件，网页会通过异步 HTTP 请求来加载它们。当然 [Web Worker API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API) 已经包办了这一切，上述加载对使用者完全无感。
 
-Workers utilize thread-like message passing to achieve parallelism. They’re perfect for keeping your UI up-to-date, performant, and responsive for users.
+Worker 利用类似线程的消息机制保持了与主线程的平行，它是提升你应用 UI 体验的不二人选，使用 Worker 保证了 UI 渲染的实时性、高性能和快速响应。
 
-Web Workers run in an isolated thread in the browser. As a result, the code that they execute needs to be contained in a **separate file**. That’s very important to remember.
+Web Worker 是运行在浏览器内部的一条独立线程，因此需要使用 Web Worker 运行的代码块也必须存放在一个 **独立文件** 中。这一点需要牢记在心。
 
-Let’s see how a basic worker is created:
+让我们看看，如何创建一个基础 Worker：
 
 ```
 var worker = new Worker('task.js');
 ```
 
-If the “task.js” file exists and is accessible, the browser will spawn a new thread which downloads the file asynchronously. Right after the download is completed, it will be executed and the worker will begin.
-In case the provided path to the file returns a 404, the worker will fail silently.
+如果此处的 “task.js” 存在且能被访问，那么浏览器会创建一个新的线程去异步地下载源代码文件。一旦下载完成，代码将立刻执行，此时 Worker 也就开始了它的工作。
+如果提供的代码文件不存在返回 404，那么 Worker 会静默失败并不抛出异常。
 
-In order to start the created worker, you need to invoke the `postMessage` method:
+为了启动创建好的 Worker，你需要显式地调用 `postMessage` 方法：
 
 ```
 worker.postMessage();
 ```
 
-#### Web Worker communication
+#### Web Worker 通信
 
-In order to communicate between a Web Worker and the page that created it, you need to use the `postMessage` method or a [Broadcast Channel](https://developer.mozilla.org/en-US/docs/Web/API/BroadcastChannel).
+为了使创建好的 Worker 和创建它的页面能够通信，你需要使用 `postMessage` 方法或 [Broadcast Channel（广播通道）](https://developer.mozilla.org/en-US/docs/Web/API/BroadcastChannel).
 
-#### The postMessage method
+#### 使用 postMessage 方法
 
-Newer browsers support a `JSON` object as a first parameter to the method while older browsers support just a `string`.
+在较新的浏览器中，postMessage 方法支持 `JSON` 对象作为函数的第一个入参，但是在旧版本浏览器中它还是只支持 `string`。
 
-Let’s see an example of how the page that creates a worker can communicate back and forth with it, by passing a JSON object as a more “complicated” example. Passing a string is quite the same.
+下面的 demo 会展示 Worker 是如何与创建它的页面进行通信的，同时我们将使用 JSON 对象作为通信体好让这个 demo 看起来稍微 “复杂” 一点。若改为传递字符串，方法也不言而喻了。
 
-Let’s take a look at the following HTML page (or part of it to be more precise):
+让我们看看下面的 HTML 页面（或者准确地说是片段）：
 
 ```
 <button onclick="startComputation()">Start computation</button>
@@ -215,14 +215,14 @@ Let’s take a look at the following HTML page (or part of it to be more precise
 </script>
 ```
 
-And this is how our worker script will look like:
+这部分则是 Worker 脚本中的内容：
 
 ```
 self.addEventListener('message', function(e) {
   var data = e.data;
   switch (data.cmd) {
     case 'average':
-      var result = calculateAverage(data); // Some function that calculates the average from the numeric array.
+      var result = calculateAverage(data); // 一个计算数值型数组元素均值的函数
       self.postMessage(result);
       break;
     default:
@@ -231,82 +231,82 @@ self.addEventListener('message', function(e) {
 }, false);
 ```
 
-When the button is clicked, `postMessage` will be called from the main page. The `worker.postMessage` line passes the `JSON` object to the worker, adding `cmd` and `data` keys with their respective values. The worker will handle that message through the defined `message` handler.
+当主页面中的 button 被按下，触发调用了 `postMessage` 方法。`worker.postMessage` 这行代码会传递一个 `JSON` 对象给 Worker，对象中包含了 `cmd` 和 `data` 两个键以及它们对应的值。相应的，Worker 会通过定义的 `message` 响应方法拿到和处理上面传递过来的消息内容。
 
-When the message arrives, the actual computing is being performed in the worker, without blocking the event loop. The worker is checking the passed event `e` and executes just like a standard JavaScript function. When it’s done, the result is passed back to the main page.
+当消息到达 Worker 后，实际的计算便开始运行，这样完全不会阻塞 event loop。在此过程中，Worker 只会检查传递来的事件 `e`，然后像往常执行 JavaScript 函数一样继续执行。当最终执行完成，执行结果会回传回主页面。
 
-In the context of a worker, both the `self` and `this` reference the global scope for the worker.
+在 Worker 的执行上下文中，`self` 和 `this` 都指向 Worker 的全局作用域。
 
-> There are two ways to stop a worker: by calling `worker.terminate()` from the main page or by calling `self.close()` inside of the worker itself.
+> 有两种停止 Worker 的方法：1、在主页面中显示地调用 `worker.terminate()` ；2、在脚本中调用 `self.close()` 让 Worker 自行了断。
 
-#### Broadcast Channel
+#### Broadcast Channel（广播通道）
 
-The [Broadcast Channel](https://developer.mozilla.org/en-US/docs/Web/API/BroadcastChannel) is a more general API for communication. It lets us broadcast messages to all contexts sharing the same origin. All browser tabs, iframes, or workers served from the same origin can emit and receive messages:
+[Broadcast Channel](https://developer.mozilla.org/en-US/docs/Web/API/BroadcastChannel) 是更纯粹地为通信而生的 API。它允许我们在同域下的所有的上下文中发送和接收消息，包括浏览器 tab、iframe 和 Worker：
 
 ```
-// Connection to a broadcast channel
+// 创建一个到 Broadcast Channel 的连接
 var bc = new BroadcastChannel('test_channel');
 
-// Example of sending of a simple message
+// 发送一段简单的消息
 bc.postMessage('This is a test message.');
 
-// Example of a simple event handler that only
-// logs the message to the console
+// 这是一个简单的事件 handler
+// 我们会在 handler 中接收并打印消息到终端
 bc.onmessage = function (e) { 
   console.log(e.data); 
 }
 
-// Disconnect the channel
+// 断开与 Broadcast Channel 的连接
 bc.close()
 ```
 
-And visually, you can see what Broadcast Channels look like to make it more clear:
+下图会帮助你理解 Broadcast Channel 的工作原理：
 
 ![](https://cdn-images-1.medium.com/max/800/1*NVT6WbNrH_mQL64--b-l1Q.png)
 
-Broadcast Channel has more limited browser support though:
+使用 Broadcast Channel 会有更严格的浏览器兼容限制：
 
 ![](https://cdn-images-1.medium.com/max/800/1*81mCsOzyJj-HfQ1lP_033w.png)
 
-#### The size of messages
+#### 消息的大小
 
-There are 2 ways to send messages to Web Workers:
+一共有 2 种给 Web Worker 发送消息的方法：
 
-* **Copying the message:** the message is serialized, copied, sent over, and then de-serialized at the other end. The page and worker do not share the same instance, so the end result is that a duplicate is created on each pass. Most browsers implement this feature by automatically JSON encoding/decoding the value at either end. As expected, these data operations add significant overhead to the message transmission. The bigger the message, the longer it takes to be sent.
-* **Transferring the message:** this means that the original sender can no longer use it once sent. Transferring data is almost instantaneous. The limitation is that only [ArrayBuffer](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer) is transferable.
+* **拷贝消息：** 这种方法下消息会被序列化、拷贝然后再发送出去，接收方接收后则进行反序列化取得消息。因此上例中的页面和 Worker 不会共享同一个消息实例，它们之间每发送一次消息就会多创建一个消息副本。大多数浏览器都采用这样的发送方法，并且会在发送和接收端自动进行 JSON 编码/解码。如你所预料的，这些数据处理会给消息传送带来不小的负担。传送的消息越大，时间开销就越大。
+* **传递消息：** 使用这种方法意味着消息发送者一旦成功发送消息后，就再也无法使用发出的消息数据了。消息的传送几乎不耗费任何时间，美中不足的是只有 [ArrayBuffer](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer) 支持以这种方式发送。
 
-#### Features available to Web Workers
+#### Web Worker 中支持的 JavaScript 特性
 
-Web Workers have access **only to a subset** of JavaScript features due to their multi-threaded nature. Here’s the list of features:
+因为 Web Worker 的多线程天性使然，它只能使用 **一小撮** JavaScript 提供的特性，列表如下：
 
-* The `navigator` object
-* The `location` object (read-only)
+* `navigator` 对象
+* `location` 对象（只读）
 * `XMLHttpRequest`
-* `setTimeout()/clearTimeout()` and `setInterval()/clearInterval()`
-* The [Application Cache](https://www.html5rocks.com/tutorials/appcache/beginner/)
-* Importing external scripts using `importScripts()`
-* [Creating other web workers](https://www.html5rocks.com/en/tutorials/workers/basics/#toc-enviornment-subworkers)
+* `setTimeout()/clearTimeout()` 与 `setInterval()/clearInterval()`
+* [应用缓存](https://www.html5rocks.com/tutorials/appcache/beginner/)
+* 使用 `importScripts()` 引入外部 script
+* [创建其他的 Web Worker](https://www.html5rocks.com/en/tutorials/workers/basics/#toc-enviornment-subworkers)
 
-#### Web Worker limitations
+#### Web Worker 的局限性
 
-Sadly, Web Workers don’t have access to some very crucial JavaScript features:
+令人遗憾的是 Web Worker 无法访问一些非常重要的 JavaScript 特性：
 
-* The DOM (it’s not thread-safe)
-* The `window` object
-* The `document` object
-* The `parent` object
+* DOM 元素（访问不是线程安全的）
+* `window` 对象
+* `document` 对象
+* `parent` 对象
 
-This means that a Web Worker can’t manipulate the DOM (and thus the UI). It can be tricky at times, but once you learn how to properly use Web Workers, you’ll start using them as separate “computing machines” while all the UI changes will take place in your page code. The Workers will do all the heavy lifting for you and once the jobs are done, you’ll pass the results to the page which makes the necessary changes to the UI.
+这意味着 Web Worker 不能做任何的 DOM 操作（也就是 UI 层面的工作）。刚开始这会显得略微棘手，不过一旦你学会了如何正确使用 Web Worker。你就只会把 Web Worker 用作单独的 ”计算机器“，而把所有的 UI 操作放到页面代码中。你可以把所有的脏活累活都交给 Web Worker 完成，再将它劳作的结果传到页面并在那里进行必要的 UI 操作。
 
-#### Handling errors
+#### 异常处理
 
-As with any JavaScript code, you’ll want to handle any errors that are thrown in your Web Workers. If an error occurs while a worker is executing, the `ErrorEvent` is fired. The interface contains three useful properties for figuring out what went wrong:
+像对待任何 JavaScript 代码一样，你希望处理 Web Worker 抛出的任何错误。当 Worker 在运行时发生错误，它会触发 `ErrorEvent` 事件。该接口包含 3 个有用的属性，它们能帮助你定位代码出错的原因：
 
-* **filename** - the name of the worker script that caused the error
-* **lineno** - the line number where the error occurred
-* **message** - a description of the error
+* **filename** - 发生错误的 script 文件名
+* **lineno** - 发生错误的代码行号
+* **message** - 错误信息
 
-This is an example:
+这有一个例子：
 
 ```
 function onError(e) {
@@ -317,48 +317,48 @@ function onError(e) {
 
 var worker = new Worker('workerWithError.js');
 worker.addEventListener('error', onError, false);
-worker.postMessage(); // Start worker without a message.
+worker.postMessage(); // 不传递消息仅启动 Worker
 ```
 
 ```
 self.addEventListener('message', function(e) {
-  postMessage(x * 2); // Intentional error. 'x' is not defined.
+  postMessage(x * 2); // 此行故意使用了未声明的变量 'x'
 };
 ```
 
-Here, you can see that we created a worker and started listening for the `error` event.
+可以看到，我们在这儿创建了一个 Worker 并监听着它发出的 `error` 事件。
 
-Inside the worker (in `workerWithError.js`) we create an intentional exception by multiplying `x` by 2 while `x` is not defined in that scope. The exception is propagated to the initial script and `onError` is being invoked with information about the error.
+通过使用一个在作用域内未定义的变量 `x` 作乘法，我们在 Worker 内部（`workerWithError.js` 文件内）故意制造了一个异常。这个异常会被传递到最初创建 Worker 的 scrpit 中，同时调用 `onError` 函数。
 
-#### Good use cases for Web Workers
+#### Web Worker 的最佳实践
 
-So far we’ve listed the strengths and limitations of Web Workers. Let’s see now what are the strongest use-cases for them:
+到此为止我们已经见识了 Web Worker 的强悍与不足，下面就一起来看看最适合使用它的场景有哪些：
 
-* **Ray tracing**: ray tracing is a [rendering](https://en.wikipedia.org/wiki/Rendering_%28computer_graphics%29 "Rendering (computer graphics)") technique for generating an image by tracing the path of [light](https://en.wikipedia.org/wiki/Light "Light") as pixels. Ray tracing uses very CPU-intensive mathematical computations in order to simulate the path of light. The idea is to simulate some effects like reflection, refraction, materials, etc. All this computational logic can be added to a Web Worker to avoid blocking the UI thread. Even better — you can easily split the image rendering between several workers (and respectively between several CPUs). Here is a simple demo of ray tracing using Web Workers — [https://nerget.com/rayjs-mt/rayjs.html](https://nerget.com/rayjs-mt/rayjs.html).
+* **光线追踪（Ray Tracing）：**：光线追踪属于计算机图形学中的 [渲染（Rendering）](https://en.wikipedia.org/wiki/Rendering_%28computer_graphics%29 "Rendering (computer graphics)") 技术，它会追踪并转换[光线](https://en.wikipedia.org/wiki/Light "Light") 的轨迹为一个个像素点，最终生成一张完整的图片。为模拟光线的轨迹，光线追踪需要 CPU 进行大量的数学计算。光线追踪包括模拟光的反射、折射及物质效果等。以上所有的计算逻辑都可以交给 Web Worker 完成，从而不阻塞 UI 线程的执行。或者更好的方案是使用多个 Worker （以及多个 CPU）来完成图片渲染。这有一个使用 Web Worker 进行光线追踪的 demo — [https://nerget.com/rayjs-mt/rayjs.html](https://nerget.com/rayjs-mt/rayjs.html).
 
-* **Encryption:** end-to-end encryption is getting more and more popular due to the increasing rigorousness of regulations on personal and sensitive data. Encryption can be a something quite time-consuming, especially if there’s a lot of data that has to be frequently encrypted (before sending it to the server, for example). This is a very good scenario in which a Web Worker can be used since it doesn’t require any access to the DOM or anything fancy — it’s pure algorithms doing their job. Once in the worker, it is seamless to the end user and doesn’t impact thеir experience.
+* **加密：** 针对个人敏感数据的保护条例变得日益严格，端对端的数据加密也变得更为流行。当程序中需要经常加密大量数据时（如向服务器发送数据），加密成为了非常耗时的工作。Web Worker 可以非常好的切入此类场景，因为这里不涉及任何的 DOM 操作，Worker 中仅仅运行一些专为加密的算法。Worker 会勤恳地默默工作，丝毫不会打扰用户，也绝不会影响用户的体验。
 
-* **Prefetching data:** in order to optimize your website or web application and improve data loading time, you can leverage Web Workers to load and store some data in advance so that you can use it later when needed. Web Workers are amazing in this case because they won’t impact your app’s UI, unlike when this is done without workers.
+* **数据预获取：** 为优化你的网站或 web 应用的数据加载时长，你可以使用 Web Worker 预先获取一些数据，存储起来以备后续使用。Web Worker 在这里发挥着重要作用，因为它绝不会影响应用的 UI 体验，若不使用 Web Worker 情况会变得异常糟糕。
 
-* **Progressive Web Apps:** they have to load quickly even when the network connection is shaky. This means that data has to be stored locally in the browser. This is where [IndexDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API) or similar APIs comes into play. Basically, a client-side storage is needed. In order to be used without blocking the UI thread, the work has to be done in Web Workers. Well, in the case of IndexDB, there is an asynchronous API that allows you to do this even without workers, but there was a synchronous API before (it might be introduced again) which should only be used inside workers.
+* **Progressive Web App：** 当网络状态不是很理想时，你仍需保证 PWA 有较快的加载速度。这就意味着 PWA 的数据需要被持久化到本地浏览器中。在此背景下，一些与 [IndexDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API) 类似的 API 便应运而生了。从根本上来说，客户端一侧需要有数据存储能力。为保证存取时不阻塞 UI 线程，这部分工作理应交给 Web Worker 完成。好吧，在 IndexDB 中你可以不使用 Web Worker，因为它提供的异步 API 同样不会阻塞 UI。但是在这之前，IndexDB 提供的是同步API（可能会被再次引入），这种情况使用 Web Worker 还是非常有必要的。
 
-* **Spell checking:** a basic spell checker works in the following way — the program reads a dictionary file with a list of correctly spelled words. The dictionary is being parsed as a search tree to make the actual text search-efficient. When a word is provided to the checker, the program checks whether it exists in the pre-built search tree. If the word is not found in the tree, the user can be provided with alternate spellings, by substituting alternate characters and test if it’s a valid word — if it’s the word that the user wanted to write. All this processing can easily be offloaded to a Web Worker so that the user can just type words and sentences without any blocking of the UI, while the worker performs all the searching and providing of suggestions.
+* **拼写检查：** 进行拼写检查的基本流程如下 — 程序首先从词典文件中读取一系列拼写正确的单词。整个词典的单词会被解析为一个搜索树用于实际的文本搜索。当待测词语被输入后，程序会检查已建立的搜索树中是否存在该词。如果在搜索树中没有匹配到待测词语，程序会替换字符组成新的词语，并测试新的词语是否是用户期待输入的，如果是则会返回该词语。整个检测过程可以被轻松 “下放” 给 Web Worker 完成，Worker 会完成所有的词语检索和词语联想工作，这样一来用户的输入就不会阻塞 UI 了。
 
-Performance and reliability are very critical for us at [SessionStack](https://www.sessionstack.com/?utm_source=medium&utm_medium=source&utm_content=javascript-series-web-workers-outro). The reason why they’re so important is that once SessionStack is integrated into your web app, it starts recording everything from DOM changes and user interaction to network requests, unhandled exceptions and debug messages. All this data is transmitted to our servers in **real-time** which allows you to replay issues from your web apps as videos and see everything that happened to your users. This all takes place with minimum latency and no performance overhead for your app.
+对 [SessionStack](https://www.sessionstack.com/?utm_source=medium&utm_medium=source&utm_content=javascript-series-web-workers-outro) 来说，保持高性能和高可靠性是极其重要的. 持有这种理念的主要原因是，一旦你的应用集成 SessionStack 后，它会开始记录从 DOM 变化、用户交互行为到网络请求、未捕获异常和 debug 信息的所有数据。收集到的跟踪数据会被 **实时** 发送到后台服务器，以视频的形式向你还原应用中出现的问题，帮助你从用户的角度重现错误现场。这一切功能的实现需要足够的快并且不能给你的应用带来任何性能上的负担。
 
-This is why we’re offloading (wherever it makes sense) logic from both our monitoring library and our player to Web Workers that are handling very CPU-intensive tasks like hashing to validate data integrity, rendering, etc.
+这就是为什么我们尽可能地把 SessionStack 中，值得优化的业务逻辑交给 Web Worker 完成。诸如在核心监控库和播放器中，都包含了像 hash 数据完整性验证、渲染等 CPU 密集型任务，这些都是值得使用 Web Worker 优化的地方。
 
-Web technologies constantly change and develop so We go the extra mile to ensure SessionStack is very lightweight and has zero performance impact on our users’ apps.
+Web 技术持续向前变更和发展，所以我们宁肯先行一步也要保证 SessionStack 是一个不会给用户 app 带来任何性能损耗的轻量级应用。
 
-There is a free plan if you’d like to [give SessionStack a try](https://www.sessionstack.com/?utm_source=medium&utm_medium=source&utm_content=javascript-series-web-workers-try-now).
+如果阁下愿意试试 SessionStack ，这里有一个[免费的试用计划](https://www.sessionstack.com/?utm_source=medium&utm_medium=source&utm_content=javascript-series-web-workers-try-now)。
 
 ![](https://cdn-images-1.medium.com/max/800/1*YKYHB1gwcVKDgZtAEnJjMg.png)
 
-#### Resources
+#### 参考资料
 
 * [https://www.html5rocks.com/en/tutorials/workers/basics/](https://www.html5rocks.com/en/tutorials/workers/basics/)
 * [https://hacks.mozilla.org/2015/07/how-fast-are-web-workers/](https://hacks.mozilla.org/2015/07/how-fast-are-web-workers/)
-*   [https://developer.mozilla.org/en-US/docs/Web/API/Broadcast_Channel_API](https://developer.mozilla.org/en-US/docs/Web/API/Broadcast_Channel_API)
+* [https://developer.mozilla.org/en-US/docs/Web/API/Broadcast_Channel_API](https://developer.mozilla.org/en-US/docs/Web/API/Broadcast_Channel_API)
 
 
 ---
