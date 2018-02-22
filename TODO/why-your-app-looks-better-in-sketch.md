@@ -161,7 +161,7 @@ Sketch vs iOS 演示 APP - 自己试一下！
 
 * * *
 
-喜欢这个故事？在Medium这里留下一些掌声并且分享给你的iOS 设计/开发 朋友。想要持续获取移动app 设计/开发 的最新信息？ 在Twitter上关注我们： [https://twitter.com/nathangitter](https://twitter.com/nathangitter)
+喜欢这个故事？在Medium这里留下一些掌声👏👏👏 并且分享给你的iOS 设计/开发 朋友。想要持续获取移动app 设计/开发 的最新信息？ 在Twitter上关注我们： [https://twitter.com/nathangitter](https://twitter.com/nathangitter)
 
 感谢[Rick Messer](https://medium.com/@rickmesser)和[David Okun](https://twitter.com/dokun24)对这篇文章的校正。
 
