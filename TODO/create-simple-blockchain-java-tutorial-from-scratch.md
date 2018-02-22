@@ -408,9 +408,9 @@ public class NoobChain {
 
 下个教程的内容将涉及区块链的**交易**，**签名**和**钱包**。
 
-_联系:_ kassCrypto@gmail.com
+联系: kassCrypto@gmail.com
 
-**_提问_**_:_ [https://discord.gg/ZsyQqyk](https://discord.gg/ZsyQqyk) _(我在 discord 上的区块链开发者俱乐部)_
+**提问**：[https://discord.gg/ZsyQqyk](https://discord.gg/ZsyQqyk) (我在 discord 上的区块链开发者俱乐部)。
 
 
 ---
