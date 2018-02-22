@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/writing-unit-tests-in-a-swift-playground.md](https://github.com/xitu/gold-miner/blob/master/TODO/writing-unit-tests-in-a-swift-playground.md)
 > * 译者：[lsvih](https://github.com/lsvih)
-> * 校对者：
+> * 校对者：[94haox](https://github.com/94haox)
 
 # 在 Swift playground 中编写单元测试
 
@@ -41,7 +41,7 @@ class UserManagerTests: XCTestCase {
 
 ## 如何访问你的代码
 
-不过，如果你还没有实现直接在 playground 中测试的代码，那么在刚开始时访问代码可能会有点麻烦。下面可以根据你是为测试 framework 代码还是测试 app 代码，选择不同的步骤。
+不过，如果你还没有实现直接在 playground 中测试的代码，那么在刚开始时访问代码可能会有点麻烦。你必须根据代码的来源（ app 还是 framework ），而选择不同的方式来访问将要测试的代码
 
 **测试 app 代码**
 
@@ -121,7 +121,7 @@ UserManagerTests.defaultTestSuite.run()
 
 我个人倾向于为正在开发的 app 与 framework 准备好一个 playground，以便更轻松地深入调试。此外，我还倾向于围绕 framework 构建 app，这样只需简单将代码引入 playground 就能开始编码。我会在之后的博文中讨论这些结构与设置的细节。
 
-你怎么看？你是否准备使用 playground 进行单元测试？或者你是否在尝试其它方法？请通过评论或与 Twitter [@johnsundell](https://twitter.com/johnsundell) 让作者知道你的意见、问题与反馈。
+你怎么看？你是否准备使用 playground 进行单元测试？或者你是否在尝试其它方法？请通过评论或 Twitter [@johnsundell](https://twitter.com/johnsundell) 让作者知道你的意见、问题与反馈。
 
 感谢您的阅读 🚀
 
