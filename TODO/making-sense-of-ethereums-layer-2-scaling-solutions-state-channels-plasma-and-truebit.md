@@ -5,7 +5,7 @@
 > * 译者：
 > * 校对者：
 
-# 带你了解以太坊第2层扩容方案：State Channels、Plasma 和 Truebit
+# 带你了解以太坊第 2 层扩容方案：State Channels、Plasma 和 Truebit
 
 ![](https://cdn-images-1.medium.com/max/800/1*XTjr9JD25uUluY_QVQ_RaA.jpeg)
 
