@@ -1,9 +1,9 @@
-> * 原文地址：[Why Your App Looks Better in Sketch: Exploring rendering differences between Sketch and iOS ](https://medium.com/@nathangitter/why-your-app-looks-better-in-Sketch -3a01b22c43d7)
+> * 原文地址：[Why Your App Looks Better in Sketch: Exploring rendering differences between Sketch and iOS ](https://medium.com/@nathangitter/why-your-app-looks-better-in-sketch -3a01b22c43d7)
 > * 原文作者：[Nathan Gitter](https://medium.com/@nathangitter?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/why-your-app-looks-better-in-Sketch.md](https://github.com/xitu/gold-miner/blob/master/TODO/why-your-app-looks-better-in- Sketch.md)
-> * 译者：Ryden Sun
-> * 校对者：
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/why-your-app-looks-better-in-sketch.md](https://github.com/xitu/gold-miner/blob/master/TODO/why-your-app-looks-better-in-sketch.md)
+> * 译者：[Ryden Sun](https://github.com/rydensun)
+> * 校对者：[swants](https://github.com/swants)
 
 # 为什么你的 APP 在 Sketch 上看起来更好: 探索 Sketch 和 iOS 的渲染差异
 
@@ -15,7 +15,7 @@
 
 如果你仔细看，可能会注意到一些微妙的差别：
 
-右面的这幅图:
+右面的这幅图：
 
 1. 有更大的阴影。
 2. 有更深的渐变。
@@ -167,4 +167,4 @@ Sketch vs iOS 演示 APP —— 自己试一下！
 
 ---
 
-> [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[  iOS  ](https://github.com/xitu/gold-miner#  iOS  )、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
+> [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
