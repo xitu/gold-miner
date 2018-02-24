@@ -70,7 +70,7 @@ func calculateAreaOfSquare(w: Int, h: Int) -> Double {
 在我们继续下去之前，有些前期准备：
 
 * Swift3 环境和 8.3.3 版本的 Xcode
-* 有 Swift 和 iOS 开发的经验。
+* 有 Swift 和 iOS 开发的经验
 
 ## 配置我们的项目
 
@@ -161,9 +161,9 @@ class MoviesDataHelper {
 **Quick** 是一个建立在 XCTest 上，为 Swift 和 Objective-C 设计的测试框架. 
 它通过 [DSL](https://en.wikipedia.org/wiki/Domain-specific_language) 去编写非常类似于 [RSpec](https://github.com/rspec/rspec) 的测试用例。
 
-**Nimble** 就像是 **Quick** 的合作伙伴，它提供了匹配器作为断言。关于它的更多信息，请查看[这儿](https://github.com/Quick/Quick)
+**Nimble** 就像是 **Quick** 的搭档，它提供了匹配器作为断言。关于它的更多信息，请查看[这儿](https://github.com/Quick/Quick)
 
-### 使用Carthage 安装 Quick & Nimble
+### 使用 Carthage 安装 Quick & Nimble
 
 随着 Carthage 库的增长，相比 Cocoapods 我越来越喜欢 Carthage，因为它更去中心化。即使某一个库编译失败，整个项目依然可以编译成功
 
@@ -177,7 +177,7 @@ github "Quick/Nimble"
 
 将 `CartFile.private` 拖入你的项目目录，然后终端运行 `carthage update`。这个命令会克隆依赖，成功后，你可以在 `Carthage -> Build -> iOS` 找到它们。接着，将两个框架都添加到测试工程。你需要到 Build Phases 点击左上方的加号，并且选择 “New Copy Files Phase”。将它设置为 “Frameworks”，并且将两个框架都添加进去。
 
-现在所有的设置都搞定了！
+现在所有的设置都搞定了！鼓掌撒花！
 
 ![](http://www.appcoda.com/wp-content/uploads/2017/08/tdd-6.png)
 
@@ -203,7 +203,7 @@ class MyMoviesTests: QuickSpec {
 这个时候，你需要明白我们将使用一些 `it`， `describe` 和 `context` 来编写我们的测试。
 `describe` 和 `context` 只是 `it` 示例的逻辑分组。
 
-### 测试 #1 – 预计 列表视图的行数 = 电影数据的个数
+### 测试 #1 – 预计列表视图的行数 = 电影数据的个数
 
 首先，引入我们的视图控制器
 
@@ -230,9 +230,9 @@ class MyMoviesTests: QuickSpec {
 
 需要注意的是，我们有一个对 `MyMovies` 的 `@testable` 引用，这行代码的目的是标记着我们在测试哪个项目，并且允许我们引用那里的类。由于我们需要测试控制器的视图层，所以需要从 storyboard 抓取一个实例。
 
-**describe** 闭包开始了我的第一个为`MoviesTableViewController`而写的组合测试用例。
+**describe** 闭包应该是我们为 `MoviesTableViewController` 而写的第一个组合测试用例。
 
-**beforeEach** 闭包将在在 **describe** 闭包中所有例子执行之前运行。所以你可以在其中写一些需要在 `MoviesTableViewController` 执行时首先运行的测试。
+**beforeEach** 闭包将在 **describe** 闭包中所有例子执行之前运行。所以你可以在其中写一些需要在 `MoviesTableViewController` 执行时首先运行的测试。
 
 `_ = subject.view` 会将视图控制器放入内存，它类似于调用 `viewDidLoad`。
 
