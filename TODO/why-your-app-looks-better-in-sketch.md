@@ -1,4 +1,4 @@
-> * 原文地址：[Why Your App Looks Better in Sketch: Exploring rendering differences between Sketch and iOS ](https://medium.com/@nathangitter/why-your-app-looks-better-in-sketch -3a01b22c43d7)
+> * 原文地址：[Why Your App Looks Better in Sketch: Exploring rendering differences between Sketch and iOS](https://medium.com/@nathangitter/why-your-app-looks-better-in-sketch-3a01b22c43d7)
 > * 原文作者：[Nathan Gitter](https://medium.com/@nathangitter?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/why-your-app-looks-better-in-sketch.md](https://github.com/xitu/gold-miner/blob/master/TODO/why-your-app-looks-better-in-sketch.md)
