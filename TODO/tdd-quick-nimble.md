@@ -2,8 +2,8 @@
 > * 原文作者：[LAWRENCE TAN](https://www.appcoda.com/author/lawrencetan/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/tdd-quick-nimble.md](https://github.com/xitu/gold-miner/blob/master/TODO/tdd-quick-nimble.md)
-> * 译者：
-> * 校对者：
+> * 译者：[94haox](https://github.com/94haox)
+> * 校对者：[swants](https://github.com/swants), [atuooo](https://github.com/atuooo)
 
 在移动开发领域，编写测试用例并不常见，事实上，大多数移动开发团队为了加快开发速度，都尽可能地避免编写测试用例。
 
