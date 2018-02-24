@@ -3,13 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/using-leanbacks-diffcallback.md](https://github.com/xitu/gold-miner/blob/master/TODO/using-leanbacks-diffcallback.md)
 > * 译者：[LeeSniper](https://github.com/LeeSniper)
-> * 校对者：
+> * 校对者：[tanglie1993](https://github.com/tanglie1993), [hanliuxin5](https://github.com/hanliuxin5)
 
 # 使用 leanback 的 DiffCallback： 和 DiffUtil 回调之间的区别
 
 [24.2 版本的 support library](https://developer.android.com/topic/libraries/support-library/rev-archive.html#24-2-0-api-updates) 里引入了一个叫做 [DiffUtil](https://developer.android.com/reference/android/support/v7/util/DiffUtil.html) 的类，它让刷新 [RecyclerView.Adapter](https://developer.android.com/reference/android/support/v7/widget/RecyclerView.Adapter.html) 变得更简单。在 [27.0 版本的 leanback support library](https://developer.android.com/topic/libraries/support-library/revisions.html#27-0-0) 里面又增加了一个支持 [ArrayObjectAdapter](https://developer.android.com/reference/android/support/v17/leanback/widget/ArrayObjectAdapter.html) 的抽象 `DiffUtil`。
 
-[ArrayObjectAdapter](https://developer.android.com/reference/android/support/v17/leanback/widget/ArrayObjectAdapter.html) 有一个新的方法叫做 [setItems(final List itemList, final DiffCallback callback)](https://developer.android.com/reference/android/support/v17/leanback/widget/ArrayObjectAdapter.html#setItems%28java.util.List,%20android.support.v17.leanback.widget.DiffCallback%29)，它接收一个新的类叫做 [DiffCallback](https://developer.android.com/reference/android/support/v17/leanback/widget/DiffCallback.html)。`DiffCallback` 看上去很像 [DiffUtil.Callback](https://developer.android.com/reference/android/support/v7/util/DiffUtil.Callback.html)，但是少了几个方法。
+[ArrayObjectAdapter](https://developer.android.com/reference/android/support/v17/leanback/widget/ArrayObjectAdapter.html) 有一个新的方法叫做 [setItems(final List itemList, final DiffCallback callback)](https://developer.android.com/reference/android/support/v17/leanback/widget/ArrayObjectAdapter.html#setItems%28java.util.List,%20android.support.v17.leanback.widget.DiffCallback%29)，它接收一个新的类叫做 [DiffCallback](https://developer.android.com/reference/android/support/v17/leanback/widget/DiffCallback.html)。`DiffCallback` 看上去很像 [DiffUtil.Callback](https://developer.android.com/reference/android/support/v7/util/DiffUtil.Callback.html)，只是少了几个方法。
 
 ```
 public abstract class DiffCallback<Value> {
