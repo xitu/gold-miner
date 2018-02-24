@@ -11,7 +11,7 @@
 
 `json` 模块提供了一个类似于 [`pickle`](https://pymotw.com/3/pickle/index.html#module-pickle) 的 API，用于将内存中的 Python 对象转换为 JavaScript Object Notation（JSON）的序列化表示形式。相较于 pickle，JSON 优势之一就是被许多语言实现和应用（特别是 JavaScript）。它被广泛用于 REST API 中Web服务器和客户端之间的通信，此外也可用于其他应用程序间的通信。
 
-## 编码，解析简单的数据类型
+## 编码和解码简单的数据类型
 
 JSON 编码器原生支持 Python 的基本类型 (`str`, `int`, `float`, `list`, `tuple`, 和 `dict`).
 
@@ -27,7 +27,7 @@ data_string = json.dumps(data)
 print('JSON:', data_string)
 ```
 
-看起来值的编码方式类似于 Python 的 `repr()` 输出。
+值的编码方式看起来类似于 Python 的 `repr()` 输出。
 
 ```
 $ python3 json_simple_types.py
@@ -36,7 +36,7 @@ DATA: [{'c': 3.0, 'b': (2, 4), 'a': 'A'}]
 JSON: [{"c": 3.0, "b": [2, 4], "a": "A"}]
 ```
 
-如果先编码，后解析，新对象的类型可能会发生变化。
+编码之后再解码，将可能得到并不完全相同的对象类型。
 
 ```
 # json_simple_types_decode.py
@@ -56,7 +56,7 @@ print('ORIGINAL:', type(data[0]['b']))
 print('DECODED :', type(decoded[0]['b']))
 ```
 
-有些时候，tuples 类型会被转化为 lists 类型。
+特别注意，元组会转化成列表。
 
 ```
 $ python3 json_simple_types_decode.py
@@ -91,7 +91,7 @@ print('UNSORTED MATCH:', unsorted == first)
 print('SORTED MATCH  :', first == second)
 ```
 
-输出有序的话，可读性自然比较高，并且在测试中容易对 JSON 的输出进行比较。
+有序输出，可读性自然比较高，并且在测试中容易对 JSON 的输出进行比较。
 
 ```
 $ python3 json_sort_keys.py
@@ -172,7 +172,7 @@ dumps(data, separators): 29
 
 ## 编码字典
 
-JSON 期望字典键的格式是字符串。如果用非字符串类型作为键编码字典会产生一个 `TypeError`。解决该限制的一种方法是告诉编码器使用 `skipkeys` 参数跳过非字符串键：
+JSON 期望字典键的格式是字符串。如果用非字符串类型作为键编码字典会产生一个 `TypeError`。解决该限制的一种方法是使用 skipkeys 参数告诉编码器跳过非字符串键：
 
 ```
 # json_skipkeys.py
@@ -310,7 +310,7 @@ myobj_instance = json.loads(
 print(myobj_instance)
 ```
 
-由于 `json` 将字符串值转换为了 unicode 对象，因此需要将它们重新编码为 ASCII 字符串，之后才能将其用作类构造函数的关键字参数。
+由于 `json` 将字符串值转换为了 unicode 对象，因此在将其用作类构造函数的关键字参数之前，需要将它们重新编码为 ASCII 字符串。
 
 ```
 $ python3 json_load_object_hook.py
@@ -365,9 +365,9 @@ PART: }
 PART: ]
 ```
 
-`encode()` 方法基本上等同于 `''.join(encoder.iterencode())`，此外还有一些错误检查。
+`encode()` 方法基本上等同于 `''.join(encoder.iterencode())`，此外还有一些预先错误检查。
 
-要对任意对象进行编码，建议使用与 `convert_to_builtin_type()` 中使用的类似的实现来替代 `default()` 方法。
+要对任意对象进行编码，建议使用与 `convert_to_builtin_type()` 中使用的类似的实现来重载 `default()` 方法。
 
 ```
 # json_encoder_default.py
@@ -405,7 +405,7 @@ default( <MyObj(internal data)> )
 "MyObj"}
 ```
 
-解析文本，将字典转换为对象有更加为复杂的设置，不过差别不大。
+解析文本，将字典转换为对象比上面提到的实现方法更为复杂，不过差别不大。
 
 ```
 # json_decoder_object_hook.py
@@ -462,7 +462,7 @@ INSTANCE ARGS: {'s': 'instance value goes here'}
 
 ## 使用流和文件
 
-到目前为止，所有的例子的前提都是假设整个数据结构的编码版本可以一次保存在内存中。对于包含大量数据的复杂结构，将编码直接写入文件类对象会比较好。`load()`和`dump()`函数可以接收文件对象的引用作为参数，来进行方便读写操作。
+到目前为止，所有的例子的前提都是假设整个数据结构的编码版本可以一次保存在内存中。对于包含大量数据的复杂结构，将编码直接写入文件类对象会比较好。`load()`和 `dump()` 函数可以接受文件类对象的引用作为参数，来进行方便读写操作。
 
 ```
 # json_dump_file.py
@@ -486,7 +486,7 @@ $ python3 json_dump_file.py
 [{"c": 3.0, "b": [2, 4], "a": "A"}]
 ```
 
-尽管它在按时间加载数据的方面没什么优化，但 `load()` 函数仍然有着封装流输入生成对象逻辑的好处。
+尽管它没有被优化为一次只读取一部分数据，但 `load()` 函数仍然提供了一种把输入流转换成对象的封装逻辑方面的好处。
 
 ```
 # json_load_file.py
@@ -509,7 +509,7 @@ $ python3 json_load_file.py
 
 ## 混合数据流
 
-`JSONDecoder` 包含 `raw_decode()`，这是一种解码数据结构后面跟着更多数据的方法，比如带有尾随文本的 JSON 数据。返回值是通过对输入数据进行解码而创建的对象，以及指示解码停止位置的数据的索引。
+`JSONDecoder` 包含 `raw_decode()`，这是一种解码数据结构后面跟着更多数据的方法，比如带有尾随文本的 JSON 数据。返回值是通过对输入数据进行解码而创建的对象，以及指示解码器在何处停止工作的位置索引。
 
 ```
 # json_mixed_data.py
@@ -597,7 +597,7 @@ $ python3 -m json.tool --sort-keys example.json
 ]
 ```
 
-也可以瞅下
+参阅
 
 * [json 的标准库文档](https://docs.python.org/3.5/library/json.html)
 * [<span class="std std-ref">从Python2 迁移到 3 json 相关的笔记</span>](../porting_notes.html#porting-json)
