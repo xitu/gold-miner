@@ -4,6 +4,7 @@
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/json-javascript-object-notation.md](https://github.com/xitu/gold-miner/blob/master/TODO/json-javascript-object-notation.md)
 > * 译者：[snowyYU](https://github.com/snowyYU)
 > * 校对者：[Starriers](https://github.com/Starriers), [zhmhhu](https://github.com/zhmhhu)
+
 # json — JavaScript 对象表示法
 
 目的：实现 Python 对象和 JSON 字符串间的相互转化。
