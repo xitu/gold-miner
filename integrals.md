@@ -3500,10 +3500,11 @@
 |------|-------|-------|
 |[深度学习的未来](https://juejin.im/post/597843506fb9a06ba4747db5)|校对|2|
 
-## 译者：[sunshine940326](https://github.com/sunshine940326) 历史贡献积分：98.3 当前积分：58.3
+## 译者：[sunshine940326](https://github.com/sunshine940326) 历史贡献积分：99.8 当前积分：59.8 年度积分：1.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[使用 SVG 符号和 CSS 变量实现多彩图标](https://juejin.im/post/5a8409e06fb9a063342672b6)|校对|1.5|
 |[如果你想让用户回来，为什么前十分钟是至关重要的？](https://juejin.im/entry/5a7fe27f5188257a6854ce6a)|翻译|4|
 |[2018 前端性能优化清单 - 第 3 部分](https://juejin.im/post/5a702160f265da3e4b771109)|翻译|7|
 |[2018 前端性能优化清单 - 第 2 部分](https://juejin.im/post/5a654e686fb9a01cb42c7894)|校对|2|
@@ -4014,10 +4015,11 @@
 |------|-------|-------|
 |[RNN 循环神经网络系列 4: 注意力机制](https://juejin.im/post/59f72f61f265da432002871c)|校对|2|
 
-## 译者：[Raoul1996](https://github.com/Raoul1996) 历史贡献积分：42 当前积分：22
+## 译者：[Raoul1996](https://github.com/Raoul1996) 历史贡献积分：43.5 当前积分：23.5 年度积分：1.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[使用 SVG 符号和 CSS 变量实现多彩图标](https://juejin.im/post/5a8409e06fb9a063342672b6)|校对|1.5|
 |[Angular 安全 —— 使用 JSON 网络令牌（JWT）验证：完全指南](https://juejin.im/post/5a64267c518825734e3e5c22)|翻译|10|
 |[HTML 5.2 有哪些新内容？](https://juejin.im/post/5a5dab05518825734107edda)|校对|1.5|
 |[2018 年 1 月兑换帽衫一件]()|减去积分|20|
@@ -4227,10 +4229,11 @@
 |[如何禁用链接](https://juejin.im/post/5a240aa66fb9a0452577f06a)|校对|1|
 |[JavaScript 如何工作的: 事件循环和异步编程的崛起 + 5 个关于如何使用 async/await 编写更好的技巧](https://juejin.im/post/5a221d35f265da43356291cc)|校对|4|
 
-## 译者：[sakila1012](https://github.com/sakila1012) 历史贡献积分：17 当前积分：17
+## 译者：[sakila1012](https://github.com/sakila1012) 历史贡献积分：19.5 当前积分：19.5 年度积分：2.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[教你使用 CSS 计数器](https://juejin.im/post/5a811c6251882528b63ff8d7)|翻译|2.5|
 |[2018 前端性能优化清单 - 第 2 部分](https://juejin.im/post/5a654e686fb9a01cb42c7894)|翻译|7|
 |[使用深度学习自动生成HTML代码 - 第 1 部分](https://juejin.im/post/5a72744e6fb9a01cb64f1d66)|翻译|8|
 |[如何使用 AJAX 和 REST API 创建一个图表](https://juejin.im/post/5a20e18bf265da4318768b22)|翻译|2|
@@ -4672,10 +4675,11 @@
 |[如何打造以人为本的移动游戏](https://juejin.im/post/5a61663b518825732f7ecd2a)|校对|2|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|4|
 
-## 译者：[pthtc](https://github.com/pthtc) 历史贡献积分：30.5 当前积分：30.5
+## 译者：[pthtc](https://github.com/pthtc) 历史贡献积分：36.5 当前积分：36.5 年度积分：6
 
 |文章|类型|积分|
 |------|-------|-------|
+|[使用 SVG 符号和 CSS 变量实现多彩图标](https://juejin.im/post/5a8409e06fb9a063342672b6)|翻译|6|
 |[游戏即服务的五条建议，提升游戏变现能力](https://juejin.im/post/5a7a95cbf265da4e8700b34b)|翻译|6|
 |[一文教你预测 APP 未来的货币化情况](https://juejin.im/post/5a7a94d36fb9a0634d2793c6)|翻译|7|
 |[想帮助用户做决定？你的 APP 可以这样设计！](https://juejin.im/post/5a7194986fb9a01c9f5bbbb2)|翻译|8|
@@ -4685,10 +4689,11 @@
 |[断点：像专家一样调试代码](https://juejin.im/post/5a72be42518825733b0f374e)|翻译|3|
 |[17 个 Xcode 小技巧，每个 iOS 开发者都该知道](https://juejin.im/post/5a7198ac51882573505189c8)|翻译|3|
 
-## 译者：[ryouaki](https://github.com/ryouaki) 历史贡献积分：24.5 当前积分：24.5
+## 译者：[ryouaki](https://github.com/ryouaki) 历史贡献积分：25 当前积分：25 年度积分：0.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[教你使用 CSS 计数器](https://juejin.im/post/5a811c6251882528b63ff8d7)|校对|0.5|
 |[如果你想让用户回来，为什么前十分钟是至关重要的？](https://juejin.im/entry/5a7fe27f5188257a6854ce6a)|校对|1|
 |[想帮助用户做决定？你的 APP 可以这样设计！](https://juejin.im/post/5a7194986fb9a01c9f5bbbb2)|校对|2.5|
 |[新兴技术领域中以用户为中心的设计的应用](https://juejin.im/post/5a682282f265da3e283a2cca)|校对|1|
@@ -4862,3 +4867,9 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译校对|1.5|
+
+## 译者：[snowyYU](https://github.com/snowyYU) 历史贡献积分：0.5 当前积分：0.5 年度积分：0.5
+
+|文章|类型|积分|
+|------|-------|-------|
+|[教你使用 CSS 计数器](https://juejin.im/post/5a811c6251882528b63ff8d7)|校对|0.5|
