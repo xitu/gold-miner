@@ -201,10 +201,11 @@
 |[JavaScript 开发者年度调查报告](http://gold.xitu.io/entry/56ca985071cfe40054d98994)|翻译|15|
 |[第一次翻译计划文章已兑换Octocat小]()|减去积分|15|
 
-## 译者：[edvardhua](https://github.com/edvardHua) 历史贡献积分：107 当前积分：47
+## 译者：[edvardhua](https://github.com/edvardHua) 历史贡献积分：117 当前积分：57 年度积分：10
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译校对|10|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|10|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|14|
 |[2017 年 11 月兑 树莓派套餐 1 个]()|减去积分|45|
@@ -4111,10 +4112,11 @@
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|1|
 |[Vue Report 2017](https://juejin.im/post/5a138fae5188254d28732899)|翻译|2|
 
-## 译者：[JohnJiangLA](https://github.com/JohnJiangLA) 历史贡献积分：63 当前积分：3 年度积分：29
+## 译者：[JohnJiangLA](https://github.com/JohnJiangLA) 历史贡献积分：71 当前积分：11 年度积分：37
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译校对|8|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译校对|19|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|10|
 |[2017 年 1 月兑 小猫和树莓派套餐各 1 个]()|减去积分|60|
@@ -4643,10 +4645,11 @@
 |[比特币的三个经济阶段](https://juejin.im/post/5a61d5336fb9a01cb049667e)|校对|1.5|
 |[开启你的开源生涯](https://juejin.im/post/5a5c029d51882573432d21ff)|校对|2|
 
-## 译者：[liaodalin19903](https://github.com/liaodalin19903) 历史贡献积分：3.5 当前积分：3.5
+## 译者：[liaodalin19903](https://github.com/liaodalin19903) 历史贡献积分：23.5 当前积分：23.5 年度积分：20
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译校对|20|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|2|
 |[利用双环 TDD 进行由外向内的开发](https://juejin.im/post/5a5dea0d6fb9a01cab28443c)|校对|1.5|
 
@@ -4773,10 +4776,11 @@
 |------|-------|-------|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译校对|23|
 
-## 译者：[SallyGo](https://github.com/SallyGo) 历史贡献积分：3 当前积分：3
+## 译者：[SallyGo](https://github.com/SallyGo) 历史贡献积分：5 当前积分：5 年度积分：2
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译校对|2|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译校对|3|
 
 ## 译者：[ZhiyuanSun](https://github.com/ZhiyuanSun) 历史贡献积分：6 当前积分：6
@@ -4840,10 +4844,11 @@
 |------|-------|-------|
 |[如果你想让用户回来，为什么前十分钟是至关重要的？](https://juejin.im/entry/5a7fe27f5188257a6854ce6a)|校对|1|
 
-## 译者：[filosfino](https://github.com/filosfino) 历史贡献积分：7 当前积分：7 年度积分：7
+## 译者：[filosfino](https://github.com/filosfino) 历史贡献积分：8 当前积分：8 年度积分：8
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译校对|1|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译校对|7|
 
 ## 译者：[PeterChenYijie](https://github.com/PeterChenYijie) 历史贡献积分：2 当前积分：2 年度积分：2
