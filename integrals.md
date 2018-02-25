@@ -4335,10 +4335,14 @@
 |------|-------|-------|
 |[JavaScript 工作原理：内存管理 + 处理常见的 4 种内存泄漏](https://juejin.im/post/5a2559ae6fb9a044fe4634ba)|翻译|8|
 
-## 译者：[LeopPro](https://github.com/LeopPro) 历史贡献积分：13 当前积分：13
+## 译者：[LeopPro](https://github.com/LeopPro) 历史贡献积分：37 当前积分：37 年度积分：24
 
 |文章|类型|积分|
 |------|-------|-------|
+|[使用 Rust 开发一个简单的 Web 应用，第 4 部分 —— CLI 选项解析](https://juejin.im/post/5a8d6aad6fb9a0634514c6c6)|翻译|8|
+|[使用 Rust 开发一个简单的 Web 应用，第 3 部分 —— 整合](https://juejin.im/post/5a8d6a436fb9a0635172803f)|翻译|5|
+|[使用 Rust 开发一个简单的 Web 应用，第 2b 部分](https://juejin.im/post/5a8196716fb9a0635c0478d7)|翻译|6|
+|[使用 Rust 开发一个简单的 Web 应用，第 2a 部分](https://juejin.im/post/5a81961cf265da4e7f359e86)|翻译|5|
 |[使用 Rust 开发一个简单的 Web 应用，第 1 部分](https://juejin.im/post/5a673ba16fb9a01ca5609f35)|翻译|4|
 |[推荐多篇又秀英文文章]()|奖励|3|
 |[使用 Rust 来写原生 Node.js 模块](https://juejin.im/post/5a2b51bff265da4332277ee0)|翻译|5|
