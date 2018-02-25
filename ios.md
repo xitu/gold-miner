@@ -1,3 +1,7 @@
+* [在 Swift playground 中编写单元测试](https://juejin.im/post/5a8e66276fb9a0633c661f3f) ([lsvih](https://github.com/lsvih) 翻译)
+* [swift 网络单元测试完全手册](https://juejin.im/post/5a784e87f265da4e8a31ca7a) ([swants](https://github.com/swants) 翻译)
+* [用 LLDB 调试 Swift 代码](https://juejin.im/post/5a7948d35188257a7349a882) ([VernonVan](https://github.com/VernonVan) 翻译)
+* [不再对 MVVM 感到绝望](https://juejin.im/post/5a782d0d5188257a856f1dd7) ([JayZhaoBoy](https://github.com/JayZhaoBoy) 翻译)
 * [断点：像专家一样调试代码](https://juejin.im/post/5a72be42518825733b0f374e) ([pthtc](https://github.com/pthtc) 翻译)
 * [17 个 Xcode 小技巧，每个 iOS 开发者都该知道](https://juejin.im/post/5a7198ac51882573505189c8) ([pthtc](https://github.com/pthtc) 翻译)
 * [Swift 中的值类型与引用类型使用指北](https://juejin.im/post/5a5c2c046fb9a01cbe654b48) ([DeepMissea](https://github.com/DeepMissea) 翻译)
