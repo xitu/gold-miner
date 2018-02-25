@@ -53,13 +53,13 @@ A 部分可以处理一批交易，而同时 B 部分可以处理另一批。这
 
 ![](https://cdn-images-1.medium.com/max/800/1*mPCgXycICNjuscoFt974fQ.png)
 
-#### **II. What if we could squeeze more _useful operations_ out of ethereum’s existing capacity? 二. 如果我们能够从以太坊现有**
+#### **II. What if we could squeeze more _useful operations_ out of ethereum’s existing capacity? 二. 如果我们能够从以太坊现有能力中压榨出更多有用的业务操作**
 
-The second option goes in the opposite direction: rather than increase the capacity of the ethereum blockchain itself, **what if we could do** **more things** **with the capacity we already have?** The throughput of the base-layer ethereum blockchain would be the same, but in practice we would be able to do many more operations that are useful to people and applications — like transactions, state updates in a game, or simple computations.
+第二种选择的方向则相反：不是增加以太坊区块链本身的容量，**如果我们可以通过我们已经拥有的能力来做更多的事情，会怎样？**在基础级别以太坊区块链的生产力都是相同的，但是实际上，我们可以做更多对人和应用程序有用的操作，比如交易，游戏中的状态更新，或者简单的计算。
 
-This is the insight behind “off-chain” technologies like [**state channels**](https://medium.com/l4-media/generalized-state-channels-on-ethereum-de0357f5fb44)**,** [**Plasma**](http://plasma.io/)**, and** [**Truebit**](http://truebit.io)**.** While each of these is solving a different problem, they all function by performing operations “off chain” instead of on the ethereum blockchain, while still guaranteeing a sufficient level of security and finality.
+这是 “off-chain” 技术背后的思维逻辑，比如 [**state channels**](https://medium.com/l4-media/generalized-state-channels-on-ethereum-de0357f5fb44)**，**[**Plasma**](http://plasma.io/)**，和** [**Truebit**](http://truebit.io)**。**虽然其中每个解决方案都在解决一个不同的问题，它们都通过执行 “off chain” 操作而不是以太坊区块链运行。同时仍然保证足够的安全性和权威的。
 
-These are also known as **Layer 2** solutions because they are built “on top of” the ethereum main-chain. They do not require changes to the base level protocol — rather, they exist simply as smart contracts on ethereum that interact with off-chain software.
+这些也被称为**第二层（layer 2）**解决方案，因为它们建立在以太坊主链“之上”。他们不需要更改基本级别的协议，相反，它们只是作为作为以太坊上的智能合约，用于与 off-chain 软件进行交互。
 
 ![](https://cdn-images-1.medium.com/max/800/1*TSKyc_gKn8kj0p-27nGQ-A.png)
 
