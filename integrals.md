@@ -3504,7 +3504,7 @@
 |------|-------|-------|
 |[深度学习的未来](https://juejin.im/post/597843506fb9a06ba4747db5)|校对|2|
 
-## 译者：[sunshine940326](https://github.com/sunshine940326) 历史贡献积分：99.8 当前积分：59.8 年度积分：1.5
+## 译者：[sunshine940326](https://github.com/sunshine940326) 历史贡献积分：99.8 当前积分：59.8 年度积分：17
 
 |文章|类型|积分|
 |------|-------|-------|
@@ -3949,7 +3949,7 @@
 |[CSV 注入：被人低估的风险](https://juejin.im/post/59eca3fef265da430b7a63c8)|校对|3|
 |[HTTP/2 下网站资源打包的正确方法](https://juejin.im/post/59f74d20f265da431523326b)|翻译|4|
 
-## 译者：[ParadeTo](https://github.com/ParadeTo) 历史贡献积分：12 当前积分：12 年度积分：1.5
+## 译者：[ParadeTo](https://github.com/ParadeTo) 历史贡献积分：12 当前积分：12 年度积分：9.5
 
 |文章|类型|积分|
 |------|-------|-------|
@@ -4022,7 +4022,7 @@
 |------|-------|-------|
 |[RNN 循环神经网络系列 4: 注意力机制](https://juejin.im/post/59f72f61f265da432002871c)|校对|2|
 
-## 译者：[Raoul1996](https://github.com/Raoul1996) 历史贡献积分：43.5 当前积分：23.5 年度积分：1.5
+## 译者：[Raoul1996](https://github.com/Raoul1996) 历史贡献积分：43.5 当前积分：23.5 年度积分：13
 
 |文章|类型|积分|
 |------|-------|-------|
@@ -4237,7 +4237,7 @@
 |[如何禁用链接](https://juejin.im/post/5a240aa66fb9a0452577f06a)|校对|1|
 |[JavaScript 如何工作的: 事件循环和异步编程的崛起 + 5 个关于如何使用 async/await 编写更好的技巧](https://juejin.im/post/5a221d35f265da43356291cc)|校对|4|
 
-## 译者：[sakila1012](https://github.com/sakila1012) 历史贡献积分：19.5 当前积分：19.5 年度积分：2.5
+## 译者：[sakila1012](https://github.com/sakila1012) 历史贡献积分：19.5 当前积分：19.5 年度积分：17.5
 
 |文章|类型|积分|
 |------|-------|-------|
@@ -4391,7 +4391,7 @@
 |[如何取消你的 Promise？](https://juejin.im/post/5a32705a6fb9a045117127fa)|校对|1|
 |[你想学 React.js 吗？](https://juejin.im/post/5a2f8ea5f265da43305e6f6b)|校对|2|
 
-## 译者：[MechanicianW](https://github.com/MechanicianW) 历史贡献积分：30 当前积分：30 年度积分：2.5
+## 译者：[MechanicianW](https://github.com/MechanicianW) 历史贡献积分：30 当前积分：30 年度积分：21.5
 
 |文章|类型|积分|
 |------|-------|-------|
@@ -4413,7 +4413,7 @@
 |------|-------|-------|
 |[从 Gzip 压缩 SVG 说起 — 论如何减小资源文件的大小](https://juejin.im/post/5a30a7fdf265da4309452517)|校对|1|
 
-## 译者：[noahziheng](https://github.com/noahziheng) 历史贡献积分：22 当前积分：22 年度积分：9
+## 译者：[noahziheng](https://github.com/noahziheng) 历史贡献积分：22 当前积分：22 年度积分：18.5
 
 |文章|类型|积分|
 |------|-------|-------|
@@ -4595,7 +4595,7 @@
 |[函数式 Java 到函数式 Kotlin 的转换](https://juejin.im/post/5a52fac96fb9a01c9657fa4e)|校对|1|
 |[Android MVP 架构必要知识：第三部分（Dialog，ViewPager，RecyclerView 以及 Adapters)](https://juejin.im/post/5a45fe846fb9a0450c49bba0)|校对|1|
 
-## 译者：[pot-code](https://github.com/pot-code) 历史贡献积分：48 当前积分：48 年度积分：10
+## 译者：[pot-code](https://github.com/pot-code) 历史贡献积分：48 当前积分：48 年度积分：43
 
 |文章|类型|积分|
 |------|-------|-------|
@@ -4619,7 +4619,7 @@
 |[如何紧跟未来的设计趋势：15 个让你永远不过时的资料](https://juejin.im/post/5a52d2226fb9a01c9525ebbe)|校对|1|
 |[智对订阅难点：教你如何应对工作中 10 种常见订阅问题](https://juejin.im/post/5a406644f265da430d583cb7)|校对|1.5|
 
-## 译者：[IllllllIIl](https://github.com/IllllllIIl) 历史贡献积分：13 当前积分：13 年度积分：12
+## 译者：[IllllllIIl](https://github.com/IllllllIIl) 历史贡献积分：13 当前积分：13 年度积分：11.5
 
 |文章|类型|积分|
 |------|-------|-------|
@@ -4629,7 +4629,7 @@
 |[开发者也是用户 - 简介](https://juejin.im/post/5a6536e6518825734216ff06)|校对|1|
 |[智对订阅难点：教你如何应对工作中 10 种常见订阅问题](https://juejin.im/post/5a406644f265da430d583cb7)|校对|1.5|
 
-## 译者：[pkuwwt](https://github.com/pkuwwt) 历史贡献积分：77 当前积分：77 年度积分：25
+## 译者：[pkuwwt](https://github.com/pkuwwt) 历史贡献积分：77 当前积分：77 年度积分：70
 
 |文章|类型|积分|
 |------|-------|-------|
@@ -4637,7 +4637,7 @@
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|45|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|7|
 
-## 译者：[NeoyeElf](https://github.com/NeoyeElf) 历史贡献积分：19 当前积分：19 年度积分：4
+## 译者：[NeoyeElf](https://github.com/NeoyeElf) 历史贡献积分：19 当前积分：19 年度积分：19
 
 |文章|类型|积分|
 |------|-------|-------|
@@ -4661,7 +4661,7 @@
 |[8 个技巧让你在 2018 年构建更好的 Node.js 应用程序](https://juejin.im/post/5a617c436fb9a01c9e46074f)|翻译|3.5|
 |[垂直排版：重提 writing-mode](https://juejin.im/post/5a5570fb6fb9a01c9e45d749)|校对|2|
 
-## 译者：[SeanW20](https://github.com/SeanW20) 历史贡献积分：9.5 当前积分：9.5 年度积分：5
+## 译者：[SeanW20](https://github.com/SeanW20) 历史贡献积分：9.5 当前积分：9.5 年度积分：9.5
 
 |文章|类型|积分|
 |------|-------|-------|
@@ -4697,7 +4697,7 @@
 |[如何打造以人为本的移动游戏](https://juejin.im/post/5a61663b518825732f7ecd2a)|校对|2|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|4|
 
-## 译者：[pthtc](https://github.com/pthtc) 历史贡献积分：36.5 当前积分：36.5 年度积分：6
+## 译者：[pthtc](https://github.com/pthtc) 历史贡献积分：36.5 当前积分：36.5 年度积分：36.5
 
 |文章|类型|积分|
 |------|-------|-------|
@@ -4711,7 +4711,7 @@
 |[断点：像专家一样调试代码](https://juejin.im/post/5a72be42518825733b0f374e)|翻译|3|
 |[17 个 Xcode 小技巧，每个 iOS 开发者都该知道](https://juejin.im/post/5a7198ac51882573505189c8)|翻译|3|
 
-## 译者：[ryouaki](https://github.com/ryouaki) 历史贡献积分：32 当前积分：32 年度积分：7.5
+## 译者：[ryouaki](https://github.com/ryouaki) 历史贡献积分：32 当前积分：32 年度积分：32
 
 |文章|类型|积分|
 |------|-------|-------|
@@ -4758,7 +4758,7 @@
 |------|-------|-------|
 |[使用 Rust 开发一个简单的 Web 应用，第 1 部分](https://juejin.im/post/5a673ba16fb9a01ca5609f35)|校对|1|
 
-## 译者：[realYukiko](https://github.com/realYukiko) 历史贡献积分：12.5 当前积分：12.5 年度积分：1.5
+## 译者：[realYukiko](https://github.com/realYukiko) 历史贡献积分：12.5 当前积分：12.5 年度积分：12.5
 
 |文章|类型|积分|
 |------|-------|-------|
