@@ -3927,13 +3927,14 @@
 |[Swift 上的高性能数组](https://juejin.im/post/59e84129f265da43128005ed)|校对|0.5|
 |[RickeyBoy 翻译开源库 iOS 100 个](#)|翻译|10|
 
-## 译者：[goldEli](https://github.com/goldEli) 历史贡献积分：15.5 当前积分：15.5
+## 译者：[goldEli](https://github.com/goldEli) 历史贡献积分：16.5 当前积分：16.5 年度积分：1
 
 |文章|类型|积分|
 |------|-------|-------|
+|[也谈 React 16.3(.0-alpha)](https://juejin.im/entry/5a82ada16fb9a063317c54f2)|校对|1|
 |[嵌套三元表达式棒极了（软件编写）（第十四部分）](https://juejin.im/post/5a7d6769f265da4e7e10ad82)|校对|1|
 |[探索 ECMAScript 装饰器](https://juejin.im/post/5a7bc62d6fb9a063523ddf95)|翻译|4.5|
-|[goldEli 翻译开源库 JavaScript 100 个](#)|翻译|10|
+|[翻译开源库 JavaScript 100 个](#)|翻译|10|
 
 ## 译者：[yct21](https://github.com/yct21) 历史贡献积分：12 当前积分：12
 
@@ -3943,10 +3944,11 @@
 |[CSV 注入：被人低估的风险](https://juejin.im/post/59eca3fef265da430b7a63c8)|校对|3|
 |[HTTP/2 下网站资源打包的正确方法](https://juejin.im/post/59f74d20f265da431523326b)|翻译|4|
 
-## 译者：[ParadeTo](https://github.com/ParadeTo) 历史贡献积分：10.5 当前积分：10.5
+## 译者：[ParadeTo](https://github.com/ParadeTo) 历史贡献积分：12 当前积分：12 年度积分：1.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[CSS Grid 之列宽自适应：`auto-fill` vs `auto-fit`](https://juejin.im/post/5a8c25d66fb9a0634d27b73b)|校对|1.5|
 |[2018 前端性能优化清单 - 第 4 部分](https://juejin.im/post/5a62aa686fb9a01c91407a0b)|翻译|8|
 |[ES6 中的元编程：第二部分 —— 反射（Reflect）](https://juejin.im/post/5a0e66386fb9a04523417418)|校对|1.5|
 |[HTTP/2 下网站资源打包的正确方法](https://juejin.im/post/59f74d20f265da431523326b)|校对|1|
@@ -4400,10 +4402,11 @@
 |------|-------|-------|
 |[从 Gzip 压缩 SVG 说起 — 论如何减小资源文件的大小](https://juejin.im/post/5a30a7fdf265da4309452517)|校对|1|
 
-## 译者：[noahziheng](https://github.com/noahziheng) 历史贡献积分：13 当前积分：13
+## 译者：[noahziheng](https://github.com/noahziheng) 历史贡献积分：17 当前积分：17 年度积分：4
 
 |文章|类型|积分|
 |------|-------|-------|
+|[JavaScript 中的私有变量](https://juejin.im/post/5a8e9b6d5188257a5f1ed826)|翻译|4|
 |[你前所未知的 JavaScript 调试器](https://juejin.im/post/5a7e94a66fb9a0633b2105ed)|校对|1|
 |[保持 webpack 快速运行的诀窍：一本提高构建性能的现场指导手册](https://juejin.im/post/5a6adc6d5188257350517033)|翻译|7|
 |[Facebook 开源了物体检测研究项目 Detectron](https://juejin.im/post/5a6c2ba56fb9a01cb64f0591)|校对|0.5|
@@ -4578,10 +4581,12 @@
 |[函数式 Java 到函数式 Kotlin 的转换](https://juejin.im/post/5a52fac96fb9a01c9657fa4e)|校对|1|
 |[Android MVP 架构必要知识：第三部分（Dialog，ViewPager，RecyclerView 以及 Adapters)](https://juejin.im/post/5a45fe846fb9a0450c49bba0)|校对|1|
 
-## 译者：[pot-code](https://github.com/pot-code) 历史贡献积分：38 当前积分：38
+## 译者：[pot-code](https://github.com/pot-code) 历史贡献积分：48 当前积分：48 年度积分：10
 
 |文章|类型|积分|
 |------|-------|-------|
+|[CSS Grid 之列宽自适应：`auto-fill` vs `auto-fit`](https://juejin.im/post/5a8c25d66fb9a0634d27b73b)|翻译|6|
+|[也谈 React 16.3(.0-alpha)](https://juejin.im/entry/5a82ada16fb9a063317c54f2)|翻译|4|
 |[构造函数已死，构造函数万岁！](https://juejin.im/post/5a694be551882573541c8f29)|校对|1|
 |[PWA 实战：Tinder 的性能优化之道](https://juejin.im/post/5a5ed5f3f265da3e261bfb94)|翻译|7|
 |[2018 设计趋势](https://juejin.im/post/5a695d88f265da3e58598968)|翻译|6|
@@ -4689,10 +4694,12 @@
 |[断点：像专家一样调试代码](https://juejin.im/post/5a72be42518825733b0f374e)|翻译|3|
 |[17 个 Xcode 小技巧，每个 iOS 开发者都该知道](https://juejin.im/post/5a7198ac51882573505189c8)|翻译|3|
 
-## 译者：[ryouaki](https://github.com/ryouaki) 历史贡献积分：25 当前积分：25 年度积分：0.5
+## 译者：[ryouaki](https://github.com/ryouaki) 历史贡献积分：27 当前积分：27 年度积分：2.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[JavaScript 中的私有变量](https://juejin.im/post/5a8e9b6d5188257a5f1ed826)|校对|1|
+|[也谈 React 16.3(.0-alpha)](https://juejin.im/entry/5a82ada16fb9a063317c54f2)|校对|1|
 |[教你使用 CSS 计数器](https://juejin.im/post/5a811c6251882528b63ff8d7)|校对|0.5|
 |[如果你想让用户回来，为什么前十分钟是至关重要的？](https://juejin.im/entry/5a7fe27f5188257a6854ce6a)|校对|1|
 |[想帮助用户做决定？你的 APP 可以这样设计！](https://juejin.im/post/5a7194986fb9a01c9f5bbbb2)|校对|2.5|
@@ -4732,9 +4739,11 @@
 |------|-------|-------|
 |[使用 Rust 开发一个简单的 Web 应用，第 1 部分](https://juejin.im/post/5a673ba16fb9a01ca5609f35)|校对|1|
 
-## 译者：[realYukiko](https://github.com/realYukiko) 历史贡献积分：11 当前积分：11
+## 译者：[realYukiko](https://github.com/realYukiko) 历史贡献积分：12.5 当前积分：12.5 年度积分：1.5
+
 |文章|类型|积分|
 |------|-------|-------|
+|[CSS Grid 之列宽自适应：`auto-fill` vs `auto-fit`](https://juejin.im/post/5a8c25d66fb9a0634d27b73b)|校对|1.5|
 |[一文教你预测 APP 未来的货币化情况](https://juejin.im/post/5a7a94d36fb9a0634d2793c6)|校对|2|
 |[Angular 安全 —— 使用 JSON 网络令牌（JWT）验证：完全指南](https://juejin.im/post/5a64267c518825734e3e5c22)|校对|4|
 |[现代浏览器是如何提升性能的：网络层](https://juejin.im/post/5a70755df265da3e283a4e5d)|校对|2|
@@ -4873,3 +4882,9 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[教你使用 CSS 计数器](https://juejin.im/post/5a811c6251882528b63ff8d7)|校对|0.5|
+
+## 译者：[weberpan](https://github.com/weberpan) 历史贡献积分：1 当前积分：1 年度积分：1
+
+|文章|类型|积分|
+|------|-------|-------|
+|[JavaScript 中的私有变量](https://juejin.im/post/5a8e9b6d5188257a5f1ed826)|校对|1|
