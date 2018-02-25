@@ -31,30 +31,29 @@
 
 首先，你要知道“扩展”不是一个单一的、特定的问题，**它涉及了一系列难题，必须解决这些难题才能使以太坊对全球无数用户可用。**
 
-The most commonly discussed scaling challenge is transaction throughput. Currently, ethereum can process roughly 15 transactions per second, while in comparison Visa processes approximately 45,000/tps. In the last year, some applications — like [Cryptokitties](http://cryptokitties.co), or the occasional ICO — have been popular enough to “slow down” the network and raise gas prices.
-最常讨论的扩展难题是交易通量。目前，以太坊每秒可以处理大约15笔交易，而 Visa 的处理能力则大约在 45,000/tps。在去年，一些应用程序（比如 [Cryptokitties](http://cryptokitties.co)或偶尔的 ICO）已经
+最常讨论的扩展难题是交易通量。目前，以太坊每秒可以处理大约15笔交易，而 Visa 的处理能力则大约在 45,000/tps。在去年，一些应用程序（比如 [Cryptokitties](http://cryptokitties.co)或偶尔的 ICO）已经足够流行以至于“放缓了”网络速度并提升了 [gas（给挖矿者的费用）](https://myetherwallet.github.io/knowledge-base/gas/what-is-gas-ethereum.html) 价格。
 
-**The core limitation is that public blockchains like ethereum require every transaction to be processed by _every single node_ in the network.** Every operation that takes place on the ethereum blockchain — a payment, the birth of a Cryptokitty, deployment of a new ERC20 contract — must be performed by every single node in the network in parallel. This is by design — it’s part of what makes public blockchains authoritative. Nodes don’t have to rely on someone _else_ to tell them what the current state of the blockchain is — they figure it out for themselves.
+**公用区块链（比如以太坊）最关键的缺陷是要求每一笔交易要被网络中的每一个节点处理。**一笔支付，Cryptokitty 的诞生，部署新的 ERC20 合约，每一个以太坊区块链上发生的操作都必须由网络中的每个节点并行执行。这是设计理念决定的，也正是由于这种设计理念才使得公用区块链具有权威性。节点不需要依赖**其他**节点来告诉他们当前区块链的当前状态，它们会自己计算出来。
 
-**This puts a fundamental limit on ethereum’s transaction throughput:** it cannot be higher than what we are willing to require from an individual node.
+**这给以太坊的交易通量带来了根本性的限制：**它不能高于我们愿意达到的对于单个节点的要求。
 
-We _could_ ask every individual node to do more work. If we doubled the block size (i.e., the block gas limit), it would mean that each node is doing roughly double the amount of work processing each block. But this comes at the cost of decentralization: requiring more work from nodes means that less powerful computers (like consumer devices) may drop out of the network, and mining becomes more centralized in powerful node operators.
+我们**可以**要求每个节点做更多的工作，如果我们将块大小加倍(例如，区块 gas 限制)，这意味着每个节点处理每个区块的工作量大致是之前的两倍。但是这是以分散化为代价的：节点要做更多的工作意味着性能较差的计算机（比如用户设备）可能会从网络中退出，并且挖矿也会更向性能强大的节点运营者集中。
 
-Instead, we need a way for blockchains to _do more useful stuff_ without increasing the workload on individual nodes.
+相反，我们需要一种方式使区块链**做更多有用的事**，但并不增加单个节点的工作量。
 
-Conceptually, there are [two ways we might go about solving this problem](https://blog.ethereum.org/2018/01/02/ethereum-scalability-research-development-subsidy-programs/):
+从概念上来说，[有两种可能解决这个问题的方法](https://blog.ethereum.org/2018/01/02/ethereum-scalability-research-development-subsidy-programs/)：
 
-#### **I. What if each node _didn’t_ have to process every operation in parallel?**
+#### **一. 如果每个节点不必并行处理每个操作，会怎样？**
 
-The first approach rejects our premise — what if we could build a blockchain where every node didn’t have to process every operation? What if, instead, the network was divided into two sections, which could operate semi-independently?
+第一种方法是抛弃我们的前提，如果我们可以构建一个每个节点不必处理每个操作的区块链，会怎样？如果网络分为两个部分代替原有网络，每一个部分都可以独立运行，会怎样？
 
-Section A could process one batch of transactions, while Section B processed another batch. This would effectively double the transaction throughput of a blockchain, since our limit is now what can be processed by _two_ nodes at the same time. If we can split a blockchain into many different sections, then we can increase the throughput of a blockchain by many multiples.
+A 部分可以处理一批交易，而同时 B 部分可以处理另一批。这实际上会使区块链的交易通量翻倍。因为我们的限制现在能够被**两**个节点同时处理。如果我们可以将区块链分为许多不同的部分，那么我们可以将区块链的吞吐量提高很多倍。
 
-This is the insight behind “**sharding”**, a scaling solution being pursued by Vitalik’s [Ethereum Research group](http://ethereumresearch.org/) and others. A blockchain is split into different sections called _shards_, each of which can independently process transactions. Sharding is often referred to as a **Layer 1** scaling solution because it is implemented at the base-level protocol of ethereum itself. If you want to learn more about sharding, I recommend this [extensive FAQ](https://github.com/ethereum/wiki/wiki/Sharding-FAQ) and [this blog post](https://medium.com/@icebearhww/ethereum-sharding-and-finality-65248951f649).
+这是**分片（sharding）**的思维模式，Vitalik’s [Ethereum Research group](http://ethereumresearch.org/) 和其他社群正在研究的一种扩展方案。一个区块链被分割成叫做 **shards** 的不同部分，每一个部分都可以独立处理交易。因为分片是在以太坊的基础级协议中实现的，所以通常被也称为**第一层（layer 1）**扩展解决方案，如果你想了解更多有关分片的内容，请查看 [extensive FAQ](https://github.com/ethereum/wiki/wiki/Sharding-FAQ) 和[这篇博文](https://medium.com/@icebearhww/ethereum-sharding-and-finality-65248951f649)。
 
 ![](https://cdn-images-1.medium.com/max/800/1*mPCgXycICNjuscoFt974fQ.png)
 
-#### **II. What if we could squeeze more _useful operations_ out of ethereum’s existing capacity?**
+#### **II. What if we could squeeze more _useful operations_ out of ethereum’s existing capacity? 二. 如果我们能够从以太坊现有**
 
 The second option goes in the opposite direction: rather than increase the capacity of the ethereum blockchain itself, **what if we could do** **more things** **with the capacity we already have?** The throughput of the base-layer ethereum blockchain would be the same, but in practice we would be able to do many more operations that are useful to people and applications — like transactions, state updates in a game, or simple computations.
 
