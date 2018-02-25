@@ -4405,10 +4405,11 @@
 |------|-------|-------|
 |[从 Gzip 压缩 SVG 说起 — 论如何减小资源文件的大小](https://juejin.im/post/5a30a7fdf265da4309452517)|校对|1|
 
-## 译者：[noahziheng](https://github.com/noahziheng) 历史贡献积分：17 当前积分：17 年度积分：4
+## 译者：[noahziheng](https://github.com/noahziheng) 历史贡献积分：22 当前积分：22 年度积分：9
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Facebook 的 AI 万金油：StarSpace 神经网络模型简介](https://juejin.im/post/5a83af7c6fb9a0633c661404)|翻译|5|
 |[JavaScript 中的私有变量](https://juejin.im/post/5a8e9b6d5188257a5f1ed826)|翻译|4|
 |[你前所未知的 JavaScript 调试器](https://juejin.im/post/5a7e94a66fb9a0633b2105ed)|校对|1|
 |[保持 webpack 快速运行的诀窍：一本提高构建性能的现场指导手册](https://juejin.im/post/5a6adc6d5188257350517033)|翻译|7|
@@ -4650,10 +4651,11 @@
 |[8 个技巧让你在 2018 年构建更好的 Node.js 应用程序](https://juejin.im/post/5a617c436fb9a01c9e46074f)|翻译|3.5|
 |[垂直排版：重提 writing-mode](https://juejin.im/post/5a5570fb6fb9a01c9e45d749)|校对|2|
 
-## 译者：[SeanW20](https://github.com/SeanW20) 历史贡献积分：4.5 当前积分：4.5
+## 译者：[SeanW20](https://github.com/SeanW20) 历史贡献积分：9.5 当前积分：9.5 年度积分：5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Facebook 的 AI 万金油：StarSpace 神经网络模型简介](https://juejin.im/post/5a83af7c6fb9a0633c661404)|翻译|5|
 |[Facebook 开源了物体检测研究项目 Detectron](https://juejin.im/post/5a6c2ba56fb9a01cb64f0591)|翻译|1|
 |[比特币的三个经济阶段](https://juejin.im/post/5a61d5336fb9a01cb049667e)|校对|1.5|
 |[开启你的开源生涯](https://juejin.im/post/5a5c029d51882573432d21ff)|校对|2|
@@ -4699,10 +4701,12 @@
 |[断点：像专家一样调试代码](https://juejin.im/post/5a72be42518825733b0f374e)|翻译|3|
 |[17 个 Xcode 小技巧，每个 iOS 开发者都该知道](https://juejin.im/post/5a7198ac51882573505189c8)|翻译|3|
 
-## 译者：[ryouaki](https://github.com/ryouaki) 历史贡献积分：27 当前积分：27 年度积分：2.5
+## 译者：[ryouaki](https://github.com/ryouaki) 历史贡献积分：32 当前积分：32 年度积分：7.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Facebook 的 AI 万金油：StarSpace 神经网络模型简介](https://juejin.im/post/5a83af7c6fb9a0633c661404)|校对|3|
+|[自主权身份简介](https://juejin.im/post/5a818d535188257a7f1da91b)|校对|2|
 |[JavaScript 中的私有变量](https://juejin.im/post/5a8e9b6d5188257a5f1ed826)|校对|1|
 |[也谈 React 16.3(.0-alpha)](https://juejin.im/entry/5a82ada16fb9a063317c54f2)|校对|1|
 |[教你使用 CSS 计数器](https://juejin.im/post/5a811c6251882528b63ff8d7)|校对|0.5|
@@ -4755,10 +4759,11 @@
 |[我未曾见过的 JS 特性](https://juejin.im/post/5a723216f265da3e2e62d0a5)|校对|1|
 |[通过后台数据预获取技术实现性能提升](https://juejin.im/post/5a71a9c3f265da3e2f01459b)|校对|2|
 
-## 译者：[foxxnuaa](https://github.com/foxxnuaa) 历史贡献积分：2 当前积分：2
+## 译者：[foxxnuaa](https://github.com/foxxnuaa) 历史贡献积分：6 当前积分：6 年度积分：4
 
 |文章|类型|积分|
 |------|-------|-------|
+|[自主权身份简介](https://juejin.im/post/5a818d535188257a7f1da91b)|翻译|4|
 |[通过后台数据预获取技术实现性能提升](https://juejin.im/post/5a71a9c3f265da3e2f01459b)|校对|2|
 
 ## 译者：[dazhi1011](https://github.com/dazhi1011) 历史贡献积分：4.5 当前积分：4.5
