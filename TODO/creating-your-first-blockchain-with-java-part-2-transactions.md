@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/creating-your-first-blockchain-with-java-part-2-transactions.md](https://github.com/xitu/gold-miner/blob/master/TODO/creating-your-first-blockchain-with-java-part-2-transactions.md)
 > * 译者：[IllllllIIl](https://github.com/IllllllIIl)
-> * 校对者：[jaymz1439](https://github.com/jaymz1439) 
+> * 校对者：[jaymz1439](https://github.com/jaymz1439)，[NeoyeElf](https://github.com/NeoyeElf)
 
 # 用 Java 创造你的第一个区块链。第二部分 —— 交易
 
