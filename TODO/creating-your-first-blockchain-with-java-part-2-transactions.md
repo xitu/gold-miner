@@ -2,41 +2,41 @@
 > * 原文作者：[Kass](https://medium.com/@cryptokass?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/creating-your-first-blockchain-with-java-part-2-transactions.md](https://github.com/xitu/gold-miner/blob/master/TODO/creating-your-first-blockchain-with-java-part-2-transactions.md)
-> * 译者：
-> * 校对者：
+> * 译者：[IllllllIIl](https://github.com/IllllllIIl)
+> * 校对者：[jaymz1439](https://github.com/jaymz1439)，[NeoyeElf](https://github.com/NeoyeElf)
 
-# Creating Your First Blockchain with Java. Part 2 — Transactions.
+# 用 Java 创造你的第一个区块链之第二部分 —— 交易
 
-_The aim of this tutorial series, is to help you build a picture of how one could develop blockchain technology. You can find_ [_part 1 here_](https://medium.com/programmers-blockchain/create-simple-blockchain-java-tutorial-from-scratch-6eeed3cb03fa)_._
+这一系列教程的目的是帮助你们对区块链开发技术有一个大致的蓝图，你可以在这里找到教程的[**第一部分**](https://medium.com/programmers-blockchain/create-simple-blockchain-java-tutorial-from-scratch-6eeed3cb03fa)。
 
-In this second tutorial we will :
+在教程的第二部分我们会：
 
-* **Create a simple wallet.**
-* **Send signed transactions using our blockchain.**
-* **Feel extra cool.**
+* **生成一个简单的钱包。**
+* **使用我们的区块链发送带有签名的交易。**
+* **自我陶醉。**
 
-**All of the above will result in our own crypto coin ! (sorta)**
+**以上这些最终会造出我们自己的加密货币（类似那样吧）！**
 
 ![](https://cdn-images-1.medium.com/max/800/1*7qqSMkUfrrENWkqPUYVYYQ.gif)
 
-Don’t worry this will actually be pretty bare-bones, but longer than the last tutorial ! tl;dr [Github](https://github.com/CryptoKass/NoobChain-Tutorial-Part-2/tree/master/src/noobchain).
+不用担心这篇文章只是空谈，怎么说都比上一篇教程有更多干货！文长不看的话，可以直接看源码 [Github](https://github.com/CryptoKass/NoobChain-Tutorial-Part-2/tree/master/src/noobchain)。
 
-* * *
+***
 
-[Carrying on from last tutorial](https://medium.com/programmers-blockchain/create-simple-blockchain-java-tutorial-from-scratch-6eeed3cb03fa), we have a basic verifiable Blockchain. But currently our chain only stores rather useless messages. Today we are going to replace this data with transactions ( our block will be able to hold multiple transactions ), allowing us to create a very simple crypto-currency. We will call our new coin : “_NoobCoin_”.
+[上一篇教程](https://medium.com/programmers-blockchain/create-simple-blockchain-java-tutorial-from-scratch-6eeed3cb03fa)我们说到，我们有了一个基本的可验证区块链。但是现在我们的区块链只能存储相当没用的数据信息。今天我们要将这些无用数据替换为交易数据（我们的区块将能够存储多次交易），这样我们便可以创造一个十分简单的加密货币。我们把这种新币叫做：“菜鸟币”（英文原文：noobcoin）。
 
-* _This tutorial assumes you have followed the other_ [_tutorial_](https://medium.com/programmers-blockchain/create-simple-blockchain-java-tutorial-from-scratch-6eeed3cb03fa)_._
-* **Dependencies: _You will need to import_ **[**_bounceycastle_**](https://www.bouncycastle.org/latest_releases.html)** _(_**[**_here is a mini tutorial on how to do so_**](https://medium.com/@cryptokass/importing-bouncy-castle-into-eclipse-24e0dda55f21)**_) and_ **[**_GSON_**](http://central.maven.org/maven2/com/google/code/gson/gson/2.8.2/gson-2.8.2.jar)**_._**
+* 这个教程假设你已经阅读过另一篇[教程](https://medium.com/programmers-blockchain/create-simple-blockchain-java-tutorial-from-scratch-6eeed3cb03fa)。
+* 依赖：你需要导入 [**bounceycastle**](https://www.bouncycastle.org/latest_releases.html)（[**这是一个简单的操作教程**](https://medium.com/@cryptokass/importing-bouncy-castle-into-eclipse-24e0dda55f21)）和 [**GSON**](http://central.maven.org/maven2/com/google/code/gson/gson/2.8.2/gson-2.8.2.jar)。
 
-### 1.Preparing a Wallet
+### 1.准备一个钱包
 
-In crypto-currencies, coin ownership is transfered on the Blockchain as transactions, participants have an address which funds can be sent to and from. **In their basic form wallets can just store these addresses, most wallets however, are also software able to make new transactions on the Blockchain.**
+在加密货币中，货币所有权以交易的方式在区块链中转移，交易参与者持有资金的发送方和接收方的地址。**如果只是钱包的基本形式，钱包可以只存储这些地址信息。然而，大多数钱包在软件层面上也能够生成新的交易。**
 
 ![](https://cdn-images-1.medium.com/max/1000/1*ygobWJSoGiJ2uMh-sP0Nig.png)
 
-Don’t worry about the information on the transaction, that will be explained soon :)
+不用担心关于交易部分的知识，我们很快会解释这些。
 
-So let’s create a **Wallet** C_lass_ to hold our public key and private keys:
+让我们创建一个 **Wallet** 类来持有我们的公钥和私钥信息：
 
 ```
 package noobchain;
@@ -48,17 +48,17 @@ public class Wallet {
 }
 ```
 
-Be sure to import java.security.* !!!
+请确保导入了 java.security.* 包 ！
 
-**_What are the public and private keys for ?_**
+**这些公钥和私钥是用来干嘛的？**
 
-For our **_‘noobcoin’_** the _public key_ will act as our address. It’s OK to share this public key with others to receive payment. Our private key is used to **_sign_** our transactions, so that nobody can spend our noobcoins other than the owner of the private key. **Users will have to keep their private key Secret !** We also send our public key along with the transaction and it can be used to verify that our signature is valid and data has not been tampered with.
+对于我们的“菜鸟币”来说，公钥就是作为我们的地址。你可以与他人分享公钥以便能收到付款。而我们的私钥是用来对我们的交易进行签名，这样除了私钥的主人就没人可以偷花我们的菜鸟币。 **用户必须保管好自己的私钥！** 我们在交易的过程中也会发送出我们的公钥，公钥也可以用来验证我们的签名是否合法和数据是否被篡改。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*5bOYYuEgKPBNknyKeQQxNA.png)
 
-The private key is used to sign the data we don’t want to be tampered with. The public key is used to verify the signature.
+私钥是用来对我们的数据进行签名，防止被篡改。公钥是用来验证这个签名。
 
-We generate our private and public keys in a **KeyPair**. We will use [Elliptic-curve cryptography](https://en.wikipedia.org/wiki/Elliptic-curve_cryptography) to Generate our **KeyPairs**. Let’s append a g_enerateKeyPair()_ method to our **Wallet** _class_ and call it in the constructor:
+我们以一对 **KeyPair** 的形式生成私钥和公钥。我们会采用[椭圆曲线密码学](https://en.wikipedia.org/wiki/Elliptic-curve_cryptography)去生成我们的 **KeyPairs**。 我们在 Wallet 类中添加一个 _generateKeyPair()_ 方法，并且在构造方法中调用它：
 
 ```
 package noobchain;
@@ -78,10 +78,10 @@ public class Wallet {
 			KeyPairGenerator keyGen = KeyPairGenerator.getInstance("ECDSA","BC");
 			SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
 			ECGenParameterSpec ecSpec = new ECGenParameterSpec("prime192v1");
-			// Initialize the key generator and generate a KeyPair
-			keyGen.initialize(ecSpec, random);   //256 bytes provides an acceptable security level
+			// 初始化 KeyGenerator 并且生成一对 KeyPair
+			keyGen.initialize(ecSpec, random);   //256 字节大小是可接受的安全等级
 	        	KeyPair keyPair = keyGen.generateKeyPair();
-	        	// Set the public and private keys from the keyPair
+	        	// 从 KeyPair中获取公钥和私钥
 	        	privateKey = keyPair.getPrivate();
 	        	publicKey = keyPair.getPublic();
 		}catch(Exception e) {
@@ -92,22 +92,22 @@ public class Wallet {
 }
 ```
 
-All you need to understand about this method is it uses Java.security.KeyPairGenerator to generate an Elliptic Curve KeyPair. This methods makes and sets our Public and Private keys. Nifty.
+关于这个方法你所需要了解的就是它使用了 Java.security.KeyPairGenerator 去生成一个应用椭圆曲线密码学的 KeyPair。这个方法生成公钥和私钥并赋值到对应的公钥私钥对象。它很实用。
 
-Now that we have the outlines of our wallet class let’s have a look at transactions.
+既然我们对 Wallet 类有了大致的认识，接下来看一下交易的部分。
 
-### 2. Transactions & Signatures
+### 2. 交易和签名
 
-Each transaction will carry a certain amount of data:
+每一个交易都包含一定大小的数据：
 
-* The public key(address) of the sender of funds.
-* The public key(address) of the receiver of funds.
-* The value/amount of funds to be transferred.
-* Inputs, which are references to previous transactions that prove the sender has funds to send.
-* Outputs, which shows the amount relevant addresses received in the transaction. ( These outputs are referenced as inputs in new transactions )
-* A cryptographic signature, that proves the owner of the address is the one sending this transaction and that the data hasn’t been changed. ( for example: preventing a third party from changing the amount sent )
+* 资金发送方的公钥（地址）。
+* 资金接受方的公钥（地址）。
+* 要转账的资金数额。
+* 输入，是上一次交易的引用，证明发送方有资金可以发送出去。
+* 输出，是在交易中接收方收到的金额。 （在新交易中这些输出也会被当作是输入）
+* 一个加密的签名，证明地址的所有者是发送这个交易的人并且发送的数据没有被篡改。（例如，阻止第三方更改发送出去的数额）
 
-Let’s create this new Transaction class:
+让我们写一个新的 Transaction 类：
 
 ```
 import java.security.*;
@@ -115,18 +115,18 @@ import java.util.ArrayList;
 
 public class Transaction {
 	
-	public String transactionId; // this is also the hash of the transaction.
-	public PublicKey sender; // senders address/public key.
-	public PublicKey reciepient; // Recipients address/public key.
+	public String transactionId; // 这个也是交易的哈希值
+	public PublicKey sender; // 发送方地址/公钥
+	public PublicKey reciepient; // 接受方地址/公钥
 	public float value;
-	public byte[] signature; // this is to prevent anybody else from spending funds in our wallet.
+	public byte[] signature; // 用来防止他人盗用我们钱包里的资金
 	
 	public ArrayList<TransactionInput> inputs = new ArrayList<TransactionInput>();
 	public ArrayList<TransactionOutput> outputs = new ArrayList<TransactionOutput>();
 	
-	private static int sequence = 0; // a rough count of how many transactions have been generated. 
+	private static int sequence = 0; // 对已生成交易个数的粗略计算 
 	
-	// Constructor: 
+	// 构造方法： 
 	public Transaction(PublicKey from, PublicKey to, float value,  ArrayList<TransactionInput> inputs) {
 		this.sender = from;
 		this.reciepient = to;
@@ -134,7 +134,7 @@ public class Transaction {
 		this.inputs = inputs;
 	}
 	
-	// This Calculates the transaction hash (which will be used as its Id)
+	// 用来计算交易的哈希值（可作为交易的 id）
 	private String calulateHash() {
 		sequence++; //increase the sequence to avoid 2 identical transactions having the same hash
 		return StringUtil.applySha256(
@@ -146,24 +146,24 @@ public class Transaction {
 }
 ```
 
-We should also create empty **TransactionInput** and **TransactionOutput** _classes,_ don’t worry we can fill them in later.
+我们应该也写一个空的 **TransactionInput** 类和 **TransactionOutput** 类，我们之后会把它们补上。
 
-Our transaction class will also contain relevant methods for generating/verifying the signature and verifying the transaction.
+我们的交易类也包含了生成/验证签名和验证交易的相关方法。
 
-_But wait…_
+但等一下。。。
 
-#### What is the purpose of signatures and how do they work ?
+#### 这些签名的目的和工作方式是什么？
 
-**_Signatures_** perform **two** very important tasks on our blockchain: Firstly, they **allow only the owner** to spend **their coins**, secondly, they prevent others from **tampering with their submitted transaction** before a new block is mined (at the point of entry).
+**签名**在我们区块链中起到的**两个**很重要的工作就是： 第一，它们允许所有者去花他们的钱，第二，防止他人在新的一个区块被挖出来之前（进入到整个区块链），篡改他们已提交的交易。
 
-> The **private key is used to sign** the data and the **public key can be used to verify** its integrity.
+> 私钥用来对数据进行签名，公钥用来验证它的合法性。
 
-> **_For example:_**Bob wants to send 2 **NoobCoins** to Sally, so their wallet software generates this transaction and submits it to miners to include in the next block. A miner attempts to change the recipient of the 2 coins to John. However, luckily, Bob had signed the transaction data with his private key, allowing anybody to verify if the transaction data has been changed using Bob’s public key (as no other persons public key will be able to verify the transaction).
+> **例如：**Bob 想给 Sally 两个菜鸟币，所以他们的钱包客户端生成这个交易并且递交给矿工，使其成为下一个区块的一部分。有一个矿工尝试把这两个币的接受人篡改为 John。然而，很幸运地是，Bob 已经用他的私钥把交易数据签名了，任何人使用 Bob 的公钥就能验证这个交易的数据是否被篡改了（其他人的公钥无法校验此交易）。
 
-We can see (from the previous code block,) that our signature will be a bunch of bytes, so let’s create a method to generate them. First thing we will need are a few helper functions in **_StringUtil_** _class_ :
+（从之前的代码中）我们可以看到我们的签名会包含很多字节的信息，所以我们创建一个生成这些信息的方法。首先我们在 **StringUtil** 类中写几个辅助方法：
 
 ```
-//Applies ECDSA Signature and returns the result ( as bytes ).
+//采用 ECDSA 签名并返回结果（以字节形式）
 		public static byte[] applyECDSASig(PrivateKey privateKey, String input) {
 		Signature dsa;
 		byte[] output = new byte[0];
@@ -180,7 +180,7 @@ We can see (from the previous code block,) that our signature will be a bunch of
 		return output;
 	}
 	
-	//Verifies a String signature 
+	//验证一个字符串签名
 	public static boolean verifyECDSASig(PublicKey publicKey, String data, byte[] signature) {
 		try {
 			Signature ecdsaVerify = Signature.getInstance("ECDSA", "BC");
@@ -197,34 +197,34 @@ We can see (from the previous code block,) that our signature will be a bunch of
 	}
 ```
 
-Don’t worry too much about understanding the contents of these methods. All you really need to know is : applyECDSASig takes in the senders private key and string input, signs it and returns an array of bytes. verifyECDSASig takes in the signature, public key and string data and returns true or false if the signature is valid. getStringFromKey returns encoded string from any key.
+不用过分地去弄懂这些方法具体怎么工作的。你真正要了解的是： applyECDSASig 方法接收发送方的私钥和字符串输入，进行签名并返回一个字节数组。verifyECDSASig 方法接收签名，公钥和字符串，根据签名的有效性返回 true 或 false。getStringFromKey 方法就是接受任何一种私钥，返回一个加密的字符串。
 
-Now let’s utilize these signature methods in our **Transaction** _class_, by appending a **_generateSignature()_** and **_verifiySignature()_** _methods_:
+现在我们在 **Transaction** 类中使用这些签名相关的方法，添加 **generateSignature()** 和 **verifiySignature()** 方法。
 
 ```
-//Signs all the data we dont wish to be tampered with.
+//对所有我们不想被篡改的数据进行签名
 public void generateSignature(PrivateKey privateKey) {
 	String data = StringUtil.getStringFromKey(sender) + StringUtil.getStringFromKey(reciepient) + Float.toString(value)	;
 	signature = StringUtil.applyECDSASig(privateKey,data);		
 }
-//Verifies the data we signed hasnt been tampered with
+//验证我们已签名的数据
 public boolean verifiySignature() {
 	String data = StringUtil.getStringFromKey(sender) + StringUtil.getStringFromKey(reciepient) + Float.toString(value)	;
 	return StringUtil.verifyECDSASig(sender, data, signature);
 }
 ```
 
-In reality, you may want to sign more information, like the outputs/inputs used and/or time-stamp ( for now we are just signing the bare minimum )
+实际上，你可能想对更多信息加入签名，像输出/输入或是时间戳（但现在我们只想对最基本的信息进行签名）。
 
-Signatures will be verified by miners as a new transaction are added to a block.
+签名可以由矿工进行验证，就像一个新交易被验证后添加到一个区块中。
 
 ![](https://cdn-images-1.medium.com/max/800/1*hWYSlaQWuak3Wya_81gy2w.gif)
 
-We also can check signatures, when we check the blockchain’s validity.
+当检查区块链的合法性的时候，我们同样也可以检查签名。
 
-### 3.Testing the Wallets and Signatures:
+### 3.测试钱包和签名：
 
-Now we are almost halfway done Let’s test a few things are working. In the **_NoobChain_ **_class_ let’s add some new variables and replace the content of our **_main_** _method_ :
+现在我们快完成一半的工作量了，去测试一下吧。在 **NoobChain** 类中，添加一些新变量并替换掉 **main** 方法中的相应内容：
 
 ```
 import java.security.Security;
@@ -240,50 +240,50 @@ public class NoobChain {
 	public static Wallet walletB;
 
 	public static void main(String[] args) {	
-		//Setup Bouncey castle as a Security Provider
+		//设置 Bouncey castle 作为 Security Provider
 		Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider()); 
-		//Create the new wallets
+		//创建新的钱包 
 		walletA = new Wallet();
 		walletB = new Wallet();
-		//Test public and private keys
+		//测试公钥和私钥
 		System.out.println("Private and public keys:");
 		System.out.println(StringUtil.getStringFromKey(walletA.privateKey));
 		System.out.println(StringUtil.getStringFromKey(walletA.publicKey));
-		//Create a test transaction from WalletA to walletB 
+		//生成从 WalletA 到 walletB 的测试交易 
 		Transaction transaction = new Transaction(walletA.publicKey, walletB.publicKey, 5, null);
 		transaction.signature = transaction.generateSignature(walletA.privateKey);
-		//Verify the signature works and verify it from the public key
+		//验证签名是否起作用并结合公钥验证
 		System.out.println("Is signature verified");
 		System.out.println(transaction.verifiySignature());
 		
 	}
 ```
 
-be sure to remember to add boncey castle as a security provider.
+请务必记得把 boncey castle 添加为 security provider。
 
-We created two wallets, _walletA_ and _walletB_ then printed _walletA_’s private and public keys. Generated a _Transaction_ and signed it using _walletA_’s public key. ̶_F̶i̶n̶a̶l̶l̶y̶ ̶w̶e̶ ̶c̶r̶o̶s̶s̶e̶d̶ ̶o̶u̶r̶ ̶f̶i̶n̶g̶e̶r̶s̶ ̶a̶n̶d̶ ̶h̶o̶p̶e̶d̶ ̶e̶v̶e̶r̶y̶t̶h̶i̶n̶g̶ ̶w̶o̶r̶k̶e̶d̶ ̶o̶u̶t̶.̶_
+我们创建了两个钱包，walletA 和 walletB，然后打印出 walletA 的私钥和公钥。生成了一个 Transaction 并使用 walletA 的公钥对其签名。然后就是希望一切能正常工作吧。
 
-Your output should look something like this :
+你的输出应该像这样子：
 
 ![](https://cdn-images-1.medium.com/max/800/1*60pXu88f-WyPbFYWIXU8iQ.png)
-‘Is signature verified’ should be true. Hopefully.
+签名按照预想应该被验证为 true。
 
-Time to pat your self on the back. Now we just need to create/verify the outputs and inputs and then store the transaction in the Blockchain.
+应该小小地表扬下自己了。现在我们只需创建/验证输出和输入，然后把交易存储在区块链中。
 
-### 4. Inputs & Outputs 1: How crypto currency is owned…
+### 4. 输入和输出 1：自己是怎么持有加密货币的
 
-For you to own 1 bitcoin, you have to receive 1 Bitcoin. The ledger doesn’t really add one bitcoin to you and minus one bitcoin from the sender, the sender referenced that he/she previously received one bitcoin, then a transaction output was created showing that 1 Bitcoin was sent to your address. (Transaction inputs are references to previous transaction outputs.).
+如果你想拥有一个比特币，那你要先收到一个比特币。交易账单不会真的把一个比特币加给你，也不会从发送方那里减去一个比特币。发送方有标识证明他/她之前收到过一个比特币，然后交易输出就会生成，显示一个比特币已经发送到你的地址（交易中的输入来源于之前交易的输出）。
 
-> Your wallets balance is the sum of all the unspent transaction outputs addressed to you.
+> 你的钱包余额是你所有的未花费的交易输出。
 
-From this point on we will follow bitcoins convention and call unspent transaction outputs: **_UTXO_**’s.
+在这点上我们会跟比特币的叫法一样，把未花费的交易输出称为：**UTXO**。
 
-So let’s create a **TransactionInput** _Class_:
+我们再写一个 **TransactionInput** 类：
 
 ```
 public class TransactionInput {
-	public String transactionOutputId; //Reference to TransactionOutputs -> transactionId
-	public TransactionOutput UTXO; //Contains the Unspent transaction output
+	public String transactionOutputId; //把 TransactionOutputs 标识为对应的transactionId
+	public TransactionOutput UTXO; //包括了所有未花费的交易输出
 	
 	public TransactionInput(String transactionOutputId) {
 		this.transactionOutputId = transactionOutputId;
@@ -291,20 +291,20 @@ public class TransactionInput {
 }
 ```
 
-This class will be used to reference TransactionOutputs that have not yet been spent. The transactionOutputId will be used to find the relevant TransactionOutput, allowing miners to check your ownership.
+这个类会被用作未花费的 TransactionOutputs 的引用。transactionOutputId 被用来查找相关的 TransactionOutput，允许矿工检查你的所有权。
 
-And a **TransactionOutputs** C_lass_:
+还有 **TransactionOutputs** 类：
 
 ```
 import java.security.PublicKey;
 
 public class TransactionOutput {
 	public String id;
-	public PublicKey reciepient; //also known as the new owner of these coins.
-	public float value; //the amount of coins they own
-	public String parentTransactionId; //the id of the transaction this output was created in
+	public PublicKey reciepient; //这些币的新持有者
+	public float value; //他们持有币的总额
+	public String parentTransactionId; //生成这个输出的之前交易的 id
 	
-	//Constructor
+	//构造方法
 	public TransactionOutput(PublicKey reciepient, float value, String parentTransactionId) {
 		this.reciepient = reciepient;
 		this.value = value;
@@ -312,7 +312,7 @@ public class TransactionOutput {
 		this.id = StringUtil.applySha256(StringUtil.getStringFromKey(reciepient)+Float.toString(value)+parentTransactionId);
 	}
 	
-	//Check if coin belongs to you
+	//检查币是否属于你
 	public boolean isMine(PublicKey publicKey) {
 		return (publicKey == reciepient);
 	}
@@ -320,19 +320,19 @@ public class TransactionOutput {
 }
 ```
 
-Transaction outputs will show the final amount sent to each party from the transaction. These, when referenced as inputs in new transactions, act as proof that you have coins to send.
+交易输出会显示最终发送给各接收方的金额。这些输出，在新交易中会被当作输入，作为你有资金可以发送出去的凭据。
 
 ![](https://cdn-images-1.medium.com/max/800/1*wylnsMFHeHKd0SNqZgyiYg.gif)
 
-### 5. Inputs & Outputs 2: Processing the transaction…
+### 5. 输入和输出 2：处理交易
 
-Blocks in the chain may receive many transactions and the blockchain might be very, very long, it could take eons to process a new transaction because we have to find and check its inputs. To get around this we will keep an extra collection of all unspent transactions that can be used as inputs. In our N**_oobChain_** _class_ add this collection of all **_UTXOs_**:
+区块可能收到很多交易并且区块链长度可能会很长，这样会花非常长时间去处理一个新的交易，因为需要去查找和检查它的输入。为了处理这个问题，我们要再写一个可用作输出的未花费交易集合。在 **NoobChain** 类中，加入 **_UTXOs_** 集合：
 
 ```
 public class NoobChain {
 	
 	public static ArrayList<Block> blockchain = new ArrayList<Block>();
-	public static HashMap<String,TransactionOutputs> UTXOs = new HashMap<String,TransactionOutputs>(); //list of all unspent transactions. 
+	public static HashMap<String,TransactionOutputs> UTXOs = new HashMap<String,TransactionOutputs>(); //未花费交易的 list 
 	public static int difficulty = 5;
 	public static Wallet walletA;
 	public static Wallet walletB;
@@ -340,14 +340,14 @@ public class NoobChain {
 	public static void main(String[] args) {
 ```
 
-HashMaps allow us to use a key to find a value, but you will need to import java.util.HashMap;
+HashMaps 通过 key 去找到 value，但你需要引入 java.util.HashMap。
 
-Okay, time to get down to the nitty gritty…
+好，接下来就是重点了。
 
-Let’s put everything together to process the transaction with a processTransaction _boolean_ _method_ in our **Transaction** _Class:_
+把处理交易的方法 processTransaction 放到 **Transaction** 类里面：
 
 ```
-//Returns true if new transaction could be created.	
+//如果新交易可以生成，返回 true	
 public boolean processTransaction() {
 		
 		if(verifiySignature() == false) {
@@ -355,29 +355,29 @@ public boolean processTransaction() {
 			return false;
 		}
 				
-		//gather transaction inputs (Make sure they are unspent):
+		//整合所有交易输入（确保是未花费的）
 		for(TransactionInput i : inputs) {
 			i.UTXO = NoobChain.UTXOs.get(i.transactionOutputId);
 		}
 
-		//check if transaction is valid:
+		//检查交易是否合法
 		if(getInputsValue() < NoobChain.minimumTransaction) {
 			System.out.println("#Transaction Inputs to small: " + getInputsValue());
 			return false;
 		}
 		
-		//generate transaction outputs:
-		float leftOver = getInputsValue() - value; //get value of inputs then the left over change:
+		//生成交易输出
+		float leftOver = getInputsValue() - value; //获取剩余的零钱
 		transactionId = calulateHash();
 		outputs.add(new TransactionOutput( this.reciepient, value,transactionId)); //send value to recipient
-		outputs.add(new TransactionOutput( this.sender, leftOver,transactionId)); //send the left over 'change' back to sender		
+		outputs.add(new TransactionOutput( this.sender, leftOver,transactionId)); //把剩下的“零钱“发回给发送方		
 				
-		//add outputs to Unspent list
+		//添加输出到未花费的 list 中
 		for(TransactionOutput o : outputs) {
 			NoobChain.UTXOs.put(o.id , o);
 		}
 		
-		//remove transaction inputs from UTXO lists as spent:
+		//从 UTXO list里面移除已花费的交易输出
 		for(TransactionInput i : inputs) {
 			if(i.UTXO == null) continue; //if Transaction can't be found skip it 
 			NoobChain.UTXOs.remove(i.UTXO.id);
@@ -386,7 +386,7 @@ public boolean processTransaction() {
 		return true;
 	}
 	
-//returns sum of inputs(UTXOs) values
+//返回输入(UTXOs) 值的总额
 	public float getInputsValue() {
 		float total = 0;
 		for(TransactionInput i : inputs) {
@@ -396,7 +396,7 @@ public boolean processTransaction() {
 		return total;
 	}
 
-//returns sum of outputs:
+//返回输出总额
 	public float getOutputsValue() {
 		float total = 0;
 		for(TransactionOutput o : outputs) {
@@ -406,20 +406,20 @@ public boolean processTransaction() {
 	}
 ```
 
-we also added a getInputsValue float method.
+同样再添加一个 getInputsValue 方法。
 
-…With this method we perform some checks to ensure that the transaction is valid, then gather inputs and generating outputs. (See commented lines in the code for more insight).
+通过这个方法进行一些检查，去验证交易合法性，然后整合输入并生成输出（看看代码里的注释会清楚点）。
 
-Importantly, towards the end, we discard Inputs from our list of _UTXO’_s**,** meaning a **transaction output** can only be used once as an input… Hence the full value of the inputs must be used, so the sender sends ‘change’ back to themselves.
+重要的一点，在最后，我们把 Inputs 从 _UTXO_ list里面移除了，说明一个**交易输出**作为一个输入只能使用一次。因此，输入的总数值必须都花出去，这样发送方才有剩余“零钱”可拿回来。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*4wZbhhT98hIyt4jtLdePgQ.png)
 
-Red arrows are Outputs. Notice that Green Inputs are references to previous outputs.
+红色箭头是输出。注意绿色的输入来自之前的输出。
 
-Finally let’s update our wallet to:
+最后更新我们的钱包：
 
-* Gather our balance ( by looping through the UTXOs list and checking if a transaction output isMine())
-* And generate transactions for us…
+* 收集我们的余额（通过循环 UTXO list并检查一个交易输出是否是自己的钱币）
+* 为我们生成交易
 
 ```
 import java.security.*;
@@ -433,13 +433,13 @@ public class Wallet {
 	public PrivateKey privateKey;
 	public PublicKey publicKey;
 	
-	public HashMap<String,TransactionOutput> UTXOs = new HashMap<String,TransactionOutput>(); //only UTXOs owned by this wallet.
+	public HashMap<String,TransactionOutput> UTXOs = new HashMap<String,TransactionOutput>(); //只是这个钱包拥有的 UTXO 
 	
 	public Wallet() {...
 		
 	public void generateKeyPair() {...
 	
-  //returns balance and stores the UTXO's owned by this wallet in this.UTXOs
+  //返回余额并存储这个钱包的 UTXO 
 	public float getBalance() {
 		float total = 0;	
         for (Map.Entry<String, TransactionOutput> item: NoobChain.UTXOs.entrySet()){
@@ -451,13 +451,13 @@ public class Wallet {
         }  
 		return total;
 	}
-	//Generates and returns a new transaction from this wallet.
+	//从这个钱包生成并返回一个新的交易
 	public Transaction sendFunds(PublicKey _recipient,float value ) {
 		if(getBalance() < value) { //gather balance and check funds.
 			System.out.println("#Not Enough funds to send transaction. Transaction Discarded.");
 			return null;
 		}
-    //create array list of inputs
+    //生成输入的 ArrayList
 		ArrayList<TransactionInput> inputs = new ArrayList<TransactionInput>();
     
 		float total = 0;
@@ -480,13 +480,13 @@ public class Wallet {
 }
 ```
 
-Feel free to add some other functionalities to your wallet, like keeping a record of your transaction history.
+自己想的话可以再给钱包添加其它的功能，例如记录交易历史。
 
-#### 6. Adding transactions to our blocks:
+#### 6. 添加交易到我们的区块：
 
-Now we have a working transaction system, we need to implement it into our blockchain. We should replace the useless data we had in our blocks with an ArrayList of transactions. However there may be 1000s of transactions in a single block, too many to include in our hash calculation… but don’t worry we can use the merkle root of the transactions (you can quickly read about about merkle trees here *soon*).
+现在我们有一个运作的交易系统，需要把它整合到区块链中。我们应该用交易的 ArrayList 替换掉之前在区块中占位的无用数据。然而，在一个区块中就可能有 1000 个交易，多到我们的哈希计算无法承受。但是不怕，我们可以使用交易的 merkle root 进行处理（你很快就会读到关于 merkle tree 的东西）。
 
-Let’s add a helper method to generate the merkleroot in StringUtils:
+在 StringUtils 添加一个方法去生成 merkleroot：
 
 ```
 //Tacks in array of transactions and returns a merkle root.
@@ -510,9 +510,9 @@ public static String getMerkleRoot(ArrayList<Transaction> transactions) {
 	}
 ```
 
-*I will replace this soon, with an actual merkleroot but this method will work for now.
+*我会很快用一个能返回真正 merkleroot 的方法替换掉当前方法，但这个方法先暂时顶替下。
 
-Now let’s implement our **Block** _Class_ changes:
+现在来完成 **Block** 类中需要修改的地方：
 
 ```
 import java.util.ArrayList;
@@ -523,19 +523,19 @@ public class Block {
 	public String hash;
 	public String previousHash; 
 	public String merkleRoot;
-	public ArrayList<Transaction> transactions = new ArrayList<Transaction>(); //our data will be a simple message.
-	public long timeStamp; //as number of milliseconds since 1/1/1970.
+	public ArrayList<Transaction> transactions = new ArrayList<Transaction>(); //我们的数据就是一个简单的信息
+	public long timeStamp; //从1970/1/1到现在经过的毫秒时间
 	public int nonce;
 	
-	//Block Constructor.  
+	//构造方法  
 	public Block(String previousHash ) {
 		this.previousHash = previousHash;
 		this.timeStamp = new Date().getTime();
 		
-		this.hash = calculateHash(); //Making sure we do this after we set the other values.
+		this.hash = calculateHash(); //确保设置了其它值之后再计算哈希值
 	}
 	
-	//Calculate new hash based on blocks contents
+	//基于区块内容计算新的哈希值
 	public String calculateHash() {
 		String calculatedhash = StringUtil.applySha256( 
 				previousHash +
@@ -546,7 +546,7 @@ public class Block {
 		return calculatedhash;
 	}
 	
-	//Increases nonce value until hash target is reached.
+	//哈希目标达成的话，增加 nonce 值
 	public void mineBlock(int difficulty) {
 		merkleRoot = StringUtil.getMerkleRoot(transactions);
 		String target = StringUtil.getDificultyString(difficulty); //Create a string with difficulty * "0" 
@@ -557,7 +557,7 @@ public class Block {
 		System.out.println("Block Mined!!! : " + hash);
 	}
 	
-	//Add transactions to this block
+	//添加交易到区块
 	public boolean addTransaction(Transaction transaction) {
 		//process transaction and check if valid, unless block is genesis block then ignore.
 		if(transaction == null) return false;		
@@ -575,23 +575,23 @@ public class Block {
 }
 ```
 
-Notice we also updated our Block constructor as we no longer need pass in string data and included the merkle root in the calculate hash method.
+我们也更新了 Block 的构造方法，因为我们不用再传入字符串，还有在计算哈希值方法中也加入了 merkle root 部分。
 
-Our addTransaction _boolean_ method will add the transactions and will only return true if the transaction has been successfully added.
+addTransaction 方法会添加交易而且只在交易成功添加时返回 true。
 
-> Hurrah every component we need, to make transactions on our blockchain has now be implemented !
+> 哈哈！每个想要的我们都造出来了，现在我们的区块链上已经能进行交易了！
 
 ![](https://cdn-images-1.medium.com/max/800/1*QaHN-AsCPEzAlU-3ulbO-Q.gif)
 
-### **7. The Grand Finale (In the beginning there was noobcoin):**
+### **7. 厉害地总结下(一开始的时候只有菜鸟币)：**
 
-We should test sending coins to and from wallets, and update our blockchain validity check. But first we need a way to introduce new coins into the mix. There are many ways to create new coins, on the bitcoin blockchain for example: miners can include a transaction to themselves as a reward for each block mined. For now though, we will just release all the coins we wish to have, in the first block (the genesis block). Just like bitcoin we will hard code the genesis block.
+现在应该测试从钱包里发送出去菜鸟币或通过钱包接收菜鸟币，并更新区块链的合法性检查。但首先我们要找到如何把新挖的菜鸟币整合到系统中的办法，有很多途径去生成新币，拿比特币的区块链来说：矿工可以把一个交易变成自己的一部分，作为区块被挖出来时的奖励。现在的话，我们就只是在第一个区块（创始区块）放出一定数量的币，满足我们项目需要即可。像比特币一样，我们会硬编码创始区块，写一个固定的值。
 
-Let’s update our NoobChain class with everything it needs:
+让我们完整地更新 NoobChain 类：
 
-* A Genesis block which release 100 Noobcoins to walletA.
-* An updated chain validity check that takes into account transactions.
-* Some test transactions to see that everything is working.
+* 一个创始区块，发了 100 个菜鸟币给钱包 A。
+* 因为增加了交易部分，更新了区块链的合法性检查。
+* 一些测试类交易去验证是否正常运作。
 
 ```
 public class NoobChain {
@@ -606,27 +606,27 @@ public class NoobChain {
 	public static Transaction genesisTransaction;
 
 	public static void main(String[] args) {	
-		//add our blocks to the blockchain ArrayList:
-		Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider()); //Setup Bouncey castle as a Security Provider
+		//添加我们的区块到区块链 ArrayList中
+		Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider()); //设置 Bouncey castle 为 Security Provider
 		
-		//Create wallets:
+		//生成钱包
 		walletA = new Wallet();
 		walletB = new Wallet();		
 		Wallet coinbase = new Wallet();
 		
-		//create genesis transaction, which sends 100 NoobCoin to walletA: 
+		//生成创始交易，内容是发送100个菜鸟币到 walletA
 		genesisTransaction = new Transaction(coinbase.publicKey, walletA.publicKey, 100f, null);
-		genesisTransaction.generateSignature(coinbase.privateKey);	 //manually sign the genesis transaction	
-		genesisTransaction.transactionId = "0"; //manually set the transaction id
-		genesisTransaction.outputs.add(new TransactionOutput(genesisTransaction.reciepient, genesisTransaction.value, genesisTransaction.transactionId)); //manually add the Transactions Output
-		UTXOs.put(genesisTransaction.outputs.get(0).id, genesisTransaction.outputs.get(0)); //its important to store our first transaction in the UTXOs list.
+		genesisTransaction.generateSignature(coinbase.privateKey);	 //手动对创始交易签名
+		genesisTransaction.transactionId = "0"; //手动设置交易 id
+		genesisTransaction.outputs.add(new TransactionOutput(genesisTransaction.reciepient, genesisTransaction.value, genesisTransaction.transactionId)); //手动添加交易输出
+		UTXOs.put(genesisTransaction.outputs.get(0).id, genesisTransaction.outputs.get(0)); //在 UTXO list 里面保存第一个交易很重要
 		
 		System.out.println("Creating and Mining Genesis block... ");
 		Block genesis = new Block("0");
 		genesis.addTransaction(genesisTransaction);
 		addBlock(genesis);
 		
-		//testing
+		//测试
 		Block block1 = new Block(genesis.hash);
 		System.out.println("\nWalletA's balance is: " + walletA.getBalance());
 		System.out.println("\nWalletA is Attempting to send funds (40) to WalletB...");
@@ -656,31 +656,31 @@ public class NoobChain {
 		Block currentBlock; 
 		Block previousBlock;
 		String hashTarget = new String(new char[difficulty]).replace('\0', '0');
-		HashMap<String,TransactionOutput> tempUTXOs = new HashMap<String,TransactionOutput>(); //a temporary working list of unspent transactions at a given block state.
+		HashMap<String,TransactionOutput> tempUTXOs = new HashMap<String,TransactionOutput>(); //对给定的区块状态，一个临时的未花费交易输出list
 		tempUTXOs.put(genesisTransaction.outputs.get(0).id, genesisTransaction.outputs.get(0));
 		
-		//loop through blockchain to check hashes:
+		//循环区块链去检查哈希值
 		for(int i=1; i < blockchain.size(); i++) {
 			
 			currentBlock = blockchain.get(i);
 			previousBlock = blockchain.get(i-1);
-			//compare registered hash and calculated hash:
+			//比较当前区块存储的哈希值和计算得出的哈希值
 			if(!currentBlock.hash.equals(currentBlock.calculateHash()) ){
 				System.out.println("#Current Hashes not equal");
 				return false;
 			}
-			//compare previous hash and registered previous hash
+			//比较前一个区块的哈希值和当前区块中存储的上一个区块哈希值
 			if(!previousBlock.hash.equals(currentBlock.previousHash) ) {
 				System.out.println("#Previous Hashes not equal");
 				return false;
 			}
-			//check if hash is solved
+			//检查哈希值是否解出来了
 			if(!currentBlock.hash.substring( 0, difficulty).equals(hashTarget)) {
 				System.out.println("#This block hasn't been mined");
 				return false;
 			}
 			
-			//loop thru blockchains transactions:
+			//循环区块链交易
 			TransactionOutput tempOutput;
 			for(int t=0; t <currentBlock.transactions.size(); t++) {
 				Transaction currentTransaction = currentBlock.transactions.get(t);
@@ -737,38 +737,38 @@ public class NoobChain {
 }
 ```
 
-Those are some long methods… 😮
+这些是比较长的方法 。。。
 
-Our output should look something like this:
+我们的输出应该是像这样的：
 
 ![](https://cdn-images-1.medium.com/max/800/1*OV1rMcvs_m_gKF5yyR6PQw.png)
 
-Wallets are now able to securely send funds on your blockchain, only if they have funds to send that is. That means you have your own local cryptocurrency*.
+现在钱包已经可以在你的区块链上安全地发送资金，当然前提是得有钱。这意味着你已经拥有了自己的本地化加密货币了。
 
-### You’re all done with transactions on your blockchain!
+### 你现在已经实现了你区块链的交易部分！
 
 ![](https://cdn-images-1.medium.com/max/800/1*9K4pVMSdI7A0YZH-g47I2w.gif)
 
-You have successfully create your own cryptocurrency (sort of!). Your blockchain now:
+你已经成功造出你自己的加密货币（部分完成）。 你现在的区块链可以：
 
-* Allows users to create wallets with ‘new Wallet();’
-* Provides wallets with public and private keys using Elliptic-Curve cryptography.
-* Secures the transfer of funds, by using a digital signature algorithm to prove ownership.
-* And finally allow users to make transactions on your blockchain with ‘Block.addTransaction(walletA.sendFunds( walletB.publicKey, 20));’
+* 允许用户用 new Wallet() 的方式生成钱包。
+* 提供采用椭圆曲线加密方式对公钥和私钥进行加密的钱包。
+* 通过一个数字签名算法证明资金所有权，保护资金的传输过程。
+* 最后允许用户通过 Block.addTransaction(walletA.sendFunds( walletB.publicKey, 20)) 在你的区块链上发起交易。
 
 * * *
 
-You can download these project files on [Github](https://github.com/CryptoKass/NoobChain-Tutorial-Part-2/tree/master/src/noobchain).
+你可以在 [Github](https://github.com/CryptoKass/NoobChain-Tutorial-Part-2/tree/master/src/noobchain) 上面下载这个项目。
 
 ![](https://cdn-images-1.medium.com/max/800/1*ZbFDb_ml08yDSRXyzhFGxA.gif)
 
-You can **follow to be notified** when next tutorials and other blockchain development articles are posted. Any feedback is also greatly appreciated. Thanks.
+你可以**关注我**，以便下一个教程或其它区块链开发文章发布的时候**收到通知**。很重视你们的任何反馈意见。谢谢。 
 
-### Creating Your First Blockchain with Java. Part 3:
+### 用 Java 实现你的第一个区块链。 第三部分:
 
-We will cover **Peer2peer Networking**, **consensus algorithms**, **Block storage and databases** next. (coming soon)
+我们接下来会讲 P2P 网络的部分，**共识算法**，**区块存储和数据库**。(很快就会发布)
 
-_contact:_ kassCrypto@gmail.com**_Questions_**_:_ [https://discord.gg/ZsyQqyk](https://discord.gg/ZsyQqyk) _(I’m on the Blockchain developers Club discord)_
+联系我： kassCrypto@gmail.com **问题交流**：[https://discord.gg/ZsyQqyk](https://discord.gg/ZsyQqyk)（我在 discord 上面的区块链开发者俱乐部）
 
 
 ---
