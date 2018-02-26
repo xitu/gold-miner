@@ -23,7 +23,7 @@
 
 * * *
 
-[上一篇教程](https://medium.com/programmers-blockchain/create-simple-blockchain-java-tutorial-from-scratch-6eeed3cb03fa)我们说到，我们有了一个基本的可验证区块链。但是现在我们的区块链只能存储相当没用的数据信息。今天我们要这些数据替换为交易（我们的区块将能够持有多个交易），允许我们创造一个简单的加密货币。我们把这种新币叫做：“菜鸟币”（英文原文：noobcoin）。
+[上一篇教程](https://medium.com/programmers-blockchain/create-simple-blockchain-java-tutorial-from-scratch-6eeed3cb03fa)我们说到，我们有了一个基本的可验证区块链。但是现在我们的区块链只能存储相当没用的数据信息。今天我们要将这些无用数据替换为交易数据（我们的区块将能够存储多次交易），这样我们便可以创造一个十分简单的加密货币。我们把这种新币叫做：“菜鸟币”（英文原文：noobcoin）。
 
 * 这个教程假设你已经阅读过另一篇[教程](https://medium.com/programmers-blockchain/create-simple-blockchain-java-tutorial-from-scratch-6eeed3cb03fa)。
 * 依赖：你需要导入 [**bounceycastle**](https://www.bouncycastle.org/latest_releases.html)（[**这是一个简单的操作教程**](https://medium.com/@cryptokass/importing-bouncy-castle-into-eclipse-24e0dda55f21)）和 [**GSON**](http://central.maven.org/maven2/com/google/code/gson/gson/2.8.2/gson-2.8.2.jar)。
@@ -50,9 +50,9 @@ public class Wallet {
 
 请确保导入了 java.security.* 包 ！
 
-**这些公钥和私钥用来干嘛的？**
+**这些公钥和私钥是用来干嘛的？**
 
-对于我们的“菜鸟币”来说，公钥就是作为我们的地址。为了收到付款，告诉别人这个公钥是没有问题的。而我们的私钥是用来对我们的交易进行签名，这样除了私钥的主人就没人可以偷花我们的菜鸟币。 **用户必须保管好自己的私钥！** 我们在交易的过程中也会发送出我们的公钥，公钥也可以用来验证我们的签名是否合法和数据是否被篡改。
+对于我们的“菜鸟币”来说，公钥就是作为我们的地址。你可以与他人分享公钥以便能收到付款。而我们的私钥是用来对我们的交易进行签名，这样除了私钥的主人就没人可以偷花我们的菜鸟币。 **用户必须保管好自己的私钥！** 我们在交易的过程中也会发送出我们的公钥，公钥也可以用来验证我们的签名是否合法和数据是否被篡改。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*5bOYYuEgKPBNknyKeQQxNA.png)
 
@@ -94,7 +94,7 @@ public class Wallet {
 
 关于这个方法你所需要了解的就是它使用了 Java.security.KeyPairGenerator 去生成一个应用椭圆曲线密码学的 KeyPair。这个方法生成公钥和私钥并赋值到对应的公钥私钥对象。它很实用。
 
-既然我们对 Wallet 类有了大致的认识，来看一下交易的部分。
+既然我们对 Wallet 类有了大致的认识，接下来看一下交易的部分。
 
 ### 2. 交易和签名
 
@@ -103,7 +103,7 @@ public class Wallet {
 * 资金发送方的公钥（地址）。
 * 资金接受方的公钥（地址）。
 * 要转账的资金数额。
-* 输入，是之前所有交易的引用标识，证明发送方有资金可以发送出去。
+* 输入，是上一次交易的引用，证明发送方有资金可以发送出去。
 * 输出，是在交易中接收方收到的金额。 （在新交易中这些输出也会被当作是输入）
 * 一个加密的签名，证明地址的所有者是发送这个交易的人并且发送的数据没有被篡改。（例如，阻止第三方更改发送出去的数额）
 
@@ -156,7 +156,7 @@ public class Transaction {
 
 **签名**在我们区块链中起到的**两个**很重要的工作就是： 第一，它们允许所有者去花他们的钱，第二，防止他人在新的一个区块被挖出来之前（进入到整个区块链），篡改他们已提交的交易。
 
-> 私钥用来对数据进行签名，公钥用来验证它的完整性。
+> 私钥用来对数据进行签名，公钥用来验证它的合法性。
 
 > **例如：**Bob 想给 Sally 两个菜鸟币，所以他们的钱包客户端生成这个交易并且递交给矿工，使其成为下一个区块的一部分。有一个矿工尝试把这两个币的接受人篡改为 John。然而，很幸运地是，Bob 已经用他的私钥把交易数据签名了，任何人使用 Bob 的公钥就能验证这个交易的数据是否被篡改了（其他人的公钥无法校验此交易）。
 
@@ -261,7 +261,7 @@ public class NoobChain {
 
 请务必记得把 boncey castle 添加为 security provider。
 
-我们创建了两个钱包，walletA 和 walletB，然后哦打印出 walletA 的私钥和公钥。生成了一个 Transaction 并使用 walletA 的公钥对其签名。然后就是希望能正常工作吧。
+我们创建了两个钱包，walletA 和 walletB，然后打印出 walletA 的私钥和公钥。生成了一个 Transaction 并使用 walletA 的公钥对其签名。然后就是希望一切能正常工作吧。
 
 你的输出应该像这样子：
 
@@ -291,7 +291,7 @@ public class TransactionInput {
 }
 ```
 
-这个类用是未花费 TransactionOutputs 的引用。transactionOutputId 被用来查找相关的 TransactionOutput，允许矿工检查你的所有权。
+这个类会被用作未花费的 TransactionOutputs 的引用。transactionOutputId 被用来查找相关的 TransactionOutput，允许矿工检查你的所有权。
 
 还有 **TransactionOutputs** 类：
 
@@ -312,7 +312,7 @@ public class TransactionOutput {
 		this.id = StringUtil.applySha256(StringUtil.getStringFromKey(reciepient)+Float.toString(value)+parentTransactionId);
 	}
 	
-	//检查是否为你自己的币
+	//检查币是否属于你
 	public boolean isMine(PublicKey publicKey) {
 		return (publicKey == reciepient);
 	}
@@ -484,7 +484,7 @@ public class Wallet {
 
 #### 6. 添加交易到我们的区块：
 
-现在我们有一个运作的交易系统，需要把它整合到区块链中。我们应该用交易的 ArrayList 替换掉之前在区块中占位的无用数据。然后，只在一个区块中，就可能有 1000 个交易，无法在我们的哈希计算方法中把这些算出来。但是不怕，我们可以使用交易的 merkle root 进行处理（你很快就会读到关于 merkle tree 的东西）。
+现在我们有一个运作的交易系统，需要把它整合到区块链中。我们应该用交易的 ArrayList 替换掉之前在区块中占位的无用数据。然而，在一个区块中就可能有 1000 个交易，多到我们的哈希计算无法承受。但是不怕，我们可以使用交易的 merkle root 进行处理（你很快就会读到关于 merkle tree 的东西）。
 
 在 StringUtils 添加一个方法去生成 merkleroot：
 
@@ -579,11 +579,11 @@ public class Block {
 
 addTransaction 方法会添加交易而且只在交易成功添加时返回 true。
 
-> 哈哈每个想要的我们都造出来了，现在我们的区块链上已经能进行交易了！
+> 哈哈！每个想要的我们都造出来了，现在我们的区块链上已经能进行交易了！
 
 ![](https://cdn-images-1.medium.com/max/800/1*QaHN-AsCPEzAlU-3ulbO-Q.gif)
 
-### **7. 厉害地总结下(一开始的时候只有菜鸟)：**
+### **7. 厉害地总结下(一开始的时候只有菜鸟币)：**
 
 现在应该测试从钱包里发送出去菜鸟币或通过钱包接收菜鸟币，并更新区块链的合法性检查。但首先我们要找到如何把新挖的菜鸟币整合到系统中的办法，有很多途径去生成新币，拿比特币的区块链来说：矿工可以把一个交易变成自己的一部分，作为区块被挖出来时的奖励。现在的话，我们就只是在第一个区块（创始区块）放出一定数量的币，满足我们项目需要即可。像比特币一样，我们会硬编码创始区块，写一个固定的值。
 
