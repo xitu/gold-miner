@@ -1,3 +1,6 @@
+* [Android 生命周期备忘录 — 第一部分: 单一 Activities](https://juejin.im/post/5a77c9aef265da4e6f17bd51) ([IllllllIIl](https://github.com/IllllllIIl) 翻译)
+* [玩转 Android paths](https://juejin.im/post/5a7c05e7f265da4e7f358cf2) ([IllllllIIl](https://github.com/IllllllIIl) 翻译)
+* [大话（Summer vs winter Observable）之我与 Rx Observable[Android RxJava2]（这是什么鬼）第六话](https://juejin.im/post/5a7cfdaaf265da4e7f35901a) ([hanliuxin5](https://github.com/hanliuxin5) 翻译)
 * [如何打造以人为本的移动游戏](https://juejin.im/post/5a61663b518825732f7ecd2a) ([hanliuxin5](https://github.com/hanliuxin5) 翻译)
 * [开发者也是用户 - 第二部分：改善 UI 和 API 可用性的五条指导原则](https://juejin.im/post/5a728eef6fb9a01ca0722990) ([tanglie1993](https://github.com/tanglie1993) 翻译)
 * [开发者也是用户 - 简介](https://juejin.im/post/5a6536e6518825734216ff06) ([lsvih](https://github.com/lsvih) 翻译)
