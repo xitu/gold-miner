@@ -5,7 +5,7 @@
 > * 译者：[IllllllIIl](https://github.com/IllllllIIl)
 > * 校对者：[jaymz1439](https://github.com/jaymz1439)，[NeoyeElf](https://github.com/NeoyeElf)
 
-# 用 Java 创造你的第一个区块链。第二部分 —— 交易
+# 用 Java 创造你的第一个区块链之第二部分 —— 交易
 
 这一系列教程的目的是帮助你们对区块链开发技术有一个大致的蓝图，你可以在这里找到教程的[**第一部分**](https://medium.com/programmers-blockchain/create-simple-blockchain-java-tutorial-from-scratch-6eeed3cb03fa)。
 
@@ -21,7 +21,7 @@
 
 不用担心这篇文章只是空谈，怎么说都比上一篇教程有更多干货！文长不看的话，可以直接看源码 [Github](https://github.com/CryptoKass/NoobChain-Tutorial-Part-2/tree/master/src/noobchain)。
 
-* * *
+***
 
 [上一篇教程](https://medium.com/programmers-blockchain/create-simple-blockchain-java-tutorial-from-scratch-6eeed3cb03fa)我们说到，我们有了一个基本的可验证区块链。但是现在我们的区块链只能存储相当没用的数据信息。今天我们要将这些无用数据替换为交易数据（我们的区块将能够存储多次交易），这样我们便可以创造一个十分简单的加密货币。我们把这种新币叫做：“菜鸟币”（英文原文：noobcoin）。
 
