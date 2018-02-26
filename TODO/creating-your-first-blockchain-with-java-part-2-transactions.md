@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/creating-your-first-blockchain-with-java-part-2-transactions.md](https://github.com/xitu/gold-miner/blob/master/TODO/creating-your-first-blockchain-with-java-part-2-transactions.md)
 > * 译者：[IllllllIIl](https://github.com/IllllllIIl)
-> * 校对者：
+> * 校对者：[jaymz1439](https://github.com/jaymz1439) 
 
 # 用 Java 创造你的第一个区块链。第二部分 —— 交易
 
@@ -36,7 +36,7 @@
 
 不用担心关于交易部分的知识，我们很快会解释这些。
 
-让我们创建一个 **Wallet** 类来持有我们的公钥和密钥信息：
+让我们创建一个 **Wallet** 类来持有我们的公钥和私钥信息：
 
 ```
 package noobchain;
@@ -50,15 +50,15 @@ public class Wallet {
 
 请确保导入了 java.security.* 包 ！
 
-**这些公钥和密钥用来干嘛的？**
+**这些公钥和私钥用来干嘛的？**
 
-对于我们的“菜鸟币”来说，公钥就是作为我们的地址。为了收到付款，告诉别人这个公钥是没有问题的。而我们的密钥是用来对我们的交易进行签名，这样除了密钥的主人就没人可以偷花我们的菜鸟币。 **用户必须保管好自己的密钥！** 我们在交易的过程中也会发送出我们的公钥，公钥也可以用来验证我们的签名是否合法和数据是否被篡改。
+对于我们的“菜鸟币”来说，公钥就是作为我们的地址。为了收到付款，告诉别人这个公钥是没有问题的。而我们的私钥是用来对我们的交易进行签名，这样除了私钥的主人就没人可以偷花我们的菜鸟币。 **用户必须保管好自己的私钥！** 我们在交易的过程中也会发送出我们的公钥，公钥也可以用来验证我们的签名是否合法和数据是否被篡改。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*5bOYYuEgKPBNknyKeQQxNA.png)
 
-密钥是用来对我们的数据进行签名，防止被篡改。公钥是用来验证这个签名。
+私钥是用来对我们的数据进行签名，防止被篡改。公钥是用来验证这个签名。
 
-我们以一对 **KeyPair** 的形式生成密钥和公钥。我们会采用[椭圆曲线密码学](https://en.wikipedia.org/wiki/Elliptic-curve_cryptography)去生成我们的 **KeyPairs**。 我们在 Wallet 类中添加一个 _generateKeyPair()_ 方法，并且在构造方法中调用它：
+我们以一对 **KeyPair** 的形式生成私钥和公钥。我们会采用[椭圆曲线密码学](https://en.wikipedia.org/wiki/Elliptic-curve_cryptography)去生成我们的 **KeyPairs**。 我们在 Wallet 类中添加一个 _generateKeyPair()_ 方法，并且在构造方法中调用它：
 
 ```
 package noobchain;
@@ -81,7 +81,7 @@ public class Wallet {
 			// 初始化 KeyGenerator 并且生成一对 KeyPair
 			keyGen.initialize(ecSpec, random);   //256 字节大小是可接受的安全等级
 	        	KeyPair keyPair = keyGen.generateKeyPair();
-	        	// 从 KeyPair中设置公钥和密钥
+	        	// 从 KeyPair中获取公钥和私钥
 	        	privateKey = keyPair.getPrivate();
 	        	publicKey = keyPair.getPublic();
 		}catch(Exception e) {
@@ -92,7 +92,7 @@ public class Wallet {
 }
 ```
 
-关于这个方法你所需要了解的就是它使用了 Java.security.KeyPairGenerator 去生成一个应用椭圆曲线密码学的 KeyPair。这个方法生成公钥和密钥并赋值到对应的公钥密钥对象。它很实用。
+关于这个方法你所需要了解的就是它使用了 Java.security.KeyPairGenerator 去生成一个应用椭圆曲线密码学的 KeyPair。这个方法生成公钥和私钥并赋值到对应的公钥私钥对象。它很实用。
 
 既然我们对 Wallet 类有了大致的认识，来看一下交易的部分。
 
@@ -156,9 +156,9 @@ public class Transaction {
 
 **签名**在我们区块链中起到的**两个**很重要的工作就是： 第一，它们允许所有者去花他们的钱，第二，防止他人在新的一个区块被挖出来之前（进入到整个区块链），篡改他们已提交的交易。
 
-> 密钥用来对数据进行签名，公钥用来验证它的完整性。
+> 私钥用来对数据进行签名，公钥用来验证它的完整性。
 
-> **例如：**Bob 想给 Sally 两个菜鸟币，所以他们的钱包客户端生成这个交易并且递交给矿工，使其成为下一个区块的一部分。有一个矿工尝试把这两个币的接受人篡改为 John。然而，很幸运地是，Bob 已经用他的密钥把交易数据签名了，任何人使用 Bob 的公钥就能验证这个交易的数据是否被篡改了（）。
+> **例如：**Bob 想给 Sally 两个菜鸟币，所以他们的钱包客户端生成这个交易并且递交给矿工，使其成为下一个区块的一部分。有一个矿工尝试把这两个币的接受人篡改为 John。然而，很幸运地是，Bob 已经用他的私钥把交易数据签名了，任何人使用 Bob 的公钥就能验证这个交易的数据是否被篡改了（其他人的公钥无法校验此交易）。
 
 （从之前的代码中）我们可以看到我们的签名会包含很多字节的信息，所以我们创建一个生成这些信息的方法。首先我们在 **StringUtil** 类中写几个辅助方法：
 
@@ -197,7 +197,7 @@ public class Transaction {
 	}
 ```
 
-不用过分地去弄懂这些方法具体怎么工作的。你真正要了解的是： applyECDSASig 方法接收发送方的密钥和字符串输入，进行签名并返回一个字节数组。verifyECDSASig 方法接收签名，公钥和字符串，根据签名的合法性返回 true 或 false。getStringFromKey 方法就是接受任何一种密钥，返回一个加密的字符串。
+不用过分地去弄懂这些方法具体怎么工作的。你真正要了解的是： applyECDSASig 方法接收发送方的私钥和字符串输入，进行签名并返回一个字节数组。verifyECDSASig 方法接收签名，公钥和字符串，根据签名的有效性返回 true 或 false。getStringFromKey 方法就是接受任何一种私钥，返回一个加密的字符串。
 
 现在我们在 **Transaction** 类中使用这些签名相关的方法，添加 **generateSignature()** 和 **verifiySignature()** 方法。
 
@@ -245,7 +245,7 @@ public class NoobChain {
 		//创建新的钱包 
 		walletA = new Wallet();
 		walletB = new Wallet();
-		//测试公钥和密钥
+		//测试公钥和私钥
 		System.out.println("Private and public keys:");
 		System.out.println(StringUtil.getStringFromKey(walletA.privateKey));
 		System.out.println(StringUtil.getStringFromKey(walletA.publicKey));
@@ -261,7 +261,7 @@ public class NoobChain {
 
 请务必记得把 boncey castle 添加为 security provider。
 
-我们创建了两个钱包，walletA 和 walletB，然后哦打印出 walletA 的密钥和公钥。生成了一个 Transaction 并使用 walletA 的公钥对其签名。然后就是希望能正常工作吧。
+我们创建了两个钱包，walletA 和 walletB，然后哦打印出 walletA 的私钥和公钥。生成了一个 Transaction 并使用 walletA 的公钥对其签名。然后就是希望能正常工作吧。
 
 你的输出应该像这样子：
 
@@ -272,7 +272,7 @@ public class NoobChain {
 
 ### 4. 输入和输出 1：自己是怎么持有加密货币的
 
-如果你想拥有一个比特币，那你要先收到一个比特币。交易账单不会真的把一个比特币加给你，也不会从发送方那里减去一个比特币。 发送方有标识证明他/她之前收到过一个比特币，然后交易输出就会生成，显示一个比特币已经发送到你的地址（交易中的输入来源于之前交易的输出）。
+如果你想拥有一个比特币，那你要先收到一个比特币。交易账单不会真的把一个比特币加给你，也不会从发送方那里减去一个比特币。发送方有标识证明他/她之前收到过一个比特币，然后交易输出就会生成，显示一个比特币已经发送到你的地址（交易中的输入来源于之前交易的输出）。
 
 > 你的钱包余额是你所有的未花费的交易输出。
 
@@ -752,7 +752,7 @@ public class NoobChain {
 你已经成功造出你自己的加密货币（部分完成）。 你现在的区块链可以：
 
 * 允许用户用 new Wallet() 的方式生成钱包。
-* 提供采用椭圆曲线加密方式对公钥和密钥进行加密的钱包。
+* 提供采用椭圆曲线加密方式对公钥和私钥进行加密的钱包。
 * 通过一个数字签名算法证明资金所有权，保护资金的传输过程。
 * 最后允许用户通过 Block.addTransaction(walletA.sendFunds( walletB.publicKey, 20)) 在你的区块链上发起交易。
 
