@@ -7,9 +7,9 @@
 
 # 大话（Observable 向 Observer 求婚）之我与 Rx Observable [Android RxJava2]（这是什么鬼）第七话
 
-又是新的一天，是时候学些新知识了。
+哇哦，又是新的一天，是时候学些新知识了。
 
-大家好，希望你们都过得不错。这是我们的 RxJava2 Android 系列第七篇文章了，[ [part1](https://juejin.im/entry/58ada9738fd9c5006704f5a1), [part2](https://juejin.im/entry/58d78547a22b9d006465ca57), [part3](https://juejin.im/entry/591298eea0bb9f0058b35c7f), [part4](https://github.com/xitu/gold-miner/blob/master/TODO/war-learning-curve-rx-java-2-java-8-stream-android-rxjava2-hell-part4.md), [part5](https://juejin.im/post/590ab4f7128fe10058f35119), [part6,](https://github.com/xitu/gold-miner/blob/master/TODO/continuation-summer-vs-winter-observable-dialogue-rx-observable-developer-android-rxjava2-hell-part6.md) [part7,](https://github.com/xitu/gold-miner/blob/master/TODO/continuation-observable-marriage-proposal-observer-dialogue-rx-observable-developer-android-rxjava2-hell-part7.md)[ part8](https://github.com/xitu/gold-miner/blob/master/TODO/confusion-subject-observable-observer-android-rxjava2-hell-part8.md) ]. 这篇文章里我们将继续和 Rx 聊聊天。
+大家好，希望你们都过得不错。这是我们的 RxJava2 Android 系列第七篇文章了，[ [part1](https://juejin.im/entry/58ada9738fd9c5006704f5a1)，[part2](https://juejin.im/entry/58d78547a22b9d006465ca57)，[part3](https://juejin.im/entry/591298eea0bb9f0058b35c7f)，[part4](https://github.com/xitu/gold-miner/blob/master/TODO/war-learning-curve-rx-java-2-java-8-stream-android-rxjava2-hell-part4.md)，[part5](https://juejin.im/post/590ab4f7128fe10058f35119)，[part6](https://github.com/xitu/gold-miner/blob/master/TODO/continuation-summer-vs-winter-observable-dialogue-rx-observable-developer-android-rxjava2-hell-part6.md)，[part7](https://github.com/xitu/gold-miner/blob/master/TODO/continuation-observable-marriage-proposal-observer-dialogue-rx-observable-developer-android-rxjava2-hell-part7.md)，[part8](https://github.com/xitu/gold-miner/blob/master/TODO/confusion-subject-observable-observer-android-rxjava2-hell-part8.md)]。这篇文章里我们将继续和 Rx 聊聊天。
 
 **动机：**
 
@@ -46,7 +46,7 @@ Observer：很棒。所以你已经知道 Observable 是那个观察数据流改
 
 Observable：哈哈哈，完全正确，亲爱的（比心）。
 
-Observer：任何地方只要你能看到 Observable，就百分百可以看到我。你可以认为我就是 Observable 和开发者们（比如我，等等）之间的桥梁。比如你是一个 Rx 的新手，你想要使用一些依赖 Rx 的第三方库。你只有了解我，才能掌控那个库。我觉得这个说法不为过。
+Observer：任何地方只要你能看到 Observable，就百分百可以看到我。你可以认为我就是 Observable 和开发者们（比如我，等等）之间的桥梁。比如你是一个 Rx 的新手，你想要使用一些依赖 Rx 的第三方库。你只有了解我，才能掌握那个库。我觉得这个说法不为过。
 
 我：🙂。
 
@@ -99,8 +99,8 @@ void onNext(T var1);:
 void onError(Throwable var1);:
 ```
 
-这个 API 对我来说更加关键和重要。任何时候当 Observable 发现了致命的问题，他就会使用我的 onError(Throwable var1) API 通知我。Throwable 会告诉在我他致死的原因或者出现了什么问题。
-这也意味着任何时候 onError() 被调用后，Disposable.isDispose() 方法永远会返回 true。所以即使我从不请求分离，但是当 Observable 面临一些问题后死去，我可以使用 isDispose() 并得到返回值 true 来发觉这个情况。
+这个 API 对我来说更加关键和重要。任何时候当 Observable 发现了致命的问题，他就会使用我的 onError(Throwable var1) API 通知我。Throwable 会告诉我他的崩溃原因或者出现了什么问题。
+这也意味着任何时候 onError() 被调用后，Disposable.isDispose() 方法永远会返回 true。所以即使我从不请求离婚，但是当 Observable 面临一些问题后死去，我可以使用 isDispose() 并得到返回值 true 来发觉这个情况。
 
 ```
 void onComplete();:
@@ -634,8 +634,6 @@ public class ObserverLecture {
 
 喔，只有一件事要注意的是，这里的方法引用仅仅是调用了 Throwable.toString()，并不能展现我们自定义的消息。就像上面例子的那样**(System.out.println(“Die due to “+throwable.getMessage())**。
 现在是时候向你展示使用定义我自己的 Error Consumer API 并生成一个那样的对象来订阅。
-Wow. Only one thing to mention. Here method reference call throwable.toString() not able to show our custom message. Like how we are showing in one above example (**System.out.println(“Die due to “+throwable.getMessage())**.
-Now its time to show you by defining my Error Consumer API and sending that object to subscribe.
 
 ```
 public class ObserverLecture {
