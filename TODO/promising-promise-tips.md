@@ -2,7 +2,7 @@
 > * 原文作者：[Kushan Joshi](https://dev.to/kepta)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/promising-promise-tips.md](https://github.com/xitu/gold-miner/blob/master/TODO/promising-promise-tips.md)
-> * 译者：[yanyixin](https://github.com/yanyixin)
+> * 译者：[position_柚子君](https://github.com/yanyixin)
 > * 校对者：[Starrier](https://github.com/Starriers), [DukeWu](https://github.com/94haox)
 
 
