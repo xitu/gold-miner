@@ -3,17 +3,17 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/service-workers-the-little-heroes-behind-progressive-web-apps.md](https://github.com/xitu/gold-miner/blob/master/TODO/service-workers-the-little-heroes-behind-progressive-web-apps.md)
 > * 译者：[FateZeros](https://github.com/FateZeros)
-> * 校对者：
+> * 校对者：[MechanicianW](https://github.com/MechanicianW)
 
 # Service workers：Progressive Web Apps 背后的小英雄
 
 ![](https://cdn-images-1.medium.com/max/800/1*CqQTKb0N2o0suacfiluO8w.jpeg)
 
-Service workers 是 [Progressive Web Apps](https://flaviocopes.com/what-is-a-progressive-web-app/) 的核心。它们允许缓存资源和推送通知，这是两个原生 app 应用的突出特性。
+Service workers 是 [Progressive Web Apps](https://flaviocopes.com/what-is-a-progressive-web-app/) 的核心。它们允许缓存资源和推送通知，这是原生 app 应用的两个突出特性
 
-service worker 是你的网页和网络之间的 **可编程代理**，它可以拦截和缓存网络请求。这实际上可以让你 **给自己的 app 创建一个离线优先的体验**。
+service worker 是你的网页和网络之间的 **可编程代理**，它可以拦截和缓存网络请求。这实际上可以让你 **使自己的 app 具有离线优先的体验**。
 
-Service workers 是一种特殊的 web wooker：一个关联工作环境上运行的网页且与主线程分离的 JavaScript 文件。这会有非阻塞的好处 —— 所以计算处理可以在不牺牲 UI 响应的情况下完成。
+Service workers 是一种特殊的 web worker：一个关联工作环境上运行的网页且与主线程分离的 JavaScript 文件。它带来了非阻塞这一优点 —— 所以计算处理可以在不牺牲 UI 响应的情况下完成。
 
 因为它在单独的线程上，因此它没有访问 DOM 的权限，也没有访问本地存储 APIs 和 XHR API 的权限。它只能使用 **Channel Messaging API** 与主线程通信。
 
@@ -23,7 +23,7 @@ Service Workers 与其他新进的 Web APIs 搭配：
 * **Fetch API**
 * **Cache API**
 
-它们 **只在使用 HTPPS** 协议的页面可用（除了本地请求不需要安全连接，这会使测试更简单。）。
+它们 **只在使用 HTTPS** 协议的页面可用（除了本地请求不需要安全连接，这会使测试更简单。）。
 
 ### 后台运行
 
@@ -33,7 +33,7 @@ Service workers 独立运行，当与其相关联的应用没有运行的时候�
 
 * 当你的手机应用 **在后台运行**，没有激活
 * 当你的手机应用 **关闭** 甚至没有在后台运行
-* 当 **浏览器关闭**，如果 app 运行在浏览器上
+* 当**浏览器关闭**，如果 app 运行在浏览器上
 
 service workers 非常有用的几种场景：
 
@@ -44,7 +44,7 @@ service worker 只有在需要的时候运行，不然则停止运行。
 
 ### 离线支持
 
-传统上，web app 的离线体验一直很差。没有网络，web app 通常根本无法工作。另一方面，原生手机 app 则有能力提供一种工作版本或者友好的消息提示。
+传统上，web app 的离线体验一直很差。没有网络，web app 通常根本无法工作。另一方面，原生手机 app 则有能力提供一种可以离线运行的版本或者友好的消息提示。
 
 这就不是一种友好的消息提示，但这是 Chrome 中一个网页在没有网络连接情况下的样子：
 
@@ -58,7 +58,7 @@ service worker 只有在需要的时候运行，不然则停止运行。
 
 Service workers 是新的离线缓存标准。
 
-哪种缓存是可能的？
+可以进行哪种缓存？
 
 ### 在安装期间预缓存资源
 
@@ -82,7 +82,7 @@ service worker 经过以下三个步骤才能提供完整的功能：
 
 注册告诉浏览器 service worker 在哪里，并在后台开始安装。
 
-注册放置在 `worker.js` 中 service work 的示例代码：
+注册放置在 `worker.js` 中 service worker 的示例代码：
 
 ```
 if ('serviceWorker' in navigator) { 
@@ -99,7 +99,7 @@ if ('serviceWorker' in navigator) {
 }
 ```
 
-即使此代码被多次调用，如果 service work 是新的，并且以前没有被注册，或者已更新，浏览器将仅执行注册。
+即使此代码被多次调用，如果 service worker 是新的，并且以前没有被注册，或者已更新，浏览器将仅执行注册。
 
 #### 范围
 
@@ -107,7 +107,7 @@ if ('serviceWorker' in navigator) {
 
 它默认包含 service worker 的文件夹中的所有文件和子文件夹，所以如果将它放到根文件夹，它将控制整个 app。在子文件夹中，它将只会控制当前路径下的页面。
 
-下面的示例通过指定 `/notifications/` 文件夹范围来注册 service weork。
+下面的示例通过指定 `/notifications/` 文件夹范围来注册 service worker。
 
 ```
 navigator.serviceWorker.register('/worker.js', { 
@@ -115,7 +115,7 @@ navigator.serviceWorker.register('/worker.js', {
 })
 ```
 
-`/` 很重要：在这种情况下，页面 `/notifications` 不会触发 service work，而如果范围是：
+`/` 很重要：在这种情况下，页面 `/notifications` 不会触发 service worker，而如果范围是：
 
 ```
 { scope: '/notifications' }
@@ -123,7 +123,7 @@ navigator.serviceWorker.register('/worker.js', {
 
 它就会起作用。
 
-注意：service work 不能从一个文件夹中“提升”自己的作用范围：如果它的文件放在 `/notifications` 下，它不能控制 `/` 路径或其他不在 `/notifications` 下的路径。 
+注意：service worker 不能从一个文件夹中“提升”自己的作用范围：如果它的文件放在 `/notifications` 下，它不能控制 `/` 路径或其他不在 `/notifications` 下的路径。 
 
 ### 安装
 
@@ -135,11 +135,11 @@ self.addEventListener('install', (event) => {
 });
 ```
 
-这是准备 service work 以供**初始化缓存**使用的好时机。然后使用 **Cache API** **缓存 App Shell** 和静态资源。
+这是准备 service worker 以供**初始化缓存**使用的好时机。然后使用 **Cache API** **缓存 App Shell** 和静态资源。
 
 ### 激活
 
-一旦 service worker 被成功注册和安装，第三部就是激活。
+一旦 service worker 被成功注册和安装，第三步就是激活。
 
 此时，service worker 将和新页面加载一起工作。
 
@@ -151,7 +151,7 @@ self.addEventListener('activate', (event) => {
 });
 ```
 
-这个事件的一个好的用例是清除旧缓存和一些关联到旧版本并且没有被新版本的 service woker 使用的文件。
+这个事件的一个好的用例是清除旧缓存和一些关联到旧版本并且没有被新版本的 service worker 使用的文件。
 
 ### 更新 Service Worker
 
@@ -189,9 +189,9 @@ self.addEventListener('fetch', (event) => {
 
 ### 后台同步
 
-后台同步允许超时连接延迟，知道用户有可用的网络连接。
+后台同步允许发出的连接延迟，直到用户有可用的网络连接。
 
-这是确保用户能离线使用 app，能对其进行操作，并且当网络连接时排队进行服务端更新（而不是现实尝试获取信号的无限旋转圈）的关键。
+这是确保用户能离线使用 app，能对其进行操作，并且当网络连接时排队进行服务端更新（而不是显示尝试获取信号的无限旋转圈）的关键。
 
 ```
 navigator.serviceWorker.ready.then((swRegistration) => { 
@@ -209,7 +209,7 @@ self.addEventListener('sync', (event) => {
 })
 ```
 
-`doSomething()` 返回一个承诺。如果失败，另一个同步事件将安排自动重试，直到成功。
+`doSomething()` 返回一个 promise 对象。如果失败，另一个同步事件将安排自动重试，直到成功。
 
 这也允许应用程序在有可用网络连接时，立即从服务器更新数据。
 
@@ -223,7 +223,7 @@ Service workers 让 web apps 为用户提供本地推送。
 
 推送事件用后端通过浏览器推送服务启动，如 [Firebase](https://flaviocopes.com/firebase-hosting) 提供的推送服务。
 
-这是一个 web worker 如何能监听到即将到来的推送事件的示例：
+下面这个例子展示了 web worker 如何能够监听到即将到来的推送事件：
 
 ```
 self.addEventListener('push', (event) => { 
@@ -248,7 +248,7 @@ self.addEventListener('push', (event) => {
 
 感谢阅读这篇文章，关于这个主题还有很多值得学习的地方！我在[关于前端开发的博客](https://flaviocopes.com)中发表了很多相关的内容，别忘记去看！😀
 
-最初发表于[flaviocopes.com](https://flaviocopes.com/service-workers/)。
+**最初发表于**[**flaviocopes.com**](https://flaviocopes.com/service-workers/)。
 
 
 ---
