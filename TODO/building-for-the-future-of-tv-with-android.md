@@ -2,8 +2,8 @@
 > * 原文作者：[Rachel Berk](https://medium.com/@rachelberk?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/building-for-the-future-of-tv-with-android.md](https://github.com/xitu/gold-miner/blob/master/TODO/building-for-the-future-of-tv-with-android.md)
-> * 译者：
-> * 校对者：
+> * 译者：[JayZhaoBoy](https://github.com/JayZhaoBoy)
+> * 校对者：[hanliuxin5](https://github.com/hanliuxin5), [LeeSniper](https://github.com/LeeSniper)
 
 # 利用 Android 构建 TV 的未来
 
@@ -31,7 +31,7 @@ Android TV 不仅增加观看时间，还会创建更具粘性的用户。去年
 
 #### **用 Android TV 追剧**
 
-即使对于没有通过订阅获利的应用，在 Android TV 也可以吸引用户。平均而言，平均每月电视应用程序在 Android TV 上观看时间是移动设备上的 1.8-3 倍，假如带有 O（Android 8.0）的新功能，例如实时预览，这些参与率甚至更高。
+即使对于没有通过订阅获利的应用，在 Android TV 也可以吸引用户。平均而言，每月电视应用程序在 Android TV 上观看时间是移动设备上的 1.8-3 倍，假如带有 O（Android 8.0）的新功能，例如实时预览，这些参与率甚至更高。
 
 #### **Android O（Android 8.0）具备那些新的功能?**
 
