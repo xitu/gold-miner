@@ -20,7 +20,7 @@
 * 使用 `alpine` 进行生产环境下的多级构建，减少最终镜像文件的大小。
 * #建议 — 1) 使用 COPY 代替 ADD 2) 使用 `init` 标识，处理 CTRL-C 等内核信号。
 
-如果你需要以上步骤的代码，请参考  [GitHub repo](https://github.com/praveenweb/node-docker)。
+如果你需要以上步骤的代码，请参考 [GitHub repo](https://github.com/praveenweb/node-docker)。
 
 ### **内容**
 
