@@ -2,8 +2,8 @@
 > * 原文作者：[Daniel Jeffries](https://hackernoon.com/@dan.jeffries?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/what-will-bitcoin-look-like-in-twenty-years-2.md](https://github.com/xitu/gold-miner/blob/master/TODO/what-will-bitcoin-look-like-in-twenty-years-2.md)
-> * 译者：
-> * 校对者：
+> * 译者：[pcdack](https://github.com/pcdack)
+> * 校对者：[Raoul1996](https://github.com/Raoul1996), [foxxnuaa](https://github.com/foxxnuaa)
 
 - [What Will Bitcoin Look Like in Twenty Years? - Part 1](https://github.com/xitu/gold-miner/blob/master/TODO/what-will-bitcoin-look-like-in-twenty-years-1.md)
 - [What Will Bitcoin Look Like in Twenty Years? - Part 2](https://github.com/xitu/gold-miner/blob/master/TODO/what-will-bitcoin-look-like-in-twenty-years-2.md)
