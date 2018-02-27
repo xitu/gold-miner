@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/an-exhaustive-guide-to-writing-dockerfiles-for-node-js-web-apps.md](https://github.com/xitu/gold-miner/blob/master/TODO/an-exhaustive-guide-to-writing-dockerfiles-for-node-js-web-apps.md)
 > * 译者：[lsvih](https://github.com/lsvih)
-> * 校对者：
+> * 校对者：[Raoul1996](https://github.com/Raoul1996), [song-han](https://github.com/song-han)
 
 # 一份为 Node.js 应用准备的 Dockerfile 指南
 
