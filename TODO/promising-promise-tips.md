@@ -3,12 +3,12 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/promising-promise-tips.md](https://github.com/xitu/gold-miner/blob/master/TODO/promising-promise-tips.md)
 > * 译者：[yanyixin](https://github.com/yanyixin)
-> * 校对者：
+> * 校对者：[Starrier](https://github.com/Starriers), [DukeWu](https://github.com/94haox)
 
 
 # 关于 Promise 的 9 个提示
 
-Promise 在工作中很好用！同事们也这么说。
+正如同事所说的那样，Promise 在工作中表现优异。
 
 ![prom](https://res.cloudinary.com/practicaldev/image/fetch/s--zlauxVhZ--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://user-images.githubusercontent.com/6966254/36483828-3e361d88-16e5-11e8-9f11-cbe99d719066.png)
 
@@ -33,7 +33,7 @@ Promise 在工作中很好用！同事们也这么说。
 
 ## 2. 每次执行 .then 的时候都会自动创建一个新的 Promise
 
-如果熟悉 javascript 的链式风格，那么你应该会感到很亲切。但是对于一个初学者来说，可能就不会了。
+如果熟悉 javascript 的链式风格，那么你应该会感到很熟悉。但是对于一个初学者来说，可能就不会了。
 
 在 Promise 中不论你使用 `.then` 或者 `.catch` 都会创建一个新的 Promise。这个 Promise 是刚刚链式调用的 Promise 和 刚刚加上的 `.then` / `.catch` 的组合。
 
@@ -49,16 +49,16 @@ var promB = promA.then(r => (r === "good" ? "ALL OK" : "NOTOK"));
 var promC = statusProm.then(r => fetchThisAnotherThing());
 ```
 
-上面 Promise 的关系可以在流程图中描述出来：
+上面 Promise 的关系可以在流程图中清晰的描述出来：
 ![image](https://res.cloudinary.com/practicaldev/image/fetch/s--gf5-9vXv--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://user-images.githubusercontent.com/6966254/36400725-dac92186-15a0-11e8-8b4f-6a344e6a5229.png)
 
 需要特别注意的是 `promA`、 `promB` 和 `promC` 全部都是不同的但是有关联的 Promise。
 
-我喜欢把 `.then` 想像成一个巨大的管道，当上游出现问题的时候，就会停止流向下游。举个例子，如果 `promB` 失败，没有下游节点会受到影响，但是如果 `statusProm` 失败，那所有的下游节点将会受到影响，也就是 `rejected`。
+我喜欢把 `.then` 想像成一个大型管道，当上游节点出现问题时，水就会停止流向下游。例如，如果 `promB` 失败，下游节点不会受到影响，但是如果 `statusProm` 失败，那么下游的所有节点都将受到影响，即 `rejected`。
 
-## 3. 对于每个人来说 Promise 都是 resolved/rejected 的
+## 3. 对调用者来说，`Promise` 的 `resolved/rejected` 状态是唯一的
 
-我认为这个是让 Promise 好好运行的最重要的事情之一。简单来说，如果在你的应用中 Promise 在很多不同的模块之间共享，那么当 Promise `resolved/rejected` 的时候，他们都会收到通知。
+我认为这个是让 Promise 好好运行的最重要的事情之一。简单来说，如果在你的应用中 Promise 在很多不同的模块之间共享，那么当 Promise 返回 `resolved/rejected` 状态时，所有的调用者都会收到通知。
 
 > 这也意味着没有人可以改变你的 Promise，所以可以放心的把它传递出去。
 
@@ -66,27 +66,27 @@ var promC = statusProm.then(r => fetchThisAnotherThing());
 function yourFunc() {
   const yourAwesomeProm = makeMeProm();
 
-  yourEvilUncle(yourAwesomeProm); // 不管你的坏叔叔如何使用你的Promise ，它都会执行。
+  yourEvilUncle(yourAwesomeProm); // 无论 Promise 受到了怎样的影响，它最终都会成功执行
 
   return yourAwesomeProm.then(r => importantProcessing(r));
 }
 
 function yourEvilUncle(prom) {
-  return prom.then(r => Promise.reject("destroy!!")); // 你的坏叔叔
+  return prom.then(r => Promise.reject("destroy!!")); // 可能遭受的影响
 }
 ```
 
-通过上面的例子可以看出，Promise 很难被改变。正如我上面所说的："保持冷静，并且传递 Promise"。
+通过上面的例子可以看出，Promise 的设计使得自身很难被改变。正如我上面所说的："保持冷静，并将 Promise 传递下去"。
 
 ## 4. Promise 构造函数不是解决方案
 
-我看到过很多开发者都在使用构造函数风格，他们认为这是 Promise 的方式。但是，这是一个很大的谎言，实际是因为构造函数 API 和老的回调函数 API 很相似。
+我看到很多开发者喜欢用构造函数的风格，他们认为这就是 Promise 的方式。但这却是一个谎言，实际的原因是构造函数 API 和之前回调函数的 API 相似，而且这样的习惯很难改变。
 
-> **如果你发现自己正在到处使用 `Promise constructors`，那你的做法是错的！**
+> **如果你发现自己正在到处使用 `Promise 构造函数`，那你的做法是错的！**
 
-要真正的向前迈进一步并且摆脱回调，你需要最小程度的使用 Promise 构造函数。
+要真正的向前迈进一步并且摆脱回调，你需要小心谨慎并且最小程度地使用 Promise 构造函数。
 
-让我们看一下使用 `Promise constructor` 的具体情况：
+让我们看一下使用 `Promise 构造函数` 的具体情况：
 
 ```
 return new Promise((res, rej) => {
@@ -97,7 +97,7 @@ return new Promise((res, rej) => {
 });
 ```
 
-`Promise constructor` 应该**只在你想要把回调转换成 Promise 时使用**。
+`Promise 构造函数` 应该**只在你想要把回调转换成 Promise 时使用**。
 一旦你掌握了这种创建 Promise 的优雅方式，它将会变的非常有吸引力。
 
 让我们看一下冗余的 `Promise 构造函数`。
@@ -125,7 +125,7 @@ return fetchSomeData(...); // 正确的！
 
 😎**高级技巧**
 
-如果你是一个 **nodejs** 工程师，我建议你可以看一看 [util.promisify](http://2ality.com/2017/05/util-promisify.html)。这个微小的事情可以帮助你把 node 风格的回调转换为 Promise。
+如果你是一个 **nodejs** 开发者，我建议你可以看一看 [util.promisify](http://2ality.com/2017/05/util-promisify.html)。这个方法可以帮助你把 node 风格的回调转换为 Promise。
 
 ```
 const {promisify} = require('util');
@@ -142,7 +142,7 @@ readFileAsync('myfile.txt', 'utf-8')
 
 ## 5. 使用 Promise.resolve
 
-Javascript 提供了 `Promise.resolve`，像下面的例子这样简洁：
+Javascript 提供了 `Promise.resolve` 方法，像下面的例子这样简洁：
 
 ```
 var similarProm = new Promise(res => res(5));
@@ -159,7 +159,7 @@ function foo() {
 }
 ```
 
-当你不确定它是一个 Promise 还是一个普通的值的时候，你也可以做一个安全的封装。
+当不确定它是一个 Promise 还是一个普通的值的时候，你也可以做一个安全的封装。
 
 ```
 function goodProm(maybePromise) {
@@ -168,7 +168,7 @@ function goodProm(maybePromise) {
 
 goodProm(5).then(console.log); // 5
 
-var sixPromise = fetchMeNumber(6); // this is a promise which resolves into number 5
+var sixPromise = fetchMeNumber(6);
 
 goodProm(sixPromise).then(console.log); // 6
 
@@ -211,7 +211,7 @@ function foo(myVal) {
 .catch(e => console.log(e)) // 这样是不好的
 ```
 
-_注意：你可以像 `Promise.resolve` 一样在 `Promise.reject` 中传递任何值。你经常在失败的 Promise 中发现 `Error` 的原因是因为它主要就是用来抛出一个异步错误的。_
+**注意：你可以像 `Promise.resolve` 一样在 `Promise.reject` 中传递任何值。你经常在失败的 Promise 中发现 `Error` 的原因是因为它主要就是用来抛出一个异步错误的。**
 
 ## 7. 使用 Promise.all
 
@@ -258,19 +258,19 @@ Proimise.all([prom1, prom2])
 .catch(e =>  console.log(e)) // 5, 直接跳转到 .catch
 ```
 
-_注意：`Promise.all` 是很聪明的！如果其中一个 Promise 失败了，它不会等到所有的 Promise 完成，而是立即中止！_
+**注意：`Promise.all` 是很聪明的！如果其中一个 Promise 失败了，它不会等到所有的 Promise 完成，而是立即中止！**
 
 ## 8. 不要害怕 reject
 
 不要在每个 .then 后面加冗余的 `.catch`。
 
-我们害怕错误被吞噬？How often do we fear errors being gobbled up somewhere in between?
+我们是不是会经常担心错误会在它们之间的某处被吞噬？
 
-为了克服恐惧，这里有一个简单的小提示：
+为了克服这个恐惧，这里有一个简单的小提示：
 
 > **让 reject 来处理上游函数的问题。**
 
-在理想的情况下，reject 方法应该是你的应用的根源，所有的 reject 都会向下传递。
+在理想的情况下，reject 方法应该是应用的根源，所有的 reject 都会向下传递。
 
 **不要害怕像下面这样写**
 
@@ -298,7 +298,8 @@ return fetchSomeData(...);
 ```
 
 💔**拒绝一个 reject**
-拒绝一个 reject 是简单的。*不需要做任何事情。*，就像我刚刚说的，让它成为其他函数的问题。通常情况下，父函数有比当前函数处理 reject 更好的方法。
+
+拒绝一个 reject 是简单的。**不需要做任何事情。** 就像我刚刚说的，让它成为其他函数的问题。通常情况下，父函数有比当前函数处理 reject 更好的方法。
 
 需要记住的重要的一点是，一旦你写了 catch 方法，就意味着你正在处理这个错误。这个和同步 `try/catch`的工作方式相似。
 
@@ -319,7 +320,8 @@ return fetchSomeData(...);
 ```
 
 **.then(x,y) 和 then(x).catch(x) 之间的分界线**
-`.then` 接收的第二个回调函数参数也可以用来处理错误。它和 `then(x).catch(x)` 看起来很像，但是他们处理错误的区别在于他们捕获的错误。
+
+`.then` 接收的第二个回调函数参数也可以用来处理错误。它和 `then(x).catch(x)` 看起来很像，但是他们处理错误的区别在于他们自身捕获的错误。
 
 我会用下面的例子来说明这一点：
 
@@ -337,7 +339,7 @@ return fetchSomeData(...);
 });
 ```
 
-当你想要处理来自 Promise 的错误的时候， `.then(x,y)` 变的很方便。`then`ing and not want to handle from the `.then` you just appended to the promise chain.
+当你想要处理的是来自上游 Promise 而不是刚刚在 `.then` 里面加上去的错误的时候， `.then(x,y)` 变的很方便。
 
 提示: 99.9% 的情况使用简单的 `then(x).catch(x)` 更好。
 
@@ -400,7 +402,7 @@ request(opts)
 
 注意：如果你的 node/浏览器/老板/意识允许，还可以使用 [async/await](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function) 方法来解决这个问题。
 
-**我真的希望这篇文章帮助你了解了 Promise。**
+**我真心希望这篇文章对你理解 Promise 有所帮助。**
 
 请查看我之前的博客文章。
 
