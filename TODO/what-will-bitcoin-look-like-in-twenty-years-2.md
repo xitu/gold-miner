@@ -13,6 +13,8 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/1*9cntgSCQQES9fogbSwWIoQ.jpeg)
 
+**二十年后比特币会变成什么样？ — 第一部分请见：** https://juejin.im/post/5a1e9c2d6fb9a044fa19a036
+
 ### 比特币，加密技术和去中心化技术的兴起
 
 我们将从一些简单的预测开始,并逐渐的进行一些更加复杂的和遥不可及的预测以及一些对这些预测严肃的讨论。
