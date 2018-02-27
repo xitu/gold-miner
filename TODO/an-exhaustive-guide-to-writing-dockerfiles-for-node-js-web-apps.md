@@ -273,7 +273,7 @@ CMD ["node", "server.js"]
 
 此外，你是否试过将 Node.js web 应用部署在 Hasura 上呢？这其实是将 Node.js 应用部署于 HTTPS 域名的最快的方法（仅需使用 git push）。尝试使用 [https://hasura.io/hub/nodejs-frameworks](https://hasura.io/hub/nodejs-frameworks) 的模板快速入门吧！Hasura 中所有的项目模板都带有 Dockerfile 与 Kubernetes 标准文件，你可以自由进行定义。
 
-感谢：[Tanmai Gopal](https://medium.com/@tanmaig?source=post_page)
+感谢 [Tanmai Gopal](https://medium.com/@tanmaig?source=post_page)
 
 
 ---
