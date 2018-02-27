@@ -2,10 +2,10 @@
 > * 原文作者：[Hannes Dorfmann](http://hannesdorfmann.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/mosby3-mvi-3.md](https://github.com/xitu/gold-miner/blob/master/TODO/mosby3-mvi-3.md)
-> * 译者：
-> * 校对者：
+> * 译者：[pcdack](https://github.com/pcdack)
+> * 校对者：[hanliuxin5](https://github.com/hanliuxin5)
 
-# 使用 MVI 开发响应式 APP - 第三部分 - 状态折叠器（state reducer）
+# 使用 MVI 开发响应式 APP — 第三部分 — 状态折叠器（state reducer）
 
 在[前面的系列里](http://hannesdorfmann.com/android/mosby3-mvi-2) 我们已经讨论了如何用 Model-View-Intent 模式和单向数据流去实现一个简单的页面。在这篇博客里我们将要实现更加复杂页面，这个页面将有助于我们理解状态折叠器(state reducer)。
 
