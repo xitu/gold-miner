@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/who-plays-mobile-games.md](https://github.com/xitu/gold-miner/blob/master/TODO/who-plays-mobile-games.md)
 > * 译者：[Lai](https://github.com/laiyun90)
-> * 校对者：
+> * 校对者：[hanliuxin5](https://github.com/hanliuxin5)
 
 # **知己知彼 — 谁在玩你的手机游戏？**
 
