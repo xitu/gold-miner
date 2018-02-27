@@ -260,9 +260,7 @@ Proimise.all([prom1, prom2])
 
 **注意：`Promise.all` 是很聪明的！如果其中一个 Promise 失败了，它不会等到所有的 Promise 完成，而是立即中止！**
 
-## 8. 不要害怕 reject
-
-不要在每个 .then 后面加冗余的 `.catch`。
+## 8. 不要害怕 reject，也不要在每个 .then 后面加冗余的 `.catch`
 
 我们是不是会经常担心错误会在它们之间的某处被吞噬？
 
