@@ -3,27 +3,27 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/confusion-subject-observable-observer-android-rxjava2-hell-part8.md](https://github.com/xitu/gold-miner/blob/master/TODO/confusion-subject-observable-observer-android-rxjava2-hell-part8.md)
 > * 译者：[RockZhai](https://github.com/rockzhai)
-> * 校对者：
+> * 校对者：[hanliuxin5](https://github.com/hanliuxin5)
 
 # Subject 和 Observable + Observer 的混淆指北[ Android RxJava2 ] ( 这什么鬼系列 ) 第八话
 
-哇哦, 我们又多了一天时间，所以让我们来学点新东西好让这一天过的很棒吧 🙂.
+哇哦, 我们又多了一天时间，所以让我们来学点新东西好让这一天过得很棒吧 🙂。
 
-各位好, 希望你现在已经做的很好了。 这是我们关于 RxJava2 Android  系列文章的第八篇 [ [第一话](https://juejin.im/entry/58ada9738fd9c5006704f5a1)，[第二篇](https://juejin.im/entry/58d78547a22b9d006465ca57)，[第三话](https://juejin.im/entry/591298eea0bb9f0058b35c7f)，[第四话](https://github.com/xitu/gold-miner/blob/master/TODO/war-learning-curve-rx-java-2-java-8-stream-android-rxjava2-hell-part4.md)，[第五话](https://juejin.im/post/590ab4f7128fe10058f35119)，[第六话](https://github.com/xitu/gold-miner/blob/master/TODO/continuation-summer-vs-winter-observable-dialogue-rx-observable-developer-android-rxjava2-hell-part6.md)，[第七话](https://github.com/xitu/gold-miner/blob/master/TODO/continuation-observable-marriage-proposal-observer-dialogue-rx-observable-developer-android-rxjava2-hell-part7.md)，[第八话](https://github.com/xitu/gold-miner/blob/master/TODO/confusion-subject-observable-observer-android-rxjava2-hell-part8.md) ] 。在这一篇文章中将讨论 Rx 中的 Subjects ( 主题 ) .
+各位好, 希望你现在已经做的很好了。 这是我们关于 RxJava2 Android  系列文章的第八篇 [ [第一话](https://juejin.im/entry/58ada9738fd9c5006704f5a1)，[第二篇](https://juejin.im/entry/58d78547a22b9d006465ca57)，[第三话](https://juejin.im/entry/591298eea0bb9f0058b35c7f)，[第四话](https://github.com/xitu/gold-miner/blob/master/TODO/war-learning-curve-rx-java-2-java-8-stream-android-rxjava2-hell-part4.md)，[第五话](https://juejin.im/post/590ab4f7128fe10058f35119)，[第六话](https://github.com/xitu/gold-miner/blob/master/TODO/continuation-summer-vs-winter-observable-dialogue-rx-observable-developer-android-rxjava2-hell-part6.md)，[第七话](https://github.com/xitu/gold-miner/blob/master/TODO/continuation-observable-marriage-proposal-observer-dialogue-rx-observable-developer-android-rxjava2-hell-part7.md)，[第八话](https://github.com/xitu/gold-miner/blob/master/TODO/confusion-subject-observable-observer-android-rxjava2-hell-part8.md) ] 。在这一篇文章中将讨论 Rx 中的 Subjects（主题）。
 
 **研究动机 :**
 本文研究动机和系列文章 [第一话](http://www.uwanttolearn.com/android/reactive-programming-android-rxjava2-hell-part1/) 中分享给大家的相同。
 
-**引言 :** 当我开始与 Rx 的这段旅程时， Subjects 就是我最困惑的一个部分。在大多数我开始去读任意博客的时候，我总是得到这样一个定义: “ Subjects 就像一个 Observable 和 Observer 同时存在一样。” 因为我不是一个聪明的人，所以这一点一直让我很困惑，因此在用 Rx 做了很多练习之后，有一天我得到了关于 Subjects 的概念，我惊讶于这个概念的强大，所以在这篇文章中我将和你一起讨论这个概念以及这个概念有多强大，或许在一些地方我不正确的使用了这个概念，但是这回让你学到这哥概念，在本文最后，你将会和 Subjects 成为很好的朋友。 🙂
+**引言 :** 当我开始与 Rx 的这段旅程时， Subjects 就是我最困惑的一个部分。在大多数我开始去读任意博客的时候，我总是得到这样一个定义: “ Subjects 就像一个 Observable 和 Observer 同时存在一样。” 因为我不是一个聪明的人，所以这一点一直让我很困惑，因此在用 Rx 做了很多练习之后，有一天我得到了关于 Subjects 的概念，我惊讶于这个概念的强大，所以在这篇文章中我将和你一起讨论这个概念以及这个概念有多强大，或许在一些地方我不正确的使用了这个概念，但是这次让你学到这个概念，在本文最后，你将会和 Subjects 成为很好的朋友。🙂
 
-首先，如果你有像我一样关于 Subjects 的问题( 即: Observer + Observable ) ,那么请尽量忘掉这个概念。现在我将要修改一下 Observable 和 Observer 的概念. 
-对于 Observable 我会建议你阅读 [ Rx Observable 和 开发者 ( 我 ) 之间的对话 [ Android RxJava2 ] ( 这什么鬼系列 ) 第五话](http://www.uwanttolearn.com/android/dialogue-rx-observable-developer-android-rxjava2-hell-part5/) 并且 Observer 我会建议你阅读 [继续 Rx Observable 和 开发者 ( 我 ) 之间的对话 (Observable 求婚 Observer) [ Android RxJava2 ] ( 这什么鬼系列 ) 第七话](http://www.uwanttolearn.com/android/continuation-observable-marriage-proposal-observer-dialogue-rx-observable-developer-android-rxjava2-hell-part7/) 。然后你就可以很轻易的理解本篇文章，现在我会在下面和你分享一下 Obsevable 和 Observer API‘s .
+如果你和我一样，认为 Subjects 就像是 Observer 和 Observable 的组合，那么请尽量忘掉这个概念。现在我将要修改一下 Observable 和 Observer 的概念. 
+对于 Observable 我会建议你阅读 [ Rx Observable 和 开发者 ( 我 ) 之间的对话 [ Android RxJava2 ] （这什么鬼系列 ）第五话](http://www.uwanttolearn.com/android/dialogue-rx-observable-developer-android-rxjava2-hell-part5/) 并且 Observer 我会建议你阅读 [继续 Rx Observable 和 开发者 ( 我 ) 之间的对话 (Observable 求婚 Observer) [ Android RxJava2 ]（这什么鬼系列）第七话](http://www.uwanttolearn.com/android/continuation-observable-marriage-proposal-observer-dialogue-rx-observable-developer-android-rxjava2-hell-part7/) 。然后你就可以很轻易的理解本篇文章，现在我会在下面和你分享一下 Obsevable 和 Observer API‘s .
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/07/Screen-Shot-2017-07-09-at-8.55.46-AM-1024x329.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/07/Screen-Shot-2017-07-09-at-8.55.46-AM.png)
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/07/Screen-Shot-2017-07-09-at-8.56.00-AM-1024x281.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/07/Screen-Shot-2017-07-09-at-8.56.00-AM.png)
 
-这事 Observable 的代码，如图所示代码总行数为 3000 多行.  正如我们所知，Observable 通常使用其不同的方法将数据转换为流，下面我给出一个简单的例子：
+这是 Observable 的代码，如图所示代码总行数为 3000 多行.  正如我们所知，Observable 通常使用其不同的方法将数据转换为流，下面我给出一个简单的例子。
 
 ```
 public static void main(String[] args) {
@@ -32,7 +32,7 @@ public static void main(String[] args) {
 }
 ```
 
-接下来我们需要 Observer 从 Observable 中获益。现在我将第一次向你展示 Obsever 的API :
+接下来我们需要 Observer 从 Observable 中得到数据。现在我将第一次向你展示 Obsever 的一些 API。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/07/Screen-Shot-2017-07-09-at-9.04.40-AM-1024x421.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/07/Screen-Shot-2017-07-09-at-9.04.40-AM.png)
 
@@ -75,14 +75,14 @@ public class Subjects {
 }
 ```
 
-它的输出很简单. 现在我们成功修订了 Observable 和 Observer API’s ,  当做订阅时，Observable 基本是调用我们的 Observer API’s .
+它的输出很简单. 现在我们成功修订了 Observable 和 Observer API’s ,  当做订阅时，Observable 基本是调用我们的 Observer API’s。
 任何时候 Observable 想要提供数据，总是要调用 Observaer 的 onNext ( data ) 方法。
 任何时候发生错误 Observable 会调用 Observer 的 onError(e) 方法。  
 任何时候流操作完成 Observable 会调用 Observer 的 onComplete() 方法.
-这事这两个 API’s 的一个简单关系.
+这是这两个 API 之间的一个简单关系.
 
 现在我将要开始我们今天的主题，如果再次对 Observable 和 Observer 有任何疑惑，请尝试阅读我上文中提到的文章，或者在评论中提问。
-我认为 Rx 中关于 Subjects 的定义放到最后讨论，现在我将向你解释一个更简单的例子，它将使我们可以更直接的抓到 Rx 中 Subjects 的概念。
+我认为 Rx 中关于 Subjects 的定义放到最后讨论，现在我将向你解释一个更简单的例子，它将使我们可以更直接的掌握 Rx 中 Subjects 的概念。
 
 ```
 Observable<String> stringObservable = Observable.create(observableEmitter -> {
@@ -90,7 +90,7 @@ Observable<String> stringObservable = Observable.create(observableEmitter -> {
 });
 ```
 
-这是可以生成事件字符串的 Observable .
+这是可以发射一个字符串的 Observable。
 
 ```
 Consumer<String> consumer = new Consumer<String>() {
@@ -101,7 +101,7 @@ Consumer<String> consumer = new Consumer<String>() {
 };
 ```
 
-这是一个和 Observable 订阅的消费者。
+这是一个将会订阅 Observable 的消费者。
 
 ```
 while (true) {
@@ -111,7 +111,7 @@ while (true) {
 ```
 
 这段代码会在每秒后产生一个事件。
-为了方便阅读我把工程代码贴出。
+为了方便阅读我把完整的代码代码贴出。
 
 ```
 public class Subjects {
@@ -150,8 +150,8 @@ Event
 class ObservableObserver extends Observable<String> implements Observer<String>.
 ```
 
-这很简单，我创建了一个名为 ObservableObserver 的新类， 它继承自 Observable 并且实现了 Observer 接口。 所以这意味这它可以作为 Observable 加强版 和 Observer. 我不认为这会有任何疑问，所以我们已经知道 Observable 总是会生成流，所以这个类也有这个能力，因为它继承自 Observable 。然后我们可知 Observer 可以通过 订阅 Observable 来观察 Observable 中的任何流，那么我们的新类也可以完成这些工作，因为它实现了 Observer 接口，BOOM.
-很简单.
+这很简单，我创建了一个名为 ObservableObserver 的新类， 它继承自 Observable 并且实现了 Observer 接口。 所以这意味这它可以作为 Observable 加强版 和 Observer. 我不认为这会有任何疑问，所以我们已经知道 Observable 总是会生成流，所以这个类也有这个能力，因为它继承自 Observable。然后我们可知 Observer 可以通过 订阅 Observable 来观察 Observable 中的任何流，那么我们的新类也可以完成这些工作，因为它实现了 Observer 接口，BOOM。
+很简单。
 现在我要给你看全部代码，代码只是为了解释这个概念并不意味着它是一个 成熟 的代码。
 
 ```
@@ -198,7 +198,7 @@ class ObservableObserver extends Observable<String> implements Observer<String> 
 }
 ```
 
-又一个很简单的类，我们已经使用过上面的所有方法了， 只是在这里有一个区别，就是我们在同一个类中使用了 Observable 和 Observer 相关的方法。
+又一个很简单的类，我们已经使用过上面的所有方法了，只是在这里有一个区别，就是我们在同一个类中使用了 Observable 和 Observer 的相关方法。
 
 ```
 public static void main(String[] args) throws InterruptedException {
@@ -223,14 +223,14 @@ Event
 **这里，我从 ObservableObserver 类获取 Observable 并订阅 Observer .
 **observableObserver.onNext(“Event”):
 **这里，当事件发生时调用 Observer API 方法.
-总的来说可以作为Observable plus 和 Observer 这个类中获益。现在有一个惊喜，你已经掌握了 Subjects 的概念，如果你不信的话来看下面图中的代码：
+因为作为一个自我闭环的类，所以我能够从这个既是 Observabel 又是 Observer 的类中获得好处。现在有一个惊喜，你已经掌握了 Subjects 的概念，如果你不信的话来看下面图中的代码：
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/07/Screen-Shot-2017-07-09-at-10.32.40-AM-1024x453.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/07/Screen-Shot-2017-07-09-at-10.32.40-AM.png)
 
-这是 RxJava2 Subject 类的代码，现在你可以明白为什么人们会说 Subjiects 是一个 Observable plus Observer ，因为它使用了两个的 API's . 
+这是 RxJava2 Subject 类的代码，现在你可以明白为什么人们会说 Subjiects 既是 Observable 又是 Observer，因为它使用了两个的 API 方法。
 现在的 RxJava 中可以使用不同类型的 Subjects,  这是我们下面要讨论的内容。
 
-在 RxJava 中你可以获取到 4 种类型的 Subjiects .
+在 RxJava 中你可以获取到 4 种类型的 Subjiects。
 **1. Publish Subject**
 **2. Behaviour Subject**
 **3. Replay Subject**
@@ -294,7 +294,7 @@ Event 14
 Event 15
 Event 16
 
-所以，在这里 publish subject 发布数据是从 0 开始，而在订阅的时候已经发布到了 10 ，正如你所见，输出的数据为 Event 11.
+所以，在这里 publish subject 发布数据是从 0 开始，而在订阅的时候已经发布到了 10，正如你所见，输出的数据为 Event 11。
 
 **2. Behaviour Subject:
 **在这种类型的 Subjects 中，我们将获取这个 Subject 最后发布出的值和新的将要发出的值，为了简单起见，请阅读下面的代码。
@@ -322,7 +322,7 @@ Event 13
 Event 14
 Event 15
 
-正如输出中你所看到的那样，我也获得了 “ Event 11” 这个值，并且这个值在我订阅之前就已经发布了。这意味着如果我想要订阅之前的最后一个值的话，我可以使用这个类型的 Subject.
+正如输出中你所看到的那样，我也获得了 “ Event 10” 这个值，并且这个值在我订阅之前就已经发布了。这意味着如果我想要订阅之前的最后一个值的话，我可以使用这个类型的 Subject。
 
 **3. Replay Subject:
 **在这个类型的 Subject 中，当我订阅时可以没有顾及的获得所有发布的数据值，简单起见还是直接上代码吧。
@@ -383,7 +383,7 @@ Output:
 Event 10
 Process finished with exit code 0
 
-在这里，你可以看到我在值为 10 的时候完成了 Subject 并且在程序完成后和程序退出之前，我得到了输出的 Event 10 ，所以这意味着它的意思是任何时候我想要通过 Subject 获得最后一次发布的的数据值可以使用 Async Subject . 
+在这里，你可以看到在值为 10 的时候以完成标识结束了 Subject 并且在程序完成后和程序退出之前，我得到了输出的 Event 10 ，所以这意味着它的意思是任何时候我想要通过 Subject 获得最后一次发布的的数据值可以使用 Async Subject。
 
 再次重复一下：
 Publish Subject: 我不关心之前的发布历史，我只关心新的或者最新的值。
@@ -391,7 +391,7 @@ Behaviour Subject: 我关心该 Subject 发布的最后一个值和新值。
 Replay Subject: 我关心所有发布了新值的历史数据。
 Async Subject: 我只关心在完成或终止之前由主题发出的最后一个值。
 
-总结:
+总结：
 你好呀朋友，希望你对这个知识点已经很清晰了，另外尽你最大的努力去动手实践这些概念，现在，我想要和各位说再见了，还有祝大家有个愉快的周末。
 🙂
 
