@@ -9,7 +9,7 @@
 - [What Will Bitcoin Look Like in Twenty Years? - Part 2](https://github.com/xitu/gold-miner/blob/master/TODO/what-will-bitcoin-look-like-in-twenty-years-2.md)
 - [What Will Bitcoin Look Like in Twenty Years? - Part 3](https://github.com/xitu/gold-miner/blob/master/TODO/what-will-bitcoin-look-like-in-twenty-years-3.md)
 
-# 二十年后比特币会变成什么样？ - 第二部分
+# 二十年后比特币会变成什么样？ — 第二部分
 
 ![](https://cdn-images-1.medium.com/max/2000/1*9cntgSCQQES9fogbSwWIoQ.jpeg)
 
