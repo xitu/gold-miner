@@ -12,7 +12,8 @@
 
 如果你没有读过第一部分，请到这里读：
 
-[**Android 开发者如何使用函数式编程 （一）**](https://github.com/xitu/gold-miner/blob/master/TODO/functional-programming-for-android-developers-part-1.md)
+- [Android 开发者如何函数式编程 （一）](https://github.com/xitu/gold-miner/blob/master/TODO/functional-programming-for-android-developers-part-1.md)
+- [Android 开发者如何函数式编程 （三）](https://github.com/xitu/gold-miner/blob/master/TODO/functional-programming-for-android-developers-part-3.md)
 
 在上一篇帖子中，我们学习了**纯粹性*、**副作用**和**排序**。在本部分中，我们将讨论**不变性**和**并发**。
 
