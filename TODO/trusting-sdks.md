@@ -5,7 +5,7 @@
 > * 译者：[CACppuccino](https://github.com/CACppuccino)
 > * 校对者：
 
-# 相信第三方 SDK
+# 对第三方 SDK 的信任问题
 
 第三方的 SDK 常常会在你下载他们的时候被轻易地**修改**！只要使用简单的[中间人攻击](https://wikipedia.org/wiki/Man_in_the_middle_attack)，任何位于同一网络中的人都可以插入病毒代码至代码库中，并随之进入你的应用中，从而在你的用户的手机中运行。
 
