@@ -7,13 +7,13 @@
 
 # 避免 Swift 单元测试中的强制解析
 
-强制解析（使用 `!`）是 Swift 语言中不可或缺的一个重要特点（特别是和 Objective-C 的接口混合使用时）。它回避了一些其他问题，使得 Swift 语言变得更加优秀。比如 _[处理 Swift 中非可选的可选值类型](https://www.swiftbysundell.com/posts/handling-non-optional-optionals-in-swift)_ 这篇文章中，在项目逻辑需要时使用强制解析去处理可选类型，将导致一些离奇的情况和崩溃。
+强制解析（使用 `!`）是 Swift 语言中不可或缺的一个重要特点（特别是和 Objective-C 的接口混合使用时）。它回避了一些其他问题，使得 Swift 语言变得更加优秀。比如 **[处理 Swift 中非可选的可选值类型](https://www.swiftbysundell.com/posts/handling-non-optional-optionals-in-swift)** 这篇文章中，在项目逻辑需要时使用强制解析去处理可选类型，将导致一些离奇的情况和崩溃。
 
-所以尽可能地避免使用强制解析，将有助于搭建更加稳定的应用，并且在发生错误时提供更好的报错信息。那么如果是编写测试时，情况会怎么样呢？安全地处理可选类型和未知类型需要大量的代码，那么问题就在于我们是否愿意为编写测试做所有的额外工作。这就是此次我们将要探讨的问题，让我们开始深入研究吧！
+所以尽可能地避免使用强制解析，将有助于搭建更加稳定的应用，并且在发生错误时提供更好的报错信息。那么如果是编写测试时，情况会怎么样呢？安全地处理可选类型和未知类型需要大量的代码，那么问题就在于我们是否愿意为编写测试做所有的额外工作。这就是我们这周将要探讨的问题，让我们开始深入研究吧！
 
 ## 测试代码 vs 产品代码
 
-当编写测试代码时，我们经常明确区分_测试代码_和_产品代码_。尽管保持这两部分代码的分离十分重要（我们不希望意外地让我们的模拟测试对象成为 App Store 上架的部分😅），但就_代码质量_来说，没有必要进行明显区分。
+当编写测试代码时，我们经常明确区分**测试代码**和**产品代码**。尽管保持这两部分代码的分离十分重要（我们不希望意外地让我们的模拟测试对象成为 App Store 上架的部分😅），但就**代码质量**来说，没有必要进行明显区分。
 
 如果你思考一下的话，我们想要对移交给使用者的代码进行高标准的要求，原因是什么呢？
 
@@ -21,10 +21,10 @@
 * 我们想要我们的 app 在未来易于维护和修改。
 * 我们想要更容易让新人融入我们的团队。
 
-现在如果我们考虑测试，我们想要避免哪些事情呢？
+现在如果反过来考虑我们的测试，我们想要避免哪些事情呢？
 
 * 测试不稳定、脆弱、难于调试。
-* 测试代码需要大量时间来掌握，并且当 app 增加新功能时难于拓展。
+* 当我们的app增加了新功能时，我们的测试代码需要花费大量时间来维护和升级。
 * 测试代码对于加入团队的新人来说难于理解。
 
 你可能已经理解我所讲的内容了 😉。
@@ -109,7 +109,7 @@ XCTAssertEqual failed: ("nil") is not equal to ("Optional(30)")
 
 ## 使用 throw 的测试
 
-第三个选择在某些情况下是非常有用的，就是将返回可选类型的 API 替换为 throwing API。Swift 中的 throwing API 的优雅之处在于，需要时它能够非常容易地被当成可选类型使用。所以很多时候选择采用 throwing 方法，不需要牺牲任何的可用性。比如说，假设我们有一个 `EndpointURLFactory` 对象，被用来在我们的 app 中生成特定终端的 URL，这显然会返回可选类型：
+第三个选择在某些情况下是非常有用的，就是将返回可选类型的 API 替换为 throwing API。Swift 中的 throwing API 的优雅之处在于，需要时它能够非常容易地被当成可选类型使用。所以很多时候选择采用 throwing 方法，不需要牺牲任何的可用性。比如说，假设我们有一个 `EndpointURLFactory` 类，被用来在我们的 app 中生成特定终端的 URL，这显然会返回可选类型：
 
 ```
 class EndpointURLFactory {
@@ -135,7 +135,7 @@ class EndpointURLFactory {
 let loginEndpoint = try? urlFactory.makeURL(for: .login)
 ```
 
-就测试而言，上述这种做法的最大好处在于可以在测试中轻松地使用 `try`，并且使用 XCTest runner 完全可以毫无代价地处理无效值。这是一块隐藏的宝石，但事实上 Swift 测试可以是 throwing 函数，看看这个：
+就测试而言，上述这种做法的最大好处在于可以在测试中轻松地使用 `try`，并且使用 XCTest runner 完全可以毫无代价地处理无效值。这是鲜为人知的，但事实上 Swift 测试可以是 throwing 函数，看看这个：
 
 ```
 class EndpointURLFactoryTests: XCTestCase {
@@ -201,7 +201,7 @@ extension XCTestCase {
 [UserServiceTests testLoggingIn] : failed: caught error: 😱 Required value of type User was nil at line 97 in file UserServiceTests.swift.
 ```
 
-_你可能意识到这个技巧来源于我的迷你框架 [Require](https://github.com/johnsundell/require), 它对所有可选类型增加了一个 require() 方法，以提高对无法避免的强制解析的诊断效果。_
+**你可能意识到这个技巧来源于我的迷你框架 [Require](https://github.com/johnsundell/require), 它对所有可选类型增加了一个 require() 方法，以提高对无法避免的强制解析的诊断效果。**
 
 ## 总结
 
