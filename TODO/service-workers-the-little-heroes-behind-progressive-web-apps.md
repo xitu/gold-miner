@@ -3,13 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/service-workers-the-little-heroes-behind-progressive-web-apps.md](https://github.com/xitu/gold-miner/blob/master/TODO/service-workers-the-little-heroes-behind-progressive-web-apps.md)
 > * 译者：[FateZeros](https://github.com/FateZeros)
-> * 校对者：[MechanicianW](https://github.com/MechanicianW)
+> * 校对者：[MechanicianW](https://github.com/MechanicianW) [atuooo](https://github.com/atuooo)
 
 # Service workers：Progressive Web Apps 背后的小英雄
 
 ![](https://cdn-images-1.medium.com/max/800/1*CqQTKb0N2o0suacfiluO8w.jpeg)
 
-Service workers 是 [Progressive Web Apps](https://flaviocopes.com/what-is-a-progressive-web-app/) 的核心。它们允许缓存资源和推送通知，这是原生 app 应用的两个突出特性
+Service workers 是 [Progressive Web Apps](https://flaviocopes.com/what-is-a-progressive-web-app/) 的核心。它们允许缓存资源和推送通知，这是原生 app 应用的两个突出特性。
 
 service worker 是你的网页和网络之间的 **可编程代理**，它可以拦截和缓存网络请求。这实际上可以让你 **使自己的 app 具有离线优先的体验**。
 
@@ -101,9 +101,9 @@ if ('serviceWorker' in navigator) {
 
 即使此代码被多次调用，如果 service worker 是新的，并且以前没有被注册，或者已更新，浏览器将仅执行注册。
 
-#### 范围
+#### 作用域
 
-`register()` 调用还接受一个范围参数，该参数是一个路径确定应用程序的哪一部分可以由 service worker 控制。
+`register()` 调用还接受一个作用域参数，该参数是一个路径用来确定应用程序的哪一部分可以由 service worker 控制。
 
 它默认包含 service worker 的文件夹中的所有文件和子文件夹，所以如果将它放到根文件夹，它将控制整个 app。在子文件夹中，它将只会控制当前路径下的页面。
 
@@ -115,7 +115,7 @@ navigator.serviceWorker.register('/worker.js', {
 })
 ```
 
-`/` 很重要：在这种情况下，页面 `/notifications` 不会触发 service worker，而如果范围是：
+`/` 很重要：在这种情况下，页面 `/notifications` 不会触发 service worker，而如果作用域是：
 
 ```
 { scope: '/notifications' }
@@ -123,7 +123,7 @@ navigator.serviceWorker.register('/worker.js', {
 
 它就会起作用。
 
-注意：service worker 不能从一个文件夹中“提升”自己的作用范围：如果它的文件放在 `/notifications` 下，它不能控制 `/` 路径或其他不在 `/notifications` 下的路径。 
+注意：service worker 不能从一个文件夹中“提升”自己的作用域：如果它的文件放在 `/notifications` 下，它不能控制 `/` 路径或其他不在 `/notifications` 下的路径。 
 
 ### 安装
 
@@ -135,13 +135,13 @@ self.addEventListener('install', (event) => {
 });
 ```
 
-这是准备 service worker 以供**初始化缓存**使用的好时机。然后使用 **Cache API** **缓存 App Shell** 和静态资源。
+这是使用 service worker **初始化缓存**的好时机。然后使用 **Cache API** **缓存 App Shell** 和静态资源。
 
 ### 激活
 
 一旦 service worker 被成功注册和安装，第三步就是激活。
 
-此时，service worker 将和新页面加载一起工作。
+这时，当界面加载时，service worker 就能正常工作了。
 
 它不能和已经加载的页面进行交互，因此 service worker 只有在用户和应用交互的第二次或重新加载已打开的页面时才有用。
 
