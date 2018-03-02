@@ -2,90 +2,92 @@
 > * 原文作者：[Pablo Villar](https://medium.com/@volbap?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/effective-environment-switching-in-ios.md](https://github.com/xitu/gold-miner/blob/master/TODO/effective-environment-switching-in-ios.md)
-> * 译者：
-> * 校对者：
+> * 译者：[swants](http://www.swants.cn)
+> * 校对者：[charsdavy](https://github.com/charsdavy) [VernonVan](https://github.com/VernonVan)
 
-# Effective Environment Switching in iOS
+# Xcode 环境配置最佳实践
 
 ![](https://cdn-images-1.medium.com/max/2000/1*phOfJPH1G1VTDfpyqVlkow.jpeg)
 
-### Introduction
+### 前言
 
-Engaging gears in a project involves powering up our everyday processes. In the iOS world, a very important one is how we deal with **environments** and other **settings** that need to be customized depending on the audience. Xcode does have a set of tools to help us along the way. Unfortunately, though, I've seen that most of the times teams are not even close to take the best of these tools. It's not their fault: I think Apple doesn't do very well at encouraging good practices, as they just provide _not-so-useful_ configurations by default.
+工欲善其事，必先利其器。在 iOS 中，如何处理 **配置环境** 和根据需求自定义的 **设置** 关系也尤为重要。虽然 Xcode 提供了一系列的工具帮助我们进行妥善地配置。但遗憾的是，我见过的很多团队在绝大多数时候都没有充分利用这些辅助工具。这并不是他们的错：苹果只为我们提供了一些不怎么好用的默认配置，而没有更好的帮助我们学习如何达到最佳实践。
 
-In this article, we'll explore how we can take advantage of Xcode configurations, and how we can define our app's settings in an organized way.
+在这篇文章里，我们将探索如何更好地利用 Xcode 配置，如何把 APP 的设置定义得更加有条理。
 
-### Xcode Configurations
+### Xcode 配置
 
-The way Xcode can package different settings into your builds is through configurations. Roughly speaking, a configuration is just a bunch of settings that define how the compiler must create the build. The IDE lets you customize some settings depending on the different configurations. You've very likely seen these:
+Xcode 可以通过各种配置构建不同设置的包。通俗地讲，配置就是告诉编译器如何构建版本的一系列设置。IDE 允许你根据不同的配置来自定义一些设置。你可能经常看到这些：
 
 ![](https://cdn-images-1.medium.com/max/800/1*3M9G9pHYcupklR3xdFX7PA.png)
 
-… and so on.
+等等…
 
 #### Debug vs. Release
 
-These are the two configurations that Xcode gives us by default. Of course, you can create your own, but this isn't a common practice since there aren't _universal_ conventions adopted by the iOS community about which configurations could be useful to have depending on the project.
+Debug 和 Release 是 Xcode 提供的两种默认配置。你完全也可以创建你自己的配置，但我们通常不这么做，因为自定义的配置是否有效可能取决于项目，iOS 开发者们对哪些配置可以对项目普遍有效还没有达成共识。 
 
-These two default configurations have several differences, which I'm not going into detail here, but can be summarized in:
+这两种默认配置有几处差别，具体的差别在这里我不会详细讨论，只是简单概括下：
 
-> In a **debug** build, the complete symbolic debug information is emitted to help while debugging applications and also the code optimization is not taken into account (faster build times). Whereas, in **release** build, the debug info is not emitted and the code execution is optimized (slower build times).
+> 在 **debug** 构建的版本中，Xcode 会给我们发送完整的符号调试信息来帮助我们调试应用，并且 Xcode 不会对代码进行优化（更快的构建速度）。而在 **release** 构建的版本中，不会发送调试信息并且代码会被优化（较慢的构建速度）。
 
-As for their usage, **debug** is the configuration we normally use in our everyday life, whereas **release** is what we use to distribute our apps to other people: testers, project managers, customers, the world.
+至于这两种配置的用途，**debug** 通常会在我们日常开发中使用。而 **release** 我们通常会在需要将 APP 分发给其他非开发人员如：测试人员、项目经理、客户或用户时使用。
 
-The point is that, these two are usually not enough. What's more, devs often mislead ≪_debug vs. release_≫ with ≪_staging vs. production_≫, concepts that should not be mixed up.
+需要注意的是，这两个配置通常是不能完全满足需求的。而且开发者经常把 ≪debug vs. release≫ 和 ≪staging vs. production≫ 这两个概念搞混，这完全是不应该的。
 
-#### We can do better
+#### 我们可以继续完善
 
-Some projects work with different environments: development, staging, production, pre-production, etc. Take whatever you want. This classification doesn't have a natural connection with the two default configurations we've discussed above. Even if we tried to force this correspondency, it wouldn't always work out very well. For instance, if you want to prepare a **_release_** build, it doesn't mean it should point to a **_production_** server: Take the situation where you have to prepare a release build for QA which needs to be tested against a staging server. Default configurations just won't work.
+一些项目使用不同的配置环境：开发环境、临时环境、生产环境、预生产环境等等，用你最想用的那个就好。这种分类方式和上面讨论的两种默认配置没有直接联系。就算我们强制这么分类，用的时候达到的效果也没有想象中的那样好。比如，你想准备构建一个 **_release_** 版本，但这并不意味着你的 APP 一定要指向 **生产** 服务器：想像一下，你需要为 QA 打个 release 的版本的包，而这个包需要在临时服务器上进行测试。 这时就连 debug & release 两个默认的配置也不能满足需求了。
 
-In consequence, I propose replacing the basic debug & release configurations by others that could help us a bit more. To keep it simple, I'll only include staging and production environments in this approach, but you'll observe that it's very easy to add more environments as you need them.
+因此，我想用可以满足我们更多需求的其他配置方案来代替基本的 debug & release 配置。为了足够简单，在我的方案中只会保留临时环境和生产环境，在你需要使用其它环境配置时，你会发现在我的方案里可以轻松添加。
 
-#### Let's redefine configurations
+#### 让我们重新定义配置环境
 
-We can define these 4 configurations instead:
+我们可以定义四种配置环境：
 
 * Debug Staging
 * Debug Production
 * TestFlight Staging
 * TestFlight Production
 
-By just reading their name, you might have guessed what they are about. Here are the details:
 
-* The first two of them (Debug Staging & Debug Production) behave as the original Debug configuration, but **each one points to a different environment**.
-* Something similar happens with the last two (TestFlight ones). They behave as the original Release one, including compiler optimizations and excluding debug information, but **each one works on its corresponding environment**.
+从它们的名字上，你就能猜到它们大概的设置，下面就是它们的详细设置：
+
+
+* 前两个（Debug Staging & Debug Production）和默认的 Debug 配置一样，但 **每个都指向不同的服务器环境**。
+* 后两个配置环境（两个 TestFlight 配置环境 ）也是这样，它们和默认的 Release 配置一样，不包含调试信息并进行了代码优化，但 **每个都在对应的服务器环境下使用**。
 
 ![](https://cdn-images-1.medium.com/max/800/1*E24WkTnP6IXFceTvE3MtxQ.png)
 
-It's very simple to achieve this. Just go to your Project Settings > Info > Configurations, and hit the + button. Duplicate the Debug configuration and rename the original one to “Debug Staging” and the new one to “Debug Production”. Do the proper with Release too.
+实现的操作也是非常简单，找到 project 的 Settings > Info > Configurations，然后点击 + 按钮。拷贝一份 Debug 配置，并将默认的配置命名为 “Debug Staging”，拷贝出来的配置命名为 “Debug Production”。按照这个方式对 Release 进行处理。
 
-You should end up with something like this:
+当你操作完后是这个效果：
 
 ![](https://cdn-images-1.medium.com/max/1000/1*TalswynK3oCREkrhNBJGlg.png)
 
-A project that has 4 different configurations
+一个 project 包含四种不同的配置环境。
 
-#### The Fifth Element
+#### 第五种配置环境
 
-There is a reason why I chose to call the release configurations “_TestFlight_” instead of “_Release_”. There might be certain events in your code that need to happen only when the app is used by final users, not by testers or customers. A clear example is the usage of analytics to track events. It could be a requirement that event tracking should only be applied to final users, not to testers under production environments. In this case, we are talking about a _TestFlight Production_ configuration with some subtle differences, hence the need for a distinction. Introduce our fifth configuration:
+我使用 “ __TestFlight__” 命名 release 配置，而不是使用原来的 “__Release__” 命名是有原因的。因为代码中有些特定事件只在最终用户使用时触发，而在测试人员和客户使用时不触发。一个具体的场景就是使用用户统计来跟踪事件，这可能要求跟踪事件仅作用于最终用户，而不是生产环境下的测试人员。在这种情况下， 我们就要考虑 __TestFlight Production__ 配置具有的细微差别，因此我们需要将这个配置继续细分下去。引进第五种配置：
 
 * AppStore
 
-This configuration can be quickly duplicated from TestFlight Production. Notice that you won't always need it, as you could not have to perform anything different than when on TestFlight Production.
+你可以快速地拷贝一份 TestFlight Production 来添加这个配置。但需要注意的是这个配置可能一直不会用到，因为你不一定会遇到需要细分 TestFlight Production 配置的需求。
 
-Now, you might wonder **how you can manage different things to happen in your app depending on the selected configuration**. That's explained in the next section.
+那么，现在你可能很想知道 **如何根据所选配置来管理 APP 中的触发事件**。这些将会在接下来部分详细介绍。
 
-### Custom Settings
+### 自定义设置
 
-There are many ways to achieve what we need: Perform different actions based on which configuration is selected. There are precompiler directives, environment variables, different plist files, and more. Each one has its pros and cons. I'll just focus on the way I use to do it, which I consider a very clean one.
+有很多方式可以做到根据所选不同配置来执行不同的操作：预编译器指令、环境变量、各种 plist 文件等等。这些方式都有自己的优缺点，这里只讨论我将采取的比较纯净的方式。
 
-Those different actions that need to be done depending on the configuration can usually be encapsulated into variables, which will define our app's behavior. These variables are usually called **settings**. Example of settings are: the server's API's base URL, the Facebook App ID, the logs' detail level, whether or not offline access is enabled, etc.
+需要根据配置执行的各种操作通常可以由变量来控制，通过这些变量来决定 APP 的行为。这些变量通常称为 **settings** 。比如一些像这样的 settings ：服务器 API 的 base URL、Facebook App ID、日志的详细级别、是否支持离线访问等等。
 
-Next up, I'll show you the way I currently manage custom settings to vary depending on the selected configuration, which I consider a very convenient approach so far, based on my experience.
+接着，展示我现在如何根据所选配置来管理这些自定义 settings 的方法。从我的以往经验来看，这是目前最方便的方案。
 
 #### Settings.swift
 
-The app's custom settings can be easily accessible through a singleton.
+APP 的自定义 settings 可以通过单例很简单的获取到。
 
 ```
 struct Settings {
@@ -107,45 +109,46 @@ struct Settings {
 }
 ```
 
-This struct is in charge of reading and storing the settings (that we'll later define in the app's `Info.plist` file) so that they are available from anywhere in the codebase. I prefer to perform force unwraps here since if a setting is missing, I don't want my app to run.
+这个结构体用来读取和记录 APP 的各种 settings（这些 settings 会在 APP 的 `Info.plist` 文件中定义），这样我们就可以在代码中随时拿到这些 settings。在这里我喜欢使用强制解包，因为这样如果缺少某项设置，APP 也会无法运行。
 
 #### Info.plist
 
-We will define our settings in the `Info.plist` file. I recommend using a separate dictionary entry to group them all:
+在 `Info.plist` 文件中定义 appSettings 。这里我建议大家使用字典把这些设置汇总到一起。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*NlmqO1X2mvioMWhj9swBXg.png)
 
-So far, we have set up a clean way to retrieve our app's settings. However, they don't vary among configurations yet. We're almost there.
+这样，我们就非常纯净地完成了对 APP settings 的读取。这些 settings 在不同的配置环境中值都是不同的，还差一点就完成了。
 
 #### User-Defined Settings
 
-Let's think. What things normally change depending on the configuration in any project? Well, there is the compiler optimization level, there are the header search paths, the provisioning profiles, and much more. Wouldn't it be nice if we could define our own custom _things-that-vary-upon-selected-configuration_? Well, it turns out that we can, by creating User-Defined Settings.
+想一下，在所有的工程内 **什么会随配置的不同而改变** ？ 对，编译器的代码优化级别、header 的搜索路径、描述文件等等。如果我们能够定义我们自己的随所选配置改变的设置，那不就简单了！事实证明，我们确实可以创建用户自定义的设置。
 
 ![](https://cdn-images-1.medium.com/max/800/1*ilzKZsI_BCcgal5tzhkUWw.png)
 
-Creating User-Defined settings is very easy, just go to your Target > Build Settings, hit the + button, and select “Create User-Defined Setting”. They can be created at the project level too; I just consider the target level to be a better fit for them.
+创建 User-Defined settings 非常简单，只需要在你的 Target > Build Settings 中，点击 + 按钮，然后选择 “Create User-Defined Setting”。这些也可以在 project > Build Settings 下创建，但我觉得在 Target > Build Settings 创建更合适。
 
-Since your User-Defined Settings may have to live together with others that you haven't created, it's recommended that you use a prefix convention to name yours.
+ 因为你刚创建的 User-Defined Settings 可能还需与其他的 Settings 来搭配使用，所以建议最好用合适的前缀来命名。
+
 
 ![](https://cdn-images-1.medium.com/max/800/1*25yr4QF6vBFNK2F1DOh6nw.png)
 
-I used my initials here to prefix my User-Defined Settings. I suggest using the project's name initials.
+我这里使用了我名字缩写来作为 User-Defined Settings 的前缀， 但我建议最好用项目名的缩写。
 
-Now, to refer to one of these from the `Info.plist` file, you just do it like this:
+接下来，在你的 `Info.plist` 文件中引用对应的属性值，你可以这样做：
 
 ```
 $(YOUR_USER_DEFINED_SETTING_NAME)
 ```
 
-#### Integrating them all
+#### 整合全部
 
-This is where the magic occurs: You can replace all the fixed strings from the `Info.plist` entries that correspond to your settings with their corresponding references to each User-Defined Setting. You will need one User-Defined Setting for each custom setting that you have.
+真正神奇的地方在于：你可以将 `Info.plist` 中 settings 的所有已经填好的属性值替换为 User-Defined Setting 的对应地址。而你现有的自定义 setting 各需对应一条 User-Defined Setting。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*UMNV9ZDKIjr3J3UpWKOIbA.png)
 
-When the `Info.plist` file is compiled, it'll take all the settings values that correspond to the selected configuration, and these will be fixed on each entry at compile time.
+当 `Info.plist` 文件被编译时，它会获取所选配置对应的所有 settings 属性值，而这些属性值也会在编译时对应到每个 settings 上。
 
-Now, you can _nicely_ refer to any setting from anywhere in your code like this:
+现在，你就可以在你的代码里随时随地 *优雅* 地获取到这些 settings 的属性值：
 
 ```
 if Settings.shared.isOfflineAccessEnabled {
@@ -153,35 +156,36 @@ if Settings.shared.isOfflineAccessEnabled {
 }
 ```
 
-Finally, selecting which configuration to compile with is a piece of cake, either from Xcode:
+最后，在 Xcode 中选择所需的编译配置就非常简单了：
 
 ![](https://cdn-images-1.medium.com/max/800/1*D5Z2ipWESxi1MW5s0xvmMw.png)
 
-Or from CLI:
+或者在 CLI 中:
 
 ![](https://cdn-images-1.medium.com/max/800/1*MHK2NWnxjk0rPY4mFuzAZQ.png)
 
-### Wrapping Up
+### 总结
 
-By using this approach, we have gained these benefits:
+采用这套方案，我们会获得这些好处：
 
-* Organized builds workflow.
-* Organized way to manage app's custom settings.
-* Flexibility to change settings depending on the configuration.
-* Easiness with continous integration (given that selecting which configuration to compile with is easily doable in command line tools).
+* 有组织地构建工作流程。
+* 有组织地管理应用程序的自定义设置。
+* 根据配置灵活改变设置。
+* 轻松持续集成（在命令行工具中，选择要编译的配置很容易实现）。
 
-However, there are some caveats that are worth the mention:
+然而，这个方案也有些值得警惕的地方：
 
-* There is no flexibility to change settings at run time, as they are packaged with the build at compile time.
-* Switching often between configurations is not that nice: Xcode creates a build from scratch each time you change the build configuration, which means having to wait for the entire project to recompile in that case.
-* Settings can only be modified through the `.xcodeproj`; there is no flexibility to change their values [_nicely_](https://hackernoon.com/system-settings-9ed72d5ef629) from the outside.
-* User-Defined Settings are [**exposed to anyone that has access to the code**](https://medium.freecodecamp.org/how-to-securely-store-api-keys-4ff3ea19ebda)**,** so it's not a recommended place to put any key.
+* 在运行时不能灵活地更改设置，因为设置在编译时就被打包到版本内了。
+* 在配置之间切换时体验并不是很好：每次更改配置后，Xcode 都会重新创建一个版本，也就是说你必须等待整个项目重新编译。
+* 只能在 `.xcodeproj` 中修改这些设置的值，而不能在外部 [灵活](https://hackernoon.com/system-settings-9ed72d5ef629)  修改这些设置的值。
+* User-Defined Settings [暴露给了所有能够接触到代码的人](https://medium.freecodecamp.org/how-to-securely-store-api-keys-4ff3ea19ebda) , **所以千万不要把任何重要的 key 值放到这里** 。
 
-These pitfalls can be solved, though. The aim so far was just to improve our usage of these tools when coming from an almost zero-knowledge base. Mitigating these issues implies applying some modifications that complicates things a bit further, and they are out of the scope of this article, as I didn't want it to become too overwhelming. But believe me, we’ve done a lot. **In an upcoming second part, we will explore how to face these issues and take our projects to the next level…**
+虽然这些隐患可以一一排除，但是，这个方案的初衷只是为了从这片几乎空白的领域摸索出这些工具更好的使用方法。解决这些问题就意味着更多更复杂的修改，而且这些已经超出了本文讨论的内容，我不希望这篇文章跑题。但相信我，我们做的已经足够完善了。**在下篇文章里，我们将研究如何处理这些隐患，并让我们的项目变得更加完善...**
 
-To be continued.
-
+待续。
 
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
+
+

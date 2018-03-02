@@ -2,16 +2,16 @@
 > * 原文作者：[Benjamin Baxter](https://medium.com/@benbaxter?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/from-functional-java-to-functioning-kotlin.md](https://github.com/xitu/gold-miner/blob/master/TODO/from-functional-java-to-functioning-kotlin.md)
-> * 译者：
-> * 校对者：
+> * 译者：[huanglizhuo](https://github.com/huanglizhuo)
+> * 校对者：[atuooo](https://github.com/atuooo)，[hanliuxin5](https://github.com/hanliuxin5)
 
-# From functional Java to functioning Kotlin
+# 函数式 Java 到函数式 Kotlin 的转换
 
-## Converting @FunctionalInterface to Kotlin
+## 将 @FunctionalInterface 转换到 Kotlin 中
 
-Java 8 introduced a new annotation called `[@FunctionalInterface](https://docs.oracle.com/javase/8/docs/api/java/lang/FunctionalInterface.html)`. It’s purpose is to be able to create an interface with one non-default method so that the interface can simulate functions being first class citizens in an Object Oriented language. For example, `[Comparable](https://docs.oracle.com/javase/8/docs/api/java/lang/Comparable.html)` is a `@FunctionalInterface` with one method, `[compareTo(T o)](https://docs.oracle.com/javase/8/docs/api/java/lang/Comparable.html#compareTo-T-)`.
+Java 8 中引入了新的注解 [@FunctionalInterface](https://docs.oracle.com/javase/8/docs/api/java/lang/FunctionalInterface.html)。目的是为创建一个带有非默认方法的接口，这样这个接口就可以将函数模拟成面向对象语言中的一等公民。比如，[Comparable](https://docs.oracle.com/javase/8/docs/api/java/lang/Comparable.html) 就是只带有一个 [compareTo](https://docs.oracle.com/javase/8/docs/api/java/lang/Comparable.html#compareTo-T-) 方法的 `@FunctionalInterface`。
 
-Callbacks are a really common case for functional interfaces. Imaging the following scenario where we want to perform some asynchronous work and return the results back to the client at a later time. In Java, we would have a class that looks like the following:
+回调在函数式接口中很常见。想象一下下面的场景，我们想要进行一些异步操作，稍后将结果返回给调用的客户端。在 Java 中，我们可以创建一个下面这样的类：
 
 ```
 public class MyAwesomeAsyncService {
@@ -32,9 +32,9 @@ public class MyAwesomeAsyncService {
 }
 ```
 
-We use a callback interface that has one method that the client code needs to implement.
+我们使用了有一个方法的回调接口，调用者只需实现它即可。
 
-While using the Kotlin converter in Android Studio, the converter did not optimize converting the `@FunctionalInterface`.
+然而 Android Studio 附带的 Kotlin 转换器对 `@FunctionalInterface` 注解的转换并不是最优的。
 
 ```
 class MyAwesomeAsyncService(private val callback: AwesomeCallback) {
@@ -50,9 +50,11 @@ class MyAwesomeAsyncService(private val callback: AwesomeCallback) {
 }
 ```
 
-The converter created an interface for a one to one conversion, but could this be optimized further? In Kotlin there is a concept called [SAM or Single Abstract Method](https://kotlinlang.org/docs/reference/java-interop.html#sam-conversions). This is exactly what a `@FunctionalInterface` is in Java 8 but the section in the docs to not have an example of how to create a SAM, only how to use a SAM.
+转换结果是创建了一个一对一个转换接口，但这可以进一步优化吗？
+在 Kotlin 中有个 [SAM（Single Abstract Method）单个抽象方法](https://kotlinlang.org/docs/reference/java-interop.html#sam-conversions)概念。这正是 Java 8 中 `@FunctionalInterface` 的注解，但在文档中却没有创建 SAM 的例子，只讲了如何使用 SAM。
 
-After converting the interface into a function in the constructor, the boilerplate code around the `@FunctionalInterface` shank from 96 characters to 38 characters. That’s a reduction of 40%!
+在构造函数中把接口转换为函数后，`@FunctionalInterface` 部分的样板代码从 96 个字符减少到 38 个字符，这可是减少了 40%。
+
 
 ```
 class MyAwesomeAsyncService(private val onResult: (Result) -> Unit) {
@@ -64,14 +66,13 @@ class MyAwesomeAsyncService(private val onResult: (Result) -> Unit) {
 }
 ```
 
-When examining the before and after, you can see how the code melts away into syntactic sugar with Kotlin.
+前后对比过后，你就会体会到 Kotlin 中这些语法糖是多么的好用。
 
 ![](https://cdn-images-1.medium.com/max/800/1*E8Kf0zST9OFFPYJGmjBiPw.png)
 
-The before and after converting Java to Kotlin
+上面的图片是 Java 转换为 Kotlin 的对比。
 
-If you are converting a project or writing in Kotlin, I would love to hear about what you stumbled upon and learned. If you would like to continue the discussion, leave a comment or talk to me on [Twitter](https://twitter.com/benjamintravels).
-
+如果你也在使用 Kotlin 改造或者编写项目，欢迎在我的 [Twitter](https://twitter.com/benjamintravels) 下面评论交流你使用 Kotlin 中踩坑填坑经历。
 
 ---
 

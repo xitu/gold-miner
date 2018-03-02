@@ -2,42 +2,42 @@
 > * 原文作者：[Brandon Morelli](https://codeburst.io/@bmorelli25?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/a-guide-to-automating-scraping-the-web-with-javascript-chrome-puppeteer-node-js.md](https://github.com/xitu/gold-miner/blob/master/TODO/a-guide-to-automating-scraping-the-web-with-javascript-chrome-puppeteer-node-js.md)
-> * 译者：
-> * 校对者：
+> * 译者：[pot-code](https://github.com/pot-code)
+> * 校对者：[bambooom](https://github.com/bambooom)
 
-# A Guide to Automating & Scraping the Web with JavaScript (Chrome + Puppeteer + Node JS)
+# JavaScript 自动化爬虫入门指北（Chrome + Puppeteer + Node JS）
 
-## Learn to Automate and Scrape the web with Headless Chrome
+## 和 Headless Chrome 一起装逼一起飞
 
 ![](https://cdn-images-1.medium.com/max/800/1*kk8ovQKB-45FsZ8TZM-vjg.png)
 
 > [**Udemy Black Friday Sale**](https://codeburst.io/udemys-black-friday-sale-starts-today-all-web-development-courses-just-10-44966e590bd4) — Thousands of Web Development & Software Development courses are on sale for only $10 for a limited time! [**Full details and course recommendations can be found here**](https://codeburst.io/udemys-black-friday-sale-starts-today-all-web-development-courses-just-10-44966e590bd4).
 
-#### What Will We Learn?
+#### 内容简介
 
-In this tutorial you’ll learn how to automate and scrape the web with JavaScript. To do this, we’ll use Puppeteer. [_Puppeteer_](https://github.com/GoogleChrome/puppeteer) is a Node library API that allows us to control headless Chrome. [_Headless Chrome_](https://developers.google.com/web/updates/2017/04/headless-chrome) is a way to run the Chrome Browser without actually running Chrome.
+本文将会教你如何用 JavaScript 自动化 web 爬虫，技术上用到了 Google 团队开发的 Puppeteer。 [__Puppeteer__](https://github.com/GoogleChrome/puppeteer) 运行在 Node 环境，可以用来操作 headless Chrome。何谓 [__Headless Chrome__](https://developers.google.com/web/updates/2017/04/headless-chrome)？通俗来讲就是在不打开 Chrome 浏览器的情况下使用提供的 API 模拟用户的浏览行为。
 
-**If none of that makes any sense, all you really need to know is that we’ll be writing JavaScript code that will automate Google Chrome.**
+**如果你还是不理解，你可以想象成使用 JavaScript 全自动化操作 Chrome 浏览器。**
 
-#### Before Starting
+#### 前言
 
-Before starting you’ll need to have Node 8+ installed on your computer. You can install it [**here**](https://nodejs.org/en/). Make sure to choose the “Current” version as it is 8+.
+先确保你已经安装了 Node 8 及以上的版本，没有的话，可以先到 [**官网**](https://nodejs.org/en/) 里下载安装。注意，一定要选“Current”处显示的版本号大于 8 的。
 
-If you’ve never worked with Node before and want to learn, check out: [**Learn Node JS — The 3 Best Online Node JS Courses**](https://codeburst.io/learn-node-js-the-3-best-online-node-js-courses-87e5841f4c47).
+如果你是第一次接触 Node，最好先看一下入门教程：[**Learn Node JS — The 3 Best Online Node JS Courses**](https://codeburst.io/learn-node-js-the-3-best-online-node-js-courses-87e5841f4c47).
 
-Once you have Node installed, create a new project folder and install Puppeteer. Puppeteer comes with a recent version of Chromium that is guaranteed to work with the API:
+安装好 Node 之后，创建一个项目文件夹，然后安装 Puppeteer。安装 Puppeteer 的过程中会附带下载匹配版本的 Chromium（译者注：国内网络环境可能会出现安装失败的问题，可以设置环境变量 `PUPPETEER_SKIP_CHROMIUM_DOWNLOAD = 1` 跳过下载，副作用是每次使用 `launch` 方法时，需要手动指定浏览器的执行路径）：
 
-```
+```shell
 npm install --save puppeteer
 ```
 
-#### Example #1 — Taking a Screenshot
+#### 例 1 —— 网页截图
 
-Once you have Puppeteer installed, we’re going to walk through a simple example first. This example is straight from the Puppeteer documentation (with minor changes). The code we’ll walkthrough will take a screenshot of any website you tell it to.
+Puppeteer 安装好之后，我们就可以开始写一个简单的例子。这个例子直接照搬自官方文档，它可以对给定的网站进行截图。
 
-To start out, create a file named `test.js` and copy in the below code:
+首先创建一个 js 文件，名字随便起，这里我们用 `test.js` 作为示例，输入以下代码：
 
-```
+```javascript
 const puppeteer = require('puppeteer');
 
 async function getPic() {
@@ -52,105 +52,105 @@ async function getPic() {
 getPic();
 ```
 
-Let’s walk through this example line by line.
+下面我们来逐行分析上面的代码。
 
-* **Line 1:** We require our Puppeteer dependency that we installed earlier
-* **Line 3–10:** This is our main function `getPic()`. This function will hold all of our automation code.
-* **Line 12:** On line 12 we are invoking our `getPic()` function. (Running the function).
+* **第 1 行：** 引入依赖。
+* **第 3–10 行：** 核心代码，自动化过程在这里完成。
+* **第 12 行：** 执行 `getPic()` 方法。
 
-Something important to note is that our `getPic()` function is an `async` function and makes use of the new ES 2017 `async/await` features. Because this function is asynchronous, when it is called it returns a `Promise`. When the `async` function finally returns a value, the `Promise` will resolve (or `Reject` if there is an error).
+细心的读者会发现，`getPic()` 前面有个 `async` 前缀，它表示 `getPic()` 方法是个异步方法。`async` 和 `await` 成对出现，属于 ES 2017 新特性。介于它是个异步方法，所以调用之后返回的是 `Promise` 对象。当 `async` 方法返回值时，对应的 `Promise` 对象会将这个值传递给 `resolve`（如果抛出异常，那么会将错误信息传递给 `Reject`)。
 
-Since we’re using an `async` function, we can use the `await` expression which will pause the function execution and wait for the `Promise` to resolve before moving on. **It’s okay if none of this makes sense right now**. It will become clearer as we continue with the tutorial.
+在 `async` 方法中，可以使用 `await` 表达式暂停方法的执行，直到表达式里的 `Promise` 对象完全解析之后再继续向下执行。看不懂没关系，后面我再详细讲解，到时候你就明白了。
 
-Now that we’ve outlined our main function, lets dive into its inner workings:
+接下来，我们将会深入分析 `getPic()` 方法：
 
-* **Line 4:**
+* **第 4 行：**
 
-```
+```javascript
 const browser = await puppeteer.launch();
 ```
 
-This is where we actually launch puppeteer. We’re essentially launching an instance of Chrome and setting it equal to our newly created `browser` variable. Because we’ve also used the `await` keyword, the function will pause here until our `Promise` resolves (until we either successfully created our instance of Chrome, or errored out)
+这段代码用于启动 puppeteer，实质上打开了一个 Chrome 的实例，然后将这个实例对象赋给变量 `browser`。因为使用了 `await` 关键字，代码运行到这里会阻塞（暂停），直到 `Promise` 解析完毕（无论执行结果是否成功）
 
-* **Line 5:**
+* **第 5 行：**
 
-```
+```javascript
 const page = await browser.newPage();
 ```
 
-Here we create a new page in our automated browser. We wait for the new page to open and save it to our `page` variable.
+接下来，在上文获取到的浏览器实例中新建一个页面，等到其返回之后将新建的页面对象赋给变量 `page`。
 
-* **Line 6:**
+* **第 6 行：**
 
-```
+```javascript
 await page.goto('https://google.com');
 ```
 
-Using our `page` that we created in the last line of code, we can now tell our `page` to navigate to a URL. In this example, we’re navigating to google. Our code will pause until the page has loaded.
+使用上文获取到的 `page` 对象，用它来加载我们给的 URL 地址，随后代码暂停执行，等待页面加载完毕。
 
-* **Line 7:**
+* **第 7 行：**
 
-```
+```javascript
 await page.screenshot({path: 'google.png'});
 ```
 
-Now we’re telling Puppeteer to to take a screenshot of the current `page`. The `screenshot()` method takes an object as a parameter which is where we can customize the save location of our `.png` screenshot. Again, we’ve used the `await` keyword, so our code pauses while the action occurs.
+等到页面加载完成之后，就可以对页面进行截图了。`screenshot()` 方法接受一个对象参数，可以用来配置截图保存的路径。注意，不要忘了加上 `await` 关键字。
 
-* **Line 9:**
+* **第 9 行：**
 
-```
+```javascript
 await browser.close();
 ```
 
-Finally, we have reached the end of the `getPic()` function and we close down our `browser`.
+最后，关闭浏览器。
 
-#### Running the Example
+#### 运行示例
 
-You can run the sample code above with Node:
+在命令行输入以下命令执行示例代码：
 
-```
+```shell
 node test.js
 ```
 
-And here’s the resulting screenshot:
+以下是示例里的截图结果：
 
 ![](https://cdn-images-1.medium.com/max/800/1*OHQ4myaGuBWxqkJ_G1hxoA.png)
 
-Awesome! For added fun (and easier debugging) we can run our code in a non-headless manner.
+是不是很厉害？这只是热身，下面教你怎么在非 headless 环境下运行代码。
 
-What exactly does this mean? Try it out for yourself and see. Change line 4 of your code from this:
+非 headless？百闻不如一见，自己先动手试一下吧，把第 4 行的代码：
 
-```
+```javascript
 const browser = await puppeteer.launch();
 ```
 
-to this:
+换成这句：
 
-```
+```javascript
 const browser = await puppeteer.launch({headless: false});
 ```
 
-And then run again with Node:
+然后再次运行：
 
-```
+```shell
 node test.js
 ```
 
-Pretty cool huh? When we run with `{headless: false}` you can actually watch Google Chrome work as it navigates through your code.
+是不是更炫酷了？当配置了 `{headless: false}` 之后，就可以直观的看到代码是怎么操控 Chrome 浏览器的。
 
-We’re going to do one last thing with this code before moving on. Remember how our screenshot was a little off center? Well that’s because our page was a little small. We can change the size of our page by adding in this line of code:
+这里还有一个小问题，之前我们的截图有点没截完整的感觉，那是因为 `page` 对象默认的截屏尺寸有点小的缘故，我们可以通过下面的代码重新设置 `page` 的视口大小，然后再截取：
 
-```
+```javascript
 await page.setViewport({width: 1000, height: 500})
 ```
 
-Which results in this much nicer looking screenshot:
+这下就好多了：
 
 ![](https://cdn-images-1.medium.com/max/800/1*5nobu4vdUesXZg1cgWlySg.png)
 
-Here’s what our final code for this example looks like:
+最终代码如下：
 
-```
+```javascript
 const puppeteer = require('puppeteer');
 
 async function getPic() {
@@ -166,17 +166,17 @@ async function getPic() {
 getPic();
 ```
 
-#### Example #2 — Lets Scrape some Data
+#### 例 2 —— 爬取数据
 
-Now that you know the basics of how Headless Chrome and Puppeteer Work, lets look at a more complex example where we actually get to scrape some data.
+通过上面的例子，你应该掌握了 Puppeteer 的基本用法，下面再来看一个稍微复杂点的例子。
 
-First, [take a look at the API documentation for Puppeteer Here](https://github.com/GoogleChrome/puppeteer/blob/master/docs/api.md#). As you’ll see, there’s a TON of different methods we can use to not only click around on a website, but also to fill out forms, type things, and read data.
+开始前，不妨先看看 [官方文档](https://github.com/GoogleChrome/puppeteer/blob/master/docs/api.md#)。你会发现 Puppeteer 能干很多事，像是模拟鼠标的点击、填充表单数据、输入文字、读取页面数据等。
 
-In this tutorial we’re going to scrape [_Books To Scrape_](http://books.toscrape.com/), which is a fake bookstore specifically setup to help people practice scraping.
+在接下来的教程里，我们将爬一个叫 [_Books To Scrape_](http://books.toscrape.com/) 的网站，这个网站是专门用来给开发者做爬虫练习用的。
 
-In the same directory create a file named `scrape.js` and insert the following boilerplate code:
+还是在之前创建的文件夹里，新建一个 js 文件，这里用 `scrape.js` 作为示例，然后输入以下代码：
 
-```
+```javascript
 const puppeteer = require('puppeteer');
 
 let scrape = async () => {
@@ -190,25 +190,25 @@ scrape().then((value) => {
 });
 ```
 
-Ideally the above code makes sense to you after going through the first example. If not, that’s ok!
+有了上一个例子的经验，这段代码要看懂应该不难。如果你还是看不懂的话......那也没啥问题就是了。
 
-All we’re doing above is requiring the previously installed `puppeteer` dependency. Then we have our `scrape()` function where we will input our scraping code. This function will return a value. Finally, we invoke our `scrape` function and handle the returned value (log it to the console).
+首先，还是引入 `puppeteer` 依赖，然后定义一个 `scrape()` 方法，用来写爬虫代码。这个方法返回一个值，到时候我们会处理这个返回值（示例代码是直接打印出这个值）
 
-We can test the above code by adding in a line of code to the `scrape` function. Try this out:
+先在 scrape 方法中添加下面这一行测试一下：
 
-```
+```javascript
 let scrape = async () => {
   return 'test';
 };
 ```
 
-Now run `node scrape.js` in the console. You should get `test` returned! Perfect, our returned value is being logged to the console. Now we can get started filling out our `scrape` function.
+在命令行输入 `node scrape.js`，不出问题的话，控制台会打印一个 `test` 字符串。测试通过后，我们来继续完善 `scrape` 方法。
 
-**Step 1: Setup**
+**步骤 1：前期准备**
 
-First thing we need to do is create an instance of our browser, open up a new page, and navigate to a URL. Here’s how we do that:
+和例 1 一样，先获取浏览器实例，再新建一个页面，然后加载 URL：
 
-```
+```javascript
 let scrape = async () => {
   const browser = await puppeteer.launch({headless: false});
   const page = await browser.newPage();
@@ -220,121 +220,121 @@ let scrape = async () => {
 };
 ```
 
-Awesome! Lets break it down line by line:
+再来分析一下上面的代码：
 
-First, we create our browser and set `headless` mode to `false`. This allows us to watch exactly what is going on:
+首先，我们创建了一个浏览器实例，将 `headless` 设置为 `false`，这样就能直接看到浏览器的操作过程：
 
-```
+```javascript
 const browser = await puppeteer.launch({headless: false});
 ```
 
-Then, we create a new page in our browser:
+然后创建一个新标签页：
 
-```
+```javascript
 const page = await browser.newPage();
 ```
 
-Next, we go to the `books.toscrape.com` URL:
+访问 `books.toscrape.com`：
 
-```
+```javascript
 await page.goto('http://books.toscrape.com/');
 ```
 
-Optionally, I’ve added in a delay of `1000` milliseconds. While normally not necessary, this will ensure everything on the page loads:
+下面这一步可选，让代码暂停执行 1 秒，保证页面能完全加载完毕：
 
-```
+```javascript
 await page.waitFor(1000);
 ```
 
-Finally, after everything is done, we’ll close the browser and return our result.
+任务完成之后关闭浏览器，返回执行结果。
 
-```
+```javascript
 browser.close();
 return result;
 ```
 
-Setup is complete. Now, lets scrape!
+步骤 1 结束。
 
-**Step 2: Scraping**
+**步骤 2： 开爬**
 
-As you’ve probably ascertained by now, Books to Scrape has a big library of real books and fake data on those books. What we’re going to do is select the first book on the page and return the title and price of that book. Here’s the homepage of Books to Scrape. I’m interested in clicking on the first book (outlined in red below)
+打开 Books to Scrape 网站之后，想必你也发现了，这里面有海量的书籍，只是数据都是假的而已。先从简单的开始，我们先抓取页面里第一本书的数据，返回它的标题和价格信息（红色边框选中的那本）。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*SJi9SPF1a7gGcZ_mEnScgg.png)
 
-Looking at the Puppeteer API we can find the method that allows us to click on a page:
+查一下文档，注意到这个方法能模拟页面点击：
 
 **page.click(selector[, options])**
 
-* `selector` <string> A selector to search for element to click. If there are multiple elements satisfying the selector, the first will be clicked.
+* `selector` <string> 选择器，定位需要进行点击的元素，如果有多个元素匹配，以第一个为准。
 
-Luckily, the Google Chrome Developer Tools make it very easy to determine the selector for a particular element. Simply right click on the image and select inspect:
+这里可以使用开发者工具查看元素的选择器，在图片上右击选中 inspect：
 
 ![](https://cdn-images-1.medium.com/max/800/1*PSffzKaJrObAdfA1QRLCpg.png)
 
-This will open up the Elements Panel with the element highlighted. You can now click on the three dots on the left hand side, select copy, then select copy selector:
+上面的操作会打开开发者工具栏，之前选中的元素也会被高亮显示，这个时候点击前面的三个小点，选择 copy - copy selector：
 
 ![](https://cdn-images-1.medium.com/max/1000/1*fUXgbZ7LTGSvkqadYUPbAw.png)
 
-Awesome! We now have our selector copied and we can insert our `click` method into our program. Here’s what that looks like:
+有了元素的选择器之后，再加上之前查到的元素点击方法，得到如下代码：
 
-```
+```javascript
 await page.click('#default > div > div > div > div > section > div:nth-child(2) > ol > li:nth-child(1) > article > div.image_container > a > img');
 ```
 
-Our window will now click on the first product image and navigate to that product page!
+然后就会观察到浏览器点击了第一本书的图片，页面也会跳转到详情页。
 
-On the new page, we’re interested in both the product title and product price — outlined below in red
+在详情页里，我们只关心书的标题和价格信息 —— 见图中红框标注。
 
 ![](https://cdn-images-1.medium.com/max/800/1*ccol1C8a4b1wGXUdV8qfTA.png)
 
-In order to retrieve these values, we’ll use the `page.evaluate()` method. This method allows us to use built in DOM selectors like `querySelector()`.
+为了获取这些数据，需要用到 `page.evaluate()` 方法。这个方法可以用来执行浏览器内置 DOM API ，例如 `querySelector()`。
 
-First thing we’ll do is create our `page.evaluate()` function and save the returned value to a variable named `result`:
+首先创建 `page.evaluate()` 方法，将其返回值保存在 `result` 变量中：
 
-```
+```javascript
 const result = await page.evaluate(() => {
 // return something
 });
 ```
 
-Within our function we can select the elements we desire. We’ll use the Google Developer Tools to figure this out again. Right click on title and select inspect:
+同样，要在方法里选择我们要用到的元素，再次打开开发者工具，选择需要 inspect 的元素：
 
 ![](https://cdn-images-1.medium.com/max/1000/1*jzC0PnWrZsI_SF8t5PgGTA.png)
 
-As you’ll see in the elements panel, the title is simply an `h1` element. We can now select this element with the following code:
+标题是个简单的 `h1` 元素，使用下面的代码获取：
 
-```
+```javascript
 let title = document.querySelector('h1');
 ```
 
-Since we want the text contained within this element, we need to add in `.innerText` — Here’s what the final code looks like:
+其实我们需要的只是元素里的文字部分，可以在后面加上 `.innerText`，代码如下：
 
-```
+```javascript
 let title = document.querySelector('h1').innerText;
 ```
 
-Similarly, we can select the price by right clicking and inspecting the element:
+获取价格信息同理：
 
 ![](https://cdn-images-1.medium.com/max/1000/1*dKX7qukRfMVfPP2kydD03w.png)
 
-As you can see, our price has a class of `price_color`. We can use this class to select the element and its inner text. Here’s the code:
+刚好价格元素上有个 `price_color` class，可以用这个 class 作为选择器获取到价格对应的元素：
 
-```
+```javascript
 let price = document.querySelector('.price_color').innerText;
 ```
 
-Now that we have the text that we need, we can return it in an object:
+这样，标题和价格都有了，把它们放到一个对象里返回：
 
-```
+```javascript
 return {
   title,
   price
 }
 ```
 
-Awesome! We’re now selecting the title and price, saving them to an object, and returning the value of that object to the `result` variable. Here’s what it looks like when it’s all put together:
+回顾刚才的操作，我们获取到了标题和价格信息，将它们保存在一个对象里返回，返回结果赋给 `result` 变量。所以，现在你的代码应该是这样：
 
-```
+```javascript
 const result = await page.evaluate(() => {
   let title = document.querySelector('h1').innerText;
   let price = document.querySelector('.price_color').innerText;
@@ -345,15 +345,15 @@ return {
 });
 ```
 
-The only thing left to do is return our `result` so it can be logged to the console:
+然后只需要将 `result` 返回即可，返回结果会打印到控制台：
 
-```
+```javascript
 return result;
 ```
 
-Here’s what your final code should look like:
+最后，综合起来代码如下：
 
-```
+```javascript
 const puppeteer = require('puppeteer');
 
 let scrape = async () => {
@@ -384,54 +384,54 @@ scrape().then((value) => {
 });
 ```
 
-You can now run your Node file by typing the following into the console:
+在控制台运行代码：
 
-```
+```javascript
 node scrape.js
 // { title: 'A Light in the Attic', price: '£51.77' }
 ```
 
-You should see the title and price of the selected book returned to the screen! You’ve just scraped the web!
+操作正确的话，在控制台会看到正确的输出结果，到此为止，你已经完成了 web 爬虫。
 
-#### Example #3— Perfecting it
+#### 例 3 —— 后期完善
 
-Now you may be asking yourself, why did we click on the book when both the title and price were displayed on the homepage? Why not scrape them from there? And while we’re at it, why not scrape all the books titles and prices?
+稍加思考一下你会发现，标题和价格信息是直接展示在首页的，所以，完全没必要进入详情页去抓取这些数据。既然这样，不妨再进一步思考，能否抓取所有书的标题和价格信息？
 
-Because there are many ways to scrape a website! (Plus, if we stayed on the homepage, our titles would have been truncated). However, this provides the perfect opportunity for you to practice your new scraping skills!
+所以，抓取的方式其实有很多，需要你自己去发现。另外，上面提到的直接在主页抓取数据也不一定可行，因为有些标题可能会显示不全。
 
-**Challenge**
+**拔高题**
 
-The Goal — to scrape all of the book titles and prices from the homepage, and return them in an array. Here’s what my final output looks like:
+目标 —— 抓取主页所有书籍的标题和价格信息，并且用数组的形式保存返回。正确的输出应该是这样：
 
 ![](https://cdn-images-1.medium.com/max/800/1*w4YN9E40rzpdmQfwqM2Pcg.png)
 
-GO! See if you can accomplish this on your own. It’s very similar to the above program we just created. Scroll down if you get stuck…
+开干吧，伙计，其实实现起来和上面的例子相差无几，如果你觉得实在太难，可以参考下面的提示。
 
 * * *
 
-**Hint:**
+**提示：**
 
-The main difference between this challenge and the previous example is the need to loop through a bunch of results. Here’s how you might set up your code to do this:
+其实最大的区别在于你需要遍历整个结果集，代码的大致结构如下：
 
-```
+```javascript
 const result = await page.evaluate(() => {
-  let data = []; // Create an empty array
-  let elements = document.querySelectorAll('xxx'); // Select all 
-  // Loop through each proudct
-    // Select the title
-    // Select the price
-    data.push({title, price}); // Push the data to our array
-  return data; // Return our data array
+  let data = []; // 创建一个空数组
+  let elements = document.querySelectorAll('xxx'); // 选择所有相关元素
+  // 遍历所有的元素
+    // 提取标题信息
+    // 提取价格信息
+    data.push({title, price}); // 将数据插入到数组中
+  return data; // 返回数据集
 });
 ```
 
 * * *
 
-If you couldn’t figure it out, that’s OK! This was a tricky one… Here’s one possible solution. In a future article, I’ll dive more into this code and how it works. We’ll also look at more advanced scraping techniques. Be sure to [**enter your email here**](https://docs.google.com/forms/d/e/1FAIpQLSeQYYmBCBfJF9MXFmRJ7hnwyXvMwyCtHC5wxVDh5Cq--VT6Fg/viewform) if you’d like to be notified.
+如果提示了还是做不出来的话，好吧，以下是参考答案。在以后的教程中，我会在下面这段代码的基础上再做一些拓展，同时也会涉及一些更高级的爬虫技术。你可以在 [**这里**](https://docs.google.com/forms/d/e/1FAIpQLSeQYYmBCBfJF9MXFmRJ7hnwyXvMwyCtHC5wxVDh5Cq--VT6Fg/viewform) 提交你的邮箱地址进行订阅，有新的内容更新时我们会通知你。
 
-**Solution:**
+**参考答案：**
 
-```
+```javascript
 const puppeteer = require('puppeteer');
 
 let scrape = async () => {
@@ -441,34 +441,33 @@ let scrape = async () => {
     await page.goto('http://books.toscrape.com/');
 
     const result = await page.evaluate(() => {
-        let data = []; // Create an empty array that will store our data
-        let elements = document.querySelectorAll('.product_pod'); // Select all Products
+        let data = []; // 创建一个数组保存结果
+        let elements = document.querySelectorAll('.product_pod'); // 选择所有书籍
 
-        for (var element of elements){ // Loop through each proudct
-            let title = element.childNodes[5].innerText; // Select the title
-            let price = element.childNodes[7].children[0].innerText; // Select the price
+        for (var element of elements){ // 遍历书籍列表
+            let title = element.childNodes[5].innerText; // 提取标题信息
+            let price = element.childNodes[7].children[0].innerText; // 提取价格信息
 
-            data.push({title, price}); // Push an object with the data onto our array
+            data.push({title, price}); // 组合数据放入数组
         }
 
-        return data; // Return our data array
+        return data; // 返回数据集
     });
 
     browser.close();
-    return result; // Return the data
+    return result; // 返回数据
 };
 
 scrape().then((value) => {
-    console.log(value); // Success!
+    console.log(value); // 打印结果
 });
 ```
 
-### Closing Notes:
+### 结语：
 
-Thanks for reading! If you’re ready to really learn NodeJS, check out: [**Learn Node JS — The 3 Best Online Node JS Courses**](https://codeburst.io/learn-node-js-the-3-best-online-node-js-courses-87e5841f4c47)
+谢谢观看！如果你有学习 NodeJS 的意向，可以移步 [**Learn Node JS — The 3 Best Online Node JS Courses**](https://codeburst.io/learn-node-js-the-3-best-online-node-js-courses-87e5841f4c47)。
 
-I publish 4 articles on web development each week. Please consider [**entering your email here**](https://docs.google.com/forms/d/e/1FAIpQLSeQYYmBCBfJF9MXFmRJ7hnwyXvMwyCtHC5wxVDh5Cq--VT6Fg/viewform) if you’d like to be added to my once-weekly email list, or follow me on [**Twitter**](https://twitter.com/BrandonMorelli).
-
+每周我都会发布 4 篇有关 web 开发的技术文章，[**欢迎订阅**](https://docs.google.com/forms/d/e/1FAIpQLSeQYYmBCBfJF9MXFmRJ7hnwyXvMwyCtHC5wxVDh5Cq--VT6Fg/viewform)！或者你也可以在 Twitter 上 [**关注我**](https://twitter.com/BrandonMorelli)
 
 ---
 
