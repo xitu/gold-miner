@@ -53,7 +53,7 @@ A 部分可以处理一批交易，而同时 B 部分可以处理另一批。这
 
 ![](https://cdn-images-1.medium.com/max/800/1*mPCgXycICNjuscoFt974fQ.png)
 
-#### **II. What if we could squeeze more _useful operations_ out of ethereum’s existing capacity? 二. 如果我们能够从以太坊现有能力中压榨出更多有用的业务操作**
+#### **二. 如果我们能够从以太坊现有能力中压榨出更多有用的业务操作**
 
 第二种选择的方向则相反：不是增加以太坊区块链本身的容量，**如果我们可以通过我们已经拥有的能力来做更多的事情，会怎样？**在基础级别以太坊区块链的生产力都是相同的，但是实际上，我们可以做更多对人和应用程序有用的操作，比如交易，游戏中的状态更新，或者简单的计算。
 
@@ -63,57 +63,59 @@ A 部分可以处理一批交易，而同时 B 部分可以处理另一批。这
 
 ![](https://cdn-images-1.medium.com/max/800/1*TSKyc_gKn8kj0p-27nGQ-A.png)
 
-### **2. Layer 2 solutions are _cryptoeconomic_ solutions**
+### **2. 第二层（layer 2）解决方案是加密经济解决方案**
 
-Before diving into specific layer 2 solutions, it’s important to understand the underlying insight that makes them possible.
+在深入了解第二层解决方案的细节之前，了解下使其可行的潜在细节是非常重要的。
 
-The basic power of a public blockchain is in [cryptoeconomic consensus](https://hackernoon.com/making-sense-of-cryptoeconomics-5edea77e4e8d). By carefully aligning incentives and securing them with software & cryptography, we can create networks of computers that reliably come to agreement about the internal state of a system. This is the key insight of [Satoshi’s whitepaper](https://bitcoin.org/bitcoin.pdf), which has now been applied in the design of many different public blockchains including bitcoin and ethereum.
+公用区块链的基本力量在于 [加密经济合约](https://hackernoon.com/making-sense-of-cryptoeconomics-5edea77e4e8d)。通过调整激励措施并用软件和加密措施保护激励，我们可以创建一个就内部状态达成一致的稳定计算机网络。这是[中本聪的白皮书](https://bitcoin.org/bitcoin.pdf)的关键内容，现已应用于许多不同的公用区块链（包括比特币和以太坊）的设计中。
 
-**Cryptoeconomic consensus give us a _core hard kernel_ of certainty** — unless something extreme like a 51% attack happens, we know that on-chain operations — like payments, or smart-contracts — will execute as written.
+除了一些极端的情况下（比如 51% 攻击），**加密经济合约给了我们一个确定的稳定核心**。我们知道 on-chain 操作（比如支付，智能合约）可以看做写入去执行。
 
-**The insight behind layer 2 solutions is that we can use this core kernel of certainty as an _anchor_ — a fixed point to which we attach additional economic mechanisms.** This _second_ _layer_ of economic mechanisms can extend the utility of public blockchains outwards, letting us have interactions _off_ of the blockchain that can still reliably refer _back_ to that core kernel if necessary.
+**第二层（layer 2）解决方案背后的关键是我们可以将这个核心内核的确定性用作锚点，一个可以附加其他经济机制的固定点**。这种**第二层**经济机制可以扩展公用区块链的可用性。让我们**脱离**区块链进行交互操作，并且在需要的情况下仍能可靠地重归到核心链上。
 
-These layers built “on top” of ethereum won’t always have the same guarantee as on-chain operations. But they can still be _sufficiently final and secure_ to be very useful — especially when that slight decrease in finality lets us perform operations much faster or with lower overhead costs.
+这些构建在以太坊“之上”的层并不总是与 on-chain 操作具有相同的保证。但是，它们仍然具备**足够的权威性，安全性已经可用性**，特别是在终端的略微减少时我们能够更快的执行操作或消耗更低的日常成本。
 
-**Cryptoeconomics didn’t begin and end with Satoshi’s whitepaper — it’s a body of techniques that we are only learning to apply.** Not just in the design of core protocols, but in the design of second layer systems that extend the functionality of the underlying blockchain.
+**加密经济并不是随着中本聪的白皮书而开始或结束**，它是最适合我们去学习应用的技术主体。不仅存在于核心协议的设计中，也存在于第二层系统的设计中，它们扩展了底层区块链的功能性。
 
-#### **I. State channels**
+#### **一. 状态通道（State channels）**
 
-State channels are a technique for performing transactions and other state updates “off chain”. However, things that happen “inside” of a state channel still retain a very high degree of security and finality: if anything goes wrong, we still have the _option_ of referring back to the “hard kernel” of certainty found in on-chain transactions.
+状态通道（State Channel）是一种用于在“链下”执行交易和其他状态更新的技术。可是，一个状态渠道通道“中”发生的事务扔保持了很高的安全性和权威性。如果出现任何问题，我们仍然可以选择重归到“稳固内核”的权威性上，这种权威性是建立在 on-chain 交易基础上的。
 
-Most readers will be familiar with the idea of a _payment channel_, which has been around for several years, and recently implemented on bitcoin through the [lightning network](http://lightning.network/). State channels are the more _general_ form of payment channels — they can be used not only for payments, but for any arbitrary “state update” on a blockchain — like changes inside a smart contract. State channels were [first described in detail](http://www.jeffcoleman.ca/state-channels/) by Jeff Coleman in 2015.
+大部分读者会熟悉存在多年的概念——**支付通道（payment channel）**，它最近通过[闪电网络（lightning network）](http://lightning.network/)在比特币上实现了。状态通道是支付通道的泛化的形式，它不仅可用于支付，还可用于区块链上任意的“状态更新”，比如智能合约中的更改。在 2015 年，Jeff Coleman [第一次详细介绍](http://www.jeffcoleman.ca/state-channels/)了状态通道。
 
-The best way to explain how a state channel works is by looking at an example. Keep in mind that this is a conceptual explanation, meaning that we won’t get into the technical details of a specific implementation.
+解释状态通道的运作方式的最佳方法就是看一个样例。请记住这是一个概念性的解释，也就是说我们不会牵涉到具体实现的技术细节。
 
-Imagine that Alice and Bob want to play a game of tic tac toe, where the winner receives 1 eth. The naive way to do this would be to create a smart contract on ethereum that implements the rules of tic tac toe and keeps track of each players’ moves. Every time a player wants to make a move, they send a transaction to the contract. When one player wins, as determined by the rules, the contract pays out the 1 eth to the winner.
+现在试想一下，爱丽丝和鲍勃想玩一场井字游戏，赢家可以获得一个以太。实现这一目的的最简单方法就是在以太坊上创建一个智能合约，实现井字游戏规则并跟踪每个玩家的动作。每次玩家想要移动时，他们都会向合约发送一个交易。当一名玩家获胜时，会根据规则合约会付给赢家 1 以太。
 
-This works, but is inefficient and slow. Alice and Bob are having _the entire ethereum network_ process their game, which might be overkill for what they need. They have to pay gas costs every time a player wants to make a move, and they have to _wait_ for blocks to be mined before making the next move.
+这样是可行的，但是效率低下且速度慢。爱丽丝和鲍勃正在使用**整个以太网络**处理他们的游戏过程，这对于他们的需求来说有点不合时宜。他们每一步都需要支付挖矿费用（gas），并且还要在下一步之前都要**等待**挖矿完成。
 
-**Instead, we can design a system that lets Alice and Bob play tic-tac-toe with _as few on-chain operations as possible_.** Alice and Bob will be able to update the state of the game _off-chain_, while still having full confidence that they can revert back to the ethereum main-chain if necessary. We call this system a “state channel”.
+**不过，我们可以设计一个新的系统，它能使爱丽丝和鲍勃在井字游戏的过程中产生尽可能少的 on-chain 操作。**爱丽丝和鲍勃能够以 off-chain 的方式更性游戏状态，同时在需要时仍能将其重归到以太坊主链上。我们将这样一个系统称之为“状态通道”。
 
-First, we create a smart contract “Judge” on the ethereum main-chain that understands the rules of tic-tac-toe, and can identify Alice and Bob as the two players in our game. This contract holds the 1 eth prize.
+首先，我们在以太坊主链上创建一个能够理解井字游戏规则的智能合约 “Judge”，同时它也能够认定爱丽丝和鲍勃是我们游戏中的两位玩家。该合约持有一个以太的奖励。
 
-Then, Alice and Bob begin playing the game. Alice creates and signs a transaction describing her first move, and sends it to Bob, who also signs it, sends back the signed version, and keeps a copy for himself. Then Bob creates and signs a transaction describing his first move, and sends it to Alice, who also signs it, sends it back, and keeps a copy. Each time, they are updating the current state of the game between them. Each transaction contains a “nonce”, which simply means that we can always tell later in what order the moves happened.
+然后，爱丽丝和鲍勃开始玩游戏。爱丽丝创建并签署一个交易，它描述了她游戏的第一步，然后将其发送给鲍勃，鲍勃也签署了它，并将签名后的版本发回再保留一份副本。然后鲍勃也创建并签署一个描述他第一步的交易，并发送给爱丽丝，她也会签署它并将它返发回再保留一份副本，他们每一次都会这样互相更新游戏的当前状态。每一笔交易都包含一个“随机数”，这样我们就可以直接知道游戏中走棋的顺序。
 
-**So far, none of this is happening on-chain**. Alice and Bob are simply sending transactions _to each other_ over the internet, but nothing is hitting the blockchain yet. However, all of the transactions _could_ be sent to the Judge contract — in other words, they are valid ethereum transactions. You can picture this as two people writing a series of blockchain-certified cheques back and forth to each other. **No money has actually been deposited or withdrawn from a bank, but each has a stack of cheques that they _could_ deposit whenever they want.**
+**到目前为止，还没有发生任何 on-chain 的操作。**爱丽丝和鲍勃只是通过互联网**向彼此**发送交易，但没有任何事情涉及到区块链。但是，所有交易都可以发送给 Judge 合约，也就是说，它们是有效的以太坊交易。你可以把这看做两人在彼此来回写一系列经过区块链认证的支票。**实际上，并没有钱从银行中存入或取出，但是他俩都有一堆可以随时存入的支票。**
 
-When Alice and Bob are done playing the game — perhaps because Alice has won — they can _close_ the channel by submitting the final state (e.g. a list of transactions) to the Judge contract, paying only a single transaction fee. The Judge ensures that this “final state” is signed by both parties, and waits a period of time to ensure that no one can legitimately challenge the result, and then pays out the 1 eth award to Alice.
+当爱丽丝和鲍勃结束游戏时（可能是因为爱丽丝赢了），他们可以通过向 Judge 合约提交最终状态（比如，交易列表）来**关闭**该通道，这样就只用付一次交易费用。Judge 会确定双方都签署了这个“最终状态”，并等待一段时间来确保没人会对结果提出合理质疑，然后向爱丽丝支付 1 以太奖励。
 
-**Why do we need this “challenge period” where the Judge contract waits?**
+**为什么我们需要设置一个让 Judge 合约等待一下的"质疑时间"**
 
-Imagine that instead of sending the _real_ final state to the Judge, Bob sent an _old_ version of the state — one where he was winning ahead of Alice. The Judge is just a dumb contract — on its own, it has no way of knowing whether this is the most recent state or not.
+假设，鲍勃并没有给 Judge 发送一份**真实**的最终状态，而是发送一份**之前**他赢了爱丽丝的状态。这时 Judge 是一个非智能合约，它自己根本无法得知这个状态是否是最近的状态。
 
-The challenge period gives Alice a chance to _prove_ to the Judge contract that Bob has lied about the final state of the game. If there is a more recent state, then she will have a copy of the signed transactions, and she can submit those to the Judge. The Judge can tell that Alice’s version is more recent by checking the nonce, and Bob’s attempt to steal the win is rejected.
+而质疑时间给了爱丽丝一个机会能够证明鲍勃提交了虚假的游戏最终状态。如果有更近期的状态，她就会有一份已签名交易的副本，并可以将其提供给 Judge。Judge 可以通过检查随机数来判断爱丽丝的版本是否更新，然后鲍勃盗取胜利的企图就被驳回了。
 
-#### **Features and limitations**
+#### **特性和限制**
 
 State channels are useful in many applications, where they are a strict improvement over doing operations on-chain. However, it’s important to keep in mind the particular tradeoffs that have been made when deciding whether an application is suitable for being channelized:
+状态通道在许多应用中都很有用，它对执行 on-chain 操作时有严密的改进。但在决定应用程序是否适合被通道化时，请特别注意已经成立的部分交易：
 
-*   **State channels rely on availability**. If Alice lost her internet connection during a challenge (maybe because Bob, desperate to claim the prize, sabotaged her home’s internet connection) she might not be able to respond before the challenge period ends. However, Alice can pay someone else to keep a copy of her state and maintain availability on her behalf.
-*   **They’re particularly useful where participants are going to be exchanging _many_ state updates over a long period of time.** This is because there is an initial cost to _creating_ a channel in deploying the Judge contract. But once it is deployed, the cost per state update inside that channel is extremely low.
+*   **状态通道依赖于可靠性。**如果爱丽丝在质疑时间内下线了（也许是鲍勃不顾一切地想要赢下奖品而破坏了她家的互联网连接），她可能无法在质疑时间内做出回应。但是，爱丽丝可以向付款给其他人来保存一份她状态的副本并作为她的代表保持可靠性。
+*   **They’re particularly useful where participants are going to be exchanging _many_ state updates over a long period of time.** This is because there is an initial cost to _creating_ a channel in deploying the Judge contract. But once it is deployed, the cost per state update inside that channel is extremely low.
 *   **State channels are best used for applications with a defined set of participants.** This is because the Judge contract must always know the entities (i.e. addresses) that are part of a given channel. We can add and remove people, but it requires a change to the contract each time.
 *   **State channels have strong privacy properties**, because everything is happening “inside” a channel between participants, rather than broadcast publicly and recorded on-chain. Only the opening and closing transactions must be public.
 *   **State channels have instant finality**, meaning that as soon as both parties sign a state update, it can be considered final. Both parties have a very high guarantee that, if necessary, they can “enforce” that state on-chain.
+*   ****
 
 At L4, we’re building [**Counterfactual**](https://counterfactual.com/)**:** a framework for generalized state channels on ethereum. Our general purpose, modular implementation will let developers use state channels in their application without needing to be state channel experts themselves. You can read more about the project [here](https://medium.com/l4-media/generalized-state-channels-on-ethereum-de0357f5fb44). We’ll be releasing a paper describing our technique in Q1 2018.
 
@@ -234,7 +236,6 @@ Further, it’s very hard to predict in advance what scripting capabilities will
 The only way to take full advantage of the value of blockchain technology — that core _kernel of certainty_ created by cryptoeconomic consensus — is with a programmable blockchain like ethereum.
 
 _Thanks to Vitalik Buterin, Jon Choi, Matt Condon, Chris Dixon, Hudson Jameson, Denis Nazarov, and Jesse Walden for their comments on an earlier draft of this article._
-
 
 ---
 
