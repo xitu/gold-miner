@@ -107,37 +107,36 @@ A 部分可以处理一批交易，而同时 B 部分可以处理另一批。这
 
 #### **特性和限制**
 
-State channels are useful in many applications, where they are a strict improvement over doing operations on-chain. However, it’s important to keep in mind the particular tradeoffs that have been made when deciding whether an application is suitable for being channelized:
 状态通道在许多应用中都很有用，它对执行 on-chain 操作时有严密的改进。但在决定应用程序是否适合被通道化时，请特别注意已经成立的部分交易：
 
 *   **状态通道依赖于可靠性。**如果爱丽丝在质疑时间内下线了（也许是鲍勃不顾一切地想要赢下奖品而破坏了她家的互联网连接），她可能无法在质疑时间内做出回应。但是，爱丽丝可以向付款给其他人来保存一份她状态的副本并作为她的代表保持可靠性。
-*   **They’re particularly useful where participants are going to be exchanging _many_ state updates over a long period of time.** This is because there is an initial cost to _creating_ a channel in deploying the Judge contract. But once it is deployed, the cost per state update inside that channel is extremely low.
-*   **State channels are best used for applications with a defined set of participants.** This is because the Judge contract must always know the entities (i.e. addresses) that are part of a given channel. We can add and remove people, but it requires a change to the contract each time.
-*   **State channels have strong privacy properties**, because everything is happening “inside” a channel between participants, rather than broadcast publicly and recorded on-chain. Only the opening and closing transactions must be public.
-*   **State channels have instant finality**, meaning that as soon as both parties sign a state update, it can be considered final. Both parties have a very high guarantee that, if necessary, they can “enforce” that state on-chain.
-*   ****
+*   **在长期范围中参与者需要交换许多状态更新时，它是非常有用的。**这是因为**部署** Judge 合约时**创建**一个通道会产生初始成本。但是一旦部署完成，该通道内每一个状态更新的成本都会很低
+*   **状态通道最适于有一组明确参与者的应用程序。**这是因为 Judge 合约必须始终知晓所有参与到给定通道的实体（比如，地址）。我们可以增加或删除用户，但是每次都需要更改合约。
+*   **状态通道有很强的隐私属性。**因为一切都发生在参与者之间的通道“内”，而不是公共广播并记录在链上。只有开启和关闭交易必须公开。
+*   **状态通道的权威性是即时生效的。**这意味着只要双方签署了一个状态更新，它可以被认为是最终状态。双方都有明确保证，在必要的情况下，他们可以将状态“执行”到链上。
 
-At L4, we’re building [**Counterfactual**](https://counterfactual.com/)**:** a framework for generalized state channels on ethereum. Our general purpose, modular implementation will let developers use state channels in their application without needing to be state channel experts themselves. You can read more about the project [here](https://medium.com/l4-media/generalized-state-channels-on-ethereum-de0357f5fb44). We’ll be releasing a paper describing our technique in Q1 2018.
+我们 L4 团队正致力于创建 [**Counterfactual**](https://counterfactual.com/)，它是一个用于针对以太坊的广义状态通道。我们的目标是使开发者可以在他们的项目中模块化地使用状态通道，而不需要成为状态通道专家。你可以通过[这里](https://medium.com/l4-media/generalized-state-channels-on-ethereum-de0357f5fb44)了解更多该项目的信息。我们将在 2018 年的第一季度发布技术细节文件。
 
-The other notable state channels project for ethereum is [Raiden](https://raiden.network/), which is currently focused on building a network of _payment_ channels, using a similar paradigm as the [lightning network](http://lightning.network). This means that rather than have to open up a channel with the specific person(s) you want to transact with, you can open up a single channel with an entity connected to a much larger network of channels, enabling you to make payments to anyone else connected to the same network without additional fees.
+另一个值得注意的针对以太坊的状态通道项目是 [Raiden](https://raiden.network/)，目前正主要致力于构建**支付**通道网络，它使用了和 [闪电网络](http://lightning.network)类似的范式。这意味着你不必与想要交易的特定人员搭建通道。你可以与一个连接到更大型通道网络的实体架设一个单独的通道，这样你就能够向连接到同一网络的任何人付款而无需额外费用。
 
-In addition to Counterfactual and Raiden, there are several application-specific channel implementations on ethereum. For instance, Funfair has built state channels (which they call “[Fate channels](https://funfair.io/state-channels-in-disguise/)”) for their decentralized gambling platform, Spankchain has built [one-way payment channels](https://twitter.com/SpankChain/status/932801441793585152) for adult performers (they also [used a state channel for their ICO](https://github.com/SpankChain/old-sc_auction)), and [Horizon Games](https://horizongames.co/) is using state channels in their first ethereum-based game.
+除了 Counterfactual 和 Raiden，在以太坊上还有几个应用程序特定的通道实现。例如，Funfair 就为他们的分布式赌博平台搭建了一套他们称之为 “[Fate channels](https://funfair.io/state-channels-in-disguise/)” 的状态通道，SpainChain 为成人项目演员构建了一套 [one-way payment channels](https://twitter.com/SpankChain/status/932801441793585152)（他们还在他们的 ICO 中[使用了状态通道](https://github.com/SpankChain/old-sc_auction)），还有 [Horizon Games](https://horizongames.co/) 也在他们的第一款基于以太坊游戏中使用了状态通道。
 
-#### II. Plasma
+#### 二. Plasma
 
-On August 11 2017, Vitalik Buterin and Joseph Poon released a paper titled [_Plasma: Autonomous Smart Contracts_](http://plasma.io/plasma.pdf). The paper introduced a novel technique that could enable ethereum to reach many more transactions per second than currently possible.
+在 2017 年 8 月 11 日，Vitalik Buterin 和 Joseph Poon 发表了一篇题为 [_Plasma: Autonomous Smart Contracts_](http://plasma.io/plasma.pdf)的文档。这份文档介绍了一种新技术，它能使以太坊每秒可以处理的远比现在更多的事务。
 
-Like state channels, Plasma is a technique for conducting off-chain transactions while relying on the underlying ethereum blockchain to ground its security. **But Plasma takes the idea in a new direction, by allowing for the creation of “child” blockchains attached to the “main” ethereum blockchain.** These child-chains can, in turn, spawn their own child-chains, who can spawn their own child-chains, and so on.
 
-The result is that we can perform many complex operations at the child-chain level, running entire applications with many thousands of users, with only minimal interaction with the ethereum main-chain. **A Plasma child-chain can move faster, and charge lower transaction fees, because operations on it do not need to be replicated across the entire ethereum blockchain.**
+和状态通道一样，Plasma 是一种用于管理 off-chain 交易的技术，它降低了安全性并依赖底层以太坊。**但是 Plasma 采用了一个新想法，它是通过创建依附于“主”以太坊区块链的“子”区块链。**这些子链又可以循序产生他们自己的子链，并能以此循环往复。
+
+其结果是我们可以在子链层级中执行许多复杂的操作，在与以太坊主链保持最低限度交互的情况下，运行拥有数千名用户的完整应用程序。**Plasma 子链可以更快迁移，并承担更低的交易费用，因为其上的操作无需在整个以太坊区块链上重复。**
 
 ![](https://cdn-images-1.medium.com/max/800/0*44PC3oIBMgugPDph.)
 
 plasma.io/plasma.pdf
 
-In order to understand how Plasma works, let’s walk through an example of how it could be used.
+为了弄清楚 Plasma 的运行原理，我们来看一个其如何被运用的样例。
 
-Let’s imagine that you’re creating a trading-card game on ethereum. The cards will be ERC 721 non-fungible tokens (like Cryptokitties), but have certain features and attributes that lets users play against each other — like in Hearthstone, or Magic the Gathering. These kinds of complex operations are expensive to do on-chain, so you decide to use Plasma instead for your application.
+试想你正在创建一个基于以太坊的卡牌交易游戏。这些卡牌是一些 ERC 721 不可替代的令牌（比如 Cryptokitties），但是拥有一些可以让玩家相互对战的特征和属性，有点像炉石传说或者万智牌。这些类型的复杂操作在链上执行代价非常大，所以你决定在你的应用程序中使用 Plasma 作为替代方案。
 
 **First, we create a set of smart-contracts on ethereum main-chain that serve as the “Root” of our Plasma child-chain.** The Plasma root contains the basic “state-transition rules” of our child chain (things like “transactions cannot spend assets that have already been spent”), records hashes of the child-chain’s state, and serves as a kind of “bridge” that lets users move assets between the ethereum main-chain and the child-chain.
 
