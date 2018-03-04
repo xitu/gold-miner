@@ -136,23 +136,24 @@ plasma.io/plasma.pdf
 
 为了弄清楚 Plasma 的运行原理，我们来看一个其如何被运用的样例。
 
-试想你正在创建一个基于以太坊的卡牌交易游戏。这些卡牌是一些 ERC 721 不可替代的令牌（比如 Cryptokitties），但是拥有一些可以让玩家相互对战的特征和属性，有点像炉石传说或者万智牌。这些类型的复杂操作在链上执行代价非常大，所以你决定在你的应用程序中使用 Plasma 作为替代方案。
+试想你正在创建一个基于以太坊的卡牌交换游戏。这些卡牌是一些 ERC 721 不可替代的令牌（比如 Cryptokitties），但是拥有一些可以让玩家相互对战的特征和属性，有点像炉石传说或者万智牌。这些类型的复杂操作在链上执行代价非常大，所以你决定在你的应用程序中使用 Plasma 作为替代方案。
 
-**First, we create a set of smart-contracts on ethereum main-chain that serve as the “Root” of our Plasma child-chain.** The Plasma root contains the basic “state-transition rules” of our child chain (things like “transactions cannot spend assets that have already been spent”), records hashes of the child-chain’s state, and serves as a kind of “bridge” that lets users move assets between the ethereum main-chain and the child-chain.
+**首先，我们在以太坊主链上创建一系列的智能合约，它们可作为 Plasma 子链的“根节点”。**Plasma 根节点包含了子链的一些基本“状态交易规则”（诸如“交易无法消费已消费过的资产”），也记录了子链状态的哈希值，并建立一种允许用户在以太坊主链和子链间转移资产的“桥连”服务。
 
-Then, we create our child-chain. The child-chain can have its own consensus algorithm — in this example, let’s say that it uses [Proof of Authority (PoA)](https://en.wikipedia.org/wiki/Proof-of-authority), a simple consensus mechanism that relies on trusted block producers (i.e. validators). Block producers are analogous to _miners_ in a “Proof of Work” system — they are the nodes that receive transactions, form blocks, and collect transaction fees. Let’s keep our example simple, and say that you (the company that created the game) are the _only_ entity that is creating blocks — i.e. your company runs a few nodes that are the block producers for our child-chain.
+然后，创建我们的子链。子链可以拥有自己的共识算法，在这个例子中，我们假设它使用了 [Proof of Authority (PoA)](https://en.wikipedia.org/wiki/Proof-of-authority)，这是一种依赖可信区块生产者（比如，验证者）的简单共识机制。在“工作量证明”系统中，区块生产者和**矿工**的功能类似，他们接收交易，形成区块并收取交易费用的节点。为了让样例简单点，我们假设你（也就是创建游戏的公司）是创建区块的**唯一**实体，即你的公司运营几个节点，这些节点就是子链的区块生产者。
 
-Once the child-chain is created and active, the block producers make periodic commitments to the root contract. This means they are effectively saying “I commit that the most recent block in the child-chain is X”. These commitments are recorded on-chain in the Plasma root as a proof of what has happened in the child-chain.
+一旦子链创建好并生效后，区块生产者会周期性的向根节点发出提交。也就是他们实际上在说“我提交的 X 是子链中当前最新的区块”。这些提交被当做子链中事务的证明，记录在链上的 Plasma 根节点里。
 
-Now that the child-chain is ready, we can create the basic components of our trading card game. The cards themselves are [ERC721](https://github.com/ethereum/eips/issues/721)’s, initially created on the ethereum main-chain, and then moved onto the child-chain through the plasma root. **This introduces a crucial point: Plasma lets us scale interactions with blockchain-based digital assets, but those assets should be created first on the ethereum-main chain.** Then, we deploy the actual game application smart-contracts on the child-chain, which contains all of the game logic and rules.
+现在子链也准备好了，我们可以创建卡牌交换游戏的基本组件。这些卡片遵循 [ERC721](https://github.com/ethereum/eips/issues/721)，在以太坊主链上初始化，然后由 Plasma 根节点转移到子链上。**这里有一个关键知识：Plasma 可以扩展我们与基于区块链的数字资产之间的交互，但是这些资产应当是由以太坊主链创建的。**然后，我们将实际的游戏应用程序以智能合约的方式部署到子链上，这样子链就包含了游戏所有的逻辑和规则。
 
-**When a user wants to play our game, they are _only interacting with the child chain_.** They can hold assets (the ERC721 cards), buy and trade them for ether, play rounds of the game against other users — whatever our game lets them do — without ever interacting directly with the main-chain. Because only a much smaller number of nodes (i.e. block producers) have to process transactions, fees can be much lower and operations can be faster.
+**当用户想要玩游戏时，他们只需要和子链进行交互。**他们可以持有财产（ERC721 卡牌），购买并交换它们，与其他用户对战，以及其他游戏中允许的行为，而这些过程都不需要与主链进行交互。因为只有很少的节点（比如，区块生产者）才需要处理交易，这样费用就会降低很多，操作也能更快。
 
-#### **But how can this be safe?**
+#### **但是这种模式安全吗？**
 
-By moving more operations off the main-chain and onto a child-chain, it’s clear we can perform more operations. But how secure is it? Are transactions that happen on the child-chain actually considered final? After all, we’ve just described a system where _a single entity_ controls the block production for our child chain. Isn’t that centralized? **Can’t the company steal your funds or take your collectible cards whenever it wants?**
+通过将操作从主链迁移到子链上的方式，我们明显可以执行更多的操作了。但是这样安全吗？发生在子链上的交易是否具备权威性？毕竟，我们方才描述的系统只有**一个中心实体**控制着子链的区块生产。这样不是中心化吗？**这样公司不是随时都能窃取你的资产或者卡牌收藏吗？**
 
 The short answer is that _even in a scenario_ where a single entity controls 100% of block production on a child chain, Plasma gives you a basic guarantee that **you can always withdraw your funds and assets back onto the main chain.** If a block producer starts acting maliciously, the worst that can happen is they force you to leave the child-chain.
+简单来说，
 
 Let’s walk through a few different ways block producers could behave badly, and see how Plasma deals with those scenarios.
 
