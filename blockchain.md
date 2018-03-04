@@ -1,3 +1,5 @@
+* [二十年后比特币会变成什么样？— 第二部分](https://juejin.im/post/5a955721f265da4e826377b6) ([pcdack](https://github.com/pcdack) 翻译)
+* [用 Java 创造你的第一个区块链之第二部分 — 交易](https://juejin.im/post/5a940b116fb9a0633757587a) ([IllllllIIl](https://github.com/IllllllIIl) 翻译)
 * [用 Java 创造你的第一个区块链，第一部分](https://juejin.im/post/5a8ed1d75188257a836c4218) ([NeoyeElf](https://github.com/NeoyeElf) 翻译)
 * [自主权身份简介](https://juejin.im/post/5a818d535188257a7f1da91b) ([foxxnuaa](https://github.com/foxxnuaa) 翻译)
 * [低估中国区块链,对你是个好消息](https://juejin.im/post/5a7943e2f265da4e9d221119) ([Vsevorod](https://github.com/Vsevorod) 翻译)
