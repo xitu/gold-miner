@@ -174,68 +174,68 @@ plasma.io/plasma.pdf
 
 plasma.io/plasma.pdf
 
-**Lastly, block producers can _censor_ users of the child-chain.** If they wanted, block producers could simply never include certain transactions in their blocks, effectively preventing a user from performing any operations on the child-chain. Once again, the solution is simply to withdraw all of our assets back onto the ethereum main-chain as above.
-**最后，区块生产者可以作为监察子链中的用户。**如果他们
+**最后，区块生产者可以作为监察子链中的用户。**如果他们有企图，区块生成者可以直接不在其区块中不包含某些事务，从而有效阻止用户在子链上执行任何操作。如上所述，这个解决方案再一次的直接将我们所有的资产收回到以太坊主链上。
 
-**Withdrawals themselves pose risks, however.** One concern is what would happen if everyone using a child-chain tried to withdraw at the same time. In the case of a mass withdrawal, there might not be enough capacity on the ethereum main-chain to process everyone’s transactions within the challenge period, [meaning users _could_ lose funds](https://www.reddit.com/r/ethereum/comments/6sqca5/plasma_scalable_autonomous_smart_contracts/dlex5pa/?utm_content=permalink&utm_medium=front&utm_source=reddit&utm_name=ethereum). Although there are many possible techniques for preventing this, e.g. by extending the challenge period in a way that is responsive to demand for withdrawals.
+**但是，取出资产本身也会带来风险。**其中一个忧虑就是如果所有使用这一子链的用户在同一时刻都要取出资产会怎样。在这样一个大量取出的情况下，以太坊主链主链上可能没有足够的能力处理每个人在质疑期内的交易，[也就意味着用户可能会失去资金](https://www.reddit.com/r/ethereum/comments/6sqca5/plasma_scalable_autonomous_smart_contracts/dlex5pa/?utm_content=permalink&utm_medium=front&utm_source=reddit&utm_name=ethereum)。虽然有许多可行的技术能够防止这种情况发生，例如，通过延长质疑时间来适应取出资产的需求。
 
-**It’s worth noting that it doesn’t _need_ to be the case that all block producers are controlled by one entity — this is simply the extreme case in our example.** We can create child-chains whose block production is spread among many different entities — i.e. actually decentralized in a way that is more similar to public blockchains. In those cases, there is less risk that block producers would interfere in the way described above, and so less risk that a user would have to move their assets back to the ethereum main-chain.
+**值得注意的是，所有区块生产者都是由一个实体控制这种情况并不是必定的，这是个在我们这个例子中出现的简单的极端情景。**我们可以创建创建区块生产者分布在不同实体间的子链，即实际上像公用区块一样去中心化。在这些情况下，区块生产者会以上述的方式捣乱的风险减小，产生用户不得不将资产收回到以太坊主链情况的风险也较小。
 
-Now that we’ve covered both state channels and Plasma, it’s worth noting a few points of comparison.
+现在我们已经介绍了状态通道和 Plasma，有几点值得比较下。
 
-One difference is that state channels can perform _instant withdrawals_ when all of the parties in the channel consent to the withdrawal. If Alice and Bob agree to close out a channel and withdraw their funds, so long as they both agree to the final state they can get their assets out of the channel immediately. This is not possible on Plasma, where users must always go through a withdrawal process that involves a challenge period, as described above.
+它们之间一个不同之处在于，当状态通道中所有利益方都一致同意取出资产，它可以**立即取出资产**。如果爱丽丝和鲍勃同意关闭通道并撤回它们的资金。只要他们都认同最终状态，他们就可以立即取得他们的资产。这在 Plasma 上并不可能实现，如上所述，用户在取出资产的过程中必须包含一个质疑时间。
 
-State channels should also be less expensive per transaction than Plasma, and be faster. **This means that we will** [**_likely build state channels on Plasma child-chains_**](https://www.reddit.com/r/ethereum/comments/7jzx51/scaling_ethereum_hundreds_to_thousands_of/drb930m/?context=1). For example, in an application where two users are exchanging a series of small transactions. Building a state channel at the child-chain level _should_ be cheaper and faster than performing each of those transactions on the child-chain directly.
+每笔交易的状态通道也会比 Plasma 更便宜，而且速度更快。**这意味着我们可以[在 Plasma 子链上建立状态通道](https://www.reddit.com/r/ethereum/comments/7jzx51/scaling_ethereum_hundreds_to_thousands_of/drb930m/?context=1)。**例如，一个应用程序中两个用户在进行一系列的小型交易。在子链上建立一个状态通道**应该**会比直接在子链上执行每个交易更加便宜和迅速。
 
-Finally, it’s worth noting that this is only a partial description that leaves out many details. Plasma itself is in very early stages. If you’re interested in learning more about current work on Plasma, check out Vitalik’s recent proposal for a “[Minimal Viable plasma](https://ethresear.ch/t/minimal-viable-plasma/426)” (i.e. a stripped-down plasma implementation). There’s work being done by a group based in Taiwan, which you can find in [this repo](https://github.com/ethereum-plasma). OmiseGo is working on an implementation for their decentralized exchange — they posted a recent update about their progress [here](https://blog.omisego.network/construction-of-a-plasma-chain-0x1-614f6ebd1612).
+最后，需要注意的是这部分讲解缺失了大量细节。Plasma 本身还处于非常起始的阶段。如果你有兴趣了解 Plasma 现在的情况，请查看 Vitalik 最近的一个关于 “[Minimal Viable plasma](https://ethresear.ch/t/minimal-viable-plasma/426)” 的提议（即抽离出 plasma 的实现过程）。一个台湾的团队正在进行这项工作，可以在[这个分支](https://github.com/ethereum-plasma)中查看。OmiseGo 正在研究他们的分布式交易的实现，他们在[这里](https://blog.omisego.network/construction-of-a-plasma-chain-0x1-614f6ebd1612)发布了最近更新进展信息。
 
 #### **III. Truebit**
 
-[Truebit](http://truebit.io) is a technology to help ethereum conduct _heavy_ or _complex_ computation off-chain. This makes it different from state channels and Plasma, which are more useful for increasing the total transaction throughput of the ethereum blockchain. As we discussed in the opening section, scaling is a multi-faceted challenge that requires more than high transaction throughput. **Truebit won’t let us do _more transactions_, but it will let ethereum based applications _do more complex things_ in a way that can still be verified by the main-chain.**
+[Truebit](http://truebit.io) 是一种帮助以太坊进行**繁重**或者**复杂** off-chain 运算的技术。它对于提高以太坊区块链的总交易通量更有效，这使得它与状态通道和 Plasma 不一样。正如我们在开篇部分讨论的那样，扩展是一个多面的挑战，需要的不仅仅是更高的交易通量。**Truebit 不会让我们做更多的交易，但是它可以让基于以太坊的应用程序处理更复杂的事务并仍能被主链验证。**
 
-This will let us do operations useful to ethereum applications that are too computationally expensive to do on chain. For instance, validating Simple Payment Verification (SPV) proofs from other blockchains, which could let ethereum smart-contracts “check” whether a transaction has happened on another chain (like bitcoin or [dogecoin](https://twitter.com/Truebitprotocol/status/960662648193888256)).
+这将让我们能够执行对于以太坊应用程序有用但是在链上执行需要太多计算代价的操作。例如，验证来自其他区块链的简单支付验证（SPA）证明，以太坊智能合约可以通过这个验证“检查”交易是否发生在另一个链上（比如比特币或者[狗币](https://twitter.com/Truebitprotocol/status/960662648193888256)）。
 
-Let’s walk through an example. Imagine that you have some expensive computation — like an SPV proof — that needs to be performed as part of an ethereum application. You can’t simply do it as part of a smart contract on ethereum main-chain, because SPV proofs are far too computationally expensive. Remember, it’s very costly to perform any computation on ethereum because every node must perform that operation in parallel. Blocks in ethereum have a _maximum gas limit_ that sets a cap on how much computation can be done by all the transactions combined in that block. But an SPV proof is so computationally expensive that it would require many multiples of the _entire gas limit for an individual block_, even if it were the _only_ transaction inside.
+我们来看一个例子。试想你有一些高代价计算（比如 SPV 证明）需要作为一个以太坊应用程序的一部分执行。因为 SPV 证明的计算成本太高了，你不能简单地将其作为以太坊主链上的智能合约的一部分。请牢记，应为每个节点必须并行执行该操作，所以在以太坊上执行任何计算的成本都非常高。以太坊中的区块都有**最大费用(gas)限制**，它用于限制该区块中所有事务组合在一起能够完成的计算总量。但是，SPV 证明的计算量实在太大，即使它只是其中**仅有**的交易，仍需要许多倍单个区块的**全部费用限制**。
 
-**Instead, you pay _someone else_ a small fee to do the computation _off chain_.** The person you paid to do this is called a _solver_.
+**相反，链下你只需要支付很少的费用就可以完成计算。**让你为此付费完成计算的这个人被称作**解算机**。
 
-First, the solver pays a deposit held in a smart contract. Then, you give the solver a description of the computation they need to execute for you. They run the computation, and return the result. If the result is correct (more on that in a second), their deposit is returned. If it turns out that solver did _not_ properly perform the computation — i.e. they cheated or made a mistake — they lose their deposit.
+首先，解算机支付给智能合约一份押金。然后，你给解算机一份计算的详细描述，它们需要为你执行，并将结果返回给你。如果结果是正确的（大部分情况下发生在一秒钟之内），它们的押金将被退回。如果解算机被证实没有正确执行运算（比如，它们欺诈或者犯错了），它们会失去押金。
 
-**But how can we tell whether the result was correct, or false?** Truebit uses an economic mechanism called the “verification game”. Essentially, we create an incentive for other parties called _challengers_ to check the solvers’ work. If a challenger is able to prove through the verification game that a solver submitted a false result, then they collect a reward, while the solver loses their deposit.
+但是，我们如何判断结果是否正确呢？Truebit 使用了一种叫做“验证游戏（verification game）”的经济机制。本质上我们创建了一种激励机制，它叫做**挑战者（challengers）**来检查解算机的结果。如果挑战者能够通过验证游戏证明解算计提交了错误结果，那么他们就可以收取奖励，而解算计则丢失他们的押金。
 
-Because the verification game is performed on-chain, it cannot simply compute the result (which would defeat the entire purpose of the system — if we _could_ do the computation on-chain, we wouldn’t need Truebit). Rather, we force both the solver and challenger to identify the _specific operation_ that they disagree about. **In effect, we are backing both parties into a corner — finding the actual line of code where they disagree about the outcome.**
+由于验证游戏是在链上执行的，因此它不能简单地计算结果（这会推翻整个系统的设计初衷，如果**可以**在链上执行计算，我们也就不需要 Truebit 了）。相反，我们要求解算机和挑战者确定他们意见不一致**特定操作**。**实际上，我们支持双方退到一个中间地带，找出它们导致对结果意见不一致的具体代码行。**
 
 ![](https://cdn-images-1.medium.com/max/800/1*VrRnWxmwPFsszhQiPrx1IQ.png)
 
-Simplified conceptual diagram of Truebit.
+Truebit 的简化概念图。
 
-Once that specific operation is identified, it’s small enough to actually be executed by the ethereum main-chain. We then execute that operation through a smart-contract on ethereum, which settles once and for all which party was telling the truth and which was lying or mistaken.
+一旦确定了具体的操作，它就小到可以由以太坊主链来执行了。然后，我们通过以太坊智能合约来执行这一行动，该合约一劳永逸地解决了哪一方说了真话，哪些又是谎言或错误。
 
-If you want to learn more about Truebit, you can read the paper [here](https://people.cs.uchicago.edu/~teutsch/papers/truebit.pdf), or this [blog post](https://medium.com/@simondlr/an-intro-to-truebit-a-scalable-decentralized-computational-court-1475531400c3) by Simon de la Rouviere.
+如果你想了解更多关于 Truebit 的信息，你可以查看[这份文档](https://people.cs.uchicago.edu/~teutsch/papers/truebit.pdf)，或者 Simon de la Rouviere 写的[这篇博文](https://medium.com/@simondlr/an-intro-to-truebit-a-scalable-decentralized-computational-court-1475531400c3)。
 
-### **Conclusion**
+### **结论**
 
-**Layer 2 solutions share a common insight:** once we have the hard kernel of certainty provided by a public blockchain, we can use it as an anchor for cryptoeconomic systems that extend the usefulness of blockchain applications.
+**第二层解决方案有着共同的远见。**一旦我们得到由公用区块链提供的稳定内核，就可以将其作为加密经济的锚点，扩展出无限的区块链应用。
 
-Now that we’ve surveyed some examples, we can be more specific about how layer 2 solutions _apply_ this insight. The economic mechanisms used by layer 2 solutions tend to be _interactive games_: they work by creating incentives for different parties to compete against or “check” one another. **A blockchain application can assume that a given claim is likely true, because we’ve created a strong incentive for another party to provide information showing it to be false.**
+现在我们已经对一些样例进行了调查，这样就可以更具体地了解第二层解决方案怎么实现这种远见。第二层解决方案中运用的经济机制通常是**交互游戏**：它们通过为各方创造激励以使其相互竞争或彼此“检查”工作。**由于我们激发了另一方出示证实错误信息的强烈动机，因此区块链应用程序可以假定某个给定的声明是正确的。**
 
-In state channels, this is how we confirm the final state of the channel — by giving parties a chance to “rebut” each other. In Plasma, it’s how we manage fraud-proofs and withdrawals. In Truebit, it’s how we ensure that solvers’ tell the truth — by giving an incentive to verifiers to prove the solver wrong.
+在状态通道方案中，就是通过给各方一个“反驳”对方的机会，来确定通道的最终状态。在 Plasma 方案中，就是如何管理欺诈证明和提款。在 Truebit 方案中，就是通过激励挑战者证明解算计是错误的，从而保证解算计给出正确结果。
 
-These systems will help address some of the challenges involved in scaling ethereum to a massive global user base. Some, like state channels and Plasma, will increase the transaction throughput of the platform. Others, like Truebit, will make it possible to conduct more _difficult_ computation as part of a smart contract, opening up new use cases.
+这些系统将有助于解决将以太坊扩展到全球用户群过程中所涉及的一系列挑战。一些像状态通道和 Plasma 的方将增加平台的交易通量。其他像是 Truebit 的方案，将能够作为智能合约的一部分进行更多的**复杂**计算，创建出新的使用案例。
 
-These three examples represent only a small portion of the possible design space for cryptoeconomic scaling solutions. We’ve not even covered the work being done on “inter-blockchain protocols” like [Cosmos](https://cosmos.network/) or [Polkadot](https://blog.stephantual.com/web-three-revisited-part-two-introduction-to-polkadot-what-it-is-what-it-aint-657782051d34) (although whether these are “layer 2” solutions or something else altogether is a topic for another post). **We should also expect to invent _new and unexpected_ layer 2 systems that improve on existing models or offer new tradeoffs between speed, finality, and overhead.**
+这三个例子只能代表加密经济扩展方案可行设计的很小一部分。我们甚至还没有谈到像 [Cosmos](https://cosmos.network/) 或 [Polkadot](https://blog.stephantual.com/web-three-revisited-part-two-introduction-to-polkadot-what-it-is-what-it-aint-657782051d34) 这样的“区块链间协议”（尽管这是“第二层”解决方案或另一篇博文的内容）。**我们还是应该期待意想不到的新型第二层系统，来改进现有模型或在速度，终端和开销做出新的权衡。**
 
-More important than any _particular_ layer 2 solution is further development of the underlying techniques and mechanisms that make them possible in the first place: cryptoeconomic design.
+比任何**独特的**第二层解决方案更重要的是进一步发展潜在的技术和机制，使这些加密经济设计成为可能。
 
-**These layer 2 scaling solutions are a powerful argument for the long-term value of programmable blockchains like ethereum.** Building the economic mechanisms underlying layer 2 solutions is only possible when a blockchain is programmable: you need a scripting language to write the programs that enforce the interactive games. This is much more difficult (or in some cases, like Plasma, probably impossible) on blockchains like bitcoin, which offer only limited scripting possibilities.
+**这些第二层扩展方案有力证明了像以太坊这样的程式化区块链的长期价值。**只有在程序化区块链上才有可能建立基于第二层解决方案的经济机制：你需要用脚本语言实现执行交互式游戏的程序。因为比特币等区块链只提供了有限的脚本功能，这对于它们来说很困难（或者有些情况下，比如 Plasma，这是完全不可能实现的）。
 
-**Ethereum lets us build layer 2 solutions to access new points on the tradeoff matrix between speed, finality, and overhead cost.** This makes the underlying blockchain more useful for a larger variety of applications, since different types of applications with different threat models will have natural preferences towards different tradeoffs. For high value transactions where we want protection against even nation-states, we use the main chain. For trading digital collectibles where speed is more important, we can use Plasma. Layer 2 lets us make these tradeoffs _without_ compromising the underlying blockchain, preserving decentralization and finality.
+**以太坊第二层方案的出现让我们能在速度、终端和开销间做出新的权衡。**这是底层区块链能够适用与更多种类的应用程序，因此面对不同威胁模型的不同类型应用程序会自然的选择不同的权衡模式。对于需要保障区域性（乃至国家性的）范围内的大规模交易时，我们使用主链。对于更偏重速度的数字资产交易，我们可以使用 Plasma。第二层方案让我们能够在**不**损害底层区块链的前提下做出这些折中措施，并保持去中心化和权威性。
 
-Further, it’s very hard to predict in advance what scripting capabilities will be needed for a given scaling solution. **When ethereum was being designed, Plasma and Truebit had not yet been invented.** But because ethereum is fully programmable, it is capable of implementing virtually any economic mechanism we can invent.
+而且，很难事先预测具体的扩展方案需要那些脚本功能。**当以太坊被设计出来时， Plasma 和 Truebit 还尚未发明。**但是由于以太坊是完全编程化的，他能够实际实现我们发明的任何经济机制。
 
-The only way to take full advantage of the value of blockchain technology — that core _kernel of certainty_ created by cryptoeconomic consensus — is with a programmable blockchain like ethereum.
 
-_Thanks to Vitalik Buterin, Jon Choi, Matt Condon, Chris Dixon, Hudson Jameson, Denis Nazarov, and Jesse Walden for their comments on an earlier draft of this article._
+充分利用区块链技术价值的唯一途径就是通过编程化区块链（如以太坊）这一加密经济合约创建的稳定内核。
+
+**感谢 Vitalik Buterin，Jon Choi，Matt Condon，Chris Dixon，Hudson Jameson，Denis Nazarov 和 Jesse Walden 对于文本初稿的意见。**
 
 ---
 
