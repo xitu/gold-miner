@@ -4674,11 +4674,10 @@
 |[比特币的三个经济阶段](https://juejin.im/post/5a61d5336fb9a01cb049667e)|校对|1.5|
 |[开启你的开源生涯](https://juejin.im/post/5a5c029d51882573432d21ff)|校对|2|
 
-## 译者：[liaodalin19903](https://github.com/liaodalin19903) 历史贡献积分：23.5 当前积分：23.5 年度积分：20
+## 译者：[liaodalin19903](https://github.com/liaodalin19903) 历史贡献积分：3.5 当前积分：3.5 年度积分：0
 
 |文章|类型|积分|
 |------|-------|-------|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译校对|20|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|2|
 |[利用双环 TDD 进行由外向内的开发](https://juejin.im/post/5a5dea0d6fb9a01cab28443c)|校对|1.5|
 
