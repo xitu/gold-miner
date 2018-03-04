@@ -152,30 +152,30 @@ plasma.io/plasma.pdf
 
 通过将操作从主链迁移到子链上的方式，我们明显可以执行更多的操作了。但是这样安全吗？发生在子链上的交易是否具备权威性？毕竟，我们方才描述的系统只有**一个中心实体**控制着子链的区块生产。这样不是中心化吗？**这样公司不是随时都能窃取你的资产或者卡牌收藏吗？**
 
-The short answer is that _even in a scenario_ where a single entity controls 100% of block production on a child chain, Plasma gives you a basic guarantee that **you can always withdraw your funds and assets back onto the main chain.** If a block producer starts acting maliciously, the worst that can happen is they force you to leave the child-chain.
-简单来说，
+简单来说，即使是在子链中完全由一个实体完全控制区块生产的**情景**下，Plasma 也能做出**你可以随时将你的资产收回到主链上**的根本承诺。如果一个区块生产者开始表现出敌意，最坏的情况也只是强迫你离开这个子链。
 
-Let’s walk through a few different ways block producers could behave badly, and see how Plasma deals with those scenarios.
+我们来看下几种区块生产者会表现恶劣的方式，然后看下 Plasma 会怎样处理这些情景。
 
-**First, imagine that a block producer tries to cheat you by lying — by creating a _fake_ new block where suddenly your funds are controlled by them.** They are the _only_ block producer, so they’re free to introduce a new block that doesn’t actually follow the rules of our blockchain. Just like other blocks, they will have to publish a commitment to the Plasma root contract containing evidence of this block.
+**首先，假设一个区块生产这试图通过说谎欺骗你，可以通过创建一个伪造的新区块，声称你的资产被他们接管了。**由于他们是**唯一**的区块生产者，所以他们可以自由引入一个并不遵循区块链规则的新区块。和其他区块一样，他们也得将这个区块存在的证据作为提交推送给 Plasma 根节点合约。
 
-As mentioned above, the user always has an ultimate guarantee that they can withdraw their assets back to main-chain. In this scenario, the user (or rather an application acting on their behalf) would detect the attempted theft, and withdraw before the block producer can try and use the assets they’ve “stolen”.
+如上所述，用户有能将他们的资产随时收回到主链上的基本保障。在这个情景下，用户（或者代表他们权益的应用程序）会侦测到这种盗取企图，并在区块生产这尝试和使用他们的“被盗”资产之前撤回到主链上。
 
-Plasma also creates a mechanism to prevent fraud short of withdrawing to main-chain. Plasma includes a mechanism whereby anyone — including you — can publish a _fraud proof_ to the root contract, to try and show that the block producer has cheated. This fraud proof would contain information about the previous block, and allows us to show that according to the state-transition rules of the child-chain, the false block doesn’t properly follow from the previous state. If fraud is proven, the child-chain is “rolled back” to the previous block. Even better, we construct a system where any block producer who signed off on the false block is penalized by losing an on-chain deposit.
+Plasma 还创建了一种防止利用欺诈的机制。Plasma 包含了一种任何人（包括你）都可以向根节点合约发布**欺诈证明（fraud proof）**的机制，这样就可以证明区块生产者作弊了。这个欺诈证明会包含之前区块的信息，并且允许我们根据子链中的状态交易规则，错误的区块并不能正确接上之前的状态。如果欺诈被证实，则子链回滚到前一个区块。更好的是，我们构建了一种签出错误区块的区块生产者会被处罚的系统，这些区块生产者会丢失一个链上押金。
 
 ![](https://cdn-images-1.medium.com/max/800/0*Xgnr1Hv-KhckkbvV.)
 
 plasma.io/plasma.pdf
 
-**But submitting a fraud proof requires having access to the underlying data — i.e. the actual history of blocks that are used to prove the fraud.** What if the block producers are _also_ not sharing information about previous blocks, to prevent Alice from being able to submit a fraud proof to the root contract?
+**但是提交欺诈证明需要访问底层数据，即需要用之前的实际历史区块来证明欺诈。**如果区块生产者为了防止爱丽丝能够向根节点合约提交欺诈证明，**并**不分享之前区块的信息怎么办？
 
-In this case, the solution is for Alice to withdraw her funds and leave the child-chain. Essentially Alice submits a “Proof of Funds” to the root contract. After a delay period during which anyone can challenge her proof (e.g. to show she actually spent those funds in a later valid block), Alice’s funds are moved back to the ethereum main-chain.
+在这种情况下，爱丽丝收回资产并脱离子链的方案如下。本来爱丽丝向根节点合约提交了一份“欺诈证明”。在一段任何人都可以质疑证明（比如，显示一些后面的合法区块证明实际上她消费了这些资产）的延迟时间后，爱丽丝的资产将会被移回到以太坊主链上。
 
 ![](https://cdn-images-1.medium.com/max/800/0*6b__s1TjsZqrO2zC.)
 
 plasma.io/plasma.pdf
 
 **Lastly, block producers can _censor_ users of the child-chain.** If they wanted, block producers could simply never include certain transactions in their blocks, effectively preventing a user from performing any operations on the child-chain. Once again, the solution is simply to withdraw all of our assets back onto the ethereum main-chain as above.
+**最后，区块生产者可以作为监察子链中的用户。**如果他们
 
 **Withdrawals themselves pose risks, however.** One concern is what would happen if everyone using a child-chain tried to withdraw at the same time. In the case of a mass withdrawal, there might not be enough capacity on the ethereum main-chain to process everyone’s transactions within the challenge period, [meaning users _could_ lose funds](https://www.reddit.com/r/ethereum/comments/6sqca5/plasma_scalable_autonomous_smart_contracts/dlex5pa/?utm_content=permalink&utm_medium=front&utm_source=reddit&utm_name=ethereum). Although there are many possible techniques for preventing this, e.g. by extending the challenge period in a way that is responsive to demand for withdrawals.
 
