@@ -5,7 +5,7 @@
 > * 译者：[Wangalan30](https://github.com/Wangalan30)
 > * 校对者：[ryouaki](https://github.com/ryouaki), [Potpot](https://github.com/Potpot)
 
-# 用户账户、授权和密码管理的12个最佳实践
+# 用户账户、授权和密码管理的 12 个最佳实践
 
 账户管理、授权和密码管理问题可以变得很棘手。对于很多开发者来说，账户管理仍是一个盲区,并没有得到足够的重视。而对于产品管理者和客户来说，由此产生的体验往往达不到预期的效果。
 
@@ -15,7 +15,7 @@
 
 账户管理最重要的准则是安全地存储敏感的用户信息，包括他们的密码。你必须神圣地对待并恰当地处理这些数据。
 
-不要在任何情况下存储明文密码。相反，你的服务应该存储经过散列处理之后的、不可逆转的密码 —— 比如，可以用 PBKDF2, SHA3, Scrypt,或 Bcrypt 等这些散列算法。同时，散列时还要进行 [加盐](https://www.owasp.org/index.php/Password_Storage_Cheat_Sheet#Use_a_cryptographically_strong_credential-specific_salt) 处理，同时，盐值也不能和登陆用的验证信息相同。不要用已经弃用的哈希技术比如 MDS 和 SHA1，并且，任何情况下都不要使用可逆加密方式或者 [试着发明自己的哈希算法](https://www.schneier.com/blog/archives/2011/04/schneiers_law.html)。
+不要在任何情况下存储明文密码。相反，你的服务应该存储经过散列处理之后的、不可逆转的密码 —— 比如，可以用 PBKDF2、SHA3、Scrypt 或 Bcrypt 等这些散列算法。同时，散列时还要进行 [加盐](https://www.owasp.org/index.php/Password_Storage_Cheat_Sheet#Use_a_cryptographically_strong_credential-specific_salt) 处理，同时，盐值也不能和登陆用的验证信息相同。不要用已经弃用的哈希技术比如 MDS 和 SHA1，并且，任何情况下都不要使用可逆加密方式或者 [试着发明自己的哈希算法](https://www.schneier.com/blog/archives/2011/04/schneiers_law.html)。
 
 在设计系统时，应该假设你的系统会受到攻击，并以此为前提设计系统。设计系统时要考虑“如果我的数据库今天受损，用户在我或者其他服务上的安全和保障会有危险吗？我们怎样做才能减小事件中的潜在损失。”
 
@@ -23,7 +23,7 @@
 
 ## 如果可以的话，允许第三方提供身份验证
 
-使用第三方提供身份验证，你就可以依赖一个可靠的外部服务来对用户的身份进行验证。Google，Facebook 和 Twitter 都是常用的身份验证提供者。
+使用第三方提供身份验证，你就可以依赖一个可靠的外部服务来对用户的身份进行验证。Google、Facebook 和 Twitter 都是常用的身份验证提供者。
 
 你可以使用 [Firebase Auth](https://firebase.google.com/docs/auth/) 这样的平台在已有的身份验证体系的基础上再添加额外的身份验证方式。使用 Firebase Auth 有许多好处，比如更简单的管理、更小的受攻击面和一个多平台的 SDK。通过这个清单我们可以接触更多的益处。查看我们专为企业设计的的 [案例](https://firebase.google.com/docs/auth/case-studies/)，可以让你在一日之内集成 Firebase Auth。
 
