@@ -1,3 +1,6 @@
+* [使用 MVI 开发响应式 APP — 第三部分 — 状态折叠器（state reducer）](https://juejin.im/post/5a955c50f265da4e853d856a) ([pcdack](https://github.com/pcdack) 翻译)
+* [大话（Observable 向 Observer 求婚）之我与 Rx Observable [Android RxJava2]（这是什么鬼）第七话](https://juejin.im/post/5a9683be5188257a6d63b52d) ([dieyidezui](https://github.com/dieyidezui) 翻译)
+* [Subject 和 Observable + Observer 的混淆指北[ Android RxJava2 ] ( 这什么鬼系列 ) 第八话](https://juejin.im/post/5a96d44af265da4e951918ed) ([rockzhai](https://github.com/rockzhai) 翻译)
 * [Android 生命周期备忘录 — 第一部分: 单一 Activities](https://juejin.im/post/5a77c9aef265da4e6f17bd51) ([IllllllIIl](https://github.com/IllllllIIl) 翻译)
 * [玩转 Android paths](https://juejin.im/post/5a7c05e7f265da4e7f358cf2) ([IllllllIIl](https://github.com/IllllllIIl) 翻译)
 * [大话（Summer vs winter Observable）之我与 Rx Observable[Android RxJava2]（这是什么鬼）第六话](https://juejin.im/post/5a7cfdaaf265da4e7f35901a) ([hanliuxin5](https://github.com/hanliuxin5) 翻译)

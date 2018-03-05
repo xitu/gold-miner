@@ -1,3 +1,5 @@
+* [通过 Quick 和 Nimble 在 Swift 中进行测试驱动开发](https://juejin.im/post/5a93635d5188257a7924c5d5) ([94haox](https://github.com/94haox) 翻译)
+* [为什么你的 APP 在 Sketch 上看起来更好：探索 Sketch 和 iOS 的渲染差异](https://juejin.im/post/5a9572575188257a61326630) ([rydensun](https://github.com/rydensun) 翻译)
 * [在 Swift playground 中编写单元测试](https://juejin.im/post/5a8e66276fb9a0633c661f3f) ([lsvih](https://github.com/lsvih) 翻译)
 * [swift 网络单元测试完全手册](https://juejin.im/post/5a784e87f265da4e8a31ca7a) ([swants](https://github.com/swants) 翻译)
 * [用 LLDB 调试 Swift 代码](https://juejin.im/post/5a7948d35188257a7349a882) ([VernonVan](https://github.com/VernonVan) 翻译)
