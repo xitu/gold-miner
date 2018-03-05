@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/flutter-5-reasons-why-you-may-love-it.md](https://github.com/xitu/gold-miner/blob/master/TODO/flutter-5-reasons-why-you-may-love-it.md)
 > * 译者：[RockZhai](https://github.com/rockzhai)
-> * 校对者：
+> * 校对者：[Starrier](https://github.com/Starriers)
 
 # Flutter — 五个你会爱上它的原因
 
@@ -54,9 +54,9 @@ class HelloFlutter extends StatelessWidget {
 }
 ```
 
-正如你所看到的那样，一个 layout 是由嵌套的组件（_Widgets_）构建的， 核心 Widget 是  _MaterialApp_ （这是整个的应用程序）， 然后我们有 _Scaffold_ （这是我们主界面的布局结构），再然后是 _AppBar_ （就像 Android `Toolbar`） 和 一些 _Container_ 作为 body，在 body 内部，我们可以放置我们布局组件 — Texts, Buttons 等等。
+正如你所看到的那样，一个 layout 是由嵌套的组件（_Widgets_）构建的， 核心 Widget 是  _MaterialApp_ （这是整个的应用程序）， 然后我们有 _Scaffold_ （这是我们主界面的 layout 结构），再然后是 _AppBar_ （就像 Android `Toolbar`） 和 一些 _Container_ 作为 body，在 body 内部，我们可以放置我们 layout 组件 — Texts, Buttons 等等。
 
-这些都仅仅是切入点而已，如果你想读到更多关于布局的信息，请查看[Flutter’s tutorial on building layouts](https://flutter.io/tutorials/layout/)。 
+这些都仅仅是切入点而已，如果你想读到更多关于 layout 的信息，请查看[Flutter’s tutorial on building layouts](https://flutter.io/tutorials/layout/)。 
 
 ### #1 热重载
 
@@ -84,11 +84,11 @@ Flutter 中另外一个很棒的事情就是我们拥有非常丰富的内置 UI
 
 ### #3 一切皆为小部件
 
-就像你在之前的 gif 图中所看到的，创建一个用户界面是非常简单的。这可能就需要感谢 Flutter 的核心理念了，就是**一切皆为小部件**。你的 APP 类是一个部件（[MaterialApp](https://docs.flutter.io/flutter/material/MaterialApp-class.html)），你的整个布局结构是一个部件（[Scaffold](https://docs.flutter.io/flutter/material/Scaffold-class.html)）， 基本上，所有的东西都是部件（[AppBar](https://docs.flutter.io/flutter/material/AppBar-class.html), [Drawer](https://docs.flutter.io/flutter/material/Drawer-class.html), [SnackBar](https://docs.flutter.io/flutter/material/SnackBar-class.html)）。你想让你的 View 居中显示吗？用 **Center** 组件来包裹（_Cmd/Ctrl + Enter_）它即可！
+就像你在之前的 gif 图中所看到的，创建一个用户界面是非常简单的。这可能就需要感谢 Flutter 的核心理念了，就是**一切皆为小部件**。你的 APP 类是一个部件（[MaterialApp](https://docs.flutter.io/flutter/material/MaterialApp-class.html)），你的整个 layout 结构是一个部件（[Scaffold](https://docs.flutter.io/flutter/material/Scaffold-class.html)）， 基本上，所有的东西都是部件（[AppBar](https://docs.flutter.io/flutter/material/AppBar-class.html), [Drawer](https://docs.flutter.io/flutter/material/Drawer-class.html), [SnackBar](https://docs.flutter.io/flutter/material/SnackBar-class.html)）。你想让你的 View 居中显示吗？用 **Center** 组件来包裹（_Cmd/Ctrl + Enter_）它即可！
 
 ![](https://cdn-images-1.medium.com/max/1000/1*tRCpkOeASzgpDX-q5aJ-3g.gif)
 
-由于这一点，创建 UI 界面就像用许多不同的小部件组成布局一样简单。
+由于这一点，创建 UI 界面就像用许多不同的小部件组成 layout 一样简单。
 
 这也与 Flutter 中的另一个核心原则有关 — **组合优先于继承**。它意味着如果你想创建一个新的部件，可以用很少的小组件来**组装**新的部件，而不是通过扩展 Widget 类（就像你会在 Android 中继承一些 `View` 类一样）。 
 
@@ -131,11 +131,11 @@ class HelloFlutter extends StatelessWidget {
 
 ### #5 许许多多的软件包
 
-尽管 Flutter 还仅仅是一个 alpha 版本，但是社区是真的巨大并且参与开发。感谢这个 Flutter 平台支持 **多个软件包**（库，就像 Android 中的 Gradle 依赖）。 我们有图像打开、发送 HTTP 请求、分享内容、存储偏好、访问传感器、实现 Firebase 等等。当然，每一个都是**同时支持 Android 和 iOS**。 
+尽管 Flutter 还仅仅是一个 alpha 版本，但它的社区真的很大，而且非常活跃。感谢这个 Flutter 平台支持 **多个软件包**（库，就像 Android 中的 Gradle 依赖）。 我们有图像打开、发送 HTTP 请求、分享内容、存储偏好、访问传感器、实现 Firebase 等等。当然，每一个都是**同时支持 Android 和 iOS**。 
 
 ### 怎么开始呢？
 
-如果你喜欢 Flutter 并且自己尝试的话，最好的方法就是打开 Google Codelabs：
+如果你喜欢 Flutter 并且自己想要尝试的话，最好的方法就是打开 Google Codelabs：
 
 *   在这里，你可以获得创建 layout 的基础知识： [Building Beautiful UIs with Flutter](https://codelabs.developers.google.com/codelabs/flutter/#0)
 *   如果你想尝试更多关于 Flutter 的东西，你必须要尝试一下 [Firebase for Flutter](https://codelabs.developers.google.com/codelabs/flutter-firebase)。
