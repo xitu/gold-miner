@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/avoiding-force-unwrapping-in-swift-unit-tests.md](https://github.com/xitu/gold-miner/blob/master/TODO/avoiding-force-unwrapping-in-swift-unit-tests.md)
 > * 译者：[RickeyBoy](https://juejin.im/user/59c0ede76fb9a00a3d134e0b/posts)
-> * 校对者：
+> * 校对者：[YinTokey](https://github.com/YinTokey)
 
 # 避免 Swift 单元测试中的强制解析
 
