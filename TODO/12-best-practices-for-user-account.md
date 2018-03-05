@@ -2,8 +2,8 @@
 > * 原文作者：[Google Cloud Platform](https://cloudplatform.googleblog.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/12-best-practices-for-user-account.md](https://github.com/xitu/gold-miner/blob/master/TODO/12-best-practices-for-user-account.md)
-> * 译者：@Wangalan30
-> * 校对者：@ryouaki @Potpot
+> * 译者：[Wangalan30](https://github.com/Wangalan30)
+> * 校对者：[ryouaki](https://github.com/ryouaki), [Potpot](https://github.com/Potpot)
 
 # 用户账户、授权和密码管理的12个最佳实践
 
