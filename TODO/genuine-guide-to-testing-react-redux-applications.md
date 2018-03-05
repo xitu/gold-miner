@@ -3,15 +3,15 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/genuine-guide-to-testing-react-redux-applications.md](https://github.com/xitu/gold-miner/blob/master/TODO/genuine-guide-to-testing-react-redux-applications.md)
 > * 译者：[jonjia](https://github.com/jonjia)
-> * 校对者：
+> * 校对者：[zephyrJS](https://github.com/zephyrJS) [goldEli](https://github.com/goldEli)
 
-# 测试 React & Redux 应用真实引导
+# 测试 React & Redux 应用良心指南
 
 ![](https://cdn-images-1.medium.com/max/800/1*8UPDi2_tJ-4P8rkhfN8uAg.jpeg)
 
-前端只是一层薄薄的静态页面的时代已经一去不复返了。现代 web 应用程序变得越来越复杂，逻辑也持续从后端向前端转移。然而，当涉及到测试时，许多人都保持着同样的、过时的心态。如果你使用的是 React 和 Redux，但是由于某些原因对测试你的代码不感兴趣，我将在这里向你展示如何以及为什么我们每天都这样做。
+前端只是一层薄薄的静态页面的时代已经一去不复返了。现代 web 应用程序变得越来越复杂，逻辑也持续从后端向前端转移。然而，当涉及到测试时，许多人都保持着过时的心态。如果你使用的是 React 和 Redux，但是由于某些原因对测试你的代码不感兴趣，我将在这里向你展示如何以及为什么我们每天都这样做。
 
-**注意：我将使用 [Jest](https://facebook.github.io/jest/) 和 [Enzyme](https://github.com/airbnb/enzyme)。它是测试 React & Redux 应用最流行的工具。我认为你已经用过或者能熟练使用它们。**
+**注意：我将使用 [Jest](https://facebook.github.io/jest/) 和 [Enzyme](https://github.com/airbnb/enzyme)。它们是测试 React & Redux 应用最流行的工具。我猜你已经用过或者能熟练使用它们了。**
 
 #### 单元测试和集成测试简单对比
 
@@ -19,7 +19,7 @@ React & Redux 应用构建在三个基本的构建块上：actions、reducers �
 
 #### 我们将构建（并测试）什么
 
-产品效果可以查看 [这里](https://kubaue.github.io/React-TDD/)。当你第一次进入页面的时候，不会显示图片。你可以通过点击按钮来获取一个。我使用了免费的 [Dog API](https://dog.ceo/dog-api/)。现在让我们写一些测试。可以查看我的 [源码](https://github.com/kubaue/React-TDD).
+这里有一个可用的 [应用](https://kubaue.github.io/React-TDD/)。当你第一次进入页面的时候，不会显示图片。你可以通过点击按钮来获取一张图片。我使用了免费的 [Dog API](https://dog.ceo/dog-api/)。现在让我们写一些测试。可以查看我的 [源码](https://github.com/kubaue/React-TDD)。
 
 #### 单元测试：Action 创建函数
 
@@ -74,13 +74,13 @@ describe('fetchDog action', () => {
   const flushAllPromises = () => new Promise(resolve => setImmediate(resolve));
 ```
 
-这行代码会把所有的 promise 放到一个单独的事件循环中。[window.setImmediate](https://developer.mozilla.org/en-US/docs/Web/API/Window/setImmediate) **是用来在浏览器已经完成了比如事件和显示更新等其他操作后，结束这些长时间运行的操作，并立即执行它的回调函数。** 在这个例子中，挂起的 HTTP 请求就是我们要完成的操作。此外，由于这不是一个标准的功能，所以你不应该在正式代码中使用它。
+这行代码会把所有的 promise 放到一个单独的事件循环中。[window.setImmediate](https://developer.mozilla.org/en-US/docs/Web/API/Window/setImmediate) **是用来在浏览器已经完成了比如事件和显示更新等其他操作后，结束这些长时间运行的操作，并立即执行它的回调函数。** 在这个例子中，挂起的 HTTP 请求就是我们要完成的操作。此外，由于这不是一个标准的浏览器特性，所以你不应该在正式代码中使用它。
 
 #### 单元测试：Reducers
 
 我认为 reducers 是应用程序的核心。如果你开发功能丰富、复杂的系统，这部分就会变得很复杂。如果你引入了一个 bug，以后可能很难查找。这就是为什么测试 reducers 非常重要。我们正在构建的应用非常简单，但我希望你能获取到图片。
 
-每个 reducer 都会在应用启动时被调用，因此需要一个初始状态。放任你的初始状态为 undefined 会让你在组件中写好多检查代码。
+每个 reducer 都会在应用启动时被调用，因此需要一个初始状态。放任你的初始状态为 undefined 会让你在组件中写好多校验代码。
 
 ```
   it('returns initial state', () => {
@@ -104,15 +104,15 @@ it('sets up fetched dog url', () => {
   });
 ```
 
-Reducers 应该是纯函数。没有副作用。这会让测试它们变得非常简单。提供一个之前的状态，触发一个 action，然后验证输出状态是否正确。
+Reducers 应该是纯函数，没有副作用。这会让测试它们变得非常简单。提供一个之前的状态，触发一个 action，然后验证输出状态是否正确。
 
 #### 单元测试：Components
 
-在我们开始之前，让我们先谈谈组件为什么需要测试。我们显然无法测试组件是否好看。但是，我们绝对应该测试某些条件性的元素是否能成功显示；或者对组件执行某些操作（不是 redux 中的 action），通过组件 props 传递的方法是否会被调用。
+在我们开始之前，让我们先谈谈组件有哪些方面值得测试。我们显然无法测试组件是否好看。但是，我们绝对应该测试某些条件性的元素是否能成功显示；或者对组件执行某些操作（不是 redux 中的 action），通过组件 props 传递的方法是否会被调用。
 
 在我们的系统中，我们完全依赖 redux 管理应用的状态，因此我们所有的组件都是无状态的。
 
-**注意：如果你在寻找优雅的 Enzyme 断言，可以查看 [_enzyme-matchers_](https://github.com/FormidableLabs/enzyme-matchers)**
+**注意：如果你在寻找优雅的 Enzyme 断言库，可以查看 [_enzyme-matchers_](https://github.com/FormidableLabs/enzyme-matchers)**
 
 组件的结构很简单。我们有 DogApp 根组件和用来获取并显示狗的图片的 RandomDog 组件。
 RandomDog 组件的 props 如下：
@@ -124,7 +124,7 @@ RandomDog 组件的 props 如下：
   };
 ```
 
-Enzymes 可以让我们用两种方式来渲染一个组件。Shallow Rendering 意味着只有根组件会被渲染。如果你把 shallow rendered 组件的文本打印出来，你会发现所有子组件都没有被渲染。Shallow rendering 非常适合单独测试组件，并且从 Enzyme 3 开始（Enzyme 2 中也是可选的），它会调用生命周期的方法，比如 componentDidMount()。我们稍后再介绍第二中方法。
+Enzymes 可以让我们用两种方式来渲染一个组件。Shallow Rendering 意味着只有根组件会被渲染。如果你把 shallow rendered 组件的文本打印出来，你会发现所有子组件都没有被渲染。Shallow rendering 非常适合单独测试组件，并且从 Enzyme 3 开始（Enzyme 2 中也是可选的），它会调用生命周期的方法，比如 componentDidMount()。我们稍后再介绍第二种方法。
 
 现在我们来写 RandomDog 组件的测试用例。
 
@@ -167,15 +167,15 @@ Enzymes 可以让我们用两种方式来渲染一个组件。Shallow Rendering 
 
 ![](https://cdn-images-1.medium.com/max/800/1*KoTFh3xRPgkzD0FlzsYKjA.gif)
 
-虽然单元测试是个很好的工具，但它们并不能保证我们正确连接了我们的组件，或者 reducer 订阅了正确的 action。这是 bug 容易发生的位置，这就是为什么我们需要集成测试。
+虽然单元测试是个很好的工具，但它并不能保证我们正确连接了所有的组件，或者 reducer 订阅了正确的 action。这是 bug 容易发生的位置，这就是为什么我们需要集成测试。
 
 是的，有些人认为由于上述原因，单元测试是没用的，但我认为他们没有面对过一个足够复杂的系统来发现单元测试的价值。
 
 #### 集成测试
 
-我们现在将它们捆绑在一起并放在一个黑盒子中，而不是单独和详细地测试构建块。我们不再关心内部是如何工作的。组件中会发生什么，停留在组件中。 这就是为什么集成测试非常有弹性和方便重构的原因。**你可以切换整个底层机制而无需更新测试。**
+我们现在将它们捆绑在一起并放在一个黑盒子中，而不是单独和详细地测试构建块。我们不再关心内部是如何工作的，或是组件内部究竟发生了什么。 这就是为什么集成测试非常有弹性和方便重构的原因。**你可以切换整个底层机制而无需更新测试。**
 
-在集成测试中，我们不需要再 mock store。让我们使用真实的吧。
+在集成测试中，我们不再需要 mock store。让我们使用真实的吧。
 
 ```
 import { applyMiddleware, createStore } from 'redux';
@@ -187,7 +187,7 @@ export default function setupStore(initialState) {
 }
 ```
 
-就是这样。现在，我们有一个功能齐全的 store，是时候开始第一个测试了。我们使用 Enzyme 的 mount 来使用（挂载类型的渲染）。Mount 非常适合集成测试，因为它会渲染整个底层组件树。
+就是这样。现在，我们有一个功能齐全的 store，是时候开始第一个测试了。我们使用 Enzyme 的 mount 来（实现挂载类型的渲染）。Mount 非常适合集成测试，因为它会渲染整个底层组件树。
 
 正如我们在单元测试中所做的那样，我们要检查应用启动时是否没有显示图像。但是现在我没有将空的图像 URL 作为组件的 prop 传递，而是将其包装在 Provider 中，传递了我们创建的 store。
 
@@ -218,9 +218,9 @@ export default function setupStore(initialState) {
   });
 ```
 
-看到这是多么容易了吗？这个测试有很强的描述性，我们与组件进行了真实的交互。它涵盖了单元测试所做的每个方面，甚至更多。现在我们可以说构建块不仅能够单独运行，而且能够以正确的方式结合起来。
+很容易对吧？这个测试描述了我们和组件之间的真实交互。它涵盖了单元测试所做的每个方面，甚至更多。现在我们可以说构建块不仅能够单独运行，而且能够以正确的方式结合起来。
 
-哦，如果你对 Enzyme 很熟悉，还想知道我为什么调用 wrapper.update()，[这就是原因](https://github.com/airbnb/enzyme/issues/1153)。太长不看：这是 Enzyme 3 的一个 bug。也许在你阅读这篇文章时，它会被修复。
+哦，如果你对 Enzyme 很熟悉，还想知道我为什么调用 wrapper.update()，[这就是原因](https://github.com/airbnb/enzyme/issues/1153)。简而言之：这是 Enzyme 3 的一个 bug。也许在你阅读这篇文章时，它会被修复。
 
 #### 快照测试简介
 
@@ -228,7 +228,7 @@ Jest 提供了一种确保代码更改不会改变组件的 render(）方法输�
 
 #### 那么我们应该使用什么类型的测试？
 
-只需要从集成测试开始。你很可能觉得不会在你的项目中实施一个单元测试。这意味着你的复杂性不会在构建块之间划分，而且非常好。你会节省很多时间。另一方面，有些系统会利用单元测试的能力。两者都有空间。
+只需要从集成测试开始。你很可能觉得不会在你的项目中实施一个单元测试。这意味着你的复杂性不会在构建块之间划分，这样非常好。你会节省很多时间。另一方面，有些系统会利用单元测试的能力。两者都有用武之地。
 
 
 ---
