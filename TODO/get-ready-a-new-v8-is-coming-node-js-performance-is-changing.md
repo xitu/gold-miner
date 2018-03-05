@@ -7,7 +7,7 @@
 
 # GET READY: A NEW V8 IS COMING, NODE.JS PERFORMANCE IS CHANGING.
 
-This article was cowritten by [David Mark Clements](https://twitter.com/davidmarkclem) and [Matteo Collina](https://twitter.com/matteocollina), and it was reviewed by [Franziska Hinkelmann](https://twitter.com/fhinkel)and [Benedikt Meurer](https://twitter.com/bmeurer) from the V8 team. The story was originally posted on [nearForm’s blog](https://www.nearform.com/blog/node-js-is-getting-a-new-v8-with-turbofan/). This story has a few edits since originally posted on July 27\. Edits are noted within the article.
+This article was cowritten by [David Mark Clements](https://twitter.com/davidmarkclem) and [Matteo Collina](https://twitter.com/matteocollina), and it was reviewed by [Franziska Hinkelmann](https://twitter.com/fhinkel)and [Benedikt Meurer](https://twitter.com/bmeurer) from the V8 team. The story was originally posted on [nearForm’s blog](https://www.nearform.com/blog/node-js-is-getting-a-new-v8-with-turbofan/). This story has a few edits since originally posted on July 27. Edits are noted within the article.
 
 **Update: Node.js 8.3.0 will** [**ship V8 6.0 with Turbofan**](https://github.com/nodejs/node/pull/14594)**. Validate your application with** `**NVM_NODEJS_ORG_MIRROR=https://nodejs.org/download/rc nvm i 8.3.0-rc.0**`
 
