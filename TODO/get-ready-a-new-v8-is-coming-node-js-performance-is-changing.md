@@ -5,11 +5,11 @@
 > * 译者：
 > * 校对者：
 
-# GET READY: A NEW V8 IS COMING, NODE.JS PERFORMANCE IS CHANGING.
+# 做好准备：新的 V8 即将到来，Node.js 的性能正在改变。
 
-This article was cowritten by [David Mark Clements](https://twitter.com/davidmarkclem) and [Matteo Collina](https://twitter.com/matteocollina), and it was reviewed by [Franziska Hinkelmann](https://twitter.com/fhinkel)and [Benedikt Meurer](https://twitter.com/bmeurer) from the V8 team. The story was originally posted on [nearForm’s blog](https://www.nearform.com/blog/node-js-is-getting-a-new-v8-with-turbofan/). This story has a few edits since originally posted on July 27. Edits are noted within the article.
+本文由 [David Mark Clements](https://twitter.com/davidmarkclem) 和 [Matteo Collina](https://twitter.com/matteocollina) 共同撰写，负责复审的是来自 V8 团队的 [Franziska Hinkelmann](https://twitter.com/fhinkel) 和 [Benedikt Meurer](https://twitter.com/bmeurer)。起初，这个故事被发表在 [nearForm 的 blog 板块](https://www.nearform.com/blog/node-js-is-getting-a-new-v8-with-turbofan/)。在 7 月 27 日开始发表的时候就已经有了一些编辑。编辑在文章中有提及。
 
-**Update: Node.js 8.3.0 will** [**ship V8 6.0 with Turbofan**](https://github.com/nodejs/node/pull/14594)**. Validate your application with** `**NVM_NODEJS_ORG_MIRROR=https://nodejs.org/download/rc nvm i 8.3.0-rc.0**`
+**更新：Node.js 8.3.0 会将** [**Turbofan 直接交付在 V8 6.0 中**](https://github.com/nodejs/node/pull/14594) 。**用** `**NVM_NODEJS_ORG_MIRROR=https://nodejs.org/download/rc nvm i 8.3.0-rc.0**` **来验证应用程序**
 
 Since it’s inception Node.js has depended on the V8 JavaScript engine to provide code execution in the language we all know and love. The V8 JavaScript engine is a JavaScript VM written by Google for the Chrome browser. From the beginning, a primary goal of V8 was to make JavaScript fast, or at least — faster than the competition. For a highly dynamic, loosely typed language this is no easy feat. This piece is about the evolution of V8 and JS engines performance.
 
@@ -350,3 +350,4 @@ Most of the microbenchmarks were taken on a Macbook Pro 2016, 3.3 GHz Intel Core
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
+
