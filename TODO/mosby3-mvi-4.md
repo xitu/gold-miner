@@ -2,8 +2,8 @@
 > * 原文作者：[Hannes Dorfmann](http://hannesdorfmann.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/mosby3-mvi-4.md](https://github.com/xitu/gold-miner/blob/master/TODO/mosby3-mvi-4.md)
-> * 译者：
-> * 校对者：
+> * 译者：[pcdack](https://github.com/pcdack)
+> * 校对者：[hanliuxin5](https://github.com/hanliuxin5)
 
 # 使用 MVI 开发响应式 APP — 第四部分 — 独立的UI组件
 
