@@ -2,60 +2,60 @@
 > * 原文作者：[John](https://twitter.com/johnsundell)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/avoiding-force-unwrapping-in-swift-unit-tests.md](https://github.com/xitu/gold-miner/blob/master/TODO/avoiding-force-unwrapping-in-swift-unit-tests.md)
-> * 译者：
-> * 校对者：
+> * 译者：[RickeyBoy](https://juejin.im/user/59c0ede76fb9a00a3d134e0b/posts)
+> * 校对者：[YinTokey](https://github.com/YinTokey)
 
-# Avoiding force unwrapping in Swift unit tests
+# 避免 Swift 单元测试中的强制解析
 
-While force unwrapping (using `!`) is an important Swift feature that would be hard to work without (especially when interacting with Objective-C APIs), it also circumvents some of the other features that make Swift so great. Like we took a look at in _["Handling non-optional optionals in Swift"](https://www.swiftbysundell.com/posts/handling-non-optional-optionals-in-swift)_, using force unwrapping when dealing with optionals that are actually _required_ by a program's logic can lead to really tricky situations & crashes.
+强制解析（使用 `!`）是 Swift 语言中不可或缺的一个重要特点（特别是和 Objective-C 的接口混合使用时）。它回避了一些其他问题，使得 Swift 语言变得更加优秀。比如 **[处理 Swift 中非可选的可选值类型](https://www.swiftbysundell.com/posts/handling-non-optional-optionals-in-swift)** 这篇文章中，在项目逻辑需要时使用强制解析去处理可选类型，将导致一些离奇的情况和崩溃。
 
-So avoiding force unwrapping (when possible) can help us build apps that are more stable and give us better error messages when something does go wrong, but what about when writing tests? Dealing with optionals and unknown types in a safe way can require quite a lot of code, so the question is whether we want to do all that additional work when writing tests as well? That is what we'll take a look at this week - let's dive in!
+所以尽可能地避免使用强制解析，将有助于搭建更加稳定的应用，并且在发生错误时提供更好的报错信息。那么如果是编写测试时，情况会怎么样呢？安全地处理可选类型和未知类型需要大量的代码，那么问题就在于我们是否愿意为编写测试做所有的额外工作。这就是我们这周将要探讨的问题，让我们开始深入研究吧！
 
-## Tests vs Production Code
+## 测试代码 vs 产品代码
 
-When working with tests, we often make a clear distinction between our _testing code_ and our _production code_. While it's important to keep both of those two code bases separate (we don't want to accidentally ship our mocks as part of our App Store build 😅), it's not necessarily a distinction we should use when talking about _code quality_.
+当编写测试代码时，我们经常明确区分**测试代码**和**产品代码**。尽管保持这两部分代码的分离十分重要（我们不希望意外地让我们的模拟测试对象成为 App Store 上架的部分😅），但就**代码质量**来说，没有必要进行明显区分。
 
-If you think about it, what are some of the reasons that we want to have a high quality standard for the code that ships to our users?
+如果你思考一下的话，我们想要对移交给使用者的代码进行高标准的要求，原因是什么呢？
 
-* We want our app to be stable and run smoothly for our users.
-* We want to make our app easy to maintain and easy to modify in the future.
-* We want to make it easy to onboard new people onto our team.
+* 我们想要我们的 app 为使用者稳定、流畅地运行。
+* 我们想要我们的 app 在未来易于维护和修改。
+* 我们想要更容易让新人融入我们的团队。
 
-Now, if we instead think about our tests, what are some of the things that we want to _avoid_?
+现在如果反过来考虑我们的测试，我们想要避免哪些事情呢？
 
-* Tests that are unstable, flaky and hard to debug.
-* Tests that are time consuming to maintain and update when new features get added to our app.
-* Tests that are hard to understand for new people that join our team.
+* 测试不稳定、脆弱、难于调试。
+* 当我们的 app 增加了新功能时，我们的测试代码需要花费大量时间来维护和升级。
+* 测试代码对于加入团队的新人来说难于理解。
 
-You might see where I'm going with this 😉.
+你可能已经理解我所讲的内容了 😉。
 
-For the longest time I used to treat testing code as something I just quickly put together because someone told me I had to write tests. I didn't care much about their quality, because I saw them as a chore that I actually didn't want to do in the first place. However, once I started seeing first hand how much quicker I could verify my code, and how much more confident I became that by code was _actually working_ - my attitude towards tests started changing.
+之前很长的时间，我曾认为测试代码只是一些我快速堆砌的代码，因为有人告诉我必须要编写测试。我不那么在乎它们的质量，因为我将它视为一件琐事，并不将它放在首位。然而，一旦我因为编写测试而发现验证自己的代码有多么快，以及对自己有多么自信 —— 我对测试的态度就开始了转变。
 
-So these days I do believe that it's important that we hold our testing code to the same high standards as our shipping production code. Since our test suite is something we have to constantly work with, update and maintain, we should make it _easy to do so_.
+所现在我相信对于测试代码，和将要移交的产品代码进行同等的高标准要求是非常重要的。因为我们配套的测试是需要我们长期使用、拓展和掌握的，我们理应让这些工作更容易完成。
 
-## The problem with force unwrapping
+## 强制解析的问题
 
-So what does all of this have to do with force unwrapping in Swift? 🤔
+那么这一切与 Swift 中的强制解析有什么关系呢？🤔
 
-While force unwrapping is necessary sometimes, it's easy to make it a _"go-to solution"_ when writing tests. Let's take a look at an example in which we're writing a test to verify that the login mechanism of a `UserService` works as expected:
+有时必须要强制解析，很容易编写一个 “go-to solution” 的测试。让我们来看一个例子，测试 `UserService` 实现的登陆机制是否正常工作：
 
 ```
 class UserServiceTests: XCTestCase {
     func testLoggingIn() {
-        // Setup a mock to always return a successful response 
-        // for the login endpoint
+        // 为了登陆终端
+        // 构建一个永远返回成功的模拟对象
         let networkManager = NetworkManagerMock()
         networkManager.mockResponse(forEndpoint: .login, with: [
             "name": "John",
             "age": 30
         ])
 
-        // Setup a service and login
+        // 构建 service 对象以及登录
         let service = UserService(networkManager: networkManager)
         service.login(withUsername: "john", password: "password")
 
-        // Now we want to make assertions based on the logged in user,
-        // which is an optional, so we force unwrap it
+        // 现在我们想要基于已登陆的用户进行断言，
+        // 这是可选类型，所以我们对它进行强制解析
         let user = service.loggedInUser!
         XCTAssertEqual(user.name, "John")
         XCTAssertEqual(user.age, 30)
@@ -63,19 +63,19 @@ class UserServiceTests: XCTestCase {
 }
 ```
 
-As you can see above, we force unwrap our service's `loggedInUser` before making assertions on it. While doing something like the above is not necessarily _wrong_, it can lead to some problems down the line if this test starts failing for some reason.
+如你所见，在进行断言之前，我们强制解析了 service 对象的 `loggedInUser` 属性。像上面这样的做法并不是绝对意义上的错，但是如果这个测试因为一些原因开始失败，就可能会导致一些问题。
 
-Let's say someone (_and remember, "someone" can always mean "your future self"_ 😉) makes a change in the networking code, which causes the above test to start to break. If that happens, the only error message that will be available will be this:
+假设某人（记住，“某人”可能就是“未来的你自己”😉）改变了网络部分的代码，导致上述测试开始崩溃。如果这样的事情发生了，错误信息可能只会像下面这样：
 
 ```
 Fatal error: Unexpectedly found nil while unwrapping an Optional value
 ```
 
-While that may not be a big problem when working locally in Xcode (since the error will be displayed inline - at least most of the time 🙃), it can become quite problematic if it starts happening when running Continuous Integration for the project. The above error message might appear within a big "wall of text", which can make it really hard to figure out where it came from. Further, it will **prevent any subsequent tests from being executed** (since the test process will crash), which can make it really slow and annoying to work on a fix.
+尽管用 Xcode 本地运行时这不是个大问题（因为错误会被关联地显示 —— 至少在大多数时候 🙃），但当连续地整体运行整个项目时，它可能问题重重。上述的错误信息可能出现在巨大的“文字墙”中，导致难以看出错误的来源。更严重的是，它会**阻止后续的测试被执行**（因为测试进程会崩溃），这将导致修复工作进展缓慢并且令人烦躁。
 
-## Guard and XCTFail
+## Guard 和 XCTFail
 
-One potential solution to the above problem is to simply use the `guard` statement to gracefully unwrap the optional in question, and call `XCTFail()` if it fails, like this:
+一个潜在的解决上述问题的方式是简单地使用 `guard` 声明，优雅地解析问题中的可选类型，如果解析失败再调用 `XCTFail` 即可，就像下面这样：
 
 ```
 guard let user = service.loggedInUser else {
@@ -84,11 +84,11 @@ guard let user = service.loggedInUser else {
 }
 ```
 
-While doing the above is a valid approach in some situations, I really recommend avoiding it - since it adds control flow to your tests. For stability & predictability, you usually want tests to follow a simple **given, when, then** structure, and adding control flow can really make tests harder to read. If you're really unlucky control flow can also be a source of false positives (more on that in a future post).
+尽管上述做法在某些情况下是正确的做法，但事实上我推荐避免使用它 —— 因为它向你的测试中增加了控制流。为了稳定性和可预测性，你通常希望测试只是简单的遵循 **given，when，then** 结构，并且增加控制流会使得测试代码难于理解。如果你真的非常倒霉，控制流可能成为误报的起源（对此之后的文章会有更多的相关内容）。
 
-## Sticking with optionals
+## 保持可选类型
 
-Another approach is to let optionals remain optional. For some use cases that totally works, including our `UserManager` example. Since we are performing assertions against the logged in user's `name` and `age`, we will automatically get an error if any of those properties is `nil`. If we also throw in an additional `XCTAssertNotNil` check against the user itself, we'll have a pretty solid test with great diagnostics.
+另一个方法是让可选类型一直保持可选。这在某些使用情况下完全可用，包括我们 `UserManager` 的例子。因为我们对已经登录的 user 的 `name` 和 `age` 属性使用了断言，如果任意一个属性为 `nil` ，我们会自动得到错误提示。同时如果我们对 user 使用额外的 `XCTAssertNotNil` 检查，我们就能得到一个非常完整的诊断信息。
 
 ```
 let user = service.loggedInUser
@@ -97,7 +97,7 @@ XCTAssertEqual(user?.name, "John")
 XCTAssertEqual(user?.age, 30)
 ```
 
-Now if our test starts failing, we'll get the following information:
+现在如果我们的测试开始出错了，我们就能得到如下信息：
 
 ```
 XCTAssertNotNil failed - Expected a user to be logged in at this point
@@ -105,11 +105,11 @@ XCTAssertEqual failed: ("nil") is not equal to ("Optional("John")")
 XCTAssertEqual failed: ("nil") is not equal to ("Optional(30)")
 ```
 
-That makes it a **lot** easier to understand what went wrong and what we need to do in order to debug and fix the issue 🎉.
+这让我们能够更加容易地知道发生错误的地方，以及该从哪里入手去调试、解决这个错误 🎉。
 
-## Throwing tests
+## 使用 throw 的测试
 
-A third option that's really useful in some situations is to replace APIs that return optionals with throwing ones. The beauty of throwing APIs in Swift is that they can super easily be used as optional ones when needed, so in many cases you are not sacrificing any usability by opting for the throwing approach. For example, let's say we have a `EndpointURLFactory` that creates URLs for certain endpoints in our app, that currently returns an optional:
+第三个选择在某些情况下是非常有用的，就是将返回可选类型的 API 替换为 throwing API。Swift 中的 throwing API 的优雅之处在于，需要时它能够非常容易地被当成可选类型使用。所以很多时候选择采用 throwing 方法，不需要牺牲任何的可用性。比如说，假设我们有一个 `EndpointURLFactory` 类，被用来在我们的 app 中生成特定终端的 URL，这显然会返回可选类型：
 
 ```
 class EndpointURLFactory {
@@ -119,7 +119,7 @@ class EndpointURLFactory {
 }
 ```
 
-Let's now convert it into a throwing API instead, like this:
+现在我们将其转换为采用 throwing API，像这样：
 
 ```
 class EndpointURLFactory {
@@ -129,13 +129,13 @@ class EndpointURLFactory {
 }
 ```
 
-All we need to do when we still want an optional URL is to call it with `try?`:
+当我们仍然想得到一个可选类型的 URL 时，我们只需要使用 `try?` 命令去调用它：
 
 ```
 let loginEndpoint = try? urlFactory.makeURL(for: .login)
 ```
 
-The big advantage doing the above gives us in terms of testing, is that we can now simply use `try` in our tests and get handling of invalid values completely for free by the XCTest runner. It's a bit of a hidden gem, but Swift tests can actually be throwing functions, check this out:
+就测试而言，上述这种做法的最大好处在于可以在测试中轻松地使用 `try`，并且使用 XCTest runner 完全可以毫无代价地处理无效值。这是鲜为人知的，但事实上 Swift 测试可以是 throwing 函数，看看这个：
 
 ```
 class EndpointURLFactoryTests: XCTestCase {
@@ -143,20 +143,20 @@ class EndpointURLFactoryTests: XCTestCase {
         let factory = EndpointURLFactory()
         let query = "Swift"
 
-        // Since our test function is throwing, we can simply use 'try' here
+        // 因为我们的测试函数是 throwing，这里我们可以简单地采用 'try'
         let url = try factory.makeURL(for: .search(query))
         XCTAssertTrue(url.absoluteString.contains(query))
     }
 }
 ```
 
-No optionals, no force unwrapping, and excellent diagnostics in case something starts failing 👍.
+没有可选类型，没有强制解析，某些发生错误的时候也能完美地做出诊断 👍。
 
-## Requiring optionals
+## 使用 require 的可选类型
 
-However, not all APIs can be converted from returning optionals to throwing. But it turns out there's a pretty nice way we can get the same benefits as when testing throwing APIs when writing tests containing optionals as well.
+然而，并不是所有返回可选类型的 API 都可以被替换为 throwing。不过在写包含可选类型的测试时，有一个和 throwing API 同样好的方法。
 
-Let's go back to the first `UserManager` example. What if instead of having to either force unwrap `loggedInUser`, or treat it as an optional, we could simply do this:
+让我们回到最开始 `UserManager` 的例子。如果既不对 `loggedInUser` 进行强制解析，又不把它看作可选类型，那么我们可以简单地这样做：
 
 ```
 let user = try require(service.loggedInUser)
@@ -164,25 +164,25 @@ XCTAssertEqual(user.name, "John")
 XCTAssertEqual(user.age, 30)
 ```
 
-That would be pretty cool! 😎 That way we could get rid of a lot of force unwrapping, but at the same time not make our tests harder to write, or harder to follow. So what do we need to do in order to achieve the above? It's pretty simple, all we need to do is to add an extension on `XCTestCase`, that lets us evaluate any optional expression and either return a non-optional value or throw an error, like this:
+这实在是太酷了！😎这样我们可以摆脱大量的强制解析，同时避免让我们的测试代码难于编写、难于上手。那么为了达到上述效果我们应该怎么做呢？这很简单，我们只需要对 `XCTestCase` 增加一个拓展，让我们分析任何可选类型表达式，并且返回非可选的值或者抛出一个错误，像这样：
 
 ```
 extension XCTestCase {
-    // We conform to LocalizedError in order to be able to output
-    // a nice error message.
+    // 为了能够输出优雅的错误信息
+    // 我们遵循 LocallizedErrow
     private struct RequireError<T>: LocalizedError {
         let file: StaticString
         let line: UInt
 
-        // It's important to implement this property, otherwise we won't
-        // get a nice error message in the logs if our tests start to fail.
+        // 实现这个属性非常重要
+        // 否则测试失败时我们无法在记录中优雅地输出错误信息
         var errorDescription: String? {
             return "😱 Required value of type \(T.self) was nil at line \(line) in file \(file)."
         }
     }
 
-    // Using file and line lets us automatically capture where
-    // the expression took place in our source code.
+    // 使用 file 和 line 使得我们能够自动捕获
+    // 源代码中出现的相对应的表达式
     func require<T>(_ expression: @autoclosure () -> T?,
                     file: StaticString = #file,
                     line: UInt = #line) throws -> T {
@@ -195,24 +195,23 @@ extension XCTestCase {
 }
 ```
 
-Now, with the above, if our `UserManager` login test starts failing, we'll get a super nice error message that gives us the exact location of the failure:
+现在有了上述内容，如果我们 `UserManager` 登录测试发生失败，我们也能得到一个非常优雅的错误信息，告诉我们错误发生的准确位置。
 
 ```
 [UserServiceTests testLoggingIn] : failed: caught error: 😱 Required value of type User was nil at line 97 in file UserServiceTests.swift.
 ```
 
-_You might recognize this technique from my micro framework [Require](https://github.com/johnsundell/require), which adds a require() method on all optionals to improve the diagnostics of unavoidable force unwraps._
+**你可能意识到这个技巧来源于我的迷你框架 [Require](https://github.com/johnsundell/require), 它对所有可选类型增加了一个 require() 方法，以提高对无法避免的强制解析的诊断效果。**
 
-## Conclusion
+## 总结
 
-Treating your test code with the same amount of care as your app code can feel awkward at first, but can make it a lot easier to maintain tests in the long run - both when working on something on your own, or in a big team. Enabling good diagnostics and error messages is a major part of that, so using some of the techniques from this post you can hopefully avoid lots of tricky problems in the future.
+以同样谨慎的态度对待你的应用代码和测试代码，在最开始可能有些不适应，但可以让长期维护测试变的更加简单 —— 不论是独立开发还是团队开发。良好的错误诊断和错误信息是其中特别重要的一部分，使用本文中的一些技巧或许能够让你在未来避免很多奇怪的问题。
 
-The only time I always use force unwrapped optionals in test code is when setting up properties in test cases. Since these will always be created in `setUp` and removed in `tearDown`, I don't think it's worth having them as true optionals. Like always, you have to take a look at your own code and apply your own preferences, to see what tradeoffs you think are worth making.
+我在测试代码中唯一使用强制解析的时候，就是在构建测试案例的属性时。因为这些总是在 `setUp` 中被创建、`tearDown` 中被销毁，我并不把他们当作真正的可选类型。正如以往，你同样需要查看你自己的代码，根据你自己的喜好，来权衡决定。
 
-What do you think? Will you apply some of the techniques from this post in your test code, or do you already use something similar? Let me know, along with any questions, comments or feedback you might have - either here in the comments section below or ping me on [Twitter @johnsundell](https://twitter.com/johnsundell).
+所以你觉得呢？你会采用一些本文中的技巧，还是你已经用了一些相关的方式？请让我知道，包括你可能有的任何的问题、评价和反馈 —— 可以在下面回复栏直接回复或者在 [Twitter @johnsundell](https://twitter.com/johnsundell) 上回复我。
 
-Thanks for reading! 🚀
-
+感谢阅读！🚀
 
 ---
 
