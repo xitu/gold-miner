@@ -1,8 +1,8 @@
 > * 原文地址：[The Caching Antipattern](https://www.hidefsoftware.co.uk/2016/12/25/the-caching-antipattern/)
-* 原文作者：[ROBERT STIFF](https://www.hidefsoftware.co.uk/about/)
-* 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：[王子建](https://github.com/Romeo0906)
-* 校对者：[tanglie](https://github.com/tanglie1993)、[瞿祥轩](https://github.com/fghpdf)
+> * 原文作者：[ROBERT STIFF](https://www.hidefsoftware.co.uk/about/)
+> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> * 译者：[王子建](https://github.com/Romeo0906)
+> * 校对者：[tanglie](https://github.com/tanglie1993)、[瞿祥轩](https://github.com/fghpdf)
 
 ## 为何我抵制使用缓存？ ##
 
