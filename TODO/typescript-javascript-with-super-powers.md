@@ -2,102 +2,102 @@
 > * 原文作者：[Indrek Lasn](https://medium.freecodecamp.org/@wesharehoodies?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/typescript-javascript-with-super-powers.md](https://github.com/xitu/gold-miner/blob/master/TODO/typescript-javascript-with-super-powers.md)
-> * 译者：
+> * 译者：[jonjia](https://github.com/jonjia)
 > * 校对者：
 
-# TypeScript — JavaScript with superpowers
+# TypeScript：拥有超能力的 JavaScript
 
 ![](https://cdn-images-1.medium.com/max/800/1*aOhXVPhLT8tZLYQu62HcPA.png)
 
-Javascript is cool. But do you know what’s even more cooler? Typescript.
+JavasSript 很酷。但你知道什么更酷一点吗？TypeScript。
 
-#### Can you tell what’s wrong with this code?
+#### 你能看出这段代码有什么问题吗？
 
 ![](https://cdn-images-1.medium.com/max/600/1*IgMNDPa6Oq8De5f7Pvnmnw.png)
 
 ![](https://cdn-images-1.medium.com/max/600/1*TV6Dyfy3Bmul2JPC7eyKaQ.png)
 
-TypeScript (left) and ES6 (right).
+TypeScript (上) 对比 ES6 (下)
 
-**TypeScript can **— see that little red underline? That’s Typescript giving us a hint something is horribly gone wrong.
+**TypeScript 可以看出来。**看到那个红色的下划线了吗？这就是 TypeScript 给我们的错误提示。
 
-You probably figured this one out (good job) — `toUpperCase()` is a type of String method. We’re passing an integer as the argument, thus we can’t call `toUpperCase()` on an integer.
+你可能已经发现了这个问题（干的漂亮） — `toUpperCase()` 是 String 的方法，我们将一个整型作为参数传递过去，显然无法调用整型的`toUpperCase()` 方法。
 
-Let’s fix it by stating we can only pass the type String as an argument to our `nameToUpperCase()` method.
+我们通过声明 `nameToUpperCase()` 方法的参数只能为 `string` 类型来修复这个问题。
 
 ![](https://cdn-images-1.medium.com/max/800/1*N0xiNAjnnX3CijE82PpTjA.png)
 
-Great! Now instead of having to remember `nameToUpperCase()` only accepts a String, we can trust Typescript to remember it. Imagine having to remember thousands, if not — tens of thousands methods and all the argument types. Bananas!
+棒棒哒！现在我们不用自己去记 `nameToUpperCase()` 的参数类型必须为 `string`，我们可以信任 TypeScript 去记住它。想象下，如果有成千上万个参数类型需要我们记住。太疯狂了吧！
 
-We still see red though. Why? Cause we’re still passing an integer! Let’s pass a String now.
+还是有错误警告。为什么？因为我们还是传递了个整型参数！传递个 `string` 类型的参数就好了。
 
 ![](https://cdn-images-1.medium.com/max/800/1*4JtcPUxZ7NPyf5gxhPqs2Q.png)
 
-Notice TypeScript gets compiled to Javascript (it’s just a superset of Javascript, much like C++ to C).
+注意 TypeScript 最终还是会被编译成 JavaScript (它只是 JavaScript 的一个超集，就像 C++ 和 C 的关系一样)。
 
-That’s the a big-big argument why TypeScript and type checking is great.
+以上就是 TypeScript 和类型检查强大的原因。
 
 ![](https://cdn-images-1.medium.com/max/800/1*AgAGlFdiYSiYKZLW9fNvuw.png)
 
-TypeScript had **10,327,953** downloads in the last month.
+TypeScript 上个月（译注：2018年1月）有 **10,327,953** 的下载量。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*12nXNNgYHMLqWl7FWe4mwQ.png)
 
-Typescript downloads compared to Flow downloads.
+TypeScript vs Flow 下载量对比
 
-Let’s explore the TypeScript world — we’ll take a deep dive later, but first let’s understand what exactly Typescript is and why it exists.
+让我们开始探索 TypeScript 的世界 — 在深入探究之前，先来了解下 TypeScript 究竟是什么以及为什么存在。
 
-[TypeScript first appeared on 1st of October, 2012\.](https://en.wikipedia.org/wiki/TypeScript) It’s being developed by Microsoft, lead by [Anders Hejlsberg](https://en.wikipedia.org/wiki/Anders_Hejlsberg) (lead architect of [C#](https://en.wikipedia.org/wiki/C_Sharp_%28programming_language%29)) and his team.
+[TypeScript 于 2012 年 10 月 1 日正式开源。](https://en.wikipedia.org/wiki/TypeScript) 由 Microsoft 开发维护，[C#](https://en.wikipedia.org/wiki/C_Sharp_%28programming_language%29) 的首席架构师 [Anders Hejlsberg](https://en.wikipedia.org/wiki/Anders_Hejlsberg) 以及他的团队参与了 TypeScript 的开发。
 
-[TypeScript](https://www.typescriptlang.org/) is completely [open sourced on GitHub](https://github.com/Microsoft/TypeScript), so anyone can read the source code and contribute.
+[TypeScript](https://www.typescriptlang.org/) 在 GitHub 上完全开源，所以任何人都可以阅读它的 [源码](https://github.com/Microsoft/TypeScript) 并做出贡献。
 
 ![](https://cdn-images-1.medium.com/max/800/1*4DNoN1QejqOlOFNft6teuw.png)
 
-TypeScript — JavaScript that scales.
+TypeScript — JavaScript 的超集。
 
-### How to get started
+### 如何开始
 
-It’s simple actually — all we need is a NPM package. Open your terminal and type the following:
+实际上非常简单 — 我们只需要安装一个 NPM 包。打开你的终端，输入以下命令：
 
 ```
 
 npm i -g typescript && mkdir typescript && cd typescript && tsc --init
 ```
 
-We should end up with the Typescript config.
+再设置下 TypeScript 的配置文件就可以了。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*0a1jcXX5gYTRnVCkgisYbQ.png)
 
-All we need to do is create a `.ts` file and tell the Typescript compiler to watch for changes.
+我们只需要创建一个 `.ts` 文件，并告诉 TypeScript 编译器监视文件变化。
 
 ```
 touch typescript.ts && tsc -w
 ```
 
-**tsc **— typescript compiler.
+**tsc **— TypeScript 编译器。
 
-#### This is we what we should end up with
+#### 最后一步
 
 ![](https://cdn-images-1.medium.com/max/1000/1*ervvuE5kcy2isO1zTDL_0w.png)
 
-Great — now you can follow along with our examples!
+太好了 — 现在你可以跟着我们的示例一起练习。
 
-We write the code in `.ts` files, the `.js` is the compiled version for the browser to read. In this case we don’t have a browser, we’re using Node.js (so the `.js` is for Node to read).
+我们在 `.ts` 文件中编写代码，编译后生成的 `.js` 文件是在浏览器中运行的代码。在这个例子中，我们不是用浏览器环境，我们使用 NodeJS 环境（所以 `.js` 是在 Node 环境中运行的）。
 
 ![](https://cdn-images-1.medium.com/max/800/1*6VLCkqegvidS5dJm-e7zSA.png)
 
-Javascript has seven data types which 6 are primitives, the the rest are defined as objects.
+JavaScript 有 7 种数据类型，其中 6 种是基础类型，剩下的被定义为 Object 类型。
 
-#### **Javascript primitives are the following:**
+#### **JavaScript 基础类型如下：**
 
-*   _String_
-*   _Number_
-*   _Undefined_
-*   _Null_
-*   _Symbol_
-*   _Boolean_
+*   **String**
+*   **Number**
+*   **Undefined**
+*   **Null**
+*   **Symbol**
+*   **Boolean**
 
-#### What’s left are called [_objects_](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)
+#### 剩下的都是 [**objects**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)
 
 *   [Functions are first class objects](https://en.wikipedia.org/wiki/Function_object#In_JavaScript)
 *   [Arrays are special objects](https://stackoverflow.com/a/5048482/5073961)
@@ -105,48 +105,47 @@ Javascript has seven data types which 6 are primitives, the the rest are defined
 
 ![](https://cdn-images-1.medium.com/max/800/1*9FeYC-4ZEsKAQ565pEdTqw.png)
 
-Typescript shares the same basic types with Javascript but have a couple extra types in the bag.
+TypeScript 支持与 JavaScript 相同的基础类型，此外还提供了一些额外的类型。
 
-The extra types are optional and you don’t have to use them if you’re not familiar with them. I’ve found that’s the beauty of Typescript, it doesn’t use much force and is not as restrictive.
+额外的类型是可选的，如果你不熟悉那些类型，你就可以不用。我发现使用 TypeScript 的好处就是：使用起来灵活方便。
 
-### The extra types are the following:
+### 额外的类型如下：
 
 ![](https://cdn-images-1.medium.com/max/800/1*QlcVGtDb2FVJjkQRIh6gLQ.png)
 
-Imagine tuples as organized arrays. You predefine the types in the correct order.
+元组就是组织好结构的数组，只是按照顺序定义好数组元素的类型
 
 ![](https://cdn-images-1.medium.com/max/800/1*tF_IxeUVobcsA2BiBbConA.png)
 
-unorganized array vs tuple (organized array).
+普通数组 vs 元组（组织好结构的数组）
 
-If we don’t follow the sorting index rules we issued for our tuple, Typescript will hint us we didn’t go by the rules
+如果你不遵守元组定义好的规则，TypeScript 会给我们发出错误警告。
 
 ![](https://cdn-images-1.medium.com/max/800/1*6LvBeYZZrPTaxNIBkzQKAQ.png)
 
-The tuple expects the first value to be a `number` — but it’s not in this case, it’s a string `"Indrek"` and thus giving us an error.
+元组定义了第一个元素是 `number` 类型，但赋值时并不是 `number` 类型，而是一个值为 `"Indrek"` 的 `string` 类型。所以编译结果会报错。
 
 * * *
 
 ![](https://cdn-images-1.medium.com/max/800/1*Bto4sAfIzfV3EIyYS04JmA.png)
 
-In Typescript, you have to define the return type in your functions. Like so:
-There are functions which don’t have a `return` statement;
+在 TypeScript 中，你需要定义函数返回值的类型。因为有很多没有 `return` 语句的函数。
 
 ![](https://cdn-images-1.medium.com/max/800/1*AboEEgZSSq9YvI-Y6KLBgA.png)
 
-Notice how we declare the argument type AND the return type — both are strings.
+看一下我们是怎么声明参数和返回值类型的 — 它们的类型都是 `string`。
 
-Now what happens if we don’t return anything? Real world example would be a `console.log` statement inside the functions body.
+如果我们没有返回任何值会怎么样？下面例子的函数体中只有一条 `console.log` 语句。
 
 ![](https://cdn-images-1.medium.com/max/800/1*EI69g4tgKBUJYp6BZkignQ.png)
 
-We can see the Typescript compiler telling us: “Hey, you didn’t return anything but you **explicitly** said we HAVE to return a string. I’m just letting you know that we didn’t follow the rules.”
+我们可以看到，编译结果提示我们：“嘿，你**明确**表示我们必须返回一个 `string` 类型，但你实际上没返回任何值。我就是告诉你，你没有遵守我们的规则。”
 
-So what if we don’t want to return anything? Let’s say we have a callback in our function. We use the `Void` return type in such situations.
+如果我们就是不想返回任何值该怎么办呢？比如我们的函数中有一个回调函数。在这种情况下就可以声明返回值的类型为`Void`。
 
 ![](https://cdn-images-1.medium.com/max/800/1*JJdm0IAG6MOvVwKh-XUS-w.png)
 
-But in case we do return a value, implicitly or explicitly, we can’t have the return type of `Void`
+但有时候我们的函数确实有返回值，不管是隐式还是显式地，我们都不能将返回值的类型设置为 `Void`。
 
 ![](https://cdn-images-1.medium.com/max/800/1*LYPDIzRpqPZtg03qMz_5SQ.png)
 
@@ -154,39 +153,39 @@ But in case we do return a value, implicitly or explicitly, we can’t have the 
 
 ![](https://cdn-images-1.medium.com/max/800/1*DHGUJYw9MdbnobyC1wf0Pg.png)
 
-The any type is very simple. We simple don’t know what type we’re dealing with so it might as well be `any`
+`any` 类型非常简单，如果我们要为还不清楚类型的变量指定一个类型的话，就可以指定为 `any`
 
-For example;
+比如下面的例子：
 
 ![](https://cdn-images-1.medium.com/max/800/1*aDKDyw7uN7cbA7QMjpm3GA.png)
 
-Notice how we’re reassigning the person’s type around so many times. First it’s a string, after a number and finally a boolean. We simply can’t be sure of the type.
+可以看到我给 `person` 变量多次赋值，每次使用的值的类型都不同。第一次是 `string` 类型，然后是 `number`，最后是 `boolean`。我们无法确定这个变量的类型。
 
-Real world examples would be if you’re using a 3rd party library and you don’t know the types.
+如果你使用第三方的库，你可能会不知道某些变量的类型。
 
-Let’s take an array. You pull some data from an API and store it in the array. The array consists of random data. It won’t consist of only strings, numbers nor will it have a organized structure like a tuple. `Any` type comes to the rescue!
+让我们声明一个数组，你把从某个 API 获取到的数据存储到这个数组中。数组中的数据是随机的。它不会只包括 `string`、`number`，也不像元组那样有组织好的结构。`any` 类型就可以解决这个问题。
 
 ![](https://cdn-images-1.medium.com/max/800/1*nDGWiVcZHWXRPT3NMqHeuQ.png)
 
-If you know the array only consists of one type, you can explicitly state that to the compiler, like so:
+如果你知道数组的元素都是同一种类型，你可以使用下面的语法声明：
 
 ![](https://cdn-images-1.medium.com/max/800/1*AT2v5vHOq9_kuraL2E2hnA.png)
 
-While this article is gaining length, we’ll continue in the next chapter. We still have to cover couple last basic types — `enum` — `never` — `null` — `undefined` and special case `type assertions`.
+这篇文章的篇幅已经够长了，我们将在下一篇文章继续。我们还剩下 — `enum` — `never` — `null` — `undefined` 这些基础类型和类型断言需要讨论。
 
-[Here’s the docs in case you’re interested in learning more.](https://www.typescriptlang.org/docs/handbook/basic-types.html)
+如果你想深入学习，可以阅读 TypeScript 的 [官方文档](https://www.typescriptlang.org/docs/handbook/basic-types.html)
 
-You might find more interesting articles on my Medium profile
+由于好多人问我这篇文章中的图片使用的什么编辑器。我使用 **Visual Studio Code** 编辑器，配合 **Ayu Mirage** 主题和 **Source Code Pro** 字体。
 
-Since everyone asks me what tools I used for the screenshots in this article, I use **Visual Studio Code**, and the **Ayu Mirage** theme withthe **Source Code Pro** font.
+你可以在我的 Medium 上发现更多有趣的文章。
 
 - [**Indrek Lasn - Medium**: Read writing from Indrek Lasn on Medium. Merchant of happiness, founder @ https://vaulty.io, growth/engineering @… medium.com](https://medium.com/@wesharehoodies)
 
-Or you can follow me on twitter for updates. ❤
+也可以关注我的 twitter。❤
 
 - [**Indrek Lasn (@lasnindrek) | Twitter**: The latest Tweets from Indrek Lasn (@lasnindrek). business propositons: lasnindrek@gmail.com. Zurich, Switzerland twitter.com](https://twitter.com/lasnindrek)
 
-Thanks for reading and taking the time! I appreciate and you’re awesome!
+感谢阅读，你很棒！
 
 
 ---
