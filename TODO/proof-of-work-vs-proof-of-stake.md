@@ -2,8 +2,10 @@
 > * 原文作者：[Ameer Rosic](https://blockgeeks.com/author/ameerrosic)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/proof-of-work-vs-proof-of-stake.md](https://github.com/xitu/gold-miner/blob/master/TODO/proof-of-work-vs-proof-of-stake.md)
-> * 译者：foxxnuaa
-> * 校对者：
+> * 译者：[foxxnuaa](https://github.com/foxxnuaa)
+> * 校对者：[atuooo](https://github.com/atuooo), [moods445](https://github.com/moods445)
+
+# 工作量证明 vs 权益证明：基本挖矿指南
 
 最近你可能听说过一个想法，该想法将以太坊共识从工作量证明（PoW）转变为所谓的权益证明。
 
