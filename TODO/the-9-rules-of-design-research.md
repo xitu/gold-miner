@@ -2,24 +2,26 @@
 > * 原文作者：[Erika Hall](https://medium.com/@mulegirl?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/the-9-rules-of-design-research.md](https://github.com/xitu/gold-miner/blob/master/TODO/the-9-rules-of-design-research.md)
-> * 译者：
+> * 译者：[zhmhhu](https://github.com/zhmhhu)
 > * 校对者：
 
-# The 9 Rules of Design Research
+# 设计研究的9条规则
 
 ![](https://cdn-images-1.medium.com/max/2000/1*Q5-y_Q5CnX4oKHnlM5vUOA.jpeg)
 
-All Nine Puppies by [Kathleen Borgmeyer](https://www.flickr.com/photos/landhofgreaterswiss/).
+[Kathleen Borgmeyer](https://www.flickr.com/photos/landhofgreaterswiss/) 的全部九只小狗。 
 
 Lately, I’ve noticed a lot more ambient enthusiasm for research among both early stage start-ups and established organizations. Businesses have embraced the idea that meaningful innovation requires understanding their customers as humans with complex lives.
 
-This is fantastic.
+最近，我注意到早期阶段的创业公司和老牌机构对研究的热情非常高涨。 企业已经认识到，要想进行有意义的创新就需要将客户理解为具有复杂生活的人类。
 
-I’ve also been hearing quite a few of the same myths, misperceptions, and hedges repeated. So, in the interests of being helpful—because I do like to be helpful—here is a snackable listicle of simple correctives designed to share far and wide (I’ve been assured that research proves readers enjoy snackable listicles. And puppies.)
+这真的不可思议。
 
-#### 1. Get comfortable being uncomfortable
+我也听到过许多相同的神话、误解和冲突。 所以，为了获得有益的 —— 因为我喜欢获得帮助 —— 这里有一份广泛分享的简单实用的设计清单（我确信，研究证明读者可以享受这份清单，就像可爱的小狗那样）。
 
-_“All I know is that I know nothing.” — Socrates_
+#### 1. 让舒服变得不舒服
+
+_“我所知道的一切就是我什么都不知道。” — 苏格拉底_
 
 We’ve all been brought up to value answers and fear questions. We were rewarded for right answers at school and we are rewarded for bright ideas at work. No wonder so many people look for reasons to avoid doing research, especially qualitative research. Anxiety around looking less knowledgable runs deep. At least quant stuff has the comforting familiarity of standardized testing. Maintaining a research mindset means realizing that bias is rampant, certainty is an illusion, and any answer has a short shelf life. A good question is far more valuable in the long run. And you can’t ask good questions—meaning you can’t learn—until you admit you don’t have the answers.
 
