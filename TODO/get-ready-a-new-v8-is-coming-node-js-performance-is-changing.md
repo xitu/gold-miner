@@ -11,21 +11,21 @@
 
 **更新：Node.js 8.3.0 会将** [**Turbofan 直接交付在 V8 6.0 中**](https://github.com/nodejs/node/pull/14594) 。**用** `**NVM_NODEJS_ORG_MIRROR=https://nodejs.org/download/rc nvm i 8.3.0-rc.0**` **来验证应用程序**
 
-Since it’s inception Node.js has depended on the V8 JavaScript engine to provide code execution in the language we all know and love. The V8 JavaScript engine is a JavaScript VM written by Google for the Chrome browser. From the beginning, a primary goal of V8 was to make JavaScript fast, or at least — faster than the competition. For a highly dynamic, loosely typed language this is no easy feat. This piece is about the evolution of V8 and JS engines performance.
+从一开始，node.js 就依赖于 V8 JavaScript 引擎为我们熟悉和喜爱的语言提供代码执行环境。V8 JavaScipt 引擎是 Google 为 Chrome 浏览器编写的 JavaScipt VM。起初，V8 的主要目标是使 JavaScript 更快，或者至少要比同类竞争产品要快。对于一种高度动态的若类型语言来说，这可不是容易的事情。这是一篇关于 V8 和 JS 引擎性能演变的文章。
 
-A central piece of the V8 engine that allows it to execute JavaScript at high speed is the JIT (Just In Time) compiler. This is a dynamic compiler that can optimize code during runtime. When V8 was first built the JIT Compiler was dubbed FullCodegen. Then, the V8 team implemented Crankshaft, which included many performance optimizations that FullCodegen did not implement.
+V8 引擎的一个核心部分是 JIT(Just In Time) 编译器，允许它告诉执行 JavaScript。这是一个可以在运行时优化代码的动态编译器。 When V8 was first built the JIT Compiler was dubbed FullCodegen. Then, the V8 team implemented Crankshaft, which included many performance optimizations that FullCodegen did not implement.
 
 _Edit: FullCodegen was the first optimizing compiler of V8, thanks_ [_Yang Guo_](https://twitter.com/hashseed) _for reporting._
 
 As an outside observer and user of JavaScript since the 90’s, it has seemed that fast and slow paths in JavaScript (whatever the engine may be) were often counter-intuitive, the reasons for apparently slow JavaScript code were often difficult to fathom.
 
-In recent years [Matteo Collina](https://twitter.com/matteocollina) and [I](https://twitter.com/davidmarkclem) have focused on finding out how to write performant Node.js code. Of course this means knowing which approaches are fast and which approaches are slow when our code is executed by the V8 JavaScript engine.
+最近几年， [Matteo Collina](https://twitter.com/matteocollina) 和 [我](https://twitter.com/davidmarkclem) 致力于研究如何编写高性能 Node.js 代码。当然，这意味着我们在用 V8 JavaScript 引擎执行代码的时候，知道那些方法是高效的，那些方法是效率慢的。
 
 Now it’s time for us to challenge all our assumptions about performance, because the V8 team has written a new JIT Compiler: Turbofan.
 
 Starting with the more commonly known “V8 Killers” (pieces of code which cause optimization bail-out — a term that no longer makes sense in a Turbofan context) and moving towards the more obscure discoveries Matteo and I have made around Crankshaft performance, we’re going to walk through a series of microbenchmark results and observations over progressing versions of V8.
 
-Of course, before optimizing for V8 logic paths, we should first focus on API design, algorithms and data structures. These microbenchmarks are meant as indicators of how JavaScript execution in Node is changing. We can use these indicators to influence our general code style and the ways we improve performance _after_ we’ve applied the usual optimizations.
+当然，在优化 V8 逻辑路径前，我们首先应该关注 API 设计，算法和数据结构。These microbenchmarks are meant as indicators of how JavaScript execution in Node is changing.我们可以使用这些指标来影响我们的一般代码风格，已经我们在应用了通常的优化之后改进性能的方法。
 
 We’ll be looking at the performance of these microbenchmarks on V8 versions 5.1, 5.8, 5.9, 6.0 and 6.1.
 
@@ -35,7 +35,7 @@ Currently either 5.9 or 6.0 engine is due to be in Node 8.3 (or possibly Node 8.
 
 Let’s take a look at our microbenchmarks and on the other side we’ll talk about what this means for the future. All the microbenchmarks are executed using [benchmark.js](https://www.npmjs.com/package/benchmark), and the values plotted are operation per second, so higher is better in every diagram.
 
-### THE TRY/CATCH PROBLEM
+###  TRY/CATCH 问题
 
 One of the more well known deoptimization patterns is use of `try/catch` blocks.
 
@@ -58,11 +58,11 @@ However for Node 8.3+ the performance hit of calling a function inside a `try` b
 
 Nevertheless, don’t rest too easy. While working on some performance workshop material, Matteo and I [found a performance bug](https://bugs.chromium.org/p/v8/issues/detail?id=6576&q=matteo%20collina&colspec=ID%20Type%20Status%20Priority%20Owner%20Summary%20HW%20OS%20Component%20Stars), where a rather specific combination of circumstances can lead to an infinite deoptimization/reoptimization cycle in Turbofan (this would count as a “killer” — a pattern that destroys performance).
 
-### REMOVING PROPERTIES FROM OBJECTS
+### 从对象中删除属性
 
-For years now, `delete` has been off limits to anyone wishing to write high performance JavaScript (well at least where we’re trying to write optimal code for a hot path).
+多年来, `delete` 已经限制了很多希望编写出高性能 JavaScript 的人（好吧，至少是我们想为热路径编写最优代码的时候）。
 
-The problem with `delete` boils down to the way V8 handles the dynamic nature of JavaScript objects and the (also potentially dynamic) prototype chains that make property lookups even more complex at an implementation level.
+ `delete` 的问题归结于 V8 在原生 JavaScript 对象的动态性质以及（可能也是动态的）原型链的处理方式上。这使得查找在实现级别上的属性更加复杂。 
 
 The V8 engine’s technique for making property objects high speed is to create a class in the C++ layer based on the “shape” of the object. The shape is essentially what keys and values a property has (including the prototype chain keys and values). These are known as “hidden classes”. However, this is an optimization that occurs on objects at runtime, if there’s uncertainty about the shape of the object V8 has another mode for property retrieval: hash table lookup. The hash table lookup is significantly slower. Historically, when we `delete` a key from the object subsequent property access will be a hash table look up. This is why we avoid `delete` and instead set properties to `undefined` which leads to the same result as far as values are concerned but may be problematic when checking for property existence; however it’s often good enough for pre-serialization redaction because `JSON.stringify` does not include `undefined` values in its output (`undefined` isn’t a valid value in the JSON specification).
 
@@ -241,80 +241,80 @@ Using `Object.values` to get values directly is slower than using `Object.keys` 
 
 Also, for those who’ve used `for`-`in` for its performance benefits it’s going to be a painful moment when we lose a large chunk of speed with no alternative approach available.
 
-### CREATING OBJECTS
+### 创建对象
 
-We create objects _all the time_ so this is a great area to measure.
+我们_始终_ 在创建对象，所以这是一个很好的测量领域。
 
-We’re going to look at three cases:
+我们要看三个案例：
 
-*   creating objects using object literals (_literal_)
-*   creating objects from an EcmaScript 2015 Class (_class_)
-*   creating objects from a constructor function (_constructor_)
+*  使用对象字面量 (_literal_) 创建对象
+*  使用 ECMAScript 2015 类 (_class_) 创建对象
+*  使用构造函数 (_constructor_) 创建对象
 
 **Code:** [https://github.com/davidmarkclements/v8-perf/blob/master/bench/object-creation.js](https://github.com/davidmarkclements/v8-perf/blob/master/bench/object-creation.js)
 
 ![](https://cdn-images-1.medium.com/max/800/0*ELU7jCa6FA4SOhhv.png)
 
-In Node 6 (V8 5.1) all approaches are pretty even.
+在 Node 6 (V8 5.1) 中所有方法都一样。
 
-In Node 8.0–8.2 (V8 5.8) instances created from EcmaScript 2015 classes are less than half the speed of using an object literal or a constructor. So.. you know, watch out for that.
+在 Node 8.0–8.2 (V8 5.8)中，从 EcmaScript 2015 类创建实例的速度不及用对象字面量或者构造函数速度的一半。所以，你知道后要注意这一点。
 
-In V8 5.9 performance evens out again.
+在 V8 5.9 中，性能再次均衡。
 
-Then in V8 6.0 (hopefully Node 8.3, or otherwise 8.4) and 6.1 (which isn’t currently in any Node release) object creation speed goes _insane_!! Over 500 million op/s! That’s incredible.
+然后在 V8 6.0 (可能是 Node 8.3，或者是 8.4) 和 6.1 (目前尚未发布任何 Node 版本) 中对象创建速度 _简直疯狂_！！超过了 500 百万 op/s！令人难以置信。
 
 ![](https://cdn-images-1.medium.com/max/800/0*xvzRH5TOxggMACa0.gif)
 
-We can see that objects created by constructors are slightly slower. So our best bet for future friendly performant code is to always prefer object literals. This suits us fine, since we recommend returning object literals from functions (rather than using classes or constructors) as a general best coding practice.
+我们可以看到由构造函数创建对象稍慢一些。因此，为了对未来友好的高性能代码，我们最好的选择是始终偏爱于使用对象字面量。这很适合我们，因为我们建议从函数（而不是使用类或构造函数）返回对象文字作为一般的最佳编码实践。
 
-_Edit: Jakob Kummerow noted in_ [_http://disq.us/p/1kvomfk_](http://disq.us/p/1kvomfk) _that Turbofan can optimize away the object allocation in this specific microbenchmark. We’ll be updating again soon to take this into account._
+_编辑：Jakob Kummerow  在 _ [_http://disq.us/p/1kvomfk_](http://disq.us/p/1kvomfk) _ 中指出，Turbofan 可以在这个特定的微基准中优化对象分配。我们会尽快重新进行更新以考虑这一点。_
 
-### POLYMORPHIC VS MONOMORPHIC FUNCTIONS
+### 单态函数与多态函数
 
-When we always input the same type of argument into a function (say, we always pass a string), we are using that function in a monomorphic way. Some functions are written to be polymorphic — which means that the same parameter can be handled as different hidden classes — so maybe it can handle a string, or an array or an object with a specific hidden class and handle it accordingly. This can make for nice interfaces in some circumstances but has a negative impact on performance.
+当我们总是将相同类型的 argument 输入到函数中（例如，我们总是传递一个字符串）时，我们就以单态形式使用该函数。一些函数被编写成多态 --  这意味着相同的参数可以作为不同的隐藏类处理 -- 所以它可能可以处理一个字符串、一个数组或一个具有特定隐藏类的对象，并相应地处理它。在某些情况下，这可以提供良好的接口，但会对性能产生负面影响。
 
-Let’s see how monomorphic and polymorphic cases do in our benchmarks.
+让我们看看在基准测试中，单例和多态情况是如何实现的
 
-Here we investigate five cases:
+在这里，我们研究五个案例：
 
-*   a function is passed both object literals and strings (_polymorphic with literal_)
-*   a function is passed both constructor instances and strings (_polymorphic with constructor_)
-*   a function is only passed strings (_monomorphic string_)
-*   a function is only passed object literals (_monomorphic obj literal_)
-*   a function is only passed constructor instances (_monomorphic obj with constructor_)
+*   函数同时传递对象字面量和字符串 (_多态字面量_)
+*   函数同时传递构造函数实例和字符串 (_多态构造函数_)
+*   函数只传递字符串 (_单态字符串_)
+*   函数只传递字面量 (_单态字面量_)
+*   函数只传递构造函数实例 (_带构造函数的单例对象_)
 
-**Code:** [https://github.com/davidmarkclements/v8-perf/blob/master/bench/polymorphic.js](https://github.com/davidmarkclements/v8-perf/blob/master/bench/polymorphic.js)
+**代码：** [https://github.com/davidmarkclements/v8-perf/blob/master/bench/polymorphic.js](https://github.com/davidmarkclements/v8-perf/blob/master/bench/polymorphic.js)
 
 ![](https://cdn-images-1.medium.com/max/800/0*eF_vt7YUPD0YFsWo.png)
 
-The data visualized in our graph shows conclusively that monomorphic functions outperform polymorphic functions across all V8 versions tested.
+图中的可视化数据表明，在所有的 V8 测试版本中单态函数性能优于多态函数。
 
-There’s a much wider performance gap between monomorphic and polymorphic functions in V8 6.1 (future Node), which compounds the point further. However it’s worth noting that this based on the node-v8 branch which uses a sort of nightly-build V8 version — it may not end up being a concrete characteristic in V8 6.1.
+这进一步说明了在 V8 6.1（未来的 Node 版本）中，单态函数和多态函数之间的性能差距会更大。不过值得注意的是，这个基于使用了一种 nightly-build 方式构建 V8 版本的 node-v8 分支的版本 -- 可能最终不会成为 V8 6.1 中的一个具体特性
 
-If we’re writing code that needs to be optimal, that is a function that will be called many times over, then we should avoid using polymorphism. On the other hand, if it’s only called once or twice, say an instantiating/setup function, then a polymorphic API is acceptable.
+如果我们正在编写的代码需要是最优的，并且函数将被多次调用，此时我们应该避免使用多态。另一方面，如果只调用一两次，比如实例化/设置函数，那么多态 API 是可以接受的。
 
-_Edit: We have been informed by the V8 team that the results for this specific benchmark are not reliably reproducible using their internal executable,_ `_d8_`_. However this benchmark is reproducible on Node. So the results and subsequent analysis should be taken with the view that this may change in future Node updates (based on how Node is integrating with V8). Further analysis is required. Thanks_ [_Jakob Kummerow_](http://disq.us/p/1kvomfk) _for pointing this out._
+_编辑：V8 团队已经通知我们，使用其内部可执行文件  _`_d8_`_ 无法可靠地重现此特定基准测试的结果。然而，这个基准在 Node 上是可重现的。因此，应该考虑到结果和随后的分析，可能会在之后的 Node 更新中发生变化 （基于 Node 和 V8 的集成中）。不过还需要进一步分析。感谢_ [_Jakob Kummerow_](http://disq.us/p/1kvomfk) _指出了这一点_。
 
-### THE `DEBUGGER` KEYWORD
+### `DEBUGGER` 关键词
 
-Finally, let’s talk about the `debugger` keyword.
+最后，让我们讨论一下 `debugger` 关键词。
 
-Be sure to strip `debugger` statements from your code. Stray `debugger` statements destroy performance.
+确保从代码中删除了 `debugger` 语句。散乱的 `debugger` 语句会破坏性能。
 
-We’re looking at two cases:
+我们看下以下两种案例：
 
-*   a function that contains the `debugger` keyword (_with debugger_)
-*   a function that does not contain the `debugger` keyword (_without debugger_)
+*   包含 `debugger` 关键词的函数 (_带有 debugger_)
+*   不包含  `debugger` 关键词的函数 (_不含 debugger_)
 
 **Code:** [https://github.com/davidmarkclements/v8-perf/blob/master/bench/debugger.js](https://github.com/davidmarkclements/v8-perf/blob/master/bench/debugger.js)
 
 ![](https://cdn-images-1.medium.com/max/800/0*mdbzBVOk1UWiDb7w.png)
 
-Yep. Just the presence of the `debugger` keyword is terrible for performance across all V8 versions tested.
+是的，`debugger` 关键词的存在对于测试所有 V8 版本的性能来说都很糟糕。
 
-The _without debugger_ line noticeably drops over successive V8 versions, we’ll talk about this in the [Summary](https://www.nearform.com/blog/node-js-is-getting-a-new-v8-with-turbofan/#summary).
+在 _没有 debugger_ 行的那些 V8 版本中，性能显著提升。我们将在[总结](https://www.nearform.com/blog/node-js-is-getting-a-new-v8-with-turbofan/#summary)中讨论这一点。
 
-### A REAL WORLD BENCHMARK: LOGGER COMPARISON
+### 真实世界的基准： LOGGER 比较
 
 In addition to our microbenchmarks we can take a look at the holistic effects of our V8 versions by using benchmarks of most popular loggers for Node.js that Matteo and I put together while we were creating [Pino](http://getpino.io/).
 
@@ -328,7 +328,7 @@ While the following is the same benchmarks using V8 6.1 (Turbofan):
 
 While all of the logger benchmarks improve in speed (by roughly 2x), the Winston logger derives the most benefit from the new Turbofan JIT compiler. This seems to demonstrate the speed convergence we see among various approaches in our microbenchmarks: the slower approaches in Crankshaft are significantly faster in Turbofan while the fast approaches in Crankshaft tend get a little slower Turbofan. Winston, being the slowest, is likely using the approaches which are slower in Crankshaft but much faster in Turbofan whereas Pino is optimized to use the fastest Crankshaft approaches. While a speed increase is observed in Pino, it’s to a much lesser degree.
 
-### SUMMARY
+### 总结
 
 Some of the benchmarks show that while slow cases in V8 5.1, V8 5.8 and 5.9 become faster with the advent of full Turbofan enablement in V8 6.0 and V8 6.1, the fast cases also slow down, often matching the increased speed of the slow cases.
 
