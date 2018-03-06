@@ -7,7 +7,7 @@
 
 # 为你的 React 应用制作 SVG 图标库
 
-使用 SVG 是目前来说为应用创建图标库的最好方法。通过 SVG 制作出来的图标是可缩放且可调整的，同时也是离散的，这意味着它们可以进行增量加载或更新。而与之相反，使用字体进行构建的图标是不能进行增量加载/更新的。仅这一点就使 SVG 图标成为了那些依赖于代码分离和增量部署的高性能应用的更佳选择。
+目前来说，使用 SVG 是为应用创建图标库的最好方法。通过 SVG 制作出来的图标是可缩放且可调整的，同时也是离散的，这意味着它们可以进行增量加载或更新。而与之相反，使用字体进行构建的图标是不能进行增量加载/更新的。仅这一点就使 SVG 图标成为了那些依赖于代码分离和增量部署的高性能应用的更佳选择。
 
 这篇文章描述了如何从一个 SVG 图标库中创建一个由 React 组件构成的包。尽管我会着重于 React 框架，然而制作任何其他类型的包也是同理的。在 Twitter 的项目中我使用了这篇文章介绍的几种不同方式来打包公司内部的 SVG 图标库，包括：优化过后的 SVG ，纯 JavaScript 模块，React Dom 组件，和 React Native 组件。
 
@@ -44,11 +44,11 @@ const Icon = (
 );
 ```
 
-然而图标最终是渲染到 SVG 的，这是一个不为组件使用者们所知的实现细节。
+然而图标最终是渲染成 SVG 的，这是一个不为组件使用者们所知的实现细节。
 
 ## 创建组件
 
-每个 React 组件都利用从 SVG 源文件里提取出的路径和维度数据渲染出了一个行内 SVG 图像。通过使用一个叫做 `createIconComponent` 的助手函数，我们只需寥寥几行模板代码便可从 SVG 数据中创建一个组件。
+每个 React 组件都利用从 SVG 源文件里提取出的路径和维度数据渲染出了一个行内 SVG 图像。使用 `createIconComponent` 助手函数，我们只需寥寥几行模板代码便可从 SVG 数据中创建一个组件。
 
 ```
 import createIconComponent from './utils/createIconComponent';
@@ -62,7 +62,7 @@ IconCamera.displayName = 'IconCamera';
 export default IconCamera;
 ```
 
-这是一个展示了 `createIconComponent` 这个函数在搭建像 [Twitter Lite](https://mobile.twitter.com/) 这样的 web 应用（这是使用 [React Native for Web](https://github.com/necolas/react-native-web) 搭建的）中的大概代码的例程。This is an example of what the `createIconComponent` function looks like when building components for a web app like [Twitter Lite](https://mobile.twitter.com/), which is built with [React Native for Web](https://github.com/necolas/react-native-web).
+这是一个使用 `createIconComponent` 函数在搭建像 [Twitter Lite](https://mobile.twitter.com/) 这样的 web 应用（使用 [React Native for Web](https://github.com/necolas/react-native-web) 搭建）时的一个例子。This is an example of what the `createIconComponent` function looks like when building components for a web app like [Twitter Lite](https://mobile.twitter.com/), which is built with [React Native for Web](https://github.com/necolas/react-native-web).
 
 ```
 // createIconComponent.js
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
     └── ...
 ```
 
-[编译脚本](https://github.com/necolas/icon-builder-example/blob/master/scripts/build.js)使用了 [SVGO](https://github.com/necolas/icon-builder-example/blob/master/scripts/svgOptimize.js) 来优化 SVG，提取 SVG 路径信息和元数据。之后例子中的 [React 打包工具]((https://github.com/necolas/icon-builder-example/blob/master/scripts/createReactPackage.js)) 使用了模板来创建 `package.json` 文件和那些需要首屏展示的 React 图标。
+[构建脚本](https://github.com/necolas/icon-builder-example/blob/master/scripts/build.js)使用了 [SVGO](https://github.com/necolas/icon-builder-example/blob/master/scripts/svgOptimize.js) 来优化 SVG，提取 SVG 路径信息和元数据。之后例子中的 [React 打包工具]((https://github.com/necolas/icon-builder-example/blob/master/scripts/createReactPackage.js)) 使用了模板来创建 `package.json` 文件和那些需要首屏展示的 React 图标。
 
 ```
 import createIconComponent from './utils/createIconComponent';
