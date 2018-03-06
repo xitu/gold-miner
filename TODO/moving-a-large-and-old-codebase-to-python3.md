@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/moving-a-large-and-old-codebase-to-python3.md](https://github.com/xitu/gold-miner/blob/master/TODO/moving-a-large-and-old-codebase-to-python3.md)
 > * 译者：[Starriers](https://github.com/Starriers)
-> * 校对者：[LynnShaw](https://github.com/LynnShaw)
+> * 校对者：[LynnShaw](https://github.com/LynnShaw),[steinliber](https://github.com/steinliber)
 
 # 将一个旧的大型项目迁移到 Python 3
 
