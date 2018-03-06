@@ -78,7 +78,7 @@ class HelloFlutter extends StatelessWidget {
 
 Flutter 中另外一个很棒的事情就是我们拥有非常丰富的内置 UI 组件目录。这里有两套组件 — [Material Design](https://flutter.io/widgets/material/) (适用于 Android) and [Cupertino](https://flutter.io/widgets/cupertino/) (适用于 iOS)。你可以很轻松的选择实现你想要的任何内容，你想创建一个 FloatingActionButton？走起：
 
-![](https://cdn-images-1.medium.com/max/1000/1*g4mc0mIvQva-m0cPo2nQYQ.gif)
+![1_g4mc0mIvQva-m0cPo2nQYQ.gif](https://i.loli.net/2018/03/06/5a9e7d7f976fd.gif)
 
 并且最棒的事情是你可以在任一平台上实现任意的组件，如果你使用了一些 Material Design 或者 Cupertino 组件，它们在每个 Android 和 iOS 上显示都是一样的，你不需要去担心有东西在不同设备上会看起来不同。
 
@@ -86,7 +86,7 @@ Flutter 中另外一个很棒的事情就是我们拥有非常丰富的内置 UI
 
 就像你在之前的 gif 图中所看到的，创建一个用户界面是非常简单的。这可能就需要感谢 Flutter 的核心理念了，就是**一切皆为小部件**。你的 APP 类是一个部件（[MaterialApp](https://docs.flutter.io/flutter/material/MaterialApp-class.html)），你的整个 layout 结构是一个部件（[Scaffold](https://docs.flutter.io/flutter/material/Scaffold-class.html)）， 基本上，所有的东西都是部件（[AppBar](https://docs.flutter.io/flutter/material/AppBar-class.html), [Drawer](https://docs.flutter.io/flutter/material/Drawer-class.html), [SnackBar](https://docs.flutter.io/flutter/material/SnackBar-class.html)）。你想让你的 View 居中显示吗？用 **Center** 组件来包裹（_Cmd/Ctrl + Enter_）它即可！
 
-![](https://cdn-images-1.medium.com/max/1000/1*tRCpkOeASzgpDX-q5aJ-3g.gif)
+![1_tRCpkOeASzgpDX-q5aJ-3g.gif](https://i.loli.net/2018/03/06/5a9e7da0a9c1d.gif)
 
 由于这一点，创建 UI 界面就像用许多不同的小部件组成 layout 一样简单。
 
