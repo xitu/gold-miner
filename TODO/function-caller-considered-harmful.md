@@ -2,7 +2,7 @@
 > * 原文作者：[Benedikt Meurer](https://medium.com/@bmeurer?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/function-caller-considered-harmful.md](https://github.com/xitu/gold-miner/blob/master/TODO/function-caller-considered-harmful.md)
-> * 译者：
+> * 译者：[yankwan](https://github.com/yankwan)
 > * 校对者：
 
 # function.caller 被认为是有害的
