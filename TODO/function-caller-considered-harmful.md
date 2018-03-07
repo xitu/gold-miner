@@ -7,7 +7,7 @@
 
 # function.caller 被认为是有害的
 
-今天我收到来自微软的 Patrick Kettner 提的这个问题，然而我发现这个问题是我已经回答过的，只不过是以稍微不同的方式回答而已。
+今天我收到来自微软的 Patrick Kettner 提的这个问题，然而我发现这个问题是我已经回答过的，只不每次的问题稍有不同而已。
 
 ![Snipaste_2018-03-05_14-09-37.png](https://i.loli.net/2018/03/05/5a9cdf3029af2.png)
 
@@ -29,11 +29,11 @@ JavaScript 在历史上曾提供了一个有魔力的 foo.caller 属性，它可
 
 > 如果扩展非严格模式或内置函数对象的时候，将对象自己的属性命名为 "caller" ，并且它的值通过 [[Get]] 或者 [[GetOwnProperty]] 定义的话，这种情况下必须保证不是严格模式。如果它是作为一个访问器属性，通过 [[Get]] 属性获取它的值将会返回调用它的函数，那么这个时候不会返回严格模式下的函数。
 
-所以在非严格模式函数下的 "caller" 属性，或多或少完全实现了既定的行为。唯一的限制是如果有 yield 一个变量，那么这个变量一定不是严格模式下的函数。所以在非严格模式下，给 "caller" 赋一个默认值 42 是一个合理做法。显然实现中并没有这么做 —— 尽管有把这个添加到V8中的想法，同时现在也极不建议大家使用 foo.caller。
+所以在非严格模式函数下的 "caller" 属性，或多或少完全实现了既定的行为。唯一的限制是如果有 yield 一个变量，那么这个变量一定不是严格模式下的函数。所以在非严格模式下，给 "caller" 赋一个默认值 42 是一个合理做法。显然实现中并没有这么做 —— 尽管有把这个添加到 V8 中的想法，同时现在也极不建议大家使用 foo.caller。
 
 * * *
 
-这是我们目前如何在V8中实现这些（有误导性的）特性 —— 也正是如何在谷歌浏览器和 Node.js 中运行的。"caller" 这个属性在非严格模式函数中是一个特殊的访问器，其实现方法 [FunctionCallerGetter](https://cs.chromium.org/chromium/src/v8/src/accessors.cc?type=cs&l=1044) 在 accessors.cc 源码文件中实现，同时在该文件实现的还有核心的逻辑方法 [FindCaller](https://cs.chromium.org/chromium/src/v8/src/accessors.cc?type=cs&l=1000)。要理解下面这些规则可以说是比较困难的，但这就是当你在非严格模式下访问 foo.caller时我们底层代码所做的事： 
+这是我们目前如何在 V8 中实现这些（有误导性的）特性 —— 也正是如何在 Chrome 和 Node.js 中运行的。"caller" 这个属性在非严格模式函数中是一个特殊的访问器，其实现方法 [FunctionCallerGetter](https://cs.chromium.org/chromium/src/v8/src/accessors.cc?type=cs&l=1044) 在 accessors.cc 源码文件中实现，同时在该文件实现的还有核心的逻辑方法 [FindCaller](https://cs.chromium.org/chromium/src/v8/src/accessors.cc?type=cs&l=1000)。要理解下面这些规则可以说是比较困难的，但这就是当你在非严格模式下访问 foo.caller时我们底层代码所做的事： 
 
 1.  首先找到函数 foo 的最近一次的调用，例如 foo 的最后一次还没返回给调用方的调用。
 2.  如果当前 foo 不存在被调用的情况，则立即返回 null。
