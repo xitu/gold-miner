@@ -9,82 +9,80 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/1*Q5-y_Q5CnX4oKHnlM5vUOA.jpeg)
 
-[Kathleen Borgmeyer](https://www.flickr.com/photos/landhofgreaterswiss/) 的全部九只小狗。 
+[Kathleen Borgmeyer](https://www.flickr.com/photos/landhofgreaterswiss/) 的全部九只小狗。
 
-Lately, I’ve noticed a lot more ambient enthusiasm for research among both early stage start-ups and established organizations. Businesses have embraced the idea that meaningful innovation requires understanding their customers as humans with complex lives.
-
-最近，我注意到早期阶段的创业公司和老牌机构对研究的热情非常高涨。 企业已经认识到，要想进行有意义的创新就需要将客户理解为具有复杂生活的人类。
+最近，我注意到早期阶段的创业公司和老牌机构对研究的热情非常高涨。企业已经认识到，要想进行有意义的创新就需要将客户理解为具有复杂生活的人类。
 
 这真的不可思议。
 
-我也听到过许多相同的神话、误解和冲突。 所以，为了获得有益的 —— 因为我喜欢获得帮助 —— 这里有一份广泛分享的简单实用的设计清单（我确信，研究证明读者可以享受这份清单，就像可爱的小狗那样）。
+我也听到过许多相同的神话、误解和冲突。所以，为了获得有益的 —— 因为我喜欢获得帮助 —— 这里有一份广泛分享的简单实用的设计清单（我确信，研究证明读者可以享受这份清单，就像可爱的小狗那样）。
 
 #### 1. 让舒服变得不舒服
 
 _“我所知道的一切就是我什么都不知道。” — 苏格拉底_
 
-We’ve all been brought up to value answers and fear questions. We were rewarded for right answers at school and we are rewarded for bright ideas at work. No wonder so many people look for reasons to avoid doing research, especially qualitative research. Anxiety around looking less knowledgable runs deep. At least quant stuff has the comforting familiarity of standardized testing. Maintaining a research mindset means realizing that bias is rampant, certainty is an illusion, and any answer has a short shelf life. A good question is far more valuable in the long run. And you can’t ask good questions—meaning you can’t learn—until you admit you don’t have the answers.
+在我们成长过程中总是重视答案和恐惧问题。我们在学校获得正确的答案而获得奖励，我们因工作中的提出好点子而获得奖励。难怪有这么多人找理由避免做研究，特别是定性研究。很多人对于缺少资料的研究充满焦虑。至少定量的东西能舒舒服服的进行标准化测试。保持研究思维意味着你必须明白偏见无处不在、确定性犹如幻觉，答案只有短暂的保质期。从长远来看，一个好的问题更有价值。如果你不承认自己没有答案，你就不能提出很好的问题 —— 这意味着你将无法学习。
 
-#### 2. Ask first, prototype later
+#### 2. 先问，再做原型
 
-_“If we only test bottle openers, we may never realize customers prefer screw-top bottles.”—Victor Lombardi,_ [_Why We Fail_](http://rosenfeldmedia.com/books/why-we-fail/)
+_“如果我们只测试开瓶器，我们可能永远不会意识到客户更喜欢螺旋瓶。”—Victor Lombardi,_ [_为什么我们会失败_](http://rosenfeldmedia.com/books/why-we-fail/)
 
-So, of course there is a rush to prototype and test the prototype. A prototype is an answer, and it’s tangible, even if it’s simply a sketch on paper. This is comfortable, much more comfortable than just asking questions, even if it is tantamount to setting a large pile of money on fire. To anyone concerned about demonstrating their value by making fast, visible progress, simply asking questions feels as productive as a [raccoon washing cotton candy](https://www.youtube.com/watch?v=qkTzDh8IKNU).
+当然赶快做原型并对原型进行测试。原型是一个有形的答案，即使它只是一份在纸上的素描。这比提问要舒服多了，即使这无异于烧掉了一大笔钱。对于任何关注通过快速，明显的进步展示其价值的人来说，仅仅提问就像[浣熊清洗棉花糖](https://www.youtube.com/watch?v=qkTzDh8IKNU)一样富有成效。
 
-The danger in prototyping too soon is investing resources in answering a question no one asked, and ignoring the opportunity cost. Testing a prototype can help you refine an idea that is already good, not tell you whether you’re solving the right problem. And it’s easy to mistake the polish of a prototype for the quality of the idea (*cough* Juicero *cough*). FWIW, it’s also easy to mistake the gloss of a research report for the value of the insights.
+过早制作原型的危险是投资资源来回答没人问的问题，并忽略机会成本。测试一个原型可以帮助你完善已经很好的想法，而不是告诉你是否解决了正确的问题。而且很容易将原型的改善误认为是想法的质量（*cough* Juicero *cough*）。FWIW，也很容易将研究报告的亮度误认为洞察力的价值。
 
-Instead of saving and defending weak ideas, asking the right questions helps you identify and eradicate bad ideas faster. You just have to be strong enough to embrace being wrong.
+提出正确的问题可以帮助您更快地识别并消除不良想法，而不是保存和捍卫无力的想法。你必须足够强大才能接受错误。
 
-#### 3. Know your goal
+#### 3.了解你的目标
 
-Asking questions is a waste of time unless you know your reason for doing so _in advance_. And you have to publicly swear that your reason is not “to be proven right.” That is _everyone’s_ secret goal. See #1.
+提出问题是浪费时间，除非你_事先_知道你的理由。而且你必须公开宣称你的理由不是“被证明是正确的”。这是_每个人_的秘密目标。见＃1。
 
-Often, in the enthusiasm to embrace research, teams will start talking to customers without a clear, shared goal. And then afterwards, they feel like they spent precious time with no idea how to apply what they learned, hence nothing to show for it. This leads to statements like “We tried doing research last year and it was a waste of time.” And, thus, a return to the comfort of building and testing. Or, they walk away with different interpretations of what they heard, which leads to more arguments about who was proven right.
+通常，以热情接受研究，团队将开始与客户交谈，但没有明确的共同目标。然后，他们觉得他们花了宝贵的时间，不知道如何应用他们学到的东西，因此没有什么可以展示的。这导致了诸如“我们去年尝试做研究并且浪费时间”这样的陈述。因此，恢复到构建和测试的舒适度。或者，他们对他们所听到的内容有不同的解释，这会导致更多关于谁被证明是正确的争论。
 
-In large organizations, the unspoken goal is sometimes “demonstrate a commitment to research while allowing our product leaders to do what they want.” This might sound cynical but I’ve talked to many skilled practitioners in well-funded research departments who generate magnificent reports that have zero impact on decision-making. Acknowledging this happens is the first step to stopping it.
+在大型组织中，不言而喻的目标有时“表现出对研究的承诺，同时允许我们的产品领导者做他们想做的事情”。这听起来可能很愤世嫉俗，但我曾与许多资深研究部门的熟练从业人员交谈过，对决策影响不大。承认这种情况是阻止它的第一步。
 
-It is perfectly fine, and a great place to start, for your goal to be “We need to level-set and [quickly understand the perspective of people who aren’t us](https://medium.com/research-things/minimum-viable-ethnography-a047e9358df0).” Just don’t tack on other goals after the fact.
+这绝对是好的，也是一个很好的开始，因为你的目标是“我们需要确定层次并[快速理解那些不是我们的人的观点](https://medium.com/research-things/minimum-viable-ethnography-a047e9358df0)”。在事实发生之后，不要着眼于其他目标。
 
-Only after you have a goal will you know what you need to know. And you have to know your question before you can choose how to answer it.
+只有在你有一个目标之后，你才会知道你需要知道什么。你必须知道你的问题，然后才能选择如何回答它。
 
-#### 4. Agree on the big questions
+#### 4. 在大的问题上达成一致
 
-_“At its core, all business is about making bets on human behavior.”
- — _[_The Power of ‘Thick’ Data_](https://www.wsj.com/articles/the-power-of-thick-data-1395443491)_, WSJ_
+_“所有业务的核心都是关于人类行为的赌注。”
+ ——— _[‘Thick’ 数据的力量](https://www.wsj.com/articles/the-power-of-thick-data-1395443491)_, WSJ_
 
-The quality of your question determines the utility of the results. Asking the wrong question is the same as prototyping a solution to the wrong problem. They will both give you something other than what you need. Start with your high-priority questions. These come from the assumptions or areas of ignorance that carry the most risk if you’re wrong.
+问题的质量决定了结果的实用性。提出错误的问题如同对错解决误问题的方法建立原型。他们都会给你一些你需要的东西。从您的高优先级问题开始。这些来自无知的假设或领域，如果你错了，它们会带来最大的风险。
 
-**The big research question is what you want to know, not what you ask in an interview.** In fact, asking your research question directly is often the worst way to learn anything. People often don’t know or are unwilling to admit to their true behaviors, but everyone is really good at making up answers.
+**大问题是你想知道的，而不是你在面试时要问的问题。**事实上，直接询问你的研究问题通常是学习任何事情的最糟糕的方式。人们通常不知道或不愿意承认自己的真实行为，但每个人都非常善于提出答案。
 
-Design research gets conflated with user research all the time. Talking to representative users is just one of [many ways of answering high-priority research questions](https://abookapart.com/products/just-enough-research). Not everything you need to know is about users.
+设计研究一直与用户研究混为一谈。与用户代表交谈只是[回答高优先级研究问题的众多方法之一](https://abookapart.com/products/just-enough-research)。并非所有你需要知道的都是关于用户的。
 
-Often the most critical question is a variation of “Based on evidence, what do we _really_ know about our customers/competition/internal capabilities?” This can be a particularly terrifying one to approach in total honesty, but you should be able to answer it within the hour.
+通常最关键的问题类似于“基于证据，关于我们的客户/竞争对手/内部能力，我们_真正_了解的是什么？”。这可能是一个非常可怕的方法，但是在一小时内您应该能够回答它。
 
-#### 5. There is always enough time and money
+#### 5. 总是有足够的时间和资金
 
-When research is defined as a type of work outside of design, it’s easy to define gathering evidence as something extra and find reasons not to do it.
+当研究被定义为设计之外的一种工作类型时，很容易将收集证据定义为额外的工作，并找借口不去这么做。
 
-Often, teams have to ask permission of someone with authority in order to do work that is categorized as research. [Asking questions is inherently threatening to authority](https://deardesignstudent.com/the-secret-cost-of-research-fbe95739afdd). If you’ve ever worked with a leader who was resistant to doing qualitative research as part of a million dollar project, ask yourself whether they would skip doing their own research before buying a $50,000 car. Stated objections are often cover for a fear of being undermined or proven wrong or not looking productive in the right way.
+通常，团队必须征得权威人士的许可才能开展相关的研究工作。[提出问题本身就是对权威的威胁](https://deardesignstudent.com/the-secret-cost-of-research-fbe95739afdd)。如果你曾经与一位抵制定性研究的领导者一起工作，作为一个价值百万美元的项目的一部分，问问自己是否会在购买价值5万美元的汽车之前跳过自己的研究。陈述的反对意见往往被掩盖，因为害怕被破坏或被证明是错误的或者没有以正确的方式寻找生产力。
 
-If you are clear and candid about your goals and high-priority questions, you can learn something useful within whatever time and budget is available to you. Find studies online. Go outside during lunch and observe people. Usability test someone else’s product. Get creative.
+如果您对自己的目标和高优先级问题清楚坦率，那么您可以在任何时间和预算内获得有用的信息。在线查找研究资料。在午餐时间到外面去观察他人。测试别人产品的通用性。获得创意。
 
-Just [avoid doing surveys](https://medium.com/mule-design/on-surveys-5a73dda5e9a0).
+[避免做调查](https://medium.com/mule-design/on-surveys-5a73dda5e9a0)。
 
-#### 6. Don’t expect data to change minds
+#### 6. 不要期望用数据改变想法
 
-_“It is difficult to get a man to understand something, when his salary depends on his not understanding it.”—Upton Sinclair_
+_“当一个人的薪水有限时，很难让他理解某些东西。”—Upton Sinclair_
 
-This is often a hard one for highly-trained, specialist researchers to embrace, even though [research has demonstrated it to be true](https://www.newyorker.com/magazine/2017/02/27/why-facts-dont-change-our-minds). If you are used to working with a community of peers who value a certain kind of data, you may be ill-equipped to convince people who reject it out of hand. And it can feel insulting to one’s professional competence that the data is not enough.
+尽管[研究证明它是真实的](https://www.newyorker.com/magazine/2017/02/27/why-facts-dont-change-our-minds)，但对于训练有素的专业研究人员来说，这通常是一个难题。如果您习惯与重视某种数据的同行社区合作，那么您可能没有足够的能力说服拒绝它的人。对于个人的专业能力来说，数据是不够的。
 
-The whole point of gathering evidence is to make evidence-based decisions. If that evidence undermines or contradicts the ideas of beliefs of the person with authority to make decisions, they will find reasons to reject it or ignore it. This is also at the heart of why qualitative researchers have a hard time in some engineering-driven organizations. People who are comfortable and competent with numbers want answers in numbers, even if the question demands something more descriptive.
+收集证据的重点在于做出基于证据的决定。如果这些证据破坏或违背了有权作出决定的人的信念，他们会找到拒绝或忽视的理由。这也是定性研究人员在一些工程驱动的组织中难以为继的核心。对数字感觉舒适且能胜任的人希望得到数字答案，即使这个问题需要更具描述性的东西。
 
-So you have to turn ethnography inward and [learn how your peers and leaders make decisions](https://medium.com/mule-design/everyday-empathy-6a475e03fd81) before you try to use data to influence those decisions.
+因此，在尝试使用数据来影响这些决策之前，您必须将民族意志带入其中并[了解您的同事和领导人如何做出决定](https://medium.com/mule-design/everyday-empathy-6a475e03fd81) 。
 
-#### 7. Embrace messy imperfection
+#### 7. 拥抱不完美
 
-_“We’re fickle, stupid beings with poor memories and a great gift for self destruction.” ― Suzanne Collins, Mockingjay_
+_“人类是多变、愚蠢而健忘的动物，在自我毁灭方面倒是才智出众。” ― Suzanne Collins, Mockingjay_
 
-Human lives are messy. If people didn’t have problems, there would be no need for products and services to solve them and we wouldn’t have jobs. Figuring out the best way to solve problems for people requires some time out in the real, messy world and letting go of a certain amount of control. While an ethical, sufficiently rigorous approach is necessary, there is no qualitative clean room. A clear goal and a good question can withstand all sorts of unpredictable conditions.
+人的生活是混乱的。 如果人们没有问题，就不需要产品和服务来解决问题，我们也就没有工作。 找出为人们解决问题的最佳方式，需要在真实、混乱的世界中放下一段时间，并放开一定的控制。 尽管必须遵守道德和严谨的方法，但也没有一片净土。 一个明确的目标和一个好问题可以承受各种不可预测的情况。
 
 The desire for tidy, comfortable activities that look and feel like expertise made visible leads to the inappropriate use of [focus groups](https://medium.com/mule-design/focus-groups-are-worthless-7d30891e58f1), usability labs, eye-tracking, [surveys](https://medium.com/mule-design/on-surveys-5a73dda5e9a0), and glossy reports when something much less formal would be much more effective.
 
