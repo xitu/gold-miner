@@ -2,21 +2,20 @@
 > * 原文作者：[Wojtek Kaliciński](https://medium.com/@wkalicinski?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/enabling-proguard-in-an-android-instant-app.md](https://github.com/xitu/gold-miner/blob/master/TODO/enabling-proguard-in-an-android-instant-app.md)
-> * 译者：
-> * 校对者：
+> * 译者：[JayZhaoBoy](https://github.com/JayZhaoBoy)
+> * 校对者：[hanliuxin5](https://github.com/hanliuxin5)
 
 # 在 Android Instant App（安卓即时应用程序）中启用 ProGuard （混淆）
 
+**_更新于 2018–01–18:_** _指南第五步中的重要更新，是对非基础模块的必要补充_
 
-**_更新于 2018–01–18:_** _指南第五步中的更新，是对非基础模块的必要补充_
+### Instant Apps（即时应用）和 4 MB 字节的限制
 
-### Instant Apps（即时应用）和 4 兆字节的限制
+把一个已经存在的应用程序转换成 [Android Instant App（安卓即时应用程序）](https://developer.android.com/topic/instant-apps/index.html)是很有挑战性的，但对于[模块化并重构你的项目](https://developer.android.com/topic/instant-apps/getting-started/structure.html)而言却是一个很好的练习，更新 SDKs（开发工具包）并遵守所有的 [Instant Apps（即使应用程序）沙箱限制](https://developer.android.com/topic/instant-apps/getting-started/prepare.html)以确保即时应用程序的安全和加载速度。
 
-用 [Android Instant App（安卓即时应用程序）](https://developer.android.com/topic/instant-apps/index.html)覆盖一个已经存在的应用程序是很有挑战性的，但对于[模块化并重构你的项目](https://developer.android.com/topic/instant-apps/getting-started/structure.html)而言却是一个很好的练习，更新 SDKs（开发工具包）并遵守所有的 [Instant Apps（即使应用程序）沙箱限制](https://developer.android.com/topic/instant-apps/getting-started/prepare.html)以确保即时应用程序的安全和加载速度。
+其中一项限制规定，对于即时应用处理的每个 URL，传送到客户端设备上的功能模块和基本模块的总大小不得超过 4 MB 字节。
 
-其中一项限制规定，对于即时应用处理的每个 URL，传送到客户端设备上的功能模块和基本模块的总大小不得超过 4 兆字节。
-
-想一下你的项目中可能存在的典型的 _common（公共）_ 模块（在 Instant Apps（即时应用程序）术语中，我们将称这个模块为 _base feature（基础功能）_ 模块）：它可能依赖于支持库的许多部分，包含 SDK，图像加载库，公共网络代码等等。这些大量的代码通常只是为了启动，因此不能为实际功能模块代码和资源留出足够的空间来解决 4 兆字节的限制。
+想一下你的项目中可能存在的典型的 _common（公共）_ 模块（在 Instant Apps（即时应用程序）术语中，我们将称这个模块为 _base feature（基础功能）_ 模块）：它可能依赖于支持库的许多部分，包含 SDK，图像加载库，公共网络代码等等。这些大量的代码通常只是为了启动，因此不能为实际功能模块代码和资源留出足够的空间来解决 4 MB 字节的限制。
 
 这里有许多[通用](https://developer.android.com/topic/performance/reduce-apk-size.html)和 [安卓即时程序专用（AIA 意为 Android Instant Apps）](https://android-developers.googleblog.com/2017/08/android-instant-apps-best-practices-for.html)的技术可以减少 APK 大小，你应该都去了解一下，但使用 ProGuard（混淆）来移除未使用的代码对 nstant Apps（即使应用程序）而言却是必不可少的，通过丢弃那些你从来不会使用的导入库和代码将有助于缩减所有的这些依赖。
 
@@ -189,9 +188,9 @@ release {
 
 * * *
 
-希望本指南能够让你更好地理解为什么 ProGuard（混淆）可以使你的即时应用程序崩溃。 遵循这些步骤应该带你完成构建，并停止即时应用程序崩溃。
+希望本指南能够让你更好地理解为什么 ProGuard（混淆）可以使你的即时应用程序崩溃。遵循这些步骤应该带你完成构建，并停止即时应用程序崩溃。
 
-你可以在 GitHub 上看看最新的一些使用 ProGuard（混淆）配置的[即时应用示例](https://github.com/googlesamples/android-instant-apps/blob/master/multi-feature-module/proguard.pro) 来和你的向比较，或者练习本文中介绍的相关示例项目的方法。
+你可以在 GitHub 上看看最新的一些使用 ProGuard（混淆）配置的[即时应用示例](https://github.com/googlesamples/android-instant-apps/blob/master/multi-feature-module/proguard.pro) 来和你的相比较，或者练习本文中介绍的相关示例项目的方法。
 
 我承认可以通过设置每个方法的保留规则而不是每个类来改进上面的解决方案（引用方法列表的命令是：`apkanalyzer dex packages detail-debug.apk | grep“^ M r”| cut - f4`），这可能节省出更大的空间。但这会让本教程的其余部分（例如筛选框架类）变得更加复杂，所以我将它作为练习给读者你。
 
