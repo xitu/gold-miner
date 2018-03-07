@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/Using-Flutter-in-China.md](https://github.com/xitu/gold-miner/blob/master/TODO/Using-Flutter-in-China.md)
 > * 译者：[mysterytony](https://github.com/mysterytony)
-> * 校对者：
+> * 校对者：[hanliuxin5](https://github.com/hanliuxin5), [Starriers](https://github.com/Starriers)
 
 # 在中国使用 Flutter
 
