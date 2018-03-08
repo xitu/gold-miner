@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/typescript-javascript-with-super-powers.md](https://github.com/xitu/gold-miner/blob/master/TODO/typescript-javascript-with-super-powers.md)
 > * 译者：[jonjia](https://github.com/jonjia)
-> * 校对者：
+> * 校对者：[moods445](https://github.com/moods445) [goldEli](https://github.com/goldEli)
 
 # TypeScript：拥有超能力的 JavaScript
 
@@ -21,7 +21,7 @@ TypeScript (上) 对比 ES6 (下)
 
 **TypeScript 可以看出来。**看到那个红色的下划线了吗？这就是 TypeScript 给我们的错误提示。
 
-你可能已经发现了这个问题（干的漂亮） — `toUpperCase()` 是 String 的方法，我们将一个整型作为参数传递过去，显然无法调用整型的`toUpperCase()` 方法。
+你可能已经发现了这个问题（干的漂亮） — `toUpperCase()` 是 String 的方法，我们将一个整型作为参数传递过去，显然不能在整型上调用 `toUpperCase()` 方法。
 
 我们通过声明 `nameToUpperCase()` 方法的参数只能为 `string` 类型来修复这个问题。
 
@@ -47,7 +47,7 @@ TypeScript vs Flow 下载量对比
 
 让我们开始探索 TypeScript 的世界 — 在深入探究之前，先来了解下 TypeScript 究竟是什么以及为什么存在。
 
-[TypeScript 于 2012 年 10 月 1 日正式开源。](https://en.wikipedia.org/wiki/TypeScript) 由 Microsoft 开发维护，[C#](https://en.wikipedia.org/wiki/C_Sharp_%28programming_language%29) 的首席架构师 [Anders Hejlsberg](https://en.wikipedia.org/wiki/Anders_Hejlsberg) 以及他的团队参与了 TypeScript 的开发。
+[TypeScript 于 2012 年 10 月 1 日正式开源。](https://en.wikipedia.org/wiki/TypeScript) 由 Microsoft 开发维护，[C#](https://en.wikipedia.org/wiki/C_Sharp_%28programming_language%29) 的首席架构师 [Anders Hejlsberg](https://en.wikipedia.org/wiki/Anders_Hejlsberg) 带领他的团队参与了 TypeScript 的开发。
 
 [TypeScript](https://www.typescriptlang.org/) 在 GitHub 上完全开源，所以任何人都可以阅读它的 [源码](https://github.com/Microsoft/TypeScript) 并做出贡献。
 
@@ -99,9 +99,9 @@ JavaScript 有 7 种数据类型，其中 6 种是基础类型，剩下的被定
 
 #### 剩下的都是 [**objects**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)
 
-*   [Functions are first class objects](https://en.wikipedia.org/wiki/Function_object#In_JavaScript)
-*   [Arrays are special objects](https://stackoverflow.com/a/5048482/5073961)
-*   [Prototypes are objects](http://raganwald.com/2015/06/10/mixins.html)
+*   [函数是头等对象](https://en.wikipedia.org/wiki/Function_object#In_JavaScript)
+*   [数组是特殊的对象](https://stackoverflow.com/a/5048482/5073961)
+*   [原型是对象](http://raganwald.com/2015/06/10/mixins.html)
 
 ![](https://cdn-images-1.medium.com/max/800/1*9FeYC-4ZEsKAQ565pEdTqw.png)
 
@@ -113,7 +113,7 @@ TypeScript 支持与 JavaScript 相同的基础类型，此外还提供了一些
 
 ![](https://cdn-images-1.medium.com/max/800/1*QlcVGtDb2FVJjkQRIh6gLQ.png)
 
-元组就是组织好结构的数组，只是按照顺序定义好数组元素的类型
+元组（tuple）就是组织好结构的数组，只是按照顺序定义好数组元素的类型
 
 ![](https://cdn-images-1.medium.com/max/800/1*tF_IxeUVobcsA2BiBbConA.png)
 
@@ -123,7 +123,7 @@ TypeScript 支持与 JavaScript 相同的基础类型，此外还提供了一些
 
 ![](https://cdn-images-1.medium.com/max/800/1*6LvBeYZZrPTaxNIBkzQKAQ.png)
 
-元组定义了第一个元素是 `number` 类型，但赋值时并不是 `number` 类型，而是一个值为 `"Indrek"` 的 `string` 类型。所以编译结果会报错。
+元组定义了第一个元素是 `number` 类型，但赋值时并不是 `number` 类型，而是一个值为 `"Indrek"` 的 `string` 类型，所以编译结果会报错。
 
 * * *
 
@@ -185,7 +185,7 @@ TypeScript 支持与 JavaScript 相同的基础类型，此外还提供了一些
 
 - [**Indrek Lasn (@lasnindrek) | Twitter**: The latest Tweets from Indrek Lasn (@lasnindrek). business propositons: lasnindrek@gmail.com. Zurich, Switzerland twitter.com](https://twitter.com/lasnindrek)
 
-感谢阅读，你很棒！
+感谢阅读！
 
 
 ---
