@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/express-js-and-aws-lambda-a-serverless-love-story.md](https://github.com/xitu/gold-miner/blob/master/TODO/express-js-and-aws-lambda-a-serverless-love-story.md)
 > * 译者：[刘嘉一](https://github.com/lcx-seima)
-> * 校对者：
+> * 校对者：[FateZeros](https://github.com/FateZeros)，[Han Song](https://github.com/song-han)
 
 # Express.js 与 AWS Lambda — 一场关于 serverless 的爱情故事
 
@@ -31,7 +31,7 @@ app.listen(port, () =>
 )
 ```
 
-如果将上面的代码片段保存为 _app.js_，那么再需三步你就可以让这个简单的 Express App 运行起来。
+如果将上面的代码片段保存为 **app.js**，那么再需三步你就可以让这个简单的 Express App 运行起来。
 
 1.  首先将终端的工作目录切换到 `app.js` 所在的文件夹，之后执行 `npm init -y` 命令以初始化一个新的 Node.js 项目。
 2.  使用终端执行 `npm install express --save` 命令以从 NPM 安装 Express 模块。
@@ -73,7 +73,7 @@ app.listen(port, () =>
 
 走投无路的你愿意尝试一切方法 ”挽救“ 你的应用，管它是 Serverless 还是其他什么黑魔法。“不过，这个 Serverless 究竟是个什么东西呢?”
 
-你翻阅了数个网页，包括 “Serverless Apps with Node and Claudia.js” 这本书的 [第一章试读](https://livebook.manning.com/?utm_source=twitter&utm_medium=social&utm_campaign=book_serverlessappswithnodeandclaudiajs&utm_content=medium#!/book/serverless-apps-with-node-and-claudiajs/chapter-1/) 页（由 Manning Publications Co. 出版）。
+你翻阅了数个网页，包括 “Serverless Apps with Node and Claudia.js” 这本书的 [第一章试读](https://livebook.manning.com/?utm_source=twitter&utm_medium=social&utm_campaign=book_serverlessappswithnodeandclaudiajs&utm_content=medium#!/book/serverless-apps-with-node-and-claudiajs/chapter-1/)（由 Manning Publications Co. 出版）。
 
 在这一章中，作者使用洗衣机类比说明了 Serverless 的原理，这听起来很疯狂不过解释起原理来还蛮有用。你的应用已经到了 🔥 烧眉毛的地步了，因此你决定马上试试 Serverless。
 
@@ -123,7 +123,7 @@ app.listen(port, () =>
 node app.local.js
 ```
 
-为了将你的应用接入 AWS Lambda，你还需要编写一些代码将你的 Express App ”包裹“ 一番。在 Claudia 的帮助下，你只需要在终端中执行一条命令就可以生成 AWS Lambda 需要的 ”包裹“ 代码了：
+为了将你的应用正确接入 AWS Lambda，你还需要编写一些代码将你的 Express App ”包裹“ 一番。在 Claudia 的帮助下，你只需要在终端中执行一条命令就可以生成 AWS Lambda 需要的 ”包裹“ 代码了：
 
 ```
 claudia generate-serverless-express-proxy --express-module app
@@ -195,7 +195,7 @@ claudia create --handler lambda.handler --deploy-proxy-api --region eu-central-1
 
 图注：你的 Serverless App 真是太替你省钱了！
 
-想了解更多关于接入 Serverless 带来的好处，请点击查看 [这篇](https://hackernoon.com/7-ways-your-business-will-benefit-through-serverless-522b3f628a33) 文章。
+想了解更多关于使用 Serverless 带来的好处，请点击查看 [这篇](https://hackernoon.com/7-ways-your-business-will-benefit-through-serverless-522b3f628a33) 文章。
 
 ### Serverless Express.js App 的短板
 
@@ -207,13 +207,13 @@ claudia create --handler lambda.handler --deploy-proxy-api --region eu-central-1
 
 下面是 Serverless Express App 一些最 “致命” 的短板：
 
-*   _Websockets_ 无法在 AWS Lambda 中使用。这是因为在 AWS Lambda 中，若应用没有任何的访问，那么你的服务器在客观上也是不存在的。[AWS IOT websockets over MQTT protocol](https://docs.aws.amazon.com/iot/latest/developerguide/protocols.html#mqtt) 可以提供一个 “阉割” 版的 Websockets 支持。
-*   _上传_ 文件到文件系统同样是无法工作的，除非你的上传目录是 `/tmp` 文件夹。这是因为 AWS Lambda function 对文件系统是只读的，即使你将文件上传到了 `/tmp` 文件夹，它们也只会在 function 处于 “工作态” 时存在。为确保你应用中的上传功能运转正常，你应当把文件上传并保存到 AWS S3 上。
-*   _执行限制_ 也将影响你的 Serverless Express App 功能。例如 API Gateway 有 30 秒的超时时间限制，AWS Lambda 最大执行时间不能超过 5 分钟等。
+*   **Websockets** 无法在 AWS Lambda 中使用。这是因为在 AWS Lambda 中，若应用没有任何的访问，那么你的服务器在客观上也是不存在的。[AWS IOT websockets over MQTT protocol](https://docs.aws.amazon.com/iot/latest/developerguide/protocols.html#mqtt) 可以提供一个 “阉割” 版的 Websockets 支持。
+*   **上传** 文件到文件系统同样是无法工作的，除非你的上传目录是 `/tmp` 文件夹。这是因为 AWS Lambda function 对文件系统是只读的，即使你将文件上传到了 `/tmp` 文件夹，它们也只会在 function 处于 “工作态” 时存在。为确保你应用中的上传功能运转正常，你应当把文件上传并保存到 AWS S3 上。
+*   **执行限制** 也将影响你的 Serverless Express App 功能。例如 API Gateway 有 30 秒的超时时间限制，AWS Lambda 最大执行时间不能超过 5 分钟等。
 
 这仅仅算是你的应用与 AWS Lambda 之间关于 Serverless 爱情故事的一个序章，期待尽快涌现更多的爱情故事！
 
-_如往常一样，感谢来自我的朋友_ [_Aleksandar Simović_](https://twitter.com/simalexan) _以及_ [_Milovan Jovičić_](https://twitter.com/violinar) _的帮助和对文章的反馈意见。_
+**如往常一样，感谢来自我的朋友 [Aleksandar Simović](https://twitter.com/simalexan) 以及 [Milovan Jovičić](https://twitter.com/violinar) 的帮助和对文章的反馈意见。**
 
 > 所有的插图均是使用 [SimpleDiagrams4](https://www.simplediagrams.com) 创作的。
 
