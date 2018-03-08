@@ -11,7 +11,7 @@
 
 ### Instant Apps（即时应用）和 4 MB 字节的限制
 
-把一个已经存在的应用程序转换成 [Android Instant App（安卓即时应用程序）](https://developer.android.com/topic/instant-apps/index.html)是很有挑战性的，但对于[模块化并重构你的项目](https://developer.android.com/topic/instant-apps/getting-started/structure.html)而言却是一个很好的练习，更新 SDKs（开发工具包）并遵守所有的 [Instant Apps（即使应用程序）沙箱限制](https://developer.android.com/topic/instant-apps/getting-started/prepare.html)以确保即时应用程序的安全和加载速度。
+把一个已经存在的应用程序转换成 [Android Instant App（安卓即时应用程序）](https://developer.android.com/topic/instant-apps/index.html)是很有挑战性的，但对于[模块及结构化你的项目](https://developer.android.com/topic/instant-apps/getting-started/structure.html)而言却是一个很好的练习，更新 SDKs（开发工具包）并遵守所有的 [Instant Apps（即时应用程序）沙箱限制](https://developer.android.com/topic/instant-apps/getting-started/prepare.html)以确保即时应用程序的安全和更快的加载速度。
 
 其中一项限制规定，对于即时应用处理的每个 URL，传送到客户端设备上的功能模块和基本模块的总大小不得超过 4 MB 字节。
 
@@ -19,11 +19,11 @@
 
 这里有许多[通用](https://developer.android.com/topic/performance/reduce-apk-size.html)和 [安卓即时程序专用（AIA 意为 Android Instant Apps）](https://android-developers.googleblog.com/2017/08/android-instant-apps-best-practices-for.html)的技术可以减少 APK 大小，你应该都去了解一下，但使用 ProGuard（混淆）来移除未使用的代码对 nstant Apps（即使应用程序）而言却是必不可少的，通过丢弃那些你从来不会使用的导入库和代码将有助于缩减所有的这些依赖。
 
-即使[对于常规项目](https://medium.com/google-developers/troubleshooting-proguard-issues-on-android-bce9de4f8a74)配置 ProGuard（混淆）也是很有挑战性的，更何况是 Instant App（即时应用），但你启动的时候，你几乎肯定会遇到构建失败或者程序崩溃的情况。当 ProGuard（混淆）集成到 Android 构建中时，新的 `com.android.feature` Gradle 插件（用于构建 AIA （安卓即时应用程序）模块）根本不存在，并且 ProGuard（混淆）没有考虑模块在运行时如何加载在一起。
+即使[对于常规项目](https://medium.com/google-developers/troubleshooting-proguard-issues-on-android-bce9de4f8a74)配置 ProGuard（混淆）也是很有挑战性的，更何况是 Instant App（即时应用），当你启动的时候，你几乎肯定会遇到构建失败或者程序崩溃的情况。当 ProGuard（混淆）集成到 Android 构建中时，新的 `com.android.feature` Gradle 插件（用于构建 AIA （安卓即时应用程序）模块）根本不存在，并且 ProGuard（混淆）没有考虑模块在运行时如何加载在一起。
 
 幸运的是，你可以一步一步按照下面的流程进行操作，这样可以更轻松地为你的 Instant App（即时应用程序）配置 ProGuard（混淆），本文将对此进行概述。
 
-### 了解问题 - 两个方式
+### 问题剖析 － 两种不同的构建方式
 
 在一个典型的场景中，在模块化应用程序并使用新的 Gradle 插件后，您的项目结构将如下所示：
 
@@ -36,19 +36,19 @@
 
 **当构建一个可安装的应用程序时，ProGuard（混淆）会在构建过程结束时运行**。功能模块的行为与库相似，它们都将代码和资源提供给编译的最后阶段，在应用程序模块中这些都发生在将所有东西打包成一个 APK 之前。在这种情况下，ProGuard（混淆）能够分析你的整个代码库，找出哪些类被使用，哪些可以被安全地删除。
 
-**在即时应用程序构建中，每个功能模块都会生成自己的 APK。**因此，与可安装的应用程序构建相反，** ProGuard（混淆）可以独立运行在每个功能模块的代码中**。例如：基本特征编译，代码缩减和打包发生时无需查看特征 1 和 2 中包含的任何代码。
+**在即时应用程序构建中，每个功能模块都会生成自己的 APK。**因此，与可安装的应用程序构建相反，**ProGuard（混淆）可以独立运行在每个功能模块的代码中**。例如：base feature 编译，代码缩减和打包发生时无需查看 feature 1 和 2 中包含的任何代码。
 
-简单地说：如果你的基本功能包含的公共元素（例如 AppCompat 小部件）仅在功能 1 和/或功能 2 中使用但并未在基本功能本身中，则这些元素将被 ProGuard（混淆）删除， 导致运行时崩溃。
+简单地说：如果你的 base feature 包含的公共元素（例如 AppCompat 小部件）仅在功能 1 和/或功能 2 中使用但并未在基本功能本身中，则这些元素将被 ProGuard（混淆）删除，导致运行时崩溃。
 
 现在我们明白了为什么 ProGuard（混淆）会失败了，是时候解决这个问题了：确保我们为项目配置添加必要的保留规则，**以防止在不同模块（在一个模块中定义，在另一个中使用）之间的类被移除或混淆。**
 
-### 一步一步的解决方案
+### 层层深入的解决方案
 
 #### 1. 在你构建你的可安装程序中启用 ProGuard（混淆）并修复所有的运行时异常
 
 这是最困难的部分，也是唯一不容易复现的部分，因为每个项目所需的 ProGuard（混淆）配置规则会有所不同。我建议在处理 ProGuard（混淆）错误前熟读 [Android Studio 文档](https://developer.android.com/studio/build/shrink-code.html)，[ProGuard （混淆）手册](https://www.guardsquare.com/en/proguard/manual/introduction) 以及我的[上一篇文章](https://medium.com/google-developers/troubleshooting-proguard-issues-on-android-bce9de4f8a74) 。
 
-接下来我们将在即时应用程序 ProGuard（混淆）配置相应的规则。
+接下来我们将在即时应用程序 ProGuard（混淆）配置来自可安装应用中的规则。
 
 #### 2. 为你所有的即时应用功能启用 ProGuard（混淆）
 
@@ -72,11 +72,11 @@ android {
 
 如果你愿意，不必为每个功能创建单独的规则文件，您可以使用相对路径（例如「../ aia-proguard-rules.pro」）将所有功能模块指向单个文件。
 
-#### 3. 在代码中为模块间使用的类添加保留规则
+#### 3. 为从代码中使用了跨模块的类添加保留规则
 
-我们需要从功能 APKs 中找出使用基本模块中的哪些类。您可以通过检查来源手动追踪，但对于大型项目这种方法是不可行的。通过使用 Android SDK 中提供的工具几乎可以自动执行此操作。
+我们需要从功能 APKs 中找出使用基本模块中的哪些类。你可以通过检查来源手动追踪，但对于大型项目这种方法是不可行的。窍门是使用 Android SDK 中提供的工具来近乎自动化的执行这个操作。
 
-首先，准备好一个调试版本（或者没有启用 ProGuard（混淆）的调试版本）。解压缩 ZIP 文件（通常在 `<instant-module-name> / build / outputs / apks / debug` 中找到），以便您可以轻松访问功能和基础 APKs。
+首先，准备好一个调试版本（或者没有启用 ProGuard（混淆）的调试版本）。解压 ZIP 文件（通常在 `<instant-module-name> / build / outputs / apks / debug` 中找到），以便你可以轻松访问这些 feature 和 base APK。。
 
 ```
 $ unzip instant-debug.zip
@@ -86,7 +86,7 @@ Archive: instant-debug.zip
   inflating: detail-debug.apk
 ```
 
-每个 APK 都包含一个（或多个）`classes.dex` 文件，该文件包含从其构建的模块的所有代码。有了关于 _DEX_ 格式和[命令行 APK 分析器](https://developer.android.com/studio/command-line/apkanalyzer.html)（一个分析 APK 中 DEX 文件的工具）的一些知识，我们可以很容易地找到所选模块中哪些使用了但没有定义的类。我们来看看 _detail_ 模块的 DEX 内容：
+每个 APK 都包含一个（或多个）`classes.dex` 文件，该文件包含从其构建的模块的所有代码。有了关于 _DEX_ 格式和[命令行 APK 分析器](https://developer.android.com/studio/command-line/apkanalyzer.html)（一个分析 APK 中 DEX 文件的工具）的一些知识，我们可以很容易地找到所选模块中哪些被使用了但没有定义的类。我们来看看 _detail_ 模块的 DEX 内容：
 
 ```
 $ ~/Android/Sdk/tools/bin/apkanalyzer dex packages detail-debug.apk
@@ -98,7 +98,7 @@ P r 0 8 196 android.support.v4.view
 C r 0 8 196 android.support.v4.view.ViewPager
 ```
 
-输出结果显示（本文档中已经或刚刚（参考上文第 2 列中的 _s / r_）定义）的 (P)ackages，(C)lasses 以及 (M)ethods（上文第1列中的 _P / C / M_）。
+输出结果显示了 (P)ackages，(C)lasses 以及 (M)ethods（上文第 1 列中的 _P / C / M_ ）是被这个文件所 (d)efined（定义）又或者仅仅被 (r)eferenced（引用）（上文第 2 列中的 _s / r_ ）。
 
 _referenced_ 类只能来自两个地方：Android 框架或其他模块，这取决于...答对了！使用一点 shell 魔法（我在后面的所有命令都是基于 Linux 系统的 bash命令），我们可以得到 ProGuard（混淆）规则中需要保留的类的列表：
 
@@ -128,7 +128,7 @@ android.app.AlertDialog$Builder
 android.app.Notification$InboxStyle
 ```
 
-最后使用`[comm](https://linux.die.net/man/1/comm)` 命令 （逐行比较两个已排序的文件）列出仅存在于第一个列表中的类，通过管道按照前两个命令输出的排序进行输入：
+最后使用`[comm](https://linux.die.net/man/1/comm)` 命令（逐行比较两个已排序的文件）列出仅存在于第一个列表中的类，通过管道按照前两个命令输出的排序进行输入：
 
 ```
 $ comm -23 <(apkanalyzer dex packages detail-debug.apk | grep "^C r" | cut -f4 | sort) <(jar tf ~/Android/Sdk/platforms/android-27/android.jar | sed s/.class$// | sed -e s-/-.-g | sort)
@@ -150,7 +150,7 @@ com.example.android.unsplash.ui.pager.DetailViewPagerAdapter
 #and so on for every class in the output…
 ```
 
-#### 4. 从资源文件中为模块间使用的类添加保留规则
+#### 4. 为从资源文件中出现的跨模块类添加保留规则
 
 我们差不多完成了，但还有一个细节需要我们处理。有时我们偶尔会使用 Android 资源中的类，例如从 XML 布局文件中实例化一个小部件，但实际上从未实际从代码中引用该类。
 
@@ -160,11 +160,11 @@ com.example.android.unsplash.ui.pager.DetailViewPagerAdapter
 
 #### 5. 新功能：禁用非基本模块中的混淆
 
-现在看来，我在我的指南中遗漏了一个重要的（现在很明显就发现了）的点。 由于非基本模块是相互独立的 ProGuard（混淆），因此这些模块中的类可以在混淆期间轻松地分配相同的名称。
+现在看来，我在我的指南中遗漏了一个重要的（现在很明显就发现了）的点。由于非基本模块会被独立地 ProGuard（混淆），因此这些模块中的类可以在混淆期间轻松地分配相同的名称。
 
 例如，在模块 _detail_ 中，名为 `com.sample.DetailActivity` 的类变为`com.sample.a`，而在模块 _main_ 中，类  `com.sample.MainActivity` 也变为 `com.sample.a`。这可能会在运行时导致 _ClassCastException_ 或其他奇怪的行为，因为只能有一个结果类将会被加载和使用。
 
-有两种方法可以做到这一点。更好的方法是在完整的，可安装的应用程序中重新使用 ProGuard（混淆）映射文件，但设置和维护起来很困难。更简单的方法是简单地禁用非基本特征中的混淆。 因此，由于类和方法名较长，你的 APK 会稍微大一点，但你仍然享受这删除代码带来的好处，这是最重要的部分。
+有两种方法可以做到这一点。更好的方法是在完整的，可安装的应用程序中重新使用 ProGuard（混淆）映射文件，但设置和维护起来很困难。更简单的方法是简单地禁用非基本特征中的混淆。因此，由于类和方法名较长，你的 APK 会稍微大一点，但你仍然享受这删除代码带来的好处，这是最重要的部分。
 
 要为非基本模块禁用混淆处理，请将此规则添加到其ProGuard（混淆）配置中：
 
@@ -172,7 +172,7 @@ com.example.android.unsplash.ui.pager.DetailViewPagerAdapter
 -dontobfuscate
 ```
 
-如果你在基本模块和非基本模块之间有共享配置文件，我建议你创建一个单独的配置文件。基础模块仍然可以使用混淆。 你可以在 build.gradle 中指定其他文件：
+如果你在基本模块和非基本模块之间有共享配置文件，我建议你创建一个单独的配置文件。基础模块仍然可以使用混淆。你可以在 build.gradle 中指定其他文件：
 
 ```
 release {
