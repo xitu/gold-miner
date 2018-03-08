@@ -2,8 +2,8 @@
 > * 原文作者：[Josh Stark](https://medium.com/@jjmstark?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/making-sense-of-ethereums-layer-2-scaling-solutions-state-channels-plasma-and-truebit.md](https://github.com/xitu/gold-miner/blob/master/TODO/making-sense-of-ethereums-layer-2-scaling-solutions-state-channels-plasma-and-truebit.md)
-> * 译者：JohnJiangLA
-> * 校对者：
+> * 译者：[JohnJiangLA](https://github.com/JohnJiangLA)
+> * 校对者：[foxxnuaa](https://github.com/foxxnuaa) [Zheaoli](https://github.com/zheaoli)
 
 # 带你了解以太坊第2层扩容方案：状态通道（State Channels）、Plasma 和 Truebit
 
