@@ -71,7 +71,7 @@ app.listen(port, () =>
 
 图注：但是，Serverless 背后还是有一堆服务器呀！
 
-走投无路的你愿意尝试一切方法 ”挽救“ 你的应用，管它是 Serverless 还是其他什么黑魔法。“不过，这个 Serverless 究竟是个什么东西呢?”
+走投无路的你愿意尝试一切方法 “挽救” 你的应用，管它是 Serverless 还是其他什么黑魔法。“不过，这个 Serverless 究竟是个什么东西呢?”
 
 你翻阅了数个网页，包括 “Serverless Apps with Node and Claudia.js” 这本书的 [第一章试读](https://livebook.manning.com/?utm_source=twitter&utm_medium=social&utm_campaign=book_serverlessappswithnodeandclaudiajs&utm_content=medium#!/book/serverless-apps-with-node-and-claudiajs/chapter-1/)（由 Manning Publications Co. 出版）。
 
