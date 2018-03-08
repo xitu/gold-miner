@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/how-to-javascript-in-2018.md](https://github.com/xitu/gold-miner/blob/master/TODO/how-to-javascript-in-2018.md)
 > * 译者：[llp0574](https://github.com/llp0574)
-> * 校对者：
+> * 校对者：[MechanicianW](https://github.com/MechanicianW)、[ParadeTo](https://github.com/ParadeTo)
 
 # 2018 如何玩转 JavaScript
 
@@ -13,7 +13,7 @@
 
 去年包括我自己在内的许多人都在[讨论 JavaScript 疲劳症的问题](https://developer.telerik.com/topics/web-development/javascripts-journey-2016/)。实际上编写 JavaScript 应用的方法依然繁多，但在大量命令行工具处理了很多繁重工作的情况下，编译开始变得不那么重要，并且 TypeScript 试图减少类型错误，我们可以稍微轻松一点。
 
-注意：这篇博文是我们白皮书的一部分，《[JavaScript 的未来：2018 及以后](https://www.telerik.com/campaigns/kendo-ui/wp-javascript-future-2018)》，里面讲述了我们对 JavaScript 未来的分析及最近情况的预测。
+注意：这篇博文是我们白皮书的一部分，《[JavaScript 的未来：2018 及以后](https://www.telerik.com/campaigns/kendo-ui/wp-javascript-future-2018)》，里面讲述了我们对 JavaScript 未来的分析及近况的预测。
 
 ## 命令行工具
 
@@ -21,13 +21,13 @@
 
 ### Webpack 配置
 
-配置 webpack 构建过程并真正理解其中原理，可能是 2017 年最艰巨的学习曲线之一。值得感谢的是，他们其中一个核心贡献者 [Sean Larkin](https://twitter.com/thelarkinn)，到处在进行[很棒的演讲](https://www.youtube.com/watch?v=4tQiJaFzuJ8&t=3526s)，并提供[真正有趣且有用的教程](https://www.youtube.com/watch?v=4tQiJaFzuJ8&t=3526s)给我们学习。
+配置 webpack 构建过程并真正理解其中原理，可能是 2017 年最艰巨的学习曲线之一。值得感谢的是，webpack 其中一个核心贡献者 [Sean Larkin](https://twitter.com/thelarkinn)，到处在进行[很棒的演讲](https://www.youtube.com/watch?v=4tQiJaFzuJ8&t=3526s)，并提供[真正有趣且有用的教程](https://www.twitch.tv/videos/209664650?t=1h57m40s)给我们学习。
 
 如今许多框架不仅会为你创建 webpack 配置文件，甚至还会把它们放到你根本不需要看的地方 😮。[Vue 的 CLI 工具](https://github.com/vuejs/vue-cli)甚至有一个[特定的 webpack 模板](https://github.com/vuejs-templates/webpack)，提供了一个功能齐全的 webpack 设置。为了全面让大家了解命令行工具到底提供了什么功能，下面是这个 Vue CLI 模板包含的内容，直接从官方仓库拿出来看：
 
 *   `npm run dev`: 首选开发体验
     *   对单个文件的 Vue 组件使用 Webpack + `vue-loader`
-    *   热重载保留状态State preserving hot-reload
+    *   热重载保留状态
     *   编译错误覆盖保留状态
     *   保存文件时调用 ESLint
     *   源文件映射
@@ -46,9 +46,9 @@
         *   自动处理 Selenium 和 chromedriver 的依赖
         *   自动生成 Selenium 服务器
 
-另一方面，[preact-cli](https://github.com/developit/preact-cli#webpack) 负责标准的 webpack 功能。然后如果你需要自定义 webpack 配置的话只需要创建一个 `preact.config.js` 文件，这个文件会输出一个函数使得你的 webpack 产生变化。这么多的工具，这么多帮助，开发者互助 💞。
+另一方面，[preact-cli](https://github.com/developit/preact-cli#webpack) 负责标准的 webpack 功能。如果你需要自定义 webpack 配置的话只需要创建一个 `preact.config.js` 文件，这个文件会输出一个函数使得你的 webpack 产生变化。这么多的工具，这么多帮助，开发者互助 💞。
 
-## 开启或关闭 Babel
+## 开启还是关闭 Babel
 
 明白了吗？听起来像 Babylon 😂。我不禁笑出了声。我并不是**真的**要把 Babel 和 Babylon 古城联系在一起，但有[讨论](https://medium.freecodecamp.org/you-might-not-need-to-transpile-your-javascript-4d5e0a438ca)说它可能真的可以消除我们对编译的依赖。在过去几年里 Babel 真的可以说是一件大事，因为我们想要 ECMAScript 提出的所有闪光点，但又不想等待浏览器缓慢的支持。随着 ECMAScript 发布速度的减缓，浏览器支持有可能会追赶上。如果没有一些很棒的 [kangax 兼容性](https://twitter.com/kangax?lang=en)图表，又怎算是一篇 JavaScript 文章呢？
 
@@ -62,19 +62,19 @@
 
 [es2016+ 的兼容性](http://kangax.github.io/compat-table/es2016plus/)
 
-第一个图表里左边那些红色的块都是编译器(如 es-6 shim、Closure 等）和旧的浏览器（如 Kong 4.14 和 IE 11 等）。然后右侧的五个红色块都是服务器或编译器，如 PJS、JXA、Node 4、DUK 1.8 和 DUK 2.2 等。在较下面的图上，看起来像一只乱画的狗在看着乱七八糟感叹号的红色部分，是只包含 Node 6.5+ 支持的服务器或运行时间。左边红色正方形的构成则是编译器或 polyfil 以及 IE 11 的支持。更重要的是，**看看那些绿色的部分！**在最流行的浏览器里，我们看到几乎都是绿色的。2017 特性仅有的红色标记是在 Firefox 52 的 ESR 对共享内存和原子化的支持。
+第一个图表里左边那些红色的块都是编译器(如 es-6 shim、Closure 等）和旧的浏览器（如 Kong 4.14 和 IE 11 等）。然后右侧的五个红色块都是服务器或编译器，如 PJS、JXA、Node 4、DUK 1.8 和 DUK 2.2 等。在较下面的图上，看起来像一只乱画的狗在看着乱七八糟感叹号的红色部分，是只包含 Node 6.5+ 支持的服务器或运行时。左边红色正方形的构成则是编译器或 polyfil 以及 IE 11 的支持。更重要的是，**看看那些绿色的部分！**在最流行的浏览器里，我们看到几乎都是绿色的。2017 特性仅有的红色标记是在 Firefox 52 的 ESR 对共享内存和原子化的支持。
 
 从其他某些角度来看，下面是从 [维基百科](https://en.wikipedia.org/wiki/Usage_share_of_web_browsers) 得到的某些浏览器使用百分比。
 
 [![browser user statistics](//d585tldpucybw.cloudfront.net/sfimages/default-source/blogs/2018/2018-02/browser-user-statistics.png?sfvrsn=896a6611_1 "browser user statistics")](//d585tldpucybw.cloudfront.net/sfimages/default-source/blogs/2018/2018-02/browser-user-statistics.png?sfvrsn=896a6611_1)
 
-好吧，停用 Babel 可能还需要很长一段时间，因为我们想在低版本浏览器的时候，还是尽最大可能让大量用户可以使用它们。考虑到我们可能可以摆脱掉这个额外的步骤是很有趣的。你知道的，就像以前那样，当我们还没有使用编译器的时候 😆。
+好吧，停用 Babel 可能还需要很长一段时间，因为我们还是尽最大可能让使用低版本浏览器的用户可以正常使用我们的应用。考虑到我们可能可以摆脱掉这个额外的步骤是很有趣的。你知道的，就像以前那样，当我们还没有使用编译器的时候 😆。
 
 ## 讨论 TypeScript
 
-如果我们讨论要如何玩转 JavaScript，那么我们必须得讨论到 [TypeScript](https://www.typescriptlang.org/)。五年前 TypeScript 从微软工作室横空出世，但在 2017 年它已经成为一门很酷的语言 😎。很少有会议没有“为什么我们爱 TypeScript”这类主题的演讲，这就跟新的开发者万人迷一样。在没有歌颂 TypeScript 的时候，让我们来讨论一下为什么如此看重它。
+如果我们讨论要如何玩转 JavaScript，那么我们必须得讨论到 [TypeScript](https://www.typescriptlang.org/)。五年前 TypeScript 从微软工作室横空出世，但在 2017 年它已经成为一门很酷的语言 😎。很少有会议没有“为什么我们爱 TypeScript”这类主题的演讲，这就跟新的开发者万人迷一样。本文不再歌颂 TypeScript，让我们来讨论一下为什么如此看重它。
 
-为了每个想要在 JavaScript 里使用类型的开发者，TypeScript 在这里提供了一个严格的 JavaScript 语法超集，赋予了可选的静态类型。如果你那么做，就会发现那是相当酷的。当然，如果你看一下 [JavaScript 状态](https://stateofjs.com/2017/introduction/)的最新调查结果，就会发现似乎事实上大量开发者都喜欢这么做。
+为了每个想要在 JavaScript 里使用类型的开发者，TypeScript 在这里提供了一个严格的 JavaScript 语法超集，赋予了可选的静态类型。如果你体验过，就会发现那是相当酷的。当然，如果你看一下 [JavaScript 状态](https://stateofjs.com/2017/introduction/)的最新调查结果，就会发现似乎事实上大量开发者都喜欢这么做。
 
 [![JS Flavors Comparison](//d585tldpucybw.cloudfront.net/sfimages/default-source/blogs/2018/2018-02/js-flavors-comparison.png?sfvrsn=14077aa8_1 "JS Flavors Comparison")](//d585tldpucybw.cloudfront.net/sfimages/default-source/blogs/2018/2018-02/js-flavors-comparison.png?sfvrsn=14077aa8_1)
 
