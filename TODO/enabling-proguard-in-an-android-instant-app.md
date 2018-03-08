@@ -188,7 +188,7 @@ release {
 
 * * *
 
-希望本指南能够让你更好地理解为什么 ProGuard（混淆）可以使你的即时应用程序崩溃。遵循这些步骤应该带你完成构建，并停止即时应用程序崩溃。
+希望本指南能够让你更好地理解为什么 ProGuard（混淆）可以使你的即时应用程序崩溃。遵循这些步骤应该能带你完成构建，并防止你的即时应用程序崩溃。
 
 你可以在 GitHub 上看看最新的一些使用 ProGuard（混淆）配置的[即时应用示例](https://github.com/googlesamples/android-instant-apps/blob/master/multi-feature-module/proguard.pro) 来和你的相比较，或者练习本文中介绍的相关示例项目的方法。
 
