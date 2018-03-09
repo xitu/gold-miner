@@ -54,11 +54,11 @@
 
 这些图表的图片看起来不那么易读，因为我想表达的只是它们几乎都是绿色！想知道完整细节的话只需点击图片下方的链接，从而深入审查这些图表。
 
-[![look at all that green](//d585tldpucybw.cloudfront.net/sfimages/default-source/blogs/2018/2018-02/compatibility-es6.png?sfvrsn=81c1b8d1_1 "look at all that green")](//d585tldpucybw.cloudfront.net/sfimages/default-source/blogs/2018/2018-02/compatibility-es6.png?sfvrsn=81c1b8d1_1)
+[![look at all that green](https://d585tldpucybw.cloudfront.net/sfimages/default-source/blogs/2018/2018-02/compatibility-es6.png?sfvrsn=81c1b8d1_1)](https://d585tldpucybw.cloudfront.net/sfimages/default-source/blogs/2018/2018-02/compatibility-es6.png?sfvrsn=81c1b8d1_1)
 
 [es6 的兼容性](http://kangax.github.io/compat-table/es6/)
 
-[![still looking green](//d585tldpucybw.cloudfront.net/sfimages/default-source/blogs/2018/2018-02/compatibility-2016.png?sfvrsn=43f89061_1 "still looking green")](//d585tldpucybw.cloudfront.net/sfimages/default-source/blogs/2018/2018-02/compatibility-2016.png?sfvrsn=43f89061_1)
+[![still looking green](https://d585tldpucybw.cloudfront.net/sfimages/default-source/blogs/2018/2018-02/compatibility-2016.png?sfvrsn=43f89061_1)](https://d585tldpucybw.cloudfront.net/sfimages/default-source/blogs/2018/2018-02/compatibility-2016.png?sfvrsn=43f89061_1)
 
 [es2016+ 的兼容性](http://kangax.github.io/compat-table/es2016plus/)
 
@@ -66,7 +66,7 @@
 
 从其他某些角度来看，下面是从 [维基百科](https://en.wikipedia.org/wiki/Usage_share_of_web_browsers) 得到的某些浏览器使用百分比。
 
-[![browser user statistics](//d585tldpucybw.cloudfront.net/sfimages/default-source/blogs/2018/2018-02/browser-user-statistics.png?sfvrsn=896a6611_1 "browser user statistics")](//d585tldpucybw.cloudfront.net/sfimages/default-source/blogs/2018/2018-02/browser-user-statistics.png?sfvrsn=896a6611_1)
+[![browser user statistics](https://d585tldpucybw.cloudfront.net/sfimages/default-source/blogs/2018/2018-02/browser-user-statistics.png?sfvrsn=896a6611_1)](https://d585tldpucybw.cloudfront.net/sfimages/default-source/blogs/2018/2018-02/browser-user-statistics.png?sfvrsn=896a6611_1)
 
 好吧，停用 Babel 可能还需要很长一段时间，因为我们还是尽最大可能让使用低版本浏览器的用户可以正常使用我们的应用。考虑到我们可能可以摆脱掉这个额外的步骤是很有趣的。你知道的，就像以前那样，当我们还没有使用编译器的时候 😆。
 
@@ -76,7 +76,7 @@
 
 为了每个想要在 JavaScript 里使用类型的开发者，TypeScript 在这里提供了一个严格的 JavaScript 语法超集，赋予了可选的静态类型。如果你体验过，就会发现那是相当酷的。当然，如果你看一下 [JavaScript 状态](https://stateofjs.com/2017/introduction/)的最新调查结果，就会发现似乎事实上大量开发者都喜欢这么做。
 
-[![JS Flavors Comparison](//d585tldpucybw.cloudfront.net/sfimages/default-source/blogs/2018/2018-02/js-flavors-comparison.png?sfvrsn=14077aa8_1 "JS Flavors Comparison")](//d585tldpucybw.cloudfront.net/sfimages/default-source/blogs/2018/2018-02/js-flavors-comparison.png?sfvrsn=14077aa8_1)
+[![JS Flavors Comparison](https://d585tldpucybw.cloudfront.net/sfimages/default-source/blogs/2018/2018-02/js-flavors-comparison.png?sfvrsn=14077aa8_1)](https://d585tldpucybw.cloudfront.net/sfimages/default-source/blogs/2018/2018-02/js-flavors-comparison.png?sfvrsn=14077aa8_1)
 
 来自 [JavaScript 状态](https://stateofjs.com/2017/introduction/).
 
@@ -96,7 +96,7 @@
 
 有人可能已经注意到 Angular 文档中所有示例代码都是用 TypeScript 编写的。一度你可以选择使用 JavaScript 或 TypeScript 浏览教程，但似乎 Angular 已经开始转变态度了。下面 Angular 和 JS 之间的连接图，可以看到实际上有更多用户将 Angular 连接到 ES6（TypeScript: 3777, ES6: 3997）。我们将在 2018 年看到所有这些因素是否会影响 Angular。
 
-[![angular connections](//d585tldpucybw.cloudfront.net/sfimages/default-source/blogs/2018/2018-02/angular-connections.png?sfvrsn=192c96f4_1 "angular connections")](//d585tldpucybw.cloudfront.net/sfimages/default-source/blogs/2018/2018-02/angular-connections.png?sfvrsn=192c96f4_1)
+[![angular connections](https://d585tldpucybw.cloudfront.net/sfimages/default-source/blogs/2018/2018-02/angular-connections.png?sfvrsn=192c96f4_1)](https://d585tldpucybw.cloudfront.net/sfimages/default-source/blogs/2018/2018-02/angular-connections.png?sfvrsn=192c96f4_1)
 
 来自 [JavaScript 状态](https://stateofjs.com/2017/introduction/).
 
