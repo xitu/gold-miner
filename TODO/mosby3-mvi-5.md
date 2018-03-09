@@ -5,17 +5,17 @@
 > * 译者：
 > * 校对者：
 
-# REACTIVE APPS WITH MODEL-VIEW-INTENT - PART5 - DEBUGGING WITH EASE
+# 使用MVI编写响应式APP - 第5部分 - 简单的调试
 
-In the previous blog posts we have discussed the Model-View-Intent (MVI) pattern and it’s characteristics. In [part 1](http://hannesdorfmann.com/android/mosby3-mvi-1) we have talked about the importance of an unidirectional data flow and application state that is driven by the “business logic”. In this blog post we will see how this pays off when it comes to debugging to simplify the life of developers.
+在前面的系列博客中我们已经讨论了 Model-View-Intent(MVI) 模式和它的特征。在[第一部分](http://hannesdorfmann.com/android/mosby3-mvi-1)我们已经讨论了关于单向数据流的重要性和应用状态被业务逻辑驱动。在这篇博客中我们将看到如何通过 debug 来简化开发者的开发工作。
 
-Have you ever got a crash report and you were not able to reproduce the bug? Sounds familiar? For me too! After having spend many hours looking at the stacktrace and our source code I gave up and have closed such issues in our issue tracker with a little comment like “can’t reproduce it” or “must be a strange device / manufacturer specific bug”.
+你以前有没有收到一个崩溃报告,并且你不能复现报告中的 bug？ 听起来很熟悉？我也觉得很熟悉！ 在花费数小时看 stacktrace 和我们的源代码,我选择放弃和关掉这个 issue 在我们 issue 跟踪中，而且跟随着一个小的 comment 像“不能复现这个 bug”或者“这一定是一个奇怪设备/厂商（大厂）导致的错误”。
 
-Concrete example from our shopping cart app we have developed in this blog post series: On the home screen the user of our app can do a pull-to-refresh and somehow, as the crash reports states, there is a NullPointerException thrown while loading the newest data triggered by pull-to-refresh.
+用我们商城的具体的例子,我们已经在这个博客前面系列里开发了:当在 home 页面，我们的用户可以做下拉刷新，并且，不知道为什么，根据 crash 清单状态，当下拉刷新加载新的数据的时候，这里会触发 NullPointerException 异常。
 
-So you as developer start the app and do a pull-to-refresh on the home screen but the app is not crashing. It’s working as expected. So you take a closer look at your code but you can’t see how a NullPointerException could be thrown there. You attach a debugger, go step by step through the code of the involved components, but still: it is working properly. How the hell can this app crash on a pull-to-refresh?
+你做为开发这开始在 home 页面进行上拉刷新操作，但是，这个 App 并没有崩溃。它像预期的那样工作。因此，你关闭了代码。但是，你不能看到 NullPointException 在这里如何被抛出的。你接着去调试，单步调试相关组件的代码,但是仍然：它正常的工作。这个应用程序如何能够在下拉刷新时崩溃？
 
-The problem is that you can’t reproduce the state before the crash happened. Wouldn’t it be nice if the user who had the crash could give you his app state (before the crash happened) along with the stacktrace in the crash report? With unidirectional data flow and Model-View-Intent this is super easy. We simply log all intents the user triggers and the model (model reflects the app state, a.k.a. view state) that is rendered on the view. Let’s do that for the home screen by adding logs in the **HomePresenter** (for more details about this class see [part 3](http://hannesdorfmann.com/android/mosby3-mvi-1) where we have discussed the advantages of a state reducer). In the following code snippets we use [Crashlytics](https://fabric.io/kits/ios/crashlytics) but it should be possible to do the same with any other crash reporting tool.
+这个问题是你不能够重现当崩溃发生的时候的场景。如果有崩溃问题的用户能够给你它 app （发生崩溃前）的状态随着 staktrace 一起呈现在崩溃日志中，岂不美哉？伴随着单项数据流和 Model-View-Intent 模式那么这种情况将变得十分简单。我们简单 log 所有用户触发的意图和 model（model 代表了 app 的状态，换句话说，view的状态），被渲染到view上。让我们在我们 home 页面做前面所说的内容，通过添加 logs 在我们的 **HomePresenter** (对于更多的细节可以看[第三部分](http://hannesdorfmann.com/android/mosby3-mvi-1) 在第三部分中我们已经讨论过状态折叠器的优点)。在下面的代码中我将贴出我们使用 [Crashlytics](https://fabric.io/kits/ios/crashlytics)(类似于 Bugly) 的代码片段,但是它应当与其他的 crash 报告工具的使用是相同的。
 
 ```
 class HomePresenter extends MviBasePresenter<HomeView, HomeViewState> {
@@ -54,15 +54,15 @@ class HomePresenter extends MviBasePresenter<HomeView, HomeViewState> {
 }
 ```
 
-We simply add logging with RxJava’s **.doOnNext()** operator for every intent and to the “result” of each intent, the view state, which then will be rendered on the view. We serialize the view state as json (we will talk about that in a minute).
+我们简单应用RxJava的**\.doOnNext()**操作符，添加 log 到所有的意图和每个意图的“结果”，这个将要被渲染到 view 的 view 状态，我们序列化 view 状态为json对象（我们稍后来讨论这个）。
 
-Now our crash report looks like this:
+我们可以看一下这些logs:
 
 ![logs](http://hannesdorfmann.com/images/mvi-mosby3/crashlytics-mvi-logs.png)
 
-Take a look at the logs: Not only we see the latest state before the crash happened but we see the full history how the user reached this state. For better readability I have underlined the state transitions and replaced the “data” field (the items that are displayed in the recycler view) with _[…]_ . So the user started the app - load first page intent. Then the loading indicator is displayed _“loadingFirstPage”:true_ and then the data has been loaded (_data[…]_). Next the user scrolled through the list of items and reached the end of the RecyclerView which triggers a load next page intent to load more data (pagination), which causes a state transition to _“loadingNextPage”:true_. Once the next page is loaded the data (_data[…]_) has been updated and _“loadingNextPage”:false_ has been set properly. The user did the same (scroll down the RecyclerView and trigger a load next page intent) for a second time. And then he started a pull-to-refresh intent and the state transitions to _“loadingPullToRefresh”:true_. Suddenly the app crashes (no more logs afterwards).
+不仅仅我们可以看到崩溃发生前的最后状态，而且我们可以看到用户到达这个状态的整个流程。为了更好的可读性，我已经强调了状态过滤，并且用_[…]_替换掉“数据”(这些项将被显示到 recycler view 上)。 因此，用户开启这个 app -加载第一页的意图。然后加载指示条显示"loadFirstPage"。然后，真的数据就被加载进来了(_data[…]_)。 接下来用户滑动列表项并且到达了 recyclerView 的1底部，这将触发加载下一页的意图去加载更多数据(分页),这将造成状态转换成"loadingNextPage":对。一旦下一页被加载的数据(_data[…]_)已经被更新并且"loadNextPage":错误已经被矫正。用户做同样的事情第二次。并且它开始采用下拉刷新意图并且状态，状态转变为“loadingPullRefresh”：正确。突然 App 崩溃了（没有更多之后的 log 信息）。
 
-So how does that information helps us to fix that bug? Obviously, we know which intents the user triggered, so we can do that manually to reproduce the bug. Moreover, we have snapshots of our app’s state (over time) as json. We can simply take the last state, deserialize the json and take this state as our initial state to fix that bug:
+因此如何做到使这些信息信息帮助我们修复这个 bug？显然，我们知道那个意图用户触发了，因此我们可以人工去复现 bug。此外，我们可以将我们的 app 的状态快照成 json。我们可以简单的将最后一个状态反序列化 json，并且成为我们初始状态去修复这个 Bug:
 
 ```
 String json ="  {\"data\":[...],\"loadingFirstPage\":false,\"loadingNextPage\":false,\"loadingPullToRefresh\":false} ";
@@ -70,34 +70,34 @@ HomeViewState stateBeforeCrash = gson.fromJson(json, HomeViewState.class);
 HomePresenter homePresenter = new HomePresenter(stateBeforeCrash);
 ```
 
-Then we attach a debugger and trigger the pull-to-refresh intent. It turns out that if the user has scrolled down the page 2 times no more data is available and our app didn’t handled that fact properly, so that a following pull-to-refresh causes the crash.
+然后，我们连带 debugger 和触发下拉刷新意图的。它将出现在如果用户已经向下滑第二次滑到第二页没有更多的数据存在，并且，我们的 app 没有正确的处理，因此下拉刷新造成了崩溃。
 
-## Conclusion
+## 总结
 
-Making app’s state “snapshotable” makes the life of us developers much easier. Not only that we are able to reproduce crashes easily, furthermore, we can take the serialized state to write [regression tests](https://en.wikipedia.org/wiki/Regression_testing) with almost zero extra costs. Keep in mind that this is only possible if the app’s state follows the principle of an unidirectional data flow (driven by the business logic), immutability and pure functions. Model-View-Intent pushes us into that direction so that building “snapshotable” apps is a nice and useful side effect of this architecture.
+制作 app 的状态"快照"让我们的开发生涯更加简单。不仅我们可以简单的复现崩溃场景，另外，我们可以序列化状态去写[回归测试](https://en.wikipedia.org/wiki/Regression_testing)，不用额外消耗任意代码。记住这仅仅适用于如果 app 的状态遵循单项数据流（被业务逻辑驱动），不变性和纯函数的原则。Model-View-Intent 带领我们去正确的方向，因此我们构建“可快照”的 app 是非常好和十分有用，这就是这种架构的“副作用”。
 
-What are the downsides of “snapshotable” apps? Obviously we are serializing the apps state (i.e. with Gson). This adds some extra computation time. In an average sized app of mine this takes about 30 milliseconds for the first time the state gets serialized with Gson because Gson has to scan the classes by using reflections to determine the fields that have to be serialized. Consecutive state serialization takes about 6 milliseconds on average on a Nexus 4. Since serialization runs in **.doOnNext()** this typically runs on a background thread, but yes, a user of my app has to wait 6 milliseconds more than without snapshotting to see the new state on the screen. From my point of view that is not noticeable by an apps user. However, an issue with snapshotting the state is that on a crash the amount of data uploaded from the users device by the crash reporting tool to his server is significant bigger. No big deal if the user is connected over wifi, but could be an issue for the users mobile data plan. Last but not least, you may leak sensitive user data when attaching the state to a crash report. Either don’t serialize sensitive data which may cause that the state attached to the crash report is not complete (and therefore almost useless) or encrypt sensitive data (which may requires some extra cpu time).
+"可快照的" app 有什么缺点？显然我们序列化 app 的状态（例如：使用 Gson）。这将添加额外的计算时间。在我的一般大小的 app 中这个过程，即使用 Gson 第一次状态得到序列化，将消耗 30 毫秒。因为 Gson 需要使用反射来扫描类去决定需要序列化的区域。连续状态序列化在 Nexus 4 中平均需要花费 6 毫秒。当序列化运行在**.doOnNext()** 这是一般运行在其他线程，但是，我 app 的用户不得不等 6 毫秒比那些没有快照的 app。我的观点是等 6 毫秒用户是很难察觉到。无论如何，关于快照状态的一个讨论是当崩溃发生大量的数据从用户的设备通过崩溃日志工具上传到服务器是十分巨大的。如果用户连接着 wifi 没什么大不了的，但是可以谈论用户的移动端数据计划。最后但是同样重要的，你也许泄露了伴随着状态的敏感数据的崩溃日志。不序列化可能附在状态的敏感数据到崩溃日志，是不可能完全达到的（并且因此是无用的）或者加密敏感数据（这将消耗额外的 CPU 时间）。
 
-To sum it up: I personally see a lot of advantages in snapshotting my app, however, you may have to make some tradeoffs. Maybe you start to enable snapshotting your app for your internal builds or beta builds to see how it works out for your app.
+总结一下：我个人看到了一些快照我 app 的有点，然而，你也不得不做一些权衡.也许你需要开始启用快照在你的 app 到你的内部版本或者设施版本看看在你的 app 上工作的如何。
 
-#### Bonus: Time Traveling
+#### 红利:时间旅行
 
-Wouldn’t it be nice to have some kind of “time traveling” option during development. Maybe embedded in a debug-drawer like the one of Jake Wharton’s u2020 demo app:
+当你的 app 拥有“时间旅行”设置，在开发阶段，这难道不是一件很好的事情。也许嵌入一个调试侧边栏像 Jake Wharton 的 u2020 dome app:
 
 ![debug-drawer](http://hannesdorfmann.com/images/mvi-mosby3/u2020-debug-drawer.gif)
 
-All we need in such a debug-drawer are two buttons “previous state” and “next state” so that we can step by step travel back in time from one state to previous (or next) state. Obviously that requires some additional setup then just snapshotting our app’s state. For example: if we have made a HTTP request as part of a state transition we certainly don’t want to make the real HTTP request again while time traveling because data on backend side might have changed in the mean time.
+所有我们需要类似于调试侧边栏只需要两个按钮“前一个状态”和“后一个状态”因此我们可以一步一的从一个状态及时的到前一个状态（或下一个状态）。例如：如果我们已经做了一个 HTTP 请求作为状态变化的一部分，我们可以确定不想去再次进行真正的 HTTP 请求当使用在“时间旅行”的时候(译:这里的意思是我们不需要再次去进行 HTTP 请求，我们是录制状态。)，因为意味着数据发生了改变。
 
-Time traveling requires some kind of extra layer like a proxy at the boundary of an app so that we can “record” and “replay” things like http requests (same for sqlite database etc.). Interested in something like that? It seems that my friend Felipe is working on something like that for OkHttp. Feel free to ping him to get more details about the library he is currently working on.
+时间旅行要求一些额外的层，像一个代理层在一个 app 的边界部分因此我们可以“录制”和“回放”状态像 http 请求（同理 sqlite等等）。对这类事情十分的感兴趣？这就像我的朋友 Felipe 为OKHttp做类似的事情。可以随意联系他来得到他正在写的库的更多细节。
 
 ![Snipaste_2018-03-07_11-40-30.png](https://i.loli.net/2018/03/07/5a9f5f80ca8f0.png)
 
-> Would you find useful an Android library that can record and replay OkHttp network interaction for, say Espresso tests?
+> 你是否正在找一个十分有用的安卓库，可以录制和回放 OkHttp 网络交互，比如说 Espresso 测试？
 > 
 > — Felipe Lima (@felipecsl) [28\. Februar 2017](https://twitter.com/felipecsl/status/836380525380026368)
 
-**This post is part of the blog post series "Reactive Apps with Model-View-Intent".
-Here is the Table of Content:**
+**这是使用 MVI 开发响应式 APP 的一部分。
+这里是内容表:**
 
 *   [Part 1: Model](http://hannesdorfmann.com/android/mosby3-mvi-1)
 *   [Part 2: View and Intent](http://hannesdorfmann.com/android/mosby3-mvi-2)
@@ -107,6 +107,11 @@ Here is the Table of Content:**
 *   [Part 6: Restoring State](http://hannesdorfmann.com/android/mosby3-mvi-6)
 *   [Part 7: Timing (SingleLiveEvent problem)](http://hannesdorfmann.com/android/mosby3-mvi-7)
 
+**这是中文翻译:**
+* [第一部分：Model](https://juejin.im/post/5a52e4445188257334228b28)
+* [第二部分:View 和 Intent](https://juejin.im/post/5a587c06518825732f7eab86)
+* [第三部分:状态折叠器](https://juejin.im/post/5a955c50f265da4e853d856a)
+* [第四部分:独立 UI 组件开发](https://juejin.im/post/5a9debfbf265da23830a6230)
 
 ---
 
