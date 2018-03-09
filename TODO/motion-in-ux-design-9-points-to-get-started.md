@@ -2,116 +2,116 @@
 > * 原文作者：[Arpit Agarwal](https://uxdesign.cc/@agarwalarpit?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/motion-in-ux-design-9-points-to-get-started.md](https://github.com/xitu/gold-miner/blob/master/TODO/motion-in-ux-design-9-points-to-get-started.md)
-> * 译者：
-> * 校对者：
+> * 译者：[reid3290](https://github.com/reid3290)
+> * 校对者：[Starriers](https://github.com/Starriers)，[Xekin-FE](https://github.com/Xekin-FE)
 
-# Get started with motion design in 9 steps
+# 开始设计动画的九个步骤
 
-## Start breathing life into your creations
+## 为作品赋予生命力
 
 ![](https://cdn-images-1.medium.com/max/600/1*18NR2HSMnRsf5WBA-zJ23w.gif)
 
-Motion Creates Life.
+动画创造生命
 
-**Animated means full of life and excitement**. Animation adds life to static things. When it comes to software, it’s not just for delight but for solving problems.
+**动画意味着充沛的活力与激情**，它给静止的事物以生命。在软件应用中，动画不仅是为了取悦人们，而更是为了解决问题。
 
-As human beings we are used to see the world moving around us, and if any piece of software has coherent animations, it feels alive and natural.
+作为人类，我们习惯于世界围绕着我们运转；如果软件的每一部分也都能有着连贯的动画，那就会让人感到自然而又充满活力。
 
-Tech leaders in the industry are pushing their products towards being more natural. Sophisticated words like Motion Design, Motion UX, UX Choreography are gaining popularity.
+科技行业领导者不断推动其产品朝着更为自然的方向发展，诸如动画设计、动画用户体验、用户体验编排等复杂的概念日趋流行。
 
-> _Remember – Motion subconsciously builds the_ **_personality of your application._ **Much like layout, spacing, typography and colors.
+> 请记住：动画就像布局、间距、排印和颜色一样，能在潜意识中构建你应用软件的**个性**。
 
-Have you ever observed that elastic bounce on an iPhone when you finish scrolling things? Seemingly tiny details like these play a big part in forming the personality of Apple’s products.
+不知你是否留意过，当在 iPhone 中将某个东西滑动到最顶端或最底端时，它就会出现一种回弹效果。这些细节看似微不足道，却在构建苹果产品的个性上发挥了举足轻重的作用。
 
-### Cool, Let’s get started on using motion
+### 酷，让我们开始使用动画吧
 
 ![](https://cdn-images-1.medium.com/max/800/1*WVO2fUsifiXktIOaradZGQ.gif)
 
-### **1. Start Observing**
+### **1. 开始观察**
 
-Develop an eye for motion. If you can’t observe things moving, you won’t be able to work with them. Start observing how things move on your screen while you use your favourite apps. Look again, and find why you like it and try to look for the details. Observe what all is changing — shape, size, position, color. Doesn’t matter if it is tiny or huge, try to find what part motion is playing in the whole composition.
+学会关注动画：如果你不能够觉察到事物的移动，也就无法创造出动画。在使用你最喜爱的应用程序时，观察屏幕上的东西是如何移动的；反复观察，注意细节，找出它令你喜欢的原因。留意所有发生变化的元素——形状、尺寸、位置、颜色等等。无论变化是小是大，努力找出动画在整个构图中所起到的作用。
 
-### **2. Animation is not just a layer of paint**
+### **2. 动画不仅是一层颜色**
 
-Animation reveals a deeper meaning. Being a creator, you must consciously think of animations from the start. If you’re in the design stage, animate your prototypes to add that dimension of time. If you’re in the development stage, divide your code into modular components to easily move things around in the UI. [See more on modularity](https://medium.com/@acyoo/architecting-ios-development-at-zomato-cf894a7fa5e3).
+动画揭示了一种更深层的意义：作为一名创造者，你必须从一开始就有意识地将动画考虑在内。在设计阶段，为原型添加动画使其具有时间上的维度；在开发阶段，将代码模块化从而更简便地实现 UI 中的动画。[有关模块化参见](https://medium.com/@acyoo/architecting-ios-development-at-zomato-cf894a7fa5e3)
 
-> Tip – Mindfully thinking about the animated personality of your creation will give it a character and help you get a deeper perspective on what you are trying to build.
+> 提示：谨慎思考产品的动画特点，这将为产品赋予一种角色，并且能够帮助你从更深的层面上理解你所想要构建的东西。
 
 ![](https://cdn-images-1.medium.com/max/800/1*t3dqGWRLsL_QGSkaUSic0w.gif)
 
-### **3**. Where to introduce motion in your product?
+### **3**. 在何处引入动画？
 
 ![](https://cdn-images-1.medium.com/max/600/1*Pmk25Ep7BAtivcKkVcmbCA.gif)
 
-But where?
+但是要在哪里引入动画呢？
 
-Some easy places where motion can be introduced into your product could be **when** **screens are changing**, when the user **interacts with an element**, or when the **user has to wait for something**.
+简单的例子有，当**屏幕正在变化时**、当**用户正在与界面元素交互时**或者当**用户不得不等待时**。
 
-### **4**. Types of Motion UX
+### **4**. 动画分类
 
-You can categorise motion in products as **Transitions** (content changes/user moves to another screen), **Micro-interactions** (Twitter’s Like button for example), **Graphical animations** (like the scooter jump on the splash screen of Zomato’s Order app).
+你可以将产品中的动画分为三类：**切换**（内容变化/页面切换）、**微观互动**（例如推特的点赞按钮）、**图形动画**（例如 Zomato 的购物 App 的启动界面上跳跃的小摩托车）。
 
 ![](https://cdn-images-1.medium.com/max/800/1*aP_ns6KdA_kvb3csJEZTEg.gif)
 
-Types of Motion UX.
+动画分类
 
-### **5**. Provide **spatial information** with Motion
+### **5**. 用动画提供**空间信息**
 
 ![](https://cdn-images-1.medium.com/max/600/1*z9j3rcz8ER5DQF_3mUd4HA.gif)
 
-Motion communicates space.
+动画能够传达空间信息
 
-If a UI element enters from the right of the screen, users will mentally organise that element’s position to be on the right. For example, if a hamburger menu button is placed on the top-left of the screen, the menu must animate-in from the left. To check if your animations communicate right, show it to people and listen to what they have to say. It is the easiest way to avoid any possible confusion.
+如果某个 UI 元素从屏幕的右侧进入，用户心理上会将那个元素的放在右边。例如，如果一个汉堡菜单按钮处于屏幕的左上角，那么该菜单的入场动画就一定要从屏幕左侧开始。将动画展示给他人观看并听取他们的意见，从而确定动画所传达的空间信息是否准确。这是避免困惑的最简单方法。
 
-### **6. Start understanding things like Duration, Timing Curve, Animation path, Initial & Final values**
+### **6. 开始理解像持续时间、时间曲线、动画路径、初值和终值等概念的含义**
 
-These parameters technically form your animation piece. Play around with them and get a hang of these controls. Once you feel in control of these, you can make motion masterpieces. For UI, [Google has some nice guidelines](https://material.io/guidelines/motion/material-motion.html).
+这些参数从技术层面上构成了动画。使用这些参数并熟练掌控它们，一旦你能够控制这些参数，你就能够创造出杰出的动画作品。在 UI 方面，[谷歌提供了一些很好的指导资料](https://material.io/guidelines/motion/material-motion.html)。
 
 ![](https://cdn-images-1.medium.com/max/800/1*gyD2I6o6-OPu3_rbtaEQkQ.gif)
 
-Learn about animation parameters — These 2 boxes have all the parameters same except the Timing Curve. Explore and read about it.
+学习动画参数——这两个箱子的动画除了时间曲线之外其它参数全部一样，请探究其中奥妙
 
-### 7. Never MAKE people wait in the middle of a flow
+### 7. 绝不能让用户在某个流程的中间等待
 
 ![](https://cdn-images-1.medium.com/max/600/1*QHIpIqZwA_lq_bOV9Z2kjQ.gif)
 
-Never slow down people in the middle of a flow to MAKE them wait for an animation to finish. If they really HAVE to wait, then delight them with meaningful animation. At all times, remember to use your animation to solve a problem. There is the reason why animated loaders exist. Additionally, do not overload your software with movement. It’s not a film.
+绝不能为了等待动画完成而在某个流程中间故意放慢速度。如果必须要用户等待，那就用一些有意义的动画来达到娱乐的效果。请记住，在任何何时动画都是用来解决问题的。加载动画的存在是有其合理性的。此外，不要在软件中滥用动画，软件不是电影！
 
-> _Pro tip – Keep animations subtle and in-line with your product’s storyline to create delightful experiences._
+> 专家提示：**保持动画的微妙性并使之与产品故事线相吻合能带来愉悦的用户体验**。
 
-### 8. **Tools to use**
+### 8. **相关工具**
 
-Lottie, Adobe Animate CC, After Effects, Sketch2AE, Framer, Origami, Animatic App, UIDynamics (iOS) are some tools for Motion Design . Look them up.
+Lottie，Adobe Animate CC，After Effects，Sketch2AE，Framer，Origami，Animatic App，UIDynamics(iOS) 等工具都可以用来做动画设计，不妨一试。
 
-_I recommend using_ **_pen and paper first_ **_to get started with your idea. Move on to any digital software after doing this. For animations in this article, I did hand drawn frames on the_ [_Animatic App_](https://animatic.io/)_. An animatic helps keep things simple and focused._
+我会建议使用**纸和笔**来完成构思，之后再使用其他数字化软件。比如在这篇文章中的动画中，我就是先用 [Animatic App](https://animatic.io/) 画的草图。一份完好的草稿会使后续的工作显得简单而明确。
 
 ![](https://cdn-images-1.medium.com/max/800/1*DbUs1gsNLdXaqgn4v8kqEw.gif)
 
-Start with Pen and Paper.
+从笔和纸开始
 
-### 9. Capture and Save things you find interesting
+### 9. 捕捉并保存你觉得有趣的动画
 
 ![](https://cdn-images-1.medium.com/max/600/1*FUBjAjXYGcD-Jy3MpxLxkw.gif)
 
-Save things you find interesting. Watch them over and over again, slow them down and understand how elements are moving. Learn by copying. My mac is full with animated GIFs I find interesting. You can also save [GIFs on dribbble](https://dribbble.com/shots?list=animated). Additionally, to capture and record things on your Mac screen, G[iphy Capture](https://giphy.com/apps/giphycapture) works great.
+保存你觉得有趣的动画。放慢速度，反复观察，理解元素的运动机制。通过模仿来进行学习。我的 Mac 里存满了我觉得有趣的 GIF。你也可以在 [dribbble](https://dribbble.com/shots?list=animated) 上保存 GIF。另外，[Giphy Capture](https://giphy.com/apps/giphycapture) 是在 Mac 屏幕上捕捉和记录动画的优秀工具。
 
 ![](https://cdn-images-1.medium.com/max/800/1*CSqaOB0Tel9HiyzPsttAAA.gif)
 
-Be Fearless.
+无所畏惧
 
-### 💥 Bonus Point —Say Goodbye to the Fear Monster
+### 💥 额外福利——对恐惧说再见
 
-Still scared to start? Sit down. Relax. Eat that dessert you love. Play that song you desire. Turn off your phone. Keep a pen and paper next to you. Maybe get a small nap. Feel good. Feel comfortable. Keep that blank piece of paper in front of you. Hold that pen in your hand. Scribble randomly. Pick up another piece of paper. Scribble something random again. Next piece of paper. Make a shape. Next piece of paper. Draw more. Make a storyboard. Make the storyboard again. Feel the freedom and get your hands moving. Start. Just Start. See where it takes you.
+还畏惧开始吗？坐下，放松，吃些甜点，放首音乐。关上手机，将纸笔放在身旁。或许可以小憩一会，尽量让自己感到舒适自在。取白纸一张，拿起笔来，随意涂写。再取一张白纸，继续涂写着，线条、形状、故事。放空自己，感受笔尖的移动。开始，一切只需要开始，看它带你去向何方。
 
-> It’s more scary to touch a pen on paper than to draw. You are creative the moment you turn that blank piece of paper into anything else.
+> 比画画更难的是开始动笔。一旦你开始在白纸上动笔，无论你画出了什么，你便具有了创造力。
 
 * * *
 
-_Thanks for reading!_
+**感谢阅读！**
 
-See some of my animations here —
+请欣赏一些我的动画作品——
 
-- [**My Wall of Animations**: A collection my GIFs and some stories around them._medium.com](https://medium.com/@agarwalarpit/hand-drawn-animations-74c4c61f9298)
+- [**我的动画墙**：我做的一些 GIF 及其相关故事。medium.com](https://medium.com/@agarwalarpit/hand-drawn-animations-74c4c61f9298)
 
 
 ---
