@@ -2,93 +2,94 @@
 > * 原文作者：[Allen Bevans](https://medium.com/@abevans?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/who-plays-mobile-games.md](https://github.com/xitu/gold-miner/blob/master/TODO/who-plays-mobile-games.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Lai](https://github.com/laiyun90)
+> * 校对者：[hanliuxin5](https://github.com/hanliuxin5)
 
-# **Who plays mobile games?**
+# **知己知彼 — 谁在玩你的手机游戏？**
 
-## **Player insights to help developers win**
+## **深入了解玩家，帮助开发者取得成功**
 
-![](https://cdn-images-1.medium.com/max/800/0*6-vnkWDRxhykWWKr.)
+![](https://user-gold-cdn.xitu.io/2018/2/2/161551441fdfca48?w=800&h=497&f=png&s=90851)
 
-The amazing growth of mobile games across the world means more and more people engage with gaming experiences previously limited to users of other platforms such as PCs and consoles. This expansion means the characteristics, needs, and motivations of those playing games are more diverse. While this diversification of players is an amazing opportunity, it also can be a challenge. In order to build games that excite and engage such a diverse audience, developers need to build deep and meaningful insights about their current and potential customers.
+全球手机游戏的惊人增长表明，越来越多的人参与到游戏体验中，而这些游戏体验以前仅服务于 PC 和游戏机等其他平台的用户。这种扩张意味着游戏玩家的特点、需求和动机更加多元。然而这种玩家的多样性不仅是一个绝佳的机会，更是一个巨大的挑战。为了打造出刺激和吸引这种多元化玩家的游戏，开发者需要深入、全面地了解他们目前拥有的以及未来潜在的用户。
 
-To help build such insights, Google Play commissioned a research study with SKIM Analytics to understand differences and similarities in the needs and behaviors of mobile game players across the world. Initially we ran this research for internal purposes, but we believe our findings are of value to the wider community of mobile game developers. Get the research report now, [Who plays mobile games?](http://services.google.com/fh/files/blogs/who_plays_mobile_games.pdf)
+为了帮助开发者建立这种洞察力，Google Play 委托 SKIM 进行了一项调查研究，以了解全世界手机游戏玩家的需求、行为之间的差异和相似之处。最初，我们是为了内部用途而进行这项研究，但是我们相信我们的发现对于更广泛的手机游戏开发者社区是有价值的。立即获取研究报告 [是谁在玩手机游戏？](http://services.google.com/fh/files/blogs/who_plays_mobile_games.pdf)
 
-### **We used to think ‘gamers’, now we think ‘players’**
+### **我们过去考虑「游戏爱好者（gamers）」，现在我们考虑「游戏玩家（players）」**
 
-It can be easy to think of people who play games as belonging to one of two extreme groups — the ‘hardcore’ gamers living and breathing complex, highly skilled games, and the ‘casual’ gamers playing low skill, non challenging games. These extremes are also associated with a range of demographic assumptions and stereotypes, like “hardcore” gamers being young and male, and “casual” gamers being old and female. The reality is a majority of players fall somewhere between these two extremes along the game playing spectrum. At Google Play, we found referring to ‘players’ rather than ‘gamers’ helps us consider the entire spectrum of gaming behaviors, instead of extreme behavior stereotypes.
+人们很容易把玩游戏的人归为两个极端群体中的一个 —— 「硬核（hardcore）」玩家热衷于复杂、对技巧要求很高的游戏，而「休闲玩家（casual）」玩家总是玩些低难度、没什么挑战的游戏。这些极端情况也与一系列人口假设和刻板印象有关，比如「硬核」玩家通常是年轻人和男性；而「随便玩玩的」玩家通常是老年人和女性。实际情况是，大多数的玩家处于这两种极端情况范围中的某处。在 Google Play 里，我们发现恰恰是「游戏玩家（players）」而不是「游戏爱好者（gamers）」，可以帮助我们考虑游戏行为的全部范畴而非刻板印象的极端行为。
 
-![](https://cdn-images-1.medium.com/max/800/0*PjgEfbSmj2MU_PC4.)
+![](https://user-gold-cdn.xitu.io/2018/2/2/161551441dcf27c2?w=800&h=343&f=png&s=36318)
 
-“Hardcore” and “Casual” can be useful shorthands, but they’re often overloaded with stereotypes that don’t line up with reality. Most **players fall somewhere between these two extremes** along the game playing spectrum, and most **games combine features** that can be categorized as “casual” or “hardcore”.</figcaption>
+「硬核」和「休闲」可能是一种有用的指称，但是它们通常被烙上太多刻板印象，不符合现实。大多数的玩家在玩游戏时都**介于两个极端之间**，大多数游戏结合了可以分为「硬核」或「随便玩玩的」的特点。
 
-### **The role of games in a player’s life, and player’s social behavior, drive the most similarities and differences**
+### **游戏在玩家生活中扮演的角色以及玩家的社交行为，带来了最熟悉的相似处和最迥异的不同点。**
 
-Our first challenge when considering the spectrum of players was to create some form of order. How were these millions of players similar or different in terms of their attitudes, needs, and behaviors when it came to mobile games? In our survey of over 20k mobile game players across 8 markets, we asked a series of questions about different aspects of their game playing: how they find out about games, what’s important to them about games, how and when they play, how gaming fits into their lives, etc. We found the questions that truly differentiated groups of players from each other centered around their **social behaviors** and their **passion for games**.
+在考虑玩家的范围时，我们面临的第一个挑战是创造某种形式的排序。在手机游戏方面，这些数百万的玩家在态度、需求和行为方面有什么相似或不同？在我们对 8 个市场、超过 2 万手机游戏玩家的调查中，我们询问了关于他们玩游戏中不同方面的一系列问题：他们是如何发现游戏的？游戏对于他们的重要性？玩游戏的时间和方式？游戏是如何融入他们生活的等等。我们发现了真正区分玩家群体的问题集中于他们的**社交行为**和**对游戏的热情**。
 
-Examples of social behaviors include both the influence of others in game discovery and choice, as well as playing against others, or as part of a community or alliance. Passion for games includes time spent playing, the centrality of gaming to their identity, and fan-like behavior such as purchasing branded merchandise.
+社交行为的例子包括他人在游戏发现和选择中的影响力，以及是否与其他人一起玩游戏，或作为社区或联盟的一部分。对游戏的热情包括在游戏上花费的时间、游戏在他们身份中的核心地位、以及类似粉丝的行为，比如购买品牌商品。
 
-We identified five distinct segments of players based on these dimensions:
+根据这些维度，我们确定了五种不同的玩家群体：
 
-![](https://cdn-images-1.medium.com/max/800/0*mnVpSZSbvwza7tA1.)
+![](https://user-gold-cdn.xitu.io/2018/2/2/16155144328f29ab?w=800&h=606&f=png&s=87066)
 
-The 5 segments of players mapped relative to each other along the dimensions of Gaming Passion and Social Behavior
+五个玩家群体在游戏热情和社交行为上相互映射。
 
-These five player segments also have different behaviors which can be used to understand gaming preferences and motivations, and we have analyzed the findings into the four following key insights:
+这五个玩家群体也有不同的行为，可以用来了解游戏偏好和动机，我们已经将这些发现分析成以下四个关键点：
 
-#### **1. Demographics are not the primary drivers of difference.**
+#### **1. 人口统计信息不是造成差异的主要因素。**
 
-Once we identified the five segments based on these dimensions, we started to learn more about them in terms of who they are and how they behave. It is really important to highlight that while there are demographic differences between these segments, these are not the primary drivers of segment differences. Too often segmentations like this primarily differentiate segments in terms of life stage or gender, which can hide key commonalities and differences across dimensions that really matter. While there are slightly more younger ‘**connected enthusiasts**’, or older ‘**passive players**’, the dominant age profile for both segments is between 26 and 45 years old. Likewise, there is only a slight male bias (just over 50%) for ‘**connected enthusiasts**’ and ‘**playful explorers**’.
+一旦我们根据这些维度确定了五个玩家群体，我们便开始从他们是谁以及他们的行为方面，进一步了解他们。强调这些群体之间存在人口统计特征的差异是非常重要的，然而这并不是造成这些群体差异的主要原因。通常，这种区分方式主要是在生命阶段或性别方面进行区别，然而这会隐藏真正重要维度的关键共性和差异。虽然有少许更年轻的「**网游爱好者者**（connected enthusiasts）」，或者更年长的「**被动玩家**（passive players）」，但是这两个群体的主要年龄段也只是分布在 26 岁至 45 岁之间。同样地，对于「**网游爱好者者**」和「**被动玩家**」，仅有轻微的男性偏见(仅仅超过 50 %)。
 
-![](https://cdn-images-1.medium.com/max/800/0*1O-uyBiRDKj2qZ19.)
+![](https://user-gold-cdn.xitu.io/2018/2/2/161551442578bf9c?w=800&h=398&f=png&s=116600)
 
-A summary of key demographics and drivers for each segment
+每个群体的主要人口统计数据和驱动因素的总结
 
-#### **2. The player segments use a range of channels and influencers to discover games**
+#### **2. 玩家群体使用一系列的渠道和影响力来发现游戏。**
 
-![](https://cdn-images-1.medium.com/max/800/0*ozziGq7sHQkaZlpG.)
+![](https://user-gold-cdn.xitu.io/2018/2/2/1615514425dfcd33?w=800&h=414&f=png&s=133469)
 
-A summary of key game discovery influences for each segment
+每个群体发现游戏的核心影响力总结
 
-**‘Connected enthusiasts’** use the most channels to discover new games, but nearly all their main channels involve other people — either in real life or online, e.g. YouTube. They are also the most likely to react to in-app advertising. ‘**Playful explorers’** are less socially dependent, with their main sources of game discovery coming from Play Store top charts, YouTube, in-app ads and game ratings. As expected, it’s all about influence from others for ‘**influenced players’** and ‘**tentative followers’ **— either their friends, seeing someone else play a game, or watching someone play on Youtube. ‘**Passive players’** are more influenced by top charts and in-app ads, as well as “other” sources of discovery — sources that don’t fit into the pre-defined categories in the segmentation surveys.
+「**网游爱好者者**（connected enthusiasts）」利用最广泛的渠道来发现新游戏，但是几乎全部的重要渠道都涉及到其他人，无论是现实生活中的还是网络里的（比如 YouTube）。他们也是最有可能对 App 内的广告有所反应的人。**爱玩的探索者**（Playful explorers）」社交依赖程度较低，他们游戏发现的主要来源有应用商店的游戏排行榜、YouTube、APP 内嵌广告以及游戏评分。意料之中地，影响「**被影响玩家**（influenced players）」和「**尝试性跟随者**（tentative followers）」的游戏发现因素都是来自于他人，可能来自于他们的朋友、看到其他人在玩的游戏或者在 YouTube 上看到别人玩的游戏。「**被动玩家**（passive players）」更容易受到榜单和 App 内广告的影响，他们也有一些其他的发现来源 —— 一些在玩家群体调查中未被纳入预先指定分类的来源。
 
-#### **3. Player segment does not equal one genre**
+#### **3. 玩家群体并不对应某个游戏类型**
 
-When we asked players about the types of games they play, we saw similarities across all the segments. Puzzle games are universally appealing, as well as strategy games (except for the ‘**passive players’**). We did see some specific clusters of game types for certain segments.
+当我们询问玩家他们所玩的游戏类型时，我们发现所有的玩家群体有一些相似之处。益智游戏和策略游戏普遍具有吸引力（除了「**被动玩家**」）。我们也确实了发现了一些特定的游戏类型对应某类游戏玩家。
 
-![](https://cdn-images-1.medium.com/max/800/0*QL235LoNMDmLLhXW.)
+![](https://user-gold-cdn.xitu.io/2018/2/2/1615514427b8cacb?w=800&h=357&f=png&s=90950)
 
-Proportion of each segment that plays a mobile game genre
+每个玩家群体在各类手机游戏玩家中所占比例
 
-‘**Connected enthusiasts**’ play nearly every genre and are less likely to skew towards any one in particular. ‘**Playful explorers**’ are even more inclined to play across genres, but skew more towards action and adventure games. ‘**Influenced players**’ are big puzzle fans, but also enjoy adventure, strategy, and trivia games. ‘**Tentative followers**’ enjoy card, trivia, and word games, while ‘**passive players**’ are all about puzzle and card games.
+「**网游爱好者者**」）几乎什么类型的游戏都玩，而且不太可能会偏好某一特定种类。「**爱玩的探索者**」虽然也倾向于玩各种类型的游戏，但是更喜欢玩动作类和冒险类的游戏。「**被影响玩家**」热衷于益智类游戏，但是也很喜欢冒险、策略游戏以及小游戏。「**尝试性跟随者**」喜欢牌类游戏、小游戏和文字游戏。而「**被动玩家**」只喜欢益智游戏和牌类游戏。
 
-#### **4. Motivators of engagement go beyond just relaxation and boredom**
+#### **4. 玩游戏的动机不仅仅是放松和无聊**
 
-Relaxation and boredom relief are universal motivators to keep people playing mobile games. However, we see some other more actionable drivers of engagement that vary across segments. In particular, the ‘**connected enthusiasts**’ are all about making progress, testing their skills (both personally and with others), and ‘rewarding’ themselves with the pleasure of game play. ‘**Playful explorers**’ and ‘**influenced players**’ also see playing games & making progress as a reward, but are less focussed on testing skills compared to others. ‘**Tentative followers**’ and ‘**passive players**’ are less likely to focus on the pleasure of game playing.
+放松和解闷是人们玩游戏的普遍原因。然而，我们发现在不同的游戏群体中，有一些更具可执行性的参与原因。特别是「**网游爱好者者**」，他们玩游戏的原因在于取得进步、在于测试技能（包括自己的和他人的），并用玩游戏的乐趣来奖励自己。「**爱玩的探索者**」和「**被影响玩家**」也将游戏竞技和取得进步视为奖励，但是不太在意与他人比较技能。「**尝试性跟随者**」和「**被动玩家**」不太会关注游戏的乐趣。
 
-### **Implication for developers**
+### **对开发者的意义**
 
-* **Consider the various gaming needs of your players**. Unless your game is highly targeted towards a specific demographic group, don’t fall for demographic stereotypes. Instead, think about the different gaming needs being met by your game and the key experiences your game provides.
-* **Take player differences into account when designing your game or adding new features**:
+* **考虑你的玩家的各种游戏需求。** 除非你的游戏是针对某个特定的人口群体，否则不要落入人口刻板印象中。相反，请考虑你的游戏所能满足的不同游戏需求，和能提供的重要体验。
+* **在设计游戏或增加新功能时考虑玩家差异**：
 
-1. Be specific: Is this feature for a certain segment of players, or all players in general?
-2. Be informed: Get feedback from the right segments of players.
-3. Be concrete: Articulate how a feature will change specific aspects of these players’ experience, and why that is important to them.
+1. 需要明确：这个功能是为特定游戏玩家群体设计，还是为所有的一般玩家？
+2. 得到信息：从目标游戏玩家群体处得到反馈。
+3. 具体一点：说明一个特性将如何改变这些玩家特定方面的体验，以及为什么这对他们很重要。
 
-* **Tailor your customer acquisition strategy.** Use the best marketing channels to reach each desired player segment. Players of all kinds discover new games in many ways, but if you’re building a game for a specific kind of player, you should optimize your strategy to emphasize the channels they engage with most.
-* **Tailor engagement strategies to motivate your target player segment(s)**. ‘**Connected enthusiasts**’ love leaderboards and challenging their community while ‘**playful explorers**’ are more interested in personal progress. Use the game content that is the most meaningful to your players to help them love playing your game.
+* **定制你的用户获取策略。**通过最好的市场渠道来触及目标玩家群体。各种类型的玩家通过多种渠道发现游戏，但是如果你正在为特定类型的玩家定制游戏，你应该优化策略，着重关注于他们参与最多的渠道。
+* **定制游戏参与策略来刺激你的目标游戏群体**。「**网游爱好者者**」热衷于排行榜和挑战社区，而「**爱玩的探索者**」对个人的进步更感兴趣。采用对你的玩家而言最有意义的内容来帮助他们热爱玩你的游戏。
 
-Get the full report, [Who plays mobile games?](http://services.google.com/fh/files/blogs/who_plays_mobile_games.pdf), and let us know what you think. Do these player segments ring true? What do you find surprising? What more do you want to know about these segments? Follow [Google Play Apps & Games on Medium](http://medium.com/googleplaydev) for more industry research, trends, and thoughts for app and game developers from teams at Google.
+获取完整报告 [是谁在玩手机游戏？](http://services.google.com/fh/files/blogs/who_plays_mobile_games.pdf)，让我们了解你的想法。这些游戏玩家群体分类是否可靠？有什么是让你感到惊讶的内容？关于这些群体你还想了解什么？关注 [Google Play Apps & Games on Medium](http://medium.com/googleplaydev)，了解更多来自 Google 团队关于 app 和游戏开发者的行业研究、趋势和想法。
 
 * * *
 
 #### What do you think?
 
-Do you have questions or thoughts on understanding mobile gamers? Continue the discussion in the comments below or tweet using the hashtag #AskPlayDev and we’ll reply from [@GooglePlayDev](http://twitter.com/googleplaydev), where we regularly share news and tips on how to be successful on Google Play.
+#### 你怎么看？
 
-Thanks to [Kelly Rice](https://medium.com/@kellyrice88?source=post_page) and [SKIM Analytics](https://medium.com/@SKIMUS?source=post_page).
+对于了解手机玩家你还有什么问题或想法吗？在下面的评论里继续讨论吧，或者带上标签 #AskPlayDev 发推特，我们将从 [@GooglePlayDev](http://twitter.com/googleplaydev) 中回复，我们也将定期在推特中分享关于如何在 Google Play 中取得成功的新闻和小贴士。
 
+感谢 [Kelly Rice](https://medium.com/@kellyrice88?source=post_page) 和 [SKIM Analytics](https://medium.com/@SKIMUS?source=post_page)。
 
 ---
 
