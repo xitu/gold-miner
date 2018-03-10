@@ -2,7 +2,7 @@
 > * 原文作者：[Gahfy](https://hackernoon.com/@Gahfy?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/develop-your-first-application-with-flutter.md](https://github.com/xitu/gold-miner/blob/master/TODO/develop-your-first-application-with-flutter.md)
-> * 译者：
+> * 译者：[mysterytony](https://github.com/mysterytony)
 > * 校对者：
 
 # 用 Flutter 开发你的第一个应用程序
@@ -79,7 +79,7 @@ We will name it as follow:
 #### 运行第一个项目并探索 Flutter
 #### Running the first project and discovering Flutter
 
-IntelliJ 的编辑器打开了一个名为 `main.dart` 的文件，它是应用程序的主文件。如果你还不了解 Dart ，别慌，这个教程的剩下部分不会用到。
+IntelliJ 的编辑器打开了一个名为 `main.dart` 的文件，它是应用程序的主文件。如果你还不了解 Dart ，别慌，这个教程的剩下部分不时必须的。
 The editor of IntelliJ opened a file named `main.dart`, which is the main file of the application. If you do not already know Dart, don’t panic, it is not required for the rest of this story.
 
 现在，将安卓或 iOS 手机插入你的计算机，或运行一个模拟器。
@@ -129,7 +129,7 @@ Then, on the top right of IntelliJ, click on the Hot Reload button (with a yello
 ### 开发最终的应用程序
 ### Developing our final application
 
-让我们现在删除 `main.dart` 文件里所有内容。多么好的学习方式。
+让我们现在删除 `main.dart` 文件里所有内容。岂不是一个很好的学习方式。
 Let us now remove all the content of the `main.dart` file. What a better way to learn.
 
 #### 最小的应用程序
@@ -403,7 +403,7 @@ class _PostPageState extends State<PostPage>{
   // ...
 }
 ```
-> 如果 IntelliJ IDEA 显示 `PostState` 红色下划线，这意味着 `PostState` 类没有在当前文件中定义。所以你需要导入它。将光标移至红色下划线部分，然后按Alt + Enter ，然后选择导入。
+> 如果 IntelliJ IDEA 在 `PostState` 下显示红色下划线，这意味着 `PostState` 类没有在当前文件中定义。所以你需要导入它。将光标移至红色下划线部分，然后按Alt + Enter ，然后选择导入。
 > If IntelliJ IDEA displays `PostState` underlined in red, this means that the `PostState` class is not defined in the current file. So you will have to import it. To do so, move the cursor to the red underlined part and press Alt+Enter, then choose Import.
 
 现在，让我们定义一个方法，当我们成功获取 `Post` 列表时就返回一个 Widget ：
@@ -451,7 +451,7 @@ _getPosts() async {
 }
 ```
 
-当当，你可以运行应用程序来看结果。实际上，即使真的显示了循环进度条，也几乎没有机会看得到。这是因为检索 Post 的列表非常快，以致它几乎立即消失。
+当当当，你可以运行应用程序来看结果。实际上，即使真的显示了循环进度条，也几乎没有机会看得到。这是因为检索 Post 的列表非常快，以致它几乎立即消失。
 Et voilà. You can run the application in order to see the result. Actually, there is almost no chance that you see the circular progress bar, even if it is actually displayed. This is because retrieving the list of Post is so fast that it is disappearing almost instantly.
 
 #### 从 API 中检索帖子列表
@@ -479,7 +479,7 @@ static List<Post> fromJsonArray(String jsonArrayString){
 }
 ```
 
-我们现在只需编辑检索 `PostState` 类中 `Post` 列表的方法以从API实际检索它：
+我们现在只需编辑检索 `PostState` 类中的 `Post` 列表的方法，让它从 API 真正地检索帖子：
 We now only have to edit the method retrieving the list of `Post` in the `PostState` class to actually retrieve it from the API:
 
 ```
