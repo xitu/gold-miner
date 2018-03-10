@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/the-circle-of-product-design.md](https://github.com/xitu/gold-miner/blob/master/TODO/the-circle-of-product-design.md)
 > * 译者：[Ryden Sun](https://github.com/rydensun)
-> * 校对者：
+> * 校对者：[ryouaki](https://github.com/ryouaki) [Starriers](https://github.com/Starriers)
 
 # 产品设计的环状循环
 
