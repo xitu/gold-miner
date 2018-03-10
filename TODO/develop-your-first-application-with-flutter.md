@@ -33,7 +33,7 @@ Flutter 是一款 SDK ，它可以让你开发基于安卓，iOS 或者 Google �
 
 你所要做的就是克隆 Flutter 官方仓库：
 
-```
+``` bash
 git clone -b beta https://github.com/flutter/flutter.git
 ```
 
@@ -69,7 +69,7 @@ IntelliJ 的编辑器打开了一个名为 `main.dart` 的文件，它是应用�
 
 你可以看的到，这个应用的主要颜色是蓝色。我们可以改成红色。在 `main.dart` 文件中，找到以下代码：
 
-```
+``` dart
 return new MaterialApp(
   title: 'Flutter Demo',
   theme: new ThemeData(
@@ -101,13 +101,13 @@ return new MaterialApp(
 
 我们要做的第一件事就是开发最小的应用程序，也就是能运行的最少代码。因为我们会用 Material Design 来设计我们的应用程序，所以首先要导入包含 Material Design Widgets 的包。
 
-```
+``` dart
 import 'package:flutter/material.dart';
 ```
 
 现在我们来创建一个继承 `StatelessWidget` 的类来创建我们应用程序的一个实例（之后会深入讨论 `StatelessWidget`）。
 
-```
+``` dart
 import 'package:flutter/material.dart';
  
 class MyApp extends StatelessWidget {
@@ -117,7 +117,7 @@ class MyApp extends StatelessWidget {
 
 IntelliJ IDEA 在 MyApp 下显示红色下划线。实际上 `StatelessWidget` 是一个需要实现 `build()` 方法的抽象类。为此，将光标移动到 MyApp 上，然后按 Alt + Enter 。
 
-```
+``` dart
 import 'package:flutter/material.dart';
  
 class MyApp extends StatelessWidget {
@@ -130,13 +130,13 @@ class MyApp extends StatelessWidget {
 
 现在我们来实现 `build()` 方法，我们可以看到它必须返回一个 `Widget` 实例。我们要在这里构建应用程序时返回一个 `MaterialApp`。为此，在 `build()` 中添加以下代码：
 
-```
+``` dart
 return new MaterialApp();
 ```
 
 `MaterialApp` 的文档告诉我们至少要初始化 `home`，`routes`，`onGenerateRoute` 或者 `builder` 。我们只会在这里定义 `home` 属性。这将是应用程序的主界面。因为我们希望我们的应用程序是基于 Material Design 的布局，所以我们把 `home` 设置为一个空的 `Scaffold`：
 
-```
+``` dart
 import 'package:flutter/material.dart';
  
 class MyApp extends StatelessWidget {
@@ -151,7 +151,7 @@ class MyApp extends StatelessWidget {
 
 最后我们需要设置当运行 main.dart 时，我们想运行 `MyApp` 应用程序。因此，我们需要在导入语句后面添加以下行：
 
-```
+``` dart
 void main() => runApp(new MyApp());
 ```
 
@@ -178,7 +178,7 @@ void main() => runApp(new MyApp());
 
 让我们添加一个继承 `StatefulWidget` 的类到我们的应用程序：
 
-```
+``` dart
 import 'package:flutter/material.dart';
  
 void main() => runApp(new MyApp());
@@ -204,7 +204,7 @@ class PostPage extends StatefulWidget {
 
 像我们看到的一样，我们需要实现返回一个 `State` 对象的 `createState()` 方法。所以让我们创建一个继承 `State` 的类：
 
-```
+``` dart
 class PostPage extends StatefulWidget {
   PostPage({Key key}) : super(key: key);
  
@@ -222,7 +222,7 @@ class _PostPageState extends State<PostPage>{
 
 就像看到的，我们需要实现 `build()` 方法，让它返回一个 Widget 。为此，我们先创建一个空部件 （`Row`）：
 
-```
+``` dart
 class _PostPageState extends State<PostPage>{
   @override
   Widget build(BuildContext context) {
@@ -240,7 +240,7 @@ class _PostPageState extends State<PostPage>{
 
 让我们现在创建一个方法，它将返回 Widget 以显示当前状态，以及一种返回一个包含居中的循环进度条的 Widget 的方法：
 
-```
+``` dart
 class _PostPageState extends State<PostPage>{
   Widget _getLoadingStateWidget(){
     return new Center(
@@ -272,7 +272,7 @@ class _PostPageState extends State<PostPage>{
 
 我们先定义 `Post` 对象，因为它是在 JSONPlaceholder API 中定义的。为此，创建一个包含以下内容的 `Post.dart` 文件：
 
-```
+``` dart
 class Post {
   final int userId;
  
@@ -293,7 +293,7 @@ class Post {
 
 现在我们在同一个文件中定义一个 `PostState` 类来设计应用程序的当前状态：
 
-```
+``` dart
 class PostState{
   List<Post> posts;
   bool loading;
@@ -315,7 +315,7 @@ class PostState{
 
 现在要做的就是在 `PostState` 类中定义一个方法来从 API 中获取 `Post` 的列表。稍后我们将看到如何做到这一点，因为现在我们只能异步地返回一个静态的 `Post` 列表：
 
-```
+``` dart
 Future<void> getFromApi() async{
   this.posts = [
     new Post(userId: 1, id: 1, title: "Title 1", body: "Content 1"),
@@ -329,7 +329,7 @@ Future<void> getFromApi() async{
 
 现在完成了，让我们回到 `main.dart` 文件中的 `PostPageState` 类来看看如何使用我们刚定义的类。我们在 `PostPageState` 类中初始化一个 `postState` 属性：
 
-```
+``` dart
 class _PostPageState extends State<PostPage>{
   final PostState postState = new PostState();
  
@@ -340,7 +340,7 @@ class _PostPageState extends State<PostPage>{
 
 现在，让我们定义一个方法，当我们成功获取 `Post` 列表时就返回一个 Widget ：
 
-```
+``` dart
 Widget _getSuccessStateWidget(){
   return new Center(
     child: new Text(postState.posts.length.toString() + " posts retrieved")
@@ -350,7 +350,7 @@ Widget _getSuccessStateWidget(){
 
 现在要做的就是如果我们成功获得 Post 的列表，编辑 `getCurrentStateWidget()` 方法来显示这个 Widget ：
 
-```
+``` dart
 Widget getCurrentStateWidget(){
   Widget currentStateWidget;
   if(!postState.error && !postState.loading) {
@@ -365,7 +365,7 @@ Widget getCurrentStateWidget(){
 
 最后要做的，也许最重要的一件事就是运行请求以检索 Post 的列表。为此，定义一个 `_getPosts()` 方法并在初始化状态时调用它：
 
-```
+``` dart
 @override
 void initState() {
   super.initState();
@@ -388,7 +388,7 @@ _getPosts() async {
 
 因此，我们必须先为 Post 类添加一个静态方法，以便将 Post 的 JSON 数组转换为 `Post` 列表：
 
-```
+``` dart
 static List<Post> fromJsonArray(String jsonArrayString){
   List data = JSON.decode(jsonArrayString);
   List<Post> result = [];
@@ -406,7 +406,7 @@ static List<Post> fromJsonArray(String jsonArrayString){
 
 我们现在只需编辑检索 `PostState` 类中的 `Post` 列表的方法，让它从 API 真正地检索帖子：
 
-```
+``` dart
 Future<void> getFromApi() async{
   try {
     var httpClient = new HttpClient();
@@ -437,7 +437,7 @@ Future<void> getFromApi() async{
 
 目前，我们只显示检索的帖子数量，但不会像我们预期的那样显示帖子列表。为了能够显示它，让我们编辑 `PostPageState` 类的 `_getSuccessStateWidget()` 方法：
 
-```
+``` dart
 Widget _getSuccessStateWidget(){
   return new ListView.builder(
     itemCount: postState.posts.length,
@@ -464,7 +464,7 @@ Widget _getSuccessStateWidget(){
 
 我们还有最后一件事要做：处理错误。您可以尝试在飞行模式下运行应用程序，然后就可以看到无限循环进度条。所以我们要返回一个空白错误：
 
-```
+``` dart
 Widget _getErrorState(){
   return new Center(
     child: new Row(),
@@ -488,7 +488,7 @@ Widget getCurrentStateWidget(){
 
 现在，当发生错误时，它会显示一个空白的界面。你可以随意更改内容来显示错误界面。但是我们说过，我们希望显示一个 Snackbar ，以便在出现错误时重试。为此，让我们在 `PostPageState` 类中开发 `showError()` 和 `retry()` 方法：
 
-```
+``` dart
 class _PostPageState extends State<PostPage>{
   // ...
   BuildContext context;
@@ -518,7 +518,7 @@ class _PostPageState extends State<PostPage>{
 
 正如我们所看到的，我们需要一个 `BuildContext` 来获得 `ScaffoldState` ，它可以让 Snackbar 出现并消失。但是我们必须使用 `Scaffold` 对象的 `BuildContext` 来获得 `ScaffoldState` 。为此，我们需要编辑 `PostPageState` 类的 `build()` 方法：
 
-```
+``` dart
 Widget currentWidget = getCurrentStateWidget();
 return new Scaffold(
     appBar: new AppBar(
