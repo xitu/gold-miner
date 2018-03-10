@@ -3,9 +3,9 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/how-to-write-dockerfiles-for-python-web-apps.md](https://github.com/xitu/gold-miner/blob/master/TODO/how-to-write-dockerfiles-for-python-web-apps.md)
 > * 译者：[lsvih](https://github.com/lsvih)
-> * 校对者：
+> * 校对者：[Starriers](https://github.com/Starriers)
 
-# 为 Python Web 应用编写 Dockerfiles
+# 为 Python Web App 编写 Dockerfiles
 
 ![](https://cdn-images-1.medium.com/max/800/1*8rsXezmgl9VTA4zqCcUsfw.jpeg)
 
@@ -253,7 +253,7 @@ CMD ["gunicorn", "--config", "./gunicorn_app/conf/gunicorn_config.py", "gunicorn
 
 * * *
 
-此外，你是否试过将 Node.js web 应用部署在 Hasura 上呢？这其实是将 python 应用部署于 HTTPS 域名的最快的方法（仅需使用 git push）。尝试使用 [https://hasura.io/hub/nodejs-frameworks](https://hasura.io/hub/nodejs-frameworks) 的模板快速入门吧！Hasura 中所有的项目模板都带有 Dockerfile 与 Kubernetes 标准文件，你可以自由进行定义。
+此外，你是否试过将 python web app 部署在 Hasura 上呢？这其实是将 python 应用部署于 HTTPS 域名的最快的方法（仅需使用 git push）。尝试使用 [https://hasura.io/hub/projects/hasura/hello-python-flask](https://hasura.io/hub/projects/hasura/hello-python-flask) 的模板快速入门吧！Hasura 中所有的项目模板都带有 Dockerfile 与 Kubernetes 标准文件，你可以自由进行定义。
 
 
 ---
