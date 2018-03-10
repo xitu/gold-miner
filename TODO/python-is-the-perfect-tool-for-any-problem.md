@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/python-is-the-perfect-tool-for-any-problem.md](https://github.com/xitu/gold-miner/blob/master/TODO/python-is-the-perfect-tool-for-any-problem.md)
 > * 译者：[Ryden Sun](https://github.com/rydensun)
-> * 校对者：
+> * 校对者：[zephyrJS](https://github.com/zephyrjs) [lampui](https://github.com/lampui)
 
 # Python 是解决任何问题的完美工具
 
