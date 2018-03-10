@@ -21,7 +21,7 @@ Flutter 是一款 SDK ，它可以让你开发基于安卓，iOS 或者 Google �
 
 ### 安装所需的工具
 
-#### Git ，Android Studio 和 Xcode
+#### Git ，Android Studio 和 XCode
 
 为了获取 Flutter ，你需要克隆其官方仓库。如果你想开发安卓应用，则还需要 Android Studio 。如果要开发 iOS 应用，则还需要 XCode 。
 
