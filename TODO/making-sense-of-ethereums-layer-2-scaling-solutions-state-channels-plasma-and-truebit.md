@@ -3,22 +3,31 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/making-sense-of-ethereums-layer-2-scaling-solutions-state-channels-plasma-and-truebit.md](https://github.com/xitu/gold-miner/blob/master/TODO/making-sense-of-ethereums-layer-2-scaling-solutions-state-channels-plasma-and-truebit.md)
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 9ccbd0da7c20e2d8b6daaf230b2fe16070116f05
 > * 译者：JohnJiangLA
 > * 校对者：
 
 # 带你了解以太坊第2层扩容方案：State Channels、Plasma 和 Truebit
+<<<<<<< HEAD
 =======
 > * 译者：[JohnJiangLA](https://github.com/JohnJiangLA)
 > * 校对者：[foxxnuaa](https://github.com/foxxnuaa) [Zheaoli](https://github.com/zheaoli)
 
 # 带你了解以太坊第2层扩容方案：状态通道（State Channels）、Plasma 和 Truebit
 >>>>>>> ece2ff8ded6ded64107fcd8b9ec4c570964a5bc7
+=======
+>>>>>>> 9ccbd0da7c20e2d8b6daaf230b2fe16070116f05
 
 ![](https://cdn-images-1.medium.com/max/800/1*XTjr9JD25uUluY_QVQ_RaA.jpeg)
 
 宾夕法尼亚州 Tunkhannock 地区铁路高架桥（[cc](https://www.flickr.com/photos/library_of_congress/5715531287)）。古罗马的建筑理念在新时代的使用。
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 9ccbd0da7c20e2d8b6daaf230b2fe16070116f05
 对于以太坊来说 [2018 是基础建设的一年](https://twitter.com/L4ventures/status/953041925241757697)。今年会是对它早期采用技术进行网络负载考验的一年，版本更新主要关注用于扩展以太坊的技术。
 
 **以太坊至今仍处于成长初期。**现今，它还不是安全或者可扩展的(https://twitter.com/VladZamfir/status/838006311598030848)。技术人员能够很清楚的认识到这一点。但是在去年，ICO 驱动的炒作已经开始夸大目前的网络能力。构建一个安全，易于使用的分散式互联网，受约于一套通用经济规范并被无数人使用，以太坊和 web3 提出的这一美好承诺就在眼前，但[只有在建立关键基础设施之后才能够实现](https://twitter.com/granthummer/status/957353619736559616)。
@@ -41,6 +50,7 @@
 
 The most commonly discussed scaling challenge is transaction throughput. Currently, ethereum can process roughly 15 transactions per second, while in comparison Visa processes approximately 45,000/tps. In the last year, some applications — like [Cryptokitties](http://cryptokitties.co), or the occasional ICO — have been popular enough to “slow down” the network and raise gas prices.
 最常讨论的扩展难题是交易通量。目前，以太坊每秒可以处理大约15笔交易，而 Visa 的处理能力则大约在 45,000/tps。在去年，一些应用程序（比如 [Cryptokitties](http://cryptokitties.co)或偶尔的 ICO）已经
+<<<<<<< HEAD
 =======
 对于以太坊来说 [2018 年是着力基础建设的一年](https://twitter.com/L4ventures/status/953041925241757697)。今年是初期用户来测试网络极限的一年，并将重新关注一些扩展以太坊的技术。
 
@@ -49,6 +59,8 @@ The most commonly discussed scaling challenge is transaction throughput. Current
 致力于构建这种基础架构和扩展以太坊性能的项目通常被称为**扩展方案（scaling solutions）**。这些项目有着不同的形式，并且通常相互兼容或互补。
 
 在这篇长帖中，我想要深入讲解**一**种扩展方案：**“off-chain” 或 “第二层（layer 2）” 方案。**
+=======
+>>>>>>> 9ccbd0da7c20e2d8b6daaf230b2fe16070116f05
 
 *   **首先**，我们会全面的讨论下以太坊（以及所有公有的区块链）的扩展难题。
 *   **其次**，我们将介绍解决扩展难题的不同方法，区分 “layer 1” 和 “layer 2” 解决方案。
