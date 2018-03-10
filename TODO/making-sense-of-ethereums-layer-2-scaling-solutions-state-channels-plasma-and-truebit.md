@@ -2,36 +2,37 @@
 > * 原文作者：[Josh Stark](https://medium.com/@jjmstark?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/making-sense-of-ethereums-layer-2-scaling-solutions-state-channels-plasma-and-truebit.md](https://github.com/xitu/gold-miner/blob/master/TODO/making-sense-of-ethereums-layer-2-scaling-solutions-state-channels-plasma-and-truebit.md)
-> * 译者：
+> * 译者：JohnJiangLA
 > * 校对者：
 
-# 带你了解以太坊第 2 层扩容方案：State Channels、Plasma 和 Truebit
+# 带你了解以太坊第2层扩容方案：State Channels、Plasma 和 Truebit
 
 ![](https://cdn-images-1.medium.com/max/800/1*XTjr9JD25uUluY_QVQ_RaA.jpeg)
 
-Construction of the Tunkhannock Viaduct railway bridge in Pennsylvania ([cc](https://www.flickr.com/photos/library_of_congress/5715531287)). Roman engineering principles being extended to new uses.
+宾夕法尼亚州 Tunkhannock 地区铁路高架桥（[cc](https://www.flickr.com/photos/library_of_congress/5715531287)）。古罗马的建筑理念在新时代的使用。
 
-For ethereum [2018 is the year of infrastructure](https://twitter.com/L4ventures/status/953041925241757697). This is the year when early adoption will test the limits of the network, renewing focus on technologies built to scale ethereum.
+对于以太坊来说 [2018 是基础建设的一年](https://twitter.com/L4ventures/status/953041925241757697)。今年会是对它早期采用技术进行网络负载考验的一年，版本更新主要关注用于扩展以太坊的技术。
 
-**Ethereum is still in its infancy.** Today, it [isn’t safe or scalable](https://twitter.com/VladZamfir/status/838006311598030848). This is well understood by anyone who works closely with the technology. But over the last year, the ICO-driven hype has begun to far exaggerate the current capabilities of the network. The promise of ethereum and web3 — a safe, easy to use decentralized internet, bound by a common set of economic protocols, and used by billions of people — is still on the horizon, and [will not be realized until critical infrastructure is built](https://twitter.com/granthummer/status/957353619736559616).
+**以太坊至今仍处于成长初期。**现今，它还不是安全或者可扩展的(https://twitter.com/VladZamfir/status/838006311598030848)。技术人员能够很清楚的认识到这一点。但是在去年，ICO 驱动的炒作已经开始夸大目前的网络能力。构建一个安全，易于使用的分散式互联网，受约于一套通用经济规范并被无数人使用，以太坊和 web3 提出的这一美好承诺就在眼前，但[只有在建立关键基础设施之后才能够实现](https://twitter.com/granthummer/status/957353619736559616)。
 
-The projects working to build this infrastructure and expand the capabilities of ethereum are commonly referred to as _scaling solutions_. These take many different forms, and are often compatible or complimentary with each other.
+致力于构建这种基础架构和扩展以太坊性能的项目通常被称为**扩展方案（scaling solutions）**。这些项目有不同的形式，并且通常相互兼容或互补。
 
-In this long post I want to dive deep into _one_ category of scaling solution: **“off-chain” or “layer 2” solutions.**
+在这篇长帖中，我想要深入讲解**一**种扩展方案：**“off-chain” 或 “第二层（layer 2）” 方案。**
 
-*   **First**, we’ll discuss the scaling challenges of ethereum (and all public blockchains) in general.
-*   **Second**, we’ll cover the different approaches to solving the scaling challenge, distinguishing between “layer 1” and “layer 2” solutions.
-*   **Third**, we’ll delve into layer 2 solutions and explain how they work — specifically, we’ll talk about [**state channels**](https://medium.com/l4-media/generalized-state-channels-on-ethereum-de0357f5fb44)**, P**[**lasma**](http://plasma.io/)**, and** [**Truebit**](http://truebit.io)
+*   **第一**，我们会概略的讨论下以太坊（以及所有公用的区块链）的扩展难题。
+*   **第二**，我们将介绍解决扩展挑战的不同方法，区分 “layer 1” 和 “layer 2” 解决方案。
+*   **第三**，我们会深入了解第二层（layer 2）解决方案并详细解释它是怎样运作的，我们会谈及 [**state channels**](https://medium.com/l4-media/generalized-state-channels-on-ethereum-de0357f5fb44)**, P**[**lasma**](http://plasma.io/)**, 和** [**Truebit**](http://truebit.io)。
 
-**This article focuses on giving the reader a thorough and detailed _conceptual_ understanding of how layer 2 solutions work**. But we won’t dig into code or specific implementations. Rather, we focus on understanding the economic mechanisms used to build these systems, and the common insights that are shared between all layer 2 technologies.
+**本文的重点是向读者提供对于第二层（layer 2）解决方案工作原理全面彻底的概念层面理解。**但我们不会深入研究代码或特定实现。相反，我们专注理解用于理解构建这些系统的经济机制以及所有第二层技术之间共同的思维模式。
 
 * * *
 
-### 1. The scaling challenges of public blockchains
+### 1. 公用区块链的扩展难题
 
-First, it’s important to understand that “scaling” isn’t a single, specific problem. **It refers to a collection of challenges that must be overcome to make ethereum useful to a global user base of billions of people.**
+首先，你要知道“扩展”不是一个单一的、特定的问题，**它涉及了一系列难题，必须解决这些难题才能使以太坊对全球无数用户可用。**
 
 The most commonly discussed scaling challenge is transaction throughput. Currently, ethereum can process roughly 15 transactions per second, while in comparison Visa processes approximately 45,000/tps. In the last year, some applications — like [Cryptokitties](http://cryptokitties.co), or the occasional ICO — have been popular enough to “slow down” the network and raise gas prices.
+最常讨论的扩展难题是交易通量。目前，以太坊每秒可以处理大约15笔交易，而 Visa 的处理能力则大约在 45,000/tps。在去年，一些应用程序（比如 [Cryptokitties](http://cryptokitties.co)或偶尔的 ICO）已经
 
 **The core limitation is that public blockchains like ethereum require every transaction to be processed by _every single node_ in the network.** Every operation that takes place on the ethereum blockchain — a payment, the birth of a Cryptokitty, deployment of a new ERC20 contract — must be performed by every single node in the network in parallel. This is by design — it’s part of what makes public blockchains authoritative. Nodes don’t have to rely on someone _else_ to tell them what the current state of the blockchain is — they figure it out for themselves.
 
@@ -234,7 +235,6 @@ Further, it’s very hard to predict in advance what scripting capabilities will
 The only way to take full advantage of the value of blockchain technology — that core _kernel of certainty_ created by cryptoeconomic consensus — is with a programmable blockchain like ethereum.
 
 _Thanks to Vitalik Buterin, Jon Choi, Matt Condon, Chris Dixon, Hudson Jameson, Denis Nazarov, and Jesse Walden for their comments on an earlier draft of this article._
-
 
 ---
 
