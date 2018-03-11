@@ -2,20 +2,20 @@
 > * 原文作者：[Slobodan Stojanović](https://medium.freecodecamp.org/@slobodan?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/express-js-and-aws-lambda-a-serverless-love-story.md](https://github.com/xitu/gold-miner/blob/master/TODO/express-js-and-aws-lambda-a-serverless-love-story.md)
-> * 译者：
-> * 校对者：
+> * 译者：[刘嘉一](https://github.com/lcx-seima)
+> * 校对者：[FateZeros](https://github.com/FateZeros)，[Han Song](https://github.com/song-han)
 
-# Express.js and AWS Lambda — a serverless love story
+# Express.js 与 AWS Lambda — 一场关于 serverless 的爱情故事
 
-If you are a Node.js developer or you’ve built an API with Node.js, there’s a big chance you used [Express.js](https://expressjs.com). Express is _de facto_ the most popular Node.js framework.
+无论你是 Node.js 的职业开发者，亦或是使用 Node.js 开发过 API 的普通开发者，你都极有可能使用了 [Express.js](https://expressjs.com)。Express 可以称得上是 Node.js 中最流行的框架了。
 
-Express apps are easy to build. For a simple app, you just need to add a few routes and route handlers. That’s it.
+构建 Express App 极为容易。你仅需添加一些路由规则和对应的处理函数，一个简单的应用就此诞生。
 
 ![](https://cdn-images-1.medium.com/max/800/1*FOKLXN58KdHMIXnq9XmMbQ.jpeg)
 
-A simple, traditionally hosted Express.js app, with a single request.
+图注：一个使用传统托管方法的简单 Express.js App —— 响应单次请求的过程。
 
-For example, the simplest Express app looks like the following code snippet:
+下列代码展示了一个最简单的 Express App：
 
 ```
 'use strict'
@@ -31,67 +31,67 @@ app.listen(port, () =>
 )
 ```
 
-If you save that code snippet as _app.js_ in a new folder, you are just three steps away from having a simple Express app:
+如果将上面的代码片段保存为 **app.js**，那么再需三步你就可以让这个简单的 Express App 运行起来。
 
-1.  Create a new Node.js project. To do so, run the `npm init -y` command in your terminal. Just make sure you navigated to the folder that contains `app.js` first.
-2.  Install the Express module from NPM by running the `npm install express --save` command from terminal.
-3.  Run the `node app.js` command, and you should see “Server is listening on port 3000.” as a response.
+1.  首先将终端的工作目录切换到 `app.js` 所在的文件夹，之后执行 `npm init -y` 命令以初始化一个新的 Node.js 项目。
+2.  使用终端执行 `npm install express --save` 命令以从 NPM 安装 Express 模块。
+3.  执行 `node app.js` 命令，终端会回显 “Server is listening on port 3000.” 字样。
 
-Voila! You have an Express app. Visit http://localhost:3000 in your browser, and you’ll see a “Hello world!” message.
+瞧，这就完成了一个 Express App。若使用浏览器访问 http://localhost:3000，你便可以在打开的网页中看到 “Hello world!” 信息。
 
-### Application deployment
+### 应用部署
 
-Now comes the hard part: How can you show it to your friends or family? How to make it available for everyone?
+麻烦的问题来了：如何才能将你构建的 Express App 展示给你的朋友或者家人？如何才能让每个人都能访问到它？
 
-Deployment can be long and painful process, but let’s imagine you manage to do it quickly and successfully. Your app is available to everyone and it lived happily ever after.
+应用部署是一个耗时且痛苦的过程，但现在我们就假定你已经很快、很好地完成了部署的工作。你的应用已经能被所有人访问了，并且之后也运转良好。
 
-Until one day, an unexpected an army of users started using it.
+就这样直到一天，突然有一大批用户涌入开始使用你的应用。
 
-Your server struggled, but it worked.
+你的服务器开始变得疲惫不堪，不过仍然还能工作。
 
 ![](https://cdn-images-1.medium.com/max/800/1*oRxOi15ZwmxllRruaUrajg.jpeg)
 
-A simple, traditionally hosted Express.js app under load.
+图注：一个使用传统托管方法的简单 Express.js App —— 处于较大负载下。
 
-At least for some time. And then it died. ☠️
+就这样持续了一段时间后，它终于宕机了。☠️
 
 ![](https://cdn-images-1.medium.com/max/800/1*rLrZQImeF1JAAemPMsT4CA.jpeg)
 
-A simple, but dead, traditionally hosted Express.js, that crashed because too many users accessed it.
+图注：一个使用传统托管方法的简单 Express.js App —— 因为过多用户访问导致应用挂掉。
 
-An army of users is angry (at least they didn’t pay for the app — or did they?) You are desperate and trying to Google the solution. Can the cloud help?
+一大批用户因为应用无法访问而变得不开心（无论他们是否为此应用付费）。你对此感到绝望，并开始在 Google 上寻求解决方法。如果在云（Cloud）上部署可以改善现状吗？
 
 ![](https://cdn-images-1.medium.com/max/800/1*zzz5m1-ZSKeYQwtshfx_6A.jpeg)
 
-Cloud should fix your scaling issues, right?
+图注：在云上部署应该就可以解决应用规模伸缩的问题了，对吧？
 
-And you’ve met one of your annoying friends again. She’s talking about that serverless thingy again. But come on, you still have a server. It just belongs to somebody else and you have no control over it.
+此时你遇到了之前一个恼人的朋友，她又在给你谈论 Serverless（无服务器）技术的种种。但是等等，你现在可是有一台服务器的呀。虽然这台服务器是某个服务商提供的，并且它的状态也不怎么好暂时失去了控制，但总归是能供你使用的。
 
 ![](https://cdn-images-1.medium.com/max/800/1*hkjYPGxG2q_r_-bUk1qSWw.jpeg)
 
-But, there are servers!
+图注：但是，Serverless 背后还是有一堆服务器呀！
 
-But you are desperate, you would try anything, including black magic and even serverless. “What the heck is that serverless thingy, anyway?”
+走投无路的你愿意尝试一切方法 “挽救” 你的应用，管它是 Serverless 还是其他什么黑魔法。“不过，这个 Serverless 究竟是个什么东西呢?”
 
-You ended up with many links, including the one to the [free first chapter](https://livebook.manning.com/?utm_source=twitter&utm_medium=social&utm_campaign=book_serverlessappswithnodeandclaudiajs&utm_content=medium#!/book/serverless-apps-with-node-and-claudiajs/chapter-1/) of “Serverless Apps with Node and Claudia.js” by Manning Publications.
+你翻阅了数个网页，包括 “Serverless Apps with Node and Claudia.js” 这本书的 [第一章试读](https://livebook.manning.com/?utm_source=twitter&utm_medium=social&utm_campaign=book_serverlessappswithnodeandclaudiajs&utm_content=medium#!/book/serverless-apps-with-node-and-claudiajs/chapter-1/)（由 Manning Publications Co. 出版）。
 
-That chapter explains serverless with washing machines!? Sounds crazy, but it kinda makes sense. 💩 already hit the fan, so you decide to try it.
+在这一章中，作者使用洗衣机类比说明了 Serverless 的原理，这听起来很疯狂不过解释起原理来还蛮有用。你的应用已经到了 🔥 烧眉毛的地步了，因此你决定马上试试 Serverless。
 
-### Making your Express.js app serverless
+### 让你的 Express.js App Serverless 化
 
-That chapter was all about serverless on AWS. And now you know that Serverless API consists of an API Gateway and AWS Lambda functions. But how can you go serverless with your Express app?
+上面书中的一整章都是基于 AWS 的 Serverless 进行编写的。你已经知道了 Serverless API 是由 API Gateway 和 AWS Lambda function 组成的。现在需要考虑的是如何让你的 Express App Serveless 化。
 
-This sounds as promising as that movie about Matt Damon shrinking…
+就像 Matt Damon 出演的电影《缩小人生》中描绘的桥段，Serverless 在未来也具有无限的潜力和可能性。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Yo4lpTU11g0vYE4vn3kA-w.jpeg)
 
-How do you fit your Express.js app into AWS Lambda?
+图注：如何才能让你的 Express.js App 无缝接入 AWS Lambda？
 
-[Claudia](https://claudiajs.com) could help you to deploy your app to AWS Lambda — lets ask her for help!
+[Claudia](https://claudiajs.com) 有能力帮助你把你的 App 部署到 AWS Lambda — 让我们向它请教一番！
 
-Make sure you configured your AWS access credentials as explained in [this tutorial](https://claudiajs.com/tutorials/installing.html) before running Claudia commands.
+在运行 Claudia 命令前，请确保你已经参照 [教程](https://claudiajs.com/tutorials/installing.html) 配置好了 AWS 的访问凭证。
 
-Your code should be slightly modified to suppor AWS Lambda and deployment via Claudia. You need to export your `app` instead of starting the server using `app.listen`. Your `app.js` should look like the following code listing:
+为了能接入 AWS Lambda 和使用 Claudia 进行部署，你的代码需要稍微调整一下。你需要 export 你的 `app`，而不是调用 `app.listen` 去启动它。你的 `app.js` 内容应该类似下列代码：
 
 ```
 'use strict'
@@ -104,7 +104,7 @@ app.get('/', (req, res) => res.send('Hello world!'))
 module.exports = app
 ```
 
-That would break a local Express server, but you can add `app.local.js` file with the following content:
+这样修改后你可能无法在本地启动 Express 服务器了，不过你可以通过额外添加 `app.local.js` 文件进行解决：
 
 ```
 'use strict'
@@ -117,21 +117,21 @@ app.listen(port, () =>
 )
 ```
 
-And then run the local server using the following command:
+之后想启动本地服务器执行下面的命令就可以了：
 
 ```
 node app.local.js
 ```
 
-To make your app work correctly with AWS Lambda, you need to generate AWS Lambda wrapper for your Express app. With Claudia, you can do so by running the following command in your terminal:
+为了将你的应用正确接入 AWS Lambda，你还需要编写一些代码将你的 Express App ”包裹“ 一番。在 Claudia 的帮助下，你只需要在终端中执行一条命令就可以生成 AWS Lambda 需要的 ”包裹“ 代码了：
 
 ```
 claudia generate-serverless-express-proxy --express-module app
 ```
 
-where `app` is a name of an entry file of your Express app, just without the `.js` extension.
+命令结尾处的 `app` 指明了 Express App 的入口文件名，这里无需附加 `.js` 扩展名。
 
-This step generated a file named `lambda.js`, with the following content:
+这一步会生成 `lambda.js` 文件，它的内容如下：
 
 ```
 'use strict'
@@ -153,13 +153,13 @@ exports.handler = (event, context) =>
 )
 ```
 
-That’s it! Now you only need to deploy your Express app (with `lambda.js` file) to AWS Lambda and API Gateway using the `claudia create` command.
+至此已经完成了所有的准备工作！接下来你只需要执行 `claudia create` 命令就可以将你的 Express App（含 `lambda.js` 文件）部署到 AWS Lambda 和 API Gateway 了。
 
 ```
 claudia create --handler lambda.handler --deploy-proxy-api --region eu-central-1
 ```
 
-After a few moments, the command finished and printed the following response:
+等待上述命令执行完成后，终端会输出类似下面的响应信息：
 
 ```
 {
@@ -175,55 +175,55 @@ After a few moments, the command finished and printed the following response:
 }
 ```
 
-And if you visit the link from that response in your browser, it prints “Hello world!” It worked! 🙀
+在浏览器中打开响应信息中返回的链接，若网页展示出 “Hello world!” 那么证明应用已经成功部署起来了！🙀
 
 ![](https://cdn-images-1.medium.com/max/800/1*vEl8mct7Hz-HWJ6_N9Gyqw.png)
 
-Serverless Express app.
+图注：Serverless Express App。
 
-With a serverless app, your army of users can continue growing and your app will still be working.
+将你的应用 Serverless 化后，你不再畏惧用户群体的进一步扩大，应用会始终保持为可用状态。
 
-It is possible, because AWS Lambda will auto scale up to 1000 concurrent executions by default. New functions are ready a few moments after the API Gateway receives the request.
+这并不是言过其实，因为在默认情况下 AWS Lambda 可通过弹性伸缩最高支持 1000 个 function 并发执行。当 API Gateway 接收到请求后，新的 function 会在短时间内处于可用状态。
 
 ![](https://cdn-images-1.medium.com/max/800/1*F8bP1pP4Pc-eTKj0wLNzhA.jpeg)
 
-Serverless Express.js app under heavy load.
+图注：在高负载下的 Serverless Express.js App。
 
-But this is not your only benefit. You also saved money besides having a stable app under a higher load. With AWS Lambda, you pay only for requests you used. Also, the first million requests each month are free, as part of a free tier.
+这并不是你接入 Serverless 后唯一的收益。在保证应用不会因为高负载宕机的前提下，你同样削减了不少应用的运行开销。使用 AWS Lambda，你仅需按你应用的实际访问量付费。同样，AWS 的免费试用计划还将给予你每应用每月一百万的免费流量（按访问次数计算）。
 
 ![](https://cdn-images-1.medium.com/max/800/1*_SyXSIVxi0a5UKA5nQCBOQ.jpeg)
 
-Your serverless app also saves your money!
+图注：你的 Serverless App 真是太替你省钱了！
 
-To read more about the ways your business benefits through serverless, see [this](https://hackernoon.com/7-ways-your-business-will-benefit-through-serverless-522b3f628a33) article.
+想了解更多关于使用 Serverless 带来的好处，请点击查看 [这篇](https://hackernoon.com/7-ways-your-business-will-benefit-through-serverless-522b3f628a33) 文章。
 
-### Limitations of serverless Express.js apps
+### Serverless Express.js App 的短板
 
-Serverless Express apps sound awesome, but they have some limitations.
+即便 Serverless Express App 听起来超赞，却同样有它的不足之处。
 
 ![](https://cdn-images-1.medium.com/max/800/1*PglAqQmPs9k3ovYiwD2BBQ.jpeg)
 
-Serverless, the limited edition.
+图注：Serverless，”阉割“ 版。
 
-Some of the important limitations of serverless Express apps are the following:
+下面是 Serverless Express App 一些最 “致命” 的短板：
 
-*   _Websockets_ don’t work with AWS Lambda. That’s because your server doesn’t exist when there are no requests. Some limited support for websockets is available through [AWS IOT websockets over MQTT protocol](https://docs.aws.amazon.com/iot/latest/developerguide/protocols.html#mqtt).
-*   _Upload_ to the file system will not work either, unless you are uploading to the `/tmp` folder. That’s because the AWS Lambda function is read-only. Even if you upload files to `/tmp` folder, they will exist for a short time, while the function is still “warm”. To make sure your upload feature is working fine, you should upload files to AWS S3.
-*   _Execution limits_ can also affect your serverless Express app. Because API Gateway has a timeout of 30 seconds, and AWS Lambda’s maximum execution time is 5 minutes.
+*   **Websockets** 无法在 AWS Lambda 中使用。这是因为在 AWS Lambda 中，若应用没有任何的访问，那么你的服务器在客观上也是不存在的。[AWS IOT websockets over MQTT protocol](https://docs.aws.amazon.com/iot/latest/developerguide/protocols.html#mqtt) 可以提供一个 “阉割” 版的 Websockets 支持。
+*   **上传** 文件到文件系统同样是无法工作的，除非你的上传目录是 `/tmp` 文件夹。这是因为 AWS Lambda function 对文件系统是只读的，即使你将文件上传到了 `/tmp` 文件夹，它们也只会在 function 处于 “工作态” 时存在。为确保你应用中的上传功能运转正常，你应当把文件上传并保存到 AWS S3 上。
+*   **执行限制** 也将影响你的 Serverless Express App 功能。例如 API Gateway 有 30 秒的超时时间限制，AWS Lambda 最大执行时间不能超过 5 分钟等。
 
-This is just a beginning of a serverless love story between your apps and AWS Lambda. Expect more stories soon!
+这仅仅算是你的应用与 AWS Lambda 之间关于 Serverless 爱情故事的一个序章，期待尽快涌现更多的爱情故事！
 
-_As always, many thanks to my friends_ [_Aleksandar Simović_](https://twitter.com/simalexan) _and_ [_Milovan Jovičić_](https://twitter.com/violinar) _for help and feeback on the article._
+**如往常一样，感谢来自我的朋友 [Aleksandar Simović](https://twitter.com/simalexan) 以及 [Milovan Jovičić](https://twitter.com/violinar) 的帮助和对文章的反馈意见。**
 
-> All illustrations are created using [SimpleDiagrams4](https://www.simplediagrams.com) app.
+> 所有的插图均是使用 [SimpleDiagrams4](https://www.simplediagrams.com) 创作的。
 
-If you want to learn more about serverless Express and serverless apps in general, check out “Serverless Apps with Node and Claudia.js”, the book I wrote with [Aleksandar Simovic](https://medium.com/@simalexan) for Manning Publications:
+如果你想了解更多关于 Serverless Express 和 Serverless App 的信息，“Serverless Apps with Node and Claudia.js” 这本书不容错过。这本书由我和 [Aleksandar Simovic](https://medium.com/@simalexan) 合作完成，Manning Publications 负责出版：
 
 - [**Serverless Apps with Node and Claudia.js**: First the buzzwords: Serverless computing. AWS Lambda. API Gateway. Node.js. Microservices. Cloud-hosted functions…www.manning.com](https://www.manning.com/books/serverless-apps-with-node-and-claudiajs)
 
-The book will teach you more about serverless Express apps, but you’ll also learn how to build and debug a real world serverless API (with DB and authentication) using Node and Claudia.js. And how to build chatbots, for Facebook Messenger and SMS (using Twilio), and Alexa skills.
+这本书除了会包含不少 Serverless Express App 的知识，它还将教会你如何使用 Node 和 Claudia.js 去构建、调试真实场景下的 Serverless API（含 DB 和身份校验）。随书还将讲解如何构建 Facebook Messenger 和短信（使用 Twilio）的聊天机器人，以及如何构建亚马逊的 Alexa skills。
 
-Thanks to [Aleksandar Simovic](https://medium.com/@simalexan?source=post_page).
+再次向 [Aleksandar Simovic](https://medium.com/@simalexan?source=post_page) 表示衷心的感谢。
 
 
 ---
