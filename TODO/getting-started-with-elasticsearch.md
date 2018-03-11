@@ -2,8 +2,7 @@
 > * 原文作者：[elastic](https://www.elastic.co)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/getting-started-with-elastic.md](https://github.com/xitu/gold-miner/blob/master/TODO/getting-started-with-elastic.md)
-> * 译者：[code4j](https://github.com/rpgmakervx)
-> * 校对者：[Starriers](https://github.com/Starriers)
+
 
 # Elasticsearch 简介
 
