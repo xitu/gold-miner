@@ -13,50 +13,50 @@
 
 从一开始，node.js 就依赖于 V8 JavaScript 引擎为我们熟悉和喜爱的语言提供代码执行环境。V8 JavaScipt 引擎是 Google 为 Chrome 浏览器编写的 JavaScipt VM。起初，V8 的主要目标是使 JavaScript 更快，或者至少要比同类竞争产品要快。对于一种高度动态的若类型语言来说，这可不是容易的事情。这是一篇关于 V8 和 JS 引擎性能演变的文章。
 
-V8 引擎的一个核心部分是 JIT(Just In Time) 编译器，允许它告诉执行 JavaScript。这是一个可以在运行时优化代码的动态编译器。 When V8 was first built the JIT Compiler was dubbed FullCodegen. Then, the V8 team implemented Crankshaft, which included many performance optimizations that FullCodegen did not implement.
+V8 引擎的一个核心部分是 JIT(Just In Time) 编译器，允许它告诉执行 JavaScript。这是一个可以在运行时优化代码的动态编译器。 当 V8 第一构建时，JIT 编译器被称为 FullCodegen。之后 V8 团队实现了 Crankshaft，其中包含了许多 FullCodegen 未实现的性能优化。
 
-_Edit: FullCodegen was the first optimizing compiler of V8, thanks_ [_Yang Guo_](https://twitter.com/hashseed) _for reporting._
+_Edit: FullCodegen 是 V8的第一个优化编译器，感谢_ [_Yang Guo_](https://twitter.com/hashseed) _的报告_
 
-As an outside observer and user of JavaScript since the 90’s, it has seemed that fast and slow paths in JavaScript (whatever the engine may be) were often counter-intuitive, the reasons for apparently slow JavaScript code were often difficult to fathom.
+从 90 年代起，作为 JavaScript 的外部观察者和用户，JavaScript（不管是什么引擎）中的快速和缓慢路径似乎长此是违法直觉的，JavaScript 代码明显缓慢的原因往往难以理解。
 
 最近几年， [Matteo Collina](https://twitter.com/matteocollina) 和 [我](https://twitter.com/davidmarkclem) 致力于研究如何编写高性能 Node.js 代码。当然，这意味着我们在用 V8 JavaScript 引擎执行代码的时候，知道那些方法是高效的，那些方法是效率慢的。
 
-Now it’s time for us to challenge all our assumptions about performance, because the V8 team has written a new JIT Compiler: Turbofan.
+现在是时候挑战所有关于性能的假设了，因为 V8 团队已经编写了一个新的 JIT 编译器：Turbofan。
 
-Starting with the more commonly known “V8 Killers” (pieces of code which cause optimization bail-out — a term that no longer makes sense in a Turbofan context) and moving towards the more obscure discoveries Matteo and I have made around Crankshaft performance, we’re going to walk through a series of microbenchmark results and observations over progressing versions of V8.
+从更常见的 "V8 Killers" (导致优化代码片段的 ball-out--在 Turbofan 环境下不会再有意义) 开始，Matteo 和我在 Crankshaft 性能方面所做的更模糊的发现，将会通过一系列微基准测试结果和对 V8 进展版本的观察。
 
-当然，在优化 V8 逻辑路径前，我们首先应该关注 API 设计，算法和数据结构。These microbenchmarks are meant as indicators of how JavaScript execution in Node is changing.我们可以使用这些指标来影响我们的一般代码风格，已经我们在应用了通常的优化之后改进性能的方法。
+当然，在优化 V8 逻辑路径前，我们首先应该关注 API 设计，算法和数据结构。这些微基准测试旨在作为 JavaScript 在 Node 中执行的变化情况的指示器。我们可以使用这些指标来影响我们的一般代码风格，已经我们在应用了通常的优化之后改进性能的方法。
 
-We’ll be looking at the performance of these microbenchmarks on V8 versions 5.1, 5.8, 5.9, 6.0 and 6.1.
+我们将在 V8 5.1,、5.8、 5.9、 6.0 和 6.1 中查看这些微基准测试的性能。
 
-To put each of these versions into context: V8 5.1 is the engine used by Node 6 and uses the Crankshaft JIT Compiler, V8 5.8 is used in Node 8.0 to 8.2 and uses a mixture of Crankshaft _and_ Turbofan.
+将上述每个版本都放在上下文中：V8 5.1 是 Node 6 使用的引擎，并使用 Crankshaft JIT 的编译器， V8 5.8 是 Node 8.0 至 8.2 ，并混合使用 Crankshaft _和_ Turbofan.
 
-Currently either 5.9 or 6.0 engine is due to be in Node 8.3 (or possibly Node 8.4) and V8 version 6.1 is the latest version of V8 (at the time of writing) which is integrated with Node on the experimental node-v8 repo at [https://github.com/nodejs/node-v8.](https://github.com/nodejs/node-v8.) In other words, V8 version 6.1 will eventually be in some future version of Node.
+目前，5.9 和 6.0 引擎将在 Node 8.3（或者可能是 Node 8.4）中，而 V8 6.1 是 V8 最新版本 (在编写本报告时)，它在 node-v8 仓库 [https://github.com/nodejs/node-v8.](https://github.com/nodejs/node-v8.) 的实验分支中与 Node 集成。换句话说，V8 6.1版本将在之后的 Node 版本中使用。
 
-Let’s take a look at our microbenchmarks and on the other side we’ll talk about what this means for the future. All the microbenchmarks are executed using [benchmark.js](https://www.npmjs.com/package/benchmark), and the values plotted are operation per second, so higher is better in every diagram.
+让我们看下我们的微基准测试，另一方面，我们将讨论这对未来意味着什么。所有的微基准测试都由 [benchmark.js](https://www.npmjs.com/package/benchmark)执行， 绘制的值是每秒操作数，所以在每个图表中越高越好。
 
 ###  TRY/CATCH 问题
 
-One of the more well known deoptimization patterns is use of `try/catch` blocks.
+最著名的去优化模式之一是使用 `try/catch` 块。
 
-In this microbenchmark we compare four cases:
+在这个微基准测试中，我们比较了四种情况：
 
-*   a function with a `try/catch` in it (_sum with try catch_)
-*   a function without any `try/catch` (_sum without try catch_)
-*   calling a function within a `try` block (_sum wrapped_)
-*   simply calling a function, no `try/catch` involved (_sum function_)
+*   带有 `try/catch` 的函数 (**带 try catch 的 sum**)
+*   不含 `try/catch` 的函数 (**不带 try catch 的 sum**)
+*   调用 `try`  块中的函数 (**sum wrapped**)
+*   简单的函数调用, 不涉及 `try/catch`  (**sum 函数**)
 
-**Code:** [https://github.com/davidmarkclements/v8-perf/blob/master/bench/try-catch.js](https://github.com/davidmarkclements/v8-perf/blob/master/bench/try-catch.js)
+**代码** [https://github.com/davidmarkclements/v8-perf/blob/master/bench/try-catch.js](https://github.com/davidmarkclements/v8-perf/blob/master/bench/try-catch.js)
 
 ![](https://cdn-images-1.medium.com/max/800/0*lFxHAunjIiG0o7Dw.png)
 
-We can see that the existing wisdom around `try/catch` causing performance problems is true in Node 6 (V8 5.1) but has significantly less performance impact in Node 8.0-8.2 (V8 5.8).
+我们可以看到，在 Node 6 (V8 5.1) 围绕 `try/catch` 引发性能问题的观点是真实存在的，但是对 Node 8.0-8.2 (V8 5.8) 的性能影响要小得多。
 
-Also of note, calling a function from within a `try` block is much slower than calling it from outside a `try` block - this holds true in both Node 6 (V8 5.1) and Node 8.0-8.2 (V8 5.8).
+值得注意的是，在 `try` 块内部调用函数比从 `try` 块之外调用函数慢得多 -这在 Node 6 (V8 5.1) 和 Node 8.0-8.2 (V8 5.8) 都是一样的。
 
-However for Node 8.3+ the performance hit of calling a function inside a `try` block is negligible.
+然而对于 Node 8.3+，在 `try` 块内调用函数的性能影响可以忽略不计。
 
-Nevertheless, don’t rest too easy. While working on some performance workshop material, Matteo and I [found a performance bug](https://bugs.chromium.org/p/v8/issues/detail?id=6576&q=matteo%20collina&colspec=ID%20Type%20Status%20Priority%20Owner%20Summary%20HW%20OS%20Component%20Stars), where a rather specific combination of circumstances can lead to an infinite deoptimization/reoptimization cycle in Turbofan (this would count as a “killer” — a pattern that destroys performance).
+尽管如此，不要掉以轻心。在整理性能工作报告时, Matteo 和我[发现了一个性能 bug](https://bugs.chromium.org/p/v8/issues/detail?id=6576&q=matteo%20collina&colspec=ID%20Type%20Status%20Priority%20Owner%20Summary%20HW%20OS%20Component%20Stars)，一些环境组合在 Turbofan 中可能会导致出现去优化/优化的无限循环 (被视为“killer” — 一种破坏性能的模式)。
 
 ### 从对象中删除属性
 
@@ -64,58 +64,58 @@ Nevertheless, don’t rest too easy. While working on some performance workshop 
 
  `delete` 的问题归结于 V8 在原生 JavaScript 对象的动态性质以及（可能也是动态的）原型链的处理方式上。这使得查找在实现级别上的属性更加复杂。 
 
-The V8 engine’s technique for making property objects high speed is to create a class in the C++ layer based on the “shape” of the object. The shape is essentially what keys and values a property has (including the prototype chain keys and values). These are known as “hidden classes”. However, this is an optimization that occurs on objects at runtime, if there’s uncertainty about the shape of the object V8 has another mode for property retrieval: hash table lookup. The hash table lookup is significantly slower. Historically, when we `delete` a key from the object subsequent property access will be a hash table look up. This is why we avoid `delete` and instead set properties to `undefined` which leads to the same result as far as values are concerned but may be problematic when checking for property existence; however it’s often good enough for pre-serialization redaction because `JSON.stringify` does not include `undefined` values in its output (`undefined` isn’t a valid value in the JSON specification).
+V8 引擎快速生成属性对象的技术是在 c++ 层创建基于对象“类型”的类。类型本质上是属性所具有的键、值（包括原型链键值）。这些被称为“隐藏类”。然而，如果对象的类型不确定，V8 有另一种原型检索的模型：hash 表查找，这是对对象运行时的优化。显然查找 hash 表很慢。历史上， 当我们从对象中 `delete`  一个键时，后续属性访问将查找 hash 表。 这是我们避免使用  `delete`  而将属性设置为  `undefined` 以防止在检查属性是否已经存在时，导致结果与值相同的问题的产生的原因。 但对于预序列化已经足够了，因为  `JSON.stringify` 输出中不包含 `undefined`  (`undefined` 不是 JSON 规范中的有效值) 值。
 
-Now, let’s see if the newer Turbofan implementation addresses the `delete` problem.
+现在，让我们看看更新 Turbofan 实现是否解决了 `delete` 问题。
 
-In this microbenchmark we compare three cases:
+在这个微基准测试中，我们比较如下三种情况：
 
-*   serializing an object after an object’s property has been set to `undefined`
-*   serializing an object after `delete` has been used to remove an object’s property
-*   serializing an object after `delete` has been used to remove the object’s most recently added property.
+*   在对象属性设置为  `undefined` 后，序列化对象
+*   在 `delete` 对象属性后，序列化对象
+*   在 `delete` 已被移出对象的最近添加的属性后，序列化对象
 
-**Code:** [https://github.com/davidmarkclements/v8-perf/blob/master/bench/property-removal.js](https://github.com/davidmarkclements/v8-perf/blob/master/bench/property-removal.js)
+**代码** [https://github.com/davidmarkclements/v8-perf/blob/master/bench/property-removal.js](https://github.com/davidmarkclements/v8-perf/blob/master/bench/property-removal.js)
 
 ![](https://cdn-images-1.medium.com/max/800/0*i8btiU7YDD57gY4g.png)
 
-In V8 6.0 and 6.1 (not yet used in any Node releases), deleting the last property added to an object hits a fast path in Turbofan, and thus it is faster, even, than setting to `undefined`. This is excellent news, as it shows that the V8 team is working towards improving the performance of `delete`. However, the `delete` operator will still result in a significant performance hit on property access if a property _other than the most recently added property_ is deleted from the object. So overall we have to continue to recommend against using `delete`.
+在 V8 6.0 和 6.1 (尚未在任何 Node 版本中使用)中，Turbofan 会创建一个删除最后一个添加到对象中的属性的快捷方式，因此会比设置 `undefined` 更快。这是好消息，因为它表明 V8 团队正努力提高 `delete` 的性能。然而，如果从对象中删除了一个不是最近添加的属性， `delete` 操作仍然会对属性访问的性能带来显著影响。因此，我们仍然不推荐使用 `delete`。
 
-_Edit: in a previous version of the post we concluded that_ `_delete_` _could and should be used in future Node.js releases. However_ [_Jakob Kummerow_](http://disq.us/p/1kvomfk) _let us know that our benchmarks only triggered the last property accessed case. Thanks_ [_Jakob Kummerow_](http://disq.us/p/1kvomfk)_!_
+_编辑: 在之前版本的帖子中，我们得出结论 _ `_delete_` _可以也应该在未来的 Node.js 中使用。但是_ [_Jakob Kummerow_](http://disq.us/p/1kvomfk) _告诉我们，我们的基准测试只触发了最后一个属性访问的情况。感谢 _ [_Jakob Kummerow_](http://disq.us/p/1kvomfk)_!_
 
 ### LEAKING AND ARRAYIFYING `ARGUMENTS`
 
-A common problem with the implicit `arguments` object available to normal JavaScript functions (as opposed to fat arrow functions which do not have `arguments` objects) is that it’s array-like but _not_ an array.
+普通 JavaScript 函数 (相对于没有 `arguments` 对象的箭头函数 )可用隐式 `arguments`对象的一个常见问题是它类似数组，实际上不是数组。
 
-In order to use array methods or most array behavior, the indexing properties of the `arguments` object have be copied to an array. In the past JavaScripters have had a propensity towards equating _less code_ with _faster_ code. Whilst this rule of thumb yields a payload-size benefit for browser-side code, the same rule can cause pain on the server side where code size is far less important than execution speed. So a seductively terse way to convert the `arguments` object to an array became quite popular: `Array.prototype.slice.call(arguments)`. This calls the Array `slice` method passing the `arguments` object as the `this` context of that method, the `slice` method sees an object that quacks like an array and acts accordingly. That is, it takes a slice of the entire arguments array-like object as an array.
+为了使用数组方法或大多数数组行为，`arguments` 对象的索引属性已被复制到数组中。在过去 JavaScripters 更倾向于将 _less code_ 和 _faster_ code 相提并论。虽然这一经验规则对浏览器端代码产生了有效负载大小的好处，但可能会对在服务器端代码大小远不如执行速度重要的情况造成困扰。因此将`arguments` 对象转换为数组的简洁方案变得相当流行： `Array.prototype.slice.call(arguments)`。调用数组 `slice` 方法将 `arguments` 对象作为该方法的`this` 上下文传递, `slice` 方法从而将对象看做数组一样。也就是说，它将整个参数数组对象作为一个数组来分割。
 
-However when a function’s implicit `arguments` object is exposed from the functions context (for instance, when it’s returned from the function or passed into another function as in the case of `Array.prototype.slice.call(arguments)`) this typically causes performance degradation. Now it’s time to challenge that assumption.
+然而当一个函数的隐式 `arguments` 对象从函数上下文中暴露出来（例如，当它从函数返回或者像 `Array.prototype.slice.call(arguments)`传递到另一个函数时）导致性能下降。 现在是时候验证这个假设了。
 
-This next microbenchmark measures two interrelated topics across our four V8 versions: the cost of leaking `arguments` and the cost of copying arguments into an array (which is subsequently exposed from the function scope in place of the `arguments` object).
+下一个微基准测量了四个 V8 版本中两个相互关联的主题： `arguments` 泄露的成本和将参数复制到数组中的成本 (随后 函数作用域代替了 `arguments` 对象暴露出来).
 
-Here’s our cases in detail:
+这是我们案例的细节：
 
-*   Exposing the `arguments` object to another function - no array conversion (_leaky arguments_)
-*   Making a copy of the `arguments` object using the `Array.prototype.slice` tricks (_Array prototype.slice arguments_)
-*   Using a for loop and copying each property across (_for-loop copy arguments_)
-*   Using the EcmaScript 2015 spread operator to assign an array of inputs to a reference (_spread operator_)
+*   将 `arguments` 对象暴露给另一个函数 - 不进行数组转换 (_leaky arguments_)
+*   使用 `Array.prototype.slice`特性创建 `arguments` 对象副本 (_数组的 prototype.slice arguments_)
+*   使用 for 循环复制每个属性 (_for 循环复制参数_)
+*   使用 EcmaScript 2015 spread 运算符将输入数组分配给引用 (_spread operator_)
 
-**Code:** [https://github.com/davidmarkclements/v8-perf/blob/master/bench/arguments.js](https://github.com/davidmarkclements/v8-perf/blob/master/bench/arguments.js)
+**代码：** [https://github.com/davidmarkclements/v8-perf/blob/master/bench/arguments.js](https://github.com/davidmarkclements/v8-perf/blob/master/bench/arguments.js)
 
 ![](https://cdn-images-1.medium.com/max/800/0*G35zRaziX-t5aNyc.png)
 
-Let’s take a look at the same data in line graph form to emphasise the change in performance characteristics:
+让我们看一下线性图形中的相同数据以强调性能特征的变化：
 
 ![](https://cdn-images-1.medium.com/max/800/0*8dlqdDK4PQcFnpc9.png)
 
-Here’s the takeaway: if we want to write performant code around processing function inputs as an array (which in my experience seems fairly common), then in Node 8.3 and up we should use the spread operator. In Node 8.2 and down we should use a for loop to copy the keys from `arguments` into a new (pre-allocated) array (see the benchmark code for details).
+值得注意的地方：如果我们想要将函数输入作为一个数组处理，写在高性能代码中 (在我的经验中似乎相当普遍)，在 Node 8.3 及其以上版本应该使用 spread 运算符。在 Node 8.2 及其以下版本应该使用 for 循环将键从 `arguments` 复制到另一个新的(预分配) 数组中 (详情请参阅基准代码)。
 
-Further in Node 8.3+ we won’t be punished for exposing the `arguments` object to other functions, so there may be further performance benefits in cases where we don’t need a full array and can make do with an array-like structure.
+在 Node 8.3+ 之后的版本中，我们不会因为将 `arguments`对象暴露给其他函数而受到惩罚， 因此我们不需要完整数组并可以以使用类似数组结构的情况下可能会有更多的性能优势。
 
-### PARTIAL APPLICATION (CURRYING) AND BINDING
+### 部分应用 (CURRYING) 和绑定
 
-Partial application (or currying) refers to the way we can capture state in nested closure scopes.
+部分应用（或 currying）指的是我们可以在嵌套闭包范围内捕获状态的方式。
 
-For instance:
+例如：
 
 ```
 function add (a, b) {
@@ -127,9 +127,9 @@ const add10 = function (n) {
 console.log(add10(20))
 ```
 
-Here the `a` parameter of `add` is partially applied as the value `10` in the `add10` function.
+这里 `add`的参数 `a` 在 `add10` 函数中被部分应用为数值 `10` 。
 
-A terser form of partial application was made available with the `bind` method since EcmaScript 5:
+从 EcmaScript 5 开始， `bind` 方法就提供了部分应用的简单形式：
 
 ```
 function add (a, b) {
@@ -139,107 +139,107 @@ const add10 = add.bind(null, 10)
 console.log(add10(20))
 ```
 
-However, we would typically not use `bind` because is demonstrably slower than using a closure.
+但是我们通常不用 `bind`，因为它明显比使用闭包要慢 。
 
-This benchmark measures the difference between `bind` and closure over our target V8 versions, with direct function calls as the control.
+这个基准测试了目标 V8 版本中 `bind` 和闭包之间的差异，并以之直接函数调用作为控件。
 
-Here’s our four cases:
+这是我们使用的四个案例：
 
-*   a function that calls another function with the first argument partially applied (_curry_)
-*   a fat arrow function that calls another function with the first argument partially applied (_fat arrow curry_)
-*   a function that is created via `bind` that partially applies the first argument of another function (_bind_)
-*   a direct call to a function without any partial application (_direct call_)
+*   函数调用另一个第一个参数部分应用的函数 (_curry_)
+*   箭头函数 (_fat arrow curry_)
+*  通过 `bind` 部分应用另一个函数的第一个参数创建的函数 (_bind_)。
+*  直接调用一个没有任何部分应用的函数 (_direct call_)
 
-**Code:** [https://github.com/davidmarkclements/v8-perf/blob/master/bench/currying.js](https://github.com/davidmarkclements/v8-perf/blob/master/bench/currying.js)
+**代码：** [https://github.com/davidmarkclements/v8-perf/blob/master/bench/currying.js](https://github.com/davidmarkclements/v8-perf/blob/master/bench/currying.js)
 
 ![](https://cdn-images-1.medium.com/max/800/0*diYza234QpDdYolV.png)
 
-The line graph visualization of this benchmark’s results clearly illustrates how the approaches converge in later versions of V8\. Interestingly, partial application using fat arrow functions is _significantly_ faster than using normal functions (at least in our microbenchmark case). In fact it almost traces the performance profile of making a direct call. In V8 5.1 (Node 6) and 5.8 (Node 8.0–8.2) `bind` is very slow by comparison, and it seems clear that using fat arrows for partial application is the fastest option. However `bind` speeds up by an order of magnitude from V8 version 5.9 (Node 8.3+) becoming the fastest approach (by an almost negligible amount) in version 6.1 (future Node).
+基准测试结果的可视化线性图清楚地说明了这些方法在 V8 或者更高版本中是如何合并的。有趣的是，使用箭头函数的部分应用比使用普通函数要快（至少在我们微基准情况下）。事实上它跟踪了直接调用的性能特性。在 V8 5.1 (Node 6) 和 5.8 (Node 8.0–8.2)中 `bind` 的比较速度显然很慢。 然而 `bind` 速度比 V8 5.9 (Node 8.3+) 提高了一个数量级，成为 6.1 (后继版本). 中最快的方法( 几乎可以忽略不计) 。
 
-The fastest approach to currying over all versions is using fat arrow functions. Code using fat arrow functions in later versions will be as close to using `bind` as makes no odds, and currently it’s faster than using normal functions. However, as a caveat, we probably need to investigate more types of partial application with differently sized data structures to get a fuller picture.
+使用箭头函数是克服所有版本的最开方法。后续版本中使用箭头函数的代码将偏向于使用 `bind` ，因为它比正常函数更快。但是，作为警告，我们可能需要研究更多具有不同大小的数据结构的部分应用类型来获取更全面的图像。
 
-### FUNCTION CHARACTER COUNT
+### 函数字符计数
 
-The size of a function, including it’s signature, the white space and even comments can affect whether the function can be inlined by V8 or not. Yes: adding a comment to your function may cause a performance hit somewhere in the range of a 10% speed reduction. Will this change with Turbofan? Let’s find out.
+函数的大小，包括签名、空格、甚至注释都会影响函数是否可以被 V8 内联。是的：为你的函数添加注释可能会导致性能降低10％的速度。Turbofan 会改变么？让我们找出答案。
 
-In this benchmark we look at three scenarios:
+在这个基准测试中，我们看三种情况：
 
-*   a call to a small function (_sum small function_)
-*   the operations of a small function performed inline, padded out with comments (_long all together_)
-*   a call to a big function that has been padded with comments (_sum long function_)
+*   调用一个小函数 (_sum small function_)
+*   一个小函数的操作在内联中执行，并加上注释。(_long all together_)
+*  调用已填充注释的大函数 (_sum long function_)
 
 **Code:** [https://github.com/davidmarkclements/v8-perf/blob/master/bench/function-size.js](https://github.com/davidmarkclements/v8-perf/blob/master/bench/function-size.js)
 
 ![](https://cdn-images-1.medium.com/max/800/0*zqsOxnfdkDWMHYY0.png)
 
-In V8 5.1 (Node 6) _sum small function_ and _long all together_ are equal. This perfectly illustrates how inlining works. When we’re calling the small function, it’s as if V8 writes the contents of the small function into the place it’s called from. So when we actually write the contents of a function (even with the extra comment padding), we’ve manually inlined those operations and the performance is equivalent. Again we can see in V8 5.1 (Node 6) that calling a function that is padded with comments which take it past a certain size, leads to much slower execution.
+在 V8 5.1 (Node 6) 中， _sum small function_ 和  _long all together_ 是一样的。这完美阐释了内联是如何工作的。当我们调用小函数时，就好像 V8 将小函数的内容写到了调用它的地方。因此当我们实际编写函数的内容  (即使添加了额外的注释)时, 我们已经手动内联了这些操作，并且性能相同。 我们在 V8 5.1 (Node 6) 可以发现，调用一个包含注释的函数会使其超过一定大小，从而导致执行速度变慢。
 
-In Node 8.0–8.2 (V8 5.8) the situation is pretty much the same, except the cost of calling the small function has noticeably increased; this may be due to the smushing together of Crankshaft and Turbofan elements whereas one function may be in Crankshaft the other may be in Turbofan causing disjoints in inlining abilities (i.e. there has to be a jump between clusters of serially inlined functions).
+在 Node 8.0–8.2 (V8 5.8) 中，除了调用小函数的成本显著增加外，情况基本相同。这可能是由于 Crankshaft 和 Turbofan 元素混合在一起，一个函数在 Crankshaft 另一个可能 Turbofan 中导致内联功能失调。(即必须在串联内联函数的集群间跳转)。
 
-In 5.9 and upwards (Node 8.3+), any size added by irrelevant characters such as whitespace or comments has no bearing on the functions performance. This is because Turbofan uses the functions AST ([Abstract Syntax Tree](https://en.wikipedia.org/wiki/Abstract_syntax_tree) node count to determine function size, rather than using character count as in Crankshaft. Instead of checking byte count of a function, it consider the actual instructions of the function, so that from V8 5.9 (Node 8.3+) **whitespace, variable name character count, function signatures and comments no longer factors in whether a function will inline.**
+在 5.9 及更高版本 (Node 8.3+)中，由不相关字符（如空格或注释）添加的任何大小都不会影响函数性能。这是因为 Turbofan 使用函数 AST ([Abstract Syntax Tree](https://en.wikipedia.org/wiki/Abstract_syntax_tree) 节点数来确定函数大小，而不是想在 Crankshaft 中那样使用字符计数。他不检查函数的字节计数，而是考虑函数的实际指令，因此 V8 5.9 (Node 8.3+)之后 **空格, 变量名字符数, 函数名和注释不再是函数是否内联的因素。**
 
-Notably, again, we see that overall performance of functions decreases.
+值得注意的是，我们再次看到函数的整体性能下降。
 
-The takeaway here should still be to keep functions small. At the moment we still have to avoid over-commenting (and even whitespace) inside functions. Also if you want the absolute fastest speed, manually inlining (removing the call) is consistently the fastest approach. Of course this has to be balanced against the fact that after a certain size (of actual executable code) a function won’t be inlined, so copy-pasting code from other functions into your function could cause performance problem. In other words manual inlining is a potential footgun; it’s better to leave inlining up to the compiler in most cases.
+这里的优点应该仍然是保持函数较小。目前我们必须避免函数内部过多的注释（甚至是空格）。而且如果您想要绝对最快的速度，手动内联（删除调用）始终是最快的方法。当然还要与以下事实保持平衡：函数不应该在大小（实际可执行代码）确定后被内联，因此将其他函数代码复制到您的代码中可能会导致性能问题。换句话说，手动内联是一种潜在方法：大多数情况下，最好让编译器来内联。
 
-### 32BIT VS 64BIT INTEGERS
+### 32BIT 整数 VS 64BIT 整数
 
-It’s rather well known that JavaScript only has one number type: `Number`.
+总所周知，JavaScript 只有一种数据类型：`Number`.
 
-However, V8 is implemented in C++ so a choice has to be made on the underlying type for a numeric JavaScript value.
+但是 V8 是用 C++ 实现的，因此必须在 JavaScript 数值的底层基础类型上进行选择。
 
-In the case of integers (that is, when we specify a number in JS without a decimal), V8 assumes that all numbers are 32bit — until they aren’t. This seems like a fair choice, since in many cases a number is within the 2147483648–2147483647 range. If a JavaScript (whole) number exceeds 2147483647 the JIT Compiler has to dynamically alter the underlying type for the number to a double (a double-precision floating point number) — this may also have potential knock on effects with regards to other optimizations.
+对于整数 (也就是说，当我们在 JS 中指定一个没有小数的数字时), V8 假设所有的数字都是 32 位--直到它们不是的时候。 这似乎是一个公平的选择，因为多数情况下，数字都在 2147483648–2147483647 范围之间。 如果 JavaScript (整体) 数字超过 2147483647，JIT 编译器必须动态地将该数字基础类型更改为 double (双精度浮点数) — 这也可能对其他优化产生潜在的影响。
 
-This benchmark looks at three cases:
+以下三个基准测试案例：
 
-*   a function handling only numbers in the 32bit range (_sum small_)
-*   a function handling a combination of 32bit and double numbers (_from small to big_)
-*   a function handling only double numbers (_all big_)
+*   只处理 32 位范围内的数字的函数 (_sum small_)
+*   处理 32 位和 double 组合的函数 (_from small to big_)
+*   只处理 double 类型数字的函数 (_all big_)
 
 **Code:** [https://github.com/davidmarkclements/v8-perf/blob/master/bench/numbers.js](https://github.com/davidmarkclements/v8-perf/blob/master/bench/numbers.js)
 
 ![](https://cdn-images-1.medium.com/max/800/0*cISX2jccM4yVWZcl.png)
 
-We can see from the graph that whether it’s Node 6 (V8 5.1) or Node 8 (V8 5.8) or even some future version of Node this observation holds true. Operations using Numbers (integers) greater than 2147483647 will cause functions to run between a half and two thirds of the speed. So, if you have long numeric ID’s — put them in strings.
+我们可以从图中看出，无论是在 Node 6 (V8 5.1) 还是 Node 8 (V8 5.8) 甚至是 Node 的后继版本，这些观察都是成立的。 使用大于 2147483647 数字（整数）的操作将导致函数运行速度只有一半到三分之二之间。 因此，如果您有很长的数字 ID—将他们放在字符串中。
 
-It’s also quite noticeable that operations with numbers in the 32bit range have a speed increase between Node 6 (V8 5.1) and Node 8.1 and 8.2 (V8 5.8) but slow significantly in Node 8.3+ (V8 5.9+). However, operations over double numbers become faster in Node 8.3+ (V8 5.9+). It’s likely that this genuinely is a slow-down in (32bit) number handling rather than being related to the speed of function calls or `for` loops (which are used in the benchmark code).
+同样值得注意的是，在 32 位范围内的数字操作在 Node 6 (V8 5.1) 和 Node 8.1 以及 8.2 (V8 5.8) 有速度增长，但是在 Node 8.3+ (V8 5.9+)中速度明显降低。然而在 Node 8.3+ (V8 5.9+)中,double 运算变得更快，这很可能是（32位）数字处理速度缓慢，而不是 函数或 `for` 循环 (在基准代码中使用)的速度有关
 
-_Edit: updated thanks to_ [_Jakob Kummerow_](http://disq.us/p/1kvomfk) _and_ [_Yang Guo_](https://twitter.com/hashseed) _and the V8 team, for both accuracy and precision of the results._
+_编辑: 感谢_ [_Jakob Kummerow_](http://disq.us/p/1kvomfk) _和_ [_Yang Guo_](https://twitter.com/hashseed) _已经 V8 团队对结果的准确性和精确性的更新。_
 
-### ITERATING OVER OBJECTS
+### 迭代对象
 
-Grabbing all of an object’s values and doing something with them is a common task and there are many ways to approach this. Let’s find out which is fastest across our V8 (and Node) versions.
+获得对象的所有值并对它们进行处理是常见的操作，而且有很多方法。 让我们找出在 V8 (和 Node) 中最快的那个版本。
 
-This benchmark measures four cases for all V8 versions benched:
+这个基准测试的四个案例针对所有 V8 版本：
 
-*   using a `for`-`in` loop with a `hasOwnProperty` check to get an object’s values (_for in_)
-*   using `Object.keys` and iterating over the keys using the Array `reduce` method, accessing the object values inside the iterator function supplied to `reduce` (_Object.keys functional_)
-*   using `Object.keys` and iterating over the keys using the Array `reduce` method, accessing the object values inside the iterator function supplied to `reduce` where the iterator function is a fat arrow function (_Object.keys functional with arrow_)
-*   looping over the array returned from `Object.keys` with a `for` loop, accessing the object values within the loop (_Object.keys with for loop_)
+*   在 `for`-`in` 循环中使用 `hasOwnProperty` 方法来检查是否已经获得对象值。 (_for in_)
+*   使用 `Object.keys` 并使用数组的 `reduce` 方法迭代键，访问提供给 `reduce` 的迭代函数中对象值 (_Object.keys functional_)
+*   使用 `Object.keys` 并使用数组的 `reduce` 方法迭代键，访问提供给 `reduce` 的迭代函数中对象值，其中迭代函数是箭头函数 (_Object.keys functional with arrow_)
+*  循环访问使用 `for` 循环从 `Object.keys` 返回的数组的每个对象值  (_Object.keys with for loop_)
 
-We also benchmarks an additional three cases for V8 5.8, 5.9, 6.0 and 6.1
+我们还为V8 5.8、5.9、 6.0 和6.1 增加了三个额外的基准测试案例
 
-*   using `Object.values` and iterating over the values using the Array `reduce` method, (_Object.values functional_)
-*   using `Object.values` and iterating over the values using the Array `reduce` method, where the iterator function supplied to `reduce` is a fat arrow function (_Object.values functional with arrow_)
-*   looping over the array returned from `Object.values` with a `for` loop (_Object.values with for loop_)
+*   使用 `Object.values` 和数组 `reduce`方法遍历值, (_Object.values functional_)
+*  使用 `Object.values` 和数组 `reduce` 方法遍历值,其中提供给 `reduce` 的 iterator 函数是箭头函数 (_Object.values functional with arrow_)
+*   使用 `for` 循环从 `Object.values` 中循环返回数组  (_Object.values with for loop_)
 
-We don’t bench these cases in V8 5.1 (Node 6) because it doesn’t support the native EcmaScript 2017 `Object.values` method.
+在 V8 5.1 (Node 6)中，我们不会支持这些情况，因为它不支持原生 EcmaScript 2017 `Object.values` 方法。 
 
 **Code:** [https://github.com/davidmarkclements/v8-perf/blob/master/bench/object-iteration.js](https://github.com/davidmarkclements/v8-perf/blob/master/bench/object-iteration.js)
 
 ![](https://cdn-images-1.medium.com/max/800/0*okwut-5U3KjXn4ab.png)
 
-In Node 6 (V8 5.1) and Node 8.0–8.2 (V8 5.8) using `for`-`in` is by far the fastest way to loop over an object’s keys, then access the values of the object. At roughly 40 million operations per second, it’s 5 times faster than the next closest approach which is `Object.keys` at around 8 million op/s.
+在 Node 6 (V8 5.1) 和 Node 8.0–8.2 (V8 5.8) 中，遍历对象的键然后访问值使用  `for`-`in` 是迄今为止最快的速度。4千万 op/s 比下一个接近 `Object.keys`  的方法，大约 8 百万 op/s 快了近5倍。
 
-In V8 6.0 (Node 8.3) something happens to `for`-`in` and it cuts down to one quarter the speed of former versions, but is still faster than any other approach.
+在 V8 6.0 (Node 8.3) 中 `for`-`in` 发生了改变，它降低至之前版本速度的四分之三，但仍然比任何方法速度都快。
 
-In V8 6.1 (the future of Node), the speed of `Object.keys` leaps forward and becomes faster than using `for`-`in` - but no where near the speed of `for`-`in` in V8 5.1 and 5.8 (Node 6, Node 8.0-8.2).
+在 V8 6.1 (Node 的未来版本)中，`Object.keys` 比使用`for`-`in` 的速度有所提升 -但在 V8 5.1 和 5.8 (Node 6, Node 8.0-8.2) 中，却不及 `for`-`in` 的速度。
 
-A driving principle behind Turbofan seems to be to optimize for intuitive coding behavior. That is, optimize for the case that is most ergonomic for the developer.
+Turbofan 背后的运行原理似乎是对直观的编码行为进行优化。也就是说，对开发者最符合人体工程学的情况进行优化。
 
-Using `Object.values` to get values directly is slower than using `Object.keys` and accessing the values in the object. On top of that, procedural loops remain faster than functional programming. So there may be some more work to do when it comes to iterating over objects.
+使用 `Object.values` 直接获取值比使用 `Object.keys` 并访问对象值要慢。最重要的是，程序循环比函数式编程要快。因此在迭代对象时可能要做更多的工作。
 
-Also, for those who’ve used `for`-`in` for its performance benefits it’s going to be a painful moment when we lose a large chunk of speed with no alternative approach available.
+此外，对那些为了提升性能而使用 `for`-`in` 却因为没有其他选择而失去大部分速度的人来说，这是一个痛苦的时刻。
 
 ### 创建对象
 
@@ -316,35 +316,35 @@ _编辑：V8 团队已经通知我们，使用其内部可执行文件  _`_d8_`_
 
 ### 真实世界的基准： LOGGER 比较
 
-In addition to our microbenchmarks we can take a look at the holistic effects of our V8 versions by using benchmarks of most popular loggers for Node.js that Matteo and I put together while we were creating [Pino](http://getpino.io/).
+除了微基准测试，我们还可以通过使用 Matteo 和我创建的 时候为Node.js 编写的最流行的日志基准测试 [Pino](http://getpino.io/)来查看 V8 版本的整体效果。
 
-The following bar chart represent the time taken to log 10 thousands lines (lower is better) of the most popular loggers in Node.js 6.11 (Crankshaft):
+下面的条形图表明在Node.js 6.11 (Crankshaft)中最受欢迎的 logger 记录1万行(更低些会更好) 所用时间：
 
 ![](https://cdn-images-1.medium.com/max/800/0*lsRsaA4cIuC7z7y3.png)
 
-While the following is the same benchmarks using V8 6.1 (Turbofan):
+以下是使用 V8 6.1 (Turbofan) 的相同基准：
 
 ![](https://cdn-images-1.medium.com/max/800/0*3-QHw8cgY83Cg57i.png)
 
-While all of the logger benchmarks improve in speed (by roughly 2x), the Winston logger derives the most benefit from the new Turbofan JIT compiler. This seems to demonstrate the speed convergence we see among various approaches in our microbenchmarks: the slower approaches in Crankshaft are significantly faster in Turbofan while the fast approaches in Crankshaft tend get a little slower Turbofan. Winston, being the slowest, is likely using the approaches which are slower in Crankshaft but much faster in Turbofan whereas Pino is optimized to use the fastest Crankshaft approaches. While a speed increase is observed in Pino, it’s to a much lesser degree.
+虽然所有的 logger 基准测试速度都有所提高 (大约是 2 倍)， 但是 Winston logger 从新的 Turbofan JIT 编译器中获得了最大的好处。 这似乎证明了我们在微基准测试中看到的各种方法之间的速度趋于一致： Crankshaft 中较慢的方法在 Turbofan 中明显更快，而在 Crankshaft 的快速方法在Turbofan中往往会稍慢。 Winston 是最慢的，可能是使用了在 Crankshaft 中较慢而在 Turbofan 中更快的方法，然而 Pino 使用最快的 Crankshaft 方法进行优化。虽然在 Pino 中观察到速度有所增加，但是程度要低很多。
 
 ### 总结
 
-Some of the benchmarks show that while slow cases in V8 5.1, V8 5.8 and 5.9 become faster with the advent of full Turbofan enablement in V8 6.0 and V8 6.1, the fast cases also slow down, often matching the increased speed of the slow cases.
+一些基准测试表明，随着 V8 6.0 和 V8 6.1中全部启用 Turbofan,在 V8 5.1, V8 5.8 和 5.9 中的缓慢情况有所加速 ，但快速情况也有所下降，往往速度的提升和放缓情况成对出现。
 
-Much of this is due to the cost of making function calls in Turbofan (V8 6.0 and up). The idea behind Turbofan was to optimize for common cases and eliminate commonly used “V8 Killers”. This has resulted in a net performance benefit for (Chrome) browser and server (Node) applications. The trade-off appears to be (at least initially) a speed decrease for the most performant cases. Our logger benchmark comparison indicates that the general net effect of Turbofan characteristics is comprehensive performance improvements even across significantly contrasting code bases (e.g. Winston vs Pino).
+很大程度上是由于在 Turbofan (V8 6.0 及以上) 中进行函数调用的成本。Turbofan 的核心思想是优化常见情况并消除“V8 Killers”。这为 (Chrome) 浏览器和服务器 (Node)带来了净效益。 对于大多数情况来说，权衡出现在(至少是最初)速度下降。基准日志比较表明，Turbofan 的总体净效应即使在代码基数明显不同的情况下(例如：Winston 和 Pino) 也可以全面提高。
 
-If you’ve had an eye on JavaScript performance for a while, and adapted coding behaviors to the quirks of the underlying engine it’s nearly time to unlearn some techniques. If you’ve focused on best practices, writing generally _good_ JavaScript then well done, thanks to the V8 team’s tireless efforts, a performance reward is coming.
+如果您关注 JavaScript 性能已经有一段时间了，也可以根据底层引擎改善编码方式，那么是时候放弃一些技术了。如果您专注于最佳实践，编写一般的 JavaScript，那么很好，感谢 V8团队的不懈努力，高效性能即将到来。
 
-This article was cowritten by [David Mark Clements](https://twitter.com/davidmarkclem) and [Matteo Collina](https://twitter.com/matteocollina), and it was reviewed by [Franziska Hinkelmann](https://twitter.com/fhinkel) and [Benedikt Meurer](https://twitter.com/bmeurer) from the V8 team.
+本文的作者是 [David Mark Clements](https://twitter.com/davidmarkclem) 和 [Matteo Collina](https://twitter.com/matteocollina), 由来自 V8 团队的 [Franziska Hinkelmann](https://twitter.com/fhinkel) 和 [Benedikt Meurer](https://twitter.com/bmeurer) 校对。
 
 * * *
 
-All the source code and another copy of this article could be found at[https://github.com/davidmarkclements/v8-perf](https://github.com/davidmarkclements/v8-perf)
+本文的所有源代码和文章副本都可以在 [https://github.com/davidmarkclements/v8-perf](https://github.com/davidmarkclements/v8-perf) 上找到。
 
-The raw data for this article can be found at: [https://docs.google.com/spreadsheets/d/1mDt4jDpN_Am7uckBbnxltjROI9hSu6crf9tOa2YnSog/edit?usp=sharing](https://docs.google.com/spreadsheets/d/1mDt4jDpN_Am7uckBbnxltjROI9hSu6crf9tOa2YnSog/edit?usp=sharing)
+ 文章的原始数据可以在[https://docs.google.com/spreadsheets/d/1mDt4jDpN_Am7uckBbnxltjROI9hSu6crf9tOa2YnSog/edit?usp=sharing](https://docs.google.com/spreadsheets/d/1mDt4jDpN_Am7uckBbnxltjROI9hSu6crf9tOa2YnSog/edit?usp=sharing) 上找到。
 
-Most of the microbenchmarks were taken on a Macbook Pro 2016, 3.3 GHz Intel Core i7 with 16 GB 2133 MHz LPDDR3, others (numbers, propery removal) were taken on a MacBook Pro 2014, 3 GHz Intel Core i7 with 16 GB 1600 MHz DDR3. All the measurements between the different Node.js versions were taken on the same machine. We took great care in assuring that no other programs were interfering.
+大多数的微基准测试是在 Macbook Pro 2016 上进行的，16 GB 2133 MHz LPDDR3 的 3.3 GHz Intel Core i7，其他的 (数字、属性已经删除) 则运行在 MacBook Pro 2014，16 GB 1600 MHz DDR3的 3 GHz Intel Core i7 。Node.js 不同版本之间的测试都是在同一台机器上进行的。我们已经非常小心地确保不受其他程序的干扰。
 
 
 ---
