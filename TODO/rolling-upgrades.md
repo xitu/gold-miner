@@ -5,19 +5,19 @@
 > * 译者：
 > * 校对者：
 
-# Rolling upgrades
+# 滚动升级
 
-A rolling upgrade allows the Elasticsearch cluster to be upgraded one node at a time, with no downtime for end users. Running multiple versions of Elasticsearch in the same cluster for any length of time beyond that required for an upgrade is not supported, as shards will not be replicated from the more recent version to the older version.
+滚动升级允许 Elasticsearch 集群一个节点一个节点升级，不需要停机。集群中不支持同时运行多个版本，因为分片不会从新版本分配到旧版本的节点上。
 
-Consult this [table](setup-upgrade.html "Upgrading") to verify that rolling upgrades are supported for your version of Elasticsearch.
+从这个列表[table](setup-upgrade.html "Upgrading")中检查当前版本的ES是否支持滚动升级。
 
-To perform a rolling upgrade:
+滚动升级步骤如下：
 
 
+## Step 1: 滚动升级步骤如下：
 
-## Step 1: Disable shard allocation
+当你关闭一个节点时，分片分配进程将分片从当前节点复制到集群另一个节点上，这将会浪费大量的 I/O 操作。可以在关闭节点前禁用这个特性：
 
-When you shut down a node, the allocation process will immediately try to replicate the shards that were on that node to other nodes in the cluster, causing a lot of wasted I/O. This can be avoided by disabling allocation before shutting down a node:
 
 ```
 PUT /_cluster/settings
@@ -28,49 +28,48 @@ PUT /_cluster/settings
 }
 ```
 
-## Step 2: Stop non-essential indexing and perform a synced flush (Optional)
+## 停止不必要的索引，并执行同步刷新（这一步可选）
 
-You may happily continue indexing during the upgrade. However, shard recovery will be much faster if you temporarily stop non-essential indexing and issue a [synced-flush](indices-synced-flush.html "Synced Flush") request:
+
+你可以在升级期间愉快的进行索引操作，当然，如果你使用如下命令，停止不必要的索引，并执行同步刷新[synced-flush](indices-synced-flush.html "Synced Flush")请求，分片恢复速度会更快：
 
 ```
 POST /_flush/synced
 ```
 
-A synced flush request is a “best effort” operation. It will fail if there are any pending indexing operations, but it is safe to reissue the request multiple times if necessary.
+同步刷新是锦上添花的操作。如果出现索引挂起的现象操作就会失败，为了安全起见有必要多试几次。
 
-## Step 3: Stop and upgrade a single node
+## 单个节点停机并升级
 
-Shut down one of the nodes in the cluster **before** starting the upgrade.
+**升级前**关闭一个节点。
 
-![Tip](images/icons/tip.png)
 
-When using the zip or tarball packages, the `config`, `data`, `logs` and `plugins` directories are placed within the Elasticsearch home directory by default.
+> 注意：当使用 zip 或 tar 包升级，默认情况下 Elasticsearch home 目录下的 config，data，log，plugins 等目录都会被覆盖。
+最好解压到不同的目录，这样升级期间就不会删除原来的目录了。自定义的目录可以通过 path.conf 和 path.data 来[设置](setup-configuration.html#paths "Pathsedit")。
+ RPM 或 DEB 包会把目录放到 [合适的位置](https://www.elastic.co/guide/en/elasticsearch/reference/2.2/setup-dir-layout.html "Directory Layout")
 
-It is a good idea to place these directories in a different location so that there is no chance of deleting them when upgrading Elasticsearch. These custom paths can be [configured](setup-configuration.html#paths "Pathsedit") with the `path.conf` and `path.data` settings.
 
-The Debian and RPM packages place these directories in the [appropriate place](setup-dir-layout.html "Directory Layout") for each operating system.
+使用 [rpm/deb](setup-repositories.html "Repositories") ) 安装包升级：
 
-To upgrade using a [Debian or RPM](setup-repositories.html "Repositories") package:
+*  使用 `rpm` 或 `dpkg` 安装新包，所有的目录都会被放到合理的位置，配置文件不会被覆盖。
 
-*   Use `rpm` or `dpkg` to install the new package. All files should be placed in their proper locations, and config files should not be overwritten.
+使用zip或tar包解压安装：
 
-To upgrade using a zip or compressed tarball:
+*   解压安装包，确保不要覆盖 `config` 和 `data` 目录。
+*   从旧的安装目录拷贝 `conf` 目录到新安装目录，或者使用 `--path.conf` 选项到外部的config目录
+*   从旧的安装目录拷贝 `data` 目录到新的安装目录，或修改 `config/elasticsearch.yml` 中的 `path.data` 设置 data 目录为原来的目录。
 
-*   Extract the zip or tarball to a new directory, to be sure that you don’t overwrite the `config` or `data` directories.
-*   Either copy the files in the `config` directory from your old installation to your new installation, or use the `--path.conf` option on the command line to point to an external config directory.
-*   Either copy the files in the `data` directory from your old installation to your new installation, or configure the location of the data directory in the `config/elasticsearch.yml` file, with the `path.data` setting.
+## 第四步：启动升级过的节点
 
-## Step 4: Start the upgraded node
-
-Start the now upgraded node and confirm that it joins the cluster by checking the log file or by checking the output of this request:
+启动升级后的节点并确认加入到集群中，可以通过日志或下面的命令来确认：
 
 ```
 GET _cat/nodes
 ```
 
-## Step 5: Reenable shard allocation
+## 第四步：重新打开分片再平衡
 
-Once the node has joined the cluster, reenable shard allocation to start using the node:
+O当节点加入集群后，使用以下命令重启分片再平衡：
 
 ```
 PUT /_cluster/settings
@@ -81,27 +80,24 @@ PUT /_cluster/settings
 }
 ```
 
-### Step 6: Wait for the node to recover
+### 第六步：等待节点恢复正常
 
-You should wait for the cluster to finish shard allocation before upgrading the next node. You can check on progress with the [`_cat/health`](cat-health.html "cat health") request:
+等待集群分片平衡结束后，再升级下一个节点。这一过程可以使用[`_cat/health`](cat-health.html "cat health")命令检查：
 
 ```
 GET _cat/health
 ```
 
-Wait for the `status` column to move from `yellow` to `green`. Status `green` means that all primary and replica shards have been allocated.
+等到 `status` 这一列由 `yellow` 变成 `green`，Green 表示主分片和副本都分配完了。
 
-![Important](images/icons/important.png)
 
-During a rolling upgrade, primary shards assigned to a node with the higher version will never have their replicas assigned to a node with the lower version, because the newer version may have a different data format which is not understood by the older version.
+> 重点：滚动升级过程中，高版本上的主分片不会把副本分配到低版本的节点，因为高版本的数据格式老版本不认。
+>  如果高版本的主分片没法分配副本，换句话说如果集群中只剩下了一个高版本节点，那么节点就保持未分配的状态，集群健康会保持 `yellow`。
+> 这种情况下，检查下有没有初始化或分片分配在执行。
+> 一旦另一个节点升级结束后，分片将会被分配，然后集群状态会恢复到 `green` 。
 
-If it is not possible to assign the replica shards to another node with the higher version — e.g. if there is only one node with the higher version in the cluster — then the replica shards will remain unassigned and the cluster health will remain status `yellow`.
+没有使用[同步刷新](https://www.elastic.co/guide/en/elasticsearch/reference/2.2/indices-synced-flush.html "Synced Flush")的分片恢复时间会慢一点。分片的状态可以通过[`_cat/recovery`](https://www.elastic.co/guide/en/elasticsearch/reference/2.2/cat-recovery.html "cat recovery")请求监控：
 
-In this case, check that there are no initializing or relocating shards (the `init` and `relo` columns) before proceding.
-
-As soon as another node is upgraded, the replicas should be assigned and the cluster health will reach status `green`.
-
-Shards that have not been [sync-flushed](indices-synced-flush.html "Synced Flush") may take some time to recover. The recovery status of individual shards can be monitored with the [`_cat/recovery`](cat-recovery.html "cat recovery") request:
 
 ```
 GET _cat/recovery
@@ -109,9 +105,9 @@ GET _cat/recovery
 
 If you stopped indexing, then it is safe to resume indexing as soon as recovery has completed.
 
-### Step 7: Repeat
+### 第七步：重复上述步骤
 
-When the cluster is stable and the node has recovered, repeat the above steps for all remaining nodes.
+当集群稳定并且节点恢复后，对剩下的节点重复上述过程。
 
 
 ---
