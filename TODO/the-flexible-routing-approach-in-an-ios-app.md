@@ -19,7 +19,7 @@
 
 #### 深入挖掘这个问题
 
-让我们使用一个具体的例子来理解这个问题。例如我们准备做一个 App，它包含了个人主页，好友列表，聊天窗口等特性。很显然，我们可以注意到在很多控制器里都需要通过页面跳转去显示用户的个主页，如果这个逻辑只实现一次，并且能复用的话，那就非常好了。[**DRY**](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself)**,**我们记得你！
+让我们使用一个具体的例子来理解这个问题。例如我们准备做一个 App，它包含了个人主页，好友列表，聊天窗口等特性。很显然，我们可以注意到在很多控制器里都需要通过页面跳转去显示用户的个主页，如果这个逻辑只实现一次，并且能复用的话，那就非常好了。我们记得 [**DRY**](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself)！
 我们无法使用一些 storyboard 来实现它，你可以想象一下，它在 storyboard 里面看起像什么 —— weeeeb. 😬
 
 现在我们使用的是 **MVVM + Router** 的架构，由 **ViewModel** 告诉 **Router** 需要跳转到一个其他的模块，然后 router 去执行。在我们的例子中，为了避免控制器（或者View model）臃肿，**Router** 仅仅携带了所有的跳转逻辑。如果你一开始不是很明白，不用担心！我将会用一种比较平和的方式来解释这种解决方案，所以它也会很容易地适配简单的 **MVC**。
@@ -65,7 +65,7 @@ final class FriendsViewController: UIViewController, ProfileRoute {}
 *   如果我们想要从所有地方跳转到个人主页，除了一个地方以外（这很罕见，但无论如何都有可能）。
 *   或者更重要的情况 — 如果我改变了跳转的进入方式，那么我也应该改变跳转页消失的方式（ presetn / dismiss )。
 
-我们现在没有机会去配置它，所以现在是时候使用少量的代码去实现一个抽象**跳转** —— **模态跳转**和 **Push 跳转**：
+我们现在没有机会去配置它，所以现在是时候使用少量的代码去实现一个抽象**跳转** —— **模态跳转**和 **Push** **跳转**：
 
 ```
 protocol Transition: class {
@@ -76,7 +76,7 @@ protocol Transition: class {
 }
 ```
 
-为了排版简化，下面我少写了一些**模态跳转**的实现逻辑代码。[Github](https://github.com/Otbivnoe/Routing/blob/master/Routing/Routing/Transitions/ModalTransition.swift)上有完整能用的版本。
+为了排版简化，下面我少写了一些**模态跳转**的实现逻辑代码。[Github](https://github.com/Otbivnoe/Routing/blob/master/Routing/Routing/Transitions/ModalTransition.swift) 上有完整能用的版本。
 
 ```
 class ModalTransition: NSObject {
@@ -92,7 +92,7 @@ extension ModalTransition: Transition {}
 extension ModalTransition: UIViewControllerTransitioningDelegate {}
 ```
 
-下面相似地减少了 [Push跳转](https://github.com/Otbivnoe/Routing/blob/master/Routing/Routing/Transitions/PushTransition.swift) 的代码逻辑**：**
+下面相似地减少了 [Push跳转](https://github.com/Otbivnoe/Routing/blob/master/Routing/Routing/Transitions/PushTransition.swift) 的代码逻辑：
 
 ```
 class PushTransition: NSObject {
@@ -252,7 +252,7 @@ final class ProfileViewController: UIViewController {
 
 这是编译ITC过程中的我。
 
-在 [Rosberry](http://www.rosberry.com) 的粗野iOS工程师. Reactive, 开源爱好者和循环引用检测家 :)
+在 [Rosberry](http://www.rosberry.com) 的粗野iOS工程师. Reactive, 开源爱好者和循环引用检测家。
 
 感谢 [Anton Kovalev](https://medium.com/@totowkos?source=post_page) 和 [Rosberry](https://medium.com/@Rosberry?source=post_page)。
 
