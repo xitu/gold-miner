@@ -2,20 +2,20 @@
 > * 原文作者：[William Koehrsen](https://towardsdatascience.com/@williamkoehrsen?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/python-is-the-perfect-tool-for-any-problem.md](https://github.com/xitu/gold-miner/blob/master/TODO/python-is-the-perfect-tool-for-any-problem.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Ryden Sun](https://github.com/rydensun)
+> * 校对者：[zephyrJS](https://github.com/zephyrjs) [lampui](https://github.com/lampui)
 
-# Python is the Perfect Tool for any Problem
+# Python 是解决任何问题的完美工具
 
 ![](https://cdn-images-1.medium.com/max/1600/0*UiI1SaCbMvovF2wh.)
 
-**Reflecting on my first Python program**
+**关于我第一个 Python 程序的反思**
 
-Reflection is always a helpful (and sometimes entertaining ) exercise. For nostalgia’s sake — if one can be nostalgic for something 2 years old— I wanted to share my first Python program. I initially picked up Python as an aerospace engineering student to avoid spreadsheets and little did I know how good a decision this would turn out to be.
+反思一直是一个有帮助的（有时是很有趣的）训练。出于怀旧的目的 —— 如果一个人能够对某件事念念不忘两年 —— 我想要分享一下我的第一个 Python 程序。当时作为一名航天工程专业的学生，为了从那堆数据表中脱身，我开始用起了 Python，我当时并不知道这个决定会变得这么好。
 
-My Python education began with the book [_Automate the Boring Stuff with Python_](https://automatetheboringstuff.com/)by Al Sweigart, an excellent application-based book with simple programs to do useful tasks. When I learn a new topic, I look for any chances to use it and I needed a problem to solve in Python. Fortunately, I found one in the form of a $200 textbook required for a class. My personal limit for textbooks is about $20 (_Automate the Boring Stuff_ is free online) and I refused to even rent this book. Desperate to get the book before the first assignment, I saw it was available for a free one-week trial through Amazon with a new account. I got the book for one week and was able to do the first assignment. While I could have kept creating new accounts one week at a time, I needed a better solution. Enter Python and my first programming application.
+我的 Python 自学是从由 Al Sweigart 写的 [Automate the Boring Stuff with Python](https://automatetheboringstuff.com/) 这本书开始的，这是一个本出色的基于应用程序开发的书，里面有一些简单的程序例子，但这些程序执行了一些很有用的任务。当我学习新东西时，我会寻找任何机会来使用它，因此我需要一些可以用 Python 解决的问题。幸运的是，我找到了学以致用的例子。这个课程需要 $200 的教科书，而我只想为这本书花 $20 (Automate the Boring Stuff 在网上是免费的)，我甚至拒绝去借这本书。在第一个作业之前基本是不可能得到这本书了，我发现在 Amazon 上新开一个账户，可以有一个星期的免费试看。我获得了这本书的一个星期使用权限并且可以完成我的第一个作业。虽然我可以继续一个星期创建一个新账户，但我需要一个更好的解决办法。这就进入了 Python 和我的第一个应用程序。 
 
-One of many useful libraries in _Automate the Boring Stuff_ is [pyautogui](https://pyautogui.readthedocs.io/en/latest/) which allows you to control the keyboard and mouse through Python. They say when you have a hammer, every problem looks like a nail, and that was definitely the case here. Python and pyautogui would allow me to press the arrow keys and take screenshots, and I put the two together to come up with a solution to the book issue. I wrote my first program to automatically turn through every page in the book and take a screenshot. The end program was only 10 lines long yet I was nearly as proud of it as anything I had done in aerospace engineering! Following is the program in its entirety:
+_Automate the Boring Stuff_ 中有很多有用的库，其中一个是 [pyautogui](https://pyautogui.readthedocs.io/en/latest/)，它允许我用 Python 控制键盘和鼠标。俗话说，当你有一个锤子的时候，任何问题看起来都像是一颗钉子， 这句话绝对适合现在这个情景。Python 和 pyautogui 允许我按下方向键并且对屏幕截图，我把它们两个放到一起，一个针对书本的解决方案就出来了。我写的第一个程序就是自动地翻过电子书的每一页并且进行截图。最终的程序只有 10 行代码长，但我的自豪感超过了我在航天工程做的所有事情！下面是程序的完整代码：
 
 ```
 import pyautogui
@@ -36,28 +36,28 @@ for i in range(1000):
  time.sleep(0.05)
 ```
 
-Running the program is pretty simple (I encourage anyone to try). I saved the script as book_screenshot.py, then pulled up a command prompt in the same folder and typed:
+运行这个程序很简单（我推荐每一个人都试一试）。我保存这个脚本名字叫 book_screenshot.py，然后我打开控制台，切换到同一个文件目录下，输入：
 
 ```
 python book_screenshot.py
 ```
 
-Then I would have 5 seconds to flip to the book and put it into fullscreen. The program would do the rest, flipping through every page and taking a screenshot that was saved as a pdf. I could then join all the pdfs together into one file, and have a (questionably legal) copy of the book! Granted, this was a pretty awful copy because it could not be searched, but I made any excuse possible to use my “book”.
+然后我有 5 秒时间翻到这本书并且进入全屏模式。 程序会先休息 5 秒，然后自动翻过每一页并且截屏，最后保存为一个 pdf 文件。我接下来可以把所有 pdf 文件汇总起来到一个 pdf 文件， 这样我了这本书的一个复件（不知是否合法）！诚然，由于不支持检索，这种复制方式很烂。但我还是会义无反顾地使用我的“书”。
 
 ![](https://cdn-images-1.medium.com/max/800/1*kxxaqXCHYHJbuURp6clKtA.gif)
 
-I could watch this for hours.
+我可以看上几个小时。
 
-This example demonstrates two key points that have stuck with me as I continue my data science education:
+这个例子展示了两个在我数据科学学习中，一直困扰我的两个关键点：
 
-1.  The [best way to learn a new skill is to find a problem you need to solve](https://towardsdatascience.com/how-to-master-new-skills-656d42d0e09c?source=user_profile---------7----------------)!
-2.  You don’t need to fully master a skill before it is useful.
+1. [最好的学习新技能的方式就是找到一个你需要解决的问题](https://towardsdatascience.com/how-to-master-new-skills-656d42d0e09c?source=user_profile---------7----------------)！
+2. 在一项技能有用之前，你不需要完全掌握它。
 
-With just a few lines of code and a free online book, I wrote a program that I actually put to use. Learning the basics can be tedious, and my first attempts to learn Python failed within a few hours as I got stuck with ideas like data structures and loops. Changing tactics, I started to develop solutions to real problems and ended up learning the fundamentals along the way. There is so much to master in programming and data science, but you don’t need to learn everything at once. Pick a problem you need to solve and get started!
+用简单几行代码和一本免费的电子书，我写了一个我会真实使用的程序。学习基础知识是单调乏味的，我学习 Python 的第一次尝试在几个小时后就失败了， 我陷入了那些数据结构和循环方法中。改变战略，我从开发解决真实问题的方案开始并且最终真的在过程中学会了这些基础知识。编程和数据科学有太多需要掌握的东西，但你不需要一次就学习所有的东西。挑一个你需要解决的问题并且直接开始！
 
-Since then, I have made a few [more sophisticated programs](https://towardsdatascience.com/stock-analysis-in-python-a0054e2c1a4c), but I still remember this first script with fondness!
+从那以后，我做了几个[更精细的程序](https://towardsdatascience.com/stock-analysis-in-python-a0054e2c1a4c)，但我始终记着我第做一个脚本时的乐趣！
 
-Share your first program! I welcome discussion, feedback, and constructive criticism. I can be reached on Twitter @koehrsen_will.
+分享你的第一个程序！我欢迎大家的讨论，反馈和建设性的批评建议。你可以在 Twitter @koehrsen_will 上找到我。
 
 
 ---

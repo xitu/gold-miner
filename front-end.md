@@ -1,3 +1,7 @@
+* [json — JavaScript 对象表示法](https://juejin.im/post/5a9432ae5188257a5c6092b0) ([snowyYU](https://github.com/snowyYU 翻译)
+* [一份为 Node.js 应用准备的 Dockerfile 指南](https://juejin.im/post/5a9626abf265da4e9d225f4f) ([lsvih](https://github.com/lsvih) 翻译)
+* [关于 Promise 的 9 个提示](https://juejin.im/post/5a9600526fb9a06333155141) ([yanyixin](https://github.com/yanyixin) 翻译)
+* [在 V8 引擎中设置原型（prototypes）](https://juejin.im/post/5a9921e76fb9a028bd4bc3c4) ([goldEli](https://github.com/goldEli) 翻译)
 * [嵌套三元表达式棒极了（软件编写）（第十四部分）](https://juejin.im/post/5a7d6769f265da4e7e10ad82) ([yoyoyohamapi](https://github.com/yoyoyohamapi) 翻译)
 * [探索 ECMAScript 装饰器](https://juejin.im/post/5a7bc62d6fb9a063523ddf95) ([goldEli](https://github.com/goldEli) 翻译)
 * [v3.1.0：大幅性能提升并支持流媒体服务端渲染](https://juejin.im/post/5a7ff4a56fb9a0635a65600e) ([FateZeros](https://github.com/FateZeros) 翻译)

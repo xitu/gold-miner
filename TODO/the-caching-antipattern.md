@@ -1,125 +1,95 @@
-> * 原文地址：[The Circle of Product Design](https://blog.prototypr.io/the-circle-of-product-design-6c78ade2010e)
-> * 原文作者：[Francesca Negro](https://blog.prototypr.io/@francine.negro?source=post_header_lockup)
+> * 原文地址：[The Caching Antipattern](https://www.hidefsoftware.co.uk/2016/12/25/the-caching-antipattern/)
+> * 原文作者：[ROBERT STIFF](https://www.hidefsoftware.co.uk/about/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/the-circle-of-product-design.md](https://github.com/xitu/gold-miner/blob/master/TODO/the-circle-of-product-design.md)
-> * 译者：
-> * 校对者：
+> * 译者：[王子建](https://github.com/Romeo0906)
+> * 校对者：[tanglie](https://github.com/tanglie1993)、[瞿祥轩](https://github.com/fghpdf)
 
-# The Circle of Product Design
+## 为何我抵制使用缓存？ ##
 
-## In All Its Freudian Glory
+TL;DR - 错误地缓存数据其实是一件很糟糕的事情。尽你所能不要缓存数据，如果不得已而为之，一定要保证你正确地缓存数据。
 
-Getting from point A to point B is sometimes messy even when we are simply walking — wondering if the path is right, if we are going in the right direction, what if we took that shortcut and so on.
-But when point A is a user problem and point B is an implemented feature, it’s like navigating in open sea with an old map and a faulty compass.
-That is why following a rigorous process — even when time is tight — is key to getting to that point B with as much confidence and data about the solution as possible and — additionally — to make it a little easier the following times (and to build an exhaustive documentation for future generations to come).
+----
 
-* * *
+> 计算机科学中有两件难事：缓存失效和命名。
+> 
+> - phil Karlton
 
-![](https://cdn-images-1.medium.com/max/1000/1*WEDplgz4D0kkDU_DzwseUA.jpeg)
+## 缓存？ ##
 
-The whole of the process in all its Freudian glory (all illustrations by me).
+为了确保不产生讨论对象的误解，每次我提到的**缓存**都是指一种能够加速应用的实践，存储前次的响应数据并用此来掩饰缓慢的依赖处理，而不用重新调用依赖内容。
 
-* * *
+如著名的 Phil Karlton 所言，缓存是一个棘手的问题。近年来，我经常见到因为缓存产生的错误导致了不必要的混乱和延迟。
 
-### **1.Understand the problem**
+## 常见错误 ##
 
-![](https://cdn-images-1.medium.com/max/600/1*JDwprV_DD-4C1t5Q4DflaA.jpeg)
+以下是一些常见错误，我们应该避之而行。
 
-Problems need understanding too.
+如果已经知晓你的依赖慢到不能正常使用，甚至你都不会尝试在运行中调用它，因此你在启动应用的时候就预先设置缓存来替代依赖服务查询。这恰恰证明了你选用了不合适的依赖服务，如果该依赖服务来自第三方，你可能只有干瞪眼却无可奈何。启动缓存的使用通常是为了避免依赖服务的改进工作。
 
-First off, how did this request come to life? Was it a customer request, the CEO’s idea, a roadmap step towards the achievement of The Vision? Understanding where that issue on Jira or email or post it with the request came from is pivotal. Discerning the actual problem that triggered the request from the messenger’s added interpretation is often hard and also easy to overlook (and let’s face it, less time consuming).
+这种缓存可能对应用造成的影响有：延长启动时间、造成卡顿、带来崩溃恢复的困难或者干脆失效。
 
-Traveling back to that initial spark that triggered it means making sure the starting point of the design is the actual problem, and not one of the possible solutions.
+就算你不在意服务的（重）启动缓慢（你不该这样想），这种做法仍然是错误的，因为启动缓存无关应用数据也无关服务使用模式。鉴于使用启动缓存的目的是为了不调用依赖关系，因此我们不能对它设置过期策略。
 
-Gather insights from customer care, from the CEO, from the Head of Product, whoever and — kind of like a Sigmund Freud of Product Design — dig into that until you hit the source, the original event that sparked the request.
+### 过早地缓存 ###
 
-### 2.Research the problem and gather data
+这里所说的“早”是指在开发周期中的“早”，而不是在一次请求周期中的“早”。我曾见过，很多的开发者在写代码时，就断定要在某个“很慢”的方法前设置缓存。
 
-![](https://cdn-images-1.medium.com/max/600/1*ddePyPmVjgUEUlCTmEQaCA.jpeg)
+这样做的话，就掩盖了服务运行慢的事实。既然服务运行很快，那也就没理由继续优化和改进方案了。既然缓存可以保证后续请求会快很多，那还有什么好担心的呢，对吧？
 
-Probing that problem is part of the solution.
+### 全部缓存 ###
 
-Step two means getting really good at bothering people and googling things. Once identified that event (might be a childhood trauma or a customer complaint) it’s now time to get as much information as possible on it.
-How are other people handling that issue? Is it a widespread problem or a niche issue? Is there a way we can split that problem into smaller problems? And, most importantly, gather data on it.
+“SOLID”中的“S”扮演着什么样的角色？独立的职责（缓存也是如此）。如果你将缓存直接集成到服务层，那服务将不能离开缓存独立运行。这样你绝对是违反了模块独立的原则。事实如此，而不是我故意在这里宣扬这个原则。
 
-Even if we are talking about a completely new feature and/or the product is still to be developed, there are metrics that relate to it (to some extent) that can be used. If it’s an improvement of an existing feature it _should_ be easier getting use data from analytics or any kind of metrics that _should_ have been implemented.
+### 缓存所有内容 ###
 
-### 3.Re-frame the problem
+盲目地在每一个额外的调用中使用缓存，并以此确保再次响应时不用考虑其他因素。更糟的是，这种方式会在开发和运维人员并不知情的情况下产生缓存，并造成底层服务很可靠的假象，但其实那并不是真的。
 
-![](https://cdn-images-1.medium.com/max/600/1*eWm3VEXR8OOb7lDylpD6dg.jpeg)
+### 重复缓存 ###
 
-Blue steel ™.
+缓存所有内容或者缓存内容过多，都可能导致你缓存了缓存中的数据。
 
-With all that information by now, it should be easy to get a better picture of the problem and the context is exists in. Reframing the problem means getting a different set of eyes and looking at it from another perspective (see J.W. Getzels works on the “Problem of the Problem” and creative problem solving), thus spoiling it from any previous bias or interpretation that might have been added while collecting it.
+一方面，这可能会导致所有内部缓存在最外层的缓存之前过期，这不仅极大地浪费了时间也浪费了操作层和缓存层未被使用的资源。
 
-So, while the original request might have been “we need a feature that allows to transfer money to the user when the balance is low” (which is a request that already contains the solution), the problem that originated it might have been “transferring money to the user is time consuming and requires constantly checking the balance”.
-This new framing of the problem opens up new paths towards the solution (either implement a scheduler, or an automatic alert when the balance is low).
+另一方面，这可能将所有的缓存过期时间累加。比如，三十分钟有效期的缓存数据被缓存十次就能在系统中保持五个小时之久。这是多么不可思议呢？
 
-### 4.Design the solution
+### 无法删除的缓存 ###
 
-![](https://cdn-images-1.medium.com/max/600/1*v7DtBmuit2zTHBNyJvG0Gw.jpeg)
+偶尔会有类似于 Redis 这种存储方式的缓存实现方式，并且可以使用管理工具来按需删除缓存。
 
-The Vitruvian Solution.
+而在其他的实现方式中，比如内存中的缓存，甚至主流框架中提供的缓存都没有任何的管理工具。这让运维人员只能通过重启服务来清空内存。（更糟糕的情况是弄明白缓存的实现方式，并在找到其在文件系统中的位置，然后手动清除。）
 
-The problem is now identified and data is available to put it into the wider context of the product. It is now time to frame the solution as in “decide which one of these paths is leading to the solution better fit for the problem”. For this purpose it can be useful to put in the form of questions which features should the solution have — “should the user be able to set an automatic reminder?” “Should the user be able to import events?” — and build a list of possible solution approaches. The aim is to narrow down the options and form an assumption that will be tested with a prototype.
+我见过多次这种情况，团队中的不同成员都忙着找到缓存并清除它、重启来清除缓存或者等待缓存过期，之后才能继续下一步工作。他们在这项工作上花费了数个小时，实际上这已经超出了该工作所必须的时间。缓存使得他们所见非所得，就好像系统处于离线状态一样没有响应。
 
-Since the aim is testing the assumption, the prototype would ideally be assumption-centered, ideally stripped from all the frills and unnecessary details that might distract the user when testing.
-At this step it is also ideal to chat with the developers and anyone else that will be involved in the process (QA, wider design team, customer care) to gather their insights on the solution from their perspective.
+## 缓存意味着什么 ##
 
-### 5.Test the solution
+缓存意味着以上这些错误都可能被放大，也包括一些我们之前从没考虑过的新问题。
 
-![](https://cdn-images-1.medium.com/max/600/1*ntzjOH6hIm8Iae6jICLQng.jpeg)
+部署一个过度缓存的系统特别耗费时间，因为部署过程中你不得不等待缓存过期，或者销毁每个你能找到的缓存。即使是那些备受推崇的堪称内容传输的泰山北斗的 CDN 服务系统，也会在使用的时候有百分之十左右的网络阻塞，删除全局的内容和配置缓存也可能会花费近两个小时。但事实上情况本没这么糟（[Fastly](https://www.fastly.com/products/instant-purging) 能够在 150ms 内清除缓存），同时这也会让人感到困惑，服务器上是现在是最新的数据了吗？
 
-“I wonder why they are making me take a math test”.
+你的第一反应通常是想办法销毁缓存。试想一下，你刚刚实现了一个功能，为了删除缓存，你需要花费和当初缓存数据时相当的时间、精力和认知负荷。
 
-Depending on the resources and time available, user testing is always both challenging and necessary.
-Even if the resources are low and time is tight, testing a sample of users that is representative of the larger user base of the product is extremely important, even more so than having a large sample which is not representative and thus, biased (see the Literary Digest case in 1936).
+调试缓存系统也称得上是一种挑战，忙得不可开交的会话调试会让你不识庐山真面目，只缘身在此山中。三个小时的抓耳挠腮之后你才突然意识到，你根本没有测试任何更改的内容（因为缓存的存在，你得到的结果一直是缓存中的数据，译者注）。
 
-Collecting notes — or better yet record the audio — in the most exhaustive way means it is easier if the interviews are conducted with the help of a UX researcher (if possible, or at least another human being who can write) in order to keep both the quality of the notes and the interview high.
+## 我们该怎样做呢？ ##
 
-### 6.Implement the solution
+### 不使用缓存！ ###
 
-![](https://cdn-images-1.medium.com/max/600/1*x9iGOrNVqpGhNBbeEfdmpQ.jpeg)
+好吧，有时除了使用缓存你别无选择。只要你在上网，无论你喜欢与否缓存都存在。但即使这样，除了使用 `Cache-Control: max-age=xxx` 你还有其他选择。
 
-Not suited for children under 3.
+### 熟悉你的数据 ###
 
-So now, is the assumption validated or not? If so, what are the pain points and strengths of the design? Assuming it all went well (assumption validated and minor pain points) the prototype will have to be turned into actual screens and requirements to give the developers. In order to pave the path for future iterations, defining which are the KPIs and success indicators of the feature is a mandatory task that might require help from other team members (marketing people, BE and FE devs).
+你至少应该知道数据最后一次修改的时间。你可以用 `If-Modified-Since` 头，数据没有改变的时候将返回一个 304-not-modified 响应信息。现在你可以在不牺牲可见性和控制权的情况下巧妙地使用客户端的缓存能力。使用这个头信息能做到立即更新服务内容并不定期缓存数据，这两者双剑合璧，天下无敌。更进一步说，如果你能标记数据版本（或者只是生成一个响应的哈希），你将能利用 [etags](https://en.wikipedia.org/wiki/HTTP_ETag) 功能，并在提供没有数据延迟的正确交互逻辑。
 
-In case the assumption was not tested it would be necessary to go back to the previous step of designing the solution or even reviewing the problem itself, and start again.
+### 优化性能，而不是掩饰糟糕的部分 ###
 
-When designing a complex solution — to, most likely, a complex problem — one of the possible strategies might be beginning with implementing the simplest version of the solution, and add complexity over time and releases.
+要舍得下功夫去使用分析工具。找到应用运行的瓶颈所在并解决，减少重复执行路径，筛选出不好的查询方案，正确地使用索引。如果你正在使用 S3 或者 blob 存储数据，你可以用 Redis 或类似工具来建立独立索引。Redis 不光是缓存系统，你如果能物尽其用，就能避免缓存问题并受益良多。
 
-### 7.Ship the feature
+## 写在文末 ##
 
-![](https://cdn-images-1.medium.com/max/600/1*cGhQi-bu3oMSW9VR4MhWsg.jpeg)
+缓存是很有用的工具，但是若不加以指点很容易被滥用。
 
-Arrrrrrrr!
+首先寻找其他解决方案，不到最后关头不要尝试使用缓存。先优化应用，再考虑使用迟钝的缓存工具。
 
-Well, this is self explanatory. Just get it out there and let the world know it is out there.
-
-### 8.Follow the feature’s success
-
-![](https://cdn-images-1.medium.com/max/600/1*-iS0o-6nsFu8RnRJjL4s5A.jpeg)
-
-Did he also make the best dressed list?
-
-If everything was rightly done metrics should now be available for gathering.
-Checking in with customer care and giving them the heads up about what is going on and setting a preferential channel for customer feedbacks regarding all aspects of the new feature is also a good idea to monitor the the situation.
-
-### 9.Did the solution solve the problem?
-
-![](https://cdn-images-1.medium.com/max/600/1*_4AplAayI8PgFIj-3H3xqQ.jpeg)
-
-Solutions need understanding, too.
-
-The feature has been shipped and available to the public for some time now (weeks or months), and depending on the roadmap and other issues it should be time to ask the question: did the larger user base actually found the problem solved by the implemented solution?
-
-In the perfect world, there are large parties and gathering being held to celebrate the simple brilliant beauty of the solution and world famine is now a memory just because of this feature’s problem solving abilities.
-
-In reality, not everyone is pleased (users and/or teammates), other issues have arisen and it might be time to solve niche problems or — regardless the entire process — we might have missed the mark.
-So, let’s keep faith in the process and start all over again (with more insight).
-
-
----
+如果你也遇到了一些由缓存或错误做法引发的基本问题，请与我告知，我会将其添加到本文中。
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
