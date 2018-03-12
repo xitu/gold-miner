@@ -31,9 +31,9 @@
 
 将上述每个版本都放在上下文中：V8 5.1 是 Node 6 使用的引擎，并使用 Crankshaft JIT 编译器，V8 5.8 是 Node 8.0 至 8.2 的引擎，并混合使用 Crankshaft **和** Turbofan。
 
-目前，5.9 和 6.0 引擎将在 Node 8.3（也可能是 Node 8.4）中，而 V8 6.1 是 V8 最新版本 (在编写本报告时)，它在 node-v8 仓库 [https://github.com/nodejs/node-v8.](https://github.com/nodejs/node-v8.) 的实验分支中与 Node 集成。换句话说，V8 6.1版本将在后继 Node 版本中使用。
+目前，5.9 和 6.0 引擎将在 Node 8.3（也可能是 Node 8.4）中，而 V8 6.1 是 V8 最新版本 (在编写本报告时)，它在 node-v8 仓库 [https://github.com/nodejs/node-v8.](https://github.com/nodejs/node-v8.) 的实验分支中与 Node 集成。换句话说，V8 6.1 版本将在后继 Node 版本中使用。
 
-让我们看下微基准测试，另一方面，我们将讨论这对未来意味着什么。所有的微基准测试都由 [benchmark.js](https://www.npmjs.com/package/benchmark)执行，绘制的值是每秒操作数，隐藏在图中越高越好。
+让我们看下微基准测试，另一方面，我们将讨论这对未来意味着什么。所有的微基准测试都由 [benchmark.js](https://www.npmjs.com/package/benchmark) 执行，绘制的值是每秒操作数，隐藏在图中越高越好。
 
 ###  TRY/CATCH 问题
 
@@ -60,7 +60,7 @@
 
 ### 从对象中删除属性
 
-多年来， `delete` 已经限制了很多希望编写出高性能 JavaScript 的人（至少是我们试图为热路径编写最优代码的地方）。
+多年来，`delete` 已经限制了很多希望编写出高性能 JavaScript 的人（至少是我们试图为热路径编写最优代码的地方）。
 
  `delete` 的问题归结于 V8 在原生 JavaScript 对象的动态性质以及（可能也是动态的）原型链的处理方式上。这使得查找在实现级别上的属性查找更加复杂。 
 
@@ -80,7 +80,7 @@ V8 引擎快速生成属性对象的技术是基于对象的“形状”在 c++ 
 
 在 V8 6.0 和 6.1 (尚未在任何 Node 发行版本中使用)中，Turbofan 会创建一个删除最后一个添加到对象中的属性的快捷方式，因此会比设置 `undefined` 更快。这是好消息，因为它表明 V8 团队正努力提高 `delete` 的性能。然而，如果从对象中删除了一个不是最近添加的属性， `delete` 操作仍然会对属性访问的性能带来显著影响。因此，我们仍然不推荐使用 `delete`。
 
-**编辑: 在之前版本的帖子中，我们得出结论  `_delete_`  可以也应该在未来的 Node.js 中使用。但是 [_Jakob Kummerow_](http://disq.us/p/1kvomfk) 告诉我们，我们的基准测试只触发了最后一次属性访问的情况。感谢  [_Jakob Kummerow_](http://disq.us/p/1kvomfk)!**
+**编辑: 在之前版本的帖子中，我们得出结论 `_delete_` 可以也应该在未来的 Node.js 中使用。但是 [_Jakob Kummerow_](http://disq.us/p/1kvomfk) 告诉我们，我们的基准测试只触发了最后一次属性访问的情况。感谢 [_Jakob Kummerow_](http://disq.us/p/1kvomfk)!**
 
 ### 泄露并且数组化 `ARGUMENTS`
 
@@ -90,7 +90,7 @@ V8 引擎快速生成属性对象的技术是基于对象的“形状”在 c++ 
 
 然而当一个函数的隐式 `arguments` 对象从函数上下文中暴露出来（例如，当它从函数返回或者像 `Array.prototype.slice.call(arguments)` 传递到另一个函数时）导致性能下降。 现在是时候验证这个假设了。
 
-下一个微基准测量了四个 V8 版本中两个相互关联的主题： `arguments` 泄露的成本和将参数复制到数组中的成本 (随后 函数作用域代替了 `arguments` 对象暴露出来).
+下一个微基准测量了四个 V8 版本中两个相互关联的主题：`arguments` 泄露的成本和将参数复制到数组中的成本 (随后 函数作用域代替了 `arguments` 对象暴露出来).
 
 这是我们案例的细节：
 
@@ -129,7 +129,7 @@ console.log(add10(20))
 
 这里 `add` 的参数 `a` 在 `add10` 函数中数值 `10` 部分应用。
 
-从 EcmaScript 5 开始， `bind` 方法就提供了部分应用的简洁形式：
+从 EcmaScript 5 开始，`bind` 方法就提供了部分应用的简洁形式：
 
 ```
 function add (a, b) {
@@ -172,7 +172,7 @@ console.log(add10(20))
 
 ![](https://cdn-images-1.medium.com/max/800/0*zqsOxnfdkDWMHYY0.png)
 
-在 V8 5.1 (Node 6) 中， **sum small function** 和  **long all together** 是一样的。这完美阐释了内联是如何工作的。当我们调用小函数时，就好像 V8 将小函数的内容写到了调用它的地方。因此当我们实际编写函数的内容  (即使添加了额外的注释填充）, 我们已经手动内联了这些操作，并且性能相同。 我们在 V8 5.1 (Node 6) 可以发现，调用一个包含注释的函数会使其超过一定大小，从而导致执行速度变慢。
+在 V8 5.1 (Node 6) 中，**sum small function** 和 **long all together** 是一样的。这完美阐释了内联是如何工作的。当我们调用小函数时，就好像 V8 将小函数的内容写到了调用它的地方。因此当我们实际编写函数的内容  (即使添加了额外的注释填充）, 我们已经手动内联了这些操作，并且性能相同。 我们在 V8 5.1 (Node 6) 可以发现，调用一个包含注释的函数会使其超过一定大小，从而导致执行速度变慢。
 
 在 Node 8.0–8.2 (V8 5.8) 中，除了调用小函数的成本显著增加外，情况基本相同。这可能是由于 Crankshaft 和 Turbofan 元素混合在一起，一个函数在 Crankshaft 另一个可能 Turbofan 中导致内联功能失调。(即必须在串联内联函数的集群间跳转)。
 
@@ -208,7 +208,7 @@ console.log(add10(20))
 
 ### 迭代对象
 
-获得对象的所有值并对它们进行处理是常见的操作，而且有很多方法。 让我们找出在 V8 (和 Node) 中最快的那个版本。
+获得对象的所有值并对它们进行处理是常见的操作，而且有很多方法。让我们找出在 V8 (和 Node) 中最快的那个版本。
 
 这个基准测试的四个案例针对所有 V8 版本：
 
@@ -217,7 +217,7 @@ console.log(add10(20))
 *   使用 `Object.keys` 并使用数组的 `reduce` 方法迭代键，访问 iterator 函数中的对象值，提供给 `reduce` 的迭代函数中对象值，以减少 iterator 是箭头函数的位置 (**函数式箭头函数 Object.keys**)
 *  循环访问使用 `for` 循环从 `Object.keys` 返回的数组的每个对象值  (**for 循环 Object.keys **)
 
-我们还为V8 5.8、5.9、 6.0 和6.1 增加了三个额外的基准测试案例
+我们还为V8 5.8、5.9、 6.0 和 6.1 增加了三个额外的基准测试案例
 
 *   使用 `Object.values` 和数组 `reduce`方法遍历值, (**函数式 Object.values**)
 *  使用 `Object.values` 和数组 `reduce` 方法遍历值,其中提供给 `reduce` 的 iterator 函数是箭头函数 (**函数式箭头函数 Object.values**)
@@ -267,7 +267,7 @@ Turbofan 背后的运行原理似乎是对直观的编码行为进行优化。�
 
 我们可以看到由构造函数创建对象稍慢一些。因此，为了对未来友好的高性能代码，我们最好的选择是始终使用对象字面量。这很适合我们，因为我们建议从函数（而不是使用类或构造函数）返回对象字面量作为一般的最佳编码实践。
 
-**编辑：Jakob Kummerow  在 ** [_http://disq.us/p/1kvomfk_](http://disq.us/p/1kvomfk) ** 中指出，Turbofan 可以在这个特定的微基准中优化对象分配。考虑这一点，我们会尽快重新进行更新。**
+**编辑：Jakob Kummerow  在 **[_http://disq.us/p/1kvomfk_](http://disq.us/p/1kvomfk)** 中指出，Turbofan 可以在这个特定的微基准中优化对象分配。考虑这一点，我们会尽快重新进行更新。**
 
 ### 单态函数与多态函数
 
@@ -293,7 +293,7 @@ Turbofan 背后的运行原理似乎是对直观的编码行为进行优化。�
 
 如果我们正在编写的代码需要是最优的，并且函数将被多次调用，此时我们应该避免使用多态。另一方面，如果只调用一两次，比如实例化/设置函数，那么多态 API 是可以接受的。
 
-**编辑：V8 团队已经通知我们，使用其内部可执行文件  **`_d8_`** 无法可靠地重现此特定基准测试的结果。然而，这个基准在 Node 上是可重现的。因此，应该考虑到结果和随后的分析，可能会在之后的 Node 更新中发生变化 （基于 Node 和 V8 的集成中）。不过还需要进一步分析。感谢** [_Jakob Kummerow_](http://disq.us/p/1kvomfk) **指出了这一点**。
+**编辑：V8 团队已经通知我们，使用其内部可执行文件 **`_d8_`** 无法可靠地重现此特定基准测试的结果。然而，这个基准在 Node 上是可重现的。因此，应该考虑到结果和随后的分析，可能会在之后的 Node 更新中发生变化（基于 Node 和 V8 的集成中）。不过还需要进一步分析。感谢** [_Jakob Kummerow_](http://disq.us/p/1kvomfk) **指出了这一点**。
 
 ### `DEBUGGER` 关键词
 
@@ -304,7 +304,7 @@ Turbofan 背后的运行原理似乎是对直观的编码行为进行优化。�
 我们看下以下两种案例：
 
 *   包含 `debugger` 关键词的函数 (**带有 debugger**)
-*   不包含  `debugger` 关键词的函数 (**不含 debugger**)
+*   不包含 `debugger` 关键词的函数 (**不含 debugger**)
 
 **Code:** [https://github.com/davidmarkclements/v8-perf/blob/master/bench/debugger.js](https://github.com/davidmarkclements/v8-perf/blob/master/bench/debugger.js)
 
