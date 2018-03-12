@@ -192,7 +192,7 @@ release {
 
 你可以在 GitHub 上看看最新的一些使用 ProGuard（混淆）配置的[即时应用示例](https://github.com/googlesamples/android-instant-apps/blob/master/multi-feature-module/proguard.pro) 来和你的相比较，或者练习本文中介绍的相关示例项目的方法。
 
-我承认可以通过设置每个方法的保留规则而不是每个类来改进上面的解决方案（引用方法列表的命令是：`apkanalyzer dex packages detail-debug.apk | grep“^ M r”| cut - f4`），这可能节省出更大的空间。但这会让本教程的其余部分（例如筛选框架类）变得更加复杂，所以我将它作为练习给读者你。
+我承认可以通过设置每个方法的保留规则而不是每个类来改进上面的解决方案（引用方法列表的命令是：`apkanalyzer dex packages detail-debug.apk | grep"^ M r"| cut - f4`），这可能节省出更大的空间。但这会让本教程的其余部分（例如筛选框架类）变得更加复杂，所以我将它作为练习给读者你。
 
 
 ---
