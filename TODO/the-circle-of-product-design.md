@@ -2,122 +2,120 @@
 > * 原文作者：[Francesca Negro](https://blog.prototypr.io/@francine.negro?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/the-circle-of-product-design.md](https://github.com/xitu/gold-miner/blob/master/TODO/the-circle-of-product-design.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Ryden Sun](https://github.com/rydensun)
+> * 校对者：[ryouaki](https://github.com/ryouaki) [Starriers](https://github.com/Starriers)
 
-# The Circle of Product Design
+# 产品设计的环状循环
 
 ## In All Its Freudian Glory
 
-Getting from point A to point B is sometimes messy even when we are simply walking — wondering if the path is right, if we are going in the right direction, what if we took that shortcut and so on.
-But when point A is a user problem and point B is an implemented feature, it’s like navigating in open sea with an old map and a faulty compass.
-That is why following a rigorous process — even when time is tight — is key to getting to that point B with as much confidence and data about the solution as possible and — additionally — to make it a little easier the following times (and to build an exhaustive documentation for future generations to come).
+我们只是简单的从A点走到B点，有时候都会变得混乱不已 —— 会考虑这条路是不是对的，我们走得是否是正确的方向，如果我们走捷径又会怎样等等这些问题。
+但当A点是一个用户问题而且B点是一个实现的功能，这就像你用一张旧地图和一个坏的指南针在大海里航行。
+这就解释了为什么按照一个严谨的流程 —— 即便时间很紧张 —— 也会是通往B点的关键因素，而且有着最多的信心和尽可能的与解决方案相关的数据 —— 并且 —— 会让以后的相同的工作变得简单一点（也为了以后的迭代建立详尽的文档）。
 
 * * *
 
 ![](https://cdn-images-1.medium.com/max/1000/1*WEDplgz4D0kkDU_DzwseUA.jpeg)
 
-The whole of the process in all its Freudian glory (all illustrations by me).
+文章中所有的过程都是 Freudian glory(弗洛伊德学说风格)（所有的插画都是我画的）
 
 * * *
 
-### **1.Understand the problem**
+### **1.理解问题**
 
 ![](https://cdn-images-1.medium.com/max/600/1*JDwprV_DD-4C1t5Q4DflaA.jpeg)
 
-Problems need understanding too.
+问题也是需要被理解的。
 
-First off, how did this request come to life? Was it a customer request, the CEO’s idea, a roadmap step towards the achievement of The Vision? Understanding where that issue on Jira or email or post it with the request came from is pivotal. Discerning the actual problem that triggered the request from the messenger’s added interpretation is often hard and also easy to overlook (and let’s face it, less time consuming).
+首先，这个需求是如何被提出的？这是一个顾客的需求，是一个CEO的点子还是一个实现愿景的蓝图？理解需求从哪里提出的，无论它是在 Jira 上，或是邮件里，或是贴子里，这是最重要的。从用户的附加解释中，辨别出那些真正触发需求的问题一直都是困难的，并且是容易忽略的（让我们来面对它，减少时间的消耗）。
 
-Traveling back to that initial spark that triggered it means making sure the starting point of the design is the actual problem, and not one of the possible solutions.
+回溯到最开始的被触发的想法， 意味着需要确保我们设计的出发点是一个真实的问题，并且不是一个可能的解决方案。
 
-Gather insights from customer care, from the CEO, from the Head of Product, whoever and — kind of like a Sigmund Freud of Product Design — dig into that until you hit the source, the original event that sparked the request.
+从顾客关爱部门，CEO，首席产品官他们那里获取他们的想法，无论是谁 —— 就像产品设计的 Sigmund Fredu —— 深挖这些想法直到你找到来源，那个激发需求的最初始的事件。
 
-### 2.Research the problem and gather data
+### 2.调研问题并且收集数据
 
 ![](https://cdn-images-1.medium.com/max/600/1*ddePyPmVjgUEUlCTmEQaCA.jpeg)
 
-Probing that problem is part of the solution.
+调研这个问题是解决方案的一部分。
 
-Step two means getting really good at bothering people and googling things. Once identified that event (might be a childhood trauma or a customer complaint) it’s now time to get as much information as possible on it.
-How are other people handling that issue? Is it a widespread problem or a niche issue? Is there a way we can split that problem into smaller problems? And, most importantly, gather data on it.
+第二步意味着会变得很擅长打扰别人和搜索东西。一旦定位了那个事件（可能是童年的心理创伤或是客户的抱怨），那就是时候尽可能多获取这个问题的信息了。
+其他人是怎么处理这个问题的呢？这是一个普遍的还是特殊的问题？我们有办法把这个问题分解成多个小问题吗？并且，最重要的，收集这个问题的数据。
 
-Even if we are talking about a completely new feature and/or the product is still to be developed, there are metrics that relate to it (to some extent) that can be used. If it’s an improvement of an existing feature it _should_ be easier getting use data from analytics or any kind of metrics that _should_ have been implemented.
+即使我们在讨论一个全新的功能/或是产品还处于开发状态，还是会有相关的（某些程度上）度量方法来使用的。如果是对于一个已经存在的功能进行提升，他 _应该_ 是容易从分析中收集数据的或是 _应该_ 有任意的度量方法可以被执行的。
 
-### 3.Re-frame the problem
-
+### 3.重新构想这个问题
 ![](https://cdn-images-1.medium.com/max/600/1*eWm3VEXR8OOb7lDylpD6dg.jpeg)
 
 Blue steel ™.
 
-With all that information by now, it should be easy to get a better picture of the problem and the context is exists in. Reframing the problem means getting a different set of eyes and looking at it from another perspective (see J.W. Getzels works on the “Problem of the Problem” and creative problem solving), thus spoiling it from any previous bias or interpretation that might have been added while collecting it.
+根据目前所有的信息，对于问题和其存在于的背景应该比较容易的有一个更清晰的认识。 重新定义这个问题意味着需要从不同的视野和角度看待它（看一下 J.W. Getzels 在“Problem of the Problem”的工作和其创造性的问题解决），因此在收集过程中，从任何以前的偏见或者解释来破坏他的行为都可能会被加入。
+所以，当最初的需求可能是“我们需要一个功能允许余额过低时转账给用户”（这就是一个需求包含解决方案的例子），促使产生这个需求的问题可能是“转账给用户太耗时而且需要不断地查看余额”。
+这个问题的重新定义打开了通向解决方案的新道路（执行一个调度程序，亦或是余额过低时自动提醒）。
 
-So, while the original request might have been “we need a feature that allows to transfer money to the user when the balance is low” (which is a request that already contains the solution), the problem that originated it might have been “transferring money to the user is time consuming and requires constantly checking the balance”.
-This new framing of the problem opens up new paths towards the solution (either implement a scheduler, or an automatic alert when the balance is low).
-
-### 4.Design the solution
+### 4.设计解决方案
 
 ![](https://cdn-images-1.medium.com/max/600/1*v7DtBmuit2zTHBNyJvG0Gw.jpeg)
 
-The Vitruvian Solution.
+Vitruvian 解决方案。
 
-The problem is now identified and data is available to put it into the wider context of the product. It is now time to frame the solution as in “decide which one of these paths is leading to the solution better fit for the problem”. For this purpose it can be useful to put in the form of questions which features should the solution have — “should the user be able to set an automatic reminder?” “Should the user be able to import events?” — and build a list of possible solution approaches. The aim is to narrow down the options and form an assumption that will be tested with a prototype.
+问题现在已经成功定位，而且数据是可以被投入到更广泛的产品背景中的。现在是时候把解决方案构建为“决定这些方法中哪个方法更适合解决这个问题”。出于这个目的，它可以适用于一系列问题：解决方案中应该有哪些功能 —— “用户应该能够设置自动提醒吗？” “用户应该能够引入事件吗？” —— 并且建立一个可能的解决方案实现列表。 目的是减少选项，形成一个可以用原型来测试的设想。
+既然目的是测试这个设想，原型应该是理想化的以设想为中心，是从所有修饰和没必要的细节中剥离开来的，这些修饰和细节可能会在测试中让用户分散注意力。
+在这一步，如果能和开发者或是任何将参与到过程中的人（如，整个设计团队，客户关心部门）进行交流就理想了，这样可以收集他们从自身角度出发关于解决方案的看法了。
 
-Since the aim is testing the assumption, the prototype would ideally be assumption-centered, ideally stripped from all the frills and unnecessary details that might distract the user when testing.
-At this step it is also ideal to chat with the developers and anyone else that will be involved in the process (QA, wider design team, customer care) to gather their insights on the solution from their perspective.
-
-### 5.Test the solution
+### 5.测试解决方案
 
 ![](https://cdn-images-1.medium.com/max/600/1*ntzjOH6hIm8Iae6jICLQng.jpeg)
 
-“I wonder why they are making me take a math test”.
+“我想知道为什么他们让我做一个数学测试”。
 
-Depending on the resources and time available, user testing is always both challenging and necessary.
-Even if the resources are low and time is tight, testing a sample of users that is representative of the larger user base of the product is extremely important, even more so than having a large sample which is not representative and thus, biased (see the Literary Digest case in 1936).
+依靠现有的可用资源和时间，用户测试一直都是有挑战性和有必要性的。
 
-Collecting notes — or better yet record the audio — in the most exhaustive way means it is easier if the interviews are conducted with the help of a UX researcher (if possible, or at least another human being who can write) in order to keep both the quality of the notes and the interview high.
+即使资源很少，时间很紧，测试一个能代表大部分产品用户的用户样本是十分重要的，这更比测试一大群没有代表性的样本重要（参照 1936 年的 Literary Digest 案例）。
 
-### 6.Implement the solution
+进行记录 —— 或者更好的办法是进行录音 —— 这是最详尽的办法来更方便的在一个用户体验研究员的帮助下进行访谈的总结（如果可能的话，或者至少有另外一个可以记录的人），为了能同时保证记录的质量和访谈的活跃度。
+
+### 6.实现解决方案
 
 ![](https://cdn-images-1.medium.com/max/600/1*x9iGOrNVqpGhNBbeEfdmpQ.jpeg)
 
-Not suited for children under 3.
+不适合3岁以下的小孩。
 
-So now, is the assumption validated or not? If so, what are the pain points and strengths of the design? Assuming it all went well (assumption validated and minor pain points) the prototype will have to be turned into actual screens and requirements to give the developers. In order to pave the path for future iterations, defining which are the KPIs and success indicators of the feature is a mandatory task that might require help from other team members (marketing people, BE and FE devs).
+目前为止，设想被验证了没有？如果已被验证，什么是设计方案的痛点和长处？假设所有都进行顺利（设想被验证并且几乎没有痛点），这个原型应该变成真实的屏幕显示出，同时需求需要传递给开发者们。为了给未来迭代铺设道路，一个强制性的任务是定义哪些是功能点的KPI和绩效指标，这可能需要别的团队成员（市场人员，后端和前端开发人员）的帮助。
 
-In case the assumption was not tested it would be necessary to go back to the previous step of designing the solution or even reviewing the problem itself, and start again.
+如果设想没有被测试，那就有必要回到之前的设计解决方案步骤，甚至是重新审视问题本身并且重新开始。
 
-When designing a complex solution — to, most likely, a complex problem — one of the possible strategies might be beginning with implementing the simplest version of the solution, and add complexity over time and releases.
+当设计一个复杂的解决方案时 —— 最有可能的是对于一个复杂的问题 —— 一个可能的策略是从实现解决方案的最简单版本开始， 接着不断增加复杂度最后发布。
 
-### 7.Ship the feature
+### 7.运送这个功能
 
 ![](https://cdn-images-1.medium.com/max/600/1*cGhQi-bu3oMSW9VR4MhWsg.jpeg)
 
-Arrrrrrrr!
+Arrrrrrrr!（语气词，类似啊啊啊啊啊啊）
 
-Well, this is self explanatory. Just get it out there and let the world know it is out there.
+好吧，这是很明显的。 赶快把他发布出去让世界知道他发布了。
 
-### 8.Follow the feature’s success
+### 8.密切关注功能点的成功
 
 ![](https://cdn-images-1.medium.com/max/600/1*-iS0o-6nsFu8RnRJjL4s5A.jpeg)
 
-Did he also make the best dressed list?
+它有达到最好的效果吗？
 
-If everything was rightly done metrics should now be available for gathering.
-Checking in with customer care and giving them the heads up about what is going on and setting a preferential channel for customer feedbacks regarding all aspects of the new feature is also a good idea to monitor the the situation.
+如果所有事情都进行无误，现在应该可以收集度量数据了。
+去客户关爱部门，告诉他们目前正在进行的功能的关注点，并且为用户反馈设置一条特权通道，这些反馈包含新功能的所有方面，这也是一个很好的监测进行情况的注意。
 
-### 9.Did the solution solve the problem?
+### 9.解决方案有解决问题吗？
 
 ![](https://cdn-images-1.medium.com/max/600/1*_4AplAayI8PgFIj-3H3xqQ.jpeg)
 
-Solutions need understanding, too.
+解决方案也需要理解。
 
-The feature has been shipped and available to the public for some time now (weeks or months), and depending on the roadmap and other issues it should be time to ask the question: did the larger user base actually found the problem solved by the implemented solution?
+功能已经发布而且用户已经使用了一段时间（几周或者几个月），根据流程和其他问题，现在是时候问一个问题：大多数用户有发现问题被这个方案解决掉了吗？
 
-In the perfect world, there are large parties and gathering being held to celebrate the simple brilliant beauty of the solution and world famine is now a memory just because of this feature’s problem solving abilities.
+在理想的世界里，我们会举办大型的舞会和聚会来庆祝解决方案那简约而又灿烂的美丽，世界上的饥荒也会仅仅存在于记忆力，因为我们这个功能的问题解决能力。
 
-In reality, not everyone is pleased (users and/or teammates), other issues have arisen and it might be time to solve niche problems or — regardless the entire process — we might have missed the mark.
-So, let’s keep faith in the process and start all over again (with more insight).
+现实中，不是每个人都会满意（用户和/或队友），别的问题也会出现，也可能是时候解决商业上的一些问题 —— 忽略整个过程 —— 我们可能会无法完成我们的目标。
+因此，让我们在过程中保持信心，不断地重新开始（带着更多的内省）。
 
 
 ---
