@@ -3,13 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/trusting-sdks.md](https://github.com/xitu/gold-miner/blob/master/TODO/trusting-sdks.md)
 > * 译者：[CACppuccino](https://github.com/CACppuccino)
-> * 校对者：
+> * 校对者：[hanliuxin5](https://github.com/hanliuxin5) 
 
 # 对第三方 SDK 的信任问题
 
 第三方的 SDK 常常会在你下载他们的时候被轻易地**修改**！只要使用简单的[中间人攻击](https://wikipedia.org/wiki/Man_in_the_middle_attack)，任何位于同一网络中的人都可以插入病毒代码至代码库中，并随之进入你的应用中，从而在你的用户的手机中运行。
 
-在最热门的闭源 iOS SDK 中，**31%**的 SDK 和 CocoaPods 中的 **623个库** 对于这种攻击是没有抵抗力的。 作为研究的一部分，我通知了被影响的组织，并向 CocoaPods 提交了补丁，来提醒开发者和 SDK 提供者们。
+在最热门的闭源 iOS SDK 中，**31%**的 SDK 和 CocoaPods 中的 **623个库** 对于这种攻击是没有抵抗力的。作为研究的一部分，我通知了被影响的组织，并向 CocoaPods 提交了补丁，来提醒开发者和 SDK 提供者们。
 
 ## 一个 SDK 被修改潜在后果是什么？
 
@@ -43,7 +43,7 @@ Apple 强制要求 iOS app 应用使用沙箱是有很好的理由的，因此�
 
 ### HTTPs vs HTTP
 
-**HTTP**: 未加密信息，任何位于同一网络（WiFi 或以太网）的人都可以轻易地监听网络包。在未加密的 WiFi 网络上这样监听的方法非常简单直观，而实际上在受保护的 WiFi 或以太网上依然是同样简单的。你的计算机不会去验证你所请求数据的主机的网络包；其它的计算机可以在你之前接收包裹，打开并修改它们，之后再将更改过的版本发送给你。
+**HTTP**: 未加密传输，任何位于同一网络（WiFi 或以太网）的人都可以轻易地监听网络包。在未加密的 WiFi 网络上这样监听的方法非常简单直观，而实际上在受保护的 WiFi 或以太网上依然是同样简单的。你的计算机不会去验证你所请求数据的主机的网络包；其它的计算机可以在你之前接收包裹，打开并修改它们，之后再将更改过的版本发送给你。
 
 **HTTPs**: 在 HTTPs 传输中，其它在网络中的主机仍能监听你的包裹但不能打开它们。它们仍然能够获取一些基本的元数据，如主机名，但无法得到详细数据（如数据的 body 部分，完整的 URL 等...）。另外，你的客户端会验证你的数据包是否来自原始的主机，且没有人修改过内容。HTTPs 技术是基于 TLS 的。
 
@@ -67,13 +67,13 @@ Apple 强制要求 iOS app 应用使用沙箱是有很好的理由的，因此�
 *   上面的一层（网络层）使用 IP 地址来定位主机在网络中的地址
 *   再上面的层会添加端口信息和实际要传递的消息内容
 
-> 如果你对此感兴趣，你可以学习 OSI 模型是如何工作的，特别是在实习 TCP/IP 协议时 （例如 [http://microchipdeveloper.com/tcpip:tcp-ip-five-layer-model（tcp/ip 五层模型）](http://microchipdeveloper.com/tcpip:tcp-ip-five-layer-model)）。
+> 如果你对此感兴趣，你可以学习 OSI 模型是如何工作的，特别是在实现 TCP/IP 协议时 （例如 [http://microchipdeveloper.com/tcpip:tcp-ip-five-layer-model（tcp/ip 五层模型）](http://microchipdeveloper.com/tcpip:tcp-ip-five-layer-model)）。
 
 所以，如果你的计算机将一个网络包传输给路由器，它是如何基于第一层（MAC address）知道怎么去将网络包路由的呢？为了解决这个问题，路由器采用了一种端口叫做 ARP （Address Resolution Protocol）。
 
 ### ARP 的工作原理以及是如何被滥用的
 
-简单来讲，网络中的设备利用 ARP 映射来记住去将含有特定 MAC 地址的网络包送到哪里。ARP 的工作原理很简单：如果一个设备知道该一个网络包所应送入的 IP 地址，它就会询问网络中的所有人：“这个 MAC 地址应该与哪个 MAC 地址对应？”拥有那个 IP 地址的设备就会回复该信息 ✋
+简单来讲，网络中的设备利用 ARP 映射来记住去将含有特定 MAC 地址的网络包送到哪里。ARP 的工作原理很简单：如果一个设备知道该一个网络包所应送入的 IP 地址，它就会询问网络中的所有人：“这个 MAC 地址应该与哪个 IP 地址对应？”拥有那个 IP 地址的设备就会回复该信息 ✋
 
 ![](https://krausefx.com/assets/posts/trusting-sdks/image_1.png)
 
@@ -87,7 +87,7 @@ Apple 强制要求 iOS app 应用使用沙箱是有很好的理由的，因此�
 
 如果存在未加密的网络包（例如 HTTP），那么攻击者不仅可以查阅里面的内容，同时还可以随意改写任何信息而不被发现。
 
-**注意**: 上面所述的技术与你可能读过的公共 WiFi 安全问题是不同的。公共 WiFi 的问题在于任何人都可以读取在空中传送的网络包，如果这些网络包是没有加密的 HTTP，那么很容易就解读出正在发生的事情。 ARP 污染作用于所有的网络，无论是公共与否，WiFi 还是以太网。
+**注意**: 上面所述的技术与你可能读过的公共 WiFi 安全问题是不同的。公共 WiFi 的问题在于任何人都可以读取在其中所传送的网络包，如果这些网络包是没有加密的 HTTP，那么很容易就解读出正在发生的事情。ARP 污染作用于所有的网络，无论是公共与否，WiFi 还是以太网。
 
 ## 让我们看看它在实践中如何作用
 
@@ -164,7 +164,7 @@ Localytics 在问题被披露后解决了它，所以文档页面和下载现在
 
 ## 总而言之
 
-回想起之前提到过的 iOS 隐私漏洞（iCloud 钓鱼，通过图片获得定位，在后台使用摄像头），如果我们谈论的不是那些恶意的开发者，而是那些**针对你，一个 iOS 开发人员**的攻击者，为了在短时间内接触到上百万用户呢？
+回想起之前提到过的 iOS 隐私漏洞（iCloud 钓鱼，通过图片获得定位，在后台使用摄像头），如果我们谈论的不是那些针对用户的恶意开发者，而是那些**针对你，一个 iOS 开发人员**的攻击者，为了在短时间内接触到上百万用户呢？
 
 ### 攻击开发者
 
@@ -189,8 +189,8 @@ YouTube 视频请见：https://youtu.be/Mx2oFCyWg2A
 *   激活管理员账户的远程 SSH 权限
 *   安装键盘记录器来获取管理员密码
 *   使用密码来解密 keychain，并将所有登录凭据传送至远程服务器
-*   获取本地机密，如 AWS 凭据，CocoaPods 和 RubyGems 的上传令牌还有
-    *   如果开发者拥有着一个受欢迎的 CocoaPod，你可以将病毒代码散播到更多的 SDK 中
+*   获取本地机密，如 AWS 凭据，CocoaPods 和 RubyGems 的上传令牌还有：
+    *   如果开发者拥有着一个受欢迎的 CocoaPod，你可以将病毒代码散播到更多的 SDK 中
 *   接触你的 Mac 上几乎所有的文件及数据库，包括 iMessage 的对话，邮件和源代码
 *   在用户不知情的情况下录屏
 *   安装一个新的 root 下的 SSL 证书，使得攻击者能够监听你大部分加密的网络请求
@@ -198,7 +198,7 @@ YouTube 视频请见：https://youtu.be/Mx2oFCyWg2A
 为了证明这是可以发生的，我查找了如何在开发者本地运行的 shell 文本中插入病毒代码，在 BuddyBuild 案例中：
 
 *   与之前的前提相同，攻击者需要在同一个网络中
-*   BuddyBuild 文档告诉用户去 `curl` 一个未加密的 URL 来传送内容至 `sh`，意味着任何 `curl` 命令返回的代码都会被执行
+*   BuddyBuild 文档告诉用户去 `curl` 一个未加密的 URL 来通过 `sh` 进行操作，意味着任何 `curl` 命令返回的代码都会被执行
 *   修改过的 `UpdateSDK` 由攻击者（树莓派）提供，并且询问管理员密码（通常 BuddyBuild 的更新脚本不会询问这个）
 *   在一秒钟之内，病毒脚本可以做到：
     *   为当前账户启动远程 SSH 权限
@@ -216,7 +216,7 @@ BuddyBuild 在问题反馈后解决了这一问题。
 
 SDK 和 开发者工具成为了越来越多的攻击者的目标。这里有一些过去几年的例子：
 
-*   [Xcode Ghost](https://en.wikipedia.org/wiki/XcodeGhost) 影响力近 4000 个iOS app，包括微信：
+*   [Xcode Ghost](https://en.wikipedia.org/wiki/XcodeGhost) 影响了近 4000 个 iOS app，包括微信：
     *   攻击者对任何使用这些 app 的机器拥有远程登录权限
     *   展示钓鱼弹窗
     *   拥有阅读并更改粘贴板的权限（当使用密码管理器的时候这会变得很危险）
@@ -225,7 +225,7 @@ SDK 和 开发者工具成为了越来越多的攻击者的目标。这里有一
 *   [KeyRaider](https://en.wikipedia.org/wiki/KeyRaider)：仅影响越狱 iPhone，但仍然偷取了超过 200,000 终端用户的用户凭证
 *   在仅仅几周之前，有很多关于这是如何影响网站项目的博文被发出 （例如[1](https://hackernoon.com/im-harvesting-credit-card-numbers-and-passwords-from-your-site-here-s-how-9a8cb347c5b5), [2](https://scotthelme.co.uk/protect-site-from-cyrptojacking-csp-sri/)）
 
-[还有更多](https://www.theiphonewiki.com/wiki/Malware_for_iOS)。另一个方法是获取下载服务器的权限（例如 S3 bucket 使用权限密钥）并替换掉二进制文件。这在过去几年中常常发生，例如 [Mac app 传输事件](https://www.macrumors.com/2016/03/07/transmission-malware-downloaded-6500-times/)。 这开启了攻击领域的另一个层级，是我在这篇博文中没有讲到的。
+[以及更多类似的事件](https://www.theiphonewiki.com/wiki/Malware_for_iOS)。另一个方法是获取下载服务器的权限（例如 S3 bucket 使用权限密钥）并替换掉二进制文件。这在过去几年中常常发生，例如 [Mac app 传输事件](https://www.macrumors.com/2016/03/07/transmission-malware-downloaded-6500-times/)。这开启了攻击领域的另一个层级，是我在这篇博文中没有讲到的。
 
 ### 会议中心，酒店，咖啡厅
 
@@ -265,18 +265,18 @@ SDK 和 开发者工具成为了越来越多的攻击者的目标。这里有一
 
 从 CocoaPods 中来看，有总计 **4,800** 个发布版本被影响，来自 **623** 个 CocoaPods。我在本地对 `Specs` 目录通过 `grep -l -r '"http": "http://' *` 得到的这些数据。
 
-### 开宇 vs 闭源
+### 开源 vs 闭源
 
-从上文的数字来看，如果你使用闭源的 SDK，那么你很可能被攻击波及到。更重要的是，当 SDK 是闭源的时候，你很难验证依赖库的完整性。如你所知，你应该总是[利用版本控制检查 Pods 目录](https://guides.cocoapods.org/using/using-cocoapods.html#should-i-check-the-pods-directory-into-source-control)，来检测其中的变化，审计你的依赖库的更新。 我所调查的开源 SDK 中，100% 都可以从 GitHub 中直接使用，意味着如果你使用 GitHub 的版本而不是提供者网站的版本，即使使用上文中那三个被影响的 SDK，你也不会受到影响。
+从上文的数字来看，如果你使用闭源的 SDK，那么你很可能被攻击波及到。更重要的是，当 SDK 是闭源的时候，你很难验证依赖库的完整性。如你所知，你应该总是[利用版本控制检查 Pods 目录](https://guides.cocoapods.org/using/using-cocoapods.html#should-i-check-the-pods-directory-into-source-control)，来检测其中的变化，审计你的依赖库的更新。我所调查的开源 SDK 中，100% 都可以从 GitHub 中直接使用，意味着如果你使用 GitHub 的版本而不是提供者网站的版本，即使使用上文中那三个被影响的 SDK，你也不会受到影响。
 
 基于上面的数字，可以很清楚的知道，你除了不能深入闭源 SDK 的源代码之外，还会有比较高的被攻击的风险。不仅仅是中间人攻击，还包括：
 
 *   攻击者获取了 SDK 下载服务器的权限
-*   提供 SDK 的公司与他人妥协
-*   当地政府强制公司包含后门
-*   提供 SDK 的公司本身有不良意图，并包含了你不想要的追踪代码
+*   提供 SDK 的公司被渗透
+*   当地政府强制公司包含后门
+*   提供 SDK 的公司本身有不良意图，并包含了你不想要的追踪以及代码
 
-**你应该对你传送的代码负责！** 你应该保证你没有辜负用户对你的信任，以及欧盟的数据保护法([GDPR](https://www.eugdpr.org/))或通过病毒 SDK 偷取用户的凭据。
+**你应该对你传送的代码负责！** 你应该保证你没有辜负用户对你的信任，违背欧盟的数据保护法([GDPR](https://www.eugdpr.org/))，或通过病毒 SDK 偷取用户的凭据。
 
 ## 总结
 
@@ -292,7 +292,7 @@ SDK 和 开发者工具成为了越来越多的攻击者的目标。这里有一
 
 特别感谢我的朋友们对于这篇文章的反馈： [Jasdev Singh](https://twitter.com/jasdev), [Dave Schukin](https://twitter.com/schukin), [Manu Wallner](https://twitter.com/acrooow), [Dominik Weber](https://twitter.com/domysee), [Gilad](https://twitter.com/giladronat), [Nicolas Haunold](http://haunold.me/) 以及 Neel Rao.
 
-除非在文章中特别提到，否则这些项目皆为我利用周末及晚上的时间来完成的业余项目，与我所做的工作和雇员无关。
+除非在文章中特别提到，否则这些项目皆为我利用周末及晚上的时间来完成的业余项目，与我所做的工作和雇主无关。
 
 
 ---
