@@ -1,8 +1,8 @@
 > * 原文地址：[Rolling upgrades](https://www.elastic.co/guide/en/elasticsearch/reference/2.2/rolling-upgrades.html)
 > * 原文作者：[elastic.](https://www.elastic.co/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/rolling-upgrades.md](https://github.com/xitu/gold-miner/blob/master/TODO/rolling-upgrades.md)
-> * 译者：
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/rolling-upgrades.md](https://github.com/xitu/gold-miner/blob/master/TODO/elasticsearch-rolling-upgrades.md)
+> * 译者：code4j
 > * 校对者：
 
 # Elasticsearch 滚动升级
