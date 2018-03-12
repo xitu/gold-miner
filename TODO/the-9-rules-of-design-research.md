@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/the-9-rules-of-design-research.md](https://github.com/xitu/gold-miner/blob/master/TODO/the-9-rules-of-design-research.md)
 > * 译者：[zhmhhu](https://github.com/zhmhhu)
-> * 校对者：
+> * 校对者：[Starriers](https://github.com/Starriers)
 
 # 设计研究的 9 条规则
 
