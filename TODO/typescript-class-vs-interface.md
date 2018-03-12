@@ -3,9 +3,9 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/typescript-class-vs-interface.md](https://github.com/xitu/gold-miner/blob/master/TODO/typescript-class-vs-interface.md)
 > * 译者：[xueshuai](https://github.com/xueshuai)
-> * 校对者：
+> * 校对者：[Starriers](https://github.com/Starriers), [rpgmakervx](https://github.com/rpgmakervx)
 
-# Typescript : 类 vs 接口
+# Typescript: 类 vs 接口
 
 ![](https://cdn-images-1.medium.com/max/800/1*TP-D_umXHGfSyJbUrSQ24g.jpeg)
 
