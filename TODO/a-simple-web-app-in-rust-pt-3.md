@@ -2,22 +2,22 @@
 > * 原文作者：[Joel's Journal](http://joelmccracken.github.io/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/a-simple-web-app-in-rust-pt-3.md](https://github.com/xitu/gold-miner/blob/master/TODO/a-simple-web-app-in-rust-pt-3.md)
-> * 译者：
-> * 校对者：
+> * 译者：[LeopPro](https://github.com/LeopPro)
+> * 校对者：[ryouaki](https://github.com/ryouaki)
 
-# A Simple Web App in Rust, Part 3 -- Integration
+# 使用 Rust 开发一个简单的 Web 应用，第 3 部分 —— 整合
 
-## 1 Previously
+## 1 前情回顾
 
-This is the third part in a series on writing a very simple web application in Rust.
+这是使用 Rust 开发一个简单的 Web 应用系列的第 3 部分.
 
-So far, we have the the pieces for an MVP in separate rust files. Here, we want to put them together into a single app.
+到目前为止，我们已经有了一些最简可行功能在几个 Rust 源文件中。现在，我们想把它们放在一个应用程序中。
 
 ### 1.1 Review
 
-We have the following two pieces to put together: the file writing/logging code, and the serving code. Lets review each of them.
+我们将以下两个模块整合在一起：文件写入 / 记录代码，Web 服务代码。让我们 Review 一下它们：
 
-First, the logging code:
+首先，文件记录代码：
 
 ```
 extern crate chrono;
@@ -59,7 +59,7 @@ fn main() {
 }
 ```
 
-Now, the serving code:
+现在，Web 服务代码：
 
 ```
 #[macro_use] extern crate nickel;
@@ -83,9 +83,9 @@ fn main() {
 }
 ```
 
-## 2 Combining the Code: Fisticuffing with the Type System
+## 2 整合代码：和类型系统作斗争
 
-So, I want to combine these two programs. First, I'll put them both into the same file (and change the name of one of the `main` functions, of course) to see if they all compile together.
+好了，我想整合这两个程序。首先我会将它们放到一个文件中（当然，要将它们其中之一的 `main` 函数名字改一下），看一看是否能成功编译。
 
 ```
 #[macro_use] extern crate nickel;
@@ -146,7 +146,7 @@ fn main() {
 }
 ```
 
-Compiling & Running:
+编译运行：
 
 ```
 $ cargo run
@@ -189,9 +189,9 @@ Listening on http://127.0.0.1:6767
 Ctrl-C to shutdown server
 ```
 
-Cool. I totally expected those dead-code warning messages, and visiting `localhost:6767` in my browser still renders a "hello, world" page.
+酷！这些未使用警告正是我所预期的，在浏览器上访问 `localhost:6767` 仍然呈现“Hello World”页面。
 
-Here's an attempt to integrate them:
+我们尝试整合它们：
 
 ```
 #[macro_use] extern crate nickel;
@@ -273,9 +273,9 @@ Could not compile `simple-log`.
 To learn more, run the command again with --verbose.
 ```
 
-The macro `println!` here is writing to standard out, but what I want is something that will be returning a string. Is there a `sprintln!`, or something equivalent?
+这里的 `println!` 宏功能是写入标准输出，但我是想要的是某些能返回字符串的东西。这有 `sprintln!` 吗，或者其他差不多的东西？
 
-Doing a quick search, it looks like the answer is `format!`:
+查了查资料，看起来答案是 `format!`：
 
 ```
 #[macro_use] extern crate nickel;
@@ -357,7 +357,7 @@ Could not compile `simple-log`.
 To learn more, run the command again with --verbose.
 ```
 
-So, I know there's a way to convert between a `String` and an `&str`… hmm. I recall that I can use an `&`.
+因此，我知道从 `String` 转化到 `&str` 的方法，嗯……我想起可以用 `&`。
 
 ```
 fn do_log_time() -> &'static str {
@@ -393,7 +393,7 @@ Could not compile `simple-log`.
 To learn more, run the command again with --verbose.
 ```
 
-This thing again. I think I'm going to need a block here:
+又出现了相同的错误。我想这里我需要一个块：
 
 ```
 fn do_log_time() -> &'static str {
@@ -439,7 +439,7 @@ Could not compile `simple-log`.
 To learn more, run the command again with --verbose.
 ```
 
-That didn't work. I think the problem is that `fmt` only exists for that new block, but the return value is used outside of it. What if I promote `fmt` to the top of the function?
+这仍然无效。我想问题出在 `fmt` ，`fmt` 只存在于新块中，但是作为返回值，它需要在能在外面被使用。如果我在函数顶部声明 `fmt` 会发生什么呢？
 
 ```
 fn do_log_time() -> &'static str {
@@ -495,19 +495,19 @@ Could not compile `simple-log`.
 To learn more, run the command again with --verbose.
 ```
 
-I don't know how to fix this. I'm going to just set this down, for now, and come back to it later.
+我不知道如何修正它。我现在打算放一放，一会再回来肝。
 
 —
 
-I've tried a few new things, and nothing works. I think I need to learn more of how this ownership/lifetime stuff works.
+我尝试了一些新方法，但是无一有效。我想我需要深入学习所有权和生命周期的工作机制。
 
-I just read a bit of the Rust book, and I notice this note:
+我刚要查阅 Rust 文档时，我注意到了这个贴士：
 
-> We choose the `String` type for the name, rather than `&str`. Generally speaking, working with a type which owns its data is easier than working with one that uses references.
+> 我们选择 `String` 而非 `&str` 为其命名，通常来说，与一个拥有数据的类型打交道要比引用类型容易些。
 
-Because I'm in "do" mode and not "learn" mode, I want to try using `String` to see if that works.
+因为我现在是在实践而非理论学习，我想尝试一下使用 `String` 看看是否有效。
 
-Now:
+现在：
 
 ```
 fn do_log_time() -> String {
@@ -528,21 +528,21 @@ Listening on http://127.0.0.1:6767
 Ctrl-C to shutdown server
 ```
 
-It worked. Visiting the page in a browser shows "File created!", and it also wrote an entry to the log file.
+有效！在浏览器访问页面显示“File created!”，还写了一个日志文件的条目。
 
-I'm not really surprised that this works – I kinda figured the solution would be to return a `String` instead of an `&str`, but I wanted to take it as a challenge to figure out.
+我对它能工作并不感到惊讶 —— 我有一点理解使用 `String` 替代 `&str` 就能解决问题，但我想将此作为一个挑战去弄清它。
 
-Now that I think about it, this makes sense. I'm trying to return a borrowed reference, but I also own it, so returning it wouldn't make any sense. How would I return an `&str` that I created in my own function? I haven't seen anything using a plain, not-borrowed "`str`" anywhere.
+现在我想通了，这是说得通的。我尝试返回一个假借引用，但我同时拥有它，所以返回它没有任何意义。那么我如何在我自己的函数中返回 `&str` 呢？我没有见过任何使用非假借“`str`”的地方。
 
-I this absence of not-borrowed ~&str~s has to do with it representing being a plain c string pointer. This must have some complications that I'm not aware of, and for it to play nicely with Rust it must interface with rust the normal Rust rules sharing ownership must apply.
+缺失了非假借 ~&str~ 类型，我只能认为它表现上是一个普通的 C 字符串指针。这一定会引发一些我尚不了解的问题，对它来说要想很好的应用在 Rust 就必须与 Rust 交互，则 Rust 就必须兼容共享所有权的规则。
 
-If some other part of the program has knowledge of an array of bytes, and provides me with a reference to that array, what does that mean? Are `&str` types basically just so that C strings can be referenced without some additional metadata associated with them?
+如果程序的其他部分持有一个字节数组，提供我一个对该数组的引用，这意味着什么？`&str` 类型是不是基本上就像 C 字符串一样，可以被引用而没有相关的额外元数据？
 
-The Rust book says `&str` -> `String` has some cost. I wonder if this always true, or only for static program strings. Would a heap-allocated `&str` require copying for a `String`? Now that I think about it, I bet the answer is yes; if you want to convert a borrowed value into something that is owned, the only reasonable solution would be to copy it.
+Rust 文档提到从 `&str` 到 `String` 的转化有一些成本。我不知道这是否真的如此，还是仅适用于静态字符串。在堆中分配 `&str` 需要复制 `String`吗？现在我明白了，我敢打赌答案是肯定的；如果你想把假借的值转化成拥有的，唯一合理的办法就是复制它。
 
-Anyway, I think I just want to move on. I think the answer is that what I was trying to do just didn't make sense, and Rust correctly stopped me. I do wish I understood why every `str` is borrowed, though.
+无论如何，我都需要继续深入。我觉得原因是，我想要做的事没有意义，所以 Rust 正确的阻止了我。我希望我明白了，为什么每一个 `str` 都是假借值。
 
-I'm going to try to return the logged time string from `log_time` and have that displayed to the user. My first attempt:
+我将尝试让 `log_time` 返回记录时间，这样可以显示给用户。我的首次尝试：
 
 ```
 fn log_time(filename: &'static str) -> io::Result<String> {
@@ -578,9 +578,9 @@ Could not compile `simple-log`.
 To learn more, run the command again with --verbose.
 ```
 
-Hmm. So I guess that makes sense… `bytes` "borrows" the contents of `entry`. And, since this value is still borrowed by the time `OK(entry)` is called, this causes the error.
+嗯……我想这说得通。`bytes` “借了” `entry` 的内容。当 `OK(entry)` 被调用时，这个值仍然被借用，这会导致错误。
 
-This works:
+现在它工作了：
 
 ```
 fn log_time(filename: &'static str) -> io::Result<String> {
@@ -607,28 +607,28 @@ $ curl localhost:6767
 Entry Logged: Tue, Jun 23 2015 12:34:19 AM
 ```
 
-This isn't the first time I've used the "stick a new block here" feature, but it does seem to work for this, and it seems like a reasonably elegant way to handle this. My first thought though was that I needed to call another function to somehow "convert" bytes back into a `String`, but then I realized that this didn't actually make sense, and I needed to "deallocate" the borrow, somehow.
+这已经不是我第一次使用“贴一个新块在这”这样的特性了，但是它就是因此而工作了，这似乎是一个相当优雅的方式来处理这个问题。我首先想到的是，我需要调用另一个函数以某种方式将字节“转换”回 `String`，但后来我意识到这实际上没有意义，我需要以某种方式“释放”借用。
 
-I don't understand what "move out of `entry`" means in that error message though. I'm thinking that you can't transfer ownership of a value as long as there is a borrowed reference to it, too. But maybe that isn't actually true. Is sending it to `Ok()` changing it? I'm pretty confused by this, and the Rust book doesn't seem to address this specific issue, but I think this must be it – ownership can't be changed while a borrow exists. I think.
+我不明白错误信息中“迁出 `entry`”的意思。我觉得是只要有假借引用，你就不能转移值的所有权。但这也不一定是对的。把它传给 `Ok()` 就是改变所有权了吗？我对此很困惑，Rust 文档似乎并没有针对这一具体的问题给出解释，但我认为我的猜测就应该是对的 —— 所有权猜假借存在的时候不能被改变。我想是的。
 
-Its nice to see that as I've been browsing through the Rust book section on borrowing, using a block is the cited solution to this problem.
+我很欣慰我在 Rust 文档的假借部分中见到，使用块是这个类问题的一种解决方案。
 
-## 3 Fin
+## 3 结语
 
-Integrating this was much harder than I expected. Borrowing/ownership got me a few times here, so I'm going to cut it at this point, since this has gotten pretty long.
+整合工作比我预期的难得多。假借（Borrowing） / 所有权（Ownership）花费了我一些时间，所以我打算在这停一停，因为已经写了很长了。
 
-Fortunately, I think I am slowly understanding how Rust works, and especially its borrowing functionality. This gives me hope for the future.
+幸运的是，我认为我在慢慢理解 Rust 的工作机制，尤其是它的假借功能。这给了我对未来的希望。
 
 —
 
-Series: A Simple Web App in Rust
+系列文章：使用 Rust 开发一个简单的 Web 应用
 
-* [Part 1](http://joelmccracken.github.io/entries/a-simple-web-app-in-rust-pt-1/)
-* [Part 2a](http://joelmccracken.github.io/entries/a-simple-web-app-in-rust-pt-2a/)
-* [Part 2b](http://joelmccracken.github.io/entries/a-simple-web-app-in-rust-pt-2b/)
-* [Part 3](http://joelmccracken.github.io/entries/a-simple-web-app-in-rust-pt-3/)
-* [Part 4](http://joelmccracken.github.io/entries/a-simple-web-app-in-rust-pt-4-cli-option-parsing/)
-* [Conclusion](http://joelmccracken.github.io/entries/a-simple-web-app-in-rust-conclusion/)
+* [Part 1](https://github.com/xitu/gold-miner/blob/master/TODO/a-simple-web-app-in-rust-pt-1.md)
+* [Part 2a](https://github.com/xitu/gold-miner/blob/master/TODO/a-simple-web-app-in-rust-pt-2a.md)
+* [Part 2b](https://github.com/xitu/gold-miner/blob/master/TODO/a-simple-web-app-in-rust-pt-2b.md)
+* [Part 3](https://github.com/xitu/gold-miner/blob/master/TODO/a-simple-web-app-in-rust-pt-3.md)
+* [Part 4](https://github.com/xitu/gold-miner/blob/master/TODO/a-simple-web-app-in-rust-pt-4-cli-option-parsing.md)
+* [Conclusion](https://github.com/xitu/gold-miner/blob/master/TODO/a-simple-web-app-in-rust-conclusion.md)
 
 
 ---
