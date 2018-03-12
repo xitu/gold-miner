@@ -2,7 +2,7 @@
 > * 原文作者：[Node.js Foundation](https://medium.com/@nodejs?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/get-ready-a-new-v8-is-coming-node-js-performance-is-changing.md](https://github.com/xitu/gold-miner/blob/master/TODO/get-ready-a-new-v8-is-coming-node-js-performance-is-changing.md)
-> * 译者：
+> * 译者：[Starriers](https://github.com/Starriers)
 > * 校对者：
 
 # 做好准备：新的 V8 即将到来，Node.js 的性能正在改变。
@@ -15,7 +15,7 @@
 
 允许 V8 引擎高速运行 JavaScript 的是其中一个核心部分：JIT(Just In Time) 编译器。这是一个可以在运行时优化代码的动态编译器。 当 V8 被第一构建时，JIT 编译器被称为 FullCodegen。之后 V8 团队实现了 Crankshaft，其中包含了许多 FullCodegen 未实现的性能优化。
 
-**编辑： FullCodegen 是 V8的第一个优化编译器，感谢 [_Yang Guo_](https://twitter.com/hashseed) 的报告**
+**编辑：FullCodegen 是 V8 的第一个优化编译器，感谢 [_Yang Guo_](https://twitter.com/hashseed) 的报告**
 
 作为 JavaScript 自 90 年代以来的关注者和用户，JavaScript（不管是什么引擎）中快速或者缓慢的方法似乎往往是违法直觉的，JavaScript 代码缓慢的原因也常常难以理解。
 
