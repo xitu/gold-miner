@@ -254,7 +254,7 @@ final class ProfileViewController: UIViewController {
 
 在 [Rosberry](http://www.rosberry.com) 的粗野iOS工程师. Reactive, 开源爱好者和循环引用检测家 :)
 
-Thanks to [Anton Kovalev](https://medium.com/@totowkos?source=post_page) and [Rosberry](https://medium.com/@Rosberry?source=post_page).
+感谢 [Anton Kovalev](https://medium.com/@totowkos?source=post_page) 和 [Rosberry](https://medium.com/@Rosberry?source=post_page)。
 
 
 ---
