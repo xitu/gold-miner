@@ -204,7 +204,7 @@ function checkContractBalance() Owned public view returns(uint) {
 
 如果您喜欢我们的教程，欢迎打赏，感谢您的阅读，如果您已经读到这里，请坚持下去！
 
-_ETH — _0x6d31cb338b5590adafec46462a1b095ebdc37d50
+ETH: 0x6d31cb338b5590adafec46462a1b095ebdc37d50
 
 完整的合约代码: [https://gist.github.com/anonymous/6b06bef626928589e3a53a70c021ec02](https://gist.github.com/anonymous/6b06bef626928589e3a53a70c021ec02)
 
