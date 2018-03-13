@@ -2,117 +2,116 @@
 > * 原文作者：[Ohans Emmanuel](https://medium.freecodecamp.org/@ohansemmanuel?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/everything-you-need-to-know-about-css-variables.md](https://github.com/xitu/gold-miner/blob/master/TODO/everything-you-need-to-know-about-css-variables.md)
-> * 译者：
+> * 译者：[MechanicianW](https://github.com/MechanicianW)
 > * 校对者：
 
-# Everything you need to know about CSS Variables
+# 关于 CSS 变量，你需要了解的一切
 
 ![](https://cdn-images-1.medium.com/max/1000/1*Im5WsB6Y7CubjWRx9hH7Gg.png)
 
-This is the first chapter of [my new ebook](https://gumroad.com/l/lwaUh) (available in PDF & Mobi format).
+本文是[我新写的电子书](https://gumroad.com/l/lwaUh)的第一章（电子书目前已支持 pdf 和 mobi 格式下载）。
 
-Most programming languages have support for variables. But sadly, CSS has lacked support for native variables from the very beginning.
+大多数编程语言都支持变量。然而遗憾的是，CSS 从一开始就缺乏对原生变量的支持。
 
-You write CSS? Then no variables for you. Well, except if you were using a preprocessor like Sass.
+你写 CSS 吗？如果写的话你就知道是没法使用变量的。当然了，除非你使用像 Sass 这样的预处理器。
 
-Preprocessors like Sass sell the use of variables as a big add-on. A reason to try them. And you know what? It’s a pretty darn good reason.
+像 Sass 这样的预处理器是把变量的使用作为一个大型扩展。这是一个非常好的理由去尝试使用这类预处理器。
 
-Well the web is moving fast. And I’m glad to report that **CSS now finally supports variables**.
+Web 技术发展是非常快的，在此我很高兴地报告 **现在 CSS 支持变量了**。
 
-While preprocessors support a lot more features, the addition of CSS variables is a good one. These move the web even closer to the future.
+然而预处理器还支持更多优秀特性，CSS 变量仅仅是其中之一。这些特性使得 Web 技术更加贴近未来。
 
-In this guide, I’ll show you how variables work natively in CSS, and how you can use them to make your life a lot easier.
+这篇指南将向你展示变量是如何在原生 CSS 中工作的，以及怎样使用变量让你的编程工作更轻松。
 
-### What you’ll Learn
+### 你将学到
 
-I’ll first walk you through the basics of CSS Variables. I believe any decent attempt at understanding CSS Variables must begin here.
+首先我将带你粗略过一遍 CSS 变量的基础知识。我相信任何理解 CSS 变量的尝试都必须从这里开始。
 
-Learning the fundamentals is cool. What’s even cooler is applying these fundamentals to build real-world apps.
+学习基础知识是一件非常酷的事。更酷的是使用基础知识来构建一个可以工作的应用。
 
-So I’ll wrap things up by showing you how to build 3 projects that show off CSS variables and their ease of use. Here’s a quick preview of these 3 projects.
+因此我将把这两件事结合起来，通过向你展示如何构建三个项目来体现 CSS 变量的使用和易用性。下面是对这三个项目的快速预览。
 
-#### Project 1: Creating Component Variations using CSS Variables
-
-You’re may already be building component variations today. Whether you use React, Angular, or Vue, CSS Variables will make this process simpler.
+#### 项目 1： 使用 CSS 变量创建一个有变化效果的组件
+可能已经构建过一个有变化效果的组件了。无论你是使用 React，Angular 还是 Vue，使用 CSS 变量都会让构建过程更简单。
 
 ![](https://cdn-images-1.medium.com/max/800/1*qElS3I43_SdpdRA8-m2iew.gif)
 
-Creating Component Variations using CSS variables.
+使用 CSS 变量创建一个有变化效果的组件。
 
-Check out the project on [Codepen](https://codepen.io/ohansemmanuel/full/PQYzvv/).
+可以在 [Codepen](https://codepen.io/ohansemmanuel/full/PQYzvv/) 上查看这个项目。
 
-#### Project 2: Theme Styles with CSS Variables
+#### 项目 2： 使用 CSS 变量实现主题定制
 
-You’ve likely see this somewhere. I’ll show how easy CSS variables make creating site-wide theme styles.
+可能你已经看过这个项目了。我会向你展示使用 CSS 变量来定制全站主题有多么容易。
 
 ![](https://cdn-images-1.medium.com/max/800/1*r2TrlsC-gWRD5Hu6Tp2gjQ.gif)
 
-Site-wide theme styles using CSS variables.
+使用 CSS 变量定制全站主题。
 
-Check out the project on [Codepen](https://codepen.io/ohansemmanuel/full/xYKgwE/).
+可以在 [Codepen](https://codepen.io/ohansemmanuel/full/xYKgwE/) 上查看这个项目。
 
-#### Project 3: Building the CSS Variable Booth 🤣
+#### 项目 3： 构建 CSS 变量展位
 
-This is the final project. Don’t mind the name. I couldn’t come up with a better name.
+这是最后一个项目了，不要在意这个项目名，我想不出更好的名字了。
 
 ![](https://cdn-images-1.medium.com/max/800/1*E6H-wT6a0BDR9OJK7Z0dTA.gif)
 
-The color of the boxes are dynamically updated.
+盒子的颜色是动态更新的。
 
-Notice how the colors of the boxes are dynamically updated, and how the box container is rotated in 3D space as the range input is changed.
+请注意盒子的颜色是如何动态更新的，以及盒子容器是如何随着输入范围值的变化进行 3D 旋转的。
 
 ![](https://cdn-images-1.medium.com/max/800/1*iy_MjZVlp-H0KUQa7H7fUg.gif).
 
-This project shows off the ease of updating CSS variables with JavaScript, and the reactive goodies you get with it.
+这个项目展示了使用 JavaScript 更新 CSS 变量的便利性，从中你还会尝到响应式编程的甜头。
 
-#### This is going to be fun!
+#### 这会是非常好玩的！
 
-Spend some time having fun with it on [Codepen](https://codepen.io/ohansemmanuel/full/EoBLgd/).
+花点时间在 [Codepen](https://codepen.io/ohansemmanuel/full/EoBLgd/) 上玩一玩。
 
-Note: The article assumes you have a good grasp of CSS. If you don’t know CSS very well, or want to learn to create jaw-dropping UIs, I recommend taking my [Advanced CSS Course](https://bit.ly/learn_css) (paid course that include 85 lessons). This article is an excerpt from the course. 😉
+注意：本文假定你对 CSS 已驾轻就熟。如果你对 CSS 掌握地不是很好，或者想学习如何创作出惊艳的 UI 效果，我建议你去学习我的 [CSS 进阶课程](https://bit.ly/learn_css)（共 85 课时的付费课程）。本文内容是该课程的一个节选。😉
 
-### Why variables are so important
+### 为何变量如此重要
 
-If you’re new to variables in preprocessors or native CSS, here are a few reasons why variables are important.
+如果你对预处理器和原生 CSS 中的变量并不熟悉的话，以下几个原因可以为你解答为何变量如此重要。
 
-#### **Reason #1: More readable code**
+#### **原因 #1：使得代码更可读**
 
-Without saying much, you can quickly tell how readable and more maintainable variables make any code base.
+无需多言，你就可以判断出，变量使得代码可读性更好，更易于维护。
 
-#### **Reason #2: Ease of change across large documents**
+#### **原因 #2：易于在大型文档中进行修改**
 
-If you have all your constants saved in a separate file, you don’t have to jump through thousands of lines of code when you want make a change to a variable.
+如果把所有的常量都维护在一个单独文件中，想改动某一变量时就无需在上千行代码进行修改。
 
-It becomes super-easy. Just change it in one place, and voilà.
+这变得非常容易，仅仅在一个地方进行修改，就搞定了。
 
-#### **Reason #3: You can spot typos faster**
+#### **原因 #3：定位打字错误更快**
 
-It’s a pain to search through lines of codes trying to spot an error. It’s even more annoying if the error was due to a simple typo. They are difficult to spot. The good use of variables eliminates these hassles.
+在行行代码中定位错误非常痛苦，更痛苦的是错误是由打字错误造成的，它们非常难定位。善于使用变量可以免除这些麻烦。
 
-To this end, readability and maintainability are the big wins.
+至此，可读性和可维护性是主要优点。
 
-Thanks to CSS variables, now we can have these with native CSS too.
+感谢 CSS 变量，现在我们在原生 CSS 中也能享受到以上这些优点了。
 
-### Defining CSS variables
+### 定义 CSS 变量
 
-Let me start with something you may already be familiar with: variables in JavaScript.
+先以你已经很熟悉的东西开始：JavaScript 中的变量。
 
-A simple JavaScript variable may be declared like so:
+JavaScript 中，一个简单的变量声明会像这样：
 
 ```
 var amAwesome;
 ```
 
-and then you can assign it some value like so:
+然后你像这样可以赋值给它：
 
 ```
 amAwesome = "awesome string"
 ```
 
-In CSS, a CSS variable is any “property” whose name begins with two dashes.
+在 CSS 中，以两个横线开头的“属性”都是 CSS 变量。
 
 ```
-/*can you spot the variable here? */
+/*你可以找到变量吗？ */
 .block {
  color: #8cacea;
 --color: blue
@@ -121,7 +120,7 @@ In CSS, a CSS variable is any “property” whose name begins with two dashes.
 
 ![](https://cdn-images-1.medium.com/max/800/0*2Pl5qBF8DCTGL_np.png)
 
-CSS Variables are also called “Custom Properties”.
+CSS 变量也被称为“自定义属性”。
 
 ### Scoping CSS Variables
 
@@ -159,7 +158,7 @@ How would you go about this?
 
 ```
 :root {
- 
+
 }
 ```
 
@@ -288,7 +287,7 @@ For example, the following code changes the value of the variable, gutter on lar
 
 ```
 :root {
- --gutter: 10px 
+ --gutter: 10px
 }
 
 @media screen and (min-width: 768px) {
@@ -556,7 +555,7 @@ Substitute the varying colors with CSS variables, and don’t forget to add defa
    border-radius: 2px;
  }
 
- /*on hover*/ 
+ /*on hover*/
  .btn:hover {
   cursor: pointer;
    background: var(--color, black);
@@ -690,7 +689,7 @@ So, let’s go ahead and handle the update from JavaScript.
 I’ll go ahead and spit out all the JavaScript needed for this project.
 
 ```
-const root = document.documentElement 
+const root = document.documentElement
 const themeBtns = document.querySelectorAll('.theme > button')
 
 themeBtns.forEach((btn) => {
@@ -699,11 +698,11 @@ themeBtns.forEach((btn) => {
 
 function handleThemeUpdate(e) {
   switch(e.target.value) {
-    case 'dark': 
+    case 'dark':
       root.style.setProperty('--bg', 'black')
       root.style.setProperty('--bg-text', 'white')
       break
-    case 'calm': 
+    case 'calm':
        root.style.setProperty('--bg', '#B3E5FC')
        root.style.setProperty('--bg-text', '#37474F')
       break
@@ -777,7 +776,7 @@ Here it is:
     <label>Move this 👇 </label>
     <input class="booth-slider" type="range" min="-50" max="50" value="-50" step="5"/>
   </aside>
-  
+
   <section class="color-boxes">
     <div class="color-box" id="1"><input value="red"/></div>
     <div class="color-box" id="2"><input/></div>
@@ -789,7 +788,7 @@ Here it is:
 
   <footer class="instructions">
     👉🏻 Move the slider<br/>
-    👉🏻 Write any color in the red boxes 
+    👉🏻 Write any color in the red boxes
   </footer>
 </main>
 ```
@@ -895,7 +894,7 @@ Now, let’s center the `color-boxes`
 ```
 main.booth {
   min-height: 100vh;
-  
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -914,7 +913,7 @@ First, the child elements:
   margin-bottom: 0.5rem;
   border: 1px solid rgba(255,255,255,0.2);
   border-radius: 0.3rem;
-  box-shadow: 10px 10px 30px rgba(0,0,0,0.4); 
+  box-shadow: 10px 10px 30px rgba(0,0,0,0.4);
 }
 ```
 
@@ -928,7 +927,7 @@ That is not all. Let’s style the overall `container-boxes` container:
   background: var(--secondary-color);
   box-shadow: 10px 10px 30px rgba(0,0,0,0.4);
   border-radius: 0.3rem;
-  
+
   transform: perspective(500px) rotateY( calc(var(--slider) * 1deg));
   transition: transform 0.3s
 }
@@ -1111,11 +1110,11 @@ We just need 5 lines for that!
 const root = document.documentElement
 const range = document.querySelector('.booth-slider')
 
-//as slider range's value changes, do something 
+//as slider range's value changes, do something
 range.addEventListener('input', handleSlider)
 
 function handleSlider (e) {
-  let value = e.target.value 
+  let value = e.target.value
   root.style.setProperty('--slider', value)
 }
 ```
@@ -1132,7 +1131,7 @@ Write the callback, `handleSlider`
 
 ```
 function handleSlider (e) {
-  let value = e.target.value 
+  let value = e.target.value
   root.style.setProperty('--slider', value)
 }
 ```
@@ -1157,8 +1156,8 @@ inputs.forEach(input => {
 
 function handleInputChange (e) {
   let value = e.target.value
-  let inputId = e.target.parentNode.id 
-  let inputBg = `--bg-${inputId}` 
+  let inputId = e.target.parentNode.id
+  let inputBg = `--bg-${inputId}`
   root.style.setProperty(inputBg, value)
 }
 ```
@@ -1178,8 +1177,8 @@ Write the `handleInputChange` function:
 ```
 function handleInputChange (e) {
   let value = e.target.value
-  let inputId = e.target.parentNode.id 
-  let inputBg = `--bg-${inputId}` 
+  let inputId = e.target.parentNode.id
+  let inputBg = `--bg-${inputId}`
   root.style.setProperty(inputBg, value)
 }
 ```
