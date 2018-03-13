@@ -46,7 +46,7 @@ react-beautiful-dnd 的大部分状态管理使用 [Redux](https://redux.js.org/
 *   **被连接的组件:** 直接注册到 **store** 的组件. 他们的责任是响应 store 中的状态更新并将 props 传递给未连接的组件。这些通常被称为**智能或者容器**组件
 *   **未连接的组件**: 未连接到 Redux 的组件。他们通常被连接到 store 的组件包裹，接收来自 state 的 props。这些通常被称为 **dumb** 或者 **presentational** 组件
 
-**如果你感兴趣，这是一些来自 [Dan Abramov**](https://medium.com/@dan_abramov)   **的关于这些概念**[**更详细的信息**](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)。
+**如果你感兴趣，这是一些来自 [Dan Abramov](https://medium.com/@dan_abramov)   的关于这些概念[更详细的信息](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)**。
 
 ### 第一个原则
 
