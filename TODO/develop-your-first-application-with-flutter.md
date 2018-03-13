@@ -9,21 +9,21 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/1*P-bGlIkJPfxhVc4OsiXgCg.jpeg)
 
-一周前，Flutter 在巴塞罗那的 MWC 上发布了第一款公测版本。本文的主要目的是向你展示如何用 Flutter 开发第一个功能齐全的应用程序。
+一周前，Flutter 在巴塞罗那的 MWC 上发布了第一版公测版本。本文的主要目的是向你展示如何用 Flutter 开发第一个功能齐全的应用程序。
 
-这篇文章会描述安装过程和其是如何工作的，所以会比平时长一点。
+这篇文章会介绍 Flutter 的安装过程和工作原理，所以会比平时长一点。
 
 我们将开发一个向用户显示从 [JSONPlaceholder API](https://jsonplaceholder.typicode.com/) 中检索的帖子列表的应用程序。
 
 ### 什么是 Flutter ？
 
-Flutter 是一款 SDK ，它可以让你开发基于安卓，iOS 或者 Google 的下一个操作系统 Fuschia 的原生应用。它使用 Dart 作为主要编程语言。
+Flutter 是一款 SDK，它可以让你开发基于 Android，iOS 或者 Google 的下一个操作系统 Fuschia 的原生应用。它使用 Dart 作为主要编程语言。
 
 ### 安装所需的工具
 
-#### Git ，Android Studio 和 XCode
+#### Git，Android Studio 和 XCode
 
-为了获取 Flutter ，你需要克隆其官方仓库。如果你想开发安卓应用，则还需要 Android Studio 。如果要开发 iOS 应用，则还需要 XCode 。
+为了获取 Flutter，你需要克隆其官方仓库。如果你想开发 Android 应用，则还需要 Android Studio 。如果要开发 iOS 应用，则还需要 XCode 。
 
 #### IntelliJ IDEA
 
@@ -50,14 +50,14 @@ git clone -b beta https://github.com/flutter/flutter.git
 *   **项目名称**: feedme
 *   **描述**: A sample JSON API project
 *   **组织**: net.gahfy
-*   **安卓语言**: Kotlin
+*   **Android 语言**: Kotlin
 *   **iOS 语言**: Swift
 
 #### 运行第一个项目并探索 Flutter
 
-IntelliJ 的编辑器打开了一个名为 `main.dart` 的文件，它是应用程序的主文件。如果你还不了解 Dart ，别慌，这个教程的剩下部分不时必须的。
+IntelliJ 的编辑器打开了一个名为 `main.dart` 的文件，它是应用程序的主文件。如果你还不了解 Dart，别慌，这个教程的剩下部分不时必须的。
 
-现在，将安卓或 iOS 手机插入你的计算机，或运行一个模拟器。
+现在，将 Android 或 iOS 手机插入你的计算机，或运行一个模拟器。
 
 你现在可以通过点击右上角的运行按钮（带有绿色三角形）来运行该应用程序：
 
@@ -65,7 +65,7 @@ IntelliJ 的编辑器打开了一个名为 `main.dart` 的文件，它是应用�
 
 点击底部浮动动作按钮来增加显示的数字。我们现在不会深入研究其代码，但我们会用 Flutter 发现一些有趣的功能。
 
-#### Flutter 热加载
+#### Flutter 热重载
 
 你可以看的到，这个应用的主要颜色是蓝色。我们可以改成红色。在 `main.dart` 文件中，找到以下代码：
 
@@ -95,7 +95,7 @@ return new MaterialApp(
 
 ### 开发最终的应用程序
 
-让我们现在删除 `main.dart` 文件里所有内容，这岂不是一个更好的学习方式嘛。
+让我们现在删除 `main.dart` 文件里所有内容，这岂不是一个更好的学习方式吗。
 
 #### 最小的应用程序
 
@@ -172,7 +172,7 @@ void main() => runApp(new MyApp());
     - 如果成功，显示检索帖子的结果
     - 如果失败， 在空白界面上显示带失败信息的 Snackbar
 
-目前，我们只用了 `StatelessWidget` ，正如你所猜测的那样，它并不涉及程序状态。那么让我们先初始化一个 `StatefulWidget` 。
+目前，我们只用了 `StatelessWidget`，正如你所猜测的那样，它并不涉及程序状态。那么让我们先初始化一个 `StatefulWidget` 。
 
 #### 初始化 StatefulWidget
 
@@ -336,7 +336,7 @@ class _PostPageState extends State<PostPage>{
   // ...
 }
 ```
-> 如果 IntelliJ IDEA 在 `PostState` 下显示红色下划线，这意味着 `PostState` 类没有在当前文件中定义。所以你需要导入它。将光标移至红色下划线部分，然后按Alt + Enter ，然后选择导入。
+> 如果 IntelliJ IDEA 在 `PostState` 下显示红色下划线，这意味着 `PostState` 类没有在当前文件中定义。所以你需要导入它。将光标移至红色下划线部分，然后按Alt + Enter，然后选择导入。
 
 现在，让我们定义一个方法，当我们成功获取 `Post` 列表时就返回一个 Widget ：
 
@@ -384,7 +384,7 @@ _getPosts() async {
 
 #### 从 API 中检索帖子列表
 
-为了确保实际显示循环进度条，让我们从 JSONPlaceholder API 中检索该帖子。如果我们看一下 [API 的 post 服务](https://jsonplaceholder.typicode.com/posts) ，我们可以看到它返回一个帖子的 JSON 数组。
+为了确保实际显示循环进度条，让我们从 JSONPlaceholder API 中检索该帖子。如果我们看一下 [API 的 post 服务](https://jsonplaceholder.typicode.com/posts)，我们可以看到它返回一个帖子的 JSON 数组。
 
 因此，我们必须先为 Post 类添加一个静态方法，以便将 Post 的 JSON 数组转换为 `Post` 列表：
 
@@ -486,7 +486,7 @@ Widget getCurrentStateWidget(){
 }
 ```
 
-现在，当发生错误时，它会显示一个空白的界面。你可以随意更改内容来显示错误界面。但是我们说过，我们希望显示一个 Snackbar ，以便在出现错误时重试。为此，让我们在 `PostPageState` 类中开发 `showError()` 和 `retry()` 方法：
+现在，当发生错误时，它会显示一个空白的界面。你可以随意更改内容来显示错误界面。但是我们说过，我们希望显示一个 Snackbar，以便在出现错误时重试。为此，让我们在 `PostPageState` 类中开发 `showError()` 和 `retry()` 方法：
 
 ``` dart
 class _PostPageState extends State<PostPage>{
@@ -516,7 +516,7 @@ class _PostPageState extends State<PostPage>{
 }
 ```
 
-正如我们所看到的，我们需要一个 `BuildContext` 来获得 `ScaffoldState` ，它可以让 Snackbar 出现并消失。但是我们必须使用 `Scaffold` 对象的 `BuildContext` 来获得 `ScaffoldState` 。为此，我们需要编辑 `PostPageState` 类的 `build()` 方法：
+正如我们所看到的，我们需要一个 `BuildContext` 来获得 `ScaffoldState`，它可以让 Snackbar 出现并消失。但是我们必须使用 `Scaffold` 对象的 `BuildContext` 来获得 `ScaffoldState` 。为此，我们需要编辑 `PostPageState` 类的 `build()` 方法：
 
 ``` dart
 Widget currentWidget = getCurrentStateWidget();
