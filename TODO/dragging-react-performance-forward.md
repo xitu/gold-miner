@@ -8,6 +8,7 @@
 # **拖放库中 React 性能的优化**
 
 ![](https://cdn-images-1.medium.com/max/800/1*I6CQ27V59uP_i7p1liMFtA.jpeg)
+
 照片由 [James Padolsey](https://unsplash.com/photos/6JCANHNBNGw?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) 在 [Unsplash](https://unsplash.com/collections/1584252/drag-blog?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) 拍摄
 
 我为 [React](https://reactjs.org/) 写了一个拖放库  [**react-beautiful-dnd**](https://github.com/atlassian/react-beautiful-dnd) 🎉。[Atlassian](https://medium.com/@Atlassian) 库的目的是为网站上的列表提供一种美观且易于使用的拖放体验。你可以阅读介绍文档: [Rethinking drag and drop](https://medium.com/@alexandereardon/rethinking-drag-and-drop-d9f5770b4e6b)。这个库**完全通过状态驱动** —  用户的输入导致状态改变，然后更新用户看到的内容。这在概念上允许使用任何输入类型进行拖动，但是太多状态驱动拖动将会导致性能上的缺陷。🦑
@@ -30,20 +31,20 @@
 
 我们都很忙！ 这里是这个博客的一个非常高度的概述：
 
-尽可能避免 “render” 调用。 另外以前探索的技术 ([round 1](https://medium.com/@alexandereardon/performance-optimisations-for-react-applications-b453c597b191), [round 2](https://medium.com/@alexandereardon/performance-optimisations-for-react-applications-round-2-2042e5c9af97))，我在这里有一些新的认识：
+尽可能避免 `render` 调用。 另外以前探索的技术 ([round 1](https://medium.com/@alexandereardon/performance-optimisations-for-react-applications-b453c597b191), [round 2](https://medium.com/@alexandereardon/performance-optimisations-for-react-applications-round-2-2042e5c9af97))，我在这里有一些新的认识：
 
 *   避免使用 props 来传递消息
-*   调用 “render” 不是改变样式的唯一方法
+*   调用 `render` 不是改变样式的唯一方法
 *   避免离线工作
 *   如果可以的话，批量处理相关的 Redux 状态更新
 
 ### 状态管理
 
-react-beautiful-dnd 的大部分状态管理使用 [Redux](https://redux.js.org/docs/introduction/)。这是一个实现细节，库的使用者可以使用任何他们喜欢的状态管理工具。本博客中的许多具体内容都针对 Redux 应用程序 — 然而，有一些技术是通用的。为了清楚起见，以下是一些不熟悉 Redux 的术语：
+react-beautiful-dnd 的大部分状态管理使用 [Redux](https://redux.js.org/docs/introduction/)。这是一个实现细节，库的使用者可以使用任何他们喜欢的状态管理工具。本博客中的许多具体内容都针对 Redux 应用程序  —  然而，有一些技术是通用的。为了清楚起见，以下是一些不熟悉 Redux 的术语：
 
 *   **store:** 一个全局的状态容器  —  通常放在 [`context`](https://reactjs.org/docs/context.html) 中，所以**被连接的组件**可以被注册去更新。
 *   **被连接的组件:** 直接注册到 **store** 的组件. 他们的责任是响应 store 中的状态更新并将 props 传递给未连接的组件。这些通常被称为**智能或者容器**组件
-*   **未连接的组件**: 未连接到 Redux 的组件。他们通常被连接到 store 的组件包裹，接收来自 state 的 props。这些通常被称为 **dumb** or **presentational** 组件
+*   **未连接的组件**: 未连接到 Redux 的组件。他们通常被连接到 store 的组件包裹，接收来自 state 的 props。这些通常被称为 **dumb** 或者 **presentational** 组件
 
 **如果你感兴趣，这是一些来自 [Dan Abramov**](https://medium.com/@dan_abramov)   **的关于这些概念**[**更详细的信息**](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)。
 
@@ -51,18 +52,18 @@ react-beautiful-dnd 的大部分状态管理使用 [Redux](https://redux.js.org/
 
 ![Snipaste_2018-03-10_19-58-28.png](https://i.loli.net/2018/03/10/5aa3c874e327e.png)
 
-作为一般规则，您应该尽可能避免调用组件的 render() 函数，“render” 调用代价很大，有以下原因：
+作为一般规则，您应该尽可能避免调用组件的 render() 函数，`render` 调用代价很大，有以下原因：
 
-*   ‘render’ 函数调用的进程很费资源
+*   `render` 函数调用的进程很费资源
 *   Reconciliation
 
 [Reconciliation](https://reactjs.org/docs/reconciliation.html) 是 React 构建一颗新树的过程，然后用当前的视图(虚拟 DOM) **reconciles it**，根据需要执行实际的 DOM 更新。reconciliation 过程在调用一个 `render` 后被触发。
 
-“render” 函数的 processing 和 reconciliation 在规模上是代价很大的。 如果你有100个或者10000个组件，你可能不希望每个组件在每次更新时都协调一个 “store” 中的共享状态。理想情况下，只有**需要**更新的组件才会调用它的 `render` 函数。对于我们每秒60次更新（60fps）的拖放，这尤其如此。
+`render` 函数的 processing 和 reconciliation 在规模上是代价很大的。 如果你有 100 个或者 10000 个组件，你可能不希望每个组件在每次更新时都协调一个 `store` 中的共享状态。理想情况下，只有**需要**更新的组件才会调用它的 `render` 函数。对于我们每秒 60 次更新（60 fps）的拖放，这尤其如此。
 
 我在前两篇博客 ([round 1](https://medium.com/@alexandereardon/performance-optimisations-for-react-applications-b453c597b191), [round 2](https://medium.com/@alexandereardon/performance-optimisations-for-react-applications-round-2-2042e5c9af97)) 中探讨了避免不必要的 `render` 调用的技巧，React 文档 [talk on this subject](https://reactjs.org/docs/optimizing-performance.html) 也讨论了这个主题。就像所有东西都有一个平衡点一样，如果你太过侵略性地避免渲染，你可能会引入大量潜的冗余记忆检查。 这个话题已经在其他地方讨论过了，所以我不会在这里详细讨论。
 
-除了渲染成本之外，当使用 Redux 时，连接的组件越多，您就需要在每次更新时运行更多的状态查询 ([`mapStateToProps`](https://github.com/reactjs/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options)) 和记忆检查。我在 [round 2 blog](https://medium.com/@alexandereardon/performance-optimisations-for-react-applications-round-2-2042e5c9af97#.zflzltn15) 中详细讨论了与Redux相关的状态查询，选择器和备忘录。
+除了渲染成本之外，当使用 Redux 时，连接的组件越多，您就需要在每次更新时运行更多的状态查询 ([`mapStateToProps`](https://github.com/reactjs/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options)) 和记忆检查。我在 [round 2 blog](https://medium.com/@alexandereardon/performance-optimisations-for-react-applications-round-2-2042e5c9af97#.zflzltn15) 中详细讨论了与 Redux 相关的状态查询，选择器和备忘录。
 
 ### Problem 1: 拖动开始之前长时间停顿
 
@@ -70,7 +71,7 @@ react-beautiful-dnd 的大部分状态管理使用 [Redux](https://redux.js.org/
 
 注意从鼠标下的圆圈出现和卡变为绿色时的时间差异。
 
-当点击一个大列表中的项目时，需要相当长的时间才能开始拖拽，在500个物品的列表中这是 **2.6 秒 😢**！对于那些期望拖放交互是即时的用户来说，这是一个糟糕的体验。 让我们来看看发生了什么，以及我们用来解决问题的一些技巧。
+当点击一个大列表中的项目时，需要相当长的时间才能开始拖拽，在 500 个项目的列表中这是 **2.6 s 😢**！对于那些期望拖放交互是即时的用户来说，这是一个糟糕的体验。 让我们来看看发生了什么，以及我们用来解决问题的一些技巧。
 
 ### Issue 1: 原生的尺寸发布
 
@@ -78,7 +79,7 @@ react-beautiful-dnd 的大部分状态管理使用 [Redux](https://redux.js.org/
 
 1.  当我们开始拖动时，我们对 `state` 发出请求 `request`。
 2.  **关联**尺寸发布组件读取此 `request` 并查看他们是否需要发布任何内容。
-3.  如果他们需要发布，他们会在**未连接**维度发布者上设置一个`shouldPublish`属性。
+3.  如果他们需要发布，他们会在**未连接**维度发布者上设置一个 `shouldPublish` 属性。
 4.  **未连接**的尺寸发布者从 DOM 收集尺寸并使用 `publish` 回调来发布维度
 
 好的，所以这里有一些痛点：
@@ -86,15 +87,15 @@ react-beautiful-dnd 的大部分状态管理使用 [Redux](https://redux.js.org/
 > 1. 当我们开始拖动时，我们在`state`上发起了一个`request`。
 > 2. 关联维度发布组件读取此请求并查看他们是否需要发布任何内容
 
-此时，每个关联的维度发布者都需要针对 store 执行检查，以查看他们是否需要请求维度。 不理想，但并不可怕。 让我们继续
+此时，每个关联的维度发布者都需要针对 store 执行检查，以查看他们是否需要请求维度。不理想，但并不可怕。让我们继续
 
-> 3. 如果他们需要发布，他们会在未连接的维度发布者上设置一个 “shouldPublish” 属性
+> 3. 如果他们需要发布，他们会在未连接的维度发布者上设置一个 `shouldPublish` 属性
 
-我们过去使用 `shouldPublish` 属性来 **传递消息** 给组件来执行一个动作。这是一个不幸的副作用，它会导致组件的渲染 - 这会导致它自己和它的子组件的渲染。当你为很多组件做这件事时，它的代价很大。
+我们过去使用 `shouldPublish` 属性来**传递消息**给组件来执行一个动作。这是一个副作用，它会导致组件的渲染 - 这会导致它自己和它的子组件的渲染。当你为很多组件做这件事时，它的代价很大。
 
 > 4. **未连接**的维度发布者从DOM收集维度并使用 `publish` 回调来发布维度
 
-事情会变得**更糟**。首先，我们会立即从DOM读取很多维度，这可能需要一些时间。从那里每个维度发布者将单独 `publish` 一个维度。 这些尺寸会被存储到状态。 这种 `state` 变化会导致 store subscriptions  被触发，这将在步骤2中执行连接组件状态查询和记忆检。它还会导致应用程序中的其他连接组件类似地运行冗余检查。因此，每当未连接的维度发布者发布维度时，将导致所有其他连接组件的冗余工作。 这是一个O（n²）算法 - 更糟！ 哎。
+事情会变得**更糟**。首先，我们会立即从 DOM 读取很多维度，这可能需要一些时间。从那里每个维度发布者将单独 `publish` 一个维度。 这些尺寸会被存储到状态。这种 `state` 变化会导致 store subscriptions  被触发，这将在步骤 2 中执行连接组件状态查询和记忆检。它还会导致应用程序中的其他连接组件类似地运行冗余检查。因此，每当未连接的维度发布者发布维度时，将导致所有其他连接组件的冗余工作。这是一个 O(n²) 算法 - 更糟！哎。
 
 #### The dimension marshal
 
@@ -103,7 +104,7 @@ react-beautiful-dnd 的大部分状态管理使用 [Redux](https://redux.js.org/
 拖动工作之前：
 
 1.  我们创建了 `dimension marshal` 然后把它放到了 [`context`](https://reactjs.org/docs/context.html)
-2.  当维度发布者加载到DOM中时，它会从 `context` 中读取 `dimension marshal` ，并向 `dimension marshal` 注册自己。 Dimension 发布者不再直接监听商店。 因此，不存在更多未连接的维度发布者。
+2.  当维度发布者加载到 DOM 中时，它会从 `context` 中读取 `dimension marshal` ，并向 `dimension marshal` 注册自己。Dimension 发布者不再直接监听商店。 因此，不存在更多未连接的维度发布者。
 
 拖动工作开始：
 
@@ -127,15 +128,15 @@ react-beautiful-dnd 的大部分状态管理使用 [Redux](https://redux.js.org/
 *   将工作分解为多个帧。
 *   跨多个组件批量更新状态。
 
-### Issue 2: 样式更新
+### Issue 2：样式更新
 
-当一个拖动开始的时候，我们需要应用一些样式到每一个 `Draggable` (例如 `pointer-events: none;`)。为此我们应用了一个行内样式。为了应用行内样式我们需要 `render` 每一个 `Draggable`。当用户试图开始拖动时，这可能会导致潜在的在100个可拖动项目上调用 `render`，这会导致500个项目耗费350毫秒。
+当一个拖动开始的时候，我们需要应用一些样式到每一个 `Draggable` (例如 `pointer-events: none;`)。为此我们应用了一个行内样式。为了应用行内样式我们需要 `render` 每一个 `Draggable`。当用户试图开始拖动时，这可能会导致潜在的在 100 个可拖动项目上调用 `render`，这会导致 500 个项目耗费 350 ms。
 
 那么，我们将如何去更新这些样式而不会产生 `render`?
 
 #### 动态共享样式 💫
 
-对于所有 `Draggable` 组件，我们现在应用共享数据属性（例如 `data-react-beautiful-dnd-draggable` ）。`data` 属性从来没有改变过。 但是，我们通过我们在页面 `head` 创建的**共享样式元素**动态地更改应用于这些数据属性的样式。
+对于所有 `Draggable` 组件，我们现在应用共享数据属性（例如 `data-react-beautiful-dnd-draggable`）。`data` 属性从来没有改变过。 但是，我们通过我们在页面 `head` 创建的**共享样式元素**动态地更改应用于这些数据属性的样式。
 
 这是一个简单的例子：
 
@@ -186,9 +187,9 @@ setStyle(`
 
 不要害怕，`data` 属性的选择器性能[很好](https://benfrain.com/css-performance-revisited-selectors-bloat-expensive-styles/)，与 `render` 性能差别很大。
 
-### Issue 3: 阻止不需要的拖动
+### Issue 3：阻止不需要的拖动
 
-当一个拖动开始时，我们也在 `Draggable` 上调用 `render` 来将 `canLift` prop 更新为 `false`。 这用于防止在拖动生命周期中的特定时间开始新的拖动。 我们需要这个 props，因为有一些鼠标和键盘输入的组合，可以让用户在拖动别的东西时开始拖动。 我们仍然真的需要这个 `canLift` 检查 - 但是我们怎么做到这一点，而无需在所有的 `Draggables`上调用 `render`？
+当一个拖动开始时，我们也在 `Draggable` 上调用 `render` 来将 `canLift` prop 更新为 `false`。这用于防止在拖动生命周期中的特定时间开始新的拖动。我们需要这个 props，因为有一些鼠标和键盘输入的组合，可以让用户在拖动别的东西时开始拖动。我们仍然真的需要这个 `canLift` 检查 - 但是我们怎么做到这一点，而无需在所有的 `Draggables`上调用 `render`？
 
 #### State hydrated context function
 
@@ -250,15 +251,15 @@ class DraggableHandle extends React.Component {
 
 通过使用上面介绍的技术，我们可以将在一个有 500 个可拖动项目的拖动时间从 2.6 s 拖动到到 15 ms（在一个帧内），这是一个 **99％ 的减少 😍!**。
 
-### Problem 2: 缓慢的位移
+### Problem 2：缓慢的位移
 
 ![](https://cdn-images-1.medium.com/max/800/1*xio-0VMqqAzA2t45_Uzkzw.gif)
 
 移动大量项目时帧速下降。
 
-从一个大列表移动到另一个列表时，帧速率显着下降。 当有 500 个可拖动项目时，移入新列表将花费大约350 ms。
+从一个大列表移动到另一个列表时，帧速率显着下降。 当有 500 个可拖动项目时，移入新列表将花费大约 350 ms。
 
-### Issue 1: 太多的运动
+### Issue 1：太多的运动
 
 react-beautiful-dnd 的核心设计特征之一是项目在发生拖拽时会自然地移出其它项目的方式。但是，当您进入新列表时，您通常可以一次取代大量项目。 如果您移动到列表的顶部，则需移动下整个列表中的所有内容才能腾出空间。离线的 CSS 变化本身[代价不大](https://codepen.io/alexreardon/full/Ozwxqa/)。然而，与 `Draggables` 沟通，通过 `render` 来告诉他们移动出去的方式，对于同时处理大量项目来说是很昂贵的。
 
@@ -280,7 +281,7 @@ react-beautiful-dnd 的核心设计特征之一是项目在发生拖拽时会自
 
 一个来自 [react-virtualized](https://github.com/bvaughn/react-virtualized) 的拥有 10000 项目的虚拟列表。
 
-避免离屏工作是一项艰巨的任务，您使用的技术将根据您的应用程序而有所不同。我们希望避免在拖放交互过程中移动和动画显示不可见的已挂载元素。  这与避免完全使用诸如 [react-virtualized](https://github.com/bvaughn/react-virtualized) 之类的某种虚拟化解决方案渲染离屏组件完全不同。虚拟化是令人惊奇的，但是增加了代码库的复杂性。它也打破了一些原生的浏览器功能，如打印和查找（`command / control + f`）。我们的决定是为 React 应用程序提供卓越的性能，即使它们不使用虚拟化列表。这使得添加美观，高性能的拖放操作变得非常简单，而且只需很少的开销即可将其拖放到现有的应用程序中。 也就是说，我们也计划支持 [supporting virtualised lists](https://github.com/atlassian/react-beautiful-dnd/issues/68) - 因此开发者可以选择是否要使用虚拟化列表减少大型列表 `render` 时间。 如果您有包含1000个项目的列表，这将非常有用。
+避免离屏工作是一项艰巨的任务，您使用的技术将根据您的应用程序而有所不同。我们希望避免在拖放交互过程中移动和动画显示不可见的已挂载元素。  这与避免完全使用诸如 [react-virtualized](https://github.com/bvaughn/react-virtualized) 之类的某种虚拟化解决方案渲染离屏组件完全不同。虚拟化是令人惊奇的，但是增加了代码库的复杂性。它也打破了一些原生的浏览器功能，如打印和查找（`command / control + f`）。我们的决定是为 React 应用程序提供卓越的性能，即使它们不使用虚拟化列表。这使得添加美观，高性能的拖放操作变得非常简单，而且只需很少的开销即可将其拖放到现有的应用程序中。 也就是说，我们也计划支持 [supporting virtualised lists](https://github.com/atlassian/react-beautiful-dnd/issues/68) - 因此开发者可以选择是否要使用虚拟化列表减少大型列表 `render` 时间。 如果您有包含 1000 个项目的列表，这将非常有用。
 
 ### Issue 2: 可放弃的更新
 
@@ -288,7 +289,7 @@ react-beautiful-dnd 的核心设计特征之一是项目在发生拖拽时会自
 
 #### 我们不控制组件的子元素
 
-为了避免这种情况，我们针对 react-beautiful-dnd 的使用者创建了性能优化 [recommendation in the docs](https://github.com/atlassian/react-beautiful-dnd#recommended-droppable-performance-optimisation)，以避免渲染不需要渲染的 `Droppable` 的子元素。库本身并不控制 `Droppable` 的子元素的渲染，所以我们能做的最好的是提供一个建议的优化。 这个建议允许用户在拖拽时设置`Droppable`，同时避免在其所有子项上调用`render`。
+为了避免这种情况，我们针对 react-beautiful-dnd 的使用者创建了性能优化 [recommendation in the docs](https://github.com/atlassian/react-beautiful-dnd#recommended-droppable-performance-optimisation)，以避免渲染不需要渲染的 `Droppable` 的子元素。库本身并不控制 `Droppable` 的子元素的渲染，所以我们能做的最好的是提供一个建议的优化。 这个建议允许用户在拖拽时设置 `Droppable`，同时避免在其所有子项上调用 `render`。
 
 ```
 import React, { Component } from 'react';
@@ -342,7 +343,7 @@ class Students extends Component {
 
 在大的列表之间的平滑移动。
 
-通过实施这些优化，我们可以减少在包含 500 个项目的列表之间移动的时间，这些项目的移位时间从 380 ms 到 8 ms，这是一个简单的帧！ **另一个 99％ 的减少**。
+通过实施这些优化，我们可以减少在包含 500 个项目的列表之间移动的时间，这些项目的移位时间从 380 ms 到 8 ms，这是一个简单的帧！**另一个 99％ 的减少**。
 
 ### Other: 查找表
 
@@ -352,10 +353,9 @@ class Students extends Component {
 
 ![Snipaste_2018-03-10_20-03-13.png](https://i.loli.net/2018/03/10/5aa3c987332f2.png)
 
-有很多技术和工具来解决这个问题（包括 [normalizr](https://github.com/paularmstrong/normalizr))。一种常用的方法是将数据存储在一个 `Object` 映射中，并有一个 `id` 数组来维护顺序。如果您需要定期查看列表中的值，这是一个非常棒的优化，并且可以加快速度。
+有很多技术和工具来解决这个问题（包括 [normalizr](https://github.com/paularmstrong/normalizr)）。一种常用的方法是将数据存储在一个 `Object` 映射中，并有一个 `id` 数组来维护顺序。如果您需要定期查看列表中的值，这是一个非常棒的优化，并且可以加快速度。
 
-我们做了一些不同的事情。我们
-用 [`memoize-one`](https://github.com/alexreardon/memoize-one) (只记住最新参数的记忆函数) 去创建懒 `Object` 映射在需要时进行及时查询。这个想法是你创建一个接受 `Array` 参数并返回一个 `Object` 映射的函数。如果多次将相同的数组传递给该函数，则返回之前计算的 `Object` 映射。 如果数组更改，则重新计算映射。 这使您拥有一张立即查找表，而无需定期重新计算或者需要将其明确存储在 `state` 中。
+我们做了一些不同的事情。我们用 [`memoize-one`](https://github.com/alexreardon/memoize-one) (只记住最新参数的记忆函数) 去创建懒 `Object` 映射在需要时进行及时查询。这个想法是你创建一个接受 `Array` 参数并返回一个 `Object` 映射的函数。如果多次将相同的数组传递给该函数，则返回之前计算的 `Object` 映射。 如果数组更改，则重新计算映射。 这使您拥有一张立即查找表，而无需定期重新计算或者需要将其明确存储在 `state` 中。
 
 ```
 const getIdMap = memoizeOne((array) => {
@@ -383,7 +383,7 @@ const map2 = getMap(ordered);
 const map1 === map2;
 ```
 
-使用查找表大大加快了拖动动作，我们在每次更新（系统中的 `O(n2)`）时检查每个连接的 `Draggable` 组件中是否存在某个项目。通过使用这种方法，我们可以根据状态变化计算一个 `Object` 映射，并让连接的 `Draggable` 组件使用共享映射进行 `O(1)` 查找。
+使用查找表大大加快了拖动动作，我们在每次更新（系统中的 `O(n²)`）时检查每个连接的 `Draggable` 组件中是否存在某个项目。通过使用这种方法，我们可以根据状态变化计算一个 `Object` 映射，并让连接的 `Draggable` 组件使用共享映射进行 `O(1)` 查找。
 
 ### 最后的话 ❤️
 
