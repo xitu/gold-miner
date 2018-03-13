@@ -5,7 +5,7 @@
 > * 译者：
 > * 校对者：
 
-# iOS App上一种灵活的路由方式
+# iOS App 上一种灵活的路由方式
 
 ![](https://ws2.sinaimg.cn/large/006tKfTcly1fpahnxn7qrj318g0pcdvt.jpg)
 
