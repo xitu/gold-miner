@@ -2,14 +2,14 @@
 > * 原文作者：[Alt Street](https://itnext.io/@Alt_Street?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/create-your-first-ethereum-dapp-with-web3-and-vue-js.md](https://github.com/xitu/gold-miner/blob/master/TODO/create-your-first-ethereum-dapp-with-web3-and-vue-js.md)
-> * 译者：[foxxnuaa](https://github.com/foxxnuaa)，[FateZeros](https://github.com/FateZeros)
-> * 校对者：
+> * 译者：[foxxnuaa](https://github.com/foxxnuaa)
+> * 校对者：[yankwan](https://github.com/yankwan),[FateZeros](https://github.com/FateZeros)
 
 # 使用 Web3 和 Vue.js 来创建你的第一个以太坊 dAPP（第一部分）
 
 [_点此链接将本文分享到 LinkedIn »_](https://www.linkedin.com/cws/share?url=https%3A%2F%2Fitnext.io%2Fcreate-your-first-ethereum-dapp-with-web3-and-vue-js-c7221af1ed82)
 
-欢迎来到另一个教程!在本教程中，我们将讨论如何使用 Ethereum、Web3js、VueJS 和 Vuex 创建一个简单的、响应式的去中心化应用程序。您可能需要对 javascript 和 web 应用程序有一些了解才能真正享受本教程。如果您不了解 Vue，不用担心，我们将在实现应用程序时简要地介绍一下基础知识。
+欢迎来到另一个教程！在本教程中，我们将讨论如何使用 Ethereum、Web3js、VueJS 和 Vuex 创建一个简单的、响应式的去中心化应用程序。您可能需要对 javascript 和 web 应用程序有一些了解才能真正享受本教程。如果您不了解 Vue，不用担心，我们将在实现应用程序时简要地介绍一下基础知识。
 
 我们的应用将会很简单。用户可以在 1 到 10 之间下注以太币。当用户猜对时，他得到了他的奖励 x10（略低于庄家切牌）。
 
@@ -46,7 +46,7 @@ npm i vue-cli -g
 
 ### 项目设置
 
-**我们将使用 remix 编写和部署智能合约，并通过 metamask 插件部署到 Ropsten 测试网络。在前端应用程序中，需要与合约交互的是合同地址和 _ABI_ （ _ABI_ 定义了如何在机器代码中访问数据结构或计算程序）。**
+我们将使用 remix 编写和部署智能合约，并通过 metamask 插件部署到 Ropsten 测试网络。在前端应用程序中，需要与合约交互的是合同地址和 _ABI_ （ _ABI_ 定义了如何在机器代码中访问数据结构或计算程序）。
 
 我们的前端将是一个 vue-cli 生成的 vueJS 应用程序。我们也将使用 _web3_ 来与合约通信。遵循以下简单步骤，为客户端应用程序创建 backbone ：
 
@@ -196,7 +196,7 @@ function checkContractBalance() Owned public view returns(uint) {
 
 ![](https://cdn-images-1.medium.com/max/800/1*KKOA1FXEbTwYqxYUIosMqQ.png)
 
-我们赢了 9 ether!
+我们赢了 9 以太币！
 
 好吧!我们的合约运行正常。在下一节中，我们将在 Ropsten 测试网络上部署我们的合约，并获取合约地址和 ABI ，以便在我们的客户端应用程序中使用。在那之前!
 
