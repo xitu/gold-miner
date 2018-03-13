@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/building-a-virtual-world-worthy-of-sci-fi.md](https://github.com/xitu/gold-miner/blob/master/TODO/building-a-virtual-world-worthy-of-sci-fi.md)
 > * 译者：[LeeSniper](https://github.com/LeeSniper)
-> * 校对者：
+> * 校对者：[IllllllIIl](https://github.com/IllllllIIl)
 
 # 建立一个像科幻小说一样的虚拟世界：设计一个全球性的虚拟世界
 
