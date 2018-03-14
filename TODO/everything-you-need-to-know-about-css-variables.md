@@ -245,21 +245,21 @@ font-size:  var(--space);  /*等于 40px*/
 }
 ```
 
-### Properties Worthy of Mention
+### 关于属性的一些事
 
-Here are some behaviors that are worth mentioning.
+以下是几个需要阐述的属性行为：
 
-#### 1. Custom properties are ordinary properties, so they can be declared on any element.
+#### 1. 自定义属性就是普通属性，可以在任意元素上声明自定义属性
 
-Declare them on a paragraph element, section, aside, root, or even pseudo elements. They’ll work as expected.
+在 p，section，aside，root 元素，甚至伪元素上声明自定义属性，都可以运行良好。
 
 ![](https://cdn-images-1.medium.com/max/800/0*plpQVof3v3JrzC1P.png)
 
-They behave like normal properties.
+这些自定义属性工作时与普通属性无异。
 
-#### 2. CSS variables are resolved with the normal inheritance and cascade rules
+#### 2. CSS 变量由普通的继承与级联规则解析
 
-Consider the block of code below:
+请思考以下代码：
 
 ```
 div {
@@ -275,15 +275,15 @@ div.ew {
 }
 ```
 
-As with normal variables, the `--color` value will be inherited by the divs.
+像普通变量一样，`--color` 的值会被 div 元素们继承。
 
 ![](https://cdn-images-1.medium.com/max/800/0*GNSU5IDdk7dx3B8t.png)
 
-#### 3. CSS variables can be made conditional with `@media` and other conditional rules
+#### 3. CSS 变量可以通过 `@media` 和其它条件规则变成条件式变量
 
-As with other properties, you can change the value of a CSS variable within a `@media` block or other conditional rules.
+和其它属性一样，你可以通过 `@media` 代码块或者其它条件规则改变 CSS 变量的值。
 
-For example, the following code changes the value of the variable, gutter on larger devices.
+举个例子，以下代码会在大屏设备下改变变量 gutter 的值。
 
 ```
 :root {
@@ -297,11 +297,11 @@ For example, the following code changes the value of the variable, gutter on lar
 
 ![](https://cdn-images-1.medium.com/max/800/0*qmsVGjnWjLCKfyvt.png)
 
-Useful bit for responsive design.
+对于响应式设计很有用。
 
-#### 4. CSS variables can be used in HTML’s style attribute.
+#### 4. HTML 的 style 属性中可以使用 CSS 变量。
 
-You can choose to set the value of your variables inline, and they’ll still work as expected.
+你可以在行内样式中设置变量值，变量依然会如期运行。
 
 ```
 <!--HTML-->
@@ -315,12 +315,12 @@ body {
 
 ![](https://cdn-images-1.medium.com/max/800/0*EQiFgdDyNBQ1AfDk.png)
 
-Set variables inline.
+行内设置变量值。
 
-CSS variables are case-sensitive. Be careful with this one. I save myself the stress and write variables in the lower case. Your mileage may differ.
+要注意这一点，CSS 变量是区分大小写的。我为了减小压力，选择都采用小写形式，这件事见仁见智。
 
 ```
-/*these are two different variables*/
+/*这是两个不同的变量*/
 :root {
  --color: blue;
 --COLOR: red;
