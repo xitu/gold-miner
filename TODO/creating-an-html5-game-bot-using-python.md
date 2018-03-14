@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/creating-an-html5-game-bot-using-python.md](https://github.com/xitu/gold-miner/blob/master/TODO/creating-an-html5-game-bot-using-python.md)
 > * 译者：[lsvih](https://github.com/lsvih)
-> * 校对者：
+> * 校对者：[faintz](https://github.com/faintz)
 
 # 用 Python 做一个 H5 游戏机器人
 
@@ -400,7 +400,7 @@ close status: 12596
 
 结果还不错。机器人大约存活了 10 分钟，已经很了不起了。它得了 717 分，在被杀掉的时候排行第二！
 
-以上就是本文的全部内容！如果你想找个有趣的编程项目玩耍，可以去做做 HTML5 游戏的机器人，你将获得无穷的乐趣，并能很好地联系网络分析、逆向工程、编程、算法、AI 等各种能力。希望能看到你也去玩玩！
+以上就是本文的全部内容！如果你想找个有趣的编程项目，可以去做做 HTML5 游戏的机器人，你将获得无穷的乐趣，并能很好地练习网络分析、逆向工程、编程、算法、AI 等各种能力。希望能看到你的创作！
 
 
 ---
