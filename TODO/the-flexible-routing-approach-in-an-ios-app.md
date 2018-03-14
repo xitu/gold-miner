@@ -2,8 +2,8 @@
 > * 原文作者：[Nikita Ermolenko](https://medium.com/@otbivnoe?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/the-flexible-routing-approach-in-an-ios-app.md](https://github.com/xitu/gold-miner/blob/master/TODO/the-flexible-routing-approach-in-an-ios-app.md)
-> * 译者：
-> * 校对者：
+> * 译者：[YinTokey](https://github.com/YinTokey)
+> * 校对者：[ellcyyang](https://github.com/ellcyyang)
 
 # iOS App 上一种灵活的路由方式
 
@@ -11,7 +11,7 @@
 
 “Trollstigen”
 
-在 [Rosberry](http://about.rosberry.com/) 中我们已经放弃使用除了 Launch Screen 以外的所有 storyboard，当然，所有布局和跳转逻辑都在代码里进行配置。为了理解我们这么做的原因 —     阅读我们团队的这篇文章 [没有 Interface Builder 的生活](https://blog.zeplin.io/life-without-interface-builder-adbb009d2068)，我希望你会觉得这篇文章非常实用。
+在 [Rosberry](http://about.rosberry.com/) 中我们已经放弃使用除了 Launch Screen 以外的所有 storyboard，当然，所有布局和跳转逻辑都在代码里进行配置。如果想要进一步了解，请参考我们团队的这篇文章 [没有 Interface Builder 的生活](https://blog.zeplin.io/life-without-interface-builder-adbb009d2068)，我希望你会觉得这篇文章非常实用。
 
 在这篇文章里，我将会介绍一种在 View Controller 之间的新的路由方式。我们将带着问题开始，然后一步一步地走向最终结论。享受阅读吧！
 
@@ -19,16 +19,16 @@
 
 #### 深入挖掘这个问题
 
-让我们使用一个具体的例子来理解这个问题。例如我们准备做一个 App，它包含了个人主页，好友列表，聊天窗口等特性。很显然，我们可以注意到在很多控制器里都需要通过页面跳转去显示用户的个主页，如果这个逻辑只实现一次，并且能复用的话，那就非常好了。我们记得 [**DRY**](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself)！
-我们无法使用一些 storyboard 来实现它，你可以想象一下，它在 storyboard 里面看起像什么 —— weeeeb. 😬
+让我们使用一个具体的例子来理解这个问题。例如我们准备做一个 App，它包含了个人主页、好友列表、聊天窗口等组成部分。很显然，我们可以注意到在很多 Controller 里都需要通过页面跳转去显示用户的个主页，如果这个逻辑只实现一次，并且能复用的话，那就非常好了。我们记得 [**DRY**](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself)！
+我们无法使用一些 storyboard 来实现它，你可以想象一下，它在 storyboard 里面看起像什么 —— weeeeb页面. 😬
 
-现在我们使用的是 **MVVM + Router** 的架构，由 **ViewModel** 告诉 **Router** 需要跳转到一个其他的模块，然后 router 去执行。在我们的例子中，为了避免控制器（或者View model）臃肿，**Router** 仅仅携带了所有的跳转逻辑。如果你一开始不是很明白，不用担心！我将会用一种比较平和的方式来解释这种解决方案，所以它也会很容易地适配简单的 **MVC**。
+现在我们使用的是 **MVVM + Router** 的架构，由 **ViewModel** 告诉 **Router** 需要跳转到一个其他的模块，然后 router 去执行。在我们的例子中，为了避免 view controller（或者View model）臃肿，**Router** 仅仅携带了所有的跳转逻辑。如果你一开始不是很明白，不用担心！我将会用一种比较浅显的方式来解释这种解决方案，所以它也会很容易地被应用到简单的 **MVC** 中去。
 
 * * *
 
 #### 解决方案
 
-**1.** 一开始，添加一个拓展到 **ViewController**，这看起来像是一个明显的解决方案：
+**1.** 一开始，添加一个拓展到 **ViewController** 看起来像是一个毫无异议的解决方案：
 
 ```
 extension UIViewController {
@@ -39,7 +39,7 @@ extension UIViewController {
 }
 ```
 
-而且它运行起来，就和我们的需求一样 —— 一次编写，多次使用。但是当有很多页面跳转的时候，它会变得很凌乱。我知道 Xcode 的自动补全不好用，但是有时候会给显示很多不需要的方法。即使你不想要在这一页面显示一个个人主页，它还是会存在于那里。所以试着更进一步去优化它。
+这就是我们想要的 —— 一次编写，多次使用。但是当有很多页面跳转的时候，它会变得很凌乱。我知道 Xcode 的自动补全不好用，但是有时候会给显示很多不需要的方法。即使你不想要在这一页面显示一个个人主页，它还是会存在于那里。所以试着更进一步去优化它。
 
 **2.** 不要在 **ViewControlelr** 里写一个扩展，然后在一个地方写大量方法，让我们在一个单独的**协议**中实现每一个路由，然后使用Swift的一个非常好的特性 —— 协议扩展。
 
@@ -62,8 +62,8 @@ final class FriendsViewController: UIViewController, ProfileRoute {}
 
 **3.** 但是，理所当然地这里还有一些改进方式：
 
-*   如果我们想要从所有地方跳转到个人主页，除了一个地方以外（这很罕见，但无论如何都有可能）。
-*   或者更重要的情况 — 如果我改变了跳转的进入方式，那么我也应该改变跳转页消失的方式（ presetn / dismiss )。
+*   如果我们想要从所有地方跳转到个人主页，除了一个地方以外（这很罕见，但有可能）呢？
+*   或者更严重的情况 —— 如果我改变了跳转的进入方式，那么我也应该改变跳转页消失的方式（ present / dismiss )。
 
 我们现在没有机会去配置它，所以现在是时候使用少量的代码去实现一个抽象**跳转** —— **模态跳转**和 **Push** **跳转**：
 
@@ -92,7 +92,7 @@ extension ModalTransition: Transition {}
 extension ModalTransition: UIViewControllerTransitioningDelegate {}
 ```
 
-下面相似地减少了 [Push跳转](https://github.com/Otbivnoe/Routing/blob/master/Routing/Routing/Transitions/PushTransition.swift) 的代码逻辑：
+下面同样减少了部分 [Push跳转](https://github.com/Otbivnoe/Routing/blob/master/Routing/Routing/Transitions/PushTransition.swift) 的代码逻辑：
 
 ```
 class PushTransition: NSObject {
@@ -116,7 +116,7 @@ protocol Animator: UIViewControllerAnimatedTransitioning {
 }
 ```
 
-正如我之前所说到的臃肿的控制器，现在让我们添加一个包含整个路由逻辑的对象，然后让他作为控制器的一个属性。我们所实现的**路由** —— 一个可以未来被所有路由继承的基类。 🎉
+正如我之前所说到的臃肿的 view controller，现在让我们添加一个包含整个路由逻辑的对象，然后让他作为控制器的一个属性。这就是我们所实现的**路由** —— 一个可以未来被所有路由继承的基类。 🎉
 
 ```
 protocol Closable: class {
@@ -155,7 +155,7 @@ class Router<U>: RouterProtocol, Closable where U: UIViewController {
 }
 ```
 
-请稍微花点时间去理解上面这些代码，这个类包含两个方法用于页面的打开和关闭。一个控制器的引用和一个 `openTransition` 对象来让我们知道如何关闭这个模块。
+请稍微花点时间去理解上面这些代码，这个类包含两个用于页面的打开和关闭的方法、一个 view controller 的引用和一个 `openTransition` 对象来让我们知道如何关闭这个模块。
 
 现在让我们使用这个新的类来更新我们的 **ProfileRoute**：
 
