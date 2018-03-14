@@ -15,7 +15,7 @@
 
 你做为开发这开始在 home 页面进行上拉刷新操作，但是，这个 App 并没有崩溃。它像预期的那样工作。因此，你关闭了代码。但是，你不能看到 NullPointException 在这里如何被抛出的。你接着去调试，单步调试相关组件的代码,但是它仍然能够正常工作。这个应用程序如何能够在下拉刷新时崩溃？
 
-这个问题是你不能够重现当崩溃发生的时候的场景。如果有用户在遇到崩溃问题时，能够给你崩溃报告，包含 App（发生崩溃前）的状态信息和调用堆栈信息，岂不美哉？伴随着单项数据流和 Model-View-Intent 模式那么这种情况将变得十分简单。我们简单记录用户触发的所有的intent和渲染到view上的model(model 代表了 app 的状态、view 的状态)。 让我们在 home 页面上这样去做，在 **HomePresenter** 类上添加 log (对于更多的细节可以看[第三部分](http://hannesdorfmann.com/android/mosby3-mvi-1) 在第三部分中我们已经讨论过状态折叠器的优点)。在下面的代码中我将贴出我们使用 [Crashlytics](https://fabric.io/kits/ios/crashlytics)(类似于 Bugly) 的代码片段,但是它应当与其他的 crash 报告工具的使用是相同的。
+这个问题是你不能够重现当崩溃发生的时候的场景。如果有用户在遇到崩溃问题时，能够给你崩溃报告，包含 App（发生崩溃前）的状态信息和调用堆栈信息，岂不美哉？伴随着单项数据流和 Model-View-Intent 模式那么这种情况将变得十分简单。我们简单记录用户触发的所有的 intent 和渲染到 view 上的 model(model 代表了 app 的状态、view 的状态)。 让我们在 home 页面上这样去做，在 **HomePresenter** 类上添加 log (对于更多的细节可以看[第三部分](http://hannesdorfmann.com/android/mosby3-mvi-1) 在第三部分中我们已经讨论过状态折叠器的优点)。在下面的代码中我将贴出我们使用 [Crashlytics](https://fabric.io/kits/ios/crashlytics)(类似于 Bugly) 的代码片段,但是它应当与其他的 crash 报告工具的使用是相同的。
 
 ```
 class HomePresenter extends MviBasePresenter<HomeView, HomeViewState> {
@@ -54,7 +54,7 @@ class HomePresenter extends MviBasePresenter<HomeView, HomeViewState> {
 }
 ```
 
-应用RxJava的**\.doOnNext()**操作符，在每个 intent、每个 intent 的结果和之后渲染到 view 上的状态上添加日志，我们序列化 view 状态为json对象（我们稍后来讨论这个）。
+应用RxJava的 **.doOnNext()** 操作符，在每个 intent、每个 intent 的结果和之后渲染到 view 上的状态上添加日志，我们序列化 view 状态为json对象（我们稍后来讨论这个）。
 
 我们可以看一下这些 logs:
 
