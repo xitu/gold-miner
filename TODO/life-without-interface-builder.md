@@ -15,7 +15,7 @@ This is quite a controversial topic on iOS/macOS communities and as a team who r
 
 ### Why?
 
-After 2 years of Objective-C, Zeplin got its first slice of Swift in late 2015\. Since then, we’ve been developing new features with Swift and also slowly migrating existing bits and pieces. Currently, about 75% of our macOS app is running on Swift.
+After 2 years of Objective-C, Zeplin got its first slice of Swift in late 2015. Since then, we’ve been developing new features with Swift and also slowly migrating existing bits and pieces. Currently, about 75% of our macOS app is running on Swift.
 
 Interestingly enough, we started thinking about dropping Interface Builder only after we’ve started using Swift.
 
