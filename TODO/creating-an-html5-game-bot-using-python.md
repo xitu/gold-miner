@@ -3,17 +3,17 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/creating-an-html5-game-bot-using-python.md](https://github.com/xitu/gold-miner/blob/master/TODO/creating-an-html5-game-bot-using-python.md)
 > * 译者：[lsvih](https://github.com/lsvih)
-> * 校对者：[faintz](https://github.com/faintz)
+> * 校对者：[faintz](https://github.com/faintz), [vuuihc](https://github.com/vuuihc)
 
 # 用 Python 做一个 H5 游戏机器人
 
 **摘要：** 我给游戏 [stabby.io](http://stabby.io/) 写了一个机器人（bot），源码请参考： [GitHub repo](https://github.com/vesche/stabbybot)。
 
-几周前，我在一个无聊的夜晚发现了一款游戏：[stabby.io](http://stabby.io/)。于是乎我的 IO 游戏瘾又犯了（曾经治好过）。在进入游戏后，你会被送进一个小地图中，场景里有许多和你角色长得一样的玩家，你可以杀死你身边的任何一个人。你周围的角色大多数都是电脑玩家，你需要设法弄清哪个才是人类玩家。我沉迷游戏无法自拔，光荣地玩了几个小时。
+几周前，我在一个无聊的夜晚发现了一款游戏：[stabby.io](http://stabby.io/)。于是乎我的 IO 游戏瘾又犯了（曾经治好过）。在进入游戏后，你会被送进一个小地图中，场景里有许多和你角色长得一样的玩家，你可以杀死你身边的任何一个人。你周围的角色大多数都是电脑玩家，你需要设法弄清哪个才是人类玩家。我沉迷游戏无法自拔，愉快地玩了几个小时。
 
 ![01-scrot](https://vesche.github.io/articles/media/01-scrot.png)
 
-正当我放纵一夜时，Eric S. Raymond 先生提醒我 [boredom and drudgery are evil](http://www.catb.org/~esr/faqs/hacker-howto.html#believe3)（无聊和单调都是罪恶）……我还记得 [LiveOverflow](http://www.liveoverflow.com/) 的一位老师在视频里冲我叫喊 [STOP WASTING YOUR TIME AND LEARN MORE HACKING!](https://www.youtube.com/watch?v=AMMOErxtahk)（多码代码少睡觉）。因此，我打算把我的无聊与单调转变成为编程项目，开始做一个为我玩 stabby 的 Python 机器人！
+正当我放纵一夜时，Eric S. Raymond 先生提醒我 [boredom and drudgery are evil](http://www.catb.org/~esr/faqs/hacker-howto.html#believe3)（无聊和单调都是罪恶）……我还记得 [LiveOverflow](http://www.liveoverflow.com/) 的一位老师在视频里冲我叫喊 [STOP WASTING YOUR TIME AND LEARN MORE HACKING!](https://www.youtube.com/watch?v=AMMOErxtahk)（多码代码少睡觉）。因此，我打算把我的无聊与单调转变成为一个有趣的编程项目，开始做一个为我玩 stabby 的 Python 机器人！
 
 在开始前，先介绍一下 stabby 超酷的开发者：soulfoam，他在自己的 [Twitch 频道](https://www.twitch.tv/soulfoamtv)直播编程与游戏开发。我得到了他的授权，允许我创建这个机器人并与大家分享。
 
@@ -27,7 +27,7 @@
 
 **注意：**我对上面 stabby 的服务器 IP 进行了打码处理，避免它被攻击。为了避免脚本小子滥用这个机器人，我不会在 stabbybot 中提供这个 IP，你需要自行获取。
 
-接着说这美味的 WebSocket 数据包。在这儿看到了第一个表明我们正处于正确道路的标志！我在开始游戏时，将角色名设定为 `chain`，紧接着在发往服务器的第二个 WebSocket 包的数据部分看到了 `03chain`。这就是我在游戏中的名字！
+接着说这美味的 WebSocket 数据包。在这儿看到了第一个表明我们正处于正确道路的标志！我在开始游戏时，将角色名设定为 `chain`，紧接着在发往服务器的第二个 WebSocket 包的数据部分看到了 `03chain`。游戏里的其他人就这样知道了我的名字！
 
 通过对抓包进一步的分析，我确定了在建立连接时客户端要发送给服务端的东西。下面是我们需要在 Python 中重新复现的内容：
 
@@ -50,7 +50,7 @@ ws = websocket.WebSocket()
 # 连接到 stabby.io 服务器
 ws.connect('ws://%s:443' % server_ip, origin='http://stabby.io')
 
-# 向服务器发送游戏版本
+# 向服务器发送当前游戏版本
 ws.send('000.0.4.3')
 
 # force a websocket ping/pong
@@ -87,11 +87,11 @@ ws.close()
 
 ![01-kill](https://vesche.github.io/articles/media/01-kill.png)
 
-这次我使用了 Wireshark，特别设置了过滤器，仅抓取 `ip.dst` 为游戏的服务器的 WebSocket 流量。在杀死某人后，`10` 与玩家 id 被传给服务器。可能你还不太明白，我解释一下：发送给服务器的一切东西都由两位数字开头，我将其称为`事件代码`。总共有差不多 20 个不同的事件代码，我还没完全弄清它们分别是做什么的。不过，我可以找到一些比较重要的事件：
+这次我使用了 Wireshark，特别设置了过滤器，仅抓取流向`（ip.dst）`服务器的 WebSocket 流量。在杀死某人后，`10` 与玩家 id 被传给服务器。可能你还不太明白，我解释一下：发送给服务器的一切东西都由两位数字开头，我将其称为`事件代码`。总共有差不多 20 个不同的事件代码，我还没完全弄清它们分别是做什么的。不过，我可以找到一些比较重要的事件：
 
 ```
 EVENTS = {
-    '03': '登陆',
+    '03': '登录',
     '05': '全局状况',
     '07': '移动',
     '09': '游戏中的时间',
@@ -284,7 +284,7 @@ class GenTwo(object):
         self.walk_count += 1
 ```
 
-上面做的是一件很重要的事情：创建了一个锁机制。由于机器人要进行许多的操作，我不希望看到机器人变得困惑，在随机走动的途中去杀人。当我们的角色开始随机行走时，会等待 600 个“步骤”（即收到的事件），然后才会再次开始随机行走。600 是通过计算，从地图一角走到另一角的最大步数。
+上面做的是一件很重要的事情：创建了一个锁机制。由于机器人要进行许多的操作，我不希望看到机器人变得困惑，在随机走动的途中去杀人。当我们的角色开始随机行走时，会等待 600 个“步骤”（即收到的事件），然后才会再次开始随机行走。600 是通过计算得出的，从地图一角走到另一角的最大步数。
 
 接下来为我们的小狗准备肉。检查最近的杀人事件，然后与当前的全局状况数据进行比较。
 
@@ -322,7 +322,7 @@ class GenTwo(object):
                 player_coords[player_uid] = (player_x, player_y)
 ```
 
-现在在 `go_for_kill` 中，有一个 `kill_x` 、 `kill_y` 坐标，表明了最近一次杀人时间的发生地点。另外还有一个由玩家 ID、玩家 x、y 坐标组成的有序字典。当游戏中有人被杀时，有序字典将会如下所示：`OrderedDict([('+56523', (315.8, 197.5)), ('+93735', (497.4, 130.7)), ...])`。下面找出离杀人地点最近的玩家就行了。如果有玩家里杀人坐标足够近，机器人将把他们找出来！
+现在在 `go_for_kill` 中，有一个 `kill_x` 、 `kill_y` 坐标，表明了最近一次杀人时间的发生地点。另外还有一个由玩家 ID、玩家 x、y 坐标组成的有序字典。当游戏中有人被杀时，有序字典将会如下所示：`OrderedDict([('+56523', (315.8, 197.5)), ('+93735', (497.4, 130.7)), ...])`。下面找出离杀人地点最近的玩家就行了。如果有玩家离杀人坐标足够近，机器人将把他们找出来！
 
 所以现在任务很清晰了，我们需要在一组坐标中找到最接近的坐标。这个方法被称为[最邻近查找](https://en.wikipedia.org/wiki/Nearest_neighbor_search)，我们可以用 [k-d trees](https://en.wikipedia.org/wiki/K-d_tree) 实现。我使用了 [SciPy](https://www.scipy.org/) 这个超帅的 Python 库，用它的 [scipy.spatial.KDTree.query](https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.KDTree.query.html#scipy.spatial.KDTree.query) 方法实现了这个功能。
 
