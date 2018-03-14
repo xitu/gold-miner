@@ -122,15 +122,15 @@ amAwesome = "awesome string"
 
 CSS 变量也被称为“自定义属性”。
 
-### Scoping CSS Variables
+### CSS 变量作用域
 
-There’s one more thing to point your attention to.
+还有一点需要注意。
 
-Remember that in JavaScript, variables have a scope. They may either have a `global` or `local` scope.
+请记住 JavaScript 中变量是有作用域的，要么是`全局作用域`，要么就是`局部作用域`。
 
-The same may be said of CSS variables.
+CSS 变量也是如此。
 
-Consider the example below:
+思考一下下面这个例子：
 
 ```
 :root {
@@ -138,23 +138,23 @@ Consider the example below:
 }
 ```
 
-The `:root` selector allows you to target the highest-level element in the DOM, or document tree.
+`:root` 选择器允许你定位到 DOM 中的最顶级元素或文档树。
 
-So, variables declared in this way are kind of scoped to the global scope.
+所以，这种方式声明的变量就属于具有全局作用域的变量。
 
-Got that?
+明白了吗？
 
-![](https://cdn-images-1.medium.com/max/800/0*GLjARI5CCGA3xJAx.png)
+![](https://cdn-images-1.medium.com/max/1600/0*GLjARI5CCGA3xJAx.png)
 
-Local and Globally scoped variables.
+局部变量与全局变量。
 
-### Example 1
+### 示例 1
 
-Assuming you wanted to create a CSS variable that stored the primary color of a themed site.
+假设你想创建一个 CSS 变量来存储主题站点的主要颜色。
 
-How would you go about this?
+你会怎么做呢？
 
-1. You create the scoped selector. Use `:root` for a 'global' variable
+1. 创建一个选择器。通过 `:root` 创建一个全局变量。
 
 ```
 :root {
@@ -162,7 +162,7 @@ How would you go about this?
 }
 ```
 
-2. Define the variable
+2. 定义变量
 
 ```
 :root {
@@ -170,17 +170,17 @@ How would you go about this?
 }
 ```
 
-Remember, a CSS variable is any “property” whose name begins with two dashes e.g `--color`
+请记住，在 CSS 中，以两个横线开头的“属性”都是 CSS 变量，比如 `--color`
 
-That was simple.
+就是这么简单。
 
-### Using CSS Variables
+### 使用 CSS 变量
 
-Once a variable has been defined and assigned a value, you can go ahead and use it within a property value.
+变量一旦被定义并赋值，你就可以在属性值内使用它了。
 
-There’s a bit of a gotcha though.
+但是有个小问题。
 
-If you’re coming from the world of preprocessors, you must be used to using a variable by just referencing its name. For example:
+如果你用过预处理器的话，一定已经习惯通过引用变量名来使用该变量了。比如：
 
 ```
 $font-size: 20px
@@ -190,9 +190,9 @@ $font-size: 20px
 }
 ```
 
-With native CSS variables, things are a little different. You reference a variable by using the `var()` function.
+原生 CSS 变量有些不同，你需要通过 `var()` 函数来引用变量。
 
-With the example above, using CSS Variables will yield this:
+在上面这个例子中，使用 CSS 变量就应该改成这样：
 
 ```
 :root {
@@ -204,18 +204,18 @@ With the example above, using CSS Variables will yield this:
 }
 ```
 
-Quite different.
+两种写法大不一样。
 
 ![](https://cdn-images-1.medium.com/max/800/0*Gv8Nci9VTrJBxpBe.png)
 
-Remember to use the var function.
+请记得使用 var 函数。
 
-Once you get that out of the way, you’ll start to love CSS variables - a lot!
+一旦你习惯了这种方式，就会爱上 CSS 变量的。
 
-Another important note is that, unlike variables in Sass (or other preprocessors) — where you can use the variables in a lot of places, and do math like you want — you need to be careful with CSS variables. You’ll mostly have them set as property values.
+另一个重要的注意事项是，在 Sass 这类预处理器中，你可以在任意地方使用变量，做各种计算，但是需要注意，在原生 CSS 中，你只能将变量设置为属性值。
 
 ```
-/*this is wrong*/
+/*这是错的*/
 .margin {
 --side: margin-top;
 var(--side): 20px;
@@ -224,24 +224,24 @@ var(--side): 20px;
 
 ![](https://cdn-images-1.medium.com/max/800/0*vtIhP9EGm_vTxeio.png)
 
-The declaration is thrown away as a syntax error for having an invalid property name.
+由于属性名非法，这段声明会抛出语法错误
 
-You also can’t do math. You need the CSS `calc()` function for that. I’ll discuss examples as we proceed.
+CSS 变量也不能做数学计算。如果需要的话，可以通过 CSS 的 `calc()` 函数进行计算。接下来我们会通过示例来阐述。
 
 ```
-/*this is wrong */
+/*这是错的*/
 .margin {
 --space: 20px * 2;
 font-size:  var(--space);  //not 40px
 }
 ```
 
-If you must do math, then use the calc() function like so:
+如果你必须要做数学计算的话，可以像这样使用 calc() 函数：
 
 ```
 .margin {
 --space: calc(20px * 2);
-font-size:  var(--space);  /*equals 40px*/
+font-size:  var(--space);  /*等于 40px*/
 }
 ```
 
