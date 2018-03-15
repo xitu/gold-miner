@@ -67,7 +67,7 @@ IntelliJ 的编辑器打开了一个名为 `main.dart` 的文件，它是应用�
 
 #### Flutter 热重载
 
-你可以看的到，这个应用的主要颜色是蓝色。我们可以改成红色。在 `main.dart` 文件中，找到以下代码：
+你可以看到，这个应用的主要颜色是蓝色。我们可以改成红色。在 `main.dart` 文件中，找到以下代码：
 
 ``` dart
 return new MaterialApp(
@@ -161,7 +161,7 @@ void main() => runApp(new MyApp());
 
 #### 几句关于状态的话
 
-我们可能要开发两种用户界面。一种是与当前状态无关的用户界面，而另一种是与当前状态相关的用户界面。
+我们可能要开发两种用户界面。一种是与当前应用状态无关的用户界面，而另一种是与当前状态相关的用户界面。
 
 当谈到状态时，我们的意思是，当事件被触发时，用户界面可能会改变，这正是我们要做的：
 
@@ -348,7 +348,7 @@ Widget _getSuccessStateWidget(){
 }
 ```
 
-现在要做的就是如果我们成功获得 Post 的列表，编辑 `getCurrentStateWidget()` 方法来显示这个 Widget ：
+如果我们成功获得 Post 的列表，现在要做的就是编辑 `getCurrentStateWidget()` 方法来显示这个 Widget ：
 
 ``` dart
 Widget getCurrentStateWidget(){
