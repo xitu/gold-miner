@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/develop-your-first-application-with-flutter.md](https://github.com/xitu/gold-miner/blob/master/TODO/develop-your-first-application-with-flutter.md)
 > * 译者：[mysterytony](https://github.com/mysterytony)
-> * 校对者：
+> * 校对者：[rockzhai](https://github.com/rockzhai), [zhaochuanxing](https://github.com/zhaochuanxing)
 
 # 用 Flutter 开发你的第一个应用程序
 
@@ -27,7 +27,7 @@ Flutter 是一款 SDK，它可以让你开发基于 Android，iOS 或者 Google 
 
 #### IntelliJ IDEA
 
-你还需要 IntelliJ IDEA （这不是必须的，但是会很有用）。安装完 IntelliJ IDEA 之后，把 Dart 和 Flutter 插件添加到 IntelliJ IDEA。
+你还需要 IntelliJ IDEA（这不是必须的，但是会很有用）。安装完 IntelliJ IDEA 之后，把 Dart 和 Flutter 插件添加到 IntelliJ IDEA。
 
 #### 获取 Flutter
 
