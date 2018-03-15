@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/the-flexible-routing-approach-in-an-ios-app.md](https://github.com/xitu/gold-miner/blob/master/TODO/the-flexible-routing-approach-in-an-ios-app.md)
 > * 译者：[YinTokey](https://github.com/YinTokey)
-> * 校对者：[ellcyyang](https://github.com/ellcyyang)，[94haox](https://github.com/94haox)
+> * 校对者：[ellcyyang](https://github.com/ellcyyang), [94haox](https://github.com/94haox)
 
 # iOS App 上一种灵活的路由方式
 
@@ -246,7 +246,7 @@ final class ProfileViewController: UIViewController {
 
 * * *
 
-感谢阅读！如果你喜欢上面文章 —— 不要客气，加入我们的[telegram channel](https://t.me/readaggregator)！
+感谢阅读！如果你喜欢上面文章 —— 不要客气，加入我们的 [telegram channel](https://t.me/readaggregator)！
 
 ![](https://cdn-images-1.medium.com/max/800/1*s9Rzi_gHLe5rllzlj5ox1A.png)
 
