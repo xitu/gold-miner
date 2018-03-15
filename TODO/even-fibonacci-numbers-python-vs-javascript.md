@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/even-fibonacci-numbers-python-vs-javascript.md](https://github.com/xitu/gold-miner/blob/master/TODO/even-fibonacci-numbers-python-vs-javascript.md)
 > * 译者：[zephyrJS](https://github.com/zephyrJS)
-> * 校对者：
+> * 校对者：[hexianga](https://github.com/hexianga), [Starriers](https://github.com/Starriers)
 
 # 斐波那契数列中的偶数 (Python vs. JavaScript)
 
