@@ -2,16 +2,16 @@
 > * 原文作者：[Hannes Dorfmann](http://hannesdorfmann.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/mosby3-mvi-5.md](https://github.com/xitu/gold-miner/blob/master/TODO/mosby3-mvi-5.md)
-> * 译者：
-> * 校对者：
+> * 译者：[pcdack](https://github.com/pcdack)
+> * 校对者：[zhaochuanxing](https://github.com/zhaochuanxing), []()
 
-# 使用MVI编写响应式APP - 第5部分 - 简单的调试
+# 使用 MVI 编写响应式 APP — 第 5 部分 — 简单的调试
 
 在前面的系列博客中我们已经讨论了 Model-View-Intent(MVI) 模式和它的特征。在[第一部分](http://hannesdorfmann.com/android/mosby3-mvi-1)我们已经讨论了关于单向数据流的重要性和“业务逻辑”驱动型的应用状态的概念。在这篇博客中我们将看到如何通过 debug 来简化开发者的开发工作。
 
-你以前有没有收到一个崩溃报告,并且你不能复现报告中的 bug？ 听起来很熟悉？我也觉得很熟悉！ 在花费数小时看 stacktrace 和我们的源代码,我选择放弃和关掉这个 issue 在我们 issue 跟踪中，而且跟随着一个小的 comment 像“不能复现这个 bug”或者“这一定是一个奇怪设备/厂商（大厂）导致的错误”。
+你以前有没有收到一个崩溃报告,并且你不能复现报告中的 bug？听起来很熟悉？我也觉得很熟悉！在花费数小时看 stacktrace 和我们的源代码,我选择放弃和关掉这个 issue 在我们 issue 跟踪中，而且跟随着一个小的 comment 像“不能复现这个 bug”或者“这一定是一个奇怪设备/厂商（大厂）导致的错误”。
 
-用我们商城 app 做具体的例子,我们已经在这个博客前面系列里开发了:当在 home 页面，我们的用户可以做下拉刷新，崩溃的报告显示，由于某种未知的原因，当下拉刷新加载新数据的时候，会触发 NullPointerException 异常。
+用我们商城 app 做具体的例子,我们已经在这个博客前面系列里开发了：当在 home 页面，我们的用户可以做下拉刷新，崩溃的报告显示，由于某种未知的原因，当下拉刷新加载新数据的时候，会触发 NullPointerException 异常。
 
 你做为开发这开始在 home 页面进行上拉刷新操作，但是，这个 App 并没有崩溃。它像预期的那样工作。因此，你关闭了代码。但是，你不能看到 NullPointException 在这里如何被抛出的。你接着去调试，单步调试相关组件的代码,但是它仍然能够正常工作。这个应用程序如何能够在下拉刷新时崩溃？
 
