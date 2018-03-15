@@ -7,7 +7,7 @@
 
 # 用 Python 做一个 H5 游戏机器人
 
-**摘要：** 我给游戏 [stabby.io](http://stabby.io/) 写了一个机器人（bot），源码请参考： [GitHub repo](https://github.com/vesche/stabbybot)。
+**摘要：**我给游戏 [stabby.io](http://stabby.io/) 写了一个机器人（bot），源码请参考：[GitHub repo](https://github.com/vesche/stabbybot)。
 
 几周前，我在一个无聊的夜晚发现了一款游戏：[stabby.io](http://stabby.io/)。于是乎我的 IO 游戏瘾又犯了（曾经治好过）。在进入游戏后，你会被送进一个小地图中，场景里有许多和你角色长得一样的玩家，你可以杀死你身边的任何一个人。你周围的角色大多数都是电脑玩家，你需要设法弄清哪个才是人类玩家。我沉迷游戏无法自拔，愉快地玩了几个小时。
 
