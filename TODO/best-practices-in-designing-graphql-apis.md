@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/best-practices-in-designing-graphql-apis.md](https://github.com/xitu/gold-miner/blob/master/TODO/best-practices-in-designing-graphql-apis.md)
 > * 译者：[Jiang Haichao](https://github.com/AceLeeWinnie)
-> * 校对者：[缪宇](https://github.com/goldEli),[moods445](https://github.com/moods445)
+> * 校对者：[缪宇](https://github.com/goldEli), [moods445](https://github.com/moods445)
 
 # GraphQL API 设计最佳实践
 
