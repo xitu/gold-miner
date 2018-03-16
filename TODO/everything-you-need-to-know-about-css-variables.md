@@ -327,23 +327,23 @@ body {
 }
 ```
 
-### Resolving Multiple Declarations
+### 解析多重声明
 
-As with other properties, multiple declarations are resolved with the standard cascade.
+与其它属性相同，多重声明会按照标准的级联规则解析。
 
-Let’s see an example:
+举个例子：
 
 ```
-/*define the variables*/
+/*定义变量*/
 :root { --color: blue; }
 div { --color: green; }
 #alert { --color: red; }
 
-/*use the variable */
+/*使用变量*/
 * { color: var(--color); }
 ```
 
-With the variable declarations above, what will be the color of the following elements?
+根据以上的变量声明，下列元素是什么颜色？
 
 ```
 <p>What's my color?</p>
@@ -354,37 +354,37 @@ With the variable declarations above, what will be the color of the following el
 </div>
 ```
 
-Can you figure that out?
+你想出答案了吗？
 
-The first paragraph will be `blue`. There is no direct `--color` definition set on a `p` selector, so it inherits the value from `:root`
+第一个 p 元素颜色是 `blue`。`p` 选择器上并没有直接的颜色定义，所以它从 `:root` 上继承属性值
 
 ```
 :root { --color: blue; }
 ```
 
-The first `div` will be `green` . That’s pretty clear. There’s a direct variable definition set on the `div`
+第一个 `div` 元素颜色是 `green`。这个很简单，因为有变量直接定义在 `div` 元素上
 
 ```
 div { --color: green; }
 ```
 
-The `div` with the ID of `alert` will NOT be green. It will be `red`
+具有 ID 为 `alert` 的 `div` 元素颜色**不是**绿色，而是 `red`
 
 ```
 #alert { --color: red; }
 ```
 
-The ID has a direct variable scoping. As such, the value within the definition will override the others. The selector `#alert` is more specific.
+由于有变量作用域直接是在这个 ID 上，变量所定义的值会覆盖掉其它值。`#alert` 选择器是一个更为特定的选择器。
 
-Finally, the `p` within the `#alert` will be… `red`
+最后，`#alert` 元素内的 `p` 元素颜色是 `red`
 
-There’s no variable declaration on the paragraph element. You may have expected the color to be `blue` owing to the declaration on the `:root` element.
+这个 p 元素上并没有变量声明。由于 `:root` 声明的颜色属性是 `blue`，你可能会以为这个 p 元素的颜色也是 `blue`。
 
 ```
 :root { --color: blue; }
 ```
 
-As with other properties, CSS variables are inherited. The value is inherited from the parent, `#alert`
+如其它属性一样， CSS 变量是会继承的，因此 p 元素的颜色值继承自它的父元素 `#alert`
 
 ```
 #alert { --color: red; }
@@ -392,13 +392,13 @@ As with other properties, CSS variables are inherited. The value is inherited fr
 
 ![](https://cdn-images-1.medium.com/max/800/1*lGioVJqkKo0N91R9eMvywQ.png)
 
-The solution to the Quiz.
+小测验的答案。
 
-### Resolving Cyclic Dependencies
+### 解决循环依赖
 
-A cyclic dependency occurs in the following ways:
+循环依赖会出现在以下几个场景中：
 
-1. When a variable depends on itself. That is, it uses a `var()` that refers to itself.
+1. 当一个变量依赖自己本身时，也就是说这个变量通过 `var()` 函数指向自己时。
 
 ```
 :root {
