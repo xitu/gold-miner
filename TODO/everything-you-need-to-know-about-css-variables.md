@@ -410,7 +410,7 @@ body {
 }
 ```
 
-2. When two or more variables refer to each other.
+2. 两个以上的变量互相引用。
 
 ```
 :root {
@@ -419,13 +419,13 @@ body {
 }
 ```
 
-Be careful not to create cyclic dependencies within your code.
+请注意不要在你的代码中引入循环依赖。
 
 ### What Happens with Invalid Variables?
 
-Syntax errors are discarded, but invalid `var()` substitutions default to either the initial or inherited value of the property in question.
+语法错误机制已被废弃，非法的 `var()` 会被默认替换成属性的初始值或继承的值。
 
-Consider the following:
+思考一下下面这个例子：
 
 ```
 :root { --color: 20px; }
@@ -435,29 +435,29 @@ p { background-color: var(--color); }
 
 ![](https://cdn-images-1.medium.com/max/800/0*fa59XRLGKo5Rsqm4.png)
 
-As expected, `--color` is substituted into `var()` but the property value, `background-color: 20px` is invalid after the substitution. Since `background-color` isn’t an inheritable property, the value will default to its `initial` value of `transparent`.
+正如我们所料，`--color` 变量会在 `var()` 中被替换，但是替换后，属性值 `background-color: 20px` 是非法的。由于 `background-color` 不是可继承的属性，属性值将默认被替换成它的 `initial` 或是 `transparent`。
 
 ![](https://cdn-images-1.medium.com/max/800/0*uVic7R1o96n-T1l5.png)
 
-Note that if you had written `background-color: 20px` without any variable substitutes, the particular background declaration would have been invalid. The previous declaration will then be used.
+注意，如果你没有通过变量替换，而是直接写 `background-color: 20px` 的话，这个背景属性声明就是非法的，则使用之前的声明定义。
 
 ![](https://cdn-images-1.medium.com/max/800/0*9HzCVQdyvqeo5dZq.png)
 
-The case is differrent when you write the declaration yourself.
+当你自己写声明是，情况就不一样了。
 
 ### Be Careful While Building Single Tokens
 
-When you set the value of a property as indicated below, the `20px` is interpreted as a single token.
+当你用下面这种方式来设置属性值时，`20px` 则会按照单独符号来解析。
 
 ```
 font-size: 20px
 ```
 
-A simple way to put that is, the value `20px` is seen as a single ‘entity.’
+有一个简单的方法去理解，`20px` 这个值可以看作是一个单独的 “实体”。
 
-You need to be careful when building single tokens with CSS variables.
+在使用 CSS 变量构建单独符号时需要非常小心。
 
-For example, consider the following block of code:
+举个例子，思考以下代码：
 
 ```
 :root {
@@ -465,48 +465,48 @@ For example, consider the following block of code:
 }
 
 div {
-  font-size: var(--size)px /*WRONG*/
+  font-size: var(--size)px /*这是错的*/
 }
 ```
 
-You may have expected the value of `font-size` to yield `20px`, but that is wrong.
+可能你会以为 `font-size` 的值是 `20px`，那你就错了。
 
-The browser interprets this as `20 px`
+浏览器的解释结果是 `20 px`
 
-Note the space after the `20`
+请注意 `20` 后面的空格
 
-Thus, if you must create single tokens, have a variable represent the entire token. For example, `--size: 20px`, or use the `calc` function e.g `calc(var(--size) * 1px)` where `--size` is equal to `20`
+因此，如果你必须创建单独符号的话，请用变量来代表整个符号。比如 `--size: 20px`，或者使用 `calc` 函数比如 `calc(var(--size) * 1px)` 中的 `--size` 就是等于 `20`
 
-Don’t worry if you don’t get this yet. I’ll explain it in more detail in a coming example.
+如果你没看懂的话也不用担心，在下个示例中我会解释地更详细。
 
-### Let’s build stuff!
+### 撸起袖子加油干！
 
-Now this is the part of the article we’ve been waiting for.
+现在我们已经到了期待已久的章节了。
 
-I’ll walk you through practical applications of the concepts discussed by building a few useful projects.
+我将通过构建几个有用的小项目，在实际应用中引导你了解之前所学的理论。
 
-Let’s get started.
+让我们开始吧。
 
-### Project 1: Creating Component Variations using CSS Variables
+### 项目 1： 使用 CSS 变量创建一个有变化效果的组件
 
-Consider the case where you need to build two different buttons. Same base styles, just a bit of difference.
+思考一下需要构建两个不同按钮的场景，两个按钮的基本样式相同，只有些许不同。
 
 ![](https://cdn-images-1.medium.com/max/800/1*qElS3I43_SdpdRA8-m2iew.gif)
 
-In this case, the properties that differ are the `background-color` and `border-color` of the variant.
+这个场景中，按钮的 `background-color` 和 `border-color` 属性不同。
 
-So, how would you do this?
+那么你会怎么做呢？
 
-Here’s the typical solution.
+这里有一个典型解决方案。
 
-Create a base class, say `.btn` and add the variant classes. Here’s an example markup:
+创建一个叫 `.btn` 的基础类，然后加上用于变化的类。举个例子：
 
 ```
 <button class="btn">Hello</button>
 <button class="btn red">Hello</button>
 ```
 
-`.btn` would contain the base styles on the button. For example:
+`.btn` 包括了按钮上的基础样式，如：
 
 ```
 .btn {
@@ -517,7 +517,7 @@ Create a base class, say `.btn` and add the variant classes. Here’s an example
   border-radius: 2px;
 }
 
-/*on hover */
+/*hover 状态下*/
 .btn:hover {
   cursor: pointer;
   background: black;
@@ -525,12 +525,12 @@ Create a base class, say `.btn` and add the variant classes. Here’s an example
 }
 ```
 
-So, where does the variant come in?
+在哪里引入变化量呢？
 
-Here:
+这里：
 
 ```
-/* variations */
+/* 变化 */
 
 .btn.red {
   border-color: red
@@ -540,11 +540,11 @@ Here:
 }
 ```
 
-You see how we are duplicating code here and there? This is good, but we could make it better with CSS variables.
+你看到我们将代码复制到好几处么？这还不错，但是我们可以用 CSS 变量来做的更好。
 
-What’s the first step?
+第一步是什么？
 
-Substitute the varying colors with CSS variables, and don’t forget to add default values for the variables!
+用 CSS 变量替代变化的颜色，别忘了给变量加上默认值。
 
 ```
 .btn {
@@ -555,7 +555,7 @@ Substitute the varying colors with CSS variables, and don’t forget to add defa
    border-radius: 2px;
  }
 
- /*on hover*/
+ /*hover 状态下*/
  .btn:hover {
   cursor: pointer;
    background: var(--color, black);
@@ -563,13 +563,13 @@ Substitute the varying colors with CSS variables, and don’t forget to add defa
  }
 ```
 
-When you do this: `background: **var(--color, black)**`you’re saying, set the background to the value of the variable `--color` . However, if the variable doesn't exist, use the default value of `**black**`
+当你写下 `background: **var(--color, black)**` 时，就是将背景色的值设置为变量 `--color` 的值，如果变量不存在的话则使用默认值 `**black**`
 
-This is how you set default variable values. Just like you do in JavaScript or any other programming language.
+这就是设置变量默认值的方法，与在 JavaScript 和其它语言中的做法一样。
 
-Here’s the good part.
+这是使用变量的好处。
 
-With the variants, you just supply the new value of the CSS variable as under:
+使用了变化量，就可以用下面这种方法来应用变量的新值：
 
 ```
 .btn.red {
@@ -577,33 +577,33 @@ With the variants, you just supply the new value of the CSS variable as under:
  }
 ```
 
-That’s all. Now when the `.red` class is used, the browser notes the different `--color` variable value, and immediately updates the appearance of the button.
+就是这么简单。现在当使用 `.red` 类时，浏览器注意到不同的 `--color` 变量值，就会立即更新按钮的样式了。
 
-This is really good if you spend a lot of time building reusable components.
+如果你要花很多时间来构建可复用组件的话，使用 CSS 变量是一个非常好的选择。
 
-Here’s a side by side comparison:
+这是并排比较：
 
 ![](https://cdn-images-1.medium.com/max/800/1*bdT9ITBx1wpXjLOYoWBI7w.png)
 
-Without CSS Variables VS with CSS Variables.
+不用 CSS 变量 VS 使用 CSS 变量。
 
-Oh, and if you had more variants, you just saved yourself a lot of extra typing.
+如果你有非常多的可变选项的话，使用 CSS 变量还会为你节省很多打字时间。
 
 ![](https://cdn-images-1.medium.com/max/800/1*erZb3Z5FtTIR8EV9fl0QOA.png)
 
-See the difference??
+看出不同了吗？？
 
-### Project 2: Themed Sites with CSS Variables
+### 项目 2： 使用 CSS 变量实现主题定制
 
-I’m sure you’ve come across them before. Themed sites give the user the feel of customization. Like they are in control.
+我很确定你之前一定遇到过主题定制的需求。支持主题定制的站点让用户有了自定义的体验，感觉站点在自己的掌控之中。
 
-Below is the basic example we’ll build.
+下面是我写的一个简单示例：
 
 ![](https://cdn-images-1.medium.com/max/800/1*r2TrlsC-gWRD5Hu6Tp2gjQ.gif)
 
-So, how easy do the CSS variables make this?
+使用 CSS 变量来实现有多么容易呢？
 
-We’ll have a look.
+我们来看看。
 
 Just before that, I wanted to mention that this example is quite important. With this example, I’ll introduce the concept of updating CSS variables with JavaScript.
 
