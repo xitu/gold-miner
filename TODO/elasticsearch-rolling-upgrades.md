@@ -7,7 +7,7 @@
 
 # Elasticsearch 滚动升级
 
-滚动升级允许 Elasticsearch 集群一个节点一个节点升级，不需要停机。集群中不支持同时运行多个版本，因为分片不会从新版本分配到旧版本的节点上。
+滚动升级允许 Elasticsearch 集群在业务不中断的情况下更新一个节点。集群中不支持同时运行多个版本，因为分片不会从新版本分配到旧版本的节点上。
 
 从这个列表[table](setup-upgrade.html "Upgrading")中检查当前版本的ES是否支持滚动升级。
 
@@ -16,8 +16,7 @@
 
 ## 第一步: 滚动升级步骤如下：
 
-当你关闭一个节点时，分片分配进程将分片从当前节点复制到集群另一个节点上，这将会浪费大量的 I/O 操作。可以在关闭节点前禁用这个特性：
-
+当你关闭一个节点之后，分片分配进程会尝试立即将分片从当前节点复制到集群上的其他节点，导致浪费了大量的 I/O 操作。要想避免这个问题可以通过在关闭节点前禁用这个进程
 
 ```
 PUT /_cluster/settings
@@ -69,7 +68,7 @@ GET _cat/nodes
 
 ## 第五步：重新打开分片再平衡
 
-O当节点加入集群后，使用以下命令重启分片再平衡：
+一旦节点重新加入集群，解禁分片分配进程再平衡：
 
 ```
 PUT /_cluster/settings
@@ -103,7 +102,7 @@ GET _cat/health
 GET _cat/recovery
 ```
 
-If you stopped indexing, then it is safe to resume indexing as soon as recovery has completed.
+如果你在这之前停止索引操作，那么在节点恢复完成之后重启也是安全的。
 
 ### 第七步：重复上述步骤
 
