@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/get-ready-a-new-v8-is-coming-node-js-performance-is-changing.md](https://github.com/xitu/gold-miner/blob/master/TODO/get-ready-a-new-v8-is-coming-node-js-performance-is-changing.md)
 > * 译者：[Starriers](https://github.com/Starriers)
-> * 校对者：
+> * 校对者：[ClarenceC](https://github.com/ClarenceC)
 
 # 做好准备：新的 V8 即将到来，Node.js 的性能正在改变。
 
@@ -13,7 +13,7 @@
 
 自诞生之日起，node.js 就依赖于 V8 JavaScript 引擎来为我们熟悉和喜爱的语言提供代码执行环境。V8 JavaScipt 引擎是 Google 为 Chrome 浏览器编写的 JavaScipt VM。起初，V8 的主要目标是使 JavaScript 更快，至少要比同类竞争产品要快。对于一种高度动态的弱类型语言来说，这可不是容易的事情。文章将介绍 V8 和 JS 引擎的性能演变。
 
-允许 V8 引擎高速运行 JavaScript 的是其中一个核心部分：JIT(Just In Time) 编译器。这是一个可以在运行时优化代码的动态编译器。 当 V8 被第一构建时，JIT 编译器被称为 FullCodegen。之后 V8 团队实现了 Crankshaft，其中包含了许多 FullCodegen 未实现的性能优化。
+允许 V8 引擎高速运行 JavaScript 的是其中一个核心部分：JIT(Just In Time) 编译器。这是一个可以在运行时优化代码的动态编译器。V8 第一次创建 JIT 编译器的时候, 它被称为 FullCodegen。之后 V8 团队实现了 Crankshaft，其中包含了许多 FullCodegen 未实现的性能优化。
 
 **编辑：FullCodegen 是 V8 的第一个优化编译器，感谢 [_Yang Guo_](https://twitter.com/hashseed) 的报告**
 
@@ -33,7 +33,7 @@
 
 目前，5.9 和 6.0 引擎将在 Node 8.3（也可能是 Node 8.4）中，而 V8 6.1 是 V8 最新版本 (在编写本报告时)，它在 node-v8 仓库 [https://github.com/nodejs/node-v8.](https://github.com/nodejs/node-v8.) 的实验分支中与 Node 集成。换句话说，V8 6.1 版本将在后继 Node 版本中使用。
 
-让我们看下微基准测试，另一方面，我们将讨论这对未来意味着什么。所有的微基准测试都由 [benchmark.js](https://www.npmjs.com/package/benchmark) 执行，绘制的值是每秒操作数，隐藏在图中越高越好。
+让我们看下微基准测试，另一方面，我们将讨论这对未来意味着什么。所有的微基准测试都由 benchmark.js](https://www.npmjs.com/package/benchmark) 执行，绘制的值是每秒操作数，因此在图中越高越好。
 
 ###  TRY/CATCH 问题
 
@@ -56,9 +56,9 @@
 
 然而对于 Node 8.3+，在 `try` 块内调用函数的性能影响可以忽略不计。
 
-尽管如此，不要掉以轻心。在整理性能工作报告时，Matteo 和我[发现了一个性能 bug](https://bugs.chromium.org/p/v8/issues/detail?id=6576&q=matteo%20collina&colspec=ID%20Type%20Status%20Priority%20Owner%20Summary%20HW%20OS%20Component%20Stars)，一些环境组合在 Turbofan 中可能会导致出现去优化/优化的无限循环 (被视为“killer” — 一种破坏性能的模式)。
+尽管如此，不要掉以轻心。在整理性能工作报告时，Matteo 和我[发现了一个性能 bug](https://bugs.chromium.org/p/v8/issues/detail?id=6576&q=matteo%20collina&colspec=ID%20Type%20Status%20Priority%20Owner%20Summary%20HW%20OS%20Component%20Stars)，在特殊情况下 Turbofan 中可能会导致出现去优化/优化的无限循环 (被视为“killer” — 一种破坏性能的模式)。
 
-### 从对象中删除属性
+### 从 Objects 中删除属性
 
 多年来，`delete` 已经限制了很多希望编写出高性能 JavaScript 的人（至少是我们试图为热路径编写最优代码的地方）。
 
@@ -82,7 +82,7 @@ V8 引擎快速生成属性对象的技术是基于对象的“形状”在 c++ 
 
 **编辑: 在之前版本的帖子中，我们得出结论 `_delete_` 可以也应该在未来的 Node.js 中使用。但是 [_Jakob Kummerow_](http://disq.us/p/1kvomfk) 告诉我们，我们的基准测试只触发了最后一次属性访问的情况。感谢 [_Jakob Kummerow_](http://disq.us/p/1kvomfk)!**
 
-### 泄露并且数组化 `ARGUMENTS`
+### 显式并且数组化 `ARGUMENTS`
 
 普通 JavaScript 函数 (相对于没有 `arguments` 对象的箭头函数 )可用隐式 `arguments`对象的一个常见问题是它类似数组，实际上不是数组。
 
@@ -158,7 +158,7 @@ console.log(add10(20))
 
 使用箭头函数是克服所有版本的最开方法。后续版本中使用箭头函数的代码将偏向于使用 `bind` ，因为它比普通函数更快。但是，作为警告，我们可能需要研究更多具有不同大小的数据结构的部分应用类型来获取更全面的情况。
 
-### 函数字符计数
+### 函数字符数
 
 函数的大小，包括签名、空格、甚至注释都会影响函数是否可以被 V8 内联。是的：为你的函数添加注释可能会导致性能下降 10%。Turbofan 会改变么？让我们找出答案。
 
@@ -192,9 +192,9 @@ console.log(add10(20))
 
 以下三个基准测试案例：
 
-*   只处理 32 位范围内的数字的函数 (**和较小**)
-*   处理 32 位和 double 组合的函数 (**从小到大**)
-*   只处理 double 类型数字的函数 (**全部很大**)
+*   只处理 32 位范围内的数字的函数 (**sum small**)
+*   处理 32 位和 double 组合的函数 (**from small to big**)
+*   只处理 double 类型数字的函数 (**all big**)
 
 **Code:** [https://github.com/davidmarkclements/v8-perf/blob/master/bench/numbers.js](https://github.com/davidmarkclements/v8-perf/blob/master/bench/numbers.js)
 
@@ -204,11 +204,11 @@ console.log(add10(20))
 
 同样值得注意的是，在 32 位范围内的数字操作在 Node 6 (V8 5.1) 和 Node 8.1 以及 8.2 (V8 5.8) 有速度增长，但是在 Node 8.3+ (V8 5.9+)中速度明显降低。然而在 Node 8.3+ (V8 5.9+)中，double 运算变得更快，这很可能是（32位）数字处理速度缓慢，而不是函数或与 `for` 循环 (在基准代码中使用)速度有关
 
-**编辑: 感谢** [_Jakob Kummerow_](http://disq.us/p/1kvomfk) **和** [_Yang Guo_](https://twitter.com/hashseed) **已经 V8 团队对结果的准确性和精确性的更新。**
+**编辑: 感谢** [**Jakob Kummerow**](http://disq.us/p/1kvomfk) **和** [**Yang Guo**](https://twitter.com/hashseed) **已经 V8 团队对结果的准确性和精确性的更新。**
 
 ### 迭代对象
 
-获得对象的所有值并对它们进行处理是常见的操作，而且有很多方法。让我们找出在 V8 (和 Node) 中最快的那个版本。
+获得对象的所有值并对它们进行处理是常见的操作，而且有很多方法可以实现。让我们找出在 V8 (和 Node) 中最快的那个版本。
 
 这个基准测试的四个案例针对所有 V8 版本：
 
@@ -247,9 +247,9 @@ Turbofan 背后的运行原理似乎是对直观的编码行为进行优化。�
 
 我们要看三个案例：
 
-*  使用对象字面量 (**literal**) 创建对象
-*  使用 ECMAScript 2015 类 (**class**) 创建对象
-*  使用构造函数 (**constructor**) 创建对象
+*  创建对象时使用对象字面量 (**literal**) 
+*  创建对象时使用 ECMAScript 2015 类 (**class**) 
+*  创建对象时使用构造函数 (**constructor**) 
 
 **Code:** [https://github.com/davidmarkclements/v8-perf/blob/master/bench/object-creation.js](https://github.com/davidmarkclements/v8-perf/blob/master/bench/object-creation.js)
 
@@ -326,11 +326,11 @@ Turbofan 背后的运行原理似乎是对直观的编码行为进行优化。�
 
 ![](https://cdn-images-1.medium.com/max/800/0*3-QHw8cgY83Cg57i.png)
 
-虽然所有的 logger 基准测试速度都有所提高 (大约是 2 倍)，但 Winston logger 从新的 Turbofan JIT 编译器中获得了最大的好处。这似乎证明了我们在微基准测试中看到的各种方法之间的速度趋于一致：Crankshaft 中较慢的方法在 Turbofan 中明显更快，而在 Crankshaft 的快速方法在 Turbofan 中往往会稍慢。Winston 是最慢的，可能是使用了在 Crankshaft 中较慢而在 Turbofan 中更快的方法，然而 Pino 使用最快的 Crankshaft 方法进行优化。虽然在 Pino 中观察到速度有所增加，但是程度要低很多。
+虽然所有的 logger 基准测试速度都有所提高 (大约是 2 倍)，但 Winston logger 从新的 Turbofan JIT 编译器中获得了最大的好处。这似乎证明了我们在微基准测试中看到的各种方法之间的速度趋于一致：Crankshaft 中较慢的方法在 Turbofan 中明显更快，而在 Crankshaft 的快速方法在 Turbofan 中往往会稍慢。Winston 是最慢的，可能是使用了在 Crankshaft 中较慢而在 Turbofan 中更快的方法，然而 Pino 使用最快的 Crankshaft 方法进行优化。虽然在 Pino 中观察到速度有所增加，但是效果不是很明显。
 
 ### 总结
 
-一些基准测试表明，随着 V8 6.0 和 V8 6.1中全部启用 Turbofan,在 V8 5.1, V8 5.8 和 5.9 中的缓慢情况有所加速 ，但快速情况也有所下降，往往速度的提升和放缓情况成对出现。
+一些基准测试表明，随着 V8 6.0 和 V8 6.1中全部启用 Turbofan,在 V8 5.1, V8 5.8 和 5.9 中的缓慢情况有所加速 ，但快速情况也有所下降，这往往与缓慢情况的增速相匹配。
 
 很大程度上是由于在 Turbofan (V8 6.0 及以上) 中进行函数调用的成本。Turbofan 的核心思想是优化常见情况并消除“V8 Killers”。这为 (Chrome) 浏览器和服务器 (Node)带来了净效益。 对于大多数情况来说，权衡出现在(至少是最初)速度下降。基准日志比较表明，Turbofan 的总体净效应即使在代码基数明显不同的情况下(例如：Winston 和 Pino) 也可以全面提高。
 
