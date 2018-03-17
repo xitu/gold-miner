@@ -9,15 +9,15 @@
 
 ![](https://kinsta.com/wp-content/uploads/2018/02/php-7-hhvm-benchmarks-1.png)
 
-每年我们都会在大量不同的平台上尝试并深入研究 PHP 不同版本以及 HHVM 在性能方面的差异。而今年，我们一鼓作气在20个不同的平台/配置下评测了四个不同版本的 PHP 引擎以及 HHVM，测评使用的应用包括了 WordPress，Drupal，Joomla!，Laravel，Symfony以及其他各种各样的应用。此外，我们也测试了近些年流行的一些电子商务解决方案如 WooCommerce，Easy Digital Downloads，Magento，和PrestaShop。
+每年我们都会在大量不同的平台上尝试并深入研究 PHP 不同版本以及 HHVM 在性能方面的差异。而今年，我们一鼓作气在 20 个不同的平台/配置下评测了四个不同版本的 PHP 引擎以及 HHVM，测评使用的应用包括了 WordPress，Drupal，Joomla!，Laravel，Symfony以及其他各种各样的应用。此外，我们也测试了近些年流行的一些电子商务解决方案如 WooCommerce，Easy Digital Downloads，Magento，和 PrestaShop。
 
 想看这篇文章的西班牙语版本吗？[我是传送门](https://kinsta.com/es/blog/php-7-hhvm-rendimiento/)
 
-我们鼓励 WordPress 用户使用 PHP 的[最新支持版本](https://kinsta.com/blog/php-versions/)，除了更好的安全性外，它们还提供了额外的性能提升。我们并不只是在谈论 WordPress，这个结论对于大部分的平台也是适用的。我们将会为你展示如今 **PHP7.2 是如何打败它面对的一切敌人的！🚀**
+我们鼓励 WordPress 用户使用 PHP 的[最新支持版本](https://kinsta.com/blog/php-versions/)，除了更好的安全性外，它们还提供了额外的性能提升。我们并不只是在谈论 WordPress，这个结论对于大部分的平台也是适用的。今天我们将向你展示 **PHP7.2 是如何打败它面对的一切敌人的！🚀**
 
 今年的测评结果相比起我们以前那些 HHVM 获胜的测评发生了大大的改变。我们很高兴能看到 PHP7.2 成为目前速度最快的 PHP 引擎。关于 WordPress，有一个需要提及的重要事情，那就是 [HHVM 不再被支持]((https://make.wordpress.org/core/2017/05/25/hhvm-no-longer-part-of-wordpress-cores-testing-infrastructure/))并将会渐渐地淡出历史舞台，我们不再鼓励我们的顾客迁移到 HHVM ，同时也声明在大量不同的平台上支持它并不是一个好的选择。
 
-对于开发者和终端用户来说这都是一个好消息，因为这意味着我们能将注意力重新投放回 PHP 上并为每个人都提供更快的网站和 web 服务。
+对于开发者和终端用户来说这都是一个好消息，因为这意味着我们将更多地关注 PHP，并为每个人都提供更快的网站和 web 服务。
 
 ## PHP 和 HHVM 测评（2018）
 
@@ -28,7 +28,7 @@
 *   **Docker 栈:** Debian 8, Nginx 1.13.8, MariaDB 10.1.31
 *   **PHP 引擎版本:** 5.6, 7.0, 7.1, 7.2
 *   **HHVM版本:** 3.24.2
-*   **OPCache:** 对于 WordPress， Joomla，和 Drupal，我们使用了官方的 Docker 镜像。对于其他的评测应用我们使用的是配置好了 OPcache 的 Docker 镜像。具体配置如下，参考了官方的 [php.ini 推荐设置](https://secure.php.net/manual/en/opcache.installation.php)。 
+*   **OPCache:** 对于 WordPress， Joomla，和 Drupal，我们使用了官方的 Docker 镜像。对于其他的评测应用，我们使用了与 OPcache 相同的镜像配置。OPcache 应用了如下的 [php.ini 推荐设置](https://secure.php.net/manual/en/opcache.installation.php)。 
 
 ```
 opcache.memory_consumption=128
@@ -49,15 +49,15 @@ opcache.enable_cli=1
 
 ### 什么是 PHP？
 
-PHP的全称是超文本预处理器（Hypertext Preprocessor）。它是目前 web 界最流行的脚本语言之一。根据 W3Techs 的调查结果，[超过 83% 的网站](https://w3techs.com/technologies/details/pl-php/all/all)使用了 PHP 作为它们的服务器端语言。
+PHP 的全称是超文本预处理器（Hypertext Preprocessor）。它是目前 web 界最流行的脚本语言之一。根据 W3Techs 的调查结果，[超过 83% 的网站](https://w3techs.com/technologies/details/pl-php/all/all)使用 PHP 作为它们的服务器端编程语言。
 
 ### 什么是 HHVM？
 
-纠结于 PHP 的性能问题，Facebook的团队开发了 HipHop Virtual Machine（[HHVM](https://hhvm.com/)）。这是一套使用了即时编译（JIT）技术来将 PHP 代码转换为机器语言并通过它在 PHP 代码和驱动代码的底层硬件之间建立协同关系的系统。
+由于 PHP 的性能问题，Facebook 开发了 HipHop Virtual Machine（[HHVM](https://hhvm.com/)）。它使用即时编译（JIT）技术来将 PHP 代码转换为机器语言，从而在 PHP 代码和驱动代码的底层硬件之间建立协同关系。
 
 ### 测试的平台和配置
 
-我们的测试涵盖了下面20个平台/配置。在一些平台上，因为缺少某些特殊 PHP 版本的支持，我们需要测试该平台多个版本的表现。点击下面任意一个链接你可以直接跳转到该平台的测试信息以及结果。数据以每秒的请求量进行衡量。这个数值越大越好。
+我们的测试涵盖了如下 20 个平台/配置。在一些平台上，因为缺少某些特殊 PHP 版本的支持，我们需要测试该平台多个版本的表现。点击下面任意一个链接你可以直接跳转到该平台的测试信息以及结果。数据以每秒的请求量进行衡量。这个数值越大越好。
 
 *   [WordPress 4.9.4](#wordpress-benchmarks)
 *   [WordPress 4.9.4 + WooCommerce 3.3.1](#wordpress-woocommerce-benchmarks)
@@ -79,11 +79,11 @@ PHP的全称是超文本预处理器（Hypertext Preprocessor）。它是目前 
 
 ## WordPress 4.9.4
 
-我们测试的第一个平台，理所当然应该是我们最喜欢的其中之一：[WordPress](https://wordpress.org/)（我们可能偏向于认为我们每天都在使用使用这个 CMS 系统 😉）。从它的核心来看，WordPress是一个你能用来建立精美的网站，博客或者App的开源软件。事实上，WordPress 驱动了互联网上[超过 29% 的网站](https://kinsta.com/wordpress-market-share/)。是的没错——你访问的每四个网站中就可能有超过一个是由 WordPress 驱动的。
+我们测试的第一个平台，理所当然应该是我们最喜欢的其中之一：[WordPress](https://wordpress.org/)（我们可能偏向于认为我们每天都在使用使用这个 CMS 系统 😉）。从它的核心来看，WordPress 是一个你能用来建立精美的网站，博客或者 App 的开源软件。事实上，WordPress 驱动了互联网上[超过 29% 的网站](https://kinsta.com/wordpress-market-share/)。是的，没错 — 你访问的每四个网站中就可能有超过一个是由 WordPress 驱动的。
 
 ![WordPress CMS](https://kinsta.com/wp-content/uploads/2018/02/wordpress-cms.png)
 
-对于 WordPress 的测评，我们选择了免费的 [Twenty Seventeen 主题](https://kinsta.com/blog/twenty-seventeen-theme/)。并使用了由 wptest.io 生成的测试内容，通过15个并发用户对主页的访问测试了1分钟。
+对于 WordPress 的测评，我们选择了免费的 [Twenty Seventeen 主题](https://kinsta.com/blog/twenty-seventeen-theme/)。并使用了由 wptest.io 生成的测试内容，通过 15 个并发用户对主页的访问测试了1分钟。
 
 *   文章数目：由 wptest.io 生成，10篇/页
 *   “搜索”是侧边栏唯一的菜单项目
@@ -101,7 +101,7 @@ WordPress 测试
 *   WordPress 4.9.4 **PHP 7.2 测试结果**: **148.80 req/sec 🏆**
 *   WordPress 4.9.4 HHVM 测试结果: 144.76 req/sec
 
-PHP 7.2 成为了赢家，证明了其比 HHVM 略微快了一点。对于我们的评测来说，这是一个象征性的改变。因为自从 2016 年开始，HHVM 就成为了无可置疑的赢家直到现在。此外，PHP 与 WordPress 的组合也要更加的稳定。在使用 HHVM 的过程中，我们遇到了许多直接的问题。
+PHP 7.2 成为了赢家，证明其比 HHVM 略快。这与 2016 年的基准相比有显著的变化，因为在 2016 年，HHVM 显然是赢家。WordPress 的 PHP 也更加稳定。在使用 HHVM 的过程中，我们亲身经历了很多问题。
 
 ## WordPress 4.9.4 + WooCommerce 3.3.1
 
@@ -127,7 +127,7 @@ WordPress + WooCommerce 测试
 *   WordPress 4.9.4 + WooCommerce 3.3.1 **PHP 7.2 测试结果:** **92.60 req/sec 🏆**
 *   WordPress 4.9.4 + WooCommerce 3.3.1 HHVM 测试结果: 69.58 req/sec
 
-WooCommerce struggled with HHVM，而 PHP 7.2 以一点小小的差距打败了 PHP 7.1。
+WooCommerce 在使用 HHVM 的过程中遇到了一些小问题，而 PHP 7.2 以微弱优势打败了 PHP 7.1。
 
 ## WordPress 4.9.4 + Easy Digital Downloads 2.8.18
 
@@ -157,13 +157,13 @@ PHP 7.2 在 WordPress 和 Easy Digital Downloads 的测试中，毫无疑问地�
 
 ### Drupal 8.4.4
 
-[Drupal](https://www.drupal.org/) 是一款因其模块系统和健壮的开发者社区而成名的开源 CMS 软件。它最初于 2000 年上线，根据 W3Techs 的数据，它驱动了互联网上 2.2% 的网站，而目前市面上的所有 CMS 系统仅占据了互联网 4.4% 的份额。
+[Drupal](https://www.drupal.org/) 是一款开源的 CMS，它以模块化的系统和强大的开发者社区而流行。它最初于 2000 年上线，根据 W3Techs 的数据，它支持了互联网上 2.2% 的网站，占据了 CMS 市场 4.4% 的份额。
 
 ![Drupal](https://kinsta.com/wp-content/uploads/2018/02/drupal-logo.png)
 
 对于 Drupal 的测评，我们使用了免费的 [Bartik 8.4.4 主题](https://github.com/pantheon-systems/drops-8/tree/master/core/themes/bartik)。值得注意的一点是 **Drupal 8.4.x 并不兼容 PHP 7.2** ([#2932574](https://www.drupal.org/project/drupal/issues/2932574))， 因此本次测试中并没有加入这个版本的 PHP 引擎。
 
-*   文章数目: 通过 Devel 模块生成了10篇
+*   文章数目: 通过 Devel 模块生成了 10 篇
 *   关闭了页缓存: [https://www.drupal.org/node/2598914](https://www.drupal.org/node/2598914)
 *   Docker 镜像派生自 [https://hub.docker.com/_/drupal/](https://hub.docker.com/_/drupal/)
 
@@ -281,7 +281,7 @@ October CMS 测试
 
 尽管有两个引擎没有得到支持，我们仍然可以看到 PHP 7.2 又一次胜出了。
 
-同时我们也很高兴地看到这些小型的 CMS 正在渐渐舍弃对老旧版本 PHP 的支持。尽管这是一个不那么大的好处。不幸的是当我们在讨论 WordPress 和其他占有大量市场份额的平台时，它们总是会因为兼容问题而没有那么快的进步。
+同时我们也很高兴地看到这些小型的 CMS 正在渐渐舍弃对老旧版本 PHP 的支持。尽管这是一个不那么大的好处。不幸的是当我们在讨论 WordPress 和其他占有大量市场份额的平台时，由于兼容性问题，一切进展缓慢。
 
 ### Laravel 5.4.36 + 5.6
 
@@ -468,7 +468,7 @@ Anchor CMS 测试
 *   Anchor CMS 0.12.6 PHP 7.2 测试结果: 561.73 req/sec
 *   Anchor CMS 0.12.6 HHVM 测试结果: 487.71 req/sec
 
-PHP 7.1 和 7.2 版本之间的测试结果相当接近。然后 PHP 7.1 版本还是以微弱的性能领先在我们的测试中战胜了 PHP 7.2。
+在我们的测试中，PHP 7.1 和 7.2 版本之间的测试结果相当接近。但 PHP 7.1 版本还是以微弱的性能优势领先。
 
 ### PrestaShop 1.7.2.4
 
@@ -557,9 +557,9 @@ Fork CMS 测试
 
 就像你很清晰地从上面所有测试中看到的一样，**PHP 7.2 在多个平台的性能上已经成为了领头羊**. 🏋
 
-*   PHP 7.2 是在上述 20 种测试配置中一共 14 次达到了最快的引擎。而这 20 种之中有两个是尚未支持 PHP 7.2 的（Drupal 和 Magento），所以理论上来说其实是 20 次中 16 次达到了顶峰。
+*   在上面测试的20种配置中，PHP 7.2 有 14 次是速度最快的引擎。其中还有两个（Drupal 和 Magento ）不支持PHP 7.2，所以这个比例可能高达 16/20。
 *   **而对于 WordPress 来说，PHP 7.2 是所有测试中最快的** (包含 WordPress 站点，WooCommerce，和 Easy Digital Downloads).
-*   在许多测试的结果中，你都可以轻易发现 PHP 新版本与性能提升是成正比的。这也是为什么定期规划好升级计划并针对你的站点，插件等进行测试显得那么重要。你的访问者和客户将会因为他们享受到的速度而感谢你！
+*   在许多基准测试结果中，你可以很轻易地发现 PHP 新版本与性能提升是成正比的。这也就是为什么测试你的站点、插件并坚持定期升级计划是如此的重要。你的访问者和客户将会因为他们享受到的速度而感谢你！
 *   如果你的空间提供商并没有提供新版本的 PHP，那你可能是时候要考虑进行迁移了。
 
 我们对于 PHP 7.2 感到十分兴奋，期待你也与我们一样！我们很乐意听到您对于我们的测评的看法或者是您的升级攻略，请将您想说的留在下方的评论中。
