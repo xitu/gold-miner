@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/how-switching-our-domain-structure-unlocked-international-growth.md](https://github.com/xitu/gold-miner/blob/master/TODO/how-switching-our-domain-structure-unlocked-international-growth.md)
 > * 译者：[Starrier](https://github.com/Starriers)
-> * 校对者：[anxsec](https://github.com/anxsec)、 [Xekin-FE](https://github.com/Xekin-FE)
+> * 校对者：[anxsec](https://github.com/anxsec)，[Xekin-FE](https://github.com/Xekin-FE)
 
 # 如何修改域名来提高国际增长率
 
