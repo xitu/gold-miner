@@ -4358,7 +4358,7 @@
 |[使用 Rust 开发一个简单的 Web 应用，第 2b 部分](https://juejin.im/post/5a8196716fb9a0635c0478d7)|翻译|6|
 |[使用 Rust 开发一个简单的 Web 应用，第 2a 部分](https://juejin.im/post/5a81961cf265da4e7f359e86)|翻译|5|
 |[使用 Rust 开发一个简单的 Web 应用，第 1 部分](https://juejin.im/post/5a673ba16fb9a01ca5609f35)|翻译|4|
-|[推荐多篇又秀英文文章]()|奖励|3|
+|[推荐多篇优秀英文文章]()|奖励|3|
 |[使用 Rust 来写原生 Node.js 模块](https://juejin.im/post/5a2b51bff265da4332277ee0)|翻译|5|
 |[如何禁用链接](https://juejin.im/post/5a240aa66fb9a0452577f06a)|校对|1|
 
