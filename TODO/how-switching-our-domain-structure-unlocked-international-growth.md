@@ -3,19 +3,19 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/how-switching-our-domain-structure-unlocked-international-growth.md](https://github.com/xitu/gold-miner/blob/master/TODO/how-switching-our-domain-structure-unlocked-international-growth.md)
 > * 译者：[Starrier](https://github.com/Starriers)
-> * 校对者：[anxsec](https://github.com/anxsec)
+> * 校对者：[anxsec](https://github.com/anxsec) [Xekin-FE](https://github.com/Xekin-FE)
 
 # 如何修改域名来提高国际增长率
 
 Christian Miranda | Growth 部门软件工程师
 
-在 Pinterest 上的 2 亿月活跃用户中，有一半以上在美国之外的地方使用我们的 app。为了给全球用户提供更好的服务，我们将持续改进 Pinterest。我们已经将流量转移到了国家代码顶级域名 (ccTLDs)。这方面的一个例子是服务于德国的是 [www.pinterest.de](http://www.pinterest.de) 而不是 [www.pinterest.com.](http://www.pinterest.com.) 这里我们将深入讨论这一变化如何帮助提高增长的细节，并讨论在整个过程中遇到的一些工程挑战。
+在 Pinterest 上的 2 亿月活跃用户中，其中有超过半数的用户在美国之外的地方使用我们的 app。为了给全球用户提供更好的服务，我们将持续改进 Pinterest。我们已经将流量转移到了国家代码顶级域名 (ccTLDs)。例如现在服务于德国的是 [www.pinterest.de](http://www.pinterest.de) 而不再是 [www.pinterest.com.](http://www.pinterest.com.) 这里我们将深入讨论如何帮助提高增长的细节，并讨论在整个过程中遇到的一些工程挑战。
 
 ### 一切尽在域名中
 
-Pinterest 自 2010 年成立以来，该网站的每一页都托管在 [www.pinterest.com.](http://www.pinterest.com.) 上。上线几年后，为了以国家划分我们的服务并为 Pinterest 提供本地化和相关体验，我们引进了 country 子域名 (如 de.pinterest.com)。这改善了搜索引擎的优化 (SEO) 和总体增长，因为国家子域名在全球搜索结果中排名更高，更多的人群发现了使用他们语言的相关内容。
+Pinterest 自 2010 年成立以来，该网站的每一页都托管在 [www.pinterest.com.](http://www.pinterest.com.) 上。上线几年后，为了让我们的内容可以按国家划分并为 Pinterest 提供本地化和相关体验，我们引进了 country 子域名 (如 de.pinterest.com)。这改善了搜索引擎的优化 (SEO) 和总体增长，因为国家子域名在全球搜索结果中排名更高，更多的人群发现了使用他们语言的相关内容。
 
-下一步是实现 ccTLDs。通过研究，我们了解到一些做出改变的网站所呈现中立或负面的增长，尽管业界对 ccTLDs 看法是它在许多搜索引擎算法中提供了一个更强烈的地理定位信号，用户可能会点击以本地域名结尾的结果（这会积极影响搜索排名以导致更高的的点击率）。我们想对它们进行测试，观察他们将如何作用于 Pinterest 和我们多样化的内容目录。
+下一步是实现 ccTLDs。通过调查，我们了解到一些做出改变的网站所呈现中立或负面增长的现象，尽管业界对 ccTLDs 看法是它在许多搜索引擎算法中提供了一个更强烈的地理定位信号，用户可能会点击以本地域名结尾的结果（这会积极影响搜索排名以导致更高的的点击率）。我们想对它们进行测试，观察他们将如何作用于 Pinterest 和我们多样化的内容目录。
 
 ### 不仅仅是重定向：切换域名的挑战
 
@@ -36,12 +36,12 @@ Pinterest 上的身份验证非常标准。我们有一个处理用户名/密码
 握手的一般流程是：
 
 1.在注册或登录期间，将从访问域 (例如，[www.pinterest.abc)](http://www.pinterest.abc%29) 调用 API 以确定身份验证状态。
-2.如果用户登录了 count ts.plnterest.com,他们将自动登录 [www.pinterest.abc.](http://www.pinterest.abc)。
-3.如果用户没有登录 Accounts.pintertst.com,我们将生成一个访问令牌，并在这两个域名上的 cookie 中设置它，这引导了域名中心的后续访问，因此可以进行第二步。 
+2.如果用户登录了 accounts.plnterest.com,他们将自动登录 [www.pinterest.abc.](http://www.pinterest.abc)。
+3.如果用户没有登录 accounts.pintertst.com,我们将生成一个访问令牌，并在这两个域名上的 cookie 中设置它，这引导了域名中心的后续访问，因此可以进行第二步。 
 
 第一步中存在一个问题：同源策略规定“只有当两个网页同源时，一个网页上的脚本才可以访问另一个网页上的数据。”这是互联网安全的支柱，也是阻止恶意网站上 JavaScript 访问个人或敏感信息的手段。在 auth 握手情况下，由于域名不匹配（例如 pinterest**.com** 和 pinterest**.abc**），Pinterest ccTLDs 无法与 accounts.pinterest.com 通信。
 
-为了解决这个问题，我们使用了跨域资源共享（CORS），它为 web 服务器提供跨域访问控制，以支持数据跨域传输安全。这是通过在数据传输中向 HTTP 请求和响应添加特定于 CORS 的头来完成的，并相应地处理它们。
+为了解决这个问题，我们使用了跨域资源共享（CORS），它为 web 服务器提供跨域访问控制，以支持数据跨域传输安全。这是通过在数据传输中向 HTTP 请求和响应添加 CORS 特定的（响应）头来完成的，并相应地处理它们。
 
 #### 在握手中使用 CORS
 
@@ -51,7 +51,7 @@ Pinterest 上的身份验证非常标准。我们有一个处理用户名/密码
 
 当请求到达服务器时，我们创建访问令牌，并在 accounts.pinterest.com 上进行用户身份验证。一旦用户登录，握手就会在响应中向客户端发回一个自定义令牌。此令牌可交换为 [www.pinterest.de](http://www.pinterest.de) 可用于身份验证的访问令牌。
 
-服务器跟踪所有 ccTLDs 用于身份验证的白名单。在返回响应之前，我们要检查 Origin request 报头值是否已经存在于白名单中。如果是这样，服务器将添加特殊的 CORS 响应报头。这些报头中最重要的是 Access-Control-Allow-Origin，该报头的存在将向客户端发出是否允许跨域传输的信号。
+服务器跟踪所有 ccTLDs 用于身份验证的白名单。在返回响应之前，我们要检查 Origin request 报头值是否已经存在于白名单中。如果是这样，服务器将添加特殊的 CORS 响应报头。这些报头中最重要的是 Access-Control-Allow-Origin，该报头的存在将向客户端发出是否允许跨域传输的询问信息。
 
 ![](https://cdn-images-1.medium.com/max/800/0*3AzyMrdmfwNNLXux.)
 
@@ -59,7 +59,7 @@ Pinterest 上的身份验证非常标准。我们有一个处理用户名/密码
 
 ![](https://cdn-images-1.medium.com/max/800/0*p3ob8BR1Q6b4vY72.)
 
-您可以在[ Mozilla 官方文档](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)中阅读到更多关于跨域资源共享和这些请求所涉及的完整报头集的内容。
+您可以在[ Mozilla 官方文档](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)中阅读到更多关于跨域资源共享和这些请求所涉及的所有抱头内容。
 
 #### 通过 SEO 提高可发现性
 
