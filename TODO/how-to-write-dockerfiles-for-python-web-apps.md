@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/how-to-write-dockerfiles-for-python-web-apps.md](https://github.com/xitu/gold-miner/blob/master/TODO/how-to-write-dockerfiles-for-python-web-apps.md)
 > * 译者：[lsvih](https://github.com/lsvih)
-> * 校对者：[Starriers](https://github.com/Starriers)
+> * 校对者：[Starriers](https://github.com/Starriers), [steinliber](https://github.com/steinliber)
 
 # 为 Python Web App 编写 Dockerfiles
 
@@ -15,7 +15,7 @@
 
 *   使用合适的基础镜像（开发环境使用 debian，生产环境使用 alpine）。
 *   在开发时使用 `gunicorn` 进行热加载。
-*   优化 Docker 的 cache layer（缓存层）—— 按照正确的顺序使用命令，仅在需要时运行 `pip install`。
+*   优化 Docker 的 cache layer（缓存层）—— 按照正确的顺序使用命令，仅在必要时运行 `pip install`。
 *   使用 `flask` 的 static 及 template 目录部署静态文件（比如 React、Vue、Angular 生成的 bundle）。
 *   使用 `alpine` 进行生产环境下的多级构建，减少最终镜像文件的大小。
 *   \#彩蛋 — 在开发时可以用 gunicorn 的 `--reload` 与 `--reload_extra_files` 监视文件（包括 html、css 及 js）的修改。
@@ -25,7 +25,7 @@
 ### 内容
 
 1.  简单的 Dockerfile 与 .dockerignore
-2.  使用 gunicorn 实现热更新
+2.  使用 gunicorn 实现热加载
 3.  运行一个单文件 python 脚本
 4.  部署静态文件
 5.  生产环境中的直接构建
@@ -144,7 +144,7 @@ docker run -it --rm --name single-python-script -v "$PWD":/app -w /app python:3 
 
 ### 4. 部署静态文件
 
-上面的 Dockerfile 假定了你是使用 Python 运行 API 服务器。如果你想用 Python 为 React.js、Vue.js、Angular.js app 提供服务，可以使用 Flask。Flask 为渲染静态文件提供了一种便捷的方式：html 文件放在 `templates` 目录中，css、js 及图片放在 `static` 目录中。
+上面的 Dockerfile 假定了你是使用 Python 运行一个 API 服务器。如果你想用 Python 为 React.js、Vue.js、Angular.js app 提供服务，可以使用 Flask。Flask 为渲染静态文件提供了一种便捷的方式：html 文件放在 `templates` 目录中，css、js 及图片放在 `static` 目录中。
 
 请[在此 repo](https://github.com/praveenweb/python-docker/tree/master/static_app) 中查看简单的 hello world 静态 app 的目录结构。
 
