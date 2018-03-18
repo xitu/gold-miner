@@ -682,11 +682,11 @@ body {
 
 ![](https://cdn-images-1.medium.com/max/800/1*HmDLDbOPHpEE2F8x4aSDYA.png)
 
-So, let’s go ahead and handle the update from JavaScript.
+让我们继续前进，解决在 JavaScript 中更新属性值的问题。
 
 #### 进入 JavaScript
 
-I’ll go ahead and spit out all the JavaScript needed for this project.
+我将直接把这个项目所需的全部 JavaScript 展示出来。
 
 ```
 const root = document.documentElement
@@ -809,7 +809,7 @@ themeBtns.forEach((btn) => {
 3.  将 `color-boxes` 容器定位到中间
 4.  给 `color-boxes` 容器添加样式
 
-Let’s knock these off.
+让我们把这些任务都完成。
 
 以下代码会完成第一步。
 
@@ -1060,7 +1060,7 @@ perspective() 函数应用于 3D 空间内旋转的元素。它激活了三维�
 
 这些奇怪的东西是什么？
 
-首先， nth-child 选择器用来选择子盒子。
+首先，nth-child 选择器用来选择子盒子。
 
 ![](https://cdn-images-1.medium.com/max/800/1*T5oqa3Kh5ChIcgi5ldqXKg.png)
 
@@ -1213,7 +1213,7 @@ function handleInputChange (e) {
 
 ![](https://cdn-images-1.medium.com/max/600/1*Bb085Ip_NKnPDVY7g3lL3g.png)
 
-[购买电子书](https://gum.co/lwaUh) 可以线上阅读, 还能获得 **私人的** slack 邀请，你可以问我任何问题。
+[购买电子书](https://gum.co/lwaUh) 可以线上阅读, 还能获得 **私人的** slack 邀请，你可以向我咨询任何问题。
 
 这是个公平交易，对吧？
 
