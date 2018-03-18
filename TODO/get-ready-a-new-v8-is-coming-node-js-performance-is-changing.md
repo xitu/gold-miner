@@ -2,12 +2,12 @@
 > * 原文作者：[Node.js Foundation](https://medium.com/@nodejs?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/get-ready-a-new-v8-is-coming-node-js-performance-is-changing.md](https://github.com/xitu/gold-miner/blob/master/TODO/get-ready-a-new-v8-is-coming-node-js-performance-is-changing.md)
-> * 译者：[Starriers](https://github.com/Starriers)
-> * 校对者：[ClarenceC](https://github.com/ClarenceC)
+> * 译者：[Starrier](https://github.com/Starriers)
+> * 校对者：[ClarenceC](https://github.com/ClarenceC)、[moods445](https://github.com/moods445)
 
 # 做好准备：新的 V8 即将到来，Node.js 的性能正在改变。
 
-本文由 [David Mark Clements](https://twitter.com/davidmarkclem) 和 [Matteo Collina](https://twitter.com/matteocollina) 共同撰写，负责校对的是来自 V8 团队的 [Franziska Hinkelmann](https://twitter.com/fhinkel) 和 [Benedikt Meurer](https://twitter.com/bmeurer)。起初，这个故事被发表在 [nearForm 的 blog 板块](https://www.nearform.com/blog/node-js-is-getting-a-new-v8-with-turbofan/)。在 7 月 27 日开始发表的时候就已经有一些编辑人员了。编辑人员在文章中有提及。
+本文由 [David Mark Clements](https://twitter.com/davidmarkclem) 和 [Matteo Collina](https://twitter.com/matteocollina) 共同撰写，负责校对的是来自 V8 团队的 [Franziska Hinkelmann](https://twitter.com/fhinkel) 和 [Benedikt Meurer](https://twitter.com/bmeurer)。起初，这个故事被发表在 [nearForm 的 blog 板块](https://www.nearform.com/blog/node-js-is-getting-a-new-v8-with-turbofan/)。在 7 月 27 日文章发布以来就做了一些修改，文章中对这些修改有所提及。
 
 **更新：Node.js 8.3.0 将会和** [**Turbofan 一起发布在 V8 6.0 中**](https://github.com/nodejs/node/pull/14594) 。**用** `**NVM_NODEJS_ORG_MIRROR=https://nodejs.org/download/rc nvm i 8.3.0-rc.0**` **来验证应用程序**
 
@@ -29,7 +29,7 @@
 
 我们将在 V8 5.1、5.8、5.9、6.0 和 6.1 中查看微基准测试下它们的性能。
 
-将上述每个版本都放在上下文中：V8 5.1 是 Node 6 使用的引擎，并使用 Crankshaft JIT 编译器，V8 5.8 是 Node 8.0 至 8.2 的引擎，并混合使用 Crankshaft **和** Turbofan。
+将上述每个版本都放在上下文中：V8 5.1 是 Node 6 使用的引擎，使用了 Crankshaft JIT 编译器，V8 5.8 是 Node 8.0 至 8.2 的引擎，混合使用了 Crankshaft **和** Turbofan。
 
 目前，5.9 和 6.0 引擎将在 Node 8.3（也可能是 Node 8.4）中，而 V8 6.1 是 V8 最新版本 (在编写本报告时)，它在 node-v8 仓库 [https://github.com/nodejs/node-v8.](https://github.com/nodejs/node-v8.) 的实验分支中与 Node 集成。换句话说，V8 6.1 版本将在后继 Node 版本中使用。
 
@@ -62,9 +62,9 @@
 
 多年来，`delete` 已经限制了很多希望编写出高性能 JavaScript 的人（至少是我们试图为热路径编写最优代码的地方）。
 
- `delete` 的问题归结于 V8 在原生 JavaScript 对象的动态性质以及（可能也是动态的）原型链的处理方式上。这使得查找在实现级别上的属性查找更加复杂。 
+ `delete` 的问题归结于 V8 在原生 JavaScript 对象的动态性质以及（可能也是动态的）原型链的处理方式上。这使得查找在实现层面上的属性查询更加复杂。 
 
-V8 引擎快速生成属性对象的技术是基于对象的“形状”在 c++ 层创建类。形状本质上是属性所具有的键、值（包括原型链键值）。这些被称为“隐藏类”。但是这是在运行时对对象进行优化，如果对象的类型不确定，V8 有另一种属性检索的模型：hash 表查找。hash 表的查找速度很慢。历史上， 当我们从对象中 `delete`  一个键时，后续属性访问将查找 hash 表。 这是我们避免使用  `delete`  而将属性设置为  `undefined` 以防止在检查属性是否已经存在时，导致结果与值相同的问题的产生的原因。 但对于预序列化已经足够了，因为  `JSON.stringify` 输出中不包含 `undefined`  (`undefined` 不是 JSON 规范中的有效值) 。
+V8 引擎快速生成属性对象的技术是基于对象的“形状”在 c++ 层创建类。形状本质上是属性所具有的键、值（包括原型链键值）。这些被称为“隐藏类”。但是这是在运行时对对象进行优化，如果对象的类型不确定，V8 有另一种属性检索的模型：hash 表查找。hash 表的查找速度很慢。历史上， 当我们从对象中 `delete`  一个键时，后续的属性访问将是一个 hash 查找。 这是我们避免使用  `delete`  而将属性设置为  `undefined` 以防止在检查属性是否已经存在时，导致结果与值相同的问题的产生的原因。 但对于预序列化已经足够了，因为  `JSON.stringify` 输出中不包含 `undefined`  (`undefined` 不是 JSON 规范中的有效值) 。
 
 现在，让我们看看更新 Turbofan 实现是否解决了 `delete` 问题。
 
@@ -80,7 +80,7 @@ V8 引擎快速生成属性对象的技术是基于对象的“形状”在 c++ 
 
 在 V8 6.0 和 6.1 (尚未在任何 Node 发行版本中使用)中，Turbofan 会创建一个删除最后一个添加到对象中的属性的快捷方式，因此会比设置 `undefined` 更快。这是好消息，因为它表明 V8 团队正努力提高 `delete` 的性能。然而，如果从对象中删除了一个不是最近添加的属性， `delete` 操作仍然会对属性访问的性能带来显著影响。因此，我们仍然不推荐使用 `delete`。
 
-**编辑: 在之前版本的帖子中，我们得出结论 `_delete_` 可以也应该在未来的 Node.js 中使用。但是 [_Jakob Kummerow_](http://disq.us/p/1kvomfk) 告诉我们，我们的基准测试只触发了最后一次属性访问的情况。感谢 [_Jakob Kummerow_](http://disq.us/p/1kvomfk)!**
+**编辑: 在之前版本的帖子中，我们得出结论 `**elete**` 可以也应该在未来的 Node.js 中使用。但是 [_Jakob Kummerow_](http://disq.us/p/1kvomfk) 告诉我们，我们的基准测试只触发了最后一次属性访问的情况。感谢 [_Jakob Kummerow_](http://disq.us/p/1kvomfk)!**
 
 ### 显式并且数组化 `ARGUMENTS`
 
@@ -88,7 +88,7 @@ V8 引擎快速生成属性对象的技术是基于对象的“形状”在 c++ 
 
 为了使用数组方法或大多数数组行为，`arguments` 对象的索引属性已被复制到数组中。在过去 JavaScripters 更倾向于将 **less code**和 **faster code** 相提并论。虽然这一经验规则对浏览器端代码产生了有效负载大小的好处，但可能会对在服务器端代码大小远不如执行速度重要的情况造成困扰。因此将`arguments` 对象转换为数组的一种诱人的简洁方案变得相当流行： `Array.prototype.slice.call(arguments)`。调用数组 `slice` 方法将 `arguments` 对象作为该方法的`this` 上下文传递, `slice` 方法从而将对象看做数组一样。也就是说，它将整个参数数组对象作为一个数组来分割。
 
-然而当一个函数的隐式 `arguments` 对象从函数上下文中暴露出来（例如，当它从函数返回或者像 `Array.prototype.slice.call(arguments)` 传递到另一个函数时）导致性能下降。 现在是时候验证这个假设了。
+然而当一个函数的隐式 `arguments` 对象从函数上下文中暴露出来（例如，当它从函数返回或者像 `Array.prototype.slice.call(arguments)`时，会传递到另一个函数时）导致性能下降。 现在是时候验证这个假设了。
 
 下一个微基准测量了四个 V8 版本中两个相互关联的主题：`arguments` 泄露的成本和将参数复制到数组中的成本 (随后 函数作用域代替了 `arguments` 对象暴露出来).
 
@@ -109,7 +109,7 @@ V8 引擎快速生成属性对象的技术是基于对象的“形状”在 c++ 
 
 要点如下：如果我们想要将函数输入作为一个数组处理，写在高性能代码中 (在我的经验中似乎相当普遍)，在 Node 8.3 及更高版本应该使用 spread 运算符。在 Node 8.2 及更低版本应该使用 for 循环将键从 `arguments` 复制到另一个新的(预分配) 数组中 (详情请参阅基准代码)。
 
-在 Node 8.3+ 之后的版本中，我们不会因为将 `arguments`对象暴露给其他函数而受到惩罚， 因此我们不需要完整数组并可以以使用类似数组结构的情况下，性能可能会有更大的提高。
+在 Node 8.3+ 之后的版本中，我们不会因为将 `arguments`对象暴露给其他函数而受到惩罚， 因此我们不需要完整数组并可以以使用类似数组结构的情况下，可能会有更大的性能优势。
 
 ### 部分应用 (CURRYING) 和绑定
 
@@ -147,16 +147,16 @@ console.log(add10(20))
 
 *   函数调用另一个第一个参数部分应用的函数 (**curry**)
 *   箭头函数 (**箭头函数**)
-*  通过 `bind` 部分应用另一个函数的第一个参数创建的函数 (**bind**)。
-*  直接调用一个没有任何部分应用的函数 (**直接调用**)
+*   通过 `bind` 部分应用另一个函数的第一个参数创建的函数 (**bind**)。
+*   直接调用一个没有任何部分应用的函数 (**直接调用**)
 
 **代码：** [https://github.com/davidmarkclements/v8-perf/blob/master/bench/currying.js](https://github.com/davidmarkclements/v8-perf/blob/master/bench/currying.js)
 
 ![](https://cdn-images-1.medium.com/max/800/0*diYza234QpDdYolV.png)
 
-基准测试结果的可视化线性图清楚地说明了这些方法在 V8 或者更高版本中是如何合并的。有趣的是，使用箭头函数的部分应用比使用普通函数要快（至少在我们微基准情况下）。事实上它跟踪了直接调用的性能特性。在 V8 5.1 (Node 6) 和 5.8（Node 8.0–8.2）中 `bind` 的速度显然很慢，使用箭头函数进行部分应用是最快的选择。然而 `bind` 速度比 V8 5.9 (Node 8.3+) 提高了一个数量级，成为 6.1 (Node 后继版本). 中最快的方法( 几乎可以忽略不计) 。
+基准测试结果的可视化线性图清楚地说明了这些方法在 V8 或者更高版本中是如何合并的。有趣的是，使用箭头函数的部分应用比使用普通函数要快（至少在我们微基准情况下）。事实上它跟踪了直接调用的性能特性。在 V8 5.1 (Node 6) 和 5.8（Node 8.0–8.2）中 `bind` 的速度显然很慢，使用箭头函数进行部分应用是最快的选择。然而 `bind` 速度比 V8 5.9 (Node 8.3+) 提高了一个数量级，成为 6.1 (Node 后继版本) 中最快的方法( 几乎可以忽略不计) 。
 
-使用箭头函数是克服所有版本的最开方法。后续版本中使用箭头函数的代码将偏向于使用 `bind` ，因为它比普通函数更快。但是，作为警告，我们可能需要研究更多具有不同大小的数据结构的部分应用类型来获取更全面的情况。
+使用箭头函数是克服所有版本的最快方法。后续版本中使用箭头函数的代码将偏向于使用 `bind` ，因为它比普通函数更快。但是，作为警告，我们可能需要研究更多具有不同大小的数据结构的部分应用类型来获取更全面的情况。
 
 ### 函数字符数
 
@@ -172,11 +172,11 @@ console.log(add10(20))
 
 ![](https://cdn-images-1.medium.com/max/800/0*zqsOxnfdkDWMHYY0.png)
 
-在 V8 5.1 (Node 6) 中，**sum small function** 和 **long all together** 是一样的。这完美阐释了内联是如何工作的。当我们调用小函数时，就好像 V8 将小函数的内容写到了调用它的地方。因此当我们实际编写函数的内容  (即使添加了额外的注释填充）, 我们已经手动内联了这些操作，并且性能相同。 我们在 V8 5.1 (Node 6) 可以发现，调用一个包含注释的函数会使其超过一定大小，从而导致执行速度变慢。
+在 V8 5.1 (Node 6) 中，**sum small function** 和 **long all together** 是一样的。这完美阐释了内联是如何工作的。当我们调用小函数时，就好像 V8 将小函数的内容写到了调用它的地方。因此当我们实际编写函数的内容  (即使添加了额外的注释填充）时, 我们已经手动内联了这些操作，并且性能相同。在 V8 5.1 (Node 6) 中，我们可以再次发现，调用一个包含注释的函数会使其超过一定大小，从而导致执行速度变慢。
 
 在 Node 8.0–8.2 (V8 5.8) 中，除了调用小函数的成本显著增加外，情况基本相同。这可能是由于 Crankshaft 和 Turbofan 元素混合在一起，一个函数在 Crankshaft 另一个可能 Turbofan 中导致内联功能失调。(即必须在串联内联函数的集群间跳转)。
 
-在 5.9 及更高版本（Node 8.3+）中，由不相关字符（如空格或注释）添加的任何大小都不会影响函数性能。这是因为 Turbofan 使用函数 AST ([Abstract Syntax Tree](https://en.wikipedia.org/wiki/Abstract_syntax_tree) 节点数来确定函数大小，而不是想在 Crankshaft 中那样使用字符计数。它不检查函数的字节计数，而是考虑函数的实际指令，因此 V8 5.9 (Node 8.3+)之后 **空格, 变量名字符数, 函数名和注释不再是影响函数是否内联的因素。**
+在 5.9 及更高版本（Node 8.3+）中，由不相关字符（如空格或注释）添加的任何大小都不会影响函数性能。这是因为 Turbofan 使用函数 AST ([Abstract Syntax Tree](https://en.wikipedia.org/wiki/Abstract_syntax_tree) 节点数来确定函数大小，而不是像在 Crankshaft 中那样使用字符计数。它不检查函数的字节计数，而是考虑函数的实际指令，因此 V8 5.9 (Node 8.3+)之后 **空格, 变量名字符数, 函数名和注释不再是影响函数是否内联的因素。**
 
 值得注意的是，我们再次看到函数的整体性能下降。
 
@@ -229,7 +229,7 @@ console.log(add10(20))
 
 ![](https://cdn-images-1.medium.com/max/800/0*okwut-5U3KjXn4ab.png)
 
-在 Node 6 (V8 5.1) 和 Node 8.0–8.2 (V8 5.8) 中，遍历对象的键然后访问值使用  `for`-`in` 是迄今为止最快的方法。4 千万 op/s 比下一个接近 `Object.keys`  的方法，大约 8 百万 op/s 快了近5倍。
+在 Node 6 (V8 5.1) 和 Node 8.0–8.2 (V8 5.8) 中，遍历对象的键然后访问值使用  `for`-`in` 是迄今为止最快的方法。4 千万 op/s 比下一个接近 `Object.keys`  的方法（大约 8 百万 op/s）快了近5倍。
 
 在 V8 6.0 (Node 8.3) 中 `for`-`in` 发生了改变，它降低至之前版本速度的四分之三，但仍然比任何方法速度都快。
 
