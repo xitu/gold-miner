@@ -2972,10 +2972,11 @@
 |[同中有异的 Webpack 与 Rollup](https://juejin.im/post/58edb865570c350057f199a7)|校对|1|
 |[webpack 拾翠：充分利用 CommonsChunkPlugin()](https://juejin.im/post/58ec4e3f5c497d0062c470bf)|校对|1|
 
-## 译者：[yoyoyohamapi](https://github.com/yoyoyohamapi) 历史贡献积分：89 当前积分：54
+## 译者：[yoyoyohamapi](https://github.com/yoyoyohamapi) 历史贡献积分：89 当前积分：9 年度积分：23.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[2018 年 3 月兑小猫 3 个]()|减去积分|45|
 |[嵌套三元表达式棒极了（软件编写）（第十四部分）](https://juejin.im/post/5a7d6769f265da4e7e10ad82)|翻译|3.5|
 |[Object Composition 中的宝藏](https://juejin.im/post/5a648ed0518825733201b818)|翻译|6|
 |[现代浏览器是如何提升性能的：网络层](https://juejin.im/post/5a70755df265da3e283a4e5d)|翻译|7|
@@ -3434,10 +3435,11 @@
 |[如何处理机器学习中的不平衡类别](https://juejin.im/post/596f150551882549980c5f56)|翻译|6|
 |[开发者眼中 iOS 11 都更新了什么？](https://juejin.im/post/595f1f2c5188250d8a605d69)|校对|3|
 
-## 译者：[h2o-2](https://github.com/H2O-2) 历史贡献积分：19 当前积分：19
+## 译者：[H2O-2](https://github.com/H2O-2) 历史贡献积分：19 当前积分：4 年度积分：0
 
 |文章|类型|积分|
 |------|-------|-------|
+|[2018 年 3 月兑小猫 1 个]()|减去积分|15|
 |[自定义 Babel 和 ESLint 插件是如何提高生产率与用户体验的](https://juejin.im/post/599519e06fb9a02499759f71)|翻译|5|
 |[Web 端的下一代三维图形](https://juejin.im/post/5983208c5188253c6f2d185d)|校对|2|
 |[在 CSS 中使用特征查询](https://juejin.im/post/58eb3004ac502e006c45454b)|校对|2|
@@ -4109,10 +4111,11 @@
 |------|-------|-------|
 |[Vue Report 2017](https://juejin.im/post/5a138fae5188254d28732899)|翻译|4|
 
-## 译者：[PCAaron](https://github.com/PCAaron) 历史贡献积分：18.5 当前积分：18.5
+## 译者：[PCAaron](https://github.com/PCAaron) 历史贡献积分：18.5 当前积分：6.5 年度积分：6
 
 |文章|类型|积分|
 |------|-------|-------|
+|[2018 年 3 月兑 T 恤 1 个、比特币 1 个]()|减去积分|12|
 |[Object Composition 中的宝藏](https://juejin.im/post/5a648ed0518825733201b818)|校对|2|
 |[迎接新的 Dialog 元素](https://juejin.im/post/5a66cc165188257342170802)|校对|1|
 |[2018 前端性能优化清单 - 第 4 部分](https://juejin.im/post/5a62aa686fb9a01c91407a0b)|校对|3|
@@ -4225,10 +4228,11 @@
 |[JavaScript 如何工作的: 事件循环和异步编程的崛起 + 5 个关于如何使用 async/await 编写更好的技巧](https://juejin.im/post/5a221d35f265da43356291cc)|翻译|10|
 |[JavaScript 如何工作：在 V8 引擎里 5 个优化代码的技巧](https://juejin.im/post/5a102e656fb9a044fd1158c6)|翻译|7|
 
-## 译者：[tvChan](https://github.com/tvChan) 历史贡献积分：36.5 当前积分：36.5
+## 译者：[tvChan](https://github.com/tvChan) 历史贡献积分：36.5 当前积分：2.5 年度积分：18.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[2018 年 3 月兑小猫 1 个、GitHub 贴纸 pack3 一个、掘金笔记本 1 个和比特币 3 个]()|减去积分|34|
 |[保持 webpack 快速运行的诀窍：一本提高构建性能的现场指导手册](https://juejin.im/post/5a6adc6d5188257350517033)|校对|3|
 |[2018 前端性能优化清单——第一部分](https://juejin.im/post/5a67e49df265da3e377c2d59)|翻译|8|
 |[漫画图解 JavaScript 引擎： let jsCartoons = ‘Awesome’;](https://juejin.im/post/5a582b13f265da3e355aff46)|校对|1.5|
@@ -4721,10 +4725,11 @@
 |[如何打造以人为本的移动游戏](https://juejin.im/post/5a61663b518825732f7ecd2a)|校对|2|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|4|
 
-## 译者：[pthtc](https://github.com/pthtc) 历史贡献积分：36.5 当前积分：26.5 年度积分：36.5
+## 译者：[pthtc](https://github.com/pthtc) 历史贡献积分：36.5 当前积分：21.5 年度积分：36.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[2018 年 3 月兑杯子 1 个]()|减去积分|5|
 |[2018 年 2 月兑 T 恤 1 个]()|减去积分|10|
 |[使用 SVG 符号和 CSS 变量实现多彩图标](https://juejin.im/post/5a8409e06fb9a063342672b6)|翻译|6|
 |[游戏即服务的五条建议，提升游戏变现能力](https://juejin.im/post/5a7a95cbf265da4e8700b34b)|翻译|6|
@@ -4736,10 +4741,11 @@
 |[断点：像专家一样调试代码](https://juejin.im/post/5a72be42518825733b0f374e)|翻译|3|
 |[17 个 Xcode 小技巧，每个 iOS 开发者都该知道](https://juejin.im/post/5a7198ac51882573505189c8)|翻译|3|
 
-## 译者：[ryouaki](https://github.com/ryouaki) 历史贡献积分：32 当前积分：32 年度积分：32
+## 译者：[ryouaki](https://github.com/ryouaki) 历史贡献积分：32 当前积分：2 年度积分：32
 
 |文章|类型|积分|
 |------|-------|-------|
+|[2018 年 3 月兑小猫 2 个]()|减去积分|30|
 |[Facebook 的 AI 万金油：StarSpace 神经网络模型简介](https://juejin.im/post/5a83af7c6fb9a0633c661404)|校对|3|
 |[自主权身份简介](https://juejin.im/post/5a818d535188257a7f1da91b)|校对|2|
 |[JavaScript 中的私有变量](https://juejin.im/post/5a8e9b6d5188257a5f1ed826)|校对|1|
