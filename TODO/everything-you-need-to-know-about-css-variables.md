@@ -445,7 +445,7 @@ p { background-color: var(--color); }
 
 当你自己写声明是，情况就不一样了。
 
-### Be Careful While Building Single Tokens
+### 使用单独符号时要小心
 
 当你用下面这种方式来设置属性值时，`20px` 则会按照单独符号来解析。
 
@@ -605,47 +605,47 @@ div {
 
 我们来看看。
 
-Just before that, I wanted to mention that this example is quite important. With this example, I’ll introduce the concept of updating CSS variables with JavaScript.
+在此之前，我想提醒你，这个示例非常重要。通过这个示例我将引导你理解使用 JavaScript 更新 CSS 变量的思想。
 
-It is fun!
+非常好玩！
 
-You’ll love it.
+你会爱上它的！
 
-### What we really want to do.
+### 我们究竟想做什么。
 
-The beauty of CSS variables is their reactive nature . As soon as they are updated, whatever property has the value of the CSS variable gets updated as well.
+CSS 变量的美在于其本质是响应式的。一旦 CSS 变量更新了，任意带有 CSS 变量的属性的值也都会随之更新。
 
-Conceptually, here’s an image that explains the process with regards to the example at hand.
+从概念上讲，下面这张图解释了这个示例的过程。
 
 ![](https://cdn-images-1.medium.com/max/800/1*ZONC-xXCXnGc8nr_QMv8rg.png)
 
-The process.
+过程。
 
-So, we need some JavaScript for the click listener.
+因此，我们需要给点击事件监听器写一些 JavaScript 代码。
 
-For this simple example, the background and color of the text of the entire page is based off of CSS variables.
+在这个简单的示例里，文本与页面的颜色和背景色都是基于 CSS 变量的。
 
-When you click any of the buttons above, they set the CSS variable to some other color. As a result of that, the background of the page is updated.
+当你点击页面上方的按钮时，JavaScript 会将 CSS 变量中的颜色切换成别的颜色，页面的背景色也就随之更新。
 
-Hey, that’s all there is to it.
+这就是全部了。
 
-Uh, one more thing.
+还有一件事。
 
-When I say the CSS variable is set to some other value, how’s that done?
+当我说 CSS 变量切换成别的颜色时，是怎么做到的呢？
 
 ![](https://cdn-images-1.medium.com/max/800/1*FeTfEPsJuDQNGDuZQQBIew.png)
 
-Set the variable inline.
+行内设置变量。
 
-CSS variables will take effect even if they are set inline. With JavaScript, we get a hold of the root document, and we set the new value for the CSS variable inline.
+即时是在行内设置，CSS 变量也会生效。在 JavaScript 中，我们控制了文档的根节点，然后就可以在行内给 CSS 变量设置新的值了。
 
-Got that?
+明白了吗？
 
-That’s a lot of talking — let’s do the real thing.
+我们说了太多了，现在该干些实际的了。
 
-### The initial markup
+### 结构初始化
 
-The initial markup needed is this:
+初始化结构是这样的：
 
 ```
 <div class="theme">
@@ -659,15 +659,15 @@ The initial markup needed is this:
 </article>
 ```
 
-The markup consists of three buttons within a `.theme` parent element. To keep things short I have truncated the content within the `article` element. Within this `article` element is the content of the page.
+结构中有三个父元素为 `.theme` 的按钮元素。为了看起来尽可能简短，我将 `article` 元素内的内容截断了。`article` 元素内就是页面的内容。
 
-### Styling the Page
+### 设置页面样式
 
-The success of this project begins with the styling of the page. The trick is simple.
+项目的成功始于页面的样式。这个技巧非常简单。
 
-Instead of just setting the `background-color` and `color` of the page in stone, we will set them based on variables.
+我们设置页面样式的 `background-color` 和 `color` 是基于变量的，而不是写死的属性值。
 
-Here’s what I mean.
+这就是我说的：
 
 ```
 body {
@@ -676,15 +676,15 @@ body {
 }
 ```
 
-The reason for this is kind of obvious. Whenever a button is clicked, we will change the value of both variables within the document.
+这么做的原因显而易见。无论何时按钮被点击，我们都会改变文档中两个变量的值。
 
-Upon this change, the overall style of the page will be updated. Easy-peasy.
+根据变量值的改变，页面的整体样式也就随之更新。小菜一碟。
 
 ![](https://cdn-images-1.medium.com/max/800/1*HmDLDbOPHpEE2F8x4aSDYA.png)
 
 So, let’s go ahead and handle the update from JavaScript.
 
-#### Getting into the JavaScript
+#### 进入 JavaScript
 
 I’ll go ahead and spit out all the JavaScript needed for this project.
 
@@ -714,17 +714,17 @@ function handleThemeUpdate(e) {
 }
 ```
 
-Don’t let that scare you. It’s a lot easier than you probably think.
+不要被这段代码吓到，它比你想象的要简单。
 
-First off, keep a reference to the root element, `const root = document.documentElement`
+首先，保存一份对根节点的引用， `const root = document.documentElement`
 
-The root element here is the `HTML` element. You’ll see why this is important in a bit. If you’re curious, it is needed to set the new values of the CSS variables.
+这里的根节点就是 `HTML` 元素。你很快就会明白为什么这很重要。如果你很好奇的话，我可以先告诉你一点，给 CSS 变量设置新值时需要根节点。
 
-Also, keep a reference to the buttons too, `const themeBtns = document.querySelectorAll('.theme > button')`
+同样地，保存一份对按钮的引用， `const themeBtns = document.querySelectorAll('.theme > button')`
 
-`querySelectorAll` yields an array-like data structure we can loop over. Iterate over each of the buttons and add an event listener to them, upon click.
+`querySelectorAll` 生成的数据是可以进行遍历的类数组结构。遍历按钮，然后给按钮设置点击事件监听。
 
-Here’s how:
+这里是怎么做：
 
 ```
 themeBtns.forEach((btn) => {
@@ -732,43 +732,43 @@ themeBtns.forEach((btn) => {
 })
 ```
 
-Where’s the `handleThemeUpdate` function? I’ll discuss that next.
+`handleThemeUpdate` 函数去哪了？我们接下来就会讨论这个函数。
 
-Every button being clicked will have the `handleThemeUpdate` as its callback function. It becomes important to note what button was clicked and then perform the right operation.
+每个按钮被点击后，都会调用回调函数 `handleThemeUpdate`。因此知道是哪个按钮被点击以及后续该执行什么正确操作很重要。
 
-In the light of that, a switch `operator` is used, and some operations are carried out based on the value of the button being clicked.
+鉴于此，我们使用了 switch `操作符`，基于被点击的按钮的值来执行不同的操作。
 
-Go ahead and take a second look at the block of JavaScript code. You’ll understand it a lot better now.
+接下来再看一遍这段 JavaScript 代码，你会理解地更好一些。
 
-### Project 3: Building the CSS Variable Booth 🤣
+### 项目 3： 构建 CSS 变量展位
 
-In case you missed it, here’s what we’ll build:
+避免你错过它，这是我们即将构建的项目：
 
 ![](https://cdn-images-1.medium.com/max/800/1*E6H-wT6a0BDR9OJK7Z0dTA.gif)
 
-Remember that the color of the boxes are dynamically updated, and that the box container is rotated in 3d space as the range input is changed.
+请记住盒子的颜色是动态更新的，以及盒子容器是随着输入范围值的变化进行 3D 旋转的。
 
 ![](https://cdn-images-1.medium.com/max/800/1*iy_MjZVlp-H0KUQa7H7fUg.gif)
 
-You can go ahead and play with it on [Codepen](https://codepen.io/ohansemmanuel/full/EoBLgd/).
+你可以直接在 [Codepen](https://codepen.io/ohansemmanuel/full/EoBLgd/) 上玩一下这个项目。
 
-This is a superb example of updating CSS variables with JavaScript and the reactivity that comes with it.
+这是使用 JavaScript 更新 CSS 变量以及随之而来的响应式特性的绝佳示例。
 
-Let’s see how to build this.
+让我们来看看如何来构建。
 
-#### The Markup
+#### 结构
 
-Here are the needed components.
+以下是所需的组件。
 
-1.  A range input
-2.  A container to hold the instructions
-3.  A section to hold a list of other boxes, each containing input fields
+1.  一个范围输入框
+2.  一个装载使用说明文字的容器
+3.  一个装载盒子列表的 section，每个盒子包含输入框
 
 ![](https://cdn-images-1.medium.com/max/800/1*39k9sbEsldtRtJ1-Woq0rQ.png)
 
-The markup turns out simple.
+结构变得很简单。
 
-Here it is:
+以下就是：
 
 ```
 <main class="booth">
@@ -793,25 +793,25 @@ Here it is:
 </main>
 ```
 
-Here are a few things to point your attention to.
+以下几件事需要注意。
 
-1.  The range input represents values from `-50` to `50` with a step value of `5` Also, the value of the range input is the minimum value, `-50`
-2.  If you aren’t sure how the range input works, check it out on [w3schools](https://www.w3schools.com/jsref/dom_obj_range.asp)
-3.  Note how the section with class `.color-boxes` contains other `.color-box` containers. Within these containers exist input fields.
-4.  It is perhaps worth mentioning that the first input has a default value of red.
+1.  范围输入代表了从 `-50` 到 `50` 范围的值，step 值为 `5`。因此范围输入的最小值就是 `-50`
+2.  如果你并不确定范围输入是否可以运行，可以在 [w3schools](https://www.w3schools.com/jsref/dom_obj_range.asp) 上检查以下
+3.  注意类名为 `.color-boxes` 的 section 是如何包含其它 `.color-box` 容器的。这些容器中包含输入框。
+4.  第一个输入框有默认值为 red。
 
-Having understood the structure of the document, go ahead and style it like so:
+理解了文档结构后，给它添加样式：
 
 ![](https://cdn-images-1.medium.com/max/800/1*LbgNgLeTjACXCfDBExkqgg.png)
 
-1.  Take the `.slider` and `.instructions` containers out of the document flow. Position them absolutely.
-2.  Give the `body` element a sunrise background color and garnish the background with a flower in the bottom left corner
-3.  Position the `color-boxes` container in the center
-4.  Style the `color-boxes` container
+1.  把 `.slider` 和 `.instructions` 设置为脱离文档流，将它们的 position 设置为 absolute
+2.  将 `body` 元素的背景色设置为日出的颜色，并在左下角用花朵作装饰
+3.  将 `color-boxes` 容器定位到中间
+4.  给 `color-boxes` 容器添加样式
 
 Let’s knock these off.
 
-The following will fix the first task.
+以下代码会完成第一步。
 
 ```
 /* Slider */
@@ -840,13 +840,13 @@ The following will fix the first task.
 }
 ```
 
-The code snippet isn’t as complex as you think. I hope you can read through and understand it. If not, drop a comment or tweet.
+这段代码并不像你想的那般复杂。希望你能通读一遍并能读懂，如果没有的话，可以留下评论或者发个 twitter。
 
-Styling the `body` is a little more involved. Hopefully, you understand CSS well.
+给 `body` 添加样式会涉及到更多内容，希望你足够了解 CSS。
 
-Since we aspire to style the element with a background color and a background image, it’s perhaps the best bet to use the `background` shorthand property to set multiple backgrounds.
+既然我们想用背景颜色和背景图来设置元素的样式，那么使用 `background` 简写属性设置多个背景属性可能是最佳选择。
 
-Here it is:
+就是这样的：
 
 ```
 body {
@@ -857,29 +857,29 @@ body {
 }
 ```
 
-The `url` bit is the link to the sunrise flower.
+`url` 是向日葵图片的链接。
 
-The next set of properties `0 100%` represent the background position of the image.
+接下来设置的 `0 100%` 代表图片在背景中的位置。
 
-Here’s an illustration of how CSS background positioning works:
+这个插图展示了 CSS 的 background position 属性是如何工作的：
 
 ![](https://cdn-images-1.medium.com/max/800/1*uFlBKNdQ-FOcZ-XaACi4uA.png)
 
-From: [the advanced guide to CSS](http://bit.ly/learn_css)
+来自于： [CSS 进阶指南](http://bit.ly/learn_css)
 
 ![](https://cdn-images-1.medium.com/max/800/1*NOPEnEV_H2RB8XYFxEcFpA.png)
 
-From: [the advanced guide to CSS](http://bit.ly/learn_css)
+来自于： [CSS 进阶指南](http://bit.ly/learn_css)
 
-The other bit after the forward slash represents the `background-size` This has been set to `340px` If you made this smaller, the image would be smaller too.
+正斜杠后面的代表 `background-size` 被设置为 `340px`，如果将它设置得更小的话，图片也会变得更小。
 
-`no-repeat`, you might figure out what that does. It prevents the background from repeating itself.
+`no-repeat`，你可能已经猜到它是做什么的。它避免背景图片自我复制，铺满背景。
 
-Finally, anything that comes after the comma is a second background declaration. This time we’ve only set the `background-color` to `var(primary-color)`
+最后，跟在逗号后面的是第二个背景属性声明。这一次，我们仅仅将 `background-color` 设置为 `var(primary-color)`
 
-Oops, that’s a variable.
+哇，这是个变量。
 
-The implication of this is that you have to define the variable. Here’s how:
+这意味着你必须定义变量。 就是这样：
 
 ```
 :root {
@@ -887,9 +887,9 @@ The implication of this is that you have to define the variable. Here’s how:
 }
 ```
 
-The primary color there is the sunrise yellow color. No big deal. We’ll set some more variables in there soon.
+这里讲主题色设置为日出黄。没什么大问题。马上，我们就会在这里设置更多的变量。
 
-Now, let’s center the `color-boxes`
+现在，我们将 `color-boxes` 定位到中间
 
 ```
 main.booth {
@@ -901,11 +901,11 @@ main.booth {
 }
 ```
 
-The main container acts as a flex container and rightly positions the direct child in the center of the page. This happens to be our beloved `color-box` container
+主容器充当 flex 容器，它的子元素会正确地被定位到页面中间。也就是说我们的 `color-box` 容器会被定位到页面中间。
 
-Let’s make the color-boxes container and its children elements pretty.
+我们把 color-boxes 以及它的子元素容器变得更好看一些。
 
-First, the child elements:
+首先，是子容器：
 
 ```
 .color-box {
@@ -917,9 +917,9 @@ First, the child elements:
 }
 ```
 
-That will do it. There’s a beautiful shadow added too. That’ll get us some cool effects.
+这就加上了好看的阴影，使得效果更酷炫了。
 
-That is not all. Let’s style the overall `container-boxes` container:
+还没结束，我们给整体的 `container-boxes` 容器加上样式：
 
 ```
 /* Color Boxes */
@@ -933,13 +933,13 @@ That is not all. Let’s style the overall `container-boxes` container:
 }
 ```
 
-Oh my!
+哇！
 
-There’s a lot in there.
+变得太复杂了。
 
-Let me break it down.
+去掉一些。
 
-Here’s the simple bit:
+变得简单点：
 
 ```
 .color-boxes {
@@ -949,9 +949,9 @@ Here’s the simple bit:
 }
 ```
 
-You know what that does, huh?
+你知道效果会变成什么样，对吧？
 
-There’s a new variable in there. That should be taken of by adding it to the root selector.
+这里有个新变量，需要在根元素中声明添加进来。
 
 ```
 :root {
@@ -960,9 +960,9 @@ There’s a new variable in there. That should be taken of by adding it to the r
 }
 ```
 
-The secondary color is red. This will give the container a red background.
+第二个颜色是红色，我们会给容器加上红色的背景。
 
-Now to the part that probably confused you:
+接下来这部分可能会让你觉得难以理解：
 
 ```
 /* Color Boxes */
@@ -972,72 +972,72 @@ Now to the part that probably confused you:
 }
 ```
 
-For a moment, we could simplify the value of the transform property above.
+又是我们会将 transform 的属性值简写成上面这样。
 
 ![](https://cdn-images-1.medium.com/max/800/1*oNaNYDRDRZPSEga9Oo4bPw.png)
 
-For example:
+举个例子：
 
 ```
 transform: perspective(500px) rotateY( 30deg);
 ```
 
-The transform shorthand applies two different functions. One, the perspective, and the other, the rotation along the Y axis.
+这个 transform 简写用了两个不同的函数。一个是角度，另一个是沿着 Y 轴旋转。
 
-Hmmm, so what’s the deal with the `perspective` and `rotateY` functions?
+那么 `perspective` 函数 和 `rotateY` 函数是做什么的呢？
 
-The perspective() function is applied to an element that is being transformed in 3D space. It activates the three dimensional space and gives the element depth along the z-axis.
+perspective() 函数应用于 3D 空间内旋转的元素。它激活了三维空间，并沿 z 轴给出元素的深度。
 
-You can read more about the perspective function on [codrops](https://tympanus.net/codrops/css_reference/transform/#section_perspective).
+可以在 [codrops](https://tympanus.net/codrops/css_reference/transform/#section_perspective) 上阅读更多有关 perspective 的知识。
 
-The `rotateY` function, what’s the deal with that?
+`rotateY` 函数是干什么的？
 
-Upon activation the 3d space, the element has the planes x, y, z. The `rotateY` function rotates the element along the `Y` plane.
+激活三维空间后，元素具有了 x，y，z 平面。`rotateY` 就是元素沿着 `Y` 平面旋转。
 
-The following diagram from [codrops](https://tympanus.net/codrops/css_reference/transform/#section_rotate3d) is really helpful for visualizing this.
+下面这个 [codrops](https://tympanus.net/codrops/css_reference/transform/#section_rotate3d) 的图对于视觉化理解很有帮助。
 
 ![](https://cdn-images-1.medium.com/max/800/1*kFdzSl4wwyPJt_Crmbtuow.png)
 
 [Codrops](https://tympanus.net/codrops/css_reference/transform/#section_rotate3d)
 
-I hope that blew off some of the steam.
+我希望这能让你更明白一些。
 
-Back to where we started.
+回到之前的话题。
 
 ![](https://cdn-images-1.medium.com/max/800/1*oNaNYDRDRZPSEga9Oo4bPw.png)
 
-When you move the slider, do you know what function affects the rotation of the `.container-box`?
+当你回到这里，你知道哪个函数影响 `.container-box` 的旋转了吗？
 
-It’s the rotateY function being invoked. The box is rotated along the Y axis.
+是 rotateY 函数使得盒子沿着 Y 周旋转。
 
-Since the value passed into the rotateY function will be updated via JavaScript, the value is represented with a variable.
+由于传入 rotateY 函数的值将被 JavaScript 更新，这个值也将通过变量来传入。
 
 ![](https://cdn-images-1.medium.com/max/800/1*oL_Ik1Xg_ByTc28g2B1ESg.png)
 
-So, why multiply by the variable by 1deg?
+为什么要给变量乘上 1deg？
 
-As a general rule of thumb, and for explicit freedom, it is advised that when building single tokens, you store values in your variables without units.
+作为一般的经验法则，为了显式地更灵活，建议在构建单独符号时变量中储存没有单位的值。
 
-You can convert them to any unit you want by doing a multiplication via the `calc` function.
+通过 `calc` 函数，你可以用乘法将它们转化成任何单位。
 
 ![](https://cdn-images-1.medium.com/max/800/1*jsB27oUUYY48n3s9wAmd_Q.png)
 
-This allows you to do ‘whatever’ you want with these values when you have them. Want to convert to `deg` or as a ratio of the user’s viewport `vw` , you can whatever you want.
+这意味着你可以为所欲为。将作为比例的 `deg` 转换为视窗单位 `vw` 也可以。
 
-In this case, we are converting the number to have a degree by multiplying the “number” value by 1deg
+在这个场景中，我们通过 “数字” 乘上 1deg 将数字转换成角度
 
 ![](https://cdn-images-1.medium.com/max/800/1*5j1qhUmE2pB99qw17Zp4iA.png)
 
-Since CSS doesn’t understand math, you have to pass this arithmetic into the calc function to be properly evaluated by CSS.
+由于 CSS 不懂数学，你需要将公式传入 calc 函数，这样 CSS 才能正确计算。
 
-Once that is done, we’re good to go. The value of this variable can be updated in JavaScript as much as we like.
+完成之后我们就可以继续了。我们可以在 JavaScript 中用各种方法来更新它。
 
-Now, there’s just one bit of CSS remaining.
+现在，只剩下一点点的 CSS 代码需要写了。
 
-Here it is:
+就是这些：
 
 ```
-/* Handle colors for each color box */
+/* 给每个盒子添加颜色 */
 .color-box:nth-child(1) {
   background: var(--bg-1)
 }
@@ -1058,15 +1058,15 @@ Here it is:
 }
 ```
 
-So, what’s this voodoo?
+这些奇怪的东西是什么？
 
-First off, the nth-child selector selects each of the child boxes.
+首先， nth-child 选择器用来选择子盒子。
 
 ![](https://cdn-images-1.medium.com/max/800/1*T5oqa3Kh5ChIcgi5ldqXKg.png)
 
-There’s a bit of foresight needed here. We know we will be updating the background color of each box. We also know that this background color has to be represented by a variable so it is accessible via JavaScript. Right?
+这里需要一些前瞻。我们知道，每个盒子的背景色都会更新。我们也知道背景色需要用变量表示，以在 JavaScript 中更新。对吧？
 
-We could go ahead and do this:
+接下来：
 
 ```
 .color-box:nth-child(1) {
@@ -1074,13 +1074,13 @@ We could go ahead and do this:
 }
 ```
 
-Easy.
+简单吧。
 
-There’s one problem though. If this variable isn’t present, what happens?
+这里有个问题。如果变量不存在的话怎么办？
 
-We need a fallback.
+我们一个回退方式。
 
-This works:
+这是可行的：
 
 ```
 .color-box:nth-child(1) {
@@ -1088,29 +1088,29 @@ This works:
 }
 ```
 
-In this particular case, I have chosen NOT to provide any fallbacks.
+在这个特殊实例中，我选择**不提供**任何回退方式。
 
-If a variable used within a property value is invalid, the property will take on its initial value.
+如果某个属性值中使用的变量非法，属性将使用其初始值。
 
-Consequently, when `--bg-1` is invalid or NOT available, the background will default to its initial value of transparent.
+因此，当 `--bg-1` 非法或者不可用时，背景色会默认切换成它的初始颜色或者透明。
 
-Initial values refer to the values of a property when they aren’t explicitly set. For example, if you don’t set the `background-color` of an element, it will default to `transparent`
+初始值指向属性还未显式设置时的值。比如说，如果你没有给元素设置 `background-color` 属性的话，它的背景色会默认为 `transparent`
 
-Initial values are kind of default property values.
+初始值是一种默认属性值。
 
-### Let’s write some JavaScript
+### 写点 JavaScript
 
-There’s very little we need to do on the JavaScript side of things.
+在 JavaScript 这一边需要做的事情很少。
 
-First let’s handle the slider.
+首先要处理一下 slider。
 
-We just need 5 lines for that!
+仅仅五行代码就可以！
 
 ```
 const root = document.documentElement
 const range = document.querySelector('.booth-slider')
 
-//as slider range's value changes, do something
+// 一旦 slider 的范围值发生变化，就执行回调
 range.addEventListener('input', handleSlider)
 
 function handleSlider (e) {
@@ -1119,15 +1119,15 @@ function handleSlider (e) {
 }
 ```
 
-That was easy, huh?
+这很简单，对吧？
 
-Let me explain just in case I lost you.
+我来解释一下。
 
-First off, keep a reference to the slider element, `const range = document.querySelector('.booth-slider')`
+首先，保存一份 slider 元素的引用，`const range = document.querySelector('.booth-slider')`
 
-Set up an event listener for when the value of the range input changes, `range.addEventListener('input', handleSlider)`
+设置一个事件监听器，一旦范围输入值发生变化就会触发，`range.addEventListener('input', handleSlider)`
 
-Write the callback, `handleSlider`
+写一个回调函数， `handleSlider`
 
 ```
 function handleSlider (e) {
@@ -1138,18 +1138,18 @@ function handleSlider (e) {
 
 ![](https://cdn-images-1.medium.com/max/800/1*bQwZp0psRdiNn2harZW-HQ.png)
 
-`root.style.setProperty('--slider', value)` says, get the `root` element (HTML) , grab its style, and set a property on it.
+`root.style.setProperty('--slider', value)` 的意思是获取 `root` 元素（HTML），读取它的样式，并给它设置属性。
 
-### Handling the color changes
+### 处理颜色变化
 
-This is just as easy as handling the slider value change.
+这与处理 slider 值的变化一样简单。
 
-Here’s how:
+这么做就可以：
 
 ```
 const inputs = document.querySelectorAll('.color-box > input')
 
-//as the value in the input changes, do something.
+// 一旦输入值发生变化，执行回调
 inputs.forEach(input => {
   input.addEventListener('input', handleInputChange)
 })
@@ -1162,9 +1162,9 @@ function handleInputChange (e) {
 }
 ```
 
-Keep a reference to all the text inputs, `const inputs = document.querySelectorAll('.color-box > input')`
+保存一份所有文本输入的引用， `const inputs = document.querySelectorAll('.color-box > input')`
 
-Set up an event listener on all the inputs:
+给每个输入框加上事件监听：
 
 ```
 inputs.forEach(input => {
@@ -1172,7 +1172,7 @@ inputs.forEach(input => {
 })
 ```
 
-Write the `handleInputChange` function:
+写 `handleInputChange` 函数：
 
 ```
 function handleInputChange (e) {
@@ -1185,39 +1185,39 @@ function handleInputChange (e) {
 
 ![](https://cdn-images-1.medium.com/max/800/1*A3e4duLT1V1-8_NqVF1DGg.png)
 
-Phew…
+嗯……
 
-That’s it!
+就是这些！
 
-Project’s done.
+项目完成了。
 
-### How did I miss this?
+### 我遗漏了什么？
 
-I had completed and edited the initial draft of this article when I noticed I didn’t mention browser support anywhere. So, let me fix my mess.
+当我完成并修改了初稿后才发现我没有提到浏览器支持。那让我来处理这个烂摊子。
 
-Browser support for CSS variables (aka custom properties) isn’t bad at all. It’s pretty good, with decent support across all modern browsers (over 87% at the time of this writing).
+对于 CSS 变量的（又名自定义属性）浏览器支持并不差。 浏览器支持性非常好，基本所有的现代浏览器都支持良好（本文写作时已超过 87%）。
 
 ![](https://cdn-images-1.medium.com/max/800/1*JdhBIufk2SvuY-8U2POD8g.png)
 
 [caniuse](https://caniuse.com/#search=css%20var)
 
-So, can you use CSS variables in production today? I’ll say yes! Be sure to check what the adoption rate is for yourself, though.
+那么，你可以在生产环境使用 CSS 变量吗？当然可以！但是你自己还是要检查一下普及率。
 
-On the bright side, you can use a preprocessor like [Myth](http://www.myth.io). It’ll preprocess your ‘future’ CSS into something you use today. How cool, huh?
+好的一面是，你可以使用像 [Myth](http://www.myth.io) 这样的预处理器来使用 CSS 变量。它将“未来的” CSS 预编译成现在你就可以使用的代码，是不是很赞？
 
-If you have some experience using [postCSS](http://postcss.org), that’s equally a great way to use future CSS today. Here’s a [postCSS module for CSS variables](https://www.npmjs.com/package/postcss-css-variables).
+如果你有使用 [postCSS](http://postcss.org) 的经验， 这也同样是一个好方法。这是 [postCSS 的 CSS 变量模块](https://www.npmjs.com/package/postcss-css-variables)。
 
-That’s it. I’m done here.
+就这些，我已全部写完。
 
-### Oops, but I’ve got Questions!
+### 不好，我遇到了问题！
 
 ![](https://cdn-images-1.medium.com/max/600/1*Bb085Ip_NKnPDVY7g3lL3g.png)
 
-[Get the Ebook](https://gum.co/lwaUh) for offline reading, and also get a **private** slack invite where you can ask me anything.
+[购买电子书](https://gum.co/lwaUh) 可以线上阅读, 还能获得 **私人的** slack 邀请，你可以问我任何问题。
 
-That’s a fair deal, right?
+这是个公平交易，对吧？
 
-Catch you later! 💕
+稍后联系！ 💕
 
 
 ---
