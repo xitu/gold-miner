@@ -121,7 +121,7 @@ CDN 允许您利用分布在世界各地的一组代理服务器，无论您的�
 
 一些流行的 CDNs 包括 [CloudFront](https://aws.amazon.com/cloudfront/) 和 [CloudFlare](https://www.cloudflare.com/lp/ddos-a/?_bt=157293179478&_bk=cloudflare&_bm=e&_bn=g&gclid=CjwKCAiA_c7UBRAjEiwApCZi8Ri3kAEt3UraYPUFUQOMTG0Xz7WGCNRUri0UNtCOUAdUMJI8osxuDRoCTx8QAvD_BwE).
 
-### Miscellaneous
+### 其他方法
 
 这里有些能让您有所收获的内容：
 
