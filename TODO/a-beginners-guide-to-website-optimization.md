@@ -2,7 +2,7 @@
 > * 原文作者：[Mario Hoyos](https://medium.freecodecamp.org/@mariohoyos?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/a-beginners-guide-to-website-optimization.md](https://github.com/xitu/gold-miner/blob/master/TODO/a-beginners-guide-to-website-optimization.md)
-> * 译者：
+> * 译者：[Starrier](https://github.com/Starriers)
 > * 校对者：
 
 # 网站优化初学者指南
