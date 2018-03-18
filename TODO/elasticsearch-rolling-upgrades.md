@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/rolling-upgrades.md](https://github.com/xitu/gold-miner/blob/master/TODO/elasticsearch-rolling-upgrades.md)
 > * 译者：code4j
-> * 校对者：
+> * 校对者：[Xekin-FE](https://github.com/Xekin-FE),[ClarenceC](https://github.com/ClarenceC)
 
 # Elasticsearch 滚动升级
 
