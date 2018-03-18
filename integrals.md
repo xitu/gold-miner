@@ -2819,10 +2819,11 @@
 |[你正在阅读的用户体验文章是不是在向你进行推销？](https://juejin.im/post/58d4c501a22b9d00645544d9)|校对|2|
 |[震惊，还可以用这种姿势学习编程](https://juejin.im/post/58d3ebd4128fe1006cb43722)|翻译|3|
 
-## 译者：[lsvih](https://github.com/lsvih) 历史贡献积分：230.5 当前积分：189.5 年度积分：23
+## 译者：[lsvih](https://github.com/lsvih) 历史贡献积分：232.5 当前积分：191.5 年度积分：25
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TensorFlow 官方文档翻译校对](https://github.com/xitu/tensorflow/)|翻译|2|
 |[一份为 Node.js 应用准备的 Dockerfile 指南](https://juejin.im/post/5a9626abf265da4e9d225f4f)|翻译|5|
 |[在 Swift playground 中编写单元测试](https://juejin.im/post/5a8e66276fb9a0633c661f3f)|翻译|2|
 |[为 Flask Web 应用配置 Nginx](https://juejin.im/post/5a795febf265da4e94499949)|翻译|7|
@@ -4133,10 +4134,11 @@
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|1|
 |[Vue Report 2017](https://juejin.im/post/5a138fae5188254d28732899)|翻译|2|
 
-## 译者：[JohnJiangLA](https://github.com/JohnJiangLA) 历史贡献积分：71 当前积分：11 年度积分：37
+## 译者：[JohnJiangLA](https://github.com/JohnJiangLA) 历史贡献积分：79 当前积分：19 年度积分：45
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|校对|8|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译校对|8|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译校对|19|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|10|
@@ -4648,10 +4650,11 @@
 |[开发者也是用户 - 简介](https://juejin.im/post/5a6536e6518825734216ff06)|校对|1|
 |[智对订阅难点：教你如何应对工作中 10 种常见订阅问题](https://juejin.im/post/5a406644f265da430d583cb7)|校对|1.5|
 
-## 译者：[pkuwwt](https://github.com/pkuwwt) 历史贡献积分：77 当前积分：32 年度积分：70
+## 译者：[pkuwwt](https://github.com/pkuwwt) 历史贡献积分：92 当前积分：47 年度积分：85
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|15|
 |[2018 年 2 月兑 树莓派套餐 1 个]()|减去积分|45|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译校对|25|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|45|
