@@ -2,20 +2,20 @@
 > * 原文作者：[TailorDev](https://tailordev.fr)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/automated-npm-releases-with-travis-ci.md](https://github.com/xitu/gold-miner/blob/master/TODO/automated-npm-releases-with-travis-ci.md)
-> * 译者：
+> * 译者：[Starrier](https://github.com/Starriers)
 > * 校对者：
 
 # 使用 Travis CI 自动发布 npm 
 
-在 [n 注册表](https://www.npmjs.com/) 发布一个包应该是很无聊的，在这篇博客中，我描述了如何设置 [Travis CI](https://travis-ci.org/) 来在每个 git 标签上发布 npm 包。
+在 [npm 注册表](https://www.npmjs.com/)发布一个包应该是很无聊的，在这篇博客中，我描述了如何设置 [Travis CI](https://travis-ci.org/) 来在每次布 npm 包时使用 git 标签。
 
 ![使用 Travis CI 自动发布 npm](/img/post/2018/03/automated-npm-releases.png "Automated npm releases with Travis CI")
 
-在 TailorDev,我们喜欢自动化构建软件所需的许多重要步骤。其中一个步骤是发布最终的，即可生产的应用程序包，也称为工件或者包 。今天，我们关注于 JavaScript 世界，描述如何不花费太大心血而在 npm 注册表中实现包的自动化发布过程。
+在 TailorDev，我们喜欢自动化构建软件所需的许多重要步骤。其中一个步骤是发布最终的，即可生产的应用程序包，也称为工件或者包 。今天，我们关注于 JavaScript 世界，描述如何不花费太大心血而在 npm 注册表中实现包的自动化发布过程。
 
-首先，npm 在 2017 年推出了 [双因素认证](https://docs.npmjs.com/getting-started/using-two-factor-authentication) (简称 2FA)，这是一个很好的想法，直到我们发现了它是“全部或者没有” ![:confused:](https://assets.github.com/images/icons/emoji/unicode/1f615.png ":confused:")。事实上, npm 2FA 依赖于[一次性密码](https://en.wikipedia.org/wiki/One-time_password)来保护账户与您账户相关的所有内容，并自动实现这一功能，从而无法实现 2FA 的功能。
+首先，npm 在 2017 年推出了 [双因素认证](https://docs.npmjs.com/getting-started/using-two-factor-authentication) (简称 2FA)，这是一个很好的想法，直到我们发现了它是“全部或者没有” ![:confused:](https://assets.github.com/images/icons/emoji/unicode/1f615.png ":confused:")。事实上, npm 2FA 依赖于[一次性密码](https://en.wikipedia.org/wiki/One-time_password)来保护账户以及与您账户相关的所有内容，并自动实现这一功能，从而无法实现 2FA 的功能。
 
-**但是为什么这会如此重要呢？**我很高兴您会这么问，因为我们在续集中需要一个 API 令牌，而且目前不可能在不触发 2FA 机制的情况下生成和使用令牌。换句话说，启用 2FA，几乎不可能自动化 npm 发布过程，“几乎”是因为 npm实现了[双级别身份认证](https://docs.npmjs.com/getting-started/using-two-factor-authentication#levels-of-authentication): `auth-only`  和 `auth-and-writes`。通过将 2FA 的使用限制在 `auth-only` 上，我们就可以使用 API 令牌，但安全性较低。我们真的希望 npm 可以在不久的将来为自动化任务设计的 auth 令牌，同时：
+**但是为什么这会如此重要呢？**我很高兴您会这么问，因为我们在续集中需要一个 API 令牌，而且目前不可能在不触发 2FA 机制的情况下生成和使用令牌。换句话说，启用 2FA，几乎不可能自动化 npm 发布过程，“几乎”是因为 npm 实现了[双级别身份认证](https://docs.npmjs.com/getting-started/using-two-factor-authentication#levels-of-authentication): `auth-only`  和 `auth-and-writes`。通过将 2FA 的使用限制在 `auth-only` 上，我们就可以使用 API 令牌，但安全性较低。我们真的希望 npm 可以在不久的将来为自动化任务设计的 auth 令牌，同时：
 
 ```
 $ npm profile enable-2fa auth-only
@@ -81,7 +81,7 @@ jobs:
           tags: true
 ```
 
-让我们一行一行地分析。首先，当且仅当 `IS 标签纯在`时，我们“加入”一个新的 npm 发布阶段，这意味着构建已经被 git 标记触发。我们选择 node `8` (我们的生产版本) 并执行 `yarn compile` 来构建我们的包。此脚本会创建包含可以在 npm 注册表上发布包文件的 `dist/` 文件夹。最后但并非最不重要的一点是，我们调用 Travis CI `deploy` 命令在 npm 注册表实际发布包（同时我们将此命令限制为 git 标记，仅作为额外的保护层）。
+让我们一行一行地分析。首先，当且仅当 `IS 标签存在`时，我们“加入”一个新的 npm 发布阶段，这意味着构建已经被 git 标记触发。我们选择 node `8` (我们的生产版本) 并执行 `yarn compile` 来构建我们的包。此脚本会创建包含可以在 npm 注册表上发布包文件的 `dist/` 文件夹。最后但并非最不重要的一点是，我们调用 Travis CI `deploy` 命令在 npm 注册表来实际发布包（同时我们将此命令限制为 git 标记，仅作为额外的保护层）。
 
 注意：为了防止 Travis CI 在发布之前清理任何其他文件并进行更改，必须将 `skip_cleanup` 设置为 `true`。 
 
