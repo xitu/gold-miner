@@ -44,7 +44,7 @@ Web 技术发展是非常快的，在此我很高兴地报告 **现在 CSS 支�
 
 可能你已经看过这个项目了。我会向你展示使用 CSS 变量来定制全站主题有多么容易。
 
-![](https://cdn-images-1.medium.com/max/800/1*r2TrlsC-gWRD5Hu6Tp2gjQ.gif)
+![](https://cdn-images-1.medium.com/max/1600/1*r2TrlsC-gWRD5Hu6Tp2gjQ.gif)
 
 使用 CSS 变量定制全站主题。
 
@@ -54,13 +54,13 @@ Web 技术发展是非常快的，在此我很高兴地报告 **现在 CSS 支�
 
 这是最后一个项目了，不要在意这个项目名，我想不出更好的名字了。
 
-![](https://cdn-images-1.medium.com/max/800/1*E6H-wT6a0BDR9OJK7Z0dTA.gif)
+![](https://cdn-images-1.medium.com/max/1600/1*E6H-wT6a0BDR9OJK7Z0dTA.gif)
 
 盒子的颜色是动态更新的。
 
 请注意盒子的颜色是如何动态更新的，以及盒子容器是如何随着输入范围值的变化进行 3D 旋转的。
 
-![](https://cdn-images-1.medium.com/max/800/1*iy_MjZVlp-H0KUQa7H7fUg.gif).
+![](https://cdn-images-1.medium.com/max/1600/1*iy_MjZVlp-H0KUQa7H7fUg.gif).
 
 这个项目展示了使用 JavaScript 更新 CSS 变量的便利性，从中你还会尝到响应式编程的甜头。
 
@@ -421,7 +421,7 @@ body {
 
 请注意不要在你的代码中引入循环依赖。
 
-### What Happens with Invalid Variables?
+### 使用非法变量会怎样？
 
 语法错误机制已被废弃，非法的 `var()` 会被默认替换成属性的初始值或继承的值。
 
@@ -599,7 +599,7 @@ div {
 
 下面是我写的一个简单示例：
 
-![](https://cdn-images-1.medium.com/max/800/1*r2TrlsC-gWRD5Hu6Tp2gjQ.gif)
+![](https://cdn-images-1.medium.com/max/1600/1*r2TrlsC-gWRD5Hu6Tp2gjQ.gif)
 
 使用 CSS 变量来实现有多么容易呢？
 
@@ -744,11 +744,11 @@ themeBtns.forEach((btn) => {
 
 避免你错过它，这是我们即将构建的项目：
 
-![](https://cdn-images-1.medium.com/max/800/1*E6H-wT6a0BDR9OJK7Z0dTA.gif)
+![](https://cdn-images-1.medium.com/max/1600/1*E6H-wT6a0BDR9OJK7Z0dTA.gif)
 
 请记住盒子的颜色是动态更新的，以及盒子容器是随着输入范围值的变化进行 3D 旋转的。
 
-![](https://cdn-images-1.medium.com/max/800/1*iy_MjZVlp-H0KUQa7H7fUg.gif)
+![](https://cdn-images-1.medium.com/max/1600/1*iy_MjZVlp-H0KUQa7H7fUg.gif)
 
 你可以直接在 [Codepen](https://codepen.io/ohansemmanuel/full/EoBLgd/) 上玩一下这个项目。
 
