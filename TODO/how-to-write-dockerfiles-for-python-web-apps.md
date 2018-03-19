@@ -16,7 +16,7 @@
 *   使用合适的基础镜像（开发环境使用 debian，生产环境使用 alpine）。
 *   在开发时使用 `gunicorn` 进行热加载。
 *   优化 Docker 的 cache layer（缓存层）—— 按照正确的顺序使用命令，仅在必要时运行 `pip install`。
-*   使用 `flask` 的 static 及 template 目录部署静态文件（比如 React、Vue、Angular 生成的 bundle）。
+*   使用 `flask` 的 static 及 template 目录部署静态文件（比如 React、Vue、Angular 生成的 bundle）。
 *   使用 `alpine` 进行生产环境下的多级构建，减少最终镜像文件的大小。
 *   \#彩蛋 — 在开发时可以用 gunicorn 的 `--reload` 与 `--reload_extra_files` 监视文件（包括 html、css 及 js）的修改。
 
@@ -245,7 +245,7 @@ CMD ["gunicorn", "--config", "./gunicorn_app/conf/gunicorn_config.py", "gunicorn
 
 使用上面的方法，用 Alpine 构建的镜像文件大小约 90MB，比之前少了 8 倍。使用 `alpine` 版本进行构建能有效减小镜像的大小。
 
-**注意：** 上面的 Dockerfiles 是为 `python 3` 编写的，你可以只做少数修改就能将其改为 `python 2` 版本。如果你要部署的是 `django` 应用，也应该能通过少数改动就做出可部署于生产环境的 Dockerfiles。
+**注意：**上面的 Dockerfiles 是为 `python 3` 编写的，你可以只做少数修改就能将其改为 `python 2` 版本。如果你要部署的是 `django` 应用，也应该能通过少数改动就做出可部署于生产环境的 Dockerfiles。
 
 如果你对前面的方法有任何建议，或希望看到别的用例，请告知作者。
 
