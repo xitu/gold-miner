@@ -2,136 +2,136 @@
 > * 原文作者：[Anders Hovmöller](https://medium.com/@boxed?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/moving-a-large-and-old-codebase-to-python3.md](https://github.com/xitu/gold-miner/blob/master/TODO/moving-a-large-and-old-codebase-to-python3.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Starriers](https://github.com/Starriers)
+> * 校对者：[LynnShaw](https://github.com/LynnShaw),[steinliber](https://github.com/steinliber)
 
-# Moving a large and old codebase to Python3
+# 将一个旧的大型项目迁移到 Python 3
 
-One and a half years ago we decided that it was time to get on Python 3. We’ve talked about it for a long time but now it was time! The journey is now complete, we have switched the last parts of production to Python 3.
+一年半前，我们就决定使用 Python 3 了。我们已经讨论了很长时间，现在是时候使用了！现在这个过程已经结束了，我们已经把生产环境的最后部署都迁移到了 Python 3
 
-*   The entire code base is ~240k lines, excluding blank lines and comments
-*   It’s a web based system with a lot of batch jobs. There’s only one production installation.
-*   The code base is ~15 years old
-*   It’s a Django app, but parts predate the release of Django
+*   整个代码库大约有 240 k 行，不包括空行和注解。
+*   这是一个基于 Web 的批处理任务系统。并且只有一个生产，部署环境。
+*   代码库大约有 15 年的历史了。
+*   虽然这是一个 Django 应用程序，但部分代码是先于 Django 公布之前写的。
 
-Some basic statistics on the Python 3 changes based on a very rough filtering of git history:
+关于修改 Python 3 的一些基本统计数据，是基于对 git 提交历史的粗略过滤产生的：
 
-*   275 commits
-*   4080 added lines
-*   3432 deleted lines
+*   275 次提交
+*   4080 次添加代码行
+*   3432  次删除代码行
 
-I found 109 jira issues related to this project.
+我发现有 109 个 jira 问题与这个项目相关。
 
 ### Py2 → six → py3
 
-Our philosophy was always to go py2 ￫py2/py3 ￫ py3 because we just could not realistically do a big bang in production, an intuition that was proven right in surprising ways. This meant that [2 to 3](https://docs.python.org/2/library/2to3.html) was a non starter which I think is probably common. We tried a while to use 2to3 to detect Python 3 compatibility issues but quickly found that untenable too. Basically it suggests changes that will break your code in Python 2. No good.
+我们的理念一直是 py2 ￫py2/py3 ￫ py3  因为我们实在无法在实际生产中实现巨变，这种直觉也以令人惊讶的方式被证明是正确的。这意味着 [2 到 3](https://docs.python.org/2/library/2to3.html) 是不可能的，我认为这很常见。我们尝试过使用 2 to 3 来检测 Python 3 的兼容性问题，但很快这也被发现无法成立。基本上，这样的更改意味着在 Python 2 中的代码将被破坏。这样的改变不可行。
 
-The conclusion was to use [six](http://six.readthedocs.io), which is a library to make it easy to build a codebase that is valid in both in Python 2 and 3.
+结论是使用 [six](http://six.readthedocs.io), 这是一个库，可以方便的构建一个在 Python 2 和 3 中都有效的代码库。
 
-The most obvious first step was to update old dependencies. This work started immediately. More on that later.
+首当其冲的就是更新之前的依赖关系。这项工作需要立刻启动，因为之后会有更多的内容要更新。
 
-### Modernize
+### 现代化
 
-[Python-modernize](https://python-modernize.readthedocs.io) was the tool we chose to handle the transition. It’s a tool to automatically convert from a py2 codebase to a six-compatible code base. We first introduced a test as part of CI to check that new code was py3 ready based on modernize. The biggest effect of this was to make those who still used py2 idioms aware of the new way to do things, but it obviously didn’t help much in moving the existing 240k lines to six. We all had bad habits of using some old syntax so this was a pedagogical win, even it made little difference counting lines of code. It was also used for our experimental branch:
+[Python-modernize](https://python-modernize.readthedocs.io) 是我们选择进行迁移的工具。它是一个可以自动将 Py 2 代码库转换为可兼容 six 代码库的工具。我们首先引入一个测试，作为 CI 的一部分，来检查基于 modernize 的新代码是否已经准备好兼容 py3 了。这样做最大的效果的是让那些仍使用 Py 2 语法的人意识到新的处理方法，但这显然对将现有的 240 k 行代码转化到 six 作用不大。我们都有使用旧语法的坏习惯，这可以说是教学上的成功了，即使它对代码行的计数没有什么不同，它也被我们用于实验分支：
 
-#### Experimental branch
+#### 实验分支
 
-I started a branch called simply “python3” where I did the following:
+我新建了一个名为“Python 3 ”的分支，并做了以下操作：
 
-*   Ran “python-modernize -n -w” on the entire code base. This modifies the code in place. I often did this step and started fixing things without first committing. This was always a mistake that I regretted, more than once forcing me to revert the entire thing and start over. It’s better to commit this stage even if it’s badly broken. Separating things done by a machine vs things done by a human is the important part here.
-*   Move all imports for dependencies we still hadn’t fixed for py3 into the function bodies that used them.
+*  在整个代码库上运行“python-modernize -n -w” 。它会在合适的地方修改代码。我经常做完这步后没有进行第一次提交就开始修复代码。这个错误步骤总是让我后悔，不止一次地迫使我重新开始做整件事情。即使这个阶段出错，最好还是先把它提交。因此将机器和人要做的事情分开显得尤为重要。
+*  将所有用于函数体的依赖项导入到我们还没有修复的 py3。
 
-The idea here is to “run ahead”, i.e. to see what problems we would get if we didn’t have out of date dependencies. This branch allowed me to very quickly start the application in a super broken state and get at least some unit tests to run. The diff for this branch was of course huge, but I used this to find nice low hanging fruit that I could apply in fairly large chunks. I used the excellent GitUp to split up, combine and move around commits. When a commit looked good I cherry picked it to a new branch that I sent to code review.
+这里的想法是“run ahead”，即看看如果我们没有使用过时的依赖项，我们会遇到什么问题。这个分支允许我在超级中断状态下可以非常快速地启动应用程序，至少可以运行一些单元测试。 这个分支有很大的不同，但我还是找到了把它应用在适当场景的方法。我使用优秀的 GitUp 来拆分、组合和提交。当一个提交看起来不错的时候，我会把它挑选到一个新的分支，然后发给代码审查。
 
-No one else could work on this branch because it was constantly being rebased, force pushed and generally abused but it did move us along without having to wait for all dependencies to be updated. I highly recommend this approach!
+没有人可以在这个分支上工作，因为它被不断地 rebase ，强制推送，滥用，但是它确实让项目向前推进了，而不用等待所有的依赖项被更新。我强烈推荐使用这种方法！
 
-### Static analysis
+### 静态分析
 
-We added pre commit hooks so if you edited a file you got nagged to fix all the python3 changes modernize suggested.
+我们添加了预提交钩子，所以如果您编辑了一个文件，就会收到建议将 Python 3 全部进行 modernize 更新的提示。
 
-Hand rolled static analysis for `quote_plus`: There are some subtleties when dealing with quote_plus and six. We ended up creating our own wrapper and statically enforcing that the code used this wrapper and not the one from the standard lib or the one from six. We also statically checked that you never sent in bytes to quote_plus.
+ `quote_plus`  的手动静态分析： 在处理 quote_plus 和 six 上有一些细微差别。最后，我们创建了自己的包装器，默认代码强制执行使用这个包装器，而不是使用标准库中的包装器，也不使用 six 中包装器。我们还静态检查了您从未给 quote_plus 发送过的字节。
 
-We fixed all python3 issues per django app and enforced this with a whitelist in the CI environment so you couldn’t break an app that was once fixed.
+我们修复了每个 diango 应用程序中所有的 python 3 问题，并在 CI 环境中使用一个白名单强制执行了这一点，所以您无法破坏一个曾经修复过的应用程序。
 
-### Dependencies
+### 依赖
 
-Dependencies were the hardest part for us. We had a lot of them so it took a lot of time, but there were two stand outs:
+对于我们来说，解决依赖是最困难的部分。我们有很多依赖，所以花了很多时间，其中有两个依赖关系比较棘手：
 
-*   splunk-lib. We have a dependency to splunk and they are to this day ignoring all their [very angry customers who are begging/screaming/asking them to fix their client library for py3](https://github.com/splunk/splunk-sdk-python/issues/91). One person on our team finally [just did it himself](https://github.com/tltx/splunk-sdk-python/). Splunk has really handled this badly and even locked the issue for comments! This is unacceptable.
-*   Cassandra. We use this database for a lot of things across the product, but we used an older driver which used an older API model. This was a huge part of the py3 migration for us because we had to basically rewrite all this code piece by piece.
+*   splunk-lib. 我们依赖于 splunk，但是直到今天，他们仍然忽略所有[要求为客户端增加 py3 兼容性的愤怒的客户](https://github.com/splunk/splunk-sdk-python/issues/91)。我们团队中的一个人 [最后自己亲自动手来解决这个问题](https://github.com/tltx/splunk-sdk-python/)。Splunk 处理得真的很糟糕，它甚至把这个评论区的这个问题锁上了！这简直让人无法接受。
+*   Cassandra. 我们的整个产品都在使用这个数据库，但是我们使用了一个有以前 API 模块的旧的驱动程序。对于我们来说，py3 的迁移过程中，这占据了很大的一部分，因此我们必须逐段重写所有的这些代码。
 
-### Tests
+### 测试
 
-We have ~65% code coverage on our tests: unit, integration, and UI combined. We did write more tests but the overall number didn’t change much, not surprising when one considers moving coverage from 65% to 66% means writing tests that cover 2000 lines of code.
+我们的代码测试覆盖率大约有 65% 包括：单元、集成, 以及 UI 合并。 我们确实编写了更多的测试，但总体数量并没有发生太大的变化。考虑将覆盖率从 65% 提高到 66% ，意味着编写将近2000 行代码的测试，这一点也不奇怪。
 
-We had to skip the tests that required Cassandra while we fixed this dependency. I invented a funny little hack to make that work and [wrote about that separately](https://medium.com/@boxed/use-the-biggest-hammer-8425e4c71882).
+我们必须跳过需要 Cassandra 的测试，同时修复这个依赖项。 我发明了一个有趣的小 hack 来使它发挥作用， [并写了这方面的文章](https://medium.com/@boxed/use-the-biggest-hammer-8425e4c71882).
 
-### Code changes
+### 代码更改
 
-Some notes on code changes that either weren’t covered well by documentation on how to do a py2 to six transition (or maybe things we just missed):
+关于代码更改的说明，在如何将 py2 迁移到  six 的文档中并未提及 (也许是我们错过了)：
 
 #### StringIO
 
-We had a lot of uses of StringIO.StringIO in our code. The first instinct was to use six.StringIO but this turns out to be the wrong thing in almost all cases (but not all!). We basically had to think very carefully about every place we used StringIO and try to figure out if we should replace it with io.StringIO, io.BytesIO or six.StringIO. Making mistakes here often meant that the code looked like it was py3 ready and worked in py2 but was broken in py3.
+我们在代码中大量使用 StringIO 。第一反应就是使用 six。但对于 StringIO 来说，这在几乎所有情况下 (但不是全部!)都被证明是错。基本上，我们必须非常仔细地考虑每一个我们使用 StringIO 的地方，并试图弄清楚我们是否应该用 io.StringIO, io.BytesIO 或者 six.StringIO 来替代它。这里犯错的表现通常为看起来像兼容 py3 的代码准备好了，在 py2 中可以正常运行，却实际上在 py3 中是失效的。
 
-#### from __future__ import unicode_literals
+#### 从  __future__  中导入unicode_literals
 
-This is a mixed blessing. You find bugs by adding this to a lot of files, but it also introduces bugs in py2 sometimes. It also gets very annoying when logs suddenly write u in front of strings in weird places. Overall not the clear win I was expecting it to be.
+这是一件好坏参半的事情。您可以通过将它添加到许多文件中来发现 bug，但是有时会在 py2 中引入 bug。 当日志突然在奇怪的地方，比如在字符串前写"u"时，它也会变得令人困扰。总的来说，这显然不是我所期望的效果。
 
 #### str/bytes/unicode
 
-This was largely what you’d expect. One surprise to me was the places where you needed str in py2 and py3. If you use the unicode_literals future import some strings need to go from `'foo'` to `str('foo')`.
+这在很大程度上是您所期望的。我感到惊讶的是，在 py2 和 py3 中需要 str 。如果将来您使用 unicode_literals 导入，那么一些字符串需要从 `'foo'` 修改为 `str('foo')`。
 
 #### six.moves
 
-The implementation of six.moves is a very strange hack so it doesn’t behave like the normal python module it pretends to be. I also disagree with their choice not to include `mock` in six.moves. We had to add it outselves with their API which was surprisingly difficult to get to work, and it required us to change `from mock import patch` to `from six.moves import mock` which also meant that `patch` now becomes `mock.patch` everywhere.
+six.moves 的实现是一个非常奇怪的黑客行为，因此它不像它假装的普通 Python 模块那样运行。 我也不同意他们在 six.moves 中不包含 `mock` 的选择。我们必须使用他们的 API 来自己添加它，但这让我们很难开始工作，而且它要求我们将  `from mock import patch`  改为  `from six.moves import mock` 这也意味着 `patch` 现在变成了 `mock.patch` 。
 
-#### CSV parsing is different
+#### CSV 的解析是不同的
 
-If you use the csv module you need to look at csv342. This should be a part of six in my opinion. That it’s not there means you aren’t made aware that there’s a problem. We got away with not using csv342 in many places though, so your milage may vary.
+如果你使用 csv 模块，你需要了解 csv342。在我看来，这应该是 six 的一部分。否则就意味着你没有意识到有问题。不过我们在许多地方都没有使用 csv342，所以您这里要做的工作可能会有所不同。
 
-### Roll out sequence
+### 发布顺序
 
-First we started with the tests:
+我们首先进行测试：
 
-*   Run unit tests in CI
-*   Run integration and UI tests (excluding Cassandra) in CI
-*   Run Cassandra tests in CI (this was much later than the previous step!)
+*   在 CI 中进行单元测试
+*   在 CI 中进行集成和UI测试（不包括 Cassandra）
+*   在 CI 中进行 Cassandra 测试 (这要晚于之前的步骤!)
 
-Next it was time to move over the product itself. We built the ability to switch one batch machine at a time to py3 and crucially to switch it back. This was very important since things _did_ break in production when on py3. That’s mostly fine for us since we can just requeue the jobs that broke, but we can’t break too much or anything that is actually critical obviously. Because we use Sentry to collect crash logs it was very easy to review all the problems we hit when turning on py3 and when we had fixed them all, we turned on py3 again until we got a few issues, rinse repeat.
+接下来就是产品本身了。我们建立一台拥有能一次性切换到 py3 的能力的批处理机器，并且至关重要地是将其切换回来。当在 py3 上发生中断时，这一点就显得很重要了。这对我们来说是很好的，因为我们可以重新排队那些中断的任务，但是我们不能中断太多或者任何实际上是很关键的任务。我们使用 Sentry 来收集奔溃日志，所以很容易查看迁移到 py3 时遇到的所有问题，而且当我们修复了所有的问题时，我们需要再次迁移到 py3，直到我们得到一些问题，如此反复。
 
-We have these environments:
+我们有如下环境：
 
-*   Devtest: used internally by dev so mostly this is just used to test database migrations. This environment is very lightly used so problems aren’t found here very often.
-*   IAT (Internal Acceptance Testing): used to validate changes and perform regression testing before we roll them out to production.
-*   UAT (User Acceptance Testing): a test environment that customers can access. Used for changes where we need to prepare customer systems or give customers the ability to see the changes before they go live. This environment gets database migrations a few days before they go live.
-*   Production
+*   Devtest: 开发人员在内部使用，所以大多数情况下，这只是用来测试数据库迁移。这个环境非常容易使用，所以这里不经常出问题。
+*   IAT (内部验收测试)：用于验证更改，并在我们将更改推送到生产之前执行回归测试。
+*   UAT (用户接受度测试): 客户可以访问的测试环境。用于需要准备客户系统的变更，或者让客户在上线前查看变更。这个环境在数据库迁移前几天才会迁移。
+*   生产环境
 
-We rolled out Python 3 to these environments in this order:
+我们按照以下顺序将 Python 3 发布到这些环境中：
 
-*   Devtest environment
-*   IAT environment for short periods
-*   IAT environment permanently
-*   One production batch machine for short periods
-*   One production batch machine on during business hours
-*   Production SFTP
-*   Half of all production batch machines
-*   Production batch
-*   Production web (after a long manual testing run of the test environment)
-*   Production load machines. This is a special subset of the batch processing that do the most CPU and memory heavy part of our product.
+*   Devtest 环境
+*   短期 IAT 环境
+*   长期 IAT 环境
+*   一台短期的批处理生产机器
+*   在工作期间使用的一台批处理生产机器
+*   生产 SFTP
+*   占一半生产的批处理机器
+*   生产批次
+*   生产 Web (在测试环境的长时间手动测试运行之后)
+*   生产负载机器。这是批处理的一个特殊子集。它完成了我们产品中 CUP 和内存最多的部分。
 
-The load machines exposed configurations for customer data that was incompatible with Python 3 so we had to implement warnings for these cases in Python 2 and make sure we had fixed them all before turning on Python 3 again. This took a few days because we get customer data once a day, so every time there was even one warning we had to wait one more day.
+负载机器暴露了与 Python 3 不兼容的客户数据配置，因此我们必须在 Python 2 中实现对这些情况的警告，并确保再次打开 Python 3 之前已经修复了它们。这花了几天时间，因为我们每天都会收到客户数据，所以每次都会有一个警告，这又让我们不得不再等一天。
 
-### Surprises in production
+### 生产中的惊喜
 
-*   `'ß'.upper()` in p2 is `'ß'` but `'SS'`in py3. This caused a crash in production when the last piece of the product moved to py3!
-*   Sorting/comparing objects of different types is valid py2 but hides loads of bugs. We got some nasty surprises because this behavior leaked through the stack in some non-obvious ways. Especially that `None` existed in some lists that were being sorted. Overall this was a win since we found quite a few bugs. `None` is sorted first in lists in py2, which might be surprising (you might expect it to be sorted next to zero!), but this was often the behavior we actually wanted. Now we just have to handle this ourselves.
-*   `'{}'.format(b'asd')` is `'asd'` in Python 2, but `"b'asd'"` in Python 3. Almost any other behavior in Python 3 would have been better here: hex output (more obviously different), the old behavior (existing code works), or throwing an exception (would have been best!).
-*   `int('1_0')` is [10 in py3](https://www.python.org/dev/peps/pep-0515/), but invalid in py2. This even bit us before we switched to py3 because the mismatch caused another team that used py3 before us to send us integer literals that we thought were invalid, but they thought were valid. I personally think this decision was a mistake: very strict parsing is a better default. I fear this will continue to bite us in subtle ways for years to come.
+*   `'ß'.upper()` 在 py2 中是  `'ß'`  但是在 py3 中是  `'SS'` 。当产品的最后一部分迁移到 py3 时，最终导致了产品的崩溃！
+*   在 py2 中对不同类型的对象进行比较和排序是有效的，但这隐藏了大量的 bug 。我们得到了一些令人讨厌的惊喜，因为这种行为以一些不明显的方式从堆栈中泄露出来，特别是在一些排序列表中存在  `None` 的时候。总的来说，这是一个胜利，因为我们发现了相当多的 bug 。 `None` 在 py2  的列表中排在第一位，这可能会让人感到惊讶（您可能会期望它被排序到接近于零的地方！), 现在我们只需要来处理它们。
+*   `'{}'.format(b'asd')` 在  Python 2 中是 `'asd'` , 但是在 Python 3 中是 `"b'asd'"` 。在 Python 3 中，这里几乎任何其他行为都会更好： 输出为十六进制 ( 结果明显更不一样 ) ，旧的行为 (之前的代码运行)，或者抛出异常 (最好的行为！)。
+*   `int('1_0')`  [在 py 3 中结果是 10 ](https://www.python.org/dev/peps/pep-0515/), 但是在 py2 中无效。这甚至在切换到 py3 之前就困扰了我们。因为这种错配导致了另一个在我们之前使用 py3 的团队给我们发送了我们认为无效而他们认为有效的有效值。我个人认为这个决定是错误的：非常严格的解析是更好的默认方式，我担心这将在未来几年会继续以微妙的方式困扰我们。
 
-### Conclusion
+### 结论
 
-Ultimately we feel that we really had no choice in the matter: Python 2 maintenance will stop at some point, and our dependencies are going py3 only, most notably Django. But we did want to do this transition anyway because we are often bitten by bytes/unicode issues and Python 3 just fixes lots of small annoyances in Python 2. The switch has already found some real bugs/misconfigurations that we’ve had in production for years. We also look forward to using f-strings and ordered dicts everywhere.
+最后，我们觉得在这件事上我们真的别无选择:  Python 2 的维护将在某个时刻停止，我们的依赖项仅限于 py3，最明显的就是 Django。但是，无论如何，我们还是想要进行这种转换，因为我们经常会被 bytes/Unicode 问题困扰，并且Python 3 仅仅是修复了 Python 2 中的许多小麻烦。这次迁移过程，我们已经在生产过程中发现了一些实际的漏洞/错误配置。我们也期待在任何地方都可以使用 f-string 和有序字典。
 
 
 ---
