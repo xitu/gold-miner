@@ -9,7 +9,7 @@
 
 本文由 [David Mark Clements](https://twitter.com/davidmarkclem) 和 [Matteo Collina](https://twitter.com/matteocollina) 共同撰写，负责校对的是来自 V8 团队的 [Franziska Hinkelmann](https://twitter.com/fhinkel) 和 [Benedikt Meurer](https://twitter.com/bmeurer)。起初，这个故事被发表在 [nearForm 的 blog 板块](https://www.nearform.com/blog/node-js-is-getting-a-new-v8-with-turbofan/)。在 7 月 27 日文章发布以来就做了一些修改，文章中对这些修改有所提及。
 
-**更新：Node.js 8.3.0 将会和** [**Turbofan 一起发布在 V8 6.0 中**](https://github.com/nodejs/node/pull/14594) 。**用** `**NVM_NODEJS_ORG_MIRROR=https://nodejs.org/download/rc nvm i 8.3.0-rc.0**` **来验证应用程序**
+**更新：Node.js 8.3.0 将会和** [**Turbofan 一起发布在 V8 6.0 中**](https://github.com/nodejs/node/pull/14594) 。**用** `NVM_NODEJS_ORG_MIRROR=https://nodejs.org/download/rc nvm i 8.3.0-rc.0` **来验证应用程序**
 
 自诞生之日起，node.js 就依赖于 V8 JavaScript 引擎来为我们熟悉和喜爱的语言提供代码执行环境。V8 JavaScipt 引擎是 Google 为 Chrome 浏览器编写的 JavaScipt VM。起初，V8 的主要目标是使 JavaScript 更快，至少要比同类竞争产品要快。对于一种高度动态的弱类型语言来说，这可不是容易的事情。文章将介绍 V8 和 JS 引擎的性能演变。
 
@@ -23,7 +23,7 @@
 
 现在是时候挑战所有关于性能的假设了，因为 V8 团队已经编写了一个新的 JIT 编译器：Turbofan。
 
-从更常见的 "V8 Killers"(导致优化代码片段的 bail-out--在 Turbofan 环境下失效) 开始，Matteo 和我在 Crankshaft 性能方面所得到的模糊发现，将会通过一系列微基准测试结果和对 V8 进展版本的观察来得到答案。
+从更常见的 "V8 Killers"(导致优化代码片段的 `bail-out--` 在 Turbofan 环境下失效) 开始，Matteo 和我在 Crankshaft 性能方面所得到的模糊发现，将会通过一系列微基准测试结果和对 V8 进展版本的观察来得到答案。
 
 当然，在优化 V8 逻辑路径前，我们首先应该关注 API 设计，算法和数据结构。这些微基准测试旨在显示 JavaScript 在 Node 中执行时是如何变化的。我们可以使用这些指标来影响我们的一般代码风格，以及改进在进行常用优化之后性能提升的方法。
 
@@ -80,7 +80,7 @@ V8 引擎快速生成属性对象的技术是基于对象的“形状”在 c++ 
 
 在 V8 6.0 和 6.1 (尚未在任何 Node 发行版本中使用)中，Turbofan 会创建一个删除最后一个添加到对象中的属性的快捷方式，因此会比设置 `undefined` 更快。这是好消息，因为它表明 V8 团队正努力提高 `delete` 的性能。然而，如果从对象中删除了一个不是最近添加的属性， `delete` 操作仍然会对属性访问的性能带来显著影响。因此，我们仍然不推荐使用 `delete`。
 
-**编辑: 在之前版本的帖子中，我们得出结论 `**elete**` 可以也应该在未来的 Node.js 中使用。但是 [_Jakob Kummerow_](http://disq.us/p/1kvomfk) 告诉我们，我们的基准测试只触发了最后一次属性访问的情况。感谢 [_Jakob Kummerow_](http://disq.us/p/1kvomfk)!**
+**编辑: 在之前版本的帖子中，我们得出结论 `elete` 可以也应该在未来的 Node.js 中使用。但是 [_Jakob Kummerow_](http://disq.us/p/1kvomfk) 告诉我们，我们的基准测试只触发了最后一次属性访问的情况。感谢 [_Jakob Kummerow_](http://disq.us/p/1kvomfk)!**
 
 ### 显式并且数组化 `ARGUMENTS`
 
