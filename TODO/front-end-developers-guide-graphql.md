@@ -25,11 +25,11 @@
 }
 ```
 
-当我们讨论广义上的 GraphQL 时，我们主要指的是由帮助部署 GraphQL 到应用中的一些工具所组成的生态系统。在后端，你将使用 [Apollo 服务器](https://www.apollographql.com/docs/apollo-server/) 来创建一个 GraphQL 服务器 —— 一个解析 GraphQL 请求并返回数据的端点。服务器怎么知道应该返回哪些数据呢？你需要使用 [GraphQL 工具](https://www.apollographql.com/docs/graphql-tools/)来创建一个字典（你的数据蓝图）和一个分解映射（用于从一个 REST 端点、数据库或别的什么中检索数据的一系列函数）。
+当我们讨论广义上的 GraphQL 时，我们主要指的是由帮助部署 GraphQL 到应用中的一些工具所组成的生态系统。在后端，你将使用 [Apollo 服务器](https://www.apollographql.com/docs/apollo-server/) 来创建一个 GraphQL 服务器 —— 一个解析 GraphQL 请求并返回数据的端点。服务器怎么知道应该返回哪些数据呢？你需要使用 [GraphQL 工具](https://www.apollographql.com/docs/graphql-tools/) 来创建一个字典（你的数据蓝图）和一个分解映射（用于从一个 REST 端点、数据库或别的什么中检索数据的一系列函数）。
 
 但它实际上比听起来要简单 —— 通过 Apollo 启动台（一个 GraphQL 服务器控制台），你可以用不超过60行代码在浏览器里创建一个可运行的 GraphQL 服务器！ 😮 我们参考了这个 [我创建的启动台](https://launchpad.graphql.com/v7mnw3m03) ，其中包含了文章中所提到的 Coinbase API。
 
-你将会使用 [Apollo 客户端](https://www.apollographql.com/docs/react/)连接你自己的 GraphQL 服务器和应用，它是一个为你获取、缓存和更新数据的灵活快速的客户端。鉴于 Apollo 客户端并没有和视觉层相耦合，你可以用 React、Angular、Vue 甚至原生 JavaScript 编写。除了跨框架之外，Apollo 也可以跨平台，它支持 React Native 和 Ionic。
+你将会使用 [Apollo 客户端](https://www.apollographql.com/docs/react/) 连接你自己的 GraphQL 服务器和应用，它是一个为你获取、缓存和更新数据的灵活快速的客户端。鉴于 Apollo 客户端并没有和视觉层相耦合，你可以用 React、Angular、Vue 甚至原生 JavaScript 编写。除了跨框架之外，Apollo 也可以跨平台，它支持 React Native 和 Ionic。
 
 ### 试一试！🚀
 现在你已经掌握到底什么是 GraphQL 了，动手尝试用几个实例把 Apollo 应用到你的前端工作中去吧。我相信你最终会认可这一点 —— 一个使用了 Apollo 的基于 GraphQL 的架构将会帮助你更快地传送数据。
@@ -75,7 +75,7 @@ type ExchangeRate {
 #### 2. 压缩你的状态管理模版
 一般来说，获取数据包含了更新你的应用的状态。你通常需要编写代码来追踪至少三个行为：数据何时被加载、数据是否成功抵达、数据是否发生错误。一旦数据抵达，你必须把它转化为你的 UI 组件所期望的样子，对它进行标准化，缓存它，然后更新页面。 这个过程是重复性的，需要无数行模版代码来处理一个请求。
 
-让我们来看看在这个例子中[一个 React 应用例子沙盒](https://codesandbox.io/s/jvlrl98xw3) Apollo 客户端是如何消灭这个无趣的过程的。 查看 `list.js` 并把滚动条拖到底部。
+让我们来看看在这个例子中 [一个 React 应用例子沙盒](https://codesandbox.io/s/jvlrl98xw3) Apollo 客户端是如何消灭这个无趣的过程的。 查看 `list.js` 并把滚动条拖到底部。
 
 ```
 export default graphql(ExchangeRateQuery, {
@@ -101,7 +101,7 @@ Apollo 客户端在底层为你完成了数据格式化和缓存工作。 尝试
 #### 3. 使用 Apollo DevTools 和 GraphiQL 快速进行调试
 看起来 Apollo 客户端已经为你做了很多工作！我们该如何偷看一下它的内部来了解它是如何运行的呢？有了存储检查和查询与转变过程的完全可见化，Apollo DevTools 不但能回答这些疑问，还能让调试过程不再枯燥甚至变得有趣！ 🎉 这在一个为 Chrome 和 Firefox 提供的插件中可用，很快它也将对 React Native 提供服务。
 
-如果你想要试用一下，按照之前的例子，在你喜欢的浏览器上 [安装 Apollo DevTools](https://github.com/apollographql/apollo-client-devtools)  然后导航到 [our CodeSandbox](https://codesandbox.io/s/jvlrl98xw3) 。你需要在顶部导航栏点击“下载”，解压文件，运行 `npm install` 然后 `npm start` 来在本地运行这个例子。一旦你打开了浏览器的开发工具面板，你应该看到一个叫 Apollo 的标签页。
+如果你想要试用一下，按照之前的例子，在你喜欢的浏览器上 [安装 Apollo DevTools](https://github.com/apollographql/apollo-client-devtools)  然后导航到 [our CodeSandbox](https://codesandbox.io/s/jvlrl98xw3)。你需要在顶部导航栏点击“下载”，解压文件，运行 `npm install` 然后 `npm start` 来在本地运行这个例子。一旦你打开了浏览器的开发工具面板，你应该看到一个叫 Apollo 的标签页。
 
 首先，我们来检查下存储检查器。这个标签页反映了 Apollo Client 缓存中的状态，让你更容易确定你的数据是不是正确地被存储在客户端了。
 
@@ -111,7 +111,7 @@ Apollo DevTools 让你也可以在 GraphiQL 中测试你的查询和变更，它
 
 ![Apollo Devtools](https://cdn.css-tricks.com/wp-content/uploads/2017/12/1_s9Bl8jejFH2TAlZk2knFBQ.png)
 
-尝试在[我的启动台](https://launchpad.graphql.com/v7mnw3m03)中右侧面板的 GraphiQL 中执行查询！鼠标停在查询编辑器的字段上，并单击提示框来打开文档浏览器。如果你的查询能在 GraphiQL 里成功运行，那你就可以100%肯定这条查询也可以在你的应用中成功运行。
+尝试在 [我的启动台](https://launchpad.graphql.com/v7mnw3m03) 中右侧面板的 GraphiQL 中执行查询！鼠标停在查询编辑器的字段上，并单击提示框来打开文档浏览器。如果你的查询能在 GraphiQL 里成功运行，那你就可以100%肯定这条查询也可以在你的应用中成功运行。
 
 ### 升级你的 GraphQL 技能
 好样的，你已经看到这儿了！ 👏 希望你喜欢这些例子，并且开始了解应该如何在前端使用 GraphQL 了。
