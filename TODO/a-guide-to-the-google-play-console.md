@@ -20,7 +20,7 @@
 *   [快速上手](#8b10)
 *   [信息中心和统计信息（Dashboard and statistics）](#a5a0)
 *   [Android vitals](#ed9a)
-*   [开发工具（Development tools）](#add5)
+*   [开发工具（Development tools）](#add5)
 *   [发布管理（Release management）](#4e06)
 *   [Store 展示（Store presence）](#c527)
 *   [用户获取（User acquisition）](#111b)
@@ -59,7 +59,7 @@
 
 运气好的话，概要会显示出你的应用成功的获得了很高的安装率和很低的崩溃率。快速浏览信息中心是一种可以查看事情是否按照预期进行的简单的方法，要格外注意：卸载增长，崩溃增长，评分下滑，以及其他一些性能不佳的指标。如果这一切都不是你所预期的，那么你或你的工程师可以获得更多的细节来找出这些不同问题的原因。
 
-**统计信息（Statistics）**让你可以构建一个对你十分重要的应用数据视图。除了查看任何日期范围内的数据外，你还可以同时绘制两个指标，并将它们与前一个期间进行比较。你可以通过图表下方的表格中选定的维度（例如设备，国家/地区，语言或应用版本）对统计信息进行全面细分。有些统计数据每小时提供一次绘图，以获取更详细的情况。事件（例如应用程序的发布或销售）显示在图表和其下面的事件时间轴中，因此你可以了解到统计信息是因为什么而变化的。
+**统计信息（Statistics）** 让你可以构建一个对你十分重要的应用数据视图。除了查看任何日期范围内的数据外，你还可以同时绘制两个指标，并将它们与前一个期间进行比较。你可以通过图表下方的表格中选定的维度（例如设备，国家/地区，语言或应用版本）对统计信息进行全面细分。有些统计数据每小时提供一次绘图，以获取更详细的情况。事件（例如应用程序的发布或销售）显示在图表和其下面的事件时间轴中，因此你可以了解到统计信息是因为什么而变化的。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Abi3DL27q_HXPXxO4gDDHQ.png)
 
@@ -95,8 +95,9 @@ Android vitals（只有 Play 有足够的关于您应用的数据时，才会显
 
 对于每个指标，你都会看到一个**不良行为阈值（bad behavior threshold）**。如果你的某个 Android vitals 超出了不良行为阈值，你会看到一个红色的错误图标。这个图标表示你的应用程序在该指标的分数上高于其他应用程序（在这里值越高代表越差！）。你应该尽快解决这个糟糕的表现，因为若如果你的受众的用户体验不好，你的应用在 Play Store 中也会有不好的表现。这是因为 Google Play 的搜索和排名算法以及包含 Google Play 奖励在内的所有促销机会都会结合应用的 vitals 来考虑。超过不良行为阈值将导致排名降低。
 
-> **更多关于 Android vitals 的资源
-> **- [使用 Android vitals 提高你的应用的表现和稳定性](https://developer.android.com/distribute/best-practices/develop/android-vitals.html)
+> **更多关于 Android vitals 的资源：**
+> 
+> - [使用 Android vitals 提高你的应用的表现和稳定性](https://developer.android.com/distribute/best-practices/develop/android-vitals.html)
 > - [了解如何调试和修复  Android vitals 文档中的问题](https://developer.android.com/topic/performance/vitals/index.html)
 > - [在精不在多：为什么质量很重要](https://www.youtube.com/watch?v=hfpnldMBN38) (Playtime ‘17 session)
 > - [用于优化 Android 应用程序的 10 个秘诀，以保持良好的用户体验](https://www.youtube.com/watch?v=ovPCRS_lEWU) (I/O ‘17 session)
@@ -114,12 +115,17 @@ Android vitals（只有 Play 有足够的关于您应用的数据时，才会显
 
 > [Zalando](https://play.google.com/store/apps/details?id=de.zalando.mobilehttps://play.google.com/store/apps/details?id=de.zalando.mobile) focused on quality and used release management tools to 每季度[减少 90％ 的崩溃次数并将用户终身价值提高 15％。](https://youtu.be/Aau8LWGdBFE)。
 
-在 **Release management（发布管理）**部分中，你可以控制如何让你的新应用或者已更新的应用被人们来安装。这包括在发布之前测试你的应用程序，设置正确的设备定位，管理和监控测试，以及产品的实时追踪。
+在 **Release management（发布管理）** 部分中，你可以控制如何让你的新应用或者已更新的应用被人们来安装。这包括在发布之前测试你的应用程序，设置正确的设备定位，管理和监控测试，以及产品的实时追踪。
 
-随着应用程序版本的发布，**发布信息中心（release dashboard）**将为你提供重要统计数据的整体视图。你还可以将当前版本与过去的版本进行比较。你可能还想和一个不太满意的版本做比较，以确保类似的情况不会再发生。或者与最佳的版本进行比较，看看是否能做进一步改进。
+随着应用程序版本的发布，**发布信息中心（release dashboard）** 将为你提供重要统计数据的整体视图。你还可以将当前版本与过去的版本进行比较。你可能还想和一个不太满意的版本做比较，以确保类似的情况不会再发生。或者与最佳的版本进行比较，看看是否能做进一步改进。
 
 ![](https://cdn-images-1.medium.com/max/800/1*HfxpJpQzXrPj77c6MATgkA.png)
 
 发布信息中心。
 
 你应该在发布时使用 **分阶段发布（staged rollouts）**。你可以选择一定比例的受众群体来接收应用更新，然后监控发布信息中心。如果事情进展不
+
+
+---
+
+> [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
