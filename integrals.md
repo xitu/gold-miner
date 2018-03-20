@@ -4143,11 +4143,11 @@
 |------|-------|-------|
 |[Vue Report 2017](https://juejin.im/post/5a138fae5188254d28732899)|翻译|4|
 
-## 译者：[PCAaron](https://github.com/PCAaron) 历史贡献积分：18.5 当前积分：6.5 年度积分：6
+## 译者：[PCAaron](https://github.com/PCAaron) 历史贡献积分：18.5 当前积分：16.5 年度积分：6
 
 |文章|类型|积分|
 |------|-------|-------|
-|[2018 年 3 月兑 T 恤 1 个、比特币 1 个]()|减去积分|12|
+|[2018 年 3 月兑 比特币 1 个]()|减去积分|2|
 |[Object Composition 中的宝藏](https://juejin.im/post/5a648ed0518825733201b818)|校对|2|
 |[迎接新的 Dialog 元素](https://juejin.im/post/5a66cc165188257342170802)|校对|1|
 |[2018 前端性能优化清单 - 第 4 部分](https://juejin.im/post/5a62aa686fb9a01c91407a0b)|校对|3|
