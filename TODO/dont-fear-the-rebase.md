@@ -127,6 +127,8 @@ Git 正在像我们期望中的那样重新应用提交。
 
 ---
 
+如果你喜欢我的文章，请为我点赞。
+
 关注 [Hackernoon](https://medium.com/@hackernoon) 和 [Jared Ready](https://medium.com/@jared.ready) 来获取更多高质量的软件工程相关的内容吧。
 
 [![](https://cdn-images-1.medium.com/max/1600/1*PZjwR1Nbluff5IMI6Y1T6g@2x.png)](https://goo.gl/w4Pbea)
