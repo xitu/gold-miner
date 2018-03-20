@@ -2,129 +2,130 @@
 > * 原文作者：本文已获原作者 [Jared Ready](https://hackernoon.com/@jared.ready) 授权，转载请注明出处。
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/dont-fear-the-rebase.md](https://github.com/xitu/gold-miner/blob/master/TODO/dont-fear-the-rebase.md)
-> * 译者：
+> * 译者：[根号三](https://github.com/sqrthree)
 > * 校对者：
 
-![](https://cdn-images-1.medium.com/max/2000/1*09KWDWnv1JDeZ-LEkXpL7g.png)
+![](https://ws3.sinaimg.cn/large/006tKfTcly1fpet99qa0jj31hc0icwg4.jpg)
 
-Git’s `rebase` command is a common source of fear and confusion for Git users, especially users who may have come from a more centralized version control system. That’s normal. Rebase is a weird, magical looking beast that just comes in and starts changing history willy-nilly.
+Git 的 `rebase` 命令是 Git 用户害怕和迷惑的一个常见源头，特别是那些来自可能更集中的版本控制系统的用户。这很正常。Rebase 是一个不可思议又充满魔力的怪兽，一上来不管三七二十一就改变历史。
 
-Rebase is sort of like pointers; it is this confusing construct that everybody talks about but you have no idea why anybody would use it and then suddenly everything will *click* and the whole idea becomes glaringly obvious and incredibly simple.
+Rebase 有点像指针。它是这样一个令人困惑的结构：每个人都在谈论它，但是你并不清楚为什么会有人使用它，然后突然一切都“拍答”一下，整个想法都变得显而易见和难以置信的简单。
 
-I am here to force that *click* onto you so you can go into work and spread the wonder that is `git rebase`.
+在这篇文章中我会迫使你“拍答”一下，这样你就可以回到工作中并传播 `git rebase` 的神奇。
 
-### What Even is a Rebase?
+### 究竟什么是 Rebase？
 
-> Git Rebase is simply a tool that can be used to take some commits that were made in one place and just pretend they were made in another place all along.
+> Git Rebase 是一个很简单的工具，用来取出一些在某个地方创建的提交，并假装它们一直是在另一个地方创建的。
 
-**OK but what does that *mean*?**
+**好的，我知道了。可是究竟是什么意思呢？**
 
-Let’s look at an example. We have two branches in this repository: `master` and `feature/foo`. `feature/foo` was branched off of `master` and some commits were made on `feature/foo`. `master` has moved on because the world doesn’t just stop when you aren’t looking.
+让我们来看一个例子。我们在这个仓库中有两个分支：`master` 和 `feature/foo`。`feature/foo` 是基于 `master` 分离出去的分支，并且在 `feature/foo` 分支上产生了一些提交。`master` 也发生了移动，因为当你不看的时候，世界并不会停止。
 
-![](https://cdn-images-1.medium.com/max/1600/1*RQdhYt4nNVFKlpw_q_IYow.png)
+![](https://ws1.sinaimg.cn/large/006tKfTcly1fpeujk93g1j318g0rg41j.jpg)
 
-Current state of affairs
-We want to integrate the changes from `master` into `feature/foo` but we don’t want to deal with having a pesky merge commit every time we perform this integration.
+这是目前的状态
 
-**Rebase is a tool that gives you the power to integrate changes that happened on the source branch without performing a merge, and thus without having a merge commit.**
+我们想将一些更改从 `master` 整合进 `feature/foo` 中，但是我们不想每次执行这个整合时都处理一次令人讨厌的合并提交。
 
-![](https://cdn-images-1.medium.com/max/2000/1*PZLwva5O5UoPxcrV68oYgQ.png)
+**Rebase 就是一个让你有能力整合发生在源分支上的更改而不需要执行合并（merge）从而不会产生合并提交的工具。**
 
-Post-rebase. Visions of fast-forward…
+![](https://ws2.sinaimg.cn/large/006tKfTcly1fpeups3ff0j31jk0g9acl.jpg)
 
-Commits *D* and *F* have been *replayed* on top of `master`, which is currently pointing at commit *G*. You will notice that these commits are actually named *D`* and *F`* and the commit SHA-1 is different. Why is this?
+这是 rebase 之后的情况。（fast-forward 版本）
 
-#### Commits are Immutable in Git
+*D* 和 *F* 两个提交已经被重新放在了 `master` 的顶部，即当前指向的 *G* 的前面。你可能会注意到这两个提交实际上已经被重命名为了 *D`* 和 *F`*，并且提交的 SHA-1 值也不一样。这是为什么呢？
 
-A commit has a few properties that are relevant here: a parent commit, a timestamp, and a snapshot of the repository at the time of the commit (commits are not just changesets). These values are what Git uses when it computes the SHA-1 that identifies a commit.
+#### Git 中的提交不可变更
 
-Since commits are immutable and a SHA-1 should uniquely identify a single commit, Git has to create new commits that contain the same repository snapshot as the original commits, but each with a **different parent commit and timestamp**.
+一个提交具有一些与之相关的属性：一个父提交、一个时间戳、提交时仓库的快照（“提交”不仅仅是变更集）。这些值是 Git 在计算标识一个提交的 SHA-1 时所用到的。
 
-This leads to new commits that look identical to the original commits, but have different SHA-1s.
+由于提交是不可变的，并且一个 sha-1 应该唯一标识一个提交，因此 Git 需要创建一个新的提交来包含原始提交中相同的仓库快照，但是每个提交都有一个**不同的父提交和时间戳**。
 
----
-
-### Finding the Commits
-
-How does git know what commits to move when we run `git rebase master` from `feature/foo`?
-
-Let’s first look at a Venn diagram of the commits on each branch.
-
-![](https://cdn-images-1.medium.com/max/1600/1*HbxYqw71A8ehVCTGkNOyWw.png)
-
-Here we see that each branch has commits *A*, *B*, and *C*. `master` has commits *E *and *G *that `feature/foo` does not have. `feature/foo` has commits *F* and *D* that `master` does not have.
-
-Git will perform a set subtraction, `{commits on feature/foo} — {commits on master}`, to find the right commits. This results in commits *D *and *F.*
-
-![](https://cdn-images-1.medium.com/max/1600/1*qkRc0FH6CzwSse5CNrscfA.png)
-
-#### Can we prove this?
-
-Yes! An easy way is to use `git log` to see the exact commits that we get from this set subtraction.
-
-`git log master..feature/foo`*should* show us commits `bc1f36b` and `640e713`.
-
-![](https://cdn-images-1.medium.com/max/1600/1*g3VrmbNmzlpuOm3Fl9Fe8w.png)
-
-Current branch is implied if you omit a branch after ..
-This looks good so far. Let’s get a wider view to make sure I’m not yanking chains.
-
-![](https://cdn-images-1.medium.com/max/1600/1*U2qcOyvEF6CiZycntHQ_6g.png)
-
-These SHA-1s look familiar
-
-![](https://cdn-images-1.medium.com/max/1600/1*zUQkjOT3zHCNp_6LjilQ4A.png)
-
-76f5fd1 and 22033eb are missing because we diverged from master at 7559a0b
+这导致新的提交看起来与原始提交相同，但是具有不同的 sha-1。
 
 ---
 
-If we now perform a `rebase` onto `master`, we should see commits `76f5fd1` and `22033eb` immediately before the commits that were made on `feature/foo`.
+### 找出提交
 
-![](https://cdn-images-1.medium.com/max/1600/1*VLXh6HY221LdULI_i79RyQ.png)
+当我们从 `feature/foo` 分支上运行 `git rebase master` 时，Git 怎么知道哪些提交需要移动呢？
 
-Git is replaying the commits that we expected
+让我们先看看每个分支上的提交的文氏图（Venn diagram）。
 
-![](https://cdn-images-1.medium.com/max/1600/1*cCRyFq-dsWmZWWQ-8a-RJg.png)
+![](https://ws2.sinaimg.cn/large/006tKfTcly1fpevtxsiwvj318g0ufads.jpg)
 
-Does this look familiar?
+从上图中我们可以看到每一个分支都有 *A*、*B* 和 *C* 这几个提交。`master` 分支还拥有 *E* 和 *G* 提交但是 `feature/foo` 分支没有。`feature/foo` 拥有 *F* 和 *D* 提交但是 `master` 分支没有。
 
-![](https://cdn-images-1.medium.com/max/1600/1*PZLwva5O5UoPxcrV68oYgQ.png)
+Git 会做一个减法：`{commits on feature/foo} — {commits on master}`，来找出正确的提交。这个结果就是 *D* 和 *F*。
 
-We saw this earlier!
-We now have a nice linear history. You should be able to see how a fast-forward merge would happen at this point.
+![](https://ws2.sinaimg.cn/large/006tKfTcly1fpevx9tq3rj318g0v577x.jpg)
 
-> The rebase strategy has the added bonus of knowing that if your CI pipeline passes on the feature branch, it will pass on main branch post-merge. With a non-linear merge strategy, you do not have this guarantee.
+#### 我们能证明这一点吗？
 
----
+当然，一个简单方式是使用 `git log` 来看我们从这组减法中得到的确切提交。
 
-### Using the Force
+`git log master..feature/foo` **会** 向我们展示 `bc1f36b` 和 `640e713` 提交。
 
-If `feature/foo` were already pushed and another push is attempted after this rebase, Git will very politely decline to do the push. Why is this?
+![](https://ws3.sinaimg.cn/large/006tKfTcly1fpew0jd7j1j318g045wfn.jpg)
 
-**Git will do everything it can to prevent an accidental overwriting of history, which is a *good thing*.**
+如果你在 .. 后省略了一个分支，那么会默认为是当前分支。
 
-Let’s look at what Git thinks `feature/foo` looks like on the remote repository.
+看起来不错。让我们来看看更广泛的视角以确保我不是在糊弄。
 
-![](https://cdn-images-1.medium.com/max/1600/1*6v_6goRTKnPduN6q_x4Vpw.png)
+![](https://ws3.sinaimg.cn/large/006tKfTcly1fpew54td7vj318g07ajty.jpg)
 
-Now let’s look at what we’re telling Git to do.
+这些 sha-1 看起来很熟悉。
 
-![](https://cdn-images-1.medium.com/max/1600/1*3zndxVsC81_e7okV0aQbVg.png)
+![](https://ws3.sinaimg.cn/large/006tKfTcly1fpew5prdn4j318g0790v3.jpg)
 
-From Git’s point of view, commits *D *and *F* are about to be lost. Git will give you a nice message along the lines of `Updates were rejected because the tip of your current branch is behind`.
-
-You might say, “But I can clearly see in the nice picture that you made, `feature/foo` is further ahead than what it was before.” This is a good observation, but Git just sees that `feature/foo` on the remote repository contains `bc1f36b` and `640e713` and your local version of `feature/foo` does not contain those commits. So in order to not lose these commits, Git will politely decline a normal `git push`, requiring you to perform a `git push --force`.
+这里并没有 76f5fd1 和 22033eb，因为我们是从 master 分支的 7559a0b 提交开始分离的。
 
 ---
 
-If you take away one thing from this article, remember that a rebase simply finds commits that were made on some branch and creates new commits with the same content but with a new parent or *base* commit.
+如果我们现在执行一个 `rebase` 到 `master`，我们会立即看到 `76f5fd1` 和 `22033eb` 出现在我们在 `feature/foo` 分支上创建出的提交的前面。
+
+![](https://ws3.sinaimg.cn/large/006tKfTcly1fpewljxlmej318g05y0u9.jpg)
+
+Git 正在像我们期望中的那样重新应用提交。
+
+![](https://ws3.sinaimg.cn/large/006tKfTcly1fpewouxdggj318g0a0dj0.jpg)
+
+看起来熟悉吗？
+
+![](https://ws3.sinaimg.cn/large/006tKfTcly1fpewpe9c16j318g0d0jt3.jpg)
+
+我们之前见过这个了。
+
+我们现在有一个很好的线性历史。你应该能够想到在此刻 fast-forward 的合并会如何发生。
+
+> rebase 策略还有一个已知的额外好处，就是如果你的 CI 管道（CI pipeline）在功能分支上通过了，那么在合并后的主分支上它也会通过。如果是一个非线性的合并策略，你就不能保证这一点。
 
 ---
 
-If you liked what you read then 👏 to show your appreciation!
+### 使用强制手段
 
-Follow [Hackernoon](https://medium.com/@hackernoon) and [Jared Ready](https://medium.com/@jared.ready) for more quality software engineering content.
+如果 `feature/foo` 分支已经被推送过（push），并且在 rebase 之后尝试进行另一个推送，Git 会很委婉地拒绝推送。这是为什么呢？
+
+**Git 会尽其所能来防止意外覆盖历史，这是一件好事。**
+
+我们来看一下 Git 所认为的 `feature/foo` 分支在远程仓库中的样子是什么样的？
+
+![](https://ws2.sinaimg.cn/large/006tKfTcly1fpexhw94i1j31080oi76p.jpg)
+
+现在我们来看一下我们告诉 Git 要做的事情。
+
+![](https://ws4.sinaimg.cn/large/006tKfTcly1fpexk964q3j318g0fl40s.jpg)
+
+从 Git 的角度来看，提交 *D* 和 *F* 即将丢弃。Git 会给你这样一行友好的信息：`Updates were rejected because the tip of your current branch is behind`。
+
+你或许会说，“但是我可以在你这个很棒的图片中清晰地看到，`feature/foo` 分支比之前更进一步了啊。” 这是一个很好的观察结果，但是 Git 只会看到远程仓库中的 `feature/foo` 包含 `bc1f36b` 和 `640e713`，但是你本地的 `feature/foo` 不包含这些提交。因此为了不丢失这些提交，Git 会委婉地拒绝一个正常的 `git push`，并要求你执行 `git push --force`。
+
+---
+
+如果你从这篇文章中带走一件东西，那么请记住，rebase 只是简单的查找出在某个分支上创建的提交，然后使用相同的内容但是新的父提交或基础提交（*base* commit）来创建新的提交。
+
+---
+
+关注 [Hackernoon](https://medium.com/@hackernoon) 和 [Jared Ready](https://medium.com/@jared.ready) 来获取更多高质量的软件工程相关的内容吧。
 
 [![](https://cdn-images-1.medium.com/max/1600/1*PZjwR1Nbluff5IMI6Y1T6g@2x.png)](https://goo.gl/w4Pbea)
 
