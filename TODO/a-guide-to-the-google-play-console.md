@@ -20,9 +20,9 @@
 *   [快速上手](#8b10)
 *   [信息中心和统计信息（Dashboard and statistics）](#a5a0)
 *   [Android vitals](#ed9a)
-*   [开发工具（Development tools）](#add5)
+*   [开发工具（Development tools）](#add5)
 *   [发布管理（Release management）](#4e06)
-*   [Store 展示（Store presence）](#c527)
+*   [Store 展示（Store presence）](#c527)
 *   [用户获取（User acquisition）](#111b)
 *   [财务报告（Financial reports）](#fb37)
 *   [用户反馈（User feedback）](#d92a)
@@ -130,7 +130,7 @@ Android vitals（只有 Play 有足够的关于您应用的数据时，才会显
 
 **应用程序发布（App releases）** 是应用程序包（你的 APK）上传和准备发布的地方。应用可以发布到不同的渠道：**alpha**，**beta** 和 **production**。在 alpha 和 beta 渠道上进行受信任用户的封闭测试或任何人都可以加入的公开测试。在准备发布时，你可以将其保存为草稿，这使得你有机会反复并仔细的编辑应用的详细信息，直到你准备好要发布为止。
 
-> _[免安装应用]使用户无需额外从 Play Store 安装应用程序即可轻松获得出色的应用体验。我们已经看到我们的即时应用取得了巨大成功。_
+> **[免安装应用]使用户无需额外从 Play Store 安装应用程序即可轻松获得出色的应用体验。我们已经看到我们的即时应用取得了巨大成功。**
 
 > - [Laurie Kahn, Realtor.com 的首席产品经理](https://developer.android.com/stories/instant-apps/realtor-com.html)
 
@@ -338,9 +338,9 @@ Android vitals（只有 Play 有足够的关于您应用的数据时，才会显
 
 ### 用户反馈（User feedback）
 
-> _评分和评论部分是了解你们社区的强大工具。在 Google 翻译的帮助下，我们用他们的母语回答他们。因此，我们看到用户评分有了很大提高。事实上，他们全部都是 4.4 星，甚至更高。_
+> **评分和评论部分是了解你们社区的强大工具。在 Google 翻译的帮助下，我们用他们的母语回答他们。因此，我们看到用户评分有了很大提高。事实上，他们全部都是 4.4 星，甚至更高。**
 
-> _—_ [_Papumba 首席产品官员 Andres Ballone_](https://www.youtube.com/watch?v=9M9mAhYAspU)
+> **—** [**Papumba 首席产品官员 Andres Ballone**](https://www.youtube.com/watch?v=9M9mAhYAspU)
 
 通过评论进行评分和用户反馈非常重要。Play Store 的访问者在决定是否安装它时会考量你的应用的评分和评论。评论还提供了一种与受众群体进行互动的方式，并收集有关对你的应用有帮助的反馈。
 
@@ -352,9 +352,9 @@ Android vitals（只有 Play 有足够的关于您应用的数据时，才会显
 
 评分。
 
-> _我们使用 **_评论分析（reviews analysis）_**_ 来收集用户在 Google Play 上的反馈，并使用它们来改善 Erudite 的功能。它还使我们能够直接单独的回复用户，因此我们可以提升与用户的沟通并了解他们的真实需求。_
+> _我们使用_ **_评论分析（reviews analysis）_**_来收集用户在 Google Play 上的反馈，并使用它们来改善 Erudite 的功能。它还使我们能够直接单独的回复用户，因此我们可以提升与用户的沟通并了解他们的真实需求_
 
-> _—_ [_Benji Chan, Erudite 的产品经理_](https://www.youtube.com/watch?v=WMJR6CuPp4w)
+> **—** [**Benji Chan, Erudite 的产品经理**](https://www.youtube.com/watch?v=WMJR6CuPp4w)
 
 用户可以在不提供评论的情况下为你的应用打分，但是当评分包含评论时，通过其内容可以洞悉是什么导致了这个评分。这是**评论分析**（**reviews analysis**）部分发挥作用的地方。它提供了三种见解：更新后的评分（updated ratings），基准（benchmarks）和话题分析（topic analysis）。
 
@@ -368,9 +368,9 @@ Android vitals（只有 Play 有足够的关于您应用的数据时，才会显
 
 **话题**（**Topic**）提供了有关应用评价中使用的关键字的信息及其对评分的影响。从每个单词中，你可以深入了解这些出现的评论的详细信息，以便可以更详细地了解所发生的情况。此功能为英语，印地语，意大利语，日语，韩语和西班牙语的评论提供分析。
 
-> _它使我们可以轻松地搜索评论，并且在需要获取更多信息时联系用户，一般而言，它为我节省了大量时间，每周大约节省 5 到 10 小时。_
+> **它使我们可以轻松地搜索评论，并且在需要获取更多信息时联系用户，一般而言，它为我节省了大量时间，每周大约节省 5 到 10 小时。**
 
-> _— Olivia Schafer，[_Aviary_] 的社区支持专家_(https://play.google.com/store/apps/dev?id=5644820617218674509)
+> **— Olivia Schafer**，[**Aviary**](https://play.google.com/store/apps/dev?id=5644820617218674509)**的社区支持专家**
 
 在**评论**（**reviews**）部分中，你可以查看个别评论。默认视图显示所有来源和所有语言的最新评论。使用过滤器选项来优化列表。注意**所有回复状态**（**all reply states**）选项。筛选评论以查看你未回复的内容，以及你回复的内容和用户随后更新其评论或评分的评论。回复评论很容易，在评论中只需点击**回复此评论**（**reply to this review**）。
 
@@ -378,9 +378,9 @@ Android vitals（只有 Play 有足够的关于您应用的数据时，才会显
 
 ![](https://cdn-images-1.medium.com/max/800/0*9rElhiblAG0KXrJ5.)
 
-Reviews（评论）.
+评论（Reviews）。
 
-> _在_ [_抢先体验_](https://developer.android.com/distribute/google-play/startups.html#be-part-of-early-access)中使用测试反馈_，西班牙游戏开发者_ [_Omnidrone_](https://play.google.com/store/apps/developer?id=Omnidrone&hl=en) [_提高了 41％ 的保留率，50％ 的参与率和 20％ 的货币化_](https://www.youtube.com/watch?v=LzGC6V_YnlE&index=10&list=PLWz5rJ2EKKc9ofd2f-_-xmUi07wIGZa1c)_。_
+> **在**[**抢先体验**](https://developer.android.com/distribute/google-play/startups.html#be-part-of-early-access)**中使用测试反馈，西班牙游戏开发者** [**Omnidrone**](https://play.google.com/store/apps/developer?id=Omnidrone&hl=en) [**提高了 41％ 的保留率，50％ 的参与率和 20％ 的货币化**](https://www.youtube.com/watch?v=LzGC6V_YnlE&index=10&list=PLWz5rJ2EKKc9ofd2f-_-xmUi07wIGZa1c)。
 
 有一个专门针对**测试反馈**（**beta feedback**）的部分。当你对应用进行公开测试时，测试人员提供的任何反馈都会在此处显示—它不会包含在你产品应用的评分和评论中，并且不会公开显示。这些功能类似于公众反馈：您可以过滤评论，回复评论以及查看与用户对话的历史记录。
 
@@ -394,7 +394,7 @@ Reviews（评论）.
 
 到目前为止，我已经查看了可用于每个应用的 Play 控制台功能。完成之前，我想给你一个关于全局 Play 控制台功能的简要指南：游戏服务，订单管理，下载报告，警报和设置。
 
-> [_Senri 实施 Play 游戏服务_](https://developer.android.com/stories/games/leos-fortune.html) _在 Leo’s Fortune（里奥的财富）及每一章的排行榜上存储游戏。Google Play 游戏服务用户在 1 天后返回的可能性增加 22％，在 2 天后增加 17％。_
+> [**Senri 实施 Play 游戏服务**](https://developer.android.com/stories/games/leos-fortune.html) **在 Leo’s Fortune（里奥的财富）及每一章的排行榜上存储游戏。Google Play 游戏服务用户在 1 天后返回的可能性增加 22％，在 2 天后增加 17％。**
 
 **Google Play 游戏服务**提供一系列提供游戏功能以帮助推动玩家参与度的工具，例如：
 
@@ -405,7 +405,7 @@ Reviews（评论）.
 
 许多这些功能可以在不更改游戏代码的情况下进行更新和管理。
 
-> _Eric Froemling 使用玩家分析在游戏_  [_Bombsquad_](https://play.google.com/store/apps/details?id=net.froemling.bombsquad) _上_ [_平均每位用户收入提升了 140%，平均每位付费用户收入提升了 67%_](https://www.youtube.com/watch?v=3ks0IwqLNnI)_
+> **Eric Froemling 使用玩家分析在游戏**  [**Bombsquad**](https://play.google.com/store/apps/details?id=net.froemling.bombsquad) **上** [**平均每位用户收入提升了 140%，平均每位付费用户收入提升了 67%**](https://www.youtube.com/watch?v=3ks0IwqLNnI)
 
 **玩家分析**（**Player analytics**）将有关游戏性能的宝贵信息集中在一个地方，并提供一组免费报告，帮助你管理游戏业务并了解游戏中的玩家行为。当你将 Google Play 游戏服务集成到您的游戏时，它就是标准配置。
 
