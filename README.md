@@ -36,15 +36,19 @@
 * [系统设计入门教程](https://github.com/xitu/system-design-primer)
 * [Google Interview University 面试指北](https://github.com/xitu/google-interview-university)
 * [前端开发者指南（2017）](https://github.com/xitu/front-end-handbook-2017)
+* [前端开发者指南（2018）](https://github.com/xitu/front-end-handbook-2018)
 * [macOS Security and Privacy Guide](https://github.com/xitu/macOS-Security-and-Privacy-Guide)
 * [State of Vue.js report 2017 中文版](https://github.com/xitu/gold-miner/blob/master/TODO/state-of-vue-report-2017.md)
+* [Elasticsearch 参考手册](https://github.com/rpgmakervx/elasticsearch-reference-translation)
 
 ## 区块链
 
-* [用 Java 创造你的第一个区块链，第一部分](https://juejin.im/post/5a8ed1d75188257a836c4218) ([NeoyeElf](https://github.com/NeoyeElf) 翻译)
-* [自主权身份简介](https://juejin.im/post/5a818d535188257a7f1da91b) ([foxxnuaa](https://github.com/foxxnuaa) 翻译)
-* [低估中国区块链,对你是个好消息](https://juejin.im/post/5a7943e2f265da4e9d221119) ([Vsevorod](https://github.com/Vsevorod) 翻译)
-* [二十年后比特币会变成什么样？— 第二部分](https://juejin.im/post/5a955721f265da4e826377b6) ([pcdack](https://github.com/pcdack) 翻译)
+* [带你了解以太坊第 2 层扩容方案：State Channels、Plasma 和 Truebit](https://juejin.im/post/5aa1f63c518825558804f85b) ([JohnJiangLA](https://github.com/JohnJiangLA) 翻译)
+* [使用 Web3 和 Vue.js 来创建你的第一个以太坊 dAPP（第一部分）](https://juejin.im/post/5aa7a8d2518825558805128d) ([foxxnuaa](https://github.com/foxxnuaa) 翻译)
+* [工作量证明 vs 权益证明：基本挖矿指南](https://juejin.im/post/5a9ded346fb9a028b617065a) ([foxxnuaa](https://github.com/foxxnuaa) 翻译)
+* [二十年后比特币将会变成什么样 — 第一部分](https://juejin.im/post/5a1e9c2d6fb9a044fa19a036) ([ZiXYu](https://github.com/ZiXYu) 翻译)
+* [二十年后比特币将会变成什么样 — 第二部分](https://juejin.im/post/5a955721f265da4e826377b6) ([pcdack](https://github.com/pcdack) 翻译)
+* [二十年后比特币将会变成什么样 — 第三部分](https://juejin.im/post/5a9ce3715188255585070586) ([sakila1012](https://github.com/sakila1012) 翻译)
 * [所有区块链译文>>](https://github.com/xitu/gold-miner/blob/master/blockchain.md)
 
 ## 人工智能
