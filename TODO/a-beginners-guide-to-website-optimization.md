@@ -43,9 +43,9 @@ Optimizilla 并不是您图片压缩需求的唯一选择。您可以使用一�
 
 根据您的情况，可能还需要查看文件格式。一般来说，jpg 会比 png更小。我是否使用其中一个的主要区别是我是否需要图片背后的透明度：如果我需要透明度就使用 png，否则使用 jpg。您可以在 [这里](https://www.digitaltrends.com/photography/jpeg-vs-png-photo-format/)更深入地了解这两者的利弊。
 
-此外，Google 已经推出了一种非常贴心的 webp 格式，但由于目前没有在所有浏览器被支持，所以我还在犹豫是否使用它。留意未来的进一步支持！
+此外，Google 已经推出了一种非常贴心的 webp 格式，但由于目前没有在所有浏览器被支持，所以我还在犹豫是否使用它。会留意未来是否有进一步地更新支持！
 
-我没有在我的图片上做更多的压缩来获得以上展示的结果，但是如果您想进一步优化 [这里有一片很棒的文章。](https://www.frontamentals.com/practical-guide-to-images)
+我没有在我的图片上做更多的压缩来获得以上展示的结果，但是如果您想进一步优化 [这里有一篇很棒的文章。](https://www.frontamentals.com/practical-guide-to-images)
 
 ### 视频
 
@@ -53,11 +53,11 @@ Optimizilla 并不是您图片压缩需求的唯一选择。您可以使用一�
 
 照片来自 Pexels 的 Terje Sollie。
 
-尤其是我没有在我目前的任何项目中使用视频，所以我只会简单地涉及到这一点，因为我不觉得在这方面我这是最佳资源。
+尤其是我没有在我目前的任何项目中使用视频，所以我只会简单地涉及到这一点，因为我不觉得在这方面我这是最佳的解决方案。
 
 在这种情况下我可能会让专业人士来做繁重的工作。Vimeo 为托管视频提供了一个很好的平台，在那里它们会降低视频质量，从而降低链接速度，并压缩您的视频以优化性能。 
 
-您也可以在 You Tube 上托管视频，然后使用 [youtube-dl](https://rg3.github.io/youtube-dl/) 工具从 You Tube 下载视频，同时根据您网站的需要配置视频。
+您也可以在 YouTube 上托管视频，然后使用 [youtube-dl](https://rg3.github.io/youtube-dl/) 工具从 You Tube 下载视频，同时根据您网站的需要配置视频。
 
 至于其他可能的解决方案，请查看 [Brightcove](https://www.brightcove.com/en/), [Sprout](https://sproutvideo.com/) 或者 [Wistia](https://wistia.com/).
 
@@ -73,7 +73,7 @@ Optimizilla 并不是您图片压缩需求的唯一选择。您可以使用一�
 
 根据您应用程序所在的位置，gzip 可能非常简单，只需打开配置开关，以指定您希望服务器在发送文件时对其进行 gzip 压缩。就我而言，托管我网站的 Heroku 不提供这个选项。
 
-事实证明，在服务器代码中有一些包明确可以添加压缩。没这使得您只需几行代码即可获取 gzip 的好处。使用[这个](https://github.com/expressjs/compression)压缩中间件，[我能够将 JavaScript 和 CSS 捆绑包大小减少 75%。](https://codeburst.io/how-i-decreased-the-size-of-my-heroku-app-by-75-1a4cf329b0ab)
+事实证明，在服务器代码中有些包可以进行显式压缩。这使得您只需几行代码即可获取 gzip 的好处。使用[这个](https://github.com/expressjs/compression)压缩中间件，[我能够将 JavaScript 和 CSS 捆绑包大小减少 75%。](https://codeburst.io/how-i-decreased-the-size-of-my-heroku-app-by-75-1a4cf329b0ab)
 
 检查一下您的托管服务是否提供 gzip 选项是值得的。如果没有，请查看如何将 gzip 添加到服务器代码中。
 
@@ -81,7 +81,7 @@ Optimizilla 并不是您图片压缩需求的唯一选择。您可以使用一�
 
 ![](https://cdn-images-1.medium.com/max/800/1*HoF4YTMZzbKsCi_nEbeLeQ.jpeg)
 
-菠萝最小化  Pexels 提供。
+最小化的菠萝  Pexels 提供。
 
 最小化是在不影响代码功能（空格、换行符等）的情况下从代码中删除不必要字符的过程。这使您可以减少您正在通过互联网传输文件的大小。它也有助于混淆您的代码，这使得狡猾的黑客更难检测到安全弱点。
 
@@ -126,11 +126,11 @@ CDN 允许您利用分布在世界各地的一组代理服务器，无论您的�
 这里有些能让您有所收获的内容：
 
 *   首先通过增加您网站的感知性能优先加载“首页”来优化您的网站。一种常见的方法是[延迟加载](https://en.wikipedia.org/wiki/Lazy_loading)没有显示在登录页面上的图像。
-*   除非您的应用程序依赖于 JavaScript 来渲染 HTML，例如使用 Angular 或者 React 来构建网站，那么在 HTML 文件的主体部分底部加载脚本标记可能是安全的。然而这可能会影响您的[互动时间](https://developers.google.com/web/tools/lighthouse/audits/time-to-interactive)，
+*   除非您的应用程序依赖于 JavaScript 来渲染 HTML，例如使用 Angular 或者 React 来构建网站，那么它会在你 HTML 文件的 body 底部看似安全的区域加载你的 script 标签。即使这可能会影响您的[交互时间](https://developers.google.com/web/tools/lighthouse/audits/time-to-interactive)，所以我并不会对每个情况都推荐使用这种技术。
 
 ### 总结
 
-当涉及到优化您的网站时，这都只是冰山一角。根据您接受的流量和所提供的服务数量，您可能会在许多不同的领域存在性能瓶颈。也许您需要一个拥有更多 RAM 的服务器，也许您的三重嵌套 for 循环可以使用一些重构--谁知道呢？
+当涉及到优化您的网站时，这都只是冰山一角。根据您接受的流量和所提供的服务数量，您可能会在许多不同的领域存在性能瓶颈。也许您需要更多的服务器，也许您需要一个拥有更多 RAM 的服务器，也许您的三重嵌套 for 循环可以使用一些重构--谁知道呢？
 
 对于加速您的网站来说，没有一个准确无误的方法，您最终将不得不根据您的测试来做出最好的决定。不要浪费时间去优化不需要优化的东西。分析您网站的性能，找出瓶颈，然后专门解决这些瓶颈。
 
