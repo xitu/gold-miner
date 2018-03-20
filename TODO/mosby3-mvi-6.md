@@ -5,19 +5,20 @@
 > * 译者：
 > * 校对者：
 
-# REACTIVE APPS WITH MODEL-VIEW-INTENT - PART6 - RESTORING STATE
+# 使用MVI编写响应式APP—第六部分—状态恢复
 
-In the previous blog posts we have discussed Model-View-Intent (MVI) and the importance of unidirectional data flow. That simplifies state restoration a lot. How and why? We will discuss that in this blog post.
+在前面博客中，我们讨论了 Model-View-Intent （MVI）和单项数据流的重要性。这极大的简化了状态恢复。这如何做到和为什么能够做到咧？我们将在这篇博客讨论。
 
-There are two scenarios we will focus on in this blog post: Restoring state “in memory” (for example during screen orientation change) and restoring a “persistent state” (for example from Bundle previously saved in Activity.onSaveInstanceState()).
+我们在这篇博客中将要关注两种场景: 在内存中恢复状态（例如屏幕的方向发生改变）和恢复一个“持续状态”（从先前存储在 Activity.onSaveInstanceState() 的 Bundle 中恢复）。
 
-## In Memory
+## 在内存中
 
-That is the simple case. We just have to keep our RxJava stream that emits new state over time out of android components lifecylce (i.e. Activity, Fragment or even ViewGroups). For example Mosby’s **MviBasePresenter** establishes such a RxJava stream internally by using **PublishSubject** for View intents and **BehaviorSubject** to render the state on the view. I have already described these implementation details at the end of [Part 2](http://hannesdorfmann.com/android/mosby3-mvi-2). The main idea is that MviBasePresenter is such a component that lives outside View’s lifecylce so that a view can be attached and detached to such a Presenter. In Mosby the Presenter gets “destroyed” (garbage collected) when the view is destroyed permanently. Again, this is just an implementation detail of Mosby. Your MVI implementation might be entirely different. The important bit is that such a component like a Presenter lives outside of View’s lifecycle because then it’s easy to deal with View attached and detached events: whenever the View gets (re)attached to the Presenter we simply call **view.render(previousState)** (therefore Mosby uses BehaviorSubject internally). This is just one solution of how to deal with screen orientation changes. It also works with back stack navigation, i.e. Fragments on the back stack: if we come back from back stack we simply call view.render(previousState) again and the view is displaying the correct state. Actually, state can still be updated even if no view is attached because Presenter lives outside of that lifecycle and keeps RxJava state stream alive. Imagine receiving a push notification that changes data (part of state) while no view is attached. Again, whenever view gets reattached the latest state (containing updated data from push notification) is hand over to the view to render.
+这是一个简单的情况。我们仅仅需要保持我们的由新状态触发的 RxJava 流随着时间推移，独立与安卓组件的生命周期（例如，Acitivity，Fragment 或 ViewGroups）。例如，Mosby（作者写的一个库） 的 **MviBasePresenter** 建立在一个 RxJava 流内部通过使用 **PublishSubject** 来管理 view 的意图，和通过 **BehaviorSubject** 去渲染状态到 view 上。我已经在[第二部分](http://hannesdorfmann.com/android/mosby3-mvi-2)结尾处描述这些实现细节。。最重要的一点是 MviBasePresenter 是独立与 view 生命周期的一个组件，因此一个 view 可以在 Presenter 中被分离和附着。在 Mosby 中只有当 view 永久销毁 Presenter 才会被“摧毁”（垃圾回收）。 这仅仅是 Mosby 的实现细节。你的 MVI 实现可能和这个完全不一样。最重要的是这种组件比如 Presenter 需要独立与 view 的生命周期。因为这样它能够简单的处理 view 的附着和分离事件，无论何时 view 需要重新附着到 Presenter 我们只需简单的调用 **view.render(previousState)** (因此 Mosby 用内部 BehaviorSubject 来处理)。这仅仅是如何解决屏幕方向的一种解决方案。它也可以工作在返回栈导航中，例如，Fragment 在返回栈中，我们如果从返回栈中返回，我们可以简单的再次调用 view.render(previousState) 并且，view 也会显示正确的状态。 事实上，状态就算没有 view 附着也可以被改变。因为 Presenter 的独立与生命周期，并且保持 RxJava 状态流在内存中。想象接收一个改变数据（状态的一部分）的通知，没有 view 附着。无论何时 view 被重新附着，最后的状态（包括从通知中更新的数据）都会交给 view 去渲染。
 
-## Persistent State
+## 持久化状态
 
-That scenario is also much simpler with a unidirectional data flow pattern like MVI. Let’s say we want that state of our View (i.e. Activity) not only survives in memory, but also through process death. Typically in Android one would use **Activity.onSaveInstanceState(Bundle)** to save that state. In contrast to MVP or MVVM where you not necessarily have a Model that represents state (see [Part1](http://hannesdorfmann.com/android/mosby3-mvi-1)) in MVI your View has a **render(state)** method which makes it easy to keep track of the latest state. So the obvious solution is to make state Parcelable and store it into the bundle and then restore it afterwards like this:
+这种场景在单项数据流模式比如 MVI 的情况下也非常简单。让我们讨论，我们想让我们的状态或者我们的 view（例如 Activity）不仅仅在内存中存活，而且也能绕过进程死亡。通常的在 Android 一个被用来存储状态的是 **Activity.onSaveInstanceState(Bundle bundle)** 去保存状态。对比 MVP 或者 MVVM 你不使用 Model 来代表状态 (看 [第一部分](http://hannesdorfmann.com/android/mosby3-mvi-1)) 在 MVI 你的 view 有一个 render（状态）
+方法，这让保持最后一个状态变得容易。因此，显然易见的是打包和存储状态到一个 bundle 下面，并且事后恢复它像:
 
 ```
 class MyActivity extends Activity implements MyView {
