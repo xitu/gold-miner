@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/a-beginners-guide-to-website-optimization.md](https://github.com/xitu/gold-miner/blob/master/TODO/a-beginners-guide-to-website-optimization.md)
 > * 译者：[Starrier](https://github.com/Starriers)
-> * 校对者：[Clarence](https://github.com/ClarenceC)
+> * 校对者：[Clarence](https://github.com/ClarenceC)、[dazhi1011](https://github.com/dazhi1011)
 
 # 网站优化初学者指南
 
@@ -29,7 +29,7 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*jkCxAOJPjPhKkQaen0rt4g.jpeg)
 
-图片由 Pexels 提供 (Medium 提供的优化).
+图片由 Pexels 提供 (Medium 已做优化).
 
 作为一个网站开发初学者，我并没有想过图片的事情。我知道向我的网站添加高质量图片会使它看上去更专业，但是我从没有停下来考虑它们对我的网页加载时间的影响。
 
@@ -37,7 +37,7 @@
 
 回想起来，这从一开始就非常直观，只是我没有在意，可能您也一样。
 
-我用来压缩图片的服务是 [Optimizilla](http://optimizilla.com/), 一个易于使用的网站，那您只需上传图片，选择你要压缩的级别，然后下载压缩图片。我看到一些资源的大小减少了 70% 以上，这时更快的加载时间有很大的帮助。
+我用来压缩图片的服务是 [Optimizilla](http://optimizilla.com/), 一个易于使用的网站，那您只需上传图片，选择你要压缩的级别，然后下载压缩图片。我看到一些资源的大小减少了 70% 以上，这对于更快的加载时间有很大的帮助。
 
 Optimizilla 并不是您图片压缩需求的唯一选择。您可以使用一些独立的开源软件，Mac 环境下的 [ImageOptim](https://imageoptim.com/mac) 或者 Windows 环境下的 [FileOptimizer](https://sourceforge.net/projects/nikkhokkho/files/FileOptimizer/)。如果您更喜欢用构建工具进行压缩，那么可以使用 [Gulp](https://www.npmjs.com/package/gulp-imagemin) 和 [WebPack](https://github.com/Klathmon/imagemin-webpack-plugin) 插件。无论您怎么做，只要做了，那么即使是最小的努力，也会在性能上获取提升。
 
@@ -91,7 +91,7 @@ Optimizilla 并不是您图片压缩需求的唯一选择。您可以使用一�
 
 ![](https://cdn-images-1.medium.com/max/800/1*OGT_IyEaWXw5gbFOoP_Ipg.jpeg)
 
-不是浏览器存储数据的方式，但他是我所能得到的最接近的。Pexels 赞助。
+不太清楚浏览器具体如何存储数据，但它是我所能得到的最接近的。Pexels 赞助。
 
 将静态文件存储在浏览器的缓存中是提高网站速度的一种非常有效的方法，特别是在来自同一浏览器的回访时。直到 Google 告诉我，我的一些资源没有被适当地缓存，因为我从服务器发送的 HTTP 响应头中缺少标题，我才意识到这一点。
 
