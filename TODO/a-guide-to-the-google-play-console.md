@@ -22,7 +22,7 @@
 *   [Android vitals](#ed9a)
 *   [开发工具（Development tools）](#add5)
 *   [发布管理（Release management）](#4e06)
-*   [Store 展示（Store presence）](#c527)
+*   [Store 展示（Store presence）](#c527)
 *   [用户获取（User acquisition）](#111b)
 *   [财务报告（Financial reports）](#fb37)
 *   [用户反馈（User feedback）](#d92a)
