@@ -11,13 +11,13 @@
 
 照片由 [James Padolsey](https://unsplash.com/photos/6JCANHNBNGw?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) 在 [Unsplash](https://unsplash.com/collections/1584252/drag-blog?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) 拍摄
 
-我为 [React](https://reactjs.org/) 写了一个拖放库  [**react-beautiful-dnd**](https://github.com/atlassian/react-beautiful-dnd) 🎉。[Atlassian](https://medium.com/@Atlassian) 创建这个库的目的是为网站上的列表提供一种美观且易于使用的拖放体验。你可以阅读介绍文档: [关于拖放的反思](https://medium.com/@alexandereardon/rethinking-drag-and-drop-d9f5770b4e6b)。这个库**完全通过状态驱动** —  用户的输入导致状态改变，然后更新用户看到的内容。这在概念上允许使用任何输入类型进行拖动，但是太多状态驱动拖动将会导致性能上的缺陷。🦑
+我为 [React](https://reactjs.org/) 写了一个拖放库  [**react-beautiful-dnd**](https://github.com/atlassian/react-beautiful-dnd) 🎉。[Atlassian](https://medium.com/@Atlassian) 创建这个库的目的是为网站上的列表提供一种美观且易于使用的拖放体验。你可以阅读介绍文档: [关于拖放的反思](https://medium.com/@alexandereardon/rethinking-drag-and-drop-d9f5770b4e6b)。这个库**完全通过状态驱动** —— 用户的输入导致状态改变，然后更新用户看到的内容。这在概念上允许使用任何输入类型进行拖动，但是太多状态驱动拖动将会导致性能上的缺陷。🦑
 
-我们最近发布了 react-beautiful-dnd 的第四个版本 [`version 4`](https://github.com/atlassian/react-beautiful-dnd/releases/tag/v4.0.0) 其中包含了**大规模的性能提升**。
+我们最近发布了 react-beautiful-dnd 的第四个版本 [`version 4`](https://github.com/atlassian/react-beautiful-dnd/releases/tag/v4.0.0)，其中包含了**大规模的性能提升**。
 
 ![](https://cdn-images-1.medium.com/max/800/1*cn48EAW1k9TcDpfTtkySog.png)
 
-列表中的数据是基于具有 500 个可拖动项目的配置，在开发版本中启用仪表的情况下进行记录的，开发版本及启用仪表都会降低运行速度。但与此同时，我们使用了一台性能卓越的机器用于这次记录。确切的性能提升幅度会取决于数据集的大小，设备性能等。
+列表中的数据是基于具有 500 个可拖动卡片的配置，在开发版本中启用仪表的情况下进行记录的，开发版本及启用仪表都会降低运行速度。但与此同时，我们使用了一台性能卓越的机器用于这次记录。确切的性能提升幅度会取决于数据集的大小，设备性能等。
 
 您看仔细了，**我们看到有 99% 的性能提升** 🤘。由于这个库已经经过了[极致的优化](https://github.com/atlassian/react-beautiful-dnd#performance)，所以这些改进更加令人印象深刻。你可在[大型列表示例](https://react-beautiful-dnd.netlify.com/iframe.html?selectedKind=single%20vertical%20list&selectedStory=large%20data%20set)或[大型面板示例](https://react-beautiful-dnd.netlify.com/iframe.html?selectedKind=board&selectedStory=large%20data%20set)这两个例子中来感受性能提升的酸爽 😎。
 
@@ -44,7 +44,7 @@ react-beautiful-dnd 的大部分状态管理使用 [Redux](https://redux.js.org/
 
 *   **store:** 一个全局的状态容器  —  通常放在 [`context`](https://reactjs.org/docs/context.html) 中，所以**被连接的组件**可以被注册去更新。
 *   **被连接的组件:** 直接注册到 **store** 的组件. 他们的责任是响应 store 中的状态更新并将 props 传递给未连接的组件。这些通常被称为**智能或者容器**组件
-*   **未连接的组件**: 未连接到 Redux 的组件。他们通常被连接到 store 的组件包裹，接收来自 state 的 props。这些通常被称为 **笨拙** 或者 **展示** 组件
+*   **未连接的组件**: 未连接到 Redux 的组件。他们通常被连接到 store 的组件包裹，接收来自 state 的 props。这些通常被称为**笨拙**或者**展示**组件
 
 **如果你感兴趣，这是一些来自 [Dan Abramov](https://medium.com/@dan_abramov)   的关于这些概念[更详细的信息](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)**。
 
@@ -61,11 +61,11 @@ react-beautiful-dnd 的大部分状态管理使用 [Redux](https://redux.js.org/
 
 `render` 函数的 processing 和 reconciliation 在规模上是代价很大的。 如果你有 100 个或者 10000 个组件，你可能不希望每个组件在每次更新时都协调一个 `store` 中的共享状态。理想情况下，只有**需要**更新的组件才会调用它的 `render` 函数。对于我们每秒 60 次更新（60 fps）的拖放，这尤其如此。
 
-我在前两篇博客 ([round 1](https://medium.com/@alexandereardon/performance-optimisations-for-react-applications-b453c597b191), [round 2](https://medium.com/@alexandereardon/performance-optimisations-for-react-applications-round-2-2042e5c9af97)) 中探讨了避免不必要的 `render` 调用的技巧，React 文档[关于这个问题的叙述](https://reactjs.org/docs/optimizing-performance.html)也讨论了这个主题。就像所有东西都有一个平衡点一样，如果你太过刻意地避免渲染，你可能会引入大量潜在的冗余记忆检查。 这个话题已经在其他地方讨论过了，所以我不会在这里详细讨论。
+我在前两篇博客 ([第一轮](https://medium.com/@alexandereardon/performance-optimisations-for-react-applications-b453c597b191), [第二轮](https://medium.com/@alexandereardon/performance-optimisations-for-react-applications-round-2-2042e5c9af97)) 中探讨了避免不必要的 `render` 调用的技巧，React 文档[关于这个问题的叙述](https://reactjs.org/docs/optimizing-performance.html)也讨论了这个主题。就像所有东西都有一个平衡点一样，如果你太过刻意地避免渲染，你可能会引入大量潜在的冗余记忆检查。 这个话题已经在其他地方讨论过了，所以我不会在这里详细讨论。
 
 除了渲染成本之外，当使用 Redux 时，连接的组件越多，您就需要在每次更新时运行更多的状态查询 ([`mapStateToProps`](https://github.com/reactjs/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options)) 和记忆检查。我在 [round 2 blog](https://medium.com/@alexandereardon/performance-optimisations-for-react-applications-round-2-2042e5c9af97#.zflzltn15) 中详细讨论了与 Redux 相关的状态查询，选择器和备忘录。
 
-### Problem 1: 拖动开始之前长时间停顿
+### Problem 1：拖动开始之前长时间停顿
 
 ![](https://cdn-images-1.medium.com/max/800/1*tgrL8LuY9xY46qFo7HhuLQ.gif)
 
@@ -73,7 +73,7 @@ react-beautiful-dnd 的大部分状态管理使用 [Redux](https://redux.js.org/
 
 当点击一个大列表中的卡片时，需要相当长的时间才能开始拖拽，在 500 个卡片的列表中这是 **2.6 s 😢**！对于那些期望拖放交互是即时的用户来说，这是一个糟糕的体验。 让我们来看看发生了什么，以及我们用来解决问题的一些技巧。
 
-### Issue 1: 原生维度的发布
+### Issue 1：原生维度的发布
 
 为了执行拖动，我们将所有相关组件的尺寸（坐标，大小，边距等）的快照放入到我们的 **state** 和拖动的开始处。然后，我们会在拖动过程中使用这些信息来计算需要移动的内容。 我们来看看我们如何完成这个初始快照：
 
@@ -84,7 +84,7 @@ react-beautiful-dnd 的大部分状态管理使用 [Redux](https://redux.js.org/
 
 好的，所以这里有一些痛点：
 
-> 1. 当我们开始拖动时，我们在`state`上发起了一个`request`。
+> 1. 当我们开始拖动时，我们在 `state` 上发起了一个 `request`。
 > 2. 关联维度发布组件读取此请求并查看他们是否需要发布任何内容
 
 此时，每个关联的维度发布者都需要针对 store 执行检查，以查看他们是否需要请求维度。不理想，但并不可怕。让我们继续
@@ -93,7 +93,7 @@ react-beautiful-dnd 的大部分状态管理使用 [Redux](https://redux.js.org/
 
 我们过去使用 `shouldPublish` 属性来**传递消息**给组件来执行一个动作。不幸的是，这样做会有一个副作用，它会导致组件进行 render，从而引发该组件本身及其子组件的调和。当你在众多组件上执行这个操作时，代价昂贵。
 
-> 4. **未连接**的维度发布者从DOM收集维度并使用 `publish` 回调来发布维度
+> 4. **未连接**的维度发布者从 DOM 收集维度并使用 `publish` 回调来发布维度
 
 事情会变得**更糟**。首先，我们会立即从 DOM 读取很多维度，这可能需要一些时间。从那里每个维度发布者将单独 `publish` 一个维度。 这些维度会被存储到状态中。这种 `state` 的变化会触发 store 的订阅，从而导致步骤二中的关联组件状态查询和记忆检查被执行。它还会导致应用程序中的其他连接组件类似地运行冗余检查。因此，每当未连接的维度发布者发布维度时，将导致所有其他连接组件的冗余工作。这是一个 O(n²) 算法 - 更糟！哎。
 
@@ -189,11 +189,11 @@ setStyle(`
 
 ### Issue 3：阻止不需要的拖动
 
-当一个拖动开始时，我们也在 `Draggable` 上调用 `render` 来将 `canLift` prop 更新为 `false`。这用于防止在拖动生命周期中的特定时间开始新的拖动。我们需要这个 prop ，因为有一些键盘鼠标的组合输入可以让用户在已经拖动一些东西的期间开始另一些东西的拖动。我们仍然真的需要这个 `canLift` 检查 - 但是我们怎么做到这一点，而无需在所有的 `Draggables`上调用 `render`？
+当一个拖动开始时，我们也在 `Draggable` 上调用 `render` 来将 `canLift` prop 更新为 `false`。这用于防止在拖动生命周期中的特定时间开始新的拖动。我们需要这个 prop ，因为有一些键盘鼠标的组合输入可以让用户在已经拖动一些东西的期间开始另一些东西的拖动。我们仍然真的需要这个 `canLift` 检查 —— 但是我们怎么做到这一点，而无需在所有的 `Draggables`上调用 `render`？
 
 #### 与 State 结合的 context 函数
 
-我们没有通过 `render` 更新每个 `Draggable` 的 props 来阻止拖动的发生，而是在 `context` 中添加了 `canLift` 函数。该函数能够从 store 中获得当前状态并执行所需的检查。 通过这种方式，我们能够执行相同的检查，但无需更新 `Draggable` 的 props。
+我们没有通过 `render` 更新每个 `Draggable` 的 props 来阻止拖动的发生，而是在 `context` 中添加了 `canLift` 函数。该函数能够从 store 中获得当前状态并执行所需的检查。通过这种方式，我们能够执行相同的检查，但无需更新 `Draggable` 的 props。
 
 **此代码大大简化，但它说明了这种方法：**
 
@@ -241,7 +241,7 @@ class DraggableHandle extends React.Component {
 }
 ```
 
-很明显，你只想非常谨慎地做到这一点。 但是，我们发现它是一种非常有用的方法，可以在**不**更新 props 的情况下向组件提供 store 信息。 鉴于此检查是针对用户输入而进行的，并且没有渲染影响，我们可以避开它。 
+很明显，你只想非常谨慎地做到这一点。但是，我们发现它是一种非常有用的方法，可以在**不**更新 props 的情况下向组件提供 store 信息。鉴于此检查是针对用户输入而进行的，并且没有渲染影响，我们可以避开它。 
 
 ### 拖曳开始前不再有很长的停顿
 
@@ -281,15 +281,15 @@ react-beautiful-dnd 的核心设计特征之一是卡片在发生拖拽时会自
 
 一个来自 [react-virtualized](https://github.com/bvaughn/react-virtualized) 的拥有 10000 卡片的虚拟列表。
 
-避免离屏工作是一项艰巨的任务，您使用的技术将根据您的应用程序而有所不同。我们希望避免在拖放交互过程中移动和动画显示不可见的已挂载元素。这与避免完全使用诸如 [react-virtualized](https://github.com/bvaughn/react-virtualized) 之类的某种虚拟化解决方案渲染离屏组件完全不同。虚拟化是令人惊奇的，但是增加了代码库的复杂性。它也打破了一些原生的浏览器功能，如打印和查找（`command / control + f`）。我们的决定是为 React 应用程序提供卓越的性能，即使它们不使用虚拟化列表。这使得添加美观，高性能的拖放操作变得非常简单，而且只需很少的开销即可将其拖放到现有的应用程序中。 也就是说，我们也计划支持 [supporting virtualised lists](https://github.com/atlassian/react-beautiful-dnd/issues/68) - 因此开发者可以选择是否要使用虚拟化列表减少大型列表 `render` 时间。 如果您有包含 1000 个卡片的列表，这将非常有用。
+避免离屏工作是一项艰巨的任务，您使用的技术将根据您的应用程序而有所不同。我们希望避免在拖放交互过程中移动和动画显示不可见的已挂载元素。这与避免完全使用诸如 [react-virtualized](https://github.com/bvaughn/react-virtualized) 之类的某种虚拟化解决方案渲染离屏组件完全不同。虚拟化是令人惊奇的，但是增加了代码库的复杂性。它也打破了一些原生的浏览器功能，如打印和查找（`command / control + f`）。我们的决定是为 React 应用程序提供卓越的性能，即使它们不使用虚拟化列表。这使得添加美观，高性能的拖放操作变得非常简单，而且只需很少的开销即可将其拖放到现有的应用程序中。也就是说，我们也计划支持 [supporting virtualised lists](https://github.com/atlassian/react-beautiful-dnd/issues/68) - 因此开发者可以选择是否要使用虚拟化列表减少大型列表 `render` 时间。 如果您有包含 1000 个卡片的列表，这将非常有用。
 
-### Issue 2: 可放弃的更新
+### Issue 2：可放弃的更新
 
 当用户拖动 `Droppable` 列表时，我们通过更新 `isDraggingOver`  属性让用户知道。但是，这样做会导致 `Droppable` 的 `render` - 这反过来会导致其所有子项 `render` - 可能是 100 个 `Draggable` 卡片！
 
 #### 我们不控制组件的子元素
 
-为了避免这种情况，我们针对 react-beautiful-dnd 的使用者，创建了性能优化的建议，[文档建议](https://github.com/atlassian/react-beautiful-dnd#recommended-droppable-performance-optimisation)，以避免渲染不需要渲染的 `Droppable` 的子元素。库本身并不控制 `Droppable` 的子元素的渲染，所以我们能做的最好的是提供一个建议的优化。 这个建议允许用户在拖拽时设置 `Droppable`，同时避免在其所有子项上调用 `render`。
+为了避免这种情况，我们针对 react-beautiful-dnd 的使用者，创建了性能优化的建议[建议文档](https://github.com/atlassian/react-beautiful-dnd#recommended-droppable-performance-optimisation)，以避免渲染不需要渲染的 `Droppable` 的子元素。库本身并不控制 `Droppable` 的子元素的渲染，所以我们能做的最好的是提供一个建议的优化。 这个建议允许用户在拖拽时设置 `Droppable`，同时避免在其所有子项上调用 `render`。
 
 ```
 import React, { Component } from 'react';
@@ -345,7 +345,7 @@ class Students extends Component {
 
 通过实施这些优化，我们可以减少在包含 500 个卡片的列表之间移动的时间，这些卡片的位移时间从 380 ms 减少到 8 ms 每帧！**这是另一个 99％ 的减少**。
 
-### Other: 查找表
+### Other：查找表
 
 **这种优化并不是针对 React 的 - 但在处理有序列表时非常有用**
 
