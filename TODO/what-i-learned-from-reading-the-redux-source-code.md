@@ -9,9 +9,7 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/1*BpaqVMW2RjQAg9cFHcX1pw.png)
 
-Redux 官方 logo。
-
-我总是听人说，想要拓展开发者自身的视野就去读源码吧。
+我总是听人说，想拓展开发者自身视野就去读源码吧。
 
 所以我决定找一个高质量的 JavaScript 库来深入学习。
 
