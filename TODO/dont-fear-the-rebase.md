@@ -5,9 +5,9 @@
 > * 译者：[根号三](https://github.com/sqrthree)
 > * 校对者：[Tina92](https://github.com/Tina92)、[Starrier](https://github.com/Starriers)
 
-![](https://ws3.sinaimg.cn/large/006tKfTcly1fpet99qa0jj31hc0icwg4.jpg)
-
 # 不要害怕 Rebase
+
+![](https://ws3.sinaimg.cn/large/006tKfTcly1fpet99qa0jj31hc0icwg4.jpg)
 
 Git 的 `rebase` 命令是 Git 用户感到害怕和迷惑的一个常见原因，特别是那些来自可能更集中的版本控制系统的用户。这很正常。Rebase 是一个不可思议又充满魔力的怪兽，一上来不管三七二十一就改变历史。
 
