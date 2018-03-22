@@ -72,7 +72,7 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*q6FsoxR0Qou54lG040J2KQ.jpeg)
 
-<center>[图片来自 stackoverflow](https://stackoverflow.com/a/44388246/5073961)</center>
+[图片来自 stackoverflow](https://stackoverflow.com/a/44388246/5073961)
 
 关于 `null` 和 `undefined`，Axel Rauschmayer 博士写过 [一篇非常棒的文章](http://2ality.com/2013/04/quirk-undefined.html)。
 
