@@ -9,7 +9,7 @@
 
 在 [npm 注册表](https://www.npmjs.com/)发布一个包应该是很无聊的，在这篇博客中，我描述了如何在每次打 git 标签时使用 [Travis CI](https://travis-ci.org/) 来发布 npm 包。
 
-![使用 Travis CI 自动发布 npm](/img/post/2018/03/automated-npm-releases.png "Automated npm releases with Travis CI")
+![使用 Travis CI 自动发布 npm](https://tailordev.fr/img/post/2018/03/automated-npm-releases.png)
 
 在 TailorDev，我们喜欢自动化构建软件所需的许多重要步骤。其中一个步骤是发布最终的，即可生产的应用程序包，也称为工件或者包。今天，我们关注于 JavaScript 世界，描述如何不花费太大心血而在 npm 注册表中实现包的自动化发布过程。
 
