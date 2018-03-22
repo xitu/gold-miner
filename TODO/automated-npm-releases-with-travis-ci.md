@@ -91,7 +91,7 @@ jobs:
 
 ## 优点：npm 像专业版一样发布
 
-为了创建新版本，我们使用 [`npm 版本`](https://docs.npmjs.com/cli/version) (它内置在 npm ![:rocket:](https://assets.github.com/images/icons/emoji/unicode/1f680.png ":rocket:")). 假设我们当前版本是 `0.3.2` ，我们想发布 `0.3.3`。在 `master`  分支上，我们运行以下命令
+为了创建新版本，我们使用 [`npm 版本`](https://docs.npmjs.com/cli/version) (它内置在 npm ![:rocket:](https://assets.github.com/images/icons/emoji/unicode/1f680.png ":rocket:"))。假设我们当前版本是 `0.3.2` ，我们想发布 `0.3.3`。在 `master`  分支上，我们运行以下命令
 
 ```
 $ npm version patch
@@ -105,7 +105,7 @@ $ npm version patch
 
 我们可以使用 `npm version minor` 从 `0.3.1` 发布 `0.4.0` (它会颠倒第二个数字并重置最后一个数字)。我们也可以使用 `npm version major` 从 `0.3.1` 发布 `1.0.0`。 
 
-一旦使用 `npm version` 命令完成后，您就可以运行 `git push origin master --tag` 并稍等片刻，直到包在 npm 注册表上发布。 ![:tada:](https://assets.github.com/images/icons/emoji/unicode/1f389.png ":tada:")
+一旦使用 `npm version` 命令完成后，您就可以运行 `git push origin master --tag` 并稍等片刻，直到包在 npm 注册表上发布。![:tada:](https://assets.github.com/images/icons/emoji/unicode/1f389.png ":tada:")
 
 
 ---
