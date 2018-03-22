@@ -18,13 +18,13 @@
 **但是为什么这会如此重要呢？**我很高兴您会这么问，因为我们在续集中需要一个 API 令牌，而且目前不可能在不触发 2FA 机制的情况下生成和使用令牌。换句话说，启用 2FA，几乎不可能自动化 npm 发布过程，“几乎”是因为 npm 实现了[双级别身份认证](https://docs.npmjs.com/getting-started/using-two-factor-authentication#levels-of-authentication): **`auth-only`**  和 **`auth-and-writes`**。通过将 2FA 的使用限制在 **`auth-only`** 上，我们就可以使用 API 令牌，但安全性较低。我们真的希望 npm 可以在不久的将来为自动化任务设计的 auth 令牌，同时：
 
 ```
-**$ npm profile enable-2fa auth-only**
+$ npm profile enable-2fa auth-only
 ```
 
 一旦您的账户启用了 **`auth-only`** 用法的 2FA (顺便说一句，这比没有启用 2FA 更好)，那就让我们开始创建一个令牌：
 
 ```
-**$ npm token create
+$ npm token create
 
 +----------------+--------------------------------------+
 | token          | a73c9572-f1b9-8983-983d-ba3ac3cc913d |
@@ -34,7 +34,7 @@
 | readonly       | false                                |
 +----------------+--------------------------------------+
 | created        | 2017-10-02T07:52:24.838Z             |
-+----------------+--------------------------------------+**
++----------------+--------------------------------------+
 ```
 
 这个令牌将由 Travis CI 用于代表您进行身份验证。我们也可以[使用 Travis CLI 将该令牌作为环境变量进行加密](https://docs.travis-ci.com/user/environment-variables/#Encrypting-environment-variables)或者[在 Travis CI 存储库设置中定义一个变量](https://docs.travis-ci.com/user/environment-variables/#Defining-Variables-in-Repository-Settings),，这样做将会更方便。声明两个私密环境变量 **`NPM_EMAIL`** 和 **`NPM_TOKEN`**：
@@ -47,7 +47,7 @@
 
 ```
 language: node_js
-**node_js:
+node_js:
   - "8"
   - "9"
 
@@ -56,7 +56,7 @@ cache: yarn
 install: yarn
 script:
   - yarn lint
-  - yarn test**
+  - yarn test
 ```
 
 ![标准 Travis CI 输出带有两个 JavaScript 任务](https://tailordev.fr/img/post/2018/03/travis-ci-two-jobs-node.png)
@@ -64,7 +64,7 @@ script:
 我们现在可以通过将以下配置添加到之前的 **`.travis.yml`** 文件中来配置“部署”任务：
 
 ```
-**jobs:
+jobs:
   include:
     - stage: npm release
       if: tag IS present
@@ -78,10 +78,10 @@ script:
         api_key: "$NPM_TOKEN"
         skip_cleanup: true
         on:
-          tags: true**
+          tags: true
 ```
 
-让我们一行一行地分析。首先，当且仅当 **`IS 标签存在`**时，我们“加入”一个新的 npm 发布阶段，这意味着构建已经被 git 标记触发。我们选择 node **`8`** (我们的生产版本) 并执行 **`yarn compile`** 来构建我们的包。此脚本会创建包含可以在 npm 注册表上发布包文件的 **`dist/`** 文件夹。最后但同样重要的一点是，我们调用 Travis CI **`deploy`** 命令在 npm 注册表来实际发布包（同时我们将此命令限制为 git 标记，仅作为额外的保护层）。
+让我们一行一行地分析。首先，当且仅当 **`IS 标签存在`** 时，我们“加入”一个新的 npm 发布阶段，这意味着构建已经被 git 标记触发。我们选择 node **`8`** (我们的生产版本) 并执行 **`yarn compile`** 来构建我们的包。此脚本会创建包含可以在 npm 注册表上发布包文件的 **`dist/`** 文件夹。最后但同样重要的一点是，我们调用 Travis CI **`deploy`** 命令在 npm 注册表来实际发布包（同时我们将此命令限制为 git 标记，仅作为额外的保护层）。
 
 注意：为了防止 Travis CI 清理额外的文件夹并删除你做的改变，请在发布前将 **`skip_cleanup`** 设置为 **`true`**。 
 
@@ -103,7 +103,7 @@ script:
 2.  创建一个新的提交
 3.  创建一个 git 标签
 
-我们可以使用 **`npm version minor`** 从 **`0.3.1`** 发布 **`0.4.0`** (它会颠倒第二个数字并重置最后一个数字)。我们也可以使用 **`npm version major`** 从 `0.3.1` 发布 **`1.0.0`**。 
+我们可以使用 **`npm version minor`** 从 **`0.3.1`** 发布 **`0.4.0`** (它会颠倒第二个数字并重置最后一个数字)。我们也可以使用 **`npm version major`** 从 **`0.3.1`** 发布 **`1.0.0`**。 
 
 一旦使用 **`npm version`** 命令完成后，您就可以运行 **`git push origin master --tag`** 并稍等片刻，直到包在 npm 注册表上发布。![:tada:](https://assets.github.com/images/icons/emoji/unicode/1f389.png ":tada:")
 
