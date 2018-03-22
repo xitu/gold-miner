@@ -15,7 +15,7 @@
 
 首先，npm 在 2017 年推出了 [双因素认证](https://docs.npmjs.com/getting-started/using-two-factor-authentication) (简称 2FA)，这是一个很好的想法，直到我们发现了它是“全部或者没有”！[:confused:](https://assets.github.com/images/icons/emoji/unicode/1f615.png ":confused:")。事实上, npm 2FA 依赖于[一次性密码](https://en.wikipedia.org/wiki/One-time_password)来保护账户以及与您账户相关的所有内容，并自动实现这一功能，从而无法实现 2FA 的功能。
 
-**但是为什么这会如此重要呢？**我很高兴您会这么问，因为我们在续集中需要一个 API 令牌，而且目前不可能在不触发 2FA 机制的情况下生成和使用令牌。换句话说，启用 2FA，几乎不可能自动化 npm 发布过程，“几乎”是因为 npm 实现了[双级别身份认证](https://docs.npmjs.com/getting-started/using-two-factor-authentication#levels-of-authentication): `auth-only`  和 `auth-and-writes`。通过将 2FA 的使用限制在 `auth-only` 上，我们就可以使用 API 令牌，但安全性较低。我们真的希望 npm 可以在不久的将来为自动化任务设计的 auth 令牌，同时：
+**但是为什么这会如此重要呢？**我很高兴您会这么问，因为我们在续集中需要一个 API 令牌，而且目前不可能在不触发 2FA 机制的情况下生成和使用令牌。换句话说，启用 2FA，几乎不可能自动化 npm 发布过程，“几乎”是因为 npm 实现了[双级别身份认证](https://docs.npmjs.com/getting-started/using-two-factor-authentication#levels-of-authentication): **`auth-only`**  和 `auth-and-writes`。通过将 2FA 的使用限制在 `auth-only` 上，我们就可以使用 API 令牌，但安全性较低。我们真的希望 npm 可以在不久的将来为自动化任务设计的 auth 令牌，同时：
 
 ```
 $ npm profile enable-2fa auth-only
