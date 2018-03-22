@@ -3,11 +3,11 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/automated-npm-releases-with-travis-ci.md](https://github.com/xitu/gold-miner/blob/master/TODO/automated-npm-releases-with-travis-ci.md)
 > * 译者：[Starrier](https://github.com/Starriers)
-> * 校对者：[talisk](https://github.com/talisk)
+> * 校对者：[talisk](https://github.com/talisk)、[liang-kai](https://github.com/liang-kai)
 
 # 使用 Travis CI 自动发布 npm 
 
-在 [npm 注册表](https://www.npmjs.com/)发布一个包应该是很无聊的，在这篇博客中，我描述了如何设置 [Travis CI](https://travis-ci.org/) 来在每次布 npm 包时使用 git 标签。
+在 [npm 注册表](https://www.npmjs.com/)发布一个包应该是很无聊的，在这篇博客中，我描述了如何在每次打 git 标签时使用 [Travis CI](https://travis-ci.org/) 来发布 npm 包。
 
 ![使用 Travis CI 自动发布 npm](/img/post/2018/03/automated-npm-releases.png "Automated npm releases with Travis CI")
 
@@ -81,9 +81,9 @@ jobs:
           tags: true
 ```
 
-让我们一行一行地分析。首先，当且仅当 `IS 标签存在`时，我们“加入”一个新的 npm 发布阶段，这意味着构建已经被 git 标记触发。我们选择 node `8` (我们的生产版本) 并执行 `yarn compile` 来构建我们的包。此脚本会创建包含可以在 npm 注册表上发布包文件的 `dist/` 文件夹。最后但并非最不重要的一点是，我们调用 Travis CI `deploy` 命令在 npm 注册表来实际发布包（同时我们将此命令限制为 git 标记，仅作为额外的保护层）。
+让我们一行一行地分析。首先，当且仅当 `IS 标签存在`时，我们“加入”一个新的 npm 发布阶段，这意味着构建已经被 git 标记触发。我们选择 node `8` (我们的生产版本) 并执行 `yarn compile` 来构建我们的包。此脚本会创建包含可以在 npm 注册表上发布包文件的 `dist/` 文件夹。最后但同样重要的一点是，我们调用 Travis CI `deploy` 命令在 npm 注册表来实际发布包（同时我们将此命令限制为 git 标记，仅作为额外的保护层）。
 
-注意：为了防止 Travis CI 在发布之前清理任何其他文件并进行更改，必须将 `skip_cleanup` 设置为 `true`。 
+注意：为了防止 Travis CI 清理额外的文件夹并删除你做的改变，请在发布前将 `skip_cleanup` 设置为 `true`。 
 
 ![带有 JavaScript 的 Travis CI](/img/post/2018/03/travis-ci-build-stages.png)
 
@@ -101,9 +101,9 @@ $ npm version patch
 
 1.  在 `package.json` 中插入（更新）的版本号
 2.  创建一个新的提交
-3.  创建一个 git 标记
+3.  创建一个 git 标签
 
-我们可以使用 `npm version minor` 从 `0.3.1` 发布 `0.4.0` (它会颠倒第二个数字并重置最后一个数字)。我们也可以使用 `npm version major` 从 `0.3.1`. 发布 `1.0.0`。 
+我们可以使用 `npm version minor` 从 `0.3.1` 发布 `0.4.0` (它会颠倒第二个数字并重置最后一个数字)。我们也可以使用 `npm version major` 从 `0.3.1` 发布 `1.0.0`。 
 
 一旦使用 `npm version` 命令完成后，您就可以运行 `git push origin master --tag` 并稍等片刻，直到包在 npm 注册表上发布。 ![:tada:](https://assets.github.com/images/icons/emoji/unicode/1f389.png ":tada:")
 
