@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/typescript-javascript-with-superpowers-part-ii.md](https://github.com/xitu/gold-miner/blob/master/TODO/typescript-javascript-with-superpowers-part-ii.md)
 > * 译者：[jonjia](https://github.com/jonjia)
-> * 校对者：
+> * 校对者：[Usey95](https://github.com/Usey95) [anxsec](https://github.com/anxsec)
 
 # TypeScript：拥有超能力的 JavaScript（下）
 
@@ -13,7 +13,7 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*lrVNbYOEn_ni9NNRTY0r7w.png)
 
-使用枚举（enum）类型可以表达一组带名字的常量。
+使用枚举（enum）可以更清晰地组合一组数据。
 
 下面我们来看看如何构造一个枚举类型：
 
@@ -33,19 +33,19 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*XnRIFhuCMpJFp8CmVUnf3g.png)
 
-下面的例子中，枚举还可以用于存储应用的状态。
+还有一个很好的例子是使用枚举存储应用的状态。
 
 ![](https://cdn-images-1.medium.com/max/800/1*nOLoMIf6YLl0XbFoPWeHmw.png)
 
-如果你想了解更多关于枚举（enum）的知识，我发现 [stackoverflow 上的这个回答](https://stackoverflow.com/a/28818850/5073961) 涵盖了枚举的基本内容。
+如果你想了解更多关于枚举（enum）的知识，[stackoverflow 上的这个回答](https://stackoverflow.com/a/28818850/5073961) 探讨了更多关于枚举的细节。
 
 * * *
 
 ![](https://cdn-images-1.medium.com/max/800/1*DKPVSnf7PVjrdDY_Fvz6EQ.png)
 
-假设我们请求某个 API， 获取了一些数据。我们总是期望成功获取数据 — 但如果我们无法获取到数据会怎样呢？
+假设我们请求某个 API，获取了一些数据。我们总是期望成功获取数据 — 但如果我们无法获取到数据会怎样呢？
 
-是时候返回 `never` 类型了，比如下面这种特殊情况：
+是时候返回 `never` 类型了，比如下面这种特殊使用场景：
 
 ![](https://cdn-images-1.medium.com/max/800/1*lkfWaSP6G8YfqWjoFWqh4w.png)
 
@@ -62,7 +62,7 @@
 ![](https://cdn-images-1.medium.com/max/800/1*bgzesRZpes2KJYFRWRgFkw.png)
 
 *   **null** — 没有任何值。
-*   **undefined** — 变量被声明了，但没有赋值时，就等于 undefined。
+*   **undefined** — 变量被声明了，但没有赋值。
 
 它们本身的类型用处不是很大。
 
@@ -102,7 +102,7 @@
 *   [类](https://www.typescriptlang.org/docs/handbook/classes.html)
 *   [一些很棒的 TypeScript 项目](https://github.com/dzharii/awesome-typescript)
 
-现在 — 用 TypeScript 来构造些有趣的东西吧！📙
+现在 — 用 TypeScript 来构造些有趣的东西吧！📙
 
 感谢阅读，希望你有所收获！
 
