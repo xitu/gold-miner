@@ -39,7 +39,7 @@ $ npm token create
 
 这个令牌将由 Travis CI 用于代表您进行身份验证。我们也可以[使用 Travis CLI 将该令牌作为环境变量进行加密](https://docs.travis-ci.com/user/environment-variables/#Encrypting-environment-variables)或者[在 Travis CI 存储库设置中定义一个变量](https://docs.travis-ci.com/user/environment-variables/#Defining-Variables-in-Repository-Settings),，这样做将会更方便。声明两个私密环境变量 `NPM_EMAIL` 和 `NPM_TOKEN`：
 
-![Travis CI 设置](/img/post/2018/03/travis-ci-settings.png)
+![Travis CI 设置](https://tailordev.fr/img/post/2018/03/travis-ci-settings.png)
 
 现在，最重要的部分是创建一个实际发布 npm 包的任务。我们决定利用[构建阶段（测试版）特性](https://docs.travis-ci.com/user/build-stages/)结合 [Travis CI 推荐的方式发布 npm 包](https://docs.travis-ci.com/user/deployment/npm/)。为了做记录，我们希望每次构建版本只发布一次。不管现有的构建矩阵如何，我们还希望在发布 npm 包时使用 git 标签，以便在 npm 版本和 GitHub 版本之间保持一致。
 
@@ -59,7 +59,7 @@ script:
   - yarn test
 ```
 
-![标准 Travis CI 输出带有两个 JavaScript 任务](/img/post/2018/03/travis-ci-two-jobs-node.png)
+![标准 Travis CI 输出带有两个 JavaScript 任务](https://tailordev.fr/img/post/2018/03/travis-ci-two-jobs-node.png)
 
 我们现在可以通过将以下配置添加到之前的 `.travis.yml` 文件中来配置“部署”任务：
 
