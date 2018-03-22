@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/mosby3-mvi-6.md](https://github.com/xitu/gold-miner/blob/master/TODO/mosby3-mvi-6.md)
 > * 译者：[pcdack](https://github.com/pcdack)
-> * 校对者：[hanliuxin5](https://github.com/hanliuxin5)
+> * 校对者：[hanliuxin5](https://github.com/hanliuxin5),[allenlongbaobao](https://github.com/allenlongbaobao)
 
 # 使用 MVI 编写响应式 APP—第六部分—状态恢复
 
