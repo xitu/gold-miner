@@ -85,9 +85,9 @@ jobs:
 
 注意：为了防止 Travis CI 清理额外的文件夹并删除你做的改变，请在发布前将 `skip_cleanup` 设置为 `true`。 
 
-![带有 JavaScript 的 Travis CI](/img/post/2018/03/travis-ci-build-stages.png)
+![带有 JavaScript 的 Travis CI](https://tailordev.fr/img/post/2018/03/travis-ci-build-stages.png)
 
-这很酷，不是么? ![:sunglasses:](https://assets.github.com/images/icons/emoji/unicode/1f60e.png ":sunglasses:")
+这很酷，不是么?![:sunglasses:](https://assets.github.com/images/icons/emoji/unicode/1f60e.png ":sunglasses:")
 
 ## 优点：npm 像专业版一样发布
 
