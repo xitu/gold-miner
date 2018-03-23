@@ -2,22 +2,22 @@
 > * 原文作者：[Hannes Dorfmann](http://hannesdorfmann.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/mosby3-mvi-6.md](https://github.com/xitu/gold-miner/blob/master/TODO/mosby3-mvi-6.md)
-> * 译者：
-> * 校对者：
+> * 译者：[pcdack](https://github.com/pcdack)
+> * 校对者：[hanliuxin5](https://github.com/hanliuxin5), [allenlongbaobao](https://github.com/allenlongbaobao)
 
-# REACTIVE APPS WITH MODEL-VIEW-INTENT - PART6 - RESTORING STATE
+# 使用 MVI 编写响应式 APP—第六部分—状态恢复
 
-In the previous blog posts we have discussed Model-View-Intent (MVI) and the importance of unidirectional data flow. That simplifies state restoration a lot. How and why? We will discuss that in this blog post.
+在前面博客中，我们讨论了 Model-View-Intent （MVI）和单项数据流的重要性。这极大的简化了状态恢复。这如何做到和为什么能够做到咧？我们将在这篇博客讨论。
 
-There are two scenarios we will focus on in this blog post: Restoring state “in memory” (for example during screen orientation change) and restoring a “persistent state” (for example from Bundle previously saved in Activity.onSaveInstanceState()).
+我们在这篇博客中将要关注两种场景: 在内存中恢复状态（例如屏幕的方向发生改变）和恢复一个「持续状态」（从先前存储在 Activity.onSaveInstanceState() 的 Bundle 中恢复）。
 
-## In Memory
+## 在内存中
 
-That is the simple case. We just have to keep our RxJava stream that emits new state over time out of android components lifecylce (i.e. Activity, Fragment or even ViewGroups). For example Mosby’s **MviBasePresenter** establishes such a RxJava stream internally by using **PublishSubject** for View intents and **BehaviorSubject** to render the state on the view. I have already described these implementation details at the end of [Part 2](http://hannesdorfmann.com/android/mosby3-mvi-2). The main idea is that MviBasePresenter is such a component that lives outside View’s lifecylce so that a view can be attached and detached to such a Presenter. In Mosby the Presenter gets “destroyed” (garbage collected) when the view is destroyed permanently. Again, this is just an implementation detail of Mosby. Your MVI implementation might be entirely different. The important bit is that such a component like a Presenter lives outside of View’s lifecycle because then it’s easy to deal with View attached and detached events: whenever the View gets (re)attached to the Presenter we simply call **view.render(previousState)** (therefore Mosby uses BehaviorSubject internally). This is just one solution of how to deal with screen orientation changes. It also works with back stack navigation, i.e. Fragments on the back stack: if we come back from back stack we simply call view.render(previousState) again and the view is displaying the correct state. Actually, state can still be updated even if no view is attached because Presenter lives outside of that lifecycle and keeps RxJava state stream alive. Imagine receiving a push notification that changes data (part of state) while no view is attached. Again, whenever view gets reattached the latest state (containing updated data from push notification) is hand over to the view to render.
+这是一个简单的情况。我们只需要让我们的 RxJava 随着时间的变化遵从安卓组件的生命周期（例如，Acitivity，Fragment 甚至是 ViewGroups）继续发射新的数据。例如，Mosby（作者写的一个库） 的 **MviBasePresenter** 建立在一个 RxJava 流内部通过使用 **PublishSubject** 来管理 view 的意图，和通过 **BehaviorSubject** 去渲染状态到 view 上。我已经在[第二部分](http://hannesdorfmann.com/android/mosby3-mvi-2)结尾处描述这些实现细节。最重要的一点是 MviBasePresenter 是独立与 view 生命周期的一个组件，因此一个 view 可以在 Presenter 中被分离和附着。在 Mosby 中只有当 view 永久销毁 Presenter 才会被「摧毁」（垃圾回收）。这仅仅是 Mosby 的实现细节。你的 MVI 实现可能和这个完全不一样。最重要的是这种组件比如 Presenter 需要独立于 view 的生命周期。因为这样它能够简单的处理 view 的附着和分离事件，无论何时 view 需要重新附着到 Presenter 我们只需简单地调用 **view.render(previousState)** (因此 Mosby 用内部 BehaviorSubject 来处理)。这仅仅是如何解决屏幕方向的一种解决方案。它也可以工作在返回栈导航中，例如，Fragment 在返回栈中，我们如果从返回栈中返回，我们可以简单的再次调用 view.render(previousState)，并且，view 也会显示正确的状态。 事实上，状态就算没有 view 附着也可以被改变。因为 Presenter 的独立于生命周期，并且保持 RxJava 状态流在内存中。想象接收一个改变数据（状态的一部分）的通知，没有 view 附着。无论何时 view 被重新附着，最后的状态（包括从通知中更新的数据）都会交给 view 去渲染。
 
-## Persistent State
+## 持久化状态
 
-That scenario is also much simpler with a unidirectional data flow pattern like MVI. Let’s say we want that state of our View (i.e. Activity) not only survives in memory, but also through process death. Typically in Android one would use **Activity.onSaveInstanceState(Bundle)** to save that state. In contrast to MVP or MVVM where you not necessarily have a Model that represents state (see [Part1](http://hannesdorfmann.com/android/mosby3-mvi-1)) in MVI your View has a **render(state)** method which makes it easy to keep track of the latest state. So the obvious solution is to make state Parcelable and store it into the bundle and then restore it afterwards like this:
+这种场景在 MVI 这种单向数据流模式下也很简单。假设我们希望 View 的状态 （比如 Activity）不仅存活在内存中，还能在进程死亡后被暂存。通常，在安卓中我们使用 Activity.onSaveInstanceState(Bundle) 来保存那样的状态。在 MVP 或者 MVVM 中，你不需要使用 Model 来代表状态（见 [第一部分](http://hannesdorfmann.com/android/mosby3-mvi-1)），与之不同的是， 在 MVI 中，View 有一个 render(state) 方法来记录最新的状态，这让保持最后一个状态变得容易。因此，显然易见的是打包和存储状态到一个 bundle 下面，并且事后恢复它,例如：
 
 ```
 class MyActivity extends Activity implements MyView {
@@ -50,23 +50,23 @@ class MyActivity extends Activity implements MyView {
 }
 ```
 
-I think you get the point. Please note that in onCreate() we are not calling view.render(initialState) directly but rather we let the initial state sink down to where state management takes place: the state reducer ([see Part 3](http://hannesdorfmann.com/android/mosby3-mvi-3)) where we use it with **.scan(initialState, reducerFunction)**.
+我知道你已经掌握了要点。请注意在 onCreate() 方法中我们不能直接调用 view.render(state)，取而代之，我们应该让初始化状态下沉到状态管理的地方：状态折叠器（[看第三部分](http://hannesdorfmann.com/android/mosby3-mvi-3)）在这里我们用 **.scan(initialState，reducerFunction)**。
 
-## Conclusion
+## 结论
 
-With a unidirectional data flow and a Model that represents State a lot of state related things are much simpler to implement compared to other patterns. However, usually I don’t persist state into a bundle in my apps for two reasons: First, Bundle has a size limit, so you can’t put arbitrary large state into a bundle (alternatively you could save state into a file or an object store like Realm). Second, we only have discussed how to serialize and deserialize state but that is not necessarily the same as restoring state.
+随着单向数据流和一个 Model 代表一种状态，很多与状态相关的事情，变得相对于其他的模式更加简单。然而，通常在我的 APP 中，我不会持久化状态到 bundle 有以下两点原因：第一， Bundle 有大小限制，因此你不能存很大的状态在 bundle 中（相反，你需要存储状态到文件，或者，存储到对象存储例如 Realm）。第二，我们仅仅讨论了如何去序列化和反序列化，但是，这不一定与恢复状态相同。
 
-For Example: Let’s assume we have a LCE (Loading-Content-Error) View that displays a loading indicator while loading data and a list of items once the data (items) is loaded. So the state would be like **MyViewState.LOADING**. Let’s assume that loading takes some time and that the Activity process gets killed while loading (i.e. because another app has come into foreground like phone app because of an incoming call). If we just serialize MyViewState.LOADING and deserialize it after Activity has been recreated as described above, our state reducer would just call view.render(MyViewState.LOADING) which is correct so far **BUT** we would actually never invoke loading data again (i.e. start http request) just by using the deserialized state blindly.
+例子：让我们假设我们有一个 LCE(Loading-Content-Error) 的 view，这个 view 在加载数据时会显示一个指示器，并且当数据加载完成后会展示一个列表视图。。因此，这个状态应当是 **MyViewState.LOADING**。让我们假设加载需要消耗一定的时间，就在加载时候，Activity 进程也被杀掉了(例如，因为其他应用程序占据了前台，像电话 app 因为女票的电话而占据了前台)。如果如之前所述，我们仅仅只是序列化了 MyViewState.LOADING 这个状态，并在 Activity 被重新创建时反序列化它，那么我们的状态折叠器只会去调用 view.render(MyViewState.LOADING) 。注意到目前为止一切都还好，但是接下来我们会发现去加载数据本身这个操作（发起一次 http 请求）永远不会执行。这就是盲目简单地反序列化带来的结果。
 
-As you can see, serializing and deserializing state is not the same as state restoration which may requires some additional steps that increases complexity (still simpler to implement with MVI than with any other architectural pattern I have used so far). Also deserialized state containing some data might be outdated when View gets recreated so that you might have to refresh (load data) anyway. In most of the apps I have worked on I found it much simpler and more user friendly to keep state in memory only and after process death start with a empty initial state as if the app would start the first time. Ideally an app has a cache and offline support so that loading data after process death is fast.
+正如你所见, 序列化与反序列化状态，并不同于状态恢复。状态恢复也许需要一些添加额外的一些会增加复杂性的步骤（使用 MVI 来实现比我目前为止所使用的任何其他架构更加简单）。当 view 被重新创建的时候，反序列化状态也许包含了一些过期数据。因此，你需要想尽办法更新数据。在大多数 app 中，我通过努力找到了一种更简单和更加友好的方法，仅仅保持状态到内存中。并且当进程死亡的时候，开启一个空的初始化状态就像 app 第一次启动一样。理想情况下一个 app 有缓存和离线支持，因此当进程死亡，重新加载数据是很快的。
 
-That ultimately leads to a common belief I have had some hard debates about with other android developers: If I use a cache or store, I already have such a component that lives outside of the android component lifecycle and I don’t have to do all that retaining components stuff and MVI nonsense at all, right? Most of the time those android devs are referring to Mike Nakhimovich post [Presenters are not for persisting](https://hackernoon.com/presenters-are-not-for-persisting-f537a2cc7962) where he introduced [NyTimes Store](https://github.com/NYTimes/Store), a data loading and caching library. Unfortunatley, those developers don’t understand that **loading data and caching is NOT state management**. For example what if I have to load data from 2 stores or caches?
+这最终导致我与其他安卓开发者都争论过一个问题:如果我使用了缓存或者存储，那么我就已经拥有了一个独立于安卓生命周期之外的组件，我也不再需要去处理相关的状态缓存问题，MVI 完全就是在胡说嘛！对么？ 大多数这些安卓开发者推荐 Mike Nakhimovich 发表的[Presenter 不是为了持久化](https://hackernoon.com/presenters-are-not-for-persisting-f537a2cc7962)这篇文章介绍的 [NyTimes Store](https://github.com/NYTimes/Store),一个数据加载和缓存库。不幸的是，这些这些开发者不理解**加载数据和缓存不是状态管理**。例如，如果我不得不从两个缓存或存储中加载数据呢？
 
-Finally, does caching libraries like NyTimes Store help us to deal with process death? Obviously not because process death can happen at any time. Deal with it. The only thing we can do is to beg android operating system not to kill our apps process because we still have some work to do by using android services (which is also such a component that lives outside of other android components lifecycles) or don’t we need android services anymore these days with RxJava, do we? We will talk about android services, RxJava and MVI in the next part. Stay tuned.
+最后,像 NyTimes 缓冲库帮助我们处理进程死亡了么？很显然没有，因为进程死亡随时可能发生。为来解决这个问题，我们能做的仅仅是乞求安卓操作系统不要杀死我们的 app 进程，因为我们依旧需要做一些工作通过安卓的 service （这个组件也是独立于其他安卓组件的生命周期）或者我们现在用 rxjava 来取代 service，我们可以这样么？我们讨论关于安卓的 service，rxjava 和 MVI 在下一部分。敬请期待(๑˙ー˙๑)。
 
-Spoiler alert: I think we do need services.
+剧透: 我认为我们需要 service。
 
-**This post is part of the blog post series "Reactive Apps with Model-View-Intent". Here is the Table of Content:**
+**这篇博客是 "用 MVI 开发响应式App"中的一篇博客。下面是内容表:**
 
 *   [Part 1: Model](http://hannesdorfmann.com/android/mosby3-mvi-1)
 *   [Part 2: View and Intent](http://hannesdorfmann.com/android/mosby3-mvi-2)
@@ -76,6 +76,13 @@ Spoiler alert: I think we do need services.
 *   [Part 6: Restoring State](http://hannesdorfmann.com/android/mosby3-mvi-6)
 *   [Part 7: Timing (SingleLiveEvent problem)](http://hannesdorfmann.com/android/mosby3-mvi-7)
 
+
+**这是中文翻译:**
+* [第一部分：Model](https://juejin.im/post/5a52e4445188257334228b28)
+* [第二部分：View 和 Intent](https://juejin.im/post/5a587c06518825732f7eab86)
+* [第三部分：状态折叠器](https://juejin.im/post/5a955c50f265da4e853d856a)
+* [第四部分：独立 UI 组件开发](https://juejin.im/post/5a9debfbf265da23830a6230)
+* [第五部分：简单的调试](https://juejin.im/post/5aafa3e851882555627d1842)
 
 ---
 
