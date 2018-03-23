@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/everything-you-need-to-know-about-css-variables.md](https://github.com/xitu/gold-miner/blob/master/TODO/everything-you-need-to-know-about-css-variables.md)
 > * 译者：[MechanicianW](https://github.com/MechanicianW)
-> * 校对者：
+> * 校对者：[xueshuai](https://github.com/xueshuai) [dazhi1011](https://github.com/dazhi1011)
 
 # 关于 CSS 变量，你需要了解的一切
 
