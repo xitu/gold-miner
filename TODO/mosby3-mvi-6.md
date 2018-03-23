@@ -17,7 +17,7 @@
 
 ## 持久化状态
 
-这种场景在 MVI 这种单向数据流模式下也很简单。假设我们希望 View 的状态 （比如 Activity）不仅存活在内存中，还能在进程死亡后被暂存。通常，在安卓中我们使用 Activity.onSaveInstanceState(Bundle) 来保存那样的状态。在 MVP 或者 MVVM 中，你不需要使用 Model 来代表状态 (见 [第一部分](http://hannesdorfmann.com/android/mosby3-mvi-1)) ，与之不同的是， 在 MVI 中，View 有一个 render(state) 方法来记录最新的状态，这让保持最后一个状态变得容易。因此，显然易见的是打包和存储状态到一个 bundle 下面，并且事后恢复它,例如:
+这种场景在 MVI 这种单向数据流模式下也很简单。假设我们希望 View 的状态 （比如 Activity）不仅存活在内存中，还能在进程死亡后被暂存。通常，在安卓中我们使用 Activity.onSaveInstanceState(Bundle) 来保存那样的状态。在 MVP 或者 MVVM 中，你不需要使用 Model 来代表状态（见 [第一部分](http://hannesdorfmann.com/android/mosby3-mvi-1)），与之不同的是， 在 MVI 中，View 有一个 render(state) 方法来记录最新的状态，这让保持最后一个状态变得容易。因此，显然易见的是打包和存储状态到一个 bundle 下面，并且事后恢复它,例如：
 
 ```
 class MyActivity extends Activity implements MyView {
@@ -50,7 +50,7 @@ class MyActivity extends Activity implements MyView {
 }
 ```
 
-我知道你已经掌握了要点。请注意在 onCreate() 方法中我们不能直接调用 view.render(state)，取而代之，我们应该让初始化状态下沉到状态管理的地方：状态折叠器([看第三部分](http://hannesdorfmann.com/android/mosby3-mvi-3))在这里我们用 **.scan(initialState，reducerFunction)**。
+我知道你已经掌握了要点。请注意在 onCreate() 方法中我们不能直接调用 view.render(state)，取而代之，我们应该让初始化状态下沉到状态管理的地方：状态折叠器（[看第三部分](http://hannesdorfmann.com/android/mosby3-mvi-3)）在这里我们用 **.scan(initialState，reducerFunction)**。
 
 ## 结论
 
