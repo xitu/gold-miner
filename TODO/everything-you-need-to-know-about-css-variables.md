@@ -7,7 +7,7 @@
 
 # 关于 CSS 变量，你需要了解的一切
 
-![](https://cdn-images-1.medium.com/max/1000/1*Im5WsB6Y7CubjWRx9hH7Gg.png)
+![](http://o7ts2uaks.bkt.clouddn.com/1%2AIm5WsB6Y7CubjWRx9hH7Gg.png)
 
 本文是[我新写的电子书](https://gumroad.com/l/lwaUh)的第一章（电子书目前已支持 pdf 和 mobi 格式下载）。
 
@@ -35,7 +35,7 @@ Web 技术发展是非常快的，在此我很高兴地报告 **现在 CSS 支�
 
 你可能已经构建过一个有变化效果的组件了。无论你是使用 React，Angular 还是 Vue，使用 CSS 变量都会让构建过程更简单。
 
-![](https://cdn-images-1.medium.com/max/800/1*qElS3I43_SdpdRA8-m2iew.gif)
+![](http://o7ts2uaks.bkt.clouddn.com/1%2AqElS3I43_SdpdRA8-m2iew.gif)
 
 使用 CSS 变量创建一个有变化效果的组件。
 
@@ -45,7 +45,7 @@ Web 技术发展是非常快的，在此我很高兴地报告 **现在 CSS 支�
 
 可能你已经看过这个项目了。我会向你展示使用 CSS 变量来定制全站主题有多么容易。
 
-![](https://cdn-images-1.medium.com/max/1600/1*r2TrlsC-gWRD5Hu6Tp2gjQ.gif)
+![](http://o7ts2uaks.bkt.clouddn.com/1%2Ar2TrlsC-gWRD5Hu6Tp2gjQ.gif)
 
 使用 CSS 变量定制全站主题。
 
@@ -55,13 +55,13 @@ Web 技术发展是非常快的，在此我很高兴地报告 **现在 CSS 支�
 
 这是最后一个项目了，不要在意这个项目名，我想不出更好的名字了。
 
-![](https://cdn-images-1.medium.com/max/1600/1*E6H-wT6a0BDR9OJK7Z0dTA.gif)
+![](http://o7ts2uaks.bkt.clouddn.com/1%2AE6H-wT6a0BDR9OJK7Z0dTA.gif)
 
 盒子的颜色是动态更新的。
 
 请注意盒子的颜色是如何动态更新的，以及盒子容器是如何随着输入范围值的变化进行 3D 旋转的。
 
-![](https://cdn-images-1.medium.com/max/1600/1*iy_MjZVlp-H0KUQa7H7fUg.gif).
+![](http://o7ts2uaks.bkt.clouddn.com/1%2Aiy_MjZVlp-H0KUQa7H7fUg.gif).
 
 这个项目展示了使用 JavaScript 更新 CSS 变量的便利性，从中你还会尝到响应式编程的甜头。
 
@@ -119,7 +119,7 @@ amAwesome = "awesome string"
 }
 ```
 
-![](https://cdn-images-1.medium.com/max/800/0*2Pl5qBF8DCTGL_np.png)
+![](http://o7ts2uaks.bkt.clouddn.com/0%2A2Pl5qBF8DCTGL_np.png)
 
 CSS 变量也被称为“自定义属性”。
 
@@ -145,7 +145,7 @@ CSS 变量也是如此。
 
 明白了吗？
 
-![](https://cdn-images-1.medium.com/max/1600/0*GLjARI5CCGA3xJAx.png)
+![](http://o7ts2uaks.bkt.clouddn.com/0%2AGLjARI5CCGA3xJAx.png)
 
 局部变量与全局变量。
 
@@ -207,7 +207,7 @@ $font-size: 20px
 
 两种写法大不一样。
 
-![](https://cdn-images-1.medium.com/max/800/0*Gv8Nci9VTrJBxpBe.png)
+![](http://o7ts2uaks.bkt.clouddn.com/0%2AGv8Nci9VTrJBxpBe.png)
 
 请记得使用 var 函数。
 
@@ -223,7 +223,7 @@ var(--side): 20px;
 }
 ```
 
-![](https://cdn-images-1.medium.com/max/800/0*vtIhP9EGm_vTxeio.png)
+![](http://o7ts2uaks.bkt.clouddn.com/0_vtIhP9EGm_vTxeio.png)
 
 由于属性名非法，这段声明会抛出语法错误
 
@@ -254,7 +254,7 @@ font-size:  var(--space);  /*等于 40px*/
 
 在 p，section，aside，root 元素，甚至伪元素上声明自定义属性，都可以运行良好。
 
-![](https://cdn-images-1.medium.com/max/800/0*plpQVof3v3JrzC1P.png)
+![](http://o7ts2uaks.bkt.clouddn.com/0_plpQVof3v3JrzC1P.png)
 
 这些自定义属性工作时与普通属性无异。
 
@@ -278,7 +278,7 @@ div.ew {
 
 像普通变量一样，`--color` 的值会被 div 元素们继承。
 
-![](https://cdn-images-1.medium.com/max/800/0*GNSU5IDdk7dx3B8t.png)
+![](http://o7ts2uaks.bkt.clouddn.com/0_GNSU5IDdk7dx3B8t.png)
 
 #### 3. CSS 变量可以通过 `@media` 和其它条件规则变成条件式变量
 
@@ -296,7 +296,7 @@ div.ew {
 }
 ```
 
-![](https://cdn-images-1.medium.com/max/800/0*qmsVGjnWjLCKfyvt.png)
+![](http://o7ts2uaks.bkt.clouddn.com/0_qmsVGjnWjLCKfyvt.png)
 
 对于响应式设计很有用。
 
@@ -314,7 +314,7 @@ body {
 }
 ```
 
-![](https://cdn-images-1.medium.com/max/800/0*EQiFgdDyNBQ1AfDk.png)
+![](http://o7ts2uaks.bkt.clouddn.com/0_EQiFgdDyNBQ1AfDk.png)
 
 行内设置变量值。
 
@@ -391,7 +391,7 @@ div { --color: green; }
 #alert { --color: red; }
 ```
 
-![](https://cdn-images-1.medium.com/max/800/1*lGioVJqkKo0N91R9eMvywQ.png)
+![](http://o7ts2uaks.bkt.clouddn.com/1_lGioVJqkKo0N91R9eMvywQ.png)
 
 小测验的答案。
 
@@ -434,15 +434,15 @@ p { background-color: red; }
 p { background-color: var(--color); }
 ```
 
-![](https://cdn-images-1.medium.com/max/800/0*fa59XRLGKo5Rsqm4.png)
+![](http://o7ts2uaks.bkt.clouddn.com/0_fa59XRLGKo5Rsqm4.png)
 
 正如我们所料，`--color` 变量会在 `var()` 中被替换，但是替换后，属性值 `background-color: 20px` 是非法的。由于 `background-color` 不是可继承的属性，属性值将默认被替换成它的初始值即 `transparent`。
 
-![](https://cdn-images-1.medium.com/max/800/0*uVic7R1o96n-T1l5.png)
+![](http://o7ts2uaks.bkt.clouddn.com/0_uVic7R1o96n-T1l5.png)
 
 注意，如果你没有通过变量替换，而是直接写 `background-color: 20px` 的话，这个背景属性声明就是非法的，则使用之前的声明定义。
 
-![](https://cdn-images-1.medium.com/max/800/0*9HzCVQdyvqeo5dZq.png)
+![](http://o7ts2uaks.bkt.clouddn.com/0_9HzCVQdyvqeo5dZq.png)
 
 当你自己写声明时，情况就不一样了。
 
@@ -492,7 +492,7 @@ div {
 
 思考一下需要构建两个不同按钮的场景，两个按钮的基本样式相同，只有些许不同。
 
-![](https://cdn-images-1.medium.com/max/800/1*qElS3I43_SdpdRA8-m2iew.gif)
+![](http://o7ts2uaks.bkt.clouddn.com/1_qElS3I43_SdpdRA8-m2iew%20%281%29.gif)
 
 这个场景中，按钮的 `background-color` 和 `border-color` 属性不同。
 
@@ -584,13 +584,13 @@ div {
 
 这是并排比较：
 
-![](https://cdn-images-1.medium.com/max/800/1*bdT9ITBx1wpXjLOYoWBI7w.png)
+![](http://o7ts2uaks.bkt.clouddn.com/1_bdT9ITBx1wpXjLOYoWBI7w.png)
 
 不用 CSS 变量 VS 使用 CSS 变量。
 
 如果你有非常多的可变选项的话，使用 CSS 变量还会为你节省很多打字时间。
 
-![](https://cdn-images-1.medium.com/max/800/1*erZb3Z5FtTIR8EV9fl0QOA.png)
+![](http://o7ts2uaks.bkt.clouddn.com/1_erZb3Z5FtTIR8EV9fl0QOA.png)
 
 看出不同了吗？？
 
@@ -600,7 +600,7 @@ div {
 
 下面是我写的一个简单示例：
 
-![](https://cdn-images-1.medium.com/max/1600/1*r2TrlsC-gWRD5Hu6Tp2gjQ.gif)
+![](http://o7ts2uaks.bkt.clouddn.com/1%2Ar2TrlsC-gWRD5Hu6Tp2gjQ.gif)
 
 使用 CSS 变量来实现有多么容易呢？
 
@@ -618,7 +618,7 @@ CSS 变量的美在于其本质是响应式的。一旦 CSS 变量更新了，�
 
 从概念上讲，下面这张图解释了这个示例的流程。
 
-![](https://cdn-images-1.medium.com/max/800/1*ZONC-xXCXnGc8nr_QMv8rg.png)
+![](http://o7ts2uaks.bkt.clouddn.com/1_ZONC-xXCXnGc8nr_QMv8rg.png)
 
 流程。
 
@@ -634,7 +634,7 @@ CSS 变量的美在于其本质是响应式的。一旦 CSS 变量更新了，�
 
 当我说 CSS 变量切换成别的颜色时，是怎么做到的呢？
 
-![](https://cdn-images-1.medium.com/max/800/1*FeTfEPsJuDQNGDuZQQBIew.png)
+![](http://o7ts2uaks.bkt.clouddn.com/1_FeTfEPsJuDQNGDuZQQBIew.png)
 
 行内设置变量。
 
@@ -681,7 +681,7 @@ body {
 
 根据变量值的改变，页面的整体样式也就随之更新。小菜一碟。
 
-![](https://cdn-images-1.medium.com/max/800/1*HmDLDbOPHpEE2F8x4aSDYA.png)
+![](http://o7ts2uaks.bkt.clouddn.com/1_HmDLDbOPHpEE2F8x4aSDYA.png)
 
 让我们继续前进，解决在 JavaScript 中更新属性值的问题。
 
@@ -745,11 +745,11 @@ themeBtns.forEach((btn) => {
 
 避免你错过它，这是我们即将构建的项目：
 
-![](https://cdn-images-1.medium.com/max/1600/1*E6H-wT6a0BDR9OJK7Z0dTA.gif)
+![](http://o7ts2uaks.bkt.clouddn.com/1%2AE6H-wT6a0BDR9OJK7Z0dTA.gif)
 
 请记住盒子的颜色是动态更新的，以及盒子容器是随着输入范围值的变化进行 3D 旋转的。
 
-![](https://cdn-images-1.medium.com/max/1600/1*iy_MjZVlp-H0KUQa7H7fUg.gif)
+![](http://o7ts2uaks.bkt.clouddn.com/1%2Aiy_MjZVlp-H0KUQa7H7fUg.gif)
 
 你可以直接在 [Codepen](https://codepen.io/ohansemmanuel/full/EoBLgd/) 上玩一下这个项目。
 
@@ -765,7 +765,7 @@ themeBtns.forEach((btn) => {
 2.  一个装载使用说明文字的容器
 3.  一个装载盒子列表的 section，每个盒子包含输入框
 
-![](https://cdn-images-1.medium.com/max/800/1*39k9sbEsldtRtJ1-Woq0rQ.png)
+![](http://o7ts2uaks.bkt.clouddn.com/1_39k9sbEsldtRtJ1-Woq0rQ.png)
 
 结构变得很简单。
 
@@ -803,7 +803,7 @@ themeBtns.forEach((btn) => {
 
 理解了文档结构后，给它添加样式：
 
-![](https://cdn-images-1.medium.com/max/800/1*LbgNgLeTjACXCfDBExkqgg.png)
+![](http://o7ts2uaks.bkt.clouddn.com/1_LbgNgLeTjACXCfDBExkqgg.png)
 
 1.  把 `.slider` 和 `.instructions` 设置为脱离文档流，将它们的 position 设置为 absolute
 2.  将 `body` 元素的背景色设置为日出的颜色，并在左下角用花朵作装饰
@@ -864,11 +864,11 @@ body {
 
 这个插图展示了 CSS 的 background position 属性是如何工作的：
 
-![](https://cdn-images-1.medium.com/max/800/1*uFlBKNdQ-FOcZ-XaACi4uA.png)
+![](http://o7ts2uaks.bkt.clouddn.com/1_uFlBKNdQ-FOcZ-XaACi4uA.png)
 
 来自于： [CSS 进阶指南](http://bit.ly/learn_css)
 
-![](https://cdn-images-1.medium.com/max/800/1*NOPEnEV_H2RB8XYFxEcFpA.png)
+![](http://o7ts2uaks.bkt.clouddn.com/1_NOPEnEV_H2RB8XYFxEcFpA.png)
 
 来自于： [CSS 进阶指南](http://bit.ly/learn_css)
 
@@ -975,7 +975,7 @@ main.booth {
 
 又是我们会将 transform 的属性值简写成上面这样。
 
-![](https://cdn-images-1.medium.com/max/800/1*oNaNYDRDRZPSEga9Oo4bPw.png)
+![](http://o7ts2uaks.bkt.clouddn.com/1_oNaNYDRDRZPSEga9Oo4bPw.png)
 
 举个例子：
 
@@ -997,7 +997,7 @@ perspective() 函数应用于 3D 空间内旋转的元素。它激活了三维�
 
 下面这个 [codrops](https://tympanus.net/codrops/css_reference/transform/#section_rotate3d) 的图对于视觉化理解很有帮助。
 
-![](https://cdn-images-1.medium.com/max/800/1*kFdzSl4wwyPJt_Crmbtuow.png)
+![](http://o7ts2uaks.bkt.clouddn.com/1_kFdzSl4wwyPJt_Crmbtuow.png)
 
 [Codrops](https://tympanus.net/codrops/css_reference/transform/#section_rotate3d)
 
@@ -1005,7 +1005,7 @@ perspective() 函数应用于 3D 空间内旋转的元素。它激活了三维�
 
 回到之前的话题。
 
-![](https://cdn-images-1.medium.com/max/800/1*oNaNYDRDRZPSEga9Oo4bPw.png)
+![](http://o7ts2uaks.bkt.clouddn.com/1_oNaNYDRDRZPSEga9Oo4bPw.png)
 
 当你回到这里，你知道哪个函数影响 `.container-box` 的旋转了吗？
 
@@ -1013,7 +1013,7 @@ perspective() 函数应用于 3D 空间内旋转的元素。它激活了三维�
 
 由于传入 rotateY 函数的值将被 JavaScript 更新，这个值也将通过变量来传入。
 
-![](https://cdn-images-1.medium.com/max/800/1*oL_Ik1Xg_ByTc28g2B1ESg.png)
+![](http://o7ts2uaks.bkt.clouddn.com/1_oL_Ik1Xg_ByTc28g2B1ESg.png)
 
 为什么要给变量乘上 1deg？
 
@@ -1021,13 +1021,13 @@ perspective() 函数应用于 3D 空间内旋转的元素。它激活了三维�
 
 通过 `calc` 函数，你可以用乘法将它们转化成任何单位。
 
-![](https://cdn-images-1.medium.com/max/800/1*jsB27oUUYY48n3s9wAmd_Q.png)
+![](http://o7ts2uaks.bkt.clouddn.com/1_jsB27oUUYY48n3s9wAmd_Q.png)
 
 这意味着你可以为所欲为。将作为比例的 `deg` 转换为视窗单位 `vw` 也可以。
 
 在这个场景中，我们通过 “数字” 乘上 1deg 将数字转换成角度
 
-![](https://cdn-images-1.medium.com/max/800/1*5j1qhUmE2pB99qw17Zp4iA.png)
+![](http://o7ts2uaks.bkt.clouddn.com/1_5j1qhUmE2pB99qw17Zp4iA.png)
 
 由于 CSS 不懂数学，你需要将公式传入 calc 函数，这样 CSS 才能正确计算。
 
@@ -1063,7 +1063,7 @@ perspective() 函数应用于 3D 空间内旋转的元素。它激活了三维�
 
 首先，nth-child 选择器用来选择子盒子。
 
-![](https://cdn-images-1.medium.com/max/800/1*T5oqa3Kh5ChIcgi5ldqXKg.png)
+![](http://o7ts2uaks.bkt.clouddn.com/1_T5oqa3Kh5ChIcgi5ldqXKg.png)
 
 这里需要一些前瞻。我们知道，每个盒子的背景色都会更新。我们也知道背景色需要用变量表示，以在 JavaScript 中更新。对吧？
 
@@ -1137,7 +1137,7 @@ function handleSlider (e) {
 }
 ```
 
-![](https://cdn-images-1.medium.com/max/800/1*bQwZp0psRdiNn2harZW-HQ.png)
+![](http://o7ts2uaks.bkt.clouddn.com/1_bQwZp0psRdiNn2harZW-HQ.png)
 
 `root.style.setProperty('--slider', value)` 的意思是获取 `root` 元素（HTML），读取它的样式，并给它设置属性。
 
@@ -1184,7 +1184,7 @@ function handleInputChange (e) {
 }
 ```
 
-![](https://cdn-images-1.medium.com/max/800/1*A3e4duLT1V1-8_NqVF1DGg.png)
+![](http://o7ts2uaks.bkt.clouddn.com/1_A3e4duLT1V1-8_NqVF1DGg.png)
 
 嗯……
 
@@ -1198,7 +1198,7 @@ function handleInputChange (e) {
 
 对于 CSS 变量的（又名自定义属性）浏览器支持并不差。 浏览器支持性非常好，基本所有的现代浏览器都支持良好（本文写作时已超过 87%）。
 
-![](https://cdn-images-1.medium.com/max/800/1*JdhBIufk2SvuY-8U2POD8g.png)
+![](http://o7ts2uaks.bkt.clouddn.com/1_JdhBIufk2SvuY-8U2POD8g.png)
 
 [caniuse](https://caniuse.com/#search=css%20var)
 
@@ -1212,7 +1212,7 @@ function handleInputChange (e) {
 
 ### 不好，我遇到了问题！
 
-![](https://cdn-images-1.medium.com/max/600/1*Bb085Ip_NKnPDVY7g3lL3g.png)
+![](http://o7ts2uaks.bkt.clouddn.com/1_Bb085Ip_NKnPDVY7g3lL3g.png)
 
 [购买电子书](https://gum.co/lwaUh) 可以线上阅读, 还能获得 **私人的** slack 邀请，你可以向我咨询任何问题。
 
