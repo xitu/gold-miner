@@ -210,7 +210,6 @@ new Vue({
 })
 ```
 
-
 干得好！因为这里有很多设置，（所以请）给你自己一点鼓励。现在已经准备好通过 web3 API 获取我们 Metamask 的数据，并使其在我们的应用发挥作用了。该来点真的了！
 
 ### 入门 Web3 和 Metamask
@@ -349,6 +348,7 @@ export default {
 ```
 
 很好！现在我们要渲染 hello-metamask 组件的数据，我们账户的所有数据都将在此组件中进行呈现。从容器（store）中获得数据，我们需要在计算属性中增加一个 getter 方法。然后，我们就可以在模板中使用大括号来引用数据了。
+
 ```
 <template>
  <div class='metamask-info'>
