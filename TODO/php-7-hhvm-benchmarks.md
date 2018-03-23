@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/php-7-hhvm-benchmarks.md](https://github.com/xitu/gold-miner/blob/master/TODO/php-7-hhvm-benchmarks.md)
 > * 译者：[AlbertHao](https://github.com/Albertao)
-> * 校对者：
+> * 校对者：[foxxnuaa](https://github.com/foxxnuaa) [allenlongbaobao](https://github.com/allenlongbaobao)
 
 # 这可能是 2018 年最好的一篇 PHP 性能测评（包含 5.6 到 7.2，以及 HHVM）
 
