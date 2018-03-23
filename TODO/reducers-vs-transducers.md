@@ -2,22 +2,22 @@
 > * 原文作者：[Maksim Ivanov](http://maksimivanov.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/reducers-vs-transducers.md](https://github.com/xitu/gold-miner/blob/master/TODO/reducers-vs-transducers.md)
-> * 译者：
+> * 译者：[jonjia](https://github.com/jonjia)
 > * 校对者：
 
 # Reducers VS Transducers
 
-Sweet chunk of functional paradigm for you today. I don’t know why did I write “versus” while they compliment each other. Anyway, let’s get to the good stuff…
+今天我们为您准备了一份函数范式甜点。我也不知道为什么会用 “VS”，而且它俩还互相恭维。不管那么多了，让我们看点好定西。。。
 
 ## Reducers
 
-Simply speaking a `Reducer` is a function that takes an accumulation and a value, and then returns a new accumulation.
+简单来说，`Reducer` 就是个接收上一个积聚值和一个当前值并返回新的积聚值的方法。
 
 ![reducers](http://d33wubrfki0l68.cloudfront.net/8da7177f710424f3236cb13803ce8442e4b93127/5e09a/assets/images/reducers_vs_transducers_1.png)
 
-You are already familiar with reducers if you’ve used the `Array.prototype.reduce()` method. The `.reduce()` function itself is not a reducer! It iterates over a collection and passes values to it’s “callback” that is a **reducer** here.
+如果你使用过数组的 `Array.prototype.reduce()` 方法，就已经熟悉了 reducer。数组的 `.reduce()` 方法本身并不是一个 reducer，这个方法会遍历一个集合（译注：累加器初始值和数组中的元素组成的集合），然后对集合中的每个元素应用传给这个方法的回调函数，这个回调函数才是一个 **reducer**。
 
-Let’s imagine that we have an array with five numbers: `[1, 2, 3, 14, 21]` and we want to find the biggest of them.
+假设我们有一个包含五个数字的数组：`[1, 2, 3, 14, 21]`，我们要找出它们中的最大值。
 
 ```
 const numbers = [1, 2, 3, 14, 21];
@@ -29,11 +29,11 @@ const biggestNumber = numbers.reduce(
 // 21
 ```
 
-The arrow function here is a reducer. The `.reduce()` method only takes the result of previous reduction and calls the reducer with it and next element of an array.
+这里的箭头函数就是一个 reducer。数组的 `.reduce()` 方法只是取这个 reducer 上一次执行的结果（译注：初始值参数或数组第一个元素）和数组中的下一个元素传给并继续调用这个 reducer。
 
-Reducers can work with any kinds of values. The only rule is that the accumulation you return should have the same type that the accumulation you pass in.
+Reducers 可以处理任何类型的值。唯一条件就是积聚方法返回的值类型和传给积聚方法的值类型要保持一致。
 
-For example you can easily create a reducer that will work with strings:
+在下面的例子中，你可以轻松创建一个作用于字符串的 reducer：
 
 ```
 const folders = ['usr', 'var', 'bin'];
@@ -45,7 +45,7 @@ const path = folders.reduce(
 // /usr/var/bin
 ```
 
-Actually it’s better to illustrate without `Array.reduce()` method. Look:
+实际上，不使用 `Array.reduce()` 方法来说明更好理解。如下：
 
 ```
 const stringReducer = (accumulator, value) => `${accumulator} ${value}`
@@ -55,13 +55,13 @@ const helloWorld = stringReducer("Hello", "world!")
 // Hello world!
 ```
 
-## Map And Filter As Reducers
+## Map 和 Filter 方法做为 Reducers
 
-The other cool thing about reducers is that you can chain them to perform a series of operations on some data. This opens up huge possibilities for composition and reuse of small reducer functions.
+Reducers 还有一个好处是你可以链式地连接它们，来实现对某些数据的一系列操作。这就为功能模块化和 reducer 的复用提供了巨大的可能。
 
-Let’s say you have an ordered array of numbers. You want to get even numbers from it and then multiply by 2.
+假设有一个有序的数字数组。你想获取其中的偶数，然后再乘以 2。
 
-The ordinary way to do it would be to use `.map` and `.filter` functions:
+实现上述功能通常的方法是调用数组的 `.map` 和 `.filter` 方法：
 
 ```
 [1, 2, 3, 4, 5, 6]
@@ -69,11 +69,11 @@ The ordinary way to do it would be to use `.map` and `.filter` functions:
   .map((x) => x * 2)
 ```
 
-But what if your array had 1000,000 elements? You have to loop through the whole array for every operation, that’s extremely uneffective.
+但如果这个数组有 1000000 个元素呢？你需要遍历整个数组的每个元素，这样的效率太低了。
 
-We need some way to combine the functions we passed to `map` and `filter`. But we can’t do this as they have different interface. The function that we passed to `filter` is called **predicate** and it takes a value and returns **True** or **False** depending on inner logic. And the function we passed to `map` is **transformer** function. It takes a value and returns **transformed value**.
+我们需要用某种方式去组合传给 `map` 和 `filter` 方法的函数。因为它们的接口不同，所以我们无法实现。传给 `filter` 方法的函数称为**断言函数**，它接收一个值，依据内部逻辑返回断言的 **True** 或者 **False**。传给 `map` 方法的函数称为**转换函数**，它接收一个值，并返回**转换后的值**。
 
-We can achieve this with reducers, let’s create our own **reducer** version of `.map` and `.filter` functions.
+我们可以通过 reducers 来实现这一点，让我们创建自己的 **reducer** 版本的 `.map` 和 `.filter` 方法。
 
 ```
 const filter = (predicate) => {
@@ -93,19 +93,19 @@ const map = (transformer) => {
 }
 ```
 
-Great, we used **decorator** functions to wrap our reducers. Now we have `map` and `filter` functions that return **reducers** that can be passed to `Array.reduce()` method!
+真棒，我们使用了 **装饰器** 来包装我们的 reducers。现在我们有自己的 `map` 和 `filter` 方法，它们返回的 **reducers** 可以传递给数组的 `Array.reduce()` 方法。
 
 ```
 [1, 2, 3, 4, 5, 6]
-  .reduce(filter((x) => x % 2 === 0))
-  .reduce(map((x) => x * 2))
+  .reduce(filter((x) => x % 2 === 0), [])
+  .reduce(map((x) => x * 2), [])
 ```
 
-Great, now we have a chain of `.reduce` function calls, but we still can’t compose our reducers! Good news is there is only one step left. To be able to compose reducers we need to be able to pass them to each other.
+太棒了，现在我们就能链式地调用一系列的 `.reduce` 方法，但我们还是没有组合我们的 reducers！好消息是我们只差一步了。为了能组合 reducers 我们需要让它们能互相传递。
 
-## Transducers FTW
+## Transducers， 可以有吗？
 
-Let’s update our `filter` function so it would also accept **reducer** as an argument. We are going to decompose it and instead of pushing value to **accumulator** we’ll allow the passed in **reducer** to perform it’s logic.
+来升级下我们的 `filter` 方法，让它能够接收 **reducers** 做为参数。我们要分解下它，不是将值添加到 **accumulator**，而是要传给传入的 reducer，并执行这个 reducer。
 
 ```
 const filter = (predicate) => (reducer) => {
@@ -118,19 +118,19 @@ const filter = (predicate) => (reducer) => {
 }
 ```
 
-This pattern where we take a **reducer** as an argument and return another **reducer** is called **transducer**. As it’s a combination of **transformer** and **reducer** (we take a reducer and transform it).
+我们接收一个 **reducer** 做为参数，并返回另一个 **reducer** 的这种模式就叫做 **transducer**。它是 **transformer** 和 **reducer** 的结合（我们接收一个 reducer，并对它进行了转换）。
 
 ```
 const transducer => (reducer) => {
   return (accumulator, value) => {
-    // Some logic involving passed in reducer
+    // 转换 reducer 的逻辑
   }
 }
 ```
 
-So basically transducer looks like this `(oneReducer) => anotherReducer`.
+所以最基础的 transducer 就像 `(oneReducer) => anotherReducer` 这样。
 
-Now we can combine our **mapping** reducer and **filtering** transducer and do our calculations in one run.
+现在我们就可以组合使用我们的 **mapping** reducer 和 **filtering** transducer，一次调用就可以实现我们的计算了。
 
 ```
 const evenPredicate = (x) => x % 2 === 0;
@@ -140,22 +140,22 @@ const filterEven = filter(evenPredicate);
 const mapDouble = map(doubleTransformer);
 
 [1, 2, 3, 4, 5, 6]
-  .reduce(filterEven(mapDouble));
+  .reduce(filterEven(mapDouble), []);
 ```
 
-Actually we could make our map method a transducer as well and continue this composition indefinitely.
+实际上，我们也可以把我们的 map 方法改造为一个 transducer，然后无限地继续这种改造。
 
-But just imagine having to compose more than 2 transducers. We have to find more convenient way to compose them.
+但如果要组合 2 个以上的 reducers 呢？我们要找到更简便的组合方法。
 
-## Better Composition
+## 更好的组合方法
 
-Basically we need something that would take a number of functions and compose them in that order.
+总体来说就是，我们需要一个能接收一定数量的函数并把它们按顺序组合的方法。类似下面这样：
 
 ```
 compose(fn1, fn2, fn3)(x) => fn1(fn2(fn3(x)))
 ```
 
-Luckily a lot of libraries provide this kind of function. For instance [RamdaJS](http://ramdajs.com/docs/#compose). But for educational purposes let’s create our own version.
+幸运的是，很多库都提供了这种功能。比如 [RamdaJS](http://ramdajs.com/docs/#compose) 这个库。但为了解释清楚，来创建我们自己的版本吧。
 
 ```
 const compose = (...functions) =>
@@ -163,56 +163,56 @@ const compose = (...functions) =>
     (...args) => accumulation(fn(args)), x => x)
 ```
 
-The function is very compact, let’s break it down.
+这个函数的功能非常紧凑，我们来分解下。
 
-Imagine that we called that function like this `compose(fn1, fn2, fn3)(x)`.
+如果我们像这样 `compose(fn1, fn2, fn3)(x)` 调用了这个函数。
 
-First look at the `x => x` part. In lambda calculus it’s called **identity function**. It just returns whatever it takes as an argument without changing. We need it here to start our unfolding.
+首先看 `x => x` 部分。在 λ 演算中，这被称为 **恒等函数**。不管接收什么参数，它都不会改变。我们就从这里展开。
 
-So after fist iteration we’ll have that **identity function** (for convenience let’s call it **I**) called with the **fn1** function as an argument:
+所以在第一次遍历中，我们将使用 **fn1** 函数做为参数来调用 **identity function** 函数（为了方便，我们称之为 **I**）：
 
 ```
+  // 恒等函数：I
   (...args) => accumulation(fn(args))
 
-  // STEP 1
-  // We pass our fn1 to accumulation
+  // 第一步
+  // 我们把 fn1 传给 accumulation 方法
   (...args) => accumulation(fn1(args))
 
-  // STEP 2
-  // Here we basically substitute accumulation with I
-  // and fn and fn1
+  // 第二步
+  // 这里我们用 I 接收 fn1 作为参数替代 accumulation
   (...args) => I(fn1(args))
 ```
 
-Yay, we calculated the `accumulation` value after the first iteration. Let’s do the second one:
+耶，我们计算出了第一次遍历后新的 `accumulation` 方法。我们再来一次：
 
 ```
-  (...args) => I(fn1(args)) // Our new accumulation
+  (...args) => I(fn1(args)) // 新的 accumulation 方法
 
-  // STEP 3
-  // Now we pass fn2 to our accumulation
+  // 第三步
+  // 现在我们把 fn2 传给 accumulation 方法
   (...args) => accumulation(fn2(args))
 
-  // Step 4
-  // Lets substitute "accumulation" with it's current value
+  // 第四步
+  // 我们来算出 accumulation 的当前值
   (...args) => I(fn1(fn2(args)))
 ```
 
-I think you got the idea. Now just repeat steps 3 and 4 for `fn3` and voila, you’ve converted your `compose(fn1, fn2, fn3)(x)` to `fn1(fn2(fn3(x)))`.
+我认为你应该理解了。现在只需要对 `fn3` 重复第三步和第四步，就可以把 `compose(fn1, fn2, fn3)(x)` 转为 `fn1(fn2(fn3(x)))` 了。
 
-Now we can compose our `map` and `filter` like this:
+最后我们就可以像下面这样组合我们的 `map` 和 `filter` 了：
 
 ```
 [1, 2, 3, 4, 5, 6]
-  .reduce(filterEven,
-          mapDouble);
+  .reduce(compose(filterEven,
+          mapDouble));
 ```
 
-## Conclusion
+## 总结
 
-I suppose you already knew about **reducers**, and if not – you’ve learned a nice abstraction to work with collections. Reducers are great to fold different data structures.
+我想你已经掌握了 **reducers**，如果还没有 — 你也已经学会了处理集合的抽象方法。Reducers 可以处理不同的数据结构。
 
-Also you’ve learned how to do your computations effectively using **transducers**.
+你也学会了如何用 **transducers** 有效地进行计算。
 
 
 ---
