@@ -2,26 +2,26 @@
 > * 原文作者：[Ryan Florence](https://cdb.reacttraining.com/@ryanflorence?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/react-inline-functions-and-performance.md](https://github.com/xitu/gold-miner/blob/master/TODO1/react-inline-functions-and-performance.md)
-> * 译者：
+> * 译者：[wznonstop](https://github.com/wznonstop)
 > * 校对者：
 
-# React, Inline Functions, and Performance
+# React，内联函数和性能
 
-My wife and I just got through a huge remodel. We were beyond excited to show people the new digs. We showed my mother-in-law. She walked in the beautifully remodeled bedroom, looked up at the fantastically framed window and said: “No blinds?” 😐
+我和妻子近期完成了一次声势浩大的装修。我们迫不及待地想向人们展示我们的新意。我们让我的婆婆来参观，她走进那间装修得很漂亮的卧室，抬头看了看那扇构造精巧的窗户，然后说："居然没有百叶窗？"😐
 
 ![](https://cdn-images-1.medium.com/max/1000/1*_WL8zajmqcczto2bjiBqpw.jpeg)
 
-Our new bedroom; holy crap it looks like a magazine picture. Also, no blinds.
+**我们的新卧室；天哪，它看起来就像一张杂志的照片。而且，没有百叶窗。** 
 
-I find myself with the same emotion when I’m talking about React. I’ll be getting through the first lecture of a workshop, showing off some cool new OSS, and invariably somebody says: “inline functions? I heard those are slow.”
+我发现，当我谈论React的时候，会有同样的情绪。我将通过研讨会的第一堂课，展示一些很酷的新OSS。总是有人说："内联函数？ 我听说它们很慢。"
 
-It wasn’t always this way. But the last few months it comes up literally every day. As an instructor and library author, it gets exhausting. Unfortunately, I’m a dummy and I rant on twitter instead of writing something that might be insightful to others. So, this is my attempt at the better option 😂.
+并不总是这样，但最近几个月这个观点每天都会出现。作为一名讲师和代码库的作者，这让人感到精疲力竭。不幸的是，我可能有点傻，之前只知道在Twitter上咆哮，而不是去写一些可能对别人来说有深刻见解的东西。所以，我就来尝试一下更好的选择了 😂。
 
-### What is an “inline function”
+### "内联函数"是什么
 
-In the context of React, an inline function is a function that is defined while React is “rendering”. There are two meanings of “render” in React that people often get confused about: (1) getting the React elements from your components (calling your component’s render method) during an update and (2) actually rendering updates to the DOM. When I refer to “rendering” in this article, I’m talking about #1.
+在React的领域里，一个内联函数是指在React进行"rendering"时定义的函数。 人们常常对 React 中"render"的两种含义感到困惑，一种是指在 update 期间从组件中获取 React 元素（调用组件的 render 方法）；另一种是渲染更新真实的DOM结构。本文中提到的"rendering"都是指第一种。
 
-Here are a few examples of inline functions:
+下列是一些内联函数的栗子🌰：
 
 ```
 class App extends Component {
@@ -30,7 +30,7 @@ class App extends Component {
     return (
       <div>
         
-        {/* 1. an inline event handler of a "DOM component" */}
+        {/* 1. 一个内联的"DOM组件"事件处理程序 */}
         <button
           onClick={() => {
             this.setState({ clicked: true })
@@ -39,12 +39,12 @@ class App extends Component {
           Click!
         </button>
         
-        {/* 2. A "custom event" or "action" */}
+        {/* 2. 一个"自定义事件"或"操作" */}
         <Sidebar onToggle={(isOpen) => {
           this.setState({ sidebarIsOpen: isOpen })
         }}/>
         
-        {/* 3. a render prop callback */}
+        {/* 3. 一个 render prop 回调 */}
         <Route
           path="/topic/:id"
           render={({ match }) => (
@@ -59,7 +59,7 @@ class App extends Component {
 }
 ```
 
-### Premature optimization is the root of all evil
+### 过早的优化是万恶之源
 
 Before we go any further, we need to talk about how to optimize a program. Ask any performance expert and they will tell you not to prematurely optimize your program. All of them. Yes, every single one of them. 100% of people with deep performance experience will tell you not to prematurely optimize your code.
 
