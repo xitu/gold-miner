@@ -174,6 +174,7 @@ export default state
 ```
 
 好了，现在我们要对 **index.js** 进行设置。我们会导入 Vuex 库并且告诉 VueJS 使用它。我们也会把 state 导入到我们的 store 文件中。
+
 ```
 import Vue from 'vue'
 import Vuex from 'vuex'
