@@ -1,3 +1,5 @@
+* [避免 Swift 单元测试中的强制解析](https://juejin.im/post/5a9ce4ac6fb9a028b547602e) ([RickeyBoy](https://github.com/RickeyBoy) 翻译)
+* [iOS App 上一种灵活的路由方式](https://juejin.im/post/5aafc278f265da23805973e3) ([YinTokey](https://github.com/YinTokey) 翻译)
 * [通过 Quick 和 Nimble 在 Swift 中进行测试驱动开发](https://juejin.im/post/5a93635d5188257a7924c5d5) ([94haox](https://github.com/94haox) 翻译)
 * [为什么你的 APP 在 Sketch 上看起来更好：探索 Sketch 和 iOS 的渲染差异](https://juejin.im/post/5a9572575188257a61326630) ([rydensun](https://github.com/rydensun) 翻译)
 * [在 Swift playground 中编写单元测试](https://juejin.im/post/5a8e66276fb9a0633c661f3f) ([lsvih](https://github.com/lsvih) 翻译)
