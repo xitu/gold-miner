@@ -424,9 +424,9 @@ if (g.V().hasLabel('users').has('users_id',5).hasNext() == true
      }
 ```
 
-因此，两个顶点查询是一个事务，然后在`users` 与 `tweets` 之间创建两条边缘。请注意，因为一个用户可以多次发 tweet ，但每个 tweet 只能有一个拥有者，所以其重复性为 `ONE2MANY` 。
+因此，两个顶点查询是一个事务，然后在`users` 与 `tweets` 之间创建两条边缘。请注意，因为一个用户可以多次发 tweet ，但每个 tweet 只能有一个拥有者，所以其重复性为 `ONE2MANY` 。
 
-如果边缘类具有像 `tweeted_on` 或 `tweeted_from` 这样的属性，那么库就会像顶点一样适当地序列化它们。
+如果边缘类具有像 `tweeted_on` 或 `tweeted_from` 这样的属性，那么库就会像顶点一样适当地序列化它们。
 
 ### JanusGraph 查询
 
