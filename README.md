@@ -23,7 +23,8 @@
 
 # 合作伙伴
 
-- [虚位以待]()
+[<img src="https://i.loli.net/2018/03/21/5ab1c8723d6de.jpg" width="130px;"/>](http://www.ituring.com.cn/)
+
 - 合作事宜请扫描 [二维码](http://oiiyyn1t0.bkt.clouddn.com/wechat-517010193.jpg) 联系管理员
 
 # 近期文章列表
@@ -43,10 +44,12 @@
 
 ## 区块链
 
-* [用 Java 创造你的第一个区块链，第一部分](https://juejin.im/post/5a8ed1d75188257a836c4218) ([NeoyeElf](https://github.com/NeoyeElf) 翻译)
-* [自主权身份简介](https://juejin.im/post/5a818d535188257a7f1da91b) ([foxxnuaa](https://github.com/foxxnuaa) 翻译)
-* [低估中国区块链,对你是个好消息](https://juejin.im/post/5a7943e2f265da4e9d221119) ([Vsevorod](https://github.com/Vsevorod) 翻译)
-* [二十年后比特币会变成什么样？— 第二部分](https://juejin.im/post/5a955721f265da4e826377b6) ([pcdack](https://github.com/pcdack) 翻译)
+* [带你了解以太坊第 2 层扩容方案：State Channels、Plasma 和 Truebit](https://juejin.im/post/5aa1f63c518825558804f85b) ([JohnJiangLA](https://github.com/JohnJiangLA) 翻译)
+* [使用 Web3 和 Vue.js 来创建你的第一个以太坊 dAPP（第一部分）](https://juejin.im/post/5aa7a8d2518825558805128d) ([foxxnuaa](https://github.com/foxxnuaa) 翻译)
+* [工作量证明 vs 权益证明：基本挖矿指南](https://juejin.im/post/5a9ded346fb9a028b617065a) ([foxxnuaa](https://github.com/foxxnuaa) 翻译)
+* [二十年后比特币将会变成什么样 — 第一部分](https://juejin.im/post/5a1e9c2d6fb9a044fa19a036) ([ZiXYu](https://github.com/ZiXYu) 翻译)
+* [二十年后比特币将会变成什么样 — 第二部分](https://juejin.im/post/5a955721f265da4e826377b6) ([pcdack](https://github.com/pcdack) 翻译)
+* [二十年后比特币将会变成什么样 — 第三部分](https://juejin.im/post/5a9ce3715188255585070586) ([sakila1012](https://github.com/sakila1012) 翻译)
 * [所有区块链译文>>](https://github.com/xitu/gold-miner/blob/master/blockchain.md)
 
 ## 人工智能
