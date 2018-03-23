@@ -21,7 +21,7 @@
 
 ## PHP 和 HHVM 测评（2018）
 
-对于每个测试，我们都使用了每个平台系统的最新版本并在15个并发用户的条件下对主页跑了1分钟的测试，下面是我们测试环境的具体细节。
+对于每个测试，我们都使用了每个平台系统的最新版本并在 15 个并发用户的条件下对主页跑了1分钟的测试，下面是我们测试环境的具体细节。
 
 *   **使用机器：** 8核 Intel(R) Xeon(R) CPU @ 2.20GHz (由 [Google Cloud Platform](https://kinsta.com/blog/google-cloud-hosting/) 提供并运行于一个隔离的容器中)
 *   **操作系统:** Ubuntu 16.04.3 LTS
@@ -85,8 +85,8 @@ PHP 的全称是超文本预处理器（Hypertext Preprocessor）。它是目前
 
 对于 WordPress 的测评，我们选择了免费的 [Twenty Seventeen 主题](https://kinsta.com/blog/twenty-seventeen-theme/)。并使用了由 wptest.io 生成的测试内容，通过 15 个并发用户对主页的访问测试了1分钟。
 
-*   文章数目：由 wptest.io 生成，10篇/页
-*   “搜索”是侧边栏唯一的菜单项目
+*   文章数目：由 wptest.io 生成，10 篇/页
+*   『搜索』是侧边栏唯一的菜单项目
 *   Docker 镜像派生自 [https://hub.docker.com/_/wordpress/](https://hub.docker.com/_/wordpress/)
 
 ![WordPress benchmarks](https://kinsta.com/wp-content/uploads/2018/02/wordpress-php-benchmarks.png)
@@ -138,7 +138,7 @@ WooCommerce 在使用 HHVM 的过程中遇到了一些小问题，而 PHP 7.2 �
 在了解清楚 WooCommerce 是怎么运作的之后，我们采用了 WordPress 和 Easy Digital Downloads 一起安装的方式。并使用了免费的 [EDD Starter 主题](https://easydigitaldownloads.com/downloads/edd-starter-theme/)。
 
 *   商品数目: 6 (从插件中获取的默认商品样例)
-*   缺失的商品列表上有2张图片
+*   缺失的商品列表上有 2 张图片
 *   Docker 镜像派生自 [https://hub.docker.com/_/wordpress/](https://hub.docker.com/_/wordpress/)
 
 ![WordPress + Easy Digital Downloads benchmarks](https://kinsta.com/wp-content/uploads/2018/02/wordpress-edd-php-benchmarks.png)
@@ -183,7 +183,7 @@ Drupal 测试
 
 ### Joomla! 3.8.5
 
-[Joomla!](https://www.joomla.org/) 是一款用于发布 web 内容的免费开源 CMS 软件，最初发布于 2005 年的八月 17 号。它是基于一个 MVC web 应用框架搭建的。根据 W3Techs 的数据，互联网上 [3.1% 的网站](https://w3techs.com/technologies/details/cm-joomla/all/all)都使用了它。
+[Joomla!](https://www.joomla.org/) 是一款用于发布 web 内容的免费开源 CMS 软件，最初发布于 2005 年 8 月 17 日。它是基于一个 MVC web 应用框架搭建的。根据 W3Techs 的数据，互联网上 [3.1% 的网站](https://w3techs.com/technologies/details/cm-joomla/all/all) 都使用了它。
 
 ![Joomla!](https://kinsta.com/wp-content/uploads/2018/02/joomla-logo-e1519705676991.png)
 
@@ -209,11 +209,11 @@ Joomla! 测试
 
 ### Magento 2 (CE) 2.1.11 + 2.2.2
 
-[Magento](https://magento.com/) 是一款使用 PHP 编写的流行的开源电子商务平台，最初发布于 2008 年的三月 31 号。根据 W3Techs的数据，它驱动了互联网上 [1.2% 的站点](https://w3techs.com/technologies/details/cm-magento/all/all)。
+[Magento](https://magento.com/) 是一款使用 PHP 编写的流行的开源电子商务平台，最初发布于 2008 年 3 月 31 日。根据 W3Techs的数据，它驱动了互联网上 [1.2% 的站点](https://w3techs.com/technologies/details/cm-magento/all/all)。
 
 ![Magento](https://kinsta.com/wp-content/uploads/2018/02/magento.png)
 
-对于 Magento 2 的测试，我们使用了免费的 [Luma 主题](http://magento2-demo.nexcess.net/)。我们采用了两个版本，因为2.1.11是唯一一个支持 PHP 5.6的版本。我们使用了样例数据和它自带的默认主题进行安装。对于额外的测试，我们使用了 2.2.2版本。**Magento 2 目前为止还不支持 PHP 7.2** 或者 HHVM 的最新版本。
+对于 Magento 2 的测试，我们使用了免费的 [Luma 主题](http://magento2-demo.nexcess.net/)。我们采用了两个版本，因为 2.1.11 是唯一一个支持 PHP 5.6的版本。我们使用了样例数据和它自带的默认主题进行安装。对于额外的测试，我们使用了 2.2.2版本。**Magento 2 目前为止还不支持 PHP 7.2** 或者 HHVM 的最新版本。
 
 *   商品数目: 7
 *   [http://pubfiles.nexcess.net/magento/ce-packages/](http://pubfiles.nexcess.net/magento/ce-packages/)
@@ -234,13 +234,13 @@ Magento 2 测试
 
 ### Grav CMS 1.3.10
 
-[Grav](https://getgrav.org/) 是一款使用简便，又强大且不需要数据库的开源 CMS 软件。某些时候这也被称作是一种 flat-file CMS（译者注：关于flat-file的解释可见[这里](https://baike.baidu.com/item/flat%20file)）。
+[Grav](https://getgrav.org/) 是一款使用简便，又强大且不需要数据库的开源 CMS 软件。某些时候这也被称作是一种 flat-file CMS（译者注：关于 flat-file 的解释可见[这里](https://baike.baidu.com/item/flat%20file)）。
 
 ![Grav CMS](https://kinsta.com/wp-content/uploads/2018/02/grav-cms.png)
 
 对于 Grav CMS 的测试，我们使用了免费的 [Clean Blog 脚手架](https://getgrav.org/downloads/skeletons)。需要注意的是 **Grav CMS 不再支持 HHVM **编译器并已经从他们的 Travis 构建中 [移除了 HHVM 环境](https://github.com/getgrav/grav/commit/abccf2278dac637089fb5b20b6386d88905335c5)。
 
-*   文章数目: 4 (“Clean Blog” 脚手架中的预设文章)
+*   文章数目: 4 (「Clean Blog」脚手架中的预设文章)
 *   页/文件缓存已关闭: [https://learn.getgrav.org/advanced/performance-and-caching](https://learn.getgrav.org/advanced/performance-and-caching)，而 Twig 缓存依然是开启的。
 
 ![Grav CMS benchmarks](https://kinsta.com/wp-content/uploads/2018/02/grav-cms-benchmarks-1.png)
@@ -259,13 +259,13 @@ Grav CMS 测试
 
 ### October CMS 1.0.433
 
-[October CMS](https://octobercms.com/) 是一款免费开源，自托管且模块化的基于 Laravel PHP 框架的 CMS 平台。它最初发布于 2014 年的五月 15 号。
+[October CMS](https://octobercms.com/) 是一款免费开源，自托管且模块化的基于 Laravel PHP 框架的 CMS 平台。它最初发布于 2014 年 5 月 15 日。
 
 ![October CMS](https://kinsta.com/wp-content/uploads/2018/02/october-cms.png)
 
 对于 October CMS 的测试，我们使用了免费的 [Clean Blog 主题](https://octobercms.com/theme/responsiv-clean)。值得注意的一点是 **October CMS 不再兼容 PHP 5.6 或者 HHVM**。尽管我们通过在安装程序中移除 PHP 版本检查的方式来尝试进行安装，但依然在配置向导中出现了 500 的错误代码。
 
-*   文章数目: 5 篇文章加上两个左侧边栏 (最近文章和“关注我”按钮)
+*   文章数目: 5 篇文章加上两个左侧边栏 (最近文章和「关注我」按钮)
 
 ![October CMS benchmarks](https://kinsta.com/wp-content/uploads/2018/02/October-CMS-benchmarks.png)
 
@@ -285,7 +285,7 @@ October CMS 测试
 
 ### Laravel 5.4.36 + 5.6
 
-[Laravel](https://laravel.com/) 是一个用来开发 web 应用的，非常热门的开源 PHP 框架。它是由 Taylor Otwell 开发的，其最初版本发布于 2011 年的六月。
+[Laravel](https://laravel.com/) 是一个用来开发 web 应用的，非常热门的开源 PHP 框架。它是由 Taylor Otwell 开发的，其最初版本发布于 2011 年 6 月。
 
 ![Laravel](https://kinsta.com/wp-content/uploads/2018/02/Laravel-logo.png)
 
@@ -329,7 +329,7 @@ Laravel 5.6 测试
 
 ### Symfony 3.3.6 + 4.0.1
 
-[Symfony](https://symfony.com/) 是一系列可复用的 PHP 组件以及一个用来搭建 web 应用，APIs，微服务，和 web 服务的 PHP 框架。它的最初版本发布于 2005 年的十月 22 号。
+[Symfony](https://symfony.com/) 是一系列可复用的 PHP 组件以及一个用来搭建 web 应用，APIs，微服务，和 web 服务的 PHP 框架。它的最初版本发布于 2005 年 10 月 22 日。
 
 ![Symfony](https://kinsta.com/wp-content/uploads/2018/02/symfony.png)
 
@@ -375,7 +375,7 @@ Symfony 4.0.1 测试
 
 ![PyroCMS](https://kinsta.com/wp-content/uploads/2018/02/pyrocms.png)
 
-对于 PyroCMS 的测试，我们选用了免费的 [Accelerant 主题](https://github.com/pyrocms/accelerant-theme) (PyroCMS 的默认主题). 需要注意的是 PyroCMS 并不能在 HHVM 上正常工作，可能是它依赖于 Laravel 的原因。
+对于 PyroCMS 的测试，我们选用了免费的 [Accelerant 主题](https://github.com/pyrocms/accelerant-theme) (PyroCMS 的默认主题)。需要注意的是 PyroCMS 并不能在 HHVM 上正常工作，可能是它依赖于 Laravel 的原因。
 
 *   文章数目: 5
 *   Debug 模式开启 (APP_DEBUG=true)
@@ -392,15 +392,15 @@ PyroCMS 测试
 *   PyroCMS 3.4.14 **PHP 7.2 测试结果: 29.28 req/sec 🏆**
 *   PyroCMS 3.4.14 HHVM 测试结果: 不支持
 
-尽管在 PyroCMS 上的测试结果非常接近，但是 PHP 7.2 确实再次地赢下了这次测试。
+尽管各个版本在 PyroCMS 上的测试结果非常接近，但是 PHP 7.2 确实再次地赢下了这次测试。
 
 ### Pagekit 1.0.13
 
-[Pagekit](https://pagekit.com/) 是一款由 YOOtheme 创立的，开源的，模块化的，轻量的 CMS 软件。它赋予了你用来创建漂亮网站的工具。它的最初版本发布于 2016 年的春天。
+[Pagekit](https://pagekit.com/) 是一款由 YOOtheme 创立的开源且模块化的轻量级 CMS 软件。它赋予了你用来创建漂亮网站的工具。它的最初版本发布于 2016 年的春天。
 
 ![pagekit](https://kinsta.com/wp-content/uploads/2018/02/pagekit.png)
 
-对于 Pagekit 的测试，我们选用了免费的 [One 主题](https://pagekit.com/marketplace/package/pagekit/theme-one) (Pagekit 的默认主题).
+对于 Pagekit 的测试，我们选用了免费的 [One 主题](https://pagekit.com/marketplace/package/pagekit/theme-one) (Pagekit 的默认主题)。
 
 *   文章数目: 5
 *   关闭缓存
@@ -444,11 +444,11 @@ Bolt CMS 测试
 *   Bolt CMS 3.4.8 **PHP 7.2 测试结果: 72.05 req/sec 🏆**
 *   Bolt CMS 3.4.8 HHVM 测试结果: 不支持
 
-在这一次测试中，我们可以看到一个明显的迹象，那就是随着每一个新版本的 PHP，Bolt CMS 都有一个稳定的性能提升。
+在这一次测试中，我们可以看到一个明显的迹象，那就是每当 PHP 发布一个新版本，Bolt CMS 都有一个稳定的性能提升。
 
 ### Anchor CMS 0.12.6 (预发布版本)
 
-[Anchor](https://anchorcms.com/) 是一个极简主义的，开源的轻量级博客系统，它的创始初衷是为了 let you just write。
+[Anchor](https://anchorcms.com/) 是一个极简主义的，开源的轻量级博客系统，它的创始初衷是为了「let you just write」。
 
 ![Anchor CMS](https://kinsta.com/wp-content/uploads/2018/02/anchor-cms-1.png)
 
@@ -472,7 +472,7 @@ Anchor CMS 测试
 
 ### PrestaShop 1.7.2.4
 
-[PrestaShop](https://www.prestashop.com/en) 是一款很热门且正处于飞速发展中的开源电子商务解决方案。它的最初版本发布于 2008 年的七月 31 号，根据 W3Techs 的数据，互联网上有 [0.6% 的网站](https://w3techs.com/technologies/details/cm-prestashop/all/all) 使用了它。
+[PrestaShop](https://www.prestashop.com/en) 是一款很热门且正处于飞速发展中的开源电子商务解决方案。它的最初版本发布于 2008 年 7 月 31 日，根据 W3Techs 的数据，互联网上有 [0.6% 的网站](https://w3techs.com/technologies/details/cm-prestashop/all/all) 使用了它。
 
 ![PrestaShop](https://kinsta.com/wp-content/uploads/2018/02/prestashop.png)
 
