@@ -375,7 +375,7 @@ all your questions, but we listen to all of them!"
 }
 ```
 
-序列化的PHP对象现在已经开始在各自的顶点和边缘中形成。但是，我们只能将 gremlin 命令作为字符串发送，所以我们仍然需要将对象序列化为命令字符串。我们将使用一个方便命名的类`GraphSerializer` 来执行此操作。将反序列化的对象传递给`GraphSerializer` 的一个实例，该实例将处理复杂的序列化，如剥离新行，添加斜杠，将PHP `DateTime` 转换为 JanusGraph 所期望的格式。`GraphSerializer` 也优雅地处理 Geopoint 和 Geoshape 序列化。
+序列化的 PHP 对象现在已经开始在各自的顶点和边缘中形成。但是，我们只能将 gremlin 命令作为字符串发送，所以我们仍然需要将对象序列化为命令字符串。我们将使用一个方便命名的类`GraphSerializer` 来执行此操作。将反序列化的对象传递给`GraphSerializer` 的一个实例，该实例将处理复杂的序列化，如剥离新行，添加斜杠，将PHP `DateTime` 转换为 JanusGraph 所期望的格式。`GraphSerializer` 也优雅地处理 Geopoint 和 Geoshape 序列化。
 
 ```
 // Get Default Serializer
