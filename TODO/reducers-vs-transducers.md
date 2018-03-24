@@ -3,15 +3,15 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/reducers-vs-transducers.md](https://github.com/xitu/gold-miner/blob/master/TODO/reducers-vs-transducers.md)
 > * 译者：[jonjia](https://github.com/jonjia)
-> * 校对者：
+> * 校对者：[allenlongbaobao](https://github.com/allenlongbaobao) [leviding](https://github.com/leviding)
 
 # Reducers VS Transducers
 
-今天我们为您准备了一份函数范式甜点。我也不知道为什么会用 “VS”，而且它俩还互相恭维。不管那么多了，让我们看点好定西。。。
+今天我们为您准备了一份函数范式甜点。我也不知道为什么会用「VS」，而且它俩还互相恭维。不管那么多了，让我们看点好东西......
 
 ## Reducers
 
-简单来说，`Reducer` 就是个接收上一个积聚值和一个当前值并返回新的积聚值的方法。
+简单来说，`Reducer` 就是个接收上一个计算值和一个当前值并返回新的计算值的方法。
 
 ![reducers](http://d33wubrfki0l68.cloudfront.net/8da7177f710424f3236cb13803ce8442e4b93127/5e09a/assets/images/reducers_vs_transducers_1.png)
 
@@ -31,7 +31,7 @@ const biggestNumber = numbers.reduce(
 
 这里的箭头函数就是一个 reducer。数组的 `.reduce()` 方法只是取这个 reducer 上一次执行的结果（译注：初始值参数或数组第一个元素）和数组中的下一个元素传给并继续调用这个 reducer。
 
-Reducers 可以处理任何类型的值。唯一条件就是积聚方法返回的值类型和传给积聚方法的值类型要保持一致。
+Reducers 可以处理任何类型的值。唯一条件就是计算方法返回的值类型和传给计算方法的值类型要保持一致。
 
 在下面的例子中，你可以轻松创建一个作用于字符串的 reducer：
 
@@ -55,7 +55,7 @@ const helloWorld = stringReducer("Hello", "world!")
 // Hello world!
 ```
 
-## Map 和 Filter 方法做为 Reducers
+## Map 和 Filter 方法作为 Reducers
 
 Reducers 还有一个好处是你可以链式地连接它们，来实现对某些数据的一系列操作。这就为功能模块化和 reducer 的复用提供了巨大的可能。
 
@@ -105,7 +105,7 @@ const map = (transformer) => {
 
 ## Transducers， 可以有吗？
 
-来升级下我们的 `filter` 方法，让它能够接收 **reducers** 做为参数。我们要分解下它，不是将值添加到 **accumulator**，而是要传给传入的 reducer，并执行这个 reducer。
+来升级下我们的 `filter` 方法，让它能够接收 **reducers** 作为参数。我们要分解下它，不是将值添加到 **accumulator**，而是要传给传入的 reducer，并执行这个 reducer。
 
 ```
 const filter = (predicate) => (reducer) => {
@@ -118,7 +118,7 @@ const filter = (predicate) => (reducer) => {
 }
 ```
 
-我们接收一个 **reducer** 做为参数，并返回另一个 **reducer** 的这种模式就叫做 **transducer**。它是 **transformer** 和 **reducer** 的结合（我们接收一个 reducer，并对它进行了转换）。
+我们接收一个 **reducer** 作为参数，并返回另一个 **reducer** 的这种模式就叫做 **transducer**。它是 **transformer** 和 **reducer** 的结合（我们接收一个 reducer，并对它进行了转换）。
 
 ```
 const transducer => (reducer) => {
@@ -169,7 +169,7 @@ const compose = (...functions) =>
 
 首先看 `x => x` 部分。在 λ 演算中，这被称为 **恒等函数**。不管接收什么参数，它都不会改变。我们就从这里展开。
 
-所以在第一次遍历中，我们将使用 **fn1** 函数做为参数来调用 **identity function** 函数（为了方便，我们称之为 **I**）：
+所以在第一次遍历中，我们将使用 **fn1** 函数作为参数来调用 **identity function** 函数（为了方便，我们称之为 **I**）：
 
 ```
   // 恒等函数：I
