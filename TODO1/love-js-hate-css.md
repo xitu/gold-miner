@@ -5,21 +5,21 @@
 > * 译者：[allenlongbaobao](https://github.com/allenlongbaobao)
 > * 校对者：
 
-# 热爱 JavaScript ，但是讨厌 CSS ？
+# 热爱 JavaScript，但是讨厌 CSS ？
 
 ![热爱 JS ，讨厌 CSS](https://daveceddia.com/images/love-js-hate-css.png)
 
 一个读者留言说他自己写起 JS 和 React 来觉得很有趣，但是当要处理样式的时候，他就很沮丧。
 
-> 我热爱 JavaScript 但是我讨厌 CSS ，我没有耐心去改变这一现状。
+> 我热爱 JavaScript 但是我讨厌 CSS，我没有耐心去改变这一现状。
 
 编程是有趣的，解决问题也是有趣的。当你经历千辛万苦让你的程序正确运行的时候，这种感觉，简直不可思议。
 
-然而， _哦，糟糕，是 CSS_ 。你的 App 运行得很好，就是样式有点糟糕，那么没有人会把它当回事，因为它不像 Apple(TM) 看上去那么高大上。
+然而，**哦，糟糕，是 CSS**。你的 App 运行得很好，就是样式有点糟糕，那么没有人会把它当回事，因为它不像 Apple(TM) 看上去那么高大上。
 
 ## 你不是一个人
 
-首先，我要明确一个事：如果你热爱前端中的其他所有事，_除了 CSS_ ，那么你并不是另类。我在现实 _工作_ 中认识一些专业级别的 UI 开发者，他们要么在样式处理方面很糟糕，要么 _能解决样式问题_ 但是讨厌这个过程并且想方设法尽快把这一环节熬过去。
+首先，我要明确一个事：如果你热爱前端中的其他所有事，**除了 CSS**，那么你并不是另类。我在现实 **工作** 中认识一些专业级别的 UI 开发者，他们要么在样式处理方面很糟糕，要么 **能解决样式问题** 但是讨厌这个过程并且想方设法尽快把这一环节熬过去。
 
 几年前我也曾经历过这样的困境，CSS 就像是一个有魔力的黑盒，每当我往里面输入一些代码，至少三分之二的情况下，它会输出一些比我开始编码前还要糟糕的东西。我通过 Google 和 StackOverflow 来解决大部分的 CSS 难题，并且发疯似地祈祷有人遇到跟我一模一样的难题（从某种意义上来讲，他们的确有过）。
 
@@ -57,11 +57,11 @@ CSS 框架能让你快速开发项目，它能很好地弥补设计技巧的不�
 
 *   [Semantic UI](https://react.semantic-ui.com/introduction) —— 另一个兼容 React 组件的流行 CSS 框架，它的可用组件比 Bootstrap 更多，外观上（我认为）更加的现代化。
 
-*   [Blueprint](http://blueprintjs.com/) ——  Blueprint 外观上比 Bootstrap 和 Semantic UI 更棒，至少我这么觉得。但是我自己没有使用过它。Blueprint 脱颖而出的一点是它是用 TypeScript 写的，而且支持 TypeScript 开发。它并不依赖 TypeScript ，但是如果你在用 TS ，那么它值得一试。
+*   [Blueprint](http://blueprintjs.com/) ——  Blueprint 外观上比 Bootstrap 和 Semantic UI 更棒，至少我这么觉得。但是我自己没有使用过它。Blueprint 脱颖而出的一点是它是用 TypeScript 写的，而且支持 TypeScript 开发。它并不依赖 TypeScript，但是如果你在用 TS，那么它值得一试。
 
 除了以上三种，还有很多好用的 CSS 框架。下面是一些 [列表](https://hackernoon.com/the-coolest-react-ui-frameworks-for-your-new-react-app-ad699fffd651) ，它们都支持 React。
 
-如果说框架是让你少碰一些 CSS ，那么下面两种方法就更加直接地帮助你轻松应对 CSS 。
+如果说框架是让你少碰一些 CSS，那么下面两种方法就更加直接地帮助你轻松应对 CSS。
 
 ### 弹性布局（Flexbox）
 
@@ -79,13 +79,13 @@ align-items: center;     /* center vertically */
 
 如果你在浏览器中右击外部灰色块，然后查看元素，你会发现它里面远远不止三行…… 但是多出来的那些并不负责居中红方块。增加的代码给了它一个灰色边框，让它成为一个矩形块，在文章中水平居中 （ `margin: a auto` ），底部的 margin 给了下面的文字一些空间。
 
-如果你对弹性布局感兴趣，在 CSS Tricks 有极好的 [弹性布局完整指南](https://css-tricks.com/snippets/css/a-guide-to-flexbox/) ，强力推荐。弹性布局切实帮助我更好地运用 CSS ，它也是我现在正在研究解决布局问题的工具。
+如果你对弹性布局感兴趣，在 CSS Tricks 有极好的 [弹性布局完整指南](https://css-tricks.com/snippets/css/a-guide-to-flexbox/) ，强力推荐。弹性布局切实帮助我更好地运用 CSS，它也是我现在正在研究解决布局问题的工具。
 
 ### CSS 网格布局
 
 网格布局是一种更加现代化的布局方式，它比弹性布局更加强大。前者能解决二维（行和列）上的布局，后者更擅长解决单一的行或者列上的布局。它在浏览器兼容上 [表现良好](https://caniuse.com/#feat=css-grid) 。CSS Tricks 上这样说道：
 
-> 从 2017 年 3 月起，绝大多数的浏览器无条件支持网格布局（ CSS Grid ）：Chrome （包括 Android）、Firefox、Safari（包括 iOS）以及 Opera 。IE 10 和 11 也支持它，但是它基于一种过时的语法来实现的。网格布局的时代来临了！
+> 从 2017 年 3 月起，绝大多数的浏览器无条件支持网格布局（ CSS Grid ）：Chrome （包括 Android）、Firefox、Safari（包括 iOS）以及 Opera。IE 10 和 11 也支持它，但是它基于一种过时的语法来实现的。网格布局的时代来临了！
 
 在我写这篇文章的时候，我仅仅只在排版上尝试过网格布局。它比弹性布局更强大，也更复杂。我发现绝大部分情况弹性布局已经能很好地满足我的需求。网格布局是我下一步要学习的目标。
 
@@ -98,7 +98,7 @@ align-items: center;     /* center vertically */
 尝试一种更加靠谱的方式吧。
 
 *   定位元素（弹性、网格，大不了在相对定位的父元素中绝对定位子元素）
-*   设置元素的 margins 和 paddings
+*   设置元素的 margin 和 padding 的值
 *   设置边框
 *   设置一种背景颜色
 *   然后 [完善细节](http://knowyourmeme.com/memes/how-to-draw-an-owl) —— 增加阴影、设置 :hover/:active/:focus 下的调整样式等等。
@@ -109,13 +109,13 @@ align-items: center;     /* center vertically */
 
 ![用户头像信息布局](https://daveceddia.com/images/css-layout-dry-example.png)
 
-我们发现每个元素都距离边缘 20 像素，那么一种实现方法就是两个元素都设置 `margin` 值为 `20px` 。
+我们发现每个元素都距离边缘 20 像素，那么一种实现方法就是两个元素都设置 `margin` 值为 `20px`。
 
 但是这样做有负面效应。首先，重复问题：如果说 margin 值需要改变，那么我们需要在两处修改。
 
 其次，相对于内部元素自己决定与边缘的距离，这难道不应该是外部盒子的职责吗？
 
-一个更好的解决方式是外部盒子设置其 `padding` 值为 `20px` ，这样一来，内部元素就不用操心自己的位置了。这样也方便添加新的元素到盒子中 —— 你不用显式声明每个元素的位置
+一个更好的解决方式是外部盒子设置其 `padding` 值为 `20px`，这样一来，内部元素就不用操心自己的位置了。这样也方便添加新的元素到盒子中 —— 你不用显式声明每个元素的位置
 
 这仅仅是一个小例子，用来明确一点：思考问题加上有逻辑的方法能够让布局变得简单得多。
 
