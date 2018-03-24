@@ -7,17 +7,17 @@
 
 # JanusGraph 为 PHP 助力
 
-_随着 JanusGraph 的日益流行，开发者们也毫无疑问的围绕着它开发着相应的工具。 在这篇来自 Compose [Write Stuff](https://compose.com/write-stuff) 的文章中，Campus Discounts 的创始人兼首席技术官 Don Omondi 将谈到他为 JanusGraph 开发新的 PHP 库并且分享如何使用它。_
+__随着 JanusGraph 的日益流行，开发者们也毫无疑问地围绕着它开发着相应的工具。在这篇来自 Compose [Write Stuff](https://compose.com/write-stuff) 的文章中，Campus Discounts 的创始人兼首席技术官 Don Omondi 将谈到他为 JanusGraph 开发新的 PHP 库并且分享如何使用它。__
 
-在编程语言的世界中，PHP 并不需要过多介绍。它在 1995 年正式对外发布了 1.0 版本。现在 PHP 已经成为许多独角兽公司的中坚力量，而其中最为人知晓的就是 Facebook ，最近像 Slack 也加入了 PHP 的阵营。截至 2017 年 9 月，[W3Techs](https://w3techs.com/technologies/overview/programming_language/all) 报告称，在所有已知网站中，服务端编程语言使用了 PHP 的占了 82.8% !
+在编程语言的世界中，PHP 并不需要过多介绍。它在 1995 年正式对外发布了 1.0 版本。现在 PHP 已经成为许多独角兽公司的中坚力量，而其中最为人知晓的就是 Facebook，最近像 Slack 也加入了 PHP 的阵营。截至 2017 年 9 月，[W3Techs](https://w3techs.com/technologies/overview/programming_language/all) 报告称，在所有已知网站中，服务端编程语言使用了 PHP 的占了 82.8% !
 
-在数据库的世界中，JanusGraph 虽是一位新成员，但它却有着深厚的技术底蕴，因为它建立在开源图形数据库的前任领导者 Titan 的基础上。为了提供给您一些关于图数据库的背景知识，请看[图数据库简介](https://www.compose.com/articles/introduction-to-graph-databases/)。虽然 JanusGraph 还很年轻，但是它已经被一个知名的独角兽公司—— Uber 使用。
+在数据库的世界中，JanusGraph 虽是一位新成员，但它却有着深厚的技术底蕴，因为它建立在开源图形数据库的前任领导者 Titan 的基础上。为了提供给您一些关于图数据库的背景知识，请看[图数据库简介](https://www.compose.com/articles/introduction-to-graph-databases/)。虽然 JanusGraph 还很年轻，但是它已经被一个知名的独角兽公司 —— Uber 使用。
 
-所以最大的问题是，如何使用 PHP 和 JanusGraph 创建一家独角兽公司？ 相信我，我也希望我知道答案！但是，如果问题是如何使用 JanusGraph 来强化 PHP ？我倒是知道不止一种方法。
+所以最大的问题是，如何使用 PHP 和 JanusGraph 创建一家独角兽公司？相信我，我也希望我知道答案！但是，如果问题是如何使用 JanusGraph 来强化 PHP ？我倒是知道不止一种方法。
 
 ### Gremlin-OGM PHP 库介绍
 
-[Gremlin-OGM](https://github.com/the-don-himself/gremlin-ogm) PHP 库是 Tinkerpop 3+ 兼容的图形数据库（JanusGraph，Neo4j等）的对象图形映射器，允许您保存数据并运行 gremlin 查询。
+[Gremlin-OGM](https://github.com/the-don-himself/gremlin-ogm) PHP 库是 Tinkerpop 3+ 兼容的图形数据库（JanusGraph，Neo4j 等）的对象图形映射器，允许您保存数据并运行 gremlin 查询。
 
 [该库已经托管在 Packagist 上了](https://packagist.org/packages/the-don-himself/gremlin-ogm) ，所以可以轻松的使用 Composer 安装。
 
@@ -25,25 +25,25 @@ _随着 JanusGraph 的日益流行，开发者们也毫无疑问的围绕着它�
 composer require the-don-himself/gremlin-ogm  
 ```
 
-使用该库也很容易，因为它有大量的 PHP 注释。 但是在我们开始使用它之前，让我们深入探讨一下使用像 JanusGraph 这样的图形数据库时可能遇到的一些问题以及该库如何帮助您避免它们。
+使用该库也很容易，因为它有大量的 PHP 注释。但是在我们开始使用它之前，让我们深入探讨一下使用像 JanusGraph 这样的图形数据库时可能遇到的一些问题以及该库如何帮助您避免它们。
 
-### 有些事情要注意
+### 注意事项
 
-首先，具有相同名称的所有属性必须具有相同的数据类型。 如果您已经在不同的数据库中有数据，比如 MySQL 或者 MongoDB ，那么您可能会遇到这种情况。
+首先，具有相同名称的所有属性必须具有相同的数据类型。如果您已经在不同的数据库中有数据，比如 MySQL 或者 MongoDB ，那么您可能会遇到这种情况。
 
-一个很好的例子就是在每个实体类或文档中称为 `id` 的字段。一些 ID 可能是一个整数的数据类型（1, 2, 3等）, 其他一些可能是字符串类型 （例如在常见问题解答库中的 id `en_1`, `es_1`, `fr_1`），另外还有比如 MongoDB 的 UUID （例子 `59be8696540bbb198c0065c4`）。对于这些不同的数据类型使用相同属性名称的情况会引发异常。Gremlin-OGM 库会发现这样的冲突并拒绝执行。作为一种解决方法，我建议将标签与单词 `id` 组合; 例如，用户的标识符变为 `users_id` 。 该库附带一个序列化程序，允许您将字段映射到虚拟属性以避免此冲突。
+一个很好的例子就是在每个实体类或文档中称为 `id` 的字段。一些 ID 可能是一个整数的数据类型（1、2、3 等）, 其他一些可能是字符串类型 （例如在常见问题解答库中的 ID `en_1`、`es_1`、`fr_1`），另外还有比如 MongoDB 的 UUID（例子 `59be8696540bbb198c0065c4`）。对于这些不同的数据类型使用相同属性名称的情况会引发异常。Gremlin-OGM 库会发现这样的冲突并拒绝执行。作为一种解决方法，我建议将标签与单词 `id` 组合; 例如，用户的标识符变为 `users_id` 。该库附带一个序列化程序，允许您将字段映射到虚拟属性以避免此冲突。
 
-其次，属性（property）名称，边缘（edge）标签和顶点（vertex）标签在图中必须都是唯一的。例如，将 Vertex 标记为 `tweets` 并引用一个对象，然后创建一个 Edge 标记为 `tweets` 并引用用户操作，或者在 `users` Vertex 中创建一个 property `tweets` 来引用用户发出的推文数量。 该库同样会发现这种冲突并拒绝执行。
+其次，属性（property）名称，边缘（edge）标签和顶点（vertex）标签在图中必须都是唯一的。例如，将 Vertex 标记为 `tweets` 并引用一个对象，然后创建一个 Edge 标记为 `tweets` 并引用用户操作，或者在 `users` Vertex 中创建一个 property `tweets` 来引用用户发出的推文数量。该库同样会发现这种冲突并拒绝执行。
 
-第三，对于性能和模式的有效性，我建议确保每个元素，或者至少每个顶点包含一个唯一的属性，在该唯一属性上将创建唯一的组合索引（也称为键索引）。这确保所有元素都是唯一的，并且会提高性能，因为在顶点之间添加边缘首先需要查询它们是否先存在。 该库允许您为此目的使用 `@Id` 注释标记属性。
+第三，对于性能和模式的有效性，我建议确保每个元素，或者至少每个顶点包含一个唯一的属性，在该唯一属性上将创建唯一的组合索引（也称为键索引）。这确保所有元素都是唯一的，并且会提高性能，因为在顶点之间添加边缘首先需要查询它们是否先存在。该库允许您为此目的使用 `@Id` 注释标记属性。
 
-最后，索引。这一点值得写一本或两本书。在 JanusGraph 中， 基本上您索引的是属性 （毕竟它是一个属性图），但是可以在不同的顶点和边缘上使用相同的属性名称。 这样做时要非常小心。 请记住第一件要注意的事情。因此，例如在默认情况下，属性 `total_comments` 上的索引将跨越所有顶点和边缘。 查询其中`total_comments`大于 `5` 的顶点会返回 `total_comments > 5` 的 `users` ， `total_comments > 5`的博客帖子以及满足该查询的任何其他顶点的混合情况。 事情可能会变得更加混乱，几个月后，您会为 `recipes` 顶点添加 `total_comments` 属性，现在您的现有查询可能会开始返回意外的数据。
+最后，索引。这一点值得写一本或两本书。在 JanusGraph 中，基本上您索引的是属性（毕竟它是一个属性图），但是可以在不同的顶点和边缘上使用相同的属性名称。这样做时要非常小心。请记住第一件要注意的事情。因此，例如在默认情况下，属性 `total_comments` 上的索引将跨越所有顶点和边缘。查询其中`total_comments` 大于 `5` 的顶点会返回 `total_comments > 5` 的 `users` ，`total_comments > 5` 的博客帖子以及满足该查询的任何其他顶点的混合情况。更糟糕的情况是，一段时间后，如果您在 `recipes` 顶点了加一个 `total_comments` 属性，那么你现有的查询就会出错了。
 
 为了防止上述潜在的问题，JanusGraph 允许您在创建索引时设置标签参数以限制其范围。我建议这样做以保持索引更小和更高性能，但这意味着您必须为每个索引提供一个唯一的名称。Gremlin-OGM 库查找任何冲突的索引名称，如果发现将拒绝执行。
 
 ### 如何使用 Gremlin-OGM
 
-要开始使用 Gremlin-OGM ，我们首先需要在我们的源文件夹中创建一个名为 Graph 的目录，例如 `src/Graph`。 在这个目录下，我们需要创建两个不同的目录：一个叫做 Vertices ，另一个叫做 Edges 。这两个目录现在将包含定义我们图表元素的PHP类。
+要开始使用 Gremlin-OGM ，我们首先需要在我们的源文件夹中创建一个名为 Graph 的目录，例如 `src/Graph`。在这个目录下，我们需要创建两个不同的目录：一个叫做 Vertices ，另一个叫做 Edges 。这两个目录现在将包含定义我们图表元素的PHP类。
 
 顶点文件夹中的每个类主要使用注释描述顶点标签，关联索引和属性。对于更高级的用例，如果您使用 MongoDB 并拥有一个保存嵌入式文档的类（例如注释集合），则还可以定义最适合的嵌入边缘。
 
@@ -51,11 +51,11 @@ composer require the-don-himself/gremlin-ogm
 
 ### 一个实际的例子：推特
 
-Twitter 可能是图形数据库的最佳配合。像用户和推文这样的对象可以形成顶点，而诸如 follow ，likes ，tweeted 和 retweets 等操作可以形成边缘。请注意，边缘 `tweeted` 是以这种方式命名的，以避免与顶点 `tweets` 发生冲突。这个简单的模型的图形表示可以如下图所示。
+Twitter和图形数据库真的是天生一对。像用户和推文这样的对象可以形成顶点，而诸如 follow ，likes ，tweeted 和 retweets 等操作可以形成边缘。请注意，边缘 `tweeted` 是以这种方式命名的，以避免与顶点 `tweets` 发生冲突。这个简单的模型的图形表示可以如下图所示。
 
 ![](https://res.cloudinary.com/dyyck73ly/image/upload/v1517108900/lvd2gsstbh57ebsjikto.png)
 
-让我们在 Graph/Vertexes 文件夹和 Graph/Edges 文件夹中创建相应的类。 tweets 类可能如下所示：
+让我们在 Graph/Vertexes 文件夹和 Graph/Edges 文件夹中创建相应的类。tweets 类可能如下所示：
 
 ```
 <?php  
@@ -194,7 +194,7 @@ class Tweets
 }
 ```
 
-Twitter API 非常具有表现力，这样我们实际上可以比顶点类允许的数据节省更多的数据。但是，对于这个示例，我们只是对几个属性感兴趣。上述注释将告诉序列化程序仅在将 Twitter API 数据反序列化为顶点类对象时填充这些字段。
+Twitter API 非常具有表现力，尽管我们实际上可以保存比顶点类允许的多得多的数据。但是，对于这个示例，我们只是对几个属性感兴趣。上述注释将告诉序列化程序仅在将 Twitter API 数据反序列化为顶点类对象时填充这些字段。
 
 为 `users` 顶点创建一个类似的类。完整的示例代码位于库中的 TwitterGraph 文件夹中。
 
@@ -298,7 +298,7 @@ $options = [
 ];
 ```
 
-vendor 数组可以指定 vendor-specific 信息，如 gremlin 兼容的数据库，版本，服务主机名称（或 `_self` 本机）以及图的名称。这使得库能满足不同的环境和配置。
+vendor 数组可以指定 vendor-specific 信息，如 gremlin 兼容的数据库、版本、服务主机名称（或 `_self` 本机）以及图的名称。
 
 最终创建模型，我们将运行此命令。
 
@@ -310,7 +310,7 @@ php bin/graph twittergraph:schema:create
 
 上述命令将递归遍历我们的 `TwitterGraph/Graph` 目录并查找所有 `@Graph` 注释来构建模型定义。如果发现异常将被抛出;否则，它将启动一个 Graph 事务来一次提交所有属性，边缘和顶点，或者在失败时回滚。
 
-同样的命令也会询问您是否要执行 `dry run`。 如果指定，则不会将命令发送到 gremlin 服务器，而是将其转储到您可以检查的 `command.groovy` 文件中。 对于Twitter示例，这26行是根据您的配置发送或转储的命令（如janusgraph _self 本机）。
+同样的命令也会询问您是否要执行 `dry run`。如果指定，则不会将命令发送到 gremlin 服务器，而是将其转储到您可以检查的 `command.groovy` 文件中。对于Twitter示例，这 26 行是根据您的配置发送或转储的命令（如janusgraph _self 本机）。
 
 ```
 mgmt = graph.openManagement()  
@@ -374,7 +374,7 @@ all your questions, but we listen to all of them!"
 }
 ```
 
-序列化的PHP对象现在已经开始在各自的顶点和边缘中形成。 但是，我们只能将 gremlin 命令作为字符串发送，所以我们仍然需要将对象序列化为命令字符串。 我们将使用一个方便命名的类`GraphSerializer` 来执行此操作。 将反序列化的对象传递给`GraphSerializer` 的一个实例，该实例将处理复杂的序列化，如剥离新行，添加斜杠，将PHP `DateTime` 转换为 JanusGraph 所期望的格式。 `GraphSerializer` 也优雅地处理 Geopoint 和 Geoshape 序列化。
+序列化的PHP对象现在已经开始在各自的顶点和边缘中形成。但是，我们只能将 gremlin 命令作为字符串发送，所以我们仍然需要将对象序列化为命令字符串。我们将使用一个方便命名的类`GraphSerializer` 来执行此操作。将反序列化的对象传递给`GraphSerializer` 的一个实例，该实例将处理复杂的序列化，如剥离新行，添加斜杠，将PHP `DateTime` 转换为 JanusGraph 所期望的格式。`GraphSerializer` 也优雅地处理 Geopoint 和 Geoshape 序列化。
 
 ```
 // Get Default Serializer
@@ -403,15 +403,15 @@ $user_array = $graph_serializer->toArray($user);
 $command = $graph_serializer->toVertex($user_array);
 ```
 
-GraphSerializer 输出将串入 Gremlin 的命令。 这个字符串就准备好发送到 JanusGraph 服务器。 所以在上面的例子中，它变成：
+GraphSerializer 输出将串入 Gremlin 的命令。这个字符串就准备好发送到 JanusGraph 服务器。所以在上面的例子中，它变成：
 
 ```
 "g.addV(label, 'users', 'users_id', 2244994945, 'name', 'TwitterDev', 'screen_name', 'TwitterDev', 'description', 'Developer and Platform Relations @Twitter. We are developer advocates. We can\'t answer all your questions, but we listen to all of them!', 'followers_count', 429831, 'created_at', 1386995755000, 'verified', true, 'lang', 'en')"
 ```
 
-坚持边缘只是稍微简单一点，因为它需要事先存在顶点。因此，库需要知道属性键值对来查找它们。此外，边缘在图数据库中具有方向和多重性。因此，边缘要添加到顶点这非常重要。
+保存边缘要稍微简单一点，因为它的前提是定点存在。因此，库需要知道属性键值对来查找它们。此外，边缘在图数据库中具有方向和多重性。因此，边缘要添加到顶点这非常重要。
 
-这是Edge类中 `@Graph\AddEdgeFromVertex` 和 `@Graph\AddEdgeToVertex` 属性注释的用途。 它们都扩展了 `@Graph\AddEdge` 注解来指示目标顶点类以及属性键和获取该值所需的方法数组。
+这是 Edge 类中 `@Graph\AddEdgeFromVertex` 和 `@Graph\AddEdgeToVertex` 属性注释的用途。它们都扩展了 `@Graph\AddEdge` 注解来指示目标顶点类以及属性键和获取该值所需的方法数组。
 
 假设我们已经在 Twitter API 中查询到了 tweets ,其中包含一个名为 `user` 的嵌入字段，用于保存 tweeter 数据。如果 `users_id:5` 创建了 `tweets_id:7` ，则序列化的 gremlin 命令将如下所示：
 
@@ -424,13 +424,13 @@ if (g.V().hasLabel('users').has('users_id',5).hasNext() == true
      }
 ```
 
-因此，两个顶点查询是一个事务，然后在`users` 与 `tweets` 之间创建两条边缘。请注意，因为一个用户可以多次发 tweet ，但每个 tweet 只能有一个拥有者，所以其重复性为 `ONE2MANY` 。
+因此，两个顶点查询是一个事务，然后在`users` 与 `tweets` 之间创建两条边缘。请注意，因为一个用户可以多次发 tweet ，但每个 tweet 只能有一个拥有者，所以其重复性为 `ONE2MANY`。
 
 如果边缘类具有像 `tweeted_on` 或 `tweeted_from` 这样的属性，那么库就会像顶点一样适当地序列化它们。
 
 ### JanusGraph 查询
 
-我们处理了抓取和保存的数据。数据查询也是库帮助完成的。`TheDonHimself\Traversal\TraversalBuilder` 类提供了几乎与 gremlin 完美匹配的本地API。 例如，在 TwitterGraph 中获取用户可以实现如下。
+我们处理了抓取和保存的数据。数据查询也是库帮助完成的。`TheDonHimself\Traversal\TraversalBuilder` 类提供了几乎与 gremlin 完美匹配的本地API。例如，在 TwitterGraph 中获取用户可以实现如下。
 
 ```
 $user_id = 12345;
@@ -471,7 +471,7 @@ $command = $traversalBuilder
 
 可悲的是，它没有像关系数据库，文档数据库和键值数据库那样多的 Graph Database GUI。其中[Gephi](https://gephi.org/)，可用于通过流式插件来可视化 JanusGraph 数据和查询。与此同时，撰写有 JanusGraph 的数据浏览器，可以使用它来显示 TwitterGraph 的一些查询。
 
-**_将我关注的5位用户可视化_**
+**_将我关注的 5 位用户可视化_**
 
 ```
 def graph = ConfiguredGraphFactory.open("twitter");  
@@ -482,7 +482,7 @@ g.V().hasLabel('users').has('screen_name',
 
 ![](https://res.cloudinary.com/dyyck73ly/image/upload/v1518101970/ayytldgnf3dkgsfdee1p.png)
 
-**_可视化5位跟随我的用户_**
+**_可视化 5 位关注我的用户_**
 
 ```
 def graph = ConfiguredGraphFactory.open("twitter");  
@@ -493,7 +493,7 @@ g.V().hasLabel('users').has('screen_name',
 
 ![](https://res.cloudinary.com/dyyck73ly/image/upload/v1518101893/n0j7ww7h8qxs1hcif8xc.png)
 
-**_可视化我喜欢的5条推文_**
+**_可视化我喜欢的 5 条推文_**
 
 ```
 def graph = ConfiguredGraphFactory.open("twitter");  
@@ -504,7 +504,7 @@ g.V().hasLabel('users').has('screen_name',
 
 ![](https://res.cloudinary.com/dyyck73ly/image/upload/v1518101950/lfnrx0ybr5d8bzkji1wb.png)
 
-**_可视化任意5条转推以及原推_**
+**_可视化任意 5 条转推以及原推_**
 
 ```
 def graph = ConfiguredGraphFactory.open("twitter");  
@@ -514,7 +514,7 @@ g.V().hasLabel('tweets').outE('retweets').inV().limit(5).path()
 
 ![](https://res.cloudinary.com/dyyck73ly/image/upload/v1518101928/upna6igufcbyf4o0y3dr.png)
 
-现在您拥有了它。一个功能强大、又周到亦简单的库，它可帮助您在几分钟内开始使用 PHP 操作 JanusGraph 。如果您使用了令人惊叹的 Symfony 框架，那么您的运气会更好。 即将发行的软件包 [Gremlin-OGM-Bundle](https://github.com/the-don-himself/gremlin-ogm-bundle) 将帮助您将数据从 RDBMS 或 MongoDB 复制到 Tinkerpop 3+ 兼容图形数据库中。 请享用！
+现在您拥有了它。一个功能强大、考虑周、操作简单的库，它可帮助您在几分钟内开始使用 PHP 操作 JanusGraph 。如果您使用了令人惊叹的 Symfony 框架，那么您的运气会更好。即将发行的软件包 [Gremlin-OGM-Bundle](https://github.com/the-don-himself/gremlin-ogm-bundle) 将帮助您将数据从 RDBMS 或 MongoDB 复制到 Tinkerpop 3+ 兼容图形数据库中。请享用！
 
 
 ---
