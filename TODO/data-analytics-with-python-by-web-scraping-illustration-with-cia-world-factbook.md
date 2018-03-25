@@ -2,7 +2,7 @@
 > * 原文作者：[Tirthajyoti Sarkar](https://towardsdatascience.com/@tirthajyoti?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/data-analytics-with-python-by-web-scraping-illustration-with-cia-world-factbook.md](https://github.com/xitu/gold-miner/blob/master/TODO/data-analytics-with-python-by-web-scraping-illustration-with-cia-world-factbook.md)
-> * 译者：[Starrier](https://github.com/Starriers)
+> * 译者：[Starriers](https://github.com/Starriers)
 > * 校对者：
 
 # Web 爬虫下的 Python 数据分析：中情局全球概况图解
