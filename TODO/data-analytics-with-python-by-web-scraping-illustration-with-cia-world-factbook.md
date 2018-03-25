@@ -15,7 +15,7 @@
 
 > **毕竟生活不像 Kaggle 一样是一个 zip 格式文件，等待您的解压和建模 :-)**
 
-**但为什么我们要采集数据或者构建模型呢**？最初的动机是回答商业、科学或者是社会上的问题。_这是趋势么_?_事物间的关联性_?_实体的测量可以预测出这种现象的结果么_? 因为这个问题将会验证您作为这个该领域的科学家/实践者所提出的假设。您只是在使用数据（而不是像化学家使用试管或者物理学家使用磁铁）来验证您的假设，并且科学地证明/反驳它。**这就是数据科学中的‘科学’ 部分，名副其实。。。**
+**但为什么我们要采集数据或者构建模型呢**？最初的动机是回答商业、科学或者是社会上的问题。_这是趋势么_?_事物间的关联性_?_实体的测量可以预测出这种现象的结果么_?因为这个问题将会验证您作为这个该领域的科学家/实践者所提出的假设。您只是在使用数据（而不是像化学家使用试管或者物理学家使用磁铁）来验证您的假设，并且科学地证明/反驳它。**这就是数据科学中的‘科学’ 部分，名副其实。。。**
 
 相信我，提出一个需要一些数据科学技术应用来解决的高质量问题并不难。而且每一个这样的问题都会成为您的一个小项目，您可以将它开源在 Gihub 这样的平台来和您的朋友们分享。即使您不是专业的数据专家，也没有人可以阻止您通过编写很酷的代码来回答一个高质量的数据问题。这也表明您是对数据敏感并且可以用数据讲故事的人。
 
@@ -32,11 +32,11 @@
 *   **BeautifulSoup** (用于 HTML 解析)
 *   **Regular expression module** （用于查找要搜索的精确匹配文本）
 
-让我们讨论一下解决这个数据科学问题的程序结构。[整个项目代码](https://github.com/tirthajyoti/Web-Database-Analytics-Python/blob/master/CIA-Factbook-Analytics2.ipynb) 在我的 [Github 仓库中都可以找到](https://github.com/tirthajyoti/Web-Database-Analytics-Python)。如果您喜欢的话，请 fork 或者 给个 star。
+让我们讨论一下解决这个数据科学问题的程序结构。[整个项目代码](https://github.com/tirthajyoti/Web-Database-Analytics-Python/blob/master/CIA-Factbook-Analytics2.ipynb)在我的 [Github 仓库中都可以找到](https://github.com/tirthajyoti/Web-Database-Analytics-Python)。如果您喜欢的话，请 fork 或者给个 star。
 
 #### 阅读 HTML 首页并传递给 BeautifulSoup
 
-这儿是 [中情局全球概况首页](https://www.cia.gov/library/publications/the-world-factbook/) 
+这儿是[中情局全球概况首页](https://www.cia.gov/library/publications/the-world-factbook/) 
 
 ![](https://cdn-images-1.medium.com/max/800/1*CjEOFPmEDpz5z-Wc_YOfNg.png)
 
@@ -81,7 +81,7 @@ temp=country_names.pop(0) # To remove the first entry 'World'
 
 #### 爬取：将所有国家的文本数据逐个抓取到字典中
 
-这一步就是他们所说的爬取或者抓取。要实现这一点，**关键是要确定每个国家信息页面的 URL 是如何构造的**。现在的一般情况是，这将很难获得。特殊情况下，快速检查显示了一个非常简单并且有规律的结构， 以澳大利亚截图为例。
+这一步就是他们所说的爬取或者抓取。要实现这一点，**关键是要确定每个国家信息页面的 URL 是如何构造的**。现在的一般情况是，这将很难获得。特殊情况下，快速检查显示了一个非常简单并且有规律的结构，以澳大利亚截图为例。
 
 ![](https://cdn-images-1.medium.com/max/800/1*vYfbPogbxVdPhX9hoSUc6g.png)
 
@@ -121,7 +121,7 @@ text_data = pickle.load(open("text_data_CIA_Factobook.p", "rb"))
 
 #### 使用正则表达式从文本转储中提取 GDP/人均数据
 
-这是程序的核心文本分析部分，我们借助[**_正则表达式_**模块](https://docs.python.org/3/howto/regex.html)来查找我们在庞大文本字符串中寻找的内容，并提取相关的数字数据。现在，正则表达式是 Python（或者几乎是所有的高级编程语言）中的一个丰富资源。它允许在大量文本中搜索/匹配字符串的特定模式。这里我们使用非常简单的正则表达式方法来匹配精确的单词，如“_GDP — per capita (PPP):_”然后读取几个字符，提取诸如 $ 和圆括号等特定符号的位置，最后提取 GDP/人均数值。这是一个用数字说明的想法。
+这是程序的核心文本分析部分，我们借助[**_正则表达式_**模块](https://docs.python.org/3/howto/regex.html)来查找我们在庞大文本字符串中寻找的内容，并提取相关的数字数据。现在，正则表达式是 Python（或者几乎是所有的高级编程语言）中的一个丰富资源。它允许在大量文本中搜索/匹配字符串的特定模式。这里我们使用非常简单的正则表达式方法来匹配精确的单词，如“_GDP — per capita (PPP):_”然后读取几个字符，提取诸如 $ 和 () 等特定符号的位置，最后提取 GDP/人均数值。这是一个用数字说明的想法。
 
 ![](https://cdn-images-1.medium.com/max/800/1*1FgkmYUwds5pKIZC4HvkTw.png)
 
@@ -203,7 +203,7 @@ df_filtered = df_combined[filter_gdp][filter_low_income][filter_high_income]
 
 #### 最后是可视化
 
-我们使用 [**seaborn regplot** 函数](https://seaborn.pydata.org/generated/seaborn.regplot.html) 创建线性回归拟合的散点图（互联网用户数量比上人均 GDP）和 显示 95％置信区间带。 他们看起来就像下面一样。 可以将结果解释为
+我们使用 [**seaborn regplot** 函数](https://seaborn.pydata.org/generated/seaborn.regplot.html)创建线性回归拟合的散点图（互联网用户数量比上人均 GDP）和显示 95％ 置信区间带。他们看起来就像下面一样。可以将结果解释为
 
 > 一个国家的互联网用户数量与人均 GDP 之间存在着很强的正相关关系。此外，低收入/低 GDP 国家的相关强度明显高于高 GDP 发达国家。**这可能意味着，与发达国家相比，互联网接入有助于低收入国家更快地增长，并更好地改善其公民的平均状况**。
 
