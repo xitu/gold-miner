@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/love-js-hate-css.md](https://github.com/xitu/gold-miner/blob/master/TODO1/love-js-hate-css.md)
 > * 译者：[allenlongbaobao](https://github.com/allenlongbaobao)
-> * 校对者：
+> * 校对者：[Xekin-FE](https://github.com/Xekin-FE)、[L9m](https://github.com/L9m)
 
 # 热爱 JavaScript，但是讨厌 CSS ？
 
@@ -33,7 +33,7 @@
 
 可能出现的情况是：你做到了熟练掌握（甚至是精通）这两项中的其中一项，与此同时，另一项则是一窍不通。
 
-作为一个前端，你需要掌握一定的样式应用技巧（ CSS ），但不一定需要掌握设计技巧
+作为一个前端，你需要掌握一定的样式应用技巧（CSS），但不一定需要掌握设计技巧
 
 ## 我能选择逃避 CSS 吗？
 
@@ -57,7 +57,7 @@ CSS 框架能让你快速开发项目，它能很好地弥补设计技巧的不�
 
 *   [Semantic UI](https://react.semantic-ui.com/introduction) —— 另一个兼容 React 组件的流行 CSS 框架，它的可用组件比 Bootstrap 更多，外观上（我认为）更加的现代化。
 
-*   [Blueprint](http://blueprintjs.com/) ——  Blueprint 外观上比 Bootstrap 和 Semantic UI 更棒，至少我这么觉得。但是我自己没有使用过它。Blueprint 脱颖而出的一点是它是用 TypeScript 写的，而且支持 TypeScript 开发。它并不依赖 TypeScript，但是如果你在用 TS，那么它值得一试。
+*   [Blueprint](http://blueprintjs.com/) ——  Blueprint 外观上比 Bootstrap 和 Semantic UI 更棒，至少我这么觉得。但是我自己没有使用过它。Blueprint 脱颖而出的一点是它是用 TypeScript 写的，而且支持 TypeScript 开发。它并不 **依赖** TypeScript，但是如果你在用 TS，那么它值得一试。
 
 除了以上三种，还有很多好用的 CSS 框架。下面是一些 [列表](https://hackernoon.com/the-coolest-react-ui-frameworks-for-your-new-react-app-ad699fffd651) ，它们都支持 React。
 
@@ -111,7 +111,7 @@ align-items: center;     /* center vertically */
 
 我们发现每个元素都距离边缘 20 像素，那么一种实现方法就是两个元素都设置 `margin` 值为 `20px`。
 
-但是这样做有负面效应。首先，重复问题：如果说 margin 值需要改变，那么我们需要在两处修改。
+但是这样做有缺点。首先，重复问题：如果说 margin 值需要改变，那么我们需要在两处修改。
 
 其次，相对于内部元素自己决定与边缘的距离，这难道不应该是外部盒子的职责吗？
 
