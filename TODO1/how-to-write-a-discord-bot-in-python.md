@@ -2,7 +2,7 @@
 > * 原文作者：[Junpei Shimotsu](https://boostlog.io/@junp1234)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-write-a-discord-bot-in-python.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-write-a-discord-bot-in-python.md)
-> * 译者：
+> * 译者：[Starrier](https://github.com/Starriers)
 > * 校对者：
 
 # 如何用 Python 写一个 Discord 机器人
