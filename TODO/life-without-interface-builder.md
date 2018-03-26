@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/life-without-interface-builder.md](https://github.com/xitu/gold-miner/blob/master/TODO/life-without-interface-builder.md)
 > * 译者：[Ryden Sun](https://github.com/rydensun)
-> * 校对者：[talisk](https://github.com/talisk)
+> * 校对者：[talisk](https://github.com/talisk) [allenlongbaobao](https://github.com/allenlongbaobao)
 
 # 没有 Interface Builder 的生活
 
@@ -15,7 +15,7 @@
 
 ### 为什么？
 
-在用了两年的 Objective-C 后， Zeplin 在 2015 年末，第一次用 Swift 来编写其中一个模块。从那以后，我们一直使用 Swfit 开发新的功能并且逐渐地迁移之前存在的部分。目前，macOS 版本的 app，有 75% 是运行在 Swift 上。
+在用了两年的 Objective-C 后， Zeplin 在 2015 年末，第一次用 Swift 来编写其中一个模块。从那以后，我们一直使用 Swfit 开发新的功能并且逐渐地迁移之前存在的部分。目前，macOS 版本的 app，有 75% 是用 Swift 编写的。
 
 有趣的是，在我们刚开始用 Swift 时，就开始考虑放弃 Interface Builder。
 
@@ -25,14 +25,14 @@
 
 > 你的 view controller 是要求 property 正常工作的，现在它们变成了 optionals，你就开始到处写 `guard`。
 
-……除非你使用 Implicitly Unwrapped Optionals（隐式解析可选），使用操作符`!`。这在大多数时候是有用的，不会出现任何问题，但这样感觉是在欺骗 Swift 平台。我们大多数人相信，Implicitly Unwrapped Optionals 应该在极少数的场景下使用，而且日常在 Storyboards 中使用，是应该避免的。
+……除非你使用 Implicitly Unwrapped Optionals（隐式解析可选），使用操作符`!`。这在大多数时候是有用的，不会出现任何问题，但这样感觉是在欺骗 Swift 平台。我们大多数人相信，Implicitly Unwrapped Optionals 应该在极少数的场景下使用，而且在日常开发中是应该避免在 Storyboards 中使用。
 
 #### 设计的改变
 
 在 Objective-C 写布局代码还不算太糟，但是使用 Swift 就变得更简单了，并且最重要的是，更易读。声明 Auto Layout 的 constraints 很轻松也很漂亮，这要感谢像 [Cartography](https://github.com/robb/Cartography) 这样的库。
 
 ```
-// Defining the appearance while creating the property.
+// 创建 property 时定义外观表现
 let editButton: NSButton = {
     let button = NSButton()
     button.bordered = false
@@ -45,7 +45,7 @@ let editButton: NSButton = {
 
 …
 
-// Declaring Auto Layout constraints with Cartography.
+// 用 Cartography 声明 Auto Layout 限制
 constrain(view, editButton, self) { view, editButton, superview in
     editButton.left == view.right
     editButton.right <= superview.right - View.margin
