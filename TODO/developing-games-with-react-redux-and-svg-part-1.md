@@ -5,7 +5,7 @@
 > * 译者：[zephyrJS](https://github.com/zephyrJS)
 > * 校对者： [allenlongbaobao](https://github.com/allenlongbaobao) 、 [dandyxu](https://github.com/dandyxu)
 
-# 使用 React、Redux、SVG 开发游戏 - Part 1
+# 使用 React、Redux 和 SVG 开发游戏 - Part 1
 
 **TL;DR:** 在这个系列里，您将学会用 React 和 Redux 来控制一些 SVG 元素来创建一个游戏。通过本系列的学习，您不仅能创建游戏，还能用 React 和 Redux 来开发其他类型的动画。您可以在这个 GitHub 仓库: [Aliens Go Home - Part 1](https://github.com/auth0-blog/aliens-go-home-part-1) 下找到最终的开发代码。
 
