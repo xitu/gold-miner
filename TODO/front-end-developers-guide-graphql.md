@@ -2,8 +2,8 @@
 > * 原文作者：[PEGGY RAYZIS](https://css-tricks.com/author/peggyrayzis/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/front-end-developers-guide-graphql.md](https://github.com/xitu/gold-miner/blob/master/TODO/front-end-developers-guide-graphql.md)
-> * 译者：ellcyyang
-> * 校对者：
+> * 译者：[ellcyyang](https://github.com/ellcyyang)
+> * 校对者：[Xekin-FE](https://github.com/Xekin-FE), [xueshuai](https://github.com/xueshuai)
 
 # 写给前端开发者的 GraphQL 指南
 
