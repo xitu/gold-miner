@@ -15,23 +15,23 @@
 
 在这个系列里您将要开发的游戏叫做 **Aliens, Go Home!** 这个游戏的想法很简单，您将拥有一座炮台，然后您必须消灭那些试图入侵地球的飞碟。为了消灭这些飞碟，您必须在 SVG 画布上通过瞄准和点击来操作炮台的射击。
 
-如果您很好奇, 您可以找到 [它的最终版本并把它跑起来](http://bang-bang.digituz.com.br/)。但别玩太疯，您还要完成它的开发。
+如果您很好奇, 您可以找到 [这个游戏最终运行版](http://bang-bang.digituz.com.br/)。但别太沉迷其中，您还要完成它的开发。
 
-## 先决条件
+## 准备工作
 
-作为学习这个系列的先决条件，您将需要一些 web 开发的知识 (主要是 JavaScript) 和一台 [安装了Node.js and NPM](https://nodejs.org/en/download/) 的电脑。您不需要很深的 JavaScript 编程语言知识，以及知道 React、Redux 和 SVG 是如何工作的就能学会本系列的内容。但是，如果您具备这些，您将花更少的时间来领会不同的主题以及它们是如何组合在一起的。
+作为学习这个系列的先决条件，您将需要一些 web 开发的知识 (主要是 JavaScript) 和一台 [安装了Node.js and NPM](https://nodejs.org/en/download/) 的电脑。您可以在没有很深的 JavaScript 编程语言知识，甚至不知晓 React、Redux 和 SVG 是如何工作的情况下学习本系列的内容。但是，如果您具备这些，您将花更少的时间来领会不同的主题以及它们是如何组合在一起的。
 
-然而，值得更多关注的是本系列包含的文章、帖子和文档的连接，它们为主题提供了更好的补充说明。
+然而，更值得关注的是本系列包含的相关文章、帖子和文档，它们为主题提供了更好的补充说明。
 
 ## 开始之前
 
 尽管前面没有提到 [Git](https://git-scm.com/)，但它确实是一个很好的开发工具。所有专业的开发者都会用 Git (或者其他的版本控制系统比如 Mercurial 或 SVN) 来开发，甚至是用于个人的业余项目。
 
-为什么您创建了一个项目却不去备份它？您甚至不愿为它支付费用。因为您用了类似 [GitHub](https://github.com/) (最佳选择！) 或 [BitBucket](https://bitbucket.org/) (老实说并不坏) 的服务并且将您的代码保存在值得信赖的云服务器上。
+为什么您创建了一个项目却不去备份它？您甚至不必付费就可以使用。因为您用了类似 [GitHub](https://github.com/) (最佳选择！) 或 [BitBucket](https://bitbucket.org/) (老实说并不差) 的服务并且将您的代码保存在值得信赖的云服务器上。
 
 除了确保您的代码安全之外，这些工具还有助于您把握项目开发的进度。例如，如果您正在使用 Git 而且您的 app 的新版本刚好有一些 bug，只需几行命令，就能轻松回滚到之前写的代码。
 
-另一个重要的特性是您可以为这个系列的任何一部分来提交代码。就像这样，您将 [轻松地看到这些部分的修改建议](https://git-scm.com/docs/git-diff)，通过本教程的学习，您的生活将变得更轻松。
+另一个重要的好处是您可以为这个系列的任何一部分来提交代码。就像这样，您将 [轻松地看到这些部分的修改建议](https://git-scm.com/docs/git-diff)，通过本教程的学习，您的生活将变得更轻松。
 
 所以，快给您自己安装个 Git 吧。另外，在 GitHub 上创建一个账号 (如果您还没有 GitHub 账户) 并且把您的项目保存到仓库里。然后，每完成一部分，就把修改提交到这个仓库上。噢，可别忘了 [push 这个操作啊](https://help.github.com/articles/pushing-to-a-remote/)。
 
@@ -70,7 +70,7 @@ cd aliens-go-home
 |- README.md
 ```
 
-`create-react-app` 是非常热门的，他有着完善的文档和社区支持。例如，如果您想要了解它细节，您可以查看 [`create-react-app` 官方的 GitHub 仓库](https://github.com/facebook/create-react-app) 以及 [他的使用指南](https://github.com/facebook/create-react-app#user-guide)。
+`create-react-app` 是非常热门的，它有着完善的文档和社区支持。例如，如果您想要了解它细节，您可以查看 [`create-react-app` 官方的 GitHub 仓库](https://github.com/facebook/create-react-app) 以及 [他的使用指南](https://github.com/facebook/create-react-app#user-guide)。
 
 现在，您会想把您不需要的文件删掉。例如，您可以处理如下文件：
 
@@ -105,17 +105,17 @@ render() {
 
 ## 安装 Redux 和 PropTypes
 
-在启动了 React 项目并删掉了一些没用的文件之后， 您讲安装和配置 [Redux](https://redux.js.org/) 来使它成为 [您应用程序的唯一数据源](https://redux.js.org/docs/introduction/ThreePrinciples.html#single-source-of-truth). 您也需要安装 [PropTypes](https://github.com/facebook/prop-types)，[这个工具将帮助您避免常见的错误](https://reactjs.org/docs/typechecking-with-proptypes.html)。两个工具可以用一行命令来安装：
+在启动了 React 项目并删掉了一些没用的文件之后，您将安装和配置 [Redux](https://redux.js.org/) 来使它成为 [您应用程序的唯一数据源](https://redux.js.org/docs/introduction/ThreePrinciples.html#single-source-of-truth). 您也需要安装 [PropTypes](https://github.com/facebook/prop-types)，[这个工具将帮助您避免常见的错误](https://reactjs.org/docs/typechecking-with-proptypes.html)。两个工具可以用一行命令来安装：
 
 ```Bash
 npm i redux react-redux prop-types
 ```
 
-如您所见，这行命令包含了第三个 NPM 包：`react-redux`。尽管您可以直接在 React 里面使用 Redux，但它不是最佳选择。[`react-redux` 帮我们将烦琐的新能优化处理封装起来](https://redux.js.org/docs/basics/UsageWithReact.html)。
+如您所见，这行命令包含了第三个 NPM 包：`react-redux`。尽管您可以直接在 React 里面使用 Redux，但它不是最佳选择。[`react-redux` 对我们原本需要繁琐手动处理的性能优化有所帮助](https://redux.js.org/docs/basics/UsageWithReact.html)。
 
-### 配置 Redux 和 使用 PropTypes
+### 配置 Redux 和使用 PropTypes
 
-有了这些包，您就能在您的应用里配置和使用 Redux 了。这个过程很简单，您将需要创建一个 **container** 组件，一个 **presentational** 组件，以及一个 **reducer**。容器组件和视图组件的区别在于，首先需要将视图组件 `连接` 到 Redux。reducer 是您将要创建的第三个组件，它是 Redux store 里的核心组件。这类组件主要用于当您的应用触发事件后来获取对应的 **action** 并根据这些 actions 来调用关联的函数去修改相应的状态。
+有了这些包，您就能在您的应用里配置和使用 Redux 了。这个过程很简单，您将需要创建一个 **container** 组件，一个 **presentational** 组件，以及一个 **reducer**。容器组件和视图组件的区别在于，首先需要将视图组件 `连接` 到 Redux。reducer 是您将要创建的第三个组件，它是 Redux store 里的核心组件。这类组件主要用于当您的应用触发事件后来获取对应的 **actions** 并根据这些 actions 来调用关联的函数去修改相应的状态。
 
 > 如果您对这些概念还不熟悉，您可以阅读 [这篇文章来更好的理解视图组件和容器组件](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0) 以及通过 [这篇 Redux 使用教程来学习关于 **actions**、**reducers**、和 **store** 的概念](https://auth0.com/blog/redux-practical-tutorial/). 尽管学会这些概念是很值得推荐的，但即使都不懂您也能无障碍地学习本系列的教程。
 
@@ -135,7 +135,7 @@ export default reducer;
 
 现在，您的 reducer 将简单地初始化一个叫 `message` 的应用状态，它将很容易的集成到 React 和 Redux 中。紧接着，您将定义 actions 并在文件中操作它们。
 
-然后，您可以重构您的应用来向用户展示这个 message。此刻是您安装并使用 `prop-types` 的好时机。 为您, 您需要打开 `./src/App.js` 文件并替换成如下内容：
+然后，您可以重构您的应用来向用户展示这个 message。此刻是您安装并使用 `prop-types` 的好时机。为此, 您需要打开 `./src/App.js` 文件并替换成如下内容：
 
 ```JavaScript
 import React, {Component} from 'react';
@@ -224,7 +224,7 @@ SVG 是最酷和最灵活的 web 标准之一。SVG 是可伸缩矢量图形 (Sc
 
 关于 SVG 详尽的介绍并不在本系列的探讨访问之内，它将使本文过于冗长。所以，如果您想学习关于 SVG 标记语言更详尽的内容，您可以去查看 [Mozilla 提供的 **SVG 教程**](https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial) 以及在 [这篇文章中了解关于 SVG 坐标系的内容](https://www.sarasoueidan.com/blog/svg-coordinate-systems/)。
 
-但是，在开始创建组件之前，您需要了解一些关于 SVG 的重要特性。首先，开发者可以将 SVG 和 HTML 组合在一起来实现某些令人兴奋的功能。我们可以很轻松地把 React 和 SVG 结合起来。
+但是，在开始创建组件之前，您需要了解一些关于 SVG 的重要特性。首先，开发者可以将 SVG 和 DOM 组合在一起来实现某些令人兴奋的功能。我们可以很轻松地把 React 和 SVG 结合起来。
 
 其次，SVG 坐标系跟笛卡尔平面非常相似，但却是上下颠倒的。那意味着在 x 轴上方(y 轴上半轴)默认是负值。另一方面，横坐标的值跟笛卡尔平面一样（即负值显示在 y 轴的左侧）。这些行为很容易通过 [在 SVG 的画布里转化](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/transform) 来修改。但是，为了不使其它的开发人员感到困惑，最好还是使用默认的方式。您将很快习惯它的用法。
 
@@ -269,7 +269,7 @@ Mozilla 教程介绍了三次贝塞尔曲线在 SVG 上是如何工作的：
 3.  接着第二个控制点的坐标是 `110, 110`；
 4.  结束曲线的终点坐标是 `110 20`；
 
-如果您仍然不知道三次贝塞尔曲线是如何工作的，也不用担心。在本系列教程里，有将会有机会来练习它的。 除此之外，您还可以在网上找到许多关于这个特性的教程而且您也可以通过类似 [JSFiddle](https://jsfiddle.net/) 和 [Codepen](https://codepen.io/) 这类工具来练习它。
+如果您仍然不知道三次贝塞尔曲线是如何工作的，也不用担心。在本系列教程里，有将会有机会来练习它的。除此之外，您还可以在网上找到许多关于这个特性的教程而且您也可以通过类似 [JSFiddle](https://jsfiddle.net/) 和 [Codepen](https://codepen.io/) 这类工具来练习它。
 
 ### 创建 Canvas 组件
 
@@ -392,7 +392,7 @@ export default Sky;
 
 您可能会感到奇怪为什么要给您的游戏设置如此巨大的区域（宽 `5000` 和高 `1200`）。事实上，宽度在这个游戏中并不重要。您只需要设置可以覆盖任何尺寸的屏幕就够了。
 
-现在，高度是很重要的。很快，无论用户分辨率是多少横屏还是竖屏，您都会吧把画布高度强制显示为 `1200`。这将给您游戏带来一致地体验，每个用户都将会在同一区域看到您的游戏。像这样，您将会定义飞碟将出现在哪里以及它们将需要多长时间通过这些点。
+现在，高度是很重要的。很快，无论用户分辨率是多少横屏还是竖屏，您都会把画布高度强制显示为 `1200`。这将给您游戏带来一致地体验，每个用户都将会在同一区域看到您的游戏。像这样，您将会定义飞碟将出现在哪里以及它们将需要多长时间通过这些点。
 
 要想您的画布显示您的新天空，请在编辑器打开 `Canvas.jsx` 并对其进行重构：
 
@@ -419,7 +419,7 @@ export default Canvas;
 
 如果您现在检查您的应用（`npm start`），您将看到您的圆仍在正中央靠近底部的位置，而且您现在有了一个蓝色（`fill: '#30abef'`）的背景。
 
-> **注意：** 如果您将 `Sky` 组件放到 `circle` 组件后面，您将再也看不到后者。这是因为 SVG **并不** 不支持 `z-index` 属性。SVG 依赖于所列元素的顺序来决定哪个元素高于另一个元素。也就是说，您必须在 `Sky` 组件之后定义 `Circle` 组件，这样才能让网页浏览器知道必须在蓝色背景之上显示它。
+> **注意：** 如果您将 `Sky` 组件放到 `circle` 组件后面，您将再也看不到后者。这是因为 SVG **并不** 支持 `z-index` 属性。SVG 依赖于所列元素的顺序来决定哪个元素高于另一个元素。也就是说，您必须在 `Sky` 组件之后定义 `Circle` 组件，这样才能让网页浏览器知道必须在蓝色背景之上显示它。
 
 ### 创建 Ground 组件
 
@@ -475,11 +475,11 @@ export const skyAndGroundWidth = 5000;
 
 之后，您就可以重构您的 `Sky` 组件和 `Ground` 组件来使用这个新常量。
 
-结束这节后，可别忘了往您的画布里添加 `Group` 组件（记得要放在 `Sky` 组件和 `Circle`组件之间）。 [如果您对于最后的这些步骤有什么疑问，请在这里给我留言](https://github.com/auth0-blog/aliens-go-home-part-1/commit/f453eb5147821f0289ecd81b8ae8deb0b7941f0e).
+结束这节后，可别忘了往您的画布里添加 `Groud` 组件（记得要放在 `Sky` 组件和 `Circle`组件之间）。[如果您对于最后的这些步骤有什么疑问，请在这里给我留言](https://github.com/auth0-blog/aliens-go-home-part-1/commit/f453eb5147821f0289ecd81b8ae8deb0b7941f0e).
 
 ### 创建 Cannon 组件
 
-现在您的游戏了已经有了 sky 组件和 ground 组件了。接下来，您将添加更有趣东西。也许，是时候让您的 cannon 组件登场了。这些组件会比其它的两个组件要复杂些。它们将会有更多行代码，这是由于您将要用三次贝塞尔曲线来绘制它们。
+现在您的游戏了已经有了 sky 组件和 ground 组件了。接下来，您将添加一些更加有趣的东西。也许，是时候让您的 cannon 组件登场了。这些组件会比其它的两个组件要复杂些。它们将会有更多行代码，这是由于您将要用三次贝塞尔曲线来绘制它们。
 
 您可能还记得，在 SVG 上定义三次贝塞尔曲线需要四个点：起点，终点以及两个控制点。这些点在 `path` 元素上的 `d` 属性里定义，就像这样：`M 20 20 C 20 110, 110 110, 110 20`。
 
@@ -560,9 +560,9 @@ const CannonBase = (props) => {
 export default CannonBase;
 ```
 
-除了三次贝塞尔曲线，这个组件没有其他新意。最后，浏览器会渲染出一个带有棕黑色的曲线和亮棕色背景的元素。
+除了三次贝塞尔曲线，这个组件没有其他新意。最后，浏览器会渲染出一个带有深棕色的曲线和亮棕色背景的元素。
 
-创建 `CannonPipe` 的代码将会类似于 `CannonBase`。不同之处在于它将使用使用其他颜色，并用其他的坐标点来传 `pathFromBezierCurve` 函数来绘制炮管。另外，这个组件还会使用 [transform](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/transform) 属性来模拟炮台的旋转。
+创建 `CannonPipe` 的代码将会类似于 `CannonBase`。不同之处在于它将使用其他颜色，并用其他的坐标点来传 `pathFromBezierCurve` 函数来绘制炮管。另外，这个组件还会使用 [transform](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/transform) 属性来模拟炮台的旋转。
 
 为了创建这个组件，`./src/components/` 目录下创建 `CannonPipe.jsx` 文件并添加如下代码：
 
@@ -661,7 +661,7 @@ export default Canvas;
 
 ### 让 Cannon 能够瞄准
 
-您的游戏越来越完善了。您已经给您游戏添加了背景（`Sky` 和 `Ground`）和您的炮台。现在的问题是所有东西都是死的。所以，为了让事情变得更有趣，您要专注于完成炮台的瞄准功能。为此，您要给您的画布添加 `onmousemove` 时间监听器并在每次触发是刷新它（即，每次用户移动鼠标的时候），但这会降低您的游戏性能。
+您的游戏越来越完善了。您已经给游戏添加了背景元素（`Sky` 和 `Ground`）和炮台。现在的问题是所有东西都是死的。所以，为了让事情变得更有趣，您要专注于完成炮台的瞄准功能。为此，您要给您的画布添加 `onmousemove` 时间监听器并在每次触发是刷新它（即，每次用户移动鼠标的时候），但这会降低您的游戏性能。
 
 为了解决这种状况，您需要设置一个 [固定的间隔](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setInterval) 来检查最后一个鼠标的位置，以调整您的 `CannonPipe` 的角度。这个策略里您将继续使用 `onmousemove` 时间监听器，不同的是这些事件不会一直触发重新渲染。它们只将更新游戏中的一个属性，然后间隔地使用这个属性来触发重新选择（通过更新 Redux store）。
 
@@ -720,7 +720,7 @@ function moveObjects(state, action) {
 export default moveObjects;
 ```
 
-这段代码很简单，它只是从 `mousePosition` 中获取 `x` 和 `y` 属性，并把它们传给 `calculateAngle` 函数来获取 `angle`。最后，会用新的 angle 来生成新的 state。
+这段代码很简单，它只是从 `mousePosition` 中获取 `x` 和 `y` 属性，并把它们传给 `calculateAngle` 函数来获取新的 `angle`。最后，会用新的 angle 来生成新的 state。
 
 现在，您可能已经发现您还没有在 `formulas.js` 文件中定义 `calculateAngle` 函数，对吗？关于如何用两个点来算出需要的角度已经超出了本章的讨论范围，如果您感兴趣的话，可以查阅 [StackExchange 上的这个问题](https://math.stackexchange.com/questions/714378/find-the-angle-that-creating-with-y-axis-in-degrees) 来理解其背后究竟发生了什么。最后，您需要在 `formulas.js`  文件（`./src/utils/formulas`）里添加如下函数：
 
@@ -872,14 +872,14 @@ export default Canvas;
 当前版本和上一个版本的区别有：
 
 *   `CannonPipe.rotation`：这个属性不再是写死的了。现在，它被绑定到 Redux store 所提供的状态里（通过 `App` 映射）。
-*   `svg.onMouseMove`：您会将此时间监听器添加到画布中，以使得 `App` 组件能感知到鼠标的位置。
+*   `svg.onMouseMove`：您会将此事件监听器添加到画布中，以使得 `App` 组件能感知到鼠标的位置。
 *   `Canvas.propTypes`：您会明确地为该组件定义它需要 `angle` 和 `trackMouse` 属性。
 
 就这样！您应该准备好来预览您炮台的瞄准功能。 切换到 terminal，并在项目的根目录运行 `npm start` （如果它还没有运行）。 然后，在浏览器里打开 [http://localhost:3000/](http://localhost:3000/) 并移动鼠标。您的炮台将跟随鼠标旋转起来。
 
 多有趣啊！？
 
-> [”我用 React, Redux 和 SVG 创建了一个可以瞄准的炮台。这多有趣啊！？“ 在这里 tweet 我们 ![](https://cdn.auth0.com/blog/resources/twitter.svg)](https://twitter.com/intent/tweet?text="I+have+created+an+animated+cannon+with+React%2C+Redux%2C+and+SVG%21+How+fun+is+that%21%3F"%20via%20@auth0%20http://auth0.com/blog/developing-games-with-react-redux-and-svg-part-1/)
+> [“我用 React, Redux 和 SVG 创建了一个可以瞄准的炮台。这多有趣啊！？” 在这里 tweet 我们 ![](https://cdn.auth0.com/blog/resources/twitter.svg)](https://twitter.com/intent/tweet?text="I+have+created+an+animated+cannon+with+React%2C+Redux%2C+and+SVG%21+How+fun+is+that%21%3F"%20via%20@auth0%20http://auth0.com/blog/developing-games-with-react-redux-and-svg-part-1/)
 
 ## 总结和下一步
 
