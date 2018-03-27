@@ -5,7 +5,7 @@
 > * 译者：[zephyrJS](https://github.com/zephyrJS)
 > * 校对者： [allenlongbaobao](https://github.com/allenlongbaobao) 、 [dandyxu](https://github.com/dandyxu)
 
-# 使用 React、Redux 和 SVG 开发游戏 - Part 1
+# 使用 React、Redux 和 SVG 开发游戏 — Part 1
 
 **TL;DR:** 在这个系列里，您将学会用 React 和 Redux 来控制一些 SVG 元素来创建一个游戏。通过本系列的学习，您不仅能创建游戏，还能用 React 和 Redux 来开发其他类型的动画。您可以在这个 GitHub 仓库: [Aliens Go Home - Part 1](https://github.com/auth0-blog/aliens-go-home-part-1) 下找到最终的开发代码。
 
@@ -208,7 +208,7 @@ registerServiceWorker();
 
 搞定！现在您可以到项目的根目录运行 `npm start` 来看看是否一切正常。这将在开发模式中运行您的应用程序并在默认浏览器中打开它。
 
-> [“集成 React 和 Redux 是非常容易的。”  在这里 tweet 我们![](https://cdn.auth0.com/blog/resources/twitter.svg)](https://twitter.com/intent/tweet?text="It%27s+easy+to+integrate+React+and+Redux."%20via%20@auth0%20http://auth0.com/blog/developing-games-with-react-redux-and-svg-part-1/)
+> [“集成 React 和 Redux 是非常容易的。”  在这里 tweet 我们 ![](https://cdn.auth0.com/blog/resources/twitter.svg)](https://twitter.com/intent/tweet?text="It%27s+easy+to+integrate+React+and+Redux."%20via%20@auth0%20http://auth0.com/blog/developing-games-with-react-redux-and-svg-part-1/)
 
 ## 用 React 创建 SVG 组件
 
