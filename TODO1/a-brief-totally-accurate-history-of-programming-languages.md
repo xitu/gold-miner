@@ -103,7 +103,7 @@ Java 被证明将是一个给他们带来麻烦的商标，JavaScript 后来被�
 
 [James Gosling](https://en.wikipedia.org/wiki/James_Gosling) 发明了 Java，这是第一种真正过于冗长的面向对象编程语言，其设计模式在实用主义中占统治地位。
 
-Its super effective, the manager provider container provider service manager singleton manager provider pattern is born.
+其高效的管理器提供容器提供服务管理单例管理提供商模式就诞生了。
 
 #### 2001
 
