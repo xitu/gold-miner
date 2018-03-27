@@ -13,17 +13,17 @@
 
 #### 1800
 
-[Joseph Marie Jacquard](https://en.wikipedia.org/wiki/Joseph_Marie_Jacquard) 教一个纺织机读穿孔卡片，创建了第一个重量级多线程处理单元。他的发明受到了预见天网诞生的丝织工的强烈反对。
+[Joseph Marie Jacquard](https://en.wikipedia.org/wiki/Joseph_Marie_Jacquard) 教会.一个纺织机读穿孔卡片，创建了第一个重量级多线程处理单元。他的发明受到了预见天网诞生的丝织工的强烈反对。
 
 #### 1842
 
-[Ada Lovelace](https://en.wikipedia.org/wiki/Ada_Lovelace)厌倦了在一本后来被称为第一个出版的电脑程序的笔记本上涂鸦，那是因为当时没有电脑的事实所造成的轻微不便。
+[Ada Lovelace](https://en.wikipedia.org/wiki/Ada_Lovelace)厌倦了在一本后来被称为是第一个出版电脑程序的笔记本上涂鸦，因为是当时没有电脑的事实所造成的轻微不便。
 
 #### 1936
 
-[Alan Turing](https://en.wikipedia.org/wiki/Alan_Turing) 发明的所有东西英国法院都不批准，还让他进行化学阉割。
+[Alan Turing](https://en.wikipedia.org/wiki/Alan_Turing) 发明的所有东西都被英国法院否决，而且对他采取化学阉割。
 
-女王后来赦免了他，但不幸的是，那个时候他已经逝世了几个世纪。
+尽管女王后来赦免了他，但不幸的是距他逝世已经过去了几个世纪。
 
 #### 1936
 
@@ -35,27 +35,27 @@
 
 #### 1959
 
-[Grace Hopper](https://en.wikipedia.org/wiki/Grace_Hopper) 开发了第一种企业可用的面向业务编程语言，叫做“**面向商业的通用语言”** 或者简称 COBOL**。**
+[Grace Hopper](https://en.wikipedia.org/wiki/Grace_Hopper) 开发了第一种企业可用的面向业务编程语言，叫做“**面向商业的通用语言**”或者简称 **COBOL**。
 
 #### 1964
 
-[John Kemeny](https://en.wikipedia.org/wiki/John_G._Kemeny) 和 [Thomas Kurtz](https://en.wikipedia.org/wiki/Thomas_E._Kurtz) 认为编程太难了，他们想要回归基础，因此称它们开发的语音为 BASIC。
+[John Kemeny](https://en.wikipedia.org/wiki/John_G._Kemeny) 和 [Thomas Kurtz](https://en.wikipedia.org/wiki/Thomas_E._Kurtz) 认为编程太难了，而他们想要回归基础，因此称它们发明的语言为 BASIC。
 
 #### 1970
 
-[Niklaus Wirth](https://en.wikipedia.org/wiki/Niklaus_Wirth) 让 Pascal 成为了众多语言中的一种，他喜欢开发语言。
+[Niklaus Wirth](https://en.wikipedia.org/wiki/Niklaus_Wirth) 让 Pascal 成为了众多语言中的一种，他喜欢发明语言。
 
-他还发明了 [沃思定律](https://en.wikipedia.org/wiki/Wirth%27s_law) ，这使得摩尔定律变得过时，因为软件开发者编写的软件过于臃肿，即使是大型机也跟不上。这一点被之后的 Electron.js 证明是正确的。
+他还发明了[沃思定律](https://en.wikipedia.org/wiki/Wirth%27s_law) ，这使得摩尔定律变得过时，因为软件开发者编写的软件过于臃肿，即使是大型机也跟不上。这一定律被之后的 Electron.js 证明是正确的。
 
 #### 1972
 
-[Dennis Ritchie](https://en.wikipedia.org/wiki/Dennis_Ritchie) 在贝尔实验室工作时间感觉无聊，所以决定开发 C,因为 C 有花括号，所以它最终获得了巨大的成功。之后，他添加了 分段，错误和其他对开发者友好的特性来提高生产率。
+[Dennis Ritchie](https://en.wikipedia.org/wiki/Dennis_Ritchie) 在贝尔实验室工作时间感觉无聊，所以决定开发 C，因为 C 有花括号，所以它最终获得了巨大的成功。之后他还添加了分段，错误和其他对开发者友好的特性来提高生产效率。
 
-还有几个小时，他和贝尔实验室的朋友们决定制作一个演示 C 的示例程序，他们制作了一个名为 Unix 的操作系统。
+还有几个小时，他和贝尔实验室的朋友们决定制作一个演示 C 的示例程序，他们还制作了一个名为 Unix 的操作系统。
 
 #### 1980
 
-[Alan Kay](https://en.wikipedia.org/wiki/Alan_Kay)  发明了面向对象编程语言并称其为 Smalltalk，在 Smalltalk 中，一切都是对象，对象本身也是一个对象。没有人真正有时间去理解 small talk 的意义。
+[Alan Kay](https://en.wikipedia.org/wiki/Alan_Kay)  发明了面向对象编程语言并称其为 Smalltalk，在 Smalltalk 中，一切都是对象，对象本身也是一个对象。但没有人真正有时间去理解 small talk 的意义。
 
 #### 1987
 
@@ -63,7 +63,7 @@
 
 #### 1983
 
-[Jean Ichbiah](https://en.wikipedia.org/wiki/Jean_Ichbiah) 注意到 Ada Lovelace 程序从没有真正运行过，所以决定用她的名字开发一种语言，但是语言仍然不运行。
+[Jean Ichbiah](https://en.wikipedia.org/wiki/Jean_Ichbiah) 注意到 Ada Lovelace 程序从没有真正运行过，所以决定用她的名字开发一种语言，但是语言仍然没有运行。
 
 #### 1986
 
@@ -81,21 +81,21 @@
 
 #### 1993
 
-[Roberto Ierusalimschy](https://en.wikipedia.org/wiki/Roberto_Ierusalimschy "Roberto Ierusalimschy") 和朋友们认为他们需要的是一种巴西本地的脚本语言，在本地化过程中出现了一个错误，导致索引不是从 0 而是从 1 开始计算，他们将其命名为 Lua。
+[Roberto Ierusalimschy](https://en.wikipedia.org/wiki/Roberto_Ierusalimschy "Roberto Ierusalimschy") 和朋友们认为他们需要的是一种巴西本地化脚本语言，在本地化过程中出现了一个错误，导致索引不是从 0 而是从 1 开始计算，他们将其命名为 Lua。
 
 #### 1994
 
-[Rasmus Lerdorf](https://en.wikipedia.org/wiki/Rasmus_Lerdorf) 为自己的个人主页 CGI 脚本制作了一个模版引擎，并在网上发布了他的 dotfiles
+[Rasmus Lerdorf](https://en.wikipedia.org/wiki/Rasmus_Lerdorf) 为自己的个人主页 CGI 脚本制作了一个模版引擎，并在网上发布了他的 dotfiles。
 
-世界决定将这些文件用于任何事物，疯狂的 Rasmus 还在其中引入额外的数据库绑定，并将其成为--PHP。
-
-#### 1995
-
-[Yukihiro Matsumoto](https://en.wikipedia.org/wiki/Yukihiro_Matsumoto) 并不开心，他注意到其他程序员也不开心。他开发 Ruby 是为了让程序员开心。在开发出 Ruby 后“Matz”很开心，Ruby 社区也很开心，每个人都是快乐的。
+时代导致这些文件可以用于任何事物，疯狂的 Rasmus 还在其中引入额外的数据库绑定，并将其称为--PHP。
 
 #### 1995
 
-[Brendan Eich](https://en.wikipedia.org/wiki/Brendan_Eich) 利用周末设计了一种语言，用于为世界上的每一个浏览器提供支持，并最终为天网提供服务。起初，他去了网景（Netscape），称它为 LiveScript,但在代码审查期间，Java 变得流行起来，所以他们决定最好使用花括号，并将其重新命名为 JavaScript。
+[Yukihiro Matsumoto](https://en.wikipedia.org/wiki/Yukihiro_Matsumoto) 并不开心，他注意到其他程序员也不开心。他发明 Ruby 是为了让程序员开心。在发明出 Ruby 后“Matz”很开心，Ruby 社区也很开心，每个人都是快乐的。
+
+#### 1995
+
+[Brendan Eich](https://en.wikipedia.org/wiki/Brendan_Eich) 利用周末设计了一种语言，用于为世界上的每一个浏览器提供支持，并最终为天网提供服务。起初，他去了网景（Netscape），称它为 LiveScript，但在代码审查期间，Java 变得流行起来，所以他们决定最好使用花括号，并将其重新命名为 JavaScript。
 
 Java 被证明将是一个给他们带来麻烦的商标，JavaScript 后来被重命名为 ECMAScript，但大家仍称之为 JavaScript。
 
@@ -119,7 +119,7 @@ Its super effective, the manager provider container provider service manager sin
 
 #### 2009
 
-[Ken Thompson](https://en.wikipedia.org/wiki/Ken_Thompson) 和 [Rob Pike](https://en.wikipedia.org/wiki/Rob_Pike) 决定开发一种类似 C 的语言，但要有更多的安全设备和更多的市场，还要以 Gophers 作为吉祥物。
+[Ken Thompson](https://en.wikipedia.org/wiki/Ken_Thompson) 和 [Rob Pike](https://en.wikipedia.org/wiki/Rob_Pike) 决定发明一种类似 C 的语言，但要有更多的安全设备和更多的市场，还要以 Gophers 作为吉祥物。
 
 他们称它为 Go,还开源了它，并分别将其卖给了 gopher 品牌的 kneepads 和 helmets。
 
@@ -137,7 +137,7 @@ Graydon Hoare 也想编写一种类似 C 的语言-- Rust。大家都要求可�
 
 #### 2014
 
-[Chris Lattner](https://en.wikipedia.org/wiki/Chris_Lattner) 使Swift 成为了主要的设计语言，而不是 Object-C，最后让 Swift 看起来很像 Java。
+[Chris Lattner](https://en.wikipedia.org/wiki/Chris_Lattner) 使 Swift 成为了主要的设计语言，而不是 Object-C，最后让 Swift 看起来很像 Java。
 
 * * *
 
