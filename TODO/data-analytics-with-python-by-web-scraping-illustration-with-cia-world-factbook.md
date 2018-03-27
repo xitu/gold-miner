@@ -62,7 +62,7 @@ html =uh.read().decode()
 print(f"Reading done. Total {len(html)} characters read.")
 ```
 
-以下是我们如何将其传递给 BeautifulSoup 并使用 `find_all` 方法查找 HTML 中嵌入的所有国家名称和代码。基本上，这个想法是**找到名为 ‘option’ 的 HTML 标签**。标签中的文本是国家名，标记值的 5 号和 6 号表示的是 2 个字符的国家代码。
+以下是我们如何将其传递给 BeautifulSoup 并使用 `find_all` 方法查找 HTML 中嵌入的所有国家名称和代码。基本上，这个想法是**找到名为 ‘option’ 的 HTML 标签**。标签中的文本是国家名，标签值的 5 号和 6 号表示的是 2 个字符的国家代码。
 
 现在您可能会问，您如何知道只需要提取第五和第六字符？简单的答案是**您必须亲自检查 soup 文本--即解析的 HTML 文本，并确定这些索引**。没有通用的方法来检查这一点，因为每个 HTML 页面和底层结构都是独一无二的。
 
