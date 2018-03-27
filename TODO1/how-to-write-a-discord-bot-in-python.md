@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-write-a-discord-bot-in-python.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-write-a-discord-bot-in-python.md)
 > * 译者：[Starrier](https://github.com/Starriers)
-> * 校对者：
+> * 校对者：[mrcangye](https://github.com/mrcangye)
 
 # 如何用 Python 写一个 Discord 机器人
 
@@ -12,14 +12,14 @@
 
 在 Discord 上，您可以连接多个服务器，您一定也注意到这些服务器有许多机器人。 
 这些机器人可以做很多事情，从为您播放音乐到简单的聊天。
-我被这些机器人所深深吸引，因此决定用 Python 写一个属于自己的机器人。
+我被这些机器人深深吸引，因此决定用 Python 写一个属于自己的机器人。
 那么让我们立刻开始吧！
 
 ## 设置
 
 我们首先要创建一个机器人账号。
 转到 [https://discordapp.com/developers/applications/me](https://discordapp.com/login?redirect_to=%2Fdevelopers%2Fapplications%2Fme) 然后创建一个新的 app。
-给您的机器人起一个好听的名字，并配上一张个人资料图片。
+给您的机器人起一个好听的名字，并给它配上一张个人资料图片。
 
 ![](https://i.imgur.com/GoPlxEk.pngg)
 
@@ -28,7 +28,7 @@
 
 ![](https://i.imgur.com/nLNeWTa.png)
 
-您也可以点击显示机器人的 toke。
+您也可以点击以显示机器人的 toke。
 
 ![](https://i.imgur.com/uljjk0q.png)
 
@@ -115,7 +115,7 @@ async def cat(ctx):
 ![](https://i.imgur.com/PZEjaVD.png)
 
 这是您决定给机器人授予什么权限的地方。
-对于我们当前的使用，我们只需授予发送消息的许可。
+对于我们现在的使用情况，我们只需要赋予发送消息的权限即可。
 
 现在，让我们在命令行中运行以下命令来启动机器人。
 
@@ -132,23 +132,23 @@ $ python bot.py
 ![](https://i.imgur.com/wsf0Hyp.png)
 
 在创建一个 Discord 机器人时，应该遵循一系列优秀的实践。
-我建议您把整份文件都阅读一遍 [https://github.com/meew0/discord-bot-best-practices](https://github.com/meew0/discord-bot-best-practices)。
+我建议您在这里 [https://github.com/meew0/discord-bot-best-practices](https://github.com/meew0/discord-bot-best-practices) 阅读整个文档。
 
 >  有个信息命令。
->  它应该提供关于机器人的信息，比如它使用的框架是什么以及使用的是哪个版本，帮助命令，最重要的是，它是谁创建的。
+>  它应该提供关于机器人的信息，比如它使用的框架，框架用的是哪个版本以及帮助命令，最重要的一点是，它的开发者是谁。
 
 ```
 @bot.command()
 async def info(ctx):
     embed = discord.Embed(title="nice bot", description="Nicest bot there is ever.", color=0xeee657)
     
-    # 将关于您的信息放在这
+    # 在这里提供关于您的信息
     embed.add_field(name="Author", value="<YOUR-USERNAME>")
     
     # 显示机器人所服务的数量。
     embed.add_field(name="Server count", value=f"{len(bot.guilds)}")
 
-    #  给用户一个可以邀请机器人要他们服务器的链接。
+    # 给用户提供一个链接来请求机器人接入他们的服务器
     embed.add_field(name="Invite", value="[Invite link](<insert your OAuth invitation link here>)")
 
     await ctx.send(embed=embed)
@@ -187,7 +187,7 @@ async def help(ctx):
 ## 托管
 
 目前，机器人只会在您运行脚本之前在线运行。
-因此，如果您希望您的机器人一直运行，您必须在线托管它，或者您也可以在本地托管它。比如在 RaspberryPi。
+因此，如果您希望您的机器人一直运行，您必须在线托管它，或者您也可以在本地托管它。比如在树莓派（RaspberryPi）。
 托管服务范围很广，从免费的 (Heroku's free tier) 到付费的 (Digital Ocean).
 我在 Heroku's free tier 上运行我的机器人，到目前为止还没有遇到任何问题。
 
