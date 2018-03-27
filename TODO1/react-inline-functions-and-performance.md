@@ -260,11 +260,11 @@ class Dashboard extends Component {
 
 在性能方面没有银弹。你必须测量。
 
-### The three scenarios
+### 三种情景
 
-At the start of the article I showed three types of inline functions. Now that we have some background, let’s talk about each one them. But please remember to keep `PureComponent` on the shelf until you have a measurement to justify it.
+在本文的开头，我展示了三种内联函数。现在我们已经了解了一些背景，让我们来一一讨论一下它们。但是请记住，在你有一个衡量标准来判定之前，请先将 `PureComponent` 束之高阁。
 
-#### DOM component event handler
+#### DOM组件事件处理程序
 
 ```
 <button
@@ -272,13 +272,13 @@ At the start of the article I showed three types of inline functions. Now that w
 >click</button>
 ```
 
-It’s common to do nothing more than `setState` inside of event handlers for buttons, inputs, and other DOM components. This often makes an inline function the cleanest approach. Instead of bouncing around the file to find the event handlers, they’re colocated. The React community generally welcomes colocation.
+通常，在buttons，inputs，和其他DOM组件的事件处理程序中，除了`setState`以外，不会做其他的事情。这让内联函数成为了通常情况下最干净的方法。它们不是在文件中跳来跳去寻找事件处理程序，而是把内容放在同一位置。React社区通常欢迎这种方式。
 
-The `button` component (and every other DOM component) can’t even be a `PureComponent`, so there are no `shouldComponentUpdate` referential identity concerns here.
+`button`组件（以及所有其他的DOM组件）甚至都算不上是`PureComponent`，所以这里也不存在`shouldComponentUpdate`引用身份的问题。
 
-So, the only reason to think this is slow is if you think simply defining a function is a big enough expense to worry about. We’ve discussed that there is no evidence anywhere that it is. It’s simply armchair performance postulation. These are fine until proven otherwise.
+所以，认为这个过程很慢的唯一原因是，你是否认为简单地定义一个函数会产生足以让人担心的开销。我们已经讨论过，这在任何地方都未被证实。这只是纸上谈兵的性能假设。在被证实之前，这样做没问题。
 
-#### A “custom event” or “action”
+#### 一个"自定义事件"或"操作"
 
 ```
 <Sidebar onToggle={(isOpen) => {
@@ -286,33 +286,33 @@ So, the only reason to think this is slow is if you think simply defining a func
 }}/>
 ```
 
-If `Sidebar` is a `PureComponent` we will be breaking the prop diff. Again, since the handler is simple, the colocation can be preferable.
+如果`Sidebar`是`PureComponent`，我们将会打破prop的diff检查。再一次，由于处理程序很简单，最好把它们都放在同一位置。
 
-With an event like `onToggle`, why is `Sidebar` even diffing it? There are only two reasons to include a prop in the `shouldComponentUpdate` diff:
+对于像`onToggle`这样的事件，`Sidebar`还有什么必要对它执行diff检查呢？只有两种情况才需要将prop包含在`shouldComponentUpdate`的diff检查中：
 
-1.  You use the prop to render.
-2.  You use the prop to perform a side-effect in `componentWillReceiveProps`, `componentDidUpdate`, or `componentWillUpdate`.
+1.  你使用prop来进行渲染
+2.  你使用prop来在`componentWillReceiveProps`，`componentDidUpdate`，或者 `componentWillUpdate`中产生一些其他的作用
 
-Most `on<whatever>` props do not meet either of these requirements. Therefore, most `PureComponent` usages are over-diffing, forcing developers to maintain referential identity of the handler needlessly.
+大多数`on<whatever>`prop都不符合这些要求。因此，多数`PureComponent`的用法都会导致多次执行diff检查，迫使开发人员不必要地维护处理程序的引用身份。
 
-We should only diff the props that matter. That way people can colocate handlers and still get the performance gains you’re seeking (and since we’re concerned about performance, we’re diffing less!).
+我们只应该对会产生影响的prop执行diff检查。这样，人们就可以将处理程序放在同一位置，并且仍然可以获得想要寻求的性能提升(而且由于我们关心性能，所以我们希望执行更少次数的diff检查！)
 
-For most components, I’d recommend creating a `PureComponentMinusHandlers` class and inherit from that instead of inheriting from `PureComponent`. It could just skip all checks on functions. Have your cake and eat it too.
+对于大多数组件，我建议创建一个`PureComponentMinusHandlers`类并从中继承，而不是从`PureComponent`中继承。它可以跳过对函数的所有检查。鱼与熊掌兼得。
 
-Well, almost.
+好吧，差不多是这样的。
 
-If you receive a function and pass that function directly into another component, it’ll get stale. Check this out:
+如果你接收到一个函数并直接将它传递给另一个组件，它将会无法及时更新。看一下这个：
 
 ```
-// 1. App will pass a prop to Form
-// 2. Form is going to pass a function down to button
-//    that closes over the prop it got from App
-// 3. App is going to setState after mounting and pass
-//    a *new* prop to Form
-// 4. Form passes a new function to Button, closing over
-//    the new prop
-// 5. Button is going to ignore the new function, and fail to
-//    update the click handler, submitting with stale data
+// 1. App会传递一个prop给From表单
+// 2. Form将向下传递一个函数给button
+//    这个函数与它从App得到的prop相接近
+// 3. App会在mounting之后setState，并传递
+//    一个*新*的prop给Form
+// 4. Form传递一个新的函数给Button，这个函数与
+//    新的prop相接近
+// 5. Button会忽略新的函数, 并无法
+//    更新点击处理程序，从而提交陈旧的数据
 
 class App extends React.Component {
   state = { val: "one" }
@@ -336,7 +336,7 @@ const Form = props => (
 
 class Button extends React.Component {
   shouldComponentUpdate() {
-    // lets pretend like we compared everything but functions
+    // 让我们假装比较了除函数以外的一切东西
     return false
   }
 
@@ -345,24 +345,24 @@ class Button extends React.Component {
   render() {
     return (
       <div>
-        <button onClick={this.props.onClick}>This one is stale</button>
-        <button onClick={() => this.props.onClick()}>This one works</button>
-        <button onClick={this.handleClick}>This one works too</button>
+        <button onClick={this.props.onClick}>这个的数据是旧的</button>
+        <button onClick={() => this.props.onClick()}>这个工作正常</button>
+        <button onClick={this.handleClick}>这个也工作正常</button>
       </div>
     )
   }
 }
 ```
 
-[Here’s a codesandbox running that app](https://codesandbox.io/s/v38y6zk8ml).
+[这是一个运行该应用程序的codesandbox](https://codesandbox.io/s/v38y6zk8ml).
 
-So, if you like the idea of inheriting from a `PureRenderWithoutHandlers`, make sure you don’t ever pass your ignored handlers _directly_ to other components — you need to wrap them one way or another.
+因此，如果你喜欢从`PureRenderWithoutHandlers`继承的想法，请抱着永远不要将你要在diff检查中要忽略的处理程序 _直接_ 传递给其他组件——你需要以某种方式包装它们。
 
-Now we either have to maintain referential identity, or we have to avoid referential identity! Welcome to performance optimization. At least with this approach it’s the optimized component that has to deal with it, not the code using it.
+现在，我们要么必须维护引用标识，要么必须避免引用标识！欢迎来到性能优化。至少在这种方法中，必须处理的是优化组件，而不是使用它的代码。
 
-I’m going to be candid, that example app is an edit I made after publishing that [Andrew Clark](https://medium.com/@acdlite) brought to my attention. And here you thought I was smart enough to know when to manage referential identity and when not to! 😂
+我要坦率地说，这个示例应用程序是我在发布[Andrew Clark](https://medium.com/@acdlite)后所做的编辑，它引起了我的注意。在这里，您认为我足够聪明，知道什么时候管理引用身份，什么时候不管理了吧！😂
 
-#### A render prop
+#### 一个用来渲染的prop
 
 ```
 <Route
@@ -375,7 +375,7 @@ I’m going to be candid, that example app is an edit I made after publishing th
 />
 ```
 
-Render props are a pattern used to create a component that exists to compose and manage shared state. ([You can read more about them here](https://cdb.reacttraining.com/use-a-render-prop-50de598f11ce).) The contents of the render prop are unknowable to the component. For example:
+用来渲染的prop是一种模式，它用来创建一个用于组成和管理共享状态的组件。（[你可以在这里了解更多](https://cdb.reacttraining.com/use-a-render-prop-50de598f11ce)）。它的内容对组件来说是未知的，举个栗子🌰：
 
 ```
 const App = (props) => (
@@ -384,9 +384,9 @@ const App = (props) => (
     <Route path=”/” render={() => (
       <div>
         {/*
-          props.name is from outside of Route and it’s not passed in
-          as a prop, so Route can’t reliably be a PureComponent, it
-          has no knowledge of what is rendered inside here.
+          prop.name是从路由外部传入的，它不是作为prop传递进来的，
+          因此路由不能可靠地成为一个PureComponent，它
+          不知道在组件内部会渲染什么
         */}
         <h1>Hey, {props.name}, let’s get started!</h1>
       </div>
@@ -395,19 +395,19 @@ const App = (props) => (
 )
 ```
 
-That means an inline render prop function won’t cause problems with `shouldComponentUpdate`: It can’t ever know enough to be a `PureComponent.`
+这意味着一个内联的用来渲染的prop函数不会导致`shouldComponentUpdate`的问题：它永远没有足够的信息来成为一个`PureComponent`。
 
-So, the only other objection is back to believing that simply defining functions is slow. Repeating from the first example: there’s no evidence to support that. It’s simply armchair performance postulation.
+所以，唯一的反对意见又回到了相信简单地定义一个函数是缓慢的。重复第一个例子：没有证据支持这一观点。这只是纸上谈兵的性能假设。
 
 ![Snipaste_2018-03-22_18-47-55.png](https://i.loli.net/2018/03/22/5ab389e694b03.png)
 
-### In summary
+### 总结
 
-1.  Write your code naturally, code to the design.
-2.  Measure your interactions to find slow paths. [Here’s how](https://reactjs.org/blog/2016/11/16/react-v15.4.0.html#profiling-components-with-chrome-timeline).
-3.  Use `PureComponent` and `shouldComponentUpdate` only when you need to, skipping prop functions (unless they are used in lifecycle hooks for side-effects).
+1.  自然地编写代码，设计代码
+2.  测量你的交互，找到慢在那里。[这里是方法](https://reactjs.org/blog/2016/11/16/react-v15.4.0.html#profiling-components-with-chrome-timeline).
+3.  仅在需要的时候使用 `PureComponent` 和 `shouldComponentUpdate`，避免使用prop函数（除非它们在生命周期的钩子函数中为产生某种作用而使用）。
 
-If you really believe that premature optimization is bad practice, then you won’t need proof that inline functions are fast, you need proof that they are slow.
+如果你真的相信过早的优化不是好主意，那么你就不需要证明内联函数是快的，而是需要证明它们是慢的。
 
 
 ---
