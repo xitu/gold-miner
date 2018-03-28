@@ -2,12 +2,12 @@
 > * 原文作者：[Jay](https://www.thecodingdelight.com/author/ljay189/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/mastering-javascript-this-keyword-detailed-guide.md](https://github.com/xitu/gold-miner/blob/master/TODO1/mastering-javascript-this-keyword-detailed-guide.md)
-> * 译者：
+> * 译者：[老教授](https://juejin.im/user/58ff449a61ff4b00667a745c)
 > * 校对者：
 
-# Mastering JavaScript this Keyword – Detailed Guide
+# 深入浅出 JavaScript 关键词 -- this
 
-The JavaScript `this` keyword is often considered one of the most confusing aspects of the language. JavaScript has come a long way, now with node.js being used to run JavaScript in the server, along with the continual evolution of the language. Needless to say that this language is not disappearing anytime soon.
+要说 JavaScript 这门语言最容易让人困惑的知识点，`this` 关键词肯定算一个。JavaScript 语言面世多年，一直在进化完善，现在在服务器上还可以通过 node.js 来跑 JavaScript。显然，这门语言还会活很久。
 
 Therefore, I believe that if you are a JavaScript developer or somebody who works with web technologies, learning how JavaScript works and also its idiosyncrasies will pay dividends down the road.
 
