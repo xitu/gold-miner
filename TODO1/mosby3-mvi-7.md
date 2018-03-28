@@ -13,7 +13,7 @@
 
 让我们看下下面的的视频，这样可以让我们更好的理解，我在说什么：
 
-- YouTube 视频链接：https://youtu.be/8r7UgJg6d2s
+- ![](https://i.loli.net/2018/03/28/5abba0ba01a21.gif)
 
 这个简单的 app 显示了一个国家的列表，这些国家的数据是通过 **CountriesRepository** 加载的。如果，我们点击一个国家，我们打开了第二个 Activity ，这个 Activity 仅仅显示一些“细节”（国家的名字）。当我们返回到国家列表，我们期待看到与点击前相同“状态”显示到屏幕上。到目前为止一切都很正常，但是如果，我触发下拉刷新时，在数据加载的时候出现了错误，这个错误会让 Snackbar 显示在屏幕上，用来提示错误信息，会发生什么？ 正如你在上面视频中看到的那样，无论何时我们回到国家列表，这个 SnackBar 都会再次显示。但是，这肯定不是用户所期待的，对吧？
 
@@ -142,7 +142,7 @@ repositroy.reload().switchMap(repoState -> {
 
 就是这样，这就是我们在 MVI 中如何显示和隐藏 Snackbar。
 
-- YouTube 视频链接：https://youtu.be/ykDnwZYY9tk
+- ![](https://i.loli.net/2018/03/28/5abb9d4f58ae8.gif)
 
 请注意，这和 SingleLiveEvent 解决方法不一样。这是一种正确的状态管理，并且 view 仅仅显示或“渲染”给定的状态。因此，一旦我们的 APP 从详情页返回到国家列表。他再也不会看到 Snackbar 了，因为，状态已经同时发生了改变，变成了**CountriesViewState.pullToRefreshError = false** 因此，Snackbar 不会再次显示。
 
@@ -168,7 +168,7 @@ repositroy.reload().switchMap(repoState -> {
   }
 ```
 
-- YouTube 视频链接：https://youtu.be/NYEZTXirGuA
+- ![](https://i.loli.net/2018/03/28/5abba02fc8f79.gif)
 
 通过使用 **mergeWith()** 操作符，我们可以将 timer 和撤销意图联合起来到一个可观察对象，然后，第一个发射 **take(1)** 。如果轻扫撤销触发在 timer 之前，那么，take(1) 取消 timer，反之亦然：如果 timer 先触发，则不要触发退出意图。.
 
@@ -176,7 +176,7 @@ repositroy.reload().switchMap(repoState -> {
 
 因此，让我们把我们的 UI 搞乱吧。让我们做下拉刷新的动作，退出 Snackbar 并且，让 timer 计时：
 
-- YouTube 视频链接：https://youtu.be/UAiT2LSl6ik
+- ![](https://i.loli.net/2018/03/28/5abba1372958b.gif)
 
 正如你在视频上所看到的，无论我多努力的尝试，view 都能够在 UI 上正确显示，因为，单项数据流和业务逻辑驱使状态（view 层是无状态的，view 是从底层得到状态的，并且，仅仅起到显示作用）。例如：我们从来我们从来没有见过加载指示器和 Snackbar 同时显示（除去 Snackbar 退出过程中，一个小的叠加情况）。
 
