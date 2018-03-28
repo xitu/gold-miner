@@ -19,7 +19,7 @@
 
 ### "内联函数"是什么
 
-在 React 的领域里，一个内联函数是指在 React 进行 "rendering" 时定义的函数。 人们常常对 React 中 "render" 的两种含义感到困惑，一种是指在 update 期间从组件中获取 React 元素（调用组件的 render 方法）；另一种是渲染更新真实的 DOM 结构。本文中提到的 "rendering"都是指第一种。
+在 React 的语境中，内联函数是指在 React 进行 "rendering" 时定义的函数。 人们常常对 React 中 "render" 的两种含义感到困惑，一种是指在 update 期间从组件中获取 React 元素（调用组件的 render 方法）；另一种是渲染更新真实的 DOM 结构。本文中提到的 "rendering"都是指第一种。
 
 下列是一些内联函数的栗子🌰：
 
@@ -61,17 +61,17 @@ class App extends Component {
 
 ### 过早的优化是万恶之源
 
-在我们开始下一步之前，我们需要讨论一下如何优化一个程序。询问任意一个性能方面的专家他们都会告诉你不要过早地优化你的程序。所有人，是的，他们中的每一个人，100% 有着性能相关的丰富的经验的人，都会告诉你不要过早地优化你的代码。
+在开始下一步之前，我们需要讨论一下如何对程序进行优化。询问任意一个性能方面的专家他们都会告诉你不要过早地优化你的程序。是的，所有具有丰富的性能调优经验的人，都会告诉你不要过早地优化你的代码。
 
-> 如果你不去进行测量，你甚至不知道你做的优化工作是否真的实现了性能的优化，更不会知道它们是否让事情变得更糟。
+> 如果你不去进行测量，你甚至不知道你所做的优化是使得程序变好还是变得更糟。
 
 我记得我的朋友 Ralph Holzmann 发表的关于 gzip 如何工作的演讲，这个演讲巩固了我对此的看法。他谈到了一个他用古老的脚本加载库 LABjs 做的实验。你可以观看[这个视频](https://vimeo.com/34164210)的 30:02 到 32:35 来了解它，或者继续阅读本文。
 
 当时 [LABjs](https://github.com/getify/LABjs) 的源码在性能上做了一些令人尴尬的事情。它没有使用普通的对象表示法(`obj.foo`)，而是将键存储在字符串中，并使用方括号表示法来访问对象(`obj[stringForFoo]`)。这样做的想法源于，经过小型化和 gzip 压缩之后，非自然编写的代码将比自然编写的代码体积小。 [你可以在这里看到它](https://github.com/getify/LABjs/blob/b23ee3fcad12157cf8f6a291cb54fd7550ac7f3b/LAB.src.js#L7-L34)。
 
-Ralph fork 了源代码，通过自然地编写代码移除了优化的部分，没有去考虑如何优化以实现小型化和 gzip 。
+Ralph fork 了源代码，没有去考虑如何优化以实现小型化 和 gzip，而是通过自然地编写代码移除了优化的部分。
 
-事实证明，移除"优化部分"后，文件大小削减了 5.3% ！如果你不去进行测量，你甚至不知道你做的优化工作是否真的实现了性能的优化，更不会知道它们是否让事情变得更糟！
+事实证明，移除"优化部分"后，文件大小削减了 5.3% ！如果你不去进行测量，你甚至不知道你所做的优化是使得程序变好还是变得更糟！
 
 过早的优化不仅会占用开发时间，损害代码的整洁，甚至会产生适得其反的结果**导致**性能问题，就像 LABjs 那样。如果作者一直在进行测量，而不仅仅是想象性能问题，就会节省开发时间，同时能让代码更简洁，性能更好。
 
@@ -97,7 +97,7 @@ Ralph fork 了源代码，通过自然地编写代码移除了优化的部分，
 
 记住，你不要坐在那里然后想象"我赌这个代码肯定慢"。你应该自然地编写代码，**然后**测量它。如果存在性能问题，就修复它们。我们不需要证明一个内联的箭头函数是快的，也不需要另一些人来证明它是慢的。否则，这就是一个过早的优化。
 
-据我所知，还没有人对他们的应用程序进行分析，表明内联箭头功能很慢。在此之前，这甚至不值得谈论——但无论如何，我会提供一个更多的想法 😝
+据我所知，还没有人对他们的应用程序进行分析，表明内联箭头函数很慢。在进行分析之前，这甚至不值得谈论 —— 但无论如何，我会提供一个新思路 😝
 
 如果创建内联函数的成本很高，以至于需要使用 eslint 规则来规避它，那么我们为什么要将该开销转移到初始化的热路径上呢？
 
@@ -158,7 +158,7 @@ class Avatar extends Component {
 }
 ```
 
-如果你的组件定义了 `shouldComponentUpdate` ，那么在 React 进行新旧组件对比之前，它会询问 `shouldComponentUpdate` 有没有变更发生。如果返回了false，那么React将会直接跳过元素diff检查，从而节省一些时间。如果你的组件足够大，这会对性能产生相当大的影响。
+如果你的组件定义了 `shouldComponentUpdate` ，那么在 React 进行新旧元素对比之前，它会询问 `shouldComponentUpdate` 有没有变更发生。如果返回了false，那么React将会直接跳过元素diff检查，从而节省一些时间。如果你的组件足够大，这会对性能产生相当大的影响。
 
 优化组件的最常见方法是扩展 "React.PureComponent" 而不是 "React.Component" 。一个 `PureComponent` 会在 `shouldComponentUpdate` 中比较 props 和 state ，这样你就不用手动执行了。
 
@@ -186,7 +186,7 @@ prop 的比较只会在有非原始类型们出现的时候产生问题——啊
 
 > - [https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures)
 
-哈哈哈，好吧 JavaScript。无论如何，对对象使用严格相等检查，即使表面上看起来相等的值，也会被判定为 `false`（不相等）：
+哈哈哈，不愧是 JavaScript。无论如何，对对象使用严格相等检查，即使表面上看起来相等的值，也会被判定为 `false`（不相等）：
 
 ```
 const one = { n: 1 }
@@ -212,7 +212,7 @@ one === one // true
 
 可以看出，这不仅仅只关乎内联函数。函数简直就是 object, function, array 三部曲演绎推广的主唱。
 
-为了让 `shouldComponentUpdate` 高兴，你必须保持函数的引用身份。对经验丰富的 JavaScript 开发者来说，这不算糟。但是 [Michael](https://medium.com/@mjackson)  和我领导了一个有3500多人参加的研讨会，他们的开发经验各不相同，而这对很多人来说都并不容易。ES 的类也没有提供引导我们进入各种 JavaScript 路径的帮助：
+为了让 `shouldComponentUpdate` 高兴，你必须保持函数的引用标识。对经验丰富的 JavaScript 开发者来说，这不算糟。但是 [Michael](https://medium.com/@mjackson)  和我领导了一个有3500多人参加的研讨会，他们的开发经验各不相同，而这对很多人来说都并不容易。ES 的类也没有提供引导我们进入各种 JavaScript 路径的帮助：
 
 ```
 class Dashboard extends Component {
@@ -240,15 +240,15 @@ class Dashboard extends Component {
   }
   
   // 这个很不错，但它不是 JavaScript ，至少现在还不是，所以现在
-  // 我们要讨论的是 TC39 如何工作，并评估我们的
+  // 我们要讨论的是 TC39 如何工作，并评估我们的草案
   // 阶段风险容忍度
   handleStuff = () => {}
 }
 ```
 
-学习如何保持函数的引用身份将会引出一个令人惊讶的长篇大论。
+学习如何保持函数的引用标识将会引出一个令人惊讶的长篇大论。
 
-通常没有理由强迫人们这么做，除非有一个 eslint 配置对他们大喊大叫。我想展示的是，你可以兼得内联函数和提升性能两者。但首先，我想讲一个我自己遇到的性能相关的故事。
+通常没有理由强迫人们这么做，除非有一个 eslint 配置对他们大喊大叫。我想展示的是，内联函数和提升性能两者可以兼得。但首先，我想讲一个我自己遇到的性能相关的故事。
 
 ### 我使用 PureComponent 的经历
 
@@ -274,7 +274,7 @@ class Dashboard extends Component {
 
 通常，在 buttons，inputs，和其他 DOM 组件的事件处理程序中，除了 `setState` 以外，不会做其他的事情。这让内联函数成为了通常情况下最干净的方法。它们不是在文件中跳来跳去寻找事件处理程序，而是把内容放在同一位置。React 社区通常欢迎这种方式。
 
-`button` 组件（以及所有其他的DOM组件）甚至都算不上是 `PureComponent`，所以这里也不存在 `shouldComponentUpdate` 引用身份的问题。
+`button` 组件（以及所有其他的DOM组件）甚至都算不上是 `PureComponent`，所以这里也不存在 `shouldComponentUpdate` 引用标识的问题。
 
 所以，认为这个过程很慢的唯一原因是，你是否认为简单地定义一个函数会产生足以让人担心的开销。我们已经讨论过，这在任何地方都未被证实。这只是纸上谈兵的性能假设。在被证实之前，这样做没问题。
 
@@ -293,7 +293,7 @@ class Dashboard extends Component {
 1.  你使用 prop 来进行渲染
 2.  你使用 prop 来在 `componentWillReceiveProps`，`componentDidUpdate`，或者 `componentWillUpdate` 中产生一些其他的作用
 
-大多数 `on<whatever>` prop 都不符合这些要求。因此，多数 `PureComponent` 的用法都会导致多次执行 diff 检查，迫使开发人员不必要地维护处理程序的引用身份。
+大多数 `on<whatever>` prop 都不符合这些要求。因此，多数 `PureComponent` 的用法都会导致多次执行 diff 检查，迫使开发人员不必要地维护处理程序的引用标识。
 
 我们只应该对会产生影响的 prop 执行 diff 检查。这样，人们就可以将处理程序放在同一位置，并且仍然可以获得想要寻求的性能提升(而且由于我们关心性能，所以我们希望执行更少次数的 diff 检查！)
 
@@ -354,15 +354,15 @@ class Button extends React.Component {
 }
 ```
 
-[这是一个运行该应用程序的 codesandbox](https://codesandbox.io/s/v38y6zk8ml).
+[这是一个运行该应用程序的沙箱](https://codesandbox.io/s/v38y6zk8ml).
 
-因此，如果你喜欢从 `PureRenderWithoutHandlers` 继承的想法，请抱着永远不要将你要在 diff 检查中要忽略的处理程序**直接**传递给其他组件——你需要以某种方式包装它们。
+因此，如果你喜欢从 `PureRenderWithoutHandlers` 继承的想法，请确保永远不要将你要在 diff 检查中要忽略的处理程序**直接**传递给其他组件——你需要以某种方式包装它们。
 
 现在，我们要么必须维护引用标识，要么必须避免引用标识！欢迎来到性能优化。至少在这种方法中，必须处理的是优化组件，而不是使用它的代码。
 
-我要坦率地说，这个示例应用程序是我在发布 [Andrew Clark](https://medium.com/@acdlite) 后所做的编辑，它引起了我的注意。在这里，您认为我足够聪明，知道什么时候管理引用身份，什么时候不管理了吧！😂
+我要坦率地说，这个示例应用程序是我在发布 [Andrew Clark](https://medium.com/@acdlite) 后所做的编辑，它引起了我的注意。在这里，您认为我足够聪明，知道什么时候管理引用标识，什么时候不管理了吧！😂
 
-#### 一个用来渲染的 prop
+#### 一个 render prop
 
 ```
 <Route
@@ -404,7 +404,7 @@ const App = (props) => (
 ### 总结
 
 1.  自然地编写代码，设计代码
-2.  测量你的交互，找到慢在那里。[这里是方法](https://reactjs.org/blog/2016/11/16/react-v15.4.0.html#profiling-components-with-chrome-timeline).
+2.  测量你的交互，找到慢在哪里。[这里是方法](https://reactjs.org/blog/2016/11/16/react-v15.4.0.html#profiling-components-with-chrome-timeline).
 3.  仅在需要的时候使用 `PureComponent` 和 `shouldComponentUpdate`，避免使用 prop 函数（除非它们在生命周期的钩子函数中为产生某种作用而使用）。
 
 如果你真的相信过早的优化不是好主意，那么你就不需要证明内联函数是快的，而是需要证明它们是慢的。
