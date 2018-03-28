@@ -5,26 +5,26 @@
 > * 译者：
 > * 校对者：
 
-# Create your first Ethereum dAPP with Web3 and Vue.JS (Part 3)
+# 使用 Web3 和 Vue.js 来创建你的第一个以太坊 dAPP（第三部分）
 
-Hello and welcome to the final part of this series. In case you're just tuning in, we're creating a simple decentralized application for the ethereum blockchain. Feel free to check out parts 1 and 2 !
+大家好，欢迎来到本系列的最后一部分。如果您正在调优，我们将为以太坊区块链创建一个简单的去中心化应用程序。您可以随时查看第 1 和第 2 部分！
 
 - [使用 Web3 和 Vue.js 来创建你的第一个以太坊 dAPP（第一部分）](https://github.com/xitu/gold-miner/blob/master/TODO/create-your-first-ethereum-dapp-with-web3-and-vue-js.md)
 - [使用 Web3 和 Vue.js 来创建你的第一个以太坊 dAPP（第二部分）](https://github.com/xitu/gold-miner/blob/master/TODO/create-your-first-ethereum-dapp-with-web3-and-vue-js-part-2.md)
 
-### Picking up where we left off
+### 从我们离开的地方开始
 
-So at this stage our application is able to get our account data from metamask and display it. However, when changing accounts the data doesn't update without reloading the page. That's not optimal and we want to make sure the changes are displayed reactively.
+因此，在这个阶段，我们的应用程序能够从 metamask 请求获取帐户数据并显示这些数据。但是，在更改帐户时，如果不重新加载页面，则不会更新数据。这并不是最优的，我们希望确保这些更改是以响应的方式显示的。
 
-Our approach will be slightly different to simply registering the web3 instance. Metamask doesn't support websockets yet so we'll have to poll for changes on an interval. We don't want to dispatch actions when there are no changes, therefore our actions will be dispatched with their respective payload only once a condition (certain change) is met.
+我们的方法与简单地注册 web 3 实例略有不同。Metamask 还不支持 WebSocket，因此我们将不得不轮询每隔一段时间进行更改。我们不希望在没有更改的情况下调度操作，因此只有在满足某个条件（特定更改）时，我们的操作才会与它们各自的有效负载一起被调度。
 
-There's likely several approaches and this is probably not most pretty one, it works inside the constraints of strict-mode however so we're good. Create a new file in the _util_ folder called _pollWeb3.js_. Here's what we'll do:
+可能有几种方法，这可能不是最完美的一种，但是它在严格模式的约束下工作，所以我们很好。在_util_文件夹中创建一个名为_pollWeb3.js_的新文件。下面是我们要做的：
 
-*   Import Web3 so we are not dependent on the Metamask instance
-*   Import our store so we can compare values and dispatch actions if needed
-*   Create our web3 instance
-*   Set an interval to check if the address has changed, if that's not the case check if the balance has changed
-*   If there are changes to the address or balance we will update our store. Because our _hello-metamask component_ has a _computed property_ this data change is reactive
+*  导入 Web 3，这样我们就不依赖于 Metamask 实例
+*  输入我们的存储，以便我们可以比较价值和派遣行动，如果需要的话
+*  创建 web 3 实例
+*  设置一个间隔来检查地址是否发生了变化，如果不是这样的话，检查余额是否发生了变化
+*  如果地址或余额有变化，我们将更新我们的存储。因为我们的 hello-metamask Component_具有一个_Computed 属性_这个数据更改具有反应性的
 
 ```
 
@@ -68,7 +68,7 @@ let pollWeb3 = function (state) {
 export default pollWeb3
 ```
 
-Now we just need to start polling for updates once our web3Instance is initially registed. So open up _store/index.js_, import our _pollWeb3.js_ file and add it to the bottom of our _registerWeb3Instance() mutation_ to be executed after the state change.
+现在，我们只需要开始轮询更新一旦我们的 web3Instance 被初步注册。因此，打开_Store/index.js_，导入 OUR_pollWeb3.js_file，并将其添加到我们的_RegierWeb3Instance()devation_的底部，以便在状态更改后执行。
 
 ```
 import pollWeb3 from '../util/pollWeb3'
@@ -87,7 +87,7 @@ registerWeb3Instance (state, payload) {
  }
 ```
 
-Since we are dispatching actions we need to add this to our store, as well as a mutation to commit the change. We could directly commit a change, but let's keep our pattern consistent. We'll add some console.logs so you can watch the wonderful process unfold in the console. Inside the actions object add:
+由于我们正在调度操作，所以需要将其添加到存储中，并进行变异以提交更改。我们可以直接提交更改，但让我们保持模式的一致性。我们将添加一些控制台日志，以便您可以在控制台中观看精彩的过程。在 actions 对象中添加：
 
 ```
 pollWeb3 ({commit}, payload) {
@@ -96,7 +96,7 @@ pollWeb3 ({commit}, payload) {
  }
 ```
 
-Now we just need a mutation for the possible two variables that we pass on
+现在我们只需要对可能传递的两个变量进行变化
 
 ```
 pollWeb3Instance (state, payload) {
@@ -107,20 +107,29 @@ pollWeb3Instance (state, payload) {
 ```
 
 Done! If we now change address in Metamask or our balance changes, we will see this update in our app without reloading the page. When we change the network the page will reload and we will register a new instance from the start. In production however we would want to show a warning to change to the correct network where our contract is deployed on.
+搞定了！如果我们现在在元掩码或我们的平衡改变地址，我们将看到在我们的应用程序无需重新加载页面更新。当我们更改网络时，页面将重新加载，我们将从一开始注册一个新实例。但是，在生产中，我们希望显示一个警告，要求更改到部署契约的正确网络。
 
 It's been a long road, I know but in the next section we'll finally dive into connecting our smart contract to our app. This will actually be pretty easy compared to what we already did.
+这是一个漫长的道路，我知道，但在下一节，我们将最终深入到我们的智能合同连接到我们的应用程序。与我们已经做过的相比，这实际上是相当容易的。
 
-### Instantiating our contract
+### 实例化我们的协议
 
 We'll start by writing the code, later we'll deploy our contract and insert the ABI and address into our application. Almost to create our long awaited casino-component that does the following:
+我们将首先编写代码，然后部署契约并将ABI和Address插入到应用程序中。几乎是为了创建我们期待已久的赌场组件，它执行以下操作：
 
 *   We need an input field so that the user can enter an amount to bet
 *   We need buttons that represent the number to bet on, when a user clicks on a number he will bet his entered amount on that number.
 *   The on click function will call the bet() function on our smart contract.
 *   We will display a loading spinner to display that the transaction is ongoing
 *   When the transaction finishes we will display whether the user has won and the amount
+*  我们需要一个输入字段，以便用户可以输入下注金额
+*  我们需要代表下注数字的按钮，当用户点击某个数字时，他将把输入的金额押在该数字上
+*  onClick 函数将调用 SMART 契约上的 BET() 函数
+*  我们将显示一个加载旋转器，以显示事务正在进行
+*  交易完成后，我们会显示用户是否中奖和金额
 
 First we need our application to be able to talk to our smart contract however. We’ll approach this the same way as we have already done. In the _util_ folder create a new file called _getContract.js_.
+但是，首先，我们需要我们的应用程序能够与我们的智能合同对话。我们将用我们已经做过的同样的方法来处理这个问题。在 _util_ 文件夹中创建一个名为 _getContract.js_ 的新文件。
 
 ```
 import Web3 from ‘web3’
@@ -138,11 +147,15 @@ export default getContract
 ```
 
 First thing to notice is that we’re importing a file that doesn’t exist yet, we’ll fix that later when we deploy our contract.
+首先要注意的是，我们正在导入一个尚不存在的文件，稍后我们将在部署约定时修复该文件。
 
 First we create a contract object for a solidity contract by passing in the ABI (which we’ll come back to) into _web3.eth.contract()_. Then we can initiate that object at an address. **It is on this instance that we can call upon our methods and events.**
+首先，我们通过将ABI(我们将回到)传递到 _web3.eth.Contact()_ 中，为稳固性契约创建一个契约对象。然后，我们可以在一个地址初始化该对象。**正是在这个实例中，我们可以调用我们的方法和事件。**
 
 This wouldn’t be complete however without actions and mutations, right.
 So inside the script tags of _casino-component.vue_ add the following.
+然而，如果没有行动和突变，这将是不完整的，对吧。
+因此，在 _Casica-Component.vue_ 的脚本标记中添加以下内容。
 
 ```
 export default {
@@ -155,6 +168,7 @@ export default {
 ```
 
 Now for our action and mutation inside the store. First import our _getContract.js_ file, I’m sure you know how to do this by now. Then in the action we’re creating, call upon it:
+现在是我们在商店里的行动和变异。首先导入OURE_getContract.js_file，我相信您现在已经知道如何做到这一点了。然后在我们创造的行动中，召唤它：
 
 ```
 getContractInstance ({commit}) {
@@ -164,7 +178,7 @@ getContractInstance ({commit}) {
  }
 ```
 
-Pass the result to our mutation:
+把结果传给我们的变体：
 
 ```
 registerContractInstance (state, payload) {
@@ -173,11 +187,11 @@ registerContractInstance (state, payload) {
  }
 ```
 
-This will store our contract instance in the store for us to use in our component.
+这将把我们的协议实例存储在存储中，以便我们在组件中使用。
 
-### Interacting with our contract
+### 与我们的协议互动
 
-First we’ll add a data property (inside the export) to our casino-component so we can have variables with reactive properties. These values will be winEvent, amount and pending.
+首先，我们将添加一个数据属性(在导出中)到我们的 casino 组件，这样我们就可以拥有具有反应性属性的变量。这些值将是 winEvent、amount和Pending。
 
 ```
 data () {
@@ -189,7 +203,7 @@ data () {
  }
 ```
 
-Now we will create the onclick function for when a user clicks a number. This will trigger the _bet()_ function on our contract, display the spinner and when it receives the event hide the spinner and display the event arguments. Under the data property add a property called methods, this property takes an object in which we’ll place our function.
+现在，我们将为用户单击一个数字时创建 onClick 函数。这将触发契约上的 _bet()_ 函数，显示微调器，当它接收到事件时隐藏微调器并显示事件参数。在 Data 属性下，添加一个名为 Methods 的属性，该属性接受一个对象，我们将在其中放置我们的函数。
 
 ```
 methods: {
@@ -221,9 +235,9 @@ methods: {
   }
 ```
 
-The first argument our _bet()_ function takes is the parameter we defined in our contract, u number. _event.target. innerHTML_ refers to the number inside the list tags we’ll create next. Then comes an object to define the transaction parameters, this is where we enter the amount the user bets. The third parameter is a callback. On success we will watch for the event.
+我们的 _bet()_ 函数的第一个参数是我们在协议中定义的参数u Number._Event.Target.innerHTML_ 引用我们接下来将创建的列表标记中的数字。然后是一个定义事务参数的对象，这是我们输入用户下注金额的地方。第三个参数是回调。成功后，我们将密切关注这一事件。
 
-Now we’ll create the html and css for our component. Just copy-paste it, I think it’s self-explanatory. After this we’ll deploy the contract and get the ABI and address.
+现在，我们将为组件创建 html 和 CSS。只是复制粘贴它，我认为它是不言自明的。在此之后，我们将部署合同，并获得 ABI 和地址。
 
 ```
 <template>
@@ -291,37 +305,37 @@ li:active{
 </style>
 ```
 
-### Ropsten Network and Metamask (for first time users)
+### Ropsten 网络和元掩码(面向第一次用户)
 
-If you’re not familiar with metamask or ethereum networks, don’t worry.
+如果您不熟悉 metamask 或以太坊网络，请不要担心。
 
-1.  Open up your browser and metamask addon. Accept the terms of use and create a password.
-2.  Store the seed phrase somewhere safe (this is to restore your wallet when you lose it)
-3.  Click “Ethereum Main Net” and switch it to Ropsten test net.
-4.  Click “Buy”, then on “Ropsten Testnet Faucet”. This is where we’ll get some free test-Ethers
-5.  On the faucet website, click the “request 1 ether from faucet” a couple of times.
+1.  打开浏览器和 metamask 插件。接受使用条款并创建密码。
+2.  将种子短语存放在安全的地方(这是为了在丢失钱包时将其恢复原状)。
+3.  点击“以太坊主网”并切换到 Ropsten 测试网。
+4.  单击“购买”，然后单击“Ropsten Testnet Fucet”。在这里我们可以得到一些免费的测试-以太坊。
+5.  在水龙头网站上，点击“从水龙头请求 1 乙醚”几次。
 
-When all is said and done your Metamask should look like this:
+当所有的事情都说出来并做完之后，您的 Metamask 应该如下所示：
 
 ![](https://cdn-images-1.medium.com/max/800/1*IT3Lpfh2FiPSMEvVUl4ffA.png)
 
-### Deployment and hook-up
+### 部署和连接
 
-Open up remix again, our contract should be there still. If it isn’t, go to [this gist](https://gist.github.com/anonymous/6b06bef626928589e3a53a70c021ec02) and copy paste. In the rop right of remix make sure our environment is set to “Injected Web3 (ropsten)” and that our address is selected.
+再打开 remix，我们的协议应该还在。如果不是，请转到[此要点](https://gist.github.com/anonymous/6b06bef626928589e3a53a70c021ec02)并复制粘贴。在 ReMix 的 rop 右边，确保我们的环境被设置为“InsistedWeb 3(Ropsten)”，并且选择了我们的地址。
 
-The deployment is just as in [part 1](https://itnext.io/create-your-first-ethereum-dapp-with-web3-and-vue-js-c7221af1ed82). We enter a couple of Ethers in the value field to preload the contract with, enter our constructor parameters and click create. This time metamask will prompt to accept/reject a transaction (contract deployment). Click ‘accept’ and wait until the transaction is completed.
+部署与[第1部分](https://itnext.io/create-your-first-ethereum-dapp-with-web3-and-vue-js-c7221af1ed82)中的部署相同。我们在 Value 字段中输入几个参数来预装协议，输入构造函数参数，然后单击 Create。这一次，metamask 将提示接受/拒绝事务(约定部署)。单击“接受”并等待事务完成。
 
-When the TX completes click on it, this will take you to the ropsten blockchain explorer for that TX. We can find the contract address under the “to” field. Yours will of course be different, but look similar.
+当 TX 完成后点击它，这将带你到那个 TX 的萎缩块链浏览器。我们可以在“to”字段下找到合同地址。你的当然会不同，但看起来很相似。
 
 ![](https://cdn-images-1.medium.com/max/800/1*_l_EVygtbwHgway4sxwOjQ.png)
 
-Our contract address is in the “To” field.
+我们的协议地址在 “to” 字段中。
 
-So that gives us the address, now for the ABI. Go back to remix and switch to the ‘compile’ tab (top right). Next to the name of our contract we’ll see a button called ‘details’, click it. The fourth field is our ABI.
+这就给了我们地址，现在是 ABI 的地址。回到混音并切换到“编译”选项卡(右上角)。在协议名称旁边，我们将看到一个名为“Details”的按钮，单击它。第四个领域是我们的 ABI。
 
 ![](https://cdn-images-1.medium.com/max/800/1*gGPKAotB7qmUY70ZdZDDyA.png)
 
-Great work, now we just have to create that one file from the previous section that doesn’t exist yet. So in the _util/constants_ folder create a new file called _casinoContract.js_. Create two variables, paste the necessary stuff in and export the variables so our import from above can access them.
+很好的工作，现在我们只需要创建一个文件，从前一节还不存在。因此，在_util/constents_文件夹中创建一个名为_casinoContract.js_的新文件。创建两个变量，粘贴必要的内容并导出变量，这样我们从上面导入的内容就可以访问它们。
 
 ```
 const address = ‘0x…………..’
@@ -329,21 +343,22 @@ const ABI = […]
 export {address, ABI}
 ```
 
-### Amazing work !
+### 干得好！ 
 
 We can now test our application by running _npm start_ in the terminal and going to _localhost:8080_ in our browser. Enter an amount and click a number. Metamask will prompt you to accept the transaction and the spinner will start. After 30 seconds to a minute we get the first confirmation and thus the event as well. Our balance changes, so pollweb3 fires it’s action to update the balance:
+现在，我们可以通过在终端中运行_npm start_并在浏览器中运行_localhost：8080_来测试我们的应用程序。输入金额并单击一个数字。Metamask 将提示您接受事务，旋转器将启动。在 30 秒到 1 分钟之后，我们得到第一次确认，因此也得到了事件的确认。我们的余额发生了变化，所以 pollweb 3 触发它的动作来更新余额：
 
 ![](https://cdn-images-1.medium.com/max/800/1*GvWC8YzcuzWBs8TdSphiQw.png)
 
-Final result (left) and lifecycle (right).
+最终结果(左)和生命周期(右)。
 
-I applaud you if you got this far in this series. I’m not a professional writer so it will not have been easy reading at times. The main backbone for our application is set, we just need to make it a bit more pretty and user friendly. We’ll do that in the next section, although this is totally optional.
+如果你能在这个系列中走到这一步，我会为你鼓掌。我不是一个专业的作家，所以有时阅读起来并不容易。我们的应用程序的主干网已经设置好了，我们只需要让它更漂亮一些，更友好一些。我们将在下一节中这样做，尽管这是完全可选的。
 
-### The eye wants it’s part
+### 关注想要它的一部分
 
-We’ll go over this pretty fast. It’ll just be some html, css and vue-conditionals with v-if/v-else.
+我们很快就会讲完的。它将只是一些 html、css和vue-条件语句，带有 v-if/v-Else。
 
-**In App.vue** add the container class to our div-element, in our css define the class:
+**在 App.vue **中，将容器类添加到我们的 div 元素中，在 CSS 中定义该类：
 
 ```
 .container {
@@ -359,13 +374,13 @@ We’ll go over this pretty fast. It’ll just be some html, css and vue-conditi
 }
 ```
 
-**In main.js** import the font-awesome library we’ve installed (I know, not the optimal way for the two icons we need):
+**在 main.js 中，**导入我们已经安装的 font-awesome 的库(我知道，这不是我们需要的两个图标的最佳方式)：
 
 ```
 import ‘font-awesome/css/font-awesome.css’
 ```
 
-**In hello-metamask.vue** we’re gonna do some changes. We’re gonna use the mapState helper in our _computed_ property, instead of the current function. We’re also going to use v-if to check for _isInjected_ and display different HTML based on that. This is what the final component looks like:
+**在 Hello-metanask.vue**中，我们将做一些更改。我们将在我们的_Computed_属性中使用 mapState 助手，而不是当前函数。我们还将使用 v-if检查_isInjected_，并在此基础上显示不同的 HTML。最后的组件如下所示：
 
 ```
 <template>
@@ -401,7 +416,7 @@ export default {
 }</style>
 ```
 
-We’ll do the same v-if/v-else approach to style our event that’s being returned **inside casino-component.vue** :
+我们将执行相同的 v-if/v-else 方法来设计我们的事件，该事件将在赌场内部返回**-Component.vue**：
 
 ```
 <div class=”event” v-if=”winEvent”>
@@ -417,33 +432,33 @@ We’ll do the same v-if/v-else approach to style our event that’s being retur
 }
 ```
 
-Finally in our _clickNumber()_ function, add a line below _this.winEvent = result.args_ :
+最后，在我们的_clickNumber()_ 函数中，在_this.winEvent=Result.args_：下面添加一行：
 
 ```
 this.winEvent._amount = parseInt(result.args._amount, 10)
 ```
 
-### You’ve reached the end, congragulations!
+### 恭喜，你已经走到尽头了！
 
-**First of all , the full code for the project is available now under the master branch:** [**https://github.com/kyriediculous/dapp-tutorial/tree/master**](https://github.com/kyriediculous/dapp-tutorial/tree/master) **!**
+**首先，项目的完整代码现在可以在主分支下获得：**[**https://github.com/kyriediculous/dapp-tutorial/tree/master**](https://github.com/kyriediculous/dapp-tutorial/tree/master) **!**
 
 ![](https://cdn-images-1.medium.com/max/800/1*jb6ety7sf_MxbbAR30NIxQ.png)
 
-Final application after losing a bet :(.
+输掉赌注后的最后申请：
 
-There’s still a few caveats in our application. We’re not handling errors correctly everywhere, we don’t need all the console log statements, it’s not a very pretty application (I’m not a designer), etc. The app does it’s job well however.
+在我们的应用程序中仍然有一些警告。我们没有在任何地方正确地处理错误，我们不需要所有的控制台日志语句，它不是一个非常完美的应用程序(我不是一个设计人员)，等等。然而，这款应用程序做得很好。
 
-Hopefully this tutorial series can put you on the path to building more and better decentralized applications. I sincerely hope you enjoyed reading this as much as I did writing.
+希望本教程系列能够帮助您构建更多、更好的去中心化应用程序。我真诚地希望你和我一样喜欢读这篇文章。
 
-I’m not a software engineer with over 20 years of experience. Thus, if you have any recommendations or improvements, feel free to leave a comment. I love to learn new things and improve where I can. Thanks.
+我不是一个有20多年经验的软件工程师。因此，如果您有任何建议或改进，请随时发表意见。我喜欢学习新事物，在力所能及的范围内提高自己。谢谢。
 
-UPDATE: [Added balance display in Ether](https://github.com/kyriediculous/dapp-tutorial/commit/a07edf3182a3d6c7284e830f709d79b61a40ab0e)
+更新：[增加以太坊平衡显示](https://github.com/kyriediculous/dapp-tutorial/commit/a07edf3182a3d6c7284e830f709d79b61a40ab0e)
 
-**Feel free to follow us on twitter, visit our website or leave a tip if you enjoyed the tutorial!**
+**欢迎在Twitter上关注我们，访问我们的网站，如果您喜欢本教程，请留下提示！**
 
-- [**Alt Street (@Alt_Strt) | Twitter**: The latest Tweets from Alt Street (@Alt_Strt). Blockchain is love, blockchain is life. We develop proof of concepts and… twitter.com](https://twitter.com/Alt_Strt)
+- [**Alt Street(@Alt_strt)Twitter**：Alt Street的最新消息(@Alt_strt)。区块链是爱，区块链是生命。我们开发概念证明和...twitter.com](https://twitter.com/Alt_Strt)
 
-- [**Alt Street - Blockchain Consultants**: Blockchain proof of concepts and Token sales... altstreet.io](https://altstreet.io)
+- [**Alt Street-区块链咨询公司**：区块链概念证明和象征性销售...AltStreet.io](https://altstreet.io)
 
 TIPJAR: ETH — 0x6d31cb338b5590adafec46462a1b095ebdc37d50
 
