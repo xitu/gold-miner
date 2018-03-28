@@ -2,8 +2,8 @@
 > * 原文作者：[Jay](https://www.thecodingdelight.com/author/ljay189/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/good-coding-practices-tips-enhance-code-quality.md](https://github.com/xitu/gold-miner/blob/master/TODO1/good-coding-practices-tips-enhance-code-quality.md)
-> * 译者：
-> * 校对者：
+> * 译者：[NeoyeElf](https://github.com/NeoyeElf)
+> * 校对者：[dandyxu](https://github.com/dandyxu)，[allenlongbaobao](https://github.com/allenlongbaobao)
 
 # 良好的编码习惯 —— 5 个提高代码质量的技巧
 
