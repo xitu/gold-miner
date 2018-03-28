@@ -3,12 +3,12 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-write-a-discord-bot-in-python.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-write-a-discord-bot-in-python.md)
 > * 译者：[Starrier](https://github.com/Starriers)
-> * 校对者：[mrcangye](https://github.com/mrcangye)
+> * 校对者：[mrcangye](https://github.com/mrcangye)、[IllllllIIl](https://github.com/IllllllIIl)
 
 # 如何用 Python 写一个 Discord 机器人
 
-在本教程中，您将学习如何使用 Python 创建一个简单的  [Discord](https://discordapp.com/) 机器人。
-也许您还不知道什么是 Discord，本质上它是一项针对游戏玩家的一种 Slack-like 服务。
+在本教程中，您将学习如何使用 Python 创建一个简单的 [Discord](https://discordapp.com/) 机器人。
+也许您还不知道什么是 Discord，本质上它是一项针对游戏玩家的一种类 Slack（一个云协作团队工具和服务）的服务。
 
 在 Discord 上，您可以连接多个服务器，您一定也注意到这些服务器有许多机器人。 
 这些机器人可以做很多事情，从为您播放音乐到简单的聊天。
@@ -23,7 +23,7 @@
 
 ![](https://i.imgur.com/GoPlxEk.pngg)
 
-向下滚动并点击 "Create Bot User"。
+向下滚动并点击"Create Bot User"。
 完成后您将得到一个机器人的私密 token。
 
 ![](https://i.imgur.com/nLNeWTa.png)
@@ -32,7 +32,7 @@
 
 ![](https://i.imgur.com/uljjk0q.png)
 
-**永远**不要和任何人分享您的 token，因为他们可能会以此来挟持您的机器人。 
+**永远**不要和任何人分享您的 token，因为他们可能会以此来挟持您的机器人。
 在写完这篇文章后，我会更换 token。
 
 ## 代码
@@ -109,7 +109,7 @@ async def cat(ctx):
 ```
 
 在运行它之前，必须将您的机器人添加到您的服务器。
-这个 OAuth2 url  可以从您的机器人 settigns 页面生成。
+这个 OAuth2 url 可以从您的机器人 settings 页面生成。
 转到 https://discordapp.com/developers，点击您的机器人配置文件并生成 oAuth2 url。
 
 ![](https://i.imgur.com/PZEjaVD.png)
@@ -188,7 +188,7 @@ async def help(ctx):
 
 目前，机器人只会在您运行脚本之前在线运行。
 因此，如果您希望您的机器人一直运行，您必须在线托管它，或者您也可以在本地托管它。比如在树莓派（RaspberryPi）。
-托管服务范围很广，从免费的 (Heroku's free tier) 到付费的 (Digital Ocean).
+托管服务范围很广，从免费的（Heroku's free tier）到付费的（Digital Ocean）。
 我在 Heroku's free tier 上运行我的机器人，到目前为止还没有遇到任何问题。
 
 ## 源代码
