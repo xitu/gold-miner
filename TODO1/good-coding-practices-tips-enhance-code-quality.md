@@ -27,7 +27,7 @@
 
 当给类、变量和方法命名时，我们很容易冲动地按照自己的方式给它们命名。特别是当你觉得这一切都很合理时。试着几个月之后再回头看看那些代码，看看它们是否依旧合理。如果是，那么很有可能是你当时明智地命名了你的变量和方法。
 
-[![良好的编码习惯 —— 方法名类似文章中的标题和句子](//personalzone-hulgokm2zfcmm9u.netdna-ssl.com/wp-content/uploads/2017/07/good-coding-practices-method-names-are-like-heading-sentences.jpg)](//personalzone-hulgokm2zfcmm9u.netdna-ssl.com/wp-content/uploads/2017/07/good-coding-practices-method-names-are-like-heading-sentences.jpg)
+[![良好的编码习惯 —— 方法名类似文章中的标题和句子](https://personalzone-hulgokm2zfcmm9u.netdna-ssl.com/wp-content/uploads/2017/07/good-coding-practices-method-names-are-like-heading-sentences.jpg)](https://personalzone-hulgokm2zfcmm9u.netdna-ssl.com/wp-content/uploads/2017/07/good-coding-practices-method-names-are-like-heading-sentences.jpg)
 
 方法名类似文章中的标题和句子。
 
@@ -124,7 +124,7 @@ add(1, 2);
 
 在最初的四年里，中国竹子生长受限。和任何其他植物一样，它需要培养。在第五年，它在仅仅 6 周内就长了 80 英尺。
 
-[![拥有单元测试的代码就像竹子](//personalzone-hulgokm2zfcmm9u.netdna-ssl.com/wp-content/uploads/2017/07/code-written-with-unit-tests-are-like-bamboo-trees.jpg)](//personalzone-hulgokm2zfcmm9u.netdna-ssl.com/wp-content/uploads/2017/07/code-written-with-unit-tests-are-like-bamboo-trees.jpg)
+[![拥有单元测试的代码就像竹子](https://personalzone-hulgokm2zfcmm9u.netdna-ssl.com/wp-content/uploads/2017/07/code-written-with-unit-tests-are-like-bamboo-trees.jpg)](https://personalzone-hulgokm2zfcmm9u.netdna-ssl.com/wp-content/uploads/2017/07/code-written-with-unit-tests-are-like-bamboo-trees.jpg)
 
 虽然单元测试能带来的收益并不需要花那么长的时间，但是通常情况下，你和你项目经理的耐心都将受到考验。当然，如果你们愿意花时间去编写这些单元测试并关注代码质量，代码的质量和健壮性都会得到巨大改进。所有这些努力最终都将转化为更好的用户体验和拥有最小副作用的更容易扩展的代码。
 
