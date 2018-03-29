@@ -2,8 +2,8 @@
 > * 原文作者：[Casper Beyer](https://medium.com/@caspervonb?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/a-brief-totally-accurate-history-of-programming-languages.md](https://github.com/xitu/gold-miner/blob/master/TODO1/a-brief-totally-accurate-history-of-programming-languages.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Starrier](https://github.com/Starriers)
+> * 校对者：[L9m](https://github.com/L9m)、[allenlongbaobao](https://github.com/allenlongbaobao)
 
 # 简短而又完全精确的编程语言历史
 
@@ -13,11 +13,11 @@
 
 #### 1800
 
-[Joseph Marie Jacquard](https://en.wikipedia.org/wiki/Joseph_Marie_Jacquard) 教会.一个纺织机读穿孔卡片，创建了第一个重量级多线程处理单元。他的发明受到了预见天网诞生的丝织工的强烈反对。
+[Joseph Marie Jacquard](https://en.wikipedia.org/wiki/Joseph_Marie_Jacquard) 教会.一个纺织机读穿孔卡片，创建了第一个重量级多线程处理单元。他的发明遭到预见天网（Skynet）诞生的丝织工的强烈反对。
 
 #### 1842
 
-[Ada Lovelace](https://en.wikipedia.org/wiki/Ada_Lovelace)厌倦了在一本后来被称为是第一个出版电脑程序的笔记本上涂鸦，因为是当时没有电脑的事实所造成的轻微不便。
+[Ada Lovelace](https://en.wikipedia.org/wiki/Ada_Lovelace) 厌倦了贵族，后在一个笔记本上无心地写下被后世所称的首个计算机程序，只是当时并没有计算机，事实上稍微有点不方便。
 
 #### 1936
 
@@ -49,13 +49,13 @@
 
 #### 1972
 
-[Dennis Ritchie](https://en.wikipedia.org/wiki/Dennis_Ritchie) 在贝尔实验室工作时间感觉无聊，所以决定开发 C，因为 C 有花括号，所以它最终获得了巨大的成功。之后他还添加了分段，错误和其他对开发者友好的特性来提高生产效率。
+[Dennis Ritchie](https://en.wikipedia.org/wiki/Dennis_Ritchie) 在贝尔实验室工作时间感觉无聊，所以决定开发 C，因为 C 有花括号，所以它最终获得了巨大的成功。之后他还添加了分段错误和其他对开发者友好的特性来提高生产效率。
 
-还有几个小时，他和贝尔实验室的朋友们决定制作一个演示 C 的示例程序，他们还制作了一个名为 Unix 的操作系统。
+还有几个小时，他和贝尔实验室的朋友们决定制作一个演示 C 的示例程序，于是他们制作了一个名为 Unix 的操作系统。
 
 #### 1980
 
-[Alan Kay](https://en.wikipedia.org/wiki/Alan_Kay)  发明了面向对象编程语言并称其为 Smalltalk，在 Smalltalk 中，一切都是对象，对象本身也是一个对象。但没有人真正有时间去理解 small talk 的意义。
+[Alan Kay](https://en.wikipedia.org/wiki/Alan_Kay)  发明了面向对象编程语言并称其为 Smalltalk，在 Smalltalk 中，一切都是对象，对象本身也是一个对象。但没有人真正有时间去理解闲聊（small talk ）的意义。
 
 #### 1987
 
@@ -63,7 +63,7 @@
 
 #### 1983
 
-[Jean Ichbiah](https://en.wikipedia.org/wiki/Jean_Ichbiah) 注意到 Ada Lovelace 程序从没有真正运行过，所以决定用她的名字开发一种语言，但是语言仍然没有运行。
+[Jean Ichbiah](https://en.wikipedia.org/wiki/Jean_Ichbiah) 注意到 Ada Lovelace 的程序从没有真正运行过，所以决定用她的名字开发一种语言，但是语言仍然没有运行。
 
 #### 1986
 
@@ -71,7 +71,7 @@
 
 #### 1983
 
-[Bjarne Stroustrup](https://en.wikipedia.org/wiki/Bjarne_Stroustrup) 回到未来，注意到 C 没有花足够的时间编译，他在语言中添加了他想得到的所有特性，并将它命名为 C++。
+[Bjarne Stroustrup](https://en.wikipedia.org/wiki/Bjarne_Stroustrup) 回到未来，注意到 C 没有花足够的时间编译，所以他在语言中添加了他想得到的所有特性，并将它命名为 C++。
 
 它得到了广泛使用，所以程序员们在工作时看视频、看新闻有了真正的借口。
 
@@ -91,7 +91,7 @@
 
 #### 1995
 
-[Yukihiro Matsumoto](https://en.wikipedia.org/wiki/Yukihiro_Matsumoto) 并不开心，他注意到其他程序员也不开心。他发明 Ruby 是为了让程序员开心。在发明出 Ruby 后“Matz”很开心，Ruby 社区也很开心，每个人都是快乐的。
+[Yukihiro Matsumoto](https://en.wikipedia.org/wiki/Yukihiro_Matsumoto) 并不开心，他注意到其他程序员也不开心。他发明 Ruby 是为了让程序员开心。在发明出 Ruby 后「Matz」很开心，Ruby 社区也很开心，每个人都是快乐的。
 
 #### 1995
 
@@ -101,7 +101,7 @@ Java 被证明将是一个给他们带来麻烦的商标，JavaScript 后来被�
 
 #### 1996
 
-[James Gosling](https://en.wikipedia.org/wiki/James_Gosling) 发明了 Java，这是第一种真正过于冗长的面向对象编程语言，其设计模式在实用主义中占统治地位。
+[James Gosling](https://en.wikipedia.org/wiki/James_Gosling) 发明了 Java，这是第一种真正过于冗长的面向对象编程语言，其设计模式的规则凌驾于实际需要之上。
 
 其高效的管理器提供容器提供服务管理单例管理提供商模式就诞生了。
 
@@ -119,9 +119,9 @@ Java 被证明将是一个给他们带来麻烦的商标，JavaScript 后来被�
 
 #### 2009
 
-[Ken Thompson](https://en.wikipedia.org/wiki/Ken_Thompson) 和 [Rob Pike](https://en.wikipedia.org/wiki/Rob_Pike) 决定发明一种类似 C 的语言，但要有更多的安全设备和更多的市场，还要以 Gophers 作为吉祥物。
+[Ken Thompson](https://en.wikipedia.org/wiki/Ken_Thompson) 和 [Rob Pike](https://en.wikipedia.org/wiki/Rob_Pike) 决定发明一种类似 C 的语言， 但要有更安全的「装备」并更有市场前景，还要以 Gophers 作为吉祥物。
 
-他们称它为 Go,还开源了它，并分别将其卖给了 gopher 品牌的 kneepads 和 helmets。
+他们称它为 Go，还开源了它，而且还不捆绑地售卖地鼠牌的护膝和头盔。
 
 #### 2010
 
