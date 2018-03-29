@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/developing-games-with-react-redux-and-svg-part-1.md](https://github.com/xitu/gold-miner/blob/master/TODO/developing-games-with-react-redux-and-svg-part-1.md)
 > * 译者：[zephyrJS](https://github.com/zephyrJS)
-> * 校对者： [allenlongbaobao](https://github.com/allenlongbaobao)、[dandyxu](https://github.com/dandyxu)
+> * 校对者：[allenlongbaobao](https://github.com/allenlongbaobao)、[dandyxu](https://github.com/dandyxu)
 
 # 使用 React、Redux 和 SVG 开发游戏 — Part 1
 
