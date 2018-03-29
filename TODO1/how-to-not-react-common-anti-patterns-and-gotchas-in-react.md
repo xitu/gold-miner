@@ -2,24 +2,24 @@
 > * 原文作者：[NeONBRAND](https://unsplash.com/photos/-Cmz06-0btw?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-not-react-common-anti-patterns-and-gotchas-in-react.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-not-react-common-anti-patterns-and-gotchas-in-react.md)
-> * 译者：
+> * 译者：[MechanicianW](https://github.com/mechanicianw)
 > * 校对者：
 
 # How to NOT React: Common Anti-Patterns and Gotchas in React
 
-What is an anti-pattern? Anti-patterns are certain patterns in software development that are considered bad programming practices. The same pattern may have been considered correct at one point in the past, but now developers have realised that they cause more pain and hard-to-track bugs in long term.
+什么是反模式？反模式是软件开发中被认为是糟糕的编程实践的特定模式。同样的模式，可能在过去一度被认为是正确的，但是现在开发者们已经发现，从长远来看，它们会造成更多的痛苦和难以追踪的 Bug。
 
-React has matured as an UI library and with that a lot of best development practices have evolved over the years. We are going to learn from the collective wisdom of thousands of programmers and developers who learnt those things the hard way.
+作为一个 UI 库，React 已经成熟，并且随着时间的推移，许多最佳实践也逐渐形成。我们将从数千名开发者集体的智慧中学习，他们曾用笨方法（the hard way）学习这些最佳实践。
 
-![](https://cdn-images-1.medium.com/max/800/1*kD905dFJGIzg7DCjKIqwMw.gif)
+![](http://o7ts2uaks.bkt.clouddn.com/1_kD905dFJGIzg7DCjKIqwMw.gif)
 
-Truly said!
+此言不虚！
 
-Let’s begin!
+让我们开始吧！
 
-### 1. bind() and arrow functions in Components
+### 1. 组件中的 bind() 与箭头函数
 
-You must have bound your custom functions in the `constructor` function before using them as props for components. If you declare components using the `extends` keyword, then the custom functions (such as `updateValue` below) lose their `this` bindings. So, if you want to access `this.state`, or `this.props` or `this.setState` then you need to re-bind them.
+你一定做过，在把自定义函数作为 props 传给组件之前，就在 `constructor` 函数中绑定了自定义函数。如果你是用 `extends` 关键字声明组件的话，自定义函数（如下面的 `updateValue` 函数）会失去 `this` 绑定。因此，如果你想使用 `this.state`，`this.props` 或者 `this.setState`，你还得重新绑定。
 
 #### Demo
 
@@ -42,36 +42,36 @@ updateValue(evt) {
 render() {
     return (
       <form>
-        <input onChange={this.updateValue} value={this.state.name} />    
+        <input onChange={this.updateValue} value={this.state.name} />
       </form>
     )
   }
 }
 ```
 
-#### Problems
+#### 问题
 
-There are two ways to bind the custom functions to the component’s `this`. One way is to bind them in the `constructor` as done above. The other way is to bind at the time of passing as prop value —
+有两种方法可以将自定义函数绑定到组件的 `this`。一种方法是如上面所做的那样，在 `constructor` 中绑定。另一种方法是在将自定义函数作为 prop 值传递时绑定：
 
 ```
 <input onChange={this.updateValue.bind(this)} value={this.state.name} />
 ```
 
-This method suffers from a problem. Since `.bind()` creates a **new** function each time it is run, **this method would lead to a new function being created every time the** `render` **function executes.** This has some performance implications. However, in a small app it may not be noticeable. As the app grows large, the difference will start to materialise. One case study is [here](https://medium.com/@esamatti/react-js-pure-render-performance-anti-pattern-fb88c101332f).
+这种方法有一个问题。由于 `.bind()` 每次运行时都会创建一个**函数**，**这种方法会导致每次** `render` **函数执行时都会创建一个新函数。**这会对性能造成一些影响。然而，在小型应用中这可能并不会造成显著影响。随着应用体积变大，差别就会开始显现。[这里](https://medium.com/@esamatti/react-js-pure-render-performance-anti-pattern-fb88c101332f) 有一个案例研究。
 
-Arrow functions entails the same performance concerns that were there with `bind`.
+箭头函数所涉及的性能问题与 `bind` 相同。
 
 ```
 <input onChange={ (evt) => this.setState({ name: evt.target.value }) } value={this.state.name} />
 ```
 
-This way of writing is definitely clearer. You can see what’s going on in the `onChange` prop itself. But, this also creates new anonymous function every time `input` renders. So it has the same performance penalty as above.
+这种写法明显更清晰。可以看到 prop `onChange` 函数中发生了什么。但是，这也导致了每次 `input` 组件渲染时都会创建一个新的匿名函数。因此，箭头函数有同样的性能弊端。
 
-#### Solutions
+#### 解决
 
-The best way to avoid the above performance penalty is to bind the functions in the constructor itself. This way only one extra function is created at the time of component creation, and that function is used even when `render` is executed again.
+避免上述性能弊端的最佳方法是在函数本身的构造器中进行绑定。这样，在组件创建时仅创建了一个额外函数，即使再次执行 `render` 也会使用该函数。
 
-It often happens that you forget to `bind` your functions in the constructor, and then you get an error (_Cannot find X on undefined._). Babel has a plugin that let’s you write auto-bound function using the fat-arrow syntax. The plugin is [_Class properties transform_](https://babeljs.io/docs/plugins/transform-class-properties/)_._ Now you can write components like this —
+经常发生忘记在构造器中 `bind` 函数这种情况，然后就会收到报错（**Cannot find X on undefined.**）。Babel 有个插件可以让我们使用箭头语法写出自动绑定的函数。插件是 [**Class properties transform**](https://babeljs.io/docs/plugins/transform-class-properties/)。现在你可以这样编写组件：
 
 ```
 class App extends Component {
@@ -81,7 +81,7 @@ class App extends Component {
       name: ''
     };
 
-// Look ma! No functions to bind!
+// 看！无需在此处进行函数绑定！
 
 }
 updateValue = (evt) => {
@@ -100,16 +100,16 @@ render() {
 }
 ```
 
-#### Read More —
+#### 延伸阅读
 
-*   [React Binding Patterns: 5 Approaches for Handling `this`](https://medium.freecodecamp.org/react-binding-patterns-5-approaches-for-handling-this-92c651b5af56)
-*   [React.js pure render performance anti-pattern](https://medium.com/@esamatti/react-js-pure-render-performance-anti-pattern-fb88c101332f)
-*   [React — to Bind or Not to Bind](https://medium.com/shoutem/react-to-bind-or-not-to-bind-7bf58327e22a)
-*   [Why and how to bind methods in your React component classes?](http://reactkungfu.com/2015/07/why-and-how-to-bind-methods-in-your-react-component-classes/)
+*   [React 绑定模式： 5 个处理 `this` 的方法](https://medium.freecodecamp.org/react-binding-patterns-5-approaches-for-handling-this-92c651b5af56)
+*   [React.js pure render 性能反模式](https://medium.com/@esamatti/react-js-pure-render-performance-anti-pattern-fb88c101332f)
+*   [React —— 绑定还是不绑定](https://medium.com/shoutem/react-to-bind-or-not-to-bind-7bf58327e22a)
+*   [在 React component classes 中绑定函数的原因及方法](http://reactkungfu.com/2015/07/why-and-how-to-bind-methods-in-your-react-component-classes/)
 
-### 2. Using indexes in key Prop
+### 2. 在 key Prop 中使用索引
 
-Key is an essential prop when you iterate over a collection of elements. Keys should be stable, predictable, and unique so that React can keep track of elements. Keys are used to help React easily reconcile(read: update) the differences between the virtual DOM and the real DOM. However, using certain set of values such as array _indexes_ **may break your application or render wrong data**.
+遍历元素集合时，Key 是必不可少的 prop。Key 应该是稳定，唯一，可预测的，这样 React 才能追踪元素。Key 是用来帮助 React 轻松调和虚拟 Dom 与真实 Dom 间的差异的。然而，使用某些值集例如数组**索引**，**可能会导致你的应用崩溃或是渲染出错误数据。**
 
 #### Demo
 
@@ -123,41 +123,41 @@ Key is an essential prop when you iterate over a collection of elements. Keys sh
 }
 ```
 
-#### Problems
+#### 问题
 
-When children have keys, React uses the key to match children in the original tree with children in the subsequent tree. **The keys are used for identification.** If two elements have same keys, React considers them same. When the keys collide, that is, more than 2 elements have the same keys, React shows a warning.
+当子元素有了 key，React 就会使用 key 来匹配原始树结构和后续树结构中的子元素。**key 被用于作身份标识。**如果两个元素有同样的 key，React 就会认为它们是相同的。当 key 冲突了，即超过两个元素具有同样的 key，React 就会抛出警告。
 
-![](https://cdn-images-1.medium.com/max/1000/1*3C-F1fs7E5fK9R8XlLk62g.png)
+![](http://o7ts2uaks.bkt.clouddn.com/1_3C-F1fs7E5fK9R8XlLk62g.png)
 
-Warning for duplicate keys.
+警告出现重复的 key。
 
-[Here](https://reactjs.org/redirect-to-codepen/reconciliation/index-used-as-key) is an example of the issues that can be caused by using indexes as keys on CodePen.
+[这里](https://reactjs.org/redirect-to-codepen/reconciliation/index-used-as-key) 是 CodePen 上使用索引作为 key 可能导致的问题的一个示例。
 
-#### Solutions
+#### 解决
 
-Any key that you are going to use should be —
+被使用的 key 应该是：
 
-*   **Unique** — The key of an element should be unique among its siblings. It is not necessary to have globally unique keys.
-*   **Stable** — The key for the same element should not change with time, or page refresh, or re-ordering of elements.
-*   **Predictable** — You can always get the same key again if you want. That is, the key should not be generated randomly.
+*   **唯一的**： 元素的 key 在它的兄弟元素中应该是唯一的。没有必要拥有全局唯一的 key。
+*   **稳定的**： 元素的 key 不应随着时间，页面刷新或是元素重新排序而变。
+*   **可预测的**： 你可以在需要时拿到同样的 key，意思是 key 不应是随机生成的。
 
-Array indexes are unique, and predictable. However, they are not stable. In the same vein, **random numbers or timestamps should not be used as keys.**
+数组索引是唯一且可预测的。然而，并不稳定。同样，**随机数或时间戳不应被用作为 key。**
 
-Using random number is equivalent to not using keys at all since random numbers are not unique or stable. The components **will** be re-rendered every time even if the content inside the element has not changed.
+由于随机数既不唯一也不稳定，使用随机数就相当于根本没有使用 key。即使内容没有改变，组件也**会**每次都重新渲染。
 
-Timestamps are unique but not stable or predictable. **They are also always increasing.** So on every page refresh, you are going to get new timestamps.
+时间戳即不稳定也不可预测。**时间戳也会一直递增。**因此每次刷新页面，你都会得到新的时间戳。
 
-In general, you should rely on the ID generated by databases such as primary key in Relational databases, and Object IDs in Mongo. If a database ID is not available, you can generate a hash of the content and use that as a key. You can read about more about hashes [here](https://en.wikipedia.org/wiki/Hash_function).
+通常，你应该依赖于数据库生成的 ID 如关系数据库的主键，Mongo 中的对象 ID。如果数据库 ID 不可用，你可以生成内容的哈希值来作为 key。关于哈希值的更多内容可以在[这里](https://en.wikipedia.org/wiki/Hash_function)阅读。
 
-#### Read More —
+#### 延伸阅读
 
-*   [Index as a key is an anti-pattern](https://medium.com/@robinpokorny/index-as-a-key-is-an-anti-pattern-e0349aece318)
-*   [Why you need keys for collections in React.](https://paulgray.net/keys-in-react/)
-*   [On why you shouldn’t use Random values as keys](https://github.com/facebook/react/issues/1342#issuecomment-39230939).
+*   [将索引作为 key 是一种反模式](https://medium.com/@robinpokorny/index-as-a-key-is-an-anti-pattern-e0349aece318)
+*   [React 中集合为何需要 key](https://paulgray.net/keys-in-react/)
+*   [为何你不应该使用随机数作为 key](https://github.com/facebook/react/issues/1342#issuecomment-39230939).
 
-### 3. setState() is async
+### 3. setState() 是异步的
 
-React components essentially comprises 3 things: `state` ,`props` and markup (or other components). Props are immutable. However, the state is mutable. Changing the state causes the component to re-render. If the state is managed internally by the component, `this.setState` function is employed to update the state. There are a few important things to note about this function. Let’s look —
+React 组件主要由三部分组成：`state`，`props` 和标记（或其它组件）。props 是不可变的，state 是可变的。state 的改变会导致组件重新渲染。如果 state 是由组件在内部管理的，则使用 `this.setState` 来更新 state。关于这个函数有几件重要的事需要注意。我们来看看：
 
 #### Demo
 
@@ -171,27 +171,27 @@ class MyComponent extends Component {
   }
 
   updateCounter() {
-    // this line will not work
+    // 这行代码不会生效
     this.state.counter = this.state.counter + this.props.increment;
-    
+
     // ---------------------------------
-    
-    // this will not work as intended
+
+    // 不会如预期生效
     this.setState({
-      counter: this.state.counter + this.props.increment; // May not render
+      counter: this.state.counter + this.props.increment; // 可能不会渲染
     });
-    
+
     this.setState({
-      counter: this.state.counter + this.props.increment; // what value this.state.counter have?
+      counter: this.state.counter + this.props.increment; // this.state.counter 的值是什么？
     });
-    
+
     // ---------------------------------
-  
-    // this will work
+
+    // 如期生效
     this.setState((prevState, props) => ({
       counter: prevState.counter + props.increment
     }));
-    
+
     this.setState((prevState, props) => ({
       counter: prevState.counter + props.increment
     }));
@@ -262,12 +262,12 @@ class MyComponent extends Component {
       someValue: props.someValue,
     };
   }
-  
+
   componentWillReceiveProps(nextProps){
     if (nextProps.inputValue !== this.props.inputValue) {
       this.setState({ inputVal: nextProps.inputValue })
     }
-  } 
+  }
 }
 ```
 
