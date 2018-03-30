@@ -116,7 +116,7 @@ pollWeb3Instance (state, payload) {
 
 *  需要一个输入字段，以便用户可以输入下注金额
 *  需要代表下注数字的按钮，当用户点击某个数字时，它将把输入的金额押在该数字上
-*  onClick 函数将调用 SMART 协议上的 BET() 函数
+*  onClick 函数将调用 smart 协议上的 bet() 函数
 *  显示一个加载旋转器，以显示事务正在进行中
 *  交易完成后，我们会显示用户是否中奖以及中奖金额
 
@@ -137,12 +137,11 @@ let getContract = new Promise(function (resolve, reject) {
 export default getContract
 ```
 
-首先要注意的是，我们正在导入一个尚不存在的文件，稍后我们将在约定时部署修复该文件。
+首先要注意的是，我们正在导入一个尚不存在的文件，稍后我们将在部署协议时修复该文件。
 
 首先，我们通过将 ABI(我们将回到)传递到 _web3.eth.Contact()_ 中，为稳固性协议创建一个协议对象。然后，我们可以在一地址上初始化该对象。**在这个实例中，我们可以调用我们的方法和事件。**
 
-然而，如果没有 action 和变体，这将是不完整的。
-因此，在 _Casica-Component.vue_ 的脚本标记中添加以下内容。
+然而，如果没有 action 和变体，这将是不完整的。因此，在 _casino-component.vue_ 的脚本标记中添加以下内容。
 
 ```
 export default {
@@ -154,7 +153,7 @@ export default {
 }
 ```
 
-现在 action 和变体在 store 中。首先导入 _getContract.js_ 文件，我相信您现在已经知道如何做到这一点了。然后在我们创造的过程中，调用它：
+现在 action 和变体在 store 中。首先导入 _getContract.js_ 文件，我相信您现在已经知道如何做到这一点了。然后在我们创建的过程中，调用它：
 
 ```
 getContractInstance ({commit}) {
