@@ -301,7 +301,7 @@ li:active{
 4.  单击“购买”，然后单击“Ropsten Testnet Fucet”。在这里我们可以得到一些免费的测试-以太坊。
 5.  在水龙头网站上，点击“从水龙头请求 1 乙醚”几次。
 
-当所有的事情都说出来并做完之后，您的 Metamask 应该如下所示：
+当所有的事情都熟悉了并做完之后，您的 Metamask 应该如下所示：
 
 ![](https://cdn-images-1.medium.com/max/800/1*IT3Lpfh2FiPSMEvVUl4ffA.png)
 
