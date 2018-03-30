@@ -1,3 +1,5 @@
+* [没有 Interface Builder 的生活](https://juejin.im/post/5ab88ac0518825558a069c91) ([rydensun](https://github.com/rydensun) 翻译)
+* [让我们来简化 UserDefaults 的使用](https://juejin.im/post/5abde324f265da23826e1723) ([talisk](https://github.com/talisk) 翻译)
 * [避免 Swift 单元测试中的强制解析](https://juejin.im/post/5a9ce4ac6fb9a028b547602e) ([RickeyBoy](https://github.com/RickeyBoy) 翻译)
 * [iOS App 上一种灵活的路由方式](https://juejin.im/post/5aafc278f265da23805973e3) ([YinTokey](https://github.com/YinTokey) 翻译)
 * [通过 Quick 和 Nimble 在 Swift 中进行测试驱动开发](https://juejin.im/post/5a93635d5188257a7924c5d5) ([94haox](https://github.com/94haox) 翻译)
