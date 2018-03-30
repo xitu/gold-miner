@@ -24,6 +24,7 @@
 # 合作伙伴
 
 [<img src="https://i.loli.net/2018/03/21/5ab1c8723d6de.jpg" width="130px;"/>](http://www.ituring.com.cn/)
+[<img src="https://s4.ssl.qhres.com/static/4c3fe1d5645dd9e8.svg" width="249px;"/>](https://www.zcfy.cc/)
 
 - 合作事宜请扫描 [二维码](http://oiiyyn1t0.bkt.clouddn.com/wechat-517010193.jpg) 联系管理员
 
