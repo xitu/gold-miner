@@ -5,7 +5,7 @@
 > * 译者：[MechanicianW](https://github.com/mechanicianw)
 > * 校对者：
 
-# How to NOT React: Common Anti-Patterns and Gotchas in React
+# How to NOT React： React 中常见的反模式与陷阱
 
 什么是反模式？反模式是软件开发中被认为是糟糕的编程实践的特定模式。同样的模式，可能在过去一度被认为是正确的，但是现在开发者们已经发现，从长远来看，它们会造成更多的痛苦和难以追踪的 Bug。
 
@@ -107,9 +107,9 @@ render() {
 *   [React —— 绑定还是不绑定](https://medium.com/shoutem/react-to-bind-or-not-to-bind-7bf58327e22a)
 *   [在 React component classes 中绑定函数的原因及方法](http://reactkungfu.com/2015/07/why-and-how-to-bind-methods-in-your-react-component-classes/)
 
-### 2. 在 key Prop 中使用索引
+### 2. 在 key prop 中使用索引
 
-遍历元素集合时，Key 是必不可少的 prop。Key 应该是稳定，唯一，可预测的，这样 React 才能追踪元素。Key 是用来帮助 React 轻松调和虚拟 Dom 与真实 Dom 间的差异的。然而，使用某些值集例如数组**索引**，**可能会导致你的应用崩溃或是渲染出错误数据。**
+遍历元素集合时，key 是必不可少的 prop。key 应该是稳定，唯一，可预测的，这样 React 才能追踪元素。key 是用来帮助 React 轻松调和虚拟 DOM 与真实 DOM 间的差异的。然而，使用某些值集例如数组**索引**，**可能会导致你的应用崩溃或是渲染出错误数据。**
 
 #### Demo
 
@@ -145,7 +145,7 @@ render() {
 
 由于随机数既不唯一也不稳定，使用随机数就相当于根本没有使用 key。即使内容没有改变，组件也**会**每次都重新渲染。
 
-时间戳即不稳定也不可预测。**时间戳也会一直递增。**因此每次刷新页面，你都会得到新的时间戳。
+时间戳既不稳定也不可预测。**时间戳也会一直递增。**因此每次刷新页面，你都会得到新的时间戳。
 
 通常，你应该依赖于数据库生成的 ID 如关系数据库的主键，Mongo 中的对象 ID。如果数据库 ID 不可用，你可以生成内容的哈希值来作为 key。关于哈希值的更多内容可以在[这里](https://en.wikipedia.org/wiki/Hash_function)阅读。
 
@@ -303,7 +303,7 @@ class MyComponent extends Component {
 
 使用非大写自定义组件时的警告。
 
-报错表明 `<app>` 是无法识别的。只有 HTML 元素和 SVG 标签可以以小写字母开头。因此 `<div />` 是可以是别的，`<app>` 却不能。
+报错表明 `<app>` 是无法识别的。只有 HTML 元素和 SVG 标签可以以小写字母开头。因此 `<div />` 是可以识别的，`<app>` 却不能。
 
 #### 解决
 
@@ -350,7 +350,7 @@ import PrimaryButton from 'primaryButton';
 
 **我写作 JavaScript，Web 开发与计算机科学领域的文章。关注我可以每周阅读新文章。如果你喜欢，可以分享本文。**
 
-**Reach out to me on @** [**Facebook**](https://www.facebook.com/arfat.salman) **@** [**Linkedin**](https://www.linkedin.com/in/arfatsalman/) **@** [**Twitter**](https://twitter.com/salman_arfat)**.**
+**关注我 @** [**Facebook**](https://www.facebook.com/arfat.salman) **@** [**Linkedin**](https://www.linkedin.com/in/arfatsalman/) **@** [**Twitter**](https://twitter.com/salman_arfat)**.**
 
 [![](http://o7ts2uaks.bkt.clouddn.com/1_i3hPOj27LTt0ZPn5TQuhZg.png)](http://bit.ly/codeburst)
 
