@@ -9,11 +9,11 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/1*7Zy2OC1nxK-BqmDbGxtPDg.png)
 
-每个人都用 _UserDefaults_ 来存储一些简单的数据，并且知道使用该存储很容易。但是今天我会改善一点它的交互性！ 让我们从最明显的解决方案开始，并实现一些新颖且优雅的东西。😌
+每个人都用 _UserDefaults_ 来存储一些简单的数据，并且知道使用该存储很容易。但是今天我会改善一点它的交互性！让我们从最明显的解决方案开始，并实现一些新颖且优雅的东西。😌
 
-想象一下我们有一个服务——SettingsService。这个服务掌握了应用的设置——正在使用哪个主题（黑暗，明亮），是否启用通知等等。为了实现它，大多数开发人员会首先考虑 _UserDefaults_。 当然，用哪种方式取决于具体情况，但先让我们来简化 _UserDefaults_。
+想象一下我们有一个服务 —— SettingsService。这个服务掌握了应用的设置 —— 正在使用哪个主题（黑暗，明亮），是否启用通知等等。为了实现它，大多数开发人员会首先考虑 _UserDefaults_。 当然，用哪种方式取决于具体情况，但先让我们来简化 _UserDefaults_。
 
-1. 我们最简单方案的第一步：
+1. 我们的第一个最简方案
 
 ```
 class SettingsService {
@@ -34,7 +34,7 @@ class SettingsService {
 }
 ```
 
-为了简单化，我直接使用 `UserDefaults.standard`，但在一个真是项目中，你最好把它存到一个 property 中，并使用 DI。
+为了简单化，我直接使用 `UserDefaults.standard`，但在一个真实项目中，你最好把它存到一个 property 中，并使用依赖注入。
 
 2. 下一步，我想要摆脱 _Keys_ 枚举——使用 `#function` 来代替：
 
@@ -55,7 +55,7 @@ class SettingsService {
 
 看，怎么样！让我们继续：）
 
-3. 记号时间！我们刚刚把 `value（forKey：）` 方法封装成一个带有泛型的记号：
+3. 下标时间！我们刚刚把 `value(forKey:)` 方法封装成支持范型的下标语法形式：
 
 ```
 extension UserDefaults {
@@ -107,7 +107,7 @@ class SettingsService {
 }
 ```
 
-那里进行了重构！
+这里可以重构！
 
 4. 让我们为 _RawRepresentable_ 值编写一个类似的 _subscript_： 
 
@@ -145,7 +145,7 @@ class SettingsService {
 
 * * *
 
-> 别忘了订阅我的 [telegram channel](http://bit.ly/2xaqaYR)！第一时间了解iOS世界的有趣新闻和文章！
+> 别忘了订阅我的 [telegram channel](http://bit.ly/2xaqaYR)！第一时间了解 iOS 世界的有趣新闻和文章！
 
 * * *
 
