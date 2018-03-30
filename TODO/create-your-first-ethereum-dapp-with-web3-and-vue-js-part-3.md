@@ -5,26 +5,26 @@
 > * 译者：
 > * 校对者：
 
-# 使用 Web3 和 Vue.js 来创建你的第一个以太坊 dAPP（第三部分）
+# 使用 Web3 和 Vue.js 来创建你的第一个以太坊去中心化应用程序（第三部分）
 
 大家好，欢迎来到本系列的最后一部分。如果您正在调优，我们将为以太坊区块链创建一个简单的去中心化应用程序。您可以随时查看第 1 和第 2 部分！
 
 - [使用 Web3 和 Vue.js 来创建你的第一个以太坊 dAPP（第一部分）](https://github.com/xitu/gold-miner/blob/master/TODO/create-your-first-ethereum-dapp-with-web3-and-vue-js.md)
 - [使用 Web3 和 Vue.js 来创建你的第一个以太坊 dAPP（第二部分）](https://github.com/xitu/gold-miner/blob/master/TODO/create-your-first-ethereum-dapp-with-web3-and-vue-js-part-2.md)
 
-### 从我们离开的地方开始
+### 接着第二部分的结尾开始
 
-因此，在这个阶段，我们的应用程序能够从 metamask 请求获取帐户数据并显示这些数据。但是，在更改帐户时，如果不重新加载页面，则不会更新数据。这并不是最优的，我们希望确保这些更改是以响应的方式显示的。
+因此，在这个阶段，我们的应用程序能够从 metamask 请求获取帐户数据并显示这些数据。但是，在更改帐户时，如果不重新加载页面，则不会更新数据。这并不是最优的，我们希望能够确保响应式地更新数据。
 
-我们的方法与简单地注册 web 3 实例略有不同。Metamask 还不支持 WebSocket，因此我们将不得不轮询每隔一段时间进行更改。我们不希望在没有更改的情况下调度操作，因此只有在满足某个条件（特定更改）时，我们的操作才会与它们各自的有效负载一起被调度。
+我们的方法与简单地注册 web 3 实例略有不同。Metamask 还不支持 WebSocket，因此我们将不得不每隔一段时间就去轮询数据是否有修改。我们不希望在没有更改的情况下调度操作，因此只有在满足某个条件（特定更改）时，我们的操作才会与它们各自的有效负载一起被调度。
 
-可能有几种方法，这可能不是最完美的一种，但是它在严格模式的约束下工作，所以我们很好。在_util_文件夹中创建一个名为_pollWeb3.js_的新文件。下面是我们要做的：
+也许有几种方法，这可能不是最完美的一种，但是它在严格模式的约束下工作，所以还算不错。在 _util_ 文件夹中创建一个名为 _pollWeb3.js_ 的新文件。下面是我们要做的：
 
 *  导入 Web 3，这样我们就不依赖于 Metamask 实例
-*  输入我们的存储，以便我们可以比较价值和派遣行动，如果需要的话
+*  输入我们的 store，以便我们需要的话，可以比较价值、分发 action
 *  创建 web 3 实例
-*  设置一个间隔来检查地址是否发生了变化，如果不是这样的话，检查余额是否发生了变化
-*  如果地址或余额有变化，我们将更新我们的存储。因为我们的 hello-metamask Component_具有一个_Computed 属性_这个数据更改具有反应性的
+*  设置一个间隔来检查地址是否发生了变化，如果没有，检查余额是否发生了变化
+*  如果地址或余额有变化，我们将更新我们的存储。因为我们的 hello-metamask 组件具有一个 _Computed_ 属性，这个改变是响应式的
 
 ```
 
@@ -68,7 +68,7 @@ let pollWeb3 = function (state) {
 export default pollWeb3
 ```
 
-现在，我们只需要开始轮询更新一旦我们的 web3Instance 被初步注册。因此，打开_Store/index.js_，导入 OUR_pollWeb3.js_file，并将其添加到我们的_RegierWeb3Instance()devation_的底部，以便在状态更改后执行。
+现在，一旦我们的 Web 3 实例被初始化，我们就要开始轮询更新。所以，打开 _Store/index.js_ ，导入 _pollWeb3.js_ 文件，并将其添加到我们的 _regierWeb3Instance()_ 方法的底部，以便在状态更改后执行。。
 
 ```
 import pollWeb3 from '../util/pollWeb3'
@@ -87,7 +87,7 @@ registerWeb3Instance (state, payload) {
  }
 ```
 
-由于我们正在调度操作，所以需要将其添加到存储中，并进行变异以提交更改。我们可以直接提交更改，但让我们保持模式的一致性。我们将添加一些控制台日志，以便您可以在控制台中观看精彩的过程。在 actions 对象中添加：
+由于我们正在调度 action，所以需要将其添加到 store 中，并进行变异以提交更改。我们可以直接提交更改，但让我们保持模式的一致性。我们将添加一些控制台日志，以便您可以在控制台中观看精彩的过程。在 actions 对象中添加：
 
 ```
 pollWeb3 ({commit}, payload) {
@@ -106,29 +106,20 @@ pollWeb3Instance (state, payload) {
  }
 ```
 
-Done! If we now change address in Metamask or our balance changes, we will see this update in our app without reloading the page. When we change the network the page will reload and we will register a new instance from the start. In production however we would want to show a warning to change to the correct network where our contract is deployed on.
-搞定了！如果我们现在在元掩码或我们的平衡改变地址，我们将看到在我们的应用程序无需重新加载页面更新。当我们更改网络时，页面将重新加载，我们将从一开始注册一个新实例。但是，在生产中，我们希望显示一个警告，要求更改到部署契约的正确网络。
+搞定了！如果我们现在改变 Metamask 的地址，或者余额发生变化，我们将看到在我们的应用程序无需重新加载页面更新。当我们更改网络时，页面将重新加载，我们将从一开始注册一个新实例。但是，在生产中，我们希望显示一个警告，要求更改到部署契约的正确网络。
 
-It's been a long road, I know but in the next section we'll finally dive into connecting our smart contract to our app. This will actually be pretty easy compared to what we already did.
 这是一个漫长的道路，我知道，但在下一节，我们将最终深入到我们的智能合同连接到我们的应用程序。与我们已经做过的相比，这实际上是相当容易的。
 
 ### 实例化我们的协议
 
-We'll start by writing the code, later we'll deploy our contract and insert the ABI and address into our application. Almost to create our long awaited casino-component that does the following:
 我们将首先编写代码，然后部署契约并将ABI和Address插入到应用程序中。几乎是为了创建我们期待已久的赌场组件，它执行以下操作：
 
-*   We need an input field so that the user can enter an amount to bet
-*   We need buttons that represent the number to bet on, when a user clicks on a number he will bet his entered amount on that number.
-*   The on click function will call the bet() function on our smart contract.
-*   We will display a loading spinner to display that the transaction is ongoing
-*   When the transaction finishes we will display whether the user has won and the amount
 *  我们需要一个输入字段，以便用户可以输入下注金额
 *  我们需要代表下注数字的按钮，当用户点击某个数字时，他将把输入的金额押在该数字上
 *  onClick 函数将调用 SMART 契约上的 BET() 函数
 *  我们将显示一个加载旋转器，以显示事务正在进行
 *  交易完成后，我们会显示用户是否中奖和金额
 
-First we need our application to be able to talk to our smart contract however. We’ll approach this the same way as we have already done. In the _util_ folder create a new file called _getContract.js_.
 但是，首先，我们需要我们的应用程序能够与我们的智能合同对话。我们将用我们已经做过的同样的方法来处理这个问题。在 _util_ 文件夹中创建一个名为 _getContract.js_ 的新文件。
 
 ```
@@ -146,14 +137,10 @@ let getContract = new Promise(function (resolve, reject) {
 export default getContract
 ```
 
-First thing to notice is that we’re importing a file that doesn’t exist yet, we’ll fix that later when we deploy our contract.
 首先要注意的是，我们正在导入一个尚不存在的文件，稍后我们将在部署约定时修复该文件。
 
-First we create a contract object for a solidity contract by passing in the ABI (which we’ll come back to) into _web3.eth.contract()_. Then we can initiate that object at an address. **It is on this instance that we can call upon our methods and events.**
 首先，我们通过将ABI(我们将回到)传递到 _web3.eth.Contact()_ 中，为稳固性契约创建一个契约对象。然后，我们可以在一个地址初始化该对象。**正是在这个实例中，我们可以调用我们的方法和事件。**
 
-This wouldn’t be complete however without actions and mutations, right.
-So inside the script tags of _casino-component.vue_ add the following.
 然而，如果没有行动和突变，这将是不完整的，对吧。
 因此，在 _Casica-Component.vue_ 的脚本标记中添加以下内容。
 
@@ -167,8 +154,7 @@ export default {
 }
 ```
 
-Now for our action and mutation inside the store. First import our _getContract.js_ file, I’m sure you know how to do this by now. Then in the action we’re creating, call upon it:
-现在是我们在商店里的行动和变异。首先导入OURE_getContract.js_file，我相信您现在已经知道如何做到这一点了。然后在我们创造的行动中，召唤它：
+现在是我们在商店里的行动和变异。首先导入 OURE_getContract.js_file，我相信您现在已经知道如何做到这一点了。然后在我们创造的行动中，召唤它：
 
 ```
 getContractInstance ({commit}) {
@@ -191,7 +177,7 @@ registerContractInstance (state, payload) {
 
 ### 与我们的协议互动
 
-首先，我们将添加一个数据属性(在导出中)到我们的 casino 组件，这样我们就可以拥有具有反应性属性的变量。这些值将是 winEvent、amount和Pending。
+首先，我们将添加一个数据属性(在导出中)到我们的 casino 组件，这样我们就可以拥有具有反应性属性的变量。这些值将是 winEvent、amount 和Pending。
 
 ```
 data () {
@@ -235,7 +221,7 @@ methods: {
   }
 ```
 
-我们的 _bet()_ 函数的第一个参数是我们在协议中定义的参数u Number._Event.Target.innerHTML_ 引用我们接下来将创建的列表标记中的数字。然后是一个定义事务参数的对象，这是我们输入用户下注金额的地方。第三个参数是回调。成功后，我们将密切关注这一事件。
+我们的 _bet()_ 函数的第一个参数是我们在协议中定义的参数 u Number._Event.Target.innerHTML_ 引用我们接下来将创建的列表标记中的数字。然后是一个定义事务参数的对象，这是我们输入用户下注金额的地方。第三个参数是回调。成功后，我们将密切关注这一事件。
 
 现在，我们将为组件创建 html 和 CSS。只是复制粘贴它，我认为它是不言自明的。在此之后，我们将部署合同，并获得 ABI 和地址。
 
@@ -335,7 +321,7 @@ li:active{
 
 ![](https://cdn-images-1.medium.com/max/800/1*gGPKAotB7qmUY70ZdZDDyA.png)
 
-很好的工作，现在我们只需要创建一个文件，从前一节还不存在。因此，在_util/constents_文件夹中创建一个名为_casinoContract.js_的新文件。创建两个变量，粘贴必要的内容并导出变量，这样我们从上面导入的内容就可以访问它们。
+很好的工作，现在我们只需要创建一个文件，从前一节还不存在。因此，在 _util/constents_ 文件夹中创建一个名为 _casinoContract.js_ 的新文件。创建两个变量，粘贴必要的内容并导出变量，这样我们从上面导入的内容就可以访问它们。
 
 ```
 const address = ‘0x…………..’
@@ -346,7 +332,7 @@ export {address, ABI}
 ### 干得好！ 
 
 We can now test our application by running _npm start_ in the terminal and going to _localhost:8080_ in our browser. Enter an amount and click a number. Metamask will prompt you to accept the transaction and the spinner will start. After 30 seconds to a minute we get the first confirmation and thus the event as well. Our balance changes, so pollweb3 fires it’s action to update the balance:
-现在，我们可以通过在终端中运行_npm start_并在浏览器中运行_localhost：8080_来测试我们的应用程序。输入金额并单击一个数字。Metamask 将提示您接受事务，旋转器将启动。在 30 秒到 1 分钟之后，我们得到第一次确认，因此也得到了事件的确认。我们的余额发生了变化，所以 pollweb 3 触发它的动作来更新余额：
+现在，我们可以通过在终端中运行 _npm start_ 并在浏览器中运行 _localhost：8080_ 来测试我们的应用程序。输入金额并单击一个数字。Metamask 将提示您接受事务，旋转器将启动。在 30 秒到 1 分钟之后，我们得到第一次确认，因此也得到了事件的确认。我们的余额发生了变化，所以 pollweb 3 触发它的动作来更新余额：
 
 ![](https://cdn-images-1.medium.com/max/800/1*GvWC8YzcuzWBs8TdSphiQw.png)
 
@@ -380,7 +366,7 @@ We can now test our application by running _npm start_ in the terminal and going
 import ‘font-awesome/css/font-awesome.css’
 ```
 
-**在 Hello-metanask.vue**中，我们将做一些更改。我们将在我们的_Computed_属性中使用 mapState 助手，而不是当前函数。我们还将使用 v-if检查_isInjected_，并在此基础上显示不同的 HTML。最后的组件如下所示：
+**在 Hello-metanask.vue** 中，我们将做一些更改。我们将在我们的 _Computed_ 属性中使用 mapState 助手，而不是当前函数。我们还将使用 v-if 检查 _isInjected_ ，并在此基础上显示不同的 HTML。最后的组件如下所示：
 
 ```
 <template>
@@ -416,7 +402,7 @@ export default {
 }</style>
 ```
 
-我们将执行相同的 v-if/v-else 方法来设计我们的事件，该事件将在赌场内部返回**-Component.vue**：
+我们将执行相同的 v-if/v-else 方法来设计我们的事件，该事件将在赌场内部返回 **-Component.vue**：
 
 ```
 <div class=”event” v-if=”winEvent”>
@@ -432,7 +418,7 @@ export default {
 }
 ```
 
-最后，在我们的_clickNumber()_ 函数中，在_this.winEvent=Result.args_：下面添加一行：
+最后，在我们的 _clickNumber()_  函数中，在 _this.winEvent=Result.args_ ：下面添加一行：
 
 ```
 this.winEvent._amount = parseInt(result.args._amount, 10)
@@ -450,7 +436,7 @@ this.winEvent._amount = parseInt(result.args._amount, 10)
 
 希望本教程系列能够帮助您构建更多、更好的去中心化应用程序。我真诚地希望你和我一样喜欢读这篇文章。
 
-我不是一个有20多年经验的软件工程师。因此，如果您有任何建议或改进，请随时发表意见。我喜欢学习新事物，在力所能及的范围内提高自己。谢谢。
+我不是一个有 20 多年经验的软件工程师。因此，如果您有任何建议或改进，请随时发表意见。我喜欢学习新事物，在力所能及的范围内提高自己。谢谢。
 
 更新：[增加以太坊平衡显示](https://github.com/kyriediculous/dapp-tutorial/commit/a07edf3182a3d6c7284e830f709d79b61a40ab0e)
 
