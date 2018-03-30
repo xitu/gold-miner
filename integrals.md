@@ -4074,10 +4074,11 @@
 |------|-------|-------|
 |[RNN 循环神经网络系列 4: 注意力机制](https://juejin.im/post/59f72f61f265da432002871c)|校对|2|
 
-## 译者：[Raoul1996](https://github.com/Raoul1996) 历史贡献积分：48.5 当前积分：28.5 年度积分：18
+## 译者：[Raoul1996](https://github.com/Raoul1996) 历史贡献积分：48.5 当前积分：20.5 年度积分：18
 
 |文章|类型|积分|
 |------|-------|-------|
+|[2018 年 3 月兑笔记本 1 个]()|减去积分|8|
 |[20 年后比特币将会变成什么样 - 第 3 部分](https://juejin.im/post/5a9ce3715188255585070586)|校对|2|
 |[一份为 Node.js 应用准备的 Dockerfile 指南](https://juejin.im/post/5a9626abf265da4e9d225f4f)|校对|1|
 |[二十年后比特币会变成什么样？- 第二部分](https://juejin.im/post/5a955721f265da4e826377b6)|校对|2|
@@ -4177,10 +4178,11 @@
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|1|
 |[Vue Report 2017](https://juejin.im/post/5a138fae5188254d28732899)|翻译|2|
 
-## 译者：[JohnJiangLA](https://github.com/JohnJiangLA) 历史贡献积分：90 当前积分：30 年度积分：56
+## 译者：[JohnJiangLA](https://github.com/JohnJiangLA) 历史贡献积分：90 当前积分：-5 年度积分：56
 
 |文章|类型|积分|
 |------|-------|-------|
+|[2018 年 3 月兑 帽衫 M 和小猫各 1 个]()|减去积分|35|
 |[带你了解以太坊第 2 层扩容方案：State Channels、Plasma 和 Truebit](https://juejin.im/post/5aa1f63c518825558804f85b)|翻译|11|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|校对|8|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译校对|8|
@@ -4618,10 +4620,11 @@
 |[在 Redux 中使用 AJAX 轮询](https://juejin.im/post/5a43b6da5188257d167a7aef)|翻译|2|
 |[在 Redux 中使用 AJAX 轮询（二）：Saga 篇](https://juejin.im/post/5a43b80df265da43176a6e4e)|翻译|3|
 
-## 译者：[FateZeros](https://github.com/FateZeros) 历史贡献积分：32 当前积分：32 年度积分：30
+## 译者：[FateZeros](https://github.com/FateZeros) 历史贡献积分：32 当前积分：7 年度积分：30
 
 |文章|类型|积分|
 |------|-------|-------|
+|[2018 年 3 月兑 小猫、笔记本、比特币各 1 个]()|减去积分|25|
 |[我们能从 Redux 源码中学到什么？](https://juejin.im/post/5ab3ca926fb9a028d6641605)|校对|1.5|
 |[使用 Web3 和 Vue.js 来创建你的第一个以太坊 dAPP（第一部分）](https://juejin.im/post/5aa7a8d2518825558805128d)|校对|1|
 |[Express.js 与 AWS Lambda  —  一场关于 serverless 的爱情故事](https://juejin.im/post/5aa128cdf265da239b410225)|校对|1.5|
@@ -4731,10 +4734,11 @@
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|45|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|7|
 
-## 译者：[NeoyeElf](https://github.com/NeoyeElf) 历史贡献积分：21 当前积分：21 年度积分：21
+## 译者：[NeoyeElf](https://github.com/NeoyeElf) 历史贡献积分：21 当前积分：6 年度积分：21
 
 |文章|类型|积分|
 |------|-------|-------|
+|[2018 年 3 月兑小猫 1 个]()|减去积分|15|
 |[用 Java 创造你的第一个区块链之第二部分 — 交易](https://juejin.im/post/5a940b116fb9a0633757587a)|校对|2|
 |[用 Java 创造你的第一个区块链 — 第一部分](https://juejin.im/post/5a8ed1d75188257a836c4218)|翻译|4|
 |[游戏即服务的五条建议，提升游戏变现能力](https://juejin.im/post/5a7a95cbf265da4e8700b34b)|校对|3|
