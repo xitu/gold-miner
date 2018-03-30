@@ -317,7 +317,7 @@ li:active{
 
 我们的协议地址在「to」字段中。
 
-这就给了我们地址，现在是 ABI 的地址。回到混音并切换到「编译」选项卡(右上角)。在协议名称旁边，我们将看到一个名为「Details」的按钮，单击它。第四个领域是我们的 ABI。
+这就给了我们地址，现在是 ABI。回到 remix 并切换到「编译」选项卡(右上角)。在协议名称旁边，我们将看到一个名为「Details」的按钮，单击它。第四个领域是我们的 ABI。
 
 ![](https://cdn-images-1.medium.com/max/800/1*gGPKAotB7qmUY70ZdZDDyA.png)
 
