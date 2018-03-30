@@ -112,7 +112,7 @@ pollWeb3Instance (state, payload) {
 
 ### 实例化我们的协议
 
-我们将首先编写代码，然后部署契约并将ABI和Address插入到应用程序中。几乎是为了创建我们期待已久的赌场组件，它执行以下操作：
+我们将首先编写代码，然后部署契约并将 ABI 和 Address 插入到应用程序中。几乎是为了创建我们期待已久的赌场组件，它执行以下操作：
 
 *  我们需要一个输入字段，以便用户可以输入下注金额
 *  我们需要代表下注数字的按钮，当用户点击某个数字时，他将把输入的金额押在该数字上
@@ -154,7 +154,7 @@ export default {
 }
 ```
 
-现在是我们在商店里的行动和变异。首先导入 OURE_getContract.js_file，我相信您现在已经知道如何做到这一点了。然后在我们创造的行动中，召唤它：
+现在是我们在商店里的行动和变异。首先导入 _getContract.js_ 文件，我相信您现在已经知道如何做到这一点了。然后在我们创造的过程中，调用它：
 
 ```
 getContractInstance ({commit}) {
@@ -189,7 +189,7 @@ data () {
  }
 ```
 
-现在，我们将为用户单击一个数字时创建 onClick 函数。这将触发契约上的 _bet()_ 函数，显示微调器，当它接收到事件时隐藏微调器并显示事件参数。在 Data 属性下，添加一个名为 Methods 的属性，该属性接受一个对象，我们将在其中放置我们的函数。
+现在，我们将为用户单击一个数字时创建 onClick 函数。这将触发契约上的 _bet()_ 函数，显示微调器，当它接收到事件时隐藏微调器并显示事件参数。在 Data 属性下，添加一个名为 Methods 的属性，该属性接收一个对象，我们将在其中放置我们的函数。
 
 ```
 methods: {
@@ -223,7 +223,7 @@ methods: {
 
 我们的 _bet()_ 函数的第一个参数是我们在协议中定义的参数 u Number._Event.Target.innerHTML_ 引用我们接下来将创建的列表标记中的数字。然后是一个定义事务参数的对象，这是我们输入用户下注金额的地方。第三个参数是回调。成功后，我们将密切关注这一事件。
 
-现在，我们将为组件创建 html 和 CSS。只是复制粘贴它，我认为它是不言自明的。在此之后，我们将部署合同，并获得 ABI 和地址。
+现在，我们将为组件创建 html 和 CSS。只是复制粘贴它，我认为它浅显了。在此之后，我们将部署协议，并获得 ABI 和地址。
 
 ```
 <template>
@@ -311,7 +311,7 @@ li:active{
 
 部署与[第1部分](https://itnext.io/create-your-first-ethereum-dapp-with-web3-and-vue-js-c7221af1ed82)中的部署相同。我们在 Value 字段中输入几个参数来预装协议，输入构造函数参数，然后单击 Create。这一次，metamask 将提示接受/拒绝事务(约定部署)。单击“接受”并等待事务完成。
 
-当 TX 完成后点击它，这将带你到那个 TX 的萎缩块链浏览器。我们可以在“to”字段下找到合同地址。你的当然会不同，但看起来很相似。
+当 TX 完成后点击它，这将带你到那个 TX 的萎缩块链浏览器。我们可以在“to”字段下找到协议的地址。你的协议虽然不同，但看起来很相似。
 
 ![](https://cdn-images-1.medium.com/max/800/1*_l_EVygtbwHgway4sxwOjQ.png)
 
@@ -331,7 +331,6 @@ export {address, ABI}
 
 ### 干得好！ 
 
-We can now test our application by running _npm start_ in the terminal and going to _localhost:8080_ in our browser. Enter an amount and click a number. Metamask will prompt you to accept the transaction and the spinner will start. After 30 seconds to a minute we get the first confirmation and thus the event as well. Our balance changes, so pollweb3 fires it’s action to update the balance:
 现在，我们可以通过在终端中运行 _npm start_ 并在浏览器中运行 _localhost：8080_ 来测试我们的应用程序。输入金额并单击一个数字。Metamask 将提示您接受事务，旋转器将启动。在 30 秒到 1 分钟之后，我们得到第一次确认，因此也得到了事件的确认。我们的余额发生了变化，所以 pollweb 3 触发它的动作来更新余额：
 
 ![](https://cdn-images-1.medium.com/max/800/1*GvWC8YzcuzWBs8TdSphiQw.png)
@@ -342,7 +341,7 @@ We can now test our application by running _npm start_ in the terminal and going
 
 ### 关注想要它的一部分
 
-我们很快就会讲完的。它将只是一些 html、css和vue-条件语句，带有 v-if/v-Else。
+我们很快就会讲完的。它将只是一些 html、css 和 vue 条件语句，带有 v-if/v-Else。
 
 **在 App.vue **中，将容器类添加到我们的 div 元素中，在 CSS 中定义该类：
 
@@ -424,9 +423,9 @@ export default {
 this.winEvent._amount = parseInt(result.args._amount, 10)
 ```
 
-### 恭喜，你已经走到尽头了！
+### 恭喜，你已经完成了！
 
-**首先，项目的完整代码现在可以在主分支下获得：**[**https://github.com/kyriediculous/dapp-tutorial/tree/master**](https://github.com/kyriediculous/dapp-tutorial/tree/master) **!**
+**首先，项目的完整代码可以在主分支下获得：**[**https://github.com/kyriediculous/dapp-tutorial/tree/master**](https://github.com/kyriediculous/dapp-tutorial/tree/master) **!**
 
 ![](https://cdn-images-1.medium.com/max/800/1*jb6ety7sf_MxbbAR30NIxQ.png)
 
