@@ -199,31 +199,31 @@ class MyComponent extends Component {
 }
 ```
 
-#### Problems
+#### 问题
 
-Focus on line 11. If you mutate the state _directly,_ the component will **not** be re-rendered and the changes will not be reflected. This is because the state is compared [shallowly](https://stackoverflow.com/questions/36084515/how-does-shallow-compare-work-in-react). You should always use `setState` for changing the value of the state.
+请注意第 11 行代码。如果你**直接**修改了 state，组件并**不会**重新渲染，修改也不会有任何体现。这是因为 state 是进行[浅比较（shallow compare）](https://stackoverflow.com/questions/36084515/how-does-shallow-compare-work-in-react)的。你应该永远都使用 `setState` 来改变 state 的值。
 
-Now, in `setState` if you use the value of current `state` to update to the next state (as done in line 15), React **may or may not** **re-render**. This is because, `state` and `props` are updated asynchronously. That is, the DOM is not updated as soon as `setState` is invoked. Rather, React batches multiple updates into one update and then renders the DOM. You may receive outdated values while querying the `state` object. The [docs](https://reactjs.org/docs/state-and-lifecycle.html#state-updates-may-be-asynchronous) also mention this —
+现在，如果你在 `setState` 中通过当前的 `state` 来更新至下一个 state （正如第 15 行代码所做的），React **可能不会重新渲染**。这是因为 `state` 和 `props` 是异步更新的。也就是说，DOM 并不会随着 `setState` 被调用就立即更新。React 会将多次更新合并到同一批次进行更新，然后渲染 DOM。查询 `state` 对象时，你可能会收到已经过期的值。[文档](https://reactjs.org/docs/state-and-lifecycle.html#state-updates-may-be-asynchronous)也提到了这一点：
 
-> Because `this.props` and `this.state` may be updated asynchronously, you should not rely on their values for calculating the next state.
+> 由于 `this.props` 和 `this.state` 是异步更新的，你不应该依赖它们的值来计算下一个 state。
 
-Another problem is when you have multiple `setState` calls in a single function, as shown above on line 16 and 20. Initial value of the counter is 350. Assume the value of `this.props.increment` is 10. You might think that after the first `setState` invocation on line 16, the counter’s value will change to 350+10 = **360.** And, when the next `setState` is called on line 20, the counter’s value will change to 360+10 = **370**. However, this does not happen. The second call still sees the value of `counter` as 350. **This is because setState is async**. The counter’s value does not change until the next update cycle. The execution of setState is waiting in the [event loop](https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop) and until `updateCounter` finishes execution, `setState` won’t run and hence won’t update the `state`.
+另一个问题出现于一个函数中有多次 `setState` 调用时，如第 16 和 20 行代码所示。counter 的初始值是 350。假设 `this.props.increment` 的值是 10。你可能以为在第 16 行代码第一次调用 `setState` 后，counter 的值会变成 350+10 = **360。**并且，当第 20 行代码再次调用 `setState` 时，counter 的值会变成 360+10 = **370**。然而，这并不会发生。第二次调用时所看到的 `counter` 的值仍为 350。**这是因为 setState 是异步的。**counter 的值直到下一个更新周期前都不会发生改变。setState 的执行在[事件循环](https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop)中等待，直到 `updateCounter` 执行完毕前，`setState` 都不会执行， 因此 `state` 的值也不会更新。
 
-#### Solution
+#### 解决
 
-You should use the other form of `setState` as done on line 27 and 31. In this form, you can pass a function to `setState` which receives _currentState_ and _currentProps_ as arguments. The return value of this function is merged in with the existing state to form the new state.
+你应该看看第 27 和 31 行代码使用 `setState` 的方式。以这种方式，你可以给 `setState` 传入一个接收 **currentState** 和 **currentProps** 作为参数的函数。这个函数的返回值会与当前 state 合并以形成新的 state。
 
-#### Read More —
+#### 延伸阅读
 
-*   A wonderful [explanation](https://github.com/facebook/react/issues/11527) of why `setState` is async by [Dan Abramov](https://medium.com/@dan_abramov).
-*   [Using a function in `setState` instead of an object](https://medium.com/@wisecobbler/using-a-function-in-setstate-instead-of-an-object-1f5cfd6e55d1)
-*   [Beware: React setState is asynchronous!](https://medium.com/@wereHamster/beware-react-setstate-is-asynchronous-ce87ef1a9cf3)
+*   [Dan Abramov](https://medium.com/@dan_abramov) 对于为什么 `setState` 是异步的所做的超级棒的[解释](https://github.com/facebook/react/issues/11527)
+*   [在 `setState` 中使用函数而不是对象](https://medium.com/@wisecobbler/using-a-function-in-setstate-instead-of-an-object-1f5cfd6e55d1)
+*   [Beware： React 的 setState 是异步的！](https://medium.com/@wereHamster/beware-react-setstate-is-asynchronous-ce87ef1a9cf3)
 
-### 4. Props in Initial State
+### 4. 初始值中的 props
 
-The React docs mention this anti-pattern as —
+React 文档提到这也是反模式：
 
-> _Using props to generate state in_ getInitialState _often leads to duplication of “source of truth”, i.e. where the real data is. This is because getInitialState is only invoked when the component is first created._
+> **在 getInitialState 中使用 props 来生成 state 经常会导致重复的“事实来源”，即真实数据的所在位置。这是因为 getInitialState 仅仅在组件第一次创建时被调用。**
 
 #### Demo
 
@@ -240,17 +240,17 @@ class MyComponent extends Component {
 }
 ```
 
-#### Problems
+#### 问题
 
-The `constructor` or (getInitialState) is called **only at the time of component creation**. That is, `constructor` is invoked only once. Hence, when you change the `props` next time, the state won’t be updated and will retain its previous value.
+`constructor`（getInitialState） **仅仅在组件创建阶段被调用**。也就是说，`constructor` 只被调用一次。因此，当你下一次改变 `props` 时，state 并不会更新，它仍然保持为之前的值。
 
-Young developers often assume that the `props` values will be in sync with the state, and as `props` change, the `state` will reflect those values. However, that is not true.
+经验尚浅的开发者经常设想 `props` 的值与 state 是同步的，随着 `props` 改变，`state` 也会随之变化。然而，这并不是真的。
 
-#### Solutions
+#### 解决
 
-You can use this pattern if you want a specific behaviour. That is, **you want the state to be _seeded_ by the values of props only once**. The state will be managed internally by the component.
+如果你需要特定的行为即**你希望 state 仅由 props 的值生成一次**的话，可以使用这种模式。state 将由组件在内部管理。
 
-In other cases, you can use `componentWillReceiveProps` lifecycle method to keep the state and props in sync, as shown here.
+在另一个场景下，你可以通过生命周期方法 `componentWillReceiveProps` 保持 state 与 props 的同步，如下所示。
 
 ```
 import React, { Component } from 'react'
@@ -271,48 +271,48 @@ class MyComponent extends Component {
 }
 ```
 
-Beware that using `componentWillReceiveProps` has it own caveats. You can read about it the [Docs](https://reactjs.org/docs/react-component.html#componentwillreceiveprops).
+要注意，关于使用 `componentWillReceiveProps` 有一些注意事项。你可以在[文档](https://reactjs.org/docs/react-component.html#componentwillreceiveprops)中阅读。
 
-The best approach would be to use a state management library such as Redux to [_connect_](https://github.com/reactjs/react-redux) the state and the component.
+最佳方法是使用状态管理库如 Redux 去 [**connect**](https://github.com/reactjs/react-redux) state 和组件。
 
-#### Read More —
+#### 延伸阅读
 
-*   [Props in Initial State](https://github.com/vasanthk/react-bits/blob/master/anti-patterns/01.props-in-initial-state.md)
+*   [初始化 state 中的 props](https://github.com/vasanthk/react-bits/blob/master/anti-patterns/01.props-in-initial-state.md)
 
-### 5. Components Name
+### 5. 组件名
 
-In React, if you are rendering your component using JSX, the name of that component has to begin with with a capital letter.
+在 React 中，如果你想使用 JSX 渲染你的组件，组件名必须以大写字母开头。
 
 #### Demo
 
 ```
 <MyComponent>
-    <app /> // Will not work :(
+    <app /> // 不会生效 :(
 </MyComponent>
 
 <MyComponent>
-    <App /> // Will work!
+    <App /> // 可以生效！
 </MyComponent>
 ```
 
-#### Problems
+#### 问题
 
-If you create a component `app` and render it using JSX as `<app label="Save" />`, React will throw an error.
+如果你创建了一个 `app` 组件，以 `<app label="Save" />` 的形式去渲染它，React 将会报错。
 
-![](https://cdn-images-1.medium.com/max/1000/1*xCB4cI255tVV41NvIozL7g.png)
+![](http://o7ts2uaks.bkt.clouddn.com/1_xCB4cI255tVV41NvIozL7g.png)
 
-Warning when using non-capitalised custom components.
+使用非大写自定义组件时的警告。
 
-The error says that `<app>` is not recognised. Only HTML elements and SVG tags can begin with a lowercase. Hence, `<div />` is okay but `<app>` is not.
+报错表明 `<app>` 是无法识别的。只有 HTML 元素和 SVG 标签可以以小写字母开头。因此 `<div />` 是可以是别的，`<app>` 却不能。
 
-#### Solution
+#### 解决
 
-You need to make sure that while using custom component in JSX, it ashould begin with a capital letter.
+你需要确保在 JSX 中使用的自定义组件是以大写字母开头的。
 
-But, also understand that declaring components does not adhere to this rule. Hence, you can do this —
+但是也要明白，声明组件无需遵从这一规则。因此，你可以这样写：
 
 ```
-// Here lowercase is fine.
+// 在这里以小写字母开头是可以的
 class primaryButton extends Component {
   render() {
     return <div />;
@@ -321,40 +321,40 @@ class primaryButton extends Component {
 
 export default primaryButton;
 
-// In a different file, import the button. However, make sure to give a name starting with capital letter.
+// 在另一个文件中引入这个按钮组件。要确保以大写字母开头的名字引入。
 
 import PrimaryButton from 'primaryButton';
 
 <PrimaryButton />
 ```
 
-#### Read More —
+#### 延伸阅读
 
-*   [React Gotchas](https://daveceddia.com/react-gotchas/)
+*   [React 陷阱](https://daveceddia.com/react-gotchas/)
 
-These were some unintuitive hard-to-understand bug-makers in React. If you know about any other anti-pattern, respond to this article. 😀
-
-* * *
-
-I have also written [Top React and Redux Packages for Faster Development](https://codeburst.io/top-react-and-redux-packages-for-faster-development-5fa0ace42fe7)
-
-- [**Top React and Redux Packages for Faster Development**: React has grown in popularity over the last few years. With that, a lot of tools have emerged that make developer’s… codeburst.io](https://codeburst.io/top-react-and-redux-packages-for-faster-development-5fa0ace42fe7)
-
-If you are still learning how to setup a React Project, this [two-part series](https://codeburst.io/yet-another-beginners-guide-to-setting-up-a-react-project-part-1-bdc8a29aea22) might be helpful in understanding various aspects of React build system.
-
-- [**Yet another Beginner’s Guide to setting up a React Project — Part 1**: React has gained considerable momentum in the last few years and has turned into a mature and stable UI library. It has… codeburst.io](https://codeburst.io/yet-another-beginners-guide-to-setting-up-a-react-project-part-1-bdc8a29aea22)
-
-- [**Yet another Beginner’s Guide to setting up a React Project — Part 2**: We set up a simple React App in Part 1\. We used React, React DOM and webpack-dev-server as our dependencies. We will… codeburst.io](https://codeburst.io/yet-another-beginners-guide-to-setting-up-a-react-project-part-2-5d3151814333)
+以上这些都是 React 中不直观，难以理解也容易出现问题的地方。如果你知道任何其它的反模式，请回复本文。😀
 
 * * *
 
-**I write about JavaScript, web development, and Computer Science. Follow me for weekly articles. Share this article if you like it.**
+我还写了一篇 [可以帮助快速开发的优秀 React 和 Redux 包](https://codeburst.io/top-react-and-redux-packages-for-faster-development-5fa0ace42fe7)
+
+- [**可以帮助快速开发的优秀 React 和 Redux 包**： 近些年来 React 越来越受欢迎，随之也出现了许多工具…… codeburst.io](https://codeburst.io/top-react-and-redux-packages-for-faster-development-5fa0ace42fe7)
+
+如果你仍在学习如何构建 React 项目，这个[含有两部分的系列文章](https://codeburst.io/yet-another-beginners-guide-to-setting-up-a-react-project-part-1-bdc8a29aea22) 可以帮助你理解 React 构建系统的多个方面。
+
+- [**又一个 React 初学者指南项目 —— 第一部分**： 过去几年中 React 发展迅猛，已发展成一个成熟的 UI 库）……codeburst.io](https://codeburst.io/yet-another-beginners-guide-to-setting-up-a-react-project-part-1-bdc8a29aea22)
+
+- [**又一个 React 初学者指南项目 —— 第二部分**：我们在第一部分中构建了一个简单的 React 应用。使用 React， React DOM 与 webpack-dev-server 作为项目依赖…… codeburst.io](https://codeburst.io/yet-another-beginners-guide-to-setting-up-a-react-project-part-2-5d3151814333)
+
+* * *
+
+**我写作 JavaScript，Web 开发与计算机科学领域的文章。关注我可以每周阅读新文章。如果你喜欢，可以分享本文。**
 
 **Reach out to me on @** [**Facebook**](https://www.facebook.com/arfat.salman) **@** [**Linkedin**](https://www.linkedin.com/in/arfatsalman/) **@** [**Twitter**](https://twitter.com/salman_arfat)**.**
 
-[![](https://cdn-images-1.medium.com/max/1000/1*i3hPOj27LTt0ZPn5TQuhZg.png)](http://bit.ly/codeburst)
+[![](http://o7ts2uaks.bkt.clouddn.com/1_i3hPOj27LTt0ZPn5TQuhZg.png)](http://bit.ly/codeburst)
 
-> ✉️ _Subscribe to_ CodeBurst’s _once-weekly_ [**_Email Blast_**](http://bit.ly/codeburst-email)**_,_ **🐦 _Follow_ CodeBurst _on_ [**_Twitter_**](http://bit.ly/codeburst-twitter)_, view_ 🗺️ [**_The 2018 Web Developer Roadmap_**](http://bit.ly/2018-web-dev-roadmap)_, and_ 🕸️ [**_Learn Full Stack Web Development_**](http://bit.ly/learn-web-dev-codeburst)_._
+> ✉️ **订阅 CodeBurst的每周邮件** [**_Email Blast_**](http://bit.ly/codeburst-email), 🐦可以在[**_Twitter_**](http://bit.ly/codeburst-twitter) 上关注 CodeBurst, 浏览 🗺️ [**_The 2018 Web Developer Roadmap_**](http://bit.ly/2018-web-dev-roadmap), 和 🕸️ [**学习 Web 全栈开发**](http://bit.ly/learn-web-dev-codeburst)。
 
 
 ---
