@@ -1,3 +1,7 @@
+* [热爱 JavaScript，但是讨厌 CSS？](https://juejin.im/post/5aba0d37518825556a72708a) ([allenlongbaobao](https://github.com/allenlongbaobao) 翻译)
+* [使用 React、Redux、SVG 开发游戏 - Part 1](https://juejin.im/post/5abcdc2c5188255c887bb9ec) ([zephyrJS](https://github.com/zephyrJS) 翻译)
+* [关于 CSS 变量，你需要了解的一切](https://juejin.im/post/5ab835225188255572085af4) ([MechanicianW](https://github.com/MechanicianW) 翻译)
+* [Reducers VS Transducers](https://juejin.im/post/5ab8705e518825555c1da48f) ([jonjia](https://github.com/jonjia) 翻译)
 * [2018 如何玩转 JavaScript](https://juejin.im/entry/5aa0e46d6fb9a028b54775cd/detail) ([llp0574](https://github.com/llp0574) 翻译)
 * [为你的 React 应用制作 SVG 图标库](https://juejin.im/post/5a9e40fe518825558a061cfd) ([Albertao](https://github.com/Albertao) 翻译)
 * [做好准备：新的 V8 即将到来，Node.js 的性能正在改变。](https://juejin.im/post/5aaf755851882555627d16e5) ([Starriers](https://github.com/Starriers) 翻译)
