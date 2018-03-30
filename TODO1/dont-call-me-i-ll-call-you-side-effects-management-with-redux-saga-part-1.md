@@ -9,7 +9,7 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*v-_1QMuWsWYoB-AY78nArQ.png)
 
-在接下来的两篇文章中，我想谈谈在 React 应用中使用 Redux-Saga 进行异步操作 action 管理的基础和进阶方法。我会说明为什么我们会在 **AppsFlyer** 项目中使用它，以及它可以解决什么问题。
+在接下来的两篇文章中，我想谈谈在 React 应用中使用 Redux-Saga 进行异步 action 管理的基础和进阶方法。我会说明为什么我们会在 **AppsFlyer** 项目中使用它，以及它可以解决什么问题。
 
 本篇文章主要介绍 Redux-Saga 相关的基本概念，下篇专门讨论 Redux-Saga 可以解决哪些问题。请注意：阅读这两篇文章，你要对 [React](https://reactjs.org/) 和 [Redux](https://redux.js.org/) 有一定的了解。
 
@@ -56,16 +56,15 @@ console.log(results.value);
 
 #### 什么是 Sagas？
 
-
 Sagas 是通过 Generator 函数来创建的。[官方文档](https://github.com/redux-saga/redux-saga) 的解释如下：
 
-> Saga 就像应用中的一个独立线程，完全负责管理异步操作。
+> Saga 就像应用中的一个独立线程，完全负责管理异步 action。
 
 你可以把 Saga 想象成一个不断地调用 `next` 方法并尝试尽快获取所有 `yield` 表达式值的线程。你可能会问这和 React 有什么关系，为什么要使用它，所以首先来看看如何在 React & Redux 应用使用 Saga：
 
 在 React & Redux 应用中，一个常见的用法从调用一个 action 开始。被分配用来处理这个 action 的 reducer 会使用新的 state 更新 store，随后视图就会被更新渲染。
 
-如果一个 Saga 被分配用来处理这个 action — 这个 action 通常就是个异步操作（比如一个对服务端的请求），一旦这个 action 完成后，Saga 会调用另一个 action 让 reducer 进行处理。
+如果一个 Saga 被分配用来处理这个 action — 这个 action 通常就是个异步 action（比如一个对服务端的请求），一旦这个 action 完成后，Saga 会调用另一个 action 让 reducer 进行处理。
 
 #### 常见用例
 
