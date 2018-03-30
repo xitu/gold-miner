@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/lets-simplify-the-work-with-userdefaults.md](https://github.com/xitu/gold-miner/blob/master/TODO1/lets-simplify-the-work-with-userdefaults.md)
 > * 译者：[talisk](https://github.com/talisk)
-> * 校对者：
+> * 校对者：[allen](https://github.com/allenlongbaobao)，[stormluke](https://github.com/stormluke)
 
 # 让我们来简化 UserDefaults 的使用
 
