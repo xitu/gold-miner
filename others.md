@@ -1,3 +1,4 @@
+* [良好的编码习惯 — 5 个提高代码质量的技巧](https://juejin.im/post/5abc584251882555867f7f1e) ([NeoyeElf](https://github.com/NeoyeElf) 翻译)
 * [如何修改域名来提高国际增长率](https://juejin.im/post/5aaf0542f265da239530c653) ([Starriers](https://github.com/Starriers) 翻译)
 * [不要害怕 Rebase](https://juejin.im/post/5ab1bdbe518825556e5df5f8) ([sqrthree](https://github.com/sqrthree) 翻译)
 * [开启你的开源生涯](https://juejin.im/post/5a5c029d51882573432d21ff) （[zwwill](https://github.com/zwwill) 翻译）
