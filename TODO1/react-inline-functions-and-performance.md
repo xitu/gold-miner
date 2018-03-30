@@ -3,21 +3,21 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/react-inline-functions-and-performance.md](https://github.com/xitu/gold-miner/blob/master/TODO1/react-inline-functions-and-performance.md)
 > * 译者：[wznonstop](https://github.com/wznonstop)
-> * 校对者：
+> * 校对者：[MechanicianW](https://github.com/MechanicianW)，[sunhaokk](https://github.com/sunhaokk)
 
-# React，内联函数和性能
+# React 的内联函数和性能
 
-我和妻子近期完成了一次声势浩大的装修。我们迫不及待地想向人们展示我们的新意。我们让我的婆婆来参观，她走进那间装修得很漂亮的卧室，抬头看了看那扇构造精巧的窗户，然后说："居然没有百叶窗？"😐
+我和妻子近期完成了一次声势浩大的装修。我们迫不及待地想向人们展示我们的新意。我们让我的婆婆来参观，她走进那间装修得很漂亮的卧室，抬头看了看那扇构造精巧的窗户，然后说：“居然没有百叶窗？”😐
 
 ![](https://raw.githubusercontent.com/wznonstop/wznonstop.github.io/master/images/2018-03-28-0.jpeg)
 
 **我们的新卧室；天哪，它看起来就像一张杂志的照片。而且，没有百叶窗。** 
 
-我发现，当我谈论 React 的时候，会有同样的情绪。我将通过研讨会的第一堂课，展示一些很酷的新特性。总是有人说："内联函数？ 我听说它们很慢。"
+我发现，当我谈论 React 的时候，会有同样的情绪。我将通过研讨会的第一堂课，展示一些很酷的新特性。总是有人说：“内联函数？ 我听说它们很慢。”
 
 并不总是这样，但最近几个月这个观点每天都会出现。作为一名讲师和代码库的作者，这让人感到精疲力竭。不幸的是，我可能有点傻，之前只知道在 Twitter 上咆哮，而不是去写一些可能对别人来说有深刻见解的东西。所以，我就来尝试一下更好的选择了 😂。
 
-### "内联函数"是什么
+### “内联函数”是什么
 
 在 React 的语境中，内联函数是指在 React 进行 "rendering" 时定义的函数。 人们常常对 React 中 "render" 的两种含义感到困惑，一种是指在 update 期间从组件中获取 React 元素（调用组件的 render 方法）；另一种是渲染更新真实的 DOM 结构。本文中提到的 "rendering"都是指第一种。
 
@@ -30,7 +30,7 @@ class App extends Component {
     return (
       <div>
         
-        {/* 1. 一个内联的"DOM组件"事件处理程序 */}
+        {/* 1. 一个内联的“DOM组件”事件处理程序 */}
         <button
           onClick={() => {
             this.setState({ clicked: true })
@@ -39,7 +39,7 @@ class App extends Component {
           Click!
         </button>
         
-        {/* 2. 一个"自定义事件"或"操作" */}
+        {/* 2. 一个“自定义事件”或“操作” */}
         <Sidebar onToggle={(isOpen) => {
           this.setState({ sidebarIsOpen: isOpen })
         }}/>
@@ -67,11 +67,11 @@ class App extends Component {
 
 我记得我的朋友 Ralph Holzmann 发表的关于 gzip 如何工作的演讲，这个演讲巩固了我对此的看法。他谈到了一个他用古老的脚本加载库 LABjs 做的实验。你可以观看[这个视频](https://vimeo.com/34164210)的 30:02 到 32:35 来了解它，或者继续阅读本文。
 
-当时 [LABjs](https://github.com/getify/LABjs) 的源码在性能上做了一些令人尴尬的事情。它没有使用普通的对象表示法(`obj.foo`)，而是将键存储在字符串中，并使用方括号表示法来访问对象(`obj[stringForFoo]`)。这样做的想法源于，经过小型化和 gzip 压缩之后，非自然编写的代码将比自然编写的代码体积小。 [你可以在这里看到它](https://github.com/getify/LABjs/blob/b23ee3fcad12157cf8f6a291cb54fd7550ac7f3b/LAB.src.js#L7-L34)。
+当时 [LABjs](https://github.com/getify/LABjs) 的源码在性能上做了一些令人尴尬的事情。它没有使用普通的对象表示法(`obj.foo`)，而是将键存储在字符串中，并使用方括号表示法来访问对象(`obj[stringForFoo]`)。这样做的想法源于，经过小型化和 gzip 压缩之后，非自然编写的代码将比自然编写的代码体积小。[你可以在这里看到它](https://github.com/getify/LABjs/blob/b23ee3fcad12157cf8f6a291cb54fd7550ac7f3b/LAB.src.js#L7-L34)。
 
 Ralph fork 了源代码，没有去考虑如何优化以实现小型化 和 gzip，而是通过自然地编写代码移除了优化的部分。
 
-事实证明，移除"优化部分"后，文件大小削减了 5.3% ！如果你不去进行测量，你甚至不知道你所做的优化是使得程序变好还是变得更糟！
+事实证明，移除“优化部分”后，文件大小削减了 5.3%！如果你不去进行测量，你甚至不知道你所做的优化是使得程序变好还是变得更糟！
 
 过早的优化不仅会占用开发时间，损害代码的整洁，甚至会产生适得其反的结果**导致**性能问题，就像 LABjs 那样。如果作者一直在进行测量，而不仅仅是想象性能问题，就会节省开发时间，同时能让代码更简洁，性能更好。
 
@@ -95,7 +95,7 @@ Ralph fork 了源代码，没有去考虑如何优化以实现小型化 和 gzip
 
 `Function.prototype.bind` 的性能问题[在此得到了解决](http://benediktmeurer.de/2015/12/25/a-new-approach-to-function-prototype-bind/)，而且箭头函数要么是原生函数，要么是由 Babel 转换为普通函数；在这两种情况下，我们都可以假定它并不慢。
 
-记住，你不要坐在那里然后想象"我赌这个代码肯定慢"。你应该自然地编写代码，**然后**测量它。如果存在性能问题，就修复它们。我们不需要证明一个内联的箭头函数是快的，也不需要另一些人来证明它是慢的。否则，这就是一个过早的优化。
+记住，你不要坐在那里然后想象“我赌这个代码肯定慢”。你应该自然地编写代码，**然后**测量它。如果存在性能问题，就修复它们。我们不需要证明一个内联的箭头函数是快的，也不需要另一些人来证明它是慢的。否则，这就是一个过早的优化。
 
 据我所知，还没有人对他们的应用程序进行分析，表明内联箭头函数很慢。在进行分析之前，这甚至不值得谈论 —— 但无论如何，我会提供一个新思路 😝
 
@@ -136,7 +136,7 @@ class Dashboard extends Component {
 }
 ```
 
-因为过早地优化，我们已经将组件的初始化速度降低了3倍！如果所有处理程序都是内联的，那么在初始化中只需要创建一个函数。相反的，我们则要创建3个。我们没有测量任何东西，所以没有理由认为这是一个问题。
+因为过早地优化，我们已经将组件的初始化速度降低了 3 倍！如果所有处理程序都是内联的，那么在初始化中只需要创建一个函数。相反的，我们则要创建 3 个。我们没有测量任何东西，所以没有理由认为这是一个问题。
 
 如果你想完全忽略这一点，那么就去制定一个 eslint 规则，来要求在任何地方都使用内联函数来加快初始渲染速度🤦🏾‍♀。
 
@@ -170,7 +170,7 @@ class Avatar extends React.PureComponent { ... }
 
 #### 严格相等比较
 
-JavaScript 中有六种基本类型：string, number, boolean, null, undefined, 和 symbol。当你对两个值相同的基本类型进行"严格相等比较"的时候，你会得到一个 `true` 值。举个例子🌰:
+JavaScript 中有六种基本类型：string, number, boolean, null, undefined, 和 symbol。当你对两个值相同的基本类型进行“严格相等比较”的时候，你会得到一个 `true` 值。举个例子🌰:
 
 ```
 const one = 1
@@ -195,17 +195,17 @@ one === uno // false
 one === one // true
 ```
 
-所以，如果你在 JSX 中内联地使用一个对象，它会使 `PureComponent` 的prop diff检查失效，转而使用较昂贵的方式对 React 元素进行 diff 检查。元素的 diff 将变为空，这样就浪费了两次进行差异比较的时间。
+所以，如果你在 JSX 中内联地使用一个对象，它会使 `PureComponent` 的 prop diff 检查失效，转而使用较昂贵的方式对 React 元素进行 diff 检查。元素的 diff 将变为空，这样就浪费了两次进行差异比较的时间。
 
 ```
 // 第一次 render
-<Avatar user={{ id: ‘ryan’ }}/>
+<Avatar user={{ id: 'ryan' }}/>
 
 // 下一次 render
-<Avatar user={{ id: ‘ryan’ }}/>
+<Avatar user={{ id: 'ryan' }}/>
 
 // prop diff 认为有东西发生了变化，因为 {} !== {}
-// 元素diff检查 (reconciler) 发现没有任何变化
+// 元素 diff 检查 (reconciler) 发现没有任何变化
 ```
 
 由于函数是对象，而且 `PureComponent` 会对 props 进行严格相等的检查，因此，一个内联的函数将**总是**无法通过 prop 的 diff 检查，从而转向 reconciler 中的元素 diff 检查。
@@ -220,7 +220,7 @@ class Dashboard extends Component {
     super(props)
     
     // 使用 bind ？拖慢初始化的速度，看上去不妙
-    // 当你有20个 bind 的时候（我见过你的代码，我知道）
+    // 当你有 20 个 bind 的时候（我见过你的代码，我知道）
     // 它会增加打包后文件的大小
     this.handleStuff = this.handleStuff.bind(this)
 
@@ -256,7 +256,7 @@ class Dashboard extends Component {
 
 让人大跌眼镜的是，我的应用程序变慢了 🤔。
 
-为什么呢？仔细想想，如果你有一个 `Component` ，会有多少次 diff 检查？如果你有一个 `PureComponent` ，又会有多少次 diff 检查？答案分别是"只有一次"和"至少一次，有时是两次"。如果一个组件**经常**在更新时发生变化，那么 `PureComponent` 将会执行两次 diff 检查而不是一次（props 和 state 在 `shouldComponentUpdate` 中进行的严格相等比较，以及常规的元素 diff 检查）。这意味着**通常**它会变慢，**偶尔**会变快。显然，我的大部分组件大部分时间都在变化，所以总的来说，我的应用程序变慢了。啊哦😯。
+为什么呢？仔细想想，如果你有一个 `Component` ，会有多少次 diff 检查？如果你有一个 `PureComponent` ，又会有多少次 diff 检查？答案分别是“只有一次”和“至少一次，有时是两次”。如果一个组件**经常**在更新时发生变化，那么 `PureComponent` 将会执行两次 diff 检查而不是一次（props 和 state 在 `shouldComponentUpdate` 中进行的严格相等比较，以及常规的元素 diff 检查）。这意味着**通常**它会变慢，**偶尔**会变快。显然，我的大部分组件大部分时间都在变化，所以总的来说，我的应用程序变慢了。啊哦😯。
 
 在性能方面没有银弹。你必须测量。
 
@@ -278,7 +278,7 @@ class Dashboard extends Component {
 
 所以，认为这个过程很慢的唯一原因是，你是否认为简单地定义一个函数会产生足以让人担心的开销。我们已经讨论过，这在任何地方都未被证实。这只是纸上谈兵的性能假设。在被证实之前，这样做没问题。
 
-#### 一个"自定义事件"或"操作"
+#### 一个“自定义事件”或“操作”
 
 ```
 <Sidebar onToggle={(isOpen) => {
@@ -366,7 +366,7 @@ class Button extends React.Component {
 
 ```
 <Route
-  path=”/topic/:id”
+  path="/topic/:id"
   render={({ match }) => (
     <div>
       <h1>{match.params.id}</h1>}
@@ -381,14 +381,14 @@ class Button extends React.Component {
 const App = (props) => (
   <div>
     <h1>Welcome, {props.name}</h1>
-    <Route path=”/” render={() => (
+    <Route path="/" render={() => (
       <div>
         {/*
           prop.name 是从路由外部传入的，它不是作为 prop 传递进来的，
           因此路由不能可靠地成为一个PureComponent，它
           不知道在组件内部会渲染什么
         */}
-        <h1>Hey, {props.name}, let’s get started!</h1>
+        <h1>Hey, {props.name}, let's get started!</h1>
       </div>
     )}/>
   </div>
