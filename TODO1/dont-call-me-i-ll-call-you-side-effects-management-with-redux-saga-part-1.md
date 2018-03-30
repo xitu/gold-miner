@@ -63,7 +63,6 @@ Sagas 是通过 Generator 函数来创建的。[官方文档](https://github.com
 你可以把 Saga 想象成一个不断地调用 `next` 方法并尝试尽快获取所有 `yield` 表达式值的线程。你可能会问这和 React 有什么关系，为什么要使用它，所以首先来看看如何在 React & Redux 应用使用 Saga：
 
 在 React & Redux 应用中，一个常见的用法从调用一个 action 开始。被分配用来处理这个 action 的 reducer 会使用新的 state 更新 store，随后视图就会被更新渲染。
-
 如果一个 Saga 被分配用来处理这个 action — 这个 action 通常就是个异步 action（比如一个对服务端的请求），一旦这个 action 完成后，Saga 会调用另一个 action 让 reducer 进行处理。
 
 #### 常见用例
