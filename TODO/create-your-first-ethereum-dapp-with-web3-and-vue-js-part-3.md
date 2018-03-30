@@ -2,7 +2,7 @@
 > * 原文作者：[Alt Street](https://itnext.io/@Alt_Street?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/create-your-first-ethereum-dapp-with-web3-and-vue-js-part-3.md](https://github.com/xitu/gold-miner/blob/master/TODO/create-your-first-ethereum-dapp-with-web3-and-vue-js-part-3.md)
-> * 译者：
+> * 译者：[sakila1012](https://github.com/sakila1012)
 > * 校对者：
 
 # 使用 Web3 和 Vue.js 来创建你的第一个以太坊去中心化应用程序（第三部分）
@@ -87,7 +87,7 @@ registerWeb3Instance (state, payload) {
  }
 ```
 
-由于我们正在调度操作，所以需要将其添加到 store 中，并进行变异以提交更改。我们可以直接提交更改，但让我们保持模式的一致性。我们将添加一些控制台日志，以便您可以在控制台中观看精彩的过程。在 actions 对象中添加：
+由于我们正在调度操作，所以需要将其添加到 store 中，并进行变异以提交更改。我们可以直接提交更改，但为了保持模式一致性，我们不这么做。我们将添加一些控制台日志，以便您可以在控制台中观看精彩的过程。在 actions 对象中添加：
 
 ```
 pollWeb3 ({commit}, payload) {
@@ -96,7 +96,7 @@ pollWeb3 ({commit}, payload) {
  }
 ```
 
-现在我们只需要对可能传递的两个变量进行变化
+现在我们只需要对传入的两个变量进行更改
 
 ```
 pollWeb3Instance (state, payload) {
