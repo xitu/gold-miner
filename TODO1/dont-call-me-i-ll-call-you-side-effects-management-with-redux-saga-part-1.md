@@ -3,23 +3,23 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/dont-call-me-i-ll-call-you-side-effects-management-with-redux-saga-part-1.md](https://github.com/xitu/gold-miner/blob/master/TODO1/dont-call-me-i-ll-call-you-side-effects-management-with-redux-saga-part-1.md)
 > * 译者：[jonjia](https://github.com/jonjia)
-> * 校对者：
+> * 校对者：[smileShirely](https://github.com/smileShirely) [ClarenceC](https://github.com/ClarenceC)
 
-# Redux-Saga 为你打 call：管理你的异步 action （上）
+# 等我通知：使用 Redux-Saga 管理 React 应用中的异步 action （上）
 
 ![](https://cdn-images-1.medium.com/max/800/1*v-_1QMuWsWYoB-AY78nArQ.png)
 
-在接下来的两篇文章中，我想谈谈在 React 应用中使用 Redux-Saga 进行异步操作管理的基础和进阶方法。我会说明为什么我们会在 **AppsFlyer** 项目中使用它，以及它可以解决什么问题。
+在接下来的两篇文章中，我想谈谈在 React 应用中使用 Redux-Saga 进行异步操作 action 管理的基础和进阶方法。我会说明为什么我们会在 **AppsFlyer** 项目中使用它，以及它可以解决什么问题。
 
-上篇主要介绍 Redux-Saga 相关的基本概念，下篇专门讨论 Redux-Saga 可以解决哪些问题。请注意：阅读这两篇文章，你要对 [React](https://reactjs.org/) 和 [Redux](https://redux.js.org/) 有一定的了解。
+本篇文章主要介绍 Redux-Saga 相关的基本概念，下篇专门讨论 Redux-Saga 可以解决哪些问题。请注意：阅读这两篇文章，你要对 [React](https://reactjs.org/) 和 [Redux](https://redux.js.org/) 有一定的了解。
 
 #### Generators 先行！
 
-为了理解 sagas，首先你要熟悉 Generator。下面是 MDN 对 Generator 的描述：
+为了理解 Sagas，我们首先要理解什么是 Generator。下面是 MDN 对 Generator 的描述：
 
 > Generator 是在执行时能暂停，后面又能从暂停处继续执行的函数。它的上下文会在继续执行时保存。
 
-你可以把 Generator 理解成一个遍历器对象生成函数，（译注：Generator 执行后返回的遍历器对象）提供一个 `next` 方法。执行这个方法就会返回下一个状态，或者返回遍历结束的状态。这就需要 Generator 能够维护内部状态。
+你可以把 Generator 理解成一种遍历器对象生成函数，（译注：Generator 执行后返回的遍历器对象）提供一个 `next` 方法。执行这个方法就会返回下一个状态，或者返回遍历结束的状态。这就需要 Generator 能够维护内部状态。
 
 下面是一个基本的 Generator 示例，它生成的遍历器对象会返回几个字符串：
 
@@ -33,18 +33,14 @@ function* namesEmitter() {
 // 执行 Generator
 var generator = namesEmitter();
 
-console.log(generator.next()); 
-// {value: "William", done: false}
+console.log(generator.next()); // prints {value: "William", done: false}
 
-console.log(generator.next()); 
-// {value: "Jacob", done: false}
+console.log(generator.next()); // prints {value: "Jacob", done: false}
 
-console.log(generator.next()); 
-// {value: "Daniel", done: true}
+console.log(generator.next()); // prints {value: "Daniel", done: true}
 ```
 
 `next` 方法的返回值结构非常简单 — 只要我们通过 `yield/return` 返回值，这个返回值就是 `value` 属性的值。如果我们没有返回值，`value` 属性的值就是 **undefined**，`done` 属性的值就是 `true`。
-
 还有一点值的注意的是，执行 `namesEmitter` 后，函数会在调用 `yield` 的地方停下来。我们调用 `next` 方法后，函数会继续执行，直到遇到下一个 `yield`。如果我们调用了 `return` 语句或者函数执行完毕，`done` 属性就会为真。
 
 如果状态序列的长度不确定时，我们可以用下面的方法来写：
@@ -60,6 +56,7 @@ console.log(results.value);
 
 #### 什么是 Sagas？
 
+
 Sagas 是通过 Generator 函数来创建的。[官方文档](https://github.com/redux-saga/redux-saga) 的解释如下：
 
 > Saga 就像应用中的一个独立线程，完全负责管理异步操作。
@@ -74,7 +71,6 @@ Sagas 是通过 Generator 函数来创建的。[官方文档](https://github.com
 
 我们可以通过一个常见流程来说明：
 用户与页面进行交互，这个交互动作会触发一个从服务端请求数据的动作(此时页面显示 loading 提示)，最终我们用请求回来的数据去渲染页面的内容。
-
 让我们为每步创建一个 action，然后用 Redux-Saga 实现一个简化的版本如下：
 
 ```
