@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/create-your-first-ethereum-dapp-with-web3-and-vue-js-part-3.md](https://github.com/xitu/gold-miner/blob/master/TODO/create-your-first-ethereum-dapp-with-web3-and-vue-js-part-3.md)
 > * 译者：[sakila1012](https://github.com/sakila1012)
-> * 校对者：
+> * 校对者：[allenlongbaobao](https://github.com/allenlongbaobao)，[talisk](https://github.com/talisk)
 
 # 使用 Web3 和 Vue.js 来创建你的第一个以太坊去中心化应用程序（第三部分）
 
