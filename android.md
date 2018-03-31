@@ -1,3 +1,5 @@
+* [从 SQLite 逐步迁移到 Room](https://juejin.im/post/5ab857396fb9a028c812d62c) ([IllllllIIl](https://github.com/IllllllIIl) 翻译)
+* [使用 MVI 编写响应式 APP—第六部分—状态恢复](https://juejin.im/post/5ab4c028518825557e7853a1) ([pcdack](https://github.com/pcdack) 翻译)
 * [Flutter — 五个你会爱上它的原因](https://juejin.im/post/5a9e7e89f265da2381552542) ([rockzhai](https://github.com/rockzhai) 翻译)
 * [如何在中国使用 Flutter](https://juejin.im/post/5a9f730c6fb9a028d2077ad4) ([mysterytony](https://github.com/mysterytony) 翻译)
 * [使用 MVI 编写响应式 APP — 第 5 部分 — 简单的调试](https://juejin.im/post/5aafa3e851882555627d1842) ([pcdack](https://github.com/pcdack) 翻译)

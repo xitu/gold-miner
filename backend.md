@@ -1,3 +1,6 @@
+* [Web 爬虫下的 Python 数据分析：中情局全球概况图解](https://juejin.im/post/5ab9fcebf265da238e0dc349) ([Starriers](https://github.com/Starriers) 翻译)
+* [Elasticsearch 滚动升级](https://juejin.im/post/5ab5f53f518825556b6cbdea) ([rpgmakervx](https://github.com/rpgmakervx) 翻译)
+* [这可能是 2018 年最好的一篇 PHP 性能测评（包含 5.6 到 7.2，以及HHVM）](https://juejin.im/post/5ab4bac9518825557b4caec6) ([Albertao](https://github.com/Albertao) 翻译)
 * [斐波那契数列中的偶数（Python vs. JavaScript）](https://juejin.im/post/5aaa61f8f265da237b21d258) ([zephyrJS](https://github.com/zephyrJS) 翻译)
 * [将项目迁移到 Python 3](https://juejin.im/post/5a9e3ff06fb9a028d2077434) ([Starriers](https://github.com/Starriers) 翻译)
 * [GraphQL API 设计最佳实践](https://juejin.im/entry/5aab36936fb9a028d7005a3f/detail) ([AceLeeWinnie](https://github.com/AceLeeWinnie) 翻译)
