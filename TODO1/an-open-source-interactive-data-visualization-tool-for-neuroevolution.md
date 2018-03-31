@@ -7,7 +7,7 @@
 
 # VINE：一种开源的神经进化（Neuroevolution）交互式数据可视化工具
 
-在优步的规模上，机器学习方面的进步可以大大提高技术，为更安全、更可靠的运输解决方案提供动力。Uber AI 实验室最近宣布的一项进展是[深度神经进化](https://eng.uber.com/deep-neuroevolution/)，其中进化算法（如进化策略（ES）和遗传算法（GA））帮助训练深层神经网络来解决困难的强化学习(RL)问题。最近，人们对深度神经进化的兴趣越来越大，其主要贡献来自于 [OpenAI](https://blog.openai.com/evolution-strategies/)、[DeepMind](https://deepmind.com/blog/population-based-training-neural-networks/)、[Google Brain](https://arxiv.org/abs/1802.01548) 和 [Sentient](https://www.sentient.ai/blog/evolution-is-the-new-deep-learning/) 。这反过来又造成了解决该领域的研究人员对工具的需求的问题。
+在 Uber 的规模上，机器学习的进步可以显着增强为更安全和更可靠的交通解决方案提供动力的技术。Uber AI 实验室最近宣布的一项进展是[深度神经进化](https://eng.uber.com/deep-neuroevolution/)，其中进化算法（如进化策略（ES）和遗传算法（GA））帮助训练深层神经网络来解决困难的强化学习(RL)问题。最近，人们对深度神经进化的兴趣越来越大，其主要贡献来自于 [OpenAI](https://blog.openai.com/evolution-strategies/)、[DeepMind](https://deepmind.com/blog/population-based-training-neural-networks/)、[Google Brain](https://arxiv.org/abs/1802.01548) 和 [Sentient](https://www.sentient.ai/blog/evolution-is-the-new-deep-learning/) 。这反过来又造成了解决该领域的研究人员对工具的需求的问题。
 
 特别是在神经进化和神经网络优化中，往往很难观察到学习过程的基本动态。为了弥补这一差距并开放观察过程，我们引入[视觉神经进化检查器（VINE）](https://github.com/uber-common/deep-neuroevolution)，一个开源的交互式数据可视化工具，旨在帮助那些对神经进化感兴趣的人更好地理解和探索这一系列算法。我们希望这项技术可以在未来激发神经进化的创新和应用。
 
