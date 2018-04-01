@@ -5,7 +5,7 @@
 > * 译者：[Xekin-FE](https://github.com/Xekin-FE)
 > * 校对者：
 
-# 用户领域 API 监控 and 代码注入检测
+# 用户领域 API 监控和代码注入检测
 
 ## 文档简介
 
