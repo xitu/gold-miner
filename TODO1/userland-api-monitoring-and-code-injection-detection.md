@@ -9,7 +9,7 @@
 
 ## 文档简介
 
-本文实属作者对恶意程式(或者病毒)是如何与 Windows 应用程序编程接口( WinAPI )进行交互的研究成果。当中详细赘述了恶意程式如何能够将 Payload [译注：Payload 指一种对设备造成伤害的程序]植入到其他进程中的基本概念，以及如何通过监控与Windows操作系统的通信来检测此类功能。并且通过**函数钩子**钩住某些函数的方式来介绍观察API调用的过程，而这些函数正被用来实现代码注入功能。
+本文实属作者对恶意程式（或者病毒）是如何与 Windows 应用程序编程接口（WinAPI）进行交互的研究成果。当中详细赘述了恶意程式如何能够将 Payload [译注：Payload 指一种对设备造成伤害的程序]植入到其他进程中的基本概念，以及如何通过监控与 Windows 操作系统的通信来检测此类功能。并且通过**函数钩子**钩住某些函数的方式来介绍观察 API 调用的过程，而这些函数正被用来实现代码注入功能。
 
 **阅前声明**：由于时间方面的原因，这是一个相对来说比较短促的项目。所以各位在阅读时如若发现了可能相关的错误信息，我先在此表示十分抱歉，还请尽快地通知我以便及时修正。除此之外，文章随附的代码部分在项目延展性上有一定的设计缺陷，也可能会因为版本落后而无法成功在当下执行。
 
@@ -85,7 +85,7 @@
 
 1.  在函数中挂钩
 
-如果我们要想在函数中挂钩，我们首先需要一个必须要能复制目标函数参数的中间函数。 `MessageBox` 方法在微软开发者网络( MSDN )中是这样定义的：
+如果我们要想在函数中挂钩，我们首先需要一个必须要能复制目标函数参数的中间函数。 `MessageBox` 方法在微软开发者网络（MSDN）中是这样定义的：
 
 ```
 int WINAPI MessageBox(
@@ -104,7 +104,7 @@ int WINAPI HookedMessageBox(HWND hWnd, LPCTSTR lpText, LPCTSTR lpCaption, UINT u
 }
 ```
 
-一旦触发中间函数，代码执行流将被重定向至某个特定位置。要想在 `MessageBox` 方法中进行挂钩，我们可以补充代码的前几个字节(请注意，我们必须备份原本的字节，以便于在中间函数执行后恢复原始函数)。以下是在MsgBox方法中相应模块 `user32.dll` 中的原始编码指令：
+一旦触发中间函数，代码执行流将被重定向至某个特定位置。要想在 `MessageBox` 方法中进行挂钩，我们可以补充代码的前几个字节（请记住，我们必须备份原本的字节，以便于在中间函数执行后恢复原始函数）。以下是在MsgBox方法中相应模块 `user32.dll` 中的原始编码指令：
 
 ```
 ; MessageBox
@@ -248,7 +248,7 @@ int WINAPI MessageBoxTimeoutW(HWND hWnd, LPCWSTR lpText, LPCWSTR lpCaption, UINT
 
 ### DLL 注入技术
 
-在计算机中，代码可以存在于多种形式的文件下，其中之一就是 **Dynamic Link Library** （动态链接库 DLL ）。DLL 文件又被称为应用程序拓展库，顾名思义，它就是通过导出应用子程序后用来给其他程序进行拓展。本文其余部分将都以此 DLL 文件示例：
+在计算机中，代码可以存在于多种形式的文件下，其中之一就是 **Dynamic Link Library** （动态链接库 DLL）。DLL 文件又被称为应用程序拓展库，顾名思义，它就是通过导出应用子程序后用来给其他程序进行拓展。本文其余部分将都以此 DLL 文件示例：
 
 ```
 extern "C" void __declspec(dllexport) Demo() {
@@ -432,7 +432,7 @@ int injectDll(const std::string dllPath, const DWORD dwProcessId, const DWORD dw
 
 这个方法和 `CreateRemoteThread` 有一个主要区别，`QueueUserAPC` 是只能在**警告状态**下执行调用的。也就是说在 `QueueUserAPC` 队列中的异步程序只有在当在线程处于警告状态时才能调用 APC 函数。
 
-### 傀儡进程技术（ Prosess hollowing ）
+### 傀儡进程技术（Prosess hollowing）
 
 Process hollowing （傀儡进程），又称为 RunPE，这是一个常见的用于躲避反病毒检测的方法。它可以做到把整个可执行文件注入到目标进程中并在其代码流中执行。通常我们会在加密的应用程序中看到，存在 Payload 的磁盘上的某个文件会被选举为 host 并且被作为进程创建，而这个文件的主要执行模块都被**挖空**并且替换掉了。这样一个过程可以分解为四步来执行。
 
@@ -580,7 +580,7 @@ typedef struct _IMAGE_SECTION_HEADER {
 
 4.  执行 Payload 
 
-最后一步就是将执行的首地址指向上面有提到过的(创建主进程) Payload 的 `AddressOfEntryPoint`。由于进程的主线程已经被挂起，所以可以使用 `GetThreadContext` 方法来检索相关信息。其代码结构可以如以下声明：
+最后一步就是将执行的首地址指向上面有提到过的（创建主进程）Payload 的 `AddressOfEntryPoint`。由于进程的主线程已经被挂起，所以可以使用 `GetThreadContext` 方法来检索相关信息。其代码结构可以如以下声明：
 
 ```
 typedef struct _CONTEXT
@@ -617,7 +617,7 @@ typedef struct _CONTEXT
 
 ### Atom Bombing 技术
 
-Atom Bombing 是一种代码注入技术，它利用了 Windows 的**全局原子表**来实现全局数据存储。全局原子表中的数据可以跨所有进程进行访问，这也正是我们能实现代码注入的原因。表中的数据是以空字符结尾的 C-string 类型，用 16-bit 的整数表示，我们称之为**原子（ Atom ）**，它类似于 map 数据结构。在 MSDN 中提供了 [GlobalAddAtom](https://msdn.microsoft.com/en-us/library/windows/desktop/ms649060(v=vs.85).aspx) 方法用于向其添加数据，如下声明：
+Atom Bombing 是一种代码注入技术，它利用了 Windows 的**全局原子表**来实现全局数据存储。全局原子表中的数据可以跨所有进程进行访问，这也正是我们能实现代码注入的原因。表中的数据是以空字符结尾的 C-string 类型，用 16-bit 的整数表示，我们称之为**原子（Atom）**，它类似于 map 数据结构。在 MSDN 中提供了 [GlobalAddAtom](https://msdn.microsoft.com/en-us/library/windows/desktop/ms649060(v=vs.85).aspx) 方法用于向其添加数据，如下声明：
 
 ```
 ATOM WINAPI GlobalAddAtom(
@@ -689,7 +689,7 @@ Atom bombing code injection
 
 # 第二章：UnRunPE 工具
 
-UnRunPE 是一个概念验证（ Proof of concept,简称 POC ）工具，是为了将 API 监控的理论概念应用到实际操作而编写的。该工具的目的是将选定的可执行文件作为进程创建并挂起，随后将带有钩子函数的 DLL 通过傀儡进程技术（ process hollowing ）注入到进程中。
+UnRunPE 是一个概念验证（Proof of concept，简称 POC）工具，是为了将 API 监控的理论概念应用到实际操作而编写的。该工具的目的是将选定的可执行文件作为进程创建并挂起，随后将带有钩子函数的 DLL 通过傀儡进程技术（process hollowing）注入到进程中。
 
 ## 代码注入检测
 
@@ -703,7 +703,7 @@ UnRunPE 是一个概念验证（ Proof of concept,简称 POC ）工具，是为�
 6.  `SetThreadContext`
 7.  `ResumeThread`
 
-其实当中有一些并不一定要按这样的顺序执行，例如，`GetThreadContext` 可以在 `VirtualAllocEx` 之前就调用。不过由于一些方法需要依赖前面调用的 API，例如 `SetThreadContext` **必须** 要在 `GetThreadContext` 或者 `CreateProcess` 调用之前调用，否则就无法将 Payload 注入到目标进程。该工具将假定上述的调用顺序作为参考，尝试检测是否有潜在的傀儡进程。
+其实当中有一些并不一定要按这样的顺序执行，例如，`GetThreadContext` 可以在 `VirtualAllocEx` 之前就调用。不过由于一些方法需要依赖前面调用的 API，例如 `SetThreadContext` **必须**要在 `GetThreadContext` 或者 `CreateProcess` 调用之前调用，否则就无法将 Payload 注入到目标进程。该工具将假定上述的调用顺序作为参考，尝试检测是否有潜在的傀儡进程。
 
 遵循 API 监控的理论，我们最好是在函数调用等级最低的**公共**点进行挂钩，但当被恶意软件入侵时，我们最理想的应该时将其可访问的可能性降到最低。假定最坏的情况下，入侵者可能会尝试绕过高层的 WinAPI 函数，而直接调用最低层的函数，这些函数通常在 `ntdll.dll` 模块中可以找到。下列是傀儡进程当中经常调用的达到上述要求的 WinAPI 函数：
 
@@ -737,7 +737,7 @@ Dreadnought 是基于 UnRunPE 构建的 PoC 工具，它提供了更多样的代
 
 *   区块（节）：将代码注入到区块（节）中。
 *   进程：将代码注入到进程中。
-*   代码：通过代码注入或代码溢出（ Shellcode ）。
+*   代码：通过代码注入或代码溢出（Shellcode）。
 *   DLL：代码挂载在 DLL 中载入。
 
 [![process-injection](https://4.bp.blogspot.com/-ixv5E0LMZCw/WWi5yRjL-_I/AAAAAAAAAnk/WO99S4Yrd8w6lfg6tITwUV02CGDFYAORACLcBGAs/s1600/Process%2BInjection%25281%2529.png)](https://4.bp.blogspot.com/-ixv5E0LMZCw/WWi5yRjL-_I/AAAAAAAAAnk/WO99S4Yrd8w6lfg6tITwUV02CGDFYAORACLcBGAs/s1600/Process%2BInjection%25281%2529.png "Process%2BInjection%25281%2529.png")
@@ -752,7 +752,7 @@ Dreadnought 是基于 UnRunPE 构建的 PoC 工具，它提供了更多样的代
 
 ## Dreadnought 示例
 
-### 进程注入之傀儡进程（ Process hollowing ）
+### 进程注入之傀儡进程（Process hollowing）
 
 [![](https://raw.githubusercontent.com/NtRaiseHardError/NtRaiseHardError.github.io/master/images/2018-02-21-Userland-API-Monitoring-and-Code-Injection-Detection/Screenshot%20from%202018-02-21%2020-14-46.png)](https://raw.githubusercontent.com/NtRaiseHardError/NtRaiseHardError.github.io/master/images/2018-02-21-Userland-API-Monitoring-and-Code-Injection-Detection/Screenshot%20from%202018-02-21%2020-14-46.png) 
 
