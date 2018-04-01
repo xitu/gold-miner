@@ -176,7 +176,7 @@ registerContractInstance (state, payload) {
 
 ### 与我们的协议交互
 
-首先，我们将添加一个数据属性(在导出中)到我们的 casino 组件中，这样我们就可以拥有具有响应式属性的变量。这些值将是 winEvent、amount 和 Pending。
+首先，我们将添加一个数据属性（在导出中）到我们的 casino 组件中，这样我们就可以拥有具有响应式属性的变量。这些值将是 winEvent、amount 和 Pending。
 
 ```
 data () {
@@ -290,7 +290,7 @@ li:active{
 </style>
 ```
 
-### Ropsten 网络和 Metamask(面向第一次用户)
+### Ropsten 网络和 Metamask（面向第一次用户）
 
 如果您不熟悉 metamask 或以太坊网络，请不要担心。
 
@@ -308,7 +308,7 @@ li:active{
 
 再打开 remix，我们的协议应该还在。如果不是，请转到[此要点](https://gist.github.com/anonymous/6b06bef626928589e3a53a70c021ec02)并复制粘贴。在 ReMix 的 rop 右边，确保我们的环境被设置为「InsistedWeb 3(Ropsten)」，并且选择了我们的地址。
 
-部署与[第1部分](https://itnext.io/create-your-first-ethereum-dapp-with-web3-and-vue-js-c7221af1ed82)中的部署相同。我们在 Value 字段中输入几个参数来预装协议，输入构造函数参数，然后单击 Create。这一次，metamask 将提示接受/拒绝事务(约定部署)。单击「接受」并等待事务完成。
+部署与[第1部分](https://itnext.io/create-your-first-ethereum-dapp-with-web3-and-vue-js-c7221af1ed82)中的部署相同。我们在 Value 字段中输入几个参数来预装协议，输入构造函数参数，然后单击 Create。这一次，metamask 将提示接受/拒绝事务（约定部署）。单击「接受」并等待事务完成。
 
 当 TX 完成后点击它，这将带你到那个 TX 的萎缩块链浏览器。我们可以在「to」字段下找到协议的地址。你的协议虽然不同，但看起来很相似。
 
@@ -316,7 +316,7 @@ li:active{
 
 我们的协议地址在「to」字段中。
 
-这就给了我们地址，现在是 ABI。回到 remix 并切换到「编译」选项卡(右上角)。在协议名称旁边，我们将看到一个名为「Details」的按钮，单击它。第四个领域是我们的 ABI。
+这就给了我们地址，现在是 ABI。回到 remix 并切换到「编译」选项卡（右上角）。在协议名称旁边，我们将看到一个名为「Details」的按钮，单击它。第四个领域是我们的 ABI。
 
 ![](https://cdn-images-1.medium.com/max/800/1*gGPKAotB7qmUY70ZdZDDyA.png)
 
@@ -358,7 +358,7 @@ export {address, ABI}
 }
 ```
 
-**在 main.js 中，**导入我们已经安装的 font-awesome 的库(我知道，这不是我们需要的两个图标的最佳方式)：
+**在 main.js 中，**导入我们已经安装的 font-awesome 的库（我知道，这不是我们需要的两个图标的最佳方式）：
 
 ```
 import ‘font-awesome/css/font-awesome.css’
