@@ -2,7 +2,7 @@
 > * 原文作者：[JonLuca De Caro](https://hackernoon.com/@jonluca?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/optimizing-a-static-site.md](https://github.com/xitu/gold-miner/blob/master/TODO1/optimizing-a-static-site.md)
-> * 译者：
+> * 译者：[Starrier](https://github.com/Starriers)
 > * 校对者：
 
 # 提高 10 倍性能：优化静态网站
