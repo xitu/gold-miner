@@ -9,19 +9,19 @@
 
 在我[前面](http://hannesdorfmann.com/android/arch-components-purist)系列博客中， 我们讨论了正确的状态管理的重要性，并且也阐述了为什么我认为一个像在[谷歌架构组件的 github 中讨论](https://github.com/googlesamples/android-architecture-components/issues/63)的 SingleLiveEvent 不是一个好的主意。因为，它仅仅隐藏了真正底部的问题：状态管理。在这篇博客中，我想去讨论，SingleLiveEvent 声称能解决的问题，使用 Model-View-Intent 和正确的状态管理是如何解决的。
 
-用一个公共的场景来说明这个问题，这个场景是一个当一个错误发生的时候弹出一个 **snackbar**。一个 SnackBar 不意味着持久，反而意味着显示一个错误信息一两秒，然后，消失。这个问题是我们如何用 model 来控制错误状态和让其消失？
+用一个公共的场景来说明这个问题，这个场景是当一个错误发生的时候弹出一个 **snackbar**。个 SnackBar 不会一直保持在一个位置，一两秒后它就会消失。这个问题是我们如何用 model 来控制错误状态和让其消失？
 
-让我们看下下面的的视频，这样可以让我们更好的理解，我在说什么：
+让我们看下下面的的视频，这样可以让你们更好的理解，我在说什么：
 
 - ![](https://i.loli.net/2018/03/28/5abba0ba01a21.gif)
 
-这个简单的 app 显示了一个国家的列表，这些国家的数据是通过 **CountriesRepository** 加载的。如果，我们点击一个国家，我们打开了第二个 Activity ，这个 Activity 仅仅显示一些“细节”（国家的名字）。当我们返回到国家列表，我们期待看到与点击前相同“状态”显示到屏幕上。到目前为止一切都很正常，但是如果，我触发下拉刷新时，在数据加载的时候出现了错误，这个错误会让 Snackbar 显示在屏幕上，用来提示错误信息，会发生什么？ 正如你在上面视频中看到的那样，无论何时我们回到国家列表，这个 SnackBar 都会再次显示。但是，这肯定不是用户所期待的，对吧？
+这个简单的 app 显示了一个国家的列表，这些国家的数据是通过 **CountriesRepository** 加载的。如果，我们点击一个国家，我们打开了第二个 Activity ，这个 Activity 仅仅显示一些「细节」（国家的名字）。当我们返回到国家列表，我们期待看到与点击前相同「状态」显示到屏幕上。到目前为止一切都很正常，但是如果，我触发下拉刷新时，在数据加载的时候出现了错误，这个错误会让 Snackbar 显示在屏幕上，用来提示错误信息，会发生什么？ 正如你在上面视频中看到的那样，无论何时我们回到国家列表，这个 SnackBar 都会再次显示。但是，这肯定不是用户所期待的，对吧？
 
-这个问题发生在这个屏幕处在“显示错误状态”。谷歌的架构组件的例子是基于 ViewModel 和 LiveData 用一个 **SingleLiveEvent** 去解决这个问题。使用的方法是:无论何时 view 被它的 ViewModel 重新订阅（在从“细节”页面返回之后），SingleLiveEvent 确保“错误状态”不会被重新触发。这防止了 Snackbar 的复现，它真正解决问题了么？
+这个问题发生在这个屏幕处在「显示错误」的状态。谷歌的架构组件的例子是基于 ViewModel 和 LiveData 用一个 **SingleLiveEvent** 去解决这个问题。使用的方法是：无论何时 view 被它的 ViewModel 重新订阅（在从「细节」页面返回之后），SingleLiveEvent 确保“错误状态”不会被重新触发。这防止了 Snackbar 的复现，它真正解决问题了么？
 
 ## 时机就是一切（对于 Snackbar 来说）
 
-再次强调一下，我仍然认为这种解决方法是不正确的方法。我们可以做的更好么？我认为正确状态管理和单向的数据流是更好的解决方法。Model-View-Intent 是一个架构组件并且遵循一定的原则。因此，我们在 MVI 中，如何解决上面的“Snackbar 的问题”，首先，让我们定义 state：
+再次强调一下，我仍然认为这种解决方法是不正确的方法。我们可以做的更好么？我认为正确状态管理和单向的数据流是更好的解决方法。Model-View-Intent 是一个架构组件并且遵循一定的原则。因此，我们在 MVI 中，如何解决上面的「Snackbar 问题」，首先，让我们定义 state：
 
 ```
 public class CountriesViewState {
@@ -86,7 +86,7 @@ public class CountriesActivity extends MviActivity<CountriesView, CountriesPrese
 }
 ```
 
-这里的重点是 **Snackbar.Length_INDEFINITE** 这就意味着 Snackbar 会一直存在，直到我们 dismiss 它。因此，我们不能让 android 使 Snackbar 灵活的显示隐藏。此外，我们不能让 android 扰乱状态,也不让 android 引入一个不同于业务逻辑的 UI 状态。取而代之，用 **Snackbar.LENGTH_SHORT** 来使 Snackbar 显示两秒，我们宁愿让业务逻辑使 **CountriesViewState.pullToRefreshError** 设置为 true 两秒钟，然后，将再它置为 false。
+这里的重点是 **Snackbar.Length_INDEFINITE** 这就意味着 Snackbar 会一直存在，直到我们 dismiss 它。因此，我们不让 android 系统来控制 SnackBar 的显示和隐藏。此外，我们不能让 android 系统扰乱状态，也不让它引入一个不同于业务逻辑的 UI 状态。取而代之，用 **Snackbar.LENGTH_SHORT** 来使 Snackbar 显示两秒，我们宁愿让业务逻辑使 **CountriesViewState.pullToRefreshError** 设置为 true 两秒钟，然后，将再它置为 false。
 
 我们如何使用 RxJava 来做到这一点咧？我们可以用 **Observable.timer()** 和 **startWith()** 操作符。
 
@@ -113,7 +113,7 @@ public class CountriesPresenter extends MviBasePresenter<CountriesView, Countrie
               }
             }));
 
-    // Show Loading as inital state
+    // 初始状态显示 Loading
     CountriesViewState initialState = CountriesViewState.showLoadingState();
 
     Observable<CountriesViewState> viewState = Observable.merge(loadingData, pullToRefreshData)
@@ -124,12 +124,12 @@ public class CountriesPresenter extends MviBasePresenter<CountriesView, Countrie
 }
 ```
 **CountriesRepositroy** 有一个 reload() 方法，这个方法返回一个 **Observable<
-RepoState>**。RepoState(在这个系列的前面几篇文章中叫做 PattialViewState) 仅仅是个 POJO 类，用来表示 repository 是否取到数据，是成功的取到数据，或者产生了错误（源码）。然后，我们使用状态折叠器去完成我们 View 的状态（scan() 操作符)。如果你读过 MVI 前面的文章，那么你应当很熟悉状态折叠器。新的东西是：
+RepoState>**。RepoState(在这个系列的前面几篇文章中叫做 PattialViewState) 仅仅是个 POJO 类，用来表示 repository 是否取到数据，是成功的取到数据，或者产生了错误（[源码](https://github.com/sockeqwe/mvi-timing/blob/41095bdecf32c149c1d81b3d773937e7c08d4bdf/app/src/main/java/com/hannesdorfmann/mvisnackbar/RepositoryState.java)）。然后，我们使用状态折叠器去完成我们 View 的状态（scan() 操作符)。如果你读过 MVI 前面的文章，那么你应当很熟悉状态折叠器。新的东西是：
 
 ```
 repositroy.reload().switchMap(repoState -> {
   if (repoState instanceof PullToRefreshError) {
-    // Let's show Snackbar for 2 seconds and then dismiss it
+    //让 Snackbar 显示两秒然后让其消失
     return Observable.timer(2, TimeUnit.SECONDS)
         .map(ignoredTime -> new ShowCountries()) // Show just the list
         .startWith(repoState); // repoState == PullToRefreshError
@@ -138,9 +138,9 @@ repositroy.reload().switchMap(repoState -> {
   }
 ```
 
-这片代码做了下面这些事：I如果我们的程序跑错了（repoState instanceof PullToRefreshError），t然后，我们触发了这个错误的状态（PullToRefreshError），这将造成状态折叠器去设置 **CountriesViewState.pullToRefreshError =true**。两秒过后 Observable.timer() 触发了 ShowCountries 状态，这将造成状态折叠器设置**CountriesViewState.pullToRefreshError = false**。
+这一小段代码做了下面这些事：如果我们的程序跑错了（repoState instanceof PullToRefreshError），然后，我们触发了这个错误的状态（PullToRefreshError），这将造成[状态折叠器](http://hannesdorfmann.com/android/mosby3-mvi-3)去设置 **CountriesViewState.pullToRefreshError =true**。两秒过后 Observable.timer() 触发了 ShowCountries 状态，这将造成状态折叠器设置**CountriesViewState.pullToRefreshError = false**。
 
-就是这样，这就是我们在 MVI 中如何显示和隐藏 Snackbar。
+ bingo～这就是我们在 MVI 中如何显示和隐藏 Snackbar。
 
 - ![](https://i.loli.net/2018/03/28/5abb9d4f58ae8.gif)
 
@@ -148,7 +148,7 @@ repositroy.reload().switchMap(repoState -> {
 
 ## 用户撤销 Snackbar
 
-如果，我们想要允许用户通过轻扫手势撤销 Snackbar。这非常简单。撤销 Snackbar 也是一种改变状态的意图。要想在原有的代码中添加这种功能，我们仅仅需要确保，无论 timer 或者轻扫滑动去撤销**CountriesViewState.pullToRefreshError = false** 的意图设置。你仅仅需要记住的唯一一件事情是，在你亲亲滑动之前，你的计时器已经被取消掉了。这听起来很复杂，但是，实现起来很简单，这要感谢 RxJava 伟大的操作符和 API：
+如果，我们想要允许用户通过轻扫手势撤销 Snackbar。这非常简单。撤销 Snackbar 也是一种改变状态的意图。要想在原有的代码中添加这种功能，我们仅仅需要确保，无论计时器或者轻扫滑动去撤销**CountriesViewState.pullToRefreshError = false** 的意图设置。你仅仅需要记住的唯一一件事情是，在你亲亲滑动之前，你的计时器已经被取消掉了。这听起来很复杂，但是，实现起来很简单，这要感谢 RxJava 伟大的操作符和 API：
 
 ```
 Observable<Long> dismissPullToRefreshErrorIntent = intent(CountriesView::dismissPullToRefreshErrorIntent)
@@ -157,10 +157,10 @@ Observable<Long> dismissPullToRefreshErrorIntent = intent(CountriesView::dismiss
 
 repositroy.reload().switchMap(repoState -> {
   if (repoState instanceof PullToRefreshError) {
-    // Let's show Snackbar for 2 seconds and then dismiss it
+    //让 Snackbar 显示两秒然后让其消失
     return Observable.timer(2, TimeUnit.SECONDS)
-        .mergeWith(dismissPullToRefreshErrorIntent) // merge timer and dismiss intent
-        .take(1) // Only take the one who triggers first (dismiss intent or timer)
+        .mergeWith(dismissPullToRefreshErrorIntent) // 合并定时器并解除意图
+        .take(1) // 仅仅取先触发的那个（解除意图或计时器）
         .map(ignoredTime -> new ShowCountries()) // Show just the list
         .startWith(repoState); // repoState == PullToRefreshError
   } else {
