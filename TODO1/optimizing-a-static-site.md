@@ -2,18 +2,18 @@
 > * 原文作者：[JonLuca De Caro](https://hackernoon.com/@jonluca?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/optimizing-a-static-site.md](https://github.com/xitu/gold-miner/blob/master/TODO1/optimizing-a-static-site.md)
-> * 译者：[Starrier](https://github.com/Starriers)
+> * 译者：
 > * 校对者：
 
 # 提高 10 倍性能：优化静态网站
 
-几个月前，我在国外旅行，想给朋友看我个人（静态）网站上的一个链接。我试着浏览我的网站，但花费的时间比我预期的时间要长。网站绝对没有任何动态内容--只有动画和一些响应式设计，而且内容始终保持不变。 我对结果感到震惊，DOM 上下文加载要 4s，整个页面加载要 6.8s。有 20 项关于**静态站点**的请求--总数据的 1MB 被转移。我习惯了 1GB/s，洛杉矶的低延迟互联网连接到我在旧金山的服务器，这使得这个怪物看起来像闪电一样快。在意大利，8MB/s 的速度让情况变得完全不同。
+几个月前，我在国外旅行，想给朋友看我个人（静态）网站上的一个链接。我试着浏览我的网站，但花费的时间比我预期的时间要长。网站绝对没有任何动态内容--只有动画和一些响应式设计，而且内容始终保持不变。 我对结果感到震惊，DOM 上下文加载要 4 s，整个页面加载要 6.8 s。有 20 项关于**静态站点**的请求（总数据的 1MB）被转移。我习惯了 1 GB/s，洛杉矶的低延迟互联网连接到我在旧金山的服务器，这使得这个怪物看起来像闪电一样快。在意大利，8 MB/s 的速度让情况变得完全不同。
 
 ![](https://cdn-images-1.medium.com/max/800/1*OgqdIBjziyfhE_tbip24ww.png)
 
-这是我第一次尝试优化。到目前为止，每次我想添加一个库或者资源时，我只要将它引入并使用** sr=“”** 指向它。从缓存到内联，再到延迟加载，对任何形式的性能我都没有给予关注。
+这是我第一次尝试优化。到目前为止，每次我想添加一个库或者资源时，我都只是将它引入并使用 **sr=""** 指向它。从缓存到内联，再到延迟加载，对任何形式的性能我都没有给予关注。
 
-我开始寻找有相似经历的人。不幸的是，许多有关静态优化的文献很快就过时了--2010 年或 2012 年的建议讨论了库，或者假设不再是真实的，又或者只是一遍又一遍地重复相同的准则。
+我开始寻找有相似经历的人。不幸的是，许多有关静态优化的文献很快就过时了-- 2010 或 2012 的建议讨论了库，或者假设不再是真实的，又或者只是一遍又一遍地重复相同的准则。
 
 不过我确实找到了连个很好的信息源-- [高性能浏览器网络](https://hpbn.co)和 [Dan Luu 类似的静态网站优化经历](https://danluu.com/octopress-speedup/)。尽管在剥离格式和内容方面还不如 Dan，但是我确实设法让我的页面加载速度提高了大约 10 倍。DOM 上下文加载大约五分之一秒，而整个页面加载只有 388 ms（实际上有点不准确，下文将解释延迟加载的原因）。
 
@@ -30,13 +30,13 @@
 *   [https://developers.google.com/speed/pagespeed/insights/](https://developers.google.com/speed/pagespeed/insights/)
 *   [https://webspeedtest.cloudinary.com/](https://webspeedtest.cloudinary.com/)
 
-其中一些提供了改进建议，但当静态站点有 50 个请求时，您只能做这么多--从 90 年代遗留下来的间隔 gif 到不适用的资产（我加载了 6 种字体但只使用了 1 种字体）。
+其中一些提供了改进建议，但当静态站点有 50 个请求时，您只能做这么多--从 90 年代遗留下来的间隔 gif 到不再适用的资产（我加载了 6 种字体但只使用了 1 种字体）。
 
 ![](https://cdn-images-1.medium.com/max/800/1*61ngDdpQfLqBo-I8F_tuqw.png)
 
-我的网站时间线--我在网络档案上测试了这个却没有截取原始图片，但它看起来和我几个月前看到的很相似。
+我的网站时间线--我在网络档案上测试了这个却没有截取原始图片，可是它看起来和我几个月前看到的还是很相似。
 
-我想改进我对我所控制的一切--从 JavaScript 的内容和速度到实际的 Web 服务器（Ngnix）和 DNS 设置。 
+我想改进我所能控制的一切--从 JavaScript 的内容和速度到实际的 Web 服务器（Ngnix）和 DNS 设置。 
 
 ### 优化
 
@@ -79,27 +79,27 @@ module.exports = {
 };
 ```
 
-我使用了不同的选项--目前，这个 bundle.js 文件在我网站的 `<head>` 中，并且处于阻塞状态。它的最终大小是 829 kb，包括每个非图像资源（字体，css，所有的库和依赖项以及 js）。绝大多数字体使用的是 font-awesome，它们占 829 kb 中的 724。
+目前我使用了不同的选项，这个 bundle.js 文件在我网站的 `<head>` 中，并且处于阻塞状态。它的最终大小是 829 kb，包括每个非图像资源（字体、css、所有的库、依赖项以及 js）。绝大多数字体使用的是 font-awesome，它们占 829 kb 中的 724。
 
 我浏览了 Font Awesome 库，除了使用  fa-github、fa-envelope 和 fa-code 三个图标外，其他的所有图标都已经删除。我使用叫做 [fontello](http://fontello.com/) 的服务来提取我需要的图标。新的大小只有 94 kb。
 
-按照网站目前的构建方式，如果我们只有样式表，它看起来是不正确的，所以我接受了单个 bundle.js 的阻塞特性。负载次数为 118 ms，比上诉提高了一个数量级。
+按照目前网站的构建方式，如果我们只有样式表，它看起来是不正确的，所以我接受了单个 bundle.js 的阻塞特性。负载次数为 118 ms，比上诉提高了一个数量级。
 
-这也带来饿了一些额外的好处--不再指向第三方资源或 CDN，因此用户不需要：（1）执行对该资源的 DNS 查询，（2）执行 https 握手，（3）实际等待从该资源进行的完整下载。
+这也带来了一些额外的好处--不再指向第三方资源或 CDN，因此用户不需要：（1）执行对该资源的 DNS 查询，（2）执行 https 握手，（3）实际等待从该资源进行的完整下载。
 
-虽然 CDN 和分布式缓存对于大规模的分布式站点可能是有意义的，但对于我的小型静态站点来说却没有意义。额外的 100 毫秒是值得权衡的。
+虽然 CDN 和分布式缓存对于大规模的分布式网站可能是有意义的，但对于我的小型静态网站来说却没有意义。额外的 100 毫秒是值得权衡的。
 
 #### 压缩资源
 
-我加载了一个 8MB 大小的头像，然后以 10% 的高度显示它。这不仅仅是缺少优化，这几乎**是对用户带宽使用的疏忽**。
+我加载了一个 8 MB 大小的头像，然后以 10% 的高度显示它。这不仅仅是缺少优化，这几乎**是对用户带宽使用的疏忽**。
 
 ![](https://cdn-images-1.medium.com/max/800/1*h79KSROW3oY6KWfQm6u5yA.png)
 
-我使用 [https://webspeedtest.cloudinary.com/](https://webspeedtest.cloudinary.com/) 来压缩所有的图像-- 它还建议我切换到  [webp](https://developers.google.com/speed/webp/)，但我希望尽可能多的与其他浏览器进行兼容，所以我坚持使用 jpg。可以建立一个只将 webp 交付给支持它的浏览器系统。但我希望尽可能地保持简单，添加抽象层的好处似乎不值得。
+我使用 [https://webspeedtest.cloudinary.com/](https://webspeedtest.cloudinary.com/) 来压缩所有的图像 -- 它还建议我切换到  [webp](https://developers.google.com/speed/webp/)，但我希望尽可能多的与其他浏览器进行兼容，所以我坚持使用 jpg。可以建立一个只将 webp 交付给支持它的浏览器系统。但我希望尽可能地保持简单，添加抽象层的好处似乎并不值得。
 
 #### 改进 Web Server — HTTP2, TLS 等
 
-我做的第一件事是过度到 https--一开始，我在 80 端口运行 Ngnix，只提供来自 /var/www/html 的文件。
+我做的第一件事是过度到 https -- 开始，我在 80 端口运行 Ngnix，只服务于来自 /var/www/html 的文件。
 
 ```
 server{
@@ -143,17 +143,17 @@ server {
 
 只要添加 http2 的指令，Ngnix 就能够利用 HTTP 最新特性的所有优点。注意，如果要利用 HTTP2（以前的 SPDY），您**必须**使用 HTTPS，在[这里](https://hpbn.co/http2/)阅读更多内容。
 
-您还可以利用 HTTP2 push 指令，使用** http2 **push images/Headshot.jpg；
+您还可以利用 HTTP2 push 指令，使用 **http2** push images/Headshot.jpg；
 
 注意：启用 gzip 和 TLS 可能会使您面临 [BREACH](https://en.wikipedia.org/wiki/BREACH) 风险。由于这是一个静态网站，而 BREACH 实际的风险很低，所以保持压缩状态让我感觉舒服。
 
 #### 利用缓存和压缩指令
 
-仅通过 Ngnix 还能完成什么呢？首先是缓存和压缩指令。
+仅通过使用 Ngnix 还能完成什么呢？首先是缓存和压缩指令。
 
-我正在发送未经压缩的原始 HTML。只需要一个单独的** gzip **；好，我就可以从 16000 字节减少到 8000 字节，减少 50%。
+我正在发送未经压缩的原始 HTML。只需要一个单独的 **gzip**；是的，我就可以从 16000 字节减少到 8000 字节，减少 50%。
 
-实际上，我们能够进一步改进这个数字，如果将 Ngnix 的 **gzip** 静态设置为开启，它会事先查找所有请求文件的预压缩版本。这与我们上面的 webpack 配置结合在一起-- 我们可以在构建时使用 [ZopflicPlugin](https://github.com/webpack-contrib/zopfli-webpack-plugin) 预压缩所有文件！这节省了计算资源，并允许我们在不牺牲速度的情况下最大限度地实现压缩。
+实际上，我们能够进一步改进这个数字，如果将 Ngnix 的 **gzip** 静态设置为开启，它会事先查找所有请求文件的预压缩版本。这与我们上面的 webpack 配置结合在一起 -- 我们可以在构建时使用 [ZopflicPlugin](https://github.com/webpack-contrib/zopfli-webpack-plugin) 预压缩所有文件！这节省了计算资源，并允许我们在不牺牲速度的情况下最大限度地实现压缩。
 
 此外，我的站点变化很少，所以我希望尽可能长时间地缓存资源。这样，在以后的访问中，用户就不需要重新下载所有资源（特别是 bundle.js）。
 
@@ -260,7 +260,7 @@ server {
     }
 
     location ~* /(images|js|css|fonts|assets|dist) {
-        gzip_static on; # Tells nginx to look for compressed versions of all requested files first
+        gzip_static on; # 告诉 Nginx 首先查找所有请求文件的压缩版本。
         expires 15d; # 15 day expiration for all static assets
     }
 
@@ -296,13 +296,13 @@ $(document).ready(function() {
 
 #### 未来的改进
 
-还有一些其他的更改可以提高页面加载速度--最显著的是使用 ServiceWorker 缓存和拦截所有请求，让站点甚至脱机运行，并在CDN上缓存内容，这样用户就不需要在SF中对服务器进行完整的往返操作。这些都是有价值的改变，但对于个人静态网站来说并不是特别重要，因为它是一个在线简历/关于我的页面。
+还有一些其他的更改可以提高页面加载速度 -- 最显著的是使用 ServiceWorker 缓存并拦截所有请求，让站点甚至脱机运行，在 CDN 上缓存内容，这样用户就不需要在 SF 中对服务器进行完整的往返操作。这些都是有价值的改变，但对于个人静态网站来说并不是特别重要，因为它是一个在线简历（关于我）的页面。
 
 ### 结论
 
-这使我的页面加载时间从第一次加载的 8s 提高到 350ms，之后的页面加载速度达到了 200ms。我真的建议阅读[高性能浏览器网络](https://hpbn.co/#toc) --它是一个相当快的阅读，提供了对现代互联网的一个非常好的概述，并在互联网模型的每一层都进行了优化。
+这使我的页面加载时间从第一次加载的 8 s 提高到 350 ms，之后的页面加载速度达到了 200 ms。我真的建议阅读[高性能浏览器网络](https://hpbn.co/#toc) -- 您可以很快就阅读完它，它提供了对现代互联网的一个非常好的概述，并在互联网模型的每一层都进行了优化。
 
-**我错过了什么事情吗？查看任何违反最佳做法还是可以改善我的表现的内容甚至更高？请随时指正 -- **[_JonLuca De Caro_](https://medium.com/@jonluca)**！**
+**我遗漏了什么事情吗？查看任何违反最优的做法还是可以改善我的表现内容甚至是其他方面？请随时指正  -- **[_JonLuca De Caro_](https://medium.com/@jonluca)**！**
 
 ![](https://cdn-images-1.medium.com/max/800/1*PZjwR1Nbluff5IMI6Y1T6g@2x.png)
 
