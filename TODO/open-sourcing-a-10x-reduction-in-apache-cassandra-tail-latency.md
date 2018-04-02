@@ -3,13 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/open-sourcing-a-10x-reduction-in-apache-cassandra-tail-latency.md](https://github.com/xitu/gold-miner/blob/master/TODO/open-sourcing-a-10x-reduction-in-apache-cassandra-tail-latency.md)
 > * 译者：[stormluke](http://stormluke.me)
-> * 校对者：
+> * 校对者：[allenlongbaobao](https://github.com/allenlongbaobao)
 
 # 让 Apache Cassandra 尾部延迟减小 10 倍，已开源
 
-在 Instagram，我们拥有全球最大的 Apache Cassandra 数据库部署之一。我们于 2012 年开始用 Cassandra 取代 Redis，来支持欺诈检测、信息流和 Direct 收件箱等产品需求。最初我们在 AWS 环境中运行 Cassandra 集群，但当其他 Instagram 服务迁移到 Facebook 的基础设施上时，我们也迁过去了。对我们来说 Cassandra 的可靠性和可用性体验都很不错，但是在读取延迟上仍有改进空间。
+在 Instagram，我们的数据库是全球最大的 Apache Cassandra 部署之一。我们于 2012 年开始用 Cassandra 取代 Redis，来支持欺诈检测、信息流和 Direct 收件箱等产品需求。最初我们在 AWS 环境中运行 Cassandra 集群，但当其他 Instagram 服务迁移到 Facebook 的基础设施上时，我们也迁过去了。对我们来说 Cassandra 的可靠性和可用性体验都很不错，但是在读取延迟上仍有改进空间。
 
-去年，Instagram 的 Cassandra 团队开始致力于一个项目，目标是显着减少 Cassandra 的读取延迟，我们称之为 Rocksandra。在这篇文章中，我将介绍该项目的动机、我们克服的挑战以及在内部环境和公共云环境中的性能指标。
+去年，Instagram 的 Cassandra 团队开始致力于一个项目，目标是显著减少 Cassandra 的读取延迟，我们称之为 Rocksandra。在这篇文章中，我将介绍该项目的动机、我们克服的挑战以及在内部环境和公共云环境中的性能指标。
 
 ### 动机
 
@@ -25,7 +25,7 @@ Instagram 维护 5-9 秒的可靠性 SLA，这意味着在任何时候，请求�
 
 经过调查，我们发现 JVM 垃圾收集器（GC）对延迟峰值作出了很大贡献。我们定义了一个叫做 GC 暂停（GC stall）百分比的度量标准，用于度量 Cassandra 服务器在 stop-the-world GC（新生代 GC）并且无法响应客户端请求时所占时间百分比。这是另一张图，显示了我们生产环境 Cassandra 服务器的 GC 暂停百分比。在流量最小的时间段内，这一比例为 1.25％，在高峰时段可以高达 2.5％。
 
-该图显示 Cassandra 服务器会把 2.5％ 的运行时间用于垃圾收集，而不是响应客户端请求。GC 开销显然对我们的 P99 延迟有很大影响，所以如果能够降低 GC 暂停百分比，也就能够显着降低 P99 延迟。
+该图显示 Cassandra 服务器会把 2.5％ 的运行时间用于垃圾收集，而不是响应客户端请求。GC 开销显然对我们的 P99 延迟有很大影响，所以如果能够降低 GC 暂停百分比，也就能够显著降低 P99 延迟。
 
 ### 解决方案
 
