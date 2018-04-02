@@ -5,7 +5,7 @@
 > * 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit)
 > * 校对者：
 
-# 不使用类的类
+# 创建一个不使用类的类
 
 ## 前言
 
