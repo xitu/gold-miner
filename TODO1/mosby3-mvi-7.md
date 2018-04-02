@@ -3,21 +3,21 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/mosby3-mvi-7.md](https://github.com/xitu/gold-miner/blob/master/TODO1/mosby3-mvi-7.md)
 > * 译者：[pcdack](https://github.com/pcdack)
-> * 校对者：[hanliuxin5](https://github.com/hanliuxin5)
+> * 校对者：[hanliuxin5](https://github.com/hanliuxin5)，[allenlongbaobao](https://github.com/allenlongbaobao)
 
 # 使用MVI构建响应式 APP — 第七部分 — TIMING (SINGLELIVEEVENT 问题)
 
 在我[前面](http://hannesdorfmann.com/android/arch-components-purist)系列博客中， 我们讨论了正确的状态管理的重要性，并且也阐述了为什么我认为一个像在[谷歌架构组件的 github 中讨论](https://github.com/googlesamples/android-architecture-components/issues/63)的 SingleLiveEvent 不是一个好的主意。因为，它仅仅隐藏了真正底部的问题：状态管理。在这篇博客中，我想去讨论，SingleLiveEvent 声称能解决的问题，使用 Model-View-Intent 和正确的状态管理是如何解决的。
 
-用一个公共的场景来说明这个问题，这个场景是当一个错误发生的时候弹出一个 **snackbar**。个 SnackBar 不会一直保持在一个位置，一两秒后它就会消失。这个问题是我们如何用 model 来控制错误状态和让其消失？
+这个问题可以用一个常见的场景来举例说明：当一个错误发生的时候弹出一个snackbar。SnackBar 不会一直保持在一个位置，一两秒后它就会消失。这个问题是我们如何用 model 来控制错误状态和让其消失？
 
 让我们看下下面的的视频，这样可以让你们更好的理解，我在说什么：
 
 - ![](https://i.loli.net/2018/03/28/5abba0ba01a21.gif)
 
-这个简单的 app 显示了一个国家的列表，这些国家的数据是通过 **CountriesRepository** 加载的。如果，我们点击一个国家，我们打开了第二个 Activity ，这个 Activity 仅仅显示一些「细节」（国家的名字）。当我们返回到国家列表，我们期待看到与点击前相同「状态」显示到屏幕上。到目前为止一切都很正常，但是如果，我触发下拉刷新时，在数据加载的时候出现了错误，这个错误会让 Snackbar 显示在屏幕上，用来提示错误信息，会发生什么？ 正如你在上面视频中看到的那样，无论何时我们回到国家列表，这个 SnackBar 都会再次显示。但是，这肯定不是用户所期待的，对吧？
+这个简单的 app 显示了一个国家的列表，这些国家的数据是通过 **CountriesRepository** 加载的。如果，我们点击一个国家，我们打开了第二个 Activity ，这个 Activity 会显示一些「细节」（国家的名字）。当我们返回到国家列表，我们期待看到与点击前相同「状态」显示到屏幕上。到目前为止一切都很正常，但是如果，我触发下拉刷新时，在数据加载的时候出现了错误，这个错误会让 Snackbar 显示在屏幕上，用来提示错误信息，会发生什么？ 正如你在上面视频中看到的那样，无论何时我们回到国家列表，这个 SnackBar 都会再次显示。但是，这肯定不是用户所期待的，对吧？
 
-这个问题发生在这个屏幕处在「显示错误」的状态。谷歌的架构组件的例子是基于 ViewModel 和 LiveData 用一个 **SingleLiveEvent** 去解决这个问题。使用的方法是：无论何时 view 被它的 ViewModel 重新订阅（在从「细节」页面返回之后），SingleLiveEvent 确保“错误状态”不会被重新触发。这防止了 Snackbar 的复现，它真正解决问题了么？
+这个问题发生在这个屏幕处在「显示错误」的状态。谷歌的架构组件的例子是基于 ViewModel 和 LiveData 用一个 **SingleLiveEvent** 去解决这个问题。使用的方法是：无论何时 view 被它的 ViewModel 重新订阅（在从「细节」页面返回之后），SingleLiveEvent 确保「错误状态」不会被重新触发。这防止了 Snackbar 的复现，它真正解决问题了么？
 
 ## 时机就是一切（对于 Snackbar 来说）
 
@@ -40,7 +40,7 @@ public class CountriesViewState {
 }
 ```
 
-在 MVI 中的解决思路是 View 层得到一个（不变的）CountriesViewState 然后，仅仅显示这个状态。因此，如果，**pullToRefreshError** 是 true，那么显示 Snackbar，其他情况不显示。
+在 MVI 中的解决思路是 View 层得到一个（不变的）CountriesViewState，然后，仅仅显示这个状态。因此，如果，**pullToRefreshError** 是 true，那么显示 Snackbar，其他情况不显示。
 
 ```
 public class CountriesActivity extends MviActivity<CountriesView, CountriesPresenter>
@@ -144,11 +144,11 @@ repositroy.reload().switchMap(repoState -> {
 
 - ![](https://i.loli.net/2018/03/28/5abb9d4f58ae8.gif)
 
-请注意，这和 SingleLiveEvent 解决方法不一样。这是一种正确的状态管理，并且 view 仅仅显示或“渲染”给定的状态。因此，一旦我们的 APP 从详情页返回到国家列表。他再也不会看到 Snackbar 了，因为，状态已经同时发生了改变，变成了**CountriesViewState.pullToRefreshError = false** 因此，Snackbar 不会再次显示。
+请注意，这和 SingleLiveEvent 解决方法不一样。这是一种正确的状态管理，并且 view 仅仅显示或「渲染」给定的状态。因此，一旦我们的 APP 从详情页返回到国家列表。他再也不会看到 Snackbar 了，因为，状态已经同时发生了改变，变成了**CountriesViewState.pullToRefreshError = false** 因此，Snackbar 不会再次显示。
 
 ## 用户撤销 Snackbar
 
-如果，我们想要允许用户通过轻扫手势撤销 Snackbar。这非常简单。撤销 Snackbar 也是一种改变状态的意图。要想在原有的代码中添加这种功能，我们仅仅需要确保，无论计时器或者轻扫滑动去撤销**CountriesViewState.pullToRefreshError = false** 的意图设置。你仅仅需要记住的唯一一件事情是，在你亲亲滑动之前，你的计时器已经被取消掉了。这听起来很复杂，但是，实现起来很简单，这要感谢 RxJava 伟大的操作符和 API：
+如果，我们想要允许用户通过轻扫手势撤销 Snackbar。这非常简单。撤销 Snackbar 也是一种改变状态的意图。要想在原有的代码中添加这种功能，我们仅仅需要确保，无论计时器或者轻扫滑动去撤销**CountriesViewState.pullToRefreshError = false** 的意图设置。你仅仅需要记住的唯一一件事情是，在你轻轻滑动之前，你的计时器已经被取消掉了。这听起来很复杂，但是，实现起来很简单，这要感谢 RxJava 伟大的操作符和 API：
 
 ```
 Observable<Long> dismissPullToRefreshErrorIntent = intent(CountriesView::dismissPullToRefreshErrorIntent)
@@ -174,7 +174,7 @@ repositroy.reload().switchMap(repoState -> {
 
 ## 总结
 
-因此，让我们把我们的 UI 搞乱吧。让我们做下拉刷新的动作，退出 Snackbar 并且，让 timer 计时：
+因此，让我们尝试能不能把 UI 搞乱吧。让我们做下拉刷新的动作，退出 Snackbar 并且，让 timer 计时：
 
 - ![](https://i.loli.net/2018/03/28/5abba1372958b.gif)
 
