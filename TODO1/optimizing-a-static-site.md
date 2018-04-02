@@ -2,12 +2,12 @@
 > * 原文作者：[JonLuca De Caro](https://hackernoon.com/@jonluca?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/optimizing-a-static-site.md](https://github.com/xitu/gold-miner/blob/master/TODO1/optimizing-a-static-site.md)
-> * 译者：
+> * 译者：[Starrier](https://github.com/Starriers)
 > * 校对者：
 
 # 提高 10 倍性能：优化静态网站
 
-几个月前，我在国外旅行，想给朋友看我个人（静态）网站上的一个链接。我试着浏览我的网站，但花费的时间比我预期的时间要长。网站绝对没有任何动态内容--只有动画和一些响应式设计，而且内容始终保持不变。 我对结果感到震惊，DOM 上下文加载要 4 s，整个页面加载要 6.8 s。有 20 项关于**静态站点**的请求（总数据的 1MB）被转移。我习惯了 1 GB/s，洛杉矶的低延迟互联网连接到我在旧金山的服务器，这使得这个怪物看起来像闪电一样快。在意大利，8 MB/s 的速度让情况变得完全不同。
+几个月前，我在国外旅行，想给朋友看我个人（静态）网站上的一个链接。我试着浏览我的网站，但花费的时间比我预期的时间要长。网站绝对没有任何动态内容--只有动画和一些响应式设计，而且内容始终保持不变。 我对结果感到震惊，DOM 上下文加载要 4 s，整个页面加载要 6.8 s。有 20 项关于**静态网站**的请求（总数据的 1MB）被转移。我习惯了 1 GB/s，洛杉矶的低延迟互联网连接到我在旧金山的服务器，这使得这个怪物看起来像闪电一样快。在意大利，8 MB/s 的速度让情况变得完全不同。
 
 ![](https://cdn-images-1.medium.com/max/800/1*OgqdIBjziyfhE_tbip24ww.png)
 
