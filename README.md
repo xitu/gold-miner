@@ -32,7 +32,7 @@
 
 ## 官方文档及手册
 
-* [TensorFlow 中文文档](https://github.com/xitu/tensorflow)
+* [TensorFlow 中文文档](https://github.com/xitu/tensorflow-docs)
 * [GraphQL 中文文档](https://github.com/xitu/graphql.github.io)
 * [Under-the-hood-ReactJS 系列教程](https://github.com/xitu/Under-the-hood-ReactJS)
 * [系统设计入门教程](https://github.com/xitu/system-design-primer)
