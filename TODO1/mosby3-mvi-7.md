@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/mosby3-mvi-7.md](https://github.com/xitu/gold-miner/blob/master/TODO1/mosby3-mvi-7.md)
 > * 译者：[pcdack](https://github.com/pcdack)
-> * 校对者：
+> * 校对者：[hanliuxin5](https://github.com/hanliuxin5)
 
 # 使用MVI构建响应式 APP — 第七部分 — TIMING (SINGLELIVEEVENT 问题)
 
