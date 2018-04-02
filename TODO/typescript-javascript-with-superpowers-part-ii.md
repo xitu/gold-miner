@@ -2,111 +2,111 @@
 > * 原文作者：[Indrek Lasn](https://medium.com/@wesharehoodies?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/typescript-javascript-with-superpowers-part-ii.md](https://github.com/xitu/gold-miner/blob/master/TODO/typescript-javascript-with-superpowers-part-ii.md)
-> * 译者：
-> * 校对者：
+> * 译者：[jonjia](https://github.com/jonjia)
+> * 校对者：[Usey95](https://github.com/Usey95) [anxsec](https://github.com/anxsec)
 
-# TypeScript — JavaScript with superpowers — Part II
+# TypeScript：拥有超能力的 JavaScript（下）
 
 ![](https://cdn-images-1.medium.com/max/800/1*ijxYcfk-rHyfAWLq6bPr1Q.png)
 
-_Welcome back, for more_ articulated experience —[ _read the part I first_](https://medium.freecodecamp.org/typescript-javascript-with-super-powers-a333b0fcabc9)_._
+**欢迎回来，继前文 [[译] TypeScript：拥有超能力的 JavaScript (上)](https://juejin.im/post/5aa89d5bf265da239a5f7f44) 之后，本周带来下篇。**
 
 ![](https://cdn-images-1.medium.com/max/800/1*lrVNbYOEn_ni9NNRTY0r7w.png)
 
-Enums (**_enum_**_erations_) allow you to group values together with friendlier names. Imagine you had a list of names, here’s how you would structure the `enum`
+使用枚举（enum）可以更清晰地组合一组数据。
+
+下面我们来看看如何构造一个枚举类型：
 
 ![](https://cdn-images-1.medium.com/max/800/1*4qFIKpovAtDdkA0HkrqEVw.png)
 
-You can grab the values from the enum like so
+你可以通过下面的方法从枚举中取值：
 
 ![](https://cdn-images-1.medium.com/max/800/1*KaoKC7ZCuXwLPR_1ntY9SQ.png)
 
-But wait. It returns the integer which represents the index of the value. Like arrays, enums begin indexing their members starting at `0`
+但这样返回的是这个值的整数索引，和数组一样，枚举类型的索引也是从 `0` 开始的。
 
-How do we get the value `"Indrek"` instead of `0` ?
+那我们怎么获取到 `"Indrek"` 呢？
 
 ![](https://cdn-images-1.medium.com/max/800/1*ymUuAzpdwzeMc3522yb0MA.png)
 
-Notice how the values are presented as a string.
+注意看我们怎么获取到字符串的值。
 
 ![](https://cdn-images-1.medium.com/max/800/1*XnRIFhuCMpJFp8CmVUnf3g.png)
 
-Another great example would be using enums to store the application states.
+还有一个很好的例子是使用枚举存储应用的状态。
 
 ![](https://cdn-images-1.medium.com/max/800/1*nOLoMIf6YLl0XbFoPWeHmw.png)
 
-In case you’re interested in learning more about `enum`— I found [a great answer](https://stackoverflow.com/a/28818850/5073961) going in the nitty and gritty of `enum`
+如果你想了解更多关于枚举（enum）的知识，[stackoverflow 上的这个回答](https://stackoverflow.com/a/28818850/5073961) 探讨了更多关于枚举的细节。
 
 * * *
 
 ![](https://cdn-images-1.medium.com/max/800/1*DKPVSnf7PVjrdDY_Fvz6EQ.png)
 
-Let’s say we fetched some data from an API. We always expect the data to be fetched — but what if we can’t fetch the data?
+假设我们请求某个 API，获取了一些数据。我们总是期望成功获取数据 — 但如果我们无法获取到数据会怎样呢？
 
-Perfect time to return the `never` type (special case scenario)
+是时候返回 `never` 类型了，比如下面这种特殊使用场景：
 
 ![](https://cdn-images-1.medium.com/max/800/1*lkfWaSP6G8YfqWjoFWqh4w.png)
 
-Notice the error message we passed.
+<center>注意我们传递的 message 参数</center>
 
-We can call the `error` function inside another function (callback)
+我们可以在另外的方法中调用 `error` 方法（回调）
 
 ![](https://cdn-images-1.medium.com/max/800/1*oZ4Ya3w5ypd6BM3AeF1nRA.png)
 
-Notice how we don’t use the `void` but `never` since inferred return type is `never`.
+因为我们推断返回值的类型是 `never`，所以我们声明返回值的类型为 `never`，而不是 `void`。
 
 * * *
 
 ![](https://cdn-images-1.medium.com/max/800/1*bgzesRZpes2KJYFRWRgFkw.png)
 
-*   **null** — the absence of any value.
-*   **undefined** — a variable has been declared but has not yet been assigned a value.
+*   **null** — 没有任何值。
+*   **undefined** — 变量被声明了，但没有赋值。
 
-Not very useful on their own.
+它们本身的类型用处不是很大。
 
 ![](https://cdn-images-1.medium.com/max/800/1*PwsNVPPzy7qav43uRHKBRg.png)
 
-By default `null` and `undefined` are subtypes of all other types. That means you can assign `null` and `undefined` to something like `number`.
+默认情况下 `null` 和 `undefined` 是所有类型的子类型。就是说你可以把 `null` 和 `undefined` 赋值给 `number` 类型的变量。
 
 ![](https://cdn-images-1.medium.com/max/800/1*q6FsoxR0Qou54lG040J2KQ.jpeg)
 
-[Source](https://stackoverflow.com/a/44388246/5073961)
+[图片来自 stackoverflow](https://stackoverflow.com/a/44388246/5073961)
 
-[Here’s a great post about](http://2ality.com/2013/04/quirk-undefined.html) `[null](http://2ality.com/2013/04/quirk-undefined.html)` [and](http://2ality.com/2013/04/quirk-undefined.html) `[defined](http://2ality.com/2013/04/quirk-undefined.html)` [by Dr. Axel Rauschmayer.](http://2ality.com/2013/04/quirk-undefined.html)
+关于 `null` 和 `undefined`，Axel Rauschmayer 博士写过 [一篇非常棒的文章](http://2ality.com/2013/04/quirk-undefined.html)。
 
 * * *
 
 ![](https://cdn-images-1.medium.com/max/800/1*x3Y773t23Pc1VlhYWXB0TQ.png)
 
-Type assertions usually happen if you know the type of some entity could be more specific than its current type.
+类型断言通常会发生在你清楚地知道一个实体具有比它现有类型更确切的类型。
 
-Type assertions have no runtime impact, and is used purely by the compiler. TypeScript assumes that you, the programmer, have performed any special checks that you need.
+它在运行时没有影响，只会在编译阶段起作用。TypeScript 会假设你 — 程序员，已经进行了必要的检查。
 
-Here’s a quick demonstration
+下面是一个简单示例：
 
 ![](https://cdn-images-1.medium.com/max/800/1*LGa_fcmyWZSCzduOKqHgpw.png)
 
-the bracket `<>` syntax collides with [JSX](https://reactjs.org/docs/jsx-in-depth.html) so we use the `as` syntax instead.
+尖括号 `<>` 语法与 [JSX](https://reactjs.org/docs/jsx-in-depth.html) 用法冲突，所以我们只能使用 `as` 语法进行断言。
 
 ![](https://cdn-images-1.medium.com/max/800/1*GgrkjRVkPhwu7hHAacWwaQ.png)
 
-[Here’s a lot more about type assertions.](https://basarat.gitbooks.io/typescript/docs/types/type-assertion.html)
+[关于类型断言的更多内容](https://basarat.gitbooks.io/typescript/docs/types/type-assertion.html)
 
-#### Cool stuff to consider
+#### 一些更酷的东西
 
-*   `[interface](https://basarat.gitbooks.io/typescript/docs/types/interfaces.html)s`
-*   [DefinitelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped)
-*   `[unions](https://basarat.gitbooks.io/typescript/docs/types/discriminated-unions.html)`
-*   `[classes](https://www.typescriptlang.org/docs/handbook/classes.html)`
-*   [awesome typescript](https://github.com/dzharii/awesome-typescript)
+*   [接口](https://basarat.gitbooks.io/typescript/docs/types/interfaces.html)
+*   [绝对类型](https://github.com/DefinitelyTyped/DefinitelyTyped)
+*   [联合类型](https://basarat.gitbooks.io/typescript/docs/types/discriminated-unions.html)
+*   [类](https://www.typescriptlang.org/docs/handbook/classes.html)
+*   [一些很棒的 TypeScript 项目](https://github.com/dzharii/awesome-typescript)
 
-Now — build something awesome with Typescript! 📙
+现在 — 用 TypeScript 来构造些有趣的东西吧！📙
 
-Thanks for reading, hope you enjoyed and found it useful! Stay awesome!
+感谢阅读，希望你有所收获！
 
-- [**Indrek Lasn - Medium**: Read writing from Indrek Lasn on Medium.](https://medium.com/@wesharehoodies)
-
-- [**Indrek Lasn (@lasnindrek) | Twitter**: The latest Tweets from Indrek Lasn (@lasnindrek).](https://twitter.com/lasnindrek)
+你可以关注我的 [Twitter](https://twitter.com/lasnindrek)。
 
 
 ---

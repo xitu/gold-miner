@@ -1,3 +1,4 @@
+* [游戏即服务的五条建议，提升游戏变现能力](https://juejin.im/post/5aa88773f265da23a228cc49) ([pthtc](https://github.com/pthtc) 翻译)
 * [一文教你预测 APP 未来的货币化情况](https://juejin.im/post/5a7a94d36fb9a0634d2793c6) ([pthtc](https://github.com/pthtc) 翻译)
 * [知己知彼 — 谁在玩你的手机游戏？](https://juejin.im/post/5a960dfcf265da4e853d876b) ([laiyun90](https://github.com/laiyun90) 翻译)
 * [如果你想让用户回来，为什么前十分钟是至关重要的？](https://juejin.im/entry/5a7fe27f5188257a6854ce6a) ([sunshine940326](https://github.com/sunshine940326) 翻译)

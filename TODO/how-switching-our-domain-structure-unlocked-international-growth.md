@@ -2,82 +2,82 @@
 > * 原文作者：[Pinterest Engineering](https://medium.com/@Pinterest_Engineering?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/how-switching-our-domain-structure-unlocked-international-growth.md](https://github.com/xitu/gold-miner/blob/master/TODO/how-switching-our-domain-structure-unlocked-international-growth.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Starrier](https://github.com/Starriers)
+> * 校对者：[anxsec](https://github.com/anxsec)，[Xekin-FE](https://github.com/Xekin-FE)
 
-# How switching our domain structure unlocked international growth
+# 如何修改域名来提高国际增长率
 
-Christian Miranda | Software Engineer, Growth
+Christian Miranda | Growth 部门软件工程师
 
-More than half of the 200 million monthly active users on Pinterest use our app outside the U.S. As we continue to make Pinterest even better for our global users, we moved our traffic to country code top-level domains (ccTLDs). An example of this is serving the website on [www.pinterest.de](http://www.pinterest.de) in Germany instead of [www.pinterest.com.](http://www.pinterest.com.) Here we’ll deep dive into the specifics of how this change can help improve growth and discuss some of the engineering challenges we came across throughout the process.
+在 Pinterest 上的 2 亿月活跃用户中，其中有超过半数的用户在美国之外的地方使用我们的 app。为了给全球用户提供更好的服务，我们将持续改进 Pinterest。我们已经将流量转移到了国家代码顶级域名 (ccTLDs)。例如现在服务于德国的是 [www.pinterest.de](http://www.pinterest.de) 而不再是 [www.pinterest.com.](http://www.pinterest.com.) 这里我们将深入讨论如何帮助提高增长的细节，并讨论在整个过程中遇到的一些工程挑战。
 
-### It’s all in the name
+### 一切尽在域名中
 
-Since Pinterest’s inception in 2010, every page of the website has been hosted on [www.pinterest.com.](http://www.pinterest.com.) A few years down the line, we introduced country subdomains (e.g. de.pinterest.com) in order to segment our content by country and provide a more localized and relevant experience for Pinners. This improved search engine optimization (SEO) and general growth, because more people found relevant content in their language as country subdomains ranked higher in global search results.
+Pinterest 自 2010 年成立以来，该网站的每一页都托管在 [www.pinterest.com.](http://www.pinterest.com.) 上。上线几年后，为了让我们的内容可以按国家划分并为 Pinterest 提供本地化和相关体验，我们引进了 country 子域名 (如 de.pinterest.com)。这改善了搜索引擎的优化 (SEO) 和总体增长，因为国家子域名在全球搜索结果中排名更高，更多的人群发现了使用他们语言的相关内容。
 
-The next step was to implement ccTLDs. Through research we learned that some other sites who made the switch saw neutral or negative effects on growth, even though the industry view on ccTLDs is that they provide a stronger geo-targeting signal in many search engine algorithms, and users are more likely to click results with local domain endings (this may result in a higher click-through rate, which can positively affect search ranking). We wanted to test them to see how they’d work for Pinterest and our diverse catalog of content.
+下一步是实现 ccTLDs。通过调查，我们了解到一些做出改变的网站所呈现中立或负面增长的现象，尽管业界对 ccTLDs 看法是它在许多搜索引擎算法中提供了一个更强烈的地理定位信号，用户可能会点击以本地域名结尾的结果（这会积极影响搜索排名以导致更高的的点击率）。我们想对它们进行测试，观察他们将如何作用于 Pinterest 和我们多样化的内容目录。
 
-### More than just a redirect: The challenges of switching domains
+### 不仅仅是重定向：切换域名的挑战
 
-On the surface, the project seemed fairly simple — all we had to do was provision the new ccTLDs we wanted and set up redirects to start giving them traffic. However, it became apparent that changing the top-level domain of our site required significant changes to our infrastructure.
+从表面上看，这个项目看起来很简单--我们所要做的就是提供我们想要的新的 ccTLDs 并设置重定向来开始给它们流量。然而很明显，修改我们网站的顶级域名需要对我们的基础设施进行重大的改变。
 
-#### Cross-domain authentication
+#### 跨域认证
 
-Authentication on Pinterest is pretty standard. We have an in-house user service that handles sign ups with a username/password combination, and we employ the OAuth open standard for those who authenticate with third parties (i.e. Facebook). The backend returns an access token which we retrieve to authenticate a user each time they visit [www.pinterest.com.](http://www.pinterest.com.)
+Pinterest 上的身份验证非常标准。我们有一个处理用户名/密码注册的内部用户服务，对那些第三方（如 Facebook）认证采用 OAuth 开放标准。我们会在用户每次访问 [www.pinterest.com.](http://www.pinterest.com) 时，取回后端返回的令牌并对其进行身份验证。
 
-With the introduction of ccTLDs, we needed to support the ability to authenticate a user regardless of which domain they visit. Our solution was to set up a central domain (accounts.pinterest.com) that would act as the single source of truth for all logins.
+随着 ccTLDs 的引入，我们需要支持对用户进行身份验证的功能，无论他们访问的是哪个域名。我们的解决方案是建立一个域名中心（accounts.pinterest.com）作为所有登录的唯一验证源。
 
 ![](https://cdn-images-1.medium.com/max/800/0*xGzaLMrxl2YDvYf7.)
 
-In short, Pinterest ccTLDs communicate with the central domain to determine authentication status and setup the client-side cookie to mirror it. The next section describes this communication in detail, which we call the auth handshake.
+简而言之，Pinterest ccTLDs 与域名中心通信以确定身份验证状态，并设置客户端 cookie 来提供镜像。下一节将描述这种通信，我们称之为 auth 握手。
 
-#### The auth handshake
+#### auth 握手
 
-The general flow of the auth handshake is:
+握手的一般流程是：
 
-1.  During signup or login, an API call is made from the visiting domain (let’s say, [www.pinterest.abc)](http://www.pinterest.abc%29) to accounts.pinterest.com to determine authentication status.
-2.  If the user is logged in on accounts.pinterest.com, they’ll automatically be logged in on [www.pinterest.abc.](http://www.pinterest.abc.)
-3.  If the user is not logged in on accounts.pinterest.com, we generate an access token and set it in the cookie on both domains. This bootstraps the central domain for subsequent visits, so it can qualify step two.
+1.在注册或登录期间，将从访问域 (例如，[www.pinterest.abc)](http://www.pinterest.abc%29) 调用 API 以确定身份验证状态。
+2.如果用户登录了 accounts.plnterest.com,他们将自动登录 [www.pinterest.abc.](http://www.pinterest.abc)。
+3.如果用户没有登录 accounts.pintertst.com,我们将生成一个访问令牌，并在这两个域名上的 cookie 中设置它，这引导了域名中心的后续访问，因此可以进行第二步。 
 
-There lies a problem in step one: the same-origin policy states that “scripts on a web page can only access data on a second web page if both pages have the same origin.” This is the backbone of Internet security, and it’s what prevents Javascript on malicious websites from accessing personal or sensitive information. In the case of the auth handshake, it prevents Pinterest ccTLDs from communicating with accounts.pinterest.com due to a mismatch in domain (ex. pinterest**.com** vs. pinterest**.abc**).
+第一步中存在一个问题：同源策略规定“只有当两个网页同源时，一个网页上的脚本才可以访问另一个网页上的数据。”这是互联网安全的支柱，也是阻止恶意网站上 JavaScript 访问个人或敏感信息的手段。在 auth 握手情况下，由于域名不匹配（例如 pinterest**.com** 和 pinterest**.abc**），Pinterest ccTLDs 无法与 accounts.pinterest.com 通信。
 
-To work through this, we used Cross-Origin Resource Sharing (CORS), which gives web servers cross-domain access controls to enable secure data transfers across domains. This is done by adding new CORS-specific headers to HTTP requests and responses in the data transfer, and handling them accordingly.
+为了解决这个问题，我们使用了跨域资源共享（CORS），它为 web 服务器提供跨域访问控制，以支持数据跨域传输安全。这是通过在数据传输中向 HTTP 请求和响应添加 CORS 特定的（响应）头来完成的，并相应地处理它们。
 
-#### Using CORS in the handshake
+#### 在握手中使用 CORS
 
-Let’s walk through the process with a simplified example of a Pinterest sign up on [www.pinterest.de](http://www.pinterest.de) using the auth handshake. First, the client specifies it wants to make a cross-domain request to accounts.pinterest.com with the user’s credentials. At this point, the browser automatically adds an Origin header to the request, specifying the current domain.
+我们通过使用 auth 握手在 [www.pinterest.de](http://www.pinterest.de) 上注册 Pinterest 的简化示例来完成这个过程。首先，客户端指定它要使用用户的凭据向 accounts.pinterest.com 提出跨域请求。此时浏览器会自动向请求中添加一个 Origin header，并指定当前域名。
 
 ![](https://cdn-images-1.medium.com/max/800/0*-pGIuaxTVuwL0Ckm.)
 
-When the request reaches the server, we create the access token and authenticate the user on accounts.pinterest.com. Once the user is logged in, the handshake sends back a custom token in the response to the client. This token can be exchanged for an access token that [www.pinterest.de](http://www.pinterest.de) can use to authenticate.
+当请求到达服务器时，我们创建访问令牌，并在 accounts.pinterest.com 上进行用户身份验证。一旦用户登录，握手就会在响应中向客户端发回一个自定义令牌。此令牌可交换为 [www.pinterest.de](http://www.pinterest.de) 可用于身份验证的访问令牌。
 
-The server keeps track of all of the ccTLDs we whitelist for authentication. Before we return the response, we check if the value of the Origin request header exists in the whitelist. If so, the server adds special CORS headers to the response. The most important of these headers is Access-Control-Allow-Origin; the existence of this header signals to the client whether or not the cross-domain transfer is allowed.
+服务器跟踪所有 ccTLDs 用于身份验证的白名单。在返回响应之前，我们要检查 Origin request 报头值是否已经存在于白名单中。如果是这样，服务器将添加特殊的 CORS 响应报头。这些报头中最重要的是 Access-Control-Allow-Origin，该报头的存在将向客户端发出是否允许跨域传输的询问信息。
 
 ![](https://cdn-images-1.medium.com/max/800/0*3AzyMrdmfwNNLXux.)
 
-When the client receives the response, it sees the Access-Control-Allow-Origin header with the value “https://www.pinterest.de.” Since this matches the client’s origin, it continues to process the response. The custom token is retrieved and used to fetch an access token, allowing the user to log in on [www.pinterest.de.](http://www.pinterest.de.)
+当客户端接受到响应时，它会看到 Access-Control-Allow-Origin 的报头值“https://www.pinterest.de”。因为这和客户端同源，所以会继续处理响应。自定义令牌被检索并用于获取访问令牌，允许用户登录 [www.pinterest.de.](http://www.pinterest.de)。
 
 ![](https://cdn-images-1.medium.com/max/800/0*p3ob8BR1Q6b4vY72.)
 
-You can read more about Cross-Origin Resource Sharing and the full set of headers involved in these requests in the [official Mozilla documentation](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS).
+您可以在[ Mozilla 官方文档](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)中阅读到更多关于跨域资源共享和这些请求所涉及的所有抱头内容。
 
-#### Improving discoverability through SEO
+#### 通过 SEO 提高可发现性
 
-Once we set up our new local domains, the next step was to help them become more discoverable. One of the simplest ways to bootstrap traffic was to implement redirects to the new domains. When applicable, we used permanent (301) redirects from old existing country subdomains to the new associated ccTLDs (ex. de.pinterest.com → [www.pinterest.de).](http://www.pinterest.de%29.) Using permanent redirects allowed us to transfer most of the PageRank and authority of pages on old domains to new ones.
+一旦我们建立了新的本地域名，下一步就是帮助它们更容易被发现。引导通信量的最简单方法之一是实现对新域名的重定向。在适合情况下，我们使用永久性 (301) 重定向，从旧的现有国家子域名重定向到新的相关 ccTLDs (例如 de.pinterest.com → [www.pinterest.de).](http://www.pinterest.de%29)。使用永久性重定向允许我们将旧域名上的大部分网页排名和权限转移到新的域名中。
 
-There also were a handful of indirect methods we used to improve the quality of traffic to the new ccTLDs. Hreflangs are attributes that can be included in the markup of a web page to tell search crawlers about the different language versions of it. When search engines see this markup, they surface the locally relevant page depending on the searcher’s locale. We also used files called sitemaps to help boost the efficiency and rate at which search engines crawled our site. Sitemaps are files used to list out the web pages of your website and tell search engines about the organization of your content. By serving these files directly to the search bots, it’s easier for them to find new content to crawl and rank.
+我们还使用了一些间接方法来提高新的 ccTLDs 流量质量。Hreflangs 是可以包含在网页标记中的属性，用于告诉爬虫关于其不同语言版本的信息。当搜索引擎看到这个标记时，他们会根据搜索者的区域设置显示与本地相关的页面。我们还使用名为 sitemaps 的文件来帮助提高搜索引擎爬行站点的效率和速度。Sitemaps 是用来列出您网站的网页并告诉搜索引擎您的内容组织结构的文件。通过将这些文件直接提供给搜索机器人，它们可以更容易地找到新的内容来进行爬取和排序。
 
-### Results
+### 结论
 
-To date, we’ve observed positive traffic growth and increased clicks and views in the countries where we’ve launched. One of the more interesting findings through this process was that more of our pages can be indexed, because a different top-level domain opens up a separate “crawl budget” for the search bots.
+到目前为止，我们已经观察到在我们推出的国家，流量有了积极的增长，点击率和浏览量也有所增加。在这个过程中，一个更有趣的发现是我们可以索引更多的页面，因为不同的顶级域名为搜索机器人打开了一个单独的“爬行预算”。
 
-Moving forward, we’ll continue to invest in ccTLDs for our international content and are looking into further enhancing accounts.pinterest.com to serve as the central authentication hub for all Pinterest properties.
+展望未来，我们将继续在 ccTLDs 中为我们的国际内容投资，并正研究进一步增强 accounts.pinterest.com 作为所有 Pinterest 属性中心的认证中心。
 
 * * *
 
 ![](https://cdn-images-1.medium.com/max/800/1*VS-SIyipZqIIfQYxAvva3A.png)
 
-_Acknowledgements: Devin Lundberg, Josh Enders, Sam Meder, Jess Males, Evan Jones, Jeff Avery, Grey Skold, Julie Trier, Vadim Antonov, Kynan Lalone, Evelyn Obamos & the International team_
+**鸣谢： Devin Lundberg, Josh Enders, Sam Meder, Jess Males, Evan Jones, Jeff Avery, Grey Skold, Julie Trier, Vadim Antonov, Kynan Lalone, Evelyn Obamos 和 International 团队**
 
 
 ---

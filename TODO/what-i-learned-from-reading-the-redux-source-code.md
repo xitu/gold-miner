@@ -2,92 +2,86 @@
 > * 原文作者：[Anthony Ng](https://medium.freecodecamp.org/@newyork.anthonyng?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/what-i-learned-from-reading-the-redux-source-code.md](https://github.com/xitu/gold-miner/blob/master/TODO/what-i-learned-from-reading-the-redux-source-code.md)
-> * 译者：
-> * 校对者：
+> * 译者：[缪宇](https://juejin.im/user/57df39fca0bb9f0058a3c63d/posts)
+> * 校对者：[anxsec](https://github.com/anxsec) [轻舞飞扬](https://github.com/FateZeros)
 
-# What I learned from reading the Redux source code
+# 我们能从 Redux 源码中学到什么？
 
 ![](https://cdn-images-1.medium.com/max/2000/1*BpaqVMW2RjQAg9cFHcX1pw.png)
 
-Redux’s official logo.
+我总是听人说，想拓展开发者自身视野就去读源码吧。
 
-I’ve always heard that reading code is a good way to expand your horizons as a developer.
+所以我决定找一个高质量的 JavaScript 库来深入学习。
 
-So I made a conscious decision to really dig deep into a well-written JavaScript library and learn as much as I could.
+我选择了 [Redux](https://github.com/reactjs/redux)，因为它的代码比较少。
 
-I chose to look at [Redux](https://github.com/reactjs/redux) because it has a relatively small codebase.
+这篇文章不是 Redux 教程，而是阅读源码后的收获。如果你对学习 Redux 感兴趣，强烈推荐你去看 [Redux 教程](https://egghead.io/courses/getting-started-with-redux)，这个系列文章是 Redux 的作者 Dan Abramov 写的。
 
-This article won’t be a tutorial on Redux but rather tidbits that I learned by looking through their source code. If you’re interested in learning Redux itself, I highly recommend watching the [Getting Started with Redux](https://egghead.io/courses/getting-started-with-redux) series from the creator of Redux himself, Dan Abramov.
+### 从源码中学习
 
-### Learning from Open Source
+一些新来的开发者经常问我，怎样才是最好的学习方式？我往往会告诉他们在项目中学习。
 
-When new developers ask me what the best way of learning is, I respond that they should work on projects.
+当你构建一个项目来实践你的想法时，由于你对它的热爱，会让你度过难熬的 debug 阶段，即使遇到困难也不会放弃。这是一个非常神奇的现象。
 
-It’s amazing when you come across a project idea to work on that you would actually use yourself. That passion for a product will get you through those multi-hour debug sessions, and prevent you from abandoning it when the going gets rough.
+但是一个人闭门造车也是有问题的。你不会注意到你开发过程中的坏习惯，你也学不到任何最优的解决方案。你可能都不知道又出了哪些新的框架和技术。在独自写项目的过程中，你很快会发现你的技能达到瓶颈。
 
-But there’s a disadvantage in only working by yourself. You won’t notice any of the bad habits you pick up along the way. You won’t learn any best practices. You won’t hear about all of the new frameworks and tools that are sprouting around you. And you’ll quickly notice that your skills plateau during your lonely adventure.
+只要有可能，我建议你找些小伙伴和你一起开发。
 
-Whenever possible, I recommend you seek out others developers to pair program with.
-
-Sitting next to a peer (or if you’re lucky, someone more experienced) allows you to observe their thought processes. You get to see how their fingers glide over the keyboard. You get to watch how they struggle to tackle algorithms. You get to learn new developer tools and keyboard shortcuts. You get to soak in all the intangible things that you wouldn’t pick up working by yourself.
-
-Being in the thick of the action is the ideal place to be.
+试想一下，坐在你旁边的小伙伴（如果你够幸运，他恰好是个大神），你可以观察他思考问题的过程。你可以看他是如何敲代码的。你可以看他是如何解决算法问题的。你可以学到新的开发工具和快捷键。你会学到许多你一个人开发时学不到的东西。
 
 ![](https://cdn-images-1.medium.com/max/800/1*p7CG3FIp5uxS5GYkJnPJzw.jpeg)
 
-A Stradivarius violin.
+斯特拉迪瓦里小提琴。
 
-Take for example the Stradivarius violin. Stradivarius instruments have a reputation for excellent sound quality that (arguably) have no equal. Many theories have been presented to explain the superiority of Stradivarius, ranging from wood being salvaged from old cathedrals to special wood preservatives that were used back in the day. People have tried to reproduce it with poor results because we don’t know how Antonio Stradivari worked.
+我用斯特拉迪瓦里的小提琴举个例子。斯特拉迪瓦里小提琴以出色的音质闻名世界，在业界可以说是一枝独秀。许多人尝试用各种方法去解释为什么它这么牛逼，从古老教堂抢救出来的木材到特殊的木材的防腐剂。许多人想要复制一把斯特拉迪瓦里小提琴，结果都失败了，因为他们不知道安东尼·斯特拉迪瓦里到底是怎么做的。
 
-But imagine all the secrets and tricks that could be learned if you were in the same room as Antonio, sitting right next to him as he worked.
+设想一下，如果你和安东尼·斯特拉迪瓦里在一个房间里工作，那么所有的独门秘籍你都可以学到。
 
-This is how you should treat your pair programming sessions. You should bring a healthy dose of curiosity as you watch your peer create Stradivarius-esque code. There’s no better opportunity to see all the blood, sweat, and tears that go into a line of code.
+这下你知道该如何与你的开发小伙伴相处了吧。你只需要安静的坐他旁边，看着他写出一行行斯特拉迪瓦里式的代码。
 
-For many, the opportunity to pair program is a rare luxury. But everyone can learn from others by looking at the code they’ve written.
+对于与多人来说，协同编程是一个很好的机会，可以通过别人的代码学到很多东西。
 
-Reading well-written code is like reading a well-written novel. It involves more interpretation on your part than if you were speaking directly with the author. But you can gather a wealth of information by reading through comments and code.
+阅读高质量的代码就像读一本精彩的小说一样，比起直接和作者交流，你可能理解起来比较困难。但是你可以通过看注释和代码，获取到有价值的信息。
 
-For those skeptical about how much can be learned by reading someone else’s code, take note of this story. A high school student named Bill Gates went dumpster diving in a company’s trash to get their source code and learn their secrets.
+对于那些认为看源码没什么用的的同学，你可以去看一个故事，一个叫比尔·盖茨的高中生，为了了解某个公司的机密，他甚至去翻人家的垃圾桶找源码。
 
-If someone like Bill Gates went through all that trouble to read someone’s code, I think it’s worth it for us to open up a Github repo and do the same.
+如果你也可以像比尔·盖茨那样不厌其烦的看源码，那还在等什么？找一个 github 仓库，看源码吧！
 
 ![](https://cdn-images-1.medium.com/max/800/1*ZUdEQv1ZgNGknJuzof9SDQ.jpeg)
 
-No source code here.
+咦，源码呢？
 
-Reading through code and learning from others is not a new concept. Tutorials are structured in a way that you follow a master through a coding journey. A well-written tutorial will feel like you’re sitting next to the writer. You get the opportunity to read about the problems they’re thinking about.
+阅读源码的同时，你也可以去看官方文档，官方文档的结构就像作者写的代码一样，写得好的官方文档就让你仿佛坐在作者旁边一样。你也可以在上面看到别人遇到的问题。官方文档中的超链接提供了丰富的扩展阅读的资源。在评论区你还可以和大神一起交流。
 
-Hypertext links provide resources for you to read through and even do so in the middle of the tutorial (you wouldn’t do that in a peer programming session). The comment section and social media outlets allow you to have conversations with the masters.
+平时我也会在 YouTube 看别人写代码，我推荐大家去看[SuperCharged  直播写代码系列](https://www.youtube.com/watch?v=rBSY7BOYRo4)，来自 Google Chrome 开发者的 Youtube 频道。看两个 Google 工程师直播写一个项目，看他们是如何处理性能问题的，和大家一样，他们也会被自己拼写错误导致的 bug 卡住。
 
-I also watch people code on YouTube. I recommend the [SuperCharged Live Coding Session series](https://www.youtube.com/watch?v=rBSY7BOYRo4) from the Google Chrome Developers’ YouTube Channel. You get to watch two Google engineers live-code a project. You get to see how they approach performance issues, struggle through typos like the rest of us, and get stuck.
-
-### Lessons I learned along the way
+### 读 Readux 源码的收获
 
 #### ESLint
 
-Linting is a process of looking through your code for potential errors. It helps enforce code style and keeps your code consistent and clean. You can use your own custom style rules or use preset rules that follow conventional styles (such as one provided by Airbnb).
+Linting 用于检查代码，发现潜在的错误。它帮助我们保持代码风格的一致性和整洁。你可以自己定制规则，也可以用预设的规则（比如 Airbnb 提供的规则）。
 
-Linting is especially effective when working on a team of developers. It helps the code look like it was written by a single person. It also forces people to follow company style guides (that developers might not otherwise take the time to read).
+Linting 在团队开发中特别有用。它让所有代码看起来像一个人写的。它可以强迫开发人员按照公司的代码风格来写代码（同事不用在阅读代码上花太多时间）。
 
-Linters are for more than aesthetics. They force you to follow best practices. For example, they can tell you when to use the “const” keyword for variables that aren’t getting reassigned.
+Linters 不仅仅是为了美观，它会让你的代码更符合语言特性。比如它会告诉你什么时候使用 “const” 关键字来处理那些没有被重新赋值的变量。
 
-If you use React plugins, they can warn you about components that can be refactored into stateless functional components. They are also a great way of learning new ES6 syntax and even tell you where you can update your code with new features.
+如果你使用了 React 插件，它会警告你关于组件可以被重构成无状态的函数式组件。也是可以让你学习 ES6 语法，告诉你的某段代码可以用语法新特性来写。
 
-Here are instructions for quickly getting started with ESlint in your project:
+在你的项目中轻松使用 ESlint：
 
-1. Install the ESlint package.
+1. 安装 ESlint。
 
 ```
 $ npm install --save-dev eslint
 ```
 
-2. Configure the ESlint options.
+2. 配置 ESlint。
 
 ```
 ./node_modules/.bin/eslint --init
 ```
 
-3. Set up an npm script to run your linter in your package.json file (optional).
+3. 在你的 package.json 文件中设置 npm 脚本来运行你的 Linter（可选）。
 
 ```
 "scripts": {
@@ -95,64 +89,64 @@ $ npm install --save-dev eslint
 }
 ```
 
-4. Run the linter.
+4. 运行 Linter.
 
 ```
 $ npm run lint
 ```
 
-Check out [their documentation](http://eslint.org/docs/user-guide/getting-started) for more details on how to get started.
+查看[它们的官方文档](http://eslint.org/docs/user-guide/getting-started)，了解更多。
 
-Many editors also have plugins that will lint your files as you type.
+许多编辑器也有插件来检查你的代码。
 
-Sometimes linters might complain about code that you actually need, such as a console.log. You can tell your linter to ignore certain lines of code in their analysis.
+有些时候 Linter 会对一些正确的代码报错，比如 console.log。你可以告诉 Linter 忽略这行代码，不对其进行检查。
 
-To do this with ESlint, you can include the comments below:
+在 ESlint 中忽略检查，你可以这样写代码注释：
 
 ```
- // Single line Ignore
+// 忽略一行
  console.log(‘Hello World’); // eslint-disable-line no-console
-// Multiline Ignore
+// 忽略多行
  /* eslint-disable no-console */
  console.log(‘Hello World’);
  console.log(‘Goodbye World’);
  /* eslint-enable no-console */
 ```
 
-#### Check for minification
+#### 检查代码是否被压缩了
 
-I found a random “isCrushed()” function inside the source code that had no body to it. This was strange.
+在源码中我发现一个 “isCrushed()” 的空函数，很奇怪。
 
-But I found that its only purpose was to see if the code was minified. During minification, function names and variables are shortened. There was an if statement that checked if the “isCrushed()” function still existed with that name. A warning would be shown if the minified code was used in development.
+后来我发现它的目的是为了检查代码是否被压缩了。在代码压缩过程中，函数名字和变量会被缩写。当你在开发的时候如果使用了压缩后的代码，如果一个条语句被检测到仍然有 “isCrushed()” 存在，就会有警告提示。
 
-#### Don’t be afraid of errors
+#### 不要害怕报错
 
-I had rarely used errors in my code outside of learning about it. JavaScript is a loosely-typed language so we should be paranoid about what gets passed into our functions. We should throw errors and scream like a strongly-typed language would.
+在学习 Redux 源码之前我很少在代码中抛异常。JavaScript 是一个弱类型，所以我们不知道函数中传入参数的类型。所以我们必须要像强类型语言那样对于错误要抛出异常。
 
-Finally use try…catch…finally statements with these errors. Doing so will make your code easier to debug and reason with in the future.
+使用 `try…catch…finally` 语句来抛出异常。这样做可以方便你 debug，以及理清代码逻辑。
 
-Take a look at that nice stack trace that errors produce in the console.
+在控制台中产生的错误，可以很方便堆栈跟踪。
 
 ![](https://cdn-images-1.medium.com/max/800/1*03Y3lQPmF8Hl1pNMvm4Fsg.png)
 
-A helpful stack trace.
+很有用的栈跟踪。
 
-Errors makes your intentions explicit. For example, if your “add()” function only expects numbers, then let the whole world know.
+做异常信息处理让你的代码逻辑清晰。比如，如果有一个 "add()" 函数，只允许传入数字，如果传入的不是数字就要抛出异常。
 
 ```
- function add(a, b) {
-   if(typeof a !== ‘number’ || typeof b !== ‘number’) {
-     throw new Error(‘Invalid arguments passed. Expected numbers’);
-   }
-   return a + b;
- }
+function add(a, b) {
+    if(typeof a !== ‘number’ || typeof b !== ‘number’) {
+	throw new Error(‘Invalid arguments passed. Expected numbers’);
+    }
+    return a + b;
+}
 var sum = add(‘foo’, 2); 
-// errors will prevent unintended consequences in your code
+// 抛出异常后会终止代码执行
 ```
 
-#### Function Composition
+#### 组合函数
 
-There was a “compose()” function that built new functions out of existing ones:
+源码中有一个 “compose()” 函数，根据已有的函数构建出新的函数:
 
 ```
  function compose(…funcs) {
@@ -168,7 +162,7 @@ There was a “compose()” function that built new functions out of existing on
  }
 ```
 
-If I have an existing function that squares a number and another function that doubles a number, I can combine them together into a new function.
+如果我有两个已知的 square 函数和另一个 double 函数，我可以把它们组成一个新函数。
 
 ```
  function square(num) {
@@ -183,13 +177,13 @@ function squareThenDouble(num) {
 console.log(squareThenDouble(7)); // 98
 ```
 
-I don’t know if I’ll ever use this, but it’s good to have this in my tools.
+如果我没看过 Redux 的源码，我都不知道还有这种犀利的操作。
 
-#### Native Methods
+#### 原生方法
 
-When I was looking at the “compose()” function, I ran into an Array method “reduceRight()” that I had never heard of. It made me wonder how many other native functions I haven’t learned.
+当我在看 “compose” 函数的时候，我发现了一个原生数组方法 “reduceRight()”，我之前都没听到过。这让我想知道还有多少我没听过的原生方法。
 
-Let’s look at a code snippet that uses the native Array method “filter()” and one that doesn’t, and see why it’s worth it to know what native functions exist.
+我们来看一个代码片段，一个使用了原生数组方法 “filter()”，一个没有，通过对比看原生方法存在的价值。
 
 ```
  function custom(array) {
@@ -209,39 +203,39 @@ Let’s look at a code snippet that uses the native Array method “filter()” 
  console.log(native(myArray));
 ```
 
-You can see how concise the code that uses “filter()” is. More importantly, we’re not reinventing the wheel. The “filter()” function has been used by millions of other users and is probably less buggy than your implementation.
+你可以看到使用 “filter()” 会让你的代码变得简洁。更重要的是，避免了重复造轮子。“filter()” 会被使用上百万次，比起你自己造轮子，可以避免很多 bug。
 
-Before writing your own solution, check to see if the problem has already been solved in the language you’re using. You’ll be surprised how many utility methods a language can have. (For example, check out this Ruby [method](https://ruby-doc.org/core-2.2.0/Array.html#method-i-repeated_permutation) for repeated permutations in an array).
+当你想造轮子的时候，先看看你的问题是否已经被原生方法解决了。你会惊喜的发现有非常多的实用方法在你用的编程语言中。（比如，可以看看 Ruby 的数组的重新排列的[方法](https://ruby-doc.org/core-2.2.0/Array.html#method-i-repeated_permutation)）
 
-#### Descriptive function names
+#### 描述性的函数名
 
-Looking through the source code, I saw a number of long function names.
+在源码中，我看到了许多有很长名字的函数。
 
 1.  getUndefinedStateErrorMessage
 2.  getUnexpectedStateShapeWarningMessage
 3.  assertReducerSanity
 
-Although they don’t roll off the tongue, there is no confusion about what they do.
+虽然这函数名读起来会让你的舌头打结，但你可以清楚的知道这个函数是做什么的。
 
-Use descriptive names in your code. You will spend more time reading code than writing it, so make it easier for you and everyone else to read.
+在你的代码中使用描述性的函数名，让你更多的是读代码而不是写代码，别人也可以很轻松的阅读你的代码。
 
-The benefits of using long descriptive names far exceed the irritation you get from the extra keystrokes. Modern text editors have autocomplete features that help you type so you have no excuse to use “x” or “y” as variables.
+用较长的描述性函数名带来的好处远超过敲击键盘所带来的快感。现代的文本编辑器都有自动补全功能，它可以帮助你输入，所以没有理由再使用类似 “x” 或者 “y” 的变量名。
 
 #### console.error vs. console.log
 
-Don’t use console.log for everything. If you have an error that you want to print out, use console.error. You get a nice red print out with a stack trace in your console.
+不要总是使用 console.log，如果你要抛出异常，请使用 console.error，你可以在 console 中看到红色的打印内容和栈的跟踪。
 
 ![](https://cdn-images-1.medium.com/max/800/1*1N-RGnFLtEhcuS9QTCF56w.png)
 
 console.error()
 
-Take a look at the [documentation](https://developer.mozilla.org/en-US/docs/Web/API/Console) for the console and see what other methods are available. There is a built in timer (console.time()), you can print out your info in a table layout (console.table()) and much more.
+查看 console [文档](https://developer.mozilla.org/en-US/docs/Web/API/Console)，看看其他的方法。比如计算运行时间的计时器（console.time()）,用表格方式打印信息（console.table()），等等。
 
 * * *
 
-Don’t be afraid to dig through Open Source code. You’ll definitely learn something and might even find something to contribute.
+不要害怕去读源代码。你肯定会学到一些东西，甚至可以为它贡献代码。
 
-Let me know what things you have learned by reading other people’s code.
+在评论中分享你在阅读源码中的收获吧！
 
 
 ---
