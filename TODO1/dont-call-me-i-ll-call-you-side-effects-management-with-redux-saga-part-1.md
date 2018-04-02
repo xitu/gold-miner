@@ -5,7 +5,7 @@
 > * 译者：[jonjia](https://github.com/jonjia)
 > * 校对者：[smileShirely](https://github.com/smileShirely) [ClarenceC](https://github.com/ClarenceC)
 
-# 等我通知：使用 Redux-Saga 管理 React 应用中的异步 action （上）
+# Don’t call me, I’ll call you：使用 Redux-Saga 管理 React 应用中的异步 action （上）
 
 ![](https://cdn-images-1.medium.com/max/800/1*v-_1QMuWsWYoB-AY78nArQ.png)
 
@@ -15,7 +15,7 @@
 
 #### Generators 先行！
 
-为了理解 Sagas，我们首先要理解什么是 Generator。下面是 MDN 对 Generator 的描述：
+为了理解 Sagas，我们首先要理解什么是 Generator。下面是 [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function%2A) 对 Generator 的描述：
 
 > Generator 是在执行时能暂停，后面又能从暂停处继续执行的函数。它的上下文会在继续执行时保存。
 
@@ -41,7 +41,7 @@ console.log(generator.next()); // prints {value: "Daniel", done: true}
 ```
 
 `next` 方法的返回值结构非常简单 — 只要我们通过 `yield/return` 返回值，这个返回值就是 `value` 属性的值。如果我们没有返回值，`value` 属性的值就是 **undefined**，`done` 属性的值就是 `true`。
-还有一点值的注意的是，执行 `namesEmitter` 后，函数会在调用 `yield` 的地方停下来。我们调用 `next` 方法后，函数会继续执行，直到遇到下一个 `yield`。如果我们调用了 `return` 语句或者函数执行完毕，`done` 属性就会为真。
+还有一点值的注意的是，执行 `namesEmitter` 后，函数会在调用 `yield` 的地方停下来。当我们调用 `next` 方法后，函数会继续执行，直到遇到下一个 `yield`。如果我们调用了 `return` 语句或者函数执行完毕，`done` 属性就会为真。
 
 如果状态序列的长度不确定时，我们可以用下面的方法来写：
 
@@ -60,7 +60,7 @@ Sagas 是通过 Generator 函数来创建的。[官方文档](https://github.com
 
 > Saga 就像应用中的一个独立线程，完全负责管理异步 action。
 
-你可以把 Saga 想象成一个不断地调用 `next` 方法并尝试尽快获取所有 `yield` 表达式值的线程。你可能会问这和 React 有什么关系，为什么要使用它，所以首先来看看如何在 React & Redux 应用使用 Saga：
+你可以把 Saga 想象成一个以最快速度不断地调用 `next` 方法并尝试获取所有 `yield` 表达式值的线程。你可能会问这和 React 有什么关系，为什么要使用它，所以首先来看看如何在 React & Redux 应用使用 Saga：
 
 在 React & Redux 应用中，一个常见的用法从调用一个 action 开始。被分配用来处理这个 action 的 reducer 会使用新的 state 更新 store，随后视图就会被更新渲染。
 如果一个 Saga 被分配用来处理这个 action — 这个 action 通常就是个异步 action（比如一个对服务端的请求），一旦这个 action 完成后，Saga 会调用另一个 action 让 reducer 进行处理。
@@ -167,7 +167,7 @@ case SHOW_DATA_ACTION: (state, data) => {
 2. **mySaga** 运行，进入 `while(true)` 循环，在第 3 行挂起。
 3. `USER_INTERACTED_WITH_UI_ACTION` 这个 action 被触发。
 4. Saga 的线程激活，执行第 4 行，触发 `SHOW_LOADING_ACTION` 这个 action，然后分配的 reducer 进行处理（reducer 处理后，页面就会显示 loading 提示）。
-5. 发送一个请求（第 5 行），然后会再次挂起，直到请求的 Promise 变为 resolved，请求结果的数据会赋值给 data 变量。
+5. 发送一个请求到服务端（第 5 行），然后会再次挂起，直到请求的 Promise 变为 resolved，请求结果的数据会赋值给 data 变量。
 6. `SHOW_DATA_ACTION` 接收 data 作为参数被触发，然后 reducer 就可以使用这些数据来更新页面。
 7. 再次进入循环，回到第 2 步。
 
