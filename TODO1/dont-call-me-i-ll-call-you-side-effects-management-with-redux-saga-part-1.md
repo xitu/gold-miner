@@ -5,7 +5,7 @@
 > * 译者：[jonjia](https://github.com/jonjia)
 > * 校对者：[smileShirely](https://github.com/smileShirely) [ClarenceC](https://github.com/ClarenceC)
 
-# Don’t call me, I’ll call you：使用 Redux-Saga 管理 React 应用中的异步 action （上）
+# Don’t call me, I’ll call you：使用 Redux-Saga 管理 React 应用中的异步 action（上）
 
 ![](https://cdn-images-1.medium.com/max/800/1*v-_1QMuWsWYoB-AY78nArQ.png)
 
