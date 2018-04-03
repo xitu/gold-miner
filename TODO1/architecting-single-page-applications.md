@@ -2,90 +2,129 @@
 > * 原文作者：[Daniel Dughila](https://hackernoon.com/@danieldughila?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/architecting-single-page-applications.md](https://github.com/xitu/gold-miner/blob/master/TODO1/architecting-single-page-applications.md)
-> * 译者：
+> * 译者：[zwwill 木羽](https://github.com/zwwill)
 > * 校对者：
 
 # The 4 Layers of Single Page Applications You Need to Know
+# 关于 SPA 的 4 层
 
 ## Let’s architect a React application from the ground up, exploring the domain and its services, store, application services and the view.
+
+## 我们从头来构建一个 React 的应用程序，探究领域及服务、存储、应用服务和视图。
 
 ![](https://cdn-images-1.medium.com/max/800/1*5aa2cNrij2fVO0rZTJCZHQ.png)
 
 The four layers of single page applications — by [Alberto V](https://dribbble.com/AlbertoV).
+SPA 的四层 - 由 [Alberto V](https://dribbble.com/AlbertoV) 提供
 
 Every successful project needs a clear architecture, which is understood by all team members.
+每个成功的项目都需要一个清晰的架构，这是所有团队成员都心知肚明的。
 
 Imagine you’re new to the team. The technical leader presents the proposed architecture for the new application coming up on the roadmap:
+试想一下，作为团队的新人。技术负责人给你介绍了在项目进程中提出的新应用程序的架构。
 
 ![](https://cdn-images-1.medium.com/max/800/1*6wpX8u_mM8Z1xdZVMFj67w.png)
 
 The four layers of single page applications (detailed).
+SPA 的四层（细节）
 
 He talks about the requirements:
+然后告诉你需求：
 
 > Our app will display a list of articles. As a user, I will be able to create, delete and like articles.
+> 我们的应用程序将显示一系列文章。用户能够创建、删除和收藏文章。
 
 And then he asks you to do it!
+然后他说，去做吧！
 
 ### Ok, no problem, let’s start architecting
+### Ok，没问题，我们来搭框架吧
 
 I’ve chosen [Create React App](https://github.com/facebook/create-react-app) and [Flow](https://flow.org) for type checking. For brevity, the application has no styling.
+我选择 FaceBook 开源的构建工具 [Create React App](https://github.com/facebook/create-react-app)，使用 [Flow](https://flow.org) 来进行类型检查。为了简捷，暂不开放样式。
 
 As a prerequisite, let’s talk about the declarative nature of modern frameworks, touching on the concept of state.
+作为先决条件，让我们讨论一下现代框架的声明性本质，以及涉及到的 state 概念。
 
 ### Today’s frameworks are declarative
+### 现在的框架多为声明式的
 
 React, Angular, Vue are [declarative](https://tylermcginnis.com/imperative-vs-declarative-programming/), encouraging us to use elements of functionalprogramming.
+React， Angular， Vue 都是声明式的，并鼓励我们使用函数式编程的元素。
 
 Have you ever seen a flip book?
+你有见过手翻书吗？
 
 > A flip book or flick book is a book with a series of pictures that vary gradually from one page to the next, so that when the pages are turned rapidly, the pictures appear to animate … [1]
+> 一本手翻书或电影书，里面有一系列逐页变化的图片，当页面快速翻页的时候，就形成了动态的画面。 [1]
 
 ![](https://cdn-images-1.medium.com/max/800/1*YC8GwZboKkBFfJI8cRzUnQ.jpeg)
 
 Now let’s check a part of React’s definition:
+现在让我们来看一下 React 中的定义：
 
 > Design simple views for each state in your application, and React will efficiently update and render just the right components when your data changes … [2]
+> 在应用程序中为每个状态设计简单的视图， React 会在数据发生变化时高效地更新和渲染正确的组件。 [2]
 
 And a part of Angular’s:
+Angular 中的定义：
 
 > Build features quickly with simple, declarative templates. Extend the template language with your own components … [3]
+> 使用简单、声明式的模板快速构建特性。使用您自己的组件扩展模板语言。 [3]
 
 Sounds familiar?
+大同小异？
 
 Frameworks help us build apps consisting of views. Views are representations of state. But what is the state?
+框架帮助我们构建包含视图的应用程序。视图是状态的表象。那状态又是什么？
 
 ### The state
+### 状态
 
 The state represents every piece of data that changes in an application.
+状态表示应用程序中会更改的所有数据。
 
 You visit an URL, that’s state, make an Ajax call to retrieve a list of movies, that’s state again, you persist info to local storage, ditto, state.
+你访问一个URL，这是状态，发出一个 Ajax 请求来获取电影列表，这是也状态，将信息持久化到本地存储，同上，也是状态。
 
 The state will consist of **immutable objects**.
+状态由一系列**不变对象**组成
 
 [Immutable architecture](http://enterprisecraftsmanship.com/2016/05/12/immutable-architecture) has many benefits, one being at the view level.
+[不变对象](http://enterprisecraftsmanship.com/2016/05/12/immutable-architecture)有很多好处，其中一个就是在视图层。
 
 Here is a quote from React’s guide to [optimizing performance](https://reactjs.org/docs/optimizing-performance.html):
+下面是 React 指南对[性能优化](https://reactjs.org/docs/optimizing-performance.html)介绍的引言。
 
 > Immutability makes tracking changes cheap. A change will always result in a new object so we only need to check if the reference to the object has changed. [4]
+> 不变性使得跟踪更改变得更容易。更改总是会产生一个新对象，所以我们只需要检查对象的引用是否发生了更改。
+
 
 ### The domain layer
+### 领域层
 
 The domain describes the state and holds the business logic. It represents the core of our application and should be agnostic to the view layer. Angular, React, Vue, it shouldn’t matter, we should be able to use our domain regardless of the framework we choose.
+域可以描述状态并保存业务逻辑。它是应用程序的核心，应该与视图层解耦。Angular， React 或者是 Vue，这些都不重要，重要的是不管选择什么框架，我们都能够使用自己的领。
 
 ![](https://cdn-images-1.medium.com/max/800/1*iNmdhMwXJ53tv0fyhhpmmw.png)
 
 The domain layer.
+领域层
 
 Because we are dealing with immutable architecture, our domain layer will consist of entities and domain services.
+因为我们处理的是不可变的结构，所以我们的领域层将包含实体和域服务。
 
 Controversial in OOP, especially in large-scale applications, the anemic domain model is perfectly acceptable when working with immutable data.
+在 OOP 中存在争议，特别是在大规模应用程序中，在使用不可变数据时，贫血模型是完全可以接受的。
 
 > For me, this [course](https://www.pluralsight.com/courses/refactoring-anemic-domain-model) by Vladimir Khorikov was eye-opening.
+> 对我来说，弗拉基米尔·克里科夫（Vladimir Khorikov）的[这门课](https://www.pluralsight.com/courses/refactoring-anemic-domain-model)让我大开眼界。
 
 Having to display a list of articles, the first thing we’ll model is the **Article** entity.
+要显示文章列表，我们首先要建模的是**Article**实体。
 
 All future objects of type **Article** are meant to be immutable. Flow can [enforce immutability](https://flow.org/en/docs/react/redux/#typing-redux-state-immutability-a-classtoc-idtoc-typing-redux-state-immutability-hreftoc-typing-redux-state-immutabilitya) by making every property read-only(see the plus sign before each prop).
+所有 **Article** 类型实体的未来对象都是不可变的。Flow 可以通过使所有属性只读（属性前面带 + 号）来强制将对象不可变。
 
 ```
 // @flow
@@ -98,24 +137,34 @@ export type Article = {
 ```
 
 Now let’s create the **articleService** using the factory function pattern.
+现在，让我们使用工厂函数模式创建 **articleService**。
 
 > Check out this [video](https://www.youtube.com/watch?v=ImwrezYhw4w) by @mpjme for a great explanation**.**
+> 通过查看 @mpjme 的这个[视频]，可得到一个很好的解释
 
 Since we need only one **articleService** in our application, we will export it as a singleton.
+由于在我们的应用程序中只需要一个**articleService**，我们将把它导出为一个 singleton。
 
 The **createArticle** methodwill allow us to create [frozen objects](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze) of type **Article**. Each new article will have a unique autogenerated id and zero likes, letting us supply only the author and title.
+**createArticle** 允许我们创建 **Article** 的[冻结对象](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze)。每一篇新文章都会有一个唯一的自动生成的id和零收藏，我们仅需要提供作者和标题。
 
 > The `**Object.freeze()**` method freezes an object: that is, prevents new properties from being added to it. [5]
+> `**Object.freeze()**` 方法可冻结一个对象：也就是说，将阻止被新曾属性。 [5]
 
 The **createArticle** method returns a “maybe” **Article** type.
+**createArticle** 方法返回的是一个 **Article** 的「Maybe」类型
 
 > [Maybe](https://flow.org/en/docs/types/maybe) types enforce you to check if an **Article** object exists before operating on it.
+> [Maybe](https://flow.org/en/docs/types/maybe) 类型强制你在操作 **Article** 对象前先检查它是否存在。
 
 If any of the fields necessary to create an article fail validation, the **createArticle** method returns null. Some may argue that it’s better to throw a user-defined exception. If we enforce this and the upper layers do not implement catch blocks, the program will terminate at runtime.
+如果创建文章所需要的任一字段无法验证，那么 **createArticle** 方法将返回null。这里可能有人会说，最好抛出一个用户定义的异常。如果我们这么早，但上层不实现catch块，那么程序将在运行时终止。
 
 The **updateLikes** method will help us update the number of likes from anexisting article, by returning a copy of it with the new count.
+**updateLikes** 方法会帮我们更新现存文章的收藏数，将返回一个拥有新计数的副本。
 
 Finally, the **isTitleValid** and **isAuthorValid** methods prevent the **createArticle** from working with corrupt data.
+最后，**isTitleValid** 和 **isAuthorValid** 方法用来避免 **createArticle** 处理会使其出处的数据。
 
 ```
 // @flow
@@ -180,6 +229,8 @@ export const articleService = ArticleServiceFactory();
 ```
 
 Validations are very important in keeping our data consistent, especially at the domain level. We can compose our **Validators** service out of pure functions.
+验证对于保持数据一致性非常重要，特别是在领域级别。我们可以用纯函数来编写 **Validators** 服务。
+
 
 ```
 // @flow
@@ -191,14 +242,19 @@ export const isLengthGreaterThen = (length: number) => (toValidate: string) => t
 ```
 
 Please take these validations with a grain of salt, just for demo purposes.
+请使用最小的工程来检验这些验证方法，仅用于演示。
 
 > In JavaScript, checking if an object is, in fact, an object is not that easy. :)
+> 事实上，在 JavaScript 中检验一个对象是否为对象并不容易。 :)
 
 We now have our domain layer setup!
+现在我们有了自己领域层的结构!
 
 The nice part is that we can use our code right now, agnostic of a framework.
+好在现在就可以使用我们的代码来，而无需考虑框架。
 
 Let’s see how we can use the **articleService** to create an article about one of my favorite books and update its number of likes.
+让我们来看一下如何使用 **articleService** 创建一篇关于我最喜欢的书的文章，并更新它的收藏数。
 
 ```
 // @flow
@@ -232,6 +288,7 @@ console.log('incrementedArticle', incrementedArticle);
 ```
 
 ### The store layer
+### 存储层
 
 The data which results from creating and updating articles represents our application’s state.
 
