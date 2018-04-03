@@ -3,11 +3,11 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/powering-php-with-janusgraph.md](https://github.com/xitu/gold-miner/blob/master/TODO/powering-php-with-janusgraph.md)
 > * 译者：[GanymedeNil](https://github.com/GanymedeNil)
-> * 校对者：
+> * 校对者：[allenlongbaobao](https://github.com/allenlongbaobao)
 
 # JanusGraph 为 PHP 助力
 
-__随着 JanusGraph 的日益流行，开发者们也毫无疑问地围绕着它开发着相应的工具。在这篇来自 Compose [Write Stuff](https://compose.com/write-stuff) 的文章中，Campus Discounts 的创始人兼首席技术官 Don Omondi 将谈到他为 JanusGraph 开发新的 PHP 库并且分享如何使用它。__
+**随着 JanusGraph 的日益流行，开发者们也毫无疑问地围绕着它开发着相应的工具。在这篇来自 Compose [Write Stuff](https://compose.com/write-stuff) 的文章中，Campus Discounts 的创始人兼首席技术官 Don Omondi 将谈到他为 JanusGraph 开发新的 PHP 库并且分享如何使用它。**
 
 在编程语言的世界中，PHP 并不需要过多介绍。它在 1995 年正式对外发布了 1.0 版本。现在 PHP 已经成为许多独角兽公司的中坚力量，而其中最为人知晓的就是 Facebook，最近像 Slack 也加入了 PHP 的阵营。截至 2017 年 9 月，[W3Techs](https://w3techs.com/technologies/overview/programming_language/all) 报告称，在所有已知网站中，服务端编程语言使用了 PHP 的占了 82.8% !
 
