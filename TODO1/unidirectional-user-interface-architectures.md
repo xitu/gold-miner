@@ -164,7 +164,7 @@ Observables 在 Dialogues 不同层之间的连接是一个数据流图。它并
 
 因此，这个架构是分形的（仅涉及 Dialogue 接口时）、一般性的。
 
-可以查看 [TodoMVC implementation](https://github.com/cyclejs/todomvc-cycle) 和 [this small app](https://github.com/cyclejs/cycle-examples/tree/master/bmi-nested) 作为使用了 Cycle.js 的嵌套 Dialogues。
+可以查看 [TodoMVC implementation](https://github.com/cyclejs/todomvc-cycle) 和 [this small app](https://github.com/cyclejs/cycle-examples/tree/master/bmi-nested) 作为使用了 Cycle.js 的嵌套 Dialogues 的例子。
 
 ## 重点总结
 
