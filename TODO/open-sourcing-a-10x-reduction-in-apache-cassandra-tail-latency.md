@@ -84,7 +84,7 @@ TABLE emp (
 
 如果您身处湾区，并有兴趣了解更多关于 Cassandra 开发的信息，请参加我们的下一次 [聚会活动](https://www.meetup.com/Apache-Cassandra-Bay-Area/events/248376266/)。
 
-_Dikang Gu 是 Instagram 的一名基础架构工程师_
+Dikang Gu 是 Instagram 的一名基础架构工程师
 
 
 ---
