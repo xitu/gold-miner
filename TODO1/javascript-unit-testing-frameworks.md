@@ -5,9 +5,9 @@
 > * 译者：
 > * 校对者：
 
-# JavaScript unit testing frameworks: Comparing Jasmine, Mocha, AVA, Tape and Jest
+# JavaScript 单元测试框架: Jasmine, Mocha, AVA, Tape 和 Jest 的比较
 
-When starting development on a new front end project, I always ask myself two questions: “Which JavaScript unit testing frameworks should I use?” and “Should I even spend time adding tests?”
+当开始开发新前端项目的时候, 我经常会问自己两个问题: “我应该用那一个 JavaScript 单元测试框架呢?” 和 “我应该花时间去添加测试代码吗?”
 
 My colleagues often write about how unit tests are great for peace of mind and reducing software errors. So I **always make the time to test**. But which framework should you choose for your project? Before rushing into any decisions, I investigated five of the most popular JavaScript unit testing frameworks so you can decide which one is best for you.
 
