@@ -17,17 +17,17 @@
 
 当不同的框架使用 “View” 这个术语时，含义可能大不相同。作为替代，我们使用 “rendering” 来代表共识中的 “View”。
 
-> **用户接口界面（User interface rendering）**是屏幕上的图形输出，一般情况下用 HTML 或者其他类似的高级声明代码比如 JSX 来描述。
+> **用户接口界面（User interface rendering）**指代屏幕上的图形输出，一般情况下用 HTML 或者其他类似的高级声明代码比如 JSX 来描述。
 
 > 一个**用户界面（UI）程序（User interface (UI) program）**是任何一个将用户事件作为输入输出视图的程序，这是一个持续的过程而不是一次性的转换。
 
-假定 DOM 以及其他层比如一些框架和库存在与用户和架构之间。
+假定 DOM 以及其他层比如一些框架和库存在于用户和架构之间。
 
 **模块间箭头的所属很重要。**`A--> B` 和 `A -->B` 是不一样的。前者是被动编程，而后者是反应式编程。[这里](http://cycle.js.org/observables.html#reactive-programming)可以阅读更多。
 
-> 如果子组建和整体的结构一致，这个单向架构就被称为**分形（fractal）**。
+> 如果子组件和整体的结构一致，这个单向架构就被称为**分形（fractal）**。
 
-在分形架构中，整体可以像组建一样简单的打包然后用于更大的应用。
+在分形架构中，整体可以像组件一样简单的打包然后用于更大的应用。
 
 在非分形架构中，那些不重复的部分被称为**协调器（orchestrators）**，它们不属于具有分级结构的部分。
 
@@ -39,7 +39,7 @@
 
 *   **Stores**：管理事务信息和状态
 *   **View**：一个 React 组件的分级结构
-*   **Actions**：由用户事件创建的事件，可以触发 View
+*   **Actions**：由 View 当中触发的用户事件而产生的事件
 *   **Dispatcher**：搭载所有 actions 的事件
 
 [![Flux diagram](https://staltz.com/img/flux-unidir-ui-arch.jpg)](https://staltz.com/img/flux-unidir-ui-arch.jpg)
@@ -48,7 +48,7 @@
 
 **Dispatcher。** 因为它是事件的载体，它是唯一的。很多 Flux 的变体去掉了对 dispatcher 的需求，其他的一些单向框架也没有 dispatcher 等同物。
 
-**只有 View 有可组合组件。**分级结构仅存在于 React 组件中，Stores 和 Actions 都没有。一个 React 组件就是一个 UI 程序，并且通常不会被编写在 Flux 架构内部。所以 Flux 不是分形的，Dispatcher 和 Stores 作为它的协调器。
+**只有 View 有可组合组件。**分级结构仅存在于 React 组件中，Stores 和 Actions 都没有。一个 React 组件就是一个 UI 程序，并且其内部通常不会编写成一个 Flux 架构的形式。所以 Flux 不是分形的，Dispatcher 和 Stores 作为它的协调器。
 
 **用户事件处理器在 rendering 中声明。**也就是，React 组件的 `render()` 函数处理和用户交互的两个方向：渲染和用户事件处理（例如 `onClick={this.clickHandler}`）
 
@@ -69,18 +69,18 @@
 
 **store 工厂。**使用工厂函数 `createStore()` 可以创建 Store，由 reducer 函数作为组成参数。还有一个元函数 `applyMiddleware()`，接受中间件函数作为参数。中间件是用附加的链式功能重写 store 的 `dispatch()` 函数的机制。
 
-**Providers。**对于用来作为 UI 编程的 “View” 框架，Redux 并不武断控制。它可以和 React 或者 Angular 或者其他框架配合使用。在这个框架中，“View” 是 UI 程序。像 Flux 一样，Redux 被设计为非分形的，并且 Store 是协调器。
+**Providers。**对于用来作为 UI 编程的 “View” 框架，Redux 并不武断控制。它可以和 React 或者 Angular 或者其他框架配合使用。在这个框架中，“View” 是 UI 程序。像 Flux 一样，Redux 被设计为非分形的，并且以 Store 作为协调器。
 
 **用户事件处理函数的声明可能在也可能不在 rendering。**取决于当下的 Provider。
 
 ## BEST
 
-[Famous Framework](https://blog.famous.org/introducing-the-famous-framework/) 介绍了 Behavior-Event-State-Tree (BEST)，它是一个 MVC 的变体，BEST 中 Controller 分成了两个单向元素：Behavior 和 Event。
+[Famous Framework](https://blog.famous.org/introducing-the-famous-framework/) 引入了 Behavior-Event-State-Tree (BEST)，它是一个 MVC 的变体，BEST 中 Controller 分成了两个单向元素：Behavior 和 Event。
 
 **组成部分：**
 
 *   **State**: 用类 JSON 结构的声明来初始化 state
-*   **Tree**: 一个组件的声明性层次结构
+*   **Tree**: 一个组件的声明性分级结构
 *   **Event**: 在 Tree 上的事件监听，它能改变 state
 *   **Behavior**: 依赖 state 的 tree 的动态属性
 
@@ -132,15 +132,15 @@ Model-View-Intent 是基于框架 [Cycle.js](http://cycle.js.org) 的主要架�
 
 **极大的依赖于 Observables。**该框架每一部分的输出都被描述为 Observable 事件流。因此，如果不用 Observables，就很难或者说不可能描述任何 “data flow” 或 “change”。
 
-**Intent。**和 BEST 中的 **Event** 大致相似，用户事件处理在 Intent 中声明，从视图中分离出来。和 BEST 不同，Intent 创建了 actions 的 Observable 流，这里的 actions 就和 Flux, Redux, 和 Elm 中的类似。但是，和 Flux 等中的不同， MVI 中的 actions 不直接被发送到 Dispatcher 或 Store。它们就是简单的可以直接被模块监听。
+**Intent。**和 BEST 中的 **Event** 大致相似，用户事件处理在 Intent 中声明，从视图中分离出来。和 BEST 不同，Intent 创建了 actions 的 Observable 流，这里的 actions 就和 Flux，Redux，和 Elm 中的类似。但是，和 Flux 等中的不同， MVI 中的 actions 不直接被发送到 Dispatcher 或 Store。它们就是简单的可以直接被模块监听。
 
-**完全反应。**用户视图反应到视图输入，试图输出反应到模块输出，模块输出反应到 Intent 输出，Intent 输出反应到用户事件。
+**完全反应。**用户视图反应到视图输入，视图输出反应到模块输出，模块输出反应到 Intent 输出，Intent 输出反应到用户事件。
 
 MVI 元组是一个 UI 程序。当且仅当所有用户定义元素与 MVI 一起应用时，这个框架是分形的。
 
 ## NESTED DIALOGUES
 
-这篇博文将 **Nested Dialogues** 作为一个新的单向架构来介绍，适用于 Cycle.js 和其他轻度依赖于 Observables 的方法。
+这篇博文将 **Nested Dialogues** 作为一个新的单向架构来介绍，适用于 Cycle.js 和其他完全依赖于 Observables 的方法。这是 Model-View-Intent 架构的一次进化。
 
 从 Model-View-Intent 序列可以函数化组合为一个函数这个特性说起，一个 “Dialogue”：
 
@@ -154,7 +154,7 @@ MVI 元组是一个 UI 程序。当且仅当所有用户定义元素与 MVI 一�
 
 [![A Dialogue function as a UI program](https://staltz.com/img/single-dialogue-unidir-ui-arch.jpg)](https://staltz.com/img/single-dialogue-unidir-ui-arch.jpg)
 
-将 Dialogue 方法作为一个更大程序的 UI 程序子组件重复使用是 Dialogue 之间的嵌套问题：
+要想将 Dialogue 方法作为一个更大程序的 UI 程序子组件重复使用，这就涉及到 Dialogue 之间的嵌套问题：
 
 [![Nested Dialogues](https://staltz.com/img/nested-dialogues-unidir-ui-arch.jpg)](https://staltz.com/img/nested-dialogues-unidir-ui-arch.jpg)
 
@@ -164,7 +164,7 @@ Observables 在 Dialogues 不同层之间的连接是一个数据流图。它并
 
 因此，这个架构是分形的（仅涉及 Dialogue 接口时）、一般性的。
 
-可以查看 [TodoMVC implementation](https://github.com/cyclejs/todomvc-cycle) 和 [this small app](https://github.com/cyclejs/cycle-examples/tree/master/bmi-nested) 作为使用了 Cycle.js 的嵌套 Dialogues 的例子。
+可以查看 [TodoMVC implementation](https://github.com/cyclejs/todomvc-cycle) 和 [this small app](https://github.com/cyclejs/cyclejs/tree/master/examples/advanced/bmi-nested) 作为使用了 Cycle.js 的嵌套 Dialogues 的例子。
 
 ## 重点总结
 
@@ -182,7 +182,7 @@ Observables 在 Dialogues 不同层之间的连接是一个数据流图。它并
 
 [Comments in Hacker News](https://news.ycombinator.com/item?id=10115314).
 
-如果你喜欢这篇文章, 分享给你的 followers：[(tweeting)](https://twitter.com/intent/tweet?original_referer=https%3A%2F%2Fstaltz.com%2Funidirectional-user-interface-architectures.html&text=Unidirectional%20User%20Interface%20Architectures&tw_p=tweetbutton&url=https%3A%2F%2Fstaltz.com%2Funidirectional-user-interface-architectures.html&via=andrestaltz "tweeting")。
+如果你喜欢这篇文章，分享给你的 followers：[(tweeting)](https://twitter.com/intent/tweet?original_referer=https%3A%2F%2Fstaltz.com%2Funidirectional-user-interface-architectures.html&text=Unidirectional%20User%20Interface%20Architectures&tw_p=tweetbutton&url=https%3A%2F%2Fstaltz.com%2Funidirectional-user-interface-architectures.html&via=andrestaltz "tweeting")。
 
 
 ---
