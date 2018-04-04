@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/userland-api-monitoring-and-code-injection-detection.md](https://github.com/xitu/gold-miner/blob/master/TODO1/userland-api-monitoring-and-code-injection-detection.md)
 > * 译者：[Xekin-FE](https://github.com/Xekin-FE)
-> * 校对者：
+> * 校对者：[Starrier](https://github.com/Starrier)，[sunhaokk](https://github.com/sunhaokk)
 
 # 用户领域 API 监控和代码注入检测
 
@@ -85,7 +85,7 @@
 
 1.  在函数中挂钩
 
-如果我们要想在函数中挂钩，我们首先需要一个必须要能复制目标函数参数的中间函数。 `MessageBox` 方法在微软开发者网络（MSDN）中是这样定义的：
+如果我们要想在函数中挂钩，我们首先需要一个**必须**能复制目标函数参数的中间函数。 `MessageBox` 方法在微软开发者网络（MSDN）中是这样定义的：
 
 ```
 int WINAPI MessageBox(
@@ -266,7 +266,7 @@ bool APIENTRY DllMain(HINSTANCE hInstDll, DWORD fdwReason, LPVOID lpvReserved) {
 
 #### 创建远程线程
 
-DLL 注入可以使用 [CreateRemoteThread](https://msdn.microsoft.com/en-us/library/windows/desktop/ms682437(v=vs.85).aspx) 方法，它可以被使用在某个进程的虚拟空间中执行远程线程。正如之前所提到过的，我们所做的一切都是为了通过注入 DLL 文件使其进程强制执行 `LoadLibrary` 函数。通过以下代码我们将实现这点：
+[CreateRemoteThread](https://msdn.microsoft.com/en-us/library/windows/desktop/ms682437(v=vs.85).aspx) 是实现 DLL 注入的方法之一，它可以被使用在某个进程的虚拟空间中执行远程线程。正如之前所提到过的，我们所做的一切都是为了通过注入 DLL 文件使其进程强制执行 `LoadLibrary` 函数。通过以下代码我们将实现这点：
 
 ```
 void injectDll(const HANDLE hProcess, const std::string dllPath) {
@@ -434,7 +434,7 @@ int injectDll(const std::string dllPath, const DWORD dwProcessId, const DWORD dw
 
 ### 傀儡进程技术（Prosess hollowing）
 
-Process hollowing （傀儡进程），又称为 RunPE，这是一个常见的用于躲避反病毒检测的方法。它可以做到把整个可执行文件注入到目标进程中并在其代码流中执行。通常我们会在加密的应用程序中看到，存在 Payload 的磁盘上的某个文件会被选举为 host 并且被作为进程创建，而这个文件的主要执行模块都被**挖空**并且替换掉了。这样一个过程可以分解为四步来执行。
+Process hollowing（傀儡进程），又称为 RunPE，这是一个常见的用于躲避反病毒检测的方法。它可以做到把整个可执行文件注入到目标进程中并在其代码流中执行。通常我们会在加密的应用程序中看到，存在 Payload 的磁盘上的某个文件会被选举为 host 并且被作为进程创建，而这个文件的主要执行模块都被**挖空**并且替换掉了。这样一个过程可以分解为四步来执行。
 
 1.  创建主进程
 
@@ -613,7 +613,7 @@ typedef struct _CONTEXT
 } CONTEXT, *PCONTEXT;
 ```
 
-如果要修改首地址，我们必须将上面的 `Eax` 数据成员更改为Payload 的 `AddressOfEntryPoint` 的**虚拟地址**。简单表示，`context.Eax = ImageBase + AddressOfEntryPoint`。调用 `SetThreadContext` 方法，并传入修改的 `CONTEXT` 结构，我们就可以更改应用到进程线程。之后现在我们只需调用 `ResumeThread`，Payload 应该就可以开始执行了。
+如果要修改首地址，我们必须将上面的 `Eax` 数据成员更改为 Payload 的 `AddressOfEntryPoint` 的**虚拟地址**。简单表示，`context.Eax = ImageBase + AddressOfEntryPoint`。调用 `SetThreadContext` 方法，并传入修改的 `CONTEXT` 结构，我们就可以更改应用到进程线程。之后现在我们只需调用 `ResumeThread`，Payload 应该就可以开始执行了。
 
 ### Atom Bombing 技术
 
@@ -689,7 +689,7 @@ Atom bombing code injection
 
 # 第二章：UnRunPE 工具
 
-UnRunPE 是一个概念验证（Proof of concept，简称 POC）工具，是为了将 API 监控的理论概念应用到实际操作而编写的。该工具的目的是将选定的可执行文件作为进程创建并挂起，随后将带有钩子函数的 DLL 通过傀儡进程技术（process hollowing）注入到进程中。
+UnRunPE 是一个概念验证（Proof of concept，简称 PoC）工具，是为了将 API 监控的理论概念应用到实际操作而编写的。该工具的目的是将选定的可执行文件作为进程创建并挂起，随后将带有钩子函数的 DLL 通过傀儡进程技术（process hollowing）注入到进程中。
 
 ## 代码注入检测
 
@@ -705,7 +705,7 @@ UnRunPE 是一个概念验证（Proof of concept，简称 POC）工具，是为�
 
 其实当中有一些并不一定要按这样的顺序执行，例如，`GetThreadContext` 可以在 `VirtualAllocEx` 之前就调用。不过由于一些方法需要依赖前面调用的 API，例如 `SetThreadContext` **必须**要在 `GetThreadContext` 或者 `CreateProcess` 调用之前调用，否则就无法将 Payload 注入到目标进程。该工具将假定上述的调用顺序作为参考，尝试检测是否有潜在的傀儡进程。
 
-遵循 API 监控的理论，我们最好是在函数调用等级最低的**公共**点进行挂钩，但当被恶意软件入侵时，我们最理想的应该时将其可访问的可能性降到最低。假定最坏的情况下，入侵者可能会尝试绕过高层的 WinAPI 函数，而直接调用最低层的函数，这些函数通常在 `ntdll.dll` 模块中可以找到。下列是傀儡进程当中经常调用的达到上述要求的 WinAPI 函数：
+遵循 API 监控的理论，我们最好是在函数调用等级最低的**公共**点进行挂钩，但当被恶意软件入侵时，我们最理想的应该是将其可访问的可能性降到最低。假定在最坏的情况下，入侵者可能会尝试绕过高层的 WinAPI 函数，而直接调用最低层的函数，这些函数通常在 `ntdll.dll` 模块中可以找到。下列是傀儡进程当中经常调用的达到上述要求的 WinAPI 函数：
 
 1.  `NtCreateUserProcess`
 2.  `NtUnmapViewOfSection`
@@ -748,7 +748,7 @@ Dreadnought 是基于 UnRunPE 构建的 PoC 工具，它提供了更多样的代
 
 ## 启发式逻辑检测
 
-启发式的逻辑算法将能够使我们的 Dreadnought 工具更加精准地确定代码注入方法。因此在实际开发中，我们使用了一种非常简单的启发式逻辑。从我们的进程注入信息图标上看，每一次当任何一个 API 被挂钩时，该算法将会增加一个或者多个相关的代码注入类型的权重并存储在一个 map 数据结构里。在它跟踪每个 API 的调用链时，它会尝试偏向某一种注入类型。一旦 API 触发器被触发，它将会识别并把每一个有关联的注入类型的权重对比之后采取适应的措施。
+启发式的逻辑算法将能够使我们的 Dreadnought 工具更加精准地确定代码注入方法。因此在实际开发中，我们使用了一种非常简单的启发式逻辑。从我们的进程注入信息图表上看，每一次当任何一个 API 被挂钩时，该算法将会增加一个或者多个相关的代码注入类型的权重并存储在一个 map 数据结构里。在它跟踪每个 API 的调用链时，它会尝试偏向某一种注入类型。一旦 API 触发器被触发，它将会识别并把每一个有关联的注入类型的权重对比之后采取适应的措施。
 
 ## Dreadnought 示例
 
@@ -782,7 +782,7 @@ Dreadnought 是基于 UnRunPE 构建的 PoC 工具，它提供了更多样的代
 
 目前在理论上，Dreadnought 工具的这套检测设计方式和启发式算法确实足够让我们向读者演示并讲述相关的原理知识，但在实际开发中却不可能这么理想。因为在我们操作系统的常规操作中，有非常大的可能性存在那些被用来挂钩的 API 的替代品。而这些可以替代它们的行为或者调用，我们无法分辨其是否为恶意的，也就无法检测到它们是否参与了代码注入。
 
-由此看来，Dreadnought 工具以及它为用户领域提供的相关操作，在对抗过于复杂的恶意程序时并不理想，特别是能直接侵入到系统内核的又或者是具有能够避开一般钩子能力的恶意程序。
+由此看来，Dreadnought 工具以及它为用户领域提供的相关操作，在对抗过于复杂的恶意程序时并不理想，特别是能直接侵入到系统内核并与其进行交互的又或者是具有能够避开一般钩子能力的恶意程序等等。
 
 * * *
 
