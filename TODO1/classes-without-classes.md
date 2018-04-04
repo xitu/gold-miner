@@ -5,13 +5,13 @@
 > * 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit)
 > * 校对者：
 
-# 创建一个不使用类的类
+# 一个不使用类的类
 
 ## 前言
 
 Python 的对象模型令人难以置信的强大；实际上，你可以重写所有（对象），或者向任何人分发奇怪的对象，并让他们像对待正常的对象的那样接受它。
 
-Python 的面向对象是 smalltalk 面向对象的一个后裔。在 Python 中，一切都是对象，甚至对象集和对象类型都也是如此；特别的，函数也是对象。这让我很好奇：不使用类创建一个类是否可能？
+Python 的面向对象是 smalltalk 面向对象的一个后裔。在 Python 中，一切都是对象，甚至对象集和对象类型都是如此；特别的，函数也是对象。这让我很好奇：不使用类创建一个类是否可能？
 
 ## 代码
 
@@ -27,7 +27,7 @@ Python 的面向对象是 smalltalk 面向对象的一个后裔。在 Python 中
 def _suspend_self(namespace, suspended):  
 ```
 
-这是个让人有点害怕的函数名。悬停？这可不好，但我们是可以解决问题的。`_suspend_self` 函数是 `functools.partial` 的一个简单应用，它的工作原理是：通过从外部函数作用域中捕获 `namespace`，并把它悬停在内部函数中。
+这是个让人有点害怕的函数名。暂停？这可不好，但我们是可以解决问题的。`_suspend_self` 函数是 `functools.partial` 的一个简单应用，它的工作原理是：通过从外部函数作用域中捕获 `namespace`，并把它悬停在内部函数中。
 
 ```
     def suspender(*args, **kwargs):
@@ -67,7 +67,7 @@ def make_class(locals: dict):
 它实际上做了如下这些事：
 
 *   在函数类中检查你是否已经定义过 `__call__`
-*   如果有，就像上文介绍过的那样，用 `_suspend_self` 函数“悬停” namespace 来用 `__call__` 生成一个方法。
+*   如果有，就像上文介绍过的那样，用 `_suspend_self` 函数“挂载” namespace 来用 `__call__` 生成一个方法。
 *   如果没有，就和默认的 `__call__` 一样，返回一个会发起错误的桩函数（stub function）。
 
 #### 命名空间 namespace
