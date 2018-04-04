@@ -3,13 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/flutter-for-javascript-developers.md](https://github.com/xitu/gold-miner/blob/master/TODO/flutter-for-javascript-developers.md)
 > * 译者：[lsvih](https://github.com/lsvih)
-> * 校对者：
+> * 校对者：[bambooom](https://github.com/bambooom), [allenlongbaobao](https://github.com/allenlongbaobao)
 
 # 为 JavaScript 程序员准备的 Flutter 指南
 
-[Flutter](https://flutter.io/) 是一款用于为 iOS 与安卓用同一套代码构建高性能、高保真 app 的跨平台移动端应用 SDK。
+[Flutter](https://flutter.io/) 是一款用同一套代码构建高性能、高保真的 iOS 及安卓应用的跨平台移动端应用 SDK。
 
-也可以参阅[文档](https://flutter.io/technical-overview/)：
+[文档](https://flutter.io/technical-overview/)中提到：
 
 > Flutter 包括一个 **react 风格**的框架、一个 2D 渲染引擎、一些预制的插件以及开发者工具。
 
@@ -17,7 +17,7 @@
 
 文本希望能快速为 JavaScript 开发者们提供一个简练的入门指南，我会试着以 JS 与 npm 生态系统来类比 Flutter / Dart 与 [Pub](https://pub.dartlang.org/) 包库。
 
-> 如果你对最新的 Flutter 教程、库、公告及社区的更新感兴趣，我建议您注册双周刊 [Flutter Newsletter](http://flutternewsletter.com/)。
+> 如果你对最新的 Flutter 教程、库、公告及社区的更新感兴趣，我建议您订阅双周刊 [Flutter Newsletter](http://flutternewsletter.com/)。
 
 * * *
 
@@ -25,19 +25,19 @@
 
 在尝试 Flutter 之后，我认为它是近几年我所关注的前端技术中最让我激动的一个。在本文中，我将讨论为何它如此令我激动，并介绍如何尽可能快的入门 Flutter。
 
-#### 如果你认识我，那么我觉得能猜到你此时正在想什么…
+#### 如果你认识我，那么我知道你正在想什么…
 
 ![](https://cdn-images-1.medium.com/max/800/1*GTsgYXSN2AcJZN9wZm7zhQ.jpeg)
 
-我是一名有着超过两年半经验的 React 与 React Native 开发者。现在，我仍然看好 React 和 React Native，并且我也知道有许多大公司正在使用它们，但我也希望能看到一些其它的想法以及能实现相同目标的其它方法，这无关乎我是否要去学习或改变技术栈。
+我是一名有着超过两年半经验的 React 与 React Native 开发者。现在，我仍然看好 React 和 React Native，并且我也知道有许多大公司正在使用它们，但我仍然乐于看到其他的能达到相同目的的想法方法，这无关乎我是否要去学习或改变技术栈。
 
 ### Flutter
 
-> 我可以做个概括：Flutter 是一个令人惊叹的事物，我觉得近几年它能成为一个可行的选择。
+> 我可以做个概括：Flutter 令人惊叹, 我相信近几年它会成为更多人的选择。
 
-在使用了几周 Flutter SDK 之后，我正在应用它制作我的第一个 App，并且我十分享受这个过程。
+在使用了几周 Flutter SDK 之后，我正在应用它制作我的第一个 App，我十分享受这个过程。
 
-在我开始使用 Flutter 前，我将首先回顾一下我对它的 SDK 的优缺点的看法。
+在我开始介绍如何入门 Flutter 前，我将首先回顾一下我对它的 SDK 的优缺点的看法。
 
 ![](https://cdn-images-1.medium.com/max/800/1*hl9BrVAK5rNBJnw76tmTEQ.png)
 
@@ -48,7 +48,7 @@
 *   有着崭新的、酷炫的文档。
 *   强大的 CLI。
 *   我能轻松、顺利地入门与运行它，没有碰到各种障碍与 Bug。
-*   有着开箱即用的热加载功能，使得调试的体验相当好。此外，还有 [一系列关于调试技术的很好的文档](https://flutter.io/debugging/)。
+*   开箱即用的热加载功能，使得调试的体验相当好。此外，还有[一系列关于调试技术的很好的文档](https://flutter.io/debugging/)。
 *   有由核心团队构建并维护的 nav 库，可靠且有见地。
 *   Dart 语言诞生 6 年了，相当成熟。虽然 Dart 是一种基于类的面向对象编程语言，但如果你想用函数式编程，Dart 也有着作为第一公民的函数，并且支持许多函数式编程结构。
 *   Dart 比我想象中的更容易入门，我十分喜欢它。
@@ -66,10 +66,10 @@
 
 ### 入门及其它观点
 
-*   我使用的是安装了 [Dart Code extension](https://marketplace.visualstudio.com/items?itemName=DanTup.dart-code) 插件的 VS Code 编辑器，它让我有很好的开发体验。尽管 [IntelliJ IDE](https://www.jetbrains.com/idea/) 内置支持热加载、在线加载这些 VS Code 没有的功能，但 Flutter 文档还是强烈推荐我认为最好的编辑器。
-*   Flutter 有一个模块系统，或者叫包管理系统 —— [Pub Dart Package Manager](https://pub.dartlang.org/)，它与 npm 几乎完全不同。它的好坏取决于你对 npm 的看法。
+*   Flutter 文档推荐了 VS Code 编辑器与 [IntelliJ IDE](https://www.jetbrains.com/idea/)。尽管 [IntelliJ IDE](https://www.jetbrains.com/idea/) 内置支持热加载、在线加载这些 VS Code 没有的功能，但我还是选择使用安装了 [Dart Code extension](https://marketplace.visualstudio.com/items?itemName=DanTup.dart-code) 插件的 VS Code 编辑器，并得到了很好的开发体验。
+*   Flutter 有一个模块系统，或者叫包管理系统 —— [Pub Dart Package Manager](https://pub.dartlang.org/)，它与 npm 有很多不同点。它的好坏取决于你对 npm 的看法。
 *   我之前并没有 Dart 相关的知识，但我很快就入门了。它让我想起了 TypeScript，并且与 JavaScript 也有一些相似之处。
-*   文档中有几个相当不错的代码实验室与教程，建议去查阅一番：1. [Building UIS](https://codelabs.developers.google.com/codelabs/flutter/index.html#0) 2. [Adding Firebase](https://codelabs.developers.google.com/codelabs/flutter-firebase/index.html#0) 3. [Building Layouts](https://flutter.io/tutorials/layout/) 4\. [Adding Interactivity](https://flutter.io/tutorials/interactive/)
+*   文档中有几个相当不错的代码实验室与教程，建议去查阅一番：1. [构建 UIS](https://codelabs.developers.google.com/codelabs/flutter/index.html#0) 2. [增加 Firebase](https://codelabs.developers.google.com/codelabs/flutter-firebase/index.html#0) 3. [构建布局](https://flutter.io/tutorials/layout/) 4\. [增加交互](https://flutter.io/tutorials/interactive/)
 
 #### **说的够多了，现在让我们开始创建一个新的工程吧！**
 
@@ -90,7 +90,7 @@ git clone -b alpha https://github.com/flutter/flutter.git
 2. 增加路径：
 
 ```
-export PATH=$HOME/bin/flutter/bin:$PATH (or whatever the path is to your installation)
+export PATH=$HOME/bin/flutter/bin:$PATH (或者填你选择的安装路径)
 ```
 
 3. 在命令行中运行 flutter doctor，检测 flutter 路径能被正确识别，并安装一切所需的依赖：
@@ -163,13 +163,13 @@ void main() {
 
 此函数调用了 `new MyApp()`，这个类。与 React App 类似，有一个由多个组件组合而成的主组件，然后调用 `ReactDOM.render` 或 `AppRegistry.registerComponent` 进行渲染。
 
-### Widgets
+### Widget
 
 Flutter [技术总览](https://flutter.io/technical-overview/)中的一个核心原则就是：“一切皆 Widget”。
 
-> Widget 是每个 Flutter app 的最基本的构建模块。每个 Widget 都是用户 interface 的一个不可变定义。与其它框架分离视图、控制器、布局和其它属性不同，Flutter 有着统一的、一直的对象模型：Widget。
+> Widget 是每个 Flutter app 的最基本的构建模块。每个 Widget 都是用户界面的一个不可变定义。与其它框架分离视图、控制器、布局和其它属性不同，Flutter 有着统一的、一致的对象模型：Widget。
 
-在 Web 术语与 JavaScript 中，你可以将 Widget 看成与 Component 类似的东西。Widget 通常由内部类构成，这些类也可能包含或不包含一些本地状态（local state）或方法。
+类比 Web 术语或 JavaScript，你可以将 Widget 看成与 Component 类似的东西。Widget 通常由内部类构成，这些类可能包含或不包含一些本地状态（local state）或方法。
 
 如果你观察 main.dart，可以发现类似 StatelessWidget、StatefulWidget、Center、Text 的类引用。这些都是 Widget。如果想了解所有可用的 Widget，请查阅[文档](https://docs.flutter.io/flutter/widgets/widgets-library.html)。
 
@@ -177,7 +177,7 @@ Flutter [技术总览](https://flutter.io/technical-overview/)中的一个核心
 
 虽然 Dart 和多数 Flutter 框架都很容易使用，但进行布局与编写样式让我最开始头疼了一阵子。
 
-需要重点注意的是，与编写 Web 样式不同，以及与 React Native 的 View 会完成所有的布局和一些样式不同，Flutter 的布局由**你选择的 Widget 类型**的组合及**本身的布局与样式属性**决定，也就是说它通常取决于你使用的 Widget。
+需要重点注意的是，与编写 Web 样式不同，以及与 React Native 的 View 会完成所有的布局和一些样式不同，Flutter 的布局由**你选择的 Widget 类型**及**本身的布局与样式属性**共同决定，也就是说它通常取决于你使用的 Widget。
 
 例如，[Column](https://docs.flutter.io/flutter/widgets/Column-class.html) 能接收多个子 Widget，但不接受任何样式属性（[CrossAxisAlignment](https://docs.flutter.io/flutter/widgets/Flex/crossAxisAlignment.html) 及 [direction](https://docs.flutter.io/flutter/widgets/Flex/direction.html) 等布局属性除外）；而 [Container](https://docs.flutter.io/flutter/widgets/Container-class.html) 能接收各种布局及样式属性。
 
@@ -197,7 +197,7 @@ Flutter 还有一些布局专用的组件，比如 [Padding](https://docs.flutte
 
 作为专门制作跨平台应用的开发者，我会保持关注 React Native 的竞争对手。对于客户来说，也多了一种选择，他们可能会因为某些原因而要求使用 Fluter。我认为 Flutter 为我的客户带来了一些他们想要的东西，比如内置的类型系统、一流的 UI 库、由核心团队维护的 nav 库等。
 
-我会把 Flutter 加入我的技术栈中，当碰到 React Native 无法解决的问题和情况时，我将会使用 Flutter。只要我觉得可以将它用于生产环境，我就会将我的 app 迁移至 Flutter 并向客户展示，供他们选择这个技术。
+我会把 Flutter 加入我的技术栈中，当碰到 React Native 无法解决的问题和情况时，我将会使用 Flutter。只要我觉得可以将它用于生产环境，我会向客户展示我的第一个 Flutter app，供他们选择这个技术。
 
 > 我叫 [Nader Dabit](https://twitter.com/dabit3)，是一名 [AWS Mobile](https://aws.amazon.com/mobile/) 的开发者，开发了 [AppSync](https://aws.amazon.com/appsync/)、[Amplify](https://github.com/aws/aws-amplify) 等应用，同时也是 [React Native Training](http://reactnative.training/) 的创始人。
 
@@ -211,3 +211,4 @@ Flutter 还有一些布局专用的组件，比如 [Padding](https://docs.flutte
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
+
