@@ -19,11 +19,11 @@ fastlane 声称它通过自动执行常见任务节省了开发人员的时间�
 
 ### 1. Ruby
 
-在 iOS 项目中使用 fastlane 的首要问题是 [Ruby](https://www.ruby-lang.org/en/)。一般来说，iOS 开发人员并不擅长使用 Ruby，但为了使用 fastlane 或 CocoaPods 等工具，他们必须学习 Ruby，然而这与实际的 iOS 开发没有任何关系。设置 fastlane 工具需要很好的理解 Ruby、[RubyGems](https://rubygems.org/) 和 [Bundler](http://bundler.io/) 的工作原理。最近出的 [Swift](https://docs.fastlane.tools/getting-started/ios/fastlane-swift/) 版的 fastlane 声称可以摆脱 Ruby，但实际上只是用 Swift 来执行的后台的 Ruby 命令。我对 Swift 版 fastlane 的可用性表示怀疑，这篇[博客](https://dzone.com/articles/first-impressions-of-fastlane-swift-for-ios) 里面写了我对 Swift 版 fastlane 最初的印象。fastlane 有很全的文档，但 iOS 开发人员仍然需要使用 Ruby 来编写所有用于自动化 iOS 发布流水线的基础架构。
+在 iOS 项目中使用 fastlane 的首要问题是 [Ruby](https://www.ruby-lang.org/en/)。一般来说，iOS 开发人员并不擅长使用 Ruby，但为了使用 fastlane 或 CocoaPods 等工具，他们必须学习 Ruby，然而这与实际的 iOS 开发没有任何关系。设置 fastlane 工具需要很好的理解 Ruby、[RubyGems](https://rubygems.org/) 和 [Bundler](http://bundler.io/) 的工作原理。最近出的 [Swift 版的 fastlane](https://docs.fastlane.tools/getting-started/ios/fastlane-swift/) 声称可以摆脱 Ruby，但实际上只是用 Swift 来执行的后台的 Ruby 命令。我对 Swift 版 fastlane 的可用性表示怀疑，这篇[博客](https://dzone.com/articles/first-impressions-of-fastlane-swift-for-ios) 里面写了我对 Swift 版 fastlane 最初的印象。fastlane 有很全的文档，但 iOS 开发人员仍然需要使用 Ruby 来编写所有用于自动化 iOS 发布流水线的基础架构。
 
 ### 2. 频繁的不兼容的更新
 
-苹果不断地改变着本地工具，这些工具总是不断地打破 fastlane。他们需要经常追逐着苹果和谷歌（以 Android 为例）适配 fastlane，这要求 fastlane 的开发人员实现这些特性并发布新版本。如果 fastlane 版本不是由 Bundler 管理的，那么大多数情况更新 fastlane 版本的时候也需要更新现有的 fastlane 脚本。对于可能频繁出现的构建失败，iOS开发人员需要花时间分析 fastlane 中发生的变化并相应地修复。这种破坏性的更新会干扰 iOS 开发人员的主要开发流程，并且要浪费几个小时来修复构建。使用 fastlane 的一个痛苦点是，在 fastlane 之前的版本中配置的选项并不总是适用于较新的版本，如果你搜索解决方案，那么同一个问题你最终会找到多个解决方案，对应于 fastlane 不同版本。
+苹果不断地改变着本地工具，这些改变不断地导致 fastlane 无法兼容。他们需要经常追逐着苹果和谷歌（以 Android 为例）适配 fastlane，这要求 fastlane 的开发人员实现这些特性并发布新版本。如果 fastlane 版本不是由 Bundler 管理的，那么大多数情况更新 fastlane 版本的时候也需要更新现有的 fastlane 脚本。对于可能频繁出现的构建失败，iOS 开发人员需要花时间分析 fastlane 中发生的变化并相应地修复。这种破坏性的更新会干扰 iOS 开发人员的主要开发流程，并且要浪费几个小时来修复构建。使用 fastlane 的一个痛苦点是，在 fastlane 之前的版本中配置的选项并不总是适用于较新的版本，如果你搜索解决方案，那么对于同一个问题，你最终会找到对应 fastlane 不同版本的多个解决方案。。
 
 ### 3. 耗时的设置和维护
 
