@@ -23,7 +23,7 @@
 
 ### 确保你不会因为意外而损失用户
 
-你知道真正难办的是什么吗？因为支付失败而意外损失用户，它被称作是 **不自主的流失**。Google Play 提供了几种高效工具来帮助你阻止这些发生。设置一个[**宽限期**](https://developer.android.com/google/play/billing/billing_subscriptions.html#grace-period)对用户进行保留，这样一来，当用户续费失败的时候，你就有额外的 3 - 7 天来修复支付问题。自从使用了宽限期这个功能，开发者和 Google Play 发现续费失败用户的重新订阅比例高达 57%。这个功能可以在 [**Google Play 控制台**](https://play.google.com/apps/publish)中开启一个开关来轻松实现，不需要任何代码参与进来。如果这还不能说服你，那么 ———— 实际上，Google Play 上 80% 的顶尖开发者都开启了宽限期功能。
+你知道真正难办的是什么吗？因为支付失败而意外损失用户，它被称作是 **不自主的流失**。Google Play 提供了几种高效工具来帮助你阻止这些发生。设置一个[**宽限期**](https://developer.android.com/google/play/billing/billing_subscriptions.html#grace-period)对用户进行保留，这样一来，当用户续费失败的时候，你就有额外的 3 - 7 天来修复支付问题。自从使用了宽限期这个功能，Google Play 上的开发者发现续费失败用户的重新订阅比例高达 57%。这个功能可以在 [**Google Play 控制台**](https://play.google.com/apps/publish)中开启一个开关来轻松实现，不需要任何代码参与进来。如果这还不能说服你，那么 ———— 实际上，Google Play 上 80% 的顶尖开发者都开启了宽限期功能。
 
 ![](https://cdn-images-1.medium.com/max/800/0*eLdFcYo11r5ACRNB.)
 
@@ -31,7 +31,7 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*OYTPoI-4oIjizpC_qTDB2Q.png)
 
-这里有一些反馈来自 **大量** 用户，他们的回归率因为账户保留而得到了提升。
+这里有一些反馈来自 **大量** 开发者，他们的回归率因为账户保留而得到了提升。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Z0tBEGEwoAxr6aTVOzuMhg.png)
 
@@ -41,7 +41,7 @@
 
 > 当 [Keepsafe](https://play.google.com/store/apps/details?id=com.kii.safe&hl=en) （一个加密相片、视频的应用）集成了账户保留功能，他们 **在安卓上的续费率提升了 25%** ———— 来自 Keepsafe Photo Valut 的开发者。Keepsafe 的用户信赖他们的付费账户，这样他们能够加密相片和视频，相当于购买了安全。所以，当他们的账户因为支付失败被挂起的会后，他们极大可能重新提交支付信息来解决这个问题。
 
-那么， 你会选择哪一种呢？我们看得到最佳结果是开发者两者（宽限期和账号保留）都启用了，当然，你也可以只选择其中的一种。
+那么，你会选择哪一种呢？我们看得到最佳结果是开发者两者（宽限期和账号保留）都启用了，当然，你也可以只选择其中的一种。
 
 ### **提供他们无法拒绝的服务**
 
@@ -56,7 +56,7 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*lIeLgzpRAa4FuxqOkcAcGA.png)
 
-现在，你可以让用户恢复他们的订阅，在他们取消订阅之后，订阅到期之前。在订阅到期之前，你可以引导用户去[**订阅恢复**](https://developer.android.com/google/play/billing/billing_subscriptions.html#restore)按钮。我们的数据显示 18% 的主动离开发生在用户注册的第一天，30-40% 发生在第一个星期。这一情况表明使用恢复功能去赢回用户是个机会，因为他们有大量的时间去改变主意，他们只要重新加入，并恢复订阅，而不需要再走一次注册流程。
+现在，你可以让用户恢复之前取消的订阅，但必须是他们的订阅还未到期。在订阅到期之前，你可以引导用户去[**订阅恢复**](https://developer.android.com/google/play/billing/billing_subscriptions.html#restore)按钮。我们的数据显示 18% 的主动离开发生在用户注册的第一天，30-40% 发生在第一个星期。这一情况表明使用恢复功能去赢回用户是个机会，因为他们有大量的时间去改变主意，他们只要重新加入，并恢复订阅，而不需要再走一次注册流程。
 
 *   **给订阅者一个重新订阅折扣，可以提供** [**介绍价格**](https://support.google.com/googleplay/android-developer/answer/140504?hl=en#intro) **或者** [**免费试用**](https://developer.android.com/google/play/billing/billing_subscriptions.html#trials)**。** 许多开发者使用介绍价格和免费试用来争取用户，但是它也可以帮你留住订阅者，特别是如果付费存在问题的话。约会软件 [Jaumo](https://play.google.com/store/apps/details?id=com.jaumo&hl=en 在用户付费订阅结束后的 3 天，提供 30% 折扣。通过这个服务，他们能够 **赢回大概 5% 的订阅者**
 
