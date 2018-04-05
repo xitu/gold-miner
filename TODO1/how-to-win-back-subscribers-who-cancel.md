@@ -2,7 +2,7 @@
 > * 原文作者：[Laura Willis](https://medium.com/@laura.willis22?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-win-back-subscribers-who-cancel.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-win-back-subscribers-who-cancel.md)
-> * 译者：[allenlongbaobao](http://allenlongbaobao.github.io)
+> * 译者：[allenlongbaobao](https://github.com/allenlongbaobao)
 > * 校对者：
 
 # 怎样把取消订阅的用户吸引回来
@@ -47,18 +47,18 @@
 
 我们假设可怕的事情发生了，一个用户想要取消订阅或者离开。使用不同的消息渠道，比如 **站内信息**，**通知**，**邮件**，**短信**，可以看到，开发者成功使用不同的方式去说服用户改变他们的注意。Google Play 研究显示，那些赢回用户的方式更多地只是一种呼吁，因为，他们没有准确定位用户取消订阅的特殊原因，他们没有做假设。比如，不要假设价格是用户取消的唯一原因，想当然地提供一个折扣。有些用户取消的原因可能是他们觉得内容不够新，如果你能向他们展示你添加的新内容，可能更有说服力。
 
-*   **给用户一个选择不同方案的机会。** 有时候一个用户想要取消，可能是因为他们当前的购买方案和需求不相匹配。也许是因为太贵并且有些功能他们用不到，或者他们之前忘了还有一种购买方案拥有一些当前方案没有的功能。给用户提供[**升级或者降级**](https://developer.android.com/google/play/billing/billing_reference.html#upgrade-getBuyIntentToReplaceSkus)到不同的产品内方案的能力，从而避免用户取消订单。举个例子，当一个收音机应用的「高级用户」想要离线收听，他们会被提示在应用内升级为「最高级用户」。你也可以在应用内创建一个 「管理服务」的按钮来展示这一功能。
+*   **给用户一个选择不同方案的机会。** 有时候一个用户想要取消，可能是因为他们当前的购买方案和需求不相匹配。也许是因为太贵并且有些功能他们用不到，或者他们之前忘了还有一种购买方案拥有一些当前方案没有的功能。给用户提供[**升级或者降级**](https://developer.android.com/google/play/billing/billing_reference.html#upgrade-getBuyIntentToReplaceSkus)到不同的产品方案的能力，从而避免用户取消订单。举个例子，当一个收音机应用的「高级用户」想要离线收听，他们会被提示在应用内升级为「最高级用户」。你也可以在应用内创建一个 「管理服务」的按钮来展示这一功能。
 
 ![](https://cdn-images-1.medium.com/max/800/1*H0gP5CrTZjTMGUiKYvJ8aw.png)
 
 *   **使用一些赠品，比如，给用户提供有期限的服务，作为网络不稳定或者服务出错的补偿策略。** [终极吉他](https://play.google.com/store/apps/details?id=com.ultimateguitar.tabs&hl=en) 使用实时用户通知工具来感知用户何时取消了订单。随后，他们会联系取消用户并提供他们几个星期的免费服务，原因是一些用户提出的问题，比如产品不稳定。终极吉他介绍，这些收到免费服务的用户「感觉我们很在乎他们的用户体验，然后成为了忠实用户。」你可以使用 [**Google Play Developer API**](https://developer.android.com/google/play/developer-api.html#subscriptions_api_overview) 为你的用户延缓订单。
-*   **高亮用户没有使用过的或者他们取消后将失去的内容或者特性**。[Google Play 研究](https://g.co/play/subscriptioninsights2017)显示访问内容是大部分用户起初订阅或者持续订阅的原因，因此将内容作为留住用户的保留策略。对于那些有免费试用者的产品，如果有人一直试用试用版本，那么站内消息十分有用。比如，流音乐服务 [Anghami](https://play.google.com/store/apps/details?id=com.anghami&hl=en) 反复强调他们的离线模式这一核心付费功能，敦促那些即将离开的订阅者去重新订阅，他们会对用户说：『让你下载的 38 首歌回来。』
+*   **高亮用户没有使用过的或者他们取消后将失去的内容或者特性**。[Google Play 研究](https://g.co/play/subscriptioninsights2017)显示访问内容是大部分用户起初订阅或者持续订阅的原因，因此将内容作为留住用户的保留策略。对于那些有免费试用者的产品，如果有人一直使用试用版本，那么站内消息十分有用。比如，流音乐服务 [Anghami](https://play.google.com/store/apps/details?id=com.anghami&hl=en) 反复强调他们的离线模式这一核心付费功能，敦促那些即将离开的订阅者去重新订阅，他们会对用户说：「恢复你曾下载过的 38 首歌。」
 
 ![](https://cdn-images-1.medium.com/max/800/1*lIeLgzpRAa4FuxqOkcAcGA.png)
 
-现在，你可以让用户恢复他们的订阅，在他们取消订阅之后，订阅到期之前。在订阅道歉之前，你可以引导用户去[**订阅恢复**](https://developer.android.com/google/play/billing/billing_subscriptions.html#restore)按钮。我们的数据显示 18% 的主动离开发生在用户注册的第一天，30-40% 发生在第一个星期。这一情况表明使用恢复功能去赢回用户是个机会，因为他们有大量的时间去改变主意，他们只要重新加入，并恢复订阅，而不需要再走一次注册流程。
+现在，你可以让用户恢复他们的订阅，在他们取消订阅之后，订阅到期之前。在订阅到期之前，你可以引导用户去[**订阅恢复**](https://developer.android.com/google/play/billing/billing_subscriptions.html#restore)按钮。我们的数据显示 18% 的主动离开发生在用户注册的第一天，30-40% 发生在第一个星期。这一情况表明使用恢复功能去赢回用户是个机会，因为他们有大量的时间去改变主意，他们只要重新加入，并恢复订阅，而不需要再走一次注册流程。
 
-*   **给订阅者一个重新订阅折扣，可以提供** [**介绍价格**](https://support.google.com/googleplay/android-developer/answer/140504?hl=en#intro) **or** [**免费试用**](https://developer.android.com/google/play/billing/billing_subscriptions.html#trials)**。** 许多开发者使用介绍价格和免费试用来争取用户，但是它也可以帮你留住订阅者，特别是如果付费存在问题的话。约会软件 [Jaumo](https://play.google.com/store/apps/details?id=com.jaumo&hl=en 在用户付费订阅结束后的 3 天，提供 30% 折扣。通过这个服务，他们能够 **赢回大概 5% 的订阅者**
+*   **给订阅者一个重新订阅折扣，可以提供** [**介绍价格**](https://support.google.com/googleplay/android-developer/answer/140504?hl=en#intro) **或者** [**免费试用**](https://developer.android.com/google/play/billing/billing_subscriptions.html#trials)**。** 许多开发者使用介绍价格和免费试用来争取用户，但是它也可以帮你留住订阅者，特别是如果付费存在问题的话。约会软件 [Jaumo](https://play.google.com/store/apps/details?id=com.jaumo&hl=en 在用户付费订阅结束后的 3 天，提供 30% 折扣。通过这个服务，他们能够 **赢回大概 5% 的订阅者**
 
 无论哪一种服务，它们都不是唯一的选择，测试是检测它是否对你的用户有帮助的最好方法。Google Play 研究显示当用户浏览挽回服务的时候，他们会对选项估值，比如选择重新激活时间，选择多种计划，选择不同的服务。对不同的库存量（SKU）采用 A/B 测试，计算支出，看看哪种方式对你的产品更有用。在产品内做 A/B 测试，你可以选择自己设置，也可以使用 [Firebase remote config](https://firebase.google.com/docs/remote-config/abtest-config)。
 
