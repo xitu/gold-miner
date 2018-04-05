@@ -12,7 +12,7 @@
 
 _原文发布在 XCBlog_ [_here_](http://shashikantjagtap.net/five-options-for-ios-continuous-delivery-without-fastlane/)
 
-fastlane [工具](https://fastlane.tools/)将整个 iOS CI/CD 流水线（Continuous Integration and Deployment，持续集成和发布，译者注）自动化了，使得我们可以用代码的方式管理将整个 iOS 基础架构。fastlane 是一系列工具，用来将例如分析、构建、测试、代码签名和 iOS app 打包等一切过程自动化。然而如果你深入看，它不过是在苹果原生开发工具上加了一个 Ruby 层。可能在某些情况下，fastlane 节省了一些时间，但考虑到频繁的不兼容更改，fastlane 反过来浪费了大量开发者的时间。在不断学习 Ruby 和 fastlane 式的自动化的过程中，许多开发人员浪费了宝贵时间。就像 [CocoaPods](https://cocoapods.org/)， fastlane 可能是你的 iOS 项目中使用 Ruby 的另一个无用之物，它与 iOS 开发毫无关系。学习一些本地的苹果开发工具并从你的 iOS 开发工具箱中彻底删除 Ruby 和其他第三方工具（比如 fastlane）并不难。在这篇文章中，我们将介绍 iOS 开发人员使用 fastlane 面临的问题以及替代方案。
+fastlane [工具](https://fastlane.tools/)将整个 iOS CI/CD 流水线（Continuous Integration and Deployment，持续集成和发布，译者注）自动化了，使得我们可以用代码的方式管理整个 iOS 基础架构。fastlane 是一系列工具，用来将例如分析、构建、测试、代码签名和 iOS app 打包等一切过程自动化。然而如果你深入看，它不过是在苹果原生开发工具上加了一个 Ruby 层。可能在某些情况下，fastlane 节省了一些时间，但考虑到频繁的不兼容更改，fastlane 反过来浪费了大量开发者的时间。在不断学习 Ruby 和 fastlane 式的自动化的过程中，许多开发人员浪费了宝贵时间。就像 [CocoaPods](https://cocoapods.org/)， fastlane 可能是你的 iOS 项目中使用到 Ruby 的另一个无用之物，它与 iOS 开发毫无关系。学习一些本地的苹果开发工具并从你的 iOS 开发工具箱中彻底删除 Ruby 和其他第三方工具（比如 fastlane）并不难。在这篇文章中，我们将介绍 iOS 开发人员使用 fastlane 面临的问题以及替代方案。
 
 ### fastlane 的 5 个问题
 
@@ -20,7 +20,7 @@ fastlane 声称它通过自动执行常见任务节省了开发人员的时间�
 
 ### 1. Ruby
 
-在iOS项目中使用 fastlane 的首要问题是 [Ruby](https://www.ruby-lang.org/en/)。一般来说，iOS 开发人员并不擅长使用 Ruby，但为了使用 fastlane 或 CocoaPods 等工具，他们必须学习 Ruby，然而这与实际的 iOS 开发没有任何关系。设置 fastlane 工具需要很好的理解 Ruby、[RubyGems](https://rubygems.org/) 和 [Bundler](http://bundler.io/) 的工作原理。最近出的 [swift](https://docs.fastlane.tools/getting-started/ios/fastlane-swift/) 版的 fastlane 声称可以摆脱 Ruby，但实际上只是用 swift 来执行的后台的 Ruby 命令。我对 swift 版 fastlane 的可用性表示怀疑，这篇[博客](https://dzone.com/articles/first-impressions-of-fastlane-swift-for-ios) 里面写了我对 swift 版 fastlane 最初的印象。fastlane 有很全的文档，但 iOS 开发人员仍然需要使用 Ruby 来编写所有用于自动化 iOS 发布流水线的基础架构。
+在 iOS 项目中使用 fastlane 的首要问题是 [Ruby](https://www.ruby-lang.org/en/)。一般来说，iOS 开发人员并不擅长使用 Ruby，但为了使用 fastlane 或 CocoaPods 等工具，他们必须学习 Ruby，然而这与实际的 iOS 开发没有任何关系。设置 fastlane 工具需要很好的理解 Ruby、[RubyGems](https://rubygems.org/) 和 [Bundler](http://bundler.io/) 的工作原理。最近出的 [Swift](https://docs.fastlane.tools/getting-started/ios/fastlane-swift/) 版的 fastlane 声称可以摆脱 Ruby，但实际上只是用 Swift 来执行的后台的 Ruby 命令。我对 Swift 版 fastlane 的可用性表示怀疑，这篇[博客](https://dzone.com/articles/first-impressions-of-fastlane-swift-for-ios) 里面写了我对 Swift 版 fastlane 最初的印象。fastlane 有很全的文档，但 iOS 开发人员仍然需要使用 Ruby 来编写所有用于自动化 iOS 发布流水线的基础架构。
 
 ### 2. 频繁的不兼容的更新
 
@@ -36,7 +36,7 @@ fastlane 声称它通过自动执行常见任务节省了开发人员的时间�
 
 ### 5. Github 上未解决的 issue
 
-fastlane 的 Github 上面有很多 [issue](https://github.com/fastlane/fastlane/issues) 是 open 的状态，有些在还没有为用户提供正确的解决方案的情况下就被自动机器人关闭了。我举个很好的例子，我浪费了好几天的时间为了确定 fastlane 的 [match](https://docs.fastlane.tools/actions/match/) 是否支持在 Xcode 9 上构建的企业应用发布包。在寻找答案的同时，我发现还有其他人也在寻找相同问题的解决方案。[这](https://github.com/fastlane/fastlane/issues/10895)是一个没有得出合适的解决方案的却被 fastlane 机器人关闭的 issue。我已经尝试了 issue [11090](https://github.com/fastlane/fastlane/issues/11090)，[10543](https://github.com/fastlane/fastlane/issues/10543)，[10325](https://github.com/fastlane/fastlane/issues/10325)，[10458](https://github.com/fastlane/fastlane/issues/10458) 等提供的各种解决方案，读完所有这些之后，我仍然不明白企业应用构建的 export 方法是什么。有些用户说当你使用 adhoc它会起作用，而另一些用户则说 Ad-hoc 或者 AdHoc。你可以想象需要花多少时间来给应用打包，去测试每个出口方法。我看到 CircleCI 也有用户对 fastlane 的 match 的代码签名问题感到[沮丧](https://twitter.com/m4rr/status/961047312666710016)。
+fastlane 的 Github 上面有很多 [issue](https://github.com/fastlane/fastlane/issues) 是 open 的状态，有些在还没有为用户提供正确的解决方案的情况下就被自动机器人关闭了。我举个很好的例子，我浪费了好几天的时间为了确定 fastlane 的 [match](https://docs.fastlane.tools/actions/match/) 是否支持在 Xcode 9 上构建的企业应用发布包。在寻找答案的同时，我发现还有其他人也在寻找相同问题的解决方案。[这](https://github.com/fastlane/fastlane/issues/10895)是一个没有得出合适的解决方案的却被 fastlane 机器人关闭的 issue。我已经尝试了 issue [11090](https://github.com/fastlane/fastlane/issues/11090)，[10543](https://github.com/fastlane/fastlane/issues/10543)，[10325](https://github.com/fastlane/fastlane/issues/10325)，[10458](https://github.com/fastlane/fastlane/issues/10458) 等提供的各种解决方案，读完所有这些之后，我仍然不明白企业应用构建的 export 方法是什么。有些用户说：当你使用 adhoc 它会起作用；而另一些用户则说 Ad-hoc 或者 AdHoc。你可以想象需要花多少时间来给应用打包，去测试每个出口方法。我看到 CircleCI 也有用户对 fastlane 的 match 的代码签名问题感到[沮丧](https://twitter.com/m4rr/status/961047312666710016)。
 
 上面列举的是 fastlane 在你的 iOS 项目中制造的所有问题中的一小部分，你可能有不同的故事和不同的问题，但你从来没有提起。
 
@@ -68,11 +68,11 @@ fastlane 的替代者 top 5
 
 [Xcode Server](https://developer.apple.com/library/content/documentation/IDEs/Conceptual/xcode_guide-continuous_integration/) 是苹果提供的持续集成服务。随着 Xcode 9 的发布，苹果给 Xcode Server 增加了许多新功能，几乎所有的功能都是在后台运行。Xcode Server 与 Xcode 紧密结合，对 iOS 开发人员来说很容易上手。使用 Xcode Server，我们可以分析、测试、构建和归档一个 iOS 应用程序，并且无需编写任何代码或脚本。如果你使用 Xcode Server 进行 iOS 持续集成，你可能不需要任何工具来自动化构建过程。[这里](https://medium.com/xcblog/xcode9-xcode-server-comprehensive-ios-continuous-integration-3613a7973b48)可以读到更多关于 Xcode Server 特性的信息。然而，还有一个步骤需要我们手动实现：将二进制文件上传到 iTunes Connect 或其他平台上。目前 Xcode Server 无法将二进制文件上传到 iTunes Connect，但使用 altool 作为 Xcode Server bot 的 post-integration 脚本就很容易实现这个目标。
 
-如果你无法在内部管理 mac Mini 服务器，你可以通过[Mac Stadium](https://www.macstadium.com/)这类的服务中租用一些 mac Mini 来运行 Xcode Server。
+如果你无法在内部管理 Mac Mini 服务器，你可以通过[Mac Stadium](https://www.macstadium.com/)这类的服务中租用一些 mac Mini 来运行 Xcode Server。
 
 ### 3. 基于云的 CI 服务
 
-有许多基于云计算的 CI 服务，例如 [BuddyBuild](https://www.buddybuild.com/)，[Bitrise](https://www.bitrise.io/)，[CircleCI](https://circleci.com)，[Nevercode](https://nevercode.io/)等，可以提供持续集成以及持续发布服务。 BuddyBuild 最近被苹果公司收购，我下一节会介绍。这些基于云的 CI 服务会处理所有 iOS 构建过程，包括测试，代码签名和将应用程序发布到特定服务或 iTunes connect 上。我们也可以编写自定义脚本来实现特定需求。这些服务完全避免了对 fastlane 或任何 iOS 项目的脚本编写的需求。但是这些服务不是免费的，并且可以控制你的项目。如果你完全不具备 CI / CD 基础设施的技能，那么这将是一个不错的选择。我在我的个人项目上完成了所有基于这些云计算的 CI 服务的关键步骤，并写了我的[结论](https://dzone.com/articles/olympics-of-top-5-cloud-ios-continuous-integration)。希望文中的对比和讨论能在你为自己的 iOS 项目选择合适服务的过程上有所帮助。
+有许多基于云计算的 CI 服务，例如 [BuddyBuild](https://www.buddybuild.com/)，[Bitrise](https://www.bitrise.io/)，[CircleCI](https://circleci.com)，[Nevercode](https://nevercode.io/)等，可以提供持续集成以及持续发布服务。 BuddyBuild 最近被苹果公司收购，我下一节会介绍。这些基于云的 CI 服务会处理所有 iOS 构建过程，包括测试，代码签名和将应用程序发布到特定服务或 iTunes Connect 上。我们也可以编写自定义脚本来实现特定需求。这些服务完全避免了对 fastlane 或任何 iOS 项目的脚本编写的需求。但是这些服务不是免费的，并且可以控制你的项目。如果你完全不具备 CI / CD 基础设施的技能，那么这将是一个不错的选择。我在我的个人项目上完成了所有基于这些云计算的 CI 服务的关键步骤，并写了我的[结论](https://dzone.com/articles/olympics-of-top-5-cloud-ios-continuous-integration)。希望文中的对比和讨论能在你为自己的 iOS 项目选择合适服务的过程上有所帮助。
 
 ### 4. Apple + BuddyBuild
 
