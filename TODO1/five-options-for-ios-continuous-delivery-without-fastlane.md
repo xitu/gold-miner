@@ -1,4 +1,3 @@
-
 > * 原文地址：[Five Options for iOS Continuous Delivery without Fastlane](https://medium.com/xcblog/five-options-for-ios-continuous-delivery-without-fastlane-2a32e05ddf3d)
 > * 原文作者：[Shashikant Jagtap](https://medium.com/@shashikant.jagtap?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
