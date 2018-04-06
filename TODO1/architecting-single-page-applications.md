@@ -833,11 +833,11 @@ export const ArticleComponent = (props: Props) => {
 
 如果你喜欢这份指南，请为它点赞。
 
-[1] [https://en.wikipedia.org/wiki/Flip_book](https://en.wikipedia.org/wiki/Flip_book)
-[2] [https://reactjs.org](https://reactjs.org/)
-[3] [https://angular.io](https://angular.io/)
-[4] [https://reactjs.org/docs/optimizing-performance.html](https://reactjs.org/docs/optimizing-performance.html)
-[5] [https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze)
+- [1] [https://en.wikipedia.org/wiki/Flip_book](https://en.wikipedia.org/wiki/Flip_book)
+- [2] [https://reactjs.org](https://reactjs.org/)
+- [3] [https://angular.io](https://angular.io/)
+- [4] [https://reactjs.org/docs/optimizing-performance.html](https://reactjs.org/docs/optimizing-performance.html)
+- [5] [https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze)
 
 
 ---
