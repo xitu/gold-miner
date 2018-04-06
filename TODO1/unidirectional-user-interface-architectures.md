@@ -117,7 +117,7 @@
 
 ## MODEL-VIEW-INTENT
 
-Model-View-Intent 是基于框架 [Cycle.js](http://cycle.js.org) 的主要架构模式，它同时也是基于观察者 [RxJS](https://github.com/Reactive-Extensions/RxJS) 的完全反应单向架构。**可观察（Observable）**事件流是一个所有地方都用到的原函数，Observables 上的函数是架构的一部分。
+Model-View-Intent 是基于框架 [Cycle.js](http://cycle.js.org) 的主要架构模式，它同时也是基于观察者 [RxJS](https://github.com/Reactive-Extensions/RxJS) 的完全反应单向架构。**可观察（Observable）** 事件流是一个所有地方都用到的原函数，Observables 上的函数是架构的一部分。
 
 **组成部分：**
 
