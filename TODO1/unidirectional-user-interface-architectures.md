@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/unidirectional-user-interface-architectures.md](https://github.com/xitu/gold-miner/blob/master/TODO1/unidirectional-user-interface-architectures.md)
 > * 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit)
-> * 校对者：[Hopsken](https://github.com/Hopsken)
+> * 校对者：[Hopsken](https://github.com/Hopsken)，[dandyxu](https://github.com/dandyxu)
 
 # 单向用户界面架构
 
@@ -27,7 +27,7 @@
 
 > 如果子组件和整体的结构一致，这个单向架构就被称为**分形（fractal）**。
 
-在分形架构中，整体可以像组件一样简单的打包然后用于更大的应用。
+在分形架构中，整体可以像组件一样简单地打包然后用于更大的应用。
 
 在非分形架构中，那些不重复的部分被称为**协调器（orchestrators）**，它们不属于具有分级结构的部分。
 
@@ -50,11 +50,11 @@
 
 **只有 View 有可组合组件。**分级结构仅存在于 React 组件中，Stores 和 Actions 都没有。一个 React 组件就是一个 UI 程序，并且其内部通常不会编写成一个 Flux 架构的形式。所以 Flux 不是分形的，Dispatcher 和 Stores 作为它的协调器。
 
-**用户事件处理器在 rendering 中声明。**也就是，React 组件的 `render()` 函数处理和用户交互的两个方向：渲染和用户事件处理（例如 `onClick={this.clickHandler}`）
+**用户事件处理器在 rendering 中声明。**换句话说，React 组件的 `render()` 函数处理和用户交互的两个方向：渲染和用户事件处理（例如 `onClick={this.clickHandler}`）
 
 ## REDUX
 
-[Redux](http://rackt.github.io/redux/) 是一个 Flux 的变体，独一的 Dispatcher 被改编成了一个独一的 Store。Store 不是从零开始实现的，相反，创建它的方式是给 store 工厂一个 reducer 函数。
+[Redux](http://rackt.github.io/redux/) 是一个 Flux 的变体，单例 Dispatcher 被改编成了一个独一的 Store。Store 不是从零开始实现的，相反，创建它的方式是给 store 工厂一个 reducer 函数。
 
 **组成部分：**
 
@@ -67,9 +67,9 @@
 
 **特点：**
 
-**store 工厂。**使用工厂函数 `createStore()` 可以创建 Store，由 reducer 函数作为组成参数。还有一个元函数 `applyMiddleware()`，接受中间件函数作为参数。中间件是用附加的链式功能重写 store 的 `dispatch()` 函数的机制。
+**store 工厂。**使用工厂函数 `createStore()` 可以创建 Store，由 reducer 函数作为组成参数。还有一个元工厂函数 `applyMiddleware()`，接受中间件函数作为参数。中间件是用附加的链式功能重写 store 的 `dispatch()` 函数的机制。
 
-**Providers。**对于用来作为 UI 编程的 “View” 框架，Redux 并不武断控制。它可以和 React 或者 Angular 或者其他框架配合使用。在这个框架中，“View” 是 UI 程序。像 Flux 一样，Redux 被设计为非分形的，并且以 Store 作为协调器。
+**Providers。**对于用来作为 UI 程序的 “View” 框架，Redux 并不武断控制。它可以和 React 或者 Angular 或者其他框架配合使用。在这个框架中，“View” 是 UI 程序。和 Flux 一样，Redux 被设计为非分形的，并且以 Store 作为协调器。
 
 **用户事件处理函数的声明可能在也可能不在 rendering。**取决于当下的 Provider。
 
@@ -88,7 +88,7 @@
 
 **特点：**
 
-**多范例。**State 和 Tree 是完全声明式的。Event 是急迫性的，Behavior 是功能性的。一些部分有所反应，而其他部分则比较消极。（例如，Behavior 会对 State 作出反应，Tree 则对 Behavior 比较消极）
+**多范例。**State 和 Tree 是完全声明式的。Event 是急迫性的，Behavior 是功能性的。一些部分是响应式的，而其他部分则是被动式的。（例如，Behavior 会对 State 作出反应，Tree 则对 Behavior 比较消极）
 
 **Behavior。** Behavior 将 UI 视图（Tree）和它的动态属性分离了，这在本文中的其他几个框架中都不会出现。据称，这出于不同的考虑：Tree 就好比 HTML，Behavior 就好比 CSS。
 
@@ -121,7 +121,7 @@ Model-View-Intent 是基于框架 [Cycle.js](http://cycle.js.org) 的主要架�
 
 **组成部分：**
 
-*   **Intent**：来自 Observable 用户事件的函数，观察 “actions”
+*   **Intent**：来自 Observable 用户事件的函数，用来观察 “actions”
 *   **Model**：来自 Observable 的 actions 的函数，观察 state
 *   **View**：来自 Observable 的 state 的函数，观察 rendering 视图
 *   **Custom element**：rendering 视图的子部件，其自身也是一个 UI 程序。可能会作为 MVI 或者一个 Web 组件被应用。是否应用于 View 是可选的。
@@ -132,7 +132,7 @@ Model-View-Intent 是基于框架 [Cycle.js](http://cycle.js.org) 的主要架�
 
 **极大的依赖于 Observables。**该框架每一部分的输出都被描述为 Observable 事件流。因此，如果不用 Observables，就很难或者说不可能描述任何 “data flow” 或 “change”。
 
-**Intent。**和 BEST 中的 **Event** 大致相似，用户事件处理在 Intent 中声明，从视图中分离出来。和 BEST 不同，Intent 创建了 actions 的 Observable 流，这里的 actions 就和 Flux，Redux，和 Elm 中的类似。但是，和 Flux 等中的不同， MVI 中的 actions 不直接被发送到 Dispatcher 或 Store。它们就是简单的可以直接被模块监听。
+**Intent。**和 BEST 中的 **Event** 大致相似，用户事件处理在 Intent 中声明，从视图中分离出来。和 BEST 不同，Intent 创建了 actions 的 Observable 流，这里的 actions 就和 Flux，Redux，和 Elm 中的类似。但是，和 Flux 等中的不同的是， MVI 中的 actions 不直接被发送到 Dispatcher 或 Store。它们就是简单的可以直接被模块监听。
 
 **完全反应。**用户视图反应到视图输入，视图输出反应到模块输出，模块输出反应到 Intent 输出，Intent 输出反应到用户事件。
 
