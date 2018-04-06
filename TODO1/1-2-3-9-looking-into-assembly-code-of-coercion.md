@@ -2,8 +2,8 @@
 > * 原文作者：[wanago.io](https://wanago.io)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/1-2-3-9-looking-into-assembly-code-of-coercion.md](https://github.com/xitu/gold-miner/blob/master/TODO1/1-2-3-9-looking-into-assembly-code-of-coercion.md)
-> * 译者：
-> * 校对者：
+> * 译者：[sunhaokk](https://github.com/sunhaokk)
+> * 校对者：[Starrier](https://github.com/Starriers)、[Xekin-FE](https://github.com/Xekin-FE)
 
 # [1] + [2] - [3] === 9!? 类型转换深入研究
 
@@ -13,7 +13,7 @@
 
 ### 原始类型包装
 
-正如我 [之前的一篇文章](https://wanago.io/2018/02/12/cloning-objects-in-javascript-looking-under-the-hood-of-reference-and-primitive-types/)所描述的那样, 几乎 JavaScript 中的所有基本类型（除了 **null** 和 **undefined** 外）都有围绕它们原始值的对象包装。事实上，你可以访问他们的构造函数将一个值的类型转换为另一个值。
+正如我[之前的一篇文章](https://wanago.io/2018/02/12/cloning-objects-in-javascript-looking-under-the-hood-of-reference-and-primitive-types/)所描述的那样, 几乎 JavaScript 中的所有基本类型（除了 **null** 和 **undefined** 外）都有围绕它们原始值的对象包装。事实上，你可以访问他们的构造函数将一个值的类型转换为另一个值。
 
 ```
 String(123); // '123'
@@ -190,7 +190,7 @@ const dog = new Dog('Fluffy');
 dog.toString(); // '[object Dog]'
 ```
 
-你也可以在这里使用 ES6 类和 getter ：
+你也可以在这里使用 ES6 类和 getter：
 
 ```
 class Dog {
