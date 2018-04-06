@@ -3,8 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/architecting-single-page-applications.md](https://github.com/xitu/gold-miner/blob/master/TODO1/architecting-single-page-applications.md)
 > * 译者：[zwwill 木羽](https://github.com/zwwill)
-> * 校对者：
-
+> * 校对者：[Starriers](https://github.com/Starriers)，[NoName4Me](https://github.com/NoName4Me)
 
 # 关于 SPA，你需要掌握的 4 层
 
@@ -12,7 +11,7 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*5aa2cNrij2fVO0rZTJCZHQ.png)
 
-每个成功的项目都需要一个清晰的架构，这是所有团队成员都心知肚明的。
+每个成功的项目都需要一个清晰的架构，这对于所有团队成员都是心照不宣的。
 
 试想一下，作为团队的新人。技术负责人给你介绍了在项目进程中提出的新应用程序的架构。
 
@@ -26,13 +25,13 @@
 
 ### Ok，没问题，我们来搭框架吧
 
-我选择 FaceBook 开源的构建工具 [Create React App](https://github.com/facebook/create-react-app)，使用 [Flow](https://flow.org) 来进行类型检查。为了简捷，暂不开放样式。
+我选择 FaceBook 开源的构建工具 [Create React App](https://github.com/facebook/create-react-app)，使用 [Flow](https://flow.org) 来进行类型检查。简单起见，先忽略样式。
 
 作为先决条件，让我们讨论一下现代框架的声明性本质，以及涉及到的 state 概念。
 
 ### 现在的框架多为声明式的
 
-React， Angular， Vue 都是声明式的，并鼓励我们使用函数式编程的元素。
+React， Angular， Vue 都是声明式的，并鼓励我们使用函数式编程的思想。
 
 你有见过手翻书吗？
 
@@ -60,7 +59,7 @@ Angular 中的定义：
 
 状态由一系列**不变对象**组成
 
-[不变对象](http://enterprisecraftsmanship.com/2016/05/12/immutable-architecture)有很多好处，其中一个就是在视图层。
+[不可变结构](http://enterprisecraftsmanship.com/2016/05/12/immutable-architecture)有很多好处，其中一个就是在视图层。
 
 下面是 React 指南对[性能优化](https://reactjs.org/docs/optimizing-performance.html)介绍的引言。
 
@@ -94,23 +93,22 @@ export type Article = {
 
 现在，让我们使用工厂函数模式创建 **articleService**。
 
-> 通过查看 @mpjme 的这个[视频]，可得到一个很好的解释
+> 查看 @mpjme 的这个[视频](https://www.youtube.com/watch?v=ImwrezYhw4w)，了解更多关于JS中的工厂函数知识。
 
 由于在我们的应用程序中只需要一个**articleService**，我们将把它导出为一个单例。
 
 **createArticle** 允许我们创建 **Article** 的[冻结对象](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze)。每一篇新文章都会有一个唯一的自动生成的id和零收藏，我们仅需要提供作者和标题。
 
-> `**Object.freeze()**` 方法可冻结一个对象：也就是说，将阻止被新曾属性。 [5]
+> `**Object.freeze()**` 方法可冻结一个对象：即无法给它新增属性。 [5]
 
 **createArticle** 方法返回的是一个 **Article** 的「Maybe」类型
 
 > [Maybe](https://flow.org/en/docs/types/maybe) 类型强制你在操作 **Article** 对象前先检查它是否存在。
 
-如果创建文章所需要的任一字段无法验证，那么 **createArticle** 方法将返回null。这里可能有人会说，最好抛出一个用户定义的异常。如果我们这么早，但上层不实现catch块，那么程序将在运行时终止。
-
+如果创建文章所需要的任一字段校验失败，那么 **createArticle** 方法将返回null。这里可能有人会说，最好抛出一个用户定义的异常。如果我们这么做，但上层不实现catch块，那么程序将在运行时终止。
 **updateLikes** 方法会帮我们更新现存文章的收藏数，将返回一个拥有新计数的副本。
 
-最后，**isTitleValid** 和 **isAuthorValid** 方法用来避免 **createArticle** 处理会使其出处的数据。
+最后，**isTitleValid** 和 **isAuthorValid** 方法能帮助 **createArticle** 隔离非法数据。
 
 ```
 // @flow
@@ -720,7 +718,7 @@ export const ArticleListComponent = (props: Props) => {
 };
 ```
 
-**ArticleContainer** 传递文章的 `data` 给 **ArticleComponent** 展示。同时会执行方法 **likeArticle** 和 **removeArticle**。
+**ArticleContainer** 传递文章数据到表现层的 **ArticleComponent**，同时实现 **likeArticle** 和 **removeArticle** 这两个方法。
 
 **likeArticle** 方法负责更新文章的收藏数，通过将现存的文章替换成更新后的副本。
 
