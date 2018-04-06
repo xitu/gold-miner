@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-win-back-subscribers-who-cancel.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-win-back-subscribers-who-cancel.md)
 > * 译者：[allenlongbaobao](https://github.com/allenlongbaobao)
-> * 校对者：
+> * 校对者：[LuoJiacheng](https://github.com/LuoJiacheng)、[Starrier](https://github.com/Starrier)
 
 # 怎样把取消订阅的用户吸引回来
 
