@@ -170,7 +170,7 @@ dogName.toString(); // 'Fluffy' （在这调用 String.prototype.toString ）
 Object.prototype.toString.call(dogName); // '[object String]'
 ```
 
-随着 ES6 的推出，设置标签随使用 [**Symbols**] 而完成 (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol)。
+随着 ES6 的推出，设置标签随使用 [**Symbols**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol)而完成 。
 
 ```
 const dog = { name: 'Fluffy' }
