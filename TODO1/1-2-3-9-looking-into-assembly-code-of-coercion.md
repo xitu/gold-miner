@@ -22,7 +22,7 @@ Number('123'); // 123
 Number(true); // 1
 ```
 
-> 原始类型的特定变量的包装器不会保留很长时间，一旦工作完成，它就消失了、。
+> 原始类型的特定变量的包装器不会保留很长时间，一旦工作完成，它就消失了。
 
 您需要注意，因为如果您在那里使用新的关键字，情况并非如此。
 
@@ -36,7 +36,7 @@ if (bool) {
 }
 ```
 
-由于bool在这里是一个新的对象（不是原始值），它的计算结果为true。
+由于 bool 在这里是一个新的对象（不是原始值），它的计算结果为true。
 
 我会更进一步告诉你的
 
@@ -56,7 +56,7 @@ if ( Boolean(1) ) {
 
 不要畏惧，勇于尝试。 下面用 **Bash** 测试.
 
-1. 使用node.js将代码编译到程序中
+1. 使用 node.js 将代码编译到程序中
 
 ```
 $ node --print-code ./if1.js >> ./if1.asm
@@ -85,7 +85,7 @@ file2=$(awk '{ print $4 }' ./if2.asm)
 
 译者注：因为没有找到源文件，所以我猜测这里的意思是使用两个不同的文件，这样查找两个字符串在内存中就有两个不同的内存地址。
 
-### parseFloat函数
+### parseFloat 函数
 
 这个函数的作用类似于 **Number** 的构造函数，但对于传递的参数来说不那么严格。如果它遇到一个不能成为数字一部分的字符，它将返回一个到该点的值并忽略其余字符。
 
@@ -95,7 +95,7 @@ parseFloat('123a45'); // 123
 ```
 
 
-### parseInt函数
+### parseInt 函数
 
 它在解析数字时将数字向下舍入。它可以使用不同的基数。
 
@@ -118,13 +118,13 @@ Math.floor('1.261e7') // 12610000
 Math.floor(true) // 1
 ```
 
-### toString函数
+### toString 函数
 
 您可以使用 **toString** 函数将值转换为字符串。这个功能的实现在原型之间有所不同。
 
 > 如果您觉得您希望更好地理解原型的概念，请随时查看我的其他文章： [Prototype. The big bro behind ES6 class](https://wanago.io/2018/03/19/prototype-the-big-bro-behind-es6-class/)。
 
-#### String.prototype.toString函数
+#### String.prototype.toString 函数
 
 返回一个字符串的值
 
@@ -137,7 +137,7 @@ String.prototype.toString.call('Fluffy') // 'Fluffy'
 String.prototype.toString.call({}) // Uncaught TypeError: String.prototype.toString requires that 'this' be a String
 ```
 
-#### Number.prototype.toString函数
+#### Number.prototype.toString 函数
 
 返回转换为 String 的数字（您可以将 appendix 作为第一个参数传递）
 
@@ -147,19 +147,19 @@ String.prototype.toString.call({}) // Uncaught TypeError: String.prototype.toStr
 (-15).toString(2); // "-1111"
 ```
 
-#### Symbol.prototype.toString函数
+#### Symbol.prototype.toString 函数
 
 返回  `Symbol(${description})`
 
 > 如果有疑惑： 我正在使用 [template literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)来解释你输出字符串的外观。
 
-#### Boolean.prototype.toString函数
+#### Boolean.prototype.toString 函数
 
 返回 “true” 或 “false”
 
-#### Object.prototype.toString函数
+#### Object.prototype.toString 函数
 
-Object调用内部 **[[Class]]** 。它是代表对象类型的标签。
+Object 调用内部 **[[Class]]** 。它是代表对象类型的标签。
 
 **Object.prototype.toString** 返回一个 `[object ${tag}]` 字符串。 要么它是内置标签之一 (例如  “Array”, “String”, “Object”, “Date” ), 或者它被明确设置。
 
@@ -206,7 +206,7 @@ const dog = new Dog('Fluffy');
 dog.toString(); // '[object Dog]'
 ```
 
-#### Array.prototype.toString函数
+#### Array.prototype.toString 函数
 
 在每个元素上调用 **toString** 并返回一个字符串，所有的输出用逗号分隔。
 
@@ -228,7 +228,7 @@ arr.toString() // "[object Object],2,3"
 
 ### 加符号
 
-带有两个操作数和带有 + 的字符串的表达式将导致一个字符串。
+当在字符串与操作数之间使用 + 时结果将返回一个字符串。
 
 ```
 '2' + 2 // 22
@@ -251,11 +251,11 @@ new Date('04-02-2018') - '1' // 1522619999999
 -'1' // -1
 ```
 
-日期, 转成数字 [Unix timestamp](https://en.wikipedia.org/wiki/Unix_time)。
+日期, 转成数字 [Unix 时间戳](https://en.wikipedia.org/wiki/Unix_time)。
 
 ## 叹号
 
-如果原始值是虚假的，则使用它将输出真，如果真是假，则输出为假。因此，如果使用两次，它可以用于将该值转换为相应的布尔值。
+如果原始值是假的，则使用它将输出真，如果真，则输出为假。因此，如果使用两次，它可以用于将该值转换为相应的布尔值。
 
 ```
 !1 // false
@@ -264,7 +264,7 @@ new Date('04-02-2018') - '1' // 1522619999999
 
 ## ToInt32 按位或
 
-值得一提的是，即使 ToInt32 实际上是一个抽象操作（仅限内部，不可调用）。它会给一个值赋予一个值 [signed 32-bit integer](https://en.wikipedia.org/wiki/32-bit)。
+值得一提的是，即使 ToInt32 实际上是一个抽象操作（仅限内部，不可调用）。它会把一个值转换为 [signed 32-bit integer](https://en.wikipedia.org/wiki/32-bit)。
 
 ```
 0 | true          // 1
@@ -276,7 +276,7 @@ new Date('04-02-2018') - '1' // 1522619999999
 0 | Infinity      // 0
 ```
 
-当其中一个操作数为0时执行按位或操作将导致不改变另一个操作数的值。
+当其中一个操作数为 0 时执行按位或操作将导致不改变另一个操作数的值。
 
 ### 其他隐式转换
 
@@ -293,14 +293,14 @@ x[bar] = 'bar';
 console.log(x[foo]); // "bar"
 ```
 
-发生这种情况是因为foo和bar在转换为字符串时都会导致“[object Object]”。真正发生的是这样的：
+发生这种情况是因为foo和bar在转换为字符串时都会转成 “[object Object]” 。真正发生的是这样的：
 
 ```
 x[bar.toString()] = 'bar';
 x["[object Object]"]; // "bar"
 ```
 
-隐式转换在 [template literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)也会发生。尝试在这里覆盖 **toString** 函数：
+隐式转换在 [template literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)也会发生。尝试在这里重载 **toString** 函数：
 
 
 ```
@@ -314,7 +314,7 @@ Dog.prototype.toString = function() {
 const dog = new Dog('Fluffy');
 console.log(`${dog} is a good dog!`); // "Fluffy is a good dog!"
 ```
-隐式转换也是为什么**抽象相等比较**（==）可能被认为是不好的做法，因为如果它们的类型不匹配，它试图强制值。
+隐式转换也是为什么**比较运算符**（==）可能被认为是不好的做法，因为如果它们的类型不匹配，它会尝试通过强制转换进行匹配。
 
 查看这个例子以获得一个关于比较的有趣事实：
 
