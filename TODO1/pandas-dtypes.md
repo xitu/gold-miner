@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/pandas-dtypes.md](https://github.com/xitu/gold-miner/blob/master/TODO1/pandas-dtypes.md)
 > * 译者：[stormluke](https://github.com/stormluke)
-> * 校对者：
+> * 校对者：[Starrier](https://github.com/Starriers)、[luochen1992](https://github.com/luochen1992)
 
 # Pandas 数据类型概览
 
