@@ -17,7 +17,7 @@
 
 当不同的框架使用 “View” 这个术语时，含义可能大不相同。作为替代，我们使用 “rendering” 来代表共识中的 “View”。
 
-> **用户接口界面（User interface rendering）**指代屏幕上的图形输出，一般情况下用 HTML 或者其他类似的高级声明代码比如 JSX 来描述。
+> **用户接口渲染（User interface rendering）**指代屏幕上的图形输出，一般情况下用 HTML 或者其他类似的高级声明代码比如 JSX 来描述。
 
 > 一个**用户界面（UI）程序（User interface (UI) program）**是任何一个将用户事件作为输入输出视图的程序，这是一个持续的过程而不是一次性的转换。
 
