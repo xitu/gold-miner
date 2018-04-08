@@ -13,7 +13,7 @@
 
 ### 原始类型包装
 
-正如我[之前的一篇文章](https://wanago.io/2018/02/12/cloning-objects-in-javascript-looking-under-the-hood-of-reference-and-primitive-types/)所描述的那样,几乎 JavaScript 中的所有基本类型（除了 **null** 和 **undefined** 外）都有围绕它们原始值的对象包装。事实上，你可以访问他们的构造函数将一个值的类型转换为另一个值。
+正如我[之前的一篇文章](https://wanago.io/2018/02/12/cloning-objects-in-javascript-looking-under-the-hood-of-reference-and-primitive-types/)所描述的那样,几乎 JavaScript 中的所有原始类型（除了 **null** 和 **undefined** 外）都有围绕它们原始值的对象包装。事实上，你可以直接调用原始类型的构造函数作为包装器将一个值的类型转换为另一个值。
 
 ```
 String(123); // '123'
@@ -22,9 +22,9 @@ Number('123'); // 123
 Number(true); // 1
 ```
 
-> 原始类型的特定变量的包装器不会保留很长时间，一旦工作完成，它就消失了。
+> 一些原始类型的包装器，String、Bollean、Number 不会保留很长时间，一旦工作完成，它就消失。译者注：JS 中将数据分成两种类型，原始类型（基本数据类型）和对象类型（引用数据类型）。在对象类型中又有三种特殊类型的引用类型分别是，String、Boolean、Number。这三个就是基本包装类型。实际上，每当读取一个基本类型值的时候，后台就会创建一个对应的基本包装类型的对象，从而可以调用这些类型的方法来操作数据。
 
-您需要注意，因为如果您在那里使用新的关键字，情况并非如此。
+您需要注意，如果您这里使用了 new 关键字，就不再是当前实例。
 
 ```
 const bool = new Boolean(false);
@@ -36,9 +36,9 @@ if (bool) {
 }
 ```
 
-由于 bool 在这里是一个新的对象（不是原始值），它的计算结果为true。
+由于 bool 在这里是一个新的对象（不是原始值），它的计算结果为 true。
 
-我会更进一步告诉你的
+进一步分析
 
 ```
 if (1) {
@@ -108,7 +108,7 @@ parseFloat('0xF'); // 0
 
 函数 parseInt 可以猜测基数或让它作为第二个参数传递。有关其中需要考虑的规则列表，请查看 [MDN web docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseInt)。
 
-它有很大数量的麻烦，所以它不应该被认为是[**Math.floor**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/floor) (它也会进行类型转换)的替代品：
+它有很大数量的麻烦，所以它不应该被认为是 [**Math.floor**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/floor) (它也会进行类型转换)的替代品：
 
 ```
 parseInt('1.261e7'); // 1
@@ -264,7 +264,7 @@ new Date('04-02-2018') - '1' // 1522619999999
 
 ## ToInt32 按位或
 
-值得一提的是，即使 ToInt32 实际上是一个抽象操作（仅限内部，不可调用）。它会把一个值转换为 [signed 32-bit integer](https://en.wikipedia.org/wiki/32-bit)。
+值得一提的是，即使 ToInt32 实际上是一个抽象操作（仅限内部，不可调用）。它会把一个值转换为[带符号 32 位整形](https://en.wikipedia.org/wiki/32-bit)。
 
 ```
 0 | true          // 1
@@ -293,7 +293,7 @@ x[bar] = 'bar';
 console.log(x[foo]); // "bar"
 ```
 
-发生这种情况是因为foo和bar在转换为字符串时都会转成 “[object Object]” 。真正发生的是这样的：
+发生这种情况是因为 foo 和 bar 在转换为字符串时都会转成 “[object Object]” 。真正发生的是这样的：
 
 ```
 x[bar.toString()] = 'bar';
@@ -326,7 +326,7 @@ foo === foo2 // false
 foo >= foo2 // true
 ```
 
-因为我们在这里使用了 new 关键字，所以 foo 和 foo2 都保留了它们的原始值（这是 'foo' ）的包装。由于他们现在正在引用两个不同的对象， `foo === foo2` 结果为 false。 关系操作 ( `>=` ) 在两边调用 **valueOf** 函数。 因此，原生比较地址, `'foo' >= 'foo'` 返回 **true**。
+因为我们在这里使用了 new 关键字，所以 foo 和 foo2 都保留了它们的原始值（这是 'foo' ）的包装。由于他们现在正在引用两个不同的对象， `foo === foo2` 结果为 false。 关系操作 ( `>=` ) 在两边调用 **valueOf** 函数。 因此，在这里比较原始值内存地址, `'foo' >= 'foo'` 返回 **true**。
 
 ## [1] + [2] – [3] === 9
 
