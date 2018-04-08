@@ -115,7 +115,7 @@ Storybook 提供的 [官方示例](https://storybook.js.org/examples/) 不容错
 
 ### redux-diff-logger
 
-无论你是使用 `console.log` 打印 state，还是使用 `[debugger](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/debugger)` 启动 dev tools 审查、调试 state，你其实都是想捕捉 state 中前后 **发生变化的值**。Redux diff logger 正能肩负此任，**它会打印出 state 中所有发生变化的值。**
+无论你是使用 `console.log` 打印 state，还是使用 [`debugger`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/debugger) 启动 dev tools 审查、调试 state，你其实都是想捕捉 state 中前后 **发生变化的值**。Redux diff logger 正能肩负此任，**它会打印出 state 中所有发生变化的值。**
 
 ![](https://cdn-images-1.medium.com/max/800/1*dwqA2l5S7nKPjY8cOoL1rA.png)
 
