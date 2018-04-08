@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/top-react-and-redux-packages-for-faster-development.md](https://github.com/xitu/gold-miner/blob/master/TODO1/top-react-and-redux-packages-for-faster-development.md)
 > * 译者：[刘嘉一](https://github.com/lcx-seima)
-> * 校对者：
+> * 校对者：[wznonstop](https://github.com/wznonstop)
 
 # React & Redux 顶级开发伴侣
 
@@ -33,11 +33,11 @@ Storybook 提供的 [官方示例](https://storybook.js.org/examples/) 不容错
 
 图注：Storybook [仓库](https://github.com/storybooks/storybook) 中的 Demo
 
-**Stroybook 其他亮点如下 —**
+**Stroybook 其他亮点如下 ——**
 
 *   Storybook 独立运行，不干扰你的应用。
-*   这有效地隔离了组件的开发和应用的开发。
-*   同样，你也不需要操心任何与组件开发相关的程序依赖。
+*   这使得组件能够独立于应用进行开发。
+*   这意味着你在开发组件时不需要操心任何依赖相关的问题。
 
 这里还有一些与 Stroybook 类似的工具：[React Cosmos](https://github.com/react-cosmos/react-cosmos)，[React Styleguidist](https://github.com/styleguidist/react-styleguidist)
 
@@ -55,7 +55,7 @@ Storybook 提供的 [官方示例](https://storybook.js.org/examples/) 不容错
 
 图注：React Dev Tools 中的 Highlight Updates 功能
 
-**使用秘诀 —**
+**使用秘诀 ——**
 
 *   **Highlight Updates：** 注意观察上面 GIF 图中 **Submit** 按钮下方出现的彩色线条。这表明每当我在 input 中进行输入，**整个组件都会被重新渲染！**
 *   在相互独立的组件范围内，如果在某个组件上触发的 action 会同时触发其他组件进行重新渲染，这样的行为显然不太合理，其背后的原因需要好好琢磨。
@@ -64,7 +64,7 @@ Storybook 提供的 [官方示例](https://storybook.js.org/examples/) 不容错
 
 ### Why did you update？
 
-我们在上一节中提到了组件冗余重渲的问题，不过想一眼看出某个组件的重新渲染是否多余却并不那么容易。幸好有这么一个工具包替你承包了这项工作，**每当有组件进行不必要重渲的时候，它会在控制台进行提醒。** 该工具包会跟踪组件的 prop 和 state 状态，若组件在任一状态未发生变化的情况下进行了重渲，那么该工具包就会在控制台打印出相关信息。它的 GitHub 地址在 [这儿](https://github.com/maicki/why-did-you-update)，另外别忘了不要在生产环境时使用该包。
+我们在上一节中提到了组件冗余重渲的问题，不过想一眼看出某个组件的重新渲染是否多余却并不那么容易。幸好有这么一个工具包替你承包了这项工作，**每当有组件进行不必要重渲的时候，它会在控制台进行提醒。** 该工具包会跟踪组件的 prop 和 state 状态，若组件在任一状态未发生变化的情况下进行了重渲，那么该工具包就会在控制台打印出相关信息。它的 GitHub 地址在 [这儿](https://github.com/maicki/why-did-you-update)，另外要记住不要在生产环境时使用该包。
 
 ![](https://cdn-images-1.medium.com/max/800/1*CL5jum98a0QxOWeIb9QRBg.png)
 
@@ -72,9 +72,9 @@ Storybook 提供的 [官方示例](https://storybook.js.org/examples/) 不容错
 
 ### Create React App（CRA）
 
-严格意义上来讲这并不是一个开发工具，但是多年的使用让我发现它是快速创建 React 原型项目的不二人选。设置好一个 React 项目的开发环境并不简单，其中包含的众多依赖包如 Babel、webpack 等，对于新手来说都不是一下就能弄明白的。为此，我专门写了 **Yet another Beginner’s Guide to setting up a React Project ** 系列文章，包含 [Part 1](https://codeburst.io/yet-another-beginners-guide-to-setting-up-a-react-project-part-1-bdc8a29aea22) 和 [Part 2](https://codeburst.io/yet-another-beginners-guide-to-setting-up-a-react-project-part-2-5d3151814333) 两部分内容。在文章中我讲解了 JSX、Babel 和 webpack 的概念及其为何使用它们。
+严格意义上来讲这并不是一个开发工具，但是多年的使用让我发现它是快速创建 React 原型项目的不二人选。设置好一个 React 项目的开发环境并不简单，其中包含的众多依赖包如 Babel、webpack 等，对于新手来说都不是一下就能弄明白的。为此，我专门写了 **Yet another Beginner’s Guide to setting up a React Project** 系列文章，包含 [Part 1](https://codeburst.io/yet-another-beginners-guide-to-setting-up-a-react-project-part-1-bdc8a29aea22) 和 [Part 2](https://codeburst.io/yet-another-beginners-guide-to-setting-up-a-react-project-part-2-5d3151814333) 两部分内容。在文章中我讲解了 JSX、Babel 和 webpack 的概念以及为何使用它们。
 
-在你弄清楚这一切概念后，你每每创建一个新的项目，都需要重复一系列相同的开发环境设置工作。而且，你还 **有可能** 需要同时创建多个这样的项目。因此，为了节约开发者的时间，Facebook 把所有的繁琐工作都封装到了一个工具包中，[点此](https://github.com/facebook/create-react-app) 了解一下。
+在弄清楚这些基础概念后，每每创建一个新的项目，你都需要重复一系列相同的开发环境设置工作。而且，你还 **有可能** 需要同时创建多个这样的项目。因此，为了节约开发者的时间，Facebook 把所有的繁琐工作都封装到了一个工具包中，[点此](https://github.com/facebook/create-react-app) 了解一下。
 
 ![](https://cdn-images-1.medium.com/max/800/1*O1N_DRWt0EKJ-uzBTNE-tg.png)
 
@@ -86,11 +86,11 @@ Storybook 提供的 [官方示例](https://storybook.js.org/examples/) 不容错
 
 ### Redux Dev Tools
 
-像 React 一样，Redux 也有它的 Dev Tools，也同样可以通过 Chrome [Extension](https://github.com/zalmoxisus/redux-devtools-extension) 或 Firefox [addon](https://github.com/zalmoxisus/redux-devtools-extension) 进行安装。它的功能有 —
+像 React 一样，Redux 也有它的 Dev Tools，也同样可以通过 Chrome [Extension](https://github.com/zalmoxisus/redux-devtools-extension) 或 Firefox [addon](https://github.com/zalmoxisus/redux-devtools-extension) 进行安装。它的功能有 ——
 
 *   你可以使用它审查每个 state 和 action payload。
-*   你可以使用它及时 “取消” 发出的 action，这个功能也被称作 **调试时光机。** Redux Dev Tools 的作者 [Dan Abramov](https://medium.com/@dan_abramov) 自行制作了一个不错的 [视频](http://youtube.com/watch?v=xsSnOQynTHs) 来演示时光机功能。
-*   如果你中途改变了 reducer 的代码，所有已经被记录下来的 action 都会按照新的 reducer 重新计算显示。
+*   你可以使用它及时 “取消” 发出的 action 以回退到之前的状态，这个功能也被称作 **调试时光机。** Redux Dev Tools 的作者 [Dan Abramov](https://medium.com/@dan_abramov) 自行制作了一个不错的 [视频](http://youtube.com/watch?v=xsSnOQynTHs) 来演示时光机功能。
+*   如果你中途改变了 reducer 的代码，所有已经被记录下来的 action 都会按照新的 reducer 重新计算。
 *   如果 reducer 代码抛异常了，你可以看到发生异常时的 action 和具体的错误信息。
 *   Dev tools 的日志界面（LogMonitor）可以完全按照你的意愿进行定制。因为它本质上就是个 React 组件，所以定制它并不是什么难事。作者 [Dan Abramov](https://medium.com/@dan_abramov) 也强烈建议你 [定制](https://github.com/gaearon/redux-devtools/issues/3) 属于自己的 LogMonitor。
 
@@ -108,7 +108,7 @@ Storybook 提供的 [官方示例](https://storybook.js.org/examples/) 不容错
 
 图注：“修改” state 值时将抛出错误
 
-**使用秘诀 —**
+**使用秘诀 ——**
 
 *   需要确保 state 中不含任何不可以序列化的值，如函数。否则，中间件会抛出 `RangeError: Maximum call stack size exceeded` 异常。
 *   需要确保 **不要** 在生产环境中使用该中间件，因为它包含了很多对象复制的工作，会拖慢你的线上应用。
