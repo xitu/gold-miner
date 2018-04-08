@@ -3,13 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/five-options-for-ios-continuous-delivery-without-fastlane.md](https://github.com/xitu/gold-miner/blob/master/TODO1/five-options-for-ios-continuous-delivery-without-fastlane.md)
 > * 译者：[金西西](https://github.com/melon8)
-> * 校对者：
+> * 校对者：[allenlongbaobao](https://github.com/allenlongbaobao)，[talisk](https://github.com/talisk)
 
 # 不使用 fastlane 实现持续交付的 5 种选项
 
 ![](https://cdn-images-1.medium.com/max/800/1*VttABPhOQPcSnjJTSkxykg.jpeg)
 
-_原文发布在 XCBlog_ [_here_](http://shashikantjagtap.net/five-options-for-ios-continuous-delivery-without-fastlane/)
+__原文发布在 XCBlog__ [__这里__](http://shashikantjagtap.net/five-options-for-ios-continuous-delivery-without-fastlane/)
 
 fastlane [工具](https://fastlane.tools/)将整个 iOS CI/CD 流水线（Continuous Integration and Deployment，持续集成和发布，译者注）自动化了，使得我们可以用代码的方式管理整个 iOS 基础架构。fastlane 是一系列工具，用来将例如分析、构建、测试、代码签名和 iOS app 打包等一切过程自动化。然而如果你深入看，它不过是在苹果原生开发工具上加了一个 Ruby 层。可能在某些情况下，fastlane 节省了一些时间，但考虑到频繁的不兼容更改，fastlane 反过来浪费了大量开发者的时间。在不断学习 Ruby 和 fastlane 式的自动化的过程中，许多开发人员浪费了宝贵时间。就像 [CocoaPods](https://cocoapods.org/)， fastlane 可能是你的 iOS 项目中使用到 Ruby 的另一个无用之物，它与 iOS 开发毫无关系。学习一些本地的苹果开发工具并从你的 iOS 开发工具箱中彻底删除 Ruby 和其他第三方工具（比如 fastlane）并不难。在这篇文章中，我们将介绍 iOS 开发人员使用 fastlane 面临的问题以及替代方案。
 
@@ -97,5 +97,3 @@ fastlane 最近添加了使用 [Swift](https://docs.fastlane.tools/getting-start
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
-
-
