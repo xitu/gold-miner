@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-not-react-common-anti-patterns-and-gotchas-in-react.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-not-react-common-anti-patterns-and-gotchas-in-react.md)
 > * 译者：[MechanicianW](https://github.com/mechanicianw)
-> * 校对者：
+> * 校对者：[anxsec](https://github.com/anxsec) [ClarenceC](https://github.com/ClarenceC)
 
 # How to NOT React： React 中常见的反模式与陷阱
 
@@ -19,7 +19,7 @@
 
 ### 1. 组件中的 bind() 与箭头函数
 
-你一定做过，在把自定义函数作为 props 传给组件之前，就在 `constructor` 函数中绑定了自定义函数。如果你是用 `extends` 关键字声明组件的话，自定义函数（如下面的 `updateValue` 函数）会失去 `this` 绑定。因此，如果你想使用 `this.state`，`this.props` 或者 `this.setState`，你还得重新绑定。
+在使用自定义函数作为组件属性之前你必须将你的自定义函数写在 `constructor` 中。如果你是用 `extends` 关键字声明组件的话，自定义函数（如下面的 `updateValue` 函数）会失去 `this` 绑定。因此，如果你想使用 `this.state`，`this.props` 或者 `this.setState`，你还得重新绑定。
 
 #### Demo
 
@@ -51,7 +51,7 @@ render() {
 
 #### 问题
 
-有两种方法可以将自定义函数绑定到组件的 `this`。一种方法是如上面所做的那样，在 `constructor` 中绑定。另一种方法是在将自定义函数作为 prop 值传递时绑定：
+有两种方法可以将自定义函数绑定到组件的 `this`。一种方法是如上面所做的那样，在 `constructor` 中绑定。另一种方法是在传值的时候作为属性的值进行绑定：
 
 ```
 <input onChange={this.updateValue.bind(this)} value={this.state.name} />
@@ -67,11 +67,11 @@ render() {
 
 这种写法明显更清晰。可以看到 prop `onChange` 函数中发生了什么。但是，这也导致了每次 `input` 组件渲染时都会创建一个新的匿名函数。因此，箭头函数有同样的性能弊端。
 
-#### 解决
+#### 解决方案
 
 避免上述性能弊端的最佳方法是在函数本身的构造器中进行绑定。这样，在组件创建时仅创建了一个额外函数，即使再次执行 `render` 也会使用该函数。
 
-经常发生忘记在构造器中 `bind` 函数这种情况，然后就会收到报错（**Cannot find X on undefined.**）。Babel 有个插件可以让我们使用箭头语法写出自动绑定的函数。插件是 [**Class properties transform**](https://babeljs.io/docs/plugins/transform-class-properties/)。现在你可以这样编写组件：
+有一种情况经常发生就是你忘记在构造函数中去 `bind` 你的函数，然后就会收到报错（**Cannot find X on undefined.**）。Babel 有个插件可以让我们使用箭头语法写出自动绑定的函数。插件是 [**Class properties transform**](https://babeljs.io/docs/plugins/transform-class-properties/)。现在你可以这样编写组件：
 
 ```
 class App extends Component {
@@ -133,7 +133,7 @@ render() {
 
 [这里](https://reactjs.org/redirect-to-codepen/reconciliation/index-used-as-key) 是 CodePen 上使用索引作为 key 可能导致的问题的一个示例。
 
-#### 解决
+#### 解决方案
 
 被使用的 key 应该是：
 
@@ -203,13 +203,13 @@ class MyComponent extends Component {
 
 请注意第 11 行代码。如果你**直接**修改了 state，组件并**不会**重新渲染，修改也不会有任何体现。这是因为 state 是进行[浅比较（shallow compare）](https://stackoverflow.com/questions/36084515/how-does-shallow-compare-work-in-react)的。你应该永远都使用 `setState` 来改变 state 的值。
 
-现在，如果你在 `setState` 中通过当前的 `state` 来更新至下一个 state （正如第 15 行代码所做的），React **可能不会重新渲染**。这是因为 `state` 和 `props` 是异步更新的。也就是说，DOM 并不会随着 `setState` 被调用就立即更新。React 会将多次更新合并到同一批次进行更新，然后渲染 DOM。查询 `state` 对象时，你可能会收到已经过期的值。[文档](https://reactjs.org/docs/state-and-lifecycle.html#state-updates-may-be-asynchronous)也提到了这一点：
+现在，如果你在 `setState` 中通过当前的 `state` 值来更新至下一个 state （正如第 15 行代码所做的），React **可能不会重新渲染**。这是因为 `state` 和 `props` 是异步更新的。也就是说，DOM 并不会随着 `setState` 被调用就立即更新。React 会将多次更新合并到同一批次进行更新，然后渲染 DOM。查询 `state` 对象时，你可能会收到已经过期的值。[文档](https://reactjs.org/docs/state-and-lifecycle.html#state-updates-may-be-asynchronous)也提到了这一点：
 
 > 由于 `this.props` 和 `this.state` 是异步更新的，你不应该依赖它们的值来计算下一个 state。
 
 另一个问题出现于一个函数中有多次 `setState` 调用时，如第 16 和 20 行代码所示。counter 的初始值是 350。假设 `this.props.increment` 的值是 10。你可能以为在第 16 行代码第一次调用 `setState` 后，counter 的值会变成 350+10 = **360。**并且，当第 20 行代码再次调用 `setState` 时，counter 的值会变成 360+10 = **370**。然而，这并不会发生。第二次调用时所看到的 `counter` 的值仍为 350。**这是因为 setState 是异步的。**counter 的值直到下一个更新周期前都不会发生改变。setState 的执行在[事件循环](https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop)中等待，直到 `updateCounter` 执行完毕前，`setState` 都不会执行， 因此 `state` 的值也不会更新。
 
-#### 解决
+#### 解决方案
 
 你应该看看第 27 和 31 行代码使用 `setState` 的方式。以这种方式，你可以给 `setState` 传入一个接收 **currentState** 和 **currentProps** 作为参数的函数。这个函数的返回值会与当前 state 合并以形成新的 state。
 
@@ -244,9 +244,9 @@ class MyComponent extends Component {
 
 `constructor`（getInitialState） **仅仅在组件创建阶段被调用**。也就是说，`constructor` 只被调用一次。因此，当你下一次改变 `props` 时，state 并不会更新，它仍然保持为之前的值。
 
-经验尚浅的开发者经常设想 `props` 的值与 state 是同步的，随着 `props` 改变，`state` 也会随之变化。然而，这并不是真的。
+经验尚浅的开发者经常设想 `props` 的值与 state 是同步的，随着 `props` 改变，`state` 也会随之变化。然而，真实情况并不是这样。
 
-#### 解决
+#### 解决方案
 
 如果你需要特定的行为即**你希望 state 仅由 props 的值生成一次**的话，可以使用这种模式。state 将由组件在内部管理。
 
@@ -279,7 +279,7 @@ class MyComponent extends Component {
 
 *   [初始化 state 中的 props](https://github.com/vasanthk/react-bits/blob/master/anti-patterns/01.props-in-initial-state.md)
 
-### 5. 组件名
+### 5. 组件命名
 
 在 React 中，如果你想使用 JSX 渲染你的组件，组件名必须以大写字母开头。
 
@@ -305,7 +305,7 @@ class MyComponent extends Component {
 
 报错表明 `<app>` 是无法识别的。只有 HTML 元素和 SVG 标签可以以小写字母开头。因此 `<div />` 是可以识别的，`<app>` 却不能。
 
-#### 解决
+#### 解决方案
 
 你需要确保在 JSX 中使用的自定义组件是以大写字母开头的。
 
