@@ -2,84 +2,84 @@
 > * 原文作者：[Andrew Yang](https://medium.com/@andrew.yang804?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/5-rules-for-designer-engineer-collaboration.md](https://github.com/xitu/gold-miner/blob/master/TODO1/5-rules-for-designer-engineer-collaboration.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Starrier](https://github.com/Starriers)
+> * 校对者：[PokerF](https://github.com/PokerF)、[NoName4Me](https://github.com/NoName4Me)
 
-# 5 Rules for Designer-Engineer Collaboration
+# 设计师与工程师协作的 5 项准则
 
-## Tips to Improve Quality and Productivity
+## 提高质量与生产率的小贴士
 
 ![](https://cdn-images-1.medium.com/max/800/1*hNscHHl45Q6s3dARFiaw0A.jpeg)
 
-Designer vs Engineer via [society6](https://society6.com/).
+设计师 vs 工程师，源于 [society6](https://society6.com/)。
 
-Designers and engineers are seen as complete opposites. Designers are portrayed to be sensitive creatives, and engineers as cold logisticians. However, as a former software engineer turned product designer, I can say that these opposites _can_ work together effectively in the workplace. With just a bit more understanding of the other’s role, the designer-engineer relationship can be vastly improved. Here are five general guidelines for designers to follow when working with engineers, followed by another five from the engineer’s perspective.
+设计师和工程师被看作是完全相反的。设计师被描绘成敏感的创造者，工程师被描绘成冷酷的后勤人员。然而，作为一名前软件工程师出身的产品设计师，我认为这些对立面**可以**在工作场所中有效地协同工作。只要多了解一下对方的角色，设计师和工程师之间的关系就会大大改善。以下是设计师在与工程师一起工作时应遵循的五条一般准则，其次是从工程师的角度来看的另外五条准则。
 
-### 5 “Rules” for Designers:
+### 给设计师的 5 项准则
 
 ![](https://cdn-images-1.medium.com/max/800/1*RlD_EebvaZt--pxPDmc0rQ.jpeg)
 
-Photo by [William Iven](https://unsplash.com/@firmbee) via [Upslash](https://unsplash.com)
+图片来自 [Upslash](https://unsplash.com)，作者 [William Iven](https://unsplash.com/@firmbee)。
 
-#### 1) Avoid Custom Styles
+#### 1）避免自定义样式
 
-Practically all front-end engineering teams use some type of library or CSS framework for styles used across the app. These libraries often contain common styles such as pre-defined margins, colors, and other classes that engineers use to make development faster and more consistent. This means that if you decide to sprinkle in a custom margin, font size, or component, the engineer has to write custom CSS from scratch to override base styles. This is fine once in a while, but it gets tedious really quickly. Save these custom styles for special occasions or when absolutely necessary. After all, designing within a framework simplifies many decisions for us, which is often a good thing.
+实际上，所有前端工程团队都使用某种类型的库或 CSS 框架来实现跨应用程序使用的样式。这些库通常包含一些通用样式，如预定义的边距、颜色和其他类，这些工具是工程师用来使开发更快速、更一致的。这意味着，如果您决定添加自定义页边距、字体大小或组件，工程师必须从头开始编写自定义 CSS 以覆盖基本样式。偶尔这样也不错，但很快就会变得单调乏味了。仅在特殊场合或绝对必要时保存这些自定义样式。毕竟，在一个框架内设计可以简化我们的许多决策，这往往是好事。
 
-#### 2) Pull Engineers in Early
+#### 2）尽早与工程师沟通
 
-Let’s be real, unless you’re working for an early stage startup or you’re the VP of engineering, engineers don’t get much product say. Setting product vision is generally up to execs, product managers, and product designers to an extent. However, even if engineers don’t get much input, they can still _feel_ like they do. When you’re in meetings with product managers, pull in an engineering lead. Additionally, set up some design reviews with your engineering team to go over your designs. Explain to them why you made the design decisions you made, and ask them for feedback. If engineers feel like they contributed to the design process, they’ll naturally put more care when implementing your designs.
+让我们现实一点，除非您正在为一个初创公司工作，或者您是工程副总裁，否则工程师们不会得到多少产品的发言权。设定产品愿景在一定程度上通常取决于高管、产品经理和产品设计人员。然而，即使工程师在设计方面没有太多投入,他们仍然**感觉**正如他们自己在设计一样。当您和产品经理开会时，请一位工程主管参加。此外，与您的工程团队一起设置一些设计评审来检查您的设计。向他们解释您做出设计决定的原因，并征求他们的反馈。如果工程师觉得他们对设计过程做出了贡献，他们在实现设计时自然会更加用心。
 
-#### 3) Listen to Engineering Feedback*
+#### 3）听取工程反馈
 
-Believe it or not, engineers are often pretty decent designers. Particularly regarding UX, I’ve worked with many engineers who have a great design sense. These engineers want to be heard, and their feedback can be very valuable and is often on-point. When engineers you trust give you feedback on your designs, listen. Even better, show them that you’re listening by taking out a notebook and jotting their ideas down. You don’t have to use every idea, but give them their due respect, and some suggestions are bound to stick.
+信不信由你，工程师通常都是相当不错的设计师。特别是在 UX（译者注：用户体验） 方面，我曾和许多有很强设计意识的工程师一起工作过。这些工程师想要被倾听，他们的反馈是非常有价值的，而且往往是准确的。当你信任的工程师针对你的设计给你反馈时，倾听。更好的方法是，拿出笔记本并记下他们的想法，让他们知道你在听。你不必使用所有的想法，但要给予他们应有的尊重，有些建议是一定要坚持的。
 
-*Of course, not all design feedback from engineers is good. Just take it with a grain of salt, and approach it with an open mind. You’ll often learn something, and everybody likes to be heard.
+**当然，并非所有来自工程师的设计反馈都是好的。以怀疑又开放的心态来对待它，你总会有所得，而且又有谁不喜欢被聆听呢**。
 
-#### 4) Understand Basic HTML/CSS/JS
+#### 4）了解基础的 HTML/CSS/JS
 
 ![](https://cdn-images-1.medium.com/max/800/1*uL5yjFLIeRYvmZR9w3mLHg.png)
 
-One of the best designers that I worked with while I was a software engineer at [SalesforceIQ](https://www.linkedin.com/company/salesforceiq/) could go directly into the web inspector with me and rapidly prototype with HTML/CSS directly in the console. It’s incredibly reassuring as an engineer to know that the designer you’re working with understands the technology you’re using, and is designing with these constraints in mind. It’s definitely not necessary to have full-on, front-end development skills to be a good product designer, but some basic front-end knowledge goes a long way. Gain the respect of your closest peers — learn some code.
+当我还是 [SalesforceIQ](https://www.linkedin.com/company/salesforceiq/) 的软件工程师时，和我一起工作过的最好的设计师之一可以和我一起直接进入 Web 检查器，并在控制台中直接使用 HTML/CSS 快速原型。作为一名工程师，知道与你一起工作的设计师理解你正在使用的技术，并且在设计时考虑到这些限制，这是令人难以置信的安心。要成为一名优秀的产品设计师，完全没有必要拥有完整的前端开发技能，但一些基本的前端知识会发挥很大作用。获得您最亲密的同伴的尊重 -- 学习一些代码。
 
-#### 5) Batch Minor Fixes
+#### 5）批量小修正
 
-[Flow](https://en.wikipedia.org/wiki/Flow_%28psychology%29) is a state where engineers are most productive — it pretty much means being “in the zone”. Engineers require large blocks of uninterrupted time to achieve flow. This is why meetings are best scheduled at the beginning or end of the day, and constant interruptions are the bane to an engineer’s existence. Yes, this means that the idea you had while showering this morning of using a darker shade of blue for buttons can wait. Design is an iterative process, and there will undoubtedly be ongoing changes to the product. However, let these small changes accumulate before going to the engineer for an ask. For example, set a baseline of five minor changes before approaching an engineer for a fix. Nothing annoys engineers more than breaking their flow just to change a button’s color seven times.
+[心流](https://en.wikipedia.org/wiki/Flow_%28psychology%29)是工程师最有生产力的一种状态 -- 它在很大程度上意味着『在区域内』。工程师需要大量不间断的时间才能实现流程。这就是为什么会议最好安排在一天的开始或结束，而不断的干扰是工程师生存的祸根。是的，这意味着你今天早上洗澡时想要用更深的蓝色来做按钮的想法可以暂时搁置。设计是一个迭代的过程，产品无疑会不断的变化。然而，在向工程师询问之前，先让这些小的变化积累起来。例如，在接近工程师进行修复之前，设置五个小的更改的基线。没有什么比打破他们的流程更让工程师烦恼的了（仅仅改变按钮的颜色七次）。
 
 * * *
 
-### 5 “Rules” for Engineers
+### 给工程师的 5 项准则
 
 ![](https://cdn-images-1.medium.com/max/800/1*h-pctC-YtNZT8Os_pb8BxA.jpeg)
 
-Photo by [William Iven](https://unsplash.com/@firmbee) via [Upslash](https://unsplash.com).
+[William Iven](https://unsplash.com/@firmbee) 通过 [Upslash](https://unsplash.com) 拍摄。
 
-#### 1) Understand the Use Case
+#### 1）理解用例 
 
-As an engineer, you have tons of power to create at your fingertips, and it’s really easy to jump right into code. However, with great power comes great responsibility. Take a step back, and understand the “why” of the product or feature that you’re building. Go talk to your product manager and your product designer. Understand why the feature is being built, and why it’s designed the way it is. Without this insight, you’re just pushing pixels around the screen. Alternatively, with an understanding of the product, you’ll be able to consider all the different use cases and edge cases with your implementation, and take your code to the next level.
+作为一名工程师，您有大量权力可以用指尖进行创造，而且它真的很容易用代码实现。然而，巨大的权力带来了巨大的责任。退一步说，了解您正在构建的产品或特性的『原因』。去和您的产品经理和产品设计师谈谈。理解为什么要构建这个特性，以及为什么它是按照这样的方式设计的。没有这种洞察力，你的工作只是作用在产品边缘。另外，通过对产品的理解，您将能够在实现中考虑所有不同的用例和边缘案例，并将您的代码水平提升到下一个层次。 
 
-#### 2) Implement UX First
+#### 2）先实现 UX
 
-In an agile environment, design is constantly iterating based on user testing and feedback. The blue button with a five pixel border-radius and box-shadow you painstakingly implemented yesterday is now a green button with flat design and sharp edges. Wrecked. However, don’t get discouraged: just accept that this is a part of the product development process. Implement the UX — the flow, functionality, and general layout of the design first. Get the overall feel down, but don’t go crazy on pixel-perfect implementations yet. Once the design has gone through more iterations of testing and versions have stabilized, gradually incorporate in the visual elements.
+在敏捷环境中，设计是基于用户测试和反馈不断迭代的。您昨天刻意实现的一个具有5个像素的 border-radius 和 box-shadow 蓝色按钮而现在却是一个有着平面设计和尖锐边缘的绿色按钮。搞砸了。但是，不要气馁：接受这是产品开发过程的一部分。首先实现 UX - 设计的流程、功能和总体布局。获得整体效果，但不要疯狂于像素的完美实现。一旦设计经历了更多的迭代测试并且版本稳定下来后，栩栩如生的元素会逐渐融入其中。。 
 
-#### 3) Push Back
+#### 3）回退
 
 ![](https://cdn-images-1.medium.com/max/800/1*595UUrTLxUioKqL6TjMaTg.gif)
 
-Remember the last time your designer asked you to implement a custom component that changes colors and does a flip every other minute? Yeah, don’t do that. Design is a two-way street. Don’t be afraid to push back and give feedback on technical constraints and limitations. For the most part, even the best designers won’t have your technical chops or understanding of the system. However, instead of just pushing back and saying “this can’t be done”, always provide an alternative solution. Try, “this solution will be very costly to implement, may I suggest…”. Remember that most things _can_ be done with the tools we have today, but that doesn’t mean everything _should_ be done. It’s your job as the engineer to help the designer reach the best, most cost effective solution to a problem.
+还记得上次设计师要求您实现一个改变颜色并每隔一分钟翻转一次的自定义组件吗？是的，别那么做。设计是双向的行为。不要害怕回退，给出技术约束和限制的反馈。在大多数情况下，即使是最好的设计人员也不会拥有您的技术能力或对系统的理解。然而，与其一味地说“这是不可能做到的”，不如提供一个替代的解决方案。试试看，“这个解决方案的实现成本很高，我可以建议您使用…吗？”。请记住，大多数事情都**可以**用我们现有的工具来完成，但这并不意味着所有的事情都**应该**完成。作为工程师，你的工作就是帮助设计师找到最好、最经济有效的解决方案。
 
-#### 4) Check-in with Designers Often
+#### 4）与设计师保持联系
 
-Communication is really the theme of this article. As you’re implementing a design, make sure to consistently show the designer your progress. Designers love seeing their work come to life, so it’s really a fun thing for everyone. Keeping the designer up to date with your progress will help ensure that your implementation is up to expectations, and there aren’t any surprises down the road. This is also a great opportunity to ask the designer any questions that you may have about the design, or tasks going forward.
+沟通确实是本文的主题。 在您实现设计时，务必始终向设计师展示您的进度。 设计师喜欢看到他们的作品变得栩栩如生，所以对每个人来说这真是一件有趣的事情。 让设计师及时了解您的进展情况将有助于确保您的实现符合预期，并且不会出现任何意外情况。 这也是一个很好的机会向设计师询问任何关于设计或未来任务的问题。
 
-#### 5) Fill in the Gaps**
+#### 5）填补空白
 
-When implementing a design, there will always be points where you need to use your own best judgement to fill in the gaps. The design you implement is not going to look exactly like the design that was handed to you — that’s just the bottom line. There will be points when you realize a larger margin is needed on some screens, or a particular color looks off in the actual application. Don’t go running to the designer with a question every time. Put your designer hat on and make the call yourself on smaller tweaks. You have what it takes.
+在实现设计时，总会有一些地方需要您用自己的最佳判断来填补空白。您实现的设计不会完全类似于交给您的设计 --  这只是底线。您肯定有遇到过这样的情况：您觉得在某些屏幕上需要更大的外边距，或者在实际应用程序中某个特定的颜色看起来不太合适。不要每次都带着问题去找设计师。把你的设计师帽子戴上，告诉自己你有解决它们的能力。你有这个本事。
 
-**But also don’t go too crazy, and communicate with your designer about bigger decisions. Use your best judgement :)
+**但也不要太过疯狂，做重大决定的时候记得要和你的设计师沟通。用您最好的判断力 :)**
 
 * * *
 
-And there you have it! These are the five rules I compiled for both designers and engineers to improve their workplace collaboration. These rules are all totally subjective, and come from my previous experience as a software engineer, and my current experience as a product designer. Let me know if you agree or disagree with my points, and let’s continue the conversation down below!
+现在你明白了吧！这是我为设计师和工程师改善他们工作时的协作而编写的 5 项准则。这些准则都是完全主观的，来自以前我作为软件工程师时的经验，以及现在我作为产品设计师的经验。请告诉我，您是否同意我的观点，这样我们好在下面继续讨论！
 
 
 ---
