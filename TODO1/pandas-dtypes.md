@@ -135,7 +135,7 @@ memory usage: 480.0+ bytes
 * `Month`、`Day` 和 `Year` 这三列应该被转换为 `datetime64`
 * `Active` 列应该是布尔型
 
-在我们清理这些数据类型之前，要对这些数据做更多的附加分析是非常困难的。
+在我们清洗这些数据类型之前，要对这些数据做更多的附加分析是非常困难的。
 
 为了在 Pandas 中转换数据类型，有三个基本选项：
 
@@ -304,9 +304,9 @@ df['2016'].apply(lambda x: x.replace('$', '').replace(',', '')).astype('float')
 
 * 如果你只是在学习 Python / Pandas，或者如果将来会有 Python 新人来维护代码，我认为更长的函数的可读性更好。主要原因是它可以包含注释，也可以分解为若干步骤。lambda 函数对于新手来说更难以掌握。
 * 其次，如果你打算在多个列上重复使用这个函数，复制长长的 lambda 函数并不方便。
-* 最后，使用函数可以在使用 `read_csv()` 时轻松清理数据。我将在文章结尾处介绍具体的使用方法。
+* 最后，使用函数可以在使用 `read_csv()` 时轻松清洗数据。我将在文章结尾处介绍具体的使用方法。
 
-有些人也可能会争辩说，其他基于 lambda 的方法比自定义函数的性能有所提高。但为了教学新用户，我认为函数方法更好。
+有些人也可能会争辩说，其他基于 lambda 的方法比自定义函数的性能有所提高。但为了教导新手，我认为函数方法更好。
 
 以下是使用 `convert_currency` 函数转换两个销售（2016 / 2017）列中数据的完整示例。
 
@@ -403,7 +403,7 @@ Active                bool
 dtype: object
 ```
 
-无论你选择使用 `lambda` 函数，还是创建一个更标准的 Python 函数，或者是使用其他方法（如 `np.where`），这些方法都非常灵活，并且可以根据你自己的独特数据需求进行定制。
+无论你选择使用 `lambda` 函数，还是创建一个更标准的 Python 函数，或者是使用其他方法（如 `np.where`），这些方法都非常灵活，并且可以根据你自己独特的数据需求进行定制。
 
 ## Pandas 辅助函数
 
@@ -441,7 +441,7 @@ pd.to_numeric(df['Jan Units'], errors='coerce').fillna(0)
 Name: Jan Units, dtype: float64
 ```
 
-我最终介绍的转换是将单独的月份、日期和年份列转换为到一个 `datetime` 类型的列。Pandas 的 `pd.to_datetime()` 函数是非常 [可定制的](https://pandas.pydata.org/pandas-docs/stable/generated/pandas.to_datetime.html)，但默认情况下也十分聪明。
+我最终介绍的转换是将单独的月份、日期和年份列转换为到一个 `datetime` 类型的列。Pandas 的 `pd.to_datetime()` 函数 [可定制性很好](https://pandas.pydata.org/pandas-docs/stable/generated/pandas.to_datetime.html)，但默认情况下也十分明智。
 
 ```
 pd.to_datetime(df[['Month', 'Day', 'Year']])
