@@ -3,9 +3,9 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/classes-without-classes.md](https://github.com/xitu/gold-miner/blob/master/TODO1/classes-without-classes.md)
 > * 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit)
-> * 校对者：
+> * 校对者：[allenlongbaobao](https://github.com/allenlongbaobao)，[sunhaokk](https://github.com/sunhaokk)
 
-# 一个不使用类的类
+# 不用 Class，如何写一个类
 
 ## 前言
 
