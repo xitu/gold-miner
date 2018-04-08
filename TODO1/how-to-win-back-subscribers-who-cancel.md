@@ -58,7 +58,7 @@
 
 现在，你可以让用户恢复之前取消的订阅，但必须是他们的订阅还未到期。在订阅到期之前，你可以引导用户去[**订阅恢复**](https://developer.android.com/google/play/billing/billing_subscriptions.html#restore)按钮。我们的数据显示 18% 的主动离开发生在用户注册的第一天，30-40% 发生在第一个星期。这一情况表明使用恢复功能去赢回用户是个机会，因为他们有大量的时间去改变主意，他们只要重新加入，并恢复订阅，而不需要再走一次注册流程。
 
-*   **给订阅者一个重新订阅折扣，可以提供** [**介绍价格**](https://support.google.com/googleplay/android-developer/answer/140504?hl=en#intro) **或者** [**免费试用**](https://developer.android.com/google/play/billing/billing_subscriptions.html#trials)**。** 许多开发者使用介绍价格和免费试用来争取用户，但是它也可以帮你留住订阅者，特别是如果付费存在问题的话。约会软件 [Jaumo](https://play.google.com/store/apps/details?id=com.jaumo&hl=en 在用户付费订阅结束后的 3 天，提供 30% 折扣。通过这个服务，他们能够 **赢回大概 5% 的订阅者**
+*   **给订阅者一个重新订阅折扣，可以提供** [**介绍价格**](https://support.google.com/googleplay/android-developer/answer/140504?hl=en#intro) **或者** [**免费试用**](https://developer.android.com/google/play/billing/billing_subscriptions.html#trials)**。** 许多开发者使用介绍价格和免费试用来争取用户，但是它也可以帮你留住订阅者，特别是如果付费存在问题的话。约会软件 [Jaumo](https://play.google.com/store/apps/details?id=com.jaumo&hl=en) 在用户付费订阅结束后的 3 天，提供 30% 折扣。通过这个服务，他们能够 **赢回大概 5% 的订阅者**
 
 无论哪一种服务，它们都不是唯一的选择，测试是检测它是否对你的用户有帮助的最好方法。Google Play 研究显示当用户浏览挽回服务的时候，他们会对选项估值，比如选择重新激活时间，选择多种计划，选择不同的服务。对不同的库存量（SKU）采用 A/B 测试，计算支出，看看哪种方式对你的产品更有用。在产品内做 A/B 测试，你可以选择自己设置，也可以使用 [Firebase remote config](https://firebase.google.com/docs/remote-config/abtest-config)。
 
