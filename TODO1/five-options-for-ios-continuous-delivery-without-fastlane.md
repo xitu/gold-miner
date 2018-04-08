@@ -43,7 +43,7 @@ fastlane 的 Github 上面有很多 [issue](https://github.com/fastlane/fastlane
 
 既然我们已经看到了在 iOS 项目中使用 fastlane 的一些问题。现在的问题是我们能否完全移除 iOS 项目中的 fastlane。答案是肯定的。但是，你需要花费一些时间来理解 iOS 构建过程和几个苹果原生命令行开发工具。我认为，花时间去了解原生苹果开发工具，比学习第三方框架更加值得。你永远不会后悔学习了苹果原生命令行开发工具，然而如果你没有时间去学习这些，还有一些免费或者付费服务可以帮你解决所有的问题。目前，我们有以下代替 fastlane 的免费或付费的选择。
 
-fastlane 的替代者 top 5
+fastlane 的替代者 Top 5
 
 * 原生苹果开发工具（免费）
 * Xcode Server（免费）
@@ -79,11 +79,11 @@ fastlane 的替代者 top 5
 
 ### 5. Swift 选项（未准备好）
 
-fastlane 最近添加了使用 [Swift](https://docs.fastlane.tools/getting-started/ios/fastlane-swift/) 而不是 Ruby 来配置通道的支持。但目前这并不是真正的 Swift 实现，因为在底层还是用 Swift 来执行 Ruby 命令而已。它在项目中添加了许多不相关的 Swift 文件，这些文件理想情况下应该作为可通过 CocoaPods，Carthage 或 Swift Package Manager 分发的 Swift 包（SDK）提供。我写了我对Fastlane Swift [第一印象](https://dzone.com/articles/first-impressions-of-fastlane-swift-for-ios)。另一个解决方案是 [Autobahn](https://github.com/AutobahnSwift/Autobahn)，它是纯 Swift 实现的 fastlane，但是它在开发中，在开发完成之前无法使用。遗憾的是，我们不得不等待这些基于 Swift 的解决方案，他们还没有准备好在当前的 iOS 项目中使用。但是，我们期待迟早会有可行的解决方案，这将允许 iOS 开发人员使用 Swift 编写配置代码。在我看来 Swift 不是脚本语言，但可以在需要时用作脚本。
+fastlane 最近添加了使用 [Swift](https://docs.fastlane.tools/getting-started/ios/fastlane-swift/) 而不是 Ruby 来配置通道的支持。但目前这并不是真正的 Swift 实现，因为在底层还是用 Swift 来执行 Ruby 命令而已。它在项目中添加了许多不相关的 Swift 文件，这些文件理想情况下应该作为可通过 CocoaPods，Carthage 或 Swift Package Manager 分发的 Swift 包（SDK）提供。我写了我对Fastlane Swift [第一印象](https://dzone.com/articles/first-impressions-of-fastlane-swift-for-ios)。另一个解决方案是 [Autobahn](https://github.com/AutobahnSwift/Autobahn)，它是纯 Swift 实现的 fastlane，但是它还处在开发阶段，在开发完成之前无法使用。遗憾的是，我们不得不等待这些基于 Swift 的解决方案，他们还没有准备好在当前的 iOS 项目中使用。但是，我们期待迟早会有可行的解决方案，这将允许 iOS 开发人员使用 Swift 编写配置代码。在我看来 Swift 不是脚本语言，但可以在需要时用作脚本。
 
 ### 选择的小建议
 
-现在，我们已经看到了所有的不使用 fastlane 工具实现持续发布的选择了。 接下来需要决定选哪个方式， 这取决于团队中工程师的技能和经验。
+现在，我们已经看到了所有的不使用 fastlane 工具实现持续发布的选择了。 接下来需要决定选哪个方式，这取决于团队中工程师的技能和经验。
 
 * 如果团队完全没有对 CI / CD 知识有了解的 iOS 工程师，那么可以选择使用基于云计算的 CI 解决方案来处理所有问题。
 * 如果团队中有少数具有 CI / CD 经验的 iOS 工程师，那么可以尝试使用 Xcode Server，因为配置和使用相当简单。
