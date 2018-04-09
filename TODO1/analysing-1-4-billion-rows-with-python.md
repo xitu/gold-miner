@@ -9,13 +9,13 @@
 
 ## 使用 pytubes，numpy 和 matplotlib
 
-[Google Ngram viewer](https://books.google.com/ngrams)是一个有趣和有用的工具，它使用谷歌从书本中扫描来的海量的数据宝藏，绘制出单词使用量随时间的变化。举个例子，单词 _Python_ (区分大小写)_：_ 
+[Google Ngram viewer](https://books.google.com/ngrams)是一个有趣和有用的工具，它使用谷歌从书本中扫描来的海量的数据宝藏，绘制出单词使用量随时间的变化。举个例子，单词 _Python_ (区分大小写)_：_
 
 ![](https://cdn-images-1.medium.com/max/800/1*JBBDttphxwvek-nhV9v6eg.png)
 
 这幅图来自：[https://books.google.com/ngrams/graph?content=Python&year_start=1800&corpus=15&smoothing=0](https://books.google.com/ngrams/graph?content=Python&year_start=1800&corpus=15&smoothing=0)，描绘了单词  ‘Python’ 的使用量随时间的变化。
 
-它是由谷歌的 [n-gram](https://en.wikipedia.org/wiki/N-gram) 数据集驱动的，根据书本印刷的每一个年份，记录了一个特定单词或词组在谷歌图书的使用量。 然而这并不完整（它并没有包含每一本已经发布的书！），数据集中有成千上百万的书，时间上涵盖了从 16 世纪到 2008 年。数据集可以[免费从这里下载](http://storage.googleapis.com/books/ngrams/books/datasetsv2.html)。
+它是由谷歌的 [n-gram](https://en.wikipedia.org/wiki/N-gram) 数据集驱动的，根据书本印刷的每一个年份，记录了一个特定单词或词组在谷歌图书的使用量。然而这并不完整（它并没有包含每一本已经发布的书！），数据集中有成千上百万的书，时间上涵盖了从 16 世纪到 2008 年。数据集可以[免费从这里下载](http://storage.googleapis.com/books/ngrams/books/datasetsv2.html)。
 
 我决定使用 Python 和我新的数据加载库 [PyTubes](http://github.com/stestagg/pytubes) 来看看重新生成上面的图有多容易。
 
@@ -27,15 +27,15 @@
 
 总的来说，这 14 亿条数据（1,430,727,243）分散在 38 个源文件中，一共有 2 千 4 百万个（24,359,460）单词（和词性标注，见下方），计算自 1505 年至 2008 年。
 
-当处理 10 亿行数据时，速度会很快变慢。并且原生 Python 并没有处理这方面数据的优化。 幸运的是，[numpy](https://github.com/numpy/numpy) 真的很擅长处理大体量数据。 使用一些简单的技巧，我们可以使用 numpy 让这个分析变得可行。
+当处理 10 亿行数据时，速度会很快变慢。并且原生 Python 并没有处理这方面数据的优化。幸运的是，[numpy](https://github.com/numpy/numpy) 真的很擅长处理大体量数据。 使用一些简单的技巧，我们可以使用 numpy 让这个分析变得可行。
 
 在 python/numpy 中处理字符串很复杂。字符串在 python 中的内存开销是很显著的，并且 numpy 只能够处理长度已知而且固定的字符串。基于这种情况，大多数的单词有不同的长度，因此这并不理想。
 
 #### Loading the data
 
-> 下面所有的代码/例子都是运行在 **8 GB 内存** 的 2016 年的 Macbook Pro。 如果硬件或云实力有更好的 ram 配置，表现会更好。
+> 下面所有的代码/例子都是运行在 **8 GB 内存** 的 2016 年的 Macbook Pro。 如果硬件或云实例有更好的 ram 配置，表现会更好。
 
-1-gram 的数据是以 tab 键分割的形式储存在文件中提供的，看起来如下：
+1-gram 的数据是以 tab 键分割的形式储存在文件中，看起来如下：
 
 ```
 Python 1587 4 2
@@ -61,7 +61,7 @@ Python 1659 1 1
 3. 单词使用的总次数
 ```
 
-通过提取这些信息，处理不同长度的字符串数据的额外消耗被忽略掉了，但是我们仍然需要对不不同字符串的数值来区分哪些行数据是有我们感兴趣的字段的。这就是 pytubes 可以做的工作：
+通过提取这些信息，处理不同长度的字符串数据的额外消耗被忽略掉了，但是我们仍然需要对比不同字符串的数值来区分哪些行数据是有我们感兴趣的字段的。这就是 pytubes 可以做的工作：
 
 ```
 import tubes
@@ -221,7 +221,7 @@ for _, year, count in one_grams[word_rows]:
 
 更多的过滤逻辑 - Tube.skip_unless() 是一个比较简单的过滤行的方法，但是缺少组合条件（AND/OR/NOT）的能力。这可以在一些用例下更快的减少加载数据的体积。
 
-更好的字符串匹配 - 简单的测试如下：startswith, endswith, contains, 和 is_one_of 可以轻易的添加，来明显的提升加载字符串数据是的有效性。
+更好的字符串匹配 - 简单的测试如下：startswith, endswith, contains, 和 is_one_of 可以轻易的添加，来明显地提升加载字符串数据是的有效性。
 
 一如既往，非常欢迎大家 [patches](https://github.com/stestagg/pytubes)！
 
