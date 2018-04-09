@@ -1,5 +1,5 @@
-> * 原文地址：[]()
-> * 原文作者：[]()
+> * 原文地址：[ethereumbook-wallets](https://github.com/ethereumbook/ethereumbook/blob/develop/wallets.asciidoc)
+> * 原文作者：[ethereumbook](https://github.com/ethereumbook)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/.md](https://github.com/xitu/gold-miner/blob/master/TODO1/.md)
 > * 译者：
