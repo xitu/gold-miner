@@ -1,4 +1,4 @@
-> * 原文地址：[PROGRAMMINGMachine Learning for Diabetes with Python](https://datascienceplus.com/machine-learning-for-diabetes-with-python/)
+> * 原文地址：[PROGRAMMING Machine Learning for Diabetes with Python](https://datascienceplus.com/machine-learning-for-diabetes-with-python/)
 > * 原文作者：[Susan Li](https://datascienceplus.com/author/susan-li/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/machine-learning-for-diabetes-with-python.md](https://github.com/xitu/gold-miner/blob/master/TODO1/machine-learning-for-diabetes-with-python.md)
