@@ -9,7 +9,7 @@
 
 ## 使用 pytubes，numpy 和 matplotlib
 
-[Google Ngram viewer](https://books.google.com/ngrams)是一个有趣和有用的工具，它使用谷歌从书本中扫描来的海量的数据宝藏，绘制出单词使用量随时间的变化。举个例子，单词 _Python_ (区分大小写)_：_
+[Google Ngram viewer](https://books.google.com/ngrams)是一个有趣和有用的工具，它使用谷歌从书本中扫描来的海量的数据宝藏，绘制出单词使用量随时间的变化。举个例子，单词 _Python_ (区分大小写)_：_ 
 
 ![](https://cdn-images-1.medium.com/max/800/1*JBBDttphxwvek-nhV9v6eg.png)
 
