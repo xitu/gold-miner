@@ -54,7 +54,7 @@ if ( Boolean(1) ) {
 }
 ```
 
-不要畏惧，勇于尝试。 下面用 **Bash** 测试.
+不要畏惧，勇于尝试。 下面用 **Bash** 测试.译者注：因为没有找到源文件，所以我猜测这里的意思是使用的 if1.js 和 if2.js 是上文的 if 语句文件，这里通过 print-code 输出汇编代码。然后通过 awk 打印汇编文件每句第 4 列字符串到文件里。最后对比两个文件是否一致。借以推论出上面两句 if 在程序中的执行是一致的。
 
 1. 使用 node.js 将代码编译到程序中
 
@@ -83,8 +83,6 @@ file2=$(awk '{ print $4 }' ./if2.asm)
 "文件匹配"
 ```
 
-译者注：因为没有找到源文件，所以我猜测这里的意思是使用两个不同的文件，这样查找两个字符串在内存中就有两个不同的内存地址。
-
 ### parseFloat 函数
 
 这个函数的作用类似于 **Number** 的构造函数，但对于传递的参数来说不那么严格。如果它遇到一个不能成为数字一部分的字符，它将返回一个到该点的值并忽略其余字符。
@@ -108,7 +106,7 @@ parseFloat('0xF'); // 0
 
 函数 parseInt 可以猜测基数或让它作为第二个参数传递。有关其中需要考虑的规则列表，请查看 [MDN web docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseInt)。
 
-它有很大数量的麻烦，所以它不应该被认为是 [**Math.floor**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/floor) (它也会进行类型转换)的替代品：
+如果传入的数值过大会出问题，所以它不应该被认为是 [**Math.floor**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/floor) (它也会进行类型转换)的替代品：
 
 ```
 parseInt('1.261e7'); // 1
@@ -151,7 +149,7 @@ String.prototype.toString.call({}) // Uncaught TypeError: String.prototype.toStr
 
 返回  `Symbol(${description})`
 
-> 如果有疑惑： 我正在使用 [template literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)来解释你输出字符串的外观。
+> 如果你对此感到疑问： 我这里使用的是 [template literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)的方式，它可以向你解释是怎么输出这种字符串的。
 
 #### Boolean.prototype.toString 函数
 
@@ -170,7 +168,7 @@ dogName.toString(); // 'Fluffy' （在这调用 String.prototype.toString ）
 Object.prototype.toString.call(dogName); // '[object String]'
 ```
 
-随着 ES6 的推出，设置标签随使用 [**Symbols**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol)而完成 。
+随着 ES6 的推出，设置标签可以使用 [**Symbols**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol)来完成。
 
 ```
 const dog = { name: 'Fluffy' }
@@ -235,13 +233,13 @@ arr.toString() // "[object Object],2,3"
 15 + '' // '15'
 ```
 
-你可以用一个操作数将其转换为数字：
+你可以用加符号将一个操作数转换为数字：
 
 ```
 +'12' // 12
 ```
 
-### 其他运数学算符
+### 其他数学运算符
 
 其他数学运算符，例如 `-` 或 `/` 操作，将自动转成数字。
 
@@ -255,7 +253,7 @@ new Date('04-02-2018') - '1' // 1522619999999
 
 ## 叹号
 
-如果原始值是假的，则使用它将输出真，如果真，则输出为假。因此，如果使用两次，它可以用于将该值转换为相应的布尔值。
+如果原始值是 false 的，则使用它将输出 true，如果 true，则输出为 false。因此，如果使用两次，它可以用于将该值转换为相应的布尔值。
 
 ```
 !1 // false
@@ -264,7 +262,7 @@ new Date('04-02-2018') - '1' // 1522619999999
 
 ## ToInt32 按位或
 
-值得一提的是，即使 ToInt32 实际上是一个抽象操作（仅限内部，不可调用）。它会把一个值转换为[带符号 32 位整形](https://en.wikipedia.org/wiki/32-bit)。
+值得一提的是，即使 ToInt32 实际上是一个抽象操作（仅限内部，不可调用）。它会把一个值转换为[带符号 32 位整型](https://en.wikipedia.org/wiki/32-bit)。
 
 ```
 0 | true          // 1
@@ -326,7 +324,7 @@ foo === foo2 // false
 foo >= foo2 // true
 ```
 
-因为我们在这里使用了 new 关键字，所以 foo 和 foo2 都保留了它们的原始值（这是 'foo' ）的包装。由于他们现在正在引用两个不同的对象， `foo === foo2` 结果为 false。 关系操作 ( `>=` ) 在两边调用 **valueOf** 函数。 因此，在这里比较原始值内存地址, `'foo' >= 'foo'` 返回 **true**。
+因为我们在这里使用了 new 关键字，所以 foo 和 foo2 都保留了它们的原始值（这是 'foo' ）的包装。由于他们现在正在引用两个不同的对象， `foo === foo2` 结果为 false。关系操作 ( `>=` ) 在两边调用 **valueOf** 函数。因此，在这里比较原始值内存地址, `'foo' >= 'foo'` 返回 **true**。
 
 ## [1] + [2] – [3] === 9
 
