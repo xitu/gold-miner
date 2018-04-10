@@ -333,11 +333,7 @@ Accuracy on training set: 0.802
 Accuracy on test set: 0.776
 ```
 
-Both methods of decreasing the model complexity reduced the training set accuracy, as expected. However, in this case, none of these methods increased the generalization performance of the test set.
-
 降低了模型的复杂度的这两个方法也都如期降低了训练集的精度。但是在这个例子中，这几个方法都没有提高测试集上的泛化能力。
-
-We can visualize the feature importances to get more insight into our model even though we are not really happy with the model:
 
 我们可以将特征权重可视化来更深入的研究我们的模型，尽管我们对它并不是很满意：
 
@@ -345,9 +341,7 @@ We can visualize the feature importances to get more insight into our model even
 plot_feature_importances_diabetes(gb1)
 ```
 
-Gives this plot:
-
-给出下图：
+得出下图：
 
 ![](https://datascienceplus.com/wp-content/uploads/2018/03/diabetes_9.png)
 
