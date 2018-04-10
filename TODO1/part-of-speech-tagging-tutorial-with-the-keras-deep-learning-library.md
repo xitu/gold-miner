@@ -36,7 +36,7 @@ np.random.seed(CUSTOM_SEED)
 
 [Penn Treebank](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.9.8216&rep=rep1&type=pdf) 是一个词性标注语料库。python库中有个示例 `[NLTK](https://github.com/nltk/nltk)` 包含能够用于训练和测试某些自然语言处理模型（NLP models）的语料库。
 
-首先，我们下载已标注的语料库: 
+首先，我们下载已标注的语料库：
 
 ```
 import nltk
@@ -52,7 +52,7 @@ from nltk.corpus import treebank
 sentences = treebank.tagged_sents(tagset='universal')
 ```
 
-… 然后我们随便挑个句子看看:
+然后我们随便挑个句子看看：
 
 ```
 import random
@@ -218,7 +218,7 @@ y_test = label_encoder.transform(y_test)
 y_val = label_encoder.transform(y_val)
 ```
 
-然后我们需要将这些编码值转换为虚拟变量（独热编码）.
+然后我们需要将这些编码值转换为虚拟变量（独热编码）。
 
 ```
 # 将整数转换为虚拟变量（独热编码）
@@ -240,7 +240,7 @@ y_val = np_utils.to_categorical(y_val)
 
 我们对隐藏层使用 [_Rectified Linear Units_](https://en.wikipedia.org/wiki/Rectifier_%28neural_networks%29) (ReLU) 激活函数，因为它们是可用的最简单的非线性激活函数。
 
-对于多分类问题，我们想让神经元输出转换为概率，这可以使用 _softmax_ 函数完成。我们决定使用多分类交叉熵（ _categorical cross-entropy_ ）损失函数。
+对于多分类问题，我们想让神经元输出转换为概率，这可以使用 _softmax_ 函数完成。我们决定使用多分类交叉熵（_categorical cross-entropy_）损失函数。
 最后我们选择 [Adam optimizer](https://arxiv.org/abs/1412.6980) 因为似乎它非常适合分类任务.
 
 ```
@@ -267,10 +267,10 @@ model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accur
 
 ### 在 Keras API 和 Scikit-Learn 之间创建一个包装器
 
-`[Keras](https://github.com/fchollet/keras/)` 提供了一个名为 `[KerasClassifier](https://keras.io/scikit-learn-api/)` 的包装器。它实现了 [Scikit-Learn](http://scikit-learn.org/stable/) 分类器接口.
+`[Keras](https://github.com/fchollet/keras/)` 提供了一个名为 `[KerasClassifier](https://keras.io/scikit-learn-api/)` 的包装器。它实现了 [Scikit-Learn](http://scikit-learn.org/stable/) 分类器接口。
 
 所有的模型参数定义如下。我们需要提供一个返回神经网络结构的函数 (`build_fn`)。
-隐藏的神经元的数量和批量大小的选择非常随意。我们将迭代次数设置为 5，因为随着迭代次数增多，多层感知器就会开始过拟合(即使用了 [Dropout Regularization](https://arxiv.org/abs/1207.0580)).
+隐藏的神经元的数量和批量大小的选择非常随意。我们将迭代次数设置为 5，因为随着迭代次数增多，多层感知器就会开始过拟合(即使用了 [Dropout Regularization](https://arxiv.org/abs/1207.0580))。
 
 ```
 from keras.wrappers.scikit_learn import KerasClassifier
@@ -373,7 +373,7 @@ plot_model(clf.model, to_file='model.png', show_shapes=True)
 
 ### 保存 Keras 模型
 
-保存 Keras 模型非常简单，因为 Keras 库提供了一种本地化的方法::
+保存 Keras 模型非常简单，因为 Keras 库提供了一种本地化的方法：
 
 ```
 clf.model.save('/tmp/keras_mlp.h5')
