@@ -42,7 +42,7 @@
 
 Freeletics 充分利用了当下的力量，给用户展示了在不久的将来可以达到特定健身目标的日期，以这样的方案用户可以减掉 x % 的体脂。
 
-Allowing Freeletics users to clearly imagine the future benefits of subscription in the ‘here and now’ was found to be highly motivating, with one respondent commenting, “_I love how there is a calendar. Setting a target makes the end goal feel more achievable”_. The power of now may be especially effective for apps and categories where the benefits might seem a long way off; such as fitness, language, or education.
+Freeletics 用户可以清楚地想象到“此时此地”订阅的未来收益是具有高激励性的。一位受访者评论道：“我喜欢有一个日历。设定一个个小目标使最终目标能够更容易实现”。当下的力量也许对许多应用和类别来说特别有效，因为其好处看似还有很长的一段路要走：比如健身、语言，或是教育。
 
 #### **互惠**
 
@@ -52,7 +52,7 @@ Allowing Freeletics users to clearly imagine the future benefits of subscription
 
 ![](https://cdn-images-1.medium.com/max/800/0*FkhodBxSyeOTr3dq.)
 
-> “我喜欢那个…由于腿部肌肉太发达所以我从来没有注意过我的腿。了解到这件事情真的对我很有帮助…这让我对将要变成的样子有一个小小的代价…那就是向优秀的知识付费。” —— **一位男性的 Freeletics 用户**
+> “我喜欢那个…由于腿部肌肉太发达所以我从来没有注意过我的腿。了解到这件事情对我真的很有帮助…但这让我对将要变成的样子要付出个小代价…那就是向优秀的知识付费。” —— **一位男性的 Freeletics 用户**
 
 #### **突出性**
 
@@ -110,18 +110,17 @@ Watching in-the-moment reactions of the different variations showed how quickly 
 
 When making judgements, we often rely on reference points (or ‘anchors’) to help inform our decision. Our perception of the value of something can vary depending on what we have anchored to, and so we lightly explored the concept of price anchoring with Peak users by comparing the cost of a Peak Pro subscription with the cost of a daily cup of coffee. Positive user feedback suggests that anchoring the cost of a subscription to a relatively cheap, everyday expense in this way can increase value perceptions for free users.
 
-> _“It’s only the cost of one coffee for one month of subscription…__[the cost] does feel cheaper in this [screen]_.” — **Peak User, Female**
+> _“一个月的订阅只需要一杯咖啡的费用…__在手机[屏幕]上，[成本]确实更加低.” — **一位 女性 Peak 用户**
 
 #### 关键要点
 
-Hopefully the behavioural economic theories we have discussed above have provided you with a deeper understanding of possible barriers to growing subscribers, and also provided some ideas as to how you might overcome these; highlighting techniques for showing your app’s values. If you are interested in learning more, read the [full report](http://services.google.com/fh/files/blogs/behavioural_economics_last.pdf) for more in-depth insights and key takeaways to help you show the value of your app and encourage subscriptions.
+希望上述讨论的行为经济学理论能给你对于在如何增长订阅者之中可能存在的障碍有更深的理解，同时提供若干如何解决在这些困难的想法，以及如何突出你的应用价值的技巧。如果你有兴趣学习更多内容，请阅读[完整的报告](http://services.google.com/fh/files/blogs/behavioural_economics_last.pdf)，对此会有更深入的认识和关键的建议，以帮助你更好地向用户展示你的应用价值所在并鼓励订阅。
 
 * * *
 
 #### 你觉得呢？
 
-Do you have thoughts on how these principles might better convert your free users into subscribers? Let us know in the comments below or tweet using #AskPlayDev and we’ll reply from @GooglePlayDev, where we regularly share news and tips on how to be successful on Google Play.
-
+对于如何运用这些原则更好地将你地免费用户变成订阅用户，你有什么其他想法吗？请在底下的评论中告诉我们，或者带上#AskPlayDev标签发推文，我们会在@GooglePlayDev给予回复。在这里，我们会定期分享关于如何在 Goole Play上取得成功的新闻和贴士。
 
 ---
 
