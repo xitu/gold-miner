@@ -2,14 +2,16 @@
 > * 原文作者：[Susan Li](https://datascienceplus.com/author/susan-li/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/machine-learning-for-diabetes-with-python.md](https://github.com/xitu/gold-miner/blob/master/TODO1/machine-learning-for-diabetes-with-python.md)
-> * 译者：
-> * 校对者：
+> * 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit)
+> * 校对者：[luochen1992](https://github.com/luochen1992)，[zhmhhu](https://github.com/zhmhhu)
 
-About one in seven U.S. adults has diabetes now, according to the [Centers for Disease Control and Prevention](https://www.cdc.gov/). But by 2050, that rate could skyrocket to as many as one in three. With this in mind, this is what we are going to do today: Learning how to use Machine Learning to help us predict Diabetes. Let’s get started!
+# 用 Python 编程进行糖尿病相关的机器学习
 
-## The Data
+根据 [Centers for Disease Control and Prevention](https://www.cdc.gov/)，现如今美国大约七分之一的成年人都患有糖尿病。而到了 2050 年，这个比率将会激增到三分之一之多。考虑到这一点，我们今天将要完成的就是：学习如何利用机器学习来帮助我们预测糖尿病。现在开始吧！
 
-The diabetes data set was originated from [UCI Machine Learning Repository](http://archive.ics.uci.edu/ml/index.php) and can be downloaded from [here](https://github.com/susanli2016/Machine-Learning-with-Python/blob/master/diabetes.csv)
+## 数据
+
+糖尿病的数据集来自于 [UCI Machine Learning Repository](http://archive.ics.uci.edu/ml/index.php)，[这里](https://github.com/susanli2016/Machine-Learning-with-Python/blob/master/diabetes.csv) 可以下载。
 
 ```
 import pandas as pd
@@ -30,7 +32,7 @@ diabetes.head()
 
 ![](https://datascienceplus.com/wp-content/uploads/2018/03/diabetes_1.png)
 
-The diabetes data set consists of 768 data points, with 9 features each:
+糖尿病数据集包含 768 个数据点，每个数据点包含 9 个特征：
 
 ```
 print("dimension of diabetes data: {}".format(diabetes.shape))
@@ -41,7 +43,7 @@ print("dimension of diabetes data: {}".format(diabetes.shape))
 dimension of diabetes data: (768, 9)
 ```
 
-“Outcome” is the feature we are going to predict, 0 means No diabetes, 1 means diabetes. Of these 768 data points, 500 are labeled as 0 and 268 as 1:
+“输出”就是我们将要预测的特征，0 表示非糖尿病，1 表示糖尿病。在这 768 个数据点中，500 个被标记为 0，268 个被标记为 1：
 
 ```
 print(diabetes.groupby('Outcome').size())
@@ -54,7 +56,7 @@ import seaborn as sns
 sns.countplot(diabetes['Outcome'],label="Count")
 ```
 
-Gives this plot:
+得出下图：
 
 ![](https://datascienceplus.com/wp-content/uploads/2018/03/diabetes_3.png)
 
@@ -64,11 +66,11 @@ diabetes.info()
 
 ![](https://datascienceplus.com/wp-content/uploads/2018/03/diabetes_4.png)
 
-## k-Nearest Neighbors
+## k 近邻
 
-The k-NN algorithm is arguably the simplest machine learning algorithm. Building the model consists only of storing the training data set. To make a prediction for a new data point, the algorithm finds the closest data points in the training data set — its “nearest neighbors.”
+k 近邻算法可以说是最简单的机器学习算法。它建立仅包含训练数据集的模型。为了对一个新的数据点作出预测，算法将在训练数据集中找到最近的数据点 - 它的“最近邻点”。
 
-First, Let’s investigate whether we can confirm the connection between model complexity and accuracy:
+首先，我们需要考察是否可以确认模型的复杂度和精度之间的联系：
 
 ```
 from sklearn.model_selection import train_test_split
@@ -76,15 +78,15 @@ X_train, X_test, y_train, y_test = train_test_split(diabetes.loc[:, diabetes.col
 from sklearn.neighbors import KNeighborsClassifier
 training_accuracy = []
 test_accuracy = []
-# try n_neighbors from 1 to 10
+# 从 1 到 10 试验参数 n_neighbors
 neighbors_settings = range(1, 11)
 for n_neighbors in neighbors_settings:
-    # build the model
+    # 建立模型
     knn = KNeighborsClassifier(n_neighbors=n_neighbors)
     knn.fit(X_train, y_train)
-    # record training set accuracy
+    # 记录训练集精度
     training_accuracy.append(knn.score(X_train, y_train))
-    # record test set accuracy
+    # 记录测试集精度
     test_accuracy.append(knn.score(X_test, y_test))
 plt.plot(neighbors_settings, training_accuracy, label="training accuracy")
 plt.plot(neighbors_settings, test_accuracy, label="test accuracy")
@@ -94,13 +96,13 @@ plt.legend()
 plt.savefig('knn_compare_model')
 ```
 
-Gives this plot:
+得出下图：
 
 ![](https://datascienceplus.com/wp-content/uploads/2018/03/diabetes_5.png)
 
-The above plot shows the training and test set accuracy on the y-axis against the setting of n_neighbors on the x-axis. Considering if we choose one single nearest neighbor, the prediction on the training set is perfect. But when more neighbors are considered, the training accuracy drops, indicating that using the single nearest neighbor leads to a model that is too complex. The best performance is somewhere around 9 neighbors.
+如上图所示，y 轴表示的训练和测试集精度和 x 轴表示的 n 近邻数呈反比。想象一下，如果我们只选择一个近邻，在训练集的预测是很完美的。但是当加入了更多的近邻的时候，训练精度将会下降，这表示仅选用一个近邻所得到的模型太过复杂。最佳实践是选择 9 个左右的近邻。
 
-The plot suggests that we should choose n_neighbors=9\. Here we are:
+参考上图我们应该选择 n_neighbors=9。那么这里就是：
 
 ```
 knn = KNeighborsClassifier(n_neighbors=9)
@@ -114,9 +116,9 @@ Accuracy of K-NN classifier on training set: 0.79
 Accuracy of K-NN classifier on test set: 0.78
 ```
 
-## Logistic regression
+## 逻辑回归
 
-Logistic Regression is one of the most common classification algorithms.
+逻辑回归是最常用的分类算法之一。
 
 ```
 from sklearn.linear_model import LogisticRegression
@@ -130,7 +132,7 @@ Training set accuracy: 0.781
 Test set accuracy: 0.771
 ```
 
-The default value of C=1 provides with 78% accuracy on the training and 77% accuracy on the test set.
+默认值 C=1 在训练集的精度是 78%，在测试集的精度是 77%。
 
 ```
 logreg001 = LogisticRegression(C=0.01).fit(X_train, y_train)
@@ -143,7 +145,7 @@ Training set accuracy: 0.700
 Test set accuracy: 0.703
 ```
 
-Using C=0.01 results in lower accuracy on both the training and the test sets.
+使用 C=0.01 则导致在训练集和测试集的精度都有所下降。
 
 ```
 logreg100 = LogisticRegression(C=100).fit(X_train, y_train)
@@ -156,13 +158,13 @@ Training set accuracy: 0.785
 Test set accuracy: 0.766
 ```
 
-Using C=100 results in a little bit higher accuracy on the training set and little bit lower accuracy on the test set, confirming that less regularization and a more complex model may not generalize better than default setting.
+使用 C=100 导致在训练集上的精度略有上升但是在测试集的精度下降，我们可以确定低正则和更复杂的模型也许并不能比默认设置表现更好。
 
-Therefore, we should choose default value C=1.
+因此我们应该采用默认值 C=1。
 
-Let’s visualize the coefficients learned by the models with the three different settings of the regularization parameter C.
+我们来将参数可视化，这些参数是通过学习对三个不同正则化参数 C 的数据集建立的模型所得到的。
 
-Stronger regularization (C=0.001) pushes coefficients more and more toward zero. Inspecting the plot more closely, we can also see that feature “DiabetesPedigreeFunction”, for C=100, C=1 and C=0.001, the coefficient is positive. This indicates that high “DiabetesPedigreeFunction” feature is related to a sample being “diabetes”, regardless which model we look at.
+正则化比较强（C=0.001）的集合得到的参数越来越靠近零。更仔细的看图，我们也能发现，对于 C=100，C=1 和 C=0.001，特征 “DiabetesPedigreeFunction” 系数都是正值。这意味着，不管我们看的是哪个模型，高 “DiabetesPedigreeFunction” 特征和糖尿病样本是相关联的。
 
 ```
 diabetes_features = [x for i,x in enumerate(diabetes.columns) if i!=8]
@@ -179,11 +181,11 @@ plt.legend()
 plt.savefig('log_coef')
 ```
 
-Gives this plot:
+得出下图：
 
 ![](https://datascienceplus.com/wp-content/uploads/2018/03/diabetes_6.png)
 
-## Decision Tree
+## 决策树
 
 ```
 from sklearn.tree import DecisionTreeClassifier
@@ -198,9 +200,9 @@ Accuracy on training set: 1.000
 Accuracy on test set: 0.714
 ```
 
-The accuracy on the training set is 100%, while the test set accuracy is much worse. This is an indicative that the tree is overfitting and not generalizing well to new data. Therefore, we need to apply pre-pruning to the tree.
+在训练集的精度是 100%，但是测试集的精度就差了很多。这意味着树过拟合了，所以对新数据的泛化能力很弱。因此，我们需要对树进行剪枝。
 
-We set max_depth=3, limiting the depth of the tree decreases overfitting. This leads to a lower accuracy on the training set, but an improvement on the test set.
+我们设置最大深度 max_depth=3，限制了树的深度能降低过拟合。这将会导致训练集上精度的下降，但是在测试集的结果将会改善。
 
 ```
 tree = DecisionTreeClassifier(max_depth=3, random_state=0)
@@ -214,9 +216,9 @@ Accuracy on training set: 0.773
 Accuracy on test set: 0.740
 ```
 
-## Feature Importance in Decision Trees
+## 决策树的特征权重
 
-Feature importance rates how important each feature is for the decision a tree makes. It is a number between 0 and 1 for each feature, where 0 means “not used at all” and 1 means “perfectly predicts the target”. The feature importances always sum to 1:
+特征权重决定了每个特征对于一棵树最后决策的重要性。对每个特征它都是一个 0 到 1 之间的数，0 表示着“完全没用”而 1 表示“完美预测结果”。特征权重的总和一定是 1。
 
 ```
 print("Feature importances:\n{}".format(tree.feature_importances_))
@@ -226,7 +228,7 @@ print("Feature importances:\n{}".format(tree.feature_importances_))
 Feature importances: [ 0.04554275 0.6830362 0\. 0\. 0\. 0.27142106 0\. 0\. ]
 ```
 
-Then we can visualize the feature importances:
+然后我们将特征权重可视化：
 
 ```
 def plot_feature_importances_diabetes(model):
@@ -241,15 +243,15 @@ plot_feature_importances_diabetes(tree)
 plt.savefig('feature_importance')
 ```
 
-Gives this plot:
+得出下图：
 
 ![](https://datascienceplus.com/wp-content/uploads/2018/03/diabetes_7.png)
 
-Feature “Glucose” is by far the most important feature.
+特征 “Glucose”（葡萄糖）是目前位置权重最大的特征。
 
-## Random Forest
+## 随机森林
 
-Let’s apply a random forest consisting of 100 trees on the diabetes data set:
+让我们在糖尿病数据集上应用一个包含 100 棵树的随机森林：
 
 ```
 from sklearn.ensemble import RandomForestClassifier
@@ -264,7 +266,7 @@ Accuracy on training set: 1.000
 Accuracy on test set: 0.786
 ```
 
-The random forest gives us an accuracy of 78.6%, better than the logistic regression model or a single decision tree, without tuning any parameters. However, we can adjust the max_features setting, to see whether the result can be improved.
+没做任何调参的随机森林给出的精度为 78.6%，比逻辑回归或者单独的决策树都要好。但是，我们还是可以调整 max_features 的设置，看看结果能否更好。
 
 ```
 rf1 = RandomForestClassifier(max_depth=3, n_estimators=100, random_state=0)
@@ -278,21 +280,21 @@ Accuracy on training set: 0.800
 Accuracy on test set: 0.755
 ```
 
-It did not, this indicates that the default parameters of the random forest work well.
+并没有，这意味着随机森林默认的参数就已经运作的很好了。
 
-## Feature importance in Random Forest
+## 随机森林中的特征权重
 
 ```
 plot_feature_importances_diabetes(rf)
 ```
 
-Gives this plot:
+得出下图：
 
 ![]=(https://datascienceplus.com/wp-content/uploads/2018/03/diabetes_8.png)
 
-Similarly to the single decision tree, the random forest also gives a lot of importance to the “Glucose” feature, but it also chooses “BMI” to be the 2nd most informative feature overall. The randomness in building the random forest forces the algorithm to consider many possible explanations, the result being that the random forest captures a much broader picture of the data than a single tree.
+和单一决策树相似，随机森林的 “Glucose” 特征权重也比较高，但是还选出了 “BMI” 作为所有特征中第二高的权重。生成随机森林时的随机性要求算法必须考虑众多可能的解答，结果就是随机森林比单一决策树能够更完整地捕捉到数据的特征。
 
-## Gradient Boosting
+## 梯度提升
 
 ```
 from sklearn.ensemble import GradientBoostingClassifier
@@ -307,7 +309,7 @@ Accuracy on training set: 0.917
 Accuracy on test set: 0.792
 ```
 
-We are likely to be overfitting. To reduce overfitting, we could either apply stronger pre-pruning by limiting the maximum depth or lower the learning rate:
+模型有可能会过拟合。为了减弱过拟合，我们可以应用强度更大的剪枝操作来限制最大深度或者降低学习率：
 
 ```
 gb1 = GradientBoostingClassifier(random_state=0, max_depth=1)
@@ -333,21 +335,21 @@ Accuracy on training set: 0.802
 Accuracy on test set: 0.776
 ```
 
-Both methods of decreasing the model complexity reduced the training set accuracy, as expected. However, in this case, none of these methods increased the generalization performance of the test set.
+降低了模型的复杂度的这两个方法也都如期降低了训练集的精度。但是在这个例子中，这几个方法都没有提高测试集上的泛化能力。
 
-We can visualize the feature importances to get more insight into our model even though we are not really happy with the model:
+我们可以将特征权重可视化来更深入的研究我们的模型，尽管我们对它并不是很满意：
 
 ```
 plot_feature_importances_diabetes(gb1)
 ```
 
-Gives this plot:
+得出下图：
 
 ![](https://datascienceplus.com/wp-content/uploads/2018/03/diabetes_9.png)
 
-We can see that the feature importances of the gradient boosted trees are somewhat similar to the feature importances of the random forests, it gives weight to all of the features in this case.
+我们可以看出，梯度提升的树的特征权重和随机森林的特征权重在某种程度上有些相似，在这个实例中，所有的特征都被赋予了权重。
 
-## Support Vector Machine
+## 支持向量机
 
 ```
 from sklearn.svm import SVC
@@ -362,9 +364,9 @@ Accuracy on training set: 1.00
 Accuracy on test set: 0.65
 ```
 
-The model overfits quite substantially, with a perfect score on the training set and only 65% accuracy on the test set.
+这个模型很明显过拟合了，训练集上结果完美但是测试集上仅有 65% 的精度。
 
-SVM requires all the features to vary on a similar scale. We will need to re-scale our data that all the features are approximately on the same scale:
+SVM（支持向量机）需要所有的特征做归一化处理。我们需要重新调整数据的比例，这样所有的特征都大致在同一个量纲：
 
 ```
 from sklearn.preprocessing import MinMaxScaler
@@ -382,7 +384,7 @@ Accuracy on training set: 0.77
 Accuracy on test set: 0.77
 ```
 
-Scaling the data made a huge difference! Now we are actually underfitting, where training and test set performance are quite similar but less close to 100% accuracy. From here, we can try increasing either C or gamma to fit a more complex model.
+数据归一化导致了巨大的不同！现在其实欠拟合了，训练集和测试集的表现相似但是距离 100% 的精度还有点远。此时，我们可以试着提高 C 或者 gamma 来生成一个更复杂的模型。
 
 ```
 svc = SVC(C=1000)
@@ -397,9 +399,9 @@ Accuracy on training set: 0.790
 Accuracy on test set: 0.797
 ```
 
-Here, increasing C allows us to improve the model, resulting in 79.7% test set accuracy.
+这里，提高 C 优化了模型，使得测试集上的精度变成了 79.7%。
 
-## Deep Learning
+## 深度学习
 
 ```
 from sklearn.neural_network import MLPClassifier
@@ -414,7 +416,7 @@ Accuracy on training set: 0.71
 Accuracy on test set: 0.67
 ```
 
-The accuracy of the Multilayer perceptrons (MLP) is not as good as the other models at all, this is likely due to scaling of the data. deep learning algorithms also expect all input features to vary in a similar way, and ideally to have a mean of 0, and a variance of 1\. We must re-scale our data so that it fulfills these requirements.
+多层感知器（Multilayer perceptrons）的精度远不如其他模型的好，这可能是因为数据的量纲。深度学习算法同样希望所有输入特征归一化，并且最好均值为 0，方差为 1。我们必须重新调整数据，让它满足这些要求。
 
 ```
 from sklearn.preprocessing import StandardScaler
@@ -433,7 +435,7 @@ Accuracy on training set: 0.823
 Accuracy on test set: 0.802
 ```
 
-Let’s increase the number of iterations:
+让我们提高迭代次数：
 
 ```
 mlp = MLPClassifier(max_iter=1000, random_state=0)
@@ -448,9 +450,9 @@ Accuracy on training set: 0.877
 Accuracy on test set: 0.755
 ```
 
-Increasing the number of iterations only increased the training set performance, not the test set performance.
+提高迭代次数仅仅优化了模型在训练集的表现，测试集的表现并没有改变。
 
-Let’s increase the alpha parameter and add stronger regularization of the weights:
+让我们提高 alpha 参数，并增强权重正则性：
 
 ```
 mlp = MLPClassifier(max_iter=1000, alpha=1, random_state=0)
@@ -465,11 +467,11 @@ Accuracy on training set: 0.795
 Accuracy on test set: 0.792
 ```
 
-The result is good, but we are not able to increase the test accuracy further.
+结果很好，但是我们没能够进一步提高测试集精度。
 
-Therefore, our best model so far is default deep learning model after scaling.
+因此，目前为止最好的模型就是归一化后默认的深度学习模型。
 
-Finally, we plot a heat map of the first layer weights in a neural network learned on the diabetes dataset.
+最后，我们绘制学习糖尿病数据集的神经网络的第一层权重的热图。
 
 ```
 plt.figure(figsize=(20, 5))
@@ -480,21 +482,21 @@ plt.ylabel("Input feature")
 plt.colorbar()
 ```
 
-Gives this plot:
+得出下图：
 
 ![](https://datascienceplus.com/wp-content/uploads/2018/03/diabetes_10.png)
 
-From the heat map, it is not easy to point out quickly that which feature (features) have relatively low weights compared to the other features.
+从热图上很难很快就看出，相比于其他特征哪些特征的权重比较低。
 
-## Summary
+## 总结
 
-We practiced a wide array of machine learning models for classification and regression, what their advantages and disadvantages are, and how to control model complexity for each of them. We saw that for many of the algorithms, setting the right parameters is important for good performance.
+为了分类和回归，我们试验了各种各样的机器学习模型，（知道了）它们的优点和缺点都是什么，以及如何控制每个模型的复杂度。我们发现对于很多算法，设置合适的参数对于模型的上佳表现至关重要。
 
-We should be able to know how to apply, tune, and analyze the models we practiced above. It’s your turn now! Try applying any of these algorithms to the built-in datasets in [scikit-learn](https://datascienceplus.com/multi-class-text-classification-with-scikit-learn/) or any data set at your choice. Happy Machine Learning!
+我们应该知道了如何应用、调参，并分析上文中我们试验过的模型。现在轮到你了！试着在 [scikit-learn](https://datascienceplus.com/multi-class-text-classification-with-scikit-learn/) 的内置数据集或者其他你选择的任意数据集上应用这些算法中的任一一个。快乐的进行机器学习吧！
 
-The source code that created this post can be found here. I would be pleased to receive feedback or questions on any of the above.
+这篇博客上的源码可以在这里找到。关于上文内容，我很乐意收到你们的反馈和问题。
 
-Reference: [Introduction to Machine Learning with Python](http://shop.oreilly.com/product/0636920030515.do)
+参考链接：[Introduction to Machine Learning with Python](http://shop.oreilly.com/product/0636920030515.do)
 
 
 ---
