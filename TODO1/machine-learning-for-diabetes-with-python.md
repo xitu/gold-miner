@@ -5,6 +5,8 @@
 > * 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit)
 > * 校对者：[luochen1992](https://github.com/luochen1992)，[zhmhhu](https://github.com/zhmhhu)
 
+# 用 Python 编程进行糖尿病相关的机器学习
+
 根据 [Centers for Disease Control and Prevention](https://www.cdc.gov/)，现如今美国大约七分之一的成年人都患有糖尿病。而到了 2050 年，这个比率将会激增到三分之一之多。考虑到这一点，我们今天将要完成的就是：学习如何利用机器学习来帮助我们预测糖尿病。现在开始吧！
 
 ## 数据
