@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/machine-learning-for-diabetes-with-python.md](https://github.com/xitu/gold-miner/blob/master/TODO1/machine-learning-for-diabetes-with-python.md)
 > * 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit)
-> * 校对者：
+> * 校对者：[luochen1992](https://github.com/luochen1992)，[zhmhhu](https://github.com/zhmhhu)
 
 根据 [Centers for Disease Control and Prevention](https://www.cdc.gov/)，现如今美国大约七分之一的成年人都患有糖尿病。而到了 2050 年，这个比率将会激增到三分之一之多。考虑到这一点，我们今天将要完成的就是：学习如何利用机器学习来帮助我们预测糖尿病。现在开始吧！
 
@@ -66,7 +66,7 @@ diabetes.info()
 
 ## k 近邻
 
-k 近邻算法可以说是最简单的机器学习算法。它建立仅包含训练数据集的模型。为了对一个新的数据点作出预测，算法将在训练数据集中找到最近的数据点 - 它的 “最近邻点”。
+k 近邻算法可以说是最简单的机器学习算法。它建立仅包含训练数据集的模型。为了对一个新的数据点作出预测，算法将在训练数据集中找到最近的数据点 - 它的“最近邻点”。
 
 首先，我们需要考察是否可以确认模型的复杂度和精度之间的联系：
 
@@ -160,9 +160,9 @@ Test set accuracy: 0.766
 
 因此我们应该采用默认值 C=1。
 
-我们来将模型通过学习三个不同正则化参数 C 的数据集所得到的参数可视化。
+我们来将参数可视化，这些参数是通过学习对三个不同正则化参数 C 的数据集建立的模型所得到的。
 
-正则化比较强（C=0.001）的集合得到的参数越来越靠近零。更仔细的看图，我们也能发现，对于 C=100，C=1 和 C=0.001，特征 “DiabetesPedigreeFunction” 系数都是正值。这意味着，不管哪个模型，高 “DiabetesPedigreeFunction” 特征和样本是糖尿病是相关联的。
+正则化比较强（C=0.001）的集合得到的参数越来越靠近零。更仔细的看图，我们也能发现，对于 C=100，C=1 和 C=0.001，特征 “DiabetesPedigreeFunction” 系数都是正值。这意味着，不管我们看的是哪个模型，高 “DiabetesPedigreeFunction” 特征和糖尿病样本是相关联的。
 
 ```
 diabetes_features = [x for i,x in enumerate(diabetes.columns) if i!=8]
@@ -290,7 +290,7 @@ plot_feature_importances_diabetes(rf)
 
 ![]=(https://datascienceplus.com/wp-content/uploads/2018/03/diabetes_8.png)
 
-和单一决策树相似，随机森林的 “Glucose” 特征权重也比较高，但是还选出了 “BMI” 作为所有特征中第二高的权重。生成随机森林时的随机性要求算法必须考虑众多可能的解答，结果就是随机森林比单一决策树能够更完整的捕捉到数据的特征。
+和单一决策树相似，随机森林的 “Glucose” 特征权重也比较高，但是还选出了 “BMI” 作为所有特征中第二高的权重。生成随机森林时的随机性要求算法必须考虑众多可能的解答，结果就是随机森林比单一决策树能够更完整地捕捉到数据的特征。
 
 ## 梯度提升
 
@@ -382,7 +382,7 @@ Accuracy on training set: 0.77
 Accuracy on test set: 0.77
 ```
 
-数据归一化导致了巨大的不同！现在拟合度正好，训练集和测试集的表现相似但是距离 100% 的精度还有点远。此时，我们可以试着提高 C 或者 gamma 来生成一个更复杂的模型。
+数据归一化导致了巨大的不同！现在其实欠拟合了，训练集和测试集的表现相似但是距离 100% 的精度还有点远。此时，我们可以试着提高 C 或者 gamma 来生成一个更复杂的模型。
 
 ```
 svc = SVC(C=1000)
@@ -414,7 +414,7 @@ Accuracy on training set: 0.71
 Accuracy on test set: 0.67
 ```
 
-多层感知（Multilayer perceptrons）的精度远不如其他模型的好，这可能是因为数据的量纲。深度学习算法同样希望所有输入特征归一化，并且最好均值为 0，方差为 1。我们必须重新调整数据，让它满足这些要求。
+多层感知器（Multilayer perceptrons）的精度远不如其他模型的好，这可能是因为数据的量纲。深度学习算法同样希望所有输入特征归一化，并且最好均值为 0，方差为 1。我们必须重新调整数据，让它满足这些要求。
 
 ```
 from sklearn.preprocessing import StandardScaler
@@ -484,13 +484,13 @@ plt.colorbar()
 
 ![](https://datascienceplus.com/wp-content/uploads/2018/03/diabetes_10.png)
 
-从热图上不难很快就看出，相比去其他特征，那些特征的权重比较低。
+从热图上很难很快就看出，相比于其他特征哪些特征的权重比较低。
 
 ## 总结
 
 为了分类和回归，我们试验了各种各样的机器学习模型，（知道了）它们的优点和缺点都是什么，以及如何控制每个模型的复杂度。我们发现对于很多算法，设置合适的参数对于模型的上佳表现至关重要。
 
-我们应该知道了如何应用，调参，并分析上文中我们试验过的模型。现在轮到你了！试着在 [scikit-learn](https://datascienceplus.com/multi-class-text-classification-with-scikit-learn/) 的内置数据集或者其他你选择的任意数据集上应用这些算法中的任一一个。快乐的进行机器学习吧！
+我们应该知道了如何应用、调参，并分析上文中我们试验过的模型。现在轮到你了！试着在 [scikit-learn](https://datascienceplus.com/multi-class-text-classification-with-scikit-learn/) 的内置数据集或者其他你选择的任意数据集上应用这些算法中的任一一个。快乐的进行机器学习吧！
 
 这篇博客上的源码可以在这里找到。关于上文内容，我很乐意收到你们的反馈和问题。
 
