@@ -34,7 +34,7 @@ np.random.seed(CUSTOM_SEED)
 
 ### 获取已标注的语料库
 
-[Penn Treebank](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.9.8216&rep=rep1&type=pdf) 是一个词性标注语料库。python库中有个示例 `[NLTK](https://github.com/nltk/nltk)` 包含能够用于训练和测试某些自然语言处理模型（NLP models）的语料库。
+[Penn Treebank](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.9.8216&rep=rep1&type=pdf) 是一个词性标注语料库。Python 库中有个示例 `[NLTK](https://github.com/nltk/nltk)` 包含能够用于训练和测试某些自然语言处理模型（NLP models）的语料库。
 
 首先，我们下载已标注的语料库：
 
@@ -89,7 +89,7 @@ print('nb_tags: %sntags: %s' % (len(tags), tags))
 
 ### 监督式学习的数据集预处理
 
-我们将标记的句子划分成3个数据集 : 
+我们将标记的句子划分成 3 个数据集 : 
 
 *   **训练集** 相当于拟合模型的样本数据，
 *   **验证集** 用于调整分类器的参数，例如选择网络中神经元的个数，
@@ -97,7 +97,7 @@ print('nb_tags: %sntags: %s' % (len(tags), tags))
 
 ![](https://cdn-images-1.medium.com/max/800/1*DEDwnWZCWoaCAQQq5RG0xg.png)
 
-我们使用大约 60% 的标记句子进行训练，20%作为验证集，20%用于评估我们的模型。
+我们使用大约 60% 的标记句子进行训练，20% 作为验证集，20% 用于评估我们的模型。
 
 ```
 train_test_cutoff = int(.80 * len(sentences)) 
@@ -177,7 +177,7 @@ for pos_tags in tagged_sentences:
     return X, y
 ```
 
-对于训练、验证和测试句子，我们将属性分为“X”（输入变量）和“y”（输出变量）。
+对于训练、验证和测试句子，我们将属性分为 X （输入变量）和 y （输出变量）。
 
 ```
 X_train, y_train = transform_to_dataset(training_sentences)
@@ -203,7 +203,7 @@ X_test = dict_vectorizer.transform(X_test)
 X_val = dict_vectorizer.transform(X_val)
 ```
 
-我们的'y'向量必须被编码。输出变量包含49个不同的字符串值，它们被编码为整数。
+我们的 y 向量必须被编码。输出变量包含 49 个不同的字符串值，它们被编码为整数。
 
 ```
 from sklearn.preprocessing import LabelEncoder
