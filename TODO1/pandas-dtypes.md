@@ -2,54 +2,54 @@
 > * 原文作者：[Chris Moffitt](http://pbpython.com/author/chris-moffitt.html)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/pandas-dtypes.md](https://github.com/xitu/gold-miner/blob/master/TODO1/pandas-dtypes.md)
-> * 译者：
-> * 校对者：
+> * 译者：[stormluke](https://github.com/stormluke)
+> * 校对者：[Starrier](https://github.com/Starriers)、[luochen1992](https://github.com/luochen1992)
 
-# Overview of Pandas Data Types
+# Pandas 数据类型概览
 
 ![article header image](http://pbpython.com/images/pandas_dtypes.png)
 
-## Introduction
+## 简介
 
-When doing data analysis, it is important to make sure you are using the correct data types; otherwise you may get unexpected results or errors. In the case of pandas, it will correctly infer data types in many cases and you can move on with your analysis without any further thought on the topic.
+在进行数据分析时，确保使用正确的数据类型非常重要，否则可能会得到意想不到的结果或错误。对 Pandas 而言，它会在很多情况下正确地作出数据类型推断，你可以继续进行分析工作，而无需深入思考该主题。
 
-Despite how well pandas works, at some point in your data analysis processes, you will likely need to explicitly convert data from one type to another. This article will discuss the basic pandas data types (aka `dtypes` ), how they map to python and numpy data types and the options for converting from one pandas type to another.
+尽管 Pandas 工作得很好，但在数据分析过程中的某个时刻，你可能需要将数据从一种类型显式转换为另一种类型。本文将讨论 Pandas 的基本数据类型（即 `dtypes`），它们如何映射到 python 和 numpy 数据类型，以及从一种 Pandas 类型转换为另一种类型的几个方式。
 
-## Pandas Data Types
+## Pandas 的数据类型
 
-A data type is essentially an internal construct that a programming language uses to understand how to store and manipulate data. For instance, a program needs to understand that you can add two numbers together like 5 + 10 to get 15. Or, if you have two strings such as “cat” and “hat” you could concatenate (add) them together to get “cathat.”
+数据类型本质上是编程语言用来理解如何存储和操作数据的内部结构。例如，一个程序需要理解你可以将两个数字加起来，比如 5 + 10 得到 15。或者，如果是两个字符串，比如「cat」和「hat」，你可以将它们连接（加）起来得到「cathat」。
 
-A possible confusing point about pandas data types is that there is some overlap between pandas, python and numpy. This table summarizes the key points:
+有关 Pandas 数据类型的一个可能令人困惑的地方是，Pandas、Python 和 numpy 的数据类型之间有一些重叠。下表总结了关键点：
 
-Pandas `dtype` mapping:
+Pandas `dtype` 映射：
 
-| Pandas dtype | Python type | NumPy type | Usage |
+| Pandas dtype | Python 类型 | NumPy 类型 | 用途 |
 | --- | --- | --- | --- |
-| object | str | string_, unicode_ | Text |
-| int64 | int | int_, int8, int16, int32, int64, uint8, uint16, uint32, uint64 | Integer numbers |
-| float64 | float | float_, float16, float32, float64 | Floating point numbers |
-| bool | bool | bool_ | True/False values |
-| datetime64 | NA | NA | Date and time values |
-| timedelta[ns] | NA | NA | Differences between two datetimes |
-| category | NA | NA | Finite list of text values |
+| object | str | string_, unicode_ | 文本 |
+| int64 | int | int_, int8, int16, int32, int64, uint8, uint16, uint32, uint64 | 整数 |
+| float64 | float | float_, float16, float32, float64 | 浮点数 |
+| bool | bool | bool_ | 布尔值 |
+| datetime64 | NA | NA | 日期时间 |
+| timedelta[ns] | NA | NA | 时间差 |
+| category | NA | NA | 有限长度的文本值列表 |
 
-For the most part, there is no need to worry about determining if you should try to explicitly force the pandas type to a corresponding to NumPy type. Most of the time, using pandas default `int64` and `float64` types will work. The only reason I included in this table is that sometimes you may see the numpy types pop up on-line or in your own analysis.
+大多数情况下，你不必担心是否应该明确地将熊猫类型强制转换为对应的 NumPy 类型。一般来说使用 Pandas 的默认 `int64` 和 `float64` 就可以。我列出此表的唯一原因是，有时你可能会在代码行间或自己的分析过程中看到 Numpy 的类型。
 
-For this article, I will focus on the follow pandas types:
+对于本文，我将重点关注以下 Pandas 类型：
 
-*   `object`
-*   `int64`
-*   `float64`
-*   `datetime64`
-*   `bool`
+* `object`
+* `int64`
+* `float64`
+* `datetime64`
+* `bool`
 
-The `category` and `timedelta` types are better served in an article of their own if there is interest. However, the basic approaches outlined in this article apply to these types as well.
+如果你有兴趣，我会再写一篇文章来专门介绍 `category` 和 `timedelta` 类型。不过本文中概述的基本方法也适用于这些类型。
 
-## Why do we care?
+## 我们为什么关心类型？
 
-Data types are one of those things that you don’t tend to care about until you get an error or some unexpected results. It is also one of the first things you should check once you load a new data into pandas for further analysis.
+数据类型是在你遇到错误或意外结果之前并不会关心的事情之一。不过当你将新数据加载到 Pandas 进行进一步分析时，这也是你应该检查的第一件事情。
 
-I will use a very simple [CSV file](https://github.com/chris1610/pbpython/blob/master/data/sales_data_types.csv) to illustrate a couple of common errors you might see in pandas if the data type is not correct. Additionally, an example [notebook](https://github.com/chris1610/pbpython/blob/master/notebooks/Pandas_Data_Types.ipynb) is up on github.
+我将使用一个非常简单的 [CSV文件](https://github.com/chris1610/pbpython/blob/master/data/sales_data_types.csv) 来说明在 Pandas 中可能会遇到的一些常见的由数据类型导致的错误。另外，在 github 上也一个示例 [notbook](https://github.com/chris1610/pbpython/blob/master/notebooks/Pandas_Data_Types.ipynb)。
 
 ```
 import numpy as np
@@ -66,7 +66,7 @@ df = pd.read_csv("sales_data_types.csv")
 | 3 | 24900.0 | Brekke <span class="caps">LTD</span> | $350,000.00 | $490000.00 | 4.00% | 75 | 10 | 27 | 2015 | Y |
 | 4 | 651029.0 | Harbor Co | $15,000.00 | $12750.00 | -15.00% | Closed | 2 | 2 | 2014 | N |
 
-Upon first glance, the data looks ok so we could try doing some operations to analyze the data. Let’s try adding together the 2016 and 2017 sales:
+乍一看，数据没什么问题，所以我们可以尝试做一些操作来分析数据。我们来试一下把 2016 和 2017 年的销售额加起来：
 
 ```
 df['2016'] + df['2017']
@@ -81,9 +81,9 @@ df['2016'] + df['2017']
 dtype: object
 ```
 
-This does not look right. We would like to get totals added together but pandas is just concatenating the two values together to create one long string. A clue to the problem is the line that says `dtype: object.` An `object` is a string in pandas so it performs a string operation instead of a mathematical one.
+这看起来就不对了。我们希望将总计加在一起，但 Pandas 只是将这两个值连接在一起创建了一个长字符串。这个问题的一个线索是 `dtype：object`。`object` 在 Pandas 代表字符串，所以它执行的是字符串操作而不是数学操作。
 
-If we want to see what all the data types are in a dataframe, use `df.dtypes`
+如果我们想查看 dataframe 中的所有数据类型，使用 `df.dtypes`
 
 ```
 df.dtypes
@@ -103,7 +103,7 @@ Active              object
 dtype: object
 ```
 
-Additionally, the `df.info()` function shows even more useful info.
+此外，`df.info（）` 函数可以显示更有用的信息。
 
 ```
 df.info()
@@ -127,25 +127,25 @@ dtypes: float64(1), int64(3), object(6)
 memory usage: 480.0+ bytes
 ```
 
-After looking at the automatically assigned data types, there are several concerns:
+查看自动分配的数据类型后，有几个问题：
 
-*   The `Customer Number` is a `float64` but it should be an `int64`
-*   The `2016` and `2017` columns are stored as objects, not numerical values such as a `float64` or `int64`
-*   `Percent Growth` and `Jan Units` are also stored as objects not numerical values
-*   We have `Month` , `Day` and `Year` columns that should be converted to `datetime64`
-*   The `Active` column should be a boolean
+* `Customer Number` 被归为 `float64` 但它应该是 `int64`
+* `2016` 和 `2017` 这两列被存储为 `object`，但应该是 `float64` 或 `int64` 这样的数值类型
+* `Percent Growth` 和 `Jan Units` 也被存储为 `object` 而不是数值类型
+* `Month`、`Day` 和 `Year` 这三列应该被转换为 `datetime64`
+* `Active` 列应该是布尔型
 
-Until we clean up these data types, it is going to be very difficult to do much additional analysis on this data.
+在我们清洗这些数据类型之前，要对这些数据做更多的附加分析是非常困难的。
 
-In order to convert data types in pandas, there are three basic options:
+为了在 Pandas 中转换数据类型，有三个基本选项：
 
-*   Use `astype()` to force an appropriate `dtype`
-*   Create a custom function to convert the data
-*   Use pandas functions such as `to_numeric()` or `to_datetime()`
+* 使用 `astype()` 来强制转换到合适的 `dtype`
+* 创建一个自定义函数来转换数据
+* 使用 Pandas 的函数，例如 `to_numeric()` 或 `to_datetime()`
 
-## Using the `astype()` function
+## 使用 `astype()` 函数
 
-The simplest way to convert a pandas column of data to a different type is to use `astype()` . For instance, to convert the `Customer Number` to an integer we can call it like this:
+将 Pandas 数据列转换为不同类型的最简单方法就是用 `astype()`。例如，要将 `Customer Number` 转换为整数，我们可以这样调用：
 
 ```
 df['Customer Number'].astype('int')
@@ -160,7 +160,7 @@ df['Customer Number'].astype('int')
 Name: Customer Number, dtype: int64
 ```
 
-In order to actually change the customer number in the original dataframe, make sure to assign it back since the `astype()` functions returns a copy.
+为了真正修改原始 dataframe 中的客户编号（Customer Number），记得把 `astype()` 函数的返回值重新赋值给 dataframe，因为 `astype()` 仅返回数据的副本而不原地修改。
 
 ```
 df["Customer Number"] = df['Customer Number'].astype('int')
@@ -181,7 +181,7 @@ Active             object
 dtype: object
 ```
 
-And here is the new data frame with the Customer Number as an integer:
+以下是客户编号（Customer Number）为整数的新 dataframe：
 
 |  | Customer Number | Customer Name | 2016 | 2017 | Percent Growth | Jan Units | Month | Day | Year | Active |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -191,7 +191,7 @@ And here is the new data frame with the Customer Number as an integer:
 | 3 | 24900 | Brekke LTD | $350,000.00 | $490000.00 | 4.00% | 75 | 10 | 27 | 2015 | Y |
 | 4 | 651029 | Harbor Co | $15,000.00 | $12750.00 | -15.00% | Closed | 2 | 2 | 2014 | N |
 
-This all looks good and seems pretty simple. Let’s try to do the same thing to our `2016` column and convert it to a floating point number:
+这一切看起来不错，并且似乎很简单。让我们尝试对 `2016` 列做同样的事情并将其转换为浮点数：
 
 ```
 df['2016'].astype('float')
@@ -202,12 +202,12 @@ ValueError       Traceback (most recent call last)
 <ipython-input-45-999869d577b0> in <module>()
 ----> 1 df['2016'].astype('float')
 
-[lots more code here]
+[一些错误信息]
 
 ValueError: could not convert string to float: '$15,000.00'
 ```
 
-In a similar manner, we can try to conver the `Jan Units` column to an integer:
+以类似的方式，我们可以尝试将 `Jan Units` 列转换为整数：
 
 ```
 df['Jan Units'].astype('int')
@@ -219,17 +219,17 @@ ValueError         Traceback (most recent call last)
 <ipython-input-44-31333711e4a4> in <module>()
 ----> 1 df['Jan Units'].astype('int')
 
-[lots more code here]
+[一些错误信息]
 
 
 ValueError: invalid literal for int() with base 10: 'Closed'
 ```
 
-Both of these return `ValueError` exceptions which mean that the conversions did not work.
+这两个都返回 `ValueError` 异常，这意味着转换不起作用。
 
-In each of the cases, the data included values that could not be interpreted as numbers. In the sales columns, the data includes a currency symbol as well as a comma in each value. In the `Jan Units` columnm the last value is “Closed” which is not a number; so we get the exception.
+在这两个例子中，数据都包含不能被解释为数字的值。在销售额（2016）列中，数据包括货币符号以及每个值中的逗号。在 `Jan Units` 列中，最后一个值是 "Closed"，它不是一个数字；所以我们得到了异常。
 
-So far it’s not looking so good for `astype()` as a tool. We should give it one more try on the `Active` column.
+到目前为止，`astype()` 作为工具看起来并不怎么好。我们在 `Active` 列中再试一次。
 
 ```
 df['Active'].astype('bool')
@@ -244,20 +244,20 @@ df['Active'].astype('bool')
 Name: Active, dtype: bool
 ```
 
-At first glance, this looks ok but upon closer inspection, there is a big problem. All values were interpreted as `True` but the last customer has an Active flag of `N` so this does not seem right.
+第一眼，这看起来不错，但经过仔细检查，存在一个大问题。所有的值都被解释为 `True`，但最后一个客户有一个 `N` 的活动（Active）标志，所以这并不正确。
 
-The takeaway from this section is that `astype()` will only work if:
+这一节的重点是 `astype()` 只有在下列情况下才能工作：
 
-*   the data is clean and can be simply interpreted as a number
-*   you want to convert a numeric value to a string object
+* 数据是干净的，可以简单地解释为一个数字
+* 你想要将一个数值转换为一个字符串对象
 
-If the data has non-numeric characters or is not homogeneous, then `astype()` will not be a good choice for type conversion. You will need to do additional transforms for the type change to work correctly.
+如果数据具有非数字字符或它们间不同质（homogeneous），那么 `astype()` 并不是类型转换的好选择。你需要进行额外的变换才能完成正确的类型转换。
 
-## Custom Conversion Functions
+## 自定义转换函数
 
-Since this data is a little more complex to convert, we can build a custom function that we apply to each value and convert to the appropriate data type.
+由于该数据转换稍微复杂一些，因此我们可以构建一个自定义函数，将其应用于每个值并转换为适当的数据类型。
 
-For currency conversion (of this specific data set), here is a simple function we can use:
+对于货币转换（这个特定的数据集），下面是一个我们可以使用的简单函数：
 
 ```
 def convert_currency(val):
@@ -271,13 +271,13 @@ def convert_currency(val):
     return float(new_val)
 ```
 
-The code uses python’s string functions to strip out the ‘$” and ‘,’ and then convert the value to a floating point number. In this specific case, we could convert the values to integers as well but I’m choosing to use floating point in this case.
+该代码使用python的字符串函数去掉 `$` 和 `,`，然后将该值转换为浮点数。在这个特定情况下，我们可以将值转换为整数，但我选择在这种情况下使用浮点数。
 
-I also suspect that someone will recommend that we use a `Decimal` type for currency. This is not a native data type in pandas so I am purposely sticking with the float approach.
+我也怀疑有人会建议我们对货币使用 `Decimal` 类型。这不是 Pandas 的本地数据类型，所以我故意坚持使用 float 方式。
 
-Also of note, is that the function converts the number to a python `float` but pandas internally converts it to a `float64.` As mentioned earlier, I recommend that you allow pandas to convert to specific size `float` or `int` as it determines appropriate. There is no need for you to try to downcast to a smaller or upcast to a larger byte size unless you really know why you need to do it.
+另外值得注意的是，该函数将数字转换为 python 的 `float`，但 Pandas 内部将其转换为 `float64`。正如前面提到的，我建议你允许 Pandas 在确定合适的时候将其转换为特定的大小 `float` 或 `int`。你不需要尝试将其转换为更小或更大的字节大小，除非你真的知道为什么需要那样做。
 
-Now, we can use the pandas `apply` function to apply this to all the values in the 2016 column.
+现在，我们可以使用 Pandas 的 `apply` 函数将其应用于 2016 列中的所有值。
 
 ```
 df['2016'].apply(convert_currency)
@@ -292,23 +292,23 @@ df['2016'].apply(convert_currency)
 Name: 2016, dtype: float64
 ```
 
-Success! All the values are showing as `float64` so we can do all the math functions we need to.
+成功！所有的值都显示为 `float64`，我们可以完成所需要的所有数学计算了。
 
-I’m sure that the more experienced readers are asking why I did not just use a lambda function? Before I answer, here is what we could do in 1 line with a `lambda` function:
+我确信有经验的读者会问为什么我不使用 lambda 函数？在回答之前，先看下我们可以在一行中使用 `lambda` 函数完成的操作：
 
 ```
 df['2016'].apply(lambda x: x.replace('$', '').replace(',', '')).astype('float')
 ```
 
-Using `lambda` we can streamline the code into 1 line which is a perfectly valid approach. I have three main concerns with this approach:
+使用 `lambda`，我们可以将代码简化为一行，这是非常有效的方法。但我对这种方法有三个主要的意见：
 
-*   If you are just learning python/pandas or if someone new to python is going to be maintaining code, I think the longer function is more readable. The primary reason is that it includes comments and can be broken down into a couple of steps. `lambda` functions are a little more difficult for the new user to grasp.
-*   Secondly, if you are going to be using this function on multiple columns, I prefer not to duplicate the long lambda function.
-*   Finally, using a function makes it easy to clean up the data when using `read_csv().` I will cover usage at the end of the article.
+* 如果你只是在学习 Python / Pandas，或者如果将来会有 Python 新人来维护代码，我认为更长的函数的可读性更好。主要原因是它可以包含注释，也可以分解为若干步骤。lambda 函数对于新手来说更难以掌握。
+* 其次，如果你打算在多个列上重复使用这个函数，复制长长的 lambda 函数并不方便。
+* 最后，使用函数可以在使用 `read_csv()` 时轻松清洗数据。我将在文章结尾处介绍具体的使用方法。
 
-Some may also argue that other lambda-based approaches have performance improvements over the custom function. That may be true but for the purposes of teaching new users, I think the function approach is preferrable.
+有些人也可能会争辩说，其他基于 lambda 的方法比自定义函数的性能有所提高。但为了教导新手，我认为函数方法更好。
 
-Here’s a full example of converting the data in both sales columns using the `convert_currency` function.
+以下是使用 `convert_currency` 函数转换两个销售（2016 / 2017）列中数据的完整示例。
 
 ```
 df['2016'] = df['2016'].apply(convert_currency)
@@ -331,15 +331,15 @@ Active              object
 dtype: object
 ```
 
-For another example of using `lambda` vs. a function, we can look at the process for fixing the `Percent Growth` column.
+有关使用 `lambda` 和函数的另一个例子，我们可以看看修复 `Percent Growth` 列的过程。
 
-Using the `lambda` :
+使用 `lambda`：
 
 ```
 df['Percent Growth'].apply(lambda x: x.replace('%', '')).astype('float') / 100
 ```
 
-Doing the same thing with a custom function:
+用自定义函数做同样的事情：
 
 ```
 def convert_percent(val):
@@ -354,7 +354,7 @@ def convert_percent(val):
 df['Percent Growth'].apply(convert_percent)
 ```
 
-Both produce the same value:
+两者返回的值相同：
 
 ```
 0    0.30
@@ -365,15 +365,15 @@ Both produce the same value:
 Name: Percent Growth, dtype: float64
 ```
 
-The final custom function I will cover is using `np.where()` to convert the active column to a boolean. There are several possible ways to solve this specific problem. The `np.where()` approach is useful for many types of problems so I’m choosing to include it here.
+我将介绍的最后一个自定义函数是使用 `np.where()` 将活动（Active）列转换为布尔值。有很多方法来解决这个特定的问题。`np.where()` 方法对于很多类型的问题都很有用，所以我选择在这里介绍它。
 
-The basic idea is to use the `np.where()` function to convert all “Y” values to `True` and everything else assigned `False`
+其基本思想是使用 `np.where()` 函数将所有 `Y` 值转换为 `True`，其他所有值为 `False`
 
 ```
 df["Active"] = np.where(df["Active"] == "Y", True, False)
 ```
 
-Which results in the following dataframe:
+其结果如下 dataframe：
 
 |  | Customer Number | Customer Name | 2016 | 2017 | Percent Growth | Jan Units | Month | Day | Year | Active |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -383,7 +383,7 @@ Which results in the following dataframe:
 | 3 | 24900.0 | Brekke LTD | $350,000.00 | $490000.00 | 4.00% | 75 | 10 | 27 | 2015 | True |
 | 4 | 651029.0 | Harbor Co | $15,000.00 | $12750.00 | -15.00% | Closed | 2 | 2 | 2014 | False |
 
-The dtype is appropriately set to `bool` .
+dtype 被正确地设置为了 `bool`。
 
 ```
 df.dtypes
@@ -403,15 +403,15 @@ Active                bool
 dtype: object
 ```
 
-Whether you choose to use a `lambda` function, create a more standard python function or use another approach like `np.where()` , these approaches are very flexible and can be customized for your own unique data needs.
+无论你选择使用 `lambda` 函数，还是创建一个更标准的 Python 函数，或者是使用其他方法（如 `np.where`），这些方法都非常灵活，并且可以根据你自己独特的数据需求进行定制。
 
-## Pandas helper functions
+## Pandas 辅助函数
 
-Pandas has a middle ground between the blunt `astype()` function and the more complex custom functions. These helper functions can be very useful for certain data type conversions.
+Pandas 在直白的 `astype（)` 函数和复杂的自定义函数之间有一个中间地带。这些辅助函数对于某些数据类型转换非常有用。
 
-If you have been following along, you’ll notice that I have not done anything with the date columns or the `Jan Units` column. Both of these can be converted simply using built in pandas functions such as `pd.to_numeric()` and `pd.to_datetime()` .
+如果你顺序读下来，你会注意到我没有对日期列或 `Jan Units` 列做任何事情。这两种列都可以使用 Pandas 的内置函数（如 `pd.to_numeric()` 和 `pd.to_datetime()`）进行转换。
 
-The reason the `Jan Units` conversion is problematic is the inclusion of a non-numeric value in the column. If we tried to use `astype()` we would get an error (as described earlier). The `pd.to_numeric()` function can handle these values more gracefully:
+`Jan Units` 转换出现问题的原因是列中包含一个非数字值。如果我们尝试使用 `astype()`，我们会得到一个错误（如前所述）。`pd.to_numeric()` 函数可以更优雅地处理这些值：
 
 ```
 pd.to_numeric(df['Jan Units'], errors='coerce')
@@ -426,7 +426,7 @@ pd.to_numeric(df['Jan Units'], errors='coerce')
 Name: Jan Units, dtype: float64
 ```
 
-There are a couple of items of note. First, the function easily processes the data and creates a `float64` column. Additionally, it replaces the invalid “Closed” value with a `NaN` value because we passed `errors=coerce` . We can leave that value there or fill it in with a 0 using `fillna(0)` :
+这里有几个值得注意的地方。首先，该函数轻松地处理了数据并创建了一个 `float64` 列。 此外，它会用 `NaN` 值替换无效的 `Closed` 值，因为我们配置了 `errors=coerce`。我们可以将 `Nan` 留在那里，也可以使用 `fillna（0）` 来用 0 填充：
 
 ```
 pd.to_numeric(df['Jan Units'], errors='coerce').fillna(0)
@@ -441,7 +441,7 @@ pd.to_numeric(df['Jan Units'], errors='coerce').fillna(0)
 Name: Jan Units, dtype: float64
 ```
 
-The final conversion I will cover is converting the separate month, day and year columns into a `datetime` . The pandas `pd.to_datetime()` function is quite [configurable](https://pandas.pydata.org/pandas-docs/stable/generated/pandas.to_datetime.html) but also pretty smart by default.
+我最终介绍的转换是将单独的月份、日期和年份列转换为到一个 `datetime` 类型的列。Pandas 的 `pd.to_datetime()` 函数 [可定制性很好](https://pandas.pydata.org/pandas-docs/stable/generated/pandas.to_datetime.html)，但默认情况下也十分明智。
 
 ```
 pd.to_datetime(df[['Month', 'Day', 'Year']])
@@ -456,9 +456,9 @@ pd.to_datetime(df[['Month', 'Day', 'Year']])
 dtype: datetime64[ns]
 ```
 
-In this case, the function combines the columns into a new series of the appropriate `datateime64` dtype.
+在这种情况下，函数将这些列组合成适当 `datateime64` dtype 的新列。
 
-We need to make sure to assign these values back to the dataframe:
+我们需要确保将这些值赋值回 dataframe：
 
 ```
 df["Start_Date"] = pd.to_datetime(df[['Month', 'Day', 'Year']])
@@ -473,7 +473,7 @@ df["Jan Units"] = pd.to_numeric(df['Jan Units'], errors='coerce').fillna(0)
 | 3 | 24900 | Brekke LTD | 350000.0 | 490000.0 | 0.04 | 75.0 | 10 | 27 | 2015 | True | 2015-10-27 |
 | 4 | 651029 | Harbor Co | 15000.0 | 12750.0 | -0.15 | NaN | 2 | 2 | 2014 | False | 2014-02-02 |
 
-Now the data is properly converted to all the types we need:
+现在数据已正确转换为我们需要的所有类型：
 
 ```
 df.dtypes
@@ -493,15 +493,15 @@ Active                       bool
 Start_Date         datetime64[ns]
 ```
 
-The dataframe is ready for analysis!
+Dataframe 已准备好进行分析！
 
-## Bringing it all together
+## 把它们放在一起
 
-The basic concepts of using `astype()` and custom functions can be included very early in the data intake process. If you have a data file that you intend to process repeatedly and it always comes in the same format, you can define the `dtype` and `converters` to be applied when reading the data. It is helpful to think of `dtype` as performing `astype()` on the data. The `converters` arguments allow you to apply functions to the various input columns similar to the approaches outlined above.
+在数据采集过程中应该尽早地使用 `astype()` 和自定义转换函数。如果你有一个打算重复处理的数据文件，并且它总是以相同的格式存储，你可以定义在读取数据时需要应用的 `dtype` 和 `converters`。将 `dtype` 视为对数据执行 `astype()` 很有帮助。`converters` 参数允许你将函数应用到各种输入列，类似于上面介绍的方法。
 
-It is important to note that you can only apply a `dtype` or a `converter` function to a specified column once using this approach. If you try to apply both to the same column, then the dtype will be skipped.
+需要注意的是，只能使用 `dtype` 或 `converter` 函数中的一种来应用于指定的列。如果你尝试将两者应用于同一列，则会跳过 `dtype`。
 
-Here is a streamlined example that does almost all of the conversion at the time the data is read into the dataframe:
+下面是一个简化的例子，它在数据读入 dataframe 时完成几乎所有的转换：
 
 ```
 df_2 = pd.read_csv("sales_data_types.csv",
@@ -530,11 +530,11 @@ Active              object
 dtype: object
 ```
 
-As mentioned earlier, I chose to include a `lambda` example as well as the function example for converting data. The only function that can not be applied here is the conversion of the `Month` , `Day` and `Year` columns to the corresponding `datetime` column. Still, this is a powerful convention that can help improve your data processing pipeline.
+正如前面提到的，我选择了包含用于转换数据的 `lambda` 示例和函数示例。唯一无法被应用在这里的函数就是那个用来将 `Month`、`Day` 和 `Year` 三列转换到 `datetime` 列的函数。不过，这仍是一个强大的可以帮助改进数据处理流程的约定。
 
-## Summary
+## 总结
 
-One of the first steps when exploring a new data set is making sure the data types are set correctly. Pandas makes reasonable inferences most of the time but there are enough subtleties in data sets that it is important to know how to use the various data conversion options available in pandas. If you have any other tips you have used or if there is interest in exploring the `category` data type, feel free to comment below.
+探索新数据集的第一步是确保数据类型设置正确。大部分时间 Pandas 都会做出合理推论，但数据集中有很多细微差别，因此知道如何使用 Pandas 中的各种数据转换选项非常重要。如果你有任何其他建议，或者有兴趣探索 `category` 数据类型，请随时在下面发表评论。
 
 
 ---

@@ -2,26 +2,26 @@
 > * 原文作者：[JonLuca De Caro](https://hackernoon.com/@jonluca?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/optimizing-a-static-site.md](https://github.com/xitu/gold-miner/blob/master/TODO1/optimizing-a-static-site.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Starrier](https://github.com/Starriers)
+> * 校对者：[dandyxu](https://github.com/dandyxu)、[Hopsken](https://github.com/Hopsken)
 
-# 10x Performance Increases: Optimizing a Static Site
+# 提高 10 倍性能：优化静态网站
 
-A couple months ago, I was traveling outside of the U.S. and wanted to show a friend a link on my personal (static) site. I tried navigating to my website, but it took much longer than I anticipated. There’s absolutely nothing dynamic about it — it has animations and some responsive design, but the content always stays the same. I was pretty appalled at the results, ~4s to DOMContentLoaded, and 6.8s for a full page load. There were 20 requests for a _static site_, with 1mb of total data transferred. I was accustomed to my 1Gb/s, low latency internet in Los Angeles connecting to my server in San Francisco, which made this monstrosity seem lightning fast. In Italy, at 8mb/s, it was a different picture entirely.
+几个月前，我在国外旅行，想给朋友看我个人（静态）网站上的一个链接。我试着浏览我的网站，但花费的时间比我预期的要长。网站绝对没有任何动态内容--只有动画和一些响应式设计，而且内容始终保持不变。 我对结果感到震惊，DOMContentLoaded 要 4 s，整个页面加载要 6.8 s。有 20 项关于**静态网站**的请求（总数据的 1MB）被转移。我习惯了从洛杉矶到我在旧金山的服务器之间用 1 GB/s 的低延迟互联网连接，这使得这个怪物看起来像闪电一样快。在意大利，8 MB/s 的速度让情况变得完全不同。
 
 ![](https://cdn-images-1.medium.com/max/800/1*OgqdIBjziyfhE_tbip24ww.png)
 
-This was my first foray into optimizations. Up to this point, any time I wanted to add a library or resource, I would just throw it in and point to it with _src=”…”_. I had paid zero attention to any form of performance, from caching to inlining to lazy loading.
+这是我第一次尝试优化。到目前为止，每次我想添加一个库或者资源时，我都只是将它引入并使用 **src=""** 指向它。从缓存到内联，再到延迟加载，对任何形式的性能我都没有给予关注。
 
-I started looking around for people with similar experiences. Unfortunately, a lot of the literature on static optimizations gets dated fairly quickly — recommendations from 2010 or 2011 discussed libraries or made assumptions that simply weren’t true anymore, or just repeated the same maxims over and over.
+我开始寻找有相似经历的人。不幸的是，许多有关静态优化的文献很快就过时--那些来自 2010 或者 2011 年的建议，要么是在讨论库，要么做一些根本不再试用的假设，要么就是不断地重复某些相同的准则。
 
-However, I did find two great sources of information — [High Performance Browser Networking](https://hpbn.co) and [Dan Luu’s similar experience with optimizing static sites](https://danluu.com/octopress-speedup/). While I didn’t go as far as Dan in stripping formatting and content, I did manage to get my page load to be roughly 10x faster, to about a fifth of a second for DOMContentLoaded and only 388ms for full page load (which is actually a little inaccurate, as it tacks on the lazy loading explained below).
+不过我确实找到了两个很好的信息源 -- [高性能浏览器网络](https://hpbn.co)和 [Dan Luu 类似的静态网站优化经历](https://danluu.com/octopress-speedup/)。尽管在剥离格式和内容方面还不如 Dan，但是我确实成功地让我的页面加载速度提高了大约 10 倍。DOMContentLoaded 大约需要五分之一秒，而整个页面加载只有 388 ms（实际上有点不准确，下文将解释延迟加载的原因）。
 
 ![](https://cdn-images-1.medium.com/max/800/1*OBt9rTFK8KhlnPI1-olkmg.png)
 
-### The Process
+### 过程
 
-The first step of the process was to profile the site. I wanted to figure out what was taking the longest, and how to best parallelize everything. I ran various tools to profile my site and test it from various locations around the world, including:
+过程的第一步是对网站进行分析梳理，我想弄清楚哪些地方花费了最长的时间，以及如何最好地并行化一切。我运行了各种工具来分析我的网站，并在世界各地测试它，包括：
 
 *   [https://tools.pingdom.com/](https://tools.pingdom.com/)
 *   [www.webpagetest.org/](http://www.webpagetest.org/)
@@ -30,21 +30,21 @@ The first step of the process was to profile the site. I wanted to figure out wh
 *   [https://developers.google.com/speed/pagespeed/insights/](https://developers.google.com/speed/pagespeed/insights/)
 *   [https://webspeedtest.cloudinary.com/](https://webspeedtest.cloudinary.com/)
 
-Some of these offered suggestions on improvements, but there’s only so much you can do when your static site has 50 requests — everything from a spacer gif left as a remnant from the 90s to assets that aren’t used (I was loading 6 fonts and only using 1).
+其中一些提供了改进建议，但当静态站点有 50 个请求时，您只能做这么多 -- 从 90 年代遗留下来的间隔 gif 到不再使用的资源（我加载了 6 种字体但只使用了 1 种字体）。
 
 ![](https://cdn-images-1.medium.com/max/800/1*61ngDdpQfLqBo-I8F_tuqw.png)
 
-Timeline for my site — I tested this on the Web Archive as I didn’t screenshot the original one, but it looks similar enough to what I saw a few months ago.
+我的网站时间线 -- 我在 Web Archive(译者注：一家提供网站历史快照的服务商)上测试了这个却没有截取原始图片，可是它看起来和我几个月前看到的还是很相似。
 
-I wanted to improve everything that I had control over — from the contents and speed of the javascript to the actual web server (Nginx) and DNS settings.
+我想改进我所能控制的一切 -- 从 JavaScript 的内容和速度到实际的 Web 服务器（Ngnix）和 DNS 设置。 
 
-### Optimizations
+### 优化
 
-#### Minify and Coalesce Resources
+#### 简化与合并资源
 
-The first thing I noticed was that I was making a dozen requests each for CSS and JS (without any form of HTTP keepalive), and to various sites, some of which were https. This added multiple round trips to various CDNs or servers, and some JS files were requesting others, which caused the blocking cascade seen above.
+我注意到的第一件事是，不管是对于 CSS 还是 JS，我都向各种网站发起十几个请求（没有任何形式的 HTTP keepalive），其中还有一些是 https 请求。这增加了对各种 CDN 或 服务器的多次往返，一些 JS 文件正在请求其他文件，这导致了上面所示的阻塞级联。
 
-I used [webpack](https://webpack.js.org/) to coalesce all my resources into a single js file. Any time I make a change to my content, it automatically minifies and turns all my dependencies into a single file.
+我使用 [webpack](https://webpack.js.org/) 将所有资源合并到一个 js 文件中。每当我对内容进行更改时，它都会自动简化并将我的所有依赖项转换为单文件。
 
 ```
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
@@ -79,27 +79,27 @@ module.exports = {
 };
 ```
 
-I played around with different options — currently, this single bundle.js file is in the `<head>` of my site, and is blocking. It’s final size is 829kb, and that includes every single non-image asset (fonts, css, all libraries and dependencies, and js). The vast majority of this is are the font-awesome fonts, which make up 724 of the 829kb.
+我尝试了各种不同的配置。现在，这个 bundle.js 文件在我网站的 `<head>` 中，并且处于阻塞状态。它的最终大小是 829 kb，包括每个非图像资源（字体、css、所有的库、依赖项以及 js）。绝大多数字体使用的是 font-awesome，它们占 829 kb 中的 724。
 
-I went through the Font Awesome library and stripped all but the three icons I was using — fa-github, fa-envelope, and fa-code. I used a service called [fontello](http://fontello.com/) to only pull the icons I needed. The new size was just 94kb.
+我浏览了 Font Awesome 库，除了我要使用的 fa-github、fa-envelope 和 fa-code 三个图标外，其他的所有图标都已经删除。我使用叫做 [fontello](http://fontello.com/) 的服务来提取我需要的图标。新的大小只有 94 kb。
 
-The way the site is currently built, it won’t look correct if we only have stylesheets, so I accepted the blocking nature of a single bundle.js. Load times are ~118ms, which is more than an order of magnitude better than above.
+按照目前网站的构建方式，如果我们只有样式表，它看起来是不正确的，所以我接受了单个 bundle.js 的阻塞特性。加载时间为 118 ms，比之前提高了一个数量级。
 
-This also had a few added benefits — I was no longer pointing to 3rd party resources or CDNs, so the user would not need to 1) perform a DNS query to that resource, 2) Perform the https handshake, and 3) actually wait for the full download from that resource.
+这也带来了一些额外的好处--我不再指向第三方资源或 CDN，因此用户不需要：（1）执行对该资源的 DNS 查询，（2）执行 https 握手，（3）等待该资源被完整地下载。
 
-While CDNs and distributed caching might make sense for large scale, distributed sites, it does not make sense for my small static site. The additional hundred milliseconds or so are a worthwhile tradeoff.
+虽然 CDN 和分布式缓存对于大规模的分布式网站可能是有意义的，但对于我的小型静态网站来说却没有意义。是否需要优化这额外的 100 ms 左右时间是值得权衡的。
 
-#### Compress Resources
+#### 压缩资源
 
-I was loading an 8mb sized headshot and then displaying it at 10% width/height. This wasn’t just a lack of optimization — this was _almost negligent usage of users bandwidth_.
+我加载了一个 8 MB 大小的头像，然后以 10% 的宽高比显示它。这不仅仅是缺少优化，这几乎**是忽略了用户对带宽使用**。
 
 ![](https://cdn-images-1.medium.com/max/800/1*h79KSROW3oY6KWfQm6u5yA.png)
 
-I compressed all my images using [https://webspeedtest.cloudinary.com/](https://webspeedtest.cloudinary.com/) — it also suggested I switch to [webp](https://developers.google.com/speed/webp/), but I wanted to remain as compatible with as many browsers as possible, so I stuck to jpg. It’s possible to set up a system in which webp only gets delivered to browsers that support it, but I wanted to remain as simple as possible, and the benefits for that added layer of abstraction did not seem worth it.
+我使用 [https://webspeedtest.cloudinary.com/](https://webspeedtest.cloudinary.com/) 来压缩所有的图像 -- 它还建议我切换到  [webp](https://developers.google.com/speed/webp/)，但我希望尽可能多的与其他浏览器进行兼容，所以我坚持使用 jpg。尽管完全有可能建立一个只将 webp 交付给支持它的浏览器系统，但我希望尽可能地保持简单，添加抽象层的好处似乎并不明显。
 
-#### Improve Web Server — HTTP2, TLS, and More
+#### 改进 Web Server — HTTP2, TLS 等
 
-The first thing I did was transition to https — when I started, I was running Nginx bare on port 80, just serving files from /var/www/html
+我做的第一件事是过度到 https -- 一开始，我在 80 端口运行 Ngnix，只服务于来自 /var/www/html 的文件。
 
 ```
 server{
@@ -117,7 +117,7 @@ server{
 }
 ```
 
-I started by setting up https and redirecting all http requests to https. I got my TLS certificate from [Let’s Encrypt](https://letsencrypt.org/) (an great organization that just started signing [wildcard certificates](https://community.letsencrypt.org/t/acme-v2-and-wildcard-certificate-support-is-live/55579) as well!).
+首先设置 https 并将所有 http 请求重定向到 https。我从 [Let’s Encrypt](https://letsencrypt.org/) (一个刚开始签署通配符证书的伟大组织！[wildcard certificates](https://community.letsencrypt.org/t/acme-v2-and-wildcard-certificate-support-is-live/55579) )那里获得了自己的 TLS 证书。
 
 ```
 server {
@@ -141,23 +141,23 @@ server {
 }
 ```
 
-Just by adding the http2 directive, Nginx was able to take advantage of all the modern, baked in advantages of the newest HTTP features. Note that if you want to take advantage of HTTP2 (previously SPDY), you _must_ use HTTPS. Read more about it [here](https://hpbn.co/http2/).
+只要添加 http2 的指令，Ngnix 就能够利用 HTTP 最新特性的所有优点。注意，如果要利用 HTTP2（以前的 SPDY），您**必须**使用 HTTPS，在[这里](https://hpbn.co/http2/)阅读更多内容。
 
-You can also take advantage of HTTP2 push directives with _http2_push images/Headshot.jpg;_
+您还可以利用 HTTP2 push 指令，使用 **http2** push images/Headshot.jpg；
 
-Note: Enabling gzip and TLS might put you at risk for [BREACH](https://en.wikipedia.org/wiki/BREACH). As this is a static site, and the actual risks for BREACH are fairy low, I felt comfortable keeping compression on.
+注意：启用 gzip 和 TLS 可能会使您面临 [BREACH](https://en.wikipedia.org/wiki/BREACH) 风险。由于这是一个静态网站，而 BREACH 实际的风险很低，所以保持压缩状态让我感觉舒服。
 
-#### Utilize Caching & Compression Directives
+#### 利用缓存和压缩指令
 
-What more could be accomplished through just Nginx? The first things that jump out are caching and compression directives.
+仅通过使用 Ngnix 还能完成什么呢？首先是缓存和压缩指令。
 
-I was sending raw, uncompressed HTML. With just a single _gzip on;_ line, I was able to go from 16000 bytes to 8000 bytes, a decrease of 50%.
+我之前一直都是发送未经压缩的原始 HTML。只需要一个单独的 **gzip**；是的，我就可以从 16000 字节减少到 8000 字节，减少 50%。
 
-We are actually able to improve this number even further — if set Nginx’s _gzip_static on,_ it’ll look for precompressed versions of all requested files before hand. This goes hand in hand with our webpack config above — we can use the [ZopflicPlugin](https://github.com/webpack-contrib/zopfli-webpack-plugin) to precompress all our files, at build time! This saves computational resources, and allows us to maximize our compression with no tradeoff to speed.
+实际上，我们能够进一步改进这个数字，如果将 Ngnix 的 **gzip** 静态设置为开启，它会事先查找所有请求文件的预压缩版本。这与我们上面的 webpack 配置结合在一起 -- 我们可以在构建时使用 [ZopflicPlugin](https://github.com/webpack-contrib/zopfli-webpack-plugin) 预压缩所有文件！这节省了计算资源，并允许我们在不牺牲速度的情况下最大限度地实现压缩。
 
-Additionally, my site changes fairly infrequently, so I wanted the resources to be cached for as long as possible. This would make it so that, on subsequent visits, users would not need to redownload all assets (especially bundle.js).
+此外，我的站点变化很少，所以我希望尽可能长时间地缓存资源。这样，在以后的访问中，用户就不需要重新下载所有资源（特别是 bundle.js）。
 
-My updated server config looks like this. Note that I won’t touch on all the changes I made, such as TCP settings changes, gzip directives, and file cache. If you’d like to know more about these, [read this article on tuning Nginx.](https://www.nginx.com/blog/tuning-nginx/)
+我更新的服务器配置如下所示。请注意，我不会涉及我所做的所有更改，例如 TCP 设置更改、gzip 指令和文件缓存。如果您想了解更多，请[阅读这篇关于 Ngnix 调优的文章](https://www.nginx.com/blog/tuning-nginx/)。
 
 ```
 worker_processes auto;
@@ -244,7 +244,7 @@ http {
 }
 ```
 
-And the corresponding server block
+以及相应的服务器块
 
 ```
 server {
@@ -260,18 +260,18 @@ server {
     }
 
     location ~* /(images|js|css|fonts|assets|dist) {
-        gzip_static on; # Tells nginx to look for compressed versions of all requested files first
+        gzip_static on; # 告诉 Nginx 首先查找所有请求文件的压缩版本。
         expires 15d; # 15 day expiration for all static assets
     }
 
 }
 ```
 
-#### Lazy Loading
+#### 延迟加载
 
-Lastly there was a small change to my actual site that would improve things by a non-negligible amount. There are 5 images that aren’t seen until you press on their corresponding tabs, but that were loaded at the same time as everything else (due to their being in a `<img src=”…”>` tag.
+最后我的实际网站有一个小的变化，它所带来的优化是不可忽视的。有 5 张图片直到您按下相应选项卡后才能看到，但它们是与其他所有内容同时加载的（因为它们位于 `<img src=”…”>` 标签中）。
 
-I wrote a short script to modify the attribute with every element with the _lazyload class._ These images would only be loaded once the corresponding box was clicked.
+我编写了一个简短的脚本，用 **lazyload 类**修改每个元素的属性。只有单击相应的框后才会加载这些图像。
 
 ```
 $(document).ready(function() {
@@ -292,17 +292,17 @@ $(document).ready(function() {
 });
 ```
 
-So once the document had completed loading, it would modify the `<img>` tags so that they went from `<img data-src=”…”>` to `<img src=”…”>`, and load it in the background.
+因此一旦文档完成加载，它将修改 `<img>` 标签，使他们从 `<img data-src=”…”>` 转到 `<img src=”…”>` 然后将其加载到后台。
 
-#### Future Improvements
+#### 未来的改进
 
-There are a few other changes that could improve the page load speeds — most notably, using Service Workers to cache and intercept all requests, and have the site operate even offline, and caching content on CDNs so that users do not need to do a full round trip to the server in SF. These are worthwhile changes, but not particularly important for a personal static site that serves as an online resume/about me page.
+还有一些其他的更改可以提高页面加载速度 -- 最显著的是使用 Service Workers 缓存并拦截所有请求，让站点甚至脱机运行，在 CDN 上缓存内容，这样用户就不需要在 SF 中对服务器进行完整的往返操作。这些都是有价值的改变，但对于个人静态网站来说并不是特别重要，因为它是一个在线简历（关于我）的页面。
 
-### Conclusion
+### 结论
 
-This improved my page load times from more than 8 seconds to ~350ms on first page load, and an insane ~200ms on subsequent ones. I really recommend reading through all of [High Performance Browser Networking](https://hpbn.co/#toc) — it’s a fairly quick read, and provides an incredibly well written overview of the modern internet, and optimizing at every layer of the modern internet model.
+这使我的页面加载时间从第一次加载的 8 s 提高到 350 ms，之后的页面加载速度达到了 200 ms。我真的建议阅读[高性能浏览器网络](https://hpbn.co/#toc) -- 您可以很快就阅读完它，它提供了对现代互联网的一个非常好的概述，并在互联网模型的每一层都进行了优化。
 
-_Did I miss anything? See anything that violates best practices or that could improve my performance even more? Feel free to reach out — _[_JonLuca De Caro_](https://medium.com/@jonluca)_!_
+**我遗漏了什么事情吗？是否有任何违反最优做法？或者可以改善我的叙述内容甚至是其他方面？请随时指正 --** [_JonLuca De Caro_](https://medium.com/@jonluca)**！**
 
 ![](https://cdn-images-1.medium.com/max/800/1*PZjwR1Nbluff5IMI6Y1T6g@2x.png)
 

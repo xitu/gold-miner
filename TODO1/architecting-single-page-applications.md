@@ -2,90 +2,84 @@
 > * 原文作者：[Daniel Dughila](https://hackernoon.com/@danieldughila?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/architecting-single-page-applications.md](https://github.com/xitu/gold-miner/blob/master/TODO1/architecting-single-page-applications.md)
-> * 译者：
-> * 校对者：
+> * 译者：[zwwill 木羽](https://github.com/zwwill)
+> * 校对者：[Starriers](https://github.com/Starriers)，[NoName4Me](https://github.com/NoName4Me)
 
-# The 4 Layers of Single Page Applications You Need to Know
+# 关于 SPA，你需要掌握的 4 层
 
-## Let’s architect a React application from the ground up, exploring the domain and its services, store, application services and the view.
+## 我们从头来构建一个 React 的应用程序，探究领域、存储、应用服务和视图这四层
 
 ![](https://cdn-images-1.medium.com/max/800/1*5aa2cNrij2fVO0rZTJCZHQ.png)
 
-The four layers of single page applications — by [Alberto V](https://dribbble.com/AlbertoV).
+每个成功的项目都需要一个清晰的架构，这对于所有团队成员都是心照不宣的。
 
-Every successful project needs a clear architecture, which is understood by all team members.
-
-Imagine you’re new to the team. The technical leader presents the proposed architecture for the new application coming up on the roadmap:
+试想一下，作为团队的新人。技术负责人给你介绍了在项目进程中提出的新应用程序的架构。
 
 ![](https://cdn-images-1.medium.com/max/800/1*6wpX8u_mM8Z1xdZVMFj67w.png)
 
-The four layers of single page applications (detailed).
+然后告诉你需求：
 
-He talks about the requirements:
+> 我们的应用程序将显示一系列文章。用户能够创建、删除和收藏文章。
 
-> Our app will display a list of articles. As a user, I will be able to create, delete and like articles.
+然后他说，去做吧！
 
-And then he asks you to do it!
+### Ok，没问题，我们来搭框架吧
 
-### Ok, no problem, let’s start architecting
+我选择 FaceBook 开源的构建工具 [Create React App](https://github.com/facebook/create-react-app)，使用 [Flow](https://flow.org) 来进行类型检查。简单起见，先忽略样式。
 
-I’ve chosen [Create React App](https://github.com/facebook/create-react-app) and [Flow](https://flow.org) for type checking. For brevity, the application has no styling.
+作为先决条件，让我们讨论一下现代框架的声明性本质，以及涉及到的 state 概念。
 
-As a prerequisite, let’s talk about the declarative nature of modern frameworks, touching on the concept of state.
+### 现在的框架多为声明式的
 
-### Today’s frameworks are declarative
+React， Angular， Vue 都是声明式的，并鼓励我们使用函数式编程的思想。
 
-React, Angular, Vue are [declarative](https://tylermcginnis.com/imperative-vs-declarative-programming/), encouraging us to use elements of functionalprogramming.
+你有见过手翻书吗？
 
-Have you ever seen a flip book?
-
-> A flip book or flick book is a book with a series of pictures that vary gradually from one page to the next, so that when the pages are turned rapidly, the pictures appear to animate … [1]
+> 一本手翻书或电影书，里面有一系列逐页变化的图片，当页面快速翻页的时候，就形成了动态的画面。 [1]
 
 ![](https://cdn-images-1.medium.com/max/800/1*YC8GwZboKkBFfJI8cRzUnQ.jpeg)
 
-Now let’s check a part of React’s definition:
+现在让我们来看一下 React 中的定义：
 
-> Design simple views for each state in your application, and React will efficiently update and render just the right components when your data changes … [2]
+> 在应用程序中为每个状态设计简单的视图， React 会在数据发生变化时高效地更新和渲染正确的组件。 [2]
 
-And a part of Angular’s:
+Angular 中的定义：
 
-> Build features quickly with simple, declarative templates. Extend the template language with your own components … [3]
+> 使用简单、声明式的模板快速构建特性。使用您自己的组件扩展模板语言。 [3]
 
-Sounds familiar?
+大同小异？
 
-Frameworks help us build apps consisting of views. Views are representations of state. But what is the state?
+框架帮助我们构建包含视图的应用程序。视图是状态的表象。那状态又是什么？
 
-### The state
+### 状态
 
-The state represents every piece of data that changes in an application.
+状态表示应用程序中会更改的所有数据。
 
-You visit an URL, that’s state, make an Ajax call to retrieve a list of movies, that’s state again, you persist info to local storage, ditto, state.
+你访问一个URL，这是状态，发出一个 Ajax 请求来获取电影列表，这是也状态，将信息持久化到本地存储，同上，也是状态。
 
-The state will consist of **immutable objects**.
+状态由一系列**不变对象**组成
 
-[Immutable architecture](http://enterprisecraftsmanship.com/2016/05/12/immutable-architecture) has many benefits, one being at the view level.
+[不可变结构](http://enterprisecraftsmanship.com/2016/05/12/immutable-architecture)有很多好处，其中一个就是在视图层。
 
-Here is a quote from React’s guide to [optimizing performance](https://reactjs.org/docs/optimizing-performance.html):
+下面是 React 指南对[性能优化](https://reactjs.org/docs/optimizing-performance.html)介绍的引言。
 
-> Immutability makes tracking changes cheap. A change will always result in a new object so we only need to check if the reference to the object has changed. [4]
+> 不变性使得跟踪更改变得更容易。更改总是会产生一个新对象，所以我们只需要检查对象的引用是否发生了更改。
 
-### The domain layer
+### 领域层
 
-The domain describes the state and holds the business logic. It represents the core of our application and should be agnostic to the view layer. Angular, React, Vue, it shouldn’t matter, we should be able to use our domain regardless of the framework we choose.
+域可以描述状态并保存业务逻辑。它是应用程序的核心，应该与视图层解耦。Angular， React 或者是 Vue，这些都不重要，重要的是不管选择什么框架，我们都能够使用自己的领。
 
 ![](https://cdn-images-1.medium.com/max/800/1*iNmdhMwXJ53tv0fyhhpmmw.png)
 
-The domain layer.
+因为我们处理的是不可变的结构，所以我们的领域层将包含实体和域服务。
 
-Because we are dealing with immutable architecture, our domain layer will consist of entities and domain services.
+在 OOP 中存在争议，特别是在大规模应用程序中，在使用不可变数据时，贫血模型是完全可以接受的。
 
-Controversial in OOP, especially in large-scale applications, the anemic domain model is perfectly acceptable when working with immutable data.
+> 对我来说，弗拉基米尔·克里科夫（Vladimir Khorikov）的[这门课](https://www.pluralsight.com/courses/refactoring-anemic-domain-model)让我大开眼界。
 
-> For me, this [course](https://www.pluralsight.com/courses/refactoring-anemic-domain-model) by Vladimir Khorikov was eye-opening.
+要显示文章列表，我们首先要建模的是**Article**实体。
 
-Having to display a list of articles, the first thing we’ll model is the **Article** entity.
-
-All future objects of type **Article** are meant to be immutable. Flow can [enforce immutability](https://flow.org/en/docs/react/redux/#typing-redux-state-immutability-a-classtoc-idtoc-typing-redux-state-immutability-hreftoc-typing-redux-state-immutabilitya) by making every property read-only(see the plus sign before each prop).
+所有 **Article** 类型实体的未来对象都是不可变的。Flow 可以通过使所有属性只读（属性前面带 + 号）来强制将对象不可变。
 
 ```
 // @flow
@@ -97,25 +91,24 @@ export type Article = {
 }
 ```
 
-Now let’s create the **articleService** using the factory function pattern.
+现在，让我们使用工厂函数模式创建 **articleService**。
 
-> Check out this [video](https://www.youtube.com/watch?v=ImwrezYhw4w) by @mpjme for a great explanation**.**
+> 查看 @mpjme 的这个[视频](https://www.youtube.com/watch?v=ImwrezYhw4w)，了解更多关于JS中的工厂函数知识。
 
-Since we need only one **articleService** in our application, we will export it as a singleton.
+由于在我们的应用程序中只需要一个**articleService**，我们将把它导出为一个单例。
 
-The **createArticle** methodwill allow us to create [frozen objects](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze) of type **Article**. Each new article will have a unique autogenerated id and zero likes, letting us supply only the author and title.
+**createArticle** 允许我们创建 **Article** 的[冻结对象](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze)。每一篇新文章都会有一个唯一的自动生成的id和零收藏，我们仅需要提供作者和标题。
 
-> The `**Object.freeze()**` method freezes an object: that is, prevents new properties from being added to it. [5]
+> `**Object.freeze()**` 方法可冻结一个对象：即无法给它新增属性。 [5]
 
-The **createArticle** method returns a “maybe” **Article** type.
+**createArticle** 方法返回的是一个 **Article** 的「Maybe」类型
 
-> [Maybe](https://flow.org/en/docs/types/maybe) types enforce you to check if an **Article** object exists before operating on it.
+> [Maybe](https://flow.org/en/docs/types/maybe) 类型强制你在操作 **Article** 对象前先检查它是否存在。
 
-If any of the fields necessary to create an article fail validation, the **createArticle** method returns null. Some may argue that it’s better to throw a user-defined exception. If we enforce this and the upper layers do not implement catch blocks, the program will terminate at runtime.
+如果创建文章所需要的任一字段校验失败，那么 **createArticle** 方法将返回null。这里可能有人会说，最好抛出一个用户定义的异常。如果我们这么做，但上层不实现catch块，那么程序将在运行时终止。
+**updateLikes** 方法会帮我们更新现存文章的收藏数，将返回一个拥有新计数的副本。
 
-The **updateLikes** method will help us update the number of likes from anexisting article, by returning a copy of it with the new count.
-
-Finally, the **isTitleValid** and **isAuthorValid** methods prevent the **createArticle** from working with corrupt data.
+最后，**isTitleValid** 和 **isAuthorValid** 方法能帮助 **createArticle** 隔离非法数据。
 
 ```
 // @flow
@@ -179,7 +172,8 @@ export const ArticleServiceFactory = () => ({
 export const articleService = ArticleServiceFactory();
 ```
 
-Validations are very important in keeping our data consistent, especially at the domain level. We can compose our **Validators** service out of pure functions.
+验证对于保持数据一致性非常重要，特别是在领域级别。我们可以用纯函数来编写 **Validators** 服务。
+
 
 ```
 // @flow
@@ -190,15 +184,15 @@ export const isString = (toValidate: any) => typeof toValidate === 'string';
 export const isLengthGreaterThen = (length: number) => (toValidate: string) => toValidate.length > length;
 ```
 
-Please take these validations with a grain of salt, just for demo purposes.
+请使用最小的工程来检验这些验证方法，仅用于演示。
 
-> In JavaScript, checking if an object is, in fact, an object is not that easy. :)
+> 事实上，在 JavaScript 中检验一个对象是否为对象并不容易。 :)
 
-We now have our domain layer setup!
+现在我们有了领域层的结构!
 
-The nice part is that we can use our code right now, agnostic of a framework.
+好在现在就可以使用我们的代码来，而无需考虑框架。
 
-Let’s see how we can use the **articleService** to create an article about one of my favorite books and update its number of likes.
+让我们来看一下如何使用 **articleService** 创建一篇关于我最喜欢的书的文章，并更新它的收藏数。
 
 ```
 // @flow
@@ -231,17 +225,15 @@ console.log('incrementedArticle', incrementedArticle);
  */
 ```
 
-### The store layer
+### 存储层
 
-The data which results from creating and updating articles represents our application’s state.
+创建和更新文章所产生的数据代表了我们的应用程序的状态。
 
-We need a place to hold that data, the store being the perfect candidate for the job.
+我们需要一个地方来储存这些数据，而 store 就是最佳人选
 
 ![](https://cdn-images-1.medium.com/max/800/1*h8IDykExd_PhCBhKYr9e0Q.png)
 
-The store layer.
-
-The state can easily be modeled by an array of articles.
+状态可以很容易地由一系列文章来建模。
 
 ```
 // @flow
@@ -252,15 +244,15 @@ export type ArticleState = Article[];
 
 ArticleState.js
 
-The **ArticleStoreFactory** implements the publish-subscribe pattern and exports the **articleStore** as a singleton.
+**ArticleStoreFactory** 实现了发布-订阅模式，并导出 **articleStore** 作为单例。
 
-The store holds the articles and performs the add, remove and update immutable operations on them.
+store 可保存文章并赋予他们添加、删除和更新的不可变操作。
 
-> Keep in mind that the store onlyoperates on articles. Only the **articleService**, can create or update them.
+> 记住，store 只对文章进行操作。只有 **articleService** 才能创建或更新它们。
 
-Interested parties can subscribe and unsubscribe to the **articleStore**.
+感兴趣的人可以订阅和退订 **articleStore**。
 
-The **articleStore** keeps a list in memory of all subscribers and notifies them of each change.
+**articleStore** 保存所有订阅者的列表，并将每个更改通知到他们。
 
 ```
 // @flow
@@ -328,11 +320,11 @@ export const articleStore = ArticleStoreFactory();
 
 [ArticleStore.js](https://gist.github.com/intojs/3acd875bf72c42c559e80e0495039bb5#file-articlestorefactory-js)
 
-Our store implementation makes sense for demo purposes, allowing us to understand the concepts behind it. In real life, I recommend using a state management system like [Redux](https://redux.js.org/), [ngrx](https://github.com/ngrx), [MobX](https://github.com/mobxjs/mobx) or at least [observable data services](https://medium.com/bucharestjs/the-developers-guide-to-redux-like-state-management-in-angular-3799f1877bb).
+我们的 store 实现对于演示的目的是有意义的，它让我们理解背后的概念。在实际运作中，我推荐使用状态管理系统，像 [Redux](https://redux.js.org/)， [ngrx](https://github.com/ngrx)， [MobX](https://github.com/mobxjs/mobx)， 或者是[可监控的数据管理系统](https://medium.com/bucharestjs/the-developers-guide-to-redux-like-state-management-in-angular-3799f1877bb)
 
-Ok, right now we have the domain and store layers setup.
+好的，现在我们有了领域层和存储层的结构。
 
-Let’s create two articles and two subscribers to the store and observe how the subscribers get notified of changes.
+让我们为 store 创建两篇文章和两个订阅者，并观察订阅者如何获得更改通知。
 
 ```
 // @flow
@@ -374,26 +366,24 @@ if (article1 && article2) {
 }
 ```
 
-### Application services
+### 应用服务层
 
-This layer is useful for doing all kinds of operations which are adjacent to the state flow like Ajax calls to retrieve data from the server or state projections.
+这一层用于执行与状态流相关的各种操作，如Ajax从服务器或状态镜像中获取数据。
 
 ![](https://cdn-images-1.medium.com/max/800/1*ZVstPN2LBFjdPoRaFq4SEw.png)
 
-The application services layer.
+出于某种原因，设计师要求所有作者的名字都是大写的。
 
-For whatever reason, a designer comes and demands all author names to be uppercase.
+我们知道这种要求是比较无厘头的，而且我们并不想因此污化了我们的模块。
 
-We know this request is kind of silly and we don’t want to pollute our model with it.
-
-We create the **ArticleUiService** to handle this feature. The service will take a piece of state, the author’s name, and project it, returning the uppercase version of it to the caller.
+于是我们创建了 **ArticleUiService** 来处理这些特性。这个服务将取用一个状态，就是作者的名字，将其构建到项目中，可返回大写的版本给调用者。
 
 ```
 // @flow
 export const displayAuthor = (author: string) => author.toUpperCase();
 ```
 
-Let’s see a demo on how to consume this service!
+让我们看一个如何使用这个服务的演示！
 
 ```
 // @flow
@@ -410,29 +400,27 @@ const authorName = article ?
   null;
 
 console.log(authorName);
-// It will print JORDAN PETERSON
+// 将输出 JORDAN PETERSON
 
 if (article) {
   console.log(article.author);
-  // It will print Jordan Peterson
+  // 将输出 Jordan Peterson
 }
 ```
 
 app-service-demo.js
 
-### The view layer
+### 视图层
 
-Right now we have a fully working application, agnostic of any framework, ready to be put to life by React.
+现在我们有了一个可执行且不依赖于框架的应用程序，React 已经准备投入使用。
 
-The view layer is composed of presentational and container components.
+视图层由 `presentational components` 和 `container components` 组成。
 
-Presentational components are concerned with how things look while container components are concerned with how things work. For a detailed explanation check out Dan Abramov’s [article](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0).
+`presentational components` 关注事物的外观，而 `container components` 则关注事物的工作方式。更多细节解释请关注 Dan Abramov 的[文章](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)。
 
 ![](https://cdn-images-1.medium.com/max/800/1*R-6nKbTqru_qsdg8O7PJJg.png)
 
-The view layer.
-
-Let’s build the **App** component, consisting of the **ArticleFormContainer** and **ArticleListContainer.**
+让我们使用 **ArticleFormContainer** 和 **ArticleListContainer** 开始构建 **App** 组件。
 
 ```
 // @flow
@@ -459,11 +447,13 @@ class App extends Component<Props> {
 export default App;
 ```
 
-Now let’s create the **ArticleFormContainer.** React, Angular, it does not matter, forms are complicated.
+接下来，我们来创建 **ArticleFormContainer**。React 或者 Angular 都不重要，表单有些复杂。
 
-> Check out the [Ramda](http://ramdajs.com) library and how it’s methods enhance the declarative nature of our code.
+> 查看 [Ramda](http://ramdajs.com) 库以及如何增强我们代码的声明性质的方法。
 
-The form takes user input and passes it to the **articleService**. The service creates an **Article** from that input and adds it to the **ArticleStore** for interested components to consume it. All this logic resides primarily in the **submitForm** method.
+表单接受用户输入并将其传递给 **articleService** 处理。此服务根据该输入创建一个 **Article**，并将其添加到 **ArticleStore** 中以供 interested 组件使用它。所有这些逻辑都存储在 **submitForm** 方法中。
+
+『ArticleFormContainer.js』
 
 ```
 // @flow
@@ -582,9 +572,9 @@ export class ArticleFormContainer extends Component<Props, FormData> {
 }
 ```
 
-ArticleFormContainer.js
+这里注意 **ArticleFormContainer**，`presentational component`，返回用户看到的真实表单。该组件显示容器传递的数据，并抛出 **changeArticleTitle**、 **changeArticleAuthor** 和 **submitForm** 的方法。
 
-Notice that the **ArticleFormContainer** returns the actual form which the user sees, the presentational **ArticleFormComponent**. This component displays the data passed by the container and emits events like **changeArticleTitle**, **changeArticleAuthor**, and **submitForm**.
+『[ArticleFormComponent.js](https://gist.github.com/intojs/4a41a3817de53c9c8767d11d96d61d79)』
 
 ```
 // @flow
@@ -652,9 +642,9 @@ export const ArticleFormComponent = (props: Props) => {
 };
 ```
 
-[ArticleFormComponent.js](https://gist.github.com/intojs/4a41a3817de53c9c8767d11d96d61d79)
+现在我们有了创建文章的表单，下面就陈列他们吧。**ArticleListContainer** 订阅了 **ArticleStore**，获取所有的文章并展示在 **ArticleListComponent** 中。
 
-Now that we have a form to create articles, it’s time to list them. **ArticleListContainer** subscribes to the **ArticleStore**, gets all the articles and displays the **ArticleListComponent**.
+『ArticleListContainer.js』
 
 ```
 // @flow
@@ -696,9 +686,9 @@ export class ArticleListContainer extends React.Component<Props, State> {
 }
 ```
 
-ArticleListContainer.js
+**ArticleListComponent** 是一个 `presentational component`，他通过 `props` 接收文章，并展示组件 **ArticleContainer**。
 
-The **ArticleListComponent** is a presentational component. It receives the articles through props and renders **ArticleContainer** components.
+『ArticleListComponent.js』
 
 ```
 // @flow
@@ -728,13 +718,13 @@ export const ArticleListComponent = (props: Props) => {
 };
 ```
 
-ArticleListComponent.js
+**ArticleContainer** 传递文章数据到表现层的 **ArticleComponent**，同时实现 **likeArticle** 和 **removeArticle** 这两个方法。
 
-The **ArticleContainer** passes the article data to the presentational **ArticleComponent**. It also implements the **likeArticle** and **removeArticle** methods.
+**likeArticle** 方法负责更新文章的收藏数，通过将现存的文章替换成更新后的副本。
 
-The **likeArticle** method updates the number of likes, by replacing the existing article inside the store with an updated copy.
+**removeArticle** 方法负责从 `store` 中删除制定文章。
 
-The **removeArticle** method deletes the article from the store.
+『ArticleContainer.js』
 
 ```
 // @flow
@@ -785,13 +775,13 @@ export class ArticleContainer extends Component<Props> {
 }
 ```
 
-ArticleContainer.js
+**ArticleContainer** 负责将文章的数据传递给负责展示的 **ArticleComponent**，同时负责当 「收藏」或「删除」按钮被点击时在响应的回调中通知 `container component`。
 
-The **ArticleContainer** passes the article data to the **ArticleComponent** which displays it. It also informs the container component when the like or delete buttons are clicked, by executing the appropriate callbacks.
+> 还记得那个作者名要大写的无厘头需求吗？
 
-> Remember the crazy request that the author name should be uppercase?
+**ArticleComponent** 在应用程序层调用 **ArticleUiService**，将一个状态从其原始值（没有大写规律的字符串）转换成一个所需的大写字符串。
 
-The **ArticleComponent** uses the **ArticleUiService** from the application layer to project a piece of state from its original value (string with no rule for uppercase) to the desired one, uppercase string.
+『ArticleComponent.js』
 
 ```
 // @flow
@@ -835,21 +825,19 @@ export const ArticleComponent = (props: Props) => {
 };
 ```
 
-ArticleComponent.js
+### 干得漂亮！
 
-### Good work!
+我们现在有一个功能完备的 React 应用程序和一个鲁棒的、定义清晰的架构。任何新晋成员都可以通过阅读这篇文章学会如何顺利的进展我们的工作。:)
 
-We now have a fully functional React app and a robust, clear defined architecture. Anyone who joins our team can read this article and feel comfortable to continue our work. :)
+你可以在[这里](https://intojs.github.io/architecting-single-page-applications/)查看我们最终实现的应用程序，同时奉上 [GitHub 仓库地址](https://github.com/intojs/architecting-single-page-applications)。
 
-You can check out the finished app [here](https://intojs.github.io/architecting-single-page-applications/) and the GitHub repository [here](https://github.com/intojs/architecting-single-page-applications).
+如果你喜欢这份指南，请为它点赞。
 
-If you liked this guide, please clap for it. If you want to help me improve it, I am interested in your comment. [@danielDughy](http://twitter.com/danielDughy "Twitter profile for @danielDughy")
-
-[1] [https://en.wikipedia.org/wiki/Flip_book](https://en.wikipedia.org/wiki/Flip_book)
-[2] [https://reactjs.org](https://reactjs.org/)
-[3] [https://angular.io](https://angular.io/)
-[4][https://reactjs.org/docs/optimizing-performance.html](https://reactjs.org/docs/optimizing-performance.html)
-[5] [https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze)
+- [1] [https://en.wikipedia.org/wiki/Flip_book](https://en.wikipedia.org/wiki/Flip_book)
+- [2] [https://reactjs.org](https://reactjs.org/)
+- [3] [https://angular.io](https://angular.io/)
+- [4] [https://reactjs.org/docs/optimizing-performance.html](https://reactjs.org/docs/optimizing-performance.html)
+- [5] [https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze)
 
 
 ---
