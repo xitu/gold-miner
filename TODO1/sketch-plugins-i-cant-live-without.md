@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/sketch-plugins-i-cant-live-without.md](https://github.com/xitu/gold-miner/blob/master/TODO1/sketch-plugins-i-cant-live-without.md)
 > * 译者：[allenlongbaobao](https://github.com:allenlongbaobao)
-> * 校对者：
+> * 校对者：[rydensun](https://github.com:rydensun)、[ALVINYEH](https://github.com:ALVINYEH)
 
 # 细数那些我离不开的 Sketch 插件
 
