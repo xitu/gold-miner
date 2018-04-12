@@ -3,9 +3,9 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/developing-games-with-react-redux-and-svg-part-2.md](https://github.com/xitu/gold-miner/blob/master/TODO1/developing-games-with-react-redux-and-svg-part-2.md)
 > * 译者：[zephyrJS](https://github.com/zephyrJS)
-> * 校对者：
+> * 校对者：[anxsec](https://github.com/anxsec)、[smileShirely](https://github.com/smileShirely)
 
-**TL;DR:** 在这个系列里，您将学会用 React 和 Redux 来控制一些 SVG 元素来创建一个游戏。通过本系列的学习，您不仅能创建游戏，还能用 React 和 Redux 来开发其他类型的动画。您可以在这个 GitHub 仓库: [Aliens Go Home - Part 2](https://github.com/auth0-blog/aliens-go-home-part-2) 下找到最终的开发代码。
+**TL;DR:** 在这个系列里，您将学会用 React 和 Redux 来控制一些 SVG 元素来创建一个游戏。通过本系列的学习，您不仅能创建游戏，还能用 React 和 Redux 来开发其他类型的动画。源码请参考 GitHub 仓库：[Aliens Go Home - Part 2](https://github.com/auth0-blog/aliens-go-home-part-2) 。
 
 * * *
 
@@ -19,11 +19,11 @@
 
 ## 前文概要 Part 1
 
-在 [本系列的第一部分](https://auth0.com/blog/developing-games-with-react-redux-and-svg-part-1/)，您使用 [`create-react-app`](https://github.com/facebookincubator/create-react-app) 来开始您的 React 应用并安装和配置了 Redux 来管理游戏的状态。之后，您用学会了如何将 SVG 和 React 组合在一起来创建诸如 `Sky`、`Ground`、`CannonBase` 和 `CannonPipe` 等游戏元素。最后，为了给炮台添加瞄准功能，您使用了一个事件监听器和 [JavaScript interval](https://www.w3schools.com/jsref/met_win_setinterval.asp) 触发 Redux _action_ 来更新 `CannonPipe` 的角度。
+在 [本系列的第一部分](https://auth0.com/blog/developing-games-with-react-redux-and-svg-part-1/)，您使用 [`create-react-app`](https://github.com/facebookincubator/create-react-app) 来开始您的 React 应用并安装和配置了 Redux 来管理游戏的状态。之后，您学会了如何将 SVG 和 React 组合在一起来创建诸如 `Sky`、`Ground`、`CannonBase` 和 `CannonPipe` 等游戏元素。最后，为了给炮台添加瞄准功能，您使用了一个事件监听器和 [JavaScript interval](https://www.w3schools.com/jsref/met_win_setinterval.asp) 触发 Redux _action_ 来更新 `CannonPipe` 的角度。
 
-这些操作为理解如何使用 React、Redux 和 SVG 来创建游戏（或动画）铺平了道路。
+前面的这些学习是为了更好地理解如何使用 React、Redux 和 SVG 来创建游戏（或动画）而做准备。
 
-> **注意：** 不管出于什么原因，如果您没有 [本系列第一部分](https://auth0.com/blog/developing-games-with-react-redux-and-svg-part-1/) 的源码，您只需要从 [这个 GitHub 仓库](https://github.com/auth0-blog/aliens-go-home-part-1) 克隆它即可。克隆完之后，您只需要按照下面几节中的说明进行操作即可。
+> **注意：**不管出于什么原因，如果您没有 [本系列第一部分](https://auth0.com/blog/developing-games-with-react-redux-and-svg-part-1/) 的源码，您可以很容易的从 [这个 GitHub 仓库](https://github.com/auth0-blog/aliens-go-home-part-1) 进行克隆。在克隆完之后，您只需要按照下面几节中的说明进行操作即可。
 
 ## 创建更多的 React 组件
 
@@ -68,9 +68,9 @@ CannonBall.propTypes = {
 export default CannonBall;
 ```
 
-如您所见，要使炮弹出现在画布中，您必须向它传递一个包含 `x` 和 `y` 属性的对象。如果您对 `prop-types` 还不熟，这可能是您第一次使用 `PropTypes.shape`。辛运的是，这个特性不言自明。
+如您所见，要使炮弹出现在画布中，您必须向它传递一个包含 `x` 和 `y` 属性的对象。如果您对 `prop-types` 还不熟，这可能是您第一次使用 `PropTypes.shape`。幸运的是，这个特性不言自明。
 
-创建此组件后，您可能希望在画布上看到它。为此，在 `Canvas` 组件里 `svg` 中添加如下代码（当然您还需要加上 `import CannonBall from './CannonBall';`）：
+创建此组件后，您可能希望在画布上看到它。为此，在 `Canvas` 组件里的 `svg` 元素中添加如下代码（当然您还需要加上 `import CannonBall from './CannonBall';`）：
 
 ```
 <CannonBall position={{x: 0, y: -100}}/>
@@ -78,13 +78,13 @@ export default CannonBall;
 
 请记住，如果把它放在同一位置的元素之前，您将看不到它。因此，为了安全起见，将把它放在最后（就是 `<CannonBase />` 之后）。之后，您就可以在浏览器里看到您的新组件了。
 
-> 如果您忘记了怎么操作的，您只需在项目根目录运行 `npm start` 然后在浏览器打开 [http://localhost:3000](http://localhost:3000) 。此外，**千万别** 忘记在进行下一步之前把代码提交到您的仓库里。
+> 如果您忘记了怎么操作的，您只需在项目根目录运行 `npm start` 然后在浏览器打开 [http://localhost:3000](http://localhost:3000) 。此外，**千万别**忘记在进行下一步之前把代码提交到您的仓库里。
 
 ### 创建 Current Score 组件
 
-接下来您将创建另一个组件 `CurrentScore`。顾名思义，您将使用该组件向用户显示他们当前的分数。也就是说，每当他们消灭一只飞碟时，这个组件的分数会加一，并显示给他们。
+接下来您将创建另一个组件 `CurrentScore`。顾名思义，您将使用该组件向用户显示他们当前的分数。也就是说，每当他们消灭一只飞碟时，在这个组件中代表分数的值将会加一，并显示给他们。
 
-在创建此组件之前，您可能需要添加并使用一些漂亮字体。实际上，您可能希望在整个游戏中配置和使用字体，这样看起来就不会像一个单调的游戏了。您可以从任何地方浏览和选择一种字体，但如果您不感兴趣，您只需在 `./src/index.css` 文件的顶部添加如下代码即可：
+在创建此组件之前，您可能需要添加并使用一些漂亮字体。实际上，您可能希望在整个游戏中配置和使用字体，这样看起来就不会像一个单调的游戏了。您可以从任何地方浏览并选择一种字体，但如果您想不花时间在这个上面，您只需在 `./src/index.css` 文件的顶部添加如下代码即可：
 
 ```JavaScript
 @import url('https://fonts.googleapis.com/css?family=Joti+One');
@@ -92,7 +92,7 @@ export default CannonBall;
 /* other rules ... */
 ```
 
-这将是您的游戏载入 [来自 Google 的 Joti One 字体](https://fonts.google.com/specimen/Joti+One)。
+这将使您的游戏载入 [来自 Google 的 Joti One 字体](https://fonts.google.com/specimen/Joti+One)。
 
 之后，您可以在 `./src/components` 目录下创建 `CurrentScore.jsx` 文件并添加如下代码：
 
@@ -123,11 +123,11 @@ CurrentScore.propTypes = {
 export default CurrentScore;
 ```
 
-> **注意：** 如果您尚未配置 Joti One（或者配置了其他字体），您将需要修改相应的代码。此外，您将创建的其他组件叶铿用到该字体，因此请记住，您可能也要更新这些组件。
+> **注意：**如果您尚未配置 Joti One（或者配置了其他字体），您将需要修改相应的代码。如果您以后创建的其他组件也会用到该字体，请记住，您也需要更新这些组件。
 
 如您所见，`CurrentScore` 组件仅需要一个属性：`score`。由于您的游戏还没有计算分数，为了马上看到这个组件，您需要传入一个硬编码的值。因此，在 `Canvas` 组件里，往 `svg` 中末尾添加 `<CurrentScore score={15} />`。另外，还需要添加 `import` 语句来获取这个组件（`import CurrentScore from './CurrentScore';`）。
 
-如果您想现在就看到新组建，您 **将无法** 如愿以偿。这是因为组件使用了叫做 `shadow` 的 `filter`。尽管它不是必须的，但它将使您的游戏更加好看。另外，[给 SVG 元素添加阴影是十分简单的](https://www.w3schools.com/graphics/svg_feoffset.asp)。为此，仅需要在 `svg` 顶部添加如下代码：
+如果您想现在就看到新组件，您**将无法**如愿以偿。这是因为组件使用了叫做 `shadow` 的 `filter`。尽管它不是必须的，但它将使您的游戏更加好看。另外，[给 SVG 元素添加阴影是十分简单的](https://www.w3schools.com/graphics/svg_feoffset.asp)。为此，仅需要在 `svg` 顶部添加如下代码：
 
 ```JavaScript
 <defs>
@@ -189,7 +189,7 @@ export default Canvas;
 
 ### 创建 Flying Object 组件
 
-现在如何创建 React 组件来展示飞碟呢？飞碟既不是圆形，也不是矩形。它们通常有两个部分 (顶部和底部)，这些部分一般是圆形的。这就是为什么要使用两个 React 组件来创建飞碟的原因：`FlyingObjectBase` 和 `FlyingObjectTop`.
+现在如何创建 React 组件来展示飞碟呢？飞碟既不是圆形，也不是矩形。它们通常有两个部分 (顶部和底部)，这些部分一般是圆形的。这就是为什么您将需要用 `FlyingObjectBase` 和 `FlyingObjectTop` 这个组件来创建飞碟的原因。
 
 其中一个组件将使用贝塞尔三次曲线来定义其形状。另一个则是一个椭圆。
 
@@ -226,7 +226,7 @@ FlyingObjectBase.propTypes = {
 export default FlyingObjectBase;
 ```
 
-之后，您可以定义飞碟的上半部。为此，在 `./src/components` 目录下创建 `FlyingObjectTop.jsx` 文件并添加如下代码：
+之后，您可以定义飞碟的顶部。为此，在 `./src/components` 目录下创建 `FlyingObjectTop.jsx` 文件并添加如下代码：
 
 ```JavaScript
 import React from 'react';
@@ -280,9 +280,9 @@ FlyingObjectTop.propTypes = {
 export default FlyingObjectTop;
 ```
 
-如果您还不知道贝塞尔三次曲线的内部原理，[您可以查看上一篇文章](https://auth0.com/blog/developing-games-with-react-redux-and-svg-part-1/) 来学习。
+如果您还不知道贝塞尔三次曲线的核心工作原理，[您可以查看上一篇文章](https://auth0.com/blog/developing-games-with-react-redux-and-svg-part-1/) 来学习。
 
-这已经足够用来显示飞碟了，但为了把它们作为一个这题随机出现在您的游戏中。为此，需在另外两个文件旁边创建一个名为 `FlyingObject.jsx` 的新文件，并添加如下代码：
+但为了让它们在游戏中能够随机的出现，我们很容易的能够想到将这些组件作为一个个单独的元素。为此，需在另外两个文件旁边创建一个名为 `FlyingObject.jsx` 的新文件，并添加如下代码：
 
 ```JavaScript
 import React from 'react';
@@ -331,7 +331,7 @@ const Canvas = (props) => {
 
 ### 创建 Heart 组件
 
-接下来您需要创建展示玩家生命的组件。没有什么比 `Heart` 更能代替一个人的生命了。所以，在 `./src/components` 目录下创建 `Heart.jsx` 文件并添加如下代码：
+接下来您需要创建显示玩家生命值的组件，没有什么词是比用 `Heart` 更能代表生命了。所以，在 `./src/components` 目录下创建 `Heart.jsx` 文件并添加如下代码：
 
 ```JavaScript
 import React from 'react';
@@ -407,7 +407,7 @@ Heart.propTypes = {
 export default Heart;
 ```
 
-如您所见，要想用 SVG 创建心形，您需要两条三次 Bezier 曲线：爱心的两边各一条。您还须向该组件添加一个 `Position` 属性。这是因为游戏会给玩家提供几条命，所以这些爱心需要显示在不同的位置。
+如您所见，要想用 SVG 创建心形，您需要两条三次 Bezier 曲线：爱心的两边各一条。您还须向该组件添加一个 `position` 属性。这是因为游戏会给玩家提供不只一条生命，所以这些爱心需要显示在不同的位置。
 
 现在，您可以先将一颗心添加到画布中，这样您就可以确认一切工作正常。为此，打开 `Canvas` 组件并添加如下代码：
 
@@ -417,7 +417,7 @@ export default Heart;
 
 这必须是 `svg` 里最后一个元素。另外，别忘了添加 import 语句（`import Heart from './Heart';`）。
 
-### 创建 Start Game 组件
+### 创建 Start Game 按钮组件
 
 每个游戏都需要一个开始按钮。因此，为了创建它，在其他组件旁创建 `StartGame.jsx` 并添加如下代码：
 
@@ -470,7 +470,7 @@ StartGame.propTypes = {
 export default StartGame;
 ```
 
-由于一次不需要显示多个 `StartGame` 按钮，您需要为该组件在游戏里设置固定的位置（`x: 0` and `y: -150`）。该组件与您之前定义的其他组件之间还有另外两个不同之处：
+由于不需要同时显示多个 `StartGame` 按钮，您需要为该组件在游戏里设置固定的位置（`x: 0` and `y: -150`）。该组件与您之前定义的其他组件之间还有另外两个不同之处：
 
 *   首先，这个组件需要一个名为 `onClick` 的函数。这个函数是用来监听按钮点击事件，并将触发一个 Redux action 来使您的应用开始一个新的游戏。
 *   其次，这个组件正在使用一个您还没有定义的常量 `gameWidth`。这个常数将表示可用的区域。除了您的应用所占据的位置之外，其他区域都将不可用。
@@ -568,9 +568,9 @@ const Title = () => {
 export default Title;
 ```
 
-为了使标题弯曲，您使用了 `path` 和 `textPath` 元素与三次贝塞尔曲线的组合。此外，您还使用了固定的坐标位置，就像 `StartGame` 按钮组件那样。
+为了使标题弯曲显示，您使用了 `path` 和 `textPath` 元素与三次贝塞尔曲线的组合。此外，您还使用了固定的坐标位置，就像 `StartGame` 按钮组件那样。
 
-现在，要将该组件添加到画布中，只需将 `<title/>` 组件添加到 `svg` 元素中，并在 `Canvas.jsx` 文件的顶部添加 import 语句即可（`import Title from './Title';`）。但是，如果您现在运行您的应用程序，您将发现您的新组件没有出现在屏幕上。这是因为您的应用程序还没有显示足够的垂直空间。
+现在，要将该组件添加到画布中，只需将 `<title/>` 组件添加到 `svg` 元素中，并在 `Canvas.jsx` 文件的顶部添加 import 语句即可（`import Title from './Title';`）。但是，如果您现在运行您的应用程序，您将发现您的新组件没有出现在屏幕上。这是因为您的应用程序还没有足够的垂直空间用于显示。
 
 ## 让您的 React Game游戏自适应
 
@@ -585,7 +585,7 @@ window.onresize = () => {
 window.onresize();
 ```
 
-这将使您应用的大小和用户看到的窗口大小保持一致。即使他们改变了窗口大小也没关系。当应用程序第一次出现时，它还将强制执行 `window.onresize` 函数。
+这将使您应用的大小和用户看到的窗口大小保持一致，即使他们改变了窗口大小也没关系。当应用程序第一次出现时，它还将强制执行 `window.onresize` 函数。
 
 其次，您需要更改画布的 `viewBox` 属性。现在，不需要再 Y 轴上定义最高点：`100 - window.innerHeight`（如果您不记得为什么要使用这个公式，[请看一下本系列的第一部分](https://auth0.com/blog/developing-games-with-react-redux-and-svg-part-1/)）并且 `viewBox` 高度等于 `window` 对象上 `innerHeight` 的值，下列使您将用到的代码：
 
@@ -600,7 +600,7 @@ const viewBox = [window.innerWidth / -2, 100 - gameHeight, window.innerWidth, ga
 
 ## 让用户开始游戏
 
-有了这些新的组件和尺寸之后，您可以开始考虑让您的用户能够开始游戏了。也就是说，您可以重构您的游戏， 是用户每当点击 **Start Game** 便切换到启动状态。这将导致游戏一连串的状态变化。但是，为了更容易理解，您可以先从当用户点击按钮时删除 `Title` 和 `StartGame` 组件开始。
+当把这些新组件按的尺寸放在对应的位置以后，您就可以开始考虑怎么让用户开始玩游戏了。无论何时，当用户点了 Start Game 这个按钮，您就需要能游戏切换到开始状态，这将导致游戏一连串的状态变化。为了更便于用户操作，当用户点击了这个按钮的时候，您就可以开始将 `Title` 和 `StartGame` 这两个组件从当前的屏幕上移除。
 
 为此，您将需要创建一个新的 Redux action，它将传入到 Redux reducer 中来改变游戏的状态。为了创建这个新的 action，打开 `./src/actions/index.js` 并添加如下代码（保留之前的代码不变）：
 
@@ -671,7 +671,7 @@ export default (state, initialGameState) => {
 
 如您所见，这个新文件中的代码非常简单。它只是返回新的 state 对象到 Redux store 中，并将  `started` 设置为 `true` 同时重置 `gameState` 中的所有其他属性。这将使用户再次获得三条命，并将 `kills` 计数器设置为零。
 
-为了实现这个功能，您必须将其传递给您的游戏。您还须将新的 `gameState` 属性传递给它。所以，为了做到这一点，您需要修改 `./src/containers/Game.js` 文件，代码如下所示：
+实现这个函数之后，您必须将其传递给您的游戏。您还须将新的 `gameState` 属性传递给它。所以，为了做到这一点，您需要修改 `./src/containers/Game.js` 文件，代码如下所示：
 
 ```JavaScript
 import { connect } from 'react-redux';
@@ -703,7 +703,7 @@ export default Game;
 总而言之，您在此文件中所做的更改如下：
 
 *   `mapStateToProps`: 现在，`App` 组件关注 `gameState` 属性已经告知了 Redux。
-*   `mapDispatchToProps`: 您也告知了 Redux 需要将 `startGame` 函数 `App` 组件，这样它就可以触发这个新 action。
+*   `mapDispatchToProps`: 您也告知了 Redux 需要将 `startGame` 函数传递给 `App` 组件，这样它就可以触发这个新 action。
 
 这些新的 `App` 属性（`gameState` 和 `startGame`）不会被 `App` 组件直接使用。实际上，使用它们的是 `Canvas` 组件，所以您必须将它们传递给它。因此，打开 `./src/App.js` 文件并按如下方式重构：
 
@@ -887,7 +887,7 @@ export default (state) => {
 第一看上去，可能会觉得这段代码很复杂。然而，情况却恰恰相反。它的工作原理总结如下：
 
 1.  如果游戏没有运行（即 `! state.gameState.started`），这代码返回当前未更改的 state。
-2.  如果游戏正在运行，这个函数依据 `createInterval` 和 `maxFlyingObjects` 常量来决定是否创建新的飞行对象。该逻辑值赋值给 `createNewObject` 常量。
+2.  如果游戏正在运行，这个函数依据 `createInterval` 和 `maxFlyingObjects` 常量来决定是否创建新的飞行对象。这些逻辑构成了 `createNewObject` 常量。
 3.  如果 `createNewObject` 常量的值设置为 `true`，这个函数使用 `Math.floor` 获取 0 到 3 的随机数（`Math.random() * maxFlyingObjects`）来决定新的飞碟将出现在哪。
 4.  有了这些数据，这个函数将创建带有 `position` 属性 `newFlyingObject` 对象。
 5.  最后，该函数返回一个带有新飞行对象的新状态对象，并更新 `lastObjectCreatedAt` 的值。
@@ -1012,7 +1012,7 @@ export default Canvas;
 
 第二种也是首选的方法是使用 CSS 动画。[这种方法的优点是它使用 GPU 对元素进行动画处理](https://www.smashingmagazine.com/2016/12/gpu-animation-doing-it-right/)，从而提高了应用程序的性能。
 
-您可能认为这种方法很难实现，但如您所见，事实却并非如此。最棘手的部分是，您将需要另一个 NPM 包来将  CSS 和 React 结合起来。也就是说，您需要安装 [`styled-components` 包](https://www.styled-components.com/)。
+您可能认为这种方法很难实现，但如您所见，事实却并非如此。最棘手的部分是，您将需要另一个 NPM 包来将  CSS 动画和 React 结合起来。也就是说，您需要安装 [`styled-components` 包](https://www.styled-components.com/)。
 
 > **“通过使用标记模板字面量（JavaScript 最新添加）和 CSS 的强大功能，styled-components 允许您使用原生的 CSS 代码定义您组件的样式。它也删除了 components 和 styles 之间的映射 —— 将组件用作低级样式构造是不容易的！”** —[`styled-components`](https://github.com/styled-components/styled-components)
 
