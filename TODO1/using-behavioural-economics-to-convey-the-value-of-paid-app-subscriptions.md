@@ -73,44 +73,44 @@ Peak 通过将增销点展示在动态的屏幕上来探讨了使其获得订阅
 
 ![](https://cdn-images-1.medium.com/max/800/1*DNVbdKiSAXDj7L3ICVC5KA.png)
 
-Calling out the **authority** of Peak’s collaborations created confidence in the games, successfully connecting with user motivations for downloading the app — i.e. actual brain-training and not ‘just a game’.
+Peak 的合作伙伴的权威性增加了玩家在游戏中的信心，成功地将用户下载应用程序的原因联系起来 —— 即实际的大脑训练，而不“仅仅是个游戏”。
 
-> “_It’s exciting to hear that qualified professionals… have [helped] develop the games… makes it seem like it will work.” — _**Peak User, Female**
+> “_听到了有资历的专业人士……[帮助]开发游戏……让人觉得这个应用会很成功” —— _**一位女性 Peak 用户**
 
 #### **社会规范**
 
 ![](https://cdn-images-1.medium.com/max/800/1*EN4EOj5kR_D0ZHA8vKt9iA.png)
 
-1.  Social norms via leveraging a global community
+1.  经由利用全球社区的社会规范
 
 ![](https://cdn-images-1.medium.com/max/800/0*nD6oH2LaTE8ZOj4G.)
 
-Different reactions to the Freeletics and Peak upsells suggest that social norms messaging via a community of engaged users is likely to resonate more powerfully for apps whose key features relyon large numbers of users, like social fitness or online dating apps.
+Freeletics 和 Peak 对向上销售的采取的不同措施表明，通过一个社区的忠实用户的社会规范信息会引起更多精彩应用的共鸣，这些应用主要的特点都是拥有这庞大的用户群体，比如社会健康或是在线交友应用。
 
-Within Peak, where score comparison with other users is a key feature, the idea of a global community all playing the Pro games generated greater interest. Showing an increasing ticker of current Peak Pro users helped to highlight the app’s popularity and could create a feeling of not wanting to miss out — FOMO!
+在 Peak 这款应用中，其中一个特点是不同用户之间可以比较分数。全球社区的用户都在玩 Pro 游戏的想法会激发他们更大的兴趣。向他人展示当前的 Peak Pro 用户数量正在不断增加，有助于突出该应用程序的受欢迎程度，并且会有一种不想错过的感觉 —— Fomo！
 
-On the other hand, for Freeletics, the idea of a global community base had less relevance as it was not tied to a recognized feature of the Pro version. This was especially the case with those that saw their fitness as a personal journey.
+另一方面，对于 Freeletics来说，全球社区基础地想法没有那么重要，因为它与 Pro 版本的公认特征无关。尤其是那些那些把自己的健康视为个人旅程的人更是如此。
 
-2. Social norms via testimonials
+2. 经由用户评价的社会规范
 
 ![](https://cdn-images-1.medium.com/max/800/0*c2TiHQISVIUkKAvJ.)
 
-We also captured reactions to positive user testimonials at the point of upsell. While social proofing via testimonials may lack integrity _within_ apps, there may be an opportunity to leverage subscription testimonials within the Play Store, which is seen as a more credible and trusted source of user feedback.
+我们同时对活跃用户在增销点上的评价密切关注。尽管通过推荐得到的社会认同在许多应用 _里面_ 缺乏完整性，但是在 Play Store 中有许多可利用订阅推荐的机会，人们认为这是更值得信赖的用户反馈来源。
 
-Both Peak and Freeletics users met these screens with considerable skepticism. People were especially wary when reviews felt a bit too good to be true, e.g. multiple five-star reviews!
+Peak 和 Freeletics 用户都对这些弹窗持相当的怀疑态度。当评论好到不真实的情况，人们会特别谨慎，例如太多的五星评价！
 
-### **Pricing considerations**
+### **定价方面的考虑**
 
-Watching in-the-moment reactions of the different variations showed how quickly users’ attention is drawn to pricing options when landing on the upsell screen. As such, non-price messaging has to work really hard to grab people’s attention:
+观察用户在不同变化下的瞬间反应，可以发现用户在打开增销页面时，对定价的关注程度有多高。因此，非价格相关的信息很难抓住人们的眼球：
 
-*   If pricing options take up too much screen space there’s a risk free users will become overly fixated on cost at the expense of other messaging.
-*   Simple messaging supported by imagery for easy processing of information is most effective, as users will tend to scan past large, dense blocks of text.
+*   如果价格选项占据了太多的屏幕空间，那么会有免费用户过度关注花销而忽略了其他消息的风险。
+*   传递图片对于信息的处理更为有效，因为用户更喜欢去扫描大块、密集的文本块。
 
 ![](https://cdn-images-1.medium.com/max/800/1*9cqf9B3AK8_30-nSDQe02w.png)
 
-When making judgements, we often rely on reference points (or ‘anchors’) to help inform our decision. Our perception of the value of something can vary depending on what we have anchored to, and so we lightly explored the concept of price anchoring with Peak users by comparing the cost of a Peak Pro subscription with the cost of a daily cup of coffee. Positive user feedback suggests that anchoring the cost of a subscription to a relatively cheap, everyday expense in this way can increase value perceptions for free users.
+我们经常依赖一些参考点（或“锚点”）来帮助我们作出决策。我们对于一些新事物的价值的认识会因为选取的参考点不同而异，所以，通过比较 Peak Pro 订阅用户和每天一杯咖啡的成本，我们轻易地找到 Peak 用户的定价心锚。活跃用户反馈，以这种方式将订阅费用锚定到相对便宜的日常费用上，可以提升免费用户的价值观念。
 
-> _“一个月的订阅只需要一杯咖啡的费用…__在手机[屏幕]上，[成本]确实更加低.” — **一位 女性 Peak 用户**
+> _“一个月的订阅只需要一杯咖啡的费用…__在手机[屏幕]上，[成本]确实更加低.” —— **一位 女性 Peak 用户**
 
 #### 关键要点
 
