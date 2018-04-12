@@ -2,130 +2,130 @@
 > * 原文作者：[Dave Ceddia](https://daveceddia.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/love-js-hate-css.md](https://github.com/xitu/gold-miner/blob/master/TODO1/love-js-hate-css.md)
-> * 译者：
-> * 校对者：
+> * 译者：[allenlongbaobao](https://github.com/allenlongbaobao)
+> * 校对者：[Xekin-FE](https://github.com/Xekin-FE)、[L9m](https://github.com/L9m)
 
-# Love JavaScript, but hate CSS?
+# 热爱 JavaScript，但是讨厌 CSS ？
 
-![Love JS, Hate CSS](https://daveceddia.com/images/love-js-hate-css.png)
+![热爱 JS，讨厌 CSS](https://daveceddia.com/images/love-js-hate-css.png)
 
-A reader wrote in to say that he was having great fun with JS and React, but when it came to styling, he was at a loss.
+一个读者留言说他自己写起 JS 和 React 来觉得很有趣，但是当要处理样式的时候，他就很沮丧。
 
-> I love JavaScript but hate CSS. I just don’t have the patience to make something look good.
+> 我热爱 JavaScript 但是我讨厌 CSS，我没有耐心去改变这一现状。
 
-Writing code is fun. Solving problems is fun. That feeling of bliss when you finally get the computer to do what you want? Awesome.
+编程是有趣的，解决问题也是有趣的。当你经历千辛万苦让你的程序正确运行的时候，这种感觉，简直不可思议。
 
-But then: _oh crap, the CSS_. The app works fine but it looks terrible, and nobody will take it seriously because it doesn’t Look Like Apple(TM).
+然而，**哦，糟糕，是 CSS**。你的 App 运行得很好，就是样式有点糟糕，那么没有人会把它当回事，因为它不像 Apple(TM) 看上去那么高大上。
 
-## You’re Not Alone
+## 你不是一个人
 
-First, I want to get this out there: if you like everything about front end development _except CSS_, you are not alone. I have known real actual professional UI developers _with jobs_ that were either rubbish at styling, or could _do_ it but they held their nose and tried to get it over with as quickly as possible.
+首先，我要明确一个事：如果你热爱前端中的其他所有事，**除了 CSS**，那么你并不是另类。我在现实 **工作** 中认识一些专业级别的 UI 开发者，他们要么在样式处理方面很糟糕，要么 **能解决样式问题** 但是讨厌这个过程并且想方设法尽快把这一环节熬过去。
 
-I was in that spot a few years ago. CSS was like a magical black box where I’d type things in and it would, at least 60% of the time, spit out something that looked worse than when I started. I solved most CSS problems with Google and StackOverflow and hoping like crazy that someone had encountered my exact problem before (somehow, they usually had).
+几年前我也曾经历过这样的困境，CSS 就像是一个有魔力的黑盒，每当我往里面输入一些代码，至少三分之二的情况下，它会输出一些比我开始编码前还要糟糕的东西。我通过 Google 和 StackOverflow 来解决大部分的 CSS 难题，并且发疯似地祈祷有人遇到跟我一模一样的难题（从某种意义上来讲，他们的确有过）。
 
-But I’ve since emerged from that dark place, and I can say that CSS (and the process of applying styles to a page) is a learnable skill. Even _design_ is a learnable skill. And for the record, they are different skills.
+当我从那个不堪回首的阴影下走出来后，我可以负责任地说：CSS（以及给页面应用样式这一过程）是一项可习得的技能。甚至 **设计** 也是一项可习得的技能。严格来讲，它们是不同的技能。
 
-## Styling is not Design
+## 样式应用不等同与设计
 
-The process of taking an existing visual design and writing the CSS to transform a hunk of `div`s to match the visual design is called **styling**.
+拿到现成的视觉设计稿，然后通过写 CSS 代码把一大堆 `div` 转化成和设计稿相匹配，这个过程就是所谓的 **样式应用（ styling ）**
 
-The process of taking a blank canvas and coming up with a beautiful looking web site is called **design**.
+拿过来一块空白画布，在上面呈现出一个美观的网页，这个过程是所谓的 **设计（ design ）**
 
-You can be good (even very good) at one of these while simultaneously being very bad at the other.
+可能出现的情况是：你做到了熟练掌握（甚至是精通）这两项中的其中一项，与此同时，另一项则是一窍不通。
 
-To be a front end developer, you need some styling (CSS) skills but not necessarily design skills.
+作为一个前端，你需要掌握一定的样式应用技巧（CSS），但不一定需要掌握设计技巧
 
-## Can you avoid CSS?
+## 我能选择逃避 CSS 吗？
 
-I wish I could tell you that you could forget all about CSS and stay in JS land 100% of the time.
+我也希望我能大声地告诉你：忘掉 CSS 吧，只要 100% 专注于 JS 就可以了。
 
-But in truth, I can’t do that. If you want to do front end development you’ll eventually need to get your hands dirty and learn you some CSS.
+但是真相是：我不能。只要你还想走前端这条路，就不可避免地跟 CSS 打交道，学习一些 CSS。
 
-I can tell you from experience though that CSS sucks a lot less once you understand a little bit about it. It can even be fun! I find it satisfying when I can get a page laid out just right, and know just which parameters to tweak to make it look the way I want.
+经验告诉我，一旦你对 CSS 了解多了一点，它看上去就没那么难，甚至还有点有趣。当我发现我能正确地应用样式到一个页面，并且知道修改哪个参数让它达到我想要的效果，这种感觉，也是很令人满意的。
 
-## What To Do
+## 我该怎么做？
 
-While you can’t avoid CSS entirely, there are a few things that can make styling less sucky.
+既然不能逃避，那么就学一些让 CSS 不怎么难的技巧吧。
 
-### Frameworks
+### 框架
 
-CSS frameworks can help you get projects started quickly, and even make up for a lack of design skills. They are usually available as installable libraries with npm/yarn, or from a CDN. Each one has its own visual style, so you’ll want to weigh the appearance of each when you make a choice. CSS frameworks help you build a nice-looking app without fussing over styles (much).
+CSS 框架能让你快速开发项目，它能很好地弥补设计技巧的不足。通常，它们都可以通过 npm/yarn 来安装，或者通过 CDN 来部署。每种框架都有自己的特色样式，所以你在做选择的时候就要有所权衡。CSS 框架能够帮助你搭建一个美观的应用，其中避免了大量样式布局的困扰（至少没那么多）。
 
-Here are some popular choices (I’m focusing on ones that work nicely with React):
+以下就是一些流行的框架（我选了一些和 React 兼容的）：
 
-*   [Bootstrap](https://getbootstrap.com/) - Extremely popular (read: lots of questions and answers on SO) and decent looking. The latest version (v4) is more modern looking, but the older ones can look a bit dated these days. You can customize it with some of your own CSS, or use free and [paid themes](https://themes.getbootstrap.com/) to change the look. If you’re using React, have a look at [react-bootstrap](https://react-bootstrap.github.io/getting-started/introduction) for a bunch of pre-made components like modal dialogs, popovers, forms, etc.
+*   [Bootstrap](https://getbootstrap.com/) —— 非常流行（注：在 SO 上有大量的问答），而且外观很正式。最新版本（V4）看上去更加现代化，老版本显得有些过时了。你可以自定义样式，也可以使用免费主题和 [付费主题](https://themes.getbootstrap.com/) 来改变它的外观。如果你正在使用 React，可以通过 [react-bootstrap](https://react-bootstrap.github.io/getting-started/introduction) 来获取大量的预制组件比如现代化控件、弹框、表单等等。
 
-*   [Semantic UI](https://react.semantic-ui.com/introduction) - Another popular CSS framework with React components, it has a few more components available than Bootstrap, and (I think) a more modern look.
+*   [Semantic UI](https://react.semantic-ui.com/introduction) —— 另一个兼容 React 组件的流行 CSS 框架，它的可用组件比 Bootstrap 更多，外观上（我认为）更加的现代化。
 
-*   [Blueprint](http://blueprintjs.com/) - I think Blueprint looks great, and to my eyes, better than Bootstrap or Semantic UI. But I haven’t used it myself. One thing that stands out with Blueprint is that it is written in (and supports) TypeScript. It doesn’t _require_ TypeScript, but if you’re using TS it might be worth a look.
+*   [Blueprint](http://blueprintjs.com/) ——  Blueprint 外观上比 Bootstrap 和 Semantic UI 更棒，至少我这么觉得。但是我自己没有使用过它。Blueprint 脱颖而出的一点是它是用 TypeScript 写的，而且支持 TypeScript 开发。它并不 **依赖** TypeScript，但是如果你在用 TS，那么它值得一试。
 
-There are a _ton_ of CSS frameworks available. Here’s [a list](https://hackernoon.com/the-coolest-react-ui-frameworks-for-your-new-react-app-ad699fffd651) with more that work with React.
+除了以上三种，还有很多好用的 CSS 框架。下面是一些 [列表](https://hackernoon.com/the-coolest-react-ui-frameworks-for-your-new-react-app-ad699fffd651) ，它们都支持 React。
 
-While frameworks might help you avoid touching much CSS at all, these next two things will let you work more easily with CSS directly.
+如果说框架是让你少碰一些 CSS，那么下面两种方法就更加直接地帮助你轻松应对 CSS。
 
-### Flexbox
+### 弹性布局（Flexbox）
 
-Flexbox layout is a modern way to lay out content using CSS, much easier to use than the `float`s of old (or the random stabbing in the dark you were doing 5 minutes ago). It has [good browser support](https://caniuse.com/#search=flexbox) and makes it dead-simple to do some things that have traditionally been a big pain with CSS, like **vertically centering things**.
+弹性布局是一种使用 CSS 来呈现内容的现代化布局方式。相对于之前的 `float` 浮动布局（或者五分钟前的瞎蒙乱撞），它简单很多。它拥有 [很好的浏览器兼容性](https://caniuse.com/#search=flexbox) 并且十分简单地就能解决 CSS 的一些史诗级难题，比如 **垂直居中** 。
 
-Take a look at this:
+看这里：
 
-Look how nicely centered that little red square is! The outer box with the gray border just needs these 3 lines of CSS to make that happen:
+想象一下如何优雅地让红色方块居中！只需要在外部的灰色块中添加三行 CSS 语句就能做到：
 
 ```
 display: flex;           /* turn flexbox on */
-justify-content: center; /* center horizontally */ 
+justify-content: center; /* center horizontally */
 align-items: center;     /* center vertically */
 ```
 
-If you right-click it and Inspect Element, you’ll see that it has more than those 3 lines… but they’re not responsible for centering the red box. That additional stuff gives it the gray border, makes it a square, centers it horizontally within this blog post (`margin: 0 auto`), and the bottom margin gives it some breathing room from the text below.
+如果你在浏览器中右击外部灰色块，然后查看元素，你会发现它里面远远不止三行…… 但是多出来的那些并不负责居中红方块。增加的代码给了它一个灰色边框，让它成为一个矩形块，在文章中水平居中 （ `margin: a auto` ），底部的 margin 给了下面的文字一些空间。
 
-CSS Tricks has a great [Complete Guide to Flexbox](https://css-tricks.com/snippets/css/a-guide-to-flexbox/) if you’re interested in learning more. I suggest checking it out! Flexbox really helped me get a grip on CSS and it’s my go-to tool for solving most layout problems now.
+如果你对弹性布局感兴趣，在 CSS Tricks 有极好的 [弹性布局完整指南](https://css-tricks.com/snippets/css/a-guide-to-flexbox/) ，强力推荐。弹性布局切实帮助我更好地运用 CSS，它也是我现在正在研究解决布局问题的工具。
 
-### CSS Grid
+### CSS 网格布局
 
-Grid is an even more modern way to do layout, and more powerful than flexbox. It can handle 2 dimensions (rows and columns) whereas flexbox is better at doing one direction or the other. Browser support is [pretty good](https://caniuse.com/#feat=css-grid). Accoding to CSS Tricks:
+网格布局是一种更加现代化的布局方式，它比弹性布局更加强大。前者能解决二维（行和列）上的布局，后者更擅长解决单一的行或者列上的布局。它在浏览器兼容上 [表现良好](https://caniuse.com/#feat=css-grid) 。CSS Tricks 上这样说道：
 
-> As of March 2017, most browsers shipped native, unprefixed support for CSS Grid: Chrome (including on Android), Firefox, Safari (including on iOS), and Opera. Internet Explorer 10 and 11 on the other hand support it, but it’s an old implementation with an outdated syntax. The time to build with grid is now!
+> 从 2017 年 3 月起，绝大多数的浏览器在应用网格布局时已无需添加任何前缀，比如：Chrome （包括 Android）、Firefox、Safari（包括 iOS）以及 Opera。IE 10 和 11 也支持它，但是它基于一种过时的语法来实现的。网格布局的时代来临了！
 
-As I write this, I have only barely fiddled around with CSS grid for layout. Being more powerful than flexbox, it’s a bit more complex, and I’ve found flexbox suits my needs well enough most of the time. It’s on my list to learn though!
+在我写这篇文章的时候，我仅仅只在排版上尝试过网格布局。它比弹性布局更强大，也更复杂。我发现绝大部分情况弹性布局已经能很好地满足我的需求。网格布局是我下一步要学习的目标。
 
-You can read CSS Tricks’ [Complete Guide to CSS Grid](https://css-tricks.com/snippets/css/complete-guide-grid/) to learn more.
+有兴趣了解更多地话，可以阅读 CSS Tricks 中的 [网格布局完整指南](https://css-tricks.com/snippets/css/complete-guide-grid/)
 
-### A Logical Approach
+### 更具操作性的方法
 
-This is sort of a bonus meta “strategy” for dealing with CSS. As much as you can, try to avoid the random stabbing in the dark and copying-and-pasting from StackOverflow to get your layouts looking right.
+解决 CSS 问题有大量的有用策略。尽可能避免随机乱猜或者直接从 StackOverflow 上复制粘贴来完成任务。
 
-Try taking a more methodical approach.
+尝试一种更加靠谱的方式吧。
 
-*   get the item into position (flexbox, grid, or maybe absolutely positioned inside a relative container)
-*   set its margins and padding
-*   set the border
-*   set a background color
-*   then [draw the rest of the owl](http://knowyourmeme.com/memes/how-to-draw-an-owl) - add box shadows, set :hover/:active/:focus states, etc.
+*   定位元素（弹性、网格，大不了在相对定位的父元素中绝对定位子元素）
+*   设置元素的 margin 和 padding 的值
+*   设置边框
+*   设置一种背景颜色
+*   然后 [完善细节](http://knowyourmeme.com/memes/how-to-draw-an-owl) —— 增加阴影、设置 :hover/:active/:focus 下的调整样式等等。
 
-![Draw the rest of the owl](https://daveceddia.com/images/draw-an-owl.jpg)
+![完善细节](https://daveceddia.com/images/draw-an-owl.jpg)
 
-In some ways, software engineering principles like [DRY (Don’t Repeat Yourself)](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) and the [Law of Demeter](https://en.wikipedia.org/wiki/Law_of_Demeter) can apply to styling elements on a page. As an example, consider this layout for a user’s message with their avatar:
+总而言之，软件工程中的经典法则比如 [DRY (Don’t Repeat Yourself)](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) 以及 [Law of Demeter](https://en.wikipedia.org/wiki/Law_of_Demeter) 都可以应用到样式布局中来。举个例子，思考一下如何结合头像布局用户信息：
 
-![Layout for a message with user avatar](https://daveceddia.com/images/css-layout-dry-example.png)
+![用户头像信息布局](https://daveceddia.com/images/css-layout-dry-example.png)
 
-Notice that everything is 20 pixels away from the edges of the box. One way to achieve this would be to set the `margin` of both elements in the box to `20px`.
+我们发现每个元素都距离边缘 20 像素，那么一种实现方法就是两个元素都设置 `margin` 值为 `20px`。
 
-But that has some downsides. First off, there’s repetition: what happens if that margin needs to change? Gotta change it in 2 places!
+但是这样做有缺点。首先，重复问题：如果说 margin 值需要改变，那么我们需要在两处修改。
 
-Secondly, shouldn’t it be the box’s “responsibility” to determine how far inset its elements are, rather than leaving it up to each element to decide its own distance from an edge?
+其次，相对于内部元素自己决定与边缘的距离，这难道不应该是外部盒子的职责吗？
 
-A better way to do this layout would be to set the box’s `padding` to `20px`, so then the contents can be blissfully unaware of where they need to be. This also makes it easier to add new elements inside the box too – you don’t need to explicitly tell each element where to place itself.
+一个更好的解决方式是外部盒子设置其 `padding` 值为 `20px`，这样一来，内部元素就不用操心自己的位置了。这样也方便添加新的元素到盒子中 —— 你不用显式声明每个元素的位置
 
-This is a tiny example just to illustrate the point, which is that a bit of forethought and a logical approach can make styling go much more smoothly.
+这仅仅是一个小例子，用来明确一点：思考问题加上有逻辑的方法能够让布局变得简单得多。
 
-## Action Steps!
+## 实践步骤
 
-1.  Find 3 layouts to copy. These could be small elements of sites you use (a single tweet, a Pinterest card, etc) or they could be physical things like a credit card or a book cover.
-2.  Read the [Complete Guide to Flexbox](https://css-tricks.com/snippets/css/a-guide-to-flexbox/).
-3.  Use flexbox to create the layouts you picked in Step 1.
+1.  找到三个布局样式，复制下来。这些可以是你在使用的站点的小组件（单个推文、一个相册卡等等），也可以是现实内容比如信用卡、书籍封面等等。
+2.  阅读 [弹性布局完整手册](https://css-tricks.com/snippets/css/a-guide-to-flexbox/).
+3.  使用弹性布局去实现你在步骤一中挑选的布局。
 
-- [Follow @dceddia](https://twitter.com/intent/follow?screen_name=dceddia)
+- [欢迎在推特上关注我 @dceddia](https://twitter.com/intent/follow?screen_name=dceddia)
 
 
 ---
