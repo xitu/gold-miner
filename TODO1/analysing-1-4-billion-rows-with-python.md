@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/analysing-1-4-billion-rows-with-python.md](https://github.com/xitu/gold-miner/blob/master/TODO1/analysing-1-4-billion-rows-with-python.md)
 > * 译者：[Ryden Sun](https://github.com/rydensun)
-> * 校对者：
+> * 校对者：[luochen1992](https://github.com/luochen1992) [allen](https://github.com/allenlongbaobao)
 
 # 使用 python 分析 14 亿条数据
 
@@ -23,7 +23,7 @@
 
 ![](https://cdn-images-1.medium.com/max/600/1*GTuX_3Xo3bxvtf_GgJTwpA.jpeg)
 
-1-gram 的数据集在硬盘上可以展开成为 27 Gb 的数据，这在读入 python 时是一个很大的数据量级。Python可以轻易地一次性的处理千兆的数据，但是当数据是损坏的和已加工的，速度就会变慢而且内存效率也会变低。
+1-gram 的数据集在硬盘上可以展开成为 27 Gb 的数据，这在读入 python 时是一个很大的数据量级。Python可以轻易地一次性地处理千兆的数据，但是当数据是损坏的和已加工的，速度就会变慢而且内存效率也会变低。
 
 总的来说，这 14 亿条数据（1,430,727,243）分散在 38 个源文件中，一共有 2 千 4 百万个（24,359,460）单词（和词性标注，见下方），计算自 1505 年至 2008 年。
 
@@ -190,13 +190,13 @@ for _, year, count in one_grams[word_rows]:
 
 谷歌生成图片在 1 秒钟左右，相较于这个脚本的 8 分钟，这也是合理的。谷歌的单词计算的后台会从明显的准备好的数据集视图中产生作用。
 
-举个例子，提前计算好前一年的单词使用总量并且把它存在一个单独的查找表会显著的节省时间。同样的，将单词使用量保存在单独的数据库/文件中，然后简历第一列的索引，会消减掉几乎所有的处理时间。
+举个例子，提前计算好前一年的单词使用总量并且把它存在一个单独的查找表会显著的节省时间。同样的，将单词使用量保存在单独的数据库/文件中，然后建立第一列的索引，会消减掉几乎所有的处理时间。
 
 这次探索 _确实_ 展示了，使用 numpy 和 初出茅庐的 pytubes 以及标准的商用硬件和 Python，在合理的时间内从十亿行数据的数据集中加载，处理和提取任意的统计信息是可行的，
 
 ### 语言战争
 
-为了用一个稍微更复杂的例子来证明这个概念，我决定比较一下三个相关提及的变成语言：**Python，Pascal,** 和 **Perl.**
+为了用一个稍微更复杂的例子来证明这个概念，我决定比较一下三个相关提及的编程语言：**Python，Pascal,** 和 **Perl.**
 
 源数据比较嘈杂（它包含了所有使用过的英文单词，不仅仅是编程语言的提及，并且，比如，python 也有非技术方面的含义！），为了这方面的调整， 我们做了两个事情：
 
@@ -217,11 +217,11 @@ for _, year, count in one_grams[word_rows]:
 
 #### 以后的 PyTubes 提升
 
-在这个阶段，pytubes 只有单独一个整数的概念，它是 64 比特的。这意味着 pytubes 生成的 numpy 数组对所有整数都使用 i8 dtypes。在某些地方（想 ngrams 数据），8 比特的整型就有点过度，并且浪费内存（总的 ndarray 有 38Gb，dtypes 可以轻易的减少其 60%）。 我计划增加一些等级 1，2 和 4 比特的整型支持([https://github.com/stestagg/pytubes/issues/9](https://github.com/stestagg/pytubes/issues/9))
+在这个阶段，pytubes 只有单独一个整数的概念，它是 64 比特的。这意味着 pytubes 生成的 numpy 数组对所有整数都使用 i8 dtypes。在某些地方（像 ngrams 数据），8 比特的整型就有点过度，并且浪费内存（总的 ndarray 有 38Gb，dtypes 可以轻易的减少其 60%）。 我计划增加一些等级 1，2 和 4 比特的整型支持([https://github.com/stestagg/pytubes/issues/9](https://github.com/stestagg/pytubes/issues/9))
 
-更多的过滤逻辑 - Tube.skip_unless() 是一个比较简单的过滤行的方法，但是缺少组合条件（AND/OR/NOT）的能力。这可以在一些用例下更快的减少加载数据的体积。
+更多的过滤逻辑 - Tube.skip_unless() 是一个比较简单的过滤行的方法，但是缺少组合条件（AND/OR/NOT）的能力。这可以在一些用例下更快地减少加载数据的体积。
 
-更好的字符串匹配 - 简单的测试如下：startswith, endswith, contains, 和 is_one_of 可以轻易的添加，来明显地提升加载字符串数据是的有效性。
+更好的字符串匹配 —— 简单的测试如下：startswith, endswith, contains, 和 is_one_of 可以轻易的添加，来明显地提升加载字符串数据是的有效性。
 
 一如既往，非常欢迎大家 [patches](https://github.com/stestagg/pytubes)！
 
