@@ -6,16 +6,20 @@
 > * 校对者：
 
 ## Wallets
-=======
+## 以太坊钱包详解
 
 walletsdefined definedThe word "wallet" is used to describe a few
 different things in Ethereum.
+『钱包』这个词语在以太坊中被用来描述一些不同的事情。
 
 At a high level, a wallet is an application that serves as the primary
 user interface. The wallet controls access to a user’s money, managing
 keys and addresses, tracking the balance, and creating and signing
 transactions. In addition, some Ethereum wallets can also interact with
 contracts, such as tokens.
+从高级的层面讲，钱包就是提供用户界面的一个应用。它掌管着用户的金钱，管理着
+密钥和地址，追踪账户余额以及创建交易和签名。除此之外，一些以太坊钱包还可以
+与智能合约进行交互，例如代币之类的。
 
 More narrowly, from a programmer’s perspective, the word "wallet" refers
 to the system used to store and manage a user’s keys. Every "wallet" has
@@ -24,14 +28,23 @@ wallets are part of a much broader category, that of "browsers," which
 are interfaces to Ethereum-based decentralized applications or "DApps".
 There are no clear lines of distinction between the various categories
 that are conflated under the term "wallet".
+从一个程序员的角度更准确的讲就是，『钱包』这个词语指的就是存储和管理
+密钥和地址的系统。每一个『钱包』都有一个密钥管理组件。而对于有些钱包来
+说，这就是钱包的全部。其他的大部分钱包都是『浏览器』，其实就是基于以太坊
+的去中心化应用的接口。所以这些各式各样的『钱包』之间并没有
+什么明确的界限。
 
 In this section we will look at wallets as containers for private keys,
 and as systems for managing keys.
+接下来让我们先看一看钱包关于密钥管理和私钥容器部分的功能。
 
 ### Wallet Technology Overview
+### 钱包技术总览
 
 In this section we summarize the various technologies used to construct
 user-friendly, secure, and flexible Ethereum wallets.
+在这个部分我们会总结用于构建用户友好、安全以及灵活的以太坊钱包所需要的
+各种技术。
 
 walletscontents of contents ofA common misconception about Ethereum is
 that Ethereum wallets contain ether or tokens. In fact, the wallet
@@ -39,6 +52,11 @@ contains only keys. The ether or other tokens are recorded in the
 Ethereum blockchain. Users control the tokens on the network by signing
 transactions with the keys in their wallets. keychainsIn a sense, an
 Ethereum wallet is a *keychain*.
+关于以太坊有一个最常见的误解就是以太坊钱包包含以太坊和其他代币。而实际上，
+钱包只包含密钥。
+以太坊和其他代币都是被记录在以太坊的区块链中。
+用户通过使用他们钱包中的密钥对钱包签名来控制代币。
+所以从某种意义上讲，以太坊钱包就是一个钥匙链。
 
 > **Tip**
 >
@@ -48,9 +66,17 @@ Ethereum wallet is a *keychain*.
 > transactions with the keys, thereby proving they own the ether. The
 > ether is stored on the blockchain.
 
+> **提示**
+> 
+> 以太坊钱包只包含钥匙，而没有以太坊和代币。每一个用户的钱包都包含密钥。
+> 钱包就是包含公私钥对的钥匙串。
+> 用户使用密钥对交易签名，以此来证明这些以太坊就是属于他们的。
+>  而真正的以太坊则存储在区块链上。
+
 walletstypes ofprimary distinctions types ofprimary distinctions primary
 distinctionsThere are two primary types of wallets, distinguished by
 whether the keys they contain are related to each other or not.
+目前主要有两种类型的钱包，他们的区别就是所包含的密钥之间是否有关系。
 
 JBOK walletsseealso=wallets seealso=walletswalletstypes ofJBOK wallets
 types ofJBOK wallets JBOK walletsnondeterministic walletsseealso=wallets
@@ -58,6 +84,8 @@ seealso=walletsThe first type is a *nondeterministic wallet*, where each
 key is independently generated from a random number. The keys are not
 related to each other. This type of wallet is also known as a JBOK
 wallet from the phrase "Just a Bunch Of Keys."
+第一种类型叫做**非确定性钱包**，它的每一个密钥都是通过一个随机数独立生成的。
+密钥之间相互没有关系。这种钱包也叫做 JBOK 钱包（来自 "Just a Bunch Of Keys"）。
 
 deterministic walletsseealso=wallets seealso=walletsThe second type of
 wallet is a *deterministic wallet*, where all the keys are derived from
@@ -68,15 +96,25 @@ the original seed. key derivation methodsThere are a number of different
 deterministic (HD) walletsseealso=wallets seealso=walletsThe most
 commonly used derivation method uses a tree-like structure and is known
 as a *hierarchical deterministic* or *HD* wallet.
+第二种钱包叫做**确定性钱包**，它所有的密钥都来源于一个单独的叫做**种子**
+的主密钥。在这个钱包中所有的密钥都相互关联，并且任何拥有原始种子的人都可
+以将这些密钥在生成一遍。这种确定性钱包会使用很多不同的密钥衍生方法。
+而其中使用最普遍的则是一种类似树形结构的方法，这样的钱包被称为**分层确定性**或
+者 HD 钱包。
 
 mnemonic code wordsDeterministic wallets are initialized from a seed. To
 make these easier to use, seeds are encoded as English words (or words
 in other languages), also known as *mnemonic code words*.
+分层确定性钱包是通过一个种子来初始化的。
+而为了便于使用，种子会被编码成英语单词（或者其他语言的单词），
+这些单词被称为**助记词**。
 
 The next few sections introduce each of these technologies at a high
 level.
+下面的章节将会在更高级的层面介绍这些技术。
 
 ### Nondeterministic (Random) Wallets
+### 非确定性（随机）钱包
 
 walletstypes ofnondeterministic (random) wallets types
 ofnondeterministic (random) wallets nondeterministic (random) walletsIn
@@ -91,11 +129,24 @@ privacy by associating multiple transactions and addresses with each
 other. A Type-0 nondeterministic wallet is a poor choice of wallet,
 especially if you want to avoid address reuse because it means managing
 many keys, which creates the need for frequent backups.
+在第一个的以太坊钱包（以太坊预售时发布的）中，钱包文件会存储
+一个单独随机生成的私钥。然而这种钱包之后被确定性钱包取代了，因为
+这种钱包无法管理、备份以及导入私钥。但是随机密钥的缺点是，如果你
+生成了很多那么你就要把它们全部拷贝下来。每一个密钥都要备份，否则一旦
+钱包丢失，那些密钥对应的资产也会丢失。进一步讲，以太坊地址的隐私性会
+因为相互之间关联的多笔交易和地址的重复使用而大大降低。
+一个类型-0 的非确定性钱包并不是一个好的选择，
+尤其是当你为了避免地址的重复使用而不得不管理多个密钥并
+不断频繁的备份它们时。
 
 Many Ethereum clients (including go-ethereum or geth) use a *keystore*
 file, which is a JSON-encoded file that contains a single (randomly
 generated) private key, encrypted by a passphrase for extra security.
 The JSON file contents look like this:
+很多以太坊客户端（包括 go-ethereum 和 geth）都会使用一个**钥匙串**文件，
+这是一个 JSON 编码的文件，而且它还包含一个单独的（随机生成的）私钥，
+为了安全性，这个私钥会通过一个密码进行加密。
+这个 JSON 文件就像下面这样：
 
     {
         "address": "001d3f1ef827552ae1114027bd3ecf1f086ba0f9",
@@ -130,9 +181,20 @@ trying to brute-force the passphrase would have to apply 262144 rounds
 of hashing for every attempted passphrase, which slows down the attack
 sufficiently as to make it infeasible for passphrases of sufficient
 complexity and length.
+钥匙串格式使用的是**Key Derivation Function (KDF)**，同时还被成为
+密码拉伸算法，这个算法可以防止暴力破解、字典攻击以及彩虹表攻击。
+简单来说就是私钥并不是直接通过密码简单的进行加密的。相反，这个密码是
+通过不断的重复哈希**拉伸**过的。
+这个哈希函数会重复 262144 轮，这个数字就是钥匙串 JSON 文件中的 crypto.kdfparams.n 这
+个参数指定的。一个攻击者
+试图通过暴力破解的手段来破解密码的话，那么他需要为每一个可能的密码
+执行 262144 轮哈希，这样对于一个足够复杂和长度的密码来说被破解
+几乎是不可能的。
 
 There are a number of software libraries that can read and write the
 keystore format, such as the JavaScript library keythereum:
+这里还有一些软件库可以读取和写入钥匙串的
+格式，例如 JavaScript 的库 keythereum：
 
 <https://github.com/ethereumjs/keythereum>
 
@@ -142,8 +204,13 @@ keystore format, such as the JavaScript library keythereum:
 > than simple tests. They are simply too cumbersome to back up and use.
 > Instead, use an industry-standard–based *HD wallet* with a *mnemonic*
 > seed for backup.
+> **提示**
+> 除了一些简单的测试之外，我们是不推荐使用非确定性钱包的。
+> 我们推荐使用的是拥有**助记词**种子备份功能的
+> 基于工业标准的**HD 钱包**。
 
 ### Deterministic (Seeded) Wallets
+### 确定性钱包（种子）钱包
 
 walletstypes ofdeterministic (seeded) wallets types ofdeterministic
 (seeded) wallets deterministic (seeded) walletsDeterministic, or
@@ -157,8 +224,18 @@ keys, and therefore a single backup, at creation time, is sufficient.
 The seed is also sufficient for a wallet export or import, allowing for
 easy migration of all the user’s keys between different wallet
 implementations.
+确定性或者说『种子』钱包是指那些所有的私钥都是通过一个普通的种子
+使用一个单向哈希函数延伸而来的钱包。
+这个种子是结合一些其他的数据而随机生成的数字，
+例如利用一个索引数字或者『链码』（查看[HD 钱包(BIP-32/BIP-44)](#hd_钱包)
+来衍生出私钥。
+在一个确定性钱包中，一个种子就足够恢复出所有衍生的密钥，
+因此只需要在创建的时候做一次备份就可以了。
+同时，这个种子对于钱包来说也是可以导入导出的，
+可以让所有用户的密钥在各种不同的钱包之间进行简单的迁移。
 
 ### HD Wallets (BIP-32/BIP-44)
+### HD 钱包 (BIP-32/BIP-44)
 
 walletstypes ofhierarchical deterministic (HD) wallets types
 ofhierarchical deterministic (HD) wallets hierarchical deterministic
@@ -172,6 +249,12 @@ structure, such that a parent key can derive a sequence of children
 keys, each of which can derive a sequence of grandchildren keys, and so
 on, to an infinite depth. This tree structure is illustrated in
 [hd\_wallet].
+确定性钱包的开发就是为了可以简单的从一个『种子』衍生出很多个密钥。
+而这种确定性钱包最高级的实现就是由比特币的 BIP-32 标准定义的 HD 钱包。
+HD 钱包包含的密钥来源于一个树形的结构，例如一个父密钥可以衍生出
+一系列子密钥，每一个子密钥又可以衍生出一系列孙子密钥，
+不停的循环往复，没有尽头。
+这个树形结构的示意图如下：
 
 ![HD wallet: a tree of keys generated from a single
 seed](https://raw.githubusercontent.com/ethereumbook/ethereumbook/develop/images/hd_wallet.png)
@@ -183,14 +266,25 @@ used to receive incoming payments and a different branch is used to
 receive change from outgoing payments. Branches of keys can also be used
 in corporate settings, allocating different branches to departments,
 subsidiaries, specific functions, or accounting categories.
+HD 钱包相对于随机的（非确定性的）密钥有两个主要的优势。
+一，树形结构可以表达额外的组织意义，例如当一个子密钥特定的分支
+用来接收转入支付而另一个不同的分支可以接收转出支付的改变。
+密钥的分支也可以在一些共同的设置中被使用，
+例如可以分配不同的分支给部门、子公司、特定的函数或者不同的账单类别。
 
 The second advantage of HD wallets is that users can create a sequence
 of public keys without having access to the corresponding private keys.
 This allows HD wallets to be used on an insecure server or in a
 watch-only or receive-only capacity, where the wallet doesn’t have the
 private keys that can spend the funds.
+第二个优势就是用户可以使用 HD 钱包在不利用相关私钥的
+情况下创建一系列公钥。
+这样 HD 钱包就可以用来做一个安全的服务或者是
+一个仅仅用来观察和接收的服务，而钱包本身却没有私钥，
+所以它也无法花费资金。
 
 ### Seeds and Mnemonic Codes (BIP-39)
+### 种子和助记词 (BIP-39)
 
 walletstechnology ofseeds and mnemonic codes technology ofseeds and
 mnemonic codes seeds and mnemonic codesmnemonic code wordsBitcoin
@@ -203,21 +297,32 @@ import across wallets. This is known as a *mnemonic* and the standard is
 defined by BIP-39. Today, many Ethereum wallets (as well as wallets for
 other cryptocurrencies) use this standard and can import and export
 seeds for backup and recovery using interoperable mnemonics.
+HD 钱包对于管理多个密钥和地址来说是一个很强力的机制。
+如果再结合一个从一系列英语单词（或者其他语言的单词）中创建种子的标准化
+方法的话，那么通过钱包进行抄写、导出和导入都变得更加简单易用。
+这就是大家所熟知的由标准 BIP-39 定义的**助记词**。
+今天，很多以太坊钱包（还有其他的数字货币钱包）都在使用这个标准
+来导入导出种子，并使用共同的助记词来进行备份和恢复。
 
 Let’s look at this from a practical perspective. Which of the following
 seeds is easier to transcribe, record on paper, read without error,
 export, and import into another wallet?
+让我们来从实践的角度看一下。
+下面哪个种子在抄写、纸上记录以及阅读障碍这几个方面更优秀呢？
 
 **A seed for a deterministic wallet, in hex.**
+**一个 16 进制编码的确定性钱包种子**
 
     FCCF1AB3329FD5DA3DA9577511F8F137
 
 **A seed for a deterministic wallet, from a 12-word mnemonic.**
+**一个由 12 个单词组成的助记词的钱包种子**
 
     wolf juice proud gown wool unfair
     wall cliff insect more detail hub
 
 ### Wallet Best Practices
+### 钱包最佳实践
 
 walletsbest practices for best practices forBitcoin improvement
 proposalsMultipurpose HD Wallet Structure (BIP-43) Multipurpose HD
@@ -227,6 +332,11 @@ wallets broadly interoperable, easy to use, secure, and flexible. These
 standards also allow wallets to derive keys for multiple different
 cryptocurrencies, all from a single mnemonic. These common standards
 are:
+随着数字货币钱包技术的逐渐成熟，也慢慢形成了共同的工业标准，
+使得钱包在交互性、易用性、安全性和灵活性等方面大幅度提高。
+这些标准同时也使得钱包可以仅仅从一个单独助记词
+就为各种不同的数字货币衍生出不同的密钥。
+这些共同的标准就是下面这些：
 
 -   Mnemonic code words, based on BIP-39
 
@@ -236,22 +346,42 @@ are:
 
 -   Multicurrency and multiaccount wallets, based on BIP-44
 
+-   基于 BIP-39 的助记词
+
+-   基于 BIP-32 的 HD 钱包
+
+-   基于 BIP-43 的多用途 HD 钱包结构
+
+-   基于 BIP-44 的多货币多账户钱包
+
 These standards may change or may become obsolete by future
 developments, but for now they form a set of interlocking technologies
 that have become the de-facto wallet standard for most cryptocurrencies.
+这些标准或许会改变，也或许会被未来的开发者废弃，
+但是现在它们组成的这一组连锁技术俨然已经成为了
+大多数数字货币的实际上的钱包标准。
 
 The standards have been adopted by a broad range of software and
 hardware wallets, making all these wallets interoperable. A user can
 export a mnemonic generated on one of these wallets and import it in
 another wallet, recovering all transactions, keys, and addresses.
+这些标准已经被大部分的软件和硬件钱包所采用，
+使得这些钱包之间可以相互通用。
+一个用户可以从这些钱包中的任意一个导出助记词，
+然后导入到另一个钱包中，
+并恢复所以的交易、密钥和地址。
 
 Some example of software wallets supporting these standards include
 (listed alphabetically) Jaxx, MetaMask, MyEtherWallet (MEW). hardware
 walletshardware walletssee=also wallets see=also walletsExamples of
 hardware wallets supporting these standards include (listed
 alphabetically) Keepkey, Ledger, and Trezor.
+很多软件钱包都支持这种标准，例如（按字母 排序）
+Jaxx, MetaMask, MyEtherWallet (MEW)。
+硬件钱包则有 Keepkey, Ledger, and Trezor。
 
 The following sections examine each of these technologies in detail.
+下面的章节会详细讲解这些技术。
 
 > **Tip**
 >
@@ -260,7 +390,15 @@ The following sections examine each of these technologies in detail.
 > BIP-32, BIP-39, BIP-43, and BIP-44 standards, as described in the
 > following sections.
 
+> **提示**
+>
+> 如果你要实现一个以太坊钱包，他应该是一个 HD 钱包，
+> 种子会被编码成助记词以供备份，
+> BIP-32、BIP-39、BIP-43、和 BIP-44 这些标准会在下面的
+> 章节中详细说明。
+
 ### Mnemonic Code Words (BIP-39)
+### 助记词 (BIP-39)
 
 walletstechnology ofmnemonic code words technology ofmnemonic code words
 mnemonic code wordsmnemonic code wordsid=mnemonic05 id=mnemonic05bitcoin
@@ -276,6 +414,17 @@ can be used to recover and re-create all the keys in the same or any
 compatible wallet application. Mnemonic words make it easier for users
 to back up wallets because they are easy to read and correctly
 transcribe, as compared to a random sequence of numbers.
+助记词就是代表一个随机数的单词序列，这个助记词会
+作为种子派生出一个确定性钱包。
+这个序列的单词能够再次创建种子、钱包和所有衍生出的密钥。
+一个实现了确定性钱包助记词功能的应用将会向
+在第一次创建钱包的时候向
+用户展示一组长度为 12 到 24 的单词序列。
+这个序列就是钱包的备份，它可以在任何兼容的钱包
+上实现恢复和重建所有的密钥。
+助记词可以让用户更简单的备份钱包，
+因为相比于一组随机数助记词可读性更好，
+抄写的正确率也更高。
 
 > **Tip**
 >
@@ -286,6 +435,15 @@ transcribe, as compared to a random sequence of numbers.
 > important difference makes mnemonic words much more secure, because
 > humans are very poor sources of randomness.
 
+> **提示**
+> 
+> 助记词常常与『大脑钱包』想混淆。
+> 但是它们并不是一回事。而其中最主要的区别在于
+> 大脑钱包是由用户自己选择的单词组成的，
+> 而助记词则是钱包代表用户随机创建的。
+> 这个重要的区别使得助记词更加的安全，
+> 因为人类随机性的来源少的可怜。
+ 
 Mnemonic codes are defined in BIP-39. Note that BIP-39 is one
 implementation of a mnemonic code standard. There is a different
 standard, *with a different set of words*, used by the Electrum bitcoin
@@ -296,18 +454,34 @@ across dozens of interoperable implementations and should be considered
 the de-facto industry standard. Furthermore, BIP-39 can be used to
 produce multicurrency wallets supporting Ethereum, whereas Electrum
 seeds cannot.
+助记词编码是在 BIP-39 中定义的。注意 BIP-39 只是助记词编码的
+一个实现。还有很多不同的标准，比特币钱包 Electrum 就是
+在 BIP-39 之前**使用了一组不同的单词**。BIP-39 这个标准是
+由 Trezor 硬件钱包背后的公司提出来的，而且还兼容 Electrum 的
+实现。然而，BIP-39 现在已经取得了广泛的行业支持，并且
+兼容十几个相互操作的实现，所以 BIP-39 应该就是现在的行业标准。
+而且，BIP-39 可以用来生成支持以太坊的多货币钱包，
+而 Electrum 的种子并不支持。
 
 BIP-39 defines the creation of a mnemonic code and seed, which we
 describe here in nine steps. For clarity, the process is split into two
 parts: steps 1 through 6 are shown in
 [section\_title](#generating_mnemonic_words) and steps 7 through 9 are
 shown in [section\_title](#mnemonic_to_seed).
+BIP-39 定义了助记词编码和种子的生成，也就
+是接下来的九个步骤。为了表达的更清楚，整个过程
+分成了两个部分：第一步到第六步在[生成助记词](#generating_mnemonic_words)，
+第七步到第九步在[助记词到种子](#mnemonic_to_seed)。
 
 #### Generating mnemonic words
+#### 生成助记词
 
 Mnemonic words are generated automatically by the wallet using the
 standardized process defined in BIP-39. The wallet starts from a source
 of entropy, adds a checksum, and then maps the entropy to a word list:
+助记词是钱包使用 BIP-39 中定义的标准化过程自动生成的。
+钱包起始于一个熵的来源，添加一个校验和并
+将熵映射到一个单词数组中。
 
 1.  Create a random sequence (entropy) of 128 to 256 bits.
 
@@ -323,14 +497,30 @@ of entropy, adds a checksum, and then maps the entropy to a word list:
 
 6.  The mnemonic code is the sequence of words.
 
+1.  创建一个 128 位到 256 位的随机序列（熵）
+
+2.  通过取 SHA256 的前（熵长度除以 32）位来创建一个随机序列的校验和。
+
+3.  将校验和添加到随机序列的末尾。
+
+4.  将序列分成几个 11 位的部分。
+
+5.  从预定义的 2048 个单词字典中将每一个 11 位的值映射到一个单词上面。
+
+6.  助记词编码是一系列单词。
+
 [figure\_title](#generating_entropy_and_encoding) shows how entropy is
 used to generate mnemonic words.
+[生成熵并编码成助记词](#generating_entropy_and_encoding)将会展示
+出熵是如何生成助记词的。
 
 ![Generating entropy and encoding as mnemonic
 words](https://raw.githubusercontent.com/ethereumbook/ethereumbook/develop/images/bip39-part1.png)
 
 [table\_title](#table_bip39_entropy) shows the relationship between the
 size of the entropy data and the length of mnemonic codes in words.
+[助记词编码：熵和单词长度](#table_bip39_entropy) 展示出了
+熵数据的大小和单词中助记词长度的关系。
 
 <table>
 <caption>Mnemonic codes: entropy and word length</caption>
@@ -383,12 +573,18 @@ size of the entropy data and the length of mnemonic codes in words.
 </table>
 
 #### From mnemonic to seed
+#### 从助记词到种子
 
 key-stretching functionPBKDF2 functionThe mnemonic words represent
 entropy with a length of 128 to 256 bits. The entropy is then used to
 derive a longer (512-bit) seed through the use of the key-stretching
 function PBKDF2. The seed produced is then used to build a deterministic
 wallet and derive its keys.
+助记词代表着长度为 128 到 256 位的熵。
+这个熵会通过密钥拉伸函数 PBKDF2 生成
+一个更长的（512 位）种子。
+这个种子再构建一个
+确定性钱包并衍生出它的密钥。
 
 saltspassphrasesThe key-stretching function takes two parameters: the
 mnemonic and a *salt*. The purpose of a salt in a key-stretching
@@ -397,9 +593,18 @@ brute-force attack. In the BIP-39 standard, the salt has another
 purpose—it allows the introduction of a passphrase that serves as an
 additional security factor protecting the seed, as we will describe in
 more detail in [section\_title](#mnemonic_passphrase).
+密钥拉伸函数需要两个参数：
+助记词和**盐**。盐的目的是为了
+让暴力破解构建查询表的难度提高。
+在标准 BIP-39 中，盐还有另外一个目的，
+那就是密码介绍可以作为一个
+额外的安全因子来保护种子，
+这部分会在[BIP-39 中的可选密码](#mnemonic_passphrase)中
+详细讲述。
 
 The process described in steps 7 through 9 continues from the process
 described previously in [section\_title](#generating_mnemonic_words):
+第七步到第九步的过程：
 
 The first parameter to the PBKDF2 key-stretching function is the
 mnemonic
@@ -412,7 +617,19 @@ mnemonic
 PBKDF2 stretches the mnemonic and salt parameters using 2048 rounds of
 hashing with the HMAC-SHA512 algorithm, producing a 512-bit value as its
 final output. That 512-bit value is the seed.
+
+7.  密钥拉伸函数 PBKDF2 的第一个参数第六步中生成的助记词。
+
+8.  密钥拉伸函数 PBKDF2 的第二个参数就是**盐**。
+    这个盐由字符串常量 "mnemonic" 和一个额外的用户提供的
+    密码字符串拼接构成。
+
+9.  PBKDF2 使用 HMAC-SHA512 算法进行了 2048 轮哈希运算
+    对助记词和盐进行拉伸，生成一个 512 位的值作为最后的输出。
+    这个 512 位的值就是种子。
+
 [fig\_5\_7] shows how a mnemonic is used to generate a seed.
+[fig\_5\_7] 展示出了一个助记词是如何生成种子的。
 
 ![From mnemonic to seed](https://raw.githubusercontent.com/ethereumbook/ethereumbook/develop/images/bip39-part2.png)
 
@@ -423,6 +640,13 @@ final output. That 512-bit value is the seed.
 > mnemonic or the passphrase. It makes it costly (in computation) to try
 > more than a few thousand passphrase and mnemonic combinations, while
 > the number of possible derived seeds is vast (2<sup>512</sup>).
+> **提示**
+> 密钥拉伸函数以及它的 2048 轮哈希从
+  某种程度上讲对于暴力破解助记词和密码
+  是一个有效的保护。会让其以昂贵的代价（在计算资源上）
+  不停的尝试成千上万种密码和助记词的组合，
+  而这些组合的数量则犹如汪洋大海(2<sup>512</sup>)。
+
 
 Tables \#mnemonic\_128\_no\_pass, \#mnemonic\_128\_w\_pass, and
 \#mnemonic\_256\_no\_pass show some examples of mnemonic codes and the
