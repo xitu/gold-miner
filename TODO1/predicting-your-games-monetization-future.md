@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/predicting-your-games-monetization-future.md](https://github.com/xitu/gold-miner/blob/master/TODO1/predicting-your-games-monetization-future.md)
 > * 译者：[NoName4Me](https://github.com/NoName4Me)
-> * 校对者：
+> * 校对者：[mingxing47](https://github.com/mingxing47)，[hanliuxin5](https://github.com/hanliuxin5)
 
 # 预测你的游戏的货币化未来
 
