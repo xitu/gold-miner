@@ -9,7 +9,7 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/1*WFQmmhJM8HMD0D5Ax4vROw.jpeg)
 
-2014年，Ian Goodfellow 推出了**生成对抗网络（Generative Adversarial Networks）** (GAN)，本文将聚焦于利用 [**Keras**](https://keras.io/) 实现**基于对抗生成网络的图像去模糊模型**所有的 Keras 代码都在 [这里](https://github.com/RaphaelMeudec/deblur-gan).
+2014年，Ian Goodfellow 提出了**生成对抗网络（Generative Adversarial Networks）** (GAN)，本文将聚焦于利用 [**Keras**](https://keras.io/) 实现**基于对抗生成网络的图像去模糊模型**所有的 Keras 代码都在 [这里](https://github.com/RaphaelMeudec/deblur-gan).
 
 查看原文 [scientific publication](https://arxiv.org/pdf/1711.07064.pdf) 以及 [Pytorch 版本实现](https://github.com/KupynOrest/DeblurGAN/).
 
@@ -17,7 +17,7 @@
 
 ### 快速回顾生成对抗网络
 
-在生成对抗网络中，两个网络互相训练。生成模型通过**创造以假乱真的输入**误导判别模型。判别模型则**区分输入是真实的还是人造的**。
+在生成对抗网络中，两个网络互相训练。生成模型通过**创造以假乱真的输入**误导判别模型。判别模型则**区分输入是真实的还是伪造的**。
 
 ![](https://cdn-images-1.medium.com/max/800/1*N4oqJsGmH-KZg3Vqrm_uYw.jpeg)
 
@@ -33,7 +33,7 @@ GAN 训练流程 — [Source](https://www.kdnuggets.com/2017/01/generative-a
 
 串接两个模型网络的原因是不可能直接对生成模型输出进行反馈。**我们衡量（生成模型的输出）的唯一标准是判别模型是否接受生成的样本**
 
-这里简要回顾了 GAN 的结构。如果你不放心，你可以参考这个 [excellent introduction](https://towardsdatascience.com/gan-by-example-using-keras-on-tensorflow-backend-1a6d515a60d0).
+这里简要回顾了 GAN 的结构。如果你觉得不容易理解，你可以参考这个 [excellent introduction](https://towardsdatascience.com/gan-by-example-using-keras-on-tensorflow-backend-1a6d515a60d0).
 
 * * *
 
@@ -41,9 +41,9 @@ GAN 训练流程 — [Source](https://www.kdnuggets.com/2017/01/generative-a
 
 Ian Goodfellow 首先应用 GAN 模型生成 MNIST 数据。在本教程中，我们使用**生成对抗网络进行图像去模糊**。因此，生成模型的输入不是噪声而是模糊的图像。
 
-数据集采用**GOPRO数据集**。您可以下载 [精简版](https://drive.google.com/file/d/1H0PIXvJH4c40pk7ou6nAwoxuR4Qh_Sa2/view?usp=sharing) (9GB) 或 [完整版](https://drive.google.com/file/d/1SlURvdQsokgsoyTosAaELc4zRjQz9T2U/view?usp=sharing) (35GB)。它包含**来自多个街景**的人为模糊图像。数据集在按场景分的子文件夹里。
+数据集采用** GOPRO 数据集**。您可以下载 [精简版](https://drive.google.com/file/d/1H0PIXvJH4c40pk7ou6nAwoxuR4Qh_Sa2/view?usp=sharing) (9GB) 或 [完整版](https://drive.google.com/file/d/1SlURvdQsokgsoyTosAaELc4zRjQz9T2U/view?usp=sharing) (35GB)。它包含**来自多个街景**的人为模糊图像。数据集在按场景分的子文件夹里。
 
-我们先将图片放在文件夹 A（模糊）和 B（清晰）中。这种 A 和 B 的结构对应于原论文[pix2pix article](https://phillipi.github.io/pix2pix/)。我写了一个脚本 [custom script](https://github.com/RaphaelMeudec/deblur-gan/blob/master/organize_gopro_dataset.py) 去执行这个任务，按照 README 使用它。
+我们先将图片放在文件夹 A（模糊）和 B（清晰）中。这种 A 和 B 的结构与原论文 [pix2pix article](https://phillipi.github.io/pix2pix/) 一致。我写了一个 [自定义脚本](https://github.com/RaphaelMeudec/deblur-gan/blob/master/organize_gopro_dataset.py) 去执行这个任务，按照 README 使用它。
 
 * * *
 
@@ -215,7 +215,7 @@ def discriminator_model():
 
 Keras实现判别模型
 
-最后一步是构建完整模型。这个 GAN 的 **特殊性**在于输入是真实图像而不是噪声。因此，我们对生成模型的输出有直接反馈。 
+最后一步是构建完整模型。这个 GAN 的 **特殊性**在于输入是真实图像而不是噪声。因此，我们能获得生成模型输出的直接反馈。 
 
 ```
 from keras.layers import Input
@@ -229,7 +229,7 @@ def generator_containing_discriminator_multiple_outputs(generator, discriminator
     return model
 ```
 
-让我们看看如何用两个损失函数来充分利用这种特殊性。
+让我们看看如何通过使用两个损失函数来充分利用这种特殊性。
 
 * * *
 
@@ -336,7 +336,7 @@ for epoch in range(epoch_num):
 
 #### **一些材料**
 
-我在 Deep Learning AMI (version 3.0) 中使用了 [AWS Instance](https://aws.amazon.com/fr/ec2/instance-types/p2/) (p2.xlarge) 在 [GOPRO dataset](https://drive.google.com/file/d/1H0PIXvJH4c40pk7ou6nAwoxuR4Qh_Sa2/view?usp=sharing) 精简版下，训练时间约为5小时（50 次迭代）。
+我在 Deep Learning AMI (version 3.0) 中使用了 [AWS Instance](https://aws.amazon.com/fr/ec2/instance-types/p2/) (p2.xlarge) 在 [GOPRO 数据集](https://drive.google.com/file/d/1H0PIXvJH4c40pk7ou6nAwoxuR4Qh_Sa2/view?usp=sharing) 精简版下，训练时间约为5小时（50 次迭代）。
 
 #### 图像去模糊结果
 
