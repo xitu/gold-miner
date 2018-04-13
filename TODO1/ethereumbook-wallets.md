@@ -640,17 +640,22 @@ final output. That 512-bit value is the seed.
 > mnemonic or the passphrase. It makes it costly (in computation) to try
 > more than a few thousand passphrase and mnemonic combinations, while
 > the number of possible derived seeds is vast (2<sup>512</sup>).
+
 > **提示**
+>
 > 密钥拉伸函数以及它的 2048 轮哈希从
-  某种程度上讲对于暴力破解助记词和密码
-  是一个有效的保护。会让其以昂贵的代价（在计算资源上）
-  不停的尝试成千上万种密码和助记词的组合，
-  而这些组合的数量则犹如汪洋大海(2<sup>512</sup>)。
+> 某种程度上讲对于暴力破解助记词和密码
+> 是一个有效的保护。会让其以昂贵的代价（在计算资源上）
+> 不停的尝试成千上万种密码和助记词的组合，
+> 而这些组合的数量则犹如汪洋大海(2<sup>512</sup>)。
 
 
 Tables \#mnemonic\_128\_no\_pass, \#mnemonic\_128\_w\_pass, and
 \#mnemonic\_256\_no\_pass show some examples of mnemonic codes and the
 seeds they produce (without any passphrase).
+下面的表格分别展示了 \#mnemonic\_128\_no\_pass、\#mnemonic\_128\_w\_pass 和 
+\#mnemonic\_256\_no\_pass 这几个类型的助记词和他们产生
+的种子（没有密码）的例子。
 
 <table>
 <caption>128-bit entropy mnemonic code, no passphrase, resulting seed</caption>
@@ -731,6 +736,7 @@ seeds they produce (without any passphrase).
 </table>
 
 #### Optional passphrase in BIP-39
+#### BIP-39 中的可选密码
 
 passphrasesThe BIP-39 standard allows the use of an optional passphrase
 in the derivation of the seed. If no passphrase is used, the mnemonic is
@@ -745,13 +751,32 @@ The set of possible wallets is so large (2<sup>512</sup>) that there is
 no practical possibility of brute-forcing or accidentally guessing one
 that is in use, as long as the passphrase has sufficient complexity and
 length.
+BIP-39 标准允许用户在生成种子的时候使用可选的密码。
+如果没有使用密码，那么助记词
+就会被一个由常量字符串 "mnemonic" 组成的盐拉伸，
+然后由给定的助记词产生一个特定的 512 位种子。
+如果使用了密码，则拉伸函数在使用同一个助记词的
+情况下会产生一个**不同的**种子。实际上，给定一个助记词，
+每一个可能的密码都会生成不同的种子。并且基本上
+没有任何『错误』的 密码。所有的密码都是可用的
+并且所有的密码都可以生成不同种子，这些不同的助记词
+会形成一组数量巨大的为初始化的钱包。
+这些可能的钱包数量是如此之大 (2<sup>512</sup>)，以至于
+实际情况中暴力破解和意外猜对的可能性几乎为零，
+只要密码拥有足够的复杂度和长度。
 
 > **Tip**
 >
 > There are no "wrong" passphrases in BIP-39. Every passphrase leads to
 > some wallet, which unless previously used will be empty.
 
+> **提示**
+> 
+> 在标准 BIP-39 中不存在『错误的』密码。每个密码
+> 都会生成一个钱包，如果不是之前使用的密码的话那就是一个新的钱包。
+
 The optional passphrase creates two important features:
+可选的密码会产生两个重要的特性：
 
 -   A second factor (something memorized) that makes a mnemonic useless
     on its own, protecting mnemonic backups from compromise by a thief.
@@ -761,8 +786,15 @@ The optional passphrase creates two important features:
     distract an attacker from the "real" wallet that contains the
     majority of funds.
 
+-   一个需要记忆的第二个因子可以防止
+    助记词的备份被窃取。
+
+-   
+
 However, it is important to note that the use of a passphrase also
 introduces the risk of loss:
+然而，有一个比较重要的就是使用密码会面临
+密码丢失的风险。
 
 -   If the wallet owner is incapacitated or dead and no one else knows
     the passphrase, the seed is useless and all the funds stored in the
@@ -771,19 +803,35 @@ introduces the risk of loss:
 -   Conversely, if the owner backs up the passphrase in the same place
     as the seed, it defeats the purpose of a second factor.
 
+-   如果钱包的主人缺乏行动能力或者去世了，那么就没人知道密码了，
+    也没人知道种子是什么，那么钱包中
+    储存的所有资金就全部丢失了。
+
+-   相反，如果钱包的主人在种子的地方备份了密码，
+    那么它就是第二个因素的目的。
+
 While passphrases are very useful, they should only be used in
 combination with a carefully planned process for backup and recovery,
 considering the possibility of surviving the owner and allowing his or
 her family to recover the cryptocurrency estate.
+虽然密码非常有用，但是也应该结合小心的计划备份
+和恢复的过程来使用，
+因为要考虑到钱包主人生还的可能性并
+可以允许他们的家人来恢复数字货币的资产。
+
 
 #### Working with mnemonic codes
+#### 助记词的工作
 
 BIP-39 is implemented as a library in many different programming
 languages:
+BIP-39 在很多不同的编程语言中
+都有实现的库：
 
 [python-mnemonic](https://github.com/trezor/python-mnemonic)  
 The reference implementation of the standard by the SatoshiLabs team
 that proposed BIP-39, in Python
+
 
 [Consensys/eth-lightwallet](https://github.com/ConsenSys/eth-lightwallet)  
 Lightweight JS Ethereum Wallet for nodes and browser (with BIP-39)
@@ -797,14 +845,21 @@ which is extremely useful for testing and experimentation.
 [figure\_title](#a_bip39_generator_as_a_standalone_web_page) shows a
 standalone web page that generates mnemonics, seeds, and extended
 private keys.
+还有一个在单独的网页中实现的 BIP-39 生成器，
+这个网页在测试和实验中非常有用。
+[BIP-39 生成器](#a_bip39_generator_as_a_standalone_web_page)展示了
+一个可以生成助记词、种子以及拓展的私钥的单独的网页。
 
 ![A BIP-39 generator as a standalone web page](https://raw.githubusercontent.com/ethereumbook/ethereumbook/develop/images/bip39_web.png)
 
 startref=mnemonic05 startref=mnemonic05startref=BIP3905
 startref=BIP3905The page (<https://iancoleman.github.io/bip39/>) can be
 used offline in a browser, or accessed online.
+网页(<https://iancoleman.github.io/bip39/>)可以在
+浏览器中离线使用（在线当然也可以）。
 
 ### Creating an HD Wallet from the Seed
+### 通过种子创建一个 HD 钱包
 
 walletstechnology ofcreating HD wallets from root seed technology
 ofcreating HD wallets from root seed creating HD wallets from root
@@ -812,6 +867,9 @@ seedroot seedshierarchical deterministic (HD) walletsHD wallets are
 created from a single *root seed*, which is a 128-, 256-, or 512-bit
 random number. Most commonly, this seed is generated from a *mnemonic*
 as detailed in the previous section.
+HD 钱包是通过一个**根种子**来创建的，这个根种子
+一般是 128、256 或者 512 位的随机数。
+通常情况下，这个种子是通过一个**助记词**来生成的。
 
 Every key in the HD wallet is deterministically derived from this root
 seed, which makes it possible to re-create the entire HD wallet from
@@ -819,13 +877,23 @@ that seed in any compatible HD wallet. This makes it easy to back up,
 restore, export, and import HD wallets containing thousands or even
 millions of keys by simply transferring only the mnemonic that the root
 seed is derived from.
+HD 钱包中的每一个密钥都是衍生自这个根种子，
+这样就使得通过这个种子在其他兼容性钱包中
+重建整个 HD 钱包成为了可能。同时还使得
+备份、恢复、导出以及导入包含成千上万个密钥的
+钱包变的非常简单，仅仅通过转移从根种子衍生
+出的助记词就可以了。
 
 \[\[bip32\_bip43/44\]\] ==== Hierarchical Deterministic Wallets (BIP-32)
 and paths (BIP-43/44)
+\[\[bip32\_bip43/44\]\] ==== 分层确定性钱包 (BIP-32) 和路径 (BIP-43/44)
 
 Most HD wallets follow the BIP-32 standard, which has become a de-facto
 industry standard for deterministic key generation. You can read the
 detailed specification in:
+大多数 HD 钱包都遵循 BIP-32 标准，同时 BIP-32 也是
+确定密钥生成器的实际上的行业标准。
+详细的说明可以查看下面的链接：
 
 <https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki>
 
@@ -833,12 +901,17 @@ We won’t be discussing the details of BIP-32 here, only the components
 necessary to understand how it is used in wallets. There are dozens of
 interoperable implementations of BIP-32 offered in many software
 libraries:
+在这里我们不会讨论 BIP-32，我们只需要理解钱包中使用它
+的部分就可以了。在其他一些软件库中
+还有很多关于 BIP-32 彼此协作的实现。
 
 [Consensys/eth-lightwallet](https://github.com/ConsenSys/eth-lightwallet)  
 Lightweight JS Ethereum Wallet for nodes and browser (with BIP-32)
 
 There is also a BIP-32 standalone web page generator that is very useful
 for testing and experimentation with BIP-32:
+这里还有一个标准 BIP-32 的网页版的生成器，
+对于测试和实验都非常有用。
 
 <http://bip32.org/>
 
@@ -849,15 +922,28 @@ for testing and experimentation with BIP-32:
 > You should not use the keys produced by this site in production (with
 > real funds).
 
+> **提示**
+> 
+> 这个单独的 BIP-32 生成器不是一个 HTTPS 的站点。
+> 就是为了告诉你使用这个工具不是安全的。只是用来做测试的。
+> 你不应该在生产环境中（真实的资金）使用
+> 这个网页生成的密钥。
+  
+
 #### Extended public and private keys
+#### 拓展公钥和私钥
 
 In BIP-32 terminology, a parent key that can be extended to produce
 "children," is called an *extended key*. If it is a private key, it is
 an *extended private key* distinguished by the prefix *xprv*:
+在 BIP-32 的术语中，一个父密钥可以拓展的生成『儿子』，
+这个儿子就是**拓展密钥**。如果它是一个私钥，那么
+它就是一个**拓展私钥**，并通过前缀 **xprv** 来区分：
 
     xprv9s21ZrQH143K2JF8RafpqtKiTbsbaxEeUaMnNHsm5o6wCW3z8ySyH4UxFVSfZ8n7ESu7fgir8imbZKLYVBxFPND1pniTZ81vKfd45EHKX73
 
 An *extended public key* is distinguished by the prefix *xpub*:
+一个**拓展公钥**通过前缀 **xpub** 来区分：
 
     xpub661MyMwAqRbcEnKbXcCqD2GT1di5zQxVqoHPAgHNe8dv5JP8gWmDproS6kFHJnLZd23tWevhdn4urGJ6b264DfTGKr8zjmYDjyDTi9U7iyT
 
@@ -865,10 +951,16 @@ A very useful characteristic of HD wallets is the ability to derive
 public child keys from public parent keys, *without* having the private
 keys. This gives us two ways to derive a child public key: either from
 the child private key, or directly from the parent public key.
+HD 钱包中一个非常有用的角色就是从父公钥衍生出子公钥，
+**不包含**私钥。
+这会给我们提供两种方法来衍生子公钥：
+从子私钥或者直接从父公钥来衍生。
 
 An extended public key can be used, therefore, to derive all of the
 *public* keys (and only the public keys) in that branch of the HD wallet
 structure.
+一个拓展公钥可以在 HD 钱包的结构中
+衍生出所有的**公钥**（也只能是公钥）。
 
 This shortcut can be used to create very secure public key–only
 deployments where a server or application has a copy of an extended
@@ -877,6 +969,13 @@ produce an infinite number of public keys and Ethereum addresses, but
 cannot spend any of the money sent to those addresses. Meanwhile, on
 another, more secure server, the extended private key can derive all the
 corresponding private keys to sign transactions and spend the money.
+无论什么情况只要部署的服务和应用有一份
+拓展公钥并且没有私钥，那么
+这个快捷方式就可以创建非常安全的公钥。
+这种部署可以生成无穷个公钥和以太坊地址，
+但是却不能花费任何发送到这些地址的资金。
+同时，在另外一个更安全的服务器上，拓展私钥可以衍生
+出所有相关的私钥用来给交易签名，并花费资金。
 
 One common application of this solution is to install an extended public
 key on a web server that serves an e-commerce application. The web
@@ -888,6 +987,16 @@ generate thousands of Ethereum addresses on a separate secure server and
 then preload them on the e-commerce server. That approach is cumbersome
 and requires constant maintenance to ensure that the e-commerce server
 doesn’t "run out" of keys.
+利用这种解决方案的一个常见的应用就是
+在一个 web 服务器上安装一个拓展公钥，
+来为电子商务应用服务。
+这个网页服务器可以使用公钥衍生函数为每一笔交易（例如客户的购物车）创造出
+一个全新的以太坊地址。这个网页服务器没有任何私钥所以盗贼也无法窃取。
+不使用 HD 钱包的情况下，想做到这个程度唯一的方法就是
+在一个分割的安全服务器上生成上千个以太坊地址
+然后在电子商务服务器上预加载他们。
+这个方法低效笨重，并且需要经常的维护以确保
+电子商务服务器不会泄露密钥。
 
 cold storagestoragecold storage cold storagehardware walletsAnother
 common application of this solution is for cold-storage or hardware
@@ -897,8 +1006,17 @@ user can create "receive" addresses at will, while the private keys are
 safely stored offline. To spend the funds, the user can use the extended
 private key on an offline signing Ethereum client or sign transactions
 on the hardware wallet device.
+还有一个常见的应用就是冷存储和硬件钱包。
+在这种场景下，拓展私钥可以存储在硬件钱包中，
+但是拓展公钥可以放在线上。
+用户可以按照他们的意愿创建接收的地址，
+私钥则会离线安全的保存。
+想花掉里面的资金的话，用户可以在
+离线签名的以太坊客户端或者支持交易签名的硬件钱包上
+使用拓展私钥。
 
 #### Hardened child key derivation
+#### 硬化密钥衍生
 
 public and private keyshardened child key derivation hardened child key
 derivationhardened derivationThe ability to derive a branch of public
@@ -910,6 +1028,15 @@ all the other child private keys. A single leaked child private key,
 together with a parent chain code, reveals all the private keys of all
 the children. Worse, the child private key together with a parent chain
 code can be used to deduce the parent private key.
+从 xpub 中衍生出一个公钥分支的能力时很有用的，
+但同时也是具有风险的。
+知道 xpub 并不意味着知道子密钥。
+然而，因为 xpub 包含链码，所以如果一个子密钥
+被别人知道或者暴露了的话，那么它就可以
+和链码一起衍生出所有其他的子密钥。
+一个单独泄露的子密钥和一个父链码一起可以暴露出
+所有的子私钥。而更糟糕的是，子私钥和父链码一起
+还可以推断出父私钥。
 
 To counter this risk, HD wallets use an alternative derivation function
 called *hardened derivation*, which "breaks" the relationship between
@@ -918,6 +1045,12 @@ uses the parent private key to derive the child chain code, instead of
 the parent public key. This creates a "firewall" in the parent/child
 sequence, with a chain code that cannot be used to compromise a parent
 or sibling private key.
+为了避免这个风险，HD 钱包使用了另外一种叫做**硬化衍生**的
+衍生函数，这个函数可以『破坏』父公钥和子链码的联系。
+这种硬化衍生函数是使用父私钥来衍生出子链码的，而不是
+父公钥。
+这样会在父或子序列中创造出一个『防火墙』，而这个防火墙
+并不会威胁到父或者子私钥的安全。
 
 In simple terms, if you want to use the convenience of an xpub to derive
 branches of public keys, without exposing yourself to the risk of a
@@ -925,8 +1058,15 @@ leaked chain code, you should derive it from a hardened parent, rather
 than a normal parent. As a best practice, the level-1 children of the
 master keys are always derived through the hardened derivation, to
 prevent compromise of the master keys.
+简单的来说就是，如果不想承受泄露你自己链码风险，并且还
+想要方便的使用 xpub 来衍生出公钥分支，那么你应该通过
+硬化父辈来衍生它，而不是一个正常的父辈。
+这其中的最佳实践就是，为了防止威胁到主要的密钥，
+主要密钥的 level-1 子辈
+总是通过硬化衍生来衍生。
 
 #### Index numbers for normal and hardened derivation
+#### 正常衍生和硬化衍生的指数
 
 The index number used in the BIP-32 derivation function is a 32-bit
 integer. To easily distinguish between keys derived through the normal
@@ -938,6 +1078,14 @@ derivation. Index numbers between 2<sup>31</sup> and 2<sup>32</sup>–1
 Therefore, if the index number is less than 2<sup>31</sup>, the child is
 normal, whereas if the index number is equal or above 2<sup>31</sup>,
 the child is hardened.
+BIP-32 中的衍生函数使用的是一个 32 位整型的指数。
+为了方便的区分出正常衍生函数和硬化衍生函数生成的密钥，
+这个指数分成了两个区间。
+0 到 2<sup>31</sup>–1 (0x0 to 0x7FFFFFFF) **只**用来表示
+正常的衍生。2<sup>31</sup> 到 2<sup>32</sup>–1 (0x80000000 to 0xFFFFFFFF) 
+**只**用来表示硬化衍生。
+因此，如果指数小于 2<sup>31</sup>，则子辈是正常的，
+如果指数大于等于 2<sup>31</sup>，那么子辈就是硬化的。
 
 To make the index number easier to read and display, the index number
 for hardened children is displayed starting from zero, but with a prime
@@ -946,8 +1094,16 @@ the first hardened child (index 0x80000000) is displayed as 0&\#x27;. In
 sequence then, the second hardened key would have index 0x80000001 and
 would be displayed as 1&\#x27;, and so on. When you see an HD wallet
 index i&\#x27;, that means 2<sup>31</sup>+i.
+为了让指数的易读性和显示性更好，硬化子辈
+的指数是从零开始显示的（有一个素数符合）。
+第一个正常子密钥则显示为 0，这样
+第一个硬化子辈（指数为 0x80000000）就会显示为 0&\#x27;。
+而第二个硬化密钥指数从 0x80000001 开始，并且显示为1&\#x27;，
+以此类推。当你看到
+一个 HD 钱包的指数为 i&\#x27; 时，就意味着 2<sup>31</sup>+i。
 
 #### HD wallet key identifier (path)
+#### HD 钱包密钥标识符（路径）
 
 hierarchical deterministic (HD) walletsKeys in an HD wallet are
 identified using a "path" naming convention, with each level of the tree
@@ -957,6 +1113,7 @@ keys derived from the master public key start with "M." Therefore, the
 first child private key of the master private key is m/0. The first
 child public key is M/0. The second grandchild of the first child is
 m/0/1, and so on.
+
 
 The "ancestry" of a key is read from right to left, until you reach the
 master key from which it was derived. For example, identifier m/x/y/z
