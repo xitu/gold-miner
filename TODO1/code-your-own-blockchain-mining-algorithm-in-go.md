@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/code-your-own-blockchain-mining-algorithm-in-go.md](https://github.com/xitu/gold-miner/blob/master/TODO1/code-your-own-blockchain-mining-algorithm-in-go.md)
 > * 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit)
-> * 校对者：
+> * 校对者：[stormluke](https://github.com/stormluke)
 
 # 用 Go 编写你自己的区块链挖矿算法！
 
@@ -184,7 +184,7 @@ func makeMuxRouter() http.Handler {
 
 `httpAddr := os.Getenv("ADDR")` 将会从刚才我们创建的 `.env` 文件中拉取端口 `:8080`。我们就可以通过访问浏览器的 `[http://localhost:8080](http://localhost:8080)` 来访问应用。
 
-让我们写 `GET` 处理函数来在浏览器上打印出区块链。我们也将会添加一个快速 `respondwithJSON` 函数，它会在调用接口发生错误的时候，以 JSON 格式反馈给我们错误消息。
+让我们写 `GET` 处理函数来在浏览器上打印出区块链。我们也将会添加一个简易 `respondwithJSON` 函数，它会在调用接口发生错误的时候，以 JSON 格式反馈给我们错误消息。
 
 ```
 func handleGetBlockchain(w http.ResponseWriter, r *http.Request) {
