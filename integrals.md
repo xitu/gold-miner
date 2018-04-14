@@ -4134,10 +4134,11 @@
 |------|-------|-------|
 |[Vue Report 2017](https://juejin.im/post/5a138fae5188254d28732899)|翻译|8|
 
-## 译者：[zwwill](https://github.com/zwwill) 历史贡献积分：29 当前积分：14
+## 译者：[zwwill](https://github.com/zwwill) 历史贡献积分：34 当前积分：19 年度积分：13
 
 |文章|类型|积分|
 |------|-------|-------|
+|[关于 SPA 你需要掌握的 4 层](https://juejin.im/post/5ac9ae935188255caf067974)|翻译|5|
 |[PWA 实战：Tinder 的性能优化之道](https://juejin.im/post/5a5ed5f3f265da3e261bfb94)|校对|2|
 |[开启你的开源生涯](https://juejin.im/post/5a5c029d51882573432d21ff)|翻译|6|
 |[针对 Airbnb 清单页的 React 性能优化](https://juejin.im/post/5a3a733f6fb9a045263bbdf5)|翻译|6|
@@ -4476,10 +4477,11 @@
 |[如何取消你的 Promise？](https://juejin.im/post/5a32705a6fb9a045117127fa)|校对|1|
 |[你想学 React.js 吗？](https://juejin.im/post/5a2f8ea5f265da43305e6f6b)|校对|2|
 
-## 译者：[MechanicianW](https://github.com/MechanicianW) 历史贡献积分：46.5 当前积分：25.5 年度积分：38
+## 译者：[MechanicianW](https://github.com/MechanicianW) 历史贡献积分：51.5 当前积分：30.5 年度积分：43
 
 |文章|类型|积分|
 |------|-------|-------|
+|[How to NOT React：React 中常见的反模式与陷阱](https://juejin.im/post/5acad683f265da23953146cd)|翻译|5|
 |[关于 CSS 变量，你需要了解的一切](https://juejin.im/post/5ab835225188255572085af4)|翻译|10|
 |[Service workers：Progressive Web Apps 背后的小英雄](https://juejin.im/post/5a9c8c87f265da238c3a23e4)|校对|1|
 |[2018 如何玩转 JavaScript](https://juejin.im/entry/5aa0e46d6fb9a028b54775cd/detail)|校对|1.5|
@@ -4621,19 +4623,21 @@
 |------|-------|-------|
 |[推荐多篇优秀英文文章奖励]()|奖励|3|
 
-## 译者：[ClarenceC](https://github.com/ClarenceC) 历史贡献积分：6.5 当前积分：6.5 年度积分：5
+## 译者：[ClarenceC](https://github.com/ClarenceC) 历史贡献积分：8.5 当前积分：8.5 年度积分：7
 
 |文章|类型|积分|
 |------|-------|-------|
+|[How to NOT React：React 中常见的反模式与陷阱](https://juejin.im/post/5acad683f265da23953146cd)|校对|2|
 |[Elasticsearch 滚动升级](https://juejin.im/post/5ab5f53f518825556b6cbdea)|校对|0.5|
 |[网站优化初学者指南](https://juejin.im/post/5ab1e3f4f265da23923637bb)|校对|1.5|
 |[做好准备：新的 V8 即将到来，Node.js 的性能正在改变。](https://juejin.im/post/5aaf755851882555627d16e5)|校对|3|
 |[论原子 CSS 的日益普及](https://juejin.im/post/5a4387af6fb9a045186b04d1)|校对|1.5|
 
-## 译者：[lcx-seima](https://github.com/lcx-seima) 历史贡献积分：17.5 当前积分：17.5 年度积分：12.5
+## 译者：[lcx-seima](https://github.com/lcx-seima) 历史贡献积分：21.5 当前积分：21.5 年度积分：16.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[React & Redux 顶级开发伴侣](https://juejin.im/post/5acae8dc6fb9a028c06b1c4c)|翻译|4|
 |[Express.js 与 AWS Lambda  —  一场关于 serverless 的爱情故事](https://juejin.im/post/5aa128cdf265da239b410225)|翻译|4.5|
 |[JavaScript 工作原理：Web Worker 的内部构造以及 5 种你应当使用它的场景](https://juejin.im/post/5a90233bf265da4e92683de3)|翻译|8|
 |[在 Redux 中使用 AJAX 轮询](https://juejin.im/post/5a43b6da5188257d167a7aef)|翻译|2|
@@ -5103,10 +5107,12 @@
 |[使用 MVI 开发响应式 APP - 第三部分 - 状态减少（state reducer）](https://juejin.im/post/5a955c50f265da4e853d856a)|翻译|4|
 |[二十年后比特币会变成什么样？- 第二部分](https://juejin.im/post/5a955721f265da4e826377b6)|翻译|6|
 
-## 译者：[Starriers](https://github.com/Starriers) 历史贡献积分：65 当前积分：35 年度积分：65
+## 译者：[Starriers](https://github.com/Starriers) 历史贡献积分：70.5 当前积分：40.5 年度积分：70.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[提高 10 倍性能：优化静态网站](https://juejin.im/post/5ac9e430f265da2392369ec0)|翻译|4|
+|[关于 SPA 你需要掌握的 4 层](https://juejin.im/post/5ac9ae935188255caf067974)|校对|1.5|
 |[简短而又完全精确的编程语言历史](https://juejin.im/post/5ac1b8a25188255c637b1cd5)|翻译|3|
 |[设计师与工程师协作的 5 项准则](https://juejin.im/post/5ac9e56af265da23945fc201)|翻译|3|
 |[怎样把取消订阅的用户吸引回来](https://juejin.im/post/5acc1538518825651d07fdd1)|校对|1|
@@ -5228,10 +5234,11 @@
 |------|-------|-------|
 |[使用 Travis CI 自动发布 npm](https://juejin.im/post/5ab39fedf265da23a04979cb)|校对|1|
 
-## 译者：[anxsec](https://github.com/anxsec) 历史贡献积分：3 当前积分：3 年度积分：3
+## 译者：[anxsec](https://github.com/anxsec) 历史贡献积分：5 当前积分：5 年度积分：5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[How to NOT React：React 中常见的反模式与陷阱](https://juejin.im/post/5acad683f265da23953146cd)|校对|2|
 |[如何修改域名来提高国际增长率](https://juejin.im/post/5aaf0542f265da239530c653)|校对|1|
 |[我们能从 Redux 源码中学到什么？](https://juejin.im/post/5ab3ca926fb9a028d6641605)|校对|1.5|
 |[TypeScript：拥有超能力的 JavaScript（下）](https://juejin.im/post/5ab34794518825558b3dd627)|校对|0.5|
@@ -5272,17 +5279,20 @@
 |[让 Apache Cassandra 尾部延迟减小 10 倍（已开源）](https://juejin.im/post/5ac31083f265da239a5fff0c)|翻译|4|
 |[让我们来简化 UserDefaults 的使用](https://juejin.im/post/5abde324f265da23826e1723)|校对|0.5|
 
-## 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit) 历史贡献积分：6 当前积分：6 年度积分：6
+## 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit) 历史贡献积分：10 当前积分：10 年度积分：10
 
 |文章|类型|积分|
 |------|-------|-------|
+|[单向用户界面架构问题研究](https://juejin.im/post/5aca38c5518825482e392c00)|翻译|4|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|5|
 |[使用 Web3 和 Vue.js 来创建你的第一个以太坊 dAPP（第二部分）](https://juejin.im/post/5aba0870f265da23a2292245)|校对|1|
 
-## 译者：[dandyxu](https://github.com/dandyxu) 历史贡献积分：5 当前积分：5 年度积分：5
+## 译者：[dandyxu](https://github.com/dandyxu) 历史贡献积分：8 当前积分：8 年度积分：8
 
 |文章|类型|积分|
 |------|-------|-------|
+|[提高 10 倍性能：优化静态网站](https://juejin.im/post/5ac9e430f265da2392369ec0)|校对|1.5|
+|[单向用户界面架构问题研究](https://juejin.im/post/5aca38c5518825482e392c00)|校对|1.5|
 |[使用 React、Redux、SVG 开发游戏 - Part 1](https://juejin.im/post/5abcdc2c5188255c887bb9ec)|校对|3|
 |[良好的编码习惯 — 5 个提高代码质量的技巧](https://juejin.im/post/5abc584251882555867f7f1e)|校对|2|
 
@@ -5330,14 +5340,23 @@
 |------|-------|-------|
 |[设计师与工程师协作的 5 项准则](https://juejin.im/post/5ac9e56af265da23945fc201)|校对|1|
 
-## 译者：[NoName4Me](https://github.com/NoName4Me) 历史贡献积分：1 当前积分：1 年度积分：1
+## 译者：[NoName4Me](https://github.com/NoName4Me) 历史贡献积分：2.5 当前积分：2.5 年度积分：2.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[关于 SPA 你需要掌握的 4 层](https://juejin.im/post/5ac9ae935188255caf067974)|校对|1.5|
 |[设计师与工程师协作的 5 项准则](https://juejin.im/post/5ac9e56af265da23945fc201)|校对|1|
 
-## 译者：[wznonstop](https://github.com/wznonstop) 历史贡献积分：3 当前积分：3 年度积分：3
+## 译者：[wznonstop](https://github.com/wznonstop) 历史贡献积分：4 当前积分：4 年度积分：4
 
 |文章|类型|积分|
 |------|-------|-------|
+|[React & Redux 顶级开发伴侣](https://juejin.im/post/5acae8dc6fb9a028c06b1c4c)|校对|1|
 |[拖放库中 React 性能的优化](https://juejin.im/post/5ac31b096fb9a028bc2dedfc)|校对|3|
+
+## 译者：[Hopsken](https://github.com/Hopsken) 历史贡献积分：3 当前积分：3 年度积分：3
+
+|文章|类型|积分|
+|------|-------|-------|
+|[提高 10 倍性能：优化静态网站](https://juejin.im/post/5ac9e430f265da2392369ec0)|校对|1.5|
+|[单向用户界面架构问题研究](https://juejin.im/post/5aca38c5518825482e392c00)|校对|1.5|
