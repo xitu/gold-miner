@@ -3363,7 +3363,7 @@
 |[用动效创建的可用性：动效中的用户体验宣言](https://juejin.im/post/595c77a66fb9a06bcb7f92ff)|校对|2|
 |[为复杂产品制定设计规范](https://juejin.im/post/5944b8e55c497d006bdc261a)|校对|1|
 
-## 译者：[cacppuccino](https://github.com/CACppuccino) 历史贡献积分：32.5 当前积分：32.5 年度积分：23
+## 译者：[cacppuccino](https://github.com/CACppuccino) 历史贡献积分：77.5 当前积分：32.5 年度积分：23
 
 |文章|类型|积分|
 |------|-------|-------|
