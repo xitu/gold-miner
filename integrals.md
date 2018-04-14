@@ -112,10 +112,11 @@
 |[编写高性能的 Swift 代码](http://gold.xitu.io/entry/56b60c97816dfa005ae0c0d4)|翻译|15|
 |[第一次翻译计划文章已兑换Octocat小]()|减去积分|15|
 
-## 译者：[l9m](https://github.com/L9m) 历史贡献积分：74.5 当前积分：39.5 年度积分：4.5
+## 译者：[l9m](https://github.com/L9m) 历史贡献积分：75.5 当前积分：40.5 年度积分：5.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[简短而又完全精确的编程语言历史](https://juejin.im/post/5ac1b8a25188255c637b1cd5)|校对|1|
 |[热爱 JavaScript，但是讨厌 CSS？](https://juejin.im/post/5aba0d37518825556a72708a)|校对|1.5|
 |[使用 Web3 和 Vue.js 来创建你的第一个以太坊 dAPP（第二部分）](https://juejin.im/post/5aba0870f265da23a2292245)|翻译|3|
 |[系统设计入门](https://github.com/xitu/system-design-primer/blob/master/README-zh-Hans.md)|翻译|8|
@@ -4310,10 +4311,11 @@
 |[如何禁用链接](https://juejin.im/post/5a240aa66fb9a0452577f06a)|校对|1|
 |[JavaScript 如何工作的: 事件循环和异步编程的崛起 + 5 个关于如何使用 async/await 编写更好的技巧](https://juejin.im/post/5a221d35f265da43356291cc)|校对|4|
 
-## 译者：[sakila1012](https://github.com/sakila1012) 历史贡献积分：25.5 当前积分：25.5 年度积分：23.5
+## 译者：[sakila1012](https://github.com/sakila1012) 历史贡献积分：29.5 当前积分：29.5 年度积分：27.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[使用 Web3 和 Vue.js 来创建你的第一个以太坊 dAPP（第三部分）](https://juejin.im/post/5ac36e1f518825556a729c3f)|翻译|4|
 |[20 年后比特币将会变成什么样 - 第 3 部分](https://juejin.im/post/5a9ce3715188255585070586)|翻译|6|
 |[教你使用 CSS 计数器](https://juejin.im/post/5a811c6251882528b63ff8d7)|翻译|2.5|
 |[2018 前端性能优化清单 - 第 2 部分](https://juejin.im/post/5a654e686fb9a01cb42c7894)|翻译|7|
@@ -5087,10 +5089,11 @@
 |[使用 MVI 开发响应式 APP - 第三部分 - 状态减少（state reducer）](https://juejin.im/post/5a955c50f265da4e853d856a)|翻译|4|
 |[二十年后比特币会变成什么样？- 第二部分](https://juejin.im/post/5a955721f265da4e826377b6)|翻译|6|
 
-## 译者：[Starriers](https://github.com/Starriers) 历史贡献积分：62 当前积分：32 年度积分：62
+## 译者：[Starriers](https://github.com/Starriers) 历史贡献积分：65 当前积分：35 年度积分：65
 
 |文章|类型|积分|
 |------|-------|-------|
+|[简短而又完全精确的编程语言历史](https://juejin.im/post/5ac1b8a25188255c637b1cd5)|翻译|3|
 |[设计师与工程师协作的 5 项准则](https://juejin.im/post/5ac9e56af265da23945fc201)|翻译|3|
 |[怎样把取消订阅的用户吸引回来](https://juejin.im/post/5acc1538518825651d07fdd1)|校对|1|
 |[2018 年 4 月兑 Octoplush 1 个]()|减去积分|30|
@@ -5194,10 +5197,11 @@
 |[如何修改域名来提高国际增长率](https://juejin.im/post/5aaf0542f265da239530c653)|校对|1|
 |[开始设计动画的九个步骤](https://juejin.im/post/5aa1f965f265da23994e1e1f)|校对|1|
 
-## 译者：[talisk](https://github.com/talisk) 历史贡献积分：5 当前积分：5 年度积分：5
+## 译者：[talisk](https://github.com/talisk) 历史贡献积分：6 当前积分：6 年度积分：6
 
 |文章|类型|积分|
 |------|-------|-------|
+|[使用 Web3 和 Vue.js 来创建你的第一个以太坊 dAPP（第三部分）](https://juejin.im/post/5ac36e1f518825556a729c3f)|校对|1|
 |[不使用 fastlane 实现持续交付的 5 种选项](https://juejin.im/post/5acf47cb6fb9a028c523944c)|校对|1.5|
 |[让我们来简化 UserDefaults 的使用](https://juejin.im/post/5abde324f265da23826e1723)|翻译|1.5|
 |[没有 Interface Builder 的生活](https://juejin.im/post/5ab88ac0518825558a069c91)|校对|1|
@@ -5223,10 +5227,12 @@
 |------|-------|-------|
 |[iOS App 上一种灵活的路由方式](https://juejin.im/post/5aafc278f265da23805973e3)|校对|1|
 
-## 译者：[allenlongbaobao](https://github.com/allenlongbaobao) 历史贡献积分：23 当前积分：13 年度积分：23
+## 译者：[allenlongbaobao](https://github.com/allenlongbaobao) 历史贡献积分：25 当前积分：15 年度积分：25
 
 |文章|类型|积分|
 |------|-------|-------|
+|[简短而又完全精确的编程语言历史](https://juejin.im/post/5ac1b8a25188255c637b1cd5)|校对|1|
+|[使用 Web3 和 Vue.js 来创建你的第一个以太坊 dAPP（第三部分）](https://juejin.im/post/5ac36e1f518825556a729c3f)|校对|1|
 |[怎样把取消订阅的用户吸引回来](https://juejin.im/post/5acc1538518825651d07fdd1)|翻译|3.5|
 |[不使用 fastlane 实现持续交付的 5 种选项](https://juejin.im/post/5acf47cb6fb9a028c523944c)|校对|1.5|
 |[2018 年 3 月兑水杯 2 个]()|减去积分|10|
