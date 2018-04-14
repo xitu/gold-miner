@@ -115,7 +115,7 @@ Pub/sub 在这方面与 PVMs 携手合作。一旦 PVM 收到一个终止信号�
 
 ![](https://cdn-images-1.medium.com/max/800/1*_XrckPhaLAUKQbfkJAV48g.png)
 
-> **为什么用 App Engine 标准？**我们选择 app engine 标准作为 IAM 系统的前端服务的原因有很多。
+> **为什么用 App Engine 标准？** 我们选择 app engine 标准作为 IAM 系统的前端服务的原因有很多。
 
 > 首先是它的管理，这样我们就不必像 containers、GKE、App Engine Flex 那样处理配置和部署的细节了。
 
