@@ -11,7 +11,7 @@
 
 自从 [2017 年 7 月](https://medium.com/the-node-js-collection/say-hello-to-http-2-for-node-js-core-261ba493846e) Node.js 中引入 HTTP/2 以来，改实践经历了好几轮的改进。现在我们基本已经准备好去掉“实验性”标志。当然最好使用 Node.js 版本 9 来尝试 HTTP/2 支持，因为这个版本有着最新的修复和改进的内容。
 
-最简单的入门方法是使用新版 http2 核心模块部分提供的的兼容性层：
+最简单的入门方法是使用新版 http2 核心模块部分提供的的[兼容层](https://zh.wikipedia.org/wiki/%E5%85%BC%E5%AE%B9%E5%B1%82)：
 
 ```
 const http2 = require('http2');
@@ -26,22 +26,20 @@ const server = http2.createSecureServer(options, (req, res) => {
 });
 server.listen(3000);
 ```
+兼容层提供了和 `require('http')` 相同的高级 API（请求和响应对象相同的请求侦听器），这样就可以平滑的迁移到 HTTP/2。
 
-The compatibility layer provides the same high-level API (a request listener with the familiar request and response objects) that require(‘http’) provides, which allows for a smooth initial migration path to HTTP/2.
+兼容层的也为 web 框架作者提供了一个简单的升级途径，到目前为止，[Restify](https://www.npmjs.com/package/restify) 和[Fastify](https://www.npmjs.com/package/fastify) 都基于 Node.js HTTP/2 兼容层实现了对 HTTP/2 的支持。
 
-The compatibility layer also provides an easy upgrade path for web framework authors, so far both [Restify](https://www.npmjs.com/package/restify) and [Fastify](https://www.npmjs.com/package/fastify) already support HTTP/2 using the Node.js HTTP/2 compatibility layer.
+[Fastify](https://www.npmjs.com/package/fastify) 是一个 [新的 web 框架](https://thenewstack.io/introducing-fastify-speedy-node-js-web-framework/)，专注于性能而不牺牲开发者的生产力，也不抛弃最近[升级到 1.0.0 版本](https://medium.com/@fastifyjs/fastify-goes-lts-with-1-0-0-911112c64752)的丰富的插件生态系统。
 
-[Fastify](https://www.npmjs.com/package/fastify) is a [new web framework](https://thenewstack.io/introducing-fastify-speedy-node-js-web-framework/) which focuses on performance without sacrificing developer productivity and a rich plugin ecosystem that recently [graduated to 1.0.0](https://medium.com/@fastifyjs/fastify-goes-lts-with-1-0-0-911112c64752).
-
-Using HTTP/2 with fastify is straightforward:
+在 fastify 中使用 HTTP/2 非常简单：
 
 ```
 const Fastify = require('fastify');
 
-// https is necessary otherwise browsers will not
-// be able to connect
+// 必须使用 https，不然浏览器无法连接
 const fastify = Fastify({
- http2: true
+ http2: true,         // 译者注：原文作者这里少了逗号
  https: {
    key: getKeySomehow(),
    cert: getCertSomehow()
@@ -54,8 +52,7 @@ fastify.get('/fastify', async (request, reply) => {
 
 server.listen(3000);
 ```
-
-While being able to run the same application code on top of both HTTP/1.1 and HTTP/2 is important for protocol adoption, the compatibility layer alone does not expose some of the more powerful capabilities available with HTTP/2\. The core http2 module exposes these additional capabilities through a new core API ([Http2Stream](https://nodejs.org/api/http2.html#http2_class_http2stream)) which can be accessed via a “stream” listener:
+尽管能在 HTTP/1.1 和 HTTP/2 上运行相同的应用代码对于协议的采纳非常重要，但单独的兼容层并没有提供 HTTP/2 支持的一些更强大的功能。http2 核心模块可以通过”流“侦听器来实现对新的核心 API（[Http2Stream](https://nodejs.org/api/http2.html#http2_class_http2stream)）来使用这些附加功能：
 
 ```
 const http2 = require('http2');
@@ -64,19 +61,18 @@ const options = {
  cert: getCertSomehow()
 };
 
-// https is necessary otherwise browsers will not
-// be able to connect
+// 必须使用 https，不然浏览器无法连接
 const server = http2.createSecureServer(options);
 server.on('stream', (stream, headers) => {
- // stream is a Duplex
- // headers is an object containing the request headers
+ // 流是双工的
+ // headers 是一个包含请求头的对象
 
- // respond will send the headers to the client
- // meta headers starts with a colon (:)
+ // 响应将把 headers 发到客户端
+ // meta headers 用冒号（:）开头
  stream.respond({ ':status': 200 });
 
- // there is also stream.respondWithFile()
- // and stream.pushStream()
+ // 这是 stream.respondWithFile()
+ // 和 stream.pushStream()
 
  stream.end('Hello World!');
 });
@@ -84,7 +80,7 @@ server.on('stream', (stream, headers) => {
 server.listen(3000);
 ```
 
-In Fastify, the Http2Stream can be accessed via the request.raw.stream API, like so:
+在 Fastify中, 可以通过 request.raw.stream API 访问 Http2Stream 如下所示：
 
 ```
 fastify.get('/fastify', async (request, reply) => {
