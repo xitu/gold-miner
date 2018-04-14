@@ -1113,12 +1113,21 @@ keys derived from the master public key start with "M." Therefore, the
 first child private key of the master private key is m/0. The first
 child public key is M/0. The second grandchild of the first child is
 m/0/1, and so on.
-
+一个 HD 钱包中的密钥是通过『路径』命名规则来标识的，对于树的
+每一个层级都通过斜杠 (/) 这个字符来分隔(查看[HD 钱包路径示例](#hd_path_table))。 
+从主私钥衍生出的私钥都以 "m." 开头。
+从主公钥衍生出的公钥以 "M." 开头。
+因此主私钥的第一个子私钥就是 m/0。
+主公钥的第一个子公钥就是 M/0。
+第一个子辈的第二个孙子就是 m/0/1，以此类推。
 
 The "ancestry" of a key is read from right to left, until you reach the
 master key from which it was derived. For example, identifier m/x/y/z
 describes the key that is the z-th child of key m/x/y, which is the y-th
 child of key m/x, which is the x-th child of m.
+一个密钥的『祖先』是从右向左读取的，直到衍生出它本身的主密钥为止。
+举个例子，标识符 m/x/y/z 就是 
+m/x/y 的第 z 个子密钥、m/x 的第 y 个子密钥、m 的第 x 个子密钥。
 
 <table>
 <caption>HD wallet path examples</caption>
@@ -1157,6 +1166,7 @@ child of key m/x, which is the x-th child of m.
 </table>
 
 #### Navigating the HD wallet tree structure
+#### HD 钱包的树形结构指南
 
 The HD wallet tree structure offers tremendous flexibility. Each parent
 extended key can have 4 billion children: 2 billion normal children and
@@ -1167,6 +1177,13 @@ it becomes quite difficult to navigate this infinite tree. It is
 especially difficult to transfer HD wallets between implementations,
 because the possibilities for internal organization into branches and
 subbranches are endless.
+HD 钱包的树形结构提供了巨大的灵活性。
+每一个父拓展密钥都可以拥有 40 亿个子辈：20 亿
+个普通子辈和 20 亿个硬化子辈。每一个子辈都有另外 40 亿个子辈，
+以此类推。只要你想，这个树形结构就可以一代一代的无限延伸下去。
+但是这种灵活性又使得对这个无限的树形结构操作变的复杂。
+尤其是在各种实现之间转移 HD 钱包变的尤为困难，
+因为这个内部的结构从分支到子分支的可能性是无限的。
 
 Two BIPs offer a solution to this complexity by creating some proposed
 standards for the structure of HD wallet trees. BIP-43 proposes the use
@@ -1177,14 +1194,27 @@ identifying the structure and namespace of the rest of the tree by
 defining its purpose. For example, an HD wallet using only branch
 m/i&\#x27;/ is intended to signify a specific purpose and that purpose
 is identified by index number "i."
+现在的两种 BIP 都是通过对 HD 钱包的树形结构创建一些标准
+来解决这些复杂性的。BIP-43 提议将第一个硬化子指数作为
+可以表示树形结构『用途』的特殊标识符。
+而 BIP-43 则认为，HD 钱包应该只使用一个树形结构 level-1 的
+分支，并通过定义它的用途来让指数来标识结构以及
+剩余数的命名空间。
+例如，一个 HD 钱包只使用分支 m/i&\#x27;/，并打算使用它来指明一个特殊的用途，
+而这个用途就是用指数 "i" 来标识的。
 
 Extending that specification, BIP-44 proposes a multicurrency
 multiaccount structure as "purpose" number 44' under BIP-43. All HD
 wallets following the BIP-44 structure are identified by the fact that
 they only used one branch of the tree: m/44'/.
+再说明一下这个细则，BIP-44 提议的多货币多账户的结构
+就是 BIP-43 的『用途』数字 44'。
+所有的 HD 钱包都遵循 BIP-44 结构，这个结构就是
+实际中使用树形结构一个分支 m/44'/ 所标识的结构。
 
 BIP-44 specifies the structure as consisting of five predefined tree
 levels:
+BIP-44 还指明了五个预定义的树层级：
 
     m / purpose' / coin_type' / account' / change / address_index
 
@@ -1193,12 +1223,20 @@ The first-level "purpose" is always set to 44'. The second-level
 multicurrency HD wallets where each currency has its own subtree under
 the second level. There are several currencies defined in a standards
 document, called SLIP0044:
+第一个层级 "purpose" 一直等于 44'。第二个
+层级 "coin\_type" 指明了数字货币的类型，对于
+多货币的 HD 钱包来每一个种货币都在
+第二层级下有他自己的子树。这里有几个在标准文档中定义的货币，
+叫作 SLIP0044：
 
 <https://github.com/satoshilabs/slips/blob/master/slip-0044.md>
 
 A few examples: Ethereum is m/44&\#x27;/60&\#x27;, Ethereum Classic is
 m/44&\#x27;/61&\#x27;, Bitcoin is m/44&\#x27;/0&\#x27;, and Testnet for
 all currencies is m/44&\#x27;/1&\#x27;.
+举个例子：以太坊是 m/44&\#x27;/60&\#x27;，以太经典
+是 m/44&\#x27;/61&\#x27;，比特币是 m/44&\#x27;/0&\#x27;，所有
+这些货币的测试网络都是 m/44&\#x27;/1&\#x27;。
 
 The third level of the tree is "account," which allows users to
 subdivide their wallets into separate logical subaccounts, for
@@ -1206,6 +1244,11 @@ accounting or organizational purposes. For example, an HD wallet might
 contain two Ethereum "accounts": m/44&\#x27;/60&\#x27;/0&\#x27; and
 m/44&\#x27;/60&\#x27;/1&\#x27;. Each account is the root of its own
 subtree.
+第三个层级是 "account"，它允许用户把他们的钱包再分成几个
+逻辑子账户，用于会计或者组织的目的。
+举例来说，一个 HD 钱包可以包含两个以太坊『账户』：
+m/44&\#x27;/60&\#x27;/0&\#x27; 和 m/44&\#x27;/60&\#x27;/1&\#x27;。
+而每个帐户都是它自己子树的根。
 
 keys and addressessee=also public and private keys see=also public and
 private keysBecause BIP-44 was created originally for bitcoin, it
@@ -1222,6 +1265,18 @@ as children of the fourth level, making the fifth level of the tree the
 payments in the primary account would be
 M/44&\#x27;/60&\#x27;/0&\#x27;/0/2. [table\_title](#bip44_path_examples)
 shows a few more examples.
+因为 BIP-44 一开始是为比特币创造的，所以它包含
+的 "quirk" 和以太坊一点关系都没有。
+路径的第四层级是 "change"，一个 HD 钱包有两个子树，
+一个用来创建接收地址，一个用来创建改变地址。
+而以太坊中只有『接收』地址，并不需要改变地址。
+注意，由于上个层级使用了硬化衍生，所以这个层级就是普通衍生。
+这是为了让这个层级的树可以在非安全环境下导出可以使用的公钥。
+可用的地址由 HD 钱包衍生出来作为第四层级的子辈，然后形成树
+第五层级的 "address\_index"。
+举例来说就是，以太坊的第三个接收地址在
+主账户中的支付将会是 M/44&\#x27;/60&\#x27;/0&\#x27;/0/2。
+[BIP-44 HD 钱包的结构示例](#bip44_path_examples)：
 
 <table>
 <caption>BIP-44 HD wallet structure examples</caption>
