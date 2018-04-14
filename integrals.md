@@ -90,8 +90,8 @@
 
 |文章|类型|积分|
 |------|-------|-------|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译校对|2|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|7|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|2|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译|7|
 |[TensorFlow 官方文档翻译校对]()|翻译|8|
 |[并发编程](https://juejin.im/post/59ecb058f265da43346f10e5)|校对|1.5|
 |[什么是蒙特卡洛树搜索](https://juejin.im/post/59f16e8c5188250385371302)|校对|1|
@@ -208,11 +208,11 @@
 
 |文章|类型|积分|
 |------|-------|-------|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译校对|10|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|10|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|14|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|10|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译|10|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译|14|
 |[2017 年 11 月兑 树莓派套餐 1 个]()|减去积分|45|
-|[TensorFlow 官方文档翻译校对]()|翻译|13|
+|[TensorFlow 官方文档翻译校对](https://github.com/xitu/tensorflow-docs)|翻译|13|
 |[基于 TensorFlow 的上下文聊天机器人](https://juejin.im/entry/5992cd385188252433704fa3)|翻译|5|
 |[深度学习系列2：卷积神经网络](https://juejin.im/post/598ac6a55188257dd366367f)|校对|1|
 |[在使用过采样或欠采样处理类别不均衡的数据后，如何正确的做交叉验证？](https://juejin.im/entry/5976dde9f265da6c2e0fc2f9/detail)|翻译|9|
@@ -598,7 +598,7 @@
 
 |文章|类型|积分|
 |------|-------|-------|
-|[TensorFlow 官方文档翻译校对]()|翻译|10|
+|[TensorFlow 官方文档翻译校对](https://github.com/xitu/tensorflow-docs)|翻译|10|
 |[建立更好的代码审查制度](https://juejin.im/entry/5934bafb2f301e006b055f57/detail)|翻译|10|
 |[某些2017年的 UX 趋势啊，扎心了](https://juejin.im/post/58cf5dc22f301e007e52fb2b)|校对|1|
 |[设计思考，不只是流行词而已](https://gold.xitu.io/entry/5873faf4da2f6035a7f4a025)|翻译|4|
@@ -1166,8 +1166,8 @@
 
 |文章|类型|积分|
 |------|-------|-------|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|2|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|3|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译|2|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译|3|
 |[真正行动之前 你将一无所成](https://juejin.im/entry/58f6136861ff4b00580aef28)|翻译|3|
 |[探索 Firebase 在 Android 和 iOS 的使用: Analytics (分析模块)](http://gold.xitu.io/entry/5816ac62a22b9d00678ee434/)|校对|2|
 |[如何使用 UIFeedbackGenerator 让应用支持 iOS 10 的触觉反馈](http://gold.xitu.io/entry/5810433ac4c9710058a74100)|翻译|3|
@@ -1886,9 +1886,9 @@
 
 |文章|类型|积分|
 |------|-------|-------|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|24|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|14|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|6|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译|24|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译|14|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译|6|
 |[从金属巨人到深度学习](https://juejin.im/post/596f4cecf265da6c2f0adb04)|翻译|8|
 |[如何在无损的情况下让图片变的更小](https://juejin.im/post/5959fbe0f265da6c2518d740)|翻译|7|
 |[读完 flexbox 细则之后学到的 11 件事](https://juejin.im/post/5940bcef61ff4b006cb6b0d5)|翻译|7|
@@ -2023,9 +2023,9 @@
 
 |文章|类型|积分|
 |------|-------|-------|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|14|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|9.5|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|0.5|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译|14|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译|9.5|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译|0.5|
 |[2017 年 10 月兑 树莓派套餐 1 个](#)|减去积分|45|
 |[区块链中的共识机制 DBFT](https://juejin.im/entry/59cba85ef265da06507542a4/detail)|翻译|8|
 |[何为 HTML API，如何设计之？](https://juejin.im/entry/59131ee7a0bb9f0058ba4a88/)|翻译|9|
@@ -2415,7 +2415,7 @@
 |[用 Python 做一个 H5 游戏机器人](https://juejin.im/post/5aa9e7645188257bf550c745)|校对|1.5|
 |[2018 年要学习的优秀 JavaScript 库与知识](https://juejin.im/post/5a4e23f0f265da3e377bce4f)|校对|2|
 |[如何在 JavaScript 中使用 Generator?](https://juejin.im/post/5a44968df265da4335630fb9)|校对|1|
-|[TensorFlow 官方文档翻译校对]()|翻译|12|
+|[TensorFlow 官方文档翻译校对](https://github.com/xitu/tensorflow-docs)|翻译|12|
 |[React 组件的 8 个关键决策](https://juejin.im/post/59f7e2c5f265da4318760a5f)|校对|1|
 |[Preload，Prefetch 和它们在 Chrome 之中的优先级](https://juejin.im/post/58e8acf10ce46300585a7a42)|校对|1|
 |[看动画，学 RxJS](https://juejin.im/post/58cd146a61ff4b0060277d32)|校对|1|
@@ -2846,19 +2846,19 @@
 |[为 Python Web 应用编写 Dockerfiles](https://juejin.im/post/5aaf8038518825557e783285)|翻译|3|
 |[用 Python 做一个 H5 游戏机器人](https://juejin.im/post/5aa9e7645188257bf550c745)|翻译|4.5|
 |[前端开发者指南 2018](https://github.com/xitu/front-end-handbook-2018)|翻译校对|9|
-|[TensorFlow 官方文档翻译校对](https://github.com/xitu/tensorflow/)|翻译|2|
+|[TensorFlow 官方文档翻译校对](https://github.com/xitu/tensorflow-docs)|翻译|2|
 |[一份为 Node.js 应用准备的 Dockerfile 指南](https://juejin.im/post/5a9626abf265da4e9d225f4f)|翻译|5|
 |[在 Swift playground 中编写单元测试](https://juejin.im/post/5a8e66276fb9a0633c661f3f)|翻译|2|
 |[为 Flask Web 应用配置 Nginx](https://juejin.im/post/5a795febf265da4e94499949)|翻译|7|
 |[构建更具可用性的 UI 与 API 的 5 个方针](https://juejin.im/post/5a653a65f265da3e317e43e7)|翻译|3|
 |[开发者也是用户 - 简介](https://juejin.im/post/5a6536e6518825734216ff06)|翻译|2|
 |[HTML 5.2 有哪些新内容？](https://juejin.im/post/5a5dab05518825734107edda)|翻译|4|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|2|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|2|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译|2|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译|2|
 |[从 Gzip 压缩 SVG 说起 — 论如何减小资源文件的大小](https://juejin.im/post/5a30a7fdf265da4309452517)|翻译|4|
 |[为你的网站带上帽子 — 使用 helmet 保护 Express 应用](https://juejin.im/post/5a24fd8f51882509e5438247)|翻译|3|
 |[2017 年 11 月兑换多态卡]()|减去积分|6|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|8.5|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译|8.5|
 |[前端 Console 调试小技巧](https://juejin.im/post/5a08087f6fb9a04529363d71)|翻译|3|
 |[RNN 循环神经网络系列 5: 自定义单元](https://juejin.im/post/59fbd28b6fb9a045204b91f2)|翻译|3|
 |[Spotify 每周推荐功能：基于机器学习的音乐推荐](https://juejin.im/post/59fbd0d9518825299a468a8b)|翻译|5|
@@ -3068,7 +3068,7 @@
 |------|-------|-------|
 |[2018 年 1 月兑 树莓派套餐 1 个]()|减去积分|45|
 |[app 里的 A／B 测试简介](https://juejin.im/post/5a2df63551882531ba10e313)|翻译|7|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|2|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译|2|
 |[CSV 注入：被人低估的风险](https://juejin.im/post/59eca3fef265da430b7a63c8)|翻译|5|
 |[混乱世界中的稳定：Postgres 如何使事务原子化](https://juejin.im/post/59db0f94518825788a44470e)|校对|3|
 |[SQL 事务隔离实用指南](https://juejin.im/post/59b7ce03f265da0672281fcc)|校对|2|
@@ -3175,7 +3175,7 @@
 |[自动化持续集成/持续分发，以节省更多时间编写代码](https://juejin.im/post/5a44aab86fb9a044ff31c418)|校对|1|
 |[为什么我们从来不去感谢开源项目维护者](https://juejin.im/post/5a40c20b518825696f7e3c23)|翻译|4|
 |[2017 年 JavaScript 发展状况回顾](https://juejin.im/entry/5a44a500f265da43271887f0/)|翻译|8|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|11|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译|11|
 |[全新 Android 注入器 : Dagger 2（二）](https://juejin.im/post/5a3a1883f265da4321542fc1)|校对|1|
 |[2017 年 11 月兑换 套头衫和各一个]()|减去积分|30|
 |[学习 JavaScript：9个常见错误阻碍你进步](https://juejin.im/post/59bb4a7c6fb9a00a53274cd7)|翻译|3|
@@ -3220,11 +3220,11 @@
 
 |文章|类型|积分|
 |------|-------|-------|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译校对|9|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|6|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|8|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|7|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|1.5|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|9|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译|6|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译|8|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译|7|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译|1.5|
 |[RNN 循环神经网络系列 4: 注意力机制](https://juejin.im/post/59f72f61f265da432002871c)|校对|2|
 |[RNN 循环神经网络系列 3：编码、解码器](https://juejin.im/post/59fc1616f265da432b4a2d44)|翻译|2|
 |[RNN 循环神经网络系列 2：文本分类](https://juejin.im/post/59f0c6b3f265da4319557de4)|翻译|3|
@@ -3324,7 +3324,7 @@
 
 |文章|类型|积分|
 |------|-------|-------|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|2.5|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译|2.5|
 |[Design Mint.com](https://github.com/xitu/system-design-primer/blob/translation/solutions/system_design/mint/README.md)|翻译|6|
 |[论深度学习的局限性](https://juejin.im/post/5978352a6fb9a06bad6574a4)|校对|2|
 |[用 Go 语言理解 Tensorflow](https://juejin.im/post/59420951128fe1006a1960f8)|校对|1|
@@ -3367,7 +3367,7 @@
 |[前端开发者指南 2018](https://github.com/xitu/front-end-handbook-2018)|翻译校对|10|
 |[2018 年 1 月兑 树莓派套餐 1 个]()|减去积分|45|
 |[IBM 工程师的 TensorFlow 入门指北](https://juejin.im/post/5a3d1ecb518825256362de6a)|校对|2|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|9|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译|9|
 |[CSV 注入：被人低估的风险](https://juejin.im/post/59eca3fef265da430b7a63c8)|校对|1.5|
 |[RNN 循环神经网络系列 1：基本 RNN 与 CHAR-RNN](https://juejin.im/post/59f0c5b0f265da43085d3e94)|校对|1|
 |[什么是蒙特卡洛树搜索](https://juejin.im/post/59f16e8c5188250385371302)|翻译|4|
@@ -3506,10 +3506,10 @@
 
 |文章|类型|积分|
 |------|-------|-------|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译校对|1|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|6|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|9|
-|[TensorFlow 官方文档翻译校对]()|翻译|3.5|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|1|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译|6|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译|9|
+|[TensorFlow 官方文档翻译校对](https://github.com/xitu/tensorflow-docs)|翻译|3.5|
 |[RNN 循环神经网络系列 4: 注意力机制](https://juejin.im/post/59f72f61f265da432002871c)|翻译|6|
 |[RNN 循环神经网络系列 2：文本分类](https://juejin.im/post/59f0c6b3f265da4319557de4)|校对|1|
 |[RNN 循环神经网络系列 1：基本 RNN 与 CHAR-RNN](https://juejin.im/post/59f0c5b0f265da43085d3e94)|校对|1|
@@ -3619,8 +3619,8 @@
 
 |文章|类型|积分|
 |------|-------|-------|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译校对|7|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译校对|5|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|7|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|5|
 |[基于 TensorFlow 的上下文聊天机器人](https://juejin.im/entry/5992cd385188252433704fa3)|校对|1|
 |[关于 Node.js 的认证方面的教程（很可能）是有误的](https://juejin.im/post/599f955d51882511264e7f69)|校对|2|
 |[JavaScript 二进制的 AST](https://juejin.im/post/599e6f246fb9a024985f0421)|校对|2|
@@ -3758,7 +3758,7 @@
 
 |文章|类型|积分|
 |------|-------|-------|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|1|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译|1|
 |[Uber 机器学习平台 — 米开朗基罗](https://juejin.im/post/59c8b4d56fb9a00a4843b2a6)|校对|3.5|
 |[UI vs UX: 到底有什么差别](https://juejin.im/entry/59a62190f265da24843e713d/detail)|校对|1|
 
@@ -4052,7 +4052,7 @@
 |[第三方 SDK 的信任问题](https://juejin.im/post/5aa72655f265da238b7daa74)|校对|2.5|
 |[比特币的三个经济阶段](https://juejin.im/post/5a61d5336fb9a01cb049667e)|翻译|5|
 |[从应用探索者到初次购买者](https://juejin.im/post/5a24b9fc6fb9a04519696a06)|翻译|6|
-|[TensorFlow 官方文档翻译校对]()|翻译|4|
+|[TensorFlow 官方文档翻译校对](https://github.com/xitu/tensorflow-docs)|翻译|4|
 |[在 Android O 上用到 MediaStyle 的提醒功能](https://juejin.im/post/5a015d696fb9a04524053bce)|翻译|3|
 |[Spotify 每周推荐功能：基于机器学习的音乐推荐](https://juejin.im/post/59fbd0d9518825299a468a8b)|校对|1.5|
 |[什么是蒙特卡洛树搜索](https://juejin.im/post/59f16e8c5188250385371302)|校对|1|
@@ -4068,7 +4068,7 @@
 
 |文章|类型|积分|
 |------|-------|-------|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|2.5|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译|2.5|
 |[RNN 循环神经网络系列 3：编码、解码器](https://juejin.im/post/59fc1616f265da432b4a2d44)|校对|1|
 
 ## 译者：[Brucexz](https://github.com/Brucexz) 历史贡献积分：2 当前积分：2
@@ -4093,7 +4093,7 @@
 |[20 年后比特币将会变成什么样 - 第一部分](https://juejin.im/post/5a1e9c2d6fb9a044fa19a036)|校对|1.5|
 |[Angular、React、Vue 三剑客: 在 2017 年的比较](https://juejin.im/post/5a0d5df1f265da43062a542f)|翻译|10|
 |[JavaScript 如何工作：在 V8 引擎里 5 个优化代码的技巧](https://juejin.im/post/5a102e656fb9a044fd1158c6)|校对|2|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|2|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译|2|
 |[重建 slack.com：使用 CSS Grid 重新设计，并针对性能和可访问性进行了优化。](https://juejin.im/post/5a029d986fb9a044fb072efb)|翻译|4|
 |[Rollup - 下一代 ES6 模块化打包工具 - 对 Rich Harris 的采访](https://juejin.im/post/5a09b4e56fb9a0451170a22e)|翻译|4|
 |[前端 Console 调试小技巧](https://juejin.im/post/5a08087f6fb9a04529363d71)|校对|1|
@@ -4173,12 +4173,12 @@
 
 |文章|类型|积分|
 |------|-------|-------|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|8|
-|[TensorFlow 官方文档翻译校对]()|翻译|10|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译|8|
+|[TensorFlow 官方文档翻译校对](https://github.com/xitu/tensorflow-docs)|翻译|10|
 |[ES6 中的元编程： 第三部分 - 代理（Proxies）](https://juejin.im/post/5a0f05496fb9a04508093ac4)|校对|1.5|
 |[Angular、React、Vue 三剑客: 在 2017 年的比较](https://juejin.im/post/5a0d5df1f265da43062a542f)|校对|3|
 |caoyi0905 2017 年 11 月兑 GitHub 贴纸 1 个|减去积分|10|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|1|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译|1|
 |[Vue Report 2017](https://juejin.im/post/5a138fae5188254d28732899)|翻译|2|
 
 ## 译者：[JohnJiangLA](https://github.com/JohnJiangLA) 历史贡献积分：90 当前积分：-5 年度积分：56
@@ -4187,14 +4187,14 @@
 |------|-------|-------|
 |[2018 年 3 月兑 帽衫 M 和小猫各 1 个]()|减去积分|35|
 |[带你了解以太坊第 2 层扩容方案：State Channels、Plasma 和 Truebit](https://juejin.im/post/5aa1f63c518825558804f85b)|翻译|11|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|校对|8|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译校对|8|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译校对|19|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|10|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|校对|8|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|8|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|19|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译|10|
 |[2017 年 1 月兑 小猫和树莓派套餐各 1 个]()|减去积分|60|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|11|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译|11|
 |[IBM 工程师的 TensorFlow 入门指北](https://juejin.im/post/5a3d1ecb518825256362de6a)|翻译|6|
-|[TensorFlow 官方文档翻译校对]()|翻译|15|
+|[TensorFlow 官方文档翻译校对](https://github.com/xitu/tensorflow-docs)|翻译|15|
 |[Vue Report 2017](https://juejin.im/post/5a138fae5188254d28732899)|翻译|2|
 
 ## 译者：[iFwu](https://github.com/iFwu) 历史贡献积分：2 当前积分：2
@@ -4207,20 +4207,20 @@
 
 |文章|类型|积分|
 |------|-------|-------|
-|[TensorFlow 官方文档翻译校对]()|翻译|4|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|3|
+|[TensorFlow 官方文档翻译校对](https://github.com/xitu/tensorflow-docs)|翻译|4|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译|3|
 
 ## 译者：[linbaiwpi](https://github.com/linbaiwpi) 历史贡献积分：2.5 当前积分：2.5
 
 |文章|类型|积分|
 |------|-------|-------|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|2.5|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译|2.5|
 
 ## 译者：[luffydream](https://github.com/luffydream) 历史贡献积分：1.5 当前积分：1.5
 
 |文章|类型|积分|
 |------|-------|-------|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|1.5|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译|1.5|
 
 ## 译者：[LynnShaw](https://github.com/LynnShaw) 历史贡献积分：5 当前积分：5 年度积分：3.5
 
@@ -4252,12 +4252,12 @@
 
 |文章|类型|积分|
 |------|-------|-------|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译校对|1.5|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|3|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|3|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|1.5|
-|[TensorFlow 官方文档翻译校对]()|翻译|6|
-|[TensorFlow 官方文档翻译校对]()|翻译|4.5|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|1.5|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译|3|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译|3|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译|1.5|
+|[TensorFlow 官方文档翻译校对](https://github.com/xitu/tensorflow-docs)|翻译|6|
+|[TensorFlow 官方文档翻译校对](https://github.com/xitu/tensorflow-docs)|翻译|4.5|
 |[僵尸币时代即将到来?](https://juejin.im/post/5a0e82315188252ae93a843a)|校对|0.5|
 
 ## 译者：[oaosj](https://github.com/oaosj) 历史贡献积分：12 当前积分：12
@@ -4316,58 +4316,58 @@
 
 |文章|类型|积分|
 |------|-------|-------|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译校对|17|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|6|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|17|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译|6|
 |[Android 开发者如何函数式编程（三）](https://juejin.im/post/5a3765eaf265da430945415d)|校对|1|
-|[TensorFlow 官方文档翻译校对]()|翻译|5|
+|[TensorFlow 官方文档翻译校对](https://github.com/xitu/tensorflow-docs)|翻译|5|
 
 ## 译者：[LilianYe](https://github.com/LilianYe) 历史贡献积分：2 当前积分：2
 
 |文章|类型|积分|
 |------|-------|-------|
-|[TensorFlow 官方文档翻译校对]()|翻译|2|
+|[TensorFlow 官方文档翻译校对](https://github.com/xitu/tensorflow-docs)|翻译|2|
 
 
 ## 译者：[elijahxyc](https://github.com/elijahxyc) 历史贡献积分：3.5 当前积分：3.5
 
 |文章|类型|积分|
 |------|-------|-------|
-|[TensorFlow 官方文档翻译校对]()|翻译|3.5|
+|[TensorFlow 官方文档翻译校对](https://github.com/xitu/tensorflow-docs)|翻译|3.5|
 
 ## 译者：[carriecc](https://github.com/carriecc) 历史贡献积分：21 当前积分：21
 
 |文章|类型|积分|
 |------|-------|-------|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|15|
-|[TensorFlow 官方文档翻译校对]()|翻译|6|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译|15|
+|[TensorFlow 官方文档翻译校对](https://github.com/xitu/tensorflow-docs)|翻译|6|
 
 ## 译者：[charsdavy](https://github.com/charsdavy) 历史贡献积分：26.5 当前积分：26.5
 
 |文章|类型|积分|
 |------|-------|-------|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译校对|12|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|6|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|12|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译|6|
 |[Xcode 环境配置最佳实践](https://juejin.im/post/5a4f120cf265da3e3d48f1f6)|校对|1.5|
-|[TensorFlow 官方文档翻译校对]()|翻译|7|
+|[TensorFlow 官方文档翻译校对](https://github.com/xitu/tensorflow-docs)|翻译|7|
 
 ## 译者：[xiaoxi666](https://github.com/xiaoxi666) 历史贡献积分：11 当前积分：11
 
 |文章|类型|积分|
 |------|-------|-------|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|9|
-|[TensorFlow 官方文档翻译校对]()|翻译|2|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译|9|
+|[TensorFlow 官方文档翻译校对](https://github.com/xitu/tensorflow-docs)|翻译|2|
 
 ## 译者：[missmisslonely](https://github.com/missmisslonely) 历史贡献积分：6 当前积分：6
 
 |文章|类型|积分|
 |------|-------|-------|
-|[TensorFlow 官方文档翻译校对]()|翻译|6|
+|[TensorFlow 官方文档翻译校对](https://github.com/xitu/tensorflow-docs)|翻译|6|
 
 ## 译者：[gzponline](https://github.com/gzponline) 历史贡献积分：6 当前积分：6
 
 |文章|类型|积分|
 |------|-------|-------|
-|[TensorFlow 官方文档翻译校对]()|翻译|6|
+|[TensorFlow 官方文档翻译校对](https://github.com/xitu/tensorflow-docs)|翻译|6|
 
 ## 译者：[jonjia](https://github.com/jonjia) 历史贡献积分：27 当前积分：27 年度积分：11.5
 
@@ -4387,19 +4387,19 @@
 
 |文章|类型|积分|
 |------|-------|-------|
-|[TensorFlow 官方文档翻译校对]()|翻译|6|
+|[TensorFlow 官方文档翻译校对](https://github.com/xitu/tensorflow-docs)|翻译|6|
 
 ## 译者：[asdf2014](https://github.com/asdf2014) 历史贡献积分：2 当前积分：2
 
 |文章|类型|积分|
 |------|-------|-------|
-|[TensorFlow 官方文档翻译校对]()|翻译|2|
+|[TensorFlow 官方文档翻译校对](https://github.com/xitu/tensorflow-docs)|翻译|2|
 
 ## 译者：[MoutainOne](https://github.com/MoutainOne) 历史贡献积分：2 当前积分：2
 
 |文章|类型|积分|
 |------|-------|-------|
-|[TensorFlow 官方文档翻译校对]()|翻译|2|
+|[TensorFlow 官方文档翻译校对](https://github.com/xitu/tensorflow-docs)|翻译|2|
 
 ## 译者：[caoxiaoshuai1](https://github.com/caoxiaoshuai1) 历史贡献积分：8 当前积分：8
 
@@ -4736,11 +4736,11 @@
 
 |文章|类型|积分|
 |------|-------|-------|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|15|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译|15|
 |[2018 年 2 月兑 树莓派套餐 1 个]()|减去积分|45|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译校对|25|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|45|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|7|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|25|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译|45|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译|7|
 
 ## 译者：[NeoyeElf](https://github.com/NeoyeElf) 历史贡献积分：26 当前积分：11 年度积分：26
 
@@ -4786,7 +4786,7 @@
 
 |文章|类型|积分|
 |------|-------|-------|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|2|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译|2|
 |[利用双环 TDD 进行由外向内的开发](https://juejin.im/post/5a5dea0d6fb9a01cab28443c)|校对|1.5|
 
 ## 译者：[dieyidezui](https://github.com/dieyidezui) 历史贡献积分：14 当前积分：14 年度积分：14
@@ -4807,7 +4807,7 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[如何打造以人为本的移动游戏](https://juejin.im/post/5a61663b518825732f7ecd2a)|校对|2|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译|4|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译|4|
 
 ## 译者：[pthtc](https://github.com/pthtc) 历史贡献积分：36.5 当前积分：21.5 年度积分：36.5
 
@@ -4857,9 +4857,9 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[前端开发者指南 2018](https://github.com/xitu/front-end-handbook-2018)|翻译校对|7|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译校对|8.5|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译校对|5|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译校对|6|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|8.5|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|5|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|6|
 |[2018 前端性能优化清单 - 第 3 部分](https://juejin.im/post/5a702160f265da3e4b771109)|校对|2|
 |[使用深度学习自动生成HTML代码 - 第 1 部分](https://juejin.im/post/5a72744e6fb9a01cb64f1d66)|校对|2.5|
 |[2018 设计趋势](https://juejin.im/post/5a695d88f265da3e58598968)|校对|2|
@@ -4936,14 +4936,14 @@
 
 |文章|类型|积分|
 |------|-------|-------|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译校对|23|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|23|
 
 ## 译者：[SallyGo](https://github.com/SallyGo) 历史贡献积分：5 当前积分：5 年度积分：2
 
 |文章|类型|积分|
 |------|-------|-------|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译校对|2|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译校对|3|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|2|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|3|
 
 ## 译者：[ZhiyuanSun](https://github.com/ZhiyuanSun) 历史贡献积分：6 当前积分：6
 
@@ -4983,7 +4983,7 @@
 
 |文章|类型|积分|
 |------|-------|-------|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译校对|1|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|1|
 |[为 Flask Web 应用配置 Nginx](https://juejin.im/post/5a795febf265da4e94499949)|校对|2|
 
 ## 译者：[Vsevorod](https://github.com/Vsevorod) 历史贡献积分：12 当前积分：12
@@ -5008,14 +5008,14 @@
 
 |文章|类型|积分|
 |------|-------|-------|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译校对|1|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译校对|7|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|1|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|7|
 
 ## 译者：[PeterChenYijie](https://github.com/PeterChenYijie) 历史贡献积分：2 当前积分：2 年度积分：2
 
 |文章|类型|积分|
 |------|-------|-------|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译校对|2|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|2|
 
 ## 译者：[jaymz1439](https://github.com/jaymz1439) 历史贡献积分：4.5 当前积分：4.5 年度积分：4.5
 
@@ -5023,7 +5023,7 @@
 |------|-------|-------|
 |[用 Java 创造你的第一个区块链之第二部分 — 交易](https://juejin.im/post/5a940b116fb9a0633757587a)|校对|2|
 |[从 SQLite 逐步迁移到 Room](https://juejin.im/post/5a8c3a2cf265da4e761fd721)|校对|1|
-|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow/)|翻译校对|1.5|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|1.5|
 
 ## 译者：[snowyYU](https://github.com/snowyYU) 历史贡献积分：3 当前积分：3 年度积分：3
 
