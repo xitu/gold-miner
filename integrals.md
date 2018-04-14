@@ -4681,10 +4681,11 @@
 |[Face ID 对易用性意味着什么](https://juejin.im/post/5a41d01cf265da432c241943)|校对|1|
 |[自动化持续集成/持续分发，以节省更多时间编写代码](https://juejin.im/post/5a44aab86fb9a044ff31c418)|翻译|3|
 
-## 译者：[hanliuxin5](https://github.com/hanliuxin5) 历史贡献积分：51.5 当前积分：51.5 年度积分：51.5
+## 译者：[hanliuxin5](https://github.com/hanliuxin5) 历史贡献积分：52.5 当前积分：52.5 年度积分：52.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[利用 Android 构建 TV 的未来](https://juejin.im/post/5a964061f265da4e914b8f88)|校对|1|
 |[使用MVI构建响应式 APP — 第七部分 — TIMING (SINGLELIVEEVENT 问题)](https://juejin.im/post/5ac47f0bf265da23793c60be)|校对|1|
 |[Google Play 控制台指南](https://juejin.im/post/5ac1c3546fb9a028d444bc2b)|校对|4|
 |[使用 MVI 编写响应式 APP—第六部分—状态恢复](https://juejin.im/post/5ab4c028518825557e7853a1)|校对|1|
@@ -4726,19 +4727,21 @@
 |[JavaScript 自动化爬虫入门指北（Chrome + Puppeteer + Node JS）](https://juejin.im/post/5a4e1038f265da3e591e1247)|翻译|7|
 |[智对订阅难点：教你如何应对工作中 10 种常见订阅问题](https://juejin.im/post/5a406644f265da430d583cb7)|翻译|5|
 
-## 译者：[Wangalan30](https://github.com/Wangalan30) 历史贡献积分：10.5 当前积分：10.5 年度积分：9
+## 译者：[Wangalan30](https://github.com/Wangalan30) 历史贡献积分：12 当前积分：12 年度积分：10.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[建立一个像科幻小说一样的虚拟世界：设计一个全球性的虚拟世界](https://juejin.im/post/5ad19dcdf265da2389262784)|校对|1.5|
 |[用户账户、授权和密码管理的 12 个最佳方法](https://juejin.im/post/5a9e4db151882555677e0dc1)|翻译|6|
 |[一文教你预测 APP 未来的货币化情况](https://juejin.im/post/5a7a94d36fb9a0634d2793c6)|校对|2|
 |[如何紧跟未来的设计趋势：15 个让你永远不过时的资料](https://juejin.im/post/5a52d2226fb9a01c9525ebbe)|校对|1|
 |[智对订阅难点：教你如何应对工作中 10 种常见订阅问题](https://juejin.im/post/5a406644f265da430d583cb7)|校对|1.5|
 
-## 译者：[IllllllIIl](https://github.com/IllllllIIl) 历史贡献积分：23 当前积分：23 年度积分：21.5
+## 译者：[IllllllIIl](https://github.com/IllllllIIl) 历史贡献积分：24.5 当前积分：24.5 年度积分：23
 
 |文章|类型|积分|
 |------|-------|-------|
+|[建立一个像科幻小说一样的虚拟世界：设计一个全球性的虚拟世界](https://juejin.im/post/5ad19dcdf265da2389262784)|校对|1.5|
 |[Google Play 控制台指南](https://juejin.im/post/5ac1c3546fb9a028d444bc2b)|校对|4|
 |[用 Java 创造你的第一个区块链之第二部分 — 交易](https://juejin.im/post/5a940b116fb9a0633757587a)|翻译|6|
 |[从 SQLite 逐步迁移到 Room](https://juejin.im/post/5a8c3a2cf265da4e761fd721)|翻译|2.5|
@@ -4970,20 +4973,23 @@
 |[你前所未知的 JavaScript 调试器](https://juejin.im/post/5a7e94a66fb9a0633b2105ed)|校对|1|
 |[探索 ECMAScript 装饰器](https://juejin.im/post/5a7bc62d6fb9a063523ddf95)|校对|1.5|
 
-## 译者：[JayZhaoBoy](https://github.com/JayZhaoBoy) 历史贡献积分：31 当前积分：31 年度积分：31
+## 译者：[JayZhaoBoy](https://github.com/JayZhaoBoy) 历史贡献积分：34.5 当前积分：34.5 年度积分：34.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[利用 Android 构建 TV 的未来](https://juejin.im/post/5a964061f265da4e914b8f88)|翻译|3.5|
 |[Google Play 控制台指南](https://juejin.im/post/5ac1c3546fb9a028d444bc2b)|翻译|12|
 |[在 Android Instant App（安卓即时应用程序）中启用 ProGuard（混淆）](https://juejin.im/post/5aaf1078f265da238e0d8857)|翻译|5|
 |[不再对 MVVM 感到绝望](https://juejin.im/post/5a782d0d5188257a856f1dd7)|翻译|8|
 |[为 Django Framework 贡献你的力量并没有想象中的那么难](https://juejin.im/post/5a77cd6e5188257a79247fe1)|翻译|3|
 |[大话（Summer vs winter Observable）之我与 Rx Observable[Android RxJava2]（这是什么鬼）第六话](https://juejin.im/post/5a7cfdaaf265da4e7f35901a)|校对|3|
 
-## 译者：[LeeSniper](https://github.com/LeeSniper) 历史贡献积分：7.5 当前积分：7.5 年度积分：7.5
+## 译者：[LeeSniper](https://github.com/LeeSniper) 历史贡献积分：13.5 当前积分：13.5 年度积分：13.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[建立一个像科幻小说一样的虚拟世界：设计一个全球性的虚拟世界](https://juejin.im/post/5ad19dcdf265da2389262784)|翻译|5|
+|[利用 Android 构建 TV 的未来](https://juejin.im/post/5a964061f265da4e914b8f88)|校对|1|
 |[使用 leanback 的 DiffCallback：和 DiffUtil 回调之间的区别](https://juejin.im/post/5a9218ee5188257a5c60892a)|翻译|1|
 |[玩转 Android paths](https://juejin.im/post/5a7c05e7f265da4e7f358cf2)|校对|2.5|
 |[大话（Summer vs winter Observable）之我与 Rx Observable[Android RxJava2]（这是什么鬼）第六话](https://juejin.im/post/5a7cfdaaf265da4e7f35901a)|校对|4|
