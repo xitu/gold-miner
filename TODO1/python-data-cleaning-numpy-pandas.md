@@ -38,7 +38,7 @@
 
 让我们从 import 这些模块开始吧！
 
-```python
+```
 >>> import pandas as pd
 >>> import numpy as np
 ```
@@ -55,7 +55,7 @@ Pandas 提供了一个很方便的 [`drop()`](https://pandas.pydata.org/pandas-d
 
 首先，我们从 CSV 文件 “BL-Flickr-Images-Book.csv” 中创建一个 `DataFrame`。在下面的例子中，我们把相对路径传递给 `pd.read_csv`，当前工作路径下，所有的数据集都存放在 `Datasets` 文件夹中：
 
-```python
+```
 >>> df = pd.read_csv('Datasets/BL-Flickr-Images-Book.csv')
 >>> df.head()
 
@@ -113,7 +113,7 @@ Pandas 提供了一个很方便的 [`drop()`](https://pandas.pydata.org/pandas-d
 
 我们可以这样删除这些列：
 
-```python
+```
 >>> to_drop = ['Edition Statement',
 ...            'Corporate Author',
 ...            'Corporate Contributors',
@@ -130,7 +130,7 @@ Pandas 提供了一个很方便的 [`drop()`](https://pandas.pydata.org/pandas-d
 
 再次查看 `DataFrame`，可以发现不想要的列以及被移除了：
 
-```python
+```
 >>> df.head()
    Identifier      Place of Publication Date of Publication  \
 0         206                    London         1879 [1878]
@@ -156,7 +156,7 @@ Pandas 提供了一个很方便的 [`drop()`](https://pandas.pydata.org/pandas-d
 
 或者，我们可以通过直接将列传递给 `columns` 参数来删除列，不用单独指定删除的标签以及删除列还是行：
 
-```python
+```
 >>> df.drop(columns=to_drop, inplace=True)
 ```
 
@@ -170,14 +170,14 @@ Pandas 的 `Index` 扩展了 NumPy 的数组功能，从而可以实现更多功
 
 例如，在上一节使用的数据集中，可以想象到，图书管理员如果需要搜索记录，他也许输入的是书籍的唯一标识符（`Identifier` 列）：
 
-```python
+```
 >>> df['Identifier'].is_unique
 True
 ```
 
 让我们用 `set_index` 来替换现有的索引：
 
-```python
+```
 >>> df = df.set_index('Identifier')
 >>> df.head()
                 Place of Publication Date of Publication  \
@@ -213,7 +213,7 @@ True
 
 我们可以使用 `loc[]` 直接访问每条记录。尽管 `loc[]` 可能不具有直观的名称，但它允许我们执行**基于标签的索引**，即标记某一行或某一条记录而不用考虑其位置：
 
-```python
+```
 >>> df.loc[206]
 Place of Publication                                               London
 Date of Publication                                           1879 [1878]
@@ -232,7 +232,7 @@ Name: 206, dtype: object
 
 你可能注意到，我们使用 `df = df.set_index(...)` 将此方法返回的值重新赋值给变量。这是因为默认情况下，此方法会返回一个修改后的副本，并不会直接对原本的对象进行更改，索引可以通过设置 `in0place` 参数来避免这种情况：
 
-```python
+```
 df.set_index('Identifier', inplace=True)
 ```
 
@@ -244,14 +244,14 @@ df.set_index('Identifier', inplace=True)
 
 它封装了任何不适用于数字或分类数据的字段。这是有道理的，因为我们使用的数据最初只是一堆杂乱的字符：
 
-```python
+```
 >>> df.get_dtype_counts()
 object    6
 ```
 
 其中出版日期一列，如果将其转化为数字类型更有意义，所以我们可以进行如下计算：
 
-```python
+```
 >>> df.loc[1905:, 'Date of Publication'].head(10)
 Identifier
 1905           1888
@@ -276,7 +276,7 @@ Name: Date of Publication, dtype: object
 
 综合以上，我们实际上可以利用一个正则表达式来提取出版年份：
 
-```python
+```
 regex = r'^(\d{4})'
 ```
 
@@ -286,7 +286,7 @@ regex = r'^(\d{4})'
 
 现在让我们来看看我们在数据集中运行这个表达式时会发生什么：
 
-```python
+```
 >>> extr = df['Date of Publication'].str.extract(r'^(\d{4})', expand=False)
 >>> extr.head()
 Identifier
@@ -302,7 +302,7 @@ Name: Date of Publication, dtype: object
 
 从技术上讲，这一列仍然是 `对象` dtype，但是我们用 `pd.to_numeric` 即可轻松获取数字：
 
-```python
+```
 >>> df['Date of Publication'] = pd.to_numeric(extr)
 >>> df['Date of Publication'].dtype
 dtype('float64')
@@ -310,7 +310,7 @@ dtype('float64')
 
 这么做会导致十分之一的值丢失，但这相对于能够对剩余的有效值上进行计算而已，是一个比较小的代价：
 
-```python
+```
 >>> df['Date of Publication'].isnull().sum() / len(df)
 0.11717147339205986
 ```
@@ -323,7 +323,7 @@ dtype('float64')
 
 为了清理 `Place of Publication` 字段，我们可以结合 Pandas 的 `str` 方法以及 NumPy 的 `np.where` 函数，这个函数基本上是 Excel 里的 `IF()` 宏的矢量化形式。它的语法如下：
 
-```python
+```
 >>> np.where(condition, then, else)
 ```
 
@@ -333,7 +333,7 @@ dtype('float64')
 
 它也可以被用于嵌套的 if-then 语句中，允许我们根据多个条件进行计算：
 
-```python
+```
 >>> np.where(condition1, x1, 
         np.where(condition2, x2, 
             np.where(condition3, x3, ...)))
@@ -341,7 +341,7 @@ dtype('float64')
 
 我们将用这两个函数来清理 `Place of Publication` 一列，因为此列包含字符串。以下是该列的内容：
 
-```python
+```
 >>> df['Place of Publication'].head(10)
 Identifier
 206                                  London
@@ -361,7 +361,7 @@ Name: Place of Publication, dtype: object
 
 我们来看看两条特定的数据：
 
-```python
+```
 >>> df.loc[4157862]
 Place of Publication                                  Newcastle-upon-Tyne
 Date of Publication                                                  1867
@@ -387,7 +387,7 @@ Name: 4159587, dtype: object
 
 我们按如下方式清理此列：
 
-```python
+```
 >>> pub = df['Place of Publication']
 >>> london = pub.str.contains('London')
 >>> london[:5]
@@ -404,7 +404,7 @@ Name: Place of Publication, dtype: bool
 
 与 `np.where` 结合：
 
-```python
+```
 df['Place of Publication'] = np.where(london, 'London',
                                       np.where(oxford, 'Oxford',
                                                pub.str.replace('-', ' ')))
@@ -427,7 +427,7 @@ Name: Place of Publication, dtype: object
 
 让我们来重新看看前五项，看起来比最开始的时候清晰多了：
 
-```python
+```
 >>> df.head()
            Place of Publication Date of Publication              Publisher  \
 206                      London                1879        S. Tinsley & Co.
@@ -479,7 +479,7 @@ Alaska[edit]
 
 我们可以利用这个模式创建一个 `(state, city)` 元组列表，并将它放入 `DataFrame`。
 
-```python
+```
 >>> university_towns = []
 >>> with open('Datasets/university_towns.txt') as file:
 ...     for line in file:
@@ -502,7 +502,7 @@ Alaska[edit]
 
 生成的 DataFrame 如下：
 
-```python
+```
 >>> towns_df = pd.DataFrame(university_towns,
 ...                         columns=['State', 'RegionName'])
 
@@ -521,7 +521,7 @@ While we could have cleaned these strings in the for loop above, Pandas makes it
 
 我们一直在使用**元素**这个术语，但实际上到底是指什么呢？看一下以下这个 DataFrame 例子：
 
-```python
+```
         0           1
 0    Mock     Dataset
 1  Python     Pandas
@@ -531,7 +531,7 @@ While we could have cleaned these strings in the for loop above, Pandas makes it
 
 在这个例子中，每个单元格（‘Mock’、‘Dataset’、‘Python’、‘Pandas’ 等）都是一个元素。所以 `applumap()` 方法将函数作用于每个元素上。假设定义函数为：
 
-```python
+```
 >>> def get_citystate(item):
 ...     if ' (' in item:
 ...         return item[:item.find(' (')]
@@ -543,7 +543,7 @@ While we could have cleaned these strings in the for loop above, Pandas makes it
 
 Pandas 的 `.applymap()` 只接受一个参数，也就是将会作用于每个元素上的函数（可调用）：
 
-```python
+```
 >>> towns_df =  towns_df.applymap(get_citystate)
 ```
 
@@ -551,7 +551,7 @@ Pandas 的 `.applymap()` 只接受一个参数，也就是将会作用于每个�
 
 函数返回的值取决于这个检查。最后，`applymap()` 函数在我们的 `DataFrame` 对象上被调用。现在我们的 `DataFrame` 对象更加简洁了。
 
-```python
+```
 >>> towns_df.head()
      State    RegionName
 0  Alabama        Auburn
@@ -584,7 +584,7 @@ Argentina (ARG),23,18,24,28,70,18,0,0,0,0,41,18,24,28,70
 
 然后，将它读入 Pandas 的 DataFrame 中：
 
-```python
+```
 >>> olympics_df = pd.read_csv('Datasets/olympics.csv')
 >>> olympics_df.head()
                    0         1     2     3     4      5         6     7     8  \
@@ -615,7 +615,7 @@ Argentina (ARG),23,18,24,28,70,18,0,0,0,0,41,18,24,28,70
 
 这个函数有[很多可选的参数](https://pandas.pydata.org/pandas-docs/stable/generated/pandas.read_csv.html)，但这个情况里，我们只需要一个参数（`header`）来移除第 0 行：
 
-```python
+```
 >>> olympics_df = pd.read_csv('Datasets/olympics.csv', header=1)
 >>> olympics_df.head()
           Unnamed: 0  ? Summer  01 !  02 !  03 !  Total  ? Winter  \
@@ -646,7 +646,7 @@ Argentina (ARG),23,18,24,28,70,18,0,0,0,0,41,18,24,28,70
 
 让我们从定义一个新的字典开始，它将现在的列的名字作为 key，映射到更加可用的名字（字典值）。
 
-```python
+```
 >>> new_names =  {'Unnamed: 0': 'Country',
 ...               '? Summer': 'Summer Olympics',
 ...               '01 !': 'Gold',
@@ -664,13 +664,13 @@ Argentina (ARG),23,18,24,28,70,18,0,0,0,0,41,18,24,28,70
 
 然后调用 `rename()` 函数：
 
-```python
+```
 >>> olympics_df.rename(columns=new_names, inplace=True)
 ```
 
 将 `inplace` 参数设置为 `True` 可以将变化直接作用于我们的 `DataFrame` 对象上。让我们看看是否生效：
 
-```python
+```
 >>> olympics_df.head()
                    Country  Summer Olympics  Gold  Silver  Bronze  Total  \
 0        Afghanistan (AFG)               13     0       0       2      2
