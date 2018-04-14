@@ -108,7 +108,7 @@ type Block struct {
 var Blockchain []Block
 ```
 
-那么散列如何适合于块和块链呢？我们使用散列来识别和保持块的正确顺序。通过确保每个 `Block` 中的 `PrevHash` 与前面 `Block` 块中的 `Hash` 相同，我们知道组成链的块的正确顺序。  w
+那么散列如何适合于块和块链呢？我们使用散列来识别和保持块的正确顺序。通过确保每个 `Block` 中的 `PrevHash` 与前面 `Block` 块中的 `Hash` 相同，我们知道组成链的块的正确顺序。  
 
 ![](https://cdn-images-1.medium.com/max/800/1*VwT5d8NPjUpI7HiwPa--cQ.png)
 
@@ -289,7 +289,7 @@ func handleWriteBlock(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-为破门使用独立 `Message` 结构的原因是接收 JSON POST 请求的请求体，我们将使用它来编写新的块。这允许我们简单地发送带有以下主体的 POST 请求，我们的处理程序将为我们填充该块的其余部分：s
+为破门使用独立 `Message` 结构的原因是接收 JSON POST 请求的请求体，我们将使用它来编写新的块。这允许我们简单地发送带有以下主体的 POST 请求，我们的处理程序将为我们填充该块的其余部分：
 
 `{"BPM":50}`
 
