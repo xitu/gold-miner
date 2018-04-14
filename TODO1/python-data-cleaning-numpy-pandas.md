@@ -9,7 +9,7 @@
 
 ![](https://files.realpython.com/media/data-cleaning-numpy-pandas.0897550e8675.jpg)
 
-数据科学家花费大量时间清理数据集，将它们清理为可以工作的形式。事实上，很多数据科学家表示，80% 的工作都是获取和清理数据的初始步骤。
+数据科学家花费大量时间清理数据集，将它们清理为可以工作的形式。事实上，很多数据科学家表示，80% 的工作都是获取和清理数据。
 
 因此，不管你是刚刚进入这个领域或者计划进入，那么处理混乱数据的能力会非常重要，无论这意味着缺失值、格式不一致、格式错误还是无意义的异常值。
 
@@ -47,11 +47,9 @@
 
 你经常会发现数据集中并非所有类别的数据都对你有用。例如，你可能有一个数据集包含了学生信息（名字、成绩、标准、父母姓名和住址），但你想要专注于分析学生的成绩。
 
-在这种情况下，住址和父母姓名对你来说并不重要，保留这些类别将占用不必要的空间，并可能拖累运行时。
+在这种情况下，住址和父母姓名对你来说并不重要，保留这些类别将占用不必要的空间，并可能拖累运行时间。
 
 Pandas 提供了一个很方便的 [`drop()`](https://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.drop.html) 函数来从 `DataFrame` 中移除列或行。我们来看一个简单的例子，从 `DataFrame` 中伤处一些列。
-
- First, let’s create a `DataFrame` out of the CSV file ‘BL-Flickr-Images-Book.csv’. In the examples below, we pass a relative path to `pd.read_csv`, meaning that all of the datasets are in a folder named `Datasets` in our current working directory:
 
 首先，我们从 CSV 文件 “BL-Flickr-Images-Book.csv” 中创建一个 `DataFrame`。在下面的例子中，我们把相对路径传递给 `pd.read_csv`，当前工作路径下，所有的数据集都存放在 `Datasets` 文件夹中：
 
@@ -515,8 +513,6 @@ Alaska[edit]
 4  Alabama[edit]\n         Montevallo (University of Montevallo)[2]\n
 ```
 
-While we could have cleaned these strings in the for loop above, Pandas makes it easy. We only need the state name and the town name and can remove everything else. While we could use Pandas’ `.str()` methods again here, we could also use `applymap()` to map a Python callable to each element of the DataFrame.
-
 虽然我们可以在上面的 for 循环中清理这些字符串，Pandas 可以更容易做到。我们只需要州名和城镇名字，其他都可以删除。虽然这里也可以再次使用 `.str()` 方法，但我们也可以使用 `applymap()` 方法将一个 Python 可调用方法映射到 DataFrame 的每个元素上。
 
 我们一直在使用**元素**这个术语，但实际上到底是指什么呢？看一下以下这个 DataFrame 例子：
@@ -640,7 +636,7 @@ Argentina (ARG),23,18,24,28,70,18,0,0,0,0,41,18,24,28,70
 4              12
 ```
 
-我们现在已经有了正确的header 行，以及移除了所有不必要的行。注意 Pandas 将包含国家名字的列的名字从 `NaN` 变成了 `Unnames:0`。
+我们现在已经有了正确的 header 行，以及移除了所有不必要的行。注意 Pandas 将包含国家名字的列的名字从 `NaN` 变成了 `Unnames:0`。
 
 要重命名列，我们将利用 `rename()` 方法，这个方法允许你基于一个映射（本例中，指字典）来重新标记轴的名字。
 
