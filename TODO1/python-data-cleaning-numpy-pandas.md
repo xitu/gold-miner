@@ -709,8 +709,6 @@ Argentina (ARG),23,18,24,28,70,18,0,0,0,0,41,18,24,28,70
 *   [Python 数据分析](https://realpython.com/asins/1491957662/) 由 Pandas 的创造者 Wes McKinney 撰写
 *   [Pandas Cookbook](https://realpython.com/asins/B06W2LXLQK/) 由数据科学教练和顾问 Ted Petrou 撰写
 
-Each tutorial at Real Python is created by a team of developers so that it meets our high quality standards. The team members who worked on this tutorial are: [Malay Agarwal](https://realpython.com/team/magarwal/) (Author) and [Brad Solomon](https://realpython.com/team/bsolomon/) (Editor).
-
 Real Python 的每一个教程都是由一组开发人员创建，所以它符合我们的高质量标准。参与本教程的团队成员是 [Malay Agarwal](https://realpython.com/team/magarwal/) （作者）以及 [Brad Solomon](https://realpython.com/team/bsolomon/) （编辑）。
 
 ---
