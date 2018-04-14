@@ -5087,10 +5087,11 @@
 |[使用 MVI 开发响应式 APP - 第三部分 - 状态减少（state reducer）](https://juejin.im/post/5a955c50f265da4e853d856a)|翻译|4|
 |[二十年后比特币会变成什么样？- 第二部分](https://juejin.im/post/5a955721f265da4e826377b6)|翻译|6|
 
-## 译者：[Starriers](https://github.com/Starriers) 历史贡献积分：59 当前积分：29 年度积分：59
+## 译者：[Starriers](https://github.com/Starriers) 历史贡献积分：62 当前积分：32 年度积分：62
 
 |文章|类型|积分|
 |------|-------|-------|
+|[设计师与工程师协作的 5 项准则](https://juejin.im/post/5ac9e56af265da23945fc201)|翻译|3|
 |[怎样把取消订阅的用户吸引回来](https://juejin.im/post/5acc1538518825651d07fdd1)|校对|1|
 |[2018 年 4 月兑 Octoplush 1 个]()|减去积分|30|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|8.5|
@@ -5297,3 +5298,15 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[怎样把取消订阅的用户吸引回来](https://juejin.im/post/5acc1538518825651d07fdd1)|校对|1|
+
+## 译者：[PokerF](https://github.com/PokerF) 历史贡献积分：1 当前积分：1 年度积分：1
+
+|文章|类型|积分|
+|------|-------|-------|
+|[设计师与工程师协作的 5 项准则](https://juejin.im/post/5ac9e56af265da23945fc201)|校对|1|
+
+## 译者：[NoName4Me](https://github.com/NoName4Me) 历史贡献积分：1 当前积分：1 年度积分：1
+
+|文章|类型|积分|
+|------|-------|-------|
+|[设计师与工程师协作的 5 项准则](https://juejin.im/post/5ac9e56af265da23945fc201)|校对|1|
