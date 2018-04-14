@@ -2785,10 +2785,11 @@
 |------|-------|-------|
 |[编写整洁 CSS 代码的黄金法则](https://juejin.im/post/58d34bed128fe1006caf8b6b)|校对|1|
 
-## 译者：[bambooom](https://github.com/bambooom) 历史贡献积分：47 当前积分：47 年度积分：5
+## 译者：[bambooom](https://github.com/bambooom) 历史贡献积分：48.5 当前积分：48.5 年度积分：6.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[为 JavaScript 程序员准备的 Flutter 指南](https://juejin.im/post/5ac43c536fb9a028da7cbd59)|校对|1.5|
 |[前端开发者指南 2018](https://github.com/xitu/front-end-handbook-2018)|翻译校对|3|
 |[JavaScript 自动化爬虫入门指北（Chrome + Puppeteer + Node JS）](https://juejin.im/post/5a4e1038f265da3e591e1247)|校对|2|
 |[将网站转换为渐进式 Web 应用程序之简易教程](https://juejin.im/post/5a3cdf52f265da4321543c95)|翻译|3|
@@ -2840,10 +2841,11 @@
 |[你正在阅读的用户体验文章是不是在向你进行推销？](https://juejin.im/post/58d4c501a22b9d00645544d9)|校对|2|
 |[震惊，还可以用这种姿势学习编程](https://juejin.im/post/58d3ebd4128fe1006cb43722)|翻译|3|
 
-## 译者：[lsvih](https://github.com/lsvih) 历史贡献积分：249 当前积分：208 年度积分：41.5
+## 译者：[lsvih](https://github.com/lsvih) 历史贡献积分：254 当前积分：213 年度积分：46.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[为 JavaScript 程序员准备的 Flutter 指南](https://juejin.im/post/5ac43c536fb9a028da7cbd59)|翻译|5|
 |[为 Python Web 应用编写 Dockerfiles](https://juejin.im/post/5aaf8038518825557e783285)|翻译|3|
 |[用 Python 做一个 H5 游戏机器人](https://juejin.im/post/5aa9e7645188257bf550c745)|翻译|4.5|
 |[前端开发者指南 2018](https://github.com/xitu/front-end-handbook-2018)|翻译校对|9|
@@ -4679,10 +4681,12 @@
 |[Face ID 对易用性意味着什么](https://juejin.im/post/5a41d01cf265da432c241943)|校对|1|
 |[自动化持续集成/持续分发，以节省更多时间编写代码](https://juejin.im/post/5a44aab86fb9a044ff31c418)|翻译|3|
 
-## 译者：[hanliuxin5](https://github.com/hanliuxin5) 历史贡献积分：46.5 当前积分：46.5 年度积分：46.5
+## 译者：[hanliuxin5](https://github.com/hanliuxin5) 历史贡献积分：51.5 当前积分：51.5 年度积分：51.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[使用MVI构建响应式 APP — 第七部分 — TIMING (SINGLELIVEEVENT 问题)](https://juejin.im/post/5ac47f0bf265da23793c60be)|校对|1|
+|[Google Play 控制台指南](https://juejin.im/post/5ac1c3546fb9a028d444bc2b)|校对|4|
 |[使用 MVI 编写响应式 APP—第六部分—状态恢复](https://juejin.im/post/5ab4c028518825557e7853a1)|校对|1|
 |[使用 MVI 编写响应式 APP — 第 5 部分 — 简单的调试](https://juejin.im/post/5aafa3e851882555627d1842)|校对|1|
 |[在 Android Instant App（安卓即时应用程序）中启用 ProGuard（混淆）](https://juejin.im/post/5aaf1078f265da238e0d8857)|校对|3|
@@ -4731,10 +4735,11 @@
 |[如何紧跟未来的设计趋势：15 个让你永远不过时的资料](https://juejin.im/post/5a52d2226fb9a01c9525ebbe)|校对|1|
 |[智对订阅难点：教你如何应对工作中 10 种常见订阅问题](https://juejin.im/post/5a406644f265da430d583cb7)|校对|1.5|
 
-## 译者：[IllllllIIl](https://github.com/IllllllIIl) 历史贡献积分：19 当前积分：19 年度积分：17.5
+## 译者：[IllllllIIl](https://github.com/IllllllIIl) 历史贡献积分：23 当前积分：23 年度积分：21.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Google Play 控制台指南](https://juejin.im/post/5ac1c3546fb9a028d444bc2b)|校对|4|
 |[用 Java 创造你的第一个区块链之第二部分 — 交易](https://juejin.im/post/5a940b116fb9a0633757587a)|翻译|6|
 |[从 SQLite 逐步迁移到 Room](https://juejin.im/post/5a8c3a2cf265da4e761fd721)|翻译|2.5|
 |[玩转 Android paths](https://juejin.im/post/5a7c05e7f265da4e7f358cf2)|翻译|5|
@@ -4965,10 +4970,11 @@
 |[你前所未知的 JavaScript 调试器](https://juejin.im/post/5a7e94a66fb9a0633b2105ed)|校对|1|
 |[探索 ECMAScript 装饰器](https://juejin.im/post/5a7bc62d6fb9a063523ddf95)|校对|1.5|
 
-## 译者：[JayZhaoBoy](https://github.com/JayZhaoBoy) 历史贡献积分：19 当前积分：19 年度积分：19
+## 译者：[JayZhaoBoy](https://github.com/JayZhaoBoy) 历史贡献积分：31 当前积分：31 年度积分：31
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Google Play 控制台指南](https://juejin.im/post/5ac1c3546fb9a028d444bc2b)|翻译|12|
 |[在 Android Instant App（安卓即时应用程序）中启用 ProGuard（混淆）](https://juejin.im/post/5aaf1078f265da238e0d8857)|翻译|5|
 |[不再对 MVVM 感到绝望](https://juejin.im/post/5a782d0d5188257a856f1dd7)|翻译|8|
 |[为 Django Framework 贡献你的力量并没有想象中的那么难](https://juejin.im/post/5a77cd6e5188257a79247fe1)|翻译|3|
@@ -5078,10 +5084,11 @@
 |[为你的 React 应用制作 SVG 图标库](https://juejin.im/post/5a9e40fe518825558a061cfd)|翻译|2|
 |[标准化的包布局](https://juejin.im/post/5a8cf9dc6fb9a063475f8c15)|校对|1.5|
 
-## 译者：[pcdack](https://github.com/pcdack) 历史贡献积分：25.5 当前积分：25.5 年度积分：25.5
+## 译者：[pcdack](https://github.com/pcdack) 历史贡献积分：28.5 当前积分：28.5 年度积分：28.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[使用MVI构建响应式 APP — 第七部分 — TIMING (SINGLELIVEEVENT 问题)](https://juejin.im/post/5ac47f0bf265da23793c60be)|翻译|3|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|6|
 |[使用 MVI 编写响应式 APP—第六部分—状态恢复](https://juejin.im/post/5ab4c028518825557e7853a1)|翻译|3|
 |[使用 MVI 编写响应式 APP — 第 5 部分 — 简单的调试](https://juejin.im/post/5aafa3e851882555627d1842)|翻译|3.5|
@@ -5227,10 +5234,13 @@
 |------|-------|-------|
 |[iOS App 上一种灵活的路由方式](https://juejin.im/post/5aafc278f265da23805973e3)|校对|1|
 
-## 译者：[allenlongbaobao](https://github.com/allenlongbaobao) 历史贡献积分：25 当前积分：15 年度积分：25
+## 译者：[allenlongbaobao](https://github.com/allenlongbaobao) 历史贡献积分：28.5 当前积分：18.5 年度积分：28.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[为 JavaScript 程序员准备的 Flutter 指南](https://juejin.im/post/5ac43c536fb9a028da7cbd59)|校对|1.5|
+|[使用MVI构建响应式 APP — 第七部分 — TIMING (SINGLELIVEEVENT 问题)](https://juejin.im/post/5ac47f0bf265da23793c60be)|校对|1|
+|[让 Apache Cassandra 尾部延迟减小 10 倍（已开源）](https://juejin.im/post/5ac31083f265da239a5fff0c)|校对|1|
 |[简短而又完全精确的编程语言历史](https://juejin.im/post/5ac1b8a25188255c637b1cd5)|校对|1|
 |[使用 Web3 和 Vue.js 来创建你的第一个以太坊 dAPP（第三部分）](https://juejin.im/post/5ac36e1f518825556a729c3f)|校对|1|
 |[怎样把取消订阅的用户吸引回来](https://juejin.im/post/5acc1538518825651d07fdd1)|翻译|3.5|
@@ -5247,10 +5257,11 @@
 |[没有 Interface Builder 的生活](https://juejin.im/post/5ab88ac0518825558a069c91)|校对|1|
 |[使用 MVI 编写响应式 APP—第六部分—状态恢复](https://juejin.im/post/5ab4c028518825557e7853a1)|校对|1|
 
-## 译者：[stormluke](https://github.com/stormluke) 历史贡献积分：0.5 当前积分：0.5 年度积分：0.5
+## 译者：[stormluke](https://github.com/stormluke) 历史贡献积分：4.5 当前积分：4.5 年度积分：4.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[让 Apache Cassandra 尾部延迟减小 10 倍（已开源）](https://juejin.im/post/5ac31083f265da239a5fff0c)|翻译|4|
 |[让我们来简化 UserDefaults 的使用](https://juejin.im/post/5abde324f265da23826e1723)|校对|0.5|
 
 ## 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit) 历史贡献积分：6 当前积分：6 年度积分：6
