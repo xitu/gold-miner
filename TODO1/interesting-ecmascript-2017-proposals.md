@@ -161,7 +161,7 @@ It’s likely that the spec will change significantly before it’s finalized. T
 
 Many library authors are choosing to continue to support the old proposal and the legacy-decorators Babel transform — even though the new proposal is at stage 2 and the old one is still at stage 0. The most popular open-source JavaScript library that uses decorators, [core-decorators](https://github.com/jayphelps/core-decorators), has taken this approach. It’s likely that decorator library authors will continue to support the old spec for years to come.
 
-There is also a chance that this new proposal will be withdrawn in favor of another, and decorators might not make it into Javascript in 2018\. You will be able to use the new decorators proposal after Babel finishes work on the [new transform plugin](https://github.com/babel/proposals/issues/11).
+There is also a chance that this new proposal will be withdrawn in favor of another, and decorators might not make it into Javascript in 2018. You will be able to use the new decorators proposal after Babel finishes work on the [new transform plugin](https://github.com/babel/proposals/issues/11).
 
 ### Import Function
 
