@@ -3333,10 +3333,11 @@
 |[用 Go 语言理解 Tensorflow](https://juejin.im/post/59420951128fe1006a1960f8)|校对|1|
 |[间复杂度 O(log n) 意味着什么？](https://juejin.im/entry/593f56528d6d810058a355f4/detail)|校对|1|
 
-## 译者：[horizon13th](https://github.com/horizon13th) 历史贡献积分：39.6 当前积分：39.6
+## 译者：[horizon13th](https://github.com/horizon13th) 历史贡献积分：49.6 当前积分：49.6 年度积分：10
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|10|
 |[网站设计综合指南](https://juejin.im/post/5a5abb97518825733f6df3d9)|翻译|12|
 |[翻译 Java 开源库 26 个](#)|翻译|2.6|
 |[安卓界面导航初识](https://juejin.im/post/5992f8c1518825242238b77b)|翻译|8|
@@ -3362,10 +3363,11 @@
 |[用动效创建的可用性：动效中的用户体验宣言](https://juejin.im/post/595c77a66fb9a06bcb7f92ff)|校对|2|
 |[为复杂产品制定设计规范](https://juejin.im/post/5944b8e55c497d006bdc261a)|校对|1|
 
-## 译者：[cacppuccino](https://github.com/CACppuccino) 历史贡献积分：72.5 当前积分：27.5 年度积分：18
+## 译者：[cacppuccino](https://github.com/CACppuccino) 历史贡献积分：32.5 当前积分：32.5 年度积分：23
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|5|
 |[第三方 SDK 的信任问题](https://juejin.im/post/5aa72655f265da238b7daa74)|翻译|8|
 |[前端开发者指南 2018](https://github.com/xitu/front-end-handbook-2018)|翻译校对|10|
 |[2018 年 1 月兑 树莓派套餐 1 个]()|减去积分|45|
@@ -5074,20 +5076,23 @@
 |[为你的 React 应用制作 SVG 图标库](https://juejin.im/post/5a9e40fe518825558a061cfd)|翻译|2|
 |[标准化的包布局](https://juejin.im/post/5a8cf9dc6fb9a063475f8c15)|校对|1.5|
 
-## 译者：[pcdack](https://github.com/pcdack) 历史贡献积分：19.5 当前积分：19.5 年度积分：19.5
+## 译者：[pcdack](https://github.com/pcdack) 历史贡献积分：25.5 当前积分：25.5 年度积分：25.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|6|
 |[使用 MVI 编写响应式 APP—第六部分—状态恢复](https://juejin.im/post/5ab4c028518825557e7853a1)|翻译|3|
 |[使用 MVI 编写响应式 APP — 第 5 部分 — 简单的调试](https://juejin.im/post/5aafa3e851882555627d1842)|翻译|3.5|
 |[使用 MODEL-VIEW-INTENT 第四部分 — 独立 UI 组件](https://juejin.im/post/5a9debfbf265da23830a6230)|翻译|3|
 |[使用 MVI 开发响应式 APP - 第三部分 - 状态减少（state reducer）](https://juejin.im/post/5a955c50f265da4e853d856a)|翻译|4|
 |[二十年后比特币会变成什么样？- 第二部分](https://juejin.im/post/5a955721f265da4e826377b6)|翻译|6|
 
-## 译者：[Starriers](https://github.com/Starriers) 历史贡献积分：49.5 当前积分：49.5 年度积分：49.5
+## 译者：[Starriers](https://github.com/Starriers) 历史贡献积分：58 当前积分：28 年度积分：58
 
 |文章|类型|积分|
 |------|-------|-------|
+|[2018 年 4 月兑 Octoplush 1 个]()|减去积分|30|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|8.5|
 |[Web 爬虫下的 Python 数据分析：中情局全球概况图解](https://juejin.im/post/5ab9fcebf265da238e0dc349)|翻译|4|
 |[不要害怕 Rebase](https://juejin.im/post/5ab1bdbe518825556e5df5f8)|校对|1|
 |[如何修改域名来提高国际增长率](https://juejin.im/post/5aaf0542f265da239530c653)|翻译|3|
@@ -5215,10 +5220,11 @@
 |------|-------|-------|
 |[iOS App 上一种灵活的路由方式](https://juejin.im/post/5aafc278f265da23805973e3)|校对|1|
 
-## 译者：[allenlongbaobao](https://github.com/allenlongbaobao) 历史贡献积分：18 当前积分：18 年度积分：18
+## 译者：[allenlongbaobao](https://github.com/allenlongbaobao) 历史贡献积分：18 当前积分：8 年度积分：18
 
 |文章|类型|积分|
 |------|-------|-------|
+|[2018 年 3 月兑水杯 2 个]()|减去积分|10|
 |[Reducers VS Transducers](https://juejin.im/post/5ab8705e518825555c1da48f)|校对|0.5|
 |[使用 React、Redux、SVG 开发游戏 - Part 1](https://juejin.im/post/5abcdc2c5188255c887bb9ec)|校对|3|
 |[热爱 JavaScript，但是讨厌 CSS？](https://juejin.im/post/5aba0d37518825556a72708a)|翻译|4.5|
@@ -5236,10 +5242,11 @@
 |------|-------|-------|
 |[让我们来简化 UserDefaults 的使用](https://juejin.im/post/5abde324f265da23826e1723)|校对|0.5|
 
-## 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit) 历史贡献积分：1 当前积分：1 年度积分：1
+## 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit) 历史贡献积分：6 当前积分：6 年度积分：6
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|5|
 |[使用 Web3 和 Vue.js 来创建你的第一个以太坊 dAPP（第二部分）](https://juejin.im/post/5aba0870f265da23a2292245)|校对|1|
 
 ## 译者：[dandyxu](https://github.com/dandyxu) 历史贡献积分：5 当前积分：5 年度积分：5
@@ -5249,8 +5256,28 @@
 |[使用 React、Redux、SVG 开发游戏 - Part 1](https://juejin.im/post/5abcdc2c5188255c887bb9ec)|校对|3|
 |[良好的编码习惯 — 5 个提高代码质量的技巧](https://juejin.im/post/5abc584251882555867f7f1e)|校对|2|
 
-## 译者：[KeithMorning](https://github.com/KeithMorning) 历史贡献积分：3 当前积分：3 年度积分：3
+## 译者：[KeithMorning](https://github.com/KeithMorning) 历史贡献积分：5 当前积分：5 年度积分：5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|2|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|3|
+
+## 译者：[Songkeys](https://github.com/Songkeys) 历史贡献积分：4 当前积分：4 年度积分：4
+
+|文章|类型|积分|
+|------|-------|-------|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|4|
+
+## 译者：[sunhaokk](https://github.com/sunhaokk) 历史贡献积分：5 当前积分：5 年度积分：5
+
+|文章|类型|积分|
+|------|-------|-------|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|5|
+
+
+## 译者：[mrcangye](https://github.com/mrcangye) 历史贡献积分：6 当前积分：6 年度积分：6
+
+|文章|类型|积分|
+|------|-------|-------|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|6|
