@@ -5087,10 +5087,11 @@
 |[使用 MVI 开发响应式 APP - 第三部分 - 状态减少（state reducer）](https://juejin.im/post/5a955c50f265da4e853d856a)|翻译|4|
 |[二十年后比特币会变成什么样？- 第二部分](https://juejin.im/post/5a955721f265da4e826377b6)|翻译|6|
 
-## 译者：[Starriers](https://github.com/Starriers) 历史贡献积分：58 当前积分：28 年度积分：58
+## 译者：[Starriers](https://github.com/Starriers) 历史贡献积分：59 当前积分：29 年度积分：59
 
 |文章|类型|积分|
 |------|-------|-------|
+|[怎样把取消订阅的用户吸引回来](https://juejin.im/post/5acc1538518825651d07fdd1)|校对|1|
 |[2018 年 4 月兑 Octoplush 1 个]()|减去积分|30|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|8.5|
 |[Web 爬虫下的 Python 数据分析：中情局全球概况图解](https://juejin.im/post/5ab9fcebf265da238e0dc349)|翻译|4|
@@ -5192,10 +5193,11 @@
 |[如何修改域名来提高国际增长率](https://juejin.im/post/5aaf0542f265da239530c653)|校对|1|
 |[开始设计动画的九个步骤](https://juejin.im/post/5aa1f965f265da23994e1e1f)|校对|1|
 
-## 译者：[talisk](https://github.com/talisk) 历史贡献积分：3.5 当前积分：3.5 年度积分：3.5
+## 译者：[talisk](https://github.com/talisk) 历史贡献积分：5 当前积分：5 年度积分：5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[不使用 fastlane 实现持续交付的 5 种选项](https://juejin.im/post/5acf47cb6fb9a028c523944c)|校对|1.5|
 |[让我们来简化 UserDefaults 的使用](https://juejin.im/post/5abde324f265da23826e1723)|翻译|1.5|
 |[没有 Interface Builder 的生活](https://juejin.im/post/5ab88ac0518825558a069c91)|校对|1|
 |[使用 Travis CI 自动发布 npm](https://juejin.im/post/5ab39fedf265da23a04979cb)|校对|1|
@@ -5220,10 +5222,12 @@
 |------|-------|-------|
 |[iOS App 上一种灵活的路由方式](https://juejin.im/post/5aafc278f265da23805973e3)|校对|1|
 
-## 译者：[allenlongbaobao](https://github.com/allenlongbaobao) 历史贡献积分：18 当前积分：8 年度积分：18
+## 译者：[allenlongbaobao](https://github.com/allenlongbaobao) 历史贡献积分：23 当前积分：13 年度积分：23
 
 |文章|类型|积分|
 |------|-------|-------|
+|[怎样把取消订阅的用户吸引回来](https://juejin.im/post/5acc1538518825651d07fdd1)|翻译|3.5|
+|[不使用 fastlane 实现持续交付的 5 种选项](https://juejin.im/post/5acf47cb6fb9a028c523944c)|校对|1.5|
 |[2018 年 3 月兑水杯 2 个]()|减去积分|10|
 |[Reducers VS Transducers](https://juejin.im/post/5ab8705e518825555c1da48f)|校对|0.5|
 |[使用 React、Redux、SVG 开发游戏 - Part 1](https://juejin.im/post/5abcdc2c5188255c887bb9ec)|校对|3|
@@ -5281,3 +5285,15 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|6|
+
+## 译者：[melon8](https://github.com/melon8) 历史贡献积分：5 当前积分：5 年度积分：5
+
+|文章|类型|积分|
+|------|-------|-------|
+|[不使用 fastlane 实现持续交付的 5 种选项](https://juejin.im/post/5acf47cb6fb9a028c523944c)|翻译|5|
+
+## 译者：[luochen1992](https://github.com/luochen1992) 历史贡献积分：1 当前积分：1 年度积分：1
+
+|文章|类型|积分|
+|------|-------|-------|
+|[怎样把取消订阅的用户吸引回来](https://juejin.im/post/5acc1538518825651d07fdd1)|校对|1|
