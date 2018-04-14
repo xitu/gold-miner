@@ -2,7 +2,7 @@
 > * 原文作者：[Coral Health](https://medium.com/@mycoralhealth?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/code-your-own-blockchain-in-less-than-200-lines-of-go.md](https://github.com/xitu/gold-miner/blob/master/TODO1/code-your-own-blockchain-in-less-than-200-lines-of-go.md)
-> * 译者：
+> * 译者：[Starrier](https://github.com/Starriers)
 > * 校对者：
 
 # 用不到 200 行的 GO 语言编写您自己的区块链
@@ -13,9 +13,9 @@
 
 本教程改编自这篇关于使用 JavaScript 编写基础区块链的优秀[文章](https://medium.com/@lhartikk/a-blockchain-in-200-lines-of-code-963cc1cc0e54)。我们已经将其移植到 Go 并添加了一些额外的好处 -- 比如在 Web 浏览器上查看您的区块链。如果您对下面的教程有任何疑问，请务必加入我们的  [**Telegram**](https://t.me/joinchat/FX6A7UThIZ1WOUNirDS_Ew)。可向我们咨询任何事！
 
-本教程中的数据示例将基于您的休息信条。毕竟我们是一家医疗保健公司  :-) 为了有趣，记录一分钟的[脉搏数](https://www.webmd.com/heart-disease/heart-failure/watching-rate-monitor#1)（每分钟的节拍）并记住这个数值。  
+本教程中的数据示例将基于您的休息信条。毕竟我们是一家医疗保健公司 :-) 为了有趣，记录您一分钟的[脉搏数](https://www.webmd.com/heart-disease/heart-failure/watching-rate-monitor#1)（每分钟的节拍）并记住这个数值。  
 
-世界上几乎每个开发者都听说过区块链，但大多数仍然不知道它的工作原理。他们可能仅仅是因为比特币才知道它，又或者是因为他们听说过智能合约之类的东西。这篇文章视图通过帮助您用 Go 编写自己的简单区块链，使用少于 200 行代码来揭开区块链的神秘面纱！到本教程结束时，您将能够在本地运行并编写您自己的区块链，并在 Web 浏览器中查看它。 
+世界上几乎每个开发者都听说过区块链，但大多数仍然不知道它的工作原理。他们可能仅仅是因为比特币才知道它，又或者是因为他们听说过智能合约之类的东西。这篇文章试图通过帮助您用 Go 编写自己的简单区块链，使用少于 200 行代码来揭开区块链的神秘面纱！到本教程结束时，您将能够编写并在本地运行您自己的区块链，以及在 Web 浏览器中查看它。 
 
 有什么比创建自己的区块链来了解区块链更好的方法么？
 
@@ -37,7 +37,7 @@
 
 **计划**
 
- 既然我们决定用 Go 编写代码，我们假设您已经有了一些 Go 方面的经验，在[安装](https://golang.org/dl/) 并配置 Go 之后，我们还需要获取以下软件包：
+ 既然我们决定用 Go 编写代码，我们假设您已经有了一些 Go 方面的经验，在[安装](https://golang.org/dl/)并配置 Go 之后，我们还需要获取以下软件包：
 
 `go get github.com/davecgh/go-spew/spew`
 
@@ -49,7 +49,7 @@
 
 `go get github.com/joho/godotenv`
 
-**Gotdotenv** 允许我们从根目录中读取 l `.env`   so we don’t have to hardcode things like our http ports. We’ll need this too.
+**Gotdotenv** 允许我们从根目录中读取 `.env` 文件，这样就不必对HTTP端口之类的内容进行硬编码。我们也需要这个。
 
 我们在根目录中创建 `.env` 文件，定义为 http 请求提供服务的端口。只需要该文件添加一行：
 
@@ -97,7 +97,7 @@ type Block struct {
 每个 `Block`  都包含将被写入区块链的数据，并表示当您获取脉冲速率时的每一种情况（还记得您在文章的开头就这样做了么？）。
 
 *   `Index` 是数据记录在区块链中的位置
-*   `Timestamp` 是自动确定的，是写入数据的时间
+*   `Timestamp` 是自动确定写入数据的时间
 *   `BPM` 每分钟节拍数，是您的脉搏么
 *   `Hash` 是表示此数据记录的 SHA256 标识符
 *   `PrevHash` 是链中上一条记录的 SHA256 标识符
@@ -151,7 +151,7 @@ func generateBlock(oldBlock Block, BPM int) (Block, error) {
 }
 ```
 
-注意当前时间使用 `time.Now()` 自动写入块中的。还请注意，我们之前的 `calculateHash` 函数是被调用的。从上一个块的散列复制到 `PrevHash`。 `Index` 从上一个块的索引中递增。
+注意当前时间使用 `time.Now()` 自动写入块中的。还请注意，我们之前的 `calculateHash` 函数是被调用的。从上一个块的散列复制到 `PrevHash`。`Index` 从上一个块的索引中递增。
 
 **块校验**
 
@@ -224,7 +224,7 @@ func run() error {
 }
 ```
 
-注意我们选择的端口来自之前创建的 `.env` 文件。我们使用 `log.Println` 为自己提供一个快速控制台消息来让我们的服务器启动并运行。我们对对武器进行了一些配置，然后对 `ListenAndServe` 进行配置。很标准的 Go。
+注意我们选择的端口来自之前创建的 `.env` 文件。我们使用 `log.Println` 为自己提供一个快速控制台消息来让我们的服务器启动并运行。我们对武器进行了一些配置，然后对 `ListenAndServe` 进行配置。很标准的 Go。
 
 现在我们需要编写 `makeMuxRouter` 函数，该函数将定义所有的处理程序。要在浏览器中查看并写入我们的区块链，我们只需要两个路由，我们将保持它们的简单性。如果我们发送一个 `GET` 请求到 `localhost`，我们将查看到区块链。如果我们发送一 `POST` 请求，我们可以进行写入。
 
@@ -289,7 +289,7 @@ func handleWriteBlock(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-为破门使用独立 `Message` 结构的原因是接收 JSOn POST 请求的请求体，我们将使用它来编写新的块。这允许我们简单地发送带有以下主体的 POST 请求，我们的处理程序将为我们填充该块的其余部分：s
+为破门使用独立 `Message` 结构的原因是接收 JSON POST 请求的请求体，我们将使用它来编写新的块。这允许我们简单地发送带有以下主体的 POST 请求，我们的处理程序将为我们填充该块的其余部分：s
 
 `{"BPM":50}`
 
@@ -300,7 +300,7 @@ func handleWriteBlock(w http.ResponseWriter, r *http.Request) {
 **一些笔记**
 
 *   `_spew.Dump_` **是一个方便的函数，它可以将我们的结构打印到控制台上。这对调试很有用。**
-*    **对于测试 POST 请求，我们喜欢使用** [**Postman**](https://www.getpostman.com/apps)_._ `**curl**` 也工作得很好，如果您不能离开终端的话。
+*    **对于测试 POST 请求，我们喜欢使用** [**Postman**](https://www.getpostman.com/apps)**。 `curl`** 也工作得很好，如果您不能离开终端的话。
 
 当我们的 POST 请求成功或者失败时，我们希望得到相应的通知。我们使用了一个小包装器函数  `respondWithJSON` 来让我们知道发生了什么。记住，在 Go 中，千万不要忽略它们。[要优雅地处理它们](https://dave.cheney.net/2016/04/27/dont-just-check-errors-handle-them-gracefully)。
 
@@ -348,7 +348,7 @@ func main() {
 
 以下是全部代码：
 
-- [**mycoralhealth/blockchain-tutorial**: 区块链-教程 -- 用少于 200 行的 Go 编写并发布您自己的区块链**github.com**](https://github.com/mycoralhealth/blockchain-tutorial/blob/master/main.go)
+- [**mycoralhealth/blockchain-tutorial**: 区块链-教程 -- 用少于 200 行的 Go 编写并发布您自己的区块链 **github.com**](https://github.com/mycoralhealth/blockchain-tutorial/blob/master/main.go)
 
 **现在来讨论下有趣的事情**。 让我们试一下:-)
 
@@ -358,7 +358,7 @@ func main() {
 
 ![](https://cdn-images-1.medium.com/max/800/1*sAkFOcjHxX9WnjGPud84rQ.png)
 
-现在使用您的端口号来访问 `localhost`，对我们来说是 8080\。不出所料，我们看到了相同的初始块。 
+现在使用您的端口号来访问 `localhost`，对我们来说是 8080。不出所料，我们看到了相同的初始块。 
 
 ![](https://cdn-images-1.medium.com/max/800/1*4HRKAkMy1smgB9xpGLj6RA.png)
 
