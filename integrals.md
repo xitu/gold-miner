@@ -4518,10 +4518,11 @@
 |[如何用 TypeScript 玩转后端？](https://juejin.im/post/5a36837d6fb9a045167d4644)|校对|1|
 |[介绍 Turbo：比 Yarn 和 NPM 快 5 倍，可以在本地浏览器中运行](https://juejin.im/post/5a35d58ef265da431a434441)|校对|1|
 
-## 译者：[hexianga](https://github.com/hexianga) 历史贡献积分：9.5 当前积分：9.5 年度积分：8.5
+## 译者：[hexianga](https://github.com/hexianga) 历史贡献积分：18.5 当前积分：18.5 年度积分：17.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[拖放库中 React 性能的优化](https://juejin.im/post/5ac31b096fb9a028bc2dedfc)|翻译|9|
 |[斐波那契数列中的偶数（Python vs. JavaScript）](https://juejin.im/post/5aaa61f8f265da237b21d258)|校对|0.5|
 |[Redux 的工作原理](https://juejin.im/post/5a532e466fb9a01ca9154a98)|翻译|8|
 |[如何取消你的 Promise？](https://juejin.im/post/5a32705a6fb9a045117127fa)|校对|1|
@@ -5179,10 +5180,11 @@
 |[Elasticsearch Reference Getting Start](https://juejin.im/post/5aa0b13af265da238b7d92f7)|翻译|1.5|
 |[Typescript : 类 vs 接口](https://juejin.im/post/5aa79a106fb9a028db585eae)|校对|1|
 
-## 译者：[zephyrJS](https://github.com/zephyrJS) 历史贡献积分：14.5 当前积分：14.5 年度积分：14.5
+## 译者：[zephyrJS](https://github.com/zephyrJS) 历史贡献积分：17.5 当前积分：17.5 年度积分：17.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[拖放库中 React 性能的优化](https://juejin.im/post/5ac31b096fb9a028bc2dedfc)|校对|3|
 |[使用 React、Redux、SVG 开发游戏 - Part 1](https://juejin.im/post/5abcdc2c5188255c887bb9ec)|翻译|10|
 |[Python 是解决任何问题的完美工具](https://juejin.im/post/5aa74bf95188255568686ae0)|校对|1|
 |[斐波那契数列中的偶数（Python vs. JavaScript）](https://juejin.im/post/5aaa61f8f265da237b21d258)|翻译|2|
@@ -5333,3 +5335,9 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[设计师与工程师协作的 5 项准则](https://juejin.im/post/5ac9e56af265da23945fc201)|校对|1|
+
+## 译者：[wznonstop](https://github.com/wznonstop) 历史贡献积分：3 当前积分：3 年度积分：3
+
+|文章|类型|积分|
+|------|-------|-------|
+|[拖放库中 React 性能的优化](https://juejin.im/post/5ac31b096fb9a028bc2dedfc)|校对|3|
