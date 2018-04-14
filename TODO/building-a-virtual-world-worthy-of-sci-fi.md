@@ -71,7 +71,7 @@ Pub/sub 在这方面与 PVMs 携手合作。一旦 PVM 收到一个终止信号�
 
 ![](https://cdn-images-1.medium.com/max/800/1*lCgVkyWLf2gSqfZE2Wlhww.png)
 
-> **为什么用 GCF？**有很多种方法可以让客户端检查更新。例如，我们可以创建一个负载均衡器来自动扩展一组 GCE 实例。或者我们可以制作一个可以根据需求进行扩展的 Kubernetes pod。
+> **为什么用 GCF？** 有很多种方法可以让客户端检查更新。例如，我们可以创建一个负载均衡器来自动扩展一组 GCE 实例。或者我们可以制作一个可以根据需求进行扩展的 Kubernetes pod。
 
 > 或者我们可以使用 app engine flex，它允许我们提供我们自己的图像，只是图片大小相同。或者我们可以使用 app engine 标准，它有自己的部署和扩展。
 
