@@ -2,24 +2,24 @@
 > * 原文作者：[NeONBRAND](https://unsplash.com/photos/-Cmz06-0btw?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-not-react-common-anti-patterns-and-gotchas-in-react.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-not-react-common-anti-patterns-and-gotchas-in-react.md)
-> * 译者：
-> * 校对者：
+> * 译者：[MechanicianW](https://github.com/mechanicianw)
+> * 校对者：[anxsec](https://github.com/anxsec) [ClarenceC](https://github.com/ClarenceC)
 
-# How to NOT React: Common Anti-Patterns and Gotchas in React
+# How to NOT React： React 中常见的反模式与陷阱
 
-What is an anti-pattern? Anti-patterns are certain patterns in software development that are considered bad programming practices. The same pattern may have been considered correct at one point in the past, but now developers have realised that they cause more pain and hard-to-track bugs in long term.
+什么是反模式？反模式是软件开发中被认为是糟糕的编程实践的特定模式。同样的模式，可能在过去一度被认为是正确的，但是现在开发者们已经发现，从长远来看，它们会造成更多的痛苦和难以追踪的 Bug。
 
-React has matured as an UI library and with that a lot of best development practices have evolved over the years. We are going to learn from the collective wisdom of thousands of programmers and developers who learnt those things the hard way.
+作为一个 UI 库，React 已经成熟，并且随着时间的推移，许多最佳实践也逐渐形成。我们将从数千名开发者集体的智慧中学习，他们曾用笨方法（the hard way）学习这些最佳实践。
 
-![](https://cdn-images-1.medium.com/max/800/1*kD905dFJGIzg7DCjKIqwMw.gif)
+![](http://o7ts2uaks.bkt.clouddn.com/1_kD905dFJGIzg7DCjKIqwMw.gif)
 
-Truly said!
+此言不虚！
 
-Let’s begin!
+让我们开始吧！
 
-### 1. bind() and arrow functions in Components
+### 1. 组件中的 bind() 与箭头函数
 
-You must have bound your custom functions in the `constructor` function before using them as props for components. If you declare components using the `extends` keyword, then the custom functions (such as `updateValue` below) lose their `this` bindings. So, if you want to access `this.state`, or `this.props` or `this.setState` then you need to re-bind them.
+在使用自定义函数作为组件属性之前你必须将你的自定义函数写在 `constructor` 中。如果你是用 `extends` 关键字声明组件的话，自定义函数（如下面的 `updateValue` 函数）会失去 `this` 绑定。因此，如果你想使用 `this.state`，`this.props` 或者 `this.setState`，你还得重新绑定。
 
 #### Demo
 
@@ -42,36 +42,36 @@ updateValue(evt) {
 render() {
     return (
       <form>
-        <input onChange={this.updateValue} value={this.state.name} />    
+        <input onChange={this.updateValue} value={this.state.name} />
       </form>
     )
   }
 }
 ```
 
-#### Problems
+#### 问题
 
-There are two ways to bind the custom functions to the component’s `this`. One way is to bind them in the `constructor` as done above. The other way is to bind at the time of passing as prop value —
+有两种方法可以将自定义函数绑定到组件的 `this`。一种方法是如上面所做的那样，在 `constructor` 中绑定。另一种方法是在传值的时候作为属性的值进行绑定：
 
 ```
 <input onChange={this.updateValue.bind(this)} value={this.state.name} />
 ```
 
-This method suffers from a problem. Since `.bind()` creates a **new** function each time it is run, **this method would lead to a new function being created every time the** `render` **function executes.** This has some performance implications. However, in a small app it may not be noticeable. As the app grows large, the difference will start to materialise. One case study is [here](https://medium.com/@esamatti/react-js-pure-render-performance-anti-pattern-fb88c101332f).
+这种方法有一个问题。由于 `.bind()` 每次运行时都会创建一个**函数**，**这种方法会导致每次** `render` **函数执行时都会创建一个新函数。**这会对性能造成一些影响。然而，在小型应用中这可能并不会造成显著影响。随着应用体积变大，差别就会开始显现。[这里](https://medium.com/@esamatti/react-js-pure-render-performance-anti-pattern-fb88c101332f) 有一个案例研究。
 
-Arrow functions entails the same performance concerns that were there with `bind`.
+箭头函数所涉及的性能问题与 `bind` 相同。
 
 ```
 <input onChange={ (evt) => this.setState({ name: evt.target.value }) } value={this.state.name} />
 ```
 
-This way of writing is definitely clearer. You can see what’s going on in the `onChange` prop itself. But, this also creates new anonymous function every time `input` renders. So it has the same performance penalty as above.
+这种写法明显更清晰。可以看到 prop `onChange` 函数中发生了什么。但是，这也导致了每次 `input` 组件渲染时都会创建一个新的匿名函数。因此，箭头函数有同样的性能弊端。
 
-#### Solutions
+#### 解决方案
 
-The best way to avoid the above performance penalty is to bind the functions in the constructor itself. This way only one extra function is created at the time of component creation, and that function is used even when `render` is executed again.
+避免上述性能弊端的最佳方法是在函数本身的构造器中进行绑定。这样，在组件创建时仅创建了一个额外函数，即使再次执行 `render` 也会使用该函数。
 
-It often happens that you forget to `bind` your functions in the constructor, and then you get an error (_Cannot find X on undefined._). Babel has a plugin that let’s you write auto-bound function using the fat-arrow syntax. The plugin is [_Class properties transform_](https://babeljs.io/docs/plugins/transform-class-properties/)_._ Now you can write components like this —
+有一种情况经常发生就是你忘记在构造函数中去 `bind` 你的函数，然后就会收到报错（**Cannot find X on undefined.**）。Babel 有个插件可以让我们使用箭头语法写出自动绑定的函数。插件是 [**Class properties transform**](https://babeljs.io/docs/plugins/transform-class-properties/)。现在你可以这样编写组件：
 
 ```
 class App extends Component {
@@ -81,7 +81,7 @@ class App extends Component {
       name: ''
     };
 
-// Look ma! No functions to bind!
+// 看！无需在此处进行函数绑定！
 
 }
 updateValue = (evt) => {
@@ -100,16 +100,16 @@ render() {
 }
 ```
 
-#### Read More —
+#### 延伸阅读
 
-*   [React Binding Patterns: 5 Approaches for Handling `this`](https://medium.freecodecamp.org/react-binding-patterns-5-approaches-for-handling-this-92c651b5af56)
-*   [React.js pure render performance anti-pattern](https://medium.com/@esamatti/react-js-pure-render-performance-anti-pattern-fb88c101332f)
-*   [React — to Bind or Not to Bind](https://medium.com/shoutem/react-to-bind-or-not-to-bind-7bf58327e22a)
-*   [Why and how to bind methods in your React component classes?](http://reactkungfu.com/2015/07/why-and-how-to-bind-methods-in-your-react-component-classes/)
+*   [React 绑定模式： 5 个处理 `this` 的方法](https://medium.freecodecamp.org/react-binding-patterns-5-approaches-for-handling-this-92c651b5af56)
+*   [React.js pure render 性能反模式](https://medium.com/@esamatti/react-js-pure-render-performance-anti-pattern-fb88c101332f)
+*   [React —— 绑定还是不绑定](https://medium.com/shoutem/react-to-bind-or-not-to-bind-7bf58327e22a)
+*   [在 React component classes 中绑定函数的原因及方法](http://reactkungfu.com/2015/07/why-and-how-to-bind-methods-in-your-react-component-classes/)
 
-### 2. Using indexes in key Prop
+### 2. 在 key prop 中使用索引
 
-Key is an essential prop when you iterate over a collection of elements. Keys should be stable, predictable, and unique so that React can keep track of elements. Keys are used to help React easily reconcile(read: update) the differences between the virtual DOM and the real DOM. However, using certain set of values such as array _indexes_ **may break your application or render wrong data**.
+遍历元素集合时，key 是必不可少的 prop。key 应该是稳定，唯一，可预测的，这样 React 才能追踪元素。key 是用来帮助 React 轻松调和虚拟 DOM 与真实 DOM 间的差异的。然而，使用某些值集例如数组**索引**，**可能会导致你的应用崩溃或是渲染出错误数据。**
 
 #### Demo
 
@@ -123,41 +123,41 @@ Key is an essential prop when you iterate over a collection of elements. Keys sh
 }
 ```
 
-#### Problems
+#### 问题
 
-When children have keys, React uses the key to match children in the original tree with children in the subsequent tree. **The keys are used for identification.** If two elements have same keys, React considers them same. When the keys collide, that is, more than 2 elements have the same keys, React shows a warning.
+当子元素有了 key，React 就会使用 key 来匹配原始树结构和后续树结构中的子元素。**key 被用于作身份标识。**如果两个元素有同样的 key，React 就会认为它们是相同的。当 key 冲突了，即超过两个元素具有同样的 key，React 就会抛出警告。
 
-![](https://cdn-images-1.medium.com/max/1000/1*3C-F1fs7E5fK9R8XlLk62g.png)
+![](http://o7ts2uaks.bkt.clouddn.com/1_3C-F1fs7E5fK9R8XlLk62g.png)
 
-Warning for duplicate keys.
+警告出现重复的 key。
 
-[Here](https://reactjs.org/redirect-to-codepen/reconciliation/index-used-as-key) is an example of the issues that can be caused by using indexes as keys on CodePen.
+[这里](https://reactjs.org/redirect-to-codepen/reconciliation/index-used-as-key) 是 CodePen 上使用索引作为 key 可能导致的问题的一个示例。
 
-#### Solutions
+#### 解决方案
 
-Any key that you are going to use should be —
+被使用的 key 应该是：
 
-*   **Unique** — The key of an element should be unique among its siblings. It is not necessary to have globally unique keys.
-*   **Stable** — The key for the same element should not change with time, or page refresh, or re-ordering of elements.
-*   **Predictable** — You can always get the same key again if you want. That is, the key should not be generated randomly.
+*   **唯一的**： 元素的 key 在它的兄弟元素中应该是唯一的。没有必要拥有全局唯一的 key。
+*   **稳定的**： 元素的 key 不应随着时间，页面刷新或是元素重新排序而变。
+*   **可预测的**： 你可以在需要时拿到同样的 key，意思是 key 不应是随机生成的。
 
-Array indexes are unique, and predictable. However, they are not stable. In the same vein, **random numbers or timestamps should not be used as keys.**
+数组索引是唯一且可预测的。然而，并不稳定。同样，**随机数或时间戳不应被用作为 key。**
 
-Using random number is equivalent to not using keys at all since random numbers are not unique or stable. The components **will** be re-rendered every time even if the content inside the element has not changed.
+由于随机数既不唯一也不稳定，使用随机数就相当于根本没有使用 key。即使内容没有改变，组件也**会**每次都重新渲染。
 
-Timestamps are unique but not stable or predictable. **They are also always increasing.** So on every page refresh, you are going to get new timestamps.
+时间戳既不稳定也不可预测。**时间戳也会一直递增。**因此每次刷新页面，你都会得到新的时间戳。
 
-In general, you should rely on the ID generated by databases such as primary key in Relational databases, and Object IDs in Mongo. If a database ID is not available, you can generate a hash of the content and use that as a key. You can read about more about hashes [here](https://en.wikipedia.org/wiki/Hash_function).
+通常，你应该依赖于数据库生成的 ID 如关系数据库的主键，Mongo 中的对象 ID。如果数据库 ID 不可用，你可以生成内容的哈希值来作为 key。关于哈希值的更多内容可以在[这里](https://en.wikipedia.org/wiki/Hash_function)阅读。
 
-#### Read More —
+#### 延伸阅读
 
-*   [Index as a key is an anti-pattern](https://medium.com/@robinpokorny/index-as-a-key-is-an-anti-pattern-e0349aece318)
-*   [Why you need keys for collections in React.](https://paulgray.net/keys-in-react/)
-*   [On why you shouldn’t use Random values as keys](https://github.com/facebook/react/issues/1342#issuecomment-39230939).
+*   [将索引作为 key 是一种反模式](https://medium.com/@robinpokorny/index-as-a-key-is-an-anti-pattern-e0349aece318)
+*   [React 中集合为何需要 key](https://paulgray.net/keys-in-react/)
+*   [为何你不应该使用随机数作为 key](https://github.com/facebook/react/issues/1342#issuecomment-39230939).
 
-### 3. setState() is async
+### 3. setState() 是异步的
 
-React components essentially comprises 3 things: `state` ,`props` and markup (or other components). Props are immutable. However, the state is mutable. Changing the state causes the component to re-render. If the state is managed internally by the component, `this.setState` function is employed to update the state. There are a few important things to note about this function. Let’s look —
+React 组件主要由三部分组成：`state`，`props` 和标记（或其它组件）。props 是不可变的，state 是可变的。state 的改变会导致组件重新渲染。如果 state 是由组件在内部管理的，则使用 `this.setState` 来更新 state。关于这个函数有几件重要的事需要注意。我们来看看：
 
 #### Demo
 
@@ -171,27 +171,27 @@ class MyComponent extends Component {
   }
 
   updateCounter() {
-    // this line will not work
+    // 这行代码不会生效
     this.state.counter = this.state.counter + this.props.increment;
-    
+
     // ---------------------------------
-    
-    // this will not work as intended
+
+    // 不会如预期生效
     this.setState({
-      counter: this.state.counter + this.props.increment; // May not render
+      counter: this.state.counter + this.props.increment; // 可能不会渲染
     });
-    
+
     this.setState({
-      counter: this.state.counter + this.props.increment; // what value this.state.counter have?
+      counter: this.state.counter + this.props.increment; // this.state.counter 的值是什么？
     });
-    
+
     // ---------------------------------
-  
-    // this will work
+
+    // 如期生效
     this.setState((prevState, props) => ({
       counter: prevState.counter + props.increment
     }));
-    
+
     this.setState((prevState, props) => ({
       counter: prevState.counter + props.increment
     }));
@@ -199,31 +199,31 @@ class MyComponent extends Component {
 }
 ```
 
-#### Problems
+#### 问题
 
-Focus on line 11. If you mutate the state _directly,_ the component will **not** be re-rendered and the changes will not be reflected. This is because the state is compared [shallowly](https://stackoverflow.com/questions/36084515/how-does-shallow-compare-work-in-react). You should always use `setState` for changing the value of the state.
+请注意第 11 行代码。如果你**直接**修改了 state，组件并**不会**重新渲染，修改也不会有任何体现。这是因为 state 是进行[浅比较（shallow compare）](https://stackoverflow.com/questions/36084515/how-does-shallow-compare-work-in-react)的。你应该永远都使用 `setState` 来改变 state 的值。
 
-Now, in `setState` if you use the value of current `state` to update to the next state (as done in line 15), React **may or may not** **re-render**. This is because, `state` and `props` are updated asynchronously. That is, the DOM is not updated as soon as `setState` is invoked. Rather, React batches multiple updates into one update and then renders the DOM. You may receive outdated values while querying the `state` object. The [docs](https://reactjs.org/docs/state-and-lifecycle.html#state-updates-may-be-asynchronous) also mention this —
+现在，如果你在 `setState` 中通过当前的 `state` 值来更新至下一个 state （正如第 15 行代码所做的），React **可能不会重新渲染**。这是因为 `state` 和 `props` 是异步更新的。也就是说，DOM 并不会随着 `setState` 被调用就立即更新。React 会将多次更新合并到同一批次进行更新，然后渲染 DOM。查询 `state` 对象时，你可能会收到已经过期的值。[文档](https://reactjs.org/docs/state-and-lifecycle.html#state-updates-may-be-asynchronous)也提到了这一点：
 
-> Because `this.props` and `this.state` may be updated asynchronously, you should not rely on their values for calculating the next state.
+> 由于 `this.props` 和 `this.state` 是异步更新的，你不应该依赖它们的值来计算下一个 state。
 
-Another problem is when you have multiple `setState` calls in a single function, as shown above on line 16 and 20. Initial value of the counter is 350. Assume the value of `this.props.increment` is 10. You might think that after the first `setState` invocation on line 16, the counter’s value will change to 350+10 = **360.** And, when the next `setState` is called on line 20, the counter’s value will change to 360+10 = **370**. However, this does not happen. The second call still sees the value of `counter` as 350. **This is because setState is async**. The counter’s value does not change until the next update cycle. The execution of setState is waiting in the [event loop](https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop) and until `updateCounter` finishes execution, `setState` won’t run and hence won’t update the `state`.
+另一个问题出现于一个函数中有多次 `setState` 调用时，如第 16 和 20 行代码所示。counter 的初始值是 350。假设 `this.props.increment` 的值是 10。你可能以为在第 16 行代码第一次调用 `setState` 后，counter 的值会变成 350+10 = **360。**并且，当第 20 行代码再次调用 `setState` 时，counter 的值会变成 360+10 = **370**。然而，这并不会发生。第二次调用时所看到的 `counter` 的值仍为 350。**这是因为 setState 是异步的。**counter 的值直到下一个更新周期前都不会发生改变。setState 的执行在[事件循环](https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop)中等待，直到 `updateCounter` 执行完毕前，`setState` 都不会执行， 因此 `state` 的值也不会更新。
 
-#### Solution
+#### 解决方案
 
-You should use the other form of `setState` as done on line 27 and 31. In this form, you can pass a function to `setState` which receives _currentState_ and _currentProps_ as arguments. The return value of this function is merged in with the existing state to form the new state.
+你应该看看第 27 和 31 行代码使用 `setState` 的方式。以这种方式，你可以给 `setState` 传入一个接收 **currentState** 和 **currentProps** 作为参数的函数。这个函数的返回值会与当前 state 合并以形成新的 state。
 
-#### Read More —
+#### 延伸阅读
 
-*   A wonderful [explanation](https://github.com/facebook/react/issues/11527) of why `setState` is async by [Dan Abramov](https://medium.com/@dan_abramov).
-*   [Using a function in `setState` instead of an object](https://medium.com/@wisecobbler/using-a-function-in-setstate-instead-of-an-object-1f5cfd6e55d1)
-*   [Beware: React setState is asynchronous!](https://medium.com/@wereHamster/beware-react-setstate-is-asynchronous-ce87ef1a9cf3)
+*   [Dan Abramov](https://medium.com/@dan_abramov) 对于为什么 `setState` 是异步的所做的超级棒的[解释](https://github.com/facebook/react/issues/11527)
+*   [在 `setState` 中使用函数而不是对象](https://medium.com/@wisecobbler/using-a-function-in-setstate-instead-of-an-object-1f5cfd6e55d1)
+*   [Beware： React 的 setState 是异步的！](https://medium.com/@wereHamster/beware-react-setstate-is-asynchronous-ce87ef1a9cf3)
 
-### 4. Props in Initial State
+### 4. 初始值中的 props
 
-The React docs mention this anti-pattern as —
+React 文档提到这也是反模式：
 
-> _Using props to generate state in_ getInitialState _often leads to duplication of “source of truth”, i.e. where the real data is. This is because getInitialState is only invoked when the component is first created._
+> **在 getInitialState 中使用 props 来生成 state 经常会导致重复的“事实来源”，即真实数据的所在位置。这是因为 getInitialState 仅仅在组件第一次创建时被调用。**
 
 #### Demo
 
@@ -240,17 +240,17 @@ class MyComponent extends Component {
 }
 ```
 
-#### Problems
+#### 问题
 
-The `constructor` or (getInitialState) is called **only at the time of component creation**. That is, `constructor` is invoked only once. Hence, when you change the `props` next time, the state won’t be updated and will retain its previous value.
+`constructor`（getInitialState） **仅仅在组件创建阶段被调用**。也就是说，`constructor` 只被调用一次。因此，当你下一次改变 `props` 时，state 并不会更新，它仍然保持为之前的值。
 
-Young developers often assume that the `props` values will be in sync with the state, and as `props` change, the `state` will reflect those values. However, that is not true.
+经验尚浅的开发者经常设想 `props` 的值与 state 是同步的，随着 `props` 改变，`state` 也会随之变化。然而，真实情况并不是这样。
 
-#### Solutions
+#### 解决方案
 
-You can use this pattern if you want a specific behaviour. That is, **you want the state to be _seeded_ by the values of props only once**. The state will be managed internally by the component.
+如果你需要特定的行为即**你希望 state 仅由 props 的值生成一次**的话，可以使用这种模式。state 将由组件在内部管理。
 
-In other cases, you can use `componentWillReceiveProps` lifecycle method to keep the state and props in sync, as shown here.
+在另一个场景下，你可以通过生命周期方法 `componentWillReceiveProps` 保持 state 与 props 的同步，如下所示。
 
 ```
 import React, { Component } from 'react'
@@ -262,57 +262,57 @@ class MyComponent extends Component {
       someValue: props.someValue,
     };
   }
-  
+
   componentWillReceiveProps(nextProps){
     if (nextProps.inputValue !== this.props.inputValue) {
       this.setState({ inputVal: nextProps.inputValue })
     }
-  } 
+  }
 }
 ```
 
-Beware that using `componentWillReceiveProps` has it own caveats. You can read about it the [Docs](https://reactjs.org/docs/react-component.html#componentwillreceiveprops).
+要注意，关于使用 `componentWillReceiveProps` 有一些注意事项。你可以在[文档](https://reactjs.org/docs/react-component.html#componentwillreceiveprops)中阅读。
 
-The best approach would be to use a state management library such as Redux to [_connect_](https://github.com/reactjs/react-redux) the state and the component.
+最佳方法是使用状态管理库如 Redux 去 [**connect**](https://github.com/reactjs/react-redux) state 和组件。
 
-#### Read More —
+#### 延伸阅读
 
-*   [Props in Initial State](https://github.com/vasanthk/react-bits/blob/master/anti-patterns/01.props-in-initial-state.md)
+*   [初始化 state 中的 props](https://github.com/vasanthk/react-bits/blob/master/anti-patterns/01.props-in-initial-state.md)
 
-### 5. Components Name
+### 5. 组件命名
 
-In React, if you are rendering your component using JSX, the name of that component has to begin with with a capital letter.
+在 React 中，如果你想使用 JSX 渲染你的组件，组件名必须以大写字母开头。
 
 #### Demo
 
 ```
 <MyComponent>
-    <app /> // Will not work :(
+    <app /> // 不会生效 :(
 </MyComponent>
 
 <MyComponent>
-    <App /> // Will work!
+    <App /> // 可以生效！
 </MyComponent>
 ```
 
-#### Problems
+#### 问题
 
-If you create a component `app` and render it using JSX as `<app label="Save" />`, React will throw an error.
+如果你创建了一个 `app` 组件，以 `<app label="Save" />` 的形式去渲染它，React 将会报错。
 
-![](https://cdn-images-1.medium.com/max/1000/1*xCB4cI255tVV41NvIozL7g.png)
+![](http://o7ts2uaks.bkt.clouddn.com/1_xCB4cI255tVV41NvIozL7g.png)
 
-Warning when using non-capitalised custom components.
+使用非大写自定义组件时的警告。
 
-The error says that `<app>` is not recognised. Only HTML elements and SVG tags can begin with a lowercase. Hence, `<div />` is okay but `<app>` is not.
+报错表明 `<app>` 是无法识别的。只有 HTML 元素和 SVG 标签可以以小写字母开头。因此 `<div />` 是可以识别的，`<app>` 却不能。
 
-#### Solution
+#### 解决方案
 
-You need to make sure that while using custom component in JSX, it ashould begin with a capital letter.
+你需要确保在 JSX 中使用的自定义组件是以大写字母开头的。
 
-But, also understand that declaring components does not adhere to this rule. Hence, you can do this —
+但是也要明白，声明组件无需遵从这一规则。因此，你可以这样写：
 
 ```
-// Here lowercase is fine.
+// 在这里以小写字母开头是可以的
 class primaryButton extends Component {
   render() {
     return <div />;
@@ -321,40 +321,40 @@ class primaryButton extends Component {
 
 export default primaryButton;
 
-// In a different file, import the button. However, make sure to give a name starting with capital letter.
+// 在另一个文件中引入这个按钮组件。要确保以大写字母开头的名字引入。
 
 import PrimaryButton from 'primaryButton';
 
 <PrimaryButton />
 ```
 
-#### Read More —
+#### 延伸阅读
 
-*   [React Gotchas](https://daveceddia.com/react-gotchas/)
+*   [React 陷阱](https://daveceddia.com/react-gotchas/)
 
-These were some unintuitive hard-to-understand bug-makers in React. If you know about any other anti-pattern, respond to this article. 😀
-
-* * *
-
-I have also written [Top React and Redux Packages for Faster Development](https://codeburst.io/top-react-and-redux-packages-for-faster-development-5fa0ace42fe7)
-
-- [**Top React and Redux Packages for Faster Development**: React has grown in popularity over the last few years. With that, a lot of tools have emerged that make developer’s… codeburst.io](https://codeburst.io/top-react-and-redux-packages-for-faster-development-5fa0ace42fe7)
-
-If you are still learning how to setup a React Project, this [two-part series](https://codeburst.io/yet-another-beginners-guide-to-setting-up-a-react-project-part-1-bdc8a29aea22) might be helpful in understanding various aspects of React build system.
-
-- [**Yet another Beginner’s Guide to setting up a React Project — Part 1**: React has gained considerable momentum in the last few years and has turned into a mature and stable UI library. It has… codeburst.io](https://codeburst.io/yet-another-beginners-guide-to-setting-up-a-react-project-part-1-bdc8a29aea22)
-
-- [**Yet another Beginner’s Guide to setting up a React Project — Part 2**: We set up a simple React App in Part 1\. We used React, React DOM and webpack-dev-server as our dependencies. We will… codeburst.io](https://codeburst.io/yet-another-beginners-guide-to-setting-up-a-react-project-part-2-5d3151814333)
+以上这些都是 React 中不直观，难以理解也容易出现问题的地方。如果你知道任何其它的反模式，请回复本文。😀
 
 * * *
 
-**I write about JavaScript, web development, and Computer Science. Follow me for weekly articles. Share this article if you like it.**
+我还写了一篇 [可以帮助快速开发的优秀 React 和 Redux 包](https://codeburst.io/top-react-and-redux-packages-for-faster-development-5fa0ace42fe7)
 
-**Reach out to me on @** [**Facebook**](https://www.facebook.com/arfat.salman) **@** [**Linkedin**](https://www.linkedin.com/in/arfatsalman/) **@** [**Twitter**](https://twitter.com/salman_arfat)**.**
+- [**可以帮助快速开发的优秀 React 和 Redux 包**： 近些年来 React 越来越受欢迎，随之也出现了许多工具…… codeburst.io](https://codeburst.io/top-react-and-redux-packages-for-faster-development-5fa0ace42fe7)
 
-[![](https://cdn-images-1.medium.com/max/1000/1*i3hPOj27LTt0ZPn5TQuhZg.png)](http://bit.ly/codeburst)
+如果你仍在学习如何构建 React 项目，这个[含有两部分的系列文章](https://codeburst.io/yet-another-beginners-guide-to-setting-up-a-react-project-part-1-bdc8a29aea22) 可以帮助你理解 React 构建系统的多个方面。
 
-> ✉️ _Subscribe to_ CodeBurst’s _once-weekly_ [**_Email Blast_**](http://bit.ly/codeburst-email)**_,_ **🐦 _Follow_ CodeBurst _on_ [**_Twitter_**](http://bit.ly/codeburst-twitter)_, view_ 🗺️ [**_The 2018 Web Developer Roadmap_**](http://bit.ly/2018-web-dev-roadmap)_, and_ 🕸️ [**_Learn Full Stack Web Development_**](http://bit.ly/learn-web-dev-codeburst)_._
+- [**又一个 React 初学者指南项目 —— 第一部分**： 过去几年中 React 发展迅猛，已发展成一个成熟的 UI 库）……codeburst.io](https://codeburst.io/yet-another-beginners-guide-to-setting-up-a-react-project-part-1-bdc8a29aea22)
+
+- [**又一个 React 初学者指南项目 —— 第二部分**：我们在第一部分中构建了一个简单的 React 应用。使用 React， React DOM 与 webpack-dev-server 作为项目依赖…… codeburst.io](https://codeburst.io/yet-another-beginners-guide-to-setting-up-a-react-project-part-2-5d3151814333)
+
+* * *
+
+**我写作 JavaScript，Web 开发与计算机科学领域的文章。关注我可以每周阅读新文章。如果你喜欢，可以分享本文。**
+
+**关注我 @** [**Facebook**](https://www.facebook.com/arfat.salman) **@** [**Linkedin**](https://www.linkedin.com/in/arfatsalman/) **@** [**Twitter**](https://twitter.com/salman_arfat)**.**
+
+[![](http://o7ts2uaks.bkt.clouddn.com/1_i3hPOj27LTt0ZPn5TQuhZg.png)](http://bit.ly/codeburst)
+
+> ✉️ **订阅 CodeBurst的每周邮件** [**_Email Blast_**](http://bit.ly/codeburst-email), 🐦可以在[**_Twitter_**](http://bit.ly/codeburst-twitter) 上关注 CodeBurst, 浏览 🗺️ [**_The 2018 Web Developer Roadmap_**](http://bit.ly/2018-web-dev-roadmap), 和 🕸️ [**学习 Web 全栈开发**](http://bit.ly/learn-web-dev-codeburst)。
 
 
 ---
