@@ -2,16 +2,16 @@
 > * 原文作者：[Node.js Foundation](https://medium.com/@nodejs?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/node-js-can-http-2-push.md](https://github.com/xitu/gold-miner/blob/master/TODO1/node-js-can-http-2-push.md)
-> * 译者：
+> * 译者：[Raoul1996](https://github.com/Raoul1996)
 > * 校对者：
 
 # Node.js can HTTP/2 push!
 
-This article was co-written by [Matteo Collina](https://twitter.com/matteocollina), a Technical Steering Committee member of Node.js and Principal Architect [@nearForm](https://twitter.com/nearForm), and [Jinwoo Lee](https://github.com/jinwoo), a Software Engineer at Google.
+本文由 Node.js 技术指导委员会成员 [Matteo Collina](https://twitter.com/matteocollina)、首席建筑师 [@nearForm](https://twitter.com/nearForm) 以及谷歌软件工程师 [Jinwoo Lee](https://github.com/jinwoo) 共同撰写。
 
-Since introducing HTTP/2 into Node.js 8 in [July of 2017](https://medium.com/the-node-js-collection/say-hello-to-http-2-for-node-js-core-261ba493846e), the implementation has undergone several rounds of improvements. Now we’re almost ready to lift the “experimental” flag. It’s best to try out HTTP/2 support with Node.js version 9, which has all the latest fixes and improvements.
+自从 [2017 年 7 月](https://medium.com/the-node-js-collection/say-hello-to-http-2-for-node-js-core-261ba493846e) Node.js 中引入 HTTP/2 以来，改实践经历了好几轮的改进。现在我们基本已经准备好去掉“实验性”标志。当然最好使用 Node.js 版本 9 来尝试 HTTP/2 支持，因为这个版本有着最新的修复和改进的内容。
 
-The easiest way to get started is by using the compatibility layer provided as part of the new http2 core module:
+最简单的入门方法是使用新版 http2 核心模块部分提供的的兼容性层：
 
 ```
 const http2 = require('http2');
@@ -20,8 +20,7 @@ const options = {
  cert: getCertSomehow()
 };
 
-// https is necessary otherwise browsers will not
-// be able to connect
+// 必须使用 https，不然浏览器无法连接
 const server = http2.createSecureServer(options, (req, res) => {
  res.end('Hello World!');
 });
