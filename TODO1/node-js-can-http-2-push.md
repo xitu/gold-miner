@@ -7,7 +7,7 @@
 
 # Node.js 能进行 HTTP/2 推送啦！
 
-本文由来自 [@nearForm](https://twitter.com/nearForm)的首席建筑师、 Node.js 技术指导委员会成员 [Matteo Collina](https://twitter.com/matteocollina) 以及谷歌软件工程师 [Jinwoo Lee](https://github.com/jinwoo) 共同撰写。
+本文由来自 [@nearForm](https://twitter.com/nearForm) 的首席建筑师、 Node.js 技术指导委员会成员 [Matteo Collina](https://twitter.com/matteocollina) 以及谷歌软件工程师 [Jinwoo Lee](https://github.com/jinwoo) 共同撰写。
 
 自从 [2017 年 7 月](https://medium.com/the-node-js-collection/say-hello-to-http-2-for-node-js-core-261ba493846e) Node.js 中引入 HTTP/2 以来，改实践经历了好几轮的改进。现在我们基本已经准备好去掉“实验性”标志。当然最好使用 Node.js 版本 9 来尝试 HTTP/2 支持，因为这个版本有着最新的修复和改进的内容。
 
@@ -30,7 +30,7 @@ server.listen(3000);
 
 兼容层的也为 web 框架作者提供了一个简单的升级途径，到目前为止，[Restify](https://www.npmjs.com/package/restify) 和[Fastify](https://www.npmjs.com/package/fastify) 都基于 Node.js HTTP/2 兼容层实现了对 HTTP/2 的支持。
 
-[Fastify](https://www.npmjs.com/package/fastify) 是一个 [新的 web 框架](https://thenewstack.io/introducing-fastify-speedy-node-js-web-framework/)，专注于性能而不牺牲开发者的生产力，也不抛弃最近[升级到 1.0.0 版本](https://medium.com/@fastifyjs/fastify-goes-lts-with-1-0-0-911112c64752)的丰富的插件生态系统。
+[Fastify](https://www.npmjs.com/package/fastify) 是一个[新的 web 框架](https://thenewstack.io/introducing-fastify-speedy-node-js-web-framework/)，专注于性能而不牺牲开发者的生产力，也不抛弃最近[升级到 1.0.0 版本](https://medium.com/@fastifyjs/fastify-goes-lts-with-1-0-0-911112c64752)的丰富的插件生态系统。
 
 在 fastify 中使用 HTTP/2 非常简单：
 
@@ -135,7 +135,7 @@ HTTP/2 在 HTTP/1 的基础上对性能进行了相当大的提升，[**服务�
 
 ```js
 for (const asset of ['/static/awesome.css', '/static/unicorn.png']) {
-  // stream is a ServerHttp2Stream.
+  // stream 是 ServerHttp2Stream.
   stream.pushStream({':path': asset}, (err, pushStream) => {
     if (err) throw err;
     pushStream.respondWithFile(asset);
