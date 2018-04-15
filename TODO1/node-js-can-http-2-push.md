@@ -20,7 +20,8 @@ const options = {
  cert: getCertSomehow()
 };
 
-// 必须使用 https，不然浏览器无法连接
+// 必须使用 https
+// 不然浏览器无法连接
 const server = http2.createSecureServer(options, (req, res) => {
  res.end('Hello World!');
 });
@@ -37,7 +38,8 @@ server.listen(3000);
 ```js
 const Fastify = require('fastify');
 
-// 必须使用 https，不然浏览器无法连接
+// 必须使用 https
+// 不然浏览器无法连接
 const fastify = Fastify({
  http2: true,         // 译者注：原文作者这里少了逗号
  https: {
@@ -61,7 +63,8 @@ const options = {
  cert: getCertSomehow()
 };
 
-// 必须使用 https，不然浏览器无法连接
+// 必须使用 https
+// 不然浏览器无法连接
 const server = http2.createSecureServer(options);
 server.on('stream', (stream, headers) => {
  // 流是双工的
@@ -189,7 +192,8 @@ async function main() {
   // 浏览器只支持 https 使用 HTTP/2。
   const app = fastify({https: {key, cert}, http2: true});
 
-  // 新建并注册自动推送插件。 它应该注册在中间件链的一开始。
+  // 新建并注册自动推送插件
+  // 它应该注册在中间件链的一开始。
   app.register(fastifyAutoPush.staticServe, {root: STATIC_DIR});
 
   await app.listen(PORT);
