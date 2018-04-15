@@ -5,7 +5,7 @@
 > * 译者：[Raoul1996](https://github.com/Raoul1996)
 > * 校对者：
 
-# Node.js can HTTP/2 push!
+# Node.js 能进行 HTTP/2 推送啦!
 
 本文由来自 [@nearForm](https://twitter.com/nearForm)的首席建筑师、 Node.js 技术指导委员会成员 [Matteo Collina](https://twitter.com/matteocollina) 以及谷歌软件工程师 [Jinwoo Lee](https://github.com/jinwoo) 共同撰写。
 
