@@ -13,7 +13,7 @@
 
 最简单的入门方法是使用新版 http2 核心模块部分提供的的[兼容层](https://zh.wikipedia.org/wiki/%E5%85%BC%E5%AE%B9%E5%B1%82)：
 
-```
+```js
 const http2 = require('http2');
 const options = {
  key: getKeySomehow(),
@@ -34,7 +34,7 @@ server.listen(3000);
 
 在 fastify 中使用 HTTP/2 非常简单：
 
-```
+```js
 const Fastify = require('fastify');
 
 // 必须使用 https，不然浏览器无法连接
@@ -54,7 +54,7 @@ server.listen(3000);
 ```
 尽管能在 HTTP/1.1 和 HTTP/2 上运行相同的应用代码对于协议的采纳非常重要，但单独的兼容层并没有提供 HTTP/2 支持的一些更强大的功能。http2 核心模块可以通过”流“侦听器来实现对新的核心 API（[Http2Stream](https://nodejs.org/api/http2.html#http2_class_http2stream)）来使用这些额外的功能：
 
-```
+```js
 const http2 = require('http2');
 const options = {
  key: getKeySomehow(),
@@ -80,9 +80,9 @@ server.on('stream', (stream, headers) => {
 server.listen(3000);
 ```
 
-在 Fastify中, 可以通过 request.raw.stream API 访问 Http2Stream 如下所示：
+在 Fastify 中, 可以通过 request.raw.stream API 访问 Http2Stream 如下所示：
 
-```
+```js
 fastify.get('/fastify', async (request, reply) => {
  request.raw.stream.pushStream({
   ':path': '/a/resource'
@@ -118,7 +118,7 @@ HTTP/2 在 HTTP/1 的基础上对性能进行了相当大的提升，[**服务�
 在 HTTP/2 中，服务器可以主动将它认为浏览器稍候会请求的额外资源和原来的请求响应一起**推送**。如果稍后浏览器真的需要这些额外资源，它只是会使用已经推送的资源，而不去发送额外的请求。
 例如，假设服务器正在发送这个 /index.html 文件
 
-```
+```html
 <!DOCTYPE html>
 <html>
 <head>
@@ -133,7 +133,7 @@ HTTP/2 在 HTTP/1 的基础上对性能进行了相当大的提升，[**服务�
 
 服务器将通过发回这个文件来响应请求。但它知道 /index.html 需要 /static/awesome.css 和 /static/unicorn.png 才能正确渲染。因此，服务器将这些文件和 /index.html 一起推送
 
-```
+```js
 for (const asset of ['/static/awesome.css', '/static/unicorn.png']) {
   // stream is a ServerHttp2Stream.
   stream.pushStream({':path': asset}, (err, pushStream) => {
@@ -161,7 +161,7 @@ h2-auto-push 被设计为供各种 web 框架使用的中间件。作为一个�
 
 在应用程序中使用这个中间件也非常容易
 
-```
+```js
 const fastify = require('fastify');
 const fastifyAutoPush = require('fastify-auto-push');
 const fs = require('fs');
