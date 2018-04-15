@@ -7,9 +7,9 @@
 
 # Node.js 能进行 HTTP/2 推送啦！
 
-本文由来自 [@nearForm](https://twitter.com/nearForm) 的首席建筑师、 Node.js 技术指导委员会成员 [Matteo Collina](https://twitter.com/matteocollina) 以及谷歌软件工程师 [Jinwoo Lee](https://github.com/jinwoo) 共同撰写。
+本文由来自 [@nearForm](https://twitter.com/nearForm) 的首席架构师、Node.js 技术指导委员会成员 [Matteo Collina](https://twitter.com/matteocollina) 以及谷歌软件工程师 [Jinwoo Lee](https://github.com/jinwoo) 共同撰写。
 
-自从 [2017 年 7 月](https://medium.com/the-node-js-collection/say-hello-to-http-2-for-node-js-core-261ba493846e) Node.js 中引入 HTTP/2 以来，改实践经历了好几轮的改进。现在我们基本已经准备好去掉“实验性”标志。当然最好使用 Node.js 版本 9 来尝试 HTTP/2 支持，因为这个版本有着最新的修复和改进的内容。
+自从 [2017 年 7 月](https://medium.com/the-node-js-collection/say-hello-to-http-2-for-node-js-core-261ba493846e) Node.js 中引入 HTTP/2 以来，该实践经历了好几轮的改进。现在我们基本已经准备好去掉“实验性”标志。当然最好使用 Node.js 版本 9 来尝试 HTTP/2 支持，因为这个版本有着最新的修复和改进的内容。
 
 最简单的入门方法是使用新版 http2 核心模块部分提供的的[兼容层](https://zh.wikipedia.org/wiki/%E5%85%BC%E5%AE%B9%E5%B1%82)：
 
@@ -26,11 +26,11 @@ const server = http2.createSecureServer(options, (req, res) => {
 });
 server.listen(3000);
 ```
-兼容层提供了和 `require('http')` 相同的高级 API（请求和响应对象相同的请求侦听器），这样就可以平滑的迁移到 HTTP/2。
+兼容层提供了和 `require('http')` 相同的高级 API（具有请求和响应对象相同的请求侦听器），这样就可以平滑的迁移到 HTTP/2。
 
 兼容层的也为 web 框架作者提供了一个简单的升级途径，到目前为止，[Restify](https://www.npmjs.com/package/restify) 和[Fastify](https://www.npmjs.com/package/fastify) 都基于 Node.js HTTP/2 兼容层实现了对 HTTP/2 的支持。
 
-[Fastify](https://www.npmjs.com/package/fastify) 是一个[新的 web 框架](https://thenewstack.io/introducing-fastify-speedy-node-js-web-framework/)，专注于性能而不牺牲开发者的生产力，也不抛弃最近[升级到 1.0.0 版本](https://medium.com/@fastifyjs/fastify-goes-lts-with-1-0-0-911112c64752)的丰富的插件生态系统。
+[Fastify](https://www.npmjs.com/package/fastify) 是一个[新的 web 框架](https://thenewstack.io/introducing-fastify-speedy-node-js-web-framework/)，它专注于性能而不牺牲开发者的生产力，也不抛弃最近[升级到 1.0.0 版本](https://medium.com/@fastifyjs/fastify-goes-lts-with-1-0-0-911112c64752)的丰富的插件生态系统。
 
 在 fastify 中使用 HTTP/2 非常简单：
 
@@ -52,7 +52,7 @@ fastify.get('/fastify', async (request, reply) => {
 
 server.listen(3000);
 ```
-尽管能在 HTTP/1.1 和 HTTP/2 上运行相同的应用代码对于协议的采纳非常重要，但单独的兼容层并没有提供 HTTP/2 支持的一些更强大的功能。http2 核心模块可以通过”流“侦听器来实现对新的核心 API（[Http2Stream](https://nodejs.org/api/http2.html#http2_class_http2stream)）来使用这些额外的功能：
+尽管能在 HTTP/1.1 和 HTTP/2 上运行相同的应用代码对于协议的选择非常重要，但单独的兼容层并没有提供 HTTP/2 支持的一些更强大的功能。http2 核心模块可以通过”流“侦听器来实现对新的核心 API（[Http2Stream](https://nodejs.org/api/http2.html#http2_class_http2stream)）来使用这些额外的功能：
 
 ```js
 const http2 = require('http2');
@@ -98,6 +98,7 @@ fastify.get('/fastify', async (request, reply) => {
  return 'Hello World!';
 });
 ```
+
 ### HTTP/2 推送 —— 机遇与挑战
 
 HTTP/2 在 HTTP/1 的基础上对性能进行了相当大的提升，[**服务端推送**](http://httpwg.org/specs/rfc7540.html#PushResources)是其一大成果。
@@ -135,7 +136,7 @@ HTTP/2 在 HTTP/1 的基础上对性能进行了相当大的提升，[**服务�
 
 ```js
 for (const asset of ['/static/awesome.css', '/static/unicorn.png']) {
-  // stream 是 ServerHttp2Stream.
+  // stream 是 ServerHttp2Stream。
   stream.pushStream({':path': asset}, (err, pushStream) => {
     if (err) throw err;
     pushStream.respondWithFile(asset);
