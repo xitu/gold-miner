@@ -7,7 +7,7 @@
 
 # Node.js can HTTP/2 push!
 
-本文由 Node.js 技术指导委员会成员 [Matteo Collina](https://twitter.com/matteocollina)、首席建筑师 [@nearForm](https://twitter.com/nearForm) 以及谷歌软件工程师 [Jinwoo Lee](https://github.com/jinwoo) 共同撰写。
+本文由来自 [@nearForm](https://twitter.com/nearForm)的首席建筑师、 Node.js 技术指导委员会成员 [Matteo Collina](https://twitter.com/matteocollina) 以及谷歌软件工程师 [Jinwoo Lee](https://github.com/jinwoo) 共同撰写。
 
 自从 [2017 年 7 月](https://medium.com/the-node-js-collection/say-hello-to-http-2-for-node-js-core-261ba493846e) Node.js 中引入 HTTP/2 以来，改实践经历了好几轮的改进。现在我们基本已经准备好去掉“实验性”标志。当然最好使用 Node.js 版本 9 来尝试 HTTP/2 支持，因为这个版本有着最新的修复和改进的内容。
 
@@ -52,7 +52,7 @@ fastify.get('/fastify', async (request, reply) => {
 
 server.listen(3000);
 ```
-尽管能在 HTTP/1.1 和 HTTP/2 上运行相同的应用代码对于协议的采纳非常重要，但单独的兼容层并没有提供 HTTP/2 支持的一些更强大的功能。http2 核心模块可以通过”流“侦听器来实现对新的核心 API（[Http2Stream](https://nodejs.org/api/http2.html#http2_class_http2stream)）来使用这些附加功能：
+尽管能在 HTTP/1.1 和 HTTP/2 上运行相同的应用代码对于协议的采纳非常重要，但单独的兼容层并没有提供 HTTP/2 支持的一些更强大的功能。http2 核心模块可以通过”流“侦听器来实现对新的核心 API（[Http2Stream](https://nodejs.org/api/http2.html#http2_class_http2stream)）来使用这些额外的功能：
 
 ```
 const http2 = require('http2');
@@ -98,27 +98,25 @@ fastify.get('/fastify', async (request, reply) => {
  return 'Hello World!';
 });
 ```
+### HTTP/2 推送 —— 机遇与挑战
 
-### HTTP/2 Push — Opportunities and Challenges
+HTTP/2 在 HTTP/1 的基础上对性能进行了相当大的提升，[**服务端推送**](http://httpwg.org/specs/rfc7540.html#PushResources)是其一大成果。
 
-HTTP/2 gives huge performance improvements over HTTP/1 in many ways, and [_server push_](http://httpwg.org/specs/rfc7540.html#PushResources) is one of its features for performance.
+典型的（或者说是简化的）HTTP 请求和响应的流程应该像是这样（下面屏幕截图是和 Hack News 的连接）：
 
-A typical (and simplified) HTTP request/response flow is like this (The screenshot below is for connecting to Hacker News):
+![和黑客新闻的连接](https://cdn-images-1.medium.com/max/800/1*YvOWVbP5yd5nmJ55nKuKRA.png)
 
-![](https://cdn-images-1.medium.com/max/800/1*YvOWVbP5yd5nmJ55nKuKRA.png)
+1. 浏览器请求 HTML 文档。
+2. 服务器处理请求并生成以及发回 HTML 文档。
+3. 浏览器收到响应并对 HTML 文档进行解析。
+4. 浏览器会为 HTML 文档渲染过程中需要的更多资源，比如样式表、图像、 JavaScript 文件等发送更多请求（来获取这些资源）。
+5. 服务器响应对每个资源的请求。
+6. 浏览器使用 HTML 文档和相关的资源来渲染出页面。
 
-1.  The browser requests an HTML document.
-2.  The server processes the request and generates/sends the HTML document.
-3.  The browser receives the response and parses the HTML document.
-4.  It identifies more resources that are needed to render the HTML document, such as stylesheets, images, JavaScript files, etc. It sends more requests for those resources.
-5.  The server responds to each request with the corresponding resource.
-6.  The browser renders the page using the HTML document and associated resources.
+这意味着渲染一个 HTML 文档通常会需要多次请求和响应，因为浏览器需要额外与其关联的资源来完成对文档的正确渲染。如果这些相关的资源能在不需要浏览器请求的情况下随原始 HTML 文档一起发送给浏览器，那就太棒了。这也正是 HTTP/2 服务端推送的目的。
 
-This means that there usually are multiple round-trips of requests/responses to render one HTML document because there are additional resources that are associated with it, and the browser needs them to render the document correctly. It would be great if all those associated resources could be sent to the browser together with the original HTML document without the browser requesting them. And that is what HTTP/2 server push is for.
-
-In HTTP/2, the server can proactively _push_ additional resources together with the response to the original request that it thinks the browser will request later. Later, if the browser really needs them, it just uses the already-pushed resources instead of sending additional requests for them.
-
-For example, let’s suppose this /index.html file is being served
+在 HTTP/2 中，服务器可以主动将它认为浏览器稍候会请求的额外资源和原来的请求响应一起**推送**。如果稍后浏览器真的需要这些额外资源，它只是会使用已经推送的资源，而不去发送额外的请求。
+例如，假设服务器正在发送这个 /index.html 文件
 
 ```
 <!DOCTYPE html>
@@ -133,7 +131,7 @@ For example, let’s suppose this /index.html file is being served
 </html>
 ```
 
-The server will respond by sending that file. But it knows that /index.html needs /static/awesome.css and /static/unicorn.png for it to be rendered correctly. So the server pushes those files together with /index.html
+服务器将通过发回这个文件来响应请求。但它知道 /index.html 需要 /static/awesome.css 和 /static/unicorn.png 才能正确渲染。因此，服务器将这些文件和 /index.html 一起推送
 
 ```
 for (const asset of ['/static/awesome.css', '/static/unicorn.png']) {
@@ -145,23 +143,23 @@ for (const asset of ['/static/awesome.css', '/static/unicorn.png']) {
 }
 ```
 
-On the client side, once the browser parses /index.html, it figures that /static/awesome.css and /static/unicorn.png are needed, but it also figures that they have already been pushed and stored in the browser cache! So it doesn’t have to send two additional requests but uses the already-pushed resources instead.
+在客户端，一但浏览器解析 /index.html，它会指出需要  /static/awesome.css 和 /static/unicorn.png，但是浏览器得知他们已经被推动并存储到了缓存中！所有他并不需要发送两个额外的请求，而是使用已经推送的资源。
 
-This sounds good so far. But there are some challenges. First, it is not simple for a server to know which additional resources can be pushed for an original request. We can move that decision up to the application layer and have the developer decide. But it is not simple either for a developer to figure that out. One way to do so is to manually parse the HTML and figure out a list of additional resources that are needed, but it is tedious and error-prone to maintain that list as the application changes and the HTML files are updated.
+这听起来蛮不错。但是有一些挑战（难点）。首先，服务器要想知道为原始请求推送哪些附加资源并不是那么容易。虽然我们可以把这个决定权放到应用程序层，但是让开发人员做出决定也同样不简单。一种方法是手动解析 HTML，找出其所需要的资源列表。但是随着应用程序的迭代和 HTML 文件的更新，维护该列表的工作将非常繁琐而且容易出错。
 
-Another challenge comes from the fact that browsers internally cache resources that have been previously retrieved. Using the example files above, if the browser loaded /index.html yesterday, it would have also loaded /static/unicorn.png and the file is usually cached in the browser. When the browser loads /index.html and in turn tries to load /static/unicorn.png, it knows that the latter is already cached and just uses it instead of requesting it again. In this case, it’ll be a waste of the network bandwidth if the server pushes /static/unicorn.png. The server should have some way to tell whether a resource is already cached in the browser.
+另一个挑战来自浏览器内部缓存先前检索到的资源。使用上面的例子，如果浏览器昨天加载了 /index.html，它也会加载 /static/unicorn.png，并且该文件通常会缓存在浏览器中。当浏览器加载 /index.html，然后尝试加载 /static/unicorn.png 时，它知道后者已经被缓存，并且只会使用它而不是去再次请求。这种情况下，如果服务器推送 /static/unicorn.png 就会浪费带宽。所以服务器应该有一些方法来判断资源是否已经缓存到了浏览器中。
 
-There are other kinds of challenges as well, and [_Rules of Thumb for HTTP/2 Push_](https://docs.google.com/document/d/1K0NykTXBbbbTlv60t5MyJvXjqKGsCVNYHyLEXIxYMv0/edit?usp=sharing) documents well those challenges.
+还会有其他类型的挑战，以及[针对 HTTP/2 推送文档的经验法则](https://docs.google.com/document/d/1K0NykTXBbbbTlv60t5MyJvXjqKGsCVNYHyLEXIxYMv0/edit?usp=sharing)等这些。
 
-### HTTP/2 Auto-Push
+### HTTP/2 自动推送
 
-To make it easy for Node.js developers to support the server push feature, Google published an npm package for automating it: [h2-auto-push](https://www.npmjs.com/package/h2-auto-push). Its design goal is to deal with many challenges that are mentioned in the section above and in the [_Rules of Thumb for HTTP/2 Push_](https://docs.google.com/document/d/1K0NykTXBbbbTlv60t5MyJvXjqKGsCVNYHyLEXIxYMv0/edit?usp=sharing) document.
+为了方便 Node.js 开发者支持服务端推送功能，Google 发布了一个 npm 包来实现自动化：[h2-auto-push](https://www.npmjs.com/package/h2-auto-push)。其设计目的是处理上面和 [针对 HTTP/2 推送文档的经验法则](https://docs.google.com/document/d/1K0NykTXBbbbTlv60t5MyJvXjqKGsCVNYHyLEXIxYMv0/edit?usp=sharing) 中提到的诸多挑战。
 
-It monitors the patterns of requests coming from browsers and figures out what additional resources are associated with the originally requested resource. And later if that original resource is requested, the associated resources are automatically pushed to the browser. It also estimates whether the browser is likely to have a certain resource already cached, and skips pushing if it so determines.
+它会监视来自浏览器的请求的模式，并且确定与最初请求资源相关联的附加资源。之后如果请求原始资源，相关的资源会自动推送到浏览器。它还将估计浏览器是否可能已经缓存了某个资源，如果确定了就会跳过推送。
 
-h2-auto-push was designed to be used by middlewares for various web frameworks. The middlewares are assumed to be a static-file-serving middleware, and it is pretty easy to develop an auto-push middleware using this NPM package. For example, see [fastify-auto-push](https://www.npmjs.com/package/fastify-auto-push). It is a [fastify](https://www.fastify.io/) plugin for supporting HTTP/2 auto-push and uses the [h2-auto-push](https://www.npmjs.com/package/fastify-auto-push) package.
+h2-auto-push 被设计为供各种 web 框架使用的中间件。作为一个静态文件服务中间件，使用这个 npm 包开发一个自动推送中间件非常容易。比如说请参阅 [fastify-auto-push](https://www.npmjs.com/package/fastify-auto-push)。这是一个支持 HTTP/2 自动推送并使用 [h2-auto-push](https://www.npmjs.com/package/fastify-auto-push) 包的 [fastify](https://www.fastify.io/) 插件。
 
-Using this middleware from an application is pretty easy too
+在应用程序中使用这个中间件也非常容易
 
 ```
 const fastify = require('fastify');
@@ -187,11 +185,10 @@ async function createServerOptions() {
 
 async function main() {
   const {key, cert} = await createServerOptions();
-  // Browsers support only https for HTTP/2.
+  // 浏览器只支持 https 使用 HTTP/2。
   const app = fastify({https: {key, cert}, http2: true});
 
-  // Create and register AutoPush plugin. It should be registered as the first
-  // in the middleware chain.
+  // 新建并注册自动推送插件。 它应该注册在中间件链的一开始。
   app.register(fastifyAutoPush.staticServe, {root: STATIC_DIR});
 
   await app.listen(PORT);
@@ -203,12 +200,11 @@ main().catch((err) => {
 });
 ```
 
-Pretty easy, huh?
+很简单，是吧？
 
-Our performance test shows that h2-auto-push gives ~12% performance improvement over HTTP/2 without push and ~135% improvement over HTTP/1\. We hope that this article gives you a better understanding of HTTP2 and the benefits that it can bring to your application, including HTTP2 push.
+我们的测试表明，h2-auto-push 比 HTTP/2 的性能提高了 12%，比 HTTP/1 提高了大概 135%。我们希望本文能让您更好地理解 HTTP2 以及其可以为您应用带来的好处，包括 HTTP2 推送。
 
-A special thank you to [James Snel](https://twitter.com/jasnell)l and [David Mark Clements](https://twitter.com/davidmarkclem) of nearForm, and [Ali Sheikh](https://twitter.com/ofrobots) and [Kelvin Jin](https://github.com/kjin) of Google for helping edit this blog post. And a big thank you to [Matt Loring](https://github.com/matthewloring) of Google for his initial work on auto-push.
-
+特别感谢 nearForm 的 [James Snel](https://twitter.com/jasnell)l 和 [David Mark Clements](https://twitter.com/davidmarkclem) 以及 Google 的 [Ali Sheikh](https://twitter.com/ofrobots) 和 [Kelvin Jin](https://github.com/kjin) 能帮忙编辑这篇博文。非常感谢 Google 的 [Matt Loring](https://github.com/matthewloring) 在自动推送方面的最初的努力。
 
 ---
 
