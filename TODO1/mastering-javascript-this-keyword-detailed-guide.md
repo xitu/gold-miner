@@ -370,79 +370,79 @@ function notStrict() { return "I'm not strict."; }
 
 ## 明确设置执行上下文
 
-We have talked a lot about execution context and the this keyword assuming that nobody was explicitly manipulating the execution context.
+先前假定大家都对执行上下文不熟，于是我们聊了很多关于执行上下文和 this 的知识。
 
-What can be both a blessing and a curse in JavaScript is that this “**call/execution context**” can be manipulated directly by a developer using JavaScript’s built-in features. They are
+让人欢喜让人忧的是，在 JavaScript 中通过使用内置的特性开发者就可以直接操作**执行上下文**了。这些特性包括：
 
-*   [bind()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind): Explicitly set the `this` value to an object of your choice without calling the function. Pass in n number of arguments delimited by the comma character (,). E.g. `func.bind(this, param1, param2, ...)`.
-*   [apply()](https://www.w3schools.com/js/js_function_apply.asp): Explicitly set the `this` value to an object of your choice. The second parameter is an array containing all the arguments that you would like to pass to the function. Lastly, **call the function**.
-*   [call()](https://docs.microsoft.com/en-us/scripting/javascript/reference/call-method-function-javascript): Explicitly set the `this` value to an object of your choice and like `bind`, pass in a number of arguments using the comma delimiter. E.g. `print.call(this, param1, param2, ...)`;. Lastly, **call the function**.
+*   [bind()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind)：不需要执行函数就可以将 `this` 的值准确设置到你选择的一个对象上。还可以通过逗号隔开传递多个参数，如 `func.bind(this, param1, param2, ...)` 。
+*   [apply()](https://www.w3schools.com/js/js_function_apply.asp)：将 `this` 的值准确设置到你选择的一个对象上。第二个参数是一个数组，数组的每一项是你希望传递给函数的参数。最后，**执行函数**。
+*   [call()](https://docs.microsoft.com/en-us/scripting/javascript/reference/call-method-function-javascript)：将 `this` 的值准确设置到你选择的一个对象上，然后想 `bind` 一样通过逗号分隔传递多个参数给函数。如：`print.call(this, param1, param2, ...)`。最后，**执行函数**。
 
-All the built-in functions mentioned above have a commonality in that they are used to make the `this` keyword point to something else. These features enable us to do some really cool things. Unfortunately, the topic is so broad that it will require many posts to cover all of them, so for the sake of brevity, I will not blab on about its application points in this post.
+上面提到的所有内置函数都有一个共同点，就是它们都是用来将 `this` 关键词指向到其他地方。这些特性可以让我们玩一些骚操作。只是呢，这个话题太广了都够写好几篇文章了，所以简洁起见，这篇文章我不打算展开它的实际应用。
 
-**Note**: Out of the three functions mentioned above, only `bind()` does not directly call the function after setting the `this` keyword.
+**重点**：上面那三个函数，只有 `bind()` 在设置好 `this` 关键词后不立刻执行函数。
 
-## When to Use Bind, Call and Apply
+## 什么时候用 bind、call 和 apply
 
-You are probably thinking: This is confusing as it is already. What is the purpose of learning all of this?
+你可能在想：现在已经很乱了，学习所有这些的目的是什么？
 
-First of all, you will see bind, call and apply used everywhere, especially in large libraries and frameworks. If you don’t understand what it does, you are woefully utilizing only a small part of the power JavaScript offers.
+首先，你会看到 bind、call 和 apply 这几个函数到处都会用到，特别是在一些大型的库和框架。如果你没理解它做了些什么，那可怜的你就只用上了 JavaScript 提供的强大能力的一小部分而已。
 
-If you don’t want to read about possible usages and want to get into learning right away, feel free to skip this section.
+如果你不想了解一些可能的用法而想立刻读下去，当然了，你可以直接跳过这节，没关系。
 
-A lot of the possible usages listed below are very broad and deep topics (most likely unable to be covered in a single post), so if you want to learn more about them, I will attach links. In the future, I might add sections to this ultimate guide, so that people can get the most out of it.
+下面列出来的应用场景都是一些具有深度和广度的话题（一篇文章基本上是讲不完的），所以我放了一些链接供你深度阅读用。未来我可能会在这篇终极指南里面继续添加新的小节，这样大家就可以一次看过瘾。
 
-1.  [Borrowing methods](https://medium.com/@thejasonfile/borrowing-methods-from-a-function-in-javascript-713a0beed40d)
-2.  [Currying](https://www.sitepoint.com/currying-in-functional-javascript/)
-3.  [Partial application](http://benalman.com/news/2012/09/partial-application-in-javascript/#partial-application)
-4.  [Dependency injection](http://krasimirtsonev.com/blog/article/Dependency-injection-in-JavaScript)
+1.  [方法借用](https://medium.com/@thejasonfile/borrowing-methods-from-a-function-in-javascript-713a0beed40d)
+2.  [柯里化](https://www.sitepoint.com/currying-in-functional-javascript/)
+3.  [偏函数应用](http://benalman.com/news/2012/09/partial-application-in-javascript/#partial-application)
+4.  [依赖注入](http://krasimirtsonev.com/blog/article/Dependency-injection-in-JavaScript)
 
-If I am missing any other practical use cases, please leave a message and let me know. I am always out to improve the guides so that you as a reader can get the most out of reading.
+如果我漏掉了其他实践案例，请留言告知。我会经常来优化这篇指南，这样你作为读者就可以读到最丰富的内容。
 
-> Read high quality open source code to take your knowledge and skills to the next level.
+> 阅读高质量的开源代码可以升级你的知识和技能。
 
-Seriously, you will see some real practical application of the this keyword, call, apply, bind in some open source code. I talk about this along with other methods of [becoming a better programmer](https://www.thecodingdelight.com/become-better-programmer/).
+讲真，你会在一些开源代码上看到 this 关键词、call、apply 和 bind 的实际应用。我会将这块结合着其他能[帮你成为更好的程序员](https://www.thecodingdelight.com/become-better-programmer/)的方法一起讲。
 
-In my opinion, the best open source to start reading is [underscore](http://underscorejs.org/). It isn’t monolithic compared to other open source projects like [d3](https://github.com/d3/d3), so it is perfect for educational purposes. Furthermore, it is compact, well-documented and the coding style is relatively easy to follow.
+在我看来，开始阅读最好的开源代码是 [underscore](http://underscorejs.org/)。它并不像其他开源项目，如 [d3](https://github.com/d3/d3)，那样铁板一块，因而它是教学用的最佳选择。另外，它代码简洁，文档详细，编码风格也是相当容易学习。
 
-## JavaScript `this` and bind
+## JavaScript 的 `this` 和 bind
 
-As mentioned, `bind` allows you to explicitly set what this points at without actually calling the function. Here is a simple example
+前面提到了，`bind` 允许你明确设定 this 的指向而不用实际去执行函数。这里是一个简单示例：
 
 ```
 var bobObj = {
-name: "Bob"
+    name: "Bob"
 };
 function print() {
-return this.name;
+    return this.name;
 }
-// explicitly set this to point at "bobObj"
+// 将 this 明确指向 "bobObj"
 var printNameBob = print.bind(bobObj);
-console.log(printNameBob());    // this points at bob, so logs "Bob"
+console.log(printNameBob());    // this 会指向 bob，于是输出结果是 "Bob"
 ```
 
-In the example above, if we were to remove the bind method, then this would point at the global `window` object.
+在上面的示例中，如果你把 bind 那行去掉，那 this 将会指向全局 `window` 对象。
 
-This might sound very stupid, but you should use `bind` when you want to bind the `this` object to a specific object. In some cases, we may want to borrow methods from another objects. For example,
+这好像很蠢，但在你想将 `this` 绑定到具体对象前你就必须用 `bind` 来绑定。在某些场景下，我们可能想从另一个对象中借用一些方法。举个例子，
 
 ```
 var obj1 = {
-data: [1,2,3],
-printFirstData: function() {
-if (this.data.length)
-return this.data[0];
-}
+    data: [1,2,3],
+    printFirstData: function() {
+        if (this.data.length)
+            return this.data[0];
+    }
 };
 var obj2 = {
-data: [4,5,6],
-printSecondData: function() {
-if (this.data.length > 1)
-return this.data[1];
-}
+    data: [4,5,6],
+    printSecondData: function() {
+        if (this.data.length > 1)
+            return this.data[1];
+    }
 };
-// get access to obj'2 method to use for obj1;
+// 在 obj1 中借用 obj2 的方法
 var getSecondData = obj2.printSecondData.bind(obj1);
-console.log(getSecondData());   // prints 2
+console.log(getSecondData());   // 输出 2
 ```
 
 In the sample code snippet, the `obj2` has a method called `printSecondData` which we want to lend to `obj1`. In the following line
