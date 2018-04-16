@@ -17,9 +17,9 @@
 
 * **用户界面**：包括地址栏、后退和前进按钮、书签菜单等。实际上，它包括了浏览器中显示的绝大部分，除了你看到的网页本身的那个窗口。
 * **浏览器引擎**：它处理用户界面和渲染引擎之间的交互。
-* **渲染引擎**：它负责显示网页。 渲染引擎解析 HTML 和 CSS，并在屏幕上显示解析的内容。
+* **渲染引擎**：它负责显示网页。渲染引擎解析 HTML 和 CSS，并在屏幕上显示解析的内容。
 * **网络层**：诸如 XHR 请求之类的网络调用，通过对不同平台的不同的实现来完成，这些实现位于一个平台无关的接口之后。我们在本系列的 [上一篇文章](https://blog.sessionstack.com/how-modern-web-browsers-accelerate-performance-the-networking-layer-f6efaf7bfcf4) 中更详细地讨论了网络层。
-* **UI 后端**：它用于绘制核心组件（widget），例如复选框和窗口。 这个后端暴露了一个平台无关的通用接口。它使用下层的操作系统提供的 UI 方法。
+* **UI 后端**：它用于绘制核心组件（widget），例如复选框和窗口。这个后端暴露了一个平台无关的通用接口。它使用下层的操作系统提供的 UI 方法。
 * **JavaScript 引擎**：我们在 [上一篇文章](https://blog.sessionstack.com/how-javascript-works-inside-the-v8-engine-5-tips-on-how-to-write -optimized-code-ac089e62b12e) 中详细介绍了这一主题。基本上，这是 JavaScript 执行的地方。
 * **数据持久化层**：你的应用可能需要在本地存储所有数据。其支持的存储机制包括 [localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage)、[indexDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API)、[WebSQL](https://en.wikipedia.org/wiki/Web_SQL_Database) 和 [FileSystem](https://developer.mozilla.org/en-US/docs/Web/API/FileSystem)。
 
@@ -29,7 +29,7 @@
 
 渲染引擎的主要职责是在浏览器屏幕上显示所请求的页面。
 
-渲染引擎可以显示 HTML / XML 文档和图像。 如果你使用其他插件，它还可以显示不同类型的文档，例如 PDF。
+渲染引擎可以显示 HTML / XML 文档和图像。如果你使用其他插件，它还可以显示不同类型的文档，例如 PDF。
 
 #### 不同的渲染引擎
 
@@ -37,7 +37,6 @@
 
 * **Gecko** — Firefox
 * **WebKit** — Safari
-* **Blink** — Chrome, Opera (from version 15 onwards)
 * **Blink** — Chrome，Opera (版本 15 之后)
 
 #### 渲染的过程
@@ -48,7 +47,7 @@
 
 #### 构建 DOM 树
 
-渲染引擎的第一步是解析 HTML 文档并将解析出的元素转换为 **DOM 树** 中实际的 [DOM](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Introduction) 节点 。
+渲染引擎的第一步是解析 HTML 文档并将解析出的元素转换为 **DOM 树** 中实际的 [DOM](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Introduction) 节点。
 
 假设你有以下文字输入：
 
@@ -209,7 +208,7 @@ JavaScript 经常触发浏览器中的视觉变化，构建 SPA 时更是如此�
 
 #### 优化布局
 
-布局重新计算对浏览器来说可能非常重。请考虑下面的优化:
+布局的重新计算会对浏览器造成很大压力。请考虑下面的优化:
 
 * 尽可能减少布局的数量。当你更改样式时，浏览器将检查是否需要重新计算布局。对属性的更改，如宽度、高度、左、上和其他与几何有关的属性，都需要重新布局。所以，尽量避免改变它们。
 * 尽量使用 `flexbox` 而不是老的布局模型。它运行速度更快，可为你的应用程序创造巨大的性能优势。
