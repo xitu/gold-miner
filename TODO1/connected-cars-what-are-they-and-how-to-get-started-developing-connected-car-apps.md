@@ -13,7 +13,7 @@
 
 那什么是互联汽车呢？维基百科的解释如下：
 
-> **互联汽车**是可以连接到 [互联网](https://en.wikipedia.org/wiki/Internet) 并配备 [本地无线局域网](https://en.wikipedia.org/wiki/Wireless_local_area_network) 的 [车辆](https://en.wikipedia.org/wiki/Car) <sup><a href="#note1">[1]</a></sup><sup><a href="#note2">[2]</a></sup>。因此车辆可以和其他车内或是车外的设备分享网络资源。
+> **互联汽车**是可以连接到 [互联网](https://en.wikipedia.org/wiki/Internet) 并配备 [本地无线局域网](https://en.wikipedia.org/wiki/Wireless_local_area_network) 的 [车辆](https://en.wikipedia.org/wiki/Car) <sup><a href="https://en.wikipedia.org/wiki/Connected_car#cite_note-1">[1]</a></sup><sup><a href="https://en.wikipedia.org/wiki/Connected_car#cite_note-2">[2]</a></sup>。因此车辆可以和其他车内或是车外的设备分享网络资源。
 
 毫无疑问，未来汽车的发展趋势就是互联和电动 —— 如特斯拉和保时捷这样的顶级汽车品牌都各自推出了像 Model S 和 Mission E 这样优秀的电动互联汽车。
 
