@@ -3,23 +3,23 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/connected-cars-what-are-they-and-how-to-get-started-developing-connected-car-apps.md](https://github.com/xitu/gold-miner/blob/master/TODO1/connected-cars-what-are-they-and-how-to-get-started-developing-connected-car-apps.md)
 > * 译者：[jonjia](https://github.com/jonjia)
-> * 校对者：
+> * 校对者：[luochen1992](https://github.com/luochen1992) [allenlongbaobao](https://github.com/allenlongbaobao)
 
 # 互联汽车是什么以及如何开发用于它的应用？
 
 ![](https://cdn-images-1.medium.com/max/2000/1*12wBTceui8136CzD6OiIvQ.png)
 
-未来汽车肯定会非常便捷 — 从用手机直接发动汽车、你走到车辆附近车门就会自动打开，到当你太累无法安全驾驶就会给你提醒。
+未来汽车肯定会非常便捷 —— 从用手机直接发动汽车、走到车辆附近车门就会自动打开，到当你太累无法安全驾驶就会给你提醒。
 
 那什么是互联汽车呢？维基百科的解释如下：
 
 > **互联汽车**是可以连接到 [互联网](https://en.wikipedia.org/wiki/Internet) 并配备 [本地无线局域网](https://en.wikipedia.org/wiki/Wireless_local_area_network) 的 [车辆](https://en.wikipedia.org/wiki/Car) <sup><a href="#note1">[1]</a></sup><sup><a href="#note2">[2]</a></sup>。因此车辆可以和其他车内或是车外的设备分享网络资源。
 
-毫无疑问，未来汽车的发展趋势就是互联和电动 — 如特斯拉和保时捷这样的顶级汽车品牌都各自推出了像 Model S 和 Mission E 这样优秀的电动互联汽车。
+毫无疑问，未来汽车的发展趋势就是互联和电动 —— 如特斯拉和保时捷这样的顶级汽车品牌都各自推出了像 Model S 和 Mission E 这样优秀的电动互联汽车。
 
 ![](https://cdn-images-1.medium.com/max/800/1*rg5RTZz36b3uDlNFyO-ZLw.jpeg)
 
-像我们真的生活在未来一样 — 很酷吧？
+像我们真的生活在未来一样 —— 很酷吧？
 
 ![](https://cdn-images-1.medium.com/max/800/1*IKj1zBUxGRi8KJyZRDttQg.png)
 
@@ -39,7 +39,7 @@
 
 ### 开始开发互联应用
 
-我们使用 [保时捷开发环境](http://www.porsche-next-oi-competition.com/)，因为据我所知这是最先进的软件开发工具包**（SDK）** — 你也可以评论留下你喜欢的互联汽车软件开发工具包。🙂
+我们使用 [保时捷开发环境](http://www.porsche-next-oi-competition.com/)，因为据我所知这是最先进的软件开发工具包**（SDK）** —— 你也可以评论留下你喜欢的互联汽车软件开发工具包。🙂
 
 * * *
 
@@ -49,7 +49,7 @@
 
 为什么它是最先进的？因为他们会将用于所有连接汽车的 API 实现标准化。
 
-现在每个平台都有自己的 API，意味着每个平台你都要去学习不同的 API — 还可能和新的标准不兼容！
+现在每个平台都有自己的 API，意味着每个平台你都要去学习不同的 API —— 还可能和新的标准不兼容！
 
 点击 `register` 按钮后，你会看见一个表单，如果你想跟随我们的例子，请填写注册表格。
 
@@ -71,7 +71,7 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*44xqjBlq7MV1PLTZNaVAEw.png)
 
-创建一个名为“Mario cart”项目
+创建一个名为“Mario cart”的项目
 
 创建成功后，你会看到下面的控制台。
 
@@ -125,7 +125,7 @@ git clone git@github.com:highmobility/hm-node-scaffold.git && hm-node-scaffold &
 
 Client certificate。
 
-最后我们需要访问 token。脚手架会有很多版本，这个只是 **alpha** 版。在未来的版本里，你肯只需要运行一条命令：`yarn run unpack connectedcar-kit`
+最后我们需要访问 token。脚手架会有很多版本，这个只是 **alpha** 版。在未来的版本里，你可能只需要运行一条命令：`yarn run unpack connectedcar-kit`
 
 ![](https://cdn-images-1.medium.com/max/800/1*tDU6p4cs2Cgg2m3rhdM1rw.gif)
 
@@ -137,17 +137,17 @@ Client certificate。
 
 通过调用 API 来打开模拟器的发动机。
 
-就是这样！感觉是不是很棒！想学习更多，可以查看 [官方文档](https://workspace.porsche-next-oi-competition.com/#/learn/tutorials/sdk/node-js/)
+就是这样！感觉是不是很棒！想学习更多，可以查看 [官方文档](https://workspace.porsche-next-oi-competition.com/#/learn/tutorials/sdk/node-js/)。
 
 ### 接下来
 
-如果你对这个话题感兴趣，有很多方向可以发展，但我建议你创建几个连接模拟器的应用玩玩。下面是一些应用创意 — 你可能会赢得 10 万美元的大奖哦！
+如果你对这个话题感兴趣，有很多方向可以发展，但我建议你创建几个连接模拟器的应用玩玩。下面是一些应用创意 —— 你可能会赢得 10 万美元的大奖哦！
 
 * 显示禁止或付费停车位的应用。在控制台中，禁止停车位显示红色，付费停车位显示橙色。
 * 帮助找到最近的充电桩的应用。
-* 可以让驾驶者快速使用谷歌地图、短信、音乐和其他程序的应用
+* 可以让驾驶者快速使用谷歌地图、短信、音乐和其他程序的应用。
 
-感谢阅读并坚持到最后，你和厉害！❤
+感谢阅读并坚持到最后，你很厉害！❤
 
 
 ---
