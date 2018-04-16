@@ -2,152 +2,152 @@
 > * 原文作者：[Indrek Lasn](https://hackernoon.com/@wesharehoodies?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/connected-cars-what-are-they-and-how-to-get-started-developing-connected-car-apps.md](https://github.com/xitu/gold-miner/blob/master/TODO1/connected-cars-what-are-they-and-how-to-get-started-developing-connected-car-apps.md)
-> * 译者：
-> * 校对者：
+> * 译者：[jonjia](https://github.com/jonjia)
+> * 校对者：[luochen1992](https://github.com/luochen1992) [allenlongbaobao](https://github.com/allenlongbaobao)
 
-# Connected cars 🏎 — what are they and how to get started developing connected **car** apps
+# 互联汽车是什么以及如何开发用于它的应用？
 
 ![](https://cdn-images-1.medium.com/max/2000/1*12wBTceui8136CzD6OiIvQ.png)
 
-New generation cars are extremely handy — from turning the engine on with your phone, opening the car doors when you’re nearby, to actually giving you notifications when you’re too tired to drive safely.
+未来汽车肯定会非常便捷 —— 从用手机直接发动汽车、走到车辆附近车门就会自动打开，到当你太累无法安全驾驶就会给你提醒。
 
-What exactly are connected cars? Well, according to Wikipedia:
+那什么是互联汽车呢？维基百科的解释如下：
 
-> A **connected car** is a [car](https://en.wikipedia.org/wiki/Car "Car") that is equipped with [Internet](https://en.wikipedia.org/wiki/Internet "Internet") access, and usually also with a [wireless local area network](https://en.wikipedia.org/wiki/Wireless_local_area_network "Wireless local area network").[[1]](https://en.wikipedia.org/wiki/Connected_car#cite_note-1)[[2]](https://en.wikipedia.org/wiki/Connected_car#cite_note-2) This allows the car to share internet access with other devices both inside as well as outside the vehicle
+> **互联汽车**是可以连接到 [互联网](https://en.wikipedia.org/wiki/Internet) 并配备 [本地无线局域网](https://en.wikipedia.org/wiki/Wireless_local_area_network) 的 [车辆](https://en.wikipedia.org/wiki/Car) <sup><a href="https://en.wikipedia.org/wiki/Connected_car#cite_note-1">[1]</a></sup><sup><a href="https://en.wikipedia.org/wiki/Connected_car#cite_note-2">[2]</a></sup>。因此车辆可以和其他车内或是车外的设备分享网络资源。
 
-There’s hardly any doubt these days that the future of automotive is going to be connected and electric — illustrated by top tier car brands such as Tesla and Porsche with their offering of excellent connected electric cars like Tesla Model S and Porsche Mission E.
+毫无疑问，未来汽车的发展趋势就是互联和电动 —— 如特斯拉和保时捷这样的顶级汽车品牌都各自推出了像 Model S 和 Mission E 这样优秀的电动互联汽车。
 
 ![](https://cdn-images-1.medium.com/max/800/1*rg5RTZz36b3uDlNFyO-ZLw.jpeg)
 
-We’re quite literally living in the future — how cool is that?
+像我们真的生活在未来一样 —— 很酷吧？
 
 ![](https://cdn-images-1.medium.com/max/800/1*IKj1zBUxGRi8KJyZRDttQg.png)
 
-The interior of Porsche ME.
+保时捷 Mission E 的内饰。
 
 ![](https://cdn-images-1.medium.com/max/800/1*IcHcbtfttiloO0g79oxuDQ.jpeg)
 
-Tesla S charging.
+特斯拉 Model S 在充电。
 
 ![](https://cdn-images-1.medium.com/max/800/1*b5UsurrQR5r0WfmQdzCJ8w.png)
 
-Tesla S interior.
+特斯拉 Model S 的内饰。
 
-I don’t know much about cars, but saving lives, creating a more eco and geo friendly environment, and making traffic more safe is something we can all benefit from thanks to connected cars.
+我对汽车了解不多，但通过互联汽车我们可以挽救生命，创造一个生态和地理都更友好的环境，让交通更安全，我们都会从中受益。
 
-With connected cars we can finally browse our favorite subreddits on our phones without putting anyone at risk.
+驾驶或乘坐互联汽车时，我们终于可以浏览手机中喜欢的内容而不用担心发生交通事故了。
 
-### Getting started developing connected apps
+### 开始开发互联应用
 
-We will be using the [Porsche workspace](http://www.porsche-next-oi-competition.com/) since it’s the most advanced software development kit _(SDK)_ I know of — please feel free to comment below your favorite connected car software development kit. 🙂
+我们使用 [保时捷开发环境](http://www.porsche-next-oi-competition.com/)，因为据我所知这是最先进的软件开发工具包**（SDK）** —— 你也可以评论留下你喜欢的互联汽车软件开发工具包。🙂
 
 * * *
 
 ![](https://cdn-images-1.medium.com/max/800/1*WGgGSvhOqtub4c9A5gL2Zg.jpeg)
 
-Signing up for the Porsche workspace.
+注册保时捷开发环境的账号。
 
-Why is it the most advanced? What makes the Porsche SDK so awesome is they’re going to standardize the API’s between all connected cars.
+为什么它是最先进的？因为他们会将用于所有连接汽车的 API 实现标准化。
 
-Right now each platform has unilateral API’s, meaning you have to learn each platform and API separately — not so much with the new standards!
+现在每个平台都有自己的 API，意味着每个平台你都要去学习不同的 API —— 还可能和新的标准不兼容！
 
-After pressing register you should see a quick form, if you would like to follow our example, please fill it in.
+点击 `register` 按钮后，你会看见一个表单，如果你想跟随我们的例子，请填写注册表格。
 
 ![](https://cdn-images-1.medium.com/max/800/1*VDeaEEOZkcJNdc10iO2Wlw.png)
 
-After successfully making a user and login in, this is what you should see
+注册完成后，你会看见如下界面：
 
 ![](https://cdn-images-1.medium.com/max/800/1*nixNnTtGS0rpma2uFY3R0g.png)
 
-Let’s create a project. What we need are the following:
+我们先创建一个项目。需要准备如下内容：
 
-*   A project (we will link the application to the project)
-*   An application (a project can have multiple apps)
-*   A vehicle (we link vehicles to applications)
+* 一个项目（应用程序要连接到项目）
+* 一个应用（一个项目可以有多个应用）
+* 一辆车（将车辆连接到应用）
 
-In a nutshell, we create a project, the app and the vehicle. We link the app to the project, and then link the vehicle to the app. The logic is the following;
+简而言之，先创建一个项目、应用和车辆。然后将应用连接到项目，车辆连接到应用。逻辑如下：
 
-_Project_ **⟵** _App_ **⟵** _Vehicle_
+**项目** **⟵** **应用** **⟵** **车辆**
 
 ![](https://cdn-images-1.medium.com/max/800/1*44xqjBlq7MV1PLTZNaVAEw.png)
 
-Creating a Mario cart project.
+创建一个名为“Mario cart”的项目
 
-After successfully creating the project, we should see our dashboard.
+创建成功后，你会看到下面的控制台。
 
 ![](https://cdn-images-1.medium.com/max/800/1*rsmN2x0l8OIbG9CcAatMzQ.png)
 
-Next, let’s create a vehicle.
+下一步，创建一辆车。
 
 ![](https://cdn-images-1.medium.com/max/800/1*ubLnPZ9W1yiFhcUMeue8Aw.png)
 
 ![](https://cdn-images-1.medium.com/max/800/1*Vf1MotKtmqOgEf0p-8IGZA.gif)
 
-I have to say, the UI looks very slick and intuitive. We now have the project, the vehicle, what’s left to do is create an app.
+不得不说，用户界面非常流畅直观。我们有了项目、车辆，剩下的就是应用了。
 
-Let’s create an app for the project now.
+现在来为项目创建一个应用。
 
 ![](https://cdn-images-1.medium.com/max/800/1*dS-UFNGRQcCj-GUgk-WAcg.png)
 
-We can use the API to build an Android, iOS or web app. We will be sticking to the good old web.
+我们可以使用 API 创建 Android、iOS 或 web 应用。我们选择 web 方式。
 
 ![](https://cdn-images-1.medium.com/max/800/1*9_uRbNTWH__yTd8I3S_i7Q.gif)
 
-Creating an application and linking it to the vehicle.
+创建应用并连接到车辆
 
-_Don’t forget to link the vehicle to the application._
+**不要忘记将车辆连接到应用。**
 
-Alrighty — let’s launch the emulator finally.
+最后来启动模拟器。
 
 ![](https://cdn-images-1.medium.com/max/800/1*oVCeK-HBPpmxicN2PC_EHQ.gif)
 
-Web UI of the emulator.
+模拟器页面
 
-That’s one fancy web emulator. We finally got through the scaffolding to the meat and bones. We can talk with the emulator through an API.
+这是一个很棒的 web 模拟器。我们终于搭好了脚手架。然后就可以通过 API 来操作模拟器了。
 
-### Getting started with interacting with the emulator API
+### 通过 API 与模拟器交互
 
-Let’s grab this [example repository](https://github.com/highmobility/hm-node-scaffold) as our boilerplate and open with our favorite text editor. Make sure you have Node +8.4 installed.
+我们用这个 [示例仓库](https://github.com/highmobility/hm-node-scaffold) 作为样板，用你喜欢的编辑器打开它。确保你安装了 8.4 版本及以上的 Node。
 
 ```
 git clone git@github.com:highmobility/hm-node-scaffold.git && hm-node-scaffold && yarn install
 ```
 
-Let’s open `src/app.js` — we should see a useful comment. We need to provide the credentials.
+打开 `src/app.js` 这个文件，你会看见一段有用的注释。我们需要配置一些凭据信息。
 
 ![](https://cdn-images-1.medium.com/max/800/1*PKp-FNVP041G28CufYLKvA.png)
 
-We have done all of this. All we need is the credentials. It’s under develop → project → client certificate.
+前面的步骤已经完成了，剩下的就是凭据信息了。在 **develop → project → client certificate** 下面可以查看 client certificate。
 
 ![](https://cdn-images-1.medium.com/max/800/1*wJzxuWTrg8dL6BQU7r6GLA.gif)
 
 ![](https://cdn-images-1.medium.com/max/400/1*lfirzUldQrZht-pjIaH_5Q.png)
 
-Client certificate.
+Client certificate。
 
-And finally we need the access token. Lots of scaffolding but keep in mind this is the _“alpha”_ phase. In the future you probably will just run a command like `yarn run unpack connectedcar-kit`
+最后我们需要访问 token。脚手架会有很多版本，这个只是 **alpha** 版。在未来的版本里，你可能只需要运行一条命令：`yarn run unpack connectedcar-kit`
 
 ![](https://cdn-images-1.medium.com/max/800/1*tDU6p4cs2Cgg2m3rhdM1rw.gif)
 
-Access token.
+权限 token。
 
-Alright, let’s turn on our engine by running `yarn run start`
+好的，通过执行 `yarn run start` 命令来启动发动机吧。
 
 ![](https://cdn-images-1.medium.com/max/800/1*d7-z0M6os0CLUgro0BwZ4g.gif)
 
-Turning the simulators engine on via the API.
+通过调用 API 来打开模拟器的发动机。
 
-There you go! What a great time to be alive! [Here are the docs in case you’re interested learning more](https://workspace.porsche-next-oi-competition.com/#/learn/tutorials/sdk/node-js/))
+就是这样！感觉是不是很棒！想学习更多，可以查看 [官方文档](https://workspace.porsche-next-oi-competition.com/#/learn/tutorials/sdk/node-js/)。
 
-### Where to go from here?
+### 接下来
 
-If the topic peaked your interest, there are many roads to go from here but I’d recommend playing around and creating a couple of apps using the emulator. Here are some app ideas — who knows, you might even win some of the 100k prize for one of these in the competition!
+如果你对这个话题感兴趣，有很多方向可以发展，但我建议你创建几个连接模拟器的应用玩玩。下面是一些应用创意 —— 你可能会赢得 10 万美元的大奖哦！
 
-*   App which displays the forbidden and paid parking spots. The forbidden spots should display red, and paid parking spots orange on the dashboard.
-*   App helping to find the nearest charger.
-*   App which gives driver quick access to Google Maps, messaging apps, music apps, and other utilities quickly.
+* 显示禁止或付费停车位的应用。在控制台中，禁止停车位显示红色，付费停车位显示橙色。
+* 帮助找到最近的充电桩的应用。
+* 可以让驾驶者快速使用谷歌地图、短信、音乐和其他程序的应用。
 
-Thanks for reading and making it to the end — you’re awesome! ❤
+感谢阅读并坚持到最后，你很厉害！❤
 
 
 ---

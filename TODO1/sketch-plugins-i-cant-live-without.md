@@ -2,48 +2,48 @@
 > * 原文作者：[Ryan Stephen](https://medium.com/@ry_stephen?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/sketch-plugins-i-cant-live-without.md](https://github.com/xitu/gold-miner/blob/master/TODO1/sketch-plugins-i-cant-live-without.md)
-> * 译者：
-> * 校对者：
+> * 译者：[allenlongbaobao](https://github.com:allenlongbaobao)
+> * 校对者：[rydensun](https://github.com:rydensun)、[ALVINYEH](https://github.com:ALVINYEH)
 
-# Sketch Plugins I Can’t Live Without
+# 细数那些我离不开的 Sketch 插件
 
 ![](https://cdn-images-1.medium.com/max/2000/1*R3ltFIUcIz337k9QcEQynQ.jpeg)
 
-I am a geek when it comes to plugins and add-ons. New Sketch plugins pretty much come out daily but there are a few that I just can’t do without.
+当谈论到插件时，我是一名极客。各种新颖的 Sketch 插件层出不穷，但是有那么几个是我怎么也离不开的。
 
-### [Sketch Runner](http://sketchrunner.com/)
+### [Sketch 运行器](http://sketchrunner.com/)
 
 ![](https://cdn-images-1.medium.com/max/800/1*A_gY8mK59q9ourGDreky-Q.jpeg)
 
-Nested plugin menus will never slow me down again.
+多层的插件菜单再也不会影响我的效率了。
 
-I put off using this for ages because I didn’t really understand how it would fit in my design flow. Search for stuff? I’ll just click around, thanks. I was an idiot. It is lightning fast and will change how you interact with the Sketch interface. Plugins like Content Generator’s nested submenus used to annoy me but now I go straight to the action I want.
+我推迟了好几年才使用这个插件，因为我不懂怎么把它融入我的设计流程。查找信息？我会选择使用鼠标点击，谢谢。现在想想，我当时真是太傻了。它反应迅速，重要的是，它会改变你和 Sketch 界面交流的方式。内容生成器（Content Generator）之类的插件，它们的多层子菜单曾经让我很烦恼，现在，我会直接找到我想要的操作。
 
-Runner works so well that it convinced me to start using [Alfred](https://www.alfredapp.com/) to interact with my computer. I will never go back.
+Runner 运行得非常完美，是它让我开始使用 [Alfred](https://www.alfredapp.com/) 来和我的电脑交流。我再也不想回到过去了。
 
-### [Midnight Theme](https://midnightsketch.com/)
+### [暗夜主题](https://midnightsketch.com/)
 
 ![](https://cdn-images-1.medium.com/max/800/1*ZFpUFJaZst7zhCHovQ9NlA.png)
 
-Midnight adds a much needed layer of personalization and additional functionality.
+暗夜主题增加了一个非常有用的个性化外观和附加功能。
 
-What. a. gem. Midnight is an interface theme that will not only save your eyes from burning out but it will also excite you every time you open Sketch. My favorite part is having pink toolbar icons. There are also productivity enhancements like the ability to change the layer selection color, color tags for layers, and line guides for grouped items. These little UI upgrades have helped me keep my layer names clean for export (no emojis - use color tags).
+这个主题界面不但能够保护你的眼睛，而且能在你打开 Sketch 的时候让你变得兴奋。我最喜欢的部分是它有一个粉红色的工具栏图标。还有一些能够提高效率的功能，比如更改图层选中颜色、图层的标签颜色以及项目组的指引线。这些 UI 上的细节提升帮助我保持图层名输出时简洁明了（不用表情 —— 用色块标签）。
 
-It does cost $8 but I put it in my top 3 best purchases for Sketch. The team seems to push updates pretty fast so I am excited to see where they take it next.
+这个插件需要花 8 美金，但我还是把它排在我的 Sketch 付费项目的前 3 名。这个插件的项目组似乎更新得很快，我很期待他们下一步会拿出怎么样的产品。
 
 ### [Paddy](https://github.com/DWilliames/paddy-sketch-plugin)
 
-Basically the best plugin made to date.
+基本上是目前做的最好的插件了。
 
 ![](https://cdn-images-1.medium.com/max/800/1*wlSuevUPsl-4og55_3ck3Q.gif)
 
-There is no additional step (i.e. Relabel) after you change content using Paddy — it’s automatic.
+当你使用 Paddy 更改了内容后，基本没有多余的步骤了（比如重新改变 label 大小之类）—— 它是自动的。
 
-There have been many workarounds for dealing with dynamic buttons but I have never been satisfied having to do additional steps after making a change. Why can’t it just work like CSS!?
+处理动态按钮有许多变通办法，但我从来没有满意过，我还是不得不在修改按钮后再做一些多余的操作。为什么它就不能像 CSS 那样运行呢？
 
-Paddy is a new plugin that works exactly the way I expect it should work — I change some content and it updates automatically. To me, it’s better than Relabel method because it works with symbol overrides and I can apply it to something like a modal with ease. Buttons with icons are also a breeze. Think of it as a lite version of Stacks.
+Paddy 是一个新插件，它运行的方式是我所期望的 —— 我修改一些内容的同时，它将自动更新。对我来说，它运行得比手动改变标签大小这种方式好得多，因为它基于符号重载，这样，我可以很容易地把它应用到其他地方，比如模型。带图标的按钮也是小意思，对它来说就是小菜一碟。
 
-**Update**: Mind. Blown. You can automatically space grouped objects and align them with simple layer name rules. Checkout the video below by [**@**pablostanley](https://twitter.com/pablostanley) for a more in-depth look at how magical this plugin is. [**@**DavidWilliames](https://twitter.com/DavidWilliames) is a genius.
+**更新**：记住，你可以自动给组合对象分配空间，并且用一些简单的图层名规则居中它们。记得观看下面的视频，由 [**@**pablostanley](https://twitter.com/pablostanley) 带来的进一步深入了解这个插件的神奇。[**@**DavidWilliames](https://twitter.com/DavidWilliames) 是个天才。
 
 - YouTube 视频链接：https://youtu.be/FvBQm5qHwdc
 
@@ -51,61 +51,61 @@ Paddy is a new plugin that works exactly the way I expect it should work —�
 
 ![](https://cdn-images-1.medium.com/max/800/1*HFG1PmuP_af_4mBZep2LVQ.png)
 
-If you get excited about charts then you are going to love this.
+当你接触到图表的时候，你感到非常激动，然后爱上它。
 
-I hate designing charts — until now. It’s never been easier to pull data in from a spreadsheet create a visually stunning chart. I use the plugin as a starting point and then customize the chart’s visuals as needed.
+我讨厌设计图表 —— 直到现在还是。从一个视觉上混乱的表格中抽取数据，这永远不是一件轻松的事。当我开始使用这个插件，我打开了新世界的大门，之后，我按照需求定制表格的样式。
 
-I can pump out a Dashboard faster than the marketing team can say “We actually don’t need that level of detail, but thanks”.
+我能够快速赶出一个仪表盘，甚至比市场部的人说出：『我们真的不需要详细到这种程度，但是谢谢！』还要快。
 
 ### [Split Shape](https://github.com/kupe517/sketch-split-shape)
 
 ![](https://cdn-images-1.medium.com/max/800/1*jUVoY4bN5dEWrvuEia2PKg.gif)
 
-Slice and dice with Split Shape plugin.
+使用 Split Shape 插件来进行切片和切块。
 
-Most people probably use Grids or Craft for this although I have found that the Split Shape plugin works great for me. I create a parent shape with the total dimensions I want (parent div) and then split it into columns/rows for gridded content using gutter/margin input for separation. I don’t have to think about the math.
+大部分人使用 Grids 或者 Craft 来实现这个功能，然后我发现 Split Shape 插件很好用。我创建了一个拥有全部尺寸的父形状（相当于父 div），然后使用 guterr/margin 把它分割成多行多列，完成网状布局。我不用考虑数值计算。
 
 ### [Fitter](https://github.com/pberrecloth/fitter-sketch-plugin)
 
 ![](https://cdn-images-1.medium.com/max/800/1*z2F8_eu3SnW_tTfIE4Fc2Q.gif)
 
-I use this all the time because I’m a lazy hotkey king and don’t want to draw shapes manually. CTL⌥+H (height), CTL⌥+W (width), and CTL⌥+F (Full Art board). It’s that easy. Also, you can set margins for shape size based on the art board dimensions.
+我一直在使用它因为我很懒，我不想手动画形状。CTL⌥+H （高度）, CTL⌥+W （宽度）, and CTL⌥+F (全画板)。就是这么简单。同样，你可以设置形状缩进，尺寸大小基于画板尺寸。
 
 ### [Butter](https://github.com/pberrecloth/butter-sketch-plugin)
 
 ![](https://cdn-images-1.medium.com/max/800/1*nFjxV9-afVchMFXj8SrEyQ.gif)
 
-Oh boy, that nav needs some Butter!
+嗨，朋友，那个导航栏需要一点黄油！（译者注：原文是 nav needs some Butter。插件名刚好是黄油）
 
-I love me some Butter. Native Sketch controls can’t help much with a vertical nav menu that is out of order by a few pixels so I use Butter to tidy up what would normally take way too many clicks.
+我十分热爱 Butter 这个插件。原始的 Sketch 控制件在垂直导航菜单有几个像素偏移这个应用场景上并没有什么用。于是我用 Butter 来使这个过程简化，这原本需要大量的鼠标点击操作。
 
-Butter can also do spacing distribution so I don’t need to have the Distribute plugin around anymore. Butter is kinda redundant if you are using the Paddy plugin but I still keep it around quickly butting up objects.
+Butter 还可以做间距分布，这样我就再也不需要分布插件了。如果你使用了 Paddy 插件了，Butter 显得有点多余，但我还是保留着它，用来快速组合对象。
 
-### [Sketch Guides](https://celynxie.com/sources/sketchguides.html)
+### [Sketch 指南](https://celynxie.com/sources/sketchguides.html)
 
 ![](https://cdn-images-1.medium.com/max/800/1*9Ttbfh4jHsAaQErAxY7tDw.png)
 
-This interface is beautifully simple. I will create a shape for my margins then move it to the edges of the art board and let the plugin make guides all around it. Saves me tons of time and works exactly how I want it to.
+这个界面简洁美观。我会为缩进创建一个形状，把它移到画板的边缘，然后让插件分布在指南四周。这样为我节省了大量时间，并且按照我的想法工作。
 
 ### [Clipboard Fill](https://github.com/ScottSavarie/Clipboard-Fill)
 
 ![](https://cdn-images-1.medium.com/max/800/1*vYp95X-ja25UMrJc-_b-Ag.gif)
 
-I don’t know what I would do without this guy. No more saving photos to my desktop and filling shapes. Copy image > CTL⌥+V and done!
+我不知道没有它我怎么工作。再也不需要把图片保存到桌面，然后填充形状。现在只需要复制图片，然后 CTL⌥+V ，搞定！
 
 ### [Swatches](https://github.com/Ashung/Sketch_Swatches)
 
 ![](https://cdn-images-1.medium.com/max/800/1*jjrC-s-ALXJUfELOO_bQxQ.png)
 
-Swatches has really helped me focus because I don’t spend half a day playing with color values. I’ll jump into a library, grab what I need, and then I’m out.
+Swatches 让我能够集中注意力，因为我不需要花半天时间在颜色值上。我可以直接跳到库，挑选我需要的颜色，然后我的工作就完成了。
 
-### Bonus: [Little Ipsum](https://itunes.apple.com/us/app/littleipsum/id405772121?mt=12)
+### 福利: [Little Ipsum](https://itunes.apple.com/us/app/littleipsum/id405772121?mt=12)
 
 ![](https://cdn-images-1.medium.com/max/800/1*2bUx23sVoXCaqNmo8wWFFw.png)
 
-Exactly the amount of filler text I need.
+提供你想要的内容，不多不少。
 
-I know there are plugins with content generators (Craft, etc) but my main problem has always been that they don’t have _fine grain controls for how much copy I want_. Little Ipsum is my go-to when I need filler text of a certain amount and it is just as fast as using any plugin (probably faster).
+我知道有不少提供内容生成器的插件（比如 Craft），但我的主要问题经常是他们没有提供 **较好地控制我需要多少内容**。当我需要填充确定数量的内容时，我会选择 Little Ipsum，它不比其他任何插件慢（很可能要快）。
 
 
 ---
