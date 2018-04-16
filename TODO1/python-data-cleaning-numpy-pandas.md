@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/python-data-cleaning-numpy-pandas.md](https://github.com/xitu/gold-miner/blob/master/TODO1/python-data-cleaning-numpy-pandas.md)
 > * 译者：[bambooom](https://github.com/bambooom)
-> * 校对者：
+> * 校对者：[luochen1992](https://github.com/luochen1992)，[Hopsken](https://github.com/Hopsken)
 
 # 使用 NumPy 和 Pandas 进行 Python 式数据清理
 
@@ -17,7 +17,7 @@
 
 我们将介绍以下内容：
 
-*   删除 `DataFrame`中不必要的列
+*   删除 `DataFrame` 中不必要的列
 *   更改 `DataFrame` 的索引
 *   用 `.str()` 方法清理列
 *   使用 `DataFrame.applymap()` 函数以元素方式清理数据集
@@ -28,11 +28,11 @@
 
 *   [BL-Flickr-Images-Book.csv](https://github.com/realpython/python-data-cleaning/blob/master/Datasets/BL-Flickr-Images-Book.csv) – 包含大英图书馆书籍信息的 CSV 文件
 *   [university_towns.txt](https://github.com/realpython/python-data-cleaning/blob/master/Datasets/university_towns.txt) – 包含美国各州大学城名称的文本文件
-*   [olympics.csv](https://github.com/realpython/python-data-cleaning/blob/master/Datasets/olympics.csv) – 汇总所有国家参加夏季和冬季奥运会的 CSV 文件
+*   [olympics.csv](https://github.com/realpython/python-data-cleaning/blob/master/Datasets/olympics.csv) – 汇总所有国家夏季和冬季奥运会参与情况的 CSV 文件
 
 你可以从 Real Python 的 [GitHub 仓库](https://github.com/realpython/python-data-cleaning) 下载所有数据集，以便查看以下示例。
 
-**注意**：我推荐使用 Jupyter Notebook 来查看。
+**注意**：我推荐使用 Jupyter Notebook 来进行以下步骤。
 
 本教程假设你对 Pandas 和 NumPy 库有基本的了解，包括 Pandas 的主要工作对象 [`Series` 和 `DataFrame`](https://pandas.pydata.org/pandas-docs/stable/dsintro.html)，应用于它们的常用方法，以及熟悉 NumPy 的 [`NaN`](https://docs.scipy.org/doc/numpy-1.13.0/user/misc.html) 值。
 
@@ -43,13 +43,13 @@
 >>> import numpy as np
 ```
 
-## 删除 `DataFrame`中不必要的列
+## 删除 `DataFrame` 中不必要的列
 
 你经常会发现数据集中并非所有类别的数据都对你有用。例如，你可能有一个数据集包含了学生信息（名字、成绩、标准、父母姓名和住址），但你想要专注于分析学生的成绩。
 
 在这种情况下，住址和父母姓名对你来说并不重要，保留这些类别将占用不必要的空间，并可能拖累运行时间。
 
-Pandas 提供了一个很方便的 [`drop()`](https://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.drop.html) 函数来从 `DataFrame` 中移除列或行。我们来看一个简单的例子，从 `DataFrame` 中伤处一些列。
+Pandas 提供了一个很方便的 [`drop()`](https://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.drop.html) 函数来从 `DataFrame` 中移除列或行。我们来看一个简单的例子，从 `DataFrame` 中删除一些列。
 
 首先，我们从 CSV 文件 “BL-Flickr-Images-Book.csv” 中创建一个 `DataFrame`。在下面的例子中，我们把相对路径传递给 `pd.read_csv`，当前工作路径下，所有的数据集都存放在 `Datasets` 文件夹中：
 
@@ -107,7 +107,7 @@ Pandas 提供了一个很方便的 [`drop()`](https://pandas.pydata.org/pandas-d
 4    British Library HMNTS 9007.d.28.
 ```
 
-当我们使用 `head()` 方法查看前五条数据时，我们可以看到一些列对图书馆有用的辅助信息，但对书籍本身没有描述： `Edition Statement`，`Corporate Author`，`Corporate Contributors`，`Former owner`，`Engraver`，`Issuance type` 和 `Shelfmarks`。
+当我们使用 `head()` 方法查看前五条数据时，我们可以看到一些列提供了对图书馆来说有用的辅助信息，但是对描述书籍本身并没有太多帮助： `Edition Statement`，`Corporate Author`，`Corporate Contributors`，`Former owner`，`Engraver`，`Issuance type` 和 `Shelfmarks`。
 
 我们可以这样删除这些列：
 
@@ -124,9 +124,9 @@ Pandas 提供了一个很方便的 [`drop()`](https://pandas.pydata.org/pandas-d
 >>> df.drop(to_drop, inplace=True, axis=1)
 ```
 
-这里，我们定义了一个列表，其中包含了我们想要删除的列的名字。然后调用 `drop()` 函数，传入 `inplace` 参数为 `True`，以及 `axis` 参数为 1。这两个参数告诉 Pandas 我们想要让改变直接作用在对象上，并且我们需要删除的是列。
+这里，我们定义了一个列表，其中包含了我们想要删除的列的名字。然后调用 `drop()` 函数，传入 `inplace` 参数为 `True`，以及 `axis` 参数为 `1`。这两个参数告诉 Pandas 我们想要让改变直接作用在对象上，并且我们需要删除的是列。
 
-再次查看 `DataFrame`，可以发现不想要的列以及被移除了：
+再次查看 `DataFrame`，可以发现不想要的列已经被移除了：
 
 ```
 >>> df.head()
@@ -158,7 +158,7 @@ Pandas 提供了一个很方便的 [`drop()`](https://pandas.pydata.org/pandas-d
 >>> df.drop(columns=to_drop, inplace=True)
 ```
 
-这种方法更直观易读，这一步是做了什么是非常明显的。
+这种方法更直观易读，这一步做了什么是非常明显的。
 
 如果你事先知道那些列是你需要保留的，另外一个选择是将列作为 `usecols` 的参数传给 `pd.read_csv`。
 
@@ -222,13 +222,13 @@ Flickr URL              http://www.flickr.com/photos/britishlibrary/ta...
 Name: 206, dtype: object
 ```
 
-换句话说，206 是索引的第一个标签。如要按位置访问它，我们可以使用 `df.iloc[0]`，它执行基于位置的索引。
+换句话说，206 是索引的第一个标签。如要按位置访问它，我们可以使用 `df.iloc[0]`，它执行基于**位置**的索引。
 
 **技术细节**：`.loc[]` 在技术上来说是一个[类实例](https://github.com/pandas-dev/pandas/blob/7273ea0709590e6264607f227bb8def0ef656c50/pandas/core/indexing.py#L1415)，它有一些特殊的[语法](https://pandas.pydata.org/pandas-docs/stable/indexing.html#selection-by-label)不完全符合大多数普通 Python 实例方法。
 
 一开始，我们的索引是一个 RangeIndex，也就是从 0 开始的整数，类似于 Python 内置的 `range`。通过把列的名称传给 `set_index`，我们将索引改成了 `Identifier` 中的值。
 
-你可能注意到，我们使用 `df = df.set_index(...)` 将此方法返回的值重新赋值给变量。这是因为默认情况下，此方法会返回一个修改后的副本，并不会直接对原本的对象进行更改，索引可以通过设置 `in0place` 参数来避免这种情况：
+你可能注意到，我们使用 `df = df.set_index(...)` 将此方法返回的值重新赋值给变量。这是因为默认情况下，此方法会返回一个修改后的副本，并不会直接对原本的对象进行更改，索引可以通过设置 `inplace` 参数来避免这种情况：
 
 ```
 df.set_index('Identifier', inplace=True)
@@ -238,7 +238,7 @@ df.set_index('Identifier', inplace=True)
 
 到这里，我们已经删除了不必要的列，并将 `DataFrame` 的索引更改为更有意义的列。在这一节，我们将会清理特定的列，使其成为统一的格式，以便更好地理解数据集并强化一致性。具体来说，我们将清理 `Date of Publication` 和 `Place of Publication` 这两列。
 
-经过检查，所有的数据类型都是 `对象` [dtype](http://pandas.pydata.org/pandas-docs/stable/basics.html#dtypes)，它与 Python 中的 `str` 类似。
+经过检查，所有的数据类型都是 `object` [dtype](http://pandas.pydata.org/pandas-docs/stable/basics.html#dtypes)，它与 Python 中的 `str` 类似。
 
 它封装了任何不适用于数字或分类数据的字段。这是有道理的，因为我们使用的数据最初只是一堆杂乱的字符：
 
@@ -298,7 +298,7 @@ Name: Date of Publication, dtype: object
 
 对正则不熟悉？你可以在 regex101.com 这个网站上[查看上面这个正则表达式](https://regex101.com/r/3AJ1Pv/1)，也可以阅读更多 Python 正则表达式 [HOWTO](https://docs.python.org/3.6/howto/regex.html) 上的教程。
 
-从技术上讲，这一列仍然是 `对象` dtype，但是我们用 `pd.to_numeric` 即可轻松获取数字：
+从技术上讲，这一列仍然是 `object` dtype，但是我们用 `pd.to_numeric` 即可轻松获取数字：
 
 ```
 >>> df['Date of Publication'] = pd.to_numeric(extr)
@@ -449,11 +449,11 @@ Name: Place of Publication, dtype: object
 480         http://www.flickr.com/photos/britishlibrary/ta...
 ```
 
-**注意**：到这里，`Place of Publication` 会是一个很好转化为 [`分类数据` dtype](https://pandas.pydata.org/pandas-docs/stable/categorical.html) 的列，因为我们可以用整数对比较小的唯一的城市进行编码。（分类数据类型的内存使用量与类别数目加上数据长度成正比，dtype 对象的大小是一个常数乘以数据长度。）
+**注意**：到这里，`Place of Publication` 会是一个很好转化为 [`Categorical` dtype](https://pandas.pydata.org/pandas-docs/stable/categorical.html) 的列，因为我们可以用整数对比较小的唯一的城市进行编码。（**分类数据类型的内存使用量与类别数目加上数据长度成正比，dtype 对象的大小是一个常数乘以数据长度。**）
 
 ## 使用 `applymap` 函数清理整个数据集
 
-在某些情况下，你会发现不仅是某一列里有脏数据，而是更加分散在整个数据集。
+在某些情况下，你会发现不仅是某一列里有脏数据，而是分散在整个数据集。
 
 有时如果可以对 `DataFrame` 里的每个单元或元素都应用一个自定义函数会很有帮助。Pandas 的 `.applymap()` 函数类似内置的 `map()` 函数，只是它将应用于 `DataFrame` 中的所有元素。
 
@@ -513,7 +513,7 @@ Alaska[edit]
 4  Alabama[edit]\n         Montevallo (University of Montevallo)[2]\n
 ```
 
-虽然我们可以在上面的 for 循环中清理这些字符串，Pandas 可以更容易做到。我们只需要州名和城镇名字，其他都可以删除。虽然这里也可以再次使用 `.str()` 方法，但我们也可以使用 `applymap()` 方法将一个 Python 可调用方法映射到 DataFrame 的每个元素上。
+尽管我们可以使用 for 循环来清理上面的字符串，但是使用 Pandas 会更加方便。我们只需要州名和城镇名字，其他都可以删除。虽然这里也可以再次使用 .str() 方法，但我们也可以使用 applymap() 方法将一个 Python 可调用方法映射到 DataFrame 的每个元素上。
 
 我们一直在使用**元素**这个术语，但实际上到底是指什么呢？看一下以下这个 DataFrame 例子：
 
@@ -640,7 +640,7 @@ Argentina (ARG),23,18,24,28,70,18,0,0,0,0,41,18,24,28,70
 
 要重命名列，我们将利用 `rename()` 方法，这个方法允许你基于一个映射（本例中，指字典）来重新标记轴的名字。
 
-让我们从定义一个新的字典开始，它将现在的列的名字作为 key，映射到更加可用的名字（字典值）。
+让我们从定义一个新的字典开始，它将现在的列的名字作为 key，映射到可用性更强的名字（字典值）。
 
 ```
 >>> new_names =  {'Unnamed: 0': 'Country',
