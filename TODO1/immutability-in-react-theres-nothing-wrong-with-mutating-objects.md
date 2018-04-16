@@ -164,6 +164,8 @@ var arr2 = [];
 arr1 === arr2 // false
 ```
 
+In each of these cases, two different objects are created and therefore, their references are not equal:
+
 ![](https://cdn-images-1.medium.com/max/800/0*QI4r9ERIF1OPVADk.)
 
 If you want to check if two objects contain the same value, you have to use value equality, where you compare the values of the properties of the object.
@@ -356,6 +358,8 @@ You can get convert the indexes to 4-bits binary numbers:
 3: 0011
 4: 0100
 ```
+
+And represent the array as a tree in this way:
 
 ![](https://cdn-images-1.medium.com/max/800/0*3hlxKXFBvhgY-Pzk.)
 
