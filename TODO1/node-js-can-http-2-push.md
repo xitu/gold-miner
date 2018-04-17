@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/node-js-can-http-2-push.md](https://github.com/xitu/gold-miner/blob/master/TODO1/node-js-can-http-2-push.md)
 > * 译者：[Raoul1996](https://github.com/Raoul1996)
-> * 校对者：[Starriers](https://github.com/Starriers)、虚位以待
+> * 校对者：[Starriers](https://github.com/Starriers)、[FateZeros](https://github.com/FateZeros)
 
 # Node.js 能进行 HTTP/2 推送啦！
 
