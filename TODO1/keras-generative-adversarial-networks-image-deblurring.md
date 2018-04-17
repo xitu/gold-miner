@@ -25,13 +25,13 @@ GAN 训练流程 — [Source](https://www.kdnuggets.com/2017/01/generative-a
 
 训练有**3个主要步骤**：
 
-- 使用生成模型**创造基于噪声的假输入**
-- 同时使用真实的和虚假的输入**训练判别模型**
-- **训练整个模型:** 该模型是由生成模型后串接判别模型所构成的
+- 使用生成模型**创造基于噪声的假输入**。
+- 同时使用真实的和虚假的输入**训练判别模型**。
+- **训练整个模型:** 该模型是由生成模型后串接判别模型所构成的。
 
 请注意，在第三步中，判别模型的权重不再更新。
 
-串接两个模型网络的原因是不可能直接对生成模型输出进行反馈。**我们衡量（生成模型的输出）的唯一标准是判别模型是否接受生成的样本**
+串接两个模型网络的原因是不可能直接对生成模型输出进行反馈。**我们衡量（生成模型的输出）的唯一标准是判别模型是否接受生成的样本**。
 
 这里简要回顾了 GAN 的结构。如果你觉得不容易理解，你可以参考这个 [excellent introduction](https://towardsdatascience.com/gan-by-example-using-keras-on-tensorflow-backend-1a6d515a60d0).
 
@@ -41,7 +41,7 @@ GAN 训练流程 — [Source](https://www.kdnuggets.com/2017/01/generative-a
 
 Ian Goodfellow 首先应用 GAN 模型生成 MNIST 数据。在本教程中，我们使用**生成对抗网络进行图像去模糊**。因此，生成模型的输入不是噪声而是模糊的图像。
 
-数据集采用** GOPRO 数据集**。您可以下载 [精简版](https://drive.google.com/file/d/1H0PIXvJH4c40pk7ou6nAwoxuR4Qh_Sa2/view?usp=sharing) (9GB) 或 [完整版](https://drive.google.com/file/d/1SlURvdQsokgsoyTosAaELc4zRjQz9T2U/view?usp=sharing) (35GB)。它包含**来自多个街景**的人为模糊图像。数据集在按场景分的子文件夹里。
+数据集采用 **GOPRO 数据集**。您可以下载 [精简版](https://drive.google.com/file/d/1H0PIXvJH4c40pk7ou6nAwoxuR4Qh_Sa2/view?usp=sharing) (9GB) 或 [完整版](https://drive.google.com/file/d/1SlURvdQsokgsoyTosAaELc4zRjQz9T2U/view?usp=sharing) (35GB)。它包含**来自多个街景**的人为模糊图像。数据集在按场景分的子文件夹里。
 
 我们先将图片放在文件夹 A（模糊）和 B（清晰）中。这种 A 和 B 的结构与原论文 [pix2pix article](https://phillipi.github.io/pix2pix/) 一致。我写了一个 [自定义脚本](https://github.com/RaphaelMeudec/deblur-gan/blob/master/organize_gopro_dataset.py) 去执行这个任务，按照 README 使用它。
 
@@ -97,7 +97,7 @@ def res_block(input, filters, kernel_size=(3,3), strides=(1,1), use_dropout=Fals
     return merged
 ```
 
-ResNet层基本是卷积层，添加了输入和输出以形成最终输出。
+ResNet 层基本是卷积层，添加了输入和输出以形成最终输出。
 
 ```
 from keras.layers import Input, Activation, Add
