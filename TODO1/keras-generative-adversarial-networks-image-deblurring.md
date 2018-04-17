@@ -362,7 +362,7 @@ for epoch in range(epoch_num):
 
 ![](https://cdn-images-1.medium.com/max/800/1*HjooSUMv2MVXnOhqvhiuow.png)
 
-左: GOPRO 测试图像, 右: GAN 输出.
+左：GOPRO 测试图像，右：GAN 输出。
 
 #### 以下是生成对抗网络的资源列表。
 
