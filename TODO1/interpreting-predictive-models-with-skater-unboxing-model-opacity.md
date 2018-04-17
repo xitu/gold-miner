@@ -147,8 +147,7 @@ from
 
 ![feature relevance for a single prediction](https://d3ansictanv2wj.cloudfront.net/Figure9-178eb31a31928a269986be6c36f5b03a.png)
 
-图 10. [通过 LIME，使用线性代理模型理解单个预测的特征相关性](https://github.com/datascienceinc/Skater/blob/master/examples/ensemble_model.ipynb)。 图片由
-Pramit Choudhary 和 Datascience.com 团队提供。
+图 10. [通过 LIME，使用线性代理模型理解单个预测的特征相关性](https://github.com/datascienceinc/Skater/blob/master/examples/ensemble_model.ipynb)。 图片由 Pramit Choudhary 和 Datascience.com 团队提供。
 
 *   **衡量模型性能在部署到生产环境后如何变化：** Skater 保证了模型在内存中和运行时模型解释能力的一致性，帮助使用者衡量不同模型版本间的特征交互是如何变化的（如图 11）。若使用机器学习市场上现有预测模型（例如 algorithmia），这种形式的解释也能帮助建立对模型的信任。例如，在图 12 和图 13 中，分别用 indico.io 和 algorithmia 的两个现有情绪分析模型对 IMBD 内《纸牌屋》的影评进行分析，并使用 Skater 比较两个模型并进行评价。两个模型都得出了影评中的情绪是积极情绪的结果（1 为积极，0 为消极）。但是，indico.io 的模型考虑了停止词，例如“是”，“那个”和“属于”，这些词在大多情况下应该被忽略。因此，尽管与 algorithmia 相比，indico.io 的模型能得出更高概率的积极情绪，但最后被采用的可能是 indico.io 的模型。
 
