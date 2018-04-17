@@ -2,47 +2,47 @@
 > * 原文作者：[Andrea Bizzotto](https://medium.freecodecamp.org/@biz84?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-fast-is-flutter-i-built-a-stopwatch-app-to-find-out.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-fast-is-flutter-i-built-a-stopwatch-app-to-find-out.md)
-> * 译者：
+> * 译者：[ALVINYEH](https://github.com/ALVINYEH)
 > * 校对者：
 
-# How fast is Flutter? I built a stopwatch app to find out.
+# Flutter 到底有多快？我开发了秒表应用来弄清楚。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*270WC2lY8lFF6jfPpca0WQ.jpeg)
 
-Image Credit: [Petar Petkovski](https://unsplash.com/@petkovski)
+图片来源: [Petar Petkovski](https://unsplash.com/@petkovski)
 
-This weekend I had some time to play with the new [Flutter](https://flutter.io/) UI framework by Google.
+这个周末，我花了点时间去用了由谷歌新开发的 UI 框架 [Flutter](https://flutter.io/)。
 
-On paper it sounds great!
+从理论上讲，它听起来非常棒！
 
-*   [Hot reloading](https://flutter.io/hot-reload/)? Yes, please.
-*   Declarative [state-driven](https://flutter.io/tutorials/interactive/) UI programming? I’m all in!
+*   [热加载](https://flutter.io/hot-reload/)？是的，请。
+*   声明式[状态驱动](https://flutter.io/tutorials/interactive/) UI 编程？我全押在这上面了！
 
-According [to the docs](https://flutter.io/faq/#what-kind-of-app-performance-can-i-expect), high performance is to be expected:
+根据[文档](https://flutter.io/faq/#what-kind-of-app-performance-can-i-expect)，高性能是预料之中的：
 
-> Flutter is designed to help developers easily achieve a constant 60fps.
+> Flutter 旨在帮助开发者轻松地实现恒定的 60 fps。
 
-But what about CPU utilization?
+但是 CPU 利用率如何？
 
-**TL;DR**: Not as good as native. And you have to do it right:
+**TL;DR**：不如原生。你必须正确地做到：
 
-*   Frequent UI redraws are expensive
-*   If you call `setState()` often, make sure it redraws as little UI as possible.
+*   频繁地重绘用户界面代价是很高的。
+*   如果你经常调用`setState()`方法，请确保它尽可能少地重新绘制用户界面。
 
-I built a simple stopwatch app in Flutter and profiled it to analyze CPU and memory usage.
+我用 Flutter 框架开发了一个简单的秒表应用程序，并剖析了 CPU 和内存的使用情况。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Bo0l0BjIRcInHZo2ACvjsA.png)
 
-**Left**: iOS stopwatch app. **Right**: My version in Flutter. Beautiful, ain’t it?
+**图左**：iOS 秒表应用。 **图右**：用 Flutter 的版本。很美吧？
 
-### Implementation
+### 实现
 
-The UI is driven by two objects: a [stopwatch](https://docs.flutter.io/flutter/dart-core/Stopwatch-class.html) and a [timer](https://docs.flutter.io/flutter/dart-async/Timer-class.html).
+UI 界面是由两个对象驱动的: [秒表](https://docs.flutter.io/flutter/dart-core/Stopwatch-class.html)和[定时器](https://docs.flutter.io/flutter/dart-async/Timer-class.html)。
 
-*   The user can start, stop and reset the stopwatch by tapping on two buttons.
-*   Each time the stopwatch is started, a periodic timer is created with a callback that fires every 30ms and updates the UI.
+*   用户可以通过点击这两个按钮来启动、停止和重置秒表。
+*   每当秒表开始计时时，都会创建一个周期性定时器，每 30 毫秒回调一次，并更新 UI 界面。
 
-The main UI is built like this:
+主界面是这样建立的：
 
 ```
 class TimerPage extends StatefulWidget {
@@ -100,13 +100,13 @@ class TimerPageState extends State<TimerPage> {
 }
 ```
 
-How does this work?
+这是如何运作的呢？
 
-*   Two buttons manage the state of the stopwatch object.
-*   When the stopwatch is updated, `setState()` is called, triggering the `build()` method.
-*   As part of the `build()` method, a new `TimerText` is created.
+*   两个按钮分别管理秒表对象的状态。
+*   当秒表更新时，`setState()`会被调用，然后触发`build()`方法。
+*   作为`build()`方法的一部分, 一个新的`TimerText`会被创建。
 
-The `TimerText` class looks like this:
+`TimerText` 类看起来是这样的：
 
 ```
 class TimerText extends StatefulWidget {
@@ -142,98 +142,98 @@ class TimerTextState extends State<TimerText> {
 }
 ```
 
-A couple of notes:
+一些注意事项：
 
-*   The timer is created along with the `TimerTextState` object. Each time the callback fires, `setState()` is called **if the stopwatch is running**.
-*   This causes the `build()` method to be called, which draws a new `Text` object with the updated time.
+*   定时器由`TimerTextState`对象所创建。每次触发回调后，**如果秒表在运行**，就会调用 `setState()`方法。
+*   这会调用`build()`方法，并在更新的时候绘制一个新的`Text`对象。
 
-### Doing it right
+### 正确做对
 
-When I first built this app, I was managing all the state and UI in the `TimerPage` class, which included both the stopwatch and the timer.
+当我一开始开发这个 App 时，我管理了`TimerPage`类中对全部状态以及 UI 界面，其中包括了秒表和定时器。
 
-This meant that each time the timer callback was fired, the entire UI was re-built. This is redundant and inefficient: only the `Text` object containing the elapsed time should be redrawn — especially as the timer fires every 30ms.
+这就意味着每次触发定时器的回调时，会重新构建整个 UI 界面。这是不必要且低效的：只有包含了过去时间的`Text`对象需要重新绘制 —— 特别是当每 30 毫秒计时器触发一次时。
 
-This becomes apparent if we consider the un-optimised and optimised widget tree hierarchies:
+如果我们考虑到未优化和已优化的部件树层次结构，这一点就变得更显而易见了：
 
 ![](https://cdn-images-1.medium.com/max/800/1*YrJV5E7jWzr3K0kjPBs1Mg.png)
 
-Creating a separate `TimerText` class to encapsulate the timer logic is less CPU-intensive.
+创建一个独立的的`TimerText`类来封装定时器的逻辑，可以降低 CPU 负担。
 
-In other words:
+换句话说：
 
-*   Frequent UI redraws are expensive
-*   If you call `setState()` often, make sure that it redraws as little UI as possible.
+*   频繁地重绘 UI 用户界面代价很高。
+*   如果经常调用`setState()`方法，确保尽可能少地重新绘制 UI 用户界面。
 
-The Flutter docs state that the platform is optimised for [fast allocation](https://flutter.io/faq/#why-did-flutter-choose-to-use-dart):
+Flutter 官方文档指出该平台对[快速分配](https://flutter.io/faq/#why-did-flutter-choose-to-use-dart)进行了优化：
 
-> The Flutter framework uses a functional-style flow that depends heavily on the underlying memory allocator efficiently handling small, short-lived allocations
+> Flutter 框架使用了一种功能式流程，这种流程很大程度上取决于内存分配器是否有效地处理了小型，短期的分配工作。
 
-Perhaps rebuilding a widget tree doesn’t count as “small, short-lived allocation”. In practice, my code optimisations resulted in a lower CPU and memory usage (see below).
+也许重建一棵部件树不能算作“小型，短期的分配”。实际上，我的代码优化了导致较低的 CPU 和内存使用率的问题（见下文）。
 
-#### Update 19–03–2018
+#### 更新至 19–03–2018
 
-Since publishing this article, some Google engineers took notice and kindly contributed with some further optimisations.
+自从这篇文章发表以来，一些谷歌工程师注意到了这一点，并做出了进一步的优化。
 
-The updated code further reduces UI redrawing by splitting `TimerText` into two `MinutesAndSeconds` and `Hundredths` widgets:
+更新后的代码通过将`TimerText`分为了两个`MinutesAndSeconds`和`Hundredths`部件，进一步减少了用户界面的重绘：
 
 ![](https://cdn-images-1.medium.com/max/800/1*NQxSNVJDSnZnC3DohLBTAA.png)
 
-Further UI optimisations (credit: Google).
+进一步的 UI 界面优化（来源：谷歌）。
 
-These register themselves as listeners to the timer callback, and only redraw when their state changes. This further optimises performance as only the `Hundredths` widget now renders every 30ms.
+它们将自己注册为定时器回调的监听器，并且只有状态发生改变时才会重新绘制。这进一步优化了性能，因为现在每 30 毫秒只有`Hundredths`控件会渲染。
 
-### Benchmarking results
+### 基准测试结果
 
-I ran the app in release mode (`flutter run --release`):
+我在发布模式下运行了这个应用程序（`flutter run --release`）：
 
-*   Device: **iPhone 6** running **iOS 11.2**
-*   Flutter version: [0.1.5](https://github.com/flutter/flutter/releases/tag/v0.1.5) (22 Feb 2018).
+*   设备： **iPhone 6**运行于**iOS 11.2**
+*   Flutter 版本：[0.1.5](https://github.com/flutter/flutter/releases/tag/v0.1.5) (2018年2月22日).
 *   Xcode 9.2
 
-I monitored CPU and memory usage in Xcode for three minutes, and measured the performance of the three different modes.
+我在 Xcode 中监控了三分钟的 CPU 和内存使用情况，并测试了三种不同模式下的性能表现。
 
-#### Non optimized code
+#### 未优化的代码
 
-*   CPU Usage: 28%
-*   Memory usage: 32 MB (from a baseline of 17 MB after app start)
+*   CPU 使用率：28%
+*   内存使用率：32 MB （App启动后的基准线为 17 MB）
 
 ![](https://cdn-images-1.medium.com/max/800/1*F1GR6mVtVEwRjaJptEuEwQ.png)
 
-#### Optimization pass 1 (separate timer text widget)
+#### 优化方案 1 （独立的定时文本控件）
 
-*   CPU Usage: 25%
-*   Memory usage: 25 MB (from a baseline of 17 MB after app start)
+*   CPU 使用率：25%
+*   内存使用率：25 MB （App启动后的基准线为 17 MB）
 
 ![](https://cdn-images-1.medium.com/max/800/1*dTO3vThMfGx0LYrLqAIlAQ.png)
 
-#### Optimization pass 2 (separate minutes, seconds, hundredths)
+#### 优化方案2 （独立的分钟、秒、分秒控件）
 
 *   CPU Usage: 15% to 25%
-*   Memory usage: 26 MB (from a baseline of 17 MB after app start)
+*   内存使用率：26 MB （App启动后的基准线为 17 MB）
 
 ![](https://cdn-images-1.medium.com/max/800/1*JFnMDRT8utbB9C4ETPklOg.png)
 
-On this last test, the CPU usage graph tracks closely the GPU thread, while the UI thread stays fairly constant.
+在最后一个测试中，CPU 使用情况图密切地追踪了 GPU 线程，而 UI 线程保持地相当稳定。 
 
-**NOTE**: running the same benchmark in [**slow mode**](https://flutter.io/faq/#my-app-has-a-slow-mode-bannerribbon-in-the-upper-right-why-am-i-seeing-that) yields CPU usage over 50%, and **memory usage increasing steadily** over time.
+**注意**：在[**慢模式**](https://flutter.io/faq/#my-app-has-a-slow-mode-bannerribbon-in-the-upper-right-why-am-i-seeing-that)下以相同的基准运行，CPU 的使用率超过了50%。随着时间的推移，**内存使用量也在不断增长**。
 
-This may point to memory not being deallocated in development mode.
+这可能意味着内存在开发模式下没有被释放。
 
-Key takeaway: **make sure to profile your apps in release mode**.
+关键要点：**确保你的应用处于发布模式**。
 
-Note that Xcode reports a **very high** energy impact when CPU usage is over 20%.
+请注意，当 CPU 使用率超过 20% 时，Xcode 会报告出一个**非常高**的电力消耗。
 
-### Digging deeper
+### 深入探讨
 
-The results got me thinking. A timer which fires ~30 times per second and re-renders a text label should not use up to 25% of a [dual core 1.4GHz CPU](https://en.wikipedia.org/wiki/Apple_A8).
+我在不断思考这些结果。每秒触发 30 次并且重新渲染一个文本标签的定时器不应该占用 25 %的[双核 1.4GHz 的 CPU](https://en.wikipedia.org/wiki/Apple_A8)。
 
-The widget tree in a Flutter app is built with a **declarative paradigm**, rather than the **imperative** programming model used in iOS / Android.
+Flutter 应用中的控件树是由**声明式范型**所构建的，而不是在 iOS 和安卓上的**命令式**编程模型。
 
-But is the imperative model more performant?
+但是，命令模式下性能是否更加好呢？
 
-To find out, I have built the same stopwatch app on iOS.
+为了找到答案，我在 iOS 上开发了相同的秒表应用。
 
-This is the Swift code to setup a timer and update a text label every 30ms:
+这是用 Swift 代码设置了一个定时器，并且每 30 毫秒更新一次文本标签：
 
 ```
 startDate = Date()
@@ -251,7 +251,7 @@ Timer.scheduledTimer(withTimeInterval: 0.03, repeats: true) { timer in
 }
 ```
 
-For completeness, here is the time formatting code I used in Dart (optimization pass 1):
+为了完整性，这是我在 Dart 中使用的时间格式代码（优化方案 1）：
 
 ```
 class TimerTextFormatter {
@@ -269,24 +269,24 @@ class TimerTextFormatter {
 }
 ```
 
-The final results?
+最后结果如何？
 
-**Flutter.** CPU: 25%, Memory: 22 MB
+**Flutter.** CPU： 25%，内存：22 MB
 
-**iOS.** CPU: 7%, Memory: 8 MB
+**iOS.** CPU： 7%，内存：8 MB
 
-The Flutter implementation is over 3x heavier on CPU, and uses 3x as much memory.
+Flutter 实现方式在 CPU 的使用情况超过了 3 倍以上，内存上也同样是 3 倍之多。
 
-When the timer is not running, CPU usage goes back to 1%. This confirms that all CPU work goes into handling the timer callbacks and redrawing the UI.
+当定时器停止运行时，CPU 的使用率回到了 1% 。这就证实了全部 CPU 的工作都用于处理定时器的回调和重新绘制 UI 界面。
 
-This is not entirely surprising.
+这并不足以让人惊讶。
 
-*   In the Flutter app, I build and render a new `Text` widget every time.
-*   On iOS, I just update the text of a `UILabel`.
+*   在 Flutter 应用中，我每次都创建和渲染了一个新的`Text`控件。
+*   在 iOS 中，我只是更新了`UILabel`的文本。
 
-“Hey!” — I hear you saying. “But the time formatting code is different! How do you know that the difference in CPU usage is not due to this?”
+“嘿！” —— 我听到你说的。“但是时间格式的代码是不同的！你怎么知道 CPU 使用率的差异不是因为这个？”
 
-Well then, let’s modify both examples to do no formatting at all:
+那么，我们不进行格式去修改这两个例子：
 
 Swift:
 
@@ -310,33 +310,33 @@ class TimerTextFormatter {
 }
 ```
 
-Updated results:
+最新结果：
 
-**Flutter.** CPU: 15%, Memory: 22 MB
+**Flutter.** CPU： 15%，内存：22 MB
 
-**iOS.** CPU: 8%, Memory: 8 MB
+**iOS.** CPU：8%， 内存：8 MB
 
-The Flutter implementation is still twice as CPU-intensive. Additionally, it seems to do quite a bit of stuff on multiple threads (GPU, I/O work). On iOS, only one thread is active.
+Flutter 的实现仍然是 CPU-intensive 的两倍。此外，它似乎在多线程（GPU，I/O 工作）上做了相当多的事情。但在 iOS 上，只有一个线程是处于活动状态的。
 
-### Conclusion
+### 总结一下
 
-I have compared the performance of Flutter/Dart vs iOS/Swift on a very specific use case.
+我用一个具体的案例来对比了 Flutter/Dart 和 iOS/Swift 的性能表现。
 
-The numbers don’t lie. When it comes to frequent UI updates, **you can’t have your cake and eat it, too**. 🎂
+数字是不会说谎的。当涉及到频繁的 UI 界面更新时候，**鱼和熊掌不可兼得**。 🎂
 
-Flutter lets developers create apps for both iOS and Android with the same codebase. And features such as hot reloading further accelerate productivity. Flutter is still in its early days. I hope that Google and the community can improve the runtime profile, so that these benefits are carried over to the end-users.
+Flutter 框架让开发者用同样的代码库为 iOS 和安卓开发应用程序，像热加载等功能进一步提高了开发效率。但 Flutter 仍然处于初期阶段。我希望谷歌和社区可以改进运行时配置文件，更好地将好处带给终端用户。
 
-As for your apps, consider fine-tuning your code to minimize UI redraws. It is well worth the effort.
+至于你的应用程序，请务必考虑对代码进行微调，以减少用户界面的重绘。这份努力是值得。
 
-I have added all the code for this project on [this GitHub repo](https://github.com/bizz84/stopwatch-flutter), so you can play with it yourself.
+我将这个项目的所有代码托管在[这个 GitHub 仓库](https://github.com/bizz84/stopwatch-flutter)，你可以自己来运行一下。
 
-You’re welcome! 😊
+不用客气！😊
 
-This sample project was my first experiment with Flutter. If you know how to write more performant code, I’d love to hear your comments.
+这个样品项目是我第一次使用 Flutter 框架的实验。如果你知道如何编写更优雅的代码，我很乐意收到你的评论。
 
-**About me:** I’m a freelance iOS developer, juggling between contract work, open source, side projects and blogging.
+**关于我：**我是一个自由职业的 iOS 开发者，同时兼顾在职工作，开源，写小项目和博客。
 
-I’m [@biz84](https://twitter.com/biz84) on Twitter. You can also see my [GitHub](https://github.com/bizz84) page. Feedback, tweets, funny gifs, all welcome! My favorite? Lots of 👏👏👏. Oh, and banana bread.
+这是我的推特：[@biz84](https://twitter.com/biz84)。GiHub 主页：[GitHub](https://github.com/bizz84)。欢迎一切的反馈，推文，有趣的资讯！想知道我最喜欢什么？许多的掌声 👏👏👏。噢，还有香蕉和面包。
 
 
 ---
