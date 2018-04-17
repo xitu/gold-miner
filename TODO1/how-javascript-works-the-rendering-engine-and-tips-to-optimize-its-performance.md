@@ -194,7 +194,7 @@ JavaScript 经常触发浏览器中的视觉变化，构建 SPA 时更是如此�
 以下是关于可以优化 JavaScript 哪些部分来改善渲染性能的一些小提示：
 
 * 避免使用 `setTimeout` 或 `setInterval` 进行视图更新。这些将在帧中某个不确定的时间点上调用 `callback`，可能在最后。我们想要做的是在帧开始时触发视觉变化而不是错过它。
-* 将长时间运行的 JavaScript 计算任务移到 Web Workers 上，像我们之前 [讨论过的](https://blog.sessionstack.com/how-javascript-works-the-building-blocks-of-web-workers-5-cases-when-you-should-use-them-a547c0757f6a?source=---------3----------------) 那样
+* 将长时间运行的 JavaScript 计算任务移到 Web Workers 上，像我们之前[讨论过的](https://blog.sessionstack.com/how-javascript-works-the-building-blocks-of-web-workers-5-cases-when-you-should-use-them-a547c0757f6a?source=---------3----------------) 那样
 * 使用微任务在多个帧中变更 DOM。这是为了处理在 Web Worker 中的任务需要访问 DOM，而 Web Worker 又不允许访问 DOM 的情况。就是说你可以将一个大任务分解为小任务，并根据任务的性质在 `requestAnimationFrame`、`setTimeout` 或 `setInterval` 中运行它们。
 
 #### 优化你的 CSS
@@ -224,7 +224,7 @@ JavaScript 经常触发浏览器中的视觉变化，构建 SPA 时更是如此�
 
 渲染是 [SessionStack](https://www.sessionstack.com/?utm_source=medium&utm_medium=blog&utm_content=js-series-rendering-engine-outro) 运行的重点之一。当用户浏览你的 web 应用遇到问题时，SessionStack 必须将这些遇到的问题重建成一个视频。为了做到这点，SessionStack 仅利用我们的库收集到数据：用户事件、DOM 更改、网络请求、异常和调试消息等。我们的播放器经过高度优化，能够按顺序正确呈现和使用所有收集到的数据，从视觉和技术两方面为你提供用户在浏览器中发生的一切的像素级完美模拟。
 
-如果你想试试看，这里可以免费 [尝试 SessionStack](https://www.sessionstack.com/signup/）。
+如果你想试试看，这里可以免费[尝试 SessionStack](https://www.sessionstack.com/signup/）。
 
 ![](https://cdn-images-1.medium.com/max/800/0*h2Z_BnDiWfVhgcEZ.)
 
