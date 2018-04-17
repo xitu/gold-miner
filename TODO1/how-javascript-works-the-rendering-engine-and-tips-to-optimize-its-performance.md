@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-javascript-works-the-rendering-engine-and-tips-to-optimize-its-performance.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-javascript-works-the-rendering-engine-and-tips-to-optimize-its-performance.md)
 > * 译者：[stormluke](https://github.com/stormluke)
-> * 校对者：
+> * 校对者：[allenlongbaobao](https://github.com/allenlongbaobao)、[Usey95](https://github.com/Usey95)
 
 # JavaScript 如何工作：渲染引擎和性能优化技巧
 
@@ -18,9 +18,9 @@
 * **用户界面**：包括地址栏、后退和前进按钮、书签菜单等。实际上，它包括了浏览器中显示的绝大部分，除了你看到的网页本身的那个窗口。
 * **浏览器引擎**：它处理用户界面和渲染引擎之间的交互。
 * **渲染引擎**：它负责显示网页。渲染引擎解析 HTML 和 CSS，并在屏幕上显示解析的内容。
-* **网络层**：诸如 XHR 请求之类的网络调用，通过对不同平台的不同的实现来完成，这些实现位于一个平台无关的接口之后。我们在本系列的 [上一篇文章](https://blog.sessionstack.com/how-modern-web-browsers-accelerate-performance-the-networking-layer-f6efaf7bfcf4) 中更详细地讨论了网络层。
+* **网络层**：诸如 XHR 请求之类的网络调用，通过对不同平台的不同的实现来完成，这些实现位于一个平台无关的接口之后。我们在本系列的[上一篇文章](https://blog.sessionstack.com/how-modern-web-browsers-accelerate-performance-the-networking-layer-f6efaf7bfcf4)中更详细地讨论了网络层。
 * **UI 后端**：它用于绘制核心组件（widget），例如复选框和窗口。这个后端暴露了一个平台无关的通用接口。它使用下层的操作系统提供的 UI 方法。
-* **JavaScript 引擎**：我们在 [上一篇文章](https://blog.sessionstack.com/how-javascript-works-inside-the-v8-engine-5-tips-on-how-to-write -optimized-code-ac089e62b12e) 中详细介绍了这一主题。基本上，这是 JavaScript 执行的地方。
+* **JavaScript 引擎**：我们在[上一篇文章](https://blog.sessionstack.com/how-javascript-works-inside-the-v8-engine-5-tips-on-how-to-write -optimized-code-ac089e62b12e)中详细介绍了这一主题。基本上，这是 JavaScript 执行的地方。
 * **数据持久化层**：你的应用可能需要在本地存储所有数据。其支持的存储机制包括 [localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage)、[indexDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API)、[WebSQL](https://en.wikipedia.org/wiki/Web_SQL_Database) 和 [FileSystem](https://developer.mozilla.org/en-US/docs/Web/API/FileSystem)。
 
 在这篇文章中，我们将关注渲染引擎，因为它负责处理 HTML 和 CSS 的解析和可视化，这是大多数 JavaScript 应用程序不断与之交互的地方。
@@ -106,11 +106,11 @@ img {
 
 让我们来看看具体的例子。包含在 `body` 元素内的 `span` 标签中的任何文本的字体大小均为 16 像素，并且为红色。这些样式是从 `body` 元素继承而来的。 如果一个 `span` 元素是一个 `p` 元素的子元素，那么它的内容就不会被显示，因为它被应用了更具体的样式（`display: none`）。
 
-另外请注意，上面的树不是完整的 CSSOM 树，只显示了我们决定在样式表中重写的样式。 每个浏览器都提供了一组默认的样式，也称为**「用户代理样式」**—— 这是我们在未明确指定任何样式时看到的样式。我们的样式会覆盖这些默认值。
+另外请注意，上面的树不是完整的 CSSOM 树，只显示了我们决定在样式表中重写的样式。每个浏览器都提供了一组默认的样式，也称为**「用户代理样式」**——这是我们在未明确指定任何样式时看到的样式。我们的样式会覆盖这些默认值。
 
 #### 构建渲染树
 
-HTML 中的视图指令与 CSSOM 树中的样式数据结合在一起用来创建 **渲染树**。
+HTML 中的视图指令与 CSSOM 树中的样式数据结合在一起用来创建**渲染树**。
 
 你可能会问什么是渲染树。渲染树是一颗由可视化元素以它们在屏幕上显示的顺序而构成的树型结构。它是 HTML 和相应的 CSS 的可视化表示。此树的目的是为了以正确的顺序绘制内容。
 
@@ -144,7 +144,7 @@ class RenderObject : public CachedImageClient {
 }
 ```
 
-每个渲染器代表一个矩形区域，通常对应于一个节点的 CSS 框。它包含几何信息，例如宽度、高度和位置。
+每个渲染器代表一个矩形区域，通常对应于一个节点的 CSS 盒模型。它包含几何信息，例如宽度、高度和位置。
 
 #### 渲染树的布局
 
@@ -171,7 +171,7 @@ HTML 使用基于流的布局模型，这意味着大部分时间内它可以在
 
 #### 处理脚本和样式表的顺序
 
-当解析器到达 `<script>` 标签时，脚本将被立即解析并执行。文档解析将会被暂停，直到脚本执行完毕。这意味着该过程是 **同步** 的。
+当解析器到达 `<script>` 标签时，脚本将被立即解析并执行。文档解析将会被暂停，直到脚本执行完毕。这意味着该过程是**同步**的。
 
 如果脚本是外部的，那么它首先必须从网络获取（也是同步的）。所有解析都会停止，直到网络请求完成。
 
@@ -181,7 +181,7 @@ HTML5 添加了一个选项，可以将脚本标记为异步，此时脚本被�
 
 如果你想优化你的应用，那么你需要关注五个主要方面。这些是您可以控制的地方：
 
-1. **JavaScript** —— 在之前的文章中，我们介绍了关于编写高性能代码的主题，这些代码不会卡顿 UI，并且内存效率高等等。当涉及渲染时，我们需要考虑 JavaScript 代码与页面上 DOM 元素交互的方式。JavaScript 可以在 UI 中产生大量的更新，尤其是在 SPA 中。
+1. **JavaScript** —— 在之前的文章中，我们介绍了关于编写高性能代码的主题，这些代码不会阻塞 UI，并且内存效率高等等。当涉及渲染时，我们需要考虑 JavaScript 代码与页面上 DOM 元素交互的方式。JavaScript 可以在 UI 中产生大量的更新，尤其是在 SPA 中。
 2. **样式计算** —— 这是基于匹配选择器确定哪个 CSS 规则适用于哪个元素的过程。一旦定义了规则，就会应用这些规则，并计算出每个元素的最终样式。
 3. **布局** —— 一旦浏览器知道哪些规则适用于元素，就可以开始计算后者占用的空间以及它在浏览器屏幕上的位置。Web 的布局模型定义了一个元素可以影响其他元素。例如，`<body>` 的宽度会影响子元素的宽度等等。这一切都意味着布局过程是计算密集型的。该绘图是在多个图层完成的。
 4. **绘图** —— 这里开始填充实际的像素。该过程包括绘制文本、颜色、图像、边框、阴影等 —— 每个元素的每个视觉部分。
