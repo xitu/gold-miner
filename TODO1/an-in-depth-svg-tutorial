@@ -3,11 +3,11 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/an-in-depth-svg-tutorial.md](https://github.com/xitu/gold-miner/blob/master/TODO1/an-in-depth-svg-tutorial.md)
 > * 译者：[Starrier](https://github.com/Starriers)
-> * 校对者：
+> * 校对者：[dandyxu](https://github.com/dandyxu)、[allenlongbaobao](https://github.com/allenlongbaobao)
 
-#  SVG 深入教程
+#  深入浅出 SVG
 
-SVG 是优秀且令人难以置信的强大图像格式。本教程通过简介您需要了解的所有知识，为您提供 SVG 概述。
+SVG 是优秀且令人难以置信的强大图像格式。本教程通过简单地解释所有需要了解的知识，为您提供 SVG 的概述。
 
 ![](https://d33wubrfki0l68.cloudfront.net/50363ccc126579554d19078999c0b7bc173fb83f/3272b/svg/banner.png)
 
@@ -17,17 +17,17 @@ SVG 是优秀且令人难以置信的强大图像格式。本教程通过简介�
 
 SVG 已经被糟糕的浏览器支持（尤其是 IE）惩罚了好多年。
 
-我发现这话源自一本 2011 的书：“在撰写本文时，只有在最新的浏览器中才能将 SVG 直接嵌入到 HTML 中工作。”7年了，这已经是过去的事情而且我们可以安全地使用 SVG 图像。
+我发现这话源自一本 2011 的书：在撰写本文时，只有在最新的浏览器中才能将 SVG 直接嵌入到 HTML 中工作。7 年过去了，这句话现在已经是过去式了，我们可以很安全地使用 SVG 图像。
 
-现在我们可以安全地使用 SVG 图像，除非您有很多用户使用 IE8 以及更低版本，或者使用较旧的 Android 设备。这种情况下，存在倒退。
+现在我们可以安全地使用 SVG 图像，除非您有很多用户使用 IE8 以及更低版本，或者使用较旧的 Android 设备。这种情况下，依然存在着备选方案。
 
 ![SVG 支持的浏览器](https://d33wubrfki0l68.cloudfront.net/fa8f32426c30d6e82f1aec35c6b25389036ed752/3723d/svg/svg-browser-support.png)
 
-SVG 成功的一部分是由于我们必须支持各种不同分辨率和尺寸的屏幕显示。SVG 的完美任务。
+SVG 成功的一部分是由于我们必须支持各种不同分辨率和尺寸的屏幕显示。SVG 能完美解决这个问题。
 
 同时，Flash 在过去几年的迅速衰退导致大家对 SVG 产生了兴趣。这对于 Flash 过去所做的许多事情都是非常重要的。
 
-SVG 是一种 **vector** 图像文件格式。这使得它们与图像格式（如 PNG、GIF 或 JPG）有很大的不同，后者是光栅图像文件格式。 
+SVG 是一种 **vector** 图像文件格式。这使得它们与其他图像格式（如 PNG、GIF 或 JPG）有很大的不同，后者是光栅图像文件格式。 
 
 ## SVG 的优势
 
@@ -57,7 +57,7 @@ SVG 图像使用 XML 定义，这意味着如果您精通 HTML，SVG 看起来�
 
 注意它非常容易阅读和理解图像的样子：它是一个 10 x 10 像素的简单蓝色矩形（默认单元）。
 
-大多情况下，您不必编写 SVG 代码，因为您可以使用 SKetch 或 Figma 等工具或任何其他矢量图形工具来创建图像，并将其导出为 SVG。
+大多情况下，您不必编写 SVG 代码，因为您可以使用 Sketch 或 Figma 等工具或任何其他矢量图形工具来创建图像，并将其导出为 SVG。
 
 SVG 的当前版本是 1.1， SVG 2.0 正在研发。
 
@@ -94,9 +94,9 @@ SVG 的当前版本是 1.1， SVG 2.0 正在研发。
 </html>
 ```
 
-> 请注意 HTML5 和 XHTML 对于内联 SVG 图像需要不同的语法。幸运的是，XHTML已经是过去的事情了，因为它比所需的复杂，但是如果您仍然需要处理 XHTML 页面，就值得去了解它。 
+> 请注意 HTML5 和 XHTML 对于内联 SVG 图像需要不同的语法。幸运的是，XHTML已经是过去的事情了，因为它过于繁杂，但是如果您仍然需要处理 XHTML 页面，就值得去了解它。 
 
- **在 HTLM 中内联 SVG** 的功能使改格式成为场景中的 **unicorn**,因为其他图像不能这样做，必须为每个图像打开一个单独的请求来获取该格式。
+ **在 HTLM 中内联 SVG** 的功能使该格式成为场景中的 **unicorn**,因为其他图像不能这样做，必须为每个图像打开一个单独的请求来获取该格式。
 
 ## SVG 元素
 
@@ -133,7 +133,7 @@ SVG 的当前版本是 1.1， SVG 2.0 正在研发。
 
 ### `circle`
 
-定义园。 `cx` 和 `cy` 是中心坐标，`r` 是半径。 `fill` 是一个常用属性，表示图形颜色。
+定义圆。 `cx` 和 `cy` 是中心坐标，`r` 是半径。 `fill` 是一个常用属性，表示图形颜色。
 
 ```
 <svg>
@@ -161,7 +161,7 @@ SVG 的当前版本是 1.1， SVG 2.0 正在研发。
 
 ### `line`
 
-`x1` 和 `y1` 定义其实坐标。`x2` 和 `y2` 定义结束坐标。`stroke` 是一个常用属性，表示线条颜色。
+`x1` 和 `y1` 定义起始坐标。`x2` 和 `y2` 定义结束坐标。`stroke` 是一个常用属性，表示线条颜色。
 
 ```
 <svg>
@@ -175,7 +175,7 @@ SVG 的当前版本是 1.1， SVG 2.0 正在研发。
 
 ### `path`
 
-路径是一系列的直线和曲线。它是使用 SVG 绘制的最强大的工具，因此也是最复杂的。
+路径是一系列的直线和曲线。它是所有 SVG 绘制工具中最强大的，因此也是最复杂的。
 
 `d` 包含方向命令。这些命令以命令名和一组坐标开始：
 
@@ -259,7 +259,7 @@ SVG 相对于其容器的大小由 `svg` 元素的 `width` 和 `height` 属性�
 
 一个重要的属性是 `viewBox`。它允许您在 SVG 画布中定义一个新的坐标系统。
 
-假设在 200x200px SVG 中有一个简单的园：
+假设在 200x200px SVG 中有一个简单的圆：
 
 ```
 <svg width="200" height="200">
@@ -271,7 +271,7 @@ SVG 相对于其容器的大小由 `svg` 元素的 `width` 和 `height` 属性�
   <circle cx="100" cy="100" r="100" fill="#529fca" />
 </svg>
 
-通过指定 **viewBox** ，您可以选择 **只显示此 SVg 的一部分**。例如，您可以从 0，0 点开始，只显示一个 100 x 100 px 画布：
+通过指定 **viewBox** ，您可以选择 **只显示此 SVG 的一部分**。例如，您可以从 0，0 点开始，只显示一个 100 x 100 px 画布：
 
 ```
 <svg width="200" height="200" viewBox="0 0 100 100">
@@ -308,7 +308,7 @@ SVG 相对于其容器的大小由 `svg` 元素的 `width` 和 `height` 属性�
 *   在 HTML 中内联
 *   带有 `object`、 `iframe` 或 `embed` 标签
 
-See all these examples live on Glitch: [https://flavio-svg-loading-ways.glitch.me/](https://flavio-svg-loading-ways.glitch.me/)
+在 Glitch 上可以查看这些示例 [https://flavio-svg-loading-ways.glitch.me/](https://flavio-svg-loading-ways.glitch.me/)
 
 ### 带有 `img` 标签
 
@@ -438,8 +438,7 @@ SVG 图像可以使用 CSS 进行样式化，或者使用 JavaScript 编写脚�
 *   通过 `object` 、`embed` 或 `iframe` 标签加载图像时
 
 但是 (⚠️ 取决于浏览器实现) 它们必须从相同的域（和协议）加载，这是同源策略所导致的。
-
-需要显式调整 `iframe` 的尺寸，否则将裁剪内容，同时调整 `object` 和 `embed` 尺寸以适应其内容。.
+`iframe` 需要显式定义的尺寸，否则内容将被裁剪，同时调整 `object` 和 `embed` 尺寸以适应其内容。.
 
 如果 SVG 是使用 `img` 标签加载的，或者使用 CSS 作为背景，则与源无关：
 
@@ -569,7 +568,7 @@ SVG 属性可以很容易地在 CSS中 被覆盖，并且它们比 CSS 具有更
 
 ## SVG vs Canvas API
 
- Canvas API 是 Web 平台一个很好的补充，它有类似于 SVG 的浏览器支持。SVG 主要不同之处在于画布不是基于矢量的，而是基于像素的，所以
+ Canvas API 是 Web 平台一个很好的补充，它有类似于 SVG 的浏览器支持。与 SVG 主要的（也是最大的）不同之处是：画布不是基于矢量的，而是基于像素的，所以
 
 *   它具有与基于像素的 png、jpg 和 gif 图像格式相同的缩放问题。
 *   这使得不可能像使用 SVG 那样使用 CSS 或 JavaScropt 编辑画布图像。
