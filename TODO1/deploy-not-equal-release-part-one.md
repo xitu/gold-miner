@@ -81,7 +81,7 @@
 
 我们可以做得更好！在[这篇文章的第二部分](https://medium.com/turbine-labs/deploy-not-equal-release-part-two-acbfe402a91c)，我们会讨论分离部署和发布的策略，以及可以在复杂的发布系统上构建的一些强大工作流。
 
-我是 [_Turbine Labs_](https://turbinelabs.io) 的一名工程师，我们正在构建 [_Houston_](https://docs.turbinelabs.io/reference/#introduction)，这个服务可以轻松构建和监控复杂的实时发布工作流程。如果你想轻松地上线更多服务，你绝对应该[联系我们](https://turbinelabs.io/contact)。我们很乐意与你交谈。
+**我是 [_Turbine Labs_](https://turbinelabs.io) 的一名工程师，我们正在构建 [_Houston_](https://docs.turbinelabs.io/reference/#introduction)，这个服务可以轻松构建和监控复杂的实时发布工作流程。如果你想轻松地上线更多服务，你绝对应该[联系我们](https://turbinelabs.io/contact)。我们很乐意与你交谈。**
 
 **感谢 Glen Sanford、Mark McBride、Emily Pinkerton、Brook Shelley、Sara 和 Jenn Gillespie 阅读此文的草稿。**
 
