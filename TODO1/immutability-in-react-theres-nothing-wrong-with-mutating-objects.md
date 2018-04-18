@@ -23,7 +23,7 @@ const newItems = items.concat([newItem]);
 
 但是
 
-你知道为什么这样吗？
+你知道为什么要这么做吗？
 
 可变对象有什么不对吗？
 
@@ -31,7 +31,7 @@ const newItems = items.concat([newItem]);
 
 没什么不对的，真的。可变对象没有任何问题。
 
-是的，在涉及并发情况时会有问题。但这是最简单的开发方法，和编程中许多问题一样，这是一种权衡。
+是的，在涉及并发情况时会有问题。但这是最简单的开发方法，和编程中许多问题一样，这是一种折衷。
 
 函数式编程和 immutability 等概念很流行，都是很酷的主题。但就 React 而言，immutability 会给你一些实际的好处。不仅仅是因为流行。而是有实用价值。
 
@@ -65,7 +65,7 @@ str = 'abd';
 
 将另一个字符串赋值给 `str`。
 
-你甚至可以将 `str` 重新声明为一个 constant：
+你甚至可以将 `str` 重新声明为一个常量：
 
 ```
 const str = 'abc'
@@ -168,7 +168,7 @@ arr1 === arr2 // false
 
 ![](https://cdn-images-1.medium.com/max/800/0*QI4r9ERIF1OPVADk.)
 
-如果你想检查两个对象的值是否相等，你可以比较他们的值属性。
+如果你想检查两个对象的值是否相等，你需要比较他们的值属性。
 
 在 JavaScript 中，没有直接比较数组和对象值的方法。
 
@@ -192,11 +192,11 @@ str1.trim() === str2.trim() // true
 
 ### React 中的性能优化
 
-React 内部会维持一份 UI 数据，就是 [虚拟 DOM](http://reactkungfu.com/2015/10/the-difference-between-virtual-dom-and-dom/)。
+React 内部会维护一份 UI 表述，就是 [虚拟 DOM](http://reactkungfu.com/2015/10/the-difference-between-virtual-dom-and-dom/)。
 
 如果一个组件的属性和状态改变了，他对应的虚拟 DOM 数据也会更新这些变化。因为不用修改真实页面，操作虚拟 DOM 更加方便快捷。
 
-然后，React 会对现在和上一个版本的虚拟 DOM 进行比较，来找出哪些改变了。这就是 [一致性比较](https://reactjs.org/docs/reconciliation.html)。
+然后，React 会对现在和更新前版本的虚拟 DOM 进行比较，来找出哪些改变了。这就是 [一致性比较](https://reactjs.org/docs/reconciliation.html) 的过程。
 
 这样，就只有有变化的元素会在真实 DOM 中更新。
 
@@ -243,9 +243,9 @@ myPackage.sender.address.country.id = 1;
 
 如果需要更新一个对象，就用新的值创建一个新的对象，因为原对象是 immutable 的。
 
-你也可以通过引用比较来知道他有没有改变。
+你也可以通过引用比较来确定他有没有改变。
 
-但对有些人来说，这个概念可能和表现不一致。
+但对有些人来说，这个概念可能与性能和代码简洁性方面的理念不一致。
 
 那我们来回顾下创建新对象并保证 immutability 的观点。
 
@@ -255,7 +255,7 @@ myPackage.sender.address.country.id = 1;
 
 JavaScript 提供了一些创建这些数据新版本的方法。
 
-对于对象，不是创建手动创建具有新属性的对象（如下）：
+对于对象，不是手动创建具有新属性的对象（如下）：
 
 ```
 const modifyShirt = (shirt, newColor, newSize) => {
@@ -383,24 +383,24 @@ React 团队推荐使用 [Immutable.js](https://facebook.github.io/immutable-js/
 
 也可以说，未修改的节点会被新旧两个版本**共享**。
 
-当然，这些 4 位的树形并不适用于这些数据结构。这只是**结构共享**的基本理念。
+当然，这些 4 位的树形并不普适于这些持久的数据结构。这只是**结构共享**的基本理念。
 
-我不会介绍更多细节了，想了解更多关于持久化数据和结构共享的知识，可以阅读 [这篇文章](https://medium.com/@dtinth/immutable-js-persistent-data-structures-and-structural-sharing-6d163fbd73d2) 和 [这个演讲](https://medium.com/@dtinth/immutable-js-persistent-data-structures-and-structural-sharing-6d163fbd73d2)。
+我不会介绍更多细节了，想了解更多关于持久化数据和结构共享的知识，可以阅读 [这篇文章](https://medium.com/@dtinth/immutable-js-persistent-data-structures-and-structural-sharing-6d163fbd73d2) 和 [这个演讲](https://www.youtube.com/watch?v=Wo0qiGPSV-s)。
 
 ### 缺点
 
 Immutability 也不是没有问题。
 
-正如我前面提到的，处理对象和数组时，你要不必须记住使用保证 immutability 的方法，要不就使用第三方库。
+正如我前面提到的，处理对象和数组时，你要么必须记住使用保证 immutability 的方法，要么就使用第三方库。
 
 但这些库大多都使用自己的数据类型。
 
 尽管这些库提供了兼容的 API 和将这些类型转为 JavaScript 类型的方法，但在设计你自己的应用时，也要小心处理：
 
 * 避免高耦合
-* 使用像 [`toJs()`](https://twitter.com/leeb/status/746733697093668864) 这样的方法
+* 使用像 [`toJs()`](https://twitter.com/leeb/status/746733697093668864) 这样有性能弊病的方法
 
-如果库没有实现新的数据结构（比如使用冻结对象工作的库），就没有结构共享的好处。很可能更新数据时要复制对象，有些情况性能会收到影响。
+如果库没有实现新的数据结构（比如使用冻结对象工作的库），就没有结构共享的好处。很可能更新数据时要复制对象，有些情况性能会受到影响。
 
 此外，你必须考虑这些库的学习曲线。
 
@@ -426,7 +426,7 @@ Immutability 是 React 开发者需要理解的一个概念。
 
 Immutability 还有其他像避免意外的副作用和 [减少耦合](https://stackoverflow.com/a/43918514/3593852) 等优点，但也有缺点。
 
-记住，和编程中学多事一样，这也是一种折衷。
+记住，和编程中许多事一样，这也是一种折衷。
 
 
 ---
