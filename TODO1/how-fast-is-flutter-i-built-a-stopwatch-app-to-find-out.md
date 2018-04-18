@@ -24,7 +24,7 @@
 
 但是 CPU 利用率如何？
 
-**TL;DR**：不如原生。你必须正确地做到：
+**太长了，读不下去**：不如原生。你必须正确地做到：
 
 *   频繁地重绘用户界面代价是很高的。
 *   如果你经常调用`setState()`方法，请确保它尽可能少地重新绘制用户界面。
@@ -174,7 +174,7 @@ Flutter 官方文档指出该平台对[快速分配](https://flutter.io/faq/#why
 
 自从这篇文章发表以来，一些谷歌工程师注意到了这一点，并做出了进一步的优化。
 
-更新后的代码通过将`TimerText`分为了两个`MinutesAndSeconds`和`Hundredths`部件，进一步减少了用户界面的重绘：
+更新后的代码通过将`TimerText`分为了两个`MinutesAndSeconds`和`Hundredths`控件，进一步减少了用户界面的重绘：
 
 ![](https://cdn-images-1.medium.com/max/800/1*NQxSNVJDSnZnC3DohLBTAA.png)
 
@@ -215,13 +215,13 @@ Flutter 官方文档指出该平台对[快速分配](https://flutter.io/faq/#why
 
 在最后一个测试中，CPU 使用情况图密切地追踪了 GPU 线程，而 UI 线程保持地相当稳定。 
 
-**注意**：在[**慢模式**](https://flutter.io/faq/#my-app-has-a-slow-mode-bannerribbon-in-the-upper-right-why-am-i-seeing-that)下以相同的基准运行，CPU 的使用率超过了50%。随着时间的推移，**内存使用量也在不断增长**。
+**注意**：在[**低速模式**](https://flutter.io/faq/#my-app-has-a-slow-mode-bannerribbon-in-the-upper-right-why-am-i-seeing-that)下以相同的基准运行，CPU 的使用率超过了50%。随着时间的推移，**内存使用量也在不断增长**。
 
 这可能意味着内存在开发模式下没有被释放。
 
 关键要点：**确保你的应用处于发布模式**。
 
-请注意，当 CPU 使用率超过 20% 时，Xcode 会报告出一个**非常高**的电力消耗。
+请注意，当 CPU 使用率超过 20% 时，Xcode 会报告出一个**非常高**的电力消耗警告。
 
 ### 深入探讨
 
@@ -312,9 +312,9 @@ class TimerTextFormatter {
 
 最新结果：
 
-**Flutter.** CPU： 15%，内存：22 MB
+**Flutter.** CPU：15%，内存：22 MB
 
-**iOS.** CPU：8%， 内存：8 MB
+**iOS.** CPU：8%，内存：8 MB
 
 Flutter 的实现仍然是 CPU-intensive 的两倍。此外，它似乎在多线程（GPU，I/O 工作）上做了相当多的事情。但在 iOS 上，只有一个线程是处于活动状态的。
 
