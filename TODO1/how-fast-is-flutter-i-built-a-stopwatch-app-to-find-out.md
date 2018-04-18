@@ -11,7 +11,7 @@
 
 图片来源: [Petar Petkovski](https://unsplash.com/@petkovski)
 
-这个周末，我花了点时间去用了由谷歌新开发的 UI 框架 [Flutter](https://flutter.io/)。
+这个周末，我花了点时间去用由谷歌新开发的 UI 框架 [Flutter](https://flutter.io/)。
 
 从理论上讲，它听起来非常棒！
 
@@ -24,16 +24,16 @@
 
 但是 CPU 利用率如何？
 
-**太长了，读不下去**：不如原生。你必须正确地做到：
+**太长了读不下去，直接看评论**：不如原生好。你必须正确地做到：
 
 *   频繁地重绘用户界面代价是很高的。
-*   如果你经常调用`setState()`方法，请确保它尽可能少地重新绘制用户界面。
+*   如果你经常调用`setState()`方法，请确保尽可能少地重新绘制用户界面。
 
-我用 Flutter 框架开发了一个简单的秒表应用程序，并剖析了 CPU 和内存的使用情况。
+我用 Flutter 框架开发了一个简单的秒表应用程序，并分析了 CPU 和内存的使用情况。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Bo0l0BjIRcInHZo2ACvjsA.png)
 
-**图左**：iOS 秒表应用。 **图右**：用 Flutter 的版本。很美吧？
+**图左**：iOS 秒表应用。 **图右**：用 Flutter 的版本。很漂亮吧？
 
 ### 实现
 
@@ -147,7 +147,7 @@ class TimerTextState extends State<TimerText> {
 *   定时器由`TimerTextState`对象所创建。每次触发回调后，**如果秒表在运行**，就会调用 `setState()`方法。
 *   这会调用`build()`方法，并在更新的时候绘制一个新的`Text`对象。
 
-### 正确做对
+### 正确使用
 
 当我一开始开发这个 App 时，我管理了`TimerPage`类中对全部状态以及 UI 界面，其中包括了秒表和定时器。
 
@@ -215,7 +215,7 @@ Flutter 官方文档指出该平台对[快速分配](https://flutter.io/faq/#why
 
 在最后一个测试中，CPU 使用情况图密切地追踪了 GPU 线程，而 UI 线程保持地相当稳定。 
 
-**注意**：在[**低速模式**](https://flutter.io/faq/#my-app-has-a-slow-mode-bannerribbon-in-the-upper-right-why-am-i-seeing-that)下以相同的基准运行，CPU 的使用率超过了50%。随着时间的推移，**内存使用量也在不断增长**。
+**注意**：在[**低速模式**](https://flutter.io/faq/#my-app-has-a-slow-mode-bannerribbon-in-the-upper-right-why-am-i-seeing-that)下以相同的基准运行，CPU 的使用率超过了 50%。随着时间的推移，**内存使用量也在不断增长**。
 
 这可能意味着内存在开发模式下没有被释放。
 
