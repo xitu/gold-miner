@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/keras-generative-adversarial-networks-image-deblurring.md](https://github.com/xitu/gold-miner/blob/master/TODO1/keras-generative-adversarial-networks-image-deblurring.md)
 > * 译者：[luochen](https://github.com/luochen1992)
-> * 校对者：
+> * 校对者：[SergeyChang](https://github.com/SergeyChang) [mingxing47](https://github.com/mingxing47)
 
 # GAN 的 Keras 实现：构建图像去模糊应用
 
@@ -53,7 +53,7 @@ Ian Goodfellow 首先应用 GAN 模型生成 MNIST 数据。在本教程中，�
 
 #### 生成模型
 
-生成模型旨在重现清晰的图像。该网络模型是基于 [**残差网络（ResNet）**](https://arxiv.org/pdf/1512.03385.pdf) **块（block）。**它持续追踪原始模糊图像的演变。这篇文章是基于 [**UNet**](https://arxiv.org/pdf/1505.04597.pdf) 版本的, 我还没实现过。这两种结构都适合用于图像去模糊。
+生成模型旨在重现清晰的图像。该网络模型是基于 [**残差网络（ResNet）**](https://arxiv.org/pdf/1512.03385.pdf) **块（block）**。它持续追踪原始模糊图像的演变。这篇文章是基于 [**UNet**](https://arxiv.org/pdf/1505.04597.pdf) 版本的, 我还没实现过。这两种结构都适合用于图像去模糊。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*OhuvC1YUdHyLbGO6rWWHhA.png)
 
@@ -61,7 +61,7 @@ DeblurGAN 生成模型的网络结构 — [Source](https://arxiv.org/pdf/171
 
 核心是应用于原始图像上采样的 **9 个残差网络块（ResNet blocks）**。让我们看看 Keras 的实现！
 
-```
+```python
 from keras.layers import Input, Conv2D, Activation, BatchNormalization
 from keras.layers.merge import Add
 from keras.layers.core import Dropout
@@ -99,7 +99,7 @@ def res_block(input, filters, kernel_size=(3,3), strides=(1,1), use_dropout=Fals
 
 ResNet 层基本是卷积层，添加了输入和输出以形成最终输出。
 
-```
+```python
 from keras.layers import Input, Activation, Add
 from keras.layers.advanced_activations import LeakyReLU
 from keras.layers.convolutional import Conv2D, Conv2DTranspose
@@ -168,7 +168,7 @@ Keras 实现生成模型
 
 判别模型的目标是确定输入图像是否是人造的。因此，判别模型的结构是卷积的，并且**输出是单一值**。
 
-```
+```python
 from keras.layers import Input
 from keras.layers.advanced_activations import LeakyReLU
 from keras.layers.convolutional import Conv2D
@@ -217,7 +217,7 @@ Keras实现判别模型
 
 最后一步是构建完整模型。这个 GAN 的 **特殊性**在于输入是真实图像而不是噪声。因此，我们能获得生成模型输出的直接反馈。 
 
-```
+```python
 from keras.layers import Input
 from keras.models import Model
 
@@ -241,7 +241,7 @@ def generator_containing_discriminator_multiple_outputs(generator, discriminator
 
 首先是直接根据生成模型的输出计算**感知损失（perceptual loss）**。该损失值确保了 GAN 模型是面向去模糊任务的。它比较了VGG的 **第一个卷积**输出。
 
-```
+```python
 import keras.backend as K
 from keras.applications.vgg16 import VGG16
 from keras.models import Model
@@ -257,7 +257,7 @@ def perceptual_loss(y_true, y_pred):
 
 第二个损失值是计算整个模型的输出 **Wasserstein loss**。它是 **两张图像之间的平均差异**。它以改善对抗生成网络收敛性而闻名.
 
-```
+```python
 import keras.backend as K
 
 def wasserstein_loss(y_true, y_pred):
@@ -268,7 +268,7 @@ def wasserstein_loss(y_true, y_pred):
 
 第一步是载入数据以及初始化模型。我们使用自定义函数载入数据集以及为模型添加 Adam 优化器。我们通过设置 Keras 可训练选项以防止判别模型进行训练。
 
-```
+```python
 # 载入数据集
 data = load_images('./images/train', n_images)
 y_train, x_train = data['B'], data['A']
@@ -295,12 +295,12 @@ d.trainable = True
 
 然后，我们启动迭代，同时将数据集按批量划分。
 
-```
+```python
 for epoch in range(epoch_num):
   print('epoch: {}/{}'.format(epoch, epoch_num))
   print('batches: {}'.format(x_train.shape[0] / batch_size))
 
-  # Randomize images into batches
+  # 将图像随机划入不同批次
   permutated_indexes = np.random.permutation(x_train.shape[0])
 
   for index in range(int(x_train.shape[0] / batch_size)):
@@ -311,7 +311,7 @@ for epoch in range(epoch_num):
 
 最后，我们根据两种损失先后训练生成模型和判别模型。我们用生成模型产生假输入。我们训练判别模型来区分虚假和真实输入，然后我们训练整个模型。
 
-```
+```python
 for epoch in range(epoch_num):
   for index in range(batches):
     # [Batch Preparation]
@@ -358,20 +358,20 @@ for epoch in range(epoch_num):
 
 我希望你喜欢这篇关于利用生成对抗模型进行图像去模糊的文章。欢迎发表评论，关注我们或 [与我联系](https://www.sicara.com/contact-2/?utm_source=blog&utm_campaign=keras-generative-adversarial-networks-image-deblurring-45e3ab6977b5).
 
-如果您对计算机视觉感兴趣，可以看看我们以前写的一篇文章 [**Content-Based Image Retrieval with Keras**](https://blog.sicara.com/keras-tutorial-content-based-image-retrieval-convolutional-denoising-autoencoder-dc91450cc511). Below is the list of resources for Generative Adversarial Networks.
+如果您对计算机视觉感兴趣，可以看看我们以前写的一篇文章 [**Keras 实现基于内容的图像检索**](https://blog.sicara.com/keras-tutorial-content-based-image-retrieval-convolutional-denoising-autoencoder-dc91450cc511)。以下是生成对抗网络的资源列表。
 
 ![](https://cdn-images-1.medium.com/max/800/1*HjooSUMv2MVXnOhqvhiuow.png)
 
 左：GOPRO 测试图像，右：GAN 输出。
 
-#### 以下是生成对抗网络的资源列表。
+#### 生成对抗网络的资源列表。
 
-- [NIPS 2016: Generative Adversarial Networks](https://channel9.msdn.com/Events/Neural-Information-Processing-Systems-Conference/Neural-Information-Processing-Systems-Conference-NIPS-2016/Generative-Adversarial-Networks) by Ian Goodfellow
-- [ICCV 2017: Tutorials on GAN](https://sites.google.com/view/iccv-2017-gans/schedule)
+- [NIPS 2016: 对抗生成网络（Generative Adversarial Networks）](https://channel9.msdn.com/Events/Neural-Information-Processing-Systems-Conference/Neural-Information-Processing-Systems-Conference-NIPS-2016/Generative-Adversarial-Networks) by Ian Goodfellow
+- [ICCV 2017: 对抗生成网络教程](https://sites.google.com/view/iccv-2017-gans/schedule)
 
-- [GAN Implementations with Keras](https://github.com/eriklindernoren/Keras-GAN) by [Eric Linder-Noren](http://www.eriklindernoren.se/)
-- [A List of Generative Adversarial Networks Resources](https://deeplearning4j.org/generative-adversarial-network) by deeplearning4j
-- [Really-awesome-gan](https://github.com/nightrome/really-awesome-gan) by [Holger Caesar](http://www.it-caesar.com/)
+- [对抗生成网络的 Keras 实现](https://github.com/eriklindernoren/Keras-GAN) by [Eric Linder-Noren](http://www.eriklindernoren.se/)
+- [对抗生成网络资源列表](https://deeplearning4j.org/generative-adversarial-network) by deeplearning4j
+- [超棒的对抗生成网络](https://github.com/nightrome/really-awesome-gan) by [Holger Caesar](http://www.it-caesar.com/)
 
 
 ---
