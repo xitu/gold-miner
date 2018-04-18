@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/immutability-in-react-theres-nothing-wrong-with-mutating-objects.md](https://github.com/xitu/gold-miner/blob/master/TODO1/immutability-in-react-theres-nothing-wrong-with-mutating-objects.md)
 > * 译者：[jonjia](https://github.com/jonjia)
-> * 校对者：
+> * 校对者：[MechanicianW](https://github.com/MechanicianW) [goldEli](https://github.com/goldEli)
 
 # React 中的 Immutability：可变对象并没有什么问题
 
