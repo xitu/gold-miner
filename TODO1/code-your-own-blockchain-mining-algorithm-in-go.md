@@ -9,7 +9,7 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*zwlWlWAwTRxaoKkds63rfQ.png)
 
-**如果你对下面的教程有任何问题或者建议，加入我们的** [**Telegram**](https://t.me/joinchat/FX6A7UThIZ1WOUNirDS_Ew) **消息群，可以问我们所有你想问的！**
+**如果你对下面的教程有任何问题或者建议，加入我们的** [*Telegram*](https://t.me/joinchat/FX6A7UThIZ1WOUNirDS_Ew) **消息群，可以问我们所有你想问的！**
 
 随着最近比特币和以太坊挖矿大火，很容易让人好奇，这么大惊小怪是为什么。对于加入这个领域的新人，他们会听到一些疯狂的[故事](https://www.coindesk.com/inside-north-americas-8m-bitcoin-mining-operation/)：人们用 GPU 填满仓库，每个月赚取价值数百万美元的加密货币。电子货币挖矿到底是什么？它是如何运作的？我如何能试着编写自己的挖矿算法？
 
