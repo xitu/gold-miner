@@ -2,52 +2,52 @@
 > * 原文作者：[flaviocopes.com](https://flaviocopes.com)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/an-in-depth-svg-tutorial.md](https://github.com/xitu/gold-miner/blob/master/TODO1/an-in-depth-svg-tutorial.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Starrier](https://github.com/Starriers)
+> * 校对者：[dandyxu](https://github.com/dandyxu)、[allenlongbaobao](https://github.com/allenlongbaobao)
 
-# AN IN-DEPTH SVG TUTORIAL
+#  深入浅出 SVG
 
-SVG is an awesome and incredibly powerful image format. This tutorial gives you an overview of SVG by explaining all you need to know in a simple way.
+SVG 是优秀且令人难以置信的强大图像格式。本教程通过简单地解释所有需要了解的知识，为您提供 SVG 的概述。
 
 ![](https://d33wubrfki0l68.cloudfront.net/50363ccc126579554d19078999c0b7bc173fb83f/3272b/svg/banner.png)
 
-## Introduction
+## 介绍
 
-Despite being standardized in the early 2000s, SVG (a shorthand for _Scalable Vector Graphics_) is a hot topic these days.
+尽管在 21 世纪初被标准化了，SVG（**Scalable Vector Graphics** 的缩写）是近年来的一个热门话题。
 
-SVG has been penalized for quite a few years by the poor browser support (most notably IE).
+SVG 已经被糟糕的浏览器支持（尤其是 IE）惩罚了好多年。
 
-I found this quote from a 2011 book: “at the time of writing, direct embedding of SVG into HTML works only in the very newest browsers”. 7 years ago, this is now a thing of the past, and we can use SVG images safely.
+我发现这话源自一本 2011 的书：在撰写本文时，只有在最新的浏览器中才能将 SVG 直接嵌入到 HTML 中工作。7 年过去了，这句话现在已经是过去式了，我们可以很安全地使用 SVG 图像。
 
-Today we can use SVG images safely, unless you have a lot of users with IE8 and below, or with older Android devices. In this case, fallbacks exist.
+现在我们可以安全地使用 SVG 图像，除非您有很多用户使用 IE8 以及更低版本，或者使用较旧的 Android 设备。这种情况下，依然存在着备选方案。
 
-![SVG Browser support](https://d33wubrfki0l68.cloudfront.net/fa8f32426c30d6e82f1aec35c6b25389036ed752/3723d/svg/svg-browser-support.png)
+![SVG 支持的浏览器](https://d33wubrfki0l68.cloudfront.net/fa8f32426c30d6e82f1aec35c6b25389036ed752/3723d/svg/svg-browser-support.png)
 
-Some part of the success of SVG is due to the variety of screen displays we must support, at different resolutions and sizes. A perfect task for SVG.
+SVG 成功的一部分是由于我们必须支持各种不同分辨率和尺寸的屏幕显示。SVG 能完美解决这个问题。
 
-Also, the rapid decline of Flash in the last few years led to a renewed interest in SVG, which is great for a lot of things that Flash did in the past.
+同时，Flash 在过去几年的迅速衰退导致大家对 SVG 产生了兴趣。这对于 Flash 过去所做的许多事情都是非常重要的。
 
-SVG is a **vector** image file format. This makes them very different than image format such as PNG, GIF or JPG, which are raster image file formats.
+SVG 是一种 **vector** 图像文件格式。这使得它们与其他图像格式（如 PNG、GIF 或 JPG）有很大的不同，后者是光栅图像文件格式。 
 
-## The advantages of SVG
+## SVG 的优势
 
-SVG images, thanks to being vector images, can **infinitely scale** and not have any issue in image quality degradation. How so? Because SVG images are built using **XML markup**, and the browser prints them by plotting each point and line, rather than filling some space with pre-defined pixels. This ensures SVG images can adapt to different screen sizes and resolutions, even ones that have yet to be invented.
+由于 SVG 图像是矢量图像，可以**无限缩放**，而且在图像质量下降方面没有任何问题。为什么会这样呢？因为 SVG 图像是使用 **XML 标记**构建的，浏览器通过绘制每个点和线来打印它们，而不是用预定义的像素填充某些空间。这确保 SVG 图像可以适应不同的屏幕大小和分辨率，即使是那些尚未发明的。
 
-Thanks to being defined in XML, SVG images are much more **flexible** than JPG or PNG images, and** we can use CSS and JavaScript to interact with them**. SVG images can even _contain_ CSS and JavaScript.
+ 由于是在 XML 中定义的，SVG 图像比 JPG 或 PNG 图像更**灵活**，而且**我们可以使用 CSS 和 JavaScript 与它们进行交互**。SVG 图像设置可以**包含** CSS 和 JavaScript。
 
-SVG images can render vector-style images a lot smaller than other formats, and are mainly used on logos and illustrations. Another huge use case is icons. Once domain of Icon Fonts like FontAwesome, now designers prefer using SVG images because they are smaller and they allow to have multi-color icons.
+SVG 可以渲染比其他格式小得多的矢量风格图像，主要用于标识和插图。另一个巨大的用例是图标。曾经是图标字体域，比如 FontAwesome，现在的设计师更喜欢使用 SVG 图像，因为它更小，并且允许使用多色图标。
 
-SVG is easy to animate, which is a very cool topic.
+SVG 在动画方面很简单，这是一个非常酷的话题。
 
-SVG provides some image editing effects, like masking and clipping, applying filters, and more.
+SVG 提供了一些图像编辑效果，比如屏蔽和剪裁、应用过滤器等等。
 
-SVG are just text, and as such it can be efficiently compressed using GZip.
+SVG 只是文本，因此可以使用 GZip 对其进行有效压缩。
 
-## Your first SVG image
+## 您的第一个 SVG 图像
 
-SVG images are defined using XML. This means that SVG will look very familiar if you are proficient in HTML, except rather than having tags that are suited for document construction (like `p`, `article`, `footer`, `aside`) in SVG we have the building blocks of vector images: `path`, `rect`, `line` and so on.
+SVG 图像使用 XML 定义，这意味着如果您精通 HTML，SVG 看起来会非常熟悉，除了在 SVG 中有标签适合文档构建（如  `p`、 `article`、 `footer`、 `aside`）我们还有矢量图的构建块： `path`、 `rect`、 `line` 等等。
 
-This is an example SVG image:
+这是一个 SVG 图像示例：
 
 ```
 <svg width="10" height="10">
@@ -55,21 +55,21 @@ This is an example SVG image:
 </svg>
 ```
 
-Notice how it’s very easy to read and understand how the image will look like: it’s a simple blue rectangle of 10x10 pixels (the default unit).
+注意它非常容易阅读和理解图像的样子：它是一个 10 x 10 像素的简单蓝色矩形（默认单元）。
 
-Most of the times you won’t have to edit the SVG code, but you will use tools like Sketch or Figma or any other vector graphics tool to create the image, and export it as SVG.
+大多情况下，您不必编写 SVG 代码，因为您可以使用 Sketch 或 Figma 等工具或任何其他矢量图形工具来创建图像，并将其导出为 SVG。
 
-The current version of SVG is 1.1, and SVG 2.0 is under development.
+SVG 的当前版本是 1.1， SVG 2.0 正在研发。
 
-## Using SVG
+## 使用 SVG
 
-SVG images can be displayed by the browser by including them in a `img` tag:
+浏览器可以通过将它们包含在一个 `img` 标签中来显示 SVG 图像：
 
 ```
 <img src="image.svg" alt="My SVG image" />
 ```
 
-just like you would do for other pixel-based image formats:
+就像其他基于像素的图像格式一样：
 
 ```
 <img src="image.png" alt="My PNG image" />
@@ -78,7 +78,7 @@ just like you would do for other pixel-based image formats:
 <img src="image.webp" alt="My WebP image" />
 ```
 
-In addition, pretty uniquely, SVG they can be directly included in the HTML page:
+此外，SVG 非常独特，它们可以直接包含在 HTML 页面中：
 
 ```
 <!DOCTYPE html>
@@ -94,32 +94,32 @@ In addition, pretty uniquely, SVG they can be directly included in the HTML page
 </html>
 ```
 
-> Please note that HTML5 and XHTML require a different syntax for inline SVG images. Luckily XHTML is a thing of the past, as it was more complex than necessary, but it’s worth knowing in case you still need to work on XHTML pages.
+> 请注意 HTML5 和 XHTML 对于内联 SVG 图像需要不同的语法。幸运的是，XHTML已经是过去的事情了，因为它过于繁杂，但是如果您仍然需要处理 XHTML 页面，就值得去了解它。 
 
-The **ability to inline SVG in HTML** makes this format a **unicorn** in the scene, as other images can’t do this, and must be fetched by opening a separate request for each one.
+ **在 HTLM 中内联 SVG** 的功能使该格式成为场景中的 **unicorn**,因为其他图像不能这样做，必须为每个图像打开一个单独的请求来获取该格式。
 
-## SVG Elements
+## SVG 元素
 
-In the example above you saw the usage of the `rect` element. SVG has a lot of different elements.
+在上面的示例中，您看到了 `rect` 元素的用法。SVG 有许多不同的元素。
 
-The most used ones are
+最常用的是
 
-*   `text`: creates a text element
-*   `circle`: creates a circle
-*   `rect`: creates a rectangle
-*   `line`: creates a line
-*   `path`: create a path between two points
-*   `textPath`: create a path between two points, and a linked text element
-*   `polygon`: allows to create any kind of polygon
-*   `g`: groups separate elements
+*   `text`: 创建一个 text 元素
+*   `circle`: 创建一个圆
+*   `rect`: 创建一个矩形
+*   `line`: 创建一条线
+*   `path`: 在两点之间创建一条路径
+*   `textPath`: 在两点之间创建一条路径，并创建一个链接文本元素
+*   `polygon`: 允许创建任意类型的多边形
+*   `g`: 单独的元素
 
-> Coordinates start at 0,0 at the top-left of the drawing area, and extend _from left to right_ for `x`, _from top to bottom_ for `y`.
+> 坐标从绘图区域左上角的 0，0 开始，并 **从左到右**表示 `x`, **从上到下**表示 `y`。
 > 
-> The images you see reflect the code shown above. Using the [Browser DevTools](https://flaviocopes.com/browser-dev-tools/) you can inspect and change them.
+> 您看到的图像反映了上面所示的代码。使用[浏览器 DevTools](https://flaviocopes.com/browser-dev-tools/)，您可以检查和更改它们。
 
 ### `text`
 
-The `text` element adds text. The text can be selected using the mouse. `x` and `y` define the starting point of the text
+ `text` 元素添加文本。可以使用鼠标选择文本。`x` 和 `y` 定义文本的起始点。
 
 ```
 <svg>
@@ -128,12 +128,12 @@ The `text` element adds text. The text can be selected using the mouse. `x` and 
 ```
 
 <svg>
-  <text x="5" y="30">A nice rectangle</text>
+  <text x="5" y="30">漂亮的长方形</text>
 </svg>
 
 ### `circle`
 
-Define a circle. `cx` and `cy` are the center coordinates, and `r` is the radius. `fill` is a common attribute and represents the figure color.
+定义圆。 `cx` 和 `cy` 是中心坐标，`r` 是半径。 `fill` 是一个常用属性，表示图形颜色。
 
 ```
 <svg>
@@ -147,7 +147,7 @@ Define a circle. `cx` and `cy` are the center coordinates, and `r` is the radius
 
 ### `rect`
 
-Defines a rectangle. `x`, `y` are the starting coordinates, `width` and `height` are self-explanatory.
+定义矩形。 `x` ， `y` 是起始坐标，`width` 和 `height` 是自解释的。
 
 ```
 <svg>
@@ -161,7 +161,7 @@ Defines a rectangle. `x`, `y` are the starting coordinates, `width` and `height`
 
 ### `line`
 
-`x1` and `y1` define the starting coordinates. `x2` and `y2` define the ending coordinates. `stroke` is a common attribute and represents the line color.
+`x1` 和 `y1` 定义起始坐标。`x2` 和 `y2` 定义结束坐标。`stroke` 是一个常用属性，表示线条颜色。
 
 ```
 <svg>
@@ -175,17 +175,17 @@ Defines a rectangle. `x`, `y` are the starting coordinates, `width` and `height`
 
 ### `path`
 
-A path is a sequence of lines and curves. It’s the most powerful tool to draw using SVG, and as such it’s the most complex.
+路径是一系列的直线和曲线。它是所有 SVG 绘制工具中最强大的，因此也是最复杂的。
 
-`d` contains the directions commands. These commands start with the command name, and a set of coordinates:
+`d` 包含方向命令。这些命令以命令名和一组坐标开始：
 
-*   `M` means Move, it accepts a set of coordinates x, y
-*   `L` means Line, it accepts a set of coordinates x, y to draw the line to
-*   `H` is an Horizontal Line, it only accept an x coordinate
-*   `V` is a Vertical Line, it only accept an y coordinate
-*   `Z` means Close Path, puts a line back to the start
-*   `A` means Arch, it needs a whole tutorial on its own
-*   `Q` is a quadratic Bezier curve, again it needs a whole tutorial on its own
+*   `M` 表示移动，它接受一组 x，y 坐标
+*   `L` 表示直线将绘制到它接受一组 x，y
+*   `H` 是一条水平线，它只接受 x 坐标
+*   `V` 是一条垂直线，它只接受 y 坐标
+*   `Z` 表示关闭路径，并将其放回起始位置
+*   `A` 表示 Arch，它自己需要一个完整的教程
+*   `Q` 是一条二次 Bezier 曲线，同样，它自己也需要一个完整的教程
 
 ```
 <svg height="300" width="300">
@@ -201,7 +201,7 @@ A path is a sequence of lines and curves. It’s the most powerful tool to draw 
 
 ### `textPath`
 
-Adds a text along the shape of a path element.
+沿路径元素的形状添加文本。
 
 <svg viewBox="0 0 1000 600" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
   <defs>
@@ -217,7 +217,7 @@ Adds a text along the shape of a path element.
 
 ### `polygon`
 
-Draw any random polygon with `polygon`. `points represents a set of x, y coordinates the polygon should link:
+使用 `polygon` 绘制任意多边形。 `points` 代表一组 x，y 坐标多边形应该链接：
 
 ```
 <svg>
@@ -231,7 +231,7 @@ Draw any random polygon with `polygon`. `points represents a set of x, y coordin
 
 ### `g`
 
-Using the `g` element you can group multiple elements:
+使用 `g` 元素，您可以对多个元素进行分组： 
 
 ```
 <svg width="200" height="200">
@@ -251,15 +251,15 @@ Using the `g` element you can group multiple elements:
   </g>
 </svg>
 
-## SVG viewport and viewBox
+## SVG viewport 和 viewBox
 
-The size of an SVG relative to its container is set by the `width` and `height` attributes of the `svg` element. Those units default to pixels, but you can use any other usual unit like `%` or `em`. This is the **viewport**.
+SVG 相对于其容器的大小由 `svg` 元素的 `width` 和 `height` 属性设置。这些单位默认为像素，但您可以使用任何其他常用单位，如 `%` 或 `em`。这是 **viewport**。
 
-> Generally “container” means the browser window, but a `svg` element can contain other `svg` elements, in that case the container is the parent `svg`.
+> 通常 “container” 指的是浏览器窗口，但 `svg` 元素可以包含其他 `svg` 元素，在这种情况下，容器是父元素 `svg`。
 
-An important attribute is `viewBox`. It lets you define a new coordinates system inside the SVG canvas.
+一个重要的属性是 `viewBox`。它允许您在 SVG 画布中定义一个新的坐标系统。
 
-Say you have a simple circle, in a 200x200px SVG:
+假设在 200x200px SVG 中有一个简单的圆：
 
 ```
 <svg width="200" height="200">
@@ -271,7 +271,7 @@ Say you have a simple circle, in a 200x200px SVG:
   <circle cx="100" cy="100" r="100" fill="#529fca" />
 </svg>
 
-By specifying a **viewBox** you can choose to **only show a portion** of this SVG. For example you can start at point 0, 0 and only show a 100x100px canvas:
+通过指定 **viewBox** ，您可以选择 **只显示此 SVG 的一部分**。例如，您可以从 0，0 点开始，只显示一个 100 x 100 px 画布：
 
 ```
 <svg width="200" height="200" viewBox="0 0 100 100">
@@ -283,7 +283,7 @@ By specifying a **viewBox** you can choose to **only show a portion** of this SV
   <circle cx="100" cy="100" r="100" fill="#529fca" />
 </svg>
 
-starting at 100, 100 you will see another portion, the bottom right half of the circle:
+从 100，100 开始，您会看到另一部分，圆圈的右下角：
 
 ```
 <svg width="200" height="200" viewBox="100 100 100 100">
@@ -295,28 +295,28 @@ starting at 100, 100 you will see another portion, the bottom right half of the 
   <circle cx="100" cy="100" r="100" fill="#529fca" />
 </svg>
 
-A great way to visualize this is to imagine Google Maps being a gigantic SVG image, and your browser is a viewBox as big as the window size. When you move around, the viewBox changes its starting point (x, y) coordinates, and when you resize the window, you change the width and height of the viewBox.
+一个很好的可视化方法是想象 Google Maps 是一个巨大的 SVG 图像，而您的浏览器是一个和窗口大小一样大的视图框。当您移动时，Viewbox 会更改它的起始点（x,y）坐标，并且当您调整窗口的大小时，会更改 Viewbox 的宽度和高度。
 
-## Inserting SVG in Web Pages
+## 在 Web 网页中插入 SVG
 
-There are various ways to add SVG to a webpage.
+将 SVG 添加到网页中有多种方法。
 
-The most common ones are:
+最常见的是：
 
-*   with an `img` tag
-*   with the CSS `background-image` property
-*   inline in the HTML
-*   with an `object`, `iframe` or `embed` tag
+*   带有 `img` 标签
+*   带有 CSS `background-image` 属性
+*   在 HTML 中内联
+*   带有 `object`、 `iframe` 或 `embed` 标签
 
-See all these examples live on Glitch: [https://flavio-svg-loading-ways.glitch.me/](https://flavio-svg-loading-ways.glitch.me/)
+在 Glitch 上可以查看这些示例 [https://flavio-svg-loading-ways.glitch.me/](https://flavio-svg-loading-ways.glitch.me/)
 
-### With an `img` tag
+### 带有 `img` 标签
 
 ```
 <img src="flag.svg" alt="Flag" />
 ```
 
-### With the CSS `background-image` property
+### 带有 css `background-image` 属性
 
 ```
 <style>
@@ -329,7 +329,7 @@ See all these examples live on Glitch: [https://flavio-svg-loading-ways.glitch.m
 <div class="svg-background"></div>
 ```
 
-### Inline in the HTML
+### 在 HTML 中内联
 
 ```
 <svg width="300" height="200" viewBox="0 0 300 200"
@@ -345,7 +345,7 @@ See all these examples live on Glitch: [https://flavio-svg-loading-ways.glitch.m
 </svg>
 ```
 
-### With an `object`, `iframe` or `embed` tag
+### 带有 `object` 、`iframe` 或 `embed` 标签
 
 ```
 <object data="flag.svg" type="image/svg+xml"></object>
@@ -355,21 +355,21 @@ See all these examples live on Glitch: [https://flavio-svg-loading-ways.glitch.m
 <embed src="flag.svg" type="" />
 ```
 
-Using `embed` you have the option to get the SVG document from the parent document using
+使用 `embed`，您可以使用以下命令从父文档获取 SVG 文档
 
 ```
 document.getElementById('my-svg-embed').getSVGDocument()
 ```
 
-and from inside the SVG you can reference the parent document with:
+在 SVG 内部，您可以通过以下方式引用父文档：
 
 ```
 window.parent.document
 ```
 
-## Inline SVG using a Data URL
+## 使用数据 URL 内联 SVG
 
-You can use any of the above examples combined with [Data URLs](https://flaviocopes.com/data-urls/) to inline the SVG in the HTML:
+您可以使用以上任何示例结合 [Data URLs](https://flaviocopes.com/data-urls/) 将 SVG 内联到 HTML 中：
 
 ```
 <img src="data:image/svg+xml;<DATA>" alt="Flag" />
@@ -379,7 +379,7 @@ You can use any of the above examples combined with [Data URLs](https://flavioco
 <iframe data="data:image/svg+xml;<DATA>" frameborder="0"></iframe>
 ```
 
-and in CSS too:
+在 CSS 中也是：
 
 ```
 .svg-background {
@@ -387,11 +387,11 @@ and in CSS too:
 }
 ```
 
-Just change `<DATA>` with the appropriate [Data URL](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs).
+只需使用适当的[Data URL](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs) 更改`<DATA>`。
 
-## Styling elements
+## 样式元素
 
-Any SVG element can accept a `style` attribute, just like HTML tags. Not all CSS properties work as you would expect, due to the SVG nature. For example to change the color of a text element, use `fill` instead of `color`.
+任何 SVG 元素都可以接受 `style` 属性，就像 HTML标签一样。并非所有的 CSS 属性都能像您预期的那样工作。例如，要更改文本元素的颜色，请使用 `fill` 而不是 `color`。
 
 ```
 <svg>
@@ -405,7 +405,7 @@ Any SVG element can accept a `style` attribute, just like HTML tags. Not all CSS
 </svg>
 ```
 
-You can use `fill` as an element attribute as well, as you saw before:
+您也可以使用 `fill` 作为元素属性，正如您在前面看到的那样：
 
 ```
 <svg>
@@ -413,13 +413,13 @@ You can use `fill` as an element attribute as well, as you saw before:
 </svg>
 ```
 
-Other common properties are
+其他公共属性包括
 
-*   `fill-opacity`, background color opacity
-*   `stroke`, defines the border color
-*   `stroke-width`, sets the width of the border
+*   `fill-opacity`，背景颜色不透明度
+*   `stroke`，定义边框颜色
+*   `stroke-width`，设置边框宽度
 
-CSS can target SVG elements like you would target HTML tags:
+CSS 可以针对 SVG 元素，就像您以 HTML 标签为目标一样：
 
 ```
 rect {
@@ -430,43 +430,42 @@ circle {
 }
 ```
 
-## Interacting with a SVG with CSS or JavaScript
+## 使用 CSS 或 JavaSCript 与 SVG 交互
 
-SVG images can be styled using CSS, or scripted with JavaScript, in those cases:
+SVG 图像可以使用 CSS 进行样式化，或者使用 JavaScript 编写脚本，这种情况下：
 
-*   **when the SVG is inlined in the HTML**
-*   when the image is loaded through `object`, `embed` or `iframe` tags
+*   **当 SVG 在 HTML 中内联**
+*   通过 `object` 、`embed` 或 `iframe` 标签加载图像时
 
-but (⚠️ depending on the browser implementation) they must be loaded from the same domain (and protocol), due to the same-origin policy.
+但是 (⚠️ 取决于浏览器实现) 它们必须从相同的域（和协议）加载，这是同源策略所导致的。
+`iframe` 需要显式定义的尺寸，否则内容将被裁剪，同时调整 `object` 和 `embed` 尺寸以适应其内容。.
 
-`iframe` needs to be explicitly sized, otherwise the content is cropped, while `object` and `embed` resize to fit their content.
+如果 SVG 是使用 `img` 标签加载的，或者使用 CSS 作为背景，则与源无关：
 
-If the SVG is loaded using a `img` tag, or through CSS as a background, independently of the origin:
+*   CSS 和 JavaScript 不能与之进行交互
+*   SVG 中包含的 JavaScript 被禁用
+*   无法从外部加载资源（如图像、样式表、脚本、字体）
 
-*   CSS and JavaScript cannot interact with it
-*   JavaScript contained in the SVG is disabled
-*   External resources like images, stylesheets, scripts, fonts cannot be loaded
-
-In details
+细节
 
 * * *
 
-| Feature | Inline SVG | `object`/`embed`/`iframe` | `img` |
+| 特性 |  SVG 内联 | `object`/`embed`/`iframe` | `img` |
 | --- | --- | --- | --- |
-| Can interact with the user | ✅ | ✅ | ✅ |
-| Supports animations | ✅ | ✅ | ✅ |
-| Can run its own JavaScript | ✅ | ✅ | 👎🏼 |
-| Can be scripted from outside | ✅ | 👎🏼 | 👎🏼 |
+| 可以与用户交互 | ✅ | ✅ | ✅ |
+| 支持动画 | ✅ | ✅ | ✅ |
+| 可以运行 JavaScript 脚本 | ✅ | ✅ | 👎🏼 |
+| 可以从外部编写脚本 | ✅ | 👎🏼 | 👎🏼 |
 
-Inline SVG images are definitely the most powerful and flexible, and it’s the only way to perform certain operations with SVG.
+内联 SVG 图像无疑是最强大和最灵活的，它是使用 SVG 执行某些操作的唯一方法。
 
-**If you want to do any interaction with the SVG with your scripts, it must be loaded inline in the HTML**.
+**如果您想要 SVG 与您的脚本进行任何交互，它必须以内联的方式加载到 HTML中**。
 
-Loading an SVG in an `img`, `object` or `embed` works if you don’t need to interact with it, just show it in the page, and it’s especially convenient if you reuse SVG images in different pages, or the SVG size is quite big.
+如果您不需要与 SVG 交互，只需在页面中显示它，将 SVG 加载至 `img` 、 `object` 或者 `embed` 中即可，如果您在不同的页面中重用 SVG 图像，或者 SVG 图像的大小相当大，那么加载 SVG 就特别方便。
 
-### CSS inside SVG
+### CSS 嵌入 SVG
 
-Add the CSS in a CDATA:
+将 CSS 加至 CDATA:
 
 ```
 <svg>
@@ -479,7 +478,7 @@ Add the CSS in a CDATA:
 </svg>
 ```
 
-An SVG file can also include an external style sheet:
+SVG 文件还可以包括外部样式表
 
 ```
 <?xml version="1.0" standalone="no"?>
@@ -490,9 +489,9 @@ An SVG file can also include an external style sheet:
 </svg>
 ```
 
-### JavaScript inside SVG
+### JavaScript 嵌入 SVG
 
-You can put the JavaScript first, and wrap in in a `load` event to execute it when the page is fully loaded and the SVG is inserted in the DOM:
+你可以将 JavaScript 放在第一个位置上，并包装在一个 `load` 事件中，以便在页面完全加载并在 DOM 中插入 SVG 时执行它：
 
 ```
 <svg>
@@ -507,7 +506,7 @@ You can put the JavaScript first, and wrap in in a `load` event to execute it wh
 </svg>
 ```
 
-or you can avoid adding an event listener if you put the JS at the end of the other SVG code, to make sure the JavaScript runs when the SVG is present in the page:
+或者如果您将 JS 放在其他 SVG 代码的末尾，可以避免添加事件监听，确保当 SVG 出现在页面时 JavaSCript 会执行。
 
 ```
 <svg>
@@ -520,7 +519,7 @@ or you can avoid adding an event listener if you put the JS at the end of the ot
 </svg>
 ```
 
-SVG elements, just like html tags, can have `id` and `class` attributes, so we can use the [Selectors API](https://flaviocopes.com/selectors-api/) to reference them:
+与 HTML 元素一样，SVG 元素也可以有 `id` 和 `class` 属性，因此我们可以使用 [Selectors API](https://flaviocopes.com/selectors-api/) 来引用它们：
 
 ```
 <svg>
@@ -537,23 +536,23 @@ SVG elements, just like html tags, can have `id` and `class` attributes, so we c
 </svg>
 ```
 
-Check out this Glitch [https://flaviocopes-svg-script.glitch.me/](https://flaviocopes-svg-script.glitch.me/) for an example of this functionality.
+请查看此故障 [https://flaviocopes-svg-script.glitch.me/](https://flaviocopes-svg-script.glitch.me/) 以获得功能性提示。
 
-### JavaScript outside the SVG
+### SVG 外部的 JavaScript
 
-If you can interact with the SVG (the SVG is inline in the HTML), you can change any SVG attribute using JavaScript, for example:
+如果可以与 SVG 交互（SVG 在 HTML 中是内联的），则可以使用 JavaScript 更改任何 SVG 属性，例如：
 
 ```
 document.getElementById("my-svg-rect").setAttribute("fill", "black")
 ```
 
-or really do any other [DOM](https://flaviocopes.com/dom/) manipulation you want.
+或者真正地做任何您想要的 [DOM](https://flaviocopes.com/dom/) 操作。
 
-### CSS outside the SVG
+### SVG 外部的 CSS
 
-You can change any styling of the SVG image using CSS.
+您可以使用 CSS 更改 SVG 图像的任何样式。
 
-SVG attributes can be easily overwritten in CSS, and they have a lower priority over CSS. They do not behave like inline CSS, which has higher priority.
+SVG 属性可以很容易地在 CSS中 被覆盖，并且它们比 CSS 具有更低的优先级。它们的行为不像具有更高优先级的内联 CSS。
 
 ```
 <style>
@@ -569,16 +568,16 @@ SVG attributes can be easily overwritten in CSS, and they have a lower priority 
 
 ## SVG vs Canvas API
 
-The Canvas API is a great addition to the Web Platform, and it has similar browser support as SVG. The main (and big) difference with SVG is that Canvas is not vector based, but rather pixel based, so
+ Canvas API 是 Web 平台一个很好的补充，它有类似于 SVG 的浏览器支持。与 SVG 主要的（也是最大的）不同之处是：画布不是基于矢量的，而是基于像素的，所以
 
-*   it has the same scaling issues as pixel-based PNG, JPG and GIF image formats
-*   it makes it impossible to edit a Canvas image using CSS or JavaScript like you can do with SVG
+*   它具有与基于像素的 png、jpg 和 gif 图像格式相同的缩放问题。
+*   这使得不可能像使用 SVG 那样使用 CSS 或 JavaScropt 编辑画布图像。
 
-## SVG Symbols
+## SVG 符号
 
-Symbols let you define an SVG image once, and reuse it in multiple places. This is a great help if you need to reuse an image, and maybe just change a bit some of its properties.
+符号使您可以定义一次SVG图像，并在多个地方重用它。如果您需要重用一个图像，这是一个很大的帮助，可能只是改变一点它的一些属性。
 
-You do so by adding a `symbol` element and assigning an `id` attribute:
+您可以通过添加一个 `symbol` 元素并分配一个 `id` 属性来完成此操作：
 
 ```
 <svg class="hidden">
@@ -598,11 +597,11 @@ You do so by adding a `symbol` element and assigning an `id` attribute:
 </svg>
 ```
 
-(`xlink:href` is for Safari support, even if it’s a deprecated attribute)
+(`xlink:href` 用于 Safari 支持，即使它是一个已废弃的属性)
 
-This starts to give an idea of the power of SVG.
+这让我们能开始了解 SVG 的强大功能。
 
-If you want to style those 2 rectangles differently, for example using a different color for each? You can use [CSS Variables](https://flaviocopes.com/css-variables/).
+如果您希望对这两个矩形使用不同的样式，例如，对每个矩形使用不同的颜色？您可以使用[CSS 变量](https://flaviocopes.com/css-variables/).
 
 ```
 <svg class="hidden">
@@ -631,17 +630,17 @@ svg.blue {
 </style>
 ```
 
-See [my Glitch playground](https://flavio-svg-symbols.glitch.me/) on SVG symbols.
+查看 SVG 符号--[我的 Glitch playground](https://flavio-svg-symbols.glitch.me/)。
 
-## Validate an SVG
+## 验证 SVG
 
-An SVG file, being XML, can be written in an invalid format, and some services or apps might not accept an invalid SVG file.
+SVG 文件是 XML，可以用无效的格式编写，有些服务或应用程序可能不接受无效的 SVG 文件。
 
-SVG can be validated using the [W3C Validator](https://validator.w3.org).
+SVG 可以使用 [W3C Validator](https://validator.w3.org)验证。
 
-## Should I include the `xmlns` attribute?
+## 我应该包含 `xmlns` 属性么？
 
-Sometimes an svg is defined as
+有时 SVG 别定义为
 
 ```
 <svg>
@@ -649,7 +648,7 @@ Sometimes an svg is defined as
 </svg>
 ```
 
-sometimes as
+有时定义为
 
 ```
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg">
@@ -657,13 +656,13 @@ sometimes as
 </svg>
 ```
 
-This second form is XHTML. It can also be used with HTML5 (documents with `<!DOCTYPE html>`) but in this case the first form is simpler.
+第二个表单是 XHTML。它可以与 HTML5 一起使用（文档具有 `<!DOCTYPE html>`），但在本例中，第一种形式更简单。
 
-## Should I worry about browser support?
+## 我应该担心浏览器支持问题么？
 
-In 2018 SVG is supported by the vast majority of user’s browsers.
+在 2018 版本中，绝大多数用户的浏览器都支持 SVG。.
 
-You can still check for missing support using libraries like [Modernizr](https://modernizr.com/), and provide a fallback:
+您仍然可以使用诸如 [Modernizr](https://modernizr.com/) 这样的库来检查缺少的支持，并提供一个后备：
 
 ```
 if (!Modernizr.svg) {
