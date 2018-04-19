@@ -9,7 +9,7 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*Elzguv8ycXYcphhD7M95hQ.jpeg)
 
-**如果这不是您第一次读本文，请阅读第 2 部分 -- **[**这里**](https://medium.com/@mycoralhealth/part-2-networking-code-your-own-blockchain-in-less-than-200-lines-of-go-17fe1dad46e1)**！**
+**如果这不是您第一次读本文，请阅读第 2 部分 —— **[**这里**](https://medium.com/@mycoralhealth/part-2-networking-code-your-own-blockchain-in-less-than-200-lines-of-go-17fe1dad46e1)**！**
 
 本教程改编自这篇关于使用 JavaScript 编写基础区块链的优秀[文章](https://medium.com/@lhartikk/a-blockchain-in-200-lines-of-code-963cc1cc0e54)。我们已经将其移植到 Go 并添加了一些额外的好处 -- 比如在 Web 浏览器上查看您的区块链。如果您对下面的教程有任何疑问，请务必加入我们的  [**Telegram**](https://t.me/joinchat/FX6A7UThIZ1WOUNirDS_Ew)。可向我们咨询任何问题！
 
@@ -348,9 +348,9 @@ func main() {
 
 以下是全部代码：
 
-- [**mycoralhealth/blockchain-tutorial**: 区块链-教程 -- 用少于 200 行的 Go 编写并发布您自己的区块链 **github.com**](https://github.com/mycoralhealth/blockchain-tutorial/blob/master/main.go)
+- [**mycoralhealth/blockchain-tutorial**: 区块链-教程 —— 用少于 200 行的 Go 编写并发布您自己的区块链 **github.com**](https://github.com/mycoralhealth/blockchain-tutorial/blob/master/main.go)
 
-**现在来讨论下有趣的事情**。 让我们试一下:-)
+**现在来讨论下有趣的事情**。让我们试一下 :-)
 
 使用 `go run main.go` 从终端启动应用程序
 
@@ -372,7 +372,7 @@ func main() {
 
 **下一步**
 
-恭喜!您只是用适当的散列和块验证来编写自己的块链。现在您应该能够控制自己的区块链之旅，并探索更复杂的主题，如工作证明、利益证明、智能合约、Dapp、侧链等等。 
+恭喜！您只是用适当的散列和块验证来编写自己的块链。现在您应该能够控制自己的区块链之旅，并探索更复杂的主题，如工作证明、利益证明、智能合约、Dapp、侧链等等。 
 
 本教程没有讨论的是如何使用工作证明来挖掘新的块。这将是一个单纯的教程，但大量的区块链存在，没有证明工作机制。此外，目前通过在 Web 服务器中写入和查看区块链来模拟广播。本教程中没有 P2P 组件。
 
@@ -385,7 +385,7 @@ func main() {
 *   [**了解如何使用 ipfs，通过区块链存储数据。**](https://medium.com/@mycoralhealth/learn-to-securely-share-files-on-the-blockchain-with-ipfs-219ee47df54c)
 *   [**编写您自己的树桩算法证明！**](https://medium.com/@mycoralhealth/code-your-own-proof-of-stake-blockchain-in-go-610cd99aa658)
 
-想了解更多关于珊瑚健康的信息，以及我们如何使用区块链来推进个性化用药/治疗研究，请访问我们的[网站](https://mycoralhealth.com/).
+想了解更多关于珊瑚健康的信息，以及我们如何使用区块链来推进个性化用药/治疗研究，请访问我们的[网站](https://mycoralhealth.com/)。
 
 
 ---
