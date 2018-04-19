@@ -191,7 +191,7 @@ func replaceChain(newBlocks []Block) {
 }
 ```
 
-如果你已经坚持做到这里，就鼓励一下自己！基本上，我们已经用我们需要的各种函数编写了区块链的内部结构。
+如果您已经坚持做到这里，就鼓励一下自己！基本上，我们已经用我们需要的各种函数编写了区块链的内部结构。
 
 现在，我们想要一个方便的方式来查看我们的区块链，并写入它，理想情况下是我们可以在一个网络浏览器显示我们的朋友！
 
@@ -260,7 +260,7 @@ type Message struct {
 }
 ```
 
-下面是编写新块的处理程序的代码。你看完后我们会带你再看一遍。
+下面是编写新块的处理程序的代码。您看完后我们会带您再看一遍。
 
 ```go
 func handleWriteBlock(w http.ResponseWriter, r *http.Request) {
@@ -300,7 +300,7 @@ func handleWriteBlock(w http.ResponseWriter, r *http.Request) {
 **一些笔记**
 
 *   `_spew.Dump_` **是一个方便的函数，它可以将我们的结构打印到控制台上。这对调试很有用。**
-*    **对于测试 POST 请求，我们喜欢使用** [**Postman**](https://www.getpostman.com/apps)**。 `curl`** 效果也很好，如果您不能离开终端的话。
+*    **对于测试 POST 请求，我们喜欢使用** [**Postman**](https://www.getpostman.com/apps)**。`curl`** 效果也很好，如果您不能离开终端的话。
 
 当我们的 POST 请求成功或者失败时，我们希望得到相应的通知。我们使用了一个小包装器函数  `respondWithJSON` 来让我们知道发生了什么。记住，在 Go 中，千万不要忽略它们。[要优雅地处理它们](https://dave.cheney.net/2016/04/27/dont-just-check-errors-handle-them-gracefully)。
 
