@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/code-your-own-blockchain-in-less-than-200-lines-of-go.md](https://github.com/xitu/gold-miner/blob/master/TODO1/code-your-own-blockchain-in-less-than-200-lines-of-go.md)
 > * 译者：[Starrier](https://github.com/Starriers)
-> * 校对者：
+> * 校对者：[ALVINYEH](https://github.com/ALVINYEH)、[https://github.com/SergeyChang](SergeyChang)
 
 # 用不到 200 行的 GO 语言编写您自己的区块链
 
@@ -11,13 +11,13 @@
 
 **如果这不是您第一次读本文，请阅读第 2 部分 -- **[**这里**](https://medium.com/@mycoralhealth/part-2-networking-code-your-own-blockchain-in-less-than-200-lines-of-go-17fe1dad46e1)**！**
 
-本教程改编自这篇关于使用 JavaScript 编写基础区块链的优秀[文章](https://medium.com/@lhartikk/a-blockchain-in-200-lines-of-code-963cc1cc0e54)。我们已经将其移植到 Go 并添加了一些额外的好处 -- 比如在 Web 浏览器上查看您的区块链。如果您对下面的教程有任何疑问，请务必加入我们的  [**Telegram**](https://t.me/joinchat/FX6A7UThIZ1WOUNirDS_Ew)。可向我们咨询任何事！
+本教程改编自这篇关于使用 JavaScript 编写基础区块链的优秀[文章](https://medium.com/@lhartikk/a-blockchain-in-200-lines-of-code-963cc1cc0e54)。我们已经将其移植到 Go 并添加了一些额外的好处 -- 比如在 Web 浏览器上查看您的区块链。如果您对下面的教程有任何疑问，请务必加入我们的  [**Telegram**](https://t.me/joinchat/FX6A7UThIZ1WOUNirDS_Ew)。可向我们咨询任何问题！
 
-本教程中的数据示例将基于您的休息信条。毕竟我们是一家医疗保健公司 :-) 为了有趣，记录您一分钟的[脉搏数](https://www.webmd.com/heart-disease/heart-failure/watching-rate-monitor#1)（每分钟的节拍）并记住这个数值。  
+本教程中的数据示例将基于您的休息心跳。毕竟我们是一家医疗保健公司 :-) 为了有趣，记录您一分钟的[脉搏数](https://www.webmd.com/heart-disease/heart-failure/watching-rate-monitor#1)（每分钟的节拍）并记住这个数值。  
 
 世界上几乎每个开发者都听说过区块链，但大多数仍然不知道它的工作原理。他们可能仅仅是因为比特币才知道它，又或者是因为他们听说过智能合约之类的东西。这篇文章试图通过帮助您用 Go 编写自己的简单区块链，使用少于 200 行代码来揭开区块链的神秘面纱！到本教程结束时，您将能够编写并在本地运行您自己的区块链，以及在 Web 浏览器中查看它。 
 
-有什么比创建自己的区块链来了解区块链更好的方法么？
+还有什么比通过创建自己的区块链来了解区块链更好的方法呢？
 
 **您将能够做什么**
 
@@ -35,17 +35,17 @@
 
 ### **让我们开始吧！**
 
-**计划**
+**准备工作**
 
  既然我们决定用 Go 编写代码，我们假设您已经有了一些 Go 方面的经验，在[安装](https://golang.org/dl/)并配置 Go 之后，我们还需要获取以下软件包：
 
 `go get github.com/davecgh/go-spew/spew`
 
-**Spew** 允许我们在控制台中查看格式清晰的 `structs` 和 `slices`，这对我们来说很友好。
+**Spew** 允许我们在控制台中查看格式清晰的 `structs` 和 `slices`，您值得拥有。
 
 `go get github.com/gorilla/mux`
 
-**Gorilla/mux** 是编写 Web 程序处理的流行包。我们需要这个。
+**Gorilla/mux** 是编写 Web 程序处理的常用包。我们将会使用它。
 
 `go get github.com/joho/godotenv`
 
@@ -61,7 +61,7 @@
 
 这是我们需要导入的以及包声明，我们把它们写入 `main.go`
 
-```
+```go
 package main
 
 import (
@@ -84,7 +84,7 @@ import (
 
 我们将定义组成区块链的每个块的 `struct` 。别担心，我们会在一分钟内结束所有这些字段的含义。
 
-```
+```go
 type Block struct {
 	Index     int
 	Timestamp string
@@ -94,21 +94,21 @@ type Block struct {
 }
 ```
 
-每个 `Block`  都包含将被写入区块链的数据，并表示当您获取脉冲速率时的每一种情况（还记得您在文章的开头就这样做了么？）。
+每个 `Block`  都包含将被写入区块链的数据，并表示当您获取脉搏速率时的每一种情况（还记得您在文章的开头就这样做了么？）。
 
 *   `Index` 是数据记录在区块链中的位置
 *   `Timestamp` 是自动确定写入数据的时间
-*   `BPM` 每分钟节拍数，是您的脉搏么
-*   `Hash` 是表示此数据记录的 SHA256 标识符
+*   `BPM` 每分钟节拍数，是您的脉搏率
+*   `Hash` 是表示此数据记录的 SHA256 标识符
 *   `PrevHash` 是链中上一条记录的 SHA256 标识符
 
 我们也对区块链本身建模，它只是 `Block` 中的 `slice`:
 
-```
+```go
 var Blockchain []Block
 ```
 
-那么散列如何适合于块和块链呢？我们使用散列来识别和保持块的正确顺序。通过确保每个 `Block` 中的 `PrevHash` 与前面 `Block` 块中的 `Hash` 相同，我们知道组成链的块的正确顺序。  
+那么散列如何适合于块和区块链呢？我们使用散列表来识别和保持块的正确顺序。通过确保每个 `Block` 中的 `PrevHash` 与前面 `Block` 块中的 `Hash` 相同，我们知道组成链的块的正确顺序。
 
 ![](https://cdn-images-1.medium.com/max/800/1*VwT5d8NPjUpI7HiwPa--cQ.png)
 
@@ -116,12 +116,12 @@ var Blockchain []Block
 
 那我们为什么需要散列呢？我们散列数据的两个主要原因：
 
-*   为了节省空间。散列从块上的所有数据派生。在我们的示例中，我们只有几个数据点，但是假设我们有来自数百、数千或者数百万以前的数据块的数据。将数据散列到单个 SHA256 字符串或**散列这些散列**中要比一遍又一遍地复制前面块中的所有数据高效得多。
+*   为了节省空间。散列从块上的所有数据派生。在我们的示例中，我们只有几个数据点，但是假设我们有来自数百、数千或者数百万以前的数据块的数据。将数据散列到单个 SHA256 字符串或**散列这些散列表**中要比一遍又一遍地复制前面块中的所有数据高效得多。
 *   保护区块链的完整性。通过存储前面的散列，就像我们在上面的图中所做的那样，我们能够确保区块链中的块是按正确的顺序排列的。如果恶意的一方试图操纵数据（例如，改变我们的心率来确定人寿保险的价格），散列将迅速改变，链将“断裂”，每个人都会知道也不再信任这个恶意链。 
 
 让我们编写一个函数，该函数接受 `Block` 数据并创建 i 的 SHA256 散列值。 
 
-```
+```go
 
 func calculateHash(block Block) string {
 	record := string(block.Index) + block.Timestamp + string(block.BPM) + block.PrevHash
@@ -134,7 +134,7 @@ func calculateHash(block Block) string {
 
 这个 `calculateHash` 函数将 `Block` 的 `Index`、`Timestamp`、`BPM`,我们提供块的 `PrevHash`链接为一个参数，并以字符串的形式返回 SHA256 散列。现在我们可以用一个新的 `generateBlock` 函数来生成一个包含我们所需的所有元素的新块。我们需要提供它前面的块，以便我们可以得到它的散列以及在 BPM 中的脉搏率。不要担心传入 `BPM int` 参数。我们稍后再讨论这个问题。  
 
-```
+```go
 func generateBlock(oldBlock Block, BPM int) (Block, error) {
 
 	var newBlock Block
@@ -155,9 +155,9 @@ func generateBlock(oldBlock Block, BPM int) (Block, error) {
 
 **块校验**
 
-我们需要编写一些函数来确保这些块没有被篡改。我们还通过检查 `Index` 来实现这一点，以确保它们按预期的速度递增。我们还将检查以确保我们的 `PrevHash` 与前一个块的 `Hash` 相同。最后，我们希望通过在当前块上再次运行 `calculateHash` 函数来重新检查当前块的散列。让我们编写一个 `isBlockValid`  函数，他执行所有这些操作并返回一个 `bool`。如果它通过了我们所有的检查，它就会返回  `true`：
+我们需要编写一些函数来确保这些块没有被篡改。我们还通过检查 `Index` 来实现这一点，以确保它们按预期的速度递增。我们还将检查以确保我们的 `PrevHash` 与前一个块的 `Hash` 相同。最后，我们希望通过在当前块上再次运行 `calculateHash` 函数来重新检查当前块的散列。让我们编写一个 `isBlockValid`  函数，它执行所有这些操作并返回一个 `bool`。如果它通过了我们所有的检查，它就会返回  `true`：
 
-```
+```go
 func isBlockValid(newBlock, oldBlock Block) bool {
 	if oldBlock.Index+1 != newBlock.Index {
 		return false
@@ -177,13 +177,13 @@ func isBlockValid(newBlock, oldBlock Block) bool {
 
 如果我们遇到这样一个问题，即区块链生态系统的两个节点都向它们的链添加了区块，并且我们都收到了它们。我们选择哪一个作为真理的来源？我们选择最长的链条。这是一个经典的区块链问题，与邪恶的演员没有任何关系。
 
-两个含义良好的节点可能只是具有不同的链长，因此很自然地，较长的节点将是最新的，并且拥有最新的块。因此，让我们确保我们正在接受的新链要比我们现有的链长。如果是，我们可以用具有新块的新链覆盖我们的链。
+两个有意义的节点可能只是具有不同的链长，因此很自然地，较长的节点将是最新的，并且拥有最新的块。因此，让我们确保我们正在接受的新链要比我们现有的链长。如果是，我们可以用具有新块的新链覆盖我们的链。
 
 ![](https://cdn-images-1.medium.com/max/800/1*H1fCp0NLun0Kn0wIy0dyEA.png)
 
 为了实现这一点，我们简单地比较了链片的长度：
 
-```
+```go
 func replaceChain(newBlocks []Block) {
 	if len(newBlocks) > len(Blockchain) {
 		Blockchain = newBlocks
@@ -191,7 +191,7 @@ func replaceChain(newBlocks []Block) {
 }
 ```
 
-如果你已经走了这么远，就鼓励一下自己！基本上，我们已经用我们需要的各种函数编写了区块链的内部结构。
+如果你已经坚持做到这里，就鼓励一下自己！基本上，我们已经用我们需要的各种函数编写了区块链的内部结构。
 
 现在，我们想要一个方便的方式来查看我们的区块链，并写入它，理想情况下是我们可以在一个网络浏览器显示我们的朋友！
 
@@ -201,9 +201,9 @@ func replaceChain(newBlocks []Block) {
 
 我们将使用您之前下载的 [Gorilla/mux](https://github.com/gorilla/mux) 包来为我们完成繁重的任务。
 
-我们在稍后调用的 `run` 函数中创建服务器。function that we’ll call later.
+我们在稍后调用的 `run` 函数中创建服务器。
 
-```
+```go
 func run() error {
 	mux := makeMuxRouter()
 	httpAddr := os.Getenv("ADDR")
@@ -224,11 +224,11 @@ func run() error {
 }
 ```
 
-注意我们选择的端口来自之前创建的 `.env` 文件。我们使用 `log.Println` 为自己提供一个快速控制台消息来让我们的服务器启动并运行。我们对武器进行了一些配置，然后对 `ListenAndServe` 进行配置。很标准的 Go。
+注意我们选择的端口来自之前创建的 `.env` 文件。我们使用 `log.Println` 为自己提供一个实时的控制台消息来让我们的服务器启动并运行。我们对武器进行了一些配置，然后对 `ListenAndServe` 进行配置。很标准的 Go。
 
 现在我们需要编写 `makeMuxRouter` 函数，该函数将定义所有的处理程序。要在浏览器中查看并写入我们的区块链，我们只需要两个路由，我们将保持它们的简单性。如果我们发送一个 `GET` 请求到 `localhost`，我们将查看到区块链。如果我们发送一 `POST` 请求，我们可以进行写入。
 
-```
+```go
 func makeMuxRouter() http.Handler {
 	muxRouter := mux.NewRouter()
 	muxRouter.HandleFunc("/", handleGetBlockchain).Methods("GET")
@@ -239,7 +239,7 @@ func makeMuxRouter() http.Handler {
 
 这是我们的 `GET` 处理器。
 
-```
+```go
 func handleGetBlockchain(w http.ResponseWriter, r *http.Request) {
 	bytes, err := json.MarshalIndent(Blockchain, "", "  ")
 	if err != nil {
@@ -250,11 +250,11 @@ func handleGetBlockchain(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-我们只需以 JSON 格式回写完整的的区块链，就可以通过访问 `localhost:8080` 在任意浏览器中能够查看。我们在 `.env` 文件中将 `ADDR`  变量设置为 8080，如果您更改它，请确保访问您的正确端口。
+我们只需以 JSON 格式回写完整的的区块链，就可以通过访问 `localhost:8080` 在任意浏览器中能够查看。我们在 `.env` 文件中将 `ADDR` 变量设置为 8080，如果您更改它，请确保访问您的正确端口。
 
 我们的 `POST` 请求有些复杂（复杂情况并不多）。首先，我们需要一个新的 `Message` `struct`。稍后我们会解释为什么我们需要它。
 
-```
+```go
 type Message struct {
 	BPM int
 }
@@ -262,7 +262,7 @@ type Message struct {
 
 下面是编写新块的处理程序的代码。你看完后我们会带你再看一遍。
 
-```
+```go
 func handleWriteBlock(w http.ResponseWriter, r *http.Request) {
 	var m Message
 
@@ -289,22 +289,22 @@ func handleWriteBlock(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-为破门使用独立 `Message` 结构的原因是接收 JSON POST 请求的请求体，我们将使用它来编写新的块。这允许我们简单地发送带有以下主体的 POST 请求，我们的处理程序将为我们填充该块的其余部分：
+使用独立 `Message` 结构的原因是接收 JSON POST 请求的请求体，我们将使用它来编写新的块。这允许我们简单地发送带有以下主体的 POST 请求，我们的处理程序将为我们填充该块的其余部分：
 
 `{"BPM":50}`
 
-`50` 是一个以每分钟为单位的脉搏频率的例子。用您自己的整数来改变脉搏率。 
+`50` 是一个以每分钟为单位的脉搏频率的例子。用一个整数值来改变您的脉搏率。 
 
 在将请求体解码成 `var m Message` 结构后，通过传入前一个块并将新的脉冲率传递到前面编写的 `generateBlock` 函数中来创建一个新块。这就是函数创建新块所需的全部内容。我们使用之前创建的 `isBlockValid` 函数，快速检查以确保新块是正常的。 
 
 **一些笔记**
 
 *   `_spew.Dump_` **是一个方便的函数，它可以将我们的结构打印到控制台上。这对调试很有用。**
-*    **对于测试 POST 请求，我们喜欢使用** [**Postman**](https://www.getpostman.com/apps)**。 `curl`** 也工作得很好，如果您不能离开终端的话。
+*    **对于测试 POST 请求，我们喜欢使用** [**Postman**](https://www.getpostman.com/apps)**。 `curl`** 效果也很好，如果您不能离开终端的话。
 
 当我们的 POST 请求成功或者失败时，我们希望得到相应的通知。我们使用了一个小包装器函数  `respondWithJSON` 来让我们知道发生了什么。记住，在 Go 中，千万不要忽略它们。[要优雅地处理它们](https://dave.cheney.net/2016/04/27/dont-just-check-errors-handle-them-gracefully)。
 
-```
+```go
 func respondWithJSON(w http.ResponseWriter, r *http.Request, code int, payload interface{}) {
 	response, err := json.MarshalIndent(payload, "", "  ")
 	if err != nil {
@@ -316,11 +316,11 @@ func respondWithJSON(w http.ResponseWriter, r *http.Request, code int, payload i
 	w.Write(response)
 }
 ```
-**快要结束了！**
+**快要完成了！**
 
 让我们将所有不同的区块链函数、Web 处理程序和 Web 服务器链接在一个简短、干净的 `main` 函数中：
 
-```
+```go
 func main() {
 	err := godotenv.Load()
 	if err != nil {
@@ -378,14 +378,14 @@ func main() {
 
 如果您想我们添加诸如工作证明和人际关系之类的内容，请务必在我们的 [**Telegram**](https://t.me/joinchat/FX6A7UThIZ1WOUNirDS_Ew) 中告诉我们，并关注我们的 [**Twitter**](https://twitter.com/myCoralHealth)！这是和我们沟通的最好的方式。问我们问题，给出反馈，并建议新教程。我们很想听听您的意见。
 
-### 通过流行的需求，我们增加了本教程的后续内容！看看它们！
+### 通过大众需求，我们增加了本教程的后续内容！看看它们！
 
 *   [**区块链网络**](https://medium.com/@mycoralhealth/part-2-networking-code-your-own-blockchain-in-less-than-200-lines-of-go-17fe1dad46e1)
 *   [**编码您自己的区块链挖掘算法！**](https://medium.com/@mycoralhealth/code-your-own-blockchain-mining-algorithm-in-go-82c6a71aba1f)
 *   [**了解如何使用 ipfs，通过区块链存储数据。**](https://medium.com/@mycoralhealth/learn-to-securely-share-files-on-the-blockchain-with-ipfs-219ee47df54c)
 *   [**编写您自己的树桩算法证明！**](https://medium.com/@mycoralhealth/code-your-own-proof-of-stake-blockchain-in-go-610cd99aa658)
 
-想了解更多关于珊瑚健康的信息，以及我们如何使用区块链来推进个性化药物研究，请访问我们的[网站](https://mycoralhealth.com/).
+想了解更多关于珊瑚健康的信息，以及我们如何使用区块链来推进个性化用药/治疗研究，请访问我们的[网站](https://mycoralhealth.com/).
 
 
 ---
