@@ -49,13 +49,13 @@
 
 `go get github.com/joho/godotenv`
 
-**Gotdotenv** 允许我们从根目录中读取 `.env` 文件，这样就不必对HTTP端口之类的内容进行硬编码。我们也需要这个。
+**Gotdotenv** 允许我们从根目录中读取 `.env` 文件，这样就不必对 HTTP 端口之类的内容进行硬编码。我们也需要这个。
 
 我们在根目录中创建 `.env` 文件，定义为 http 请求提供服务的端口。只需要该文件添加一行：
 
 `ADDR=8080`
 
-创建 `main.go`文件。从现在开始，所有的内容都会写进这个文件中，并且将用少于 200 代码进行编码。
+创建 `main.go` 文件。从现在开始，所有的内容都会写进这个文件中，并且将用少于 200 代码进行编码。
 
 **导入**
 
@@ -94,7 +94,7 @@ type Block struct {
 }
 ```
 
-每个 `Block`  都包含将被写入区块链的数据，并表示当您获取脉搏速率时的每一种情况（还记得您在文章的开头就这样做了么？）。
+每个 `Block`  都包含将被写入区块链的数据，并表示当您获取脉搏率时的每一种情况（还记得您在文章的开头就这样做了么？）。
 
 *   `Index` 是数据记录在区块链中的位置
 *   `Timestamp` 是自动确定写入数据的时间
@@ -132,7 +132,7 @@ func calculateHash(block Block) string {
 }
 ```
 
-这个 `calculateHash` 函数将 `Block` 的 `Index`、`Timestamp`、`BPM`,我们提供块的 `PrevHash`链接为一个参数，并以字符串的形式返回 SHA256 散列。现在我们可以用一个新的 `generateBlock` 函数来生成一个包含我们所需的所有元素的新块。我们需要提供它前面的块，以便我们可以得到它的散列以及在 BPM 中的脉搏率。不要担心传入 `BPM int` 参数。我们稍后再讨论这个问题。  
+这个 `calculateHash` 函数将 `Block` 的 `Index`、`Timestamp`、`BPM`，我们提供块的 `PrevHash` 链接为一个参数，并以字符串的形式返回 SHA256 散列。现在我们可以用一个新的 `generateBlock` 函数来生成一个包含我们所需的所有元素的新块。我们需要提供它前面的块，以便我们可以得到它的散列以及在 BPM 中的脉搏率。不要担心传入 `BPM int` 参数。我们稍后再讨论这个问题。  
 
 ```go
 func generateBlock(oldBlock Block, BPM int) (Block, error) {
@@ -380,8 +380,8 @@ func main() {
 
 ### 通过大众需求，我们增加了本教程的后续内容！看看它们！
 
-*   [**区块链网络**](https://medium.com/@mycoralhealth/part-2-networking-code-your-own-blockchain-in-less-than-200-lines-of-go-17fe1dad46e1)
-*   [**编码您自己的区块链挖掘算法！**](https://medium.com/@mycoralhealth/code-your-own-blockchain-mining-algorithm-in-go-82c6a71aba1f)
+*   [**区块链网络**](https://medium.com/@mycoralhealth/part-2-networking-code-your-own-blockchain-in-less-than-200-lines-of-go-17fe1dad46e1)。
+*   [**编码您自己的区块链挖掘算法！**](https://medium.com/@mycoralhealth/code-your-own-blockchain-mining-algorithm-in-go-82c6a71aba1f)
 *   [**了解如何使用 ipfs，通过区块链存储数据。**](https://medium.com/@mycoralhealth/learn-to-securely-share-files-on-the-blockchain-with-ipfs-219ee47df54c)
 *   [**编写您自己的树桩算法证明！**](https://medium.com/@mycoralhealth/code-your-own-proof-of-stake-blockchain-in-go-610cd99aa658)
 
