@@ -3,21 +3,21 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/interpreting-predictive-models-with-skater-unboxing-model-opacity.md](https://github.com/xitu/gold-miner/blob/master/TODO1/interpreting-predictive-models-with-skater-unboxing-model-opacity.md)
 > * 译者：radialine
-> * 校对者：
+> * 校对者：ALVINYEH
 
 # 用 Skater 解读预测模型：打开模型的黑箱
 
-本文将把模型解释作为一个理论概念进行深入探讨，并对Skater进行高度概括。
+本文将把模型解释作为一个理论概念进行深入探讨，并对 Skater 进行高度概括。
 
 ![Cube model](https://d3tdunqjn7n0wj.cloudfront.net/360x240/model-3211631_1920_crop-e62adea7b63b80a1074f5023cec1e4cd.jpg)
 
 立方体模型 (来源：[Pixabay](https://pixabay.com/en/model-3d-background-cube-blue-3211631/))
 
-> [查看 Pramit Choudhary 在纽约 AI 会议上的演讲 “深度学习中的模型评估” 2018.04.29 - 2018.05.02](https://conferences.oreilly.com/artificial-intelligence/ai-ny/public/schedule/detail/65118?intcmp=il-data-confreg-lp-ainy18_new_site_interpreting-predictive-models-with-skater-unboxing-model-opacity_top_cta)
+> [查看 Pramit Choudhary 在纽约 AI 会议上的演讲“深度学习中的模型评估” 2018.04.29 - 2018.05.02](https://conferences.oreilly.com/artificial-intelligence/ai-ny/public/schedule/detail/65118?intcmp=il-data-confreg-lp-ainy18_new_site_interpreting-predictive-models-with-skater-unboxing-model-opacity_top_cta)
 
 多年来，机器学习（ML）已经取得了长足的发展，它从纯粹的学术环境中作为实验研究的存在，到被行业广泛采用成为自动化解决实际问题的手段。但是，由于对这些模型的内部运作方式缺乏了解，这些算法通常仍被视为魔术（参见 [Ali Rahimi, NIPS'17](https://youtu.be/Qi1Yry33TQE)）。因此常常需要通常验证这种 ML 系统的运作过程，以使算法更加可信。研究人员和从业人员正在努力克服依赖可能对人类生活产生意想不到影响的预测模型所带来的道德问题，这类预测模型有评估抵押贷款资格模型，或为自动驾驶汽车提供动力的算法（参见 Kate Crawford, NIPS '17，“[偏差带来的麻烦](https://youtu.be/6Uao14eIyGc)”）。数据科学家 Cathy O’Neil 最近撰写了[一本书](https://weaponsofmathdestructionbook.com/author/mathbabe/)，其内容全部是可解释性差模型的例子，这些模型提出了对潜在社会大屠杀的严重警告 —— 例如，[犯罪判决模型中的模型偏见](https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing)或在建立财务模型时因为人为偏见使用虚假特征的例子。
 
-![Traditional methods for interpreting predictive models are not enough](https://d3ansictanv2wj.cloudfront.net/FigureArt-0eccc75aa2e5a5f72e91ef990cb2dc59.png)
+![传统的解释预测模型的方法是不够的](https://d3ansictanv2wj.cloudfront.net/FigureArt-0eccc75aa2e5a5f72e91ef990cb2dc59.png)
 
 图 1. 传统的解释预测模型的方法是不够的。图片由 Pramit Choudhary 提供。
 
@@ -41,22 +41,22 @@
 
 模型解释是为了更好地理解数学模型，这种理解最有可能通过更好地了解模型中重要的特征来获得。理解方式可以是使用流行的数据探索和可视化方法，如[层次聚类](https://en.wikipedia.org/wiki/Hierarchical_clustering)和降维技术来实现。模型的进一步评估和验证可以使用比较模型的算法，使用模型特性评分方法 —— AUC-ROC（[接收者操作特征曲线下面积](http://www.math.utah.edu/~gamez/files/ROC-Curves.pdf)）和 MAE（[平均绝对误差](https://medium.com/human-in-a-machine-world/mae-and-rmse-which-metric-is-better-e60ac3bde13d)）进行分类和回归。让我们快速谈谈其中的一些方法。
 
-### 探索性数据分析和可视化Exploratory data analysis and visualization
+### 探索性数据分析和可视化
 
 探索性数据分析可以让您更好地了解您的数据，从而提供构建更好预测模型所需的专业知识。在模型建立过程中，理解模型意味着探索数据集，以便可视化并理解其“有意义”的内部结构，并以容易理解的方式提取有强影响力的直观特征。这种方式对于无监督学习问题可能更加有用。我们来看看属于模型解释类别的一些流行数据探索技术。
 
 *   **聚类：** [分层聚类](https://en.wikipedia.org/wiki/Hierarchical_clustering)
 *   **降维：** [主成分分析（PCA）](https://lazyprogrammer.me/tutorial-principal-components-analysis-pca/) (见图 2)
-*   **变分自编码器：** 使用[变分自编码器(https://arxiv.org/pdf/1606.05908.pdf)（VAE）]的自动生成方法
+*   **变分自编码器：** 使用[变分自编码器](https://arxiv.org/pdf/1606.05908.pdf)（VAE）的自动生成方法
 *   **[流形学习](https://en.wikipedia.org/wiki/Nonlinear_dimensionality_reduction)：**  t 分布式随机相邻嵌入（[t-SNE](https://distill.pub/2016/misread-tsne/)）（见图 3）
 
 在本文中，我们将重点讨论监督学习问题的模型解释。
 
-![Interpreting high-dimensional MNIST data](https://d3ansictanv2wj.cloudfront.net/Figure1-f6f5f16454b0120a1607e76836236b23.png)
+![解释高维 MNIST 数据](https://d3ansictanv2wj.cloudfront.net/Figure1-f6f5f16454b0120a1607e76836236b23.png)
 
 图 2. 使用 PCA 以三维可视化技术解释高维 MNIST 数据，以便使用 TensorFlow 构建领域知识。图片由 Pramit Choudhary 和 Datascience.com 团队提供。
 
-![Visualizing MNIST data](https://d3ansictanv2wj.cloudfront.net/Figure2-2cd5b53ded24be25e376418d041a0bee.png)
+![可视化 MNIST 数据](https://d3ansictanv2wj.cloudfront.net/Figure2-2cd5b53ded24be25e376418d041a0bee.png)
 
 图 3. 用 sklearn 库可视化 MNIST 数据。图片由 Pramit Choudhary 和 Datascience.com 团队提供。
 
@@ -67,7 +67,7 @@
 *   **分类：**: 如 F1-scores, AUC-ROC, brier-score 等。如图3，该图显示了 AUC-ROC 如何帮助衡量流行虹膜数据集的分类模型的模型性能。ROC AUC 是一种广泛使用的指标，有助于在真阳性率（TPR）和假阳性率（FPR）之间进行平衡。它在处理偏斜类问题上也非常强大。如图 3 所示，86％的 ROC AUC（ 2 类）意味着训练的分类器向正例（属于 2 类）分配较高分数的概率与负例（不属于 2 类）相比约为 86％。这种汇总的性能指标有助于阐明模型的整体性能。但是，如果分类错误，它并不能给出关于错误分类原因的详细信息 —— 为什么属于 0 类的例子被分类为 2 类，属于 2 类的例子却被分为 1 类？不能忽略的事实是，每个错误分类都可能造成不同程度的潜在业务影响。
 *   **回归：**: 例如，r-square 值（[决定系数](http://itfeature.com/correlation-and-regression-analysis/coefficient-of-determination)），均方误差等。
 
-![Measuring model performance ROC curve](https://d3ansictanv2wj.cloudfront.net/Figure3-ed3699bfaad2cc688ba68e0c0bf1dea5.png)
+![使用 ROC 曲线衡量模型性能](https://d3ansictanv2wj.cloudfront.net/Figure3-ed3699bfaad2cc688ba68e0c0bf1dea5.png)
 
 图 4. 通过计算 Iris 数据集的接收者操作特征曲线（ROC 曲线）下面积，使用 sklearn 库解决多类问题，从而测量模型性能。图片由 Pramit Choudhary 和 Datascience.com 团队提供。
 
@@ -87,7 +87,7 @@
 
 算法的性能和可解释性之间似乎有一个基本的平衡。从业人员通常使用更容易解释的模型（简单线性，逻辑回归和决策树）来解决问题，因为这些模型更容易被验证和解释。如果能够理解其内部原理或其决策方法，就能够信任模型。但是，当人们试图应用这些预测模型，使用高维异构复杂数据集来解决实际问题（自动化信贷应用程序，检测欺诈或预顾客终生价值）时，解释模型往往在性能方面表现不好。由于从业者试图使用更复杂的算法来提高模型的性能（如准确性），他们常常[难以在性能和可解释性之间取得平衡](https://www.oreilly.com/ideas/predictive-modeling-striking-a-balance-between-accuracy-and-interpretability).
 
-![Model performance versus interpretability](https://d3ansictanv2wj.cloudfront.net/Figure4-c4705368d6a633a22b5aa7ef3aa027d4.png)
+![模型性能和可解释性的对比](https://d3ansictanv2wj.cloudfront.net/Figure4-c4705368d6a633a22b5aa7ef3aa027d4.png)
 
 图 5. 模型性能和可解释性的对比。图片由 Pramit Choudhary 和 Datascience.com 团队提供。
 
@@ -103,7 +103,7 @@
 
 Skater 是一个 Python 库，旨在解释使用任意语言或框架的任意类型的预测模型的内部行为。目前，它能够解释监督学习算法。
 
-![Summarizing global and local interpretation](https://d3ansictanv2wj.cloudfront.net/Figure5-452aaf48771d7e201175954c1de6eed1.png)
+![全局解释和局部解释的总结](https://d3ansictanv2wj.cloudfront.net/Figure5-452aaf48771d7e201175954c1de6eed1.png)
 
 图 6. 全局解释和局部解释的总结。图片由 Pramit Choudhary 和 Datascience.com 团队提供。
 
@@ -111,7 +111,7 @@ Skater 是一个 Python 库，旨在解释使用任意语言或框架的任意�
 
 这种方法有助于我们根据分析用例将解释性应用到机器学习系统中 —— 因为事后操作可能很昂贵，并且可能不是一直需要宽泛的解释。Skater 库采用了面向对象和功能性编程范例，以保证提供可伸缩性和并发性的同时，保持代码简洁性。图 7 显示了这种可解释系统的高层次简述。
 
-![interpretable ML system using Skater](https://d3ansictanv2wj.cloudfront.net/Figure6-53d0033f567200502a5a56f5610257ba.png)
+![使用 Skater 解释机器学习系统](https://d3ansictanv2wj.cloudfront.net/Figure6-53d0033f567200502a5a56f5610257ba.png)
 
 图 7. 一个使用 Skater 的可解释的机器学习系统，使用者能够优化泛化错误，从而获得更好和更有可信度的预测。图片由 Pramit Choudhary 和 Datascience.com 团队提供。
 
@@ -127,17 +127,17 @@ Skater 是一个 Python 库，旨在解释使用任意语言或框架的任意�
 from
 ```
 
-![Model comparison using Skater](https://d3ansictanv2wj.cloudfront.net/Figure7-0762e7d37531c3e573a90e21cfb224a1.png)
+![使用 Skater 对比模型](https://d3ansictanv2wj.cloudfront.net/Figure7-0762e7d37531c3e573a90e21cfb224a1.png)
 
 图 8. [不同类型的监督预测模型之间使用 Skater 的比较结果](https://github.com/datascienceinc/Skater/blob/master/examples/ensemble_model.ipynb). 图中, 模型未知特征的重要性被用于比较有相似 F1 值的不同模型。根据模型的预测变量的假设、响应变量及其关系，图中可以看到不同的模型类型对特征进行的排序的不同。这种比较方法使得机器学习领域的专家们或非专家们可以评估其选定特征的相关性并得到一致的结果。图片由 Pramit Choudhary 和 Datascience.com 团队提供。
 
-*   **识别潜在变量的交互并建立域知识：Identify latent variable interactions and build domain knowledge:** 从业者可使用 Skater 来发现隐藏的特征交互 —— 例如，信用风险模型应该如何使用银行客户的信用记录，如何通过检查账户现状或现有信用额度来批准或拒绝他申请信用卡的请求，并使用该信息进行未来的分析。
+*   **识别潜在变量的交互并建立域知识：** 从业者可使用 Skater 来发现隐藏的特征交互 —— 例如，信用风险模型应该如何使用银行客户的信用记录，如何通过检查账户现状或现有信用额度来批准或拒绝他申请信用卡的请求，并使用该信息进行未来的分析。
 
 ```
 # Global Interpretation with model agnostic partial dependence plot
 ```
 
-![hidden feature interactions](https://d3ansictanv2wj.cloudfront.net/Figure8-87aabff2421d4c265668030d8c1503cc.jpg)
+![隐藏特征之间的交互](https://d3ansictanv2wj.cloudfront.net/Figure8-87aabff2421d4c265668030d8c1503cc.jpg)
 
 图 9. [使用乳腺癌数据集的单向和双向交互发掘隐藏特征的交互](https://github.com/datascienceinc/Skater/blob/master/examples/ensemble_model.ipynb)。图片由 Pramit Choudhary 和 Datascience.com 团队提供。
 
@@ -145,13 +145,13 @@ from
 # Model agnostic local interpretation using LIME
 ```
 
-![feature relevance for a single prediction](https://d3ansictanv2wj.cloudfront.net/Figure9-178eb31a31928a269986be6c36f5b03a.png)
+![单个预测的特征相关性](https://d3ansictanv2wj.cloudfront.net/Figure9-178eb31a31928a269986be6c36f5b03a.png)
 
 图 10. [通过 LIME，使用线性代理模型理解单个预测的特征相关性](https://github.com/datascienceinc/Skater/blob/master/examples/ensemble_model.ipynb)。 图片由 Pramit Choudhary 和 Datascience.com 团队提供。
 
 *   **衡量模型性能在部署到生产环境后如何变化：** Skater 保证了模型在内存中和运行时模型解释能力的一致性，帮助使用者衡量不同模型版本间的特征交互是如何变化的（如图 11）。若使用机器学习市场上现有预测模型（例如 algorithmia），这种形式的解释也能帮助建立对模型的信任。例如，在图 12 和图 13 中，分别用 indico.io 和 algorithmia 的两个现有情绪分析模型对 IMBD 内《纸牌屋》的影评进行分析，并使用 Skater 比较两个模型并进行评价。两个模型都得出了影评中的情绪是积极情绪的结果（1 为积极，0 为消极）。但是，indico.io 的模型考虑了停止词，例如“是”，“那个”和“属于”，这些词在大多情况下应该被忽略。因此，尽管与 algorithmia 相比，indico.io 的模型能得出更高概率的积极情绪，但最后被采用的可能是 indico.io 的模型。
 
-![need for interpretation for in-memory and deployed model](https://d3ansictanv2wj.cloudfront.net/Figure10-a24a43e0b4db2062565adf38a04e75f1.png)
+![仍在内存中的模型和已部署模型的解释需求](https://d3ansictanv2wj.cloudfront.net/Figure10-a24a43e0b4db2062565adf38a04e75f1.png)
 
 图 11. 高亮了在内存中的模型（未运行的模型）和已部署模型（已运行的模型）的解释需求。更好的解释特征的方法会带来更好的特征工程和特征选择。图像来源：在 Juhi Sodani 和 Datascience.com 团队的帮助下设计的图像。
 
@@ -159,11 +159,11 @@ from
 # Using Skater to verify third-party ML marketplace models
 ```
 
-![Enabling interpretability in using off-the-shelf models](https://d3ansictanv2wj.cloudfront.net/Figure11-17c1f9d9e6d651ea22eddb16e9116947.png)
+![解释现有模型](https://d3ansictanv2wj.cloudfront.net/Figure11-17c1f9d9e6d651ea22eddb16e9116947.png)
 
 图 12. 在使用 [indico.io 的预训练过的部署模型](https://github.com/datascienceinc/Skater/blob/master/examples/third_party_model/algorithmia_indico.ipynb)中解释模型。图片由 Pramit Choudhary 和 Datascience.com 团队提供。
 
-![Interpreting high-dimensional MNIST data](https://d3ansictanv2wj.cloudfront.net/Figure12-609514e916a9ff0655369f5384e59961.png)
+![解释现有模型](https://d3ansictanv2wj.cloudfront.net/Figure12-609514e916a9ff0655369f5384e59961.png)
 
 图 13. 在使用 [algorithmia 的预训练过的部署模型](https://github.com/datascienceinc/Skater/blob/master/examples/third_party_model/algorithmia_indico.ipynb)中解释模型。图片由 Pramit Choudhary 和 Datascience.com 团队提供。
 
@@ -173,7 +173,7 @@ from
 
 在本系列的第二部分中，我们将深入了解 Skater 目前支持的算法以及未来的规划，以更好地进行模型解释。
 
-![Summarizing Skater](https://d3ansictanv2wj.cloudfront.net/Figure13-9efdc5a382e6e30da27c611a3b58288d.png)
+![总结 Skater](https://d3ansictanv2wj.cloudfront.net/Figure13-9efdc5a382e6e30da27c611a3b58288d.png)
 
 图 14. 总结 Skater。图片由 Pramit Choudhary 和 Datascience.com 团队提供。
 
