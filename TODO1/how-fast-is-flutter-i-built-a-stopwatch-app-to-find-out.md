@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-fast-is-flutter-i-built-a-stopwatch-app-to-find-out.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-fast-is-flutter-i-built-a-stopwatch-app-to-find-out.md)
 > * 译者：[ALVINYEH](https://github.com/ALVINYEH)
-> * 校对者：
+> * 校对者：[swants](https://github.com/swants)、[talisk](https://github.com/talisk)
 
 # Flutter 到底有多快？我开发了秒表应用来弄清楚。
 
@@ -27,7 +27,7 @@
 **太长了读不下去，直接看评论**：不如原生好。你必须正确地做到：
 
 *   频繁地重绘用户界面代价是很高的。
-*   如果你经常调用`setState()`方法，请确保尽可能少地重新绘制用户界面。
+*   如果你经常调用 `setState()` 方法，请确保尽可能少地重新绘制用户界面。
 
 我用 Flutter 框架开发了一个简单的秒表应用程序，并分析了 CPU 和内存的使用情况。
 
@@ -103,8 +103,8 @@ class TimerPageState extends State<TimerPage> {
 这是如何运作的呢？
 
 *   两个按钮分别管理秒表对象的状态。
-*   当秒表更新时，`setState()`会被调用，然后触发`build()`方法。
-*   作为`build()`方法的一部分, 一个新的`TimerText`会被创建。
+*   当秒表更新时，`setState()` 会被调用，然后触发 `build()` 方法。
+*   作为 `build()` 方法的一部分, 一个新的 `TimerText` 会被创建。
 
 `TimerText` 类看起来是这样的：
 
@@ -144,25 +144,25 @@ class TimerTextState extends State<TimerText> {
 
 一些注意事项：
 
-*   定时器由`TimerTextState`对象所创建。每次触发回调后，**如果秒表在运行**，就会调用 `setState()`方法。
-*   这会调用`build()`方法，并在更新的时候绘制一个新的`Text`对象。
+*   定时器由 `TimerTextState` 对象所创建。每次触发回调后，**如果秒表在运行**，就会调用 `setState()` 方法。
+*   这会调用 `build()` 方法，并在更新的时候绘制一个新的 `Text` 对象。
 
 ### 正确使用
 
-当我一开始开发这个 App 时，我管理了`TimerPage`类中对全部状态以及 UI 界面，其中包括了秒表和定时器。
+当我一开始开发这个 App 时，我管理了 `TimerPage` 类中对全部状态以及 UI 界面，其中包括了秒表和定时器。
 
-这就意味着每次触发定时器的回调时，会重新构建整个 UI 界面。这是不必要且低效的：只有包含了过去时间的`Text`对象需要重新绘制 —— 特别是当每 30 毫秒计时器触发一次时。
+这就意味着每次触发定时器的回调时，会重新构建整个 UI 界面。这是不必要且低效的：只有包含了过去时间的 `Text` 对象需要重新绘制 —— 特别是当每 30 毫秒计时器触发一次时。
 
 如果我们考虑到未优化和已优化的部件树层次结构，这一点就变得更显而易见了：
 
 ![](https://cdn-images-1.medium.com/max/800/1*YrJV5E7jWzr3K0kjPBs1Mg.png)
 
-创建一个独立的的`TimerText`类来封装定时器的逻辑，可以降低 CPU 负担。
+创建一个独立的的 `TimerText` 类来封装定时器的逻辑，可以降低 CPU 负担。
 
 换句话说：
 
 *   频繁地重绘 UI 用户界面代价很高。
-*   如果经常调用`setState()`方法，确保尽可能少地重新绘制 UI 用户界面。
+*   如果经常调用 `setState()` 方法，确保尽可能少地重新绘制 UI 用户界面。
 
 Flutter 官方文档指出该平台对[快速分配](https://flutter.io/faq/#why-did-flutter-choose-to-use-dart)进行了优化：
 
@@ -174,20 +174,20 @@ Flutter 官方文档指出该平台对[快速分配](https://flutter.io/faq/#why
 
 自从这篇文章发表以来，一些谷歌工程师注意到了这一点，并做出了进一步的优化。
 
-更新后的代码通过将`TimerText`分为了两个`MinutesAndSeconds`和`Hundredths`控件，进一步减少了用户界面的重绘：
+更新后的代码通过将 `TimerText` 分为了两个 `MinutesAndSeconds` 和 `Hundredths` 控件，进一步减少了用户界面的重绘：
 
 ![](https://cdn-images-1.medium.com/max/800/1*NQxSNVJDSnZnC3DohLBTAA.png)
 
 进一步的 UI 界面优化（来源：谷歌）。
 
-它们将自己注册为定时器回调的监听器，并且只有状态发生改变时才会重新绘制。这进一步优化了性能，因为现在每 30 毫秒只有`Hundredths`控件会渲染。
+它们将自己注册为定时器回调的监听器，并且只有状态发生改变时才会重新绘制。这进一步优化了性能，因为现在每 30 毫秒只有 `Hundredths` 控件会渲染。
 
 ### 基准测试结果
 
 我在发布模式下运行了这个应用程序（`flutter run --release`）：
 
 *   设备： **iPhone 6**运行于**iOS 11.2**
-*   Flutter 版本：[0.1.5](https://github.com/flutter/flutter/releases/tag/v0.1.5) (2018年2月22日).
+*   Flutter 版本：[0.1.5](https://github.com/flutter/flutter/releases/tag/v0.1.5) (2018年2月22日)。
 *   Xcode 9.2
 
 我在 Xcode 中监控了三分钟的 CPU 和内存使用情况，并测试了三种不同模式下的性能表现。
@@ -199,14 +199,14 @@ Flutter 官方文档指出该平台对[快速分配](https://flutter.io/faq/#why
 
 ![](https://cdn-images-1.medium.com/max/800/1*F1GR6mVtVEwRjaJptEuEwQ.png)
 
-#### 优化方案 1 （独立的定时文本控件）
+#### 优化方案 1（独立的定时文本控件）
 
 *   CPU 使用率：25%
 *   内存使用率：25 MB （App启动后的基准线为 17 MB）
 
 ![](https://cdn-images-1.medium.com/max/800/1*dTO3vThMfGx0LYrLqAIlAQ.png)
 
-#### 优化方案2 （独立的分钟、秒、分秒控件）
+#### 优化方案 2（独立的分钟、秒、分秒控件）
 
 *   CPU Usage: 15% to 25%
 *   内存使用率：26 MB （App启动后的基准线为 17 MB）
@@ -271,18 +271,18 @@ class TimerTextFormatter {
 
 最后结果如何？
 
-**Flutter.** CPU： 25%，内存：22 MB
+**Flutter.** CPU：25%，内存：22 MB
 
-**iOS.** CPU： 7%，内存：8 MB
+**iOS.** CPU：7%，内存：8 MB
 
 Flutter 实现方式在 CPU 的使用情况超过了 3 倍以上，内存上也同样是 3 倍之多。
 
-当定时器停止运行时，CPU 的使用率回到了 1% 。这就证实了全部 CPU 的工作都用于处理定时器的回调和重新绘制 UI 界面。
+当定时器停止运行时，CPU 的使用率回到了 1%。这就证实了全部 CPU 的工作都用于处理定时器的回调和重新绘制 UI 界面。
 
 这并不足以让人惊讶。
 
-*   在 Flutter 应用中，我每次都创建和渲染了一个新的`Text`控件。
-*   在 iOS 中，我只是更新了`UILabel`的文本。
+*   在 Flutter 应用中，我每次都创建和渲染了一个新的 `Text` 控件。
+*   在 iOS 中，我只是更新了 `UILabel` 的文本。
 
 “嘿！” —— 我听到你说的。“但是时间格式的代码是不同的！你怎么知道 CPU 使用率的差异不是因为这个？”
 
