@@ -9,7 +9,7 @@
 
 本文将把模型解释作为一个理论概念进行深入探讨，并对 Skater 进行高度概括。
 
-![Cube model](https://d3tdunqjn7n0wj.cloudfront.net/360x240/model-3211631_1920_crop-e62adea7b63b80a1074f5023cec1e4cd.jpg)
+![立方体模型](https://d3tdunqjn7n0wj.cloudfront.net/360x240/model-3211631_1920_crop-e62adea7b63b80a1074f5023cec1e4cd.jpg)
 
 立方体模型 (来源：[Pixabay](https://pixabay.com/en/model-3d-background-cube-blue-3211631/))
 
@@ -124,7 +124,7 @@ Skater 是一个 Python 库，旨在解释使用任意语言或框架的任意�
 *   **评估模型对完整数据集或单个数据的预测成果：** 通过利用和改进现有技术的组合，Skater 能够做到全局的和局部的模型解释。对于全局解释，目前 Skater 利用模型未知[变量的重要性](http://ftp.uni-bayreuth.de/math/statlib/R/CRAN/doc/vignettes/caret/caretVarImp.pdf)和部分依赖关系图来判断模型的偏差, 并了解模型的一般行为。为了验证模型对单一预测的决策策略是否可靠，Skater 采用了一种名为"局部可理解的与模型无关的解释"（[LIME](https://arxiv.org/abs/1602.04938)）的新技术，它使用局部替代模型来评估性能（点击获取 [LIME 的更多细节](https://www.oreilly.com/learning/introduction-to-local-interpretable-model-agnostic-explanations-lime)）。其他算法正在研发中。
 
 ```
-from
+从
 ```
 
 ![使用 Skater 对比模型](https://d3ansictanv2wj.cloudfront.net/Figure7-0762e7d37531c3e573a90e21cfb224a1.png)
@@ -134,7 +134,7 @@ from
 *   **识别潜在变量的交互并建立域知识：** 从业者可使用 Skater 来发现隐藏的特征交互 —— 例如，信用风险模型应该如何使用银行客户的信用记录，如何通过检查账户现状或现有信用额度来批准或拒绝他申请信用卡的请求，并使用该信息进行未来的分析。
 
 ```
-# Global Interpretation with model agnostic partial dependence plot
+# 用模型不可知的部分依赖图进行的全局模型解释
 ```
 
 ![隐藏特征之间的交互](https://d3ansictanv2wj.cloudfront.net/Figure8-87aabff2421d4c265668030d8c1503cc.jpg)
@@ -142,7 +142,7 @@ from
 图 9. [使用乳腺癌数据集的单向和双向交互发掘隐藏特征的交互](https://github.com/datascienceinc/Skater/blob/master/examples/ensemble_model.ipynb)。图片由 Pramit Choudhary 和 Datascience.com 团队提供。
 
 ```
-# Model agnostic local interpretation using LIME
+# 使用 LIME 做模型不可知的局部解释
 ```
 
 ![单个预测的特征相关性](https://d3ansictanv2wj.cloudfront.net/Figure9-178eb31a31928a269986be6c36f5b03a.png)
@@ -156,7 +156,7 @@ from
 图 11. 高亮了在内存中的模型（未运行的模型）和已部署模型（已运行的模型）的解释需求。更好的解释特征的方法会带来更好的特征工程和特征选择。图像来源：在 Juhi Sodani 和 Datascience.com 团队的帮助下设计的图像。
 
 ```
-# Using Skater to verify third-party ML marketplace models
+# 使用 Skater 验证市场上的第三方 ML 模型
 ```
 
 ![解释现有模型](https://d3ansictanv2wj.cloudfront.net/Figure11-17c1f9d9e6d651ea22eddb16e9116947.png)
