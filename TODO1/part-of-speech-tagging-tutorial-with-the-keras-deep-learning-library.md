@@ -11,11 +11,11 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/1*pBYBy6lReldGq1qNTasU2Q.jpeg)
 
-Photo by [Joao Tzanno](https://unsplash.com/photos/G9_Euqxpu4k?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/search/photos/stamp?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)
+由 [Unsplash](https://unsplash.com/search/photos/stamp?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) 的[Joao Tzanno](https://unsplash.com/photos/G9_Euqxpu4k?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) 拍摄
 
 在 [自然语言处理](https://en.wikipedia.org/wiki/Natural_language_processing) 中，词性标注是一件众所周知的任务。它指的是将单词按词性分类（也称为词类或词性类别）。这是一种有监督的学习方法。
 
-[人工神经网络](https://en.wikipedia.org/wiki/Artificial_neural_network) 已成功应用于词性标注，并且性能卓越。我们将重点关注多层感知器网络，这是一种非常流行的网络结构，被视为解决词性标注问题的最新技术。（译者注： 对于词性标注问题，RNN 有更好的效果）
+[人工神经网络](https://en.wikipedia.org/wiki/Artificial_neural_network) 已成功应用于词性标注，并且表现卓越。我们将重点关注多层感知器网络，这是一种非常流行的网络结构，被视为解决词性标注问题的最新技术。（译者注： 对于词性标注问题，RNN 有更好的效果）
 
 **让我们把它付诸实践!**
 
@@ -25,7 +25,7 @@ Photo by [Joao Tzanno](https://unsplash.com/photos/G9_Euqxpu4k?utm_source=unspla
 
 为了保证我们的实验能够复现，我们需要设置一个随机种子:
 
-```
+```python
 import numpy as np
 
 CUSTOM_SEED = 42
@@ -38,7 +38,7 @@ np.random.seed(CUSTOM_SEED)
 
 首先，我们下载已标注的语料库：
 
-```
+```python
 import nltk
 
 nltk.download('treebank')
@@ -46,7 +46,7 @@ nltk.download('treebank')
 
 然后我们载入标记好的句子。
 
-```
+```python
 from nltk.corpus import treebank
 
 sentences = treebank.tagged_sents(tagset='universal')
@@ -54,7 +54,7 @@ sentences = treebank.tagged_sents(tagset='universal')
 
 然后我们随便挑个句子看看：
 
-```
+```python
 import random
 
 print(random.choice(sentences))
@@ -62,14 +62,14 @@ print(random.choice(sentences))
 
 这是一个元组列表 `(term, tag)`.
 
-```
+```python
 [('Mr.', 'NOUN'), ('Otero', 'NOUN'), (',', '.'), ('who', 'PRON'), ('apparently', 'ADV'), ('has', 'VERB'), ('an', 'DET'), ('unpublished', 'ADJ'), ('number', 'NOUN'), (',', '.'), ('also', 'ADV'), ('could', 'VERB'), ("n't", 'ADV'), ('be', 'VERB'), ('reached', 'VERB'), ('.', '.')]
 ```
 
 这是一个包含四十多个不同类别的多分类问题。 
 Treebank 语料库上的词性标注是一个众所周知的问题，我们期望模型精度能超过 95%。 
 
-```
+```python
 tags = set([
     tag for sentence in treebank.tagged_sents() 
     for _, tag in sentence
@@ -79,7 +79,7 @@ print('nb_tags: %sntags: %s' % (len(tags), tags))
 
 产生了一个：
 
-```
+```python
 46
 {'IN', 'VBZ', '.', 'RP', 'DT', 'VB', 'RBR', 'CC', '#', ',', 'VBP', 'WP$', 'PRP', 'JJ', 
 'RBS', 'LS', 'PRP$', 'WRB', 'JJS', '``', 'EX', 'POS', 'WP', 'VBN', '-LRB-', '-RRB-', 
@@ -99,7 +99,7 @@ print('nb_tags: %sntags: %s' % (len(tags), tags))
 
 我们使用大约 60% 的标记句子进行训练，20% 作为验证集，20% 用于评估我们的模型。
 
-```
+```python
 train_test_cutoff = int(.80 * len(sentences)) 
 training_sentences = sentences[:train_test_cutoff]
 testing_sentences = sentences[train_test_cutoff:]
@@ -115,7 +115,7 @@ training_sentences = training_sentences[train_val_cutoff:]
 对于每一个单词而言，我们根据提取单词的句子创建一个特征字典。
 这些属性包含该单词的前后单词以及它的前缀和后缀。
 
-```
+```python
 def add_basic_features(sentence_terms, index):
     """ 计算基本的单词特征
         :param sentence_terms: [w1, w2, ...] 
@@ -147,7 +147,7 @@ def add_basic_features(sentence_terms, index):
 
 我们将句子列表映射到特征字典列表。
 
-```
+```python
 def untag(tagged_sentence):
     """ 
     删除每个标记词语的标签。
@@ -179,7 +179,7 @@ for pos_tags in tagged_sentences:
 
 对于训练、验证和测试句子，我们将属性分为 X （输入变量）和 y （输出变量）。
 
-```
+```python
 X_train, y_train = transform_to_dataset(training_sentences)
 X_test, y_test = transform_to_dataset(testing_sentences)
 X_val, y_val = transform_to_dataset(validation_sentences)
@@ -190,7 +190,7 @@ X_val, y_val = transform_to_dataset(validation_sentences)
 我们的神经网络将向量作为输入，所以我们需要将我们的字典特征转换为向量。
 `sklearn` 的内建函数 `[DictVectorizer](http://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.DictVectorizer.html)` 提供一种非常直接的方法进行向量转换。
 
-```
+```python
 from sklearn.feature_extraction import DictVectorizer
 
 # 用我们的特征集拟合字典向量生成器
@@ -205,14 +205,14 @@ X_val = dict_vectorizer.transform(X_val)
 
 我们的 y 向量必须被编码。输出变量包含 49 个不同的字符串值，它们被编码为整数。
 
-```
+```python
 from sklearn.preprocessing import LabelEncoder
 
 # 用类别列表训练标签编码器
 label_encoder = LabelEncoder()
 label_encoder.fit(y_train + y_test + y_val)
 
-# Encode class values as integers
+# 将类别值编码成整数
 y_train = label_encoder.transform(y_train)
 y_test = label_encoder.transform(y_test)
 y_val = label_encoder.transform(y_val)
@@ -220,7 +220,7 @@ y_val = label_encoder.transform(y_val)
 
 然后我们需要将这些编码值转换为虚拟变量（独热编码）。
 
-```
+```python
 # 将整数转换为虚拟变量（独热编码）
 from keras.utils import np_utils
 
@@ -243,7 +243,7 @@ y_val = np_utils.to_categorical(y_val)
 对于多分类问题，我们想让神经元输出转换为概率，这可以使用 _softmax_ 函数完成。我们决定使用多分类交叉熵（_categorical cross-entropy_）损失函数。
 最后我们选择 [Adam optimizer](https://arxiv.org/abs/1412.6980) 因为似乎它非常适合分类任务.
 
-```
+```python
 from keras.models import Sequential
 from keras.layers import Dense, Dropout, Activation
 
@@ -272,7 +272,7 @@ model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accur
 所有的模型参数定义如下。我们需要提供一个返回神经网络结构的函数 (`build_fn`)。
 隐藏的神经元的数量和批量大小的选择非常随意。我们将迭代次数设置为 5，因为随着迭代次数增多，多层感知器就会开始过拟合(即使用了 [Dropout Regularization](https://arxiv.org/abs/1207.0580))。
 
-```
+```python
 from keras.wrappers.scikit_learn import KerasClassifier
 
 model_params = {
@@ -294,13 +294,13 @@ clf = KerasClassifier(**model_params)
 
 最后，我们在训练集上训练多层感知器。
 
-```
+```python
 hist = clf.fit(X_train, y_train)
 ```
 
 通过回调历史（callback history），我们能够可视化模型的 _log loss_ 和 _accuracy_ 随时间的变化。
 
-```
+```python
 import matplotlib.pyplot as plt
 
 def plot_model_performance(train_loss, train_acc, train_val_loss, train_val_acc):
@@ -332,7 +332,7 @@ def plot_model_performance(train_loss, train_acc, train_val_loss, train_val_acc)
 
 然后，看看模型的性能:
 
-```
+```python
 plot_model_performance(
     train_loss=hist.history.get('loss', []),
     train_acc=hist.history.get('acc', []),
@@ -351,7 +351,7 @@ plot_model_performance(
 
 由于我们模型已经训练好了，所以我们可以直接评估它:
 
-```
+```python
 score = clf.score(X_test, y_test)
 print(score)
 
@@ -363,7 +363,7 @@ print(score)
 
 ### 模型的可视化
 
-```
+```python
 from keras.utils import plot_model
 
 plot_model(clf.model, to_file='model.png', show_shapes=True)
@@ -375,7 +375,7 @@ plot_model(clf.model, to_file='model.png', show_shapes=True)
 
 保存 Keras 模型非常简单，因为 Keras 库提供了一种本地化的方法：
 
-```
+```python
 clf.model.save('/tmp/keras_mlp.h5')
 ```
 
