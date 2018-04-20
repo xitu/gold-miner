@@ -1,3 +1,4 @@
+* [使用 Web3 和 Vue.js 来创建你的第一个以太坊 dAPP（第三部分）](https://juejin.im/post/5ac36e1f518825556a729c3f) ([sakila1012](https://github.com/sakila1012) 翻译)
 * [使用 Web3 和 Vue.js 来创建你的第一个以太坊 dAPP（第二部分）](https://juejin.im/post/5aba0870f265da23a2292245) ([L9m](https://github.com/L9m) 翻译)
 * [带你了解以太坊第 2 层扩容方案：State Channels、Plasma 和 Truebit](https://juejin.im/post/5aa1f63c518825558804f85b) ([JohnJiangLA](https://github.com/JohnJiangLA) 翻译)
 * [使用 Web3 和 Vue.js 来创建你的第一个以太坊 dAPP（第一部分）](https://juejin.im/post/5aa7a8d2518825558805128d) ([foxxnuaa](https://github.com/foxxnuaa) 翻译)

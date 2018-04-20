@@ -2,42 +2,42 @@
 > * 原文作者：[Auth0](https://auth0.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/developing-games-with-react-redux-and-svg-part-2.md](https://github.com/xitu/gold-miner/blob/master/TODO1/developing-games-with-react-redux-and-svg-part-2.md)
-> * 译者：
-> * 校对者：
+> * 译者：[zephyrJS](https://github.com/zephyrJS)
+> * 校对者：[anxsec](https://github.com/anxsec)、[smileShirely](https://github.com/smileShirely)
 
-**TL;DR:** In this series, you will learn how to make React and Redux control a bunch of SVG elements to create a game. The knowledge acquired throughout this series will also allow you to create other types of animations that are orchestrated by React and Redux, not only games. You can find the final code developed in this article in the following GitHub repository: [Aliens Go Home - Part 2](https://github.com/auth0-blog/aliens-go-home-part-2)
+**TL;DR:** 在这个系列里，您将学会用 React 和 Redux 来控制一些 SVG 元素来创建一个游戏。通过本系列的学习，您不仅能创建游戏，还能用 React 和 Redux 来开发其他类型的动画。源码请参考 GitHub 仓库：[Aliens Go Home - Part 2](https://github.com/auth0-blog/aliens-go-home-part-2) 。
 
 * * *
 
-## The React Game: Aliens, Go Home!
+## React 游戏：Aliens, Go Home!
 
-The game that you will develop in this series is called _Aliens, Go Home!_ The idea of this game is simple, you will have a cannon and will have to kill flying objects that are trying to invade the Earth. To kill these flying objects you will have to point and click on an SVG canvas to make your cannon shoot.
+在这个系列里您将要开发的游戏叫做 Aliens, Go Home! 这个游戏的想法很简单，您将拥有一座炮台，然后您必须消灭那些试图入侵地球的飞碟。为了消灭这些飞碟，您必须在 SVG 画布上通过瞄准和点击来操作炮台的射击。
 
-If you are curious, you can find [the final game up and running here](http://bang-bang.digituz.com.br/). But don't play too much, you have work to do!
+如果您很好奇, 您可以找到 [the final game up and running here](http://bang-bang.digituz.com.br/)。但别太沉迷其中，您还要完成它的开发！
 
-> "I'm creating a game with React, Redux, and SVG elements."
+> “我用 React、Redux 和 SVG 创建了一个游戏。”
 
-## Previously, on Part 1
+## 前文概要 Part 1
 
-In [the first part of this series](https://auth0.com/blog/developing-games-with-react-redux-and-svg-part-1/), you have used [`create-react-app`](https://github.com/facebookincubator/create-react-app) to bootstrap your React application and you have installed and configured Redux to manage the game state. After that, you have learned how to use SVG with React components while creating game elements like `Sky`, `Ground`, the `CannonBase`, and the `CannonPipe`. Finally, you added the aiming capability to your cannon by using an event listener and a [JavaScript interval](https://www.w3schools.com/jsref/met_win_setinterval.asp) to trigger a Redux _action_ that updates the `CannonPipe` angle.
+在 [本系列的第一部分](https://auth0.com/blog/developing-games-with-react-redux-and-svg-part-1/)，您使用 [`create-react-app`](https://github.com/facebookincubator/create-react-app) 来开始您的 React 应用并安装和配置了 Redux 来管理游戏的状态。之后，您学会了如何将 SVG 和 React 组合在一起来创建诸如 `Sky`、`Ground`、`CannonBase` 和 `CannonPipe` 等游戏元素。最后，为了给炮台添加瞄准功能，您使用了一个事件监听器和 [JavaScript interval](https://www.w3schools.com/jsref/met_win_setinterval.asp) 触发 Redux _action_ 来更新 `CannonPipe` 的角度。
 
-These actions paved the way to understand how you can create your game (and other animations) with React, Redux, and SVG.
+前面的这些学习是为了更好地理解如何使用 React、Redux 和 SVG 来创建游戏（或动画）而做准备。
 
-> **Note:** If, for whatever reason, you don't have the code created in [the first part of the series](https://auth0.com/blog/developing-games-with-react-redux-and-svg-part-1/), you can simply clone it from [this GitHub repository](https://github.com/auth0-blog/aliens-go-home-part-1). After cloning it, you will be able to follow the instructions in the sections that follow.
+> **注意：**不管出于什么原因，如果您没有 [本系列第一部分](https://auth0.com/blog/developing-games-with-react-redux-and-svg-part-1/) 的源码，您可以很容易的从 [这个 GitHub 仓库](https://github.com/auth0-blog/aliens-go-home-part-1) 进行克隆。在克隆完之后，您只需要按照下面几节中的说明进行操作即可。
 
-## Creating More SVG React Components
+## 创建更多的 React 组件
 
-The subsections that follow will show you how to create the rest of your game elements. Although they might look lengthy, they are quite simple and similar. You may even be able to follow the instructions in a matter of minutes.
+下面的几节将向您展示如何创建其余的游戏元素。尽管它们看起来很长，但它们都非常的简单和相似。按照指示去做，您可能几分钟就搞定了。
 
-After this section, you will find the most interesting topics of this part of the series. These topics are entitled _Making Flying Objects Appear Randomly_ and _Using CSS Animation to Move Flying Objects_.
+在这之后，您将看到本章最有趣的部分。它们分别是 **使飞碟随机出现** 和 **使用 CSS 动画移动飞碟**。
 
-### Creating the Cannonball React Component
+### 创建 Cannonball 组件
 
-The next element that you will create is the `CannonBall`. Note that, for now, you will keep this element inanimate. But don't worry! Soon (after creating all other elements), you will make your cannon shoot multiple cannonballs and kill some aliens.
+接下来您将创建 `CannonBall` 组件。请注意，目前它还不会动。但别担心！很快（在创建完其他组件之后），您将用炮台发射多个炮弹并杀死一些外星人。
 
-To create this component, add a new file called `CannonBall.jsx` inside the `./src/components` directory with the following code:
+为了创建这组件，需要在 `./src/components` 创建 `CannonBall.jsx` 文件并添加如下代码：
 
-```
+```JavaScript
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -68,35 +68,35 @@ CannonBall.propTypes = {
 export default CannonBall;
 ```
 
-As you can see, to make a cannonball appear in your canvas, you will have to pass to it an object that contains the `x` and `y` properties. If you don't have that much experience with `prop-types`, this might have been the first time that you have used `PropTypes.shape`. Luckily, this feature is self-explanatory.
+如您所见，要使炮弹出现在画布中，您必须向它传递一个包含 `x` 和 `y` 属性的对象。如果您对 `prop-types` 还不熟，这可能是您第一次使用 `PropTypes.shape`。幸运的是，这个特性不言自明。
 
-After creating this component, you might want to see it on your canvas. To do that, simply add the following tag inside the `svg` element of the `Canvas` component (you will also need to add `import CannonBall from './CannonBall';`):
+创建此组件后，您可能希望在画布上看到它。为此，在 `Canvas` 组件里的 `svg` 元素中添加如下代码（当然您还需要加上 `import CannonBall from './CannonBall';`）：
 
 ```
 <CannonBall position={{x: 0, y: -100}}/>
 ```
 
-Just keep in mind that, if you add it before an element that occupies the same position, you will not see it. So, to play safe, just add it as the last element (right after `<CannonBase />`). Then, you can open your game in a web browser to see your new component.
+请记住，如果把它放在同一位置的元素之前，您将看不到它。因此，为了安全起见，将把它放在最后（就是 `<CannonBase />` 之后）。之后，您就可以在浏览器里看到您的新组件了。
 
-> If you don't remember how to do that, you just have to run `npm start` in the project root and then open [http://localhost:3000](http://localhost:3000) in your preferred browser. Also, **don't** forget to commit this code to your repository before moving on.
+> 如果您忘记了怎么操作的，您只需在项目根目录运行 `npm start` 然后在浏览器打开 [http://localhost:3000](http://localhost:3000) 。此外，**千万别**忘记在进行下一步之前把代码提交到您的仓库里。
 
-### Creating the Current Score React Component
+### 创建 Current Score 组件
 
-Another React component that you will have to create is the `CurrentScore`. As the name states, you will use this component to show users what their current scores are. That is, whenever they kill a flying object, your game will increase the value in this component by one and show to them.
+接下来您将创建另一个组件 `CurrentScore`。顾名思义，您将使用该组件向用户显示他们当前的分数。也就是说，每当他们消灭一只飞碟时，在这个组件中代表分数的值将会加一，并显示给他们。
 
-Before creating this component, you might want to add some neat font to use on it. Actually, you might want to configure and use a font on the whole game, so it won't look like a monotonous game. You can browse and choose a font from whatever place you want, but if you are not interested in investing time on this, you can simply add the following line at the top of the `./src/index.css` file:
+在创建此组件之前，您可能需要添加并使用一些漂亮字体。实际上，您可能希望在整个游戏中配置和使用字体，这样看起来就不会像一个单调的游戏了。您可以从任何地方浏览并选择一种字体，但如果您想不花时间在这个上面，您只需在 `./src/index.css` 文件的顶部添加如下代码即可：
 
-```
+```JavaScript
 @import url('https://fonts.googleapis.com/css?family=Joti+One');
 
 /* other rules ... */
 ```
 
-This will make your game load [the Joti One font from Google](https://fonts.google.com/specimen/Joti+One).
+这将使您的游戏载入 [来自 Google 的 Joti One 字体](https://fonts.google.com/specimen/Joti+One)。
 
-After that, you can create the `CurrentScore.jsx` file inside the `./src/components` directory with the following code:
+之后，您可以在 `./src/components` 目录下创建 `CurrentScore.jsx` 文件并添加如下代码：
 
-```
+```JavaScript
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -123,13 +123,13 @@ CurrentScore.propTypes = {
 export default CurrentScore;
 ```
 
-> **Note:** If you haven't configured Joti One (or if you configured some other font), you will have to change this code accordingly. Besides that, this font is used by other components that you will create, so keep in mind that you might have to update these components as well.
+> **注意：** 如果您尚未配置 Joti One（或者配置了其他字体），您将需要修改相应的代码。如果您以后创建的其他组件也会用到该字体，请记住，您也需要更新这些组件。
 
-As you can see, the `CurrentScore` component requires a single property: `score`. As your game is not currently counting the score, to see this component right now, you will have to add a hard-coded value. So, inside the `Canvas` component, add `<CurrentScore score={15} />` as the last element inside the `svg` element. Also, add the `import` statement to fetch this component (`import CurrentScore from './CurrentScore';`).
+如您所见，`CurrentScore` 组件仅需要一个属性：`score`。由于您的游戏还没有计算分数，为了马上看到这个组件，您需要传入一个硬编码的值。因此，在 `Canvas` 组件里，往 `svg` 中末尾添加 `<CurrentScore score={15} />`。另外，还需要添加 `import` 语句来获取这个组件（`import CurrentScore from './CurrentScore';`）。
 
-If you try to see your new component now, you **won't** be able to. This is because your component is using a `filter` called `shadow`. Although this shadow filter is not necessary, it will make your game looks nicer. Besides that, [adding a shadow to SVG elements is easy](https://www.w3schools.com/graphics/svg_feoffset.asp). To do that, simply add the following element at the top of your `svg`:
+如果您想现在就看到新组件，您**将无法**如愿以偿。这是因为组件使用了叫做 `shadow` 的 `filter`。尽管它不是必须的，但它将使您的游戏更加好看。另外，[给 SVG 元素添加阴影是十分简单的](https://www.w3schools.com/graphics/svg_feoffset.asp)。为此，仅需要在 `svg` 顶部添加如下代码：
 
-```
+```JavaScript
 <defs>
   <filter id="shadow">
     <feDropShadow dx="1" dy="1" stdDeviation="2" />
@@ -137,9 +137,9 @@ If you try to see your new component now, you **won't** be able to. This is beca
 </defs>
 ```
 
-In the end, your `Canvas` component will look like this:
+最后，您的 `Canvas` 将如下所示：
 
-```
+```JavaScript
 import React from 'react';
 import PropTypes from 'prop-types';
 import Sky from './Sky';
@@ -181,21 +181,21 @@ Canvas.propTypes = {
 export default Canvas;
 ```
 
-And your game will look like this:
+而您的游戏看起来将会是这样：
 
 ![Showing current score and cannonball in the Alien, Go Home! app.](https://cdn.auth0.com/blog/aliens-go-home/current-score-and-cannon-ball.png)
 
-Not bad, huh?!
+还不错，对吧？！
 
-### Creating the Flying Object React Component
+### 创建 Flying Object 组件
 
-What about creating React components to represent your flying objects now? Flying objects are not circles, nor rectangles. They usually have two parts (the top and the base) and these parts are usually rounded. That's why you are going to use two React components to create your flying objects: the `FlyingObjectBase` and the `FlyingObjectTop`.
+现在如何创建 React 组件来展示飞碟呢？飞碟既不是圆形，也不是矩形。它们通常有两个部分 (顶部和底部)，这些部分一般是圆形的。这就是为什么您将需要用 `FlyingObjectBase` 和 `FlyingObjectTop` 这个组件来创建飞碟的原因。
 
-One of these components is going to use a Bezier Cubic curve to define its shapes. The other one is going to be an ellipse.
+其中一个组件将使用贝塞尔三次曲线来定义其形状。另一个则是一个椭圆。
 
-You can start by creating the first one, the `FlyingObjectBase`, in a new file called `FlyingObjectBase.jsx` inside the `./src/components` directory. This is the code to define this component:
+先从第一个组件 `FlyingObjectBase` 开始，在 `./src/components` 目录下创建 `FlyingObjectBase.jsx` 文件。并在该组件里添加如下代码：
 
-```
+```JavaScript
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -226,9 +226,9 @@ FlyingObjectBase.propTypes = {
 export default FlyingObjectBase;
 ```
 
-After that, you can define the top part of the flying object. To do that, create a file called `FlyingObjectTop.jsx` inside the `./src/components` directory and add the following code to it:
+之后，您可以定义飞碟的顶部。为此，在 `./src/components` 目录下创建 `FlyingObjectTop.jsx` 文件并添加如下代码：
 
-```
+```JavaScript
 import React from 'react';
 import PropTypes from 'prop-types';
 import { pathFromBezierCurve } from '../utils/formulas';
@@ -280,11 +280,11 @@ FlyingObjectTop.propTypes = {
 export default FlyingObjectTop;
 ```
 
-If you don't know how the Bezier Cubic curve works, [take a look at the previous article](https://auth0.com/blog/developing-games-with-react-redux-and-svg-part-1/).
+如果您还不知道贝塞尔三次曲线的核心工作原理，[您可以查看上一篇文章](https://auth0.com/blog/developing-games-with-react-redux-and-svg-part-1/) 来学习。
 
-This is enough to show some flying objects but, as you are going to make them randomly appear in your game, it will be easier to treat these components as a single element. To do that, simply create a new file called `FlyingObject.jsx` beside the other two and add the following code to it:
+但为了让它们在游戏中能够随机的出现，我们很容易的能够想到将这些组件作为一个个单独的元素。为此，需在另外两个文件旁边创建一个名为 `FlyingObject.jsx` 的新文件，并添加如下代码：
 
-```
+```JavaScript
 import React from 'react';
 import PropTypes from 'prop-types';
 import FlyingObjectBase from './FlyingObjectBase';
@@ -307,9 +307,9 @@ FlyingObject.propTypes = {
 export default FlyingObject;
 ```
 
-Now, to add flying objects in your game, you can simply use one React component. To see this in action, update your `Canvas` component as follows:
+现在，想要在游戏中添加飞碟，只需使用一个 React 组件即可。为了达到目的，在 `Canvas` 组件添加如下代码：
 
-```
+```JavaScript
 // ... other imports
 import FlyingObject from './FlyingObject';
 
@@ -329,11 +329,11 @@ const Canvas = (props) => {
 
 ![Creating flying objects in your React game](https://cdn.auth0.com/blog/aliens-go-home/flying-objects.png)
 
-### Creating the Heart React Component
+### 创建 Heart 组件
 
-The next component that you will need to create is the component that represents gamers' lives. There is nothing better to represent a life than a `Heart`. So, create a new file called `Heart.jsx` inside the `./src/components` directory and add the following code to it:
+接下来您需要创建显示玩家生命值的组件，没有什么词是比用 `Heart` 更能代表生命了。所以，在 `./src/components` 目录下创建 `Heart.jsx` 文件并添加如下代码：
 
-```
+```JavaScript
 import React from 'react';
 import PropTypes from 'prop-types';
 import { pathFromBezierCurve } from '../utils/formulas';
@@ -407,21 +407,21 @@ Heart.propTypes = {
 export default Heart;
 ```
 
-As you can see, to create the shape of a heart with SVG, you need two Cubic Bezier curves: one for each side of the heart. You also had to add a `position` property to this component. You needed this because your game will provide users more than one life, so you will need to show each one of these hearts in a different position.
+如您所见，要想用 SVG 创建心形，您需要两条三次 Bezier 曲线：爱心的两边各一条。您还须向该组件添加一个 `position` 属性。这是因为游戏会给玩家提供不只一条生命，所以这些爱心需要显示在不同的位置。
 
-For now, you can simply add one heart to your canvas so you can confirm that everything is working properly. To do this, open the `Canvas` component and add:
+现在，您可以先将一颗心添加到画布中，这样您就可以确认一切工作正常。为此，打开 `Canvas` 组件并添加如下代码：
 
-```
+```JavaScript
 <Heart position={{x: -300, y: 35}} />
 ```
 
-This must be the last element inside the `svg` element. Also, don't forget to add the import statement (`import Heart from './Heart';`).
+这必须是 `svg` 里最后一个元素。另外，别忘了添加 import 语句（`import Heart from './Heart';`）。
 
-### Creating the Start Game Button React Component
+### 创建 Start Game 按钮组件
 
-Every game needs a start button. So, to create one for your game, add a file called `StartGame.jsx` beside the other components and add the following code to it:
+每个游戏都需要一个开始按钮。因此，为了创建它，在其他组件旁创建 `StartGame.jsx` 并添加如下代码：
 
-```
+```JavaScript
 import React from 'react';
 import PropTypes from 'prop-types';
 import { gameWidth } from '../utils/constants';
@@ -470,26 +470,26 @@ StartGame.propTypes = {
 export default StartGame;
 ```
 
-As you don't need to show more than one `StartGame` button at a time, you have defined that this component is statically positioned in your game (`x: 0` and `y: -150`). There are other two differences between this component and the others that you have defined before:
+由于不需要同时显示多个 `StartGame` 按钮，您需要为该组件在游戏里设置固定的位置（`x: 0` and `y: -150`）。该组件与您之前定义的其他组件之间还有另外两个不同之处：
 
-*   First, this component is expecting a function called `onClick`. This function is used to listen for clicks in this button and will trigger a Redux action to inform your app that it must start a new game.
-*   Second, this component is using a constant called `gameWidth` that you haven't defined yet. This constant will represent the area that is usable. Any area beyond that will have no purpose besides making your app fill the whole screen.
+*   首先，这个组件需要一个名为 `onClick` 的函数。这个函数是用来监听按钮点击事件，并将触发一个 Redux action 来使您的应用开始一个新的游戏。
+*   其次，这个组件正在使用一个您还没有定义的常量 `gameWidth`。这个常数将表示可用的区域。除了您的应用所占据的位置之外，其他区域都将不可用。
 
-To define the `gameWidth` constant, open the `./src/utils/constants.js` file and add the following line to it:
+为了定义 `gameWidth` 常量，需要打开 `./src/utils/constants.js` 文件并添加如下代码：
 
-```
+```JavaScript
 export const gameWidth = 800;
 ```
 
-After that, you can add the `StartGame` component to your `Canvas` by appending `<StartGame onClick={() => console.log('Aliens, Go Home!')} />` as the last element inside the `svg` element. As always, don't forget to add the import statement (`import StartGame from './StartGame';`).
+之后，您可以将 `StartGame` 组件添加到 `Canvas` 中，方式是往 `svg` 元素中的末尾添加 `<StartGame onClick={() => console.log('Aliens, Go Home!')} />`。跟之前一样，别忘了添加 import 语句（`import StartGame from './StartGame';`）。
 
 ![Aliens, Go Home! game with the start game button](https://cdn.auth0.com/blog/aliens-go-home/adding-start-button.png)
 
-### Creating the Title React Component
+### 创建 Title 组件
 
-The last component that you will create in this part of the series is the `Title` component. You already have a name for your game: _Aliens, Go Home!_. So, adding the title to it is as easy as creating a new file called `Title.jsx` (inside the `./src/components` directory) with the following code:
+`Title` 组件是本篇文章您将创建最后一个组件. 您已经为您的游戏起了名字了：**Aliens, Go Home!**。因此，创建 `Title.jsx`（在 `./src/components` 目录下)文件来作为标题并添加如下代码：
 
-```
+```JavaScript
 import React from 'react';
 import { pathFromBezierCurve } from '../utils/formulas';
 
@@ -568,15 +568,15 @@ const Title = () => {
 export default Title;
 ```
 
-To make your title curved, you have used a combination of `path` and `textPath` elements with Cubic Bezier curve. Besides that, you have made your title statically positioned, just like the `StartGame` button.
+为了使标题弯曲显示，您使用了 `path` 和 `textPath` 元素与三次贝塞尔曲线的组合。此外，您还使用了固定的坐标位置，就像 `StartGame` 按钮组件那样。
 
-Now, to add this component to your canvas, you can simply add `<Title />` to your `svg` element and add the import statement (`import Title from './Title';`) at the top of the `Canvas.jsx` file. However, if you run your application now, you will notice that your new component does not appear on your screen. This happens because your app does not show enough vertical space yet.
+现在，要将该组件添加到画布中，只需将 `<title/>` 组件添加到 `svg` 元素中，并在 `Canvas.jsx` 文件的顶部添加 import 语句即可（`import Title from './Title';`）。但是，如果您现在运行您的应用程序，您将发现您的新组件没有出现在屏幕上。这是因为您的应用程序还没有足够的垂直空间用于显示。
 
-## Making Your React Game Responsive
+## 让您的 React Game游戏自适应
 
-To change your game dimensions and to make it responsive, you will need to do two things. First, you will need to attach an `onresize` event listener to the global `window` object. Doing this is quite simple, you can open the `./src/App.js` file and append the following code to the `componentDidMount()` method:
+为了改变游戏的尺寸并使其自适应，您将需要做以下两件事。首先，您将需要添加 `onresize` 事件监听器到全局 `window` 对象上。很简单，您仅需要打开 `./src/App.js` 文件并将如下代码添加到  `componentDidMount()` 方法中：
 
-```
+```JavaScript
 window.onresize = () => {
   const cnv = document.getElementById('aliens-go-home-canvas');
   cnv.style.width = `${window.innerWidth}px`;
@@ -585,26 +585,26 @@ window.onresize = () => {
 window.onresize();
 ```
 
-This will make your app keep the dimension of your canvas equal to the dimension of the window that your users see. Even if they resize their browsers. It will also force the execution of the `window.onresize` function when the app is rendered for the first time.
+这将使您应用的大小和用户看到的窗口大小保持一致，即使他们改变了窗口大小也没关系。当应用程序第一次出现时，它还将强制执行 `window.onresize` 函数。
 
-Second, you will need to change the `viewBox` property of your canvas. Now, instead of defining that the uppermost point in the Y-axis is `100 - window.innerHeight` (if you don't remember why you have used this formula, [take a look at the first part of the series](https://auth0.com/blog/developing-games-with-react-redux-and-svg-part-1/)) and that the `viewBox` height is equal to the `innerHeight` of the `window` object, you will use the following values:
+其次，您需要更改画布的 `viewBox` 属性。现在，不需要再 Y 轴上定义最高点：`100 - window.innerHeight`（如果您不记得为什么要使用这个公式，[请看一下本系列的第一部分](https://auth0.com/blog/developing-games-with-react-redux-and-svg-part-1/)）并且 `viewBox` 高度等于 `window` 对象上 `innerHeight` 的值，下列使您将用到的代码：
 
-```
+```JavaScript
 const gameHeight = 1200;
 const viewBox = [window.innerWidth / -2, 100 - gameHeight, window.innerWidth, gameHeight];
 ```
 
-In this new version, you are using the `1200` value so your app can properly show the new title component. Besides that, this new vertical space will give enough time for your users to see and kill these flying objects. This will give them enough time to shoot and kill these objects.
+在这个新版本中，您使用的值为 `1200`，这样您的应用就能正确地显示新的标题组件。此外，这个新的垂直空间将给您的用户足够的时间来看到和消灭那些外星飞碟。这将给到他们足够的时间来射击和消灭这些飞碟。
 
 ![Changing your React, Redux, and SVG game dimensions and making it responsive](https://cdn.auth0.com/blog/aliens-go-home/react-game-with-title.png)
 
-## Enabling Users to Start the Game
+## 让用户开始游戏
 
-With all these new components in place and with these new dimensions, you can start thinking about enabling your users to start the game. That is, you can refactor your game to make its state switch to started whenever a user clicks on the _Start Game_ button. This must trigger a lot of changes in your game's state. However, to make things easier to grasp, you can start by simply removing the `Title` and the `StartGame` components from the screen when users click on this button.
+当把这些新组件按的尺寸放在对应的位置以后，您就可以开始考虑怎么让用户开始玩游戏了。无论何时，当用户点了 Start Game 这个按钮，您就需要能游戏切换到开始状态，这将导致游戏一连串的状态变化。为了更便于用户操作，当用户点击了这个按钮的时候，您就可以开始将 `Title` 和 `StartGame` 这两个组件从当前的屏幕上移除。
 
-To do that, you will need to create a new Redux action that will be processed by a Redux reducer to change a flag in your game. To create this new action, open the `./src/actions/index.js` file and add the following code to it (leave the previous code on it unaltered):
+为此，您将需要创建一个新的 Redux action，它将传入到 Redux reducer 中来改变游戏的状态。为了创建这个新的 action，打开 `./src/actions/index.js` 并添加如下代码（保留之前的代码不变）：
 
-```
+```JavaScript
 // ... MOVE_OBJECTS
 export const START_GAME = 'START_GAME';
 
@@ -615,9 +615,9 @@ export const startGame = () => ({
 });
 ```
 
-Then, you can refactor the `./src/reducers/index.js` to handle this new action. The new version of this file will look like this:
+接着，您可以重构 `./src/reducers/index.js` 来处理这个新 action。文件的新版本如下所示：
 
-```
+```JavaScript
 import { MOVE_OBJECTS, START_GAME } from '../actions';
 import moveObjects from './moveObjects';
 import startGame from './startGame';
@@ -647,17 +647,17 @@ function reducer(state = initialState, action) {
 export default reducer;
 ```
 
-As you can see, now you have a child object inside `initialState` that contains three properties about your game:
+如您所见，现在在 `initialState` 中有一个子对象，它包含三个跟游戏有关的属性：
 
-1.  `started`: a flag to indicate if the game is running or not;
-2.  `kills`: a property that holds how many flying objects the user has killed;
-3.  `lives`: a property that holds how many lives the user has;
+1.  `started`: 一个表示是否开始运行游戏的标识；
+2.  `kills`: 一个保存用户消灭的飞碟数量的属性；
+3.  `lives`: 一个保存用户还有多少条命的属性；
 
-Besides that, you have added a new `case` to your `switch` statement. This new `case` (which is triggered when an action of `type` `START_GAME` arrives at the reducer) calls the `startGame` function. The goal of this function is to turn on the `started` flag inside the `gameState` property. Also, whenever a user starts a new game, this function has to zero the `kills` counter and give users three lives again.
+此外，您还需要在 `switch` 语句中添加一个新的 `case`。这个新的 `case` (包含 `type` `START_GAME` 的 action 传入到 reducer 时触发）调用 `startGame` 函数。这个函数的作用是将 `gameState` 里的 `started` 属性设置为 true。此外，每当用户开始一个新的游戏，这个函数将 `kills` 计数器设置为零并让用户一开始有三条命。
 
-To implement the `startGame` function, create a new file called `startGame.js` inside the `./src/reducers` directory with the following code:
+要实现 `startGame` 函数，需要在 `./src/reducers` 目录下创建 `startGame.js` 文件并添加如下代码：
 
-```
+```JavaScript
 export default (state, initialGameState) => {
   return {
     ...state,
@@ -669,11 +669,11 @@ export default (state, initialGameState) => {
 };
 ```
 
-As you can see, the code in this new file is quite simple. It just returns a new state object to the Redux store where the `started` flag is set to `true` and resets everything else inside the `gameState` property. This gives users three lives again and zeros their `kills` counter.
+如您所见，这个新文件中的代码非常简单。它只是返回新的 state 对象到 Redux store 中，并将  `started` 设置为 `true` 同时重置 `gameState` 中的所有其他属性。这将使用户再次获得三条命，并将 `kills` 计数器设置为零。
 
-After implementing this function, you have to pass it to your game. You also have to pass the new `gameState` property to it. So, to achieve that, you will have to change the `./src/containers/Game.js` file as follows:
+实现这个函数之后，您必须将其传递给您的游戏。您还须将新的 `gameState` 属性传递给它。所以，为了做到这一点，您需要修改 `./src/containers/Game.js` 文件，代码如下所示：
 
-```
+```JavaScript
 import { connect } from 'react-redux';
 import App from '../App';
 import { moveObjects, startGame } from '../actions/index';
@@ -700,14 +700,14 @@ const Game = connect(
 export default Game;
 ```
 
-To summarize, the changes that you have made in this file are:
+总而言之，您在此文件中所做的更改如下：
 
-*   `mapStateToProps`: Now, you have told Redux that the `App` component cares about the `gameState` property.
-*   `mapDispatchToProps`: You have also told Redux to pass the `startGame` function to the `App` component, so it can trigger this new action.
+*   `mapStateToProps`: 现在，`App` 组件关注 `gameState` 属性已经告知了 Redux。
+*   `mapDispatchToProps`: 您也告知了 Redux 需要将 `startGame` 函数传递给 `App` 组件，这样它就可以触发这个新 action。
 
-Both these new `App` properties (`gameState` and `startGame`) won't be directly used by the `App` component itself. Actually, the component that will use them is the `Canvas` component, so you have to pass them to it. To do that, open the `./src/App.js` file and refactor it as follows:
+这些新的 `App` 属性（`gameState` 和 `startGame`）不会被 `App` 组件直接使用。实际上，使用它们的是 `Canvas` 组件，所以您必须将它们传递给它。因此，打开 `./src/App.js` 文件并按如下方式重构：
 
-```
+```JavaScript
 // ... import statements ...
 
 class App extends Component {
@@ -743,9 +743,9 @@ App.propTypes = {
 export default App;
 ```
 
-Then, you can open the `./src/components/Canvas.jsx` file and replace the code inside it with this:
+然后，打开 `./src/components/Canvas.jsx` 文件并替换成如下代码：
 
-```
+```JavaScript
 import React from 'react';
 import PropTypes from 'prop-types';
 import Sky from './Sky';
@@ -809,17 +809,17 @@ Canvas.propTypes = {
 export default Canvas;
 ```
 
-As you can see, in this new version, you have made the `StartGame` and the `Title` components appear only when the `gameState.started` property is set to false. Also, you have hidden the `FlyingObject` components until the user clicks on the _Start Game_ button.
+如您所见，在这个新版本中，只有当 `gameState.started` 设置为 false 时 `StartGame` 和 `Title` 才会可见。此外，您还隐藏了 `FlyingObject` 组件直到用户点击 **Start Game** 按钮才会出现。
 
-If you run your app now (issue `npm start` in a terminal if it is not running yet), you will see these new changes in action. They are not enough to enable your users to play your game, but you are getting there.
+如果您现在运行您的应用程序（如果它还没有运行，在 terminal 里运行 `npm start`），您将看到这些新的变化。虽然用户还不能玩您的游戏，但您已经完成一个小目标了。
 
-## Making Flying Objects Appear Randomly
+## 让飞碟随机出现
 
-Now that you have implemented the _Start Game_ feature, you can refactor your game to show some flying objects randomly positioned. These are the flying objects that your users will have to kill, so you will also need to make them fly (i.e. move down the screen). But first, you have to focus on making them appear somehow.
+现在您已经实现了 **Start Game** 功能，您可以重构您的游戏来让飞碟随机出现。您的用户需要消灭一些飞碟，所以您还需要让它们飞起来（即往屏幕下方移动）。但首先，您必须集中精力让它们以某种方式出现。
 
-To do that, the first thing you will have to do is to define where these objects will appear. You will also have to set some interval and some max number of flying objects. To keep things organized, you can define constants to hold these rules. So, open the `./src/utils/constants.js` file and add the following code:
+要做到这一点，第一件事是定义这些对象将出现在何处。您还必须给飞行物体设置一些间隔和最大数量。为了使事情井然有序，您可以定义常量来保存这些规则。所以，打开 `./src/utils/constants.js` 文件添加如下代码：
 
-```
+```JavaScript
 // ... keep skyAndGroundWidth and gameWidth untouched
 
 export const createInterval = 1000;
@@ -836,11 +836,11 @@ export const flyingObjectsStarterPositions = [
 ];
 ```
 
-The rules above state that your game will show new flying objects every one second (`1000` milliseconds) and that there will be no more than four flying objects at the same time (`maxFlyingObjects`). It also defines that new objects will appear at the magnitude of `-1000` on the Y axis (`flyingObjectsStarterYAxis`). The last constant that you have added to this file (`flyingObjectsStarterPositions`) defines four magnitudes on the X axis where objects can spring to life. You will randomly pick one of them while creating flying objects.
+上面的规则规定游戏将每秒（`1000` 毫秒）出现新的飞碟，同一时间不会超过四个（`maxFlyingObjects`）。它还定义了新对象在 Y 轴（`flyingObjectsStarterYAxis`）上出现的位置为 `-1000`。文件中最后一个常量（`flyingObjectsStarterPositions`）定义了四个值表示对象在 X 轴可以显示的位置。您将随机选择其中一个值来创建飞碟。
 
-To implement the function that will use these constants, create a file called `createFlyingObjects.js` in the `./src/reducers` directory with the following code:
+要实现使用这些常量的函数，需在 `./src/reducers` 目录下创建 `createFlyingObjects.js` 文件并添加如下代码：
 
-```
+```JavaScript
 import {
   createInterval, flyingObjectsStarterYAxis, maxFlyingObjects,
   flyingObjectsStarterPositions
@@ -884,17 +884,17 @@ export default (state) => {
 }
 ```
 
-At first, this code might look complex. However, it's quite the opposite. This list summarizes how it works:
+第一看上去，可能会觉得这段代码很复杂。然而，情况却恰恰相反。它的工作原理总结如下：
 
-1.  If the game is not running (i.e. `! state.gameState.started`), this code simply returns the current state unaltered.
-2.  If the game is running, this function uses the `createInterval` and the `maxFlyingObjects` constants to decide if it should create new flying objects or not. This logic populates the `createNewObject` constant.
-3.  If the `createNewObject` constant is set to `true`, this function uses `Math.floor` to fetch a random number between 0 and 3 (`Math.random() * maxFlyingObjects`) so it can decide where this new flying object will appear.
-4.  With this information, this function creates a new object called `newFlyingObject` with its `position`.
-5.  In the end, this function returns a new state object with the new flying object and it updates the `lastObjectCreatedAt` value.
+1.  如果游戏没有运行（即 `! state.gameState.started`），这代码返回当前未更改的 state。
+2.  如果游戏正在运行，这个函数依据 `createInterval` 和 `maxFlyingObjects` 常量来决定是否创建新的飞行对象。这些逻辑构成了 `createNewObject` 常量。
+3.  如果 `createNewObject` 常量的值设置为 `true`，这个函数使用 `Math.floor` 获取 0 到 3 的随机数（`Math.random() * maxFlyingObjects`）来决定新的飞碟将出现在哪。
+4.  有了这些数据，这个函数将创建带有 `position` 属性 `newFlyingObject` 对象。
+5.  最后，该函数返回一个带有新飞行对象的新状态对象，并更新 `lastObjectCreatedAt` 的值。
 
-As you may have noticed, the function that you have just created is a reducer. As such, you might expect that you will create an action to trigger this reducer but, actually, you won't need one. Since your game issues a `MOVE_OBJECTS` action every `10` ms, you can take advantage of this action and trigger your new reducer. To do that, you will have to reimplement the `moveObjects` reducer (`./src/reducers/moveObjects.js`) as follows:
+您可能已经注意到，您刚刚创建的函数是一个 reducer。因此，您可能希望创建一个 action 来触发这个  reducer，但事实上您并不需要这样做。因为您的游戏有一个每 `10` 毫秒触发一个 `MOVE_OBJECTS` 的 action，您可以利用这个 action 来触发这个新的 reducer。因此，您必须按如下方式重新实现  `moveObjects` reducer（`./src/reducers/moveObjects.js`），代码实现如下：
 
-```
+```JavaScript
 import { calculateAngle } from '../utils/formulas';
 import createFlyingObjects from './createFlyingObjects';
 
@@ -917,15 +917,15 @@ function moveObjects(state, action) {
 export default moveObjects;
 ```
 
-The new version of the `moveObjects` reducer changes the previous one as follows:
+新版本的 `moveObjects` reducer 跟之前不一样的有：
 
-*   First, it forces the creation of the `mousePosition` constant if one is not passed in the `action` object. You will need that because the previous version would make the execution of the reducer halt if no `mousePosition` was passed to it.
-*   Second, it fetches a `newState` object from the `createFlyingObjects` reducer, so new flying objects are created if needed.
-*   Lastly, it returns a new object based on the `newState` object retrieved in the last step.
+*   首先，如果在 `action` 对象中没有传入 `mousePosition` 常量，则强制创建它。这样做的原因是如果没有传递 `mousePosition` 则上一个版本 reducer 将停止运行。
+*   其次，它从 `createFlyingObjects` reducer 中获取 `newState` 对象，以便在需要的时候创建新的飞碟。
+*   最后，它会根据上一步检索到的 `newState` 对象返回新的对象。
 
-Before refactoring the `App` and the `Canvas` components to show the flying objects created by this new code, you will need to update the `./src/reducers/index.js` file to add two new properties to the `initialState` object:
+在重构 `App` 和 `Canvas` 组件来通过这段的代码显示新的飞碟前，您将需要更新 `./src/reducers/index.js` 文件来给 `initialState` 对象添加两个新属性：
 
-```
+```JavaScript
 // ... import statements ...
 
 const initialGameState = {
@@ -937,9 +937,9 @@ const initialGameState = {
 // ... everything else ...
 ```
 
-With that in place, all you need to do is to add `flyingObjects` to the `propTypes` object of the `App` component:
+这样做之后，您需要做的就是在 `App` 组件的 `propTypes` 对象中添加 `flyingObjects`：
 
-```
+```JavaScript
 // ... import statements ...
 
 // ... App component class ...
@@ -963,7 +963,7 @@ App.propTypes = {
 export default App;
 ```
 
-And then make the `Canvas` component iterate over this property to show the flying objects. Make sure to replace the statically positioned instances of the `FlyingObject` component with this:
+接着让 `Canvas` 遍历这个属性，来显示新的飞碟。请确保使用如下代码替换 `FlyingObject` 组件的静态定位实例：
 
 ```
 // ... import statements ...
@@ -1002,29 +1002,29 @@ Canvas.propTypes = {
 export default Canvas;
 ```
 
-That's it! Now, your app will create and show randomly positioned flying objects when users start the game.
+就是这样！现在，在用户开始游戏时，您的应用程序将创建并随机显示飞碟。
 
-> **Note:** If you run your app now and hit the _Start Game_ button, you might end up seeing just one flying object. This might happen because there is nothing preventing flying objects from appearing in the same magnitude on the X-axis. In the next section, you will make your flying objects move along the Y-axis. This will ensure that you and your users are able to see all flying objects.
+> **注意：** 如果您现在运行您的应用程序并点击 **Start Game** 按钮，您最终可能只看到一只飞碟。 这是因为没有什么能阻止飞碟出现在 X 轴相同的位置。在下一节中，您将使您的飞行物体沿着 Y 轴移动。这将确保您和您的用户能够看到所有的飞碟。
 
-### Using CSS Animation to Move Flying Objects
+### 使用 CSS 动画来移动飞碟
 
-There are two paths you can follow to make your flying objects move. The first and most obvious one is to use JavaScript code to change their position. Although this approach might seem easy to implement, it will degrade the performance of your game to a level that makes it unfeasible.
+有两种方式可以让您的飞碟移动。第一种显而易见的方式是使用 JavaScript 代码来改变他们的位置。尽管这种方法看起来很容易实现，但它事实上是行不通的，因为它会降低游戏的性能。
 
-The second and preferred approach is to use CSS animations. [The advantage of this approach is that it uses the GPU to animate elements](https://www.smashingmagazine.com/2016/12/gpu-animation-doing-it-right/), which increases the performance of your app.
+第二种也是首选的方法是使用 CSS 动画。[这种方法的优点是它使用 GPU 对元素进行动画处理](https://www.smashingmagazine.com/2016/12/gpu-animation-doing-it-right/)，从而提高了应用程序的性能。
 
-You might think that this approach is harder to implement but, as you will see, it is not. The trickiest part of it is that you will need the help of another NPM package to integrate CSS animations and React properly. That is, you will need to install [the `styled-components` package](https://www.styled-components.com/).
+您可能认为这种方法很难实现，但如您所见，事实却并非如此。最棘手的部分是，您将需要另一个 NPM 包来将  CSS 动画和 React 结合起来。也就是说，您需要安装 [`styled-components` 包](https://www.styled-components.com/)。
 
-> _"By utilizing tagged template literals (a recent addition to JavaScript) and the power of CSS, styled-components allows you to write actual CSS code to style your components. It also removes the mapping between components and styles – using components as a low-level styling construct could not be easier!"_ —[`styled-components`](https://github.com/styled-components/styled-components)
+> **“通过使用标记模板字面量（JavaScript 最新添加）和 CSS 的强大功能，styled-components 允许您使用原生的 CSS 代码定义您组件的样式。它也删除了 components 和 styles 之间的映射 —— 将组件用作低级样式构造是不容易的！”** —[`styled-components`](https://github.com/styled-components/styled-components)
 
-To install this package, you will have to stop your React app (i.e. if it is up and running) and issue the following command:
+要安装这个 package，您需要停止您的 React 应用（即他已经启动和正在运行）并使用以下命令：
 
-```
+```Bash
 npm i styled-components
 ```
 
-After installing it, you can replace the code of the `FlyingObject` component (`./src/components/FlyingObject.jsx`) with this:
+安装完以后，您可以使用下列代码替换 `FlyingObject` 组件（`./src/components/FlyingObject.jsx`）：
 
-```
+```JavaScript
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { keyframes } from 'styled-components';
@@ -1062,15 +1062,15 @@ FlyingObject.propTypes = {
 export default FlyingObject;
 ```
 
-In this new version, you have wrapped both the `FlyingObjectBase` and the `FlyingObjectTop` components inside a new component called `Move`. This component is simply a `g` SVG element `styled` to use the `moveVertically` transformation. To learn more about transformations and how to use `styled-components`, you can check the [official documentation here](https://www.styled-components.com/docs/) and [the _Using CSS Animations_ document at the MDN website](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Animations/Using_CSS_animations).
+在这个新版本中，您已经将 `FlyingObjectBase` 和 `FlyingObjectTop` 组件放到新的组件 `Move` 里面。这个组件只是使用一个 `moveVertically` 变换来定义 SVG 的 `g` 元素的 `styled` 样式。为了学习更多关于变换的知识以及如何使用 `styled-components`，您可以在这里查阅 [官方文档](https://www.styled-components.com/docs/) 以及 [MDN 网站上的 **使用 CSS 动画**](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Animations/Using_CSS_animations) 来学习这些知识。
 
-In the end, what this means is that instead of adding pure/static flying objects, you are adding elements that carry a transformation (a CSS rule) to move them from their starter position (`transform: translateY(0);`) to the very bottom of the game (`transform: translateY(${gameHeight}px);`).
+最后，为了替换纯的/不动的飞碟，您需要添加带有 transformation（一个 CSS 规则）的飞碟，它们将从起始位置（`transform: translateY(0);`）移动到游戏的底部（`transform: translateY(${gameHeight}px);`）。
 
-Of course, you will have to add the `gameHeight` constant to the `./src/utils/constants.js` file. Also, since you will need to update this file, you can replace the `flyingObjectsStarterYAxis` to make objects start in a position that users don't see. The current value makes flying objects appear right in the middle of the visible area, which might seem odd for end users.
+当然，您必须将 `gameHeight` 常量添加到 `./src/utils/constants.js` 文件中。另外，由于您需要更新该文件，所以您可以替换 `flyingObjectsStarterYAxis` 来使对象在用户看不到的位置启动。但现在的当前值却是飞碟刚好出现在可视区域的中央，这会令最终用户感到奇怪。
 
-To make these changes, open the `constants.js` file and change it as follows:
+为了更正它，您需要打开 `constants.js` 文件并进行如下更改：
 
-```
+```JavaScript
 // keep other constants untouched ...
 
 export const flyingObjectsStarterYAxis = -1100;
@@ -1080,9 +1080,9 @@ export const flyingObjectsStarterYAxis = -1100;
 export const gameHeight = 1200;
 ```
 
-Lastly, you will need to destroy flying objects after 4 seconds, so new ones can appear and move through the canvas. You can achieve that by replacing the code inside the `./src/reducers/moveObjects.js` file with this:
+最后，你需要在 4 秒后消灭飞碟，这样新的飞碟将会出现并在画布中移动。为了实现这一点，您可以在 `./src/reducers/moveObjects.js` 文件中的代码进行如下更改：
 
-```
+```JavaScript
 import { calculateAngle } from '../utils/formulas';
 import createFlyingObjects from './createFlyingObjects';
 
@@ -1114,21 +1114,23 @@ function moveObjects(state, action) {
 export default moveObjects;
 ```
 
-As you can see, this new code filters the `flyingObjects` property of the `gameState` to remove objects that have an age equals or greater than `4000` (4 seconds).
+如您所见，我们为 `gameState` 对象的 `flyingObjects` 属性添加了新的代码过滤器，它移除了大于或等于 `4000`（4 秒）的对象。
 
-If you restart your app now (`npm start`) and hit the _Start Game_ button, you will see flying objects moving from top to bottom in the SVG canvas. Also, you will notice that your game creates new flying objects after the existing ones reach the bottom of this canvas.
+如果您现在重新启动您的应用程序（`npm start`）并点击 **Start Game** 按钮，您将看到飞碟在画布中自顶向上地移动。此外，您会注意到，游戏在创建新的飞碟之后，现有的飞碟都会移动到画布的底部。
 
 ![Using CSS animation with React](https://cdn.auth0.com/blog/aliens-go-home/flying-objects-moving.png)
 
-> "Using CSS animations with React is easy and increases your app's performance."
+> "在 React 中使用 CSS 动画是很简单的，而且会提高您应用的性能。"
 
-## Conclusion and Next Steps
+## 总结和下一步
 
-In the second part of this series, you have created most of the elements that you need to make a complete game with React, Redux, and SVG. In the end, you also have made flying objects appear at random positions and took advantage of CSS animations to make them fly around smoothly.
+在本系列的第二部分中，您通过使用 React、Redux 和 SVG 创建了您游戏所需大部分元素。最后，您还使飞碟不同的位置随机出现，并利用 CSS 动画，使他们顺利飞行。
 
-[In the next and last article of this series](https://auth0.com/blog/developing-games-with-react-redux-and-svg-part-3/), you will implement the missing features of your game. That is, you will: make your cannon shoot to kill flying objects; make your game control lives of your users; and you will control how many kills your users have. You will also use [Auth0](https://auth0.com/) and [Socket.IO](https://socket.io/) to implement a real-time leaderboard. Stay tuned!
+[在本系列的下一篇也是最后一篇中](https://auth0.com/blog/developing-games-with-react-redux-and-svg-part-3/)，您将实现游戏剩余的功能。也就是说，您将实现：使用您的大炮消灭飞碟；控制您的用户的生命条；以及记录您的用户将会杀死多少只飞碟。您还将使用 [Auth0](https://auth0.com/)  和 [Socket.IO](https://socket.io/) 来实现实时排行榜。请继续关注！
 
 
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
+
+
