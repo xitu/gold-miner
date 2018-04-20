@@ -11,7 +11,7 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/1*pBYBy6lReldGq1qNTasU2Q.jpeg)
 
-由 [Unsplash](https://unsplash.com/search/photos/stamp?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) 的[Joao Tzanno](https://unsplash.com/photos/G9_Euqxpu4k?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) 拍摄
+由 [Unsplash](https://unsplash.com/search/photos/stamp?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) 的 [Joao Tzanno](https://unsplash.com/photos/G9_Euqxpu4k?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) 拍摄
 
 在 [自然语言处理](https://en.wikipedia.org/wiki/Natural_language_processing) 中，词性标注是一件众所周知的任务。它指的是将单词按词性分类（也称为词类或词性类别）。这是一种有监督的学习方法。
 
