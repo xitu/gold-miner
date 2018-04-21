@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/why-you-should-totally-switch-to-kotlin.md](https://github.com/xitu/gold-miner/blob/master/TODO1/why-you-should-totally-switch-to-kotlin.md)
 > * 译者：[ALVINYEH](https://github.com/ALVINYEH)
-> * 校对者：
+> * 校对者：[Starrier](https://github.com/Starriers)、[Sergey Cheung](https://github.com/SergeyChang)
 
 # 为什么你应该开始使用 Kotlin
 
@@ -13,7 +13,7 @@
 
 我想要告诉你一种**新的编程语言**，叫做 **Kotlin**，以及为什么你应该考虑在下一个项目中使用它。在过去的时候，我更喜欢 Java，但是去年我发现自己无论何时都可以用 Kotlin 编写代码。此时，我真的想不出哪种情况下 Java 会是更好的选择。
 
-它是由 [**JetBrains**](https://www.jetbrains.com/) 公司开发的, 而这些人是 **IntelliJ** 和 **ReSharper** 等[IDEs](https://www.jetbrains.com/products.html?fromMenu#type=ide) 系列产品的幕后人物，Kotlin 确实很受欢迎。它的**实用性**和**简洁性**，让编码成为一种令人满意且高效的体验。
+它是由 [**JetBrains**](https://www.jetbrains.com/) 公司开发的, 而这些人是 **IntelliJ** 和 **ReSharper** 等 [IDEs](https://www.jetbrains.com/products.html?fromMenu#type=ide) 系列产品的幕后人物，Kotlin 确实很受欢迎。它的**实用性**和**简洁性**，让编码成为一种令人满意且高效的体验。
 
 虽然 Kotlin 能编译为 [**JavaScript**](https://kotlinlang.org/docs/tutorials/javascript/kotlin-to-javascript/kotlin-to-javascript.html) 并很快编译成[**机器代码**](https://blog.jetbrains.com/kotlin/2017/04/kotlinnative-tech-preview-kotlin-without-a-vm/)，但是我将重点介绍它的主要环境，**JVM**。
 
@@ -21,11 +21,11 @@
 
 #### 0# [Java 互操作性](https://kotlinlang.org/docs/reference/java-interop.html)
 
-Kotlin 与 **Java 是 100% 可互操作的**。你可以使用 Kotlin 继续你之前的 Java 项目。所有你喜欢的 **Java 框架仍然可以用**，你用 Kotlin 编写的任何框架都都可以被你的固执喜欢 Java 的朋友所使用。 
+Kotlin 与 **Java 是 100% 可互操作的**。你可以使用 Kotlin 继续你之前的 Java 项目。所有你喜欢的 **Java 框架仍然可以用**，你用 Kotlin 编写的任何框架都都可以被你偏爱 Java 的朋友所使用。 
 
 #### **1#** [**熟悉的语法**](https://kotlinlang.org/docs/reference/basic-syntax.html)
 
-Kotlin 并不是诞生于学术界中的一种奇怪的语言。它的语法对于任何来自 [OOP](https://en.wikipedia.org/wiki/Object-oriented_programming) 领域的程序员来说都不陌生，并且从一开始就能或多或少地理解。当然，Java也有**一些**不同之处，比如重写构造函数或者是 `val`、`var` 变量的声明。下面的代码介绍了大部分基础知识：
+Kotlin 并不是诞生于学术界中的一种奇怪的语言。它的语法对于任何来自 [OOP](https://en.wikipedia.org/wiki/Object-oriented_programming) 领域的程序员来说都不陌生，并且从一开始就能或多或少地理解。当然，Java也有**一些**不同之处，比如重写构造函数或者是 `val` 、 `var` 变量的声明。下面的代码介绍了大部分基础知识：
 
 ```
 class Foo {
@@ -49,7 +49,7 @@ class Foo {
 
 #### **2#** [**字符串插值**](https://kotlinlang.org/docs/reference/basic-types.html#string-templates)
 
-这就像 Java 的 `String.format()` 的一个更智能、更可读的版本被构建到了语言中：
+这就像 Java 的 `String.format()` 的一个更智能、可读性更好的版本被构建到了语言中：
 
 ```
 val x = 4
@@ -71,7 +71,7 @@ val d: List<String> = ArrayList()     // 显式声明类型
 
 #### 4# [智能转换](https://kotlinlang.org/docs/reference/typecasts.html)
 
-如果可能的话，Kotlin 的编译器会跟踪你的逻辑并且**自动转换类型**，这意味少了许多的 `instanceof` 检查和显示转换：
+如果可能的话，Kotlin 的编译器会跟踪你的逻辑并且**自动转换类型**，这意味少了许多的 `instanceof` 检查和显式转换：
 
 ```
 if (obj is String) {
@@ -81,13 +81,13 @@ if (obj is String) {
 
 #### 5# [Intuitive Equals](https://kotlinlang.org/docs/reference/equality.html)
 
-你可以不再显示调用 `equals()` 方法，因为 `==` 操作符现在会检查表达式结构是否相等:
+你可以不再显示调用 `equals()` 方法，因为 `==` 操作符现在会检查表达式结构是否相同:
 
 ```
 val john1 = Person("John")
 val john2 = Person("John")
 
-john1 == john2    // true （结构相等)
+john1 == john2    // true （结构相同)
 john1 === john2   // false （引用相等）
 ```
 
@@ -113,7 +113,7 @@ build(width = 400, height = 300, title = "PacMan")  // 等效
 
 #### 8# [When 表达式](https://kotlinlang.org/docs/reference/control-flow.html#when-expression)
 
-用更可读和灵活的 **when** 表达式来替代switch case 表达式：
+用可读性和灵活性更好的 when 表达式来取代 switch case 表达式：
 
 ```
 when (x) {
@@ -137,7 +137,7 @@ val res: Boolean = when {
 
 #### **9#** [**属性**](https://kotlinlang.org/docs/reference/properties.html#getters-and-setters)
 
-自定义 setter 和 getter 方法会被添加到 pubic 作用域中，这意味着我们可以避免无意之间使用 [getters & setters] 方法使得代码变得臃肿。 
+自定义 setter 和 getter 方法会被添加到 public 作用域中，这意味着我们可以避免无意之间使用 [get 和 set 行为]使得代码变得臃肿。 
 
 ```
 class Frame {
@@ -173,9 +173,9 @@ data class Vec(val x: Float, val y: Float) {
 val v = Vec(2f, 3f) + Vec(4f, 1f)
 ```
 
-#### 12# [销毁声明](https://kotlinlang.org/docs/reference/multi-declarations.html)
+#### 12# [解构声明](https://kotlinlang.org/docs/reference/multi-declarations.html)
 
-有些对象是可以被销毁的，但这对于迭代 maps 是很有用的：
+有些对象是可以被解构的，但这对于迭代 maps 是很有用的：
 
 ```
 for ((key, value) in map) {
@@ -196,7 +196,7 @@ for (i in 10 downTo 1) { ... }
 if (x in 1..10) { ... }
 ```
 
-#### **14#** [**扩展功能**](https://kotlinlang.org/docs/reference/extensions.html)
+#### **14#** [**扩展函数**](https://kotlinlang.org/docs/reference/extensions.html)
 
 还记得你第一次在 Java 中对 `List` 进行排序吗？你找不到一个 `sort()` 函数，所以你必须去问你的导师或者在谷歌上学习使用 `Collections.sort()`。 后来当你必须要用 `String` 字符串的时候，你自己编写了一个辅助函数，因为你不知道可以用 `StringUtils.capitalize()`。
 
@@ -210,7 +210,7 @@ fun String.replaceSpaces(): String {
 val formatted = str.replaceSpaces()
 ```
 
-标准库扩展了 Java 的原有类型，对于 `String` 尤其需要：
+标准库扩展了 Java 的原有类型，`String` 尤其需要：
 
 ```
 str.removeSuffix(".txt")
