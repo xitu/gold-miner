@@ -228,7 +228,6 @@ WOFF2具有自定义预处理。[阅读更多](http://www.w3.org/TR/WOFF20ER/)
 #### 其他工具
 
 当然有更多的工具来衡量你网站的性能。
-
 其中一个是 tools.pingdom.com，它或多或少地为你提供与 Audits + Network 选项卡相似的信息。
 
 ![](https://cdn-images-1.medium.com/max/800/0*tVmtmD2cIQkhmfnO.)
