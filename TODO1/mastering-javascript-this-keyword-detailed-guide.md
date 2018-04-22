@@ -568,79 +568,79 @@ console.log(sum(1,2,3,4)); // 10
 
 ## JavaScript this 和 apply
 
-The apply is the array accepting version of call. Therefore, when using `apply`, think of arrays.
+apply 就是接受数组版本的 call。于是当使用 `apply` 时，多联想下数组。
 
-> Apply a method to a list.
+> 将一个方法应用（apply）到一个数组上。
 
-That is how I remember it and it has helped. Apply adds another plethora of possibilities to your already stacked arsenal of tools as you will soon come to see.
+我用这句话来记住它，而且还挺管用。apply 为你的现有堆积的军火库又添加了一样利器，增加了很多新的可能，你很快就能体会到这一点。
 
-When working with a dynamic list of arguments, use apply. Converting a set of data into an array and using apply can allow you to create some powerful and flexible functions that will make your life a lot easier.
+当你要处理参数数量动态变化的场景，用 apply 吧。将一系列数据转化为数组并用上 apply 能让你写出更好用和更具弹性的代码，会让你的工作更轻松。
 
-### How to use apply
+### 如何使用 apply
 
-[Math.min](https://www.w3schools.com/jsref/jsref_min.asp) and `max` are functions that accept n number of arguments and returns the max and min respectively. Instead of passing in n arguments, you can put n arguments into an array and pass it into min using `apply`.
-
-```
-Math.min(1,2,3,4); // returns 1
-Math.min([1,2,3,4]); // returns NaN. Only accepts numbers. 
-Math.min.apply(null, [1,2,3,4]); // returns 1
-```
-
-Did that bend your mind? If so, allow me to explain. By using apply, we are passing in an array, since it accepts an array as the second arguments. What
+[Math.min](https://www.w3schools.com/jsref/jsref_min.asp) 和 `max` 都是可以接受多个参数并返回最小值和最大值的函数。除了直接传 n 个参数，你也可以将这 n 个参数放到一个数组里然后借助 `apply` 将它传到 min 函数里。
 
 ```
-Math.min.apply(null, [1,2,3,4]); // returns 1
+Math.min(1,2,3,4); // 返回 1
+Math.min([1,2,3,4]); // 返回 NaN。只接受数字
+Math.min.apply(null, [1,2,3,4]); // 返回 1
 ```
 
-is doing is essentially the following
+看晕了吗？如果真晕了，那我来解释下。使用 apply 时我们要传一个数组因为它需要数组作为第二个参数。而下面
 
-`Math.min(1,2,3,4); // returns 1
+```
+Math.min.apply(null, [1,2,3,4]); // 返回 1
+```
+
+做的事情基本等同于
+
+`Math.min(1,2,3,4); // 返回 1
 `
 
-That is the magic of apply and what i wanted to point out. It works the same way as `call`, but instead of n arguments, we are just passing in an array. Fantastic right? Wait, does that mean `Math.min.call(null, 1,2,3,4);` works the same way as `Math.min.apply(null, [1,2,3,4]);`?
+这就是我想指出来的 apply 的神奇之处。它和 `call` 工作原理，不过我们只要传给它一个数组而不是 n 个参数。很好玩对吧？桥豆麻袋，这是否意味着 `Math.min.call(null, 1,2,3,4);` 执行起来和 `Math.min.apply(null, [1,2,3,4]);` 一样？
 
-Yep, you bet! You are now starting to get the hang of it 🙂
+啊，你说对了！看来你已经开始掌握它了 🙂
 
-Let’s look at another application.
+让我们来看下另一种用法。
 
 ```
 function logArgs() {
-console.log.apply(console, arguments);
+    console.log.apply(console, arguments);
 }
 logArgs(1,3,'I am a string', {name: "jay", age: "1337"}, [4,5,6,7]);
 ```
 
-Yep, you can even pass in array like objects as the second argument to `apply`. Cool right?
+没错，你甚至可以传一个类数组对象作为 `apply` 的第二个参数。很酷对吧？
 
-### Exercises
+### 练习
 
-1.  Create a function that accepts an array of key value pairs and sets the value to the item that this keyword is pointing at and return that object. If this is `null` or `undefined`, create a new `object`. E.g. `set.apply( {name: "jay"}, [{age: 10}]); // return {name: "jay", age: 10}`
+1.  写一个函数，它接受一个由键值对组成的数组，然后将这些键值对设置到 this 关键词指向的对象上，最后将该对象返回。如果 this 是 `null` 或 `undefined`，那就新建一个 `object`。示例：`set.apply( {name: "jay"}, [{age: 10}]); // 返回 {name: "jay", age: 10}`
 2.  Create a function similar to `Math.max` and `min`, but one one that applies calculations. The first two arguments should be `numbers`. Make sure to convert the arguments after the second into an **array of functions.** A sample template to get started with is provided below
 
 ```
 function operate() {
-if (arguments.length < 3) {
-throw new Error("Must have at least three arguments");
-}
-if (typeof arguments[0] !== 'number' || typeof arguments[1] !== 'number') {
-throw new Error("first two arguments supplied must be a number");
-}
-// Write code ...
-// An array of functions. Hint use either call, apply or bind. Don't iterate over arguments and place functions in new array.
-var args;
-var result = 0;
-// Good luck
+    if (arguments.length < 3) {
+        throw new Error("Must have at least three arguments");
+    }
+    if (typeof arguments[0] !== 'number' || typeof arguments[1] !== 'number') {
+        throw new Error("first two arguments supplied must be a number");
+    }
+    // Write code ...
+    // An array of functions. Hint use either call, apply or bind. Don't iterate over arguments and place functions in new array.
+    var args;
+    var result = 0;
+    // Good luck
 }
 function sum(a, b) {
-return a + b;
+    return a + b;
 }
 function multiply(a,b) {
-return a * b;
+    return a * b;
 }
-console.log(operate(10, 2, sum, multiply));    // must return 32 -> (10 + 2) + (10 * 2) = 32
+console.log(operate(10, 2, sum, multiply));    // 必须返回 32 -> (10 + 2) + (10 * 2) = 32
 ```
 
-## Additional Resource and Readings
+## 其他文章和资料
 
 In case my explanations did not make sense to you, below are some additional resources that will help you understand how bind works in JavaScript.
 
