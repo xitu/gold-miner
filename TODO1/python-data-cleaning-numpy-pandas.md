@@ -2,56 +2,56 @@
 > * 原文作者：[Malay Agarwal](https://realpython.com/team/magarwal/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/python-data-cleaning-numpy-pandas.md](https://github.com/xitu/gold-miner/blob/master/TODO1/python-data-cleaning-numpy-pandas.md)
-> * 译者：
-> * 校对者：
+> * 译者：[bambooom](https://github.com/bambooom)
+> * 校对者：[luochen1992](https://github.com/luochen1992)，[Hopsken](https://github.com/Hopsken)
 
-# Pythonic Data Cleaning With NumPy and Pandas
+# 使用 NumPy 和 Pandas 进行 Python 式数据清理
 
 ![](https://files.realpython.com/media/data-cleaning-numpy-pandas.0897550e8675.jpg)
 
-Data scientists spend a large amount of their time cleaning datasets and getting them down to a form with which they can work. In fact, a lot of data scientists argue that the initial steps of obtaining and cleaning data constitute 80% of the job.
+数据科学家花费大量时间清理数据集，将它们清理为可以工作的形式。事实上，很多数据科学家表示，80% 的工作都是获取和清理数据。
 
-Therefore, if you are just stepping into this field or planning to step into this field, it is important to be able to deal with messy data, whether that means missing values, inconsistent formatting, malformed records, or nonsensical outliers.
+因此，不管你是刚刚进入这个领域或者计划进入，那么处理混乱数据的能力会非常重要，无论这意味着缺失值、格式不一致、格式错误还是无意义的异常值。
 
-In this tutorial, we’ll leverage Python’s Pandas and NumPy libraries to clean data.
+在此教程中，我们将利用 Pandas 和 NumPy 这两个库来清理数据。
 
-We’ll cover the following:
+我们将介绍以下内容：
 
-*   Dropping unnecessary columns in a `DataFrame`
-*   Changing the index of a `DataFrame`
-*   Using `.str()` methods to clean columns
-*   Using the `DataFrame.applymap()` function to clean the entire dataset, element-wise
-*   Renaming columns to a more recognizable set of labels
-*   Skipping unnecessary rows in a CSV file
+*   删除 `DataFrame` 中不必要的列
+*   更改 `DataFrame` 的索引
+*   用 `.str()` 方法清理列
+*   使用 `DataFrame.applymap()` 函数以元素方式清理数据集
+*   将列重命名为更易识别的标签
+*   跳过 CSV 文件中不必要的行
 
-Here are the datasets that we will be using:
+这些是我们将要用到的数据集：
 
-*   [BL-Flickr-Images-Book.csv](https://github.com/realpython/python-data-cleaning/blob/master/Datasets/BL-Flickr-Images-Book.csv) – A CSV file containing information about books from the British Library
-*   [university_towns.txt](https://github.com/realpython/python-data-cleaning/blob/master/Datasets/university_towns.txt) – A text file containing names of college towns in every US state
-*   [olympics.csv](https://github.com/realpython/python-data-cleaning/blob/master/Datasets/olympics.csv) – A CSV file summarizing the participation of all countries in the Summer and Winter Olympics
+*   [BL-Flickr-Images-Book.csv](https://github.com/realpython/python-data-cleaning/blob/master/Datasets/BL-Flickr-Images-Book.csv) – 包含大英图书馆书籍信息的 CSV 文件
+*   [university_towns.txt](https://github.com/realpython/python-data-cleaning/blob/master/Datasets/university_towns.txt) – 包含美国各州大学城名称的文本文件
+*   [olympics.csv](https://github.com/realpython/python-data-cleaning/blob/master/Datasets/olympics.csv) – 汇总所有国家夏季和冬季奥运会参与情况的 CSV 文件
 
-You can download the datasets from Real Python’s [GitHub repository](https://github.com/realpython/python-data-cleaning) in order to follow the examples here.
+你可以从 Real Python 的 [GitHub 仓库](https://github.com/realpython/python-data-cleaning) 下载所有数据集，以便查看以下示例。
 
-**Note**: I recommend using Jupyter Notebooks to follow along.
+**注意**：我推荐使用 Jupyter Notebook 来进行以下步骤。
 
-This tutorial assumes a basic understanding of the Pandas and NumPy libraries, including Panda’s workhorse [`Series` and `DataFrame` objects](https://pandas.pydata.org/pandas-docs/stable/dsintro.html), common methods that can be applied to these objects, and familiarity with NumPy’s [`NaN`](https://docs.scipy.org/doc/numpy-1.13.0/user/misc.html) values.
+本教程假设你对 Pandas 和 NumPy 库有基本的了解，包括 Pandas 的主要工作对象 [`Series` 和 `DataFrame`](https://pandas.pydata.org/pandas-docs/stable/dsintro.html)，应用于它们的常用方法，以及熟悉 NumPy 的 [`NaN`](https://docs.scipy.org/doc/numpy-1.13.0/user/misc.html) 值。
 
-Let’s import the required modules and get started!
+让我们从 import 这些模块开始吧！
 
 ```
 >>> import pandas as pd
 >>> import numpy as np
 ```
 
-## Dropping Columns in a `DataFrame`
+## 删除 `DataFrame` 中不必要的列
 
-Often, you’ll find that not all the categories of data in a dataset are useful to you. For example, you might have a dataset containing student information (name, grade, standard, parents’ names, and address) but want to focus on analyzing student grades.
+你经常会发现数据集中并非所有类别的数据都对你有用。例如，你可能有一个数据集包含了学生信息（名字、成绩、标准、父母姓名和住址），但你想要专注于分析学生的成绩。
 
-In this case, the address or parents’ names categories are not important to you. Retaining these unneeded categories will take up unnecessary space and potentially also bog down runtime.
+在这种情况下，住址和父母姓名对你来说并不重要，保留这些类别将占用不必要的空间，并可能拖累运行时间。
 
-Pandas provides a handy way of removing unwanted columns or rows from a `DataFrame` with the [`drop()`](https://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.drop.html) function. Let’s look at a simple example where we drop a number of columns from a `DataFrame`.
+Pandas 提供了一个很方便的 [`drop()`](https://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.drop.html) 函数来从 `DataFrame` 中移除列或行。我们来看一个简单的例子，从 `DataFrame` 中删除一些列。
 
-First, let’s create a `DataFrame` out of the CSV file ‘BL-Flickr-Images-Book.csv’. In the examples below, we pass a relative path to `pd.read_csv`, meaning that all of the datasets are in a folder named `Datasets` in our current working directory:
+首先，我们从 CSV 文件 “BL-Flickr-Images-Book.csv” 中创建一个 `DataFrame`。在下面的例子中，我们把相对路径传递给 `pd.read_csv`，当前工作路径下，所有的数据集都存放在 `Datasets` 文件夹中：
 
 ```
 >>> df = pd.read_csv('Datasets/BL-Flickr-Images-Book.csv')
@@ -107,9 +107,9 @@ First, let’s create a `DataFrame` out of the CSV file ‘BL-Flickr-Images-Book
 4    British Library HMNTS 9007.d.28.
 ```
 
-When we look at the first five entries using the `head()` method, we can see that a handful of columns provide ancillary information that would be helpful to the library but isn’t very descriptive of the books themselves: `Edition Statement`, `Corporate Author`, `Corporate Contributors`, `Former owner`, `Engraver`, `Issuance type` and `Shelfmarks`.
+当我们使用 `head()` 方法查看前五条数据时，我们可以看到一些列提供了对图书馆来说有用的辅助信息，但是对描述书籍本身并没有太多帮助： `Edition Statement`，`Corporate Author`，`Corporate Contributors`，`Former owner`，`Engraver`，`Issuance type` 和 `Shelfmarks`。
 
-We can drop these columns in the following way:
+我们可以这样删除这些列：
 
 ```
 >>> to_drop = ['Edition Statement',
@@ -124,9 +124,9 @@ We can drop these columns in the following way:
 >>> df.drop(to_drop, inplace=True, axis=1)
 ```
 
-Above, we defined a list that contains the names of all the columns we want to drop. Next, we call the `drop()` function on our object, passing in the `inplace` parameter as `True` and the `axis` parameter as `1`. This tells Pandas that we want the changes to be made directly in our object and that it should look for the values to be dropped in the columns of the object.
+这里，我们定义了一个列表，其中包含了我们想要删除的列的名字。然后调用 `drop()` 函数，传入 `inplace` 参数为 `True`，以及 `axis` 参数为 `1`。这两个参数告诉 Pandas 我们想要让改变直接作用在对象上，并且我们需要删除的是列。
 
-When we inspect the `DataFrame` again, we’ll see that the unwanted columns have been removed:
+再次查看 `DataFrame`，可以发现不想要的列已经被移除了：
 
 ```
 >>> df.head()
@@ -152,28 +152,28 @@ When we inspect the `DataFrame` again, we’ll see that the unwanted columns hav
 4  A., E. S.  http://www.flickr.com/photos/britishlibrary/ta...
 ```
 
-Alternatively, we could also remove the columns by passing them to the `columns` parameter directly instead of separately specifying the labels to be removed and the axis where Pandas should look for the labels:
+或者，我们可以通过直接将列传递给 `columns` 参数来删除列，不用单独指定删除的标签以及删除列还是行：
 
 ```
 >>> df.drop(columns=to_drop, inplace=True)
 ```
 
-This syntax is more intuitive and readable. What we’re trying to do here is directly apparent.
+这种方法更直观易读，这一步做了什么是非常明显的。
 
-If you know in advance which columns you’d like to retain, another option is to pass them to the `usecols` argument of `pd.read_csv`.
+如果你事先知道那些列是你需要保留的，另外一个选择是将列作为 `usecols` 的参数传给 `pd.read_csv`。
 
-## Changing the Index of a `DataFrame`
+## 更改 `DataFrame` 的索引
 
-A Pandas `Index` extends the functionality of NumPy arrays to allow for more versatile slicing and labeling. In many cases, it is helpful to use a uniquely valued identifying field of the data as its index.
+Pandas 的 `Index` 扩展了 NumPy 的数组功能，从而可以实现更多功能的截取和标签。在多数情况下，使用数据唯一有价值的标识字段作为索引是很有帮助的。
 
-For example, in the dataset used in the previous section, it can be expected that when a librarian searches for a record, they may input the unique identifier (values in the `Identifier` column) for a book:
+例如，在上一节使用的数据集中，可以想象到，图书管理员如果需要搜索记录，他也许输入的是书籍的唯一标识符（`Identifier` 列）：
 
 ```
 >>> df['Identifier'].is_unique
 True
 ```
 
-Let’s replace the existing index with this column using `set_index`:
+让我们用 `set_index` 来替换现有的索引：
 
 ```
 >>> df = df.set_index('Identifier')
@@ -207,9 +207,9 @@ Let’s replace the existing index with this column using `set_index`:
 480         http://www.flickr.com/photos/britishlibrary/ta...
 ```
 
-**Technical Detail**: Unlike primary keys in SQL, a Pandas `Index` doesn’t make any guarantee of being unique, although many indexing and merging operations will notice a speedup in runtime if it is.
+**技术细节**： 与 SQL 中的主键不同，Pandas 的 `Index` 不保证是唯一的，尽管许多索引及合并操作在唯一的情况下运行时会加速。
 
-We can access each record in a straightforward way with `loc[]`. Although `loc[]` may not have all that intuitive of a name, it allows us to do _label-based indexing_, which is the labeling of a row or record without regard to its position:
+我们可以使用 `loc[]` 直接访问每条记录。尽管 `loc[]` 可能不具有直观的名称，但它允许我们执行**基于标签的索引**，即标记某一行或某一条记录而不用考虑其位置：
 
 ```
 >>> df.loc[206]
@@ -222,32 +222,32 @@ Flickr URL              http://www.flickr.com/photos/britishlibrary/ta...
 Name: 206, dtype: object
 ```
 
-In other words, 206 is the first label of the index. To access it by _position_, we could use `df.iloc[0]`, which does position-based indexing.
+换句话说，206 是索引的第一个标签。如要按位置访问它，我们可以使用 `df.iloc[0]`，它执行基于**位置**的索引。
 
-**Technical Detail**: `.loc[]` is technically a [class instance](https://github.com/pandas-dev/pandas/blob/7273ea0709590e6264607f227bb8def0ef656c50/pandas/core/indexing.py#L1415) and has some special [syntax](https://pandas.pydata.org/pandas-docs/stable/indexing.html#selection-by-label) that doesn’t conform exactly to most plain-vanilla Python instance methods.
+**技术细节**：`.loc[]` 在技术上来说是一个[类实例](https://github.com/pandas-dev/pandas/blob/7273ea0709590e6264607f227bb8def0ef656c50/pandas/core/indexing.py#L1415)，它有一些特殊的[语法](https://pandas.pydata.org/pandas-docs/stable/indexing.html#selection-by-label)不完全符合大多数普通 Python 实例方法。
 
-Previously, our index was a RangeIndex: integers starting from `0`, analogous to Python’s built-in `range`. By passing a column name to `set_index`, we have changed the index to the values in `Identifier`.
+一开始，我们的索引是一个 RangeIndex，也就是从 0 开始的整数，类似于 Python 内置的 `range`。通过把列的名称传给 `set_index`，我们将索引改成了 `Identifier` 中的值。
 
-You may have noticed that we reassigned the variable to the object returned by the method with `df = df.set_index(...)`. This is because, by default, the method returns a modified copy of our object and does not make the changes directly to the object. We can avoid this by setting the `inplace` parameter:
+你可能注意到，我们使用 `df = df.set_index(...)` 将此方法返回的值重新赋值给变量。这是因为默认情况下，此方法会返回一个修改后的副本，并不会直接对原本的对象进行更改，索引可以通过设置 `inplace` 参数来避免这种情况：
 
 ```
 df.set_index('Identifier', inplace=True)
 ```
 
-## Tidying up Fields in the Data
+## 整理数据中的字段
 
-So far, we have removed unnecessary columns and changed the index of our `DataFrame` to something more sensible. In this section, we will clean specific columns and get them to a uniform format to get a better understanding of the dataset and enforce consistency. In particular, we will be cleaning `Date of Publication` and `Place of Publication`.
+到这里，我们已经删除了不必要的列，并将 `DataFrame` 的索引更改为更有意义的列。在这一节，我们将会清理特定的列，使其成为统一的格式，以便更好地理解数据集并强化一致性。具体来说，我们将清理 `Date of Publication` 和 `Place of Publication` 这两列。
 
-Upon inspection, all of the data types are currently the `object` [dtype](http://pandas.pydata.org/pandas-docs/stable/basics.html#dtypes), which is roughly analogous to `str` in native Python.
+经过检查，所有的数据类型都是 `object` [dtype](http://pandas.pydata.org/pandas-docs/stable/basics.html#dtypes)，它与 Python 中的 `str` 类似。
 
-It encapsulates any field that can’t be neatly fit as numerical or categorical data. This makes sense since we’re working with data that is initially a bunch of messy strings:
+它封装了任何不适用于数字或分类数据的字段。这是有道理的，因为我们使用的数据最初只是一堆杂乱的字符：
 
 ```
 >>> df.get_dtype_counts()
 object    6
 ```
 
-One field where it makes sense to enforce a numeric value is the date of publication so that we can do calculations down the road:
+其中出版日期一列，如果将其转化为数字类型更有意义，所以我们可以进行如下计算：
 
 ```
 >>> df.loc[1905:, 'Date of Publication'].head(10)
@@ -265,24 +265,24 @@ Identifier
 Name: Date of Publication, dtype: object
 ```
 
-A particular book can have only one date of publication. Therefore, we need to do the following:
+一本书只能有一个出版日期，因此我们需要做到以下几点：
 
-*   Remove the extra dates in square brackets, wherever present: 1879 [1878]
-*   Convert date ranges to their “start date”, wherever present: 1860-63; 1839, 38-54
-*   Completely remove the dates we are not certain about and replace them with NumPy’s `NaN`: [1897?]
-*   Convert the string `nan` to NumPy’s `NaN` value
+*   除去方括号内的多余日期，不管出现在哪里，例如：1879 [1878]
+*   将日期范围转换为“开始日期”，例如：1860-63; 1839, 38-54
+*   完全移除任何不确定的日期，并用 NumPy 的 `NaN` 值替代：[1897?]
+*   将字符串 `nan` 也转换为 NumPy 的 `NaN`
 
-Synthesizing these patterns, we can actually take advantage of a single regular expression to extract the publication year:
+综合以上，我们实际上可以利用一个正则表达式来提取出版年份：
 
 ```
 regex = r'^(\d{4})'
 ```
 
-The regular expression above is meant to find any four digits at the beginning of a string, which suffices for our case. The above is a _raw string_ (meaning that a backslash is no longer an escape character), which is standard practice with regular expressions.
+这个正则表达式意图在字符串的开头找到四位数字，这足以满足我们的要求。上面是一个原始字符串（这意味着反斜杠不再是转义字符），这是正则表达式的标准做法。
 
-The `\d` represents any digit, and `{4}` repeats this rule four times. The `^` character matches the start of a string, and the parentheses denote a capturing group, which signals to Pandas that we want to extract that part of the regex. (We want `^` to avoid cases where `[` starts off the string.)
+`\d` 表示任何数字，`{4}` 表示重复 4 次，`^` 表示匹配字符串的开头，括号表示一个捕获组，它向 Pandas 表明我们想要提取正则表达式的这部分。（我们希望用 `^` 来避免字符串从 `[` 开始的情况。）
 
-Let’s see what happens when we run this regex across our dataset:
+现在让我们来看看我们在数据集中运行这个表达式时会发生什么：
 
 ```
 >>> extr = df['Date of Publication'].str.extract(r'^(\d{4})', expand=False)
@@ -296,9 +296,9 @@ Identifier
 Name: Date of Publication, dtype: object
 ```
 
-Not familiar with regex? You can [inspect the expression above](https://regex101.com/r/3AJ1Pv/1) at regex101.com and read more at the Python Regular Expressions [HOWTO](https://docs.python.org/3.6/howto/regex.html).
+对正则不熟悉？你可以在 regex101.com 这个网站上[查看上面这个正则表达式](https://regex101.com/r/3AJ1Pv/1)，也可以阅读更多 Python 正则表达式 [HOWTO](https://docs.python.org/3.6/howto/regex.html) 上的教程。
 
-Technically, this column still has `object` dtype, but we can easily get its numerical version with `pd.to_numeric`:
+从技术上讲，这一列仍然是 `object` dtype，但是我们用 `pd.to_numeric` 即可轻松获取数字：
 
 ```
 >>> df['Date of Publication'] = pd.to_numeric(extr)
@@ -306,30 +306,30 @@ Technically, this column still has `object` dtype, but we can easily get its num
 dtype('float64')
 ```
 
-This results in about one in every ten values being missing, which is a small price to pay for now being able to do computations on the remaining valid values:
+这么做会导致十分之一的值丢失，但这相对于能够对剩余的有效值上进行计算而已，是一个比较小的代价：
 
 ```
 >>> df['Date of Publication'].isnull().sum() / len(df)
 0.11717147339205986
 ```
 
-Great! That’s done!
+很好！本节完成了！
 
-## Combining `str` Methods with NumPy to Clean Columns
+## 结合 NumPy 以及 `str` 方法来清理列
 
-Above, you may have noticed the use of `df['Date of Publication'].str`. This attribute is a way to access speedy [string operations](https://pandas.pydata.org/pandas-docs/stable/text.html) in Pandas that largely mimic operations on native Python strings or compiled regular expressions, such as `.split()`, `.replace()`, and `.capitalize()`.
+上一部分，你可能已经注意到我们使用了 `df['Date of Publication'].str`。这个属性是访问 Pandas 的快速[字符串操作](https://pandas.pydata.org/pandas-docs/stable/text.html)的一种方式，它主要模仿了原生 Python 中的字符串或编译的正则表达式方法，例如 `.split()`、`.replace()`、`.capitalize()`。
 
-To clean the `Place of Publication` field, we can combine Pandas `str` methods with NumPy’s `np.where` function, which is basically a vectorized form of Excel’s `IF()` macro. It has the following syntax:
+为了清理 `Place of Publication` 字段，我们可以结合 Pandas 的 `str` 方法以及 NumPy 的 `np.where` 函数，这个函数基本上是 Excel 里的 `IF()` 宏的矢量化形式。它的语法如下：
 
 ```
 >>> np.where(condition, then, else)
 ```
 
-Here, `condition` is either an array-like object or a boolean mask. `then` is the value to be used if `condition` evaluates to `True`, and `else` is the value to be used otherwise.
+这里，`condition` 可以是一个类似数组的对象或者一个布尔遮罩，如果 `condition` 为 `True`，则使用 `then` 值，否则使用 `else` 值。
 
-Essentially, `.where()` takes each element in the object used for `condition`, checks whether that particular element evaluates to `True` in the context of the condition, and returns an `ndarray` containing `then` or `else`, depending on which applies.
+从本质上来说，`.where()` 函数对对象中的每个元素进行检查，看 `condition` 是否为 `True`，并返回一个 `ndarray` 对象，包含`then` 或者 `else` 的值。
 
-It can be nested into a compound if-then statement, allowing us to compute values based on multiple conditions:
+它也可以被用于嵌套的 if-then 语句中，允许我们根据多个条件进行计算：
 
 ```
 >>> np.where(condition1, x1, 
@@ -337,7 +337,7 @@ It can be nested into a compound if-then statement, allowing us to compute value
             np.where(condition3, x3, ...)))
 ```
 
-We’ll be making use of these two functions to clean `Place of Publication` since this column has string objects. Here are the contents of the column:
+我们将用这两个函数来清理 `Place of Publication` 一列，因为此列包含字符串。以下是该列的内容：
 
 ```
 >>> df['Place of Publication'].head(10)
@@ -355,9 +355,9 @@ Identifier
 Name: Place of Publication, dtype: object
 ```
 
-We see that for some rows, the place of publication is surrounded by other unnecessary information. If we were to look at more values, we would see that this is the case for only some rows that have their place of publication as ‘London’ or ‘Oxford’.
+我们发现某些行中，出版地被其他不必要的信息包围着。如果观察更多值，我们会发现只有出版地包含 ‘London’ 或者 ‘Oxford’ 的行才会出现这种情况。
 
-Let’s take a look at two specific entries:
+我们来看看两条特定的数据：
 
 ```
 >>> df.loc[4157862]
@@ -379,11 +379,11 @@ Flickr URL              http://www.flickr.com/photos/britishlibrary/ta...
 Name: 4159587, dtype: object
 ```
 
-These two books were published in the same place, but one has hyphens in the name of the place while the other does not.
+这两本书在用一个地方出版，但是一个地名中间包含连字符，另一个没有。
 
-To clean this column in one sweep, we can use `str.contains()` to get a boolean mask.
+想要一次性清理这一列，我们可以用 `str.contains()` 来获得一个布尔掩码。
 
-We clean the column as follows:
+我们按如下方式清理此列：
 
 ```
 >>> pub = df['Place of Publication']
@@ -400,7 +400,7 @@ Name: Place of Publication, dtype: bool
 >>> oxford = pub.str.contains('Oxford')
 ```
 
-We combine them with `np.where`:
+与 `np.where` 结合：
 
 ```
 df['Place of Publication'] = np.where(london, 'London',
@@ -417,13 +417,13 @@ Identifier
 Name: Place of Publication, dtype: object
 ```
 
-Here, the `np.where` function is called in a nested structure, with `condition` being a `Series` of booleans obtained with `str.contains()`. The `contains()` method works similarly to the built-in [`in` keyword](https://www.programiz.com/python-programming/keyword-list#in) used to find the occurrence of an entity in an iterable (or substring in a string).
+这里，`np.where` 函数在嵌套结果中被调用，`condition` 是从 `str.contains()` 返回的布尔值的 `Series` 对象。`contains()` 方法类似原生 Python 中内置的 [`in` 关键字](https://www.programiz.com/python-programming/keyword-list#in)，它被用来查找一个迭代器中某个实体是否出现（或者字符串中是否有某子字符串）。
 
-The replacement to be used is a string representing our desired place of publication. We also replace hyphens with a space with `str.replace()` and reassign to the column in our `DataFrame`.
+替换的是我们想要的出版地点的字符串。我们也用 `str.replace()` 方法将连字符替换成了空格然后重新赋值给 `DataFrame` 的列。
 
-Although there is more dirty data in this dataset, we will discuss only these two columns for now.
+虽然这个数据集中还有很多脏数据，我们现在只讨论这两列。
 
-Let’s have a look at the first five entries, which look a lot crisper than when we started out:
+让我们来重新看看前五项，看起来比最开始的时候清晰多了：
 
 ```
 >>> df.head()
@@ -449,15 +449,15 @@ Let’s have a look at the first five entries, which look a lot crisper than whe
 480         http://www.flickr.com/photos/britishlibrary/ta...
 ```
 
-**Note**: At this point, `Place of Publication` would be a good candidate for conversion to a [`Categorical` dtype](https://pandas.pydata.org/pandas-docs/stable/categorical.html), because we can encode the fairly small unique set of cities with integers. (_The memory usage of a Categorical is proportional to the number of categories plus the length of the data; an object dtype is a constant times the length of the data._)
+**注意**：到这里，`Place of Publication` 会是一个很好转化为 [`Categorical` dtype](https://pandas.pydata.org/pandas-docs/stable/categorical.html) 的列，因为我们可以用整数对比较小的唯一的城市进行编码。（**分类数据类型的内存使用量与类别数目加上数据长度成正比，dtype 对象的大小是一个常数乘以数据长度。**）
 
-## Cleaning the Entire Dataset Using the `applymap` Function
+## 使用 `applymap` 函数清理整个数据集
 
-In certain situations, you will see that the “dirt” is not localized to one column but is more spread out.
+在某些情况下，你会发现不仅是某一列里有脏数据，而是分散在整个数据集。
 
-There are some instances where it would be helpful to apply a customized function to each cell or element of a DataFrame. Pandas `.applymap()` method is similar to the in-built `map()` function and simply applies a function to all the elements in a `DataFrame`.
+有时如果可以对 `DataFrame` 里的每个单元或元素都应用一个自定义函数会很有帮助。Pandas 的 `.applymap()` 函数类似内置的 `map()` 函数，只是它将应用于 `DataFrame` 中的所有元素。
 
-Let’s look at an example. We will create a `DataFrame` out of the “university_towns.txt” file:
+让我们来看个例子，我们将从 “university_towns.txt” 文件中创建 `DataFrame`。
 
 ```Shell
 $ head Datasets/univerisity_towns.txt
@@ -473,9 +473,9 @@ Tuskegee (Tuskegee University)[5]
 Alaska[edit]
 ```
 
-We see that we have periodic state names followed by the university towns in that state: `StateA TownA1 TownA2 StateB TownB1 TownB2...`. If we look at the way state names are written in the file, we’ll see that all of them have the “[edit]” substring in them.
+我们发现州名后面跟着大学城的名字这样周期性出现：`StateA TownA1 TownA2 StateB TownB1 TownB2…`，如果我们在文件中查看州名的写法，会发现所有都有一个 “[edit]” 子字符串。
 
-We can take advantage of this pattern by creating a _list of `(state, city)` tuples_ and wrapping that list in a `DataFrame`:
+我们可以利用这个模式创建一个 `(state, city)` 元组列表，并将它放入 `DataFrame`。
 
 ```
 >>> university_towns = []
@@ -496,9 +496,9 @@ We can take advantage of this pattern by creating a _list of `(state, city)` tup
  ('Alabama[edit]\n', 'Montevallo (University of Montevallo)[2]\n')]
 ```
 
-We can wrap this list in a DataFrame and set the columns as “State” and “RegionName”. Pandas will take each element in the list and set `State` to the left value and `RegionName` to the right value.
+我们可以将这个列表包入 DataFrame 中，并将列起名为 “State” 和 “RegionName”。Pandas 会获取每个列表中的元素，将左边的值放入 `State` 列，右边的值放入 `RegionName` 列。
 
-The resulting DataFrame looks like this:
+生成的 DataFrame 如下：
 
 ```
 >>> towns_df = pd.DataFrame(university_towns,
@@ -513,9 +513,9 @@ The resulting DataFrame looks like this:
 4  Alabama[edit]\n         Montevallo (University of Montevallo)[2]\n
 ```
 
-While we could have cleaned these strings in the for loop above, Pandas makes it easy. We only need the state name and the town name and can remove everything else. While we could use Pandas’ `.str()` methods again here, we could also use `applymap()` to map a Python callable to each element of the DataFrame.
+尽管我们可以使用 for 循环来清理上面的字符串，但是使用 Pandas 会更加方便。我们只需要州名和城镇名字，其他都可以删除。虽然这里也可以再次使用 .str() 方法，但我们也可以使用 applymap() 方法将一个 Python 可调用方法映射到 DataFrame 的每个元素上。
 
-We have been using the term _element_, but what exactly do we mean by it? Consider the following “toy” DataFrame:
+我们一直在使用**元素**这个术语，但实际上到底是指什么呢？看一下以下这个 DataFrame 例子：
 
 ```
         0           1
@@ -525,7 +525,7 @@ We have been using the term _element_, but what exactly do we mean by it? Consid
 3   NumPy     Clean
 ```
 
-In this example, each cell (‘Mock’, ‘Dataset’, ‘Python’, ‘Pandas’, etc.) is an element. Therefore, `applymap()` will apply a function to each of these independently. Let’s define that function:
+在这个例子中，每个单元格（‘Mock’、‘Dataset’、‘Python’、‘Pandas’ 等）都是一个元素。所以 `applumap()` 方法将函数作用于每个元素上。假设定义函数为：
 
 ```
 >>> def get_citystate(item):
@@ -537,15 +537,15 @@ In this example, each cell (‘Mock’, ‘Dataset’, ‘Python’, ‘Pandas�
 ...         return item
 ```
 
-Pandas’ `.applymap()` only takes one parameter, which is the function (callable) that should be applied to each element:
+Pandas 的 `.applymap()` 只接受一个参数，也就是将会作用于每个元素上的函数（可调用）：
 
 ```
 >>> towns_df =  towns_df.applymap(get_citystate)
 ```
 
-First, we define a Python function that takes an element from the `DataFrame` as its parameter. Inside the function, checks are performed to determine whether there’s a `(` or `[` in the element or not.
+首先，我们定义一个 Python 函数，它以 `DataFrame` 中的元素作为参数。在函数内部，执行元素是否包含 `(` 或 `[` 的检查。
 
-Depending on the check, values are returned accordingly by the function. Finally, the `applymap()` function is called on our object. Now the DataFrame is much neater:
+函数返回的值取决于这个检查。最后，`applymap()` 函数在我们的 `DataFrame` 对象上被调用。现在我们的 `DataFrame` 对象更加简洁了。
 
 ```
 >>> towns_df.head()
@@ -557,17 +557,17 @@ Depending on the check, values are returned accordingly by the function. Finally
 4  Alabama    Montevallo
 ```
 
-The `applymap()` method took each element from the DataFrame, passed it to the function, and the original value was replaced by the returned value. It’s that simple!
+`applymap()` 方法从 DataFrame 中获取每个元素，将它传递给函数，然后将原来的值替换为函数返回的值。就是这么简单！
 
-**Technical Detail**: While it is a convenient and versatile method, `.applymap` can have significant runtime for larger datasets, because it maps a Python callable to each individual element. In some cases, it can be more efficient to do _vectorized_ operations that utilize Cython or NumPY (which, in turn, makes calls in C) under the hood.
+**技术细节**：虽然它是一个方便多功能的方法，但 `.applymap()` 对于较大的数据集会有明显的运行时间，因为它将可调用的 Python 函数映射到每个单独元素。某些情况下，使用 Cython 或者 NumPy （调用 C 语言）里的矢量化操作更高效。
 
-## Renaming Columns and Skipping Rows
+## 列的重命名以及跳过行
 
-Often, the datasets you’ll work with will have either column names that are not easy to understand, or unimportant information in the first few and/or last rows, such as definitions of the terms in the dataset, or footnotes.
+通常，需要处理的数据集可能包含不易理解的列名，或者某些包含不重要信息的行，它们可能是最前面的有关术语定义的几行，或者最末尾的脚注。
 
-In that case, we’d want to rename columns and skip certain rows so that we can drill down to necessary information with correct and sensible labels.
+在这种情况下，我们希望重命名列以及跳过某些行，以便我们可以只对必要的信息以及有意义的标签进行深入分析。
 
-To demonstrate how we can go about doing this, let’s first take a glance at the initial five rows of the “olympics.csv” dataset:
+为了说明我们如何做到这一点，我们先来看一看 “olympics.csv” 数据集的前五行：
 
 ```Shell
 $ head -n 5 Datasets/olympics.csv
@@ -578,7 +578,7 @@ Algeria (ALG),12,5,2,8,15,3,0,0,0,0,15,5,2,8,15
 Argentina (ARG),23,18,24,28,70,18,0,0,0,0,41,18,24,28,70
 ```
 
-Now, we’ll read it into a Pandas DataFrame:
+然后，将它读入 Pandas 的 DataFrame 中：
 
 ```
 >>> olympics_df = pd.read_csv('Datasets/olympics.csv')
@@ -598,18 +598,18 @@ Now, we’ll read it into a Pandas DataFrame:
 4     0      0       11     1     2     9              12
 ```
 
-This is messy indeed! The columns are the string form of integers indexed at 0. The row which should have been our header (i.e. the one to be used to set the column names) is at `olympics_df.iloc[0]`. This happened because our CSV file starts with 0, 1, 2, …, 15.
+这确实很凌乱！列是从 0 开始索引的字符串形式的数字。应该是头部的行（也就是应该设置为列名的行）位于 `olympics_df.iloc[0]`。发生这种情况是因为我们的 csv 文件是以 0、1、2…15 开头的。
 
-Also, if we were to go to the [source of this dataset](https://en.wikipedia.org/wiki/All-time_Olympic_Games_medal_table), we’d see that `NaN` above should really be something like “Country”, `? Summer` is supposed to represent “Summer Games”, `01 !` should be “Gold”, and so on.
+另外，如果我们去查看[数据集的来源](https://en.wikipedia.org/wiki/All-time_Olympic_Games_medal_table)，会发现 `NaN` 应该是类似 “Country”，`?Summer` 应该代表的是 “Summer Games”，而 `01!` 应该是 “Gold” 等等。
 
-Therefore, we need to do two things:
+所以，我们需要做以下两件事：
 
-*   Skip one row and set the header as the first (0-indexed) row
-*   Rename the columns
+*   跳过一行，将第一行（索引为 0）设置为 header
+*   重命名这些列
 
-We can skip rows and set the header while reading the CSV file by passing some parameters to the `read_csv()` function.
+我们可以在读取 CSV 文件时通过传递一些参数给 `read_csv()` 函数来跳过某行并设置 header。
 
-This function takes [_a lot_](https://pandas.pydata.org/pandas-docs/stable/generated/pandas.read_csv.html) of optional parameters, but in this case we only need one (`header`) to remove the 0th row:
+这个函数有[很多可选的参数](https://pandas.pydata.org/pandas-docs/stable/generated/pandas.read_csv.html)，但这个情况里，我们只需要一个参数（`header`）来移除第 0 行：
 
 ```
 >>> olympics_df = pd.read_csv('Datasets/olympics.csv', header=1)
@@ -636,11 +636,11 @@ This function takes [_a lot_](https://pandas.pydata.org/pandas-docs/stable/gener
 4              12
 ```
 
-We now have the correct row set as the header and all unnecessary rows removed. Take note of how Pandas has changed the name of the column containing the name of the countries from `NaN` to `Unnamed: 0`.
+我们现在已经有了正确的 header 行，以及移除了所有不必要的行。注意 Pandas 将包含国家名字的列的名字从 `NaN` 变成了 `Unnames:0`。
 
-To rename the columns, we will make use of a DataFrame’s `rename()` method, which allows you to relabel an axis based on a _mapping_ (in this case, a `dict`).
+要重命名列，我们将利用 `rename()` 方法，这个方法允许你基于一个映射（本例中，指字典）来重新标记轴的名字。
 
-Let’s start by defining a dictionary that maps current column names (as keys) to more usable ones (the dictionary’s values):
+让我们从定义一个新的字典开始，它将现在的列的名字作为 key，映射到可用性更强的名字（字典值）。
 
 ```
 >>> new_names =  {'Unnamed: 0': 'Country',
@@ -658,13 +658,13 @@ Let’s start by defining a dictionary that maps current column names (as keys) 
 ...               '03 !.2': 'Bronze.2'}
 ```
 
-We call the `rename()` function on our object:
+然后调用 `rename()` 函数：
 
 ```
 >>> olympics_df.rename(columns=new_names, inplace=True)
 ```
 
-Setting _inplace_ to `True` specifies that our changes be made directly to the object. Let’s see if this checks out:
+将 `inplace` 参数设置为 `True` 可以将变化直接作用于我们的 `DataFrame` 对象上。让我们看看是否生效：
 
 ```
 >>> olympics_df.head()
@@ -690,23 +690,22 @@ Setting _inplace_ to `True` specifies that our changes be made directly to the o
 4         4         5              12
 ```
 
-## Python Data Cleaning: Recap and Resources
+## Python 数据清理：回顾以及其他资源
 
-In this tutorial, you learned how you can drop unnecessary information from a dataset using the `drop()` function, as well as how to set an index for your dataset so that items in it can be referenced easily.
+在本教程中，你学习了如何使用 `drop()` 函数删除不必要的信息，以及如何给你的数据集设置索引以便更加方便的引用其他的项。
 
-Moreover, you learned how to clean `object` fields with the `.str()` accessor and how to clean the entire dataset using the `applymap()` method. Lastly, we explored how to skip rows in a CSV file and rename columns using the `rename()` method.
+此外，你也学习了如何使用 `.str()` 清理对象字段，以及如何使用 `applymap()` 函数清理整个数据集。最后，我们探索了一下如何跳过 CSV 文件中某些列以及使用 `rename()` 方法重命名列。
 
-Knowing about data cleaning is very important, because it is a big part of data science. You now have a basic understanding of how Pandas and NumPy can be leveraged to clean datasets!
+了解数据清理非常重要，因为这是数据科学很重要的一部分。你现在已经对如何使用 Pandas 以及 NumPy 清理数据集有了基本的了解。
 
-Check out the links below to find additional resources that will help you on your Python data science journey:
+查看以下链接可以帮你找到更多的资源继续你的 Python 数据科学之旅：
 
-*   The Pandas [documentation](https://pandas.pydata.org/pandas-docs/stable/index.html)
-*   The NumPy [documentation](https://docs.scipy.org/doc/numpy/reference/)
-*   [Python for Data Analysis](https://realpython.com/asins/1491957662/) by Wes McKinney, the creator of Pandas
-*   [Pandas Cookbook](https://realpython.com/asins/B06W2LXLQK/) by Ted Petrou, a data science trainer and consultant
+*   [Pandas 文档](https://pandas.pydata.org/pandas-docs/stable/index.html)
+*   [NumPy 文档](https://docs.scipy.org/doc/numpy/reference/)
+*   [Python 数据分析](https://realpython.com/asins/1491957662/) 由 Pandas 的创造者 Wes McKinney 撰写
+*   [Pandas Cookbook](https://realpython.com/asins/B06W2LXLQK/) 由数据科学教练和顾问 Ted Petrou 撰写
 
-Each tutorial at Real Python is created by a team of developers so that it meets our high quality standards. The team members who worked on this tutorial are: [Malay Agarwal](https://realpython.com/team/magarwal/) (Author) and [Brad Solomon](https://realpython.com/team/bsolomon/) (Editor).
-
+Real Python 的每一个教程都是由一组开发人员创建，所以它符合我们的高质量标准。参与本教程的团队成员是 [Malay Agarwal](https://realpython.com/team/magarwal/) （作者）以及 [Brad Solomon](https://realpython.com/team/bsolomon/) （编辑）。
 
 ---
 

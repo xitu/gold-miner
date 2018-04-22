@@ -2,88 +2,88 @@
 > * 原文作者：[Coral Health](https://medium.com/@mycoralhealth?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/code-your-own-blockchain-mining-algorithm-in-go.md](https://github.com/xitu/gold-miner/blob/master/TODO1/code-your-own-blockchain-mining-algorithm-in-go.md)
-> * 译者：
-> * 校对者：
+> * 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit)
+> * 校对者：[stormluke](https://github.com/stormluke)，[mingxing47](https://github.com/mingxing47)
 
-# Code your own blockchain mining algorithm in Go!
+# 用 Go 编写你自己的区块链挖矿算法！
 
 ![](https://cdn-images-1.medium.com/max/800/1*zwlWlWAwTRxaoKkds63rfQ.png)
 
-_If you have any questions or comments about the following tutorial, make sure to join our_ [**_Telegram_**](https://t.me/joinchat/FX6A7UThIZ1WOUNirDS_Ew) _chat. Ask us anything!_
+**如果你对下面的教程有任何问题或者建议，加入我们的** [*Telegram*](https://t.me/joinchat/FX6A7UThIZ1WOUNirDS_Ew) **消息群，可以问我们所有你想问的！**
 
-With all the recent craze in Bitcoin and Ethereum mining it’s easy to wonder what the fuss is all about. For newcomers to this space, they hear wild [stories](https://www.coindesk.com/inside-north-americas-8m-bitcoin-mining-operation/) of people filling up warehouses with GPUs making millions of dollars worth of cryptocurrencies a month. What exactly is cryptocurrency mining? How does it work? How can I try coding my own mining algorithm?
+随着最近比特币和以太坊挖矿大火，很容易让人好奇，这么大惊小怪是为什么。对于加入这个领域的新人，他们会听到一些疯狂的[故事](https://www.coindesk.com/inside-north-americas-8m-bitcoin-mining-operation/)：人们用 GPU 填满仓库，每个月赚取价值数百万美元的加密货币。电子货币挖矿到底是什么？它是如何运作的？我如何能试着编写自己的挖矿算法？
 
-We’ll walk you through each of these questions in this post, culminating in a tutorial on how to code your own mining algorithm. The algorithm we’ll be showing you is called **Proof of Work**, which is the foundation to Bitcoin and Ethereum, the two most popular cryptocurrencies. Don’t worry, we’ll explain how that works shortly.
+在这篇博客中，我们将会带你解答上述每一个问题，并最终完成一篇教你如何编写自己的挖矿算法的教程。我们将展示给你的算法叫做**工作量证明**，它是比特币和以太坊这两个最流行的电子货币的基础。别急，我们马上将为你解释它是如何运作的。
 
-**What is cryptocurrency mining?**
+**什么是电子货币挖矿**
 
-Cryptocurrencies need to have scarcity in order to be valuable. If anyone could produce as many Bitcoin as they wanted at anytime, Bitcoin would be worthless as a currency (wait, doesn’t the Federal Reserve do this? *facepalm*). The Bitcoin algorithm releases some Bitcoin to a winning member of its network every 10 minutes, with a maximum supply to be reached in about 122 years. This release schedule also controls inflation to a certain extent, since the entire fixed supply isn’t released at the beginning. More are slowly released over time.
+为了有价值，电子货币需要有一定的稀缺性。如果谁都可以随时生产出他们想要的任意多的比特币，那么作为货币，比特币就毫无价值了。（等一下，美国联邦储备不是这么做了么？*打脸*）比特币算法每十分钟将会发放一些比特币给网络中一个获胜成员，这样最多可以供给大约 122 年。由于定量的供应并不是在最一开始就全部发行，这种发行时间表在一定程度上也控制了膨胀。随着时间流逝，发行地速度将越来越慢。
 
-The process by which a winner is determined and given Bitcoin requires the winner to have done some “work”, and competed with others who were also doing the work. This process is called _mining_, because it’s analogous to a gold miner spending some time doing work and eventually (and hopefully) finding a bit of gold.
+决定胜者是谁并给出比特币的过程需要他完成一定的“工作”，并与同时也在做这个工作的人竞争。这个过程就叫做**挖矿**，因为它很像采矿工人花费时间完成工作并最终（希望）找到黄金。
 
-The Bitcoin algorithm forces participants, or nodes, to do this work and compete with each other to ensure Bitcoin aren’t released too quickly.
+比特币算法要求参与者，或者说节点，完成工作并相互竞争，来保证比特币不会发行过快。
 
-**How does mining work?**
+**挖矿是如何运作的？**
 
-A quick Google search of “how does bitcoin mining work?” fills your results with a multitude of pages explaining that Bitcoin mining asks a node (you, or your computer) to [_solve a hard math problem_](https://www.bitcoinmining.com/). While technically true, simply calling it a “math” problem is incredibly hand-wavy and hackneyed. How mining works under the hood is a lot of fun to understand. We’ll need to understand a bit of cryptography and hashing to learn how mining works.
+一次谷歌快速搜索“比特币挖矿如何运作？”将会给你很多页的答案，解释说比特币挖矿要求节点（你或者说你的电脑）[**解决一个很难的数学问题**](https://www.bitcoinmining.com/)。虽然从技术上来说这是对的，但是简单的把它称为一个“数学”问题太过有失实质并且太过陈腐。了解挖矿运作的内在原理是非常有趣的。为了学习挖矿运作原理，我们首先要了解一下加密算法和哈希。
 
-**A brief introduction to cryptographic hashes**
+**哈希加密的简短介绍**
 
-_One-way cryptography_ takes in a human readable input like “Hello world” and applies a function to it (i.e. the math problem) to produce an indecipherable output. These functions (or algorithms) vary in nature and complexity. The more complicated the algorithm, the harder it is to reverse engineer. Thus, cryptographic algorithms are very powerful in securing things like user passwords and military codes.
+**单向加密**的输入值是能读懂的明文，像是“Hello world”，并施加一个函数在它上面（也就是，数学问题）生成一个不可读的输出。这些函数（或者说算法）的性质和复杂度各有不同。算法越复杂，逆运算解密就越困难。因此，加密算法能有力保护像用户密码和军事代码这类事物。
 
-Let’s take a look at an example of SHA-256, a popular cryptographic algorithm. This [hashing website](http://www.xorbin.com/tools/sha256-hash-calculator) lets you easily calculate SHA-256 hashes. Let’s hash “Hello world” and see what we get:
+让我们来看一个 SHA-256 的例子，它是一个很流行的加密算法。这个[哈希网站](http://www.xorbin.com/tools/sha256-hash-calculator)能让你轻松计算 SHA-256 哈希值。让我们对“Hello world”做哈希运算来看看将会得到什么：
 
 ![](https://cdn-images-1.medium.com/max/800/1*_qWZ8MB6pKezY_76qPjEjA.png)
 
-Try hashing “Hello world” over and over again. You get the same hash every time. In programming getting the same result again and again given the same input is called _idempotency_.
+试试对“Hello world”重复做哈希运算。你每次都将会得到同样的哈希值。给定一个程序相同的输入，反复计算将会得到相同的结果，这叫做幂等性。
 
-A fundamental property of cryptographic algorithms is that they should be extremely hard to reverse engineer to find the input, but extremely easy to verify the output. For example, using the SHA-256 hash above, it should be trivial for someone else to apply the SHA-256 hash algorithm to “Hello world” to check that it indeed produces the same resultant hash, but it should be _very hard_ to take the resultant hash and get “Hello world” from it. This is why this type of cryptography is called _one way_.
+加密算法一个基本的属性就是（输出值）靠逆运算很难推算输入值，但是（靠输入值）很容易就能验证输出值。例如，用上述的 SHA-256 哈希算法，其他人将 SHA-256 哈希算法应用于“Hello world”很容易的就能验证它确实输出同一个哈希值结果，但是想从这个哈希值结果推算出“Hello world”将会**非常困难**。这就是为什么这类算法被称为**单向**。
 
-Bitcoin uses _Double SHA-256_, which is simply applying SHA-256 _again_ to the SHA-256 hash of “Hello world”. For our examples throughout this tutorial we’ll just use SHA-256.
+比特币采用 **双 SHA-256** 算法，这个算法就是简单的将 SHA-256 **再一次**应用于“Hello world”的 SHA-256 哈希值。在这篇教程中，我们将只应用 SHA-256 算法。
 
-**Mining**
+**挖矿**
 
-Now that we understand what cryptography is, we can get back to cryptocurrency mining. Bitcoin needs to find some way to make participants who want to earn Bitcoin “work” so Bitcoins aren’t released too quickly. Bitcoin achieves this by making the participants hash many combinations of letters and numbers until the resulting hash contains a specific number of leading “0”s.
+现在我们知道了加密算法是什么了，我们可以回到加密货币挖矿的问题上。比特币需要找到某种方法，让希望得到比特币参与者“工作”，这样比特币就不会发行的过快。比特币的实现方式是：让参与者不停地做包含数字和字母的哈希运算，直到找到那个以特定位数的“0”开头的哈希结果。
 
-For example, go back to the [hash website](http://www.xorbin.com/tools/sha256-hash-calculator) and hash “886”. It produces a hash with 3 zeros as a prefix.
+例如，回到[哈希网站](http://www.xorbin.com/tools/sha256-hash-calculator)然后对“886”做哈希运算。它将生成一个前缀包含三个零的哈希值。
 
 ![](https://cdn-images-1.medium.com/max/800/1*5l3FgMIR5Gn_AUZ1X5mW9Q.png)
 
-But how did we know that “886” produced something with 3 zeros? That’s the point. Before writing this blog, we _didn’t_. In theory, we would have had to work through a whole bunch combinations of letters and numbers and tested the results until we got one that matched the 3 zeros requirement. To give you a simple example, we already worked in advance to realize the hash of “886” produced 3 leading zeros.
+但是，我们怎么知道 “886” 能得出一个开头三个零的结果呢？这就是关键点了。在写这篇博客之前，我们**不知道**。理论上，我们需要遍历所有数字和字母的组合、测试结果，直到得到一个能够匹配我们需求的三个零开头的结果。给你举一个简单的例子，我们其实已经预先做了计算，发现 “886” 的哈希值是三个零开头的。
 
-The fact that anyone can easily check that “886” produces something with 3 leading zeros **proves** that we did the grunt work of testing and checking a large combination of letters and numbers to get to this result. So if I’m the first one who got this result, I would have earned the Bitcoin by _proving_ I did this work — the proof is that anyone can quickly check that “886” produces the number of zeros I claim it does. This is why the Bitcoin consensus algorithm is called **Proof-of-Work**.
+任何人都可以很轻松的验证 “886” 的哈希结果是三个零前缀，这个事实**证明了**：我做了大量的工作来对很多字母和数字的组合进行测试和检查以获得这个结果。所以，如果我是第一个得到这个结果的人，我就能通过**证明**我做了工作来得到比特币 - 证据就是任何人都能轻松验证 “886” 的哈希结果为三零前缀，正如我宣称的那样。这就是为什么比特币共识算法被称为**工作量证明**。
 
-But what if I just got lucky and I got the 3 leading zeros on my first try? This is extremely unlikely and the occasional node that successfully mines a block (proves that they did the work) on their first try is outweighed by millions of others who had to work extra to find the desired hash. Go ahead and try it. Type in any other combination of letters and numbers in the hash website. We bet you won’t get 3 leading zeros.
+但是如果我很幸运，我第一次尝试就得到了三零前缀的结果呢？这几乎是不可能的，并且那些偶然情况下第一次就成功挖到了区块（证明他们做了工作）的节点会被那些做了额外工作来找到合适的哈希值的成千上万的其他区块所压倒。试试看，在计算哈希的网站上输入任意其他的字母和数字的组合。我打赌你不会得到一个三零开头的结果。
 
-Bitcoin’s requirements are a bit more complex than this (many more leading zeros!) and it is able to adjust the requirements dynamically to make sure the work required isn’t too easy or too hard. Remember, it aims to release Bitcoin every 10 minutes so if too many people are mining, it needs to make the proof of work harder to compensate. This is called _adjusting the difficulty_. For our purposes, adjusting the difficulty will just mean requiring more leading zeros.
+比特币的需求要比这个复杂很多（更多个零的前缀！），并且能够通过动态调节需求来确保工作不会太难也不会太容易。记住，目标是每十分钟发行一次比特币，所以如果太多人在挖矿，就需要将工作量证明调整的更难完成。这就叫**难度调节（adjusting the difficulty）**。为了达成我们的目的，难度调整就意味着需求更多的零前缀。
 
-So you can see the Bitcoin consensus algorithm is much more interesting than just “solving a math problem”!
+现在你就知道了，比特币共识机制比单纯的“解决一个数学问题”要有意思的多！
 
-### **Enough background. Let’s get coding!**
+### **足够多背景介绍了。我们开始编程吧！**
 
-Now that we have the background we need, let’s build our own Blockchain program with a Proof-of-Work algorithm. We’ll write it in Go because we use it here at Coral Health and frankly, it’s [awesome](https://hackernoon.com/5-reasons-why-we-switched-from-python-to-go-4414d5f42690).
+现在我们已经有了足够多的背景知识，让我们用工作量共识算法来建立自己的比特币程序。我们将会用 Go 语言来写，因为我们在 Coral Health 中使用它，并且说实话，[棒极了](https://hackernoon.com/5-reasons-why-we-switched-from-python-to-go-4414d5f42690)。
 
-**Before proceeding, we recommend reading our original blog post,** [**Code your own blockchain in less than 200 lines of Go!**](https://medium.com/@mycoralhealth/code-your-own-blockchain-in-less-than-200-lines-of-go-e296282bcffc) **It’s not a requirement but some of the examples below we’ll be running through quickly. Refer to the original post if you need more detail. If you’re already familiar with this original post, skip to the “Proof of Work” section below.**
+**开始下一步之前，我建议读者读一下我们之前的博文，**[**Code your own blockchain in less than 200 lines of Go!**](https://medium.com/@mycoralhealth/code-your-own-blockchain-in-less-than-200-lines-of-go-e296282bcffc)。**并不是硬性需求，但是下面的例子中我们将讲的比较粗略。如果你需要更多细节，可以参考之前的博客。如果你对前面这篇很熟悉了，直接跳到下面的“工作量证明”章节。**
 
-**Architecture**
+**结构**
 
 ![](https://cdn-images-1.medium.com/max/800/1*z0fgOU0iYm7Pjc5Zn5nCjA.png)
 
-We’ll have a Go server, where for simplicity we’ll put all our code in a single `main.go` file. This file will provide us all the blockchain logic we need (including Proof of Work) and will contain all the handlers for our REST APIs. This blockchain data is immutable; we only need `GET` and `POST` requests. We’ll make requests through the browser to view the data through `GET` and we’ll use [Postman](https://www.getpostman.com/apps) to `POST` new blocks (`curl` works fine too).
+我们将有一个 Go 服务，我们就简单的把所有代码就放在一个 `main.go` 文件中。这个文件将会提供给我们所需的所有的区块链逻辑（包括工作量证明算法），并包括所有 REST 接口的处理函数。区块链数据是不可改的，我们只需要 `GET` 和 `POST` 请求。我们将用浏览器发送 `GET` 请求来观察数据，并使用 [Postman](https://www.getpostman.com/apps) 来发送 `POST` 请求给新区块（`curl` 也同样好用）。
 
-**Imports**
+**引包**
 
-Let’s start with our standard imports. Make sure to grab the following packages with `go get`
+我们从标准的引入操作开始。确保使用 `go get` 来获取如下的包
 
-`github.com/davecgh/go-spew/spew` pretty prints your blockchain in Terminal
+`github.com/davecgh/go-spew/spew` 在终端漂亮地打印出你的区块链
 
-`github.com/gorilla/mux` a convenience layer for wiring up your web server
+`github.com/gorilla/mux` 一个使用方便的层，用来连接你的 web 服务
 
-`github.com/joho/godotenv` read your environmental variables from a `.env` file in your root directory
+`github.com/joho/godotenv` 在根目录的 `.env` 文件中读取你的环境变量
 
-Let’s create a `.env` file in our root directory that just stores one environment variable that we’ll need later. Put one line in your `.env` file:`ADDR=8080`
+让我们在根目录下创建一个 `.env` 文件，它仅包含一个我们一会儿将会用到的环境变量。在 `.env` 文件中写一行：`ADDR=8080`。
 
-Make your package declaration and define your imports in `main.go` in your root directory:
+对包作出声明，并在根目录的 `main.go` 定义引入：
 
 ```
 package main
@@ -108,15 +108,15 @@ import (
 )
 ```
 
-If you read our [original article](https://medium.com/@mycoralhealth/code-your-own-blockchain-in-less-than-200-lines-of-go-e296282bcffc), you’ll remember this diagram. Blocks in a blockchain are verified by comparing the _previous hash_ in a block against the _hash_ of the previous block. This is how the integrity of the blockchain is preserved and how a malicious party can’t change the history of the blockchain.
+如果你读了[在此之前的文章](https://medium.com/@mycoralhealth/code-your-own-blockchain-in-less-than-200-lines-of-go-e296282bcffc)，你应该记得这个图。区块链中的区块可以通过比较区块的 **previous hash** 属性值和前一个区块的哈希值来被验证。这就是区块链保护自身完整性的方式以及黑客组织无法修改区块链历史记录的原因。
 
 ![](https://cdn-images-1.medium.com/max/800/1*VwT5d8NPjUpI7HiwPa--cQ.png)
 
-`BPM` is your pulse rate, or beats per minute. We’ll be using the beats per minute of your pulse as the data we put in our blocks. Just put two fingers on the inside of your wrist and count how many times you get a beat in a minute, and remember this number.
+`BPM` 是你的心率，也就是一分钟心跳次数。我们将会用一分钟内你的心跳次数作为我们放到区块链中的数据。把两个手指放到手腕数一数一分钟脉搏内跳动的次数，记住这个数字。
 
-**Some basic plumbing**
+**一些基础探测**
 
-Let’s add our data model and other variables we’ll need under our imports in `main.go`
+让我们来添加一些在引入后将会需要的数据模型和其他变量到 `main.go` 文件
 
 ```
 const difficulty = 1
@@ -140,19 +140,19 @@ type Message struct {
 var mutex = &sync.Mutex{}
 ```
 
-`difficulty` is a constant that defines the number of 0s we want leading the hash. The more zeros we have to get, the harder it is to find the correct hash. We’ll just start with 1 zero.
+`difficulty` 是一个常数，定义了我们希望哈希结果的零前缀数目。需要得到越多的零，找到正确的哈希输入就越难。我们就从一个零开始。
 
-`Block` is the data model of each block. Don’t worry about `Nonce`, we’ll explain that shortly.
+`Block` 是每一个区块的数据模型。别担心不懂 `Nonce`，我们稍后会解释。
 
-`Blockchain` is a slice of `Block` which represents our full chain.
+`Blockchain` 是一系列的 `Block`，表示完整的链。
 
-`Message` is what we’ll send in to generate a new `Block` using a `POST` request in our REST API.
+`Message` 是我们在 REST 接口用 `POST` 请求传送进来的、用以生成一个新的 `Block` 的信息。
 
-We’re declaring a `mutex` that we’ll use later to prevent data races and make sure blocks aren’t generated at the same time.
+我们声明一个稍后将会用到的 `mutex` 来防止数据竞争，保证在同一个时间点不会产生多个区块。
 
-**Web server**
+**Web 服务**
 
-Let’s quickly wire up our web server. Let’s create a `run` function that we’ll call from `main` later that scaffolds our server. We’ll also declare our routes handlers in `makeMuxRouter()`. Remember, all we need are `GET` to retrieve the blockchain, and `POST` to add new blocks. Blockchains are immutable so we don’t need to edit or delete.
+让我们快速连接好网络服务。创建一个 `run` 函数，稍后在 `main` 中调用他来支撑服务。还需要在 `makeMuxRouter()` 中声明路由处理函数。记住，我们只需要用 `GET` 方法来追溯区块链内容， `POST` 方法来创建区块。区块链不可修改，所以我们不需要修改和删除操作。
 
 ```
 func run() error {
@@ -182,9 +182,9 @@ func makeMuxRouter() http.Handler {
 }
 ```
 
-The `httpAddr := os.Getenv("ADDR")` will pull port `:8080` from our `.env` file we created earlier. We’ll be able to access our app through `[http://localhost:8080](http://localhost:8080)` in our browser.
+`httpAddr := os.Getenv("ADDR")` 将会从刚才我们创建的 `.env` 文件中拉取端口 `:8080`。我们就可以通过访问浏览器的 `[http://localhost:8080](http://localhost:8080)` 来访问应用。
 
-Let’s write our `GET` handler to print our blockchain to our browser. We’ll also add a quick `respondwithJSON` function that gives us back error messages in JSON format if any of our API calls produces an error.
+让我们写 `GET` 处理函数来在浏览器上打印出区块链。我们也将会添加一个简易 `respondwithJSON` 函数，它会在调用接口发生错误的时候，以 JSON 格式反馈给我们错误消息。
 
 ```
 func handleGetBlockchain(w http.ResponseWriter, r *http.Request) {
@@ -209,9 +209,9 @@ func respondWithJSON(w http.ResponseWriter, r *http.Request, code int, payload i
 }
 ```
 
-_Remember, if we’re going a bit too quickly, please refer to our_ [_original post_](https://medium.com/@mycoralhealth/code-your-own-blockchain-in-less-than-200-lines-of-go-e296282bcffc) _that explains each of these steps in more detail._
+**记住，如果觉得这部分讲解太过粗略，请参考[在此之前的文章](https://medium.com/@mycoralhealth/code-your-own-blockchain-in-less-than-200-lines-of-go-e296282bcffc)，这里更详细的解释了这部分的每个步骤。**
 
-Now we write our `POST` handler. This is how we add new blocks. We make a `POST` request using Postman by sending a JSON body e.g.`{“BPM”:60}`to `[http://localhost:8080](http://localhost:8080)` with your pulse rate you took earlier.
+现在来写 `POST` 处理函数。这个函数就是我们添加新区块的方法。我们用 Postman 发送一个 `POST` 请求，发送一个 JSON 的 body，比如 `{“BPM”:60}`，到 `[http://localhost:8080](http://localhost:8080)`，并且携带你之前测得的你的心率。
 
 ```
 func handleWriteBlock(w http.ResponseWriter, r *http.Request) {
@@ -240,13 +240,13 @@ func handleWriteBlock(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-Note the `mutex` lock and unlock. We need to lock it before writing a new block, or else multiple writes will create a data race. The perceptive reader will notice the `generateBlock` function. This is our key function that will handle our Proof of Work. We’ll get to it shortly.
+注意到 `mutex` 的 lock（加锁） 和 unlock（解锁）。在写入一个新的区块之前，需要给区块链加锁，否则多个写入将会导致数据竞争。精明的读者还会注意到 `generateBlock` 函数。这是处理工作量证明的关键函数。我们稍后讲解这个。
 
-**Basic blockchain functions**
+**基本的区块链函数**
 
-Let’s wire up our basic blockchain functions before we hit Proof of Work. We’ll add a `isBlockValid` function that makes sure our indices are incrementing correctly and our `PrevHash` of our current block and `Hash` of the previous block match.
+在开始工作量证明算法之前，我们先将基本的区块链函数连接起来。我们将会添加一个 `isBlockValid` 函数，来保证索引正确递增以及当前区块的 `PrevHash` 和前一区块的 `Hash` 值是匹配的。
 
-We’ll also add a `calculateHash` function that generates the hashes we need to create `Hash` and `PrevHash`. This is just a SHA-256 hash of our concatenated index, timestamp, BPM, previous hash and `Nonce` (we’ll explain what that is in a second).
+我们也要添加一个 `calculateHash` 函数，生成我们需要用来创建 `Hash` 和 `PrevHash` 的哈希值。它就是一个索引、时间戳、BPM、前一区块哈希和 `Nonce` 的 SHA-256 哈希值（我们稍后将会解释它是什么）。
 
 ```
 func isBlockValid(newBlock, oldBlock Block) bool {
@@ -274,17 +274,17 @@ func calculateHash(block Block) string {
 }
 ```
 
-### Proof of Work
+### 工作量证明
 
-Let’s get to the mining algorithm, or Proof of Work. We want to make sure the Proof of Work is complete before we’ll allow a new `Block` to get added to the `blockchain`. Let’s start off with a simple function that checks if the hash generated during our Proof of Work meets the requirements we set out.
+让我们来看挖矿算法，或者说工作量证明。我们希望确保工作量证明算法在允许一个新的区块 `Block` 添加到区块链 `blockchain` 之前就已经完成了。我们从一个简单的函数开始，这个函数可以检查在工作量证明算法中生成的哈希值是否满足我们设置的要求。
 
-Our requirements will be as follows:
+我们的要求如下所示：
 
-*   The hash that is generated by our Proof of Work must start with a specific number of zeros
-*   The number of zeros is determined by the constant `difficulty` that we defined at the start of our program (in our case, 1)
-*   We can make the Proof of Work harder to solve by increasing the difficulty
+*   工作量证明算法生成的哈希值必须要以某个特定个数的零开始
+*   零的个数由常数 `difficulty` 决定，它在程序的一开始定义（在示例中，它是 1）
+*   我们可以通过增加难度值让工作量证明算法变得困难
 
-Write up this function, `isHashValid`:
+完成下面这个函数，`isHashValid`：
 
 ```
 func isHashValid(hash string, difficulty int) bool {
@@ -293,9 +293,9 @@ func isHashValid(hash string, difficulty int) bool {
 }
 ```
 
-Go provides convenient `Repeat` and `HasPrefix` functions in its `strings` package. We define the variable `prefix` as a repeat of zeros defined by our `difficulty`. Then we check if the hash starts with those zeros and return `True` if it does and `False` if it doesn’t.
+Go 在它的 `strings` 包里提供了方便的 `Repeat` 和 `HasPrefix` 函数。我们定义变量 `prefix` 作为我们在 `difficulty` 定义的零的拷贝。下面我们对哈希值进行验证，看是否以这些零开头，如果是返回 `True` 否则返回 `False`。
 
-Now let’s create our `generateBlock` function.
+现在我们创建 `generateBlock` 函数。
 
 ```
 func generateBlock(oldBlock Block, BPM int) Block {
@@ -327,21 +327,21 @@ func generateBlock(oldBlock Block, BPM int) Block {
 }
 ```
 
-We create a `newBlock` that takes the hash of the previous block and puts it in `PrevHash` to make sure we have continuity in our blockchain. Most of the other fields should be apparent:
+我们创建了一个 `newBlock` 并将前一个区块的哈希值放在 `PrevHash` 属性里，确保区块链的连续性。其他属性的值就很明了了：
 
-*   `Index` increments
-*   `Timestamp` is the string representation of the current time
-*   `BPM` is your pulse rate you took earlier
-*   `Difficulty` is simply taken from the constant at the top of our program. We won’t use this field in this tutorial but it’s useful to have if we’re doing further verification and we want to make sure the difficulty is consistent with the hash results (i.e. the hash result has N prefixed zeros so Difficulty should also equal N, or the chain is compromised)
+*   `Index` 增量
+*   `Timestamp` 是代表了当前时间的字符串
+*   `BPM` 是之前你记录下的心率
+*   `Difficulty` 就直接从程序一开始的常量中获取。在本篇教程中我们将不会使用这个属性，但是如果我们需要做进一步的验证并且确认难度值对哈希结果固定不变（也就是哈希结果以 N 个零开始那么难度值就应该也等于 N，否则区块链就是受到了破坏），它就很有用了。
 
-The `for` loop is the critical piece in this function. Let’s walk through what’s happening here:
+`for` 循环是这个函数中关键的部分。我们来详细看看这里做了什么：
 
-*   We’ll take the hex representation of `i` and set `Nonce` equal to it. We need a way to append a changing value to our hash that we create from our `calculateHash` function so if we don’t get the leading number of zeros we want, we can try again with a new value. **This changing value we add to our concatenated string in** `**calculateHash**` **is called a “Nonce”**
-*   In our loop, we calculate the hash with `i` and Nonce starting at 0 and check if the result starts with the number of zeros as defined by our constant `difficulty`. If it doesn’t, we invoke the next iteration of the loop with an incremented Nonce and try again.
-*   We added a 1 second sleeper to simulate taking some time to solve the Proof of Work
-*   We keep looping until we get the number of leading zeros we want, which means we’ve successfully completed our Proof of Work. Then and only then do we allow our `Block` to get added to `blockchain` via our `handleWriteBlock` handler
+*   我们将设置 `Nonce` 等于 `i` 的十六进制表示。我们需要一个为函数 `calculateHash` 生成的哈希值添加一个变化的值的方法，这样如果我们没能获取到我们期望的零前缀树木，我们就能用一个新的值重新尝试。**这个我们加入到拼接的字符串中的变化的值** `**calculateHash**` **就被称为“Nonce”**
+*   在循环里，我们用 `i` 和以 0 开始的 Nonce 计算哈希值，并检查结果是否以常量 `difficulty` 定义的零数目开头。如果不是，我们用一个增量 Nonce 开始下一轮循环做再次尝试。
+*   我们添加了一个一秒钟的延迟来模拟解决工作量证明算法的时间
+*   我们一直循环计算直到我们得到了我们想要的零前缀，这就意味着我们成功的完成了工作量证明。当且仅当这之后才允许我们的 `Block` 通过 `handleWriteBlock` 处理函数被添加到 `blockchain`。
 
-We’re done writing all our functions so let’s complete our `main` function now:
+我们已经写完了所有函数，现在我们来完成 `main` 函数：
 
 ```
 func main() {
@@ -365,58 +365,58 @@ func main() {
 }
 ```
 
-With `godotenv.Load()` we load up our environment variable, which is just the `:8080` port we’ll access from our browser.
+我们使用 `godotenv.Load()` 函数加载环境变量，也就是用来在浏览器访问的 `:8080` 端口。
 
-A go routine creates our genesis block since we need to supply our blockchain with a starting point.
+一个 go routine 创建了创世区块，因为我们需要它作为区块链的起始点
 
-We fire up our web server with our `run()` function we created earlier.
+我们用刚才创建的 `run()` 函数开始网络服务。
 
-### We’re done! Time to take it for a spin!
+## 完成了！是时候运行它了！
 
-Here’s the finished code in full.
+这里有完整的代码。
 
 - [**mycoralhealth/blockchain-tutorial**: blockchain-tutorial - Write and publish your own blockchain in less than 200 lines of Go_github.com](https://github.com/mycoralhealth/blockchain-tutorial/blob/master/proof-work/main.go)
 
-Let’s give this baby a try!
+让我们试着运行这个宝宝！
 
-Start up your program with `go run main.go`
+用 `go run main.go` 来开始程序
 
-Then visit `[http://localhost:8080](http://localhost:8080)` in your browser:
+然后用浏览器访问 `[http://localhost:8080](http://localhost:8080)`：
 
 ![](https://cdn-images-1.medium.com/max/800/1*8QVgGXKcpEzib3aK0tGjVw.png)
 
-Our genesis block has been created for us. Now open Postman and let’s send a `POST` request to the same route with our BPM (pulse rate) we took earlier in a JSON body.
+创世区块已经为我们创建好。现在打开 Postman 然后发送一个 `POST` 请求，向同一个路由以 JSON 格式在 body 中发送之前测定的心率值。
 
 ![](https://cdn-images-1.medium.com/max/800/1*U9MUVrllrqzfV3Sy68QsAg.png)
 
-After we send the request **watch what’s happening in your terminal**. You’ll see your machine chugging away creating new hashes with incrementing Nonce values until it finally finds a result that has the required number of leading zeros!
+发送请求之后，**在终端看看发生了什么**。你将会看到你的机器忙着用增加 Nonce 值不停创建新的哈希值，直到它找到了需要的零前缀值。
 
 ![](https://cdn-images-1.medium.com/max/800/1*FaQhDF1kr8N4f9tua4zGZQ.png)
 
-When the Proof of Work is solved we get a helpful message saying `work done!` and we can check the hash to see that it indeed starts with the number of zeros we set in `difficulty`. This means that in theory, the new block we tried to add with BPM = 60 should now have been added to our blockchain.
+当工作量证明算法完成了，我们就会得到一条很有用的 `work done!` 消息，我们就可以去检验哈希值来看看它是不是真的以我们设置的 `difficulty` 个零开头。这意味着理论上，那个我们试图添加 BPM = 60 信息的新区块已经被加入到我们的区块链中了。
 
-Let’s refresh our browser and check:
+我们来刷新浏览器并查看：
 
 ![](https://cdn-images-1.medium.com/max/800/1*rVBUxrpTcl-zvarqs0K96Q.png)
 
-**SUCCESS!** Our second block has been added to our genesis block. This means we successfully sent our block in a `POST` request, which triggered the mining process and ONLY when the Proof of Work was solved did it get added to our blockchain!
+**成功了**！我们的第二个区块已经被加入到创世区块之后。这意味着我们成功的在 `POST` 请求中发送了区块，这个请求触发了挖矿的过程，并且当且仅当工作量证明算法完成后，它才会被添加到区块链中。
 
-### Next steps
+### 接下来
 
-Great job! What you just learned is a really big deal. Proof of Work is the foundation to Bitcoin, Ethereum and many of the biggest blockchain platforms around. What we just went through is not trivial; while we used a low difficulty for demonstration purposes, increasing the difficulty to a high number is **exactly** how production-ready Proof of Work blockchains work.
+很棒！刚才你学到的真的很重要。工作量证明算法是比特币，以太坊以及其他很多大型区块链平台的基础。我们刚才学到的并非小事；虽然我们在示例中使用了一个很低的 difficulty 值，但是将它增加到一个比较大的值**就正是**生产环境下区块链工作量证明算法是如何运作的。
 
-Now that you intimately understand a key component of blockchain technology, where you go from here is up to you. We recommend the following:
+现在你已经清楚了解了区块链技术的核心部分，接下来如何学习将取决于你。我向你推荐如下资源：
 
-*   Learn how blockchain networking works in our [Networking tutorial](https://medium.com/@mycoralhealth/part-2-networking-code-your-own-blockchain-in-less-than-200-lines-of-go-17fe1dad46e1)
-*   Learn how to store large files in a distributed manner and communicate with the blockchain in our [IPFS tutorial](https://medium.com/@mycoralhealth/learn-to-securely-share-files-on-the-blockchain-with-ipfs-219ee47df54c)
+*   在我们的 [Networking tutorial](https://medium.com/@mycoralhealth/part-2-networking-code-your-own-blockchain-in-less-than-200-lines-of-go-17fe1dad46e1) 教程中学习联网区块链如何工作。
+*   在我们的 [IPFS tutorial](https://medium.com/@mycoralhealth/learn-to-securely-share-files-on-the-blockchain-with-ipfs-219ee47df54c) 教程中学习如何以分布式存储大型文件并用区块链通信。
 
-If you’re ready to take another leap, try learning about _Proof of Stake_. While most blockchains use Proof of Work as their consensus algorithm, Proof of Stake is gaining more and more attention. It is widely believed that Ethereum will be migrating away from Proof of Work to Proof of Stake in the future.
+如果你做好准备做另一次技术上的跳跃，试着学习 **股权证明（Proof of Stake）** 算法。虽然大多数的区块链使用工作量证明算法作为共识算法，股权证明算法正获得越来越多的关注。很多人相信以太坊将来会从工作量证明算法切换到股权证明算法。
 
-**Want to see a tutorial on Proof of Work vs. Proof of Stake? See any bugs in the code above? Love what we’re doing? Hate what we’re doing?**
+**想看关于工作量证明算法和股权证明算法的比较教程？在上面的代码中发现了错误？喜欢我们做的事？讨厌我们做的事？**
 
-### **Let us know by** [**joining our Telegram chat**](https://t.me/joinchat/FX6A7UThIZ1WOUNirDS_Ew)**! You’ll have a blast engaging with the authors of this tutorial and the rest of the Coral Health team!**
+### **通过** [**加入我们的 Telegram 消息群**](https://t.me/joinchat/FX6A7UThIZ1WOUNirDS_Ew) **让我们知道你的想法**！你将得到本教程作者以及 Coral Health 团队其他成员的热情应答。
 
-To learn more about Coral Health and how we’re using the blockchain to advance personalized medicine research, visit our [website](https://mycoralhealth.com/).
+想要了解更多关于 Coral Health 以及我们如何使用区块链来改进个人医药研究，访问我们的[网站](https://mycoralhealth.com/)。
 
 
 ---

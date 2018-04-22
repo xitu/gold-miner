@@ -2,90 +2,90 @@
 > * 原文作者：[Art Gillespie](https://blog.turbinelabs.io/@artgillespie?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/deploy-not-equal-release-part-one.md](https://github.com/xitu/gold-miner/blob/master/TODO1/deploy-not-equal-release-part-one.md)
-> * 译者：
-> * 校对者：
+> * 译者：[stormluke](https://github.com/stormluke)
+> * 校对者：[MechanicianW](https://github.com/MechanicianW)、[ALVINYEH](https://github.com/ALVINYEH)
 
-# Deploy != Release (Part 1)
+# 部署 != 发布（第一部分）
 
-## The difference between deploy and release and why it matters.
+## 部署与发布的区别，以及为什么这很重要
 
-_Q: “Is the latest version deployed?”_
+问：「最新版本部署了吗？」
 
-_A: “I deployed animated gif support to production.”_
+答：「我在生产环境里部署了 gif 动图支持。」
 
-_Q: “So animated gif support is released?”_
+问：「就是说 gif 动图支持已经发布啦？」
 
-_A: “The animated gif release is deployed.”_
+答：「Gif 动图的发布版本已经部署了。」
 
-_Q: “…”_
+问：「……」
 
-I’ve worked at many companieswhere “deploy”, “deployment”, “ship”, and “release” are used loosely, even interchangeably. As an industry, we haven’t done a great job of standardizing our use of these terms, even though we’ve radically improved operations practices and tooling over the past decade. At [Turbine Labs](https://turbinelabs.io), we use precise definitions of “ship”, “deploy”, “release”, and “rollback”, and spend a lot of our time thinking about what the world looks like when you think about “release” as an independent phase of your shipping process. In part one of this post, I’ll share these definitions, describe some common “deploy == release” practices, and explain why they have a poor risk profile. In part two, I’ll describe some of the extremely powerful risk mitigation techniques made possible when “deploy” and “release” are treated as distinct phases of your software shipping cycle.
+我曾在很多公司工作过，在这些公司中「部署（deploy，动词）」、「部署物（deployment，名词）」、「上线（ship）」和「发布（release）」都是随意地使用，甚至可以互换使用。作为一个行业，我们在规范使用这些术语方面做得还不够，尽管我们在过去的十多年里已经从根本上改进了运维实践和工具。在 [Turbine Labs](https://turbinelabs.io) 中，我们使用了「上线」、「部署」、「发布」和「回滚（rollback）」的精确定义，并花了大量的时间来思考当你把「发布」作为上线过程的一个独立阶段时，世界是什么样子的。在这篇文章的第一部分，我会分享这些术语的定义，描述一些常见的「部署 == 发布」的实践，并且解释为什么这样做的抗风险性很差。在第二部分，我会描述当「部署」和「发布」被视为软件上线周期的不同阶段时的一些非常强大的风险缓释技术。
 
-### Ship
+### 上线
 
-**Shipping** is your team’s process of getting a snapshot of your service’s code — a _version_ — from your team’s source control repository all the way to handling production traffic. I think of the overall shipping process as four distinct groups of smaller, specialized processes: Build, test, deploy, and release. Thanks to technology advances in cloud infrastructure, containers, orchestration frameworks, as well as process advances like [twelve-factor](https://12factor.net/), [continuous integration](https://martinfowler.com/articles/continuousIntegration.html), and [continuous delivery](https://martinfowler.com/bliki/ContinuousDelivery.html), it’s never been easier to execute the first three processes — build, test, and deploy.
+**上线**指你的团队从源码管理库中获取服务代码某个**版本**的快照，并用它处理线上流量的过程。我认为整个上线过程由四个不同的专门的小流程组成：构建（build）、测试、部署和发布。得益于云基础架构、容器、编配框架的技术进步以及流程改进，如 [twelve-factor](https://12factor.net/)、[持续集成](https://martinfowler.com/articles/continuousIntegration.html)和[持续交付](https://martinfowler.com/bliki/ContinuousDelivery.html)，执行前三个流程（构建，测试和部署）从未如此简单。
 
-### Deploy
+### 部署
 
-**Deployment** is your team’s process for installing the new version of your service’s code on production infrastructure. When we say a new version of software is **deployed**, we mean it is running somewhere in your production infrastructure. That could be a newly spun-up EC2 instance on AWS, or a Docker container running in a pod in your data center’s Kubernetes cluster. Your software has started successfully, passed health checks, and is ready (you hope!) to handle production traffic, but may not actually be receiving any. This is an important point, so I’ll repeat it using Medium’s awesome large pull quote format:
+**部署**指你的团队在生产环境的基础设置中安装新版本服务代码的过程。当我们说新版软件被**部署**时，我们的意思是它正在生产环境的基础设施的某个地方运行。基础设置可以是 AWS 上的一个新启动的 EC2 实例，也可以是在数据中心的 Kubernetes 集群中的某个容器中运行的一个 Docker 容器。你软件已成功启动，通过了健康检查，并且已准备好（像你希望的那样！）来处理线上流量，但实际上可能没有收到任何流量。这是一个重要的观点，所以我会用 Medium 超棒的大引用格式来重复一遍：
 
-> **_Deployment need not expose customers to a new version of your service_**_._
+> **部署不需要向用户提供新版本的服务。**
 
-Given this definition, _deployment can be an almost zero-risk activity._ Sure, a lot can go wrong during deployment, but if a container backs off a crash loop in the woods and no customer gets a 500 status response, did it _really_ happen?
+根据这个定义，**部署可以是几乎零风险的活动**。诚然，在部署过程中可能会出现很多问题，但是如果一个容器静默应对崩溃，并且没有用户获得 500 状态响应，那问题是否真的算是**发生**了？
 
 ![](https://cdn-images-1.medium.com/max/800/1*5B2HsE8FasLrEsaoRLxBiQ.png)
 
-New (purple) version deployed, but not released. Known-good (green) version still responding to production requests.
+部署了新的版本（紫色），但未发布。已知良好的版本（绿色）仍对线上请求做出响应。
 
-### Release
+### 发布
 
-When we say a version of a service is **released**, we mean that it is responsible for serving production traffic. In verb form, **releasing** is the process of moving production traffic to the new version. Given this definition, all the risks we associate with shipping a new binary — outages, angry customers, snarky write-ups in [The Register](https://www.theregister.co.uk/2017/02/28/aws_is_awol_as_s3_goes_haywire) — are related to the release, not deployment, of new software. (At some companies I’ve heard this phase of shipping referred as **rollout**. We’ll stick to **release** for this post.)
+当我们说服务版本**发布**时，我们的意思是它负责服务线上流量。在动词形式中，**发布**是将线上流量转移到新版本的过程。鉴于这个定义，与上线新的二进制文件有关的所有风险 —— 服务中断、愤怒的用户、[The Register](https://www.theregister.co.uk/2017/02/28/aws_is_awol_as_s3_goes_haywire) 中的刻薄内容 —— 与新软件的发布而不是部署有关。在一些公司，我听说这个上线阶段被称为**首次发布（rollout）**。这篇文章中我们将依旧使用**发布**来表述。
 
 ![](https://cdn-images-1.medium.com/max/800/1*wDLGwgwtDo1h7dCWg4Qymw.png)
 
-New version released, responding to production requests.
+新版本发布，响应线上请求。
 
-### Rollback
+### 回滚
 
-Sooner or later, but probably sooner _and_ later, your team is going to ship something broken. Rollback (and its dangerous, unpredictable, stressed-out cousin, roll-forward) is the process of getting production back to a known state, typically by re-releasing the most recent version. It’s useful to think of rollback as just another deploy and release, the only differences being:
+迟早，很可能不久之后，你的团队就会上线一些功能有问题的服务。回滚（和它危险的、不可预测的、压力山大的兄弟 —— 前滚 roll-forward）指将线上服务退回到某个已知状态的过程，通常是重新发布最近的版本。将回滚视为另一个部署和发布流程有助于理解，唯一的区别是：
 
-*   You are shipping a version whose characteristics are known in production,
-*   You are executing your deploy and release process under time pressure, and
-*   You are potentially releasing into a different environment — things may have changed during (or been changed by) the failed release.
+* 你正在上线的版本的特征在生产环境中已知
+* 你正在时间压力下执行部署和发布过程
+* 你可能正向一个不同的环境中发布 —— 在上次失败的发布之后某些东西可能改变了（或被改变了）
 
 ![](https://cdn-images-1.medium.com/max/800/0*MAapvhIhLX8oWJ25.)
 
-An example of rollback after a bad release.
+一个发布后回滚的例子。
 
-Now that we’ve agreed on these definitions for shipping, deployment, release, and rollback, let’s examine some common deploy and release practices.
+现在我们已经就上线、部署、发布和回滚的定义达成了共识，让我们来看看一些常见的部署和发布实践。
 
-### Release in Place (Or deploy == release)
+### 原地发布（即部署 == 发布）
 
-When your team’s shipping process involves pushing a new version of your software onto a server running the old version and re-starting the process, you’re releasing in place. Using our definition above, deployment and release occur simultaneously: as soon as the new software is running (deployed), it’s taking all the production traffic the old version was taking a split-second ago (released). In this world, a successful deploy is a successful release, and a bad deploy gets you a partial or complete outage, a bunch of mad users, and—possibly—a hyperventilating manager.
+当你的团队的上线流程涉及将新版本的软件推送到运行旧版本的服务器上并重启服务的流程时，你就是在原地发布。根据我们上面的定义，部署和发布是同时发生的：一旦新软件开始运行（部署），它就会负载旧版本的所有线上流量（发布）。此时，成功的部署就是成功的发布，失败的部署则会带来部分或整体的服务中断，一群愤怒的用户，可能还有一个气急败坏的经理。
 
-Release-in-place has the distinction of being the only deploy/release process we’ll discuss here that directly exposes _deploy risk_ to customers. If the new version you’ve just deployed can’t launch — maybe it throws an error when it doesn’t find a newly-required secret in an environment variable, maybe there’s an unmet library dependency, or maybe it’s just not your day — there is no old version to take that instance’s customer traffic. Your service is—at least partially—down.
+在我们所讨论的部署/发布过程中，原地发布是唯一的将**部署风险**暴露给用户的方式。如果你刚刚部署的新版本无法启动 —— 可能是因为无法找到新增的环境变量而抛出异常，也可能是有一个库依赖不满足，或者只是你今天出门时没看黄历 —— 此时并没有老版本的服务实例来负载用户请求。你的服务此时至少是部分不可用的。
 
-Moreover, if there’s a user-facing issue or more subtle operational issue with the new version — I call this _release risk_ — release-in-place will expose every production request to it for each instance that you’ve released to.
+此外，如果有用户相关的问题或更微妙的运维问题 —— 我把它叫做**发布风险** —— 原地发布会将线上请求暴露给你已发布的所有实例。
 
-In a clustered environment, you might first release-in-place to just one of your instances. This practice, most commonly referred to as **canary**, can mitigate some risk — the percentage of your traffic exposed to deploy and release risk is equal to the number of instances with the new version of your service divided by the total number of instances in your service’s cluster.
+在集群环境中，您可能会首先原地发布一个实例。这种做法通常称为**金丝雀**发布，它可以减轻一些风险 —— 面临部署风险和发布风险的流量的百分比为：新服务实例的个数除以集群中的实例总数。
 
 ![](https://cdn-images-1.medium.com/max/800/1*rAKFZcAMipD5HpvovIlXmA.png)
 
-A canary release: One host in the cluster is running the new version.
+一个金丝雀发布：集群中的一个主机运行新版本
 
-Finally, rolling back a broken release-in-place deploy can be problematic. There’s no guarantee that you can get back to the previous system state even if you rollback (re-release) the old version. Your rollback deploy is just as likely to fail at startup as your currently broken deploy.
+最后，回滚错误的原地部署可能会有问题。即使你回滚（重新发布）到旧版本，也无法保证可以恢复到以前的系统状态。与当前错误的部署一样，你的回滚部署在启动时也可能会失败。
 
-Despite its relatively poor risk management characteristics—even with canaries, you’re directly exposing some percentage of customers’ requests to deploy risk—release-in-place is still a common way to do business. I think it’s experience with these kinds of systems that leads to the unfortunate use of the terms “deploy” and “release” interchangeably.
+尽管其风险管理相对较差 —— 即便使用金丝雀，一些用户请求也会面临部署风险 —— 原地部署仍旧是业务中常见的方式。我认为这类的经验会导致不幸地混用「部署」和「发布」这两个术语。
 
-### Despair Not
+### 别绝望
 
-We can do much, much better! In the [second part of this post](https://medium.com/turbine-labs/deploy-not-equal-release-part-two-acbfe402a91c), I’ll talk about strategies for decoupling deploy from release and some of the powerful workflows you can build on top of a sophisticated release system.
+我们可以做得更好！在[这篇文章的第二部分](https://medium.com/turbine-labs/deploy-not-equal-release-part-two-acbfe402a91c)，我们会讨论分离部署和发布的策略，以及可以在复杂的发布系统上构建的一些强大工作流。
 
-_I’m an engineer at_ [_Turbine Labs_](https://turbinelabs.io) _where we’re building_ [_Houston_](https://docs.turbinelabs.io/reference/#introduction)_, a service that makes building and monitoring sophisticated, realtime release workflows easy. If you’d like to ship more and worry less, you should definitely_ [_get in touch!_](https://turbinelabs.io/contact) _We’d love to talk with you._
+**我是 [_Turbine Labs_](https://turbinelabs.io) 的一名工程师，我们正在构建 [_Houston_](https://docs.turbinelabs.io/reference/#introduction)，这个服务可以轻松构建和监控复杂的实时发布工作流程。如果你想轻松地上线更多服务，你绝对应该[联系我们](https://turbinelabs.io/contact)。我们很乐意与你交谈。**
 
-_Thanks to Glen Sanford, Mark McBride, Emily Pinkerton, Brook Shelley, Sara, and Jenn Gillespie for reading drafts of this post._
+**感谢 Glen Sanford、Mark McBride、Emily Pinkerton、Brook Shelley、Sara 和 Jenn Gillespie 阅读此文的草稿。**
 
-Thanks to [Glen D Sanford](https://medium.com/@9len?source=post_page).
+感谢 [Glen D Sanford](https://medium.com/@9len?source=post_page)。
 
 
 ---
