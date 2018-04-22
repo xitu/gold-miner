@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/part-of-speech-tagging-tutorial-with-the-keras-deep-learning-library.md](https://github.com/xitu/gold-miner/blob/master/TODO1/part-of-speech-tagging-tutorial-with-the-keras-deep-learning-library.md)
 > * 译者：[luochen](https://github.com/luochen1992)
-> * 校对者：
+> * 校对者：[stormluke](https://github.com/stormluke) [mingxing47](https://github.com/mingxing47)
 
 # 利用 Keras 深度学习库进行词性标注教程
 
@@ -15,9 +15,9 @@
 
 在 [自然语言处理](https://en.wikipedia.org/wiki/Natural_language_processing) 中，词性标注是一件众所周知的任务。它指的是将单词按词性分类（也称为词类或词性类别）。这是一种有监督的学习方法。
 
-[人工神经网络](https://en.wikipedia.org/wiki/Artificial_neural_network) 已成功应用于词性标注，并且表现卓越。我们将重点关注多层感知器网络，这是一种非常流行的网络结构，被视为解决词性标注问题的最新技术。（译者注： 对于词性标注问题，RNN 有更好的效果）
+[人工神经网络](https://en.wikipedia.org/wiki/Artificial_neural_network) 已成功应用于词性标注，并且表现卓越。我们将重点关注多层感知器网络，这是一种非常流行的网络结构，被视为解决词性标注问题的最新技术。（译者注：对于词性标注问题，RNN 有更好的效果）
 
-**让我们把它付诸实践!**
+**让我们把它付诸实践！**
 
 在本文中，你将获得一个关于如何在 Keras 中实现简单的多层感知器的快速教程，并在已标注的语料库上进行训练。
 
@@ -89,7 +89,7 @@ print('nb_tags: %sntags: %s' % (len(tags), tags))
 
 ### 监督式学习的数据集预处理
 
-我们将标记的句子划分成 3 个数据集 : 
+我们将标记的句子划分成 3 个数据集：
 
 *   **训练集** 相当于拟合模型的样本数据，
 *   **验证集** 用于调整分类器的参数，例如选择网络中神经元的个数，
@@ -177,7 +177,7 @@ for pos_tags in tagged_sentences:
     return X, y
 ```
 
-对于训练、验证和测试句子，我们将属性分为 X （输入变量）和 y （输出变量）。
+对于训练、验证和测试句子，我们将属性分为 X（输入变量）和 y（输出变量）。
 
 ```python
 X_train, y_train = transform_to_dataset(training_sentences)
@@ -231,7 +231,7 @@ y_val = np_utils.to_categorical(y_val)
 
 ### 建立 Keras 模型
 
-`[Keras](https://github.com/fchollet/keras/)` 是一个高级框架，用于设计和运行神经网络，它拥有多个后端像是 `[TensorFlow](https://github.com/tensorflow/tensorflow/)`, `[Theano](https://github.com/Theano/Theano)` or `[CNTK](https://github.com/Microsoft/CNTK)`.
+`[Keras](https://github.com/fchollet/keras/)` 是一个高级框架，用于设计和运行神经网络，它拥有多个后端像是 `[TensorFlow](https://github.com/tensorflow/tensorflow/)`, `[Theano](https://github.com/Theano/Theano)` 以及 `[CNTK](https://github.com/Microsoft/CNTK)`。
 
 ![](https://cdn-images-1.medium.com/max/800/1*jv-i8ieZA9AKk5j-avbCWg.png)
 
@@ -349,7 +349,7 @@ plot_model_performance(
 
 ### 评估多层感知器
 
-由于我们模型已经训练好了，所以我们可以直接评估它:
+由于我们模型已经训练好了，所以我们可以直接评估它：
 
 ```python
 score = clf.score(X_test, y_test)
@@ -388,7 +388,7 @@ clf.model.save('/tmp/keras_mlp.h5')
 *   Improving neural networks by preventing co-adaptation of feature detectors: [[paper]](https://arxiv.org/abs/1207.0580)
 
 在本文中，您学习如何使用 Keras 库定义和评估用于多分类的神经网络的准确性。
-代码在这里 : [[.py](https://github.com/Cdiscount/IT-Blog/blob/master/scripts/pos_tagging_neural_nets_keras.py)|[.ipynb](https://github.com/Cdiscount/IT-Blog/blob/master/scripts/pos_tagging_neural_nets_keras.ipynb)].
+代码在这里：[[.py](https://github.com/Cdiscount/IT-Blog/blob/master/scripts/pos_tagging_neural_nets_keras.py)|[.ipynb](https://github.com/Cdiscount/IT-Blog/blob/master/scripts/pos_tagging_neural_nets_keras.ipynb)].
 
 
 ---
