@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-debug-front-end-optimising-network-assets.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-debug-front-end-optimising-network-assets.md)
 > * 译者：[stormluke](https://github.com/stormluke)
-> * 校对者：
+> * 校对者：[Starrier](https://github.com/Starriers)
 
 # 如何调试前端：优化网络资源
 
@@ -24,7 +24,7 @@
 * 渲染阻塞资源时的优化
 * 其他性能测量应用/扩展
 
-如果你正在努力解决这之外的一些问题，请在评论告诉所我们——我们的团队和读者们很乐意提供帮助。
+如果你正在努力解决这之外的一些问题，请在评论告诉所我们 —— 我们的团队和读者们很乐意提供帮助。
 
 **这篇文章是《如何调试前端》系列的一部分：**
 
@@ -43,7 +43,7 @@
 
 ![](https://cdn-images-1.medium.com/max/800/0*Vu8XSuJJ4qkaGqzQ.)
 
-不错。一段时间后，我们完成了性能评估，并知道了一些改进这些性能指标的可行方法。如果 Audit 把屏幕分辨率调成了「移动设备」，请不必担心，因为对于 Chrome 来说这是正常的。我强烈建议你用 Chrome 金丝雀版（Canary）来执行评估。金丝雀版有个可以评估桌面版网页的选项，并且增加了网络限速功能——看看下面的图片。
+不错。一段时间后，我们完成了性能评估，并知道了一些改进这些性能指标的可行方法。如果 Audit 把屏幕分辨率调成了「移动设备」，请不必担心，因为对于 Chrome 来说这是正常的。我强烈建议你用 Chrome 金丝雀版（Canary）来执行评估。金丝雀版有个可以评估桌面版网页的选项，并且增加了网络限速功能 —— 看看下面的图片。
 
 ![](https://cdn-images-1.medium.com/max/800/0*VJ1eB8sRN7fB3Pr-.)
 
@@ -53,21 +53,21 @@
 
 指标（Metrics）选项卡收集了基本的测量结果，并且提供了页面加载时间的总体概况。
 
-**`首次有意义绘图（First meaningful paint）`**——audit 确定用户首次看到主要内容所需的时间。请尽可能保持在 1 秒以下。[阅读更多](https://developers.google.com/web/fundamentals/performance/rail)
+**`首次有意义绘图（First meaningful paint）`** —— audit 确定用户首次看到主要内容所需的时间。请尽可能保持在 1 秒以下。[阅读更多](https://developers.google.com/web/fundamentals/performance/rail)
 
-**`首次可交互（First interactive）`**——指首次用户看到可交互 UI 元素并且页面可以响应所需的时间。
+**`首次可交互（First interactive）`** —— 指首次用户看到可交互 UI 元素并且页面可以响应所需的时间。
 
-**`感知速度指数（Perceptual Speed Index）`**——指显示页面可见部分的平均时间。它以毫秒表示并取决于视口的大小。请尽量保持在 1250 毫秒以下。[阅读更多](https://sites.google.com/a/webpagetest.org/docs/using-webpagetest/metrics/speed-index)
+**`感知速度指数（Perceptual Speed Index）`** —— 指显示页面可见部分的平均时间。它以毫秒表示并取决于视口的大小。请尽量保持在 1250 毫秒以下。[阅读更多](https://sites.google.com/a/webpagetest.org/docs/using-webpagetest/metrics/speed-index)
 
-**`预估输入延迟（Estimated Input Latency）`**——应用响应用户输入的时间，以毫秒为单位。
+**`预估输入延迟（Estimated Input Latency）`** —— 应用响应用户输入的时间，以毫秒为单位。
 
 #### 改进点
 
-**`改进点（Opportunities）`**——是一个更详细的部分，收集了有关图片、CSS 和响应时间的信息。我会介绍每个项目，并加上一些如何加速的小提示。
+**`改进点（Opportunities）`** —— 是一个更详细的部分，收集了有关图片、CSS 和响应时间的信息。我会介绍每个项目，并加上一些如何加速的小提示。
 
 #### 减少阻塞渲染（render-blocking）的样式表
 
-CSS 文件被视为渲染阻塞资源。意味着浏览器会等待它们完全加载完毕，之后才开始渲染。最简单的方法就是不加载不必要的 CSS 文件。如果你使用 bootstrap，也许你不需要整个库来样式化你的页面——尤其是在项目刚开始时。
+CSS 文件被视为渲染阻塞资源。意味着浏览器会等待它们完全加载完毕，之后才开始渲染。最简单的方法就是不加载不必要的 CSS 文件。如果你使用 bootstrap，也许你不需要整个库来样式化你的页面 —— 尤其是在项目刚开始时。
 
 其次，你可以考虑针对不同屏幕尺寸进行优化。要降低加载 CSS 的数量级，可以使用条件加载，它只加载特定屏幕分辨率所需的 CSS 文件。下面有个例子。
 
@@ -84,7 +84,7 @@ CSS 文件被视为渲染阻塞资源。意味着浏览器会等待它们完全�
 
 #### 合适尺寸的图片（Properly size Images）、离屏图片（Offscreen images）和下一代格式（next-gen formats）
 
-这三部分都与一个主题紧密相关——图片。要准确了解你正在加载哪些图片以及它们所占的时间比重，请进入 Chrome Devtools 的网络选项卡并通过 IMG 选项进行过滤。通过查看大小和时间这两行，看看你是否满意这些结果。关于每个图片的大小比重并没有一般性的规则。这很大程度上取决于你的客户端设备、客户端群以及更多只有你自己才了解的情况。
+这三部分都与一个主题紧密相关 —— 图片。要准确了解你正在加载哪些图片以及它们所占的时间比重，请进入 Chrome Devtools 的网络选项卡并通过 IMG 选项进行过滤。通过查看大小和时间这两行，看看你是否满意这些结果。关于每个图片的大小比重并没有一般性的规则。这很大程度上取决于你的客户端设备、客户端群以及更多只有你自己才了解的情况。
 
 ![](https://cdn-images-1.medium.com/max/800/0*0QWY_H341qffDwUE.)
 
@@ -191,17 +191,13 @@ Goole 很注重缓存和无服务器应用。缓存完全取决于你，并且�
 在创建 web 应用/网站时，目前我们使用四种字体格式：EOT、TTF、WOFF、WOFF2。
 
 没有一种格式是最合适的，因此我们需要再次针对不同的浏览器使用不同的格式。这个主题的入门教程和更多解释在这里。[阅读更多](https://css-tricks.com/snippets/css/using-font-face/)
-
 不过在刚开始时，最好问问自己是否真的需要使用一个 web 字体。[这里](https://hackernoon.com/web-fonts-when-you-need-them-when-you-dont-a3b4b39fe0ae)有一篇关于它的非常好的文章。
 
 #### 字体压缩
 
 字体是形状和路径描述的集合，用于创建字母。每个字母都是不同的，但幸运的是他们有很多共同点，所以我们可以稍微压缩一下。
-
 由于 EOT 和 TTF 格式默认未压缩，请确保你的服务器配置了使用 GZIP。
-
 WOFF 内置了压缩功能。请在你的服务器上使用最佳压缩设置。
-
 WOFF2具有自定义预处理。[阅读更多](http://www.w3.org/TR/WOFF20ER/)
 
 #### 限制字符
@@ -218,11 +214,11 @@ WOFF2具有自定义预处理。[阅读更多](http://www.w3.org/TR/WOFF20ER/)
 
 现在，随着 ES6 越来越重要，我们广泛使用 webpack 和 gulp。在使用库，务必记住，你并不总是需要整个库。如果你不需要引入整个 lodash，只需引入一个函数。
 
-`import _ from 'lodash '`——会把整个 lodash 库加到包中
+`import _ from 'lodash '` —— 会把整个 lodash 库加到包中
 
-`import {map} from 'lodash'`——也会把整个 lodash 库加到包中，你可以使用 [lodash-webpack-plugin](https://github.com/lodash/lodash-webpack-plugin)、[babel-plugin-lodash](https://github.com/lodash/babel-plugin-lodash) 这些插件
+`import {map} from 'lodash'` —— 也会把整个 lodash 库加到包中，你可以使用 [lodash-webpack-plugin](https://github.com/lodash/lodash-webpack-plugin)、[babel-plugin-lodash](https://github.com/lodash/babel-plugin-lodash) 这些插件
 
-`import map from 'lodash/map'`——只会把 map 模块加入包中
+`import map from 'lodash/map'` —— 只会把 map 模块加入包中
 
 仔细查看框架中的 ES6 函数和你自己的函数。你不需要为每个功能都引入一个新库。要检查你的包是如何构建的，请使用下面链接中的工具。
 
