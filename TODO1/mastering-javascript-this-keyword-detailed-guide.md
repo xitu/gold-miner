@@ -445,128 +445,128 @@ var getSecondData = obj2.printSecondData.bind(obj1);
 console.log(getSecondData());   // 输出 2
 ```
 
-In the sample code snippet, the `obj2` has a method called `printSecondData` which we want to lend to `obj1`. In the following line
+在这个代码片段里，`obj2` 有一个名为 `printSecondData` 的方法，而我们想将这个方法借给 `obj1`。在下一行
 
 ```
 var getSecondData = obj2.printSecondData.bind(obj1);
 ```
 
-we are using the power of bind to give `obj1` access to the `printSecondData` method on `obj2`.
+通过使用 bind ，我们让 `obj1` 可以访问 `obj2` 的 `printSecondData` 方法。
 
-### Exercise
+### 练习
 
-In the code below
+在下面的代码中
 
 ```
 var object = {
-data: [1,2,3],
-double: function() {
-this.data.forEach(function() {
-// Get this to point to object.
-console.log(this);
-});
-}
+    data: [1,2,3],
+    double: function() {
+        this.data.forEach(function() {
+            // Get this to point to object.
+            console.log(this);
+        });
+    }
 };
 object.double();
 ```
 
-Have the this keyword point at `object`. Hint: You do not have to rewrite `this.data.forEach`.
+怎么让 this 关键词指向 `object`。提示：你并不需要重写 `this.data.forEach`。
 
-##### Answer
+##### 答案
 
-In one of the previous section, we need to be aware of execution context. If you look closely at how the anonymous function is called, it is not called as a method of a object. Therefore, the `this` keyword will point at the global `window` object.
+在上一节中，我们了解了执行上下文。如果你对匿名函数调用那部分看得够细心，你就知道它并不会作为某个对象的方法被调用。因此，`this` 关键词指向了全局 `window` 对象。
 
-Therefore, we need to bind object as the context to the anonymous function so that this points to `object`. now, when `double` runs, `object` is calling it, so the `this` inside of `double` when `object.double` is called is `object`.
+于是我们需要将 object 作为上下文绑定到匿名函数上，使得里面的 this 指向 `object`。现在，`double` 函数跑起来时，是 `object` 调用了它，那么 `double` 里面的 `this` 指向 `object`。
 
 ```
 var object = {
-data: [1,2,3],
-double: function() {
-return this.data.forEach(function() {
-// Get this to point to object.
-console.log(this);
-}.bind(this));
-}
+    data: [1,2,3],
+    double: function() {
+        return this.data.forEach(function() {
+            // Get this to point to object.
+            console.log(this);
+        }.bind(this));
+    }
 };
 object.double();
 ```
 
-However, what happens if we do the following?
+那，如果我们像下面这样做呢？
 
 ```
 var double = object.double;
-double();   // ??
+double();   // ？？
 ```
 
-What is the call context of `double()`? It is the global context. Therefore, we will get the following error.
+`double()` 的调用上下文是什么？是全局上下文。于是，我们就会看到下面的报错。
 
 > `Uncaught TypeError: Cannot read property 'forEach' of undefined`
 > `at double (test.html:282)`
 > `at test.html:289`
 
-So, we need to be mindful of how we call functions when using the `this` keyword. We can reduce the possibility of this kind of error by providing an API to users that fixes the this keyword. Remember that this comes at the expense of flexibility, so count the costs before making a decision.
+所以，当我们用到 `this` 关键词时，就要小心在意我们调用函数的方式。我们可以在提供 API 给用户时固定 this 关键词，以此减少这种类型的错误。但请记住，这么做的代价是牺牲了灵活性，所以做决定前要考虑清楚。
 
 ```
 var double = object.double.bind(object);
-double();  // no more error
+double();  // 不再报错
 ```
 
-## JavaScript `this` and call
+## JavaScript `this` 和 call
 
-The call method is very similar to bind, but the big difference is that `call`, as the name implies, immediately calls/executes the function.
+call 方法和 bind 很相似，但就如它名字所暗示的，`call` 会立刻呼起（执行）函数，这是两个函数的最大区别。
 
 ```
 var item = {
-name: "I am"
+    name: "I am"
 };
 function print() {
-return this.name;
+    return this.name;
 }
-// executed right away
+// 立刻执行
 var printNameBob = console.log(print.call(item));
 ```
 
-Most of the use cases with `call`, `apply` and `bind` will overlap. The most important thing as a programmer is to first understand the differences between the three methods and use them according to their design and purpose. Once you understand, you will be able to use them creatively in your code to create powerful constructs.
+`call`、`apply`、`bind` 大部分使用场景是重叠的。作为一个程序员最重要的还是先了解清楚这三个方法之间的差异，从而能根据它们的设计和目的的不同来选用。只要你了解清楚了，你就可以用一种更有创意的方式来使用它们，写出更独到精彩的代码。
 
-When working with fixed amount of arguments, it is good to use `call` or `bind`. For example, a `doLogin` function will accept two arguments always: `username` and `password`. In this case, if you need to bind this to a specific object, `call` or `bind` will serve you well.
+在参数数量固定的场景，`call` 或 `bind` 是不错的选择。比如说，一个叫 `doLogin` 的函数经常是接受两个参数：`username` 和 `password`。在这个场景下，如果你需要将 this 绑定到一个特定的对象上，`call` 或 `bind` 会挺好用的。
 
-### How to use call
+### 如何使用 call
 
-One of the most common uses in the past was to convert array-like objects such as the `arguments` object into arrays. For example,
+以前一个最常用的场景是把一个类数组对象，比如 `arguments` 对象，转化成数组。举个例子：
 
 ```
 function convertArgs() {
-var convertedArgs = Array.prototype.slice.call(arguments);
-console.log(arguments);
-console.log(Array.isArray(arguments));  // false
-console.log(convertedArgs);
-console.log(Array.isArray(convertedArgs)); // true
+    var convertedArgs = Array.prototype.slice.call(arguments);
+    console.log(arguments);
+    console.log(Array.isArray(arguments));  // false
+    console.log(convertedArgs);
+    console.log(Array.isArray(convertedArgs)); // true
 }
 convertArgs(1,2,3,4);
 ```
 
-In the example above, we used call to convert the `argument` object into an array. In the next example, we will call a method available on the `Array` object, setting the argument object as the this in its method to add up the arguments passed.
+在上面的例子中，我们使用 call 将 `argument` 对象转化成一个数组。在下一个例子中，我们将会调用一个 `Array` 对象的方法，并将 argument 对象设置为方法的 this，以此来将传进来参数加在一起。
 
 ```
 function add (a, b) { 
-return a + b; 
+    return a + b; 
 }
 function sum() {
-return Array.prototype.reduce.call(arguments, add);
+    return Array.prototype.reduce.call(arguments, add);
 }
 console.log(sum(1,2,3,4)); // 10
 ```
 
-We are calling reduce on an array like object. Note that arguments is not an array, but we are giving it access to the reduce method. If you are curious about how reduce works, you can [read about reduce here](https://www.thecodingdelight.com/map-filter-reduce/).
+我们在一个类数组对象上调用了 reduce 函数。要知道 arguments 不是一个数组，但我们给了它调用 reduce 方法的能力。如果你对 reduce 感兴趣，可以在[这里了解更多](https://www.thecodingdelight.com/map-filter-reduce/)。
 
-### Exercises
+### 练习
 
-Now, it is time to solidify your newfound knowledge.
+现在是时候巩固下你新学到的知识。
 
-1.  [document.querySelectorAll()](https://www.w3schools.com/jsref/met_document_queryselectorall.asp) returns a `NodeList`, which is an array like object. Write a function that takes a CSS selector and returns an array of Nodes selected.
-2.  Create a function that accepts an array of key value pairs and sets the value to the item that this keyword is pointing at and return that object. If this is `null` or `undefined`, create a new `object`. E.g. `set.call( {name: "jay"}, {age: 10, email: '[[email protected]](/cdn-cgi/l/email-protection)'}); // return {name: "jay", age: 10, email: '[[email protected]](/cdn-cgi/l/email-protection)'}`
+1.  [document.querySelectorAll()](https://www.w3schools.com/jsref/met_document_queryselectorall.asp) 返回一个类数组对象 `NodeList`。请写一个函数，它接收一个 CSS 选择器，然后返回一个选择到的 DOM 节点数组。
+2.  请写一个函数，它接收一个由键值对组成的数组，然后将这些键值对设置到 this 关键词指向的对象上，最后将该对象返回。如果 this 是 `null` 或 `undefined`，那就新建一个 `object`。示例：`set.call( {name: "jay"}, {age: 10, email: '[[email protected]](/cdn-cgi/l/email-protection)'}); // return {name: "jay", age: 10, email: '[[email protected]](/cdn-cgi/l/email-protection)'}`。
 
-## JavaScript this and apply
+## JavaScript this 和 apply
 
 The apply is the array accepting version of call. Therefore, when using `apply`, think of arrays.
 
