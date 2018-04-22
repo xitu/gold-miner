@@ -2,90 +2,90 @@
 > * 原文作者：[Esteban Herrera](https://blog.logrocket.com/@eh3rrera?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/immutability-in-react-theres-nothing-wrong-with-mutating-objects.md](https://github.com/xitu/gold-miner/blob/master/TODO1/immutability-in-react-theres-nothing-wrong-with-mutating-objects.md)
-> * 译者：
-> * 校对者：
+> * 译者：[jonjia](https://github.com/jonjia)
+> * 校对者：[MechanicianW](https://github.com/MechanicianW) [goldEli](https://github.com/goldEli)
 
-# Immutability in React: There’s nothing wrong with mutating objects
+# React 中的 Immutability：可变对象并没有什么问题
 
 ![](https://cdn-images-1.medium.com/max/800/1*TPF5q9zVHp944Ub-xtU7MQ.jpeg)
 
-[Image credit](https://www.geeknative.com/39314/mutate-the-t-shirt/).
+[图源](https://www.geeknative.com/39314/mutate-the-t-shirt/)
 
-One of the first things you learn when you start working with React is that you shouldn’t mutate (modify) a list:
+当开始使用 React 时，你要学习的第一件事就是不应该改变（修改）一个 数组：
 
 ```
-// This is bad, push modifies the original array
+// bad, push 操作会修改原数组
 items.push(newItem);
 
-// This is good, concat doesn’t modify the original array
+// good, concat 操作不会修改原数组
 const newItems = items.concat([newItem]);
 ```
 
-But…
+但是
 
-Do you know why?
+你知道为什么要这么做吗？
 
-Do you know what’s wrong with mutating objects?
+可变对象有什么不对吗？
 
 ![](https://cdn-images-1.medium.com/max/800/0*88XOllaZvI-HBP8o.)
 
-Nothing, really. There’s nothing wrong with mutating objects.
+没什么不对的，真的。可变对象没有任何问题。
 
-Yes, in situations like concurrency it can become a problem. But it’s the easiest development approach. And as many things in programming, it’s a trade-off.
+当然，在涉及并发情况时会有问题。但这是最简单的开发方法，和编程中许多问题一样，这是一种折衷。
 
-Functional programming and concepts like immutability are popular, almost “cool” topics. But in the case of React, immutability gives you some real benefits. It’s not just fashionable. There’s actual utility there.
+函数式编程和 immutability 等概念很流行，都是很酷的主题。但就 React 而言，immutability 会给你一些实际的好处。不仅仅是因为流行。而是有实用价值。
 
-### What is immutability?
+### 什么是 immutability？
 
-Immutability means that something cannot change its value or state.
+Immutability 表示经过一些处理后值或状态保持不变的变量。
 
-It’s a simple concept but, as usual, the devil is in the details.
+概念很简单，但深究起来并不简单。
 
-You can find immutable types in JavaScript itself. The `String` **value type** is a good example.
+你可以在 JavaScript 语言本身中找到 immutable 类型。`String` 对象的**值类型**就是一个很好的例子。
 
-If you define a string like this:
+如果你声明一个字符串变量，如下：
 
 ```
 var str = 'abc';
 ```
 
-You cannot change a character of the string directly.
+你无法直接修改字符串中的字符。
 
-In JavaScript, strings are not arrays so you can do something like this:
+在 JavaScript 中，字符串类型的值不是数组，所以你不能像下面这样做：
 
 ```
 str[2] = 'd';
 ```
 
-Doing something like:
+可以试试这样：
 
 ```
 str = 'abd';
 ```
 
-Assigns a different string to `str`.
+将另一个字符串赋值给 `str`。
 
-You can even define the `str`reference as a constant:
+你甚至可以将 `str` 重新声明为一个常量：
 
 ```
 const str = 'abc'
 ```
 
-So, assigning a new string generates an error (although this doesn’t relate to immutability).
+结果，重新声明会产生一个错误（但是这个错误和 immutability 无关）。
 
-If you want to modify the String value, you have to use manipulation methods like [replace](https://www.w3schools.com/jsref/jsref_replace.asp), [toUpperCase](https://www.w3schools.com/jsref/jsref_touppercase.asp) or [trim](https://www.w3schools.com/jsref/jsref_trim_string.asp).
+如果你想修改字符串的值，可以使用字符串方法，例如：[replace](https://www.w3schools.com/jsref/jsref_replace.asp)、[toUpperCase](https://www.w3schools.com/jsref/jsref_touppercase.asp) 或 [trim](https://www.w3schools.com/jsref/jsref_trim_string.asp)。
 
-All these methods return new strings, they don’t modify the original one.
+所有这些方法都会返回一个新的字符串，而不会改变原字符串的值。
 
-### Value type
+### 值类型
 
-Now, maybe you didn’t notice, but earlier I emphasized the words _value type_.
+可能你没注意到，之前我加粗强调过**值类型**。
 
-String values are immutable. String **objects** are not.
+字符串的值是 immutable（不可变的）。字符串**对象**就不是了。
 
-If an object is immutable, you cannot the change its state (the value of its properties). But this also means you cannot add new properties to the object.
+如果一个对象是 immutable 的，你不能改变他的状态（及他的属性值）。也意味着不能给他添加新的属性。
 
-Try this fiddle: [Edit in JSFiddle](https://jsfiddle.net/eh3rrera/a6uh7tsv/?utm_source=website&utm_medium=embed&utm_campaign=a6uh7tsv)
+试试下面的代码， [你可以在 JSFiddle 中查看](https://jsfiddle.net/eh3rrera/a6uh7tsv/?utm_source=website&utm_medium=embed&utm_campaign=a6uh7tsv)
 
 ```js
 const str = "abc";
@@ -94,11 +94,11 @@ str.myNewProperty = "some value";
 alert(str.myNewProperty);
 ```
 
-If you run it, you’ll see an alert window with the message `undefined`.
+如果你运行他，会弹出一个 `undefined`，
 
-The new property was not added.
+新的属性并没有添加上。
 
-But now try this: [Edit in JSFiddle](https://jsfiddle.net/eh3rrera/e46Lsrp7/?utm_source=website&utm_medium=embed&utm_campaign=e46Lsrp7)
+但再试试下面这个：[你可以在 JSFiddle 中查看](https://jsfiddle.net/eh3rrera/e46Lsrp7/?utm_source=website&utm_medium=embed&utm_campaign=e46Lsrp7)
 
 ```js
 const str = new String("abc");
@@ -113,15 +113,15 @@ alert(str.myNewProperty);
 
 ![](https://cdn-images-1.medium.com/max/1600/0*f3DODCqLTseJ5h3L.)
 
-Strings **are** immutable.
+String 对象不是 immutable 的。
 
-The last example creates an object with the `String()` constructor that wraps the (immutable) String value. But you can add new properties to this wrapper because it’s an object and it’s not [frozen](https://stackoverflow.com/questions/33124058/object-freeze-vs-const).
+最后一个示例通过 `String()` 构造函数创建了一个字符串对象，他的值是 immutable 的。但你可以给这个对象添加新的属性，因为这是一对象并且没有被 [冻结](https://stackoverflow.com/questions/33124058/object-freeze-vs-const)。
 
-This leads us to a concept that is important to understand. The difference between reference and value equality.
+这就要求我们理解另一个重要概念。引用相等和值相等的不同。
 
-### Reference equality vs value equality
+### 引用相等 vs 值相等
 
-With reference equality, you compare object references with the operators `===` and `!==` (or `==` and `!=`). If the references point to the same object, they are considered equal:
+引用相等，你通过 `===` 和 `!==` (或者 `==` 和 `!=`) 操作符比较对象的引用。如果引用指向同一个对象，那他们就是相等的：
 
 ```
 var str1 = ‘abc’;
@@ -130,11 +130,11 @@ var str2 = str1;
 str1 === str2 // true
 ```
 
-In the above example, both references (`str1` and `str2`) are equal because they point to the same object (`'abc'`).
+在上面的例子中，两个引用（`str1` 和 `str2`）都指向同一个对象（`'abc'`），所以他们是相等的。
 
 ![](https://cdn-images-1.medium.com/max/800/0*ipAtUvsW9QPr3EHO.)
 
-Two references are also equal when they refer to the same value if this value is immutable:
+如果两个引用都指向一个 immutable 的值，他们也是相等的，如下：
 
 ```
 var str1 = ‘abc’;
@@ -150,7 +150,7 @@ n1 === n2 // also true
 
 ![](https://cdn-images-1.medium.com/max/800/0*jE_ls1ixbCHkVH5J.)
 
-But when talking about objects, this doesn’t hold true anymore:
+但如果指向的是对象，那就不再相等了：
 
 ```
 var str1 =  new String(‘abc’);
@@ -164,13 +164,15 @@ var arr2 = [];
 arr1 === arr2 // false
 ```
 
+上面的两种情况，都会创建两个不同的对象，所以他们的引用不相等：
+
 ![](https://cdn-images-1.medium.com/max/800/0*QI4r9ERIF1OPVADk.)
 
-If you want to check if two objects contain the same value, you have to use value equality, where you compare the values of the properties of the object.
+如果你想检查两个对象的值是否相等，你需要比较他们的值属性。
 
-In JavaScript, there’s no direct way to do value equality on objects and arrays.
+在 JavaScript 中，没有直接比较数组和对象值的方法。
 
-If you’re working with String objects, you can use the methods `valueOf` or `trim` that return a String value:
+如果你要比较字符串对象，可以使用返回新字符串的 `valueOf` 或 `trim` 方法：
 
 ```
 var str1 =  new String(‘abc’);
@@ -180,27 +182,27 @@ str1.valueOf() === str2.valueOf() // true
 str1.trim() === str2.trim() // true
 ```
 
-But for another types of object, you either have to [implement your own equals method or use a third-party library](http://adripofjavascript.com/blog/drips/object-equality-in-javascript.html).
+但对于其他类型的对象，你只能实现自己的比较方法或者使用第三方工具，可以参考 [这篇文章](http://adripofjavascript.com/blog/drips/object-equality-in-javascript.html)。
 
-And how does this relate to immutability and React?
+但这和 immutability 和 React 有什么关系呢？
 
-It’s easier to test if two objects are equal if they are immutable and React takes advantage of this concept to make some performance optimizations.
+如果两个对象是不可变的，那么比较他们是否相等比较容易。React 就是利用了这个概念来进行性能优化的。
 
-Let’s talk about this.
+我们来具体谈谈吧。
 
-### Performance optimizations in React
+### React 中的性能优化
 
-React maintains an internal representation of the UI, the so-called [virtual DOM](http://reactkungfu.com/2015/10/the-difference-between-virtual-dom-and-dom/).
+React 内部会维护一份 UI 表述，就是 [虚拟 DOM](http://reactkungfu.com/2015/10/the-difference-between-virtual-dom-and-dom/)。
 
-When a property or the state of a component changes, this virtual DOM is updated to reflect those changes. Manipulating the virtual DOM is easier and faster because nothing is changed in the UI.
+如果一个组件的属性和状态改变了，他对应的虚拟 DOM 数据也会更新这些变化。因为不用修改真实页面，操作虚拟 DOM 更加方便快捷。
 
-Then, React compares the virtual DOM with a version before the update in order to know what changed. This is the [reconciliation](https://reactjs.org/docs/reconciliation.html) process.
+然后，React 会对现在和更新前版本的虚拟 DOM 进行比较，来找出哪些改变了。这就是 [一致性比较](https://reactjs.org/docs/reconciliation.html) 的过程。
 
-This way, only the element that changed are updated in the real DOM.
+这样，就只有有变化的元素会在真实 DOM 中更新。
 
-But sometimes, parts of the DOM are re-render even when they didn’t change as a side effect of other parts that do.
+有时，一些 DOM 元素自身没变化，但会被其他元素影响，造成重新渲染。
 
-In this case, you could implement the function [shouldComponentUpdate](https://reactjs.org/docs/react-component.html#shouldcomponentupdate) to check if the properties and/or state really changed and return true to leave React to perform the update:
+这种情况下，你可以通过 [shouldComponentUpdate](https://reactjs.org/docs/react-component.html#shouldcomponentupdate) 方法来判断属性和方法是不是真的改变了，是否返回 true 来更新这个组件：
 
 ```
 class MyComponent extends Component {
@@ -219,41 +221,41 @@ class MyComponent extends Component {
 }
 ```
 
-If the properties and state of the component are immutable objects or values, you can check to see if they changed with a simple equality operator.
+如果组件的属性和状态是 immutable 的对象或值，你可以通过相等比较判断他们是否改变了。
 
-From this perspective, immutability removes complexity.
+从这个角度看，immutability 降低了复杂度。
 
-Because sometimes, knowing what changes can be very hard.
+因为，有时候很难知道什么改变了。
 
-Think about deep fields:
+考虑下面的深嵌套：
 
 ```
 myPackage.sender.address.country.id = 1;
 ```
 
-How do you efficiently track which nested object changed?
+如何跟踪是哪个对象改变了呢？
 
-Think about arrays.
+再考虑下数组。
 
-For two arrays of the same size, the only way to know if they are equal is by comparing each element. A costly operation for large arrays.
+两个长度一致的数组，比较他们是否相等的唯一方式就是比较每个元素是否都相等。对于大型数组，这样的操作消耗很大。
 
-The most simple solution is to use immutable objects.
+最简单的解决方法就是使用 immutable 对象。
 
-If the object needs to be updated, a new object with the new value has to be created, because the original one is immutable and cannot be changed.
+如果需要更新一个对象，就用新的值创建一个新的对象，因为原对象是 immutable 的。
 
-And you can use reference equality to know that it changed.
+你也可以通过引用比较来确定他有没有改变。
 
-But for some people, this concept may seem a little inconsistent or opposed to the ideas of performance and simplicity.
+但对有些人来说，这个概念可能与性能和代码简洁性方面的理念不一致。
 
-So let’s review the options you have to create new objects and implement immutability.
+那我们来回顾下创建新对象并保证 immutability 的观点。
 
-### Implementing immutability
+### 实现 immutability
 
-In most real applications, your state and properties will be objects and arrays.
+在实际应用中，state 和 property 可能是对象或数组。
 
-JavaScript provides some methods to create new versions of them.
+JavaScript 提供了一些创建这些数据新版本的方法。
 
-For objects, instead of manually creating an object with the new property:
+对于对象，不是手动创建具有新属性的对象（如下）：
 
 ```
 const modifyShirt = (shirt, newColor, newSize) => {
@@ -266,7 +268,7 @@ const modifyShirt = (shirt, newColor, newSize) => {
 }
 ```
 
-You can use [Object.assign](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign) to avoid defining the unmodified properties:
+而是可以使用 [Object.assign](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign) 这个方法避免定义未修改的属性（如下）：
 
 ```
 const modifyShirt = (shirt, newColor, newSize) => {
@@ -277,9 +279,9 @@ const modifyShirt = (shirt, newColor, newSize) => {
 }
 ```
 
-Object.assign will copy all the properties of the objects passed as parameters (starting from the second parameter) to the object specified in the first parameter.
+`Object.assign` 方法用于将（从第二个参数开始）所有源对象的属性复制到第一个参数声明的目标对象。
 
-Or you can use the [spread operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax) with the same effect (the [difference](http://2ality.com/2016/10/rest-spread-properties.html#spread-defines-properties-objectassign-sets-them) is that `Object.assign()` use setter methods to assign new values while this operator doesn’t):
+或者你也可以使用 [扩展运算符](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax) 达到目的（不同的是 `Object.assign()` 使用 setter 方法分配新的值，而扩展运算符不是，[参考](http://2ality.com/2016/10/rest-spread-properties.html#spread-defines-properties-objectassign-sets-them)）：
 
 ```
 const modifyShirt = (shirt, newColor, newSize) => {
@@ -291,7 +293,7 @@ const modifyShirt = (shirt, newColor, newSize) => {
 }
 ```
 
-For arrays, you can also use the spread operator to create arrays with new values:
+对于数组，你也可以使用扩展运算符创建具有新元素的数组：
 
 ```
 const addValue = (arr) => {
@@ -299,7 +301,7 @@ const addValue = (arr) => {
 };
 ```
 
-Or you can use methods like concat or slice that return a new array without modifying the original one:
+或者使用像 `concat` 或 `slice` 这样的方法返回一个新的数组，而不会修改原数组：
 
 ```
 const addValue = (arr) => {
@@ -314,40 +316,40 @@ const removeValue = (arr, index) => {
 };
 ```
 
-In this [gist](https://gist.github.com/JoeNoPhoto/329f002ef4f92f1fcc21280dc2f4aa71), you can see how to combine the spread operator with these methods to avoid mutating arrays while performing some common operations.
+在这个 [代码片段](https://gist.github.com/JoeNoPhoto/329f002ef4f92f1fcc21280dc2f4aa71) 中，你可以看到在进行一些常见操作时，如何用这些方法结合扩展运算符避免修改原数组。
 
-However, there are two main drawbacks in using these native approaches:
+但是，使用这些方法会有两个主要缺点：
 
-*   They work by copying properties/elements from one object/array to another. This could be a slow operation for big objects/arrays.
-*   Objects and arrays are mutable by default, there’s nothing that enforces immutability. You have to remember to use one of these methods.
+* 他们通过将属性/元素从一个对象/数组复制到另一个来工作。对于大型对象/数组来说，这样的操作比较慢。
+* 对象和数组默认是可变的，没什么来确保 immutability。你必须时刻记住要使用这些方法。
 
-**For these reasons, it’s better to use an external library that handles immutability.**
+**由于上述原因，使用外部库来实现 immutability 是更好的选择。**
 
-The React team recommends [Immutable.js](https://facebook.github.io/immutable-js/) and [immutability-helper](https://github.com/kolodny/immutability-helper), but [here](https://github.com/markerikson/redux-ecosystem-links/blob/master/immutable-data.md) you can find a lot of libraries with similar functionality. There are three main types:
+React 团队推荐使用 [Immutable.js](https://facebook.github.io/immutable-js/) 和 [immutability-helper](https://github.com/kolodny/immutability-helper)，但 [这里](https://github.com/markerikson/redux-ecosystem-links/blob/master/immutable-data.md) 有很多同样功能的库。主要有下面三种类型：
 
-*   Libraries that work with specialized data structures.
-*   Libraries that work by freezing objects.
-*   Libraries with helper functions to perform immutable operations.
+* 配合持久的数据结构工作的库。
+* 通过冻结对象工作的库。
+* 提供辅助方法执行不可变操作的库。
 
-Most of these libraries work with [persistent data structures](https://en.wikipedia.org/wiki/Persistent_data_structure).
+大部分库都是配合 [持久的数据结构](https://en.wikipedia.org/wiki/Persistent_data_structure) 来工作。
 
-### Persistent data structures
+### 持久的数据结构
 
-A persistent data structure creates a new version whenever something is modified (which makes data immutable) while providing access to all versions.
+当有些数据需要修改时，持久的数据结构会创建一个新的版本（这实现了数据的 immutable），同时提供所有版本的访问权限。
 
-If the data structure is partially persistent, all versions can be accessed but only the newest version can be modified. If the data structure is fully persistent, every version can be both accessed and modified.
+如果数据部分持久化，所有版本的数据都可以访问，但只有最新版可以修改。如果数据完全持久化，那每个版本都可以访问和修改。
 
-The creation of new versions is implemented in an efficient way, based on two concepts, trees and sharing.
+基于树和共享的理念，新版本的创建非常高效。
 
-The data structure acts as a list or as a map, but under the hood, it’s implemented as a type of tree called [trie](https://en.wikipedia.org/wiki/Trie) (specifically a [bitmapped vector trie](https://stackoverflow.com/a/29121204/3593852)), where only the leaves hold values and the binary representation of the keys are the inner nodes of the tree.
+数据结构表层是一个 list 或 map，但在底层是使用一种叫做 [trie](https://en.wikipedia.org/wiki/Trie) 的树来实现（具体来说就是 [位图向量 tire](https://stackoverflow.com/a/29121204/3593852)），其中只有叶节点存储值，二进制表示的属性名是内部节点。
 
-For example, for the array:
+比如，对于下面的数组：
 
 ```
 [1, 2, 3, 4, 5]
 ```
 
-You can get convert the indexes to 4-bits binary numbers:
+你可以将索引转化为 4 位的二进制数：
 
 ```
 0: 0000
@@ -357,84 +359,74 @@ You can get convert the indexes to 4-bits binary numbers:
 4: 0100
 ```
 
+将数组按下面的树形展示：
+
 ![](https://cdn-images-1.medium.com/max/800/0*3hlxKXFBvhgY-Pzk.)
 
-Where each level has two bytes to form the path to reach a value.
+每个层级都有两个字节形成到达值的路径。
 
-Now let’s say that you want to update the value `1` to `6`:
+现在如果我们想将 `1` 修改为 `6`：
 
 ![](https://cdn-images-1.medium.com/max/800/0*Yq2TMZjNipslzaQe.)
 
-Instead of updating the value in the tree directly, the nodes on the way from the root to the value that you are changing are copied:
+不是直接修改树中的那个值，而是将从根节点到你要修改的那个值整体复制一份：
 
 ![](https://cdn-images-1.medium.com/max/800/0*L2vypVatx0VywZZS.)
 
-The value is updated on the new node:
+会在新复制的树中更新那个值：
 
 ![](https://cdn-images-1.medium.com/max/800/0*4TVKbnY7a3av-4Fq.)
 
-And the rest of the nodes are reused:
+原树中的其他节点可以继续使用：
 
 ![](https://cdn-images-1.medium.com/max/800/0*aAJm2raVQKpBjzqM.)
 
-In other words, the unmodified nodes are **shared** by both versions.
+也可以说，未修改的节点会被新旧两个版本**共享**。
 
-Of course, this 4-bit branching is not commonly used for these data structures. However, this is the basic concept of **structural sharing**.
+当然，这些 4 位的树形并不普适于这些持久的数据结构。这只是**结构共享**的基本理念。
 
-I won’t go into more details, but if you want to know more about persistent data structures and structural sharing, [read this article](https://medium.com/@dtinth/immutable-js-persistent-data-structures-and-structural-sharing-6d163fbd73d2) or [watch this talk](https://www.youtube.com/watch?v=Wo0qiGPSV-s).
+我不会介绍更多细节了，想了解更多关于持久化数据和结构共享的知识，可以阅读 [这篇文章](https://medium.com/@dtinth/immutable-js-persistent-data-structures-and-structural-sharing-6d163fbd73d2) 和 [这个演讲](https://www.youtube.com/watch?v=Wo0qiGPSV-s)。
 
-### Disadvantages
+### 缺点
 
-Immutability is not without its own problems.
+Immutability 也不是没有问题。
 
-As I mentioned before, you either have to remember to use methods than enforce immutability when working with objects and arrays or use third-party libraries.
+正如我前面提到的，处理对象和数组时，你要么必须记住使用保证 immutability 的方法，要么就使用第三方库。
 
-But many of these libraries work with their own data types.
+但这些库大多都使用自己的数据类型。
 
-And even though they provide compatible APIs and ways to convert these types to native JavaScript types, you have to be careful when designing your application to:
+尽管这些库提供了兼容的 API 和将这些类型转为 JavaScript 类型的方法，但在设计你自己的应用时，也要小心处理：
 
-*   Avoid high degrees of coupling or
-*   Hurt performance with methods like [toJs()](https://twitter.com/leeb/status/746733697093668864)
+* 避免高耦合
+* 避免使用像 [`toJs()`](https://twitter.com/leeb/status/746733697093668864) 这样有性能弊病的方法
 
-If the library doesn’t implement new data structures (libraries that work by freezing objects, for example) there won’t be any of the benefits of structural sharing. Most likely, objects will be copied when updated and performance will suffer in some cases.
+如果库没有实现新的数据结构（比如使用冻结对象工作的库），就不能体现结构共享的好处。很可能更新数据时要复制对象，有些情况性能会受到影响。
 
-Besides, you have to consider the learning curve associated with these libraries.
+此外，你必须考虑这些库的学习曲线。
 
-So you have to be careful when choosing the method you are going to use to enforce immutability.
+当需要选择 immutability 方案时，要仔细考虑。
 
-Also, check out this post for a [contrarian view of immutability](http://desalasworks.com/article/immutability-in-javascript-a-contrarian-view/).
+也可以阅读下这篇文章 [immutability 的反对观点](http://desalasworks.com/article/immutability-in-javascript-a-contrarian-view/)。
 
-### Conclusion
+### 结论
 
-Immutability is a concept that React programmers need to understand.
+Immutability 是 React 开发者需要理解的一个概念。
 
-An immutable value or object cannot be changed, so every update creates new value, leaving the old one untouched.
+一个 immutable 的值或对象不能被改变，所以每次更新数据都会创建新的值，将旧版本的数据隔离。
 
-For example, if your application state is immutable, you can save all the states objects in a single store to easily implement undo/redo functionality.
+例如，如果你应用的 state 是 immutable 的，就可以将所有 state 对象保存在单个 store 中，这样很容易实现撤销/重做功能。
 
-Sound familiar? It should.
+听起来是不是很熟悉？是的。
 
-Version control systems like [Git](https://git-scm.com/) work in a similar way.
+像 [Git](https://git-scm.com/) 这种版本管理系统以类似方式工作。
 
-[Redux](https://redux.js.org/) is also based on that [principle](https://redux.js.org/introduction/three-principles).
+[Redux](https://redux.js.org/) 也是基于这个 [原则](https://redux.js.org/introduction/three-principles)。
 
-However, the focus on Redux is more on the side of [pure functions](https://medium.com/@jamesjefferyuk/javascript-what-are-pure-functions-4d4d5392d49c) and _snapshots_ of the application state. This [StackOverflow answer](https://stackoverflow.com/a/34962065/3593852) explains the relationship between Redux and immutability in an excellent way.
+但是，人们更关注 Redux 的 [纯函数](https://medium.com/@jamesjefferyuk/javascript-what-are-pure-functions-4d4d5392d49c) 和 应用状态的**快照**。StackOverflow 上的 [这个回答](https://stackoverflow.com/a/34962065/3593852) 很好地解释了 Redux 和 immutability 的关系。
 
-Immutability has other advantages like avoiding unexpected side effects or [reducing coupling](https://stackoverflow.com/a/43918514/3593852), but it also has disadvantages.
+Immutability 还有其他像避免意外的副作用和 [减少耦合](https://stackoverflow.com/a/43918514/3593852) 等优点，但也有缺点。
 
-Remember, as with many things in programming, it’s a trade-off.
-
-* * *
-
-### Plug: LogRocket, a DVR for web apps
-
-![](https://cdn-images-1.medium.com/max/1000/1*s_rMyo6NbrAsP-XtvBaXFg.png)
-
-[LogRocket](https://logrocket.com) is a frontend logging tool that lets you replay problems as if they happened in your own browser. Instead of guessing why errors happen, or asking users for screenshots and log dumps, LogRocket lets you replay the session to quickly understand what went wrong. It works perfectly with any app, regardless of framework, and has plugins to log additional context from Redux, Vuex, and @ngrx/store.
-
-In addition to logging Redux actions and state, LogRocket records console logs, JavaScript errors, stacktraces, network requests/responses with headers + bodies, browser metadata, and custom logs. It also instruments the DOM to record the HTML and CSS on the page, recreating pixel-perfect videos of even the most complex single page apps.
-
-Try it for free.
+记住，和编程中许多事一样，这也是一种折衷。
 
 
 ---
