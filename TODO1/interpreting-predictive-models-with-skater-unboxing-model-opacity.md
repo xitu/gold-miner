@@ -91,7 +91,7 @@
 
 图 5：模型性能和可解释性的对比。图片由 Pramit Choudhary 和 Datascience.com 团队提供。
 
-借用一个例子，我们来看看平衡性能和解释性的问题。参考上图5。假设有人正在建立一个模型来预测特定客户群体的贷款审批结果。使用线性模型（例如线性分类器，如使用对数损失函数的[逻辑回归](https://en.wikipedia.org/wiki/Logistic_regression)或回归的[普通最小二乘法](https://en.wikipedia.org/wiki/Ordinary_least_squares)（OLS））更易于解释，因为输入变量与模型输出之间的关系可以使用模型的系数在量值和方向上进行量化权重。如果决策边界单调递增或递减，这种思路就行得通。但是，真实世界的数据很少出现这种情况。因此产生了模型的性能和可解释性之间的平衡问题。
+借用一个例子，我们来看看平衡性能和解释性的问题。参考上图 5。假设有人正在建立一个模型来预测特定客户群体的贷款审批结果。使用线性模型（例如线性分类器，如使用对数损失函数的[逻辑回归](https://en.wikipedia.org/wiki/Logistic_regression)或回归的[普通最小二乘法](https://en.wikipedia.org/wiki/Ordinary_least_squares)（OLS））更易于解释，因为输入变量与模型输出之间的关系可以使用模型的系数在量值和方向上进行量化权重。如果决策边界单调递增或递减，这种思路就行得通。但是，真实世界的数据很少出现这种情况。因此产生了模型的性能和可解释性之间的平衡问题。
 
 为了捕捉自变量和模型的响应函数之间的非单调关系，通常需要使用更复杂的模型：集成、有大量决策树的随机森林或有多重隐藏的神经网络层。随着文本（使用[分层相关传播（LRP）](http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0130140)[**解释 NLP 中的非线性分类器的预测**](https://arxiv.org/abs/1606.07298)）、计算机视觉（Ning et.al，NIPS'17，[**相关输入概念到卷积神经网络决策**](https://arxiv.org/abs/1711.08006)）和基于语音的模型需求的复杂度增加，模型可解释性需求也在增加。例如，对基于语言的模型的理解仍然是一个[棘手的问题](https://www.oreilly.com/ideas/language-understanding-remains-one-of-ais-grand-challenges)，因为相似词语的使用存在模糊性和不确定性。使用人类可解释性来理解语言模型中的这种模糊性对于构建用例特定规则来理解、验证和改进模型决策十分有用。
 
