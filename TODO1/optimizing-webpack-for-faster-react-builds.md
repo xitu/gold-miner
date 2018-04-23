@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/optimizing-webpack-for-faster-react-builds.md](https://github.com/xitu/gold-miner/blob/master/TODO1/optimizing-webpack-for-faster-react-builds.md)
 > * 译者：[Starrier](https://github.com/Starriers)
-> * 校对者：
+> * 校对者：[lcx-seima](https://github.com/lcx-seima)
 
 # 优化 WEBPACK 以更快地构建 REACT
 
