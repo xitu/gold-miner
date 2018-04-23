@@ -59,7 +59,7 @@
 
 **`感知速度指数（Perceptual Speed Index）`** —— 指显示页面可见部分的平均时间。它以毫秒表示并取决于视口的大小。请尽量保持在 1250 毫秒以下。[阅读更多](https://sites.google.com/a/webpagetest.org/docs/using-webpagetest/metrics/speed-index)
 
-**`预估输入延迟（Estimated Input Latency）`** —— 应用响应用户输入的时间，以毫秒为单位。
+**`预估输入延迟（Estimated Input Latency）`** —— 应用响应用户输入的时间，以毫秒为单位。
 
 #### 改进点
 
