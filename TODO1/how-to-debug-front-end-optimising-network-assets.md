@@ -37,7 +37,7 @@
 
 由于整篇文章都是关于 Chrome Devtools 的，我们就先从 Audit 标签页开始（其本身使用了 Lighthouse）
 
-打开 Chrome Devtools > Audits > Perform an audit... > Run audit
+打开 Chrome Devtools > Audits > Perform an audit... > Run audit
 
 我决定检查性能（Performance）和最佳实践（Best practices），但我们这次暂不涉及渐进式 Web 应用（Progressive Web App）或无障碍性（Accessibility）主题。
 
@@ -180,7 +180,7 @@ Facebook 目前正在使用图片模糊化。当你在网络不好的情况下�
 
 Goole 很注重缓存和无服务器应用。缓存完全取决于你，我不是缓存的忠实拥护者。如果你想了解更多缓存的东西，Google 准备了一些不错的课程。[阅读更多](https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching#cache-control)
 
-#### 关键请求链 / 阻塞渲染的脚本
+#### 关键请求链 / 阻塞渲染的脚本
 
 关键请求链（Critical request chains）包含了需要在页面渲染前就完成的请求。保持它尽可能小至关重要。
 
@@ -206,7 +206,7 @@ WOFF2具有自定义预处理。[阅读更多](http://www.w3.org/TR/WOFF20ER/)
 
 #### 字体加载策略
 
-加载字体会阻塞页面渲染，因为浏览器需要使用其中的所有字体来构建 DOM。字体加载策略可以防止加载延迟。字体显示（fonts-display）是策略之一，在 CSS 属性中。[阅读更多](https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display)
+加载字体会阻塞页面渲染，因为浏览器需要使用其中的所有字体来构建 DOM。字体加载策略可以防止加载延迟。字体显示（fonts-display）是策略之一，在 CSS 属性中。[阅读更多](https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display)
 
 ### 优化 JavaScript
 
