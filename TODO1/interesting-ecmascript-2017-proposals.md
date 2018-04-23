@@ -2,50 +2,50 @@
 > * 原文作者：[Kaelan Cooter](https://blog.logrocket.com/@eranimo?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/interesting-ecmascript-2017-proposals.md](https://github.com/xitu/gold-miner/blob/master/TODO1/interesting-ecmascript-2017-proposals.md)
-> * 译者：
+> * 译者：[Colafornia](https://github.com/Colafornia)
 > * 校对者：
 
-# Interesting ECMAScript 2017 proposals that weren’t adopted
+# 那些好玩却没有被 ECMAScript 2017 采纳的提案
 
 ![](https://cdn-images-1.medium.com/max/1000/1*kEpd3JC1gUOkupbYpik4jQ.jpeg)
 
-It’s hard to keep up to date with all the new feature proposals. Every year dozens are proposed to the [TC39](https://github.com/tc39) committee which controls the evolution of JavaScript. Because many of them will never reach the second stage, it’s difficult to know which ones to keep track of and which are mere novelties (or just crazy ideas).
+要跟上所有新功能提案的进度并不容易。每年，管理 JavaScript 发展的委员会 [TC39](https://github.com/tc39) 都会收到数十个提案。由于大多数提案都不会到达第二阶段，因此很难确定哪些提案值得关注，哪些提案只是奇思妙想（或者称之为异想天开）。
 
-One reason it can be tough to stay on top of feature proposals is that there are a lot more of them now. The development pace of JavaScript used to be much more conservative — six years passed between ES5 and ES6\. Since ECMAScript 2016 (ES7), the process calls for yearly releases and is [considerably more standardized](https://tc39.github.io/process-document/).
+由于现在又越来越多的提案，因此保持领先会非常困难。在过去的六年里，ES5 与 ES6 之间，JavaScript 的发展脚步非常保守。自 ECMAScript 2016 (ES7) 发布，发布过程要求为每年发布一次，并且[更加标准化](https://tc39.github.io/process-document/)。
 
-Because polyfills and transpilers have become popular in recent years, some early-stage proposals have gained significant adoption before they’ve even been finalized. And, because proposals can change widely before being accepted, some might find that they’re using a feature that will never be part of the language.
+随着近些年来 polyfills 和转译器的流行，一些尚属早期（early-stage）的提案甚至在还未最终确定前就已经被广泛使用了。并且，由于提案在被采纳之前会有很大变动，一些开发者可能会发现他们所使用的特性永远不会变成 JavaScript 的语言实现。
 
-Before getting into the proposals that I think are most interesting, let’s take a second to familiarize ourselves with the current process.
+在深入研究那些我觉得很好玩的提案之前，我们先花点时间熟悉一下目前的提案流程。
 
-### **The five stages of the ECMAScript proposal process**
+### **ECMAScript 提案流程中的 5 个 stage**
 
-Stage 0 “strawman” — The starting point for all proposals. These can change significantly before advancing to the next stage. There is no acceptance criteria and anyone can make a new proposal for this stage. There doesn’t need to be any implementation and the spec isn’t held to any standard. This stage is intended to start a discussion about the feature. There are currently [over twenty](https://github.com/tc39/proposals/blob/master/stage-0-proposals.md) stage 0 proposals.
+Stage 0 “稻草人” —— 这是所有提案的起点。在进入下一阶段之前，提案的内容可能会发生重大变化。目前还没有提案的接收标准，任何人都可以为这一阶段提交新的提案。无需任何代码实现，规范也无需合乎标准。这个阶段的目的是开始针对该功能特性的讨论。目前已经有[超过 20 个处于 stage 0 的提案](https://github.com/tc39/proposals/blob/master/stage-0-proposals.md)。
 
-Stage 1 “proposal” — An actual formal proposal. These require a [“champion”](https://github.com/tc39/ecma262/blob/master/FAQ.md#what-is-the-process-for-proposing-a-new-feature)(i.e. a member of TC39 committee). At this stage the API should be well thought out and any potential implementation challenges should be outlined. At this stage, a polyfill is developed and demos produced. Major changes might happen after this stage, so use with caution. Proposals at this stage include the long-awaited [Observables type](https://github.com/tc39/proposal-observable) and the [Promise.try](https://github.com/tc39/proposal-promise-try) function.
+Stage 1 “提案” —— 一个真正的正式提案。此阶段的提案需要一个[“拥护者”](https://github.com/tc39/ecma262/blob/master/FAQ.md#what-is-the-process-for-proposing-a-new-feature)（即 TC39 委员会的成员）。需仔细考虑 API 并描述出任何潜在的，代码实现方面的挑战。此阶段也需开发 plyfill 并产出 demo。在这一阶段之后提案可能会发生重大变化，因此需小心使用。目前仍处于这一阶段的提案包括了已望穿秋水的 [Observables type](https://github.com/tc39/proposal-observable) 与 [Promise.try](https://github.com/tc39/proposal-promise-try) 功能。
 
-Stage 2 “draft” — At this stage the syntax is precisely described using the formal TC39 spec language. Minor editorial changes might still happen after this stage, but the specification should be complete enough not to need major revisions. If a proposal makes it this far, it’s a good bet that the committee expects the feature to be included eventually.
+Stage 2 “草案” —— 此阶段将使用正式的 TC39 规范语言来精确描述语法。在此阶段后仍由可能发生一些小修改，但是规范应该足够完整，无需进行重大修订。如果一个提案走到了这一步，那么很有可能委员会是希望最终可以实现该功能的。
 
-Stage 3 “candidate” — The proposal has approved and further changes will only occur at the request of implementation authors. Here is where you can expect implementation to begin in JavaScript engines. Polyfills for proposals at this stage are safe to use without worry.
+Stage 3 “候选” —— 该提案已获批准，仅当执行作者提出要求时才会做进一步的修改。此时你可以期待 JavaScript 引擎中开始实现提案的功能了。在这一阶段草案的 polyfill 可以安全无忧使用。
 
-Stage 4 “finished” — Indicates that the proposal has been accepted and the specification has been merged with the main JavaScript spec. No further changes are expected. JavaScript engines are expected to ship their implementations. As of October 2017 there are [nine finished proposals](https://github.com/tc39/proposals/blob/master/finished-proposals.md), most notably [async functions](https://github.com/tc39/ecmascript-asyncawait).
+Stage 4 “完成” —— 说明提案已被采纳，提案规范将与 JavaScript 规范合并。预计不会再发生变化。JavaScript 引擎将发布它们的实现。截至 2017 年 10 月，已经有 [9 个已完成的提案](https://github.com/tc39/proposals/blob/master/finished-proposals.md)，其中最引人关注的是 [async functions](https://github.com/tc39/ecmascript-asyncawait)。
 
-Since there are so many proposals, here are a few of the more interesting ones currently under consideration.
+由于提案越来越多，思考一番，以下几个提案是其中更有趣的。
 
 ![](https://cdn-images-1.medium.com/max/800/1*9nMBMt-OugnruBr_M-WuEQ.png)
 
-[https://xkcd.com/927/](https://xkcd.com/927/)
+图源 [https://xkcd.com/927/](https://xkcd.com/927/)
 
-### Asynchronous Iteration
+### Asynchronous Iteration 异步遍历器
 
-ECMAScript 2015 added iterators, including the _for-of_ loop syntax. This made it considerably easy to loop over iterable objects and made it possible to implement your own iterable data structures.
+ECMAScript 2015 中引入了遍历器 iterator，其中包含了 **for-of** 循环语法。这使得循环遍历可迭代对象变得相当容易，并且可以实现你自己的可迭代数据结构。
 
-Unfortunately, iterators can’t be used to represent asynchronous data structures like accessing the file system. While you could always run Promise.all and loop over an array of promises, that requires synchronous determination of the “done” state.
+遗憾的是，遍历器无法用于表示异步的数据结构如访问文件系统。虽然你可以运行 Promise.all 来遍历一系列的 promise，但这需要同步确定“已完成”的状态。
 
-For example, instead of reading all the lines from a file before working with them, with async iterators you can simply loop over an async iterable that reads the lines as you need them.
+例如，可以使用异步迭代器来遍历异步内容，按需读取文件中内容，而不是提前读取文件中的所有内容。
 
-You can define a async generator function by simply using both the generator syntax and the async-await syntax together:
+你可以通过简单地同时使用 generator 生成器语法和 async-await 语法来定义异步生成器函数：
 
-```
+```javascript
 async function* readLines(path) {
   let file = await fileOpen(path);
 
@@ -59,23 +59,23 @@ async function* readLines(path) {
 }
 ```
 
-Async generator function example.
+异步生成器函数示例。
 
-#### Example
+#### 示例
 
-You can then use this async generator in a for-await-of loop:
+可以在 for-await-of 循环中使用这个异步生成器：
 
-```
+```javascript
 for await (const line of readLines(filePath)) {
   console.log(line);
 }
 ```
 
-Using for-await-of.
+在 for-await-of 中使用
 
-Any object that has a Symbol.asyncIterator property is defined as being _async iterable_ and can be used with the new for-await-of syntax. Here’s an example of this in action:
+任意具有 Symbol.asyncIterator 属性的对象都被定义为 **async iterable**，并且可使用于新的 for-await-of 语法中。这有一个具体可运行的示例：
 
-```
+```javascript
 class LineReader() {
  constructor(filepath) {
    this.filepath = filepath;
@@ -98,7 +98,7 @@ class LineReader() {
 }
 ```
 
-Using Symbol.asyncIterator.
+使用 Symbol.asyncIterator 的示例。
 
 [The proposal](https://github.com/tc39/proposal-async-iteration) is currently at stage 3, and browsers are starting to implement it. At this stage it’s likely going to be included in the standard and eventually implemented by major browsers. However, there may be minor changes to the spec might happen before that so using async iterators today carries some degree of risk.
 
