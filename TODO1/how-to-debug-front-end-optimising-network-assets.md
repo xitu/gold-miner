@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-debug-front-end-optimising-network-assets.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-debug-front-end-optimising-network-assets.md)
 > * 译者：[stormluke](https://github.com/stormluke)
-> * 校对者：[Starrier](https://github.com/Starriers)
+> * 校对者：[Starrier](https://github.com/Starriers)、[allenlongbaobao](https://github.com/allenlongbaobao)
 
 # 如何调试前端：优化网络资源
 
@@ -178,13 +178,13 @@ Facebook 目前正在使用图片模糊化。当你在网络不好的情况下�
 
 #### 对静态资源使用了低效的缓存策略
 
-Goole 很注重缓存和无服务器应用。缓存完全取决于你，并且我也不过度在意缓存。如果你想了解更多缓存的东西，Google 准备了一些不错的课程。[阅读更多](https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching#cache-control)
+Goole 很注重缓存和无服务器应用。缓存完全取决于你，我不是缓存的忠实拥护者。如果你想了解更多缓存的东西，Google 准备了一些不错的课程。[阅读更多](https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching#cache-control)
 
 #### 关键请求链 / 阻塞渲染的脚本
 
 关键请求链（Critical request chains）包含了需要在页面渲染前就完成的请求。保持它尽可能小至关重要。
 
-我们之前提到了 CSS 加载，现在我们来讨论一下 web 字体。
+我们之前提到了 CSS 加载，现在我们来讨论一下 Web 字体。
 
 #### 优化 Web 字体
 
