@@ -2,7 +2,7 @@
 > * 原文作者：[David Pitt](https://dzone.com/users/2933125/dpittkhs.html)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/blockchain-implementation-with-java-code.md](https://github.com/xitu/gold-miner/blob/master/TODO1/blockchain-implementation-with-java-code.md)
-> * 译者：
+> * 译者：[Starrier](https://github.com/Starriers)
 > * 校对者：
 
 # 用 Java 代码实现区块链
@@ -174,15 +174,15 @@ return true;
 
 **挖矿**是比特币区块链使用的协商一致机制。这就是本文后面讨论的协商一致意见的类型。协商一致机制收集事务，用他们构建一个块，然后将改块添加到链中。然后，再添加到链中之前，该链验证新的事务块。
 
-### Merkle Trees
+### 默克尔树
 
-事务被哈希并添加到区块中。创建 Merkle Tree 数据结构来计算 Merkle Root Hash。每个块都存储 Merkle Tree 树的根，这是一个平衡的哈希二叉树，其中内部节点是一直到根哈希的两个子哈希的哈希，即 Merkle Root。
+事务被哈希并添加到区块中。创建默克尔树数据结构来计算默克尔根哈希。每个块都存储默克尔树的根，这是一个平衡的哈希二叉树，其中内部节点是一直到根哈希的两个子哈希的哈希，即默克尔根。
 
 [![](https://i0.wp.com/keyholesoftware.com/wp-content/uploads/Merkle-Root.png?resize=576%2C288&ssl=1)](https://keyholesoftware.com/2018/04/10/blockchain-with-java/merkle-root/)
 
 该树用于区块事务的验证。如果在事务中更改了一些信息，Merkel Root 将失效。此外，再分布式中，它们还可以加速传输区块，因为该结构只允许添加和验证整个事务块所需的单个事务哈希分支。
 
-以下是 `Block.java` 类中的方法，它从事务列表中创建了一个 Merkle Tree。
+以下是 `Block.java` 类中的方法，它从事务列表中创建了一个默克尔树。
 
 ```
 ...
@@ -217,7 +217,7 @@ return tree;
 ...
 ```
 
-此方法用于计算区块的 Merkle Tree 根。伴随项目有一个 Markle Tree 单元测试，它试图将事务添加到一个区块中，并验证 Merle Root 是否已经更改。下面是单元测试的源码。
+此方法用于计算区块的默克尔树根。伴随项目有一个默克尔树单元测试，它试图将事务添加到一个区块中，并验证默克尔根是否已经更改。下面是单元测试的源码。
 
 ```
 ...
@@ -312,7 +312,7 @@ return nonceHash;
 
 希望这篇文章能给你足够的兴趣和洞察力，让你继续研究区块链技术。
 
-本文介绍的所有示例都用于我们的[深度区块链白皮书](https://keyholesoftware.com/wp-content/uploads/Blockchain-For-The-Enterprise-Keyhole-White-Paper.pdf) (no registration required to read). 这些例子在白皮书中有更详细的说明。
+本文介绍的所有示例都用于我们的[深度区块链白皮书](https://keyholesoftware.com/wp-content/uploads/Blockchain-For-The-Enterprise-Keyhole-White-Paper.pdf) (无需注册即可阅读). 这些例子在白皮书中有更详细的说明。
 
 另外，如果你想在 Java 中看到完整的区块链实现，这里有一个开源项目 Bitcoin 的[链接](https://github.com/bitcoinj/bitcoinj)。你将在实际的生产实现中看到这些概念的实际应用。
 
