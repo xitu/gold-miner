@@ -19,7 +19,7 @@
 
 ## 简述区块链
 
-首先我们简要总结下区块链。 块包含一些头信息和任何类型数据的一组或一组事务。该链从第一个（初始）块开始。随着事务被添加/扩展，将基于块中可以存储多少事务来创建新块。
+首先我们简要总结下区块链。块包含一些头信息和任何类型数据的一组或一组事务。该链从第一个（初始）块开始。随着事务被添加/扩展，将基于块中可以存储多少事务来创建新块。
 
 当超过块阀值大小时，将创建一个新的事务块。新块链接到前一个块，因此称为区块链。
 
@@ -56,8 +56,8 @@ private String nonce = "0000";
 ```
 ...
 public void computeHash() {
-     Gson parser = new Gson(); // probably should cache this instance
-     String serializedData = parser.toJson(transactions);  
+     Gson parser = new Gson(); // 可能应该缓存这个实例
+     String serializedData = parser.toJson(transactions);  
      setHash(SHA256.generateHash(timeStamp + index + merkleRoot + serializedData + nonce + previousHash));
      }
 ...
@@ -77,7 +77,7 @@ public static final int BLOCK_SIZE = 10;
 public List<Block<T>> chain = new ArrayList<Block<T>>();
 
 public SimpleBlockchain() {
-// create genesis block
+// 创建初始块
 chain.add(newBlock());
 }
 
@@ -113,7 +113,7 @@ return block;
 ....
 public void addAndValidateBlock(Block<T> block) {
 
-// compare previous block hash, add if valid
+// 比较之前的块哈希，如果有效则添加
 Block<T> current = block;
 for (int i = chain.size() - 1; i >= 0; i--) {
 Block<T> b = chain.get(i);
@@ -193,22 +193,22 @@ ArrayList<String> tree = new ArrayList<>();
 for (T t : transactions) {
 tree.add(t.hash());
 }
-int levelOffset = 0; // Offset in the list where the currently processed
-// level starts.
-// Step through each level, stopping when we reach the root (levelSize
-// == 1).
+int levelOffset = 0; // 当前处理的列表中的偏移量。
+// 开始层
+// 穿过每一层，当我们到达根部时停止（层大小
+// == 1）。
 for (int levelSize = transactions.size(); levelSize > 1; levelSize = (levelSize + 1) / 2) {
-// For each pair of nodes on that level:
+// 对于该层上的每一对节点：
 for (int left = 0; left < levelSize; left += 2) {
-// The right hand node can be the same as the left hand, in the
-// case where we don't have enough
-// transactions.
+// 在我们没有足够事务的情况下，
+// 右节点和左节点
+// 可以一样。
 int right = Math.min(left + 1, levelSize - 1);
 String tleft = tree.get(levelOffset + left);
 String tright = tree.get(levelOffset + right);
 tree.add(SHA256.generateHash(tleft + tright));
 }
-// Move to the next level.
+// 移动至下一层
 levelOffset += levelSize;
 }
 return tree;
@@ -253,9 +253,10 @@ assertFalse(block.transasctionsValid());
 ...
 ```
 
-This unit test emulates validating transactions, then changing a transaction in a block outside of the consensus mechanism, e.g. if someone tries to change transaction data.
+此单元测试模拟验证事务，然后在协商一致机制之外的块中更改事务，例如，如果有人试图更改事务数据。
 
-Remember, blockchains are append-only, and as the blockchain data structure is shared between nodes, block data structure (including the Merkle Root) are hashed and connected to other blocks. All nodes can validate new blocks and existing blocks can be easily proved as valid. So, a miner trying to add a bogus block or a node attempting to adjust older transactions are effectively not possible before the sun grows to a supernova and gives all a really nice tan.
+记住，区块链只是附加的，当块区链数据结构在节点之间共享时，区块数据结构（包括 Melk Root）被哈希并连接到其他区块。所有节点都可以验证新的块，并且现有的区块可以很容易地被证明是有效的。因此，在事务交易结束之前试图添加假块或试图调整旧交易的节点，实际上是不可能的。
+
 
 ### 挖矿工作证明
 
@@ -293,9 +294,10 @@ return nonceHash;
 }
 ```
 
-Again, this is simplified, but the miner implementation will perform a proof-of-work hash for the block once a certain number of transactions have been received. The algorithm simply loops and creates an SHA-256 hash of the block until the leading number hash is produced.
+同样，这是简化的，但是一旦接收到一定数量的事务，矿工将为区块执行一个工作哈希验证的实现。该算法简单地循环并创建块的SHA-256散列，直到产生前导数字哈希。
 
-This can take a lot of time, which is why specific GPU microprocessors have been implemented to perform and solve this problem as fast as possible.
+这可能需要很多时间，这就是为什么特定的GPU微处理器已经被实现来尽可能快地执行和解决这个问题的原因。
+
 
 ### 单元测试
 
@@ -304,7 +306,7 @@ This can take a lot of time, which is why specific GPU microprocessors have been
 
 快跑吧。它会让你检查这个简单的区块链是如何工作的。
 
-另外，如果你是 C# 的读者，这个（我不会告诉任何人），我们也有同样用 C# 写的示例。下面是 C# 区块链实现的示例的[地址](https://github.com/in-the-keyhole/khs-blockchain-csharp-example)。
+另外，如果你是 C# 的读者，这个（我不会告诉任何人），我们也有同样用 C# 写的示例。下面是 C# 区块链实现的示例[地址](https://github.com/in-the-keyhole/khs-blockchain-csharp-example)。
 
 ## 最后的思考
 
