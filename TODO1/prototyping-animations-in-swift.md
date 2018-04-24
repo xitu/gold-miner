@@ -420,7 +420,7 @@ fileprivate func rotateGradient(angle: Float) {
 
 这没什么……但我们能做得更好吗？那是必须的。让我们进入下一个阶段……
 
-CAGradientLayer 不支持径向渐变……但这并不意味着这是不可能的！我们可以使用 CGGRadient 创建我们自己的 CALayer 类 RadialGRadientLayer。这里棘手的部分就是要确保在 CGGRadient 初始化期间需要将一个 CGColor 数组强制转换为一个 CFArray。这需要一直反复的尝试，才能准确地找出需要将哪种类型的数组转换为 CFArray，并且这些位置可能只是一个用来满足 UnaspectPoint<CGFloat>? 类型的 CGFloat 数组。
+CAGradientLayer 不支持径向渐变……但这并不意味着这是不可能的！我们可以使用 CGGRadient 创建我们自己的 CALayer 类 RadialGRadientLayer。这里棘手的部分就是要确保在 CGGRadient 初始化期间需要将一个 CGColor 数组强制转换为一个 CFArray。这需要一直反复的尝试，才能准确地找出需要将哪种类型的数组转换为 CFArray，并且这些位置可能只是一个用来满足 `UnaspectPoint<CGFloat>?` 类型的 CGFloat 数组。
 
 ```
 class RadialGradientLayer: CALayer {
