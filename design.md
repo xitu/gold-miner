@@ -1,3 +1,7 @@
+* [设计师与工程师协作的 5 项准则](https://juejin.im/post/5ac9e56af265da23945fc201) ([Starriers](https://github.com/Starriers) 翻译)
+* [产品设计的环状循环](https://juejin.im/post/5aa74b32f265da23a4047aef) ([rydensun](https://github.com/rydensun) 翻译)
+* [设计研究的 9 条规则](https://juejin.im/post/5aa6958a5188255587233477) ([zhmhhu](https://github.com/zhmhhu) 翻译)
+* [开始设计动画的九个步骤](https://juejin.im/post/5aa1f965f265da23994e1e1f) ([reid3290](https://github.com/reid3290) 翻译)
 * [想帮助用户做决定？你的 APP 可以这样设计！](https://juejin.im/post/5a7194986fb9a01c9f5bbbb2) ([pthtc](https://github.com/pthtc) 翻译)
 * [新兴技术领域中以用户为中心的设计的应用](https://juejin.im/post/5a682282f265da3e283a2cca) ([dongpeiguo](https://github.com/dongpeiguo) 翻译)
 * [2018 设计趋势](https://juejin.im/post/5a695d88f265da3e58598968) ([pot-code](https://github.com/pot-code) 翻译)
