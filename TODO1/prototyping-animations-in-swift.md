@@ -3,11 +3,11 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/prototyping-animations-in-swift.md](https://github.com/xitu/gold-miner/blob/master/TODO1/prototyping-animations-in-swift.md)
 > * 译者：[ALVINYEH](https://github.com/ALVINYEH)
-> * 校对者：
+> * 校对者：[talisk](https://github.com/talisk)
 
 # 使用 Swift 实现原型动画
 
-关于开发移动应用，我最喜欢作的事情之一就是让设计师的创作活跃起来。我想成为 iOS 开发者的原因之一就是能够利用 iPhone 的力量，创造出能让用户高兴的体验。因此，当 s23NYC 的设计团队带着 SNKRS Pass 的动画原型来到我面前时，我既兴奋同时又非常害怕：
+关于开发移动应用，我最喜欢作的事情之一就是让设计师的创作活跃起来。我想成为 iOS 开发者的原因之一就是能够利用 iPhone 的力量，创造出友好的用户体验。因此，当 s23NYC 的设计团队带着 SNKRS Pass 的动画原型来到我面前时，我既兴奋同时又非常害怕：
 
 ![](https://cdn-images-1.medium.com/max/800/1*3HOg8B2Wgg8aYx-jt3VJkw.gif)
 
@@ -25,7 +25,7 @@
 
 ### 水波动画
 
-我们正在制作的这个动画是 SNKRS Pass 体验的最后部分之一，这是一种新的方式，可以在零售店预定最新和最热门的耐克鞋。当用户去拿他们的鞋子时，我们想给他们一张数字通行证，感觉就像一张金色的门票。背景动画的目的是模仿全息标签的真实性。当用户倾斜该设备时，动画会作出反应并四处移动，就像光线从设备上反射出来一样。
+我们正在制作的这个动画是 SNKRS Pass 体验的最后部分之一，这是一种新的方式，可以在零售店预定最新和最热门的耐克鞋。当用户去拿他们的鞋子时，我们想给他们一张数字通行证，感觉就像一张金色的门票。背景动画的目的是模仿立体物品的真实性。当用户倾斜该设备时，动画会作出反应并四处移动，就像光线从设备上反射出来一样。
 
 让我们从简单地创建一些同心圆开始：
 
@@ -65,7 +65,7 @@ final class AnimatedWaveView: UIView {
 
 ![](https://cdn-images-1.medium.com/max/800/1*HyJxGRHIus_TkVvL2uW5MA.png)
 
-这非常简单。现在如何将同心圆不停地向外扩大呢？我们将使用 CAAnimation 和 Timer 不断添加 CAShapes，并让它们动起来。这个动画有两个部分：缩放形状的路径和增加形状的边界。重要的是，动画边界与一个规模转换的形状，使圆圈移动填补屏幕。如果我们没有执行边界的动画，圆圈将不断扩大，但会保持其最初的在视图的中心(向右下角扩展)。因此，让我们将这两个动画添加到一个动画组，以便同时执行它们。记住，CAShape 和 CAAnimation 需要将 UIKit 的值转换为它们的 CGPath 和 CGColor 计数器。否则，动画就会悄无声息地失败！我们还将使用 CAAnimation 放入委托方法 animationDidStop 在动画完成后从视图中删除形状图层。
+这非常简单。现在如何将同心圆不停地向外扩大呢？我们将使用 CAAnimation 和 Timer 不断添加 CAShapes，并让它们动起来。这个动画有两个部分：缩放形状的路径和增加形状的边界。重要的是，动画边界与一个规模转换的形状，使圆圈移动填补屏幕。如果我们没有执行边界的动画，圆圈将不断扩大，但会保持其最初的在视图的中心（向右下角扩展）。因此，让我们将这两个动画添加到一个动画组，以便同时执行它们。记住，CAShape 和 CAAnimation 需要将 UIKit 的值转换为它们的 CGPath 和 CGColor 计数器。否则，动画就会悄无声息地失败！我们还将使用 CAAnimation 放入委托方法 animationDidStop 在动画完成后从视图中删除形状图层。
 
 ```
 final class AnimatedWaveView: UIView {
@@ -230,8 +230,8 @@ public func makeWaves() {
     // 计算半径减去初始 rect 的宽度
     let radius = (diameter - baseRect.width) / 2
 
-    // 把半径除以每个波
-    let numberOfWaves = Int(radius / waveIntervals)
+    // 把半径除以每个波的长度
+    let numberOfWaves = Int(radius / waveIntervals)
 
     // 持续时间需要根据直径来进行更改，以便在任何视图大小下动画速度都是相同的。
     let animationDuration = timingRatio * Double(diameter)
@@ -290,7 +290,7 @@ private func animateWave(waveLayer: CAShapeLayer, duration: CFTimeInterval, offs
 
 ### 添加渐变
 
-下一步是通过添加一个渐变来改进我们的水波动画。 我们还希望渐变能随设备移动传感器一起变化，因此我们将创建一个渐变层并保持对它的引用。 我将半透明的水波层放在渐变的上面，但最好的解决方案是将水波层添加到父层，并将其盖住渐变层。通过这种方法，父层会自己去绘制渐变，这看起来更有效：
+下一步是通过添加一个渐变来改进我们的水波动画。我们还希望渐变能随设备移动传感器一起变化，因此我们将创建一个渐变层并保持对它的引用。我将半透明的水波层放在渐变的上面，但最好的解决方案是将水波层添加到父层，并将其盖住渐变层。通过这种方法，父层会自己去绘制渐变，这看起来更有效：
 
 ![](https://cdn-images-1.medium.com/max/800/1*BF921yl9t9RX0agWCnNWrA.gif)
 
@@ -303,8 +303,8 @@ private func buildWaves() -> [CAShapeLayer] {
     // 计算半径减去初始 rect 的宽度
     let radius = (diameter - baseRect.width) / 2
 
-    // 把半径除以每个波
-    let numberOfWaves = Int(radius / waveIntervals)
+    // 把半径除以每个波的长度
+    let numberOfWaves = Int(radius / waveIntervals)
 
     // 持续时间需要根据直径来进行更改，以便在任何视图大小下动画速度都是相同的。
     let animationDuration = timingRatio * Double(diameter)
@@ -346,22 +346,22 @@ private func buildAnimatedWave(timeOffset: CFTimeInterval, duration: CFTimeInter
 
 ### 运动追踪
 
-下一步是要将渐变动画化，使之与设备运动跟踪。我们想要创造一种全息效果，当你将它倾斜在手中时，它能模仿反射在视图表面的光。为此，我们将添加一个围绕视图中心旋转的渐变。我们将使用 CoreMotion 和 CMMotionManager 跟踪加速度计的实时更新，并将此数据用于交互式动画。如果你想深入了解 CoreMotion 所提供的内容，NSHipster 上有[一篇很棒的关于 CMDeviceMotion 的文章](http://nshipster.com/cmdevicemotion/)。对于我们的 AnimatedWaveView，我们只需 CMDeviceMoving 中的  **gravity** 属性(CMAcceleration)，它将返回设备的加速度。当用户水平和垂直地倾斜设备时，我们只需要跟踪 X 和 Y 轴：
+下一步是要将渐变动画化，使之与设备运动跟踪。我们想要创造一种全息效果，当你将它倾斜在手中时，它能模仿反射在视图表面的光。为此，我们将添加一个围绕视图中心旋转的渐变。我们将使用 CoreMotion 和 CMMotionManager 跟踪加速度计的实时更新，并将此数据用于交互式动画。如果你想深入了解 CoreMotion 所提供的内容，NSHipster 上有[一篇很棒的关于 CMDeviceMotion 的文章](http://nshipster.com/cmdevicemotion/)。对于我们的 AnimatedWaveView，我们只需 CMDeviceMoving 中的  **gravity** 属性（CMAcceleration），它将返回设备的加速度。当用户水平和垂直地倾斜设备时，我们只需要跟踪 X 和 Y 轴：
 
 ![](https://cdn-images-1.medium.com/max/800/1*f_KMSGaHGcgAV6_W_OP6NQ.png)
 
 [https://developer.apple.com/documentation/coremotion/getting_raw_accelerometer_events#2904020](https://developer.apple.com/documentation/coremotion/getting_raw_accelerometer_events#2904020)
 
- X 和 Y 会是从 -1 到 +1 之间的值，以（0，0）为原点(设备平放在桌子上，面朝上)。现在我们要如何使用这些数据？
+ X 和 Y 会是从 -1 到 +1 之间的值，以(0，0)为原点（设备平放在桌子上，面朝上）。现在我们要如何使用这些数据？
 
-起初，我尝试使用 CAGradientLayer，并认为旋转渐变后会产生这种闪光效果。我们可以根据 CMDeviceMotion 的 **gravity** 来更新它的**起始点**和**终点**。Cagradientlayer 是一个线性渐变，因此围绕中心的旋转**起始点**和**终点**将有效地旋转渐变。让我们把 x 和 y 值从 **gravity** 转换成我们用来旋转渐变的程度值：
+起初，我尝试使用 CAGradientLayer，并认为旋转渐变后会产生这种闪光效果。我们可以根据 CMDeviceMotion 的 **gravity** 来更新它的 **startPoint** 和 **endPoint**。Cagradientlayer 是一个线性渐变，因此围绕中心的旋转 **startPoint** 和 **endPoint** 将有效地旋转渐变。让我们把 x 和 y 值从 **gravity** 转换成我们用来旋转渐变的程度值：
 
 ```
 fileprivate let motionManager = CMMotionManager()
 
 func trackMotion() {
     if motionManager.isDeviceMotionAvailable {
-        // 设置动作回调触发的频率(秒为单位)
+        // 设置动作回调触发的频率（秒为单位）
         motionManager.deviceMotionUpdateInterval = 2.0 / 60.0
         let motionQueue = OperationQueue()
         motionManager.startDeviceMotionUpdates(to: motionQueue, withHandler: { [weak self] (data: CMDeviceMotion?, error: Error?) in
@@ -383,7 +383,7 @@ func trackMotion() {
 
 注意：我们不能在模拟器或 playground 中模拟运动跟踪，因此要在 Xcode 项目中用真机进行测试。
 
-在进行一些初步的设计测试之后，我们觉得有必要通过增加一个 booster 变量来改变**重力**返回的 X 值，这样渐变层就会以更快的速度旋转。因此，在转换成弧度之前，我们要先乘以 **gravity.x**。 
+在进行一些初步的设计测试之后，我们觉得有必要通过增加一个 booster 变量来改变 **gravity** 返回的 X 值，这样渐变层就会以更快的速度旋转。因此，在转换成弧度之前，我们要先乘以 **gravity.x**。 
 
 为了能够让渐变层旋转，我们需要将设备旋转的角度转换为旋转弧的起点和终点：渐变的 **startPoint** 和 **endPoint**。StackOverflow 上有一个非常棒的解决方法，我们可以用来实现一下：
 
@@ -420,7 +420,7 @@ fileprivate func rotateGradient(angle: Float) {
 
 这没什么……但我们能做得更好吗？那是必须的。让我们进入下一个阶段……
 
-CAGradientLayer 不支持径向渐变……但这并不意味着这是不可能的！我们可以使用 CGGRadient 创建我们自己的 CALayer 类 RadialGRadientLayer。这里棘手的部分就是要确保在 CGGRadient 初始化期间需要将一个 CGColors 数组强制转换为一个CFArray。这需要一直反复的尝试，才能准确地找出需要将哪种类型的数组转换为 CFArray，并且这些位置可能只是一个用来满足 UnaspectPoint<CGFloat>？类型的 CGFloats 数组。
+CAGradientLayer 不支持径向渐变……但这并不意味着这是不可能的！我们可以使用 CGGRadient 创建我们自己的 CALayer 类 RadialGRadientLayer。这里棘手的部分就是要确保在 CGGRadient 初始化期间需要将一个 CGColor 数组强制转换为一个 CFArray。这需要一直反复的尝试，才能准确地找出需要将哪种类型的数组转换为 CFArray，并且这些位置可能只是一个用来满足 UnaspectPoint<CGFloat>?类型的 CGFloat 数组。
 
 ```
 class RadialGradientLayer: CALayer {
@@ -472,7 +472,7 @@ class RadialGradientLayer: CALayer {
 ```
 private func trackMotion() {
     if motionManager.isDeviceMotionAvailable {
-        // 设置动作回调触发的频率(秒为单位)
+        // 设置动作回调触发的频率（秒为单位）
         motionManager.deviceMotionUpdateInterval = 2.0 / 60.0
         let motionQueue = OperationQueue()
         motionManager.startDeviceMotionUpdates(to: motionQueue, withHandler: { [weak self] (data: CMDeviceMotion?, error: Error?) in
@@ -495,7 +495,7 @@ private func moveGradient(gravityX: Double, gravityY: Double) {
 }
 ```
 
-现在让我们回到 **makeWaves** 和 **addGradientLayer** 方法，并确保确保所有工作准备就绪：
+现在让我们回到 **makeWaves** 和 **addGradientLayer** 方法，并确保所有工作准备就绪：
 
 ```
 private var gradientLayer = RadialGradientLayer()
