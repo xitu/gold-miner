@@ -5,29 +5,29 @@
 > * 译者：
 > * 校对者：
 
-# Blockchain Implementation With Java Code
+# 用 Java 代码实现区块链
 
-Let's take a look at a possible blockchain implementation using Java. We build up from first principles and develop some code to help show how it all fits together.
+让我们来看看用 Java 代码实现区块链的可能性。我们从第一原则出发，开发一些代码来演示它们是如何融合在一起的。
 
-Bitcoin is hot — _and what an understatement that is_. While the future of cryptocurrency is somewhat uncertain, blockchain — the technology used to drive Bitcoin — is also very popular.
+比特币（Bitcoin）炙手可热 —— **多么的轻描淡写**。虽然加密货币的未来尚不明确，但区块链 —— 用于驱动比特币的技术 —— 却非常流行。
 
-Blockchain has an almost endless application scope. It also arguably has the potential to disrupt enterprise automation. There is a lot of information available covering what and how blockchain works. We have a [free whitepaper](https://keyholesoftware.com/wp-content/uploads/Blockchain-For-The-Enterprise-Keyhole-White-Paper.pdf) that goes into blockchain technology (no registration required).
+区块链的应用领域尚未探索完毕。它也有可能会破会企业自动化。关于区块链的工作原理，有很多可用的信息。我们有一个深入区块链的[免费白皮书](https://keyholesoftware.com/wp-content/uploads/Blockchain-For-The-Enterprise-Keyhole-White-Paper.pdf)（无需注册）。
 
-This article will focus on the blockchain architecture; particularly, demonstrating how the "immutable, append-only" distributed ledger works with simplistic code examples.
+本文将重点介绍区块链体系结构，特别是演示“不可变，仅附加”的分布式账本是如何通过简单的代码示例工作的。
 
-As developers, seeing things in code can be much more useful in understanding how it works when compared to simply reading technical articles. At least that's the case for me. So, let's get started!
+作为开发者，与简单地阅读技术文章相比，在理解代码如何工作时，查看代码内容可能会更有用。至少对我来说是这样。那么我们开始吧！
 
-## Blockchain in a Nutshell
+## 简述区块链
 
-Let's first give a quick summary of blockchain. A block contains some header information and a set or block of transactions of any type of data. The chain starts with a first (Genesis) block. As transactions are added/appended, new blocks are created based on how many transactions can be stored within a block.
+首先我们简要总结下区块链。 块包含一些头信息和任何类型数据的一组或一组事务。该链从第一个（初始）块开始。随着事务被添加/扩展，将基于块中可以存储多少事务来创建新块。
 
-When a block threshold size is exceeded, then a new block of transactions is created. The new block is linked to the previous block, hence the term blockchain.
+当超过块阀值大小时，将创建一个新的事务块。新块链接到前一个块，因此称为区块链。
 
-### Immutability
+### 不可变性
 
-Blockchains are immutable because an SHA-256 hash is computed for transactions. A block's contents are also hashed which provide a unique identifier. Moreover, the hash from the linked, previous block is also stored and hashed in the block header.
+因为 SHA-256 哈希专注于事务计算，所以区块链是不可变的。区块链的内容也被哈希则提供了唯一的标识符。此外，来自链接的、前一个块的哈希也存储在块头中并进行散列。
 
-This is why trying to tamper with a blockchain block is basically impossible, at least with current computing power. Here's a partial Java class definition showing the properties of the block.
+这就是为什么试图篡改块基本上是不可能的，至少目前的计算能力是这样的。下面是一个显示块属性的部分 Java 类定义。
 
 ```
 ...
@@ -40,18 +40,18 @@ private String previousHash;
 private String merkleRoot;
 private String nonce = "0000";
 
-// caches Transaction SHA256 hashes
+// 缓存事务用 SHA256 哈希
     public Map&lt;String,T&gt; map = new HashMap&lt;String,T&gt;();
 ...
 ```
 
-Notice the injected generic type is of type `Tx`. This allows transaction data to vary. Also, the `previousHash` property will reference the previous block's hash. The `merkleRoot` and `nonce` properties will be described in a bit.
+注意，注入的泛型类型为 `Tx` 类型。这允许事务数据发生变化。此外，`previousHash` 属性将引用前一个块的哈希值。稍后将描述 `merkleRoot` 和 `nonce` 属性。
 
-### Block Hash
+### 哈希块
 
-Each block can compute a block hash. This is essentially a hash of all the block's properties concatenated together, including the previous block's hash and a SHA-256 hash computed from that.
+每个块可以计算一个哈希。实际上是链接在一起的所有块属性的哈希，包括前一个块的哈希和由此计算而得的 SHA-256 哈希。
 
-Here is the method defined in the `Block.java` class that computes the hash.
+下面是在计算哈希值的 `Block.java` 类中定义的方法。
 
 ```
 ...
@@ -63,11 +63,11 @@ public void computeHash() {
 ...
 ```
 
-The block transactions are serialized to a JSON string so it can be appended to the block properties before hashing.
+块事物被序列化为 JSON 字符串，因此可以在哈希之前将其追加到块属性中。
 
-### The Chain
+### 链
 
-The blockchain manages blocks by accepting transactions. When a predetermined threshold has been reached, then a block is created. Here is a `SimpleBlockChain.java` partial implementation:
+区块链通过接受事物来管理区块。当到达预定阀值时，就创建一个块。下面是一个 `SimpleBlockChain.java` 部分实现：
 
 ```
 ...
@@ -84,7 +84,7 @@ chain.add(newBlock());
 ...
 ```
 
-Notice that the chain property holds a list of Blocks typed with a `Tx` type. Also, the `no arg` constructor creates an initial "genesis" block when the chain is created. Here is the source for the `newBlock()` method.
+注意,chain 属性拥有 `Tx` 类型键入的区块列表。此外，在创建链时，`no arg` 构造器创建初始化的“初始”块。下面是 `newBlock()` 方法是的源码。
 
 ```
 ...
@@ -105,9 +105,9 @@ return block;
 ...
 ```
 
-This new block method will create a new block instance, seed appropriate values, and assign the previous block's hash (which will be the hash of the head of the chain). It will then return the block.
+这个新块将创建一个新块实例，指定适当值，并分配前一个块的哈希（这将是链头的哈希）。然后返回改块。
 
-Blocks can be validated before being added to the chain by comparing the new block's previous hash to the last block (head) of the chain to make sure they match. Here's a `SimpleBlockchain.java` method depicting this.
+在将块添加到链中之前，可以通过将新块的上一个哈希与链的最后一个块（头）进行比较来验证块，以确保它们匹配。这里有一个描述这一点 `SimpleBlockchain.java`。
 
 ```
 ....
@@ -131,9 +131,9 @@ this.chain.add(block);
 ...
 ```
 
-The entire blockchain is validated by the looping-over of the chain to ensure a block's hash still matches the previous block's hash.
+整个区块链通过链的循环验证来确保区块的哈希仍然与前一个块的哈希匹配。
 
-Here is the `SimpleBlockChain.java validate()` method implementation.
+以下是 `SimpleBlockChain.java validate()` 方法的实现。
 
 ```
 ...
@@ -156,40 +156,40 @@ return true;
 ...
 ```
 
-You can see that trying to fudge transaction data or any other property in any way is very difficult. And, as the chain grows, it continues to get very, very, very difficult, essentially impossible — that is, until quantum computers are available!
+你可以看到，试图以任何方式伪造事务数据或任何其他属性是非常困难的。而且，随着链的增长，它会继续变得非常、非常、非常困难，基本上是不可能的 —— 即，直到量子计算机可用为止！
 
-### Adding Transactions
+### 添加事务
 
-Another significant technical point of blockchain technology is that it is distributed. The fact that they are append-only helps in duplicating the blockchain across nodes participating in the blockchain network. Nodes typically communicate in a peer-to-peer fashion, as is the case with Bitcoin, but it does not have to be this way. Other blockchain implementations use a decentralized approach, like using APIs via HTTP. However, that is a topic for another article.
+区块链技术的另一个重要技术点是它是分布式的。他们只是附加这一事实有助于在参与区块链网络的节点之间复制区块链。节点通常以点对点的方式进行通信，就像比特币那样，但不一定非得是这种方式。其他区块链实现使用分散的方法，比如 HTTP 使用 API。但是，这是另一篇文章的主题。
 
-Transactions can represent just about anything. A transaction could contain code to execute (i.e Smart Contract) or store and append information about some kind of business transaction.
+事务可以代表任何东西。事务可以包含要执行的代码（例如，智能合约）或存储和追加有关某种业务事务的信息。
 
-**Smart contract**: Computer protocol intended to digitally facilitate, verify, or enforce the negotiation or performance of a contract.
+**智能合约**：旨在以数字式来促进、验证或强制执行合约谈判或履行的计算机协议。
 
-In the case of Bitcoin, a transaction contains an amount from an owner's account and amount(s) to other accounts (e.g. transferring Bitcoin amounts between accounts). The transaction also includes public keys and account IDs within it, so transferring is done securely. But that's Bitcoin-specific.
+就比特币而言，交易包含所有者账户中的金额和其他账户的金额（例如，在账户之间转移比特币金额）。事务中还包括公钥和账户 ID，因此传输是安全的。但这是比特币特有的。
 
-Transactions are added to a network and pooled; they are not in a block or the chain itself.
+事务被添加到网络或池中；它们不在区块中或链本身中。
 
-This is where a blockchain **consensus mechanism** comes into play. There are a number of proven consensus algorithm and patterns beyond the scope of this article.
+这是区块链**协商一致机制**发挥作用的地方。在本文的范围之外，还有一些经过验证的一致性算法和模式。
 
-**Mining** is a consensus mechanism that Bitcoin blockchains use. That is the type of consensus discussed further down this article. The consensus mechanism gathers transactions, builds a block with them, and then adds the block to the chain. The chain then validates the new block of transactions before adding to the chain.
+**挖矿**是比特币区块链使用的协商一致机制。这就是本文后面讨论的协商一致意见的类型。协商一致机制收集事务，用他们构建一个块，然后将改块添加到链中。然后，再添加到链中之前，该链验证新的事务块。
 
 ### Merkle Trees
 
-Transactions are hashed and added to the block. A Merkle Tree data structure is created to compute a Merkle Root hash. Each block will store the root of the Merkle tree, which is a balanced binary tree of hashes where interior nodes are hashes of the two child hashes, all the way up to the root hash, which is the Merkle Root.
+事务被哈希并添加到区块中。创建 Merkle Tree 数据结构来计算 Merkle Root Hash。每个块都存储 Merkle Tree 树的根，这是一个平衡的哈希二叉树，其中内部节点是一直到根哈希的两个子哈希的哈希，即 Merkle Root。
 
 [![](https://i0.wp.com/keyholesoftware.com/wp-content/uploads/Merkle-Root.png?resize=576%2C288&ssl=1)](https://keyholesoftware.com/2018/04/10/blockchain-with-java/merkle-root/)
 
-This tree is used to validate the block transactions. If a single bit of information is changed in any transaction, the Merkle Root will be invalid. Also, they can help with transmitting blocks in a distributed fashion, since the structure allows only a single branch of transaction hashes required to add and validate the entire block of transactions.
+该树用于区块事务的验证。如果在事务中更改了一些信息，Merkel Root 将失效。此外，再分布式中，它们还可以加速传输区块，因为该结构只允许添加和验证整个事务块所需的单个事务哈希分支。
 
-Here's the method in the `Block.java` class that creates a Merkle Tree out of the transaction list.
+以下是 `Block.java` 类中的方法，它从事务列表中创建了一个 Merkle Tree。
 
 ```
 ...
 public List<String> merkleTree() {
 ArrayList<String> tree = new ArrayList<>();
-// Start by adding all the hashes of the transactions as leaves of the
-// tree.
+// 首先，将事务的所有哈希作为
+// 树。
 for (T t : transactions) {
 tree.add(t.hash());
 }
@@ -217,35 +217,35 @@ return tree;
 ...
 ```
 
-This method is used to compute a Merkle Tree root for the block. The companion project has a Merkle Tree unit test that attempts to add a transaction to a block and verify that the Merkle Roots have changed. Here is the source code for the unit test.
+此方法用于计算区块的 Merkle Tree 根。伴随项目有一个 Markle Tree 单元测试，它试图将事务添加到一个区块中，并验证 Merle Root 是否已经更改。下面是单元测试的源码。
 
 ```
 ...
 @Test
 public void merkleTreeTest() {
 
-// create chain, add transaction
+// 创建链，添加事务
 
 SimpleBlockchain<Transaction> chain1 = new SimpleBlockchain<Transaction>();
 
 chain1.add(new Transaction("A")).add(new Transaction("B")).add(new Transaction("C")).add(new Transaction("D"));
 
-// get a block in chain
+// 得到区块链
 Block<Transaction> block = chain1.getHead();
 
 System.out.println("Merkle Hash tree :" + block.merkleTree());
 
-// get a transaction from block
+//从区块中获取事务
 Transaction tx = block.getTransactions().get(0);
 
-// see if block transactions are valid, they should be
+// 查看区块事务是否有效，它们应该是有效的
 block.transasctionsValid();
 assertTrue(block.transasctionsValid());
 
-// mutate the data of a transaction
+// 更改事务数据
 tx.setValue("Z");
 
-// block should no longer be valid, blocks MerkleRoot does not match computed merkle tree of transactions
+// 区块失效，区块 Merkle Root 不匹配事务计算的 Merkle 树。
 assertFalse(block.transasctionsValid());
 
 }
@@ -257,15 +257,15 @@ This unit test emulates validating transactions, then changing a transaction in 
 
 Remember, blockchains are append-only, and as the blockchain data structure is shared between nodes, block data structure (including the Merkle Root) are hashed and connected to other blocks. All nodes can validate new blocks and existing blocks can be easily proved as valid. So, a miner trying to add a bogus block or a node attempting to adjust older transactions are effectively not possible before the sun grows to a supernova and gives all a really nice tan.
 
-### Mining Proof of Work
+### 挖矿工作证明
 
-The process of combining transactions in into a block, then submitting it for validation by members of the chain, is referred to as "mining" in the Bitcoin world.
+在比特币世界中，将事务组合成区块，然后提交给链中的成员进行验证的过程叫做“挖矿”。
 
-More generally, in blockchain speak, this is called consensus. There are different types of proven distributed consensus algorithms. Which mechanism to use is based upon whether you have a public or permissioned blockchain. Our white paper describes this more in depth, but this article is focusing on the blockchain mechanics, so this example we will apply a proof-of-work consensus mechanism.
+更宽泛地说，在区块链中，这被称为共识。有不同类型的已证明的分布式协商一致算法。使用哪种机制取决于你是否有公共或许可的区块链。我们的白皮是对此进行了深入的描述，但本文的重点是区块链的力学，因此这个例子中我们将应用一个工作证明协商一致机制。
 
-So, mining nodes will listen for transactions being executed by the blockchain and will perform a simple mathematical puzzle. This puzzle produces block hash with a predetermined set of leading zeros using a nonce value that is changed on every iteration until the leading zero hash is found.
+因此，挖掘节点将侦听由区块链执行的事务，并执行一个简单的数学难题。这个谜题使用在迭代中被改变直到前导零散哈希的 nonce 值产生具有一组预定的前导零的区块哈希。
 
-The [example Java project](https://github.com/in-the-keyhole/khs-blockchain-java-example) has a `Miner.java` class with a `proofOfWork(Block block)` method implementation, as shown below.
+[Java 示例项目](https://github.com/in-the-keyhole/khs-blockchain-java-example) 有一个 `Miner.java` 类，其中的 `proofOfWork(Block block)` 方法实现如下所示。
 
 ```
 private String proofOfWork(Block block) {
@@ -297,24 +297,24 @@ Again, this is simplified, but the miner implementation will perform a proof-of-
 
 This can take a lot of time, which is why specific GPU microprocessors have been implemented to perform and solve this problem as fast as possible.
 
-### Unit Tests
+### 单元测试
 
-You can see all these concepts pulled together with the Java example project's JUnit tests available on GitHub.
+你可以看到所有这些概念与 GitHUb 上可用的 Java 示例项目的 JUnit 测试结合在一起。
 [![](https://i2.wp.com/keyholesoftware.com/wp-content/uploads/junittestsblockchain.png?resize=782%2C490&ssl=1)](https://keyholesoftware.com/2018/04/10/blockchain-with-java/junittestsblockchain/)
 
-Give this a run. It will let you check out how this simple blockchain works.
+快跑吧。它会让你检查这个简单的区块链是如何工作的。
 
-Also, if you are a C#'er reading, this (we won't tell anyone), we also have these same examples written in C#. Here is [the link](https://github.com/in-the-keyhole/khs-blockchain-csharp-example) to the example C# blockchain implementation.
+另外，如果你是 C# 的读者，这个（我不会告诉任何人），我们也有同样用 C# 写的示例。下面是 C# 区块链实现的示例的[地址](https://github.com/in-the-keyhole/khs-blockchain-csharp-example)。
 
-## Final Thoughts
+## 最后的思考
 
-Hopefully, this post has provided you enough interest and insight to keep researching blockchain technology.
+希望这篇文章能给你足够的兴趣和洞察力，让你继续研究区块链技术。
 
-All of the examples introduced in this article are used in our [in-depth blockchain white paper](https://keyholesoftware.com/wp-content/uploads/Blockchain-For-The-Enterprise-Keyhole-White-Paper.pdf) (no registration required to read). These same examples are in more detail in the white paper.
+本文介绍的所有示例都用于我们的[深度区块链白皮书](https://keyholesoftware.com/wp-content/uploads/Blockchain-For-The-Enterprise-Keyhole-White-Paper.pdf) (no registration required to read). 这些例子在白皮书中有更详细的说明。
 
-Also, if you want to see a full blockchain implementation in Java, here's [a link](https://github.com/bitcoinj/bitcoinj) to the open-source BitcoinJ project. You'll see these concepts in action in a real production implementation.
+另外，如果你想在 Java 中看到完整的区块链实现，这里有一个开源项目 Bitcoin 的[链接](https://github.com/bitcoinj/bitcoinj)。你将在实际的生产实现中看到这些概念的实际应用。
 
-If so, next recommended learning steps are to check out a more production-based open-source blockchain framework. A good example is [HyperLedger Fabric](https://www.hyperledger.org/projects/fabric). That will be the subject of my next article — stay tuned!
+如果是这样的话，接下来推荐的学习步骤是检查一个更基于生成的开源区块链框架。一个很好的示例是 [HyperLedger Fabric](https://www.hyperledger.org/projects/fabric)，这将是我下一篇文章的主题 —— 请持续关注！
 
 
 ---
