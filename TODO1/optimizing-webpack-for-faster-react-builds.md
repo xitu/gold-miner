@@ -15,7 +15,7 @@
 
 ## 第 1 步，列出您的供应商
 
-构建和维护 DLL 的最简单的方法是在您的项目中创建一个 JS 文件 —— `vendors.js`，其中引入你使用的所有库。例如，在我们最近的项目中，我们的 `vendors.js` 文件内容如下：
+构建和维护 DLL 的最简单的方法是在您的项目中创建一个 JS 文件 —— `vendors.js`，其中引入您使用的所有库。例如，在我们最近的项目中，我们的 `vendors.js` 文件内容如下：
 
 ```
 require("classnames");
@@ -73,11 +73,11 @@ module.exports = {
 };
 ```
 
-这是典型的 Webpack 配置，除了 `webpack.DLLPlugin` 以外，它包含 name、context 和 mainifest 路径。mainifest 非常重要，它为其他 Webpack 配置提供了您到已经构建模块的映射。context 是客户端源码的根，而 name 是入口的名称，在本例中是“供应商”。继续尝试使用命令 `webpack --config=webpack.dll.js` 运行这个构建。最后，您应该得到一个包含模块的排列映射 —— `dll\vendor-manifest.json` 已经包含那你所有提供商库的精简包 ——   `dist\dll\dll.vendor.js`。
+这是典型的 Webpack 配置，除了 `webpack.DLLPlugin` 以外，它包含 name、context 和 mainifest 路径。mainifest 非常重要，它为其他 Webpack 配置提供了您到已经构建模块的映射。context 是客户端源码的根，而 name 是入口的名称，在本例中是“供应商”。继续尝试使用命令 `webpack --config=webpack.dll.js` 运行这个构建。最后，您应该得到一个包含模块的排列映射 —— `dll\vendor-manifest.json` 已经包含了您所有供应商库的精简包 ——  `dist\dll\dll.vendor.js`。
 
 ## 第 3 步，构建项目
 
-**注意:**下诉示例不包含 sass、assets、或热加载程序。如果您已经在配置中使用了，它们仍然可以正常工作。
+**注意:**下述示例不包含 sass、assets、或热加载程序。如果您已经在配置中使用了，它们仍然可以正常工作。
 
 现在我们需要做的就是添加 `DLLReferencePlugin`，并将其指向我们已经构建的 DLL。您的 `webpack.dev.js` 可能是如下模样：
 
@@ -140,7 +140,7 @@ module.exports = {
 
 ## 第 5 步，构建脚本
 
-我们可以使用 NPM 和 `package.json` 来添加一些简单脚本来为我们构建。要清除  `dist` 文件夹，请继续运行 `npm i rimraf --saveDev`。现在可以添加到您的 package.json 中了：
+我们可以使用 NPM 和 `package.json` 添加一些为我们构建的简单脚本。要清除 `dist` 文件夹，请继续运行 `npm i rimraf --saveDev`。现在可以添加到您的 package.json 中了：
 
 ```
 "scripts": {
