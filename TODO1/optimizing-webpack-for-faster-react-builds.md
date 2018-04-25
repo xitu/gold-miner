@@ -3,13 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/optimizing-webpack-for-faster-react-builds.md](https://github.com/xitu/gold-miner/blob/master/TODO1/optimizing-webpack-for-faster-react-builds.md)
 > * 译者：[Starrier](https://github.com/Starriers)
-> * 校对者：[lcx-seima](https://github.com/lcx-seima)
+> * 校对者：[lcx-seima](https://github.com/lcx-seima)、[sishenhei7](https://github.com/sishenhei7)
 
 # 优化 WEBPACK 以更快地构建 REACT
 
 ![](https://imgs.xkcd.com/comics/compiling.png)
 
-如果您的 Webpack 构建缓慢且有大量的库 —— 别担心，有一种方法可以提高增量构建的速度！Webpack 的 `DLLPlugin` 允许您将所有的依赖项构建到一个文件中。这是一个取代分块的很好选择。该文件稍后将由您的主 Webpack 配置，甚至可以在共享同一组依赖项的其他项目上使用。典型的 React 应用程序可能包含几十个供应商库，这取决于您的 Flux、add-ones、路由和其他应用程序（如 `lodash`）。我们将通过允许 Webpack 跳过 DLL 中包含的任何引用来节省宝贵的构建时间。
+如果您的 Webpack 构建缓慢且有大量的库 —— 别担心，有一种方法可以提高增量构建的速度！Webpack 的 `DLLPlugin` 允许您将所有的依赖项构建到一个文件中。这是一个取代分块的很好选择。该文件稍后将由您的主 Webpack 配置，甚至可以在共享同一组依赖项的其他项目上使用。典型的 React 应用程序可能包含几十个供应商库，这取决于您的 Flux、插件、路由和其他工具（如 `lodash`）。我们将通过允许 Webpack 跳过 DLL 中包含的任何引用来节省宝贵的构建时间。
 
 本文假设您已经熟悉典型的 Webpack 和 React 设置。如果没有，请查看 [SurviveJS](http://survivejs.com/webpack_react/webpack/) 在 Webpack 和 React 方面的优秀内容，当您的构建时间逐步增加时，请回到本文。
 
@@ -73,7 +73,7 @@ module.exports = {
 };
 ```
 
-这是典型的 Webpack 配置，除了 `webpack.DLLPlugin` 以外，它包含 name、context 和 mainifest 路径。mainifest 非常重要，它为其他 Webpack 配置提供了您到已经构建模块的映射。context 是客户端源码的根，而 name 是入口的名称，在本例中是“供应商”。继续尝试使用命令 `webpack --config=webpack.dll.js` 运行这个构建。最后，您应该得到一个包含模块的排列映射 —— `dll\vendor-manifest.json` 已经包含那你所有提供商库的精简包 ——   `dist\dll\dll.vendor.js`。
+这是典型的 Webpack 配置，除了 `webpack.DLLPlugin` 以外，它包含 name、context 和 mainifest 路径。mainifest 非常重要，它为其他 Webpack 配置提供了您到已经构建模块的映射。context 是客户端源码的根，而 name 是入口的名称，在本例中是“供应商”。继续尝试使用命令 `webpack --config=webpack.dll.js` 运行这个构建。最后，您应该得到一个包含模块的排列映射 —— `dll\vendor-manifest.json` 已经包含那你所有提供商库的精简包 ——   `dist\dll\dll.vendor.js`。
 
 ## 第 3 步，构建项目
 
@@ -136,7 +136,7 @@ module.exports = {
 
 ## 第 4 步，包含 DLL
 
-此时，您已经生成了一个供应商 DLL 文件，并且您的 Webpack 构建并生产 app.js 文件。您需要在模版中提供并包含这两个文件，但 DLL 应该是第一位的。您可能已经使用 `HtmlWebpackPlugin` 设置了模版。因为我们不关心热重载加载 DLL，所以除了在主 app.js 之前包含 `<script src="dll/dll.vendor.js"></script>` 之外，您实际上不需要做任何事。如果您使用的是 `webpack-middleware` 或者您自己定制化的服务器，则还需要确保为 DLL 提供服务。此时，一切都应该按原样运行，但是使用 Webpack 进行增量构建的速度应该非常快。
+此时，您已经生成了一个供应商 DLL 文件，并且您的 Webpack 构建并生成 app.js 文件。您需要在模版中提供并包含这两个文件，但 DLL 应该是第一位的。您可能已经使用 `HtmlWebpackPlugin` 设置了模版。因为我们不关心热重载 DLL，所以除了在主 app.js 之前包含 `<script src="dll/dll.vendor.js"></script>` 之外，您实际上不需要做任何事。如果您使用的是 `webpack-middleware` 或者您自己定制化的服务器，则还需要确保为 DLL 提供服务。此时，一切都应该按原样运行，但是使用 Webpack 进行增量构建的速度应该非常快。
 
 ## 第 5 步，构建脚本
 
