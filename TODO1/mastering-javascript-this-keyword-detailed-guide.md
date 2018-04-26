@@ -47,7 +47,7 @@
 
 虽说 ES6 里面 JavaScript 提供了类这个特性给我们用，但它只是一个[语法糖](https://www.quora.com/What-is-syntactic-sugar-in-programming-languages)，一个基于原型继承的语法糖。
 
-** `this` 就是一个指针，指向我们调用函数的对象。**
+**`this` 就是一个指针，指向我们调用函数的对象。**
 
 我难以强调上一句话有多重要。请记住，在 Class 添加到 ES6 之前，JavaScript 中没有 Class 这种东西。[Class](http://2ality.com/2015/02/es6-classes-final.html) 只不过是一个将对象串在一起表现得像类继承一样的语法糖，以一种我们已经习惯的写法。所有的魔法背后都是用原型链编织起来的。
 
