@@ -615,21 +615,21 @@ logArgs(1,3,'I am a string', {name: "jay", age: "1337"}, [4,5,6,7]);
 ### 练习
 
 1.  写一个函数，它接受一个由键值对组成的数组，然后将这些键值对设置到 this 关键词指向的对象上，最后将该对象返回。如果 this 是 `null` 或 `undefined`，那就新建一个 `object`。示例：`set.apply( {name: "jay"}, [{age: 10}]); // 返回 {name: "jay", age: 10}`
-2.  Create a function similar to `Math.max` and `min`, but one one that applies calculations. The first two arguments should be `numbers`. Make sure to convert the arguments after the second into an **array of functions.** A sample template to get started with is provided below
+2.  写一个类似 `Math.max` 和 `min` 的函数，不过接收的不是数字而是运算。前两个参数必须是`数字`，而后面的参数你要将其转化为一个**函数数组**。下面提供一个方便你上手理解的示例：
 
 ```
 function operate() {
     if (arguments.length < 3) {
-        throw new Error("Must have at least three arguments");
+        throw new Error("至少要三个参数");
     }
     if (typeof arguments[0] !== 'number' || typeof arguments[1] !== 'number') {
-        throw new Error("first two arguments supplied must be a number");
+        throw new Error("前两个参数必须是数字");
     }
-    // Write code ...
-    // An array of functions. Hint use either call, apply or bind. Don't iterate over arguments and place functions in new array.
+    // 写代码
+    // 这是一个由函数组成的数组。你可以用 call、apply 或者 bind。但不要直接遍历参数然后直接塞到一个数组里
     var args;
     var result = 0;
-    // Good luck
+    // 好了，开始吧，祝好运
 }
 function sum(a, b) {
     return a + b;
@@ -642,14 +642,14 @@ console.log(operate(10, 2, sum, multiply));    // 必须返回 32 -> (10 + 2) + 
 
 ## 其他文章和资料
 
-In case my explanations did not make sense to you, below are some additional resources that will help you understand how bind works in JavaScript.
+假如我上面的解释没能让你释疑，那下面这些额外的资料可以帮你更好地理解 bind 在 JavaScript 里面是怎么运作的。
 
 *   [Understanding JavaScript function bind prototype](https://www.smashingmagazine.com/2014/01/understanding-javascript-function-prototype-bind/)
-*   [Stackoverflow – Use of the JavaScript bind method](https://stackoverflow.com/questions/2236747/use-of-the-javascript-bind-method)
+*   [Stackoverflow – 使用 JavaScript 的 bind 函数](https://stackoverflow.com/questions/2236747/use-of-the-javascript-bind-method)
 *   [How-to: call() , apply() and bind() in JavaScript](https://www.codementor.io/niladrisekhardutta/how-to-call-apply-and-bind-in-javascript-8i1jca6jp)
 *   [JavaScript .call() .apply() and .bind() — explained to a total noob](https://medium.com/@owenyangg/javascript-call-apply-and-bind-explained-to-a-total-noob-63f146684564)
 
-I also strongly recommend studying up on [JavaScript’s prototype chain](https://www.digitalocean.com/community/tutorials/understanding-prototypes-and-inheritance-in-javascript), because not only is the `this` key word used heavily, it is the standard way of implementing inheritance in JavaScript.
+I also strongly recommend studying up on [JavaScript 原型链](https://www.digitalocean.com/community/tutorials/understanding-prototypes-and-inheritance-in-javascript), because not only is the `this` key word used heavily, it is the standard way of implementing inheritance in JavaScript.
 
 Below are a list of books that will take your knowledge and understanding of how `this` can be used.
 
