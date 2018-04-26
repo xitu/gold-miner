@@ -644,39 +644,39 @@ console.log(operate(10, 2, sum, multiply));    // 必须返回 32 -> (10 + 2) + 
 
 假如我上面的解释没能让你释疑，那下面这些额外的资料可以帮你更好地理解 bind 在 JavaScript 里面是怎么运作的。
 
-*   [Understanding JavaScript function bind prototype](https://www.smashingmagazine.com/2014/01/understanding-javascript-function-prototype-bind/)
+*   [理解 JavaScript 函数原型的 bind 方法](https://www.smashingmagazine.com/2014/01/understanding-javascript-function-prototype-bind/)
 *   [Stackoverflow – 使用 JavaScript 的 bind 函数](https://stackoverflow.com/questions/2236747/use-of-the-javascript-bind-method)
-*   [How-to: call() , apply() and bind() in JavaScript](https://www.codementor.io/niladrisekhardutta/how-to-call-apply-and-bind-in-javascript-8i1jca6jp)
-*   [JavaScript .call() .apply() and .bind() — explained to a total noob](https://medium.com/@owenyangg/javascript-call-apply-and-bind-explained-to-a-total-noob-63f146684564)
+*   [JavaScript 中 call()， apply() 和 bind() 如何使用](https://www.codementor.io/niladrisekhardutta/how-to-call-apply-and-bind-in-javascript-8i1jca6jp)
+*   [一看就懂 —— JavaScript 的 .call() .apply() 和 .bind()](https://medium.com/@owenyangg/javascript-call-apply-and-bind-explained-to-a-total-noob-63f146684564)
 
-I also strongly recommend studying up on [JavaScript 原型链](https://www.digitalocean.com/community/tutorials/understanding-prototypes-and-inheritance-in-javascript), because not only is the `this` key word used heavily, it is the standard way of implementing inheritance in JavaScript.
+我还强烈推荐你去学习 [JavaScript 原型链](https://www.digitalocean.com/community/tutorials/understanding-prototypes-and-inheritance-in-javascript)，不单是因为里面用到大量的 `this` 关键词，而且它还是 JavaScript 实现继承的标准方式。
 
-Below are a list of books that will take your knowledge and understanding of how `this` can be used.
+下面列出一些帮你了解 `this` 如何使用的书籍：
 
-*   [Effective JavaScript: 68 Specific Ways to Harness the Power of JavaScript (Effective Software Development Series)](http://amzn.to/2HGhsDP): Although an oldie, the book is well written and provides clear examples of how this, apply, call, bind can be used to improve the way that you write code. The book is written by Dave Hermann a member of [TC39](https://www.ecma-international.org/memento/TC39-M.htm), so you can bet that he knows his JavaScript!
-*   [You dont’ know JS – this and Object Prototoypes](https://github.com/getify/You-Dont-Know-JS/tree/master/this%20%26%20object%20prototypes): Kyle Simpson does a great job in explaining how objects and prototypes work with each other in a clear, relatively beginner-friendly manner.
+*   [编写高质量 JavaScript代码的68个有效方法](http://amzn.to/2HGhsDP)：虽然是本古董，但此书确实写得挺好而且还提供了简单易懂的示例，教你怎么用好 this、apply、call 和 bind 来写出好代码。书的作者是 [TC39](https://www.ecma-international.org/memento/TC39-M.htm) 的一个成员 Dave Hermann，所以你大可放心，他对 JavaScript 肯定理解深刻。
+*   [你不知道的 JS —— this 和对象原型](https://github.com/getify/You-Dont-Know-JS/tree/master/this%20%26%20object%20prototypes)：Kyle Simpson 以一种清晰明了、对初学者很友好的方式，解释了对象和原型是怎么相互影响运作起来的，写得很棒！
 
-## Conclusion
+## 总结
 
-The JavaScript `this` keyword is here to stay, considering that an unimaginably large amount of code has already been written using it.
+考虑到 `this` 关键词已经用到了难以计量的代码中，它是 JavaScript 中我们不得不聊的话题。
 
-A good artisan knows how to use his/her tools. As a JavaScript developer, it is of utmost importance that you know how to utilize its features.
+一个优秀的艺术家肯定精于工具的使用。作为一个 JavaScript 开发者，怎么用好它的特性是最最重要的。
 
-If you would like to see more in-depth explanation regarding a specific aspect of the `this` keyword, or more code, please let me know. Some possible options include posts on the following (but not limited to)
+如果你想看到一些从特定角度对 `this` 关键词深入剖析的文章或者更多的代码，请别忘了告诉我。这些可能的角度可以是（但不限于）下面这些：
 
-*   `this` and the `new` keyword.
-*   The prototype chain in JavaScript.
-*   `this` and JavaScript classes.
+*   `this` 和 `new` 关键词。
+*   JavaScript 的原型链。
+*   `this` 和 JavaScript 的类。
 
-Additionally, if there are any specific issues or additions that you would like to see in this post, please email me or send me a message. I just updated [my GitHub profile](https://github.com/JWLee89) to display my email address. I am looking forward to building up this guide so that readers will continue to benefit from it, regardless of their level of experience. Let’s partake in this journey together!
+另外，关于这篇文章你如果有什么具体的问题或补充，请给我发邮件或信息。我刚在[我的 Github 个人主页](https://github.com/JWLee89)更新了我的邮箱地址。我希望将这个教程完善起来，这样不管哪个级别的开发者看到它都能从中受益。让我们一起把它做好！
 
-Thank you for reading and looking forward to hearing ideas or suggestions on what to add to this guide so that readers get the most out of it.
+多谢捧场了老铁，然后，这篇文章还能再补充点什么对读者有用的东西，我真的很期待听到你的观点和建议。
 
-Take care and until next time!
+保重，下次见！
 
-### About the Author [Jay](https://www.thecodingdelight.com/author/ljay189/)
+### 关于作者 [Jay](https://www.thecodingdelight.com/author/ljay189/)
 
-I am a programmer currently living in Seoul, South Korea. I created this blog as an outlet to express what I know / have been learning in text form for retaining knowledge and also to hopefully help the wider community. I am passionate about data structures and algorithms. The back-end and databases is where my heart is at.
+我是一个现居韩国首尔的程序员。我创立这个博客的目的，就是想用文字形式将所学所想沉淀下来，也希望为社区做些贡献。我热衷于数据结构和算法，而后台和数据库则是我心中最爱。
 
 
 ---
