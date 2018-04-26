@@ -86,7 +86,7 @@ for (NSValue *lineRangeValue in lineRanges) {
 }
 ```
 
-3.调用 `[textStorage endEditing]` 来表示我们结束编辑文本存储。这会调用 `[NSTextStorage processEditing]` 方法，该方法将修复我们改变的范围内文本的属性。这也会调用正确的 `NSTextStorageDelegate` 方法。
+3. 调用 `[textStorage endEditing]` 来表示我们结束编辑文本存储。这会调用 `[NSTextStorage processEditing]` 方法，该方法将修复我们改变的范围内文本的属性。这也会调用正确的 `NSTextStorageDelegate` 方法。
 
 TextKit 是一个功能强大且现代化的 API，与 UIKit 紧密集成。许多文字体验都可以用它来设计，并且几乎每次 iOS 的新版本都会发布一些和文本相关的 API。使用 TextKit 你可以做任何事情，从创建自定义文本容器到修改实际生成的字形。而且由于它是建立在 CoreText 之上的，并且与 UITextView 等 API 集成，所以文本输入和编辑仍然感觉像原生 iOS 体验。
 
