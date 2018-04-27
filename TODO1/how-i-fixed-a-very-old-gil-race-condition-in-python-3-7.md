@@ -5,37 +5,37 @@
 > * 译者：
 > * 校对者：
 
-# How I fixed a very old GIL race condition in Python 3.7
+# 我是如何修复 Python 3.7 中一个非常古老的 GIL 竞态条件 bug 的
 
-**It took me 4 years to fix a nasty bug in the famous Python GIL** (Global Interpreter Lock), one of the most critical part of Python. I had to dig the Git history to find a **change made 26 years ago** by **Guido van Rossum**: at this time, _threads were something esoteric_. Let me tell you my story.
+**著名的 Python GIL (Global Interpreter Lock, 全局解析器锁) 库中一个蛋疼的 bug 花了我 4 年的时间去修复**，Python GIL 是 Python 中最容易出错的部分之一。我不得不钻入 Git 的提交历史里面，找到 26 年前 **Guido van Rossum** 提交的记录：彼时，_线程还是很晦涩难懂的东西_。且听我慢慢道来。
 
-## Fatal Python error caused by a C thread and the GIL
+## 一个 C 线程和 GIL 引发的血案
 
-In March 2014, **Steve Dower** reported the bug [bpo-20891](https://bugs.python.org/issue20891) when a "C thread" uses the Python C API:
+在 2014 年 3 月份的时候, **Steve Dower** 报告了一个当 “C 语言线程“ 使用 Python C API 时产生的 bug [bpo-20891](https://bugs.python.org/issue20891), 是这样描述的：
 
-> In Python 3.4rc3, calling `PyGILState_Ensure()` from a thread that was not created by Python and without any calls to `PyEval_InitThreads()` will cause a fatal exit:
-> 
+> 在 Python 3.4rc3 中，在一个不是用 Python 创建的线程中调用 `PyGILState_Ensure()` 方法，但不调用 `PyEval_InitThreads()` 方法时，会导致程序出现严重错误，并退出：
+>
 > `Fatal Python error: take_gil: NULL tstate`
 
-My first comment:
+我的第一句评论：
 
-> IMO it's a bug in `PyEval_InitThreads()`.
+> 在我看来这是 `PyEval_InitThreads()` 的一个 bug 呀.
 
 [![Release the GIL!](https://vstinner.github.io/images/release_the_gil.png)](https://twitter.com/kwinkunks/status/619496450834087938)
 
-## PyGILState_Ensure() fix
+## PyGILState_Ensure() 修复方案
 
-I forgot the bug during 2 years. In March 2016, I modified Steve's test program to make it compatible with Linux (the test was written for Windows). I succeeded to reproduce the bug on my computer and I wrote a fix for `PyGILState_Ensure()`.
+两年内我我就忘了这个 bug 。到了 2016 年 3 月份，我修改了 Steve 的测试代码，以兼容 Linux (当时的测试代码是在 Windows 上写的)。我成功地在我的电脑上重现了这个 bug ，然后写了个 `PyGILState_Ensure()` 的修复补丁。
 
-One year later, november 2017, **Marcin Kasperski** asked:
+一年后，也就是 2017 年 11 月，**Marcin Kasperski** 问道：
 
-> Is this fix released? I can't find it in the changelog…
+> 这个修复补丁发布了吗？我在更改日志里面没有看到…
 
-Oops, again, I completely forgot this issue! This time, not only I **applied my PyGILState_Ensure() fix**, but I also wrote the **unit test** `test_embed.test_bpo20891()`:
+糟糕，我又一次完全忘了这个问题！这次，我不仅 **提交了我对 PyGILState_Ensure() 的修复补丁**，还写了 **单元测试** `test_embed.test_bpo20891()`：
 
-> Ok, the bug is now fixed in Python 2.7, 3.6 and master (future 3.7). On 3.6 and master, the fix comes with an unit test.
+> 好了，这个 bug 已经在 Python 2.7, 3.6 和主分支（后来的 3.7）上修复啦。在 3.6 和 master 上，这个补丁还带了单元测试呢。
 
-My fix for the master branch, commit [b4d1e1f7](https://github.com/python/cpython/commit/b4d1e1f7c1af6ae33f0e371576c8bcafedb099db):
+我在主分支上的修复提交, 提交 [b4d1e1f7](https://github.com/python/cpython/commit/b4d1e1f7c1af6ae33f0e371576c8bcafedb099db):
 
 ```
 bpo-20891: Fix PyGILState_Ensure() (#4650)
@@ -47,11 +47,11 @@ PyThreadState_New() to fix a crash.
 Add an unit test in test_embed.
 ```
 
-And I closed the issue [bpo-20891](https://bugs.python.org/issue20891)...
+然后我就关了这个 issue [bpo-20891](https://bugs.python.org/issue20891) 了…
 
-## Random crash of the test on macOS
+## 单元测试在 macOS 上随机奔溃
 
-Everything was fine... but one week later, I noticed **random** crashes on macOS buildbots on my newly added unit test. I succeeded to reproduce the bug manually, example of crash at the 3rd run:
+一切都安好…… 直到一周之后，我意识到我新加的单元测试在 macOS 系统上 **时不时** 会奔溃。最终我成功找到重现路径，以下例子是第三次运行时奔溃：
 
 ```
 macbook:master haypo$ while true; do ./Programs/_testembed bpo20891 ||break; date; done
@@ -64,19 +64,19 @@ Current thread 0x00007fffa5dff3c0 (most recent call first):
 Abort trap: 6
 ```
 
-`test_embed.test_bpo20891()` on macOS showed a race condition in `PyGILState_Ensure()`: the creation of the GIL lock itself... was not protected by a lock! Adding a new lock to check if Python currently has the GIL lock doesn't make sense...
+`test_embed.test_bpo20891()` 在 macOS 的 `PyGILState_Ensure()` 出现了一个竞态条件：GIL 锁自身的构建……没有锁保护！添加一个锁来检测 Python 当前有没有 GIL 锁显然毫无意义……
 
-I proposed an incomplete fix for `PyThread_start_new_thread()`:
+我提出了修复 `PyThread_start_new_thread()` 的一个不是很完整的建议：
 
-> I found a working fix: call `PyEval_InitThreads()` in `PyThread_start_new_thread()`. So the GIL is created as soon as a second thread is spawned. The GIL cannot be created anymore while two threads are running. At least, with the `python` binary. It doesn't fix the issue if a thread is not spawned by Python, but this thread calls `PyGILState_Ensure()`.
+> 我找到一个可行的修复方案：在 `PyThread_start_new_thread()` 中调用 `PyEval_InitThreads()`。这样 GIL 就能够在第二个线程一产生时就创建好了。当有两个线程在运行的时候就不能再创建 GIL 了。但至少在“是不是用 `python`”这种非黑即白的情况下，如果一个线程不是用 Python 创建的，这种修复方案会失效，但此时这个线程又会调用 `PyGILState_Ensure()`。
 
-## Why not always create the GIL?
+## 为什么不一开始就创建 GIL？
 
-**Antoine Pitrou** asked a simple question:
+**Antoine Pitrou** 问了一个简单的问题：
 
-> Why not _always_ call `PyEval_InitThreads()` at interpreter initialization? Are there any downsides?
+> 为什么不在解析器初始化时就调用 `PyEval_InitThreads()`？有什么不好之处吗？
 
-Thanks to `git blame` and `git log`, I found the origin of the code creating the GIL "on demand", **a change made 26 years ago**!
+多亏了 `git blame` 和 `git log` 命令，我找到了“按需创建 GIL”代码的发源地，**26 年前的一个变更**！
 
 ```
 commit 1984f1e1c6306d4e8073c28d2395638f80ea509b
@@ -108,22 +108,22 @@ Date:   Tue Aug 4 12:41:02 1992 +0000
 +#endif
 ```
 
-My guess was that the intent of dynamically created GIL is to reduce the "overhead" of the GIL for applications only using a single Python thread (never spawn a new Python thread).
+我猜测这种动态创建 GIL 的意图是为了避免那些只使用了一个线程的应用“过早”创建 GIL 的情况。
 
-Luckily, **Guido van Rossum** was around and was able to elaborate the rationale:
+幸运的是，**Guido van Rossum** 当时也在，能够和我一起找出根本原因：
 
-> Yeah, the original reasoning was that **threads were something esoteric and not used by most code**, and at the time we definitely felt that **always using the GIL would cause a (tiny) slowdown** and **increase the risk of crashes** due to bugs in the GIL code. I'd be happy to learn that we no longer need to worry about this and **can just always initialize it**.
+> 是的，最初的原因就是**线程是很晦涩难懂的，也没有多少代码里面会用线程**，那时，由于 GIL 代码中的 bug ，我们肯定会觉得**频繁使用 GIL 会导致（微小的）性能下降**和**奔溃风险的上升**。现在了解到我们不再需要担心这两方面的问题了，可以**尽情地使用初始化它了**。
 
-## Second fix for Py_Initialize() proposed
+## Py_Initialize() 的第二个修复方案的提出
 
-I proposed a **second fix** for `Py_Initialize()` to always create the GIL as soon as Python starts, and no longer "on demand", to prevent any risk of a race condition:
+我提议了 `Py_Initialize()` 的**另一个修复方案**：总是在 Python 一启动的时候就创建 GIL ，不再“按需”创建，以避免竞态条件发生的风险：
 
 ```
 +    /* Create the GIL */
 +    PyEval_InitThreads();
 ```
 
-**Nick Coghlan** asked if I could you run my patch through the performance benchmarks. I ran [pyperformance](http://pyperformance.readthedocs.io/) on my [PR 4700](https://github.com/python/cpython/pull/4700/). Differences of at least 5%:
+**Nick Coghlan** 问我是否能够在我的补丁上运行一下性能基准测试。我在我的 [PR 4700](https://github.com/python/cpython/pull/4700/) 上运行了 [pyperformance](http://pyperformance.readthedocs.io/)，差距高达 5%：
 
 ```
 haypo@speed-python$ python3 -m perf compare_to \
@@ -148,30 +148,30 @@ haypo@speed-python$ python3 -m perf compare_to \
 Not significant (55): 2to3; chameleon; chaos; (...)
 ```
 
-Oh, 5 benchmarks were slower. Performance regressions are not welcome in Python: we are working hard on [making Python faster](https://lwn.net/Articles/725114/)!
+哇，5 个基准降低了。性能回归测试在 Python 中很受欢迎：我们一直都致力于[让 Python 跑得更快](https://lwn.net/Articles/725114/)！
 
-## Skip the failing test before Christmas
+## 圣诞前夕跳过失败的测试
 
-I didn't expect that 5 benchmarks would be slower. It required further investigation, but I didn't have time for that and I was too shy or ashame to take the responsibility of pushing a performance regression.
+我没有料到有 5 个基准测试性能都降低了。这需要更深层的探究，但我没有时间去做这些探究，如果要做性能回归测试，我又得对此负责，感觉太害羞/羞愧了。
 
-Before the christmas holiday, no decision was taken whereas `test_embed.test_bpo20891()` was still failing randomly on macOS buildbots. I **was not confortable to touch a critical part of Python**, its GIL, just before leaving for two weeks. So I decided to skip `test_bpo20891()` until I'm back.
+在圣诞节假期之前，我还下不定决心，然而 `test_embed.test_bpo20891()` 还是一如既往地在 macOS 系统上随机奔溃。让我在假期前的两周时间内去接触 Python 中最最容易出错的部分 —— GIL 着实让我感到很难受。所以我决定跳过 `test_bpo20891()` 的单元测试直到过完假期再说。
 
-No gift for you, Python 3.7.
+Python 3.7 ，没有彩蛋。
 
 [![Sad Christmas tree](https://vstinner.github.io/images/sad_christmas_tree.png)](https://drawception.com/panel/drawing/0teL3336/charlie-brown-sad-about-small-christmas-tree/)
 
-## New benchmark run and second fix applied to master
+## 运行新的基准测试，第二个修复补丁合并到主分支
 
-At the end of january 2018, I ran again the 5 benchmarks made slower by my PR. I ran these benchmarks manually on my laptop using CPU isolation:
+在 2018 年的 1 月末，我再一次运行了我 PR 中性能降下来的那 5 个基准测试。我在我的笔记本上手动运行这些基准测试，让不同的测试使用独立的 CPU ：
 
 ```
 vstinner@apu$ python3 -m perf compare_to ref.json patch.json --table
 Not significant (5): unpickle_pure_python; sqlite_synth; spectral_norm; pathlib; scimark_monte_carlo
 ```
 
-Ok, it confirms that my second fix has **no significant impact on performances** according to the [Python "performance" benchmark suite](http://pyperformance.readthedocs.io/).
+好了，根据[Python “性能“ 基准测试套件](http://pyperformance.readthedocs.io/)，现在证明了我的第二个修复方案其实并**没有对性能产生多大的影响**。
 
-I decided to **push my fix** to the master branch, commit [2914bb32](https://github.com/python/cpython/commit/2914bb32e2adf8dff77c0ca58b33201bc94e398c):
+我决定把我的修复方案推送到主分支，提交 [2914bb32](https://github.com/python/cpython/commit/2914bb32e2adf8dff77c0ca58b33201bc94e398c)：
 
 ```
 bpo-20891: Py_Initialize() now creates the GIL (#4700)
@@ -180,33 +180,33 @@ The GIL is no longer created "on demand" to fix a race condition when
 PyGILState_Ensure() is called in a non-Python thread.
 ```
 
-Then I reenabled `test_embed.test_bpo20891()` on the master branch.
+然后我在主分支上重新启动了 `test_embed.test_bpo20891()` 单元测试。
 
-## No second fix for Python 2.7 and 3.6, sorry!
+## 对不起，Python 2.7 和 3.6 没有第二个修复补丁！
 
-**Antoine Pitrou** considered that backport for Python 3.6 [should not be merged](https://github.com/python/cpython/pull/5421#issuecomment-361214537):
+**Antoine Pitrou** 想过要把补丁移植到 Python 3.6 [不能合并](https://github.com/python/cpython/pull/5421#issuecomment-361214537)：
 
-> I don't think so. People can already call `PyEval_InitThreads()`.
+> 我觉得没必要。大家已经可以调用 `PyEval_InitThreads()` 了。
 
-**Guido van Rossum** didn't want to backport this change neither. So I only removed `test_embed.test_bpo20891()` from the 3.6 branch.
+**Guido van Rossum** 也不想移植这个补丁。所以我就从 3.6 的主分支中移除了 `test_embed.test_bpo20891()`。
 
-I didn't apply my second fix to Python 2.7 neither for the same reason. Moreover, Python 2.7 has no unit test, since it was too difficult to backport it.
+由于同样的原因，我也没有在 Python 2.7 中应用我的第二个补丁，此外，Python 2.7 没有单元测试，因为移植太难了。
 
-At least, Python 2.7 and 3.6 got my first `PyGILState_Ensure()` fix.
+但至少，Python 2.7 和 3.6 应用了我的第一个补丁，`PyGILState_Ensure()`。
 
-## Conclusion
+## 总结
 
-Python still has some race conditions in corner cases. Such bug was found in the creation of the GIL when a C thread starts using the Python API. I pushed a first fix, but a new and different race condition was found on macOS.
+Python 在一些边界情况下仍然有一些竞态条件。这种 bug 是在 C 线程使用 Python API 创建 GIL 时发现的。我推送了第一个补丁，但另一个新的竞态条件在 macOS 上出现了。
 
-I had to dig into the very old history (1992) of the Python GIL. Luckily, **Guido van Rossum** was also able to elaborate the rationale.
+我不得不钻进 Python GIL 非常古老的提交历史（1992 年）中。幸运的是 **Guido van Rossum** 能够帮忙一起找到 bug 的根本原因。
 
-After a glitch in benchmarks, we agreed to modify Python 3.7 to always create the GIL, instead of creating the GIL "on demand". The change has no significant impact on performances.
+在一次基准测试小故障后，我们意见达成一致，在 Python 3.7 中总是一启动解析器就创建 GIL，而不是“按需”创建。这种变更没有对性能产生明显的影响。
 
-It was also decided to leave Python 2.7 and 3.6 unchanged, to prevent any risk of regression: continue to create the GIL "on demand".
+同时我们也决定保持 Python 2.7 和 3.6 不变，以防止任何回归测试的风险：继续“按需”创建 GIL 。
 
-**It took me 4 years to fix a nasty bug in the famous Python GIL.** I am never confortable when touching such **critical part** of Python. I am now happy that the bug is behind us: it's now fully fixed in the future Python 3.7!
+**著名的 Python GIL (Global Interpreter Lock, 全局解析器锁) 库中一个蛋疼的 bug 花了我 4 年的时间去修复**，Python GIL 是 Python 中最容易出错的部分之一。很开心现在这个 bug 已经被我们甩开了：在即将发布的 Python 3.7 中已经被完全修复了！
 
-See [bpo-20891](https://bugs.python.org/issue20891) for the full story. Thanks to all developers who helped me to fix this bug!
+在 [bpo-20891](https://bugs.python.org/issue20891) 查看完整的故事。感谢帮助我修复这个 bug 的所有开发者！
 
 
 ---
