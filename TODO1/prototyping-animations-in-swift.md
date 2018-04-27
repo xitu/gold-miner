@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/prototyping-animations-in-swift.md](https://github.com/xitu/gold-miner/blob/master/TODO1/prototyping-animations-in-swift.md)
 > * 译者：[ALVINYEH](https://github.com/ALVINYEH)
-> * 校对者：[talisk](https://github.com/talisk)
+> * 校对者：[talisk](https://github.com/talisk)、[melon8](https://github.com/melon8)
 
 # 使用 Swift 实现原型动画
 
