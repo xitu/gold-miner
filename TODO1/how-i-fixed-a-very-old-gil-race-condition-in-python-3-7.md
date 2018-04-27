@@ -169,7 +169,7 @@ vstinner@apu$ python3 -m perf compare_to ref.json patch.json --table
 Not significant (5): unpickle_pure_python; sqlite_synth; spectral_norm; pathlib; scimark_monte_carlo
 ```
 
-好了，根据[Python “性能“ 基准测试套件](http://pyperformance.readthedocs.io/)，现在证明了我的第二个修复方案其实并**没有对性能产生多大的影响**。
+好了，根据[Python “性能”基准测试套件](http://pyperformance.readthedocs.io/)，现在证明了我的第二个修复方案其实并**没有对性能产生多大的影响**。
 
 我决定把我的修复方案推送到主分支，提交 [2914bb32](https://github.com/python/cpython/commit/2914bb32e2adf8dff77c0ca58b33201bc94e398c)：
 
