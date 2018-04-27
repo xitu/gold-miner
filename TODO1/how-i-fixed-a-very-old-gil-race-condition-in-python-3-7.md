@@ -2,7 +2,7 @@
 > * 原文作者：[Victor Stinner](https://vstinner.github.io/author/victor-stinner.html)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-i-fixed-a-very-old-gil-race-condition-in-python-3-7.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-i-fixed-a-very-old-gil-race-condition-in-python-3-7.md)
-> * 译者：
+> * 译者：[kezhenxu94](https://github.com/kezhenxu94)
 > * 校对者：
 
 # 我是如何修复 Python 3.7 中一个非常古老的 GIL 竞态条件 bug 的
