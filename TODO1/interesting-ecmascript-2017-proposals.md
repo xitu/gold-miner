@@ -100,34 +100,34 @@ class LineReader() {
 
 使用 Symbol.asyncIterator 的示例。
 
-[The proposal](https://github.com/tc39/proposal-async-iteration) is currently at stage 3, and browsers are starting to implement it. At this stage it’s likely going to be included in the standard and eventually implemented by major browsers. However, there may be minor changes to the spec might happen before that so using async iterators today carries some degree of risk.
+[这一提案](https://github.com/tc39/proposal-async-iteration) 目前处于 stage 3，浏览器已经开始实现了。处于这一阶段意味着它很有可能会被合并入标准并可以在主流浏览器中使用。但是，在此之前，规范可能会有一些小修改，因此现在使用异步迭代器会带来一定程度的风险。
 
-The [regenerator](https://github.com/facebook/regenerator) project currently has basic support for this async iterator proposal. However, regenerator alone does not support the for-await-of loop syntax. The Babel compiler has the [transform-async-generator-functions](https://www.npmjs.com/package/babel-plugin-transform-async-generator-functions) plugin which supports both async generator functions and the for-await-of loop syntax.
+[regenerator](https://github.com/facebook/regenerator) 项目目前已为异步迭代器提案提供了基本支持。但是，它本身并不支持 for-await-of 循环语法。Babel 插件 [transform-async-generator-functions](https://www.npmjs.com/package/babel-plugin-transform-async-generator-functions) 既支持异步生成器又支持 for-await-of 循环语法。
 
-### Class Improvements
+### Class 优化
 
-There is a [proposal](https://github.com/tc39/proposal-private-methods) to add public and private fields and private methods to the class syntax that was [introduced in ECMAScript 2015](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes). This proposal is the culmination of a long period of discussion and competition between various competing proposals.
+[这个提案](https://github.com/tc39/proposal-private-methods) 建议向 [ECMAScript 2015 中引进的 class 语法] (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes) 中加入公共字段，私有字段与私有方法。该提案是经过多个竞争提案漫长讨论和竞争后的结果。
 
-Using private fields and methods is similar to their public counterparts, but with their names prepended with a hash symbol. Any method or field marked private will not be visible outside of the class, ensuring strong encapsulation of internal class members.
+使用私有字段和方法与它们对应的公共项是类似的，但是私有字段名方法名前会有一个 # 号。任何被标记为私有的方法和字段都不会在类之外可见，从而确保内部类成员的强封装。
 
-Here’s an example of hypothetical of a React-like component using public and private fields with a private method:
+下面是一个类 React 组件的假设示例，组件在私有方法中使用了公共和私有字段：
 
-```
+```javascript
 class Counter {
-  // public field
+  // 公共字段
   text = ‘Counter’;
 
-  // private field
+  // 私有字段
   #state = {
     count: 0,
   };
 
-  // private method
+  // 私有方法
   #handleClick() {
     this.#state.count++;
   }
 
-  // public method
+  // 公共方法
   render() {
     return (
       <button onClick={this.handleClick.bind(this)}>
@@ -138,70 +138,70 @@ class Counter {
 }
 ```
 
-React-like component with private fields and methods.
+使用了私有字段与私有方法的类 React 组件。
 
-The private class fields and methods are not currently polyfilled by Babel, [although it will be soon](https://github.com/babel/proposals/issues/12). Public fields are supported by Babel’s [transform-class-properties](https://babeljs.io/docs/plugins/transform-class-properties/) plugin, however this is based on an older proposal that was merged into this unified public / private class fields proposal. This proposal reached Stage 3 on [September 1, 2017](https://tc39.github.io/proposal-class-fields/), so it will be safe to use any polyfill when they become available.
+Babel 目前还没有提供私有类字段与方法的 polyfill，[但是不久就会实现](https://github.com/babel/proposals/issues/12)。公共字段已有 Babel 的[transform-class-properties](https://babeljs.io/docs/plugins/transform-class-properties/) 插件支持，但它依赖于一个已被合并入统一公共/私有字段提案的老提案。此提案于 [2017 年 9 月 1 日](https://tc39.github.io/proposal-class-fields/) 进入 stage 3，因此使用任何可用的 polyfill 都是安全的。
 
-### Class Decorators
+### Class 装饰器
 
-Decorators are a good example of a proposal that has changed completely after being introduced. Babel v5 implemented the [original stage 2 decorators spec](https://github.com/wycats/javascript-decorators) which defined a decorator as a function that accepts a target, name, and property descriptor. Today the most popular way to transpile decorators is Babel’s [transform-legacy-decorators](https://github.com/loganfsmyth/babel-plugin-transform-decorators-legacy) plugin, which implements this old spec.
+装饰器是一个好例子，它在引入之后却发生了翻天覆地的变化。Babel 的第五代版本实现了[原本 stage 2 阶段装饰器的规范](https://github.com/wycats/javascript-decorators)，其将装饰器定义为接收 target，name 与属性描述的函数。现在最流行的转译装饰器方式是通过 Babel 的[transform-legacy-decorators](https://github.com/loganfsmyth/babel-plugin-transform-decorators-legacy) 插件，其实现的是旧版的规范。
 
-The [new spec](https://tc39.github.io/proposal-decorators/) is quite different. Instead of a function with three properties, we now have a formalized description of a class member — decorators being functions which mutate that descriptor. This new “member descriptor” is quite similar to the property descriptor interface introduced in ES5.
+[新的提案](https://tc39.github.io/proposal-decorators/) 大不相同。不再作为具有三个属性的函数，现在我们对改变描述符的类成员 —— 装饰器进行了正式描述。新的“成员描述符”与ES5中引入的属性描述符接口非常相似。
 
-There now two different kinds of decorators with different APIs: member decorators and class decorators.
+现在有两种具有不同 API 的不同类型的装饰器：成员装饰器与类装饰器。
 
-*   Member decorators takes a member descriptor and returns a member descriptor.
-*   Class decorators takes a constructor, parent class, and array of member descriptors for each class member (i.e. each property or method).
+*   成员装饰器接收成员描述符并返回成员描述符。
+*   类装饰器接受每个类成员(即每个属性或方法)的构造函数、父类和成员描述符数组。
 
-In the spec, “extras” refers to an optional array of member descriptors that can be added by a decorator. This would allow a decorator to create new properties and methods dynamically. For example, you might have a decorator create getter and setter functions for a property.
+在规范中，“额外”是指可由装饰器添加的成员描述符的可选数组。这将允许装饰器动态创建新的属性与方法。比如，你可以让装饰器给属性创建 getter 与 setter 函数。
 
-Like the old spec, the new one allows you to mutate property descriptors of class members. Additionally, decorators are still allowed on properties on object literals.
+与旧规范类似，新规范允许修改类成员的描述符。此外，仍然允许在对象字面量的属性上使用装饰器。
 
-It’s likely that the spec will change significantly before it’s finalized. There are ambiguities in the syntax and many of the pain points of the old spec have not been addressed. Decorators are a huge syntax extension to the language, so this delay is to be expected. Unfortunately, if the new proposal is accepted you will have to significantly refactor your decorator functions to work with the new interface.
+在最终确定之前，规范很可能会发生重大变化。语法中有一些模棱两可之处，旧规范的许多痛点还没有得到解决。装饰器是语言的一个大型语法扩展，因此可以预料到这种延迟。遗憾的是，如果新的提案议被采纳，你将不得不完全重构你的装饰器函数，以适用于新的接口。
 
-Many library authors are choosing to continue to support the old proposal and the legacy-decorators Babel transform — even though the new proposal is at stage 2 and the old one is still at stage 0. The most popular open-source JavaScript library that uses decorators, [core-decorators](https://github.com/jayphelps/core-decorators), has taken this approach. It’s likely that decorator library authors will continue to support the old spec for years to come.
+许多库作者选择继续支持旧的提案和 Babel 的 legacy-decorators 插件，即使新的提案已经处于 stage 2，旧的仍然处于 stage 0。[core-decorators](https://github.com/jayphelps/core-decorators) 作为最受欢迎的使用装饰器的 JavaScript 开源库，就采用了这种方法。未来几年中，库的作者们很有可能会继续支持旧的提案。
 
-There is also a chance that this new proposal will be withdrawn in favor of another, and decorators might not make it into Javascript in 2018. You will be able to use the new decorators proposal after Babel finishes work on the [new transform plugin](https://github.com/babel/proposals/issues/11).
+为了支持作者这一新提案也有可能被撤回，装饰器提案有可能不会在 2018 年并入 JavaScript。你可以在 Babel 完成[新的转译插件](https://github.com/babel/proposals/issues/11) 后使用新的装饰器提案。
 
-### Import Function
+### import 函数
 
-ECMAScript 6th edition added the [import statement](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import) and finalized the semantics around the new module system. Major browsers [just recently](https://jakearchibald.com/2017/es-modules-in-browsers/) released support, although there are minor differences in how much of the spec they have implemented. NodeJS has released preliminary support for the ECMAScript modules in version 8.5.0 behind the — experimental-modules flag.
+ECMAScript 第六版中添加了 [import 语句](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import)，并最终确定了新的模块系统的语义。就在近期，[主流浏览器发布更新以提供对其的支持](https://jakearchibald.com/2017/es-modules-in-browsers/)，尽管它们对于规范的实现略有不同。NodeJS 在 8.5.0 版本中对于仍带有实验标志的 ECMAScript 的模块规范提供了初步支持。
 
-However, the proposal was missing an asynchronous way to import modules, makes it difficult to dynamically import module code at runtime. Right now the only way to dynamically load modules in the browser is to dynamically insert a script tag of type “module” with the import declaration as its textContent.
+但是，该提案缺少一种异步导入模块的方法，这使得难以在运行时动态导入模块。现在，在浏览器中动态加载模块的唯一方法，就是动态插入类型为 “module” 的 script 标签，将 import 声明作为其文本内容。
 
-A build-in way of doing this is the proposed [dynamic import](https://github.com/tc39/proposal-dynamic-import) syntax, which calls for a “function-like” import module loading form. This new dynamic import syntax would be allowed in module code as well as normal script code, offering a convenient entry point for module code.
+实现异步导入模块的一种内置方法是提案 [动态 import 语法](https://github.com/tc39/proposal-dynamic-import)，它会调用一个“类函数”的导入模块加载表单。这种动态导入语法可以在模块代码与普通脚本代码中使用，从而为模块代码提供了一个方便的切入点。
 
-Last year there was a proposal to solve this problem by proposing a System.import() function, but that idea was eventually left out from the final specification. This new proposal is currently at stage 3, and will likely be included by the end of the year.
+去年有一个提案提出 System.import() 函数来解决这个问题，但是该提案没有被采纳进入最终的规范。新提案目前处于 stage 3，有望在年底前被列入规范中。
 
 ### Observables
 
-The [proposed Observable type](https://github.com/tc39/proposal-observable) offers a standardized way of handling asynchronous streams of data. They have already been implemented in some form in many popular JavaScript frameworks like RxJS. The current proposal draws heavily from those libraries.
+[提议的可观察类型 Observable type](https://github.com/tc39/proposal-observable) 提供了一种处理异步数据流的标准化方法。它们已经以某种形式在许多流行的 JavaScript 框架如 RxJS 中实现。目前的提案很大程度上借鉴了这些框架的思路。
 
-Observables are created via the Observable constructor, which takes a subscriber function:
+Observable 对象由 Observable 构造器创建，接收订阅函数作为参数：
 
-```
+```javascript
 function listen(element, eventName) {
  return new Observable(observer => {
-   // Create an event handler which sends data to the sink
+   // 创建一个事件处理函数，可以将数据输出
    let handler = event => observer.next(event);
 
-   // Attach the event handler
+   // 绑定事件处理函数
    element.addEventListener(eventName, handler, true);
 
-   // Return a  function which will be called to unsubscribe
+   // 返回一个函数，调用它即去掉订阅
    return () => {
-     // Detach the event handler from the element
+     // 解除元素的事件监听
      element.removeEventListener(eventName, handler, true);
    };
  });
 }
 ```
 
-Observable constructor usage.
+Observable 构造器的使用。
 
-Use the subscribe function to subscribe to an observable:
+使用订阅函数去订阅一个 observable 对象：
 
-```
+```javascript
 const subscription = listen(inputElement, “keydown”).subscribe({
   next(val) { console.log("Got key: " + val) },
   error(err) { console.log("Got an error: " + err) },
@@ -209,13 +209,13 @@ const subscription = listen(inputElement, “keydown”).subscribe({
 });
 ```
 
-Using an observable.
+使用 observable 对象。
 
-The subscribe() function returns a subscription object. This object has a unsubscribe method that can be used to cancel the subscription.
+subscribe() 函数返回了一个订阅对象。这个对象具有取消订阅的方法。
 
-Observables shouldn’t be confused with the [deprecated Object.observe](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/observe) function, which was a way to observe changes to an object. That method was replaced with a more generic [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/observe) implementation in ECMAScript 2015.
+Observable 不应混淆于 [已废弃的 Object.observe](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/observe) 函数，Object.observe 是可以观察对象变化的一种方法。其已被 ECMAScript 2015 中更通用的的实现 [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/observe) 所替代。
 
-Observables are currently stage 1, but it will likely advance to the next stage soon since it has been marked as “ready to advance” by the TC39 committee and there is strong support from browser vendors. There are already [three polyfill implementations](https://github.com/tc39/proposal-observable#implementations) to choose from, so you can start using it today.
+Observable 目前处于 stage 1，但它已被 TC39 委员会标记为 “ready to advance” 并获得了浏览器厂商的大力支持，因此有望很快推进到下一阶段。现在你就已经可以开始使用这一提案的特性了，有[三种 polyfill 实现](https://github.com/tc39/proposal-observable#implementations) 可供选择。
 
 ### Do Expression
 
@@ -223,7 +223,7 @@ CoffeeScript was well known for [making everything an expression](http://coffees
 
 Do-expressions are a proposed new syntax for wrapping multiple statements in a single expression. This would allow you to do the following:
 
-```
+```javascript
 let activeToDos = do {
   let result;
   try {
@@ -241,7 +241,7 @@ The last statement in a do expression is implicitly returned as the completion v
 
 Do expressions would be quite useful inside [JSX](https://reactjs.org/docs/jsx-in-depth.html). Instead of using complicated ternary operators, a do expression would make control flow inside JSX more readable.
 
-```
+```javascript
 const FooComponent = ({ kind }) => (
  <div>
    {do {
@@ -263,7 +263,7 @@ Another proposal inspired by CoffeeScript is the [optional chaining proposal](ht
 
 Example:
 
-```
+```javascript
 a?.b // undefined if `a` is null/undefined, `a.b` otherwise.
 a == null ? undefined : a.b // using ternary operators
 ```
