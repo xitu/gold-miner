@@ -19,7 +19,7 @@
 
 在我们开始之前，我们需要建立一个环境，在这个环境中，我们可以迅速设计我们的动画原型，而不必不断地构建和运行我们所做的每一个细微的变化。幸运的是，苹果给我们提供了 Swift Playground，这是一个很好的能够快速草拟前端代码的理想场所，而无需使用完整的应用容器。
 
-通过菜单栏中选择 File > New > Playground…，让我们在 Xcode 创建一个新的 Playground。选择**单视图** Playground 模板，这样我们可以得到一个为我们编写的。我们需要确保选择 Assistant Editor，以便我们的代码能够实时更新。
+通过菜单栏中选择 File > New > Playground…，让我们在 Xcode 创建一个新的 Playground。选择**单视图** Playground 模板，里面写好了一个 live view 的模版代码。我们需要确保选择 Assistant Editor，以便我们的代码能够实时更新。
 
 ![](https://cdn-images-1.medium.com/max/800/1*-zmk2zyLGlQQUJPBO3JCbg.png)
 
@@ -65,7 +65,7 @@ final class AnimatedWaveView: UIView {
 
 ![](https://cdn-images-1.medium.com/max/800/1*HyJxGRHIus_TkVvL2uW5MA.png)
 
-这非常简单。现在如何将同心圆不停地向外扩大呢？我们将使用 CAAnimation 和 Timer 不断添加 CAShapes，并让它们动起来。这个动画有两个部分：缩放形状的路径和增加形状的边界。重要的是，动画边界与一个规模转换的形状，使圆圈移动填补屏幕。如果我们没有执行边界的动画，圆圈将不断扩大，但会保持其最初的在视图的中心（向右下角扩展）。因此，让我们将这两个动画添加到一个动画组，以便同时执行它们。记住，CAShape 和 CAAnimation 需要将 UIKit 的值转换为它们的 CGPath 和 CGColor 计数器。否则，动画就会悄无声息地失败！我们还将使用 CAAnimation 放入委托方法 animationDidStop 在动画完成后从视图中删除形状图层。
+这非常简单。现在如何将同心圆不停地向外扩大呢？我们将使用 CAAnimation 和 Timer 不断添加 CAShape，并让它们动起来。这个动画有两个部分：缩放形状的路径和增加形状的边界。重要的是，通过缩放变换对边界做动画，使圆圈移动最终充满屏幕。如果我们没有执行边界的动画，圆圈将不断扩大，但会保持其视图的原点在视图的中心（向右下角扩展）。因此，让我们将这两个动画添加到一个动画组，以便同时执行它们。记住，CAShape 和 CAAnimation 需要将 UIKit 的值转换为它们的 CGPath 和 CGColor 计数器。否则，动画就会悄无声息地失败！我们还将使用 CAAnimation 放入委托方法 animationDidStop 在动画完成后从视图中删除形状图层。
 
 ```
 final class AnimatedWaveView: UIView {
@@ -213,7 +213,7 @@ private func buildScaleTransform() -> CGAffineTransform {
 
 ![](https://cdn-images-1.medium.com/max/800/1*W7v-DukdmbIgkVf3htpTMQ.gif)
 
-确保我们可以在不同的大小能重用水波动画的最后一步是，重构定时器方法。而不是一直创建新的水波，我们可以一次性创建所有的波纹，同时用 CAAnimation 错开时间来执行动画。这可以通过 CAAnimation 组中设置 **timeoffset** 来实现。通过给每个动画组一个稍微不同的 **timeoffset**，我们可以从不同的起点同时运行所有动画。我们将用动画的总持续时间除以屏幕上的波数来计算偏移量：
+确保我们可以在不同的大小能重用水波动画的最后一步是：重构定时器方法。而不是一直创建新的水波，我们可以一次性创建所有的波纹，同时用 CAAnimation 错开时间来执行动画。这可以通过 CAAnimation 组中设置 **timeoffset** 来实现。通过给每个动画组一个稍微不同的 **timeoffset**，我们可以从不同的起点同时运行所有动画。我们将用动画的总持续时间除以屏幕上的波数来计算偏移量：
 
 ```
 // 每波之间 7 个像素点
@@ -290,7 +290,7 @@ private func animateWave(waveLayer: CAShapeLayer, duration: CFTimeInterval, offs
 
 ### 添加渐变
 
-下一步是通过添加一个渐变来改进我们的水波动画。我们还希望渐变能随设备移动传感器一起变化，因此我们将创建一个渐变层并保持对它的引用。我将半透明的水波层放在渐变的上面，但最好的解决方案是将水波层添加到父层，并将其盖住渐变层。通过这种方法，父层会自己去绘制渐变，这看起来更有效：
+下一步是通过添加一个渐变来改进我们的水波动画。我们还希望渐变能随设备移动传感器一起变化，因此我们将创建一个渐变层并保持对它的引用。我将半透明的水波层放在渐变的上面，但最好的解决方案是将所有水波层边加到一个父层里，并将这个父层其设置为渐变层的遮罩。通过这种方法，父层会自己去绘制渐变，这看起来更有效：
 
 ![](https://cdn-images-1.medium.com/max/800/1*BF921yl9t9RX0agWCnNWrA.gif)
 
@@ -366,7 +366,7 @@ func trackMotion() {
         let motionQueue = OperationQueue()
         motionManager.startDeviceMotionUpdates(to: motionQueue, withHandler: { [weak self] (data: CMDeviceMotion?, error: Error?) in
             guard let data = data else { return }
-            // 将设备水平倾斜会对闪烁效果有更大的作用
+            // 水平倾斜设备会对闪烁效果影响更大
             let xValBooster: Double = 3.0
             // 将 x 和 y 值转换为弧度
             let radians = atan2(data.gravity.x * xValBooster, data.gravity.y)
@@ -420,7 +420,7 @@ fileprivate func rotateGradient(angle: Float) {
 
 这没什么……但我们能做得更好吗？那是必须的。让我们进入下一个阶段……
 
-CAGradientLayer 不支持径向渐变……但这并不意味着这是不可能的！我们可以使用 CGGRadient 创建我们自己的 CALayer 类 RadialGRadientLayer。这里棘手的部分就是要确保在 CGGRadient 初始化期间需要将一个 CGColor 数组强制转换为一个 CFArray。这需要一直反复的尝试，才能准确地找出需要将哪种类型的数组转换为 CFArray，并且这些位置可能只是一个用来满足 `UnaspectPoint<CGFloat>?` 类型的 CGFloat 数组。
+CAGradientLayer 不支持径向渐变……但这并不意味着这是不可能的！我们可以使用 CGGradient 创建我们自己的 CALayer 类 RadialGradientLayer。这里棘手的部分就是要确保在 CGGradient 初始化期间需要将一个 CGColor 数组强制转换为一个 CFArray。这需要一直反复的尝试，才能准确地找出需要将哪种类型的数组转换为 CFArray，并且这些位置可能只是一个用来满足 `UnaspectPoint<CGFloat>?` 类型的 CGFloat 数组。
 
 ```
 class RadialGradientLayer: CALayer {
