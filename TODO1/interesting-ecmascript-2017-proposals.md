@@ -217,11 +217,11 @@ Observable 不应混淆于 [已废弃的 Object.observe](https://developer.mozil
 
 Observable 目前处于 stage 1，但它已被 TC39 委员会标记为 “ready to advance” 并获得了浏览器厂商的大力支持，因此有望很快推进到下一阶段。现在你就已经可以开始使用这一提案的特性了，有[三种 polyfill 实现](https://github.com/tc39/proposal-observable#implementations) 可供选择。
 
-### Do Expression
+### do 表达式
 
-CoffeeScript was well known for [making everything an expression](http://coffeescript.org/#expressions), and although the popularity of coffeescript has waned it has had an impact on the recent evolution of JavaScript.
+CoffeeScript 曾因以[一切皆为表达式](http://coffeescript.org/#expressions) 而名声大噪，尽管它的流行程度已经衰减，但是它对 JavaScript 近期的发展产生了重大影响。
 
-Do-expressions are a proposed new syntax for wrapping multiple statements in a single expression. This would allow you to do the following:
+do 表达式提出了一种将多个语句包装在一个表达式中的新语法。可以以如下方式编写代码：
 
 ```javascript
 let activeToDos = do {
@@ -235,11 +235,11 @@ let activeToDos = do {
 }
 ```
 
-Do expression example.
+do 表达式示例。
 
-The last statement in a do expression is implicitly returned as the completion value.
+do 表达式的最后一个语句将作为完成值，被隐式地返回。
 
-Do expressions would be quite useful inside [JSX](https://reactjs.org/docs/jsx-in-depth.html). Instead of using complicated ternary operators, a do expression would make control flow inside JSX more readable.
+do 表达式在 [JSX](https://reactjs.org/docs/jsx-in-depth.html) 中非常有用。与复杂的三元表达式不同，do 表达式可以使得 JSX 中的流程控制更可读。
 
 ```javascript
 const FooComponent = ({ kind }) => (
@@ -253,52 +253,52 @@ const FooComponent = ({ kind }) => (
 )
 ```
 
-The future of JSX?
+JSX 的未来？
 
-Babel has a [plugin](https://babeljs.io/docs/plugins/transform-do-expressions/) to transform do-expressions. The proposal is currently at stage one and there are significant open questions around how do-expressions work with generators and async functions, so the spec might change significantly.
+Babel 已有[插件](https://babeljs.io/docs/plugins/transform-do-expressions/) 可转译 do 表达式。此提案目前处于 stage 1，关于如何与 generator 和 async 函数一起使用，还存在一些重要的开发问题，因此规范可能会发生重大变化。
 
-### Optional Chaining
+### 可选的嵌套属性 Optional Chaining
 
-Another proposal inspired by CoffeeScript is the [optional chaining proposal](https://github.com/tc39/proposal-optional-chaining) which adds an easy way to access object properties that could be undefined or null without lengthy ternary operators. This is similar to CoffeeScript’s [existential operator](http://coffeescript.org/#existential-operator) but with a few notable features missing such as scope checking and optional assignment.
+受 CoffeeScript 启发而来的又一个提案是 [optional chaining](https://github.com/tc39/proposal-optional-chaining)，它带来了一种访问对象属性的简单方法，面对值有可能为 undefined 和 null 的对象属性无需使用冗长的三元运算符了。它与 CoffeeScript 的[存在操作符](http://coffeescript.org/#existential-operator)类似，但是缺少一些值得注意的特性，比如范围检查和可选赋值。
 
-Example:
+示例：
 
 ```javascript
-a?.b // undefined if `a` is null/undefined, `a.b` otherwise.
-a == null ? undefined : a.b // using ternary operators
+a?.b // 如果 a` 是 null/undefined 则返回  undefined，否则则返回 `a.b` 的值
+a == null ? undefined : a.b // 使用三元表达式
 ```
 
-This proposal is at stage 1 and there is a Babel plugin called [babel-plugin-transform-optional-chaining](https://www.npmjs.com/package/babel-plugin-transform-optional-chaining) which implements the proposal. The TC39 committee had concerns about the syntax in their [last meeting in October 2017](https://github.com/tc39/tc39-notes/blob/master/es8/2017-09/sep-28.md#13iii-nullary-coalescing-operator), but it seems likely that an optional chaining proposal will be adopted eventually.
+提案目前处于 stage 1，已有名为 [babel-plugin-transform-optional-chaining](https://www.npmjs.com/package/babel-plugin-transform-optional-chaining) 的 Babel 插件实现。TC39 委员会在[2017 年 10 月的最后一次会议](https://github.com/tc39/tc39-notes/blob/master/es8/2017-09/sep-28.md#13iii-nullary-coalescing-operator) 中对它的语法表示担忧，但是其仍有可能被采纳。
 
-### Standardized Global Object
+### 全局对象标准化
 
-It’s difficult to write code that can run in every JavaScript environment. In the browser, the global object is window — unless you’re in a [web worker](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API), then its self. In NodeJS it’s global, but that’s something added on top of the V8 engine, not a part of the specification so it’s not available when running code directly on the V8 engine.
+编写能在每个环境中运行的 JavaScript 代码并不容易。在浏览器中，全局对象是 window —— 除非处于 [web worker](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API) 中，此时全局对象是它本身。在 NodeJS 中则为 global，但是这是在 V8 引擎之上添加的东西，并不是规范的一部分，所以直接在 V8 引擎中运行代码时，global 对象不可用。
 
-There is a [proposal to standardize](https://github.com/tc39/proposal-global) a global object that would be available across all engines and runtime environments. It’s currently a stage 3 proposal and will therefore be accepted soon.
+[标准化提案](https://github.com/tc39/proposal-global) 提出了可以在所有引擎和运行环境中使用的全局对象。提案目前处于 stage 3，因此不久便会被采纳。
 
-### And many more
+### 以及更多
 
-There are over fifty active proposals under consideration right now by the TC39 committee, not including over twenty stage 0 proposals which haven’t advanced yet.
+TC39 委员会正在审议五十多项活跃提案，其中还未包括二十多个处于 stage 0 尚未推进的提案。
 
-You can see a list of all active proposals on the TC39 committee’s [GitHub page](https://github.com/tc39/proposals). You can find some of the more rough ideas on the [stage 0 proposals](https://github.com/tc39/proposals/blob/master/stage-0-proposals.md) section, which includes ideas like [method parameter decorators](https://docs.google.com/document/d/1Qpkqf_8NzAwfD8LdnqPjXAQ2wwh8BBUGynhn-ZlCWT0/edit) and new [pattern matching syntax](https://github.com/tc39/proposal-pattern-matching).
+你可以在 TC39 的 [GitHub 页面](https://github.com/tc39/proposals) 查看活跃提案列表。可以在 [stage 0 提案](https://github.com/tc39/proposals/blob/master/stage-0-proposals.md)模块找到一些更粗略的想法，包括了像[方法参数装饰器](https://docs.google.com/document/d/1Qpkqf_8NzAwfD8LdnqPjXAQ2wwh8BBUGynhn-ZlCWT0/edit)和新的[模式匹配语法](https://github.com/tc39/proposal-pattern-matching)。
 
-There are also repositories of [meeting notes](https://github.com/tc39/tc39-notes) and [agendas](https://github.com/tc39/agendas) from previous TC39 meetings where you can get a interesting look at the committee’s priorities and what problems are currently being addressed. If you are interested in Presentations are also archived along with meeting nodes,
+也可以在 [会议记录](https://github.com/tc39/tc39-notes) 和[议程](https://github.com/tc39/agendas) 仓库了解委员会的优先事项和目前正在处理的问题。演讲资料也陈列在会议记录中，如果你对演讲有兴趣，也可以进行查阅。
 
-There has been several major syntax-changing proposals in recent editions of ECMAScript and this trend seems to be continuing. The pace of change is accelerating — every year there are more proposals and the 2018 edition looks like it’s going to have more accepted proposals than the 2017 edition.
+在最近的几次 ECMAScript 修订中有几个重要的语法修改提案，这似乎也是一种趋势。ECMAScript 正在加快变革脚步，每年都有越来越多的提案，2018 版本似乎会比 2017 版本采纳更多的提案。
 
-This year there have been smaller proposals to add “quality of life” enhancements to the language like the proposal to add better [type checking of build-in objects](https://github.com/jasnell/proposal-istypes) or the proposal adding [degrees and radian helpers](https://github.com/rwaldron/proposal-math-extensions) to the Math module. Proposals like these add to the standard library instead of changing the syntax. They are easier to polyfill and help reduce the need to install third-party libraries. Because they don’t change syntax, they are adopted quickly and often spend less time in the proposal process.
+今年，在语言中添加改善“生活质量”的提案规模较小，如[对象中内置的类型检查](https://github.com/jasnell/proposal-istypes)和给 Math 模块添加[度数与弧度助手](https://github.com/rwaldron/proposal-math-extensions)提案。这类提案将添加到标准库中，而非修改语法。它们容易进行 polyfill，有助于减少第三方库的使用。由于无需改变语法，所以很快就可以使用，在提案阶段花费的时间也较少。
 
-New syntax is nice and all, but I hope we see more of these kinds of proposals in the future. Javascript is often said to be lacking a nice standard library but it’s clear that people are working to change that.
+新的语法固然优秀，但我更希望未来可以见到更多这种类型的提案。JavaScript 经常被人诟病缺少优秀的标准库，但很明显大家正在努力去改变。
 
 * * *
 
-### Plug: LogRocket, a DVR for web apps
+### 插语： LogRocket，Web 应用的 DVR
 
 ![](https://cdn-images-1.medium.com/max/1000/1*s_rMyo6NbrAsP-XtvBaXFg.png)
 
-[LogRocket](https://logrocket.com) is a frontend logging tool that lets you replay problems as if they happened in your own browser. Instead of guessing why errors happen, or asking users for screenshots and log dumps, LogRocket lets you replay the session to quickly understand what went wrong. It works perfectly with any app, regardless of framework, and has plugins to log additional context from Redux, Vuex, and @ngrx/store.
+[LogRocket](https://logrocket.com) 是一个前端日志记录工具，它可以让你像在自己的浏览器中一样重播问题。无需再猜测错误发生的原因或是向用户索要截图和日志转存，LogRocket 允许重播会话来快速定位错误源头。无论使用什么框架，LogRocket 可以在任意应用中使用，并拥有从 Redux，Vuex 和 @ngrx/store 中记录上下文的插件。
 
-In addition to logging Redux actions and state, LogRocket records console logs, JavaScript errors, stacktraces, network requests/responses with headers + bodies, browser metadata, and custom logs. It also instruments the DOM to record the HTML and CSS on the page, recreating pixel-perfect videos of even the most complex single page apps.
+除了可以将 Redux 的 action 和 state 记入日志，LogRocket 还可以记录控制台日志，JavaScript 报错，调用栈信息，网络请求、响应头和实体信息，浏览器的元信息和自定义日志。它还利用 DOM 在记录页面上的 HTML 和 CSS，即使是最复杂的单页面应用程序，也可以重新绘制像素级完美的视频。
 
 
 ---
