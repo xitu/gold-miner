@@ -1830,10 +1830,11 @@
 |[Swift 中的面向协议编程是如何点亮我的人生的](http://gold.xitu.io/entry/58044fc5a22b9d005b4f56b2)|翻译|4|
 |[Swift 3，这些陷阱在等你](http://gold.xitu.io/entry/57f6fa03816dfa0056a4d782/)|校对|1|
 
-## 译者：[tina92](https://github.com/Tina92) 历史贡献积分：62 当前积分：32 年度积分：6
+## 译者：[tina92](https://github.com/Tina92) 历史贡献积分：62 当前积分：12 年度积分：6
 
 |文章|类型|积分|
 |------|-------|-------|
+|[2018 年 4 月兑 套头衫 M 号 1 个](#)|减去积分|20|
 |[不要害怕 Rebase](https://juejin.im/post/5ab1bdbe518825556e5df5f8)|校对|1|
 |[为 Django Framework 贡献你的力量并没有想象中的那么难](https://juejin.im/post/5a77cd6e5188257a79247fe1)|校对|1|
 |[Angular 安全 —— 使用 JSON 网络令牌（JWT）验证：完全指南](https://juejin.im/post/5a64267c518825734e3e5c22)|校对|4|
@@ -3326,10 +3327,11 @@
 |[设计作品集网站的真正角色是什么？](https://juejin.im/post/598959b65188253d2968eaab)|翻译|4|
 |[如何理智地构建复杂用户界面](https://juejin.im/post/5937a61f2f301e006b2879a9)|校对|1|
 
-## 译者：[whatbeg](https://github.com/whatbeg) 历史贡献积分：27.5 当前积分：27.5 年度积分：15
+## 译者：[whatbeg](https://github.com/whatbeg) 历史贡献积分：27.5 当前积分：7.5 年度积分：15
 
 |文章|类型|积分|
 |------|-------|-------|
+|[2018 年 4 月兑 套头衫 1 个](#)|减去积分|20|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|15|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译|2.5|
 |[Design Mint.com](https://github.com/xitu/system-design-primer/blob/translation/solutions/system_design/mint/README.md)|翻译|6|
@@ -3337,10 +3339,11 @@
 |[用 Go 语言理解 Tensorflow](https://juejin.im/post/59420951128fe1006a1960f8)|校对|1|
 |[间复杂度 O(log n) 意味着什么？](https://juejin.im/entry/593f56528d6d810058a355f4/detail)|校对|1|
 
-## 译者：[horizon13th](https://github.com/horizon13th) 历史贡献积分：49.6 当前积分：49.6 年度积分：10
+## 译者：[horizon13th](https://github.com/horizon13th) 历史贡献积分：49.6 当前积分：4.6 年度积分：10
 
 |文章|类型|积分|
 |------|-------|-------|
+|[2018 年 4 月兑树莓派套餐 1 个](#)|减去积分|45|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|10|
 |[网站设计综合指南](https://juejin.im/post/5a5abb97518825733f6df3d9)|翻译|12|
 |[翻译 Java 开源库 26 个](#)|翻译|2.6|
@@ -3654,10 +3657,11 @@
 |[理解 Service Worker](https://juejin.im/post/599163316fb9a03c3c14d751)|校对|2|
 |[学习 React.js 比你想象的要简单](https://juejin.im/post/599156cc6fb9a03c3a25db08)|校对|2|
 
-## 译者：[shawnchenxmu](https://github.com/shawnchenxmu) 历史贡献积分：22 当前积分：22
+## 译者：[shawnchenxmu](https://github.com/shawnchenxmu) 历史贡献积分：22 当前积分：2 年度积分：0
 
 |文章|类型|积分|
 |------|-------|-------|
+|[2018 年 4 月兑小猫和贴纸各 1 个](#)|减去积分|20|
 |[搭建账户系统](https://juejin.im/post/59b2708b5188257e8a30842f)|翻译|10|
 |[扩展 Node.js 应用](https://juejin.im/post/599eb2dbf265da246d6afb33)|校对|2|
 |[怎么写出完美的错误消息](https://juejin.im/post/599ac40b6fb9a0247f4f40ef)|校对|1|
