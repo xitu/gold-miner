@@ -7,6 +7,8 @@
 
 # It's The Future
 
+![](https://d3r49iyjzglexf.cloudfront.net/blog/content/rabbit_hole-001c07c5072ff2970876cbc92caedfc5803e0ea4b9c65cff2f35f83ceedc0b8f.jpg)
+
 Hey, my boss said to talk to you - I hear you know a lot about web apps?
 
 > Yeah, I’m more of a distributed systems guy now. I’m just back from ContainerCamp and Gluecon and I’m going to Dockercon next week. Really excited about the way the industry is moving - making everything simpler and more reliable. It’s the future!
