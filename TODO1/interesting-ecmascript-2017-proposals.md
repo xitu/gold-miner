@@ -11,7 +11,7 @@
 
 要跟上所有新功能提案的进度并不容易。每年，管理 JavaScript 发展的委员会 [TC39](https://github.com/tc39) 都会收到数十个提案。由于大多数提案都不会到达第二阶段，因此很难确定哪些提案值得关注，哪些提案只是奇思妙想（或者称之为异想天开）。
 
-由于现在又越来越多的提案，因此保持领先会非常困难。在过去的六年里，ES5 与 ES6 之间，JavaScript 的发展脚步非常保守。自 ECMAScript 2016 (ES7) 发布，发布过程要求为每年发布一次，并且[更加标准化](https://tc39.github.io/process-document/)。
+现在由于越来越多的提案涌现出来，因此保持领先会非常困难。在过去的六年里，ES5 与 ES6 之间，JavaScript 的发展脚步非常保守。自 ECMAScript 2016 (ES7) 发布，发布过程要求为每年发布一次，并且[更加标准化](https://tc39.github.io/process-document/)。
 
 随着近些年来 polyfills 和转译器的流行，一些尚属早期（early-stage）的提案甚至在还未最终确定前就已经被广泛使用了。并且，由于提案在被采纳之前会有很大变动，一些开发者可能会发现他们所使用的特性永远不会变成 JavaScript 的语言实现。
 
@@ -21,7 +21,7 @@
 
 Stage 0 “稻草人” —— 这是所有提案的起点。在进入下一阶段之前，提案的内容可能会发生重大变化。目前还没有提案的接收标准，任何人都可以为这一阶段提交新的提案。无需任何代码实现，规范也无需合乎标准。这个阶段的目的是开始针对该功能特性的讨论。目前已经有[超过 20 个处于 stage 0 的提案](https://github.com/tc39/proposals/blob/master/stage-0-proposals.md)。
 
-Stage 1 “提案” —— 一个真正的正式提案。此阶段的提案需要一个[“拥护者”](https://github.com/tc39/ecma262/blob/master/FAQ.md#what-is-the-process-for-proposing-a-new-feature)（即 TC39 委员会的成员）。需仔细考虑 API 并描述出任何潜在的，代码实现方面的挑战。此阶段也需开发 plyfill 并产出 demo。在这一阶段之后提案可能会发生重大变化，因此需小心使用。目前仍处于这一阶段的提案包括了已望穿秋水的 [Observables type](https://github.com/tc39/proposal-observable) 与 [Promise.try](https://github.com/tc39/proposal-promise-try) 功能。
+Stage 1 “提案” —— 一个真正的正式提案。此阶段的提案需要一个[“拥护者”](https://github.com/tc39/ecma262/blob/master/FAQ.md#what-is-the-process-for-proposing-a-new-feature)（即 TC39 委员会的成员）。需仔细考虑 API 并描述出任何潜在的，代码实现方面的挑战。此阶段也需开发 polyfill 并产出 demo。在这一阶段之后提案可能会发生重大变化，因此需小心使用。目前仍处于这一阶段的提案包括了已望穿秋水的 [Observables type](https://github.com/tc39/proposal-observable) 与 [Promise.try](https://github.com/tc39/proposal-promise-try) 功能。
 
 Stage 2 “草案” —— 此阶段将使用正式的 TC39 规范语言来精确描述语法。在此阶段后仍由可能发生一些小修改，但是规范应该足够完整，无需进行重大修订。如果一个提案走到了这一步，那么很有可能委员会是希望最终可以实现该功能的。
 
@@ -102,7 +102,7 @@ class LineReader() {
 
 [这一提案](https://github.com/tc39/proposal-async-iteration) 目前处于 stage 3，浏览器已经开始实现了。处于这一阶段意味着它很有可能会被合并入标准并可以在主流浏览器中使用。但是，在此之前，规范可能会有一些小修改，因此现在使用异步迭代器会带来一定程度的风险。
 
-[regenerator](https://github.com/facebook/regenerator) 项目目前已为异步迭代器提案提供了基本支持。但是，它本身并不支持 for-await-of 循环语法。Babel 插件 [transform-async-generator-functions](https://www.npmjs.com/package/babel-plugin-transform-async-generator-functions) 既支持异步生成器又支持 for-await-of 循环语法。
+[regenerator](https://github.com/facebook/regenerator) 项目目前已为异步迭代器提案提供了基本支持。但是，它本身并不支持 for-await-of 循环语法。Babel 插件 [transform-async-generator-functions](https://www.npmjs.com/package/babel-plugin-transform-async-generator-functions) 既支持异步生成器又支持 for-await-of 循环语法。
 
 ### Class 优化
 
@@ -255,7 +255,7 @@ const FooComponent = ({ kind }) => (
 
 JSX 的未来？
 
-Babel 已有[插件](https://babeljs.io/docs/plugins/transform-do-expressions/) 可转译 do 表达式。此提案目前处于 stage 1，关于如何与 generator 和 async 函数一起使用，还存在一些重要的开发问题，因此规范可能会发生重大变化。
+Babel 已有[插件](https://babeljs.io/docs/plugins/transform-do-expressions/) 可转译 do 表达式。此提案目前处于 stage 1，关于如何与 generator 和 async 函数一起使用，还存在一些重要的开放问题，因此规范可能会发生重大变化。
 
 ### 可选的嵌套属性 Optional Chaining
 
@@ -282,7 +282,7 @@ TC39 委员会正在审议五十多项活跃提案，其中还未包括二十多
 
 你可以在 TC39 的 [GitHub 页面](https://github.com/tc39/proposals) 查看活跃提案列表。可以在 [stage 0 提案](https://github.com/tc39/proposals/blob/master/stage-0-proposals.md)模块找到一些更粗略的想法，包括了像[方法参数装饰器](https://docs.google.com/document/d/1Qpkqf_8NzAwfD8LdnqPjXAQ2wwh8BBUGynhn-ZlCWT0/edit)和新的[模式匹配语法](https://github.com/tc39/proposal-pattern-matching)。
 
-也可以在 [会议记录](https://github.com/tc39/tc39-notes) 和[议程](https://github.com/tc39/agendas) 仓库了解委员会的优先事项和目前正在处理的问题。演讲资料也陈列在会议记录中，如果你对演讲有兴趣，也可以进行查阅。
+也可以在[会议记录](https://github.com/tc39/tc39-notes) 和[议程](https://github.com/tc39/agendas) 仓库了解委员会的优先事项和目前正在处理的问题。演讲资料也陈列在会议记录中，如果你对演讲有兴趣，也可以进行查阅。
 
 在最近的几次 ECMAScript 修订中有几个重要的语法修改提案，这似乎也是一种趋势。ECMAScript 正在加快变革脚步，每年都有越来越多的提案，2018 版本似乎会比 2017 版本采纳更多的提案。
 
