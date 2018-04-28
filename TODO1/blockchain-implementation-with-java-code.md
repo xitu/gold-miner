@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/blockchain-implementation-with-java-code.md](https://github.com/xitu/gold-miner/blob/master/TODO1/blockchain-implementation-with-java-code.md)
 > * 译者：[Starrier](https://github.com/Starriers)
-> * 校对者：
+> * 校对者：[sisibeloved](https://github.com/sisibeloved)
 
 # 用 Java 代码实现区块链
 
