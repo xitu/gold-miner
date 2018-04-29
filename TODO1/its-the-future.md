@@ -3,9 +3,9 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/its-the-future.md](https://github.com/xitu/gold-miner/blob/master/TODO1/its-the-future.md)
 > * 译者：[Hopsken](https://hopsken.com)
-> * 校对者：
+> * 校对者：[jasonxia23](https://github.com/jasonxia23)
 
-# 这是未来
+# Web 应用的未来：Heroku vs Docker
 
 ![](https://d3r49iyjzglexf.cloudfront.net/blog/content/rabbit_hole-001c07c5072ff2970876cbc92caedfc5803e0ea4b9c65cff2f35f83ceedc0b8f.jpg)
 
@@ -13,7 +13,7 @@
 
 > 嗯，我对分布式系统确实挺了解的。我刚从 ContainerCamp 和 Gluecon 回来，下星期我还打算去参加 Dockercon。这个行业的发展方向令人兴奋，让所有事情都变得更简单，也更可靠。这就是未来！
 
-666。我最近在做一个简单的 web 应用 —— 一个普通的基于 Rails 的 CRUD（译者注：增删查改）应用，准备搭建在 Heroku 上面。现在这么做有问题吗？
+666。我最近在做一个简单的 web 应用 —— 一个普通的基于 Rails 的 CRUD（译者注：增删查改）应用，准备搭建在 Heroku 上面。现在还是这么做吗？
 
 > 不不不，这已经是老掉牙的做法了。Heroku 已死，没人再用这玩意儿了。现在你得用 Docker，这才是大势所趋。
 
@@ -149,7 +149,7 @@ etcd 是啥？
 
 > 类似于 Paxos。
 
-天啦噜，我们究竟要在这条路上走多远啊？我只是想运行一个应用而已啊。哎，奶奶个腿的，OK，冷静，深呼吸。 苍天呐。行吧，Paxos 又是啥？
+天啦噜，我们究竟要在这条路上走多远啊？我只是想运行一个应用而已啊。哎，奶奶个腿的，OK，冷静，深呼吸。苍天呐。行吧，Paxos 又是啥？
 
 > Paxos 算是个 70 年代就提出的古老的分布式协议，但是没人真正理解，也没人去用。
 
@@ -221,7 +221,7 @@ CAP 是啥？
 
 > 没问题！
 
-所以，我只需要把我这个简单的 CRUD 应用划分成 12 个微服务，每一个都有它们独立的 API，这些 API 互相之间可以调用，且可以弹性地处理问题，把它们整合到 Docker 容器中，启动一个拥有八个运行着 CoreOS 的设备集群作为 Docker 主机，使用运行着 etcd 的一个小 Kubernetes 簇群来协同管理它们，解决好网络和存储这些『开放性』问题，最后把每个微服务的多份冗余拷贝持续交付到我的服务器集群上。是这样吧？
+所以，我只需要把我这个简单的 CRUD 应用划分成 12 个微服务，每一个都有它们独立的 API，这些 API 互相之间可以调用，且可以弹性地处理问题，把它们整合到 Docker 容器中，启动一个拥有 8 个运行着 CoreOS 的设备集群作为 Docker 主机，使用运行着 etcd 的一个小 Kubernetes 簇群来协同管理它们，解决好网络和存储这些『开放性』问题，最后把每个微服务的多份冗余拷贝持续交付到我的服务器集群上。是这样吧？
 
 > 对！是不是酷炫？
 
