@@ -23,7 +23,7 @@
 
 哈？啥容器？LXE 又是啥？
 
-> 是 LXC。它就像对类固醇执行 chroot 命令。
+> 是 LXC。它就像 chroot on steroids！
 
 cher-oot 又是啥？
 
