@@ -3,15 +3,15 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/interesting-ecmascript-2017-proposals.md](https://github.com/xitu/gold-miner/blob/master/TODO1/interesting-ecmascript-2017-proposals.md)
 > * 译者：[Colafornia](https://github.com/Colafornia)
-> * 校对者：
+> * 校对者：[jasonxia23](https://github.com/jasonxia23) [kezhenxu94](https://github.com/kezhenxu94)
 
-# 那些好玩却没有被 ECMAScript 2017 采纳的提案
+# 那些好玩却尚未被 ECMAScript 2017 采纳的提案
 
 ![](https://cdn-images-1.medium.com/max/1000/1*kEpd3JC1gUOkupbYpik4jQ.jpeg)
 
 要跟上所有新功能提案的进度并不容易。每年，管理 JavaScript 发展的委员会 [TC39](https://github.com/tc39) 都会收到数十个提案。由于大多数提案都不会到达第二阶段，因此很难确定哪些提案值得关注，哪些提案只是奇思妙想（或者称之为异想天开）。
 
-现在由于越来越多的提案涌现出来，因此保持领先会非常困难。在过去的六年里，ES5 与 ES6 之间，JavaScript 的发展脚步非常保守。自 ECMAScript 2016 (ES7) 发布，发布过程要求为每年发布一次，并且[更加标准化](https://tc39.github.io/process-document/)。
+由于现在越来越多的提案涌现出来，想要只停留在这些特性提案的顶层会非常困难。在过去介于 ES5 和 ES6 之间的六年时间里 JavaScript 的发展脚步非常保守。自 ECMAScript 2016 (ES7) 发布，发布过程要求为每年发布一次，并且[更加标准化](https://tc39.github.io/process-document/)。
 
 随着近些年来 polyfills 和转译器的流行，一些尚属早期（early-stage）的提案甚至在还未最终确定前就已经被广泛使用了。并且，由于提案在被采纳之前会有很大变动，一些开发者可能会发现他们所使用的特性永远不会变成 JavaScript 的语言实现。
 
@@ -21,7 +21,7 @@
 
 Stage 0 “稻草人” —— 这是所有提案的起点。在进入下一阶段之前，提案的内容可能会发生重大变化。目前还没有提案的接收标准，任何人都可以为这一阶段提交新的提案。无需任何代码实现，规范也无需合乎标准。这个阶段的目的是开始针对该功能特性的讨论。目前已经有[超过 20 个处于 stage 0 的提案](https://github.com/tc39/proposals/blob/master/stage-0-proposals.md)。
 
-Stage 1 “提案” —— 一个真正的正式提案。此阶段的提案需要一个[“拥护者”](https://github.com/tc39/ecma262/blob/master/FAQ.md#what-is-the-process-for-proposing-a-new-feature)（即 TC39 委员会的成员）。需仔细考虑 API 并描述出任何潜在的，代码实现方面的挑战。此阶段也需开发 polyfill 并产出 demo。在这一阶段之后提案可能会发生重大变化，因此需小心使用。目前仍处于这一阶段的提案包括了已望穿秋水的 [Observables type](https://github.com/tc39/proposal-observable) 与 [Promise.try](https://github.com/tc39/proposal-promise-try) 功能。
+Stage 1 “提案” —— 一个真正的正式提案。此阶段的提案需要一个[“拥护者”](https://github.com/tc39/ecma262/blob/master/FAQ.md#what-is-the-process-for-proposing-a-new-feature)（即 TC39 委员会的成员）。此阶段需仔细考虑 API 并描述出任何潜在的、代码实现方面的挑战。此阶段也需开发 polyfill 并产出 demo。在这一阶段之后提案可能会发生重大变化，因此需小心使用。目前仍处于这一阶段的提案包括了已望穿秋水的 [Observables type](https://github.com/tc39/proposal-observable) 与 [Promise.try](https://github.com/tc39/proposal-promise-try) 功能。
 
 Stage 2 “草案” —— 此阶段将使用正式的 TC39 规范语言来精确描述语法。在此阶段后仍由可能发生一些小修改，但是规范应该足够完整，无需进行重大修订。如果一个提案走到了这一步，那么很有可能委员会是希望最终可以实现该功能的。
 
@@ -35,9 +35,9 @@ Stage 4 “完成” —— 说明提案已被采纳，提案规范将与 Ja
 
 图源 [https://xkcd.com/927/](https://xkcd.com/927/)
 
-### Asynchronous Iteration 异步遍历器
+### Asynchronous Iteration 异步迭代
 
-ECMAScript 2015 中引入了遍历器 iterator，其中包含了 **for-of** 循环语法。这使得循环遍历可迭代对象变得相当容易，并且可以实现你自己的可迭代数据结构。
+ECMAScript 2015 中引入了迭代器 iterator，其中包含了 **for-of** 循环语法。这使得循环遍历可迭代对象变得相当容易，并且可以实现你自己的可迭代数据结构。
 
 遗憾的是，遍历器无法用于表示异步的数据结构如访问文件系统。虽然你可以运行 Promise.all 来遍历一系列的 promise，但这需要同步确定“已完成”的状态。
 
@@ -71,7 +71,7 @@ for await (const line of readLines(filePath)) {
 }
 ```
 
-在 for-await-of 中使用
+使用 for-await-of。
 
 任意具有 Symbol.asyncIterator 属性的对象都被定义为 **async iterable**，并且可使用于新的 for-await-of 语法中。这有一个具体可运行的示例：
 
@@ -106,9 +106,9 @@ class LineReader() {
 
 ### Class 优化
 
-[这个提案](https://github.com/tc39/proposal-private-methods) 建议向 [ECMAScript 2015 中引进的 class 语法] (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes) 中加入公共字段，私有字段与私有方法。该提案是经过多个竞争提案漫长讨论和竞争后的结果。
+[这个提案](https://github.com/tc39/proposal-private-methods) 建议向 [ECMAScript 2015 中引进的 class 语法] (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes) 中加入公共字段、私有字段与私有方法。该提案是经过多个竞争提案漫长讨论和竞争后的结果。
 
-使用私有字段和方法与它们对应的公共项是类似的，但是私有字段名方法名前会有一个 # 号。任何被标记为私有的方法和字段都不会在类之外可见，从而确保内部类成员的强封装。
+使用私有字段和方法与对应的公共字段和方法类似，但是私有字段名方法名前会有一个 # 号。任何被标记为私有的方法和字段都不会在类之外可见，从而确保内部类成员的强封装。
 
 下面是一个类 React 组件的假设示例，组件在私有方法中使用了公共和私有字段：
 
@@ -144,7 +144,7 @@ Babel 目前还没有提供私有类字段与方法的 polyfill，[但是不久�
 
 ### Class 装饰器
 
-装饰器是一个好例子，它在引入之后却发生了翻天覆地的变化。Babel 的第五代版本实现了[原本 stage 2 阶段装饰器的规范](https://github.com/wycats/javascript-decorators)，其将装饰器定义为接收 target，name 与属性描述的函数。现在最流行的转译装饰器方式是通过 Babel 的[transform-legacy-decorators](https://github.com/loganfsmyth/babel-plugin-transform-decorators-legacy) 插件，其实现的是旧版的规范。
+提案在被引入后也可能发生翻天覆地的变化，装饰器就是一个很好的例子。Babel 的第五代版本实现了[原本 stage 2 阶段装饰器的规范](https://github.com/wycats/javascript-decorators)，其将装饰器定义为接收 target，name 与属性描述的函数。现在最流行的转译装饰器方式是通过 Babel 的[transform-legacy-decorators](https://github.com/loganfsmyth/babel-plugin-transform-decorators-legacy) 插件，其实现的是旧版的规范。
 
 [新的提案](https://tc39.github.io/proposal-decorators/) 大不相同。不再作为具有三个属性的函数，现在我们对改变描述符的类成员 —— 装饰器进行了正式描述。新的“成员描述符”与ES5中引入的属性描述符接口非常相似。
 
@@ -157,11 +157,11 @@ Babel 目前还没有提供私有类字段与方法的 polyfill，[但是不久�
 
 与旧规范类似，新规范允许修改类成员的描述符。此外，仍然允许在对象字面量的属性上使用装饰器。
 
-在最终确定之前，规范很可能会发生重大变化。语法中有一些模棱两可之处，旧规范的许多痛点还没有得到解决。装饰器是语言的一个大型语法扩展，因此可以预料到这种延迟。遗憾的是，如果新的提案议被采纳，你将不得不完全重构你的装饰器函数，以适用于新的接口。
+在最终确定之前，规范很可能会发生重大变化。语法中有一些模棱两可之处，旧规范的许多痛点还没有得到解决。装饰器是语言的一个大型语法扩展，因此可以预料到这种延迟。遗憾的是，如果新的提案被采纳，你将不得不完全重构你的装饰器函数，以适用于新的接口。
 
 许多库作者选择继续支持旧的提案和 Babel 的 legacy-decorators 插件，即使新的提案已经处于 stage 2，旧的仍然处于 stage 0。[core-decorators](https://github.com/jayphelps/core-decorators) 作为最受欢迎的使用装饰器的 JavaScript 开源库，就采用了这种方法。未来几年中，库的作者们很有可能会继续支持旧的提案。
 
-为了支持作者这一新提案也有可能被撤回，装饰器提案有可能不会在 2018 年并入 JavaScript。你可以在 Babel 完成[新的转译插件](https://github.com/babel/proposals/issues/11) 后使用新的装饰器提案。
+也有可能这一新提案会被撤回，取而代之的是另一新提案，装饰器提案有可能不会在 2018 年并入 JavaScript。你可以在 Babel 完成[新的转译插件](https://github.com/babel/proposals/issues/11) 后使用新的装饰器提案。
 
 ### import 函数
 
@@ -257,14 +257,14 @@ JSX 的未来？
 
 Babel 已有[插件](https://babeljs.io/docs/plugins/transform-do-expressions/) 可转译 do 表达式。此提案目前处于 stage 1，关于如何与 generator 和 async 函数一起使用，还存在一些重要的开放问题，因此规范可能会发生重大变化。
 
-### 可选的嵌套属性 Optional Chaining
+### 可空（Optional）属性的链式调用 Optional Chaining
 
 受 CoffeeScript 启发而来的又一个提案是 [optional chaining](https://github.com/tc39/proposal-optional-chaining)，它带来了一种访问对象属性的简单方法，面对值有可能为 undefined 和 null 的对象属性无需使用冗长的三元运算符了。它与 CoffeeScript 的[存在操作符](http://coffeescript.org/#existential-operator)类似，但是缺少一些值得注意的特性，比如范围检查和可选赋值。
 
 示例：
 
 ```javascript
-a?.b // 如果 a` 是 null/undefined 则返回  undefined，否则则返回 `a.b` 的值
+a?.b // 如果 `a` 是 null/undefined 则返回  undefined，否则则返回 `a.b` 的值
 a == null ? undefined : a.b // 使用三元表达式
 ```
 
@@ -274,7 +274,7 @@ a == null ? undefined : a.b // 使用三元表达式
 
 编写能在每个环境中运行的 JavaScript 代码并不容易。在浏览器中，全局对象是 window —— 除非处于 [web worker](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API) 中，此时全局对象是它本身。在 NodeJS 中则为 global，但是这是在 V8 引擎之上添加的东西，并不是规范的一部分，所以直接在 V8 引擎中运行代码时，global 对象不可用。
 
-[标准化提案](https://github.com/tc39/proposal-global) 提出了可以在所有引擎和运行环境中使用的全局对象。提案目前处于 stage 3，因此不久便会被采纳。
+[待标准化提案](https://github.com/tc39/proposal-global) 提出了可以在所有引擎和运行环境中使用的全局对象。提案目前处于 stage 3，因此不久便会被采纳。
 
 ### 以及更多
 
@@ -286,7 +286,7 @@ TC39 委员会正在审议五十多项活跃提案，其中还未包括二十多
 
 在最近的几次 ECMAScript 修订中有几个重要的语法修改提案，这似乎也是一种趋势。ECMAScript 正在加快变革脚步，每年都有越来越多的提案，2018 版本似乎会比 2017 版本采纳更多的提案。
 
-今年，在语言中添加改善“生活质量”的提案规模较小，如[对象中内置的类型检查](https://github.com/jasnell/proposal-istypes)和给 Math 模块添加[度数与弧度助手](https://github.com/rwaldron/proposal-math-extensions)提案。这类提案将添加到标准库中，而非修改语法。它们容易进行 polyfill，有助于减少第三方库的使用。由于无需改变语法，所以很快就可以使用，在提案阶段花费的时间也较少。
+今年，在语言中添加改善“生活质量”的提案规模较小，如[内置对象的类型检查](https://github.com/jasnell/proposal-istypes)和给 Math 模块添加[度数与弧度助手](https://github.com/rwaldron/proposal-math-extensions)提案。这类提案将添加到标准库中，而非修改语法。它们容易进行 polyfill，有助于减少第三方库的使用。由于无需改变语法，所以很快就可以使用，在提案阶段花费的时间也较少。
 
 新的语法固然优秀，但我更希望未来可以见到更多这种类型的提案。JavaScript 经常被人诟病缺少优秀的标准库，但很明显大家正在努力去改变。
 
