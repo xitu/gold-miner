@@ -3,15 +3,15 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-i-fixed-a-very-old-gil-race-condition-in-python-3-7.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-i-fixed-a-very-old-gil-race-condition-in-python-3-7.md)
 > * 译者：[kezhenxu94](https://github.com/kezhenxu94)
-> * 校对者：
+> * 校对者：[Starrier](https://github.com/Starriers), []()
 
 # 我是如何修复 Python 3.7 中一个非常古老的 GIL 竞态条件 bug 的
 
-**著名的 Python GIL (Global Interpreter Lock, 全局解析器锁) 库中一个蛋疼的 bug 花了我 4 年的时间去修复**，Python GIL 是 Python 中最容易出错的部分之一。我不得不钻入 Git 的提交历史里面，找到 26 年前 **Guido van Rossum** 提交的记录：彼时，_线程还是很晦涩难懂的东西_。且听我慢慢道来。
+**著名的 Python GIL (Global Interpreter Lock, 全局解析器锁) 库中一个严重的 bug 花了我 4 年的时间去修复**，Python GIL 是 Python 中最容易出错的部分之一。我不得不钻入 Git 的提交历史里面，找到 26 年前 **Guido van Rossum** 提交的记录：彼时，**线程还是很晦涩难懂的东西**。且听我慢慢道来。
 
-## 一个 C 线程和 GIL 引发的血案
+## 由 C 线程和 GIL 引起的 Python 致命错误
 
-在 2014 年 3 月份的时候, **Steve Dower** 报告了一个当 “C 语言线程“ 使用 Python C API 时产生的 bug [bpo-20891](https://bugs.python.org/issue20891), 是这样描述的：
+在 2014 年 3 月份的时候, **Steve Dower** 报告了一个当 “C 语言线程“ 使用 Python C API 时产生的 bug [bpo-20891](https://bugs.python.org/issue20891)：
 
 > 在 Python 3.4rc3 中，在一个不是用 Python 创建的线程中调用 `PyGILState_Ensure()` 方法，但不调用 `PyEval_InitThreads()` 方法时，会导致程序出现严重错误，并退出：
 >
@@ -31,7 +31,7 @@
 
 > 这个修复补丁发布了吗？我在更改日志里面没有看到…
 
-糟糕，我又一次完全忘了这个问题！这次，我不仅 **提交了我对 PyGILState_Ensure() 的修复补丁**，还写了 **单元测试** `test_embed.test_bpo20891()`：
+糟糕，我又一次完全忘了这个问题！这次，我不仅**提交了我对 PyGILState_Ensure() 的修复补丁**，还写了**单元测试** `test_embed.test_bpo20891()`：
 
 > 好了，这个 bug 已经在 Python 2.7, 3.6 和主分支（后来的 3.7）上修复啦。在 3.6 和 master 上，这个补丁还带了单元测试呢。
 
@@ -51,7 +51,7 @@ Add an unit test in test_embed.
 
 ## 单元测试在 macOS 上随机奔溃
 
-一切都安好…… 直到一周之后，我意识到我新加的单元测试在 macOS 系统上 **时不时** 会奔溃。最终我成功找到重现路径，以下例子是第三次运行时奔溃：
+一切都安好…… 直到一周之后，我意识到我新加的单元测试在 macOS 系统上**时不时**会奔溃。最终我成功找到重现路径，以下例子是第三次运行时奔溃：
 
 ```
 macbook:master haypo$ while true; do ./Programs/_testembed bpo20891 ||break; date; done
@@ -74,7 +74,7 @@ Abort trap: 6
 
 **Antoine Pitrou** 问了一个简单的问题：
 
-> 为什么不在解析器初始化时就调用 `PyEval_InitThreads()`？有什么不好之处吗？
+> 为什么不在**解析器初始化时**就调用 `PyEval_InitThreads()`？有什么不好之处吗？
 
 多亏了 `git blame` 和 `git log` 命令，我找到了“按需创建 GIL”代码的发源地，**26 年前的一个变更**！
 
@@ -108,7 +108,7 @@ Date:   Tue Aug 4 12:41:02 1992 +0000
 +#endif
 ```
 
-我猜测这种动态创建 GIL 的意图是为了避免那些只使用了一个线程的应用“过早”创建 GIL 的情况。
+我猜测这种动态创建 GIL 的意图是为了避免那些只使用了一个线程（即永远不会新建线程）的应用“过早”创建 GIL 的情况。
 
 幸运的是，**Guido van Rossum** 当时也在，能够和我一起找出根本原因：
 
@@ -169,7 +169,7 @@ vstinner@apu$ python3 -m perf compare_to ref.json patch.json --table
 Not significant (5): unpickle_pure_python; sqlite_synth; spectral_norm; pathlib; scimark_monte_carlo
 ```
 
-好了，根据[Python “性能”基准测试套件](http://pyperformance.readthedocs.io/)，现在证明了我的第二个修复方案其实并**没有对性能产生多大的影响**。
+好了，根据 [Python “性能”基准测试套件](http://pyperformance.readthedocs.io/)，现在证明了我的第二个修复方案其实并**没有对性能产生多大的影响**。
 
 我决定把我的修复方案推送到主分支，提交 [2914bb32](https://github.com/python/cpython/commit/2914bb32e2adf8dff77c0ca58b33201bc94e398c)：
 
@@ -202,9 +202,9 @@ Python 在一些边界情况下仍然有一些竞态条件。这种 bug 是在 C
 
 在一次基准测试小故障后，我们意见达成一致，在 Python 3.7 中总是一启动解析器就创建 GIL，而不是“按需”创建。这种变更没有对性能产生明显的影响。
 
-同时我们也决定保持 Python 2.7 和 3.6 不变，以防止任何回归测试的风险：继续“按需”创建 GIL 。
+同时我们也决定保持 Python 2.7 和 3.6 不变，以防止任何回归测试的风险：继续“按需”创建 GIL。
 
-**著名的 Python GIL (Global Interpreter Lock, 全局解析器锁) 库中一个蛋疼的 bug 花了我 4 年的时间去修复**，Python GIL 是 Python 中最容易出错的部分之一。很开心现在这个 bug 已经被我们甩开了：在即将发布的 Python 3.7 中已经被完全修复了！
+**著名的 Python GIL (Global Interpreter Lock, 全局解析器锁) 库中一个严重的 bug 花了我 4 年的时间去修复**，Python GIL 是 Python 中最容易出错的部分之一。很开心现在这个 bug 已经被我们甩开了：在即将发布的 Python 3.7 中已经被完全修复了！
 
 在 [bpo-20891](https://bugs.python.org/issue20891) 查看完整的故事。感谢帮助我修复这个 bug 的所有开发者！
 
