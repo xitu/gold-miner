@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/building-type-mode-for-stories-on-ios-and-android.md](https://github.com/xitu/gold-miner/blob/master/TODO1/building-type-mode-for-stories-on-ios-and-android.md)
 > * 译者：[金西西](https://github.com/melon8)
-> * 校对者：[ALVINYEH](https://github.com/ALVINYEH)
+> * 校对者：[ALVINYEH](https://github.com/ALVINYEH)，[jasonxia23](https://github.com/jasonxia23)
 
 # Story 中 Type Mode 在 iOS 和 Android 上的实现
 
@@ -40,7 +40,7 @@ CGFloat preferredFontSize = (pointSize * scaleFactor);
 return CLAMP_MIN_MAX(preferredFontSize, minimumFontSize, maximumFontSize) // 将字体固定住，在最大值最小值之间
 ```
 
-为了能以正确的大小绘制文本，我们需要在 `UITextView` 的 `typingAttributes` 中使用我们新的字体大小。`UITextView.typingAttributes` 是用于设置用户正在输入的文本的属性。在 `[id <UITextViewDelegate> textView：shouldChangeTextInRange：replacementText：]` 方法中实现比较合适。
+为了能以正确的大小绘制文本，我们需要在 `UITextView` 的 `typingAttributes` 中使用我们新的字体大小。`UITextView.typingAttributes` 是用于设置用户正在输入的文本的属性。在 `[id <UITextViewDelegate> textView:shouldChangeTextInRange:replacementText:]` 方法中实现比较合适。
 
 ```
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
@@ -59,9 +59,9 @@ return CLAMP_MIN_MAX(preferredFontSize, minimumFontSize, maximumFontSize) // 将
 
 ![](https://cdn-images-1.medium.com/max/800/1*DNzHUA7Mo_yYSA4kCnk7TA.png)
 
-放置这个逻辑的好地方是 `[id <UITextViewDelegate> textViewDidChange：]` 方法。这发生在文本被提交到文本存储，并且最初由文本引擎排版之后。
+放置这个逻辑的好地方是 `[id <UITextViewDelegate> textViewDidChange:]` 方法。这发生在文本被提交到文本存储，并且最初由文本引擎排版之后。
 
-要获得每行的字符范围列表，我们可以使用 `NSLayoutManager`：
+要获得每行的字符范围列表，我们可以使用 `NSLayoutManager`。
 
 ```objc
 NSMutableArray<NSValue *> *lineRanges = [NSMutableArray array];
@@ -153,7 +153,7 @@ text.setSpan(
 
 ![](https://cdn-images-1.medium.com/max/800/1*0oPlID5rtrmqtHRUZdbIkQ.png)
 
-例如，如果我们使用了 `NSBackgroundColorAttributeName`，整个文本视图的背景将被填充。我们不能排除行内空格、不能在行间留出空隙或者让填充的背景是圆角。谢天谢地，`NSLayoutManager` 给了我们重写绘制背景填充的方法。我们需要创建一个 `NSLayoutManager` 子类并重写 `drawBackgroundForGlyphRange:atPoint:`：
+例如，如果我们使用了 `NSBackgroundColorAttributeName`，整个文本视图的背景将被填充。我们不能排除行内空格、不能在行间留出空隙或者让填充的背景是圆角。谢天谢地，`NSLayoutManager` 给了我们重写绘制背景填充的方法。我们需要创建一个 `NSLayoutManager` 子类并重写 `drawBackgroundForGlyphRange:atPoint:`。
 
 ```objc
 @interface IGSomeCustomLayoutManager : NSLayoutManager
@@ -168,7 +168,7 @@ text.setSpan(
 @end
 ```
 
-通过 `drawBackgroundForGlyphRange：atPoint` 方法，我们可以再次利用 `[NSLayoutManager enumerateLineFragmentsForGlyphRange：usingBlock]` 来获取每一行片段的字形范围。然后使用 `[NSLayoutManager boundingRectForGlyphRange:inTextContainer]` 来获得每一行的边界矩形。
+通过 `drawBackgroundForGlyphRange:atPoint` 方法，我们可以再次利用 `[NSLayoutManager enumerateLineFragmentsForGlyphRange:usingBlock]` 来获取每一行片段的字形范围。然后使用 `[NSLayoutManager boundingRectForGlyphRange:inTextContainer]` 来获得每一行的边界矩形。
 
 ```objc
 - (void)drawBackgroundForGlyphRange:(NSRange)glyphsToShow atPoint:(CGPoint)origin {
@@ -204,7 +204,7 @@ new CharacterStyle() {
 
 ![](https://cdn-images-1.medium.com/max/800/1*o6uBmTEniyyrNh5qWgCv_Q.png)
 
-为了解决这些问题，我们尝试使用 `LineBackgroundSpan`。我们已经使用它在来在经典字体中渲染圆形的气泡背景，所以它自然也应该适用于新的文本样式。不幸的是，我们的新用例在 `Layout` 框架类中发现了一个微妙的 bug。如果你的文本在不同的行上有多个 `LineBackgroundSpan` 实例，那么 `Layout` 不会正确地遍历它们，其中一些可能永远不会被渲染。
+为了解决这些问题，我们尝试使用 `LineBackgroundSpan`。我们已经使用它来给经典字体渲染圆形的气泡背景，所以它自然也应该适用于新的文本样式。不幸的是，我们的新用例在 `Layout` 框架类中发现了一个微妙的 bug。如果你的文本在不同的行上有多个 `LineBackgroundSpan` 实例，那么 `Layout` 不会正确地遍历它们，其中一些可能永远不会被渲染。
 
 庆幸的是，我们可以通过对整个字符串应用单个 `LineBackgroundSpan` 来避免框架错误，然后我们自己依次绘制到每一个背景 span 上：
 
