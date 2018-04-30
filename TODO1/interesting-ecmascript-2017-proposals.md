@@ -29,7 +29,7 @@ Stage 3 “候选” —— 该提案已获批准，仅当执行作者提出
 
 Stage 4 “完成” —— 说明提案已被采纳，提案规范将与 JavaScript 规范合并。预计不会再发生变化。JavaScript 引擎将发布它们的实现。截至 2017 年 10 月，已经有 [9 个已完成的提案](https://github.com/tc39/proposals/blob/master/finished-proposals.md)，其中最引人关注的是 [async functions](https://github.com/tc39/ecmascript-asyncawait)。
 
-由于提案越来越多，思考一番，以下几个提案是其中更有趣的。
+由于提案越来越多，思考一番，以下几个提案是其中更有趣的。
 
 ![](https://cdn-images-1.medium.com/max/800/1*9nMBMt-OugnruBr_M-WuEQ.png)
 
@@ -41,7 +41,7 @@ ECMAScript 2015 中引入了迭代器 iterator，其中包含了 **for-of** 循
 
 遗憾的是，遍历器无法用于表示异步的数据结构如访问文件系统。虽然你可以运行 Promise.all 来遍历一系列的 promise，但这需要同步确定“已完成”的状态。
 
-例如，可以使用异步迭代器来遍历异步内容，按需读取文件中内容，而不是提前读取文件中的所有内容。
+例如，可以使用异步迭代器来遍历异步内容，按需读取文件中内容，而不是提前读取文件中的所有内容。
 
 你可以通过简单地同时使用 generator 生成器语法和 async-await 语法来定义异步生成器函数：
 
@@ -73,7 +73,7 @@ for await (const line of readLines(filePath)) {
 
 使用 for-await-of。
 
-任意具有 Symbol.asyncIterator 属性的对象都被定义为 **async iterable**，并且可使用于新的 for-await-of 语法中。这有一个具体可运行的示例：
+任意具有 Symbol.asyncIterator 属性的对象都被定义为 **async iterable**，并且可使用于新的 for-await-of 语法中。这有一个具体可运行的示例：
 
 ```javascript
 class LineReader() {
@@ -100,9 +100,9 @@ class LineReader() {
 
 使用 Symbol.asyncIterator 的示例。
 
-[这一提案](https://github.com/tc39/proposal-async-iteration) 目前处于 stage 3，浏览器已经开始实现了。处于这一阶段意味着它很有可能会被合并入标准并可以在主流浏览器中使用。但是，在此之前，规范可能会有一些小修改，因此现在使用异步迭代器会带来一定程度的风险。
+[这一提案](https://github.com/tc39/proposal-async-iteration) 目前处于 stage 3，浏览器已经开始实现了。处于这一阶段意味着它很有可能会被合并入标准并可以在主流浏览器中使用。但是，在此之前，规范可能会有一些小修改，因此现在使用异步迭代器会带来一定程度的风险。
 
-[regenerator](https://github.com/facebook/regenerator) 项目目前已为异步迭代器提案提供了基本支持。但是，它本身并不支持 for-await-of 循环语法。Babel 插件 [transform-async-generator-functions](https://www.npmjs.com/package/babel-plugin-transform-async-generator-functions) 既支持异步生成器又支持 for-await-of 循环语法。
+[regenerator](https://github.com/facebook/regenerator) 项目目前已为异步迭代器提案提供了基本支持。但是，它本身并不支持 for-await-of 循环语法。Babel 插件 [transform-async-generator-functions](https://www.npmjs.com/package/babel-plugin-transform-async-generator-functions) 既支持异步生成器又支持 for-await-of 循环语法。
 
 ### Class 优化
 
