@@ -2,30 +2,30 @@
 > * 原文作者：[android-developers](https://android-developers.googleblog.com)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/introducing-new-android-excellence-apps.md](https://github.com/xitu/gold-miner/blob/master/TODO1/introducing-new-android-excellence-apps.md)
-> * 译者：
+> * 译者：sisibeloved
 > * 校对者：
 
-# Introducing new Android Excellence apps and games on Google Play
+# 介绍 Google Play 上新的优质 Android 应用与游戏
 
-Congratulations to the latest [apps](https://play.google.com/store/apps/topic?id=campaign_editorial_3002b4f_android_excellence_apps&hl=en) and [games](https://play.google.com/store/apps/topic?id=campaign_editorial_3002b50_android_excellence_games&hl=en) featured in the Android Excellence program on Google Play. As a reminder, these collections are refreshed every three months and recognize apps and games that set the bar for high quality, great user experience, and strong technical performance.
+恭喜最新一期[应用](https://play.google.com/store/apps/topic?id=campaign_editorial_3002b4f_android_excellence_apps&hl=en)和[游戏](https://play.google.com/store/apps/topic?id=campaign_editorial_3002b50_android_excellence_games&hl=en)入选 Google Play 上的 Android 优质应用。作为应用推荐，这个列表每三个月更新一次，筛选出高质量、用户体验优秀或是有强劲专业表现的应用和游戏。
 
 [![](https://3.bp.blogspot.com/-WKwBKUfq5lA/WsUNQfbmhuI/AAAAAAAAFMA/KH6RE2zupHMzTb2fAm_4jsjAbP8L8lr4wCLcBGAs/s1600/image1.jpg)](https://3.bp.blogspot.com/-WKwBKUfq5lA/WsUNQfbmhuI/AAAAAAAAFMA/KH6RE2zupHMzTb2fAm_4jsjAbP8L8lr4wCLcBGAs/s1600/image1.jpg)
 
-If you're looking for some new apps, here are a few highlights.
+如果你想浏览一些新应用，以下是一些精品：
 
-*   [Adobe Photoshop Lightroom CC](https://play.google.com/store/apps/details?id=com.adobe.lrmobile): Capture, edit, and share your photos with the power of Lightroom on your mobile device. Use presets for quick and easy edits, or dive in with the advanced editing tools.
-*   [Seven - 7 Minute Workout Training Challenge](https://play.google.com/store/apps/details?id=se.perigee.android.seven): Use this app to fit seven minute workouts into your busy lifestyle. Grab your phone, or even your Wear OS device to work out anywhere and anytime. Keep it up to earn achievements and join the 7 Club for even more support.
-*   [SoloLearn: Learn to Code for Free](https://play.google.com/store/apps/details?id=com.sololearn): Learn one of many new coding languages by joining a community of millions. Tap in to the 24/7 peer support, or create your own lessons to become a community influencer.
+*   [Adobe Photoshop Lightroom CC](https://play.google.com/store/apps/details?id=com.adobe.lrmobile)：通过 Lightroom 强大的能力在移动设备上拍摄，编辑并分享你的照片。你可以通过预设的设置来进行一些简单快速地编辑，也可以深入研究许多高级编辑工具。
+*   [Seven - 7 Minute Workout Training Challenge](https://play.google.com/store/apps/details?id=se.perigee.android.seven)：在你紧张忙碌的生活中使用这个应用进行七分钟的锻炼。不论何时何地，利用你的手机或者可穿戴设备来健身。坚持下来，获取成就，加入 7 俱乐部获取更多帮助。
+*   [SoloLearn: Learn to Code for Free](https://play.google.com/store/apps/details?id=com.sololearn)：加入百万社区，学习一门新的编程语言。点击联系 24/7 专项客服，或者创建一门课程来成为社区的引领者。
 
-Here are a few of our favorite new games joining the collection.
+我们也加入了一些不错的新游戏：
 
-*   [CodyCross: Crossword Puzzles](https://play.google.com/store/apps/details?id=com.fanatee.cody): Try this game for a fun new style of crossword puzzles. Play for free on adventure mode or subscribe for special themed packs, varying difficulty levels and fresh content added weekly.
-*   [MARVEL Contest of Champions](https://play.google.com/store/apps/details?id=com.kabam.marvelbattle): Play with your favorite Marvel Super Heroes and Super Villians in iconic locations from the Marvel Universe. Assemble your team of champions to play through the exciting storyline and even build alliances with your friends.
-*   [Orbital 1](https://play.google.com/store/apps/details?id=com.etermax.orbital1): Test your skills in this real-time multiplayer game with beautiful 3D graphics. Collect and upgrade fighters and weapons to build out your perfect squad for quick battles and new daily quests.
+*   [CodyCross: Crossword Puzzles](https://play.google.com/store/apps/details?id=com.fanatee.cody)：试试这个全新的填字游戏！免费游玩冒险模式或者订购主题包，内含丰富的高难度关卡并每周更新。
+*   [MARVEL Contest of Champions](https://play.google.com/store/apps/details?id=com.kabam.marvelbattle)：在漫威宇宙中的标志性地点和你最爱的漫威超级英雄和超级恶棍一起游戏！组建你的英雄团队来体验精彩的故事剧情并与你的朋友建立同盟。
+*   [Orbital 1](https://play.google.com/store/apps/details?id=com.etermax.orbital1)：在这个 3D 场景绚烂的实时多人在线游戏中磨练你的技巧吧！ 收集并升级勇士和武器，构建最强的小队，参与快速竞技场并完成每日任务。
 
-See the full list of Android Excellence apps and games.
+以下是完整的 Android 优质应用和游戏的表单：
 
-| **New Android Excellence apps** | **New Android Excellence games** |
+| **新的 Android 优质应用** | **新的 Android 优质游戏** |
 | ------------------------------- | -------------------------------- |
 | [Adobe Photoshop Lightroom CC](https://play.google.com/store/apps/details?id=com.adobe.lrmobile) | [Angry Birds 2](https://play.google.com/store/apps/details?id=com.rovio.baba&hl=en&e=-EnableAppDetailsPageRedesign) |
 | [Dashlane](https://play.google.com/store/apps/details?id=com.dashlane) | [Azur Lane](https://play.google.com/store/apps/details?id=com.YoStarJP.AzurLane&hl=en&e=-EnableAppDetailsPageRedesign) アズールレーン |
@@ -41,7 +41,7 @@ See the full list of Android Excellence apps and games.
 | [Tube Map](https://play.google.com/store/apps/details?id=com.mxdata.tube.Market) |  |
 | [WPS Office](https://play.google.com/store/apps/details?id=cn.wps.moffice_eng) |  |
 
-Explore other great apps and games in the [Editors' Choice](https://play.google.com/store/apps/topic?id=editors_choice) section on Google Play and [discover best practices](https://developer.android.com/distribute/best-practices/index.html) to help you build quality apps and games.
+在 Google Play [编辑精选](https://play.google.com/store/apps/topic?id=editors_choice)板块发现更多优质应用和游戏或者查看[探索更好的用户体验](https://developer.android.com/distribute/best-practices/index.html)来帮助你构建高质量的应用和游戏。
 
 
 ---
