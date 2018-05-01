@@ -5183,7 +5183,7 @@
 |[在 V8 引擎中设置原型（prototypes）](https://juejin.im/post/5a9921e76fb9a028bd4bc3c4)|校对|1|
 |[json — JavaScript 对象表示法](https://juejin.im/post/5a9432ae5188257a5c6092b0)|校对|1|
 
-## 译者：[rydensun](https://github.com/rydensun) 历史贡献积分：19.5 当前积分：19.5 年度积分：3.5
+## 译者：[rydensun](https://github.com/rydensun) 历史贡献积分：19.5 当前积分：19.5 年度积分：19.5
 
 |文章|类型|积分|
 |------|-------|-------|
