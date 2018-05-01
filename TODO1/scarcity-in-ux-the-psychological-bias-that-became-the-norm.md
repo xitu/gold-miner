@@ -2,10 +2,10 @@
 > * 原文作者：[David Teodorescu](https://uxdesign.cc/@davidteodorescu?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/scarcity-in-ux-the-psychological-bias-that-became-the-norm.md](https://github.com/xitu/gold-miner/blob/master/TODO1/scarcity-in-ux-the-psychological-bias-that-became-the-norm.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Starrier](https://github.com/Starriers)
+> * 校对者：[wavezhang](https://github.com/wavezhang)
 
-# 用户体验中的稀缺性：成为常态的心理偏见
+# 用户体验中的稀缺性：成为常态的心理偏差
 
 ## 简要分析了现状，并给出了几个注意事项。
 
