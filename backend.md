@@ -1,3 +1,8 @@
+* [GAN 的 Keras 实现：构建图像去模糊应用](https://juejin.im/post/5ad6e358f265da237b229bb2) ([luochen1992](https://github.com/luochen1992) 翻译)
+* [用 Redis 和 Python 构建一个共享单车的 app](https://juejin.im/post/5adc861a51882567161a2799) ([Starriers](https://github.com/Starriers) 翻译)
+* [Node.js 能进行 HTTP/2 推送啦！](https://juejin.im/post/5ad61595f265da23a04a129c) ([Raoul1996](https://github.com/Raoul1996) 翻译)
+* [用 Skater 解读预测模型：打开模型的黑箱](https://juejin.im/post/5ae1494bf265da0b7c06f835) ([radialine](https://github.com/radialine) 翻译)
+* [使用 NumPy 和 Pandas 进行 Python 式数据清理](https://juejin.im/post/5ad57db3f265da239c7bd9fb) ([bambooom](https://github.com/bambooom) 翻译)
 * [不用 Class，如何写一个类](https://juejin.im/post/5acadb6d6fb9a028cb2deb8f) ([EmilyQiRabbit](https://github.com/EmilyQiRabbit) 翻译)
 * [JanusGraph 为 PHP 助力](https://juejin.im/post/5ac31768f265da23766b7970) ([GanymedeNil](https://github.com/GanymedeNil) 翻译)
 * [Pandas 数据类型概览](https://juejin.im/post/5acc36e66fb9a028d043c2a5) ([stormluke](https://github.com/stormluke) 翻译)
