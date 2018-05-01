@@ -5145,7 +5145,7 @@
 
 |文章|类型|积分|
 |------|-------|-------|
-|[[1] + [2] - [3] === 9!? 类型转换深入研究](https://juejin.im/post/5ad5af7251882555894a5054)|校对1|
+|[[1] + [2] - [3] === 9!? 类型转换深入研究](https://juejin.im/post/5ad5af7251882555894a5054)|校对|1|
 |[深入浅出 SVG](https://juejin.im/post/5ad84f296fb9a045e8011be1)|翻译|5|
 |[优化 WEBPACK 以更快地构建 REACT](https://juejin.im/post/5ae003d86fb9a07a9e4ce25d)|翻译|2|
 |[如何调试前端：优化网络资源](https://juejin.im/post/5ade828751882567137dd2da)|校对|1.5|
@@ -5200,7 +5200,7 @@
 |[在 V8 引擎中设置原型（prototypes）](https://juejin.im/post/5a9921e76fb9a028bd4bc3c4)|校对|1|
 |[json — JavaScript 对象表示法](https://juejin.im/post/5a9432ae5188257a5c6092b0)|校对|1|
 
-## 译者：[rydensun](https://github.com/rydensun) 历史贡献积分：20 当前积分：20 年度积分：20
+## 译者：[rydensun](https://github.com/rydensun) 历史贡献积分：21.5 当前积分：21.5 年度积分：21.5
 
 |文章|类型|积分|
 |------|-------|-------|
@@ -5524,7 +5524,7 @@
 |[利用 Keras 深度学习库进行词性标注教程](https://juejin.im/post/5ae4613a5188256727742d7d)|校对|1|
 |[GAN 的 Keras 实现：构建图像去模糊应用](https://juejin.im/post/5ad6e358f265da237b229bb2)|校对|1|
 
-## 译者：[SergeyChang](https://github.com/SergeyChang) 历史贡献积分：5 当前积分：5 年度积分：5
+## 译者：[SergeyChang](https://github.com/SergeyChang) 历史贡献积分：6 当前积分：6 年度积分：6
 
 |文章|类型|积分|
 |------|-------|-------|
