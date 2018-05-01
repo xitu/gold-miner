@@ -2,8 +2,8 @@
 > * 原文作者：[Samer Buna](https://medium.com/@samerbuna?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-mistakes-i-made-as-a-beginner-programmer.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-mistakes-i-made-as-a-beginner-programmer.md)
-> * 译者：[kezhenxu94](https://github.com/kezhenxu94)
-> * 校对者：
+> * 译者：[kezhenxu94](https://github.com/kezhenxu94/)
+> * 校对者：[DAA233](https://github.com/DAA233/)
 
 # 我在编程初级阶段常犯的错误
 
