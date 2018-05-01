@@ -4489,7 +4489,7 @@
 |[如何取消你的 Promise？](https://juejin.im/post/5a32705a6fb9a045117127fa)|校对|1|
 |[你想学 React.js 吗？](https://juejin.im/post/5a2f8ea5f265da43305e6f6b)|校对|2|
 
-## 译者：[MechanicianW](https://github.com/MechanicianW) 历史贡献积分：53 当前积分：32 年度积分：44.5
+## 译者：[Colafornia](https://github.com/Colafornia) 历史贡献积分：53 当前积分：32 年度积分：44.5
 
 |文章|类型|积分|
 |------|-------|-------|
