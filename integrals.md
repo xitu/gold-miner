@@ -5420,13 +5420,14 @@
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|1|
 |[Redux-Saga 为你打 call：管理你的异步 action （上）](https://juejin.im/post/5ac1cb9d6fb9a028cf32a046)|校对|1|
 
-## 译者：[meloalright](https://github.com/meloalright) 历史贡献积分：3 当前积分：3 年度积分：3
+## 译者：[meloalright](https://github.com/meloalright) 历史贡献积分：5 当前积分：5 年度积分：5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|2|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|3|
 
-## 译者：[meloalright](https://github.com/meloalright) 历史贡献积分：2 当前积分：2 年度积分：2
+## 译者：[jellycsc](https://github.com/jellycsc) 历史贡献积分：2 当前积分：2 年度积分：2
 
 |文章|类型|积分|
 |------|-------|-------|
@@ -5449,3 +5450,9 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|2|
+
+## 译者：[sisibeloved](https://github.com/sisibeloved) 历史贡献积分：6 当前积分：6 年度积分：6
+
+|文章|类型|积分|
+|------|-------|-------|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|6|
