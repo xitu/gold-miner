@@ -41,7 +41,7 @@
 
 ## 什么是 `this` ？
 
-[![JavaScript this 指向](//personalzone-hulgokm2zfcmm9u.netdna-ssl.com/wp-content/uploads/2018/03/JavaScript-this-call-context.jpg)](//personalzone-hulgokm2zfcmm9u.netdna-ssl.com/wp-content/uploads/2018/03/JavaScript-this-call-context.jpg)
+[![JavaScript this 指向](https://personalzone-hulgokm2zfcmm9u.netdna-ssl.com/wp-content/uploads/2018/03/JavaScript-this-call-context.jpg)](https://personalzone-hulgokm2zfcmm9u.netdna-ssl.com/wp-content/uploads/2018/03/JavaScript-this-call-context.jpg)
 
 在我开始讲解前，如果你学过一门基于类的面向对象编程语言（比如 C#，Java，C++），那请将你对 `this` 这个关键词应该是做什么用的先入为主的概念扔到垃圾桶里。JavaScript 的 `this` 关键词是很不一样，因为 JavaScript 本来就不是一门基于类的[面向对象编程语言](https://en.wikipedia.org/wiki/Class-based_programming)。
 
@@ -189,7 +189,7 @@ outerFn()();
 
 想象一下一栋楼里面有一架只能向上走的诡异电梯。
 
-[![JavaScript lexical scope is a lot like a building with an elevator that only goes up](//personalzone-hulgokm2zfcmm9u.netdna-ssl.com/wp-content/uploads/2018/03/JavaScript-lexical-scope-building.jpg)](//personalzone-hulgokm2zfcmm9u.netdna-ssl.com/wp-content/uploads/2018/03/JavaScript-lexical-scope-building.jpg)
+[![JavaScript lexical scope is a lot like a building with an elevator that only goes up](https://personalzone-hulgokm2zfcmm9u.netdna-ssl.com/wp-content/uploads/2018/03/JavaScript-lexical-scope-building.jpg)](https://personalzone-hulgokm2zfcmm9u.netdna-ssl.com/wp-content/uploads/2018/03/JavaScript-lexical-scope-building.jpg)
 
 建筑的顶层就是全局 windows 对象。如果你现在在一楼，你就可以看到并访问那些放在楼上的东西，比如放在二楼的 `outerFn` 和放在三楼的 `window` 对象。
 
@@ -256,7 +256,7 @@ object.doubleArrow();
 
 > `arrow()` 和 `doubleArrow()` 里面的 `map` 函数里面的 `this` 又指向哪里呢？
 
-[![this 和箭头函数](//personalzone-hulgokm2zfcmm9u.netdna-ssl.com/wp-content/uploads/2018/03/this-and-arrow-function.jpg)](//personalzone-hulgokm2zfcmm9u.netdna-ssl.com/wp-content/uploads/2018/03/this-and-arrow-function.jpg)
+[![this 和箭头函数](https://personalzone-hulgokm2zfcmm9u.netdna-ssl.com/wp-content/uploads/2018/03/this-and-arrow-function.jpg)](https://personalzone-hulgokm2zfcmm9u.netdna-ssl.com/wp-content/uploads/2018/03/this-and-arrow-function.jpg)
 
 上一张图已经给了一个大大的提示。如果你还不确定，那请花5分钟将我们上一节讨论的内容再好好想想。然后，根据你的理解，在实际执行代码前把你认为的 this 应该指向哪里写下来。在下一节我们将会回答这个问题。
 
