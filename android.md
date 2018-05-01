@@ -1,3 +1,6 @@
+* [为什么 Flutter 能最好地改变移动开发](https://juejin.im/post/5add65c46fb9a07aa541e97e) ([ALVINYEH](https://github.com/ALVINYEH) 翻译)
+* [为什么你应该开始使用 Kotlin](https://juejin.im/post/5adc1826f265da0b767d0db2) ([ALVINYEH](https://github.com/ALVINYEH) 翻译)
+* [Flutter 到底有多快？我开发了秒表应用来弄清楚。](https://juejin.im/post/5ad861566fb9a045ee01b48d) ([ALVINYEH](https://github.com/ALVINYEH) 翻译)
 * [建立一个像科幻小说一样的虚拟世界：设计一个全球性的虚拟世界](https://juejin.im/post/5ad19dcdf265da2389262784) ([LeeSniper](https://github.com/LeeSniper) 翻译)
 * [利用 Android 构建 TV 的未来](https://juejin.im/post/5a964061f265da4e914b8f88) ([JayZhaoBoy](https://github.com/JayZhaoBoy) 翻译)
 * [使用 leanback 的 DiffCallback：和 DiffUtil 回调之间的区别](https://juejin.im/post/5a9218ee5188257a5c60892a) ([LeeSniper](https://github.com/LeeSniper) 翻译)
