@@ -5,19 +5,19 @@
 > * 译者：
 > * 校对者：
 
-# 支持库 27.1.0 中的 Loaders
+# 支持库 27.1.0 中的 Loader
 
-为了[Support Library 27.1.0](https://developer.android.com/topic/libraries/support-library/revisions.html#27-1-0), 我重写了 `[LoaderManager](https:/ /developer.android.com/reference/android/support/v4/app/LoaderManager.html)` 的内部结构，[Loaders API](https://developer.android.com/guide/components/loaders.html) 以它为基础，我也想解释下这些改变背后的缘由以及接下来会有什么期待。
+为了 [支持库 27.1.0](https://developer.android.com/topic/libraries/support-library/revisions.html#27-1-0), 我重写了 `[LoaderManager](https:/ /developer.android.com/reference/android/support/v4/app/LoaderManager.html)` 的内部结构，[Loaders API](https://developer.android.com/guide/components/loaders.html) 以它为基础，我也想解释下这些改变背后的缘由以及接下来会有什么期待。
 
-#### Loaders and Fragments 的一小段历史
+#### Loader 和 Fragment 的一小段历史
 
-一开始，Loaders 和 Fragments 紧紧的联系在一起。这意味着，为了支持 Loaders，在 `[FragmentActivity](https://developer.android.com/reference/android/support/v4/app/FragmentActivity.html)` 和 `[Fragment](https://developer.android.com/reference/android/support/v4/app/Fragment.html)` 中有许多的代码 , 然而事实上他们几乎没有关联。这也意味着和 Activity，Fragment 以及架构组件[生命周期](https://developer.android.com/topic/libraries/architecture/lifecycle.html) 相比，Loaders 的生命周期和保障是完全独特的且受制与它那有趣且激动人心的行为差异和 bug。
+一开始，Loader 和 Fragment 紧紧的联系在一起。这意味着，为了支持 Loader，在 `[FragmentActivity](https://developer.android.com/reference/android/support/v4/app/FragmentActivity.html)` 和 `[Fragment](https://developer.android.com/reference/android/support/v4/app/Fragment.html)` 中有许多的代码 , 然而事实上他们几乎没有关联。这也意味着和 Activity，Fragment 以及架构组件[生命周期](https://developer.android.com/topic/libraries/architecture/lifecycle.html) 相比，Loader 的生命周期和保障是完全独特的且受制与它那有趣且激动人心的行为差异和 bug。
 
 #### 27.1.0 中的改变
 
-在 27.1.0 中，Loaders 的技术债已经大幅度的减少：实现 `LoaderManager` 的代码行数只有之前的三分之一，也有很多的测试让 Loaders 在未来能够保持一个良好的状态。
+在 27.1.0 中，Loader 的遗留问题已经大幅度的减少：实现 `LoaderManager` 的代码行数只有之前的三分之一，也有很多的测试让 Loader 在未来能够保持一个良好的状态。
 
-所有这些都得意于架构组件。更确切的说是[ViewModels](https://developer.android.com/topic/libraries/architecture/viewmodel.html) ( 在配置变化时保持状态 ) 和[LiveData](https://developer.android.com/topic/libraries/architecture/livedata.html)( 支持生命周期和回调 )。现在的 Loaders 基于这些更高级别且充分测试的组件并从中受益，减少持续的代码冗余而且有了提升 Loaders 的可依赖性 / 保障的可能性。
+所有这些都得意于架构组件。更确切的说是 [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel.html) ( 在配置变化时保持状态 ) 和 [LiveData](https://developer.android.com/topic/libraries/architecture/livedata.html)( 支持生命周期和回调 )。现在的 Loader 基于这些更高级别且充分测试的组件并从中受益，减少了不断增加的性能损失，提高了 Loader 的可靠性和正确性。
 
 #### 行为变化
 
@@ -27,19 +27,19 @@
 
 > 注意事项 : 就技术来说，这次发布之前，你可以在其他线程中做 loader 操作，但是 `LoaderManager` 不再是线程安全的，会导致经常性的未定义行为。
 
-最重要的是 , 现在 `[onLoadFinished](https://developer.android.com/reference/android/support/v4/app/LoaderManager。LoaderCallbacks.html#onLoadFinished%28android.support.v4.content.Loader%3CD %3E,%20D%29)` 和 LiveData Observers 一样，总是在 `onStart` 和 `onStop` 之间被调用，且不会在 `onSaveInstanceState` 之后。这样你可以在 `onLoadFinished` 中安全的做[Fragment Transactions](https://developer.android.com/guide/components/fragments.html#Transactions) 了。
+最重要的是 , 现在 `[onLoadFinished](https://developer.android.com/reference/android/support/v4/app/LoaderManager。LoaderCallbacks.html#onLoadFinished%28android.support.v4.content.Loader%3CD %3E,%20D%29)` 和 LiveData Observers 一样，总是在 `onStart` 和 `onStop` 之间被调用，且不会在 `onSaveInstanceState` 之后。这样你可以在 `onLoadFinished` 中安全的做 [Fragment Transactions](https://developer.android.com/guide/components/fragments.html#Transactions) 了。
 
 #### 我应当使用什么，loader 后续如何？
 
-像我在之前的博客[Lifecycle Aware Data Loading with Architecture Components](https://medium.com/google-developers/lifecycle-aware-data-loading-with-android-architecture-components-f95484159de4) 中提到的那样 , 我强烈的建议开发者使用 ViewModels+LiveData 的组合，我认为他们绝对是一个更灵活更容易理解的系统。然而，如果你已经有基于 loaders 的 APIs，这些改变应当会极大的提升组件以后的可依赖性和稳定性。
+像我在之前的博客 [Lifecycle Aware Data Loading with Architecture Components](https://medium.com/google-developers/lifecycle-aware-data-loading-with-android-architecture-components-f95484159de4) 中提到的那样, 我强烈建议开发者使用 ViewModel+LiveData 的组合，我认为他们绝对是一个更灵活更容易理解的系统。然而，如果你已经有基于 loader 的 APIs，这些改变应当会极大的提升组件以后的可依赖性和稳定性。
 
-这许多的改变让 Loaders 变成一个功能，更加可选的依赖，不需要对[LifecycleOwner](https://developer.android.com/reference/android/arch/lifecycle/LifecycleOwner.html)/[ViewModelStoreOwner](https://developer.android.com/reference/android/arch/lifecycle/ViewModelStoreOwner.html) 做很底层的修改。
+这许多的改变让 Loader 变成一个功能，更加可选的依赖，不需要对 [LifecycleOwner](https://developer.android.com/reference/android/arch/lifecycle/LifecycleOwner.html)/[ViewModelStoreOwner](https://developer.android.com/reference/android/arch/lifecycle/ViewModelStoreOwner.html) 做很底层的修改。
 
 #### 尝试下吧！
 
-如果你正在使用 Loaders，请尽快仔细查看并注意行为变更，他们都在[发布事项](https://developer.android.com/topic/libraries/support-library/revisions.html#27-1-0 ) 中。
+如果你正在使用 Loader，请尽快仔细查看并注意行为变更，他们都在[发布事项](https://developer.android.com/topic/libraries/support-library/revisions.html#27-1-0 ) 中。
 
-> 注意事项 : 显而易见，只有支持库有这些更改。如果你使用的是 Android 框架的 Loaders，请尽快切换到支持库 。 因为框架的 Loader APIs 不会有错误修复或者计划中的改进。
+> 注意事项 : 显而易见，只有支持库有这些更改。如果你使用的是 Android 框架的 Loader，请尽快切换到支持库。因为框架的 Loader APIs 不会有错误修复或者计划中的改进。
 
 
 ---
