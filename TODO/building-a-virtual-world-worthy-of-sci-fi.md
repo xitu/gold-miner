@@ -2,132 +2,132 @@
 > * 原文作者：[Reto Meier](https://medium.com/@retomeier?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/building-a-virtual-world-worthy-of-sci-fi.md](https://github.com/xitu/gold-miner/blob/master/TODO/building-a-virtual-world-worthy-of-sci-fi.md)
-> * 译者：
-> * 校对者：
+> * 译者：[LeeSniper](https://github.com/LeeSniper)
+> * 校对者：[IllllllIIl](https://github.com/IllllllIIl)、[Wangalan30](https://github.com/Wangalan30)
 
-# Building a Virtual World Worthy of Sci-Fi: Designing a global metaverse
+# 建立一个像科幻小说一样的虚拟世界：设计一个全球性的虚拟世界
 
-In the second episode of Build Out, [Colt McAnlis](https://medium.com/@duhroach) and [Reto Meier](https://medium.com/@retomeier) were given the challenge of designing a global metaverse.
+在 Build Out 系列的第二集里面，[Colt McAnlis](https://medium.com/@duhroach) 和 [Reto Meier](https://medium.com/@retomeier) 接受了设计一个全球虚拟世界的挑战。
 
-Take a look at the video to see what they came up with, then continue reading to see how you can learn from their explorations to build your own solution!
+看一看下面的视频，看看他们想出了什么，然后继续阅读本文，看看你如何从他们的探索中学习建立你自己的解决方案！
 
 <iframe width="700" height="393" src="https://www.youtube.com/embed/H9FbNi5aYYM?list=PLOU2XLYxmsILr0RmtqFITcoXnfOrWtytp" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
-### TL;DW: What they designed
+### 视频梗概：他们设计了什么
 
-Both solutions describe a design to generate a 3D environment that users experience using a virtual reality headset, using various levels of cloud compute and storage to provide virtual Earth data to the client, and calculate changes to the world environment as users interact with it.
+两种解决方案都描述了一种能够生成让用户通过 VR 头盔就可以体验的 3D 环境的设计，使用不同级别的云计算和云存储来给客户端提供虚拟地球的数据，并且实时计算用户与之交互时对世界环境的改变。
 
-**Reto’s solution** is focussed on creating a virtual clone of the real world using millions of drones to obtain real-time sensor readings. His virtual space is intrinsically linked to the real-world, including everything from geometry to prevailing weather conditions.
+**Reto 的方案**专注于使用数百万个无人机获取实时传感器数据，创建一个对现实世界的虚拟克隆。他的虚拟空间本质上是和现实世界联系在一起的，包括几何形状和当前的天气条件。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*61k82U4FxUM9lOfd34stlg.png)
 
-**Colt’s solution** leverages his video game development experience with a system design that completely disconnects the virtual world from the physical world. His architecture details the required framework for building the back-end services for an MMO (or other large scale cooperative space.)
+**Colt 的方案**充分利用了他的游戏开发经验，设计了一个完全隔离虚拟世界和物理世界的系统。他的架构详细描述了创建一个 MMO (或者其他大型合作空间)后端服务所需要的框架。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*Es5nrGnQu3jQYirGuq8aPw.png)
 
-### Building your own global metaverse
+### 创建你自己的全球虚拟世界
 
-The biggest difference in these designs is the source of the virtual environments’ climate and geometry. Reto’s design relies on analyzing the results of sensors in the real-world, where Colt’s system uses artists to contribute artificial landscapes and buildings.
+这些设计里面最大的区别在于虚拟环境的气候和几何信息的来源。Reto 的设计方案依赖于分析现实世界中的传感器数据，而 Colt 的系统使用艺术家来提供人造景观和建筑物。
 
-If you want a system that incorporate real-world geometry and textures, you can use Google Maps as inspiration.
+如果你想要一个包含真实世界几何图形和纹理的系统，你可以从 Google Map 上面找点灵感。
 
-Their system uses a combination of imagery and sensor data to generate 3D models along with texture information for those models. This allows them to generate very realistic 3D representations of urban environments without needing to employ an army of artists to recreate the same content.
+他们的系统使用图像和传感器数据的组合来生成 3D 模型以及这些模型的纹理信息。这使得他们能够生成非常真实的城市环境三维再现，而不需要雇佣一大群艺术家来重新创建相同的内容。
 
-Mirroring this process let’s us generate a very similar representation. We can use satellite data, LIDAR input, and drone photography from various angles and sources, and push that into a GCS bucket.
+让我们来生成一个十分相似的具有代表性的东西来反映这个过程。我们可以使用卫星数据，LIDAR（激光雷达）输入，还有来自各个角度和来源的无人机图片，并把他们放到一个 GCS bucket 里面。
 
-Along with that, we generate work information and push work tokens off to pub/sub. We have a fleet of pre-emptive VMs working to gather those pub/sub requests, and start doing 3D meshing and texture atlas generation. The final results are pushed into a GCS bucket as well.
+另外，我们还要生成工作信息并将 work token 推送到 pub/sub。我们有一批抢占式虚拟机，负责收集这些 pub/sub 请求，并开始制作 3D 网格和纹理图集。最终的结果也被推送到 GCS bucket 里面。
 
 ![](https://cdn-images-1.medium.com/max/800/1*2awv-uWabgiVAepGrpUdzA.png)
 
-> **Why pre-emptive VMs?** PVMs allow themselves to be terminated by the Compute Engine manager. As such they offer a significantly discounted price than standard VMs of the same configuration. Since their lifespans are volatile, they are perfect for batch work jobs where work may get interrupted and not completed.
+> **为什么要用抢占式虚拟机（PVM）？** PVM 允许自己被计算引擎管理器终止。因此，与同样配置的标准虚拟机相比，它们提供了非常便宜的折扣价。由于它们的寿命是不稳定的，因此它们非常适用于执行可能会中断而无法完成的批量工作。
 
-Pub/sub works hand-in-hand with PVMs in this regard. Once a PVM received a termination signal, it can stop work, and push the workload back to pubsub for another PVM to pick up and work on later.
+Pub/sub 在这方面与 PVMs 携手合作。一旦 PVM 收到一个终止信号，它可以停止工作，并将工作负载推回到 pub/sub，以便另一个 PVM 稍后拾取继续工作。
 
-Alternatively, or for areas where this algorithm fails, you could allow users to submit custom models and textures for iconic landmarks, which we can then be inserted into the generated 3D environment.
+或者，对于这种算法失效的区域，你可以允许用户为图标式地标提交自定义模型和纹理，然后将其插入到生成的 3D 环境中。
 
 ![](https://cdn-images-1.medium.com/max/800/1*8ngyDPNUw6GqNRdxWnvJrA.png)
 
-### Storing and distributing metaverse binary data
+### 存储和分发虚拟世界数据
 
-Once all of our mesh and texture data has been processed, the result will be literal terabytes of virtual environment environmental data. Obviously, we can’t stream all that to each client at once, so instead, we bundle up model data based upon geographic boundaries.
+当我们所有的网格和纹理数据都处理完毕的时候，结果将是数以 TB 的虚拟环境数据。很明显，我们不能一次将所有内容都传输给每个客户，相反，我们会根据地理边界打包模型数据。
 
-These “regional blobs” are indexed, contain metadata, and can be stored in multi-layered compressed archives so that they can be streamed to the client.
+这些 『区域性 blob』 被编入索引，包含元数据，并且可以存储在多层压缩存档中，以便它们可以流式传输到客户端。
 
-To compute this, use the same offline build-process as for 3D mesh generation; specifically you can generate a bunch of tasks for pub/sub, and use an army of preemptive vms to compute and combine the proper regional blob archives.
+要计算这一点，需要使用与生成 3D 网格相同的离线构建过程；具体来说，你可以为 pub/sub 生成一堆任务，并使用一群抢占式虚拟机来计算和合并适当的区域 blob。
 
 ![](https://cdn-images-1.medium.com/max/800/1*CEkaLsDQMXbQVvygHYrhGw.png)
 
-Distribution of the regional archives to the client depends on the user’s “physical” location in the virtual universe — as well as what direction they’re facing.
+将区域档案分发给客户取决于用户在虚拟世界中的『实际』位置，以及他们面对的方向。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Jz_zqlU5Ca0MGIIGGjUMlg.png)
 
-In order to optimize load times for the client, it’ll make sense to add a local cache for areas they visit frequently, to keep them from having to download gigs of data every time they enter a new area.
+为了优化客户端的加载时间，给他们经常访问的区域添加本地缓存是非常有意义的，以此来帮助他们避免每次进入一块新的区域都需要下载大量数据的情况。
 
 ![](https://cdn-images-1.medium.com/max/800/1*6b2I4tUiPyn3pVSw7aPwfg.png)
 
-For the sake of diagram clarity, we can wrap this entire process up as an offline system, and call it “Automated Content Generation” (ACG).
+为了图表清晰起见，我们可以将整个过程封装起来作为一个离线系统，我们称它为『自动内容生成器（ACG）』。
 
-Over time, the local cache will become invalid, or updates will be need to be pushed out to the user. For this, we put together an update & staging process, where a client can receive the updated environment data as they log-in, or as they re-enter a zone they have recently visited.
+随着时间的推移，本地缓存将会失效，或者需要将更新推送给用户。为此，我们制定了更新和分期流程，客户可以在登录或是重新进入他们最近访问的区域时接收更新的环境数据。
 
 ![](https://cdn-images-1.medium.com/max/800/1*lCgVkyWLf2gSqfZE2Wlhww.png)
 
-> **Why GCF?** There’s many ways to allow a client to check for updates. For example, we could create a load balancer which auto-scales a group of GCE instances. Or we could have made a Kubernetes pod which can scale for requests as well.
+> **为什么用 GCF？** 有很多种方法可以让客户端检查更新。例如，我们可以创建一个负载均衡器来自动扩展一组 GCE 实例。或者我们可以制作一个可以根据需求进行扩展的 Kubernetes pod。
 
-> Or we could have used app engine flex, which would allow us to provide our own images, but scale just the same. Or we could have used app engine standard, which has its own deployment and scaling.
+> 或者我们可以使用 app engine flex，它允许我们提供我们自己的图像，只是图片大小相同。或者我们可以使用 app engine 标准，它有自己的部署和扩展。
 
-> The reason we chose Cloud Functions here: First, GCF has enhanced support for Firebase push notifications. If something’s occuring, and we need to notify the client of an emergency patch, we can push that data to the client directly.
+> 我们之所以选择 Cloud Functions 的原因是：首先，GCF 增强了对 Firebase 推送通知的支持。如果发生了什么情况，我们需要通知客户有紧急修复补丁，我们可以直接将这些数据推送给客户。
 
-> Secondly, GCF needs the least amount of work to get a function deployed. We don’t have to spend extra cycles configuring images, balancing, or deployment specifics; we simply just write our code, and push it out to be ready to be used.
+> 其次，GCF 需要最少的工作来部署功能。我们不需要花费额外的周期来配置图像，平衡或部署细节；我们只需编写我们的代码，并将其推出确保可以使用。
 
-### Simulation data for your metaverse
+### 为你的虚拟世界提供模拟数据
 
-As your users move and interact with the virtual environment, any changes they make will need to be synced with the rest of the universe data and shared with other users.
+随着你的用户移动并且和虚拟环境交互，他们所导致的任何改变都需要和其他的周边数据同步，并分享给其他用户。
 
-You’ll need some composite components to make sure that user actions aren’t violating any physical rules, and then a system for storing or broadcasting this information to the other players.
+你需要一些复合组件来确保用户操作不违反任何物理规则，然后是一个用于存储或向其他用户广播这些信息的系统。
 
-For this, you can leverage a set of App Engine Flex groups, called “World Shards” which allow geographically similar clients to connect and exchange data on position and movement information. So as a user enters a game zone, we’ll figure out their closest region, and connect them directly to the appropriate World Shard.
+为此，你可以利用一组名为 『World Shards』 的 App Engine Flex 组件，它们允许地理上比较接近的客户端连接并交换位置和移动信息数据。因此，当用户进入游戏区域时，我们会计算出他们最近的区域，并将它们直接连接到适当的 World Shards。
 
-> **Why App Engine Flex?** For the World Shards, we could have easily used an instanced group of GCE VMs, which share an image, however app engine flex gives us that same functionality w/o needing the extra maintenance overhead. Likewise, a GKE Kubernetes cluster would have done the trick, but for our scenario, we didn’t need some of the advanced features that GKE provides.
+> **为什么用 App Engine Flex？**对于 World Shards 而言，我们可以轻松使用一组共享一个图像的实例化的 GCE 虚拟机来实现，但是 app engine flex 为我们提供了相同的功能，且不需要额外的维护开销。同样的，一个 GKE Kubernetes 集群也可以做到这一点，但对于我们的应用场景，我们并不需要 GKE 提供的一些高级功能。
 
-We’ll also need a separate set of compute instances to help us manage all the secondary world-interaction items. Things like purchasing goods, inter-player communication, and so on. For this you can spin up a second group of App Engine Flex instances.
+我们还需要一组独立的计算单元来帮助我们管理所有二级世界互动项目。诸如购买商品，玩家间通信等等。为此，你可以启动第二组 App Engine Flex 实例。
 
-All persistent data that needs to be distributed to multiple other clients will be stored in cloud Spanner, which will allow regionally similarly clients to share information as soon as it happens.
+所有需要分发到多个其他客户端的持久性数据将存储在云端 Spanner 中，这将使得区域比较靠近的用户在有需要时能够尽快共享信息。
 
 ![](https://cdn-images-1.medium.com/max/800/1*KQnoHJeVWVQbJJr8ELQKcQ.png)
 
-> **Why Spanner?** We chose spanner here due to it’s managed service, global capacity, and ability to scale to handle very high transactional workloads. You could have also done this with a SQL system, but at that point, you’re doing a lot of heavy lifting in order to get the same effect.
+> **为什么用 Spanner？**我们之所以选择 spanner 是因为它的托管服务，全球容量以及扩展能力来处理非常高的事务性工作负载。你也可以用 SQL 系统来做到这一点，但是这样的话，你就得为获得相同的效果做很多繁重的工作。
 
-Since our code will change often, we need to augment our updating and staging servers to also distribute code to our world-shards. Do this, we allow compute-level staging to occur in our staging code, and push images to Google Container Registry to be propped out to various world shards and game servers as needed.
+由于我们的代码需要经常改动，我们需要增加我们的更新和临时服务器以将代码分发到我们的 world-shards。为了实现这一点，我们允许在暂存代码中执行计算级分段，并将图像推送到 Google Container Registry，以便根据需要支持各种 world shards 和游戏服务器。
 
 ![](https://cdn-images-1.medium.com/max/800/1*V0jjfEVbgTpBA1T91L1W1A.png)
 
-### Drawing your metaverse
+### 绘制你的虚拟世界
 
-A metaverse isn’t a metaverse unless you have a strapped on headset. For this, you can leverage Google VR and the Android Daydream platform to render our massive metaverse within a fully immersive VR experience. However Daydream by itself is not a proper rendering engine, so you’ll need to leverage something like UNITY as a tool to help draw all our models and interact with the Daydream system on our behalf.
+除非您戴上 VR 头盔，否则虚拟世界就不是一个有意义的虚拟世界。为此，你可以利用 Google VR 和 Android Daydream 平台在完全身临其境的 VR 体验中呈现我们巨大的虚拟世界。然而，Daydream 本身并不是一个合适的渲染引擎，因此你需要利用像 UNITY 这样的工具来帮我们绘制所有模型，并代表我们与 Daydream 系统进行交互。
 
 ![](https://cdn-images-1.medium.com/max/800/1*cMAXUcr7QcZXdnFnOm38WA.png)
 
-Describing how to properly render millions of polygons per frame in VR mode is a big challenge, but one that’s outside the scope of this article ;)
+描述如何在 VR 模式下每帧正确渲染数百万个多边形是一个很大的挑战，但这已经不在本文的讨论范围之内了;）
 
-### Account & Identity services
+### 帐户和身份认证服务
 
-We’re going to add an app engine front-end instance that leverages Cloud IAM to authenticate and identify the user, and communicate with the account management database, which may include sensitive information like billing and contact data.
+我们将添加一个 app engine 前端实例，利用 Cloud IAM 对用户进行身份验证和识别，并与帐户管理数据库通信，这个数据库可能包含帐单和联系人数据等敏感信息。
 
 ![](https://cdn-images-1.medium.com/max/800/1*_XrckPhaLAUKQbfkJAV48g.png)
 
-> **Why App Engine Standard?** We chose app engine standard as the front-end service for our IAM system for a number of reasons.
+> **为什么用 App Engine 标准？** 我们选择 app engine 标准作为 IAM 系统的前端服务的原因有很多。
 
-> Firstly is that it’s managed, so we don’t have to deal with provisioning and deployment details like with containers/ GKE/ App Engine Flex.
+> 首先是它的管理，这样我们就不必像 containers、GKE、App Engine Flex 那样处理配置和部署的细节了。
 
-> Secondly, it has built in IAM rules and configurations, so we can write less code and get the right security and login systems we need.
+> 其次，它内置了 IAM 规则和配置，因此我们可以用更少的代码来获得我们所需的安全保证和登录系统。
 
-> Thirdly, it has direct built in support for datastore, which we use to store all of our IAM data.
+> 第三，它直接包含了对数据存储的支持，我们用它来存储我们所有的 IAM 数据。
 
 * * *
 
-To hear a more detailed account of some of our choices, check out our companion podcast, Build Out Rewound, our on [Google Play Music](https://play.google.com/music/listen#/ps/Imvre4gs5o4fv2aqknxopy6cb7q), iTunes, or [your favorite podcast app / site](http://feeds.feedburner.com/BuildOutRewound).
+想要了解我们技术选型的更多详细描述，可以在 [Google Play Music](https://play.google.com/music/listen#/ps/Imvre4gs5o4fv2aqknxopy6cb7q)，iTunes，或者[你最喜爱的播客应用或网站](http://feeds.feedburner.com/BuildOutRewound)上关注我们的系列播客，Build Out Rewound。
 
-Add a comment here, or on our YouTube video, with any questions you have about our system design or technology choices.
+如果你对我们的系统设计或者技术选型有任何问题，请在下面留言，或者在我们的 YouTube 视频下面留言。
 
 
 ---
