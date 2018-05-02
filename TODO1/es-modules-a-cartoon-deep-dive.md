@@ -3,15 +3,15 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/es-modules-a-cartoon-deep-dive.md](https://github.com/xitu/gold-miner/blob/master/TODO1/es-modules-a-cartoon-deep-dive.md)
 > * 译者：[stormluke](https://github.com/stormluke)
-> * 校对者：
+> * 校对者：[Starrier](https://github.com/Starriers)
 
-# 漫画深入浅出 ES 模块
+# 漫画：深入浅出 ES 模块
 
 ES 模块为 JavaScript 提供了官方标准化的模块系统。然而，这中间经历了一些时间 —— 近 10 年的标准化工作。
 
 但等待已接近尾声。随着 5 月份 Firefox 60 发布（[目前为 beta 版](https://www.mozilla.org/en-US/firefox/developer/)），所有主流浏览器都会支持 ES 模块，并且 Node 模块工作组也正努力在 [Node.js](https://nodejs.org/en/) 中增加 ES 模块支持。同时[用于 WebAssembly 的 ES 模块集成](https://www.youtube.com/watch?v=qR_b5gajwug) 也在进行中。
 
-许多 JavaScript 开发人员都知道 ES 模块一直存在争议。但很少有人真正了解 ES 模块是如何工作的。
+许多 JavaScript 开发人员都知道 ES 模块一直存在争议。但很少有人真正了解 ES 模块的运行原理。
 
 让我们来看看 ES 模块能解决什么问题，以及它们与其他模块系统中的模块有什么不同。
 
@@ -21,7 +21,7 @@ ES 模块为 JavaScript 提供了官方标准化的模块系统。然而，这�
 
 [![Code showing variables being manipulated](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/01_variables-500x178.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/01_variables.png)
 
-因为你的代码中很多都是关于改变变量的，你如何组织这些变量会对你编码的能力以及代码的可维护性产生很大的影响。
+因为你的代码中很多都是关于改变变量的，你如何组织这些变量会对你编码方式以及代码的可维护性产生很大的影响。
 
 一次只需要考虑几个变量就可以让事情变得更简单。JavaScript 有一种方法可以帮助你做到这点，称为作用域。由于 JavaScript 中的作用域规则，一个函数无法访问在其他函数中定义的变量。
 
@@ -29,7 +29,7 @@ ES 模块为 JavaScript 提供了官方标准化的模块系统。然而，这�
 
 这很好。这意味着当你写一个函数时，只需关注这个函数本身。你不必担心其他函数可能会对函数内的变量做些什么。
 
-不过，它也有一个缺点。这让在函数间共享变量变得有点困难。
+尽管如此，它仍然存在缺陷。这让在函数间共享变量变得有点困难。
 
 如果你想在作用域外共享变量呢？处理这个问题的一种常见方法是将它放在更外层的作用域里……例如，在全局作用域中。
 
@@ -37,9 +37,9 @@ ES 模块为 JavaScript 提供了官方标准化的模块系统。然而，这�
 
 [![Two function scopes in a global, with one putting jQuery into the global](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/02_module_scope_02-500x450.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/02_module_scope_02.png)
 
-这确实可以用，但是带了一些恼人的问题。
+这在有效的同时也产生了副作用。
 
-首先，所有的 script 标签都需要按照正确的顺序排列。所以你必须小心确保那个顺序没被弄乱。
+首先，所有的 script 标签都需要按照正确的顺序排列。所以你必须小心确保那个顺序没被打乱。
 
 如果你搞乱了这个顺序，那么在运行的过程中，你的应用程序就会抛出一个错误。当函数寻找它期望的 jQuery 时 —— 在全局作用域里 —— 并没有找到它，它会抛出一个错误并停止运行。
 
@@ -63,7 +63,7 @@ ES 模块为 JavaScript 提供了官方标准化的模块系统。然而，这�
 
 因为这是显式的关系，所以当删除了某个模块时，你可以确定哪些模块会出问题。
 
-一旦你能够在模块之间导出和导入变量，就可以更容易地将代码分解为可独立工作的小块。然后，你可以组合和重组这些代码块（像乐高一样），从同一组模块创建出各种不同的应用程序。
+一旦你能够在模块之间导出和导入变量，就可以更容易地将代码分解为可独立工作的小块。然后，你可以组合或重组这些代码块（像乐高一样），从同一组模块创建出各种不同的应用程序。
 
 由于模块非常有用，历史上有多次向 JavaScript 添加模块功能的尝试。如今有两个模块系统正在大范围地使用。CommonJS（CJS）是 Node.js 历史上使用的。ESM（EcmaScript 模块）是一个更新的系统，已被添加到 JavaScript 规范中。浏览器已经支持了 ES 模块，并且 Node 也正在添加支持。
 
@@ -139,7 +139,7 @@ ES 模块为 JavaScript 提供了官方标准化的模块系统。然而，这�
 
 [![An import statement with the URL at the end labeled as the module specifier](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/09_module_specifier-500x105.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/09_module_specifier.png)
 
-关于模块标识符有一点需要注意：它们有时需要在浏览器和 Node 之间进行不同的处理。每个宿主都有自己的解释模块标识符字符串的方式。要做到这一点，它使用了一种称为模块解析的算法，它在不同平台之间有所不同。目前，在 Node 中可用的一些模块标识符在浏览器中不起作用，但是有[正在进行中的工作来解决这个问题](https://github.com/domenic/package-name-maps)。
+关于模块标识符有一点需要注意：它们有时需要在浏览器和 Node 之间进行不同的处理。每个宿主都有自己的解释模块标识符字符串的方式。要做到这一点，它使用了一种称为模块解析的算法，它在不同平台之间有所不同。目前，在 Node 中可用的一些模块标识符在浏览器中不起作用，但[这个问题正在被修复](https://github.com/domenic/package-name-maps)。
 
 在修复之前，浏览器只接受 URL 作为模块标识符。它们将从该 URL 加载模块文件。但是，这并不是在整个依赖图上同时发生的。在解析文件前，并不知道这个文件中的模块需要再获取哪些依赖……并且在获取文件之前无法解析那个文件。
 
@@ -201,11 +201,11 @@ CommonJS 方法有一些隐式特性，稍后我会解释。其中一个是，�
 
 [![The “fetching” placeholders in the module map chart being filled in with module records](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/25_module_map-500x239.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/25_module_map.png)
 
-解析中有一个细节可能看起来微不足道，但实际上有很大的影响。所有的模块都被当作在顶部使用了 `"strict strict"` 来解析。还有一些其他细微差别。例如，关键字 `await` 保留在模块的顶层代码中，`this` 的值是 `undefined`。
+解析中有一个细节可能看起来微不足道，但实际上有很大的影响。所有的模块都被当作在顶部使用了 `"use strict"` 来解析。还有一些其他细微差别。例如，关键字 `await` 保留在模块的顶层代码中，`this` 的值是 `undefined`。
 
 这种不同的解析方式被称为「解析目标」。如果你使用不同的目标解析相同的文件，你会得到不同的结果。所以在开始解析你想知道正在解析的文件的类型 —— 它是否是一个模块。
 
-在浏览器中这很容易。你只需在 script 标记中设置 `type ="module"`。这告诉浏览器此文件应该被解析为一个模块。另外由于只有模块可以被导入，浏览器也就知道任何导入的都是模块。
+在浏览器中这很容易。你只需在 script 标记中设置 `type="module"`。这告诉浏览器此文件应该被解析为一个模块。另外由于只有模块可以被导入，浏览器也就知道任何导入的都是模块。
 
 [![The loader determining that main.js is a module because the type attribute on the script tag says so, and counter.js must be a module because it’s imported](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/26_parse_goal-500x311.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/26_parse_goal.png)
 
@@ -227,7 +227,7 @@ CommonJS 方法有一些隐式特性，稍后我会解释。其中一个是，�
 
 这些内存区域还没有被赋值。只有在求值之后它们才会获得真正的值。这条规则有一点需要注意：任何 export 的函数声明都在这个阶段初始化。这让求值更加容易。
 
-为了实例化模块图，引擎将执行所谓的深度优先后序遍历。这意味着它会下降到模块图的底部 —— 直到不依赖于其他任何东西的底部 —— 并处理它们的 export。
+为了实例化模块图，引擎将执行所谓的深度优先后序遍历。这意味着它会深入到模块图的底部 —— 直到不依赖于其他任何东西的底部 —— 并处理它们的 export。
 
 [![A column of empty memory in the middle. Module environment records for the count and display modules are wired up to boxes in memory.](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/30_live_bindings_01-500x206.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/30_live_bindings_01.png)
 
@@ -295,9 +295,9 @@ message 变量将被初始化并添加到内存中。但是由于两者之间没
 
 ### ES 模块的现状如何？
 
-随着 5 月初会发布的 Firefox 60，所有主流浏览器均默认支持 ES 模块。Node 也增加了支持，一个[工作组](https://github.com/nodejs/modules) 正致力于解决 CommonJS 和 ES 模块之间的兼容性问题。
+随着 5 月初会发布的 Firefox 60，所有主流浏览器均默认支持 ES 模块。Node 也增加了支持，一个[工作组](https://github.com/nodejs/modules)正致力于解决 CommonJS 和 ES 模块之间的兼容性问题。
 
-这意味着你可以在 script 标记中使用 `type = module`，并使用 import 和 export。但是，更多模块特性尚未实现。[动态导入提议](https://github.com/tc39/proposal-dynamic-import)正处于规范过程的第 3 阶段，有助于支持 Node.js 用例的 [import.meta](https://github.com/tc39/proposal-import-meta) 也一样，[模块解析提议](https://github.com/domenic/package-name-maps)也将有助于平滑浏览器和 Node.js 之间的差异。所以我们可以期待将来的模块支持会更好。
+这意味着你可以在 script 标记中使用 `type=module`，并使用 import 和 export。但是，更多模块特性尚未实现。[动态导入提议](https://github.com/tc39/proposal-dynamic-import)正处于规范过程的第 3 阶段，有助于支持 Node.js 用例的 [import.meta](https://github.com/tc39/proposal-import-meta) 也一样，[模块解析提议](https://github.com/domenic/package-name-maps)也将有助于平滑浏览器和 Node.js 之间的差异。所以我们可以期待将来的模块支持会更好。
 
 ## 致谢
 
@@ -305,7 +305,7 @@ message 变量将被初始化并添加到内存中。但是由于两者之间没
 
 ## 关于 [Lin Clark](http://code-cartoons.com)
 
-Lin 是 Mozilla 开发者关系组的一名工程师。她鼓捣过 JavaScript、WebAssembly、Rust 和 Servo，也画过一些代码漫画。
+Lin 是 Mozilla 开发者关系组的一名工程师。她研究 JavaScript、WebAssembly、Rust 和 Servo，也画过一些代码漫画。
 
 * [code-cartoons.com](http://code-cartoons.com)
 * [@linclark](http://twitter.com/linclark)
