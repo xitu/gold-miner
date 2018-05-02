@@ -41,7 +41,7 @@ ES 模块为 JavaScript 提供了官方标准化的模块系统。然而，这�
 
 首先，所有的 script 标签都需要按照正确的顺序排列。所以你必须小心确保那个顺序没被打乱。
 
-如果你搞乱了这个顺序，那么在运行的过程中，你的应用程序就会抛出一个错误。当函数寻找它期望的 jQuery 时 —— 在全局作用域里 —— 并没有找到它，它会抛出一个错误并停止运行。
+如果你搞乱了这个顺序，那么在运行的过程中，你的应用程序就会抛出一个错误。当函数寻找它期望的 jQuery 时 —— 在全局作用域里 —— 却没有找到它，它会抛出一个错误并停止运行。
 
 [![The top function scope has been removed and now the second function scope can’t find jQuery on the global](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/02_module_scope_03-500x450.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/02_module_scope_03.png)
 
@@ -49,7 +49,7 @@ ES 模块为 JavaScript 提供了官方标准化的模块系统。然而，这�
 
 第二个问题是，因为这些变量位于全局范围内，所以全局范围内的代码的每个部分都可以更改该变量。恶意代码可能会故意更改该变量，以使你的代码执行某些你并不想要的操作，或者非恶意代码可能会意外地弄乱你的变量。
 
-### 模块能帮些什么？
+### 模块是如何提供帮助的？
 
 模块为你提供了更好的方法来组织这些变量和函数。通过模块，你可以将有意义的变量和函数分组在一起。
 
@@ -57,7 +57,7 @@ ES 模块为 JavaScript 提供了官方标准化的模块系统。然而，这�
 
 但是与函数作用域不同，模块作用域也可以将其变量提供给其他模块。它们可以明确说明模块中的哪些变量、类或函数应该共享。
 
-设置某些东西可以被其他模块使用的过程，称为 export。一旦你声明了一个 export，其他模块就可以明确地说它们依赖于该变量、类或函数。
+当将某些东西提供给其他模块时，称为 export。一旦你声明了一个 export，其他模块就可以明确地说它们依赖于该变量、类或函数。
 
 [![Two module scopes, with one reaching into the other to grab an export](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/02_module_scope_04-500x450.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/02_module_scope_04.png)
 
@@ -83,7 +83,7 @@ ES 模块为 JavaScript 提供了官方标准化的模块系统。然而，这�
 
 之后，模块记录需要转化为模块实例（module instance）。一个实例包含两个部分：代码和状态。
 
-代码基本上是一组指令。就像是一个告诉你如何制作某些东西的配方。但你仅依靠代码并不能做任何事情。你需要原材料来配合这些指令使用。
+代码基本上是一组指令。就像是一个告诉你如何制作某些东西的配方。但你仅依靠代码并不能做任何事情。你需要将原材料和这些指令组合起来使用。
 
 什么是状态？状态就是给你这些原材料的东西。指令是所有变量在任何时间的实际值的集合。当然，这些变量只是内存中保存值的数据块的名称而已。
 
@@ -105,7 +105,7 @@ ES 模块为 JavaScript 提供了官方标准化的模块系统。然而，这�
 
 这意味着 ES 规范确实引入了一种在 CommonJS 中并不存在的异步性。我稍后会再解释，但是在 CJS 中，一个模块和其下的所有依赖会一次性完成加载、实例化和求值，中间没有任何中断。
 
-当然，这些步骤本身并不必须时异步的。它们可以以同步的方式完成。这取决于谁在做加载这个过程。这是因为 ES 模块规范并没有控制所有的事情。实际上有两部分工作，这些工作分别由不同的规范控制。
+当然，这些步骤本身并不必须是异步的。它们可以以同步的方式完成。这取决于谁在做加载这个过程。这是因为 ES 模块规范并没有控制所有的事情。实际上有两部分工作，这些工作分别由不同的规范控制。
 
 [ES模块规范](https://tc39.github.io/ecma262/#sec-modules)说明了如何将文件解析到模块记录，以及如何实例化和求值该模块。但是，它并没有说明如何获取文件。
 
@@ -297,7 +297,7 @@ message 变量将被初始化并添加到内存中。但是由于两者之间没
 
 随着 5 月初会发布的 Firefox 60，所有主流浏览器均默认支持 ES 模块。Node 也增加了支持，一个[工作组](https://github.com/nodejs/modules)正致力于解决 CommonJS 和 ES 模块之间的兼容性问题。
 
-这意味着你可以在 script 标记中使用 `type=module`，并使用 import 和 export。但是，更多模块特性尚未实现。[动态导入提议](https://github.com/tc39/proposal-dynamic-import)正处于规范过程的第 3 阶段，有助于支持 Node.js 用例的 [import.meta](https://github.com/tc39/proposal-import-meta) 也一样，[模块解析提议](https://github.com/domenic/package-name-maps)也将有助于平滑浏览器和 Node.js 之间的差异。所以我们可以期待将来的模块支持会更好。
+这意味着你可以在 script 标记中使用 `type=module`，并使用 import 和 export。但是，更多模块特性尚未实现。[动态导入提议](https://github.com/tc39/proposal-dynamic-import)正处于规范过程的第 3 阶段，有助于支持 Node.js 用例的 [import.meta](https://github.com/tc39/proposal-import-meta) 也一样，[模块解析提议](https://github.com/domenic/package-name-maps)也将有助于抹平浏览器和 Node.js 之间的差异。所以我们可以期待将来的模块支持会更好。
 
 ## 致谢
 
