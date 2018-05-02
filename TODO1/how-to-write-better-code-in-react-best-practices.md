@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-write-better-code-in-react-best-practices.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-write-better-code-in-react-best-practices.md)
 > * 译者：[jonjia](https://github.com/jonjia)
-> * 校对者：[jasonxia23](https://github.com/jasonxia23) [weberpan](https://github.com/weberpan)
+> * 校对者：[jasonxia23](https://github.com/jasonxia23) [老教授](https://github.com/weberpan)
 
 # 如何写出更好的 React 代码
 
@@ -13,7 +13,7 @@
 
 使用 [React](https://reactjs.org/) 可以轻松创建交互式界面。为应用中的每个状态设计简单的视图，当数据变化时，React 会高效地更新和渲染正确的组件。
 
-这篇文章中，我会介绍一些使你成为更好的 React 开发者的方法。我会介绍从工具到代码风格等一系列内容，这些可以帮助你提升 React 相关技能。 💪
+这篇文章中，我会介绍一些使你成为更好的 React 开发者的方法。包括从工具到代码风格等一系列内容，这些都可以帮助你提升 React 相关技能。 💪
 
 * * *
 
@@ -21,11 +21,11 @@
 
 要写出更好代码，很重要的一件事就是使用好的代码检查工具。如果我们配置好了一套代码检查规则，代码编辑器就能帮我们捕捉到任何可能出现的代码问题。
 
-但除了捕捉问题，[ES Lint](https://eslint.org/) 也会让你不断认识到 React 代码的最佳实现。
+但除了捕捉问题，[ES Lint](https://eslint.org/) 也会让你不断学习到 React 代码的最佳实践。
 
 ```
 import react from 'react';
-/* 其他 imports */
+/* 其它 imports */
 
 /* Code */
 
@@ -47,9 +47,9 @@ export default class App extends React.Component {
 props 验证没有 'hello' (react/prop-types)
 ```
 
-代码检查工具会让你认识到 React 的最佳实现并塑造你对代码的理解。很快，之后写代码的时候，你就会开始避免犯错了。
+代码检查工具会让你认识到 React 的最佳实践并塑造你对代码的理解。很快，之后写代码的时候，你就会开始避免犯错了。
 
-你可以登陆 [ESLint 官网](https://eslint.org) 为 JavaScript 配置代码检查工具，或者使用 [Airbnb’s JavaScript Style Guide](https://github.com/airbnb/javascript)。也可以安装 [React ESLint Package](https://www.npmjs.com/package/eslint-plugin-react)。
+你可以去 [ESLint 官网](https://eslint.org) 为 JavaScript 配置代码检查工具，或者使用 [Airbnb’s JavaScript Style Guide](https://github.com/airbnb/javascript)。也可以安装 [React ESLint Package](https://www.npmjs.com/package/eslint-plugin-react)。
 
 * * *
 
@@ -66,7 +66,7 @@ static propTypes = {
 }
 ```
 
-在这里，如果 `userIsLoaded` 不是必需的，那么我们就要添加到代码中说明：
+在这里，如果 `userIsLoaded` 不是必需的，那么我们就要在代码中添加说明：
 
 ```
 static defaultProps = {
@@ -74,15 +74,15 @@ static defaultProps = {
 }
 ```
 
-所以当我们在组件中使用 `PropType`，需要为他设置一个 propType。如上，我们告诉 React：`userIsLoaded` 的类型永远是一个布尔值。
+所以每当我们要在组件中使用 `参数类型检查`，就要为它设置一个 propType。如上，我们告诉 React：`userIsLoaded` 的类型永远是一个布尔值。
 
-如果我们声明 `userIsLoaded` 不是必需的值，那么我们就要为他定义一个默认值。如果是必需的，就没有必要定义默认值。但是，规则还指出不应该使用像对象或数组这样不明确的 propTypes。
+如果我们声明 `userIsLoaded` 不是必需的值，那么我们就要为它定义一个默认值。如果是必需的，就没有必要定义默认值。但是，规则还指出不应该使用像对象或数组这样不明确的 propTypes。
 
-为什么使用 `shape` 方法来验证 `user` 呢，因为他内部需要有一个 类型为字符串的 `id` 属性，而整个 `user` 对象又是必需的。
+为什么使用 `shape` 方法来验证 `user` 呢，因为它内部需要有一个 类型为字符串的 `id` 属性，而整个 `user` 对象又是必需的。
 
-确保使用了 `props` 的每个组件都声明了 `propTypes` 和 `defaultProps`（对写出更好的 React 代码）很有帮助。
+确保使用了 `props` 的每个组件都声明了 `propTypes` 和 `defaultProps`，这对写出更好的 React 代码很有帮助。
 
-当 props 实际获取的数据和期望的不同时，错误日志就会让你知道：要么是你传递了错误的数据，要么就是没有得到期望值，特别是写可重用组件时，找出错误会更容易。这也会让错误日志能更好的记录。
+当 props 实际获取的数据和期望的不同时，错误日志就会让你知道：要么是你传递了错误的数据，要么就是没有得到期望值，特别是写可重用组件时，找出错误会更容易。这也会让这些可重用组件更可读一些。
 
 #### 注意：
 
@@ -135,15 +135,15 @@ export default class Profile extends PureComponent {
 }
 ```
 
-上面有一个名为 `Profile` 的组件。这个组件内部还有一些像 `MyOrder` 和 `MyDownloads` 这样的其他组件。因为他们从同一个数据源（`user`）获取数据，所以可以把所有这些组件写到一起。把这些小组件变成一个巨大的组件。
+上面有一个名为 `Profile` 的组件。这个组件内部还有一些像 `MyOrder` 和 `MyDownloads` 这样的其它组件。因为它们从同一个数据源（`user`）获取数据，所以可以把所有这些组件写到一起。把这些小组件变成一个巨大的组件。
 
 尽管什么时候才要创建一个新组件没有任何硬性规定，但问问你自己：
 
 *   代码的功能变得笨重了吗？
-*   他是否只代表了自己的东西？
+*   它是否只代表了自己的东西？
 *   是否需要重用这部分代码？
 
-如果上面问题的答案都是肯定的，你就需要创建一个新组件了。
+如果上面有一个问题的答案是肯定的，那你就需要创建一个新组件了。
 
 记住，任何人如果看到你的有 200–300 行的组件时都会抓狂的，然后没人会想再看你的代码。
 
@@ -151,11 +151,11 @@ export default class Profile extends PureComponent {
 
 ### Component vs PureComponent vs Stateless Functional Component
 
-对于一个 React 开发者，知道什么时候在代码中该使用 **Component**、 **PureComponent** 和 **Stateless Functional Component** 非常重要。
+对于一个 React 开发者，知道在代码中什么时候该使用 **Component**、 **PureComponent** 和 **Stateless Functional Component** 是非常重要的。
 
 你可能注意到了在上面的代码中，我没有将 `Profile` 继承自 `Component`，而是 `PureComponent`。
 
-首先，来看看无状态功能组件。
+首先，来看看无状态函数式组件。
 
 #### Stateless Functional Component（无状态函数式组件）
 
@@ -176,7 +176,7 @@ const Billboard = () => (
 );
 ```
 
-无状态函数式组件是一种很常见的组件类型。他为我们提供了一种非常简洁的方式来创建不使用任何 [**state**](https://reactjs.org/docs/faq-state.html)、[**refs**](https://hackernoon.com/refs-in-react-all-you-need-to-know-fb9c9e2aeb81) 或 [**生命周期方法**](https://reactjs.org/docs/state-and-lifecycle.html) 的组件。
+无状态函数式组件是一种很常见的组件类型。它为我们提供了一种非常简洁的方式来创建不使用任何 [**state**](https://reactjs.org/docs/faq-state.html)、[**refs**](https://hackernoon.com/refs-in-react-all-you-need-to-know-fb9c9e2aeb81) 或 [**生命周期方法**](https://reactjs.org/docs/state-and-lifecycle.html) 的组件。
 
 无状态函数式组件的特点是没有状态并且只有一个函数。所以你可以把组件定义为一个返回一些数据的常量函数。
 
@@ -184,11 +184,11 @@ const Billboard = () => (
 
 #### [PureComponents](https://reactjs.org/docs/react-api.html#reactpurecomponent)
 
-通常，一个组件获取了新的 prop，React 就会重新渲染这个组件。但有时，新传入的 prop 并没有真正改变，React 还是促发重新渲染。
+通常，一个组件获取了新的 prop，React 就会重新渲染这个组件。但有时，新传入的 prop 并没有真正改变，React 还是触发重新渲染。
 
-使用 `PureComponent` 可以帮助你避免这种重新渲染的浪费。例如，一个 prop 是字符串或布尔值，他改变后，`PureComponent` 会识别到这个改变，但如果 prop 是一个对象，他的属性改变后，`PureComponent` 不会促发重新渲染。
+使用 `PureComponent` 可以帮助你避免这种重新渲染的浪费。例如，一个 prop 是字符串或布尔值，它改变后，`PureComponent` 会识别到这个改变，但如果 prop 是一个对象，它的属性改变后，`PureComponent` 不会触发重新渲染。
 
-那么如何知道 React 何时会促发一个不必要的重新渲染呢？你可以看看这个叫做 [Why Did You Update](http://github.com/maicki/why-did-you-update) 的 React 包。当不必要的重新渲染发生时，这个包会在控制台中通知你。
+那么如何知道 React 何时会触发一个不必要的重新渲染呢？你可以看看这个叫做 [Why Did You Update](http://github.com/maicki/why-did-you-update) 的 React 包。当不必要的重新渲染发生时，这个包会在控制台中通知你。
 
 ![](https://cdn-images-1.medium.com/max/800/1*CL5jum98a0QxOWeIb9QRBg.png)
 
@@ -200,7 +200,7 @@ const Billboard = () => (
 
 如果你真想成为一个专业的 React 开发者，那么在开发过程中，就应该经常使用 React 开发者工具。
 
-如果你使用过 React，你的控制台可能会建议你使用 React 开发者工具。
+如果你使用过 React，你的控制台很可能建议过你使用 React 开发者工具。
 
 React 开发者工具适用于所有主流浏览器，例如：[Chrome](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en) 和 [Firefox](https://addons.mozilla.org/en-US/firefox/addon/react-devtools/)。
 
@@ -230,9 +230,9 @@ React 开发者工具是探索 React 组件的绝佳方式，也有助于诊断�
 
 *   不必编写单独的函数
 *   不必在 render 方法中使用 “if” 语句
-*   不必为组件中的其他位置创建“链接”
+*   不必为组件中的其它位置创建“链接”
 
-使用内联条件语句非常简洁。你可以写你自己的条件语句。假设第一个条件为真，就会显示 `<MyAffiliateInfo />` 组件。
+使用内联条件语句非常简洁。开始你可以把条件写为 true，那么 `<MyAffiliateInfo />` 组件无论如何都会显示。
 
 然后我们使用 `&&` 连接条件和 `<MyAffiliateInfo />`。这样当条件为真时，组件就会被渲染。
 
@@ -240,7 +240,7 @@ React 开发者工具是探索 React 组件的绝佳方式，也有助于诊断�
 
 ### 尽可能使用代码片段库
 
-打开一个代码编辑器（我用的是 VS Code），新建一个 a.js 文件。
+打开一个代码编辑器（我用的是 VS Code），新建一个 js 文件。
 
 在这个文件中输入 `rc`，就会看见如下提示：
 
@@ -250,7 +250,7 @@ React 开发者工具是探索 React 组件的绝佳方式，也有助于诊断�
 
 ![](https://cdn-images-1.medium.com/max/800/1*ICQlmjGkoM_27Mz8tD1ZyA.png)
 
-这些代码片段的优点不仅是帮助你减少 bug，还能帮助你识别最新的语法。
+这些代码片段的优点不仅是帮助你减少 bug，还能帮助你获取到最新最棒的写法。
 
 你可以在代码编辑器中安装许多不同的代码片段库。我用于 [VS Code](https://code.visualstudio.com/) 的叫做 [ES7 React/Redux/React-Native/JS Snippets](https://marketplace.visualstudio.com/items?itemName=dsznajder.es7-react-js-snippets)。
 
@@ -260,9 +260,9 @@ React 开发者工具是探索 React 组件的绝佳方式，也有助于诊断�
 
 React Internals 是一个共五篇的系列文章，帮助我理解 React 的基础知识，最终帮助我成为一个更好的 React 开发者！
 
-如果你对某些问题不能完全理解，或者你知道 React 的工作原理，那么 React Internals 可以帮助你理解**何时、如何**在 React 做对的事。
+如果你对某些问题不能完全理解，或者你知道 React 的工作原理，那么 React Internals 可以帮助你理解**何时、如何**在 React 中做对的事。
 
-这对那些不知道在哪里执行代码的人特别有用。
+这对那些不清楚在哪里执行代码的人特别有用。
 
 理解 React 内部运行原理会帮助你成为更好的 React 开发者。
 
@@ -272,21 +272,21 @@ React Internals 是一个共五篇的系列文章，帮助我理解 React 的基
 
 [Bit](https://bitsrc.io) 是一个将你的 UI 组件转化为可以在不同应用中分享、开发和同步的构建块的工具。
 
-你也可以利用 Bit 管理团队组件，通过 [线上组件区](https://blog.bitsrc.io/introducing-the-live-react-component-playground-d8c281352ee7)，可以使他们容易获取和使用，也便于单独测试。
+你也可以利用 Bit 管理团队组件，通过 [线上组件区](https://blog.bitsrc.io/introducing-the-live-react-component-playground-d8c281352ee7)，可以使它们容易获取和使用，也便于单独测试。
 
 - [**Bit — 共享共创代码组件**：Bit 让使用小组件构建软件更简单有趣，在你的团队中分享同步这些组件](https://bitsrc.io)
 
-[Storybook](https://github.com/storybooks/storybook) 是用于 UI 组件的开发环境，可以帮助你浏览一个组件库，查看每个组件的不同状态，交互式开发和测试组件。
+[Storybook](https://github.com/storybooks/storybook) 是用于 UI 组件的快速开发环境，可以帮助你浏览一个组件库，查看每个组件的不同状态，交互式开发和测试组件。
 
-Storybook 会帮助你更快地开发 React 组件，方法是添加一个可以实际查看和展示组件的环境，并在页面上进行热加载。
+Storybook 提供了一个帮你快速开发 React 组件的环境，通过它，当你操作组件的属性时，Web 页面会热更新，让你看到组件的实时效果。
 
 * * *
 
 ### 快速回顾
 
 1. 使用代码检查工具，使用 ES Lint、Airbnb’s JavaScript Style Guide 和 ESLint React 插件。
-2. 使用 propTypes 和 defaultProps
-3. 知道何时创建新组件
+2. 使用 propTypes 和 defaultProps。
+3. 知道何时创建新组件。
 4. 知道何时使用 Component、PureComponent 和 Stateless Functional Component。
 5. 使用 React 开发者工具。
 6. 使用内联条件语句。
