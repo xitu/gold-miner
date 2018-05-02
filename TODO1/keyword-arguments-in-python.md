@@ -2,8 +2,8 @@
 > * 原文作者：[Trey Hunner](http://treyhunner.com)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/keyword-arguments-in-python.md](https://github.com/xitu/gold-miner/blob/master/TODO1/keyword-arguments-in-python.md)
-> * 译者：sisibeloved
-> * 校对者：
+> * 译者：[sisibeloved](https://github.com/sisibeloved)
+> * 校对者：[Starriers](https://github.com/Starriers)、[ALVINYEH](https://github.com/ALVINYEH)
 
 # Python 中的键值（具名）参数：如何使用它们
 
@@ -103,7 +103,7 @@ def write_gzip_file(output_file, contents):
         gzip_out.write(contents)
 ```
 
-这个函数接收一个 `output_file` 文件对象和 `contents` 字符串，然后把一个经过 gzip  压缩的字符串写入输出文件。
+这个函数接收一个 `output_file` 文件对象和 `contents` 字符串，然后把一个经过 gzip 压缩的字符串写入输出文件。
 
 下面这段代码做了相同的事，只是用键值参数代替了占位参数：
 
@@ -115,11 +115,11 @@ def write_gzip_file(output_file, contents):
 
 可以看到使用键值参数调用这种方式可以更清楚地看出这三个参数的意义。
 
-我们在这里去掉了一个参数。第一个参数代表 `文件名`，并且有一个 `None` 的默认值。这里我们不需要 `filename`，因为我们应该只传一个文件对象或者只传一个文件名给 `GzipFile`，而不是两者都传。
+我们在这里去掉了一个参数。第一个参数代表 `filename`，并且有一个 `None` 的默认值。这里我们不需要 `filename`，因为我们应该只传一个文件对象或者只传一个文件名给 `GzipFile`，而不是两者都传。
 
 我们还能再去掉一个参数。
 
-还是原来的代码，不过这次压缩比被去掉了，以默认的 `9` 代替：
+还是原来的代码，不过这次压缩率被去掉了，以默认的 `9` 代替：
 
 ```python
 def write_gzip_file(output_file, contents):
@@ -133,7 +133,7 @@ def write_gzip_file(output_file, contents):
 
 1.  我们可以去除有默认值的参数
 2.  我们可以以一种更为可读的方式将参数重新排列
-3.  通过名称调用参数更容易明白参数的含义
+3.  通过名称调用参数更容易理解参数的含义
 
 ## 哪里能看到键值函数
 
@@ -232,7 +232,7 @@ Traceback (most recent call last):
 TypeError: join() missing 1 required keyword-only argument: 'joiner'
 ```
 
-需要注意的是这种把参数放在 `*` 后面的语法只在 Python 3 中有效。在 Python 2 没办法指定一个参数必须被具名。
+需要注意的是这种把参数放在 `*` 后面的语法只在 Python 3 中有效。Python 2 中没有要求参数必须要被命名的语法。
 
 ## 只接收键值参数而不接收占位参数
 
@@ -333,7 +333,7 @@ def format_attributes(**attributes):
 ```
 
 
-`**` 操作符允许 `format_attributes` 函数接收任意数量的键值参数。输入的参数会被存在一个叫 `attributes` 的词典里面。
+`**` 操作符允许 `format_attributes` 函数接收任意数量的键值参数。输入的参数会被存在一个叫 `attributes` 的字典里面。
 
 这是我们的函数的使用示例：
 
@@ -347,9 +347,9 @@ def format_attributes(**attributes):
 
 就像你可以定义函数接收通配键值参数一样，你也可以在调用函数时传入通配键值参数。
 
-这就意味着你可以基于词典中的项向函数传递键值参数。
+这就意味着你可以基于字典中的项向函数传递键值参数。
 
-这里我们从一个词典中手动提取键/值对，并把它们以键值参数的形式传入函数中：
+这里我们从一个字典中手动提取键/值对，并把它们以键值参数的形式传入函数中：
 
 ```python
 >>> items = {'name': "Trey", 'website': "http://treyhunner.com", 'color': "purple"}
@@ -357,9 +357,9 @@ def format_attributes(**attributes):
 'name: Trey, website: http://treyhunner.com, color: purple'
 ```
 
-这种在代码函数调用时将代码写死的方式需要我们在写下代码的时候就知道所使用的词典中的每一个键。当我们不知道词典中的键时，这种方法就不奏效了。
+这种在代码函数调用时将代码写死的方式需要我们在写下代码的时候就知道所使用的字典中的每一个键。当我们不知道字典中的键时，这种方法就不奏效了。
 
-我们可以通过 `**` 操作符将词典中的项拆解成函数调用时的键值参数，来向函数传递通配键值参数：
+我们可以通过 `**` 操作符将字典中的项拆解成函数调用时的键值参数，来向函数传递通配键值参数：
 
 ```python
 >>> items = {'name': "Trey", 'website': "http://treyhunner.com", 'color': "purple"}
@@ -367,7 +367,7 @@ def format_attributes(**attributes):
 'name: Trey, website: http://treyhunner.com, color: purple'
 ```
 
-这种向函数传递通配键值参数和在函数内接收通配键值参数（就像我们之前做的那样）的做法 在使用类继承时尤为常见：
+这种向函数传递通配键值参数和在函数内接收通配键值参数（就像我们之前做的那样）的做法在使用类继承时尤为常见：
 
 ```python
 def my_method(self, *args, **kwargs):
@@ -379,7 +379,7 @@ def my_method(self, *args, **kwargs):
 
 ## 顺序敏感性
 
-自 Python 3.6 起，函数将会保持键值参数传入的顺序（参见 [PEP 468](https://www.python.org/dev/peps/pep-0468/)）。这意味着当使用 `**` 来匹配键值参数时，用来储存结果的词典的键将会与传入参数拥有同样的顺序。
+自 Python 3.6 起，函数将会保持键值参数传入的顺序（参见 [PEP 468](https://www.python.org/dev/peps/pep-0468/)）。这意味着当使用 `**` 来匹配键值参数时，用来储存结果的字典的键将会与传入参数拥有同样的顺序。
 
 所以在 Python 3.6 之后，你将**不会再**看到这样的情况：
 
