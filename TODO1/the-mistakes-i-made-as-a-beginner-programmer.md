@@ -527,7 +527,7 @@ This is a tricky point. In programming, some wheels are simply worth reinventing
 
 在我的字典里，Git 功能你懂得越少，你就越像一个新手。
 
-### **23）**过度使用共享状态**
+### **23）过度使用共享状态**
 
 再次声明，这不是关于函数式编程和其他范式的讨论，那是另一篇文章的主题了。
 
