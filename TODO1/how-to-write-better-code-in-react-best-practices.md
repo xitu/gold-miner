@@ -2,30 +2,30 @@
 > * 原文作者：[Rajat S](https://blog.bitsrc.io/@geeky_writer_?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-write-better-code-in-react-best-practices.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-write-better-code-in-react-best-practices.md)
-> * 译者：
-> * 校对者：
+> * 译者：[jonjia](https://github.com/jonjia)
+> * 校对者：[jasonxia23](https://github.com/jasonxia23) [老教授](https://github.com/weberpan)
 
-# How To Write Better Code In React
+# 如何写出更好的 React 代码
 
-## 9 Useful Tips for writing better code in React: Learn about Linting, propTypes, PureComponent and more.
+## 写出更好的 React 代码的 9 条实用提示：了解代码检查、propTypes、PureComponent 等。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*4ihBhwd0DygCWHN-Bo24BA.png)
 
-[React](https://reactjs.org/) makes it painless to create interactive UIs. Design simple views for each state in your application, and React will efficiently update and render just the right components when your data changes.
+使用 [React](https://reactjs.org/) 可以轻松创建交互式界面。为应用中的每个状态设计简单的视图，当数据变化时，React 会高效地更新和渲染正确的组件。
 
-In this post, I will show you a few tips that will help you become a better React Developer. I will cover a range of things from tooling to actual code style, which can help you improve your skill with React. 💪
+这篇文章中，我会介绍一些使你成为更好的 React 开发者的方法。包括从工具到代码风格等一系列内容，这些都可以帮助你提升 React 相关技能。 💪
 
 * * *
 
-### Let’s Talk about Linting
+### 代码检查
 
-One thing that’s really important for writing better code is good linting. Because if we have a good set of linting rules set up, your code editor will be able to catch anything that could potentially cause a problem in your code.
+要写出更好代码，很重要的一件事就是使用好的代码检查工具。如果我们配置好了一套代码检查规则，代码编辑器就能帮我们捕捉到任何可能出现的代码问题。
 
-But more than just catching problems, your [ES Lint](https://eslint.org/)setup will constantly make you aware of [React](https://eslint.org/) best practices.
+但除了捕捉问题，[ES Lint](https://eslint.org/) 也会让你不断学习到 React 代码的最佳实践。
 
 ```
 import react from 'react';
-/* Other imports */
+/* 其它 imports */
 
 /* Code */
 
@@ -41,21 +41,21 @@ export default class App extends React.Component {
 }
 ```
 
-Take the code snippet above. Say you want to reference a new property called `this.props.hello` in your `render()` function. Your linter will immediately go red and say:
+看一下上面的代码。假设你想在 `render()` 方法中引用一个叫做 `this.props.hello` 的新属性。代码检查工具会马上把代码变红，并提示：
 
 ```
-'hello' is missing in props validation (react/prop-types)
+props 验证没有 'hello' (react/prop-types)
 ```
 
-Linting will help you be aware of the best practices in React and shape your understanding of the code. Soon, you will start to avoid making mistakes when you write your code.
+代码检查工具会让你认识到 React 的最佳实践并塑造你对代码的理解。很快，之后写代码的时候，你就会开始避免犯错了。
 
-You can either head over to [ESLint](https://eslint.org) and set up a linting utility for JavaScript, or you can use [Airbnb’s JavaScript Style Guide](https://github.com/airbnb/javascript). You can also install the [React ESLint Package](https://www.npmjs.com/package/eslint-plugin-react).
+你可以去 [ESLint 官网](https://eslint.org) 为 JavaScript 配置代码检查工具，或者使用 [Airbnb’s JavaScript Style Guide](https://github.com/airbnb/javascript)。也可以安装 [React ESLint Package](https://www.npmjs.com/package/eslint-plugin-react)。
 
 * * *
 
-### [propTypes](https://www.npmjs.com/package/prop-types) and defaultProps
+### [propTypes](https://www.npmjs.com/package/prop-types) 和 defaultProps
 
-In the earlier section, I talked about how my linter acted up when I tried to pass an unvalidated prop.
+上一节中，我谈到了当使用一个不存在的 prop 时，我的代码检查工具是如何起作用的。
 
 ```
 static propTypes = {
@@ -66,7 +66,7 @@ static propTypes = {
 }
 ```
 
-Here, if we say that the `userIsLoaded` is not required, then we would need to add this to our code:
+在这里，如果 `userIsLoaded` 不是必需的，那么我们就要在代码中添加说明：
 
 ```
 static defaultProps = {
@@ -74,27 +74,27 @@ static defaultProps = {
 }
 ```
 
-So anytime we have a `PropType` that’s used in our component, we need to set a propType for it. As in, we need to tell React that `userIsLoaded` is always going to be a boolean value.
+所以每当我们要在组件中使用 `参数类型检查`，就要为它设置一个 propType。如上，我们告诉 React：`userIsLoaded` 的类型永远是一个布尔值。
 
-And again if we say that `userIsLoaded` is not required then we’re going to need to have a default prop. If it is required, then we don’t have to define a default prop for it. However, the rule also states that you shouldn’t have an ambiguous propTypes like object or array.
+如果我们声明 `userIsLoaded` 不是必需的值，那么我们就要为它定义一个默认值。如果是必需的，就没有必要定义默认值。但是，规则还指出不应该使用像对象或数组这样不明确的 propTypes。
 
-This is why we are using `shape` to validate `user`, which has another an `id` inside it, which has a propType of `string`, and the entire `user` object is required.
+为什么使用 `shape` 方法来验证 `user` 呢，因为它内部需要有一个 类型为字符串的 `id` 属性，而整个 `user` 对象又是必需的。
 
-Making sure you have your `propTypes` and `defaultProps` set up on every single component that uses `props` will go a long way.
+确保使用了 `props` 的每个组件都声明了 `propTypes` 和 `defaultProps`，这对写出更好的 React 代码很有帮助。
 
-The moment those props don’t get the data that they are expecting, your error log will let you know that you are either passing in something incorrectly or something that is expecting it is not there, making error finding just way easier especially if you are writing a lot of reusable components. It also makes them a little bit more self-documenting.
+当 props 实际获取的数据和期望的不同时，错误日志就会让你知道：要么是你传递了错误的数据，要么就是没有得到期望值，特别是写可重用组件时，找出错误会更容易。这也会让这些可重用组件更可读一些。
 
-#### Note:
+#### 注意：
 
-Unlike earlier versions of React, proptypes are no longer included inside React and you will have to add them separately to your project as a dependency.
+React 从 v15.5 版本开始，不再内置 proptypes，需要作为独立的依赖包添加到你的项目中。
 
-Click here to know more:
+点击下面的链接了解更多：
 
-- [**prop-types**: Runtime type checking for React props and similar objects._www.npmjs.com](https://www.npmjs.com/package/prop-types)
+- [**prop-types**：用于运行时检查 React props 和类似对象类型的工具](https://www.npmjs.com/package/prop-types)
 
 * * *
 
-### Know when to make new components
+### 知道何时创建新组件
 
 ```
 export default class Profile extends PureComponent {
@@ -135,29 +135,29 @@ export default class Profile extends PureComponent {
 }
 ```
 
-Here I have a component called `Profile`. I have other components like `MyOrder` and `MyDownloads` inside this component. Now I could have written all these components inline here since I am just pulling the data from the same place (`user`), Turning all these smaller components into a one giant component.
+上面有一个名为 `Profile` 的组件。这个组件内部还有一些像 `MyOrder` 和 `MyDownloads` 这样的其它组件。因为它们从同一个数据源（`user`）获取数据，所以可以把所有这些组件写到一起。把这些小组件变成一个巨大的组件。
 
-While there aren’t any hard and fast rules on when to move your code into a component, ask yourself:
+尽管什么时候才要创建一个新组件没有任何硬性规定，但问问你自己：
 
-*   Is your code’s functionality becoming unwieldy?
-*   Does it represent its own thing?
-*   Are you going to reuse your code?
+*   代码的功能变得笨重了吗？
+*   它是否只代表了自己的东西？
+*   是否需要重用这部分代码？
 
-If any of these question’s answer is yes, then you need to move your code into a component.
+如果上面有一个问题的答案是肯定的，那你就需要创建一个新组件了。
 
-Keep in mind that the last thing anyone wants to see in your code is a giant 200–300 line component full of crazy bells and whistles.
+记住，任何人如果看到你的有 200–300 行的组件时都会抓狂的，然后没人会想再看你的代码。
 
 * * *
 
 ### Component vs PureComponent vs Stateless Functional Component
 
-It is very important for a React developer to know when to use a **Component**, **PureComponent**, and a **Stateless Functional Component** in your code.
+对于一个 React 开发者，知道在代码中什么时候该使用 **Component**、 **PureComponent** 和 **Stateless Functional Component** 是非常重要的。
 
-You might have noticed in the above code snippet that instead of declaring `Profile` as a `Component`, I have instead called it as a `PureComponent`.
+你可能注意到了在上面的代码中，我没有将 `Profile` 继承自 `Component`，而是 `PureComponent`。
 
-First, let’s check out a stateless functional component.
+首先，来看看无状态函数式组件。
 
-#### Stateless Functional Component
+#### Stateless Functional Component（无状态函数式组件）
 
 ```
 const Billboard = () => (
@@ -176,45 +176,45 @@ const Billboard = () => (
 );
 ```
 
-Stateless functional components are one of the most common types of components in your arsenal. They provide us with a nice and concise way to create components that are not using any kind of [**state**](https://reactjs.org/docs/faq-state.html), [**refs**](https://hackernoon.com/refs-in-react-all-you-need-to-know-fb9c9e2aeb81), or [**lifecycle methods**](https://reactjs.org/docs/state-and-lifecycle.html).
+无状态函数式组件是一种很常见的组件类型。它为我们提供了一种非常简洁的方式来创建不使用任何 [**state**](https://reactjs.org/docs/faq-state.html)、[**refs**](https://hackernoon.com/refs-in-react-all-you-need-to-know-fb9c9e2aeb81) 或 [**生命周期方法**](https://reactjs.org/docs/state-and-lifecycle.html) 的组件。
 
-The idea with a stateless functional component is that it is state-less and just a function. So what’s great about this is that you are defining your component as a constant function that returns some data.
+无状态函数式组件的特点是没有状态并且只有一个函数。所以你可以把组件定义为一个返回一些数据的常量函数。
 
-In simple words, stateless functional components are just functions that returns JSX.
+简单来说，无状态函数式组件就是返回 JSX 的函数。
 
 #### [PureComponents](https://reactjs.org/docs/react-api.html#reactpurecomponent)
 
-Usually, when a component gets a new prop into it, React will re-render that component. But sometimes, a component gets new props that haven’t really changed, but React will still trigger a re-render.
+通常，一个组件获取了新的 prop，React 就会重新渲染这个组件。但有时，新传入的 prop 并没有真正改变，React 还是触发重新渲染。
 
-Using `PureComponent` will help you prevent this wasted re-render. For instance, if a prop is a string or boolean and it changes, a `PureComponent` is going to recognize that, but if a property within an object is changing, a `PureComponent` is not going to trigger a re-render.
+使用 `PureComponent` 可以帮助你避免这种重新渲染的浪费。例如，一个 prop 是字符串或布尔值，它改变后，`PureComponent` 会识别到这个改变，但如果 prop 是一个对象，它的属性改变后，`PureComponent` 不会触发重新渲染。
 
-So how will you know when React is triggering an unnecessary re-render? You can check out this amazing React package called [Why Did You Update](http://github.com/maicki/why-did-you-update). This package will notify you in the console when a potentially unnecessary re-render occurs.
+那么如何知道 React 何时会触发一个不必要的重新渲染呢？你可以看看这个叫做 [Why Did You Update](http://github.com/maicki/why-did-you-update) 的 React 包。当不必要的重新渲染发生时，这个包会在控制台中通知你。
 
 ![](https://cdn-images-1.medium.com/max/800/1*CL5jum98a0QxOWeIb9QRBg.png)
 
-Once you have recognized an unnecessary re-render, you can use a `PureComponent` rather than a `Component` to prevent things from having an unnecessary re-render.
+一旦你确认了一个不必要的重新渲染，就可以使用 `PureComponent` 替换 `Component` 来避免。
 
 * * *
 
-### Use React Dev Tools
+### 使用 React 开发者工具
 
-If you are serious about becoming a pro React Developer, then using React Dev Tools should be commonplace practice in your development process.
+如果你真想成为一个专业的 React 开发者，那么在开发过程中，就应该经常使用 React 开发者工具。
 
-If you have used React, there is a good chance that your console has yelled at you to use React Dev Tools.
+如果你使用过 React，你的控制台很可能建议过你使用 React 开发者工具。
 
-React Dev Tools are available for all major browsers such as [Chrome](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en) and [Firefox](https://addons.mozilla.org/en-US/firefox/addon/react-devtools/).
+React 开发者工具适用于所有主流浏览器，例如：[Chrome](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en) 和 [Firefox](https://addons.mozilla.org/en-US/firefox/addon/react-devtools/)。
 
-React Dev Tools give you access to the entire structure of your React app and allow you to see all the props and state that are being used in the app.
-
-React Dev Tools is an excellent way to explore our React components and helps diagnose any issues in your app.
+通过 React 开发者工具，你可以看到整个应用结构和应用中正在使用的 props 和 state。
+ 
+React 开发者工具是探索 React 组件的绝佳方式，也有助于诊断应用中的问题。
 
 * * *
 
-### Use Inline Conditional Statements
+### 使用内联条件语句
 
-This opinion might ruffle a few feathers but I have found that using Inline-Conditional Statements considerably cleans up my React code.
+这个观点可能会引起一些争议，但我发现使用内联条件语句可以明显简化我的 React 代码。
 
-Take a look at this code snippet:
+如下：
 
 ```
 <div className="one-col">
@@ -224,75 +224,75 @@ Take a look at this code snippet:
 </div>
 ```
 
-Here I have a basic function called that checks if a person is an “affiliate”, followed by a component called `<MyAffiliateInfo/>`.
+上面代码中，有一个检查这个人是否是 “affiliate” 的方法，后面跟了一个叫做 `<MyAffiliateInfo/>` 的组件。
 
-What’s great about this is that:
+这样做的好处是：
 
-*   I didn’t have to write a separate function.
-*   I didn’t have to write another “if” statement in my render function.
-*   I didn’t have to create a “link” to somewhere else in the component.
+*   不必编写单独的函数
+*   不必在 render 方法中使用 “if” 语句
+*   不必为组件中的其它位置创建“链接”
 
-Writing inline-conditional statements is quite simple. You begin by writing you conditional statement. You could say true and it will always show the `<MyAffiliateInfo />` component.
+使用内联条件语句非常简洁。开始你可以把条件写为 true，那么 `<MyAffiliateInfo />` 组件无论如何都会显示。
 
-Next we link this conditional statement with `<MyAffiliateInfo />` using `&&`. This way, the component will only be rendered when the conditional statement returns `true`.
+然后我们使用 `&&` 连接条件和 `<MyAffiliateInfo />`。这样当条件为真时，组件就会被渲染。
 
 * * *
 
-### Use Snippet Libraries whenever possible
+### 尽可能使用代码片段库
 
-Open up a code editor (I use VS Code), and create a .js file.
+打开一个代码编辑器（我用的是 VS Code），新建一个 js 文件。
 
-Inside this file when you type `rc`, you will see something like this:
+在这个文件中输入 `rc`，就会看见如下提示：
 
 ![](https://cdn-images-1.medium.com/max/800/1*DKVKG5IQB2XQ4GR1uEVDUw.png)
 
-Hitting enter, you will instantly get this:
+按下回车键，会立刻得到下面的代码片段：
 
 ![](https://cdn-images-1.medium.com/max/800/1*ICQlmjGkoM_27Mz8tD1ZyA.png)
 
-What’s great about these code snippets is that not only do they help you potentially save bugs but they also help you identify the latest and greatest syntax.
+这些代码片段的优点不仅是帮助你减少 bug，还能帮助你获取到最新最棒的写法。
 
-There are many different snippet libraries that can be installed in your code editor. The one I use for [VS Code](https://code.visualstudio.com/) is called [ES7 React/Redux/React-Native/JS Snippets](https://marketplace.visualstudio.com/items?itemName=dsznajder.es7-react-js-snippets).
-
-* * *
-
-### [React Internals](http://www.mattgreer.org/articles/react-internals-part-one-basic-rendering/) — Learn how React works
-
-React Internals is a five-part series that helped me understand the very basics of React, and eventually helped me become a better React Developer!
-
-If you are having issues with something that you might not have understood fully, or if you understand how React works, then React Internals will help you understand the **When** and **How** to do things right in React.
-
-This is especially helpful to those who have an idea but don’t quite know where to execute their code.
-
-Understanding the basics of how React works will help you become a better React developer.
+你可以在代码编辑器中安装许多不同的代码片段库。我用于 [VS Code](https://code.visualstudio.com/) 的叫做 [ES7 React/Redux/React-Native/JS Snippets](https://marketplace.visualstudio.com/items?itemName=dsznajder.es7-react-js-snippets)。
 
 * * *
 
-### Use [Bit](https://bitsrc.io) and [StoryBook](https://storybook.js.org/) for your components
+### [React Internals](http://www.mattgreer.org/articles/react-internals-part-one-basic-rendering/) — 了解 React 内部如何工作
 
-[Bit](https://bitsrc.io) is a great tool for turning your UI components into building blocks which can be shared, developed and synced in your different apps.
+React Internals 是一个共五篇的系列文章，帮助我理解 React 的基础知识，最终帮助我成为一个更好的 React 开发者！
 
-You can also leverage Bit to organize your team’s components in a shared gallery making them more discoverable and useful, with a [live component playground](https://blog.bitsrc.io/introducing-the-live-react-component-playground-d8c281352ee7), testing in isolation and more.
+如果你对某些问题不能完全理解，或者你知道 React 的工作原理，那么 React Internals 可以帮助你理解**何时、如何**在 React 中做对的事。
 
-- [**Bit - Share and build with code components**: Bit makes it fun and simple to build software with smaller components, share them with your team and sync them in your… bitsrc.io](https://bitsrc.io)
+这对那些不清楚在哪里执行代码的人特别有用。
 
-[Storybook](https://github.com/storybooks/storybook) is a rapid development environment for UI components which can help you to browse a component library, view the different states of each component, and interactively develop and test components.
-
-Storybook will help you develop React components faster by adding an environment where you can actually see and showcase your components while playing with their properties, with hot-reloading on the web.
+理解 React 内部运行原理会帮助你成为更好的 React 开发者。
 
 * * *
 
-### Quick Recap
+### 在你的组件中使用 [Bit](https://bitsrc.io) 和 [StoryBook](https://storybook.js.org/)
 
-1.  Get some good linting. Use ES Lint, Airbnb’s JavaScript Style Guide, and ESLint React Plugin.
-2.  Use propTypes and defaultProps.
-3.  Know when to make new components.
-4.  Know when to write a Component, PureComponent, and a Stateless Functional Component.
-5.  Use React Dev Tools.
-6.  Use inline conditional statements in your code.
-7.  Use Snippet Libraries to save a ton of time that is usually wasted on boilerplate code.
-8.  Learn how React works with React Internals.
-9.  Use tools like Bit / StoryBook to improve your component development workflow
+[Bit](https://bitsrc.io) 是一个将你的 UI 组件转化为可以在不同应用中分享、开发和同步的构建块的工具。
+
+你也可以利用 Bit 管理团队组件，通过 [线上组件区](https://blog.bitsrc.io/introducing-the-live-react-component-playground-d8c281352ee7)，可以使它们容易获取和使用，也便于单独测试。
+
+- [**Bit — 共享共创代码组件**：Bit 让使用小组件构建软件更简单有趣，在你的团队中分享同步这些组件](https://bitsrc.io)
+
+[Storybook](https://github.com/storybooks/storybook) 是用于 UI 组件的快速开发环境，可以帮助你浏览一个组件库，查看每个组件的不同状态，交互式开发和测试组件。
+
+Storybook 提供了一个帮你快速开发 React 组件的环境，通过它，当你操作组件的属性时，Web 页面会热更新，让你看到组件的实时效果。
+
+* * *
+
+### 快速回顾
+
+1. 使用代码检查工具，使用 ES Lint、Airbnb’s JavaScript Style Guide 和 ESLint React 插件。
+2. 使用 propTypes 和 defaultProps。
+3. 知道何时创建新组件。
+4. 知道何时使用 Component、PureComponent 和 Stateless Functional Component。
+5. 使用 React 开发者工具。
+6. 使用内联条件语句。
+7. 使用代码片段库，节省浪费在样板代码上的时间。
+8. 通过 React Internals 了解 React 如何工作。
+9. 使用像 Bit、StoryBook 这样的工具来优化开发流程。
 
 
 ---
