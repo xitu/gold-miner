@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/es-modules-a-cartoon-deep-dive.md](https://github.com/xitu/gold-miner/blob/master/TODO1/es-modules-a-cartoon-deep-dive.md)
 > * 译者：[stormluke](https://github.com/stormluke)
-> * 校对者：[Starrier](https://github.com/Starriers)
+> * 校对者：[Starrier](https://github.com/Starriers)、[zephyrJS](https://github.com/zephyrJS)
 
 # 漫画：深入浅出 ES 模块
 
