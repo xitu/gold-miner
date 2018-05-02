@@ -3,19 +3,19 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/avoiding-the-async-await-hell.md](https://github.com/xitu/gold-miner/blob/master/TODO1/avoiding-the-async-await-hell.md)
 > * 译者：[Colafornia](https://github.com/Colafornia)
-> * 校对者：
+> * 校对者：[Starriers](https://github.com/Starriers)
 
 # 如何逃离 async/await 地狱
 
 ![](http://o7ts2uaks.bkt.clouddn.com/1__3nDjjPTWn4ohLt96IcwCA.png)
 
-async/await 将我们从回调地狱中解脱，但是随着人们开始滥用它，导致了 async/await 地狱的诞生。
+async/await 将我们从回调地狱中解脱，但人们的滥用，导致了 async/await 地狱的诞生。
 
 本文将阐述什么是 async/await 地狱，以及逃离 async/await 地狱的几个方法。
 
 ### 什么是 async/await 地狱
 
-进行 JavaScript 异步编程时，大家经常一个接一个，写多条语句，并都在调用语句前标注了 **await**。由于大多数情况下，一个语句并不依赖于前一个语句，但是你仍不得不等前一个语句完成，这会导致性能问题。
+进行 JavaScript 异步编程时，大家经常需要逐一编写多个复杂语句的代码，并都在调用语句前标注了 **await**。由于大多数情况下，一个语句并不依赖于前一个语句，但是你仍不得不等前一个语句完成，这会导致性能问题。
 
 ### 一个 async/await 地狱示例
 
@@ -73,7 +73,7 @@ async function orderItems() {
 
 ### 如果我们忘了 await 关键字会怎样？
 
-如果你在调用一个异步函数是忘了使用 **await** 关键字，该函数就会立即开始执行。这意味着 await 对于函数的执行来说不是必需的。异步函数会返回一个 promise 对象，你可以稍后使用这个 promise。
+如果你在调用一个异步函数时忘了使用 **await** 关键字，该函数就会立即开始执行。这意味着 await 对于函数的执行来说不是必需的。异步函数会返回一个 promise 对象，你可以稍后使用这个 promise。
 
 ```javascript
 (async () => {
@@ -114,7 +114,7 @@ promise 有一个好玩的特性，你可以在一行代码中得到一个 promi
 
 #### 并发执行 async 函数
 
-然后我们可以利用事件循环并发执行这些非阻塞 async 函数。两个常用模式是 **先返回 promise** 和 **Promise.all 方法**。
+然后我们可以利用事件循环并发执行这些非阻塞 async 函数。两个常用模式是**先返回 promise** 和 **Promise.all 方法**。
 
 ### 让我们来修改一下示例
 
@@ -165,11 +165,11 @@ async function orderItems() {
 }
 ```
 
-希望本文可以帮你超越 async/await 的基础水平并提升应用的性能。
+希望本文可以帮你提高 async/await 的基础水平并提升应用的性能。
 
 如果喜欢本文，请点个喜欢。
 
-也请分享到 Fb 和 Twitter。如果想获取文章更新，可以在 [Twitter](https://twitter.com/dev__adi) and [Medium](https://medium.com/@adityaa803/) 上关注我。有任何问题可以在评论中指出。
+也请分享到 Fb 和 Twitter。如果想获取文章更新，可以在 [Twitter](https://twitter.com/dev__adi) 和 [Medium](https://medium.com/@adityaa803/) 上关注我。有任何问题可以在评论中指出。
 
 
 ---
