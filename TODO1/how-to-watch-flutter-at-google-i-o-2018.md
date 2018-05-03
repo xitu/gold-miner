@@ -9,9 +9,9 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*dArkoJSnhvcjZ6p4ds63BA.png)
 
-Google I/O 2018 还有一周就开始了，Flutter 将会在大会中通过会议、codelabs、office hours 和一个交互式沙盒空间等活动中展示其独有特色。无论您5 月 8 日至 5 月 10 日在此期间身在何处，您都可以实时的观看关于的 Flutter 的所有活动讲解。
+Google I/O 2018 还有一周就开始了，Flutter 将会在大会中通过会议、codelabs、office hours 和一个交互式沙盒空间等活动中展示其独有特色。无论您 5 月 8 日至 5 月 10 日身在何处，您都可以实时的观看关于的 Flutter 的所有活动讲解。
 
-查看与 Flutter 相关的会议，请访问 [https://google.com/io/](https://events.google.com/io/)，以便您可以在线的查看以下所有会议内容，支持直播以及点播：
+查看与 Flutter 相关的会议，请访问 [https://google.com/io/](https://events.google.com/io/)，以便您可以在线的查看以下所有会议内容，包括直播以及点播：
 
 *   5 月 8 日，星期二下午 2:00 PDT—[为你的产品定制化 Material 组件](https://events.google.com/io/schedule/?section=may-8&sid=247e7a44-c632-464e-954c-303ede5befd5&livestream=true&topic=flutter)
 *   5 月 8 日，星期二下午 5:00 PDT — [跨平台构建优秀的 Material Design 产品](https://events.google.com/io/schedule/?section=may-8&sid=03c677fd-d082-4bf9-ae38-06829cfdada9&livestream=true&topic=flutter)
