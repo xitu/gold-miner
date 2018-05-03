@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-watch-flutter-at-google-i-o-2018.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-watch-flutter-at-google-i-o-2018.md)
 > * 译者：[wzasd](https://github.com/wzasd)
-> * 校对者：
+> * 校对者：[faintz](https://github.com/faintz)
 
 # 如何在 Google I/O 2018 以正确的姿势观看 Flutter
 
@@ -20,17 +20,18 @@ Google I/O 2018 还有一周就开始了，Flutter 将会在大会中通过会�
 *   5 月 10 日，星期四上午 10:30 PDT— [使用 Flutter 构建响应式移动应用程序](https://events.google.com/io/schedule/?section=may-8&sid=dab2bf45-6e44-4605-a997-9d446f95ef38&livestream=true&topic=flutter)
 *   5 月 10 日，星期四下午 3:30 PDT— [将 Firebase 添加到您的跨平台 React Native 或 Flutter 应用](https://events.google.com/io/schedule/?section=may-8&sid=c8374ad6-94f3-47bb-99fd-164c0d0a81bc&livestream=true&topic=flutter)
 
-完整的 Flutter 直播时间表[点击这里](https://events.google.com/io/schedule/?section=may-8&livestream=true&topic=flutter&utm_source=flutter&utm_medium=pre%20io%20announcement&utm_campaign=io18). 如果你在网页中收藏这些会议链接会非常容易再次找到他们。
+完整的 Flutter 直播时间表[点击这里](https://events.google.com/io/schedule/?section=may-8&livestream=true&topic=flutter&utm_source=flutter&utm_medium=pre%20io%20announcement&utm_campaign=io18)。如果你在网页中收藏这些会议链接会非常容易再次找到他们。
 
 除此之外，请务必查看关于 Flutter Sandbox 的虚拟游览，将在5月9日在 [g.co/io/guides](http://g.co/io/guides) 提供支持。您将会看到由2Dimensions 为此制作的内容！
 
 ![](https://cdn-images-1.medium.com/max/800/1*ZPr26vDyRE90NtHZJ6Jmgg.gif)
 
-如果要想要与其他开发者讨论关于 Flutter 和 I/O 的事宜，请确保参加您附近的 I/O 全球活动的扩展活动 [I/O Extended events](http://google.com/io/extended) 。如果您有兴趣举办属于您自己的直播 I/O 的视频活动，我们也很乐意推广[这类活动](https://events.google.com/io/extended/form/)。
+如果要想要与其他开发者讨论关于 Flutter 和 I/O 的事宜，请确保参加您附近的 I/O 全球活动的扩展活动 [I/O Extended events](http://google.com/io/extended)。如果您有兴趣举办属于您自己的直播 I/O 的视频活动，我们也很乐意推广[这类活动](https://events.google.com/io/extended/form/)。
 
 今年无论您在家中、活动中还是在 I/O 的扩展活动中都可以参加此次活动。请务必在 Twitter 上与 #Flutter on Twitter 中分享你的体验。
 
 下周见！
+
 
 ---
 
