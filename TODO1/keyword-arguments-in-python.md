@@ -2,24 +2,24 @@
 > * 原文作者：[Trey Hunner](http://treyhunner.com)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/keyword-arguments-in-python.md](https://github.com/xitu/gold-miner/blob/master/TODO1/keyword-arguments-in-python.md)
-> * 译者：
-> * 校对者：
+> * 译者：[sisibeloved](https://github.com/sisibeloved)
+> * 校对者：[Starriers](https://github.com/Starriers)、[ALVINYEH](https://github.com/ALVINYEH)
 
-# Keyword (Named) Arguments in Python: How to Use Them
+# Python 中的键值（具名）参数：如何使用它们
 
-Keyword arguments are one of those Python features that often seems a little odd for folks moving to Python from many other programming languages. It doesn’t help that folks learning Python often discover the various features of keyword arguments slowly over time.
+键值参数是 Python 的一个特性，对于从其他编程语言转到 Python 的人来说，不免看起来有些奇怪。人们在学习 Python 的时候，经常要花很长时间才能理解键值参数的各种特性。
 
-When teaching Python, I’ve often wished I had a summary of the various keyword argument-related features that I could link learners to. I hope that this article will accomplish that task.
+在 Python 教学中，我经常希望我能三言两语就把键值参数丰富的相关特性讲清楚。但愿这篇文章能够达到这个效果。
 
-In this article I’m going to explain what keyword arguments are and why they’re used. I’ll then go over some more advanced uses of them that even long-time Python programmers may have overlooked because quite a few things have changed in recent versions of Python 3\. If you’re already an experienced Python programmer, you might want to skip to the end.
+在这篇文章中我会解释键值参数是什么和为什么要用到它。随后我会细数一些更为深入的使用技巧，就算老 Python 程序员也可能会忽略，因为 Python 3 的最近一些版本变动了许多东西。如果你已经是一个资深的 Python 程序员，你可以直接跳到结尾。
 
-## What are keyword arguments?
+## 什么是键值参数？
 
-Let’s take a look at what keyword arguments (also called “named arguments”) are.
+让我们来看看到底什么是键值参数（也叫做具名参数）。
 
-First let’s take this Python function:
+先看看下面这个 Python 函数：
 
-```
+```python
 from math import sqrt
 
 def quadratic(a, b, c):
@@ -28,148 +28,148 @@ def quadratic(a, b, c):
     return (x1 + x2), (x1 - x2)
 ```
 
-When we call this function, we can pass each of our three arguments in two different ways.
+当我们调用这个函数时，我们有两种不同的方式来传递这三个参数。
 
-We can pass our arguments as positional arguments like this:
+我们可以像这样以占位参数的形式传值：
 
-```
+```python
 >>> quadratic(31, 93, 62)
 (-1.0, -2.0)
 ```
 
-Or we can pass our arguments as keyword arguments like this:
+或者像这样以键值参数的形式：
 
-```
+```python
 >>> quadratic(a=31, b=93, c=62)
 (-1.0, -2.0)
 ```
 
-The order of these arguments matters when they’re passed positionally:
+当用占位方式传值时，参数的顺序至关重要：
 
-```
+```python
 >>> quadratic(31, 93, 62)
 (-1.0, -2.0)
 >>> quadratic(62, 93, 31)
 (-0.5, -1.0)
 ```
 
-But it doesn’t matter when they’re passed by their name:
+但是加上参数名就没关系了：
 
-```
+```python
 >>> quadratic(a=31, b=93, c=62)
 (-1.0, -2.0)
 >>> quadratic(c=62, b=93, a=31)
 (-1.0, -2.0)
 ```
 
-When we use keyword/named arguments, it’s the name that matters, not the position:
+当我们使用键值/具名参数时，有意义的是参数的名字，而不是它的位置：
 
-```
+```python
 >>> quadratic(a=31, b=93, c=62)
 (-1.0, -2.0)
 >>> quadratic(c=31, b=93, a=62)
 (-0.5, -1.0)
 ```
 
-So unlike many other programming languages, Python knows the names of the arguments our function accepts.
+所以不像许多其它的编程语言，Python 知晓函数接收的参数名称。
 
-If we ask for help on our function Python will tell us our three arguments by name:
+如果我们使用帮助函数，Python 会把三个参数的名字告诉我们：
 
-```
+```python
 >>> help(quadratic)
 Help on function quadratic in module __main__:
 
 quadratic(a, b, c)
 ```
 
-Note that functions can be called with a mix of positional and named arguments:
+注意，可以通过占位和具名混合的方式来调用函数：
 
-```
+```python
 >>> quadratic(31, 93, c=62)
 (-1.0, -2.0)
 ```
 
-That can come in handy, but with the particular function we’ve written here it’s most clear to use all positional arguments or all keyword arguments.
+这样确实很方便，但像我们写的这个函数使用全占位参数或全键值参数会更清晰。
 
-## Why use keyword arguments?
+## 为什么要使用键值参数？
 
-When calling functions in Python, you’ll often have to choose between using keyword arguments or positional arguments. Keyword arguments can often be used to make function calls more explicit.
+在 Python 中调用函数的时候，你通常要在键值参数和占位参数之间二者择一。使用键值参数可以使函数调用更加明确。
 
-Take this code:
+看看这段代码：
 
-```
+```python
 def write_gzip_file(output_file, contents):
     with GzipFile(None, 'wt', 9, output_file) as gzip_out:
         gzip_out.write(contents)
 ```
 
-This takes a file object `output_file` and `contents` string and writes a gzipped version of the string to the output file.
+这个函数接收一个 `output_file` 文件对象和 `contents` 字符串，然后把一个经过 gzip 压缩的字符串写入输出文件。
 
-This code does the same thing but it uses keyword arguments instead of positional arguments:
+下面这段代码做了相同的事，只是用键值参数代替了占位参数：
 
-```
+```python
 def write_gzip_file(output_file, contents):
     with GzipFile(fileobj=output_file, mode='wt', compresslevel=9) as gzip_out:
         gzip_out.write(contents)
 ```
 
-Notice that using this keyword argument call style made it more obvious what each of these three arguments represent.
+可以看到使用键值参数调用这种方式可以更清楚地看出这三个参数的意义。
 
-We were also able to leave off an argument here. The first argument that we left off represents a `filename` and already has a default value of `None`. We don’t need a `filename` here because we’re supposed to pass either a file object or a filename to `GzipFile`, not both.
+我们在这里去掉了一个参数。第一个参数代表 `filename`，并且有一个 `None` 的默认值。这里我们不需要 `filename`，因为我们应该只传一个文件对象或者只传一个文件名给 `GzipFile`，而不是两者都传。
 
-We’re actually able to leave another argument off though.
+我们还能再去掉一个参数。
 
-Here’s the same code again, but the compress level has been left at its default value of `9` this time:
+还是原来的代码，不过这次压缩率被去掉了，以默认的 `9` 代替：
 
-```
+```python
 def write_gzip_file(output_file, contents):
     with GzipFile(fileobj=output_file, mode='wt') as gzip_out:
         gzip_out.write(contents)
 ```
 
-Because we used named arguments, we were able to leave out two arguments and rearrange the remaining 2 arguments in a sensible order (the file object is more important than the “wt” access mode).
+因为使用了具名参数，我们得以去掉两个参数，并把余下 2 个参数以合理的顺序排列（文件对象比『wt』获取模式更重要）。
 
-When we use keyword arguments:
+当我们使用键值参数时：
 
-1.  We can often leave out arguments that have default values
-2.  We can rearrange arguments in a way that makes them most readable
-3.  We call arguments by their names to make it more clear what they represent
+1.  我们可以去除有默认值的参数
+2.  我们可以以一种更为可读的方式将参数重新排列
+3.  通过名称调用参数更容易理解参数的含义
 
-## Where you see keyword arguments
+## 哪里能看到键值函数
 
-You’ll likely see keyword arguments quite a bit in Python.
+你可以在 Python 中的很多地方看到键值参数。
 
-Python has a number of functions that take an unlimited number of positional arguments. These functions sometimes have arguments that can be provided to customize their functionality. Those arguments must be provided as named arguments to distinguish them from the unlimited positional arguments.
+Python 有一些接收无限量的占位参数的函数。这些函数有时可以接收用来定制功能的参数。这些参数必须使用具名参数，与无限量的占位参数区分开来。
 
-The built-in `print` function accepts the optional `sep`, `end`, `file`, and `flush` attributes as keyword-only arguments:
+内置的 `print` 函数的可选属性 `sep`、`end`、`file` 和 `flush`，只能接收键值参数：
 
-```
+```python
 >>> print('comma', 'separated', 'words', sep=', ')
 comma, separated, words
 ```
 
-The `itertools.zip_longest` function also accepts an optional `fillvalue` attribute (which defaults to `None`) exclusively as a keyword argument:
+`itertools.zip_longest` 函数的 `fillvalue` 属性（默认为 `None`），同样只接收键值参数：
 
-```
+```python
 >>> from itertools import zip_longest
 >>> list(zip_longest([1, 2], [7, 8, 9], [4, 5], fillvalue=0))
 [(1, 7, 4), (2, 8, 5), (0, 9, 0)]
 ```
 
-In fact, some functions in Python force arguments to be named even when they _could_ have been unambiguously specified positionally.
+事实上，一些 Python 中的函数强制参数被具名，尽管以占位方式**可以**清楚地指定。
 
-In Python 2, the `sorted` function accepted all its arguments as either positional or keyword arguments:
+在 Python 2 中，`sorted` 函数可以以占位或键值的方式接收参数：
 
-```
+```python
 >>> sorted([4, 1, 8, 2, 7], None, None, True)
 [8, 7, 4, 2, 1]
 >>> sorted([4, 1, 8, 2, 7], reverse=True)
 [8, 7, 4, 2, 1]
 ```
 
-But Python 3’s `sorted` function requires all arguments after the provided iterable to be specified as keyword arguments:
+但是 Python 3 中的 `sorted` 要求迭代器之后的所有参数都以键值的形式指定：
 
-```
+```python
 >>> sorted([4, 1, 8, 2, 7], None, True)
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
@@ -178,15 +178,15 @@ TypeError: must use keyword argument for key function
 [8, 7, 4, 2, 1]
 ```
 
-Keyword arguments come up quite a bit in Python’s built-in functions as well as in the standard library and third party libraries.
+不仅仅是 Python 的内置函数，标准库和第三方库中键值参数同样很常见。
 
-## Requiring your arguments be named
+## 使你的参数具名
 
-You can create a function that accepts any number of positional arguments as well as some keyword-only arguments by using the `*` operator to capture all the positional arguments and then specify optional keyword-only arguments after the `*` capture.
+通过使用 `*` 操作符来匹配所有占位参数然后在 `*` 之后指定可选的键值参数，你可以创建一个接收任意数量的占位参数和特定数量的键值参数的函数。
 
-Here’s an example:
+这儿有个例子：
 
-```
+```python
 def product(*numbers, initial=1):
     total = initial
     for n in numbers:
@@ -194,11 +194,11 @@ def product(*numbers, initial=1):
     return total
 ```
 
-**Note**: If you haven’t seen that `*` syntax before, `*numbers` captures all positional arguments given to the `product` function into a tuple which the `numbers` variable points to.
+**注意**：如果你之前没有看过 `*` 的语法，`*numbers` 会把所有输入 `product` 函数的占位参数放到一个 `numbers` 变量指向的元组。
 
-The `initial` argument in the above function must be specified as a keyword argument:
+上面这个函数中的 `initial` 参数必须以键值形式指定：
 
-```
+```python
 >>> product(4, 4)
 16
 >>> product(4, 4, initial=1)
@@ -207,9 +207,9 @@ The `initial` argument in the above function must be specified as a keyword argu
 120
 ```
 
-Note that while `initial` has a default value, you can also specify _required_ keyword-only arguments using this syntax:
+注意 `initial` 有一个默认值。你也可以用这种语法指定**必需的**键值参数：
 
-```
+```python
 def join(*iterables, joiner):
     if not iterables:
         return
@@ -219,9 +219,9 @@ def join(*iterables, joiner):
         yield from iterable
 ```
 
-That `joiner` variable doesn’t have a default value, so it must be specified:
+`joiner` 变量没有默认值，所以它必须被指定：
 
-```
+```python
 >>> list(join([1, 2, 3], [4, 5], [6, 7], joiner=0))
 [1, 2, 3, 0, 4, 5, 0, 6, 7]
 >>> list(join([1, 2, 3], [4, 5], [6, 7], joiner='-'))
@@ -232,25 +232,25 @@ Traceback (most recent call last):
 TypeError: join() missing 1 required keyword-only argument: 'joiner'
 ```
 
-Note that this syntax of putting arguments after the `*` only works in Python 3. There’s no syntactic way in Python 2 to require an argument to be named.
+需要注意的是这种把参数放在 `*` 后面的语法只在 Python 3 中有效。Python 2 中没有要求参数必须要被命名的语法。
 
-## Keyword-only arguments without positional arguments
+## 只接收键值参数而不接收占位参数
 
-What if you want to accept keyword-only arguments without also accepting unlimited positional arguments?
+如果你想只接收键值参数而不接收任何占位参数呢？
 
-If you want to accept keyword-only arguments and you’re not using a `*` to accept any number of positional arguments, you can use a `*` without anything after it.
+如果你想接收一个键值参数，并且不打算接收任何 `*` 占位参数，你可以在 `*` 后面不带任何字符。
 
-For example here’s a modified version of Django’s `django.shortcuts.render` function:
+比如这儿有一个修改过的 Django 的 `django.shortcuts.render` 函数：
 
-```
+```python
 def render(request, template_name, context=None, *, content_type=None, status=None, using=None):
     content = loader.render_to_string(template_name, context, request, using=using)
     return HttpResponse(content, content_type, status)
 ```
 
-Unlike Django’s current implementation of `render`, this version disallows calling `render` by specifying every argument positionally. The `context_type`, `status`, and `using` arguments must be specified by their `name`.
+与 Django 现在的 `render` 函数实现不一样，这个版本不允许以所有参数都以占位方式指定的方式来调用 `render`。`context_type`、`status` 和 `using` 参数必须通过`名称`来指定。
 
-```
+```python
 >>> render(request, '500.html', {'error': error}, status=500)
 <HttpResponse status_code=500, "text/html; charset=utf-8">
 >>> render(request, '500.html', {'error': error}, 500)
@@ -259,9 +259,9 @@ Traceback (most recent call last):
 TypeError: render() takes from 2 to 3 positional arguments but 4 were given
 ```
 
-Just like with unlimited positional arguments, these keyword arguments can be required. Here’s a function with four required keyword-only arguments:
+就像带有无限制占位参数时的情况一样，这些键值参数也可以是必需的。这里有一个函数，有四个必需的键值参数：
 
-```
+```python
 from random import choice, shuffle
 UPPERCASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 LOWERCASE = UPPERCASE.lower()
@@ -279,9 +279,9 @@ def random_password(*, upper, lower, digits, length):
     return "".join(chars)
 ```
 
-This function requires all of its arguments to be specified using their name:
+这个函数要求所有函数都必须以名称指定：
 
-```
+```python
 >>> random_password(upper=1, lower=1, digits=1, length=8)
 'oNA7rYWI'
 >>> random_password(upper=1, lower=1, digits=1, length=8)
@@ -292,38 +292,38 @@ Traceback (most recent call last):
 TypeError: random_password() takes 0 positional arguments but 4 were given
 ```
 
-Requiring arguments to be named can make calls to our function much clearer.
+要求参数具名可以使函数的调用更加清楚明白。
 
-The purpose of this function call:
+这样调用函数的意图：
 
-```
+```python
 >>> password = random_password(upper=1, lower=1, digits=1, length=8)
 ```
 
-Is much more obvious than this one:
+要比这样调用更为清楚：
 
-```
+```python
 >>> password = random_password(1, 1, 1, 8)
 ```
 
-Again note that this syntax also only works in Python 3.
+再强调一次，这种语法只在 Python 3 中适用。
 
-## Capturing arbitrary keyword arguments
+## 匹配通配键值参数
 
-What if you want to write a function that captures an arbitrary number of keyword arguments?
+怎样写出一个匹配任意数量键值参数的函数？
 
-For example the string format method accepts any keyword argument you give it:
+举个例子，字符串格式化方法接收你传递给它的任意键值参数：
 
-```
+```python
 >>> "My name is {name} and I like {color}".format(name="Trey", color="purple")
 'My name is Trey and I like purple'
 ```
 
-How can you write such a function?
+怎么样才能写出这样的函数？
 
-Python allows functions to capture any keyword arguments provided to them using the `**` operator when defining the function:
+Python 允许函数匹配任意输入的键值参数，通过在定义函数的时候使用 `**` 操作符：
 
-```
+```python
 def format_attributes(**attributes):
     """Return a string of comma-separated key-value pairs."""
     return ", ".join(
@@ -333,80 +333,80 @@ def format_attributes(**attributes):
 ```
 
 
-That `**` operator will allow our `format_attributes` function to accept any number of keyword arguments. The given arguments will be stored in a dictionary called `attributes`.
+`**` 操作符允许 `format_attributes` 函数接收任意数量的键值参数。输入的参数会被存在一个叫 `attributes` 的字典里面。
 
-Here’s an example use of our function:
+这是我们的函数的使用示例：
 
-```
+```python
 >>> format_attributes(name="Trey", website="http://treyhunner.com", color="purple")
 'name: Trey, website: http://treyhunner.com, color: purple'
 
 ```
 
-## Calling functions with arbitrary arguments
+## 用通配键值参数调用函数
 
-Just as you can define functions that take arbitrary keyword arguments, you can also call functions with arbitrary keyword arguments.
+就像你可以定义函数接收通配键值参数一样，你也可以在调用函数时传入通配键值参数。
 
-By this I mean that you can pass keyword arguments into a function based on items in a dictionary.
+这就意味着你可以基于字典中的项向函数传递键值参数。
 
-Here we’re manually taking every key/value pair from a dictionary and passing them in as keyword arguments:
+这里我们从一个字典中手动提取键/值对，并把它们以键值参数的形式传入函数中：
 
-```
+```python
 >>> items = {'name': "Trey", 'website': "http://treyhunner.com", 'color': "purple"}
 >>> format_attributes(name=items['name'], website=items['website'], color=items['color'])
 'name: Trey, website: http://treyhunner.com, color: purple'
 ```
 
-This approach of hard-coding the keyword arguments in our function call requires that we know every key in the dictionary we’re using at the time our code is written. This won’t work if we have a dictionary with unknown keys.
+这种在代码函数调用时将代码写死的方式需要我们在写下代码的时候就知道所使用的字典中的每一个键。当我们不知道字典中的键时，这种方法就不奏效了。
 
-We can pass arbitrary keyword arguments to our function using the `**` operator to unpack our dictionary items into keyword arguments in our function call:
+我们可以通过 `**` 操作符将字典中的项拆解成函数调用时的键值参数，来向函数传递通配键值参数：
 
-```
+```python
 >>> items = {'name': "Trey", 'website': "http://treyhunner.com", 'color': "purple"}
 >>> format_attributes(**items)
 'name: Trey, website: http://treyhunner.com, color: purple'
 ```
 
-This ability to pass arbitrary keyword arguments into functions and to accept arbitrary keyword arguments inside functions (as we did before) is seen frequently when using inheritance:
+这种向函数传递通配键值参数和在函数内接收通配键值参数（就像我们之前做的那样）的做法在使用类继承时尤为常见：
 
-```
+```python
 def my_method(self, *args, **kwargs):
     print('Do something interesting here')
-    super().my_method(*args, **kwargs)  # Call parent method with all given arguments
+    super().my_method(*args, **kwargs)  # 使用传入的参数调用父类的方法
 ```
 
-**Note**: We’re also using the `*` operator here for the same kind of capturing and unpacking of positional arguments.
+**注意**：同样地我们可以使用 `*` 操作符来匹配和拆解占位参数。
 
-## Order matters
+## 顺序敏感性
 
-Since Python 3.6, functions always preserve the order of the keyword arguments passed to them (see [PEP 468](https://www.python.org/dev/peps/pep-0468/)). This means that when `**` is used to capture keyword arguments, the resulting dictionary will have keys in the same order the arguments were passed.
+自 Python 3.6 起，函数将会保持键值参数传入的顺序（参见 [PEP 468](https://www.python.org/dev/peps/pep-0468/)）。这意味着当使用 `**` 来匹配键值参数时，用来储存结果的字典的键将会与传入参数拥有同样的顺序。
 
-So since Python 3.6, you’ll _never_ see something like this happen:
+所以在 Python 3.6 之后，你将**不会再**看到这样的情况：
 
-```
+```python
 >>> format_attributes(name="Trey", website="http://treyhunner.com", color="purple")
 'website: http://treyhunner.com, color: purple, name: Trey'
 ```
 
-Instead, with Python 3.6+, arguments will always maintain the order they were passed in:
-```
+相应地，使用 Python 3.6+，参数会永远保持传入的顺序：
+```python
 >>> format_attributes(name="Trey", website="http://treyhunner.com", color="purple")
 'name: Trey, website: http://treyhunner.com, color: purple'
 ```
 
-## Embrace keyword arguments in Python
+## 概括 Python 中的键值参数
 
-An arguments _position_ often doesn’t convey as much meaning as its _name_. So when calling functions, consider naming arguments that you pass in if it might make their meaning clearer.
+一个参数的**位置**传达出来的信息通常不如**名称**有效。因此在调用函数时，如果能使它的意义更清楚，考虑为你的参数赋名。
 
-When defining a new function, stop to think about which arguments should always be specified as keyword arguments when calling your function. Consider using the `*` operator to require those arguments be specified as keyword arguments.
+定义一个新的函数时，不要再考虑哪个参数应该被指定为键值参数了。使用 `*` 操作符把这些参数都指定成键值参数。
 
-And remember that you can accept arbitrary keyword arguments to the functions you define and pass arbitrary keyword arguments to the functions you call by using the `**` operator.
+牢记你可以使用 `**` 操作符来接受和传递通配键值参数。
 
-Important objects deserve names and you can use keyword arguments to give your objects the names they deserve!
+重要的对象应该要有名字，你可以使用键值参数来给你的对象赋名！
 
-## Like my teaching style?
+## 喜欢我的教学风格吗？
 
-Want to learn more about Python? I share my favorite Python resources and answer Python questions every week through live chats. Sign up below and I’ll answer **your questions** about how to make your Python code more descriptive, more readable, and more Pythonic.
+想要学习更多关于 Python 的知识？我会通过实时聊天每周分享我喜爱的 Python 资源并回答有关 Python 的问题。在下方登记，我会回答**你的问题**并教你如何让你的 Python 代码更加生动易懂，更加 Python 化。
 
 
 ---

@@ -2,230 +2,230 @@
 > * 原文作者：[CircleCI](https://circleci.com)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/its-the-future.md](https://github.com/xitu/gold-miner/blob/master/TODO1/its-the-future.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Hopsken](https://hopsken.com)
+> * 校对者：[jasonxia23](https://github.com/jasonxia23) [Starrier](https://github.com/Starrier)
 
-# It's The Future
+# Web 应用的未来：Heroku vs Docker
 
 ![](https://d3r49iyjzglexf.cloudfront.net/blog/content/rabbit_hole-001c07c5072ff2970876cbc92caedfc5803e0ea4b9c65cff2f35f83ceedc0b8f.jpg)
 
-Hey, my boss said to talk to you - I hear you know a lot about web apps?
+嗨，我老板让我跟你谈谈，听说你很懂 web 应用？
 
-> Yeah, I’m more of a distributed systems guy now. I’m just back from ContainerCamp and Gluecon and I’m going to Dockercon next week. Really excited about the way the industry is moving - making everything simpler and more reliable. It’s the future!
+> 嗯，我对分布式系统确实挺了解的。我刚从 ContainerCamp 和 Gluecon 回来，下星期我还打算去参加 Dockercon。这个行业的发展方向令人兴奋，让所有事情都变得更简单，也更可靠。这就是未来！
 
-Cool. I’m just building a simple web app at the moment - a normal CRUD app using Rails, going to deploy to Heroku. Is that still the way to go?
+666。我最近在做一个简单的 web 应用 —— 一个普通的基于 Rails 的 CRUD（译者注：增删查改）应用，准备搭建在 Heroku 上面。现在还是这么做吗？
 
-> Oh no. That’s old school. Heroku is dead - no-one uses it anymore. You need to use Docker now. It’s the future.
+> 不不不，这已经是老掉牙的做法了。Heroku 已死，没人再用这玩意儿了。现在你得用 Docker，这才是大势所趋。
 
-Oh, OK. What’s that?
+额，好吧。不过，那是啥？
 
-> Docker is this new way of doing containerization. It’s like LXC, but it’s also a packaging format, a distribution platform, and tools to make distributed systems really easy.
+> Docker 是实现容器化的新方案。它跟 LXC 差不多，不过它也是一种打包格式，一种分发平台，以及一套可以方便地构建分布式系统的工具。
 
-Containeri.. — what now? What’s LXE?
+哈？啥容器？LXE 又是啥？
 
-> It’s LXC. It’s like chroot on steroids!
+> 是 LXC。它就像 chroot on steroids！
 
-What’s cher-oot?
+cher-oot 又是啥？
 
-> OK, look. Docker. Containerization. It’s the future. It’s like virtualization but faster and cheaper.
+> 行吧。听着，Docker、容器化，这就是未来。跟虚拟化很类似，但是更快，也更经济。
 
-Oh, so like Vagrant.
+哦，懂了，所以就跟 Vagrant 差不多咯？
 
-> No, Vagrant is dead. Everything is going to be containerized now, it’s the future.
+> 不不不，Vagrant 已死。未来是容器化的天下。
 
-OK, so I don’t need to know anything about virtualization?
+好吧，所以现在我没必要去了解的虚拟化了对吧？
 
-> No, you still need virtualization, because containers don’t provide a full security story just yet. So if you want to run anything in a multi-tenant environment, you need to make sure you can’t escape the sandbox.
+> 不，你还得用到虚拟化，因为容器目前还不能提供完整的安全层级。所以，如果你希望程序运行在多用户环境中，你得确保你不能跳出沙盒。
 
-OK, I’m getting a little lost here. Let’s back it up. So there’s a thing like virtualization, called containers. And I can use this on Heroku?
+额，等等，我有点跟不上了。我们来捋一捋，也就是说，有这么个东西，叫做容器，和虚拟化很像。而且我可以在 Heroku 上使用它？
 
-> Well, Heroku has some support for docker, but I told you: Heroku’s dead. You want to run your containers on CoreOS.
+> 这么说吧，Heroku 确实在某种程度上支持 Docker，但是我刚说了：Heroku 已死。你应该把容器运行在 CoreOS 上面。
 
-OK, what’s that?
+好吧，那是啥？
 
-> It’s this cool Host OS you can use with Docker. Hell, you don’t even need Docker, you can use rkt.
+> 那是个宿主操作系统，可以跟 Docker 结合使用。讲道理，你甚至不需要用 Docker，你可以用 rkt。
 
-Rocket?
+啥啥？Rocket？
 
-> No, rkt.
+> 不，是 rkt。
 
-Right, Rocket.
+没错啊，Rocket。
 
-> No, it’s called rkt now. Totally different. It’s an alternative containerization format that isn’t as bundled together as Docker is, and so it’s more composable.
+> 不，我说的是 rkt。这完全是两码事。它是另一种容器化格式，没有 Docker 那么高的集成度，但也因此拥有更高的组件化程度。
 
-Is that good?
+所以这是件好事？
 
-> Of course it’s good. Composability is the future.
+> 这当然是件好事，组件化就是未来。
 
-OK, how do you use it?
+好的吧，那要怎么用它？
 
-> I don’t know. I don’t think anyone uses it.
+> 不知道，我不认为有人在用这玩意。
 
-Sigh. You were saying something about CoreOS?
+行吧。你之前有提到 CoreOS？
 
-> Yeah, so it’s a Host OS you use with Docker.
+> 哦，对，这是一个可以跟 Docker 搭配使用的宿主操作系统。
 
-What’s a Host OS?
+宿主操作系统是啥？
 
-> A Host OS runs all your containers.
+> 一个宿主操作系统可以运行你所有的容器。
 
-Runs my containers?
+运行我的容器？
 
-> Yeah, you gotta have something run your containers. So you set up like an EC2 instance, you put CoreOS on it, then run the Docker daemon, and then you can deploy Docker images to it.
+> 没错，你总得把你的容器运行在某个东西上吧。这么说吧，先配置好一个实例，比方说 EC2，装好 CoreOS，然后运行 Docker 后台程序，再然后你就可以把 Docker 镜像部署上去了。
 
-Which part of that is the container?
+所以这里面哪一步是所谓的容器？
 
-> All of it. Look, you take your app, write a Dockerfile, turn it into an image locally, then you can push that to any Docker host.
+> 全部都是。这么说吧，你先准备好你的应用，写一个 Dockerfile，在本地把它们转成一个镜像，然后你就可以把它们推送到任何 Docker 主机上去了。
 
-Ah, like Heroku?
+额，比方说，Heroku？
 
-> No, not Heroku. I told you. Heroku is dead. You run your own cloud now using Docker.
+> 不对，不是 Heroku。我都跟你说了，Heroku 已死。现在，借助 Docker，你可以运行你自己云服务了。
 
-What?
+哈？
 
-> Yeah, it’s real easy. Look up #gifee.
+> 没错，很容易做到。你查一下 #gifee 就知道了。
 
-Gify?
+啥？Gify？
 
-> “Google’s infrastructure for everyone else”. You take some off the shelf tools and stacks, using containers, and you can have the same infrastructure Google has.
+>「Google’s infrastructure for everyone else.」你只需要取一些已有的工具和技术栈，借助容器技术，然后你就可以拥有和 Google 一样的架构了。
 
-Why don’t I just use Google’s thing?
+那我为啥不能直接使用 Google 的呢？
 
-> You think that’s going to be around in 6 months?
+> 你认为半年内会出现吗？
 
-OK, doesn’t someone else do hosting of this stuff? I really don’t want to host my own stuff.
+好吧，那么还有其他提供此类托管服务的厂商吗？我实在是不想自己托管。
 
-> Well, Amazon has ECS, but you gotta write XML or some shit.
+> 呃，Amazon 有提供 ECS 服务，但是你得去写一些 XML 或者其它乱七八糟的玩意。
 
-What about something on OpenStack?
+那 OpenStack 呢？
 
-> Ew.
+> 呵呵。
 
-Ew?
+啊？
 
-> Ew.
+> 呵呵。
 
-Look I really don’t want to host my own stuff.
+讲真，我真心不想自己来托管服务。
 
-> No, it’s really easy. You just set up a Kubernetes cluster.
+> 别啊，这真的很简单。你只需要配置一个 Kubernetes 集群。
 
-I need a cluster?
+我还需要一个集群？
 
-> Kubernetes cluster. It’ll manage the deployments of all your services.
+> Kubernetes 集群。它会负责管理你所有服务的部署工作。
 
-I only have one service.
+我只有一个服务。
 
-> What do you mean? You have an app right, so you gotta have at least 8-12 services?
+> 你说啥呢？只有一个应用是没错，但是至少得有 8-12 个服务吧？
 
-What? No, just one app. Service, whatever. Just one of them.
+哈？不不，就一个应用。呃，服务...反正不管怎么说，就一个。
 
-> No, look into microservices. It’s the future. It’s how we do everything now. You take your monolithic app and you split it into like 12 services. One for each job you do.
+> 不不不，你再想想微服务。对吧，这才是未来。现在大家都这么干。先拿到一个大型的应用，然后把它分成大约 12 个左右的服务，每一个都只负责一部分工作。
 
-That seems excessive.
+这也太多了。
 
-> It’s the only way to make sure it’s reliable. So if your authentication service goes down…
+> 这是确保可用性的唯一方法。这样当你的认证服务下线的时候...
 
-Authentication service? I was just going to use this gem I’ve used a few times before.
+认证服务？我只是打算用我之前用过的 gem 而已。
 
-> Great. Use the gem. Put it into it’s own project. Put a RESTful API on it. Then your other services use that API, and gracefully handle failure and stuff. Put it in a container and continuously deliver that shit.
+> 没错。使用那个 gem，把它放到它本身的项目中，再给它写一个 RESTful API。这样你的其它服务就可以调用那个 API，从而优雅地处理错误和事务。把它放到一个容器中，然后持续交付它们。
 
-OK, so now that I’ve got dozens of unmanageable services, now what?
+行吧，那么既然我已经有了十多个没有被管理的服务，现在该怎么办？
 
-> Yeah, I was saying about Kubernetes. That let’s you orchestrate all your services.
+> 我刚提到了 Kubernetes，对吧。它允许你将你所有的服务协同到一起。
 
-Orchestrate them?
+协同起来？
 
-> Yeah, so you’ve got these services and they have to be reliable so you need multiple copies of them. So Kubernetes makes sure that you have enough of them, and that they’re distributed across multiple hosts in your fleet, so it’s always available.
+> 没错。现在你已经有了若干服务，并且它们得保持可用性，所以你需要多拷贝几份服务出来。Kubernetes 可以确保你有足够多的相同服务，把它们分布到位于服务器群上的多个主机上，这样，这些服务就可以一直都能被访问啦。
 
-I need a fleet now?
+我现在又需要一个服务器群了？
 
-> Yeah, for reliability. But Kubernetes manages it for you. And you know Kubernetes works cause Google built it and it runs on etcd.
+> 没错，为了可靠性。但是 Kubernetes 可以替你管好这些。而且，你知道，Kubernetes 肯定是有用的，因为是 Google 打造了它，并且它是运行在 etcd 上的。
 
-What’s etcd?
+etcd 是啥？
 
-> It’s an implementation of RAFT.
+> 它是 RAFT 的一种实现。
 
-OK, so what’s Raft?
+好吧，那么问题来了，RAFT 又是啥？
 
-> It’s like Paxos.
+> 类似于 Paxos。
 
-Christ, how deep down this fucking rabbit hole are we going? I just want to launch an app. Sigh. Fuck, OK, deep breaths. Jesus. OK, what’s Paxos?
+天啦噜，我们究竟要在这条路上走多远啊？我只是想运行一个应用而已啊。哎，奶奶个腿的，OK，冷静，深呼吸。苍天呐。行吧，Paxos 又是啥？
 
-> Paxos is like this really old distributed consensus protocol from the 70s that no-one understands or uses.
+> Paxos 算是个 70 年代就提出的古老的分布式协议，但是没人真正理解，也没人去用。
 
-Great, thanks for telling me about it then. And Raft is what?
+太好了，谢谢你告诉我这些。所以 Raft 是啥？
 
-> Since no-one understands Paxos, this guy Diego…
+> 既然没人能理解 Paxos，有个叫做 Diego 的人...
 
-Oh, you know him?
+哦，你认识他？
 
-> No, he works at CoreOS. Anyway, Diego built Raft for his PhD thesis cause Paxos was too hard. Wicked smart dude. And then he wrote etcd as an implementation, and Aphyr said it wasn’t shit.
+> 没，他在 CoreOS 工作。总之，Diego 为了他的博士论文打造了 Raft，因为 Paxos 实在是太难了。聪明的家伙。然后他实现了 Raft，写出了 etcd。再然后，Aphyr 说这玩意还不赖。
 
-What’s Aphyr?
+Aphyr 是谁？
 
-> Aphyr is that guy who wrote, ‘Call Me Maybe.’ You know, the distributed systems and BDSM guy?
+> Aphyr 就是那个写了『Call Me Maybe』的人。就是那个分布式系统和 BDSM 的？
 
-What? Did you say BDSM?
+哈？你刚是不是说了『BDSM』？
 
-> Yeah, BDSM. It’s San Francisco. Everyone’s into distributed systems and BDSM.
+> 没错，BDSM。这可是旧金山，所有人都懂分布式系统和 BDSM。
 
-Uh, OK. And he wrote that Katy Perry song?
+好的吧。所以是他写了 Katy Parry 的那首歌？
 
-> No, he wrote a set of blog posts about how every database fails CAP.
+> 没，他写了一系列博客解释为什么所有的数据库都不符合 CAP。
 
-What’s CAP?
+CAP 是啥？
 
-> The CAP theorem. It says that you can only have 2 out of 3 of Consistency, Availability and Partition tolerance.
+> 就是 CAP 定理。定理说，在连贯性、可访问性和可分割性这三个中你只能保证其中两个。
 
-OK, and all DBs fail CAP? What does that even mean?
+行吧。所以说，所有的数据库都不符合 CAP 定理？那是什么意思？
 
-> It means they’re shit. Like Mongo.
+> 这意味，它们都是垃圾。比方说 Mongo。
 
-I thought Mongo was web scale?
+我原以为 Mongo 是 web 层面上的？
 
-> No one else did.
+> 没人这么认为。
 
-OK, so etcd?
+好吧，所以 etcd 是啥？
 
-> Yeah, etcd is a distributed key-value store.
+> etcd 是一种分布式的键值对仓库。
 
-Oh, like Redis.
+哦，就像 Redis。
 
-> No, nothing like Redis. etcd is distributed. Redis loses half its writes if the network partitions.
+> 不，一点都不像。etcd 是分布式的，而一旦网络被断开，Redis 就丧失了一半的写入能力。
 
-OK, so it’s a *distributed* key-value store. Why is this useful?
+好吧，所以这是个**分布式**的键值对仓库。这有啥用？
 
-> Kubernetes sets up a standard 5-node cluster using etcd as a message bus. It combines with a few of Kubernetes’ own services to provide a pretty resilient orchestration system.
+> Kubernetes 具有一个标准的 5 节点的集群，使用 etcd 作为消息总线。它会整合 Kubernetes 自带一些服务来提供非常具有弹性的协同系统。
 
-5 nodes? I have one app. How many machines am I gonna need with all this?
+5 个节点？我只有一个应用啊。这样我需要多少设备啊？
 
-> Well, you’re going to have about 12 services, and of course you need a few redundant copies of each, a few load balancers, the etcd cluster, your database, and the kubernetes cluster. So that’s like maybe 50 running containers.
+> 这样，你大约要有 12 个服务，当然对于每一个你还需要一些冗余服务作为拷贝，一些用于负载均衡，一些 etcd 集群，数据库，还有 Kubernetes 集群，这些加起来差不多要 50 个容器。
 
-WTF!
+什么！
 
-> No big deal! Containers are really efficient, so you should be able to distribute these across like 8 machines! Isn’t that amazing?
+> 这没什么！容器是非常高效的，所以你应该可以把它们分布到 8 台设备上！是不是很厉害？
 
-That’s one way to put it. And with all this, I’ll be able to simply deploy my app?
+话是这么说。所以有了这些，我就可以部署我的应用了？
 
-> Sure. I mean, storage is still an open question with Docker and Kubernetes, and networking will take a bit of work, but you’re basically there!
+> 当然。我是说，对于 Docker 和 Kubernetes，仍然存在一个开放性的存储问题。关于网络通信也需要花些功夫，不过差不多就是这样了。
 
-I see. OK, I think I’m getting it.
+我懂了。我想我理解你的意思了。
 
-> Great!
+> 棒极了！
 
-Thanks for explaining it.
+谢谢你解释这么多。
 
-> No problem.
+> 不用谢。
 
-Let me just repeat it back to see if I’ve got it right.
+让我回顾一遍，看看我理解的对不对。
 
-> Sure!
+> 没问题！
 
-So I just need to split my simple CRUD app into 12 microservices, each with their own APIs which call each others’ APIs but handle failure resiliently, put them into Docker containers, launch a fleet of 8 machines which are Docker hosts running CoreOS, “orchestrate” them using a small Kubernetes cluster running etcd, figure out the “open questions” of networking and storage, and then I continuously deliver multiple redundant copies of each microservice to my fleet. Is that it?
+所以，我只需要把我这个简单的 CRUD 应用划分成 12 个微服务，每一个都有它们独立的 API，这些 API 互相之间可以调用，且可以弹性地处理问题，把它们整合到 Docker 容器中，启动一个拥有 8 个运行着 CoreOS 的设备集群作为 Docker 主机，使用运行着 etcd 的一个小 Kubernetes 集群来协同管理它们，解决好网络和存储这些『开放性』问题，最后把每个微服务的多份冗余拷贝持续交付到我的服务器集群上。是这样吧？
 
-> Yes! Isn’t it glorious?
+> 对！是不是酷炫？
 
-I’m going back to Heroku.
+我还是滚回去用 Heroku 吧。
 
 
 ---
