@@ -23,7 +23,7 @@
 
 该项目的最终目标。
 
-通过使用枚举的力量输入** _ router.request（._ **），我们可以看到所有可用的端点以及该请求所需的参数。By just typing **_router.request(._**with the power of enums we can see all the endPoints that are available to us and the parameters needed for that request.
+通过使用枚举的力量输入 **router.request(.**，我们可以看到所有可用的端点以及该请求所需的参数。
 
 ### 首先，一些关于结构的东西
 
