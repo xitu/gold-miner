@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-i-fixed-a-very-old-gil-race-condition-in-python-3-7.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-i-fixed-a-very-old-gil-race-condition-in-python-3-7.md)
 > * 译者：[kezhenxu94](https://github.com/kezhenxu94)
-> * 校对者：[Starrier](https://github.com/Starriers), []()
+> * 校对者：[Starrier](https://github.com/Starriers)
 
 # 我是如何修复 Python 3.7 中一个非常古老的 GIL 竞态条件 bug 的
 
@@ -19,7 +19,7 @@
 
 我的第一句评论：
 
-> 在我看来这是 `PyEval_InitThreads()` 的一个 bug 呀.
+> 在我看来这是 `PyEval_InitThreads()` 的一个 bug 呀。
 
 [![Release the GIL!](https://vstinner.github.io/images/release_the_gil.png)](https://twitter.com/kwinkunks/status/619496450834087938)
 
@@ -35,7 +35,7 @@
 
 > 好了，这个 bug 已经在 Python 2.7, 3.6 和主分支（后来的 3.7）上修复啦。在 3.6 和 master 上，这个补丁还带了单元测试呢。
 
-我在主分支上的修复提交, 提交 [b4d1e1f7](https://github.com/python/cpython/commit/b4d1e1f7c1af6ae33f0e371576c8bcafedb099db):
+我在主分支上的修复提交, 提交 [b4d1e1f7](https://github.com/python/cpython/commit/b4d1e1f7c1af6ae33f0e371576c8bcafedb099db)：
 
 ```
 bpo-20891: Fix PyGILState_Ensure() (#4650)
