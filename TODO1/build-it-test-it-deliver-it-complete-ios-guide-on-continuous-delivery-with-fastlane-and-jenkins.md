@@ -105,8 +105,7 @@ medium.com](https://github.com/xitu/gold-miner/blob/master/TODO1/manage-differen
 
 ![](https://cdn-images-1.medium.com/max/800/0*qnhxIxQwwRlMeTP3.)
 
-这些文件由 CD 系统使用，所以请将该文件夹放在 CD 机器上。 请**不要**将这些文件放到你的项目中，**不要**将它们提交到你的项目存储库。 将代码签名文件托管在不同的私有存储库中可以。
-你可能希望了解有关安全问题的讨论，可以看看 [match — fastlane docs](https://docs.fastlane.tools/actions/match/#is-this-secure)。
+这些文件由 CD 系统使用，所以请将该文件夹放在 CD 机器上。 请**不要**将这些文件放到你的项目中，**不要**将它们提交到你的项目存储库。 将代码签名文件托管在不同的私有存储库中可以。你可能希望了解有关安全问题的讨论，可以看看 [match — fastlane docs](https://docs.fastlane.tools/actions/match/#is-this-secure)。
 
 ### 用 fastlane 构建 🚀
 
