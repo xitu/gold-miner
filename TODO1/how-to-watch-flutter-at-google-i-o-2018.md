@@ -22,7 +22,7 @@ To see the various Flutter-related sessions, visit [https://google.com/io/](http
 
 The full Flutter livestream schedule can be [found here](https://events.google.com/io/schedule/?section=may-8&livestream=true&topic=flutter&utm_source=flutter&utm_medium=pre%20io%20announcement&utm_campaign=io18). Favorite these sessions on the website to find them easily later on.
 
-Also, be sure to check out a virtual tour of the Flutter Sandbox, which will be available on [g.co/io/guides](http://g.co/io/guides) by May 9\. You will get to see what 2Dimensions has built for this!
+Also, be sure to check out a virtual tour of the Flutter Sandbox, which will be available on [g.co/io/guides](http://g.co/io/guides) by May 9. You will get to see what 2Dimensions has built for this!
 
 ![](https://cdn-images-1.medium.com/max/800/1*ZPr26vDyRE90NtHZJ6Jmgg.gif)
 
