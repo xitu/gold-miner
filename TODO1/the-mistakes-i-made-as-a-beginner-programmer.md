@@ -2,74 +2,74 @@
 > * 原文作者：[Samer Buna](https://medium.com/@samerbuna?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-mistakes-i-made-as-a-beginner-programmer.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-mistakes-i-made-as-a-beginner-programmer.md)
-> * 译者：
-> * 校对者：
+> * 译者：[kezhenxu94](https://github.com/kezhenxu94/)
+> * 校对者：[DAA233](https://github.com/DAA233/) [dandyxu](https://github.com/dandyxu/)
 
-# The Mistakes I Made As a Beginner Programmer
+# 我在编程初级阶段常犯的错误
 
-## Learn to identify them, make habits to avoid them
+## 学会辨识错误，养成习惯去避免它们
 
 ![](https://cdn-images-1.medium.com/max/2000/1*aPoiIzO6HE4uwMBLXgkB6A.png)
 
-Let me make one thing clear first. If you are a beginner programmer, this article is not meant to make you feel bad about the mistakes that you might be making but rather to make you aware of them, teach you to spot signs of them, and remind you to avoid them.
+我要先声明一点，如果你是一个初级程序员，本文并非要让你因为可能正在犯这些错感到蓝瘦香菇，而是要让你意识到它们的存在，教你如何辨识它们，并且提醒你避免犯这些错。
 
-I have made these mistakes in the past and learned from each and every one of them. I am happy to have formed coding habits to help me avoid them. You should do too.
+过去我经常犯这类错误，从每一个错误中我都吸取了很多教训。可喜的是如今我已经养成了很好的编程习惯，这些习惯能帮我避免再次犯同样的错。你也应该尝试着去这样做。
 
-These mistakes are not presented here in any particular order.
+以下错误排名不分先后。
 
-### **1) Writing Code Without Planning**
+### **1）毫无计划地写代码**
 
-High-quality written content, in general, cannot be created easily. It requires careful thinking and research. High-quality programs are no exception.
+高质量的写作内容大都不那么容易产出，它要求仔细的思考和研究。高质量的程序代码也不例外。
 
-Writing quality programs is a process with a flow:
-**Think**. **Research**. **Plan**. **Write**. **Validate**. **Modify**.
-Unfortunately, there is no good acronym for this. You need to create a habit to always go through the _right_ amount of these activities.
+编写高质量代码是有一个工作流的：
+**思考**。**调研**。**计划**。**编码**。**验证**。**修改**。
+很遗憾，这个工作流没有一个很好的（英文）首字母缩写来帮助记忆。你需要养成好的习惯来履行工作流中的各个阶段，**一个都不能少**。
 
-One of the biggest mistakes I have made as a beginner programmer was to start writing code right away without much thinking and researching. While this might work for a small stand-alone application, it has a big, negative effect on larger applications.
+在我编程初级阶段的时候，我犯过最严重的错误之一就是写代码之前没有思考和调研。虽然这在小型独立的项目中能够奏效，但在更大的工程中就会有很严重的负面影响了。
 
-Just like you need to think before saying anything you might regret, you need to think before you code anything you might regret. Coding is also a way to communicate your thoughts.
+正如在说出可能会后悔的话之前需要三思一样，在你写出可能会后悔的代码之前也需要三思。代码也是交流思想的一种方式。
 
-> _When angry, count to 10 before you speak. If very angry, a hundred._
+> **生气的时候，如果要说话，先从 1 数到 10。如果非常生气，那就数到 100。**
+>
+> **— Thomas Jefferson（译注：托马斯 杰佛逊，美国第三任总统）**
 
-> _— Thomas Jefferson._
+套用一下这句话：
 
-Here is my version of that quote:
+> **复审代码的时候，如果要重构代码，先从 1 数到 10。如果没有测试代码，那就数到 100。**
+>
+> **— Samer Buna（译注：本文作者）**
 
-> _When reviewing code, count to 10 before you refactor a line. If the code does not have tests, a hundred._
+编程大部分情况下都是关于如何阅读既有代码，调研新需求及其如何适应当前系统，以及规划如何使用可测试的增量代码实现新功能。实际写代码的时间在整个过程中可能才占比 10% 而已。
 
-> _— Samer Buna_
+不要觉得编程就是写一行一行的代码。编程是一个有逻辑的创造过程，是需要培养教育的。
 
-Programming is mostly about reading previous code, researching what is needed and how it fits within the current system, and planning the writing of features with small, testable increments. The actual writing of lines of code is probably only 10% of the whole process.
+### **2）写代码前过度计划**
 
-Do not think about programming as writing lines of code. Programming is a logic-based creativity that needs nurturing.
+是的。在一头钻进代码前做点计划是好事，但是即便是好事，也可能物极必反。喝太多的水都会使你中毒呢。
 
-### **2) Planning Too Much Before Writing Code**
+在编程的世界里寻找完美的计划？不存在的。要寻找一个足够好的计划，足够让你启动项目就行了。因为计划总是赶不上变化，但是计划可以推动你向有组织的方向进行，这会使你的代码更清晰。计划太多不过是浪费时间而已。
 
-Yes. Planning before jumping into writing code is a good thing, but even good things can hurt you when you do too much of them. Too much water might poison you.
+我现在讲的都只是对于小功能的计划，想在一开始就计划好所有功能的做法就更不可取！这在软件工程中被叫做**瀑布模型**，是一种系统线性的计划，每一个步骤都按顺序完成。可以设想这种**瀑布模型**需要多少计划啊。这不是这里所讨论的计划类型。瀑布模型在大多数软件工程中都是无效的。任何复杂的事物都只能根据现实灵活调整来实现。
 
-Do not look for a perfect plan. That does not exist in the world of programming. Look for a good-enough plan, something that you can use to get started. The truth is, your plan will change, but what it was good for is to force you into some structure that leads to more clarity in your code. Too much planning is simply a waste of your time.
+编写程序必须是一个响应的过程。你会添加以前从未想过的新功能，这在瀑布模型中是无法想象的（译注：因为瀑布模型把整个生命周期都计划好了，不会有意外的功能），你也会因为从未想过的原因移除一些功能。你需要修复 bug 以适应变化。你需要灵活一些。
 
-I am only talking about planning small features. Planning all the features at once should simply be outlawed! It is what we call the **Waterfall Approach**, which is a system linear plan with distinct steps that are to be finished one by one. You can imagine how much planning that approach needs. This is not the kind of planning I am talking about here. The waterfall approach does not work for most software projects. Anything complicated can only be implemented with agile adaptations to reality.
+虽然如此（不能过度计划），但一定要计划一下后续的少数新功能。要很小心地计划，因为不足或者过度的计划都可能损害你代码的质量，可不能拿代码质量来冒风险。
 
-Writing programs has to be a responsive activity. You will add features you would never have thought of in a waterfall plan. You will remove features because of reasons you would never have considered in a waterfall plan. You need to fix bugs and adapt to changes. You need to be agile.
+### **3）低估代码质量的重要性**
 
-However, always plan your next few features. Do that very carefully because too little planning and too much planning can both hurt the quality of your code, and the quality of your code is not something you can risk.
+如果你只能够关注你所写的代码的一个方面，那么肯定是**可读性**。表意不明的代码就是垃圾，甚至是不可回收的垃圾。
 
-### **3) Underestimating the Importance of Code Quality**
+永远都不要低估代码质量的重要性。把编写代码看作是一种沟通实现的方式。作为程序员最主要的工作就是清晰地交流当前解决方案的实现。
 
-If you can only focus on one aspect of the code that you write, it should be its **readability**. Unclear code is trash. It is not even recyclable.
+关于编程，我最喜欢的名言之一是：
 
-Never underestimate the importance of code quality. Look at coding as a way to communicate implementations. Your main job as a coder is to clearly communicate the implementations of any solutions that you are working on.
+> **总是以这样的心态写代码：仿佛最终维护你代码的那个人是个变态暴力狂，他知道你住在哪里。**
+>
+> **— John Woods**
 
-One of my favorite quotes about programming is:
+**Jonh, 真是个明智的建议！**
 
-> _Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live._
-
-> _— John Woods_
-
-**Brilliant advice, John!**
-
-Even the small things matter. For example, if you are not consistent with your indentation and capitalization, you should simply lose your license to code.
+即便是微小的细节也很重要。举个例子，如果你在你的代码中，缩进和大小写的风格不一致，你简直就该被“吊销编程执照”。
 
 ```
 tHIS is
@@ -79,153 +79,153 @@ than
          you think
 ```
 
-Another simple thing is the use of long lines. Anything beyond 80 characters is much harder to read. You might be tempted to place some long condition on the same line to keep an if-statement block more visible. Do not do that. Just never go beyond the 80 character limit, ever.
+另一点是关于长行的使用。任何超过 80 个字符的代码行都要难读很多。你可能试图把一些很长的条件判断放在同一行，好让 `if` 语句更清晰，别这么做。永远都不要让一行代码超过 80 个字符，永远都不要。
 
-Many of the simple problems like these can be easily fixed with **linting** and **formatting** tools. In JavaScript, we have two excellent tools that work perfectly together: **ESLint** and **Prettier**. Do yourself a favor and always use them.
+很多这样的简单问题都可以通过 **linting** 和 **formatting** 工具修复。在 JavaScript 中，有两个非常棒的工具可以完美协作：**ESLint** 和 **Prettier**。给自己行行好，把它们用起来吧。
 
-Here are a few more mistakes related to code quality:
+以下还有一些和代码质量相关的误区：
 
-— Using many lines in a function or a file. You should always break long code into smaller chunks that can be tested and managed separately. I personally think that any function that has more than 10 lines is just too long, but this is just a rule of thumb.
+- 在一个方法或一个文件中写非常多行代码。你应该总是把很长的代码拆分成小的片段，以便测试和单独管理。我个人认为超过 10 行的方法都算太长了，但这只是个经验之谈。
 
-— Using double negatives. Please do not not not do that.
+- 使用双重否定。拜托，请别不要不这么做（译注：此处故意使用双重否定╮(╯▽╰)╭）。
 
-> _Using double negatives is just very not not wrong_
+> **使用双重否定也并不是不会错（译注：此处作者故意使用双重否定）**
 
-— Using short, generic, or type-based variable names. Give your variables descriptive and non-ambiguous names.
+- 使用短而通用、或基于类型的变量名。给你的变量一个描述性和没有歧义的名字。
 
-> _There are only two hard things in Computer Science: cache invalidation and naming things.
+> **计算机科学中只有两件难事：清除缓存和命名。**
 > 
->  — Phil Karlton_
+> **— Phil Karlton**
 
-— Hard-coding primitive strings and numbers without descriptions. If you want to write logic that depends on a fixed primitive string or number value, put that value in a constant and give it a good name.
+- 毫无描述地硬编码字符串字面量和数字字面量（译注：即“魔数”）。如果你需要写一些依赖固定字面量字符串值或数字值的代码，那就使用常量保存这些固定值，并起一个好变量名。
 
 ```
 const answerToLifeTheUniverseAndEverything = 42;
 ```
 
-— Using sloppy shortcuts and workarounds to avoid spending more time around simple problems. Do not dance around problems. Face your realities.
+- 使用邋遢的捷径和奇技淫巧避免在简单问题上花费更多时间。不要与问题共舞，直面现实吧。
 
-— Thinking that longer code is better. Shorter code is better in most cases. Only write longer versions if they make the code more readable. For example, do not use clever one-liners and nested ternary expressions just to keep the code shorter, but also do not intentionally make the code longer when it does not need to be. Deleting unnecessary code is the best thing you can do in any program.
+- 觉得代码越长越好。然而在大多数情况下，代码是越短越好。只有以代码可读性更强为前提，才用长代码的写法。举个例子，不要内嵌大量三目运算符（`?:`）来让代码变短。当然，也不要有意让代码变得没必要的冗长。删除没必要的代码在任何项目中都是你能做的最好的事。
 
-> _Measuring programming progress by lines of code is like measuring aircraft building progress by weight.
+> **使用代码行数来衡量编程进度就像使用重量来衡量飞行器的建造进度一样。**
 > 
->  — Bill Gates_
+> **— Bill Gates**
 
-— The excessive use of conditional logic. Most of what you think needs conditional logic can be accomplished without it. Consider all the alternatives and pick exclusively based on readability. Do not optimize for performance unless you can measure. Related: avoid [**Yoda conditions**](https://en.wikipedia.org/wiki/Yoda_conditions)and assignments within conditionals.
+- 过度使用条件逻辑。你觉得需要条件逻辑的大多数情况都可以不使用条件逻辑来实现。考虑所有的代替方案，基于可读性，仅仅选择其中的一种。除非你已经可以测量性能了，否则不要优化性能。相关：避免 [**Yoda conditions**](https://en.wikipedia.org/wiki/Yoda_conditions) 和根据条件赋值。
 
-### **4) Picking the First Solution**
+### **4）使用初次方案**
 
-When I was starting to program, I remember that when I got presented with a problem, I would find a solution and just immediately run with it. I would rush the implementation right away before thinking about the complexities and potential failures of my first identified solution.
+还记得在我刚开始编程的时候，当我遇到一个问题时，我能找到一个解决方案然后马上就投入这个方案中，我急忙忙地实现它，没有考虑过这个初次方案复杂度和潜在的失败情况。
 
-While the first solution might be tempting, the good solutions are usually discovered once you start questioning all the solutions that you find. If you cannot think of multiple solutions to a problem, that is probably a sign that you do not completely understand the problem.
+虽然初次方案可能很诱人，但是好的方案却往往是在你开始盘查多种方案时才发现的。如果你没办法找出这个问题的多种解决方案，那很可能是你没有完全明白这个问题。
 
-Your job as a professional programmer is not to find _a solution_ to the problem. It is to find the **simplest** solution to the problem. By “simple” I mean the solution has to work correctly and perform adequately but still be simple enough to read, understand, and maintain.
+作为专业的程序员，你的职责不是找出问题的**一个解决方案**，而是找出问题的**最简单的**解决方案。我所说的“简单的解决方案”是指这个解决方案必须是准确的，性能足够好，还要简单易读、易理解和易维护。
 
-> _There are two ways of constructing a software design. One way is to make it so simple that there are obviously no deficiencies, and the other way is to make it so complicated that there are no obvious deficiencies._
+> **有两种方式来构建软件设计。一种是把它做得足够简单以至于明显没有缺陷，另一种是把它做得足够复杂以至于没有明显的缺陷。**
+>
+> **— C.A.R. Hoare**
 
-> _— C.A.R. Hoare_
+### **5）不放弃**
 
-### **5) Not Quitting**
+另一个我经常犯的错误是我坚持我的初次解决方案，即使我已经确认了这可能不是最简单的解决方案。这可能就是心理学上所说的“**不放弃**”心态吧。这在大多数活动中是一种好的心态，但在编程中却不适用。事实上，当说到编程的时候，正确的心态应该是**尽快失败和多多失败**。
 
-Another mistake that I have made more often than I cared to admit is sticking with the first solution even after I identify that it might not be the simplest approach. This is probably psychologically related to the “**not-quitting**” mentality. This is a good mentality to have in most activities, but it should not apply to programming. In fact, when it comes to writing programs, the right mentality is **fail early and fail often**.
+当你开始怀疑一个解决方案的时候，你就应该考虑抛弃它，并且重新思考这个问题。不管你已经在这个解决方案中投入了多少精力。像 GIT 这样的版本控制系统能够帮助你分开管理和尝试多种不同的解决方案，把它利用起来吧。
 
-The minute you begin doubting a solution, you should consider throwing it away and re-thinking the problem. This is true no matter how much you were invested in that solution. Source control tools like GIT can help you branch off and experiment with many different solutions. Leverage that.
+> **不要因为你在代码中花费了很多精力就为它着了魔。坏的代码就应该被丢弃。**
 
-> _Do not be attached to code because of how much effort you put into it. Bad code needs to be discarded._
+### **6）不谷歌（译注：不使用搜索引擎）**
 
-### **6) Not Googling**
+很多时候我花费了大量宝贵的时间去尝试解决一个问题，但其实我在一开始时只要简单调研一下（译者注：使用搜索引擎）就能得到结果，这样的例子数不胜数。
 
-There has been many instances where I wasted precious time trying to solve a problem when I should have just researched it first.
+除非你正在使用一种极其前沿的技术，否则当你遇到一个问题时，很可能别人早就遇到过同样的问题了，并且也找到了解决方案了。给自己省点时间，**先 Google 一下**。
 
-Unless you are using a bleeding-edge technology, when you run into a problem, chances are someone else ran into the same problem and found a solution for it. Save yourself some time and **Google It First**.
+有时候，Google 一下可能会披露这样一个事实：你觉得这是个问题但其实那并不是，你需要做的并非修复它，而是拥抱它。也不要觉得你知道了寻找解决方案必备的所有知识，Google 会让你吃惊。
 
-Sometimes, Googling will reveal that what you think is a problem is really not, and what you need to do is not fix it but rather embrace it. Do not assume that you know everything needed to pick a solution to a problem. Google will surprise you.
+尽管如此，你在 Google 搜索时需要小心。一个新手的标志就是在没有理解的情况下就复制粘贴别人的代码，尽管这些代码可能正确地解决了你的问题，但你永远都不应该使用你没有完全理解的代码，哪怕只有一行。
 
-However, be careful what you Google for. Another sign of a newbie is copying and using others code as is without understanding it. While that code might correctly solve your problem, you should never use any line of code that you do not fully understand.
+如果你想成为一个有创造性的程序员，不要以为你知道自己在做什么。
 
-If you want to be a creative coder, never think that you know what you’re doing.
+> **作为一个有创造力的人，最危险的想法就是以为你知道自己在做什么。**
+>
+> **— Bret Victor**
 
-> _The most dangerous thought that you can have as a creative person is to think that you know what you’re doing._
+### **7）没有封装**
 
-> _— Bret Victor_
+这一点不只是关于面向对象范式的。使用封装总是有用的。不使用封装往往导致难以维护的系统。
 
-### **7) Not Using Encapsulation**
+在一个应用中，一个功能应该只在一个地方处理，这通常就是一个对象的职责，这个对象应该只向其他需要用到它的对象暴露必须的接口。这无关乎机密，而是为了降低一个应用中的不同部分之间的相互依赖。坚持这些法则能够让你安全地改变你的类、对象、函数的内部实现，而不用担心破坏了修改之处外更大范围的东西。
 
-This point is not about using the object-oriented paradigm. The use of the encapsulation concept is always useful. Not using encapsulation often leads to harder-to-maintain systems.
+概念的逻辑单元和状态应该有他们自己的**类**。我说的类是指一个蓝图模版，这可能确实是一个**类**对象，也可能是一个**函数**对象，你也可以认为是一个**模块**或一个**包**。
 
-In an application, a feature should have only one place that handles it. That is usually the responsibility of a single object. That object should only reveal what is absolutely necessary for other objects of the application to use it. This is not about secrecy but rather about the concept of reducing dependencies between the different parts of an application. Sticking with these rules allows you to safely make changes in the internals of your classes, objects, and functions without worrying about breaking things on a bigger scale.
+在一个逻辑单元以内，自包含的任务块应该有他们自己的方法，一个方法应该只做一件事，并把这件事做好。相似的类应该使用相同的方法名。
 
-Conceptual units of logic and state should get their own **classes**. By class, I mean a blueprint template. This can be an actual **Class** object or a **Function** object. You might also identify it as a **Module** or a **Package**.
+作为一个初级程序员，我以前经常都无法自然地写一个新的类来组织概念性的单元，也经常无法辨识什么才是自包含的。如果你看到了一个“`Util`“工具类，就像一个垃圾场，堆放了很多互不关联的代码，这就是新手代码的特点。如果你做了个微小的改动，发现这个改动有连锁反应，需要改动很多其他地方，那就是新手代码的另一个特点。
 
-Within a class of logic, self-contained pieces of tasks should get their own methods. Methods should do one thing and do that thing well. Similar classes should use the same method names.
+在往一个类添加一个方法或者向一个方法添加更多职责的时候，思考一下，并且问问你的直觉。这里你需要花费点时间，不要跳过或者想着“我**稍后再来重构**”，刚开始的时候就要做。
 
-As a beginner programmer, I did not always have the instinct to start a new class for a conceptual unit and I often failed to identify what can be self-contained. If you see a “`Util`” class that has been used as a dumping ground for many things that do not belong together, that is a sign of newbie code. If you make a simple change and then discover that the change has a cascading effect and you need to do many changes elsewhere, that is another sign of newbie code.
+基本的想法就是你想你的代码**高内聚**和**低耦合**，这只是个时髦一点的术语，意思是说保持相关的代码在一起（在一个类中），降低不同类之间的相互依赖。
 
-Before adding a method to a class or adding more responsibilities to a method, think and question your instincts. You need time here. Do not skip or think that you will **refactor that later**. Just do it right the first time.
+### **8）为未知做计划**
 
-The big idea here is that you want your code to have **High Cohesion** and **Low Coupling**, which is just a fancy term that means keep related code together (in a class) and reduce the dependencies between different classes.
+经常会倾向于去考虑超出当前正在写的解决方案的问题。每写一行代码就有各种各样的“万一”在你脑海浮现。这在测试边界情况的时候是很好的习惯，但如果将它作为**潜在需求**的驱动，就大错特错了。
 
-### **8) Planning for the Unknown**
+你需要辨识你的这些“万一”属于上面说的两种类型中的哪一类。不要编写你现在不需要的代码。不要为未知的将来作计划。
 
-It is often tempting to think beyond the solution that you are writing. All sort of what-ifs will pop into your head with every line of code that you write. This is a good thing for testing edge cases, but it is just wrong to use as a driver for **potential needs**.
+因为你觉得可能以后会使用到一个功能，就去编写代码实现它，这是很显然的错误。不要这样做。
 
-You need to identify which of these two main categories your what-ifs belong to. Do not write code that you do not need today. Do not plan for the unknown future.
+尽可能编写目前正在实现的方案所需的最少量代码。当然，要处理边界情况，但不要添加**边界功能**。
 
-Writing a feature because you think that you might need it in the future is simply wrong. Do not do it.
+> **为了增长而增长是癌细胞的思想。**
+>
+> **— Edward Abbey**
 
-Always write the minimum amount of code that you need today for the solution that you are implementing. Handle edge-cases, sure, but do not add _edge-features_.
+### **9）没有使用合适的数据结构**
 
-> _Growth for the sake of growth is the ideology of the cancer cell._
+初级程序员在准备面试的时候通常会太过关注算法。能够辨识好的算法并在需要的时候使用是很好的事。但记忆这些算法可不会给你的编程技能带来提升。
 
-> _— Edward Abbey_
+不同的是，记忆你所用的编程语言中的各种数据结构的优缺点肯定能使你成为更好的开发者。
 
-### **9) Not Using the Right Data Structures**
+使用错误的数据结构是一个巨大和明显的广告牌，上面写着“这是新手的代码“。
 
-When preparing for interviews, beginner programmers usually put too much focus on algorithms. It is good to identify good algorithms and use them when needed, but memorizing them will probably never attribute to your programming genius.
+本文并不是要教你数据结构方面的知识，但这里快速举几个例子：
 
-However, memorizing the strengths and weaknesses of the various data structures that you can use in your language will certainly make you a better developer.
+**- 使用列表（数组）而不是映射表（对象）来管理记录**
 
-Using the wrong data structure is a big and strongly-lit billboard sign that screams newbie code here.
+最经常犯的数据结构方面的错误就是使用列表而不是映射表来管理一系列对象。没错，你应该使用**映射表**来管理一个记录**列表**。
 
-This article is not meant to teach you about data structures but let me mention a couple of quick examples:
+要注意的是我这里讨论的记录列表是其中的每一项记录都有一个可以用于查找对象的唯一标识。使用列表来管理标量值是可以的，并且通常也是更好的选择，特别在重点用法是“压入”一些值到列表的情况下。
 
-**— Using lists (arrays) instead of maps (objects) to manage records**
+在 JavaScript 中，最常用的列表结构是数组，最常用的映射表结构是对象（在现代 JavaScript 中也有映射表的结构）。
 
-The most common data structure mistake is probably the use of lists instead of maps to manage a list of records. Yes, to manage a LIST of records you should use a MAP.
+使用列表而不使用映射表来管理对象通常都是错的。尽管这个说法确实是在管理大量记录的时候才成立，而我想说坚持一直这么做吧。这么做很重要的主要原因就是使用唯一标识来查找对象的时候，映射表比列表要快得多。
 
-Note that I am talking about a list of records here where each record has an identifier that’s to be used to lookup that record. Using lists for scalar values is okay and often the better choice specially if the focus of the usage is “pushing” values to the list.
+**- 没有使用堆栈**
 
-In JavaScript, the most common list structure is an array and the most common map structure is an object (there is also a map structure in modern JavaScript).
+当编写一些需要递归形式的代码的时候，通常很容易使用简单的递归函数。然而，优化递归代码通常很难，特别是在单线程环境下。
 
-Using lists over maps for managing records is often wrong. While this point is really only true for large collections, I would say just stick with it all the time. The main reason this is important is because when looking up records using their identifiers, maps are a lot faster than lists.
+优化递归代码取决于递归函数返回了什么。比如说，优化一个返回调用自身两次以上的递归函数比优化只返回调用自身一次的函数要难得多。
 
-**— Not Using Stacks**
+作为初学者我们通常会忽视的就是其实有递归函数的替代方法。你可以使用**栈**数据结构。手动把函数调用结果 Push 入栈，然后在需要获取结果的时候把结果 Pop 出栈。
 
-When writing any code that requires some form of recursion, it is always tempting to use simple recursive functions. However, it is usually hard to optimize recursive code, especially in single-threaded environments.
+### **10）把既有代码弄得更糟**
 
-Optimizing recursive code depends on what recursive functions return. For example, optimizing a recursive function that returns two or more calls to itself is a lot harder than optimizing a recursive function that simply returns a single call to itself.
-
-What we tend to overlook as beginners is that there is an alternative to using recursive functions. You can just use a _Stack_ structure. Push function calls to a Stack yourself and start popping them out when you are ready to traverse the calls back.
-
-### **10) Making Existing Code Worse**
-
-Imagine that you were given a messy room like this:
+假设给你一个像这样的凌乱的屋子：
 
 ![](https://cdn-images-1.medium.com/max/800/1*T6gU2PGfqll9h1zT6ApTUA.png)
 
-You were then asked to add an item to that room. Since it is a big mess already, you might be tempted to put that item anywhere. You can be done with your task in a few seconds.
+现在要求你在这个房间里面放置一件东西。由于房间现在已经是很混乱了，你很可能把东西随便一放，几秒钟就完事了。
 
-Do not do that with messy code. Do not make it worse! Always leave the code a bit cleaner than when you started to work with it.
+当你面对的是混乱的代码的时候，千万别这么做。不要把代码弄得更乱！总是要让代码比你刚接手的时候干净那么一点。
 
-The right thing to do to the room above is to clean what is needed in order to place the new item in the right place. For example, if the item is a piece of clothing that needs to be placed in a closet, you need to clear a path to that closet. That is part of doing your task correctly.
+以上房间问题中你应该做的是清理需要的部分，来给新的东西腾出合适的位置。比如说，如果这件东西是一件衣服，需要被放到衣柜里，那么你就需要清理出一条到衣柜的路出来。这是正确完成这个任务的一部分。
 
-Here are a few wrong practices that usually make the code a bigger mess than what it was (not a complete list):
+以下有一些错误的实践，通常会使得代码比以前更糟糕（不完备的列表）：
 
-*   **Duplicating code**. If you copy/paste a code section to only change a line after that, you are simply duplicating code and making a bigger mess. In the context of the messy room example above, this would be like introducing another chair with a lower base instead of investing in a new chair that is height-adjustable. Always keep the concept of abstraction in your mind and use it when you can.
-*   **Not using configuration files**. If you need to use a value that could potentially be different in different environments or at different times, that value belongs in a configuration file. If you need to use a value in multiple places in your code, that value belongs in a configuration file. Just ask yourself this question all the time when you introduce a new value to the code: does this value belong in a configuration file? The answer will most likely be yes.
-*   **Using unnecessary conditional statements and temporary variables**. Every if-statement is a logic branch that needs to be at-least double tested. When you can avoid conditionals without sacrificing readability, you should. The major problem with this is extending a function with a branch logic instead of introducing another function. Every time you think you need an if-statement or a new function variable you should ask yourself: am I changing the code at the right level or should I go think about the problem at a higher level?
+*   **复制代码**。如果你复制/粘贴一份代码之后只改了一行，你简直就是在产生重复代码并且把代码弄得更糟。放到以上凌乱房间的例子中就是，你拿进了一张更低基座的椅子而不是考虑使用一张可调节高度的椅子。总是要在心里想着抽象的概念，一旦可以就要使用它。
+*   **没有使用配置文件**。如果你要使用一个在其他环境下可能不一样的值，或者在其他时间可能不一样的值，这个值就应该放在配置文件中。如果你需要在你代码的不同地方都使用一个值，这个值也应该放置在配置文件中。当你要引入一个新的值到你的代码中的时候，只需要问问你自己：这个值应不应该放在配置文件中？答案很可能是“应该”。
+*   **使用没必要的条件语句和临时变量**。每一个 `if` 语句都是一个需要测试两次的逻辑分支。当你可以在不牺牲可读性的情况下避免条件语句的时候，你就应该这么做。这里主要的问题在于使用分支逻辑扩展一个函数还是引入另一个函数。每一次你觉得需要 `if` 语句或一个新的函数变量的时候，你应该问问自己：我是否在正确的层次修改代码，还是说我应该在更高的层次考虑一下这个问题。
 
-On the topic of unnecessary if-statements, think about this code:
+关于不必要的 `if` 语句，看一下以下的代码：
 
 ```
 function isOdd(number) {
@@ -237,9 +237,9 @@ function isOdd(number) {
 }
 ```
 
-The `isOdd` function above has a few problems but can you see the most obvious one?
+以上的 `isOdd` 函数有几个问题，但你能看出最明显的一个吗？
 
-It uses an unnecessary if-statement. Here is an equivalent code:
+他使用了不必要的 `if` 语句，以下是一种等价的写法：
 
 ```
 function isOdd(number) {
@@ -247,11 +247,11 @@ function isOdd(number) {
 };
 ```
 
-### **11) Writing Comments About the Obvious Things**
+### **11）给显而易见的代码写注释**
 
-I have learned the hard way to avoid writing comments when I can. Most comments can be replaced with better-named elements in your code.
+如今我已经学会了如何尽我所能去避免在写注释时面临的难题了。大多数的注释都可以使用更好命名的元素（译注：类、方法、变量）替换。
 
-For example, instead of the following code:
+举个例子，不要写下面这样的代码：
 
 ```
 // This function sums only odd numbers in an array
@@ -266,7 +266,7 @@ const sum = (val) => {
 };
 ```
 
-The same code can be written without comments like this:
+同样的代码可以不需要注释，像这样重写：
 
 ```
 const sumOddValues = (array) => {
@@ -280,43 +280,43 @@ const sumOddValues = (array) => {
 };
 ```
 
-Just using better names for functions and arguments simply makes most comments unnecessary. Keep that in mind before writing any comment.
+仅仅是给函数和参数更好的命名就可以省去大部分的注释，在写注释前请记住这一点。
 
-However, sometimes you are forced into situations where the only clarity you can add to the code is via comments. This is when you should structure your comments to answer the question of _WHY this code_ rather than the question of _WHAT is this code doing_.
+然而，有时候你可能被迫进入这样的情况，只有通过增加注释才能提高代码的清晰性。这时候你就应该组织你的注释来回答**为什么是用这段代码**而不是**这段代码是干嘛的**。
 
-If you are strongly tempted to write a WHAT comment to clarify the code, please do not point out the obvious. Here is an example of some useless comments that only add noise to the code:
+如果你强烈地想要写一段注释来解释“这段代码是干什么的”，以增加代码清晰性，请不要写那些显而易见的。以下是一个例子，其中无用的注释只会徒增代码的干扰性。
 
 ```
-// create a variable and initialize it to 0
+// 创建一个变量并初始化为 0
 let sum = 0;
 
-// Loop over array
+// 遍历数组
 array.forEach(
-  // For each number in the array
+  // 对于数组中的每一个数字
   (number) => {
-    // Add the current number to the sum variable
+    // 把当前数字加到变量 sum 中
     sum += number;
   }
 );
 ```
 
-Do not be that programmer. Do not accept that code. Remove these comments if you have to deal with them. If you happen to be employing programmers who write comments like the above, go fire them, right now.
+别做上面那样的程序员。也不要接受这样的代码。不得不处理的情况下，删了那些注释。如果你碰巧雇用了写出上面那样注释的程序员，炒了他，马上炒。
 
-### **12) Not Writing Tests**
+### **12）没有写测试**
 
-I am going to keep this point simple. If you think you are an expert programmer and that thinking gives you the confidence to write code without tests, you are a newbie in my book.
+我将简单地阐述这一点，如果你觉得你是个程序员专家并且这样的想法给你写代码不带测试的自信，在我的字典里你就是个新手。
 
-If you are not writing tests in code, you are most likely testing your program some other way, manually. If you are building a web application, you will be refreshing and interacting with the application after every few lines of code. I do that too. There is nothing wrong with manually testing your code. However, you should manually test your code to figure out how to automatically test it. If you successfully test an interaction with your application, you should go back to your code editor and write code to automatically perform the exact same interaction the next time you add more code to the project.
+如果你不在代码里写测试的话，那么你很可能在用某些手动的方式测试你的代码。如果你在构建一个网页应用的话，每次修改几行代码你就得在浏览器中刷新然后做一些交互来再次测试。我也是这么做的。手动测试代码没有错，但你应该通过手动测试来弄清楚如何进行自动化测试。如果你在你的应用中测试了一个交互功能，那么在你添加更多功能代码之前，你就应该先把这个交互功能的测试用代码自动化。
 
-You are a human being. You are going to forget to test all previously successful validations after each code change. Make the computer do that for you!
+你是一个人，你就很难保证在每次修改完代码之后还能把之前所做的所有测试校验都再做一遍，那就让计算机帮你做吧。
 
-If you can, start by guessing or designing your validations even before you write the code to satisfy them. Testing-driven development (TDD) is not just some fancy hype. It positively affects the way you think about your features and how to come up with a better design for them.
+如果可能的话，甚至在开始写代码实现需求之前，你就应该开始预估和设计需要测试校验的情况了。测试驱动开发 （Testing-driven development, TDD）可不是什么花俏的炒作，它是会实实在在会对你思考功能特性、寻找更好的设计方案产生积极影响的。
 
-TDD is not for everyone and it does not work well for every project, but if you can utilize it (even in part) you should totally do so.
+测试驱动开发（TDD）并非对每一个人和对每一个项目都奏效的，但如果你能够把它利用起来（哪怕只在项目的某一部分），你都完全应该这样去做。
 
-### **13) Assuming That If Things are Working then Things are Right**
+### **13）觉得代码运行起来了就是能正确运行**
 
-Take a look at this function that implements the `sumOddValues` feature. Is there anything wrong with it?
+看一下这个实现“把所有奇数相加”功能的函数 `sumOddValues`，有什么问题吗？
 
 ```
 const sumOddValues = (array) => {
@@ -335,11 +335,11 @@ console.assert(
 );
 ```
 
-The assertion passes. Life is good. Right, RIGHT?
+测试断言通过了，生活真美好啊，真的，真的对了吗？
 
-The problem with the code above is that it not complete. It correctly handles a few cases (and the assertion used happens to be one of these cases) but it has many problems beyond that. Let me go through a few of them:
+问题在于以上的代码是不完备的，在少数情况下它能正确处理，碰巧测试使用的断言刚好就是这些情况中的一种，但除此之外还有很多问题，让我们列举其中的几个：
 
-**— Problem #1:** There is no handling for empty input. What should happen when the function is called without any arguments? Right now you get an error revealing the function’s implementation when that happens:
+**- 问题一：** 没有处理空输入。如果这个函数被调用的时候没有传递任何参数呢？这种情况下就会产生一个错误，暴露了这个函数的内部实现。
 
 ```
 TypeError: Cannot read property 'reduce' of undefined.
@@ -347,214 +347,215 @@ TypeError: Cannot read property 'reduce' of undefined.
 
 ![](https://cdn-images-1.medium.com/max/800/1*DBFKfU-dhTK7xrTI8Ye-iQ.png)
 
-That is usually a sign of bad code for two main reasons.
+这通常是糟糕代码的一个标志，理由如下：
 
-*   Users of your function should not encounter implementation details about it.
-*   The error is not helpful for the user. Your function just did not work for them. However, if the error was more clear about the usage problem, they would know that they used the function incorrectly. For example, you can opt to have the function throw a user-defined exception like this:
+*   函数的使用者不应该看到函数的具体实现。
+*   出错的信息对用户没有任何帮助，函数不起作用就是不起作用。但是，如果函数的出错信息能对函数的使用方法描述得更清晰具体一点，函数的使用者就可能知道了是他们使用姿势不当。比如你可以选择让这个函数抛出自定义的异常，像下面这样：
 
 ```
 TypeError: Cannot execute function for empty list.
 ```
 
-Maybe instead of throwing an error, you need to design your function to just ignore empty input and return a sum of `0`. Regardless, something has to be done for this case.
+除了抛出一个异常，你也可以重新设计这个函数，忽略掉空的输入，然后返回 `0`。不管怎么样，在这种情况下你都应该做些处理。
 
-**— Problem #2:** There is no handling of invalid input. What should happen if the function is called with a string, an integer, or an object value instead of an array?
+**- 问题二：** 没有处理异常输入。如果调用函数的时候没有传递一个数组，而是传入了一个字符串，一个整数，或者一个对象，此时会发生什么？
 
-Here is what the function would throw now:
+现在这个函数就会抛出这样的错误了：
 
 ```
 sumOddValues(42);
 
-TypeError: array.reduce is not a function
+TypeError: array.reduce is not a function //（译注：array.reduce 不是一个函数）
 ```
 
-Well, that is unfortunate because `array.reduce` is definitely a function!
+好吧，真是不幸，因为 `array.reduce` 绝对是一个函数啊！
 
-Since we named the function’s argument `array`, anything you call the function with (`42` in the example above) is labeled as `array` within the function. The error is basically saying that `42.reduce` is not a function.
+由于我们给函数的参数命名为 `array`，任何调用这个函数的参数（即以上例子中的 `42`）在函数内部都会打上 `array` 的标签，这个错误其实就是说 `42.reduce` 不是一个函数。
 
-You see how that error is confusing, right? Maybe a more helpful error would have been:
-
-```
-TypeError: 42 is not an array, dude.
-```
-
-Problems #1 and #2 are sometimes referred to as edge-cases. These are some common edge-cases to plan for, but there are usually less obvious edge-cases that you need to think about as well. For example, what happens if we use negative numbers?
+你亲眼看到了这样的错误多么令人费解，不是吗？也许更有帮助的错误是这样的：
 
 ```
-sumOddValues([1, 2, 3, 4, 5, -13]) // => still 9
+TypeError: 42 is not an array, dude. // （译注：42 可不是数组啊，我的大胸弟。）
 ```
 
-Well, `-13` is an odd number. Is this the behavior that you want this function to have? Should it throw an error? Should it include the negative numbers in the sum? Or should it simply just ignore negative numbers like it is doing now? Maybe you will realize that the function should have been named `sumPositiveOddNumbers`.
+问题一和问题二有时候被称为边界情况，有一些基本的边界情况要考虑，但是也经常有一些不那么明显的边界情况，也需要考虑进来。比如说，如果我们传递了负数作为参数呢？
 
-Making a decision on this case is easy. The more important point is, if you do not write a test case to document your decision, future maintainers of your function will have no clue if your ignoring of negative numbers was intentional or buggy.
+```
+sumOddValues([1, 2, 3, 4, 5, -13]) // => 还是 9
+```
 
-> It’s not a bug. It’s a feature.
+呃，`-13` 也是一个奇数。这是你预期的行为吗？是不是应该抛出异常？负数是不是也应该被求和加起来？还是说像它现在的行为这样，仅仅忽略掉负数？现在你可能会意识到这个函数的名称本来应该被叫做 `sumPositiveOddNumbers` （对正奇数进行求和）。
 
-> — Someone who forgot a test case
+这种情况下做决策很容易，但更重要的一点是，如果你不写测试用例记录你这次决策的原因，这个函数将来的维护者可能会不知道你是有意忽略掉负数还是这里有 bug，并对此毫无头绪。
 
-**— Problem #3:** Not all valid cases are tested. Forget edge-cases, this function has a legitimate and very simple case that it does not handle correctly:
+> 这不是 bug ，这是特性。
+>
+> — 忘了写测试代码的某某
+
+**- 问题三：** 并非所有的有效情况都被测试了。抛开边界情况不说，这个函数还有一种合法的、非常简单的情况没有被正确处理：
 
 ```
 sumOddValues([2, 1, 3, 4, 5]) // => 11
 ```
 
-The `2` above was included in sum when it should not have been.
+以上的 `2` 也被加到求和结果里面去了，但这本不应该。
 
-The solution is simple, `reduce` accepts a second argument to be used as the initial value for the `accumulator`. If that argument is not provided (like in the code above), `reduce` will just use the _first_ value in the collection as the initial value for the `accumulator`. This is why the first even value in the test case above was included in the sum.
+答案很简单，`reduce` 接受另一个参数，作为求和器的初始值。如果这个参数没有传递的话（如上代码），`reduce` 函数就会用集合的**第一个**值作为求和器的初始值。这就是以上例子中第一个偶数也会被求和加起来的原因。
 
-While you might have spotted this problem right away or when the code was written, this test case that revealed it should have been included in the tests, in the first place, along with many other test cases, like all-even numbers, a list that has `0` in it, and an empty list.
+尽管你可能在你一开始写代码的时候就马上意识到这个问题了，但是暴露出这个问题的测试用例还是应该首先被包含到测试集中，跟其他很多基本测试用例一起，如“传递全是偶数的数组”，“传递包含 `0` 的数组“，还有”传递空数组“。
 
-If you see minimal tests that do not handle many cases or ignore edge-cases, that is another sign of newbie code.
+如果你看到了很少量的测试用例，还没有处理大多数甚至根本不处理边界情况，那就是新手代码的另一个标志。
 
-### **14) Not Questioning Existing Code**
+### **14）没有质疑既有代码**
 
-Unless you are a super coder who always works solo, there is no doubt that you will encounter some kind of stupid code in your life. Beginners will not recognize it and they usually assume that it is good code since it seems to be working and it has been part of the codebase for a long time.
+除非你是个一直单飞的超级码农，否则毫无疑问，你在生活中肯定会遇到一些很傻逼的代码。初学者通常无法辨别这些代码的好坏，并且通常会觉得这些代码是好代码，因为这些代码似乎正常运行，还在代码仓库里面待了很长时间。
 
-What is worse is that if the bad code uses bad practices, the beginner might be tempted to repeat that bad practice elsewhere in the codebase because they learned it from what they thought was good code.
+更糟的是，如果糟糕的代码用了一些糟糕的实践，初学者很可能就在代码仓库里的其他地方应用了这些糟糕的实践，因为他们把这些当作好代码给学习过来了。
 
-Some code looks bad but it might have a special condition around it that forced the developer to write it that way. This is a good place for a detailed comment that teaches beginners about that condition and why the code is written that way.
+有一些代码看起来很糟糕，但可能是有一些特殊的情况迫使开发者写出这样的代码，这就是应该编写详细注释的地方了，可以在这里告诉初学者这些特殊的情况以及代码这样写的原因。
 
-As a beginner, you should just assume that any undocumented code that you do not understand is a candidate for being bad. Question it. Ask about it. `git blame` it!
+作为一个初学者，总是应该假定那些你读不懂的、且没有文档注释的代码很可能就是糟糕的代码。质疑之，询问之，使用 `git blame` 揪出罪魁祸首！
 
-If the author of that code is long gone or cannot remember it, research that code and try to understand everything about it. Only when you completely understand the code you get to form an opinion whether it is bad or good. Do not assume anything before that.
+如果代码作者已经离开很久了，或者他自己也记不起来了，那就好好研究这些代码，尽力弄懂相关的一切。只有当你完全理解了这份代码，你才能够建立起这份代码好坏的认知，在那之前不要做任何假设。
 
-### **15) Obsessing About Best Practices**
+### **15）迷恋最佳实践**
 
-I think the term “best practices” is actually harmful. It implies that no further research is needed. Here is the BEST practice ever. Do not question it!
+我觉得“最佳实践”其实是害人的，它暗示着你不需要深入研究它，这就是有史以来**最佳**实践，不用质疑！
 
-There are no best practices. There are probably _good_ practices _today_ and _for this programming language_.
+没有最佳实践这回事，也许有**目前来说**、**针对这门语言的**、**好的**实践。
 
-Some of what we previously identified as best practices in programming are labeled today as bad practices.
+一些以前被认为是编程中最佳实践的，现在却被贴上了最差实践的标签。
 
-You can always find better practices if you invest enough time. Stop worrying about best practices and focus on what you can do best.
+如果你投入足够多的时间，你总是可以找到更好的实践。不要担心什么最佳实践，专注于你能做到最好的地方。
 
-Do not do something because of a quote you read somewhere, or because you saw someone else do it, or because someone said this is a best practice. This includes all the advice that I am giving in this article! question everything, challenge all the theories, know all your options, and make only educated decisions.
+不要因为你在某些地方读到过，说可以这么做你就去这么做，也不要因为你看过别人这么做你也去做，也不要因为别人说这是最佳实践你就这么做，包括本文中给出的所有建议！质疑一切，挑战权威，了解所有可能的选择，作出明智的决定。
 
-### **16) Obsessing About Performance**
+### **16）迷恋性能**
 
-> _Premature optimization is the root of all evil (or at least most of it) in programming_
+> **过早优化是万恶之源**
+>
+> **— Donald Knuth (1974)**
 
-> _— Donald Knuth (1974)_
+尽管自 Donald Knuth 写下上面的言论以来，计算机编程已经发生了翻天覆地的变化，我觉得这句话在今天仍然是很有价值的建议。
 
-While programming has significantly changed since Donald Knuth wrote the above statement, I think it still holds valuable advice today.
+有一条法则可以帮助记忆这一点：如果你无法测量代码中疑似存在的性能问题，那就不要试图去优化它。
 
-The good rule to remember about this is: if you cannot measure the suspected performance problem with the code, do not attempt to optimize it.
+如果你在运行代码之前就在优化它了，那很可能你就是在过早优化代码了，也很可能你正在费时费力做的优化是完全没必要的。
 
-If you are optimizing before executing the code, chances are you are doing it prematurely. There is also a big chance that the optimization you are investing your time in is completely unnecessary.
+当然了，有一些很明显的优化是你必须在引入新代码前就要考虑的。比如说在 Node.js 中，不要让事件泛滥成灾或阻塞调用栈，这是至关重要的。这是你应该始终牢记的早期优化的一个例子。扪心自问：我正在考虑的这部分代码会阻塞调用栈吗？
 
-Of course there are some obvious optimizations that you should always consider before introducing new code. For example, in Node.js, it is extremely important that you do not flood the event loop or block the call stack. This an example of an early optimization that you should always keep in mind. Ask yourself: Will the code I am thinking about block the call stack?
+在未经测量的现有代码中进行任何不明显的优化都是有害的，也应该尽量避免。你可能觉得完成之后是一种性能收益，然而结果却可能是新的、意料之外的 bug 的源头。
 
-Any non-obvious optimization that is carried out on any existing code without measurements is considered harmful and should be avoided. What you think could be a performance gain, if done, might turn out to be a source of new, unexpected bugs.
+不要浪费时间去优化未经测量的性能问题。
 
-Do not waste your time optimizing unmeasured performance problems.
+### **17）没有以最终用户体验为目标**
 
-### **17) Not Targeting the End-user Experience**
+给应用新增一个功能最简单的方法是什么？从你自己的视角来看这个功能，或者看新功能如何融入到目前的用户界面中，对吧？如果新功能是要从用户那里获取一些输入，那就在你已有的表单上添加，如果新功能是要在页面上添加一个链接，那就在你已有的菜单列表里面添加。
 
-What is the easiest way to add a feature to an application? Look at it from the point of view of yourself, or how it fits in the current User Interface. Right? If the feature is to capture some kind of input from the user, then append it to that form that you already have. If that feature is to add a link to a page, then add it to that nested menu of links that you already have.
+**别做那样的开发者。** 要做专业的开发者，站在最终用户的角度看问题。专业的开发者要考虑这个特定功能的用户需要什么、怎样使用，要想方设法使得这个功能容易让用户发现和使用，而不是想方设法在应用中用最便捷添加这个功能，毫不考虑这个功能的可发现性和可用性。
 
-**Do not be that developer.** Be one of the professional ones who put themselves in their end-users’ shoes. They imagine what the users of this particular feature need and how they might behave. They think about the ways to make the feature easy for the users to find and use, not about the easy way to make the feature exist in the application somehow without any thoughts about that feature’s discoverability and usability.
+### **18）没有为任务挑选合适的工具**
 
-### **18) Not Picking the Right Tool for the Job**
+每一人都有一个最喜爱工具的列表，在他们的编程相关的活动中起到辅助的作用。一些工具很优秀，也有一些工具很辣鸡，但是大部分工具都很擅长处理某一特定的任务，对除此之外的任务就不那么在行了。
 
-Everyone has their list of favorite tools to assist them in their programming-related activates. Some tools are great and some are bad but most tools are great for one particular thing and not so great for many others.
+锤子是把钉子钉进墙壁里的绝妙工具，但是用来拧螺丝就是最差的工具了。不要因为你很喜爱那个锤子你就用它来拧螺丝。不要因为这是个很流行的锤子、在亚马逊上用户评分有 5.0 分就用它来拧螺丝。
 
-A hammer is a great tool to drive a nail into a wall but it is the worst tool to use with a screw. Do not use a hammer on a screw just because you “love” that hammer. Do not use a hammer on a screw just because that is the most popular hammer on Amazon with 5.0 user reviews.
+依赖一个工具的流行度而不是它对一个问题的适用性来选择工具是真正新手的标志。
 
-Relying on a tool’s popularity rather than how much it fits the problem is a sign of a true newbie.
+关于这点有一个问题是，你可能不知道适用某个特定任务的“更好的”的工具。在你目前的认知里，这个工具可能就是你所知道的最好的。但是，如果跟其他可选工具做比较的话，它就不是首选了。你需要使自己了解这些可选的工具，对这些新工具保持开放的心态，以后你可能会使用到它们。
 
-One problem about this point is that you will probably not know the “better” tools for a certain job. Within your current knowledge, a tool might be the best tool that you know of. However, when compared to other options, it would not make the top list. You need to familiarize yourself with the tools available to you and keep an open mind about the new tools that you can start using.
+一些程序员不愿意使用新的工具。他们对于目前正在使用的工具很满意，也不想学习新的工具。我理解这种做法，但这种做法很明显是错的。
 
-Some coders refuse to use new tools. They are comfortable with their existing tools and they probably do not want to learn any new ones. I understand that and I can relate to it, but it is simply wrong.
+你可以使用最原始的工具建造房子，然后享受甜蜜时光。你也可以花费一些时间和金钱去了解先进的工具、更快地建造更好的房子。工具在不断地改进中，你要乐意去学习它们、使用它们。
 
-You can build a house with primitive tools and take your sweet time or you can invest some time and money in good tools and build a better house much faster. Tools are continually improving and you need to get comfortable learning about them and using them.
+### **19）不理解代码问题会导致数据问题**
 
-### **19) Not Understanding that Code Problems Will Cause Data Problems**
+程序的一个重要方面通常是管理某些形式的数据。程序就是一个添加新数据、删除旧数据、修改已有数据的接口。
 
-An important aspect of a program is often the management of some form of data. The program will be the interface to add new records, delete old ones, and modify others.
+即使是程序中最小的 bug 也会导致它所管理的数据去到一种不可预测的状态。尤其是当所有数据校验都完全在这个有 bug 的程序中进行时。
 
-Even the smallest bugs in a program’s code will result in an unpredictable state for the data it manages. This is especially true if all validations on the data are done entirely through the same buggy program.
+当涉及到“代码-数据”关系时，初学者可能无法马上理解其中的联系。他们可能觉得在生产环境中继续使用这段有 bug 的代码没什么大不了的，因为失效的功能 X 也不是超级重要。问题在于这段有 bug 的代码会持续产生数据完整性问题，这在一开始可不那么明显。
 
-Beginners might not immediately connect the dots when it comes to code-data relationship. They might feel okay continuing to use some buggy code in production because feature X that is not working is not super important. The problem is that buggy code might be continually introducing data integrity problems that are not obvious at first.
+更糟的是，如果部署了 bugfix 的代码而没有修复相应 bug 导致的细微数据问题，也会让更多的数据问题累积，最终“积重难返”。
 
-What is worse is that shipping code that fixed the bugs without fixing the subtle data problems that were caused by these bugs will just accumulate more data problems that take the case into the “unrecoverable-level” label.
+你怎么做才能使自己免受这些问题的困扰？你可以简单地使用多层数据完整性验证。不要依赖于单一的用户接口。在前端、后台、网络层、数据层都进行数据验证。如果做不到这样，那至少要在数据库层做约束。
 
-How do you protect yourself from problems like these? You can simply use multiple layers of data integrity validations. Do not rely on the single user interface. Create validations on front-ends, back-ends, network communications, and databases. If that is not an option, then you have to at-least use database-level constraints.
+要熟悉数据库的约束，在你往数据库里添加表、列的时候尽可能的用上这些约束：
 
-Familiarize yourself with database constraints and use all of them when you add columns and tables to your database:
+*   **NOT NULL** 非空约束表示空值 NULL 无法被保存到该列上。如果你的应用假定了这个列的值是存在的，那就应该在数据库里把这个列定义为非空。
+*   **UNIQUE** 唯一约束表示在整个数据表中，该列上的所有值都不能出现重复。举个例子，这在用户表中的用户名字段和邮件字段是极好的使用场景。
+*   **CHECK** 约束是一个自定义的表达式，想要被数据库接受的数据都必须使该表达式计算结果为 true。举个例子，如果有一个常规的百分比列，它的值介于 0 到 100 之间，就可以使用 **CHECK** 约束来确保这一点。
+*   **PRIMARY KEY** 主键约束表示这个列的值必须同时是非空和唯一的。你目前可能就已经在用了。数据库的每一个表都应该有一个主键以唯一标识一条记录。
+*   **FOREIGN KEY** 外键约束表示该列的值必须和另一个表的一个列（通常是主键）的值匹配。
 
-*   A **NOT NULL** constraint on a column means that null values will be rejected for that column. If your application assumes the existence of a value for that field, its source should be defined as not null in your database.
-*   A **UNIQUE** constraint on a column means that the column cannot have duplicate values across the whole table. For example, this is great for a username or email field on a Users table.
-*   A **CHECK** constraint is a custom expression that has to evaluate to true for the data to be accepted. For example, if you have a normal percentage column whose values have to be between 0 and 100, you can use a check constraint to enforce that.
-*   A **PRIMARY KEY** constraint means that the column’s values are both not-null and unique as well. You are probably using this one. Each table in the database should have a primary key to identify its records.
-*   A **FOREIGN KEY** constraint means that the column’s values have to match values in another table column, which is usually a primary key.
+新手关于数据完整性的另一个问题是缺乏事务的观念。如果改变同个数据源的多个操作彼此依赖，它们就必须被包含在同一事务中，以便在其中一个操作失败时能够回滚。
 
-Another newbie problem that is related to data integrity is the lack of thinking in terms of transactions. If multiple operations need to change the same data source and they depend on each other, they HAVE to be wrapped in a transaction that can be rolled back when one of these operations fail.
-
-### **20) Reinventing the Wheel**
+### **20）重复造轮子**
 
 This is a tricky point. In programming, some wheels are simply worth reinventing. Programming is not a well-defined domain. So many things change so fast and new requirements are introduced faster than any team can handle.
+这是很棘手的一点。在编程领域，有些轮子确实值得重新造一遍。编程不是一个明确定义的领域。如此多的事物、变化如此之快、新需求的引进也如此之快，没有一个团队能够完美处理这些。
 
-For example, if you need a wheel that spins at different speeds based on the time of the day, instead of customizing the wheel we all know and love, maybe we need to rethink it. However, unless you actually need a wheel that is not used in its typical design, do not reinvent it. Just use the damn wheel.
+比如说，如果你需要一个轮子，根据一天的不同时间以不同的速度旋转，也许我们就不是去考虑改造那些我们所知的、所爱的轮子了，而要考虑重新造一个。但是，除非你确实需要一个非常规设计的轮子，否则都不要重新造一个新的轮子，就用那个该死的轮子吧。
 
-It is sometimes challenging to pick the brand of the needed wheel among the many available options. Do some research and try before you buy! The cool thing about software “wheels” is that most of them are free and open for you to see their internal design. You can easily judge coding wheels by their internal design quality. Use open-source wheels if you can. Open-source packages can be debugged and fixed easily. They can also be replaced easily. In addition, it is easier to support them in-house.
+有时候在众多可选的牌子里选择一个所需的轮子是很具挑战性的。在购买之前要先调研和使用！关于软件“轮子”很酷的一点是，大部分的轮子都是免费的、开放的，你可以看到它们的内部设计。你能够轻而易举地通过判断它们的内部设计的质量来判断软件轮子的好坏。如果可能，使用开源的轮子。开源的软件包可以很容易的调试和修复。也可以很容易的替换掉。此外，你还可以足不出户地支持它们。
 
-However, if you need a wheel, do not buy a whole new car and put the car that you are maintaining on top of that new car. Do not include a whole library just to use a function or two out of it. The best example about this is the **lodash** library in JavaScript. If you just need to shuffle an array, just import the `shuffle` method. Do not import the whole freaking lodash library.
+不过，如果你需要一个轮子，千万不要去买一整辆车，然后把你正在维护的那辆车放到新买的车顶部。不要仅仅为了使用一两个函数就引入一整个代码库，在 JavaScript 中的典型例子就是 **lodash** 代码库。如果你要随即打乱一个数组，只要引入 `shuffle` 方法就好了。不要引入整个的 loadash 代码库，很可怕。
 
-### **21) Having the Wrong Attitude Towards Code Reviews**
+### **21）对代码复审的错误态度**
 
-One sign of coding newbies is that they often look at code reviews as criticism. They do not like them. They do not appreciate them. They even fear them.
+程序员新手的一个标志就是他们经常把代码复审看作是批评。他们不喜欢代码复审、不感激代码复审、甚至恐惧代码复审。
 
-This is just wrong. If you feel that way, you need to change this attitude right away. Look at every code review as a learning opportunity. Welcome them and appreciate them. Learn from them. And most importantly, thank your reviewers when they teach you something.
+这是错误的。如果你也这么觉得，你需要马上就改变这种态度。把每一次代码复审当作是学习的机会，欢迎他们、感激他们、从中学习，最重要的，当你从你的代码复审人员那里学习到东西的时候，要感谢他们。
 
-You are a forever code learner. You need to accept that. Most code reviews will teach you something you did not know. Categorize them as a learning resource.
+在编程道路上，你永远都是个学习者。承认这一点。大多数的代码复审都能够让你学到以前不知道的一些东西。把它们当作学习的资源。
 
-Sometimes, the reviewer will be wrong and it will be your turn to teach them something. However, if that something was not obvious from just your code, then maybe your code needs to be modified in that case. And if you need to teach your reviewer something anyway, just know that teaching is one of the most rewarding activities that you can do as a programmer.
+有时候代码审核人员也会犯错，那就轮到你来教他们了。但是如果无法仅仅从你的代码中就明显看出问题，也许在那种情况下你的代码就需要相应的修改了。如果你无论如何都需要给你的复审人员上一课的话，那就记得，对程序员来讲，教会别人是最有利的活动之一。
 
-### **22) Not Using Source Control**
+### **22）没有使用版本控制系统**
 
-Newbies sometimes underestimate the power of a good source/revision control system, and by good I mean **Git**.
+新手往往低估了一个好的版本控制系统的威力，我这里所说的好的版本控制系统其实就是指 **Git**。
 
-Source control is not about just pushing your changes for others to have and build on. It is a lot bigger than that. Source control is about clear history. Code will be questioned and the history of the progress of that code will help answer some of the tough questions. This is why we care about commit messages. They are yet another channel to communicate your implementations and using them with small commits help future maintainers of your code figure out how the code reached the state that it is in right now.
+源码控制并不仅仅是你把你的更改推送给别人，让他们在此之上接着开发，除此之外还有更重要的。源码控制是和清晰的历史相关的。源码会被质疑，代码的历史进程能够辅助回答这些困难的质疑。这就是为什么我们如此关注提交信息的原因。它们还是又一种交流实现的通道，使用提交信息能够帮助将来的维护者弄清代码为什么会发展到目前的状态。
 
-Commit often and commit early and for the love of consistency use present tense verbs in your commit subject line. Be detailed with your messages but keep in mind that they should be summaries. If you need more than a few lines in them, that is probably a sign that your commit is simply too long. Rebase!
+应该经常提交和尽早提交。为了保持一致性，请在提交信息主题行（译注：Git 提交信息的第一行）使用（译注：英文）动词的一般现在时形式。需要时刻注意，提交的信息要尽可能详细，但也要尽可能是总结性的。如果你需要多几行来写提交信息，那很可能就是你的提交包含太多了，Rebase！
 
-Do not include anything unnecessary in your commit messages. For example, do not list the files that were added, modified, or deleted in your commit summaries. That list exists in the commit object itself and can be easily displayed with some Git command arguments. It would simply be noise in the summary message. Some teams like to have different summaries per file changed and I see that as another sign of a commit that is too big.
+不要在提交信息中包含任何无关的东西。比如说，不要列出你添加、修改、删除了哪些文件，这些在提交对象的本身就包含了，并且可以轻易地使用一些 Git 命令参数就显示出来，在提交信息中包含这些显然就是混淆视听。有些团队喜欢为每一个更改的文件写一个总结信息，在我看来那是“提交信息太多”的标志。
 
-Source control is also about discoverability. If you encounter a function and you start questioning its need or design, you can find the commit that introduced it and see the context of that function. Commits can even help you identify what code introduced a bug into the program. Git even offers a binary search within commits (the `bisect` command) to locate the single guilty commit that introduced a bug.
+源码控制也是和可发现性相关的。如果你看到一个函数，并且开始质疑它的必要性和设计，你可以找到引入这个函数的提交记录，看到这个函数的上下文。提交记录甚至可以帮助你认清哪些代码带来了 bug。Git 甚至提供了在各个提交之间进行二分查找，帮助定位到引入 bug 的提交的工具（`bisect` 命令）。
 
-Source control can also be leveraged in wonderful ways even before the changes become official commits. The use of features like staging changes, patching selectively, resetting, stashing, amending, applying, diffing, reversing and many others add some rich tools to your coding flow. Understand them, learn them, use them, and appreciate them.
+源码控制也可以被利用在一些神奇的地方，甚至在更改还没进入官方提交记录的时候。诸如暂存区变更、选择性打补丁、重置、暂存、修改、应用、比较、撤回等等工具为你的工作流提供了丰富的工具。了解它们、学习它们、使用它们、感激它们。
 
-The fewer Git features you know, the more of a newbie you are in my book.
+在我的字典里，Git 功能你懂得越少，你就越像一个新手。
 
-### **23) Over-Using Shared State**
+### **23）过度使用共享状态**
 
-This, again, will not be a point about functional programming versus other paradigms. That is a topic for another article.
+再次声明，这不是关于函数式编程和其他范式的讨论，那是另一篇文章的主题了。
 
-This is just about the fact that shared state is a source of problems and should be avoided, if possible. If that is not possible, the use of shared state should be kept to an absolute minimum.
+事实就是，共享状态是出现问题的来源之一，如果可能的话，应该避免使用共享状态，如果避免不了，就应该最低限度地使用共享状态。
 
-What I did not realize as a beginner programmer is that every variable we define represents a shared state. It holds data that can be changed by all elements in the same scope as that variable. The more global the scope is, the worse the span of this shared state. Try to keep new states contained in small scopes and make sure they do not leak upward.
+在我还是初级程序员的时候，我经常没有意识到，我定义的每一个变量都代表了一种共享状态，它所持有的数据能够被同一作用域内的所有元素修改。一个共享状态的作用域越大，它的跨度就越长。尽量让新的状态包含在小的作用域内，并且保证它们不会逸出。
 
-The big problem with shared state starts to happen when multiple resources need to change that state together in the same tick of the event loop (in event-loop-based environments). Race conditions will happen.
+关于共享状态的大问题是，在同一个 event loop（对于基于 event-loop 的环境) 中，当有多个资源需要同时修改这个状态的时候，就会出错。这时会发生竞态条件。
 
-Here is the thing: a newbie might be tempted to use a timer as a workaround for this shared state race condition problem, especially if they have to deal with a data lock issue. That is a big red flag. Do not do it. Watch for it, point it out in code reviews, and never accept it.
+重点来了：一个新手可能会尝试使用定时器来解决这个共享变量的竞态条件问题，特别是当他们必须处理一个数据锁的问题时。这是危险的标志，别这么做，注意它，在代码复审中指出它，永远也不要接受这样的代码。
 
-### **24) Having the Wrong Attitude About Errors**
+### **24）面对 Error 时的错误态度**
 
-Errors are a good thing. They mean you are making progress. They mean you have an easy follow-up change to make more progress.
+Error 是好东西。这意味着你在进步，意味着你可以通过简单的后续修改就获得更多的进步。
 
-Expert programmers love errors. Newbies hate them.
+专业程序员喜爱 Error。新手则痛恨 Error。
 
-If seeing these wonderful little red error messages bother you, you need to change that attitude. You need to look at them as helpers. You need to deal with them. You need to leverage them to make progress.
+如果看到这些惊艳的红色 Error 信息让你很困扰，你就需要改变这种态度了。你需要把它们看作助手。你需要处理它们，需要利用它们来进步。
 
-Some errors need to be upgraded to exceptions. Exceptions are user-defined errors that you need to plan for. Some errors need to be left alone. They need to crash the application and make it exit.
+有一些 Error 需要被改进为异常（Exception）。异常是用户定义的 Error，这些 Error 是你在计划之内的。有些 Error 则不需要管，它们就应该使程序奔溃并退出。
 
-### **25) Not Taking Breaks**
+### **25）没有休息**
 
-You are a human and your brain needs breaks. Your body needs breaks. You will often be in the zone and forget to take breaks. I look at that as another sign of newbies. This is not something you can compromise. Integrate something in your workflow to force you to take breaks. Take a lot of short breaks. Leave your chair and take a short walk and use it to think about what you need to do next. Come back to the code with fresh eyes.
+你是一个人，你的头脑就需要休息。你的身体也需要休息。你经常很在状态以致于忘了休息。我把这视作新手的另一个标志。这不是你可以妥协的事情。在你的工作流中集成一些东西来迫使你中途休息。中途短暂休息很多次，离开你的椅子，走一小段路，以此来想清楚接下来应该做什么，稍后双眼清晰地回来继续写代码。
 
-This has been a long post. You deserve a break.
+这真是篇长文章。你应该休息一下了。
 
-Thanks for reading
+感谢阅读
 
 
 ---
