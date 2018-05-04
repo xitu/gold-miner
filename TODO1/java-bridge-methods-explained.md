@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/java-bridge-methods-explained.md](https://github.com/xitu/gold-miner/blob/master/TODO1/java-bridge-methods-explained.md)
 > * 译者：[kezhenxu94](https://github.com/kezhenxu94/)
-> * 校对者：
+> * 校对者：[Starrier](https://github.com/Starriers/)
 
 # Java 桥接方法详解
 
@@ -146,7 +146,7 @@ Code:
 ```
 
 编译器需要这样的方法，因为 `A` 类不是公开的，在 `A` 类所在包之外是不可见的，但是 `C` 类是公开的，它所继承来的所有方法在所在包之外也都应该是可见的。需要注意的是，`D` 类不会有桥接方法生成，因为它覆盖了 `foo` 方法，因此没有必要“提升”其可见性。
-这种桥接方法似乎是由于[这个 bug](http://bugs.sun.com/view_bug.do?bug_id=6342411) （在 Java 6 被修复）才引入的。这意味着在 Java 6 之前是不会生成这样桥接方法的，那么 `C#foo` 就不能够在它所在包之外使用反射调用，以致于下面这样的代码在 Java 版本小于 1.6 时会报 `IllegalAccessException` 异常。
+这种桥接方法似乎是由于[这个 bug](http://bugs.sun.com/view_bug.do?bug_id=6342411)（在 Java 6 被修复）才引入的。这意味着在 Java 6 之前是不会生成这样桥接方法的，那么 `C#foo` 就不能够在它所在包之外使用反射调用，以致于下面这样的代码在 Java 版本小于 1.6 时会报 `IllegalAccessException` 异常。
 
 ```java
 package samplefive;
@@ -157,7 +157,7 @@ SampleFour.C.class.getMethod("foo").invoke(new SampleFour.C());
 
 不使用反射机制，正常调用的话是起作用的。
 
-可能还有其他使用桥接方法的案例，但没有相关的信息来源。此外，关于桥接方法也没有明确的定义，尽管你可以很容易的猜测出来，像以上的示例是相当明显的，但如果有一些规范把桥接方法说明清楚的话就更好了。尽管自 Java 5 开始 [`Method#isBridge()` 方法](http://java.sun.com/j2se/1.5.0/docs/api/java/lang/reflect/Method.html#isBridge%28%29) 就是公开的反射 API 了，桥接的标志也是[字节码文件格式](http://java.sun.com/docs/books/jvms/second_edition/ClassFileFormat-Java5.pdf)中的一部分，但 Java 虚拟机和 Java 语言规范都始终没有任何关于桥接方法的确切文档，也没有提供关于编译器何时/如何使用桥接方法的任何规则。我所能找到的全部就是在[这里的“讨论区”](http://java.sun.com/docs/books/jls/third_edition/html/expressions.html#15.12.4.5)的引用。
+可能还有其他使用桥接方法的案例，但没有相关的资料。此外，关于桥接方法也没有明确的定义，尽管你可以很容易的猜测出来，像以上的示例是相当明显的，但如果有一些规范把桥接方法说明清楚的话就更好了。尽管自 Java 5 开始 [`Method#isBridge()` 方法](http://java.sun.com/j2se/1.5.0/docs/api/java/lang/reflect/Method.html#isBridge%28%29) 就是公开的反射 API 了，桥接的标志也是[字节码文件格式](http://java.sun.com/docs/books/jvms/second_edition/ClassFileFormat-Java5.pdf)中的一部分，但 Java 虚拟机和 Java 语言规范都始终没有任何关于桥接方法的确切文档，也没有提供关于编译器何时/如何使用桥接方法的任何规则。我所能找到的全部引用都是来自[这里的“讨论区”](http://java.sun.com/docs/books/jls/third_edition/html/expressions.html#15.12.4.5)。
 
 ---
 
