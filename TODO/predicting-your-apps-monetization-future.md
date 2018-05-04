@@ -2,162 +2,162 @@
 > * 原文作者：[Ignacio Monereo](https://medium.com/@ignacio.monereo?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/predicting-your-apps-monetization-future.md](https://github.com/xitu/gold-miner/blob/master/TODO/predicting-your-apps-monetization-future.md)
-> * 译者：
-> * 校对者：
+> * 译者：[PTHFLY](https://github.com/pthtc)
+> * 校对者：[Wangalan30](https://github.com/Wangalan30)、[realYukiko](https://github.com/realYukiko)
 
-# Predicting your app’s monetization future
+# 一文教你预测 app 未来的变现情况
 
-## Post 1 of 2: Introducing predictive analytics and the calculation of customer lifetime value
+## 预测分析法介绍以及用户生命周期价值计算
 
-We would all like a magic crystal ball, one that reveals how our app will perform in the future: how many users it will attract and how much revenue it will generate. Unfortunately, there is no such crystal ball. But, the good news is that there are techniques that allow you to gain useful insights into your app’s future performance, techniques that can help in creating a sensible, effective acquisition strategy.
+我们都想要一个魔幻水晶球，可以揭示我们的 app 在未来的表现：会吸引多少用户以及会产生多少收入。遗憾的是，并不存在这种水晶球。但是好消息是，我们有技术手段可以使你有效的洞察你的APP未来的表现，同时帮助你建立一个合理有效的收入策略。
 
-This is the first of two posts I’ve written to explore **lifetime value** (**LTV**). In this post, I’m going to introduce predictive analytics, suggest a simple formula for calculating LTV, and explain how you can get a value you can use for planning.
+这是我关于探寻**生命周期价值**( **LTV, lifetime value** )两篇文章中的第一篇。在这篇文章中，我将会介绍预测分析法，指出一个计算 LTV 的简单公式，并阐述如何获得一个可用作计划的数值。
 
-In the [second post](https://medium.com/googleplaydev/predicting-your-apps-future-65b741999e0e), I’ll examine how the simple formula can be applied to five popular app monetization strategies, while also offering some insights from developers about how to optimize each of these monetization strategies.
+在[下一篇博文](https://medium.com/googleplaydev/predicting-your-apps-future-65b741999e0e)中，我将会探寻这个公式如何应用于五个时下流行的 app 的变现策略中，同时也会提供一些从开发者那得来的关于如何优化这些变现策略的见解。
 
-### Predictive analytics
+### 预测分析法
 
-If you want to understand how your app might perform in the future, you can gain insight by looking at historical data collected from users. Extracting insights from this data, using various statistical techniques, is the domain of predictive analytics.
+如果你想了解你的 APP 的未来走势，你可以通过观察从用户那里收集来的数据进行预测。应用各种统计学技术，从这些数据中提取信息，是预测分析法的主要内容。
 
-Predictive models are used in many areas of business, as they help answer critical business management questions: how many paying users will we have next year? What is the expected number of transactions next year? When will users churn from our service?
+预测模型被应用到了许多商业领域中，它们可以帮忙解答许多关键性的商业管理问题：明年我们将有多少付费用户？明年的期望交易数额是多少？用户什么时候会从我们的服务中流失？
 
-These models have been studied extensively in the offline world. And thanks to the digital revolution, we’re seeing an increase in their popularity driven by the improved ability to collect, organize, and distribute user data.
+这些模型在线下被广泛研究。感谢数字革命，在改良的收集、整合和归类用户数据的能力的推动下，我们得以见证它们正在变得越来越普及。
 
-In the mobile apps world, game developers are some of the most advanced users of these techniques, because their use has had a positive impact on the monetization of their apps.
+在移动应用的世界，游戏开发者是这些技术的高级用户，他们的使用对他们应用的变现有着积极的影响。
 
-#### Approach, from empirical to mathematical models
+#### 从经验主义到数学模型的方法
 
-Methods for predicting how many customers you’ll have and how much they’ll buy in the future can vary widely. The two extremes are:
+预测会有多少用户以及在未来他们的付费情况的方法会非常不同。其中最特别的两种是：
 
-* Simple models based on professional experience or benchmarking. For example, a company hires an external consultant to advise on sales projections for the next year, based on the consultant’s knowledge of the market and sector.
-* Complex mathematical models, such as the Pareto/NBD model (see [Counting Your Customers: Who Are They and What Will They Do Next?](http://www.jstor.org/stable/2631608?seq=1#page_scan_tab_contents) by David C. Schmittlein, Donald G. Morrison, and Richard Colombo) or the BG/NBD Model (see [“Counting Your Customers” the Easy Way: An Alternative to the Pareto/NBD Model](http://brucehardie.com/papers/bgnbd_2004-04-20.pdf) by Peter S. Fader, Bruce G. S. Hardie, and Ka Lok Lee). These models take multiple variables into account, including recency (last purchase) and frequency or number of orders over a given period, to calculate the probability of a customer buying again.
+* 基于专业经验或者标杆管理的简单模型。例如一个公司雇佣了外部顾问，根据顾问的市场和行业知识，向他咨询和预测下一年销售情况。
+* 复杂数学模型，像是 Pareto/NBD 模型（可以看 David C. Schmittlein，Donald G. Morrison，和 Richard Colombo 的 [Counting Your Customers: Who Are They and What Will They Do Next?](http://www.jstor.org/stable/2631608?seq=1#page_scan_tab_contents)）。这些模型将多重变量纳入考虑范围，包括近因（最近购买）以及给定时间内的频次或者订单数量，来计算客户复购的可能性。
 
-For the mathematical modeling approach, there are online resources that can help with the calculations, such as the one described in [Implementing the BG/NBD Model for Customer Base Analysis in Excel](http://www.brucehardie.com/notes/004/) by Bruce G. S. Hardie.
+对于数学建模方法，有一些网上资源可以帮助计算，例如这个由 Bruce G. S. Hardie 在 [Implementing the BG/NBD Model for Customer Base Analysis in Excel](http://www.brucehardie.com/notes/004/)中描述的方法。
 
-#### Data and tools for analysis
+#### 分析所需的数据和工具
 
-One of the main drivers for the development of predictive analysis techniques is the increase in the use of analytical tools. Strong analytical tools allow us to collect, organize, and cluster data efficiently and share it rapidly with key stakeholders and decision makers.
+预测分析技术发展的主要驱动力之一是分析工具使用量的增加。强大的分析工具可以使我们更加高效地收集、整理和整合数据，同时迅速地将它与关键的利益相关者和决策者分享。
 
-Some of the most important app metrics are:
+一些最重要的 app 特征数据：Some of the most important app metrics are:
 
-* **User acquisition data**: number of installs, number of uninstalls, and acquisition sources.
-* **Engagement data**: retention of users (at 1, 7, 28, 90, 180, and 365 days after download).
-* **Monetization data**: number of users who have purchased, recency of last purchase, frequency of transactions, total value of purchases, churn ratio, and new versus repeat customers.
+* **用户获得数据**: 安装数量，卸载数量和来量渠道。
+* **留存数据**: 用户留存（下载后第1、7、28、90、180和365天）。
+* **变现数据**: 付费用户数量，最近购买，交易频次，购买总量，流失率以及新的重复购买用户。
 
-The importance of these variables will depend on the metric being calculated, as well as factors such as:
+这些变量的重要性依托于其计算权重和以下这些因素：
 
-* **Nature of the app**: Engagement and use will vary considerably among different app types.
-* **Business model**: Depending on the chosen business model certain metrics might have a greater impact. For example, subscription businesses usually care a lot about their subscribers’ renewal moment.
-* **Method used**: Some methods will require certain data to build future predictions. For example, use of BG/NBD requires frequency and recency data.
+* **应用环境**: 不同种类的 app 的激活和使用情况会有巨大的不同。
+* **商业模式**: 根据不同的商业模式选择，某个关键数据会有巨大的影响。比如订阅商业模式通常十分关心订阅者的续期时刻。
+* **使用手段**: 一些方法将会要求某些数据来建立未来预测。例如使用 BG/NBD 要求频次和最近购买数据。
 
-It’s important to emphasize that a strong analytical tool — such as [Google Analytics for Firebase](https://firebase.google.com/features/analytics) for in-app analytics or the [Google Play Console](https://play.google.com/apps/publish/) for monetization — will be able to collect this information accurately and promptly, but also will enable the rapid treatment and sharing of this information. This is key to acting quickly in a dynamic environment, such as the digital ecosystem.
+需重点强调的是，一个强大的分析工具，如用于应用内分析的 [Google Analytics for Firebase](https://firebase.google.com/features/analytics) 或是用于变现的 [Google Play Console](https://play.google.com/apps/publish/) ，不仅需要能够准确及时地收集这些信息，同时也要能够快速处理和分享这些信息。这是在如数字生态系统这样的动态环境中迅速做出反应的关键。
 
-#### Context
+#### 背景
 
-Predictive analytics relies heavily on historical data about users and customers. Although this is a good starting point, don’t ignore external information that could affect future predictions. This might include the stage of company development, technology trends, and the macroeconomic environment.
+预测分析法严重依赖于用户和购买者的历史数据。虽然这是一个好的起点，但是不要忽视可能影响未来预测的外部信息。这可能包括公司发展阶段，科技趋势和宏观经济环境。
 
-Particularly when calculating lifetime value for apps, it can be useful to adjust some metrics based on contextual factors, such as the nature of the transaction and the contractual obligations. For example, a retail app might have to decide between considering active paying users as those that bought something in the last month and those that did so in the last year.
+尤其是当分析 app 的生命周期价值的时候，根据环境因素，如交易环境和合同责任调整某些关键点，调整一些关键点是很有用的。例如，一个零售 app 可能需要在激活一个月内的购买者和一年内的购买者之间做选择。
 
-There are several different frameworks that can help identify these contextual factors. Among them, I find the one suggested in [Probability Models for Customer-Base Analysis](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.180.2024&rep=rep1&type=pdf) by Peter S. Fader and Bruce G. S. Hardie useful.
+有一些不同的框架可以帮助识别这些背景因素。在这之中，我发现 Peter S. Fader and Bruce G. S. Hardie 的文章 [Probability Models for Customer-Base Analysis](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.180.2024&rep=rep1&type=pdf) 中指出的一个框架很有用。
 
-Fader and Hardie’s model differentiates customer behavior based on whether there is a contractual relationship between the company and the customer, and whether transactions are continuous or discrete. Take this example based on the model:
+Fader 和 Hardie 的模型根据用户是否与公司缔结合同以及交易是连续还是离散的来将用户行为做了区分。来看一个关于这个模型的例子：
 
 ![](https://cdn-images-1.medium.com/max/800/1*-tQUKX6mG08lKHaJFscAVQ.png)
 
-In the top left corner are companies without a contractual relationship with their consumers that generate a continuous flow of transactions. A concrete example is an e-commerce app, where the consumer makes transactions on a recurrent basis but can leave and churn at any time.
+左上角的是没有与用户缔结契约关系来形成持续交易流的公司。一个实际的例子是电商应用，消费者反复交易但是又可以随时离开和流失。
 
-In the bottom right corner is the opposing example: the company has a contractual relationship with its customer for a term and transactions occur at specific times. A concrete example is a life insurance policy where a customer buys at a certain time, for example when they find their first job, and the policy is valid for a period: the duration of the premium payments.
+在右下方是个刚好相反的例子：公司与用户缔结合约，交易只在特定时间发生。一个实际例子是消费者往往在某个特定的时间点（比如他们找到第一份工作的时候）购买人寿保险单，这份保险单将在保险费的持续时间内保持有效。
 
-### Lifetime value
+### 生命周期价值
 
-One of the most popular predictive analytics metrics is the user lifetime value (LTV), an estimate of the economic value of a user during their entire life in a business. Well known in the offline world, this metric has become widely used by app and game businesses.
+最后欢迎的预测分析法标志之一是用户生命周期价值（ LTV ），是最受欢迎的预测分析指标之一，它是用户在一生中对其商业领域经济价值的估算。这个指标在线下十分知名，被广泛应用到了 app 和游戏产业中。
 
-LTV is useful as it offers an understanding of the potential revenue per user. This, in turn, helps determine how much to spend on customer acquisition and analysis of which channels, platforms, and user segments are the most profitable.
+因为提供了每个用户带来的潜在收益估计，LTV 十分有用，因为它可以提供对每个客户潜在收益的解读。相应的，这也可以帮助决定用户获取费用，分析哪个渠道、平台、用户分布是最划算的。
 
-However, before discussing the calculation, there are some common LTV pitfalls that need to be avoided. So, don’t:
+然而，在讨论计算问题之前，有一些常见的 LTV 陷阱需要规避。因此，请不要：
 
-* Use LTV as an objective and apply resources to optimize and maximize it. Consider it simply as a tool, LTV will improve as a result of actions to grow other metrics such as engagement, retention, and monetization.
-* Create overly optimistic LTV using inappropriate assumptions. For example, a startup might overestimate the average revenues per user, inflating the LTV as a result, and therefore may spend more than would be advisable on acquiring users.
-* Allow the Cost of acquiring a customer (CAC) to exceed LTV. Although many factors should be considered (stage of the company: launch versus mature, type of relationship: contractual versus non-contractual) an industry rule of thumb is that CAC should not exceed the Net LTV of an app. However, many businesses employ an LTV to CAC ratio of 3:1 (CAC will never exceed 33% of the Net LTV).
-* Consider a high LTV to be a competitive advantage. In a fast-moving sector, such as technology, it’s very common to find examples of apps that monetize incredibly well and have high LTVs but are losing market share or presence quickly, as technology becomes obsolete and users move towards newer, more appealing products.
+* 将 LTV 作为目标使用并且花费资源来优化和放大它。仅仅把 LTV 当做一个工具，它会随着其他指标（如契约、留存和变现）的增长而提高。
+* 创造过于乐观的 LTV。例如，一个初创公司可能过高地估计了每个用户的收入，结果导致 LTV 膨胀，从而可能要在获取用户上花费更高的成本。
+* 允许用户获取成本（CAC，the Cost of acquiring a customer）超过 LTV。尽管要考虑的因素（公司的阶段：初创或是成熟；关系类型：是否缔结合约）很多，但一个工业领域的经验法则告诉我们：用户获取成本不能够超过应用的净 LTV。然而许多公司规定 LTV 与 CAC 的比为3：1（CAC 将永远不会超过净 LTV 的33%）。
+* 将高 LTV 看作是一个竞争优势。在快速变化的行业，比如科技行业，很容易找到一个变现能力很强，LTV 很高但是快速失去市场份额的例子，因为技术被淘汰，用户转移到更新、更有吸引力的应用上去了。
 
-#### Calculating LTV
+#### 计算 LTV
 
-There are several ways to calculate LTV for apps and games. These methods vary depending on the complexity of the business model, the available data, and the accuracy required.
+有几种方法可以计算应用和游戏的 LTV。这些方法根据商业模式的复杂度，可用数据以及精确度要求的不同而不同。
 
-As a starting point let’s use the following, simplified formula:
+在一开始，让我们使用下面简单的公式：
 
-> LTV (for a given period) = Lifetime x ARPU
+> LTV (给定阶段的) = 生命周期 x ARPU（每个用户平均收益）
 
-Now, let’s examine the three variables in detail:
+现在，让我们仔细检查下个变量：
 
-**a. LTV period**
+**a. LTV 时间长度**
 
-Most developers calculate LTV for 180 days, 1 year, 2 years, or 5 years. The factors used to decide on the LTV period might include the average user lifetime or the business model chosen.
+大多数开发者以 180 天，一年，二年或者五年计算 LTV。决定 LTV 时间长度的因素可能包括平均用户生命周期或者基于商业模式的选择。
 
-As an example, imagine a developer with an in-app purchase model and an average user lifetime of 15 months. In this case, LTV for 2 years would be higher than that for 1 year. However, the 1-year LTV is a more conservative approach, as the average lifetime is higher (15 months) than the period selected (12 months).
+例如，想象一个使用内购模式的开发者，平均一个用户使用周期是15个月。在这种情况下，两年的 LTV 会比一年的更高。然而，一年的 LTV 是更保守的选择因为平均生命周期（15个月）比选择的周期更长（12个月）。
 
-Selection of the LTV period should consider:
+选择 LTV 时间长度需要考虑：
 
-* **Business nature**_,_ or more specifically the lifecycle of the app. To illustrate, compare a seasonal app (such as one providing information about the Olympics) to an SaaS app (say something like a Project management app). A seasonal app might be relevant during a short period only, so it will not make sense to calculate a long-term LTV. Whereas the SaaS app should remain relevant long-term, and so a longer LTV period can be used.
-* **Business model** where, for example, returns might be higher for certain monetization models (notably subscriptions) and increase in the long term if monetization is incentivized correctly (negative churn), justifying a longer LTV period. For example, telco companies have traditionally invested heavily in user acquisition, even subsidizing hardware, expecting long lifetime cycles.
-* **Stage of the company**, for example, early compared to mature stages. Early stage companies, because they are relying on the development of a technology or because they do not have historical data, will often select longer and more optimistic periods over which to calculate LTV. On the other hand, a mature company with a technology that is quickly becoming obsolete might want to choose shorter LTV periods.
+* **商业环境**， 例如，对于某些变现模型（尤其是订阅类）来说，收益可能会更高，而且，如果对变现的激励得当，将在很长的一段时间内持续增长，这一点可以为长期 LTV 正名。举例来讲，电信公司一直遵循传统，在用户获取方面大量投资，甚至会对硬件方面进行补贴，以期待较长的生命周期。
+* **商业模式**， 例如，对于某些变现模式（尤其是订阅）收益可能会更高并且会长期增长如果变现激励很恰当（流失为负），使用长期 LTV 是有道理的。比如电信公司在用户获取上传统地会投资巨大，甚至会补贴硬件，需要超长生命周期。
+* **公司阶段**， 比如早期对比成熟期。因为依靠技术进步或者没有历史数据，早期公司会经常选择更长更乐观的时期来计算 LTV。另一方面，一个技术落伍的成熟公司可能想选择更短的 LTV 计算时间。
 
-**b. Lifetime**
+**b. 生命周期**
 
-Lifetime is directly correlated to both engagement and retention. Both concepts are intimately related, as engagement will help to increase the retention of users, in turn, increasing the likelihood they can be monetized. App developers usually calculate lifetime based on app retention.
+生命周期与激活和留存直接相关。相应的，这两个概念会帮助增加用户留存，增加他们促进变现的可能性。应用开发者通常根据应用留存计算生命周期。
 
-Taking a simple approach to estimate retention, let’s define a user’s “churn” moment within an app as where that user hasn’t opened the app in the last month. The average period until a user stops using the app for at least 1 month could then be calculated.
+我们可以用一个简单的方法来估算用户滞留，我们把用户在过去的一个月内没有打开过应用的情况称为一个用户在应用内的“流失”时刻。这样，从用户停止使用 APP 起至少一个月的平均流失时长就可以计算出来了。
 
-A more sophisticated way to calculate lifetime would be using survival curves models: a system of decreasing equations based on historical use data (one curve per user or user cohort). The integral or average retention per segment could then be calculated, and the equation solved for a certain period.
+一个更精准计算生命周期的方法是使用生存曲线模型：一个根据历史使用数据（每个用户或用户群一条曲线）的下降方程。每个部分的整体或者平均留存就可以被计算了，某个时期的方程也可以被解出。
 
-Take the example below. After calculating the integral of all users, the probability of a user remaining active after 180 days is only 23%. Therefore, the lifetime of an average user for 180 days would be 180 x 23%, approximately 41 days.
+看下面的例子，在计算所有用户的集合之后，一个用户在180天后保持活跃的概率仅仅是 23%。因此，每180用户平均生命周期会是 180 x 23%，将近 41 天。
 
 ![](https://cdn-images-1.medium.com/max/800/1*F6OH2IvQnhHXpX5AMVRo7w.png)
 
-It’s important to note that lifetime is always expressed in the same time units as the LTV period. For example, LTV over 180 days will deliver an expected lifetime of 41 days, not months or years.
+这里有个重点需要提示，生命周期总是和 LTV 时间段使用同一单位。例如 180 天的 LTV 会基于 41 天的期望生命周期，而不是月或是年。
 
-**c. ARPU or average revenue per user**
+**c. ARPU 或者 每个用户的平均收益**
 
-How complex ARPU is to calculate will depend on the business model. It will be more straightforward in an SaaS business and more complex for hybrid models (where various business models such as subscriptions and advertising are combined).
+计算 ARPU 的难度会根据商业模式的不同而不同。一个 SaaS 模式会更简单而一个混合模式会更复杂（混合不同的商业模式，比如订阅和广告）。
 
-A way to calculate ARPU would be to divide the total revenues for a period by the active users in that period. For example, average daily revenues of 10,000 USD divided by average daily active users of 25,000 would be equal to 0.4 USD/day.
+一个计算 ARPU 的方法将会是将一段时间内的总体收益根据那段时间活跃用户进行分割。例如，平均每日收益 10000 美金被 25000 日活用户分割，ARPU 会是 0.4 美金/天。
 
-I can now calculate the LTV for this example app. The lifetime for 180 days was approximately 41 days (23%) and ARPU 0.4 USD/day. Therefore:
+我现在可以为这个应用计算 LTV 了。180天内的生命周期为 41 天（ 23% ）并且 ARPU 0.4 美金/天。因此：
 
-**LTV for 180 days = 41 days x 0.4 USD/day = 16.4 USD per user.**
+**180 天的 LTV = 41 天 x 0.4 美金/天 = 16.4 美金/每用户**
 
-#### Improving LTV calculations
+#### 优化 LTV 计算
 
-There are several techniques that can be combined with this simple LTV equation to improve its usefulness, these include:
+有几种技术可以与这个简单的 LTV 方程结合，以提升可用性，它们包括：
 
-* **Discount Revenue cash flows**. When the lifetime exceeds 1 year, consider discounting the future cash flows by taking an inflation rate (r) or the cost of funds (for example, working average capital cost rate — weighted average cost of capital) into consideration. For example, assuming a lifetime of n years, the discount formula could be expressed in the following way:
+* **Discount Revenue cash flows**。当生命周期超过一年，通过将通货膨胀速率（r）或者资金成本（比如计算平均资本成本率 —— 衡量平均资本成本）纳入考虑范围来考虑给未来信息流打折。例如，假设生命周期是 n 年，折扣公式表现为下面方式：
 
 > LTV = Revs Year 1 + Revs Year 2 x 1/ (1+ r) + … + Revs Year n x 1 / (1+ r )^(n-1)
 
-* **Calculate Net LTV**_._ By calculating the average Variable Contribution (VC) per user, and replacing the ARPU in the formula the Net LTV can be calculated. To estimate the VC, deduct the total variable costs from the total revenues. Variable costs will be those costs generated every time a new user is added to the app (such as marketing costs assigned to every new user). The formula would be as follows:
+* **计算净 LTV**_._ 通过计算每个用户的平均可变利润(VC)并在公式中替换 ARPU，净利润能够被计算出来。为了估计 VC，需要从总收入中扣除总可变成本。可变成本在每个新用户加入 app 时产生（例如分配到每个用户头上的市场费用）。新的公式会像下面这样：
 
-> Net LTV = Lifetime x VC
+> 净 LTV = 生命周期 x VC
 
-Whereby:
+据此:
 
-> VC = (Total Revenues — Total variable costs) in the period / average number of users in the period
+> VC = 一段时间内的(总收入 — 总可变成本) / 一段时间内的平均用户
 
-It’s also important to note that savvy developers will usually segment customers depending on the level of VC and calculate LTV for different cohorts of customers. As is the case in many businesses, app developers will observe that a few users bring most revenue and profits.
+还有一件重要的事情是：精明的开发者会通常根据 VC 水平区分用户，并且为不同用户群计算 LTV。 在许多商业活动中通常就是这样，应用开发者会观察到一小群用户会带来最多的收入和利润。
 
-The VC often changes over the life of a user, as variable costs tend to decline as a percentage of revenues. To illustrate, take a new user who has recently subscribed to a software service and needs more customer support during the onboarding process, then compare to an experienced customer who no longer requires support.
+因为可变成本倾向于降低占收入的比例，在用户生命周期中 VC 会经常变化。举个例子，拿一个最近订购了一个软件服务并在使用期间需要更多客服的新用户与一个有经验、不再需要支持客户作比较。
 
-### Conclusion
+### 结论
 
-Predictive analytics provides a practical way to gain insight into the future of your app: its customers and revenue. Among the many approaches to predictive analytics, Lifetime Value (LTV) is perhaps the one that has gained recent popularity among app developers. It can be relatively simple to calculate and provides a useful measure that can be applied to planning customer acquisition.
+预测分析法提供了一个可操作的方法来预测你的应用未来表现：它的用户和收入。在这些预测分析的方法中，生命周期价值（ LTV ）可能是最近在 APP 开发者中大受欢迎的一个指标了。它非常简单并且提供了一个可以应用于获客规划的有用方法。
 
-Now you have an appreciation of LTV, in my [second article](https://medium.com/googleplaydev/predicting-your-apps-future-65b741999e0e), I’ll examine how the LTV formula from this post can be applied to five popular app monetization strategies. At the same time, I’ll also offer some insights from developers about how to optimize each of these monetization strategies.
+现在你对 LTV 已经有了一些了解，在[第二篇博文中](https://medium.com/googleplaydev/predicting-your-apps-future-65b741999e0e)我将会检验 LTV 公式如何使用于五个流行应用的变现策略。同时，我也会提供一些从开发者那得来的，关于如何优化这些变现策略的见解。
 
 * * *
 
-#### What do you think?
+#### 你怎么想?
 
-Do you have questions or thoughts on predictive analytics and LTV? Continue the discussion in the comments below or tweet using the hashtag #AskPlayDev and we’ll reply from [@GooglePlayDev](http://twitter.com/googleplaydev), where we regularly share news and tips on how to be successful on Google Play.
+你有关于在优化用户决定方面的问题或者想法吗？在下面评论区继续讨论或者通过井号标签 #AskPlayDev 通知我们，我们会在 [@GooglePlayDev](http://twitter.com/googleplaydev) （我们会定期分享在上面就如何在Google Play成功的话题分享新闻和小贴士）上回复。
 
 
 ---

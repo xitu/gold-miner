@@ -2,155 +2,155 @@
 > * 原文作者：[Vitaly Friedman](https://www.smashingmagazine.com/author/vitaly-friedman)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/front-end-performance-checklist-2018-1.md](https://github.com/xitu/gold-miner/blob/master/TODO/front-end-performance-checklist-2018-1.md)
-> * 译者：
-> * 校对者：
+> * 译者：[tvChan](https://github.com/tvChan)
+> * 校对者：[mysterytony](https://github.com/mysterytony) [ryouaki](https://github.com/ryouaki)
 
-# Front-End Performance Checklist 2018 - Part 1
+# 2018 前端性能优化清单 —— 第一部分
 
-Below you’ll find an overview of the front-end performance issues you mightneed to consider to ensure that your response times are fast and smooth.
+下面你将会看到你可能需要考虑到的前端性能优化问题，以保证你的应用具有快速和流畅的响应时间。
 
-- [Front-End Performance Checklist 2018 - Part 1](https://github.com/xitu/gold-miner/blob/master/TODO/front-end-performance-checklist-2018-1.md)
-- [Front-End Performance Checklist 2018 - Part 2](https://github.com/xitu/gold-miner/blob/master/TODO/front-end-performance-checklist-2018-2.md)
-- [Front-End Performance Checklist 2018 - Part 3](https://github.com/xitu/gold-miner/blob/master/TODO/front-end-performance-checklist-2018-3.md)
-- [Front-End Performance Checklist 2018 - Part 4](https://github.com/xitu/gold-miner/blob/master/TODO/front-end-performance-checklist-2018-4.md)
+- [2018 前端性能优化清单 —— 第一部分](https://github.com/xitu/gold-miner/blob/master/TODO/front-end-performance-checklist-2018-1.md)
+- [2018 前端性能优化清单 —— 第二部分](https://github.com/xitu/gold-miner/blob/master/TODO/front-end-performance-checklist-2018-2.md)
+- [2018 前端性能优化清单 —— 第三部分](https://github.com/xitu/gold-miner/blob/master/TODO/front-end-performance-checklist-2018-3.md)
+- [2018 前端性能优化清单 —— 第四部分](https://github.com/xitu/gold-miner/blob/master/TODO/front-end-performance-checklist-2018-4.md)
 
 ***
 
-### Getting Ready: Planning And Metrics
+### 做好准备：计划和指标
 
-Micro-optimizations are great for keeping performance on track, but it's critical to have clearly defined targets in mind — _measurable_ goals that would influence any decisions made throughout the process. There are a couple of different models, and the ones discussed below are quite opinionated — just make sure to set your own priorities early on.
+微小的优化对于保持性能来说都是很重要的，但是在头脑中明确的定义 —— **可衡量**的目标才是至关重要的。这将会影响你整个过程中做出的任何决定。有几种不同的模型，下面讨论的模型都很有自己的主见 —— 只要确保在一开始能设定自己的优先级就行。
 
-1. **Establish a performance culture.**
+1. **建立性能指标。**
 
-In many organizations, front-end developers know exactly what common underlying problems are and what loading patterns should be used to fix them. However, as long as there is no alignment between dev/design and marketing teams, performance isn't going to sustain long-term. Study common complaints coming into customer service and see how improving performance can help relieve some of these common problems.
+在许多组织里，前端开发人员确切的知道常见的潜在问题是什么，并且知道使用什么加载模块来修复它们。然而，只要开发/设计和营销团队之间没有一致性，性能就不能长期维持。研究客户服务中的常见投诉，了解如何提高性能，可以帮助解决这些常见问题。
 
-Run performance experiments and measure outcomes — both on mobile and on desktop. It will help you build up a company-tailored case study with real data. Furthermore, using data from case studies and experiments published on [WPO Stats](https://wpostats.com/) can help increase sensitivity for business about why performance matters, and what impact it has on user experience and business metrics. Stating that performance matters alone isn't enough though — you also need to establish some measurable and trackable goals and observe them.
+在移动和桌面设备上运行性能实验和测量结果。它将帮助你的公司量身定做一个根据真实数据而得到的研究案例。此外，利用 [WPO 统计](https://wpostats.com/) 数据对案例进行研究和实验，可以帮助提高业务对性能问题的敏感度，以及它对用户体验和业务指标的影响。仅仅说明性能问题是远远不够的 —— 你也需要建立一些可衡量和可跟踪的目标并对它们进行观察。
 
-2. **Goal: Be at least 20% faster than your fastest competitor.**
+2. **目标：至少要比你最快的竞争对手还快 20%。**
 
-According to [psychological research](https://www.smashingmagazine.com/2015/09/why-performance-matters-the-perception-of-time/#the-need-for-performance-optimization-the-20-rule), if you want users to feel that your website is faster than your competitor's website, you need to be _at least_ 20% faster. Study your main competitors, collect metrics on how they perform on mobile and desktop and set thresholds that would help you outpace them. To get accurate results and goals though, first study your analytics to see what your users are on. You can then mimic the 90th percentile's experience for testing. Collect data, set up a [spreadsheet](http://danielmall.com/articles/how-to-make-a-performance-budget/), shave off 20%, and set up your goals (i.e. [performance budgets](http://bradfrost.com/blog/post/performance-budget-builder/)) this way. Now you have something measurable to test against.
+根据[心理学的研究](https://www.smashingmagazine.com/2015/09/why-performance-matters-the-perception-of-time/#the-need-for-performance-optimization-the-20-rule)，如果你想让用户感觉你的网站比竞争对手的快，你**至少**需要比它们快 20%。 研究你的主要竞争对手，收集它们是怎么在手机和桌面设备上展示的数据，并且设置阈值来帮助你超过它们。要获取准确的结果和目标，首先要研究你的分析结果，看看你的用户都在做什么。然后，你可以模拟第百分之九十位的实验进行测试。收集数据，创建一个 [电子数据表](http://danielmall.com/articles/how-to-make-a-performance-budget/)，从中剔除 20%, 并制定你的目标（即 [性能预算](http://bradfrost.com/blog/post/performance-budget-builder/)）。现在你就有一些可以测试的东西了。
 
-If you're keeping the budget in mind and trying to ship down just the minimal script to get a quick time-to-interactive, then you're on a reasonable path. Lara Hogan's [guide on how to approach designs with a performance budget](http://designingforperformance.com/weighing-aesthetics-and-performance/#approach-new-designs-with-a-performance-budget) can provide helpful pointers to designers and both [Performance Budget Calculator](http://www.performancebudget.io/) and [Browser Calories](https://browserdiet.com/calories/) can aid in creating budgets (thanks to [Karolina Szczur](https://medium.com/@fox/talk-the-state-of-the-web-3e12f8e413b3) for the heads up).
+如果你希望保持现在的成本不变，并尽可能的少写一些脚本，就能有一个快速的可交互时间。那么你已经走在正确的道路上了。劳拉.霍根的[指导你如何用性能预算接近设计](http://designingforperformance.com/weighing-aesthetics-and-performance/#approach-new-designs-with-a-performance-budget) 里提供了有用的方向，设计人员，[性能预算计算者](http://www.performancebudget.io/)和 [Browser Calories](https://browserdiet.com/calories/) 可以帮助我们创建预算（感谢 [Karolina Szczur](https://medium.com/@fox/talk-the-state-of-the-web-3e12f8e413b3) 的牵头）。
 
 ![](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_2000/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/231e97c1-4bfa-4dff-85a7-93e0a16b2690/performance-budget-lbp9l7-c-scalew-862-opt.png)
 
-Beyond performance budgets, think about critical customer tasks that are most beneficial to your business. Set and discuss acceptable **time thresholds for critical actions** and establish "UX ready" user timing marks that the entire organization has agreed on. In many cases, user journeys will touch on the work of many different departments, so alignment in terms of acceptable timings will help support or prevent performance discussions down the road. Make sure that additional costs of added resources and features are visible and understood.
+除了性能预算之外，还要考虑对你的业务最有利的关键客户任务。设置和讨论可接受的**关键行为的时间阈值**，并建立整个项目组都已经同意的 ＂UX 就绪＂的用户计时标记。在许多情况下，用户的需求将会影响到许多不同部门的工作。因此, 在可接受的时间内进行调整，将有助于支持或避免了在优化路上的性能讨论。确保增加资源和功能的额外成本是可预见和可理解的。
 
-Also, as Patrick Meenan suggested, it's worth to **plan out a loading sequence and trade-offs** during the design process. If you prioritize early on which parts are more critical, and define the order in which they should appear, you will also know what can be delayed. Ideally, that order will also reflect the sequence of your CSS and JavaScript imports, so handling them during the build process will be easier. Also, consider what the visual experience should be in "in-between"-states, while the page is being loaded (e.g. when web fonts aren't loaded yet).
+此外, 正如 Patrick Meenan 建议的，在设计过程中**制定一个加载顺序及其权衡**是非常值得。如果你在早期优先考虑哪些部分更重要，并且定义了它们应该出现的顺序，那么你也将知道哪些部分可以延迟。在理想情况下，该顺序还将反映 CSS 和 JavaScript 的导入顺序。因此，在构建过程中处理它们会更容易。此外，在加载页面时，请考虑在"中间"状态下的视觉体验 (例如，web 字体尚未加载时)。
 
-Planning, planning, planning. It might be tempting to get into quick "low-hanging-fruits"-optimizations early on — and eventually it might be a good strategy for quick wins — but it will be very hard to keep performance a priority without planning and realistic, company-tailored performance goals.
+计划，计划，计划。在早期的优化里，它可能像是诱人的＂熟水果＂ —— 最终它可能是一个很好的能快速取胜的策略 —— 但是，如果没有计划和切合实际的、为公司量身定制的性能目标，就很难将性能放在首位。
 
-3. **Choose the right metrics.**
+3. **选择正确的指标。**
 
-[Not all metrics are equally important](https://speedcurve.com/blog/rendering-metrics/). Study what metrics matter most to your application: usually it will be related to how fast you can start render _most important_ pixels (and what they are) and how quickly you can provide input responsiveness for these rendered pixels. This knowledge will give you the best optimization target for ongoing efforts. One way or another, rather than focusing on full page loading time (via _onLoad_ and _DOMContentLoaded_ timings, for example), prioritize page loading as perceived by your customers. That means focusing on a slightly [different set of metrics](https://docs.google.com/presentation/d/1D4foHkE0VQdhcA5_hiesl8JhEGeTDRrQR4gipfJ8z7Y/present?slide=id.g21f3ab9dd6_0_33). In fact, choosing the right metric is a process without obvious winners.
+[并不是所有的指标都同样重要](https://speedcurve.com/blog/rendering-metrics/)。研究哪些标准对你的应用程序最重要：通常它与你开始渲染那些**最重要的**像素点（以及它们是什么）有多快和如何快速地为这些渲染的像素点提供输入响应有关。这可以帮助你为后续的工作提供最佳的优化结果。不管怎样，不要专注于整个页面的加载时间（例如，通过 **onLoad** 和 **DOMContentLoaded** 计时），而是优先加载用户认为重要的页面。这意味着要专注于一组稍有不同的指标。事实上，选择正确的指标是一个没有对手的过程。
 
 <figure class="video-container break-out"><iframe src="https://player.vimeo.com/video/249524245" width="640" height="358" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>
 
-The difference between First Paint, First Contentful Paint, First Meaningful Paint, Visual Complete and Time To Interactive. [Large view](https://docs.google.com/presentation/d/1D4foHkE0VQdhcA5_hiesl8JhEGeTDRrQR4gipfJ8z7Y/present?slide=id.g21f3ab9dd6_0_33). Credit: [@denar90](https://docs.google.com/presentation/d/1D4foHkE0VQdhcA5_hiesl8JhEGeTDRrQR4gipfJ8z7Y/present?slide=id.g21f3ab9dd6_0_33)
+首次有内容渲染，首次有效渲染，视觉完整和可交互时间之间的区别。[大图](https://docs.google.com/presentation/d/1D4foHkE0VQdhcA5_hiesl8JhEGeTDRrQR4gipfJ8z7Y/present?slide=id.g21f3ab9dd6_0_33)。来自于：[@denar90](https://docs.google.com/presentation/d/1D4foHkE0VQdhcA5_hiesl8JhEGeTDRrQR4gipfJ8z7Y/present?slide=id.g21f3ab9dd6_0_33)
 
-Below are some of the metrics worth considering:
+下面是一些值得考虑的指标：
 
-* _First Meaningful Paint_ (FMP, when primary content appears on the page),
-* _[Hero Rendering Times](https://speedcurve.com/blog/web-performance-monitoring-hero-times/)_ (when the page's important content has finished rendering),
-* _Time to Interactive_ (TTI, the point at which layout has stabilized, key webfonts are visible, and the main thread is available enough to handle user input — basically the time mark when a user can tap on UI and interact with it),
-* _Input responsiveness_ (how much time it takes for an interface to respond to user's action),
-* _Perceptual Speed Index_ (measures how quickly the page contents are visually populated; the lower the score, the better),
-* Your [custom metrics](https://speedcurve.com/blog/user-timing-and-custom-metrics/), as defined by your business needs and customer experience.
+* **首次有效渲染**（FMP，是指主要内容出现在页面上所需的时间），
+* **[英雄渲染时间](https://speedcurve.com/blog/web-performance-monitoring-hero-times/)**（页面最重要部分渲染完成所需的时间），
+* **可交互时间**（TTI，是指页面布局已经稳定，关键的页面字体已经可见，主进程可以足够的处理用户的输入 —— 基本的时间标记是，用户可以在 UI 上进行点击和交互），
+* **输入响应**，接口响应用户操作所需的时间，
+* **速度指标**，测量填充页面内容的速度。 分数越低越好，
+* 你的[自定义指标](https://speedcurve.com/blog/user-timing-and-custom-metrics/)，由你的业务需求和客户体验来决定。
 
-Steve Souders has a [detailed explanation of each metrics](https://speedcurve.com/blog/rendering-metrics/). While in many cases TTI and Input responsiveness will be most critical, depending on the context of your application, these metrics might differ: e.g. for Netflix TV UI, [key input responsiveness, memory usage and TTI](https://medium.com/netflix-techblog/crafting-a-high-performance-tv-user-interface-using-react-3350e5a6ad3b) are more critical.
+Steve Souders 对[每个指标都进行了详细的解释](https://speedcurve.com/blog/rendering-metrics/)。在许多情况下，根据你的应用程序的上下文，[可交互时间和输入响应](https://medium.com/netflix-techblog/crafting-a-high-performance-tv-user-interface-using-react-3350e5a6ad3b)会是最关键的。但这些指标可能会不同：例如，对于 Netflix 电视的用户界面来说，关键输入响应、内存使用和可交互时间更为重要。
 
-4. **Gather data on a device representative of your audience.**
+4. **从具有代表性的观众的设备上收集数据。**
 
-To gather accurate data, we need to thoroughly choose devices to test on. It's a good option to choose a Moto G4, a mid-range Samsung device and a good middle-of-the-road device like a Nexus 5X, perhaps in an [open device lab](https://www.smashingmagazine.com/2016/11/worlds-best-open-device-labs/). If you don't have a device at hand, emulate mobile experience on desktop by testing on a throttled network (e.g. 150ms RTT, 1.5 Mbps down, 0.7 Mbps up) with a throttled CPU (5× slowdown). Eventually switch over to regular 3G, 4G and Wi-Fi. To make the performance impact more visible, you could even introduce [2G Tuesdays](https://www.theverge.com/2015/10/28/9625062/facebook-2g-tuesdays-slow-internet-developing-world) or set up a [throttled 3G network in your office](https://twitter.com/thommaskelly/status/938127039403610112) for faster testing.
+为了收集准确的数据，我们需要彻底的选择要测试的设备。也许在一个[开放式的实验室](https://www.smashingmagazine.com/2016/11/worlds-best-open-device-labs/)里，Moto G4 是一个很好的选择，它是一款中档的三星设备又或者是一个普通的设备，如 Nexus 5X。如果你手边没有设备，可以在节流网络（例如，150 ms 的往返时延，1.5 Mbps 以下，0.7 Mbps 以上）上使用节流 CPU（5× 减速）实现在桌面设备上模拟移动设备的体验。最终，切换到常规的 3G，4G 和 wi-fi。为了使性能体验的影响更明显，你甚至可以在你的办公室里引入 [2G Tuesdays 计划](https://www.theverge.com/2015/10/28/9625062/facebook-2g-tuesdays-slow-internet-developing-world)或者设置[一个节流的 3G 网络](https://twitter.com/thommaskelly/status/938127039403610112)，以便进行更快的测试。
 
 [![Introducing the slowest day of the week](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/dfe1a4ec-2088-4e39-8a39-9f2010380a53/tuesday-2g-opt.png)](https://www.theverge.com/2015/10/28/9625062/facebook-2g-tuesdays-slow-internet-developing-world)
 
-Introducing the slowest day of the week. Facebook has introduced [2G Tuesdays](https://www.theverge.com/2015/10/28/9625062/facebook-2g-tuesdays-slow-internet-developing-world) to increase visibility and sensitivity of slow connections. ([Image source](http://www.businessinsider.com/facebook-2g-tuesdays-to-slow-employee-internet-speeds-down-2015-10?IR=T))
+引入一周中最慢的一天。Facebook推出了[周二 2G 计划](https://www.theverge.com/2015/10/28/9625062/facebook-2g-tuesdays-slow-internet-developing-world)，以提高对低速连接的能见度和灵敏度。（[图片来源](http://www.businessinsider.com/facebook-2g-tuesdays-to-slow-employee-internet-speeds-down-2015-10?IR=T)）
 
-Luckily, there are many great options that help you automate the collection of data and measure how your website performs over time according to these metrics. Keep in mind that a good performance metrics is a combination of passive and active monitoring tools:
+幸运地是，有许多很好的选项可以帮助你自动的收集数据，并根据这些指标来衡量在一段时间内你的网站的运行情况。请记住，良好的性能指标是被动和主动监测工具的组合：
 
-* **Passive monitoring tools** that simulate user interaction on request (_synthetic testing_, e.g. _Lighthouse_, _WebPageTest_) and
-* **Active monitoring tools** that record and evaluate user interactions continuously (_Real User Monitoring_, e.g. _SpeedCurve_, _New Relic_ — both tools provide synthetic testing, too).
+* **被动监测工具**，是那些模拟用户交互请求（**综合测试**，如**Lighthouse**，**WebPageTest**）和
+* 那些不断记录和评价用户交互行为的**主动监测工具**（**真正的用户监控**，如 **SpeedCurve**，**New Relic**  ——   这两种工具也提供综合测试）
 
-The former is particularly useful during development as it will help you stay on track while working on the product. The latter is useful for long-term maintenance as it will help you understand your performance bottlenecks as they are happening live — when users actually access the site. By tapping into built-in RUM APIs such as Navigation Timing, Resource Timing, Paint Timing, Long Tasks, etc., both passive and active performance monitoring tools together provide a complete picture of performance in your application. For instance, you could use [PWMetrics](https://github.com/paulirish/pwmetrics), [Calibre](https://calibreapp.com), [SpeedCurve](https://speedcurve.com/), [mPulse](https://www.soasta.com/performance-monitoring/) and [Boomerang](https://github.com/yahoo/boomerang), [Sitespeed.io](https://www-origin.sitespeed.io/), which all are fantastic options for performance monitoring.
+前者是在开发过程中特别有用，因为它能帮助你在产品开发过程中持续跟踪。后者对于长期维护很有用，因为它能帮助你了解用户在实际访问站点时的性能瓶颈。利用内置的 RUM API，如导航计时，资源计时，渲染计时，长任务等，被动和主动的性能监测工具可以一起为你的应用程序提供完整的性能视图。例如，你可以使用[PWMetrics](https://github.com/paulirish/pwmetrics)，[Calibre](https://calibreapp.com)，[SpeedCurve](https://speedcurve.com/)，[mPulse](https://www.soasta.com/performance-monitoring/)，[Boomerang](https://github.com/yahoo/boomerang) 和 [Sitespeed.io](https://www-origin.sitespeed.io/)，这些都是性能监测工具的绝佳选择。
 
-_Note_: It's always a safer bet to choose network-level throttlers, external to the browser, as, for example, DevTools has issues interacting with HTTP/2 push, due to the way it's implemented (_thanks, Yoav!_).
+**注意**：选择网络级别的节流器（在浏览器外部）总是比较安全的，例如，DevTools 与 HTTP/2 推送的交互问题，是因为它的实现方式。（**感谢 Yoav!**）
 
 [![Lighthouse](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/d829af6f-23ff-432c-9659-bd6f3c13678f/lighthouse-shop-polymer-opt.png)](https://developers.google.com/web/tools/lighthouse/)
 
-[Lighthouse](https://developers.google.com/web/tools/lighthouse/), a performance auditing tool integrated into DevTools.
+[Lighthouse](https://developers.google.com/web/tools/lighthouse/)一个集成在 DevTools 的性能检测工具。
 
-5. **Share the checklist with your colleagues.**
+5. **与你的同事分享性能清单。**
 
-Make sure that the checklist is familiar to every member of your team to avoid misunderstandings down the line. Every decision has performance implications, and the project would hugely benefit from front-end developers properly communicating performance values to the whole team, so that everybody would feel responsibility for it, not just front-end developers. Map design decisions against performance budget and the priorities defined in the checklist.
+为了避免误解，要确保你团队里的每个同事都对清单很熟悉。每个决策都对性能有影响。项目将极大地受益于前端开发人员正确地将性能价值传达给整个团队。这样每个人都会对它负责，而不仅仅是前端开发人员。根据性能预算和核对表中定义的优先级映射设计决策。
 
 [![RAIL](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/c91c910d-e934-4610-9dc5-369ec9071b57/rail-perf-model-opt.png)](https://developers.google.com/web/fundamentals/performance/rail)
 
-[RAIL](https://developers.google.com/web/fundamentals/performance/rail), a user-centric performance model.
+[RAIL](https://developers.google.com/web/fundamentals/performance/rail)，以用户为中心的性能模型。
 
-### Setting Realistic Goals
+### 制定现实的目标
 
-6. **100-millisecond response time, 60 fps.**
+6. **60 fps，100 毫秒的响应时间。**
 
-For an interaction to feel smooth, the interface has 100ms to respond to user's input. Any longer than that, and the user perceives the app as laggy. The [RAIL, a user-centered performance model](https://www.smashingmagazine.com/2015/10/rail-user-centric-model-performance/) gives you healthy targets: To allow for <100 milliseconds response, the page must yield control back to main thread at latest after every <50 milliseconds. [Estimated Input Latency](https://developers.google.com/web/tools/lighthouse/audits/estimated-input-latency) tells us if we are hitting that threshold, and ideally, it should be below 50ms. For high pressure points like animation, it's best to do nothing else where you can and the absolute minimum where you can't.
+为了让交互感觉起来很顺畅，接口有 100ms 来响应用户的输入。任何比它长的时间，用户都会认为该应用程序很慢。[RAIL，一个以用户为中心的性能模型](https://www.smashingmagazine.com/2015/10/rail-user-centric-model-performance/)会为你提供健壮的目标。为了让页面达到小于 100ms 的响应，页面必须要在在每小于 50ms 前将控制返回到主线程。[预计输入延迟时间](https://developers.google.com/web/tools/lighthouse/audits/estimated-input-latency)会告诉我们，如果我们能达到这个门槛，在理想情况下，它应该低于 50ms。对于像动画这样的高压点，最好不要在你能做到的地方做任何事，也不要做你不能做到的事。
 
-Also, each frame of animation should be completed in less than 16 milliseconds, thereby achieving 60 frames per second (1 second ÷ 60 = 16.6 milliseconds) — preferably under 10 milliseconds. Because the browser needs time to paint the new frame to the screen your code should finish executing before hitting the 16.6 milliseconds mark. [Be optimistic](https://www.smashingmagazine.com/2016/11/true-lies-of-optimistic-user-interfaces/) and use idle time wisely. Obviously, these targets apply to runtime performance, rather than loading performance.
+同时，每一帧动画应该要在 16 毫秒内完成，从而达到 60 帧每秒（1秒 ÷ 60 = 16.6 毫秒） —— 最好在 10 毫秒。因为浏览器需要时间将新框架绘制到屏幕上，你的代码应该在触发 16.6 毫秒的标志前完成。[保持乐观](https://www.smashingmagazine.com/2016/11/true-lies-of-optimistic-user-interfaces/)和明智地利用空闲时间。显然，这些目标适用于运行时的性能，而不是加载性能。
 
-7. **SpeedIndex < 1250, TTI < 5s on 3G, Critical file size budget < 170Kb.**
+7. **速度指标小于 1250，在 3G 网络环境下可交互时间小于 5s，重要文件的大小预算小于 170kb。**
 
-Although it might be very difficult to achieve, a good ultimate goal would be First Meaningful Paint under 1 second and a [SpeedIndex](https://sites.google.com/a/webpagetest.org/docs/using-webpagetest/metrics/speed-index) value under 1250\. Considering the baseline being a $200 Android phone (e.g. Moto G4) on a slow 3G network, emulated at 400ms RTT and 400kbps transfer speed, aim for [Time to Interactive under 5s](https://www.youtube.com/watch?v=_srJ7eHS3IM&feature=youtu.be&t=6m21s), and for repeat visits, aim for under 2s.
+虽然这可能很难实现，但首次有效渲染要低于 1 秒和[速度指标](https://sites.google.com/a/webpagetest.org/docs/using-webpagetest/metrics/speed-index)的值低于 1250 将会是一个很好的最终目标。考虑到是一个以 200 美金为基准的 Android 手机（如 Moto G4）在一个缓慢的 3G 网络上，模拟 400ms 的往返延时和 400kb 的传输速度。它的目标是[可交互时间低于 5s](https://www.youtube.com/watch?v=_srJ7eHS3IM&feature=youtu.be&t=6m21s)，并且重复访问的速度低于 2s。
 
-Notice that, when speaking about _Time To Interactive_, it's a good idea to distinguish between [First Interactive and Consistency Interactive](https://calendar.perfplanet.com/2017/time-to-interactive-measuring-more-of-the-user-experience/) to avoid misunderstandings down the line. The former is the earliest point after the main content has rendered (where there is at least a 5-second window where the page is responsive). The latter is the point where the page can be expected to always be responsive to input.
+请注意，当谈到**可交互时间**时，最好来区分一下[首次交互和一致性交互](https://calendar.perfplanet.com/2017/time-to-interactive-measuring-more-of-the-user-experience/)以避免对它们之间的误解。前者是在主要内容已经渲染出来后最早出现的点（窗口至少需要 5s，页面才开始响应）。后者是期望页面可以一直进行输入响应的点。
 
-The first 14~15Kb of the HTML is the **most critical payload chunk** — and the only part of the budget that can be delivered in the first roundtrip (which is all you get in 1 second at 400ms RTT). In more general terms, to achieve the goals stated above, we have have to operate within a critical file size [budget of max. 170Kb gzipped](https://infrequently.org/2017/10/can-you-afford-it-real-world-web-performance-budgets/) (0.8-1MB decompressed) which already would take up to 1s (depending on the resource type) to parse and compile on an average phone. Being slightly above that is fine, but push to get these values as low as possible.
+HTML 的前 14~15kb 加载是**是最关键的有效载荷块**  —— 也是第一次往返（这是在400 ms 往返延时下 1秒内所得到的）预算中唯一可以交付的部分。一般来说，为了实现上述目标，我们必须在关键的文件大小内进行操作。[最高预算 170 Kb gzip](https://infrequently.org/2017/10/can-you-afford-it-real-world-web-performance-budgets/) (0.8-1MB decompressed)（0.8-1MB解压缩），它已经占用多达 1s （取决于资源类型）来解析和在普通电话上进行编译。稍微高于这个值是可以的，但是要尽可能地降低这些值。
 
-You could also go beyond bundle size budget though. For example, you could set performance budgets on the activities of the browser's main thread, i.e. paint time before start render, or [track down front-end CPU hogs](https://calendar.perfplanet.com/2017/tracking-cpu-with-long-tasks-api/). Tools such as [Calibre](https://calibreapp.com/), [SpeedCurve](https://speedcurve.com/) and [Bundlesize](https://github.com/siddharthkp/bundlesize) can help you keep your budgets in check, and can be integrated into your build process.
+不过你也可以超出包大小的预算。例如，你可以在浏览器主线程的活动中设置性能预算，即：在开始渲染前的绘制时间或者[跟踪前端 CPU](https://calendar.perfplanet.com/2017/tracking-cpu-with-long-tasks-api/) 。[Calibre](https://calibreapp.com/)，[SpeedCurve](https://speedcurve.com/) 和 [Bundlesize](https://github.com/siddharthkp/bundlesize) 这些工具可以帮助你保持你的预算控制，并集成到你的构建过程。
 
 [![From 'Fast By Default: Modern Loading Best Practices' by Addy Osmani](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/3bb4ab9e-978a-4db0-83c3-57a93d70516d/file-size-budget-fast-default-addy-osmani-opt.png)](https://speakerdeck.com/addyosmani/fast-by-default-modern-loading-best-practices)
 
-[From Fast By Default: Modern loading best practices](https://speakerdeck.com/addyosmani/fast-by-default-modern-loading-best-practices) by Addy Osmani (Slide 19)
+[本来就很快的：现代化加载的最佳实践](https://speakerdeck.com/addyosmani/fast-by-default-modern-loading-best-practices) 来自 Addy Osmani（幻灯片 19）
 
 ### Defining The Environment
 
-8. **Choose and set up your build tools.**
+8. **选择和设置你的构建工具。**
 
-[Don't pay too much attention to what's supposedly cool](https://24ways.org/2017/all-that-glisters/) these days. Stick to your environment for building, be it Grunt, Gulp, Webpack, Parcel, or a combination of tools. As long as you are getting results you need fast and you have no issues maintaining your build process, you're doing just fine.
+[不要太在意那些很酷的东西](https://24ways.org/2017/all-that-glisters/)。坚持使用你的构建工具，无论是Grunt，Gulp，Webpack，Parcel，还是工具间的组合。只需要你能快速的得到结果，并且维护你的构建过程保证没问题。那么，你就做的很好了。
 
-9. **Progressive enhancement.**
+9. **渐进式增强。**
 
-Keeping [progressive enhancement](https://www.aaron-gustafson.com/notebook/insert-clickbait-headline-about-progressive-enhancement-here/) as the guiding principle of your front-end architecture and deployment is a safe bet. Design and build the core experience first, and then enhance the experience with advanced features for capable browsers, creating [resilient](https://resilientwebdesign.com/) experiences. If your website runs fast on a slow machine with a poor screen in a poor browser on a suboptimal network, then it will only run faster on a fast machine with a good browser on a decent network.
+将[渐进式增强](https://www.aaron-gustafson.com/notebook/insert-clickbait-headline-about-progressive-enhancement-here/)作为前端结构体系和部署的指导原则是一个安全的选择。首先设计和构建核心经验，然后为有能力的浏览器使用高级特性增强体验，创造[弹性](https://www.aaron-gustafson.com/notebook/insert-clickbait-headline-about-progressive-enhancement-here/)体验。如果你的网站是在一个网络不佳的并且有个糟糕的显示屏上糟糕的浏览器上运行，速度还很快的话，那么，当它运行在一个快速网络下快速的浏览器的机器上，它只会运行得更快。
 
-10. **Choose a strong performance baseline.**
+10. **选择一个强大的性能基准。**
 
-With so many unknowns impacting loading — the network, thermal throttling, cache eviction, third-party scripts, parser blocking patterns, disk I/O, IPC jank, installed extensions, CPU, hardware and memory constraints, differences in L2/L3 caching, RTTS, images, web fonts loading behavior — [JavaScript has the heaviest cost of the experience](https://youtu.be/_srJ7eHS3IM?t=3m2s), next to web fonts blocking rendering by default and images often consuming too much memory. With the performance bottlenecks [moving away from the server to the client](https://calendar.perfplanet.com/2017/tracking-cpu-with-long-tasks-api/), as developers, we have to consider all of these unknowns in much more detail.
+有这么多未知因素影响加载 —— 网络、热保护、缓存回收、第三方脚本、解析器阻塞模式、磁盘的读写、IPC jank、插件安装、CPU、硬件和内存限制、web 字体加载行为 —— [JavaScript 的代价是最大的](https://youtu.be/_srJ7eHS3IM?t=3m2s)，web 字体阻塞渲染往往是默认和图片消耗了大量的内存所导致的。由于性能瓶颈从[服务器端转移到客户端](https://calendar.perfplanet.com/2017/tracking-cpu-with-long-tasks-api/)，作为开发人员，我们必须更详细地考虑所有这些未知因素。
 
-With a 170KB budget that already contains the critical-path HTML/CSS/JavaScript, router, state management, utilities, framework and the application logic, we have to thoroughly [examine network transfer cost, the parse/compile time and the runtime cost](https://www.twitter.com/kristoferbaxter/status/908144931125858304) of the framework of our choice.
+在 170kb 的预算中，已经包括了关键路径的 HTML/CSS/JavaScript、路由器、状态管理、实用程序、框架和应用程序逻辑，我们必须彻底[检查网络传输成本，分析/编译时间和我们选择的框架的运行时的成本](https://www.twitter.com/kristoferbaxter/status/908144931125858304)。
 
 [!['Fast By Default: Modern Loading Best Practices' by Addy Osmani](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/39c247a9-223f-4a6c-ae3d-db54a696ffcb/tti-budget-opt.png)](https://speakerdeck.com/addyosmani/fast-by-default-modern-loading-best-practices)
 
-From [Fast By Default: Modern Loading Best Practices](https://speakerdeck.com/addyosmani/fast-by-default-modern-loading-best-practices) by Addy Osmani (Slides 18, 19).
+本来就很快的：[现代化加载的最佳实践](https://speakerdeck.com/addyosmani/fast-by-default-modern-loading-best-practices)来自 Addy Osmani(幻灯片18、19)。
 
-As [noted](https://twitter.com/sebmarkbage/status/829733454119989248) by Seb Markbåge, a good way to measure start-up costs for frameworks is to first render a view, then delete it and then render again as it can tell you how the framework scales.
+正如 Seb Markbage 所[指出](https://twitter.com/sebmarkbage/status/829733454119989248)，测量框架的启动成本的好方法是首先渲染视图，再删除它，然后再渲染，因为它可以告诉你框架是如何处理的。
 
-The first render tends to warm up a bunch of lazily compiled code, which a larger tree can benefit from when it scales. The second render is basically an emulation of how code reuse on a page affects the performance characteristics as the page grows in complexity.
+第一种渲染倾向于预热一堆编译迟缓的代码，当它扩展时，更大的树可以从中受益。第二种渲染基本上是对页面上的代码重用如何影响性能特性的模拟，因为页面越来越复杂。
 
-[Not every project needs a framework](https://twitter.com/jaffathecake/status/923805333268639744). In fact, some projects can [benefit from removing an existing framework](https://twitter.com/jaffathecake/status/925320026411950080) altogether. Once a framework is chosen, you'll be staying with it for at least a few years, so if you need to use one, make sure your choice [is informed](https://www.youtube.com/watch?v=6I_GwgoGm1w) and [well considered](https://medium.com/@ZombieCodeKill/choosing-a-javascript-framework-535745d0ab90#.2op7rjakk). It's a good idea to consider _at least_ the total cost on size + initial parse times before choosing an option; lightweight options such as [Preact](https://github.com/developit/preact), [Inferno](https://github.com/infernojs/inferno), [Vue](https://vuejs.org/), [Svelte](https://svelte.technology/) or [Polymer](https://github.com/Polymer/polymer) can get the job done just fine. The size of your baseline will define the constraints for your application's code.
+[并不是每个项目都需要框架](https://twitter.com/jaffathecake/status/923805333268639744)。事实上，某些项目因[移除已存在的框架而从中获益](https://twitter.com/jaffathecake/status/925320026411950080)。一旦选择了一个框架，你将会至少与它相处几年。所以，如果你需要使用它，确保你的选择是经过[深思熟虑的](https://medium.com/@ZombieCodeKill/choosing-a-javascript-framework-535745d0ab90#.2op7rjakk)而且别人是[知情的](https://www.youtube.com/watch?v=6I_GwgoGm1w)。在进行选择前，至少要考虑总大小的成本 + 初始解析时间：轻量级的选项像 [Preact](https://github.com/developit/preact)，[Inferno](https://github.com/infernojs/inferno)，[Vue](https://vuejs.org/)，[Svelte](https://svelte.technology/) 或者 [Polymer](https://github.com/Polymer/polymer) 都可以把工作做得很好。大小的基准将决定应用程序代码的约束。
 
 [![JavaScript parsing costs can differ significantly](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/8a36eef0-083f-4652-9814-95ffe7848982/parse-costs-opt.png)](https://speakerdeck.com/addyosmani/fast-by-default-modern-loading-best-practices)
 
-JavaScript parsing costs can differ significantly. From [Fast By Default: Modern Loading Best Practices](https://speakerdeck.com/addyosmani/fast-by-default-modern-loading-best-practices) by Addy Osmani (Slide 10).
+JavaScript 解析成本可能有很大差异。[本来就很快的: 现代化加载的最佳实践](https://speakerdeck.com/addyosmani/fast-by-default-modern-loading-best-practices)来自Addy Osmani (幻灯片 10)。
 
-Keep in mind that on a mobile device, you should be expecting a 4×–5× slowdown compared to desktop machines. Mobile devices have different GPUs, CPU, different memory, different battery characteristics. Parse times on mobile [are 36% higher than on desktop](https://github.com/GoogleChromeLabs/discovery/issues/1). So always [test on an average device](https://www.webpagetest.org/easy-load) — a device that is most representative of your audience.
+请记住，在移动设备上，与台式计算机相比，你会预计有 4x-5x 的减速。因为移动设备具有不同的 GPU，CPU，内存及电池特性。在手机上的解析时间[比桌面设备的要高 36%](https://github.com/GoogleChromeLabs/discovery/issues/1)。所以总在一个[普通的设备上测试](https://www.webpagetest.org/easy-load) —— 一种最能代表你的观众的设备。
 
-Different frameworks will have different effects on performance and will require different strategies of optimization, so you have to clearly understand all of the nuts and bolts of the framework you'll be relying on. When building a web app, look into the [PRPL pattern](https://developers.google.com/web/fundamentals/performance/prpl-pattern/) and [application shell architecture](https://developers.google.com/web/updates/2015/11/app-shell). The idea is quite straightforward: Push the minimal code needed to get interactive for the initial route to render quickly, then use service worker for caching and pre-caching resources and then lazy-load routes that you need, asynchronously.
+不同的框架将会对性能产生不同的影响，并且需要不同的优化策略。因此，你必须清楚地了解你所依赖的框架的所有细节。[PRPL 模式](https://developers.google.com/web/fundamentals/performance/prpl-pattern/)和[应用程序 shell 体系结构](https://developers.google.com/web/updates/2015/11/app-shell)。这个想法很简单: 将初始路由的交互所需的最小代码快速呈现，然后使用 service worker 进行缓存和预缓存资源，然后异步加载所需的路由。
 
 [![PRPL Pattern in the application shell architecture](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/bb4716e5-d25b-4b80-b468-f28d07bae685/app-build-components-dibweb-c-scalew-879-opt.png)](https://developers.google.com/web/fundamentals/performance/prpl-pattern/)
 
-[PRPL](https://developers.google.com/web/fundamentals/performance/prpl-pattern/) stands for Pushing critical resource, Rendering initial route, Pre-caching remaining routes and Lazy-loading remaining routes on demand.
+[PRPL](https://developers.google.com/web/fundamentals/performance/prpl-pattern/) 代表的是保持推送关键资源，渲染初始路由，预缓存剩余路由和延迟加载必要的剩余路由。
 
 [![Application shell architecture](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/6423db84-4717-4aeb-9174-7ae96bf4f3aa/appshell-1-o0t8qd-c-scalew-799-opt.jpg)](https://developers.google.com/web/updates/2015/11/app-shell)
 
-An [application shell](https://developers.google.com/web/updates/2015/11/app-shell) is the minimal HTML, CSS, and JavaScript powering a user interface.
+[应用程序 shell](https://developers.google.com/web/updates/2015/11/app-shell) 是最小的 HTML、CSS 和 JavaScript 驱动的用户界面。
 
 
 ---

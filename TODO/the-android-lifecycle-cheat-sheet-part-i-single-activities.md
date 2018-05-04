@@ -2,114 +2,114 @@
 > * 原文作者：[Jose Alcérreca](https://medium.com/@JoseAlcerreca?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/the-android-lifecycle-cheat-sheet-part-i-single-activities.md](https://github.com/xitu/gold-miner/blob/master/TODO/the-android-lifecycle-cheat-sheet-part-i-single-activities.md)
-> * 译者：
-> * 校对者：
+> * 译者：[IllllllIIl](https://github.com/IllllllIIl)
+> * 校对者：[tanglie1993](https://github.com/tanglie1993)，[atuooo](https://github.com/atuooo)
 
-# The Android Lifecycle cheat sheet — part I: Single Activities
+# Android 生命周期备忘录 — 第一部分：单一 Activities
 
-Android is designed to empower users and let them use apps in a intuitive way. For example, users of an app might rotate the screen, respond to a notification, or switch to another task, and they should be able to continue using the app seamlessly after such an event.
+Android 系统的目的是让用户增强控制权并且让他们简便地使用应用程序。例如，一个 app 的用户可能会旋转屏幕，回复一条通知信息，或者切换到另一个任务，而用户应该能够在这类操作后继续流畅地使用这个 app。
 
-To provide this user experience, you should know how to manage component lifecycles. A component can be an Activity, a Fragment, a Service, the Application itself and even the underlying process. The component has a lifecycle, during which it transitions through states. Whenever a transition happens, the system notifies you via a lifecycle callback method.
+为了提供这种用户体验，你应该知道怎么管理组件的生命周期。组件可以是一个 Activity，一个 Fragment，一个 Service，或者 Application 本身，甚至是在默默运行的进程。组件有生命周期，生命周期会在多种状态中变换。当状态发生变化时，系统会通过一个生命周期回调方法通知你。
 
-To help us explain how lifecycles work, we’ve defined a series of scenarios which are grouped according to the components that are present:
+为了更好解释生命周期是怎么运作的，我们定义了根据现有组件进行分类的一系列用户场景。
 
-**Part I: Activities **— single activity lifecycle (this post)
+**第一部分： Activities** — 单一 activity 的生命周期 (就是本文)
 
-[**Part II: Multiple activities** — navigation and back stack](https://medium.com/@JoseAlcerreca/the-android-lifecycle-cheat-sheet-part-ii-multiple-activities-a411fd139f24)
+[**第二部分： 多个 activities** — 跳转和返回栈（back stack)](https://medium.com/@JoseAlcerreca/the-android-lifecycle-cheat-sheet-part-ii-multiple-activities-a411fd139f24)
 
-[**Part III: Fragments **— activity and fragment lifecycle](https://medium.com/@JoseAlcerreca/the-android-lifecycle-cheat-sheet-part-iii-fragments-afc87d4f37fd)
+[**第三部分： Fragments** — activity 和 fragment 的生命周期](https://medium.com/@JoseAlcerreca/the-android-lifecycle-cheat-sheet-part-iii-fragments-afc87d4f37fd)
 
-The diagrams are also available as a [cheat sheet in PDF format](https://github.com/JoseAlcerreca/android-lifecycles) for quick reference.
+它们的图表也提供了 [PDF格式备忘录](https://github.com/JoseAlcerreca/android-lifecycles)，以方便查阅。
 
 * * *
 
-The following scenarios showcase the default behavior of the components, unless otherwise noted.
+除非特别说明，接下来的这些场景展示了这些组件的默认行为。
 
-_If you find errors or you think something important is missing, report it in the comments._
+**如果你发现有错误或者遗漏了什么重要的东西，请在下方评论。**
 
-### **Part I: Activities**
+### **第一部分: Activities**
 
-#### Single Activity — Scenario 1: App is finished and restarted
+#### 单一 Activity — 场景 1：应用被结束并且重启
 
-Triggered by:
+触发原因：
 
-* The user presses the **Back button**, or
-* The `Activity.finish()` method is called
+* 用户按下了 **返回键**，或者是
+* `Activity.finish()` 方法被调用
 
-The simplest scenario shows what happens when a single-activity application is started, finished and restarted by the user:
+这个最简单的场景说明了一个单一 activity 的应用被用户开启，结束，和重启时发生了什么：
 
 ![](https://cdn-images-1.medium.com/max/800/1*U_j3OP74jrPFoNvO2i7XzQ.png)
 
-**Scenario 1: App is finished and restarted**
+>**场景 1：应用被终止并且重启**
 
-**Managing state**
+**状态处理**
 
-* `[onSaveInstanceState](https://developer.android.com/reference/android/app/Activity.html#onSaveInstanceState%28android.os.Bundle%29)` is not called (since the activity is finished, you don’t need to save state)
-* `[onCreate](https://developer.android.com/reference/android/app/Activity.html#onCreate%28android.os.Bundle%29)` doesn’t have a Bundle when the app is reopened, because the activity was finished and the state doesn’t need to be restored.
+* [onSaveInstanceState](https://developer.android.com/reference/android/app/Activity.html#onSaveInstanceState%28android.os.Bundle%29) 不会被调用 (因为 activity 被结束了，你不需要保存状态)
+* [onCreate](https://developer.android.com/reference/android/app/Activity.html#onCreate%28android.os.Bundle%29) 没有 Bundle 对象，如果重新打开应用的话。因为先前的 activity 结束了，也不需要恢复状态。
 
 * * *
 
-#### **Single Activity — Scenario 2: User navigates away**
+#### **单一 Activity — 场景 2：用户切换出去**
 
-Triggered by:
+触发原因：
 
-* The user presses the **Home button**
-* The user switches to another app (via Overview menu, from a notification, accepting a call, etc.)
+* 用户按了 Home 键
+* 用户切换到另一个应用（点击虚拟按键（Overview menu），点击一个通知，接听来电，等等）
 
 ![](https://cdn-images-1.medium.com/max/800/1*w3Hkt3deEkHSDWQD-I03cA.png)
 
->**Scenario 2: User navigates away**
+>**场景 2：用户切换出去**
 
-In this scenario the system will [stop](https://developer.android.com/guide/components/activities/activity-lifecycle.html#onstop) the activity, but won’t immediately finish it.
+在这个场景中系统会 [stop](https://developer.android.com/guide/components/activities/activity-lifecycle.html#onstop) 这个 activity，但不会马上结束它。
 
-**Managing state**
+**状态处理**
 
-When your activity enters the Stopped state, the **system uses onSaveInstanceState to save the app state in case the system kills the app’s process later on** (see below)**.**
+当你的 activity 进入 Stopped 状态，**系统会使用 onSaveInstanceState 去保存应用的状态以防系统一段时间后终止这个应用的进程** (请看下面)**。**
 
-Assuming the process isn’t killed, the activity instance is kept resident in memory, retaining all state. When the activity comes back to the foreground, the activity recalls this information. You don’t need to re-initialize components that were created earlier.
+假设应用的进程没有被终止，这个应用的实例会常驻在内存，保存所有状态。当这个 activity 回到前台工作时，它会恢复这些状态。你不需要重新初始化这些之前已生成的组件。
 
 * * *
 
-#### **Single Activity — Scenario 3: Configuration changes**
+#### **单一 Activity — 场景 3：配置发生变化**
 
-Triggered by:
+触发原因：
 
-* Configuration changes, like a **rotation**
-* User resizes the window in multi-window mode
+* 配置发生变化，例如屏幕旋转
+* 在多窗口模式下，用户调整窗口大小
 
 ![](https://cdn-images-1.medium.com/max/800/1*sw4ePskeHsYPs1LrHh2Pcg.png)
 
-Scenario 3: Rotation and other configuration changes
+> 场景 3：屏幕旋转或其他配置变化
 
-**Managing state**
+**状态处理**
 
-Configuration changes like rotation or a window resize should let users continue exactly where they left off.
+像屏幕旋转或窗口大小改变，这种配置变化应该能够让用户在变化后继续无缝使用。
 
-* The activity is completely destroyed, but **the state is saved and restored for the new instance**.
-* The Bundle in `onCreate` and `onRestoreInstanceState` is the same.
+* activity 会被完全 destroy，但是 **activity 的状态会被保存下来并在下一个实例中恢复**。
+* 在`onCreate` 和 `onRestoreInstanceState` 中的 Bundle 对象是相同的。
 
 * * *
 
-#### **Single Activity — Scenario 4: App is paused by the system**
+#### **单一 Activity — 场景 4：应用被系统暂停**
 
-Triggered by:
+触发原因：
 
-* Enabling Multi-window mode (API 24+) and losing the focus
-* Another app partially covers the running app (a purchase dialog, a runtime permission dialog, a third-party login dialog…)
-* An intent chooser appears, such as a share dialog
+* 开启多窗口模式 （API 24+）并且应用失去焦点
+* 另一个应用部分地覆盖在正在运行的应用上面（例如一个购买对话框，一个运行时权限确认对话框，一个第三方登陆对话框...）
+* 调用意图选择器，例如调用了分享对话框
 
 ![](https://cdn-images-1.medium.com/max/800/1*j3blnCW082yMbQe5fkjMMg.png)
 
-**Scenario 4: App is paused by the system**
+>**场景 4：应用被系统暂停**
 
-This scenario _doesn’t_ apply to:
+这个场景不适用于以下情况：
 
-* Dialogs in the same app. Showing an `AlertDialog` or a `DialogFragment` won’t pause the underlying activity.
-* Notifications. User receiving a new notification or pulling down the notification bar won’t pause the underlying activity.
+* 对话框属于同一个应用。弹出一个警告对话框或者一个 DialogFragment 并不会暂停（执行 onPause 方法）被遮挡住的 activity。
+* 通知。用户收到一个新通知或者拉下通知栏不会暂停被遮挡住的 activity。
 
-### Continue reading
+### 延伸阅读
 
-* [The Android Lifecycle cheat sheet part II — Multiple activities](https://medium.com/@JoseAlcerreca/the-android-lifecycle-cheat-sheet-part-ii-multiple-activities-a411fd139f24)
+* [Android 生命周期备忘录 第二部分 — 多个 activities](https://github.com/xitu/gold-miner/blob/master/TODO/developers-are-users-too-part-2.md)
 
 
 ---
