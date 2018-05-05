@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/avoiding-the-async-await-hell.md](https://github.com/xitu/gold-miner/blob/master/TODO1/avoiding-the-async-await-hell.md)
 > * 译者：[Colafornia](https://github.com/Colafornia)
-> * 校对者：[Starriers](https://github.com/Starriers)
+> * 校对者：[Starriers](https://github.com/Starriers) [whuzxq](https://github.com/whuzxq)
 
 # 如何逃离 async/await 地狱
 
@@ -102,7 +102,7 @@ promise 有一个好玩的特性，你可以在一行代码中得到一个 promi
 
 #### 找到依赖其它语句执行结果的语句
 
-在第一个示例中，我们选择了一份披萨和一杯饮料。可以推断出在选择披萨前，我们需要有披萨列表的数据。在把披萨加入购物车之前，我们需要选择一份披萨。因此我们可以说这三个步骤是互相依赖的。我们不能在前一件事完成之前做下一件事。
+在第一个示例中，我们选择了一份披萨和一杯饮料。可以推断出在选择一份披萨前，我们需要先获得所有披萨的列表。在将选择的披萨加入购物车之前，我们需要先选择一份披萨。因此我们可以说这三个步骤是互相依赖的。我们不能在前一件事完成之前做下一件事。
 
 但是如果把问题看得更广泛一些，我们可以发现选披萨并不依赖选饮料，因此我们可以并行选择。这方面，机器可以比我们做的更好。
 
@@ -114,7 +114,7 @@ promise 有一个好玩的特性，你可以在一行代码中得到一个 promi
 
 #### 并发执行 async 函数
 
-然后我们可以利用事件循环并发执行这些非阻塞 async 函数。两个常用模式是**先返回 promise** 和 **Promise.all 方法**。
+然后我们可以利用事件循环并发执行这些非阻塞 async 函数。有两种常用模式，分别是**优先返回 promises** 和使用**Promise.all 方法**。
 
 ### 让我们来修改一下示例
 
