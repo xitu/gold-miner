@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-javascript-works-tracking-changes-in-the-dom-using-mutationobserver.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-javascript-works-tracking-changes-in-the-dom-using-mutationobserver.md)
 > * 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit)
-> * 校对者：
+> * 校对者：[jasonxia23](https://github.com/jasonxia23)
 
 # JavaScript 是如何运作的：用 MutationObserver 追踪 DOM 的变化
 
@@ -135,7 +135,7 @@ mutationObserver.disconnect();
 }
 ```
 
-keyframes 已经创建，动画还需要被应用于你想要监听的元素。注意应设置很小的 duration 值 -- 它们将会减弱动画在浏览器上留下的痕迹：
+keyframes 已经创建，动画还需要被应用于你想要监听的元素。注意应设置很小的 duration 值 —— 它们将会减弱动画在浏览器上留下的痕迹：
 
 ```
 #container-element * {
