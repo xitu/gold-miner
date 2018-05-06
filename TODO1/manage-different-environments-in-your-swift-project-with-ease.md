@@ -3,20 +3,20 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/manage-different-environments-in-your-swift-project-with-ease.md](https://github.com/xitu/gold-miner/blob/master/TODO1/manage-different-environments-in-your-swift-project-with-ease.md)
 > * 译者：[melon8](https://github.com/melon8)
-> * 校对者：
+> * 校对者：[ALVINYEH](https://github.com/ALVINYEH)
 
 # 轻松管理 Swift 项目中的不同环境
 
 ![](https://cdn-images-1.medium.com/max/2000/1*Rk8JulyapCiTCUtLsnsEcQ.png)
 
-想象一下，你已经完成了应用程序的开发和测试，现在你已准备好将其提交并发布。但有个问题：你所有的 API key、URL、图标或其他设置都是针对测试环境进行配置的。因此，在提交应用程序之前，你必须将所有这些内容换到生产环境。显然，这听起来就不太好。此外，你可能会在你庞大的应用中忘记一两个更改，自然你的服务将最终无法正常工作。
+想象一下，你已经完成了应用程序的开发和测试，现在你已准备好将其提交并发布。但有个问题：你所有的 API key、URL、图标或其他设置都是针对测试环境进行配置的。因此，在提交应用程序之前，你必须将所有这些内容换到生产环境。显然，这听起来就不太好。此外，你可能会在你庞大的应用中忘记一两个更改，自然你所提供的服务将最终无法正常工作。
 
-与其使用这种混乱的方法，不如设置几个环境，并在需要时简单地更改它们。今天，我们将最流行的几个方法来尝试管理环境配置:
+与其使用这种混乱的方法，不如设置几个环境，并在需要时简单地更改它们。今天，我们将最常用的几个方法来尝试管理环境配置:
 
 1. **使用注释。**
 2. **使用全局变量或枚举。**
 3. **使用 target 配置和 scheme 并结合全局标志。**
-4. **使用 target 配置和 scheme 并结合多个 * .plist 文件。**
+4. **使用 target 配置和 scheme 并结合多个** ***.plist 文件。**
 
 ### 1. 使用注释
 
@@ -35,7 +35,7 @@ let analyticsKey = "jsldjcldjkcs"
 // let analyticsKey = "lkjllnlnlk"
 ```
 
-这种方法很脏乱，会让你哭得很厉害。有时我在黑客马拉松上用它，那对代码的质量没有任何要求，只有速度和灵活性重要。在任何其他情况下，我强烈建议不要使用它。
+这种方法很脏乱，会让你哭得很厉害。有时我在黑客马拉松上用它，那对代码的质量没有任何要求，只看重速度和灵活性。在任何其他情况下，我强烈建议不要使用它。
 
 ### 2.使用全局变量或枚举
 
@@ -78,19 +78,19 @@ case .production:
 
 ### 3.使用 target 配置和 scheme 并结合全局标志
 
-在这种方法中，我们需要创建 3 个不同的 configuration 和 3 种不同的 scheme，并将 scheme 和对应 configuration 连接起来。我将创建一个叫 ”Environments”的项目来演示这一过程，你也可以创建一个新项目或在现有项目中实现。
+在这种方法中，我们需要创建 3 个不同的 configuration 和 3 种不同的 scheme，并将 scheme 和对应 configuration 连接起来。我将创建一个叫“Environments”的项目来演示这一过程，你也可以创建一个新项目或在现有项目中实现。
 
-在 Project Navigator 面板中点击你的项目调到到项目设置。在 target 部分中，右键单击现有 target 并选择 Dublicate 来复制当前 target。
+在 Project Navigator 面板中点击你的项目跳到项目设置。在 target 部分中，右键单击现有 target 并选择 Dublicate 来复制当前 target。
 
 ![](https://cdn-images-1.medium.com/max/800/0*kJt7iX0pJ_OCbYH7.)
 
-现在我们有一个新的 target 和一个叫做 ”Environments copy“ 的 scheme。让我们重命名为一个合适的名字。左键单击你的新 target，回车，将其名称更改为 “Environments Dev”。
+现在我们有一个新的 target 和一个叫做“Environments copy”的 scheme。让我们重命名为一个合适的名字。左键单击你的新 target，回车，将其名称更改为“Environments Dev”。
 
-接下来，点击 “Manage Schemes…”，选择在上一步中创建的新 scheme，然后按回车，重命名使其与新创建的 target 同名避免混淆。
+接下来，点击“Manage Schemes…”，选择在上一步中创建的新 scheme，然后按回车，重命名使其与新创建的 target 同名避免混淆。
 
 ![](https://cdn-images-1.medium.com/max/800/0*pAV3RMB8AJBsTIgL.)
 
-然后，让我们创建一个新的图标资源，以便测试人员和经理方便地知道他们启动的 app 对应的配置。
+然后，让我们创建一个新的图标资源，以便测试人员和管理员方便地知道他们启动的 app 对应的配置。
 
 进入 Assets.xcassets，点击“+”并选择“New iOS App Icon”。将其名称更改为“AppIcon-Dev”。
 
@@ -100,16 +100,16 @@ case .production:
 
 ![](https://cdn-images-1.medium.com/max/800/0*LyxuDi3gg8Ca69p7.)
 
-就是这样，现在每个 configuration 都有不同的图标。请注意，当我们创建第二个 configuration 时，第二个 * .plist 文件也是为我们的第二个环境生成的。
+就是这样，现在每个 configuration 都有不同的图标。请注意，当我们创建第二个 configuration 时，第二个 *.plist 文件也是为我们的第二个环境生成的。
 
 重要提示：现在我们有两种不同的方法来处理两种不同的配置：
 
 1. **为生产和开发目标添加预处理宏/编译器标志。**
-2. **将变量添加到 * .plist 中。**
+2. **将变量添加到** ***.plist 中。**
 
 我们将从第一个方法开始讲这两种方法。
 
-添加一个代表开发环境的标志，首先需要选择刚才建立的开发环境的 target，进入 “Build Settings” 并找到 “Swift Compiler — Custom Flags” 部分。将该值设置为“-DEVELOPMENT”，将你的目标标记为开发环境。
+添加一个代表开发环境的标志，首先需要选择刚才建立的开发环境的 target，进入“Build Settings”并找到“Swift Compiler — Custom Flags”部分。将该值设置为“-DEVELOPMENT”，将你的目标标记为开发环境。
 
 ![](https://cdn-images-1.medium.com/max/800/0*Henhnxiv07NEtDkk.)
 
@@ -127,9 +127,9 @@ let API_TOKEN = "fgbfkbkgbmkgbm"
 
 现在，如果您选择 Dev scheme 并运行你的程序，应用程序将会自动运在开发环境配置下。
 
-### 4.使用 target 配置和 scheme 并结合多个 * .plist 文件
+### 4.使用 target 配置和 scheme 并结合多个 *.plist 文件
 
-在这种方法中，我们需要重复上一个方法的前几个步骤，创建和上个方法相同的几种 configuration 和 scheme。然后，我们不需要再添加全局标志，而是需要添加必要的值到我们的 .plist 文件中。另外，我们将在两个 * .plist 文件中分别添加一个 String 类型的 `serverBaseURL` 变量，并填上 URL 。现在每个 * .plist 文件都包含一个 URL，我们需要从代码中调用它。我认为，为我们的 Bundle 创建一个 extension 将是一个不错的主意，如下所示：
+在这种方法中，我们需要重复上一个方法的前几个步骤，创建和上个方法相同的几种 configuration 和 scheme。然后，我们不需要再添加全局标志，而是需要添加必要的值到我们的 .plist 文件中。另外，我们将在两个 *.plist 文件中分别添加一个 String 类型的 `serverBaseURL` 变量，并填上 URL 。现在每个 *.plist 文件都包含一个 URL，我们需要从代码中调用它。我认为，为我们的 Bundle 创建一个 extension 将是一个不错的主意，如下所示：
 
 ```
 extension Bundle {
@@ -146,7 +146,7 @@ let baseURL = Bundle.main.apiBaseURL
 
 #### 在使用多个 target 的时候
 
-*   请记住，存储在 * .plist 文件中的数据可能会被读取，并且可能非常不安全。一种解决方案是，把敏感密钥放在代码中，并仅将其键名放在 * .plist 文件中。
+*   请记住，存储在 *.plist 文件中的数据可能会被读取，并且可能非常不安全。一种解决方案是，把敏感密钥放在代码中，并仅将其键名放在 *.plist 文件中。
 *   添加新文件时，请不要忘记选择两个 target 以保持你的代码在两种配置中同步。
 *   如果你使用了持续集成服务，例如 [Travis CI](https://travis-ci.org/) 或 [Jenkins](https://jenkins-ci.org/)，请不要忘记为它们正确地配置。
 
@@ -154,7 +154,7 @@ let baseURL = Bundle.main.apiBaseURL
 
 从一开始就以可读和灵活的方式将你的 app 分成不同环境总是有用的。即使用最简单的技术，我们也可以避免许多配置中的典型问题，并显着提高我们的代码质量。
 
-今天我们简要的从最简单的方法开始介绍了几种方法，但是还有很多其他可能的方法来管理配置。我很期待再下面的评论中读到你的方法。
+今天，我们简要地从最简单的方法介绍了几种方法』，但是还有很多其他可能的方法来管理配置。我很期待在的评论中看见你的方法。
 
 谢谢阅读 ：）
 
