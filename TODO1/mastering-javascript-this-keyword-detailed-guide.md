@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/mastering-javascript-this-keyword-detailed-guide.md](https://github.com/xitu/gold-miner/blob/master/TODO1/mastering-javascript-this-keyword-detailed-guide.md)
 > * 译者：[老教授](https://juejin.im/user/58ff449a61ff4b00667a745c)
-> * 校对者：
+> * 校对者：[allen](https://github.com/allenlongbaobao)、[dz](https://github.com/dazhi1011)
 
 # 深入浅出 JavaScript 关键词 -- this
 
@@ -29,11 +29,11 @@
 
 事实上，基于 JavaScript 内置的现成的[原型继承](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Inheritance)功能，我们已经使用并且将继续广泛使用 `new` 和 `this` 关键词来实现代码复用。
 
-理由1，如果只能使用自己写过的代码，你是没法工作的。现有的代码以及你读到这句话时别人正在写的代码都很有可能包含 `this` 关键词。那么学习怎么用好它是不是很有用呢？
+理由一，如果只能使用自己写过的代码，你是没法工作的。现有的代码以及你读到这句话时别人正在写的代码都很有可能包含 `this` 关键词。那么学习怎么用好它是不是很有用呢？
 
-因此，即使你不打算在你代码基础上使用它，深入掌握 `this` 的原理也能让你在接手别人的代码理解其逻辑时事半功倍。
+因此，即使你不打算在你的代码库中使用它，深入掌握 `this` 的原理也能让你在接手别人的代码理解其逻辑时事半功倍。
 
-理由2，**拓展你的编码视野和技能**。使用不同的设计模式会加深你对代码的理解，怎么去看、怎么去读、怎么去写、怎么去理解。我们写代码不仅是给机器去解析，还是写给我们自己看的。要写出可读性高的代码并不是简简单单地写过几句 JavaScript 就能做到的。
+理由二，**拓展你的编码视野和技能**。使用不同的设计模式会加深你对代码的理解，怎么去看、怎么去读、怎么去写、怎么去理解。我们写代码不仅是给机器去解析，还是写给我们自己看的。这不仅适用于 JavaScript，对其他编程语言亦是如此。
 
 > 随着对编程理念的逐步深入理解，它会逐渐塑造你的编码风格，不管你用的是什么语言什么框架。
 
@@ -59,13 +59,13 @@
 
 ## 执行上下文
 
-> _执行上下文_ 是语言规范中的一个概念，用通俗的话讲，大致等同于函数的执行“环境”。具体的有：变量作用域（和 _作用域链条_，闭包里面来自外部作用域的变量），函数参数，以及 `this` 对象的值。
+> **执行上下文** 是语言规范中的一个概念，用通俗的话讲，大致等同于函数的执行“环境”。具体的有：变量作用域（和 _作用域链条_，闭包里面来自外部作用域的变量），函数参数，以及 `this` 对象的值。
 > 
 > 引自: [Stackoverflow.com](https://stackoverflow.com/questions/9384758/what-is-the-execution-context-in-javascript-exactly)
 
 记住，现在起，我们专注于查明 `this` 关键词到底指向哪。因此，我们现在要思考的就一个问题：
 
-*   是什么调起函数？是哪个对象调起了函数？
+*   是什么调用函数？是哪个对象调用了函数？
 
 为了理解这个关键概念，我们来测一下下面的代码。
 
@@ -166,11 +166,11 @@ console.log(name2.print()) // ??
 
 ### 词法作用域
 
-你可能会被问：“什么是词法作用域？”
+你可能会问：“**什么是词法作用域？**”
 
 逗我呢，我们不是在探讨 `this` 关键词吗，这个又是哪里冒出来的？好吧，当我们用起 ES6 的箭头函数，这个就要考虑了。如果你已经写了不止一年的 JavaScript，那你很可能已经碰到箭头函数。随着 ES6 逐渐成为现实标准，箭头函数也变得越来越常用。
 
-[JavaScript 的词法作用域](https://toddmotto.com/everything-you-wanted-to-know-about-javascript-scope/#lexical-scope) 并不好懂。 如果你 [理解闭包](https://www.thecodingdelight.com/javascript-closure/)，那要理解这个概念就容易多了。来看下下面的小段代码。 
+[JavaScript 的词法作用域](https://toddmotto.com/everything-you-wanted-to-know-about-javascript-scope/#lexical-scope) 并不好懂。如果你 [理解闭包](https://www.thecodingdelight.com/javascript-closure/)，那要理解这个概念就容易多了。来看下下面的小段代码。 
 
 ```
 // outerFn 的词法作用域
@@ -189,7 +189,7 @@ outerFn()();
 
 想象一下一栋楼里面有一架只能向上走的诡异电梯。
 
-[![JavaScript lexical scope is a lot like a building with an elevator that only goes up](https://personalzone-hulgokm2zfcmm9u.netdna-ssl.com/wp-content/uploads/2018/03/JavaScript-lexical-scope-building.jpg)](https://personalzone-hulgokm2zfcmm9u.netdna-ssl.com/wp-content/uploads/2018/03/JavaScript-lexical-scope-building.jpg)
+[![JavaScript 的词法作用域就像楼里的一架只能向上走的诡异电梯](https://personalzone-hulgokm2zfcmm9u.netdna-ssl.com/wp-content/uploads/2018/03/JavaScript-lexical-scope-building.jpg)](https://personalzone-hulgokm2zfcmm9u.netdna-ssl.com/wp-content/uploads/2018/03/JavaScript-lexical-scope-building.jpg)
 
 建筑的顶层就是全局 windows 对象。如果你现在在一楼，你就可以看到并访问那些放在楼上的东西，比如放在二楼的 `outerFn` 和放在三楼的 `window` 对象。
 
@@ -207,9 +207,9 @@ at test.html:313
 
 在 [ES6](http://es6-features.org/#ExpressionBodies) 里面，不管你喜欢与否，[箭头函数](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)被引入了进来。对于那些还没用惯箭头函数或者新学 JavaScript 的人来说，当箭头函数和 `this` 关键词混合使用时会发生什么，这个点可能会给你带来小小的困惑和淡淡的忧伤。那这个小节就是为你们准备的！
 
-> 当涉及到 `this` 关键词，_箭头函数_ 和 _普通函数_ 主要的不同是什么？
+> 当涉及到 `this` 关键词，**箭头函数** 和 **普通函数** 主要的不同是什么？
 
-**回答：**
+**答案：**
 
 > 箭头函数按**词法作用域**来绑定它的上下文，所以 `this` 实际上会引用到原来的上下文。
 > 
@@ -219,7 +219,7 @@ at test.html:313
 
 箭头函数保持它当前执行上下文的[词法作用域](https://stackoverflow.com/questions/1047454/what-is-lexical-scope)不变，而普通函数则不会。换句话说，箭头函数从包含它的词法作用域中继承到了 `this` 的值。
 
-我们不妨来测试一些代码片段，确保你真的理解了。想清楚这块知识点未来会让你少点头痛，因为你会发现 `this` 关键词和箭头函数太太太经常一起用了。
+我们不妨来测试一些代码片段，确保你真的理解了。想清楚这块知识点未来会让你少点头痛，因为你会发现 `this` 关键词和箭头函数太经常一起用了。
 
 ### 示例
 
@@ -403,7 +403,7 @@ function notStrict() { return "I'm not strict."; }
 
 讲真，你会在一些开源代码上看到 this 关键词、call、apply 和 bind 的实际应用。我会将这块结合着其他能[帮你成为更好的程序员](https://www.thecodingdelight.com/become-better-programmer/)的方法一起讲。
 
-在我看来，开始阅读最好的开源代码是 [underscore](http://underscorejs.org/)。它并不像其他开源项目，如 [d3](https://github.com/d3/d3)，那样铁板一块，因而它是教学用的最佳选择。另外，它代码简洁，文档详细，编码风格也是相当容易学习。
+在我看来，开始阅读最好的开源代码是 [underscore](http://underscorejs.org/)。它并不像其他开源项目，如 [d3](https://github.com/d3/d3)，那样铁板一块，而是内部代码相互比较独立，因而它是教学用的最佳选择。另外，它代码简洁，文档详细，编码风格也是相当容易学习。
 
 ## JavaScript 的 `this` 和 bind
 
@@ -644,7 +644,7 @@ console.log(operate(10, 2, sum, multiply));    // 必须返回 32 -> (10 + 2) + 
 
 假如我上面的解释没能让你释疑，那下面这些额外的资料可以帮你更好地理解 bind 在 JavaScript 里面是怎么运作的。
 
-*   [理解 JavaScript 函数原型的 bind 方法](https://www.smashingmagazine.com/2014/01/understanding-javascript-function-prototype-bind/)
+*   [理解 JavaScript 函数 bind 的原型方法](https://www.smashingmagazine.com/2014/01/understanding-javascript-function-prototype-bind/)
 *   [Stackoverflow – 使用 JavaScript 的 bind 函数](https://stackoverflow.com/questions/2236747/use-of-the-javascript-bind-method)
 *   [JavaScript 中 call()， apply() 和 bind() 如何使用](https://www.codementor.io/niladrisekhardutta/how-to-call-apply-and-bind-in-javascript-8i1jca6jp)
 *   [一看就懂 —— JavaScript 的 .call() .apply() 和 .bind()](https://medium.com/@owenyangg/javascript-call-apply-and-bind-explained-to-a-total-noob-63f146684564)
