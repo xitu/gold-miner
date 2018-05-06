@@ -21,7 +21,7 @@
 
 当查看会议列表时，底部栏更新了一个新的定位图标，点击即可在地图上精确定位，这样可以更方便地导航. 这个图标紧邻位于左边的分享图标的右侧。
 
-最后，『信息』标签添加了一个『相关应用』板块，链接到[这周上线](https://twitter.com/ActionsOnGoogle/status/991346508204314624)的 I/O 18 Google Assistant 功能。点击会直接打开助手的列表页。在多数带有助手的平台上，用户可以说出「Talk to Google I/O 18」来了解更多会议信息，浏览话题，以及获取更多资讯。
+最后，「信息」标签添加了一个「相关应用」板块，链接到[这周上线](https://twitter.com/ActionsOnGoogle/status/991346508204314624)的 I/O 18 Google Assistant 功能。点击会直接打开助手的列表页。在多数带有助手的平台上，用户可以说出「Talk to Google I/O 18」来了解更多会议信息，浏览话题，以及获取更多资讯。
 
 ![google-io-18-action-4](https://9to5google.files.wordpress.com/2018/05/google-io-18-action-4.png?w=246&h=437&quality=82&strip=all) ![google-io-18-action-1](https://9to5google.files.wordpress.com/2018/05/google-io-18-action-1.png?w=246&h=437&quality=82&strip=all) ![google-io-18-action-2](https://9to5google.files.wordpress.com/2018/05/google-io-18-action-2.png?w=246&h=437&quality=82&strip=all) ![google-io-18-action-3](https://9to5google.files.wordpress.com/2018/05/google-io-18-action-3.png?w=246&h=437&quality=82&strip=all)
 
