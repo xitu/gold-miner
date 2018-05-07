@@ -98,6 +98,7 @@ Woops，跟我在第一篇文章中展示的效果不太一样 🤐。我不想�
   		// yadda, yadda
   		ViewCompat.requestApplyInsets(view)
 	}
+
 你必须这样做是因为窗口只有在整个视图层级总体的系统 UI 可见性的值发生**改变**的时候才会自动分发 WindowInsets。 由于有时你的两个 fragment 可能提供完全相同的值，总体的值不会改变，因此系统将忽略这个“改变”。
 
 
