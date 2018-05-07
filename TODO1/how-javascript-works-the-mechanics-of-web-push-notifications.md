@@ -5,11 +5,11 @@
 > * 译者：
 > * 校对者：
 
-# How JavaScript works: the mechanics of Web Push Notifications
+# JavaScript 是如何工作的：Web 推送通知的机制
 
-This is post # 9 of the series dedicated to exploring JavaScript and its building components. In the process of identifying and describing the core elements, we also share some rules of thumb we use when building [SessionStack](https://www.sessionstack.com/?utm_source=medium&utm_medium=blog&utm_content=javascript-series-push-notifications-intro), a lightweight JavaScript application that needs to be robust and highly-performant to help users see and reproduce their web app defects real-time.
+这是专门研究 JavaScript 及其构建组件系列文章的第 9 章。在识别和描述核心元素的过程中，我们还分享了我们在构建一个轻量级 JavaScript 应用程序 [SessionStack](https://www.sessionstack.com/?utm_source=medium&utm_medium=blog&utm_content=javascript-series-push-notifications-intro) 时使用的一些经验规则，该应用程序需要健壮且高性能，以帮助用户实时查看和重现它们的 Web 应用程序缺陷。
 
-If you missed the previous chapters, you can find them here:
+如果你忽略了前几章，你可以在这里找到它们：
 
 1. [[译] JavaScript 是如何工作的：对引擎、运行时、调用堆栈的概述](https://juejin.im/post/5a05b4576fb9a04519690d42)
 2. [[译] JavaScript 是如何工作的：在 V8 引擎里 5 个优化代码的技巧](https://github.com/xitu/gold-miner/blob/master/TODO/how-javascript-works-inside-the-v8-engine-5-tips-on-how-to-write-optimized-code.md)
@@ -20,43 +20,43 @@ If you missed the previous chapters, you can find them here:
 7. [[译] JavaScript 是如何工作的：Web Worker 的内部构造以及 5 种你应当使用它的场景](https://github.com/xitu/gold-miner/blob/master/TODO/how-javascript-works-the-building-blocks-of-web-workers-5-cases-when-you-should-use-them.md)
 8. [[译] JavaScript 是如何工作的：Web Worker 生命周期及用例](https://github.com/xitu/gold-miner/blob/master/TODO1/how-javascript-works-service-workers-their-life-cycle-and-use-cases.md)
 
-Today we turn our attention to web push notifications: we’ll have a look at their building components, explore the processes behind sending/receiving notifications and at the end share how we at [SessionStack](https://www.sessionstack.com/?utm_source=medium&utm_medium=blog&utm_content=javascript-series-push-notifications-2nd) plan on utilizing these to build new product functionality.
+今天，我们将关注 Web 推送通知：我们将了解他们的构建组件，探索发送/接收通知的流程，最后分享 [SessionStack](https://www.sessionstack.com/?utm_source=medium&utm_medium=blog&utm_content=javascript-series-push-notifications-2nd) 是如何利用这些构建新的产品特性的。
 
-Push Notifications are very common in the mobile world. For one reason or another, they made their entrance into the web pretty late, even though it has been a feature highly requested by developers.
+推送通知在手机领域被广泛使用。由于某种原因，它们很晚才进入网络，尽管开发人员对此有很高的要求。
 
-#### Overview
+#### 概述
 
-Web Push Notifications allow users to opt-in for timely updates from web apps that aim to re-engage their user base with content that might be interesting, important and well-timed for the users.
+Web 推送通知允许用户选择从 Web 应用程序中及时更新，旨在重新吸引他们的用户群，并为用户提供有趣、重要且及时的内容。
 
-Push is based on Service Workers, which we discussed in detail in a [previous post](https://blog.sessionstack.com/how-javascript-works-service-workers-their-life-cycle-and-use-cases-52b19ad98b58).
+推送基于 Service Worker，我们在[上一篇文章中](https://blog.sessionstack.com/how-javascript-works-service-workers-their-life-cycle-and-use-cases-52b19ad98b58)详细讨论过。
 
-The reason for employing Service Workers, in this case, is because they operate in the background. This is great for Push Notifications because it means that their code is being executed only when a user interacts with the notification itself.
+在这种情况下，雇佣 Service Worker 的原因是它们在后台工作。这时推送通知非常有用，因为这意味着只有当用户与通知本身进行交互时才会执行它们的代码。
 
-#### Push & notification
+#### 推送和通知
 
-Push and notification are two different APIs.
+推送和通知是两种不同的 API。
 
-*   [Push](https://developer.mozilla.org/en-US/docs/Web/API/Push_API) — it is invoked when the server supplies information to a Service Worker.
-*   [Notification](https://developer.mozilla.org/en-US/docs/Web/API/Notifications_API) — this is the action of a Service Worker or a script in a web app that shows information to the user.
+*   [推送](https://developer.mozilla.org/en-US/docs/Web/API/Push_API) — 它在服务器将信息提供人员时被调用。
+*   [通知](https://developer.mozilla.org/en-US/docs/Web/API/Notifications_API) — 这是 Service Worker 或 web 应用程序中向用户显示信息的脚本的操作。
 
-#### Push
+#### 推送
 
-There are three general steps to implementing a push:
+实现推送有三个步骤：
 
-1.  **The UI **— adding the necessary client-side logic to subscribe a user to a push. This is the JavaScript logic that your web app UI needs in order to enable the user to register himself to push messages.
-2.  **Sending the push message** — implementing the API call on your server that triggers a push message to the user’s device.
-3.  **Receiving the push message **— handling the push message once it arrives in the browser.
+1.  **UI** — 添加必要的客户端逻辑来给订阅用户进行推送，这是你的 Web 应用程序 UI 需要的 JavaScript 逻辑，以便用户能够注册自己从而实现推送消息。
+2.  **发送推送消息** — 在服务器上实现 API 调用，该调用将触发对用户设备的推送消息。
+3.  **接受推送消息** — 一旦推送消息到达浏览器，就进行处理。
 
-Now we’ll describe the whole process in more detail.
+现在我们将更详细地描述整个过程。
 
-#### Browser support detection
+#### 浏览器支持检测
 
-First, we need to check if the current browser supports push messaging. We can check if push is supported by two simple checks:
+首先，我们需要检查当前浏览器是否支持推送消息。我们可以检查 push 是否被两个简单的检查支持：
 
-1.  Check for `serviceWorker` on the`navigator` object
-2.  Check for `PushManager` on the`window` object
+1.  检查 `serviceWorker` 对象上的 `navigator`
+2.  检查 `PushManager` 对象上的 `window`
 
-Both checks look like this:
+两个检查都如此：
 
 ```
 if (!('serviceWorker' in navigator)) { 
@@ -70,19 +70,19 @@ if (!('PushManager' in window)) {
 }
 ```
 
-#### Register a Service Worker
+#### 注册一个 Service Worker
 
-At this point, we know that the feature is supported. The next step is to register our Service Worker.
+此时，我们知道改功能是受支持的。下一步是注册我们的 Service Worker。
 
-Registering a Service Worker is something you should [already be familiar with](https://blog.sessionstack.com/how-javascript-works-service-workers-their-life-cycle-and-use-cases-52b19ad98b58) from a previous post of ours.
+Service Worker，你从我们以前的一篇文章中应该[已经熟悉了](https://blog.sessionstack.com/how-javascript-works-service-workers-their-life-cycle-and-use-cases-52b19ad98b58)。
 
-#### Requesting permission
+#### 请求许可
 
-After a Service Worker has been registered, we can proceed with subscribing the user. To do so, we need to get his permission to send him push messages.
+在注册了 Service Worker 之后，我们可以继续订阅用户。要做到这一点，我们需要得到他的许可才能给他发送推送信息。
 
-The API for getting permission is relatively simple, the downside, however, is that the API has [changed from taking a callback to returning a Promise](https://developer.mozilla.org/en-US/docs/Web/API/Notification/requestPermission). This introduces a problem: we can’t tell what version of the API has been implemented by the current browser, so you have to implement and handle both.
+获取权限的 API 相对简单，但缺点是 API 已经[从接受回调变为返回 Promise](https://developer.mozilla.org/en-US/docs/Web/API/Notification/requestPermission)，这带来了一个问题：我们无法判断当前浏览器实现了哪个 API 版本，一次你必须实现和处理这两个版本。
 
-It looks something like this:
+看起来是这样的：
 
 ```
 function requestPermission() {
@@ -104,19 +104,19 @@ function requestPermission() {
 }
 ```
 
-The `Notification.requestPermission()` call will display the following prompt to the user:
+`Notification.requestPermission()` 调用将向用户显示以下提示：
 
 ![](https://cdn-images-1.medium.com/max/800/1*xhB8ceUNM6vb8s0ZQKMHNg.png)
 
-Once the permission has been granted, closed, or blocked, we’ll be given the result as a string: `‘granted’`, `‘default’` or `‘denied’`.
+一旦被授权、关闭或阻止，我们讲得到字符串格式的结果：`‘granted’`、`‘default’` 或 `‘denied’`。
 
-Keep in mind that if the user clicks on the `Block` button, your web app will not be able to ask the user for permission again until they manually “unblock” your app by changing the permission state. This option is buried in the settings panel.
+记住，如果用户单击 `Block` 按钮，你的 Web 应用程序将无法再次请求用户的许可，直到他们通过更改权限状态手动“解除”你的应用程序的阻塞。此选项隐藏在设置界面中。
 
-#### Subscribing a user with PushManager
+#### 用户订阅使用 PushManager
 
-Once we have our Service Worker registered and we’ve got permission, we can subscribe a user by calling `registration.pushManager.subscribe()` when you register your Service Worker.
+一旦我们注册了 Service Worker 并获得许可权限，当你在注册你的 Service Worker 时，我们就可以通过调用 `registration.pushManager.subscribe()` 来订阅用户。
 
-The whole snippet might look like this (including the Service Worker registration):
+整个片段可能如下所示（包括 Service Workder 注册）：
 
 ```
 function subscribeUserToPush() {
@@ -138,28 +138,28 @@ function subscribeUserToPush() {
 }
 ```
 
-The `registration.pushManager.subscribe(options)` takes an _options_ object, which consists of both required and optional parameters:
+`registration.pushManager.subscribe(options)` 接受一个 **options** 对象，它包含必要参数和可选参数：
 
-*   **userVisibleOnly**: A boolean indicating that the returned push subscription will only be used for messages which effect is made visible to the user. It has to be set to `true` otherwise you’ll get an error (there are historical reasons for this).
-*   **applicationServerKey**: A Base64-encoded `DOMString` or `ArrayBuffer` containing a public key that the push server will use to authenticate your application server.
+*   **userVisibleOnly**: 布尔值指示返回的推送订阅将仅用于对用户可见的消息。他必须设置为 `true`，否则你会得到一个错误（这有历史原因）。
+*   **applicationServerKey**：Base64-encoded `DOMString` 或者 `ArrayBuffer` 包含推送服务器用来验证应用服务器的公钥。
 
-Your server needs to generate a pair of **application server keys — **these are also known as VAPID keys, which are unique to your server. They are a pair of a public and a private key. The private key is secretly stored on your end, while the public one gets exchanged with the client. The keys allow a push service to know which application server subscribed a user and ensure that it’s the same server that triggers the push messages to that particular user.
+你的服务器需要生产一对**应用程序服务器密钥 —— **也称为 VAPID 密钥，对于你的服务器来说，它们是唯一的。它们是一对公钥和私钥。私钥被秘密存储在你的终端，而公钥则与客户端交换。这些密钥允许推送服务知道哪个应用服务器订阅了用户，并确保它是触发向该特定用户推送消息的相同服务器。
 
-You need to create the private/public key pair only once for your application. One way of doing it is going to [https://web-push-codelab.glitch.me/](https://web-push-codelab.glitch.me/) .
+你只需要为应用程序创建一次私钥/公钥对。做到这一点的方法是去完成这个 —— [https://web-push-codelab.glitch.me/](https://web-push-codelab.glitch.me/)。
 
-The browser passes the `applicationServerKey` (the public one) onto a push service when subscribing the user, meaning that the push service can tie your application’s public key to the user’s `PushSubscription` .
+浏览器在订阅用户时将 `applicationServerKey`（公共名称）传递给推送服务，这意味着推送服务可以将应用程序的公钥绑定到用户的 `PushSubscription` 中。
 
-This is what happens:
+情况是这样的：
 
-*   Your web app is loaded and you call `subscribe()` , passing your server key.
-*   The browser makes a network request to a push service that will generate an endpoint, associate this endpoint with the key and return the endpoint to the browser.
-*   The browser will add this endpoint to the `PushSubscription` object, which is returned via the `subscribe()` promise.
+*   你的 web app 被加载时，你可以调用 `subscribe()` 来传入你的 server 密钥。
+*   浏览器向生成端点的推送服务发出请求，将此端点与该键关联并将端点返回给浏览器。
+*   浏览器将此端点添加到 `PushSubscription` 对象中，该对象通过 `subscribe()` 的 promise 返回。
 
-Later, whenever you want to send a push message, you’ll need to create an **Authorization header** which contains information signed with your application server’s private key. When the push service receives a request to send a push message, it will validate the header by looking up the public key that it has already linked to that particular endpoint (the second step).
+之后，无论何时你想发送推送消息，你都需要创建一个包含使用应用程序服务器的专用密钥签名信息的 **Authorization header**。当推送服务收到发送推送消息的请求时，它将通过查找已经连接到该特定端点的公钥来验证头（第二步）。
 
-#### The PushSubscription object
+#### 推送对象
 
-A `PushSubscription` contains all the information that is needed to send a push message to the user’s device. This is how it looks like:
+`PushSubscription` 包含用户设备发送推送消息所需的所有信息。就像这样： 
 
 ```
 {
@@ -172,62 +172,62 @@ A `PushSubscription` contains all the information that is needed to send a push 
 }
 ```
 
-The `endpoint` is the push services URL. To trigger a push message, make a POST request to this URL.
+`endpoint` 是推送服务的 URL。要触发推送消息，请对此 URL 发送 POST 请求。
 
-The `keys` object contains the values used to encrypt message data sent with a push message.
+`keys` 对象包含被推送消息加密发送的消息数据值。
 
-Once a user is subscribed and you have a `PushSubscription` you need to send it to your server. There (on the server) you’ll save the subscription to a database and from now on use it to send push messages to that user.
+一旦用户被订阅并且你有 `PushSubscription`，你需要将它发送到你的服务器。在那里（在服务器上），你将保存对数据库的订阅，并从现在开始使用它，向该用户发送推送消息。
 
 ![](https://cdn-images-1.medium.com/max/800/1*hTMGxzZrOmxxIfaQU7nKig.png)
 
-#### **Sending the push message**
+#### **发送推送消息**
 
-When you want to send a push message to your users, the first thing you need is a push service. You’re telling the push service (via API call) what data to send, who to send the message to and any criteria about how to send the message. Normally, this API call is done from your server.
+当你想向用户发送推送消息时，首先需要的是推送服务。你正在告诉推送服务（通过 API 调用）要发送的数据，发送邮件的人以及有关如果发送邮件的任何标准。通常，此 API 调用是从你服务器完成的。 
 
-#### Push Services
+#### 推送服务
 
-A push service is one that receives requests, validates them and delivers the push message to the proper browser.
+推送服务是接收请求，验证它们并将推送消息传递给对应的浏览器服务。
 
-Note that the push service is not managed by you — it’s a third-party service. Your server is the one that communicates with the push service through an API. An example of a push service is [Google’s FCM](https://firebase.google.com/docs/cloud-messaging/).
+注意推送服务不是有你管理的 — 它是第三方服务。你的服务器是通过 API 与 推送服务通信的服务器完成的。推送服务的一个例子是 [Google’s FCM](https://firebase.google.com/docs/cloud-messaging/)。
 
-The push service handles all the heavy lifting. For example, if the browser is offline, the push service will queue up messages and wait until the browser goes online again, before sending the respective message.
+推送服务处理所有繁重的任务，比如，如果浏览器处于脱机状态，推送服务会在发送相应消息之前对消息进行排队，等待浏览器的再次联机。
 
-Each browser can use any push service they want and this is something that’s beyond the control of the developer.
+每个浏览器都使用它们想要的任何推送服务，这是开发者无法控制的。
 
-All push services, however, have the same APIs so this doesn’t create implementation difficulties.
+然而所有的推送服务都具有相同的 API，因此在实现过程中不会有很大难度。
 
-In order to get the URL which will handle the requests for your push messages, you need to check the stored value of `endpoint` in the `PushSubscription` object.
+为了获得将处理推送消息请求的 URL，你需要检查 `PushSubscription` 对象中存储的 `endpoint` 值。
 
-#### Push Service API
+#### 推送服务 API
 
-The Push Service API provides a way to send messages to a user. The API is the [Web Push Protocol](https://tools.ietf.org/html/draft-ietf-webpush-protocol-12) which is an IETF standard that defines how you make an API call to a push service.
+推送服务 API 提供了一种将消息发送给用户的方式。API 是 [Web 推送协议](https://tools.ietf.org/html/draft-ietf-webpush-protocol-12)，它是一种定义了如何对推送服务进行 API 调用的 IETF 标准。
 
-The data you send with a push message must be encrypted. This way, you prevent push services from being able to view the data sent. This is important because the browser is the one that decides which push service to use (and it might be using some push service that is untrusted and not secure enough).
+你使用推送消息发送的数据必须被加密。这样可以防止推送服务查看发送的数据。这很重要，因为浏览器是可以决定使用哪种推送服务的（它可能使用了一些不受信任且不够安全的服务器）。
 
-For each push message, you can also give the following instructions:
+对于每个推送消息，你还可以提供下列说明：
 
-*   **TTL** — defines for how long a message should be queued before it’s removed and not delivered.
-*   **Priority** — defines the priority of each message which will let the push service send only the high priority ones in case the user device’s battery life has to be preserved.
-*   **Topic** — gives a push message a topic name which will replace pending messages with the same topic so that once the device is active, the user won’t receive outdated information.
+*   **TTL** — 定义消息在被删除和未传递之前应排队的时长。
+*   **优先级** — 定义消息的优先级，因为推送服务只发送高优先级的消息，以此来保护用户设备的电池寿命。
+*   **Topic** — 给出推送消息一个用于替换相同主题的发送消息的主题名，这样一旦设备处于活动状态，用户将不会收到过时的消息。
 
 ![](https://cdn-images-1.medium.com/max/800/1*PgclyCPqxWc1rENfAOesag.png)
 
-#### Push event in the browser
+#### 浏览器中的推送事件
 
-Once you send the message to the push service as explained above, the message will be in a pending state until one of the following happens:
+如上所述，将消息发送到推送服务后，消息将处于挂机状态，直到发生下列情况之一：
 
-*   The device comes online.
-*   The message expires on the queue due to the TTL.
+*   设备上线。
+*   消息由于 TTL 而在队列上过期。
 
-When the push service delivers a message, the browser will receive it, decrypt it and dispatch a `push` event in your Service Worker.
+当推送服务传递消息时，浏览器会接收它，解密并在 Service Worker 中分发一个 `push` 事件。
 
-The great thing here is that the browser can execute your Service Worker even when your web page is not open. The following takes place:
+这里最好的是，即使是你的网页没有打开，浏览器也可以执行你的 Service Worker。进行了下列活动：
 
-*   The push message arrives to the browser which decrypts it
-*   The browser wakes up the Service Worker
-*   A `push` event is dispatched to the Service Worker
+*   推送消息到达解密它的浏览器
+*   浏览器唤醒 Service Worker
+*   `push` 事件被分发给 Service Worker
 
-The code for setting up a push event listener should be pretty similar to any other event listener you’d write in JavaScript:
+设置推送事件监听器的代码应该与用 JavaScript 编写的任何其他事件监听器类似：
 
 ```
 self.addEventListener('push', function(event) {
@@ -239,11 +239,11 @@ self.addEventListener('push', function(event) {
 });
 ```
 
-One of the things to understand about Service Workers is that you have little control over the time the service worker code is going to run. The browser decides when to wake it up and when to terminate it.
+需要了解服务工作者的一件事是，你没有服务工作者代码运行时长的控制权。浏览器决定何时将其唤醒以及何时终止它。
 
-In Service Workers, `event.waitUntil(promise)` tells the browser that work is ongoing until the promise settles, and it shouldn't terminate the service worker if it wants that work to complete.
+在 Service Workers 中，`event.waitUntil(promise)` 通知浏览器工作正在进行，知道 promise 确定为止，如果它想要完成该工作，它不应该终止 sercice worker。
 
-Here is an example of handling the `push` event:
+这里是处理 `push` 事件的例子：
 
 ```
 self.addEventListener('push', function(event) {
@@ -253,9 +253,9 @@ self.addEventListener('push', function(event) {
 });
 ```
 
-Calling `self.registration.showNotification()` displays a notification to the user and it returns a promise that will resolve once the notification has been displayed.
+调用 `self.registration.showNotification()` 会向用户发送一个通知，并返回一旦显示通知就会解析的 promise。
 
-The `showNotification(title, options)` method can be visually tweaked to fit your needs. The `title` parameter is a `string` while options is an object that looks like this:
+`showNotification(title, options)` 方法可以在视觉上进行调整以适应你的需求。`title` 参数是一个 `string`，而 options 是一个看起来像这样的对象：
 
 ```
 {
@@ -283,19 +283,19 @@ The `showNotification(title, options)` method can be visually tweaked to fit you
 }
 ```
 
-You can read in more detail what each option does here — [https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration/showNotification](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration/showNotification).
+你可以在这里阅读到每个选项内容的更多细节 — [https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration/showNotification](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration/showNotification).
 
-Push notifications can be a great way of getting your users’ attention whenever there is urgent, important and time-sensitive information that you’d like to share with them.
+推送通知是一种可以在有紧急、重要和时间敏感的信息需要与用户进行分享的情况下，吸引用户注意的绝好方式。
 
-We at SessionStack for example, plan to utilize push notifications to let our users know when there is a crash, issue or anomaly in their product. This will let our users know immediately there is something wrong going on. Then, they can replay the issue as a video and see everything that happened to their end-user by leveraging the data that was collected by our library such as DOM changes, user interactions, network requests, unhandled exceptions and debug messages.
+例如我们以 SessionStack 为例， 计划利用推送通知来提醒用户，让他们知道自己的产品中何时发生崩溃、问题或异常。这会让用户立即知道出现的问题。然后他们可以利用我们的库所收集的数据（如 DOM 修改、用户交互、网络请求、未处理异常和调试信息），以视频的形式重现问题并查看最终发生在用户身上的一切事情。
 
-Not only will this feature help our users understand and reproduce any issue but it will also enable customers to get alerted as soon as it happens.
+这个特性不仅可以帮助客户理解和重现任何问题，而且还可以在发生问题的第一时间通知客户。
 
-There is a free plan if you’d like to [give SessionStack a try](https://www.sessionstack.com/?utm_source=medium&utm_medium=source&utm_content=javascript-series-web-workers-try-now).
+如果你想[尝试 SessionStack](https://www.sessionstack.com/?utm_source=medium&utm_medium=source&utm_content=javascript-series-web-workers-try-now),这里有一个免费的计划。
 
 ![](https://cdn-images-1.medium.com/max/800/1*YKYHB1gwcVKDgZtAEnJjMg.png)
 
-#### Resources
+#### 资源
 
 *   [https://developers.google.com/web/fundamentals/push-notifications/](https://developers.google.com/web/fundamentals/push-notifications/)
 *   [https://developers.google.com/web/fundamentals/push-notifications/how-push-works](https://developers.google.com/web/fundamentals/push-notifications/how-push-works)
