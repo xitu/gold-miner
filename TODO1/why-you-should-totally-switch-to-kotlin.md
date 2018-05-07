@@ -2,36 +2,36 @@
 > * 原文作者：[Magnus Vinther](https://medium.com/@magnus.chatt?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/why-you-should-totally-switch-to-kotlin.md](https://github.com/xitu/gold-miner/blob/master/TODO1/why-you-should-totally-switch-to-kotlin.md)
-> * 译者：
-> * 校对者：
+> * 译者：[ALVINYEH](https://github.com/ALVINYEH)
+> * 校对者：[Starrier](https://github.com/Starriers)、[Sergey Cheung](https://github.com/SergeyChang)
 
-# Why you should totally switch to Kotlin
+# 为什么你应该开始使用 Kotlin
 
-## It’s time to start using a modern programming language
+## 是时候开始用现代编程语言了
 
 ![](https://cdn-images-1.medium.com/max/2000/1*59fOg88eGylkhsOLZAqM-w.jpeg)
 
-I want to tell you about a **new programming language** called **Kotlin** and why you should consider it for your next project. I used to prefer Java but the last year I’ve found myself coding Kotlin whenever I could, and at this point I really can’t think of a situation where Java would be a better choice.
+我想要告诉你一种**新的编程语言**，叫做 **Kotlin**，以及为什么你应该考虑在下一个项目中使用它。在过去的时候，我更喜欢 Java，但是去年我发现自己无论何时都可以用 Kotlin 编写代码。此时，我真的想不出哪种情况下 Java 会是更好的选择。
 
-It’s developed by [**JetBrains**](https://www.jetbrains.com/), and the fact that these are the people behind a suite of [IDEs](https://www.jetbrains.com/products.html?fromMenu#type=ide), such as **IntelliJ** and **ReSharper**,really shines through in Kotlin. It’s **pragmatic** and **concise**, and makes coding a satisfying and efficient experience.
+它是由 [**JetBrains**](https://www.jetbrains.com/) 公司开发的, 而这些人是 **IntelliJ** 和 **ReSharper** 等 [IDEs](https://www.jetbrains.com/products.html?fromMenu#type=ide) 系列产品的幕后人物，Kotlin 确实很受欢迎。它的**实用性**和**简洁性**，让编码成为一种令人满意且高效的体验。
 
-Although Kotlin compiles to both [**JavaScript**](https://kotlinlang.org/docs/tutorials/javascript/kotlin-to-javascript/kotlin-to-javascript.html) and soon [**machine code**](https://blog.jetbrains.com/kotlin/2017/04/kotlinnative-tech-preview-kotlin-without-a-vm/), I’ll focus on its prime environment, the **JVM**.
+虽然 Kotlin 能编译为 [**JavaScript**](https://kotlinlang.org/docs/tutorials/javascript/kotlin-to-javascript/kotlin-to-javascript.html) 并很快编译成[**机器代码**](https://blog.jetbrains.com/kotlin/2017/04/kotlinnative-tech-preview-kotlin-without-a-vm/)，但是我将重点介绍它的主要环境，**JVM**。
 
-So here’s a couple of reasons why you should totally switch to Kotlin (in no particular order):
+因此，这里有一些原因可以解释为什么你应开始使用 Kotlin 语言（排名不分先后）：
 
-#### 0# [Java Interoperability](https://kotlinlang.org/docs/reference/java-interop.html)
+#### 0# [Java 互操作性](https://kotlinlang.org/docs/reference/java-interop.html)
 
-Kotlinis **100% interoperable with Java**. You can literally continue work on your old Java projects using Kotlin. All your favorite **Java frameworks are still available**, and whatever framework you’ll write in Kotlin is easily adopted by your stubborn Java loving friend.
+Kotlin 与 **Java 是 100% 可互操作的**。你可以使用 Kotlin 继续你之前的 Java 项目。所有你喜欢的 **Java 框架仍然可以用**，你用 Kotlin 编写的任何框架都都可以被你偏爱 Java 的朋友所使用。 
 
-#### **1#** [**Familiar Syntax**](https://kotlinlang.org/docs/reference/basic-syntax.html)
+#### **1#** [**熟悉的语法**](https://kotlinlang.org/docs/reference/basic-syntax.html)
 
-Kotlin isn’t some weird language born in academia. Its syntax is familiar to any programmer coming from the [OOP](https://en.wikipedia.org/wiki/Object-oriented_programming) domain, and can be more or less understood from the get go. There are of course _some_ differences from Java such as the reworked constructors or the `val` `var` variable declarations. The snippet below presents most of the basics:
+Kotlin 并不是诞生于学术界中的一种奇怪的语言。它的语法对于任何来自 [OOP](https://en.wikipedia.org/wiki/Object-oriented_programming) 领域的程序员来说都不陌生，并且从一开始就能或多或少地理解。当然，Java也有**一些**不同之处，比如重写构造函数或者是 `val` 、 `var` 变量的声明。下面的代码介绍了大部分基础知识：
 
 ```
 class Foo {
 
-    val b: String = "b"     // val means unmodifiable
-    var i: Int = 0          // var means modifiable
+    val b: String = "b"     // 用 val 声明的变量值意味着不可修改
+    var i: Int = 0          // 用 var 声明的变量值则可修改
 
     fun hello() {
         val str = "Hello"
@@ -47,9 +47,9 @@ class Foo {
 }
 ```
 
-#### **2#** [**String Interpolation**](https://kotlinlang.org/docs/reference/basic-types.html#string-templates)
+#### **2#** [**字符串插值**](https://kotlinlang.org/docs/reference/basic-types.html#string-templates)
 
-It’s as if a smarter and more readable version of Java’s `String.format()` was built into the language:
+这就像 Java 的 `String.format()` 的一个更智能、可读性更好的版本被构建到了语言中：
 
 ```
 val x = 4
@@ -57,43 +57,43 @@ val y = 7
 print("sum of $x and $y is ${x + y}")  // sum of 4 and 7 is 11
 ```
 
-#### 3# [Type Inference](https://kotlinlang.org/docs/reference/properties.html)
+#### 3# [类型推断](https://kotlinlang.org/docs/reference/properties.html)
 
-Kotlin will infer your types wherever you feel it will improve readability:
+Kotlin 会在你需要的时候推断出类型，这有效地提高可读性：
 
 ```
-val a = "abc"                         // type inferred to String
-val b = 4                             // type inferred to Int
+val a = "abc"                         // 推断为 String 类型
+val b = 4                             // 推断为 Int 类型
 
-val c: Double = 0.7                   // type declared explicitly
-val d: List<String> = ArrayList()     // type declared explicitly
+val c: Double = 0.7                   // 显式声明类型
+val d: List<String> = ArrayList()     // 显式声明类型
 ```
 
-#### 4# [Smart Casts](https://kotlinlang.org/docs/reference/typecasts.html)
+#### 4# [智能转换](https://kotlinlang.org/docs/reference/typecasts.html)
 
-The Kotlin compiler tracks your logic and **auto-casts types if possible**, which means no more `instanceof`checks followed by explicit casts:
+如果可能的话，Kotlin 的编译器会跟踪你的逻辑并且**自动转换类型**，这意味少了许多的 `instanceof` 检查和显式转换：
 
 ```
 if (obj is String) {
-    print(obj.toUpperCase())     // obj is now known to be a String
+    print(obj.toUpperCase())     // obj 现在被认为是 String 类型。
 }
 ```
 
 #### 5# [Intuitive Equals](https://kotlinlang.org/docs/reference/equality.html)
 
-You can stop calling `equals()` explicitly, because the `==` operator now checks for structural equality:
+你可以不再显示调用 `equals()` 方法，因为 `==` 操作符现在会检查表达式结构是否相同:
 
 ```
 val john1 = Person("John")
 val john2 = Person("John")
 
-john1 == john2    // true  (structural equality)
-john1 === john2   // false (referential equality)
+john1 == john2    // true （结构相同)
+john1 === john2   // false （引用相等）
 ```
 
-#### 6# [Default Arguments](https://kotlinlang.org/docs/reference/functions.html#default-arguments)
+#### 6# [默认参数](https://kotlinlang.org/docs/reference/functions.html#default-arguments)
 
-No need to define several similar methods with varying arguments:
+没有必要用不同的参数定义几种类似的方法：
 
 ```
 fun build(title: String, width: Int = 800, height: Int = 600) {
@@ -101,19 +101,19 @@ fun build(title: String, width: Int = 800, height: Int = 600) {
 }
 ```
 
-#### 7# [Named Arguments](https://kotlinlang.org/docs/reference/functions.html#named-arguments)
+#### 7# [命名参数](https://kotlinlang.org/docs/reference/functions.html#named-arguments)
 
-Combined with default arguments, named arguments eliminates the need for [builders](https://en.wikipedia.org/wiki/Builder_pattern):
+结合默认的参数，命名参数消除了对[builders](https://en.wikipedia.org/wiki/Builder_pattern)的需求：
 
 ```
-build("PacMan", 400, 300)                           // equivalent
-build(title = "PacMan", width = 400, height = 300)  // equivalent
-build(width = 400, height = 300, title = "PacMan")  // equivalent
+build("PacMan", 400, 300)                           // 等效
+build(title = "PacMan", width = 400, height = 300)  // 等效
+build(width = 400, height = 300, title = "PacMan")  // 等效
 ```
 
-#### 8# [The When Expression](https://kotlinlang.org/docs/reference/control-flow.html#when-expression)
+#### 8# [When 表达式](https://kotlinlang.org/docs/reference/control-flow.html#when-expression)
 
-The switch case is replaced with the much more readable and flexible _when_ expression:
+用可读性和灵活性更好的 when 表达式来取代 switch case 表达式：
 
 ```
 when (x) {
@@ -125,7 +125,7 @@ when (x) {
 }
 ```
 
-It works both as an expression or a statement, and with or without an argument:
+它既可以在表达式或语句，也可以带参数或者无参使用：
 
 ```
 val res: Boolean = when {
@@ -135,9 +135,9 @@ val res: Boolean = when {
 }
 ```
 
-#### **9#** [**Properties**](https://kotlinlang.org/docs/reference/properties.html#getters-and-setters)
+#### **9#** [**属性**](https://kotlinlang.org/docs/reference/properties.html#getters-and-setters)
 
-Custom set & get behavior can be added to public fields, which means we can stop bloating our code with mindless [getters & setters](http://stackoverflow.com/questions/1568091/why-use-getters-and-setters).
+自定义 setter 和 getter 方法会被添加到 public 作用域中，这意味着我们可以避免无意之间使用 [get 和 set 行为]使得代码变得臃肿。 
 
 ```
 class Frame {
@@ -149,9 +149,9 @@ class Frame {
 }
 ```
 
-#### **10#** [**The Data Class**](https://kotlinlang.org/docs/reference/data-classes.html)
+#### **10#** [**数据类**](https://kotlinlang.org/docs/reference/data-classes.html)
 
-It’s a POJO complete with `toString()`, `equals()`, `hashCode()`, and `copy()`, and unlike in Java it won’t take up 100 lines of code:
+它是一个带有 `toString()`、`equals()`、`hashCode()` 和 `copy()` 方法的 POJO，与 Java 不同，它不会占用 100 行代码：
 
 ```
 data class Person(val name: String,
@@ -161,9 +161,9 @@ data class Person(val name: String,
 val john = Person("John", "john@gmail.com", 112)
 ```
 
-#### 11# [Operator Overloading](https://kotlinlang.org/docs/reference/operator-overloading.html)
+#### 11# [运算符重载](https://kotlinlang.org/docs/reference/operator-overloading.html)
 
-A predefined set of operators can be overloaded to improve readability:
+预定义的操作符集可以被重载以提高可读性：
 
 ```
 data class Vec(val x: Float, val y: Float) {
@@ -173,9 +173,9 @@ data class Vec(val x: Float, val y: Float) {
 val v = Vec(2f, 3f) + Vec(4f, 1f)
 ```
 
-#### 12# [Destructuring Declarations](https://kotlinlang.org/docs/reference/multi-declarations.html)
+#### 12# [解构声明](https://kotlinlang.org/docs/reference/multi-declarations.html)
 
-Some objects can be destructured, which is for example useful for iterating maps:
+有些对象是可以被解构的，但这对于迭代 maps 是很有用的：
 
 ```
 for ((key, value) in map) {
@@ -184,9 +184,9 @@ for ((key, value) in map) {
 }
 ```
 
-#### 13# [Ranges](https://kotlinlang.org/docs/reference/ranges.html)
+#### 13# [范围](https://kotlinlang.org/docs/reference/ranges.html)
 
-For readability’s sake:
+为了可读性：
 
 ```
 for (i in 1..100) { ... } 
@@ -196,11 +196,11 @@ for (i in 10 downTo 1) { ... }
 if (x in 1..10) { ... }
 ```
 
-#### **14#** [**Extension Functions**](https://kotlinlang.org/docs/reference/extensions.html)
+#### **14#** [**扩展函数**](https://kotlinlang.org/docs/reference/extensions.html)
 
-Remember the first time you had to sort a `List` in Java? You couldn’t find a `sort()`function so you had to ask either your tutor or google to learn of `Collections.sort()`. And later when you had to capitalize a `String`, you ended up writing your own helper function because you didn’t know of `StringUtils.capitalize()`.
+还记得你第一次在 Java 中对 `List` 进行排序吗？你找不到一个 `sort()` 函数，所以你必须去问你的导师或者在谷歌上学习使用 `Collections.sort()`。 后来当你必须要用 `String` 字符串的时候，你自己编写了一个辅助函数，因为你不知道可以用 `StringUtils.capitalize()`。
 
-If only there was a way to add new functions to old classes; that way your IDE could help you find the right function in code-completion. In Kotlin you can do exactly that:
+如果仅有一种方法可以将新的函数添加到旧的类中，那就是你的 IDE 代码补全的功能以帮助你在找到正确的函数。在 Kotlin，你完全可以这样做：
 
 ```
 fun String.replaceSpaces(): String {
@@ -210,7 +210,7 @@ fun String.replaceSpaces(): String {
 val formatted = str.replaceSpaces()
 ```
 
-The standard library extends the functionality of Java’s original types, which was especially needed for `String`:
+标准库扩展了 Java 的原有类型，`String` 尤其需要：
 
 ```
 str.removeSuffix(".txt")
@@ -219,67 +219,67 @@ str.substringAfterLast("/")
 str.replaceAfter(":", "classified")
 ```
 
-#### **15#** [**Null Safety**](https://kotlinlang.org/docs/reference/null-safety.html)
+#### **15#** [**Null 安全性**](https://kotlinlang.org/docs/reference/null-safety.html)
 
-Java is what we should call an _almost_ statically typed language. In it, a variable of type `String` is not _guaranteed_ to refer to a `String`— it might refer to `null`. Even though we are used to this, it negates the safety of static type checking, and as a result Java developers have to live in constant fear of [NPEs](http://stackoverflow.com/questions/218384/what-is-a-nullpointerexception-and-how-do-i-fix-it).
+我们应该称 Java 为一种**几乎**静态类型的语言。其中，`String` 类型的变量不**保证**指向的类型就是 `String` —— 它可能指向了 `null`。尽管我们已经习惯了这一点，但它却否定了静态类型检查的安全性。其结果是 Java 开发者不得不长期生活在对[空指针异常](http://stackoverflow.com/questions/218384/what-is-a-nullpointerexception-and-how-do-i-fix-it) 的恐惧中。 
 
-Kotlin resolves this by distinguishing between **non-null types** and **nullable types**. Types are non-null by default, and can be made nullable by adding a `?`like so:
+通过区分**非空类型**和**可空类型**，Kotlin 解决了这个问题。在默认的情况下，类型是非空的，可以像这样通过添加 `?` 使变量为空：
 
 ```
 var a: String = "abc"
-a = null                // compile error
+a = null                // 编译失败
 
 var b: String? = "xyz"
-b = null                // no problem
+b = null                // 编译成功
 ```
 
-Kotlin forces you to guard against NPEs whenever you access a nullable type:
+无论何时你访问一个非空类型的变量时，Kotlin 会强制你去防止空指针异常的情况发生：
 
 ```
-val x = b.length        // compile error: b might be null
+val x = b.length        // 编译错误：变量 b 可能为空
 ```
 
-And while this might seem cumbersome, it’s really a breeze thanks to a few of its features. We still have smart casts, which casts nullable types to non-null wherever possible:
+虽然这看起来很麻烦，但是多亏了它的一些特性，这变得轻而易举。我们仍然可以智能转换，在任何可能的情况下，将可空类型的变量转换为非空类型：
 
 ```
 if (b == null) return
-val x = b.length        // no problem
+val x = b.length        // 没有问题
 ```
 
-We could also use a safe call `?.`, which evaluates to null instead of throwing a NPE:
+我们也可以使用一个安全的 `?.` 字符来估算一下变量是否为空，而不是抛出一个空指针的异常：
 
 ```
-val x = b?.length       // type of x is nullable Int
+val x = b?.length       // 变量 x 的类型是可空的 Int 类型
 ```
 
-Safe calls can be chained together to avoid those nested if-not-null checks we sometimes write in other languages, and if we want a default value other than `null` we can use the elvis operator `?:`:
+安全调用也可以连着一起调用，以避免我们有时用其他语言编写的嵌套的 if-not-null 检查。如果我们想要一个除了 `null` 之外的默认值，我们可以用 elvis 运算符 `?:`：
 
 ```
 val name = ship?.captain?.name ?: "unknown"
 ```
 
-If none of that works for you, and you absolutely need a NPE, you will have to ask for it explicitly:
+如果这些对你来说不管用，而你又需要一个空指针异常，那么你必须显示声明：
 
 ```
-val x = b?.length ?: throw NullPointerException()  // same as below
-val x = b!!.length                                 // same as above
+val x = b?.length ?: throw NullPointerException()  // 下同
+val x = b!!.length                                 // 上同
 ```
 
-#### **16#** [**Better Lambdas**](https://kotlinlang.org/docs/reference/lambdas.html)
+#### **16#** [**更好的 Lambdas**](https://kotlinlang.org/docs/reference/lambdas.html)
 
-Oh boy, is this a good lambda system — perfectly balanced between readability and terseness, thanks to some clever design choices. The syntax is first of all straight forward:
+噢，兄弟，这是一个良好的 lambada 系统 —— 多亏了一些聪明的设计选择，让它在可读性和简洁性之间完美的平衡。语法首先是直截了当的：
 
 ```
 val sum = { x: Int, y: Int -> x + y }   // type: (Int, Int) -> Int
 val res = sum(4,7)                      // res == 11
 ```
 
-And here come the clever bits:
+接下来是精彩的部分：
 
-1.  Method parentheses can be moved or omitted if the lambda is the last or the only argument of a method.
-2.  If we choose not to declare the argument of a single-argument-lambda it’ll be implicitly declared under the name `it`.
+1.  如果 lambda 是方法的最后或唯一的参数，则可以移动或省略括号。
+2.  如果我们不声明单参数 lamda 的参数，它将隐式声明为 `it`.
 
-These facts combined makes the following three lines equivalent:
+这些实例放在一起，让以下三行代码作用相同：
 
 ```
 numbers.filter({ x -> x.isPrime() })
@@ -287,7 +287,7 @@ numbers.filter { x -> x.isPrime() }
 numbers.filter { it.isPrime() }
 ```
 
-And this allows us to write concise functional code — just look at this beauty:
+这让我们能够写出简洁的函数代码 —— 看看它的美：
 
 ```
 persons
@@ -297,7 +297,7 @@ persons
     .forEach { print(it) }
 ```
 
-Kotlin’s lambda system combined with extension functions makes it ideal for [DSL](https://en.wikipedia.org/wiki/Domain-specific_language) creation. Check out [Anko](https://github.com/Kotlin/anko) for an example of a DSL that aims to enhance Android development:
+Kotlin 的 lambda 系统结合扩展函数，使其成为 [DSL](https://en.wikipedia.org/wiki/Domain-specific_language) 创建的理想选择。看看 [Anko](https://github.com/Kotlin/anko) 的一个 DSL 实例，它旨在提高 Android 开发：
 
 ```
 verticalLayout {
@@ -316,19 +316,19 @@ verticalLayout {
 }
 ```
 
-#### 17# [IDE Support](https://kotlinlang.org/docs/tutorials/getting-started.html)
+#### 17# [IDE 支持](https://kotlinlang.org/docs/tutorials/getting-started.html)
 
-You have a number of options if you intend to get started with Kotlin, but I highly recommend using **IntelliJ** which **comes bundled with Kotlin**—its features demonstrate the advantage of having the same people design both language and IDE.
+如果你打算开始使用 Kotlin，你有很多可以选择的环境，但是我强烈推荐使用与 **Kotlin 捆绑在一起**的 **IntelliJ**，因为它的功能证明了让相同的人同时设计语言和 IDE 的优点。
 
-Just to give you a minor but clever example, this thing popped up when I first tried to copy-paste some Java code from Stack Overflow:
+给你一个虽小但聪明的例子，当我第一次尝试从 Stack Overflow 复制一些 Java 代码时，这个窗口就自动弹出来了：
 
 ![](https://cdn-images-1.medium.com/max/800/1*zpE0UpuBDGW7Mk-Vtx2uKw.png)
 
-IntelliJ will notice if you paste Java code into a Kotlin file
+如果你将 Java 代码粘贴到 Kotlin 的文件中，IntelliJ 是会注意到的。
 
 * * *
 
-And that’s all for now. Thank you for reading! This is my first ever medium post. If you are not yet convinced about Kotlin here is some more convincing:
+现在就这些了。谢谢你的阅读！这是我第一次在 Medium 上发帖。如果你还不能相信 Kotlin，这里有一些更有说服力的文章：
 
 *   [**Kotlin on Android. Now official**](https://blog.jetbrains.com/kotlin/2017/05/kotlin-on-android-now-official/)
 *   [**Why Kotlin is my next programming language**](https://medium.com/@octskyward/why-kotlin-is-my-next-programming-language-c25c001e26e3)

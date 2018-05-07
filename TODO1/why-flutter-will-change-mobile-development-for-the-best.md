@@ -2,49 +2,49 @@
 > * 原文作者：[Aaron Oertel](https://android.jlelse.eu/@aaronoe?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/why-flutter-will-change-mobile-development-for-the-best.md](https://github.com/xitu/gold-miner/blob/master/TODO1/why-flutter-will-change-mobile-development-for-the-best.md)
-> * 译者：
-> * 校对者：
+> * 译者：[ALVINYEH](https://github.com/ALVINYEH)
+> * 校对者：[Starrier](https://github.com/Starriers)、[jellycsc](https://github.com/jellycsc)
 
-# Why Flutter Will Change Mobile Development for the Best
+# 为什么 Flutter 能最好地改变移动开发
 
-If you’re an Android developer, you may have heard of Flutter. It’s a relatively new, supposedly simple framework designed for making cross-platform native apps. It’s not the first of its kind, but it’s being used by Google, giving its claims some credence. Despite my initial reservations upon hearing about it, I decided on a whim to give it a chance — and it dramatically changed my outlook on mobile development within a weekend. Here is what I learned.
+如果你是一个 Android 开发者，那么你应该听说过 Flutter。这是一个相对来说比较新的，用于制作跨平台原生应用的简单框架。这不是同类产品中的第一款，但它正被谷歌使用，这让它有了一定的可信度。尽管我一开始听到这个框架的时候对此有所保留，但我还是心血来潮地决定给它一个机会 —— 这在一周内极大地改变了我对移动开发的看法。以下是我学到的。
 
 ![](https://cdn-images-1.medium.com/max/1000/0*sKxcvPKWwr0G3FYg.)
 
-“Hummingbird with a long beak flies through the air” by [Randall Ruiz](https://unsplash.com/@ruizra?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral).
+“长喙蜂鸟在空中飞翔”，摄影者：来自 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral) 的 [Randall Ruiz](https://unsplash.com/@ruizra?utm_source=medium&utm_medium=referral)。
 
-Before we get started, let me add a short disclaimer. The app I wrote and will be referencing in this article is relatively basic and **does not** contain a lot of business logic. It’s nothing fancy, but I wanted to share my experience and learnings from porting an existing native Android App to Flutter, and this is the best example I can use to do so. Neither app makes any efforts in terms of architecture; it’s purely about development experience and using the frameworks as they are.
-
-* * *
-
-Exactly one year ago, I published my first Android App in the [Play Store](https://play.google.com/store/apps/details?id=de.aaronoe.cinematic&hl=en). The app ([Github](https://github.com/aaronoe/Cinematic)) is pretty basic in terms of architecture and coding conventions; it was my first big open source project, which shows, and I’ve since come a long way with Android. I work at an agency, and spend time on quite a few projects with different technologies and architectures, including Kotlin, Dagger, RxJava, MVP, MVVM, VIPER and others, which has really helped my Android development.
-
-That being said, over the past few months, I’ve been getting frustrated with the Android framework, especially regarding incompatibility and how counter intuitive it is to build apps in general. Don’t even get me started on build times… (I’d recommend [this article](https://medium.com/@steve.yegge/who-will-steal-android-from-google-af3622b6252e), which digs into more details) and while things have gotten a lot better with Kotlin and tools like Databinding, the whole situation still just feels like putting a band-aid on a wound that’s too big to be healed. Enter Flutter.
+在我们开始之前，让我增加一个简短的免责声明。我在这篇文章中编写的和将要引用的应用程序是相对基础的，并且**不会**包含大量的商业逻辑。这虽然没什么特别的，但是我想把我从原生 Android 应用移植到 Flutter 中学到的知识和经验分享给大家，这也是我最好的例子。该应用没有在优化架构方面作出任何努力，这纯粹是为了体验开发和使用框架本身。
 
 * * *
 
-I began using Flutter a few weeks ago when it entered beta. I looked at the official documentation (which is great, by the way) and started going through the code labs and how-to guides. Quickly, I began to understand the basic ideas behind Flutter, and decided to try it out myself and see if I could put it into use. I started thinking about what kind of project I should work on first, and I decided to recreate my first Android app. This seemed like an appropriate choice as it would allow me to compare both “first-efforts” with the two respective frameworks, while not paying too much attention to app architecture, etc. It was purely about getting to know the SDKs by building a defined set of features.
+整整一年前，我在 [Play Store](https://play.google.com/store/apps/details?id=de.aaronoe.cinematic&hl=en) 上发布了我的第一个 Android 应用。这个应用 ([Github](https://github.com/aaronoe/Cinematic)) 在架构和编码规范方面都非常基础。这是我的第一个大型开源项目，这表明，我从事 Android 应用开发已经很久了。我在一家代理公司工作，平时会花时间在一些有着不同技术和架构的项目上，包括 Kotlin、Dagger、RxJava、MVP、MVVM、VIPER 等等，这些都很大程度上提高了我的 Android 开发能力。
 
-I started by creating the network requests, parsing the JSON and getting used to Dart’s single-threaded concurrency model (which could be the topic of a whole other post on its own). I got up and running with some movie data in my app, and then started creating the layouts for the list and the list items. Creating layouts in Flutter is as easy as extending the Stateless or Stateful Widget classes and overriding a few methods. I’ll compare the differences in building those features between Flutter and Android. Let’s start with the steps required to build this list in Android:
-
-1.  Create list-item layout files in XML
-2.  Create an adapter to inflate the item-views and set the data
-3.  Create the layout for the list (probably in an Activity or Fragment)
-4.  Inflate that list layout in the Fragment/Activity
-5.  Create instances of the adapter, layout-manager etc. in the Fragment/Activity
-6.  Download the movie data from the network on a background thread
-7.  Back on the main-thread set the items in the adapter
-8.  Now we need to think about details like saving and restoring list-state…
-9.  … the list goes on and on and on
-
-This is, of course, tedious. And if you think about the fact that building these features is a fairly common task — seriously, it’s not some particularly rare use case that you’re unlikely to ever run into — you might find yourself wondering: is there really no better way to do it? A less error-prone way, maybe one that involves less boilerplate code, and increases development velocity? This is where Flutter comes in.
+话虽这么说，在过去的几个月里，我一直对 Android 框架非常失望，尤其是其兼容性差，在开发应用时经常会发现它违反直觉的地方。更别提编译构建的时间了……（我推荐你读一下[这篇文章](https://medium.com/@steve.yegge/who-will-steal-android-from-google-af3622b6252e)，其中有更深入的细节分析），尽管 Kotlin 和类似 Databinding 这样的工具能让问题有所改善，但整个情况还是感觉在一个太大而无法愈合的伤口上贴创可贴。下面开始了解 Flutter。
 
 * * *
 
-You can think of Flutter as the result of years of lessons that have been learned on mobile app development, state management, app architecture, and so on, which is why it’s so similar to React.js. Doing things the Flutter way just makes sense once you get started. Let’s look at how we can implement the above example in Flutter:
+几个星期前，当 Flutter 进入 beta 测试版的时候，我就开始使用它了。我看了一下官方文档（顺便一提，写的很棒），然后开始浏览代码实验室和指南。我开始逐渐理解 Flutter 背后的基本理念，并决定自己试一试，看能不能把它付诸于实践。我开始思考我应该先做一个什么样的项目，我决定重写我的第一个 Andriod 项目。这似乎是一个恰当的选择，因为这能让我将同样的“第一次的努力”在两个对应的框架下进行比较，而同时对应用架构等等的方面不作太多关注。它纯粹是通过开发一组定义好的功能特性来了解 SDK。
 
-1.  Create a stateless widget (stateless, because we just have static properties) for the movie item, which takes as it’s constructor parameter a movie (as a Dart class for example) and describes the layout in a declarative way while binding the movie’s values (name, release date etc.) to the widgets
-2.  Create a widget for the list like so. (I kept this example simple for the sake of this article. Obviously we would want to add error states etc and this is just one of the many things of doing this kind of work).
+我首先创建了网络请求，解析 JSON 数据，并逐渐习惯 Dart 的单线程并发模型（单单这个就可以作为另一整文章的主题）。我开始在我的应用中运行一些电影数据，然后开始为列表和列表项创建布局。在 Flutter 中创建布局和扩展无状态或有状态的小控件类加上一些方法的重写一样简单。我将比较 Flutter 和 Andriod 之间在实现这些功能方面的差异。让我们从在 Andriod 中构建这个列表的步骤开始：
+
+1.  在 XML 文件中创建列表项布局文件
+2.  创建 adapter 来扩充 item-views 和设置数据
+3.  创建 list 的布局（在 Activity 或 Fragment 中）
+4.  在 Fragment 或 Activity 中调用 inflate 方法来创建 list 布局
+5.  在 Fragment 或 Activity 中创建 adapter 实例，layout-manager 等等
+6.  在后台线程上，下载来自网络上的电影数据
+7.  回到主线程上，将 item 设置在 adapter 上
+8.  现在我们需要考虑一些细节，比如保存和恢复 list-state 等
+9.  …… 列表一直这样继续下去
+
+当然，这很乏味。如果你想到这样一件事，开发这些功能是一个相当常见的任务 —— 说真的，这不是一些你不可能碰到的特别罕见的用例 —— 你可能会想：真的没有更好的方法来实现吗？一种不那么容易出错的方法也许是能够涉及更少的模板代码，并且可以提高开发速度。 这时候 Flutter 诞生了。
+
+* * *
+
+你可以把 Flutter 看作是人们多年来在移动应用开发、状态管理、应用架构等方面所学到经验的结果，这就是为什么它和 React.js 如此相似的原因。一旦你开始编写代码，Flutter 就会变得有意义。让我们看看如何运用 Flutter 来实现上面的例子：
+
+1.  为电影 item 创建一个无状态的控件（无状态，因为我们只有静态属性），该控件的构造函数参数是 movie（例如Dart类），并以一种声明的方式描述该布局，同时将 movie 的值（电影名称，上映日期等）绑定到控件中。
+2.  同样地为 list 也创建一个控件。（为了这篇文章，我尽量把例子保持地简单些。显然，我们需要添加错误状态等等，这只是开发过程的其中一件事情而已。）
 
 ```
 @override
@@ -66,29 +66,29 @@ You can think of Flutter as the result of years of lessons that have been learne
   }
 ```
 
-Part of the Movie-List-Screen layout.
+Movie-List-Screen 布局部分。
 
-To break this down, let’s look at what’s happening here. Most importantly, we’re using a _FutureBuilder_ (part of the Flutter SDK), which requires us to specify a [_Future_](https://www.dartlang.org/tutorials/language/futures)(in our case the Api Call) and a builder function. The builder function gives us a _BuildContext_ and the _index_ of the item to be returned. Using this, we can retrieve a movie, given the list from the result of the Future, the snapshot, and create a MovieListItem-Widget (created in step 1) with the movie as a constructor argument.
+为了解决这个问题，让我们来看看这里发生了什么。最重要的是，我们使用了 **FutureBuilder** （Flutter SDK 的一部分），它要求我们指定一个 [**Future**](https://www.dartlang.org/tutorials/language/futures) (我们例子中的 API 调用) 和 builder 函数。builder 函数给了我们一个 **BuildContext** 和要返回 item 的**索引值**。 利用这个，我们可以检索一部电影，根据 Future 和快照结果的 list，并且创建一个 MovieListItem-Widget（在步骤 1 中创建）作为构造函数的参数。
 
-Then, when the build method is first called, we start awaiting the value of the Future. Once it’s there, the builder is called again with the data (snapshot), and we can build our UI with it.
+然后，当 build 方法第一次被调用时，我们就开始等待 Future 的值。一旦有值之后，builder 会再次被数据（快照）调用，我们就可以用它来构建我们的 UI 界面。
 
-Those two classes, combined with the API call, would give us the following result:
+这两个类，加上 API 的调用，将会有以下这样的效果：
 
 ![](https://cdn-images-1.medium.com/max/800/1*dQ3pH7pxROf1O6jsLFrN5Q.png)
 
-The implemented Movie List.
+已完成的电影列表功能。
 
 * * *
 
-Well, that was simple. Almost too simple…realizing how easy it was to create a list of items in Flutter piqued my curiosity, and made me even more excited to keep working with it.
+嗯，这很简单。几乎是太简单了…… 意识到用 Flutter 来创建一个 list 是多么容易，这就激起了我的好奇心，让我更加兴奋地用它来继续开发。
 
-The next step was figuring out what I could to with more complicated layouts. The detail screen for movies of the native app had a rather complicated layout, including constraint layouts and an app bar. I think this is something that users would expect and appreciate in an app, and if Flutter really wants to stand a chance against Android, it needs to be able to provide more complex layouts like this. Let’s look at what I managed to build:
+下一步来弄清楚如何使用更加复杂的布局。原生应用程序的电影细节页面有一个相当复杂的布局，包括约束布局和一个应用程序栏。我认为这是用户所期望和欣赏的功能，如果 Flutter 真的想有机会与 Andriod 对抗，它需要能够提供更复杂的布局，就像这样。让我们看看我创建了什么：
 
 ![](https://cdn-images-1.medium.com/max/800/1*lBuPSg7dSWvOD0LNd5E-Fw.png)
 
-Movie Detail Screen.
+电影细节的页面。
 
-The layout consists of a _SliverAppBar,_ which contains a stacked layout of the movie image, a gradient, the little bubbles, and the text overlay. Being able to express the layout in a modular manner made it super simple to create this rather complicated layout. Here’s what the method of this screen looks like:
+这个布局由一个 **SliverAppBar** 组成，里面包含了电影图片的层叠布局、渐变、小气泡和文本覆盖。能够以模块化的方式表达布局使得创建这个相当复杂的布局变得非常简单。这个页面的实现方法如下所示：
 
 ```
 @override
@@ -105,9 +105,9 @@ Widget build(BuildContext context) {
 }
 ```
 
-Main build method of the Detail-Screen.
+详细页面的主要构建方法。
 
-As I was building the layout, I found myself modularizing parts of the layout as variables, methods or just other widgets. For instance, the text bubbles on top of the image are just another widget, which take text and a background color as an argument. Creating a custom view is literally as easy as this:
+在构建布局的时候，我发现自己把布局的一部分模块化为变量、方法或者其他小部件。例如，图片顶部的文本气泡只是另一个小部件，它以文本和背景颜色作为参数。创建一个自定义视图简直就像这样简单：
 
 ```
 import 'package:flutter/material.dart';
@@ -140,21 +140,21 @@ class TextBubble extends StatelessWidget {
 }
 ```
 
-Widget class for the Textbubble.
+TextBubble 部件类。
 
-Imagine how hard it would be to build a custom view like this in Android. On Flutter, though, it’s just a matter of minutes. Being able to extract parts of your UI into self-contained units like widgets makes it easy to reuse those widgets across your app, or even across different apps. You’ll notice that many parts of the layout are reused across different screens of my app, and let me tell you this: it was a piece of cake to implement. It was _such_ a piece of cake that I decided to expand the app to incorporate TV-shows as well. A few hours later and it was done; the app incorporated both movies and TV-shows, and no headaches were gained in the process. I did it by building generic classes for loading and displaying the data, which let me re-use **every layout** for both movies and shows. But to accomplish the same thing with Android, I had to use separate activities for movies and shows. You can imagine how quickly that became maintainability hell, but I felt that Android just wasn’t flexible enough to share those layouts in a cleaner, easier way.
+想象一下在安卓系统中建立这样的自定义视图会有多难。然而，在 Flutter 上，这只是一件几分钟就能完成的事情。能够将 UI 界面的一部分提取到像小部件这样的独立单元中，可以很容易地在应用程序中重用这些小部件，甚至跨越不同的应用。你会注意到，这个布局的很多部分都是我们在应用的不同视图上重复使用的，让我告诉你：这实施起来小菜一碟，所以我决定将应用扩展到包含电视节目。几个小时之后，这件事情就完成了。这款应用集电影和电视节目于一体，在这个过程中并没有让人很头疼。我通过构建用于加载和显示数据的泛型类来做到这一点，这让我可以重用**每个布局**用于电影和节目。但是，为了在 Android 上完成同样的事情，我不得不在电影和节目中使用不同的 Activity。你可以想象这维护起来的速度有多快，但是我觉得 Andriod 不够灵活，无法以一种更干净、更简单的方式去共享这些布局。
 
 * * *
 
-At the end of my Flutter experiment, I arrived at a very straight-forward and convincing conclusion:
+在 Flutter 实验的最后，我得出了非常直接和更有说服力的结论：
 
-> I wrote nicer, more maintainable code that runs on both iOS and Android. It also took considerably less time and fewer lines of code to do so.
+> 我编写出了同时运行在 iOS 和 Andriod 上的更好、更容易维护的代码，并且只需要相当少的时间和更少的代码数量。
 
-One of the best parts was not having to deal with things like fragments, the _SupportCompatFragmentManagerCompat_, and preserving and manually managing state in a tedious, error-prone way. It’s just so much less frustrating than Android development…no more waiting 30 seconds for “Instant Reload” to change the font-size of a TextView. No more XML-Layouts. No more findViewById (I know that Butterknife, Databinding, Kotlin-Extensions exist, but you get my point). No more redundant boilerplate code — just results.
+其中最好的部分是不用处理像 fragments 和 **SupportCompatFragmentManagerCompat** 这样的事情，并且以一种单调、容易出错的方式保存和手动管理状态。它没有像 Andriod 开发那样令人沮丧…… 不用再等待 30 秒的“即时重载”来更改 TextView 的字体大小。不再使用 XML 来布局。不再使用 findViewById（我知道有 Butterknife, Databinding, Kotlin-Extensions 这样的工具，但你应该明白我的意思）。不再有冗杂的样板代码 —— 只有结果。
 
-Once both apps were more or less on the same page in terms of features, I was curious to see what the difference in lines of code was. How does one repository compare to the other one? (Quick disclaimer: I haven’t integrated persistent storage in the Flutter app yet, and the code base of the original app is quite messy). Let’s compare the code using [Cloc](https://github.com/AlDanial/cloc), and for the sake of simplicity, let’s just look at the Java and XML files on Android, and the Dart files for the Flutter app (this does not include third party libraries, which would probably increase the metrics for Android significantly).
+一旦这两个应用在功能上或多或少都写在同一页面上时，我很想知道代码行数之间有没有什么区别。一个 repository 仓库和另一个之间相比如何？（快速免责声明：我还没有在 Flutter 应用中集成持久存储，而且原始应用的代码库相当混乱）。让我们用 [Cloc](https://github.com/AlDanial/cloc) 来比较下代码，为了简单起见，让我们看看 Android 上的 Java 和 XML 文件，Flutter 应用上的 Dart 文件数量（不包括第三方库，这可能会大大增加 Android 的度量）。
 
-Native Android in Java:
+用 Java 编写原生 Android 应用：
 
 ```
 Meta-Data for the native Android app
@@ -193,30 +193,30 @@ SUM:                             40            324             93           1992
 --------------------------------------------------------------------------------
 ```
 
-To break this down, let’s compare the file count first:
-Android: 179 (.java and .xml)
-Flutter: 31 (.dart)
-Wow! And concerning lines of code we have:
-Android: 12176
-Flutter: 1735
+为了解决这个问题，让我们先比较一下文件数量：
+Android： 179 (.java 和 .xml)
+Flutter： 31 (.dart)
+哇！还有文件中的代码行数：
+Android：12176
+Flutter： 1735
 
-That’s crazy! I was expecting the Flutter app to have maybe half the amount of code of the Android app, but _85% less_? That actually blew me away. But when you start thinking about it, it makes a lot of sense: since all the layouts, backgrounds, icons, etc. need to be specified in XML, but then still need to be hooked up to the app using Java/Kotlin code, of course there’s gonna be a ton of code. With Flutter, on the other hand, you can do all of that at once, while also binding the values to the UI. And you can do it all without dealing with the shortcomings of Android’s data-binding, like setting listeners or dealing with generated binding code. I realized then just how cumbersome it is to build such basic things on Android. Why should we write the same code for things like Fragment/Activity arguments, adapters, state management and recovery, over and over again, when it can be so simple?
+这让人难以置信！我原以为 Flutter 应用的代码量可能只有原生 Andriod 应用的一半，结果竟然**减少了 85%**？这真的让我始料未及。但是当你开始思考这个问题的时候，你会发现很有意义：因为所有的布局、背景、图标等都需要在 XML 中指定，但是仍然需要使用 Java 或 Kotlin 代码链接到应用中，当然会存在大量的代码。另一方面，Flutter 可以同时完成所有这些操作，同时将这些值绑定到 UI 界面中。你可以做到这一切，而不需要处理 Andriod 数据绑定的缺陷，比如设置监听器或处理生成的绑定代码。我开始意识到在 Android 上开发这些基本的功能是多么的麻烦。为什么我们要为 Fragment/Activity 参数、adapter、状态管理和恢复写一堆同样的代码呢？
 
-> With Flutter, you focus on building your product and your product only. The SDK feels like a help and not a burden.
+> 通过 Flutter，你只会关注你的产品和如何开发产品。SDK 给人的感觉更多的是帮助，而不是一种负担。
 
-Of course, this is just the beginning of Flutter, as it’s still in Beta and not yet at the level of maturity that Android is at. Still, by comparison, it feels like Android might have reached its limits, and we may soon write our Android apps in Flutter. There are still some things that need to be worked out, but overall, the future is looking bright for Flutter; we already have great tooling with Plugins for Android Studio, VS Code and IntelliJ, profilers and view inspection tools, and more tools will come. This all leads me to believe that Flutter is more than just another cross-platform framework, but the beginning of something bigger — the beginning of a new era of app development.
+当然，这仅仅是 Flutter 的开始，因为它仍然处于测试阶段，尚未达到像 Android 的成熟程度。然而，相比之下，Android 似乎已经达到了极限，我们可能很快就会用 Flutter 去编写我们的Andriod 应用。现在还有一些问题有待解决，但总的来说， Flutter 的未来一片光明。我们已经为 Android Studio、VS Code 和 IntelliJ 、分析器和视图检查工具提供了很好的插件，而且还会有更多的工具。这一切都让我相信 Flutter 不仅会是另一个跨平台的框架，更是一个更大的开端 —— 应用开发新纪元的开始。
 
-And Flutter could go far beyond the realms of Android and iOS; if you’ve been following the rumor mill, you may have heard that Google is working on a new operating system named Fuchsia. As it turns out, Fuchsia’s UI is being built using Flutter.
+并且 Flutter 可以远远超越 Android 和 iOS 领域。如果你一直在关注小道消息，你可能已经听说谷歌正在开发一款名为 Fuchsia 的新操作系统。事实证明，Fuchsia 的 UI 界面是用 Flutter 所构建的。
 
 * * *
 
-Naturally, you might be asking yourself: do I have to learn a whole other framework now? We just started learning about Kotlin and using the architecture components, and everything is great now. Why would we want to learn about Flutter? But let me tell you this: after using Flutter, you’ll start to understand the problems with Android development, and it’ll become clear that Flutter’s design is more suitable for modern, reactive applications.
+当然，你可能会问自己：我现在是不是必须学习一个全新的框架吗？我们刚刚开始学习关于 Kotlin 和使用一些架构组件，现在一切都很好。为什么我们要去了解 Flutter 呢？但是让我告诉你：在使用 Flutter 之后，你将开始了解 Android 开发的问题，并且可以清楚地看到，Flutter 的设计更适合现代的、响应式的应用。
 
-When I first started using Android’s Databinding, I thought it was revolutionary, but it also felt like an incomplete product. Dealing with Boolean expressions, listeners and more complicated layouts was tedious with Databinding, which made me realize that Android just wasn’t designed for a tool like this. Now if you look at Flutter, it uses the same idea as Databinding, which is binding your Views/Widgets to variables without having to manually do it in Java/Kotlin, but it does it all natively without bridging the XML and Java by generating a bindings file. This allows you to condense what would have previously been at least one XML and Java file, into one reusable Dart class.
+当我第一使用 Android 的 数据绑定框架 Databinding 时候，我认为它是革命性的，但它也感觉像一个不完整的产品。在处理布尔表达式的时候，监听器和更复杂的布局对 Databinding 来说是冗长乏味的一个步骤，这让我意识到 Andriod 不应是为这样的工具设计的。现在如果你看一下 Flutter，它使用了与 Databinding 相同的理念，它将你的视图或控件绑定到变量中，而无需手动在 Java 或 Kotlin 中实现，同时它不需要通过生成绑定文件来连接 XML 和 Java。这让你可以将之前至少一个 XML 和 Java 文件压缩成一个可重用的 Dart 类。
 
-I could also argue that the layout files on Android don’t do anything on their own. They have to be inflated first, and only then can we start setting values to them. This also introduces the issue of state management, and raises the question: what are we going to do when the underlying values change? Manually grab a reference to the corresponding views and set the new value? That method is really error prone and I don’t think it’s good to manage our View’s state like this; instead we should describe our layout using the state, and whenever the state changes, let the Framework take over by re-rendering the views whose values have changed. This way, our app state can’t get out of sync with what the Views display. And Flutter does exactly this!
+我还认为，Android 上的布局文件不能单独地做任何事情。它们首先必须调用 inflate 方法，只有这样我们才能设值。同时引入了状态管理的问题，并提出一个问题：当基础值改变的时候，我们怎么办？手动抓取对应视图的引用并重新赋值？这种解决方法非常容易出错，我不认为像这样管理视图的方法是好的。相反，我们应该使用状态来描述我们的布局，并且每当状态发生变化时，让框架通过重新呈现其值发生变化的视图来接管。这样，我们的应用程序状态就不会与视图显示的内容不同步了。Flutter 就是这么做的！
 
-And there might be even more questions: have you ever asked yourself why creating a toolbar menu is so complicated on Android? Why would we describe the menu items in XML, where we can’t bind any business logic to it anyways (which is the whole intention of a menu), just to then inflate it in a callback of our Activity/Fragment before binding the actual click listeners in yet _another_ callback? Why don’t we just do it all at once, like Flutter does?
+可能还有更多的问题：你有没有曾经问过自己为什么在 Android 上创建一个工具栏菜单是如此复杂？为什么我们要用 XML 来描述菜单项，而且在这里我们不能将任何业务逻辑绑定它上面（这就是菜单的全部目的），我们只能在  Activity/Fragment 的回调中编写，然后再在**另一个**回调中绑定点击监听器。为什么我们不能像 Flutter 一样一次性完成这些事情？
 
 ```
 class ToolbarDemo extends StatelessWidget {
@@ -246,18 +246,18 @@ class ToolbarDemo extends StatelessWidget {
 }
 ```
 
-Adding menu items to a Toolbar in Flutter.
+用 Flutter 将菜单 items 添加至 Toolbar。
 
-As you can see in this snippet, we add the menu items as _Actions_ to our _AppBar_. That’s all you have to do — no more importing icons as XML files, no more overriding callbacks. It’s literally as easy as adding a few widgets to our widget tree.
-
-* * *
-
-I could go on and on, but I’ll leave you with this: think about all the things that you dislike about Android development, and then think about how you would go about re-designing the Framework while addressing those issues. That’s a heavy task, but doing it will help you understand why Flutter is here and, more importantly, why it’s here to stay. To be fair, there are many apps that (as of this moment) I would still write in native Android with Kotlin; Android may have its downfalls, but it also has its perks. But at the end of the day, I think making a case for native Android is becoming harder and harder when you have Flutter at your disposal.
+正如在代码段所见，我们将菜单 items 作为 **Action** 添加在 **AppBar**。这就是你接下来要做的 —— 不再将图标导入到 XML 文件中，不需要再重写回调了。这就像在控件树上添加一些控件一样简单。
 
 * * *
 
-By the way, both apps are open source and on the PlayStore. You can find them right here:
-Native Android: [Github](https://github.com/aaronoe/Cinematic) and [PlayStore](https://play.google.com/store/apps/details?id=de.aaronoe.cinematic)Flutter: [Github](https://github.com/aaronoe/FlutterCinematic) and [PlayStore](https://play.google.com/store/apps/details?id=de.aaronoe.moviesflutter)
+虽然我可以一直往下说，但是你要知道：想想你不喜欢 Andriod 开发的所有事情，然后考虑如何解决这些问题的同时，重新设计框架。这是一项艰巨的任务，但是这样做可以帮你理解为什么 Flutter 会出现，更重要的是，它为什么可以留下来。公平地说，有很多应用（从现在开始）我仍然会用原生的 Andriod 和 Kotilin 一起编写，原生 Android 也许有它的缺点，但它也有它的好处。但是说到底，我认为用了 Flutter 之后，仍使用原生 Andriod 来开发一个应用会变得越来越难。
+
+* * *
+
+顺带一提，这两个应用都是开源的，而且都在 PlayStore 上。你可以在这找到：
+原生 Android：[Github](https://github.com/aaronoe/Cinematic) 和 [PlayStore](https://play.google.com/store/apps/details?id=de.aaronoe.cinematic) Flutter：[Github](https://github.com/aaronoe/FlutterCinematic) 和 [PlayStore](https://play.google.com/store/apps/details?id=de.aaronoe.moviesflutter)
 
 
 ---

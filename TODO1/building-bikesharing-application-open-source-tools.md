@@ -2,28 +2,28 @@
 > * 原文作者：[Tague Griffith](https://opensource.com/users/tague)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/building-bikesharing-application-open-source-tools.md](https://github.com/xitu/gold-miner/blob/master/TODO1/building-bikesharing-application-open-source-tools.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Starrier](https://github.com/Starriers)
+> * 校对者：[Raoul1996](https://github.com/Raoul1996)、[rydensun](https://github.com/rydensun)
 
-# Build a bikesharing app with Redis and Python
+# 用 Redis 和 Python 构建一个共享单车的 app
 
-## Learn how to use Redis and Python to build location-aware applications.
+## 了解如何使用 Redis 和 Python 构建位置感知应用程序。
 
 ![google bikes on campus](https://opensource.com/sites/default/files/styles/image-full-size/public/lead-images/google-bikes-yearbook.png?itok=BnmInwea "google bikes on campus")
 
-Image credits : [Travis Wise](https://www.flickr.com/photos/photographingtravis/15720889480). CC BY-SA 2.0
+图片来源： [Travis Wise](https://www.flickr.com/photos/photographingtravis/15720889480). CC BY-SA 2.0
 
-I travel a lot on business. I'm not much of a car guy, so when I have some free time, I prefer to walk or bike around a city. Many of the cities I've visited on business have bikeshare systems, which let you rent a bike for a few hours. Most of these systems have an app to help users locate and rent their bikes, but it would be more helpful for users like me to have a single place to get information on all the bikes in a city that are available to rent.
+虽然我经常出差，但我不太喜欢开车，所以当我有空的时候，我更喜欢在城市里散步或骑自行车。我出差去过的许多城市都有自行车租赁系统，可以让你租几个小时的自行车。这些系统中的大多数都有一个应用程序来帮助用户定位和租赁他们的自行车，但对于像我这样的用户来说，有一个单独的地方来获取城市中所有可供租赁的自行车的信息会更有帮助。
 
-To solve this problem and demonstrate the power of open source to add location-aware features to a web application, I combined publicly available bikeshare data, the [Python](https://www.python.org/) programming language, and the open source [Redis](https://redis.io/) in-memory data structure server to index and query geospatial data.
+为了解决这个问题并开源向 Web 应用程序添加位置感知特性的能力，我结合了公开可用的共享单车数据、[Python](https://www.python.org/) 编程语言和开源 [Redis](https://redis.io/) 内存数据结构服务器来索引并查询地理空间数据。
 
-The resulting bikeshare application incorporates data from many different sharing systems, including the [Citi Bike](https://www.citibikenyc.com/) bikeshare in New York City. It takes advantage of the General Bikeshare Feed provided by the Citi Bike system and uses its data to demonstrate some of the features that can be built using Redis to index geospatial data. The Citi Bike data is provided under the [Citi Bike data license agreement](https://www.citibikenyc.com/data-sharing-policy).
+由此产生的共享单车应用程序集成了来自许多不同共享系统的数据，包括在纽约市的 [Citi Bike](https://www.citibikenyc.com/) 共享单车。它利用了 Citi Bike 系统提供的通用共享单车数据流，并使用其数据演示了可以使用 Redis 建立的一些功能来索引地理空间数据。Citi Bike 数据是根据 [Citi Bike 数据许可协议](https://www.citibikenyc.com/data-sharing-policy)提供的。
 
-## General Bikeshare Feed Specification
+## 通用共享单车数据流规范
 
-The General Bikeshare Feed Specification (GBFS) is an [open data specification](https://github.com/NABSA/gbfs) developed by the [North American Bikeshare Association](http://nabsa.net/) to make it easier for map and transportation applications to add bikeshare systems into their platforms. The specification is currently in use by over 60 different sharing systems in the world.
+通用共享单车数据流规范（GBFS）是由[北美共享单车协会](http://nabsa.net/ )开发的[开源数据规范](https://github.com/NABSA/gbfs)，目的是让地图和交通类应用程序更轻易地将共享单车系统添加到它们的平台中。目前世界上有 60 多个不同的共享系统在使用该规范。
 
-The feed consists of several simple [JSON](https://www.json.org/) data files containing information about the state of the system. The feed starts with a top-level JSON file referencing the URLs of the sub-feed data:
+数据流由包含有关系统状态信息的几个简单 [JSON](https：//www.json.org/) 数据文件组成。数据流从引用子数据流数据的 URL 的顶级 JSON 文件开始：
 
 ```
 {
@@ -47,74 +47,74 @@ The feed consists of several simple [JSON](https://www.json.org/) data files con
 }
 ```
 
-The first step is loading information about the bikesharing stations into Redis using data from the `system_information` and `station_information` feeds.
+第一步是将 system_information 和 station_information 中，数据流有关共享单车站点的信息的数据加载到 Redis 里。
 
-The `system_information` feed provides the system ID, which is a short code that can be used to create namespaces for Redis keys. The GBFS spec doesn't specify the format of the system ID, but does guarantee it is globally unique. Many of the bikeshare feeds use short names like coast_bike_share, boise_greenbike, or topeka_metro_bikes for system IDs. Others use familiar geographic abbreviations such as NYC or BA, and one uses a universally unique identifier (UUID). The bikesharing application uses the identifier as a prefix to construct unique keys for the given system.
+ `system_information` 数据流系统 ID，这是一个可用于 Redis 密钥创建命名空间的短代码。GBFS 规范没有指定系统 ID 的格式，但保证它是全局唯一的。对于系统 ID，许多共享单车数据流都是使用简短的名称，如 coast_bike_share、boise_greenbike 或者 topeka_metro_bikes。另一些使用熟悉的地理缩写，如 NYC 或 BA，其中一个使用通用唯一标识符（UUID）。共享单车应用程序使用标识符作为前缀来构造给定系统的唯一密钥。
 
-The `station_information` feed provides static information about the sharing stations that comprise the system. Stations are represented by JSON objects with several fields. There are several mandatory fields in the station object that provide the ID, name, and location of the physical bike stations. There are also several optional fields that provide helpful information such as the nearest cross street or accepted payment methods. This is the primary source of information for this part of the bikesharing application.
+`Station_Information` 数据流提供了组成系统的关于共享站点的静态信息。站点由带有多个字段的 JSON 对象表示。在站点对象中有几个必填字段，它们提供真实站点的 ID、名称和位置。还有几个可选字段提供的有用信息，如最近的十字路口或所接受的付款方式。这是共享单车应用程序这部分的主要信息来源。
 
-## Building the database
+## 创建数据库
 
-I've written a sample application, [load_station_data.py](https://gist.github.com/tague/5a82d96bcb09ce2a79943ad4c87f6e15), that mimics what would happen in a backend process for loading data from external sources.
+ 我写了一个示例应用程序 —— [load_station_data.py](https://gist.github.com/tague/5a82d96bcb09ce2a79943ad4c87f6e15)，它模拟了从外部源加载数据的后端过程中可能发生的情况。
 
-## Finding the bikeshare stations
+## 查找共享单车站点
 
-Loading the bikeshare data starts with the [systems.csv](https://github.com/NABSA/gbfs/blob/master/systems.csv) file from the [GBFS repository on GitHub](https://github.com/NABSA/gbfs).
+从 [Github 的 GBFS 仓库](https://github.com/NABSA/gbfs)的 [systems.csv](https://github.com/NABSA/gbfs/blob/master/systems.csv) 文件加载共享单车数据。
 
-The repository's [systems.csv](https://github.com/NABSA/gbfs/blob/master/systems.csv) file provides the discovery URL for registered bikeshare systems with an available GBFS feed. The discovery URL is the starting point for processing bikeshare information.
+仓库的 [systems.csv](https://github.com/NABSA/gbfs/blob/master/systems.csv) 文件为注册的共享单车系统提供了一个带有可用的 GBFS 数据流发现 URL。发现 URL 是处理共享单车信息的起点。
 
-The `load_station_data` application takes each discovery URL found in the systems file and uses it to find the URL for two sub-feeds: system information and station information. The system information feed provides a key piece of information: the unique ID of the system. (_Note: the system ID is also provided in the systems.csv file, but some of the identifiers in that file do not match the identifiers in the feeds, so I always fetch the identifier from the feed.)_ Details on the system, like bikeshare URLs, phone numbers, and emails, could be added in future versions of the application, so the data is stored in a Redis hash using the key `${system_id}:system_info`.
+ `load_station_data` 应用程序获取系统文件中发现的每个 URL，并使用它查询两个数据流 URL：系统信息和站点信息。系统信息数据流提供了一条关键信息：系统的唯一 ID。（**注意：systems.csv 文件也提供了系统 ID，但是该文件中的一些标识符与提要中的标识符不匹配，因此我总是从反馈中获取标识符。**）系统的详细信息，比如共享单车 URL、电话号码和电子邮件。可以添加到应用程序的未来版本中。 因此使用键 `${system_id}:system_info` 将数据存储在 Redis 散列中。
 
-## Loading the station data
+## 加载站点数据
 
-The station information provides data about every station in the system, including the system's location. The `load_station_data` application iterates over every station in the station feed and stores the data about each into a Redis hash using a key of the form `${system_id}:station:${station_id}`. The location of each station is added to a geospatial index for the bikeshare using the `GEOADD` command.
+站点信息提供系统中每个站点的数据，包括系统的位置。`load_station_data` 应用程序迭代站点反馈中的每个站点，使用形如 `${system_id}:station:${station_id}` 的键将每个站点的数据存到 Redis 散列中。使用 `GEOADD` 命令将每个站点的位置添加到共享单车的地理空间索引中。
 
-## Updating data
+## 更新数据
 
-On subsequent runs, I don't want the code to remove all the feed data from Redis and reload it into an empty Redis database, so I carefully considered how to handle in-place updates of the data.
+在随后的运行中，我不希望代码从 Redis 中删除所有数据流数据再将其重新加载到一个空的 Redis 数据库中，因此我仔细考虑了如何处理数据的本地更新。
 
-The code starts by loading the dataset with information on all the bikesharing stations for the system being processed into memory. When information is loaded for a station, the station (by key) is removed from the in-memory set of stations. Once all station data is loaded, we're left with a set containing all the station data that must be removed for that system.
+代码首先载入已经被系统加载到内存中的所有共享单车站点信息的数据集。当为站点加载信息时，从站点的内存集中删除站点(按键)。一旦加载了所有站点数据，我们就会得到一个包含了该系统必须删除的所有站点的数据集合。
 
-The application iterates over this set of stations and creates a transaction to delete the station information, remove the station key from the geospatial indexes, and remove the station from the list of stations for the system.
+应用程序迭代这组站点并创建一个事务来删除站点信息，从地理空间索引中删除站点键，并从系统的站点列表中删除站点。
 
-## Notes on the code
+## 代码注释
 
-There are a few interesting things to note in [the sample code](https://gist.github.com/tague/5a82d96bcb09ce2a79943ad4c87f6e15). First, items are added to the geospatial indexes using the `GEOADD` command but removed with the `ZREM` command. As the underlying implementation of the geospatial type uses sorted sets, items are removed using `ZREM`. A word of caution: For simplicity, the sample code demonstrates working with a single Redis node; the transaction blocks would need to be restructured to run in a cluster environment.
+在[示例代码](https://gist.github.com/tague/5a82d96bcb09ce2a79943ad4c87f6e15)中有一些有趣的事情需要注意。首先，使用 `GEOADD` 命令将词条添加到地理空间索引中，但是用 `ZREM` 命令删除。由于地理空间类型底层实现使用排序集，因此使用 `ZREM` 删除词条。请注意，为了简洁，示例代码演示了如何使用单个 Redis 节点；如果在集群环境中运行，需要对事务模块进行重构。
 
-If you are using Redis 4.0 (or later), you have some alternatives to the `DELETE` and `HMSET` commands in the code. Redis 4.0 provides the [`UNLINK`](https://redis.io/commands/unlink) command as an asynchronous alternative to the `DELETE` command. `UNLINK` will remove the key from the keyspace, but it reclaims the memory in a separate thread. The [`HMSET`](https://redis.io/commands/hmset) command is [deprecated in Redis 4.0 and the `HSET` command is now variadic](https://raw.githubusercontent.com/antirez/redis/4.0/00-RELEASENOTES) (that is, it accepts an indefinite number of arguments).
+如果您使用的是 Redis 4.0 （或者更高版本），则在代码中有一些 `DELETE` 和 `HMSET` 命令的替代方法。Redis 4.0 提供[`UNLINK`](https://redis.io/commands/unlink) 命令作为 `DELETE` 命令的异步替代。`UNLINK` 将从密钥空间中删除密钥，但它在单独的线程中回收内存。[`HMSET`](https://redis.io/commands/hmset) 命令在 [Redis 4.0 中被弃用，`HSET` 命令现在是可变的](https://raw.githubusercontent.com/antirez/redis/4.0/00-RELEASENOTES)（也就是说，它接受数目不定的参数）。
 
-## Notifying clients
+## 通知客户端
 
-At the end of the process, a notification is sent to the clients relying on our data. Using the Redis pub/sub mechanism, the notification goes out over the `geobike:station_changed` channel with the ID of the system.
+在流程结束时，将根据我们的数据向客户端发送通知。使用 Redis pub/sub 机制，通知通过 `geobike：Station_Changed` 通道发送，并带有系统的 ID。
 
-## Data model
+## 数据模型
 
-When structuring data in Redis, the most important thing to think about is how you will query the information. The two main queries the bikeshare application needs to support are:
+在用 Redis 构造数据时，要考虑的最重要的事情是如何查询信息，共享单车应用程序需要支持的两个主要查询是：
 
-*   Find stations near us
-*   Display information about stations
+*   找到附近站点
+*   显示站点相关信息
 
-Redis provides two main data types that will be useful for storing our data: hashes and sorted sets. The [hash type](https://redis.io/topics/data-types#Hashes) maps well to the JSON objects that represent stations; since Redis hashes don't enforce a schema, they can be used to store the variable station information.
+Redis 提供两种用于存储数据的主要数据类型：散列和排序集。[散列类型](https://redis.io/topics/data-types#Hashes) 很好地映射到表示站点的 JSON 对象；由于 Redis 散列不强制执行模式，因此可以使用它们存储可变站点信息。
 
-Of course, finding stations geographically requires a geospatial index to search for stations relative to some coordinates. Redis provides [several commands](https://redis.io/commands#geo) to build up a geospatial index using the [sorted set](https://redis.io/topics/data-types-intro#redis-sorted-sets) data structure.
+当然，在地理上寻找站点需要一个地理空间索引来搜索相对于某些坐标的地点。Redis 提供[一些命令](https://redis.io/commands#geo)来使用[排序集](https://redis.io/topics/data-types-intro#redis-sorted-sets)数据结构构建地理控件索引。
 
-We construct keys using the format `${system_id}:station:${station_id}` for the hashes containing information about the stations and keys using the format `${system_id}:stations:location` for the geospatial index used to find stations.
+我们使用 `${System_id}：Station：${Station_id}` 格式的散列构造密钥，其中包含站点和密钥的信息，使用的 `${System_id}：Station：Location` 格式来查询站点的地理空间索引。
 
-## Getting the user's location
+## 获取用户位置
 
-The next step in building out the application is to determine the user's current location. Most applications accomplish this through built-in services provided by the operating system. The OS can provide applications with a location based on GPS hardware built into the device or approximated from the device's available WiFi networks.
+构建应用程序的下一步是确定用户的当前位置。大多数应用程序通过操作系统提供的内置服务来实现这一点。该操作系统可以为应用程序提供基于内置于设备中的 GPS 硬件或近似于设备的可用 WiFi 网络的位置。
 
-## Finding stations
+## 查询位置
 
-After the user's location is found, the next step is locating nearby bikesharing stations. Redis' geospatial functions can return information on stations within a given distance of the user's current coordinates. Here's an example of this using the Redis command-line interface.
+在找到用户的位置后，下一步是定位附近的共享单车站点。Redis 的地理空间功能可以在用户当前坐标的给定距离内返回站点的信息。下面是一个使用 Redis 命令行接口的示例。
 
-![Map of Apple NYC store location](https://opensource.com/sites/default/files/styles/panopoly_image_original/public/u128651/rediscli_map.png?itok=icqk5543 "Map of Apple NYC store location")
+![Apple 美国纽约店地址](https://opensource.com/sites/default/files/styles/panopoly_image_original/public/u128651/rediscli_map.png?itok=icqk5543 "Apple 纽约店店址地图")
 
-Imagine I'm at the Apple Store on Fifth Avenue in New York City, and I want to head downtown to Mood on West 37th to catch up with my buddy [Swatch](https://twitter.com/swatchthedog). I could take a taxi or the subway, but I'd rather bike. Are there any nearby sharing stations where I could get a bike for my trip?
+想象我在纽约市第五大道上的苹果店，我想去西区 37 街的 Mood，和我的好友 [Swatch](https://twitter.com/swatchthedog) 聊天。我可以乘出租车或地铁，但我宁愿骑自行车。附近有共享站点么？我可以在那里租有一辆车去么？
 
-The Apple store is located at 40.76384, -73.97297\. According to the map, two bikeshare stations—Grand Army Plaza & Central Park South and East 58th St. & Madison—fall within a 500-foot radius (in blue on the map above) of the store.
+Apple 专卖店位于 40.76384, -73.97297。根据地图，两个自行车站点 —— Grand Army Plaza 和 Central Park South 和 East 58th St. & Madison —— 位于 500 英尺的范围内（在以上地图是蓝色的）。
 
-I can use Redis' `GEORADIUS` command to query the NYC system index for stations within a 500-foot radius:
+我可以使用 Redis `GEORADIUS` 命令查询纽约系统索引，查找半径为 500 英尺的站点：
 
 ```
 127.0.0.1:6379> GEORADIUS NYC:stations:location -73.97297 40.76384 500 ft
@@ -122,7 +122,7 @@ I can use Redis' `GEORADIUS` command to query the NYC system index for stations 
 2) "NYC:station:281"
 ```
 
-Redis returns the two bikeshare locations found within that radius, using the elements in our geospatial index as the keys for the metadata about a particular station. The next step is looking up the names for the two stations:
+Redis 使用地理空间索引中的元素作为特定站点的元数据的键，返回在该半径内找到的两个自行车共享位置。下一步是查找这两个站点的名称：
 
 ```
 127.0.0.1:6379> hget NYC:station:281 name
@@ -132,7 +132,7 @@ Redis returns the two bikeshare locations found within that radius, using the el
 "E 58 St & Madison Ave"
 ```
 
-Those keys correspond to the stations identified on the map above. If I want, I can add more flags to the `GEORADIUS` command to get a list of elements, their coordinates, and their distance from our current point:
+这些键对应以上地图确定的站台。如果愿意，我可以在 `GEORADIUS` 命令中添加更多的标志，以获取元素的列表、它们的坐标以及它们与当前站点的距离：
 
 ```
 127.0.0.1:6379> GEORADIUS NYC:stations:location -73.97297 40.76384 500 ft WITHDIST WITHCOORD ASC 
@@ -146,15 +146,15 @@ Those keys correspond to the stations identified on the map above. If I want, I 
       2) "40.76302702144496237"
 ```
 
-Looking up the names associated with those keys generates an ordered list of stations I can choose from. Redis doesn't provide directions or routing capability, so I use the routing features of my device's OS to plot a course from my current location to the selected bike station.
+查找与这些键相关联的名称会生成一个有序的站点列表，我可以从中进行选择。Redis 不提供方向或路由功能，因此我使用设备操作系统的路由功能来绘制从当前位置到所选自行车站点的路线。
 
-The `GEORADIUS` function can be easily implemented inside an API in your favorite development framework to add location functionality to an app.
+`GEORADIUS` 函数可以轻易在您喜欢的开发框架的 API 中实现，以便将位置功能添加到 app 中。 
 
-## Other query commands
+## 其他查询命令
 
-In addition to the `GEORADIUS` command, Redis provides three other commands for querying data from the index: `GEOPOS`, `GEODIST`, and `GEORADIUSBYMEMBER`.
+除了 `GEORADIUS` 命令以外，Redis 还提供了三个用于从索引中查找数据的命令 `GEOPOS`、`GEODIST` 和 `GEORADIUSBYMEMBER`。
 
-The `GEOPOS` command can provide the coordinates for a given element from the geohash. For example, if I know there is a bikesharing station at West 38th and 8th and its ID is 523, then the element name for that station is NYC:station:523. Using Redis, I can find the station's longitude and latitude:
+ `GEOPOS` 命令可以从地理散列中提供给定元素的坐标。例如，如果我知道在 West 38th and 8th 有共享单车站点，而且它的 ID 是 523，那么该站点的元素名称是 NYC:station:523。使用 Redis，我可以找到站点的经度和维度：
 
 ```
 127.0.0.1:6379> geopos NYC:stations:location NYC:station:523
@@ -162,14 +162,14 @@ The `GEOPOS` command can provide the coordinates for a given element from the ge
    2) "40.75466497634030105"
 ```
 
-The `GEODIST` command provides the distance between two elements of the index. If I wanted to find the distance between the station at Grand Army Plaza & Central Park South and the station at East 58th St. & Madison, I would issue the following command:
+`GEODIST` 命令提供两个元素之间的距离索引。如果我想要找出 Grand Army Plaza 和 Central Park South 和在 East 58th St. & Madison 站点之间的距离, 我会发出以下命令：
 
 ```
-127.0.0.1:6379> GEODIST NYC:stations:location NYC:station:281 NYC:station:3457 ft 
+127.0.0.1:6379> GEODIST NYC:stations:location NYC:station:281 NYC:station:3457 ft
 "671.4900"
 ```
 
-Finally, the `GEORADIUSBYMEMBER` command is similar to the `GEORADIUS` command, but instead of taking a set of coordinates, the command takes the name of another member of the index and returns all the members within a given radius centered on that member. To find all the stations within 1,000 feet of the Grand Army Plaza & Central Park South, enter the following:
+最后，`GEORADIUSBYMEMBER` 命令类似于 `GEORADIUS` 命令，但该命令没有接受一组坐标，而是取索引的另一个成员的名称，并返回以该成员为中心所给定半径内的所有成员。要找到 Grand Army Plaza 和 Central Park 南 1000 英尺范围内的所有车站，请输入以下内容：
 
 ```
 127.0.0.1:6379> GEORADIUSBYMEMBER NYC:stations:location NYC:station:281 1000 ft WITHDIST
@@ -185,7 +185,7 @@ Finally, the `GEORADIUSBYMEMBER` command is similar to the `GEORADIUS` command, 
    2) "671.4900"
 ```
 
-While this example focused on using Python and Redis to parse data and build an index of bikesharing system locations, it can easily be generalized to locate restaurants, public transit, or any other type of place developers want to help users find.
+虽然这个示例侧重于使用 Python 和 Redis 来解析数据并构建自行车共享系统位置的索引，但它可以很容易地推广到定位餐馆、公共交通或任何其他类型的地方，以帮助用户查找。
 
 
 ---
