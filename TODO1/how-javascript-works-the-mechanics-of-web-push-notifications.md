@@ -140,7 +140,7 @@ function subscribeUserToPush() {
 
 `registration.pushManager.subscribe(options)` 接受一个 **options** 对象，它包含必要参数和可选参数：
 
-*   **userVisibleOnly**: 布尔值指示返回的推送订阅将仅用于对用户可见的消息。它必须设置为 `true`，否则你会得到一个错误（这有历史原因）。
+*   **userVisibleOnly**：布尔值指示返回的推送订阅将仅用于对用户可见的消息。它必须设置为 `true`，否则你会得到一个错误（这有历史原因）。
 *   **applicationServerKey**：Base64-encoded `DOMString` 或者 `ArrayBuffer` 包含推送服务器用来验证应用服务器的公钥。
 
 你的服务器需要生产一对**应用程序服务器密钥 —— **也称为 VAPID 密钥，对于你的服务器来说，它们是唯一的。它们是一对公钥和私钥。私钥被秘密存储在你的终端，而公钥则与客户端交换。这些密钥允许推送服务知道哪个应用服务器订阅了用户，并确保它是触发向该特定用户推送消息的相同服务器。
