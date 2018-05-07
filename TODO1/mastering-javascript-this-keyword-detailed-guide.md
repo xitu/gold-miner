@@ -2,117 +2,117 @@
 > * 原文作者：[Jay](https://www.thecodingdelight.com/author/ljay189/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/mastering-javascript-this-keyword-detailed-guide.md](https://github.com/xitu/gold-miner/blob/master/TODO1/mastering-javascript-this-keyword-detailed-guide.md)
-> * 译者：
-> * 校对者：
+> * 译者：[老教授](https://juejin.im/user/58ff449a61ff4b00667a745c)
+> * 校对者：[allen](https://github.com/allenlongbaobao)、[dz](https://github.com/dazhi1011)
 
-# Mastering JavaScript this Keyword – Detailed Guide
+# 深入浅出 JavaScript 关键词 -- this
 
-The JavaScript `this` keyword is often considered one of the most confusing aspects of the language. JavaScript has come a long way, now with node.js being used to run JavaScript in the server, along with the continual evolution of the language. Needless to say that this language is not disappearing anytime soon.
+要说 JavaScript 这门语言最容易让人困惑的知识点，`this` 关键词肯定算一个。JavaScript 语言面世多年，一直在进化完善，现在在服务器上还可以通过 node.js 来跑 JavaScript。显然，这门语言还会活很久。
 
-Therefore, I believe that if you are a JavaScript developer or somebody who works with web technologies, learning how JavaScript works and also its idiosyncrasies will pay dividends down the road.
+所以说，我一直相信，如果你是一个 JavaScript 开发者或者说 Web 开发者，学好 JavaScript 的运作原理以及语言特点肯定对你以后大有好处。
 
-## Prerequisites
+## 开始之前
 
-Before reading ahead, it is strongly recommended that you have a solid understanding of the following.
+在开始正文之前，我强烈推荐你先掌握好下面的知识：
 
-*   [Variable scope and hoisting](https://www.thecodingdelight.com/variable-scope-hoisting-javascript/)
-*   [Functions in JavaScript](https://www.codecademy.com/courses/functions-in-javascript-2-0/0/1)
-*   [Closures](https://medium.com/dailyjs/i-never-understood-javascript-closures-9663703368e8)
+*   [变量作用域和作用域提升](https://www.thecodingdelight.com/variable-scope-hoisting-javascript/)
+*   [JavaScript 的函数](https://www.codecademy.com/courses/functions-in-javascript-2-0/0/1)
+*   [闭包](https://medium.com/dailyjs/i-never-understood-javascript-closures-9663703368e8)
 
-Without a solid understanding of the fundamentals, discussions regarding the JavaScript `this` keyword will only add a layer of confusion and frustration.
+如果没有对这些基础知识掌握踏实，直接讨论 JavaScript 的 `this` 关键词只会让你感到更加地困惑和挫败。
 
-## Why should I Learn `this`?
+## 我为什么要学 `this`？
 
-If the basic introduction did not convince you to explore the `this` keyword in detail, I will cover the why in this section.
+如果上面的简单介绍没有说服你来深入探索 `this` 关键词，那我用这节来讲讲为什么要学。
 
-A very valid question, considering that people like Douglas Crockford have stopped using `new` and `this`, and instead, opted for an entirely functional approach for code reuse.
+考虑这样一个重要问题，假设开发者，比如 Douglas Crockford （译者注：JavaScript 领域必知牛人），不再使用 `new` 和 `this`，转而使用完完全全的函数式写法来做代码复用，会怎样？
 
-Traditionally, `new` and `this` has been and continues to be used extensively to achieve code reuse via the built-in [prototypal inheritance](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Inheritance) that JavaScript provides out of the box.
+事实上，基于 JavaScript 内置的现成的[原型继承](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Inheritance)功能，我们已经使用并且将继续广泛使用 `new` 和 `this` 关键词来实现代码复用。
 
-The first reason is that you aren’t going to be working just with code that you have written. Existing code and code that is being written even as you are reading this sentence likely contain the ‘`this`‘ keyword. Would definitely help if you understand how this works right (pun intended)?
+理由一，如果只能使用自己写过的代码，你是没法工作的。现有的代码以及你读到这句话时别人正在写的代码都很有可能包含 `this` 关键词。那么学习怎么用好它是不是很有用呢？
 
-Therefore, even if you don’t want to use this in your code base, in order to interpret the behavior of legacy code, having a strong understanding of how `this` works will help.
+因此，即使你不打算在你的代码库中使用它，深入掌握 `this` 的原理也能让你在接手别人的代码理解其逻辑时事半功倍。
 
-The second reason is **expanding your coding vision and skill**. Working with a variety of patterns will deepen your understanding of how you see, read, write and interpret code. We write code not for the machine to interpret, but for ourselves. This does not simply apply to your JavaScript skills.
+理由二，**拓展你的编码视野和技能**。使用不同的设计模式会加深你对代码的理解，怎么去看、怎么去读、怎么去写、怎么去理解。我们写代码不仅是给机器去解析，还是写给我们自己看的。这不仅适用于 JavaScript，对其他编程语言亦是如此。
 
-> Deepening your understanding will impact and influence how you write code, regardless of the language/framework you are working with.
+> 随着对编程理念的逐步深入理解，它会逐渐塑造你的编码风格，不管你用的是什么语言什么框架。
 
-Just as Picasso dabbled in areas that he did not particularly enjoy or agree with for inspiration, having this knowledge will expand your knowledge and understanding of code.
+就像毕加索会为了获得灵感而涉足那些他并不是很赞同很感兴趣的领域，学习 this 会拓展你的知识，加深对代码的理解。
 
-## What is `this`?
+## 什么是 `this` ？
 
-[![JavaScript this call context](//personalzone-hulgokm2zfcmm9u.netdna-ssl.com/wp-content/uploads/2018/03/JavaScript-this-call-context.jpg)](//personalzone-hulgokm2zfcmm9u.netdna-ssl.com/wp-content/uploads/2018/03/JavaScript-this-call-context.jpg)
+[![JavaScript this 指向](https://personalzone-hulgokm2zfcmm9u.netdna-ssl.com/wp-content/uploads/2018/03/JavaScript-this-call-context.jpg)](https://personalzone-hulgokm2zfcmm9u.netdna-ssl.com/wp-content/uploads/2018/03/JavaScript-this-call-context.jpg)
 
-Before I start explaining, if you have a programming background in the traditional class-based OOP languages (E.g. C#, Java, C++), please throw away all your preconceived notions of what the ‘`this`‘ keyword is supposed to be. The JavaScript `this` keyword behaves quite differently, because JavaScript is not a [class-based Object-oriented programming language](https://en.wikipedia.org/wiki/Class-based_programming).
+在我开始讲解前，如果你学过一门基于类的面向对象编程语言（比如 C#，Java，C++），那请将你对 `this` 这个关键词应该是做什么用的先入为主的概念扔到垃圾桶里。JavaScript 的 `this` 关键词是很不一样，因为 JavaScript 本来就不是一门基于类的[面向对象编程语言](https://en.wikipedia.org/wiki/Class-based_programming)。
 
-Although in ES6, JavaScript provides users with an option to code using classes, it is simply [syntactic sugar](https://www.quora.com/What-is-syntactic-sugar-in-programming-languages) for the underlying prototypal inheritance structure.
+虽说 ES6 里面 JavaScript 提供了类这个特性给我们用，但它只是一个[语法糖](https://www.quora.com/What-is-syntactic-sugar-in-programming-languages)，一个基于原型继承的语法糖。
 
-**The ‘`this`‘ keyword is a pointer that points to the object that called the function.**
+**`this` 就是一个指针，指向我们调用函数的对象。**
 
-I cannot stress just how important the previous sentence is. Remember, there were no classes in JavaScript until it was added in ES6. [Classes](http://2ality.com/2015/02/es6-classes-final.html) are merely syntactic sugar for linking objects together to formulate a behavior that is similar to the class based inheritance that most of us all are so used to. All the behind the scenes magics is woven together via linking of the prototype chain.
+我难以强调上一句话有多重要。请记住，在 Class 添加到 ES6 之前，JavaScript 中没有 Class 这种东西。[Class](http://2ality.com/2015/02/es6-classes-final.html) 只不过是一个将对象串在一起表现得像类继承一样的语法糖，以一种我们已经习惯的写法。所有的魔法背后都是用原型链编织起来的。
 
-If the previous sentence is difficult to understand, the context of this is very similar to an English sentence. For example, the following line
+如果上面的话不好理解，那你可以这样想，this 的上下文跟英语句子的表达很相似。比如下面的例子
 
 `Bob.callPerson(John);`
 
-Can be written in English as “Bob called a person named John”. Since `callPerson()` was called from Bob, `this` points at Bob. We will get into the nitty-gritty in the upcoming sections. By the end of this post, you will leave with a much better understanding (and confidence) of the `this` keyword in JavaScript.
+就可以用英语写成 “Bob called a person named John”。由于 `callPerson()` 是 Bob 发起的，那 `this` 就指向 Bob。我们将在下面的章节深入更多的细节。到了这篇文章结束时，你会对 `this` 关键词有更好的理解（和信心）。
 
-## Execution Context
+## 执行上下文
 
-> _Execution context_ is a concept in the language spec that—in layman’s terms—roughly equates to the ‘environment’ a function executes in; that is, variable scope (and the _scope chain_, variables in closures from outer scopes), function arguments, and the value of the `this` object.
+> **执行上下文** 是语言规范中的一个概念，用通俗的话讲，大致等同于函数的执行“环境”。具体的有：变量作用域（和 _作用域链条_，闭包里面来自外部作用域的变量），函数参数，以及 `this` 对象的值。
 > 
-> Source: [Stackoverflow.com](https://stackoverflow.com/questions/9384758/what-is-the-execution-context-in-javascript-exactly)
+> 引自: [Stackoverflow.com](https://stackoverflow.com/questions/9384758/what-is-the-execution-context-in-javascript-exactly)
 
-Remember, right now, we are focused on ascertaining what `this` is pointing at. Therefore, the only thing we need to ask ourselves is:
+记住，现在起，我们专注于查明 `this` 关键词到底指向哪。因此，我们现在要思考的就一个问题：
 
-*   what is calling the function? What object is calling the function?
+*   是什么调用函数？是哪个对象调用了函数？
 
-To understand this key concept, let us examine some examples.
+为了理解这个关键概念，我们来测一下下面的代码。
 
 ```
 var person = {
-name: "Jay",
-greet: function() {
-console.log("hello, " + this.name);
-}
+    name: "Jay",
+    greet: function() {
+        console.log("hello, " + this.name);
+    }
 };
 person.greet();
 ```
 
-Who/what is calling the g_reet function_? It is the object `person` right? On the left hand side of the `greet()` call, there is a person object. Therefore, the this keyword will point at `person`. Therefore, `this.name` will be equal to `"Jay"`. Now, using the example above, what if I were to add the following:
+谁调用了 _greet 函数_？是 `person` 这个对象对吧？在 `greet()` 调用的左边是一个 person 对象，那么 this 关键词就指向 `person`，`this.name` 就等于 `"Jay"`。现在，还是用上面的例子，我加点料：
 
 ```
-var greet = person.greet; // store reference to function;
-greet(); // call function
+var greet = person.greet; // 将函数引用存起来;
+greet(); // 调用函数
 ```
 
-What do you think the console will output in this case? “Jay”? `undefined`? Or something else?
+你觉得在这种情况下控制台会输出什么？“Jay”？`undefined`？还是别的？
 
-The answer is `undefined`. If you are surprised by the output, no need to feel ashamed. You are about to learn something that will help you unlock a crucial gate in your JavaScript journey.
+正确答案是 `undefined`。如果你对这个结果感到惊讶，不必惭愧。你即将学习的东西将帮助你在 JavaScript 旅程中打开关键的大门。
 
-> The value of `this` is not defined by the object it is placed in, but by **how it is called**.
+> `this` 的值并不是由函数定义放在哪个对象里面决定，而是函数执行时由谁来唤起决定。
 
-Let this newfound revelation sink in before proceeding.
+对于这个意外的结果我们暂且压下，继续看下去。（感觉前后衔接得不够流畅）
 
-With this, we are going to examine the **three ways** that the `this` keyword is defined.
+带着这个困惑，我们接着测试下 `this` **三种**不同的定义方式。
 
-## Identifying where `this` points at
+## 找出 `this` 的指向
 
-We examined this in the previous section. But because this (pun unintended) is so important, we will review it again. First of all, I have a challenge for you: Examine the following code.
+上一节我们已经对 `this` 做了测试。但是这块知识实在重要，我们需要再好好琢磨一下。在此之前，我想用下面的代码给你出个题：
 
 ```
 var name = "Jay Global";
 var person = {
-name: 'Jay Person',
-details: {
-name: 'Jay Details',
-print: function() {
-return this.name;
-}
-},
-print: function() {
-return this.name;
-}
+    name: 'Jay Person',
+    details: {
+        name: 'Jay Details',
+        print: function() {
+            return this.name;
+        }
+    },
+    print: function() {
+        return this.name;
+    }
 };
 console.log(person.details.print());  // ?
 console.log(person.print());          // ?
@@ -122,80 +122,80 @@ console.log(name1()); // ?
 console.log(name2.print()) // ?
 ```
 
-Write down your expected answers for the `console.log()` outputs. If you are not sure, review the previous section.
+`console.log()` 将会输出什么，把你的答案写下来。如果你还想不清楚，复习下上一节。
 
-Once you are ready, feel free to check out the answers below.
+准备好了吗？放松心情，我们来看下面的答案。
 
-### Answers and Explanations
+### 答案和解析
 
 ##### person.details.print()
 
-Before we proceed, who/what is calling print? In JavaScript, we read from left to right. Therefore, this points at `details` not `person`. This is an important distinction to make, so bear it in mind if this is something new to you.
+首先，谁调用了 print 函数？在 JavaScript 中我们都是从左读到右。于是 this 指向 `details` 而不是 `person`。这是一个很重要的区别，如果你对这个感到陌生，那赶紧把它记下。
 
-The `print` key in `details` holds a function that returns `this.name`. Since we have identified that this refers to details, the function should return the value `'Jay Details'`.
+`print` 作为 `details` 对象的一个 key，指向一个返回 `this.name` 的函数。既然我们已经找出 this 指向 details ，那函数的输出就应该是 `'Jay Details'`。
 
 ##### person.print()
 
-Once again, identify what `this` is pointing at. `print()` is being called on the `person` object right?
+再来一次，找出 `this` 的指向。`print()` 是被 `person` 对象调用的，没错吧？
 
-In this case, the `print` function on `person` returns `this.name`. `this` is currently pointing at `person`, so “`Jay Person`” will be returned.
+在这种情况，`person` 里的 `print` 函数返回 `this.name`。`this` 现在指向 `person` 了，那 `'Jay Person'` 就是返回值。
 
 ##### console.log(name1)
 
-This one can be a little tricky. In the previous line, we have the following pieces of code.
+这一题就有点狡猾了。在上一行有这样一句代码：
 
 ```
 var name1 = person.print;
 ```
 
-I won’t blame you if that is what you thought. Unfortunately, it is wrong. Remember, the `this` keyword is bound when the function is called. What is in front of `name1()`? Nothing. Therefore, the `this` keyword is going to point at the global `window` object.
+如果你是通过这句来思考的，我不会怪你。很遗憾，这样去想是错的。要记住，`this` 关键词是在函数调用时才做绑定的。`name1()` 前面是什么？什么都没有。因此 `this` 关键词就将指向全局的 `window` 对象去。
 
-Therefore, the answer is “`Jay Global`”.
+因此，答案是 `'Jay Global'`。
 
-##### person.print()
+##### name2.print()
 
-Take a look at the object that `name2` is pointing at. It is the `details` object right?
+看一下 `name2` 指向哪个对象，是 `details` 对象没错吧？
 
-So what will the following print? If you understood all the material up until now, this should come quite naturally if you put your mind to it.
+所以下面这句会打印出什么呢？如果到目前为止的所有小点你都理解了，那这里稍微思考下你就自然有答案了。
 
 ```
 console.log(name2.print()) // ??
 ```
 
-The answer is “`Jay Details`” because print is called on `name2` which points at `details`.
+答案是 `'Jay Details'`，因为 `print` 是 `name2` 调起的，而 `name2` 指向 `details`。
 
-### Lexical Scope
+### 词法作用域
 
-You might be asking: **What is lexical scope**?
+你可能会问：“**什么是词法作用域？**”
 
-Heck, why are we even covering it when we are focusing on understanding the JavaScript `this` keyword? Well, it comes into play when we start working with ES6’s arrow functions. If you have written JavaScript for a year or more, chances are, you have come across arrow functions. And they will be used more and more as ES6 becomes more standardized.
+逗我呢，我们不是在探讨 `this` 关键词吗，这个又是哪里冒出来的？好吧，当我们用起 ES6 的箭头函数，这个就要考虑了。如果你已经写了不止一年的 JavaScript，那你很可能已经碰到箭头函数。随着 ES6 逐渐成为现实标准，箭头函数也变得越来越常用。
 
-[Lexical scope in JavaScript](https://toddmotto.com/everything-you-wanted-to-know-about-javascript-scope/#lexical-scope) can be confusing to grasp. If you [understand closures](https://www.thecodingdelight.com/javascript-closure/), it will be much easier to conceptualize. Let’s take a look at a brief code snippet.
+[JavaScript 的词法作用域](https://toddmotto.com/everything-you-wanted-to-know-about-javascript-scope/#lexical-scope) 并不好懂。如果你 [理解闭包](https://www.thecodingdelight.com/javascript-closure/)，那要理解这个概念就容易多了。来看下下面的小段代码。 
 
 ```
-// lexical scope of outerFn
+// outerFn 的词法作用域
 var outerFn = function() {
-var n = 5;
-console.log(innerItem);
-// lexical scope of innerFn
-var innerFn = function() {  
-var innerItem = "inner";    // Error. Can only go upwards with the elevator. Not downwards.
-console.log(n);
-};
-return innerFn;
+    var n = 5;
+    console.log(innerItem);
+    // innerFn 的词法作用域
+    var innerFn = function() {  
+        var innerItem = "inner";    // 错了。只能坐着电梯向上，不能向下。
+        console.log(n);
+    };
+    return innerFn;
 };
 outerFn()();
 ```
 
-Think of a building with a crappy elevator that can only travel upwards.
+想象一下一栋楼里面有一架只能向上走的诡异电梯。
 
-[![JavaScript lexical scope is a lot like a building with an elevator that only goes up](//personalzone-hulgokm2zfcmm9u.netdna-ssl.com/wp-content/uploads/2018/03/JavaScript-lexical-scope-building.jpg)](//personalzone-hulgokm2zfcmm9u.netdna-ssl.com/wp-content/uploads/2018/03/JavaScript-lexical-scope-building.jpg)
+[![JavaScript 的词法作用域就像楼里的一架只能向上走的诡异电梯](https://personalzone-hulgokm2zfcmm9u.netdna-ssl.com/wp-content/uploads/2018/03/JavaScript-lexical-scope-building.jpg)](https://personalzone-hulgokm2zfcmm9u.netdna-ssl.com/wp-content/uploads/2018/03/JavaScript-lexical-scope-building.jpg)
 
-The top floor of a building is the global windows object. If you are on the first floor, you are able to see and access the items in the upper floors such as those stored the second and third floor (`outerFn` and the global `window` object).
+建筑的顶层就是全局 windows 对象。如果你现在在一楼，你就可以看到并访问那些放在楼上的东西，比如放在二楼的 `outerFn` 和放在三楼的 `window` 对象。
 
-That is why when we run the following code: `outerFn()()`; it logs 5 onto the console and not `undefined`.
+这就是为什么我们执行代码 `outerFn()()`，它在控制台打出了 5 而不是 `undefined`。
 
-However, when we try to log `innerItem` from the `outerFn` lexical scope, we get the following error. Remember, the lexical scope in JavaScript is like a crappy elevator in a building that can only move upwards. Since outerFn is one lexical scope above the innerFn, it cannot go down into the innerFn lexical scope and retrieve the value inside of it. Which is why we get the following error:
+然而，当我们试着在 `outerFn` 词法作用域下打出日志 `innerItem`，我们遇到了下面的报错。请记住，JavaScript 的词法作用域就好像建筑里面那个只能向上走的诡异电梯。由于 outerFn 的词法作用域在 innerFn 上面，所以它不能向下走到 innerFn 的词法作用域里面并拿到里面的值。这就是触发下面报错的原因：
 
 ```
 test.html:304 Uncaught ReferenceError: innerItem is not defined
@@ -203,480 +203,480 @@ at outerFn (test.html:304)
 at test.html:313
 ```
 
-### `this` and Arrow Functions
+### `this` 和箭头函数
 
-In [ES6](http://es6-features.org/#ExpressionBodies), whether you like it or not, [arrow functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions) were introduced. For those that are not yet accustomed to arrow functions or are new to JavaScript, how it behaves in conjunction with the `this` keyword may cause you some confusion and potentially grief, this section is dedicated to you!
+在 [ES6](http://es6-features.org/#ExpressionBodies) 里面，不管你喜欢与否，[箭头函数](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)被引入了进来。对于那些还没用惯箭头函数或者新学 JavaScript 的人来说，当箭头函数和 `this` 关键词混合使用时会发生什么，这个点可能会给你带来小小的困惑和淡淡的忧伤。那这个小节就是为你们准备的！
 
-> What is the main difference between _arrow functions_ and _regular functions_ when it comes to the `this` keyword?
+> 当涉及到 `this` 关键词，**箭头函数** 和 **普通函数** 主要的不同是什么？
 
-**Answer**:
+**答案：**
 
-> Arrow Functions **lexically** bind their context so `this` actually refers to the originating context.
+> 箭头函数按**词法作用域**来绑定它的上下文，所以 `this` 实际上会引用到原来的上下文。
 > 
-> source: [hackernoon.com](https://hackernoon.com/javascript-es6-arrow-functions-and-lexical-this-f2a3e2a5e8c4)
+> 引自：[hackernoon.com](https://hackernoon.com/javascript-es6-arrow-functions-and-lexical-this-f2a3e2a5e8c4)
 
-I couldn’t have said it any better.
+我实在没法给出比这个更好的总结。
 
-Arrow functions preserve the [lexical scope](https://stackoverflow.com/questions/1047454/what-is-lexical-scope) of its current execution context, while regular functions don’t. In other words, arrow functions derive the value of `this` from the lexical scope that contains the arrow function.
+箭头函数保持它当前执行上下文的[词法作用域](https://stackoverflow.com/questions/1047454/what-is-lexical-scope)不变，而普通函数则不会。换句话说，箭头函数从包含它的词法作用域中继承到了 `this` 的值。
 
-Let’s examine a few code snippets to ensure that you properly understand this. Understanding how this works (no pun intended) will save you a lot of headaches in the future, as the `this` keyword and arrow functions are used in conjunction quite regularly.
+我们不妨来测试一些代码片段，确保你真的理解了。想清楚这块知识点未来会让你少点头痛，因为你会发现 `this` 关键词和箭头函数太经常一起用了。
 
-### Example
+### 示例
 
-Take a look at the following code snippet carefully.
+仔细阅读下面的代码片段。
 
 ```
 var object = {
-data: [1,2,3],
-dataDouble: [1,2,3],
-double: function() {
-console.log("this inside of outerFn double()");
-console.log(this);
-return this.data.map(function(item) {
-console.log(this);      // What is this ???
-return item * 2;
-});
-},
-doubleArrow: function() {
-console.log("this inside of outerFn doubleArrow()");
-console.log(this);
-return this.dataDouble.map(item => {
-console.log(this);      // What is this ???
-return item * 2;
-});
-}
+    data: [1,2,3],
+    dataDouble: [1,2,3],
+    double: function() {
+        console.log("this inside of outerFn double()");
+        console.log(this);
+        return this.data.map(function(item) {
+            console.log(this);      // 这里的 this 是什么？？
+            return item * 2;
+        });
+    },
+    doubleArrow: function() {
+        console.log("this inside of outerFn doubleArrow()");
+        console.log(this);
+        return this.dataDouble.map(item => {
+            console.log(this);      // 这里的 this 是什么？？
+            return item * 2;
+        });
+    }
 };
 object.double();
 object.doubleArrow();
 ```
 
-If we look at the execution context, both of these are called on `object`. So, it is safe to assume that this inside of the two function refers to `object` right? Yes, but I recommend you to copy and paste this code and test it yourself.
+如果我们看执行上下文，那这两个函数都是被 `object` 调用的。所以，就此断定这两个函数里面的 this 都指向 `object` 不为过吧？是的，但我建议你拷贝这段代码然后自己测一下。
 
-Here is the big question
+这里有个大问题：
 
-> What does `this` point at inside of the inner `map` function inside `arrow()` and `doubleArrow()`?
+> `arrow()` 和 `doubleArrow()` 里面的 `map` 函数里面的 `this` 又指向哪里呢？
 
-[![this and arrow function](//personalzone-hulgokm2zfcmm9u.netdna-ssl.com/wp-content/uploads/2018/03/this-and-arrow-function.jpg)](//personalzone-hulgokm2zfcmm9u.netdna-ssl.com/wp-content/uploads/2018/03/this-and-arrow-function.jpg)
+[![this 和箭头函数](https://personalzone-hulgokm2zfcmm9u.netdna-ssl.com/wp-content/uploads/2018/03/this-and-arrow-function.jpg)](https://personalzone-hulgokm2zfcmm9u.netdna-ssl.com/wp-content/uploads/2018/03/this-and-arrow-function.jpg)
 
-The following image should provide a huge hint. If you are not sure, please take around 5 minutes to think about what we have discussed in previous section. Afterwards, write down your answer to what you think this points to before proceeding. In the following section, we will answer the question.
+上一张图已经给了一个大大的提示。如果你还不确定，那请花5分钟将我们上一节讨论的内容再好好想想。然后，根据你的理解，在实际执行代码前把你认为的 this 应该指向哪里写下来。在下一节我们将会回答这个问题。
 
-### Revision of Execution Context
+### 回顾执行上下文
 
-The title should already have given it away. In case you don’t know, the map function iterates through the array that it is called upon and applies the return value of the passed in callback to each of its items. [Read more about JavaScript’s map function](https://www.thecodingdelight.com/functional-programming-javascript-map/) if you are unsure or are just curious.
+这个标题已经把答案泄露出来了。在你看不到的地方，map 函数对调用它的数组进行遍历，将数组的每一项传到回调函数里面并把执行结果返回。如果你对 JavaScript 的 map 函数不太了解或有所好奇，可以读读[这个](https://www.thecodingdelight.com/functional-programming-javascript-map/)了解更多。
 
-Anyhow, since `map()` is called on `this.data`, this will point at the array stored inside of the `data` key, which is `[1,2,3]`. Using the same logic, `this.dataDouble` should point at another array with the data `[1,2,3]`.
+总之，由于 `map()` 是被 `this.data` 调起的，于是 this 将指向那个存储在 `data` 这个 key 里面的数组，即 `[1,2,3]`。同样的逻辑，`this.dataDouble` 应该指向另一个数组，值为 `[1,2,3]`。
 
-Now, if the function call is made on `object`, we have established that this refers to `object` right? Okay, let’s move onto the following code snippet.
+现在，如果函数是 `object` 调用的，我们已经确定 this 指向 `object` 对吧？好，那来看看下面的代码片段。
 
 ```
 double: function() {
-return this.data.map(function(item) {
-console.log(this);      // What is this ???
-return item * 2;
-});
+    return this.data.map(function(item) {
+        console.log(this);      // 这里的 this 是什么？？
+        return item * 2;
+    });
 }
 ```
 
-Here is a trick question: who is calling the [anonymous function](https://en.wikibooks.org/wiki/JavaScript/Anonymous_functions) passed to `map()`? The answer is: no object is. To make things clear, here is a basic implementation of the `map` function.
+这里有个很有迷惑性的问题：传给 `map()` 的那个[匿名函数](https://en.wikibooks.org/wiki/JavaScript/Anonymous_functions)是谁调用的？答案是：这里没有一个对象是。为了看得更明白，这里给出一个 `map` 函数的基本实现。
 
 ```
 // Array.map polyfill
 if (Array.prototype.map === undefined) {
-Array.prototype.map = function(fn) {
-var rv = [];
-for(var i=0, l=this.length; i<l; i++)
-rv.push(fn(this[i]));
-return rv;
-};
+    Array.prototype.map = function(fn) {
+        var rv = [];
+        for(var i=0, l=this.length; i<l; i++)
+            rv.push(fn(this[i]));
+        return rv;
+    };
 }
 ```
 
-Is there any object in front of `fn(this[i]));`? Therefore, the `this` keyword refers to the global windows object. Then, why does `this.dataDouble.map` using an arrow function has this pointing at `object`?
+`fn(this[i]));` 前面有什么对象吗？没。因此，`this` 关键词指向全局的 windows 对象。那，为什么 `this.dataDouble.map` 使用了箭头函数会使得 this 指向 `object` 呢？
 
-I will say it again, because it it that important:
+我想再说一遍这句话，因为它实在很重要：
 
-> Arrow Functions Lexically Bind their Context to the <span style="text-decoration: underline;">**Originating Context**</span>
+> 箭头函数按词法作用域将它的上下文绑定到 <span style="text-decoration: underline;">**原来的上下文**</span>
 
-Now, you might be asking: what is the originating context? Good question!
+现在，你可能会问：原来的上下文是什么？问得好！
 
-Who is the original caller of `doubleArrow()`? `object` right? That is the originating context 🙂
+谁是 `doubleArrow()` 的初始调用者？就是 `object` 对吧？那它就是原来的上下文 🙂
 
-## this and `use strict`
+## this 和 `use strict`
 
-In ES5, the [strict mode](https://docs.microsoft.com/en-us/previous-versions/windows/internet-explorer/ie-developer/dev-guides/hh673540(v=vs.85)) feature was added in order to make the language more robust and minimize human errors. One prime example is with the relationship between how this behaves in strict mode. In order to write your code in strict mode, all you have to do is write the string `"use strict";` at the top of the scope that you are working with.
+为了让 JavaScript 更加健壮及尽量减少人为出错，ES5 引进了[严格模式](https://docs.microsoft.com/en-us/previous-versions/windows/internet-explorer/ie-developer/dev-guides/hh673540(v=vs.85))。一个典型的例子就是 this 在严格模式下的表现。你如果想按照严格模式来写代码，你只需要在你正在写的代码的作用域最顶端加上这么一行 `"use strict;"`。
 
-Remember that JavaScript is traditionally function scoped, not block scoped. For example,
+记住，传统的 JavaScript 只有函数作用域，没有块作用域。举个例子：
 
 ```
 function strict() {
-// Function-level strict mode syntax
-'use strict';
-function nested() { return 'And so am I!'; }
-return "Hi!  I'm a strict mode function!  " + nested();
+    // 函数级严格模式写法
+    'use strict';
+    function nested() { return 'And so am I!'; }
+    return "Hi!  I'm a strict mode function!  " + nested();
 }
 function notStrict() { return "I'm not strict."; }
 ```
 
-Code snippet provided by [Mozilla Developer Network.](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode)
+代码片段来自 [Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode)。
 
-Although block scoping can be achieved with the features that ES6 provides such as the [let keyword](https://www.thecodingdelight.com/javascript-es6-best-parts/#ftoc-heading-7).
+不过呢，ES6 里面通过 [let 关键词](https://www.thecodingdelight.com/javascript-es6-best-parts/#ftoc-heading-7)提供了块作用域的特性。
 
-Now, let’s look at a simple code snippet to see how this behaves in strict mode and out of strict mode. Please run the code snippet below before proceeding.
-
-```
-(function() {
-"use strict";
-console.log(this);
-})();
-(function() {
-// Without strict mode
-console.log(this);
-})();
-```
-
-As you saw, `this` points at `undefined` in strict mode. In contrast, `this` points at the global `window` object without strict mode. In most cases, when users use this, they don’t want it to point at the global window object. Strict mode greatly reduces the possibility of developers shooting themselves in the foot when using the `this` keyword.
-
-For example, what if the global window object has a property with the same key value as the one that you are using in your object? For example
+现在，来看一段简单代码，看下 this 在严格模式和非严格模式下会怎么表现。在继续之前，请将下面的代码运行一下。
 
 ```
 (function() {
-// "use strict";
-var item = {
-document: "My document",
-getDoc: function() {
-return this.document;
-}
-}
-var getDoc = item.getDoc;
-console.log(getDoc());
+    "use strict";
+    console.log(this);
+})();
+(function() {
+    // 不使用严格模式
+    console.log(this);
 })();
 ```
 
-There are two problems in this code.
+正如你看到的，`this` 在严格模式下指向 `undefined`。相对的，非严格模式下 `this` 指向全局变量 `window`。大部分情况下，开发者使用 this ，并不希望它指向全局 window 对象。严格模式帮我们在使用 `this` 关键词时，尽量少做搬起石头砸自己脚的蠢事。
 
-1.  `this` will not point at `item` on line 10.
-2.  If the program is run without strict mode, no error will be thrown, since the `document` object is a property of the global `window` object.
+举个例子，如果全局的 window 对象刚好有一个 key 的名字和你希望访问到的对象的 key 相同，会怎样？上代码吧：
 
-In this simple example, it won’t be much of a problem, since the code snippet is very small.
+```
+(function() {
+    // "use strict";
+    var item = {
+        document: "My document",
+        getDoc: function() {
+            return this.document;
+        }
+    }
+    var getDoc = item.getDoc;
+    console.log(getDoc());
+})();
+```
 
-If you run code like this in production, when working with the item stored in `getDoc`, you will see a firework of errors that will be fairly difficult to trace, especially if the codebase is large has a lot of interactions between objects.
+这段代码有两个问题。
 
-Fortunately, if we run the code snippet in strict mode, since this is `undefined`, it will immediately throw an error back at us.
+1.  `this` 将不会指向 `item`。
+2.  如果程序在非严格模式下运行，将不会有错误抛出，因为全局的 `window` 对象也有一个名为 `document` 的属性。
+
+在这个简单示例中，因为代码较短也就不会形成大问题。
+
+如果你是在生产环境像上面那样写，当用到 `getDoc` 返回的数据时，你将收获一堆难以定位的报错。如果你代码库比较大，对象间互动比较多，那问题就更严重了。
+
+值得庆幸的是，如果我们是在严格模式下跑这段代码，由于 this 是 `undefined`，于是立刻就有一个报错抛给我们：
 
 > `test.html:312 Uncaught TypeError: Cannot read property 'document' of undefined`
 > `at getDoc (test.html:312)`
 > `at test.html:316`
 > `at test.html:317`
 
-## Explicitly Setting the Execution Context
+## 明确设置执行上下文
 
-We have talked a lot about execution context and the this keyword assuming that nobody was explicitly manipulating the execution context.
+先前假定大家都对执行上下文不熟，于是我们聊了很多关于执行上下文和 this 的知识。
 
-What can be both a blessing and a curse in JavaScript is that this “**call/execution context**” can be manipulated directly by a developer using JavaScript’s built-in features. They are
+让人欢喜让人忧的是，在 JavaScript 中通过使用内置的特性开发者就可以直接操作**执行上下文**了。这些特性包括：
 
-*   [bind()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind): Explicitly set the `this` value to an object of your choice without calling the function. Pass in n number of arguments delimited by the comma character (,). E.g. `func.bind(this, param1, param2, ...)`.
-*   [apply()](https://www.w3schools.com/js/js_function_apply.asp): Explicitly set the `this` value to an object of your choice. The second parameter is an array containing all the arguments that you would like to pass to the function. Lastly, **call the function**.
-*   [call()](https://docs.microsoft.com/en-us/scripting/javascript/reference/call-method-function-javascript): Explicitly set the `this` value to an object of your choice and like `bind`, pass in a number of arguments using the comma delimiter. E.g. `print.call(this, param1, param2, ...)`;. Lastly, **call the function**.
+*   [bind()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind)：不需要执行函数就可以将 `this` 的值准确设置到你选择的一个对象上。还可以通过逗号隔开传递多个参数，如 `func.bind(this, param1, param2, ...)` 。
+*   [apply()](https://www.w3schools.com/js/js_function_apply.asp)：将 `this` 的值准确设置到你选择的一个对象上。第二个参数是一个数组，数组的每一项是你希望传递给函数的参数。最后，**执行函数**。
+*   [call()](https://docs.microsoft.com/en-us/scripting/javascript/reference/call-method-function-javascript)：将 `this` 的值准确设置到你选择的一个对象上，然后想 `bind` 一样通过逗号分隔传递多个参数给函数。如：`print.call(this, param1, param2, ...)`。最后，**执行函数**。
 
-All the built-in functions mentioned above have a commonality in that they are used to make the `this` keyword point to something else. These features enable us to do some really cool things. Unfortunately, the topic is so broad that it will require many posts to cover all of them, so for the sake of brevity, I will not blab on about its application points in this post.
+上面提到的所有内置函数都有一个共同点，就是它们都是用来将 `this` 关键词指向到其他地方。这些特性可以让我们玩一些骚操作。只是呢，这个话题太广了都够写好几篇文章了，所以简洁起见，这篇文章我不打算展开它的实际应用。
 
-**Note**: Out of the three functions mentioned above, only `bind()` does not directly call the function after setting the `this` keyword.
+**重点**：上面那三个函数，只有 `bind()` 在设置好 `this` 关键词后不立刻执行函数。
 
-## When to Use Bind, Call and Apply
+## 什么时候用 bind、call 和 apply
 
-You are probably thinking: This is confusing as it is already. What is the purpose of learning all of this?
+你可能在想：现在已经很乱了，学习所有这些的目的是什么？
 
-First of all, you will see bind, call and apply used everywhere, especially in large libraries and frameworks. If you don’t understand what it does, you are woefully utilizing only a small part of the power JavaScript offers.
+首先，你会看到 bind、call 和 apply 这几个函数到处都会用到，特别是在一些大型的库和框架。如果你没理解它做了些什么，那可怜的你就只用上了 JavaScript 提供的强大能力的一小部分而已。
 
-If you don’t want to read about possible usages and want to get into learning right away, feel free to skip this section.
+如果你不想了解一些可能的用法而想立刻读下去，当然了，你可以直接跳过这节，没关系。
 
-A lot of the possible usages listed below are very broad and deep topics (most likely unable to be covered in a single post), so if you want to learn more about them, I will attach links. In the future, I might add sections to this ultimate guide, so that people can get the most out of it.
+下面列出来的应用场景都是一些具有深度和广度的话题（一篇文章基本上是讲不完的），所以我放了一些链接供你深度阅读用。未来我可能会在这篇终极指南里面继续添加新的小节，这样大家就可以一次看过瘾。
 
-1.  [Borrowing methods](https://medium.com/@thejasonfile/borrowing-methods-from-a-function-in-javascript-713a0beed40d)
-2.  [Currying](https://www.sitepoint.com/currying-in-functional-javascript/)
-3.  [Partial application](http://benalman.com/news/2012/09/partial-application-in-javascript/#partial-application)
-4.  [Dependency injection](http://krasimirtsonev.com/blog/article/Dependency-injection-in-JavaScript)
+1.  [方法借用](https://medium.com/@thejasonfile/borrowing-methods-from-a-function-in-javascript-713a0beed40d)
+2.  [柯里化](https://www.sitepoint.com/currying-in-functional-javascript/)
+3.  [偏函数应用](http://benalman.com/news/2012/09/partial-application-in-javascript/#partial-application)
+4.  [依赖注入](http://krasimirtsonev.com/blog/article/Dependency-injection-in-JavaScript)
 
-If I am missing any other practical use cases, please leave a message and let me know. I am always out to improve the guides so that you as a reader can get the most out of reading.
+如果我漏掉了其他实践案例，请留言告知。我会经常来优化这篇指南，这样你作为读者就可以读到最丰富的内容。
 
-> Read high quality open source code to take your knowledge and skills to the next level.
+> 阅读高质量的开源代码可以升级你的知识和技能。
 
-Seriously, you will see some real practical application of the this keyword, call, apply, bind in some open source code. I talk about this along with other methods of [becoming a better programmer](https://www.thecodingdelight.com/become-better-programmer/).
+讲真，你会在一些开源代码上看到 this 关键词、call、apply 和 bind 的实际应用。我会将这块结合着其他能[帮你成为更好的程序员](https://www.thecodingdelight.com/become-better-programmer/)的方法一起讲。
 
-In my opinion, the best open source to start reading is [underscore](http://underscorejs.org/). It isn’t monolithic compared to other open source projects like [d3](https://github.com/d3/d3), so it is perfect for educational purposes. Furthermore, it is compact, well-documented and the coding style is relatively easy to follow.
+在我看来，开始阅读最好的开源代码是 [underscore](http://underscorejs.org/)。它并不像其他开源项目，如 [d3](https://github.com/d3/d3)，那样铁板一块，而是内部代码相互比较独立，因而它是教学用的最佳选择。另外，它代码简洁，文档详细，编码风格也是相当容易学习。
 
-## JavaScript `this` and bind
+## JavaScript 的 `this` 和 bind
 
-As mentioned, `bind` allows you to explicitly set what this points at without actually calling the function. Here is a simple example
+前面提到了，`bind` 允许你明确设定 this 的指向而不用实际去执行函数。这里是一个简单示例：
 
 ```
 var bobObj = {
-name: "Bob"
+    name: "Bob"
 };
 function print() {
-return this.name;
+    return this.name;
 }
-// explicitly set this to point at "bobObj"
+// 将 this 明确指向 "bobObj"
 var printNameBob = print.bind(bobObj);
-console.log(printNameBob());    // this points at bob, so logs "Bob"
+console.log(printNameBob());    // this 会指向 bob，于是输出结果是 "Bob"
 ```
 
-In the example above, if we were to remove the bind method, then this would point at the global `window` object.
+在上面的示例中，如果你把 bind 那行去掉，那 this 将会指向全局 `window` 对象。
 
-This might sound very stupid, but you should use `bind` when you want to bind the `this` object to a specific object. In some cases, we may want to borrow methods from another objects. For example,
+这好像很蠢，但在你想将 `this` 绑定到具体对象前你就必须用 `bind` 来绑定。在某些场景下，我们可能想从另一个对象中借用一些方法。举个例子，
 
 ```
 var obj1 = {
-data: [1,2,3],
-printFirstData: function() {
-if (this.data.length)
-return this.data[0];
-}
+    data: [1,2,3],
+    printFirstData: function() {
+        if (this.data.length)
+            return this.data[0];
+    }
 };
 var obj2 = {
-data: [4,5,6],
-printSecondData: function() {
-if (this.data.length > 1)
-return this.data[1];
-}
+    data: [4,5,6],
+    printSecondData: function() {
+        if (this.data.length > 1)
+            return this.data[1];
+    }
 };
-// get access to obj'2 method to use for obj1;
+// 在 obj1 中借用 obj2 的方法
 var getSecondData = obj2.printSecondData.bind(obj1);
-console.log(getSecondData());   // prints 2
+console.log(getSecondData());   // 输出 2
 ```
 
-In the sample code snippet, the `obj2` has a method called `printSecondData` which we want to lend to `obj1`. In the following line
+在这个代码片段里，`obj2` 有一个名为 `printSecondData` 的方法，而我们想将这个方法借给 `obj1`。在下一行
 
 ```
 var getSecondData = obj2.printSecondData.bind(obj1);
 ```
 
-we are using the power of bind to give `obj1` access to the `printSecondData` method on `obj2`.
+通过使用 bind ，我们让 `obj1` 可以访问 `obj2` 的 `printSecondData` 方法。
 
-### Exercise
+### 练习
 
-In the code below
+在下面的代码中
 
 ```
 var object = {
-data: [1,2,3],
-double: function() {
-this.data.forEach(function() {
-// Get this to point to object.
-console.log(this);
-});
-}
+    data: [1,2,3],
+    double: function() {
+        this.data.forEach(function() {
+            // Get this to point to object.
+            console.log(this);
+        });
+    }
 };
 object.double();
 ```
 
-Have the this keyword point at `object`. Hint: You do not have to rewrite `this.data.forEach`.
+怎么让 this 关键词指向 `object`。提示：你并不需要重写 `this.data.forEach`。
 
-##### Answer
+##### 答案
 
-In one of the previous section, we need to be aware of execution context. If you look closely at how the anonymous function is called, it is not called as a method of a object. Therefore, the `this` keyword will point at the global `window` object.
+在上一节中，我们了解了执行上下文。如果你对匿名函数调用那部分看得够细心，你就知道它并不会作为某个对象的方法被调用。因此，`this` 关键词指向了全局 `window` 对象。
 
-Therefore, we need to bind object as the context to the anonymous function so that this points to `object`. now, when `double` runs, `object` is calling it, so the `this` inside of `double` when `object.double` is called is `object`.
+于是我们需要将 object 作为上下文绑定到匿名函数上，使得里面的 this 指向 `object`。现在，`double` 函数跑起来时，是 `object` 调用了它，那么 `double` 里面的 `this` 指向 `object`。
 
 ```
 var object = {
-data: [1,2,3],
-double: function() {
-return this.data.forEach(function() {
-// Get this to point to object.
-console.log(this);
-}.bind(this));
-}
+    data: [1,2,3],
+    double: function() {
+        return this.data.forEach(function() {
+            // Get this to point to object.
+            console.log(this);
+        }.bind(this));
+    }
 };
 object.double();
 ```
 
-However, what happens if we do the following?
+那，如果我们像下面这样做呢？
 
 ```
 var double = object.double;
-double();   // ??
+double();   // ？？
 ```
 
-What is the call context of `double()`? It is the global context. Therefore, we will get the following error.
+`double()` 的调用上下文是什么？是全局上下文。于是，我们就会看到下面的报错。
 
 > `Uncaught TypeError: Cannot read property 'forEach' of undefined`
 > `at double (test.html:282)`
 > `at test.html:289`
 
-So, we need to be mindful of how we call functions when using the `this` keyword. We can reduce the possibility of this kind of error by providing an API to users that fixes the this keyword. Remember that this comes at the expense of flexibility, so count the costs before making a decision.
+所以，当我们用到 `this` 关键词时，就要小心在意我们调用函数的方式。我们可以在提供 API 给用户时固定 this 关键词，以此减少这种类型的错误。但请记住，这么做的代价是牺牲了灵活性，所以做决定前要考虑清楚。
 
 ```
 var double = object.double.bind(object);
-double();  // no more error
+double();  // 不再报错
 ```
 
-## JavaScript `this` and call
+## JavaScript `this` 和 call
 
-The call method is very similar to bind, but the big difference is that `call`, as the name implies, immediately calls/executes the function.
+call 方法和 bind 很相似，但就如它名字所暗示的，`call` 会立刻呼起（执行）函数，这是两个函数的最大区别。
 
 ```
 var item = {
-name: "I am"
+    name: "I am"
 };
 function print() {
-return this.name;
+    return this.name;
 }
-// executed right away
+// 立刻执行
 var printNameBob = console.log(print.call(item));
 ```
 
-Most of the use cases with `call`, `apply` and `bind` will overlap. The most important thing as a programmer is to first understand the differences between the three methods and use them according to their design and purpose. Once you understand, you will be able to use them creatively in your code to create powerful constructs.
+`call`、`apply`、`bind` 大部分使用场景是重叠的。作为一个程序员最重要的还是先了解清楚这三个方法之间的差异，从而能根据它们的设计和目的的不同来选用。只要你了解清楚了，你就可以用一种更有创意的方式来使用它们，写出更独到精彩的代码。
 
-When working with fixed amount of arguments, it is good to use `call` or `bind`. For example, a `doLogin` function will accept two arguments always: `username` and `password`. In this case, if you need to bind this to a specific object, `call` or `bind` will serve you well.
+在参数数量固定的场景，`call` 或 `bind` 是不错的选择。比如说，一个叫 `doLogin` 的函数经常是接受两个参数：`username` 和 `password`。在这个场景下，如果你需要将 this 绑定到一个特定的对象上，`call` 或 `bind` 会挺好用的。
 
-### How to use call
+### 如何使用 call
 
-One of the most common uses in the past was to convert array-like objects such as the `arguments` object into arrays. For example,
+以前一个最常用的场景是把一个类数组对象，比如 `arguments` 对象，转化成数组。举个例子：
 
 ```
 function convertArgs() {
-var convertedArgs = Array.prototype.slice.call(arguments);
-console.log(arguments);
-console.log(Array.isArray(arguments));  // false
-console.log(convertedArgs);
-console.log(Array.isArray(convertedArgs)); // true
+    var convertedArgs = Array.prototype.slice.call(arguments);
+    console.log(arguments);
+    console.log(Array.isArray(arguments));  // false
+    console.log(convertedArgs);
+    console.log(Array.isArray(convertedArgs)); // true
 }
 convertArgs(1,2,3,4);
 ```
 
-In the example above, we used call to convert the `argument` object into an array. In the next example, we will call a method available on the `Array` object, setting the argument object as the this in its method to add up the arguments passed.
+在上面的例子中，我们使用 call 将 `argument` 对象转化成一个数组。在下一个例子中，我们将会调用一个 `Array` 对象的方法，并将 argument 对象设置为方法的 this，以此来将传进来参数加在一起。
 
 ```
 function add (a, b) { 
-return a + b; 
+    return a + b; 
 }
 function sum() {
-return Array.prototype.reduce.call(arguments, add);
+    return Array.prototype.reduce.call(arguments, add);
 }
 console.log(sum(1,2,3,4)); // 10
 ```
 
-We are calling reduce on an array like object. Note that arguments is not an array, but we are giving it access to the reduce method. If you are curious about how reduce works, you can [read about reduce here](https://www.thecodingdelight.com/map-filter-reduce/).
+我们在一个类数组对象上调用了 reduce 函数。要知道 arguments 不是一个数组，但我们给了它调用 reduce 方法的能力。如果你对 reduce 感兴趣，可以在[这里了解更多](https://www.thecodingdelight.com/map-filter-reduce/)。
 
-### Exercises
+### 练习
 
-Now, it is time to solidify your newfound knowledge.
+现在是时候巩固下你新学到的知识。
 
-1.  [document.querySelectorAll()](https://www.w3schools.com/jsref/met_document_queryselectorall.asp) returns a `NodeList`, which is an array like object. Write a function that takes a CSS selector and returns an array of Nodes selected.
-2.  Create a function that accepts an array of key value pairs and sets the value to the item that this keyword is pointing at and return that object. If this is `null` or `undefined`, create a new `object`. E.g. `set.call( {name: "jay"}, {age: 10, email: '[[email protected]](/cdn-cgi/l/email-protection)'}); // return {name: "jay", age: 10, email: '[[email protected]](/cdn-cgi/l/email-protection)'}`
+1.  [document.querySelectorAll()](https://www.w3schools.com/jsref/met_document_queryselectorall.asp) 返回一个类数组对象 `NodeList`。请写一个函数，它接收一个 CSS 选择器，然后返回一个选择到的 DOM 节点数组。
+2.  请写一个函数，它接收一个由键值对组成的数组，然后将这些键值对设置到 this 关键词指向的对象上，最后将该对象返回。如果 this 是 `null` 或 `undefined`，那就新建一个 `object`。示例：`set.call( {name: "jay"}, {age: 10, email: '[[email protected]](/cdn-cgi/l/email-protection)'}); // return {name: "jay", age: 10, email: '[[email protected]](/cdn-cgi/l/email-protection)'}`。
 
-## JavaScript this and apply
+## JavaScript this 和 apply
 
-The apply is the array accepting version of call. Therefore, when using `apply`, think of arrays.
+apply 就是接受数组版本的 call。于是当使用 `apply` 时，多联想下数组。
 
-> Apply a method to a list.
+> 将一个方法应用（apply）到一个数组上。
 
-That is how I remember it and it has helped. Apply adds another plethora of possibilities to your already stacked arsenal of tools as you will soon come to see.
+我用这句话来记住它，而且还挺管用。apply 为你的现有堆积的军火库又添加了一样利器，增加了很多新的可能，你很快就能体会到这一点。
 
-When working with a dynamic list of arguments, use apply. Converting a set of data into an array and using apply can allow you to create some powerful and flexible functions that will make your life a lot easier.
+当你要处理参数数量动态变化的场景，用 apply 吧。将一系列数据转化为数组并用上 apply 能让你写出更好用和更具弹性的代码，会让你的工作更轻松。
 
-### How to use apply
+### 如何使用 apply
 
-[Math.min](https://www.w3schools.com/jsref/jsref_min.asp) and `max` are functions that accept n number of arguments and returns the max and min respectively. Instead of passing in n arguments, you can put n arguments into an array and pass it into min using `apply`.
-
-```
-Math.min(1,2,3,4); // returns 1
-Math.min([1,2,3,4]); // returns NaN. Only accepts numbers. 
-Math.min.apply(null, [1,2,3,4]); // returns 1
-```
-
-Did that bend your mind? If so, allow me to explain. By using apply, we are passing in an array, since it accepts an array as the second arguments. What
+[Math.min](https://www.w3schools.com/jsref/jsref_min.asp) 和 `max` 都是可以接受多个参数并返回最小值和最大值的函数。除了直接传 n 个参数，你也可以将这 n 个参数放到一个数组里然后借助 `apply` 将它传到 min 函数里。
 
 ```
-Math.min.apply(null, [1,2,3,4]); // returns 1
+Math.min(1,2,3,4); // 返回 1
+Math.min([1,2,3,4]); // 返回 NaN。只接受数字
+Math.min.apply(null, [1,2,3,4]); // 返回 1
 ```
 
-is doing is essentially the following
+看晕了吗？如果真晕了，那我来解释下。使用 apply 时我们要传一个数组因为它需要数组作为第二个参数。而下面
 
-`Math.min(1,2,3,4); // returns 1
+```
+Math.min.apply(null, [1,2,3,4]); // 返回 1
+```
+
+做的事情基本等同于
+
+`Math.min(1,2,3,4); // 返回 1
 `
 
-That is the magic of apply and what i wanted to point out. It works the same way as `call`, but instead of n arguments, we are just passing in an array. Fantastic right? Wait, does that mean `Math.min.call(null, 1,2,3,4);` works the same way as `Math.min.apply(null, [1,2,3,4]);`?
+这就是我想指出来的 apply 的神奇之处。它和 `call` 工作原理，不过我们只要传给它一个数组而不是 n 个参数。很好玩对吧？桥豆麻袋，这是否意味着 `Math.min.call(null, 1,2,3,4);` 执行起来和 `Math.min.apply(null, [1,2,3,4]);` 一样？
 
-Yep, you bet! You are now starting to get the hang of it 🙂
+啊，你说对了！看来你已经开始掌握它了 🙂
 
-Let’s look at another application.
+让我们来看下另一种用法。
 
 ```
 function logArgs() {
-console.log.apply(console, arguments);
+    console.log.apply(console, arguments);
 }
 logArgs(1,3,'I am a string', {name: "jay", age: "1337"}, [4,5,6,7]);
 ```
 
-Yep, you can even pass in array like objects as the second argument to `apply`. Cool right?
+没错，你甚至可以传一个类数组对象作为 `apply` 的第二个参数。很酷对吧？
 
-### Exercises
+### 练习
 
-1.  Create a function that accepts an array of key value pairs and sets the value to the item that this keyword is pointing at and return that object. If this is `null` or `undefined`, create a new `object`. E.g. `set.apply( {name: "jay"}, [{age: 10}]); // return {name: "jay", age: 10}`
-2.  Create a function similar to `Math.max` and `min`, but one one that applies calculations. The first two arguments should be `numbers`. Make sure to convert the arguments after the second into an **array of functions.** A sample template to get started with is provided below
+1.  写一个函数，它接受一个由键值对组成的数组，然后将这些键值对设置到 this 关键词指向的对象上，最后将该对象返回。如果 this 是 `null` 或 `undefined`，那就新建一个 `object`。示例：`set.apply( {name: "jay"}, [{age: 10}]); // 返回 {name: "jay", age: 10}`
+2.  写一个类似 `Math.max` 和 `min` 的函数，不过接收的不是数字而是运算。前两个参数必须是`数字`，而后面的参数你要将其转化为一个**函数数组**。下面提供一个方便你上手理解的示例：
 
 ```
 function operate() {
-if (arguments.length < 3) {
-throw new Error("Must have at least three arguments");
-}
-if (typeof arguments[0] !== 'number' || typeof arguments[1] !== 'number') {
-throw new Error("first two arguments supplied must be a number");
-}
-// Write code ...
-// An array of functions. Hint use either call, apply or bind. Don't iterate over arguments and place functions in new array.
-var args;
-var result = 0;
-// Good luck
+    if (arguments.length < 3) {
+        throw new Error("至少要三个参数");
+    }
+    if (typeof arguments[0] !== 'number' || typeof arguments[1] !== 'number') {
+        throw new Error("前两个参数必须是数字");
+    }
+    // 写代码
+    // 这是一个由函数组成的数组。你可以用 call、apply 或者 bind。但不要直接遍历参数然后直接塞到一个数组里
+    var args;
+    var result = 0;
+    // 好了，开始吧，祝好运
 }
 function sum(a, b) {
-return a + b;
+    return a + b;
 }
 function multiply(a,b) {
-return a * b;
+    return a * b;
 }
-console.log(operate(10, 2, sum, multiply));    // must return 32 -> (10 + 2) + (10 * 2) = 32
+console.log(operate(10, 2, sum, multiply));    // 必须返回 32 -> (10 + 2) + (10 * 2) = 32
 ```
 
-## Additional Resource and Readings
+## 其他文章和资料
 
-In case my explanations did not make sense to you, below are some additional resources that will help you understand how bind works in JavaScript.
+假如我上面的解释没能让你释疑，那下面这些额外的资料可以帮你更好地理解 bind 在 JavaScript 里面是怎么运作的。
 
-*   [Understanding JavaScript function bind prototype](https://www.smashingmagazine.com/2014/01/understanding-javascript-function-prototype-bind/)
-*   [Stackoverflow – Use of the JavaScript bind method](https://stackoverflow.com/questions/2236747/use-of-the-javascript-bind-method)
-*   [How-to: call() , apply() and bind() in JavaScript](https://www.codementor.io/niladrisekhardutta/how-to-call-apply-and-bind-in-javascript-8i1jca6jp)
-*   [JavaScript .call() .apply() and .bind() — explained to a total noob](https://medium.com/@owenyangg/javascript-call-apply-and-bind-explained-to-a-total-noob-63f146684564)
+*   [理解 JavaScript 函数 bind 的原型方法](https://www.smashingmagazine.com/2014/01/understanding-javascript-function-prototype-bind/)
+*   [Stackoverflow – 使用 JavaScript 的 bind 函数](https://stackoverflow.com/questions/2236747/use-of-the-javascript-bind-method)
+*   [JavaScript 中 call()， apply() 和 bind() 如何使用](https://www.codementor.io/niladrisekhardutta/how-to-call-apply-and-bind-in-javascript-8i1jca6jp)
+*   [一看就懂 —— JavaScript 的 .call() .apply() 和 .bind()](https://medium.com/@owenyangg/javascript-call-apply-and-bind-explained-to-a-total-noob-63f146684564)
 
-I also strongly recommend studying up on [JavaScript’s prototype chain](https://www.digitalocean.com/community/tutorials/understanding-prototypes-and-inheritance-in-javascript), because not only is the `this` key word used heavily, it is the standard way of implementing inheritance in JavaScript.
+我还强烈推荐你去学习 [JavaScript 原型链](https://www.digitalocean.com/community/tutorials/understanding-prototypes-and-inheritance-in-javascript)，不单是因为里面用到大量的 `this` 关键词，而且它还是 JavaScript 实现继承的标准方式。
 
-Below are a list of books that will take your knowledge and understanding of how `this` can be used.
+下面列出一些帮你了解 `this` 如何使用的书籍：
 
-*   [Effective JavaScript: 68 Specific Ways to Harness the Power of JavaScript (Effective Software Development Series)](http://amzn.to/2HGhsDP): Although an oldie, the book is well written and provides clear examples of how this, apply, call, bind can be used to improve the way that you write code. The book is written by Dave Hermann a member of [TC39](https://www.ecma-international.org/memento/TC39-M.htm), so you can bet that he knows his JavaScript!
-*   [You dont’ know JS – this and Object Prototoypes](https://github.com/getify/You-Dont-Know-JS/tree/master/this%20%26%20object%20prototypes): Kyle Simpson does a great job in explaining how objects and prototypes work with each other in a clear, relatively beginner-friendly manner.
+*   [编写高质量 JavaScript代码的68个有效方法](http://amzn.to/2HGhsDP)：虽然是本古董，但此书确实写得挺好而且还提供了简单易懂的示例，教你怎么用好 this、apply、call 和 bind 来写出好代码。书的作者是 [TC39](https://www.ecma-international.org/memento/TC39-M.htm) 的一个成员 Dave Hermann，所以你大可放心，他对 JavaScript 肯定理解深刻。
+*   [你不知道的 JS —— this 和对象原型](https://github.com/getify/You-Dont-Know-JS/tree/master/this%20%26%20object%20prototypes)：Kyle Simpson 以一种清晰明了、对初学者很友好的方式，解释了对象和原型是怎么相互影响运作起来的，写得很棒！
 
-## Conclusion
+## 总结
 
-The JavaScript `this` keyword is here to stay, considering that an unimaginably large amount of code has already been written using it.
+考虑到 `this` 关键词已经用到了难以计量的代码中，它是 JavaScript 中我们不得不聊的话题。
 
-A good artisan knows how to use his/her tools. As a JavaScript developer, it is of utmost importance that you know how to utilize its features.
+一个优秀的艺术家肯定精于工具的使用。作为一个 JavaScript 开发者，怎么用好它的特性是最最重要的。
 
-If you would like to see more in-depth explanation regarding a specific aspect of the `this` keyword, or more code, please let me know. Some possible options include posts on the following (but not limited to)
+如果你想看到一些从特定角度对 `this` 关键词深入剖析的文章或者更多的代码，请别忘了告诉我。这些可能的角度可以是（但不限于）下面这些：
 
-*   `this` and the `new` keyword.
-*   The prototype chain in JavaScript.
-*   `this` and JavaScript classes.
+*   `this` 和 `new` 关键词。
+*   JavaScript 的原型链。
+*   `this` 和 JavaScript 的类。
 
-Additionally, if there are any specific issues or additions that you would like to see in this post, please email me or send me a message. I just updated [my GitHub profile](https://github.com/JWLee89) to display my email address. I am looking forward to building up this guide so that readers will continue to benefit from it, regardless of their level of experience. Let’s partake in this journey together!
+另外，关于这篇文章你如果有什么具体的问题或补充，请给我发邮件或信息。我刚在[我的 Github 个人主页](https://github.com/JWLee89)更新了我的邮箱地址。我希望将这个教程完善起来，这样不管哪个级别的开发者看到它都能从中受益。让我们一起把它做好！
 
-Thank you for reading and looking forward to hearing ideas or suggestions on what to add to this guide so that readers get the most out of it.
+多谢捧场了老铁，然后，这篇文章还能再补充点什么对读者有用的东西，我真的很期待听到你的观点和建议。
 
-Take care and until next time!
+保重，下次见！
 
-### About the Author [Jay](https://www.thecodingdelight.com/author/ljay189/)
+### 关于作者 [Jay](https://www.thecodingdelight.com/author/ljay189/)
 
-I am a programmer currently living in Seoul, South Korea. I created this blog as an outlet to express what I know / have been learning in text form for retaining knowledge and also to hopefully help the wider community. I am passionate about data structures and algorithms. The back-end and databases is where my heart is at.
+我是一个现居韩国首尔的程序员。我创立这个博客的目的，就是想用文字形式将所学所想沉淀下来，也希望为社区做些贡献。我热衷于数据结构和算法，而后台和数据库则是我心中最爱。
 
 
 ---
