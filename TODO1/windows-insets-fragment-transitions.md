@@ -93,7 +93,6 @@ Woops，跟我在第一篇文章中展示的效果不太一样 🤐。我不想�
 
 还有一件我差点忘了写的小事。如果你要在 fragment 里面处理 WindowInsets，无论是隐式（通过使用 AppBarLayout 等）还是显式，你需要确保请求了一些 WindowInsets。只需要调通过 [requestApplyInsets()](https://developer.android.com/reference/android/support/v4/view/ViewCompat.html#requestApplyInsets%28android.view.View%29) 就能很容易做到：
 
-
 	override fun onViewCreated(view: View, icicle: Bundle) {
   		super.onViewCreated(view, savedInstanceState)
   		// yadda, yadda
