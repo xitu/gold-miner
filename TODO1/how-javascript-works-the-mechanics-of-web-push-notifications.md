@@ -7,7 +7,7 @@
 
 # JavaScript 是如何工作的：Web 推送通知的机制
 
-这是专门研究 JavaScript 及其构建组件系列文章的第 9 章。在识别和描述核心元素的过程中，我们还分享了我们在构建一个轻量级 JavaScript 应用程序 [SessionStack](https://www.sessionstack.com/?utm_source=medium&utm_medium=blog&utm_content=javascript-series-push-notifications-intro) 时使用的一些经验规则，该应用程序需要健壮且高性能，以帮助用户实时查看和重现它们的 Web 应用程序缺陷。
+这是专门研究 JavaScript 及其构建组件系列文章的第 9 章。在识别和描述核心元素的过程中，我们还分享了我们在构建一个轻量级 JavaScript 应用程序 [SessionStack](https://www.sessionstack.com/?utm_source=medium&utm_medium=blog&utm_content=javascript-series-push-notifications-intro) 时使用的一些经验规则，该应用程序应该健壮、高性能，可以帮助用户实时查看和重现它们的 Web 应用程序缺陷。
 
 如果你忽略了前几章，你可以在这里找到它们：
 
@@ -20,32 +20,32 @@
 7. [[译] JavaScript 是如何工作的：Web Worker 的内部构造以及 5 种你应当使用它的场景](https://github.com/xitu/gold-miner/blob/master/TODO/how-javascript-works-the-building-blocks-of-web-workers-5-cases-when-you-should-use-them.md)
 8. [[译] JavaScript 是如何工作的：Web Worker 生命周期及用例](https://github.com/xitu/gold-miner/blob/master/TODO1/how-javascript-works-service-workers-their-life-cycle-and-use-cases.md)
 
-今天，我们将关注 Web 推送通知：我们将了解他们的构建组件，探索发送/接收通知的流程，最后分享 [SessionStack](https://www.sessionstack.com/?utm_source=medium&utm_medium=blog&utm_content=javascript-series-push-notifications-2nd) 是如何利用这些构建新的产品特性的。
+今天，我们将关注 Web 推送通知：我们将了解它们的构建组件，探索发送/接收通知的流程，最后分享 [SessionStack](https://www.sessionstack.com/?utm_source=medium&utm_medium=blog&utm_content=javascript-series-push-notifications-2nd) 是如何利用这些构建新产品的特性。
 
-推送通知在手机领域被广泛使用。由于某种原因，它们很晚才进入网络，尽管开发人员对此有很高的要求。
+推送通知在手机领域被广泛使用。由于某种原因，它们很晚才进入互联网，尽管开发人员对此有很高的要求。
 
 #### 概述
 
-Web 推送通知允许用户选择从 Web 应用程序中及时更新，旨在重新吸引他们的用户群，并为用户提供有趣、重要且及时的内容。
+Web 推送通知允许用户选择从 Web 应用程序中及时更新，旨在重新吸引他们的用户群，并为用户提供有趣、重要、时实的内容。
 
 推送基于 Service Worker，我们在[上一篇文章中](https://blog.sessionstack.com/how-javascript-works-service-workers-their-life-cycle-and-use-cases-52b19ad98b58)详细讨论过。
 
-在这种情况下，雇佣 Service Worker 的原因是它们在后台工作。这时推送通知非常有用，因为这意味着只有当用户与通知本身进行交互时才会执行它们的代码。
+在这种情况下，使用 Service Worker 的原因是它们在后台工作。这时推送通知非常有用，因为这意味着只有当用户与通知本身进行交互时才会执行它们的代码。
 
 #### 推送和通知
 
 推送和通知是两种不同的 API。
 
-*   [推送](https://developer.mozilla.org/en-US/docs/Web/API/Push_API) — 它在服务器将信息提供人员时被调用。
-*   [通知](https://developer.mozilla.org/en-US/docs/Web/API/Notifications_API) — 这是 Service Worker 或 web 应用程序中向用户显示信息的脚本的操作。
+*   [推送](https://developer.mozilla.org/en-US/docs/Web/API/Push_API) —— 它在服务器将信息提供人员时被调用。
+*   [通知](https://developer.mozilla.org/en-US/docs/Web/API/Notifications_API) —— 这是 Service Worker 或 web 应用程序中向用户显示信息脚本的操作。
 
 #### 推送
 
 实现推送有三个步骤：
 
-1.  **UI** — 添加必要的客户端逻辑来给订阅用户进行推送，这是你的 Web 应用程序 UI 需要的 JavaScript 逻辑，以便用户能够注册自己从而实现推送消息。
-2.  **发送推送消息** — 在服务器上实现 API 调用，该调用将触发对用户设备的推送消息。
-3.  **接受推送消息** — 一旦推送消息到达浏览器，就进行处理。
+1.  **UI** —— 添加必要的客户端逻辑来给订阅用户发送推送，这是你的 Web 应用程序 UI 需要的 JavaScript 逻辑，这样用户就能注册自己从而实现推送消息。
+2.  **发送推送消息** —— 在服务器上实现 API 调用，该调用将触发对用户设备的推送消息。
+3.  **接受推送消息** —— 一旦推送消息到达浏览器，就进行处理。
 
 现在我们将更详细地描述整个过程。
 
@@ -72,7 +72,7 @@ if (!('PushManager' in window)) {
 
 #### 注册一个 Service Worker
 
-此时，我们知道改功能是受支持的。下一步是注册我们的 Service Worker。
+此时，我们知道该功能是受支持的。下一步是注册我们的 Service Worker。
 
 Service Worker，你从我们以前的一篇文章中应该[已经熟悉了](https://blog.sessionstack.com/how-javascript-works-service-workers-their-life-cycle-and-use-cases-52b19ad98b58)。
 
@@ -80,7 +80,7 @@ Service Worker，你从我们以前的一篇文章中应该[已经熟悉了](htt
 
 在注册了 Service Worker 之后，我们可以继续订阅用户。要做到这一点，我们需要得到他的许可才能给他发送推送信息。
 
-获取权限的 API 相对简单，但缺点是 API 已经[从接受回调变为返回 Promise](https://developer.mozilla.org/en-US/docs/Web/API/Notification/requestPermission)，这带来了一个问题：我们无法判断当前浏览器实现了哪个 API 版本，一次你必须实现和处理这两个版本。
+获取权限的 API 相对简单，但缺点是 API 已经[从接受回调变为返回 Promise](https://developer.mozilla.org/en-US/docs/Web/API/Notification/requestPermission)，这带来了一个问题：我们无法判断当前浏览器实现了哪个 API 版本，因此你必须实现和处理这两个版本。
 
 看起来是这样的：
 
@@ -108,7 +108,7 @@ function requestPermission() {
 
 ![](https://cdn-images-1.medium.com/max/800/1*xhB8ceUNM6vb8s0ZQKMHNg.png)
 
-一旦被授权、关闭或阻止，我们讲得到字符串格式的结果：`‘granted’`、`‘default’` 或 `‘denied’`。
+一旦被授权、关闭或阻止，我们将得到字符串格式的结果：`‘granted’`、`‘default’` 或 `‘denied’`。
 
 记住，如果用户单击 `Block` 按钮，你的 Web 应用程序将无法再次请求用户的许可，直到他们通过更改权限状态手动“解除”你的应用程序的阻塞。此选项隐藏在设置界面中。
 
@@ -140,7 +140,7 @@ function subscribeUserToPush() {
 
 `registration.pushManager.subscribe(options)` 接受一个 **options** 对象，它包含必要参数和可选参数：
 
-*   **userVisibleOnly**: 布尔值指示返回的推送订阅将仅用于对用户可见的消息。他必须设置为 `true`，否则你会得到一个错误（这有历史原因）。
+*   **userVisibleOnly**: 布尔值指示返回的推送订阅将仅用于对用户可见的消息。它必须设置为 `true`，否则你会得到一个错误（这有历史原因）。
 *   **applicationServerKey**：Base64-encoded `DOMString` 或者 `ArrayBuffer` 包含推送服务器用来验证应用服务器的公钥。
 
 你的服务器需要生产一对**应用程序服务器密钥 —— **也称为 VAPID 密钥，对于你的服务器来说，它们是唯一的。它们是一对公钥和私钥。私钥被秘密存储在你的终端，而公钥则与客户端交换。这些密钥允许推送服务知道哪个应用服务器订阅了用户，并确保它是触发向该特定用户推送消息的相同服务器。
@@ -155,7 +155,7 @@ function subscribeUserToPush() {
 *   浏览器向生成端点的推送服务发出请求，将此端点与该键关联并将端点返回给浏览器。
 *   浏览器将此端点添加到 `PushSubscription` 对象中，该对象通过 `subscribe()` 的 promise 返回。
 
-之后，无论何时你想发送推送消息，你都需要创建一个包含使用应用程序服务器的专用密钥签名信息的 **Authorization header**。当推送服务收到发送推送消息的请求时，它将通过查找已经连接到该特定端点的公钥来验证头（第二步）。
+之后，无论你想何时发送推送消息，你都需要创建一个包含使用应用程序服务器的专用密钥签名信息的 **Authorization header**。当推送服务收到发送推送消息的请求时，它将通过查找已经连接到该特定端点的公钥来验证头（第二步）。
 
 #### 推送对象
 
@@ -182,13 +182,13 @@ function subscribeUserToPush() {
 
 #### **发送推送消息**
 
-当你想向用户发送推送消息时，首先需要的是推送服务。你正在告诉推送服务（通过 API 调用）要发送的数据，发送邮件的人以及有关如果发送邮件的任何标准。通常，此 API 调用是从你服务器完成的。 
+当你想向用户发送推送消息时，首先需要的是推送服务。你正在告诉推送服务（通过 API 调用）要发送的数据，发送邮件的人以及有关如何发送邮件的任何标准。通常，此 API 调用是从你服务器完成的。 
 
 #### 推送服务
 
 推送服务是接收请求，验证它们并将推送消息传递给对应的浏览器服务。
 
-注意推送服务不是有你管理的 — 它是第三方服务。你的服务器是通过 API 与 推送服务通信的服务器完成的。推送服务的一个例子是 [Google’s FCM](https://firebase.google.com/docs/cloud-messaging/)。
+注意推送服务不是由你管理的 —— 它是第三方服务。你的服务器是通过 API 与 推送服务通信的服务器完成的。推送服务的一个例子是 [Google’s FCM](https://firebase.google.com/docs/cloud-messaging/)。
 
 推送服务处理所有繁重的任务，比如，如果浏览器处于脱机状态，推送服务会在发送相应消息之前对消息进行排队，等待浏览器的再次联机。
 
@@ -206,9 +206,9 @@ function subscribeUserToPush() {
 
 对于每个推送消息，你还可以提供下列说明：
 
-*   **TTL** — 定义消息在被删除和未传递之前应排队的时长。
-*   **优先级** — 定义消息的优先级，因为推送服务只发送高优先级的消息，以此来保护用户设备的电池寿命。
-*   **Topic** — 给出推送消息一个用于替换相同主题的发送消息的主题名，这样一旦设备处于活动状态，用户将不会收到过时的消息。
+*   **TTL** —— 定义消息在被删除和未传递之前应排队的时长。
+*   **优先级** —— 定义消息的优先级，因为推送服务只发送高优先级的消息，以此来保护用户设备的电池寿命。
+*   **Topic** —— 给出推送消息一个用于替换相同主题的发送消息的主题名，这样一旦设备处于活动状态，用户将不会收到过时的消息。
 
 ![](https://cdn-images-1.medium.com/max/800/1*PgclyCPqxWc1rENfAOesag.png)
 
@@ -221,7 +221,7 @@ function subscribeUserToPush() {
 
 当推送服务传递消息时，浏览器会接收它，解密并在 Service Worker 中分发一个 `push` 事件。
 
-这里最好的是，即使是你的网页没有打开，浏览器也可以执行你的 Service Worker。进行了下列活动：
+这里最好的是，即使是你的网页没有打开，浏览器也可以执行你的 Service Worker。进行下列活动：
 
 *   推送消息到达解密它的浏览器
 *   浏览器唤醒 Service Worker
@@ -239,7 +239,7 @@ self.addEventListener('push', function(event) {
 });
 ```
 
-需要了解服务工作者的一件事是，你没有服务工作者代码运行时长的控制权。浏览器决定何时将其唤醒以及何时终止它。
+需要了解 Service Worker 的一点是，你没有 Service Worker 代码运行时长的控制权。浏览器决定何时将其唤醒以及何时终止它。
 
 在 Service Workers 中，`event.waitUntil(promise)` 通知浏览器工作正在进行，知道 promise 确定为止，如果它想要完成该工作，它不应该终止 sercice worker。
 
