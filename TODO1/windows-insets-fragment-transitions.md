@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/windows-insets-fragment-transitions.md](https://github.com/xitu/gold-miner/blob/master/TODO1/windows-insets-fragment-transitions.md)
 > * 译者：[LeeSniper](https://github.com/LeeSniper)
-> * 校对者：
+> * 校对者：[Starrier](https://github.com/Starriers)
 
 # WindowsInsets 和 Fragment 过渡动画
 
@@ -15,7 +15,7 @@
 
 这篇文章是我写的关于 fragment 过渡动画的小系列中的第二篇。第一篇可以通过下面的链接查看，里面写了如何让 fragment 过渡动画开始工作。
 
-- [**Fragment 过渡动画**：让他们工作起来_medium.com](https://medium.com/google-developers/fragment-transitions-ea2726c3f36f)
+- [**Fragment 过渡动画**：让他们工作起来](https://medium.com/google-developers/fragment-transitions-ea2726c3f36f)
 
 * * *
 
@@ -25,7 +25,7 @@
 
 * * *
 
-我需要坦白。当我在写本系列第一篇博客文章的时候，我对视频做了点手脚。我实际上遇到了 WindowInsets 的问题，也就是说我实际上最终得到的是以下结果：
+我需要坦白。当我在写本系列第一篇博客文章的时候，我对视频做了点手脚。实际上我遇到了 WindowInsets 的问题，也就是说我实际上最终得到的是以下结果：
 
 ![](https://cdn-images-1.medium.com/max/800/1*F5gd8B0lTil_dF7pwP9JbA.gif)
 
@@ -49,7 +49,6 @@ Woops，跟我在第一篇文章中展示的效果不太一样 🤐。我不想�
 这一切听起来都很好，那为什么会突然影响到 WindowInsets 的效果呢？这是因为在过渡的过程中，两个 fragment 的视图都存在于容器中。
 
 但是这听起来完全 OK 啊，不是吗？然而在我的场景中，这两个 fragment 的视图都想要处理和消费 WindowInsets，因为它们都期望在屏幕上显示唯一的“主”视图。可是只有其中的一个视图会收到 WindowInsets：也就是第一个子 view。这取决于 ViewGroup 是如何[分发 WindowInsets](https://android.googlesource.com/platform/frameworks/base/+/refs/heads/master/core/java/android/view/ViewGroup.java#6928) 的，也就是通过按顺序遍历它的子节点直到其中的一个消费了 WindowInsets。 如果第一个子 view（就是这里的 Fragment A）消费了 WindowInsets，任何后续的子 view（就是这里的 Fragment B）都不会得到它们，我们最终就会得到这种情况。
-
 
 让我们再来一步一步检查一遍，只是这一次加上分发 windowinsets 的时机：
 
@@ -92,7 +91,7 @@ Woops，跟我在第一篇文章中展示的效果不太一样 🤐。我不想�
 
 #### 额外部分 💃: 一定要进行请求
 
-还有一件我差点忘了写的小事。 如果你要在 fragment 里面处理 WindowInsets，无论是隐式（通过使用 AppBarLayout 等）还是显式，你需要确保请求了一些 WindowInsets。只需要调通过 [requestApplyInsets()](https://developer.android.com/reference/android/support/v4/view/ViewCompat.html#requestApplyInsets%28android.view.View%29) 就能很容易做到：
+还有一件我差点忘了写的小事。如果你要在 fragment 里面处理 WindowInsets，无论是隐式（通过使用 AppBarLayout 等）还是显式，你需要确保请求了一些 WindowInsets。只需要调通过 [requestApplyInsets()](https://developer.android.com/reference/android/support/v4/view/ViewCompat.html#requestApplyInsets%28android.view.View%29) 就能很容易做到：
 
 
 	override fun onViewCreated(view: View, icicle: Bundle) {
