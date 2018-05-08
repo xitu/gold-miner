@@ -5,7 +5,7 @@
 > * 译者：[EmilyQiRabbit](https://github.com/EmilyQiRabbit)
 > * 校对者：[jasonxia23](https://github.com/jasonxia23)
 
-# JavaScript 是如何运作的：用 MutationObserver 追踪 DOM 的变化
+# JavaScript 是如何工作的：用 MutationObserver 追踪 DOM 的变化
 
 本系列专门研究 JavaScript 及其构建组件，这是第 10 期。在识别和描述核心元素的过程中，我们也分享了一些构建 [SessionStack](https://www.sessionstack.com/?utm_source=medium&utm_medium=blog&utm_content=javascript-series-push-notifications-intro) 的重要法则，SessionStack 是一个 JavaScript 应用，为了帮助用户实时查看和再现他们的 web 应用程序缺陷，它需要健壮并且高性能。
 
