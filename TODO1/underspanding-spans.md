@@ -28,11 +28,11 @@ Android 框架在数个类中涉及了文字样式处理以及 span: [`TextView`
 
 框架会检查这些 `Spanned` 对象是否包含框架中不同类型的 span，并触发相应的行为。
 
-文字布局和绘制背后的逻辑是很复杂的，并且遍布不同的类；在这一节中，我们只能针对几种情况，简化地说明一下文字是如何被处理的。
+文本布局和绘制背后的逻辑是很复杂的，并且遍布不同的类；在这一节中，我们只能针对几种情况，简单地说明一下文本是如何被处理的。
 
 每当一个 span 改变时， [`TextView`](https://github.com/aosp-mirror/platform_frameworks_base/blob/master/core/java/android/widget/TextView.java).`spanChange` 检查 span 是否是 [`UpdateAppearance`] (https://developer.android.com/reference/android/text/style/UpdateAppearance.html)，[`ParagraphStyle`](https://developer.android.com/reference/android/text/style/ParagraphStyle.html) 或 [`CharacterStyle`](https://developer.android.com/reference/android/text/style/CharacterStyle.html) 的实例，而且，如果是的话，对自己调用 invalidate 方法，触发视图重绘。
 
- [`TextLine`](https://github.com/aosp-mirror/platform_frameworks_base/blob/master/core/java/android/text/TextLine.java) 类表示一行具有样式的文字，并且它只接受 `CharacterStyle`, [`MetricAffectingSpan`](https://developer.android.com/reference/android/text/style/MetricAffectingSpan.html) 和 [`ReplacementSpan`](https://developer.android.com/reference/android/text/style/ReplacementSpan.html)的子类。这是触发[`MetricAffectingSpan.updateMeasureState`](https://developer.android.com/reference/android/text/style/MetricAffectingSpan.html#updateMeasureState%28android.text.TextPaint%29) 和 [`CharacterStyle.updateDrawState`](https://developer.android.com/reference/android/text/style/CharacterStyle.html#updateDrawState%28android.text.TextPaint%29)的类。
+ [`TextLine`](https://github.com/aosp-mirror/platform_frameworks_base/blob/master/core/java/android/text/TextLine.java) 类表示一行具有样式的文字，并且它只接受 `CharacterStyle`， [`MetricAffectingSpan`](https://developer.android.com/reference/android/text/style/MetricAffectingSpan.html) 和 [`ReplacementSpan`](https://developer.android.com/reference/android/text/style/ReplacementSpan.html)的子类。这是触发 [`MetricAffectingSpan.updateMeasureState`](https://developer.android.com/reference/android/text/style/MetricAffectingSpan.html#updateMeasureState%28android.text.TextPaint%29) 和 [`CharacterStyle.updateDrawState`](https://developer.android.com/reference/android/text/style/CharacterStyle.html#updateDrawState%28android.text.TextPaint%29) 的类。
 
 管理文字布局的基类是 [`android.text.Layout`](https://developer.android.com/reference/android/text/Layout.html)。 `Layout` 和两个子类，[`StaticLayout`](https://developer.android.com/reference/android/text/StaticLayout.html) 和 [`DynamicLayout`](https://developer.android.com/reference/android/text/DynamicLayout.html), 检查设置给文字的 span 并计算行高和布局 margin。除此以外，当一个 span 在 [`DynamicLayout`](https://developer.android.com/reference/android/text/DynamicLayout.html) 中展示并被更新时，layout 检查 span 是否是一个 `UpdateLayout`，并为被影响的文字生成一个新的 layout。
 
@@ -56,9 +56,9 @@ Android 框架在数个类中涉及了文字样式处理以及 span: [`TextView`
 
 **选项 2: 调用** [**textView.setText(CharSequence, BufferType)**](https://developer.android.com/reference/android/widget/TextView.html#setText%28java.lang.CharSequence,%20android.widget.TextView.BufferType%29) **一次并更新 spannable 对象 — 最佳选择**
 
-在调用 [`textView.setText(CharSequence, BufferType)`](https://developer.android.com/reference/android/widget/TextView.html#setText%28java.lang.CharSequence,%20android.widget.TextView.BufferType%29)时， `BufferType` 参数通知 `TextView` 什么类型的文字被设置了：静态（调用 `textView.setText(CharSequence)` 时的默认选项）、styleable / spannable 文字或 editable （被 `EditText` 使用）。
+在调用 [`textView.setText(CharSequence, BufferType)`](https://developer.android.com/reference/android/widget/TextView.html#setText%28java.lang.CharSequence,%20android.widget.TextView.BufferType%29)时， `BufferType` 参数通知 `TextView` 什么类型的文字被设置了：静态（调用 `textView.setText(CharSequence)` 时的默认选项）、styleable / spannable 文字或 editable（被 `EditText` 使用）。
 
-由于我们正在使用可以被设置样式的文字，我们可以调用：
+由于我们正在使用样式化的文字，我们可以调用：
 
 ```
 textView.setText(spannableObject, BufferType.SPANNABLE)
@@ -86,11 +86,11 @@ spannableText.setSpan(
 
 ### 3. 文字改变（复用 TextView）
 
-假设我们想要复用 `TextView` 并且设置文字多次，就像在 `RecyclerView.ViewHolder` 中一样。默认情况下，和 `BufferType` 无关，`TextView` 创建一个`CharSequence` 对象的副本并将其储存在内存中。这确保所有 `TextView` 更新都是故意触发的，而不是用户由于其它原因修改 `CharSequence` 的值时不小心触发的。
+假设我们想要复用 `TextView` 并且多次设置文本，就像在 `RecyclerView.ViewHolder` 中一样。默认情况下，和 `BufferType` 无关，`TextView` 创建一个`CharSequence` 对象的副本并将其储存在内存中。这确保所有 `TextView` 更新都是故意触发的，而不是用户由于其它原因修改 `CharSequence` 的值时不小心触发的。
 
-在上面的选项 2 中，我们看到在通过 `textView.setText(spannableObject, BufferType.SPANNABLE)` 设置文字时，[`TextView.Spannable.Factory`](https://developer.android.com/reference/android/text/Spannable.Factory.html) 实例创建一个新的 `SpannableString`，从而复制 `CharSequence`。所以每当我们设置一个新的 text 时，它将创建一个新的对象。如果你想要更深入地控制这个过程并避免额外的对象创建，就要实现你自己的 `Spannable.Factory`，重写 [newSpannable(CharSequence)](https://developer.android.com/reference/android/text/Spannable.Factory.html#newSpannable%28java.lang.CharSequence%29)，并把它设置给 `TextView`。
+在上面的选项 2 中，我们看到在通过 `textView.setText(spannableObject, BufferType.SPANNABLE)` 设置文字时，[`TextView.Spannable.Factory`](https://developer.android.com/reference/android/text/Spannable.Factory.html) 实例创建一个新的 `SpannableString`，从而复制 `CharSequence`。所以每当我们设置一个新的文本时，它就会创建一个新的对象。如果你想要更多地控制这个过程并避免额外的对象创建，就要实现你自己的 `Spannable.Factory`，重写 [newSpannable(CharSequence)](https://developer.android.com/reference/android/text/Spannable.Factory.html#newSpannable%28java.lang.CharSequence%29)，并把它设置给 `TextView`。
 
-在我们自己的实现中，我们想要防止创建新的对象，所以我们只需要返回 `CharSequence` 并将其转为 `Spannable`。记住，为了实现这一点，你需要调用 `textView.setText(spannableObject, BufferType.SPANNABLE)`。否则，源 `CharSequence`将会是一个 `Spanned` 的实例，它不能被转为 `Spannable`，从而造成 `ClassCastException`。
+在我们自己的实现中，我们想要避免创建新的对象，所以我们只需要返回 `CharSequence` 并将其转为 `Spannable`。记住，为了实现这一点，你需要调用 `textView.setText(spannableObject, BufferType.SPANNABLE)`。否则，源 `CharSequence`将会是一个 `Spanned` 的实例，它不能被转为 `Spannable`，从而造成 `ClassCastException`。
 
 ```
 val spannableFactory = object : Spannable.Factory() {
@@ -100,7 +100,7 @@ val spannableFactory = object : Spannable.Factory() {
 }
 ```
 
-在你获取 `TextView` 的引用之后，设置  **Spannable.Factory** 对象一次。如果你在使用 `RecyclerView`，在你首次创建你的 view 时这样做。
+在你获取 `TextView` 的引用之后，立即设置  **Spannable.Factory** 对象。如果你在使用 `RecyclerView`，在你首次创建你的 view 时这样做。
 
 [textView.setSpannableFactory](https://developer.android.com/reference/android/widget/TextView.html#setSpannableFactory%28android.text.Spannable.Factory%29)(spannableFactory)
 
@@ -117,7 +117,7 @@ val spannableFactory = object : Spannable.Factory() {
 *   `**TextView.invalidate()**` （如果你只是改变**文字外观**），以触发一次 **redraw** 并跳过 layout 过程。
 *   `**TextView.requestLayout()**` （如果你改变**文字大小**），那么这个 view 就可以处理 **measure, layout 和 draw**。
 
-假如你实现了自定义的着重号，其默认的颜色为红色。当你按下一个按钮时，你希望着重号的颜色变成灰色。你的实现看起来是这样：
+假如你实现了自定义的着重号，其默认的颜色为红色。当你按下一个按钮时，你希望着重号的颜色变成灰色。你的实现如下所示：
 ```
 class MainActivity : AppCompatActivity() {
     // keeping the span as a field
@@ -142,9 +142,9 @@ class MainActivity : AppCompatActivity() {
 
 ### 底层：进程内和跨进程的 span 传递
 
-_太长不看_
+**太长不看版**
 
-_在进程内和跨进程的 span 传递中，自定义 span 特性将不会被使用。如果想要的样式可以通过框架自带的 span 实现， **_尽可能使用多个框架中的 span** 取代你自己的 span。否则，尽量在自定义 span 时实现一些基础的接口或抽象类。_
+_在进程内和跨进程的 span 传递中，自定义 span 特性将不会被使用。如果想要的样式可以通过框架自带的 span 实现，**_尽可能使用多个框架中的 span** 取代你自己的 span。否则，尽量在自定义 span 时实现一些基础的接口或抽象类。_
 
 在  Android 中，文字可以在进程内部（或跨进程）传递，例如在 Activity 间通过 Intent 传递，或当文字在 app 间传递时跨进程传递。
 
@@ -185,9 +185,9 @@ val intentCharSequence = intent.getCharSequenceExtra(TEXT_EXTRA)
 
 通过理解 Android 如何渲染带有 span 的文字，你将很有希望在你的 app 中高效地使用它。下次你需要给文字设置样式时，根据你将来需要怎样使用这些文字来决定是使用多个框架 span，还是实现自定义 span。
 
-在 Android 中操作文字是一个常见的操作，调用正确的 `TextView.setText` 方法将有助于使你降低 app 的内存消耗，并提高其性能。
+使用 Android 中的文本是一个常见的操作，调用正确的 `TextView.setText` 方法将有助于使你降低 app 的内存消耗，并提高其性能。
 
-> _感谢_ [_Siyamed Sinir_](https://twitter.com/siyamed)_, Clara Bayarri 以及_ [_Nick Butcher_](https://medium.com/@crafty)_。_
+> **感谢** [_Siyamed Sinir_](https://twitter.com/siyamed)_，Clara Bayarri 以及_ [_Nick Butcher_](https://medium.com/@crafty)_。_
 
 感谢 [Daniel Galpin](https://medium.com/@dagalpin?source=post_page).
 
