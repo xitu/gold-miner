@@ -11,9 +11,9 @@
 
 插图来自 [Virginia Poltrack](https://twitter.com/VPoltrack)
 
-Span能够为文字和段落设置样式，它是通过让用户使用 TextPaint 和 Canvas 等组件来实现这些功能的。在上一篇文章中，我们讨论了如何使用 Span、Span 是什么、Span 本身自带的功能，以及如何实现并测试自己的 span。
+Span 够为文字和段落设置样式，它是通过让用户使用 TextPaint 和 Canvas 等组件来实现这些功能的。在上一篇文章中，我们讨论了如何使用 Span、Span 是什么、Span 本身自带的功能，以及如何实现并测试自己的 span。
 
-* [**用 Span 设置一颗赛艇的文字样式**: 在 Android 中设置文字样式，请用 Span! 改变一些文字的颜色，使它们可以点击， 并且缩放…… medium.com](https://medium.com/google-developers/spantastic-text-styling-with-spans-17b0c16b4568)
+* [**用 Span 设置一颗赛艇的文字样式**: 在 Android 中设置文字样式，请用 Span! 改变一些文字的颜色，使它们可以点击，并且缩放…… medium.com](https://medium.com/google-developers/spantastic-text-styling-with-spans-17b0c16b4568)
 
 我们看看在特定的用例中，可以使用什么 API 来确保最佳性能。我们将探索 span 的原理，以及 framework 是如何使用它们的。最后，我们将了解如何在进程中或跨进程传递 span，以及基于这些，你在创建自定义 span 时需要警惕哪些陷阱。
 
@@ -30,11 +30,11 @@ Android 框架在数个类中涉及了文字样式处理以及 span: [`TextView`
 
 文字布局和绘制背后的逻辑是很复杂的，并且遍布不同的类；在这一节中，我们只能针对几种情况，简化地说明一下文字是如何被处理的。
 
-每当一个 span 改变时， [`TextView`](https://github.com/aosp-mirror/platform_frameworks_base/blob/master/core/java/android/widget/TextView.java).`spanChange` 检查 span 是否是 [`UpdateAppearance`](https://developer.android.com/reference/android/text/style/UpdateAppearance.html), [`ParagraphStyle`](https://developer.android.com/reference/android/text/style/ParagraphStyle.html) 或 [`CharacterStyle`](https://developer.android.com/reference/android/text/style/CharacterStyle.html) 的实例，而且，如果是的话，对自己调用 invalidate，触发一次新的绘制。
+每当一个 span 改变时， [`TextView`](https://github.com/aosp-mirror/platform_frameworks_base/blob/master/core/java/android/widget/TextView.java).`spanChange` 检查 span 是否是 [`UpdateAppearance`] (https://developer.android.com/reference/android/text/style/UpdateAppearance.html)，[`ParagraphStyle`](https://developer.android.com/reference/android/text/style/ParagraphStyle.html) 或 [`CharacterStyle`](https://developer.android.com/reference/android/text/style/CharacterStyle.html) 的实例，而且，如果是的话，对自己调用 invalidate 方法，触发视图重绘。
 
  [`TextLine`](https://github.com/aosp-mirror/platform_frameworks_base/blob/master/core/java/android/text/TextLine.java) 类表示一行具有样式的文字，并且它只接受 `CharacterStyle`, [`MetricAffectingSpan`](https://developer.android.com/reference/android/text/style/MetricAffectingSpan.html) 和 [`ReplacementSpan`](https://developer.android.com/reference/android/text/style/ReplacementSpan.html)的子类。这是触发[`MetricAffectingSpan.updateMeasureState`](https://developer.android.com/reference/android/text/style/MetricAffectingSpan.html#updateMeasureState%28android.text.TextPaint%29) 和 [`CharacterStyle.updateDrawState`](https://developer.android.com/reference/android/text/style/CharacterStyle.html#updateDrawState%28android.text.TextPaint%29)的类。
 
-管理文字布局的基类是 [`android.text.Layout`](https://developer.android.com/reference/android/text/Layout.html)。 `Layout`, 和两个子类, [`StaticLayout`](https://developer.android.com/reference/android/text/StaticLayout.html) 和 [`DynamicLayout`](https://developer.android.com/reference/android/text/DynamicLayout.html), 检查设置给文字的 span 并计算行高和布局 margin。除此以外，当一个 span 在 [`DynamicLayout`](https://developer.android.com/reference/android/text/DynamicLayout.html) 中展示并被更新时，layout 检查 span 是否是一个 `UpdateLayout`，并为被影响的文字生成一个新的 layout。
+管理文字布局的基类是 [`android.text.Layout`](https://developer.android.com/reference/android/text/Layout.html)。 `Layout` 和两个子类，[`StaticLayout`](https://developer.android.com/reference/android/text/StaticLayout.html) 和 [`DynamicLayout`](https://developer.android.com/reference/android/text/DynamicLayout.html), 检查设置给文字的 span 并计算行高和布局 margin。除此以外，当一个 span 在 [`DynamicLayout`](https://developer.android.com/reference/android/text/DynamicLayout.html) 中展示并被更新时，layout 检查 span 是否是一个 `UpdateLayout`，并为被影响的文字生成一个新的 layout。
 
 ### 设置文字时确保最佳性能
 
@@ -46,13 +46,13 @@ Android 框架在数个类中涉及了文字样式处理以及 span: [`TextView`
 
 ### 2. 通过增加/删除 span 改变文字样式
 
-考虑文字本身不改变，但附着于它的 span 会改变的情况。例如，当一个按钮被点击时，你希望文字中的一个词变成灰色。所以，我们需要给文字添加一个新的 span。为了这样做，你很有可能会调用 [`textView.setText(CharSequence)`](https://developer.android.com/reference/android/widget/TextView.html#setText%28java.lang.CharSequence%29) 两次：第一次设置原始文字，第二次在按钮被点击时重新设置。一个更好的选择是调用 [`textView.setText(CharSequence, BufferType)`](https://developer.android.com/reference/android/widget/TextView.html#setText%28java.lang.CharSequence,%20android.widget.TextView.BufferType%29) 并在按钮被点击时只更新 `Spannable` 对象的 span。
+考虑文字本身不改变，但附着于它的 span 会改变的情况。例如，当一个按钮被点击时，你希望文字中的一个词变成灰色。所以，我们需要给文字添加一个新的 span。为此，你很有可能会调用 [`textView.setText(CharSequence)`](https://developer.android.com/reference/android/widget/TextView.html#setText%28java.lang.CharSequence%29) 两次：第一次设置初始文字，第二次在按钮被点击时重新设置。一个更好的选择是调用 [`textView.setText(CharSequence, BufferType)`](https://developer.android.com/reference/android/widget/TextView.html#setText%28java.lang.CharSequence,%20android.widget.TextView.BufferType%29) 并在按钮被点击时只更新 `Spannable` 对象的 span。
 
 下面是这些情况下底层发生的事情：
 
 **选项 1: 调用** [**textView.setText(CharSequence)**](https://developer.android.com/reference/android/widget/TextView.html#setText%28java.lang.CharSequence%29) **多次 — 并非最佳选择**
 
-在调用 [`textView.setText(CharSequence)`](https://developer.android.com/reference/android/widget/TextView.html#setText%28java.lang.CharSequence%29)时，`TextView` 悄悄复制了一份你的 `Spannable` ，把它作为 `SpannedString`，并把它作为 `CharSequence` 存储在内存中。它的后果是你的 **文字和 span 是不可变的**。所以，当你需要更新文字样式时，你将需要使用文字和 span 创建一个新的 `Spannable`，并再次调用 `textView.setText`。这将会把整个对象再复制一次。
+在调用 [`textView.setText(CharSequence)`](https://developer.android.com/reference/android/widget/TextView.html#setText%28java.lang.CharSequence%29)时，`TextView` 悄悄复制了一份你的 `Spannable`，把它作为 `SpannedString`，并把它作为 `CharSequence` 存储在内存中。这样做的后果是你的 **文字和 span 是不可变的**。所以，当你需要更新文字样式时，你将需要使用文字和 span 创建一个新的 `Spannable`，并再次调用 `textView.setText`。这将会把整个对象再复制一次。
 
 **选项 2: 调用** [**textView.setText(CharSequence, BufferType)**](https://developer.android.com/reference/android/widget/TextView.html#setText%28java.lang.CharSequence,%20android.widget.TextView.BufferType%29) **一次并更新 spannable 对象 — 最佳选择**
 
@@ -64,9 +64,9 @@ Android 框架在数个类中涉及了文字样式处理以及 span: [`TextView`
 textView.setText(spannableObject, BufferType.SPANNABLE)
 ```
 
-在这种情况下， `TextView` 不再创建一个 `SpannedString` ，但它将在 [`Spannable.Factory`](https://developer.android.com/reference/android/text/Spannable.Factory.html) 成员对象的帮助下创建一个 `SpannableString`。所以，现在  `TextView` 持有的 `CharSequence` 拷贝具有 *可变的标记和不可变的文字*。
+在这种情况下， `TextView` 不再创建一个 `SpannedString` ，但它将在 [`Spannable.Factory`](https://developer.android.com/reference/android/text/Spannable.Factory.html) 成员对象的帮助下创建一个 `SpannableString`。所以，现在  `TextView` 持有的 `CharSequence` 副本有 **可变的标记和不可变的文字**。
 
-为了更新 span，我们首先获取作为 `Spannable` 的文字，然后根据需求更新 span。
+为了更新 span，我们首先获取作为 `Spannable` 的文字，然后根据需要更新 span。
 
 ```
 // 如果 setText 被以 BufferType.SPANNABLE 方式调用
@@ -82,11 +82,11 @@ spannableText.setSpan(
      SPAN_INCLUSIVE_INCLUSIVE)
 ```
 
-通过这个选项，我们创建了原始的 `Spannable` 对象。`TextView` 将会持有它的一个拷贝，但当我们需要调整它时，我们不需要创建任何其它的对象，因为我们将直接操作 `TextView` 持有的 `Spannable` 文字实例。但是，`TextView` 将只会被通知 span 的 添加/删除/重排操作。如果你改变 span 的一个内部属性，你将需要调用 `invalidate()` 或 `requestLayout()`，这取决于改变的类型。你可以在下面的 “_额外的性能建议_” 中看到其中的细节。
+通过这个选项，我们创建了初始的 `Spannable` 对象。`TextView` 将会持有它的一个副本，但当我们需要调整它时，我们不需要创建任何其它的对象，因为我们将直接操作 `TextView` 持有的 `Spannable` 文字实例。但是，`TextView` 将只会被通知 span 的 添加/删除/重排操作。如果你改变 span 的一个内部属性，你将需要调用 `invalidate()` 或 `requestLayout()`，这取决于改变的类型。你可以在下面的 “_额外的性能建议_” 中看到其中的细节。
 
 ### 3. 文字改变（复用 TextView）
 
-假设我们想要复用 `TextView` 并且设置文字多次，就像在 `RecyclerView.ViewHolder` 中一样。默认情况下，和 `BufferType` 无关，`TextView` 创建一个`CharSequence` 对象的拷贝并将其储存在内存中。这确保所有 `TextView` 更新都是故意触发的，而不是用户由于其它原因修改 `CharSequence` 的值时不小心触发的。
+假设我们想要复用 `TextView` 并且设置文字多次，就像在 `RecyclerView.ViewHolder` 中一样。默认情况下，和 `BufferType` 无关，`TextView` 创建一个`CharSequence` 对象的副本并将其储存在内存中。这确保所有 `TextView` 更新都是故意触发的，而不是用户由于其它原因修改 `CharSequence` 的值时不小心触发的。
 
 在上面的选项 2 中，我们看到在通过 `textView.setText(spannableObject, BufferType.SPANNABLE)` 设置文字时，[`TextView.Spannable.Factory`](https://developer.android.com/reference/android/text/Spannable.Factory.html) 实例创建一个新的 `SpannableString`，从而复制 `CharSequence`。所以每当我们设置一个新的 text 时，它将创建一个新的对象。如果你想要更深入地控制这个过程并避免额外的对象创建，就要实现你自己的 `Spannable.Factory`，重写 [newSpannable(CharSequence)](https://developer.android.com/reference/android/text/Spannable.Factory.html#newSpannable%28java.lang.CharSequence%29)，并把它设置给 `TextView`。
 
@@ -106,11 +106,11 @@ val spannableFactory = object : Spannable.Factory() {
 
 这样，你就可以防止每次 `RecyclerView` 把新的条目绑定到你的 `ViewHolder` 时创建额外的对象。
 
-当你在使用文字和 `RecyclerViews` 时，要获取更好的性能，不要根据 `ViewHolder` 中的 `String` 创建你的 `Spannable` 对象，要在 **你把列表传给 `**Adapter**` 之前**这样做。这允许你在后台线程中创建 `Spannable` 对象，并做完需要对列表元素做的所有操作。你的`Adapter` 可以持有对  `List<Spannable>` 的一个引用。
+当你在使用文字和 `RecyclerViews` 时，为了获取更好的性能，不要根据 `ViewHolder` 中的 `String` 创建你的 `Spannable` 对象，要在 **你把列表传给 `**Adapter**` 之前**这样做。这允许你在后台线程中创建 `Spannable` 对象，并做完需要对列表元素做的所有操作。你的`Adapter` 可以持有对 `List<Spannable>` 的一个引用。
 
 ### 额外的性能建议
 
-如果你只需要改变一个 span 的内部性能（例如，在自定义的着重号 span 中改变其颜色），你不需要再次调用 `TextView.setText` ，而只需要调用 `invalidate()` 或 `requestLayout()` 即可。再次调用 `setText` 将会在只需要重新 draw 或 measure 时触发不必要的业务逻辑并创建不必要的对象。
+如果你只需要改变一个 span 的内部属性，在自定义的着重号 span 中改变其颜色），你不需要再次调用 `TextView.setText` ，而只需要调用 `invalidate()` 或 `requestLayout()` 即可。再次调用 `setText` 将会在只需要重新 draw 或 measure 时触发不必要的业务逻辑并创建不必要的对象。
 
 你需要做的只是持有对可变 span 的一个引用，并且，取决于你改变了 view 的什么属性，调用：
 
@@ -166,7 +166,7 @@ val intentCharSequence = intent.getCharSequenceExtra(TEXT_EXTRA)
 
 `ParcelableSpan` 也允许你把文字和 span 一起跨进程传递。复制/粘贴文字通过 `ClipboardService` 实现，而它在底层使用同样的 `TextUtil.writeToParcel` 方法。所以，如果你在同一个 app 内部复制/粘贴 span，这将是一个跨进程行为，需要进行 parcel，因为文字需要经过 `ClipboardService`。
 
-默认情况下，任何实现了 `Parcelable` 的类可以被写入 `Parcel` 和从 `Parcel` 中读取。当跨进程传递 `Parcelable` 对象时，只有框架类可以保证被正确存取。 如果数据类型在不同 app 中定义，导致试图读取数据的进程不能创建这个对象，进程将会崩溃。
+默认情况下，任何实现了 `Parcelable` 的类可以被写入 `Parcel` 和从 `Parcel` 中恢复。当跨进程传递 `Parcelable` 对象时，只有框架类可以保证被正确存取。 如果数据类型在不同 app 中定义，导致试图恢复数据的进程不能创建这个对象，进程将会崩溃。
 
 有两个重要的警告：
 
