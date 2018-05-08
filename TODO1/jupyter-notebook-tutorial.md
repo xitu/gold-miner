@@ -36,7 +36,7 @@ Jupyter 项目是早期 IPython 笔记本的继承者，它在2010年首次作�
 
 安装 Anaconda：
 
-1. [下载](https://www.anaconda.com/download/)支持 Python 3 （就不用 Python 2.7 了）的最新版本 Anaconda
+1. [下载](https://www.anaconda.com/download/)支持 Python 3 （就不用 Python 2.7 了）的最新版本 Anaconda
 
 2. 按照下载页面或可执行文件中的说明安装 Anaconda 。
 
@@ -60,7 +60,7 @@ pip3 install jupyter
 
 这还不是笔记，但不要惊慌！这没什么大不了的。这是笔记本仪表盘，专门用来管理你的笔记。你可以把它看作是探索、编辑和创造你的笔记本的发射台。
 
-请注意，仪表板将只允许您访问 Jupyter 启动目录中包含的文件和子文件夹；但是，启动目录是[可以更改的](https://stackoverflow.com/q/35254852/604687)。还可以通过输入 `jupyter notebook` 命令在任何系统上启动指示板(或在Unix系统上的终端);在这种情况下，当前工作目录将是启动目录。
+请注意，仪表板将只允许您访问 Jupyter 启动目录中包含的文件和子文件夹；但是，启动目录是[可以更改的](https://stackoverflow.com/q/35254852/604687)。还可以通过输入 `jupyter notebook` 命令在任何系统上启动指示板(或在Unix系统上的终端);在这种情况下，当前工作目录将是启动目录。
 
 聪明的读者可能已经注意到，仪表板的 URL 类似于 `http://localhost:8888/tree`。Localhost 不是一个网站，而是表示从你的 `_local_` 机器(你自己的计算机)中服务的内容。Jupyter 的笔记和仪表板都是 web 应用程序，Jupyter 启动了一个本地的 Python 服务器，将这些应用程序提供给你的 web 浏览器，使其基本上独立于平台，并打开了更容易在 web 上共享的大门。
 
@@ -184,7 +184,7 @@ Inline code uses single backticks: `foo()`, and code blocks use triple backticks
 
 ---------------------------
 
-此处翻译如下 ：
+此处翻译如下 ：
 # 这是一级标题。
 ## 这是一个二级标题。
 这是一些构成段落的纯文本。
@@ -345,7 +345,7 @@ df = pd.read_csv('fortune500.csv')
 
 ### 调查我们的数据集
 
-现在我们真的纠结！我们的笔记是安全保存的，我们将数据集 `df` 加载到最常用的 pandas 数据结构中，这被称为 `DataFrame` ，看起来就像一张表格。那我们的数据及会是怎样的？
+现在我们真的纠结！我们的笔记是安全保存的，我们将数据集 `df` 加载到最常用的 pandas 数据结构中，这被称为 `DataFrame` ，看起来就像一张表格。那我们的数据及会是怎样的？
 
 ```
 df.head()
@@ -423,7 +423,7 @@ df.loc[non_numberic_profits].head()
 | 352 | 1955 | 353 | Minneapolis-Moline | 77.4 | N.A. |
 
 
-就像我们猜测的那样!其中一些值是字符串，用于表示丢失的数据。还有其他缺失的值么?
+就像我们猜测的那样!其中一些值是字符串，用于表示丢失的数据。还有其他缺失的值么?
 
 ```Python
 set(df.profit[non_numberic_profits])
@@ -484,7 +484,7 @@ dtype: object
 
 不错！我们已经完成了数据集的设置。
 
-如果你要将笔记做成一个报告,你可以不使用我们创建的研究的单元格,包括这里的演示使用笔记本的工作流,并合相关单元格(请参阅下面的高级功能部分)并创建一个数据集设置单元格。这意味着如果我们把我们的数据放在别处，我们可以重新运行安装单元来恢复它。
+如果你要将笔记做成一个报告,你可以不使用我们创建的研究的单元格,包括这里的演示使用笔记本的工作流,并合相关单元格(请参阅下面的高级功能部分)并创建一个数据集设置单元格。这意味着如果我们把我们的数据放在别处，我们可以重新运行安装单元来恢复它。
 
 ### 使用 matplotlib 进行绘图
 
@@ -581,9 +581,9 @@ Jupyter 内置支持导出 HTML 和 PDF 以及其他几种格式，您可以在 
 一旦你有了 GitHub 账户，在 GitHub 上共享一个笔记是最简单方法，实际上根本不需要 Git。自2008年以来， GitHub 为托管和共享代码片段提供了基本服务，每个代码段都有自己的存储库。使用 Gists 共享一个笔记:
 
 1. 登录并且流浏览 [gist.github.com](https://gist.github.com).
-2. 用文件编辑器打开 `.ipynb` 文件,  全选并且拷贝里面的 JSON 。
+2. 用文件编辑器打开 `.ipynb` 文件,  全选并且拷贝里面的 JSON 。
 3. 将笔记的 JSON 粘贴到中 gist 中。
-4. 给你的 Gist 命名, 记得添加 `.iypnb` 后缀，否则不能正常工作。
+4. 给你的 Gist 命名, 记得添加 `.iypnb` 后缀，否则不能正常工作。
 5.  点击 "Create secret gist"o或者 "Create public gist."
 
 这看起来应该是这样的:
@@ -595,14 +595,14 @@ Jupyter 内置支持导出 HTML 和 PDF 以及其他几种格式，您可以在 
 
 创建自己的 Git 存储库并在 GitHub 上共享它超出了本教程的范围，但是 [GitHub 提供了大量的指南](https://guides.github.com/)让可供你参考。
 
-对于那些使用 git 的人来说，额外的一个技巧是为 Jupyter 创建的 `.ipynb_checkpoints` 目录[添加一个忽略文件](https://stackoverflow.com/q/35916658/604687) `.gitignore` ，因为我们不需要将检查点文件提交给到仓库。
+对于那些使用 git 的人来说，额外的一个技巧是为 Jupyter 创建的 `.ipynb_checkpoints` 目录[添加一个忽略文件](https://stackoverflow.com/q/35916658/604687) `.gitignore` ，因为我们不需要将检查点文件提交给到仓库。
 
 ### Nbviewer
 
 
-截至 2015 年，每个星期都有[成千上万的笔记](https://blog.jupyter.org/renderingnotebooks-ongithub-f7ac8736d686)，它是最受欢迎的 notebooks 渲染器。如果你已经在某个地方把你的 Jupyter notebooks 放在网上，无论是 GitHub 还是其他地方，NBViewer 都可以读取你的笔记，并提供一个可共享的 URL。作为项目 Jupyter 的一部分提供的免费服务，你可以在 [nbview .jupyter.org](https://nbview.jupyter.org/) 找到相关服务。
+截至 2015 年，每个星期都有[成千上万的笔记](https://blog.jupyter.org/renderingnotebooks-ongithub-f7ac8736d686)，它是最受欢迎的 notebooks 渲染器。如果你已经在某个地方把你的 Jupyter notebooks 放在网上，无论是 GitHub 还是其他地方，NBViewer 都可以读取你的笔记，并提供一个可共享的 URL。作为项目 Jupyter 的一部分提供的免费服务，你可以在 [nbview .jupyter.org](https://nbview.jupyter.org/) 找到相关服务。
 
-最初是在 GitHub 的 Jupyter Notebook 集成之前开发的，NBViewer 允许任何人输入 URL 、Gist ID 或`GitHub username/repo/filename`，并将其作为网页呈现。一个 Gist 的 ID 是其 URL 末尾唯一的数字；例如，在 “https://gist. github.com/username/50896401c23e0bf417e89e1de” 中最后一个反斜杠后的字符串。如果你输入了 `GitHub username/repo/filename` ，你将看到一个最小的文件浏览器，它允许你访问用户的仓库及其内容。
+最初是在 GitHub 的 Jupyter Notebook 集成之前开发的，NBViewer 允许任何人输入 URL 、Gist ID 或`GitHub username/repo/filename`，并将其作为网页呈现。一个 Gist 的 ID 是其 URL 末尾唯一的数字；例如，在 “https://gist. github.com/username/50896401c23e0bf417e89e1de” 中最后一个反斜杠后的字符串。如果你输入了 `GitHub username/repo/filename` ，你将看到一个最小的文件浏览器，它允许你访问用户的仓库及其内容。
 
 
 当显示一个笔记时，URL NBViewer 显示的是一个基于它正在呈现的笔记 URL 的常量，所以你可以和任何人分享它，只要原始文件保持在线 - NBViewer 不缓存文件很长时间，它就会工作。
