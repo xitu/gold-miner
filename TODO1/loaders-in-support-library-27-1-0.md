@@ -2,16 +2,16 @@
 > * 原文作者：[Ian Lake](https://medium.com/@ianhlake?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/loaders-in-support-library-27-1-0.md](https://github.com/xitu/gold-miner/blob/master/TODO1/loaders-in-support-library-27-1-0.md)
-> * 译者：
-> * 校对者：
+> * 译者：[dreamhb](https://github.com/dreamhb)
+> * 校对者：[Starriers](https://github.com/Starriers)
 
 # 支持库 27.1.0 中的 Loader
 
-为了 [支持库 27.1.0](https://developer.android.com/topic/libraries/support-library/revisions.html#27-1-0), 我重写了 `[LoaderManager](https:/ /developer.android.com/reference/android/support/v4/app/LoaderManager.html)` 的内部结构，[Loaders API](https://developer.android.com/guide/components/loaders.html) 以它为基础，我也想解释下这些改变背后的缘由以及接下来会有什么期待。
+为了 [支持库 27.1.0](https://developer.android.com/topic/libraries/support-library/revisions.html#27-1-0)，我重写了 `[LoaderManager](https:/ /developer.android.com/reference/android/support/v4/app/LoaderManager.html)` 的内部结构，[Loaders API](https://developer.android.com/guide/components/loaders.html) 以它为基础，我也想解释下这些改变背后的缘由以及接下来会有什么期待。
 
 #### Loader 和 Fragment 的一小段历史
 
-一开始，Loader 和 Fragment 紧紧的联系在一起。这意味着，为了支持 Loader，在 `[FragmentActivity](https://developer.android.com/reference/android/support/v4/app/FragmentActivity.html)` 和 `[Fragment](https://developer.android.com/reference/android/support/v4/app/Fragment.html)` 中有许多的代码 , 然而事实上他们几乎没有关联。这也意味着和 Activity，Fragment 以及架构组件[生命周期](https://developer.android.com/topic/libraries/architecture/lifecycle.html) 相比，Loader 的生命周期和保障是完全独特的且受制与它那有趣且激动人心的行为差异和 bug。
+一开始，Loader 和 Fragment 紧紧的联系在一起。这意味着，为了支持 Loader，在 `[FragmentActivity](https://developer.android.com/reference/android/support/v4/app/FragmentActivity.html)` 和 `[Fragment](https://developer.android.com/reference/android/support/v4/app/Fragment.html)` 中有许多的代码，然而事实上他们几乎没有关联。这也意味着和 Activity、Fragment 以及架构组件[生命周期](https://developer.android.com/topic/libraries/architecture/lifecycle.html) 相比，Loader 的生命周期和保障是完全独特的且受制与它那有趣且激动人心的行为差异和 bug。
 
 #### 27.1.0 中的改变
 
@@ -23,15 +23,15 @@
 
 这确实意味着一些行为变更。
 
-首先 , 必须在主线程中调用 `[initLoader](https://developer.android.com/reference/android/support/v4/app/LoaderManager.html#initLoader%28int,%20android.os.Bundle,%20android .support.v4.app.LoaderManager.LoaderCallbacks%3CD%3E%29)`, `[restartLoader](https://developer.android.com/reference/android/support/v4/app/LoaderManager.html#restartLoader% 28int,%20android.os.Bundle,%20android.support.v4.app.LoaderManager.LoaderCallbacks%3CD%3E%29)`, 和 `[destroyLoader](https://developer.android.com/reference/android/ support/v4/app/LoaderManager.html#destroyLoader%28int%29)` 。这提供了一些非常特别的保障在回调结束或开始时，例如在销毁一个 loader 后，你将永远不会拿到 `[onLoadFinished](https://developer.android.com/reference/android/support/v4/app/LoaderManager.LoaderCallbacks.html#onLoadFinished%28android.support.v4.content.Loader%3CD%3E,%20D%29)` 的回调。
+首先，必须在主线程中调用 `[initLoader](https://developer.android.com/reference/android/support/v4/app/LoaderManager.html#initLoader%28int,%20android.os.Bundle,%20android .support.v4.app.LoaderManager.LoaderCallbacks%3CD%3E%29)`、`[restartLoader](https://developer.android.com/reference/android/support/v4/app/LoaderManager.html#restartLoader% 28int,%20android.os.Bundle,%20android.support.v4.app.LoaderManager.LoaderCallbacks%3CD%3E%29)` 和 `[destroyLoader](https://developer.android.com/reference/android/ support/v4/app/LoaderManager.html#destroyLoader%28int%29)`。这提供了一些非常特别的保障在回调结束或开始时，例如在销毁一个 loader 后，你将永远不会拿到 `[onLoadFinished](https://developer.android.com/reference/android/support/v4/app/LoaderManager.LoaderCallbacks.html#onLoadFinished%28android.support.v4.content.Loader%3CD%3E,%20D%29)` 的回调。
 
-> 注意事项 : 就技术来说，这次发布之前，你可以在其他线程中做 loader 操作，但是 `LoaderManager` 不再是线程安全的，会导致经常性的未定义行为。
+> 注意事项：就技术来说，这次发布之前，你可以在其他线程中做 loader 操作，但是 `LoaderManager` 不再是线程安全的，会导致经常性的未定义行为。
 
-最重要的是 , 现在 `[onLoadFinished](https://developer.android.com/reference/android/support/v4/app/LoaderManager。LoaderCallbacks.html#onLoadFinished%28android.support.v4.content.Loader%3CD %3E,%20D%29)` 和 LiveData Observers 一样，总是在 `onStart` 和 `onStop` 之间被调用，且不会在 `onSaveInstanceState` 之后。这样你可以在 `onLoadFinished` 中安全的做 [Fragment Transactions](https://developer.android.com/guide/components/fragments.html#Transactions) 了。
+最重要的是，现在 `[onLoadFinished](https://developer.android.com/reference/android/support/v4/app/LoaderManager。LoaderCallbacks.html#onLoadFinished%28android.support.v4.content.Loader%3CD %3E,%20D%29)` 和 LiveData Observers 一样，总是在 `onStart` 和 `onStop` 之间被调用，且不会在 `onSaveInstanceState` 之后。这样你可以在 `onLoadFinished` 中安全的做 [Fragment Transactions](https://developer.android.com/guide/components/fragments.html#Transactions) 了。
 
 #### 我应当使用什么，loader 后续如何？
 
-像我在之前的博客 [Lifecycle Aware Data Loading with Architecture Components](https://medium.com/google-developers/lifecycle-aware-data-loading-with-android-architecture-components-f95484159de4) 中提到的那样, 我强烈建议开发者使用 ViewModel+LiveData 的组合，我认为他们绝对是一个更灵活更容易理解的系统。然而，如果你已经有基于 loader 的 APIs，这些改变应当会极大的提升组件以后的可依赖性和稳定性。
+像我在之前的博客 [Lifecycle Aware Data Loading with Architecture Components](https://medium.com/google-developers/lifecycle-aware-data-loading-with-android-architecture-components-f95484159de4) 中提到的那样，我强烈建议开发者使用 ViewModel+LiveData 的组合，我认为他们绝对是一个更灵活更容易理解的系统。然而，如果你已经有基于 loader 的 APIs，这些改变应当会极大的提升组件以后的可依赖性和稳定性。
 
 这许多的改变让 Loader 变成一个功能，更加可选的依赖，不需要对 [LifecycleOwner](https://developer.android.com/reference/android/arch/lifecycle/LifecycleOwner.html)/[ViewModelStoreOwner](https://developer.android.com/reference/android/arch/lifecycle/ViewModelStoreOwner.html) 做很底层的修改。
 
@@ -39,7 +39,7 @@
 
 如果你正在使用 Loader，请尽快仔细查看并注意行为变更，他们都在[发布事项](https://developer.android.com/topic/libraries/support-library/revisions.html#27-1-0 ) 中。
 
-> 注意事项 : 显而易见，只有支持库有这些更改。如果你使用的是 Android 框架的 Loader，请尽快切换到支持库。因为框架的 Loader APIs 不会有错误修复或者计划中的改进。
+> 注意事项：显而易见，只有支持库有这些更改。如果你使用的是 Android 框架的 Loader，请尽快切换到支持库。因为框架的 Loader APIs 不会有错误修复或者计划中的改进。
 
 
 ---
