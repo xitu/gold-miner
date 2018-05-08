@@ -2,26 +2,26 @@
 > * 原文作者：[Alt Street](https://itnext.io/@Alt_Street?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/create-your-first-ethereum-dapp-with-web3-and-vue-js-part-2.md](https://github.com/xitu/gold-miner/blob/master/TODO/create-your-first-ethereum-dapp-with-web3-and-vue-js-part-2.md)
-> * 译者：
-> * 校对者：
+> * 译者：[L9m](https://github.com/L9m)
+> * 校对者：[allen](https://github.com/allenlongbaobao), [玉儿](https://github.com/EmilyQiRabbit)
 
-# Create your first Ethereum dAPP with Web3 and Vue.JS (Part 2)
+# 使用 Web3 和 Vue.js 来创建你的第一个以太坊 dAPP（第二部分）
 
 - [使用 Web3 和 Vue.js 来创建你的第一个以太坊 dAPP（第一部分）](https://github.com/xitu/gold-miner/blob/master/TODO/create-your-first-ethereum-dapp-with-web3-and-vue-js.md)
 - [使用 Web3 和 Vue.js 来创建你的第一个以太坊 dAPP（第二部分）](https://github.com/xitu/gold-miner/blob/master/TODO/create-your-first-ethereum-dapp-with-web3-and-vue-js-part-2.md)
 - [使用 Web3 和 Vue.js 来创建你的第一个以太坊 dAPP（第三部分）](https://github.com/xitu/gold-miner/blob/master/TODO/create-your-first-ethereum-dapp-with-web3-and-vue-js-part-3.md)
 
-[_Click here to share this article on LinkedIn »_](https://www.linkedin.com/cws/share?url=https%3A%2F%2Fitnext.io%2Fcreate-your-first-ethereum-dapp-with-web3-and-vue-js-part-2–52248a74d58a)
+[_点此在 LinkedIn 分享本文 »_](https://www.linkedin.com/cws/share?url=https%3A%2F%2Fitnext.io%2Fcreate-your-first-ethereum-dapp-with-web3-and-vue-js-part-2–52248a74d58a)
 
-Welcome back to part 2 of this awesome tutorial series where we get our hands dirty building our first decentralized application. In this second part we will introduce the core concepts of VueJS and Vuex as well as introduce web3js to interact with metamask.
+欢迎回到这个很棒的系列教程的第二部分，在个教程中我们要亲身实践，创建我们的第一个去中心化应用（decentralized application）。在第二部分中，我们将介绍 VueJS 和 VueX 的核心概念以及 web3js 与 metamask 的交互。
 
-In case you missed part one you can find it below, as well as throw us a follow on Twitter!
+如果你错过了第一部分，你可以在下面找到，也请在 Twitter 上关注我们。
 
 ![Snipaste_2018-03-18_17-25-07.png](https://i.loli.net/2018/03/18/5aae308c4ce45.png)
 
-### Down to business: VueJS
+### 进入正题：VueJS
 
-VueJS is a javascript frameworking for building user interfaces. At first glance it looks similar to classical moustache templating, but there's alot happening under the hood to make Vue reactive.
+VueJS 是一个用于构建用户界面的 JavaScript 框架。初看起来，它类似传统的 mustache（译者注：原文为 moustache）模板，但其实 Vue 在后面做了很多工作。
 
 ```
 <div id=”app”>
@@ -36,45 +36,45 @@ var app = new Vue({
 })
 ```
 
-This would be the structure of a really basic Vue application. The message property in the data object will be rendered to the screen in the element with id 'app', when we change this message it will update on the screen without refreshing. You can check it out in this jsfiddle (turn on auto-run): [https://jsfiddle.net/tn1mfxwr/2/](https://jsfiddle.net/tn1mfxwr/2/) .
+这是一个很基本的 Vue 应用的结构。数据对象中的 message 属性会被渲染到屏幕上 id 为「app」的元素中，当我们改变 message 时，屏幕上的值也会实时更新。你可以去这个 jsfiddle 上查看（开启自动运行）：[https://jsfiddle.net/tn1mfxwr/2/](https://jsfiddle.net/tn1mfxwr/2/)。
 
-Another important key feature of VueJS is components. Components are small, reusable and self-contained pieces of code. Essentially a web application can be abstracted into a tree of smaller components. This will get more clear when we dive into coding our front-end app.
+VueJS 的另一个重要特征是组件。组件是小的、可复用的并且可嵌套的小段代码。本质上，一个 Web 应用是由较小组件组成的组件树构成的。当我们着手编写我们前端应用时，我们会愈加清楚。
 
 ![](https://cdn-images-1.medium.com/max/800/1*9XlTaVitmHopHmQ634kfvg.png)
 
-Example of a webpage abstracted into components. The webpage consists of three components. Two of these components have subcomponents.
+这个页面示例是由组件构成的。页面由三个组件组成的，其中的两个有子组件。
 
-### Union of the state: Vuex
+### 状态的整合: Vuex
 
-We will use Vuex to manage the state of our application. Similar to redux, Vuex implements a store which serves as the 'single source of truth' for our application regarding data. Vuex allows us to manipulate and serve the data our app uses in a predictable fashion.
+我们使用 Vuex 管理应用的状态。类似于 Redux，Vuex 实现了一个对于我们应用数据「单一数据源」的容器。Vuex 允许我们使用一种可预见的方法操作和提供应用程序使用的数据。
 
-The way it works is very straightforward. A **component** needs data when it's rendered, it will **dispatch** an **action** to get the data it needs. The API call to fetch the data happens async in the action. Once the data is fetched the action will **commit** this data to a **mutation**. The mutation will then **alter the state** of our store. When data in the store changes that this component uses, it will re-render.
+它工作的方式是非常直观的。当**组件**需要数据进行渲染时，它会**触发**（dispatch）一个 **action** 获取所需的数据。Action 中获取数据的 API 调用是异步的。一旦取得数据，action 会将数据**提交**（commit）给一个**变化**（mutation）。然后，Mutation 会使得我们容器（store）的**状态发生改变（alert the state）**。当组件使用的容器中的数据改变时，它会重新进行渲染。
 
 ![](https://cdn-images-1.medium.com/max/800/1*EPstm-VwycENr4PjutJ0KA.png)
 
-State management pattern for Vuex.
+Vuex 的状态管理模式。
 
-### **Before we continue…**
+### **在我们继续之前...**
 
-In part one we have generated a Vue app by using the vue-cli, we have also installed the dependencies we need. In case you haven't done this check out part one, link's on top.
+在第一部分中，我们已经通过 vue-cli 生成了一个 Vue 应用，我们也安装了所需的依赖。如果你没有这样做的话，请查看上面第一部分的链接。
 
-If you have done everything correctly your directory structure should look like this:
+如果你正确完成了各项的话，你的目录看起来应该是这样的：
 
 ![](https://cdn-images-1.medium.com/max/800/1*24ZJn3iRu_FZN_Y6E65sgQ.png)
 
-Freshly generated vue application.
+新生成的 vue 应用。
 
-**Quick note: if you are going to copy-paste code blocks from here add _/src/_ to your _.eslintignore_ file to avoid indentation errors**
+**小提示：如果你要从这里复制粘贴代码段的话，请在你的 _.eslintignore_ 文件中添加 _/src/_，以免出现缩进错误。**
 
-In your terminal you can type 'npm start' to run this app. It will contain the default vue application so we'll clean this out first.
-_**NOTE: We are using vue Router despite only having one route, we don't need it but I thought it would be nice to keep it in for the tutorial since it's quite simple.
-**TIP: Put your syntax in atom (bottom right) to HTML for .vue files_
+你可以在终端中输入 `npm start` 运行这个应用。首先我们需要清理它包含的这个默认的 Vue 应用。
+**注解：尽管只有一个路由，但是我们还是会使用 Vue Router，虽然我们并不需要，但是因为这个教程相当简单，我想将其保留会更好。**
+**贴士：在你的 Atom 编辑器右下角中将 _.vue_ 文件设置为 HTML 语法（高亮）**
 
-Time to clean this baby up:
+现在处理这个刚生成的应用：
 
-*   In app.vue delete the img-tag and clear everything between the style-tags.
-*   Delete _components/HelloWorld.vue_, make two new files called casino-dapp.vue (our main component) and hello-metamask.vue (will contain our metamask data)
-*   In our new _hello-metamask.vue_ file paste the following code, which just displays the text 'Hello' in a p-tag for now.
+*   在 app.vue 中删除 img 标签和 style 标签中的内容。
+*   删除 _components/HelloWorld.vue_，创建两个名为 casino-dapp.vue（我们的主组件）和 hello-metamask.vue（将包含我们的 Metamask 数据）的两个新文件。
+*   在我们的新 _hello-metamask.vue_ 文件中粘贴下面的代码，它现在只显示了在一个 p 标签内的「hello」文本。
 
 ```
 <template>
@@ -92,7 +92,7 @@ export default {
 </style>
 ```
 
-*   Now we will load the hello-metamask component into our main casino-dapp component by first importing the file and then referencing it in our vue instance so that we can add it as a tag in our template. Paste this in _casino-dapp.vue_ :
+*   现在我们首先导入 hello-metamask 组件文件，通过导入文件将其加载到主组件 casino-app 中，然后在我们的 vue 实例中，引用它作为模板中一个标签。在 _casino-dapp.vue_ 中粘贴这些代码：
 
 ```
 <template>
@@ -114,7 +114,7 @@ export default {
 </style>
 ```
 
-*   Now if you open router/index.js you'll see that we only have one route to the root, it's still pointing to our deleted HelloWorld.vue component. We need to change it to our main casino-dapp.vue component.
+*   现在如果你打开 router/index.js 你会看到 root 下只有一个路由，它现在仍指向我们已删除的 HelloWorld.vue 组件。我们需要将其指向我们主组件 casino-app.vue。
 
 ```
 import Vue from 'vue'
@@ -134,9 +134,9 @@ export default new Router({
 })
 ```
 
-A little on Vue Router: you can add additional paths and bind components to them, these will then render when you visit the defined path. Because of the router-view tag in our App.vue file the correct component will be rendered.
+关于 Vue Router：你可以增加额外的路径并为其绑定组件，当你访问定义的路径时，在 App.vue 文件中的 router-view 标签中，对应的组件会被渲染，并进行显示。
 
-*   Create a new folder in _src_ called _util._ Inside this folder create another folder called _constants_. create a file called _networks.js_ and paste the code below. This will let us display the Ethereum network name instead of it's id while keeping our code clean.
+*   在 _src_ 中创建一个名为 _util_ 的新文件夹，在这个文件夹中创建另一个名为 _constants_ 的新文件夹，并创建一个名为 _networks.js_ 的文件，粘贴下面的代码。我们用 ID 来代替以太坊（Ethereum）网络名称显示，这样做会保持我们代码的整洁。
 
 ```
 export const NETWORKS = {
@@ -150,13 +150,13 @@ export const NETWORKS = {
 }
 ```
 
-*   LAST BUT NOT LEAST (actually it is least for now), create a new folder in _src_ called _store_. We'll come back to this in the next section.
+*   最后的但同样重要的（实际上现在用不到）是，在 _src_ 中创建一个名为 _store_ 的新文件夹。我们将在下一节继续讨论。
 
-If you run '_npm start'_ in the terminal and go to _localhost:8080_ in your browser you should see _'Hello'_ appear on the screen. If that's the case, you're ready to move on.
+如果你在终端中执行 `npm start`，并在浏览器中访问 `localhost:8000`，你应该可以看到「Hello」出现在屏幕上。如果是这样的话，就表示你准备好进入下一步了。
 
-### Setting up our Vuex store
+### 设置我们的 Vuex 容器
 
-In this section we'll set up our store. Start by creating two files inside our brand new _store_ directory (last part of previous section): _index.js_ and _state.js_; We'll start with _state.js_ which will be a blank representation of the data we will be retrieving.
+在这一节中，我们要设置我们的容器（store）。首先从在 _store_ 目录（上一节的最后一部分）下创建两个文件开始：_index.js_ 和 _state.js_；我们先从 _state.js_ 开始，它是我们所检索的数据一个空白表示（Blank representation）。
 
 ```
 let state = {
@@ -173,7 +173,7 @@ let state = {
 export default state
 ```
 
-Good, now we'll set up our store in _index.js_. We'll import the vuex library and tell vueJS to use it. We'll import the state and add it to our store as well.
+好了，现在我们要对 _index.js_ 进行设置。我们会导入 Vuex 库并且告诉 VueJS 使用它。我们也会把 state 导入到我们的 store 文件中。
 
 ```
 import Vue from 'vue'
@@ -190,7 +190,7 @@ export const store = new Vuex.Store({
 })
 ```
 
-Last step is to edit main.js to contain our store:
+最后一步是编辑 main.js ，以包含我们的 store 文件：
 
 ```
 import Vue from 'vue'
@@ -210,11 +210,11 @@ new Vue({
 })
 ```
 
-Well done, give yourself a pat on the back because this was a lot of set-up. Now we're ready however, to start getting our metamask data through the web3 API and serve it in our application. It's about to get real!
+干得好！因为这里有很多设置，（所以请）给你自己一点鼓励。现在已经准备好通过 web3 API 获取我们 Metamask 的数据，并使其在我们的应用发挥作用了。该来点真的了！
 
-### Getting started with Web3 and Metamask
+### 入门 Web3 和 Metamask
 
-Like mentioned before in order for us to get the data into our Vue app we need to dispatch an action to make async API calls. We will chain a couple of calls together using promises and abstract this into a file. So in the _util_ folder create a new file called _getWeb3.js_. Paste in the code below which contains quite a bit of comments for you to follow along. We'll go over it below the code block as well.
+就像前面提到的，为了让 Vue 应用能获取到数据，我们需要触发（dispatch）一个 action 执行异步的 API 调用。我们会使用 promise 将几个方法链式调用，并将这些代码提取（封装）到文件 _util/getWeb3.js_ 中。粘贴以下的代码，其中包含了一些有助你遵循的注释。我们会在代码块下面对它进行解析：
 
 ```
 import Web3 from 'web3'
@@ -288,21 +288,21 @@ let getWeb3 = new Promise(function (resolve, reject) {
 export default getWeb3
 ```
 
-First thing to notice is that we use promises to chain our callbacks, if you don't know promises check out [this link](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise). Next we check if the user has Metamask (or Mist) running. Metamask injects its own instance of web3, we'll thus check that window.web3 (the injected instance) is not undefined. If that's not the case we'll create a web3 instance with Metamask as current provider so that we do not depend on the version of the injected instance. We pass on our newly created instance into the next promises where we do a couple of API calls:
+第一步要注意的是我们使用 promise 链接了我们的回调方法，如果你不太熟悉 promise 的话，请参考[此链接](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)。下面我们要检查用户是否有 Metamask（或 Mist）运行。Metamask 注入 web3 本身的实例，所以我们要检查 window.web3（注入的实例）是否有定义。如果是否的话，我们会用 Metamask 作为当前提供者（currentProvider）创建一个 web3 的实例，这样一来，实例就不依赖于注入对象的版本。我们把新创建的实例传递给接下来的 promise，在那里我们做几个 API 调用：
 
-*   _web3.version.getNetwork()_ will return the ID of the network we are connected to.
-*   _web3.eth.coinbase()_ returns the address our node is mining to, when using Metamask this should be the selected account.
-*   _web3.eth.getBalance(<address>)_ returns the balance of the address we pass in as parameter.
+*   _web3.version.getNetwork()_ 将返回我们连接的网络 ID。
+*   _web3.eth.coinbase()_ 返回我们节点挖矿的地址，当使用 Metamask 时，它应该会是已选择的账户。
+*   _web3.eth.getBalance(\<address\>)_ 返回作为参数传入的该地址的余额。
 
-Remember how we said async API calls need to happen inside an action in our Vuex store? We'll hook that up now and dispatch it from our component later. In _store/index.js_ we'll import our _getWeb3.js_ file, call it and commit it to a mutation that will save it to our store.
+还记得我们说过 Vuex 容器中的 action 需要异步地进行 API 调用吗？我们在这里将其联系起来，然后再从组件中将其触发。在 _store/index.js_ 中，我们会导入 _getWeb3.js_ 文件，调用它，然后将其（结果）commit 给一个 mutation，并让其（状态）保留在容器中。
 
-In your import statements add
+在你的 import 声明中增加：
 
 ```
 import getWeb3 from '../util/getWeb3'
 ```
 
-Then in the action object (inside your store) we'll call _getWeb3_ and _commit_ the result. We are adding a bunch of console.logs to our logic so we can see the steps of our process, which will hopefully make the whole dispatch-action-commit-mutation-statechange a bit more clear.
+然后在（store 内部）的 action 对象中调用 _getWeb3_ 并 _commit_ 其结果。我们会添加一些 `console.log` 在我们的逻辑中，这样做是希望让 dispatch-action-commit-mutation-statechange 流程更加清楚，有助于我们理解整个执行的步骤。
 
 ```
 registerWeb3 ({commit}) {
@@ -316,7 +316,7 @@ registerWeb3 ({commit}) {
     }
 ```
 
-Now we will create our mutation which will save our data to the state in our store. We can access the data we passed into our commit in our mutation by accessing the second parameter. Inside the _mutations_ object add the function below.
+现在我们要创建我们的 mutation，它会将数据存储为容器中的状态。通过访问第二个参数，我们可以访问我们 commit 到 mutation 中的数据。在 _mutations_ 对象中增加下面的方法：
 
 ```
 registerWeb3Instance (state, payload) {
@@ -332,7 +332,7 @@ registerWeb3Instance (state, payload) {
  }
 ```
 
-Great! All that's left to do now is dispatch our action from our component to actually retrieve the data and render it to our application. To dispatch our actions we will make use of [Vue's lifecycle hooks](https://vuejs.org/v2/guide/instance.html#Instance-Lifecycle-Hooks). In our case we will dispatch our action from our main casino-dapp component before it is created. So inside _components/casino-dapp.vue_ add the following function below the name property:
+很棒！现在剩下要做的是在我们的组件中触发（dispatch）一个 action，取得数据并在我们的应用中进行呈现。为了触发（dispatch）action，我们将会用到 [Vue 的生命周期钩子](https://vuejs.org/v2/guide/instance.html#Instance-Lifecycle-Hooks)。在我们的例子中，我们要在它创建之前触发（dispatch）action。在 _components/casino-dapp.vue_ 中的 name 属性下增加以下方法：
 
 ```
 export default {
@@ -347,7 +347,7 @@ export default {
 }
 ```
 
-Alright, now we will render this data from our hello-metamask component, all of our account data will be rendered in this component. To get data from our store we need to pass a getter function into computed. We can then reference the data in our template by using curly-braces.
+很好！现在我们要渲染 hello-metamask 组件的数据，我们账户的所有数据都将在此组件中进行呈现。从容器（store）中获得数据，我们需要在计算属性中增加一个 getter 方法。然后，我们就可以在模板中使用大括号来引用数据了。
 
 ```
 <template>
@@ -373,25 +373,25 @@ export default {
 <style scoped></style>
 ```
 
-Great, everything should work now. In your terminal fire up the project with 'npm start' and go to localhost:8080\. We should now see our metamask data. When we open the console we should see the messages from our console log in the state management pattern as described in the vuex paragraph.
+太棒啦！现在一切都应该完成了。在你的终端（terminal）中通过 `npm start` 启动这个项目，并访问 `localhost:8080`。现在，我们可以看到 Metamask 的数据。当我们打开控制台，应该可以看到 `console.log` 输出的 —— 在 Vuex 那段中的描述状态管理模式信息。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Z1S3FigrOgjE4xEY8f5PcQ.png)
 
-If you managed to get this far and everything works then well done, seriously. This was by far the hardest part of the series. In the next part we'll learn how to poll for changes to Metamask (eg. switching account) and connect our smart contract we wrote in part 1 to our application.
+说真的，如果你走到了这一步并且一切正常，那么你真的很棒！这是本系列教程目前为止，难度最大的一部分。在下一部分中，我们将学到如何轮询 Metamask（如：账户切换）的变化，并将在第一部分描述智能合约与我们的应用相连接。
 
-**In case you ran into an error, the full working code for this part is available in** [**this github repo**](https://github.com/kyriediculous/dapp-tutorial/tree/hello-metamask) **on the hello-metamask branch.**
+**以防万一你出现错误，在[这个 Github 仓库](https://github.com/kyriediculous/dapp-tutorial/tree/hello-metamask) 的 hello-metamask 分支上有此部分完整的代码**
 
-**Make sure you check out** [**the final part of this series**](https://medium.com/@Alt_Street/create-your-first-ethereum-dapp-with-web3-and-vue-js-part-3-dc4f82fba4b4)**!**
+**不要错过**[**本系列的最后一部分**](https://medium.com/@Alt_Street/create-your-first-ethereum-dapp-with-web3-and-vue-js-part-3-dc4f82fba4b4)**！**
 
-As always you're welcome to leave a tip if you enjoy our tutorials, thanks for reading and sticking through if you got this far!
+如果你喜欢本教程的话，请让我们知道，谢谢你坚持读到最后。
 
 ETH — 0x6d31cb338b5590adafec46462a1b095ebdc37d50
 
 * * *
 
-Looking to build your idea? We offer Ethereum proof of concept and crowdsale development services.
+想完成自己的想法吗？我们提供以太坊（Ethereum）概念验证和开发众募。
 
-- [**Alt Street - Blockchain Consultants**: Blockchain proof of concepts and Token sales... altstreet.io](https://altstreet.io)
+- [**Alt Street —— 区块链顾问**：区块链概念验证和代币销售等等... altstreet.io](https://altstreet.io)
 
 
 ---
