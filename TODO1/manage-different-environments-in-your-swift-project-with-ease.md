@@ -3,13 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/manage-different-environments-in-your-swift-project-with-ease.md](https://github.com/xitu/gold-miner/blob/master/TODO1/manage-different-environments-in-your-swift-project-with-ease.md)
 > * 译者：[melon8](https://github.com/melon8)
-> * 校对者：[ALVINYEH](https://github.com/ALVINYEH)
+> * 校对者：[ALVINYEH](https://github.com/ALVINYEH)，[Swants](https://github.com/swants)
 
 # 轻松管理 Swift 项目中的不同环境
 
 ![](https://cdn-images-1.medium.com/max/2000/1*Rk8JulyapCiTCUtLsnsEcQ.png)
 
-想象一下，你已经完成了应用程序的开发和测试，现在你已准备好将其提交并发布。但有个问题：你所有的 API key、URL、图标或其他设置都是针对测试环境进行配置的。因此，在提交应用程序之前，你必须将所有这些内容换到生产环境。显然，这听起来就不太好。此外，你可能会在你庞大的应用中忘记一两个更改，自然你所提供的服务将最终无法正常工作。
+想象一下，你已经完成了应用程序的开发和测试，现在你已准备好将其提交并发布。但有个问题：你所有的 API key、URL、图标或其他设置都是针对测试环境进行配置的。因此，在提交应用程序之前，你必须将所有这些内容切换到生产环境。显然，这听起来就不太好。此外，你可能会在你庞大的应用中忘记一两个更改，你所提供的服务自然将无法正常工作。
 
 与其使用这种混乱的方法，不如设置几个环境，并在需要时简单地更改它们。今天，我们将最常用的几个方法来尝试管理环境配置:
 
@@ -66,7 +66,7 @@ case .production:
 }
 ```
 
-这种方法让你每次要更改代码时只需设置一次环境。与以前的方法相比，这个更好，快而且可读性更强，但也有很多限制。首先，在运行任何环境时，你始终拥有相同的 Bundle ID。这意味着你无法同时在设备上拥有 2 分别对应不同环境的应用，一点都不舒服。
+这种方法让你每次要更改代码时只需设置一次环境。与以前的方法相比，这个更好，更快而且可读性更强，但也有很多限制。首先，在运行任何环境时，你始终拥有相同的 Bundle ID。这意味着你无法同时在设备上拥有 2 个分别对应不同环境的应用，这简直让人难受。
 
 此外，为每个环境设置不同的图标也是一个不错的主意，但采用这种方法，你无法更改图标。而且，如果你在发布应用程序之前忘记更改这个全局变量，那你肯定会遇到问题。
 
@@ -94,7 +94,7 @@ case .production:
 
 进入 Assets.xcassets，点击“+”并选择“New iOS App Icon”。将其名称更改为“AppIcon-Dev”。
 
-！[]（https://cdn-images-1.medium.com/max/800/0*Wuq-Rd6IHVMAgTm0。）
+！[](https://cdn-images-1.medium.com/max/800/0*Wuq-Rd6IHVMAgTm0.)
 
 现在我们可以将这个新的图标资源与我们的开发环境对应起来。进入“Targets”，左键单击你的 Dev taget，找到“App Icon Source”并选择你的新的图标资源。
 
@@ -129,7 +129,7 @@ let API_TOKEN = "fgbfkbkgbmkgbm"
 
 ### 4.使用 target 配置和 scheme 并结合多个 *.plist 文件
 
-在这种方法中，我们需要重复上一个方法的前几个步骤，创建和上个方法相同的几种 configuration 和 scheme。然后，我们不需要再添加全局标志，而是需要添加必要的值到我们的 .plist 文件中。另外，我们将在两个 *.plist 文件中分别添加一个 String 类型的 `serverBaseURL` 变量，并填上 URL 。现在每个 *.plist 文件都包含一个 URL，我们需要从代码中调用它。我认为，为我们的 Bundle 创建一个 extension 将是一个不错的主意，如下所示：
+在这种方法中，我们需要重复上一个方法的前几个步骤，创建和上个方法相同的几种 configuration 和 scheme。然后，我们不需要再添加全局标志，而是需要添加必要的值到我们的 .plist 文件中。另外，我们将在两个 *.plist 文件中分别添加一个 String 类型的 `serverBaseURL` 变量，并填上 URL。现在每个 *.plist 文件都包含一个 URL，我们需要从代码中调用它。我认为，为我们的 Bundle 创建一个 extension 将是一个不错的主意，如下所示：
 
 ```
 extension Bundle {
@@ -154,7 +154,7 @@ let baseURL = Bundle.main.apiBaseURL
 
 从一开始就以可读和灵活的方式将你的 app 分成不同环境总是有用的。即使用最简单的技术，我们也可以避免许多配置中的典型问题，并显着提高我们的代码质量。
 
-今天，我们简要地从最简单的方法介绍了几种方法』，但是还有很多其他可能的方法来管理配置。我很期待在的评论中看见你的方法。
+今天，我们简要地从最简单的方法介绍了几种方法，可能还有更多其它的方法来管理配置。我很期待在评论中看见你的方法。
 
 谢谢阅读 ：）
 
