@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/serverless-api-with-go-and-aws-lambda.md](https://github.com/xitu/gold-miner/blob/master/TODO1/serverless-api-with-go-and-aws-lambda.md)
 > * 译者：[sisibeloved](https://github.com/sisibeloved)
-> * 校对者：
+> * 校对者：[luochen1992](https://github.com/luochen1992)
 
 # 使用 Go 和 AWS Lambda 构建无服务 API
 
@@ -140,7 +140,7 @@
     $ zip -j /tmp/main.zip /tmp/main
     ```
 
-    需要注意的是可执行程序必须在 zip 文件的**根目录下** —— 不是在 zip 文件的某个文件夹中。为了确保这一点，我在上面的代码片段中用了 `-j` 标识来丢弃目录名称.
+    需要注意的是可执行程序必须在 zip 文件的**根目录下** —— 不是在 zip 文件的某个文件夹中。为了确保这一点，我在上面的代码片段中用了 `-j` 标识来丢弃目录名称。
 
 6.  下一步有点麻烦，但是对于让我们的 lambda 正确运行至关重要。我们需要建立一个定义了**lambda 函数运行时需要的**权限的 IAM 角色。
 
@@ -256,7 +256,7 @@
 
 1.  在这一章中要为 lambda 函数存取的数据添加持久层。我将会使用 Amazon DynamoDB（它跟 AWS lambda 结合得很出色，并且免费用量也不小）。如果你对 DynamoDB 不熟悉，[这儿](https://www.tutorialspoint.com/dynamodb/dynamodb_overview.htm)有一个不错的基本纲要。
 
-    首先要创建一张 `Books` 表来保存 book 记录。DynanmoDB 是没有 schema 的， 但我们需要在 ISBN 字段上定义分区键（有点像主键）。我们只需用以下这个命令：
+    首先要创建一张 `Books` 表来保存 book 记录。DynanmoDB 是没有 schema 的，但我们需要在 ISBN 字段上定义分区键（有点像主键）。我们只需用以下这个命令：
 
     ```
     $ aws dynamodb create-table --table-name Books \
