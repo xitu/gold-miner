@@ -184,20 +184,20 @@ class App extends Component {
 这个文件里的增强的点十分简单。这个列表总结了他们：
 
 1.  `configure`：你使用这个函数，协同你的 Auth0 应用的属性，来配置 `auth0-web` 包。
-2.  `handleAuthCallback`：你在 [`componentDidMount` 生命周期的钩子函数](https://reactjs.org/docs/react-component.html#componentdidmount) 触发这个方法，来检测用户是否是经过 Auth0 认证的。 这个方法只是尝试从 URL 抓取 tokens，并且如果成功，抓取用户的文档并把所有的信息存储到`localstorage`。
-3.  `subscribe`：你使用这个方法来来记录玩家是否是经过认证的（`true`认证过，`false` 代表其他）。
+2.  `handleAuthCallback`：你在 [`componentDidMount` 生命周期的钩子函数](https://reactjs.org/docs/react-component.html#componentdidmount) 触发这个方法，来检测用户是否是经过 Auth0 认证的。这个方法只是尝试从 URL 抓取 tokens，并且如果成功，抓取用户的文档并把所有的信息存储到 `localstorage`。
+3.  `subscribe`：你使用这个方法来记录玩家是否是经过认证的（`true` 代表认证过，否则 `false`）。
 
 就是这样，你的游戏已经 [使用 Auth0 作为它的身份管理服务](https://auth0.com/learn/cloud-identity-access-management/)。如果你现在启动你的应用（`npm start`）并且在你的浏览器中浏览 ([`http://localhost:3000`](http://localhost:3000))，你讲看到登陆按钮。点击它，它会把你重定向到 [Auth0 登陆页面](https://auth0.com/docs/hosted-pages/login)，在这里你可以登陆。
 
-当你完成了流程中的注册，Ahth0 会再一次把你重定向到你的游戏，`handleAuthCallback` 方法将会抓去你的 tokens。然后，正如你已经告诉你的应用 `console.log` 所有的认证状态的变化，你将能够看到它在你的浏览器控制台打印了 `true`。
+当你完成了流程中的注册，Auth0 会再一次把你重定向到你的游戏，`handleAuthCallback` 方法将会抓去你的 tokens。然后，正如你已经告诉你的应用 `console.log` 所有的认证状态的变化，你将能够看到它在你的浏览器控制台打印了 `true`。
 
 ![在你的 React 和 Redux 游戏中展示登陆按钮](https://cdn.auth0.com/blog/aliens-go-home/showing-the-login-button-in-your-react-game.png)
 
 > “使用 Auth0 来保护你的游戏是简单和痛苦小的。”
 
-## 创建排行榜 React 组件
+## 创建 Leaderboard React 组件
 
-现在你已经配置了 Auth0 作为你的身份管理系统，你将需要创建展示排行榜和当前玩家最大分数的组件。为这个，你将创建两个组件：`Leaderboard` 和 `Rank`。你将需要将这个特性拆分成两个组件，因为正如你所看到的，友好的展示玩家的数据（比如最大分数，姓名，位置和图片）并不是简单的事。其实也并不困难，但是你需要编写一些好的代码。所以，把所有的东西加到一个组件之中会看起来很笨拙。
+现在你已经配置了 Auth0 作为你的身份管理系统，你将需要创建展示排行榜和当前玩家最大分数的组件。为此，你将创建两个组件：`Leaderboard` 和 `Rank`。你将需要将这个特性拆分成两个组件，因为正如你所看到的，友好的展示玩家的数据（比如最大分数，姓名，位置和图片）并不是简单的事。其实也并不困难，但是你需要编写一些好的代码。所以，把所有的东西加到一个组件之中会看起来很笨拙。
 
 正如你的游戏还没有任何玩家，第一件事你需要做的就是定义一些 mock 数据来填充排行榜。做这件事最好的地方就是在 `Canvas` 组件中。同样，因为你正要去更新你的 canvas，你能够继续深入，使用 `Leaderboard` 替换 `Login` 组件（你一会儿将在 `Leaderboard` 中加入 `Login`）：
 
@@ -237,7 +237,7 @@ const Canvas = (props) => {
 // ... propTypes definition and export statement
 ```
 
-在这个文件的新版本中，你定义一个存储假玩家的叫做 `leaderboard` 的数组常量。这些玩家有以下属性：`id`，`maxScore`，`name` 和 `picture`。然后，在 `svg` 元素中，你增加具有以下参数的 `Leaderboard` 组件：
+在这个文件的新版本中，你定义一个存储假玩家的叫做 `leaderboard` 的数组常量。这些玩家有以下属性：`id`、`maxScore`、`name` 和 `picture`。然后，在 `svg` 元素中，你增加具有以下参数的 `Leaderboard` 组件：
 
 *   `currentPlayer`: 这个定义了当前玩家的身份。现在，你正在使用之前定义的假玩家中的一个，所以你能够看到每一件事是怎么工作的。传递这个参数的目的是使你的排行榜高亮当前玩家。
 *   `authenticate`: 这个和你加入到之前版本的 `Login` 组件中的参数是一样的。
@@ -334,7 +334,7 @@ export default Leaderboard;
 5. 你在上一步（`map` 方法）的结果上调用 `filter` 方法来删除每一个不在前三名玩家的人。事实上，如果当前玩家不属于这个筛选组，你要使当前玩家保留在最终的数组里。
 6. 最后，如果有一个用户登陆（`props.currentPlayer && leaderboard.map`）或者正在展示 `Login` 按钮，你遍历过滤过得数组来展示 `Rank` 元素。
 
-最后一件你需要做的事就是创建 `Rank` React component。要完成这个，创建一个名为 `Rank.jsx` 新文件，同时包括具有以下代码的 `Leaderboard.jsx` 文件：
+最后一件你需要做的事就是创建 `Rank` React 组件。要完成这个，创建一个名为 `Rank.jsx` 新文件，同时包括具有以下代码的 `Leaderboard.jsx` 文件：
 
 ```
 import React from 'react';
@@ -1088,7 +1088,7 @@ export default moveObjects;
 
 ### 检测碰撞
 
-现在你的游戏支持发射炮弹并且这里有飞行的物体入侵地球，这是一个好的时机添加一个检测碰撞的算法。有了这个算法，你可以删除相碰撞的炮弹和飞行物体。这也使你能够继续接下来的特性： _增加当前的分数_。
+现在你的游戏支持发射炮弹并且这里有飞行的物体入侵地球，这是一个好的时机添加一个检测碰撞的算法。有了这个算法，你可以删除相碰撞的炮弹和飞行物体。这也使你能够继续接下来的特性：**增加当前的分数。**
 
 一个好的实现这个检测碰撞算法的策略是把炮弹和飞行物体想象成为矩形。尽管这个策略不如按照物体真实形状实现的算法准确，但是把它们作为矩形处理会使每件事情变得简单。除此之外，对于这个游戏，你不需要很精确，因为，幸运的是，你不需要这个算法杀死真的外星人。
 
@@ -1152,7 +1152,6 @@ export default checkCollisions;
 3. 通过迭代 `cannonBalls` 数组（使用 `forEach` 方法）创建矩形来代表炮弹。
 4. 调用 `checkCollision` 方法，来决定这两个矩形是否必须被摧毁。然后，如果他们必须被摧毁，他们被添加到 `objectsDestroyed` 数组，由这个方法返回。
 
-Lastly, you will need to update the `moveObjects.js` file to use this function as follows:
 最后，你需要更新 `moveObjects.js` 文件，参照下面来使用这个方法：
 
 ```
