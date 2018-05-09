@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/underspanding-spans.md](https://github.com/xitu/gold-miner/blob/master/TODO1/underspanding-spans.md)
 > * 译者：[tanglie1993](https://github.com/tanglie1993)
-> * 校对者：
+> * 校对者：[dandyxu](https://github.com/dandyxu), [ALVINYEH](https://github.com/ALVINYEH)
 
 # 理解 span
 
@@ -187,9 +187,9 @@ val intentCharSequence = intent.getCharSequenceExtra(TEXT_EXTRA)
 
 使用 Android 中的文本是一个常见的操作，调用正确的 `TextView.setText` 方法将有助于使你降低 app 的内存消耗，并提高其性能。
 
-> **感谢** [_Siyamed Sinir_](https://twitter.com/siyamed)_，Clara Bayarri 以及_ [_Nick Butcher_](https://medium.com/@crafty)_。_
+> **感谢** [Siyamed Sinir](https://twitter.com/siyamed)，Clara Bayarri 以及 [Nick Butcher](https://medium.com/@crafty)。
 
-感谢 [Daniel Galpin](https://medium.com/@dagalpin?source=post_page).
+感谢 [Daniel Galpin](https://medium.com/@dagalpin?source=post_page)。
 
 
 ---
