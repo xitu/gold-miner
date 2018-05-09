@@ -3,33 +3,35 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/developing-games-with-react-redux-and-svg-part-3.md](https://github.com/xitu/gold-miner/blob/master/TODO1/developing-games-with-react-redux-and-svg-part-3.md)
 > * 译者：[xueshuai](https://github.com/xueshuai)
-> * 校对者：
+> * 校对者：[jasonxia23](https://github.com/jasonxia23) [smileforward123](https://github.com/smileforward123)
 
-# 使用 React, Redux, and SVG 开发游戏 - 第3部分
+# 使用 React, Redux, and SVG 开发游戏 - 第 3 部分
 
-**提示:** 在这个系列中，你将学习如何使用 React 和 Redux 控制一堆 SVG 元素来创建一个游戏。这个系列所需要的知识同样也可以使你创建使用 React 和 Redux 的其他类型的动画，而不只是游戏。你能够在下面的 GitHub 仓库中找到文章中开发的最终代码：[Aliens Go Home - Part 3](https://github.com/auth0-blog/aliens-go-home-part-3)
+**提示：** 在这个系列中，你将学习如何使用 React 和 Redux 控制一堆 SVG 元素来创建一个游戏。这个系列所需要的知识同样也可以使你创建使用 React 和 Redux 的其他类型的动画，而不只是游戏。你能够在下面的 GitHub 仓库中找到文章中开发的最终代码：[Aliens Go Home - 第 3 部分](https://github.com/auth0-blog/aliens-go-home-part-3)
 
 * * *
 
-## React 游戏： Aliens, Go Home!
+## React 游戏：Aliens, Go Home!
 
 在这个教程中你开发的游戏叫做 _Aliens, Go Home!_ 这个游戏的想法很简单，你有一门大炮，你将必须杀掉尝试入侵地球的飞行物体。要杀掉这些飞行的物体，你将必须标示和点击 SVG canvas 来使你的大炮发射。
 
-如果你有些疑惑，你可以发现 [完成了的游戏并在这里运行它](http://bang-bang.digituz.com.br/)。但是不要玩的太多，你还有工作必须做。
+如果你有些疑惑，你可以发现[完成了的游戏并在这里运行它](http://bang-bang.digituz.com.br/)。但是不要玩的太多，你还有工作必须做。
 
-> "我正在用 React，Redux 和 SVG元素 创建一个游戏。"
+> “我正在用 React，Redux 和 SVG元素
+
+创建一个游戏。”
 
 ## 之前，在第一部分和第二部分
 
 在 [这个系列的第一部分](https://auth0.com/blog/developing-games-with-react-redux-and-svg-part-1/)，你已经使用 [`create-react-app`](https://github.com/facebookincubator/create-react-app) 来启动你的 React 应用，你已经安装和配置了 Redux 来管理游戏的状态。之后，在创建游戏的元素时，例如  `Sky`， `Ground`， `CannonBase` 和 `CannonPipe`, 你已经学习了如何在 React 组件中使用 SVG。最终，你通过使用事件监听方法给你的大炮添加动画效果和一个 [JavaScript interval](https://www.w3schools.com/jsref/met_win_setinterval.asp) 来触发 Redux 的 _action_ 更新 `CannonBase` 的角度。
 
-这些为你铺平了理解如何使用 React， Redux 和 SVG 来创建你的游戏（和其他的动画）。
+这些为你提供了理解如何使用React,Redux和SVG来创建你的游戏（和其他动画）的方法。
 
 在 [第二部分](https://auth0.com/blog/developing-games-with-react-redux-and-svg-part-2/)，你已经创建了游戏中其他的必须元素（例如 `Heart`， `FlyingObject` 和 `CannonBall`），使你的玩家能够开始游戏，并使用 CSS 动画让飞行物体飞起来（这就是他们应该做的事，对么？）。
 
 就算是我们有了这些非常好的特性，但是他们还没有构成一个完整的游戏。你仍然需要使你的大炮发射炮弹，并完成一个算法来检测飞行物体和炮弹的碰撞。除此之外，你必须在你的玩家杀死外星人的时候，增加 `CurrentScore`。
 
-杀死外星人和看到当前分数的增长很酷，但是你大概可以使这个游戏更有吸引力。这就是为什么你要在你的游戏中增加一个排行榜特性。这将会使你的玩家花费更多的时间来达到排行榜的高位。
+杀死外星人和看到当前分数的增长很酷，但是你可能会使这个游戏更有吸引力。。这就是为什么你要在你的游戏中增加一个排行榜特性。这将会使你的玩家花费更多的时间来达到排行榜的高位。
 
 
 有了这些特性，你可以说你有了一个完整的游戏。所以，为了节约时间，是时候关注他们了。
@@ -177,7 +179,7 @@ class App extends Component {
 // ... propTypes definition and export statement
 ```
 
-> **提示:** 你必须使用从你的 Auth0 应用中复制的 _Domain_ 和 _Client ID_ 字段的值来替换`YOUR_AUTH0_DOMAIN` 和 `YOUR_AUTH0_CLIENT_ID`。除此之外，当你在网络上发布你的游戏的时候，你同样需要替换 `redirectUri` 的值。
+> **提示：** 你必须使用从你的 Auth0 应用中复制的 _Domain_ 和 _Client ID_ 字段的值来替换`YOUR_AUTH0_DOMAIN` 和 `YOUR_AUTH0_CLIENT_ID`。除此之外，当你在网络上发布你的游戏的时候，你同样需要替换 `redirectUri` 的值。
 
 这个文件里的增强的点十分简单。这个列表总结了他们：
 
@@ -1002,7 +1004,7 @@ Canvas.propTypes = {
 ```
 
 
-> **提示:** 在 `CannonPipe` _之前_ 添加 `cannonBalls.map` 很重要，否则炮弹将和大炮自身重叠。
+> **提示：** 在 `CannonPipe` _之前_ 添加 `cannonBalls.map` 很重要，否则炮弹将和大炮自身重叠。
 
 这些改变足够是你的游戏在炮弹的初始位置添加炮弹了（`x: 0`, `y: 0`）并且 他们的弹道（`angle`）已经定义好。现在的问题是这些对象是没有动画的（其实就是他们不会动）。
 
@@ -1024,7 +1026,7 @@ export const calculateNextPosition = (x, y, angle, divisor = 300) => {
 };
 ```
 
-> **提示:** 要学习上面工作的的公式，[看这里](https://answers.unity.com/questions/491719/how-to-calculate-a-new-position-having-angle-and-d.html)
+> **提示：** 要学习上面工作的的公式，[看这里](https://answers.unity.com/questions/491719/how-to-calculate-a-new-position-having-angle-and-d.html)
 
 你将在新的名为 `moveCannonBalls.js` 的文件中使用 `calculateNextPosition` 方法。所以，在 `./src/reducers/` 目录中创建这个文件，并加入以下代码：
 
@@ -1197,7 +1199,7 @@ export default moveObjects;
 
 ### 更新生命数和当前分数
 
-无论什么时候飞行的物体入侵地球，你必须减少玩家持有的命的数量。所以，当玩家没有更多地生命次数的时候，你必须结束游戏。要实现这些特性，你只需要更新两个文件。第一个文件是 `./src/reducers/moveObject.js`。你需要按照下面来更新它：
+无论什么时候飞行的物体入侵地球，你必须减少玩家持有的命的数量。所以，当玩家没有更多地生命值的时候，你必须结束游戏。要实现这些特性，你只需要更新两个文件。第一个文件是 `./src/reducers/moveObject.js`。你需要按照下面来更新它：
 
 ```
 import { calculateAngle } from '../utils/formulas';
@@ -1302,11 +1304,11 @@ export default moveObjects;
 <CurrentScore score={props.gameState.kills} />
 ```
 
-> “我使用 React，Redux，SVG 和 CSS 动画 创建一个游戏。”
+> “我使用 React、Redux、SVG 和 CSS 动画创建一个游戏。”
 
 ### 更新排行榜
 
-好消息！更新排行榜是你说你使用 React，Redux，SVG 和 CSS 动画完成了一个游戏所需要做的最后一件事。同样的，正如你看到的，这里的工作很快并且没有痛苦。
+好消息！更新排行榜是你说你使用 React、Redux、SVG 和 CSS 动画完成了一个游戏所需要做的最后一件事。同样的，正如你看到的，这里的工作很快并且没有痛苦。
 
 第一，你需要更新 `./server/index.js` 文件来重置 `players` 数组。你不希望你发布的游戏里是假用户和假结果。所以，打开这个文件并且删除所有的假玩家/结果。最后，你会有像下面这样定义的常量：
 
