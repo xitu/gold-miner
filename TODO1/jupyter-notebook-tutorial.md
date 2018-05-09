@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/jupyter-notebook-tutorial.md](https://github.com/xitu/gold-miner/blob/master/TODO1/jupyter-notebook-tutorial.md)
 > * 译者：[SergeyChang](https://github.com/SergeyChang)
-> * 校对者：
+> * 校对者：[sunhaokk](https://github.com/sunhaokk)，[陆尘](https://github.com/sisibeloved)
 
 # 给初学者的 Jupyter Notebook 教程
 
@@ -14,6 +14,7 @@ Jupyter 项目是早期 IPython Notebook 的继承者，它在2010年首次作�
 为了充分理解本教程，你应该熟悉编程，特别是 Python 和 [pandas](https://pandas.pydata.org/) （译者注：Pandas 是python的一个数据分析包）。也就是说，如果你有另一种编程语言的经验，这篇文章中的 Python 不会太陌生，而 pandas 也是容易理解的。Jupyter Notebooks 也可以作为一个灵活的平台来应付 pandas 甚至是 Python，并且这将在这篇文章中体现。
 
 我们将会 ：
+
 * 介绍一些安装 Jupyter 和创建你的第一个 notebook 的基本知识。
 * 深入钻研，学习所有重要的术语。
 * 探索 notebook 如何轻松地在网上共享和发布。事实上，这篇文章就是一个 Jupyter notebook！这里的一切都是在 Jupyter notebook 环境中编写的，而你正在以只读的形式查看它。
@@ -31,6 +32,7 @@ Jupyter 项目是早期 IPython Notebook 的继承者，它在2010年首次作�
 初学者开始使用 Jupyter Notebooks 的最简单方法是安装 [Anaconda](https://anaconda.org/)。Anaconda 是最广泛使用的用于数据科学的 Python 发行版，并且预装了所有常用的库和工具。除了 Jupyter 之外，在 Anaconda 中包括的一些最大的 Python 库包括 [NumPy](http://www.numpy.org/)，[pandas](https://pandas.pydata.org/) 和 [Matplotlib](https://matplotlib.org/)，并且这[完整的1000+列表](https://docs.anaconda.com/anaconda/packages/pkg-docs)是详尽的。这使您可以在自己完备的数据科学研讨会中运行，而不需要管理无数的安装包或担心依赖项和特定操作系统的安装问题。
 
 安装 Anaconda：
+
 1. [下载](https://www.anaconda.com/download/)支持 Python 3 （就不用 Python 2.7 了）的最新版本 Anaconda
 2. 按照下载页面或可执行文件中的说明安装 Anaconda。
 
@@ -67,8 +69,6 @@ pip3 install jupyter
 理解这个文件到底是什么是很有用的。每一个 `.ipynb` 文件是一个文本文件，它以一种名为 [JSON](https://en.wikipedia.org/wiki/JSON) 的格式描述你的笔记本的内容。每个单元格及其内容，包括已被转换成文本字符串的图像附件，都与一些[元数据](https://ipython.org/ipython-doc/3/notebook/nbformat.html#metadata)一起列出。你可以自己编辑这个——如果你知道你在做什么! - 通过在笔记的菜单栏中选择 "Edit > Edit Notebook Metadata"。
 
 你还可以通过在仪表板上的控件中选择 `Edit` 来查看你的笔记文件的内容，但是这里的关键字是 `_can_` ;除了好奇之外没有理由这样做，除非你真的知道你在做什么。
-
-
 
 ### notebook 的接口
 
