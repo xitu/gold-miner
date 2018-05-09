@@ -7,11 +7,11 @@
 
 # 给初学者的 Jupyter Notebook 教程
 
-Jupyter Notebook 是一个非常强大的工具，常用于交互式地开发和展示数据科学项目。它将代码和它的输出集成到一个文档中，并且结合了可视的叙述性文本、数学方程和其他丰富的媒体。它直观的工作流促进了迭代和快速的开发，使得笔记本在当代数据科学、分析和越来越多的科学研究中越来越受欢迎。最重要的是，作为[开源项目](https://jupyter.org/)的一部分，它们是完全免费的。
+Jupyter Notebook 是一个非常强大的工具，常用于交互式地开发和展示数据科学项目。它将代码和它的输出集成到一个文档中，并且结合了可视的叙述性文本、数学方程和其他丰富的媒体。它直观的工作流促进了迭代和快速的开发，使得 notebook 在当代数据科学、分析和越来越多的科学研究中越来越受欢迎。最重要的是，作为[开源项目](https://jupyter.org/)的一部分，它们是完全免费的。
 
-Jupyter 项目是早期 IPython Notebook 的继承者，它在2010年首次作为原型发布。尽管在 Jupyter Notebook 中可以使用许多不同的编程语言，但本文将重点介绍 Python，因为在 Jupyter Notebook 中 python 是最常见的。
+Jupyter 项目是早期 IPython Notebook 的继承者，它在 2010 年首次作为原型发布。尽管在 Jupyter Notebook 中可以使用许多不同的编程语言，但本文将重点介绍 Python，因为在 Jupyter Notebook 中 python 是最常见的。
 
-为了充分理解本教程，你应该熟悉编程，特别是 Python 和 [pandas](https://pandas.pydata.org/) （译者注：Pandas 是python的一个数据分析包）。也就是说，如果你有另一种编程语言的经验，这篇文章中的 Python 不会太陌生，而 pandas 也是容易理解的。Jupyter Notebooks 也可以作为一个灵活的平台来应付 pandas 甚至是 Python，并且这将在这篇文章中体现。
+为了充分理解本教程，你应该熟悉编程，特别是 Python 和 [pandas](https://pandas.pydata.org/)（译者注：Pandas 是python的一个数据分析包）。也就是说，如果你有编程经验，这篇文章中的 Python 不会太陌生，而 pandas 也是容易理解的。Jupyter Notebooks 也可以作为一个灵活的平台来运行 pandas 甚至是 Python，这将在这篇文章中体现。
 
 我们将会 ：
 
@@ -33,7 +33,7 @@ Jupyter 项目是早期 IPython Notebook 的继承者，它在2010年首次作�
 
 安装 Anaconda：
 
-1. [下载](https://www.anaconda.com/download/)支持 Python 3 （就不用 Python 2.7 了）的最新版本 Anaconda
+1. [下载](https://www.anaconda.com/download/)支持 Python 3 （就不用 Python 2.7 了的最新版本 Anaconda。
 2. 按照下载页面或可执行文件中的说明安装 Anaconda。
 
 如果你是已经安装了 Python 的更高级的用户，并且更喜欢手动管理你的软件包，那么你可以使用pip:
@@ -52,43 +52,43 @@ pip3 install jupyter
 
 ![Jupyter control panel](https://www.dataquest.io/blog/content/images/2018/03/jupyter-dashboard.jpg)
 
-这是 Notebook Dashboard，专门用于管理 Jupyter Notebooks。把它看作是探索，编辑和创建 notebooks 的启动面板。你可以把它看作是探索、编辑和创造你的笔记本的发射台。
+这是 Notebook Dashboard，专门用于管理 Jupyter Notebooks。把它看作是探索，编辑和创建 notebooks 的启动面板。你可以把它看作是探索、编辑和创造你的 notebook 的发射台。
 
 请注意，仪表板将只允许您访问 Jupyter 启动目录中包含的文件和子文件夹；但是，启动目录是[可以更改的](https://stackoverflow.com/q/35254852/604687)。还可以通过输入 `jupyter notebook` 命令在任何系统上启动指示板(或在Unix系统上的终端);在这种情况下，当前工作目录将是启动目录。
 
-聪明的读者可能已经注意到，仪表板的 URL 类似于 `http://localhost:8888/tree`。Localhost 不是一个网站，而是表示从你的 `_local_` 机器(你自己的计算机)中服务的内容。Jupyter 的笔记和仪表板都是 web 应用程序，Jupyter 启动了一个本地的 Python 服务器，将这些应用程序提供给你的 web 浏览器，使其基本上独立于平台，并打开了更容易在 web 上共享的大门。
+聪明的读者可能已经注意到，仪表板的 URL 类似于 `http://localhost:8888/tree`。Localhost 不是一个网站，而是表示从你的 `_local_` 机器(你自己的计算机)中服务的内容。Jupyter notebook 和仪表板都是 web 应用程序，Jupyter 启动了一个本地的 Python 服务器，将这些应用程序提供给你的 web 浏览器，使其基本上独立于平台，并打开了更容易在 web 上共享的大门。
 
-仪表板的界面大部分是不言自明的 —— 尽管我们稍后会简要介绍它。我们还在等什么?浏览到你想要创建你的第一个笔记本的文件夹，点击右上角的 `New` 下拉按钮，选择 `Python 3` (或者你喜欢的版本)。
+仪表板的界面大部分是不言自明的 —— 尽管我们稍后会简要介绍它。我们还在等什么?浏览到你想要创建你的第一个 notebook 的文件夹，点击右上角的 `New` 下拉按钮，选择 `Python 3` (或者你喜欢的版本)。
 
 ![New notebook menu](https://www.dataquest.io/blog/content/images/2018/03/new-notebook-menu.jpg)
 
-我们马上能看到成果了!你的第一个 Jupyter Notebook 将在新标签页打开 - 每个笔记使用它自己的标签，因为你可以同时打开多个笔记。如果您切换回仪表板，您将看到新文件 `Untitled` 。你应该看到一些绿色的文字告诉你笔记本正在运行。
+我们马上能看到成果了!你的第一个 Jupyter Notebook 将在新标签页打开 - 每个 notebook 使用它自己的标签，因为你可以同时打开多个 notebook。如果您切换回仪表板，您将看到新文件 `Untitled` 。你应该看到一些绿色的文字告诉你 notebook 正在运行。
 
 #### 什么是 ipynb 文件 ？
 
-理解这个文件到底是什么是很有用的。每一个 `.ipynb` 文件是一个文本文件，它以一种名为 [JSON](https://en.wikipedia.org/wiki/JSON) 的格式描述你的笔记本的内容。每个单元格及其内容，包括已被转换成文本字符串的图像附件，都与一些[元数据](https://ipython.org/ipython-doc/3/notebook/nbformat.html#metadata)一起列出。你可以自己编辑这个——如果你知道你在做什么! - 通过在笔记的菜单栏中选择 "Edit > Edit Notebook Metadata"。
+理解这个文件到底是什么是很有用的。每一个 `.ipynb` 文件是一个文本文件，它以一种名为 [JSON](https://en.wikipedia.org/wiki/JSON) 的格式描述你的 notebook 的内容。每个单元格及其内容，包括已被转换成文本字符串的图像附件，都与一些[元数据](https://ipython.org/ipython-doc/3/notebook/nbformat.html#metadata)一起列出。你可以自己编辑这个——如果你知道你在做什么! - 通过在 notebook 的菜单栏中选择 "Edit > Edit Notebook Metadata"。
 
-你还可以通过在仪表板上的控件中选择 `Edit` 来查看你的笔记文件的内容，但是这里的关键字是 `_can_` ;除了好奇之外没有理由这样做，除非你真的知道你在做什么。
+你还可以通过在仪表板上的控件中选择 `Edit` 来查看你的 notebook 文件的内容，但是这里的关键字是 `_can_` ;除了好奇之外没有理由这样做，除非你真的知道你在做什么。
 
 ### notebook 的接口
 
-既然你面前有一个打开的笔记，它的界面就不会看起来完全陌生；毕竟，Jupyter 实际上只是一个高级的文字处理器。为什么不看一看？查看菜单以了解它，尤其是花点时间在命令选项板（这是带键盘图标的小按钮（或 `Ctrl + Shift + P`））下滚动命令列表。
+既然你面前有一个打开的 notebook，它的界面就不会看起来完全陌生；毕竟，Jupyter 实际上只是一个高级的文字处理器。为什么不看一看？查看菜单以了解它，尤其是花点时间在命令选项板（这是带键盘图标的小按钮（或 `Ctrl + Shift + P`））下滚动命令列表。
 
 ![New Jupyter Notebook](https://www.dataquest.io/blog/content/images/2018/03/new-notebook.jpg)
 
 您应该注意到两个非常重要的术语，这对您来说可能是全新的: _cells_ 和 _kernels_ 。它们是理解 Jupyter 和区分 Jupyter 不只是一个文字处理器的关键。幸运的是，这些概念并不难理解。
 
-* 内核是一个“计算引擎”，它执行一个笔记文档中包含的代码。
+* 内核是一个“计算引擎”，它执行一个 notebook 文档中包含的代码。
 * 单元是用于在 notebook 中显示文本的容器或由 notebook 内核执行的代码。
 
 ### 单元格
 
-稍后我们再讨论内核，在这之前我们先来了解一下单元格。单元格构成一个笔记本的主要支撑。在上面一节的新笔记本的屏幕截图中，带有绿色轮廓的盒子是一个空的单元格。我们将介绍两种主要的单元格类型:
+稍后我们再讨论内核，在这之前我们先来了解一下单元格。单元格构成一个笔记本的主要支撑。在上面一节的新的 notebook 屏幕截图中，带有绿色轮廓的盒子是一个空的单元格。我们将介绍两种主要的单元格类型:
 
 * **代码单元**包含要在内核中执行的代码，并在下面显示它的输出。
 * **Markdown 单元**包含使用 Markdown 格式化的文本，并在运行时显示其输出。
 
-新的笔记中的第一个单元总是一个代码单元。让我们用一个经典的 hello world 示例来测试它。输入 `print('Hello World!')` 到单元格中，点击上面工具栏中的 run 按钮，或者按下 Ctrl + Enter 键。结果应该是这样的:
+新的 notebook 中的第一个单元总是一个代码单元。让我们用一个经典的 hello world 示例来测试它。输入 `print('Hello World!')` 到单元格中，点击上面工具栏中的 run 按钮，或者按下 Ctrl + Enter 键。结果应该是这样的:
 
 ```Python
 print('Hello World!')
@@ -145,11 +145,11 @@ say_hello('Tim')
 * `Ctrl + Shift + -`，在编辑模式下，将在光标处拆分活动单元格。
 * 你也可以点击 `Shift + Click` 在你的单元格的左边来选择它们。
 
-你可以在自己的笔记上试试这些。一旦你有了尝试，创建一个新的 Markdown 单元，我们将学习如何在我们的笔记本中格式化文本。
+你可以在自己的 notebook 上试试这些。一旦你有了尝试，创建一个新的 Markdown 单元，我们将学习如何在我们的 notebook 中格式化文本。
 
 ### Markdown
 
-[Markdown](https://www.markdownguide.org/) 是一种轻量级的、易于学习的标记语言，用于格式化纯文本。它的语法与 HTML 标记有一对一的对应关系，所以这里的一些经验是有用的，但绝对不是先决条件。请记住，这篇文章是在一个 Jupyter 笔记上写的，所以你所看到的所有的叙述文本和图片都是在 Markdown 完成的。让我们用一个简单的例子来介绍基础知识。
+[Markdown](https://www.markdownguide.org/) 是一种轻量级的、易于学习的标记语言，用于格式化纯文本。它的语法与 HTML 标记有一对一的对应关系，所以这里的一些经验是有用的，但绝对不是先决条件。请记住，这篇文章是在一个 Jupyter notebook 上写的，所以你所看到的所有的叙述文本和图片都是在 Markdown 完成的。让我们用一个简单的例子来介绍基础知识。
 
 ```markdown
 # 这是一级标题。
@@ -183,8 +183,8 @@ say_hello('Tim')
 当附加图像时，你有三个选项:
 
 *   使用一个在 web 上的图像的 URL。
-* 在你的笔记本旁边放置一个本地 URL，例如在同一个 git 仓库中。
-* 通过 "Edit > Insert Image" 添加附件；这将把图像转换成字符串并存储在你的笔记本中的 `.ipynb` 文件。
+* 在你的 notebook 旁边放置一个本地 URL，例如在同一个 git 仓库中。
+* 通过 "Edit > Insert Image" 添加附件；这将把图像转换成字符串并存储在你的 notebook 中的 `.ipynb` 文件。
 
 * 注意这将使你的 `.ipynb` 的文件更大!
 
@@ -194,7 +194,7 @@ Markdown 有很多细节，特别是在超链接的时候，也可以简单地�
 
 每个 notebook 后台都运行一个内核。当你运行一个代码单元时，该代码在内核中执行，任何输出都会返回到要显示的单元格。内核的状态在时间和单元之间持续存在 —— 它与文档有关，而不是单个的单元格。
 
-例如，如果你在一个单元中导入库或声明变量，那么它们将在另一个单元中可用。通过这种方式，你可以将笔记文档看作是与脚本文件相当的，除了它是多媒体。让我们试着去感受一下。首先，我们将导入一个 Python 包并定义一个函数。
+例如，如果你在一个单元中导入库或声明变量，那么它们将在另一个单元中可用。通过这种方式，你可以将 notebook 文档看作是与脚本文件相当的，除了它是多媒体。让我们试着去感受一下。首先，我们将导入一个 Python 包并定义一个函数。
 
 ```Python
 import numpy as np
@@ -216,7 +216,7 @@ print('%d squared is %d' % (x, y))
 1 squared is 1
 ```
 
-不管你的笔记里的单元格顺序如何，这都是可行的。你可以自己试一下，让我们再把变量打印出来。
+不管你的 notebook 里的单元格顺序如何，这都是可行的。你可以自己试一下，让我们再把变量打印出来。
 
 ```Python
 print('Is %d squared is %d?' % (x, y))
@@ -234,7 +234,7 @@ y = 10
 
 如果我们再次运行包含 `print` 语句的单元格，你认为会发生什么?我们得到的结果是 4 的平方是 10 ?
 
-大多数情况下，你的笔记上的工作流将会从上到下，但是返回上文做一些改变是很正常的。在这种情况下，每个单元的左侧的执行顺序，例如 `In [6]`，将让你知道你的任何单元格是否有陈旧的输出。如果你想要重置一些东西，从内核菜单中有几个非常有用的选项:
+大多数情况下，你的 notebook 上的工作流将会从上到下，但是返回上文做一些改变是很正常的。在这种情况下，每个单元的左侧的执行顺序，例如 `In [6]`，将让你知道你的任何单元格是否有陈旧的输出。如果你想要重置一些东西，从内核菜单中有几个非常有用的选项:
 
 * 重启：重新启动内核，从而清除定义的所有变量。
 * 重启和清除输出:与上面一样，但也将擦除显示在您的代码单元格下面的输出。
@@ -246,29 +246,29 @@ y = 10
 
 你可能已经注意到，Jupyter 提供了更改内核的选项，实际上有许多不同的选项可供选择。当你通过选择 Python 版本从仪表板中创建一个新的笔记时，你实际上是在选择使用哪个内核。
 
-不仅有不同版本的 Python 的内核，还包括[(超过 100 种语言)](https://github.com/jupyter/jupyter/jupyter/wiki/jupyter-kernel)，包括 Java 、C ，甚至 Fortran。数据科学家可能特别感兴趣的是 [R](https://irkernel.github.io/) 和 [Julia](https://github.com/JuliaLang/IJulia.jl)，以及 [imatlab](https://github.com/imatlab/imatlab) 和 [Calysto MATLAB内核](https://github.com/calysto/matlab_kernel) 。[SoS 内核](https://github.com/vatlab/SOS)在一个笔记中提供多语言支持。每个内核都有自己的安装指令，但可能需要您在计算机上运行一些命令。
+不仅有不同版本的 Python 的内核，还包括[(超过 100 种语言)](https://github.com/jupyter/jupyter/jupyter/wiki/jupyter-kernel)，包括 Java 、C ，甚至 Fortran。数据科学家可能特别感兴趣的是 [R](https://irkernel.github.io/) 和 [Julia](https://github.com/JuliaLang/IJulia.jl)，以及 [imatlab](https://github.com/imatlab/imatlab) 和 [Calysto MATLAB内核](https://github.com/calysto/matlab_kernel) 。[SoS 内核](https://github.com/vatlab/SOS)在一个 notebook 中提供多语言支持。每个内核都有自己的安装指令，但可能需要您在计算机上运行一些命令。
 
 ## 实例分析
 
 现在我们已经看了一个 Jupyter Notebook，是时候看看它们在实践中使用了，这应该会让你更清楚地了解它们是多么的受欢迎。现在是时候开始使用前面提到的财富 500 数据集了。请记住，我们的目标是了解美国最大公司的利润在历史上是如何变化的。
 
-值得注意的是，每个人都会有自己的喜好和风格，但是一般原则仍然适用，如果你愿意，你可以在自己的笔记上跟随这一段，这也给了你自由发挥空间。
+值得注意的是，每个人都会有自己的喜好和风格，但是一般原则仍然适用，如果你愿意，你可以在自己的 notebook 上跟随这一段，这也给了你自由发挥空间。
 
-### 命名你的的笔记
+### 命名你的 notebook
 
-在开始编写项目之前，你可能想要给它一个有意义的名称。也许有点让人困惑，你不能从 Notebook 的应用程序中命名或重命名你的笔记，但必须使用仪表盘或你的文件浏览器来重命名 `.ipynb` 文件。我们将返回到仪表板，以重命名你之前创建的文件，它将有默认的笔记文件名 `Untitled.ipynb` 。
+在开始编写项目之前，你可能想要给它一个有意义的名称。也许有点让人困惑，你不能从 Notebook 的应用程序中命名或重命名你的 notebook，但必须使用仪表盘或你的文件浏览器来重命名 `.ipynb` 文件。我们将返回到仪表板，以重命名你之前创建的文件，它将有默认的 notebook 的文件名是 `Untitled.ipynb` 。
 
-你不能在笔记运行时重命名它，所以你首先要关闭它。最简单的方法就是从笔记菜单中选择 “File > Close and Halt ”。但是，您也可以通过在笔记本应用程序内 "Kernel > Shutdown" 或在仪表板中选择笔记本并点击 "Shutdown" (见下图)来关闭内核。
+你不能在 notebook 运行时重命名它，所以你首先要关闭它。最简单的方法就是从 notebook 菜单中选择 “File > Close and Halt ”。但是，您也可以通过在笔记本应用程序内 "Kernel > Shutdown" 或在仪表板中选择 notebook 并点击 "Shutdown" (见下图)来关闭内核。
 
 ![A running notebook](https://www.dataquest.io/blog/content/images/2018/03/notebook-running.jpg)
 
-然后你可以选择你的笔记，并在仪表板控件中点击 “Rename”。
+然后你可以选择你的 notebook，并在仪表板控件中点击 “Rename”。
 
 ![A running notebook](https://www.dataquest.io/blog/content/images/2018/03/notebook-controls.jpg)
 
-注意，在你的浏览器中关闭笔记的标签页将**不会** "close" 你的笔记本，在传统的应用程序中关闭文档的方式。笔记的内核将继续在后台运行，需要在真正“关闭”之前关闭——不过如果你不小心关掉了你的标签或浏览器，这就很方便了!如果内核被关闭，你可以关闭该选项卡，而不用担心它是否还在运行。
+注意，在你的浏览器中关闭笔记的标签页将**不会** "close" 你的 notebook，在传统的应用程序中关闭文档的方式。notebook 的内核将继续在后台运行，需要在真正“关闭”之前关闭——不过如果你不小心关掉了你的标签或浏览器，这就很方便了!如果内核被关闭，你可以关闭该选项卡，而不用担心它是否还在运行。
 
-如果你给你的笔记起了名字，打开它，我们就可以开始实践了。
+如果你给你的 notebook 起了名字，打开它，我们就可以开始实践了。
 
 ### 设置
 
@@ -296,9 +296,9 @@ df = pd.read_csv('fortune500.csv')
 
 ### 保存和检查点
 
-现在我们已经开始了，最好的做法是定期存储。按 `Ctrl + S` 键可以通过调用“保存和检查点”命令来保存你的笔记，但是这个检查点的东西是什么呢?
+现在我们已经开始了，最好的做法是定期存储。按 `Ctrl + S` 键可以通过调用“保存和检查点”命令来保存你的 notebook，但是这个检查点的东西是什么呢?
 
-每当你创建一个新笔记时，都会创建一个检查点文件以及你的笔记文件；它将位于你保存位置的隐藏子目录中称作 `.ipynb_checkpoints `，也是一个 `.ipynb`文件。默认情况下，Jupyter 将每隔 120 秒自动保存你的笔记，而不会改变你的主笔记本文件。当您“保存和检查点”时，笔记本和检查点文件都将被更新。因此，检查点使您能够在发生意外事件时恢复未保存的工作。您可以通过 "File > Revert to Checkpoint." 从菜单返回到检查点。
+每当你创建一个新的 notebook 时，都会创建一个检查点文件以及你的 notebook 文件；它将位于你保存位置的隐藏子目录中称作 `.ipynb_checkpoints `，也是一个 `.ipynb`文件。默认情况下，Jupyter 将每隔 120 秒自动保存你的 notebook，而不会改变你的主 notebook 文件。当你“保存和检查点”时，notebook 和检查点文件都将被更新。因此，检查点使你能够在发生意外事件时恢复未保存的工作。你可以通过 "File > Revert to Checkpoint." 从菜单返回到检查点。
 
 ### 调查我们的数据集
 
@@ -438,7 +438,7 @@ dtype: object
 
 不错！我们已经完成了数据集的设置。
 
-如果你要将笔记做成一个报告,你可以不使用我们创建的研究的单元格,包括这里的演示使用笔记本的工作流,并合相关单元格(请参阅下面的高级功能部分)并创建一个数据集设置单元格。这意味着如果我们把我们的数据放在别处，我们可以重新运行安装单元来恢复它。
+如果你要将 notebook 做成一个报告,你可以不使用我们创建的研究的单元格,包括这里的演示使用 notebook 的工作流,并合相关单元格(请参阅下面的高级功能部分)并创建一个数据集设置单元格。这意味着如果我们把我们的数据放在别处，我们可以重新运行安装单元来恢复它。
 
 ### 使用 matplotlib 进行绘图
 
@@ -501,35 +501,35 @@ fig.tight_layout()
 
 这是惊人的，标准偏差是巨大的。一些财富 500 强的公司赚了数十亿，而另一些公司却损失了数十亿美元，而且随着这些年来利润的增长，风险也在增加。也许有些公司比其他公司表现更好；前 10% 的利润是否比最低的 10% 的利润波动更大?
 
-接下来我们有很多问题可以看，很容易看到在笔记上的工作流程是如何与自己的思维过程相匹配的，所以现在是时候为这个例子画上句号了。这一流程帮助我们在没有上下文切换应用程序的情况下轻松地研究我们的数据集，并且我们的工作可以立即共享和重现。如果我们希望为特定的目标人群创建一个更简洁的报告，我们可以通过合并单元和删除中间代码来快速重构我们的工作。
+接下来我们有很多问题可以看，很容易看到在 notebook 上的工作流程是如何与自己的思维过程相匹配的，所以现在是时候为这个例子画上句号了。这一流程帮助我们在没有上下文切换应用程序的情况下轻松地研究我们的数据集，并且我们的工作可以立即共享和重现。如果我们希望为特定的目标人群创建一个更简洁的报告，我们可以通过合并单元和删除中间代码来快速重构我们的工作。
 
-## 分享你的笔记
+## 分享你的 notebook
 
-当人们谈论分享他们的笔记时，他们通常会考虑两种模式。大多数情况下，个人共享其工作的最终结果，就像本文本身一样，这意味着共享非交互式的、预渲染的版本的笔记本；然而，也有可能在笔记上与诸如 [Git](https://git-scm.com/) 这样的辅助版本控制系统进行协作。
+当人们谈论分享他们的 notebook 时，他们通常会考虑两种模式。大多数情况下，个人共享其工作的最终结果，就像本文本身一样，这意味着共享非交互式的、预渲染的版本的 notebook；然而，也有可能在 notebook 上与诸如 [Git](https://git-scm.com/) 这样的辅助版本控制系统进行协作。
 
-也就是说，[有一些](https://mybinder.org/)新兴的[公司](https://kyso.io/)在 web 上提供了在云中运行交互式 Jupyter 笔记本的能力。
+也就是说，[有一些](https://mybinder.org/)新兴的[公司](https://kyso.io/)在 web 上提供了在云中运行交互式 Jupyter notebook 的能力。
 
 ### 在你分享之前
 
-当你导出或保存它时，共享的笔记将出现在它的状态中，包括任何代码单元的输出。因此，为了确保你的笔记本是共享的，你可以在分享之前采取一些步骤:
+当你导出或保存它时，共享的吗notebook 将出现在它的状态中，包括任何代码单元的输出。因此，为了确保你的 notebook 是共享的，你可以在分享之前采取一些步骤:
 
 1.  点击 "Cell > All Output > Clear"
 2.  点击 "Kernel > Restart & Run All"
 3.  等待您的代码单元完成执行，并检查它们是否按预期执行。
 
-这将确保您的笔记本不包含中间输出，不包含陈旧的状态，并在共享时执行。
+这将确保你的 notebook 不包含中间输出，不包含陈旧的状态，并在共享时执行。
 
-### 导出你的笔记
+### 导出你的 notebook
 
-Jupyter 内置支持导出 HTML 和 PDF 以及其他几种格式，您可以在 `"File > Download As."` 菜单下找到。如果您希望与一个小型的私有组共享您的笔记，这个功能很可能是您所需要的。事实上，许多学术机构的研究人员都有一些公共或内部的网络空间，因为你可以将一个笔记本导出到一个 HTML 文件中，Jupyter 笔记本电脑可以成为他们与同行分享成果的一种特别方便的方式。
+Jupyter 内置支持导出 HTML 和 PDF 以及其他几种格式，您可以在 `"File > Download As."` 菜单下找到。如果你希望与一个小型的私有组共享你的 notebook，这个功能很可能是你所需要的。事实上，许多学术机构的研究人员都有一些公共或内部的网络空间，因为你可以将一个 notebook 导出到一个 HTML 文件中，Jupyter notebook 可以成为他们与同行分享成果的一种特别方便的方式。
 
 但是，如果共享导出的文件并不能让你满意，那么还有一些更直接的非常流行的共享 `.ipynb` 文件到网上的方法。
 
 ### GitHub
 
-截止到 2018 年初，GitHub 上的公共笔记数量超过了 180 万，它无疑是最受欢迎的与世界分享 Jupyter 项目的独立平台。GitHub 已经集成了对 `.ipynb` 的文件渲染的支持，你可以直接将其存储在其网站的仓库和 gists 中。如果你还不知道，[GitHub](https://github.com) 是一个代码托管平台，用于为使用 [Git](https://git-scm.com/) 创建的存储库进行版本控制和协作，那么你可以创建一个帐户来使用他们的服务，并且标准帐户是免费的。
+截止到 2018 年初，GitHub 上的公共 notebook 数量超过了 180 万，它无疑是最受欢迎的与世界分享 Jupyter 项目的独立平台。GitHub 已经集成了对 `.ipynb` 的文件渲染的支持，你可以直接将其存储在其网站的仓库和 gists 中。如果你还不知道，[GitHub](https://github.com) 是一个代码托管平台，用于为使用 [Git](https://git-scm.com/) 创建的存储库进行版本控制和协作，那么你可以创建一个帐户来使用他们的服务，github 标准帐户是免费的。
 
-一旦你有了 GitHub 账户，在 GitHub 上共享一个笔记是最简单方法，实际上根本不需要 Git。自2008年以来， GitHub 为托管和共享代码片段提供了基本服务，每个代码段都有自己的存储库。使用 Gists 共享一个笔记:
+当你有了 GitHub 账户，在 GitHub 上共享一个 notebook 是最简单方法，实际上根本不需要 Git。自 2008 年以来， GitHub 为托管和共享代码片段提供了基本服务，每个代码段都有自己的存储库。使用 Gists 共享一个 notebook:
 
 1. 登录并且流浏览 [gist.github.com](https://gist.github.com)。
 2. 用文件编辑器打开 `.ipynb` 文件,  全选并且拷贝里面的 JSON 。
@@ -543,17 +543,17 @@ Jupyter 内置支持导出 HTML 和 PDF 以及其他几种格式，您可以在 
 
 如果你创建了一个公共的 Gist ，你现在就可以和任何人分享它的 URL，其他人将能够 [fork 和 clone](https://help.github.com/articles/forkingand-cloning-gists/) 你的工作。
 
-创建自己的 Git 存储库并在 GitHub 上共享它超出了本教程的范围，但是 [GitHub 提供了大量的指南](https://guides.github.com/)让可供你参考。
+创建自己的 Git 存储库并在 GitHub 上共享，这超出了本教程的范围，但是 [GitHub 提供了大量的指南](https://guides.github.com/)让可供你参考。
 
 对于那些使用 git 的人来说，额外的一个技巧是为 Jupyter 创建的 `.ipynb_checkpoints` 目录[添加一个忽略文件](https://stackoverflow.com/q/35916658/604687) `.gitignore` ，因为我们不需要将检查点文件提交给到仓库。
 
 ### Nbviewer
 
-截至 2015 年，每个星期都有[成千上万的笔记](https://blog.jupyter.org/renderingnotebooks-ongithub-f7ac8736d686)，它是最受欢迎的 notebooks 渲染器。如果你已经在某个地方把你的 Jupyter notebooks 放在网上，无论是 GitHub 还是其他地方，NBViewer 都可以读取你的笔记，并提供一个可共享的 URL。作为项目 Jupyter 的一部分提供的免费服务，你可以在 [nbview .jupyter.org](https://nbview.jupyter.org/) 找到相关服务。
+截至 2015 年，每个星期都有[成千上万的 notebook](https://blog.jupyter.org/renderingnotebooks-ongithub-f7ac8736d686)，它是最受欢迎的 notebooks 渲染器。如果你已经在某个地方把你的 Jupyter notebooks 放在网上，无论是 GitHub 还是其他地方，NBViewer 都可以读取你的 notebook，并提供一个可共享的 URL。作为项目 Jupyter 的一部分提供的免费服务，你可以在 [nbview .jupyter.org](https://nbview.jupyter.org/) 找到相关服务。
 
 最初是在 GitHub 的 Jupyter Notebook 集成之前开发的，NBViewer 允许任何人输入 URL 、Gist ID 或`GitHub username/repo/filename`，并将其作为网页呈现。一个 Gist 的 ID 是其 URL 末尾唯一的数字；例如，在 “https://gist. github.com/username/50896401c23e0bf417e89e1de” 中最后一个反斜杠后的字符串。如果你输入了 `GitHub username/repo/filename` ，你将看到一个最小的文件浏览器，它允许你访问用户的仓库及其内容。
 
-当显示一个笔记时，URL NBViewer 显示的是一个基于它正在呈现的笔记 URL 的常量，所以你可以和任何人分享它，只要原始文件保持在线 - NBViewer 不缓存文件很长时间，它就会工作。
+当显示一个 notebook 时，URL NBViewer 显示的是一个基于它正在呈现的 notebook URL 的常量，所以你可以和任何人分享它，只要原始文件保持在线 - NBViewer 不缓存文件很长时间，它就会工作。
 
 ## 结语
 
