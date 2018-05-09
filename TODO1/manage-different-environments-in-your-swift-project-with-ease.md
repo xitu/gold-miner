@@ -76,7 +76,7 @@ case .production:
 
 应用这些方法之后，你的应用的每个环境将会使用相同的代码库，但对于每种配置，能够拥有不同的图标和不同的 Bundle ID。分发过程也非常简单。而最重要的是，项目经理和测试人员将能够将你不同环境配置的应用独立安装在他们的设备上，所以他们会完全理解他们试用的版本。
 
-### 3.使用 target 配置和 scheme 并结合全局标志
+### 3. 使用 target 配置和 scheme 并结合全局标志
 
 在这种方法中，我们需要创建 3 个不同的 configuration 和 3 种不同的 scheme，并将 scheme 和对应 configuration 连接起来。我将创建一个叫“Environments”的项目来演示这一过程，你也可以创建一个新项目或在现有项目中实现。
 
@@ -94,7 +94,7 @@ case .production:
 
 进入 Assets.xcassets，点击“+”并选择“New iOS App Icon”。将其名称更改为“AppIcon-Dev”。
 
-！[](https://cdn-images-1.medium.com/max/800/0*Wuq-Rd6IHVMAgTm0.)
+![](https://cdn-images-1.medium.com/max/800/0*Wuq-Rd6IHVMAgTm0.)
 
 现在我们可以将这个新的图标资源与我们的开发环境对应起来。进入“Targets”，左键单击你的 Dev taget，找到“App Icon Source”并选择你的新的图标资源。
 
@@ -105,7 +105,7 @@ case .production:
 重要提示：现在我们有两种不同的方法来处理两种不同的配置：
 
 1. **为生产和开发目标添加预处理宏/编译器标志。**
-2. **将变量添加到** ***.plist 中。**
+2. **将变量添加到 `*.plist` 中。**
 
 我们将从第一个方法开始讲这两种方法。
 
