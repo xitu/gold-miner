@@ -23,7 +23,7 @@
 
 ## 之前，在第一部分和第二部分
 
-在 [这个系列的第一部分](https://auth0.com/blog/developing-games-with-react-redux-and-svg-part-1/)，你已经使用 [`create-react-app`](https://github.com/facebookincubator/create-react-app) 来启动你的 React 应用，你已经安装和配置了 Redux 来管理游戏的状态。之后，在创建游戏的元素时，例如  `Sky`， `Ground`， `CannonBase` 和 `CannonPipe`, 你已经学习了如何在 React 组件中使用 SVG。最终，你通过使用事件监听方法给你的大炮添加动画效果和一个 [JavaScript interval](https://www.w3schools.com/jsref/met_win_setinterval.asp) 来触发 Redux 的 _action_ 更新 `CannonBase` 的角度。
+在[这个系列的第一部分](https://auth0.com/blog/developing-games-with-react-redux-and-svg-part-1/)，你已经使用 [`create-react-app`](https://github.com/facebookincubator/create-react-app) 来启动你的 React 应用，你已经安装和配置了 Redux 来管理游戏的状态。之后，在创建游戏的元素时，例如  `Sky`， `Ground`， `CannonBase` 和 `CannonPipe`, 你已经学习了如何在 React 组件中使用 SVG。最终，你通过使用事件监听方法给你的大炮添加动画效果和一个 [JavaScript interval](https://www.w3schools.com/jsref/met_win_setinterval.asp) 来触发 Redux 的 _action_ 更新 `CannonBase` 的角度。
 
 这些为你提供了理解如何使用React,Redux和SVG来创建你的游戏（和其他动画）的方法。
 
