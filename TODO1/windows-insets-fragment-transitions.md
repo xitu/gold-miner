@@ -2,109 +2,105 @@
 > * 原文作者：[Chris Banes](https://medium.com/@chrisbanes?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/windows-insets-fragment-transitions.md](https://github.com/xitu/gold-miner/blob/master/TODO1/windows-insets-fragment-transitions.md)
-> * 译者：
-> * 校对者：
+> * 译者：[LeeSniper](https://github.com/LeeSniper)
+> * 校对者：[Starrier](https://github.com/Starriers)
 
-# Windows Insets + Fragment Transitions
+# WindowsInsets 和 Fragment 过渡动画
 
-## A tale of woe
+## 一个悲伤的故事
 
 ![](https://cdn-images-1.medium.com/max/1000/1*QUTUt9FU2cA9czR2ArOI8g.jpeg)
 
-[Cat Window](https://flic.kr/p/92WJtS).
+[猫和窗户](https://flic.kr/p/92WJtS).
 
-This post is the second in a small series I’m writing about fragment transitions. The first is available below, which sets up how to get fragment transitions working.
+这篇文章是我写的关于 fragment 过渡动画的小系列中的第二篇。第一篇可以通过下面的链接查看，里面写了如何让 fragment 过渡动画开始工作。
 
-- [**Fragment Transitions**: Getting them working_medium.com](https://medium.com/google-developers/fragment-transitions-ea2726c3f36f)
-
-* * *
-
-> Before I go any further, I’m going to assume you know what window insets are and how they’re dispatched. If you don’t, I suggest you watch this talk (and yes, it’s from me 🙋)
-
-- [**Becoming a master window fitter 🔧**: Window insets have long been a source of confusion to developers, and that's because they are indeed very confusing…_chris.banes.me](https://chris.banes.me/talks/2017/becoming-a-master-window-fitter-lon/)
+- [**Fragment 过渡动画**：让他们工作起来](https://medium.com/google-developers/fragment-transitions-ea2726c3f36f)
 
 * * *
 
-I have a confession to make. When I was working on the first blog post in this series I cheated a bit with the videos. I actually hit an issue with window insets which meant that I actually ended up with the following:
+> 在我开始进一步探讨之前，我会假设你知道什么是 WindowsInsets 以及它们是如何分发的。如果你不知道，我建议你先看这个演讲（是的，这是我的演讲 🙋）
+
+- [**成为屏幕适配大师 🔧**: WindowInsets 一直是开发者头疼的对象，那是因为它们确实很难理解……_chris.banes.me](https://chris.banes.me/talks/2017/becoming-a-master-window-fitter-lon/)
+
+* * *
+
+我需要坦白。当我在写本系列第一篇博客文章的时候，我对视频做了点手脚。实际上我遇到了 WindowInsets 的问题，也就是说我实际上最终得到的是以下结果：
 
 ![](https://cdn-images-1.medium.com/max/800/1*F5gd8B0lTil_dF7pwP9JbA.gif)
 
-Transition breaks status bar handling.
+过渡动画破坏了状态栏的效果。
 
-Woops, not exactly what I showed in the first post 🤐. I did not want to overcomplicate the first post so decided to write this up separately. Anyway, you can see that we suddenly lost all status bar handling when the transition was added, and the views got pushed up behind the status bar.
+Woops，跟我在第一篇文章中展示的效果不太一样 🤐。我不想让第一篇文章变得太复杂，所以决定单独写这篇文章。无论如何，你可以看到当添加过渡动画之后，我们突然失去了所有状态栏的效果，而且视图被推到状态栏的下面。
 
-#### The problem
+#### 问题
 
-Both of these fragments make heavy use of the window insets to draw behind the system bars. Fragment A uses a [CoordinatorLayout](https://developer.android.com/reference/android/support/design/widget/CoordinatorLayout.html) and [AppBarLayout](https://developer.android.com/reference/android/support/design/widget/AppBarLayout.html), whereas Fragment B uses custom window inset handling (via an [OnApplyWindowInsetsListener](https://developer.android.com/reference/android/support/v4/view/OnApplyWindowInsetsListener.html)). Regardless of the implementation, the transition messes with both.
+这两个 fragment 为了在系统栏下面进行绘制都大量使用了 WindowInsets。Fragment A 使用了 [CoordinatorLayout](https://developer.android.com/reference/android/support/design/widget/CoordinatorLayout.html) 和 [AppBarLayout](https://developer.android.com/reference/android/support/design/widget/AppBarLayout.html)，而 Fragment B 使用自定义 WindowInsets 来处理（通过一个 [OnApplyWindowInsetsListener](https://developer.android.com/reference/android/support/v4/view/OnApplyWindowInsetsListener.html)）。无论它们是如何实现的，过渡动画都会混淆两者。
 
-So why is this happening? Well when you’re using fragment transitions, what actually happens to the exiting (Fragment A) and entering (Fragment B) content views is the following:
+那么为什么会这样呢？其实当你在使用 fragment 过渡动画时，退出（Fragment A）和进入（Fragment B）的内容视图实际上经历了以下几个过程：
 
-1.  Transition is `commit()`ed.
-2.  Since we’re using an exit transition on Fragment A, View A stays in place and the transition is run on it.
-3.  View B is added to the container view and immediately set to be invisible.
-4.  Fragment B’s enter and ‘shared element enter’ transitions are started.
-5.  View B is set to be visible.
-6.  When Fragment A’s exit transition has finished, View A is removed from the container view.
+1.  过渡动画开始。
+2.  因为我们对 Fragment A 使用了一个退出的过渡动画，所以 View A 还留在原来的位置，过渡动画在上面运行。
+3.  View B 被添加到内容视图里面，并且被立即设置成不可见。
+4.  Fragment B 的进入动画和“共享元素进入”过渡动画开始执行。
+5.  View B 被设置成可见的。
+6.  当 Fragment A 的退出动画结束的时候，View A 从容器视图中移除。
 
-That all sounds fine, so why does it suddenly affect window insets handling? It’s all due the fact that during the transition, both fragments’ views are present in the container.
+这一切听起来都很好，那为什么会突然影响到 WindowInsets 的效果呢？这是因为在过渡的过程中，两个 fragment 的视图都存在于容器中。
 
-That sounds perfectly OK though right? Well in my scenario both of the fragments’ views want to handle and consume the window insets, since they both expect to the only “main” view on screen. Only one of the views will receive the window insets though: the first child. This is due to how ViewGroup [dispatches window insets](https://android.googlesource.com/platform/frameworks/base/+/refs/heads/master/core/java/android/view/ViewGroup.java#6928), which is by iterating through it’s children in order until one of them consumes the insets. If the first child (fragment A here) consumes the insets, any subsequent children (fragment B here) won’t get them, and we end up in this situation.
+但是这听起来完全 OK 啊，不是吗？然而在我的场景中，这两个 fragment 的视图都想要处理和消费 WindowInsets，因为它们都期望在屏幕上显示唯一的“主”视图。可是只有其中的一个视图会收到 WindowInsets：也就是第一个子 view。这取决于 ViewGroup 是如何[分发 WindowInsets](https://android.googlesource.com/platform/frameworks/base/+/refs/heads/master/core/java/android/view/ViewGroup.java#6928) 的，也就是通过按顺序遍历它的子节点直到其中的一个消费了 WindowInsets。 如果第一个子 view（就是这里的 Fragment A）消费了 WindowInsets，任何后续的子 view（就是这里的 Fragment B）都不会得到它们，我们最终就会得到这种情况。
 
-Lets step through again, but this time add in the time when window insets are dispatched:
+让我们再来一步一步检查一遍，只是这一次加上分发 windowinsets 的时机：
 
-1.  Transaction is `commit()`ed.
-2.  Since we’re using an exit transition, View A stays in place and the transition is run on it.
-3.  View B is added to the container view and immediately set to be invisible.
-4.  **Window insets are dispatched. We want View B (child 1) to get them, but View A (child 0) gets them again.**
-5.  Fragment B’s enter and ‘shared element enter’ transitions are started.
-6.  View B is set to be visible.
-7.  When Fragment A’s exit transition has finished, View A is removed.
+1.  过渡动画开始。
+2.  因为我们对 Fragment A 使用了一个退出的过渡动画，所以 View A 还留在原来的位置，过渡动画在上面运行。
+3.  View B 被添加到内容视图里面，并且被立即设置成不可见。
+4.  **分发 WindowInsets。我们希望 View B（child 1）拿到它们，但是 View A（child 0）又一次拿到了 WindowInsets。**
+5.  Fragment B 的进入动画和‘共享元素进入’过渡动画开始执行。
+6.  View B 被设置成可见的。
+7.  当 Fragment A 的退出动画结束的时候，View A 从容器视图中移除。
 
-#### The fix
+#### 修复
 
-The fix is actually relatively simple: we just need to make sure that both views
-receive the window insets.
+这个修复实际上相对简单：我们只需要确保两个视图都能够拿到 WindowInsets。
 
-The way I’ve done this is by adding an [OnApplyWindowInsetsListener](https://developer.android.com/reference/android/support/v4/view/OnApplyWindowInsetsListener.html) to the container view (in the host activity in this case) which manually dispatches any insets to all of it’s children, not just until one consumes the insets.
+我实现这一点的方法是通过在容器视图（在这个例子中就是在宿主 activity）里添加一个 [OnApplyWindowInsetsListener](https://developer.android.com/reference/android/support/v4/view/OnApplyWindowInsetsListener.html)，它会手动分发 WindowInsets 给所有的子 view，直到其中一个子 view 消费掉这个 WindowInsets。
 
-```
-fragment_container.setOnApplyWindowInsetsListener { view, insets ->
-  var consumed = false
+	fragment_container.setOnApplyWindowInsetsListener { view, insets ->
+  		var consumed = false
 
-  (view as ViewGroup).forEach { child ->
-    // Dispatch the insets to the child
-    val childResult = child.dispatchApplyWindowInsets(insets)
-    // If the child consumed the insets, record it
-    if (childResult.isConsumed) {
-      consumed = true
-    }
-  }
+  		(view as ViewGroup).forEach { child ->
+    		// Dispatch the insets to the child
+    		val childResult = child.dispatchApplyWindowInsets(insets)
+    		// If the child consumed the insets, record it
+    		if (childResult.isConsumed) {
+      			consumed = true
+    		}
+  		}
 
-  // If any of the children consumed the insets, return
-  // an appropriate value
-  if (consumed) insets.consumeSystemWindowInsets() else insets
-}
-```
+  		// If any of the children consumed the insets, return
+  		// an appropriate value
+  		if (consumed) insets.consumeSystemWindowInsets() else insets
+	}
 
-After we apply that, both fragments receive the window insets and we get the result I actually shown in the first post:
+在我们应用这个修复之后，这两个 fragment 都会收到 WindowInsets，然后我们就会得到第一篇文章中实际显示的结果：
 
 ![](https://cdn-images-1.medium.com/max/800/1*qIMJQmMCS_g9Yl4XfPEMQQ.gif)
 
 * * *
 
-#### Bonus section 💃: make sure to request
+#### 额外部分 💃: 一定要进行请求
 
-One small related thing which I nearly forgot to write about. If you’re handling window insets in fragments, implicitly (by using AppBarLayout, etc) or explicitly, you need to make sure that you request some insets. This is easy to do with [requestApplyInsets()](https://developer.android.com/reference/android/support/v4/view/ViewCompat.html#requestApplyInsets%28android.view.View%29):
+还有一件我差点忘了写的小事。如果你要在 fragment 里面处理 WindowInsets，无论是隐式（通过使用 AppBarLayout 等）还是显式，你需要确保请求了一些 WindowInsets。只需要调通过 [requestApplyInsets()](https://developer.android.com/reference/android/support/v4/view/ViewCompat.html#requestApplyInsets%28android.view.View%29) 就能很容易做到：
 
-```
-override fun onViewCreated(view: View, icicle: Bundle) {
-  super.onViewCreated(view, savedInstanceState)
-  // yadda, yadda
-  ViewCompat.requestApplyInsets(view)
-}
-```
+	override fun onViewCreated(view: View, icicle: Bundle) {
+  		super.onViewCreated(view, savedInstanceState)
+  		// yadda, yadda
+  		ViewCompat.requestApplyInsets(view)
+	}
 
-You have to do this is because the window will only send insets down automatically if the aggregated system ui visibility value for the entire view hierarchy **changes**. Since there may be times when your two fragments provide the exact same value, the aggregated value will not change, so the system will ignore the ‘change’.
+你必须这样做是因为窗口只有在整个视图层级总体的系统 UI 可见性的值发生**改变**的时候才会自动分发 WindowInsets。 由于有时你的两个 fragment 可能提供完全相同的值，总体的值不会改变，因此系统将忽略这个“改变”。
+
 
 
 ---
