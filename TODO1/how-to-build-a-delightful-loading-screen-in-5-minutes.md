@@ -223,7 +223,7 @@ lo hicimos! (西班牙语)
 
 ### 想要进阶学习？
 
-我已经创建了一个免费的 CSS 指南，以便您能立刻掌握 CSS 技能。 [获取电子书。](http://eepurl.com/dgDVRb)
+我已经创建了一个免费的 CSS 指南，以便您能立刻掌握 CSS 技能。 [获取电子书](http://eepurl.com/dgDVRb)。
 
 ![](https://cdn-images-1.medium.com/max/800/1*fJabzNuhWcJVUXa3O5OlSQ.png)
 
