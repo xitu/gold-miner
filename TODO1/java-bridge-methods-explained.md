@@ -2,16 +2,16 @@
 > * 原文作者：[STAS](http://stas-blogspot.blogspot.jp)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/java-bridge-methods-explained.md](https://github.com/xitu/gold-miner/blob/master/TODO1/java-bridge-methods-explained.md)
-> * 译者：
-> * 校对者：
+> * 译者：[kezhenxu94](https://github.com/kezhenxu94/)
+> * 校对者：[Starrier](https://github.com/Starriers/)
 
-# Java bridge methods explained
+# Java 桥接方法详解
 
-Bridge methods in Java are synthetic methods, which are necessary to implement some of Java language features. The best known samples are covariant return type and a case in generics when erasure of base method's arguments differs from the actual method being invoked.
+Java 中的桥接方法是一种合成方法，在实现某些 Java 语言特性的时候是很有必要的。最为人熟知的例子就是协变返回值类型和泛型擦除后导致基类方法的参数与实际调用的方法参数类型不一致。
 
-Have a look at following example:
+看一下以下的例子：
 
-```
+```java
 public class SampleOne {
     public static class A<T> {
         public T getT() {
@@ -27,9 +27,9 @@ public class SampleOne {
 }
 ```
 
-Which in reality is just an example of covariant return type and after [erasure](http://en.wikipedia.org/wiki/Type_erasure) will look like following snippet:
+事实上这就是一个协变返回类型的例子，[泛型擦除](http://en.wikipedia.org/wiki/Type_erasure)后将会变成类似于下面这样的代码段：
 
-```
+```java
 public class SampleOne {
     public static class A {
         public Object getT() {
@@ -45,9 +45,9 @@ public class SampleOne {
 }
 ```
 
-And after the compilation decompiled result class "B" will be following:
+在将编译后的字节码反编译后，类 `B` 会是这样子的：
 
-```
+```java
 public class SampleOne$B extends SampleOne$A {
 public SampleOne$B();
 ...
@@ -58,16 +58,16 @@ Code:
 public java.lang.Object getT();
 Code:
 0:   aload_0
-1:   invokevirtual   #2; // Call to Method getT:()Ljava/lang/String;
+1:   invokevirtual   #2; // 调用 getT:()Ljava/lang/String;
 4:   areturn
 }
 ```
 
-Above you can see there is new [synthetic](http://java.sun.com/docs/books/jvms/second_edition/html/ClassFile.doc.html#80128) method "java.lang.Object getT()" which is not present in source code. That method acts as bridge method and all is does is delegating invocation to "java.lang.String getT()". Compiler has to do that, because in JVM method return type is part of method's signature, and creation of bridge method here is just the way to implement covariant return type.
+从上面可以看到，有一个新[合成的](http://java.sun.com/docs/books/jvms/second_edition/html/ClassFile.doc.html#80128)方法 `java.lang.Object getT()`, 这在源代码中是没有出现过的。这个方法就起了一个桥接的作用，它所做的就是把对自身的调用委托给方法 `jva.lang.String getT()`。编译器不得不这么做，因为在 JVM 方法中，返回类型也是方法签名的一部分，而桥接方法的创建就正好是实现协变返回值类型的方式。
 
-Now have a look at following example which is generics-specific:
+现在再看一看下面和泛型相关的例子：
 
-```
+```java
 public class SampleTwo {
     public static class A<T> {
         public T getT(T args) {
@@ -83,7 +83,7 @@ public class SampleTwo {
 }
 ```
 
-after compilation class "B" will be transformed into following:
+编译后类 `B` 会变成下面这样子：
 
 ```
 public class SampleThree$B extends SampleThree$A{
@@ -104,16 +104,16 @@ Code:
 }
 ```
 
-here, the bridge method, which overrides method from base class "A", not just calling one with string argument (#3), but also performs type cast to "java.lang.String" (#2). It means, that if you will execute following code, ignoring compiler's "unchecked" warning, the result will be ClassCastException thrown from the bridge method:
+这里的桥接方法覆盖了（override）基类 `A` 的方法，不仅使用字符串参数将对自身的调用委派给基类 `A` 的方法，同时也执行了一个到 `java.lang.String` 的类型转换检测（#2）。这就意味着如果你运行下面这样的代码，忽略编译器的“未检”（unchecked）警告，结果会是从桥接方法那里抛出异常 `ClassCastException`。
 
-```
+```java
 A a = new B();
 a.getT(new Object()));
 ```
 
-These two examples are the best known cases where bridge methods are used, but there is, at least, one more, where bridge method is used to "change" visibility of base class's methods. Have a look at following sample and try to guess where compiler may need the bridge method to be created:
+以上例子就是桥接方法最为人熟知的两种使用场景，但至少还有一种使用案例，就是桥接方法被用于“改变”基类可见性。考虑以下示例代码，猜测一下编译器是否需要创建一个桥接方法：
 
-```
+```java
 package samplefour;
 
 public class SampleFour {
@@ -131,7 +131,7 @@ public class SampleFour {
 }
 ```
 
-If you will decompile class C, you will see method "foo" there, which overrides method from base class and delegates to it:
+如果你反编译 `C` 类，你将会看到有 `foo` 方法，它覆盖了基类的方法并把对自身的调用委托给它（基类的方法）：
 
 ```
 public class SampleFour$C extends SampleFour$A{
@@ -145,20 +145,19 @@ Code:
 }
 ```
 
-compiler needs that method, because class A is not public and can't be accessed outside it's package, but class C is public and all inherited method have to become visible outside the package as well. Note, that class D will not have bridge method, because it overrides "foo" and there is no need to "increase" visibility.
-It looks like, that type of bridge method, was introduced after [bug](http://bugs.sun.com/view_bug.do?bug_id=6342411) which was fixed in Java 6\. It means that before Java 6 that type of bridge method is not generated and method "C#foo" can't be called from package other than it's own via reflection, so following snippet causes IllegalAccessException, in cases when compiled on Java version < 1.6:
+编译器需要这样的方法，因为 `A` 类不是公开的，在 `A` 类所在包之外是不可见的，但是 `C` 类是公开的，它所继承来的所有方法在所在包之外也都应该是可见的。需要注意的是，`D` 类不会有桥接方法生成，因为它覆盖了 `foo` 方法，因此没有必要“提升”其可见性。
+这种桥接方法似乎是由于[这个 bug](http://bugs.sun.com/view_bug.do?bug_id=6342411)（在 Java 6 被修复）才引入的。这意味着在 Java 6 之前是不会生成这样桥接方法的，那么 `C#foo` 就不能够在它所在包之外使用反射调用，以致于下面这样的代码在 Java 版本小于 1.6 时会报 `IllegalAccessException` 异常。
 
-```
+```java
 package samplefive;
 ...
 SampleFour.C.class.getMethod("foo").invoke(new SampleFour.C());
 ...
 ```
 
-Normal invocation, without using reflection, will work fine.
+不使用反射机制，正常调用的话是起作用的。
 
-Probably there are some other cases where bridge methods are used, but there is no source of information about it. Also, there is no definition of bridge method, although you can guess it easily, it's pretty obvious from examples above, but still would be nice to have something in spec which states it clearly. In spite of the fact that method [Method#isBridge()](http://java.sun.com/j2se/1.5.0/docs/api/java/lang/reflect/Method.html#isBridge%28%29) is part of public reflection API since Java1.5 and bridge flag is part of [class file format](http://java.sun.com/docs/books/jvms/second_edition/ClassFileFormat-Java5.pdf), JVM and JLS specifications do not have any information what exactly is that and do not provide any rules when and how it should be used by compiler. All I could find is just reference in "Discussion" area [here](http://java.sun.com/docs/books/jls/third_edition/html/expressions.html#15.12.4.5).
-
+可能还有其他使用桥接方法的案例，但没有相关的资料。此外，关于桥接方法也没有明确的定义，尽管你可以很容易的猜测出来，像以上的示例是相当明显的，但如果有一些规范把桥接方法说明清楚的话就更好了。尽管自 Java 5 开始 [`Method#isBridge()` 方法](http://java.sun.com/j2se/1.5.0/docs/api/java/lang/reflect/Method.html#isBridge%28%29) 就是公开的反射 API 了，桥接的标志也是[字节码文件格式](http://java.sun.com/docs/books/jvms/second_edition/ClassFileFormat-Java5.pdf)中的一部分，但 Java 虚拟机和 Java 语言规范都始终没有任何关于桥接方法的确切文档，也没有提供关于编译器何时/如何使用桥接方法的任何规则。我所能找到的全部引用都是来自[这里的“讨论区”](http://java.sun.com/docs/books/jls/third_edition/html/expressions.html#15.12.4.5)。
 
 ---
 
