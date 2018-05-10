@@ -34,6 +34,7 @@
 
 * [TensorFlow 中文文档](https://github.com/xitu/tensorflow-docs)
 * [GraphQL 中文文档](https://github.com/xitu/graphql.github.io)
+* [ML Kit 中文文档](https://github.com/Quorafind/MLkit-CN)
 * [Under-the-hood-ReactJS 系列教程](https://github.com/xitu/Under-the-hood-ReactJS)
 * [系统设计入门教程](https://github.com/xitu/system-design-primer)
 * [Google Interview University 面试指北](https://github.com/xitu/google-interview-university)
