@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/serverless-api-with-go-and-aws-lambda.md](https://github.com/xitu/gold-miner/blob/master/TODO1/serverless-api-with-go-and-aws-lambda.md)
 > * 译者：[sisibeloved](https://github.com/sisibeloved)
-> * 校对者：[luochen1992](https://github.com/luochen1992)
+> * 校对者：[luochen1992](https://github.com/luochen1992)、[SergeyChang](https://github.com/SergeyChang)
 
 # 使用 Go 和 AWS Lambda 构建无服务 API
 
