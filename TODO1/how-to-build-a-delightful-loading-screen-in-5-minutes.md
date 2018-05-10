@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-build-a-delightful-loading-screen-in-5-minutes.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-build-a-delightful-loading-screen-in-5-minutes.md)
 > * 译者：[whuzxq](https://github.com/whuzxq)
-> * 校对者：[ALVINYEH](https://github.com/ALVINYEH)
+> * 校对者：[luochen1992](https://github.com/luochen1992)、[ALVINYEH](https://github.com/ALVINYEH)
 
 # 如何在 5 分钟之内写出一个不错的 loading 界面
 
