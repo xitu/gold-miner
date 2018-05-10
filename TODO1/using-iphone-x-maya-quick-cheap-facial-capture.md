@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/using-iphone-x-maya-quick-cheap-facial-capture.md](https://github.com/xitu/gold-miner/blob/master/TODO1/using-iphone-x-maya-quick-cheap-facial-capture.md)
 > * 译者：[ALVINYEH](https://github.com/ALVINYEH)
-> * 校对者：[luochen1992](https://github.com/luochen1992)
+> * 校对者：[luochen1992](https://github.com/luochen1992)、[melon8](https://github.com/melon8)
 
 # 使用 iPhone X 与 Maya 实现快速面部捕捉
 
@@ -23,11 +23,11 @@ Kite & Lightning 是 Oculus VR 开发工具包早期的创新者，还使用一�
 
 下面是斯特拉斯伯格概述为了获取 iPhone X 的面部捕捉数据，并用它来激活动画角色在 Maya 中的表情全过程：
 
-*   使用苹果 ARKit 和 Unity，我导入了一个正在开发中的 Bebylon 字符，并将其面部表情混合形状连接到 ARKit 输出的面部捕捉数据中。 这让我可以根据自己的表情来驱动婴儿的脸部动画。
-*   我需要捕捉这个表情数据，以便导入到 Maya 中。我添加了一个记录函数，将面部表情数据传入文本文件中。然后保存在本地的 iPhone 上。每个起始和停止都成为一个单独的文本文件，可以在捕获应用程序中命名或重命名。
+*   使用苹果 ARKit 和 Unity，我导入了一个正在开发中的 Bebylon 角色，并将其面部表情混合形状和 ARKit 输出的面部捕捉数据挂钩。 这让我可以根据自己的表情来驱动婴儿的脸部动画。
+*   我需要捕捉这个表情数据，以便导入到 Maya 中。我添加了一个记录函数，将面部表情数据传入文本文件中。然后保存在本地的 iPhone 上。捕获的每一个表情从起始到停止都会被存成一个单独的文本文件，并且可以在捕获应用程序中命名或重命名。
 *   我通过 USB 将文本文件从 iPhone X 复制到桌面。
 *   为了导入到 Maya 中，捕捉的数据需要重新格式化，因此我编写了一个简单的桌面应用程序来实现这一点。它能够获取所选的文本文件并将它们转换为 Maya .anim 文件。
-*   我将 .anim 文件导入到 Maya 和 voila 中，你的角色是模仿捕捉在 iPhone 上看到的样子。
+*   我将 .anim 文件导入到 Maya 和 voila 中，你的角色会模仿你在捕捉过程中在 iPhone 看到的自己的样子。
 
 据斯特拉斯伯格所说，他看到数据中出现了几个小漏洞，认为可能是他的代码所造成的。此外，尽管捕获发生在 60 帧每秒，但是这个过程目前呈现在 30 帧每秒，所以你可以看到一些质量上的损失。根据斯特拉斯伯格的说法，这一点在“马唇”部分中最为显著。
 
@@ -37,9 +37,9 @@ Kite & Lightning 是 Oculus VR 开发工具包早期的创新者，还使用一�
 
 ## 下一步
 
-斯特拉斯伯格希望能将 iPhone X 能安装在头盔上，然后同时用 Xsens 套装进行全身运动，同时还能人脸捕捉。
+斯特拉斯伯格希望能将 iPhone X 安装在头盔上，然后同时用 Xsens 套装进行全身运动，同时还能人脸捕捉。
 
-斯特拉斯伯格写道：“我非常有信心，通过拨打弯曲形状的雕塑，并添加适当的皱纹，使皮肤变形，就像脸上的动画一样。”“同样，使用捕捉到的数据来驱动次级混合变形，表情将感觉更有活力和生动。”
+“我非常有信心，通过调整形状融合变形器的参数雕塑造型，以及添加适当的皱纹贴图，可以在脸部动画时使皮肤变形，从而能够显着改善 beby 这个角色。”斯特拉斯伯格写道：“同样，使用捕捉到的数据来驱动次级混合变形，表情将感觉更有活力和生动。”
 
 
 ---
