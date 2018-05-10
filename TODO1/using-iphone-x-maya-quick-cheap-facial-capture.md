@@ -3,15 +3,15 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/using-iphone-x-maya-quick-cheap-facial-capture.md](https://github.com/xitu/gold-miner/blob/master/TODO1/using-iphone-x-maya-quick-cheap-facial-capture.md)
 > * 译者：[ALVINYEH](https://github.com/ALVINYEH)
-> * 校对者：
+> * 校对者：[luochen1992](https://github.com/luochen1992)
 
 # 使用 iPhone X 与 Maya 实现快速面部捕捉
 
 ![](https://cdn.uploadvr.com/wp-content/uploads/2017/12/iphoneX-to-Maya.jpg)
 
-iPhone X 能否成为一个快速、廉价、简单的面部捕捉系统？大约在一个月前，Kite & Lightning 的科里·斯特拉斯伯格收到了苹果公司的一步 iPhone X。不到一天，他就在用 TrueDepth 相机和 ARKit 来测试软件。他想看看这台手机是否可以用于他们的游戏和电影内容。
+iPhone X 能否成为一个快速、廉价、简单的面部捕捉系统？大约在一个月前，Kite & Lightning 的科里·斯特拉斯伯格收到了苹果公司的一部 iPhone X。不到一天，他就在用 TrueDepth 相机和 ARKit 来测试软件。他想看看这台手机是否可以用于他们的游戏和电影内容。
 
-Kite & Lightning 是 Oculus VR 开发工具包早期的创新者，还使用一些引人注目的人物捕捉技术构建了像 [Senza Peso](http://kiteandlightning.la/senza-peso/) 那样等突破性的体验。现在，他们正在建造比比伦皇家战役。游戏围绕着这些有巨大态度的 “beby” 角色展开。他想知道是否可以通过使用 iPhone X 面部捕捉来更快更廉价地完成赋予这些角色一个比较大的个性，他在周末花一些时间在上面。
+Kite & Lightning 是 Oculus VR 开发工具包早期的创新者，还使用一些引人注目的人物捕捉技术构建了像 [Senza Peso](http://kiteandlightning.la/senza-peso/) 那样等突破性的体验。现在，他们正在建造巴比伦皇家战役。游戏围绕着这些有巨大态度的 “beby” 角色展开。他想知道是否可以通过使用 iPhone X 面部捕捉来更快更廉价地完成赋予这些角色一个比较大的个性，他在周末花一些时间在上面。
 
 “我认为目前我得出的一个重大结论是：iPhone X 所捕获数据非常微妙、稳定而且不会过度平滑，”斯特拉斯伯格在一封电子邮件中写道：“它实际上能够捕捉到非常微妙的动作，甚至是微小的抽搐，它已经足够干净(无噪音)，可以在手机上直接使用，当然这取决于你的标准。”
 
