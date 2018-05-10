@@ -15,7 +15,7 @@
 
 是不是觉得看起来很眼熟？
 
-如果眼熟的话，那你可能在 [Slack](https://slack.com) 上见过它！
+如果眼熟的话，那你可能在 [Slack](https://slack.com) 上见过它！
 
 让我们只使用 css 和 html，来实现一下这个 loading 页面吧！
 
@@ -110,7 +110,7 @@ body {
 
 ![](https://cdn-images-1.medium.com/max/800/1*AF1rXY_iumutiVOMSXf_LQ.gif)
 
-我们可以看到 loading 圆环一半是蓝色，另一半是灰色的。 默认情况下，`HTML` 元素不会被切分. 所有HTML元素可以看作*盒子*。第一个真正的挑战是如何使 class 为 `.loading__anim` 的元素包含两种边框颜色。
+我们可以看到 loading 圆环一半是蓝色，另一半是灰色的。 默认情况下，`HTML` 元素不会被切分。所有HTML元素可以看作*盒子*。第一个真正的挑战是如何使 class 为 `.loading__anim` 的元素包含两种边框颜色。
 
 如果你现在还没有太明白，不要担心。后面会继续进行讲解。
 
@@ -201,7 +201,7 @@ body {
 }
 ```
 
-希望您对 [CSS 动画](https://www.w3schools.com/css/css3_animations.asp) 有所了解。 `1turn` 等于 `360deg`，表示完整的转了一个 360 度的圈。
+希望您对 [CSS 动画](https://www.w3schools.com/css/css3_animations.asp) 有所了解。 `1 turn` 等于 `360 deg`，表示完整的转了一个 360 度的圈。
 
 并按如下方式使用：
 
@@ -213,6 +213,7 @@ animation: rotate 600ms infinite linear;
 
 请看最终效果图：
 
+
 ![](https://cdn-images-1.medium.com/max/800/1*DQFXH8zH4RpOFOqOb4DbMg.gif)
 
 lo hicimos! (西班牙语)
@@ -223,7 +224,7 @@ lo hicimos! (西班牙语)
 
 ### 想要进阶学习？
 
-我已经创建了一个免费的 CSS 指南，以便您能立刻掌握 CSS 技能。 [获取电子书。](http://eepurl.com/dgDVRb)。
+我已经创建了一个免费的 CSS 指南，以便您能立刻掌握 CSS 技能。 [获取电子书。](http://eepurl.com/dgDVRb)
 
 ![](https://cdn-images-1.medium.com/max/800/1*fJabzNuhWcJVUXa3O5OlSQ.png)
 
