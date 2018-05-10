@@ -3,16 +3,16 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/build-it-test-it-deliver-it-complete-ios-guide-on-continuous-delivery-with-fastlane-and-jenkins.md](https://github.com/xitu/gold-miner/blob/master/TODO1/build-it-test-it-deliver-it-complete-ios-guide-on-continuous-delivery-with-fastlane-and-jenkins.md)
 > * 译者：[talisk](https://github.com/talisk)
-> * 校对者：
+> * 校对者：[ALVINYEH](https://github.com/ALVINYEH)，[rydensun](https://github.com/rydensun)
 
-# 构建、测试、分发！运用 Fastlane 与 Jenkins，完整的 iOS 持交付指南。
+# 构建、测试、分发！运用 Fastlane 与 Jenkins，完整的 iOS 持续交付指南。
 
 ![](https://cdn-images-1.medium.com/max/2000/0*Rj31MgxTgf2Z0Peo.)
 
 iOS/macOS 真的很有趣。
-你可以在很多领域获得知识！你可能会了解 Bezier 或 3D 变换等图形技术。你也需要了解如何使用数据库、设计高效的架构。此外，你应该掌握嵌入式系统的内存管理方式（特别是那些处于 MRC 时代的人）。所有这些使得 iOS / macOS 的开发如此多元化并且具有挑战性。
+你可以在很多领域获得知识！你可能会了解 Bezier 或 3D 变换等图形技术。你也需要了解如何使用数据库、设计高效的架构。此外，你应该掌握嵌入式系统的内存管理方式（特别是那些处于 MRC 时代的人）。所有这些使得 iOS/macOS 的开发如此多元化并且具有挑战性。
 
-**在这篇文章里，我们将要学习你可能想了解的另一些知识：持续交付（CD）**。持续交付是一种软件方法，可帮助你随时可靠地发布产品。持续交付（CD）通常带有术语**持续集成（CI）**。CI 也是一种软件工程技术。这意味着系统始终将开发者的作品不断地合并到主线。CI 和 CD 不仅对一个大团队有用，而且对单人团队也有用。如果你是单人团队的唯一开发人员，CD 对你来说可能意味着更多，因为每个应用程序开发人员都无法避免交付。因此，本文将重点介绍如何为你的应用程序构建 CD 系统。幸运的是，所有这些技术也可以用于构建 CI 系统。
+**在这篇文章里，我们将要学习你可能想了解的另一些知识：持续交付（CD）**。持续交付是一种软件方法，可帮助你随时可靠地发布产品。持续交付（CD）通常带有术语**持续集成（CI）**。CI 也是一种软件工程技术。这意味着系统始终将开发者的工作不断地合并到主线。CI 和 CD 不仅对一个大团队有用，而且对单人团队也有用。如果你是单人团队的唯一开发人员，CD 对你来说可能意味着更多，因为每个应用程序开发人员都无法避免交付。因此，本文将重点介绍如何为你的应用程序构建 CD 系统。幸运的是，所有这些技术也可以用于构建 CI 系统。
 
 想象一下我们正在开发一款名为 **Brewer** 的 iOS 应用，我们的工作流大概像下图这样：
 
@@ -27,7 +27,7 @@ iOS/macOS 真的很有趣。
 3. 导出应用程序并将其发送到分发平台（例如 Crashlytics 和 TestFlight）。
 4. 根据特定的时间表，构建应用程序。
 
-### **综述**
+### **概要**
 
 以下是我们在本文中要做的事情：
 
@@ -80,13 +80,13 @@ medium.com](https://github.com/xitu/gold-miner/blob/master/TODO1/manage-differen
 #endif
 ```
 
-现在我们能够不用修改代码，通过构建选项来切换 staging 与 production 环境了！🎉
+现在我们能够不用修改代码，通过构建选项来切换测试环境与生产环境了！🎉
 
 ### 手动代码签名
 
 ![](https://cdn-images-1.medium.com/max/800/0*rfY9x3TB7VEnUENC.)
 
-这是每个 iOS / macOS 开发人员熟知的红色按钮。我们通过取消选中此框来启动每个项目。但为什么它如此臭名昭着？你可能知道它会下载证书和配置文件，并将其嵌入到你的项目和系统中。如果有任何文件遗漏，它会为你制作一个新文件。对于单人的项目组来说，这里不会有问题。但是如果你在一个大团队中，你可能会无意中刷新原始证书，然后由于证书无效而导致建筑系统停止工作。对我们来说，这是一个隐藏了太多信息的黑匣子。
+这是每个 iOS / macOS 开发人员熟知的红色按钮。我们通过取消选中此框来启动每个项目。但为什么它如此臭名昭着？你可能知道它会下载证书和配置文件，并将其嵌入到你的项目和系统中。如果有任何文件遗漏，它会为你制作一个新文件。对于单人的项目组来说，这里不会有问题。但是如果你在一个大团队中，你可能会无意中刷新原始证书，然后由于证书无效而导致构建系统停止工作。对我们来说，这是一个隐藏了太多信息的黑匣子。
 
 所以在我们 Brewer 项目中，我们想手动做这件事，在我们的配置中有有三个应用 ID：
 
@@ -99,17 +99,17 @@ medium.com](https://github.com/xitu/gold-miner/blob/master/TODO1/manage-differen
 *   **Certificate**：一个 Ad Hoc、App Store 分发证书，采用 .p12 格式。
 *   **Provisioning Profiles**：两个应用标识的 Ad Hoc 分发配置文件，**works.sth.brewer.staging** 与 **works.sth.brewer.production**。
 
-提醒下，我们需要 p12 格式的证书文件，因为我们希望其可用在不同的机器上，只有 .p12 格式包含了证书的私钥。看[这篇文章](https://stackoverflow.com/questions/39091048/convert-cer-to-p12)来了解如何将 .cer（DEM 格式）文件转换为 .p12（P12 格式）格式。
+提醒下，我们需要 p12 格式的证书文件，因为我们希望其可用在不同的机器上，只有 .p12 格式包含了证书的私钥。看[这篇文章](https://stackoverflow.com/questions/39091048/convert-cer-to-p12)来了解如何将 .cer（DEM 格式）文件转换为 .p12（P12 格式）格式文件。
 
 现在目录下有我们的证书签名文件：
 
 ![](https://cdn-images-1.medium.com/max/800/0*qnhxIxQwwRlMeTP3.)
 
-这些文件由 CD 系统使用，所以请将该文件夹放在 CD 机器上。 请**不要**将这些文件放到你的项目中，**不要**将它们提交到你的项目存储库。 将代码签名文件托管在不同的私有存储库中可以。你可能希望了解有关安全问题的讨论，可以看看 [match — fastlane docs](https://docs.fastlane.tools/actions/match/#is-this-secure)。
+这些文件由 CD 系统使用，所以请将该文件夹放在 CD 机器上。 请**不要**将这些文件放到你的项目中，**不要**将它们提交到你的项目仓库。 将代码签名文件托管在不同的私有仓库中可以。你可能希望了解有关安全问题的讨论，可以看看 [match — fastlane docs](https://docs.fastlane.tools/actions/match/#is-this-secure)。
 
 ### 用 fastlane 构建 🚀
 
-[fastlane](https://docs.fastlane.tools/) 是让开发和发布工作流自动化的工具。比如，它可以通过一个脚本构建应用、跑单元测试、向 Crashlytics 上传二进制。你不需要一步一步手动地做这些事。
+[fastlane](https://docs.fastlane.tools/) 是让开发和发布工作流自动化的工具。比如，它可以通过一个脚本构建应用、运行单元测试、向 Crashlytics 上传二进制。你不需要一步一步手动地做这些事。
 
 在这个项目中，我们将要用 fastlane 完成两项任务：
 
@@ -129,13 +129,13 @@ medium.com](https://github.com/xitu/gold-miner/blob/master/TODO1/manage-differen
 
 但是用 Swift 编写脚本使得开发人员更易于阅读和维护。而且你可以轻松地将 Swift 脚本转换为 Ruby 脚本。所以让我们试试吧！
 
-我们首先初始化我们的项目（还记得 Bundler 吧？）：
+首先初始化我们的项目（还记得 Bundler 吧？）：
 
 ```
 bundler exec fastlane init swift
 ```
 
-然后，你可以在 fastlane/Fastfile.swift 中找到脚本。在脚本中，有一个 fastfile 类。这是我们的主要程序。在本类中用 **Lane** 为后缀命名的每一个方法都是一条通道。我们可以将预定义的动作添加到通道，并使用命令执行通道：
+然后，你可以在 fastlane/Fastfile.swift 中找到脚本。在脚本中，有一个 fastfile 类。这是我们的主要程序。在本类中用 **Lane** 为后缀命名的每一个方法都是一个 lane。我们可以将预定义的动作添加到 lane，并使用命令执行 lane：
 
 ```
 bundle exec fastlane <lane name>.
@@ -159,9 +159,9 @@ class Fastfile: LaneFile {
 }
 ```
 
-我们为任务创建两个通道：**developerRelease** 和 **qaRelease**。这两个任务都做了同样的事：用指定配置来构建打包，并将导出的 ipa 上传到 Crashlytics。
+我们为任务创建两个 lane：**developerRelease** 和 **qaRelease**。这两个任务都做了同样的事：用指定配置来构建打包，并将导出的 ipa 上传到 Crashlytics。
 
-两条通道都有一个 package 方法。**package()** 方法的声明看起来是这样：
+两个 lane 都有一个 package 方法。**package()** 方法的声明看起来是这样：
 
 ```
 func package(config: Configuration) {
@@ -222,14 +222,14 @@ importCertificate(
 )
 ```
 
-keychainName是你的钥匙串的名称，默认名称是『登录』。**keychainPassword** 是你钥匙串的密码，fastlane 使用它来解锁你的钥匙串。由于我们将 Fastfile.swift 提交到存储库以确保交付代码在每台计算机中都是一致的，因此在 Fastfile.swift 中将密码写为字符串文字可不是一个好主意。因此，我们使用环境变量来替换字符串文字。在系统中，我们用这个方式来保存环境变量：
+keychainName是你的钥匙串的名称，默认名称是『登录』。**keychainPassword** 是你钥匙串的密码，fastlane 使用它来解锁你的钥匙串。由于我们将 Fastfile.swift 提交到仓库以确保交付代码在每台计算机中都是一致的，因此在 Fastfile.swift 中将密码写为字符串文字可不是一个好主意。因此，我们使用环境变量来替换字符串文字。在系统中，我们用这个方式来保存环境变量：
 
 ```
 export KEYCHAIN_NAME=”KEYCHAIN_NAME”;
 export KEYCHAIN_PASSWORD=”YOUR_PASSWORD”;
 ```
 
-在 Fastfile 中，我们用 **environmentVariable(get:)** 获得环境变量的值。通过使用环境变量，我们可以避免代码中出现密码，来提高安全性。
+在 Fastfile 中，我们用 **environmentVariable(get:)** 获得环境变量的值。通过使用环境变量，我们可以避免代码中出现密码，来显著提高安全性。
 
 回到 **importCertificate()**，**certificatePath** 是你的 .p12 证书文件的路径。我们创建一个名为 **ProjectSetting** 的枚举来标识共享的项目设置。这里我们也用环境变量来传递密码。
 
@@ -251,7 +251,7 @@ updateProjectProvisioning(
 )
 ```
 
-此操作获取配置文件，导入配置文件并在指定的配置中修改你的项目设置。配置文件参数是配置配置文件的路径。目标过滤器使用正则表达式符号来查找我们要修改的目标。请注意，updateProjectProvisioning 不会修改你的项目文件，因此如果你想在本地计算机上运行它，请小心。CD 任务无关紧要，因为 CD 系统不会对代码库进行任何更改。
+此操作获取配置文件，导入配置文件并在指定的配置中修改你的项目设置。配置文件参数是提供配置文件的路径。目标过滤器使用正则表达式符号来查找我们要修改的目标。请注意，updateProjectProvisioning 不会修改你的项目文件，因此如果你想在本地计算机上运行它，请小心。CD 任务无关紧要，因为 CD 系统不会对代码库进行任何更改。
 
 好的，我们完成了代码签名部分！以下部分将非常简单明了，请耐心等待！
 
@@ -323,7 +323,7 @@ H 0 * * 0–4
 这是什么意思呢？让我们先看看官方说明：
 
 > 这个字段遵循 cron 的语法（有细微差别）。具体而言，每行包含由 TAB 或空格分隔的 5 个字段：
-> MINUTE DOM DOM MONTH DOW
+> MINUTE HOUR DOM MONTH DOW
 > MINUTE 分钟小时内的分钟数（0-59）
 > HOUR 小时一天中的小时（0-23）
 > DOM 每月的一天（1-31）
@@ -338,7 +338,7 @@ H 0 * * 0–4
 *   月份
 *   周
 
-该字段可以是数字。 我们也可以用『*』来表示『所有』数字。 我们用『H』表示一个 hash，自动选择『某个』数字。
+该字段可以是数字。 我们也可以用『\*』来表示『所有』数字。 我们用『H』表示一个 hash，自动选择『某个』数字。
 
 所以我们会这样写：
 
@@ -363,7 +363,7 @@ bundle install — path vendor/bundler
 bundle exec fastlane developerRelease
 ```
 
-前6行是设置我们之前描述的环境变量。第 7 行安装依赖项，包括 fastlane。然后最后一行执行一个名为『developerRelease』的通道。总之，这个任务每个工作日晚上都会建立并上传一个 developerRelease。这是我们第一次每晚构建！🚀
+前 6 行是设置我们之前描述的环境变量。第 7 行安装依赖项，包括 fastlane。然后最后一行执行一个名为『developerRelease』的 lane。总之，这个任务每个工作日晚上都会建立并上传一个 developerRelease。这是我们第一次每晚构建！🚀
 
 你可以通过单击 Jenkins 项目页面的侧面菜单中的内部版本号来检查构建状态：
 
@@ -371,7 +371,7 @@ bundle exec fastlane developerRelease
 
 ### 综述
 
-我们一起学会了如何用 fastlane 和 Jenkins 创建 CD 系统。我们了解如何手动管理代码签名。我们自动为我们创建了一条运行任务。我们还探讨了如何在不更改代码的情况下切换配置。最后，我们建立了一个每天晚上 构建 应用程序的CD系统。
+我们一起学会了如何用 fastlane 和 Jenkins 创建 CD 系统。我们了解如何手动管理代码签名。我们自动为我们创建了一条运行任务。我们还探讨了如何在不更改代码的情况下切换配置。最后，我们建立了一个每天晚上构建应用程序的 CD 系统。
 
 尽管许多 iOS 与 macOS 应用程序是由单人团队创建的，但自动化交付流程仍然是一项高效的改进。通过自动化流程，我们可以降低配置错误的风险，避免被过期的代码签名所阻塞，并减少构建上传的等待时间。
 
