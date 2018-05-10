@@ -2,356 +2,357 @@
 > * 原文作者：[Malte Ubl](https://medium.com/@cramforce?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/designing-very-large-javascript-applications.md](https://github.com/xitu/gold-miner/blob/master/TODO1/designing-very-large-javascript-applications.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Shery](https://github.com/shery15)
+> * 校对者：[Starrier](https://github.com/Starriers) [Allen](https://github.com/allenlongbaobao)
 
-# Designing very large (JavaScript) applications
+# 设计大型 JavaScript 应用程序
 
-This is a mildly edited transcript of my JSConf Australia talk. [Watch the whole talk on YouTube](https://www.youtube.com/watch?v=ZZmUwXEiPm4).
+这是我在 JavaScript 澳大利亚开发者大会（JSConf AU）上演讲内容的文字编辑记录。[在 YouTube 上观看整个演讲视频](https://www.youtube.com/watch?v=ZZmUwXEiPm4)。
 
 ![](https://cdn-images-1.medium.com/max/800/1*DqvlkOgHSKmp5Tu1eX5mdw.png)
 
-Slide text: Hello, I used to build very large JavaScript applications.
+幻灯片文本：你好，我曾经构建过非常大型的 JavaScript 应用。
 
-Hello, I used to build very large JavaScript applications. I don’t really do that anymore, so I thought it was a good time to give a bit of a retrospective and share what I learned. Yesterday I was having a beer at the conference party and I was asked: “Hey Malte, what actually gives you the right, the authority, to talk about the topic?” and I suppose answering this is actually on topic for this talk, although I usually find it a bit weird to talk about myself. So, I build this JavaScript framework at Google. It is used by Photos, Sites, Plus, Drive, Play, the search engine, all these sites. Some of them are pretty large, you might have used a few of them.
+你好，我曾经构建过非常大型的 JavaScript 应用。我不再那么做了，所以我认为现在是个好时机来回顾并分享我学到的东西。昨天我在会议聚会上喝啤酒时，有人问我：“嘿，马尔特，究竟是什么赋予了你权利和权威，来讲这个话题？”我想这个问题的答案实际上就是这个演讲的主题，尽管我通常觉得谈论自己有点奇怪。大概是因为，我在谷歌构建了这样一个 JavaScript 框架。它被 Google 照片，Google 协作平台，Google+，Google 云端硬盘，Google Play，搜索引擎，所有这些网站使用。其中一些项目非常大，你可能已经使用了其中的一些。
 
 ![](https://cdn-images-1.medium.com/max/800/1*v0r4OVf-RXr9ePakdmv5LQ.png)
 
-Slide text: I thought React was good.
+幻灯片文本：我认为 React 很好。
 
-This Javascript framework is not open source. The reason it is not open source is that it kind of came out at the same time as React and I was like “Does the world really need another JS framework to choose from?”. Google already has a few of those–Angular and Polymer–and felt like another one would confuse people, so I just thought we’d just keep it to ourselves. But besides not being open source, I think there is a lot to learn from it and it is worth sharing the things we learned along the way.
+这个 Javascript 框架不是开源的。它不是开源的原因是它与 React 同时出现，我想“世界是否真的需要另一个 JS 框架来做选择？”。谷歌已经拥有了一些 JS 框架，Angular 和 Polymer，并且我觉得再有一个会让人们感到困惑，所以我只是认为我们应该把它留给我们自己。但除了不是开源的，我认为还是有很多东西可以从中学习，值得分享我们一路上学到的东西。
 
 ![](https://cdn-images-1.medium.com/max/800/1*LL3uYYDMT5uIFRxR_7JxPQ.png)
 
-Picture of lots of people.
+一张人山人海的图片.
 
-So, let’s talk about very large applications and the things they have in common. Certainly that there might be a lot of developers. It might be a few dozens or even more–and these are humans with feelings and interpersonal problems and you may have to factor that in.
+所以，我们来谈谈非常大型的应用,以及他们之间的共同点。当然可能会有很多开发者参与其中。可能有几十人甚至更多，他们都有自己的情感和人际问题，你必须要考虑到这一点。
 
-![](https://cdn-images-1.medium.com/max/800/1*WEH24kaBbar8-1gzN_AO3w.png)Picture of very old building.
+![](https://cdn-images-1.medium.com/max/800/1*WEH24kaBbar8-1gzN_AO3w.png)一张非常古老建筑的图片.
 
-And even if your team is not as big, maybe you’ve been working on the thing for a while, and maybe you’re not even the first person maintaining it, you might not have all the context, there might be stuff that you don’t really understand, there might be other people in your team that don’t understand everything about the application. These are the things we have to think about when we build very large applications.
+即使你的规模不大，也许你已经在这个领域工作了一段时间，也许你甚至不是第一个维护它的人，你可能不了解项目的所有结构或者内容，可能有些东西是你不太明白的，你的团队中可能还有其他人不了解应用程序的所有信息。这些都是我们在构建非常大型的应用程序时，必须考虑的事情。
 
 ![](https://cdn-images-1.medium.com/max/800/1*fzb42X35lNGmkQHhJLhEBQ.png)
 
-Tweet saying: A team of senior engineers without junior engineers is a team of engineers.
+推特: 一个没有初级工程师的高级工程师团队是一个工程师团队。
 
-Another thing I wanted to do here is to give this a bit of context in terms of our careers. I think many of us would consider themselves senior engineers. Or we are not quite there yet, but we want to become one. What I think being senior means is that I’d be able to solve almost every problem that somebody might throw at me. I know my tools, I know my domain. And the other important part of that job is that I make the junior engineers eventually be senior engineers.
+我想在这里做的另一件事是以我们的职业生涯说明下背景。我想我们很多人会认为自己是高级工程师。或者是还差一点点，但我们想成为一个高级工程师。我认为高级的意思是我几乎可以解决其他人可能抛出的任何问题。我熟悉我的工具，我熟悉我的领域。而这项工作的另一个重要部分是我让初级工程师最终成为高级工程师。
 
 ![](https://cdn-images-1.medium.com/max/800/1*xpRJ1dXHMlFq1V4oDKU__w.png)
 
-Slide text: Junior -> Senior -> ?
+幻灯片文本：初级 -> 高级 -> ?
 
-But what happens is that at some point we may wonder “what might be the next step?”. When we reached that seniority stage, what is the next thing we are going to do? For some of us the answer may be management, but I don’t think that should be the answer for everyone, because not everyone should be a manager, right? Some of us are really great engineers and why shouldn’t we get to do that for the rest of our lives?
+但是会发生什么呢？在某种程度上，我们可能会怀疑“下一步可能是什么？”。当我们达到这个高级阶段时，我们接下来要做什么？对于我们中的一些人来说，答案可能是做管理，但我认为这不应该成为每个人的答案，因为不是每个人都应该成为管理者，对吗？我们中有些人是非常优秀的工程师，为什么我们不应该在我们的余生中也这样做？
 
 ![](https://cdn-images-1.medium.com/max/800/1*wL5wiTWICj1keue9YZOAhQ.png)
 
-Slide text: “I know how I would solve the problem”
+幻灯片文本：“我知道我会如何解决问题”
 
-I want to propose a way to level up above that senior level. The way I would talk about myself as a senior engineer is that I’d say “I know how I would solve the problem” and because I know how I would solve it I could also teach someone else to do it.
+我想提出一种方法来升级到高级水平。我把自己当作高级工程师的方式是，我会说：“我知道如何解决这个问题”，并且因为我知道如何解决这个问题，所以我也可以教别人去解决它。
 
 ![](https://cdn-images-1.medium.com/max/800/1*UyLoKH7y54JAYigVlwCJpQ.png)
 
-Slide text: “I know how others would solve the problem”
+幻灯片文本：“我知道别人怎么解决这个问题”
 
-And my theory is that the next level is that I can say about myself “I know how _others_ would solve the problem”.
+我的理论是，下一个层次是我可以对自己说：“我知道**别人**会如何解决这个问题”。
 
 ![](https://cdn-images-1.medium.com/max/800/1*zBBGLRIZw94gp54pspvx-g.png)
 
-Slide text: “I can anticipate how API choices and abstractions impact the way other people would solve the problem.”
+幻灯片文本：“我可以预测 API 选择和抽象如何影响其他人解决问题的方式。”
 
-Let’s make that a bit more concrete. You make that sentence: “I can anticipate how the API choices that I’m making, or the abstractions that I’m introducing into a project, how they impact how other people would solve a problem.” I think this is a powerful concept that allows me to reason about how the choices I’m making impact an application.
+让我们更具体一点。你说了这样一句话：“我可以预见我做出 API 选择时，或者我往项目中引入抽象时，它们如何影响其他人解决问题。”我认为这是一个强大的概念，可以让我思考我所做的选择对应用程序的影响。
 
 ![](https://cdn-images-1.medium.com/max/800/1*LnDv6Ry0Hq2MaQEARaD8rg.png)
 
-Slide text: An application of empathy.
+幻灯片文本：同理心的应用。
 
-I would call this an application of empathy. You’re thinking with other software engineers and you’re thinking about how what you do and the APIs that you are giving them, how they impact how they write software.
+我会称之为同理心的应用。你在和其他软件工程师一起思考，你在思考你所做的事情以及你给他们的 API 是怎么样的，以及它们如何影响其他工程师编写软件。
 
 ![](https://cdn-images-1.medium.com/max/800/1*pnYiZTAfQqsbeS7kVkLe_g.png)
 
-Slide text: Empathy on easy mode.
+幻灯片文本：对简易模式感同身受。
 
-Luckily this is empathy on easy mode. Empathy is generally hard, and this is still very hard. But at least the people that you are having empathy with, they are also other software engineers. And so while they might be very different from you, they at least have in common that they are building software. This type of empathy is really something you can get quite good at as you gain more experience.
+幸运的是，这是对简易模式感同身受。同理心通常很难，而且这仍然非常困难。但至少与你有同感的人，他们也是软件工程师。尽管他们可能与你截然不同，但他们至少同你一样也在开发软件。当你获得更多的经验时，你可以很擅长的运用这种类型的同理心。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Op0wLWIqwZ-A5iSuWrqtKA.png)
 
-Slide text: Programming model.
+幻灯片文本：编程模型。
 
-Thinking about these topics there is one really important term that I want to talk about, which is the programming model–a word that I’m going to use a lot. It stands for “given a set of APIs, or of libraries, or of frameworks, or of tools–how do people write software in that context.” And my talk is really about, how subtle changes in APIs and so forth, how they impact the programming model.
+考虑到这些话题，我想谈谈一个非常重要的术语，那就是编程模型，这个词我会用很多次。它代表“给定一套 API，库，框架或工具，人们如何在这种背景下编写软件”。我演讲的真正内容是关于 API 等细微变化对编程模型的影响。
 
 ![](https://cdn-images-1.medium.com/max/800/1*zuLA-tH9b8k4i1yfKMScmA.png)
 
-Slide text: Programming model impact examples: React, Preact, Redux, Date picker from npm, npm.
+幻灯片文本：影响编程模型的示例：React，Preact，Redux，Date picker，npm。
 
-I want to give a few examples of things that impact the programming model: Let’s say you have an Angular project and you say “I’m going to port this to React” that is obviously going to change how people write software, right? But then you’re like “Ah, 60KB for a bit of virtual DOM munging, let’s switch to Preact”–that is an API compatible library, it is not going to change how people write software, just because you make that choice. Maybe then you’re like “this is all really complex, I should have something orchestrating how my application works, I’m going to introduce Redux.”–that is going to change how people write software. You then get this requirement “we need a date picker” and you go to npm, there are 500 results, you pick one. Does it really matter which one you pick? It definitely won’t change how you write software. But having npm at your fingertips, this vast collection of modules, having that around absolutely changes how you write software. Of course, these are just a few examples of things that might or might impact how people write software.
+我想举几个影响编程模型的例子：假设你有一个 Angular 项目，并且你说：“我将把它移植到 React 中”，这显然会改变人们编写软件的方式，对吧？但是接下来你想：“啊哈，60 KB 就为了使用一点虚拟 DOM 操作，让我们切换到 Preact”，这是一个 与 React API 兼容的库，即使你做出了这个选择，它也不会改变人们编写软件的方式。或许随着项目的进展，你会觉得“单单 React 自有的状态管理还不够，应用会变得很复杂，我应该有一些东西来管理应用状态，我会引入 Redux”，这将改变人们编写软件的方式。然后又来了个新需求“我们需要一个日期选择器”，你到 npm 上进行搜索，有 500 个结果，你选了一个日期组件。你挑选哪一个真的很重要吗？它绝对不会改变你编写软件的方式。但是，npm 以及它的庞大生态集合，绝对会改变你编写软件的方式。当然，这些只是可能影响人们如何编写软件的几个例子。
+
 
 ![](https://cdn-images-1.medium.com/max/800/1*KfcGnWC3WcwBqGYLPiybgw.png)
 
-Slide text: Code splitting.
+幻灯片文本：代码分割.
 
-Now I want to talk about one aspect that all large JavaScript applications have in common, when you deliver them to users: Which is that they eventually get so big that you don’t want to deliver them all at once. And for this we’ve all introduced this technique called code splitting. What code splitting means is that you define a set of bundles for your application. So, you’re saying “Some users only use this part of my app, some users use another part”, and so you put together bundles that only get downloaded when the part of an application that a user is actually dealing with is executed. This is something all of us can do. Like many things it was invented by the closure compiler–at least in the JavaScript world. But I think the most popular way of doing code splitting is with webpack. And if you are using RollupJS, which is super awesome, they just recently added support for it as well. Definitely something y’all should do, but there are some things to think about when you introduce this to an application, because it does have impact on the programming model.
+现在我想谈谈所有大型 JavaScript 应用在将它们交付给用户时的一个共同点：它们最终变得非常大，以至于你不希望一开始就把整个应用一次性传输给用户。为此，我们引入了这种称为代码分割的技术。代码分割意味着你为应用程序定义了一组打包。所以，你会说“有些用户只使用我的应用程序的这一部分，有些用户使用另一部分”，因此，当用户实际使用应用程序时，只有使用到的部分才被下载执行。这是我们所有人都可以做到的。像许多事情一样，它是由闭包编译器实现的 —— 至少在 JavaScript 世界中。但我认为使用 webpack 进行代码分割是最流行的方式。如果你使用的是 RollupJS，这是超棒的，他们最近也增加了对代码分割的支持。代码分割绝对是你们应该做的事情，但是当你将它引入到应用程序中时有一些事情需要考虑，因为它确实对编程模型有影响。
 
 ![](https://cdn-images-1.medium.com/max/800/1*vAR8HCbwiwX8bVa0xIsk6g.png)
 
-Slide text: Sync -> Async.
+幻灯片文本：同步 -> 异步。
 
-You have things that used to be sync that now become async. Without code splitting your application is nice and simple. There is this one big thing. It starts up, and then it is stable, you can reason about it, you don’t have to wait for stuff. With code splitting, you might sometimes say “Oh, I need that bundle”, so you now need to go to the network, and you have to factor in that this can happen, and so the applications becomes more complex.
+你有过去是同步现在成为异步的东西。你的应用程序在没有代码分割时，简单美好。整个项目只有一件大事。它启动，然后它很稳定，你了解它的前世今生，你不必等待资源加载。有了代码分割后，有时候你可能会说“哦，我需要那个打包文件”，所以你现在需要利用网络来获取所需的文件，这也使得你必须考虑网络可能出现异常情况，所以应用程序也变得更加复杂。
 
 ![](https://cdn-images-1.medium.com/max/800/1*DqT7As1rm_M9cxyW1RIW6w.png)
 
-Slide text: Human.
+幻灯片文本：人性化。
 
-Also, we have humans entering the field, because code splitting requires you to define bundles, and it requires you to think about when to load them, so these humans, engineers on your team, they now have to make decisions what is going into which bundle and when to load that bundle. Every time you have a human involved, that clearly impacts the programming model, because they have to think about such things.
+此外，我们需要有人介入，因为代码拆分需要你定义如何打包，需要你考虑何时加载它们，所以，那些在你们团队的工程师们现在必须决定哪些文件打包到一起，什么时候加载那些打包文件。每次有人介入时，都会明显影响编程模型，因为他们必须考虑这些问题。
 
 ![](https://cdn-images-1.medium.com/max/800/1*0jNa8A5ciY6pCJCN65vLiA.png)
 
-Slide text: Route based code splitting.
+幻灯片文本：基于路由的代码分割。
 
-There is one very established way that solves this problem, that gets the human out of the mess when doing code splitting, which is called route based code splitting. If you’re not using code splitting yet, that is probably how you should do it as a first cut. Routes are the baseline URL structure of your application. You might, for example, have your product pages on `/product/` and you might have your category pages somewhere else. You just make each route one bundle, and your router in your application now understands there is code splitting. And whenever the user goes to a route, the router loads the associated bundle, and then within that route you can forget about code splitting existing. Now you are back to the programming model that is almost the same as having a big bundle for everything. It is a really nice way to do this, and definitely a good first step.
+有一种非常成熟的方法可以解决这个问题，它可以将我们从进行代码分割的混乱中解脱出来，它被称作基于路由的代码分割。如果你还没有使用代码分割，那它可能是你初次进行代码分割的方式。路由将应用程序以 URL 粒度进行分割。例如，你的产品页面可能在 `/product/` 上，并且你的分类页面可能在其他地方。你只需将每个路由用的文件打包到一起，然后你的应用程序将根据路由自动进行代码分割。无论何时用户访问路由，路由都会加载相关的打包文件，有了路由之后，你可以忘记代码分割的存在。再从编程模型上来看，这几乎与将所有东西都打包到一起一样。这是一种非常好的代码分割方法，绝对是个好的开始。
 
-But the title of this talk is designing **VERY** large JavaScript applications, and they quickly become so big that a single bundle per route might not be feasible anymore, because the routes themselves become very big. I actually have a good example for an application that is big enough.
+但是这个演讲的主题是设计**非常**大型的 JavaScript 应用程序，并且这类应用程序很快会变得巨大无比，路由本身也会随之变大，以至于基于路由的代码分割不再适用。实际上我有一个关于这类应用程序的好例子。
 
 ![](https://cdn-images-1.medium.com/max/800/1*ox94bGuhxWXE-OubL7St6w.png)
 
-Google Search query screenshot for “public speaking 101”.
+“public speaking 101”的谷歌搜索查询截图。
 
-I was figuring out how to become a public speaker coming up to this talk, and I get this nice list of blue links. You could totally envision that this page fits well into a single route bundle.
+我正在弄清楚如何成为这场演讲的公众演讲者，并且我得到了一个很好的蓝色链接列表。你完全可以设想这个页面非常适合将所有文件打包到一个路由里。
 
 ![](https://cdn-images-1.medium.com/max/800/1*P-XiIPnuzq9_KLA1nG-uRA.png)
 
-Google Search query screenshot for “weath”.
+“weath”的谷歌搜索查询截图。
 
-But then I was wondering about the weather because California had a rough winter, and suddenly there was this completely different module. So, this seemingly simple route is more complicated than we thought.
+但后来我对天气感到疑惑，因为加州有一个严峻的冬天，突然间有了这个完全不同的模块。所以，这个看似简单的路由比我们想象的更为复杂。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Y7e5LoeBggY01aRkJAiwWA.png)
 
-Google Search query screenshot for “20 usd to aud”.
+“20 usd to aud”的谷歌搜索查询截图。
 
-And then I was invited to this conference, and was checking out how much 1 US dollar is in Australian dollars, and there is this complex currency converter. Obviously there is about 1000s more of these specialized modules, and it infeasible to put them all in one bundle, because that bundle would be a few megabytes in size, and users would become really unhappy.
+后来我被邀请参加这次会议，我查看了 1 美元是多少澳元，那时出现了这个复杂的货币转换器。很显然，这些专用模块大约有 1000 多个，将它们放在同一个打包文件中是不可行的，因为打包文件的大小会有几兆字节，用户将会真的变得不高兴。
 
 ![](https://cdn-images-1.medium.com/max/800/1*qZhd4a0S-CCB5mUiN3fo5Q.png)
 
-Slide text: Lazy load at component level?
+幻灯片文本：组件级别的懒加载？
 
-So, we can’t just use route based code splitting, we have to come up with a different way of doing it. Route based code splitting was nice, because you split your app at the coarsest level, and everything further down could ignore it. Since I like simple things, how about doing super fine-grained instead of super coarse-grained splitting. Let’s think about what would happen if we lazy loaded every single component of our website. That seems really nice from an efficiency point of view when you only think about bandwidth. It might be super bad from other point of views like latency, but it is certainly worth a consideration.
+所以，我们不能只使用基于路由的代码分割，我们必须想出一个不同的方式来做代码分割。基于路由的代码拆分很不错，因为你将应用程序进行了最粗略级别的拆分，而当应用程序进一步增长时，它能起到的作用就微乎其微了。因为我喜欢直截了当，那么做超级细粒度而不是超级粗粒度拆分怎么样。让我们想象如果我们网站的每一个组件都懒加载，会发生什么。当你只考虑带宽时，从效率的角度来看，这似乎非常好。从延迟等其他观点来看，这可能是非常糟糕的，但它肯定是值得考虑。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Lr2hIk4eH9uU33e77zeSmA.png)
 
-Slide text: React component statically depend on their children.
+幻灯片文本：React 组件同他们的子组件是静态依赖关系。
 
-But let’s imagine, for example, your application uses React. And in React components statically depend on their children. That means if you stop doing that because you are lazy loading your children, then it changes your programming model, and things stop being so nice.
+但让我们想象一下，例如，你的应用程序使用 React。并且在 React 中，组件们同他们的子组件是静态依赖关系。这意味着如果你懒加载你的子组件，就会改变你的编程模型，并且事情会变得不那么美好，这让你只好叫停这种策略。
 
 ![](https://cdn-images-1.medium.com/max/800/1*SWkk2vyn344qCNCPSIkXPA.png)
 
-ES6 import example.
+ES6 导入示例。
 
-Let’s say you have a currency converter component that you want to put on your search page, you import it, right? That is the normal way of doing it in ES6 modules.
+假设你有一个货币转换器组件，你想把它放在你的搜索页面上，你可以导入它，是这样的吧？这是在 ES6 模块中使用的普通方式。
 
 ![](https://cdn-images-1.medium.com/max/800/1*RxlHaYEav0OaODKYKiUubw.png)
 
-Loadable component example.
+Loadable 组件示例。
 
-But if you want to lazy load it, you get code like this where you use dynamic import, which is a new fancy thing to lazy load ES6 modules and you wrap it in a loadable component. There are certainly 500 million ways to do this, and I am not a React expert, but all of these will change how you write the application.
+但是如果你想延迟加载它，你会得到这样的代码，你把它包装在 Loadable 组件中，你还使用一种懒加载 ES6 模块的新方式动态导入。当然有成千上万种方法可以做到这一点，我不是 React 专家，但所有这些方式都会改变你编写应用程序的方式。
 
 ![](https://cdn-images-1.medium.com/max/800/1*N5AMAbobPjsO_lXCPt9-ZA.png)
 
-Slide text: Static -> Dynanic.
+幻灯片文本：静态 -> 动态。
 
-And things aren’t as nice anymore–something that was static, now becomes dynamic, which is another red flag for the programming model changing.
+事情不再那么美好了 —— 一些静态的东西现在变成了动态的，这是编程模型改变的另一个警示。
 
 ![](https://cdn-images-1.medium.com/max/800/1*j9OB_yjli59MZMyIs9V0_A.png)
 
-Slide text: Who decides what to lazy load when?
+幻灯片文本：谁来决定何时对什么东西进行懒加载？
 
-You have to suddenly wonder: “Who decides what to lazy load when” because that is going to impact the latency of your application.
+你不得已突然想知道：“谁来决定何时对什么东西进行懒加载”，因为这会影响到应用程序的等待时间。
 
 ![](https://cdn-images-1.medium.com/max/800/1*rsJ-C7ph0BrJiwTjHKv6_w.png)
 
-Slide text: Static or dynamic?
+幻灯片文本：静态还是动态？
 
-The human is there again and they have to think about “there is static import, there is dynamic import, when do I use which?”. Getting this wrong is really bad because one static import, when it should have been dynamic suddenly may put stuff into the same bundle that shouldn’t be. These are the things that are going to go wrong when you have a lot of engineers over long periods of time.
+人类再次出现，他们必须思考“有静态导入，有动态导入，什么时候该用哪一个？”。弄错就非常糟糕了，当一个静态导入的文件突然变成动态导入的时候，可能会把某些东西错误的打包进文件。随着时间的推移，同时你又有很多工程师在这个项目上开发，恐怕就会出错。
 
 ![](https://cdn-images-1.medium.com/max/800/1*QGoX4bYhEAuNjuKwQhQ0hg.png)
 
-Slide text: Split logic and rendering
+幻灯片文本：分割逻辑和渲染。
 
-Now I’m going to talk about how Google actually does this and what is one way to get a good programming model, while also achieving good performance. What we do is we take our components and we split them by rendering logic, and by application logic, like what happens when you press a button on that currency converter.
+接下来我会分享 Google 如何做到保证良好编程模型的前提下，又有不错的性能的。我们通过渲染逻辑和应用逻辑来分割组件，比如当你按下货币转换器上的按钮时发生的情况。
 
 ![](https://cdn-images-1.medium.com/max/800/1*vMskVnAwJgkZmvl4E-8E4Q.png)
 
-Slide text: Only load logic if it was rendered.
+幻灯片文本：仅在渲染时加载是唯一的加载逻辑。
 
-So, now we have two separate things, and we only ever load the application logic for a component when we previously rendered it. This turns out to be a very simple model, because you can simply server side render a page, and then whatever was actually rendered, triggers downloading the associated application bundles. This puts the human out of the system, as loading is triggered automatically by rendering.
+所以，现在我们有两件独立的事情，并且我们只在渲染时才加载组件的应用程序逻辑。事实证明，这是一个非常简单的模型，因为你可以简单地在服务端渲染页面，然后由实际呈现的内容，触发下载关联的应用程序打包文件。因为加载是通过渲染自动触发的，这使得人得以脱离系统。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Doqt-GOkUp13Qgk5r7WR1g.png)
 
-Slide text: Currency converter on search result page.
+幻灯片文本：搜索结果页面上的货币转换器。
 
-This model may seem nice, but it does have some tradeoffs. If you know how server side rendering typically works in frameworks like React or Vue.js, what they do is a process called hydration. The way hydration works, is you server side render something, and then on the client you render it again, which means you have to load the code to render something that is already on the page, which is incredibly wasteful both in terms of loading the code and in terms of executing it. It is a bunch of wasted bandwidth, it is a bunch of wasted CPU–but it is really nice, because you get to ignore on the client side that you server side rendered something. The method we use at Google is not like that. So, if you design this very large application, you have think about: Do I take that super fast method that is more complicated, or do I go with hydration which is less efficient, but such a nice programming model? You will have to make this decision.
+这个模型看起来不错，但它确实有一些折中。如果你知道通常服务端渲染在 React 或 Vue.js 等框架中如何工作，这个过程被称为 hydration。hydration 是这样的，你服务端渲染的一些东西，然后在客户端再次渲染它，这意味着你必须加载代码来渲染一些已经在页面上的东西，这在加载代码和执行代码方面都是巨大的浪费。这么做既浪费带宽，又浪费 CPU —— 但它确实很好，因为你在客户端忽略了服务端渲染的东西。我们在 Google 使用的方法不是那样的。所以，如果你设计这个非常大型的应用程序，你就会想：我是采用那种更复杂的超快速方法，还是采用效率较低的 hydration 方式，但这样能有个良好的编程模型？你将不得不做出这个决定。
 
 ![](https://cdn-images-1.medium.com/max/800/1*uteTbmuKZF1wGvoysgsBYw.png)
 
-Slide text: 2017 Happy New Year.
+幻灯片文本：2017 新年快乐。
 
-My next topic is my favorite problem in computer science–which is not naming things, although I probably gave this a bad name. It is the _“2017 holiday special problem”_. Who here has ever written some code, and now it is no longer needed but it is still in your codebase? … This happens, and I think CSS is particularly famous for it. You have this one big CSS file. There is this selector in there. Who really knows whether that still matches anything in your app? So, you end up just keeping it there. I think the CSS community is at the forefront of a revolution, because they realized this is a problem, and they created solutions like CSS-in-JS. With that you have a single file component, the 2017HolidaySpecialComponent, and you can say “it is not 2017 anymore” and you can delete the whole component and everything is gone in one swoop. That makes it very easy to delete code. I think this is a very big idea, and it should be applied to more than just CSS.
+我的下一个话题是我最喜欢的计算机科学问题 —— 它不是命名问题，尽管我很可能给它起了个糟糕的名字。这是“**2017 年假期特别问题**”。过去有人写过一些代码，现在不再需要它们了，但它仍然在你的代码库中？...这种情况时常发生，我认为 CSS 的问题尤为突出。你有一个大型 CSS 文件。里面有很多样式选择器。谁真的知道哪些样式选择器是否仍然对应着你应用中的内容？所以，你最终只能把那些代码留在那里。我认为 CSS 社区处于变革的最前沿，因为他们意识到这个问题，并且他们创建了诸如 CSS-in-JS 之类的解决方案。因为你的组件可以放到一个单独的文件里，2017 年假期特别问题组件，你可以说“它不再是 2017 问题”，你可以删除整个组件，并且所有相关文件一并消失。这使得删除代码非常容易。我认为这是一个非常好的想法，它不仅仅适用于 CSS。
 
 ![](https://cdn-images-1.medium.com/max/800/1*rkAN_sLohIO63JCOTZ1JgA.png)
 
-Slide text: Avoid central configuration at all cost.
+幻灯片文本：不惜一切代价避免中央配置。
 
-I want to give a few examples of this general idea that you want to avoid central configuration of your application at all cost, because central configuration, like having a central CSS file, makes it very hard to delete code.
+我想举几个例子，说明为什么你想不惜一切代价避免在你的应用程序中采用中央配置，因为中央配置（比如大型 CSS 文件）使得代码难以删除。
 
 ![](https://cdn-images-1.medium.com/max/800/1*-OoPTo-xaxFr2YOGGFnapw.png)
 
-Slide text: routes.js.
+幻灯片文本：routes.js。
 
-I was talking before about routes in your application. Many applications would have a file like “routes.js” that has all your routes, and then those routes map themselves to some root component. That is an example of central configuration, something you do not want in a large application. Because with this some engineer says “Do I still need that root component? I need to update that other file, that is owned by some other team. Not sure I’m allowed to change it. Maybe I’ll do it tomorrow”. With that these files becomes addition-only.
+我之前在你的应用程序中谈论过路由。许多应用程序都会有一个类似“routes.js”的文件，其中包含所有路由信息，这些路由将自己映射到某个根组件。这是一个中央配置的例子，你不会希望在大型应用程序中这么做。因为有了这种中央配置，工程师会说：“我还需要那个根组件吗？我需要更新其他文件，那是其他团队负责的文件。我不确定是否被允许修改它。也许我该明天再做“。之后，这些文件只会越来越大。
 
 ![](https://cdn-images-1.medium.com/max/800/1*NsqgsGwmgEcy_PedNzmnbQ.png)
 
-Slide text: webpack.config.js.
+幻灯片文本：webpack.config.js。
 
-Another example of this anti-pattern is the webpack.config.js file, where you have this one thing that is assumed to build your entire application. That might go fine for a while, but eventually needing to know about every aspect of what some other team did somewhere in the app just doesn’t scale. Once again, we need a pattern to emerge how to decentralize the configuration of our build process.
+这种反模式的另一个例子是 webpack.config.js 文件，在这里你可以假设你通过它构建了整个应用程序。刚开始可能没什么问题，但随着时间的推移，这份配置不再适用，你需要知道其他团队在应用程序中做了什么，这样才能对配置文件做出兼容性的调整。再一次，我们需要一个模式来展现如何分散我们构建过程的配置。
 
 ![](https://cdn-images-1.medium.com/max/800/1*L7ZmdS2JvqwWJySz-X50xw.png)
 
-Slide text: package.json.
+幻灯片文本：package.json。
 
-Here is a good example: package.json, which is used by npm. Every package says “I have these dependencies, this is how you run me, this is how you build me”. Obviously there can’t be one giant configuration file for all of npm. That just wouldn’t work with hundreds of thousands of files. It would definitely get you a lot of merge conflicts in git. Sure, npm is very big, but I’d argue that many of our applications get big enough that we have to worry about the same kind of problems and have to adopt the same kind of patterns. I don’t have all the solutions, but I think that the idea that CSS-in-JS brought to the table is going to come to other aspects of our applications.
+这有一个很好的例子：npm 使用的 package.json。每个软件包都会说“我有这些依赖关系，这就是你如何运行我，如何构建我的方式”。显然，对于所有的 npm，都不能有一个巨大的配置文件。这对于成千上万的文件来说不起作用。这肯定会让你在 git 操作中遇到很多合并冲突。当然，npm 非常大，但我认为我们的许多应用程序已经变得足够大，让我们不得不担心同样的问题，并且必须采用相同的模式。我没有所有的解决方案，但我认为 CSS-in-JS 的想法将会涉及我们应用程序的其他方面。
 
 ![](https://cdn-images-1.medium.com/max/800/1*E_g_WgMXGuJtyG-F4AGTNg.png)
 
-Slide text: Dependency trees.
+幻灯片文本：依赖关系树。
 
-More abstractly I would describe this idea that we take responsibility for how our application is designed in the abstract, how it is organized, as _taking responsibility of shaping the dependency tree of our application_. When I say “dependency” I mean that very abstractly. It could be module dependencies, it could be data dependencies, service dependencies, there are many different kinds.
+更抽象地说，我会描述这个想法，即我们负责如何抽象地设计我们的应用程序，如何组织它，作为**承担塑造我们的应用程序的依赖树的责任**。当我说“依赖”时，我的意思是非常抽象的。它可能是模块依赖关系，可能是数据依赖关系，服务依赖关系，还有很多不同的类型。
 
 ![](https://cdn-images-1.medium.com/max/800/1*DfOMmyxC4guVZkyQ4IlF7g.png)
 
-Slide text: Example dependency tree with router and 3 root components.
+幻灯片文本：由路由和 3 个根组件构成的依赖关系树示例。
 
-Obviously, we all have super complicated applications, but I’m going to use a very simple example. It has only 4 components. It has a router that knows how to go from one route of your application to the next, and it has a few root components, A, B, and C.
+显然，我们都有超复杂的应用程序，但我会用一个非常简单的例子。它只有 4 个组成部分。它有一个路由，知道如何从应用程序的一个路由到下一个路由，它有几个根组件：A、B 和 C。
 
 ![](https://cdn-images-1.medium.com/max/800/1*CivPR-20NP0dXlIkWfBk6w.png)
 
-Slide text: The central import problem.
+幻灯片文本：中心导入问题。
 
-As I mentioned before this has the central import problem.
+正如我之前提到的那样，这具有中心导入问题。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Y9AgFj90bpFsKq6e7o7Jbw.png)
 
-Slide text: Example dependency tree with router and 3 root components. Router imports root components.
+幻灯片文本：由路由和3个根组件构成的依赖关系树示例。路由导入根组件。
 
-Because the router now has to import all the root components, and if you want to delete one of them you have to go to the router, you have to delete the import, you have to delete the route, and eventually you have the holiday special 2017 problem.
+因为路由现在必须导入所有的根组件，如果你想删除其中的一个，你不得不进入路由文件，删除引用，删除路由，并最终你有了 2017 假期特别问题。
 
 ![](https://cdn-images-1.medium.com/max/800/1*isSwE9e1XLiEw9sbZHwmQQ.png)
 
-Slide text: Import -> Enhance.
+幻灯片文本：导入 -> 增强。
 
-We at Google have come up with a solution for this, that I want to introduce to you, which I don’t think we have ever talked about. We invented a new concept. It is called enhance. It is something you use instead of import.
+我们在谷歌已经为此提出了一个解决方案，我想向你们介绍一下，我想我们从来没有谈过这件事。我们提出了一个新概念。它被称为增强。这是你用来代替导入的东西。
 
 ![](https://cdn-images-1.medium.com/max/800/1*7yPG-uXeixsnQk3k-X9UXw.png)
 
-Slide text: Import -> Enhance.
+幻灯片文本：导入 -> 增强。
 
-In fact, it is the opposite of import. It is a reverse dependency. If you enhance a module, you make that module have a dependency on you.
+实际上，这与导入是相反的。这是一个逆向依赖。如果你增强一个模块，你会让这个模块对你有依赖性。
 
 ![](https://cdn-images-1.medium.com/max/800/1*bDH4yzG0mrrYlrs2C9twsA.png)
 
-Slide text: Example dependency tree with router and 3 root components. Root components enhance router.
+幻灯片文本：由路由和3个根组件构成的依赖关系树示例。根组件增强了路由。
 
-Looking at the dependency graph, what happens it that there are still the same components, but the arrows point in the opposite direction. So, instead of the router importing the root component, the root components announce themselves using enhance to the router. This means I can get rid of a root component by just deleting the file. Because it is no longer enhancing the router, that is the only operation you have to do to delete the component.
+看看依赖关系图，它发生了什么，仍然是相同的组件，但箭头指向相反的方向。因此，不是路由导入根组件，根组件宣布自己增强了路由的功能。这意味着我可以通过删除文件来删除根组件。因为它不再增强路由，所以这是删除组件的唯一操作。
 
 ![](https://cdn-images-1.medium.com/max/800/1*HDW95QuGKQCsXqwXiUtB5g.png)
 
-Slide text: Who decides when to use enhance?
+幻灯片文本：谁来决定何时使用增强？
 
-That is really nice, if it wasn’t for the humans again. They now have to think about “Do I import something, or do I use enhance? Which one do I use under which circumstances?”.
+这真的很棒，如果它不是再次涉及人性化。他们现在必须考虑“我是该导入它，还是使用增强？我在哪种情况下使用哪一种方式？”。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Hr47VQZYSKiBuDap2XgbbQ.png)
 
-Image: Danger. Hazardous chemicals.
+图片：危险。危险化学品。
 
-This is particular bad case of this problem, because the power of enhancing a module, of being able to make everything else in the system have a dependency on you is very powerful and very dangerous if gotten wrong. It is easy to imagine that this might lead to really bad situations. So, at Google we decided it is a nice idea, but we make it illegal, nobody gets to use it–with one exception: generated code. It is a really good fit for generated code actually, and it solves some of the inherent problems of generated code. With generated code you sometimes have to import files you can’t even see, have to guess their names. If, however, the generated file is just there in the shadows and enhances whatever it needs, then you don’t have these problems. You never have to know about these files at all. They just magically enhance the central registry.
+这是这个问题的特别糟糕的情况，因为增强模块的能力，能够使系统中的所有其他东西都依赖于你是非常强大的，如果出错的话，就会非常危险。很容易想象这可能会导致非常糟糕的情况。所以，在谷歌我们认为这是一个好主意，但我们也认为它是非法的，没有人可以使用它 —— 有一个例外：生成的代码。它实际上非常适合于生成的代码，它解决了生成代码的一些固有问题。有了生成的代码，你有时必须导入你甚至看不到的文件，必须猜测他们的名字。但是，如果生成的文件恰好不可见，并增强了它所需的任何内容，那么你就没有这些问题。你根本不需要知道这些文件。他们只是神奇地增强了中央注册表。
 
 ![](https://cdn-images-1.medium.com/max/800/1*od_6cmgitlBJk1g9QxU7Ng.png)
 
-Slide text: Single file component pointing to its parts that enhance a router.
+幻灯片文本：单文件组件指向其增强路由的组件。
 
-Let’s take a look at a concrete example. We have our single file component here. We run a code generator on it and we extract this little route definition file from it. And that route file just says “Hey Router, here I am, please import me”. And obviously you can use this pattern for all kinds of other things. Maybe you are using GraphQL and your router should know about your data dependency, then you can just use the same pattern.
+我们来看一个具体的例子。我们这里有个单文件组件。我们在其上运行代码生成器，并从中提取这个小的路由定义文件。那个路由文件只是说“嘿，路由，我在这里，请导入我”。显然，你可以将这种模式用于各种其他事情。也许你正在使用 GraphQL，你的路由应该知道你的数据依赖关系，那么你可以使用相同的模式。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Tg_CvUNzT9K0tbzIVC79kw.png)
 
-Slide text: The base bundle.
+幻灯片文本：基本打包文件。
 
-Unfortunately this is not all we need to know. There is my second favorite problem in computer science which I call the “_Base bundle pile of trash”_. The base bundle in your graph of bundles in your application is the one bundle that will always get loaded–independent of how the user interacts with the application. So, it is particularly important, because if it is big, then everything further down will also be big. If it small, then dependent bundles at least have a chance of being small as well. A little anecdote: At some point I joined the Google Plus JavaScript infrastructure team, and I found out that their base bundle had 800KB of JavaScript. So, my warning to you is: If you want to be more successful than Google Plus, don’t have 800KB of JS in your base bundle. Unfortunately it is very easy to get to such a bad state.
+不幸的是，这不仅仅是我们所需要知道的。第二个我最喜欢的计算机科学问题，我称之为“**基础垃圾打包文件**”。在应用程序的打包逻辑中的基本打包文件总是会被加载，而与用户与应用程序的交互方式无关。所以，这一点尤其重要，因为如果它很大，那么所有进一步深入的东西都会很大。如果它很小，那么依赖文件也有可能变小。一个小故事：在某个时候，我加入了 Google Plus JavaScript 基础架构团队，并且我发现他们的基础打包文件包含 800 KB 的 JavaScript。所以，我对你的警告是：如果你想比 Google Plus 更成功，就不要让你的 JS 基础打包文件超过 800 KB，但不幸的是你的文件体积很难维持在理想状态。
 
 ![](https://cdn-images-1.medium.com/max/800/1*wW_u72nFdPiKjEINH4ubDg.png)
 
-Slide text: Base bundle pointing to 3 different dependencies.
+幻灯片文本：指向 3 个不同依赖关系的基础打包文件。
 
-Here is an example. Your base bundle needs to depend on the routes, because when you go from A to B, you need to already know the route for B, so it has to always be around. But what you really don’t want in the base bundle is any form of UI code, because depending on how a user enters your app, there might be different UI. So, for example the date picker should absolutely not be in your base bundle, and neither should the checkout flow. But how do we prevent that? Unfortunately imports are very fragile. You might innocently import that cool _util_ package, because it has a function to make random numbers. And now somebody says “I need a utility for self driving cars” and suddenly you import the machine learning algorithms for self driving cars into your base bundle. Things like that can happen very easily since imports are transitive, and so things tend to pile up over time.
+这有一个例子。你的基础打包文件需要依赖于路由，因为当你从 A 到 B 时，你需要知道 B 的路由，所以它总是在周围。但是你真正不想要的是将任何形式的 UI 代码打包进基础打包文件，是因为取决于用户如何进入你的应用程序，可能会有不同的用户界面。所以，例如日期选择器绝对不应该放在你的基础打包文件中，结账流程也不应该。但我们如何防止这种情况？不幸的是导入非常脆弱。你可能在无意中导入那个很酷的**工具**包，因为它有一个函数来生成随机数。现在有人说“我需要一种自动驾驶汽车的实用工具”，并且突然将自动驾驶汽车的机器学习算法导入到你的基础打包文件中。类似这样的事情很容易发生，因为导入是传递性的，所以问题往往会随着时间的推移而累积起来。
 
 ![](https://cdn-images-1.medium.com/max/800/1*myk-tffGyQx74OIZT4n0mw.png)
 
-Slide text: Forbidden dependency tests.
+幻灯片文本：禁止依赖测试。
 
-The solution we found for this are _forbidden dependency tests_. Forbidden dependency tests are a way to assert that for example your base bundle does not depend on any UI.
+我们找到的解决方案是**禁止依赖测试**。禁止依赖测试是一种断言，例如你的基础打包文件不依赖于任何 UI。
 
 ![](https://cdn-images-1.medium.com/max/800/1*vDtioYTfzhCB9e7jc9A4pg.png)
 
-Slide text: Assert that base bundle does not depend on React.Component.
+幻灯片文本：断言基本打包文件不依赖于 React.Component。
 
-Let’s take a look at a concrete example. In React every component needs to inherit from React.Component. So , if your goal is that no UI could ever be in the base bundle just add this one test that asserts that React.Component is not a transitive dependency of your base bundle.
+我们来看一个具体的例子。在 React 中，每个组件都需要继承自 React.Component。因此，如果你的目标是基本打包文件中没有 UI，只需添加一个测试来确定 React.Component 不是你基本打包文件的传递依赖。
 
 ![](https://cdn-images-1.medium.com/max/800/1*s5rDafWJi90dcrlEQSAepg.png)
 
-Forbidden dependencies crossed out.
+禁止的依赖关系被删除。
 
-Looking at the previous example again, you just get a test failure when someone wants to add the date picker. And these test failures are typically very easy to fix right then, because usually that person didn’t really mean to add the dependency–it just crept in through some transitive path. Compare this to when this dependency would have been around for 2 years because you didn’t have a test. In those cases it is typically extremely hard to refactor your code to get rid of the dependency.
+再看一下前面的例子，当有人想添加日期选择器时，只会出现测试失败。而这些测试失败通常很容易就能很好地解决，因为通常这个人并不是真的想要添加依赖关系 —— 它只是通过一些传递路径进入。比较这一点，当这种依赖关系已经存在了 2 年，因为你没有测试。在这些情况下，通常很难通过重构代码来摆脱依赖关系。
 
 ![](https://cdn-images-1.medium.com/max/800/1*ONmcxDRRdY9DpR8QfwMj4g.png)
 
-Slide text: The most natural path.
+幻灯片文本：最自然的路径。
 
-Ideally though, you find that most natural path.
+理想情况下，你会发现最自然的路径。
 
 ![](https://cdn-images-1.medium.com/max/800/1*7XRIRO-_Y165Gn7Zff_fKQ.png)
 
-Slide text: Most straightforward way must be the right way.
+幻灯片文本：最直接的方式必须是正确的。
 
-You want to get to a state where whatever the engineers on your team do, the most straightforward way is also the right way–so that they don’t get off the path, so that they naturally do the right thing.
+你想要达到这样一个状态，无论你的团队中的工程师做什么，最直接的方式也是正确的方式 —— 这样他们就不会离开这条道路，所以他们自然而然地做了正确的事情。
 
 ![](https://cdn-images-1.medium.com/max/800/1*T6E-ExC2HWa0X--OiJ_vAA.png)
 
-Slide text: Otherwise add a test that ensure the right way.
+幻灯片文本：否则添加一个确保正确的测试。
 
-This might not always be possible. In that case just add a test. But this is not something that many people feel empowered to do. But **please feel empowered to add tests to your application that ensure the major invariants of your infrastructure**. Tests are not only for testing that your math functions do the right thing. They are also for infrastructure and for the major design features of your application.
+这可能不总是可行的。在那种情况下，只需添加一个测试。但这不是很多人认为有权做的事情。但是，**为确保你的基础架构保持不变，请为你的测试程序添加测试的授权**。测试不仅仅是为了测试你的数学函数是否正确。它们也用于基础架构和应用程序的主要设计特性。
 
 ![](https://cdn-images-1.medium.com/max/800/1*y3COuLXS8b1vAQQESjp30Q.png)
 
-Slide text: Avoid human judgement outside of application domain.
+幻灯片文本：避免在应用领域之外进行人为判断。
 
-Try to avoid human judgement whenever possible outside of the application domain. When working on an application we have to understand the business, but not every engineer in your organization can and will understand how code splitting works. And they don’t need to do that. Try to introduce these thing into your application in a way that is fine when not everybody understands them and keeps the complexity in their heads.
+尽可能避免在应用领域之外进行人为判断。在开发应用程序时，我们必须了解业务，但是并非团队中的每位工程师都能理解代码拆分的原理。而且他们不需要那样做。在不是每个人都能理解它们的时候，试着将这些东西以一种友好的方式引入到你的应用程序中，并保持其复杂性。
 
 ![](https://cdn-images-1.medium.com/max/800/1*CqeGbdnSFMRPtZWPIRZCvw.png)
 
-Slide text: Make it easy to delete code.
+幻灯片文本：可以轻松删除代码。
 
-And really just make it easy to delete code. My talk is called “building very large JavaScript applications”. The best advice I can give: Don’t let your applications get very large. The best way to not get there is to delete stuff before it is too late.
+真的，让删除代码简单点。我的演讲题为“构建非常大型的 JavaScript 应用程序”。我可以给出的最佳建议：不要让你的应用程序变得非常大。最好的办法是在还来得及的时候开始删除东西。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Mt_beSIamHND0E6NjBBetA.png)
 
-Slide text: No abstraction is better than the wrong abstraction.
+幻灯片文本：没有抽象比错误的抽象更好。
 
-I want to address just one more point, which is that people sometimes say that having no abstractions at all is better than having the wrong abstractions. What this really means is that the cost of the wrong abstraction is very high, so be careful. I think this is sometimes misinterpreted. It does not mean that you should have no abstractions. It just means you have to be very careful.
+我想再谈一点，那就是人们有时会说，没有抽象比错误的抽象要好。这实际上意味着错误的抽象代价非常高，所以要小心。我认为这有时会被误解。这并不意味着你不应该有抽象。这只是意味着你必须非常小心。
 
-> W_e have to become good at finding the right abstractions_.
+> **我们必须善于找到正确的抽象**。
 
 ![](https://cdn-images-1.medium.com/max/800/1*oNXlH0ththqRlPeRm2z0Sw.png)
 
-Slide text: Empathy and experience -> Right abstractions.
+幻灯片文本：同理心和经验 -> 正确的抽象。
 
-As I was saying at the start of the presentation: The way to get there is to use empathy and think with your engineers on your team about how they will use your APIs and how they will use your abstractions. Experience is how you flesh out that empathy over time. Put together, empathy and experience is what enables you to choose the right abstractions for your application
+正如我在演讲开始时所说的：实现目标的方式是使用同理心，并与团队中的工程师一起思考他们将如何使用你的 API​​ 以及他们将如何使用抽象。你如何随着时间的推移充实这种同理心会成为经验。综上所述，同理心和经验使你能够为你的应用程序选择正确的抽象
 
 
 ---

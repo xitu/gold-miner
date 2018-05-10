@@ -2,315 +2,315 @@
 > * 原文作者：[Lin Clark](http://code-cartoons.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/es-modules-a-cartoon-deep-dive.md](https://github.com/xitu/gold-miner/blob/master/TODO1/es-modules-a-cartoon-deep-dive.md)
-> * 译者：
-> * 校对者：
+> * 译者：[stormluke](https://github.com/stormluke)
+> * 校对者：[Starrier](https://github.com/Starriers)、[zephyrJS](https://github.com/zephyrJS)
 
-# ES modules: A cartoon deep-dive
+# 漫画：深入浅出 ES 模块
 
-ES modules bring an official, standardized module system to JavaScript. It took a while to get here, though — nearly 10 years of standardization work.
+ES 模块为 JavaScript 提供了官方标准化的模块系统。然而，这中间经历了一些时间 —— 近 10 年的标准化工作。
 
-But the wait is almost over. With the release of Firefox 60 in May ([currently in beta](https://www.mozilla.org/en-US/firefox/developer/)), all major browsers will support ES modules, and the Node modules working group is currently working on adding ES module support to [Node.js](https://nodejs.org/en/). And [ES module integration for WebAssembly](https://www.youtube.com/watch?v=qR_b5gajwug) is underway as well.
+但等待已接近尾声。随着 5 月份 Firefox 60 发布（[目前为 beta 版](https://www.mozilla.org/en-US/firefox/developer/)），所有主流浏览器都会支持 ES 模块，并且 Node 模块工作组也正努力在 [Node.js](https://nodejs.org/en/) 中增加 ES 模块支持。同时[用于 WebAssembly 的 ES 模块集成](https://www.youtube.com/watch?v=qR_b5gajwug) 也在进行中。
 
-Many JavaScript developers know that ES modules have been controversial. But few actually understand how ES modules work.
+许多 JavaScript 开发人员都知道 ES 模块一直存在争议。但很少有人真正了解 ES 模块的运行原理。
 
-Let’s take a look at what problem ES modules solve and how they are different from modules in other module systems.
+让我们来看看 ES 模块能解决什么问题，以及它们与其他模块系统中的模块有什么不同。
 
-### What problem do modules solve?
+### 模块要解决什么问题？
 
-When you think about it, coding in JavaScript is all about managing variables. It’s all about assigning values to variables, or adding numbers to variables, or combining two variables together and putting them into another variable.
+可以这样说，JavaScript 编程就是管理变量。所做的事就是为变量赋值，或者在变量上做加法，或者将两个变量组合在一起并放入另一个变量中。
 
 [![Code showing variables being manipulated](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/01_variables-500x178.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/01_variables.png)
 
-Because so much of your code is just about changing variables, how you organize these variables is going to have a big impact on how well you can code… and how well you can maintain that code.
+因为你的代码中很多都是关于改变变量的，你如何组织这些变量会对你编码方式以及代码的可维护性产生很大的影响。
 
-Having just a few variables to think about at one time makes things easier. JavaScript has a way of helping you do this, called scope. Because of how scopes work in JavaScript, functions can’t access variables that are defined in other functions.
+一次只需要考虑几个变量就可以让事情变得更简单。JavaScript 有一种方法可以帮助你做到这点，称为作用域。由于 JavaScript 中的作用域规则，一个函数无法访问在其他函数中定义的变量。
 
 [![Two function scopes with one trying to reach into another but failing](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/02_module_scope_01-500x292.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/02_module_scope_01.png)
 
-This is good. It means that when you’re working on one function, you can just think about that one function. You don’t have to worry about what other functions might be doing to your variables.
+这很好。这意味着当你写一个函数时，只需关注这个函数本身。你不必担心其他函数可能会对函数内的变量做些什么。
 
-It also has a downside, though. It does make it hard to share variables between different functions.
+尽管如此，它仍然存在缺陷。这让在函数间共享变量变得有点困难。
 
-What if you do want to share your variable outside of a scope? A common way to handle this is to put it on a scope above you… for example, on the global scope.
+如果你想在作用域外共享变量呢？处理这个问题的一种常见方法是将它放在更外层的作用域里……例如，在全局作用域中。
 
-You probably remember this from the jQuery days. Before you could load any jQuery plug-ins, you had to make sure that jQuery was in the global scope.
+你可能还记得 jQuery 时代的这种情况。在加载任何 jQuery 插件之前，你必须确保 jQuery 在全局作用域中。
 
 [![Two function scopes in a global, with one putting jQuery into the global](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/02_module_scope_02-500x450.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/02_module_scope_02.png)
 
-This works, but they are some annoying problems that result.
+这在有效的同时也产生了副作用。
 
-First, all of your script tags need to be in the right order. Then you have to be careful to make sure that no one messes up that order.
+首先，所有的 script 标签都需要按照正确的顺序排列。所以你必须小心确保那个顺序没被打乱。
 
-If you do mess up that order, then in the middle of running, your app will throw an error. When the function goes looking for jQuery where it expects it — on the global — and doesn’t find it, it will throw an error and stop executing.
+如果你搞乱了这个顺序，那么在运行的过程中，你的应用程序就会抛出一个错误。当函数寻找它期望的 jQuery 时 —— 在全局作用域里 —— 却没有找到它，它会抛出一个错误并停止运行。
 
 [![The top function scope has been removed and now the second function scope can’t find jQuery on the global](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/02_module_scope_03-500x450.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/02_module_scope_03.png)
 
-This makes maintaining code tricky. It makes removing old code or script tags a game of roulette. You don’t know what might break. The dependencies between these different parts of your code are implicit. Any function can grab anything on the global, so you don’t know which functions depend on which scripts.
+这使得维护代码非常棘手。这让移除老代码或老 script 标签变成了一场轮盘赌游戏。你不知道会弄坏什么。代码的不同部分之间的依赖关系是隐式的。任何函数都可以获取全局作用域中的任何东西，所以你不知道哪些函数依赖于哪些 script 标签。
 
-A second problem is that because these variables are on the global scope, every part of the code that’s inside of that global scope can change the variable. Malicious code can change that variable on purpose to make your code do something you didn’t mean for it to, or non-malicious code could just accidentally clobber your variable.
+第二个问题是，因为这些变量位于全局范围内，所以全局范围内的代码的每个部分都可以更改该变量。恶意代码可能会故意更改该变量，以使你的代码执行某些你并不想要的操作，或者非恶意代码可能会意外地弄乱你的变量。
 
-### How do modules help?
+### 模块是如何提供帮助的？
 
-Modules give you a better way to organize these variables and functions. With modules, you group the variables and functions that make sense to go together.
+模块为你提供了更好的方法来组织这些变量和函数。通过模块，你可以将有意义的变量和函数分组在一起。
 
-This puts these functions and variables into a module scope. The module scope can be used to share variables between the functions in the module.
+这会将这些函数和变量放入模块作用域。模块作用域可用于在模块中的函数之间共享变量。
 
-But unlike function scopes, module scopes have a way of making their variables available to other modules as well. They can say explicitly which of the variables, classes, or functions in the module should be available.
+但是与函数作用域不同，模块作用域也可以将其变量提供给其他模块。它们可以明确说明模块中的哪些变量、类或函数应该共享。
 
-When something is made available to other modules, it’s called an export. Once you have an export, other modules can explicitly say that they depend on that variable, class or function.
+当将某些东西提供给其他模块时，称为 export。一旦你声明了一个 export，其他模块就可以明确地说它们依赖于该变量、类或函数。
 
 [![Two module scopes, with one reaching into the other to grab an export](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/02_module_scope_04-500x450.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/02_module_scope_04.png)
 
-Because this is an explicit relationship, you can tell which modules will break if you remove another one.
+因为这是显式的关系，所以当删除了某个模块时，你可以确定哪些模块会出问题。
 
-Once you have the ability to export and import variables between modules, it makes it a lot easier to break up your code into small chunks that can work independently of each other. Then you can combine and recombine these chunks, kind of like Lego blocks, to create all different kinds of applications from the same set of modules.
+一旦你能够在模块之间导出和导入变量，就可以更容易地将代码分解为可独立工作的小块。然后，你可以组合或重组这些代码块（像乐高一样），从同一组模块创建出各种不同的应用程序。
 
-Since modules are so useful, there have been multiple attempts to add module functionality to JavaScript. Today there are two module systems that are actively being used. CommonJS (CJS) is what Node.js has used historically. ESM (EcmaScript modules) is a newer system which has been added to the JavaScript specification. Browsers already support ES modules, and Node is adding support.
+由于模块非常有用，历史上有多次向 JavaScript 添加模块功能的尝试。如今有两个模块系统正在大范围地使用。CommonJS（CJS）是 Node.js 历史上使用的。ESM（EcmaScript 模块）是一个更新的系统，已被添加到 JavaScript 规范中。浏览器已经支持了 ES 模块，并且 Node 也正在添加支持。
 
-Let’s take an in-depth look at how this new module system works.
+让我们来深入了解这个新模块系统的工作原理。
 
-### How ES modules work
+### ES 模块如何工作
 
-When you’re developing with modules, you build up a graph of dependencies. The connections between different dependencies come from any import statements that you use.
+使用模块开发时，会建立一个依赖图。不同依赖项之间的连接来自你使用的各种 import 语句。
 
-These import statements are how the browser or Node knows exactly what code it needs to load. You give it a file to use as an entry point to the graph. From there it just follows any of the import statements to find the rest of the code.
+浏览器或者 Node 通过 import 语句来确定需要加载什么代码。你给它一个文件来作为依赖图的入口。之后它会随着 import 语句来找到所有剩余的代码。
 
 [![A module with two dependencies. The top module is the entry. The other two are related using import statements](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/04_import_graph-500x291.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/04_import_graph.png)
 
-But files themselves aren’t something that the browser can use. It needs to parse all of these files to turn them into data structures called Module Records. That way, it actually knows what’s going on in the file.
+但浏览器并不能直接使用文件本身。它需要把这些文件解析成一种叫做模块记录（Module Records）的数据结构。这样它就知道了文件中到底发生了什么。
 
 [![A module record with various fields, including RequestedModules and ImportEntries](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/05_module_record-500x287.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/05_module_record.png)
 
-After that, the module record needs to be turned into a module instance. An instance combines two things: the code and state.
+之后，模块记录需要转化为模块实例（module instance）。一个实例包含两个部分：代码和状态。
 
-The code is basically a set of instructions. It’s like a recipe for how to make something. But by itself, you can’t use the code to do anything. You need raw materials to use with those instructions.
+代码基本上是一组指令。就像是一个告诉你如何制作某些东西的配方。但你仅依靠代码并不能做任何事情。你需要将原材料和这些指令组合起来使用。
 
-What is state? State gives you those raw materials. State is the actual values of the variables at any point in time. Of course, these variables are just nicknames for the boxes in memory that hold the values.
+什么是状态？状态就是给你这些原材料的东西。指令是所有变量在任何时间的实际值的集合。当然，这些变量只是内存中保存值的数据块的名称而已。
 
-So the module instance combines the code (the list of instructions) with the state (all the variables’ values).
+所以模块实例将代码（指令列表）和状态（所有变量的值）组合在一起。
 
 [![A module instance combining code and state](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/06_module_instance-500x372.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/06_module_instance.png)
 
-What we need is a module instance for each module. The process of module loading is going from this entry point file to having a full graph of module instances.
+我们需要的是每个模块的模块实例。模块加载就是从此入口文件开始，生成包含全部模块实例的依赖图的过程。
 
-For ES modules, this happens in three steps.
+对于 ES 模块来说，这主要有三个步骤：
 
-1.  Construction — find, download, and parse all of the files into module records.
-2.  Instantiation —find boxes in memory to place all of the exported values in (but don’t fill them in with values yet). Then make both exports and imports point to those boxes in memory. This is called linking.
-3.  Evaluation —run the code to fill in the boxes with the variables’ actual values.
+1. 构造 —— 查找、下载并解析所有文件到模块记录中。
+2. 实例化 —— 在内存中寻找一块区域来存储所有导出的变量（但还没有填充值）。然后让 export 和 import 都指向这些内存块。这个过程叫做链接（linking）。
+3. 求值 —— 运行代码，在内存块中填入变量的实际值。
 
 [![The three phases. Construction goes from a single JS file to multiple module records. Instantiation links those records. Evaluation executes the code.](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/07_3_phases-500x184.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/07_3_phases.png)
 
-People talk about ES modules being asynchronous. You can think about it as asynchronous because the work is split into these three different phases — loading, instantiating, and evaluating — and those phases can be done separately.
+人们说 ES 模块是异步的。你可以把它当作时异步的，因为整个过程被分为了三阶段 —— 加载、实例化和求值 —— 这三个阶段可以分开完成。
 
-This means the spec does introduce a kind of asynchrony that wasn’t there in CommonJS. I’ll explain more later, but in CJS a module and the dependencies below it are loaded, instantiated, and evaluated all at once, without any breaks in between.
+这意味着 ES 规范确实引入了一种在 CommonJS 中并不存在的异步性。我稍后会再解释，但是在 CJS 中，一个模块和其下的所有依赖会一次性完成加载、实例化和求值，中间没有任何中断。
 
-However, the steps themselves are not necessarily asynchronous. They can be done in a synchronous way. It depends on what’s doing the loading. That’s because not everything is controlled by the ES module spec. There are actually two halves of the work, which are covered by different specs.
+当然，这些步骤本身并不必须是异步的。它们可以以同步的方式完成。这取决于谁在做加载这个过程。这是因为 ES 模块规范并没有控制所有的事情。实际上有两部分工作，这些工作分别由不同的规范控制。
 
-The [ES module spec](https://tc39.github.io/ecma262/#sec-modules) says how you should parse files into module records, and how you should instantiate and evaluate that module. However, it doesn’t say how to get the files in the first place.
+[ES模块规范](https://tc39.github.io/ecma262/#sec-modules)说明了如何将文件解析到模块记录，以及如何实例化和求值该模块。但是，它并没有说明如何获取文件。
 
-It’s the loader that fetches the files. And the loader is specified in a different specification. For browsers, that spec is the [HTML spec](https://html.spec.whatwg.org/#fetch-a-module-script-tree). But you can have different loaders based on what platform you are using.
+是加载器来获取文件。加载器在另一个不同的规范中定义。对于浏览器来说，这个规范是 [HTML 规范](https://html.spec.whatwg.org/#fetch-a-module-script-tree)。但是你可以根据所使用的平台有不同的加载器。
 
 [![Two cartoon figures. One represents the spec that says how to load modules (i.e., the HTML spec). The other represents the ES module spec.](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/07_loader_vs_es-500x286.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/07_loader_vs_es.png)
 
-The loader also controls exactly how the modules are loaded. It calls the ES module methods — `ParseModule`, `Module.Instantiate`, and `Module.Evaluate`. It’s kind of like a puppeteer controlling the JS engine’s strings.
+加载器还精确控制模块的加载方式。它调用 ES 模块的方法 —— `ParseModule`、`Module.Instantiate` 和 `Module.Evaluate`。这有点像通过提线来控制 JS 引擎这个木偶。
 
 [![The loader figure acting as a puppeteer to the ES module spec figure.](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/08_loader_as_puppeteer-500x330.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/08_loader_as_puppeteer.png)
 
-Now let’s walk through each step in more detail.
+现在让我们更详细地介绍每一步。
 
-#### Construction
+#### 构造
 
-Three things happen for each module during the Construction phase.
+在构造阶段，每个模块都会经历三件事情。
 
-1.  Figure out where to download the file containing the module from (aka module resolution)
-2.  Fetch the file (by downloading it from a URL or loading it from the file system)
-3.  Parse the file into a module record
+1. 找出从哪里下载包含该模块的文件（也称为模块解析）
+2. 获取文件（从 URL 下载或从文件系统加载）
+3. 将文件解析为模块记录
 
-#### Finding the file and fetching it
+#### 查找文件并获取
 
-The loader will take care of finding the file and downloading it. First it needs to find the entry point file. In HTML, you tell the loader where to find it by using a script tag.
+加载器将负责查找文件并下载它。首先它需要找到入口文件。在 HTML 中，你通过使用 script 标记来告诉加载器在哪里找到它。
 
 [![A script tag with the type=module attribute and a src URL. The src URL has a file coming from it which is the entry](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/08_script_entry-500x188.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/08_script_entry.png)
 
-But how does it find the next bunch of modules — the modules that `main.js` directly depends on?
+但它如何找到剩下的一堆模块 —— 那些 `main.js` 直接依赖的模块？
 
-This is where import statements come in. One part of the import statement is called the module specifier. It tells the loader where it can find each next module.
+这就要用到 import 语句了。import 语句中的一部分称为模块标识符。它告诉加载器哪里可以找到余下的模块。
 
 [![An import statement with the URL at the end labeled as the module specifier](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/09_module_specifier-500x105.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/09_module_specifier.png)
 
-One thing to note about module specifiers: they sometimes need to be handled differently between browsers and Node. Each host has its own way of interpreting the module specifier strings. To do this, it uses something called a module resolution algorithm, which differs between platforms. Currently, some module specifiers that work in Node won’t work in the browser, but there is [ongoing work to fix this](https://github.com/domenic/package-name-maps).
+关于模块标识符有一点需要注意：它们有时需要在浏览器和 Node 之间进行不同的处理。每个宿主都有自己的解释模块标识符字符串的方式。要做到这一点，它使用了一种称为模块解析的算法，它在不同平台之间有所不同。目前，在 Node 中可用的一些模块标识符在浏览器中不起作用，但[这个问题正在被修复](https://github.com/domenic/package-name-maps)。
 
-Until that’s fixed, browsers only accept URLs as module specifiers. They will load the module file from that URL. But that doesn’t happen for the whole graph at the same time. You don’t know what dependencies the module needs you to fetch until you’ve parsed the file… and you can’t parse the file until you fetched it.
+在修复之前，浏览器只接受 URL 作为模块标识符。它们将从该 URL 加载模块文件。但是，这并不是在整个依赖图上同时发生的。在解析文件前，并不知道这个文件中的模块需要再获取哪些依赖……并且在获取文件之前无法解析那个文件。
 
-This means that we have to go through the tree layer-by-layer, parsing one file, then figuring out its dependencies, and then finding and loading those dependencies.
+这意味着我们必须逐层遍历依赖树，解析一个文件，然后找出它的依赖关系，然后查找并加载这些依赖。
 
 [![A diagram that shows one file being fetched and then parsed, and then two more files being fetched and then parsed](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/10_construction-500x302.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/10_construction.png)
 
-If the main thread were to wait for each of these files to download, a lot of other tasks would pile up in its queue.
+如果主线程要等待这些文件的下载，那么很多其他任务将堆积在队列中。
 
-That’s because when you’re working in a browser, the downloading part takes a long time.
+这是就是为什么当你使用浏览器时，下载部分需要很长时间。
 
 ![A chart of latencies showing that if a CPU cycle took 1 second, then main memory access would take 6 minutes, and fetching a file from a server across the US would take 4 years](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/11_latency-500x270.png)
 
-Based on [this chart](https://twitter.com/srigi/status/917998817051541504).
+基于[此图表](https://twitter.com/srigi/status/917998817051541504)。
 
-Blocking the main thread like this would make an app that uses modules too slow to use. This is one of the reasons that the ES module spec splits the algorithm into multiple phases. Splitting out construction into its own phase allows browsers to fetch files and build up their understanding of the module graph before getting down to the synchronous work of instantiating.
+像这样阻塞主线程会让采用了模块的应用程序速度太慢而无法使用。这是 ES 模块规范将算法分为多个阶段的原因之一。将构造过程单独分离出来，使得浏览器在执行同步的初始化过程前可以自行下载文件并建立自己对于模块图的理解。
 
-This approach—having the algorithm split up into phases—is one of the key differences between ES modules and CommonJS modules.
+这种方法 —— 将算法分解成不同阶段 —— 是 ES 模块和 CommonJS 模块之间的主要区别之一。
 
-CommonJS can do things differently because loading files from the filesystem takes much less time than downloading across the Internet. This means Node can block the main thread while it loads the file. And since the file is already loaded, it makes sense to just instantiate and evaluate (which aren’t separate phases in CommonJS). This also means that you’re walking down the whole tree, loading, instantiating, and evaluating any dependencies before you return the module instance.
+CommonJS 可以以不同的方式处理的原因是，从文件系统加载文件比在 Internet 上下载需要少得多的时间。这意味着 Node 可以在加载文件时阻塞主线程。而且既然文件已经加载了，直接实例化和求值（在 CommonJS 中并不区分这两个阶段）就理所当然了。这也意味着在返回模块实例之前，你遍历了整棵树，加载、实例化和求值了所有依赖关系。
 
 [![A diagram showing a Node module evaluating up to a require statement, and then Node going to synchronously load and evaluate the module and any of its dependencies](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/12_cjs_require-500x298.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/12_cjs_require.png)
 
-The CommonJS approach has a few implications, and I will explain more about those later. But one thing that it means is that in Node with CommonJS modules, you can use variables in your module specifier. You are executing all of the code in this module (up to the `require` statement) before you look for the next module. That means the variable will have a value when you go to do module resolution.
+CommonJS 方法有一些隐式特性，稍后我会解释。其中一个是，在使用 CommonJS 模块的 Node 中，可以在模块标识符中使用变量。在查找下一个模块之前，你执行了此模块中的所有代码（直至 `require` 语句）。这意味着当你去做模块解析时，变量会有值。
 
-But with ES modules, you’re building up this whole module graph beforehand… before you do any evaluation. This means you can’t have variables in your module specifiers, because those variables don’t have values yet.
+但是对于 ES 模块，在进行任何求值之前，你需要事先构建整个模块图。这意味着你的模块标识符中不能有变量，因为这些变量还没有值。
 
 [![A require statement which uses a variable is fine. An import statement that uses a variable is not.](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/13_static_import-500x146.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/13_static_import.png)
 
-But sometimes it is really useful to use variables for module paths. For example, you might want to switch which module you load depending on what the code is doing or what environment it is running in.
+但有时候在模块路径使用变量确实非常有用。例如，你可能需要根据代码的运行情况或运行环境来切换加载某个模块。
 
-To make this possible for ES modules, there’s a proposal called [dynamic import](https://github.com/tc39/proposal-dynamic-import). With it, you can use an import statement like `import(`${path}/foo.js`)`.
+为了让 ES 模块支持这个，有一个名为 [动态导入](https://github.com/tc39/proposal-dynamic-import) 的提案。有了它，你可以像 ``import(`${path}`/foo.js`` 这样使用 import 语句。
 
-The way this works is that any file loaded using `import()` is handled as the entry point to a separate graph. The dynamically imported module starts a new graph, which is processed separately.
+它的原理是，任何通过 `import()` 加载的的文件都会被作为一个独立的依赖图的入口。动态导入的模块开启一个新的依赖图，并单独处理。
 
 [![Two module graphs with a dependency between them, labeled with a dynamic import statement](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/14dynamic_import_graph-500x389.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/14dynamic_import_graph.png)
 
-One thing to note, though — any module that is in both of these graphs is going to share a module instance. This is because the loader caches module instances. For each module in a particular global scope, there will only be one module instance.
+有一点需要注意，同时存在于这两个依赖图中的模块都将共享同一个模块实例。这是因为加载器会缓存模块实例。对于特定全局作用域中的每个模块，都将只有一个模块实例。
 
-This means less work for the engine. For example, it means that the module file will only be fetched once even if multiple modules depend on it. (That’s one reason to cache modules. We’ll see another in the evaluation section.)
+这意味着引擎的工作量减少了。例如，这意味着即使多个模块依赖某个模块，这个模块的文件也只会被获取一次。（这是缓存模块的一个原因，我们将在求值部分看到另一个。）
 
-The loader manages this cache using something called a [module map](https://html.spec.whatwg.org/multipage/webappapis.html#module-map). Each global keeps track of its modules in a separate module map.
+加载器使用一种叫做[模块映射](https://html.spec.whatwg.org/multipage/webappapis.html#module-map) 的东西来管理这个缓存。每个全局作用域都在一个单独的模块映射中跟踪其模块。
 
-When the loader goes to fetch a URL, it puts that URL in the module map and makes a note that it’s currently fetching the file. Then it will send out the request and move on to start fetching the next file.
+当加载器开始获取一个 URL 时，它会将该 URL 放入模块映射中，并标记上它正在获取文件。然后它会发出请求并继续开始获取下一个文件。
 
 [![The loader figure filling in a Module Map chart, with the URL of the main module on the left and the word fetching being filled in on the right](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/15_module_map-500x170.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/15_module_map.png)
 
-What happens if another module depends on the same file? The loader will look up each URL in the module map. If it sees `fetching` in there, it will just move on to the next URL.
+如果另一个模块依赖于同一个文件会发生什么？加载器将查找模块映射中的每个 URL。如果看到了 `fetching`，它就会直接开始下一个 URL。
 
-But the module map doesn’t just keep track of what files are being fetched. The module map also serves as a cache for the modules, as we’ll see next.
+但是模块映射不只是跟踪哪些文件正在被获取。模块映射也可以作为模块的缓存，接下来我们就会看到。
 
-#### Parsing
+#### 解析
 
-Now that we have fetched this file, we need to parse it into a module record. This helps the browser understand what the different parts of the module are.
+现在我们已经获取了这个文件，我们需要将它解析为模块记录。这有助于浏览器了解模块的不同部分。
 
 [![Diagram showing main.js file being parsed into a module record](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/25_file_to_module_record-500x199.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/25_file_to_module_record.png)
 
-Once the module record is created, it is placed in the module map. This means that whenever it’s requested from here on out, the loader can pull it from that map.
+一旦模块记录被创建，它会被记录在模块映射中。这意味着在这之后的任意时间如果有对它的请求，加载器就可以从映射中获取它。
 
 [![The “fetching” placeholders in the module map chart being filled in with module records](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/25_module_map-500x239.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/25_module_map.png)
 
-There is one detail in parsing that may seem trivial, but that actually has pretty big implications. All modules are parsed as if they had `"use strict"` at the top. There are also other slight differences. For example, the keyword `await` is reserved in a module’s top-level code, and the value of `this` is `undefined`.
+解析中有一个细节可能看起来微不足道，但实际上有很大的影响。所有的模块都被当作在顶部使用了 `"use strict"` 来解析。还有一些其他细微差别。例如，关键字 `await` 保留在模块的顶层代码中，`this` 的值是 `undefined`。
 
-This different way of parsing is called a “parse goal”. If you parse the same file but use different goals, you’ll end up with different results. So you want to know before you start parsing what kind of file you’re parsing — whether it’s a module or not.
+这种不同的解析方式被称为「解析目标」。如果你使用不同的目标解析相同的文件，你会得到不同的结果。所以在开始解析你想知道正在解析的文件的类型 —— 它是否是一个模块。
 
-In browsers this is pretty easy. You just put `type="module"` on the script tag. This tells the browser that this file should be parsed as a module. And since only modules can be imported, the browser knows that any imports are modules, too.
+在浏览器中这很容易。你只需在 script 标记中设置 `type="module"`。这告诉浏览器此文件应该被解析为一个模块。另外由于只有模块可以被导入，浏览器也就知道任何导入的都是模块。
 
 [![The loader determining that main.js is a module because the type attribute on the script tag says so, and counter.js must be a module because it’s imported](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/26_parse_goal-500x311.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/26_parse_goal.png)
 
-But in Node, you don’t use HTML tags, so you don’t have the option of using a `type` attribute. One way the community has tried to solve this is by using an `.mjs` extension. Using that extension tells Node, “this file is a module”. You’ll see people talking about this as the signal for the parse goal. The discussion is currently ongoing, so it’s unclear what signal the Node community will decide to use in the end.
+但是在 Node 中，不使用 HTML 标签，所以没法选择使用 `type` 属性。社区试图解决这个问题的一种方法是使用 `.mjs` 扩展名。使用该扩展名告诉 Node「这个文件是一个模块」。你会看到人们将这个叫做解析目标的信号。讨论仍在进行中，所以目前还不清楚 Node 社区最终会决定使用什么信号。
 
-Either way, the loader will determine whether to parse the file as a module or not. If it is a module and there are imports, it will then start the process over again until all of the files are fetched and parsed.
+无论哪种方式，加载器会决定是否将文件解析为模块。如果是一个模块并且有导入，则加载器将再次启动该过程，直到获取并解析了所有的文件。
 
-And we’re done! At the end of the loading process, you’ve gone from having just an entry point file to having a bunch of module records.
+我们完成了！在加载过程结束时，从只有一个入口文件变成了一堆模块记录。
 
 [![A JS file on the left, with 3 parsed module records on the right as a result of the construction phase](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/27_construction-500x406.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/27_construction.png)
 
-The next step is to instantiate this module and link all of the instances together.
+下一步是实例化此模块并将所有实例链接在一起。
 
-#### Instantiation
+#### 实例化
 
-Like I mentioned before, an instance combines code with state. That state lives in memory, so the instantiation step is all about wiring things up to memory.
+就像我之前提到的，实例将代码和状态结合起来。状态存在于内存中，因此实例化步骤就是将内容连接到内存。
 
-First, the JS engine creates a module environment record. This manages the variables for the module record. Then it finds boxes in memory for all of the exports. The module environment record will keep track of which box in memory is associated with each export.
+首先，JS 引擎创建一个模块环境记录（module environment record）。它管理模块记录对应的变量。然后它为所有的 export 分配内存空间。模块环境记录会跟踪不同内存区域与不同 export 间的关联关系。
 
-These boxes in memory won’t get their values yet. It’s only after evaluation that their actual values will be filled in. There is one caveat to this rule: any exported function declarations are initialized during this phase. This makes things easier for evaluation.
+这些内存区域还没有被赋值。只有在求值之后它们才会获得真正的值。这条规则有一点需要注意：任何 export 的函数声明都在这个阶段初始化。这让求值更加容易。
 
-To instantiate the module graph, the engine will do what’s called a depth first post-order traversal. This means it will go down to the bottom of the graph — to the dependencies at the bottom that don’t depend on anything else — and set up their exports.
+为了实例化模块图，引擎将执行所谓的深度优先后序遍历。这意味着它会深入到模块图的底部 —— 直到不依赖于其他任何东西的底部 —— 并处理它们的 export。
 
 [![A column of empty memory in the middle. Module environment records for the count and display modules are wired up to boxes in memory.](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/30_live_bindings_01-500x206.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/30_live_bindings_01.png)
 
-The engine finishes wiring up all of the exports below a module — all of the exports that the module depends on. Then it comes back up a level to wire up the imports from that module.
+引擎将某个模块下的所有导出都连接好 —— 也就是这个模块所依赖的所有导出。之后它回溯到上一层来连接该模块的所有导入。
 
-Note that both the export and the import point to the same location in memory. Wiring up the exports first guarantees that all of the imports can be connected to matching exports.
+请注意，导出和导入都指向内存中的同一个区域。先连接导出保证了所有的导出都可以被连接到对应的导入上。
 
 [![Same diagram as above, but with the module environment record for main.js now having its imports linked up to the exports from the other two modules.](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/30_live_bindings_02-500x206.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/30_live_bindings_02.png)
 
-This is different from CommonJS modules. In CommonJS, the entire export object is copied on export. This means that any values (like numbers) that are exported are copies.
+这与 CommonJS 模块不同。在 CommonJS 中，整个 export 对象在 export 时被复制。这意味着 export 的任何值（如数字）都是副本。
 
-This means that if the exporting module changes that value later, the importing module doesn’t see that change.
+这意味着如果导出模块稍后更改该值，则导入模块并不会看到该更改。
 
 [![Memory in the middle with an exporting common JS module pointing to one memory location, then the value being copied to another and the importing JS module pointing to the new location](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/31_cjs_variable-500x113.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/31_cjs_variable.png)
 
-In contrast, ES modules use something called live bindings. Both modules point to the same location in memory. This means that when the exporting module changes a value, that change will show up in the importing module.
+相比之下，ES 模块使用叫做动态绑定（live bindings）的东西。两个模块都指向内存中的相同位置。这意味着当导出模块更改一个值时，该更改将反映在导入模块中。
 
-Modules that export values can change those values at any time, but importing modules cannot change the values of their imports. That being said, if a module imports an object, it can change property values that are on that object.
+导出值的模块可以随时更改这些值，但导入模块不能更改其导入的值。但是，如果一个模块导入一个对象，它可以改变该对象上的属性值。
 
 [![The exporting module changing the value in memory. The importing module also tries but fails.](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/30_live_bindings_04-500x206.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/30_live_bindings_04.png)
 
-The reason to have live bindings like this is then you can wire up all of the modules without running any code. This helps with evaluation when you have cyclic dependencies, as I’ll explain below.
+之所以使用动态绑定，是因为这样你就可以连接所有模块而不需要运行任何代码。这有助于循环依赖存在时的求值，我会在下面解释。
 
-So at the end of this step, we have all of the instances and the memory locations for the exported/imported variables wired up.
+因此，在此步骤结束时，我们将所有实例和导出 / 导入变量的内存位置连接了起来。
 
-Now we can start evaluating the code and filling in those memory locations with their values.
+现在我们可以开始求值代码并用它们的值填充这些内存位置。
 
-#### Evaluation
+#### 求值
 
-The final step is filling in these boxes in memory. The JS engine does this by executing the top-level code — the code that is outside of functions.
+最后一步是在内存中填值。JS 引擎通过执行顶层代码 —— 函数之外的代码来实现这一点。
 
-Besides just filling in these boxes in memory, evaluating the code can also trigger side effects. For example, a module might make a call to a server.
+除了在内存中填值，求值代码也会引发副作用。例如，一个模块可能会请求服务器。
 
 [![A module will code outside of functions, labeled top level code](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/40_top_level_code-500x146.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/40_top_level_code.png)
 
-Because of the potential for side effects, you only want to evaluate the module once. As opposed to the linking that happens in instantiation, which can be done multiple times with exactly the same result, evaluation can have different results depending on how many times you do it.
+由于潜在的副作用，你只想对模块求值一次。对于实例化中发生的链接过程，多次链接会得到相同的结果，但与此不同的是，求值结果可能会随着求值次数的不同而变化。
 
-This is one reason to have the module map. The module map caches the module by canonical URL so that there is only one module record for each module. That ensures each module is only executed once. Just as with instantiation, this is done as a depth first post-order traversal.
+这是需要模块映射的原因之一。模块映射通过规范 URL 来缓存模块，所以每个模块只有一个模块记录。这确保了每个模块只会被执行一次。就像实例化一样，这会通过深度优先后序遍历完成。
 
-What about those cycles that we talked about before?
+那些我们之前谈过的循环依赖呢？
 
-In a cyclic dependency, you end up having a loop in the graph. Usually, this is a long loop. But to explain the problem, I’m going to use a contrived example with a short loop.
+如果有循环依赖，那最终会在依赖图中产生一个循环。通常，会有一个很长的循环路径。但为了解释这个问题，我打算用一个短循环的人为的例子。
 
 [![A complex module graph with a 4 module cycle on the left. A simple 2 module cycle on the right.](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/41_cjs_cycle-500x224.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/41_cjs_cycle.png)
 
-Let’s look at how this would work with CommonJS modules. First, the main module would execute up to the require statement. Then it would go to load the counter module.
+让我们看看 CommonJS 模块如何处理这个问题。首先，main 模块会执行到 require 语句。然后它会去加载 counter 模块。
 
 [![A commonJS module, with a variable being exported from main.js after a require statement to counter.js, which depends on that import](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/41_cyclic_graph-500x281.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/41_cyclic_graph.png)
 
-The counter module would then try to access `message` from the export object. But since this hasn’t been evaluated in the main module yet, this will return undefined. The JS engine will allocate space in memory for the local variable and set the value to undefined.
+然后 counter 模块会尝试从导出对象访问 `message`。但是，由于这尚未在 main 模块中进行求值，因此将返回 undefined。JS 引擎将为局部变量分配内存空间并将值设置为 undefined。
 
 [![Memory in the middle with no connection between main.js and memory, but an importing link from counter.js to a memory location which has undefined](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/42_cjs_variable_2-500x113.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/42_cjs_variable_2.png)
 
-Evaluation continues down to the end of the counter module’s top level code. We want to see whether we’ll get the correct value for message eventually (after main.js is evaluated), so we set up a timeout. Then evaluation resumes on `main.js`.
+求值过程继续，直到 counter 模块顶层代码的结尾。我们想看看最终是否会得到正确的 message 值（在 main.js 求值之后），因此我们设置了 timeout。之后在 `main.js` 上继续求值。
 
 [![counter.js returning control to main.js, which finishes evaluating](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/43_cjs_cycle-500x224.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/43_cjs_cycle.png)
 
-The message variable will be initialized and added to memory. But since there’s no connection between the two, it will stay undefined in the required module.
+message 变量将被初始化并添加到内存中。但是由于两者之间没有连接，它将在 counter 模块中保持 undefined。
 
 [![main.js getting its export connection to memory and filling in the correct value, but counter.js still pointing to the other memory location with undefined in it](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/44_cjs_variable_2-500x216.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/44_cjs_variable_2.png)
 
-If the export were handled using live bindings, the counter module would see the correct value eventually. By the time the timeout runs, `main.js`’s evaluation would have completed and filled in the value.
+如果使用动态绑定处理导出，则 counter 模块最终会看到正确的值。在 timeout 运行时，`main.js` 的求值已经结束并填充了该值。
 
-Supporting these cycles is a big rationale behind the design of ES modules. It’s this three-phase design that makes them possible.
+支持这些循环依赖是 ES 模块设计背后的一大缘由。正是这种三段式设计使其成为可能。
 
-### What’s the status of ES modules?
+### ES 模块的现状如何？
 
-With the release of Firefox 60 in early May, all major browsers will support ES modules by default. Node is also adding support, with a [working group](https://github.com/nodejs/modules) dedicated to figuring out compatibility issues between CommonJS and ES modules.
+随着 5 月初会发布的 Firefox 60，所有主流浏览器均默认支持 ES 模块。Node 也增加了支持，一个[工作组](https://github.com/nodejs/modules)正致力于解决 CommonJS 和 ES 模块之间的兼容性问题。
 
-This means that you’ll be able to use the script tag with `type=module`, and use imports and exports. However, more module features are yet to come. The [dynamic import proposal](https://github.com/tc39/proposal-dynamic-import) is at Stage 3 in the specification process, as is [import.meta](https://github.com/tc39/proposal-import-meta) which will help support Node.js use cases, and the [module resolution proposal](https://github.com/domenic/package-name-maps) will also help smooth over differences between browsers and Node.js. So you can expect working with modules to get even better in the future.
+这意味着你可以在 script 标记中使用 `type=module`，并使用 import 和 export。但是，更多模块特性尚未实现。[动态导入提议](https://github.com/tc39/proposal-dynamic-import)正处于规范过程的第 3 阶段，有助于支持 Node.js 用例的 [import.meta](https://github.com/tc39/proposal-import-meta) 也一样，[模块解析提议](https://github.com/domenic/package-name-maps)也将有助于抹平浏览器和 Node.js 之间的差异。所以我们可以期待将来的模块支持会更好。
 
-## Acknowledgements
+## 致谢
 
-Thank you to everyone who gave feedback on this post, or whose writing or discussions informed it, including Axel Rauschmayer, Bradley Farias, Dave Herman, Domenic Denicola, Havi Hoffman, Jason Weathersby, JF Bastien, Jon Coppeard, Luke Wagner, Myles Borins, Till Schneidereit, Tobias Koppers, and Yehuda Katz, as well as the members of the WebAssembly community group, the Node modules working group, and TC39.
+感谢所有对这篇文章给予反馈意见，或者通过书面和讨论提供信息的人，包括 Axel Rauschmayer、Bradley Farias、Dave Herman、Domenic Denicola、Havi Hoffman、Jason Weathersby、JF Bastien、Jon Coppeard、Luke Wagner、Myles Borins、Till Schneidereit、Tobias Koppers 和 Yehuda Katz，也感谢 WebAssembly 社区组、Node 模块工作组和 TC39 的成员们。
 
-## About [Lin Clark](http://code-cartoons.com)
+## 关于 [Lin Clark](http://code-cartoons.com)
 
-Lin is an engineer on the Mozilla Developer Relations team. She tinkers with JavaScript, WebAssembly, Rust, and Servo, and also draws code cartoons.
+Lin 是 Mozilla 开发者关系组的一名工程师。她研究 JavaScript、WebAssembly、Rust 和 Servo，也画过一些代码漫画。
 
-*   [code-cartoons.com](http://code-cartoons.com)
-*   [@linclark](http://twitter.com/linclark)
+* [code-cartoons.com](http://code-cartoons.com)
+* [@linclark](http://twitter.com/linclark)
 
-[More articles by Lin Clark…](https://hacks.mozilla.org/author/lclarkmozilla-com/)
+[Lin Clark 的更多文章……](https://hacks.mozilla.org/author/lclarkmozilla-com/)
 
 
 ---
