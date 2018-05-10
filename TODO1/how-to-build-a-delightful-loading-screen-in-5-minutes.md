@@ -211,8 +211,7 @@ animation: rotate 600ms infinite linear;
 
 哟！我们做到了！
 
-请看最终效果图：
-
+请看最终效果图。
 
 ![](https://cdn-images-1.medium.com/max/800/1*DQFXH8zH4RpOFOqOb4DbMg.gif)
 
