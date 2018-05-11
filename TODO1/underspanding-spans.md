@@ -5,7 +5,7 @@
 > * 译者：[tanglie1993](https://github.com/tanglie1993)
 > * 校对者：[dandyxu](https://github.com/dandyxu), [ALVINYEH](https://github.com/ALVINYEH)
 
-# 理解 span
+# 论 Android 中 Span 的正确打开方式
 
 ![](https://cdn-images-1.medium.com/max/2000/1*Te49GZFBFW3PP8fiWv9oQA.png)
 
