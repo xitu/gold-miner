@@ -52,7 +52,7 @@ For new sidebar colors, click your workspace name, then     Preferences > Sideba
 
 #### 2. 将内容居中
 
-现在的效果并不理想，下一步我们将 class 为 `loading` 的 session 标签在页面上居中。
+现在的效果并不理想，下一步我们将 class 为 `.loading` 的 session 标签在页面上居中。
 ```
 body {
   display: flex;
