@@ -188,9 +188,7 @@ val intentCharSequence = intent.getCharSequenceExtra(TEXT_EXTRA)
 
 使用 Android 中的文本是一个常见的操作，调用正确的 `TextView.setText` 方法将有助于使你降低 app 的内存消耗，并提高其性能。
 
-> **感谢** [Siyamed Sinir](https://twitter.com/siyamed)，Clara Bayarri 以及 [Nick Butcher](https://medium.com/@crafty)。
-
-感谢 [Daniel Galpin](https://medium.com/@dagalpin?source=post_page)。
+> **感谢** [Siyamed Sinir](https://twitter.com/siyamed)、Clara Bayarri、[Nick Butcher](https://medium.com/@crafty) 和 [Daniel Galpin](https://medium.com/@dagalpin?source=post_page)。
 
 
 ---
