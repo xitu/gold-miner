@@ -19,18 +19,18 @@ Span 够为文字和段落设置样式，它是通过让用户使用 TextPaint �
 
 ### 原理：span 是怎样工作的
 
-Android 框架在数个类中涉及了文字样式处理以及 span: [`TextView`](https://developer.android.com/reference/android/widget/TextView.html), [`EditText`](https://developer.android.com/reference/android/widget/EditText.html), layout 类 ([`Layout`](https://developer.android.com/reference/android/text/Layout.html), [`StaticLayout`](https://developer.android.com/reference/android/text/StaticLayout.html) , [`DynamicLayout`](https://developer.android.com/reference/android/text/DynamicLayout.html)) 以及 `TextLine` (一个 `Layout` 中的包私有类) 而且它取决于数个参数：
+Android 框架在数个类中涉及了文字样式处理以及 span：[`TextView`](https://developer.android.com/reference/android/widget/TextView.html)、[`EditText`](https://developer.android.com/reference/android/widget/EditText.html)、layout 类 ([`Layout`](https://developer.android.com/reference/android/text/Layout.html)、[`StaticLayout`](https://developer.android.com/reference/android/text/StaticLayout.html)、[`DynamicLayout`](https://developer.android.com/reference/android/text/DynamicLayout.html)) 以及 `TextLine` (一个 `Layout` 中的包私有类) 而且它取决于数个参数：
 
-*   文字类型: 可选择，可编辑或不可选择。
-*   [`BufferType`](https://developer.android.com/reference/android/widget/TextView.BufferType.html)
-*   `TextView` 的 `LayoutParams` 类型
-*   等等
+*  文字类型：可选择，可编辑或不可选择。
+*  [`BufferType`](https://developer.android.com/reference/android/widget/TextView.BufferType.html)
+*  `TextView` 的 `LayoutParams` 类型
+*  等等
 
 框架会检查这些 `Spanned` 对象是否包含框架中不同类型的 span，并触发相应的行为。
 
 文本布局和绘制背后的逻辑是很复杂的，并且遍布不同的类；在这一节中，我们只能针对几种情况，简单地说明一下文本是如何被处理的。
 
-每当一个 span 改变时， [`TextView`](https://github.com/aosp-mirror/platform_frameworks_base/blob/master/core/java/android/widget/TextView.java).`spanChange` 检查 span 是否是 [`UpdateAppearance`] (https://developer.android.com/reference/android/text/style/UpdateAppearance.html)，[`ParagraphStyle`](https://developer.android.com/reference/android/text/style/ParagraphStyle.html) 或 [`CharacterStyle`](https://developer.android.com/reference/android/text/style/CharacterStyle.html) 的实例，而且，如果是的话，对自己调用 invalidate 方法，触发视图重绘。
+每当一个 span 改变时，[`TextView`](https://github.com/aosp-mirror/platform_frameworks_base/blob/master/core/java/android/widget/TextView.java) `spanChange` 检查 span 是否是 [`UpdateAppearance`] (https://developer.android.com/reference/android/text/style/UpdateAppearance.html)，[`ParagraphStyle`](https://developer.android.com/reference/android/text/style/ParagraphStyle.html) 或 [`CharacterStyle`](https://developer.android.com/reference/android/text/style/CharacterStyle.html) 的实例，而且，如果是的话，对自己调用 invalidate 方法，触发视图重绘。
 
  [`TextLine`](https://github.com/aosp-mirror/platform_frameworks_base/blob/master/core/java/android/text/TextLine.java) 类表示一行具有样式的文字，并且它只接受 `CharacterStyle`， [`MetricAffectingSpan`](https://developer.android.com/reference/android/text/style/MetricAffectingSpan.html) 和 [`ReplacementSpan`](https://developer.android.com/reference/android/text/style/ReplacementSpan.html)的子类。这是触发 [`MetricAffectingSpan.updateMeasureState`](https://developer.android.com/reference/android/text/style/MetricAffectingSpan.html#updateMeasureState%28android.text.TextPaint%29) 和 [`CharacterStyle.updateDrawState`](https://developer.android.com/reference/android/text/style/CharacterStyle.html#updateDrawState%28android.text.TextPaint%29) 的类。
 
