@@ -291,7 +291,7 @@ self.addEventListener('push', function(event) {
 
 这个特性不仅可以帮助客户理解和重现任何问题，而且还可以在发生问题的第一时间通知客户。
 
-如果你想[尝试 SessionStack](https://www.sessionstack.com/?utm_source=medium&utm_medium=source&utm_content=javascript-series-web-workers-try-now),这里有一个免费的计划。
+如果你想[尝试 SessionStack](https://www.sessionstack.com/?utm_source=medium&utm_medium=source&utm_content=javascript-series-web-workers-try-now)，这里有一个免费的计划。
 
 ![](https://cdn-images-1.medium.com/max/800/1*YKYHB1gwcVKDgZtAEnJjMg.png)
 
