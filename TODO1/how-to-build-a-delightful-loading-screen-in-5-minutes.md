@@ -84,7 +84,7 @@ body {
 
 ![](https://cdn-images-1.medium.com/max/800/1*wmMG_h5lJURLsYEZLv8ltw.png)
 
-#### 4. 设置下方 loading_author 的样式
+#### 4. 设置下方 `.loading_author` 的样式
 
 ```
 .loading__author {
@@ -110,7 +110,7 @@ body {
 
 ![](https://cdn-images-1.medium.com/max/800/1*AF1rXY_iumutiVOMSXf_LQ.gif)
 
-我们可以看到 loading 圆环一半是蓝色，另一半是灰色的。 默认情况下，`HTML` 元素不会被切分。所有HTML元素可以看作*盒子*。第一个真正的挑战是如何使 class 为 `.loading__anim` 的元素包含两种边框颜色。
+我们可以看到 loading 圆环一半是蓝色，另一半是灰色的。默认情况下，`HTML` 元素不会被切分。所有HTML元素可以看作*盒子*。第一个真正的挑战是如何使 class 为 `.loading__anim` 的元素包含两种边框颜色。
 
 如果你现在还没有太明白，不要担心。后面会继续进行讲解。
 
@@ -146,7 +146,7 @@ body {
   }
 ```
 
-在元素周围会形成宽度为 5 px的灰色边框。
+在元素周围会形成宽度为 5px 的灰色边框。
 
 下方为效果图。
 
@@ -156,7 +156,7 @@ body {
 
 让我们继续完善它。
 
-一个元素有四条边, `top` , `bottom` , `left` , 和 `right`。
+一个元素有四条边，`top`、`bottom`、`left` 和 `right`。
 
 我们之前设置的 `border` 对四个边都实现了相同的渲染。
 
@@ -175,7 +175,7 @@ body {
   }
 ```
 
-现在，`left` 和 `top` 边界将呈现蓝色。 效果图如下：
+现在，`left` 和 `top` 边界将呈现蓝色。效果图如下：
 
 ![](https://cdn-images-1.medium.com/max/800/1*bq8bUGVNglafbnDDj_beFw.png)
 
@@ -201,7 +201,7 @@ body {
 }
 ```
 
-希望您对 [CSS 动画](https://www.w3schools.com/css/css3_animations.asp) 有所了解。 `1 turn` 等于 `360 deg`，表示完整的转了一个 360 度的圈。
+希望您对 [CSS 动画](https://www.w3schools.com/css/css3_animations.asp) 有所了解。`1 turn` 等于 `360 deg`，表示完整的转了一个 360 度的圈。
 
 并按如下方式使用：
 
@@ -223,7 +223,7 @@ lo hicimos! (西班牙语)
 
 ### 想要进阶学习？
 
-我已经创建了一个免费的 CSS 指南，以便您能立刻掌握 CSS 技能。 [获取电子书](http://eepurl.com/dgDVRb)。
+我已经创建了一个免费的 CSS 指南，以便您能立刻掌握 CSS 技能。[获取电子书](http://eepurl.com/dgDVRb)。
 
 ![](https://cdn-images-1.medium.com/max/800/1*fJabzNuhWcJVUXa3O5OlSQ.png)
 
