@@ -2,84 +2,84 @@
 > * 原文作者：[Malcolm Kumwenda](https://medium.com/@malcolmcollin?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/writing-network-layer-in-swift-protocol-oriented-approach.md](https://github.com/xitu/gold-miner/blob/master/TODO1/writing-network-layer-in-swift-protocol-oriented-approach.md)
-> * 译者：
-> * 校对者：
+> * 译者：[talisk](https://github.com/talisk)
+> * 校对者：[ALVINYEH](https://github.com/ALVINYEH)，[rydensun](https://github.com/rydensun)
 
-# Writing a Network Layer in Swift: Protocol-Oriented Approach
+# Swift 写网络层：用面向协议的方式
 
 ![](https://cdn-images-1.medium.com/max/2000/1*Kye90jVLsFUfHx2AQ497wg.png)
 
-In this guide we’ll look at how to implement a network layer in pure Swift without any third-party libraries. Lets’ jump straight to it! After reading the guide, our code should be:
+在本指南中，我们将介绍如何在没有任何第三方库的情况下以纯 Swift 实现网络层。让我们快开始吧！阅读了本指南后，我们的代码应该是：
 
-*   protocol-oriented
-*   easy to use
-*   easy to implement
-*   type safe
-*   use enums to configure endPoints.
+*   面向协议
+*   易于使用
+*   易于实现
+*   类型安全
+*   使用枚举来配置 endPoints
 
-Below is an example of what we’ll ultimately achieve with our network layer:
+以下是我们最终通过网络层实现的一个例子：
 
 ![](https://cdn-images-1.medium.com/max/800/0*eV_EkKllHSk2l6H-.)
 
-End goal for the project.
+该项目的最终目标。
 
-By just typing **_router.request(._**with the power of enums we can see all the endPoints that are available to us and the parameters needed for that request.
+借助枚举输入 **router.request(.**，我们可以看到所有可用的端点以及该请求所需的参数。
 
-### First, Some Structure
+### 首先，一些关于结构的东西
 
-When creating anything it is always important to have structure, so it will be easy to find things later on. I’m a firm believer that folder structure is a key contributor to software architecture. To keep our files well organised let’s create all our groups beforehand and I will make note of where each file should go. Here is an overview of the project structure. (_Please note names are only suggestions, you can name your classes and groups whatever you prefer._)
+在创建任何东西时，结构总是非常重要的，好的结构便于以后找到所需。我坚信文件夹结构是软件架构的一个关键贡献者。为了让我们的文件保持良好的组织性，我们事先就创建好所有组，然后记下每个文件应该放在哪里。这是一个对项目结构的概述。（**请注意以下名称都只是建议，你可以根据自己的喜好命名你的类和分组。**）
 
 ![](https://cdn-images-1.medium.com/max/800/0*gbQHZBOhWIroMl_i.)
 
-Project folder structure.
+项目目录结构。
 
-### EndPointType Protocol
+### EndPointType 协议
 
-The first thing that we need is to define our **_EndPointType_** protocol. This protocol will contain all the information to configure an EndPoint. What is an EndPoint? Well, essentially it is a URLRequest with all its comprising components such as headers, query parameters, and body parameters. The **_EndPointType_** protocol is the cornerstone of our network layers implementation. Go ahead, create a file and name it **_EndPointType_**. Place this file in the _Service_ group. (Not the _EndPoint_ group, this will be made clearer as we continue).
+我们需要的第一件事是定义我们的 **EndPointType** 协议。该协议将包含配置 EndPoint 的所有信息。什么是 EndPoint？本质上它是一个 URLRequest，它包含所有包含的组件，如标题，query 参数和 body 参数。**EndPointType** 协议是我们网络层实现的基石。接下来，创建一个文件并将其命名为 **EndPointType**。将此文件放在 **Service** 组中。（请注意不是 **EndPoint** 组，这会随着我们的继续变得更清晰）。
 
 ![](https://cdn-images-1.medium.com/max/800/0*WQX-_ikNnYOBIVAR.)
 
-EndPointType Protocol.
+EndPointType 协议。
 
-### HTTP Protocols
+### HTTP 协议
 
-Our **_EndPointType_** has a number of HTTP protocols that we need for building an entire endPoint. Let’s explore what these protocols entail.
+我们的 **EndPointType** 具有构建整个 endPoint 所需的大量HTTP协议。让我们来探索这些协议的含义。
 
 #### HTTPMethod
 
-Create a file named **_HTTPMethod_ **andplace it in the **_Service_** group. This enum will be used to set the HTTP method of our request.
+创建一个名为 **HTTPMethod** 的文件，并把它放到 **Service** 组里。这个枚举将被用于为我们的请求设置 HTTP 方法。
 
 ![](https://cdn-images-1.medium.com/max/800/0*cnfKl7UrZs6GD_up.)
 
-HTTPMethod enum.
+HTTPMethod 枚举。
 
 #### HTTPTask
 
-Create a file named **_HTTPTask_ **andplace it inside the **_Service_** group. The HTTPTask is responsible for configuring parameters for a specific endPoint. You can add as many cases as are applicable to your Network Layers requirements. I will be making requests so I only have three cases.
+创建一个名为 **HTTPTask** 的文件，并把它放到 **Service** 组里。HTTPTask 负责为特定的 endPoint 配置参数。你可以添加尽可能多的适用于你的网络层要求的情况。 我将要发一个请求，所以我只有三种情况。
 
 ![](https://cdn-images-1.medium.com/max/800/0*5dkZJhRbMFNknHwi.)
 
-HTTPTask enum.
+HTTPTask 枚举。
 
-We will discuss **_Parameters_ **and how we handle encoding parameters in the next section.
+我们将在下一节讨论**参数**以及参数的编解码。
 
 #### HTTPHeaders
 
-**_HTTPHeaders_** is simply just a typealias for a dictionary. You can create this typealias at the top of your **_HTTPTask_** file.
+**HTTPHeaders** 仅仅是字典的 typealias（别名）。你可以在 **HTTPTask** 文件的开头写下这个 typealias。
 
 ```
 public typealias HTTPHeaders = [String:String]
 ```
 
-### Parameters & Encoding
+### 参数及其编解码
 
-Create a file named **_ParameterEncoding_ **andplace it inside the **_Encoding_** group. The first thing that we define is a **_Parameters_ **typealias. We use a typealias to make our code cleaner and more concise.
+创建一个名为 **ParameterEncoding** 的文件，并把它放到 **Encoding** 组里。然后首要之事便是定义 **Parameters** 的 typealias。我们利用 typealias 使我们的代码更简洁、清晰。
 
 ```
 public typealias Parameters = [String:Any]
 ```
 
-Next, define a protocol **_ParameterEncoder_ **with one static function _encode._ The _encode_ method takes two parameters an **_inout URLRequest_** and **_Parameters_**. (To avoid ambiguity from henceforth I will refer to function parameters as arguments.) **INOUT** is a Swift keyword that defines an argument as a reference argument. Usually, variables are passed to functions as value types. By placing **_inout_** in front of the argument we define it as a reference type. To learn more about **_inout_** arguments you can head over [here](http://ios-tutorial.com/in-out-parameters-swift/). The **_ParameterEncoder_** protocol will be implemented by our **_JSONParameterEncoder_** and **_URLPameterEncoder_**.
+接下来，用一个静态函数 **encode** 定义一个协议 **ParameterEncoder**。**encode** 方法包含 **inout URLRequest** 和 **Parameters** 这两个参数。**inout** 是一个 Swift 的关键字，它将参数定义为引用参数。通常来说，变量以值类型传递给函数。通过在参数前面添加 **inout**，我们将其定义为引用类型。要了解更多关于 **inout** 参数的信息，你可以参考[这里](http://ios-tutorial.com/in-out-parameters-swift/)。**ParameterEncoder**协议将由我们的 **JSONParameterEncoder** 和 **URLPameterEncoder** 实现。
 
 ```
 public protocol ParameterEncoder {
@@ -87,119 +87,119 @@ public protocol ParameterEncoder {
 }
 ```
 
-A **_ParameterEncoder_** performs one function which is to encode parameters. This method can fail so it throws an error and we need to handle.
+**ParameterEncoder** 执行一个函数来编码参数。此方法可能失败而抛出错误，需要我们处理。
 
-It could prove valuable to throw custom errors instead of standard errors. I always find myself having a hard time trying to decipher some of the errors Xcode gives. By having custom errors you can define your own error message and know exactly where the error came from. To do this I simply create an enum that inherits from **Error**.
+可以证明抛出自定义错误而不是标准错误是很有价值的。我总是发现自己很难破译 Xcode 给出的一些错误。通过自定义错误，您可以定义自己的错误消息，并确切知道错误来自何处。为此，我只需创建一个从 **Error** 继承的枚举。
 
 ![](https://cdn-images-1.medium.com/max/800/0*-P95FoFQ9zImpGCz.)
 
-NetworkError enum.
+NetworkError 枚举。
 
 #### URLParameterEncoder
 
-Create a file named **_URLParameterEncoder_** and place it inside the **_Encoding_** group.
+创建一个名为 **URLParameterEncoder** 的文件，并把它放到 **Encoding** 组里。
 
 ![](https://cdn-images-1.medium.com/max/800/0*GuX8ZxKQAlnj5t0e.)
 
-URLParameterEncoder code.
+URLParameterEncoder 的代码。
 
-The code above takes parameters and makes them safe to be passed as URL parameters. As you should know some characters are forbidden in URLs. Parameters are also separated by the ‘&’ symbol, so we need to cater for all of that. We also add appropriate headers for the request if they are not set.
+上面的代码传递了参数，并将参数安全地作为 URL 类型的参数传递。正如你应该知道，有一些字符在 URL 中是被禁止的。参数需要用「&」符号分开，所以我们应该注意遵循这些规范。如果没有设置 header，我们也要为请求添加适合的 header。
 
-This sample of code is something that we should consider testing with Unit Tests. It’s crucial that the URL is built correctly as we could get many unnecessary errors. If you are using an open API you would not want your request quota to be used up by a number of failing test. If you would like to learn more about Unit Testing you can get started by reading [this post](https://medium.com/flawless-app-stories/the-complete-guide-to-network-unit-testing-in-swift-db8b3ee2c327) by [S.T.Huang](https://medium.com/@koromikoneo).
+这个代码示例是我们应该考虑使用单元测试进行测试的。正确构建 URL 是至关重要的，不然我们可能会遇到许多不必要的错误。如果你使用的是开放 API，你肯定不希望配额被大量失败的测试耗尽。如果你想了解更多有关单元测试方面的知识，可以阅读 [S.T.Huang](https://medium.com/@koromikoneo) 写的[这篇文章](https://medium.com/flawless-app-stories/the-complete-guide-to-network-unit-testing-in-swift-db8b3ee2c327)。
 
 ### JSONParameterEncoder
 
-Create a file named **_JSONParameterEncoder_** and place it inside the **_Encoding_** group too.
+创建一个名为 **JSONParameterEncoder** 的文件，并把它放到 **Encoding** 组里。
 
 ![](https://cdn-images-1.medium.com/max/800/0*KNCxD7C71WmPBLTC.)
 
-JSONParameterEncoder code.
+JSONParameterEncoder 的代码。
 
-Similar to the **_URLParameter_** encoder but here we encode the parameters to JSON and add appropriate headers once again.
+与 **URLParameter** 解码器类似，但在此，我们把参数编码成 JSON，再次添加适当的 header。
 
 ### NetworkRouter
 
-Create a file named **_NetworkRouter_ **and place it inside the **_Service_** group. We start by defining a completion typealias.
+创建一个名为 **NetworkRouter** 的文件，并把它放到 **Service** 组里。我们来定义一个 block 的 typealias。
 
 ```
 public typealias NetworkRouterCompletion = (_ data: Data?,_ response: URLResponse?,_ error: Error?)->()
 ```
 
-Next we define a protocol **_NetworkRouter_**.
+接下来我们定义一个名为 **NetworkRouter** 的协议。
 
 ![](https://cdn-images-1.medium.com/max/800/0*aNdQ3nHwAXcv0wKD.)
 
-NetworkRouter code.
+NetworkRouter 的代码。
 
-A **_NetworkRouter_** has an **_EndPoint_** which it uses to make requests and once the request is made it passes the response to the completion. I have added the cancel function as an extra nice to have but don’t go into its use. This function can be called at any time in the life cycle of a request and cancel it. This could prove to be very valuable if your application has an uploading or downloading task. We make use of an **_associatedtype_** here as we want our **_Router_** to be able to handle any **_EndPointType_**. Without the use of **_associatedtype_** the router would have to have a concrete **_EndPointType_**. For more on _associatedtypes_ I suggest checking [this post by NatashaTheRobot.](https://www.natashatherobot.com/swift-what-are-protocols-with-associated-types/)
+一个 **NetworkRouter** 具有用于发出请求的 **EndPoint**，一旦发出请求，就会将响应传递给完成的 block。我已经添加了一个非常好的取消请求的功能，但不要深入探究它。这个功能可以在请求生命周期的任何时候调用，然后取消请求。如果您的应用程序有上传或下载的功能，取消请求可能会是非常有用的。我们在这里使用 **associatedtype**，因为我们希望我们的 **Router** 能够处理任何 **EndPointType**。如果不使用 **associatedtype**，则 router 必须具有具体的 **EndPointType**。更多有关 **associatedtypes** 的内容，我建议可以看下 [NatashaTheRobot 写的这篇文章](https://www.natashatherobot.com/swift-what-are-protocols-with-associated-types/)。
 
 ### Router
 
-Create a file named **_Router_** and place it inside the **_Service_** group. We declare a private variable task of type **_URLSessionTask_**. This task is essentially what will do all the work. We keep the variable private as we do not want anyone outside this class modifying our task.
+创建一个名为 **Router** 的文件，并把它放到 **Service** 组里。我们声明一个类型为 **URLSessionTask** 的私有变量 task。这个 task 变量本质上是要完成所有的工作。我们让变量声明为私有，因为我们不希望在这个类之外还能修改这个 task 变量。
 
 ![](https://cdn-images-1.medium.com/max/800/0*HE_JNaCCPFjhyPqu.)
 
-Router method stubs.
+Router 方法的代码。
 
 #### Request
 
-Here we create a URLSession using the shared session. This is the simplest way of creating a URLSession. But please bear in mind that it is not the only way. More complex configurations of a URLSession can be implemented using configurations that can change the behavior of the session. For more on this I would suggest taking some time to read [this post](https://www.raywenderlich.com/158106/urlsession-tutorial-getting-started).
+这里我们使用 sharedSession 创建一个 URLSession。这是创建 URLSession 最简单的方法。但请记住，这不是唯一的方法。更复杂的 URLSession 配置可用可以改变 session 行为的 configuration 来实现。要了解更多信息，我建议花点时间阅读下[这篇文章](https://www.raywenderlich.com/158106/urlsession-tutorial-getting-started)。
 
-Here we create our request by calling _buildRequest_ and giving it a _route_ which is an **_EndPoint_**. This call is wrapped in a do-try-catch block as _buildRequest_ because an error could be thrown by our encoders. We simply pass all response, data, and error to the completion.
+这里我们通过调用 **buildRequest** 方法来创建请求，并传入名为 **route** 的一个 **EndPoint** 类型参数。由于我们的解码器可能会抛出一个错误，这段调用用一个 do-try-catch 块包起来。我们只是单纯地把所有请求、数据和错误传给 completion 回调。
 
 ![](https://cdn-images-1.medium.com/max/800/0*qUwPqibb5mhGO2sI.)
 
-Request method code.
+Request 方法的代码.
 
-#### Build Request
+#### 创建 Request
 
-Create a private function inside **_Router_ **named _buildRequest_**_._ **This function is responsible for all the vital work in our network layer. Essentially converting **_EndPointType_** to **_URLRequest._** Once our **_EndPoint_** becomes a request we can pass it to the session. A lot is being done here so we will look at each method separately. Let’s break down the _buildRequest_ method:
+在 **Router** 里面创建一个名为 **buildRequest** 的私有方法，这个方法会在我们的网络层中负责至关重要的工作，从本质上把 **EndPointType** 转化为 **URLRequest**。一旦我们的 **EndPoint** 发出了一个请求，我们就把他传递给 session。这里做了很多工作，我们来逐一看看每个方法。让我们分解 **buildRequest** 方法：
 
-1.  We instantiate a variable request of type **_URLRequest_**. Give it our base URL and append the specific path we are going to use.
-2.  We set the _httpMethod_ of the request equal to that of our **_EndPoint_**.
-3.  We create a do-try-catch block since our encoders throws an error. By creating one big do-try-catch block we don’t have to create a separate block for each try.
-4.  Switch on **_route.task_**
-5.  Depending on the task, call the appropriate encoder.
+1. 我们实例化一个 **URLRequest** 类型的变量请求。传给它我们的 URL 前半段，并附加我们要使用的特定路径。
+2. 我们将请求的 **httpMethod** 设置为和 **EndPoint** 相同的 **httpMethod**。
+3. 我们创建了一个 do-try-catch 块，因为我们的编码器抛出错误。通过创建一个大的 do-try-catch 块，我们不必每次尝试创建一个单独的 do-try-catch。
+4. 开启 **route.task**。
+5. 根据 task 变量，调用适当的编码器。
 
 ![](https://cdn-images-1.medium.com/max/800/0*4TPvOc1LjttZDmxF.)
 
-buildRequest method code.
+buildRequest 方法的代码。
 
-#### Configure Parameters
+#### 配置参数
 
-Create a function named _configureParameters_ inside the **_Router_**.
+创建一个名为 **configureParameters** 的方法，并把它放到 **Router** 里面。
 
 ![](https://cdn-images-1.medium.com/max/800/0*49iY9tUA5EsHN76i.)
 
-configureParameters method implementation.
+configureParameters 方法的实现。
 
-This function is responsible for encoding our parameters. Since our API expects all **_bodyParameters_** as JSON and **_URLParameters_** to be URL encoded we just pass the appropriate parameters to its designated encoder. If you are dealing with an API that has varied encoding styles I would suggest amending the **_HTTPTask_** to take a encoder Enum. This enum should have all the different styles of encoders you need. Then inside configureParameters add an additional argument of your encoder Enum. Switch on the enum and encode parameters appropriately.
+这个函数负责编码我们的参数。由于我们的API期望所有 **bodyParameters** 是 JSON 格式的，以及 **URLParameters** 是 URL 编码的，我们将相应的参数传递给其指定的编码器即可。如果您正在处理具有不同编码风格的 API，我会建议修改 **HTTPTask** 以获取编码器枚举。这个枚举应该有你需要的所有不同风格的编码器。然后在 configureParameters 里面添加编码器枚举的附加参数。适当地调用枚举并编码参数。
 
-#### Add Additional Headers
+#### 添加额外的 header
 
-Create a function named _addAdditionalHeaders_ inside the **_Router_**.
+创建一个名为 **addAdditionalHeaders** 的方法，并把它放到 **Router** 里面。
 
 ![](https://cdn-images-1.medium.com/max/800/0*mnyRBFq6ECW1YGqH.)
 
-addAdditionalHeaders method implementation.
+addAdditionalHeaders 方法的实现。
 
-#### Simply add all the additional headers to be part of the request headers.
+#### 只需将所有附加标题添加为请求标题的一部分即可
 
-#### Cancel
+#### 取消请求
 
-Cancel function implementation will be like this:
+cancel 方法的实现就像下面这样：
 
 ![](https://cdn-images-1.medium.com/max/800/0*2Wglip7ThvVgBkki.)
 
-cancel method implementation.
+cancel 方法的实现。
 
-### In Practice
+### 实践
 
-Let’s now use our built network layer on a practical example. We will make use of [TheMovieDB🍿](https://developers.themoviedb.org/3) to get some movie data into our application.
+现在让我们把封装好的网络层在实际样例项目中进行实践。我们将用 [TheMovieDB🍿](https://developers.themoviedb.org/3) 获取一些数据，并展示在我们的应用中。
 
 ### MovieEndPoint
 
-The **_MovieEndPoint_** is very similar to the Target Type we had in [Getting Started with Moya](https://medium.com/flawless-app-stories/getting-started-with-moya-f559c406e990) (check it out if you haven’t read it yet). Instead of implementing **_Moya’s_** TargetType we now just implement our own **_EndPointType_**. Place this file inside the **_EndPoint_** Group.
+**MovieEndPoint** 与我们在 [Getting Started with Moya](https://medium.com/flawless-app-stories/getting-started-with-moya-f559c406e990)（如果没看过的话就看看）中的 Target 类型非常相近。**Moya** 中的 TargetType，在我们今天的例子中是 **EndPointType**。把这个文件放到 **EndPoint** 分组当中。
 
 ```
 import Foundation
@@ -271,7 +271,7 @@ EndPointType
 
 ### MovieModel
 
-Our **_MovieModel_** also does not change as the response for TheMovieDB is still the same JSON. We make use of Decodable protocol to convert our JSON to our model. Place this file inside the **_Model_** group.
+我们的 **MovieModel** 也不会改变，因为 TheMovieDB 的响应是相同的 JSON 格式。我们利用 Decodable 协议将我们的 JSON 转换为我们的模型。将此文件放在 **Model** 组中。
 
 ```
 import Foundation
@@ -345,62 +345,62 @@ Movie Model
 
 ### NetworkManager
 
-Create a file named **_NetworkManager_** and place it inside the **_Manager_ **group. For now our NetworkManager will just have two static properties: your API key and the network environment (Reference _MovieEndPoint_). **_NetworkManager_** also has a **_Router_** which is of type **_MovieApi_**.
+创建一个名为 **NetworkManager** 的文件，并将它放在 **Manager** 分组中。现在我们的 NetworkManager 将有两个静态属性：你的 API key 和 网络环境（参考 **MovieEndPoint**）。**NetworkManager** 也有一个 **MovieApi** 类型的 **Router**。
 
 ![](https://cdn-images-1.medium.com/max/800/1*2Tks6DbNHw2XKl2i-0yH_Q.png)
 
-Network Manager code.
+Network Manager 的代码。
 
 #### Network Response
 
-Create an Enum named **_NetworkResponse_** inside the **_NetworkManager_**.
+在 **NetworkManager** 里创建一个名为 **NetworkResponse** 的枚举。
 
 ![](https://cdn-images-1.medium.com/max/800/0*D60Pp9d8uEruYN_X.)
 
-Network Response enum.
+Network Response 枚举。
 
-We will utilise this enum to handle responses from the API and display a suitable message.
+我们将用这些枚举去处理 API 返回的结果，并显示合适的信息。
 
 #### Result
 
-Create an Enum **_Result_** inside the **_NetworkManager_**.
+在 **NetworkManager** 中创建一个名为 **Result** 的枚举。
 
 ![](https://cdn-images-1.medium.com/max/800/0*g_HgQtY9Cn66fuSU.)
 
-Result enum.
+Result 枚举。
 
-A result Enum is very powerful and can be used for many different things. We will use Result to determine whether our call to the API was a success or failure. If it failed we would return an error message with the reason. For more on Result Oriented programming you can [watch or read this talk](https://academy.realm.io/posts/tryswift-saul-mora-result-oriented-development/).
+Result 这个枚举非常强大，可以用来做许多不同的事情。我们将使用 Result 来确定我们对 API 的调用是成功还是失败。如果失败，我们会返回一条错误消息，并说明原因。想了解更多关于 Result 对象编程的信息，你可以 [观看或阅读本篇](https://academy.realm.io/posts/tryswift-saul-mora-result-oriented-development/)。
 
-#### Handle Network Responses
+#### 处理 Network 响应
 
-Create a function named **_handleNetworkResponse_**.This function takes one argument which is a **_HTTPResponse_** and returns a **_Result<String>._**
+创建一个名为 **handleNetworkResponse** 的方法。这个方法有一个 **HTTPResponse** 类型的参数，并返回 **Result<String>** 类型的值。
 
 ![](https://cdn-images-1.medium.com/max/800/0*3Lex0gRiQOJeCu8s.)
 
-Here we switch on the HTTPResponse’s statusCode. The statusCode is a HTTP protocol that tells us the status of the response. Generally anything between 200 and 299 is a success. For more on statusCodes read [this](http://www.restapitutorial.com/httpstatuscodes.html).
+这里我们运用 HTTPResponse 状态码。状态码是一个告诉我们响应值状态的 HTTP 协议。通常情况下，200 至 299 的状态码都表示成功。需要了解更多关于 statusCodes 的信息可以阅读 [这篇文章](http://www.restapitutorial.com/httpstatuscodes.html).
 
-### Making The Call
+### 调用
 
-So now we have laid down a solid foundation for our networking layer. It is time to make the call!
+因此，现在我们为我们的网络层奠定了坚实的基础。现在该去调用了！
 
-We will be fetching a list of new movies from the API. Create a function named **_getNewMovies_**.
+我们将要从 API 拉取一个新电影的列表。创建一个名为 **getNewMovies** 的方法。
 
 ![](https://cdn-images-1.medium.com/max/800/0*9WYyT_jhq098o2Ac.)
 
-getNewMovies method implementation.
+getNewMovies 方法实现。
 
-Let’s break down each step of this method:
+我们来分解这个方法的每一步：
 
-1.  We define the method **_getNewMovies_** with two arguments: a page number and a completion which returns optional Movie array or optional error message.
-2.  We call our Router. Pass in the page number and handle the completion inside a closure.
-3.  A **_URLSession_** returns an error if there is no network or the call to the API could not be made for some reason. Please note that this is not an API failure. Such failures are client side and will probably be due to a poor internet connection.
-4.  We need to cast our **_response_** to a **_HTTPURLResponse_** because we need access to the statusCode property.
-5.  We declare a **_result_** which we get from our **_handleNetworkResponse_** method. We then examine the result in switch-case block.
-6.  **_Success_** means we were able to communicate with the API successfully and got an appropriate response back. We then check if the response came back with data. And if there is no date we simply exit the method with return statement.
-7.  If the response comes back with data, we need to decode the data to our model. Then we pass the decoded movies to the completion.
-8.  In the case of **_failure_** we simply pass the error to the completion.
+1. 我们用两个参数定义 **getNewMovies** 方法：一个页码和一个成功回调，它返回 Movie 可选值数组或可选值错误消息。
+2. 调用我们的 Router。传入页码并在闭包内处理回调。
+3. 如果没有网络，或由于某种原因无法调用 API，**URLSession** 将返回错误。请注意，这不是 API 异常。这样的异常是客户端的原因，可能是网络连接有问题。
+4. 因为我们需要访问 statusCode 属性，所以我们需要将 **response** 传递给 **HTTPURLResponse**。
+5. 我们声明 **result**，这是我们从 **handleNetworkResponse** 方法得到的。然后我们检查 switch-case 块中的结果。
+6. **success** 意味着我们能够成功地与 API 进行通信并获得适当的响应。然后我们检查响应是否带有数据。如果没有数据，我们只需使用 return 语句退出该方法。
+7. 如果响应返回数据，我们需要将数据解码到我们的模型。然后我们将解码的 Movie 传递给回调。
+8. 在 **failure** 的情况下，我们只是将错误传递给回调。
 
-And done! That is our Network Layer in pure Swift no Cocoapods or third-party libraries. To make a test api request to get movies create a viewController with a Network Manager then call getNewMovies on the manager.
+完成了！这是我们用纯 Swift 写的，没有用到 Cocoapods 和第三方库的网络层。为了测试获得电影列表的 API，使用 Network Manager 创建一个 ViewController，然后在 mamager 上调用 getNewMovies 方法。
 
 ```
 class MainViewController: UIViewController {
@@ -431,29 +431,29 @@ class MainViewController: UIViewController {
 }
 ```
 
-Example of MainViewControoler.
+MainViewControoler 的例子。
 
-### DETOUR- NETWORK LOGGER
+### 网络日志
 
-One of my favorite features of Moya is the network logger. It makes it so much easier to debug and see what is going on with requests and response by logging all network traffic. This was definitely a feature I wanted when I decided to implement this network layer. Create a file named **_NetworkLogger_** and place it inside the **_Service_** group. I have implemented the code to log the request to the console. I won’t show where we should place this code in our networking layer. As a challenge to you go ahead and create a function that will log the response to the console and also find an appropriate place in our architecture to place these function calls. [Place Gist file]
+我最喜欢的 Moya 功能之一就是网络日志。它通过记录所有网络流量，来使调试和查看请求和响应更容易。当我决定实现这个网络层时，这是我非常想要的功能。创建一个名为 **NetworkLogger** 的文件，并将其放入 **Service** 组中。我已经实现了将请求记录到控制台的代码。我不会显示应该把这个代码放在我们的网络层的什么位置。作为你的挑战，请继续创建一个将响应记录到控制台的方法，并在我们的项目结构中找到放置这些函数调用的合适位置。[放置 Gist 文件]
 
-**_HINT_**_: static func log(response: URLResponse) {}_
+**提示**：**static func log(response: URLResponse) {}**
 
-### Bonus
+### 彩蛋
 
-Ever find yourself inside Xcode with a placeholder that you do not really understand? For example let’s look at the code we just implemented for our **_Router_**.
+有没有发现自己在 Xcode 中有一个你不太了解的占位符？例如，让我们看看我们为 **Router** 实现的代码。
 
 ![](https://cdn-images-1.medium.com/max/800/0*scwoD53jgJcYyqkA.)
 
-**_NetworkRouterCompletion_** is something we implemented. Even though we implemented it, it’s sometimes hard to remember exactly what that type is and how we should use it. Our beloved Xcode to the rescue! Just double click on the placeholder and Xcode will do the rest.
+**NetworkRouterCompletion** 是需要用户实现的。尽管我们已经实现了它，但有时很难准确地记住它是什么类型以及我们应该如何使用它。这让我们亲爱的 Xcode 来拯救吧！只需双击占位符，Xcode 就会完成剩下的工作。
 
 ![](https://cdn-images-1.medium.com/max/800/0*MueEsqJYDaK8kVB6.)
 
-### Conclusion
+### 结论
 
-Now we have an easy to use protocol oriented networking layer that we can customise. We have complete control over its functionality and complete understanding of its mechanics. By embarking on this exercise I can truly say that I myself have learned a few new things. So I’m more proud of this piece of work than a piece of work that just requires installing a library. Hope, this post proves that it is really not that hard to create your own networking layer in Swift. 😜 Just don’t do this:
+现在我们有一个完全可以自定义的、易于使用的、面向协议的网络层。我们可以完全控制其功能并彻底理解其机制。通过这个练习，我可以真正地说我自己学到了一些新的东西。所以我对这部分工作感到自豪，而不是仅仅安装了一个库。希望这篇文章证明了在 Swift 中创建自己的网络层并不难。😜就像这样：
 
-You can find the Source code on [my GitHub](https://github.com/Mackis/NetworkLayer). Thanks for reading!
+你可以到[我的 GitHub](https://github.com/Mackis/NetworkLayer) 上找到源码，感谢你的阅读！
 
 
 ---
