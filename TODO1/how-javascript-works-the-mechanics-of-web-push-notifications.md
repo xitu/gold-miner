@@ -143,7 +143,7 @@ function subscribeUserToPush() {
 *   **userVisibleOnly**：布尔值指示返回的推送订阅将仅用于对用户可见的消息。它必须设置为 `true`，否则你会得到一个错误（这有历史原因）。
 *   **applicationServerKey**：Base64-encoded `DOMString` 或者 `ArrayBuffer` 包含推送服务器用来验证应用服务器的公钥。
 
-你的服务器需要生成一对**应用程序服务器密钥 —— **也称为 VAPID 密钥，对于你的服务器来说，它们是唯一的。它们是一对公钥和私钥。私钥被秘密存储在你的终端，而公钥则与客户端交换。这些密钥允许推送服务知道哪个应用服务器订阅了用户，并确保它是触发向该特定用户推送消息的相同服务器。
+你的服务器需要生成一对**应用程序服务器密钥** —— 也称为 VAPID 密钥，对于你的服务器来说，它们是唯一的。它们是一对公钥和私钥。私钥被秘密存储在你的终端，而公钥则与客户端交换。这些密钥允许推送服务知道哪个应用服务器订阅了用户，并确保它是触发向该特定用户推送消息的相同服务器。
 
 你只需要为应用程序创建一次私钥/公钥对。做到这一点的方法是去完成这个 —— [https://web-push-codelab.glitch.me/](https://web-push-codelab.glitch.me/)。
 
@@ -283,7 +283,7 @@ self.addEventListener('push', function(event) {
 }
 ```
 
-你可以在这里阅读到每个选项内容的更多细节 — [https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration/showNotification](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration/showNotification).
+你可以在这里阅读到每个选项内容的更多细节 — [https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration/showNotification](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration/showNotification)。
 
 推送通知是一种可以在有紧急、重要和时间敏感的信息需要与用户进行分享的情况下，吸引用户注意的绝好方式。
 
