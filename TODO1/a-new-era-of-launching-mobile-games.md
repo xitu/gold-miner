@@ -2,122 +2,122 @@
 > * 原文作者：[Emily Putze](https://medium.com/@putze?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/a-new-era-of-launching-mobile-games.md](https://github.com/xitu/gold-miner/blob/master/TODO1/a-new-era-of-launching-mobile-games.md)
-> * 译者：
-> * 校对者：
+> * 译者：[IllllllIIl](https://github.com/IllllllIIl)
+> * 校对者：[sisibeloved](https://github.com/sisibeloved)，[whuzxq](https://github.com/whuzxq)
 
-# A new era of launching mobile games
+# 移动游戏发行的新时代
 
-## How mobile game developers are evolving their go-to-market strategies.
+## 移动游戏开发者是如何改进他们打入市场的策略
 
 ![](https://cdn-images-1.medium.com/max/800/0*Uv2eBuGx8frXjEfr.)
 
-Launching a successful new mobile game is increasingly risky and expensive. Yet, despite significant industry changes in recent years, most developers continue to test and launch new games in largely the same way as they did three to four years ago.
+发行一个新的成功的移动游戏风险日益增大并且很烧钱。然而，除去近几年游戏产业的重大变化，大多数开发者，还是用和三四年前一样的发行流程，继续测试和发布新游戏。
 
-At Google Play I’ve had the chance to work with mobile developers on hundreds of game launches. I’ve seen first-hand how developers are evolving their development and go-to-market strategies in an effort to “de-risk” new launches (and where they’re not, but probably should be). I hope that by sharing some of these insights you’ll find ways to adapt and evolve your go-to-market playbook to make your next launch more successful.
+在 Google Play，我和移动开发者一起工作过，经历过几百次游戏发行。我亲眼见过开发者为了在新发行上“降低风险”（如果他们没这么做的话，那很应该要去做），是怎么逐渐转变他们的开发过程和游戏上市策略。我希望通过分享其中一些见解，可以帮助你找到适应自己的发行策略，并改进上市的 playbook，下一次能更成功地发布。
 
-### **Traditional launch playbook**
+### **传统发布的playbook**
 
-First, what do I mean when I say that most developers continue testing and launching new games asthey did in years past? Many developers today follow what I call the “traditional launch playbook”.
+首先，当我说到大多开发者像他们之前几年那样继续测试和发布新游戏，我是指什么呢？现在很多开发者遵循我所说的“传统发布的 playbook”。
 
-A more traditional launch playbook usually involves extensive internal testing in early development phases, followed by various stages of external testing prior to full launch (e.g. technical, retention and monetization testing). Most often, external testing consists of releasing a production version of a new game (vs a beta version) in specific geographies at various stages. For instance, many developers with a more traditional playbook do technical testing in the Philippines, retention testing in the Nordics, and monetization testing in Australia or Canada. While the countries may differ here or there, these new games are usually tested in no more than five to seven countries in total, with deployment limited to higher-end device types due to stability and rating concerns. In general, retention and monetization testing lasts about two to three months, with teams focused on tweaking games to reach KPIs that they believe offer insights into how their game might perform at global launch.
+一个更传统化的发布 playbook 通常包括在早期开发阶段的大量内部测试，接着便是各样的外部测试直到完全发布出来（例如，技术性的，用户留存度和能否变现的测试）。更常见的是，外部测试包含了在特定地区和不同阶段发布一个新游戏的产品版本（相对与测试版来说）。例如，许多遵循更传统化 playbook 的开发者在菲律宾进行技术性测试，在北欧地区进行用户存留度测试，在澳大利亚或加拿大进行变现能力测试。即使不同国家之间得出的结果可能有差异，新游戏通常还是会在不超过五到七个国家之中测试，并且出于稳定性和评价的考虑，测试一般只会在较高端的机型上部署。一般而言，留存和盈利模式测试会持续 2-3 个月的时间。在这段时间里，开发团队会不断调整游戏以达到公司期望的 KPI，也让团队对游戏全球性发布时可能的表现有一些预见。
 
-Does this sound familiar? If so, it’s not necessarily a bad thing, as this process still works well for many. However, at Google Play, we believe that it’s **important to continuously evaluate processes** as a means to an end and **iterate where necessary**, especially in a rapidly changing environment.
+这听起来熟悉吗？如果是的话，这不一定就是坏事，正如现在这个过程对很多开发者还是适用的。然而在 Google Play，游戏领域发展也尤为迅速的时候，我们认为使用**对过程进行持续评估**这种方法，并且在**必要的地方重复**，是至关重要的。
 
 ![](https://cdn-images-1.medium.com/max/800/0*3w9wlC4F_NOjh84-.)
 
-### **A new era**
+### **一个新时代**
 
-A few years ago, the mobile games industry was in its nascency and really taking off in terms of profitability. Between 2010–2014, low barriers to entry and the size of the potential install base drove thousands of developers to enter the mobile gaming space. During these “gold rush” years games could be made and launched quickly with relatively fast development cycles, low development costs, and reasonable marketing budgets. You could launch a new game, see if it made any money in the market and then decide if it was worth investing in further.
+几年前，移动游戏产业开始萌芽，并因为重视盈利性而开始腾飞。2010 到 2014 间，游戏产业的低门槛以及其市场的潜在安装规模促使了数千开发者进入移动游戏领域。在这段黄金爆发时期，游戏开发周期短，开发成本低，营销预算合理，能快速开发并上市发行。开发者可以先推出游戏，看看是否赚钱，再决定未来是否值得进一步投资下去。  
 
-Fast forward to the present day and the market looks very different, as does launching a top new game. Let’s quickly review some of what’s changed in recent years**:**
+而到了今天，市场已经变得很不一样了，发行一个顶尖的新游戏也是如此。让我们快速回顾下近几年市场都发生了什么变化**：**
 
 ![](https://cdn-images-1.medium.com/max/800/0*rcVOCWAnQE1U01jY.)
 
-1.  **More competition.** Launching a hit in today’s more mature and crowded ecosystem can be very challenging. With more than 1M games offered on Google Play alone, consumers have more choices than ever. At the same time switching costs for players are high. As players become more deeply engaged and invested in the games they play — building up progression, characters, decks, alliances, resources, etc. — they are less likely to switch games and abandon their hard work,not to mention time and money invested. As a result it is getting harder and harder for new games to break through, and we’re seeing lower turnover in the top grossing charts for games (at least in most Western markets, including the US).
+1.  **更多竞争。**在当今愈发成熟和拥挤的游戏生态系统中发布一个爆款游戏可以说是很难的。在 Google play 上面就有超过 100 万款游戏，消费者比以往有更多的选择。与此同时，想让玩家换游戏变得更难了。由于玩家很深地沉迷在一款游戏上，就很难放下积累的游戏进度，游戏人物，装饰，联盟，资源等等 —— 即使不谈投入的时间和金钱，他们也不太可能转去玩别的游戏，放弃他们在已有游戏上的投入付出。所以，新游戏能进入到老玩家的眼是越来越难了，排行榜上最赚钱的游戏的营业额也在下降（至少在西方国家市场是这样的，包括美国）。 
 
-2.  **Higher development costs.** The resources required to properly test and launch a new game in today’s market are significant. Not only are development cycles longer, but consumer expectations and demands of mobile products are also higher than ever, and they churn extremely fast if not satisfied (i.e. less minimally viable product launches). Add this to the cost of longer title cycles and the need for increasingly sophisticated tech — to keep file sizes small, matchmaking quick, and keep up with trends like synchronous PvP and real-time chat translation — and the resulting costs to create a new game can be considerable.
+2.  **更高的开发成本。**合理进行测试所需的资源和发布一个新游戏在当今市场很重要。不单是开发周期变长了，而且用户的期望和移动产品的需求也从未如此之高，当用户的需求未能满足时，他们会很善变（换句话讲就是最简可行产品发布得更少了）。把这个因素算到长开发周期，还有就是对先进技术需求的日益增长 —— 保持游戏体积小，玩家匹配能迅速，又要有各种主流的特性如实时的 PvP（玩家对战玩家 Player versus player，即玩家互相利用游戏资源攻击而形成的互动竞技）和实时的聊天翻译机制 —— 结果就是研发一个新游戏的成本大大提高。 
 
-3.  **Higher marketing costs.** Today the marketing budgets for top new mobile game launches look more and more like those of console game launch budgets. Not only is organic discovery more difficult in a highly saturated market, but user acquisition continues to be extremely expensive, and the cost of the high quality tools, tech, and analytics needed earlier in a game’s development cycle add up quickly for developers.
+3.  **更多的营销花费。**如今顶级移动游戏发布的营销预算越来越接近主机游戏的预算了。在一个高度饱和的市场里面，不只是逐步演进的探索变得更加困难，而且用户获取成本依旧极其昂贵，还有就是高质量工具的花费，技术，还有在游戏开发周期中更早需要用到的各类分析，种种成本都叠加在了开发者身上。
 
-As a result of many of these shifts, we are seeing fewer new mobile game launches than in years past and more risk aversion from developers across the board (opting for safer bets versus moonshot bets).
+这些变化带来的一个结果就是过去的几年很少有新的移动游戏发行，以及业内开发者对不确定性风险的愈发厌恶（这是在瞻前顾后和孤注一掷中的选择）。
 
-### **Process as a “means to an end”**
+### **业务过程只是作为“达到目的的手段”**
 
-With so many changes occurring in the mobile games market, it’s interesting that many developers continue to test and launch new games as they have in years past, but it’s not surprising.
+移动游戏市场中发生这么多变化，很多开发者继续像以前的方式一样测试和发布新游戏，有点意思，但不是出人意料的。
 
-Process is an area where it’s easy to stay static when other parts of the business change. That said, in a rapidly changing market, over reliance on process can be dangerous, as it can create a false sense of security (e.g. you might not even realize you’re behind or that you have developed blind spots). In general, I’ve seen that teams who focus on process “as a means to an end” — where they are more focused on _what_ they are trying to achieve versus _how_ theyexactly achieve it_ — _are generally more adaptive, and ultimately, successful.
+当业务中的其它部分变动的时候，业务过程是一个不用怎么变化的部分。即使如此，在一个快速变化的市场里面，过度依赖业务过程可以说是危险的，因为它给了你一个错误的安全感（例如，你甚至可能没有察觉到你落后于进度或者你开发中已经有一些盲区）。总体上，我看过只把业务过程看作是“达到目的的手段”的团队 —— 他们更关注于**什么**是他们正在尝试实现的而不是具体**怎么**实现它 —— 这些团队通常更具适应能力，最终也取得了成功。 
 
-### **Evolving your playbook**
+### **改进你的 playbook**
 
-While many developers continue to rely on the more “traditional playbook,” more and more are evolving their mindsets toward releasing new games and innovating on the way they test and launch. I recently led a panel on “de-risking new game launches” at one of our Google events, where, together with developers from Electronic Arts, Wooga, Miniclip, Playrix, King, and Big Fish Games, we dove into this topic of process evolution and shared some best practices.
+当很多开发者继续更多依赖“传统的 playbook”，越来越多人在两个方面上思考如何转变，即新游戏的发布和测试及发行方式上的革新。我最近组建了一个小组，旨在“降低新游戏发行的风险”，该平台是在我们一个 Google 活动中，这个活动中有其他来自 Electronic Arts、Wooga、Miniclip、Playrix、King 和 Big Fish Games 的开发者一起参与，我们切身参与到业务过程改进这个话题中来，并且分享了一些最实际可行的东西。 
 
-Here are five ways top developers are evolving their testing and launch processes in order to de-risk new game launches in today’s market.
+下面是顶尖开发者为了降低新游戏在当今市场发布的风险，改进他们的测试和发布过程的五个方式。
 
 ![](https://cdn-images-1.medium.com/max/800/0*cT2In7IcbklHZlTF.)
 
-#### 1. Continuously evaluating new games (and not being afraid to pull the plug)
+#### 1. 持续性评估新游戏（并且不要怕终止业务）
 
-To mitigate many of the inherent risks around launching a new title, many developers and publishers have shifted their focus toward investing in “fewer, better” games. To achieve this, they’ve evolved their internal processes around greenlighting new games and **implemented more rigorous evaluation at multiple stages of development**. For instance, a few years ago it was common for there to be one, early internal greenlight for a new title before a game team had permission to take it to market (i.e. launching after that point was a given). Today, however, many developers are taking a “guilty until proven innocent” approach to greenlighting new games, requiring multiple critical evaluations and creating more opportunities for failure and feedback (i.e. launching is no longer a given at any point). For color, I’ve worked with game teams that have had to secure as many as five internal greenlights before bringing a new game to market. I’ve also worked with developers who have killed games that have been in development for a year — or in the late stages of retention and monetization testing — because new titles were performing below expected metrics.
+为降低发布新游戏的固有风险，许多开发者和厂商把理念塑造为，开发“少而精”的游戏。要实现这点，他们改进了关于批准新游戏的内部流程，并且**对开发过程的多个阶段实现了更细致的评估**。例如，几年前常见的做法是在游戏团队在被允许把游戏推向市场之前，内部要有一个批准通过（批准那个时刻之后才会发行）。然而现在，许多开发者采用的是“有罪推定原则”的方式去批准新游戏，这就需要很多关键的评估，并且也会带来更多的失败和反馈（发布不再是在哪个时刻之后才被允许）。我见过有团队在游戏进入市场之前，要讨论审核直到有五个内部批准，才会通过。我也见过有的开发者放弃掉一些已经开发了一年的游戏 —— 或者在最后用户留存度和变现测试的阶段 —— 因为新游戏当时的指标表现没有达到期望。
 
-While this process evolution seems relatively straightforward, implementing it successfully is difficult. It means creating an internal culture and climate — from the top executives down to the game teams — where it is OK to fail (faster the better) and where pulling the plug on a game that is not “up to snuff” is the norm, at any stage of the development cycle. Although this is hard to do in practice, against the backdrop of the current market, many developers believe it is better than absorbing the cost of launching (and maintaining) a mediocre game for years to come.
+这种过程的改进看起来似乎挺直接的，但成功实行起来是有难度的。它需要形成一种内部文化和气氛 —— 从上头的决策者到下属游戏团队 —— 失败是没有关系的（越快失败越好），在开发的任意阶段，没有达到预期所制定标准的游戏，终止它。虽然实践中很难做到，违背市场主流做法，许多开发者相信这起码好过在未来几年，一个平庸的游戏，只会烧了游戏发布（还有运营）的钱。
 
 ![](https://cdn-images-1.medium.com/max/800/0*Uene71drcBIVo0Bi.)
 
-#### 2. Getting external feedback earlier in development using open (or closed) beta
+#### 2. 在开发中借助公开或非公开的测试版，更早获得外界的反馈
 
-Due to the rising costs associated with launching new games, identifying bad ideas as early as possible has become critical for developers (i.e. if going to fail, fail fast). As such, many top developers are evolving their playbooks to test new titles much earlier in the development cycle than in years past — sometimes even before full prototyping. Not only do they believe this is critical to identifying bad ideas early (allowing them to collect feedback, measure KPIs and make a call on whether to invest further or pull the plug), but many developers also believe that this early market feedback is critical to building titles with longer end games.
+鉴于发布新游戏会带来的风险逐步增加，尽早发现错误的想法对开发者来说也变得很重要（换句话说，如果要失败，那失败得早一点）。如此，许多顶尖开发者转变他们的 策略，在开发周期中，相比过去，提早了很长一段时间去测试新作品 —— 有时甚至在完整原型之前。不但是因为他们相信这样做对于发现错误的认知很重要（允许他们收集反馈意见，衡量 KPI 并且决定是否要长远投资或终止项目），而且很多人也认为早期市场的反馈对打造一个有长久生命力的游戏也至关重要。
 
-To test new games externally earlier, many developers are evolving their technical approach to testing — moving away from only testing production versions of their games to testing beta versions first, especially for tech and retention testing. One of the main reasons for this shift is that beta testing (open or closed) allows for more distribution control than a geo-locked production soft launch. For instance, with open beta you can actually put a “cap” on a beta’s size, allowing developers to collect early market feedback on a new game while also limiting public access to it at such an early stage. Plus, unlike with a production soft launch**,** **testing via open beta means no public ratings or reviews — user feedback is private — which is a big advantage while you are ironing out issues in early stages of your game or doing bold A/B tests to see what really moves the needle for your KPIs.** While I’ve seen a huge uptick in the number of developers utilizing open beta for external testing, I’ve also seen developers dealing with big IP or well-established consumer brands relying more on closed beta for early external testing (due to license issues, etc). Today, these developers often set up external sites where interested users can apply for access to their closed beta test, before moving on to more traditional geo-locked soft-launch testing closer to launch.
+为了能更早地从外部测试新游戏，许多开发者正改进他们在测试上面的技术手段 —— 从只测试游戏的产品版本到先对测试版进行测试，特别是从技术层面和用户留存度进行测试。这个变化的一个主要原因是测试版（公测或内测）的测试考虑到了更多分布式控制，而不是有地域性限制的产品软发布。例如，有了公开的测试版，你可以对这个测试版进行限制，让开发者去收集到早期市场对一个新游戏的反馈，在早期同时也能限制公众对它的接触了解。还有就是，不像一个产品的软发布，**对公测版的测试意味着没有公开评价 —— 用户反馈是非公开的 —— 这对解决游戏早期阶段出现的问题，或者做 A/B 测试从而了解哪些因素影响 KPI 有很大好处**。利用公测版进行外部测试的开发者数目大幅上升，同时也有需要处理大量 IP（知识产权）问题的开发者或大牌厂家，愈发依靠内测版进行早期外部测试（由于许可等问题）。如今，进行更多传统的，有区域限制的软发布测试之前，这些开发者会设立外部网站，吸引用户来申请使用内测版。
 
-> After seeing the advantages open beta testing offered their game [Cooking Craze](https://play.google.com/store/apps/details?id=com.bigfishgames.cookingcrazegooglef2p), Big Fish Games now requires all new titles to run Android open betas before launch. Not only does this allow them to gather direct feedback from players, but it also allows them to test their new games earlier, bolder, and broader than they would have in a production soft launch. This means taking bigger risks with art style, gameplay mechanics, promotions, etc., and testing new games in more geographies and on more device types. The resulting benefits range from discovering strong performance in various markets to exposing more unknown technical issues (and more accurately estimating the impact of known issues), to less 1-star reviews at launch. For Big Fish Games, testing via open beta means minimizing the risk and mystery of how new titles will perform at launch — allowing them to better prioritize QA resources, optimize global UA channels and budgets ahead of launch, and release more confidently all around (with less surprises!)
+> 在了解使用公测版的好处之后 [Cooking Craze](https://play.google.com/store/apps/details?id=com.bigfishgames.cookingcrazegooglef2p)，Big Fish Games 现在要求所有新作品在发布前都要运行 Android 的公测版。这不仅让他们能直接收集到玩家的反馈，相比产品软发布，还能让他们更早，更大胆，更广泛地测试游戏。这意味着在艺术风格，游戏机制，奖励机制等方面上冒更大的风险，在更多地区和在更多的型号设备上测试新游戏。这样带来的好处是既能在各样的市场中体现强大的性能表现，又能暴露出更多未知的技术性问题（并更准确地估计已知问题的影响），并且减少发布时会出现的一星评论。对 Big Fish Games 来说，通过公测版测试意味着最小化风险和新游戏发布时的不确定性因素 —— 让他们对 QA 资源有更好地优先级处理，优化全球化 UA 渠道和发布前的预算，并且发布时更有自信（少了不确定的突发情况！）
 
 ![](https://cdn-images-1.medium.com/max/800/1*di0-4MQXYFuaSpqEbcHGNA.png)
 
-[Watch Big Fish Games video case study](https://www.youtube.com/watch?v=qRXkEQOtQ98&t=51s).
+[YouTube 视频：Big Fish Games 案例的学习](https://www.youtube.com/watch?v=qRXkEQOtQ98&t=51s).
 
-No matter your budget or size, testing new games via open beta is definitely a process evolution to consider. Plus Google Play’s new country targeting for beta releases feature now allows developers to distribute their beta and production APKs to different markets at the same time (e.g. you can test a beta version of your game in most geographies and move to a production soft launch in select markets before launch to confirm KPIs and build up a solid ratings pad). Something to consider!
+不管你的预算多少或游戏大小如何，借助公测版测试新游戏是你在改进中一定要考虑的一个环节。况且，现在 Google Play 有新功能，可指定国家发布测试版，这允许开发者同时在不同的市场里发布测试版和产品版 APK（例如，你可以在大多数国家地区测试游戏的测试版，并且在精选的市场里进行产品的软发布，进而确认 KPI 的情况，借此也能收获到很全面的用户评价）。考虑一下这么做吧！
 
 ![](https://cdn-images-1.medium.com/max/800/0*hEz7_iwVzctfxtEA.)
 
-#### 3. Focusing on long-term metrics as predictors of success (and testing longer)
+#### 3. 专注于长期的指标，是成功的开端（并且测试更长时间）
 
-In recent years we’ve seen a shift in game development from a focus on driving downloads and monetization, to a world where engagement is the true KPI of sustainable business success (especially long-term retention and LTV). As a result, many developers are evolving their playbook to build in time and budget for much longer testing periods than in years past.
+近几年游戏开发中有一个转变，就是从只想着吸引用户下载和变现，到注重实现可持续成功商业的真实 KPI（特别是长期留存度和 LTV）。所以，许多开发者改变了流程，及时地构建应用，并且给比以往更长周期的测试做好预算。
 
-While there certainly isn’t a “one size fits all” model when it comes to testing duration — depends on what you’re testing, how much you need to optimize, etc. — **at a minimum, developers should be testing beyond day 30 metrics**. Although D30 metrics are key indicators of longer-term retention, **to understand true user value you need to understand long-term engagement and retention patterns** (LTV is the long game). This means that even if your game is perfect, you should be testing for at least two to three months. On average most developers I work with test new games for six months, but often as long as ten or twelve months for bigger titles (if not more). For games with big IP, it’s especially important for developers to understand what happens to their users after D30 as IP can often mask bad metrics in the short term (i.e. people will stick around in the early game because they like the characters, but that doesn’t necessarily mean you have good retention).
+当谈及测试周期时，很明显没有一劳永逸的模型 ——　取决于你测试的东西，你有多少需要优化等等　——　但开发者的测试周期至少要超过 30 天。虽然月留存率是长期留存率的关键指标，但为了更好理解真正的用户价值，你还要弄明白长期性的玩家关注度和留存度模型（LTV就是个周期长的东西）。所以即使你的游戏很完美，你也要测试至少两到三个月。平均来说，我共事过的大多数开发者选择花六个月时间测试新游戏，但对于更出名的游戏来说是十或十二个月（如果没有更多的话）。而那些具有大型 IP（知识产权）的游戏，开发者更要了解到，在经历月留存之后，用户的感受如何，因为 IP 能在短期内遮盖掉表现不好的指标（意思就是说人们早期很喜欢这个游戏，只是因为喜欢里面的人物，这些人物出自某些电影电视，但不是说你已经能够很好地留住用户了）。
 
 ![](https://cdn-images-1.medium.com/max/800/0*RWFw-9rczg9N2KBj.)
 
-#### 4. Shifting mindsets towards games as long-term investments
+#### 4. 转变观念，把游戏当作长期投资
 
-Five years ago, few developers thought a mobile game could be successful for five years. Instead, they’d launch a game and start thinking about the next big thing. Today, games like [Candy Crush](https://play.google.com/store/apps/details?id=com.king.candycrushsaga) and [8 Ball Pool](https://play.google.com/store/apps/details?id=com.miniclip.eightballpool) are proving mobile games can have end games of five or ten years, or even longer. As a result, many developers are increasingly looking at games as a long-term investment and are shifting their focus from only investing in new titles to doubling down on existing hits. This means not only maintaining these titles day-to-day, but also significantly reinvesting in existing games to ensure that they are delivering new content, investing in Live Operations, staying fresh from a UI perspective, and keeping up with new trends. This not only helps engage and retain their existing players, but helps attract new ones as well. **For many developers today,** **big updates are the new “launch”**.
+五年前，很少有开发者认为一款移动游戏可以火五年。相反地，他们会发行一款游戏，然后就开始想下一个火的游戏要怎么弄了。现在，像 [Candy Crush](https://play.google.com/store/apps/details?id=com.king.candycrushsaga) 和 [8 Ball Pool](https://play.google.com/store/apps/details?id=com.miniclip.eightballpool) 游戏都证明了移动游戏可以有如平台游戏一样五或十年的寿命周期，甚至更久。所以，许多开发者逐渐地把游戏看作长期投资，并从原本只看重开发新游戏的模式，转变为注重把更多精力也投放到已流行的成功游戏上面。这不仅意味着机械化地维持这些游戏的运作，对它们重复投资的力度还要加大，来确保它们有输出新的内容，投资 Live Operation 服务，更新 UI，紧跟当前的潮流趋势。这不仅能吸收和留住他们现有的玩家，而且也能吸引到新的玩家进来。**对当前的许多开发者来说，大更新就是游戏的新“发布”**。
 
-Considering how competitive today’s market is — and how expensive it is to acquire users — it’s no surprise that many developers are focusing on supporting existing titles with established users bases (over taking on the risks of launching a new game altogether). For similar reasons, we’ve seen large developers and publishers move away from annualized releases for franchise titles, in exchange for rolling out evergreen titles with big seasonal updates. [Electronic Arts](https://play.google.com/store/apps/dev?id=6605125519975771237), for instance, has done this with many of their sports titles such as Madden, NBA Live and most recently FIFA. This is a big shift considering FIFA had multiple annualized mobile releases before they launched [FIFA Mobile](https://play.google.com/store/apps/details?id=com.ea.gp.fifamobile) in fall of 2016 (which is now into its second “season”). Now, for EA and many other developers, the decision to launch a new game in an existing franchise is fundamentally driven by the need to improve the underlying game tech/engine (versus a desire to launch something new).
+考虑到目前市场的竞争性 —— 还有获得用户的成本 —— 许多开发者现在专注于发展现有的已形成用户群的游戏就不足为奇了（比冒着发布新游戏好多了）。因为相似的原因，我们目睹着大牌的开发者和发布商放弃了知名游戏每年发布一个新系列的惯例，取而代之的是让一些常青游戏有一些重大的季度更新。[Electronic Arts](https://play.google.com/store/apps/dev?id=6605125519975771237)，以这个厂商为例，它已经在很多体育类游戏上面，如 Madden，NBA Live 和最近的 FIFA 都实行了这一模式。在 2016 年秋季发布的 [FIFA Mobile](https://play.google.com/store/apps/details?id=com.ea.gp.fifamobile) 之前（而现在已经进入到该游戏所说的第二“季”），FIFA 这系列之前每年都有发布移动端的游戏，看到这一现象，这对 EA 来说其实是一个很重大的改变。现在，对 EA 和其他许多开发者来说，是否在已有的作品系列发行一个新游戏，基本取决于是否需要在根本上提升这个游戏的技术/引擎（相对与只是想发布一些新游戏的欲望）。
 
-If you have an existing game with a strong user base, it is **worth thinking about how you can invest in making that title more successful** instead of only thinking about your next big hit.
+如果你已经有一个很稳固用户群的游戏，那它**值得你去思考如何能再对它进行投入，使它更成功**，而不只是想如何打造你的下一个爆款游戏。
 
 ![](https://cdn-images-1.medium.com/max/800/0*qUcLQcswAUCaiERg.)
 
-#### 5. Optimizing for optimal retention before launch
+#### 5. 发布前，为最佳留存率做优化
 
-**Launching isn’t just about the launch any more, it’s about retaining users from day one**. As a result, many developers are evolving their development playbooks to focus on maximizing retention in their game prior to launch. Many believe that to be truly competitive as a top new game today — against other hit games in the market — means ensuring long-tail content pipelines, social features and event plans are lined up and resourced from the start (versus “MVP” launches that only have 25% of the features you’d hoped to have at launch). That said, upfront investment into these features prior to launch can have significant implications on budgets, headcount, and resources.
+**发布游戏不再只是发布出来这么简单，它还事关如何从发布那一天起就留住用户**。所以，许多开发者改进了他们的开发 playbook，在游戏早期要发行时，要专注于如何最大化地留住用户。许多人认为当今要做一个第一名的游戏真的很有竞争性 —— 对付市场上同样热门的游戏 —— 意味着内容要多，足够让玩家消费，社交特性和各类游戏活动计划这些从一开始就要规划预备好（相对于最简可行产品发布只展示了 25% 的特色）。即使如此，在发布前对这些特性的预先投资对预算，人数统计和资源有很重要的作用。
 
-Here are the top areas where I see many developers evolving their processes when it comes to optimizing their games for optimal retention:
+当说到用户最佳留存度优化这方面时，这是我看到很多人在改进过程中会重视的地方：
 
-1.  **Focusing on quality and performance prior to launch.** Strong app health and performance metrics (e.g. crash rates) are key to preventing early player churn, and to minimizing bad reviews at launch (50% of 1 star reviews mention stability and bugs). As a result, many developers are testing new game performance on a much wider range of devices prior to launch. This is particularly important for developers on Google Play as it was announced last year that the Play Store algorithm is being tuned to promote quality and engagement, with key indicators of this being a game’s Android vitals performance, retention, and ratings.
+1.  **发布前，专注质量和性能表现。**有一个健壮的 app 和性能指标（例如崩溃率）是防止早期玩家流失的关键，并且能最大化减少发布时的差评（一星的评论里面一半都提及到了稳定性和bug的问题）。所以，在发布前，许多开发者会在更多机型设备上测试新游戏的性能。在 Google Play 上，这尤其重要，正如去年宣布的，Play Store 的推荐算法正在调整为看重质量和玩家的参与度，而这些又从游戏的 Android vitals，用户留存度，评价里体现出来。 
 
-2.  **Making sure they have enough content at launch to sustain engagement and prevent churn.** Rather than making levels harder to slow players down and risk churn, many developers actively test how quickly their players consume content and move through levels during their beta, and make enough content to sustain them. Remember, you can also recycle content with events!
+2.  **确保发布时，游戏内容足够丰富，吸引玩家，并且避免玩家流失。**相比把游戏难度弄高从而拖慢玩家的进度，冒着玩家流失的风险，许多开发者会在测试版的时候，就主动测试他们的玩家能多快通过一个游戏关卡，并且通往下一个等级难度，确保每关的内容足够丰富，留住玩家。记住，你可以通过举办活动来重复利用游戏内容！ 
 
-3.  **Building social features into their games prior to launch.** Social features are critical to engaging and retaining users in any game, and especially in a new game. The more engaged users are, the less likely they are to churn. Alliances and alliance wars should be built in for day one, as should live services and events. This means investing in a team dedicated to LiveOps before launch.
+3.  **在游戏上线前，就加入社交功能。**社交特性在任何游戏里对凝聚和留住玩家都是至关重要的，尤其是新游戏。当玩家用户更能被吸引连结在一起时，他们转去玩别的游戏的可能性就越低。联盟和团战这种玩法在应该发布的第一天就有了，同样也还应该有实时性服务和游戏活动。在发布前，要专注于运用 LiveOps。
 
-4.  **Not being afraid to “waste” good events during beta.** Developers need to know what KPIs their LiveOps move, how they impact player behavior, and how their teams will stand up to a demanding LiveOps cadence. Often this means testing their LiveOps (and their team’s ability to deliver) before launch as if it’s the real deal. For instance, [June’s Journey](https://play.google.com/store/apps/details?id=net.wooga.junes_journey_hidden_object_mystery_game) by Wooga is a game that was extremely demanding from a content production perspective. A month before launch — after a seven month soft launch where they ironed out stability and KPIs — Wooga orchestrated a full “dress rehearsal” of their launch where they treated their game as if it was live (weekly releases, marketing reviews, social media, etc). By not holding anything back in their “rehearsal,” they created critical opportunities for their teams to practice and understand the demands of their full LiveOps plan, and ultimately better prepared themselves for the real launch of their new game.
+4.  **在测试版期间，不要怕“浪费”好活动。**开发者需要知道他们的 LiveOps 服务对 KPI 造成的变化，它们是怎么影响玩家行为，以及以及他们的团队如何处理麻烦的 LiveOps 波动。通常这说明他们在发布前对 LiveOps 进行仿真测试（还有团队的承受能力）。例如，Wooga 出的 [June’s Journey](https://play.google.com/store/apps/details?id=net.wooga.junes_journey_hidden_object_mystery_game) 是一个很需要有内容产出的游戏。在发布前的一个月 —— 此时距离解决了稳定性和 KPI 的软发布已经过去 7 个月 —— Wooga 对正式发布已经做了一个完整的“彩排”，把游戏当作已经上线的状态（每周更新，营销报告，社交媒体等等）。他们毫无保留地投入到这个“彩排”中，有一个很好的机会让团队实战并且理解整个 LiveOps 计划的需求，并且最终为新游戏的正式发布做到了更充分的准备。
 
-If you haven’t re-evaluated your go-to-market playbook in the past few years, it’s a great time to dust it off and look at the new trends and tools available. I encourage you to try some of the examples I have shared and see if you can identify areas to improve your process or avoid blind spots.
+如果你还没有重新审视你过去几年进入市场的 playbook，现在就去重新评估下吧，并且看看当下的新趋势和可利用的工具。我希望你能尝试下我分享给你们的一些例子，看看你能否找到一些领域，是可以改善业务过程或者避开盲区的。
 
 * * *
 
-### What do you think?
+### 你是怎么想的呢？
 
-Do you have thoughts on running open betas and tips to de-risk your launch? Let us know in the comments below or tweet using **#AskPlayDev** and we’ll reply from [@GooglePlayDev](http://twitter.com/googleplaydev), where we regularly share news and tips on how to be successful on Google Play.
+你对运行公开测试版以及降低发布风险的建议有什么想法吗？ 让我们在下方或推特上通过 **#AskPlayDev** 知道你的意见，我们会由 [@GooglePlayDev](http://twitter.com/googleplaydev) 账号回复，这个推特账号上面，我们平时会发布新闻还有一些在 Google Play 上如何成功推广的建议。 
 
 
 ---
