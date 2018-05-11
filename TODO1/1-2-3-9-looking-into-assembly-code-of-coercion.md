@@ -2,18 +2,18 @@
 > * 原文作者：[wanago.io](https://wanago.io)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/1-2-3-9-looking-into-assembly-code-of-coercion.md](https://github.com/xitu/gold-miner/blob/master/TODO1/1-2-3-9-looking-into-assembly-code-of-coercion.md)
-> * 译者：
-> * 校对者：
+> * 译者：[sunhaokk](https://github.com/sunhaokk)
+> * 校对者：[Starrier](https://github.com/Starriers)、[Xekin-FE](https://github.com/Xekin-FE)
 
-# [1] + [2] - [3] === 9!? Looking into assembly code of coercion
+# [1] + [2] - [3] === 9!? 类型转换深入研究
 
-Variable values have certain types. In fact, you can cast a value of one type to the other. If you do it explicitly, it is **type casting** (also called explicit coercion). If it happens in the background when you are trying to perform an operation on types that do not match, it is called **coercion** (sometimes referred to as implicit coercion). In this article, I will walk you through both, so that you can better understand the process. Let’s dig in!
+变量值拥有多种格式。而且您可以将一种类型的值转换为另一种类型的值。这叫**类型转换**（也叫显式转换）。如果是在后台中尝试对不匹配的类型执行操作时发生, 叫 **强制转换**（有时也叫隐式转换）。在这篇文章中，我会引导你了解这两个过程，以便更好地理解过程。让我们一起深入研究！
 
-## Type casting
+## 类型转换
 
-### Primitive types wrappers
+### 原始类型包装
 
-As I described in [one of my previous articles](https://wanago.io/2018/02/12/cloning-objects-in-javascript-looking-under-the-hood-of-reference-and-primitive-types/), almost all primitive types in JavaScript (besides **null** and **undefined**) have object wrappers around their native value. In fact, you have access to their constructors. You can use that knowledge to convert the type of one value to another.
+正如我[之前的一篇文章](https://wanago.io/2018/02/12/cloning-objects-in-javascript-looking-under-the-hood-of-reference-and-primitive-types/)所描述的那样,几乎 JavaScript 中的所有原始类型（除了 **null** 和 **undefined** 外）都有围绕它们原始值的对象包装。事实上，你可以直接调用原始类型的构造函数作为包装器将一个值的类型转换为另一个值。
 
 ```
 String(123); // '123'
@@ -22,9 +22,9 @@ Number('123'); // 123
 Number(true); // 1
 ```
 
-> The wrapper for that particular variable of primitive type is not kept for long though: as soon as the work is done, it is gone.
+> 一些原始类型的包装器，String、Bollean、Number 不会保留很长时间，一旦工作完成，它就消失。（译者注：JS 中将数据分成两种类型，原始类型（基本数据类型）和对象类型（引用数据类型）。在对象类型中又有三种特殊类型的引用类型分别是，String、Boolean、Number。这三个就是基本包装类型。实际上，每当读取一个基本类型值的时候，后台就会创建一个对应的基本包装类型的对象，从而可以调用这些类型的方法来操作数据。）
 
-You need to watch out for that because if you use a new keyword there, this is not the case.
+您需要注意，如果您这里使用了 new 关键字，就不再是当前实例。
 
 ```
 const bool = new Boolean(false);
@@ -36,9 +36,9 @@ if (bool) {
 }
 ```
 
-Since bool is a new object here (not a primitive value), it evaluates to true.
+由于 bool 在这里是一个新的对象（不是原始值），它的计算结果为 true。
 
-I will even go a little further and tell you that
+进一步分析
 
 ```
 if (1) {
@@ -46,7 +46,7 @@ if (1) {
 }
 ```
 
-is actually the same as doing
+效果一样
 
 ```
 if ( Boolean(1) ) {
@@ -54,9 +54,9 @@ if ( Boolean(1) ) {
 }
 ```
 
-Don’t believe me, try it yourself! Bear with me, I will use **Bash** here.
+不要畏惧，勇于尝试。 下面用 **Bash** 测试。（译者注：因为没有找到源文件，所以我猜测这里的意思是使用的 if1.js 和 if2.js 是上文的 if 语句文件，这里通过 print-code 输出汇编代码。然后通过 awk 打印汇编文件每句第 4 列字符串到文件里。最后对比两个文件是否一致。借以推论出上面两句 if 在程序中的执行是一致的。）
 
-1. Compile the code into the assembly using node.js
+1. 使用 node.js 将代码编译到程序中
 
 ```
 $ node --print-code ./if1.js >> ./if1.asm
@@ -66,7 +66,7 @@ $ node --print-code ./if1.js >> ./if1.asm
 $ node --print-code ./if2.js >> ./if2.asm
 ```
 
-2. Prepare a script to compare the 4th column (assembly operands) – I intentionally skip memory addresses here, because they might differ.
+2. 准备一个脚本来比较第四列（汇编操作数）- 我故意跳过这里的内存地址，因为它们可能有所不同。
 
 ```
 #!/bin/bash
@@ -74,18 +74,18 @@ $ node --print-code ./if2.js >> ./if2.asm
 file1=$(awk '{ print $4 }' ./if1.asm)
 file2=$(awk '{ print $4 }' ./if2.asm)
 
-[ "$file1" == "$file2" ] && echo "The files match"
+[ "$file1" == "$file2" ] && echo "文件匹配"
 ```
 
-3. Run it
+3. 运行
 
 ```
-"The files match"
+"文件匹配"
 ```
 
-### parseFloat
+### parseFloat 函数
 
-This function works similar to **Number** constructor but is less strict when it comes to the argument passed. If it encounters a character that can’t be a part of the number it returns a value up to that point and ignores the rest of characters.
+这个函数的作用类似于 **Number** 的构造函数，但对于传递的参数来说不那么严格。如果它遇到一个不能成为数字一部分的字符，它将返回一个到该点的值并忽略其余字符。
 
 ```
 Number('123a45'); // NaN
@@ -93,9 +93,9 @@ parseFloat('123a45'); // 123
 ```
 
 
-### parseInt
+### parseInt 函数
 
-It rounds the number down while parsing it. It can work with different radixes.
+它在解析数字时将数字向下舍入。它可以使用不同的基数。
 
 ```
 parseInt('1111', 2); // 15
@@ -104,9 +104,9 @@ parseInt('0xF'); // 15
 parseFloat('0xF'); // 0
 ```
 
-Function parseInt can either guess the radix or have it passed as a second argument. For a list of rules it takes into consideration, check out [MDN web docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseInt).
+函数 parseInt 可以猜测基数或让它作为第二个参数传递。有关其中需要考虑的规则列表，请查看 [MDN web docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseInt)。
 
-It has troubles with very big numbers, so it should not be considered an alternative to [**Math.floor**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/floor) (which will also do a typecast):
+如果传入的数值过大会出问题，所以它不应该被认为是 [**Math.floor**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/floor) (它也会进行类型转换)的替代品：
 
 ```
 parseInt('1.261e7'); // 1
@@ -116,15 +116,15 @@ Math.floor('1.261e7') // 12610000
 Math.floor(true) // 1
 ```
 
-### toString
+### toString 函数
 
-You can convert values to strings using a **toString** function. Implementation of this function differs between prototypes.
+您可以使用 **toString** 函数将值转换为字符串。这个功能的实现在原型之间有所不同。
 
-> If you feel like you’d like to grasp the concept of the prototype better first, feel free to check out my other article: [Prototype. The big bro behind ES6 class](https://wanago.io/2018/03/19/prototype-the-big-bro-behind-es6-class/).
+> 如果您觉得您希望更好地理解原型的概念，请随时查看我的其他文章： [Prototype. The big bro behind ES6 class](https://wanago.io/2018/03/19/prototype-the-big-bro-behind-es6-class/)。
 
-#### String.prototype.toString
+#### String.prototype.toString 函数
 
-returns a value of a string
+返回一个字符串的值
 
 ```
 const dogName = 'Fluffy';
@@ -135,9 +135,9 @@ String.prototype.toString.call('Fluffy') // 'Fluffy'
 String.prototype.toString.call({}) // Uncaught TypeError: String.prototype.toString requires that 'this' be a String
 ```
 
-#### Number.prototype.toString
+#### Number.prototype.toString 函数
 
-returns a number converted to String (you can pass appendix as a first argument)
+返回转换为 String 的数字（您可以将 appendix 作为第一个参数传递）
 
 ```
 (15).toString(); // "15"
@@ -145,30 +145,30 @@ returns a number converted to String (you can pass appendix as a first argument)
 (-15).toString(2); // "-1111"
 ```
 
-#### Symbol.prototype.toString
+#### Symbol.prototype.toString 函数
 
-returns  `Symbol(${description})`
+返回  `Symbol(${description})`
 
-> If you are lost here: I’m using a concept of [template literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals) as a way to explain for you how the output strings look.
+> 如果你对此感到疑问： 我这里使用的是 [template literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)的方式，它可以向你解释是怎么输出这种字符串的。
 
-#### Boolean.prototype.toString
+#### Boolean.prototype.toString 函数
 
-returns “true” or “false”
+返回 “true” 或 “false”
 
-#### Object.prototype.toString
+#### Object.prototype.toString 函数
 
-Objects have internal value called **[[Class]]**. It is a tag that represents the type of an object.
+Object 调用内部 **[[Class]]** 。它是代表对象类型的标签。
 
-**Object.prototype.toString** returns a string `[object ${tag}]` . Either it is one of the built-in tags (for example “Array”, “String”, “Object”, “Date”), or it is set explicitly.
+**Object.prototype.toString** 返回一个 `[object ${tag}]` 字符串。 要么它是内置标签之一 (例如  “Array”, “String”, “Object”, “Date” ), 或者它被明确设置。
 
 ```
 const dogName = 'Fluffy';
 
-dogName.toString(); // 'Fluffy' (String.prototype.toString called here)
+dogName.toString(); // 'Fluffy' （在这调用 String.prototype.toString ）
 Object.prototype.toString.call(dogName); // '[object String]'
 ```
 
-With the introduction of ES6, setting tags is done with the usage of [**Symbols**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol).
+随着 ES6 的推出，设置标签可以使用 [**Symbols**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol)来完成。
 
 ```
 const dog = { name: 'Fluffy' }
@@ -188,7 +188,7 @@ const dog = new Dog('Fluffy');
 dog.toString(); // '[object Dog]'
 ```
 
-You can also use ES6 class with a getter here:
+你也可以在这里使用 ES6 类和 getter：
 
 ```
 class Dog {
@@ -204,9 +204,9 @@ const dog = new Dog('Fluffy');
 dog.toString(); // '[object Dog]'
 ```
 
-#### Array.prototype.toString
+#### Array.prototype.toString 函数
 
-calls **toString** on every element and returns a string with all the outputs separated by commas.
+在每个元素上调用 **toString** 并返回一个字符串，所有的输出用逗号分隔。
 
 ```
 const arr = [
@@ -218,30 +218,30 @@ const arr = [
 arr.toString() // "[object Object],2,3"
 ```
 
-## Coercion
+## 隐式转换
 
-If you have a knowledge of how type casting works, it will be a lot easier for you to understand coercion.
+如果您了解类型转换的工作原理，那么理解隐式转换会容易得多。
 
-## Mathematical operators
+## 数学运算符
 
-### Plus sign
+### 加符号
 
-Expression with two operands and with  `+`  that involves a string will result in a string.
+当在字符串与操作数之间使用 + 时结果将返回一个字符串。
 
 ```
 '2' + 2 // 22
 15 + '' // '15'
 ```
 
-You can use it with one operand to cast it to a number:
+你可以用加符号将一个操作数转换为数字：
 
 ```
 +'12' // 12
 ```
 
-### Other mathematical operators
+### 其他数学运算符
 
-With other mathematical operators such as `-` or `/` operands will always be cast to numbers.
+其他数学运算符，例如 `-` 或 `/` 操作，将自动转成数字。
 
 ```
 new Date('04-02-2018') - '1' // 1522619999999
@@ -249,20 +249,20 @@ new Date('04-02-2018') - '1' // 1522619999999
 -'1' // -1
 ```
 
-Date, cast to a number gives a [Unix timestamp](https://en.wikipedia.org/wiki/Unix_time).
+日期, 转成数字 [Unix 时间戳](https://en.wikipedia.org/wiki/Unix_time)。
 
-## Exclamation mark
+## 叹号
 
-Using it will output true if the original value is falsy, and false if it is truthy. Therefore, it can be used to cast the value to corresponding boolean if used twice.
+如果原始值是 false 的，则使用它将输出 true，如果 true，则输出为 false。因此，如果使用两次，它可以用于将该值转换为相应的布尔值。
 
 ```
 !1 // false
 !!({}) // true
 ```
 
-## ToInt32 with bitwise OR
+## ToInt32 按位或
 
-It is worth mentioning, even though ToInt32 is, in fact, an abstract operation (internal-only, not callable). It will cast a value to a [signed 32-bit integer](https://en.wikipedia.org/wiki/32-bit).
+值得一提的是，即使 ToInt32 实际上是一个抽象操作（仅限内部，不可调用），它也会把一个值转换为[带符号 32 位整型](https://en.wikipedia.org/wiki/32-bit)。
 
 ```
 0 | true          // 1
@@ -274,11 +274,11 @@ It is worth mentioning, even though ToInt32 is, in fact, an abstract operation (
 0 | Infinity      // 0
 ```
 
-Performing a bitwise OR operation when one of the operands is 0 will result in not changing the value of the other operand.
+当其中一个操作数为 0 时执行按位或操作将导致不改变另一个操作数的值。
 
-### Other cases of coercion
+### 其他隐式转换
 
-While coding, you may encounter more situations in which values will be coerced. Consider this example:
+在编码时，您可能会遇到更多隐式转换的情况。考虑这个例子
 
 ```
 const foo = {};
@@ -291,14 +291,15 @@ x[bar] = 'bar';
 console.log(x[foo]); // "bar"
 ```
 
-This happens because both foo and bar, when cast to strings, result in `"[object Object]"`. What really happens is this:
+发生这种情况是因为 foo 和 bar 在转换为字符串时都会转成 “[object Object]” 。真正发生的是这样的：
 
 ```
 x[bar.toString()] = 'bar';
 x["[object Object]"]; // "bar"
 ```
 
-Coercing also happens with [template literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals). Try overriding **toString** function here:
+隐式转换在 [template literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)也会发生。尝试在这里重载 **toString** 函数：
+
 
 ```
 const Dog = function(name) {
@@ -311,10 +312,9 @@ Dog.prototype.toString = function() {
 const dog = new Dog('Fluffy');
 console.log(`${dog} is a good dog!`); // "Fluffy is a good dog!"
 ```
+隐式转换也是为什么**比较运算符**（==）可能被认为是不好的做法，因为如果它们的类型不匹配，它会尝试通过强制转换进行匹配。
 
-Coercion is also a reason why **abstract equality comparison** (==) might be considered a bad practice since it is attempting to coerce values if their types don’t match.
-
-Check out this example for an interesting fact about the comparison:
+查看这个例子以获得一个关于比较的有趣事实：
 
 ```
 const foo = new String('foo');
@@ -324,20 +324,20 @@ foo === foo2 // false
 foo >= foo2 // true
 ```
 
-Because we used the **new** keyword here, *foo* and *foo2* both preserved wrappers around their native value (which is *‘foo‘*). Since they are referencing to two different objects now,  `foo === foo2` will result in false. Relational operators ( `>=` here) call the **valueOf** function on both operands. Due to that, the comparison of native values is taking place, and  `'foo' >= 'foo'` evaluates to **true**.
+因为我们在这里使用了 **new** 关键字，所以 foo 和 foo2 都保留了它们的原始值（这是 'foo' ）的包装。由于他们现在正在引用两个不同的对象， `foo === foo2` 结果为 false。关系操作 ( `>=` ) 在两边调用 **valueOf** 函数。因此，在这里比较原始值内存地址, `'foo' >= 'foo'` 返回 **true**。
 
 ## [1] + [2] – [3] === 9
 
-I hope all that knowledge helped you to demystify the equation from the title of this article. Let’s debunk it anyway!
+我希望所有这些知识能帮助你揭开本文标题中问题的神秘面纱。让我们揭开它吧！
 
-1. `[1] + [2]` these are cast to strings applying the rules of **Array.prototype.toString** and then concatenated. The result will be `"12"`.
-  * `[1,2] + [3,4]` would result in `"1,23,4"`.
-2. `12 - [3]` will result in subtracting `"3"` from `12` giving us `9`
-  * `12 - [3,4]` would result in **NaN** because `"3,4"` can’t be cast to a number
+1. `[1] + [2]` 这些转换应用 **Array.prototype.toString** 规则然后连接字符串。结果将是 `"12"`。
+  * `[1,2] + [3,4]` 结果是 `"1,23,4"`。
+2. `12 - [3]` 将导致 `12` 减 `"3"` 得 `9`
+  * `12 - [3,4]` 因为 `"3,4"`不能转成数字所以得 **NaN** 
 
-## Summary
+## 总结
 
-Even though many may advise you to just avoid coercion, I think it is important to understand how it works. It might not be a good idea to rely on it, but it will help you greatly both in debugging your code and avoiding the bugs in the first place.
+尽管很多人可能会建议你避免隐式转换，但我认为了解它的工作原理非常重要。依靠它可能不是一个好主意，但它对您在调试代码和避免首先出现的错误方面大有帮助。
 
 
 ---

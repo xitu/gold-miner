@@ -2,125 +2,125 @@
 > * 原文作者：[Jeni](https://medium.com/@_jeniwren?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/using-behavioural-economics-to-convey-the-value-of-paid-app-subscriptions.md](https://github.com/xitu/gold-miner/blob/master/TODO1/using-behavioural-economics-to-convey-the-value-of-paid-app-subscriptions.md)
-> * 译者：
-> * 校对者：
+> * 译者：[ALVINYEH](https://github.com/ALVINYEH)
+> * 校对者：[luochen1992](https://github.com/luochen1992)、[L9m](https://github.com/L9m)
 
-# Using behavioural economics to convey the value of paid app subscriptions
+# 用行为经济学来传达付费应用订阅的价值
 
-## Tips to better convert free users into subscribers
+## 更好地将免费用户变成订阅用户的小窍门
 
 ![](https://cdn-images-1.medium.com/max/800/1*Q6owdlEbdkdObV9bLI6ivg.png)
 
-One key challenge subscription businesses face is that many users don’t perceive the value of paying. Google Play teamed up with [The Behavioural Architects](http://www.thebearchitects.com/) to explore how behavioural economics (BE) can be used to **better communicate to free users the value of upgrading to paid app subscriptions.**
+订阅行业面临的一个关键性挑战是，许多用户并没有意识到付费的价值。Google Play 与[行为设计师](http://www.thebearchitects.com/)合作，共同探索如何利用行为经济学**更好地向免费用户传达升级到付费应用订阅的价值**。
 
-The team collaborated with two app developers — popular brain-training app, [Peak](https://play.google.com/store/apps/details?id=com.brainbow.peak.app), and high intensity training fitness app, [Freeletics Bodyweight](https://play.google.com/store/apps/details?id=com.freeletics.lite) — looking at alternative variations of their current in-app upsell strategies. Researchers captured users’ thoughts and behaviours towards these different variations, and dug into their motivations for using the apps to provide important context for understanding their reactions.
+该团队与两名移动应用开发者合作 —— 现流行的大脑训练应用，[Peak](https://play.google.com/store/apps/details?id=com.brainbow.peak.app) 和高强度训练的健身应用 [Freeletics Bodyweight](https://play.google.com/store/apps/details?id=com.freeletics.lite) —— 一起研究当前应用内增销策略的可供替代的发展战略。研究人员通过抓住用户对这些不同变化的想法和行为，并深入分析用户使用移动应用的动机，从而为理解用户的反应提供了重要的参考。
 
-### Understanding the barriers to app subscriptions
+### 了解应用订阅的障碍
 
-In line with [previous subscriptions research by Google Play](http://services.google.com/fh/files/misc/subscription_apps_on_google_play.pdf), the project highlighted some interconnected barriers to paid app subscriptions for free users, namely:
+根据[ Google Play 之前的订阅研究](http://services.google.com/fh/files/misc/subscription_apps_on_google_play.pdf)，该项目突出阐述了免费用户对付费应用订阅之间的关联问题，即：
 
 ![](https://cdn-images-1.medium.com/max/800/1*DamQyRwNU2fKD6lyTeKrLQ.png)
 
-To override these barriers, it is critical that users have a clear understanding of valued paid-for content. The first step towards conversion is ensuring that users know exactly what they are paying for!
+为了克服这些障碍，用户必须清楚地了解到付费内容的价值所在。实现转化的第一步就是要确保用户知道他们究竟在支付些什么！
 
-### **The role of behavioural economics in ‘nudging’ upsell**
+### **行为经济学对助推追加销售的作用**
 
-This research showed that behavioural economics (BE) can play a powerful role in nudging paid subscriptions through optimizing the communication of benefits, specifically:
+该项研究表明，行为经济学可以通过优化利益沟通，在推动付费订阅方面发挥重要作用，特别是在:
 
-1.  Making paid content and features feel more compelling
-2.  Connecting with user motivations for using the app.
+1.  使付费内容和功能更有吸引力
+2.  探究用户使用移动应用的动机
 
-Three concepts that showed strongest potential for motivating users to subscribe were: the power of now, reciprocity, and salience:
+激励用户订阅的三个最有前景的潜在概念是：当下的力量，互惠和突出性：
 
-#### **The power of now**
+#### **当下的力量**
 
 ![](https://cdn-images-1.medium.com/max/800/1*YcfxXYcLiZPKlpGyQgTPEQ.png)
 
-When it comes to achieving longer-term goals, people can downplay future rewards in favor of investing less time or effort today. **The power of now** helps to combat this tendency by bringing longer-term goals and intentions into the present.
+当谈论到实现长期目标时，人们会淡化未来的回报，而更看重当下付出更少的时间和努力。当下的力量通过将长远目标和打算带到当下的时刻，有助于去对抗这种趋势。
 
 ![](https://cdn-images-1.medium.com/max/800/1*JPGsmMCLaTrMGujghVH7_g.png)
 
-Freeletics leveraged the power of now with their users by showing a date in the near future by which they could achieve a specific fitness goal, on this case losing x% body fat.
+Freeletics 充分利用了当下的力量，给用户展示了一个可以近期达到特定健身目标的日期，以这样的方案用户可以减掉 x % 的体脂。
 
-Allowing Freeletics users to clearly imagine the future benefits of subscription in the ‘here and now’ was found to be highly motivating, with one respondent commenting, “_I love how there is a calendar. Setting a target makes the end goal feel more achievable”_. The power of now may be especially effective for apps and categories where the benefits might seem a long way off; such as fitness, language, or education.
+Freeletics 用户可以清楚地想象到“此时此地”订阅后的未来收益是非常能激励人心的。一位受访者评论道：“我喜欢有一个日历。设定一个个小目标使最终目标能够更容易实现”。当下的力量对许多应用和类别来说特别有效，因为其成效短时间内无法见到：比如健身、语言，或是教育方面。
 
-#### **Reciprocity**
+#### **互惠**
 
 ![](https://cdn-images-1.medium.com/max/800/1*O6GColgPF3JNbrULN-wywg.png)
 
-Freeletics explored **reciprocity** in this project by offering their users a ‘free Coach tip’. By helping them understand the paid content on offer and creating a ‘warm glow’, gestures like these may be particularly well-received for apps that don’t give much away in the free version.
+在这个项目中，Freeletics 通过提供给用户一个“免费的教练小贴士”来找到互惠所在。让用户了解到付费内容并给予了一种“温暖的光辉”，这种方法会在许多应用中特别受用，因为这种感受在免费的版本中所无法体会到的。
 
 ![](https://cdn-images-1.medium.com/max/800/0*FkhodBxSyeOTr3dq.)
 
-> “_I like that… I never concentrate on my legs because they’re quite muscular. Knowing things like that would really help me… it gives me a little taster of what I’m going to be getting… paying for good knowledge._” — **Freeletics User, Male**
+> “我喜欢那个……由于腿部肌肉太发达所以我从来没有注意过我的腿。了解到这件事情对我真的很有帮助……但这让我对将要变成的样子要付出个小代价……那就是向优秀的知识付费。” —— **一位男性 Freeletics 用户**
 
-#### **Salience**
+#### **突出性**
 
 ![](https://cdn-images-1.medium.com/max/800/1*4g24dBwdx6cZ6o0C0mmZ6w.png)
 
-Peak explored the impact of making its subscription benefits — such as rapid brain map development and access to Pro games — more **salient** by showing dynamic screens at the point of upsell, allowing users to see and vividly imagine the experience of enjoying the Pro version:
+Peak 探讨了使其获得订阅收益的影响，比如快速的大脑地图开发和玩专业版的游戏。更为**突出**的是将向上销售的内容放在不断变化的视图中，让用户看到后能逼真地想象到使用专业版后的体验：
 
 ![](https://cdn-images-1.medium.com/max/800/1*msAg6Uzua2APf7YpyZtmSQ.gif)
 
-Using varied animations helped to deepen user engagement with messaging, increasing openness to sign up. The eye-catching visuals effectively guided user attention away from the pricing options at the bottom of the screen, creating excitement around the content and features ahead of cost.
+使用不同的动画也有助于通过推送通知来更有用户参与度，降低注册的门槛。醒目的视觉效果能有效地将用户的注意力从屏幕底部的定价中转移开来，从而在付费之前引起用户在内容和功能特性方面的情绪兴奋。
 
-Two other concepts showed medium potential:
+另外两个潜在概念:
 
-*   Authority bias
-*   Social norms
+*   权威偏见
+*   社会规范
 
-#### **Authority bias**
+#### **权威偏见**
 
 ![](https://cdn-images-1.medium.com/max/800/1*DNVbdKiSAXDj7L3ICVC5KA.png)
 
-Calling out the **authority** of Peak’s collaborations created confidence in the games, successfully connecting with user motivations for downloading the app — i.e. actual brain-training and not ‘just a game’.
+Peak 合作伙伴的权威性增加了玩家对该游戏的信心，成功地找寻到用户下载应用程序的原因 —— 即实际的大脑训练，而不“仅仅是个游戏”。
 
-> “_It’s exciting to hear that qualified professionals… have [helped] develop the games… makes it seem like it will work.” — _**Peak User, Female**
+> “听到了有资历的专业人士……[帮助]开发游戏……让人觉得这个应用会有效果。” —— **一位女性 Peak 用户**
 
-#### **Social norms**
+#### **社会规范**
 
 ![](https://cdn-images-1.medium.com/max/800/1*EN4EOj5kR_D0ZHA8vKt9iA.png)
 
-1.  Social norms via leveraging a global community
+1.  经由利用全球社区的社会规范
 
 ![](https://cdn-images-1.medium.com/max/800/0*nD6oH2LaTE8ZOj4G.)
 
-Different reactions to the Freeletics and Peak upsells suggest that social norms messaging via a community of engaged users is likely to resonate more powerfully for apps whose key features relyon large numbers of users, like social fitness or online dating apps.
+Freeletics 和 Peak 对向上销售的采取的不同措施表明，通过一个社区的忠实用户的社会规范信息会引起更多精彩应用的共鸣，这些应用主要的特点都是拥有这庞大的用户群体，比如社会健康或是在线交友应用。
 
-Within Peak, where score comparison with other users is a key feature, the idea of a global community all playing the Pro games generated greater interest. Showing an increasing ticker of current Peak Pro users helped to highlight the app’s popularity and could create a feeling of not wanting to miss out — FOMO!
+在 Peak 这款应用中，其中一个特点是不同用户之间可以比较分数。全球社区的用户都在玩 Pro 游戏的想法激发了他们更大的兴趣。向他人展示当前的正不断增加的 Peak Pro 用户数量，有助于突出该移动应用的受欢迎程度，并且会有一种不想错过的感觉 —— Fomo！
 
-On the other hand, for Freeletics, the idea of a global community base had less relevance as it was not tied to a recognized feature of the Pro version. This was especially the case with those that saw their fitness as a personal journey.
+另一方面，对于 Freeletics 来说，基于全球社区的想法没那么重要，因为它与 Pro 版本的特性无关。尤其是那些把自己的健康视为个人经历的人更是如此。
 
-2. Social norms via testimonials
+2. 经由用户评价的社会规范
 
 ![](https://cdn-images-1.medium.com/max/800/0*c2TiHQISVIUkKAvJ.)
 
-We also captured reactions to positive user testimonials at the point of upsell. While social proofing via testimonials may lack integrity _within_ apps, there may be an opportunity to leverage subscription testimonials within the Play Store, which is seen as a more credible and trusted source of user feedback.
+我们同时对增销时的忠实用户推荐的反应进行了关注。虽然通过推荐进行社会证明，可能会缺少 App 评价的全面性，但这也许是在应用商店中撬动更多订阅推荐评价的一个机会，Play store 被认作是更值得信赖的用户反馈源。
 
-Both Peak and Freeletics users met these screens with considerable skepticism. People were especially wary when reviews felt a bit too good to be true, e.g. multiple five-star reviews!
+Peak 和 Freeletics 用户都对这类弹窗持相当的怀疑态度。当评论好到不真实的情况，人们会特别谨慎，例如太多的五星评价！
 
-### **Pricing considerations**
+### **定价方面的考虑**
 
-Watching in-the-moment reactions of the different variations showed how quickly users’ attention is drawn to pricing options when landing on the upsell screen. As such, non-price messaging has to work really hard to grab people’s attention:
+观察用户在不同变化下的瞬间反应，可以发现用户在打开增销页面时，对定价的关注程度有多高。因此，非价格相关的信息很难抓住人们的眼球：
 
-*   If pricing options take up too much screen space there’s a risk free users will become overly fixated on cost at the expense of other messaging.
-*   Simple messaging supported by imagery for easy processing of information is most effective, as users will tend to scan past large, dense blocks of text.
+*   如果价格选项占据了太多的屏幕空间，那么会有免费用户过度关注花销而忽略了其他消息的风险。
+*   对于信息的处理，通过形象化为简单的信息是最有效的，因为用户对大块、密集的文本块只会扫一眼。
 
 ![](https://cdn-images-1.medium.com/max/800/1*9cqf9B3AK8_30-nSDQe02w.png)
 
-When making judgements, we often rely on reference points (or ‘anchors’) to help inform our decision. Our perception of the value of something can vary depending on what we have anchored to, and so we lightly explored the concept of price anchoring with Peak users by comparing the cost of a Peak Pro subscription with the cost of a daily cup of coffee. Positive user feedback suggests that anchoring the cost of a subscription to a relatively cheap, everyday expense in this way can increase value perceptions for free users.
+我们经常依赖一些参考点（或“锚点”）来帮助我们作出决策。我们对于一些新事物的价值认识会因为选取的参考点不同而异，所以，通过比较 Peak Pro 订阅用户和每天一杯咖啡的成本，我们轻易地找到 Peak 用户的定价心锚。活跃用户反馈，以这种方式将订阅费用锚定到相对便宜的日常费用上，可以提升免费用户的价值观念。
 
-> _“It’s only the cost of one coffee for one month of subscription…__[the cost] does feel cheaper in this [screen]_.” — **Peak User, Female**
+> “一个月的订阅只需要一杯咖啡的费用……__在手机[屏幕]上，[费用]确实更加低。”  —— **一位 女性 Peak 用户**
 
-#### Key takeaways
+#### **关键要点**
 
-Hopefully the behavioural economic theories we have discussed above have provided you with a deeper understanding of possible barriers to growing subscribers, and also provided some ideas as to how you might overcome these; highlighting techniques for showing your app’s values. If you are interested in learning more, read the [full report](http://services.google.com/fh/files/blogs/behavioural_economics_last.pdf) for more in-depth insights and key takeaways to help you show the value of your app and encourage subscriptions.
+希望上述讨论的行为经济学理论能给你对于在如何增长订阅者之中可能存在的困难有更深的了解，同时提供若干如何解决在这些困难的想法，以及如何突出你的应用价值的技巧。如果你有兴趣学习更多内容，请参阅[完整报告](http://services.google.com/fh/files/blogs/behavioural_economics_last.pdf)，对此会有更深入的认识和建议，以帮助你更好地向用户展示你的应用价值所在并鼓励用户订阅。
 
 * * *
 
-#### What do you think?
+#### **你怎么看？**
 
-Do you have thoughts on how these principles might better convert your free users into subscribers? Let us know in the comments below or tweet using #AskPlayDev and we’ll reply from @GooglePlayDev, where we regularly share news and tips on how to be successful on Google Play.
+对于如何运用这些原则更好地将你地免费用户变成订阅用户，你还有什么其他想法吗？请在底下的评论中告诉我们，或者带上 #AskPlayDev 标签发送推文，我们会在 @GooglePlayDev 给予回复。在这里，我们会定期分享关于如何在 Goole Play上取得成功的新闻和技巧。
 
 
 ---

@@ -1,3 +1,5 @@
+* [使用 Swift 实现原型动画](https://juejin.im/post/5ae28a9b6fb9a07aaa10fa1e) ([ALVINYEH](https://github.com/ALVINYEH) 翻译)
+* [不使用 fastlane 实现持续交付的 5 种选项](https://juejin.im/post/5acf47cb6fb9a028c523944c) ([melon8](https://github.com/melon8) 翻译)
 * [没有 Interface Builder 的生活](https://juejin.im/post/5ab88ac0518825558a069c91) ([rydensun](https://github.com/rydensun) 翻译)
 * [让我们来简化 UserDefaults 的使用](https://juejin.im/post/5abde324f265da23826e1723) ([talisk](https://github.com/talisk) 翻译)
 * [避免 Swift 单元测试中的强制解析](https://juejin.im/post/5a9ce4ac6fb9a028b547602e) ([RickeyBoy](https://github.com/RickeyBoy) 翻译)

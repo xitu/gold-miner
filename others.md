@@ -1,3 +1,7 @@
+* [Deploy != Release（第一部分）：Deploy 与 Release 的区别及为什么很重要？](https://juejin.im/post/5ad80983f265da505c3c1b3a) ([stormluke](https://github.com/stormluke) 翻译)
+* [引导员手册：24 个设计冲刺技巧](https://juejin.im/post/5ae3254d6fb9a07abc29a741) ([PokerF](https://github.com/PokerF) 翻译)
+* [简短而又完全精确的编程语言历史](https://juejin.im/post/5ac1b8a25188255c637b1cd5) ([Starriers](https://github.com/Starriers) 翻译)
+* [让 Apache Cassandra 尾部延迟减小 10 倍（已开源）](https://juejin.im/post/5ac31083f265da239a5fff0c) ([stormluke](https://github.com/stormluke) 翻译)
 * [良好的编码习惯 — 5 个提高代码质量的技巧](https://juejin.im/post/5abc584251882555867f7f1e) ([NeoyeElf](https://github.com/NeoyeElf) 翻译)
 * [如何修改域名来提高国际增长率](https://juejin.im/post/5aaf0542f265da239530c653) ([Starriers](https://github.com/Starriers) 翻译)
 * [不要害怕 Rebase](https://juejin.im/post/5ab1bdbe518825556e5df5f8) ([sqrthree](https://github.com/sqrthree) 翻译)
