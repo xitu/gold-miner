@@ -13,7 +13,7 @@
 
 Span 够为文字和段落设置样式，它是通过让用户使用 TextPaint 和 Canvas 等组件来实现这些功能的。在上一篇文章中，我们讨论了如何使用 Span、Span 是什么、Span 本身自带的功能，以及如何实现并测试自己的 span。
 
-* [**用 Span 设置一颗赛艇的文字样式**: 在 Android 中设置文字样式，请用 Span! 改变一些文字的颜色，使它们可以点击，并且缩放…… medium.com](https://medium.com/google-developers/spantastic-text-styling-with-spans-17b0c16b4568)
+* [**用 Span 设置一颗赛艇的文字样式**: 在 Android 中设置文字样式，请用 Span! 改变一些文字的颜色，使它们可以点击，并且缩放](https://medium.com/google-developers/spantastic-text-styling-with-spans-17b0c16b4568)
 
 我们看看在特定的用例中，可以使用什么 API 来确保最佳性能。我们将探索 span 的原理，以及 framework 是如何使用它们的。最后，我们将了解如何在进程中或跨进程传递 span，以及基于这些，你在创建自定义 span 时需要警惕哪些陷阱。
 
@@ -30,7 +30,7 @@ Android 框架在数个类中涉及了文字样式处理以及 span：[`TextView
 
 文本布局和绘制背后的逻辑是很复杂的，并且遍布不同的类；在这一节中，我们只能针对几种情况，简单地说明一下文本是如何被处理的。
 
-每当一个 span 改变时，[`TextView`](https://github.com/aosp-mirror/platform_frameworks_base/blob/master/core/java/android/widget/TextView.java) `spanChange` 检查 span 是否是 [`UpdateAppearance`] (https://developer.android.com/reference/android/text/style/UpdateAppearance.html)，[`ParagraphStyle`](https://developer.android.com/reference/android/text/style/ParagraphStyle.html) 或 [`CharacterStyle`](https://developer.android.com/reference/android/text/style/CharacterStyle.html) 的实例，而且，如果是的话，对自己调用 invalidate 方法，触发视图重绘。
+每当一个 span 改变时，[`TextView`](https://github.com/aosp-mirror/platform_frameworks_base/blob/master/core/java/android/widget/TextView.java) `spanChange` 检查 span 是否是 [`UpdateAppearance`](https://developer.android.com/reference/android/text/style/UpdateAppearance.html)、[`ParagraphStyle`](https://developer.android.com/reference/android/text/style/ParagraphStyle.html) 或 [`CharacterStyle`](https://developer.android.com/reference/android/text/style/CharacterStyle.html) 的实例，而且，如果是的话，对自己调用 invalidate 方法，触发视图重绘。
 
  [`TextLine`](https://github.com/aosp-mirror/platform_frameworks_base/blob/master/core/java/android/text/TextLine.java) 类表示一行具有样式的文字，并且它只接受 `CharacterStyle`， [`MetricAffectingSpan`](https://developer.android.com/reference/android/text/style/MetricAffectingSpan.html) 和 [`ReplacementSpan`](https://developer.android.com/reference/android/text/style/ReplacementSpan.html)的子类。这是触发 [`MetricAffectingSpan.updateMeasureState`](https://developer.android.com/reference/android/text/style/MetricAffectingSpan.html#updateMeasureState%28android.text.TextPaint%29) 和 [`CharacterStyle.updateDrawState`](https://developer.android.com/reference/android/text/style/CharacterStyle.html#updateDrawState%28android.text.TextPaint%29) 的类。
 
@@ -106,7 +106,7 @@ val spannableFactory = object : Spannable.Factory() {
 
 这样，你就可以防止每次 `RecyclerView` 把新的条目绑定到你的 `ViewHolder` 时创建额外的对象。
 
-当你在使用文字和 `RecyclerViews` 时，为了获取更好的性能，不要根据 `ViewHolder` 中的 `String` 创建你的 `Spannable` 对象，要在 **你把列表传给 `**Adapter**` 之前**这样做。这允许你在后台线程中创建 `Spannable` 对象，并做完需要对列表元素做的所有操作。你的`Adapter` 可以持有对 `List<Spannable>` 的一个引用。
+当你在使用文字和 `RecyclerViews` 时，为了获取更好的性能，不要根据 `ViewHolder` 中的 `String` 创建你的 `Spannable` 对象，要在 **你把列表传给 `Adapter` 之前**这样做。这允许你在后台线程中创建 `Spannable` 对象，并做完需要对列表元素做的所有操作。你的`Adapter` 可以持有对 `List<Spannable>` 的一个引用。
 
 ### 额外的性能建议
 
@@ -114,10 +114,11 @@ val spannableFactory = object : Spannable.Factory() {
 
 你需要做的只是持有对可变 span 的一个引用，并且，取决于你改变了 view 的什么属性，调用：
 
-*   `**TextView.invalidate()**` （如果你只是改变**文字外观**），以触发一次 **redraw** 并跳过 layout 过程。
-*   `**TextView.requestLayout()**` （如果你改变**文字大小**），那么这个 view 就可以处理 **measure, layout 和 draw**。
+*   `TextView.invalidate()` （如果你只是改变**文字外观**），以触发一次 **redraw** 并跳过 layout 过程。
+*   `TextView.requestLayout()` （如果你改变**文字大小**），那么这个 view 就可以处理 **measure, layout 和 draw**。
 
 假如你实现了自定义的着重号，其默认的颜色为红色。当你按下一个按钮时，你希望着重号的颜色变成灰色。你的实现如下所示：
+
 ```
 class MainActivity : AppCompatActivity() {
     // keeping the span as a field
@@ -144,13 +145,13 @@ class MainActivity : AppCompatActivity() {
 
 **太长不看版**
 
-_在进程内和跨进程的 span 传递中，自定义 span 特性将不会被使用。如果想要的样式可以通过框架自带的 span 实现，**_尽可能使用多个框架中的 span** 取代你自己的 span。否则，尽量在自定义 span 时实现一些基础的接口或抽象类。_
+在进程内和跨进程的 span 传递中，自定义 span 特性将不会被使用。如果想要的样式可以通过框架自带的 span 实现，**尽可能使用多个框架中的 span** 取代你自己的 span。否则，尽量在自定义 span 时实现一些基础的接口或抽象类。
 
 在  Android 中，文字可以在进程内部（或跨进程）传递，例如在 Activity 间通过 Intent 传递，或当文字在 app 间传递时跨进程传递。
 
-自定义 span 实现不能在进程之间传递，因为其它进程不了解它们，也不知道如何处理它们。Android 框架中的 span 是全局对象，但**只有继承了** `**ParcelableSpan**` **的才可以在进程内或跨进程传递**。这个功能允许框架定义的 span 的所有属性实现 parcel 和 unparcel。[`TextUtils.writeToParcel`](https://developer.android.com/reference/android/text/TextUtils.html#writeToParcel%28java.lang.CharSequence,%20android.os.Parcel,%20int%29) 方法负责把 span 信息保存在 `Parcel` 中。
+自定义 span 实现不能在进程之间传递，因为其它进程不了解它们，也不知道如何处理它们。Android 框架中的 span 是全局对象，但**只有继承了 `ParcelableSpan` 的才可以在进程内或跨进程传递**。这个功能允许框架定义的 span 的所有属性实现 parcel 和 unparcel。[`TextUtils.writeToParcel`](https://developer.android.com/reference/android/text/TextUtils.html#writeToParcel%28java.lang.CharSequence,%20android.os.Parcel,%20int%29) 方法负责把 span 信息保存在 `Parcel` 中。
 
-例如，你可以在同进程中传递 span，或通过 intent 在 `Activity` 间传递:
+例如，你可以在同进程中传递 span，或通过 intent 在 `Activity` 间传递：
 
 ```
 // 使用文字和 span 启动 Activity
@@ -170,14 +171,14 @@ val intentCharSequence = intent.getCharSequenceExtra(TEXT_EXTRA)
 
 有两个重要的警告：
 
-1. 当带有 span 的文字被传递时，无论是在进程中还是跨进程，**只有 framework 的** `**ParcelableSpan**` **引用被保留**。这导致自定义 span 样式不能被传递。
-2.  **你不能创建自己的** `**ParcelableSpan**`**。** 为了防止未知数据类型导致的崩溃，框架不允许实现自定义 `ParcelableSpan`。这是通过把[`getSpanTypeIdInternal`](https://github.com/aosp-mirror/platform_frameworks_base/blob/master/core/java/android/text/ParcelableSpan.java#L39) 和 [`writeToParcelInternal`](https://github.com/aosp-mirror/platform_frameworks_base/blob/master/core/java/android/text/ParcelableSpan.java#L47) 设置为隐藏方法实现的。它们都被 `TextUtils.writeToParcel` 使用。
+1. 当带有 span 的文字被传递时，无论是在进程中还是跨进程，**只有 framework 的 `ParcelableSpan` 引用被保留**。这导致自定义 span 样式不能被传递。
+2.  **你不能创建自己的** `ParcelableSpan`**。** 为了防止未知数据类型导致的崩溃，框架不允许实现自定义 `ParcelableSpan`。这是通过把[`getSpanTypeIdInternal`](https://github.com/aosp-mirror/platform_frameworks_base/blob/master/core/java/android/text/ParcelableSpan.java#L39) 和 [`writeToParcelInternal`](https://github.com/aosp-mirror/platform_frameworks_base/blob/master/core/java/android/text/ParcelableSpan.java#L47) 设置为隐藏方法实现的。它们都被 `TextUtils.writeToParcel` 使用。
 
 假如你需要定义一个着重号 span，它可以自定义着重号的大小，因为现有的 `BulletSpan` 将半径规定为 4px。以下是实现它的方式，以及各种方式的后果：
 
-1.  **创建一个继承了** `**CustomBulletSpan**` **的** `**BulletSpan**`，它允许为着重号设置大小。当 span 通过复制文字或在 Activity 间跳转而传递时，附着于文字的 span 将会是 `**BulletSpan**`。这意味着如果文字被绘制，它将具有框架的默认文字半径，而不是在 `CustomBulletSpan` 中设置的半径。
+1.  **创建一个继承了** `CustomBulletSpan` **的** `BulletSpan`，它允许为着重号设置大小。当 span 通过复制文字或在 Activity 间跳转而传递时，附着于文字的 span 将会是 `BulletSpan`。这意味着如果文字被绘制，它将具有框架的默认文字半径，而不是在 `CustomBulletSpan` 中设置的半径。
 
-2.  **创建一个继承了** `**LeadingMarginSpan**` **的** `**CustomBulletSpan**` 并重新实现着重号功能。当 span 通过复制文字或在 Activity 间跳转而传递时，附着于文字的 span 将会是 `**LeadingMarginSpan**`。 这意味着如果文字被绘制，它将失去所有的样式。
+2.  **创建一个继承了** `LeadingMarginSpan` **的** `CustomBulletSpan` 并重新实现着重号功能。当 span 通过复制文字或在 Activity 间跳转而传递时，附着于文字的 span 将会是 `LeadingMarginSpan`。 这意味着如果文字被绘制，它将失去所有的样式。
 
 如果想要的样式可以通过框架自带的 span 实现， 尽可能使用多个框架中的 span取代你自己的 span。否则，尽量在自定义 span 时实现一些基础的接口或抽象类。这样，你可以防止在进程内或跨进程传递时，框架的实现被应用到 spannable。
 
