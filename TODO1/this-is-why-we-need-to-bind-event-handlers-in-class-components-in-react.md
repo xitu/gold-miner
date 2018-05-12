@@ -315,6 +315,8 @@ ReactDOM.render(
 ```
 <button type="button" onClick={this.handleClick}>Click Me</button>
 ```
+
+
 事件处理程序方法会丢失其**隐式绑定**的上下文。当事件被触发并且处理程序被调用时，`this`的值会回退到**默认绑定**，即值为 `undefined`，这是因为类声明和原型方法是以严格模式运行。
 
 当我们将事件处理程序的 `this` 绑定到构造函数中的组件实例时，我们可以将它作为回调传递，而不用担心会丢失它的上下文。
