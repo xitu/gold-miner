@@ -3635,10 +3635,11 @@
 |[深度学习系列4: 为什么你需要使用嵌入层](https://juejin.im/post/599183c6f265da3e2e5717d2)|校对|1|
 |[深度学习系列3 - CNNs 以及应对过拟合的详细探讨](https://juejin.im/post/598f25b15188257d8643173d)|翻译|4|
 
-## 译者：[jasonxia23](https://github.com/jasonxia23) 历史贡献积分：23 当前积分：23 年度积分：7
+## 译者：[jasonxia23](https://github.com/jasonxia23) 历史贡献积分：25 当前积分：25 年度积分：9
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|2|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|7|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|5|
 |[基于 TensorFlow 的上下文聊天机器人](https://juejin.im/entry/5992cd385188252433704fa3)|校对|1|
@@ -5079,10 +5080,11 @@
 |------|-------|-------|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|2|
 
-## 译者：[jaymz1439](https://github.com/jaymz1439) 历史贡献积分：4.5 当前积分：4.5 年度积分：4.5
+## 译者：[jaymz1439](https://github.com/jaymz1439) 历史贡献积分：6.5 当前积分：6.5 年度积分：6.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|2|
 |[用 Java 创造你的第一个区块链之第二部分 — 交易](https://juejin.im/post/5a940b116fb9a0633757587a)|校对|2|
 |[从 SQLite 逐步迁移到 Room](https://juejin.im/post/5a8c3a2cf265da4e761fd721)|校对|1|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|1.5|
@@ -5423,10 +5425,11 @@
 |[使用 Swift 实现原型动画](https://juejin.im/post/5ae28a9b6fb9a07aaa10fa1e)|校对|2|
 |[不使用 fastlane 实现持续交付的 5 种选项](https://juejin.im/post/5acf47cb6fb9a028c523944c)|翻译|5|
 
-## 译者：[luochen1992](https://github.com/luochen1992) 历史贡献积分：22.5 当前积分：22.5 年度积分：22.5
+## 译者：[luochen1992](https://github.com/luochen1992) 历史贡献积分：24.5 当前积分：24.5 年度积分：24.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|2|
 |[互联汽车是什么以及如何开发用于它的应用？](https://juejin.im/post/5ad419cb6fb9a028d9379e57)|校对|0.5|
 |[区块链如何帮助重塑医疗保健行业](https://juejin.im/post/5ad449b56fb9a028c6762db5)|校对|2|
 |[利用 Keras 深度学习库进行词性标注教程](https://juejin.im/post/5ae4613a5188256727742d7d)|翻译|2|
@@ -5509,10 +5512,11 @@
 |------|-------|-------|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|2|
 
-## 译者：[sisibeloved](https://github.com/sisibeloved) 历史贡献积分：10 当前积分：10 年度积分：10
+## 译者：[sisibeloved](https://github.com/sisibeloved) 历史贡献积分：16 当前积分：16 年度积分：16
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|6|
 |[用 Java 代码实现区块链](https://juejin.im/post/5ae57d9e6fb9a07ab83dcc03)|校对|4|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|6|
 
@@ -5551,3 +5555,9 @@
 |[使用 Swift 实现原型动画](https://juejin.im/post/5ae28a9b6fb9a07aaa10fa1e)|翻译|5|
 |[细数那些我离不开的 Sketch 插件](https://juejin.im/post/5ae0623ef265da0b8d419aca)|校对|1|
 |[用 Skater 解读预测模型：打开模型的黑箱](https://juejin.im/post/5ae1494bf265da0b7c06f835)|校对|2.5|
+
+## 译者：[wzasd](https://github.com/wzasd) 历史贡献积分：7 当前积分：7 年度积分：7
+
+|文章|类型|积分|
+|------|-------|-------|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|7|
