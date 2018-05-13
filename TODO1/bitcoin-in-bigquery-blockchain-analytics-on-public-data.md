@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/bitcoin-in-bigquery-blockchain-analytics-on-public-data.md](https://github.com/xitu/gold-miner/blob/master/TODO1/bitcoin-in-bigquery-blockchain-analytics-on-public-data.md)
 > * 译者：[LeopPro](https://github.com/LeopPro)
-> * 校对者：
+> * 校对者：[ALVINYEH](https://github.com/ALVINYEH)
 
 # BigQuery 中的比特币：使用公共数据分析区块链
 
@@ -42,6 +42,8 @@
 
 ![](https://i.loli.net/2018/05/08/5af11cc38c4cc.png)
 
+> 译者注：以上 4 个实时数据图可以在 [Google 数据洞察](https://datastudio.google.com/reporting/1G8yte8g3daDEw5EKOvbxPQudv92PZcPP)中查看。
+
 ### 交易可视化
 
 使用电子货币进行交易的一个后果是交易记录公开且完备。据信，第一次用比特币购买物品是在 2010 年 5 月 17 日。[Laszlo Hanyecz](https://en.bitcoin.it/wiki/Laszlo_Hanyecz) 花了 10,000 BTC 买了两个批萨，从地址 [1XPT…rvH4](https://blockchain.info/address/1XPTgDRhN8RFnzniWCddobD9iKZatrvH4) 到地址 [17Sk…xFyQ](https://blockchain.info/address/17SkEw2md5avVNyYgj6RiXuQKNwkXaxFyQ) 的交易记录在交易 ID 为 [a107…d48d](https://blockchain.info/tx/a1075db55d416d3ca199f55b6084e2115b9345e16c5cf302fc80e9d5fbf5d48d) 的区块链中。我们对 Hanyecz 地址购买批萨之前的 4 层比特币转移数据进行了可视化分析。我们用这段[代码](https://www.kaggle.com/mrisdal/visualizing-the-10k-btc-pizza-transaction-network?utm_medium=partner&utm_source=cloud&utm_campaign=big+data+blog+bitcoin)生成了下图。Hanyecz 的付款地址为红色圆圈，而其他地址为蓝色圆圈。箭头表示披萨购买交易之前比特币流动的方向。笔画宽度大致与地址间比特币移动量成正比。
@@ -68,7 +70,7 @@ WHERE
   dup_transaction_count > 1
 ```
 
-**怎么会发生这种事情？**比特币最初构建于 [BerkeleyDB](https://en.wikipedia.org/wiki/Berkeley_DB)，它可以处理非唯一键。后来 [Satoshi Nakamoto](https://en.wikipedia.org/wiki/Satoshi_Nakamoto) 离开了比特币项目组，新的开发团队使用 [LevelDB](http://leveldb.org) 替代了 [BerkeleyDB](https://en.wikipedia.org/wiki/Berkeley_DB)。然而 [LevelDB](http://leveldb.org) 无法处理唯一键，这使得开发者根据比特币改善提案 [BIP_0030](https://github.com/bitcoin/bips/blob/master/bip-0030.mediawiki) 修改 [比特币源代码](https://github.com/bitcoin/bitcoin)。
+**怎么会发生这种事情？** 比特币最初构建于 [BerkeleyDB](https://zh.wikipedia.org/wiki/Berkeley_DB)，它可以处理非唯一键。后来[中本聪](https://zh.wikipedia.org/wiki/%E4%B8%AD%E6%9C%AC%E8%81%AA)离开了比特币项目组，新的开发团队使用 [LevelDB](http://leveldb.org) 替代了 [BerkeleyDB](https://zh.wikipedia.org/wiki/Berkeley_DB)。然而 [LevelDB](http://leveldb.org) 无法处理唯一键，这使得开发者根据比特币改善提案 [BIP_0030](https://github.com/bitcoin/bips/blob/master/bip-0030.mediawiki) 修改 [比特币源代码](https://github.com/bitcoin/bitcoin)。
 
 尽管交易不再可能存在与多个块中，但仍然有一些旧的交易存在这个问题。
 
