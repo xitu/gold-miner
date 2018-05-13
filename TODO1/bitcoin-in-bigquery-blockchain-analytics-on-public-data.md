@@ -17,7 +17,7 @@
 
 ### 有趣的查询和分析
 
-下面，我门将根据比特币数据集展示一些有趣的查询和可视化数据。我们的分析将着眼于以下两个热门话题：
+下面，我们将根据比特币数据集展示一些有趣的查询和可视化数据。我们的分析将着眼于以下两个热门话题：
 
 *   网络基础（块困难度）
 *   交易可视化（第一次易物交易）
@@ -44,7 +44,7 @@
 
 ### 交易可视化
 
-使用电子货币进行交易的一个后果是交易记录公开且完备。据信，第一次用比特币购买物品是在 2010 年 5 月 17 日。[Laszlo Hanyecz](https://en.bitcoin.it/wiki/Laszlo_Hanyecz) 花了 10,000 BTC 买了两个批萨，从地址 [1XPT…rvH4](https://blockchain.info/address/1XPTgDRhN8RFnzniWCddobD9iKZatrvH4) 到地址 [17Sk…xFyQ](https://blockchain.info/address/17SkEw2md5avVNyYgj6RiXuQKNwkXaxFyQ) 的交易记录在交易ID为 [a107…d48d](https://blockchain.info/tx/a1075db55d416d3ca199f55b6084e2115b9345e16c5cf302fc80e9d5fbf5d48d) 的区块链中。我们对 Hanyecz 地址购买批萨之前的 4 层比特币转移数据进行了可视化分析。我们用这段[代码](https://www.kaggle.com/mrisdal/visualizing-the-10k-btc-pizza-transaction-network?utm_medium=partner&utm_source=cloud&utm_campaign=big+data+blog+bitcoin)生成了下图。Hanyecz 的付款地址为红色圆圈，而其他地址为蓝色圆圈。箭头表示披萨购买交易之前比特币流动的方向。笔画宽度大致与地址间比特币移动量成正比。
+使用电子货币进行交易的一个后果是交易记录公开且完备。据信，第一次用比特币购买物品是在 2010 年 5 月 17 日。[Laszlo Hanyecz](https://en.bitcoin.it/wiki/Laszlo_Hanyecz) 花了 10,000 BTC 买了两个批萨，从地址 [1XPT…rvH4](https://blockchain.info/address/1XPTgDRhN8RFnzniWCddobD9iKZatrvH4) 到地址 [17Sk…xFyQ](https://blockchain.info/address/17SkEw2md5avVNyYgj6RiXuQKNwkXaxFyQ) 的交易记录在交易 ID 为 [a107…d48d](https://blockchain.info/tx/a1075db55d416d3ca199f55b6084e2115b9345e16c5cf302fc80e9d5fbf5d48d) 的区块链中。我们对 Hanyecz 地址购买批萨之前的 4 层比特币转移数据进行了可视化分析。我们用这段[代码](https://www.kaggle.com/mrisdal/visualizing-the-10k-btc-pizza-transaction-network?utm_medium=partner&utm_source=cloud&utm_campaign=big+data+blog+bitcoin)生成了下图。Hanyecz 的付款地址为红色圆圈，而其他地址为蓝色圆圈。箭头表示披萨购买交易之前比特币流动的方向。笔画宽度大致与地址间比特币移动量成正比。
 
 ![](https://cloud.google.com/blog/big-data/2018/02/images/6736684411518976/bitcoin-bq-1.png)
 
@@ -82,7 +82,7 @@ WHERE
 
 1.  从比特币区块链账中实时提取数据
 2.  将数据存储到 [BigQuery](https://cloud.google.com/bigquery) 并将其解除规范化，以便更轻松地进行探索
-3.  使用 [Data Studio](https://datastudio.google.com/c/org/UTgoe29uR0C3F1FBAYBSww/reporting/1G8yte8g3daDEw5EKOvbxPQudv92PZcPP/page/nExM/edit) 从数据中到处分析报告
+3.  使用 [Data Studio](https://datastudio.google.com/c/org/UTgoe29uR0C3F1FBAYBSww/reporting/1G8yte8g3daDEw5EKOvbxPQudv92PZcPP/page/nExM/edit) 从数据中导出分析报告
 
 在比特币区块链数据也可以通过 [Kaggle](https://www.kaggle.com/bigquery/bitcoin-blockchain?utm_medium=partner&utm_source=cloud&utm_campaign=big+data+blog+bitcoin) 获取。你可以在 您可以使用 BigQuery Python 客户端库查询 Kernel（Kaggle 的免费浏览器内开发环境） 中的实时数据。Fork 一下 [this example kernel](https://www.kaggle.com/mrisdal/visualizing-daily-bitcoin-recipients?utm_medium=partner&utm_source=cloud&utm_campaign=big+data+blog+bitcoin) 用你自己的 Python 代码进行实验。
 
