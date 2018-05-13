@@ -2,12 +2,12 @@
 > * 原文作者：[Alexander Zlatkov](https://blog.sessionstack.com/@zlatkov?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-javascript-works-a-comparison-with-webassembly-why-in-certain-cases-its-better-to-use-it.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-javascript-works-a-comparison-with-webassembly-why-in-certain-cases-its-better-to-use-it.md)
-> * 译者：
+> * 译者：[stormluke](https://github.com/stormluke)
 > * 校对者：
 
-# How JavaScript works: A comparison with WebAssembly + why in certain cases it’s better to use it over JavaScript
+# JavaScript 是如何工作的：对比 WebAssembly + 为什么在某些场景下它比 JavaScript 更合适
 
-This is post # 6 of the series dedicated to exploring JavaScript and its building components. In the process of identifying and describing the core elements, we also share some rules of thumb we use when building SessionStack, a lightweight JavaScript application that has to be robust and highly-performant to help users see and reproduce their web app defects real-time.
+这是专门探索 JavaScript 及其构建组件系列的第 6 期。在识别和描述核心元素的过程中，我们还分享了构建 SessionStack 时使用的一些经验法则 —— 这是一个轻量级的 JavaScript 应用程序，但必须强大且性能卓越，才能帮助用户实时查看和重现其 Web 应用的缺陷。
 
 1. [[译] JavaScript 是如何工作的：对引擎、运行时、调用堆栈的概述](https://juejin.im/post/5a05b4576fb9a04519690d42)
 2. [[译] JavaScript 是如何工作的：在 V8 引擎里 5 个优化代码的技巧](https://github.com/xitu/gold-miner/blob/master/TODO/how-javascript-works-inside-the-v8-engine-5-tips-on-how-to-write-optimized-code.md)
@@ -15,146 +15,149 @@ This is post # 6 of the series dedicated to exploring JavaScript and its buildin
 4. [[译] JavaScript 是如何工作的: 事件循环和异步编程的崛起 + 5个如何更好的使用 async/await 编码的技巧](https://github.com/xitu/gold-miner/blob/master/TODO/how-javascript-works-event-loop-and-the-rise-of-async-programming-5-ways-to-better-coding-with.md)
 5. [[译] JavaScript 是如何工作的：深入剖析 WebSockets 和拥有 SSE 技术 的 HTTP/2，以及如何在二者中做出正确的选择](https://github.com/xitu/gold-miner/blob/master/TODO/how-javascript-works-deep-dive-into-websockets-and-http-2-with-sse-how-to-pick-the-right-path.md)
 
-This time we’ll take apart WebAssembly to analyze how it works, and more importantly, how it stacks against JavaScript in terms of performance: loading time, execution speed, garbage collection, memory usage, platform API access, debugging, multithreading and portability.
+这次我们将剖析 WebAssembly 的工作原理，更重要的是在性能方面分析它与 JavaScript 的差异：加载时间、执行速度、垃圾回收、内存使用情况、平台 API 调用、调试、多线程和可移植性。
 
-The way we build web apps is on the brink of revolution — this is still the early days but the way we think about web applications is going to change.
+我们构建 Web 应用程序的方式正处于革命的边缘 —— 仍然是初级阶段，但我们对 Web 应用程序的看法正在发生变化。
 
-#### First, let’s see what WebAssembly does
+#### 首先，让我们看看 WebAssembly 的功能
 
-WebAssembly (a.k.a. **wasm**) is an efficient, low-level bytecode for the web.
+WebAssembly（也叫作 **wasm**）是一种高效且低级的给 web 使用的字节码。
 
-WASM enables you to use languages other than JavaScript (e.g. C, C++, Rust or other), write your program in it, and then compile it (ahead of time) to WebAssembly.
+WASM 让你能够用 JavaScript 之外的语言（例如 C、C++、Rust 或其他）编写程序，然后将其（提前）编译到 WebAssembly。
 
-The result is a web app that’s very fast to load and execute.
+其结果是 Web 应用程序加载和执行速度都非常快。
 
-#### Loading time
+#### 加载时间
 
-In order to load JavaScript, the browser has to load all the `.js` files which are textual.
+为了加载 JavaScript，浏览器必须加载所有文本形式的 `.js` 文件。
 
-WebAssembly is faster to load inside the browser because only the already-compiled wasm files have to be transported over the internet. And wasm is a low-level assembly-like language with a very compact binary format.
+WebAssembly 在浏览器中加载速度更快，因为只需通过互联网传输已编译的 wasm 文件。而 wasm 是一种非常简洁的二进制格式的低级类汇编语言。
 
-#### Execution
+#### 执行
 
-Today Wasm runs just 20% slower **than native code execution**. This is, by all means, an astonishing result. It’s a format that’s compiled into a sandbox environment and runs within a whole lot of constraints to make sure it has no security vulnerabilities or is very hardened against them. The slowdown is minimal compared to truly native code. What’s more, it will be even **faster in the future**.
+今天 Wasm 的运行速度只**比本地代码执行**慢 20%。无论如何，这是一个惊人的结果。这是一种编译到沙盒环境中的格式，并且在很多约束条件下运行，以确保它没有或者很难有安全漏洞。与真正的本地代码相比，速度损失很小。更重要的是，它将**在未来更快**。
 
-Better yet, it’s browser-agnostic — all major engines added support for WebAssembly and offer similar execution times now.
+更好的是，它与浏览器无关 —— 目前所有主要引擎都增加了对 WebAssembly 的支持，并且提供类似的运行时。
 
-In order to understand how faster WebAssembly executes compared to JavaScript, you should first read [our article on how the JavaScript engine](https://blog.sessionstack.com/how-javascript-works-inside-the-v8-engine-5-tips-on-how-to-write-optimized-code-ac089e62b12e?source=---------3----------------) works.
+为了理解 WebAssembly 与 JavaScript 相比执行得有多快，你应该首先阅读[我们关于 JavaScript 引擎的文章](https://blog.sessionstack.com/how-javascript-works-inside-the-v8-engine- 5-tips-how-to-write-optimized-code-ac089e62b12esource=---------3----------------)。
 
-Let’s take a look at what happens in V8 as a quick overview:
+我们来看看大概看看 V8 中会发生什么：
 
 ![](https://cdn-images-1.medium.com/max/800/0*bN9YVBLw_tT1Xvte.)
 
-V8 Approach: lazy compilation
+V8 的方法：延迟编译
 
-On the left, we have some JavaScript source, containing JavaScript functions. It first needs to be parsed so that it converts all the strings into tokens and generates an [Abstract Syntax Tree](https://en.wikipedia.org/wiki/Abstract_syntax_tree) (AST). The AST is an in-memory representation of the logic of your JavaScript program. Once this representation is generated, V8 goes straight to machine code. You basically walk the tree, generate machine code and there you have your compiled function. There is no real attempt made to speed it up.
+在左边，我们有一些 JavaScript 源代码，包含 JavaScript 函数。首先需要解析它，以便将所有字符串转换为词法标记（token）并生成[抽象语法树](https://en.wikipedia.org/wiki/Abstract_syntax_tree)（AST）。AST 是 JavaScript 程序逻辑的内存表示。一旦生成了这种表示，V8 会直接跳到机器码。过程基本上是遍历语法树，生成机器代码，最后得到编译好的函数。没有真正的尝试来加速它。
 
-Now, let’s take a look at what the V8 pipeline does at the next stage:
+现在，我们来看看 V8 流水线在下一阶段的功能：
 
 ![](https://cdn-images-1.medium.com/max/800/0*wzuQ9LYv7CAUICOC.)
 
-V8 Pipeline Design.
+V8 流水线设计。
 
-This time we have [TurboFan](https://github.com/v8/v8/wiki/TurboFan), one of V8’s optimizing compilers. While your JavaScript app is running, a lot of code is running inside V8\. TurboFan monitors if something is running slow, whether there are bottlenecks and hot spots in order to optimize them. It pushes them through that backend, which is an optimized [JIT](https://en.wikipedia.org/wiki/Just-in-time_compilation) that creates much faster code for those functions which are chewing up most of your CPU.
+这次我们有了 [TurboFan](https://github.com/v8/v8/wiki/TurboFan) —— V8 的优化编译器之一。当你的 JavaScript 应用运行时，很多代码会在 V8 中运行。TurboFan 可以监控某些代码是否运行缓慢，是否存在瓶颈和热点来优化它们。它把这些代码推到编译器后端 —— 一个优化的 [JIT](https://en.wikipedia.org/wiki/Just-in-time_compilation)，这个后端可为那些消耗大部分 CPU 的函数创建更快的代码。
 
-It solves the problem but the gotcha here is that the process of analyzing the code and deciding what to optimize also consumes CPU. This, in turn, means higher battery consumption, especially on mobile devices.
+它解决了上面的问题，但这里的问题在于，分析并决定优化哪些代码的过程也会消耗 CPU。这反过来又意味着更高的电池消耗，特别是在移动设备上。
 
-Well, wasm doesn’t need all that — it gets plugged into the workflow like this:
+好了，wasm 并不需要所有的这些 —— 它会被插入工作流中，如下所示：
 
 ![](https://cdn-images-1.medium.com/max/800/0*GDU4GguTzk8cSAYk.)
 
-V8 Pipeline Design + WASM.
+V8 流水线设计 + WASM。
 
-The wasm has already gone through optimization during the compilation phase. On top, parsing is not needed either. You have an optimized binary that can directly hook into the backend which can generate machine code. All the optimizations have been done by the compiler at the front end.
+Wasm 在编译阶段就已经优化好。最重要的是，也不需要解析了的。你有了一个已优化的二进制文件，它可以直接挂接到生成机器码的编译器后端。所有优化都在编译器前端完成。
 
-This makes the execution of wasm a lot more efficient since quite a few of the steps in the process can simply be skipped.
+这让执行 wasm 更有效率，因为流程中的很多步骤都可以简单地跳过。
 
-#### Memory model
+#### 内存模型
 
 ![](https://cdn-images-1.medium.com/max/800/0*QphcOVaiVC2YL7Jd.)
 
-WebAssembly trusted and untrusted state.
+WebAssembly 可信和不可信状态。
 
-The memory of a C++ program, for example, compiled into WebAssembly, is a contiguous block of memory with no “holes” in it. One of the features of wasm that helps boost security is the concept of the execution stack being separate from the linear memory. In a C++ program, you have a heap, you allocate from the bottom of the heap, and grow the stack from the top of the heap. It’s possible to take a pointer and then look up in the stack memory in order to play with variables you’re not supposed to touch.
+举个例子，C++ 程序中的内存是一个连续的区块，其中并没有「空隙」。有助于提高安全性的 wasm 的特性之一是，执行栈与线性内存分离的概念。在 C++ 程序中，你有一个堆，你从底部分配堆内存，并从堆顶部获取栈空间。这就有可能造出一个指向栈空间的指针来玩弄那些本不应该接触到的变量。
 
-This is a pitfall that a lot of malware exploit.
+这是很多恶意软件所利用的缺陷。
 
-WebAssembly employs a completely different model. The execution stack is separated from the WebAssembly program itself, so there is no way you can modify inside it and change things like variables. Also, the functions use integer offsets rather than pointers. Functions point into an indirection function table. And then those direct, calculated numbers jump in the function inside the module. It’s been built this way so that you can load multiple wasm modules side by side, offset all the indexes and it all works well.
+WebAssembly 采用完全不同的模型。执行栈与 WebAssembly 程序本身是分开的，因此你无法修改栈变量等内容。而且，函数中使用整数偏移而不是指针。函数指向一个间接函数表。然后通过这些计算出的直接数字跳转到模块内部的函数中。这种设计方式使得你可以加载多个 wasm 模块，并排排列，平移所有的索引，互不影响。
 
-For more information on the memory model and management in JavaScript, you can check our very detailed [post on the topic](https://blog.sessionstack.com/how-javascript-works-memory-management-how-to-handle-4-common-memory-leaks-3f28b94cfbec).
+有关 JavaScript 中内存模型和管理的更多信息，可以查看我们非常详细的[关于此主题的文章](https://blog.sessionstack.com/how-javascript-works-memory-management-how-to-handle-4-common-memory-leaks-3f28b94cfbec)。
 
-#### Garbage collection
+#### 垃圾回收
 
-You already know that JavaScript’s memory management is handled with a Garbage Collector.
+你已经知道 JavaScript 的内存管理是使用垃圾收集器处理的。
 
-WebAssembly’s case is a bit different. It supports languages that manage memory manually. You can ship your own GC with your wasm modules, but it’s a complicated task.
+WebAssembly 的情况有点不同。它支持手动管理内存的语言。你的 wasm 模块可以自带 GC，但这是一项复杂的任务。
 
-Currently, WebAssembly is designed around the C++ and RUST use cases. Since wasm is very low-level, it makes sense that programming languages that are just one step above assembly language would be easy to compile to it. C can use normal malloc, C++ might use smart pointers, Rust employs a totally different paradigm (a whole different topic). These languages don’t use GCs, so they don’t need all the complicated runtime stuff to keep track memory. WebAssembly is a natural fit for them.
+目前，WebAssembly 是围绕 C++ 和 RUST 用例设计的。由于 wasm 是非常低级的，因此只有汇编语言上一层的编程语言才易于编译。C 可以使用普通的 malloc，C++ 可以使用智能指针，Rust 使用完全不同的形式（完全不同的主题）。这些语言不使用 GC，因此它们不需要哪些复杂的运行时来跟踪内存。WebAssembly 对他们来说是天作之合。
 
-In addition, these languages aren’t 100% designed to call into complex JavaScript things like mutating the DOM. It doesn’t make sense to write an entire HTML application in C++ because C++ isn’t designed for it. In most cases, when engineers write C++ or Rust, they target WebGL, or highly-optimized libraries (e.g. heavy-math computations).
+另外，这些语言并不是 100％ 被设计用于调用复杂的 JavaScript 事物，如操作 DOM。完全在 C++ 中编写 HTML 应用是没有意义的，因为 C++ 不是为它设计的。在大多数情况下，当工程师编写 C++ 或 Rust 时，他们的目标是 WebGL 或高度优化的库（例如繁重的数学计算）。
 
-In the future, however, WebAssembly will support languages that don’t come with a GC.
-
-#### Platform API access
+但是，将来 WebAssembly 也将支持不附带 GC（但需要垃圾回收）的语言。
 
 Depending on the runtime that executes JavaScript, access to platform-specific APIs is being exposed which can be directly reached through your JavaScript application. For example, if you’re running JavaScript in the browser, you have a set of [Web APIs](https://developer.mozilla.org/en-US/docs/Web/API) that the web app can call to control web browser/device functionality and access things like [DOM](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model), [CSSOM](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model), [WebGL](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API), [IndexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API), [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API), etc.
 
-Well, WebAssembly modules have no access to any platform APIs. Everything is mediated by JavaScript. If you want to access some platform-specific APIs inside your WebAssembly module, you have to call it through JavaScript.
+#### 平台 API 调用
 
-For example, if you want to `console.log`, you have to call it through JavaScript, instead of your C++ code. And there is a cost penalty for those JavaScript calls.
+取决于执行 JavaScript 的运行时，不同特定于平台的 API 可以通过 JavaScript 应用程序直接访问。例如，如果在浏览器中运行 JavaScript，你可以通过一系列 [Web APIs](https://developer.mozilla.org/en-US/docs/Web/API) 来控制 web 浏览器 / 设备的功能，并且可以使用例如 [DOM](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model)、[CSSOM](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model)、[WebGL](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API)、[IndexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API)、[Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API) 等等
 
-This won’t be always the case. The specification will provide Platform APIs to wasm in the future, and you’ll be able to ship your apps without JavaScript.
+好吧，WebAssembly 模块无法直接调用任何平台 API。一切都是由 JavaScript 代理的。如果你想在 WebAssembly 模块中调用的某些平台特定的 API，则必须通过 JavaScript 调用它。
 
-#### Source maps
+例如，如果你想用 `console.log`，必须通过 JavaScript 调用它，而不是你的 C++ 代码。这些 JavaScript 调用的成本会比较高。
 
-When you minify your JavaScript code, you need a way to debug it properly. That’s where [Source Maps](https://www.html5rocks.com/en/tutorials/developertools/sourcemaps/) come to the rescue.
-Basically, Source Maps are a way to map a combined/minified file back to an unbuilt state. When you build for production, along with minifying and combining your JavaScript files, you generate a source map which holds information about the original files. When you query a certain line and column number in your generated JavaScript, you can do a lookup in the source map which returns the original location.
+也并不总是如此。规范将在未来为平台 API 提供 wasm 接口，并且你将能够在没有 JavaScript 的情况下发布应用程序。
 
-WebAssembly does not currently support source maps because there is no specification but it will, eventually (probably quite soon).
+#### 源码映射
 
-When you set a breakpoint in your C++ code, you’ll see the C++ code instead of WebAssembly. At least, that’s the goal.
+当你压缩 JavaScript 代码时，需要一种正确调试它的方法。这就是[源码映射](https://www.html5rocks.com/en/tutorials/developertools/sourcemaps/)大显身手地方。
 
-#### Multithreading
+基本上，源码映射是一种将整合/压缩文件映射回构建前状态的方法。当你构建线上版时，压缩和组合 JavaScript 文件时将生成一个包含原始文件信息的源码映射。当你在生成的 JavaScript 中查询某一行号和列号时，可以在源码映射中查找代码的原始位置。
 
-JavaScript runs on a single thread. There are ways to utilize the Event Loop and leverage asynchronous programming as described in a great detail in [our article on the topic](https://blog.sessionstack.com/how-javascript-works-event-loop-and-the-rise-of-async-programming-5-ways-to-better-coding-with-2f077c4438b5).
+WebAssembly 目前不支持源码映射，因为暂时没有规范，但最终会有的（可能很快）。
 
-JavaScript also uses Web Workers but they have a very specific use case — basically, any intense CPU computation that would block the main UI thread could benefit from being offloaded to a Web Worker. However, Web Workers have no access to the DOM.
+当在 C++ 代码中设置断点时，你将看到 C++ 代码而不是 WebAssembly。至少这是目标。
 
-WebAssembly doesn’t currently support multithreading. However, this is probably the next thing to come. Wasm is going to get closer to native threads (e.g. C++ style threads). Having “real” threads is going to create a lot of new opportunities in the browser. And of course, it’s going to open the door to more possibilities for abuse.
+#### 多线程
 
-#### Portability
+JavaScript 在单线程上运行。有很多方法可以发挥事件循环和异步编程优势，详见[我们关于该主题的文章](https://blog.sessionstack.com/how-javascript-works-event-loop-and-the-rise-of-async-programming-5-ways-to-better-coding-with-2f077c4438b5)。
 
-Nowadays JavaScript can run almost anywhere, from the browser to the server-side and even in embedded systems.
+JavaScript 也使用 Web Workers，但他们有一个非常具体的用例 —— 基本上，阻止主 UI 线程的任何重 CPU 计算都可以从 Web Worker 中受益。但是 Web Workers 无法访问 DOM。
 
-WebAssembly is designed to be safe and portable. Just like JavaScript. It will run in every environment that supports wasm (e.g. every browser).
+WebAssembly 目前不支持多线程。但是未来可能会。Wasm 将会和本地线程更近（例如 C++ 型线程）。拥有「真实」的线程将在浏览器中创造出许多新的机会。当然，这也将打开更多滥用可能性的大门。
 
-WebAssembly has the same portability goal as the one Java attempted to achieve in the early days with the Applets.
+#### 可移植性
 
-#### Where is it better to use WebAssembly over JavaScript?
+如今，JavaScript 几乎可以在任何地方运行，从浏览器到服务器端甚至嵌入式系统。
 
-In the first versions of WebAssembly, the main focus is on heavy CPU-bound computations (dealing with math for example). The most mainstream use that comes to mind is games — there are tons of pixel manipulations there. You can write your app in C++/Rust using OpenGL bindings that you’re used to, and compile it to wasm. And it will run in the browser.
+WebAssembly 设计目标是安全且可移植。就像 JavaScript 一样。它将运行在支持 wasm 的每个环境中（例如每个浏览器）。
 
-Take a look at this (Run it in Firefox) — [http://s3.amazonaws.com/mozilla-games/tmp/2017-02-21-SunTemple/SunTemple.html](http://s3.amazonaws.com/mozilla-games/tmp/2017-02-21-SunTemple/SunTemple.html). That’s running the [Unreal engine](https://www.unrealengine.com/en-US/what-is-unreal-engine-4).
+WebAssembly 具有与 Java Applets 初期尝试实现的移植性相同的可移植性目标。
 
-Another case where it could make sense to use WebAssembly (performance-wise) is implementing some library that is doing very CPU-intensive work. For example, some image manipulation.
+#### 在哪里使用 WebAssembly 比 JavaScript 更好？
 
-As mentioned earlier, wasm can reduce quite a bit the battery consumption on mobile devices (depending on the engine), since most of the processing steps have been completed ahead of time during compilation.
+在 WebAssembly 的第一个版本中，主要关注 CPU 占用大的计算（例如处理数学）。想到的最主流的用途是游戏 —— 那里有大量的像素操作。你可以使用你习惯的 OpenGL 绑定在 C++ / Rust 中编写应用，并将其编译为 wasm。它会在浏览器中运行。
 
-In the future, you’ll be able to consume WASM binaries even if you’re not actually writing code that compiles to it. You can find projects in NPM that are starting to use this approach.
+看看这个（在 Firefox 中运行）—— [http://s3.amazonaws.com/mozilla-games/tmp/2017-02-21-SunTemple/SunTemple.html](http://s3.amazonaws.com/mozilla-games/tmp/2017-02-21-SunTemple/SunTemple.html)。它使用[虚幻引擎](https://www.unrealengine.com/en-US/what-is-unreal-engine-4)。
 
-For DOM manipulation and heavy platform API usage, it definitely makes sense to stay with JavaScript, since it adds no further overhead, and has the APIs provided natively.
+另一种使用 WebAssembly 可能有意义（性能方面）的场景是实现一些这是一个 CPU 密集型的库。例如，一些图像处理库。
 
-At [SessionStack](https://www.sessionstack.com/?utm_source=medium&utm_medium=blog&utm_content=Post-6-webassembly-outro) we are constantly pushing the boundaries of JavaScript performance in order to write highly-optimized and efficient code. Our solution needs to provide blazing-fast performance as we can’t afford to impede the performance of our customers’ apps. Once you integrate SessionStack into your production web application or website, it starts recording everything: all DOM changes, user interactions, JavaScript exceptions, stack traces, failed network requests, and debug data. And all this takes place in your production environment without impacting any of the UX and performance of your product. We need to heavily optimize our code and make it asynchronous as much as possible.
+如前所述，由于大多数处理步骤都是在编译期间提前完成的，因此 wasm 可以减少移动设备上的电池消耗（取决于引擎）。
 
-And not just the library! When you replay a user session in SessionStack, we have to render everything that happened in your user’s browser at the time the problem occurred, and we have to reconstruct the whole state, allowing you to jump back and forth in the session timeline. In order to make this possible, we’re heavily employing the async opportunities that JavaScript provides due to a lack of a better alternative.
+将来，即使你实际上没有编写代码，你也可以使用 WASM 二进制文件。可以在 NPM 中找到开始使用此方法的项目。
 
-With WebAssembly, we’ll be able to push some of the heaviest processing and rendering into a language that is better suited for the job and leave the data collection and DOM manipulation to JavaScript.
+对于 DOM 操作和大量的平台 API 操作，当然用 JavaScript 更好，因为它不会增加额外的开销，并且具有原生的 API。
 
-If you want to give SessionStack a try, [you can get started for free](https://www.sessionstack.com/?utm_source=medium&utm_medium=blog&utm_content=Post-6-webassembly-trynow). There’s a free plan that provides 1,000 sessions / month.
+在 [SessionStack](https://www.sessionstack.com/?utm_source=medium&utm_medium=blog&utm_content=Post-6-webassembly-outro)，为了编写高度优化且高效的代码，我们不断突破 JavaScript 性能的机极限。我们的解决方案需要提供超快的性能，因为我们不能阻碍客户应用本身。将 SessionStack 集成到线上 Web 应用或网站后，它会开始记录所有内容：所有 DOM 更改、用户交互、JavaScript 异常、堆栈跟踪、失败的网络请求和调试数据。所有这些都在你的线上环境中进行，但不会影响产品的任何体验和性能。我们需要大量优化我们的代码并尽可能使其异步。
+
+而且不只是库！当你在 SessionStack 中重放用户会话时，我们必须渲染在发生问题时用户浏览器中发生的所有事件，并且必须重构整个状态，允许你在会话时间线中来回跳转。为了做到这一点，我们正在大量使用 JavaScript 提供的异步能力，因为缺少更好的选择。
+
+借助 WebAssembly，我们能够将一些最繁重的处理和渲染交给更适合做这个工作的语言，同时将数据收集和 DOM 操作留给 JavaScript。
+
+如果你想试试 SessionStack，[可以从这里免费开始](https://www.sessionstack.com/?utm_source=medium&utm_medium=blog&utm_content=Post-6-webassembly-trynow)。免费版可以提供 1000 会话 / 月。
 
 ![](https://cdn-images-1.medium.com/max/800/1*GmlfCMCeX2VKR3HCHuGIwA.png)
 
-Resources:
+资源：
 
 * https://www.youtube.com/watch?v=6v4E6oksar0
 * https://www.youtube.com/watch?v=6Y3W94_8scw
