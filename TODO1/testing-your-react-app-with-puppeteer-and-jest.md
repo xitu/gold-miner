@@ -11,9 +11,9 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*wby6AkTf3SggijT3GSTu4w.png)
 
-端到端测试可以帮助我们确保 React 应用中所有的组件都能像我们预期的那样工作，而单元测试和集成测试不能这样。
+端到端测试可以帮助我们确保 React 应用中所有的组件都能像我们预期的那样工作，而单元测试和集成测试做不到这样。
 
-[Puppeteer](https://github.com/GoogleChrome/puppeteer) 是谷歌官方出品的一个基于 Dev Tools 协议提供高度封装接口来控制 [Chromium](https://www.chromium.org/) 的 [Node](https://nodejs.org/) 库。有了 Puppeteer，我们可以打开应用、执行测试。
+[Puppeteer](https://github.com/GoogleChrome/puppeteer) 是 Google 官方提供的一个端到端测试的 [Node](https://nodejs.org/) 库，它向我们提供了基于 Dev Tools 协议封装的上层 API 接口来控制 [Chromium](https://www.chromium.org/)。有了 Puppeteer，我们可以打开应用、执行测试。
 
 在这篇文章中，我将展示如何使用 Puppeteer 和 [Jest](https://facebook.github.io/jest/) 在一个简单的 React 应用上执行不用类型的测试。
 
@@ -49,9 +49,9 @@ yarn add faker puppeteer --dev
 }
 ```
 
-使用 Puppeteer，我们可以选择使用无头模式运行测试，也可以选择在 Chromium 中打开。这是一个很棒的功能，因为我们可以看到测试中具体的页面、使用开发者工具、查看网络请求。唯一的缺点就是它会使连续集成（CI）测试变的非常慢。
+使用 Puppeteer，我们可以选择使用无头模式运行测试，也可以选择在 Chromium 中打开。这是一个很棒的功能，因为我们可以看到测试中具体的页面、使用开发者工具、查看网络请求。唯一的缺点就是它会使持续集成（CI）测试变的非常慢。
 
-我们可以配置环境变量来决定是否使用无头模式来运行测试。当我需要看到测试执行的具体情况，我就会通过运行 `debug` 脚本来开启无头模式。当我不需要时，就会运行 `test` 脚本。
+我们可以配置环境变量来决定是否使用无头模式来运行测试。当我需要看到测试执行的具体情况，我就会通过运行 `debug` 脚本来关闭无头模式。当我不需要时，就会运行 `test` 脚本。
 
 现在打开 `src` 目录下的 `App.test.js` 文件，用下面的代码替换原来的：
 
@@ -95,7 +95,7 @@ describe('on page load', () => {
 *   `slowMo: 250` — 延迟 250 毫秒执行设置 Puppeteer 选项。
 *   `devtools: true` — 打开应用时，浏览器是否打开开发者工具。
 
-这个 `isDebugging` 函数会返回一个基于环境变量的三元表达式。三元语句决定是返回 `debuggin_mode`，还是返回一个空对象。
+这个 `isDebugging` 函数会返回一个基于环境变量的三元表达式。三元语句决定是返回 `debugging_mode`，还是返回一个空对象。
 
 回到我们的 `package.json` 文件，我们创建了一个 `debug` 脚本，它会把 Node 设置为调试环境。和上面的测试（使用浏览器默认选项）不同，如果我们的环境变量为 `debug`，`isDebugging` 函数就会返回我们自定义的浏览器选项。
 
@@ -116,13 +116,13 @@ await page.goto('http://localhost:3000/');
 const html = await page.$eval('.App-title', e => e.innerHTML);
 expect(html).toBe('Welcome to React');
 browser.close();
-}, // 不是最新的
+},
 16000
-); // 不是最新的
-}); // 不是最新的
+);
+});
 ```
 
-基本上，我们告诉 Puppeteer 打开 `[http://localhost:3000/](http://localhost:3000/.)`。Puppeteer 会执行 `App-title` 这个类。这个类出现在了 `h1` 标签上。
+基本上，我们告诉 Puppeteer 打开 `[http://localhost:3000/](http://localhost:3000/.)`。Puppeteer 会执行 `App-title` 这个类。而我们的 `h1` 标签上设置了这个类。
 
 这个 `$.eval` 方法实际上就是在调用对象上执行 `document.querySelector` 方法。
 
@@ -130,7 +130,7 @@ Puppeteer 会找到和这个类选择器匹配的元素，然后作为参数传�
 
 一旦 Puppeteer 完成了测试，`browser.close` 方法就会关闭浏览器。
 
-打开命令终端，执行 `debug` 脚本把。
+打开命令终端，执行 `debug` 脚本吧。
 
 ```
 yarn debug
@@ -189,7 +189,7 @@ beforeAll(async () => {
 })
 ```
 
-早些时候，我并不需要设置 `userAgent`。所以我没使用 `beforeAll` 方法，而只用了 `setViewport` 方法。现在，我可以摆脱`localhost` 和 `browser.close`，使用 `afterAll` 方法替代。如果应用处于调试模式，（测试结束后）需要关闭浏览器。
+早些时候，我并不需要设置 `userAgent`。所以我没使用 `beforeAll` 方法，而只用了 `setViewport` 方法。现在，我可以摆脱`localhost` 和 `browser.close`，使用 `afterAll` 方法替代。如果应用处于调试模式，（测试结束后）就需要关闭浏览器。
 
 ```
 afterAll(() => {     
@@ -211,11 +211,11 @@ test('nav loads correctly', async () => {
 }
 ```
 
-在这里，我首先给 `$eval` 方法传入 `.navbar` 参数选取 `navbar`    元素。然后使用三元运算符返回这个元素是否存在（`true` 或 `false`）。
+在这里，我首先给 `$eval` 方法传入 `.navbar` 参数选取 `navbar` 元素。然后使用三元运算符返回这个元素是否存在（`true` 或 `false`）。
 
 接下来，需要选取列表项。和之前一样，给 `$eval` 方法传入 `.nav-li` 参数选取列表元素。我们用 `expect` 方法断言 `navbar` 元素存在（`true`），并且列表项的个数为 4。
 
-你可能注意到了我在选取列表项上使用了 `$$` 方法。这是在页面内运行 `document.querySelector` 方法的快捷方式。这个方法不能传递回调函数。
+你可能注意到了我在选取列表项上使用了 `$$` 方法。这是在页面内运行 `document.querySelector` 方法的快捷方式。当 `eval` 和 $ 符号没有一起使用时，就不能传递回调函数。
 
 运行调试脚本，看看你的代码能否通过两个测试。
 
@@ -328,7 +328,7 @@ const user = {
 
 Faker 在测试中非常有用，每次测试，它都会生成不同的数据。
 
-在 `describe` 语句块中编写一个新的 `test` 语句来测试登录表单。测试会点击输入框、并键入内容。然后会模拟点击提交按钮并等待成功信息组件的显示。我也会给这个 `test` 增加一个超时。
+在 `describe` 语句块中编写一个新的 `test` 语句来测试登录表单。测试会点击输入框并键入内容。然后会模拟点击提交按钮并等待成功信息组件的显示。我也会给这个 `test` 增加一个超时。
 
 ```
 test('login form works correctly', async () => {
@@ -466,7 +466,7 @@ test('sets firstName cookie', async () => {
 })
 ```
 
-`Page.cookies` 方法返回每个文档的 cookie 对象组成的数组。使用数组的 `find` 方法来检查 cookie 是否存在。这可以确保应用使用的是 Faker 生成的 `firstName`。
+`Page.cookies` 方法返回文档的每个 cookie 对象组成的数组。使用数组的 `find` 方法来检查 cookie 是否存在。这可以确保应用使用的是 Faker 生成的 `firstName`。
 
 如果你现在运行 `test` 脚本，你会发现测试失败了，因为返回的是一个 undefined 的值。现在来解决这个问题。
 
@@ -503,7 +503,7 @@ handleInput = e => {
 
 现在，当用户点击了 `Login` 按钮，我需要应用把 `firstName` 信息保存到 cookie。运行 `npm test` 命令，看看应用能否通过所有测试。
 
-如果应用在执行任何操作之前需要某个 cookie，这个 cookie 是否是在之前授权的页面设置呢？
+如果应用在执行任何操作之前需要某个 cookie，这个 cookie 是否应该在之前授权的页面设置呢？
 
 在 `App.js` 文件中，像下面这样重构 `handleSubmit` 方法：
 
@@ -533,7 +533,7 @@ await page.setCookie({ name: 'JWT', value: 'kdkdkddf' })
 
 当测试失败时，截图可以帮助我们看到具体的内容。我们来看看如何用 Puppeteer 来截图并分析测试。
 
-在 `App.test.js` 文件 `nav loads correctly` 测试语句块内。添加一个条件语句来检查列表项 `listItems` 的个数是不是等于 3。如果这样，Puppeteer 就应该对页面进行截图，更新测试的 expect 语句，期望 `listItems` 的个数是 3 不是 4。
+在 `App.test.js` 文件 `nav loads correctly` 测试语句块内。添加一个条件语句来检查列表项 `listItems` 的个数是不是不等于 3。如果这样，Puppeteer 就应该对页面进行截图，更新测试的 expect 语句，期望 `listItems` 的个数是 3 不是 4。
 
 ```
 if (listItems.length !== 3) 
@@ -599,7 +599,7 @@ page.on('request', interceptedRequest => {
 });
 ```
 
-`setRequestInterception` 是一个标志，是我能访问页面发出的每个请求。一旦请求被拦截，请求就会中止，并返回特定的错误码。也可以将请求设置为失败或检查一些逻辑之后继续拦截请求。
+`setRequestInterception` 是一个标志，使我能访问页面发出的每个请求。一旦请求被拦截，请求就会中止，并返回特定的错误码。也可以将请求设置为失败或检查一些逻辑之后继续拦截请求。
 
 我们来写一个新的名为 `fails to fetch pokemon` 的测试。这个测试会执行 `h3` 元素。然后抓取这个元素的内容，确保内容为 `Received Pokemon data!`。
 
@@ -618,7 +618,7 @@ page.on('request', interceptedRequest => {
 
 ![](https://cdn-images-1.medium.com/max/800/1*h9a8rtfeLTc5D06OySlJKA.png)
 
-注意在中止请求时，我们可以控制请求头、返回的错误码和自定义的响应实体。
+注意在中止请求时，我们可以控制请求头、返回的错误码和自定义响应的实体。
 
 * * *
 
