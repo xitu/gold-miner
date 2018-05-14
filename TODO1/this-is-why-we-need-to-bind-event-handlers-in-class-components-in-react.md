@@ -5,7 +5,7 @@
 > * 译者：[whuzxq](https://github.com/whuzxq)
 > * 校对者：
 
-# 这就是为什么我们需要在 React 的类组件中为事件处理程序绑定 this
+# 为什么需要在 React 类组件中为事件处理程序绑定 this
 
 ![](https://cdn-images-1.medium.com/max/2000/1*kdZr8L9pUOgosVNWqMSmlQ.png)
 
