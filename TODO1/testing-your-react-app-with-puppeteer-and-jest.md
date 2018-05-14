@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/testing-your-react-app-with-puppeteer-and-jest.md](https://github.com/xitu/gold-miner/blob/master/TODO1/testing-your-react-app-with-puppeteer-and-jest.md)
 > * 译者：[jonjia](https://github.com/jonjia)
-> * 校对者：
+> * 校对者：[sunhaokk](https://github.com/sunhaokk) [老教授](https://github.com/weberpan)
 
 # 使用 Puppeteer 和 Jest 测试你的 React 应用
 
@@ -37,7 +37,7 @@ yarn add faker puppeteer --dev
 
 我们并不需要安装 Jest，因为它已经内置在 React 包中了。如果你再次安装的话，那接下来的测试不能顺利进行了，因为这两个不同版本的 Jest 会相互冲突。
 
-接下来，我们需要更新下 `package.json` 中的 `test` 脚本去调用 Jest。还需要添加一个新的 `debug` 脚本。这个脚本用来把我们的 Node 环境设置为调试模式并调用 `npm test`。  
+接下来，我们需要更新下 `package.json` 中的 `test` 脚本去调用 Jest。还需要添加一个新的 `debug` 脚本。这个脚本用来把我们的 Node 环境设置为调试模式并调用 `npm test`。
 
 ```
 "scripts": {
