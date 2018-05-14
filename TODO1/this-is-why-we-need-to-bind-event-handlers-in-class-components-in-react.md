@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/this-is-why-we-need-to-bind-event-handlers-in-class-components-in-react.md](https://github.com/xitu/gold-miner/blob/master/TODO1/this-is-why-we-need-to-bind-event-handlers-in-class-components-in-react.md)
 > * 译者：[whuzxq](https://github.com/whuzxq)
-> * 校对者：
+> * 校对者：[sunhaokk](https://github.com/sunhaokk)
 
 # 为什么需要在 React 类组件中为事件处理程序绑定 this
 
