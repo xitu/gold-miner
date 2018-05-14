@@ -46,7 +46,7 @@ ReactDOM.render(
 
 ### **应责怪 JavaScript，而不是 React**
 
-好吧，责怪听起来有些苛刻。如果按照 React 和 JSX 的语法，我们并不需要这么做。其实绑定 `this` 是 JavaScript 中的语法。 
+好吧，责怪听起来有些苛刻。如果按照 React 和 JSX 的语法，我们并不需要这么做。其实绑定 `this` 是 JavaScript 中的语法。
 
 让我们看看，如果不将事件处理程序绑定到组件实例上，会发生什么：
 
