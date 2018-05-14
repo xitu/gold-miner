@@ -2,55 +2,55 @@
 > * 原文作者：[Angelos Chalaris](https://hackernoon.com/@chalarangelo?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/30-minute-python-web-scraper.md](https://github.com/xitu/gold-miner/blob/master/TODO1/30-minute-python-web-scraper.md)
-> * 译者：
+> * 译者：[kezhenxu94](https://github.com/kezhenxu94/)
 > * 校对者：
 
-# 30-minute Python Web Scraper
+# 30 分钟 Python 爬虫教程
 
-I’ve been meaning to create a web scraper using Python and [Selenium](http://www.seleniumhq.org/) for a while now, but never gotten around to it. A few nights ago, I decided to give it a spin. Daunting as it may have seemed, it was extremely easy to write the code to grab some beautiful images from [Unsplash](https://unsplash.com/).
+一直想用 Python 和 [Selenium](http://www.seleniumhq.org/) 写一个网页爬虫，但一直都没去实现。直到几天前我才决定动手实现它。写代码从 [Unsplash](https://unsplash.com/) 网站上抓取一些漂亮的图片，这看起来好像是非常艰巨的事情，但实际上却是极其简单。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*9wHrewC1Dyf2Au_qEqwWcg.jpeg)
 
-Image credit: [Blake Connally](https://unsplash.com/@blakeconnally) via [Unsplash.com](https://unsplash.com/photos/B3l0g6HLxr8)
+图片来源: [Blake Connally](https://unsplash.com/@blakeconnally) 发布于 [Unsplash.com](https://unsplash.com/photos/B3l0g6HLxr8)
 
-#### Ingredients for a simple Image Scraper
+#### 简单图片爬虫的原料
 
-*   [Python](https://www.python.org/downloads/) (3.6.3 or newer)
-*   [Pycharm](https://www.jetbrains.com/pycharm/download/#section=windows) (Community edition is just fine)
-*   `pip install [requests](http://docs.python-requests.org/en/master/user/install/#install) [Pillow](https://pillow.readthedocs.io/en/latest/installation.html#basic-installation) [selenium](http://selenium-python.readthedocs.io/installation.html#downloading-python-bindings-for-selenium)`
-*   [geckodriver](https://github.com/mozilla/geckodriver/releases/latest) (read below for instructions)
-*   [Mozlla Firefox](https://www.mozilla.org/en-US/firefox/new/) (as if you didn’t have it installed)
-*   Working internet connection (obviously)
-*   30 minutes of your time (possibly less)
+*   [Python](https://www.python.org/downloads/) (3.6.3 或以上)
+*   [Pycharm](https://www.jetbrains.com/pycharm/download/#section=windows) (社区版就已经足够了)
+*   pip install [requests](http://docs.python-requests.org/en/master/user/install/#install) [Pillow](https://pillow.readthedocs.io/en/latest/installation.html#basic-installation) [selenium](http://selenium-python.readthedocs.io/installation.html#downloading-python-bindings-for-selenium)
+*   [geckodriver](https://github.com/mozilla/geckodriver/releases/latest) (具体见下文)
+*   [Mozlla Firefox](https://www.mozilla.org/en-US/firefox/new/) (如果你没有安装过的话)
+*   正常的网络连接（显然需要的）
+*   你宝贵的 30 分钟（也许更少）
 
-#### Recipe for a simple Image Scraper
+#### 简单图片爬虫的菜谱
 
-Got everything installed and ready? Good! I’ll explain what each of these ingredients does, as we move forward with our code.
+以上的所有都安装好了？棒！在我们继续开始写代码前，我先来解释一下以上这些原料都是用来干什么的。
 
-The first thing we’ll be utilizing is the **Selenium webdriver** combined with **geckodriver** to open a browser window that does our job for us. To get started, create a project in **Pycharm**, download the latest version of geckodriver for you operation system, open the compressed file and drag & drop the geckodriver file into your project’s folder. Geckodriver is basically what lets Selenium get control of Firefox, so we need it in our project folder to be able to utilize the browser.
+我们首先要做的是利用 **Selenium webdriver** 和 **geckodriver** 来为我们打开一个浏览器窗口。首先，在 **Pycharm** 中新建一个项目，根据你的操作系统下载最新版的 geckodriver，将其解压并把 geckodriver 文件拖到项目文件夹中。Geckodriver 本质上就是一个能让 Selenium 控制 Firefox 的工具，因此我们的项目需要它来让浏览器帮我们做一些事。
 
-Next thing we want to be doing is to actually import the webdriver from Selenium into our code and connect to the URL we want. So let’s do just that:
+接下来我们要做的事就是从 Selenium 中导入 webdriver 到我们的代码中，然后连接到我们想爬取的 URL 地址。说做就做：
 
-```
+```python
 from selenium import webdriver
-# The URL we want to browse to
+# 我们想要浏览的 URL 链接
 url = "https://unsplash.com"
-# Using Selenium's webdriver to open the page
+# 使用 Selenium 的 webdriver 来打开这个页面
 driver = webdriver.Firefox(executable_path=r'geckodriver.exe')
 driver.get(url)
 ```
 
-Opening a new browser window to a specific URL.
+打开浏览器窗口到指定的 URL。
 
 ![](https://cdn-images-1.medium.com/max/800/1*SXfVW1B1UiQakb200l9EmA.png)
 
-A remote-controlled Firefox window.
+一个远程控制的 Firefox 窗口。
 
-Pretty easy, huh? If you’ve done everything correctly, you are over the hard part already and you should see a browser window similar to the one shown in the above image.
+相当容易对吧？如果以上所说你都正确完成了，你已经攻克了最难的那部分了，此时你应该看到一个类似于以上图片所示的浏览器窗口。
 
-Next up, we should **scroll down** so that more images can be loaded before we get to download them. We also want to **wait a few seconds**, just in case the connection is slow and the images have not fully loaded. As Unsplash is built with React, waiting for about 5 seconds seems like a generous timeframe, so we should do just that, using the `time` package. We also want to use some Javascript code to scroll the page — we will be using `[window.scrollTo()](https://developer.mozilla.org/en-US/docs/Web/API/Window/scrollTo)` to accomplish this. Putting it all together, you should end up with something like this:
+接下来我们就应该**向下滚动**以便更多的图片可以加载出来，然后我们才能够将它们下载下来。我们还想再**等几秒钟**，以便万一网络连接太慢了导致图片没有完全加载出来。由于 Unsplash 网站是使用 React 构建的，等个 5 秒钟似乎已经足够”慷慨”了，那就使用 Python 的 `time` 包等个 5 秒吧，我们还要使用一些 Javascript 代码来滚动网页——我们将会用到 `[window.scrollTo()](https://developer.mozilla.org/en-US/docs/Web/API/Window/scrollTo)` 函数来实现这个功能。将以上所说的合并起来，最终你的代码应该像这样：
 
-```
+```python
 import time
 from selenium import webdriver
 
@@ -58,18 +58,18 @@ url = "https://unsplash.com"
 
 driver = webdriver.Firefox(executable_path=r'geckodriver.exe')
 driver.get(url)
-# Scroll page and wait 5 seconds
+# 向下滚动页面并且等待 5 秒钟
 driver.execute_script("window.scrollTo(0,1000);")
 time.sleep(5)
 ```
 
-Scrolling the page and waiting 5 seconds.
+滚动页面并等待 5 秒钟。
 
-After testing the above code, you should see the browser scroll down the page a little bit. The next thing we need to be doing is finding the images we want to downalod from the website. After digging around in the code React generates, I figured out that we can use a **CSS selector** to specifically target the images in the gallery of the page. The specific layout and code of the page might change in the future, but at the time of writing I could use a `#gridMulti img` selector to get all the `<img>` elements that were appearing on my screen.
+测试完以上代码后，你应该会看到浏览器的页面稍微往下滚动了一些。下一步我们要做的就是找到我们要下载的那些图片。在探索了一番 React 生成的代码之后，我发现了我们可以使用一个 **CSS 选择器**来定位到网页上画廊的图片。网页上的布局和代码在以后可能会发生改变，但目前我们可以使用 `#gridMulti img` 选择器来获得屏幕上可见的所有 `<img>` 元素。
 
-We can get a list of these elements using `[find_elements_by_css_selector()](http://selenium-python.readthedocs.io/api.html#selenium.webdriver.remote.webdriver.WebDriver.find_element_by_css_selector)`, but what we want is the `src` attribute of each element. So, we can iterate over the list and grab those:
+我们可以通过 `[find_elements_by_css_selector()](http://selenium-python.readthedocs.io/api.html#selenium.webdriver.remote.webdriver.WebDriver.find_element_by_css_selector)` 得到这些元素的一个列表，但我们想要的是这些元素的 `src` 属性。我们可以遍历这个列表并一一抽取出 `src` 来：
 
-```
+```python
 import time
 from selenium import webdriver
 
@@ -80,18 +80,18 @@ driver.get(url)
 
 driver.execute_script("window.scrollTo(0,1000);")
 time.sleep(5)
-# Select image elements and print their URLs
+# 选择图片元素并打印出他们的 URL
 image_elements = driver.find_elements_by_css_selector("#gridMulti img")
 for image_element in image_elements:
     image_url = image_element.get_attribute("src")
     print(image_url)
 ```
 
-Selecting image elements and getting the images’ URLs.
+选择图片元素并获得图片 URL。
 
-Now, to actually get the images we found. For this, we will use `requests` and part of the `PIL` package, namely `Image`. We also want to use `BytesIO` from `io` to write the images to a `./images/` folder that we will create inside our project folder. So, to put this all together, we need to send an **HTTP GET request** to the URL of each image and then, using `Image` and `BytesIO`, we will **store the image** that we get in the response. Here’s one way to do this:
+现在为了真正获得我们找到的图片，我们会使用 `requests` 库和 `PIL` 的部分功能，也就是 `Image`。我们还会用到 `io` 库里面的 `BytesIO` 来将图片写到文件夹 `./images/` 中（在项目文件夹中创建）。现在把这些都一起做了，我们要先往每张图片的 URL 链接发送一个 **HTTP GET 请求**，然后使用 `Image` 和 `BytesIO` 来将返回的图片**存储**起来。以下是实现这个功能的其中一种方式：
 
-```
+```python
 import requests
 import time
 from selenium import webdriver
@@ -117,29 +117,29 @@ for image_element in image_elements:
     i += 1
 ```
 
-Downloading the images.
+下载图片。
 
-That’s pretty much all you need to get a bunch of free images downloaded. Obviously, unless you want to prototype a design and you just need random images, this little scraper isn’t of much use. So, I took some time to improve it, by adding a few more features:
+这就是爬取一堆图片所需要做的所有了。很显然的是，除非你想随便找些图片素材来做个设计原型，否则这个小小的爬虫用处可能不是很大。所以我花了点时间来优化它，加了些功能：
 
-*   Command line arguments that allow the user to specify a **search query**, as well as a numeric value for scrolling, which allows the page to display more images for downloading.
-*   Customizable CSS selector.
-*   Customized **result folders**, based on search queries.
-*   Full **HD images** by cropping the URL of the thumbnails, as necessary.
-*   Named images, based on their URLs.
-*   Closing the browser window at the end of the process.
+*   允许用户通过指定一个命令行参数来指定**搜索查询**，还有一个数值参数指定向下滚动次数，这使得页面可以显示更多的图片可供我们下载。
+*   可以自定义的 CSS 选择器。
+*   基于搜索查询关键字的自定义**结果文件夹**。
+*   通过截断图片的预览图链接来获得全**高清图片**。
+*   基于图片的 URL 给图片文件命名。
+*   爬取最终结束后关闭浏览器。
 
-You can (and probably should) try implementing some of these features on your own. The full-featured version of the web scraper is available [here](https://github.com/Chalarangelo/unscrape). Remember to download [geckodriver](https://github.com/mozilla/geckodriver/releases/latest) separately and connect it to your project, as instructed at the start of the article.
+你可以（你也应该）尝试自己实现这些功能。全功能版本的爬虫可以在[这里](https://github.com/Chalarangelo/unscrape)下载。记得要先按照文章开头所说的，下载 [geckodriver](https://github.com/mozilla/geckodriver/releases/latest) 然后连接到你的项目中。
 
 * * *
 
-#### Limitations, Considerations and Future Improvements
+#### 不足之处，注意事项和未来优化项
 
-This whole project was a very simple proof-of-concept to see how web scraping is done, meaning there are a lot of things one can do to improve upon this little tool:
+整个项目是一个简单的“验证概念”，以弄清楚网页爬虫是如何做的，这也就意味着有很多东西可以做，来优化这个小工具：
 
-*   Not crediting the original uploaders of the images is a pretty bad idea. Selenium is definitely capable of working around this, so that each image comes with the name of the author.
-*   Geckodriver shouldn’t be placed in the project folder, but rather installed globally and be part of the `PATH` system variable.
-*   The search functionality could be easily extended to include multiple queries, so that the process of downloading lots of images can be simplified.
-*   The default browser could be changed from Firefox to Chrome or even [PhantomJS](http://phantomjs.org/), which would be a lot better for this kind of project.
+*   没有致谢图片最开始的上传者是个很不好的做法。Selenium 肯定是有能力处理这种情况的，那么每个图片都带有作者的名字。
+*   Geckodriver 不应该被放在项目文件夹中，而是安装在全局环境下，并被放到 `PATH` 系统变量中。
+*   搜索功能可以轻易地扩展到多个查询关键字，那么下载很多类型图片地过程就可以被简化了。
+*   默认浏览器可以用 Chrome 替代 Firefox，甚至可以用 [PhantomJS](http://phantomjs.org/) 替代，这对这种类型的项目来说是更好的。
 
 
 ---
