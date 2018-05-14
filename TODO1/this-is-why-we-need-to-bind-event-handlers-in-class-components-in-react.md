@@ -11,7 +11,7 @@
 
 背景图源来自 [Kaley Dykstra](https://unsplash.com/photos/gtVrejEGdmM?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) 并发布在 [Unsplash](https://unsplash.com/search/photos/chain?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) 上，源代码图像生成自 [carbon.now.sh](https://carbon.now.sh)。
 
-在使用 React 时，你难免会和组件和事件处理程序打交道。在自定义组件的构造函数中，我们需要使用 `.bind()` 来将方法绑定到组件实例上面。
+在使用 React 时，您难免遇到受控组件和事件处理程序。在自定义组件的构造函数中，我们需要使用 `.bind()` 来将方法绑定到组件实例上面。
 
 ```
 class Foo extends React.Component{
