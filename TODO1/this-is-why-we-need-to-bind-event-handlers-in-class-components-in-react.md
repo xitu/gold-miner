@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/this-is-why-we-need-to-bind-event-handlers-in-class-components-in-react.md](https://github.com/xitu/gold-miner/blob/master/TODO1/this-is-why-we-need-to-bind-event-handlers-in-class-components-in-react.md)
 > * 译者：[whuzxq](https://github.com/whuzxq)
-> * 校对者：[sunhaokk](https://github.com/sunhaokk)
+> * 校对者：[sunhaokk](https://github.com/sunhaokk)、[dandyxu](https://github.com/dandyxu)
 
 # 为什么需要在 React 类组件中为事件处理程序绑定 this
 
@@ -128,7 +128,7 @@ outerDisplay(); // uh oh! global
 //setTimeout 的虚拟实现
 function setTimeout(callback, delay){
 
-   //等待 'delay' 毫秒
+   //等待 'delay' 数个毫秒
 
    callback();
 }
@@ -164,9 +164,9 @@ outerDisplay();
 // Saurabh
 ```
 
-现在，当我们调用 `outerDisplay()` 时，`this` 指向 `display()` 内部的 `obj`。
+现在，当我们调用 `outerDisplay()` 时，`this` 的值指向 `display()` 内部的 `obj`。
 
-即时我们将 `obj.display` 直接作为 callback 参数传递给函数，`display()` 内部的 `this` 也会正确的指向 `obj`。
+即时我们将 `obj.display` 直接作为 callback 参数传递给函数，`display()` 内部的 `this` 也会正确地指向 `obj`。
 
 ### **仅使用 JavaScript 重新创建场景**
 
@@ -250,7 +250,7 @@ display(); // Saurabh
 
 #### **为什么我们不需要为箭头函数绑定 ‘**`**this’**` **？**
 
-在 React 组件内，我们有两种定义事件处理程序的方式。
+在 React 组件内，我们有另外两种定义事件处理程序的方式。
 
 *[**公共类字段语法(实验)**](https://babeljs.io/docs/plugins/transform-class-properties/)
 
@@ -300,7 +300,7 @@ ReactDOM.render(
 
 这两个都使用了ES6引入的箭头函数。当使用这些替代方法时，我们的事件处理程序已经自动绑定到了组件实例上，并且我们不需要在构造函数中绑定它。
 
-原因是在箭头函数的情况下，`this` 是有**词法**约束力的。这意味它可以使用封闭的函数的上下文或者全局的上下文作为 `this` 的值。
+原因是在箭头函数的情况下，`this` 是有**词法**约束力的。这意味它可以使用封闭的函数上下文或者全局上下文作为 `this` 的值。
 
 在公共类字段语法的例子中，箭头函数被包含在 `Foo` 类中或者构造函数中，所以它的上下文就是组件实例，而这就是我们想要的。
 
