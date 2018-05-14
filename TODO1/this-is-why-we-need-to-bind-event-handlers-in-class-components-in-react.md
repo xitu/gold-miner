@@ -248,11 +248,11 @@ display(); // Saurabh
 
 但由于构造函数是所有初始化发生的地方，因此它是编写绑定事件语句最佳的位置。
 
-#### **为什么我们不需要为箭头函数绑定 ‘**`**this’**` **？**
+#### **为什么我们不需要为箭头函数绑定 `‘this’`？**
 
 在 React 组件内，我们有另外两种定义事件处理程序的方式。
 
-*[**公共类字段语法(实验)**](https://babeljs.io/docs/plugins/transform-class-properties/)
+* [**公共类字段语法(实验)**](https://babeljs.io/docs/plugins/transform-class-properties/)
 
 ```
 class Foo extends React.Component{
