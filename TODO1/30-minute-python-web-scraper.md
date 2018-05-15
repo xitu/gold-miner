@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/30-minute-python-web-scraper.md](https://github.com/xitu/gold-miner/blob/master/TODO1/30-minute-python-web-scraper.md)
 > * 译者：[kezhenxu94](https://github.com/kezhenxu94/)
-> * 校对者：[luochen1992](https://github.com/luochen1992/)
+> * 校对者：[luochen1992](https://github.com/luochen1992/) [leviding](https://github.com/leviding/)
 
 # 30 分钟 Python 爬虫教程
 
