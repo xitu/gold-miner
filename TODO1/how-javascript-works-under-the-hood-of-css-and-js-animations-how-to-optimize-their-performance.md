@@ -7,28 +7,28 @@
 
 # JavaScript 是如何工作的：CSS 和 JS 动画背后的原理 + 如何优化性能
 
-这是专门探索 JavaScript 及其构建组件系列的第 13 篇文章。在识别和描述核心元素的过程中，我们还分享了构建 [SessionStack](https://www.sessionstack.com/?utm_source=medium&utm_medium=blog&utm_content=js-series-networking-layer-intro) 时的一些经验法则，SessionStack 是一个够强大且高性能的 JavaScript 应用程序，用来帮助用户实时查看和重现其 Web 应用程序的缺陷。
+这是专门探索 JavaScript 及其构建组件系列的第 13 篇文章。在识别和描述核心元素的过程中，我们还分享了构建 [SessionStack](https://www.sessionstack.com/?utm_source=medium&utm_medium=blog&utm_content=js-series-networking-layer-intro) 时的一些经验法则，SessionStack 是一个足够强大且高性能的 JavaScript 应用程序，用来帮助用户实时查看和重现其 Web 应用程序的缺陷。
 
 如果你错过了前面的章节，你可以在这里找到它们：
 
 1. [[译] JavaScript 是如何工作的：对引擎、运行时、调用堆栈的概述](https://juejin.im/post/5a05b4576fb9a04519690d42)
-2. [[译] JavaScript 是如何工作的：在 V8 引擎里 5 个优化代码的技巧](https://github.com/xitu/gold-miner/blob/master/TODO/how-javascript-works-inside-the-v8-engine-5-tips-on-how-to-write-optimized-code.md)
-3. [[译] JavaScript 是如何工作的：内存管理 + 处理常见的4种内存泄漏](https://github.com/xitu/gold-miner/blob/master/TODO/how-javascript-works-memory-management-how-to-handle-4-common-memory-leaks.md)
-4. [[译] JavaScript 是如何工作的: 事件循环和异步编程的崛起 + 5个如何更好的使用 async/await 编码的技巧](https://github.com/xitu/gold-miner/blob/master/TODO/how-javascript-works-event-loop-and-the-rise-of-async-programming-5-ways-to-better-coding-with.md)
-5. [[译] JavaScript 是如何工作的：深入剖析 WebSockets 和拥有 SSE 技术 的 HTTP/2，以及如何在二者中做出正确的选择](https://github.com/xitu/gold-miner/blob/master/TODO/how-javascript-works-deep-dive-into-websockets-and-http-2-with-sse-how-to-pick-the-right-path.md)
+2. [[译] JavaScript 是如何工作的：在 V8 引擎里 5 个优化代码的技巧](https://juejin.im/post/5a102e656fb9a044fd1158c6)
+3. [[译] JavaScript 是如何工作的：内存管理 + 处理常见的4种内存泄漏](https://juejin.im/post/5a2559ae6fb9a044fe4634ba)
+4. [[译] JavaScript 是如何工作的: 事件循环和异步编程的崛起 + 5个如何更好的使用 async/await 编码的技巧](https://juejin.im/post/5a221d35f265da43356291cc)
+5. [[译] JavaScript 是如何工作的：深入剖析 WebSockets 和拥有 SSE 技术 的 HTTP/2，以及如何在二者中做出正确的选择](https://juejin.im/post/5a522647518825732d7f6cbb)
 6. [[译] JavaScript 是如何工作的：与 WebAssembly 一较高下 + 为何 WebAssembly 在某些情况下比 JavaScript 更为适用](https://github.com/xitu/gold-miner/blob/master/TODO1/how-javascript-works-a-comparison-with-webassembly-why-in-certain-cases-its-better-to-use-it.md)
-7. [[译] JavaScript 是如何工作的：Web Worker 的内部构造以及 5 种你应当使用它的场景](https://github.com/xitu/gold-miner/blob/master/TODO/how-javascript-works-the-building-blocks-of-web-workers-5-cases-when-you-should-use-them.md)
+7. [[译] JavaScript 是如何工作的：Web Worker 的内部构造以及 5 种你应当使用它的场景](https://juejin.im/post/5a90233bf265da4e92683de3)
 8. [[译] JavaScript 是如何工作的：Web Worker 生命周期及用例](https://github.com/xitu/gold-miner/blob/master/TODO1/how-javascript-works-service-workers-their-life-cycle-and-use-cases.md)
 9. [[译] JavaScript 是如何工作的：Web 推送通知的机制](https://github.com/xitu/gold-miner/blob/master/TODO1/how-javascript-works-the-mechanics-of-web-push-notifications.md)
-10. [[译] JavaScript 是如何工作的：用 MutationObserver 追踪 DOM 的变化](https://github.com/xitu/gold-miner/blob/master/TODO1/how-javascript-works-tracking-changes-in-the-dom-using-mutationobserver.md)
+10. [[译] JavaScript 是如何工作的：用 MutationObserver 追踪 DOM 的变化](https://juejin.im/post/5aee720df265da0b8f627173)
 11. [[译] JavaScript 是如何工作的：渲染引擎和性能优化技巧](https://github.com/xitu/gold-miner/blob/master/TODO1/how-javascript-works-the-rendering-engine-and-tips-to-optimize-its-performance.md)
 12. [[译] JavaScript 是如何工作的：网络层内部 + 如何优化其性能和安全性](https://github.com/xitu/gold-miner/blob/master/TODO1/how-javascript-works-inside-the-networking-layer-how-to-optimize-its-performance-and-security.md)
 
 ### 概览
 
-你也知道，动画在创造吸引人的 web app 中扮演着重要的角色。随着用户越来越多地将注意力转移到用户体验上，商家也开始意识到完美、愉悦的用户体验的重要性，web app 变得更加重要，并且 UI 更趋于动效。这一切都需要更复杂的动画，以便在用户使用中实现更平滑的状态转换。今天，这甚至不被认为是特别的。用户正在变得更加先进，默认期望高效响应和互动的用户界面。
+你也知道，动画在创造吸引人的 web app 中扮演着重要的角色。随着用户越来越多地将注意力转移到用户体验上，商家也开始意识到完美、愉悦的用户体验的重要性，web app 变得更加重要，并且 UI 更趋于动效。这一切都需要更复杂的动画，以便在用户使用中实现更平滑的状态转换。今天，这甚至不被认为是特别的。用户正在变得越来越挑剔，默认期望高效响应和互动的用户界面。
 
-但是，动效化你的界面可没那么简单。什么做成动画，什么时候，做成什么样的动画，都是棘手的问题。
+但是，动效化你的界面可没那么简单。将什么做成动画，什么时候，做成什么样的动画，都是棘手的问题。
 
 ### JavaScript 和 CSS 动画
 
@@ -38,7 +38,7 @@
 
 用 CSS 实现动画是让屏幕上的内容移动的最简单方法。
 
-我们将以一个快速示例说明如何在 X 轴和 Y 轴上移动 50 像素的元素。通过设置耗时 1000 ms 的CSS 过渡来完成的。
+我们将以一个快速示例说明如何在 X 轴和 Y 轴上移动 50 像素的元素。通过设置耗时 1000 ms 的 CSS 过渡来完成的。
 
 ```css
 .box {
@@ -168,15 +168,15 @@ animation.addEventListener('finish', function() {
 });
 ```
 
-默认情况下，Web 动画仅修改元素的显示。如果你想让你的对象留在它被移动到的位置，那么当动画完成时你应该修改它的底层样式。这就是为什么我们要监听 `finish` 事件，并将   `box.style.transform` 属性设置为 `translate(150px, 200px)`，这与我们动画的第二个变换相同。
+默认情况下，Web 动画仅修改元素的显示。如果你想让你的对象留在它被移动到的位置，那么当动画完成时你应该修改它的底层样式。这就是为什么我们要监听 `finish` 事件，并将 `box.style.transform` 属性设置为 `translate(150px, 200px)`，这与我们动画的第二个变换相同。
 
-使用 JavaScript 动画，你可以在每一步完全控制元素的样式。这意味着你可以放慢动画，暂停动画，停止动画，反转动画，并根据需要操作元素。如果你构建复杂的面向对象的 app，这一点尤其有用，因为你可以适宜地封装你的行为。
+使用 JavaScript 动画，你可以在每一步完全控制元素的样式。这意味着你可以放慢动画，暂停动画，停止动画，反转动画，并根据需要操作元素。如果你构建复杂的面向对象的 app，这一点尤其有用，因为你可以适当地封装你的行为。
 
 ### 什么是缓动？
 
 自然动作让你的用户对你的 web app 感到更加舒适，从而带来更好的用户体验。
 
-自然里，没有什么东西从一个点到另一个点线性移动。事实上，随着它们在我们周围的物质世界中移动，事物往往会加速或减速，因为我们并非处于真空状态，并且存在影响这个因素的不同因素。人类的大脑受制于此会期望这种运动，所以当你为 app 制作动画时，你应该利用这些知识为你带来好处。
+自然情况下，没有什么东西是从一个点到另一个点做线性移动的。事实上，随着它们在我们周围的物质世界中移动，事物往往会加速或减速，因为我们并非处于真空状态，并且存在影响这个因素的不同因素。人类的大脑受制于此会期望这种运动，所以当你为 app 制作动画时，你应该利用这些知识为你带来好处。
 
 有一些术语需要了解一下：
 
@@ -202,7 +202,7 @@ CSS 过渡和动画允许你选择想要使用的缓动类型。有不同的会�
 
 #### 线性（`linear`）动画
 
-没有任何缓动的动画称为**线性**。
+没有任何缓动的动画称为**线性**动画。
 
 以下是线性过渡的图示：
 
@@ -234,7 +234,7 @@ transition: transform 500ms ease-out;
 
 ![](https://cdn-images-1.medium.com/max/800/1*rWh8YlBn8SypiMduLiYDhA.png)
 
-与缓出相比，缓入感觉不太自然，因为它开始慢给人一种无响应的感觉。快速结束也很奇怪，因为整个动画是在加速，而在现实世界中，物体在忽然停止时倾向于减速。
+与缓出相比，缓入感觉不太自然，因为它开始慢给人一种无响应的感觉。快速结束也很奇怪，因为整个动画是在加速，而在现实世界中，物体在忽然停止时往往会减速。
 
 要使用缓入动画，类似于缓出或者线性动画，使用关键词：
 
@@ -264,9 +264,9 @@ transition: transform 500ms ease-in-out;
 
 #### 贝塞尔曲线
 
-让我们看一下贝塞尔曲线的工作原理。贝塞尔曲线有四个值，或者更确切地说，它需要两对数字。每对描述三次贝塞尔曲线控制点的 X 和 Y 坐标。贝塞尔曲线的起点坐标是 (0, 0)，终点坐标是 (1, 1)。两者都可以被设置。两个控制点的 X 值必须在 [0, 1] 范围内，并且每个控制点的 Y 值可以超过 [0, 1] 限制，尽管规范没有明确说超过多少。
+让我们看一下贝塞尔曲线的工作原理。贝塞尔曲线有四个值，或者更确切地说，它需要两对数字。每对描述三次贝塞尔曲线控制点的 X 和 Y 坐标。贝塞尔曲线的起点坐标是 (0, 0)，终点坐标是 (1, 1)。你可以设置这两组数。两个控制点的 X 值必须在 [0, 1] 范围内，并且每个控制点的 Y 值可以超过 [0, 1] 限制，尽管规范没有明确说超过多少。
 
-即使每个控制点的 X 和 Y 值发生轻微变化，都会给你一个完全不同的曲线。我们来看看两个B贝塞尔曲线图，点的坐标相近但不同。
+即使每个控制点的 X 和 Y 值发生轻微变化，都会给你一个完全不同的曲线。我们来看看两个贝塞尔曲线图，点的坐标相近但不同。
 
 ![](https://cdn-images-1.medium.com/max/800/1*2v7G1ZJ1C-y_mWHOYQfQKQ.png)
 
@@ -288,13 +288,13 @@ transition: transform 500ms cubic-bezier(0.465, 0.183, 0.153, 0.946);
 
 无论何时动画，你都应该保持 60 fps，否则会对用户的体验产生负面影响。
 
-与世界上其他所有的东西一样，动画并不是免费的。动画一些属性比其他属性更便宜。例如，动画修改一个元素的 `width` 和 `height` 会改变它的形状，而且可能引起页面上其它元素的移动和形状改变。这个过程称为布局。我们在[之前的一篇文章](https://blog.sessionstack.com/how-javascript-works-the-rendering-engine-and-tips-to-optimize-its-performance-7b95553baeda)中已经详细讨论过布局和渲染。
+与世界上其他所有的东西一样，动画也是有代价的。动画一些属性比其他属性更便宜。例如，动画修改一个元素的 `width` 和 `height` 会改变它的形状，而且可能引起页面上其它元素的移动和形状改变。这个过程称为布局。我们在[之前的一篇文章](https://github.com/xitu/gold-miner/blob/master/TODO1/how-javascript-works-the-rendering-engine-and-tips-to-optimize-its-performance.md)中已经详细讨论过布局和渲染。
 
 一般来说，你应该避免使用触发布局或绘制的属性动画。对于大多数现代浏览器，这意味着将动画（修改的属性）限制为 `opacity` 和 `transform`.
 
 #### `will-change`
 
-你可以使用 `[will-change](https://dev.w3.org/csswg/css-will-change/)` 通知浏览器你打算更改元素的属性。这使得浏览器在你进行更改之前能够进行最合适的优化。但不要过度使用 `will-change`，因为这样做会浪费浏览器资源，从而导致更多的性能问题。
+你可以使用 `[will-change](https://dev.w3.org/csswg/css-will-change/)` 通知浏览器你打算更改元素的属性。浏览器会在你进行更改之前做最合适的优化。但不要过度使用 `will-change`，因为这样做会浪费浏览器资源，从而导致更多的性能问题。
 
 可以这样为变换和不透明度添加 `will-change`：
 
@@ -328,7 +328,7 @@ Chrome，Firefox 和 Opera 的浏览器支持非常好。
 
 在 [SessionStack](https://www.sessionstack.com/?utm_source=medium&utm_medium=blog&utm_content=js-series-rendering-engine-outro) 中使用动画非常简单。总的来说，我们遵循上述做法，但由于 UI 的复杂性，我们还有更多利用动画的场景。SessionStack 必须像视频一样重新创建用户在浏览 web app 时遇到问题时发生的所有内容。为此，SessionStack 仅利用会话期间我们的库收集的数据：用户事件，DOM 更改，网络请求，异常，调试消息等。我们的播放器经过高度优化，可以正确呈现和使用所有收集的内容数据，以便从视觉和技术角度出发，为终端用户的浏览器及其中发生的所有事情提供像素级的模拟。
 
-为了确保复制得自然，尤其是在长时间和繁重的用户会话中，我们使用动画正确指示加载/缓冲，并遵循关于如何实现它们的最佳实践，以便我们不占用太多 CPU 时间并让事件轮训自由地渲染会话。
+为了确保复制得自然，尤其是在长时间和繁重的用户会话中，我们使用动画正确指示加载/缓冲，并遵循关于如何实现它们的最佳实践，以便我们不占用太多 CPU 时间并让事件轮询自由地渲染会话。
 
 如果你想[试试 SessionStack](https://www.sessionstack.com/signup/)，有免费方案哦。
 
