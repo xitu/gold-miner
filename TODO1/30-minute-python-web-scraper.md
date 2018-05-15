@@ -110,7 +110,7 @@ i = 0
 
 for image_element in image_elements:
     image_url = image_element.get_attribute("src")
-    # Send an HTTP GET request, get and save the image from the response
+    # 发送一个 HTTP GET 请求，从响应内容中获得图片并将其存储
     image_object = requests.get(image_url)
     image = Image.open(BytesIO(image_object.content))
     image.save("./images/image" + str(i) + "." + image.format, image.format)
