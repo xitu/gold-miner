@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/30-minute-python-web-scraper.md](https://github.com/xitu/gold-miner/blob/master/TODO1/30-minute-python-web-scraper.md)
 > * 译者：[kezhenxu94](https://github.com/kezhenxu94/)
-> * 校对者：
+> * 校对者：[luochen1992](https://github.com/luochen1992/)
 
 # 30 分钟 Python 爬虫教程
 
@@ -11,7 +11,7 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/1*9wHrewC1Dyf2Au_qEqwWcg.jpeg)
 
-图片来源: [Blake Connally](https://unsplash.com/@blakeconnally) 发布于 [Unsplash.com](https://unsplash.com/photos/B3l0g6HLxr8)
+图片来源：[Blake Connally](https://unsplash.com/@blakeconnally) 发布于 [Unsplash.com](https://unsplash.com/photos/B3l0g6HLxr8)
 
 #### 简单图片爬虫的原料
 
