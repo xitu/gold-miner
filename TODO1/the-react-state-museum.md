@@ -245,7 +245,9 @@ As for how to use it, Set and Get via keys. That’s it! If you’re not worried
 
 _Special thanks to the author_ [**_Mikey Stecky-Efantis_**](https://medium.com/@mikeysteckyefantis) _for providing this example!_
 
-pure-store: https://github.com/gunn/pure-store
+#### pure-store
+
+https://github.com/gunn/pure-store
 
 100% test coverage, MIT licensed, TypeScript backed mini-library for state management. This library feels the closest to “Just use globals”. As a matter of fact, if you identify that update takes the signature of setState then you’re looking at a global state in a singleton.
 
