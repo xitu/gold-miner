@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/bitcoin-in-bigquery-blockchain-analytics-on-public-data.md](https://github.com/xitu/gold-miner/blob/master/TODO1/bitcoin-in-bigquery-blockchain-analytics-on-public-data.md)
 > * 译者：[LeopPro](https://github.com/LeopPro)
-> * 校对者：[ALVINYEH](https://github.com/ALVINYEH)
+> * 校对者：[ALVINYEH](https://github.com/ALVINYEH) [SergeyChang](https://github.com/SergeyChang)
 
 # BigQuery 中的比特币：使用公共数据分析区块链
 
@@ -13,11 +13,11 @@
 
 现在比特币区块链数据可以通过 BigQuery 探索。所有的历史数据都在 [bigquery-公共数据：比特币区块链](https://bigquery.cloud.google.com/dataset/bigquery-public-data:bitcoin_blockchain)数据集中，该数据集每 10 分钟更新一次。
 
-我们希望通过使数据更加透明化，数据用户可以对加密货币系统如何运作有一个更深刻的理解，以及如何更好的利用他们造福社会。
+我们希望通过使数据更加透明化，使数据用户可以对加密货币系统运作有一个更深刻的理解，以及如何更好的利用他们造福社会。
 
 ### 有趣的查询和分析
 
-下面，我们将根据比特币数据集展示一些有趣的查询和可视化数据。我们的分析将着眼于以下两个热门话题：
+下面，我们将根据比特币数据集展示一些有趣的查询和可视化数据。我们将着眼分析以下两个热门话题：
 
 *   网络基础（块困难度）
 *   交易可视化（第一次易物交易）
@@ -34,7 +34,7 @@
 
 ![](https://i.loli.net/2018/05/08/5af11cc391749.png)
 
-参阅以下根据根据区块链网络的第一原则，网络价值与交易比或 [NVT 比](http://charts.woobull.com/bitcoin-nvt-ratio/)制定的评估指标。该图表显示了随时间的每日 NVT 比率：
+以下根据根据区块链网络的第一原则，网络价值与交易比或 [NVT 比](http://charts.woobull.com/bitcoin-nvt-ratio/)制定的评估指标。该图表显示了随时间的每日 NVT 比率：
 
 ![](https://i.loli.net/2018/05/08/5af11cc393d81.png)
 
@@ -72,13 +72,13 @@ WHERE
 
 **怎么会发生这种事情？** 比特币最初构建于 [BerkeleyDB](https://zh.wikipedia.org/wiki/Berkeley_DB)，它可以处理非唯一键。后来[中本聪](https://zh.wikipedia.org/wiki/%E4%B8%AD%E6%9C%AC%E8%81%AA)离开了比特币项目组，新的开发团队使用 [LevelDB](http://leveldb.org) 替代了 [BerkeleyDB](https://zh.wikipedia.org/wiki/Berkeley_DB)。然而 [LevelDB](http://leveldb.org) 无法处理唯一键，这使得开发者根据比特币改善提案 [BIP_0030](https://github.com/bitcoin/bips/blob/master/bip-0030.mediawiki) 修改 [比特币源代码](https://github.com/bitcoin/bitcoin)。
 
-尽管交易不再可能存在与多个块中，但仍然有一些旧的交易存在这个问题。
+尽管交易不再可能存在与多个块中，但仍然有一些过往的交易存在这个问题。
 
 ### 为什么 Google Cloud 上比特币区块链数据不可不看？
 
 区块链一般为低信任环境中的平等节点之间的沟通和协调提供解决方案。在金融服务，供应链，媒体和其他高度数字化行业中，区块链正在崭露头角。比特币区块链旨在弥补金融业的缺陷，如[中本聪](https://en.bitcoin.it/wiki/Satoshi_Nakamoto)写的 [Bitcoin genesis block](https://en.bitcoin.it/wiki/Genesis_block)。
 
-比特币可以被描述为一个不可变的分布式账本，虽然它提供了[OLTP](https://en.wikipedia.org/wiki/Online_transaction_processing)功能（原子交易，数据持久性），但它对于定期存储的具体或汇总资金流进行短周期报告的[OLAP](https://en.wikipedia.org/wiki/Online_analytical_processing)（分析）能力非常有限。难以轻易地从区块链构建报告可能会降低透明度并增加 [BTC-USD](https://www.google.com/search?q=btc+usd) 价格分析的难度以及 [NVT 比](http://charts.woobull.com/bitcoin-nvt-ratio/)等其他基本评估指标。
+比特币可以被描述为一个不可变的分布式账本，虽然它提供了 [OLTP](https://en.wikipedia.org/wiki/Online_transaction_processing) 功能（原子交易，数据持久性），但它对于定期存储的具体或汇总资金流进行短周期报告的 [OLAP](https://en.wikipedia.org/wiki/Online_analytical_processing) （分析）能力非常有限。难以轻易地从区块链构建报告可能会降低透明度并增加 [BTC-USD](https://www.google.com/search?q=btc+usd) 价格分析的难度以及 [NVT 比](http://charts.woobull.com/bitcoin-nvt-ratio/)等其他基本评估指标。
 
 相比之下，BigQuery 具有强大的 OLAP 功能。, 我们在 Google Cloud 上构建了一个软件系统：
 
@@ -86,11 +86,11 @@ WHERE
 2.  将数据存储到 [BigQuery](https://cloud.google.com/bigquery) 并将其解除规范化，以便更轻松地进行探索
 3.  使用 [Data Studio](https://datastudio.google.com/c/org/UTgoe29uR0C3F1FBAYBSww/reporting/1G8yte8g3daDEw5EKOvbxPQudv92PZcPP/page/nExM/edit) 从数据中导出分析报告
 
-在比特币区块链数据也可以通过 [Kaggle](https://www.kaggle.com/bigquery/bitcoin-blockchain?utm_medium=partner&utm_source=cloud&utm_campaign=big+data+blog+bitcoin) 获取。你可以在 您可以使用 BigQuery Python 客户端库查询 Kernel（Kaggle 的免费浏览器内开发环境） 中的实时数据。Fork 一下 [this example kernel](https://www.kaggle.com/mrisdal/visualizing-daily-bitcoin-recipients?utm_medium=partner&utm_source=cloud&utm_campaign=big+data+blog+bitcoin) 用你自己的 Python 代码进行实验。
+比特币区块链数据也可以通过 [Kaggle](https://www.kaggle.com/bigquery/bitcoin-blockchain?utm_medium=partner&utm_source=cloud&utm_campaign=big+data+blog+bitcoin) 获取。你可以使用 BigQuery Python 客户端库查询 Kernel（Kaggle 的免费浏览器内开发环境） 中的实时数据。你可以 fork 一份[这个实例 kernel](https://www.kaggle.com/mrisdal/visualizing-daily-bitcoin-recipients?utm_medium=partner&utm_source=cloud&utm_campaign=big+data+blog+bitcoin) 并用你自己的 Python 代码副本来进行试验。
 
 ### BigQuery 公共数据集
 
-所有比特币区块链数据都批量加载到两个 BigQuery 表，blocks_raw 和 transactions。新块被广播到比特币网络时被追加到表中，因此这些表中的数据是最新的。
+所有比特币区块链数据都批量加载到两个 BigQuery 表：blocks_raw 和 transactions。新块被广播到比特币网络时被追加到表中，因此这些表中的数据是最新的。
 
 ### 鸣谢
 
