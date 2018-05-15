@@ -20,9 +20,9 @@ PoseNet 使用单姿态或多姿态算法可以检测图像和视频中的人物
 
 **那么，姿态估计究竟是什么呢？**姿态估计是指在图像和视频中检测人物的计算机视觉技术，比如，可以确定某个人的肘部在图像中的位置。需要澄清一点，这项技术并不是识别图像中是**谁** —— 姿态估计不涉及任何个人身份信息。该算法仅仅是估计身体关键关节的位置。
 
-**好吧，为什么这是令人兴奋的开始？**姿态估计有很多用途，从[互动]((https://vimeo.com/128375543) [装置](https://www.youtube.com/watch?v=I5__9hq-yas) [反馈](https://vimeo.com/34824490) 给 [身体](https://vimeo.com/2892576)，到[增强现实](https://www.instagram.com/p/BbkKLiegrTR/)，[动画](https://www.instagram.com/p/Bg1EgOihgyh/?taken-by=millchannel)，[健身用途](https://www.runnersneed.com/expert-advice/gear-guides/gait-analysis.html)等等。我们希望借助此模型激励更多的开发人员和制造商尝试将姿态检测应用到他们自己的独特项目中。虽然许多同类姿态检测系统也已经[开源](https://github.com/CMU-Perceptual-Computing-Lab/openpose)，但它们都需要专门的硬件和/或相机，以及相当多的系统安装。**在 [**TensorFlow.js**](https://js.tensorflow.org/) 上运行 PoseNet，任何有合适摄像头的桌面或手机的人都可以在浏览器中体验这项技术**。而且由于我们已经开源了这个模型，JavaScript 开发人员可以用几行代码来修改和使用这个技术。更重要的是，这实际上可以帮助保护用户隐私。因为 基于 TensorFlow.js 的 PoseNet 运行在浏览器中，任何姿态数据都不会离开用户的计算机。
+**好吧，为什么这是令人兴奋的开始？**姿态估计有很多用途，从[互动]((https://vimeo.com/128375543)[装置](https://www.youtube.com/watch?v=I5__9hq-yas)[反馈](https://vimeo.com/34824490)给[身体](https://vimeo.com/2892576)，到[增强现实](https://www.instagram.com/p/BbkKLiegrTR/)，[动画](https://www.instagram.com/p/Bg1EgOihgyh/?taken-by=millchannel)，[健身用途](https://www.runnersneed.com/expert-advice/gear-guides/gait-analysis.html)等等。我们希望借助此模型激励更多的开发人员和制造商尝试将姿态检测应用到他们自己的独特项目中。虽然许多同类姿态检测系统也已经[开源](https://github.com/CMU-Perceptual-Computing-Lab/openpose)，但它们都需要专门的硬件和/或相机，以及相当多的系统安装。**在 [**TensorFlow.js**](https://js.tensorflow.org/) 上运行 PoseNet，任何有合适摄像头的桌面或手机的人都可以在浏览器中体验这项技术**。而且由于我们已经开源了这个模型，JavaScript 开发人员可以用几行代码来修改和使用这个技术。更重要的是，这实际上可以帮助保护用户隐私。因为 基于 TensorFlow.js 的 PoseNet 运行在浏览器中，任何姿态数据都不会离开用户的计算机。
 
-在我们深入探讨如何使用这个模型的细节之前，先向所有让这个项目成为可能的人们致意：论文[**对户外多姿态的精确估计**](https://arxiv.org/abs/1701.01779) 和 [**PersonLab: 自下而上的局部几何嵌入模型的人体姿态估计和和实例分割**](https://arxiv.org/abs/1803.08225)的作者 [George Papandreou](https://research.google.com/pubs/GeorgePapandreou.html) 和 [Tyler Zhu](https://research.google.com/pubs/TylerZhu.html)，以及 [TensorFlow.js](https://js.tensorflow.org/) 库背后的 Google Brain 小组的工程师 [Nikhil Thorat](https://twitter.com/nsthorat) 和 [Daniel Smilkov](https://twitter.com/dsmilkov?lang=en)。
+在我们深入探讨如何使用这个模型的细节之前，先向所有让这个项目成为可能的人们致意：论文[**对户外多姿态的精确估计**](https://arxiv.org/abs/1701.01779) 和 [**PersonLab: 自下而上的局部几何嵌入模型的人体姿态估计和实例分割**](https://arxiv.org/abs/1803.08225)的作者 [George Papandreou](https://research.google.com/pubs/GeorgePapandreou.html) 和 [Tyler Zhu](https://research.google.com/pubs/TylerZhu.html)，以及 [TensorFlow.js](https://js.tensorflow.org/) 库背后的 Google Brain 小组的工程师 [Nikhil Thorat](https://twitter.com/nsthorat) 和 [Daniel Smilkov](https://twitter.com/dsmilkov?lang=en)。
 
 * * *
 
@@ -44,16 +44,16 @@ PoseNet 使用单姿态或多姿态算法可以检测图像和视频中的人物
 PoseNet 返回检测到的每个人的置信度值以及检测到的每个姿态关键点。图片来源：「Microsoft Coco：上下文数据集中的通用对象」，[https://cocodataset.org](http://cocodataset.org/#home)。
 
 * **姿态置信度分数** - 决定了对姿态估计的整体置信度。它介于 0.0 和 1.0 之间。它可以用来隐藏分数不够高的姿态。
-* **关键点** - 估计的人体姿态的一部分，例如鼻子，右耳，左膝，右脚等。 它包含位置和关键点置信度分数。PoseNet 目前检测到下图所示的 17 个关键点：
+* **关键点** —— 估计的人体姿态的一部分，例如鼻子，右耳，左膝，右脚等。 它包含位置和关键点置信度分数。PoseNet 目前检测到下图所示的 17 个关键点：
 
 ![](https://cdn-images-1.medium.com/max/800/1*7qDyLpIT-3s4ylULsrnz8A.png)
 
 PosNet 检测到17个姿态关键点。
 
 * **关键点置信度得分** - 决定了估计关键点位置准确的置信度。它介于 0.0 和 1.0 之间。它可以用来隐藏分数不够高的关键点。
-* **关键点位置** - 检测到关键点的原始输入图像中的二维 x 和 y 坐标。
+* **关键点位置** —— 检测到关键点的原始输入图像中的二维 x 和 y 坐标。
 
-#### 第1部分：导入 TensorFlow.js 和 PoseNet 库
+#### 第 1 部分：导入 TensorFlow.js 和 PoseNet 库
 
 很多工作都是将模型的复杂性抽象化并将功能封装为易于使用的方法。我们看一下构建 PoseNet 项目的基础知识。
 
@@ -100,10 +100,10 @@ const net = await posenet.load();
 
 我们来看看单姿态估计算法的**输入**：
 
-* **输入图像元素** - 包含要预测图像的 html 元素，例如视频或图像标记。重要的是，输入的图像或视频元素应该是**正方形**的。
-* **图像比例因子** - 在 0.2 和 1 之间的数字。默认为 0.50。在送入神经网络之前如何缩放图像。将此数字设置得较低以缩小图像，并以精度为代价增加通过网络的速度。
-* **水平翻转** - 默认为 false。表示是否姿态应该水平翻转/镜像。对于视频默认水平翻转（比如网络摄像头）的视频，应该设置为 true，因为你希望姿态能以正确的方向返回。
-* **输出步幅** - 必须为 32，16 或 8。默认 16。在内部，此参数会影响神经网络中图层的高度和宽度。在上层看来，它会影响姿态估计的**精度**和**速度**。值**越小**精度越高，但速度更慢，值**越大**速度越快，但精度更低。查看输出步幅对输出质量的影响的最好方法是体验这个[单姿态估计演示](https://storage.googleapis.com/tfjs-models/demos/posenet/camera.html)。
+* **输入图像元素** —— 包含要预测图像的 html 元素，例如视频或图像标记。重要的是，输入的图像或视频元素应该是**正方形**的。
+* **图像比例因子** —— 在 0.2 和 1 之间的数字。默认为 0.50。在送入神经网络之前如何缩放图像。将此数字设置得较低以缩小图像，并以精度为代价增加通过网络的速度。
+* **水平翻转** —— 默认为 false。表示是否姿态应该水平/垂直镜像。对于视频默认水平翻转（比如网络摄像头）的视频，应该设置为 true，因为你希望姿态能以正确的方向返回。
+* **输出步幅** —— 必须为 32，16 或 8。默认 16。在内部，此参数会影响神经网络中图层的高度和宽度。在上层看来，它会影响姿态估计的**精度**和**速度**。值**越小**精度越高，但速度更慢，值**越大**速度越快，但精度更低。查看输出步幅对输出质量的影响的最好方法是体验这个[单姿态估计演示](https://storage.googleapis.com/tfjs-models/demos/posenet/camera.html)。
 
 下面让我们看一下单姿态估计算法的**输出**：
 
@@ -169,19 +169,19 @@ const pose = await net.estimateSinglePose(imageElement, scaleFactor, flipHorizon
 
 让我们看一下它的**输入**：
 
-* **输入图像元素** - 与单姿态估计相同
-* **图像比例因子** - 与单姿态估计相同
-* **水平翻转** - 与单姿态估计相同
-* **输出步幅** - 与单姿态估计相同
-* **最大检测姿态** - 一个整数。默认为 5，表示要检测的姿态的最大数量。
-* **姿态置信分数阈值** - 0.0 至 1.0。默认为 0.5。在更深层次上，这将控制返回姿态的最低置信度分数。
-* **非最大抑制（NMS，Non-maximum suppression）半径** - 以像素为单位的数字。在更深层次上，这控制了返回姿态之间的最小距离。这个值默认为 20，这在大多数情况下可能是好的。可以通过增加/减少，以滤除不太准确的姿态，但只有在调整姿态置信度分数无法满足时才调整它。
+* **输入图像元素** —— 与单姿态估计相同
+* **图像比例因子** —— 与单姿态估计相同
+* **水平翻转** —— 与单姿态估计相同
+* **输出步幅** —— 与单姿态估计相同
+* **最大检测姿态** —— 一个整数。默认为 5，表示要检测的姿态的最大数量。
+* **姿态置信分数阈值** —— 0.0 至 1.0。默认为 0.5。在更深层次上，这将控制返回姿态的最低置信度分数。
+* **非最大抑制（NMS，Non-maximum suppression）半径** —— 以像素为单位的数字。在更深层次上，这控制了返回姿态之间的最小距离。这个值默认为 20，这在大多数情况下可能是好的。可以通过增加/减少，以滤除不太准确的姿态，但只有在调整姿态置信度分数无法满足时才调整它。
 
 查看这些参数有什么影响的最好方法是体验这个[多人姿态估计演示](https://storage.googleapis.com/tfjs-models/demos/posenet/camera.html)。
 
 让我们看一下它的**输出**：
 
-* 以一系列姿态为 resolve 的 promise。
+* 以一系列姿态为 `resolve` 的 `promise`。
 * 每个姿态包含与单姿态估计算法中相同的信息。
 
 这段代码块显示了如何使用多姿态估计算法：
@@ -315,11 +315,11 @@ Resolution = ((InputImageSize - 1) / OutputStride) + 1
 
 #### 多人姿态估计
 
-多姿态估计算法的细节超出了本文的范围。该算法的主要不同之处在于它使用**贪婪**过程通过沿着基于部分图的位移矢量将关键点分组为姿态。具体来说，它使用研究论文 [**PersonLab: 自下而上的局部几何嵌入模型的人体姿态估计和和实例分割**](https://arxiv.org/pdf/1803.08225.pdf)中的**快速贪婪解码**算法。有关多姿态算法的更多信息，请阅读完整的研究论文或查看[代码](https://github.com/tensorflow/tfjs-models/tree/master/posenet/src)。
+多姿态估计算法的细节超出了本文的范围。该算法的主要不同之处在于它使用**贪婪**过程通过沿着基于部分图的位移矢量将关键点分组为姿态。具体来说，它使用研究论文 [**PersonLab: 自下而上的局部几何嵌入模型的人体姿态估计和实例分割**](https://arxiv.org/pdf/1803.08225.pdf)中的**快速贪婪解码**算法。有关多姿态算法的更多信息，请阅读完整的研究论文或查看[代码](https://github.com/tensorflow/tfjs-models/tree/master/posenet/src)。
 
 * * *
 
-我们希望随着越来越多的模型被移植到 TensorFlow.js，机器学习的世界变得对更容易被新的开发者和制造者接受，更受欢迎和更有趣。基于 TensorFlow.js 的 PoseNet 是实现这一目标的一个小小尝试。我们很乐意看到你做出了什么 - 不要忘记使用 #tensorflowjs 和 #posenet 分享您的精彩项目！
+我们希望随着越来越多的模型被移植到 TensorFlow.js，机器学习的世界变得对更容易被新的开发者和制造者接受，更受欢迎和更有趣。基于 TensorFlow.js 的 PoseNet 是实现这一目标的一个小小尝试。我们很乐意看到你做出了什么 —— 不要忘记使用 #tensorflowjs 和 #posenet 分享您的精彩项目！
 
 ---
 
