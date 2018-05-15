@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-use-tensorflow-mobile-in-android-apps.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-use-tensorflow-mobile-in-android-apps.md)
 > * 译者：[luochen](https://github.com/luochen1992)
-> * 校对者：
+> * 校对者：[ALVINYEH](https://github.com/ALVINYEH) [LeeSniper](https://github.com/LeeSniper)
 
 # 如何在安卓应用中使用 TensorFlow Mobile
 
