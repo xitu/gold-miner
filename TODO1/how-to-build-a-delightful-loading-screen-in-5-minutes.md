@@ -2,30 +2,30 @@
 > * 原文作者：[Ohans Emmanuel](https://medium.freecodecamp.org/@ohansemmanuel?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-build-a-delightful-loading-screen-in-5-minutes.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-build-a-delightful-loading-screen-in-5-minutes.md)
-> * 译者：
-> * 校对者：
+> * 译者：[whuzxq](https://github.com/whuzxq)
+> * 校对者：[luochen1992](https://github.com/luochen1992)、[ALVINYEH](https://github.com/ALVINYEH)
 
-# How to Build a Delightful Loading Screen in 5 Minutes
+# 如何在 5 分钟之内写出一个不错的 loading 界面
 
-First, here is what we will build. Set your timer!
+首先，让我们先看一下效果图。
 
 ![](https://cdn-images-1.medium.com/max/800/1*AF1rXY_iumutiVOMSXf_LQ.gif)
 
-Here’s the [DEMO](https://codepen.io/ohansemmanuel/pen/ZxOjGx) we’ll build.
+这就是我们将要实现的 [DEMO](https://codepen.io/ohansemmanuel/pen/ZxOjGx)。
 
-Does this look familiar?
+是不是觉得看起来很眼熟？
 
-If yes, that’s because you’ve seen this somewhere — [Slack](https://slack.com)!
+如果眼熟的话，那你可能在 [Slack](https://slack.com) 上见过它！
 
-Let’s learn a few things by recreating this with just CSS and some good ol’ HTML.
+让我们只使用 css 和 html，来实现一下这个 loading 页面吧！
 
-If you’re excited about writing some code, get on [Codepen](http://codepen.io) and create a new pen.
+如果你想小试身手，可以在 [Codepen](http://codepen.io) 上创建一个 pen，编写教程代码。
 
-Now, let’s go!
+现在，让我们开始吧！
 
-#### 1. The Markup
+#### 1. 添加 class 作为标记
 
-The markup required for this is quite simple. Here it is:
+html 部分很简单，如下面代码所示：
 
 ```
 <section class="loading">
@@ -38,22 +38,21 @@ For new sidebar colors, click your workspace name, then     Preferences > Sideba
 </section>
 ```
 
-Simple, huh?
+是不是很简单？
 
-If you’re not sure why the class names have weird dashes, I explained the reason behind that in [this article](https://medium.freecodecamp.org/css-naming-conventions-that-will-save-you-hours-of-debugging-35cea737d849).
+如果你不清楚为什么类名中出现了破折号，我在 [这篇文章](https://medium.freecodecamp.org/css-naming-conventions-that-will-save-you-hours-of-debugging-35cea737d849) 中解释了背后的原因。
 
-There’s a bunch of text, and a `.loading__anim` span to “impersonate” the animated icon.
+现在我们有一些文本，以及一个类名为 `loading_anim` 的 span 标签。
 
-The result of this is the simple view below.
+效果图如下：
 
 ![](https://cdn-images-1.medium.com/max/800/1*RpS6k11QbgHRIuAvy1Hw5Q.png)
 
-Not so bad, huh?
+还不赖，对吧？
 
-#### 2. Center the Content
+#### 2. 将内容居中
 
-The result isn’t the prettiest of stuff to behold. Let’s have the entire `.loading`section element entered in the page.
-
+现在的效果并不理想，下一步我们将 class 为 `.loading` 的 session 标签在页面上居中。
 ```
 body {
   display: flex;
@@ -65,13 +64,13 @@ body {
 
 ![](https://cdn-images-1.medium.com/max/800/1*MPjfL4fwZlLkoja4cNg-Zg.png)
 
-Now centered!
+现在居中了！
 
-Looking better?
+有没有看起来好一点？
 
-#### 3. Style the Loading text
+#### 3. 设置加载文本的样式
 
-I know. We will get to the animated stuff soon. For now, let’s style the `.loading` text to look a lot better.
+现在，让我们设置 class 为 `.loading` 的文本样式，使其看上去更棒。
 
 ```
 .loading {
@@ -85,7 +84,7 @@ I know. We will get to the animated stuff soon. For now, let’s style the `.loa
 
 ![](https://cdn-images-1.medium.com/max/800/1*wmMG_h5lJURLsYEZLv8ltw.png)
 
-#### 4. Style the author text to look slightly different.
+#### 4. 设置下方 `.loading_author` 的样式
 
 ```
 .loading__author {
@@ -97,25 +96,25 @@ I know. We will get to the animated stuff soon. For now, let’s style the `.loa
 }
 ```
 
-There you go!
+看看效果！
 
 ![](https://cdn-images-1.medium.com/max/800/1*uok3Fg7Kqd8ASbONmK1RSA.png)
 
-#### 5. Create the animated loader
+#### 5. 创建 loading 动画
 
-The much-anticipated step is here. This is going to be the longest of the steps, because I’ll be spending some time to make sure you understand how it works.
+终于到了备受期待的一步。这是最长的一个步骤，在此之前我会花一些时间确保你了解它的工作原理。
 
-If you get stuck, drop a comment and I’ll be happy to help.
+如果您遇到困难，请发表评论，我很乐意提供帮助。
 
-Hey, have a look at the loader again.
+再回顾一遍 loading 的效果。
 
 ![](https://cdn-images-1.medium.com/max/800/1*AF1rXY_iumutiVOMSXf_LQ.gif)
 
-You’ll notice that half of its stroke is blue and the other half is grey. Okay, that’s sorted out. Also, `HTML` elements aren’t rounded by default. Everything is a _box_ element. The first real challenge will be how to give the `.loading__anim` element half borders.
+我们可以看到 loading 圆环一半是蓝色，另一半是灰色的。默认情况下，`HTML` 元素不会被切分。所有HTML元素可以看作*盒子*。第一个真正的挑战是如何使 class 为 `.loading__anim` 的元素包含两种边框颜色。
 
-Don’t worry if you don’t understand this yet. I’ll come back to it.
+如果你现在还没有太明白，不要担心。后面会继续进行讲解。
 
-First, let’s sort out the dimensions of the loader.
+首先，让我们先定义 loading 的大小。
 
 ```
 .loading__anim {
@@ -124,9 +123,9 @@ First, let’s sort out the dimensions of the loader.
  }
 ```
 
-Right now, the loader is on the same line as the text. That’s because it is a `span` element which happens to be an `HTML` **inline** element.
+现在，loading 组件与文本位于同一行，这是因为 `span` 标签是 html 中的内联元素。 
 
-Let’s make sure the loader seats on another line, that is it begins on another line as opposed to the default behavior of `inline` elements.
+我们现在修改样式，使其在另一行展示。
 
 ```
 .loading__anim {
@@ -136,7 +135,7 @@ Let’s make sure the loader seats on another line, that is it begins on another
   }
 ```
 
-Finally, let’s make sure the loader has some border set.
+最后，让我们为其设置 border 属性。
 
 ```
 .loading__anim {
@@ -147,23 +146,23 @@ Finally, let’s make sure the loader has some border set.
   }
 ```
 
-This will give a _greyish_ `5px` border around the element.
+在元素周围会形成宽度为 5px 的灰色边框。
 
-Now, here’s the result of that.
+下方为效果图。
 
 ![](https://cdn-images-1.medium.com/max/800/1*6IaPRnPBuODTJT6mm9dNFw.png)
 
-You see the grey borders, right?
+显示出一个灰色的边框。
 
-Not so great — yet. Let’s make this even better.
+让我们继续完善它。
 
-An element has four sides, `top`, `bottom`,`left`, and `right`
+一个元素有四条边，`top`、`bottom`、`left` 和 `right`。
 
-The `border` declaration we set earlier was applied to all the sides of the element.
+我们之前设置的 `border` 对四个边都实现了相同的渲染。
 
-To create the loader, we need two sides of the element to have different colors.
+我们现在需要对 loading 组件的边框设置不同的颜色。
 
-It doesn’t matter what sides you choose. I have used the `top` and `left` sides below
+无论你选择哪条边都可以，在下方代码中以 `top` 和 `left` 举例演示。
 
 ```
 .loading__anim {
@@ -176,23 +175,23 @@ It doesn’t matter what sides you choose. I have used the `top` and `left` side
   }
 ```
 
-Now, the `left` and `top` sides will have a _blueish_ color for their borders. Here’s the result of that:
+现在，`left` 和 `top` 边界将呈现蓝色。效果图如下：
 
 ![](https://cdn-images-1.medium.com/max/800/1*bq8bUGVNglafbnDDj_beFw.png)
 
-hmmmm. looking nice.
+看起来还可以。
 
-We’re getting somewhere!
+我们马上要成功了！
 
-The loader is round, NOT rectangular. Let’s change this by giving the `.loader__anim` element a `border-radius` of `50%`
+这个 loading 组件是圆的，而不是方的。让我们通过给 `.loader__anim` 组件设置 `border-radius` 属性为 `50%`，来改变它的形状。
 
-Now we have this:
+效果图如下：
 
 ![](https://cdn-images-1.medium.com/max/800/1*Krr3W7AwgW3ZThim62VZtg.png)
 
-Not so bad, huh?
+不是很差，是吧？
 
-The final step is to animate this.
+最后一步是制作动画。
 
 ```
 @keyframes rotate {
@@ -202,33 +201,33 @@ The final step is to animate this.
 }
 ```
 
-Hopefully, you have an idea of how [CSS animations](https://www.w3schools.com/css/css3_animations.asp) work. `1turn` is equal to `360deg` , that is a complete turn rotates 360 degrees.
+希望您对 [CSS 动画](https://www.w3schools.com/css/css3_animations.asp) 有所了解。`1 turn` 等于 `360 deg`，表示完整的转了一个 360 度的圈。
 
-And apply it like this:
+并按如下方式使用：
 
 ```
 animation: rotate 600ms infinite linear;
 ```
 
-Yo! We did it. Does that all make sense?
+哟！我们做到了！
 
-By the way, see the result below:
+请看最终效果图。
 
 ![](https://cdn-images-1.medium.com/max/800/1*DQFXH8zH4RpOFOqOb4DbMg.gif)
 
-lo hicimos! (Spanish)
+lo hicimos! (西班牙语)
 
-Pretty cool, huh?
+是不是很酷？
 
-If any of the steps confused you, drop a comment and I’ll be happy to help.
+如果有任何步骤使您困惑，请发表评论，我很乐意提供帮助。
 
-### Ready to become Pro?
+### 想要进阶学习？
 
-I have created a free CSS guide to get your CSS skills blazing, immediately. [Get the free ebook.](http://eepurl.com/dgDVRb)
+我已经创建了一个免费的 CSS 指南，以便您能立刻掌握 CSS 技能。[获取电子书](http://eepurl.com/dgDVRb)。
 
 ![](https://cdn-images-1.medium.com/max/800/1*fJabzNuhWcJVUXa3O5OlSQ.png)
 
-Seven CSS Secrets you didn’t know about.
+你不知道的七个 css 秘密。
 
 
 ---

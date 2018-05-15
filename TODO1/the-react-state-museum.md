@@ -245,9 +245,35 @@ As for how to use it, Set and Get via keys. That’s it! If you’re not worried
 
 _Special thanks to the author_ [**_Mikey Stecky-Efantis_**](https://medium.com/@mikeysteckyefantis) _for providing this example!_
 
+#### pure-store
+
+https://github.com/gunn/pure-store
+
+100% test coverage, MIT licensed, TypeScript backed mini-library for state management. This library feels the closest to “Just use globals”. As a matter of fact, if you identify that update takes the signature of setState then you’re looking at a global state in a singleton.
+
+Special thanks to Arthur Gunn for contributing this example!
+
 ### The Missing State Example?
 
 I’m sure there are other state managers out there which are being sorely under-represented here, and if you know them, please send a PR to the public repo. I’ll happily accept contributions so that we can all benefit. I’ll even update this blog post as new systems are added. So please, file tickets, and more importantly contribute! The museum thanks you 😆
+
+### In Summation:
+
+**Do you want no dependencies?**
+
+You can get pretty far with setState and Context! Why bring in a dependency at all? If you’re not sure your app will need it, try to ship without an external lib. You might be able combine Context with something simple like react-automata to round out a clean and testable result!
+
+**Do you want simple?**
+
+Unstated, reduxX, and pure-state are VERY easy and simple. They have slight opinion differences, and small differentiating benefits for each. MobX is also easy, but shows up with some decorator syntax you have to accept. If you do, then the code stays readable and optimized, with a TON of docs/stackoverflow help.
+
+**Do you want scalable?**
+
+If you’re sure your app is going to need all the bells and whistles, it’s time to break out the big guns. This is where Redux shines. You’re forever a mechanic when you implement Redux, so you know you can adapt. MobX-State-Tree shows up with all the powers of MobX + opinions, state, optimizations, and more. It’s not something you can comprehend in a single sitting, but each time you learn more about it, you’re empowering your application.
+
+**Do you want the future?**
+
+There’s no doubt that GraphQL is catching fire in the technical space. Now if you’re using it with AppSync for networking, or if you’re simply using apollo-link-state to manage your local data, you surrender some fine-grained control, but gain power in return. Be sure to keep an eye on these libraries as they evolve. It’s likely that many of the state-systems above will have to adapt to accommodate GraphQL in the near future.
 
 * * *
 
