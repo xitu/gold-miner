@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-javascript-works-under-the-hood-of-css-and-js-animations-how-to-optimize-their-performance.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-javascript-works-under-the-hood-of-css-and-js-animations-how-to-optimize-their-performance.md)
 > * 译者：[NoName4Me](https://github.com/NoName4Me)
-> * 校对者：
+> * 校对者：[Colafornia](https://github.com/Colafornia)、[LVINYEH](https://github.com/ALVINYEH)
 
 # JavaScript 是如何工作的：CSS 和 JS 动画背后的原理 + 如何优化性能
 
