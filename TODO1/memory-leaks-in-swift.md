@@ -26,9 +26,9 @@ describe("MyViewController"){
 }
 ```
 
-This is a test written in [**_SpecLeaks_**](https://cocoapods.org/pods/SpecLeaks).
+This is a test written in [**_SpecLeaks_**](https://cocoapods.org/pods/SpecLeaks)**_._**
 
-**Important:** I will explain what memory leaks are, talk about retain cycles and other things you might already know. If you want to read only about Unit Testing Leaks, skip to the last section.
+Important: I will explain what memory leaks are, talk about retain cycles and other things you might already know. If you want to read only about Unit Testing Leaks, skip to the last section.
 
 ### **Memory Leaks**
 
@@ -37,14 +37,14 @@ Indeed, it’s one of the most frequent problems we face as developers. We code 
 A memory leak is a portion of memory that is occupied forever and never used again. It is garbage that takes space and causes problems.
 
 > Memory that was allocated at some point, but was never released and is no longer referenced by your app. Since there are no references to it, there’s now no way to release it and the memory can’t be used again.
-
+>
 > [Apple Docs](https://developer.apple.com/library/content/documentation/DeveloperTools/Conceptual/InstrumentsUserGuide/CommonMemoryProblems.html)
 
 We all create leaks at some point, from junior to senior devs. It doesn’t matter how experienced we are. It is paramount to eliminate them to have a clean, crash-free application. Why? Because _they are dangerous._
 
 ### Leaks are dangerous
 
-Not only they **increase the memory footprint** of the app, but they also **introduce unwanted side effects** and **crashes.**
+Not only they _increase the memory footprint_ of the app, but they also _introduce unwanted side effects_ and _crashes._
 
 Why does the **memory footprint** grow? It is a direct consequence of objects not being released. Those objects are actually garbage. As the actions that create those objects are repeated, the occupied memory will grow. Too much garbage! This can lead to memory warnings situations and in the end, the app will crash.
 
@@ -58,7 +58,7 @@ It will never die and it will never stop listening to the notification. Each tim
 
 In such situations, a **crash might be the best thing that happens.**
 
-Multiple leaked objects reacting to app notifications, altering the database, the UI, corrupting the entire state of the app. You can read about the importance of kind of problems in **“Dead programs tell no lies”** in [The Pragmatic Programmer](https://www.goodreads.com/book/show/4099.The_Pragmatic_Programmer).
+Multiple leaked objects reacting to app notifications, altering the database, the UI, corrupting the entire state of the app. You can read about the importance of kind of problems in _“Dead programs tell no lies”_ in [The Pragmatic Programmer](https://www.goodreads.com/book/show/4099.The_Pragmatic_Programmer).
 
 Leaks will undoubtedly lead to a bad UX and poor ratings in the App Store.
 
@@ -66,7 +66,7 @@ Leaks will undoubtedly lead to a bad UX and poor ratings in the App Store.
 
 Leaks may come from a 3rd party SDK or framework for example. Even from classes created by Apple too like `CALayer` or `UILabel`. In those cases there isn’t much we can do, except waiting for an update or discarding the SDK.
 
-But it is much more likely that leaks are introduced by us inour code. The number one reason for leaks are **retain cycles**.
+But it is much more likely that leaks are introduced by us inour code. _The number one reason for leaks are_ **retain cycles**.
 
 In order to avoid leaks, we must understand memory management and retain cycles.
 
@@ -82,7 +82,7 @@ In Swift, when an object has a strong association to another object, it is retai
 
 Struct and Enums are _Value Types._ It is not possible to create retain cycles with value types only. When capturing and storing value types (structs and enums), there is no such thing as references. Values are copied, rather than referenced, although values can hold references to objects.
 
-When an object references a second one, it owns it. The second object will stay alive until it is released. This is known as a **S_trong Reference_**. Only when you set the property to **nil** will the second object be destroyed.
+When an object references a second one, it owns it. The second object will stay alive until it is released. This is known as a **Strong Reference**. Only when you set the property to **nil** will the second object be destroyed.
 
 ```
 class Server {
@@ -131,34 +131,12 @@ In order to be released from memory, an object must first release all its depend
 
 Retain cycles are broken when one of the references in the cycle is **weak or unowned.** The cycle must exist because it is required by the nature of the associations we are coding. The problem is that all the associations cannot be strong. One of them must be weak.
 
-```
-class Server {
-    var clients : [Client] 
-    
-    func add(client:Client){
-        self.clients.append(client)
-    }
-}
-
-class Client {
-    weak var server : Server! //This one is weak
-    
-    init (server : Server) {
-        self.server = server
-        
-        self.server.add(client:self) //Now there is no retain cycle
-    }
-}
-```
-
-A weak reference breaks the retain cycle.
-
 ### How to break retain cycles
 
 > Swift provides two ways to resolve strong reference cycles when you work with properties of class type: weak references and unowned references.
-
+>
 > Weak and unowned references enable one instance in a reference cycle to refer to the other instance _without_ keeping a strong hold on it. The instances can then refer to each other without creating a strong reference cycle.
-
+>
 > [Apple’s Swift Programming Language](https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/AutomaticReferenceCounting.html#//apple_ref/doc/uid/TP40014097-CH20-ID48)
 
 **Weak:** A variable can optionally not take ownership of an object it references to. A weak reference is when a variable does not take ownership of an object. **A weak reference can be nil.**
@@ -168,13 +146,13 @@ A weak reference breaks the retain cycle.
 [When to Use Each:](https://krakendev.io/blog/weak-and-unowned-references-in-swift)
 
 > Define a capture in a closure as an unowned reference when the closure and the instance it captures will always refer to each other, and will always be deallocated at the same time.
-
+>
 > Conversely, define a capture as a weak reference when the captured reference may become `nil` at some point in the future. Weak references are always of an optional type, and automatically become `nil` when the instance they reference is deallocated.
-
+>
 > [Apple’s Swift Programming Language](https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/AutomaticReferenceCounting.html)
 
 ```
-class Parent {
+ass Parent {
     var child : Child
     var friend : Friend
     
@@ -271,7 +249,7 @@ describe("UIViewController"){
 }
 ```
 
-Testing initialization.
+Testing initialization
 
 #### Testing for Leaks in View Controllers
 
@@ -332,6 +310,10 @@ Personally, I am trying to add this kind of tests to all my classes. Whenever I 
 What do you think? Do you write unit tests for memory leaks? Do you write tests at all?
 
 I hope you enjoy reading this article, send me a line with your opinion or questions! And feel free to try SpeakLeaks :)
+
+* * *
+
+Thanks to [Flawless App](https://medium.com/@FlawlessApp?source=post_page).
 
 
 ---
