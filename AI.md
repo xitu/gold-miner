@@ -1,3 +1,5 @@
+* [Google 的 ML Kit 为 Android 和 iOS 提供了简单的机器学习 API](https://juejin.im/post/5af2942e51882567244df836) ([ALVINYEH](https://github.com/ALVINYEH) 翻译)
+* [利用 Keras 深度学习库进行词性标注教程](https://juejin.im/post/5ae4613a5188256727742d7d) ([luochen1992](https://github.com/luochen1992) 翻译)
 * [Facebook 的 AI 万金油：StarSpace 神经网络模型简介](https://juejin.im/post/5a83af7c6fb9a0633c661404) ([noahziheng](https://github.com/noahziheng) 翻译)
 * [Facebook 开源了物体检测研究项目 Detectron](https://juejin.im/post/5a6c2ba56fb9a01cb64f0591) ([SeanW20](https://github.com/SeanW20) 翻译)
 * [使用深度学习自动生成HTML代码 - 第 1 部分](https://juejin.im/post/5a72744e6fb9a01cb64f1d66) ([sakila1012](https://github.com/sakila1012) 翻译)

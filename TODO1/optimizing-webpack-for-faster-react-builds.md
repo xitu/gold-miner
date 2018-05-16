@@ -2,20 +2,20 @@
 > * 原文作者：[Jonathan Rowny](http://invisionapp.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/optimizing-webpack-for-faster-react-builds.md](https://github.com/xitu/gold-miner/blob/master/TODO1/optimizing-webpack-for-faster-react-builds.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Starrier](https://github.com/Starriers)
+> * 校对者：[lcx-seima](https://github.com/lcx-seima)、[sishenhei7](https://github.com/sishenhei7)
 
-# OPTIMIZING WEBPACK FOR FASTER REACT BUILDS
+# 优化 WEBPACK 以更快地构建 REACT
 
 ![](https://imgs.xkcd.com/comics/compiling.png)
 
-If you’ve got a slow Webpack build with a ton of libraries - fear not, there’s a way to increase incremental build speed! Webpack’s `DLLPlugin` lets you build all of your dependencies into a single file. It’s a great alternative to chunking. The file is later consumed by your main Webpack configuration or even on other projects sharing the same set of dependencies. Your typical React app may contain dozens of vendor libs depending on your flavor of Flux, add-ons, router, and other utilities like `lodash`. We’ll save precious build time by allowing Webpack to skip over any reference contained within the DLL.
+如果您的 Webpack 构建缓慢且有大量的库 —— 别担心，有一种方法可以提高增量构建的速度！Webpack 的 `DLLPlugin` 允许您将所有的依赖项构建到一个文件中。这是一个取代分块的很好选择。该文件稍后将由您的主 Webpack 配置，甚至可以在共享同一组依赖项的其他项目上使用。典型的 React 应用程序可能包含几十个供应商库，这取决于您的 Flux、插件、路由和其他工具（如 `lodash`）。我们将通过允许 Webpack 跳过 DLL 中包含的任何引用来节省宝贵的构建时间。
 
-This article assumes you’re already familiar with a typical Webpack and React setup. If not, please checkout [SurviveJS](http://survivejs.com/webpack_react/webpack/)’s excellent section on Webpack and React and come back here when your build time starts to creep upwards.
+本文假设您已经熟悉典型的 Webpack 和 React 设置。如果没有，请查看 [SurviveJS](http://survivejs.com/webpack_react/webpack/) 在 Webpack 和 React 方面的优秀内容，当您的构建时间逐步增加时，请回到本文。
 
-## Step 1, List your Vendors
+## 第 1 步，列出您的供应商
 
-The easiest way to build and maintain a DLL is by creating a JS file in your project, let’s call it `vendors.js` and requiring all of the libs you use. For example, on our recent projects, our `vendors.js` file looks like this:
+构建和维护 DLL 的最简单的方法是在您的项目中创建一个 JS 文件 —— `vendors.js`，其中引入您使用的所有库。例如，在我们最近的项目中，我们的 `vendors.js` 文件内容如下：
 
 ```
 require("classnames");
@@ -34,15 +34,15 @@ require("redux-storage");
 require("redux-undo");
 ```
 
-This is the file we will “build” into a DLL. It has no functionality, it just imports the libraries we use.
+这是我们将要“构建”的 DLL 文件，它没有任何功能，只是导入我们使用的库。
 
-**Note:** You could also use ES6 style `import` here, but then we’d need Babel just to build the DLL. You can still use `import` and all the rest of the ES2015 sugary goodness in your main project just as you’re used to.
+**注意：** 您也可以在这里使用 ES6 风格的 `import`，但是我们需要用 Bable 来构建 DLL。您仍然可以像您习惯的那样，在您的主项目中使用 `import` 和其他所有 ES2015 语法糖。
 
-## Step 2, Build your DLL
+## 第 2 步，构建 DLL
 
-Now we can create a Webpack configuration to build the DLL. This is **completely separate** from your app’s main Webpack configuration and will result in a few files. It won’t be called by your Webpack middleware, Webpack server, or anything else (except manually or through a pre-build step).
+现在我们可以创建一个 Webpack 配置来构建 DLL。这将从您的应用程序主 Webpack 配置中**完全分离**，并且会影响部分文件。它不会被您的 Webpack 中间件、Webpack 服务器或其他任何东西调用（手动或通过预构建除外）。
 
-Let’s call this file `webpack.dll.js`
+我们称之为 `webpack.dll.js`
 
 ```
 var path = require("path");
@@ -73,13 +73,13 @@ module.exports = {
 };
 ```
 
-This is a fairly typical Webpack config except for the `webpack.DLLPlugin`, which contains properties for the name, context, and manifest path. The manifest is very important, it gives other Webpack configurations a map to your already built modules. The context is the root of your client source code and the name is the name of the entry, in this case “vendor”. Go ahead and try running this build with the command `webpack --config=webpack.dll.js`. You should end up with a `dll\vendor-manifest.json` that contains a nice little map to your modules as well as a `dist\dll\dll.vendor.js` which contains a nicely minified package containing all of your vendor libs.
+这是典型的 Webpack 配置，除了 `webpack.DLLPlugin` 以外，它包含 name、context 和 mainifest 路径。mainifest 非常重要，它为其他 Webpack 配置提供了您到已经构建模块的映射。context 是客户端源码的根，而 name 是入口的名称，在本例中是“供应商”。继续尝试使用命令 `webpack --config=webpack.dll.js` 运行这个构建。最后，您应该得到一个包含模块的排列映射 —— `dll\vendor-manifest.json` 已经包含了您所有供应商库的精简包 ——  `dist\dll\dll.vendor.js`。
 
-## Step 3, Build your Project
+## 第 3 步，构建项目
 
-**Note:** The following example does not include sass, assets, nor a hotloader. They should still work just fine if you’ve got them in your config.
+**注意:**下述示例不包含 sass、assets、或热加载程序。如果您已经在配置中使用了，它们仍然可以正常工作。
 
-Now all we need to do is add the `DLLReferencePlugin` and point it at our already built DLL. Here’s what your `webpack.dev.js` might look like:
+现在我们需要做的就是添加 `DLLReferencePlugin`，并将其指向我们已经构建的 DLL。您的 `webpack.dev.js` 可能是如下模样：
 
 ```
 var path = require("path");
@@ -127,20 +127,20 @@ module.exports = {
 };
 ```
 
-We’ve also done a few other things to increase performance including:
+我们还做了一些其他事来提高性能，包括：
 
-*   Make sure we have `cache: true`
-*   Make sure that the babel loader has `cacheDirectory:true` in the query
-*   Used an `include` for the babel loader (you should do this for all loaders)
-*   Set devtool to `eval` because we’re optimizing for build time `#nobugs`
+*   确保我们有 `cache: true`
+*   确保 Babel 在查询中加载程序有 `cacheDirectory:true`
+*   在 bable loader 中使用 `include`（您应该在所有的 loader 中这样做）
+*   将 devTool 设置为 `eval`，因为我们正在为构建时间优化 `#nobugs`
 
-## Step 4, include the DLL
+## 第 4 步，包含 DLL
 
-At this point, you’ve generated a vendor DLL file and you’ve got a Webpack build going to generate your app.js file. You need to serve and include both files in your template, but the DLL should come first. You’ve likely already got a template set up using the `HtmlWebpackPlugin`. Since we don’t care about hot reloading a DLL, you don’t really need to do anything special except including a `<script src="dll/dll.vendor.js"></script>` before your main app.js. If you’re using `webpack-middleware` or your own custom server, you’ll also need to make sure that DLL is being served. At this point, everything should be running as it was, but incremental builds with Webpack should be blazing fast.
+此时，您已经生成了一个供应商 DLL 文件，并且您的 Webpack 构建并生成 app.js 文件。您需要在模版中提供并包含这两个文件，但 DLL 应该是第一位的。您可能已经使用 `HtmlWebpackPlugin` 设置了模版。因为我们不关心热重载 DLL，所以除了在主 app.js 之前包含 `<script src="dll/dll.vendor.js"></script>` 之外，您实际上不需要做任何事。如果您使用的是 `webpack-middleware` 或者您自己定制化的服务器，则还需要确保为 DLL 提供服务。此时，一切都应该按原样运行，但是使用 Webpack 进行增量构建的速度应该非常快。
 
-## Step 5, build scripts
+## 第 5 步，构建脚本
 
-We can use NPM and `package.json` to add a few simple scripts to take care of building for us. To clean out the `dist` folder, go ahead and run `npm i rimraf --saveDev`. Now add to your package.json:
+我们可以使用 NPM 和 `package.json` 添加一些为我们构建的简单脚本。要清除 `dist` 文件夹，请继续运行 `npm i rimraf --saveDev`。现在可以添加到您的 package.json 中了：
 
 ```
 "scripts": {
@@ -152,13 +152,13 @@ We can use NPM and `package.json` to add a few simple scripts to take care of bu
   }
 ```
 
-Now you can run `npm run watch`. If you’d rather run `build:dll` manually, you can remove it from the watch script for faster startups.
+现在您可以运行 `npm run watch`。如果您喜欢手动运行 `build:dll`，则可以将其从监视脚本中删除，以便更快地启动。
 
-## That’s all, folks!
+## 就这样，伙计们！
 
-I hope this gives you insight into how InVision uses Webpack’s `DLLPlugin` to increase our build speed. If you have any thoughts or questions, feel free to leave a comment!
+我希望这能让您深入了解 InVision 如何使用 Webpack 的 `DLLPlugin` 来提高构建速度。如果您有任何问题或想法，欢迎发表评论。
 
 
 ---
 
-> [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
+> [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)

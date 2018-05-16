@@ -1,3 +1,4 @@
+* [用行为经济学来传达付费应用订阅的价值](https://juejin.im/post/5ad3ffd0f265da23906c785f) ([ALVINYEH](https://github.com/ALVINYEH) 翻译)
 * [怎样把取消订阅的用户吸引回来](https://juejin.im/post/5acc1538518825651d07fdd1) ([allenlongbaobao](https://github.com/allenlongbaobao) 翻译)
 * [游戏即服务的五条建议，提升游戏变现能力](https://juejin.im/post/5aa88773f265da23a228cc49) ([pthtc](https://github.com/pthtc) 翻译)
 * [一文教你预测 APP 未来的货币化情况](https://juejin.im/post/5a7a94d36fb9a0634d2793c6) ([pthtc](https://github.com/pthtc) 翻译)

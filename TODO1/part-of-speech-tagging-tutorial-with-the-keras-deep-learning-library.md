@@ -383,7 +383,7 @@ clf.model.save('/tmp/keras_mlp.h5')
 
 #### 资源
 
-*   `Keras`: Python 深度学习库：[[doc]](https://keras.io/)
+*   Keras: Python 深度学习库：[[doc]](https://keras.io/)
 *   Adam: 一种随机优化方法：[[paper]](https://arxiv.org/abs/1412.6980)
 *   Improving neural networks by preventing co-adaptation of feature detectors: [[paper]](https://arxiv.org/abs/1207.0580)
 

@@ -1,3 +1,5 @@
+* [用户体验中的稀缺性：成为常态的心理偏见](https://juejin.im/post/5aef0943518825672a02d2ca) ([Starriers](https://github.com/Starriers) 翻译)
+* [细数那些我离不开的 Sketch 插件](https://juejin.im/post/5ae0623ef265da0b8d419aca) ([allenlongbaobao](https://github.com/allenlongbaobao) 翻译)
 * [设计师与工程师协作的 5 项准则](https://juejin.im/post/5ac9e56af265da23945fc201) ([Starriers](https://github.com/Starriers) 翻译)
 * [产品设计的环状循环](https://juejin.im/post/5aa74b32f265da23a4047aef) ([rydensun](https://github.com/rydensun) 翻译)
 * [设计研究的 9 条规则](https://juejin.im/post/5aa6958a5188255587233477) ([zhmhhu](https://github.com/zhmhhu) 翻译)

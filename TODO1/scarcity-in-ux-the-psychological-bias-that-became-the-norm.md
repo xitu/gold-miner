@@ -2,195 +2,195 @@
 > * 原文作者：[David Teodorescu](https://uxdesign.cc/@davidteodorescu?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/scarcity-in-ux-the-psychological-bias-that-became-the-norm.md](https://github.com/xitu/gold-miner/blob/master/TODO1/scarcity-in-ux-the-psychological-bias-that-became-the-norm.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Starrier](https://github.com/Starriers)
+> * 校对者：[wavezhang](https://github.com/wavezhang)、[rydensun](https://github.com/rydensun)
 
-# Scarcity in UX: The psychological bias that became the norm
+# 用户体验中的稀缺性：成为常态的心理偏差
 
-## Short analysis on the current state of affairs and a few tips to keep in mind.
+## 简要分析了现状，并给出了几个注意事项。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*-XgzQw76IgZE2gwbOrNSCA.png)
 
-You know how it works.
+你知道它的工作原理。
 
-Casually watching a review on Unbox Therapy about this mug that apparently is unspillable. I’m having a laugh but by the end of the video I’m also intrigued what people ask for it.
+随便看了一篇 Unbox Therapy 关于这个杯子的的测评，显然这个杯子的特点是不会倒。我在笑，但在视频的结尾，我很好奇人们对它的需求是什么。
 
-There it is on Amazon. On sale at $14.99 from $24.99\. For a limited time only. Only 3 left in stock for the stainless steel version. I love stainless steel. It’s a bargain and it will soon be gone. I’ll be left to drink coffee from my spillable mug. It would be a shame to pass this. F**k it. 💸
+在 Amazon 上可以找到，原价 $24.99 限时特价 $14.99，不锈钢版本的杯子只剩下三件。。我喜欢不锈钢，这很便宜，它们很快就会被卖光。也许我只能继续在自已之前的杯子中喝咖啡了，如果真是这样就太可惜了。💸
 
 ![](https://cdn-images-1.medium.com/max/800/1*r1wMSvUUzF8eccxymhsRbg.jpeg)
 
-Yes, it’s unspillable. Most of the times.
+是的，大多数时间不会倒下。
 
 * * *
 
-### It makes things desirable
+### 这就让事情令人满意了
 
-Scarcity is the psychological bias that makes us place a higher value on things that are scarce than those in abundance. Basically, we tend to like things that are harder to obtain.
+稀缺性是一种心理上的偏见，它使我们对稀缺的东西赋予了更高的价值。基本上，我们倾向于喜欢较难获得的东西。
 
 * * *
 
-### It has become the norm
+### 它已经成为了常态
 
-As most things, scarcity started offline. Expensive restaurants serve small portions on large plates to suggest that ingredients are rare and prestigious colleges have limited places to maintain the sense of exclusivity.
+就像大多数事情一样，稀缺性是从线下开始的。昂贵的餐厅在大盘子上只供应小部分，这表明食材是稀缺的，名牌大学保持排他性的有限名额。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Vt56n6UejBd6GOLn9NyW4A.jpeg)
 
-This looks expensive.
+这看上去非常昂贵。
 
-But as tech businesses became more mature and digital products more refined, scarcity was quickly adopted online and it is now one of the most popular methods to increase desirability.
+但随着科技企业越来越成熟，数字产品也越来越精致，稀缺性很快在网上被采用，它现在是提高需求最受欢迎的方法之一。
 
-We have come to a point in which people are so used to seeing and expecting some form of scarcity when browsing online, that implementing one inside your product is not a competitive advantage anymore but a starting point for any goal that aims to satisfy users’ needs.
+我们已经到了这样一个地步：人们已经习惯于在网上浏览时看到并期待某种形式的稀缺，在你的产品中实现一种稀缺性已经不再是一种竞争优势，而是任何旨在满足用户需求目标的起点。
 
 * * *
 
-### It combines multiple biases
+### 它结合了多种认知偏差
 
-Scarcity became popular because it’s extremely powerful and fairly easy to implement. And the reason it’s so effective is because it combines multiple biases into one:
+稀缺性之所以流行，是因为它非常强大，而且相当容易实现。它之所以如此有效，是因为它将多种认知偏差结合在一起：
 
-#### 1. Loss aversion
+#### 1. 损失规避
 
-If we don’t act upon a scarce product, it basically means we’ll lose both the product itself in the short run but also our freedom to choose it in the long run. Double the loss = double the pain.
+如果我们不对稀缺性产品采取行动，这基本上意味着我们将在短期内失去产品本身，但从长远来看，我们将失去选择它的自由。双倍的损失 = 加倍的痛苦。
 
 ![](https://cdn-images-1.medium.com/max/800/1*kMA-FslhlGIDlrYzOqVXsA.png)
 
-#### 2. Social proof
+#### 2. 社会证明
 
-Usually, products become scarce when the demand is high. Once that happens, it implies that other people bought it in the past so it must be valuable and we should seize the opportunity.
+通常情况下，当需求很大时，产品就会变得稀缺。一旦发生这种情况，它意味着其他人在过去购买了它，所以它必须是有价值的，我们应该抓住这个机会。
 
 ![](https://cdn-images-1.medium.com/max/800/1*vYQJeMv3Ig2rVsngSQiIvQ.png)
 
-#### 3. Anticipated regret
+#### 3. 预期遗憾
 
-When facing a decision, we anticipate not only the events but also the associated regret we might experience. Deciding to act now is our attempt to try and eliminate that possibility.
+当我们面对一个决定时，我们不仅预料到事件的发生，而且预料到我们可能会经历与之相关的遗憾。决定现在采取行动是我们试图消除这种可能性的努力。
 
 ![](https://cdn-images-1.medium.com/max/800/1*3lDEBvknnYRvpuU-AmeM7w.png)
 
 * * *
 
-### It comes in different forms
+### 它有不同形式
 
-Even though scarcity can be applied to unquantifiable features like quality or experiences, its effect is much more powerful when assessing measurable resources like objects or places. It’s the reason the likes of Amazon and Booking.com embrace it and use it extensively.
+尽管稀缺性可应用于质量或体验等无法量化的特性，但在评估可测量的资源（如对象或地方）时，它的效果要强大得多。这也是 Amazon 和 Booking.com 等公司接受并广泛使用它的原因。
 
-Based on these measurable resources, there are 3 main forms of scarcity:
+基于这些可衡量的资源，主要有三种稀缺性形式：
 
-### 1. Time-limited scarcity
+### 1. 限时稀缺性
 
-When time has a limit, it creates a deadline that makes people act before the time is up. When the deadline is unknown, people are not certain that they can get the object anymore unless they act now, which increases the pressure but shows lack of empathy from a UX standpoint.
+当时间有限制时，它会创造一个期限，让人们在时间结束之前行动起来。当截止日期未知时，人们不确定他们是否还能得到目标，除非他们现在就采取行动，这增加了压力，但从用户体验的角度来看，显示出缺乏同理心。
 
-_Examples:_
+**例如：**
 
-#### Lightning Deals on Amazon: Good
+#### 在 Amazon 上的秒杀产品：好
 
-They last a few hours and show the deadline. They are accompanied by the percentage claimed by other people to highlight the urgency.
+它们持续会几个小时并显示最后期限。与之相伴的还有其他人为强调紧迫性而提出的百分比。
 
 ![](https://cdn-images-1.medium.com/max/800/1*-o8SOwM2cuwNsXvWk9Ykkw.png)
 
-#### **Courses on Interaction Design Foundation: Smart**
+#### **交互设计基础课程：明智**
 
-Present the time until enrolment ends. Fully booked courses are still displayed to show people what it’s like to miss the opportunity.
+在注册结束前显示时间。全部预定的课程仍然展示给人们看，来让他们体验错过这个机会是什么感觉。
 
 ![](https://cdn-images-1.medium.com/max/800/1*gI1o7e2uhFVbPlDurYQhsg.png)
 
-#### Buying things on eBay: Bad
+#### 在 eBay 上买东西：槽糕
 
-Time limited products are marked with a red icon and a vague “Almost gone” tag. Not showing when the offer ends is unthoughtful and manipulative.
+限时产品有红色图标和模糊到“几乎消失”的标签。没有显示优惠结束时间是不合时宜和糟糕的操作。
 
 ![](https://cdn-images-1.medium.com/max/800/1*tbadRIMbFesPQPtSAZfrEQ.png)
 
-#### Searching places on Airbnb: Fair
+#### 在 Airbnb 搜索地点：公平
 
-It shows people how limited the offer is by displaying the low percentage of listings left and a “Rare find” tag to make them feel lucky about their search.
+它通过显示剩余列表的低百分比和一个“稀有”标签来显示人们对报价的限制，使他们对搜索感到幸运。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Wx7V4DkqclV1Y-Gd3lJHKw.png)
 
-### 2. Quantity-limited scarcity
+### 2. 数量有限的稀缺性
 
-Limited or rare supplies are perceived by people as a threat to their freedom of choice, triggering a reaction to fight the threat and maintain their access to the resource.
+人们认为有限或稀缺的物资会对他们的选择自由构成威胁，从而引起对抗威胁并保持对资源访问的反应。
 
-> **Quantity-limited scarcity is considered more effective than time-limited scarcity because the end of the supply is unpredictable, depending exclusively on demand rather than time.**
+> **数量有限的稀缺被认为比时间有限的稀缺更有效，因为供应的终点是不可预测的，完全取决于需求而非时间。**
 
-_Examples:_
+**比如：**
 
-#### Looking for hotels on Booking.com: Impressive
+#### 在 Booking.com 上查找酒店：令人印象深刻
 
-Booking is the Usain Bolt of scarcity and probably owe much of their success to it. They show the number of rooms left but also a ton of tags and labels that make you feel you’re about to make the deal of your life.
+预定是 Usain Bolt 的稀缺性，而且大部分成功都归功于它。它们显示房间的数量，但同时也显示了大量的标签，而且这些标签让你觉得你的生活非常舒适。
 
-It’s smart how they use the massive data they have and, even though everything is pretty overwhelming, the information is useful.
+他们使用所拥有的大量数据的方式很明智，尽管这些数据非常庞大，但它们都是有用的。
 
 ![](https://cdn-images-1.medium.com/max/800/1*9F03hEXKTnjETwY0TR3zBQ.png)
 
-#### Booking flights on Ryan Air: Good
+#### 通过 Ryan Air 预定航班：非常好
 
-They take advantage of the fact that cheaper seats sell first and use this to highlight the limited number of seats left for the lowest price.
+他们利用便宜的座位先出售的事实，来突显以最低价格出售的数量有限的席位。
 
 ![](https://cdn-images-1.medium.com/max/800/1*ZFpVSmeUx9_ZSx6pcAZvBw.png)
 
-#### Buying clothes on Selfridges: Subtle
+#### 在 Selfridges 买衣服：Subtle
 
-Product details display both the available and unavailable sizes. This way, it makes the available ones feel more scarce. Subtle and useful as some people are between sizes.
+产品的详细信息显示可用和不可用尺寸。这样，它使得可用的感觉更稀缺。这微妙而有用，因为有些人的尺寸需求介于给定尺寸之间。
 
 ![](https://cdn-images-1.medium.com/max/800/1*4jmFwuyTRB9MwwIjFWkP5Q.png)
 
-### 3. Access-limited scarcity
+### 3. 访问受限的稀缺性
 
-It refers to limited access to features like information, groups or spaces. Research showed that censorship made people place a higher value on the restricted features than those that were not because exclusivity made them feel special.
+它指的是信息，组或空间等功能的有限访问。研究表明，审查制度使得人们更重视受限功能，而不是因为排他性使他们感到特别。
 
-_Examples:_
+**例如：**
 
-#### Becoming a subscriber on Medium
+#### 订阅 Medium
 
-Medium charges you if you want to be able to read all the stories on their platform. But once you do, you’ll be one of their privileged users.
+如果你希望可以阅读其平台的所有内容，Medium 会收取费用。一旦你决定那么做，也意味着你成为了 Medium 特权用户。
 
 ![](https://cdn-images-1.medium.com/max/800/1*YnpAAetpwd1celecktHz-g.png)
 
-#### Joining Tinder Select
+#### 加入 Tinder Select
 
-Tinder uses the “Elo” ranking system to rate members based on desirability and invites the top ones to join the closed version called Tinder Select. Even though a bit cynical for the rest of the pack, it does what it’s suppose to do: reward popular users by making them feel unique.
+Tinder 使用 “Elo” 排名系统，根据需要来对成员进行评级，并邀请顶级用户加入名为 Tinder Select 的封闭版本。尽管对其他用户不公平，但它也只是做了它应该做的事情：通过给予活跃用户重视度来奖励他们。
 
 ![](https://cdn-images-1.medium.com/max/800/1*OCrjwQajhoWi5_CArlBf_g.png)
 
 * * *
 
-### It is controversial but it shouldn’t be
+### 它拥有不应该存在的争议
 
-If suitable for the product we design for, scarcity can optimise user flows and impact business goals. It reframes information and alerts users when there is a need for urgency.
+如果适合我们设计的产品，稀缺性可以优化用户流程并影响商业目标。在紧急情况下，它会重构信息并通知用户。
 
-> Some might argue that this forces them to make a decision, but as long as the numbers are real, what’s the alternative? Isn’t the sense of regret or frustration caused by us failing to tell them about the scarce product in time just as bad? Aren’t we offering an awful user experience if that happens? Rushing people into making a decision seems rather fair as long as we’re presenting them the facts.
+> 可能有人会说，这迫使他们做出决定，但只要数字是真实，我们别无它选！是因为我们没有及时告知他们产品稀缺而造成的遗憾和沮丧？如果发生这种情况，我们不是在提供糟糕的用户体验么？只要我们向他们介绍事实，促使人们匆忙做出决定似乎是相当公平的。
 
-Having said that, I agree that some businesses take advantage of this and use it unethically by inventing fake stocks and artificial memberships. But this is true for any other method used with questionable intentions and it always leads to loss of credibility in the long run.
+话虽如此，我同意一些企业利用这一优势，不道德地利用它，制造假库存和会员身份。但对于任何其他使用可疑意图的方法而言，久而久之，导致信誉受损是毫无疑问的。
 
 ![](https://cdn-images-1.medium.com/max/800/1*0yTyOzOVgnL-XbRRj3escA.png)
 
 * * *
 
-### It should follow a few rules
+### 它应该遵循一些规则
 
-To avoid this, below are some suggestions for making the best out of scarcity and actually improve the UX:
+为了避免此类情况发生，以下建议可以充分利用稀缺性，而且可以切实改善用户体验：
 
-#### Do
+#### 可以做的事情
 
-*   use **scarcity** to increase perceived value and expedite conversions
-*   use **time scarcity** to promote products that are time sensitive
-*   use **quantity scarcity** to make people aware of stock shortages
-*   use **access scarcity** to highlight the advantages of the restricted features
-*   use **A/B testing** to test what scarcity message works best for your audience
-*   use **usability testing** to test the impact of messages on credibility and trust
-*   use **animated elements** to emphasise urgency (e.g. showing a glowing red icon to highlight the real-time status)
+*   使用**稀缺性**来提高感知价值并加速转换
+*   使用**时间稀缺性**来推广对时间敏感的产品
+*   使用**数量稀缺性**让人们意识到库存短缺
+*   使用**访问稀缺性** 来突出受限功能的特性
+*   使用 **A/B 测试**来测试那些稀缺性消息对受众最有效
+*   使用**可用性测试**来测试消息对可信度和信任度的影响
+*   使用**动画元素**来强调紧迫性（例如，显示一个发光的红色图标以突出实时状态）
 
-#### Don’t
+#### 不可以做的事情
 
-*   do not use scarcity **without testing** it first with users
-*   do not use scarcity if stocks are **not reliable**
-*   do not use scarcity if the messages are not **bug free**
-*   do not use **fake numbers** to create artificially scarce products
+*   不要在**没有测试**的情况下使用稀缺性，因为它首先应与用户结合使用
+*   如果库存**不可信**，不要使用稀缺性
+*   如果信息**没有缺陷**，不要使用稀缺性
+*   不要使用**虚假数字**人为制造稀缺产品
 
 * * *
 
-### Conclusion
+### 结论
 
-Scarcity makes us place a higher value on things that are scarce and, over time, has become the go to method for increasing desirability. It is powerful because it combines multiple biases (Loss aversion, Social proof and Anticipated regret) and it comes in different forms (Time, Quantity and Access).
+稀缺性让我们对稀缺事物有了更深层次的认识，随着时间的推移，它已经成为提高效益的方法。它很强大，因为它结合了很多种认知偏差（损失厌恶，社会证明和预期遗憾），而且存在多种实现形式（时间，数量和访问）。 
 
-It is controversial but it shouldn’t be because hiding the information from people is not really an option. It can also improve UX if you follow a few simple rules.
+但这不应该存在争议，因为对人们隐藏信息不是一个真正的选择。如果你遵循一些简单的规则，还可以提升用户体验。
 
 
 ---

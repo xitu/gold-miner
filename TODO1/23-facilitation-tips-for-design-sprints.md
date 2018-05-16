@@ -2,127 +2,127 @@
 > * 原文作者：[Jake Knapp](https://sprintstories.com/@jakek?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/23-facilitation-tips-for-design-sprints.md](https://github.com/xitu/gold-miner/blob/master/TODO1/23-facilitation-tips-for-design-sprints.md)
-> * 译者：
-> * 校对者：
+> * 译者：[PokerF](https://github.com/PokerF)
+> * 校对者：[rydensun](https://github.com/rydensun)
 
-# The Facilitator’s Handbook: 24 Design Sprint Tips
+# Facilitator 手册：24 个设计冲刺技巧
 
-Here are some things I think about when I facilitate a design sprint. Lots of what goes into facilitation I can’t explain—like anything, you just do it, gain experience, and get better over time. But there are a few principles and tricks I consciously remind myself to do, again and again, because they work and are not obvious to me. (Some of these are in my book [_Sprint_](http://amzn.to/2EjiUPj)but most are not.)
+这里有一些我在引导一个 Design Sprint 时所考虑的事情。我无法解释很多深入引导其中的事情 ——— 例如一些事情，你只是做了，积累了经验，然后就会随着时间越来越好。但是这里有几个原则和小技巧，我有意识的，一次又一次的提醒自己去做，因为它们是有效的，并且对我来说是再正常不过的了。（这些原则和技巧有些写在我的书里 [_Sprint_](http://amzn.to/2EjiUPj) 但是大部分没有。）
 
-#### 1. Focus on the Big 3: Ask questions, write stuff down, and mind the clock
+#### 1. 专注于三个重点：问问题，做记录，有时间观念。
 
-At its core, facilitation is simple. You’ve got to ask questions to get information out in the open, write that information down and ask more questions to make sure you’ve written it down properly, and you’ve got to mind the clock and move through the steps. When feeling overwhelmed, get back to the basics.
+引导的核心是简单的。你必须去问问题来让信息公开，记录下信息并且问更多问题来保证你正确地记录下来了，并且你要有时间观来走过这些步骤。 当感到不知所措时，回到基本的东西中去。
 
-#### 2. Trust the recipe
+#### 2. 相信章程
 
-My biggest trick to facilitation is to follow the design sprint process, and in situations where I’ve had to run other meetings, I like to come up with a process and schedule in advance. Even after a bazillion design sprints, I refer to the checklist in the back of the book when I’m facilitating to remind me of the next steps. The recipe sets you free to do your job well.
+我最好的引导技巧是跟从 design sprint 的流程，尤其是当我不得不去参与其他会议的情形，我喜欢跟着事先准备好的流程和时间表走。即使在无数设计冲刺之后，当我在引导时，我还是参考书本后的备忘录来提醒我接下来的步骤。章程能让你更好的完成你的工作。
 
-#### 3. Get commitment in advance or don’t do the sprint
+#### 3. 预先获得承诺或者不做 sprint
 
-People coming and going to other meetings will ruin the sprint (unless you have carefully planned for cameo appearances, more about that in the book) and it is painful and hard to stop once it starts, so get commitment in advance for people to be in the room 10–5 or _don’t do the sprint at all._
+人们在会议上出出入入会毁了 sprint（除非你很小心地计划列席会议，书中有更多相关内容）并且这一旦开始就很难结束，所以要么预先得到人们在房间里呆一段时间的承诺要么绝不做 sprint 。
 
-#### 4. Explain the sprint before you start
+#### 4. 在开始之前对 sprint 做出解释
 
-Sprints are much easier to facilitate when people know how the activities fit into the whole. So the week before the sprint begins, I send the team this [90 second sprint video](https://www.youtube.com/watch?v=K2vSQPh6MCE) and a link to my “[Stop Brainstorming and Start Sprinting](https://medium.com/@jakek/stop-brainstorming-and-start-sprinting-16180839b43d)” post—both are fast and skimmable. Of course, it’d be awesome if everybody read the [book](http://amzn.to/2sqGkwE) in advance (and on the rare occasions when I’ve done sprints with teams who have, it’s fantastic) but it’s not realistic. On the first morning of the sprint, before we begin, I tell a quick story about what the sprint is going to be like. (You might play the 90 second video, with or without audio, so they’re reminded of how the steps will _look_.) And on the beginning of each subsequent day, I remind the team what’s going to happen that day (if you like, you can use these [day-by-day videos](https://www.thesprintbook.com/videos).)
+当人们知道这活动如何融入整个团队时， sprint 将更简单。所以在开始冲刺的前一周，我给团队发送了这个 [90 秒 sprint 视频](https://www.youtube.com/watch?v=K2vSQPh6MCE) 以及链接到我的“[停止头脑风暴，开始 sprint ](https://medium.com/@jakek/stop-brainstorming-and-start-sprinting-16180839b43d) ”公示两者是快速和可浏览的。当然，如果每个人都预先看了[书](http://amzn.to/2sqGkwE)那是极好的（并且在我做 sprint 的少数场合有人预先看了书，那真是不可思议）但这并不现实。在 sprint 的第一个早晨，我在开始之前讲一个关于 sprint 会是怎么样的小故事。（你也许放一个 90 秒的视频，有声或者无声，所以他们会被提醒步骤是怎么样的。）并且在随后的每一天伊始，我提醒团队今天打算干什么。（如果你喜欢，你也可以用它们[天天视频](https://www.thesprintbook.com/videos) 。）
 
-#### 5. Ask for permission
+#### 5. 请求许可
 
-Once you’ve explained the sprint, tell the team you’re going to facilitate, keep things on schedule, and move everyone from step to step. Then say “Sound okay?” Don’t expect a chorus of enthusiastic responses—but there is something powerful and symbolic about getting the team’s permission. I learned this from [Charles Warren](https://twitter.com/CHW), a master facilitator and great teacher I met at Google who’d worked for years at IDEO.
+一旦你已经解释了 sprint ，告诉团队你将要开始引导，保持事情进度符合时间表，并且驱动每个人一步一步走。问他们说 “听起来好吗？” 不要期待有多热情的回应 ———— 但这是一些关于获得团队的许可强有力的和象征性的事情。我从[查尔斯 沃伦](https://twitter.com/CHW)学到这些，一个我在谷歌遇到的在 IDEO（译者注：IDEO 公司由一群斯坦福大学毕业生创立于 1991 年，是全球顶尖的设计咨询公司。）工作多年的主引导者和伟大的老师。
 
-#### 6. Ice breaks on its own
+#### 6. 自行破冰
 
-I’m not a fan of ice breakers. A goofy ice breaker starts you off with a credibility deficit if there are any skeptics in the room. I want the team to have confidence that I’m going to make excellent use of their time and attention. That doesn’t mean we can’t have fun, but I want to start things off fast and pragmatic. And eventually the ice breaks on its own. Be patient and do not assume that you have to have an ice breaker just because it’s the default for workshops—yes, it’ll be a little awkward at first, but trust that people will get comfortable. They always do, and you’ll be glad to have the extra time later on.
+我不喜欢破冰活动。如果房间里有怀疑论者，一个愚蠢的破冰活动能让你从一开始就可信度尽失。我想团队有我能够极好的利用他们的时间与精力的信心。这并不意味着我们不能有乐子，但我想快速实用的启动事情。并且最终自行破冰。保持耐心并且不要假定你不得不有一个破冰活动只是因为这是车间默认设置，这一开始会有些尴尬，但是请相信那些人会获得舒适的相处方式。他们总是这样的，以后你会很高兴拥有额外的时间。
 
-#### 7. Write names on the board
+#### 7. 在黑板上写下名字
 
-It’s important for the facilitator to learn people’s names—conversations go so much better when you call people by name. Whenever anybody is a stranger to me, I like to go around the room and ask everybody to introduce themselves and write their names in a corner of a whiteboard, making a little map of the room. Then everybody, including me, can refer to it when they want to know someone’s name—no name tags required.
+记住他们的名字对引导者是很重要 —— 当你能使用名字称呼他们时会话将会变得更好。每当任何人对我来说是陌生人时，我喜欢在房间里四处走动并请求每个人介绍他们自己和在白板的一个角落写下他们的名字，制作一个房间的小地图。然后每个人，包括我，在想知道某个人的名字时可以参考它 —— 不需要姓名标签。
 
-#### 8. Fake confidence (it’s normal to feel nervous)
+#### 8. 假装自信（紧张是再正常不过的了）
 
-You will gain more confidence over time, but also you should know it’s natural to feel nervous before and during the sprint as the facilitator. I certainly do and I have been in so many sprints you’d think I shouldn’t be nervous… but I definitely feel it before every one. But you need to project confidence in the process and the team, even if you’re not feeling totally confident in it yourself.
+随着时间你将获得更多的自信，但同时你应该知道作为一个引导者在 sprint 开始之前或在 sprint 期间感到紧张是再自然不过的了。我参与过很多 sprint ，你会认为我不应该紧张，但我先于任何人清楚的感觉到紧张。但你需要在冲刺过程和团队之中表现出自信，即使你自己对其没有感到完全自信。
 
-#### 9. Don’t outsmart anybody
+#### 9. 别比任何人聪明
 
-It’s not on youto be the smartest person in the room. If you think it is, you’re creating unnecessary pressure and you might make a fool of yourself. The facilitator is there to make sure the sprint happens, and to provide the framework so _everyone else can succeed_. You don’t have to solve the problem or have a brilliant insight. You’re not the actor or even the director, you’re more like the producer. You’re not the omelette, you’re the frying pan. It’s a damn important job, but don’t stress about being smart. I’ve been in sprints with all kinds of super smart people I wanted to impress—sometimes even with famous founders who I really admired. But I quickly learned that the best thing to do was not to be smart, but rather to be _helpful._ And the best way to be helpful is to make the sprint work, so the hotshot CEO and her genius team can solve the problem. You ask questions, write stuff down, and mind the clock. That’s a lot, and it’s important.
+你不会是这群人中最聪明的一个。如果你想你是，那你正在创造没必要的压力并且你自己有可能成为傻瓜。引导者是为了确保 sprint 发生，并且提供一个让每个人能够成功的框架。你不必要去解决问题或有惊人的洞察力。你不是一个演员乃至导演，你更像一个制片人。你不是煎蛋卷，而是煎蛋卷的平底锅。这是一份非常重要的职位，但不用着重变的聪明。我在 sprint 中和各种超级聪明的人在一起，我想给他们留下深刻印象 —— 有时甚至是我非常仰慕的著名创始人。但我很快地学到做最好的事并不是变得聪明，而是变得有助益的。而且变得有助益的最好的方式是让 sprint 运作起来，所以 hotshot 的首席执行官和她的天才团队能够解决问题。你问问题，做记录，保持时间观。这就意味着很多了，而且也很重要。
 
-#### 10. Be energetic
+#### 10. 充满能量
 
-You don’t have to go crazy with this, but you’re the battery for the sprint. If you are low energy, the group will be low energy, and if you are upbeat and positive, the group will be energized.
+你不需要为此疯狂，但你是 sprint 的电池。如果你处于低能量状态，那么团队也会变得低能量，而如果你积极向上，那么团队也将变得充满能量。
 
-#### 11. Drink steady caffeine and lots of water
+#### 11. 稳定咖啡因的摄入以及喝很多水
 
-I’m very mindful of my caffeine levels when I’m facilitating. I’m a coffee drinker and am always tempted to drink lots of coffee so I’m amped at the beginning of the day (when I’m most nervous and want to be high energy) but if I do, I’ve found I’ll pay for it and crash in the afternoon. Instead, I sip a coffee (if it gets cold, I’m doing it right) and use lower-dose black or green tea to keep my energy level throughout the day. I also intentionally drink a lot of water, because it helps me remember—warning, this is about to get real…
+当我在引导时，我会非常留意我的咖啡因水平。我是个咖啡爱好者并且我总是冒险喝很多咖啡所以我会在一天伊始沉醉其中（当我高度紧张并且想获得高能量的时候），但如果我如此做了，我会为之付出代价并且在下午崩溃。取而代之，我抿一小口咖啡（如果它变冷了，我如此做是正确的）以及小剂量的红茶或绿茶来保持我一天的能量水平。我还有意的喝很多水，因为这会帮助我记忆 —— 警告，这是真的。
 
-#### 12. 90 minutes is the pee limit
+#### 12. 90 分钟是小便的界限
 
-If you’re hydrated yourself, you won’t forget this, but remember 90 minutes is the max you should ever go without a break because people will need to go pee. Seriously, you’re in charge, don’t make folks uncomfortable.
+如果你补充水分，你不会忘记这个，但是记住 90 分钟是你除休息外的不起身走动的最大限度，因为人需要去小便。认真地，你掌控的时候，不要让人感到不舒服。
 
-#### 13. Give positive feedback
+#### 13. 给出正面的反馈
 
-Find ways to give people positive feedback for their work in the sprint. When somebody says something clarifying, say “That’s a great way to put it, very useful.” As the map comes together, say “This map is really coming together. We’re right where we should be.” It might sound a bit cheesy, but these little reinforcements boost the team’s momentum and confidence.
+找方式为他们在 sprint 中的工作给出积极的反馈。当有人说了一些澄清的话，说“这是一个很好的方法，非常有用。”这可能听起来有些虚伪，但这对团队的动力和信心有所裨益。
 
-#### 14. Own the awkwardness
+#### 14. 承认尴尬
 
-The design sprint process is not the natural way people would work together if you just got together in the room. And at times—like during the critique on Wednesday, or when you’re writing “How Might We” notes on Monday—it’s _super_ unnatural. Don’t try to act like it’s normal behavior. Over and over, I say “This may feel a little awkward,” or “This is going to seem unnatural,” and I find that people are visibly relieved to hear they’re not the only ones—and quite often this defuses difficult people who want to roll their eyes about process. If you’re already laughing with them, they don’t have any punch left. Well, sometimes they still do…
+如果你只是把人们聚集在房间里，那 design sprint 的过程不是人们想要一起工作的自然的方式。有时像在周三的批判中，或星期一你正在写“我们可以怎样”的笔记 —— 这是很不自然的。别试着像正常行为一样行动。多次反复后，我说“这也许会感到一些尴尬，”或者说“这看起来不自然，”然后我发现人们在听到他们不是唯一一个后会明显地松了一口气 —— 并且这通常削减那些想把精力放在过程上的人的困难。如果你已经嘲笑了他们，他们会没有任何冲劲。好吧，有时候他们会继续做下去。
 
-#### 15. Seriously, enforce “no devices”
+#### 15. 说真的，强制“无设备”
 
-Don’t let people use their phones or laptops. It’s totally uncomfortable to do this, but you _have to do it._ Ask them to take their call or email or whatever outside. Say “I have to ask you to check that out of the room, because the screen makes it hard for everyone else to focus. But it’s totally fine for you to duck out and come back.” Everyone else will silently thank you, and you’ll build respect. But regardless of respect, you seriously _have_ to keep devices out of the sprint or things will go bad.
+别让人们使用他们的手机或者笔记本电脑。这样做是很不舒服的，但你必须这样做。让他们在外面打电话，收发电子邮件或者别的。说“我不得不让你在房间外使用它们，因为屏幕让每个人的难以集中精神。但是你回避去外面使用后再回来是完全没问题的。”每个人将会默默感谢你，并且你将会建立起尊重。抛开尊重不说，你必须认真把设备排除在 sprint 之外不然事情会变得糟糕。
 
-#### 16. Deal with difficult people (3 levels)
+#### 16. 面对不同人的处理办法（ 3 个等级）
 
-Alright, now we’re getting into it. What happens when you’ve got a difficult person, a long talker, an endless debater, a time waster, or a straight-up jerk? You have to deal with it, but you can start out very nice. I use three levels of escalation:
+好了，现在让我们深入讨论。当你遇到不同的人，一个侃侃而谈的人，一个没完没了的辩论者，一个浪费时间的人，或者一个混完完全全的笨蛋，会发生什么？你不得不处理这些，但你能有个好的开始。我用三个逐渐上升的等级：
 
-*   **Level 1: Capture and keep going—**Write their argument on the whiteboard and keep going. Blame the clock and the schedule rather than the person. Say: “Let’s capture that so we can keep going,” or “That’s a really good point, and we don’t have time to go all the way into it just now, but we can come back to it.” If that doesn’t work…
-*   **Level 2: Remind them the process will take care of it—**Here’s another reason I love the design sprint: it gives me very honest and credible outlets to defuse time wasting conversations. “Let’s make sure your point is reflected in the (sprint questions/map/as a HMW)” or “You’ll have a chance to sketch your solution” or “You’ll have a chance to make a case for the solution you think is best” or “We’ll be able to get some preliminary data on Friday”. Try not to fight directly but rather agree and redirect: “Yes, that’s an important point. The good news is that later in the sprint…” If that doesn’t work…
-*   **Level 3: Get direct—**At this point you’ve dropped hints and you need to just tell the person to cut it out. You may have to take the person aside. “I really value your contribution and want you to be involved in the sprint. And for this project to be successful, I need you to (dial down your tone/give this process a chance)”. I have found it helpful to remind people that the process can be thought of as an experiment — the prototype and test are an experiment, but also the team can evaluate afterward whether the process itself was helpful, but if they resist the process _during_ the process we’ll never know if it would’ve worked.
+*   **等级1：记下并且继续——**把他们的论据写在白板上然后继续 sprint 。指责时间和时间表而不是人。说“让我们记下来来使我们可以继续下去，”或“这真是一个非常好的点，然而我们现在没有时间展开讨论，但我们后面可以回到这个点。”如果这个没有效果的话。
+*   **等级2：提醒他们过程将会处理它——**这是另外一个我喜欢设计 sprint 的理由：它给我诚实可靠的办法来结束浪费时间的会话。“让我们确保你的观点在（ sprint 问题/房间版图/作为一个“我们可以怎样”（译者注： HMW 指的是 How Might We ）的点）中得以体现。”或者说“你将有一个机会来简略描述你的解决方案”或者说“你将有一个机会来为你觉得最好的解决方案做一个案例”或者说“我们周五将能够获得一些初步的数据”。试着不要直接反对而是同意再直接询问：“是的，这是一个重要的点。好消息是在 sprint 后期。”如果这些都没有效果的话。
+*   **等级3：直言不讳——**在这一点你得放下暗示并且你需要去直接告诉这个人省省吧。你可能得到旁边跟这个人谈谈。“我真的看重你的贡献并且想要你参与到 sprint 中来。但为了这个项目成功，我需要你（平和你的语气/给这个过程一个机会）”。我发现提醒人们把这个过程当作实验是有帮助的 —— 原型和测试是一个实验，团队也能够评估以后这个过程本身是否有用，但如果他们在这个过程中抵制这个过程，我们就永远不会知道它是否有效。
 
-#### 17. “Pause” don’t “stop”
+#### 17. “暂停”而不是“停止”
 
-I like to use the word “pause” instead of “stop” when I need to interrupt the team. “Let’s pause this conversation.” It’s a little thing, it’s just a nice word—seems more polite (and easier to accept for the team) than “stop”. But it means the same thing.
+当我需要打断团队的工作时，我喜欢用“暂停”这个词而不是“停止”。“让我们暂停这次会话。”这是一点小事，比起停止，这是一个好的词 —— 似乎更有礼貌（并且更容易被团队接受）。但是意思上是一样的。
 
-#### 18. Balance patience and impatience
+#### 18. 耐心与不耐心间的平衡
 
-Good facilitation requires a balance of patience and impatience, confidence and humility. Be patient and let the team talk for a few minutes, but be impatient enough to mind the clock and curtail it — productive conversation or not — when it goes on too long. Be confident so the group has confidence in you, and confident in the structure so things keep moving, but humble enough to let others come up with the content, the insights, the solutions — and sometimes go a little off topic. Part of humility is sometimes letting the conversation wander because it might yield a surprising insight for someone — but you can’t let that go too far. You’ll get the hang of this balance over time. When you’re starting out, trust the schedule in the book, it’s pretty good. Over time you’ll just know how much to let the conversation go and when to say “Decider, I need you to break the tie so we can move on.”
+好的引导需要在耐心和不耐心，自信和谦逊间有个平衡。保持耐心并且让团队谈论上几分钟，但是也要有一定的不耐心去提醒他们时间和缩短谈话 —— 谈话要么多产要么不谈 —— 当谈话变得太冗长。保持自信，团队才会对你有信心，对组织有信心，事情才能继续下去，但是要谦逊，让别人可以提出内容，见解和解决方案 —— 即使有时候是离题的。谦逊的一部分是有时让会话轻松愉快一些，因为这可能会让一些人产出令人惊喜的见解 —— 但你不能让这离题太远。随着时间的推移，你将会掌握平衡的技巧。当你刚刚开始的时候，相信书中的时间表，这是相当好的。随着时间推移，你将会知道还有多少时间可以让谈话进行下去，还有何时要说“决定者，我需要你打破平局让我们可以继续前进。”
 
-#### 19. Always on time, even when you’re not
+#### 19. 始终保持准时，即使你不是的
 
-Another one from Charles: Always act like things are on time. Don’t worry if you get behind schedule a little—I frequently do, and it’s quite possible to catch up again. But don’t broadcast to the team that you’re behind. In fact, although you should use the time guidelines in the book to help you with the schedule, I recommend _not_ writing those times on the whiteboard or sharing them with the team. If you’re behind, they don’t need to know that, because again, you’ll catch up. And it’s easier to catch up when the team has confidence in you.
+另一个从查尔斯学到的是：始终保持行动与时间一致。你稍微落后于时间表的时候请不要担心 —— 我经常这样，这是相当有可能再次赶上的。但是别在团队里广而宣传你落后于时间表了。事实上，尽管你应该使用书中的时间指南来帮助你跟上时间表，但是我推荐不要把时间写在白板上或跟你的团队分享。如果你落后了，他们不需要知道这个，因为你会再次赶上。并且当团队对你有信心的时候你更容易赶上。
 
-#### 20. Blame the book
+#### 20. 归咎于书
 
-If you do have to rush people along, or if something seems weird, feel free to blame the process, the book, and/or me. It’s not _you_ who says devices aren’t allowed, it’s that jerk Jake. It’s not _you_ who says we have to do Crazy 8s, it’s the book, but let’s give it a shot.
+如果你不得不去催促人们，或者有些事情变得奇怪，你可以随时指责这个过程，或者书，还有我（指作者）。不是你说设备是不被允许使用的，是愚蠢的杰克。不是你说我们必须去做疯狂 8 秒钟，是书里写的，但是让我们试试看吧。
 
 ![](https://cdn-images-1.medium.com/max/800/1*8IRv_6H8UgsKVrP86lO3FQ.png)
 
-It’s not your fault the process is so annoying, it’s this stupid book.
+这个过程变得令人讨厌不是你的错，而是这本愚蠢的书。
 
-#### 21. Push the team to do something that matters (Balance idealism and cynicism)
+#### 21.推动团队去做一些重要的事情（平衡理想主义和犬儒主义）
 
-In everyday work, it’s easy to get bogged down reacting and optimizing — but in a design sprint you have the chance to _maybe_ reset course. You can _maybe_ do something big that really matters to your customers. I say _maybe_ because it’s hard. Designing something great requires you to act with sincere idealism, and most workplaces don’t encourage that.
+在每天工作中，容易陷入被动反应和优化中 —— 但是在 design sprint 中，你也许有机会去重新设定路线。你也许可以做一些对你客户相当重要的事情。我说也许是因为这很困难。设计伟大的东西需要你以真诚的理想主义行事，而大多数工作场所都不鼓励这样做。
 
-Try for it. Remind yourself and your team remember _why_ you all took this job or started this company or signed up for this project in the first place. Don’t optimize. Don’t react. It’s okay to aim for making something that “does well and does good.” If that sounds idealistic, yes, exactly! It is okay to be idealistic, and you can do it successfully if you sprinkle in some honest cynicism. Here’s how you do it:
+试试看。提醒你自己和你的团队，为什么你们接受了这个职位或者开创了这家公司或者在第一时间注册了这个项目。不必达到最优。不必有反应。以“好做和做得好”为目标是没问题的。如果那听起来很理想，是的，那确实很理想。保持理想是没问题的，并且如果你有时候加入一些坦率的犬儒主义你会成功的做到这一些。这里告诉你应该如何做：
 
-*   **Encourage a bold mission.** When setting the long term goal, push the team to wear their hearts on their sleeves, by saying things like: “I want you to remember why you started this project, or why you joined this team. Just for right now, be naively optimistic. Who are you doing this for, and how will you improve their lives? Being wildly optimistic, what could the results look like in one to two years?” Bring the bold mission attitude back when the team sketches solutions and decides which ones to prototype.
-*   **Encourage honest cynicism.** But don’t just be Captain Sunshine Pants. When listing the sprint questions, be Major Downer and encourage the team to be “idealistically cynical”, like this: “How could this thing fall apart?” and “What do we not want to admit is a flaw with this plan?” and “What would our worst detractor say about this?” You can even question the framework of the sprint itself: “Will the _long-term_ effect of this product be positive for customers — regardless of the result of Friday’s test?” or “Is this project a meaningful use of our time? Of our customers’ time?”
+*   **支持大胆的任务。**当设定一个长期目标时，通过说这样一些话：“我想要你们记住你们为什么开始这个项目，或是你为什么加入这个团队。就是现在，保持天真乐观。你们是为谁而做，你们将如何改善他们的生活？更加乐观一些，在一两年内我们能得到什么结果？”来推动团队流露自己的情感。当团队描述解决方案和决定原型的时候，把大胆的态度带回来。
+*   **支持坦率的犬儒主义。**但不要只做阳光船长。当列出冲刺问题时要做主要的镇静剂并且激励团队去“不切实际的愤世嫉俗”，像这样“事情怎么会这样分崩离析了呢？”和“我们不愿意承认的是这个计划的缺陷吗？” 和“我们最坏的诽谤者会怎么说？”你甚至可以质疑 sprint 的框架本身：“这个产品的长期效果对客户来说是积极的吗 —— 不管这周五的测试结果？”或者“这个项目对我们的时间是否有意义？对客户呢？”
 
-You might not feel comfortable with all this in your first sprint, and that’s okay. But you can get there, and it’s worth it. When I created the design sprint process, I was frustrated by how many teams wasted time while building mediocre or meaningless products (there’s the cynicism) when they had the opportunity to move fast, do something awesome, and make the world a better place (there’s the absurd Silicon Valley idealism). I still believe this brand of idealism can work. But don’t just be idealistic. And don’t be a half-assed idealist, with cynicism weighing you down. Embrace them both and do something great.
+在你的第一次 sprint 中做这些事情可能不会让你感到舒服，但这是没问题的。当我创造一个 design sprint 过程时，我很沮丧，因为很多队伍浪费时间在构建平庸或毫无意义的产品（这是犬儒主义）当他们有机会走的更快，做一些极好的事情，并且让世界更美好。（这是荒谬的硅谷理想主义。）我始终相信硅谷理想主义是有效的。但是不要仅仅保持理想主义。并且不要做一个半途而废的理想主义者，结合犬儒主义让你缓和下来。拥抱两者并且做一些伟大的事情。
 
-#### 22. Get reps
+#### 22. 得到代表
 
-You’ll get better and more confident every time you facilitate. Accordingly, even if you read the book cover to cover and use all the tricks in this post, you’re still not going to be the world’s best facilitator the first time you do it. Get as many reps as you can, and know that the first few reps will give you the steepest, fastest learning curve. Including workshops and sprints, I’ve probably facilitated well over 200 things, and I still learn new stuff, but even after just five I was probably 85% as comfortable at facilitating as I am now. Offer to facilitate a team meeting or a half day workshop or a sprint for another team. Get to five reps as fast as you can.
+你每次引导的都会更好更加自信。因此，即使你读完这本书并且在这个岗位上用了所有技巧，当你第一次做这个事情时，你依然不会是世界上最好的引导者。尽可能多地得到代表，并且知道前几次代表会给你最陡峭、最快的学习曲线。包括研习会和 sprint ，我可能已经引导了超过 200 件事情，而我还在学习新东西，但即使在 5 次之后，我在引导方面是有 85% 的可能性和现在一样舒适。提出引导一个团队会议或者半天的研讨会或者为别的团队的一次冲刺。尽可能快的做到 5 次代表经历。
 
-#### 23. Don’t take yourself too seriously
+#### 23. 别把自己太当回事。
 
-If you can, laugh at yourself. Laugh at the absurdity of a bunch of grown-ups sitting around following a checklist of activities. And…
+如果能的话，你可以自嘲。嘲笑一群大人围坐在一份活动清单周围的荒谬之处。还有。
 
-#### 24. Enjoy it
+#### 24. 享受其中
 
-Running a design sprint is hard work, no question about it. But it should also be fun. To me, it’s the absolute best of work: a challenging problem, focused time, a team of people working together and bringing their best, disagreeing constructively, and making progress. In your life, there will only be a certain number of moments like this— savor it.
+运行一个 design sprint 是艰难的工作，这是毫无疑问的。但它应该变得有趣。对于我来说，这完全是最好的工作：一个有挑战性的问题，一段全神贯注的时间，一群一起工作的人并且带他们做到最好，建设性地反对，并且取得进展。在你的生活中，这将只是其中某一些时刻 —— 尽情享受它吧。
 
-One more thing: Keep in mind that **you don’t have to be perfect for the sprint to work.** Your map doesn’t have to perfect (my map has never been perfect), you don’t have to explain everything perfectly (I never have), and you don’t even need to remember these tips. The process is extremely robust and can handle lots of imperfections and still work out. Just ask questions, write stuff down, and mind the clock. ⚡️
+还有一件事：记住，**你在 sprint 中不需要做到完美。**你的地图不需要做到完美（我的地图从来就不完美），你不需要把每件事都阐释得完美，你甚至不用记住这些技巧。这个过程是非常强健的，可以处理很多不完美的地方并且还能解决问题。仅仅需要问问题，做记录，有时间观念。 ⚡️
 
-If you have questions or tips of your own, please share them in the comments below. Thanks!
+如果你有问题或有自己的技巧，请在下面的评论区分享。谢谢！
 
 
 ---

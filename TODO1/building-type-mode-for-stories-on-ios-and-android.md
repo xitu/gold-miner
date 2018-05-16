@@ -2,45 +2,45 @@
 > * 原文作者：[Instagram Engineering](https://instagram-engineering.com/@InstagramEng?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/building-type-mode-for-stories-on-ios-and-android.md](https://github.com/xitu/gold-miner/blob/master/TODO1/building-type-mode-for-stories-on-ios-and-android.md)
-> * 译者：
-> * 校对者：
+> * 译者：[金西西](https://github.com/melon8)
+> * 校对者：[ALVINYEH](https://github.com/ALVINYEH)，[jasonxia23](https://github.com/jasonxia23)
 
-# Building Type Mode for Stories on iOS and Android
+# Story 中 Type Mode 在 iOS 和 Android 上的实现
 
-Instagram recently launched [Type Mode](https://instagram-press.com/blog/2018/02/01/introducing-type-mode-in-stories/), a new way to post creative, dynamic text styles and backgrounds to Stories. Type Mode was an interesting challenge for us because it is the first time we were going to create a way for people to post Stories without photo or video components — and we wanted to make sure Type Mode was still a fun, customizable and visually expressive experience.
+Instagram 最近推出了 [Type Mode](https://instagram-press.com/blog/2018/02/01/introducing-type-mode-in-stories/)，这是一种在 Story 上发布有创意的、动态文本样式和背景的帖子的新方式。Type Mode 对我们来说是一个有趣的挑战，因为这是我们的一次创新：让人们在在没有照片或视频辅助的情况下在 Story 上进行分享 —— 我们希望确保 Type Mode 仍然是一种有趣、可定制且具有视觉表现力的体验。
 
-Making Type Mode function seamlessly on both iOS and Android had its own set of challenges, including dynamically resizing text and custom background fills. In this post we’ll take a look at how we approached this work on both iOS and Android platforms.
+在 iOS 和 Android 上无缝地实现 Type Mode 功能有各自相应的一系列挑战，包括动态调整文本大小和自定义填充背景。在这篇文章中，将看到我们如何在 iOS 和 Android 平台上完成这项工作。
 
 ![](https://cdn-images-1.medium.com/max/800/1*B_eL2GjOQGhd_OxC3nEXKA.jpeg)
 
-#### Dynamically Resizing Text Input
+#### 动态调整文本输入的大小
 
-With Type Mode, we wanted to create a text input experience that let people emphasize certain words or phrases. One way to do that was to build fully justified text styles that dynamically resize each line to fill the available width (used in Modern, Neon, and Strong).
+在 Type Mode 下，我们想要创建一个让人们可以强调特定的单词或短语的文本输入体验。一种方法是构建两端对齐的文本样式，动态调整每一行的大小，以填充既定的宽度（在 Instagram 的现代、霓虹和粗体中使用)。
 
 **iOS**
 
-The main challenge on iOS was to render dynamically resizing text in a native `UITextView,` which would let people enter text in a quick and familiar way.
+iOS 的主要挑战是在原生的 `UITextView` 中渲染可以动态改变大小的文本，这让用户得以快速熟悉的方式输入文本。
 
-**RESIZING PRE-TEXT STORAGE COMMIT**
+**在存储文本前调整文字大小**
 
-While you input text on a line, the size of text on that line should scale down until it hits some minimum font size.
+当你输入一行文本的时候，文字大小应该随着输入而相应缩小，直到达到最小字体。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Chw3Adea66Me49A2wPGR-g.gif)
 
-To accomplish this, we use a combination of `UITextView.typingAttributes`, `NSAttributedString`, and `NSLayoutManager`.
+为了实现这个需求，我们结合了 `UITextView.typingAttributes`、`NSAttributedString` 和 `NSLayoutManager`。
 
-First, we need to calculate what font size our text will be rendered as. We can grab the range of the line we are currently typing on using `[NSLayoutManager enumerateLineFragmentsForGlyphRange:usingBlock:]`. From that range we can create a sizing string to calculate a minimum font size.
+首先，我们需要计算我们的文本将呈现什么样的字体和大小。我们可以使用 `[NSLayoutManager enumerateLineFragmentsForGlyphRange:usingBlock:]` 来抓取当前输入的那行文字的范围。根据这个范围，我们可以创建一个带有尺寸的字符串来计算最小字体大小。
 
-```
-CGFloat pointSize = 24.0; // arbitrary
+```objc
+CGFloat pointSize = 24.0; // 随意
 NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString:string attributes:@{NSFontAttributeName:[UIFont fontWithName:fontName size:pointSize]}];
 CGFloat textWidth = CGRectGetWidth([attributedString boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX) options:NULL context:nil]);
 CGFloat scaleFactor = (textViewContainerWidth / textWidth);
 CGFloat preferredFontSize = (pointSize * scaleFactor);
-return CLAMP_MIN_MAX(preferredFontSize, minimumFontSize, maximumFontSize) // Clamps value between min and max
+return CLAMP_MIN_MAX(preferredFontSize, minimumFontSize, maximumFontSize) // 将字体固定住，在最大值最小值之间
 ```
 
-In order to actually draw the text at the correct size, we need to use our new font size in our `UITextView`'s `typingAttributes`. `UITextView.typingAttributes` are attributes that apply to new text being typed by the user. A good place for this is `[id<UITextViewDelegate> textView:shouldChangeTextInRange:replacementText:]`.
+为了能以正确的大小绘制文本，我们需要在 `UITextView` 的 `typingAttributes` 中使用我们新的字体大小。`UITextView.typingAttributes` 是用于设置用户正在输入的文本的属性。在 `[id <UITextViewDelegate> textView:shouldChangeTextInRange:replacementText:]` 方法中实现比较合适。
 
 ```
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
@@ -51,19 +51,19 @@ In order to actually draw the text at the correct size, we need to use our new f
 }
 ```
 
-This means that as the user types, the font size will shrink until we hit some specified minimum. When this happens, the `UITextView` will wrap our text as it normally would.
+这意味着，随着用户输入，字体大小将缩小，直到达到某个指定的最小值。这时 `UITextView` 会像通常那样包着我们的文本。
 
-**FINALIZE TEXT POST STORAGE COMMIT**
+**在存储文本后整理文字**
 
-After our text has been committed to text storage, we may need to clean up some sizing attributes. Our text could have wrapped, or the user could have “emphasized” text by manually adding a line break to write larger text on a separate line.
+在我们的文本被提交到文本存储后，我们可能需要清理一些尺寸属性。我们的文本可能已经换行，或者用户可以通过手动添加换行符，在单独的行上写入更大的文字来「强调」。
 
 ![](https://cdn-images-1.medium.com/max/800/1*DNzHUA7Mo_yYSA4kCnk7TA.png)
 
-A good place to put this logic is in `[id<UITextViewDelegate> textViewDidChange:]`. This happens after the text has been committed to text storage and initially laid out by the text engine.
+放置这个逻辑的好地方是 `[id <UITextViewDelegate> textViewDidChange:]` 方法。这发生在文本被提交到文本存储，并且最初由文本引擎排版之后。
 
-To get a list of character ranges for each line, we can use `NSLayoutManager`:
+要获得每行的字符范围列表，我们可以使用 `NSLayoutManager`。
 
-```
+```objc
 NSMutableArray<NSValue *> *lineRanges = [NSMutableArray array];
 [textView.layoutManager enumerateLineFragmentsForGlyphRange:NSMakeRange(0, layoutManager.numberOfGlyphs) usingBlock:^(CGRect rect, CGRect usedRect, NSTextContainer * _Nonnull textContainer, NSRange glyphRange, BOOL * _Nonnull stop) {
     NSRange characterRange = [layoutManager characterRangeForGlyphRange:glyphRange actualGlyphRange:NULL];
@@ -71,32 +71,32 @@ NSMutableArray<NSValue *> *lineRanges = [NSMutableArray array];
 }];
 ```
 
-We then need to manipulate the `NSTextStorage` by setting attributes on ranges that have the correct font size for each row.
+然后，我们需要通过在每行具有正确字体大小的范围上设置属性来操作 `NSTextStorage`。
 
-There are three stages to editing `NSTextStorage`, which is itself a subclass of `NSMutableAttributedString`.
+编辑 `NSTextStorage` 有三个步骤，它本身就是 `NSMutableAttributedString` 的子类。
 
-1. Call `[textStorage beginEditing]` to indicate we are making one or more changes to the text storage.
-2. Send some editing messages to `NSTextStorage`. In our case, the `NSFontAttributeName` attribute should be set with the correct font size for that row. We can use a similar method for calculating the font size as we did earlier.
+1. 调用 `[textStorage beginEditing]` 来表示我们正在对文本存储进行一次或多次更改。
+2. 发送一些编辑信息到 `NSTextStorage`。在我们的例子中，`NSFontAttributeName` 属性应该设置为对应行的正确字体大小。我们可以使用类似的方法来计算字体大小，就像我们之前做的那样。
 
-```
+```objc
 for (NSValue *lineRangeValue in lineRanges) {
     NSRange lineRange = lineRangeValue.rangeValue;
-    const CGFloat fontSize = ... // Same font size calculation from earlier
+    const CGFloat fontSize = ... // 与上文相同的字体大小计算方法
     [textStorage setAttributes:@{NSFontAttributeName : [UIFont fontWithDescriptor:fontDescriptor size:fontSize]} range:lineRange];
 }
 ```
 
-3. Call `[textStorage endEditing]` to indicate we are done editing text storage. This invokes the `[NSTextStorage processEditing]` method which will fix attributes on the ranges we changed. This also invokes the correct `NSTextStorageDelegate` methods.
+3. 调用 `[textStorage endEditing]` 来表示我们结束编辑文本存储。这会调用 `[NSTextStorage processEditing]` 方法，该方法将修复我们改变的范围内文本的属性。这也会调用正确的 `NSTextStorageDelegate` 方法。
 
-TextKit is a powerful and modern API that is tightly integrated with UIKit. Many text experiences can be designed with it, and new text APIs are being released in most new iOS versions. With TextKit, you can do anything from creating custom text containers to modifying the actual generation of glyphs. And since it is built on top of CoreText and integrated with APIs like UITextView, text input and editing continues to feel like a native iOS experience.
+TextKit 是一个功能强大且现代化的 API，与 UIKit 紧密集成。许多文字体验都可以用它来设计，并且几乎每次 iOS 的新版本都会发布一些和文本相关的 API。使用 TextKit 你可以做任何事情，从创建自定义文本容器到修改实际生成的字形。而且由于它是建立在 CoreText 之上的，并且与 UITextView 等 API 集成，所以文本输入和编辑仍然感觉像原生 iOS 体验。
 
 #### Android
 
-Android doesn’t support full width justification out of the box, but the framework APIs give us all the tools we need to implement it ourselves.
+Android 没有开箱即用的两端对齐的方法，但框架的 API 为我们提供了自己实现所需的全部工具。
 
-The first step is to lay the text out at the minimum text size. We’ll scale things up later, but this will tell us how many lines we have and where the line breaks are:
+第一步是将文本用最小文本大小布局出来。稍后我们会扩展它，但是这会告诉我们有多少行和断行的位置：
 
-```
+```java
 TextPaint textPaint = new TextPaint();
 textPaint.setTextSize(SIZE_MIN);
 Layout layout =
@@ -113,9 +113,9 @@ int lineCount = layout.getLineCount();
 
 ![](https://cdn-images-1.medium.com/max/800/1*rKHCLpYSf-VZ_2yhyqzZCQ.png)
 
-Next we need to go through the layout and resize each line individually. There’s no direct way to find the perfect text size for a particular line, but we can easily approximate it with a binary search for the largest text size that doesn’t force a line break:
+接下来，我们需要浏览布局并分别调整每行文字的大小。没有直接的方法可以完美地得到某行文字的大小，但是我们可以通过二进制搜索来轻松估算出最大文字大小，而不会造成强制换行：
 
-```
+```java
 int lowSize = SIZE_MIN;
 int highSize = SIZE_MAX;
 int currentSize = lowSize + (int) Math.floor((highSize - lowSize) / 2f);
@@ -129,9 +129,9 @@ while (low < current) {
 }
 ```
 
-Once we’ve found the right size for each line, we apply it as a span. Spans let us use different text sizes for each line instead of a single text size for the entire string:
+一旦我们为每行文字找到合适的尺寸，可以将它应用到一个 span 上。span 允许我们为每行文字使用不同的文本大小，而不是整个字符串只有单一文本大小：
 
-```
+```java
 text.setSpan(
     new AbsoluteSizeSpan(textSize),
     layout.getLineStart(lineNumber),
@@ -139,23 +139,23 @@ text.setSpan(
     Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
 ```
 
-Now each line of text fills the available width! We can repeat this process each time the text changes to get the dynamic resizing behavior we’re looking for.
+现在，每行文本都会填充合适宽度！每次文本更改的时候，我们都可以重复此过程来实现动态调整文本。
 
 ![](https://cdn-images-1.medium.com/max/800/1*zVc-ioRas9b8TRmhrESIHg.png)
 
-### Custom Backgrounds
+### 自定义背景
 
-We also wanted Type Mode to let people emphasize words and phrases with text backgrounds (used in Typewriter and Strong).
+我们还希望使用 Type Mode 让人们通过文字的背景来强调单词和短语（用于打字机字体和粗体）。
 
 #### iOS
 
-Another way we can leverage `NSLayoutManager` is for drawing custom background fills. `NSAttributedString` does have a `NSBackgroundColorAttributeName`, but it is not customizable nor extensible.
+另一种我们可以利用 `NSLayoutManager` 的方式是绘制自定义背景填充。`NSAttributedString` 虽然可以用 `NSBackgroundColorAttributeName` 属性设置背景颜色，但它不可自定义，也不可扩展。
 
 ![](https://cdn-images-1.medium.com/max/800/1*0oPlID5rtrmqtHRUZdbIkQ.png)
 
-For example, if we used `NSBackgroundColorAttributeName`, the background of the entire text view would be filled in. We could not exclude whitespace, have spaces between the lines, or draw the fill with a corner radius. Thankfully, `NSLayoutManager` lets us override drawing the background fill. We need to create a `NSLayoutManager` subclass and override `drawBackgroundForGlyphRange:atPoint:`
+例如，如果我们使用了 `NSBackgroundColorAttributeName`，整个文本视图的背景将被填充。我们不能排除行内空格、不能在行间留出空隙或者让填充的背景是圆角。谢天谢地，`NSLayoutManager` 给了我们重写绘制背景填充的方法。我们需要创建一个 `NSLayoutManager` 子类并重写 `drawBackgroundForGlyphRange:atPoint:`。
 
-```
+```objc
 @interface IGSomeCustomLayoutManager : NSLayoutManager
 @end 
 @implementation IGSomeCustomLayoutManager
@@ -168,9 +168,9 @@ For example, if we used `NSBackgroundColorAttributeName`, the background of the 
 @end
 ```
 
-With our `drawBackgroundForGlyphRange:atPoint` method, we can once again leverage `[NSLayoutManager enumerateLineFragmentsForGlyphRange:usingBlock]` to grab the glyph ranges of each line fragment. We can then use `[NSLayoutManager boundingRectForGlyphRange:inTextContainer]` to get the bounding rectangle of each line.
+通过 `drawBackgroundForGlyphRange:atPoint` 方法，我们可以再次利用 `[NSLayoutManager enumerateLineFragmentsForGlyphRange:usingBlock]` 来获取每一行片段的字形范围。然后使用 `[NSLayoutManager boundingRectForGlyphRange:inTextContainer]` 来获得每一行的边界矩形。
 
-```
+```objc
 - (void)drawBackgroundForGlyphRange:(NSRange)glyphsToShow atPoint:(CGPoint)origin {
   [self enumerateLineFragmentsForGlyphRange:NSMakeRange(0, self.numberOfGlyphs) usingBlock:^(CGRect rect, CGRect usedRect, NSTextContainer * _Nonnull textContainer, NSRange glyphRange, BOOL * _Nonnull stop) {
        CGRect lineBoundingRect = [self boundingRectForGlyphRange:glyphRange inTextContainer:textContainer];
@@ -182,13 +182,13 @@ With our `drawBackgroundForGlyphRange:atPoint` method, we can once again leverag
 }
 ```
 
-This allows us to draw a background fill around any arbitrary text with our own specified shapes and padding. `NSLayoutManager` can also be utilized to draw other text attributes like strikethroughs and underlines.
+这使得我们可以用指定的形状和间距给任意文本绘制背景填充。`NSLayoutManager` 也可以用来绘制其他文本属性，如删除线和下划线。
 
 **Android**
 
-At first glance, it feels like this should be simple to implement on Android. We can add a span that modifies the text background color and be done:
+乍看之下，感觉这在 Android 上应该很容易实现。我们可以添加一个 span 来修改文本背景颜色：
 
-```
+```java
 new CharacterStyle() {
   @Override
   public void updateDrawState(TextPaint textPaint) {
@@ -197,18 +197,18 @@ new CharacterStyle() {
 }
 ```
 
-That’s a good first attempt (and was the first thing we built), but it comes with a few limitations:
+这是一个很好的首次尝试（也是我们第一个构建的代码），但它有一些限制：
 
-1.  The background tightly wraps the text and there’s no way to adjust the padding.
-2.  The background is rectangular and there’s no way to adjust the corner radius.
+1.背景紧紧包裹着文字，无法调整间距。
+2.背景是矩形的，无法调整圆角。
 
 ![](https://cdn-images-1.medium.com/max/800/1*o6uBmTEniyyrNh5qWgCv_Q.png)
 
-To address those issues, we tried using `LineBackgroundSpan`. We were already using it to render the rounded bubble background on Classic text, so it seemed like a natural fit for the new text styles as well. Unfortunately our new use case uncovered a subtle bug in the framework `Layout` class. If your text has multiple `LineBackgroundSpan` instances on different lines, then `Layout` will not iterate through them properly and some of them may never be rendered.
+为了解决这些问题，我们尝试使用 `LineBackgroundSpan`。我们已经使用它来给经典字体渲染圆形的气泡背景，所以它自然也应该适用于新的文本样式。不幸的是，我们的新用例在 `Layout` 框架类中发现了一个微妙的 bug。如果你的文本在不同的行上有多个 `LineBackgroundSpan` 实例，那么 `Layout` 不会正确地遍历它们，其中一些可能永远不会被渲染。
 
-Thankfully we can sidestep the framework bug by applying a single `LineBackgroundSpan` to the entire string and then delegating to individual background spans ourselves:
+庆幸的是，我们可以通过对整个字符串应用单个 `LineBackgroundSpan` 来避免框架错误，然后我们自己依次绘制到每一个背景 span 上：
 
-```
+```java
 class BackgroundCoordinator implements LineBackgroundSpan {
   @Override
   public void drawBackground(
@@ -239,13 +239,13 @@ class BackgroundSpan {
 
 ![](https://cdn-images-1.medium.com/max/800/1*J3cTb7oZpyE4jukQi0_mfA.png)
 
-#### Conclusion
+#### 结论
 
-Instagram has a very strong prototyping culture, and the design team’s Type Mode prototypes let us get a real feel for the user experience with each iteration along the way. For example, with the Neon style, we needed a way to take a single color from our palette and then generate an interior color and a glow color for the text. A designer on the project played around with some approaches in his prototype, and when he found one he liked we essentially just copied his logic on Android and iOS. This level of collaboration with the design team was a special part of this launch and made the development process really efficient.
+Instagram 拥有非常强大的原型设计文化，而设计团队的 Type Mode 原型让我们在每次迭代中都能感受到真实的用户体验。例如，对于霓虹灯样式，我们需要一种方法从调色板中获取单一颜色，然后为文本生成内部颜色和发光颜色。这个项目的设计师在他的原型中使用了一些方法，当他找到一个他喜欢的东西时，我们基本上只是在 Android 和 iOS 上复制他的逻辑。与设计团队的这种级别的合作是此次推出的一个特殊部分，并使开发流程非常高效。
 
-If you’re interested in working with us on Stories, check out our [careers page](https://m.facebook.com/careers/teams/instagram/) for roles in Menlo Park, New York, and San Francisco.
+如果你有兴趣与我们在 Story 中合作，请查看我们的[职业页面](https://m.facebook.com/careers/teams/instagram/)，了解位于 Menlo Park，纽约和旧金山的职位。
 
-Christopher Wendel and Patrick Theisen are iOS and Android engineers at Instagram, respectively.
+Christopher Wendel 和 Patrick Theisen 分别是 Instagram 的 iOS 和 Android 工程师。
 
 
 ---
