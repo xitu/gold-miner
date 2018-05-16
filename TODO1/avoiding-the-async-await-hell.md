@@ -2,135 +2,135 @@
 > * 原文作者：[Aditya Agarwal](https://medium.freecodecamp.org/@adityaa803?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/avoiding-the-async-await-hell.md](https://github.com/xitu/gold-miner/blob/master/TODO1/avoiding-the-async-await-hell.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Colafornia](https://github.com/Colafornia)
+> * 校对者：[Starriers](https://github.com/Starriers) [whuzxq](https://github.com/whuzxq)
 
-# How to escape async/await hell
+# 如何逃离 async/await 地狱
 
-![](https://cdn-images-1.medium.com/max/1000/1*_3nDjjPTWn4ohLt96IcwCA.png)
+![](http://o7ts2uaks.bkt.clouddn.com/1__3nDjjPTWn4ohLt96IcwCA.png)
 
-async/await freed us from callback hell, but people have started abusing it — leading to the birth of async/await hell.
+async/await 将我们从回调地狱中解脱，但人们的滥用，导致了 async/await 地狱的诞生。
 
-In this article, I will try to explain what async/await hell is, and I’ll also share some tips to escape it.
+本文将阐述什么是 async/await 地狱，以及逃离 async/await 地狱的几个方法。
 
-### What is async/await hell
+### 什么是 async/await 地狱
 
-While working with Asynchronous JavaScript, people often write multiple statements one after the other and slap an **await** before a function call. This causes performance issues, as many times one statement doesn’t depend on the previous one — but you still have to wait for the previous one to complete.
+进行 JavaScript 异步编程时，大家经常需要逐一编写多个复杂语句的代码，并都在调用语句前标注了 **await**。由于大多数情况下，一个语句并不依赖于前一个语句，但是你仍不得不等前一个语句完成，这会导致性能问题。
 
-### An example of async/await hell
+### 一个 async/await 地狱示例
 
-Consider if you wrote a script to order a pizza and a drink. The script might look like this:
+思考一下，如果你需要写一段脚本预订一个披萨和一杯饮料。脚本可能会是这样的：
 
-```
+```javascript
 (async () => {
-  const pizzaData = await getPizzaData()    // async call
-  const drinkData = await getDrinkData()    // async call
-  const chosenPizza = choosePizza()    // sync call
-  const chosenDrink = chooseDrink()    // sync call
-  await addPizzaToCart(chosenPizza)    // async call
-  await addDrinkToCart(chosenDrink)    // async call
-  orderItems()    // async call
+  const pizzaData = await getPizzaData()    // 异步调用
+  const drinkData = await getDrinkData()    // 异步调用
+  const chosenPizza = choosePizza()    // 同步调用
+  const chosenDrink = chooseDrink()    // 同步调用
+  await addPizzaToCart(chosenPizza)    // 异步调用
+  await addDrinkToCart(chosenDrink)    // 异步调用
+  orderItems()    // 异步调用
 })()
 ```
 
-On the surface it looks correct, and it does work. But this is not a good implementation, because it leaves concurrency out of the picture. Let’s understand what its doing so that we can nail down the issue.
+表面上看起来没什么问题，这段代码也可以执行。但是它并不是一个好的实现，因为它没有考虑并发性。让我们了解一下这段代码是怎么运行的，这样才可以确定问题所在。
 
-#### Explanation
+#### 解释
 
-We have wrapped our code in an async [IIFE](https://developer.mozilla.org/en-US/docs/Glossary/IIFE). The following occurs in this exact order:
+我们将这段代码包裹在一个异步的 [IIFE 立即执行函数](https://developer.mozilla.org/en-US/docs/Glossary/IIFE) 中。准确的执行顺序如下：
 
-1.  Get the list of pizzas.
-2.  Get the list of drinks.
-3.  Choose one pizza from the list.
-4.  Choose one drink from the list.
-5.  Add the chosen pizza to the cart.
-6.  Add the chosen drink to the cart.
-7.  Order the items in the cart.
+1.  获取披萨列表。
+2.  获取饮料列表。
+3.  从列表中选择一份披萨。
+4.  从列表中选择一杯饮料。
+5.  将选中披萨加入购物车。
+6.  将选中饮料加入购物车。
+7.  将购物车内物品下单。
 
-#### So what’s wrong ?
+#### 哪里出问题了？
 
-As I stressed earlier, all these statements execute one by one. There is no concurrency here. Think carefully: why are we waiting to get the list of pizzas before trying to get the list of drinks? We should just try to get both the lists together. However when we need to choose a pizza, we do need to have the list of pizzas beforehand. The same goes for the drinks.
+如我之前所强调过的，所有语句都会逐一执行。此处并无并发操作。仔细想一下：为什么我们要在获取披萨列表完成后才去获取饮料列表呢？两个列表应该一起获取。但是我们在选择披萨时，确实需要在这之前已获取饮料列表。饮料同理。
 
-So we can conclude that the pizza related work and drink related work can happen in parallel, but the individual steps involved in pizza related work need to happen sequentially (one by one).
+因此，我们可以总结出，披萨相关的事务与饮料相关事务可以并发发生，但是披萨相关事务内部的独立步骤需要继发进行（逐一进行）。
 
-#### Another example of bad implementation
+#### 另一个糟糕实现的例子
 
-This JavaScript snippet will get the items in the cart and place a request to order them.
+这段代码将获取购物车内的东西，并发起一个请求下单。
 
-```
+```javascript
 async function orderItems() {
-  const items = await getCartItems()    // async call
+  const items = await getCartItems()    // 异步调用
   const noOfItems = items.length
   for(var i = 0; i < noOfItems; i++) {
-    await sendRequest(items[i])    // async call
+    await sendRequest(items[i])    // 异步调用
   }
 }
 ```
 
-In this case, the for loop has to wait for the `sendRequest()` function to complete before continuing the next iteration. However, we don’t actually need to wait. We want to send all the requests as quickly as possible and then we can wait for all of them to complete.
+在这种情况下，for 循环需要等待 `sendRequest()` 函数完成后才能进行下一个迭代。事实上，我们不需要等待。我们想要尽快发送所有请求，然后等待所有请求执行完毕。
 
-I hope that now you are getting closer to understanding what is async/await hell and how severely it affects the performance of your program. Now I want to ask you a question.
+希望现在你可以更理解 async/await 地狱是什么，以及它对你的程序性能影响有多么严重。现在，我想问你一个问题。
 
-### What if we forget the await keyword ?
+### 如果我们忘了 await 关键字会怎样？
 
-If you forget to use **await** while calling an async function, the function starts executing. This means that await is not required for executing the function. The async function will return a promise, which you can use later.
+如果你在调用一个异步函数时忘了使用 **await** 关键字，该函数就会立即开始执行。这意味着 await 对于函数的执行来说不是必需的。异步函数会返回一个 promise 对象，你可以稍后使用这个 promise。
 
-```
+```javascript
 (async () => {
   const value = doSomeAsyncTask()
-  console.log(value) // an unresolved promise
+  console.log(value) // 一个未完成的 promise
 })()
 ```
 
-Another consequence is that the compiler won’t know that you want to wait for the function to execute completely. Thus the compiler will exit the program without finishing the async task. So we do need the **await** keyword.
+不使用 await 调用异步函数的另一个后果是，编译器不知道你想等待这个函数执行完成。因此编译器将在异步任务完成之前就退出程序。因此我们确实需要 await 关键字。
 
-One interesting property of promises is that you can get a promise in one line and wait for it to resolve in another. This is the key to escaping async/await hell.
+promise 有一个好玩的特性，你可以在一行代码中得到一个 promise 对象，在另一行代码中得到这个 promise 的执行结果。这是逃离 async/await 地狱的关键。
 
-```
+```javascript
 (async () => {
   const promise = doSomeAsyncTask()
   const value = await promise
-  console.log(value) // the actual value
+  console.log(value) // 实际的返回值
 })()
 ```
 
-As you can see, `doSomeAsyncTask()` is returning a promise. At this point `doSomeAsyncTask()` has started its execution. To get the resolved value of the promise, we use the await keyword and that will tell JavaScript to not execute the next line immediately, but instead wait for the promise to resolve and then execute the next line.
+如你所见，`doSomeAsyncTask()` 返回了一个 promise 对象。此时 `doSomeAsyncTask()` 开始执行。我们使用 await 关键字来获取 promise 对象的执行结果，并告诉 JavaScript 不要立即执行下一行代码，而是等待 promise 执行完成再执行下一行代码。
 
-### How to get out of async/await hell ?
+### 如何逃离 async/await 地狱？
 
-You should follow these steps to escape async/await hell.
+你需要遵循以下步骤：
 
-#### Find statements which depend on the execution of other statements
+#### 找到依赖其它语句执行结果的语句
 
-In our first example, we were selecting a pizza and a drink. We concluded that, before choosing a pizza, we need to have the list of pizzas. And before adding the pizza to the cart, we’d need to choose a pizza. So we can say that these three steps depend on each other. We cannot do one thing until we have finished the previous thing.
+在第一个示例中，我们选择了一份披萨和一杯饮料。可以推断出在选择一份披萨前，我们需要先获得所有披萨的列表。在将选择的披萨加入购物车之前，我们需要先选择一份披萨。因此我们可以说这三个步骤是互相依赖的。我们不能在前一件事完成之前做下一件事。
 
-But if we look at it more broadly, we find that selecting a pizza doesn’t depend on selecting a drink, so we can select them in parallel. That is one thing that machines can do better than we can.
+但是如果把问题看得更广泛一些，我们可以发现选披萨并不依赖选饮料，因此我们可以并行选择。这方面，机器可以比我们做的更好。
 
-Thus we have discovered some statements which depend on the execution of other statements and some which do not.
+因此我们已经发现有一些语句依赖于其它语句的执行，有些则不依赖。
 
-#### Group-dependent statements in async functions
+#### 将互相依赖的语句包裹在 async 函数中
 
-As we saw, selecting pizza involves dependent statements like getting the list of pizzas, choosing one, and then adding the chosen pizza to the cart. We should group these statements in an async function. This way we get two async functions, `selectPizza()` and `selectDrink()` .
+如我们所见，选择披萨包括了如获取披萨列表，选择披萨，将所选披萨加入购物车等依赖语句。我们应该将这些语句包裹在一个 async 函数中。这样我们得到了两个 async 函数，`selectPizza()` 和 `selectDrink()`。
 
-#### Execute these async functions concurrently
+#### 并发执行 async 函数
 
-We then take advantage of the event loop to run these async non blocking functions concurrently. Two common patterns of doing this is **returning promises early** and the **Promise.all method**.
+然后我们可以利用事件循环并发执行这些非阻塞 async 函数。有两种常用模式，分别是**优先返回 promises** 和使用**Promise.all 方法**。
 
-### Let’s fix the examples
+### 让我们来修改一下示例
 
-Following the three steps, let’s apply them on our examples.
+遵循以下三个步骤，将它们应用到我们的示例中。
 
-```
+```javascript
 async function selectPizza() {
-  const pizzaData = await getPizzaData()    // async call
-  const chosenPizza = choosePizza()    // sync call
-  await addPizzaToCart(chosenPizza)    // async call
+  const pizzaData = await getPizzaData()    // 异步调用
+  const chosenPizza = choosePizza()    // 同步调用
+  await addPizzaToCart(chosenPizza)    // 异步调用
 }
 
 async function selectDrink() {
-  const drinkData = await getDrinkData()    // async call
-  const chosenDrink = chooseDrink()    // sync call
-  await addDrinkToCart(chosenDrink)    // async call
+  const drinkData = await getDrinkData()    // 异步调用
+  const chosenDrink = chooseDrink()    // 同步调用
+  await addDrinkToCart(chosenDrink)    // 异步调用
 }
 
 (async () => {
@@ -138,38 +138,38 @@ async function selectDrink() {
   const drinkPromise = selectDrink()
   await pizzaPromise
   await drinkPromise
-  orderItems()    // async call
+  orderItems()    // 异步调用
 })()
 
-// Although I prefer it this way 
+// 我更喜欢这种方法
 
 (async () => {
-  Promise.all([selectPizza(), selectDrink()]).then(orderItems)   // async call
+  Promise.all([selectPizza(), selectDrink()]).then(orderItems)   // 异步调用
 })()
 ```
 
-Now we have grouped the statements into two functions. Inside the function, each statement depends on the execution of the previous one. Then we concurrently execute both the functions `selectPizza()` and `selectDrink()` .
+现在我们将语句分组到两个函数中。在函数内部，每个语句依赖于前一个语句的执行。然后我们并发执行两个函数 `selectPizza()` 和 `selectDrink()`。
 
-In the second example, we need to deal with an unknown number of promises. Dealing with this situation is super easy: we just create an array and push the promises in it. Then using `Promise.all()` we concurrently wait for all the promises to resolve.
+在第二个例子中，我们需要处理未知数量的 promise。解决这种情况很容易：创建一个数组，将 promise push 进去。然后使用 `Promise.all()` 我们就可以并行等待所有的 promise 处理完毕。
 
-```
+```javascript
 async function orderItems() {
-  const items = await getCartItems()    // async call
+  const items = await getCartItems()    // 异步调用
   const noOfItems = items.length
   const promises = []
   for(var i = 0; i < noOfItems; i++) {
-    const orderPromise = sendRequest(items[i])    // async call
-    promises.push(orderPromise)    // sync call
+    const orderPromise = sendRequest(items[i])    // 异步调用
+    promises.push(orderPromise)    // 同步调用
   }
-  await Promise.all(promises)    // async call
+  await Promise.all(promises)    // 异步调用
 }
 ```
 
-I hope this article helped you see beyond the basics of async/await, and also helped you improve the performance of your application.
+希望本文可以帮你提高 async/await 的基础水平并提升应用的性能。
 
-If you liked the article, please clap your heart out. Tip — You can clap 50 times!
+如果喜欢本文，请点个喜欢。
 
-Please also share on Fb and Twitter. If you’d like to get updates, follow me on [Twitter](https://twitter.com/dev__adi) and [Medium](https://medium.com/@adityaa803/). If anything is not clear or you want to point out something, please comment down below.
+也请分享到 Fb 和 Twitter。如果想获取文章更新，可以在 [Twitter](https://twitter.com/dev__adi) 和 [Medium](https://medium.com/@adityaa803/) 上关注我。有任何问题可以在评论中指出。
 
 
 ---

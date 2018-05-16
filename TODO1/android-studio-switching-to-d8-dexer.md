@@ -2,32 +2,32 @@
 > * 原文作者：[Jeffrey van Gogh](https://android-developers.googleblog.com/2018/04/android-studio-switching-to-d8-dexer.html)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/android-studio-switching-to-d8-dexer.md](https://github.com/xitu/gold-miner/blob/master/TODO1/android-studio-switching-to-d8-dexer.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Starrier](https://github.com/Starriers)
+> * 校对者：[wavezhang](https://github.com/wavezhang)
 
-# Android Studio switching to D8 dexer
+# Android Studio 切换至 D8 dexer
 
-Faster, smarter app compilation is always a goal for the Android tools teams. That's why we previously announced [D8](https://android-developers.googleblog.com/2017/08/next-generation-dex-compiler-now-in.html), a next-generation dex compiler. D8 runs faster and produces smaller .dex files with equivalent or better runtime performance when compared to the historic compiler - DX.
+更快、更智能的应用程序编译始终是 Android 工具团队的目标。这就是我们之前宣布 [D8](https://android-developers.googleblog.com/2017/08/next-generation-dex-compiler-now-in.html) 作为下一代 dex 编译器的原因。与之前的编译器 —— DX 相比，D8 运行速度更快，生成的 .dex 文件更小且具有同等或更好的运行时性能。
 
-We recently announced that D8 has become the default compiler in Android Studio 3.1. If you haven't previously tried D8, we hope that you notice better, faster dex compilation as you make the switch.
+我们最近已经宣布 D8 成为 Android Studio 3.1 的默认编译器。如果您之前没有尝试 D8，我们希望你在切换时关注到其 dex 编译器更快、更好的特性。 
 
-D8 was first shipped in Android Studio 3.0 as an opt-in feature. In addition to our own rigorous testing, we've now seen it perform well in a wide variety of apps. As a result, we're confident that D8 will work well for everyone who starts using it in 3.1. However, if you do have issues, you can always revert to DX for now via this setting in your project's gradle.properties file:
+D8 最初在 Android Studio 3.0 作为可选功能发布。除了我们自己的严格测试之外，我们现在已经看到它在各种各样的应用程序中表现优异。因此，我们相信 D8 将很好地适用于在 3.1 中开始使用它的每一位开发者。但是，如果确实有问题，可以通过设置项目的 gradle.properties 文件来暂时恢复至 DX：
 
 ```
 android.enableD8=false
 ```
 
-If you do encounter something that causes you to disable D8, please [let us know](https://issuetracker.google.com/issues/new?component=192708&template=840533)!
+如果你确实遇到了需要禁用 D8 的情况，请[联系我们](https://issuetracker.google.com/issues/new?component=192708&template=840533)！
 
-**Next Steps**
+**下一步**
 
-Our goal is to ensure that everyone has access to a fast, correct dex compiler. So to avoid risking regressions for any of our users, we'll be deprecating DX in three phases
+我们的目标是确保每个人都可以快速、正确地使用 dex 编译器。因此，为避免我们的任何用户面临回退的风险，我们将分三个阶段淘汰 DX
 
-The first phase is intended to prevent prematurely deprecating DX. During this phase, DX will remain available in studio. We'll fix critical issues in it, but there won't be new features. This phase will last for at least six months, during which we'll evaluate any open D8 bugs to decide if there are regressions which would prevent some users from replacing DX with D8\. The first phase won't end until the team addresses all migration blockers. We'll be paying extra attention to the bug tracker during this window, so If you encounter any of these regressions, please [file an issue](https://issuetracker.google.com/issues/new?component=192708&template=840533).
+第一阶段旨在防止过早弃用 DX。在这个阶段，DX 将继续在 Stduio 中可用。我们将解决关键性问题，但不会添加新功能。这个阶段将持续至少六个月，在此期间，我们将评估开发 D8 时产生的任何错误，以确定是否存在会阻止某些用户使用 D8 取代 DX 的回归。第一阶段在小组解决所有迁移滞后者之前不会结束。在此窗口中，我们将特别关注缺陷跟踪系统，因此如果存在任何问题，请[提 issue](https://issuetracker.google.com/issues/new?component=192708&template=840533)。
 
-Once we've seen a six month window without major regressions from DX to D8, we'll enter the second phase. This phase will last for a year, and is intended to ensure that even complex projects have lots of time to migrate. During this phase, we'll keep DX available, but we'll treat it as fully deprecated; we won't be fixing any issues.
+一旦我们看到六个月的时间窗口没有从 DX 到 D8 的重大回归，我们将进入第二阶段。这一阶段将持续一年，旨在确保即使是复杂的项目也有大量的时间进行迁移。在这个阶段，我们会保证 DX 可用，但我们会将其视为已奔完全弃用；因此我们不会修复任何问题。
 
-During the third and final phase, DX will be removed from Android Studio. At this point, you'll need to use a legacy version of the Android Gradle Plugin in order to continue to build with DX.
+在第三阶段也就是最后阶段，DX 将从 Android Studio 中移除。此时，你需要使用旧版本的 Android Gradle 插件才可以继续使用 DX 进行构建。
 
 
 ---
