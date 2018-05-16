@@ -2,58 +2,60 @@
 > * 原文作者：[Allen Day](https://cloud.google.com/blog/big-data/2018/02/bitcoin-in-bigquery-blockchain-analytics-on-public-data)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/bitcoin-in-bigquery-blockchain-analytics-on-public-data.md](https://github.com/xitu/gold-miner/blob/master/TODO1/bitcoin-in-bigquery-blockchain-analytics-on-public-data.md)
-> * 译者：
-> * 校对者：
+> * 译者：[LeopPro](https://github.com/LeopPro)
+> * 校对者：[ALVINYEH](https://github.com/ALVINYEH) [SergeyChang](https://github.com/SergeyChang)
 
-# Bitcoin in BigQuery: blockchain analytics on public data
+# BigQuery 中的比特币：使用公共数据分析区块链
 
-By Allen Day, Cloud Developer Advocate and Colin Bookman, Cloud Customer Engineer.
+云主导开发者 Allen Day、云服务开发者 Colin Bookman。
 
-Cryptocurrencies have captured the imagination of technologists, financiers, and economists. Perhaps even more intriguing are the long-term, diverse applications of the blockchain. By increasing transparency of cryptocurrency systems, the contained data becomes more accessible and useful. 
+加密货币已经吸引了技术专家、金融家和经济学家的想象力。或许更有趣的是长期多样化的区块链应用。通过提高加密货币系统的透明度，其所包含的数据变得越来越易于访问和使用。
 
-The Bitcoin blockchain data are now available for exploration with BigQuery. All historical data are in the [bigquery-public-data:bitcoin_blockchain](https://bigquery.cloud.google.com/dataset/bigquery-public-data:bitcoin_blockchain) dataset, which updates every 10 minutes.
+现在比特币区块链数据可以通过 BigQuery 探索。所有的历史数据都在 [bigquery-公共数据：比特币区块链](https://bigquery.cloud.google.com/dataset/bigquery-public-data:bitcoin_blockchain)数据集中，该数据集每 10 分钟更新一次。
 
-We hope that by making the data more transparent, users of the data can gain a deeper understanding of how cryptocurrency systems function and how they might best be used for the benefit of society.
+我们希望通过使数据更加透明化，使数据用户可以对加密货币系统运作有一个更深刻的理解，以及如何更好的利用他们造福社会。
 
-### Interesting Queries and Analyses
+### 有趣的查询和分析
 
-Below, we show a number of interesting queries and visualizations based on the Bitcoin dataset.  Our analyses focus on two popular topics:
+下面，我们将根据比特币数据集展示一些有趣的查询和可视化数据。我们将着眼分析以下两个热门话题：
 
-*   network fundamentals (block difficulty)
-*   transaction visualization (first goods purchase)
+*   网络基础（块困难度）
+*   交易可视化（第一次易物交易）
 
-### Aggregate blockchain network statistics
+### 区块链网络统计信息汇总
 
-Bitcoin network properties provide a basis for fundamental valuation of the network. For example, the total number of Bitcoins sent per day and the total number of Bitcoin recipients per day indicate economic activity on-network, and are related to Bitcoin’s value per [Metcalfe’s Law](https://en.wikipedia.org/wiki/Metcalfe%27s_law), the conjecture that the value of a network is proportional to the square of the number of users.
+比特币网络参数为基本的网络分析提供了基础。例如，比特币日发送总数以及比特币日接收总数表明网络中的经济活动，并且这和比特币的均价有关，根据[梅特卡夫定律](https://zh.wikipedia.org/wiki/%E6%A2%85%E7%89%B9%E5%8D%A1%E5%A4%AB%E5%AE%9A%E5%BE%8B)推测，一个网络的价值与其用户数的平方成正比。
 
-This interactive chart shows the number of Bitcoins transacted per day across the network over time:
+下图显示了比特币网络日交易量趋势：
 
 ![](https://i.loli.net/2018/05/08/5af11cc39681c.png)
 
-This interactive chart shows the number of recipient addresses per day over time:
+下图显示了比特币地址日接收量趋势：
 
 ![](https://i.loli.net/2018/05/08/5af11cc391749.png)
 
-See below for a valuation metric developed from first principles for blockchain networks, the Network Value to Transactions Ratio, or [NVT Ratio](http://charts.woobull.com/bitcoin-nvt-ratio/). This chart show the daily NVT Ratio over time:
+以下根据根据区块链网络的第一原则，网络价值与交易比或 [NVT 比](http://charts.woobull.com/bitcoin-nvt-ratio/)制定的评估指标。该图表显示了随时间的每日 NVT 比率：
 
 ![](https://i.loli.net/2018/05/08/5af11cc393d81.png)
 
-Other properties of the Bitcoin network, such as the difficulty parameter of the Bitcoin mining algorithm, may also be of fundamental economic importance. The following chart shows the relationship of Bitcoin mining difficulty vs. search volume for “Bitcoin”.
+例如比特币挖矿算法困难度等其他的比特币参数，也可能具有基本的经济重要性。下图显示了比特币挖矿困难度与“比特币”搜索量的关系。
 
 ![](https://i.loli.net/2018/05/08/5af11cc38c4cc.png)
 
-### Transaction visualization
+> 译者注：以上 4 个实时数据图可以在 [Google 数据洞察](https://datastudio.google.com/reporting/1G8yte8g3daDEw5EKOvbxPQudv92PZcPP)中查看。
 
-One consequence of using electronic currency to conduct commerce is that it becomes possible to record transactions publicly with perfect fidelity.  On May 17, 2010, the first known exchange of Bitcoin for goods took place. [Laszlo Hanyecz](https://en.bitcoin.it/wiki/Laszlo_Hanyecz) purchased two pizzas for 10,000 BTC, and the transaction from address [1XPT…rvH4](https://blockchain.info/address/1XPTgDRhN8RFnzniWCddobD9iKZatrvH4) to address [17Sk…xFyQ](https://blockchain.info/address/17SkEw2md5avVNyYgj6RiXuQKNwkXaxFyQ) is recorded in the blockchain with transaction ID [a107…d48d](https://blockchain.info/tx/a1075db55d416d3ca199f55b6084e2115b9345e16c5cf302fc80e9d5fbf5d48d). We produced a data visualization of input transfers to Hanyecz’s address preceding the pizza purchase by up to 4 degrees. Here’s the [code](https://www.kaggle.com/mrisdal/visualizing-the-10k-btc-pizza-transaction-network?utm_medium=partner&utm_source=cloud&utm_campaign=big+data+blog+bitcoin) we used to generate a plot like the one below. Hanyecz’s payment address is depicted as a red circle while other addresses are blue circles. Arrowheads indicate direction of Bitcoin flow preceding the pizza purchase transaction. Stroke width is approximately proportional to the amount of Bitcoin moving between addresses.
+### 交易可视化
+
+使用电子货币进行交易的一个后果是交易记录公开且完备。据信，第一次用比特币购买物品是在 2010 年 5 月 17 日。[Laszlo Hanyecz](https://en.bitcoin.it/wiki/Laszlo_Hanyecz) 花了 10,000 BTC 买了两个批萨，从地址 [1XPT…rvH4](https://blockchain.info/address/1XPTgDRhN8RFnzniWCddobD9iKZatrvH4) 到地址 [17Sk…xFyQ](https://blockchain.info/address/17SkEw2md5avVNyYgj6RiXuQKNwkXaxFyQ) 的交易记录在交易 ID 为 [a107…d48d](https://blockchain.info/tx/a1075db55d416d3ca199f55b6084e2115b9345e16c5cf302fc80e9d5fbf5d48d) 的区块链中。我们对 Hanyecz 地址购买批萨之前的 4 层比特币转移数据进行了可视化分析。我们用这段[代码](https://www.kaggle.com/mrisdal/visualizing-the-10k-btc-pizza-transaction-network?utm_medium=partner&utm_source=cloud&utm_campaign=big+data+blog+bitcoin)生成了下图。Hanyecz 的付款地址为红色圆圈，而其他地址为蓝色圆圈。箭头表示披萨购买交易之前比特币流动的方向。笔画宽度大致与地址间比特币移动量成正比。
 
 ![](https://cloud.google.com/blog/big-data/2018/02/images/6736684411518976/bitcoin-bq-1.png)
 
-### Blockchain exploration and anomaly detection
+### 区块链勘探和异常检测
 
-In the Bitcoin blockchain there exists a transaction which was added to two blocks. This shouldn’t be possible. The anomalous transaction can be uncovered with this query:
+在比特币区块链中，存在被添加到两个区块的交易。这不应该发生。这个查询可以发现这种异常交易：
 
 ```
-#standardSQL
+# 标准 SQL
 SELECT
   *
 FROM (
@@ -68,31 +70,31 @@ WHERE
   dup_transaction_count > 1
 ```
 
-_How did this happen?_ Bitcoin was first built with [BerkeleyDB](https://en.wikipedia.org/wiki/Berkeley_DB), which can handle non-unique keys. After [Satoshi Nakamoto](https://en.wikipedia.org/wiki/Satoshi_Nakamoto) left the Bitcoin project, a new development team replaced [BerkeleyDB](https://en.wikipedia.org/wiki/Berkeley_DB) with [LevelDB](http://leveldb.org). [LevelDB](http://leveldb.org) cannot handle unique keys, causing the developers to modify the [Bitcoin source code](https://github.com/bitcoin/bitcoin) by implementing Bitcoin Improvement Proposal [BIP_0030](https://github.com/bitcoin/bips/blob/master/bip-0030.mediawiki).
+**怎么会发生这种事情？** 比特币最初构建于 [BerkeleyDB](https://zh.wikipedia.org/wiki/Berkeley_DB)，它可以处理非唯一键。后来[中本聪](https://zh.wikipedia.org/wiki/%E4%B8%AD%E6%9C%AC%E8%81%AA)离开了比特币项目组，新的开发团队使用 [LevelDB](http://leveldb.org) 替代了 [BerkeleyDB](https://zh.wikipedia.org/wiki/Berkeley_DB)。然而 [LevelDB](http://leveldb.org) 无法处理唯一键，这使得开发者根据比特币改善提案 [BIP_0030](https://github.com/bitcoin/bips/blob/master/bip-0030.mediawiki) 修改 [比特币源代码](https://github.com/bitcoin/bitcoin)。
 
-Even though it’s no longer possible for a transaction to exist in multiple blocks, there are still a few older transactions where this happened.
+尽管交易不再可能存在与多个块中，但仍然有一些过往的交易存在这个问题。
 
-### Why is it useful to have Bitcoin Blockchain Data accessible on Google Cloud?
+### 为什么 Google Cloud 上比特币区块链数据不可不看？
 
-Blockchains in general provide a solution for communication and coordination amongst peers in low-trust environments. Use cases are emerging in the financial services, supply chain, media, and other highly digitized industries. The Bitcoin blockchain in particular aims to remedy financial industry flaws, as documented in the [Bitcoin genesis block](https://en.bitcoin.it/wiki/Genesis_block) by [Satoshi Nakamoto](https://en.bitcoin.it/wiki/Satoshi_Nakamoto).
+区块链一般为低信任环境中的平等节点之间的沟通和协调提供解决方案。在金融服务，供应链，媒体和其他高度数字化行业中，区块链正在崭露头角。比特币区块链旨在弥补金融业的缺陷，如[中本聪](https://en.bitcoin.it/wiki/Satoshi_Nakamoto)写的 [Bitcoin genesis block](https://en.bitcoin.it/wiki/Genesis_block)。
 
-Bitcoin can be described as an immutable distributed ledger, and while it provides [OLTP](https://en.wikipedia.org/wiki/Online_transaction_processing) capabilities (atomic transactions, data durability), it has very limited [OLAP](https://en.wikipedia.org/wiki/Online_analytical_processing) (analytics) capability for regularly required short time-scale reporting on specific or aggregated money flows stored in the ledger. Inability to easily build reports from the blockchain can reduce transparency and increase the difficulty of price discovery of [BTC-USD](https://www.google.com/search?q=btc+usd), as well as other fundamental metrics of valuation such as the [NVT Ratio](http://charts.woobull.com/bitcoin-nvt-ratio/).
+比特币可以被描述为一个不可变的分布式账本，虽然它提供了 [OLTP](https://en.wikipedia.org/wiki/Online_transaction_processing) 功能（原子交易，数据持久性），但它对于定期存储的具体或汇总资金流进行短周期报告的 [OLAP](https://en.wikipedia.org/wiki/Online_analytical_processing) （分析）能力非常有限。难以轻易地从区块链构建报告可能会降低透明度并增加 [BTC-USD](https://www.google.com/search?q=btc+usd) 价格分析的难度以及 [NVT 比](http://charts.woobull.com/bitcoin-nvt-ratio/)等其他基本评估指标。
 
-In contrast, BigQuery has strong OLAP capabilities. We built a software system on Google Cloud that:
+相比之下，BigQuery 具有强大的 OLAP 功能。, 我们在 Google Cloud 上构建了一个软件系统：
 
-1.  performs a real-time extraction of data from the Bitcoin blockchain ledger
-2.  stores the data to [BigQuery](https://cloud.google.com/bigquery) and de-normalizes it to make exploration easier
-3.  derives insights from the extracted data with [Data Studio](https://datastudio.google.com/c/org/UTgoe29uR0C3F1FBAYBSww/reporting/1G8yte8g3daDEw5EKOvbxPQudv92PZcPP/page/nExM/edit)
+1.  从比特币区块链账中实时提取数据
+2.  将数据存储到 [BigQuery](https://cloud.google.com/bigquery) 并将其解除规范化，以便更轻松地进行探索
+3.  使用 [Data Studio](https://datastudio.google.com/c/org/UTgoe29uR0C3F1FBAYBSww/reporting/1G8yte8g3daDEw5EKOvbxPQudv92PZcPP/page/nExM/edit) 从数据中导出分析报告
 
-The [Bitcoin Blockchain data is also available via Kaggle](https://www.kaggle.com/bigquery/bitcoin-blockchain?utm_medium=partner&utm_source=cloud&utm_campaign=big+data+blog+bitcoin). You can query the live data in Kernels, Kaggle’s no charge in-browser coding environment, using the BigQuery Python client library. Fork [this example kernel](https://www.kaggle.com/mrisdal/visualizing-daily-bitcoin-recipients?utm_medium=partner&utm_source=cloud&utm_campaign=big+data+blog+bitcoin) to experiment with your own copy of the Python code.
+比特币区块链数据也可以通过 [Kaggle](https://www.kaggle.com/bigquery/bitcoin-blockchain?utm_medium=partner&utm_source=cloud&utm_campaign=big+data+blog+bitcoin) 获取。你可以使用 BigQuery Python 客户端库查询 Kernel（Kaggle 的免费浏览器内开发环境） 中的实时数据。你可以 fork 一份[这个实例 kernel](https://www.kaggle.com/mrisdal/visualizing-daily-bitcoin-recipients?utm_medium=partner&utm_source=cloud&utm_campaign=big+data+blog+bitcoin) 并用你自己的 Python 代码副本来进行试验。
 
-### BigQuery Public Dataset
+### BigQuery 公共数据集
 
-All Bitcoin blockchain data are loaded in bulk to two BigQuery tables, blocks_raw and transactions. These tables contain fresh data, as they are appended as new blocks are broadcast to the Bitcoin network.
+所有比特币区块链数据都批量加载到两个 BigQuery 表：blocks_raw 和 transactions。新块被广播到比特币网络时被追加到表中，因此这些表中的数据是最新的。
 
-### Acknowledgements
+### 鸣谢
 
-We’d like to thank our colleagues across Google for making this blog post possible. Thank you [Minhaz Kazi](https://twitter.com/_mkazi_) (Data Studio Developer Advocate), [Megan Risdal](https://twitter.com/MeganRisdal) (Kaggle Data Scientist), [Sohier Dane](https://github.com/sohierdane) (Kaggle Data Scientist), and [Hatem Nawar](https://twitter.com/hnawar) (Cloud Customer Engineer)
+我们想感谢尽心尽力发表这篇博文的 Google 同事们。感谢 [Minhaz Kazi](https://twitter.com/_mkazi_)（Data Studio 主导开发者），[Megan Risdal](https://twitter.com/MeganRisdal)（Kaggle 数据科学家），[Sohier Dane](https://github.com/sohierdane)（Kaggle数据科学家）和[Hatem Nawar](https://twitter.com/hnawar)（云服务工程师）
 
 
 ---

@@ -1,3 +1,5 @@
+* [如何逃离 async/await 地狱](https://juejin.im/post/5aefbb48f265da0b9b073c40) ([Colafornia](https://github.com/Colafornia) 翻译)
+* [我在编程初级阶段常犯的错误](https://juejin.im/post/5ae97af6f265da0ba062f797) ([kezhenxu94](https://github.com/kezhenxu94) 翻译)
 * [Deploy != Release（第一部分）：Deploy 与 Release 的区别及为什么很重要？](https://juejin.im/post/5ad80983f265da505c3c1b3a) ([stormluke](https://github.com/stormluke) 翻译)
 * [引导员手册：24 个设计冲刺技巧](https://juejin.im/post/5ae3254d6fb9a07abc29a741) ([PokerF](https://github.com/PokerF) 翻译)
 * [简短而又完全精确的编程语言历史](https://juejin.im/post/5ac1b8a25188255c637b1cd5) ([Starriers](https://github.com/Starriers) 翻译)

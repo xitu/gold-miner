@@ -2,16 +2,16 @@
 > * 原文作者：[Saurabh Misra](https://medium.freecodecamp.org/@saurabh__misra?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/this-is-why-we-need-to-bind-event-handlers-in-class-components-in-react.md](https://github.com/xitu/gold-miner/blob/master/TODO1/this-is-why-we-need-to-bind-event-handlers-in-class-components-in-react.md)
-> * 译者：
-> * 校对者：
+> * 译者：[whuzxq](https://github.com/whuzxq)
+> * 校对者：[sunhaokk](https://github.com/sunhaokk)、[dandyxu](https://github.com/dandyxu)
 
-# This is why we need to bind event handlers in Class Components in React
+# 为什么需要在 React 类组件中为事件处理程序绑定 this
 
 ![](https://cdn-images-1.medium.com/max/2000/1*kdZr8L9pUOgosVNWqMSmlQ.png)
 
-Background photo by [Kaley Dykstra](https://unsplash.com/photos/gtVrejEGdmM?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash,](https://unsplash.com/search/photos/chain?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) source code image generated at [carbon.now.sh](https://carbon.now.sh)
+背景图源来自 [Kaley Dykstra](https://unsplash.com/photos/gtVrejEGdmM?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) 并发布在 [Unsplash](https://unsplash.com/search/photos/chain?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) 上，源代码图像生成自 [carbon.now.sh](https://carbon.now.sh)。
 
-While working on React, you must have come across controlled components and event handlers. We need to bind these methods to the component instance using `.bind()` in our custom component’s constructor.
+在使用 React 时，您难免遇到受控组件和事件处理程序。在自定义组件的构造函数中，我们需要使用 `.bind()` 来将方法绑定到组件实例上面。
 
 ```
 class Foo extends React.Component{
@@ -21,7 +21,7 @@ class Foo extends React.Component{
   }
 
   handleClick(event){
-    // your event handling logic
+    // 你的事件处理逻辑
   }
 
   render(){
@@ -40,15 +40,15 @@ ReactDOM.render(
 );
 ```
 
-In this article, we are going to find out why we need to do this.
+在这篇文章中，我们将探究为什么要这么做。
 
-I would recommend reading about `.bind()` [here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_objects/Function/bind) if you do not already know what it does.
+如果你对 `.bind()` 尚不了解，推荐阅读 [这篇文章](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_objects/Function/bind)。
 
-### **Blame JavaScript, Not React**
+### **应责怪 JavaScript，而不是 React**
 
-Well, laying blame sounds a bit harsh. This is not something we need to do because of the way React works or because of JSX. This is because of the way the `this` binding works in JavaScript.
+好吧，责怪听起来有些苛刻。如果按照 React 和 JSX 的语法，我们并不需要这么做。其实绑定 `this` 是 JavaScript 中的语法。
 
-Let’s see what happens if we do not bind the event handler method with its component instance:
+让我们看看，如果不将事件处理程序绑定到组件实例上，会发生什么：
 
 ```
 class Foo extends React.Component{
@@ -57,7 +57,7 @@ class Foo extends React.Component{
   }
 
   handleClick(event){
-    console.log(this); // 'this' is undefined
+    console.log(this); // 'this' 值为 undefined
   }
 
   render(){
@@ -75,42 +75,42 @@ ReactDOM.render(
 );
 ```
 
-If you run this code, click on the “Click Me” button and check your console. You will see `undefined` printed to the console as the value of `this` from inside the event handler method. The `handleClick()` method seems to have **lost** its context (component instance) or `this` value.
+如果你运行这个代码，点击 “Click Me” 按钮，检查你的控制台，你将会看到控制台打印出  `undefined`，这个值是 `handleClick()` 方法内部的 this 值。`handleClick()` 方法似乎已经**丢失了**其上下文(组件实例)，即 this 值。
 
-### **How ‘this’ binding works in JavaScript**
+### **在 JavaScript 中，this 的绑定是如何工作的**
 
-As I mentioned, this happens because of the way `this` binding works in JavaScript. I won’t go into a lot of detail in this post, but [here](https://github.com/getify/You-Dont-Know-JS/blob/master/this%20%26%20object%20prototypes/ch2.md) is a great resource to understand how the `this` binding works in JavaScript.
+正如我上文提到的，是 JavaScript 的 `this` 绑定机制导致了上述情况的发生。在这篇文章中，我不会深入探讨太多细节，但是 [这篇文章](https://github.com/getify/You-Dont-Know-JS/blob/master/this%20%26%20object%20prototypes/ch2.md) 可以帮助你进一步学习在 JavaScript 中 this 的绑定是如何工作的。
 
-But relevant to our discussion here, the value of `this` inside a function depends upon how that function is invoked.
+与我们讨论相关的是，函数内部的 `this` 的值取决于该函数如何被调用。
 
-#### **Default Binding**
+#### **默认绑定**
 
 ```
 function display(){
- console.log(this); // 'this' will point to the global object
+ console.log(this); // 'this' 将指向全局变量
 }
 
 display(); 
 ```
 
-This is a plain function call. The value of `this` inside the `display()` method in this case is the window — or the global — object in non-strict mode. In strict mode, the `this` value is `undefined`.
+这是一个普通的函数调用。在这种情况下，`display()` 方法中的 `this` 在非严格模式下指向 window 或 global 对象。在严格模式下，`this` 指向 `undefined`。
 
-#### **Implicit binding**
+#### **隐式绑定**
 
 ```
 var obj = {
  name: 'Saurabh',
  display: function(){
-   console.log(this.name); // 'this' points to obj
+   console.log(this.name); // 'this' 指向 obj
   }
 };
 
 obj.display(); // Saurabh 
 ```
 
-When we call a function in this manner — preceded by a context object — the `this` value inside `display()` is set to `obj`.
+当我们以一个 obj 对象来调用这个函数时，`display()` 方法内部的 `this` 指向 `obj`。
 
-But when we assign this function reference to some other variable and invoke the function using this new function reference, we get a different value of `this` inside `display()` .
+但是，当我们将这个函数引用赋值给某个其他变量并使用这个新的函数引用去调用该函数时，我们在 `display()` 中获得了不同的`this`值。
 
 ```
 var name = "uh oh! global";
@@ -118,17 +118,17 @@ var outerDisplay = obj.display;
 outerDisplay(); // uh oh! global
 ```
 
-In the above example, when we call `outerDisplay()`, we don’t specify a context object. It is a plain function call without an owner object. In this case, the value of `this` inside `display()` falls back to **default binding**_._ It points to the global object or `undefined` if the function being invoked uses strict mode.
+在上面的例子里，当我们调用 `outerDisplay()` 时，我们没有指定一个具体的上下文对象。这是一个没有所有者对象的纯函数调用。在这种情况下，`display()` 内部的 `this` 值回退到**默认绑定**。现在这个 `this` 指向全局对象，在严格模式下，它指向 `undefined`。
+ 
+在将这些函数以回调的形式传递给另一个自定义函数、第三方库函数或者像 `setTimeout` 这样的内置JavaScript函数时，上面提到的判断方法会特别实用。
 
-This is especially applicable while passing such functions as callbacks to another custom function, a third-party library function, or a built-in JavaScript function like `setTimeout` .
-
-Consider the `setTimeout` dummy definition as shown below, and then invoke it.
+考虑下方的代码，当自定义一个 `setTimeout` 方法并调用它，会发生什么。
 
 ```
-// A dummy implementation of setTimeout
+//setTimeout 的虚拟实现
 function setTimeout(callback, delay){
 
-   //wait for 'delay' milliseconds
+   //等待 'delay' 数个毫秒
 
    callback();
 }
@@ -136,13 +136,13 @@ function setTimeout(callback, delay){
 setTimeout( obj.display, 1000 );
 ```
 
-We can figure out that when we call `setTimeout`, JavaScript internally assigns `obj.display` to its argument `callback` .
+我们可以分析出，当调用 `setTimeout` 时，JavaScript 在内部将 `obj.display` 赋给参数 `callback`。
 
 ```
 callback = obj.display;
 ```
 
-This assignment operation, as we have seen before, causes the `display()` function to lose its context. When this callback is eventually invoked inside `setTimeout`, the `this` value inside `display()` falls back to **default binding**.
+正如我们之前分析的，这种赋值操作会导致 `display()` 函数丢失其上下文。当此函数最终在 `setTimeout` 函数里面被调用时，`display()`内部的 `this` 的值会退回至**默认绑定**。
 
 ```
 var name = "uh oh! global";
@@ -151,9 +151,9 @@ setTimeout( obj.display, 1000 );
 // uh oh! global
 ```
 
-#### **Explicit Hard Binding**
+#### **明确绑定**
 
-To avoid this, we can **explicitly hard bind** the `this` value to a function by using the `bind()` method.
+为了避免这种情况，我们可以使用 **明确绑定方法**，将 `this` 的值通过 `bind()` 方法绑定到函数上。
 
 ```
 var name = "uh oh! global";
@@ -164,15 +164,15 @@ outerDisplay();
 // Saurabh
 ```
 
-Now, when we call `outerDisplay()`, the value of `this` points to `obj` inside `display()` .
+现在，当我们调用 `outerDisplay()` 时，`this` 的值指向 `display()` 内部的 `obj`。
 
-Even if we pass `obj.display` as a callback, the `this` value inside `display()` will correctly point to `obj` .
+即时我们将 `obj.display` 直接作为 callback 参数传递给函数，`display()` 内部的 `this` 也会正确地指向 `obj`。
 
-### **Recreating the scenario using only JavaScript**
+### **仅使用 JavaScript 重新创建场景**
 
-In the beginning of this article, we saw this in our React component called `Foo` . If we did not bind the event handler with `this` , its value inside the event handler was set as `undefined`.
+在本文的开头，我们创建了一个类名为 `Foo` 的 React 组件。如果我们不将 `this` 绑定到事件上，事件内的值会变成 `undefined`。
 
-As I mentioned and explained, this is because of the way `this` binding works in JavaScript and not related to how React works. So let’s remove the React-specific code and construct a similar pure JavaScript example to simulate this behavior.
+正如我上文解释的那样，这是由 JavaScript 中 `this` 绑定的方式决定的，与React的工作方式无关。因此，让我们删除 React 本身的代码，并构建一个类似的纯 JavaScript 示例，来模拟此行为。
 
 ```
 class Foo {
@@ -188,24 +188,23 @@ class Foo {
 var foo = new Foo('Saurabh');
 foo.display(); // Saurabh
 
-// The assignment operation below simulates loss of context 
-// similar to passing the handler as a callback in the actual 
-// React Component
+//下面的赋值操作模拟了上下文的丢失。 
+//与实际在 React Component 中将处理程序作为 callback 参数传递相似。
 var display = foo.display; 
 display(); // TypeError: this is undefined
 ```
 
-We are not simulating actual events and handlers, but instead we are using synonymous code. As we observed in the React Component example, the `this` value was `undefined` as the context was lost after passing the handler as a callback — synonymous with an assignment operation. This is what we observe here in this non-React JavaScript snippet as well.
+我们不是模拟实际的事件和处理程序，而是用同义代码替代。正如我们在 React 组件示例中所看到的那样，由于将处理程序作为回调传递后，丢失了上下文，导致 `this` 值变成 `undefined`。这也是我们在这个纯 JavaScript 代码片段中观察到的。 
 
-“Wait a minute! Shouldn’t the `this` value point to the global object, since we are running this in non-strict mode according to the rules of default binding?” you might ask.
+你可能会问：“等一下！难道 `this` 的值不是应该指向全局对象么，因为我们是按照默认绑定的规则，在非严格模式下运行的它。“
 
-**No.** This is why:
+**答案是否定的** 原因如下：
 
-> The bodies of _class declarations_ and _class expressions_ are executed in [strict mode](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode), that is the constructor, static and prototype methods. Getter and setter functions are executed in strict mode.
+> *类声明*和*类表达式*的主体以 [严格模式](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode) 执行，主要包括构造函数、静态方法和原型方法。Getter 和 setter 函数也在严格模式下执行。
 
-You can read the full article [here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes).
+你可以在 [这里](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes) 阅读完整的文章。
 
-So, to prevent the error, we need to bind the `this` value like this:
+所以为了避免错误，我们需要像下文这样绑定 `this` 的值：
 
 ```
 class Foo {
@@ -226,7 +225,7 @@ var display = foo.display;
 display(); // Saurabh
 ```
 
-We don’t need to do this in the constructor, and we can do this somewhere else as well. Consider this:
+我们不仅可以在构造函数中执行此操作，也可以在其他位置执行此操作。考虑这个：
 
 ```
 class Foo {
@@ -247,13 +246,13 @@ var display = foo.display;
 display(); // Saurabh
 ```
 
-But the constructor is the most optimal and efficient place to code our event handler bind statements, considering that this is where all the initialization takes place.
+但由于构造函数是所有初始化发生的地方，因此它是编写绑定事件语句最佳的位置。
 
-#### **Why don’t we need to bind ‘**`**this’**` **for Arrow functions?**
+#### **为什么我们不需要为箭头函数绑定 `‘this’`？**
 
-We have two more ways we can define event handlers inside a React component.
+在 React 组件内，我们有另外两种定义事件处理程序的方式。
 
-*   [**Public Class Fields Syntax(Experimental)**](https://babeljs.io/docs/plugins/transform-class-properties/)
+* [**公共类字段语法(实验)**](https://babeljs.io/docs/plugins/transform-class-properties/)
 
 ```
 class Foo extends React.Component{
@@ -276,7 +275,7 @@ ReactDOM.render(
 );
 ```
 
-*   [**Arrow function in the callback**](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
+*   [**回调中的箭头函数**](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
 
 ```
 class Foo extends React.Component{
@@ -299,29 +298,30 @@ ReactDOM.render(
 );
 ```
 
-Both of these use the arrow functions introduced in ES6\. When using these alternatives, our event handler is already automatically bound to the component instance, and we do not need to bind it in the constructor.
+这两个都使用了ES6引入的箭头函数。当使用这些替代方法时，我们的事件处理程序已经自动绑定到了组件实例上，并且我们不需要在构造函数中绑定它。
 
-The reason is that in the case of arrow functions, `this` is bound **lexically**. This means that it uses the context of the enclosing function — or global — scope as its `this` value.
+原因是在箭头函数的情况下，`this` 是有**词法**约束力的。这意味它可以使用封闭的函数上下文或者全局上下文作为 `this` 的值。
 
-In the case of the public class fields syntax example, the arrow function is enclosed inside the `Foo` class — or constructor function — so the context is the component instance, which is what we want.
+在公共类字段语法的例子中，箭头函数被包含在 `Foo` 类中或者构造函数中，所以它的上下文就是组件实例，而这就是我们想要的。
 
-In the case of the arrow function as callback example, the arrow function is enclosed inside the `render()` method, which is invoked by React in the context of the component instance. This is why the arrow function will also capture this same context, and the `this` value inside it will properly point to the component instance.
+在箭头函数作为回调的例子中，箭头函数被包含在 `render()` 方法中，该方法由 React 在组件实例的上下文中调用。这就是为什么箭头函数也可以捕获相同的上下文，并且其中的 `this` 值将正确的指向组件实例。
 
-For more details regarding lexical `this` binding, check out [this excellent resource](https://github.com/getify/You-Dont-Know-JS/blob/master/this%20%26%20object%20prototypes/ch2.md#lexical-this).
+有关 `this` 绑定的更多细节，请查看 [此优秀资源](https://github.com/getify/You-Dont-Know-JS/blob/master/this%20%26%20object%20prototypes/ch2.md#lexical-this)。
 
-### **To make a long story short**
+### **总结**
 
-In Class Components in React, when we pass the event handler function reference as a callback like this
+在 React 的类组件中，当我们把事件处理函数引用作为回调传递过去，如下所示：
 
 ```
 <button type="button" onClick={this.handleClick}>Click Me</button>
+
 ```
 
-the event handler method loses its **implicitly bound** context. When the event occurs and the handler is invoked, the `this` value falls back to **default binding** and is set to `undefined` , as class declarations and prototype methods run in strict mode.
+事件处理程序方法会丢失其**隐式绑定**的上下文。当事件被触发并且处理程序被调用时，`this`的值会回退到**默认绑定**，即值为 `undefined`，这是因为类声明和原型方法是以严格模式运行。
 
-When we bind the `this` of the event handler to the component instance in the constructor, we can pass it as a callback without worrying about it losing its context.
+当我们将事件处理程序的 `this` 绑定到构造函数中的组件实例时，我们可以将它作为回调传递，而不用担心会丢失它的上下文。
 
-Arrow functions are exempt from this behavior because they use **lexical** `this` **binding** which automatically binds them to the scope they are defined in.
+箭头函数可以免除这种行为，因为它使用的是**词法** `this` **绑定**，会将其自动绑定到定义他们的函数上下文。
 
 
 ---
