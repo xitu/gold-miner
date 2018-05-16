@@ -26,7 +26,7 @@ describe("MyViewController"){
 }
 ```
 
-This is a test written in [**_SpecLeaks_**](https://cocoapods.org/pods/SpecLeaks)**_._**
+This is a test written in [**_SpecLeaks_**](https://cocoapods.org/pods/SpecLeaks).
 
 Important: I will explain what memory leaks are, talk about retain cycles and other things you might already know. If you want to read only about Unit Testing Leaks, skip to the last section.
 
@@ -131,6 +131,28 @@ In order to be released from memory, an object must first release all its depend
 
 Retain cycles are broken when one of the references in the cycle is **weak or unowned.** The cycle must exist because it is required by the nature of the associations we are coding. The problem is that all the associations cannot be strong. One of them must be weak.
 
+```
+class Server {
+    var clients : [Client] 
+    
+    func add(client:Client){
+        self.clients.append(client)
+    }
+}
+
+class Client {
+    weak var server : Server! //This one is weak
+    
+    init (server : Server) {
+        self.server = server
+        
+        self.server.add(client:self) //Now there is no retain cycle
+    }
+}
+```
+
+A weak reference breaks the retain cycle.
+
 ### How to break retain cycles
 
 > Swift provides two ways to resolve strong reference cycles when you work with properties of class type: weak references and unowned references.
@@ -152,7 +174,7 @@ Retain cycles are broken when one of the references in the cycle is **weak or un
 > [Apple’s Swift Programming Language](https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/AutomaticReferenceCounting.html)
 
 ```
-ass Parent {
+class Parent {
     var child : Child
     var friend : Friend
     
@@ -249,7 +271,7 @@ describe("UIViewController"){
 }
 ```
 
-Testing initialization
+Testing initialization.
 
 #### Testing for Leaks in View Controllers
 
