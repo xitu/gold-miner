@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/sending-web-push-notifications-from-node-js.md](https://github.com/xitu/gold-miner/blob/master/TODO1/sending-web-push-notifications-from-node-js.md)
 > * 译者：[lsvih](https://github.com/lsvih)
-> * 校对者：
+> * 校对者：[talisk](https://github.com/talisk)
 
 # 由 Node.js 发送 Web 推送通知
 
@@ -91,7 +91,7 @@ app.use(require('express-static')('./'));
 现在你的入口做好了。创建一个名为 `client.js` 的文件。[这个文件](https://github.com/vkarpov15/web-push-demo/blob/b356e53c1468c5611b9c4722411af3839bafc360/client.js) 将告知浏览器初始化你的 service worker 并向 `/subscribe` 发送 HTTP 请求。由于支持 service workers 的浏览器也应该能支持 async 与 await，因此上述示例中使用了 [async/await](http://thecodebarbarian.com/80-20-guide-to-async-await-in-node.js.html)。
 
 ```javascript
-// 在此用你自己的 public key 进行替换硬编码。
+// 这里写死的 public key 要换成你自己的。
 const publicVapidKey = 'BOynOrGhgkj8Bfk4hsFENAQYbnqqLSigUUkCNaBsAmNuH6U9EWywR1JIdxBVQOPDbIuTaj0tVAQbczNLkC5zftw';
 if ('serviceWorker' in navigator) {
   console.log('Registering service worker');
@@ -161,5 +161,3 @@ Web 推送只是 [service workers](https://developer.mozilla.org/en-US/docs/Web/
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
-
-
