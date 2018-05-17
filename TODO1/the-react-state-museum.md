@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-react-state-museum.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-react-state-museum.md)
 > * 译者：[jonjia](https://github.com/jonjia)
-> * 校对者：
+> * 校对者：[Colafornia](https://github.com/Colafornia) [dandyxu](https://github.com/dandyxu)
 
 # ⚛ React 状态管理工具博物馆
 
@@ -26,15 +26,15 @@
 *   **Freactal — by Dale while at** [**Formidable**](https://medium.com/@FormidableLabs)
 *   **ReduxX — by** [**Mikey Stecky-Efantis**](https://medium.com/@mikeysteckyefantis)
 
-当然，你可能对上面的某些库很熟悉，现在你可用你熟悉的那些库的知识来更好地理解其它库。你有机会来看看这些库的细节，还有这些库是多么的相似。
+当然，你可能对上面的某些库很熟悉，现在你可以运用这些知识来更好地理解其它库。你不仅有机会来领会这些库的细节，还会发现这些库是多么相似。
 
-为了通熟易懂地说明这些库，我使用了一个简单的打包列表应用，只有**添加**和**清空**功能。
+为了通俗易懂地说明这些库，我选择了一个只有**添加**和**清空**功能的简单打包列表应用作为示例。
 
 ![](https://cdn-images-1.medium.com/max/800/1*iQNRn15HETzdjALJITCFsQ.gif)
 
 很容易获取到应用 (Native 和 Web 都已实现)。
 
-为了说明状态如何传递的，所有的示例中，添加/清空功能是一个组件，列表功能是另一个组件。
+为了说明状态如何流转，所有的示例中，添加/清空功能是一个组件，列表功能是另一个组件。
 
 两个主要的组件（添加/列表）被抽象为一个需要导入的库，只留下基本代码来强调状态的选择。代码力求简约。
 
@@ -52,13 +52,13 @@
 
 ### 每种解决方案的个人笔记：
 
-如果你想看代码，查看 GitHub 源码，如果你需要建议，请继续阅读下面这段很长的描述。
+如果你想看代码，可以去查看 GitHub 源码，如果你需要建议，请继续阅读下面这段很长的描述。
 
-这里我们会探讨博物馆中每个状态库的差异，正式这些差异让每个都与众不同。如果你有好的建议或经验，请在评论中与大家分享。我也有兴趣把这篇文章当作充满乐趣的会议进行讨论。
+这里我们会探讨博物馆中每个状态库的差异，正是这些差异让每个都与众不同。如果你有好的建议或经验，请在评论中与大家分享。我也有兴趣把这篇文章当作充满乐趣的会议进行讨论。
 
 #### setState
 
-这是状态管理最基础的结构，仅基于对组件及其封装的理解。很多方面，这对 React 初学者来说是一个很好的例子。显示地将状态提升到所有组件都是其子组件的根组件中，其中定义了 props 与 state 的关系。随着应用的增长，显示连接到组件中的代码越来越复杂、脆弱，这就是不经常使用这种方法的原因。
+这是状态管理最基础的结构，仅基于对组件及其封装的理解。从很多方面来看，这对 React 初学者来说是一个很好的例子。显式地将状态提升到根组件中，所有组件都是根组件的子组件，其中定义了 props 与 state 的关系。随着应用的增长，到子组件的显式连接代码越来越复杂、脆弱，这就是不经常使用这种方法的原因。
 
 > 源码：[React](https://github.com/GantMan/ReactStateMuseum/tree/master/React/setState) | [React Native](https://github.com/GantMan/ReactStateMuseum/tree/master/ReactNative/setState)
 
@@ -66,13 +66,13 @@
 
 [https://reactjs.org/docs/context.html](https://reactjs.org/docs/context.html)
 
-关于 Context 的更新引发了很多关注。实际上，在 16.x 的版本中 Context 的最终形态有点像状态管理系统本身。为了简单起见，context 设置了 **provider** 和 **consumer**。一个 provider 的所有子组件都可以访问应用给它的值。所有非子组件都会看到它的默认值。下图解释了这种关系。
+关于 Context 的更新引发了很多关注。实际上，在 16.x 的版本中 Context 的最终形态有点像状态管理系统本身。简而言之，context 设置了 **provider** 和 **consumer**。一个 provider 的所有子组件都可以访问其中应用的值。所有非子组件都会看到 context 的默认值。下图解释了这种关系。
 
 ![](https://cdn-images-1.medium.com/max/800/1*6mJlcm3Ra5PHXwCEnHeTJQ.png)
 
 只有子组件才能继承。
 
-另一个非常重要的观点，我不是消费语法结构的粉丝。很明显，这种关系主要体现为 Consumer 中的函数，但这好像违背了 JSX 同时使用多个大括号的用法。
+另一个非常重要的观点，我并不喜欢 Consumer 的语法结构。显而易见，这是 Consumer 中的一个函数，但它在这种情况下超负荷使用过多大括号，似乎违背了 JSX 的原则。
 
 ```
       <PackingContext.Consumer>
@@ -87,7 +87,7 @@
       </PackingContext.Consumer>
 ```
 
-一个迂腐的问题，但代码的可读性应该总是考虑到 API，在这方面，Context 有点不整洁。
+一个迂腐的问题，但 API 的设计总应该考虑到代码的可读性，在这方面，Context 有点不整洁。
 
 > 源码：[React](https://github.com/GantMan/ReactStateMuseum/tree/master/React/context) | [React Native](https://github.com/GantMan/ReactStateMuseum/tree/master/ReactNative/Context)
 
@@ -95,15 +95,15 @@
 
 [https://github.com/reactjs/react-redux](https://github.com/reactjs/react-redux)
 
-在写这篇文章的时候，我敢说 Redux 是最受欢迎的状态管理工具，因此受到的攻击也最多。使用 Redux 编写解决方案需要很多文件，代码行数变为两倍。但 Redux 也有优点，它简单而灵活。
+在写这篇文章的时候，我敢说 Redux 是最受欢迎的状态管理工具，因此 Redux 受到的攻击也最多。使用 Redux 解决状态管理问题需要写很多文件，代码量几乎翻倍。但 Redux 也有优点，它简单而灵活。
 
-如果你不熟悉 Redux，这是一种状态管理的方法，它以 reducer 函数的形式提供时间旅行和状态清理功能。Dan Abramov 的讲解 redux 的视频已经被观看过**很多**次。
+如果你不熟悉 Redux，这是一种状态管理的方法，它以 reducer 函数的形式提供时间旅行和状态清理功能。Dan Abramov 讲解 redux 的视频已经被观看过**很多**次。
 
 * YouTube 视频链接：https://youtu.be/xsSnOQynTHs
 
-简而言之，就像有人在你的应用中发出命令（Actions），这些命令是通过Action Creators 创建出来的。你的应用中的数据管理器（Reducers）可以听到这些留言，并可以选择对其进行操作。我喜欢我的海盗船比喻，所以大声喊叫『有人落水』可以告诉你的船员们如果反驳，就会少一位一名工作人员，会计师重新分配宝藏，擦拭甲板的人可以忽略它，因为他不在乎。
+简而言之，就像有人在你的应用中发出命令（Actions），这些命令是通过 Action Creators 创建出来的。你的应用中的数据管理器（Reducers）可以听到这些留言，并可以选择对其进行操作。我喜欢我的海盗船比喻，所以大声喊叫『有人落水』可以告诉你的船员们如果他们反驳，那就会少一位船员，会计师重新分配宝藏，擦拭甲板的人可以忽略它，因为他不在乎。
 
-我喜欢这个比喻，因为『大声呼喊』是管理应用每个角落的一种强大方式，特别是大型复杂应用。结合这种方式无法处理异步并且需要粘在一个不可变结构上才能全部工作，Redux 是逐个开发的开发者的朋友。
+我喜欢这个比喻，因为『大声呼喊』是管理应用每个角落的一种强大方式，特别是大型复杂应用。结合这种方式无法处理异步并且需要粘在一个不可变结构上才能全部工作，Redux 是按时计薪的开发者的朋友。
 
 > 源码：[React](https://github.com/GantMan/ReactStateMuseum/tree/master/React/redux) | [React Native](https://github.com/GantMan/ReactStateMuseum/tree/master/ReactNative/Redux)
 
@@ -111,7 +111,7 @@
 
 [https://github.com/mobxjs/mobx-react](https://github.com/mobxjs/mobx-react)
 
-MobX 是上手最简单的状态管理库之一。查看它的 README 文件，然后按照步骤进行操作，马上就可以运行了。这感觉像是可变的 JavaScript，在某种程度上确实是。唯一可能会让你感到迷惑的是在类上使用的像 `@observer` 这些修饰器函数。虽然这种写法有点奇怪，但会让代码更简洁。
+MobX 是上手最简单的状态管理库之一。查看它的 README 文件，然后按照步骤进行操作，马上就可以运行了。这感觉像是可变的 JavaScript，在某种程度上确实是。唯一可能会让你感到迷惑的是在类中使用的像 `@observer` 这些装饰器函数。虽然这种写法有点奇怪，但会让代码更简洁。
 
 > 如果你使用过 redux 的东西，@observer 就像把 `mapStateToProps` 方法和 `reselect` 方法自动组合一样 — [Steve Kellock](https://medium.com/@skellock)
 
@@ -127,13 +127,13 @@ MobX 是上手最简单的状态管理库之一。查看它的 README 文件，�
 
 [https://github.com/jamiebuilds/unstated](https://github.com/jamiebuilds/unstated)
 
-Unstated 这个库和 MobX 一样简单。和 MobX 一样，这个感觉也是可变的 JavaScript，看上去使用 Unstated 需要添加更多的 React 代码。我觉得实际上 Unstated 比 Context 更像是 React。
+Unstated 这个库和 MobX 一样简单。和 MobX 一样，这个感觉也是可变的 JavaScript，看上去使用 Unstated 需要添加更多的 React 代码。我实际上觉得 Unstated 比 Context 更像是 React。
 
-使用起来很简单，创建一个 container 组件，就在这个组件内部管理状态。像 `setState` 这样简单的已知函数已将内置在这个状态容器中了。这不仅是一个贴切的名字；还是一个基于 React 的状态管理工具。
+使用起来很简单，创建一个 container 组件，就在这个组件内部管理状态。像 `setState` 这样简单的已知函数已经内置在这个状态容器中了。"Unstated" 不仅只是一个贴切的名字，而且确实是一个精巧的基于 React 的状态管理工具。
 
 ![](https://cdn-images-1.medium.com/max/800/1*sRBWrKW_51SILd_CQhy1Aw.png)
 
-我不清楚它如何扩展或处理中间件等。然如果你是状态管理的初学者，MobX  和 Unstated 都是起步最简单的选择！
+我不清楚它如何扩展或处理中间件等。但是如果你是状态管理的初学者，MobX 和 Unstated 都是上手最简单的选择！
 
 > 源码：[React](https://github.com/GantMan/ReactStateMuseum/tree/master/React/unstated) | [React Native](https://github.com/GantMan/ReactStateMuseum/tree/master/ReactNative/Unstated)
 
@@ -145,9 +145,9 @@ Unstated 这个库和 MobX 一样简单。和 MobX 一样，这个感觉也是�
 
 ![](https://i.loli.net/2018/05/09/5af255441b56f.png)
 
-甚至我的同事也将它的名字缩短为 MobX，我总是推动 MST 作为一种替代方案。正因为如此，重要的是 MobX-State-Tree 这个库集合了 Redux、reselect 和异步管理的所有优点，而且使用的代码量更小。
+甚至我的同事也将它的名字缩短为 MobX，但我总是推荐 MST 作为其简称。正因为如此，重要的是 MobX-State-Tree 这个库集合了 Redux、reselect 和异步管理的所有优点，而且使用的代码量更小。
 
-在这个示例中，最明显的一个优点就是简洁的语法。代码行数几乎比最初的 MobX 的示例更多了。两者都使用了简洁的修饰器语法。虽然需要一点时间才能真正从 MobX-State-Tree 中获得所有好处。
+在这个示例中，最明显的一个优点就是简洁的语法。代码行数仅仅比最初的 MobX 的示例多了一点点。两者都使用了简洁的装饰器语法。虽然需要一点时间才能真正从 MobX-State-Tree 中获得所有好处。
 
 最重要的一点就是如果你使用过 ActiveRecord 或者其它类型的 ORM，MobX-State-Tree 就像一个具有规范化关系干净的数据模型。对于可扩展的应用来说，这是一个非常好的状态管理工具。
 
@@ -160,7 +160,7 @@ Unstated 这个库和 MobX 一样简单。和 MobX 一样，这个感觉也是�
 
 如果你没赶上 GraphQL 这趟列车，那你就落伍了。Apollo GraphQL + AppSync 是管理应用状态、离线处理、请求 API、配置 GraphQL 服务器的一种很好的解决方案。许多人预测 GraphQL 会结束关于状态管理工具的争论。从某些角度看这很容易，但从另个角度来说也很难。
 
-并不是所有人都准备好使用 GraphQL 服务器了，但如果你准备好了，那么 AppSync 是处理 DynamoDB 中数据一种最简单的方式。这可能需要花费更多的时间和精力才能完成并运行，但优势也是显而易见的。
+并不是所有人都准备好使用 GraphQL 服务器了，但如果你准备好了，那么 AppSync 是处理 DynamoDB 中数据一种简单的方式。这可能需要花费更多的时间和精力才能完成并运行，但优势也是显而易见的。
 
 在我的示例中，我并没真正使用那些花哨的功能。你可以看到在等待服务器数据的延迟，我也没有使用订阅功能来获取更新。这个示例可以变得更好。但使用起来足够简单。哇！REST 已经成为了历史。
 
@@ -234,7 +234,7 @@ export default injectState(AddItems)
 
 [https://github.com/msteckyefantis/reduxx](https://github.com/msteckyefantis/reduxx)
 
-ReduxX，虽然在搜索引擎优化中有一些麻烦，但仍然是一个非常酷的名字。
+ReduxX，虽然可能在 SEO 上遇到了一些麻烦，但仍然是一个非常酷的名字。
 
 > 为什么在某个名字的后面加上 X 就会很酷呢？
 > — Gant X（[jonjia X](https://github.com/jonjia) 注：作者名字是 Gant Laborde）
@@ -265,15 +265,15 @@ ReduxX 读起来相当不错，因为在某些方面它会让我想起来自 Uns
 
 **你想代码尽量简洁吗？**
 
-Unstated、reduxX 和 pure-state 都非常简洁。它们有点不同，有点也不太一样。MobX 也很容易，但你要接受修饰器的语法。如果你可以接受，代码会更加可读、优化，文档和 stackoverflow 上的资源也很有帮助。
+Unstated、reduxX 和 pure-state 都非常简洁。它们有点不同，优点也不太一样。MobX 也很容易，但你要接受装饰器的语法。如果你可以接受，代码会更加可读、优化，文档和 stackoverflow 上的资源也很有帮助。
 
-**你想要更好的扩张性吗？**
+**你想要更好的扩展性吗？**
 
 如果确定你的应用需要添加很多东西，是时候拿出真正的武器了。这就是 Redux 的用武之地。如果你使用了 Redux，那么你的技能就得到了锻炼，你知道你可以的。MobX-State-Tree 展现出了结合 MobX、选项、状态、优化等所有的能力。这并不是一次就能全部理解的内容，但每次你学到新的知识时，你就会使你的应用更加强大。
 
 **你想拥抱未来吗？**
 
-毫无疑问，GraphQL 正在技术领域引起轰动。现在，如果使用 AppSync  进行网络请求，或者只是使用 apollo-link-state 来管理本地数据，那么就放弃了一些对细节的控制，但获得了回报。请密切关注上面这些库的发展。很可能上面的许多状态管理库在不久的将来不得不适配 GraphQL。
+毫无疑问，GraphQL 正在技术领域引起轰动。现在，如果使用 AppSync 进行网络请求，或者只是使用 apollo-link-state 来管理本地数据，那么就放弃了一些对细节的控制，但获得了回报。请密切关注上面这些库的发展。很可能上面的许多状态管理库在不久的将来不得不适配 GraphQL。
 
 * * *
 
