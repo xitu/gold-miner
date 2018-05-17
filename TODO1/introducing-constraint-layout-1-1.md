@@ -44,7 +44,7 @@ dependencies {
 
 ![](https://cdn-images-1.medium.com/max/800/1*3wFzyPS9Fpc-b52roKVSCQ.gif)
 
-通过 **spread，** **spread_inside** 和 **packed**，链条能够让你配置如何布置多个相关的视图。
+通过 **spread**，**spread_inside** 和 **packed**，链条能够让你配置如何布置多个相关的视图。
 
 `app:layout_constraintVertical_chainStyle` 属性可以在链条中作用任何视图。 你可以设置它的值为 `spread`， `spread_inside`或者 `packed`.
 
