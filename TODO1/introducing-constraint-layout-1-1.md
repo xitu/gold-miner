@@ -7,7 +7,7 @@
 
 # 带你领略ConstraintLayout 1.1 的新功能
 
-**约束布局**(ConstraintLayout)通过使用 Android Studio 中的虚拟视图编辑器来为你生成绝大多数的UI，进而达到简化 Android 中创建复杂布局的目的。它通常被我们描述为更加强大的`相对布局`。通过使用约束布局，你可以定义一些复杂的布局而不需要创建复杂的视图层级。
+**约束布局**（ConstraintLayout）通过使用 Android Studio 中的虚拟视图编辑器来为你生成绝大多数的 UI ，进而达到简化 Android 中创建复杂布局的目的。它通常被我们描述为更加强大的`相对布局`。通过使用约束布局，你可以定义一些复杂的布局而不需要创建复杂的视图层级。
 
 约束布局最近发布了 1.1 稳定版本，并迅速获得大量好评。全面的优化改进可以让多数布局的运行速度比以前更快，屏障和群组等新功能使现实生活的设计变得简单！
 
@@ -19,7 +19,7 @@ dependencies {
 }
 ```
 
-如果你想要在项目中使用新特性，需要添加Constraint Layout 1.1 版本作为依赖。
+如果你想要在项目中使用新特性，需要添加 ConstraintLayout 1.1 版本作为依赖。
 
 ### 1.1 版本中的新特性
 
@@ -29,7 +29,7 @@ dependencies {
 
 使用百分比指定按钮的宽度，以便在保持设计效果的同时适应可用空间。
 
-所有视图都支持 `layout_constraintWidth_percent` 和 `layout_constraintHeight_percent` 属性。这些将导致约束被固定在百分比的可用空间。 因此，使用几行XML代码就可以使 Button 或 TextView 展开并以百分比填充屏幕。
+所有视图都支持 `layout_constraintWidth_percent` 和 `layout_constraintHeight_percent` 属性。这些将导致约束被固定在百分比的可用空间。 因此，使用几行 XML 代码就可以使 Button 或 TextView 展开并以百分比填充屏幕。
 
 ```
 <Button
@@ -46,7 +46,7 @@ dependencies {
 
 通过 **spread**，**spread_inside** 和 **packed**，链条能够让你配置如何布置多个相关的视图。
 
-`app:layout_constraintVertical_chainStyle` 属性可以在链条中作用任何视图。 你可以设置它的值为 `spread`， `spread_inside`或者 `packed`.
+`app:layout_constraintVertical_chainStyle` 属性可以在链条中作用任何视图。 你可以设置它的值为 `spread` ， `spread_inside`或者 `packed`。
 
 *   **spread** ：均匀分配链中的所有视图
 *   **spread_inside** ：将第一个元素和最后一个元素放置在边缘上，并均匀分布其余元素
@@ -60,7 +60,7 @@ dependencies {
 
 ![](https://cdn-images-1.medium.com/max/800/1*6Moj_NLX9iIzfen3aUh6WA.gif)
 
-障碍允许你通过几个视图来创建一个约束。
+屏障允许你通过几个视图来创建一个约束。
 
 屏障将始终将自己置于虚拟群组之外，并且您可以使用它来限制其他视图。在上面这个例子中，右视图被限制为始终处于最大文本视图的末尾。
 
@@ -68,7 +68,7 @@ dependencies {
 
 有时您需要一次显示或隐藏多个元素。为了支持这个，约束布局增加了**群组**功能。
 
-一个群组并没有向视图层添加级别 - 这实际上只是一种标记视图的方式。在下面的示例中，我们将标记 `profile_name` 和 `profile_image` 以供id配置文件引用。
+一个群组并没有增加视图的层级 - 这实际上只是一种标记视图的方式。在下面的示例中，我们将标记 `profile_name` 和 `profile_image` 以供id配置文件引用。
 
 当您有多个需要显示或陈列在一起的元素时，这将很有用。
 
@@ -110,7 +110,7 @@ profile.visibility = VISIBLE
 
 一个 `ConstraintSet` 仅持有一个 `ConstraintLayout` 的约束。你可以在代码中创建一个ConstraintSet，或者从一个布局文件中加载它。然后，您可以将 `ConstraintSet` 应用于 `ConstraintLayout` ，更新所有约束以匹配 `ConstraintSet` 中的约束。
 
-要使其具有动画效果，请使用support library中的 [`TransitionManager.beginDelayedTransition()`](https://developer.android.com/reference/android/transition/TransitionManager.html#beginDelayedTransition%28android.view.ViewGroup%29) 方法。此功能将使您的 `ConstraintSet` 中的所有布局的更新都通过动画来呈现。
+要使其具有动画效果，请使用 support library 中的 [`TransitionManager.beginDelayedTransition()`](https://developer.android.com/reference/android/transition/TransitionManager.html#beginDelayedTransition%28android.view.ViewGroup%29) 方法。此功能将使您的 `ConstraintSet` 中的所有布局的更新都通过动画来呈现。
 
 这是一个更深入地涵盖了这个话题的视频：
 
