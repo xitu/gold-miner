@@ -146,7 +146,7 @@ target ‘AppFramework’
 
 现在来到了最后一步：编写一些代码。在这里我们需要在 Playground 导入 `AppFramework` 和 `Cheers`。我们需要像在应用工程中一样，导入 Playground 中所有使用的 Pod。
 
-Playground 能够最好地测试我们的独立框架或应用。选择 `MyPlayground` 并添加下面的代码。这里通知  `liveView` 通过 `ViewController` 来呈现：
+Playground 能够最好地测试我们的独立框架或应用。选择 `MyPlayground` 并添加下面的代码。这里通知 `liveView` 通过 `ViewController` 来呈现：
 
 ```
 import UIKit
@@ -303,7 +303,7 @@ public class ResourceViewController: UIViewController {
 
 ![](https://cdn-images-1.medium.com/max/800/1*4gH9VnqAP7wvJfRAQIoo1w.png)
 
-让我们看看 Playground 能否识别这些 Assets 中的资源。在 `MyPlayground` 新建名为 `Resource` 页面，并输入一下代码：
+让我们看看 Playground 能否识别这些 Assets 中的资源。在 `MyPlayground` 新建名为 `Resource` 页面，并输入以下代码：
 
 ```
 import UIKit
@@ -316,7 +316,7 @@ controller.view.frame.size = CGSize(width: 375, height: 667)
 PlaygroundPage.current.liveView = controller.view
 ```
 
-等待 Playground 完成运行。哎呀。在 Playground 中并不是那么好，它不能识别图像和本地化的字符串。😢
+等待 Playground 运行完成。哎呀。在 Playground 中并不是那么好，它不能识别图像和本地化的字符串。😢
 
 ![](https://cdn-images-1.medium.com/max/800/1*Vgzy7nGWLfnydX3SOjmD4Q.png)
 
@@ -348,7 +348,7 @@ let myBundle = Bundle(for: NSClassFromString("MyPrivateClass")!)
 
 #### 步骤 2：指定 bundle
 
-如果我们不指定 bundle，那么默认会使用 `mainBundle`。在执行的 Playground 的上下文中，`mainBundle` 指它的 `Resources` 文件夹。但我们希望 Playground 访问 AppFramework 中的资源，所以我们需要在 `AppFramework` 中使用一个类调用 `[Bundle.nit(for:)](https://developer.apple.com/documentation/foundation/bundle/1417717-init)` 方法来引用 `AppFramework` 中的 bundle。该类可以是 `ResourceViewController`，因为它也被添加到 `AppFramework` 目标中。
+如果我们不指定 bundle，那么默认会使用 `mainBundle`。在执行的 Playground 的上下文中，`mainBundle` 指它的 `Resources` 文件夹。但我们希望 Playground 访问 AppFramework 中的资源，所以我们需要在 `AppFramework` 中使用一个类调用 `[Bundle.nit(for:)](https://developer.apple.com/documentation/foundation/bundle/1417717-init)` 方法来引用 `AppFramework` 中的 bundle。该类可以是 `ResourceViewController`，因为它也被添加到 `AppFramework` target 中。
 
 将 `ResourceViewController` 中的代码更改为：
 
