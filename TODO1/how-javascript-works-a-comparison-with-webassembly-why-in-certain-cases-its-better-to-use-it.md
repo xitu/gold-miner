@@ -10,10 +10,10 @@
 这是专门探索 JavaScript 及其构建组件系列的第 6 期。在识别和描述核心元素的过程中，我们还分享了构建 SessionStack 时使用的一些经验法则 —— 这是一个轻量级的 JavaScript 应用程序，但必须强大且性能卓越，才能帮助用户实时查看和重现其 Web 应用的缺陷。
 
 1. [[译] JavaScript 是如何工作的：对引擎、运行时、调用堆栈的概述](https://juejin.im/post/5a05b4576fb9a04519690d42)
-2. [[译] JavaScript 是如何工作的：在 V8 引擎里 5 个优化代码的技巧](https://github.com/xitu/gold-miner/blob/master/TODO/how-javascript-works-inside-the-v8-engine-5-tips-on-how-to-write-optimized-code.md)
-3. [[译] JavaScript 是如何工作的：内存管理 + 处理常见的4种内存泄漏](https://github.com/xitu/gold-miner/blob/master/TODO/how-javascript-works-memory-management-how-to-handle-4-common-memory-leaks.md)
-4. [[译] JavaScript 是如何工作的: 事件循环和异步编程的崛起 + 5个如何更好的使用 async/await 编码的技巧](https://github.com/xitu/gold-miner/blob/master/TODO/how-javascript-works-event-loop-and-the-rise-of-async-programming-5-ways-to-better-coding-with.md)
-5. [[译] JavaScript 是如何工作的：深入剖析 WebSockets 和拥有 SSE 技术 的 HTTP/2，以及如何在二者中做出正确的选择](https://github.com/xitu/gold-miner/blob/master/TODO/how-javascript-works-deep-dive-into-websockets-and-http-2-with-sse-how-to-pick-the-right-path.md)
+2. [[译] JavaScript 是如何工作的：在 V8 引擎里 5 个优化代码的技巧](https://juejin.im/post/5a102e656fb9a044fd1158c6)
+3. [[译] JavaScript 是如何工作的：内存管理 + 处理常见的4种内存泄漏](https://juejin.im/post/5a2559ae6fb9a044fe4634ba)
+4. [[译] JavaScript 是如何工作的: 事件循环和异步编程的崛起 + 5个如何更好的使用 async/await 编码的技巧](https://juejin.im/post/5a221d35f265da43356291cc)
+5. [[译] JavaScript 是如何工作的：深入剖析 WebSockets 和拥有 SSE 技术 的 HTTP/2，以及如何在二者中做出正确的选择](https://juejin.im/post/5a522647518825732d7f6cbb)
 
 这次我们将剖析 WebAssembly 的工作原理，更重要的是在性能方面分析它与 JavaScript 的差异：加载时间、执行速度、垃圾回收、内存使用情况、平台 API 调用、调试、多线程和可移植性。
 
@@ -21,7 +21,7 @@
 
 #### 首先，让我们看看 WebAssembly 的功能
 
-WebAssembly（也叫作 **wasm**）是一种高效且低级的给 web 使用的字节码。
+WebAssembly（也叫作 **wasm**）是一种高效且底层的给 web 使用的字节码。
 
 WASM 让你能够用 JavaScript 之外的语言（例如 C、C++、Rust 或其他）编写程序，然后将其（提前）编译到 WebAssembly。
 
@@ -31,15 +31,15 @@ WASM 让你能够用 JavaScript 之外的语言（例如 C、C++、Rust 或其�
 
 为了加载 JavaScript，浏览器必须加载所有文本形式的 `.js` 文件。
 
-WebAssembly 在浏览器中加载速度更快，因为只需通过互联网传输已编译的 wasm 文件。而 wasm 是一种非常简洁的二进制格式的低级类汇编语言。
+WebAssembly 在浏览器中加载速度更快，因为只需通过互联网传输已编译的 wasm 文件。而 wasm 是一种非常简洁的二进制格式的底层类汇编语言。
 
 #### 执行
 
-今天 Wasm 的运行速度只**比本地代码执行**慢 20%。无论如何，这是一个惊人的结果。这是一种编译到沙盒环境中的格式，并且在很多约束条件下运行，以确保它没有或者很难有安全漏洞。与真正的本地代码相比，速度损失很小。更重要的是，它将**在未来更快**。
+今天 Wasm 的运行速度只**比本地代码（native code）执行**慢 20%。无论如何，这是一个惊人的结果。这是一种编译到沙盒环境中的格式，并且在很多约束条件下运行，以确保它没有或者很难有安全漏洞。与真正的本地代码相比，速度损失很小。更重要的是，它将**在未来更快**。
 
-更好的是，它与浏览器无关 —— 目前所有主要引擎都增加了对 WebAssembly 的支持，并且提供类似的运行时。
+更好的是，它与浏览器无关 —— 目前所有主要引擎都增加了对 WebAssembly 的支持，并且执行时间相近。
 
-为了理解 WebAssembly 与 JavaScript 相比执行得有多快，你应该首先阅读[我们关于 JavaScript 引擎的文章](https://blog.sessionstack.com/how-javascript-works-inside-the-v8-engine- 5-tips-how-to-write-optimized-code-ac089e62b12esource=---------3----------------)。
+为了理解 WebAssembly 与 JavaScript 相比执行得有多快，你应该首先阅读[我们关于 JavaScript 引擎的文章](https://juejin.im/post/5a102e656fb9a044fd1158c6)。
 
 我们来看看大概看看 V8 中会发生什么：
 
@@ -55,7 +55,7 @@ V8 的方法：延迟编译
 
 V8 流水线设计。
 
-这次我们有了 [TurboFan](https://github.com/v8/v8/wiki/TurboFan) —— V8 的优化编译器之一。当你的 JavaScript 应用运行时，很多代码会在 V8 中运行。TurboFan 可以监控某些代码是否运行缓慢，是否存在瓶颈和热点来优化它们。它把这些代码推到编译器后端 —— 一个优化的 [JIT](https://en.wikipedia.org/wiki/Just-in-time_compilation)，这个后端可为那些消耗大部分 CPU 的函数创建更快的代码。
+这次我们有了 [TurboFan](https://github.com/v8/v8/wiki/TurboFan) —— V8 的优化编译器之一。随着你的 JavaScript 应用的运行，大量代码运行在 V8 中。TurboFan 可以监控某些代码是否运行缓慢，是否存在瓶颈和热点来优化它们。它把这些代码推到编译器后端 —— 一个优化的 [JIT](https://en.wikipedia.org/wiki/Just-in-time_compilation)，这个后端可为那些消耗大部分 CPU 的函数创建更快的代码。
 
 它解决了上面的问题，但这里的问题在于，分析并决定优化哪些代码的过程也会消耗 CPU。这反过来又意味着更高的电池消耗，特别是在移动设备上。
 
@@ -65,7 +65,7 @@ V8 流水线设计。
 
 V8 流水线设计 + WASM。
 
-Wasm 在编译阶段就已经优化好。最重要的是，也不需要解析了的。你有了一个已优化的二进制文件，它可以直接挂接到生成机器码的编译器后端。所有优化都在编译器前端完成。
+Wasm 在编译阶段就已经优化好。最重要的是，也不再需要解析过程。你有了一个已优化的二进制文件，它可以直接挂接到生成机器码的编译器后端。所有优化都在编译器前端完成。
 
 这让执行 wasm 更有效率，因为流程中的很多步骤都可以简单地跳过。
 
@@ -81,7 +81,7 @@ WebAssembly 可信和不可信状态。
 
 WebAssembly 采用完全不同的模型。执行栈与 WebAssembly 程序本身是分开的，因此你无法修改栈变量等内容。而且，函数中使用整数偏移而不是指针。函数指向一个间接函数表。然后通过这些计算出的直接数字跳转到模块内部的函数中。这种设计方式使得你可以加载多个 wasm 模块，并排排列，平移所有的索引，互不影响。
 
-有关 JavaScript 中内存模型和管理的更多信息，可以查看我们非常详细的[关于此主题的文章](https://blog.sessionstack.com/how-javascript-works-memory-management-how-to-handle-4-common-memory-leaks-3f28b94cfbec)。
+有关 JavaScript 中内存模型和管理的更多信息，可以查看我们非常详细的[关于此主题的文章](https://juejin.im/post/5a2559ae6fb9a044fe4634ba)。
 
 #### 垃圾回收
 
@@ -89,7 +89,7 @@ WebAssembly 采用完全不同的模型。执行栈与 WebAssembly 程序本身�
 
 WebAssembly 的情况有点不同。它支持手动管理内存的语言。你的 wasm 模块可以自带 GC，但这是一项复杂的任务。
 
-目前，WebAssembly 是围绕 C++ 和 RUST 用例设计的。由于 wasm 是非常低级的，因此只有汇编语言上一层的编程语言才易于编译。C 可以使用普通的 malloc，C++ 可以使用智能指针，Rust 使用完全不同的形式（完全不同的主题）。这些语言不使用 GC，因此它们不需要哪些复杂的运行时来跟踪内存。WebAssembly 对他们来说是天作之合。
+目前，WebAssembly 是围绕 C++ 和 RUST 用例设计的。由于 wasm 是非常底层的，因此只有汇编语言上一层的编程语言才易于编译。C 可以使用普通的 malloc，C++ 可以使用智能指针，Rust 使用完全不同的形式（完全不同的主题）。这些语言不使用 GC，因此它们不需要那些复杂的运行时事务来跟踪内存。WebAssembly 对他们来说是天作之合。
 
 另外，这些语言并不是 100％ 被设计用于调用复杂的 JavaScript 事物，如操作 DOM。完全在 C++ 中编写 HTML 应用是没有意义的，因为 C++ 不是为它设计的。在大多数情况下，当工程师编写 C++ 或 Rust 时，他们的目标是 WebGL 或高度优化的库（例如繁重的数学计算）。
 
@@ -119,7 +119,7 @@ WebAssembly 目前不支持源码映射，因为暂时没有规范，但最终�
 
 #### 多线程
 
-JavaScript 在单线程上运行。有很多方法可以发挥事件循环和异步编程优势，详见[我们关于该主题的文章](https://blog.sessionstack.com/how-javascript-works-event-loop-and-the-rise-of-async-programming-5-ways-to-better-coding-with-2f077c4438b5)。
+JavaScript 在单线程上运行。有很多方法可以发挥事件循环和异步编程优势，详见[我们关于该主题的文章](https://juejin.im/post/5a221d35f265da43356291cc)。
 
 JavaScript 也使用 Web Workers，但他们有一个非常具体的用例 —— 基本上，阻止主 UI 线程的任何重 CPU 计算都可以从 Web Worker 中受益。但是 Web Workers 无法访问 DOM。
 
