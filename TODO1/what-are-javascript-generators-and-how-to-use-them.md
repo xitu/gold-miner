@@ -9,7 +9,7 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/1*9XJAQFEiYvd2i1hv9tgwXA.jpeg)
 
-In this article, we’re going to take a look at the generators that were introduced in ECMAScript 6\. We’ll see what it is and then look at some examples of their use.
+In this article, we’re going to take a look at the generators that were introduced in ECMAScript 6. We’ll see what it is and then look at some examples of their use.
 
 ### What are JavaScript Generators?
 
