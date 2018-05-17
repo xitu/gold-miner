@@ -20,7 +20,7 @@ PoseNet 使用单人姿态或多人姿态算法可以检测图像和视频中的
 
 **那么，姿态估计究竟是什么呢？**姿态估计是指在图像和视频中检测人物的计算机视觉技术，比如，可以确定某个人的肘部在图像中的位置。需要澄清一点，这项技术并不是识别图像中是**谁** —— 姿态估计不涉及任何个人身份信息。该算法仅仅是估计身体关键关节的位置。
 
-**好吧，为什么这是令人兴奋的开始？**姿态估计有很多用途，从[互动]((https://vimeo.com/128375543)[装置](https://www.youtube.com/watch?v=I5__9hq-yas)[反馈](https://vimeo.com/34824490)给[身体](https://vimeo.com/2892576)，到[增强现实](https://www.instagram.com/p/BbkKLiegrTR/)，[动画](https://www.instagram.com/p/Bg1EgOihgyh/?taken-by=millchannel)，[健身用途](https://www.runnersneed.com/expert-advice/gear-guides/gait-analysis.html)等等。我们希望借助此模型激发更多的开发人员和制造商尝试将姿态检测应用到他们自己的独特项目中。虽然许多同类姿态检测系统也已经[开源](https://github.com/CMU-Perceptual-Computing-Lab/openpose)，但它们都需要专门的硬件和/或相机，以及相当多的系统安装。**借助运行在 [**TensorFlow.js**](https://js.tensorflow.org/) 上的 PoseNet，任何人只需拥有带摄像头的台式机或者手机即可在浏览器中体验这项技术**。而且由于我们已经开源了这个模型，JavaScript 开发人员可以用几行代码来修改和使用这个技术。更重要的是，这实际上可以帮助保护用户隐私。因为基于 TensorFlow.js 的 PoseNet 运行在浏览器中，任何姿态数据都不会离开用户的计算机。
+**好吧，为什么这是令人兴奋的开始**？姿态估计有很多用途，从[互动](https://vimeo.com/128375543)[装置](https://www.youtube.com/watch?v=I5__9hq-yas)[反馈](https://vimeo.com/34824490)给[身体](https://vimeo.com/2892576)，到[增强现实](https://www.instagram.com/p/BbkKLiegrTR/)，[动画](https://www.instagram.com/p/Bg1EgOihgyh/?taken-by=millchannel)，[健身用途](https://www.runnersneed.com/expert-advice/gear-guides/gait-analysis.html)等等。我们希望借助此模型激发更多的开发人员和制造商尝试将姿态检测应用到他们自己的独特项目中。虽然许多同类姿态检测系统也已经[开源](https://github.com/CMU-Perceptual-Computing-Lab/openpose)，但它们都需要专门的硬件和/或相机，以及相当多的系统安装。 **借助运行在** [**TensorFlow.js**](https://js.tensorflow.org/) **上的 PoseNet**，**任何人只需拥有带摄像头的台式机或者手机即可在浏览器中体验这项技术**。而且由于我们已经开源了这个模型，JavaScript 开发人员可以用几行代码来修改和使用这个技术。更重要的是，这实际上可以帮助保护用户隐私。因为基于 TensorFlow.js 的 PoseNet 运行在浏览器中，任何姿态数据都不会离开用户的计算机。
 
 在我们深入探讨如何使用这个模型的细节之前，先向所有让这个项目成为可能的人们致意：论文[**对户外多人姿态的精确估计**](https://arxiv.org/abs/1701.01779) 和 [**PersonLab: 自下而上的局部几何嵌入模型的人体姿态估计和实例分割**](https://arxiv.org/abs/1803.08225)的作者 [George Papandreou](https://research.google.com/pubs/GeorgePapandreou.html) 和 [Tyler Zhu](https://research.google.com/pubs/TylerZhu.html)，以及 [TensorFlow.js](https://js.tensorflow.org/) 库背后的 Google Brain 小组的工程师 [Nikhil Thorat](https://twitter.com/nsthorat) 和 [Daniel Smilkov](https://twitter.com/dsmilkov?lang=en)。
 
@@ -270,7 +270,7 @@ const poses = await net.estimateMultiplePoses(
 
 输出步幅决定了输出相对于输入图像的缩小程度。较高的输出步幅会更快，但会导致精度较低。
 
-本质是，当输出步幅设置为 8 或 16 时，层中的输入量减少使得可以创建更大的输出分辨率。然后使用[Atrous 卷积](https://www.tensorflow.org/api_docs/python/tf/nn/atrous_conv2d)来使后续图层中的卷积滤波器具有更宽的视野（当输出步幅为 32 时，不会应用 atrous 卷积）。虽然Tensorflow 支持 atrous 卷积，但 TensorFlow.js 不支持，所以我们添加了一个 [PR](https://github.com/tensorflow/tfjs-core/pull/794) 来包含这个。
+本质是，当输出步幅设置为 8 或 16 时，层中的输入量减少使得可以创建更大的输出分辨率。然后使用 [Atrous 卷积](https://www.tensorflow.org/api_docs/python/tf/nn/atrous_conv2d)来使后续图层中的卷积滤波器具有更宽的视野（当输出步幅为 32 时，不会应用 atrous 卷积）。虽然 Tensorflow 支持 atrous 卷积，但 TensorFlow.js 不支持，所以我们添加了一个 [PR](https://github.com/tensorflow/tfjs-core/pull/794) 来包含这个。
 
 **模型输出：热图和偏移矢量**
 
