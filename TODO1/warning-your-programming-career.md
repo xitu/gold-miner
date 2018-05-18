@@ -2,135 +2,135 @@
 > * 原文作者：[Vardan Grigoryan (vardanator)](https://medium.com/@vardanator?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/warning-your-programming-career.md](https://github.com/xitu/gold-miner/blob/master/TODO1/warning-your-programming-career.md)
-> * 译者：
+> * 译者：[kezhenxu94](https://github.com/kezhenxu94/)
 > * 校对者：
 
-# Warning: Your programming career
+# 关于你的编程生涯的一些告诫
 
-## How not to get lost in the dark forests of programming
+## 如何避免迷失在编程的黑色森林中
 
 ![](https://cdn-images-1.medium.com/max/2000/1*SNOF9EOlDnAViwEZAoFwmg.jpeg)
 
-The main thing that was bothering me while I was just starting my coding career was the language/technology choice. What should I learn, where should I start? What should I know to get my first job as a programmer? Back then (almost 10 years now) there wasn’t Coursera, or Udemy or [SoloLearn](https://www.sololearn.com/). I wasn’t able to figure out the exact direction, the complete path leading to a successful job myself. The highly paid, fully fed, kindly treated job of the astronaut of the 21st century: the programmer.
+在我的编程生涯刚刚开始的时候，主要困扰我的一件事情就是编程语言/编程技术的选择。我应该学什么，从哪里入门？要得到我的第一份编程工作我需要学会什么？回望过去（距今大概已经 10 年），那时还没有像 [Coursera](https://www.coursera.org/)，[Udemy](https://www.udemy.com/) 和 [SoloLearn](https://www.sololearn.com/) 这样的在线教育学习平台。那时的我也还无法全靠自己就能寻找到通往成功事业的正确方向和完整道路。对于程序员这个岗位，高回报、待遇好，简直堪称 21 世纪的宇航员。
 
-The very same problem still exists: beginners are stuck at the choice, there isn’t a straight path to become a good programmer and the community isn’t so warm in welcoming the newbie questions like “iz pythn a gut lang???”. The path to a successful programming career is even vaguer than before. You (supposing you are a beginner) should choose between C++/C++11/C++14/C++17, Java, C#, Kotlin, PHP (what?), Python, Node.js, JavaScript, (wait, with Angular, React or Vue?) and so on.
+同样的问题至今依然存在：初学者苦于选择。没有成为好程序员的直达途径，社区通常对于像”Python 是一门胶水语言吗？？？”这样的新手问题不太热情。通往成功的编程事业的道路似乎比以前还更加迷茫。你（假设你是个初学者）必须面临以下选择：C++/C++11/C++14/C++17, Java, C#, Kotlin, PHT（神马？），Python, Node.js, JavaScript（慢着，还包括 Angular, React 或 Vue 吗？），等等。
 
-### The language, the technology, or the skills?
+### 语言、技术、还是技能？
 
-To answer your main question, I have to ask you one first. **What do you want?** Are you excited to build mobile apps, a website, a website like Facebook or a website like Medium, or do you want to build a desktop application like Photoshop? Maybe you are fully into the game development? Mobile? Desktop?
+为了回答这个关键的问题，我必须得先问你，**你想要的是什么？**你是对构建手机应用感兴趣、还是对构建像 Facebook 和 Medium 这样的网站感兴趣、或者说你更想构建像 Photoshop 这样类型的桌面应用？还是说你全身心喜爱游戏开发？移动端游戏还是桌面游戏？
 
-The most intelligent way to answer “**what should I know to get hired at a tech company as a software engineer**?” is to find out the main skills you should master to successfully pass the technical interview. But first, we should put things in order, let’s dive into the programming world, its countries and cities, its cultures and wars, its wins and losses. For those who aren’t patient enough, scroll down to the “Preparing for Coding Interviews” section.
+“**为了得到一个科技公司的软件工程师职位，我应该学会什么**？”，我觉得回答这个问题最明智的方式就是先找出为了通过这次技术面试你必须掌握的关键技能。但我们应该首先把事情整理妥当，现在让我们深入了解编程的世界、它的国家、城市，它的文化、战争，它的成功、失败。对于那些没有耐心看这么多的读者，你可以直接滚动到“为技术面试做准备”那一节。
 
-Exploring the world of programming brings us to 3 main platforms:
+探索编程的世界首先让我们面临着 3 大主要平台：
 
-1.  **Web** (Google Search, Facebook, Amazon, Twitter and others)
-2.  **Desktop** (Dropbox, Photoshop, Visual Studio, Skype and others)
-3.  **Mobile** ([SoloLearn](https://www.sololearn.com/), Instagram, Uber and others)
+1.  **Web 端**（像 Google 搜索引擎，Facebook，亚马逊，Twitter，诸如此类）
+2.  **桌面端**（像 Dropbox, Photoshop, Visual Studio, Skype 等等）
+3.  **移动端**（[SoloLearn](https://www.sololearn.com/), Instagram, Uber 以及其他）
 
-Most of the services above exist in almost all of the platforms, for instance, Skype is a desktop, mobile and (although poorly done) web application, Twitter is a web and mobile application and so on.
+其实以上所说的大部分服务几乎在三个平台上都有产品，比如 Skype 就有桌面应用、手机端应用以及 Web 应用（尽管做得很烂），Twitter 就有 Web 应用和手机端应用，诸如此类。
 
 #### Web
 
-Web itself is a huge concept in this context, to shed light on it, we should separate it into so-called front-end and back-end, the latter being my personal favorite. Front-end is what you see, back-end is what you need in order to see what you see. Again, front-end is the look and feel, back-end is the servers running the application which processes user requests, handles database queries and so forth.
+Web 在此语境下本身就是个巨大的概念，为了解释这个概念，我们应该把它分为所谓的“前端”和“后端”，后者正是我个人所偏爱的。前端就是你在网页上所能看见的东西，后端则为你所能看见的东西提供必不可少的支持。总的来说就是，前端就是网站的外观和体验，后端了就是运行着用来处理用户请求的服务，包括像处理数据库查询诸如此类的事。
 
-**Front-end.** If you want to master the look and feel, i.e. build websites that are so beautiful that users fall in love, you should know HTML (the look), CSS (the look and feel), JavaScript (the feel). This isn’t just enough, using pure JavaScript is not enough nowadays, so you have to choose the right framework, currently popular Angular, React or Vue. Which one to choose is mostly based on the company you like the most, Google or Facebook? Go with Angular if you like Google, and with React if you like Facebook. If you don’t like any of them (weird), go with Vue. Simple! Besides these, you should master some fundamental concepts, like the inner workings of the HTTP Protocol, be familiar with web servers (at least you should not be scared of names like Apache or Nginx). Being a front-end developer means you get the data to render (beautify for users) from the back-end, so some minimum understanding of what an API is, what is JSON (and why it’s better than XML) is a must. (If anything sounds way too unfamiliar, check the References section at the end of this post).
+**前端。**如果你想精通如何处理网站的外观和体验，例如：构建精美绝伦的网站，让用户爱不释手，那你就应该学习 HTML（外观）、CSS（外观和体验）、JavaScrip（体验）。当然这还不够。从现在看来，使用纯 JavaScript 是不足够的，所以你得选择一个合适的框架，目前比较流行的有 Angular，React 和 Vue。选择哪个主要取决于你最想去哪个公司，Google 还是 Facebook？如果是 Google 那就选 Angular，如果是 Facebook 那就选 React。如果两个都不喜欢（有点奇怪），那就选 Vue。简单明了！除了这些你还需要掌握一些基础概念，像 HTTP 协议的内部工作原理；你还需要熟悉一些 Web 服务器（至少不应该被像 Apache 和 Nginx 这样的名词吓坏）。成为一名前端工程师意味着你必须要渲染你从后台服务器得到的数据（为用户做美化），所以对像“什么是 API“、“什么是 JSON（以及为何它比 XML 要好）”之类的问题有个最基本的了解是必须的。（如果以上所说的你有任何觉得很陌生的，可以查看本文末尾“参考文献”那一节的内容）。
 
 ![](https://cdn-images-1.medium.com/max/800/1*mJ_4xsEgEizLg9xenU1yUw.jpeg)
 
-One of many memes on the web describing the difference between front-end and back-end.
+一张网络上描述前端和后端区别的趣图。
 
-**Back-end.** The unseen truth, the untold story. In the old days, knowing PHP was enough to call yourself a back-end developer, then Microsoft introduced ASP.NET. They were fighting each other until Node.js came and put things in their best order. Some concepts of event-driven development are best applied at Node.js, so if you choose it, you are doing a good favor to your project.
+**后端。**就是看不见的真理，道不清的故事了。在上古时代，了解 PHP 的话你就可以宣称自己是个后端工程师了，后来微软引入了 ASP.NET，两者相互角逐，直到 Node.js 驾着七彩祥云来到，整治混沌，让一切各得其所。在 Node.js 中，事件驱动开发的概念被应用得淋漓尽致，因此如果你选择了它，你就已经为你的项目帮了一个大忙。
 
-The confusing part of the back-end is its language diversity, well, you can use any language you want at the back-end, the point is, “back-end” is a short name for “query database, process data, respond to client and do it as efficient as you can” and choosing the “right” language/technology/database is not an option. While some developers go with Relational Databases like MySQL or PostgreSQL, newcomers choose the dark side, NoSQL (like Cassandra or MongoDB). The choice is really yours, but I’ve got a simple formula. Do you have a strict schema for your data and it won’t change much in the near future? Choose Relational Database. Do you have more than million visits per minute? Change to NoSQL (painfully). Does your product change rapidly? Choose NoSQL. Let’s say you chose the side, now, what concrete technology should you choose? Do you like Microsoft and you have Windows Servers? Choose MsSQL. Do you like Oracle? Choose Oracle. Are you ok with Oracle, but you hate Microsoft at the same time? Choose MySQL. You just really don’t want to hurt anyone? Choose PostgreSQL.
+后端领域中很令人困惑的一个部分就是它的语言多样性，就是说，你可以使用任何你希望使用的语言来实现后端，但关键是：“后端”本身是个简称，它包含了“查询数据库、处理数据、响应客户端，以及尽最大努力使得响应最高效”，这并非你选择了“对的”语言/技术/数据库就搞定了的。有一些开发者选择类似 MySQL 或 PostgrSQL 这样的**关系型数据库**，也有一些新入圈的开发者选择了另一种，就像 Cassandra 或 MongoDB。做出什么样的选择当然取决于你了，但我有个简单的法则。你的数据有严格的模式、并且在短时间内不会发生改变？那就选择关系型数据库吧。你的服务每分钟有超过数百万的访问量了？那就得切换到 NoSQL 了（切换过程很蛋疼）。你的产品变化得非常迅速？那就选择 NoSQL。假如说你已经选择好了数据库类型了，那具体的数据库你应该怎么选呢？你喜欢微软并且有 Windows 服务器？那就选择 MsSQL。你喜欢 Oracle？那就选 Oracle 数据库。你对 Oracle 觉得还行、但是同时又讨厌微软？那就选择 MySQL。或者说你谁也不愿得罪？那就选择 PostgreSQL 吧。
 
-NoSQL comes in tricky. It really depends on your service and data architecture. You’ve got just documents and some weak connections among them? Choose MongoDB. You need to store a huge bunch of key-value pairs? Choose Redis. You are working with a graph-like structure (Facebook friends graph, Google knowledge graph, etc.)? Choose Neo4j. Aren’t really sure what exactly you need, but you feel that you need all of them? Choose ArangoDB.
+对 NoSQL 数据库的选择而言就略显纠结了。这真的取决于你的后端服务和数据架构。你只有一些文档然后它们之间的联系还很微弱？那就选 MongoDB 吧。你需要存储一大堆的**键-值**对？那就选 Redis。你正在处理像**图**这种结构的数据（Facebook 的好友关系图，Google 的知识网络图，等等）？那就选 Neo4j。还不确定你究竟需要什么、但你觉得以上所说的你都需要？那就选 ArangoDB 吧。
 
-While database holds all the necessary data, you should define an API through which your clients can request and read/write to the database. The most useful option here is Node.js, though you can go with PHP or ASP.NET or Ruby or Python, my personal recommendation would be Node.js. Well, Facebook uses PHP at its backend, kind of. They rewrote a huge part of PHP in C++. Some use Python while others prefer Ruby. It’s true that you can use almost any language at the back-end, for instance, Google uses C++, Java and Python (along with Go). For low-level data processing, C++ fits the best, for background jobs like updating user’s friend recommendations, Java is a good option. For data analysis or natural language processing or for nowadays highly popular AI-related tasks you most probably will use Python.
+数据库存储了所有必要的数据，同时你也应该定义一种 API，使得你的客户端可以通过它来请求对数据库进行读/写。这里更有用的选择就是 Node.js。Facebook 选择了 PHP 来作为它的后端实现，然后他们又用 C++ 重写了其中的很大一部分 PHP 代码。有人使用 Python 但也有人更喜欢 Ruby。确实是这样的，你能选择任何语言来实现后端服务。比如说：Google 使用 C++、Java 和 Python（跟 Go 结合使用）。对于底层的数据处理，C++ 最合适不过了；对于后台任务，像更新用户的朋友推荐，Java 是个好的选择；对于数据分析、自然语言处理或当今最流行的与人工智能相关的任务，你很可能会选择 Python。
 
-Again, besides various languages, frameworks, databases at back-end, there are some core concepts that you have to master.
+重申一遍，后端除了各种各样的编程语言、框架、数据库，还有一些你必须掌握的核心概念。
 
-*   **Caching**. Starting from the CPU cache (with different levels) and ending with browser cache. Caching used everywhere, for high load services like Google Search or Facebook, caching is extremely necessary.
-*   **Servers**. While you might think this is related to the hardware (which will be great if you know how to setup several computers to work as one piece in storing and processing data), for the back-end developer server means the web server. Popular web server nowadays is Nginx and knowing how to setup and configure it will pay highly in your future endeavors.
-*   **Sockets**. Cornerstone of the network programming. Everything you send/receive via network is done by sockets. Knowing low-level details of socket programming is a good bonus in your skills inventory (knowing difference between TCP sockets, UDP sockets and what are WebSockets is a huge plus).
-*   **Database Design**. No matter what DBMS you choose or have to work with, operating with data will be one of your main tasks. Ability to see the complete picture, visualize data and connections between data units is a skill you will master during your whole programming career.
-*   **Security**. As other concepts mentioned above, this one is very broad, too. You can’t master any of them completely, so you should at least be familiar with some best practices such as storing password hashes rather than as plain texts. Checking requests via API token, verifying user permissions for each request and so on.
+*   **缓存**。从底层的 CPU 缓存（有不同层级的缓存）到顶层的浏览器缓存。到处都在使用缓存。对于高负载的服务，像 Google 搜索引擎或 Facebook，缓存都是至关重要的。
+*   **服务器**。你可能会觉得这是关于硬件的（如果你知道怎么把多台计算机设置得像一台那样存储和处理数据的话，那最好不过了），对于后端工程师来说，服务器仅意味着 Web 服务器。目前流行的 Web 服务器就是 Nginx，了解如何设置和配置 Nginx 对你以后的努力会有高回报的。
+*   **套接字（Sockets）**。网络编程的基石。你通过网络发送和接受的所有东西都是通过套接字完成的。了解套接字编程的底层细节在你的技能谱中是一种额外加成，要是了解 TCP 套接字和 UDP 套接字的区别以及什么是 WebSocket，那就更是极大的附加价值了。
+*   **数据库设计**。不管你自己选择或不得已使用哪种数据库管理系统（DBMS），操作数据将是你的主要任务之一。看清整个数据库的大局、将数据可视化、了解数据单元之间的联系，在你的编程生涯中这些能力都是必须掌握的。
+*   **安全性**。与上述提及的概念不同的是，这个概念相对非常广泛。你甚至不可能完全掌握它，因此你至少要熟悉一些相关的最佳实践，比如不能明文存放密码，要使用密码的散列值/哈希值（hash）；通过 API 令牌检查请求的有效性，以及对用户的每个请求都要检验用户权限，诸如此类。
 
-#### Desktop
+#### 桌面端
 
-We will talk about the part of the desktop application that actually makes it a desktop application. There are tons of applications on Desktop platforms that need specific skill set, for instance, Photoshop is working with images, and knowing image processing algorithms and techniques is a must if you want to write something like Photoshop. Knowing socket programming is a must if you want to write something like Dropbox. Knowing how to engineer a compiler is a must of you want to build a compiler or IDE like Visual Studio. We won’t touch upon specifics, let’s just explore the languages you most probably will use if you want to work on desktop platform.
+我们将会讨论桌面应用之所以为桌面应用最相关的那一部分。桌面端成千上万需要特殊的技能谱的桌面应用，例如 Photoshop 是处理图片的，那么如果你想开发类似于 Photoshop 这样的桌面应用，掌握处理图片的算法和技术对你来说就是必须的；如果你想开发类似于 Dropbox 这样的应用，那么了解套接字编程就是必须的；如果你想开发编译器或像 Visual Studio 这样的 IDE，那么了解如何设计编译器就是必须的。我们不会讨论这些特定的领域，我们就探究一下你在桌面端开发中最可能使用到的语言吧。
 
-When it comes to languages for desktop applications programmers are having a hard time choosing among C++, Java or C#. There is a simple formula to make the right choice: if you like Microsoft, use C#. If you like Oracle, use Java. If you think that a programming language should not be owned by a particular company, use C++. If this isn’t helping much, let’s discuss the actual sub-platforms. If you write software only for Windows users, C# is the best choice. It’s kind of obvious as both are products of Microsoft and they fit together the best. Though C# developers insist that after the release of .Net Core, C# can be used in Linux environment, too, I personally suggest to go with C++ if you want to cover Linux. The point is, C++ was been created as a cross-platform programming language, which works great in all operating systems out there (yes, even MacOS). Well, cross-platform in this context supposes that you have to compile your C++ project in all operating systems separately to ship “different” executables of your application for each concrete OS. And, honestly, C++ lacks any GUI. The greatest excuse for that is the fact that “C++ is for hardcore developers, and hardcore developers use nothing but Terminal (command line interface)”. However, kind developers gathered together and created Qt, the very best cross-platform GUI library that fits perfectly with C++.
+当涉及到开发桌面端使用什么语言的时候，开发者通常会很艰难地在 C++，Java 和 C# 之间进行选择。我有一个简单地法则来做出正确地选择：如果你喜欢微软，那就选 C#；如果你喜欢 Oracle，那就选 Java；如果你觉得一门编程语言不应该被某一个公司所拥有，那就选 C++。如果这个法则对你来说不那么有效的话，我们可以再探讨一下一些实际的子平台。如果你的应用目标群体只针对 Windows 用户，C# 是最佳选择，很明显，因为它们都是微软的产品，因此相互适配得很好。可能有些 C# 开发者坚持认为自从 .Net Core 发布之后，C# 也可以在 Linux 环境下开发，但我个人建议如果你想你的产品覆盖 Linux 平台的用户，最好还是选择 C++。决策点就是，开发 C++ 的初衷就是让它作为一门跨平台的编程语言，也就是说它在任何操作系统下都能够运行良好（对的，包括 MacOS）。好吧，这里所说的跨平台假定了你必须在所有的操作系统上分别编译、并且迁移应用程序的“各种”可执行文件到各种具体的操作系统。坦白来说，C++ 确实缺乏图形化用户界面，最好的借口莫过于“C++ 本来就是为大神级开发者准备的，大神级的开发者通常都只用终端（命令行界面）”。不过，还是有好心的开发者聚到一起开发了 Qt，这可是完美兼容 C++ 的跨平台图形化用户界面库。
 
-Finally, if you get angry with the complexity of C++ and the fact that you should connect a separate library like Qt to have complete GUI experience for your users and you hate to compile and ship different executables of your product for different OS, go with Java. Java has its virtual machine which makes it easy to ship the executable. Your application works equally fine on any OS where JVM (Java Virtual Machine) is installed.
+最后一点，如果你很烦 C++ 的复杂性，很烦为了构建完整的图像化用户界面还不得不链接一个另外的像 Qt 这样的库，也很讨厌为了适配不同的操作系统的用户而不得不在每一种操作系统上编译、移植你的应用，那就选择 Java 吧。Java 拥有自己的虚拟机，使得移植可执行文件很容易。你的应用将在所有安装了 JVM（Java 虚拟机）的操作系统上完美运行。
 
-#### Mobile
+#### 移动端
 
-When speaking of Java, first thing that comes to mind is Android. Long before Kotlin has been introduced to the world, Java was the de facto language in order to implement Android apps. Nowadays, Kotlin takes hearts of developers and allows even better experience of developing apps for Android platform. So, if you want to make Android apps, you should choose between Java and Kotlin. To make the correct choice, we should look behind the scenes. The point is, Google is not so cool with Oracle. Oracle owns Java and Java dominates in Google’s Android, so to have some flexibility here, Google had to introduce an option for the light side (or the dark side, up to you) and introduced **Kotlin** as “_wow, why use Java if there is such a great language we support_”. I personally suggest you start with Kotlin if you are just starting your Android developer career, though to be a competent developer in the market, you have to support previously implemented apps in Java, so, knowing Java will be a good bonus in your CV.
+当谈到 Java 时，首先映入脑海的就是 Android 了。早在 Kotlin 问世之前，Java 就是开发 Android 应用的事实标准了。现如今，Kotlin 占据了开发者的内心，使得开发 Android 应用的体验更好。因此，如果你想开发 Android 应用的话，你应该在 Java 和 Kotlin 之间进行选择。为了做出正确的选择，我们得看看幕后的真相。真相就是 Google 和 Oracle 不是很和谐，但 Oracle 拥有 Java，同时 Java 又主导了 Google 的 Android，因此为了灵活不受限于人，Google 不得不向邪恶势力（或者说正义，随你怎么说）低头，引入了 **Kotlin**，并且假装说“**哇，我们支持这么好用的编程语言，你们就别再用 Java 啦**”。如果你刚开始 Android 编程的话，我个人建议你从 Kotlin 入门，尽管为了在人才市场中提高竞争力你不得不为用 Java 实现的旧应用提供一些支持，所以这时候学会 Java 就会为你的简历增添一些亮点。
 
-And finally, iOS. The iLand. An entirely different story. For a long time Objective-C was the dominant language for iOS and to be completely honest, mastering Objective-C required a serious approach, tough look and some good perseverance. That was the main issue of relatively small number of Objective-C developers out there and Apple finally made the right move by introducing **Swift**. Swift is much easier to master than Objective-C, which lead to increase in the number of iOS developers. So, to be an iOS developer, you need to go with Swift, but to be a really confident developer, it is suggested to master Objective-C to support apps (tons of apps) already written in Objective-C.
+最后是 iOS 了。所谓的“i 孤岛”，就是全然不同的故事了。很长一段时间内 Objective-C 都是 iOS 的主要开发语言，老实讲，不是随随便便就能够掌握 Objective-C 编程的，它需要坚定不移的毅力，这就是为数不多的 Objective-C 开发者的主要问题。苹果公司最终总算迈出正确的一步，引入了 **Swift**。Swift 相比 Objective-C 来讲要容易得多，这使得 iOS 开发者数量有所上涨。所以说要成为 iOS 开发者，你得学习 Swift，但要成为合格的开发者，我还建议你要掌握 Objective-C，因为你需要给以前使用 Objective-C 编写的应用（有成千上万这样的应用）提供支持。
 
-I should mention React Native here, as it allows to write apps for both Android and iOS platforms using just JavaScript, however, as a new and rapidly changing player in the market, let’s just consider that it exists and you already can write simple apps if you know only JavaScript.
+这里不得不提一下 React Native，因为它使得开发者能够仅仅使用 JavaScript 就同时为 Android 和 iOS 编写应用，但是 React Native 作为市场上一个新兴且善变的角色，我们就让它刷一下存在感好了，如果你还会一些 JavaScript 的话，就权当你已经能编写一些简单的应用了。
 
-### **Preparing for Coding Interviews**
+### **为技术面试做准备**
 
 ![](https://cdn-images-1.medium.com/max/2000/1*-m_hxcxFCO0_-ND-FBFz6g.jpeg)
 
-There are concepts that are fundamental in programming world. Most of the technical interviews are meant to discover your problem solving skills and knowing those concepts, so besides mastering a programming language, you should be familiar with the concepts that are somewhat required in programmer’s arsenal. Here’s an excerpt from my recent lesson post in [SoloLearn](https://www.sololearn.com/) (below are the links to Android and iOS apps).
+编程领域中有很多基础的概念。大部分技术面试目的都是发现你解决问题的能力以及是否了解这些概念，所以除了掌握一门编程语言之外，你还要熟悉这些概念，某种程度上讲，这些概念在程序员的兵工厂中是必须的。以下是我最近在 [SoloLearn](https://www.sololearn.com/) 上发布的课程的概要，下面是 SoloLearn 的 Android 和 iOS 应用下载地址。
 
 * [SoloLearn: Learn to Code for Free - Apps on Google Play](http://bit.ly/sololearn-android)
 * [SoloLearn: Learn to Code on the App Store](http://bit.ly/sololearn-ios)
 
-To successfully prepare for coding interviews you should be confident in the following areas:
-1. Algorithms & Data Structures
-2. Computer Organization & Operating Systems
-3. Coding
-4. System Design
+为了成功为技术面试做准备，你必须对以下的领域感到非常自信：
+1. 算法与数据结构
+2. 计算机组成结构与操作系统
+3. 编程
+4. 系统设计
 
-**Algorithms & Data Structures**
-This is the most wanted skill set for programmers. Here are the subjects every programmer must be familiar with:
+**算法与数据结构**
+这是程序员最需要的技能谱。以下是每一个程序员都必须熟知的：
 
-**Algorithm Complexity:** Big-O notation and how to calculate algorithms complexity; knowing which algorithm is better based on their complexity, e.g. O(N) vs O(logN).
+**算法复杂度：**大 O 记法和如何计算算法复杂度；掌握如何根据算法的复杂度来比较算法的优劣，如 O(N) 和 O(logN) 孰优孰劣。
 
-**Basic Data Structures & adapters:** Array, Linked List, Stack, Queue.
+**基本数据结构和适配器：**数组、链表、栈、队列。
 
-**Sorting & Searching:** Knowing various sorting algorithms helps you to identify the best possible implementation for your projects. For practice, try to implement insertion sort, selection sort or merge sort and spot the difference between linear search and binary search.
+**排序与查找：**掌握各种排序算法能够帮你定下项目的最佳可能实现。作为练习，尝试一下自己实现插入排序、选择排序和归并排序，然后找出线性查找和二分查找的不同点。
 
-**Trees & Graphs:** Trees and Graphs are everywhere, starting from “friends graph” in Facebook to “knowledge graph” in Google Search.
+**树、图：**到处都有树和图的踪影，从 Facebook 的“朋友关系图”，到 Google 的“知识联系图”。
 
-**Hashtables:** Being one of the most efficient data structures in the world, hashtables are always a good choice. You should be able to implement a Hashtable and be familiar with techniques to solve collisions.
+**散列表/哈希表：**史上最高效的数据结构，散列表总是一个好的选择。你应该要能够自己实现一个散列表，并熟知解决哈希冲突的技术。
 
-**Computer Organization & Operating Systems**
-It is strongly advised to be familiar with topics like:
+**计算机组成结构与操作系统**
+强烈建议你要熟悉以下主题：
 
-*   Bitwise operations
-*   How does the CPU execute machine code
-*   What’s the difference between static RAM and dynamic RAM
-*   What kind of OS kernel types exist
-*   What’s the difference between “mutex” and “semaphore”
-*   What is a deadlock and what is a livelock
+*   位运算
+*   CPU 如何执行机器代码
+*   静态随机访问存储（RAM） 和动态随机访问存储（RAM）的区别
+*   有哪些类型的操作系统内核
+*   “互斥锁”和“信号量”的区别
+*   什么是死锁、什么是活锁
 
-**Coding**
-You should have really good knowledge of at least one programming language. Knowing all the pros and cons, best practices of your favorite language will always help you write efficient, elegant and readable code.
-It is highly recommended to practice by solving challenging problems, such as (all the problems below could be found on [SoloLearn](https://www.sololearn.com/)):
+**编程**
+你应该精通至少一门编程语言。知道你最喜爱的那门编程语言的优势、劣势以及最佳实践总会帮你写出更高效、更优雅和可读性更强的代码。
+强烈建议你通过解决有挑战的难题来练习编程，比方说（以下问题都可以在 [SoloLearn](https://www.sololearn.com/) 找到）：
 
-*   The Josephus Problem
-*   Tower of Hanoi
-*   String Compression
-*   Balanced Parenthesis
-*   Twin Prime Numbers
+*   约瑟夫问题
+*   汉诺塔
+*   字符串压缩
+*   匹配的括号
+*   孪生素数
 
-**System Design**
-Knowing Object-Oriented Programming is a must for a modern programmer.
-System Design means thinking about the whole system, being able to design its architecture, dissect it into classes, define object interactions.
-To be prepared try to answer the questions below:
-- How would you design Google Search? What if there are millions of simultaneous requests per second?
-- How would you implement Facebook’s friend search?
-- Why would you use a Relational Database Management System?
-- Why would you use a NoSQL DB?
+**系统设计**
+了解面向对象编程是现代程序员的必备技能。
+系统设计意味着要考虑整个系统、能够设计其架构、将其分解成一个个的类、定义对象之间的交互。
+尝试回答以下问题来对此做准备：
+- 如果是你，你会怎么设计 Google 搜索引擎？如果每秒有上百万请求同时来到怎么办？
+- 如果是你，你会怎么实现 Facebook 的好友搜索？
+- 什么情况下你会使用关系型数据库管理系统？
+- 什么情况下你会使用 NoSQL 数据库？
 
-It is highly recommended to know and use the correct design patterns. For example, you should know the difference between a Composite and a Decorator.
+强烈建议你学习和使用正确的设计模式。比如你应该了解组合模式和装饰器模式的区别。
 
-While junior developers are mostly required to have good problem solving skills and your first job won’t require knowing all the points listed above, this list will be a good help to plan your career.
+尽管通常都只要求初级开发者拥有良好的解决问题的能力，你的第一份工作可能也不会要求你了解以上所列的所有点，但这个列表还是能帮助你规划你以后的职业生涯。
 
 
 ---
