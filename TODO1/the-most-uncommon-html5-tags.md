@@ -2,68 +2,69 @@
 > * 原文作者：[Pedro M. S. Duarte](https://codeburst.io/@pedromsduarte?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-most-uncommon-html5-tags.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-most-uncommon-html5-tags.md)
-> * 译者：
+> * 译者：[lsvih](https://github.com/lsvih)
 > * 校对者：
 
-# The most uncommon HTML5 tags you can use right now
+# 可用但最不常见的 HTML5 标签
 
-## <!DOCTYPE html> it was published in October 2014 by the World Wide Web Consortium (W3C) to improve the language with support for the latest multimedia, while keeping it both easily readable by humans and consistently understood by computers and devices such as web browsers, parsers, etc.
+**<!DOCTYPE html>** HMLT5 于 2014 年 10 月由万维网联盟（W3C）发布，旨在通过改进 HTML 语言来支持最新的多媒体设备，在保证计算机与设备（如 Web 浏览器，解析器等）可解析的前提下增强对人类的可读性。
 
 ![](https://cdn-images-1.medium.com/max/800/1*V91sgvnersFg5tXuhjVl8A.png)
 
 [http://www.geekchamp.com](http://www.geekchamp.com/html5-tutorials/introduction)
 
+我可以确定你们都已经在使用 HTML5 做网页了，并且会使用一些常见的标签，如 `<header>`、`<section>`、`<article>` 和 `<footer>` 等等，但
 I’m pretty sure that you all are using HTML5 based files, using the most known tags as, `<header>`, `<section>`, `<article>` and `<footer>`, among others, but there are a couple of those missing in order to correctly use the semantics of this language.
 
-I’m listing here the most important ones that will help you to develop and follow the semantic of HTML5.
+在此我将其中一些最重要的标签列出来，希望能帮助你遵循 HTML5 语义进行开发。
 
 #### <details>
 
-The tag `<details>` specifies additional details that the user can view or hide on demand. Use it to create an interactive widget that the user can open and close. Semantically you can use any type of content inside it and should not be visible unless the open attribute is set.
+`<details>` 标签指定了用户可以按需查看或隐藏的内容，可以用它来创建能被用户关闭与打开的小工具。在语义上，你可以在其中使用任何类型的内容，不过如果没有对它设置 open 属性，内容将不可见。
 
-`<details open><p>Credit card required at time of booking.</p></details>`
+`<details open><p>在预定时需要信用卡</p></details>`
 
 #### <dialog>
 
-`<dialog>` defines a dialog box element or window.
+`<dialog>` 定义了一个对话框元素或窗口。
 
-`<dialog open><p>Welcome do our hotel.</p></dialog>`
+`<dialog open><p>欢迎来到我们的酒店</p></dialog>`
 
 #### <mark>
 
-The `<mark>` tag defines marked text, to highlight parts of your text.
+`<mark>` 标签定义了被标记的文本，可以用于将你文本中的一部分高亮。
 
-`<p>Credit card required at time of **<mark>**booking.</mark></p>`
+`<p>在<mark>预定</mark>时需要信用卡</p>`
 
 #### <summary>
 
-The `<summary>` tag defines a visible heading for the `<details>` element. The heading can be clicked to view/hide the details.
+`<summary>` 标签为 `<details>` 定义了一个可见的标题。点击这个标题可以显示或隐藏  `<details>` 内容。
 
-`<details><summary>Payment conditions</summary><p>Credit card required at time of booking.</p></details>`
+`<details><summary>支付条件</summary><p>在预定时需要信用卡</p></details>`
 
-#### <time> and <datetime>
+#### <time> 与 <datetime>
 
-The `<time>` tag defines a human-readable date/time. This element can also be used to encode dates and times in a machine-readable way so that user agents can offer to add birthday reminders or scheduled events to the user’s calendar, and search engines can produce smarter search results.
+`<time>` 标签定义了一个人类可读的日期或者时间。这个元素还能用以机器可读的方式对日期或时间进行编码，以便用户的工具或软件将生日提醒、计划事件之类的时间添加到用户的日历中。此外，还能让搜索引擎产生更智能的搜索结果。
 
-`<p>Breakfast buffet starts at<time>7.00 AM</time>at the restaurant.</p>`
+`<p>自助早餐于 <time>7.00 AM</time> 在餐厅开始</p>`
 
-`<p>Concert at the lobby in<time datetime="2018-06-20T19:00">June 20th 7.00 PM</time></p>`
+`<p><time datetime="2018-06-20T19:00">6 月 20 日晚上 7 点</time>在大厅举行音乐会</p>`
 
 #### <small>
 
-The specification for the `<small>` tag explains that this tag should be used to lower the importance of text or information. Browsers interpret this by making the font smaller so it has less visible impact.
+`<small>` 标签的规范解释，这个标签可以用于降低文本或信息的重要性。浏览器将通过缩小字体以减少视觉影响。
 
-`<p>Cancelations must be canceled up to 48h, <small>to avoid penalty of one night per room.</small></p>`
+`<p>取消预定必须提前 48 小时，<small>以免每房每夜的额外扣款</small></p>`
 
 #### <datalist>
 
-You can now use the `<datalist>` element to define the list of valid choices for your various `<input>` tags. This component is slightly different on various browsers, but the common way it works is by showing a small drop-down arrow to the right of the field indicating that this field has options. Check codepen [here](https://codepen.io/pedromsduarte/pen/GxdNaB).
+你可以用 `<datalist>` 元素来定义 `<input>` 标签中用于选择的列表。这个组件在各个浏览器中的样子略有不同，但最常见的是在字段右边显示一个小下拉箭头，提示此字段可以进行选择。[点这儿](https://codepen.io/pedromsduarte/pen/GxdNaB)查看效果。
 
 `<datalist><option value="Master Card"><option value="Visa"><option value="American Express"></datalist>`
 
 #### <progress>
 
-The HTML `<progress>` element displays an indicator showing the completion progress of a task, typically displayed as a progress bar.
+`<progress>` HTML 元素会显示一个指示器，用于显示某个任务的完成进度，通常显示为进度条。
 
 `<progress value="70" max="100">70 %</progress>`
 
