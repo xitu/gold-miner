@@ -2,20 +2,20 @@
 > * 原文作者：[Andrew Betts](https://www.fastly.com/blog/andrew-betts)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/headers-we-dont-want.md](https://github.com/xitu/gold-miner/blob/master/TODO1/headers-we-dont-want.md)
-> * 译者：
+> * 译者：[SergeyChang](https://github.com/SergeyChang)
 > * 校对者：
 
-# The headers we don't want
+# 那些我们不需要的 HTTP 头信息
 
-If you want to learn more about headers, don’t miss Andrew’s talk at [Altitude London](https://www.fastly.com/altitude/2018/london) on May 22.
+如果你想了解更多 http 头信息的知识，请关注 5 月 22 号[安德鲁在伦敦的演讲](https://www.fastly.com/altitude/2018/london)。
 
-HTTP headers are an important way of controlling how caches and browsers process your web content. But many are used incorrectly or pointlessly, which adds overhead at a critical time in the loading of your page, and may not work as you intended. In this first of a series of posts about header best practice, we’ll look at unnecessary headers.
+http 头信息是控制缓存和浏览器处理web内容的一种重要方式。但很多时候它都被错误或冗余地使用，这不仅没有达成我们的使用目的，还增加了加载页面时的运行开销。这篇 http 头信息的系列博文中的第一篇文章，让我们先来扒一扒那些不必要的 http 头信息。
 
-Most developers know about and depend on a variety of HTTP headers to make their content work. Those that are best known include `Content-Type` and `Content-Length`, which are both almost universal. But more recently, headers such as `Content-Security-Policy` and `Strict-Transport-Security` have started to improve security, and `Link rel=preload` headers to improve performance. Few sites use these, despite their wide support across browsers.
+大多数开发者都了解一些 HTTP 头信息，并利用他它去处理的内容。如大家熟知的 `Content-Type` 和 `Content-Length` ，它们都是通用的。但最近，`Content-Security-Policy` 和 `Strict-Transport-Security` 这样的头信息已经开始用于提高安全性，`Link rel=preload` 用于提高性能。只是极少数网站使用他们，尽管它们被浏览器广泛支持。
 
-At the same time, there are lots of headers that are hugely popular but aren’t new and aren’t actually all that useful. We can prove this using [HTTP Archive](http://httparchive.org/), a project run by Google and sponsored by Fastly that loads 500,000 websites every month using [WebPageTest](https://www.webpagetest.org/), and makes the results available in [BigQuery](https://cloud.google.com/bigquery/).
+与此同时，还有很多以前就有并且灰常受欢迎的头信息是不实用的。我们可以使用 [HTTP 存档](http://httparchive.org/) 来证实这一点。[HTTP 存档](http://httparchive.org/) 是由 Fastly 赞助并由 Google 运营的项目，每个月使用 [WebPageTest](https://www.webpagetest.org/) 加载 500,000 个网站性能测试，并将结果公布于 [BigQuery](https://cloud.google.com/bigquery/)。
 
-From the HTTP Archive data, here are the 30 most popular response headers (based on the number of domains in the archive which are serving each header), and roughly how useful each one is:
+在 HTTP 存档数据中，这里列出了 30 个最受欢迎的响应头信息（基于存档中大多数网站都处理的头信息进行统计的结果），并大致说说它们多有用：
 
 | Header name | Requests | Domains | Status |
 | --- | --- | --- | --- |
@@ -49,11 +49,11 @@ From the HTTP Archive data, here are the 30 most popular response headers (based
 | access-control-allow-methods | 1626129 | 20791 | Useful |
 | access-control-allow-headers | 1205735 | 19120 | Useful |
 
-Let’s look at the unnecessary headers and see why we don’t need them, and what we can do about it.
+我们这里只关注那些不需要的头信息，以及说明为什么不需要它们、该如何处理。
 
-## Vanity (server, x-powered-by, via)
+## 没用的信息（server, x-powered-by, via）
 
-You may be very proud of your choice of server software, but most people couldn’t care less. At worst, these headers might be divulging sensitive data that makes your site easier to attack.
+你可能为你服务器软件的选择而骄傲，但是大多数人（用户）对此并不关心。并且这些头部信息可能会导致你的敏感信息泄漏进而使得你的网站受到攻击。
 
 ```
 Server: apache
@@ -61,15 +61,15 @@ X-Powered-By: PHP/5.1.1
 Via: 1.1 varnish, 1.1 squid
 ```
 
-[RFC7231](https://httpwg.org/specs/rfc7231.html#header.server) allows for servers to include a `Server` header in the response, identifying the software used to serve the content. This is most commonly a string like “apache” or “nginx”. While it’s allowed, it’s not mandatory, and offers very little value to either developers or end users. Nevertheless, this is the third most popular HTTP response header on the web today.
+[RFC7231](https://httpwg.org/specs/rfc7231.html#header.server) 标准允许服务器在响应中包含 `Server` 头信息，识别用于服务内容的服务器软件。最常见的是 “apache” 和 “nginx”。虽然它是允许的，也不是强制的，但是对开发者和最终用户都太多实在意义。然而，它当今 web 上第三个最流行的 HTTP 响应头。
 
-`X-Powered-By` is the most popular header in our list that is not defined in any standard, and has a similar purpose, though normally refers to the application platform that sits behind the web server. Common values include “ASP.net”, “PHP” and “Express”. Again this isn’t providing any tangible benefit and is taking up space.
+`X-Powered-By` 是没有在任何标准中定义却很受欢饮的头信息，相似地，通常用于指出 web 服务器后的应用软件平台。常见的值有 “ASP.net”， “PHP” 和 “Express”，实际上它们并不提供任何好处，还占用空间。
 
-More debatable perhaps is `Via`, which is required ([by RFC7230](https://httpwg.org/specs/rfc7230.html#header.via)) to be added to the response by any proxy through which it passes to identify the proxy. This can be something useful like the proxy’s hostname, but is more likely to be a generic identifier like “vegur”, “varnish”, or “squid”. Removing (or not setting) this header is technically a spec violation, but no browsers do anything with it, so it’s reasonably safe to get rid of it if you want to.
+更具争议的应该是 `Via`，当添加到通过其传递的代理来识别代理的任何代理的响应时，[RFC7230](https://httpwg.org/specs/rfc7230.html#header.via) 规定它是必须的。代理主机名的时候他可能是有用的，但更多时候它像是一个通用标识符，如  “vegur”，“varnish”，或 “squid”。删除或者不设置这个头信息在技术上是违反规范的，但是没有浏览器对它做任何事情，所以如果你想删除它是没问题的。
 
-## Deprecated standards (P3P, Expires, X-Frame-Options)
+## 弃用的标准（P3P, Expires, X-Frame-Options）
 
-Another category of headers is those that do have an effect in the browser but are not (or are no longer) the best way of achieving that effect.
+另一类 http 头信息是那些在浏览器中有效果的，但不是(或者不再是)达成效果的最佳方式。
 
 ```
 P3P: cp="this is not a p3p policy"
@@ -77,33 +77,34 @@ Expires: Thu, 01 Dec 1994 16:00:00 GMT
 X-Frame-Options: SAMEORIGIN
 ```
 
-`P3P` is a curious animal. I had no idea what this was, and even more curiously, one of the most common values is “this is not a p3p policy”. Well, is it, or isn’t it?
+`P3P` 是个让人好奇的东东。我对它不了解，甚至很好奇，它最常见的值居然是 “this is not a p3p policy”。那它是，还是不是啊？
 
-The story here goes back to an [attempt to standardise a machine readable privacy policy](https://en.wikipedia.org/wiki/P3P#User_agent_support). There was disagreement on how to surface the data in browsers, and only one browser ever implemented the header - Internet Explorer. Even in IE though, `P3P` didn’t trigger any visual effect to the user; it just needs to be present to permit access to third party cookies in iframes. Some sites even set a non-conforming P3P policy like the one above – even though doing so is on [shaky legal ground](https://www.cylab.cmu.edu/_files/pdfs/tech_reports/CMUCyLab10014.pdf).
+这要追溯到[试图使机器可读的隐私政策标准化](https://en.wikipedia.org/wiki/P3P#User_agent_support)，当时大家对于如何在浏览器中显示数据存在分歧，并且只有一个浏览器实现了这个 http 头信息 -- IE 浏览器。即使在 IE 浏览器中，`P3P` 也不会给用户带去任何视觉效果，它只需要在 iframe 中允许访问第三方cookie。有些网站甚至设置了一个不符合标准的 P3P 规则，比如上面的一个，即使这样做是[不合法律规定的](https://www.cylab.cmu.edu/_files/pdfs/tech_reports/CMUCyLab10014.pdf)。
 
-Needless to say, reading third party cookies is generally a bad idea, so if you don’t do it, then you won’t need to set a `P3P` header!
+不用说，读取第三方 cookie 通常是不可取，所以如果你打算不这样做，你也不需要设置一个 `P3P` 头信息
 
-`Expires` is almost unbelievably popular, considering that `Cache-Control` has been preferred over `Expires` for 20 years. Where a `Cache-Control` header includes a `max-age` directive, any `Expires` header on the same response will be ignored. But there are a massive number of sites setting both, and the `Expires` header is most commonly set to `Thu, 01 Dec 1994 16:00:00` GMT, because you want your content to not be cached and copy-pasting the example date [from the spec](https://www.ietf.org/rfc/rfc2616.txt) is certainly one way of doing that.
+`Expires` 受欢迎程度达到了不可思议的状况，试想下这种情况，`Cache-Control` 被设置为 20 年后过期。如果 `Cache-Control` 头信息包含 `max-age` 指令，那么在相同响应上的任何 `Expires` 头信息将被忽略。但是有大量网站同时设置了这两个信息，并且 `Expires` 头信息通常被设置为格林尼治时间 -- `Thu, 01 Dec 1994 16:00:00` 。很多人这样做因为他们不希望网站内容被缓存和复制，所以就[从规范中](https://www.ietf.org/rfc/rfc2616.txt)复制这个实例日期来填充。
 
 ![Screen Shot 2018-05-10 at 21.49.25](//www.fastly.com/cimages/6pk8mg3yh2ee/63zsHXNxp6YmWacesKYgwy/e3f1040e2d948b0655667aaa86d5310f/Screen_Shot_2018-05-10_at_21.49.25.png)
 
-But there is simply no reason to do this. If you have an `Expires` header with a date in the past, replace it with:
+实际上我们没必要这么做。如果你设置了一个 `Expires` 头信息并为其设置了一个过往的时间，那么你可以这么设置取代你之前的做法：
 
 ```
 Cache-Control: no-cache, private
 ```
 
-Some of the tools that audit your site will tell you to add an `X-Frame-Options` header with a value of ‘SAMEORIGIN’. This tells browsers that you are refusing to be framed by another site, and is generally a good defense against [clickjacking](https://en.wikipedia.org/wiki/Clickjacking). However, the same effect can be achieved, with more consistent support and more robust definition of behaviour, by doing:
+一些审核你网站的工具会让你添加一个值为 “SAMEORIGIN” 的 `X-Frame-Options` 头信息。这告诉浏览器你拒绝被其他网站诬陷，这也是预防[点击攻击](https://en.wikipedia.org/wiki/Clickjacking)的一种常用手段。
+然而，以下更一致的支持和更可靠的行为定义的方式，可以实现同样的效果：
 
 ```
 Content-Security-Policy: frame-ancestors 'self'
 ```
 
-This has the additional benefit of being part of a header (CSP) which you should have anyway for other reasons (more on that later). So you can probably do without `X-Frame-Options` these days.
+作为头信息（csp）的一部分，你还获得其他好处（稍后会详细介绍）。 所以你现在可能没有 `X-Frame-Options` 头信息。
 
-## Debug data (X-ASPNet-Version, X-Cache)
+## 调试数据（X-ASPNet-Version, X-Cache）
 
-It’s kind of astonishing that some of the most popular headers in common use are not in any standard. Essentially this means that somehow, thousands of websites seem to have spontaneously agreed to use a particular header in a particular way.
+令人惊讶的是，一些最常用的头信息都没有任何标准。实际上，这意味着，成千上万的网站似乎自发地同意以特定的方式使用特定的 http 头信息。
 
 ```
 X-Cache: HIT
@@ -112,33 +113,33 @@ X-ASPNet-Version: 3.2.32
 X-AMZN-RequestID: 0d6e39e2-4ecb-11e8-9c2d-fa7ae01bbebc
 ```
 
-In reality, these ‘unknown’ headers are not separately and independently minted by website developers. They are typically artefacts of using particular server frameworks, software or specific vendors’ services (in this example set, the last header is a common AWS header).
+实际上，这些“未知”头信息并不是由网站开发人员独立完成的。 它们通常是受使用特定服务器框架、软件或特定供应商服务的人为因素的影响而形成的（在此示例中，最后一个头信息是常见的 AWS 头信息）。
 
-`X-Cache`, in particular, is actually added by Fastly (other CDNs also do this), along with other Fastly-related headers like `X-Cache-Hits` and `X-Served-By`. When debugging is enabled, we add even more, such as `Fastly-Debug-Path` and `Fastly-Debug-TTL`.
+特别地，`X-Cache` 实际是 Fastly 添加的（其他 CDN 也是这样做的），其他一些与 Fastly 相关的头信息，如`X-Cache-Hits` 和 `X-Served-By`。当启用调试时，我们添加更多头信息，如 `Fastly-Debug-Path` 和 `Fastly-Debug-TTL`。
 
-These headers are not recognised by any browser, and removing them makes no difference to how your pages are rendered. However, since these headers might provide you, the developer, with useful information, you might like to keep a way to turning them on.
+这些头信息无法被任何浏览器识别，删除它们对网页渲染没有任何影响。 但是，由于这些标题可能开发人员提供有用的信息，因此你可能想保留一些方法来打开它们。
 
-## Misunderstandings (Pragma)
+## 不能被正确识别（Pragma）
 
-I didn’t expect to be in 2018 writing a post about the `Pragma` header, but according to our HTTP Archive data it’s still the 11th most popular. Not only was Pragma deprecated as long ago as 1997, but it was never intended to be a response header anyway - as specified, it only has meaning as part of a request.
+我没料到会在 2018 年写一篇关于“Pragma”头的文章，但根据我们的 HTTP 存档数据，它居然是排在了第 11 位。早在 1997 年，Pragma 就已经弃用了，它也从来没有打算成为响应头 —— 正如所指定的，它只有作为请求的一部分时才有意义。
 
 ```
 Pragma: no-cache
 ```
 
-Nevertheless it’s use as a response header is so widespread that some browsers recognise it in this context as well. Today the probability that your response will transit a cache that understands `Pragma` in a response context, and doesn’t understand `Cache-Control`, is vanishingly small. If you want to make sure that something isn’t cached, `Cache-Control: no-cache, private` is all you need.
+尽管如此，它作为一个响应头是如此被广泛使用，以至于一些浏览器也能识别它。现在，你的回应将传递一个能识别 `Pragma` 的缓存，而不能识别 `Cache-Control` 的概率很小。如果你想确保某些东西没有被缓存，你只需要 `Cache-Control: no-cache, private`。  
 
-## Non-Browser (X-Robots-Tag)
+## 非浏览器的（X-Robots-Tag）
 
-One header in our top 30 is a non-browser header. `X-Robots-Tag` is intended to be consumed by a crawler, such as Google or Bing’s bots. Since it has no meaning to a browser, you could choose to only set it when the requesting user-agent is a crawler. Equally, you might decide that this makes testing harder, or perhaps that it violates the terms of service of the search engine.
+排名前 30 的头信息中有一个是非浏览器的头信息。`X-Robots-Tag` 用于对付网络爬虫，比如 Google 和 Bing 的机器人。因为他对浏览器没有任何意义，所有你可以在需要应对爬虫的时候才设置这个头信息。与此同时带来的影响，可能是是的测试变得困难，或者是违反了搜索引擎的服务条款。
 
 ## Bugs
 
-Finally, it’s worth finishing on an honourable mention for simple bugs. In a _request_, a `Host` header makes sense, but seeing it on a response probably means your server is misconfigured somehow (I’d love to know how, exactly). Nevertheless, 68 domains in HTTP archive are returning a `Host` header in their responses.
+最后，值得一提的是简单的错误。在一个**请求**中，`Host` 头信息存在是有道理的，但是如果它出现在响应中就说明很可能你的服务被错误地配置（我很想知道这是怎么产生的）。尽管如此，上文提到的 HTTP 存档还是有 68 个网域返回了 `Host` 的头信息。
 
-## Removing headers at the edge
+## 删除头信息
 
-Fortunately, if your site is behind Fastly, removing headers is pretty easy using [VCL](https://docs.fastly.com/guides/vcl/). It makes sense that you might want to keep the genuinely useful debug data available to your dev team, but hide it for public users, so that’s easily done by detecting a cookie or inbound HTTP header:
+如果你的网站使用了 Fastly 的服务，那么恭喜你，使用 [VCL](https://docs.fastly.com/guides/vcl/) 是删去头信息是很便捷的。你可能希望将真正有用的调试数据保留到你的开发团队中，但将其隐藏在公共用户中，这很有意义，你可以通过检测 cookie 或传进来 HTTP 头信息来轻松实现:
 
 ```
 unset resp.http.Server;
@@ -151,7 +152,7 @@ if (!req.http.Cookie:debug && !req.http.Debug) {
 }
 ```
 
-In the next post in this series, I’ll be talking about best practices for headers that you should be setting, and how to enable them at the edge.
+在本系列的下一篇文章中，我将讨论设置 HTTP 头信息的最佳做法，以及如何启用它们。
 
 
 ---
