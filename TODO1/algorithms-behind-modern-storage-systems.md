@@ -39,7 +39,7 @@ B-Tree 有以下几个性质：
 
 • 对数级查找时间复杂度。查找时间是非常重要的，这使得 B-Tree 成为数据库索引的理想选择。
 
-• 易变。增删改（包括因此导致的拆分和合并）过程在磁盘上进行。Mutable. Inserts, updates, and deletes (also, subsequent splits and merges) are performed on disk in place. To make in-place updates possible, a certain amount of space overhead is required. A B-tree can  be organized as a clustered index, where actual data is stored on the leaf nodes or as a heap file with an unclustered B-tree index.可变。插入，更新和删除（以及后续的拆分和合并）在磁盘上执行。为了使就地更新成为可能，需要一定量的空间开销。B树可以组织为聚簇索引，其中实际数据存储在叶节点上或作为具有非聚簇B树索引的堆文件。****
+• 易变。插入、更新、删除（包括因此导致的拆分和合并）过程在磁盘上进行。为了使就地更新成为可能，需要一定的空间开销。B-Tree 可以作为聚集索引，实际数据存储在叶子节点上，也可以作为非聚集索引，称为一个堆文件。
 
 本文讨论的 B+Tree <sup><a href="#note3">[3]</a></sup> 是一种经常用于数据库存储的 B-Tree 现代变种。B+Tree 与原始 B-Tree <sup><a href="#note1">[1]</a></sup> 的不同之处在于：(1)它采用额外链接的叶节点存储值；(2)值不能存储在内部节点上。
 
@@ -65,19 +65,19 @@ B-Tree 的特性如下：
 
 ![支撑现代存储系统的算法](https://s1.ax1x.com/2018/05/19/Cc6dRe.png)
 
-在复杂度方面，B-Tree 保证查询的时间复杂度为 _log(n)_，因为查找一个节点中的键使用二分查找，如图 4 所示。————————————二进制搜索很容易解释为搜索以字典中的某个字母开头的单词，其中所有单词都按字母顺序排序。首先你在中间打开字典。如果搜索到的字母按字母顺序“小于”（出现时间早于），则继续在字典左半部分搜索; 否则，你继续在右半边。您继续将剩余的页面范围缩小一半，然后选择旁边，直到找到所需的字母。每一步都将搜索空间减半，使查找时间变为对数。B树中的搜索具有对数复杂度，因为在节点级别上对密钥进行排序，并执行二分搜索以找到匹配。———————————— Binary search is easily explained in terms of searching for words beginning with a certain letter in the dictionary, where all words are sorted alphabetically. First you open the dictionary exactly in the middle. If the searched letter is alphabetically “less than” (appears earlier than) the one opened, you continue your search in the left half of the dictionary; otherwise, you continue in the right half. You keep reducing the remaining page range by half and picking the side to follow until you find the desired letter. Every step halves the search space, making the lookup time logarithmic. Searches in B-trees have logarithmic complexity, since on the node level keys are sorted, and the binary search is performed in order to find a match. This is also why it's important to keep the occupancy high and uniform across the tree.
+在复杂度方面，B-Tree 保证查询的时间复杂度为 _log(n)_，因为查找一个节点中的键使用二分查找，如图 4 所示。二进制搜索可以通俗的解释为在字典中查找以某字母开头的单词，字典中所有单词都按字母顺序排序。首先你翻开正好在字典中间的一页。如果要查找的单词字母顺序小于（在前面）当前页，你继续在字典的左半边查找；否则就继续在右半边查找。你继续像这样将剩余的页码范围分为一半，选择一边，直到找到期望的字母。每一步都将搜索范围减半，因此查找的时间复杂度为对数级。 B-Tree 节点上的键是有序的，且使用二分查找算法进行匹配，因此 B-Tree 的搜索复杂度是对数级的。这也说明了保持树的高利用率和统一访问的重要性。
 
 ![支撑现代存储系统的算法](https://s1.ax1x.com/2018/05/19/CcRZy4.png)
 
-#### Insertions, updates, and deletions
+#### 插入、更新、删除
 
-执行插入时，第一步是定位目标叶。为此，使用前述的搜索算法。在目标页面找到后，键和值将被附加到它。如果叶子没有足够的可用空间，这种情况称为溢出，叶子必须分成两部分。这是通过分配一个新的叶子，将一半元素移动到它并将一个指向这个新分配的叶子的指针添加到父级来完成的。如果父母没有空闲空间，则也会在父级别上执行分割。操作一直持续到达到根目录为止。当根溢出时，其内容在新分配的节点之间被分割，并且根节点本身被覆盖以避免重定位。这也意味着树（及其高度）总是通过分裂根节点而增长。——————————————————————When performing insertions, the first step is to locate the target leaf. For that, the aforementioned search algorithm is used. After the target leaf is located, key and value are appended to it. If the leaf does not have enough free space, this situation is called overflow, and the leaf has to be split in two. This is done by allocating a new leaf, moving half the elements to it and appending a pointer to this newly allocated leaf to the parent. If the parent doesn't have free space either, a split is performed on the parent level as well. The operation continues until the root is reached. When the root overflows, its contents are split between the newly allocated nodes, and the root node itself is overwritten in order to avoid relocation. This also implies that the tree (and its height) always grows by splitting the root node.
+进行插入时，第一步是定位目标叶子节点。此过程使用前序搜索算法。在定位目标页面后，键和值将被添加至该节点。如果该节点没有足够的可用空间，这种情况称为溢出，则将叶子节点分割成两部分。这是通过分配一个新的叶子节点，将一半元素移动到新节点并将一个指向这个新节点的指针添加到父节点来完成的。如果父节点没有足够的空间，则也会在父节点上进行分割。操作一直持续到根节点为止。当根节点溢出时，其内容在新分配的节点之间被分割，根节点本身被覆盖以避免重定位。这也意味着树（及其高度）总是通过分裂根节点而增长。
 
 ### LSM-Tree
 
 The log-structured merge-tree is an immutable disk-resident write-optimized data structure. It is most useful in systems where writes are more frequent than lookups that retrieve the records. LSM-trees have been getting more attention because they can eliminate random insertions, updates, and deletions.
 
-#### Anatomy of the LSM-tree
+#### 剖析 LSM-Tree
 
 To allow sequential writes, LSM-trees batch writes and updates in a memory-resident table (often implemented using a data structure allowing logarithmic time lookups, such as a [binary search tree](https://en.wikipedia.org/wiki/Self-balancing_binary_search_tree) or [skip list](https://en.wikipedia.org/wiki/Skip_list)) until its size reaches a threshold, at which point it is written on disk (this operation is called a _flush_). Retrieving the data requires searching all disk-resident parts of the tree, checking the in-memory table, and merging their contents before returning the result. Figure 5 shows the structure of an LSM-tree: a memory-resident table used for writes. Whenever the memory table is large enough, its sorted contents are written on disk. Reads are served, hitting both disk- and memory-resident tables, requiring a merge process to reconcile the data.
 
