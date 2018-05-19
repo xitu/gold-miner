@@ -4464,10 +4464,11 @@
 |------|-------|-------|
 |[JavaScript 工作原理：内存管理 + 处理常见的 4 种内存泄漏](https://juejin.im/post/5a2559ae6fb9a044fe4634ba)|翻译|8|
 
-## 译者：[LeopPro](https://github.com/LeopPro) 历史贡献积分：37 当前积分：37 年度积分：24
+## 译者：[LeopPro](https://github.com/LeopPro) 历史贡献积分：40 当前积分：40 年度积分：27
 
 |文章|类型|积分|
 |------|-------|-------|
+|[BigQuery 中的比特币：使用公共数据分析区块链](https://juejin.im/post/5afc17b16fb9a07aaf35673a)|翻译|3|
 |[使用 Rust 开发一个简单的 Web 应用，第 4 部分 —— CLI 选项解析](https://juejin.im/post/5a8d6aad6fb9a0634514c6c6)|翻译|8|
 |[使用 Rust 开发一个简单的 Web 应用，第 3 部分 —— 整合](https://juejin.im/post/5a8d6a436fb9a0635172803f)|翻译|5|
 |[使用 Rust 开发一个简单的 Web 应用，第 2b 部分](https://juejin.im/post/5a8196716fb9a0635c0478d7)|翻译|6|
@@ -4741,10 +4742,11 @@
 |[Face ID 对易用性意味着什么](https://juejin.im/post/5a41d01cf265da432c241943)|校对|1|
 |[自动化持续集成/持续分发，以节省更多时间编写代码](https://juejin.im/post/5a44aab86fb9a044ff31c418)|翻译|3|
 
-## 译者：[hanliuxin5](https://github.com/hanliuxin5) 历史贡献积分：52.5 当前积分：52.5 年度积分：52.5
+## 译者：[hanliuxin5](https://github.com/hanliuxin5) 历史贡献积分：53.5 当前积分：53.5 年度积分：53.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[预测你的游戏的货币化未来](https://juejin.im/post/5ad1d3b6f265da238f12fafa)|校对|1|
 |[利用 Android 构建 TV 的未来](https://juejin.im/post/5a964061f265da4e914b8f88)|校对|1|
 |[使用MVI构建响应式 APP — 第七部分 — TIMING (SINGLELIVEEVENT 问题)](https://juejin.im/post/5ac47f0bf265da23793c60be)|校对|1|
 |[Google Play 控制台指南](https://juejin.im/post/5ac1c3546fb9a028d444bc2b)|校对|4|
@@ -5509,10 +5511,11 @@
 |[引导员手册：24 个设计冲刺技巧](https://juejin.im/post/5ae3254d6fb9a07abc29a741)|翻译|5|
 |[设计师与工程师协作的 5 项准则](https://juejin.im/post/5ac9e56af265da23945fc201)|校对|1|
 
-## 译者：[NoName4Me](https://github.com/NoName4Me) 历史贡献积分：13 当前积分：13 年度积分：13
+## 译者：[NoName4Me](https://github.com/NoName4Me) 历史贡献积分：16.5 当前积分：16.5 年度积分：16.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[预测你的游戏的货币化未来](https://juejin.im/post/5ad1d3b6f265da238f12fafa)|翻译|3.5|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|4|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|6.5|
 |[关于 SPA 你需要掌握的 4 层](https://juejin.im/post/5ac9ae935188255caf067974)|校对|1.5|
@@ -5587,18 +5590,20 @@
 |[用 Java 代码实现区块链](https://juejin.im/post/5ae57d9e6fb9a07ab83dcc03)|校对|4|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|6|
 
-## 译者：[mingxing47](https://github.com/mingxing47) 历史贡献积分：4.5 当前积分：4.5 年度积分：4.5
+## 译者：[mingxing47](https://github.com/mingxing47) 历史贡献积分：5.5 当前积分：5.5 年度积分：5.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[预测你的游戏的货币化未来](https://juejin.im/post/5ad1d3b6f265da238f12fafa)|校对|1|
 |[用 Go 编写你自己的区块链挖矿算法！](https://juejin.im/post/5ad6d2ff51882579ef4f7cf0)|校对|2.5|
 |[利用 Keras 深度学习库进行词性标注教程](https://juejin.im/post/5ae4613a5188256727742d7d)|校对|1|
 |[GAN 的 Keras 实现：构建图像去模糊应用](https://juejin.im/post/5ad6e358f265da237b229bb2)|校对|1|
 
-## 译者：[SergeyChang](https://github.com/SergeyChang) 历史贡献积分：7.5 当前积分：7.5 年度积分：7.5
+## 译者：[SergeyChang](https://github.com/SergeyChang) 历史贡献积分：8.5 当前积分：8.5 年度积分：8.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[BigQuery 中的比特币：使用公共数据分析区块链](https://juejin.im/post/5afc17b16fb9a07aaf35673a)|校对|1|
 |[使用 Go 和 AWS Lambda 构建无服务 API](https://juejin.im/post/5af4082f518825672a02f262)|校对|1.5|
 |[为什么你应该开始使用 Kotlin](https://juejin.im/post/5adc1826f265da0b767d0db2)|校对|1|
 |[区块链如何帮助重塑医疗保健行业](https://juejin.im/post/5ad449b56fb9a028c6762db5)|校对|2|
@@ -5611,10 +5616,11 @@
 |------|-------|-------|
 |[用 Skater 解读预测模型：打开模型的黑箱](https://juejin.im/post/5ae1494bf265da0b7c06f835)|翻译|6|
 
-## 译者：[ALVINYEH](https://github.com/ALVINYEH) 历史贡献积分：43.5 当前积分：43.5 年度积分：43.5
+## 译者：[ALVINYEH](https://github.com/ALVINYEH) 历史贡献积分：44.5 当前积分：44.5 年度积分：44.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[BigQuery 中的比特币：使用公共数据分析区块链](https://juejin.im/post/5afc17b16fb9a07aaf35673a)|校对|1|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|1.5|
 |[Python 中的键值（具名）参数：如何使用它们](https://juejin.im/post/5ae97546f265da0b8d41bcc7)|校对|1|
 |[论 Android 中 Span 的正确打开方式](https://juejin.im/entry/5af401bb518825671776537d/)|校对|2|
