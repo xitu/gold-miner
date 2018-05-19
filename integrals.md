@@ -3179,10 +3179,11 @@
 |------|-------|-------|
 |[开发者（也就是我）与Rx Observable 类的对话 [ Android RxJava2 ] ( 这到底是什么？) 第五部分](https://juejin.im/post/590ab4f7128fe10058f35119)|校对|1|
 
-## 译者：[leviding](https://github.com/leviding) 历史贡献积分：145 当前积分：100 年度积分：66
+## 译者：[leviding](https://github.com/leviding) 历史贡献积分：147 当前积分：102 年度积分：68
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|2|
 |[更为详细的地图、导航和助手功能 —— Google I/O 2018 的 Android 应用更新](https://juejin.im/post/5aee74626fb9a07abb237f89)|校对|1|
 |[以太坊钱包详解](https://juejin.im/post/5ae2942ff265da0b886d23df)|校对|4|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|20|
@@ -3641,10 +3642,11 @@
 |[深度学习系列4: 为什么你需要使用嵌入层](https://juejin.im/post/599183c6f265da3e2e5717d2)|校对|1|
 |[深度学习系列3 - CNNs 以及应对过拟合的详细探讨](https://juejin.im/post/598f25b15188257d8643173d)|翻译|4|
 
-## 译者：[jasonxia23](https://github.com/jasonxia23) 历史贡献积分：45 当前积分：0 年度积分：29
+## 译者：[jasonxia23](https://github.com/jasonxia23) 历史贡献积分：47 当前积分：2 年度积分：31
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|2|
 |[2018 年 5 月兑 树莓派套餐 1 个]()|减去积分|45|
 |[Web 应用的未来：Heroku vs Docker](https://juejin.im/post/5ae7dae5518825670f7ba367)|校对|1|
 |[那些好玩却没有被 ECMAScript 2017 采纳的提案](https://juejin.im/post/5ae920fd51882567127852e7)|校对|2|
@@ -5168,10 +5170,11 @@
 |[使用 MVI 开发响应式 APP - 第三部分 - 状态减少（state reducer）](https://juejin.im/post/5a955c50f265da4e853d856a)|翻译|4|
 |[二十年后比特币会变成什么样？- 第二部分](https://juejin.im/post/5a955721f265da4e826377b6)|翻译|6|
 
-## 译者：[Starriers](https://github.com/Starriers) 历史贡献积分：176.5 当前积分：146.5 年度积分：176.5
+## 译者：[Starriers](https://github.com/Starriers) 历史贡献积分：177.5 当前积分：147.5 年度积分：177.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|1|
 |[Web 应用的未来：Heroku vs Docker](https://juejin.im/post/5ae7dae5518825670f7ba367)|校对|1|
 |[设计大型 JavaScript 应用程序](https://juejin.im/post/5aedd93b51882567244ddfc0)|校对|3|
 |[漫画深入浅出 ES 模块](https://juejin.im/post/5aea6ae7f265da0ba4699e0a)|校对|1.5|
@@ -5337,10 +5340,11 @@
 |[没有 Interface Builder 的生活](https://juejin.im/post/5ab88ac0518825558a069c91)|校对|1|
 |[使用 Travis CI 自动发布 npm](https://juejin.im/post/5ab39fedf265da23a04979cb)|校对|1|
 
-## 译者：[liang-kai](https://github.com/liang-kai) 历史贡献积分：1 当前积分：1 年度积分：1
+## 译者：[liang-kai](https://github.com/liang-kai) 历史贡献积分：4 当前积分：4 年度积分：4
 
 |文章|类型|积分|
 |------|-------|-------|
+|[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|3|
 |[使用 Travis CI 自动发布 npm](https://juejin.im/post/5ab39fedf265da23a04979cb)|校对|1|
 
 ## 译者：[anxsec](https://github.com/anxsec) 历史贡献积分：8.5 当前积分：8.5 年度积分：8.5
@@ -5505,10 +5509,11 @@
 |[引导员手册：24 个设计冲刺技巧](https://juejin.im/post/5ae3254d6fb9a07abc29a741)|翻译|5|
 |[设计师与工程师协作的 5 项准则](https://juejin.im/post/5ac9e56af265da23945fc201)|校对|1|
 
-## 译者：[NoName4Me](https://github.com/NoName4Me) 历史贡献积分：9 当前积分：9 年度积分：9
+## 译者：[NoName4Me](https://github.com/NoName4Me) 历史贡献积分：13 当前积分：13 年度积分：13
 
 |文章|类型|积分|
 |------|-------|-------|
+|[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|4|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|6.5|
 |[关于 SPA 你需要掌握的 4 层](https://juejin.im/post/5ac9ae935188255caf067974)|校对|1.5|
 |[设计师与工程师协作的 5 项准则](https://juejin.im/post/5ac9e56af265da23945fc201)|校对|1|
@@ -5606,10 +5611,11 @@
 |------|-------|-------|
 |[用 Skater 解读预测模型：打开模型的黑箱](https://juejin.im/post/5ae1494bf265da0b7c06f835)|翻译|6|
 
-## 译者：[ALVINYEH](https://github.com/ALVINYEH) 历史贡献积分：42 当前积分：42 年度积分：42
+## 译者：[ALVINYEH](https://github.com/ALVINYEH) 历史贡献积分：43.5 当前积分：43.5 年度积分：43.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|1.5|
 |[Python 中的键值（具名）参数：如何使用它们](https://juejin.im/post/5ae97546f265da0b8d41bcc7)|校对|1|
 |[论 Android 中 Span 的正确打开方式](https://juejin.im/entry/5af401bb518825671776537d/)|校对|2|
 |[Swift 写网络层：用面向协议的方式](https://juejin.im/post/5af432385188256737066c04)|校对|2|
@@ -5628,10 +5634,11 @@
 |[细数那些我离不开的 Sketch 插件](https://juejin.im/post/5ae0623ef265da0b8d419aca)|校对|1|
 |[用 Skater 解读预测模型：打开模型的黑箱](https://juejin.im/post/5ae1494bf265da0b7c06f835)|校对|2.5|
 
-## 译者：[wzasd](https://github.com/wzasd) 历史贡献积分：8.5 当前积分：8.5 年度积分：8.5
+## 译者：[wzasd](https://github.com/wzasd) 历史贡献积分：13.5 当前积分：13.5 年度积分：13.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|5|
 |[在 Google I/O 2018 观看 Flutter 的正确姿势](https://juejin.im/post/5aebd7166fb9a07ab4587b3f)|翻译|1.5|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|7|
 
