@@ -2,12 +2,12 @@
 > * 原文作者：[Sean McQuillan](https://medium.com/@objcode?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/introducing-constraint-layout-1-1.md](https://github.com/xitu/gold-miner/blob/master/TODO1/introducing-constraint-layout-1-1.md)
-> * 译者：Moosphon
-> * 校对者：
+> * 译者：[Moosphon](https://github.com/Moosphan)
+> * 校对者：[androidxiao](https://github.com/androidxiao) [LeeSniper](https://github.com/LeeSniper)
 
 # 带你领略 ConstraintLayout 1.1 的新功能
 
-**约束布局**（ConstraintLayout）通过使用 Android Studio 中的可视化编辑器来为您生成绝大多数的 UI，进而达到简化 Android 中创建复杂布局的目的。它通常被我们描述为更加强大的`相对布局`。通过使用约束布局，您可以定义一些复杂的布局而不需要创建复杂的视图层级。
+**约束布局**（ConstraintLayout）通过使用 Android Studio 中的可视化编辑器来为您生成绝大多数的 UI，进而达到简化 Android 中创建复杂布局的目的。它通常被我们描述为更加强大的 `RelativeLayout`。通过使用约束布局，您可以定义一些复杂的布局而不需要创建复杂的视图层级。
 
 约束布局最近发布了 1.1 稳定版本，并迅速获得大量好评。全面的优化改进可以让多数布局的运行速度比以前更快，屏障和群组等新功能使现实生活的设计变得简单！
 
@@ -48,7 +48,7 @@ dependencies {
 
 通过 **spread**，**spread_inside** 和 **packed**，链条能够让您配置如何布置多个相关的视图。
 
-`app:layout_constraintVertical_chainStyle` 属性可以作用于链条中的任何视图。 您可以设置它的值为 `spread`， `spread_inside` 或者 `packed`。
+`app:layout_constraintVertical_chainStyle` 属性可以作用于链条中的任何视图。 您可以设置它的值为 `spread`，`spread_inside` 或者 `packed`。
 
 *   **spread**：均匀分配链中的所有视图
 *   **spread_inside**：将第一个元素和最后一个元素放置在边缘上，并均匀分布其余元素
@@ -90,13 +90,13 @@ profile.visibility = VISIBLE
 
 #### 圆形约束
 
-在约束布局中，大多数约束由屏幕尺寸指定——水平和垂直。在约束布局 1.1 版本中，有一个新的类型约束 `constraintCircle` ，它允许您指定沿着一个圆形进行约束。您不必提供水平和垂直边距，而是指定圆的角度和半径。这对于像径向菜单这样的角度偏移的视图将非常有用！
+在约束布局中，大多数约束由屏幕尺寸指定——水平和垂直。在约束布局 1.1 版本中，有一个新的类型约束 `constraintCircle`，它允许您指定沿着一个圆形进行约束。您不必提供水平和垂直边距，而是指定圆的角度和半径。这对于像径向菜单这样的角度偏移的视图将非常有用！
 
 ![](https://cdn-images-1.medium.com/max/800/1*dkCMb35o4HN7SVX8S1N3ig.gif)
 
 您可以通过指定要偏移的**半径**和**角度来创建径向菜单。
 
-创建圆形约束时，请注意，角度从顶部开始并顺时针进行。在这个例子中，你将按如下方式指定中间的 fab ：
+创建圆形约束时，请注意，角度从顶部开始并顺时针进行。在这个例子中，你将按如下方式指定中间的 fab：
 
 ```
 <android.support.design.widget.FloatingActionButton
@@ -110,7 +110,7 @@ profile.visibility = VISIBLE
 
 您可以将 `ConstraintLayout` 随同 [`ConstraintSet`](https://developer.android.com/reference/android/support/constraint/ConstraintSet.html) (约束集)一起使用来一次实现多个元素的动画效果。
 
-一个 `ConstraintSet` 仅持有一个 `ConstraintLayout` 的约束。你可以在代码中创建一个`ConstraintSet`，或者从一个布局文件中加载它。然后，您可以将 `ConstraintSet` 应用于 `ConstraintLayout` ，更新所有约束以匹配 `ConstraintSet` 中的约束。
+一个 `ConstraintSet` 仅持有一个 `ConstraintLayout` 的约束。你可以在代码中创建一个`ConstraintSet`，或者从一个布局文件中加载它。然后，您可以将 `ConstraintSet` 应用于 `ConstraintLayout`，更新所有约束以匹配 `ConstraintSet` 中的约束。
 
 要使其具有动画效果，请使用 support library 中的 [`TransitionManager.beginDelayedTransition()`](https://developer.android.com/reference/android/transition/TransitionManager.html#beginDelayedTransition%28android.view.ViewGroup%29) 方法。此功能将使您的 `ConstraintSet` 中的所有布局的更新都通过动画来呈现。
 
