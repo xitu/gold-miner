@@ -128,8 +128,8 @@ profile.visibility = VISIBLE
 
 *   **barriers**：找出**屏障**所在，并用简单的约束取代它们
 *   **direct**：优化那些直接连接到固定元素的元素，例如屏幕边缘或引导线，并继续优化直接连接到它们的任何元素。
-*   **standard**：这是包含 **barriers** 和 **direct** 的默认优化级别 。
-*   **dimensions**：目前处于实验阶段，并且可能会在某些布局上出现问题  —它会通过计算维度来优化布局传递。
+*   **standard**：这是包含 **barriers** 和 **direct** 的默认优化级别。
+*   **dimensions**：目前处于实验阶段，并且可能会在某些布局上出现问题——它会通过计算维度来优化布局传递。
 *   **chains**：目前正在实验阶段，并计算出如何布置固定尺寸的元素链。
 
 如果你想尝试试验性的优化上述中的 **dimensions** 和 **chains**，你可以在 ConstraintLayout 中通过如下代码来启用它们：
@@ -143,9 +143,9 @@ profile.visibility = VISIBLE
 
 ## 了解更多
 
-* [使用约束布局构建响应式UI | Android Developers](https://developer.android.com/training/constraint-layout/index.html)
+* [使用约束布局构建响应式 UI | Android Developers](https://developer.android.com/training/constraint-layout/index.html)
 * [约束布局 | Android Developers](https://developer.android.com/reference/android/support/constraint/ConstraintLayout.html)
-* [使用约束布局来设计你的Android视图](https://codelabs.developers.google.com/codelabs/constraint-layout/)
+* [使用约束布局来设计你的 Android 视图](https://codelabs.developers.google.com/codelabs/constraint-layout/)
 
 想要了解有关约束布局 1.1 版本的更多信息，请查看文档和代码实验室！
 
