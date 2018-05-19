@@ -25,7 +25,9 @@ dependencies {
 
 #### 百分比
 
-在约束布局 1.0 版本中，需要使用两条引导线才能让视图根据百分比来占据屏幕。而在约束布局 1.1 版本中，通过允许您轻松地将任何视图限制为百分比宽度或高度，一切将变得很简单。![](https://cdn-images-1.medium.com/max/800/1*uqU2HbwRZeik-P2Ny-leIg.jpeg)
+在约束布局 1.0 版本中，需要使用两条引导线才能让视图根据百分比来占据屏幕。而在约束布局 1.1 版本中，通过允许您轻松地将任何视图限制为百分比宽度或高度，一切将变得很简单。
+
+![](https://cdn-images-1.medium.com/max/800/1*uqU2HbwRZeik-P2Ny-leIg.jpeg)
 
 使用百分比指定按钮的宽度，以便在保持设计效果的同时适应可用空间。
 
@@ -78,7 +80,7 @@ dependencies {
     app:constraint_referenced_ids="profile_name,profile_image" />
 ```
 
-当定义群组配置文件后，您可以为该群组设置可见性，并将其应用于 `profile_name` 和 `profile_image`。
+当定义名为 `profile` 的群组后，您可以为该群组设置可见性，并将其应用于 `profile_name` 和 `profile_image`。
 
 ```
 profile.visibility = GONE
