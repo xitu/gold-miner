@@ -5,21 +5,22 @@
 > * 译者：
 > * 校对者：
 
-# Build time travel debugging in Redux from scratch
+# 从零开始，在 Redux 中构建时间旅行式调试
 
 ![](https://cdn-images-1.medium.com/max/2000/1*WoJnfVeCnfT2cGzlsgAjJw.jpeg)
 
-In this tutorial we will go step-by-step through building time travel debugging from scratch. We will begin by covering the core principles of Redux and how they enable building such a powerful feature. We will then build the Redux core library and time travel debugging in pure JavaScript and connect it to a simple HTML application, without using any React.
+在这篇教程中，我们将从零开始一步步构建时间旅行式调试。我们会先介绍 Redux 的核心特性，及这些特性怎么让时间旅行式调试这种强大功能成为可能。接着我们会用原生 JavaScript 来构建一个 Redux 核心库以及时间旅行式调试，并将它应用到一个简单的不含 React 的 HTML 应用里面去。
 
 ![](https://cdn-images-1.medium.com/max/800/1*cRt1u7SCt376nCWu_Ae7mA.gif)
 
-### The fundamentals of time traveling with Redux
+### 使用 Redux 进行时间旅行的基础
 
-Time travel debugging refers to the ability step forward and backward through the state of you application, empowering the developer understand exactly what is happening at any point in the app’s lifecycle.
+时间旅行式调试指的是让你的应用程序状态（state）向前走和向后退的能力，这就使得开发者可以确切了解应用的生命周期的每一点发生了什么。
 
-Redux is an extension of the flux pattern which enforces unidirectional data flow. In addition, Redux adds 3 principles to the flux philosophy.
+Redux 是使用单向数据流的 flux 模式的一个拓展。Redux 在 flux 的思路体系上额外加入了 3 条准则。
 
 1.  **A single source of truth for the state**. The entire state of the application is stored in a single JavaScript object.
+1.  **唯一的状态**。
 2.  **State is read-only**. This is the concept of immutability. The state is never altered, but every actions generates a brand new state object, replacing the old one.
 3.  **Changes are made with pure functions**. This means that any time a new state is generated, it happens without triggering any other side effects.
 
