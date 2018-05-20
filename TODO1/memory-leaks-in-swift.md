@@ -276,7 +276,6 @@ describe("UIViewController"){
 
 #### 测试 viewController 中的内存泄漏
 
-A view controller might start leaking right away when its view is loaded. After that, a million things can happen, but with this simple test you can ensure that your viewDidLoad is not leaking.
 一个 viewController 可能在它的子视图加载完成后开始发生内存泄漏。在此之后，会发生大量的事情，但是使用这个简单的测试你就能保证在 viewDidLoad 方法中不存在内存泄漏。
 
 ```
