@@ -808,8 +808,8 @@
 |[区块链中的共识机制 DBFT](https://juejin.im/entry/59cba85ef265da06507542a4/detail)|校对|2|
 |[漂亮的字体组合的秘密](https://gold.xitu.io/entry/58a3b99aac502e0068b0e8fa/)|校对|1|
 |[使用 WebSocket 和 CSS3 创造魔法](https://gold.xitu.io/entry/5894612a2f301e006900cfcc)|校对|1|
-|[［［译］GitHub 是如何阻止网络暴力的](https://gold.xitu.io/entry/58652f6661ff4b00583ba924)|翻译|6|
-|[［译］JavaScript 测试︰ 单元 vs 功能 vs 集成测试](https://gold.xitu.io/entry/584ab2dc128fe1006c7cdc11)|翻译|6|
+|[GitHub 是如何阻止网络暴力的](https://gold.xitu.io/entry/58652f6661ff4b00583ba924)|翻译|6|
+|[JavaScript 测试︰ 单元 vs 功能 vs 集成测试](https://gold.xitu.io/entry/584ab2dc128fe1006c7cdc11)|翻译|6|
 |[推荐文章『Introduction to Node & Express』入选]()|奖励|1|
 |[使用 React.js 的渐进式 Web 应用程序：第 3 部分 - 离线支持和网络恢复能力](http://gold.xitu.io/entry/58350983a22b9d006bbb90d3/)|校对|2|
 |[JavaScript 包管理器工作原理简介](http://gold.xitu.io/entry/5835a2c0c59e0d005772a62f/)|校对|1|
@@ -817,7 +817,7 @@
 |[设计，其实是一种产生共鸣的过程](http://gold.xitu.io/entry/57a41ffca341310063262054)|校对|1|
 |[移动应用设计新趋势](http://gold.xitu.io/entry/5796ee065bbb500063ef3535)|校对|1|
 |[字体加载策略全面指南](https://gold.xitu.io/entry/5790d1aa5bbb500063b8a747)|校对|1|
-|[［译］移动开发中用 1x 视觉稿设计的好处](http://gold.xitu.io/entry/578840f9d342d30058a29968)|翻译|4|
+|[移动开发中用 1x 视觉稿设计的好处](http://gold.xitu.io/entry/578840f9d342d30058a29968)|翻译|4|
 |[用户界面中的字体](http://gold.xitu.io/entry/57859bb9d342d300578b1ebf)|校对|2|
 |[UI 的黑暗面！暗色背景的优势](https://gold.xitu.io/entry/577c9385a633bd005be7fe7a)|校对|3|
 |[假如 Mac 上也有 iOS 应用？](http://gold.xitu.io/entry/577b87d27db2a20054e47ecc)|翻译|8|
@@ -5451,7 +5451,7 @@
 |[⚛ React 状态管理工具博物馆](https://juejin.im/post/5afd18cf6fb9a07acb3d13ac)|校对|2.5|
 |[这就是为什么我们需要在 React 的类组件中为事件处理程序绑定 this](https://juejin.im/post/5afa6e2f6fb9a07aa2137f51)|校对|1|
 |[论 Android 中 Span 的正确打开方式](https://juejin.im/entry/5af401bb518825671776537d/)|校对|1|
-|[如何逃离 async/await 地狱](https://juejin.im/post/5aefbb48f265da0b9b073c40)|校对|4|
+|[我在编程初级阶段常犯的错误](https://juejin.im/post/5ae97af6f265da0ba062f797)|校对|4|
 |[深入浅出 SVG](https://juejin.im/post/5ad84f296fb9a045e8011be1)|校对|1.5|
 |[提高 10 倍性能：优化静态网站](https://juejin.im/post/5ac9e430f265da2392369ec0)|校对|1.5|
 |[单向用户界面架构问题研究](https://juejin.im/post/5aca38c5518825482e392c00)|校对|1.5|
@@ -5685,11 +5685,11 @@
 
 |文章|类型|积分|
 |------|-------|-------|
+|[我在编程初级阶段常犯的错误](https://juejin.im/post/5ae97af6f265da0ba062f797)|翻译|12|
 |[30 分钟 Python 爬虫教程](https://juejin.im/post/5afab181f265da0b7452514a)|翻译|3|
 |[那些好玩却没有被 ECMAScript 2017 采纳的提案](https://juejin.im/post/5ae920fd51882567127852e7)|校对|2|
 |[我是如何修复 Python 3.7 中一个非常古老的 GIL 竞态条件 bug 的](https://juejin.im/post/5aeba1075188256712786039)|翻译|3.5|
 |[Java 桥接方法详解](https://juejin.im/post/5af28ca0518825672565da74)|翻译|2|
-|[如何逃离 async/await 地狱](https://juejin.im/post/5aefbb48f265da0b9b073c40)|翻译|12|
 |[Google 的 ML Kit 为 Android 和 iOS 提供了简单的机器学习 API](https://juejin.im/post/5af2942e51882567244df836)|校对|0.5|
 
 ## 译者：[whuzxq](https://github.com/whuzxq) 历史贡献积分：9 当前积分：9 年度积分：9
@@ -5705,7 +5705,7 @@
 
 |文章|类型|积分|
 |------|-------|-------|
-|[如何逃离 async/await 地狱](https://juejin.im/post/5aefbb48f265da0b9b073c40)|校对|4|
+|[我在编程初级阶段常犯的错误](https://juejin.im/post/5ae97af6f265da0ba062f797)|校对|4|
 
 ## 译者：[Gladysgong](https://github.com/Gladysgong) 历史贡献积分：1 当前积分：1 年度积分：1
 
