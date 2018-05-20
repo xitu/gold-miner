@@ -11,7 +11,6 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/1*7ISuh6UwWtqCmfzSUpyUBw.png)
 
-In this article we will talk about memory leaks and will learn how to use Unit Testing to detect them. Here’s a sneak peek:
 本篇文章中，我们将探讨内存泄漏，以及学习如何使用单元测试预防内存泄漏产生。现在我们先来快速看一个例子：
 
 ```
@@ -33,11 +32,11 @@ describe("MyViewController"){
 
 ### **内存泄漏**
 
-确实，这是我们作为开发者，最经常面对的一个问题。当我们开发了一个又一个的功能，App 逐渐丰富，我们会引入内存泄漏。
+确实，这是我们作为开发者，最经常面对的一个问题。当我们开发了一个又一个的功能，app 内容逐渐丰富，我们会引入内存泄漏。
 
 内存泄漏就是指内存片段不再会被使用，却被永久持有。它是内存垃圾，不仅占据空间也会导致一些问题。
 
-> 某个时间点被分配的内存，未被释放并且也不再被你的 App 持有。因为这段内存不再被任何对象持有，所以现在没有办法释放掉它，它也没有办法被再次使用。
+> 某个时间点被分配的内存，未被释放并且也不再被你的 app 持有。因为这段内存不再被任何对象持有，所以现在没有办法释放掉它，它也没有办法被再次使用。
 >
 >  [苹果官方文档](https://developer.apple.com/library/content/documentation/DeveloperTools/Conceptual/InstrumentsUserGuide/CommonMemoryProblems.html)
 
@@ -45,9 +44,9 @@ describe("MyViewController"){
 
 ## 内存泄漏很危险
 
-内存泄漏不仅会**增加 App 的内存占用**，也会**引入有害的的副作用**甚至**崩溃**。
+内存泄漏不仅会**增加 app 的内存占用**，也会**引入有害的的副作用**甚至**崩溃**。
 
-为什么**内存占用**会不断增长？它是对象没有被释放掉的直接后果。这些对象完全就是内存垃圾，当创建这些对象的操作不断被执行，它们占据的内存就会不断增长。太多的内存垃圾！这可能导致内存警告的情况，并且最终 App 会崩溃。
+为什么**内存占用**会不断增长？它是对象没有被释放掉的直接后果。这些对象完全就是内存垃圾，当创建这些对象的操作不断被执行，它们占据的内存就会不断增长。太多的内存垃圾！这可能导致内存警告的情况，并且最终 app 会崩溃。
 
 解释**有害的副作用**需要更详细一点的细节。
 
@@ -57,9 +56,9 @@ describe("MyViewController"){
 
 这个对象永远不会消失，它永远不会停止监听通知。每一次通知被发布，该对象就会响应。如果用户反复执行操作，创建这个有问题的对象，那么就会有多个重复对象存在。所有这些对象都会响应这个通知，并且会彼此影响。
 
-在这种情况下，**崩溃可能是发生的最好的事情**。
+在这种情况下，**崩溃可能是发生的最好情况**。
 
-大量泄漏的对象重复创建了 App 通知，改变数据库、用户界面，腐化整个 App 的状态。你可以通过 [The Pragmatic Programmer](https://www.goodreads.com/book/show/4099.The_Pragmatic_Programmer) 这篇文章中的 **Dead Programs tell no lies** 了解这类问题的重要性。
+大量泄漏的对象重复创建了 app 通知，改变数据库、用户界面，腐化整个 app 的状态。你可以通过 [The Pragmatic Programmer](https://www.goodreads.com/book/show/4099.The_Pragmatic_Programmer) 这篇文章中的 **Dead Programs tell no lies** 了解这类问题的重要性。
 
 内存泄漏毫无疑问会导致非常差的用户体验以及 App Store 上的低分。
 
@@ -206,7 +205,7 @@ class Parent {
 ### 如何消除内存泄漏？
 
 1. 不要创造出内存泄漏。对内存管理有更深刻的认识。为项目定义完善的 [代码风格](https://swift.org/documentation/api-design-guidelines/%5C)，并且严格遵守。如果你足够严谨，并且遵循你的代码风格，那么缺少 `weak self` 也将容易被发现。代码审查也能提供很大帮助。
-2. 使用 [Swift Lint](https://github.com/realm/SwiftLint)。这是一个一个很棒的工具，能够强制你遵循一种代码风格，遵循第一条规则。它能够帮你早在编译期就发现一些问题。比如代理变量声明时并没有被声明为弱引用，这原本可能导致循环引用。
+2. 使用 [Swift Lint](https://github.com/realm/SwiftLint)。这是一个一个很棒的工具，能够强制你遵循一种代码风格，遵循第一条规则。它能够帮你早在编译期就发现一些问题，比如代理变量声明时并没有被声明为弱引用，这原本可能导致循环引用。
 3. 在运行期间检测内存泄漏，并将它们可视化。如果你清楚某个特定的对象在特定时刻有多少实例存在，那么你可以使用 [LifetimeTracker](https://github.com/krzysztofzablocki/LifetimeTracker)。这是一个能在开发模式下运行的好工具。
 4. 经常评测 app。Xcode 中的 [内存分析工具](https://developer.apple.com/library/content/documentation/DeveloperTools/Conceptual/InstrumentsUserGuide/CommonMemoryProblems.html) 非常有，可以看 [这篇文章](https://useyourloaf.com/blog/xcode-visual-memory-debugger/). 不久之前 Instruments 也是一种方法，这也是非常棒的工具。
 5. 使用 [**SpecLeaks**](https://cocoapods.org/pods/SpecLeaks) 对内存泄漏进行单元测试。这个第三方库使用 Quick 和 Nimble 让你方便地对内存泄漏进行测试。你可以在接下来的章节中更多地了解到它。
