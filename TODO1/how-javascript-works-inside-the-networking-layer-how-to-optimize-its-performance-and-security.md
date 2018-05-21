@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-javascript-works-inside-the-networking-layer-how-to-optimize-its-performance-and-security.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-javascript-works-inside-the-networking-layer-how-to-optimize-its-performance-and-security.md)
 > * 译者：[Hopsken](https://github.com/hopsken)
-> * 校对者：[sophiayang1997](https://github.com/sophiayang1997)
+> * 校对者：[sophiayang1997](https://github.com/sophiayang1997) [luochen1992](https://github.com/luochen1992)
 
 # JavaScript 是如何工作的：深入网络层 + 如何优化性能和安全
 
