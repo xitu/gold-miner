@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-javascript-works-inside-the-networking-layer-how-to-optimize-its-performance-and-security.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-javascript-works-inside-the-networking-layer-how-to-optimize-its-performance-and-security.md)
 > * 译者：[Hopsken](https://github.com/hopsken)
-> * 校对者：
+> * 校对者：[sophiayang1997](https://github.com/sophiayang1997)
 
 # JavaScript 是如何工作的：深入网络层 + 如何优化性能和安全
 
@@ -43,15 +43,15 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*WqInzMPQGGcMX9AOONN76g.jpeg)
 
-作为 Web 开发人员，我们不必操心 TCP 或 UDP 数据包，请求格式化，缓存和此过程中的其他所有事情。所以复杂的事务都由浏览器处理，因此我们可以专注于我们正在开发的应用程序。但是，了解底层究竟发生了什么，可以帮助我们创建更快、更安全的应用程序。
+作为 Web 开发人员，我们不必操心个别的 TCP 或 UDP 数据包，请求格式化，缓存和此过程中的其他所有事情。所以复杂的事务都由浏览器处理，因此我们可以专注于我们正在开发的应用程序。但是，了解底层究竟发生了什么，可以帮助我们创建更快、更安全的应用程序。
 
 实质上，当用户开始与浏览器交互时发生了以下事务：
 
-*   用户在浏览器地址栏中输入一个URL
-*   给定Web上资源的URL，浏览器首先检查本地和应用程序缓存，并尝试使用本地副本来完成请求。
+*   用户在浏览器地址栏中输入一个 URL
+*   给定一个 Web 资源的 URL，浏览器首先检查本地和应用程序缓存，并尝试使用本地副本来完成请求。
 *   如果缓存无法使用，浏览器将从URL中获取域名，并通过 [DNS](https://en.wikipedia.org/wiki/Domain_Name_System) 请求服务器的 IP 地址。如果该域被缓存，则不需要 DNS 查询。
-*   浏览器创建一个HTTP数据包，说明它请求位于远程服务器上的某个网页。
-*   数据包被发送到 TCP 层，在 HTTP 数据包的顶部添加它自己的信息。此信息将被用于维护会话。
+*   浏览器创建一个 HTTP 数据包，说明它请求位于远程服务器上的某个网页。
+*   数据包被发送到 TCP 层，在 HTTP 数据包的顶部添加它自己的信息。此信息将被用于维护已经开始的会话。
 *   然后将数据包交给 IP 层，它的主要工作是找出将数据包从用户发送到远程服务器的途径。这些信息也会存储在数据包的顶部。
 *   数据包被发送到远程服务器。
 *   远程服务器一旦接收到数据包，就会以类似的方式发回响应。
@@ -66,7 +66,7 @@ W3C 的[导航时序规范](http://www.w3.org/TR/navigation-timing/)提供了浏
 
 让我们先从一些术语开始：
 
-*   **源（Origin）** — 应用协议、域名、端口三者之和（例如，https，[www.example.com](http://www.example.com)，443）
+*   **源（Origin）** — 由应用协议、域名、端口三者构成（例如，https，[www.example.com](http://www.example.com)，443）
 *   **套接字池（Socket pool）** — 一组属于同一源的套接字（所有主流浏览器都将池的大小限制为最多 6 个套接字）
 
 JavaScript 和 WebAssembly **不允许**我们管理网络套接字的生命周期，这是一件好事！这不仅可以使我们免去很多麻烦，而且还可以让浏览器自动去进行大量的性能优化，其中一些包括套接字重用，请求优先级和后期绑定，协议协商，强制连接限制等等。
@@ -75,7 +75,7 @@ JavaScript 和 WebAssembly **不允许**我们管理网络套接字的生命周�
 
 ![](https://cdn-images-1.medium.com/max/800/1*0e8X3UTBpsiBSZKa3l1hXA.png)
 
-由于开辟新的 TCP 连接需要额外的成本，因此连接的重用具有很大的性能优势。默认情况下，浏览器使用所谓的『keepalive』机制，这可以节省出在已有请求发生后再打开新连接到服务器的时间。打开一个新的 TCP 连接的平均时间是：
+由于开辟新的 TCP 连接需要额外的成本，因此连接的重用具有很大的性能优势。默认情况下，浏览器使用所谓的「keepalive」机制，这可以节省出在已有请求发生后再打开新连接到服务器的时间。打开一个新的 TCP 连接的平均时间是：
 
 *   本地请求 — `23ms`
 *   横贯大陆的请求 — `120ms`
@@ -139,7 +139,7 @@ JavaScript 和 WebAssembly **不允许**我们管理网络套接字的生命周�
 
 管理高效和优化的资源缓存是很困难的。值得庆幸的是，浏览器替我们完成了所有复杂的事务，我们只需要确保我们的服务器返回适当的缓存指令；要了解更多信息，请参见[客户端上的缓存资源（Cache Resources on the Client）](https://hpbn.co/optimizing-application-delivery/#cache-resources-on-the-client)。您确实有为网页上的所有资源都提供了 Cache-Control，ETag 和 Last-Modified 响应头部字段，对吧？
 
-最后，浏览器经常被忽视但至关重要的功能是提供身份验证，会话和 cookie 管理。浏览器为每个源维护单独的『Cookie jars』，提供必要的应用程序和服务器 API 来读取和写入新的 Cookie，会话和身份验证数据，并自动附加上和处理相应的 HTTP 头以代替我们自动执行整个过程。
+最后，浏览器经常被忽视但至关重要的功能是提供身份验证，会话和 cookie 管理。浏览器为每个源维护单独的「Cookie jars」，提供必要的应用程序和服务器 API 来读取和写入新的 Cookie，会话和身份验证数据，并自动附加上和处理相应的 HTTP 头以代替我们自动执行整个过程。
 
 #### 举个栗子：
 
@@ -153,7 +153,7 @@ JavaScript 和 WebAssembly **不允许**我们管理网络套接字的生命周�
 
 ### 简单几步提高您的 Web 应用性能和安全性
 
-*   请求中始终使用『Connection：Keep-Alive』头部字段。浏览器默认这样做。确保服务器使用相同的机制。
+*   请求中始终使用「Connection：Keep-Alive」头部字段。浏览器默认这样做。确保服务器使用相同的机制。
 *   使用正确的 Cache-Control、Etag 和 Last-Modified 头部字段，这样可以节约一些浏览器下载时间。
 *   花时间调整并优化您的 Web 服务器。这才是真正的魔法发生的地方！请记住，该过程要针对每个 Web 应用程序以及您要传输的数据的类型对症下药。
 *   始终使用 TLS！特别是如果您的应用程序中有任何形式的身份验证。
