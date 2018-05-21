@@ -2,7 +2,7 @@
 > * 原文作者：[Chad Brubaker](https://android-developers.googleblog.com)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/protecting-users-with-tls-by-default-in.md](https://github.com/xitu/gold-miner/blob/master/TODO1/protecting-users-with-tls-by-default-in.md)
-> * 译者：
+> * 译者：[hanliuxin5](https://github.com/hanliuxin5)
 > * 校对者：
 
 # 在 Android P 中使用默认的 TLS 来保护你的用户
@@ -21,7 +21,7 @@ Android 致力于保持其用户，他们的设备以及他们数据的安全。
 
 Android 系统认为所有网络都可能是具有敌意的，因此应始终使用加密流量。移动设备则是更加容易受到攻击的存在，因为它们经常性地链接到许多不同的网络，比如咖啡店的 Wi-Fi。
 
-所有的网络传输都应该被加密，无论它们传输的何种内容，因为任何未加密的链接都可能被攻击并被注入额外内容，让潜在拥有脆弱防护性能的客户端代码更能够被多点击破，或是用来跟踪用户。如要获取更多的讯息，请查看我们之前的文章 [protecting-against-unintentional] 和 [Developer Summit talk](https://www.youtube.com/watch?v=fcWVV0Hafuk&t=1s)。
+所有的网络传输都应该被加密，无论它们传输的何种内容，因为任何未加密的链接都可能被攻击并被注入额外内容，让潜在拥有脆弱防护性能的客户端代码更能够被多点击破，或是用来跟踪用户。如要获取更多的讯息，请查看我们之前的文章 [protecting-against-unintentional](https://android-developers.googleblog.com/2016/04/protecting-against-unintentional.html) 和 [Developer Summit talk](https://www.youtube.com/watch?v=fcWVV0Hafuk&t=1s)。
 
 ### TLS 会很慢吗？
 
