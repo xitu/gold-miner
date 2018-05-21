@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/playground-driven-development-in-swift.md](https://github.com/xitu/gold-miner/blob/master/TODO1/playground-driven-development-in-swift.md)
 > * 译者：[ALVINYEH](https://github.com/ALVINYEH)
-> * 校对者：
+> * 校对者：[swants](https://github.com/swants)
 
 # Swift 中的 Playground 驱动开发
 
@@ -13,17 +13,17 @@
 
 通过我们开发的 app，为用户提供最佳使用体验，让生活变得更便利，更丰富多彩，是我们作为移动开发者的天生使命。其中我们要做的一件事就是确保为用户展现的 UI 看起来很棒并且不存在丝毫问题。在大多数情况下，app 可以说是数据的美容师。我们常常从后端获取 json ，解析为 model，并通过 UIView （大多数情况下是 UITableView 或 UICollectionView）将数据渲染出来。
 
-对于 iOS，我们需要根据设计来不断调整用户界面，使其能够适合小尺寸的手持设备。这个过程涉及到更改代码、编译、等待、检查、然后又更改代码等等……像 [Flawless App](https://flawlessapp.io/) 这样的工具可以帮助你轻松地比对 iOS 应用和 Sketch 设计的结果。但真正痛苦的是[编译](https://medium.com/@johnsundell/improving-swift-compile-times-ee1d52fb9bd)部分，这个过程需要花大量的时间，而对于 [Swift](https://github.com/fastred/Optimizing-Swift-Build-Times) 来说，情况就更加糟糕了。它会降低我们快速迭代的效率。感觉编译器像是在编译时偷偷挖矿。😅
+对于 iOS，我们需要根据设计来不断调整用户界面，使其能够适合小尺寸的手持设备。这个过程涉及到更改代码、编译、等待、检查、然后又更改代码等等……像 [Flawless App](https://flawlessapp.io/) 这样的工具可以帮助你轻松地比对 iOS 应用和 Sketch 设计的结果。但真正痛苦的是[编译](https://medium.com/@johnsundell/improving-swift-compile-times-ee1d52fb9bd)部分，这个过程需要花大量的时间，而对于 [Swift](https://github.com/fastred/Optimizing-Swift-Build-Times) 来说，情况就更加糟糕了。因为它会降低我们快速迭代的效率。感觉编译器像是在编译时偷偷挖矿。😅
 
-如果你使用 [React](https://reactjs.org/)，你就知道它仅仅是状态 `UI = f(state).` 的 UI 表示。你会得到一些数据，然后创建一个 UI 来呈现它。React 具有 [hot reloader](https://github.com/gaearon/react-hot-loader) 和 [Storybook](https://github.com/storybooks/storybook)，所以 UI 迭代会非常快。你只要进行一些改变，立即可以看到结果。你还可以获得全部可能使用的 UI 的各种状态的完整概述。你深知自己也想在 iOS 中这样做！
+如果你使用 [React](https://reactjs.org/)，你就知道它仅仅是状态 `UI = f(state).` 的一个 UI 表示。你会得到一些数据，然后创建一个 UI 来呈现它。React 具有 [hot reloader](https://github.com/gaearon/react-hot-loader) 和 [Storybook](https://github.com/storybooks/storybook)，所以 UI 迭代会非常快。你只要进行一些改变，立即可以看到结果。你还可以获得全部可能使用的 UI 各种状态的完整概述。你内心深知自己也想在原生 iOS 中这样做！
 
 ### Playground
 
-除了在 [2014 年 WWDC 推出了 Swift](https://developer.apple.com/videos/play/wwdc2014/408/)，苹果还推出了 Playground，据说这是“一种探索 Swift 变成语言的新颖创新方式”。
+除了在 [2014 年 WWDC 推出了 Swift](https://developer.apple.com/videos/play/wwdc2014/408/) 外，苹果还推出了 Playground，据说这是“一种探索 Swift 变成语言的新颖创新方式”。
 
 起初我并不十分相信，并且我看到很多关于 Playground 反应缓慢或无反应的抱怨。但当我看到 [Kickstarter iOS 应用](https://github.com/kickstarter/ios-oss)使用 Playground 来加速其样式和开发流程后，它给我留下了深刻的印象。所以我开始在一些应用中也成功使用了 Playground。它不像 [React Native](https://facebook.github.io/react-native/) 或 [Injection App](http://johnholdsworth.com/injection.html) 那样能够立即重新渲染，但希望它以后会越来越好。 😇
 
-或者至少它取决于开发社区。Playground 的使用场景是我们一次只设计一个屏幕或组件。这迫使我们仔细考虑依赖关系，所以我能导入一个特定的屏幕，然后在 Playground 中进行迭代。
+或者至少它取决于开发社区。Playground 的使用场景是我们一次只设计一个屏幕或组件。这就需要我们仔细考虑好依赖关系，因此我只能导入一个特定的屏幕，然后在 Playground 中进行迭代。
 
 ### Playground 中的自定义 framework
 
@@ -35,7 +35,7 @@ Xcode 9 允许开发者[在 Playground 中导入自定义 framework](https://hel
 
 如果 Playground 作为嵌套项目添加，Playground 无法访问同一工作区或父项目中的代码。为此，你需要创建一个框架，然后添加在你打算在 Playground 中开发的源文件。我们称之为应用框架。
 
-本文的[演示](https://github.com/onmyway133/UsingPlayground)是一个使用 CocoPods 管理依赖的 iOS 项目。在编写此文时候，使用的是 Xcode 9.3 和 Swift 4.1。
+本文的[演示](https://github.com/onmyway133/UsingPlayground)是一个使用 CocoPods 管理依赖的 iOS 工程。在编写此文时候，使用的是 Xcode 9.3 和 Swift 4.1。
 
 让我们通过使用 CocoPods 的项目来完成 Playground 的开发工作。这里还有一些好的做法。
 
@@ -45,7 +45,7 @@ Xcode 9 允许开发者[在 Playground 中导入自定义 framework](https://hel
 
 新建一个工程项目，命名为 `UsingPlayground`。该应用显示一些五彩纸屑颗粒 🎊。有很多选项可以调整这些粒子显示的方式，并且我选择 Playground 来对其进行迭代。
 
-对于该演示，因为我们想要一些有趣的东西，我们将使用 CocoaPods 来获取一个名为 [Cheers](https://github.com/hyperoslo/Cheers) 的依赖项。如果你想庆祝用户达成一些成就时，`Cheers` 可以显示花哨的五彩纸屑效果。
+对于该示例，因为想要加入一些有趣的东西，我们将使用 CocoaPods 来获取一个名为 [Cheers](https://github.com/hyperoslo/Cheers) 的依赖项。如果你想庆祝用户达成一些成就时，`Cheers` 可以显示花哨的五彩纸屑效果。
 
 使用 `UsingPlayground` 创建 `Podfile` 作为应用的 [target](https://guides.cocoapods.org/syntax/podfile.html#target)：
 
@@ -58,7 +58,7 @@ target ‘UsingPlayground’
 
 #### 第二步：在你的应用项目中使用 pod
 
-运行 `pod install` 后，CocoaPods 会生成一个包含 2 个项目的 workspace 文件。一个是我们的 App 工程，另一个是目前只包含了 `Cheers` 的工程。现在的话只有 `Cheers`。关闭你现在的工程，改为打开生成的 workspace 文件。
+运行 `pod install` 后，CocoaPods 会生成一个包含 2 个工程的 workspace 文件。一个是我们的 App 工程，另一个是目前只包含了 `Cheers` 的工程。现在的话只有 `Cheers`。关闭你现在的工程，改为打开刚生成的 workspace 文件。
 
 这非常简单，只是为了确保 pod 能正常工作。编写一些代码来使用 `Cheers`：
 
@@ -94,17 +94,17 @@ public class ViewController: UIViewController {
 
 ![](https://cdn-images-1.medium.com/max/800/1*Jap3CnRcDmSyo-4aykWsLA.png)
 
-这个简单的项目，现在还只有一个`ViewController.swift`。如果此文件引用了其他文件的代码，则还需要将相关文件添加到`AppFramework` 的 target 中去。这是你应该聪明地去处理[依赖](https://en.wikipedia.org/wiki/Dependency_inversion_principle)的方法。
+这个简单的项目，现在还只有一个 `ViewController.swift`。如果此文件引用了其他文件的代码，则还需要将相关文件添加到 `AppFramework` 的 target 中去。这是一个处理[依赖](https://en.wikipedia.org/wiki/Dependency_inversion_principle)时的好方法。
 
 #### 第四步：将文件添加到 AppFramework
 
-iOS 中 的 `ViewController` 主要位于 UI 层，因此它应该只获取解析过的数据并使用 UI 组件呈现出来。如果当中有一些可能涉及缓存、网络等其他部分的逻辑，这就需要你添加更多的文件到 AppFramework。小而独立的框架显得更合理，因为可以让我们快速迭代。
+iOS 中 的 `ViewController` 主要位于 UI 层，因此它应该只获取解析过的数据并使用 UI 组件渲染出来。如果当中有一些可能涉及缓存、网络等其他部分的逻辑，这就需要你添加更多的文件到 AppFramework。小巧且独立的框架会显得更合理，因为可以让我们快速迭代。
 
-Playground 不是魔法。你每次更改代码时都需要编译 AppFramework，否则这些更改将不会反映在 Playground 中。如果你不介意编译时间太慢，则可以将所有文件添加到 `AppFramework`。简单地展开组文件夹，选择和添加文件到 target 需要很多时间。更何况，如果你选择文件夹和文件，你将无法将它们添加到 target，只能单独添加文件。
+Playground 不是魔法。你每次更改代码时都需要编译 AppFramework，否则无法在 Playground 中看到更改后的效果。如果你不介意编译时间太慢，则可以将所有文件添加到 `AppFramework`。简单地展开组文件夹，选择和添加文件到 target 需要很多时间。更何况，如果你选择文件夹和文件，你将无法将它们添加到 target，只能单独添加文件。
 
 ![](https://cdn-images-1.medium.com/max/800/1*cOThYP8EGPrjsDnx06Zg1A.png)
 
-更快的方式在 `AppFramework` 的 target 中选择 `Build Phase`，然后点击 `Compile Sources`。在这里，所有文件都会自动展开，你所需要做的就是选择它们并单击 `Add`。
+更快的方式是在 `AppFramework` 的 target 中选择 `Build Phase`，然后点击 `Compile Sources`。在这里，所有文件都会自动展开，你所需要做的就是选择它们并单击 `Add`。
 
 ![](https://cdn-images-1.medium.com/max/800/1*bROv-S-aMElSPB7BpEOhwA.png)
 
@@ -122,7 +122,7 @@ public class ViewController: UIViewController {
 
 #### 第六步：将 pod 添加到 AppFramework
 
-为了让 `AppFramework` 能够使用我们的 pod，我们还需要将这些 pod 添加到框架的 target 中。在你的 `Podfile` 文件中添加  `target ‘AppFramework’`：
+为了让 `AppFramework` 能够使用我们的 pod，还需要将这些 pod 添加到框架的 target 中。在你的 `Podfile` 文件中添加  `target ‘AppFramework’`：
 
 ```
 platform :ios, ‘9.0’
@@ -299,7 +299,7 @@ public class ResourceViewController: UIViewController {
 
 在这里，我使用 [Anchors](https://github.com/onmyway133/Anchors) 方便的声明式自动布局🤘。这也是为了展示 Swift 的 Playground 如何处理任意数量的框架。
 
-现在，选择应用模式 `UsingPlayground` 并点击构建和运行。应用会如下所示，正确地显示了图像和本地化的字符串。
+现在，选择应用模式 `UsingPlayground` 并点击构建和运行。App 会变成如下所示，能够正确地显示了图像和本地化的字符串。
 
 ![](https://cdn-images-1.medium.com/max/800/1*4gH9VnqAP7wvJfRAQIoo1w.png)
 
@@ -322,7 +322,7 @@ PlaygroundPage.current.liveView = controller.view
 
 #### Resources 文件夹
 
-实际上，每个 `Playground Page` 都有一个 `Resources` 文件夹，我们可以在其中放置这个特定页面所看到的资源文件。但是，我们需要访问应用程序包中的资源。
+实际上，每个 `Playground Page` 中都有一个 `Resources` 文件夹，我们可以在其中放置这个特定页面所看到的资源文件。但是，我们需要访问应用程序包中的资源。
 
 #### Main bundle
 
@@ -348,7 +348,7 @@ let myBundle = Bundle(for: NSClassFromString("MyPrivateClass")!)
 
 #### 步骤 2：指定 bundle
 
-如果我们不指定 bundle，那么默认会使用 `mainBundle`。在执行的 Playground 的上下文中，`mainBundle` 指它的 `Resources` 文件夹。但我们希望 Playground 访问 AppFramework 中的资源，所以我们需要在 `AppFramework` 中使用一个类调用 `[Bundle.nit(for:)](https://developer.apple.com/documentation/foundation/bundle/1417717-init)` 方法来引用 `AppFramework` 中的 bundle。该类可以是 `ResourceViewController`，因为它也被添加到 `AppFramework` target 中。
+如果我们不指定 bundle，那么默认会使用 `mainBundle`。在执行的 Playground 的上下文中，`mainBundle` 指的是其 `Resources` 文件夹。但我们希望 Playground 访问 AppFramework 中的资源，所以我们需要在 `AppFramework` 中使用一个类调用 `[Bundle.nit(for:)](https://developer.apple.com/documentation/foundation/bundle/1417717-init)` 方法来引用 `AppFramework` 中的 bundle。该类可以是 `ResourceViewController`，因为它也被添加到 `AppFramework` target 中。
 
 将 `ResourceViewController` 中的代码更改为：
 
