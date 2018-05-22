@@ -1,5 +1,5 @@
 > * 原文地址：[Algorithms Behind Modern Storage Systems](https://queue.acm.org/detail.cfm?id=3220266)
-> * 原文作者：[acmqueue](https://queue.acm.org/)
+> * 原文作者：[Alex Petrov](http://coffeenco.de/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/algorithms-behind-modern-storage-systems.md](https://github.com/xitu/gold-miner/blob/master/TODO1/algorithms-behind-modern-storage-systems.md)
 > * 译者：[LeopPro](https://github.com/LeopPro)
@@ -9,7 +9,7 @@
 
 ## 读优化 B-Tree 和写优化 LSM-Tree 的不同用途
 
-### Alex Petrov
+
 
 应用程序处理的数据量不断增长。因此，扩展存储变得愈发具有挑战性。每个数据库系统都有自己的方案。为了做出正确的选择，了解它们是至关重要的。
 
@@ -75,21 +75,23 @@ B-Tree 的特性如下：
 
 ### LSM-Tree
 
-The log-structured merge-tree is an immutable disk-resident write-optimized data structure. It is most useful in systems where writes are more frequent than lookups that retrieve the records. LSM-trees have been getting more attention because they can eliminate random insertions, updates, and deletions.
+
+结构化日志合并树是一个不可变的基于磁盘的写优化数据结构。它适用于写入比查询操作更频繁的场景。LSM-Tree 已经获得了更多的关注，因为它可以避免随机插入，更新和删除。
 
 #### 剖析 LSM-Tree
 
-To allow sequential writes, LSM-trees batch writes and updates in a memory-resident table (often implemented using a data structure allowing logarithmic time lookups, such as a [binary search tree](https://en.wikipedia.org/wiki/Self-balancing_binary_search_tree) or [skip list](https://en.wikipedia.org/wiki/Skip_list)) until its size reaches a threshold, at which point it is written on disk (this operation is called a _flush_). Retrieving the data requires searching all disk-resident parts of the tree, checking the in-memory table, and merging their contents before returning the result. Figure 5 shows the structure of an LSM-tree: a memory-resident table used for writes. Whenever the memory table is large enough, its sorted contents are written on disk. Reads are served, hitting both disk- and memory-resident tables, requiring a merge process to reconcile the data.
+为了允许连续写入，LSM-Tree 在内存中的表（通常使用支持查找的时间复杂度为对数的数据结构，例如二叉搜索树或跳跃表）中批量写入和更新，当其大小达到阈值时将它写在磁盘上（这个操作称为刷新）。检索数据时需要搜索树所有磁盘中的部分，检查内存中的表，合并它们的内容，然后再返回结果。图 5 展示了 LSM-Tree 的结构：用于写入的基于内存的表。只要内存表体积达到一定程度，内存表就会被写入磁盘。进行读取时，同时读取磁盘和内存表，通过一个合并操作来整合数据。
 
-![支撑现代存储系统的算法](http://deliveryimages.acm.org/10.1145/3230000/3220266/petrov5.png)
+![支撑现代存储系统的算法](https://s1.ax1x.com/2018/05/20/CgQ3cQ.png)
 
 #### Sorted String Tables
 
-Many modern LSM-tree implementations (such as [RocksDB](https://en.wikipedia.org/wiki/RocksDB) and [Apache Cassandra](https://en.wikipedia.org/wiki/Apache_Cassandra)) implement disk-resident tables as SSTables (Sorted String Tables), because of their simplicity (easy to write, search, and read) and merge properties (during the merge, source SSTable scans and merged result writes are sequential).
+因为 SSTable（有序串行表）的简单性（易于写入，搜索和读取）与合并性能（合并期间，扫描源 SSTable，合并结果的写入是顺序的），多数现代的 LSM-Tree 实现（例如 [RocksDB](https://en.wikipedia.org/wiki/RocksDB) 和 [Apache Cassandra](https://en.wikipedia.org/wiki/Apache_Cassandra)）都选用 SSTable 作为硬盘表。
 
-An SSTable is a disk-resident ordered immutable data structure. Structurally, an SSTable is split into two parts: data and index blocks, as shown in figure 6. A data blocks consists of sequentially written unique key/value pairs, ordered by key. An index block contains keys mapped to data-block pointers, pointing to where the actual record is located. An index is often implemented using a format optimized for quick searches, such as a B-tree, or using a hash table for a point-query. Every value item in an SSTable has a timestamp associated with it. This specifies the write time for inserts and updates (which are often indistinguishable) and removal time for deletes.
 
-![支撑现代存储系统的算法](http://deliveryimages.acm.org/10.1145/3230000/3220266/petrov6.png)
+SSTable 是一种基于硬盘的有序不可变的数据结构。从结构上来看，SSTable 可以分为两部分：数据块和索引块，如图 6 所示。数据块包含以键为顺序写入的唯一键值对。索引块包含映射到数据块指针的键，指针指向实际记录的位置。为了快速搜索，索引一般使用优化的结构实现，例如 B-Tree 或用于点查询的哈希表。SSTable 中的每一个值都有一个时间戳与之对应。时间戳记录了插入、更新（这两者一般不做区分）和删除时间。
+
+![支撑现代存储系统的算法](https://s1.ax1x.com/2018/05/22/C2vwlD.png)
 
 SSTables have some nice properties:
 
