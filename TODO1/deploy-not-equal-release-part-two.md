@@ -59,7 +59,7 @@
 
 我们开始关注为各种规模的公司提供的便利的产品（[Houston](https://turbinelabs.io)、[LaunchDarkly](https://launchdarkly.com/)）和开源工具（[Envoy](https://lyft.github.io/envoy/)、[Linkerd](https://linkerd.io/)、[Traefik](https://traefik.io/)、[Istio](https://istio.io)），以及最近才向大型公司提供的发布单元和工作流。这些产品和工具使得人们可以更快速地发布功能，并且使我们有信心不会对用户体验产生负面影响。
 
-+我是 [Turbine Labs](https://turbinelabs.io/) 的一名工程师，我们正在构建 [Houston](https://docs.turbinelabs.io/reference/#introduction) —— 一项使构建和监控复杂的实时发布工作流程变得非常简单的服务。如果你希望交付更多产品并且花更少的心思，那么你绝对应该[联系我们](https://turbinelabs.io/contact)！我们很乐意与你交流。
+我是 [Turbine Labs](https://turbinelabs.io/) 的一名工程师，我们正在构建 [Houston](https://docs.turbinelabs.io/reference/#introduction) —— 一项使构建和监控复杂的实时发布工作流程变得非常简单的服务。如果你希望交付更多产品并且花更少的心思，那么你绝对应该[联系我们](https://turbinelabs.io/contact)！我们很乐意与你交流。
 
 感谢 Glen Sanford、Mark McBride、Emily Pinkerton、Brook Shelley、Sara 和 Jenn Gillespie 阅读本文的初稿。
 
