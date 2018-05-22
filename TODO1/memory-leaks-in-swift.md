@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/memory-leaks-in-swift.md](https://github.com/xitu/gold-miner/blob/master/TODO1/memory-leaks-in-swift.md)
 > * 译者：[RickeyBoy](https://github.com/rickeyboy)
-> * 校对者：
+> * 校对者：[swants](https://github.com/swants)
 
 # Swift 中的内存泄漏
 
@@ -207,7 +207,7 @@ class Parent {
 1. 不要创造出内存泄漏。对内存管理有更深刻的认识。为项目定义完善的 [代码风格](https://swift.org/documentation/api-design-guidelines/%5C)，并且严格遵守。如果你足够严谨，并且遵循你的代码风格，那么缺少 `weak self` 也将容易被发现。代码审查也能提供很大帮助。
 2. 使用 [Swift Lint](https://github.com/realm/SwiftLint)。这是一个一个很棒的工具，能够强制你遵循一种代码风格，遵循第一条规则。它能够帮你早在编译期就发现一些问题，比如代理变量声明时并没有被声明为弱引用，这原本可能导致循环引用。
 3. 在运行期间检测内存泄漏，并将它们可视化。如果你清楚某个特定的对象在特定时刻有多少实例存在，那么你可以使用 [LifetimeTracker](https://github.com/krzysztofzablocki/LifetimeTracker)。这是一个能在开发模式下运行的好工具。
-4. 经常评测 app。Xcode 中的 [内存分析工具](https://developer.apple.com/library/content/documentation/DeveloperTools/Conceptual/InstrumentsUserGuide/CommonMemoryProblems.html) 非常有用，可以参考 [这篇文章](https://useyourloaf.com/blog/xcode-visual-memory-debugger/). 不久之前 Instruments 也是一种方法，这也是非常棒的工具。
+4. 经常评测 app。Xcode 中的 [内存分析工具](https://developer.apple.com/library/content/documentation/DeveloperTools/Conceptual/InstrumentsUserGuide/CommonMemoryProblems.html) 非常有用，可以参考 [这篇文章](https://useyourloaf.com/blog/xcode-visual-memory-debugger/)。不久之前 Instruments 也是一种方法，这也是非常棒的工具。
 5. 使用 [**SpecLeaks**](https://cocoapods.org/pods/SpecLeaks) 对内存泄漏进行单元测试。这个第三方库使用 Quick 和 Nimble 让你方便地对内存泄漏进行测试。你可以在接下来的章节中更多地了解到它。
 
 ### 对内存泄漏进行单元测试
