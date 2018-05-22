@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/deploy-not-equal-release-part-two.md](https://github.com/xitu/gold-miner/blob/master/TODO1/deploy-not-equal-release-part-two.md)
 > * 译者： [lwjcjmx123](https://github.com/lwjcjmx123)
-> * 校对者：
+> * 校对者：[LeviDing](https://leviding.com)
 
 # 部署 != 发布 (第二部分)
 
