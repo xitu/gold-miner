@@ -11,7 +11,7 @@
 
 http 头信息是控制缓存和浏览器处理web内容的一种重要方式。但很多时候它都被错误或冗余地使用，这不仅没有达成我们的使用目的，还增加了加载页面时的运行开销。这篇 http 头信息的系列博文中的第一篇文章，让我们先来扒一扒那些不必要的 http 头信息。
 
-大多数开发者都了解一些 HTTP 头信息，并利用它去处理内容。如大家熟知的 `Content-Type` 和 `Content-Length` ，它们都是通用的。但最近，`Content-Security-Policy` 和 `Strict-Transport-Security` 这样的头信息已经开始用于提高安全性，`Link rel=preload` 用于提高性能。只是极少数网站使用他们，尽管它们被浏览器广泛支持。
+大多数开发者都了解一些 HTTP 头信息，并利用它去处理内容。如大家熟知的 `Content-Type` 和 `Content-Length`，它们都是通用的。但最近，`Content-Security-Policy` 和 `Strict-Transport-Security` 这样的头信息已经开始用于提高安全性，`Link rel=preload` 用于提高性能。只是极少数网站使用他们，尽管它们被浏览器广泛支持。
 
 与此同时，还有很多以前就有并且灰常受欢迎的头信息是不实用的。我们可以使用 [HTTP 存档](http://httparchive.org/) 来证实这一点。[HTTP 存档](http://httparchive.org/) 是由 Fastly 赞助并由 Google 运营的项目，每个月使用 [WebPageTest](https://www.webpagetest.org/) 加载 500,000 个网站并进行性能测试，结果公布在 [BigQuery](https://cloud.google.com/bigquery/)。
 
@@ -63,7 +63,7 @@ Via: 1.1 varnish, 1.1 squid
 
 [RFC7231](https://httpwg.org/specs/rfc7231.html#header.server) 标准允许服务器在响应中包含 `Server` 头信息，识别用于服务内容的服务器软件。最常见的是 “apache” 和 “nginx”。虽然它是允许的，也不是强制的，但是对开发者和最终用户都没有太多实在意义。然而，它是当今 web 上第三个最流行的 HTTP 响应头。
 
-`X-Powered-By` 是没有在任何标准中定义却很受欢迎的头信息，相似地，通常用于指出 web 服务器后的应用软件平台。常见的值有 “ASP.net”， “PHP” 和 “Express”，实际上它们并不提供任何好处，还占用空间。
+`X-Powered-By` 是没有在任何标准中定义却很受欢迎的头信息，相似地，通常用于指出 web 服务器后的应用软件平台。常见的值有 “ASP.net”，“PHP” 和 “Express”，实际上它们并不提供任何好处，还占用空间。
 
 更具争议的应该是 `Via`，当添加到通过其传递的代理来识别代理的任何代理的响应时，[RFC7230](https://httpwg.org/specs/rfc7230.html#header.via) 规定它是必须的。代理主机名的时候他可能是有用的，但更多时候它像是一个通用标识符，如  “vegur”，“varnish”，或 “squid”。删除或者不设置这个头信息在技术上是违反规范的，但是没有浏览器对它做任何事情，所以如果你想删除它是没问题的。
 
@@ -83,7 +83,7 @@ X-Frame-Options: SAMEORIGIN
 
 不用说，读取第三方 cookie 通常是不可取的，所以如果你打算不这样做，你也不需要设置一个 `P3P` 头信息
 
-`Expires` 受欢迎程度达到了不可思议的状况，试想下这种情况，`Cache-Control` 被设置为 20 年后过期。如果 `Cache-Control` 头信息包含 `max-age` 指令，那么在相同响应上的任何 `Expires` 头信息将被忽略。但是有大量网站同时设置了这两个信息，并且 `Expires` 头信息通常被设置为格林尼治时间 -- `Thu, 01 Dec 1994 16:00:00` 。很多人这样做因为他们不希望网站内容被缓存和复制，所以就[从规范中](https://www.ietf.org/rfc/rfc2616.txt)复制这个实例日期来填充。
+`Expires` 受欢迎程度达到了不可思议的状况，试想下这种情况，`Cache-Control` 被设置为 20 年后过期。如果 `Cache-Control` 头信息包含 `max-age` 指令，那么在相同响应上的任何 `Expires` 头信息将被忽略。但是有大量网站同时设置了这两个信息，并且 `Expires` 头信息通常被设置为格林尼治时间 -- `Thu, 01 Dec 1994 16:00:00`。很多人这样做因为他们不希望网站内容被缓存和复制，所以就[从规范中](https://www.ietf.org/rfc/rfc2616.txt)复制这个实例日期来填充。
 
 ![Screen Shot 2018-05-10 at 21.49.25](//www.fastly.com/cimages/6pk8mg3yh2ee/63zsHXNxp6YmWacesKYgwy/e3f1040e2d948b0655667aaa86d5310f/Screen_Shot_2018-05-10_at_21.49.25.png)
 
@@ -100,7 +100,7 @@ Cache-Control: no-cache, private
 Content-Security-Policy: frame-ancestors 'self'
 ```
 
-作为头信息（csp）的一部分，你还获得其他好处（稍后会详细介绍）。 所以你现在可能没有 `X-Frame-Options` 头信息。
+作为头信息（csp）的一部分，你还获得其他好处（稍后会详细介绍）。所以你现在可能没有 `X-Frame-Options` 头信息。
 
 ## 调试数据（X-ASPNet-Version, X-Cache）
 
@@ -113,11 +113,11 @@ X-ASPNet-Version: 3.2.32
 X-AMZN-RequestID: 0d6e39e2-4ecb-11e8-9c2d-fa7ae01bbebc
 ```
 
-实际上，这些“未知”头信息并不是由网站开发人员独立完成的。 它们通常是受使用特定服务器框架、软件或特定供应商服务的人为因素的影响而形成的（在此示例中，最后一个头信息是常见的 AWS 头信息）。
+实际上，这些“未知”头信息并不是由网站开发人员独立完成的。它们通常是受使用特定服务器框架、软件或特定供应商服务的人为因素的影响而形成的（在此示例中，最后一个头信息是常见的 AWS 头信息）。
 
 特别地，`X-Cache` 实际是 Fastly 添加的（其他 CDN 也是这样做的），其他一些与 Fastly 相关的头信息，如`X-Cache-Hits` 和 `X-Served-By`。当启用调试时，我们添加更多头信息，如 `Fastly-Debug-Path` 和 `Fastly-Debug-TTL`。
 
-这些头信息无法被任何浏览器识别，删除它们对网页渲染没有任何影响。 但是，由于这些标题可能向开发人员提供有用的信息，因此你或许要保留一些方法来告知开发者。
+这些头信息无法被任何浏览器识别，删除它们对网页渲染没有任何影响。但是，由于这些标题可能向开发人员提供有用的信息，因此你或许要保留一些方法来告知开发者。
 
 ## 不能被正确识别（Pragma）
 
@@ -127,7 +127,7 @@ X-AMZN-RequestID: 0d6e39e2-4ecb-11e8-9c2d-fa7ae01bbebc
 Pragma: no-cache
 ```
 
-尽管如此，它作为一个响应头是如此被广泛使用，以至于一些浏览器也能识别它。现在，你的回应将传递一个能识别 `Pragma` 的缓存，而不能识别 `Cache-Control` 的概率很小。如果你想确保某些东西没有被缓存，你只需要 `Cache-Control: no-cache, private`。  
+尽管如此，它作为一个响应头是如此被广泛使用，以至于一些浏览器也能识别它。现在，你的回应将传递一个能识别 `Pragma` 的缓存，而不能识别 `Cache-Control` 的概率很小。如果你想确保某些东西没有被缓存，你只需要 `Cache-Control: no-cache, private`。
 
 ## 非浏览器的（X-Robots-Tag）
 
