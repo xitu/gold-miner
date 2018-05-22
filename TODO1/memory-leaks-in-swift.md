@@ -11,7 +11,7 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/1*7ISuh6UwWtqCmfzSUpyUBw.png)
 
-本篇文章中，我们将探讨内存泄漏，以及学习如何使用单元测试预防内存泄漏产生。现在我们先来快速看一个例子：
+本篇文章中，我们将探讨内存泄漏，以及学习如何使用单元测试检测内存泄漏。现在我们先来快速看一个例子：
 
 ```
 describe("MyViewController"){
@@ -32,11 +32,11 @@ describe("MyViewController"){
 
 ### **内存泄漏**
 
-确实，这是我们作为开发者，最经常面对的一个问题。当我们开发了一个又一个的功能，app 内容逐渐丰富，我们会引入内存泄漏。
+在实际中，内存泄漏是我们开发者最常面临的问题。随着 app 的成长，我们为 app 开发了一个又一个的功能，却也同时带来了内存泄漏的问题。
 
 内存泄漏就是指内存片段不再会被使用，却被永久持有。它是内存垃圾，不仅占据空间也会导致一些问题。
 
-> 某个时间点被分配的内存，未被释放并且也不再被你的 app 持有。因为这段内存不再被任何对象持有，所以现在没有办法释放掉它，它也没有办法被再次使用。
+> 某个时刻被分配过，但又未被释放，并且也不再被你的 app 持有的内存，就是被泄漏的内存。因为它不再被引用，所以现在没有办法释放掉它，它也没有办法被再次使用。
 >
 >  [苹果官方文档](https://developer.apple.com/library/content/documentation/DeveloperTools/Conceptual/InstrumentsUserGuide/CommonMemoryProblems.html)
 
@@ -50,15 +50,15 @@ describe("MyViewController"){
 
 解释**有害的副作用**需要更详细一点的细节。
 
-假设有一个对象在被创建时就开始监听一个通知，在 `init` 中实现。它每次监听到通知后的动作就是将一些东西存入数据库中，播放视频或者是对一个分析引擎发布一个事件。由于对象需要被平衡，我们必须要在它被释放时停止监听通知，这在 `deinit` 中实现。
+假设有一个对象在被创建时的 `init` 方法中开始监听一个通知。它每次监听到通知后的动作就是将一些东西存入数据库中，播放视频或者是对一个分析引擎发布一个事件。由于对象需要被平衡，我们必须要在它被释放时停止监听通知，这在 `deinit` 中实现。
 
 如果这样一个对象泄漏了，会发生什么？
 
-这个对象永远不会消失，它永远不会停止监听通知。每一次通知被发布，该对象就会响应。如果用户反复执行操作，创建这个有问题的对象，那么就会有多个重复对象存在。所有这些对象都会响应这个通知，并且会彼此影响。
+这个对象永远不会被释放，它永远不会停止监听通知。每一次通知被发布，该对象就会响应。如果用户反复执行操作，创建这个有问题的对象，那么就会有多个重复对象存在。所有这些对象都会响应这个通知，并且会彼此影响。
 
 在这种情况下，**崩溃可能是发生的最好情况**。
 
-大量泄漏的对象重复创建了 app 通知，改变数据库、用户界面，腐化整个 app 的状态。你可以通过 [The Pragmatic Programmer](https://www.goodreads.com/book/show/4099.The_Pragmatic_Programmer) 这篇文章中的 **Dead Programs tell no lies** 了解这类问题的重要性。
+大量泄漏的对象重复响应了 app 通知，改变数据库、用户界面，腐化整个 app 的状态。你可以通过 [The Pragmatic Programmer](https://www.goodreads.com/book/show/4099.The_Pragmatic_Programmer) 这篇文章中的 **Dead Programs tell no lies** 了解这类问题的重要性。
 
 内存泄漏毫无疑问会导致非常差的用户体验以及 App Store 上的低分。
 
@@ -127,7 +127,7 @@ class Client {
 
 在这个例子中，不论 client 还是 server 都将无法被释放内存。
 
-为了从内存中释放，对象必须首先释放其所有的依赖关系。由于对象本身也是依赖项，因此无法释放。同样，**当一个对象存在循环引用时，它不会消失**。
+为了从内存中释放，对象必须首先释放其所有的依赖关系。由于对象本身也是依赖项，因此无法释放。同样，**当一个对象存在循环引用时，它不会被释放**。
 
 当循环引用中的一个引用是**弱引用（weak）或者无主引用（unowned）**的时候，循环引用就可以被打破。有时候由于我们正在编写的代码需要相互关联，因此循环必须存在。但问题就在于不能所有的关联关系都是强关联，其中至少必须有一个是弱关联。
 
@@ -207,7 +207,7 @@ class Parent {
 1. 不要创造出内存泄漏。对内存管理有更深刻的认识。为项目定义完善的 [代码风格](https://swift.org/documentation/api-design-guidelines/%5C)，并且严格遵守。如果你足够严谨，并且遵循你的代码风格，那么缺少 `weak self` 也将容易被发现。代码审查也能提供很大帮助。
 2. 使用 [Swift Lint](https://github.com/realm/SwiftLint)。这是一个一个很棒的工具，能够强制你遵循一种代码风格，遵循第一条规则。它能够帮你早在编译期就发现一些问题，比如代理变量声明时并没有被声明为弱引用，这原本可能导致循环引用。
 3. 在运行期间检测内存泄漏，并将它们可视化。如果你清楚某个特定的对象在特定时刻有多少实例存在，那么你可以使用 [LifetimeTracker](https://github.com/krzysztofzablocki/LifetimeTracker)。这是一个能在开发模式下运行的好工具。
-4. 经常评测 app。Xcode 中的 [内存分析工具](https://developer.apple.com/library/content/documentation/DeveloperTools/Conceptual/InstrumentsUserGuide/CommonMemoryProblems.html) 非常有，可以看 [这篇文章](https://useyourloaf.com/blog/xcode-visual-memory-debugger/). 不久之前 Instruments 也是一种方法，这也是非常棒的工具。
+4. 经常评测 app。Xcode 中的 [内存分析工具](https://developer.apple.com/library/content/documentation/DeveloperTools/Conceptual/InstrumentsUserGuide/CommonMemoryProblems.html) 非常有用，可以参考 [这篇文章](https://useyourloaf.com/blog/xcode-visual-memory-debugger/). 不久之前 Instruments 也是一种方法，这也是非常棒的工具。
 5. 使用 [**SpecLeaks**](https://cocoapods.org/pods/SpecLeaks) 对内存泄漏进行单元测试。这个第三方库使用 Quick 和 Nimble 让你方便地对内存泄漏进行测试。你可以在接下来的章节中更多地了解到它。
 
 ### 对内存泄漏进行单元测试
