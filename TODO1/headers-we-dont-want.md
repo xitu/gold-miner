@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/headers-we-dont-want.md](https://github.com/xitu/gold-miner/blob/master/TODO1/headers-we-dont-want.md)
 > * 译者：[SergeyChang](https://github.com/SergeyChang)
-> * 校对者：
+> * 校对者：[Hank](https://github.com/lihanxiang)
 
 # 那些我们不需要的 HTTP 头信息
 
