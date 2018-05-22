@@ -95,8 +95,6 @@ WebAssembly 的情况有点不同。它支持手动管理内存的语言。你�
 
 但是，将来 WebAssembly 也将支持不附带 GC（但需要垃圾回收）的语言。
 
-Depending on the runtime that executes JavaScript, access to platform-specific APIs is being exposed which can be directly reached through your JavaScript application. For example, if you’re running JavaScript in the browser, you have a set of [Web APIs](https://developer.mozilla.org/en-US/docs/Web/API) that the web app can call to control web browser/device functionality and access things like [DOM](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model), [CSSOM](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model), [WebGL](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API), [IndexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API), [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API), etc.
-
 #### 平台 API 调用
 
 取决于执行 JavaScript 的运行时，不同特定于平台的 API 可以通过 JavaScript 应用程序直接访问。例如，如果在浏览器中运行 JavaScript，你可以通过一系列 [Web APIs](https://developer.mozilla.org/en-US/docs/Web/API) 来控制 web 浏览器 / 设备的功能，并且可以使用例如 [DOM](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model)、[CSSOM](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model)、[WebGL](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API)、[IndexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API)、[Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API) 等等
