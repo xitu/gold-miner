@@ -2,67 +2,66 @@
 > * 原文作者：[Art Gillespie](https://blog.turbinelabs.io/@artgillespie?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/deploy-not-equal-release-part-two.md](https://github.com/xitu/gold-miner/blob/master/TODO1/deploy-not-equal-release-part-two.md)
-> * 译者：
+> * 译者： [lwjcjmx123](https://github.com/lwjcjmx123)
 > * 校对者：
 
-# Deploy != Release (Part 2)
+# 部署 != 发布 (第二部分)
 
-## Decouple deploy and release, mitigate risk, and unlock powerful workflows
+## 将部署和发布解耦以降低风险，并解锁功能强大的工作流
 
-In [part one of this post](https://medium.com/turbine-labs/deploy-not-equal-release-part-one-4724bc1e726b), I laid out the definitions we use at [Turbine Labs](https://turbinelabs.io) for ship, deploy, release, and rollback . I explained the difference between _deploy risk_ and _release risk,_ and I also talked about release-in-place, a common deploy/release strategy that exposes production requests to deploy risk. In this post, I’ll discuss approaches to decoupling deploy risk from release risk, and describe a few powerful workflows for managing release risk.
+在[这系列的第一部分](https://medium.com/turbine-labs/deploy-not-equal-release-part-one-4724bc1e726b)，我解释了我们在 [Turbine Labs](https://turbinelabs.io) 上用于上线、部署、发布和回滚的定义。我解释了**部署风险**和**发布风险**之间的差异。而且我还谈到了本地发布 —— 一种常用的用于将生产请求暴露给部署风险的部署/发布策略。本文中，我将讨论解耦部署风险与发布风险的方法，并简单介绍一些功能强大的工作流来管理发布风险。
 
-### Blue/Green (Or deploy != release)
+### 蓝/绿部署（或部署!=发布）
 
-A b[lue/green deploy](https://martinfowler.com/bliki/BlueGreenDeployment.html) involves deploying your service’s new version alongside the released version in production. You may use dedicated hardware or VMs for each ‘color’ and alternate subsequent deploys between them, or you may use containers and an orchestration framework like Kubernetes to manage ephemeral processes. Regardless, the key here is that once your new (green) version is deployed, it is not released — it does not start responding to production requests. Those are still being handled by the existing, known-good (blue) version of the service.
+[蓝/绿部署](https://martinfowler.com/bliki/BlueGreenDeployment.html)涉及到在生产环境已有发布版本的同时部署新版本。你可以为每种“颜色”使用专用硬件或虚拟机，并在它们之间交替进行后续部署，也可以使用容器或像 Kubernetes 这样的容器集群来管理临时进程。无论如何，关键在于一旦部署了新的（绿色）版本，它不会立即就被发布 —— 也不会响应生产请求。这些服务仍由目前运行良好的（蓝色）版本处理。
 
-Release in a blue/green setup usually involves making changes at the load balancer that add hosts running the new version and remove hosts running the known-good version. While this approach is much better than release-in-place, it has some limitations, particularly as it relates to release risk_._ I’ll come back to this point shortly. First, let’s look at a couple of incredibly powerful things you can do now that deploy and release are separate steps.
+在蓝/绿部署体系中，发布通常会涉及到更改负载均衡，在添加新版本的主机之后，移除掉以前运行良好的旧版本。尽管这种方式要比本地部署好的多，它也会有一些局限性，尤其是在发布风险方面。回到正题。首先，我们可以看到你可以做到很多非常强大的事情，通过不同的步骤在部署和发布的时候
 
-#### Nothing
+#### 什么都没有
 
-If your deployment is hung up in a crash loop backoff or if the database secret is wrong and the newly-deployed service can’t connect, you’re not under any pressure to do _anything_. Your team can diagnose the problem without the pressure of angry users or pacing executives, build another new version, and then deploy it. Repeat at your leisure until you have a good deploy. In the meantime, the known-good released version continues to happily handle production requests and you won’t have to share the post mortem for the broken deploy on your company blog. In other words, y_our deploy risk is completely contained_.
+如果你的部署在循环崩溃回退中挂起，或这因为数据库密钥错误且新部署的服务无法连接，你也不用承受必须要做些什么事情来挽救的压力。你的团队可以在没有任何压力的情况下诊断问题或构建另一个新版本，然后进行部署这个新版本。你可以很轻松的重复尝试，直到你部署的版本不再出现问题。与此同时,线上的已发布 版本还在照常响应生产环境的请求,并且你不必再公司博客上发布这次部署失败了的通知,换句话说,**你的部署风险基本都被掩盖了*
 
-#### Health checks and integration tests
+#### 健康检查和集成测试
 
-When deployment is separate from release, you can run automated health checks and integration tests against the newly-deployed version before exposing any production traffic to it. I’ve sat in many postmortems where the big takeaway was that something as simple as a post-deploy/pre-release health check would’ve prevented a customer-facing incident.
+当部署与发布被拆分时，你可以在任何生产环境流量暴露给它之前，针对新部署的版本运行自动化健康检查和集成测试。我参与过许多事后分析，其中最重要的一点是，在部署好后或者预发布的时候进行健康检查等简单的事情可以有效避免问题暴露在用户面前。
 
 ![](https://cdn-images-1.medium.com/max/800/1*YcCeIx4-FrWMS63ZaVqSRQ.png)
 
-A blue/green deploy with health checks and tests. If there’s something wrong with v1.2, customers aren’t exposed to it.
+蓝/绿部署在健康检查和集成测试的时候。如果 v1.2 出现问题，客户将不会发现这些问题。
 
-#### Finer-grained release risk exposure
+#### 更细粒度的暴露发布风险
 
-Since you’re not necessarily required to replace an existing “blue” host when you introduce a new “green” host, you have _some_ control over the percentage of production traffic exposed to your new version. For example, if you have three hosts running the known-good version of your service, you could add a single “green” host to the mix at the load balancer. Now only 25% of your traffic is exposed to the new version instead of the 33% that would’ve been exposed if you removed one of the “green” hosts in the same operation, or had performed a release-in-place on one of the hosts. This is still pretty coarse-grained release risk management, but it’s better than nothing.
+由于在引入新的“绿色”主机时，你不一定需要替换现有的“蓝色”主机，所以你可以有**一些**方法来控制新版本生成流量的百分比。例如，如果你有三台运行已知良好的服务版本，你可以在负载均衡器中再混入一台“绿色”主机。现在新版本只有 25% 的流量，而不是33%，只要你不是采用替换原有“蓝色”主机的情况下。虽然这仍然是相当粗放的版本风险管理，但总比没有好。
 
 ![](https://cdn-images-1.medium.com/max/800/1*7D-TdjRuzt9wGX1dcMnitg.png)
 
-When you make one of your “green” hosts available, the percentage of traffic exposed to any bugs in that release is determined by the total number of hosts. Here it’s 33%.
+当你使一个“绿色”主机可用时，暴露该版本中任何错误流量的百分比则取决于主机的总数。这里是 33%。
 
-### Release as a Continuum
+### 持续发布
 
-As I discussed above, from a _deploy risk_ standpoint, blue/green deploys are a win. But when we consider _release risk,_ the way typical blue/green setups handle release doesn’t give us the fine-grained control that we’re looking for. If we agree that [every release is a test in production](https://medium.com/turbine-labs/every-release-is-a-production-test-b31d80f2bc74) (and whether we agree or not, they are), then what we _really_ want is to segment our production requests using pattern-matching rules and dynamically route an arbitrary percentage of that traffic to any version of our service. This is a powerful concept that forms the foundation of sophisticated release workflows like dogfooding, incremental release, rollbacks, and dark traffic. Each of these warrants its own two-part post (coming soon!) but I’ll quickly summarize them here.
+正如我以上的讨论，从**部署风险**角度看，蓝/绿部署更好。但当我们考虑**发布风险**时，典型的蓝/绿设置处理版本的方式并不能为我们提供我们正在寻找的细粒度控制。如果我们同意[生产中的每个发布都是测试](https://medium.com/turbine-labs/every-release-is-a-production-test-b31d80f2bc74)（不管同意与否，它一直如此），而我们**真正**想要的是使用模式匹配规则来分割我们的生产请求，并动态分配任意百分比的流量到我们服务的任何版本。这是一个强大的概念，它是构成复杂发布工作流的基础，如内部测试、增量发布、版本回退和黑暗流量。每篇文章都分为上下两部分（即将推出！），但我在这里会大概的介绍一下他们。
 
-**Dogfooding** is a popular technique of releasing a new version of a service to employees only. With a powerful release service in place, you can write rules like “send 50% of internal employee traffic to instances where version=x.x” In my career, dogfooding in production has caught more embarrassing bugs than I care to admit.
+**内部测试**是仅向员工发布新版本服务的流行技术。通过强大的发布服务，你可以编写诸如“将内部员工流量的 50% 发送到版本为 x.x 实例”的规则。在我的职业生涯中，生产中的内部测试捕获到了许多我羞于承认的令人尴尬的错误。
 
-**Incremental Release** is the process of starting with some small percentage of production requests routed to a new version of a service while monitoring the performance of those requests — errors, latency, success rate, and so on — against the previous production release. When you’re confident the new version doesn’t exhibit any unexpected behavior relative to the known-good version, you can increase the percentage and repeat the process until you’ve reached 100%.
+**增量发布**是一个过程，从发送一些小百分比生产请求到新版本服务开始，同时监视这些请求的性能 —— 错误、延迟、成功率等 —— 与之前的产品版本相比而言。当你确信新版本不会出现任何相对上一版本意外行为的时候，你可以增加百分比并重复此过程，直至到达 100%。
 
-**Rollback** with a release-as-a-continuum system is simply a function of routing production requests back to instances that are still running the last known-good version. It’s fast, low-risk, and like release itself, can be done in a fine-grained, targeted fashion.
++**回滚**是在使用持续性发布系统的时候，将生产中的请求转发到最后一个运行良好的实例。它速度快、风险低，并且像发布本身一样，可以通过细粒度方式有针对地完成。
 
-**Dark Traffic** is a powerful technique where your release system duplicates production requests and sends one copy to the known-good, “light” version of your service and another to a new, “dark” version. The “light” version is responsible for actually responding to the user’s request. The “dark” version handles the request, but its response is ignored. This is particularly effective when you need to test new software under production load.
++**黑暗流量**是一种功能强大的技术。你发布的系统会复制生产请求，并将一个副本发送到你的服务运行良好的“明面”上的版本，另一个发送到新的“暗处”的版本。暴露在“明面”的版本负责实际响应用户请求。“暗处”的版本也会处理请求，但其响应会被忽略。当您需要在生产环境下测试新软件时，这非常有效。
 
-At Turbine Labs, we use our own product, [Houston](https://turbinelabs.io), for dogfooding, incremental release, rollbacks, and, soon, dark traffic. For me, having a sophisticated release system like Houston has been transformative for my day-to-day. Releases are so lightweight and low-risk, I do them _constantly._ As a team, it’s increased our feature velocity and the quality of our product in ways I hadn’t anticipated. We’ll talk in more detail about our internal release process at [Turbine Labs](https://turbinelabs.io) in a future post.
+在 Turbine Labs 中，我们使用自己的产品 [Houston](https://turbinelabs.io) 来完成内部测试，增量发布、回滚，并很快进行黑暗流量。对我来说，像 Houston 这样先进的发布系统对我的日常工作来说是一种革命性改变。如此轻量级、低风险的发布，使得我可以**经常**这样做。作为一个团队，它以我没有预料到的方式提高了我们的功能发布速度和产品质量。我们将在以后的文章中更详细地介绍我们在 [Turbine Labs](https://turbinelabs.io) 的内部发布流程。
 
 ### Conclusion
 
-Most of the technological and process advances in shipping software over the past five years — on-demand cloud compute, containers, orchestration frameworks, continuous delivery, and so on — have focused on deploy primitives. With these advances, designing and implementing a robust _deployment_ process for your service has never been easier, but designing and implementing a reliable _release_ process that can support your services’ needs is still extremely difficult. Facebook, Twitter, and Google committed many engineer-years to the design, implementation, and ongoing maintenance of sophisticated release systems like Gatekeeper, TFE, and GFE. These systems have proven their value many times over, not just for service reliability, but for developer productivity, product velocity, and user experience.
+在过去的五年中，软件发布领域的大部分技术和流程进展 —— 云计算、容器、编排框架、持续交付等 —— 都集中在部署上。有了这些进步，为你的服务设计和实现一个健壮的**部署**流程变得轻而易举，但设计和实现一个可以支持你服务需求的可靠**发布**流程仍然十分困难。Facebook、Twitter 和 Google 致力于设计、实现和持续维护像 Gatekeeper、TFE 和 GFE 这样成熟的发布系统。这些系统不仅在服务可靠性方面多次证明了它们的价值，还包括开发者生产、产品速度和用户体验方面。
 
-> A sophisticated release system does more than mitigate deploy risk—it directly improves your product velocity and user experience.
+> 一个先进的发布系统不仅可以降低部署风险，还可以直接提高产品速度和用户体验。
 
-We’re starting to see products ([Houston](https://turbinelabs.io), [LaunchDarkly](https://launchdarkly.com/)), and open-source tools ([Envoy](https://lyft.github.io/envoy/), [Linkerd](https://linkerd.io/), [Traefik](https://traefik.io/), [Istio](https://istio.io)) bring to companies of all sizes the kind of release primitives and workflows that until recently were only available to the largest tech companies. These tools and products allow all of us to release features faster and with confidence that we won’t negatively impact our users’ experience.
+我们开始关注为各种规模的公司提供的便利的产品（[Houston](https://turbinelabs.io)、[LaunchDarkly](https://launchdarkly.com/)）和开源工具（[Envoy](https://lyft.github.io/envoy/)、[Linkerd](https://linkerd.io/)、[Traefik](https://traefik.io/)、[Istio](https://istio.io)），以及最近才向大型公司提供的发布单元和工作流。这些产品和工具使得人们可以更快速地发布功能，并且使我们有信心不会对用户体验产生负面影响。
 
-I’m an engineer at [Turbine Labs](https://turbinelabs.io/) where we’re building [Houston](https://docs.turbinelabs.io/reference/#introduction), a service that makes building and monitoring sophisticated, realtime release workflows easy. If you’d like to ship more and worry less, you should definitely [get in touch](https://turbinelabs.io/contact)! We’d love to talk with you.
++我是 [Turbine Labs](https://turbinelabs.io/) 的一名工程师，我们正在构建 [Houston](https://docs.turbinelabs.io/reference/#introduction) —— 一项使构建和监控复杂的实时发布工作流程变得非常简单的服务。如果你希望交付更多产品并且花更少的心思，那么你绝对应该[联系我们](https://turbinelabs.io/contact)！我们很乐意与你交流。
 
-Thanks to Glen Sanford, Mark McBride, Emily Pinkerton, Brook Shelley, Sara, and Jenn Gillespie for reading drafts of this post.
-
+感谢 Glen Sanford、Mark McBride、Emily Pinkerton、Brook Shelley、Sara 和 Jenn Gillespie 阅读本文的初稿。
 
 ---
 
