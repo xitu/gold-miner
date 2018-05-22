@@ -7,7 +7,7 @@
 
 # 使用 Go 语言的流模式来解析 DrugBank 的 XML（或者任何 XML 大文件）
 
-当我想解析  [DrugBank](https://www.drugbank.ca) 的整个数据集时碰到了一个问题，这个数据集包含了一个 [(670MB) XML 文件](https://www.drugbank.ca/releases/5-0-11/downloads/all-full-database)(如果想要描述 DrugBank 的公开论文，可以看：[[1]](https://doi.org/10.1093/nar/gkt1068), [[2]](https://doi.org/10.1093/nar/gkq1126), [[3]](https://doi.org/10.1093/nar/gkm958) 以及 [[4]](https://doi.org/10.1093/nar/gkj067))。
+当我想解析 [DrugBank](https://www.drugbank.ca) 的整个数据集时碰到了一个问题，这个数据集包含了一个 [(670MB) XML 文件](https://www.drugbank.ca/releases/5-0-11/downloads/all-full-database)(如果想要描述 DrugBank 的公开论文，可以看：[[1]](https://doi.org/10.1093/nar/gkt1068)、[[2]](https://doi.org/10.1093/nar/gkq1126)、[[3]](https://doi.org/10.1093/nar/gkm958) 以及 [[4]](https://doi.org/10.1093/nar/gkj067))。
 
 事实上，我想要的是 [Structure External Links](https://www.drugbank.ca/releases/latest#structures) 链接下的 CSV 文件。使用这种方式解析似乎还有一些其它的用处，因为 DrugBank 版本的 XML 格式似乎比单独的 CSV 文件包含更多的信息。所以不管怎么样，这迫使我想出如何在 Go 中使用流模式来解析大型 XML 文件的方法，像 [XMLStarlet](http://xmlstar.sourceforge.net/) 这些旧的工具会在处理 DrugBank 文件阻塞好几分钟（也许是试图把文件的内容全部读入内存？），这让人在迭代开发周期中失去了任何想法。而且，Go 对流式解析 XML 的支持非常棒。
 
@@ -20,9 +20,9 @@
 
 以下是在这个例子中针对每种药物我们想要提取的字段（基于上面提到的现实问题）：
 
-*   InchiKey （一个表示化学结构的散列 ID）
+*   InchiKey（一个表示化学结构的散列 ID）
 *   Approved/Withdrawn status
-*   ChEMBL ID （化合物包含字段）
+*   ChEMBL ID（化合物包含字段）
 *   PubChem Compound ID (CID)
 *   PubChem Substance ID (SID)
 
@@ -67,7 +67,7 @@ DugBank 的 XML 格式在其最外层是最简单的：它基本上只包含了�
 </drugbank>
 ```
 
-（实际上，每个 `<drug>` 元素内容的行数都比这多，那就确实需要合适的 XML 解析工具）
+实际上，每个 `<drug>` 元素内容的行数都比这多，那就确实需要合适的 XML 解析工具。
 
 ## 把 XML 映射到 Go 的结构体
 
