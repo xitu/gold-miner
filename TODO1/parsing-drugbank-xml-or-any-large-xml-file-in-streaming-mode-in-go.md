@@ -7,7 +7,7 @@
 
 # 使用 Go 语言的流模式来解析 DrugBank 的 XML（或者任何 XML 大文件）
 
-当我想解析 [DrugBank](https://www.drugbank.ca) 的整个数据集时碰到了一个问题，这个数据集包含了一个 [(670MB) XML 文件](https://www.drugbank.ca/releases/5-0-11/downloads/all-full-database)(如果想要描述 DrugBank 的公开论文，可以看：[[1]](https://doi.org/10.1093/nar/gkt1068)、[[2]](https://doi.org/10.1093/nar/gkq1126)、[[3]](https://doi.org/10.1093/nar/gkm958) 以及 [[4]](https://doi.org/10.1093/nar/gkj067))。
+当我想解析 [DrugBank](https://www.drugbank.ca) 的整个数据集时碰到了一个问题，这个数据集包含了一个 [(670MB) XML 文件](https://www.drugbank.ca/releases/5-0-11/downloads/all-full-database)（如果想要描述 DrugBank 的公开论文，可以看：[[1]](https://doi.org/10.1093/nar/gkt1068)、[[2]](https://doi.org/10.1093/nar/gkq1126)、[[3]](https://doi.org/10.1093/nar/gkm958) 以及 [[4]](https://doi.org/10.1093/nar/gkj067)）。
 
 事实上，我想要的是 [Structure External Links](https://www.drugbank.ca/releases/latest#structures) 链接下的 CSV 文件。使用这种方式解析似乎还有一些其它的用处，因为 DrugBank 版本的 XML 格式似乎比单独的 CSV 文件包含更多的信息。所以不管怎么样，这迫使我想出如何在 Go 中使用流模式来解析大型 XML 文件的方法，像 [XMLStarlet](http://xmlstar.sourceforge.net/) 这些旧的工具会在处理 DrugBank 文件阻塞好几分钟（也许是试图把文件的内容全部读入内存？），这让人在迭代开发周期中失去了任何想法。而且，Go 对流式解析 XML 的支持非常棒。
 
@@ -106,10 +106,10 @@ type ExternalIdentifier struct {
 我们可以注意到以下几点：
 
 *   如前所述，后面单引号内的内容代表 XML 中要映射到特定字段的结构。
-*   请注意，对于嵌套层次结构，我们需要多个结构类型，例如 “Property” 和 “ExternalIdentifier” ......然后把它们链接到主 “Drug” 结构体中。
+*   请注意，对于嵌套层次结构，我们需要多个结构类型，例如 “Property” 和 “ExternalIdentifier” ...然后把它们链接到主 “Drug” 结构体中。
 *   我们还需要一个架构体来表示最高级别元素 <`drugbank>`。
 *   每个结构体都需要有一个 xml.Name 类型的字段（为了简单起见，命名为 XMLName ），该字段在XML中定义了它的名字，这样我们就有地方可以添加我们的 XML 映射标签了。
-*   注意，当我们有一些字段的切片（“列表”）时，比如 “Drug” 结构体中的 “CalculatedProperties” 字段，我们需要指定一个二级路径（`xml："calculated-properties **> * *property"）并将其放入 XML 结构体中，以便能获取到位于分组 ”calculate-properties“ 元素内的单个 ”property“ XML 元素。
+*   注意，当我们有一些字段的切片（“列表”）时，比如 “Drug” 结构体中的 “CalculatedProperties” 字段，我们需要指定一个二级路径（`xml:"calculated-properties**>**property"`）并将其放入 XML 结构体中，以便能获取到位于分组 ”calculate-properties“ 元素内的单个 ”property“ XML 元素。
 
 设置好结构体之后，我们就可以写 Go 代码了，这份代码会按照 David 的[博客](http://blog.davidsingleton.org/parsing-huge-xml-files-with-go/)以流的方式循环遍历读取一个 XML 文件，同时也会创建一个 TSV 写入器，这样我们就可以用流的方式将提取到的输出写入到一个 drugbank_extracted.tsv 新文件（为简洁起见，导入和主函数都省略了）。
 
@@ -193,7 +193,7 @@ tsvFile.Close()
 
 ## 使用 SciPipe 来使之变成一个可重复的工作流
 
-现在，我们可以使用 SciPipe （我正在开发的基于 Go 的工作流库）将它放到一个小工作流中，在这里我们会自动下载 DrugBank 数据，解压缩它之后再运行 XML 到 TSV 的 代码。 查看这个 [gist](https://gist.github.com/samuell/fc82fad39e7efda7987fc18173777f7f) 来了解完整的工作流代码。
+现在，我们可以使用 SciPipe（我正在开发的基于 Go 的工作流库）将它放到一个小工作流中，在这里我们会自动下载 DrugBank 数据，解压缩它之后再运行 XML 到 TSV 的 代码。查看这个 [gist](https://gist.github.com/samuell/fc82fad39e7efda7987fc18173777f7f) 来了解完整的工作流代码。
 
 要在 gist 中运行这个 Go 文件，简单来说你需要做以下几步：
 
@@ -358,11 +358,11 @@ func NewXMLToTSVFunc() func(t *sp.Task) {
 }
 ```
 
-(代码许可证： [Public Domain](https://unlicense.org/))
+（代码许可证：[Public Domain](https://unlicense.org/)）
 
-* **Note I (2018-03-21):** [Pierre Lindenbaum](https://twitter.com/yokofakun)  [友善的建议我](https://twitter.com/yokofakun/status/976488405654736896)了一个[替代方案](https://gist.github.com/lindenb/5a76d95397a86b860386cdf3976726a2)，即使用这个 [xjc](https://docs.oracle.com/javase/8/docs/technotes/tools/unix/xjc.html) 来生成 JAVA 代码， 并且一个 Makefile 文件来提供工作流功能 ([看代码](https://gist.github.com/lindenb/5a76d95397a86b860386cdf3976726a2))。他也[提供了一个](https://twitter.com/yokofakun/status/976515166002204673)使用 XSLT ([看代码](https://gist.github.com/lindenb/63c85ee0e8c21b6cc3e7d44b77dd93db)) 实现的版本._
+* **Note I（2018-03-21）：** [Pierre Lindenbaum](https://twitter.com/yokofakun)  [友善的建议我](https://twitter.com/yokofakun/status/976488405654736896)了一个[替代方案](https://gist.github.com/lindenb/5a76d95397a86b860386cdf3976726a2)，即使用这个 [xjc](https://docs.oracle.com/javase/8/docs/technotes/tools/unix/xjc.html) 来生成 JAVA 代码， 并且一个 Makefile 文件来提供工作流功能（[看代码](https://gist.github.com/lindenb/5a76d95397a86b860386cdf3976726a2)）。他也[提供了一个](https://twitter.com/yokofakun/status/976515166002204673)使用 XSLT（[看代码](https://gist.github.com/lindenb/63c85ee0e8c21b6cc3e7d44b77dd93db)）实现的版本。
 
-* **Note II (2018-03-21):** [在 reddit 上关于这个帖子的一些评论](https://www.reddit.com/r/golang/comments/854zl8/data_science_parsing_drugbank_xml_or_any_large)._
+* **Note II （2018-03-21）：** [在 reddit 上关于这个帖子的一些评论](https://www.reddit.com/r/golang/comments/854zl8/data_science_parsing_drugbank_xml_or_any_large)。
 
 ---
 
