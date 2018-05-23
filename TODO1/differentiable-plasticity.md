@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/differentiable-plasticity.md](https://github.com/xitu/gold-miner/blob/master/TODO1/differentiable-plasticity.md)
 > * 译者：[luochen](https://github.com/luochen1992)
-> * 校对者：
+> * 校对者：[SergeyChang](https://github.com/SergeyChang) [xxholly32](https://github.com/xxholly32)
 
 # 可微可塑性：一种学会学习的新方法
 
