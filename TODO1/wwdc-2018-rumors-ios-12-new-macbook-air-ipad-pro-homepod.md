@@ -79,7 +79,7 @@ iPhone 2018：最需要的功能
 
 ## TV OS、Audio OS和Siri：让苹果电视和HomePod更加智能
 
-我们已经知道[tvOS 11.4的beta版本](/news/airplay-2-multiroom-audio-apple-tv-homepod-ios-11-4-hands-on/)将会更加紧密地结合苹果电视，集成到Home应用中，同时提供和首次于2017年WWDC发布的AirPlay 2多房间音响功能的兼容性支持。这也许意味着更多和HomeKit的集成，苹果的[智能家居](https://www.cnet.com/smart-home/)平台，将在今年的WWDC中准备就绪。也许我们也将听到更多关于游戏和电视应用的消息。
+我们已经知道[tvOS 11.4的beta版本](https://www.cnet.com/news/airplay-2-multiroom-audio-apple-tv-homepod-ios-11-4-hands-on/)将会更加紧密地结合苹果电视，集成到Home应用中，同时提供和首次于2017年WWDC发布的AirPlay 2多房间音响功能的兼容性支持。这也许意味着更多和HomeKit的集成，苹果的[智能家居](https://www.cnet.com/smart-home/)平台，将在今年的WWDC中准备就绪。也许我们也将听到更多关于游戏和电视应用的消息。
 
 ![homepod-product-photos-12](https://cnet4.cbsistatic.com/img/KaRXiRMCYAkcqVm3q0radFmPjHg=/970x0/2018/02/04/d5f53fb7-49e8-4f7d-84e0-574c3992572c/homepod-product-photos-12.jpg)
 
@@ -101,9 +101,9 @@ Gruber的说法揭露了一种更少野心，但同时更加现实的为iOS和Ma
 
 CNET将全程报道WWDC，包括预览，圣何塞的发布会现场直播以及许多后续的更近报道。保持关注。
 
-[iPhone 2018](/news/iphone-2018-iphone-x-plus-launch-date-specs-price-release-date-rumors/)：所有关于规格、功能和发布时间的预测
+[iPhone 2018](https://www.cnet.com/news/iphone-2018-iphone-x-plus-launch-date-specs-price-release-date-rumors/)：所有关于规格、功能和发布时间的预测
 
-[Google I/O 2018](/news/duplex-android-p-and-assistant-everything-important-from-google-io/)：所有谷歌宣布的重要事宜
+[Google I/O 2018](https://www.cnet.com/news/duplex-android-p-and-assistant-everything-important-from-google-io/)：所有谷歌宣布的重要事宜
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
