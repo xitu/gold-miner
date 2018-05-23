@@ -5,7 +5,7 @@
 > * 译者：[Dandy Xu](https://github.com/dandyxu)
 > * 校对者：[shisaq](https://github.com/shisaq)
 
-# WWDC 2018：关于iOS 12、iPad Pro、新MacBooks及更多产品的所有预测
+# WWDC 2018：关于iOS 12、iPad Pro、新MacBook及更多产品的所有预测
 
 ## 当蒂姆库克(Tim Cook)在6月4日走进圣何塞(San Jose)的发布会现场时将会发生什么事情？(译者注：圣何塞(San Jose)是美国加州的第三大城市)
 
