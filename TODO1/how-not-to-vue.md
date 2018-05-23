@@ -88,7 +88,7 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*MYb4iAVzlvQPZDWqCnJM0w.png)
 
-**DON’T.** 如果你试图去改变 `props` ， Vue 会警告你，但是如果你通过 $parent 去改变 props，Vue 将无法检测到。
+**DON’T.** 如果你试图去改变 `props` ， Vue 会警告你，但是如果你通过 `$parent` 去改变 `props`，Vue 将无法检测到。
 
 ![](https://cdn-images-1.medium.com/max/800/1*pJkabHNu8Gx7f4UMM07FMg.png)
 
