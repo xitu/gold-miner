@@ -5,7 +5,7 @@
 > * 译者：[zephyrJS](https://github.com/zephyrJS)
 > * 校对者：
 
-# Font-size: 一个出乎意料复杂的 CSS 属性
+# Font-size：一个出乎意料复杂的 CSS 属性
 
 [`font-size`](https://developer.mozilla.org/en/docs/Web/CSS/font-size) 是最差的。
 
