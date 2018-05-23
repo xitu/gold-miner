@@ -5,7 +5,7 @@
 > * 译者：[talisk](https://github.com/talisk)
 > * 校对者：
 
-# JavaScript 是如何工作的：Service Worker 的生命周期与用例
+# JavaScript 是如何工作的：Service Worker 的生命周期与使用场景
 
 这是专门探索 JavaScript 及其构建组件的系列的第八个。在识别和描述核心元素的过程中，我们也分享了一些我们在构建 [SessionStack](https://www.sessionstack.com/?utm_source=medium&utm_medium=source&utm_content=javascript-series-web-workers-intro) 时的最佳实践。SessionStack 是一个强大且性能卓越的 JavaScript 应用程序，可以向你实时显示用户在 Web 应用程序中遇到技术问题或用户体验问题时的具体情况。
 
