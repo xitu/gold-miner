@@ -2,125 +2,125 @@
 > * 原文作者：[Anton Kosykh](https://itnext.io/@kelin2025?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-not-to-vue.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-not-to-vue.md)
-> * 译者：
+> * 译者：[sophiayang1997](https://github.com/sophiayang1997)
 > * 校对者：
 
-# How not to Vue 
+# How not to Vue ：使用 Vue 的正确姿势
 
-## A list of bad things I’ve found on my new job
+## 我在新工作中遇到的一些问题清单
 
 ![](https://cdn-images-1.medium.com/max/800/1*pWo4h-AhSfgyFHDlAkchcw.png)
 
-Here’s what some people do.
+下面列举一些人的做法。
 
-Not so long ago, I got a new job. And when I saw the code base for the first time, it terrified me. Here I want to show the things you should avoid in Vue.js applications. 
+不久之前，我找到了新工作。而且当我第一次看到代码库的时候，这真是吓坏我了。因此我想在这里展示一些你应该避免在 Vue.js 应用程序中出现的代码。
 
-### Static properties in data/computed
+### data/computed 中的静态属性
 
-There are no reason to pass static properties to `data` and especially in `computed`. When you do it, Vue makes these properties reactive but it’s unnecessary.
+我们没有理由将静态属性传递给 `data` ，特别是 `computed` 。当你这样做时， Vue 将其声明为响应式属性，但是这是不必要的做法。
 
 ![](https://cdn-images-1.medium.com/max/800/1*TUsVw4rEJwhw2iFuSyEWkw.png)
 
-**DON’T**. phone and city have useless reactivity.
+**DON’T.** phone 和 city 的响应性毫无用处.
 
 ![](https://cdn-images-1.medium.com/max/800/1*HYgxVfj99dt-yaGIeSABGw.png)
 
-**DO**. Pass them to `$options`. It’s shorter and no useless work here.
+**DO.** 将静态属性传给 `$options`. 它更加简短，而且不会做多余的工作。
 
-### Thinking that non-reactive data will be reactive
+### 考虑将非响应式（non-reactive）的数据转变为响应式（reactive）
 
-Remember: Vue is not wizard. Vue doesn’t know when your _cookies_ update.
+请记住： Vue 不是神通广大的. Vue 并不知道你的 **cookies_** 何时才会更新.
 
-I mentioned cookies because my colleague spent 2 hours to understand why his computed property doesn’t update.
+我提到 cookies 的原因是：我的同事曾经花两个小时去搞清楚为什么他的计算属性没有更新。
 
 ![](https://cdn-images-1.medium.com/max/800/1*mSQ5DXcLOlFK6vfdz-Gyjw.png)
 
-**DON’T**. Computed properties should be based only on Vue reactive data. Otherwise, it just won’t work.
+**DON’T.** 计算属性应该只基于 Vue 的响应式数据去使用。否则，它将不会起作用。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Q7HhvYfTsHNUZLMcnptbhw.png)
 
-**DO**. Update your non-reactive things manually.
+**DO.** 手动更新你的非响应式数据。
 
-Also, I recommend you not to use any side-data in computed properties. There should be no side effects in your computed properties. It will save you a lot of time. Believe me.
+此外，我建议你不要在计算属性中使用任何边数据（side-data）。你的计算属性中不应该有任何副作用。这样做会为你节省很多时间。相信我。
 
-### Mixins with things that should be done once
+### 只应该被调用一次的混入（mixins）对象
 
-Mixins are fine **somebody closes post right now…** Mixins are fine in some cases:
+我一说 mixins 很好 **然后此刻有人正在关闭这篇帖子…** 其实 mixins 在一些情况下还是很好用的：
 
-1. Creating plugins that modifies Vue instance, giving new features.
-2. Using common specific methods in different components/throughout the application.
+1. 创建可以修改 Vue 实例的插件，提供新功能。
+2. 在不同的组件或者整个应用程序中使用通用的特定方法。
 
-But one man made a global mixin with very slow actions in `mounted` hook. Why not? Because it is being called on **each** component mount but may be called only once as well.
+但是有一个人在 `mounted` 钩子上注册了一个执行效率非常缓慢的全局混入对象。为什么不推荐这样做呢？因为在**每个**组件挂载时该全局混入对象都会被调用，但原则上它只能被调用一次。
 
-I won’t show this code. Instead, to make it clearer, I’ll show you a simpler example.
+我不会展示这一段代码。相反，为了使它更清晰，我会给你一个更简单的例子。
 
 ![](https://cdn-images-1.medium.com/max/800/1*qCp4mZoUYKb2PPoqDFeByA.png)
 
-**DON’T.** Avoid doing this in mixins. It will be called on each component mount when you don’t need that.
+**DON’T.** 避免在混入中（mixins）中执行此操作。当你不需要它时，它却在每个组件挂载时调用。
 
 ![](https://cdn-images-1.medium.com/max/800/1*7-g24ZUvldsPh8XIIPaxTw.png)
 
-**DO.** Do this work in the root instance. It will be called only once. You still have access to the result using `$root`.
+**DO.** 在根实例中执行此操作。那么它只会被调用一次。你仍然可以使用 `$root` 访问结果。
 
-#### Incorrect work with setTimout/setInterval
+#### setTimout/setInterval 的不正确使用
 
-At an interview, one of frontend developers in my team asked me if we can use timeouts/intervals in components. I answered “Yes” and wanted explain how to do it correctly _but I was blamed as incompetent_.
+在一次面试中，我团队中一个前端开发者问我是否可以在组件中使用 setTimout/setInterval 。我回答“可以”，并且想解释如何正确地使用它。但这之后我被指责不够专业。
 
-I dedicate this part to a man after whose code I have to maintain now.
+现在我必须维护某一个人的代码，因此我将这一段文字献给他。
 
 ![](https://cdn-images-1.medium.com/max/800/1*FxPRflqqk8K6wRr4jUyFBQ.png)
 
-**DON’T.** You can use intervals. But you forget to use `**clearInterval** and will get error on component unmount`.
+**DON’T.** 你可以使用间隔（intervals）。但是如果你忘记使用 `clearInterval` ,就会在组件卸载时出错。
 
 ![](https://cdn-images-1.medium.com/max/800/1*7kBqD5KNSkCTTpP2O7FUgw.png)
 
-**DO.** Use `**clearInterval**` in `beforeDestroy` hook to clear intervals.
+**DO.** 在 `beforeDestroy` 钩子中使用 `clearInterval` 来清除间隔。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Tmr7GIY7saojZkOPoVQfuQ.png)
 
-**DO.** If you don’t want to care about, use [**vue-timers**](https://github.com/kelin2025/vue-timers).
+**DO.** 如果你不想这么麻烦，可以考虑使用 [**vue-timers**](https://github.com/kelin2025/vue-timers) 。
 
-### Mutating parents
+### 变异的父实例
 
-Thing that I really don’t like in Vue and want to be removed (Evan, please).
+我真的不喜欢 `$parent` 被设计存在于 Vue 中，并且希望有一天它能被淘汰掉。
 
-I see no real use cases to use `$parent`. It makes components inflexible and may confuse you with unexpected problems.
+我没有见过使用 `$parent` 的真实用例。它会使组件变得更加呆板，并且会产生一些让你意想不到的问题。
 
 ![](https://cdn-images-1.medium.com/max/800/1*MYb4iAVzlvQPZDWqCnJM0w.png)
 
-**DON’T.** Vue will warn you if you’ll try to mutate `props` but **Vue can’t detect mutations via** `**$parent**`.
+**DON’T.** 如果你试图去改变 `props` ， Vue 会警告你，但是** Vue 无法检测**你通过 `$parent` 去改变 `props` 。
 
 ![](https://cdn-images-1.medium.com/max/800/1*pJkabHNu8Gx7f4UMM07FMg.png)
 
-**DO.** Use events emitter and listen to events. Also, `v-model` directive is just sugar for `value` prop + `input` event.
+**DO.** 使用事件触发器（events emitter）去监听事件。此外， `v-model` 只是 `value` 属性和 `input` 事件的语法糖。
 
 ![](https://cdn-images-1.medium.com/max/800/1*yypns5Qp2y_t7HrsPT5O7g.png)
 
-**DO.** Vue has one more sugar: `.sync` modifier that updates `prop` on `update:prop` event.
+**DO.** Vue 还有一个语法糖： `.sync` 修饰符用于更新 `update:prop` 事件中的 `prop` 。
 
-### If/else form validation
+### If/else 表单验证
 
-I was really confused when I’ve found forms with manual validation. It generates lots of useless boilerplate code.
+当我发现一些需要手动验证的表单时我感到非常困惑。它会产生大量无用的样板代码。
 
 ![](https://cdn-images-1.medium.com/max/800/1*yn_pt6eFfOIz-RvMEA30gQ.png)
 
-**DON’T.** I was terrified by similar code in my new project. Don’t be foolish, there are a lot of solutions for that
+**DON’T.** 我在新项目中被类似的代码吓坏了。不要再这样愚蠢了，这个问题有很多可行的解决方案
 
 ![](https://cdn-images-1.medium.com/max/800/1*omOSNM6WmpsYSN3C4dy4dw.png)
 
-**DO.** Use [**vuelidate**](https://monterail.github.io/vuelidate/). Just one line with validation rules for each field. Clean and declarative code.
+**DO.** 请使用 [**vuelidate**](https://monterail.github.io/vuelidate/)。对于每个字段只需要一行验证规则，多么整洁且具有声明性的代码。
 
 ![](https://cdn-images-1.medium.com/max/800/1*_4S2iHw93lSS_GIeceJ_YA.png)
 
-**DO.** I also made a small [**plugin**](https://github.com/Kelin2025/vuelidate-forms) that allows you to declare form data and validations with one object.
+**DO.** 我也制作了一个允许你使用一个对象声明表单数据和验证的小[**插件**](https://github.com/Kelin2025/vuelidate-forms) 。
 
-### Instead of conclusion
+### 最后
 
-It’s not all sins that junior Vue.js developers do, and I’m sure that this list may be infinite. But I think it‘s quite enough.
+这些当然不全是 Vue.js 初级开发者的罪过，并且我相信这份问题清单可能是无限的，但我认为这份清单已经足够了。
 
-So, what _“interesting”_ things did you see in Vue.js projects? Respond here if you have what to tell :).
+那么，如果你在 Vue.js 项目中看到了什么“有趣”的东西，可以在这里回复我 :) 。
 
-Thanks for reading! And don’t repeat dumb errors :) Special thanks to people who contribute to [**carbon.now.sh**](https://carbon.now.sh/). It’s really nice!
+谢谢阅读！记住不要重复愚蠢的错误 :) 特别鸣谢为 [**carbon.now.sh**](https://carbon.now.sh/) 做出贡献的人。奶思！
 
 
 ---
