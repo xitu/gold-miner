@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-not-to-vue.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-not-to-vue.md)
 > * 译者：[sophiayang1997](https://github.com/sophiayang1997)
-> * 校对者：
+> * 校对者：[kezhenxu94](https://github.com/kezhenxu94/)
 
 # 怎样更好地使用 Vue
 
@@ -29,7 +29,7 @@
 
 ### 考虑将非响应式（non-reactive）的数据转变为响应式（reactive）
 
-请记住： Vue 不是神通广大的. Vue 并不知道你的 **cookies_** 何时才会更新.
+请记住： Vue 不是神通广大的. Vue 并不知道你的 **cookies** 何时才会更新.
 
 我提到 cookies 的原因是：我的同事曾经花两个小时去搞清楚为什么他的计算属性没有更新。
 
@@ -45,7 +45,7 @@
 
 ### 只应该被调用一次的混入（mixins）对象
 
-我一说 mixins 很好 **然后此刻有人正在关闭这篇帖子…** 其实 mixins 在一些情况下还是很好用的：
+一听到我说 mixins 很好，**马上就有人关闭这篇帖子了…** 其实 mixins 在一些情况下还是很好用的：
 
 1. 创建可以修改 Vue 实例的插件，提供新功能。
 2. 在不同的组件或者整个应用程序中使用通用的特定方法。
@@ -64,7 +64,7 @@
 
 #### setTimout/setInterval 的不正确使用
 
-在一次面试中，我团队中一个前端开发者问我是否可以在组件中使用 setTimout/setInterval 。我回答“可以”，并且想解释如何正确地使用它。但这之后我被指责不够专业。
+在一次面试中，我团队中一个前端开发者问我是否可以在组件中使用 setTimout/setInterval 。我回答“可以”，但还没来得及解释如何正确使用它，**我就已经被指责不够专业了**。
 
 现在我必须维护某一个人的代码，因此我将这一段文字献给他。
 
@@ -82,13 +82,13 @@
 
 ### 变异的父实例
 
-我真的不喜欢 `$parent` 被设计存在于 Vue 中，并且希望有一天它能被淘汰掉。
+这是 Vue 中我最不喜欢的设计了，真心希望有一天能把它移除（雨溪，拜托你了）。
 
 我没有见过使用 `$parent` 的真实用例。它会使组件变得更加呆板，并且会产生一些让你意想不到的问题。
 
 ![](https://cdn-images-1.medium.com/max/800/1*MYb4iAVzlvQPZDWqCnJM0w.png)
 
-**DON’T.** 如果你试图去改变 `props` ， Vue 会警告你，但是** Vue 无法检测**你通过 `$parent` 去改变 `props` 。
+**DON’T.** 如果你试图去改变 `props` ， Vue 会警告你，但是如果你通过 $parent 去改变 props，Vue 将无法检测到。
 
 ![](https://cdn-images-1.medium.com/max/800/1*pJkabHNu8Gx7f4UMM07FMg.png)
 
