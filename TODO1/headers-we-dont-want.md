@@ -139,7 +139,7 @@ Pragma: no-cache
 
 ## 删除头信息
 
-如果你的网站使用了 Fastly 的服务，那么恭喜你，使用 [VCL](https://docs.fastly.com/guides/vcl/) 是删去头信息是很便捷的。你可能希望将真正有用的调试数据保留到你的开发团队中，但将其隐藏在公共用户中，这很有意义，你可以通过检测 cookie 或传进来 HTTP 头信息来轻松实现:
+如果你的网站使用了 Fastly 的服务，那么恭喜你，使用 [VCL](https://docs.fastly.com/guides/vcl/) 是删去头信息是很便捷的。你可能希望将真正有用的调试数据保留到你的开发团队中，但将其隐藏在公共用户中，这很有意义，你可以通过检测 cookie 或传进来 HTTP 头信息来轻松实现：
 
 ```
 unset resp.http.Server;
