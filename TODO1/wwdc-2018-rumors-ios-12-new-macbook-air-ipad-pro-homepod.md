@@ -9,7 +9,7 @@
 
 ## 当蒂姆库克(Tim Cook)在6月4日走进圣何塞(San Jose)的发布会现场时将会发生什么事情？(译者注：圣何塞(San Jose)是美国加州的第三大城市)
 
-我们距离[苹果公司](/apple/)的下一个正式发布会只有2周的时间了，我们通常可以在发布会上一窥该公司的未来。
+我们距离[苹果公司](https://www.cnet.com/apple/)的下一个正式发布会只有2周的时间了，我们通常可以在发布会上一窥该公司的未来。
 
 苹果公司一年一度的[世界开发者大会](https://www.cnet.com/wwdc)提供了关于下一代操作系统和软件应用的线索和方向，它们为该公司的[iPhone](https://www.cnet.com/products/apple-iphone-x/review/)、[iPad](https://www.cnet.com/products/apple-ipad-2018-9-7-inch/review/)、Macs、手表、[HomePod](https://www.cnet.com/products/apple-homepod/review/)音响和[苹果电视](https://www.cnet.com/products/apple-tv-4k/review/)提供动力。今年的发布会于6月4日至8日，在美国加州圣何塞市的McEnery Convention Center举行，同时也给第三方开发者们提供了一个和苹果管理层、工程师以及产品设计人员沟通交流的机会。
 
@@ -29,7 +29,7 @@
 
 Sarah Tew/CNET
 
-**iPad Pros:** 苹果刚刚在3月给[iPad Pro](/products/apple-ipad-pro-10-5-inch-2017/review/)产品线引入了一个重要的功能，就是让新的[入门级iPad](https://www.cnet.com/products/apple-ipad-2018-9-7-inch/review/)兼容手写笔。人们认为这种举措将使价格更高的iPad Pro可以向iPhone X的风格迈进：去掉home键，同时添加Face ID。
+**iPad Pros:** 苹果刚刚在3月给[iPad Pro](https://www.cnet.com/products/apple-ipad-pro-10-5-inch-2017/review/)产品线引入了一个重要的功能，就是让新的[入门级iPad](https://www.cnet.com/products/apple-ipad-2018-9-7-inch/review/)兼容手写笔。人们认为这种举措将使价格更高的iPad Pro可以向iPhone X的风格迈进：去掉home键，同时添加Face ID。
 
 阅读：[iPad Pro 2018：所有关于规格、价格以及发布时间的预测](https://www.cnet.com/news/ipad-pro-2018-all-the-rumors-on-specs-price-release-date/)
 
@@ -53,7 +53,7 @@ AirPower早在2017年的9月份就发布了，但到现在还没有发售。
 
 ## iOS 12：质量高于数量
 
-在经历了一系列[持续的]((/news/how-to-fix-the-ios-11-1-autocorrect-bug/))[缺陷](https://www.cnet.com/news/apple-updates-operating-systems-to-fix-app-crashing-bug/)[和](https://www.cnet.com/how-to/why-you-should-avoid-your-iphones-calculator/)[小故障](https://www.cnet.com/news/apple-slows-down-older-iphone-battery-issues/)后，这些问题都导致iOS11口碑不佳 - 包括[关于故意降低iPhones性能的有争议功能](https://www.cnet.com/news/apple-slows-down-older-iphone-battery-issues/) - 苹果[称将会把质量放在比创新更重要的位置](https://www.bloomberg.com/news/articles/2018-01-30/apple-is-said-to-push-back-some-key-iphone-software-features)在它即将到来的移动操作系统中，也就是所谓的iOS 12。
+在经历了一系列[持续的](https://www.cnet.com/news/how-to-fix-the-ios-11-1-autocorrect-bug/)[缺陷](https://www.cnet.com/news/apple-updates-operating-systems-to-fix-app-crashing-bug/)[和](https://www.cnet.com/how-to/why-you-should-avoid-your-iphones-calculator/)[小故障](https://www.cnet.com/news/apple-slows-down-older-iphone-battery-issues/)后，这些问题都导致iOS11口碑不佳 - 包括[关于故意降低iPhones性能的有争议功能](https://www.cnet.com/news/apple-slows-down-older-iphone-battery-issues/) - 苹果[称将会把质量放在比创新更重要的位置](https://www.bloomberg.com/news/articles/2018-01-30/apple-is-said-to-push-back-some-key-iphone-software-features)在它即将到来的移动操作系统中，也就是所谓的iOS 12。
 
 这也许将推迟一些计划中的升级，包括重新设计的主屏，摄像头的增强以及针对AR游戏的多媒体播放器的支持，该消息来自[彭博社](https://www.bloomberg.com/news/articles/2018-01-30/apple-is-said-to-push-back-some-key-iphone-software-features)，它也是目前为止所有这些预测的主要来源。
 
