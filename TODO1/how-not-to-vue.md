@@ -5,7 +5,7 @@
 > * 译者：[sophiayang1997](https://github.com/sophiayang1997)
 > * 校对者：
 
-# How not to Vue ：使用 Vue 的正确姿势
+# 怎样更好地使用 Vue
 
 ## 我在新工作中遇到的一些问题清单
 
