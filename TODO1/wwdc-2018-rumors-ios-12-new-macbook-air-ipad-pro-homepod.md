@@ -1,4 +1,4 @@
-> * 原文地址：[WWDC 2018: All the rumors on iOS 12, iPad Pro, new MacBooks and more](https://www.cnet.com/news/wwdc-2018-rumors-ios-12-new-macbook-air-ipad-pro-homepod/)https://www.cnet.com/news/wwdc-2018-rumors-ios-12-new-macbook-air-ipad-pro-homepod/
+> * 原文地址：[WWDC 2018: All the rumors on iOS 12, iPad Pro, new MacBooks and more](https://www.cnet.com/news/wwdc-2018-rumors-ios-12-new-macbook-air-ipad-pro-homepod/)
 > * 原文作者：[JOHN FALCONE](https://www.cnet.com/profiles/jpfalcone/), [JUSTIN JAFFE](https://www.cnet.com/profiles/justin+jaffe/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/wwdc-2018-rumors-ios-12-new-macbook-air-ipad-pro-homepod.md](https://github.com/xitu/gold-miner/blob/master/TODO1/wwdc-2018-rumors-ios-12-new-macbook-air-ipad-pro-homepod.md)
@@ -11,7 +11,7 @@
 
 我们距离[苹果公司](/apple/)的下一个正式发布会只有2周的时间了，我们通常可以在发布会上一窥该公司的未来。
 
-苹果公司一年一度的[世界开发者大会](https://www.cnet.com/wwdc)提供了关于下一代操作系统和软件应用的线索和方向，它们为该公司的[iPhone](https://www.cnet.com/products/apple-iphone-x/review/)、[iPad](https://www.cnet.com/products/apple-ipad-2018-9-7-inch/review/)、Macs、手表、[HomePod](https://www.cnet.com/products/apple-homepod/review/)音响和 [苹果电视](https://www.cnet.com/products/apple-tv-4k/review/)提供动力。今年的发布会于6月4日至8日，在美国加州圣何塞市的McEnery Convention Center举行，同时也给第三方开发者们提供了一个和苹果管理层、工程师以及产品设计人员沟通交流的机会。
+苹果公司一年一度的[世界开发者大会](https://www.cnet.com/wwdc)提供了关于下一代操作系统和软件应用的线索和方向，它们为该公司的[iPhone](https://www.cnet.com/products/apple-iphone-x/review/)、[iPad](https://www.cnet.com/products/apple-ipad-2018-9-7-inch/review/)、Macs、手表、[HomePod](https://www.cnet.com/products/apple-homepod/review/)音响和[苹果电视](https://www.cnet.com/products/apple-tv-4k/review/)提供动力。今年的发布会于6月4日至8日，在美国加州圣何塞市的McEnery Convention Center举行，同时也给第三方开发者们提供了一个和苹果管理层、工程师以及产品设计人员沟通交流的机会。
 
 [WWDC](https://www.cnet.com/wwdc/)中极有可能揭露将在今年内实现的针对操作系统、应用、服务以及软件框架的更新升级。但是，苹果有时也会用来发布一些新的硬件。在我们进行更深层次的软件预计分析之前，我们先来探讨一下可能会发布哪些新的硬件。
 
