@@ -31,7 +31,7 @@ Android 系统认为所有网络都可能是具有敌意的，因此应始终使
 
 一旦你的服务器端支持了 TLS，你只要简单地将 App 和服务器响应的 URL 从 http:// 改变成 https://。你的 HTTP 堆栈将会自动地处理好相关事宜。
 
-如果你需要自己处理套接字，请使用 [SSLSocketFactory] 而不是 [SocketFactory]。请一定要特别注意正确地使用套接字，因为 [SSLSocket] 没有提供主机名的验证。你的 APP 需要自己来处理主机名验证，最好通过调用 `[getDefaultHostnameVerifier()]` 来处理主机名。而是，当你调用 `[HostnameVerifier.verify()](https://developer.android.com/reference/javax/net/ssl/HostnameVerifier.html#verify(java.lang.String, javax.net.ssl.SSLSession))` 时一定要谨慎，它没有抛出任何异常或者错误，相反它返回了一个需要明确检查值的布尔值结果。
+如果你需要自己处理套接字，请使用 [SSLSocketFactory] 而不是 [SocketFactory]。请一定要特别注意正确地使用套接字，因为 [SSLSocket] 没有提供主机名的验证。你的 APP 需要自己来处理主机名验证，最好通过调用 `[getDefaultHostnameVerifier()]` 来处理主机名。而是，当你调用 [`HostnameVerifier.verify()`](https://developer.android.com/reference/javax/net/ssl/HostnameVerifier.html#verify(java.lang.String, javax.net.ssl.SSLSession)) 时一定要谨慎，它没有抛出任何异常或者错误，相反它返回了一个需要明确检查值的布尔值结果。
 
 ### 我还是需要使用明文传输...
 
