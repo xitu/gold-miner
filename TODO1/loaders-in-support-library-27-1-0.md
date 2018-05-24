@@ -7,11 +7,11 @@
 
 # 支持库 27.1.0 中的 Loader
 
-为了 [支持库 27.1.0](https://developer.android.com/topic/libraries/support-library/revisions.html#27-1-0)，我重写了 `[LoaderManager](https:/ /developer.android.com/reference/android/support/v4/app/LoaderManager.html)` 的内部结构，[Loaders API](https://developer.android.com/guide/components/loaders.html) 以它为基础，我也想解释下这些改变背后的缘由以及接下来会有什么期待。
+为了 [支持库 27.1.0](https://developer.android.com/topic/libraries/support-library/revisions.html#27-1-0)，我重写了 [`LoaderManager`](https://developer.android.com/reference/android/support/v4/app/LoaderManager.html) 的内部结构，[`Loaders API`](https://developer.android.com/guide/components/loaders.html) 以它为基础，我也想解释下这些改变背后的缘由以及接下来会有什么期待。
 
 #### Loader 和 Fragment 的一小段历史
 
-一开始，Loader 和 Fragment 紧紧的联系在一起。这意味着，为了支持 Loader，在 `[FragmentActivity](https://developer.android.com/reference/android/support/v4/app/FragmentActivity.html)` 和 `[Fragment](https://developer.android.com/reference/android/support/v4/app/Fragment.html)` 中有许多的代码，然而事实上他们几乎没有关联。这也意味着和 Activity、Fragment 以及架构组件[生命周期](https://developer.android.com/topic/libraries/architecture/lifecycle.html) 相比，Loader 的生命周期和保障是完全独特的且受制与它那有趣且激动人心的行为差异和 bug。
+一开始，Loader 和 Fragment 紧紧的联系在一起。这意味着，为了支持 Loader，在 [`FragmentActivity`](https://developer.android.com/reference/android/support/v4/app/FragmentActivity.html) 和 [`Fragment`](https://developer.android.com/reference/android/support/v4/app/Fragment.html) 中有许多的代码，然而事实上他们几乎没有关联。这也意味着和 Activity、Fragment 以及架构组件[生命周期](https://developer.android.com/topic/libraries/architecture/lifecycle.html) 相比，Loader 的生命周期和保障是完全独特的且受制与它那有趣且激动人心的行为差异和 bug。
 
 #### 27.1.0 中的改变
 
@@ -23,11 +23,11 @@
 
 这确实意味着一些行为变更。
 
-首先，必须在主线程中调用 `[initLoader](https://developer.android.com/reference/android/support/v4/app/LoaderManager.html#initLoader%28int,%20android.os.Bundle,%20android .support.v4.app.LoaderManager.LoaderCallbacks%3CD%3E%29)`、`[restartLoader](https://developer.android.com/reference/android/support/v4/app/LoaderManager.html#restartLoader% 28int,%20android.os.Bundle,%20android.support.v4.app.LoaderManager.LoaderCallbacks%3CD%3E%29)` 和 `[destroyLoader](https://developer.android.com/reference/android/ support/v4/app/LoaderManager.html#destroyLoader%28int%29)`。这提供了一些非常特别的保障在回调结束或开始时，例如在销毁一个 loader 后，你将永远不会拿到 `[onLoadFinished](https://developer.android.com/reference/android/support/v4/app/LoaderManager.LoaderCallbacks.html#onLoadFinished%28android.support.v4.content.Loader%3CD%3E,%20D%29)` 的回调。
+首先，必须在主线程中调用 [`initLoader`](https://developer.android.com/reference/android/support/v4/app/LoaderManager.html#initLoader%28int,%20android.os.Bundle,%20android .support.v4.app.LoaderManager.LoaderCallbacks%3CD%3E%29)、[`restartLoader`](https://developer.android.com/reference/android/support/v4/app/LoaderManager.html#restartLoader% 28int,%20android.os.Bundle,%20android.support.v4.app.LoaderManager.LoaderCallbacks%3CD%3E%29) 和 [`destroyLoader`](https://developer.android.com/reference/android/ support/v4/app/LoaderManager.html#destroyLoader%28int%29)。这提供了一些非常特别的保障在回调结束或开始时，例如在销毁一个 loader 后，你将永远不会拿到 [`onLoadFinished`](https://developer.android.com/reference/android/support/v4/app/LoaderManager.LoaderCallbacks.html#onLoadFinished%28android.support.v4.content.Loader%3CD%3E,%20D%29) 的回调。
 
 > 注意事项：就技术来说，这次发布之前，你可以在其他线程中做 loader 操作，但是 `LoaderManager` 不再是线程安全的，会导致经常性的未定义行为。
 
-最重要的是，现在 `[onLoadFinished](https://developer.android.com/reference/android/support/v4/app/LoaderManager。LoaderCallbacks.html#onLoadFinished%28android.support.v4.content.Loader%3CD %3E,%20D%29)` 和 LiveData Observers 一样，总是在 `onStart` 和 `onStop` 之间被调用，且不会在 `onSaveInstanceState` 之后。这样你可以在 `onLoadFinished` 中安全的做 [Fragment Transactions](https://developer.android.com/guide/components/fragments.html#Transactions) 了。
+最重要的是，现在 [`onLoadFinished`](https://developer.android.com/reference/android/support/v4/app/LoaderManager.LoaderCallbacks.html#onLoadFinished%28android.support.v4.content.Loader%3CD%3E,%20D%29) 和 LiveData Observers 一样，总是在 `onStart` 和 `onStop` 之间被调用，且不会在 `onSaveInstanceState` 之后。这样你可以在 `onLoadFinished` 中安全的做 [Fragment Transactions](https://developer.android.com/guide/components/fragments.html#Transactions) 了。
 
 #### 我应当使用什么，loader 后续如何？
 
