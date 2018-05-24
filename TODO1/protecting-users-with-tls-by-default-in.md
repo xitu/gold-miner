@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/protecting-users-with-tls-by-default-in.md](https://github.com/xitu/gold-miner/blob/master/TODO1/protecting-users-with-tls-by-default-in.md)
 > * 译者：[hanliuxin5](https://github.com/hanliuxin5)
-> * 校对者：
+> * 校对者：[androidxiao](https://github.com/androidxiao)
 
 # 在 Android P 中使用默认的 TLS 来保护你的用户
 
