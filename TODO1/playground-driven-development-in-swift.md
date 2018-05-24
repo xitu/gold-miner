@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/playground-driven-development-in-swift.md](https://github.com/xitu/gold-miner/blob/master/TODO1/playground-driven-development-in-swift.md)
 > * 译者：[ALVINYEH](https://github.com/ALVINYEH)
-> * 校对者：[swants](https://github.com/swants)
+> * 校对者：[swants](https://github.com/swants)、[talisk](https://github.com/talisk)
 
 # Swift 中的 Playground 驱动开发
 
@@ -11,7 +11,7 @@
 
 ### 快速调整 UI 的需求
 
-通过我们开发的 app，为用户提供最佳使用体验，让生活变得更便利，更丰富多彩，是我们作为移动开发者的天生使命。其中我们要做的一件事就是确保为用户展现的 UI 看起来很棒并且不存在丝毫问题。在大多数情况下，app 可以说是数据的美容师。我们常常从后端获取 json ，解析为 model，并通过 UIView （大多数情况下是 UITableView 或 UICollectionView）将数据渲染出来。
+通过我们开发的 app，为用户提供最佳使用体验，让生活变得更便利，更丰富多彩，是我们作为移动开发者的天生使命。其中我们要做的一件事就是确保为用户展现的 UI 看起来很棒并且不存在丝毫问题。在大多数情况下，app 可以说是数据的美容师。我们常常从后端获取 json ，解析为 model，并通过 UIView（大多数情况下是 UITableView 或 UICollectionView）将数据渲染出来。
 
 对于 iOS，我们需要根据设计来不断调整用户界面，使其能够适合小尺寸的手持设备。这个过程涉及到更改代码、编译、等待、检查、然后又更改代码等等……像 [Flawless App](https://flawlessapp.io/) 这样的工具可以帮助你轻松地比对 iOS 应用和 Sketch 设计的结果。但真正痛苦的是[编译](https://medium.com/@johnsundell/improving-swift-compile-times-ee1d52fb9bd)部分，这个过程需要花大量的时间，而对于 [Swift](https://github.com/fastred/Optimizing-Swift-Build-Times) 来说，情况就更加糟糕了。因为它会降低我们快速迭代的效率。感觉编译器像是在编译时偷偷挖矿。😅
 
@@ -27,7 +27,7 @@
 
 ### Playground 中的自定义 framework
 
-Xcode 9 允许开发者[在 Playground 中导入自定义 framework](https://help.apple.com/xcode/mac/9.0/#/devc9b33111c)，只要 framework 和 Playground 在同一工作区内。我们可以使用 [Carthage](https://github.com/Carthage/Carthage) 来获取并构建自定义 framework。但如果你使用的是 CocoPods，那么也是没有问题的。
+Xcode 9 允许开发者[在 Playground 中导入自定义 framework](https://help.apple.com/xcode/mac/9.0/#/devc9b33111c)，只要 framework 和 Playground 在同一工作区内。我们可以使用 [Carthage](https://github.com/Carthage/Carthage) 来获取并构建自定义 framework。但如果你使用的是 CocoaPods，那么也是没有问题的。
  
 ![](https://cdn-images-1.medium.com/max/800/1*ZYy8VCrA3i2tI3zpIXwmEw.png)
 
@@ -35,7 +35,7 @@ Xcode 9 允许开发者[在 Playground 中导入自定义 framework](https://hel
 
 如果 Playground 作为嵌套项目添加，Playground 无法访问同一工作区或父项目中的代码。为此，你需要创建一个框架，然后添加在你打算在 Playground 中开发的源文件。我们称之为应用框架。
 
-本文的[演示](https://github.com/onmyway133/UsingPlayground)是一个使用 CocoPods 管理依赖的 iOS 工程。在编写此文时候，使用的是 Xcode 9.3 和 Swift 4.1。
+本文的[演示](https://github.com/onmyway133/UsingPlayground)是一个使用 CocoaPods 管理依赖的 iOS 工程。在编写此文时候，使用的是 Xcode 9.3 和 Swift 4.1。
 
 让我们通过使用 CocoPods 的项目来完成 Playground 的开发工作。这里还有一些好的做法。
 
@@ -333,7 +333,7 @@ PlaygroundPage.current.liveView = controller.view
 > 如果应用直接与插件、框架或其他 bundle 内容交互，则可以使用此类的其他方法创建适当的 bundle 对象。
 
 ```
-//获取应用的 main bundle
+// 获取应用的 main bundle
 let mainBundle = Bundle.main
 
 // 获取包含指定私有类的 bundle
@@ -369,7 +369,7 @@ label.text = NSLocalizedString(
 
 我们需要注册字体才能使用。我们可以使用 `CTFontManagerRegisterFontsForURL` 来注册自定义字体，而不是使用 plist 文件中 `Fonts provided by application` 提供的字体。这很方便，因为字体也可以在 Playground 中动态注册。
 
-下载一个名为 [Avengeance](http://www.fontspace.com/the-fontry/avengeance) 的免费字体，添加到应用和`AppFramework` target 中。
+下载一个名为 [Avengeance](http://www.fontspace.com/the-fontry/avengeance) 的免费字体，添加到应用和 `AppFramework` target 中。
 
 在 `ResourceViewController` 中添加指定字体的代码，记得重新编译 `AppFramework`：
 
@@ -439,7 +439,7 @@ __T06Cheers8ParticleO13ConfettiShapeON
 __T06Cheers6ConfigVN
 ```
 
-符号查找问题意味着 Playground 无法找到你的代码。这可能是因为你的类没有声明为 public，或者你忘记添加文件到 `AppFramework` target。又或者 `AppFramework` 和 `Framework search path` 无法找到引用的 pod……等等。
+符号查找问题意味着 Playground 无法找到你的代码。这可能是因为你的类没有声明为 public，或者你忘记添加文件到 `AppFramework` target。又或者 `AppFramework` 和 `Framework search path` 无法找到引用的 pod 等等。
 
 1.5.0 的版本支持了静态库，也改变了模块头文件。与此同时，将演示的例子切换回 `CocoaPods 1.4.0`，你可以看下 [UsingPlayground demo](https://github.com/onmyway133/UsingPlayground)。
 
