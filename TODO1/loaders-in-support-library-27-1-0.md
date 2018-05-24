@@ -23,7 +23,7 @@
 
 这确实意味着一些行为变更。
 
-首先，必须在主线程中调用 [`initLoader`](https://developer.android.com/reference/android/support/v4/app/LoaderManager.html#initLoader%28int,%20android.os.Bundle,%20android .support.v4.app.LoaderManager.LoaderCallbacks%3CD%3E%29)、[`restartLoader`](https://developer.android.com/reference/android/support/v4/app/LoaderManager.html#restartLoader% 28int,%20android.os.Bundle,%20android.support.v4.app.LoaderManager.LoaderCallbacks%3CD%3E%29) 和 [`destroyLoader`](https://developer.android.com/reference/android/ support/v4/app/LoaderManager.html#destroyLoader%28int%29)。这提供了一些非常特别的保障在回调结束或开始时，例如在销毁一个 loader 后，你将永远不会拿到 [`onLoadFinished`](https://developer.android.com/reference/android/support/v4/app/LoaderManager.LoaderCallbacks.html#onLoadFinished%28android.support.v4.content.Loader%3CD%3E,%20D%29) 的回调。
+首先，必须在主线程中调用 [`initLoader`](https://developer.android.com/reference/android/support/v4/app/LoaderManager.html#initLoader%28int,%20android.os.Bundle,%20android.support.v4.app.LoaderManager.LoaderCallbacks%3CD%3E%29)、[`restartLoader`](https://developer.android.com/reference/android/support/v4/app/LoaderManager.html#restartLoader%28int,%20android.os.Bundle,%20android.support.v4.app.LoaderManager.LoaderCallbacks%3CD%3E%29) 和 [`destroyLoader`](https://developer.android.com/reference/android/support/v4/app/LoaderManager.html#destroyLoader%28int%29)。这提供了一些非常特别的保障在回调结束或开始时，例如在销毁一个 loader 后，你将永远不会拿到 [`onLoadFinished`](https://developer.android.com/reference/android/support/v4/app/LoaderManager.LoaderCallbacks.html#onLoadFinished%28android.support.v4.content.Loader%3CD%3E,%20D%29) 的回调。
 
 > 注意事项：就技术来说，这次发布之前，你可以在其他线程中做 loader 操作，但是 `LoaderManager` 不再是线程安全的，会导致经常性的未定义行为。
 
