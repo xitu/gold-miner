@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/memory-leaks-in-swift.md](https://github.com/xitu/gold-miner/blob/master/TODO1/memory-leaks-in-swift.md)
 > * 译者：[RickeyBoy](https://github.com/rickeyboy)
-> * 校对者：[swants](https://github.com/swants)
+> * 校对者：[swants](https://github.com/swants), [talisk](https://github.com/talisk)
 
 # Swift 中的内存泄漏
 
@@ -38,11 +38,11 @@ describe("MyViewController"){
 
 > 某个时刻被分配过，但又未被释放，并且也不再被你的 app 持有的内存，就是被泄漏的内存。因为它不再被引用，所以现在没有办法释放掉它，它也没有办法被再次使用。
 >
->  [苹果官方文档](https://developer.apple.com/library/content/documentation/DeveloperTools/Conceptual/InstrumentsUserGuide/CommonMemoryProblems.html)
+> [苹果官方文档](https://developer.apple.com/library/content/documentation/DeveloperTools/Conceptual/InstrumentsUserGuide/CommonMemoryProblems.html)
 
 不论我们是新人还是老手，我们总会在某个时间点创造内存泄漏，这无关我们的经验多少。为了打造一个干净、不崩溃的应用，消除内存泄漏十分重要，因为它们**十分危险**。
 
-## 内存泄漏很危险
+### 内存泄漏很危险
 
 内存泄漏不仅会**增加 app 的内存占用**，也会**引入有害的的副作用**甚至**崩溃**。
 
@@ -58,13 +58,13 @@ describe("MyViewController"){
 
 在这种情况下，**崩溃可能是发生的最好情况**。
 
-大量泄漏的对象重复响应了 app 通知，改变数据库、用户界面，腐化整个 app 的状态。你可以通过 [The Pragmatic Programmer](https://www.goodreads.com/book/show/4099.The_Pragmatic_Programmer) 这篇文章中的 **Dead Programs tell no lies** 了解这类问题的重要性。
+大量泄漏的对象重复响应了 app 通知，改变数据库、用户界面，使得整个 app 的状态出错。你可以通过 [The Pragmatic Programmer](https://www.goodreads.com/book/show/4099.The_Pragmatic_Programmer) 这篇文章中的 **Dead Programs tell no lies** 了解这类问题的重要性。
 
 内存泄漏毫无疑问会导致非常差的用户体验以及 App Store 上的低分。
 
 ### 内存泄漏于何处产生？
 
-比如第三方 SDK 或者框架都可能产生内存泄漏，甚至也包括 Apple 创造的某些类诸如 `CALayer` 或者 `UILabel`。在这些情况下，我们除了等待更新或者 SDK 被废弃之外别无他法。
+比如第三方 SDK 或者框架都可能产生内存泄漏，甚至也包括 Apple 创造的某些类诸如 `CALayer` 或者 `UILabel`。在这些情况下，我们除了等待 SDK 更新或者弃用 SDK 之外别无他法。
 
 但内存泄漏更可能的是由我们自身的代码导致的。**内存泄漏的头号原因则是循环引用**。
 
@@ -118,7 +118,7 @@ class Client {
     init (server : Server) {
         self.server = server
         
-        self.server.add(client:self) // 这一行产生了循环引用 -> 内存谢泄漏
+        self.server.add(client:self) // 这一行产生了循环引用 -> 内存泄漏
     }
 }
 ```
@@ -162,9 +162,9 @@ class Client {
 >
 > [Apple’s Swift Programming Language](https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/AutomaticReferenceCounting.html#//apple_ref/doc/uid/TP40014097-CH20-ID48)
 
-**Weak:** 一个变量能够可选地不持有其引用的对象。当变量并不持有其引用对象时，就是弱引用。**弱引用可以为 nil**。
+**Weak：** 一个变量能够可选地不持有其引用的对象。当变量并不持有其引用对象时，就是弱引用。**弱引用可以为 nil**。
 
-**Unowned:** 和弱引用相似，无主引用也不会强持有其引用的实例。但与弱引用不同的是，无主引用必须是一直有值的。正因如此，无主引用始终被定义为非可选类型。**无主引用不能为 nil**。
+**Unowned：** 和弱引用相似，无主引用也不会强持有其引用的实例。但与弱引用不同的是，无主引用必须是一直有值的。正因如此，无主引用始终被定义为非可选类型。**无主引用不能为 nil**。
 
 [二者的使用时机](https://krakendev.io/blog/weak-and-unowned-references-in-swift)
 
@@ -202,19 +202,19 @@ class Parent {
 
 写代码时忘记使用 `weak self` 的情况并不稀奇。我们经常在写闭包时引入内存泄漏，比如在使用 `flatMap` 和 `map` 这样的函数式代码时，或者是在写消息监听、代理的相关代码时。[这篇文章](https://medium.com/@stremsdoerfer/understanding-memory-leaks-in-closures-48207214cba) 里你可以读到更多关于闭包中内存泄漏的内容。
 
-### 如何消除内存泄漏？
+### 如何消灭内存泄漏？
 
 1. 不要创造出内存泄漏。对内存管理有更深刻的认识。为项目定义完善的 [代码风格](https://swift.org/documentation/api-design-guidelines/%5C)，并且严格遵守。如果你足够严谨，并且遵循你的代码风格，那么缺少 `weak self` 也将容易被发现。代码审查也能提供很大帮助。
 2. 使用 [Swift Lint](https://github.com/realm/SwiftLint)。这是一个一个很棒的工具，能够强制你遵循一种代码风格，遵循第一条规则。它能够帮你早在编译期就发现一些问题，比如代理变量声明时并没有被声明为弱引用，这原本可能导致循环引用。
 3. 在运行期间检测内存泄漏，并将它们可视化。如果你清楚某个特定的对象在特定时刻有多少实例存在，那么你可以使用 [LifetimeTracker](https://github.com/krzysztofzablocki/LifetimeTracker)。这是一个能在开发模式下运行的好工具。
-4. 经常评测 app。Xcode 中的 [内存分析工具](https://developer.apple.com/library/content/documentation/DeveloperTools/Conceptual/InstrumentsUserGuide/CommonMemoryProblems.html) 非常有用，可以参考 [这篇文章](https://useyourloaf.com/blog/xcode-visual-memory-debugger/)。不久之前 Instruments 也是一种方法，这也是非常棒的工具。
+4. 经常评测 app。Xcode 中的 [内存分析工具](https://developer.apple.com/library/content/documentation/DeveloperTools/Conceptual/InstrumentsUserGuide/CommonMemoryProblems.html) 非常有用，可以参考 [这篇文章](https://useyourloaf.com/blog/xcode-visual-memory-debugger/). 不久之前 Instruments 也是一种方法，这也是非常棒的工具。
 5. 使用 [**SpecLeaks**](https://cocoapods.org/pods/SpecLeaks) 对内存泄漏进行单元测试。这个第三方库使用 Quick 和 Nimble 让你方便地对内存泄漏进行测试。你可以在接下来的章节中更多地了解到它。
 
 ### 对内存泄漏进行单元测试
 
 一旦我们知道循环和弱引用是怎么一回事，我们就能为循环引用编写测试，方法就是弱引用去检测循环。只需要对某个对象进行弱引用，我们就能测试出该对象是否有内存泄漏。
 
-> 因为弱引用并不会持有其引用的实例，所以当实例被释放出内存时，很可能弱引用仍然指向该实例。因此，**当弱引用引用的对象被释放后，自动引用计数会将弱引用设置为**  `nil`。
+> 因为弱引用并不会持有其引用的实例，所以当实例被释放出内存时，很可能弱引用仍然指向该实例。因此，**当弱引用引用的对象被释放后，自动引用计数会将弱引用设置为** `nil`。
 
 假设我们想知道 `x` 是否发生了内存泄漏，我们创建了一个指向它的弱引用，叫做 `leakReference`。如果 `x` 被从内存中释放，ARC 会将 `leakReference` 设置为 nil。所以，如果 `x` 发生了内存泄漏，`leakReference` 永远不会被设置为 nil。
 
@@ -240,7 +240,7 @@ func isLeaking() -> Bool {
 
 如果 `x` 真的发生了内存泄漏，弱引用 `leakReference` 会指向这个发生内存泄漏的实例。另一方面，如果该对象没发生内存泄露，那么在该对象被设置为 nil 之后，它将不再存在。这样的话，`leakReference` 将会为 nil。
 
-"Swift by Sundell" 在 [这篇文章](https://www.swiftbysundell.com/posts/using-unit-tests-to-identify-avoid-memory-leaks-in-swift) 中详细阐述了不同内存泄漏的区别，对我写本文以及 SpecLeaks 都有极大的帮助。另外 [一篇佳作](https://medium.com/wolox-driving-innovation/how-to-automatically-detect-a-memory-leak-in-ios-769b7bb1ec7c) 也采用了类似的方式。
+”Swift by Sundell” 在 [这篇文章](https://www.swiftbysundell.com/posts/using-unit-tests-to-identify-avoid-memory-leaks-in-swift) 中详细阐述了不同内存泄漏的区别，对我写本文以及 SpecLeaks 都有极大的帮助。另外 [一篇佳作](https://medium.com/wolox-driving-innovation/how-to-automatically-detect-a-memory-leak-in-ios-769b7bb1ec7c) 也采用了类似的方式。
 
 基于这些理论，我写出了 SpecLeacks，一个基于 Quick 和 Nimble、能够检测内存泄漏的拓展。核心就是编写单元测试来检测内存泄漏，不需要大量冗余的样板代码。
 
