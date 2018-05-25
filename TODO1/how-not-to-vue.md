@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-not-to-vue.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-not-to-vue.md)
 > * 译者：[sophiayang1997](https://github.com/sophiayang1997)
-> * 校对者：[kezhenxu94](https://github.com/kezhenxu94/)
+> * 校对者：[kezhenxu94](https://github.com/kezhenxu94/) [xxholly32](https://github.com/xxholly32/)
 
 # 怎样更好地使用 Vue
 
