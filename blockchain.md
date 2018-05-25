@@ -1,3 +1,4 @@
+* [BigQuery 中的比特币：使用公共数据分析区块链](https://juejin.im/post/5afc17b16fb9a07aaf35673a) ([LeopPro](https://github.com/LeopPro) 翻译)
 * [用不到 200 行的 GO 语言编写您自己的区块链](https://juejin.im/post/5ad95b056fb9a07aa349cd41) ([Starriers](https://github.com/Starriers) 翻译)
 * [用 Java 代码实现区块链](https://juejin.im/post/5ae57d9e6fb9a07ab83dcc03) ([Starriers](https://github.com/Starriers) 翻译)
 * [以太坊钱包详解](https://juejin.im/post/5ae2942ff265da0b886d23df) ([XatMassacrE](https://github.com/XatMassacrE) 翻译)

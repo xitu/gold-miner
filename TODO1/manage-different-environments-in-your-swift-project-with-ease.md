@@ -2,25 +2,25 @@
 > * 原文作者：[Yuri Chukhlib](https://medium.com/@YuriD4?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/manage-different-environments-in-your-swift-project-with-ease.md](https://github.com/xitu/gold-miner/blob/master/TODO1/manage-different-environments-in-your-swift-project-with-ease.md)
-> * 译者：
-> * 校对者：
+> * 译者：[melon8](https://github.com/melon8)
+> * 校对者：[ALVINYEH](https://github.com/ALVINYEH)，[Swants](https://github.com/swants)
 
-# Managing different environments in your Swift project with ease
+# 轻松管理 Swift 项目中的不同环境
 
 ![](https://cdn-images-1.medium.com/max/2000/1*Rk8JulyapCiTCUtLsnsEcQ.png)
 
-Imagine that you have completed development and testing of your app and now you’re ready to submit it for production release. But here is the problem: all your API keys, URLs, icons or other setups are configured for the test environment. So before submitting your app, you will have to modify all these things to fit your production mode. Obviously, it does not sound very good. Also, you might forget to change something in your huge app, so your services won’t work as they should.
+想象一下，你已经完成了应用程序的开发和测试，现在你已准备好将其提交并发布。但有个问题：你所有的 API key、URL、图标或其他设置都是针对测试环境进行配置的。因此，在提交应用程序之前，你必须将所有这些内容切换到生产环境。显然，这听起来就不太好。此外，你可能会在你庞大的应用中忘记一两个更改，你所提供的服务自然将无法正常工作。
 
-Instead of such messy approach, it would be much better to have several environments and simply change them when needed. Today we will run through the most popular methods where we will try to organise different environments:
+与其使用这种混乱的方法，不如设置几个环境，并在需要时简单地更改它们。今天，我们将最常用的几个方法来尝试管理环境配置:
 
-1.  **Using comments.**
-2.  **Using global variable or Enum.**
-3.  **Using configurations and schemes with a global flag.**
-4.  **Using configurations and schemes with several *.plist files.**
+1. **使用注释。**
+2. **使用全局变量或枚举。**
+3. **使用 target 配置和 scheme 并结合全局标志。**
+4. **使用 target 配置和 scheme 并结合多个** ***.plist 文件。**
 
-### 1. Using comments
+### 1. 使用注释
 
-When you have 2 separated environments, your application needs to know to which environment it should connect. Imagine, you have `Production`, `Development` and `Staging` environments and API endpoints. The fastest and the easiest way to handle this is to have 3 different variables and to comment 2 of them:
+当你有两个不同的环境时，应用程序需要知道它应该连接到哪个环境。想象一下，你有 `Production`，`Development` 和 `Staging` 环境和多个 API 端点。处理这个问题的最快速和简单的方法是使用 3 个不同的变量，并注释掉其中的 2 个：
 
 ```
 // MARK: - Development
@@ -35,11 +35,11 @@ let analyticsKey = "jsldjcldjkcs"
 // let analyticsKey = "lkjllnlnlk"
 ```
 
-This approach is very dirty, messy and will make you cry a lot. Sometimes I use it on hackathons, when the quality of code doesn’t play any role and only speed & flexibility matter. In any other cases, I highly recommend you not to use it at all.
+这种方法很脏乱，会让你哭得很厉害。有时我在黑客马拉松上用它，那对代码的质量没有任何要求，只看重速度和灵活性。在任何其他情况下，我强烈建议不要使用它。
 
-### 2. Using global variable or Enum
+### 2.使用全局变量或枚举
 
-Another popular approach is to have a global variable or `Enum` (this one will be much better) to handle different configurations. You will have to declare your `Enum` with 3 environments and somewhere (in the `AppDelegate` file for example) set its value:
+另一种流行的方法是有一个全局变量或 `Enum`（这个会更好）来处理不同的配置。你需要在你的 `Enum` 中声明 3 个环境（例如在 `AppDelegate` 文件中）设置它的值：
 
 ```
 enum Environment {
@@ -52,68 +52,68 @@ let environment: Environment = .development
  
 switch environment {
 case .development:
-    // set web service URL to development
-    // set API keys to development
+    // 将 web 服务 URL 设置为开发环境
+    // 将 API key 设置为开发环境
     print("It's for development")
 case .staging:
-    // set web service URL to staging
-    // set API keys to development
+    // 将 web 服务 URL 设置为预上线环境
+    // 将 API key 设置为开发环境
     print("It's for staging")
 case .production:
-    // set web service URL to production
-    // set API keys to production
+    // 将 web 服务 URL 设置为生产环境
+    // 将 API key 设置为开发环境
     print("It's for production")
 }
 ```
 
-This approach requires you to set your environment only once in the code every time you want to change it. Comparing with the previous method, this one is a much better. It’s very quick, more/less readable but it has a lot of limitations. First of all, while running any environment you always have the same Bundle ID. It means you won’t be able to have 2 same apps with different environments on your device at the same time. It’s not comfortable at all.
+这种方法让你每次要更改代码时只需设置一次环境。与以前的方法相比，这个更好，更快而且可读性更强，但也有很多限制。首先，在运行任何环境时，你始终拥有相同的 Bundle ID。这意味着你无法同时在设备上拥有 2 个分别对应不同环境的应用，这简直让人难受。
 
-Also, it’s a nice idea to have different icons for every environment, but with this approach you won’t be able to change your icons. And again, if you forget to change this global variable before publishing the app, you will definitely have problems.
+此外，为每个环境设置不同的图标也是一个不错的主意，但采用这种方法，你无法更改图标。而且，如果你在发布应用程序之前忘记更改这个全局变量，那你肯定会遇到问题。
 
 * * *
 
-Let’s move to implementing two more approaches for fast switch between our builds. These methods are suitable for both new and existing large projects. So you can easily use one of your existing projects to follow along in this tutorial.
+让我们继续尝试另外两种方法来更快地切换环境。这两个方法对于新建的项目和现有的大型项目都适用。所以跟着本教程，你可以很容易地应用在你现有的一个项目上。
 
-After applying these approaches your app will have the same codebase for every environment, but you will be able to have different icons and different Bundle ID’s for every configuration. The distribution process also will be very easy. And what is the most important, your managers and testers will be able to have all your environments as separated apps on their devices. So they will fully understand which version they’re trying out.
+应用这些方法之后，你的应用的每个环境将会使用相同的代码库，但对于每种配置，能够拥有不同的图标和不同的 Bundle ID。分发过程也非常简单。而最重要的是，项目经理和测试人员将能够将你不同环境配置的应用独立安装在他们的设备上，所以他们会完全理解他们试用的版本。
 
-### 3. Using configurations and schemes with a global flag
+### 3. 使用 target 配置和 scheme 并结合全局标志
 
-In this approach we will have to create 3 different configurations, 3 different schemes, connect schemes with their configurations. To do this I will create a new project “Environments”, you may also create a new project or do it in the existing one.
+在这种方法中，我们需要创建 3 个不同的 configuration 和 3 种不同的 scheme，并将 scheme 和对应 configuration 连接起来。我将创建一个叫“Environments”的项目来演示这一过程，你也可以创建一个新项目或在现有项目中实现。
 
-Go to project’s settings in the Project Navigator panel. Under the Targets sections, right click the existing target and select Dublicate to copy your current target.
+在 Project Navigator 面板中点击你的项目跳到项目设置。在 target 部分中，右键单击现有 target 并选择 Dublicate 来复制当前 target。
 
 ![](https://cdn-images-1.medium.com/max/800/0*kJt7iX0pJ_OCbYH7.)
 
-Now we have one more target and one more build scheme which is called ‘Environments copy’. Let’s rename it to a proper name. Just left click on your new target and press “Enter” to change its name to ‘Environments Dev’.
+现在我们有一个新的 target 和一个叫做“Environments copy”的 scheme。让我们重命名为一个合适的名字。左键单击你的新 target，回车，将其名称更改为“Environments Dev”。
 
-Next, go to “Manage Schemes…”, select the new scheme created in the previous step and press “Enter”. Also make its name the same to your target’s name to avoid any mess with naming.
+接下来，点击“Manage Schemes…”，选择在上一步中创建的新 scheme，然后按回车，重命名使其与新创建的 target 同名避免混淆。
 
 ![](https://cdn-images-1.medium.com/max/800/0*pAV3RMB8AJBsTIgL.)
 
-Also let’s create a new icon asset, so testers and managers will know what app configuration they launch.
+然后，让我们创建一个新的图标资源，以便测试人员和管理员方便地知道他们启动的 app 对应的配置。
 
-Go to Assets.xcassets, click on “+” and choose “New iOS App Icon”. Change its name to “AppIcon-Dev”.
+进入 Assets.xcassets，点击“+”并选择“New iOS App Icon”。将其名称更改为“AppIcon-Dev”。
 
 ![](https://cdn-images-1.medium.com/max/800/0*Wuq-Rd6IHVMAgTm0.)
 
-Now we have to connect this new icons asset with our Dev environment. Go to “Targets”, left click your Dev environment, find “App Icon Source” and choose your new icons asset.
+现在我们可以将这个新的图标资源与我们的开发环境对应起来。进入“Targets”，左键单击你的 Dev taget，找到“App Icon Source”并选择你的新的图标资源。
 
 ![](https://cdn-images-1.medium.com/max/800/0*LyxuDi3gg8Ca69p7.)
 
-That’s it, now you have different icons for every configuration. Please note, when we created the second configuration, the second *.plist file was also generated for our second environment.
+就是这样，现在每个 configuration 都有不同的图标。请注意，当我们创建第二个 configuration 时，第二个 *.plist 文件也是为我们的第二个环境生成的。
 
-Important notice: now we have 2 different approaches how to handle 2 different configurations:
+重要提示：现在我们有两种不同的方法来处理两种不同的配置：
 
-1.  **To add a preprocessing macro/compiler flag for both production and development targets.**
-2.  **To add variables right into the *.plist.**
+1. **为生产和开发目标添加预处理宏/编译器标志。**
+2. **将变量添加到 `*.plist` 中。**
 
-We will run through both methods starting from the first one.
+我们将从第一个方法开始讲这两种方法。
 
-To add a flag that indicates a development environment, select the development target. Go to “Build Settings” and find a “Swift Compiler — Custom Flags” section. Set the value to `-DEVELOPMENT` to mark your target as a development build.
+添加一个代表开发环境的标志，首先需要选择刚才建立的开发环境的 target，进入“Build Settings”并找到“Swift Compiler — Custom Flags”部分。将该值设置为“-DEVELOPMENT”，将你的目标标记为开发环境。
 
 ![](https://cdn-images-1.medium.com/max/800/0*Henhnxiv07NEtDkk.)
 
-And your configurations handling will look something like this in the code:
+然后在代码中像这样配置不同的环境：
 
 ```
 #if DEVELOPMENT
@@ -125,11 +125,11 @@ let API_TOKEN = "fgbfkbkgbmkgbm"
 #endif
 ```
 
-Now if you select the Dev scheme and run your project, you will automatically run your app with the development configurations set.
+现在，如果您选择 Dev scheme 并运行你的程序，应用程序将会自动运在开发环境配置下。
 
-### 4. Using configurations and schemes with several *.plist files
+### 4.使用 target 配置和 scheme 并结合多个 *.plist 文件
 
-In this approach we should repeat all the steps to create several schemes and configurations from the previous approach. After that, instead of adding a global flag we will add necessary values right into our *.plist files. Also, we will add a `serverBaseURL` variable of a String type in every of 2 *.plist files and fill it with URLs. Now every *.plist file contains a URL and we have to call it from the code. I think, it would be a nice idea to create an extension for our Bundle like the following:
+在这种方法中，我们需要重复上一个方法的前几个步骤，创建和上个方法相同的几种 configuration 和 scheme。然后，我们不需要再添加全局标志，而是需要添加必要的值到我们的 .plist 文件中。另外，我们将在两个 *.plist 文件中分别添加一个 String 类型的 `serverBaseURL` 变量，并填上 URL。现在每个 *.plist 文件都包含一个 URL，我们需要从代码中调用它。我认为，为我们的 Bundle 创建一个 extension 将是一个不错的主意，如下所示：
 
 ```
 extension Bundle {
@@ -142,21 +142,21 @@ extension Bundle {
 let baseURL = Bundle.main.apiBaseURL
 ```
 
-Personally, I like this approach more because here you shouldn’t check your configurations in the code at all. You simply ask your main Bundle for a row, and it returns a value depending on its current configuration.
+就我个人而言，我更喜欢这种方法，因为在你不应该在代码中检查你的配置。你只需询问 Bundle，只用一行代码，就可以根据当前配置得到需要的结果。
 
-#### Some moments while using several Targets
+#### 在使用多个 target 的时候
 
-*   Remember that your data stored in a *.plist file may be read and potentially is very unsafe. As a solution, add your sensitive keys in the code and leave only its keys in the *.plist file.
-*   While adding a new file don’t forget to select both targets to keep your code synced in both configurations.
-*   If you use continuous integration services such as [Travis CI](https://travis-ci.org/) or [Jenkins](https://jenkins-ci.org/), don’t forget to configure them in a proper way.
+*   请记住，存储在 *.plist 文件中的数据可能会被读取，并且可能非常不安全。一种解决方案是，把敏感密钥放在代码中，并仅将其键名放在 *.plist 文件中。
+*   添加新文件时，请不要忘记选择两个 target 以保持你的代码在两种配置中同步。
+*   如果你使用了持续集成服务，例如 [Travis CI](https://travis-ci.org/) 或 [Jenkins](https://jenkins-ci.org/)，请不要忘记为它们正确地配置。
 
-### Conclusion
+### 结论
 
-It’s always useful to separate your app environments in a readable and flexible way from the very beginning. Even with the simplest techniques we can avoid typical problems in handling many configurations and significantly improve our code quality.
+从一开始就以可读和灵活的方式将你的 app 分成不同环境总是有用的。即使用最简单的技术，我们也可以避免许多配置中的典型问题，并显着提高我们的代码质量。
 
-Today we briefly covered several approaches starting from the simplest. But there are a lot of other possible ways to organise many configurations. And I would love to read about your approaches in the comments section below.
+今天，我们简要地从最简单的方法介绍了几种方法，可能还有更多其它的方法来管理配置。我很期待在评论中看见你的方法。
 
-Thanks for reading :)
+谢谢阅读 ：）
 
 
 ---

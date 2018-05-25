@@ -1,3 +1,7 @@
+* [给初学者的 Jupyter Notebook 教程](https://juejin.im/post/5af8d3776fb9a07ab7744dd0) ([SergeyChang](https://github.com/SergeyChang) 翻译)
+* [如何在安卓应用中使用 TensorFlow Mobile](https://juejin.im/post/5afb8dc5518825426c690236) ([luochen1992](https://github.com/luochen1992) 翻译)
+* [在浏览器里使用 TenserFlow.js 实时估计人体姿态](https://juejin.im/post/5afd833b5188254270642ff3) ([NoName4Me](https://github.com/NoName4Me) 翻译)
+* [Google 的 ML Kit 为 Android 和 iOS 提供了简单的机器学习 API](https://juejin.im/post/5af2942e51882567244df836) ([ALVINYEH](https://github.com/ALVINYEH) 翻译)
 * [利用 Keras 深度学习库进行词性标注教程](https://juejin.im/post/5ae4613a5188256727742d7d) ([luochen1992](https://github.com/luochen1992) 翻译)
 * [Facebook 的 AI 万金油：StarSpace 神经网络模型简介](https://juejin.im/post/5a83af7c6fb9a0633c661404) ([noahziheng](https://github.com/noahziheng) 翻译)
 * [Facebook 开源了物体检测研究项目 Detectron](https://juejin.im/post/5a6c2ba56fb9a01cb64f0591) ([SeanW20](https://github.com/SeanW20) 翻译)

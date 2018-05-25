@@ -2,43 +2,43 @@
 > * 原文作者：[Alex Edwards](http://www.alexedwards.net)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/serverless-api-with-go-and-aws-lambda.md](https://github.com/xitu/gold-miner/blob/master/TODO1/serverless-api-with-go-and-aws-lambda.md)
-> * 译者：
-> * 校对者：
+> * 译者：[sisibeloved](https://github.com/sisibeloved)
+> * 校对者：[luochen1992](https://github.com/luochen1992)、[SergeyChang](https://github.com/SergeyChang)
 
-# How to build a Serverless API with Go and AWS Lambda
+# 使用 Go 和 AWS Lambda 构建无服务 API
 
-Earlier this year AWS announced that their [Lambda](https://aws.amazon.com/lambda/) service would now be providing first-class support for the Go language, which is a great step forward for any gophers (like myself) who fancy experimenting with serverless technology.
+早些时候 AWS 宣布了他们的 [Lambda](https://aws.amazon.com/lambda/) 服务将会为 Go 语言提供首要支持，这对于想要体验无服务技术的 GO 语言程序员（比如我自己）来说前进了一大步。
 
-So in this post I'm going to talk through how to create a HTTPS API backed by AWS Lambda, building it up step-by-step. I found there to be quite a few gotchas in the process — especially if you're not familiar the AWS permissions system — and some rough edges in the way that Lamdba interfaces with the other AWS services. But once you get your head around these it works pretty well.
+所以在这篇文章中我将讨论如何一步一步创建一个依赖 AWS Lambda 的 HTTPS API。我发现在这个过程中会有很多坑 — 特别是你对 AWS 的权限系统不熟悉的话 — 而且 Lamdba 接口和其它 AWS 服务对接时有很多磕磕碰碰的地方。但是一旦你弄懂了，这些工具都会非常好使。
 
-There's a lot of content to cover in this tutorial, so I've broken it down into the following seven steps:
+这篇教程涵盖了许多方面的内容，所以我将它分成以下七个步骤：
 
-1.  [Setting up the AWS CLI](#setup-and-the-aws-cli)
-2.  [Creating and deploying an Lambda function](#creating-and-deploying-an-lambda-function)
-3.  [Hooking it up to DynamoDB](#hooking-it-up-to-dynamodb)
-4.  [Setting up the HTTPS API](#setting-up-the-https-api)
-5.  [Working with events](#working-with-events)
-6.  [Deploying the API](#deploying-the-api)
-7.  [Supporting multiple actions](#supporting-multiple-actions)
+1.  [构建 AWS CLI](#构建-aws-cli)
+2.  [创建并部署一个 Lambda 函数](#创建并部署一个-lambda-函数)
+3.  [链接到 DynamoDB](#链接到-dynamodb)
+4.  [构建 HTTPS API](#构建-https-api)
+5.  [处理事件](#处理事件)
+6.  [部署 API](#部署-api)
+7.  [支持多种行为](#支持多种行为)
 
-Throughout this post we'll work towards building an API with two actions:
+通过这篇文章我们将努力构建一个具有两个功能的 API：
 
-| Method | Path | Action |
+| 方法 | 路径 | 行为 |
 | ------ | ---- | ------ |
-| GET | /books?isbn=xxx | Display information about a book with a specific ISBN |
-| POST | /books | Create a new book |
+| GET | /books?isbn=xxx | 展示带有指定 ISBN 的 book 对象的信息 |
+| POST | /books | 创建一个 book 对象 |
 
-Where a book is a basic JSON record which looks like this:
+一个 book 对象是一条像这样的原生 JSON 记录：
 
 ```
 {"isbn":"978-1420931693","title":"The Republic","author":"Plato"}
 ```
 
-I'm keeping the API deliberately simple to avoid getting bogged-down in application-specific code, but once you've grasped the basics it's fairly clear how to extend the API to support additional routes and actions.
+我会保持 API 的简单易懂，避免在特定功能的代码中陷入困境，但是当你掌握了基础知识之后，怎样扩展 API 来支持附加的路由和行为就变得轻而易举了。
 
-## Setting up the AWS CLI
+## 构建 AWS CLI
 
-1.  Throughout this tutorial we'll use the AWS CLI (command line interface) to configure our lambda functions and other AWS services. Installation and basic usage instructions can be [found here](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html), but if you’re using a Debian-based system like Ubuntu you can install the CLI with `apt` and run it using the `aws` command:
+1.  整个教程中我们会使用 AWS CLI（命令行接口）来设置我们的 lambda 函数和其它 AWS 服务。安装和基本使用指南可以[在这儿找到](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html)，不过如果你使用了一个基于 Debian 的系统，比如 Ubuntu，你可以通过 `apt` 安装 CLI 并使用 `aws` 命令来运行它：
 
     ```
     $ sudo apt install awscli
@@ -46,9 +46,9 @@ I'm keeping the API deliberately simple to avoid getting bogged-down in applicat
     aws-cli/1.11.139 Python/3.6.3 Linux/4.13.0-37-generic botocore/1.6.6
     ```
 
-2.  Next we need to set up an AWS IAM user with _programmatic access_ permission for the CLI to use. A guide on how to do this can be [found here](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html). For testing purposes you can attach the all-powerful `AdministratorAccess` managed policy to this user, but in practice I would recommend using a more restrictive policy. At the end of setting up the user you'll be given a access key ID and secret access key. Make a note of these — you’ll need them in the next step.
+2.  接下来我们需要创建一个带有**允许程序访问**权限的 AWS IAM 以供 CLI 使用。如何操作的指南可以[在这儿找到](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html)。出于测试的目的，你可以为这个用户附加拥有所有权限的 `AdministratorAccess` 托管策略，但在实际生产中我建议你使用更严格的策略。创建完用户后你将获得一个访问密钥 ID 和访问私钥。留意一下这些 —— 你将在下一步使用它们。
 
-3.  Configure the CLI to use the credentials of the IAM user you've just created using the `configure` command. You’ll also need to specify the [default region](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html) and [output format](https://docs.aws.amazon.com/cli/latest/userguide/controlling-output.html) you want the CLI to use.
+3.  使用你刚创建的 IAM 用户的凭证，通过 `configure` 命令来配置你的 CLI。你需要指定[默认地区](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html)和你想要 CLI 使用的[输出格式](https://docs.aws.amazon.com/cli/latest/userguide/controlling-output.html) 。
 
     ```
     $ aws configure
@@ -58,11 +58,11 @@ I'm keeping the API deliberately simple to avoid getting bogged-down in applicat
     Default output format [None]: json
     ```
 
-    (Throughout this tutorial I'll assume you're using the `us-east-1` region — you'll need to change the code snippets accordingly if you're using a different region.)
+    （假定你使用的是 `us-east-1` 地区 —— 如果你正在使用一个不同的地区，你需要相应地修改这个代码片段。）
 
-## Creating and deploying an Lambda function
+## 创建并部署一个 Lambda 函数
 
-1.  Now for the exciting part: making a lambda function. If you're following along, go to your `$GOPATH/src` folder and create a `books` repository containing a `main.go` file.
+1.  接下来就是激动人心的时刻：创建一个 lambda 函数。如果你正在照着做，进入你的 `$GOPATH/src` 文件夹，创建一个含有一个 `main.go` 文件的 `books` 仓库。
 
     ```
     $ cd ~/go/src
@@ -70,17 +70,17 @@ I'm keeping the API deliberately simple to avoid getting bogged-down in applicat
     $ touch main.go
     ```
 
-2.  Next you'll need to install the [](https://github.com/aws/aws-lambda-go)`github.com/aws-lambda-go/lambda` package. This provides the essential libraries and types we need for creating a lambda function in Go.
+2.  接着你需要安装 [`github.com/aws-lambda-go/lambda`](https://github.com/aws/aws-lambda-go) 包。这个包提供了创建 lambda 函数必需的 Go 语言库和类型。
 
     ```
     $ go get github.com/aws/aws-lambda-go/lambda
     ```
 
-3.  Then open up the `main.go` file and add the following code:
+3.  然后打开 `main.go` 文件，输入以下代码：
 
-    File: books/main.go
+    文件：books/main.go
 
-    ```
+    ```go
     package main
 
     import (
@@ -108,9 +108,9 @@ I'm keeping the API deliberately simple to avoid getting bogged-down in applicat
     }
     ```
 
-    In the `main()` function we call `lambda.Start()` and pass in the `show` function as the lambda _handler_. In this case the handler simply initializes and returns a new `book` object.
+    在 `main()` 函数中我们调用 `lambda.Start()` 并传入了 `show` 函数作为 lambda **处理程序**。在这个示例中处理函数仅简单地初始化并返回了一个新的 `book` 对象。
 
-    Lamdba handlers can take a variety of different signatures and reflection is used to determine exactly which signature you're using. The full list of supported forms is…
+    Lamdba 处理程序能够接收一系列不同的 Go 函数签名，并通过反射来确定哪个是你正在用的。它所支持的完整列表是……
 
     ```
     func()
@@ -124,33 +124,33 @@ I'm keeping the API deliberately simple to avoid getting bogged-down in applicat
     func(context.Context, TIn) (TOut, error)
     ```
 
-    … where the `TIn` and `TOut` parameters are objects that can be marshaled (and unmarshalled) by Go's `encoding/json` package.
+    …… 其中的 `TIn` 和 `TOut` 参数是可以通过 Go 的 `encoding/json` 包构建（和解析）的对象。
 
-4.  The next step is to build an executable from the `books` package using `go build`. In the code snippet below I'm using the `-o` flag to save the executable to `/tmp/main` but you can save it to any location (and name it whatever) you wish.
+4.  下一步是使用 `go build` 从 `books` 包构建一个可执行程序。在下面的代码片段中我使用 `-o` 标识来把可执行程序存到 `/tmp/main` ，当然，你也可以把它存到你想存的任意位置（同样地可以命名为任意名称）。
 
     ```
     $ env GOOS=linux GOARCH=amd64 go build -o /tmp/main books
     ```
 
-    Important: as part of this command we're using `env` to temporarily set two environment variables for the duration for the command (`GOOS=linux` and `GOARCH=amd64`). These instruct the Go compiler to create an executable suitable for use with a linux OS and amd64 architecture — which is what it will be running on when we deploy it to AWS.
+    重要：作为这个命令的一部分，我们使用 `env` 来设置两个命令运行期间的临时的环境变量（`GOOS=linux` 和 `GOARCH=amd64`）。这会指示 Go 编译器创建一个适用于 amd64 架构的 linux 系统的可执行程序 —— 就是当我们部署到 AWS 上时将会运行的环境。
 
-5.  AWS requires us to upload our lambda functions in a zip file, so let's make a `main.zip` zip file containing the executable we just made:
+5.  AWS 要求我们以 zip 格式上传 lambda 函数，所以创建一个包含我们刚才创建的可执行程序的 `main.zip` 文件：
 
     ```
     $ zip -j /tmp/main.zip /tmp/main
     ```
 
-    Note that the executable must be _in the root_ of the zip file — not in a folder within the zip file. To ensure this I've used the `-j` flag in the snippet above to junk directory names.
+    需要注意的是可执行程序必须在 zip 文件的**根目录下** —— 不是在 zip 文件的某个文件夹中。为了确保这一点，我在上面的代码片段中用了 `-j` 标识来丢弃目录名称。
 
-6.  The next step is a bit awkward, but critical to getting our lambda function working properly. We need to set up an IAM role which defines the permission that our _lambda function will have when it is running_.
+6.  下一步有点麻烦，但是对于让我们的 lambda 正确运行至关重要。我们需要建立一个 IAM 角色，它定义了 **lambda 函数运行时需要的**权限。
 
-    For now let's set up a `lambda-books-executor` role and attach the `AWSLambdaBasicExecutionRole` managed policy to it. This will give our lambda function the basic permissions it need to run and log to the AWS cloudwatch service.
+    现在让我们来建立一个 `lambda-books-executor` 角色，并给它附加 `AWSLambdaBasicExecutionRole` 托管政策。这会给我们的 lambda 函数运行和输出日志到 AWS 云监控服务所需的最基本的权限。
 
-    First we have to create a _trust policy_ JSON file. This will essentially instruct AWS to allow lambda services to assume the `lambda-books-executor` role:
+    首先我们需要创建一个**信任策略** JSON 文件。这会从根本上指示 AWS 允许 lambda 服务扮演 `lambda-books-executor` 角色：
 
-    File: /tmp/trust-policy.json
+    文件：/tmp/trust-policy.json
 
-    ```
+    ```json
     {
         "Version": "2012-10-17",
         "Statement": [
@@ -165,7 +165,7 @@ I'm keeping the API deliberately simple to avoid getting bogged-down in applicat
     }
     ```
 
-    Then use the `aws iam create-role` command to create the role with this trust policy:
+    然后使用 `aws iam create-role` 命令来创建带有这个信任策略的用户：
 
     ```
     $ aws iam create-role --role-name lambda-books-executor \
@@ -193,28 +193,28 @@ I'm keeping the API deliberately simple to avoid getting bogged-down in applicat
     }
     ```
 
-    Make a note of the returned ARN (Amazon Resource Name) — you'll need this in the next step.
+    关注一下返回的 ARN（亚马逊资源名）—— 在下一步中你需要用到它。
 
-    Now the `lambda-books-executor` role has been created we need to specify the permissions that the role has. The easiest way to do this it to use the `aws iam attach-role-policy` command, passing in the ARN of `AWSLambdaBasicExecutionRole` permission policy like so:
+    现在这个 `lambda-books-executor` 已经被创建，我们需要指定这个角色拥有的权限。最简单的方法是用 `aws iam attach-role-policy` 命令，像这样传入 `AWSLambdaBasicExecutionRole` 的 ARN 和许可政策：
 
     ```
     $ aws iam attach-role-policy --role-name lambda-books-executor \
     --policy-arn arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
     ```
 
-    Note: you can find a list of other permission policies that might be useful [here](https://docs.aws.amazon.com/lambda/latest/dg/intro-permission-model.html#lambda-intro-execution-role).
+    提示：你可以在[这里](https://docs.aws.amazon.com/lambda/latest/dg/intro-permission-model.html#lambda-intro-execution-role)找到一系列其他的许可政策，或许能对你有所帮助。
 
-7.  Now we're ready to actually deploy the lambda function to AWS, which we can do using the `aws lambda create-function` command. This takes the following flags and can take a minute or two to run.
+7.  现在我们可以真正地把 lambda 函数部署到 AWS 上了。我们可以使用 `aws lambda create-function` 命令。这个命令接收以下标识，并且需要运行一到两分钟。
 
     |     |     |
     | --- | --- |
-    | `--function-name` | Thethat name your lambda function will be called within AWS |
-    | `--runtime` | The runtime environment for the lambda function (in our case `"go1.x"`) |
-    | `--role` | The ARN of the role you want the lambda function to assume when it is running (from step 6 above) |
-    | `--handler` | The name of the executable in the root of the zip file |
-    | `--zip-file` | Path to the zip file |
+    | `--function-name` | 将在 AWS 中被调用的 lambda 函数名 |
+    | `--runtime` | lambda 函数的运行环境（在我们的例子里用 `"go1.x"`） |
+    | `--role` | 你想要 lambda 函数在运行时扮演的角色的 ARN（见上面的步骤 6） |
+    | `--handler` | zip 文件根目录下的可执行文件的名称 |
+    | `--zip-file` | zip 文件的路径 |
 
-    Go ahead and try deploying it:
+    接下去尝试部署：
 
     ```
     $ aws lambda create-function --function-name books --runtime go1.x \
@@ -239,7 +239,7 @@ I'm keeping the API deliberately simple to avoid getting bogged-down in applicat
     }
     ```
 
-8.  So there it is. Our lambda function has been deployed and is now ready to use. You can try it out by using the `aws lambda invoke` command (which requires you to specify an output file for the response — I've used `/tmp/output.json` in the snippet below).
+8.  大功告成！我们的 lambda 函数已经被部署上去并可以用了。你可以使用 `aws lambda invoke` 命令来试验一下（你需要为响应指定一个输出文件 —— 我在下面的代码片段中用了 `/tmp/output.json`）。
 
     ```
     $ aws lambda invoke --function-name books /tmp/output.json
@@ -250,13 +250,13 @@ I'm keeping the API deliberately simple to avoid getting bogged-down in applicat
     {"isbn":"978-1420931693","title":"The Republic","author":"Plato"}
     ```
 
-    If you're following along hopefully you've got the same response. Notice how the `book` object we initialized in our Go code has been automatically marshaled to JSON?
+    如果你一路照着做，你很有可能得到一个相同的响应。注意到了我们在 Go 代码中初始化的 `book` 对象是怎样被自动解析成 JSON 的吗？
 
-## Hooking it up to DynamoDB
+## 链接到 DynamoDB
 
-1.  In this section we're going to add a persistence layer for our data which can be accessed by our lambda function. For this I'll use Amazon DynamoDB (it integrates nicely with AWS lambda and has a generous free-usage tier). If you're not familiar with DynamoDB, there's a decent run down of [the basics here](https://www.tutorialspoint.com/dynamodb/dynamodb_overview.htm).
+1.  在这一章中要为 lambda 函数存取的数据添加持久层。我将会使用 Amazon DynamoDB（它跟 AWS lambda 结合得很出色，并且免费用量也不小）。如果你对 DynamoDB 不熟悉，[这儿](https://www.tutorialspoint.com/dynamodb/dynamodb_overview.htm)有一个不错的基本纲要。
 
-    The first thing we need to do is create a `Books` table to hold the book records. DynanmoDB is schema-less, but we do need to define the partion key (a bit like a primary key) on the ISBN field. We can do this in one command like so:
+    首先要创建一张 `Books` 表来保存 book 记录。DynanmoDB 是没有 schema 的，但我们需要在 ISBN 字段上定义分区键（有点像主键）。我们只需用以下这个命令：
 
     ```
     $ aws dynamodb create-table --table-name Books \
@@ -292,30 +292,30 @@ I'm keeping the API deliberately simple to avoid getting bogged-down in applicat
     }
     ```
 
-2.  Then lets add a couple of items using the `put-item` command, which we'll use in the next steps.
+2.  然后用 `put-item` 命令添加一些数据，这些数据在接下来几步中会用得到。
 
     ```
     $ aws dynamodb put-item --table-name Books --item '{"ISBN": {"S": "978-1420931693"}, "Title": {"S": "The Republic"}, "Author":  {"S": "Plato"}}'
     $ aws dynamodb put-item --table-name Books --item '{"ISBN": {"S": "978-0486298238"}, "Title": {"S": "Meditations"},  "Author":  {"S": "Marcus Aurelius"}}'
     ```
 
-3.  The next thing to do is update our Go code so that our lambda handler can connect to and use the DynamoDB layer. For this you'll need to install the `github.com/aws/aws-sdk-go` package which provides libraries for working with DynamoDB (and other AWS services).
+3.  接下来更新我们的 Go 代码，这样我们的 lambda 处理程序可以连接并使用 DynamoDB 层。你需要安装 `github.com/aws/aws-sdk-go` 包，它提供了使用 DynamoDB（和其它 AWS 服务）的相关库。
 
     ```
     $ go get github.com/aws/aws-sdk-go
     ```
 
-4.  Now for the code. To keep a bit of separation create a new `db.go` file in your `books` repository:
+4.  接着是敲代码环节。为了保持代码分离，在 `books` 仓库中创建一个新的 `db.go` 文件：
 
     ```
     $ touch ~/go/src/books/db.go
     ```
 
-    And add the following code:
+    并添加以下代码：
 
-    File: books/db.go
+    文件：books/db.go
 
-    ```
+    ```go
     package main
 
     import (
@@ -325,12 +325,12 @@ I'm keeping the API deliberately simple to avoid getting bogged-down in applicat
         "github.com/aws/aws-sdk-go/service/dynamodb/dynamodbattribute"
     )
 
-    // Declare a new DynamoDB instance. Note that this is safe for concurrent
-    // use.
+    // 声明一个新的 DynamoDB 实例。注意它在并发调用时是
+    // 安全的。
     var db = dynamodb.New(session.New(), aws.NewConfig().WithRegion("us-east-1"))
 
     func getItem(isbn string) (*book, error) {
-        // Prepare the input for the query.
+        // 准备查询的输入
         input := &dynamodb.GetItemInput{
             TableName: aws.String("Books"),
             Key: map[string]*dynamodb.AttributeValue{
@@ -340,8 +340,8 @@ I'm keeping the API deliberately simple to avoid getting bogged-down in applicat
             },
         }
 
-        // Retrieve the item from DynamoDB. If no matching item is found
-        // return nil.
+        // 从 DynamoDB 检索数据。如果没有符合的数据
+        // 返回 nil。
         result, err := db.GetItem(input)
         if err != nil {
             return nil, err
@@ -350,11 +350,11 @@ I'm keeping the API deliberately simple to avoid getting bogged-down in applicat
             return nil, nil
         }
 
-        // The result.Item object returned has the underlying type
-        // map[string]*AttributeValue. We can use the UnmarshalMap helper
-        // to parse this straight into the fields of a struct. Note:
-        // UnmarshalListOfMaps also exists if you are working with multiple
-        // items.
+        // 返回的 result.Item 对象具有隐含的
+        // map[string]*AttributeValue 类型。我们可以使用 UnmarshalMap helper
+        // 解析成对应的数据结构。注意：
+        // 当你需要处理多条数据时，可以使用
+        // UnmarshalListOfMaps。
         bk := new(book)
         err = dynamodbattribute.UnmarshalMap(result.Item, bk)
         if err != nil {
@@ -365,11 +365,11 @@ I'm keeping the API deliberately simple to avoid getting bogged-down in applicat
     }
     ```
 
-    And then update the `main.go` to use this new code:
+    然后用新的代码更新 `main.go`：
 
-    File: books/main.go
+    文件：books/main.go
 
-    ```
+    ```go
     package main
 
     import (
@@ -383,8 +383,8 @@ I'm keeping the API deliberately simple to avoid getting bogged-down in applicat
     }
 
     func show() (*book, error) {
-        // Fetch a specific book record from the DynamoDB database. We'll
-        // make this more dynamic in the next section.
+        // 从 DynamoDB 数据库获取特定的 book 记录。在下一章中，
+        // 我们可以让这个行为更加动态。
         bk, err := getItem("978-0486298238")
         if err != nil {
             return nil, err
@@ -398,21 +398,21 @@ I'm keeping the API deliberately simple to avoid getting bogged-down in applicat
     }
     ```
 
-5.  Save the files, then rebuild and zip up the lambda function so it's ready to deploy:
+5.  保存文件、重新编译并打包压缩 lambda 函数，这样就做好了部署前的准备：
 
     ```
     $ env GOOS=linux GOARCH=amd64 go build -o /tmp/main books
     $ zip -j /tmp/main.zip /tmp/main
     ```
 
-6.  Re-deploying a lambda function is easier than creating it for the first time — we can use the `aws lambda update-function-code` command like so:
+6.  重新部署一个 lambda 函数比第一次创建轻松多了 —— 我们可以像这样使用 `aws lambda update-function-code` 命令：
 
     ```
     $ aws lambda update-function-code --function-name books \
     --zip-file fileb:///tmp/main.zip
     ```
 
-7.  Let's try executing the lambda function now:
+7.  试着执行 lambda 函数看看：
 
     ```
     $ aws lambda invoke --function-name books /tmp/output.json
@@ -424,11 +424,11 @@ I'm keeping the API deliberately simple to avoid getting bogged-down in applicat
     {"errorMessage":"AccessDeniedException: User: arn:aws:sts::account-id:assumed-role/lambda-books-executor/books is not authorized to perform: dynamodb:GetItem on resource: arn:aws:dynamodb:us-east-1:account-id:table/Books\n\tstatus code: 400, request id: 2QSB5UUST6F0R3UDSVVVODTES3VV4KQNSO5AEMVJF66Q9ASUAAJG","errorType":"requestError"}
     ```
 
-    Ah. There's a slight problem. We can see from the output message that our lambda function (specifically, the `lambda-books-executor` role) doesn't have the necessary permissions to run `GetItem` on a DynamoDB instance. Let's fix that now.
+    啊，有点小问题。我们可以从输出信息中看到，我们的 lambda 函数（注意了，用的 `lambda-books-executor` 角色）缺少在 DynamoDB 实例上运行 `GetItem` 的权限。我们现在就把它改过来。
 
-8.  Create a privilege policy file that gives `GetItem` and `PutItem` privileges on DynamoDB like so:
+8.  创建一个权限策略文件，给予 `GetItem` 和 `PutItem` DynamoDB 相关的权限：
 
-    File: /tmp/privilege-policy.json
+    文件：/tmp/privilege-policy.json
 
     ```
     {
@@ -446,7 +446,7 @@ I'm keeping the API deliberately simple to avoid getting bogged-down in applicat
     }
     ```
 
-    And then attach it to the `lambda-books-executor` role using the `aws iam put-role-policy` command:
+    然后使用 `aws iam put-role-policy` 命令把它附加到 `lambda-books-executor` 用户：
 
     ```
     $ aws iam put-role-policy --role-name lambda-books-executor \
@@ -454,9 +454,9 @@ I'm keeping the API deliberately simple to avoid getting bogged-down in applicat
     --policy-document file:///tmp/privilege-policy.json
     ```
 
-    As a side note, AWS has some managed policies called `AWSLambdaDynamoDBExecutionRole` and `AWSLambdaInvocation-DynamoDB` which sound like they would do the trick. But neither of them actually provide `GetItem` or `PutItem` privileges. Hence the need to roll our own policy.
+    讲句题外话，AWS 有叫做 `AWSLambdaDynamoDBExecutionRole` 和 `AWSLambdaInvocation-DynamoDB` 的托管策略，听起来挺管用的，但是它们都不提供 `GetItem` 或 `PutItem` 的权限。所以才需要组建自己的策略。
 
-9.  Let's try executing the lambda function again. It should work smoothly this time and return information about the book with ISBN `978-0486298238`.
+9.  再执行一次 lambda 函数看看。这一次应该顺利执行了并返回 ISBN 为 `978-0486298238` 的书本的信息：
 
     ```
     $ aws lambda invoke --function-name books /tmp/output.json
@@ -467,23 +467,23 @@ I'm keeping the API deliberately simple to avoid getting bogged-down in applicat
     {"isbn":"978-0486298238","title":"Meditations","author":"Marcus Aurelius"}
     ```
 
-## Setting up the HTTPS API
+## 构建 HTTPS API
 
-1.  So our lambda function is now working nicely and communicating with DynamoDB. The next thing to do is set up a way to access the lamdba function over HTTPS, which we can do using the AWS API Gateway service.
+1.  到现在为止，我们的 lambda 已经能够运行并与 DynamoDB 交互。接下来就是建立一个通过 HTTPS 获取 lamdba 函数的途径，我们可以通过 AWS API 网关服务来实现。
 
-    But before we go any further, it's worth taking a moment to think about the structure of our project. Let's say we have grand plans for our lamdba function to be part of a bigger `bookstore` API which deals with information about books, customers, recommendations and other things.
+    但是在我们继续之前，考虑一下项目的架构还是很有必要的。假设我们有一个宏伟的计划，我们的 lamdba 函数将是一个更大的 `bookstore` API 的一部分，这个API 将会处理书本、客户、推荐和其它各种各样的信息。
 
-    There's three basic options for structuring this using AWS Lambda:
+    AWS Lambda 提供了三种架构的基本选项：
 
-    *   **Microservice style** — Each lambda function is responsible for one action only. For example, there are 3 separate lambda functions for showing, creating and deleting a book.
-    *   **Service style** — Each lambda function is responsible for a group of related actions. For example, one lambda function handles all book-related actions, but customer-related actions are kept in a separate lambda function.
-    *   **Monolith style** — One lambda function manages all the bookstore actions.
+    *   **微服务式** —— 每个 lambda 函数只响应一个行为。举个例子，展示、创建和删除一本书会对应 3 个独立的 lambda 函数。
+    *   **服务式** —— 每个 lambda 函数响应一组相关的行为。举个例子， 用一个 lambda 来处理所有跟书相关的行为，但是用户相关行为会被放到另一个独立的 lambda 函数中。
+    *   **整体式** —— 一个 lambda 函数管理书店的所有行为。
 
-    Each of these options is valid, and theres some good discussion of the pros and cons [here](https://serverless.com/blog/serverless-architecture-code-patterns/).
+    每个选项都是有效的，[这里](https://serverless.com/blog/serverless-architecture-code-patterns/)有一些关于每个选项优缺点的不错的讨论。
 
-    For this tutorial we'll opt for a service style, and have one `books` lambda function handle the different book-related actions. This means that we'll need to implement some form of routing _within_ our lambda function, which I'll cover later in the post. But for now…
+    在这篇教程中我们会用服务式进行操作，并用一个 `books` lambda 函数处理不同的书本相关行为。这意味着我们需要在我们的 lambda 函数**内部**实现某种形式的路由，这一点我会在下文提到。不过现在……
 
-2.  Go ahead and create a `bookstore` API using the `aws apigateway create-rest-api` command like so:
+2.  我们继续，使用 `aws apigateway create-rest-api` 创建一个 `bookstore` API：
 
     ```
     $ aws apigateway create-rest-api --name bookstore
@@ -494,9 +494,9 @@ I'm keeping the API deliberately simple to avoid getting bogged-down in applicat
     }
     ```
 
-    Note down the `rest-api-id` value that this returns, we'll be using it a lot in the next few steps.
+    记录下返回的 `rest-api-id` 值，我们在接下来几步中会多次用到它。
 
-3.  Next we need to get the id of the root API resource (`"/"`). We can retrieve this using the `aws apigateway get-resources` command like so:
+3.  接下来我们需要获取 API 根目录（`"/"`）的 id。我们可以使用 `aws apigateway get-resources` 命令来取得：
 
     ```
     $ aws apigateway get-resources --rest-api-id rest-api-id
@@ -510,9 +510,9 @@ I'm keeping the API deliberately simple to avoid getting bogged-down in applicat
     }
     ```
 
-    Again, keep a note of the `root-path-id` value this returns.
+    同样地，记录返回的 `root-path-id` 值。
 
-4.  Now we need to create a new resource _under the root path_ — specifically a resource for the URL path `/books`. We can do this by using the `aws apigateway create-resource` command with the `--path-part` parameter like so:
+4.  现在我们需要**在根目录下**创建一个新的资源 —— 就是 URL 路径 `/books` 对应的资源。我们可以使用带有 `--path-part` 参数的 `aws apigateway create-resource` 命令：
 
     ```
     $ aws apigateway create-resource --rest-api-id rest-api-id \
@@ -525,11 +525,11 @@ I'm keeping the API deliberately simple to avoid getting bogged-down in applicat
     }
     ```
 
-    Again, note the `resource-id` this returns, we'll need it in the next step.
+    同样地，记录返回的 `resource-id`，下一步要用到。
 
-    Note that it's possible to include placeholders within your path by wrapping part of the path in curly braces. For example, a `--path-part` parameter of `books/{id}` would match requests to `/books/foo` and `/books/bar`, and the value of `id` would be made available to your lambda function via an events object (which we'll cover later in the post). You can also make a placeholder greedy by postfixing it with a `+`. A common idiom is to use the parameter `--path-part {proxy+}` if you want to match all requests regardless of their path.
+    值得一提的是，可以使用大括号将部分路径包裹起来来在路径中包含占位符。举个例子，`books/{id}` 的 `--path-part` 参数将会匹配 `/books/foo` 和 `/books/bar` 的请求，并且 `id` 的值可以通过一个事件对象（下文会提到）在你的 lambda 函数中获取。你也可以在占位符后加上后缀 `+`，使它变得贪婪。如果你想匹配任意路径的请求，一种常见的做法是使用参数 `--path-part {proxy+}`。
 
-5.  But we're not doing either of those things. Let's get back to our `/books` resource and use the `aws apigateway put-method` command to register the HTTP method of `ANY`. This will mean that our `/books` resource will respond to all requests regardless of their HTTP method.
+5.  不过我们不用这么做。我们回到 `/books` 资源，使用 `aws apigateway put-method` 命令来注册 `ANY` 的 HTTP 方法。这意味着我们的 `/books` 将会响应所有请求，不论什么 HTTP 方法。
 
     ```
     $ aws apigateway put-method --rest-api-id rest-api-id \
@@ -542,17 +542,17 @@ I'm keeping the API deliberately simple to avoid getting bogged-down in applicat
     }
     ```
 
-6.  Now we're all set to integrate the resource with our lambda function, which we can do using the `aws apigateway put-integration` command. This command has a few parameters that need a quick explanation:
+6.  现在万事俱备，就差把资源整合到我们的 lambda 函数中了，这一步我们使用 `aws apigateway put-integration` 命令。关于这个命令的一些参数需要简短地解释一下：
 
-    *   The `--type` parameter should be `AWS_PROXY`. When this is used the AWS API Gateway will send information about the HTTP request as an 'event' to the lambda function. It will also automatically transform the output from the lambda function to a HTTP response.
-    *   The `--integration-http-method` parameter must be `POST`. Don't confuse this with what HTTP methods your API resource responds to.
-    *   The `--uri` parameter needs to take the format:
+    *   The `--type` 参数应该为 `AWS_PROXY`。当使用这个值时，AWS API 网关会以 『事件』的形式将 HTTP 请求的信息发送到 lambda 函数。这也会自动将 lambda 函数的输出转化成 HTTP 响应。
+    *   `--integration-http-method` 参数必须为 `POST`。不要把这个和你的  API 资源响应的 HTTP 方法混淆了。
+    *   `--uri` 参数需要遵守这样的格式：
 
         ```
         arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/your-lambda-function-arn/invocations
         ```
 
-    With those things in mind, your command should look a bit like this:
+    记住了这些以后，你的命令看起来应该是这样的：
 
     ```
     $ aws apigateway put-integration --rest-api-id rest-api-id \
@@ -569,7 +569,7 @@ I'm keeping the API deliberately simple to avoid getting bogged-down in applicat
     }
     ```
 
-7.  Alright, let's give this a whirl. We can send a test request to the resource we just made using the `aws apigateway test-invoke-method` command like so:
+7.  好了，我们来试一试。我们可以使用 `aws apigateway test-invoke-method` 命令来向我们刚才建立的资源发送一个测试请求：
 
     ```
     $ aws apigateway test-invoke-method --rest-api-id rest-api-id --resource-id resource-id --http-method "GET"
@@ -582,13 +582,13 @@ I'm keeping the API deliberately simple to avoid getting bogged-down in applicat
     }
     ```
 
-    Ah. So that hasn't quite worked. If you take a look through the outputted log information you should see that the problem appears to be:
+    啊，没有成功。如果你浏览了输出的日志，你应该可以看出问题出在这儿：
 
     `Execution failed due to configuration error: Invalid permissions on Lambda function`
 
-    This is happening because our `bookstore` API gateway _doesn't have permissions to execute our lambda function._
+    这是因为我们的 `bookstore` API 网关**没有执行 lambda 函数的权限**。
 
-8.  The easiest way to fix that is to use the `aws lambda add-permission` command to give our API permissions to invoke it, like so:
+8.  最简单的修复问题的方法是使用 `aws lambda add-permission` 命令来给 API 调用的权限，像这样：
 
     ```
     $ aws lambda add-permission --function-name books --statement-id a-GUID \
@@ -599,9 +599,9 @@ I'm keeping the API deliberately simple to avoid getting bogged-down in applicat
     }
     ```
 
-    Note that the `--statement-id` parameter needs to be a globally unique identifier. This could be a [random ID](https://www.guidgenerator.com/) or something more descriptive.
+    注意，`--statement-id` 参数必须是一个全局唯一的标识符。它可以是一个 [random ID](https://www.guidgenerator.com/) 或其它更加容易说明的值。
 
-9.  Alright, let's try again:
+9.  好了，再试一次：
 
     ```
     $ aws apigateway test-invoke-method --rest-api-id rest-api-id --resource-id resource-id --http-method "GET"
@@ -614,17 +614,17 @@ I'm keeping the API deliberately simple to avoid getting bogged-down in applicat
     }
     ```
 
-    So unfortunately there's still an error, but the message has now changed:
+    还是报错，不过消息已经变了：
 
     `Execution failed due to configuration error: Malformed Lambda proxy response`
 
-    And if you look closely at the output you'll see the information:
+    如果你仔细看输出你会看到下列信息：
 
     `Endpoint response body before transformations: {\"isbn\":\"978-0486298238\",\"title\":\"Meditations\",\"author\":\"Marcus Aurelius\"}`
 
-    So there's some definite progress here. Our API is talking to our lambda function and is receiving the correct response (a `book` object marshalled to JSON). It's just that the AWS API Gateway considers the response to be in the wrong format.
+    这里有明确的过程。API 和 lambda 函数交互并收到了正确的响应（一个解析成 JSON 的 `book` 对象）。只是 AWS API 网关将响应当成了错误的格式。
 
-    This is because, when you're using the API Gateway's lambda proxy integration, the return value from the lambda function **must** be in the following JSON format:
+    这是因为，当你使用 API 网关的 lambda 代理集成，lambda 函数的返回值 **必须** 是这样的 JSON 格式：
 
     ```
     {
@@ -635,22 +635,22 @@ I'm keeping the API deliberately simple to avoid getting bogged-down in applicat
     }
     ```
 
-    So to fix this it's time to head back to our Go code and make some alterations.
+    是时候回头看看 Go 代码，然后做些转换了。
 
-## Working with events
+## 处理事件
 
-1.  The easiest way to provide the responses that the AWS API Gateway needs is to install the `github.com/aws/aws-lambda-go/events` package:
+1.  提供 AWS API 网关需要的响应最简单的方法是安装 `github.com/aws/aws-lambda-go/events` 包：
 
     ```
     go get github.com/aws/aws-lambda-go/events
     ```
 
-    This provides a couple of useful types (`APIGatewayProxyRequest` and `APIGatewayProxyResponse`) which contain information about incoming HTTP requests and allow us to construct responses that the API Gateway understands.
+    这个包提供了许多有用的类型（`APIGatewayProxyRequest` 和 `APIGatewayProxyResponse`），包含了输入的 HTTP 请求的信息并允许我们构建 API 网关能够理解的响应.
 
-    ```
+    ```go
     type APIGatewayProxyRequest struct {
-        Resource              string                        `json:"resource"` // The resource path defined in API Gateway
-        Path                  string                        `json:"path"`     // The url path for the caller
+        Resource              string                        `json:"resource"` // API 网关中定义的资源路径
+        Path                  string                        `json:"path"`     // 调用者的 url 路径
         HTTPMethod            string                        `json:"httpMethod"`
         Headers               map[string]string             `json:"headers"`
         QueryStringParameters map[string]string             `json:"queryStringParameters"`
@@ -662,7 +662,7 @@ I'm keeping the API deliberately simple to avoid getting bogged-down in applicat
     }
     ```
 
-    ```
+    ```go
     type APIGatewayProxyResponse struct {
         StatusCode      int               `json:"statusCode"`
         Headers         map[string]string `json:"headers"`
@@ -671,17 +671,17 @@ I'm keeping the API deliberately simple to avoid getting bogged-down in applicat
     }
     ```
 
-2.  Let's go back to our `main.go` file and update our lambda handler so that it uses the signature:
+2.  回到 `main.go` 文件，更新 lambda 处理程序，让它使用这样的函数签名：
 
     ```
     func(events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error)
     ```
 
-    Essentially, the handler will accept a `APIGatewayProxyRequest` object which contains a bunch of information about the HTTP request, and return a `APIGatewayProxyResponse` object (which is marshalable into a JSON response suitable for the AWS API Gateway).
+    总的来讲，处理程序会接收一个包含了一串 HTTP 请求信息的 `APIGatewayProxyRequest` 对象，然后返回一个 `APIGatewayProxyResponse` 对象（可以被解析成适合 AWS API 网关的 JSON 响应）。
 
-    File: books/main.go
+    文件：books/main.go
 
-    ```
+    ```go
     package main
 
     import (
@@ -706,14 +706,14 @@ I'm keeping the API deliberately simple to avoid getting bogged-down in applicat
     }
 
     func show(req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
-        // Get the `isbn` query string parameter from the request and
-        // validate it.
+        // 从请求中获取查询 `isbn` 的字符串参数
+        // 并校验。
         isbn := req.QueryStringParameters["isbn"]
         if !isbnRegexp.MatchString(isbn) {
             return clientError(http.StatusBadRequest)
         }
 
-        // Fetch the book record from the database based on the isbn value.
+        // 根据 isbn 值从数据库中取出 book 记录
         bk, err := getItem(isbn)
         if err != nil {
             return serverError(err)
@@ -722,24 +722,24 @@ I'm keeping the API deliberately simple to avoid getting bogged-down in applicat
             return clientError(http.StatusNotFound)
         }
 
-        // The APIGatewayProxyResponse.Body field needs to be a string, so
-        // we marshal the book record into JSON.
+        // APIGatewayProxyResponse.Body 域是个字符串，所以
+        // 我们将 book 记录解析成 JSON。
         js, err := json.Marshal(bk)
         if err != nil {
             return serverError(err)
         }
 
-        // Return a response with a 200 OK status and the JSON book record
-        // as the body.
+        // 返回一个响应，带有代表成功的 200 状态码和 JSON 格式的 book 记录
+        // 响应体。
         return events.APIGatewayProxyResponse{
             StatusCode: http.StatusOK,
             Body:       string(js),
         }, nil
     }
 
-    // Add a helper for handling errors. This logs any error to os.Stderr
-    // and returns a 500 Internal Server Error response that the AWS API
-    // Gateway understands.
+    // 添加一个用来处理错误的帮助函数。它会打印错误日志到 os.Stderr
+    // 并返回一个 AWS API 网关能够理解的 500 服务器内部错误
+    // 的响应。
     func serverError(err error) (events.APIGatewayProxyResponse, error) {
         errorLogger.Println(err.Error())
 
@@ -749,7 +749,7 @@ I'm keeping the API deliberately simple to avoid getting bogged-down in applicat
         }, nil
     }
 
-    // Similarly add a helper for send responses relating to client errors.
+    // 加一个简单的帮助函数，用来发送和客户端错误相关的响应。
     func clientError(status int) (events.APIGatewayProxyResponse, error) {
         return events.APIGatewayProxyResponse{
             StatusCode: status,
@@ -762,9 +762,9 @@ I'm keeping the API deliberately simple to avoid getting bogged-down in applicat
     }
     ```
 
-    Notice how in all cases the `error` value returned from our lambda handler is now `nil`? We have to do this because the API Gateway doesn't accept `error` objects when you're using it in conjunction with a lambda proxy integration (they would result in a 'malformed response' errors again). So we need to manage errors fully within our lambda function and return the appropriate HTTP response. In essence, this means that the return parameter of `error` is superfluous, but we still need to include it to have a valid signature for the lambda function.
+    注意到为什么我们的 lambda 处理程序返回的所有 `error` 值变成了 `nil`？我们不得不这么做，因为 API 网关在和 lambda 代理集成插件结合使用时不接收 `error` 对象 （这些错误会再一次引起『响应残缺』错误）。所以我们需要在 lambda 函数里自己管理错误，并返回合适的 HTTP 响应。其实 `error` 这个返回参数是多余的，但是为了保持正确的函数签名，我们还是要在 lambda 函数里包含它。
 
-3.  Anyway, save the file and rebuild and redeploy the lambda function:
+3. 保存文件，重新编译并重新部署 lambda 函数：
 
     ```
     $ env GOOS=linux GOARCH=amd64 go build -o /tmp/main books
@@ -773,7 +773,7 @@ I'm keeping the API deliberately simple to avoid getting bogged-down in applicat
     --zip-file fileb:///tmp/main.zip
     ```
 
-4.  And if you test it again now it should work as expected. Give it a try with different `isbn` values in the query string:
+4.  再试一次，结果应该符合预期了。试试在查询字符串中输入不同的 `isbn` 值：
 
     ```
     $ aws apigateway test-invoke-method --rest-api-id rest-api-id \
@@ -802,16 +802,16 @@ I'm keeping the API deliberately simple to avoid getting bogged-down in applicat
     }
     ```
 
-5.  As a side note, anything sent to `os.Stderr` will be logged to the AWS Cloudwatch service. So if you've set up an error logger like we have in the code above, you can query Cloudwatch for errors like so:
+5.  插句题外话，所有发送到 `os.Stderr` 的信息会被打印到 AWS 云监控服务。所以如果你像上面的代码一样建立了一个错误日志器，你可以像这样在云监控上查询错误：
 
     ```
     $ aws logs filter-log-events --log-group-name /aws/lambda/books \
     --filter-pattern "ERROR"
     ```
 
-## Deploying the API
+## 部署 API
 
-1.  Now that the API Gateway is working properly it's time to make it live. We can do this with the `aws apigateway create-deployment` command like so:
+1.  既然 API 能够正常工作了，是时候将它上线了。我们可以执行这个 `aws apigateway create-deployment` 命令：
 
     ```
     $ aws apigateway create-deployment --rest-api-id rest-api-id \
@@ -822,15 +822,15 @@ I'm keeping the API deliberately simple to avoid getting bogged-down in applicat
     }
     ```
 
-    In the code above I've given the deployed API using the name `staging`, but you can call it anything that you wish.
+    在上面的代码中我给 API 命名为 `staging`，你也可以按你的喜好来给它起名。
 
-2.  Once deployed your API should be accessible at the URL:
+2.  部署以后你的 API 可以通过 URL 被访问：
 
     ```
     https://rest-api-id.execute-api.us-east-1.amazonaws.com/staging
     ```
 
-    Go ahead and give it a try using curl. It should work as you expect:
+    用 curl 来试一试。它的结果应该跟预想中一样：
 
     ```
     $ curl https://rest-api-id.execute-api.us-east-1.amazonaws.com/staging/books?isbn=978-1420931693
@@ -839,17 +839,17 @@ I'm keeping the API deliberately simple to avoid getting bogged-down in applicat
     Bad Request
     ```
 
-## Supporting multiple actions
+## 支持多种行为
 
-1.  Let's add support for a `POST /books` action. We want this to read and validate a new book record (from a JSON HTTP request body) and then add it to the DynamoDB table.
+1.  我们来为 `POST /books` 行为添加支持。我们希望它能读取并校验一条新的 book 记录（从 JSON 格式的 HTTP 请求体中），然后把它添加到 DynamoDB 表中。
 
-    Now that the different AWS services are hooked up, extending our lambda function to support additional actions is perhaps the most straightforward part of this tutorial, as it can be managed purely within our Go code.
+    既然不同的 AWS 服务已经联通，扩展我们的 lambda 函数来支持附加的行为可能是这个教程最简单的部分了，因为这可以仅通过 Go 代码实现。
 
-    First update the `db.go` file to include a new `putItem` function like so:
+    首先更新 `db.go` 文件，添加一个 `putItem` 函数：
 
-    File: books/db.go
+    文件：books/db.go
 
-    ```
+    ```go
     package main
 
     import (
@@ -888,7 +888,7 @@ I'm keeping the API deliberately simple to avoid getting bogged-down in applicat
         return bk, nil
     }
 
-    // Add a book record to DynamoDB.
+    // 添加一条 book 记录到 DynamoDB。
     func putItem(bk *book) error {
         input := &dynamodb.PutItemInput{
             TableName: aws.String("Books"),
@@ -910,11 +910,11 @@ I'm keeping the API deliberately simple to avoid getting bogged-down in applicat
     }
     ```
 
-    And then update the `main.go` function so that the `lambda.Start()` method calls a new `router` function, which does a switch on the HTTP request method to determine which action to take. Like so:
+    然后修改 `main.go` 函数，这样 `lambda.Start()` 方法会调用一个新的 `router` 函数，根据 HTTP 请求的方法决定哪个行为被调用：
 
-    File: books/main.go
+    文件：books/main.go
 
-    ```
+    ```go
     package main
 
     import (
@@ -1024,7 +1024,7 @@ I'm keeping the API deliberately simple to avoid getting bogged-down in applicat
     }
     ```
 
-2.  Rebuild and zip up the lambda function, then deploy it as normal:
+2.  重新编译、打包 lambda 函数，然后像平常一样部署它：
 
     ```
     $ env GOOS=linux GOARCH=amd64 go build -o /tmp/main books
@@ -1033,7 +1033,7 @@ I'm keeping the API deliberately simple to avoid getting bogged-down in applicat
     --zip-file fileb:///tmp/main.zip
     ```
 
-3.  And now when you hit the API using different HTTP methods it should call the appropriate action:
+3.  现在当你用不同的 HTTP 方法访问 API 时，它应该调用合适的方法：
 
     ```
     $ curl -i -H "Content-Type: application/json" -X POST \
