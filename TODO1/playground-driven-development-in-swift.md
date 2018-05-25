@@ -2,52 +2,52 @@
 > * 原文作者：[Khoa Pham](https://medium.com/@onmyway133?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/playground-driven-development-in-swift.md](https://github.com/xitu/gold-miner/blob/master/TODO1/playground-driven-development-in-swift.md)
-> * 译者：
-> * 校对者：
+> * 译者：[ALVINYEH](https://github.com/ALVINYEH)
+> * 校对者：[swants](https://github.com/swants)、[talisk](https://github.com/talisk)
 
-# Playground driven development in Swift
+# Swift 中的 Playground 驱动开发
 
 ![](https://cdn-images-1.medium.com/max/2000/1*EbrVuz1m60emAKFrBdboCg.png)
 
-### The need to quickly tweak UI
+### 快速调整 UI 的需求
 
-Our mission as mobile developers is to provide the best user experience for the end users, to make life more engaging and easier for them through dedicated apps. One of the tasks is to make sure the UI, the thing that users see, looks good and correct. Most of the time, we can say that app is a prettifier of data. We mostly fetch JSON data from backend, parse it to model and then render it using `UIView`, mostly `UITableView` or `UICollectionView`.
+通过我们开发的 app，为用户提供最佳使用体验，让生活变得更便利，更丰富多彩，是我们作为移动开发者的天生使命。其中我们要做的一件事就是确保为用户展现的 UI 看起来很棒并且不存在丝毫问题。在大多数情况下，app 可以说是数据的美容师。我们常常从后端获取 json，解析为 model，并通过 UIView（大多数情况下是 UITableView 或 UICollectionView）将数据渲染出来。
 
-For iOS, we need to continuously tweak the UI according to the design to make it fit small sized handheld devices. That process involves us changing code, compiling, waiting, checking, then changing code and much more…Tools like [Flawless App](https://flawlessapp.io/) helps to easily compare between result on iOS app and Sketch design. But the real pain lies in the [compiling](https://medium.com/@johnsundell/improving-swift-compile-times-ee1d52fb9bd) part, which takes the most time, and that is even worse with [Swift](https://github.com/fastred/Optimizing-Swift-Build-Times). It makes us less efficient to do quick iteration. It looks like the compiler is mining Bitcoin secretly while pretending to compile 😅
+对于 iOS，我们需要根据设计来不断调整用户界面，使其能够适合小尺寸的手持设备。这个过程涉及到更改代码、编译、等待、检查、然后又更改代码等等……像 [Flawless App](https://flawlessapp.io/) 这样的工具可以帮助你轻松地比对 iOS 应用和 Sketch 设计的结果。但真正痛苦的是[编译](https://medium.com/@johnsundell/improving-swift-compile-times-ee1d52fb9bd)部分，这个过程需要花大量的时间，而对于 [Swift](https://github.com/fastred/Optimizing-Swift-Build-Times) 来说，情况就更加糟糕了。因为它会降低我们快速迭代的效率。感觉编译器像是在编译时偷偷挖矿。😅
 
-If you work with [React](https://reactjs.org/), you know that it is just merely UI representation of state `UI = f(state).`You get some data, you build a UI to represent it. React has [hot reloader](https://github.com/gaearon/react-hot-loader) and [Storybook](https://github.com/storybooks/storybook) which make it super fast to do UI iterations. You make some changes and see the result immediately. You also get a complete overview of all the possible UIs for each state. You know you want the same thing in iOS!
+如果你使用 [React](https://reactjs.org/)，你就知道它仅仅是状态 `UI = f(state).` 的一个 UI 表示。你会得到一些数据，然后创建一个 UI 来呈现它。React 具有 [hot reloader](https://github.com/gaearon/react-hot-loader) 和 [Storybook](https://github.com/storybooks/storybook)，所以 UI 迭代会非常快。你只要进行一些改变，立即可以看到结果。你还可以获得全部可能使用的 UI 各种状态的完整概述。你内心深知自己也想在原生 iOS 中这样做！
 
 ### Playground
 
-Together with the [introduction of Swift in WWDC 2014](https://developer.apple.com/videos/play/wwdc2014/408/), Apple also introduced Playground, which is said to be “a new and innovative way to explore the Swift programming language”.
+除了在 [2014 年 WWDC 推出了 Swift](https://developer.apple.com/videos/play/wwdc2014/408/) 外，苹果还推出了 Playground，据说这是“一种探索 Swift 变成语言的新颖创新方式”。
 
-I wasn’t very convinced at first, and I saw lots of complains about slow or unresponsive Playground. But after seeing [Kickstarter iOS app](https://github.com/kickstarter/ios-oss) using Playground to faster their styling and development process, it impressed me a lot. So I started using it successfully in some of the apps. It is not rerendering immediately like [React Native](https://facebook.github.io/react-native/) or [Injection App](http://johnholdsworth.com/injection.html), but hopefully it will be better over the years 😇
+起初我并不十分相信，并且我看到很多关于 Playground 反应缓慢或无反应的抱怨。但当我看到 [Kickstarter iOS 应用](https://github.com/kickstarter/ios-oss)使用 Playground 来加速其样式和开发流程后，它给我留下了深刻的印象。所以我开始在一些应用中也成功使用了 Playground。它不像 [React Native](https://facebook.github.io/react-native/) 或 [Injection App](http://johnholdsworth.com/injection.html) 那样能够立即重新渲染，但希望它以后会越来越好。 😇
 
-Or at least it depends on the development community. The scenario with Playground is that we only style one screen or component at a time. That forces to think carefully about dependencies, so I can just import a particular screen and iterate on that in Playground.
+或者至少它取决于开发社区。Playground 的使用场景是我们一次只设计一个屏幕或组件。这就需要我们仔细考虑好依赖关系，因此我只能导入一个特定的屏幕，然后在 Playground 中进行迭代。
 
-### Custom framework in Playground
+### Playground 中的自定义 framework
 
-Xcode 9 allows to import [custom framework in Playground](https://help.apple.com/xcode/mac/9.0/#/devc9b33111c) as long as the framework is in the same workspace as the Playground. We can use [Carthage](https://github.com/Carthage/Carthage) to fetch custom framework and build it. But if we are using CocoaPods then it is viable too.
-
+Xcode 9 允许开发者[在 Playground 中导入自定义 framework](https://help.apple.com/xcode/mac/9.0/#/devc9b33111c)，只要 framework 和 Playground 在同一工作区内。我们可以使用 [Carthage](https://github.com/Carthage/Carthage) 来获取并构建自定义 framework。但如果你使用的是 CocoaPods，那么也是没有问题的。
+ 
 ![](https://cdn-images-1.medium.com/max/800/1*ZYy8VCrA3i2tI3zpIXwmEw.png)
 
-### Creating app framework
+### 创建 App Framework
 
-Playground can’t access code in the same workspace, or parent project if the Playground is added as nested project. For this to work, you need to create a framework and add source files that you intend to work in Playground. Let’s call it app framework.
+如果 Playground 作为嵌套项目添加，Playground 无法访问同一工作区或父项目中的代码。为此，你需要创建一个框架，然后添加在你打算在 Playground 中开发的源文件。我们称之为应用框架。
 
-The [demo](https://github.com/onmyway133/UsingPlayground) for this article is an iOS project that uses CocoaPods to manage dependencies. For the time of this post, it is Xcode 9.3 and Swift 4.1.
+本文的[演示](https://github.com/onmyway133/UsingPlayground)是一个使用 CocoaPods 管理依赖的 iOS 工程。在编写此文时候，使用的是 Xcode 9.3 和 Swift 4.1。
 
-Let’s walk through steps on making Playground work with project that uses CocoaPods. There are also some good practices.
+让我们通过使用 CocoPods 的项目来完成 Playground 的开发工作。这里还有一些好的做法。
 
-#### Step 1: Adding a pod
+#### 第一步：添加 pod 文件
 
-I mostly use CocoaPods to manage dependencies. In some screens, there certainly will be some pods involved. So for our app framework to work, it needs to link with some pods.
+我主要使用 CocoaPods 来管理依赖关系。在一些屏幕中，肯定会涉及一些 pod。所以为了我们的应用框架能够正常工作，它需要链接一些 pod。
 
-Create a new project, let’s call it `UsingPlayground`. The app shows some kind of confetti particles 🎊. There are many options to adjust the way those particles show up, and I choose Playground to iterate on that.
+新建一个工程项目，命名为 `UsingPlayground`。该应用显示一些五彩纸屑颗粒 🎊。有很多选项可以调整这些粒子显示的方式，并且我选择 Playground 来对其进行迭代。
 
-For this demo, we will use CocoaPods to fetch one dependency called [Cheers](https://github.com/hyperoslo/Cheers) because we want something fun. `Cheers` helps show fancy confetti effect if you want to congratulate users with some achievements.
+对于该示例，因为想要加入一些有趣的东西，我们将使用 CocoaPods 来获取一个名为 [Cheers](https://github.com/hyperoslo/Cheers) 的依赖项。如果你想庆祝用户达成一些成就时，`Cheers` 可以显示花哨的五彩纸屑效果。
 
-Create a `Podfile` with `UsingPlayground` as app [target](https://guides.cocoapods.org/syntax/podfile.html#target):
+使用 `UsingPlayground` 创建 `Podfile` 作为应用的 [target](https://guides.cocoapods.org/syntax/podfile.html#target)：
 
 ```
 platform :ios, ‘9.0’
@@ -56,11 +56,11 @@ pod ‘Cheers’
 target ‘UsingPlayground’
 ```
 
-#### Step 2: Using the pod in your app project
+#### 第二步：在你的应用项目中使用 pod
 
-After running `pod install` CocoaPods generates a new workspace with 2 projects. 1 is our app project, the other one is a project with all the pods, for now there is just Cheers. Close your project and open the generated workspace instead.
+运行 `pod install` 后，CocoaPods 会生成一个包含 2 个工程的 workspace 文件。一个是我们的 App 工程，另一个是目前只包含了 `Cheers` 的工程。现在的话只有 `Cheers`。关闭你现在的工程，改为打开刚生成的 workspace 文件。
 
-This is very straightforward, just to make sure the pod works. Write some code to use the Cheers:
+这非常简单，只是为了确保 pod 能正常工作。编写一些代码来使用 `Cheers`：
 
 ```
 public class ViewController: UIViewController {
@@ -80,49 +80,49 @@ public class ViewController: UIViewController {
 }
 ```
 
-Build and run the project to enjoy a very fascinating confetti 🎊
+构建并运行工程，享受这些非常迷人的纸屑吧。🎊
 
-#### Step 3: Adding a CocoaTouch framework
+#### 第三步：添加 CocoaTouch 框架
 
-For our code to be accessible in Playground, we need to set it into a framework. In iOS, it is the CocoaTouch framework target.
+为了在 Playground 中可以访问我们的代码，我们需要将其设置为一个框架。在 iOS 中，它是 CocoaTouch 框架的 target。
 
-In your workspace select the `UsingPlayground` project and add new CocoaTouch framework. This is the framework that contains our app code. Let’s call it `AppFramework`.
+在 workspace 中选择 `UsingPlayground` 项目，然后添加一个新的 CocoaTouch 框架。这个框架包含了我们的应用程序代码。我们命名为 `AppFramework`。
 
 ![](https://cdn-images-1.medium.com/max/800/0*0C17R-Oym31N9BYA.png)
 
-Now add the source files you want to test into this framework. For now, just check file `ViewController.swift` and add it to the `AppFramework` target.
+现在将要测试的源文件添加到此框架中。现在，只需检查 `ViewController.swift` 文件并将其添加到 `AppFramework` 的 target 中。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Jap3CnRcDmSyo-4aykWsLA.png)
 
-For this simple project, there is only one `ViewController.swift` . If this file references code from other files, you need to add related files to the `AppFramework` target too. This is how you should be clever about [dependencies](https://en.wikipedia.org/wiki/Dependency_inversion_principle).
+这个简单的项目，现在还只有一个 `ViewController.swift`。如果此文件引用了其他文件的代码，则还需要将相关文件添加到 `AppFramework` 的 target 中去。这是一个处理[依赖](https://en.wikipedia.org/wiki/Dependency_inversion_principle)时的好方法。
 
-#### Step 4: Adding files to AppFramework
+#### 第四步：将文件添加到 AppFramework
 
-`ViewController` in iOS mostly lies in UI layer, so it should just get the parsed data and render it using UI components. If you have some logic, those may involves other parts like Caching, Networking, … which require you to add more files to AppFramework. Small, independent framework is more reasonable and allows us to iterate quickly.
+iOS 中 的 `ViewController` 主要位于 UI 层，因此它应该只获取解析过的数据并使用 UI 组件渲染出来。如果当中有一些可能涉及缓存、网络等其他部分的逻辑，这就需要你添加更多的文件到 AppFramework。小巧且独立的框架会显得更合理，因为可以让我们快速迭代。
 
-Playground is no magic. You need to compile your AppFramework for every time you change the code, otherwise the changes won’t be reflected in your Playground. If you don’t mind slow compile time, you can add all files to your `AppFramework` . Simply expanding group folders, selecting and adding files to the target takes a lot of time. Not to mention that if you select both folder and files, you won’t be able to add them to your target. You can only add files to your target.
+Playground 不是魔法。你每次更改代码时都需要编译 AppFramework，否则无法在 Playground 中看到更改后的效果。如果你不介意编译时间太慢，则可以将所有文件添加到 `AppFramework`。简单地展开组文件夹，选择和添加文件到 target 需要很多时间。更何况，如果你选择文件夹和文件，你将无法将它们添加到 target，只能单独添加文件。
 
 ![](https://cdn-images-1.medium.com/max/800/1*cOThYP8EGPrjsDnx06Zg1A.png)
 
-A quicker way is to go to `Compile Sources` under your `AppFramework` target `Build Phase` . Here all files are expanded automatically for you, all you need to do is to select them and click `Add` .
+更快的方式是在 `AppFramework` 的 target 中选择 `Build Phase`，然后点击 `Compile Sources`。在这里，所有文件都会自动展开，你所需要做的就是选择它们并单击 `Add`。
 
 ![](https://cdn-images-1.medium.com/max/800/1*bROv-S-aMElSPB7BpEOhwA.png)
 
-#### Step 5: Public
+#### 第五步：声明为 public 类型
 
-Swift types and methods are internal by default. So in order for them to be visible in the Playground, we need to declare them as public. Feel free to read more about [Access Level](https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/AccessControl.html#//apple_ref/doc/uid/TP40014097-CH41-ID5) in Swift:
+Swift 类型和方法默认是 internal。所以为了让它们在 Playground 里可见，我们需要将其声明为 public 类型。欢迎阅读更多关于 Swift [访问级别](https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/AccessControl.html#//apple_ref/doc/uid/TP40014097-CH41-ID5)的信息：
 
-> _Open access_ and _public access_ enable entities to be used within any source file from their defining module, and also in a source file from another module that imports the defining module. You typically use open or public access when specifying the public interface to a framework.
+> **开放访问**和**公共访问**使实体可以在其定义模块中的任何源文件中使用，也可以在导入定义模块的另一个模块的源文件中使用。在为框架指定公共接口时，通常使用开放或公开访问。
 
 ```
 public class ViewController: UIViewController {
-  // Your code goes here
+  // 你的代码
 }
 ```
 
-#### Step 6: Adding pod to AppFramework
+#### 第六步：将 pod 添加到 AppFramework
 
-In order for `AppFramework` to use our pods, we need to add those pods into framework target as well. Add `target ‘AppFramework’` to your `Podfile:`
+为了让 `AppFramework` 能够使用我们的 pod，还需要将这些 pod 添加到框架的 target 中。在你的 `Podfile` 文件中添加  `target ‘AppFramework’`：
 
 ```
 platform :ios, ‘9.0’
@@ -132,21 +132,21 @@ target ‘UsingPlayground’
 target ‘AppFramework’
 ```
 
-Now run `pod install` again. In some rare cases, you need to run `pod deintegrate` and `pod install` to start from a clean slate.
+现在再次运行 `pod install`。在极少数的情况下，你需要运行 `pod deintegrate` 和 `pod install` 以保证从干净的版本开始。
 
-#### Step 7: Adding a Playground
+#### 第七步： 添加一个 Playground
 
-Add a Playground and drag that to our workspace. Let’s call it `MyPlayground.`
+添加 Playground 并将其拖到 workspace 中。命名为 `MyPlayground`。
 
 ![](https://cdn-images-1.medium.com/max/800/1*j9II1EmZWpOCFiY3TQl0YA.png)
 
 ![](https://cdn-images-1.medium.com/max/800/1*8YWhaZtgb7aSQF1pthuNZA.png)
 
-#### Step 8: Enjoy
+#### 第八步：尽情享受
 
-Now is the final step: writing some code. Here we need to import our `AppFramework` and `Cheers` in our Playground. We need to import all the pods that is used in the Playground, just like we do in our app project.
+现在来到了最后一步：编写一些代码。在这里我们需要在 Playground 导入 `AppFramework` 和 `Cheers`。我们需要像在应用工程中一样，导入 Playground 中所有使用的 Pod。
 
-Playground is best for testing our framework independently or our app. Select `MyPlayground` and type the code below. Here we tell `liveView` to render our `ViewController:`
+Playground 能够最好地测试我们的独立框架或应用。选择 `MyPlayground` 并添加下面的代码。现在我们用 `liveView` 来渲染我们的 `ViewController`：
 
 ```
 import UIKit
@@ -158,7 +158,7 @@ controller.view.frame.size = CGSize(width: 375, height: 667)
 PlaygroundPage.current.liveView = controller.view
 ```
 
-Sometimes you want to test a piece of the pod you want to use. Create a new `Playground Page` called `CheersAlone`. Here you just need to import `Cheers.`
+有时你想测试一个想使用的 pod。新建一个名为 `CheersAlone` 的 `Playground Page`。然后只需输入 `Cheers` 即可。
 
 ![](https://cdn-images-1.medium.com/max/800/1*k6eGq11QDCwJInOxGBf9AQ.png)
 
@@ -167,30 +167,30 @@ import UIKit
 import Cheers
 import PlaygroundSupport
 
-// Use cheer alone
+// 单独使用 cheer
 let cheerView = CheerView()
 cheerView.frame = CGRect(x: 0, y: 50, width: 200, height: 400)
 
-// Configure
+// 配置
 cheerView.config.particle = .confetti(allowedShapes: [.rectangle, .circle])
 
-// Start
+// 开始
 cheerView.start()
 
 PlaygroundPage.current.liveView = cheerView
 ```
 
-Let’s use [liveView](https://developer.apple.com/documentation/playgroundsupport/playgroundpage/1964506-liveview) of `PlaygroundPage` to display a live view. Remember to toggle Editor Mode so you can see Playground result. And 🎉
+使用 `PlaygroundPage` 的 [liveView](https://developer.apple.com/documentation/playgroundsupport/playgroundpage/1964506-liveview) 来显示实时视图。切记切换为编辑器模式，以便你可以看到 Playground 的结果，接着 🎉。
 
 ![](https://cdn-images-1.medium.com/max/800/1*fY6TpydIPaDMRUBudSLopw.png)
 
-There is a button in the bottom panel of Xcode. That’s where you can toggle between `Automatically Run` and `Manual Run` behaviour. And you can stop and start the Playground by yourself. Pretty neat 🤘
+Xcode 底部面板上有一个按钮。这是你可以在 `Automatically Run` 和 `Manual Run` 之间切换的地方。你可以手动停止和开始 Playground。非常的简洁！🤘
 
-### Bridging header
+### 桥接头文件
 
-Chances are that your app needs to deal with some prebuilt binary pod that exposes APIs via header. In some of the apps, I use [BuddyBuildSDK](https://cocoapods.org/?q=buddybuildsdk) for crash reports. If you take a look at its [podspec](https://github.com/CocoaPods/Specs/blob/master/Specs/d/4/5/BuddyBuildSDK/1.0.17/BuddyBuildSDK.podspec.json#L24), you‘ll see that it uses a public header called `BuddyBuildSDK.h`. In our app project, CocoaPods manages this nicely. All you need to do is to import the header in your app target via `Bridging-Header.h`
+你的应用也许要处理一些预构建的二进制的 pod，它们需要通过头文件将 API 暴露出去。在一些应用中，我使用了 [BuddyBuildSDK](https://cocoapods.org/?q=buddybuildsdk) 来查看崩溃日志。如果你看下它的 [podspec](https://github.com/CocoaPods/Specs/blob/master/Specs/d/4/5/BuddyBuildSDK/1.0.17/BuddyBuildSDK.podspec.json#L24)，你会发现它使用了一个名为 `BuddyBuildSDK.h` 的头文件。在我们的应用中，CocoaPods 管理得很好。你所需要做的是通过 `Bridging-Header.h` 在你的应用 target 中导入头文件。
 
-If you need a review of how to use bridging header, read [Swift and Objective-C in the Same Project](https://developer.apple.com/library/content/documentation/Swift/Conceptual/BuildingCocoaApps/MixandMatch.html).
+如果你需要查看如何使用桥接头文件，可以阅读[同一项目中的 Swift 和 Objective-C](https://developer.apple.com/library/content/documentation/Swift/Conceptual/BuildingCocoaApps/MixandMatch.html)。
 
 ```
 #ifndef UsingPlayground_Bridging_Header_h
@@ -201,61 +201,61 @@ If you need a review of how to use bridging header, read [Swift and Objective-C 
 #endif
 ```
 
-Just make sure the path to the header is correct:
+只需要确保头文件的路径是正确的：
 
 ![](https://cdn-images-1.medium.com/max/800/1*ibjorHdbDd_XMSRGOf3J8Q.png)
 
-#### Step 1: Import Bridging Header
+#### 步骤 1：导入桥接头文件
 
-But our `AppFramework` target will have a hard time finding that `BuddyBuildSDK.h`
+但是 `AppFramework` 的 target 不容易找到 `BuddyBuildSDK.h`。
 
-> Using bridging headers with framework targets is unsupported
+> 不支持使用带有框架 target 的桥接头文件
 
-The solution is to refer to that `Bridging-Header.h` inside your `AppFramework.h`
+解决办法是在 `AppFramework.h` 文件中引用 `Bridging-Header.h`。 
 
 ```
 #import <UIKit/UIKit.h>
 
-//! Project version number for AppFramework.
+//! AppFramework 的项目版本号。
 FOUNDATION_EXPORT double AppFrameworkVersionNumber;
 
-//! Project version string for AppFramework.
+//! AppFramework的项目版本字符串。
 FOUNDATION_EXPORT const unsigned char AppFrameworkVersionString[];
 
-// In this header, you should import all the public headers of your framework using statements like #import <AppFramework/PublicHeader.h>
+// 在这个头文件中，你可以像 #import <AppFramework/PublicHeader.h> 这样导入你框架中所需的全部公共头文件
 
 #import "Bridging-Header.h"
 ```
 
 ![](https://cdn-images-1.medium.com/max/800/1*iKT_k0n8gozJSEAxvx2uUA.png)
 
-#### Step 2: Public header
+#### 步骤 2：将头文件声明为 public
 
-After doing above, you will get
+在完成上述工作后，你会得到
 
-> Include of non-modular header inside framework module
+> 包括在框架模块中的非模块头文件
 
-For this to work, you need to add the `Bridging-Header.h` to the framework, and declare it as `public`. A search on SO shows this [quote](https://stackoverflow.com/questions/7439192/xcode-copy-headers-public-vs-private-vs-project)
+为此，你需要将 `Bridging-Header.h` 添加到框架中，并且声明为 `public`。搜索下 SO，你就会看到[这些](https://stackoverflow.com/questions/7439192/xcode-copy-headers-public-vs-private-vs-project)：
 
-> **Public:** The interface is finalized and meant to be used by your product’s clients. A public header is included in the product as readable source code without restriction.
+> **Public：** 界面已经完成，并打算供你的产品的客户端使用。产品中不受限制地将公共头文件作为可读源代码包括在内。
 >
-> **Private:** The interface isn’t intended for your clients or it’s in early stages of development. A private header is included in the product, but it’s marked “private”. Thus the symbols are visible to all clients, but clients should understand that they’re not supposed to use them.
+> **Private：** 该接口不是为你的客户端设计的，或者是还处于开发的早期阶段。私有头文件会包含在产品中，但会声明为 “privite”。因此，所有客户端都可以看到这些标记，但是应该明白，不应该使用它们。
 >
-> **Project:** The interface is for use only by implementation files in the current project. A project header is not included in the target, except in object code. The symbols are not visible to clients at all, only to you.
+> **Project：** 该接口仅供当前项目中的实现文件使用。项目头文件不包含在 target 中，项目代码除外。这些标记对客户端来说不可见，只对你有用。
 
-So, select `Bridging-Header.h` and add it to `AppFramework` and set visibility as `public:`
+所以，选择 `Bridging-Header.h` 并将其添加到 `AppFramework` 中，并将可见性设置为 `public`：
 
 ![](https://cdn-images-1.medium.com/max/800/1*Mp-FeCeU9qtEWc5Thx75PA.png)
 
-If you go to `Build Phases` of `AppFramework` you will see the 2 header files there.
+如果你点开 `AppFramework` 的 `Build Phases` ，你会看到有 2 个头文件。
 
 ![](https://cdn-images-1.medium.com/max/800/1*nQv6XSSH_-ptsDX_nUOQHg.png)
 
-Now, select scheme `AppFramework` and hit `Build`, it should compile without any errors.
+现在，选择 `AppFramework` 然后点击 `Build`，工程应该可以无错地编译成功。
 
-### Fonts, localised strings, images and bundle
+### 字体、本地化字符串、图片以及包
 
-Our screen does not simply contains views from another pods. More often we display texts and images from our bundle. Let’s add an Iron Man image to our `Asset Catalog` and a `Localizable.strings`. The `ResourceViewController` contains one`UIImageView` and one`UILabel.`
+我们的屏幕不会只是简单地包括其他 pod 的视图。更多的时候，我们显示来自包中的文本和图片。在 `Asset Catalog` 中加入一张钢铁侠的图片和 `Localizable.strings` 文件。`ResourceViewController` 包含了一个 `UIImageView` 和 一个 `UILabel`。
 
 ```
 import UIKit
@@ -297,13 +297,13 @@ public class ResourceViewController: UIViewController {
 }
 ```
 
-Here I use [Anchors](https://github.com/onmyway133/Anchors) for convenient and declarative Auto Layout 🤘. It is also for showing later how Swift Playground can handle any number of frameworks.
+在这里，我使用 [Anchors](https://github.com/onmyway133/Anchors) 方便的声明式自动布局🤘。这也是为了展示 Swift 的 Playground 如何处理任意数量的框架。
 
-Now, select the app scheme `UsingPlayground` and hit build and run. The app should look like below, and of course it can pick up the right image and localised string.
+现在，选择应用模式 `UsingPlayground` 并点击构建和运行。App 会变成如下所示，能够正确地显示了图像和本地化的字符串。
 
 ![](https://cdn-images-1.medium.com/max/800/1*4gH9VnqAP7wvJfRAQIoo1w.png)
 
-Let’s see if our Playground can recognise these assets. Create a new page in `MyPlayground` called `Resource` and type the following
+让我们看看 Playground 能否识别这些 Assets 中的资源。在 `MyPlayground` 新建名为 `Resource` 页面，并输入以下代码：
 
 ```
 import UIKit
@@ -316,41 +316,41 @@ controller.view.frame.size = CGSize(width: 375, height: 667)
 PlaygroundPage.current.liveView = controller.view
 ```
 
-Wait a bit for the Playground to finish running. Oops. Things are not so great in the Playground, it does not recognise the images and localised strings 😢
+等待 Playground 运行完成。哎呀。在 Playground 中并不是那么好，它不能识别图像和本地化的字符串。😢
 
 ![](https://cdn-images-1.medium.com/max/800/1*Vgzy7nGWLfnydX3SOjmD4Q.png)
 
-#### Resources folder
+#### Resources 文件夹
 
-Actually each `Playground Page` has a `Resources` folder where we can put resource files that is seen by this particular page. But here we need to access resource in our app bundle.
+实际上，每个 `Playground Page` 中都有一个 `Resources` 文件夹，我们可以在其中放置这个特定页面所看到的资源文件。但是，我们需要访问应用程序包中的资源。
 
 #### Main bundle
 
-When accessing image and localised string, if you don’t specify `bundle` , the running app will by default pick up the resources in the main bundle. Here is more info [Finding and Opening a Bundle](https://developer.apple.com/documentation/foundation/bundle).
+当访问图像和本地化字符串时，如果你不指定 `bundle`，正在运行的应用将默认选取 Main bundle 中的资源。以下是更多关于[查找和打开 Bundle](https://developer.apple.com/documentation/foundation/bundle) 的更多信息。
 
-> Before you can locate a resource, you must first specify which bundle contains it. The `Bundle`class has many constructors, but the one you use most often is `[main](https://developer.apple.com/documentation/foundation/bundle/1410786-main)`. The main bundle represents the bundle directory that contains the currently executing code. So for an app, the main bundle object gives you access to the resources that shipped with your app.
+> 在找到资源之前，必须先指定包含该资源的 bundle。`Bundle` 类中有许多构造函数，但是最常用的是 `[main](https://developer.apple.com/documentation/foundation/bundle/1410786-main)` 函数。Main bundle 表示包含当前正在执行的代码的包目录。因此对于应用，Main bundle 对象可以让你访问与应用一起发布的资源。
 
-> If your app interacts directly with plug-ins, frameworks, or other bundled content, you can use other methods of this class to create appropriate bundle objects.
+> 如果应用直接与插件、框架或其他 bundle 内容交互，则可以使用此类的其他方法创建适当的 bundle 对象。
 
 ```
-// Get the app's main bundle
+// 获取应用的 main bundle
 let mainBundle = Bundle.main
 
-// Get the bundle containing the specified private class.
+// 获取包含指定私有类的 bundle
 let myBundle = Bundle(for: NSClassFromString("MyPrivateClass")!)
 ```
 
-#### Step 1: Adding resources to AppFramework target
+#### 步骤 1：在 AppFramework target 中添加资源
 
-So firstly, we need to add resource files to our AppFramework target. Select `Asset Catalog` and `Localizable.strings` and add them to our `AppFramework` target.
+首先，我们需要在 AppFramework target 添加资源文件。选择 `Asset Catalog` 和 `Localizable.strings` 并将它们添加到 `AppFramework` target。
 
 ![](https://cdn-images-1.medium.com/max/800/1*mI2C1ode8HGlBe4-zp_5ew.png)
 
-#### Step 2: Specifying bundle
+#### 步骤 2：指定 bundle
 
-If we don’t specify bundle, then by default `mainBundle` is used. In the context of the executed Playground, `mainBundle` refers to the its `Resources` folder. But we want the Playground to access resources in the AppFramework, so we need to use`[Bundle.nit(for:)](https://developer.apple.com/documentation/foundation/bundle/1417717-init)` with a class in `AppFramework` to refer to the bundle inside `AppFramework`. That class can be `ResourceViewController` as it is added to `AppFramework` target too.
+如果我们不指定 bundle，那么默认会使用 `mainBundle`。在执行的 Playground 的上下文中，`mainBundle` 指的是其 `Resources` 文件夹。但我们希望 Playground 访问 AppFramework 中的资源，所以我们需要在 `AppFramework` 中使用一个类调用 `[Bundle.nit(for:)](https://developer.apple.com/documentation/foundation/bundle/1417717-init)` 方法来引用 `AppFramework` 中的 bundle。该类可以是 `ResourceViewController`，因为它也被添加到 `AppFramework` target 中。
 
-Change the code in `ResourceViewController` to
+将 `ResourceViewController` 中的代码更改为：
 
 ```
 let bundle = Bundle(for: ResourceViewController.self)
@@ -361,33 +361,33 @@ label.text = NSLocalizedString(
 )
 ```
 
-Every time we change code in `AppFramework`, we need to recompile it. This is important. Now open the Playground, it should pick up the right assets.
+每次更改 `AppFramework` 中的代码时，我们都需要重新编译。这点非常重要。现在打开 Playground，应该能找到正确的资源文件了。
 
 ![](https://cdn-images-1.medium.com/max/800/1*M0_mNdOVjjV3FjAY4eRy7A.png)
 
-#### What about custom font?
+#### 那么自定义字体呢？
 
-We need to register fonts in order to use. Instead of using `Fonts provided by application` key in plist, we can use `CTFontManagerRegisterFontsForURL` to register custom fonts. This is handy because the font can be dynamically registered in Playground too.
+我们需要注册字体才能使用。我们可以使用 `CTFontManagerRegisterFontsForURL` 来注册自定义字体，而不是使用 plist 文件中 `Fonts provided by application` 提供的字体。这很方便，因为字体也可以在 Playground 中动态注册。
 
-Download a free font called [Avengeance](http://www.fontspace.com/the-fontry/avengeance) and add this font to both our app and `AppFramework` target.
+下载一个名为 [Avengeance](http://www.fontspace.com/the-fontry/avengeance) 的免费字体，添加到应用和 `AppFramework` target 中。
 
-Add the code to specify font in `ResourceViewController`, remember to recompile `AppFramework :`
+在 `ResourceViewController` 中添加指定字体的代码，记得重新编译 `AppFramework`：
 
 ```
-// font
+// 字体
 let fontURL = bundle.url(forResource: "Avengeance", withExtension: "ttf")
 CTFontManagerRegisterFontsForURL(fontURL! as CFURL, CTFontManagerScope.process, nil)
 let font = UIFont(name: "Avengeance", size: 30)!
 label.font = font
 ```
 
-And tada, both your app and Playground can see the custom font 🎉
+接着，你可以在应用和 Playground 中看见自定义字体。🎉
 
 ![](https://cdn-images-1.medium.com/max/800/1*Iz6t5ai_1hZa0lkdtAkblg.png)
 
-### Device size and trait collection
+### 设备尺寸和特征集合
 
-iOS 8 introduced [TraitCollection](https://developer.apple.com/documentation/uikit/uitraitcollection) which defines size classes, scale and user interface idiom, which simplifies device describing. The kickstarter-ios project has handy utility to prepare `UIViewController` for using in Playground under different traits. See [playgroundController](https://github.com/kickstarter/ios-oss/blob/master/Kickstarter-iOS.playground/Sources/playgroundController.swift):
+iOS 8 引入了 [TraitCollection](https://developer.apple.com/documentation/uikit/uitraitcollection) 来定义设备尺寸类，缩放以及用户界面习惯用法，简化了设备描述。Kickstarter-ios 应用有一个方便的工具来准备 `UIViewController`，以便在 Playground 中使用不同的特性。参见 [playgroundController](https://github.com/kickstarter/ios-oss/blob/master/Kickstarter-iOS.playground/Sources/playgroundController.swift)：
 
 ```
 public func playgroundControllers(device: Device = .phone4_7inch,
@@ -397,35 +397,35 @@ public func playgroundControllers(device: Device = .phone4_7inch,
   -> (parent: UIViewController, child: UIViewController) {
 ```
 
-And [AppEnvironment](https://github.com/kickstarter/ios-oss/blob/1b21ce9100edc2700b30f41432f4c6077febba69/Library/AppEnvironment.swift), which is like a stack to change dependencies and app properties, like bundle, locale and language. See one example about [Signup screen](https://github.com/kickstarter/ios-oss/blob/7b7be2f6ca7012bef04db90a6ed64f03f661a8f2/Kickstarter-iOS.playground/Pages/Signup.xcplaygroundpage/Contents.swift):
+[AppEnvironment](https://github.com/kickstarter/ios-oss/blob/1b21ce9100edc2700b30f41432f4c6077febba69/Library/AppEnvironment.swift) 像是一个堆栈，可以改变依赖，应用属性，如 bundle、区域设置和语言。参考一个关于[注册页面](https://github.com/kickstarter/ios-oss/blob/7b7be2f6ca7012bef04db90a6ed64f03f661a8f2/Kickstarter-iOS.playground/Pages/Signup.xcplaygroundpage/Contents.swift)的例子：
 
 ```
 import Library
 import PlaygroundSupport
 @testable import Kickstarter_Framework
 
-// Instantiate the Signup view controller.
+// 实例化注册视图控制器
 initialize()
 let controller = Storyboard.Login.instantiate(SignupViewController.self)
 
-// Set the device type and orientation.
+// 设置设备类型和方向
 let (parent, _) = playgroundControllers(device: .phone4inch, orientation: .portrait, child: controller)
 
-// Set the device language.
+// 设置设备语言
 AppEnvironment.replaceCurrentEnvironment(
   language: .en,
   locale: Locale(identifier: "en") as Locale,
   mainBundle: Bundle.framework
 )
 
-// Render the screen.
+// 渲染屏幕
 let frame = parent.view.frame
 PlaygroundPage.current.liveView = parent
 ```
 
-### Couldn’t lookup symbols
+### 无法查找字符
 
-You may get some errors when using Playground. Some of them are because of your code, some are because of the way framework is configured. For me, after upgrading to [CocoaPods 1.5.0](http://blog.cocoapods.org/CocoaPods-1.5.0/), I get this:
+使用 Playground 过程中可能会出现一些错误。其中一些是因为你的代码编写问题，一些是配置框架的方式。当我升级到 [CocoaPods 1.5.0](http://blog.cocoapods.org/CocoaPods-1.5.0/)，我碰到：
 
 ```
 error: Couldn’t lookup symbols:
@@ -439,11 +439,11 @@ __T06Cheers8ParticleO13ConfettiShapeON
 __T06Cheers6ConfigVN
 ```
 
-Problem with symbol lookup means that Playground can’t find your code. It may be because your class is not exposed as public, or you forget to add files to `AppFramework` target. Or the referenced pods is not visible in `AppFramework` `Framework search path` , …
+符号查找问题意味着 Playground 无法找到你的代码。这可能是因为你的类没有声明为 public，或者你忘记添加文件到 `AppFramework` target。又或者 `AppFramework` 和 `Framework search path` 无法找到引用的 pod 等等。
 
-Version 1.5.0 brings static library support, also changes in modular header. In the mean time, the demo switches back to `CocoaPods 1.4.0`, you can take a look at [UsingPlayground demo](https://github.com/onmyway133/UsingPlayground).
+1.5.0 的版本支持了静态库，也改变了模块头文件。与此同时，将演示的例子切换回 `CocoaPods 1.4.0`，你可以看下 [UsingPlayground demo](https://github.com/onmyway133/UsingPlayground)。
 
-In the terminal, type `bundler init` to generate `Gemfile`. Specify 1.4.0 for `cocoapods` gem:
+在终端中，输入 `bundler init` 来生成 `Gemfile` 文件。将 gem `cocoapods` 设置为 1.4.0：
 
 ```
 # frozen_string_literal: true
@@ -455,19 +455,19 @@ git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
 gem "cocoapods", '1.4.0'
 ```
 
-Now run `bundler exec pod install` to run pod commands from `CocoaPods 1.4.0`. The problem should be solved.
+现在运行 `bundler exec pod install` 来执行 `CocoaPods 1.4.0` 中的 pod 命令。应该可以解决问题。
 
-### Where to go from here
+### 了解更多
 
-Swift Playground also has support for `macOS` and `tvOS`. Here are some interesting links if you want to find out more
+Swift 的 Playground 同时支持 `macOS` 和 `tvOS` 系统。如果你想了解更多，这里有一些有趣的链接。
 
-*   [Playground Driven Development](https://www.youtube.com/watch?v=DrdxSNG-_DE) The presentation by [Brandon Williams](https://medium.com/@mbrandonw) and the [kickstarter-ios](https://github.com/kickstarter/ios-oss/tree/master/Kickstarter-iOS.playground) project inspires in how Playground can be used in production apps. Also, the talk at objc.io about [Playground-Driven Development](https://talk.objc.io/episodes/S01E51-playground-driven-development-at-kickstarter) is really good.
-*   PointFree: The [website](https://github.com/pointfreeco/pointfreeco/tree/master/PointFree.playground) is done with the help of Playground. You can learn lots of things just by reading the code and their project structure.
-*   [Using Swift to Visualize Algorithms](https://www.youtube.com/watch?v=7e13FierAF8&index=3&list=PLCl5NM4qD3u92PwamgwWr3e_j3GmKRVTs): Playground is also good to prototype and visualise your ideas.
-*   My friend Felipe also wrote how he successfully use Playground at work in his talk [How to not get sand in your eyes](https://github.com/fespinoza/Talks/tree/master/2018-03-20-how-not-get-sand-in-your-eyes)
-*   Also, [Umberto Raimondi](https://medium.com/@uraimo) curates a list of [awesome Playground](https://github.com/uraimo/Awesome-Swift-Playgrounds) if you want to be amazed.
+*   [Playground Driven Development](https://www.youtube.com/watch?v=DrdxSNG-_DE)：[Brandon Williams](https://medium.com/@mbrandonw) 的演示文稿以及 [kickstarter-ios](https://github.com/kickstarter/ios-oss/tree/master/Kickstarter-iOS.playground) 项目对如何使用 Playground 来开发应用会有所启发。此外，在 objc.io 关于 [Playground-Driven Development](https://talk.objc.io/episodes/S01E51-playground-driven-development-at-kickstarter) 的谈话也非常不错。
+*   PointFree：该[网站](https://github.com/pointfreeco/pointfreeco/tree/master/PointFree.playground)在 Playground 下开发完成的。通过阅读代码和他们的项目结构，你可以学到很多东西。
+*   [Using Swift to Visualize Algorithms](https://www.youtube.com/watch?v=7e13FierAF8&index=3&list=PLCl5NM4qD3u92PwamgwWr3e_j3GmKRVTs)：Playground 也将你的想法原型化和可视化。
+*   我的朋友 Felipe 在 [How to not get sand in your eyes](https://github.com/fespinoza/Talks/tree/master/2018-03-20-how-not-get-sand-in-your-eyes) 上还编写了他是如何在工作中成功使用 Playground 的文章。
+*   同时，如果你想眼前一亮，[Umberto Raimondi](https://medium.com/@uraimo) 列举了一系列关于 Swift 的 [Awesome Playground 项目清单](https://github.com/uraimo/Awesome-Swift-Playgrounds)。
 
-Thanks to [Lisa Dziuba](https://medium.com/@lisadziuba?source=post_page).
+感谢 [Lisa Dziuba](https://medium.com/@lisadziuba?source=post_page)。
 
 
 ---
