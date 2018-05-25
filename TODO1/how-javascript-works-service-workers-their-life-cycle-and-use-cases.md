@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-javascript-works-service-workers-their-life-cycle-and-use-cases.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-javascript-works-service-workers-their-life-cycle-and-use-cases.md)
 > * 译者：[talisk](https://github.com/talisk)
-> * 校对者：[allen](https://github.com/allenlongbaobao)
+> * 校对者：[allen](https://github.com/allenlongbaobao)，[赵立杨](https://github.com/elliott-zhao)
 
 # JavaScript 是如何工作的：Service Worker 的生命周期与使用场景
 
