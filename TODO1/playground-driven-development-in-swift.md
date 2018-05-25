@@ -11,7 +11,7 @@
 
 ### 快速调整 UI 的需求
 
-通过我们开发的 app，为用户提供最佳使用体验，让生活变得更便利，更丰富多彩，是我们作为移动开发者的天生使命。其中我们要做的一件事就是确保为用户展现的 UI 看起来很棒并且不存在丝毫问题。在大多数情况下，app 可以说是数据的美容师。我们常常从后端获取 json ，解析为 model，并通过 UIView（大多数情况下是 UITableView 或 UICollectionView）将数据渲染出来。
+通过我们开发的 app，为用户提供最佳使用体验，让生活变得更便利，更丰富多彩，是我们作为移动开发者的天生使命。其中我们要做的一件事就是确保为用户展现的 UI 看起来很棒并且不存在丝毫问题。在大多数情况下，app 可以说是数据的美容师。我们常常从后端获取 json，解析为 model，并通过 UIView（大多数情况下是 UITableView 或 UICollectionView）将数据渲染出来。
 
 对于 iOS，我们需要根据设计来不断调整用户界面，使其能够适合小尺寸的手持设备。这个过程涉及到更改代码、编译、等待、检查、然后又更改代码等等……像 [Flawless App](https://flawlessapp.io/) 这样的工具可以帮助你轻松地比对 iOS 应用和 Sketch 设计的结果。但真正痛苦的是[编译](https://medium.com/@johnsundell/improving-swift-compile-times-ee1d52fb9bd)部分，这个过程需要花大量的时间，而对于 [Swift](https://github.com/fastred/Optimizing-Swift-Build-Times) 来说，情况就更加糟糕了。因为它会降低我们快速迭代的效率。感觉编译器像是在编译时偷偷挖矿。😅
 
@@ -237,11 +237,11 @@ FOUNDATION_EXPORT const unsigned char AppFrameworkVersionString[];
 
 为此，你需要将 `Bridging-Header.h` 添加到框架中，并且声明为 `public`。搜索下 SO，你就会看到[这些](https://stackoverflow.com/questions/7439192/xcode-copy-headers-public-vs-private-vs-project)：
 
-> **Public：**界面已经完成，并打算供你的产品的客户端使用。产品中不受限制地将公共头文件作为可读源代码包括在内。
+> **Public：** 界面已经完成，并打算供你的产品的客户端使用。产品中不受限制地将公共头文件作为可读源代码包括在内。
 >
-> **Private：**该接口不是为你的客户端设计的，或者是还处于开发的早期阶段。私有头文件会包含在产品中，但会声明为 “privite”。因此，所有客户端都可以看到这些标记，但是应该明白，不应该使用它们。
+> **Private：** 该接口不是为你的客户端设计的，或者是还处于开发的早期阶段。私有头文件会包含在产品中，但会声明为 “privite”。因此，所有客户端都可以看到这些标记，但是应该明白，不应该使用它们。
 >
-> **Project：**该接口仅供当前项目中的实现文件使用。项目头文件不包含在 target 中，项目代码除外。这些标记对客户端来说不可见，只对你有用。
+> **Project：** 该接口仅供当前项目中的实现文件使用。项目头文件不包含在 target 中，项目代码除外。这些标记对客户端来说不可见，只对你有用。
 
 所以，选择 `Bridging-Header.h` 并将其添加到 `AppFramework` 中，并将可见性设置为 `public`：
 
