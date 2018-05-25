@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-javascript-works-service-workers-their-life-cycle-and-use-cases.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-javascript-works-service-workers-their-life-cycle-and-use-cases.md)
 > * 译者：[talisk](https://github.com/talisk)
-> * 校对者：
+> * 校对者：[allen](https://github.com/allenlongbaobao)
 
 # JavaScript 是如何工作的：Service Worker 的生命周期与使用场景
 
@@ -25,7 +25,7 @@
 
 构建渐进式 Web 应用程序的主要要求之一是使其在网络和加载方面非常可靠 —— 它应该可用于不确定或不可用的网络条件。
 
-在这篇文章中，我们将深入探讨 Service Worker：他们如何运作以及开发者应该关心什么。最后，我们还列出了开发者应该利用的 Service Worker 的一些独特优势，并在 [SessionStack](https://www.sessionstack.com/) 中分享我们自己团队的经验。
+在这篇文章中，我们将深入探讨 Service Worker：它们如何运作以及开发者应该关心什么。最后，我们还列出了开发者应该利用的 Service Worker 的一些独特优势，并在 [SessionStack](https://www.sessionstack.com/) 中分享我们自己团队的经验。
 
 #### 概览
 
@@ -35,7 +35,7 @@
 
 *   Service Worker 在其自己的全局上下文中运行
 *   它没有绑定到特定的网页
-*   他不能访问到 DOM
+*   它不能访问到 DOM
 
 Service Worker API 令人兴奋的主要原因之一是它可以让你的网络应用程序支持离线体验，从而使开发人员能够完全控制流程。
 
@@ -71,7 +71,7 @@ if ('serviceWorker' in navigator) {
 }
 ```
 
-该代码检查当前环境中是否支持Service Worker API。如果是，则 `/ sw.js` 这个 Service Worker 就被注册了。
+该代码检查当前环境中是否支持Service Worker API。如果是，则 `/sw.js` 这个 Service Worker 就被注册了。
 
 每次页面加载时都可以调用 `register()` 方法，浏览器会判断 Service Worker 是否已经注册，并且会正确处理。
 
@@ -135,7 +135,7 @@ self.addEventListener('install', function(event) {
 });
 ```
 
-如果所有文件都成功缓存，则将安装 Service Worker。如果**所有的**文件都无法下载，则安装步骤将失败。所以要小心你放在那里的文件。
+如果所有文件都成功缓存，则将安装 Service Worker。如果**任何一个**文件都无法下载，则安装步骤将失败。所以要小心你放在那里的文件。
 
 处理 `install` 事件完全是可选的，你可以避免它，在这种情况下，你不需要执行这里的任何步骤。
 
