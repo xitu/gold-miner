@@ -19,7 +19,7 @@
 
 ### 为什么要检测对象？为什么使用树莓派？
 
-树莓派是一款优秀的硬件，它已经捕获了与售卖 1500 万台设备同时代的人的心，甚至于黑客在用其构建了[更酷的项目](http://www.trustedreviews.com/opinion/best-raspberry-pi-projects-pi-3-pi-zero-2949390)。鉴于深度学习和[树莓派相机](https://www.raspberrypi.org/products/camera-module-v2/)的流行，我们认为如果能够通过树莓派进行深度学习来检测任何对象，会是一件非常有意义的事情。
+树莓派是一款优秀的硬件，它已经捕获了与售卖 1500 万台设备同时代的人的心，甚至于黑客用其构建了[更酷的项目](http://www.trustedreviews.com/opinion/best-raspberry-pi-projects-pi-3-pi-zero-2949390)。鉴于深度学习和[树莓派相机](https://www.raspberrypi.org/products/camera-module-v2/)的流行，我们认为如果能够通过树莓派进行深度学习来检测任何对象，会是一件非常有意义的事情。
 
 现在你将能够在你的自拍中发现一个 potobomber，有人进入 Harambe 的笼子，在那里有人让 Sriracha 或 Amazon 送货员进入你的房子。
 
@@ -27,7 +27,7 @@
 
 ### 什么是对象检测？
 
-20M 年的进化使人类的视觉得到了相当大的进化。人类大脑有 [30**%** 的神经元负责处理视觉（相比之下，触觉和听觉分别为 8% 和 3%）](http://discovermagazine.com/1993/jun/thevisionthingma227)。与机器相比，人类有两大优势。一是立体视觉，二是近乎无限的训练数据（一个 5 岁的婴儿，以 30fps 的速度获取大约 2.7B 的图像）。 
+20M 年的进化使人类的视觉得到了相当大的进化。人类大脑有 [**30%** 的神经元负责处理视觉（相比之下，触觉和听觉分别为 8% 和 3%）](http://discovermagazine.com/1993/jun/thevisionthingma227)。与机器相比，人类有两大优势。一是立体视觉，二是近乎无限的训练数据（一个 5 岁的婴儿，以 30fps 的速度获取大约 2.7B 的图像）。 
 
 ![](https://cdn-images-1.medium.com/max/800/1*4tPwx3wG720gOmIOaONOEQ.jpeg)
 
@@ -38,7 +38,7 @@
 3.  **对象检测**，在图像中绘制多个边界框
 4.  **图像分割**，创建图像中物体所在位置的精确部分
 
-对于各种应用来说，对象检测已经足够好了（即使图像分割结果更为精确，但它受到创建训练数据的复杂性影响。它通常需要人类注释器 12 倍以上，而不是绘制边界框；这是更多的轶事，缺乏一个来源）。而且在检测对象之后，可以单独从边界框中分割对象。
+对于各种应用来说，对象检测已经足够好了（即使图像分割结果更为精确，但它受到创建训练数据的复杂性影响。它通常需要 12 倍以上的人类注射器，而不是绘制边界框；这是更多的轶事，但缺乏一个来源）。而且在检测对象之后，可以单独从边界框中分割对象。
 
 #### 使用对象检测：
 
@@ -52,7 +52,7 @@
 
 1.  **在我的图像中是否存在对象**？例如，我家有入侵者么。
 2.  **对象在哪里**，在图像中？例如，当一辆汽车试图在世界各地航行时，知道物体在哪里是很重要的。
-3.  **有多少个对象**，它们都在图像中么？ 对象检测是计算物体的最有效的方法之一。例如，一个仓库里的架子上有多少箱子
+3.  **有多少个对象**，它们都在图像中么？ 对象检测是计算物体的最有效的方法之一。例如，一个仓库里的架子上有多少箱子。
 4.  **什么是不同类型的对象**在图像中？比如哪个动物在动物园的哪个地方？ 
 5.  **对象的大小是多少？** 尤其是使用静态相机时，很容易计算出物体的大小。比如芒果的大小是多少？
 6.  **不同对象如何相互作用？**足球场上的阵型如何影响结果？
@@ -64,9 +64,9 @@
 
 YOLO 算法可视化。
 
-有多种用于对象检测的模型/体系结构。在速度、尺寸和精度之间进行权衡。我们选了一个最受欢迎的：[YOLO](https://pjreddie.com/darknet/yolo/)（您只看了一次）。并在 20 行以下的代码中展示了它的工作原理（如果忽略注释的haunted）。
+有多种用于对象检测的模型/体系结构。在速度、尺寸和精度之间进行权衡。我们选了一个最受欢迎的：[YOLO](https://pjreddie.com/darknet/yolo/)（您只看了一次）。并在 20 行以下的代码中展示了它的工作原理（如果忽略注释的 haunted）。
 
-**注意：这是伪代码，不会成为一个有用的例子。它有一个是 CNN 相当标准的一部分的黑盒，如下所示**。
+**注意：这是伪代码，不会成为一个有用的例子。它有一个接近 CNN 标准的部分黑盒，如下所示**。
 
 你可以在这里阅读全文：[https://pjreddie.com/media/files/papers/yolo_1.pdf](https://pjreddie.com/media/files/papers/yolo_1.pdf)
 
@@ -209,13 +209,13 @@ run.sh [-m mode] [-a architecture] [-h help] [-e experiment_id] [-c checkpoint] 
 
 您可以在以下找到更多细节：
 
-* [**NanoNets/RaspberryPi-ObjectDetection-TensorFlow**: RaspberryPi-ObjectDetection-TensorFlow - 在树莓派上使用 Tensorflow 进行目标检测](https://github.com/NanoNets/RaspberryPi-ObjectDetection-TensorFlow)
+* [**NanoNets/RaspberryPi-ObjectDetection-TensorFlow**: RaspberryPi-ObjectDetection-TensorFlow - 在树莓派上使用 Tensorflow 进行对象检测](https://github.com/NanoNets/RaspberryPi-ObjectDetection-TensorFlow)
 
 **为了训练模型，您需要选择正确的超参数。**
 
 **找到正确的参数**
 
-“深度学习”的艺术含有一点点讽刺，并尝试找出哪些会为您的模型获得最高精度的最佳参数。与此相关的是某些程度的黑魔法以及一点理论。[这是找到正确参数的好资源](https://blog.slavv.com/37-reasons-why-your-neural-network-is-not-working-4020854bd607)。
+“深度学习”的艺术含有一点点讽刺，但它会尝试找出哪些会为您的模型获得最高精度的最佳参数。与此相关的是某些程度的黑魔法以及一点理论。[这是找到正确参数的好资源](https://blog.slavv.com/37-reasons-why-your-neural-network-is-not-working-4020854bd607)。
 
 **量化模型（使其更小以适应像树莓派或手机这样的小型设备）**
 
