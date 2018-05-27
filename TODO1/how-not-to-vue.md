@@ -17,19 +17,19 @@
 
 ### data/computed 中的静态属性
 
-我们没有理由将静态属性传递给 `data` ，特别是 `computed` 。当你这样做时， Vue 将其声明为响应式属性，但是这是不必要的做法。
+我们没有理由将静态属性传递给 `data`，特别是 `computed`。当你这样做时，Vue 将其声明为响应式属性，但是这是不必要的做法。
 
 ![](https://cdn-images-1.medium.com/max/800/1*TUsVw4rEJwhw2iFuSyEWkw.png)
 
-**DON’T.** phone 和 city 的响应性毫无用处.
+**DON’T.** phone 和 city 的响应性毫无用处。
 
 ![](https://cdn-images-1.medium.com/max/800/1*HYgxVfj99dt-yaGIeSABGw.png)
 
-**DO.** 将静态属性传给 `$options`. 它更加简短，而且不会做多余的工作。
+**DO.** 将静态属性传给 `$options`。它更加简短，而且不会做多余的工作。
 
 ### 考虑将非响应式（non-reactive）的数据转变为响应式（reactive）
 
-请记住： Vue 不是神通广大的. Vue 并不知道你的 **cookies** 何时才会更新.
+请记住：Vue 不是神通广大的。Vue 并不知道你的 **cookies** 何时才会更新。
 
 我提到 cookies 的原因是：我的同事曾经花两个小时去搞清楚为什么他的计算属性没有更新。
 
@@ -64,13 +64,13 @@
 
 #### setTimout/setInterval 的不正确使用
 
-在一次面试中，我团队中一个前端开发者问我是否可以在组件中使用 setTimout/setInterval 。我回答“可以”，但还没来得及解释如何正确使用它，**我就已经被指责不够专业了**。
+在一次面试中，我团队中一个前端开发者问我是否可以在组件中使用 setTimout/setInterval。我回答“可以“，但还没来得及解释如何正确使用它，**我就已经被指责不够专业了**。
 
 现在我必须维护某一个人的代码，因此我将这一段文字献给他。
 
 ![](https://cdn-images-1.medium.com/max/800/1*FxPRflqqk8K6wRr4jUyFBQ.png)
 
-**DON’T.** 你可以使用间隔（intervals）。但是如果你忘记使用 `clearInterval` ,就会在组件卸载时出错。
+**DON’T.** 你可以使用间隔（intervals）。但是如果你忘记使用 `clearInterval`，就会在组件卸载时出错。
 
 ![](https://cdn-images-1.medium.com/max/800/1*7kBqD5KNSkCTTpP2O7FUgw.png)
 
@@ -78,7 +78,7 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*Tmr7GIY7saojZkOPoVQfuQ.png)
 
-**DO.** 如果你不想这么麻烦，可以考虑使用 [**vue-timers**](https://github.com/kelin2025/vue-timers) 。
+**DO.** 如果你不想这么麻烦，可以考虑使用 [**vue-timers**](https://github.com/kelin2025/vue-timers)。
 
 ### 变异的父实例
 
@@ -88,15 +88,15 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*MYb4iAVzlvQPZDWqCnJM0w.png)
 
-**DON’T.** 如果你试图去改变 `props` ， Vue 会警告你，但是如果你通过 `$parent` 去改变 `props`，Vue 将无法检测到。
+**DON’T.** 如果你试图去改变 `props`，Vue 会警告你，但是如果你通过 `$parent` 去改变 `props`，Vue 将无法检测到。
 
 ![](https://cdn-images-1.medium.com/max/800/1*pJkabHNu8Gx7f4UMM07FMg.png)
 
-**DO.** 使用事件触发器（events emitter）去监听事件。此外， `v-model` 只是 `value` 属性和 `input` 事件的语法糖。
+**DO.** 使用事件触发器（events emitter）去监听事件。此外，`v-model` 只是 `value` 属性和 `input` 事件的语法糖。
 
 ![](https://cdn-images-1.medium.com/max/800/1*yypns5Qp2y_t7HrsPT5O7g.png)
 
-**DO.** Vue 还有一个语法糖： `.sync` 修饰符用于更新 `update:prop` 事件中的 `prop` 。
+**DO.** Vue 还有一个语法糖：`.sync` 修饰符用于更新 `update:prop` 事件中的 `prop`。
 
 ### If/else 表单验证
 
@@ -112,13 +112,13 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*_4S2iHw93lSS_GIeceJ_YA.png)
 
-**DO.** 我也制作了一个允许你使用一个对象声明表单数据和验证的小[**插件**](https://github.com/Kelin2025/vuelidate-forms) 。
+**DO.** 我也制作了一个允许你使用一个对象声明表单数据和验证的小[**插件**](https://github.com/Kelin2025/vuelidate-forms)。
 
 ### 最后
 
 这些当然不全是 Vue.js 初级开发者的罪过，并且我相信这份问题清单可能是无限的，但我认为这份清单已经足够了。
 
-那么，如果你在 Vue.js 项目中看到了什么“有趣”的东西，可以在这里回复我 :) 。
+那么，如果你在 Vue.js 项目中看到了什么“有趣”的东西，可以在这里回复我 :)。
 
 谢谢阅读！记住不要重复愚蠢的错误 :) 特别鸣谢为 [**carbon.now.sh**](https://carbon.now.sh/) 做出贡献的人。奶思！
 
