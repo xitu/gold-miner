@@ -3,11 +3,11 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/future-of-web-design.md](https://github.com/xitu/gold-miner/blob/master/TODO1/future-of-web-design.md)
 > * 译者：[sophia](https://github.com/sophiayang1997)
-> * 校对者：
+> * 校对者：[kezhenxu94](https://github.com/kezhenxu94/)
 
 # 新的 CSS 特性正在改变网页设计
 
-如今，网页设计的风貌已经完全改变。我们拥有又新潮又强大的工具 —— CSS 网格/栅格（CSS Grid），CSS 自定义属性（CSS custom properties），CSS 图形（CSS shapes）和 CSS 写作模式（CSS writing-mode），Zell Liew 将解释如何用它们来锻炼我们的创造力。
+如今，网页设计的风貌已经完全改变。我们拥有又新潮又强大的工具 —— CSS 网格/栅格（CSS Grid），CSS 自定义属性（CSS custom properties），CSS 图形（CSS shapes）和 CSS 写作模式（CSS writing-mode），这里仅举此几例 —— 这些都可以被用来锻炼我们的创造力。本文作者 Zell Liew 将解释如何用它们来锻炼我们的创造力。
 
 曾经有一段时间网页设计变得单调乏味。设计师们和开发者们一次又一次地构建相同类型的网站，以至于我们被本行业的人嘲笑只会创建两种类型的网站：
 
@@ -17,23 +17,23 @@
 
 我不想承认这一点，但这也许是我们当时能完成的最好作品。也许是因为我们没有合适的工具去进行创意设计导致的。网络的需求正在迅速发展，但我们被浮动（floats）和表格（tables）这些古老的技术所局限。
 
-如今，网页设计的风貌已经完全改变。我们拥有又新潮又强大的工具 —— CSS 网格（CSS Grid），CSS 自定义属性（CSS custom properties），CSS图形（CSS shapes）和 CSS `writing-mode`，我们可以用仅举的这几项工具来锻炼我们的创造力。
+如今，网页设计的风貌已经完全改变。我们拥有又新潮又强大的工具 —— CSS 网格（CSS Grid），CSS 自定义属性（CSS custom properties），CSS图形（CSS shapes）和 CSS 写作模式（CSS writing-mode），我们可以用仅举的这几项工具来锻炼我们的创造力。
 
 ### CSS 网格（CSS Grid）如何改变一切
 
 你早就已经知道网格对于网页设计至关重要。但是你是否停下来问问自己，你主要使用网格去如何设计网页？
 
-我们大多数的人都没有思考这个问题。我们通常习惯使用已经成为我们行业标准的12列网格。
+我们大多数的人都没有思考这个问题。我们通常习惯使用已经成为我们行业标准的 12 列网格。
 
 *   但为什么我们使用相同的网格？
-*   为什么网格由12列组成？
+*   为什么网格由 12 列组成？
 *   为什么我们的网格大小相等？
 
-我们使用相同网格的理由：可能是**我们并不想计算**。
+我们使用相同网格的理由可能是：**我们并不想计算**。
 
 过去，在基于浮动的的网格中去创建一个三列网格。你需要计算每列的宽度，每个间隔的大小以及如何去放置这些网格项。然后，你需要在 HTML 中创建类（classes）以适当地设置它们的样式。这样做[非常复杂](https://zellwk.com/blog/responsive-grid-system/)。
 
-为了让事情更简单，我们可以采用网格框架。一开始，[960gs](https://960.gs) 和 [1440px](https://1440px.com) 等框架允许我们选择 8、9、12 甚至 16 列的网格。后来，Bootstrap 在这场框架大战之中胜出。由于 Bootstrap 值允许网格 12 列，并且想要改变这个规则是非常痛苦的过程，因此我们最终以 12 列作为网格标准。
+为了让事情更简单，我们可以采用网格框架。一开始，[960gs](https://960.gs) 和 [1440px](https://1440px.com) 等框架允许我们选择 8、9、12 甚至 16 列的网格。后来，Bootstrap 在这场框架大战之中胜出。由于 Bootstrap 值仅允许网格 12 列，并且想要改变这个规则是非常痛苦的过程，因此我们最终以 12 列作为网格标准。
 
 但我们不应该责怪 Bootstrap。那是当时最好的办法。谁不想要一个能够以最小的努力工作就可以获得的优良解决方案？随着网格的问题解决，我们将注意力转移到设计的其他方面，例如排版、颜色和可访问性。
 
@@ -41,7 +41,7 @@
 
 为什么呢？
 
-假设你想制作一个 4 列的网格，每列的大小为 100 像素。使用 CSS 网格，你可以在 `grid-template-columns` 声明中四次写入 `100px` ，之后一个 4 列网格就会被创建。
+假设你想制作一个 4 列的网格，每列的大小为 100 像素。使用 CSS 网格，你可以在 `grid-template-columns` 声明中写四次 `100px` ，之后一个 4 列网格就会被创建。
 
 ```
 .grid {
@@ -69,9 +69,9 @@
 
 使用 CSS Grid 创建 12 列网格。
 
-如你所见，这段代码并不漂亮，但我们并不关心优化代码质量（还未），我们仍停留在考虑设计阶段。对于任何人来说，CSS Grid 都很容易，即使是没有编码知识的设计师，也可以在网络上创建网格。
+如你所见，这段代码并不优雅，但我们（暂时还）并不关心优化代码质量，我们优先考虑设计方面的。对于任何人来说，CSS Grid 都很容易，即使是没有编码知识的设计师，也可以在网络上创建网格。
 
-如果你想要创建具有不同宽度的网格列，只需在 `grid-template-columns` 声明中指定所需的宽度，然后设置即可。
+如果你想要创建具有不同宽度的网格列，只需在 `grid-template-columns` 声明中指定所需的宽度，就搞定了。
 
 ```
 .grid {
@@ -83,13 +83,13 @@
 
 [![Screenshot of Firefox's grid inspector that shows three colums of different width.](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/6be83c78-9646-4c17-8d74-a3ffa55c13e1/future-web-design-grid-asym.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/6be83c78-9646-4c17-8d74-a3ffa55c13e1/future-web-design-grid-asym.png) 
 
-创建不同宽度的列其实很容易。
+创建不同宽度的列也是小菜一碟。
 
 #### 使网格具有响应性
 
-没有讨论过关于响应方面的问题，CSS Grid 就没有完成。有几种方法可以使 CSS Grid 具有响应性。一种方式（可能是最流行的方式）是使用 `fr` 单位。另一种方法是更改​​媒体查询的列数。
+在关于 CSS 网格的讨论中，没有不讨论其响应性的。有几种方法可以使 CSS Grid 具有响应性。一种方式（可能是最流行的方式）是使用 `fr` 单位。另一种方法是更改​​媒体查询的列数。
 
-`fr` 是代表一个片段的灵活长度单位。当你使用 `fr` 单位时，浏览器会分割开放空间并根据 `fr` 倍数将区域分配给列。这意味着要创建四个相同大小的列，你需要四次写入 `1fr`。
+`fr` 是代表一个片段的灵活长度单位。当你使用 `fr` 单位时，浏览器会分割开放空间并根据 `fr` 倍数将区域分配给列。这意味着要创建四个相同大小的列，你需要写四次 `1fr`。
 
 ```
 .grid {
@@ -103,7 +103,7 @@
 
 用 `fr` 单位创建的网格遵守网格的最大宽度。 ([大图预览](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/f12ee9f9-e577-4e2a-8173-f8c6fddff213/future-web-design-grid-fr.gif))
 
-**让我们做一些计算来理解为什么创建四个相等大小的列**。
+**让我们做一些计算来理解为什么以上代码创建四个相等大小的列**。
 
 首先，我们假设网格的总可用空间为 `1260px`。
 
@@ -167,17 +167,17 @@
 }
 ```
 
-使用 CSS Grid 创建网格很难吗？早期的设计师和开发人员会因为这种可能性的想法而不去使用它。
+使用 CSS Grid 创建网格很难吗？要是产品经理知道是这么简单的话，设计师和开发人员早就被干掉了。
 
 #### 基于高度的网格
 
 之前根据网站的高度来制作网格是不可能的，因为我们没有办法获取视口的高度。现在，通过视口单元（viewport units）、CSS Calc 和 CSS Grid，我们甚至可以根据视口高度制作网格。
 
-在下面的演示中，我根据浏览器的高度创建了网格广场。
+在下面的演示中，我根据浏览器的高度创建了网格方形。
 
 请参阅 [CodePen](https://codepen.io) 上 Zell Liew（[@zellwk](https://codepen.io/zellwk)）的 [Height based grid example](https://codepen.io/zellwk/pen/qoEYaL/)。
 
-Jen Simmons 有一个很棒的视频，讲述了 [desgining for the fourth edge](https://www.youtube.com/watch?v=dQHtT47eH0M&feature=youtu.be) —— 使用 CSS Grid。我强烈建议你去看看。
+Jen Simmons 有一个很棒的视频，讲述了[四维空间设计](https://www.youtube.com/watch?v=dQHtT47eH0M&feature=youtu.be) —— 使用 CSS Grid。我强烈建议你去看看。
 
 #### 网格项的放置
 
@@ -221,7 +221,7 @@ CSS Grid 能够使你能够轻松地布置事物，以便你可以快速地创�
 *   [Layout Land](https://www.youtube.com/channel/UC7TizprGknbDalbHplROtag)，Jen Simmons
     关于布局的一系列视频
 *   [CSS layout workshop](https://thecssworkshop.com)，Rachel Andrew
-    一个CSS布局课程
+    一个 CSS 布局课程
 *   [Learn CSS Grid](https://learncssgrid.com)，Jonathan Suh
     一个关于 CSS Grid 的免费课程
 *   [Grid critters](https://geddski.teachable.com/p/gridcritters)，Dave Geddes
