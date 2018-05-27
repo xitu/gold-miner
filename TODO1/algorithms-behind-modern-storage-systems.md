@@ -21,7 +21,7 @@
 
 ### B-Tree
 
-B-Tree 是一种流行的读优化索引数据结构，是二叉树的泛化。它有许多变种，并且被用于多种数据库（包括 [MySQL InnoDB](https://dev.mysql.com/doc/refman/5.7/en/innodb-physical-structure.html) <sup><a href="#note1">[4]</a></sup>、[PostgreSQL](http://www.interdb.jp/pg/pgsql01.html) <sup><a href="#note1">[7]</a></sup>）甚至[文件系统](https://en.wikipedia.org/wiki/HTree)（HFS+ <sup><a href="#note1">[8]</a></sup>、HTrees ext4 <sup><a href="#note1">[9]</a></sup>）。B-Tree 中的 _B_ 代表原始数据结构的作者 _Bayer_，或是他当时就职的公司 _Boeing_。
+B-Tree 是一种流行的读优化索引数据结构，是二叉树的泛化。它有许多变种，并且被用于多种数据库（包括 [MySQL InnoDB](https://dev.mysql.com/doc/refman/5.7/en/innodb-physical-structure.html) <sup><a href="#note4">[4]</a></sup>、[PostgreSQL](http://www.interdb.jp/pg/pgsql01.html) <sup><a href="#note7">[7]</a></sup>）甚至[文件系统](https://en.wikipedia.org/wiki/HTree)（HFS+ <sup><a href="#note8">[8]</a></sup>、HTrees ext4 <sup><a href="#note9">[9]</a></sup>）。B-Tree 中的 _B_ 代表原始数据结构的作者 _Bayer_，或是他当时就职的公司 _Boeing_。
 
 在[搜索二叉树](https://en.wikipedia.org/wiki/Binary_tree)中，每个节点都有两个孩子（称为左右孩子）。左子树的节点值小于当前节点值，右子树反之。为了保持树的深度最小，搜索二叉树必须是平衡的：当随机顺序的值被添加到树中时，如果不加调整，终会导致树的倾斜。
 
@@ -93,43 +93,43 @@ SSTable 是一种基于硬盘的有序不可变的数据结构。从结构上来
 
 ![支撑现代存储系统的算法](https://s1.ax1x.com/2018/05/22/C2vwlD.png)
 
-SSTables have some nice properties:
+SSTables 具有以下优点：
 
-• Point-queries (i.e., finding a value by key) can be done quickly by looking up the primary index.
+• 通过查询主键索引可以实现快速的点查询（例如，通过键寻找值）。
 
-• Scans (i.e., iterating over all key/value pairs in a specified key range) can be done efficiently simply by reading key/value pairs sequentially from the data block.
+• 只需要顺序读取数据块上的键值对就可以实现扫描（例如，遍历制定范围内的键值对）。
 
-An SSTable represents a snapshot of all database operations over a period of time, as the SSTable is created by the _flush_ process from the memory-resident table that served as a buffer for operations against the database state for this period.
+SSTable 代表一段时间内所有数据库操作的快照，因为 SSTable 是通过对内存表的**刷新**操作创建的，该表充当此时段内对数据库状态的缓冲区。
 
-#### Lookups
+#### 查询
 
-Retrieving data requires searching all SSTables on disk, checking the memory-resident tables, and merging their contents before returning the result. The merge step during the read is required since the searched data can reside in multiple SSTables.
+检索数据需要搜索硬盘上的所有 SSTable，检查内存表，并且合并它们的内容后返回结果。要搜索的数据可以存储在多个 SSTable 中，因此合并步骤是必须的。
 
-The merge step is also necessary to ensure that the deletes and updates work. Deletes in an LSM-tree insert placeholders (often called _tombstones_), specifying which key was marked for deletion. Similarly, an update is just a record with a later timestamp. During the read, the records that get shadowed by deletes are skipped and not returned to the client. A similar thing happens with the updates: out of two records with the same key, only the one with the later timestamp is returned. Figure 7 shows a merge step reconciling the data stored in separate tables for the same key: as shown here, the record for Alex was written with timestamp 100 and updated with a new phone and timestamp 200; the record for John was deleted. The other two entries are taken as is, as they're not shadowed.
+合并步骤也是确保删除和更新正常工作所必需的。在 LSM-Tree 中，通过插入占位符（通常称为墓碑）来指定哪个键被标记为删除。同样的，更新操作只是一个记录一个有较晚的时间戳。在读取期间，被标记删除的记录被跳过，不会返回给客户端。更新操作与之类似：在具有相同键的两个记录中，只返回具有较晚时间戳的记录。图 7 展示了一次合并操作，用于对在不同表中存储的同一个键的数据进行整合：如图，Alex 记录中时间戳是 100，随后更新了新的电话，时间戳为 200；John 记录被删除。另外两项没有改变，因为它们没有被覆盖。
 
-![支撑现代存储系统的算法](http://deliveryimages.acm.org/10.1145/3230000/3220266/petrov7.png)
+![支撑现代存储系统的算法](https://s1.ax1x.com/2018/05/23/CRyDYV.png)
 
-To reduce the number of searched SSTables and to avoid checking every SSTable for the searched key, many storage systems employ a data structure known as a [Bloom filter](https://en.wikipedia.org/wiki/Bloom_filter)<sup>10</sup>. This is a probabilistic data structure that can be used to test whether an element is a member of the set. It can produce false-positive matches (i.e., state that the element is a member of set, while it is not, in fact, present there) but cannot produce false negatives (i.e., if a negative match is returned, the element is guaranteed not to be a member of the set). In other words, a Bloom filter is used to tell if the key “might be in an SSTable” or “is definitely not in an SSTable.” SSTables for which a Bloom filter has returned a negative match are skipped during the query.
+为了减少搜索 SSTable ，防止为了查找某个键而搜索每个 SSTable，许多存储系统采用一个被称为[布隆过滤器](https://en.wikipedia.org/wiki/Bloom_filter) <sup><a href="#note10">[10]</a></sup> 的数据结构。这是一个概率数据结构，可用于测试某个元素是否属于某集合。它有可能产生错误的肯定（即，判断元素是集合的成员，但实际上并不是），但不能产生错误的否定（即，如果返回否定结果，则元素一定不是集合的成员）。换句话说，布隆过滤器用于判断键“可能在 SSTable 中”或“绝对不在 SSTable 中”。在搜索过程中，将会跳过布隆过滤器返回否定结果的 SSTable。
 
-#### LSM-tree maintenance
+#### LSM-Tree 的维护
 
-Since SSTables are _immutable_, they are written sequentially and hold no reserved empty space for in-place modifications. This means insert, update, or delete operations would require rewriting the whole file. All operations modifying the database state are “batched” in the memory-resident table. Over time, the number of disk-resident tables will grow (data for the same key located in several files, multiple versions of the same record, redundant records that got shadowed by deletes), and the reads will continue getting more expensive.
+由于 SSTables 是**不可变**的，因此它们会按顺序写入，并且不存在用于修改的预留空白空间。这就意味着插入、更新或删除操作将需要重写整个文件。所有修改数据库状态的操作都在内存表中“批处理”。随着时间的推移，磁盘表的数量将增加（同一个键的数据位于几个不同文件，同一记录有多个不同的版本，被删除的冗余记录），读取操作的开销将变得越来越大。
 
-To reduce the cost of reads, reconcile space occupied by shadowed records, and reduce the number of disk-resident tables, LSM-trees require a _compaction_ process that reads complete SSTables from disk and merges them. Because SSTables are sorted by key and compaction works like merge-sort, this operation is very efficient: records are read from several sources sequentially, and merged output can be appended to the results file right away, also sequentially. One of the advantages of merge-sort is that it can work efficiently even for merging large files that don't fit in memory. The resulting table preserves the order of the original SSTables.
+为了降低读取开销，整合被删除记录占用的空间并减少磁盘表的数量，LSM-Tree 需要一个**压缩**操作，从磁盘读取完整的 SSTable 并合并它们。由于 SSTable 是以键排序的，因此其压缩工作和归并排序差不多，这个操作非常高效：从多个源有序序列中读取记录，进行合并后的输出马上追加到结果文件中，则结果文件也是有序的。归并排序的一个优点是，即使合并内存吃不消的大文件，它依旧可以高效地工作。结果表保留了原始 SSTable 的顺序。
 
-During this process, merged SSTables are discarded and replaced with their “compacted” versions, as shown in figure 8. Compaction takes multiple SSTables and merges them into one. Some database systems logically group the tables of the same size to the same “level” and start the merge process whenever enough tables are on a particular level. After compaction, the number of SSTables that have to be addressed is reduced, making queries more efficient.
+在此过程中，被合并的 SSTable 被丢弃并替换为其“压缩”后的版本，如图 8 所示。压缩多个 SSTable 并将它们合并为一个。某些数据库系统在逻辑层面上按大小把不同的表分为不同级别，分组到相同的“级别”，并在特定级别的表足够多时开始合并操作。压缩后，SSTable 的数量减少，提高查询效率。
 
-![支撑现代存储系统的算法](http://deliveryimages.acm.org/10.1145/3230000/3220266/petrov8.png)
+![支撑现代存储系统的算法](https://s1.ax1x.com/2018/05/27/Ch4JKI.png)
 
-### Atomicity and Durability
+### 原子性与持久性
 
-To reduce the number of I/O operations and make them sequential, both B-trees and LSM-trees batch operations in memory before making an actual update. This means that data integrity is not guaranteed during failure scenarios and _atomicity_ (applying a series of changes atomically, as if they were a single operation, or not applying them at all) and _durability_ (ensuring that in the face of a process crash or power loss, data has reached persistent storage) properties are not ensured.
+为了减少 I/O 操作并使它们顺序执行，无论是 B-Tree 还是 LSM-Tree 都在实际更新之前，先在内存中进行批量操作。这意味着，在故障情况时，数据完整性、**原子性**（将一系列操作赋予原子性，将它们视为一个操作，要么全部执行要么全不执行）、**持久性**（当进程崩溃或电源失效时，可以确保数据已经到达持久性存储设备）得不到保证。
 
-To solve that problem, most modern storage systems employ WAL (write-ahead logging). The key idea behind WAL is that all the database state modifications are first durably persisted in the append-only log on disk. If the process crashes in the middle of an operation, the log is replayed, ensuring that no data is lost and all changes appear atomically.
+为了解决这个问题，大多数现代存储系统采用 WAL（预写日志）。WAL 的核心思想是，所有数据库状态改变都先持久化进硬盘中只追加的日志中。如果进程在工作中崩溃，将会重映日志以确保没有数据丢失且所有更改都满足原子性。
 
-In B-trees, using WAL can be understood as writing changes to data files only after they have been logged. Usually log sizes for B-tree storage systems are relatively small: as soon as changes are applied to the persisted storage, they can be discarded. WAL serves as a backup for the in-flight operations: any changes that were not applied to data pages can be redone from the log records.
+在 B-Tree 中，使用 WAL 可以理解为仅在写入操作被记录后才将其写入数据文件。通常，B-Tree 存储系统的日志尺寸相对较小：只要将更改应用于持久存储，它们就可以被弃用。WAL 还可以作为运行时操作的备份：任何未应用于数据页的更改都可以根据日志记录重做。
 
-In LSM-trees, WAL is used to persist changes that have reached the memtables but have not yet been fully flushed on disk. As soon as a memtable is fully flushed and switched so that read operations can be served from the newly created SSTable, the WAL segment holding the data for the flushed memtable can be discarded.
+在 LSM-Tree 中，WAL 用于保存处于内存表但尚未完全刷新到磁盘上的更改。只要内存表被刷新完毕并置换，便可以在新创建的 SSTable 中进行读取操作，则 WAL 中从内存表刷新到硬盘上的那部分更改就可以丢弃了。
 
 ### Summarizing
 
