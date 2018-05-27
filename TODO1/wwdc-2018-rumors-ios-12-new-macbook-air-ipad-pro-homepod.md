@@ -7,7 +7,7 @@
 
 # WWDC 2018：关于 iOS 12、iPad Pro、新 MacBook 及更多产品的所有预测
 
-## 当蒂姆库克 (Tim Cook) 在 6 月 4 日走进圣何塞 (San Jose) 的发布会现场时将会发生什么事情？(译者注：圣何塞 (San Jose) 是美国加州的第三大城市)
+## 当蒂姆库克（Tim Cook）在 6 月 4 日走进圣何塞（San Jose）的发布会现场时将会发生什么事情？（译者注：圣何塞（San Jose）是美国加州的第三大城市）
 
 我们距离 [苹果公司](https://www.cnet.com/apple/) 的下一个正式发布会只有2周的时间了，我们通常可以在发布会上一窥该公司的未来。
 
@@ -37,7 +37,7 @@ Sarah Tew/CNET
 
 阅读：[iPhone SE 2：预测的规格、价格、发布时间](https://www.cnet.com/news/iphone-se-2-launch-date-specs-price-release-date-rumors-notch/)
 
-**Apple AirPower:** 苹果公司的全球市场高级副总裁 Phil Schiller 在 2017 年 9 月介绍这个和 iPhone X 搭配使用的，多设备的充电设备时，他说这将在“明年”推出。所以，直到 2019 年的 1 月 1 日，你都不能说它推出“晚”了，有一种假设是苹果公司希望在这个产品发布一周年之前，将它放上货架出售。WWDC 将会是一个绝佳的机会去宣布它的价格和发售日期 - 也许我们还能看到和 AirPower 兼容的 AirPods 收纳盒。
+**Apple AirPower：** 苹果公司的全球市场高级副总裁 Phil Schiller 在 2017 年 9 月介绍这个和 iPhone X 搭配使用的，多设备的充电设备时，他说这将在“明年”推出。所以，直到 2019 年的 1 月 1 日，你都不能说它推出“晚”了，有一种假设是苹果公司希望在这个产品发布一周年之前，将它放上货架出售。WWDC 将会是一个绝佳的机会去宣布它的价格和发售日期 - 也许我们还能看到和 AirPower 兼容的 AirPods 收纳盒。
 
 阅读：[AirPower: 我们所知道的苹果无线充电板](https://www.cnet.com/news/apple-airpower-wireless-charger-everything-we-know/)
 
@@ -47,13 +47,13 @@ AirPower 早在 2017 年的 9 月份就发布了，但到现在还没有发售�
 
 截图来自Alexandra Able/CNET
 
-**其他我们不用指望在6月4日出现的产品:** 对于其他的苹果硬件，恐怕它们都需要一个长期的过程。不要期望会看到新的苹果手表，苹果电视盒，[第二代的AirPods](https://www.cnet.com/news/apple-airpods-2-wireless-charging-things-we-expect/) 或者 [小型HomePod音响](https://www.cnet.com/news/homepod-slow-sales-homepod-mini-homepod-price-cut/)。也许苹果会花一些时间去安利 [AR Kit](https://www.cnet.com/pictures/best-arkit-apps/) - 它是一个软件工具集，将增强现实带进iOS - 同时 [Mac里的虚拟现实](https://www.cnet.com/news/apple-bringing-vr-external-graphics-and-game-engines-to-mac/)，但绝对不用期待任何关于 [苹果AR/VR头戴式设备](https://www.cnet.com/news/apple-is-working-on-an-ar-augmented-reality-vr-virtual-reality-headset-powered-by-a-wireless-wigig-hub/)，苹果公司显然在暗地里进行研发 - 即使真的要期待一下，这些都需要直到 2020 年才能知晓。
+**其他我们不用指望在6月4日出现的产品：** 对于其他的苹果硬件，恐怕它们都需要一个长期的过程。不要期望会看到新的苹果手表，苹果电视盒，[第二代的AirPods](https://www.cnet.com/news/apple-airpods-2-wireless-charging-things-we-expect/) 或者 [小型HomePod音响](https://www.cnet.com/news/homepod-slow-sales-homepod-mini-homepod-price-cut/)。也许苹果会花一些时间去安利 [AR Kit](https://www.cnet.com/pictures/best-arkit-apps/) — 它是一个软件工具集，将增强现实带进iOS — 同时 [Mac里的虚拟现实](https://www.cnet.com/news/apple-bringing-vr-external-graphics-and-game-engines-to-mac/)，但绝对不用期待任何关于 [苹果AR/VR头戴式设备](https://www.cnet.com/news/apple-is-working-on-an-ar-augmented-reality-vr-virtual-reality-headset-powered-by-a-wireless-wigig-hub/)，苹果公司显然在暗地里进行研发 - 即使真的要期待一下，这些都需要直到 2020 年才能知晓。
 
 你将看到的，将是针对上文提到的所有硬件而更新的大量软件以及操作系统。以下是可以期待的内容。
 
 ## iOS 12：质量高于数量
 
-在经历了一系列 [持续的](https://www.cnet.com/news/how-to-fix-the-ios-11-1-autocorrect-bug/) [缺陷](https://www.cnet.com/news/apple-updates-operating-systems-to-fix-app-crashing-bug/) [和](https://www.cnet.com/how-to/why-you-should-avoid-your-iphones-calculator/) [小故障](https://www.cnet.com/news/apple-slows-down-older-iphone-battery-issues/) 后，这些问题都导致iOS11口碑不佳 - 包括 [关于故意降低 iPhones 性能的有争议功能](https://www.cnet.com/news/apple-slows-down-older-iphone-battery-issues/) - 苹果 [称将会把质量放在比创新更重要的位置](https://www.bloomberg.com/news/articles/2018-01-30/apple-is-said-to-push-back-some-key-iphone-software-features) 在它即将到来的移动操作系统中，也就是所谓的 iOS 12。
+在经历了一系列 [持续的](https://www.cnet.com/news/how-to-fix-the-ios-11-1-autocorrect-bug/) [缺陷](https://www.cnet.com/news/apple-updates-operating-systems-to-fix-app-crashing-bug/) [和](https://www.cnet.com/how-to/why-you-should-avoid-your-iphones-calculator/) [小故障](https://www.cnet.com/news/apple-slows-down-older-iphone-battery-issues/) 后，这些问题都导致iOS11口碑不佳 — 包括 [关于故意降低 iPhones 性能的有争议功能](https://www.cnet.com/news/apple-slows-down-older-iphone-battery-issues/) — 苹果 [称将会把质量放在比创新更重要的位置](https://www.bloomberg.com/news/articles/2018-01-30/apple-is-said-to-push-back-some-key-iphone-software-features) 在它即将到来的移动操作系统中，也就是所谓的 iOS 12。
 
 这也许将推迟一些计划中的升级，包括重新设计的主屏，摄像头的增强以及针对AR游戏的多媒体播放器的支持，该消息来自 [彭博社](https://www.bloomberg.com/news/articles/2018-01-30/apple-is-said-to-push-back-some-key-iphone-software-features)，它也是目前为止所有这些预测的主要来源。
 
@@ -75,7 +75,7 @@ iPhone 2018：最需要的功能
 
 ## WatchOS：扩展健康和健身功能
 
-现在只有很少的一些信息关于苹果如何对待它的可穿戴操作系统，但 [近期预测的苹果全新的圆形表盘设计专利](https://www.cnet.com/news/round-apple-watch-patent-granted/) 预示了一种新的可能性。同时也有可能出现 [一个更大规模的表盘商店](https://9to5mac.com/2018/04/14/watchos-4-3-1-suggests-future-support-for-third-party-watch-faces/)，或者更多的表盘定制化。否则，我们将看到一些关于继续扩展苹果手表的健康和健身功能的发布(通过 HealthKit 软件集)。
+现在只有很少的一些信息关于苹果如何对待它的可穿戴操作系统，但 [近期预测的苹果全新的圆形表盘设计专利](https://www.cnet.com/news/round-apple-watch-patent-granted/) 预示了一种新的可能性。同时也有可能出现 [一个更大规模的表盘商店](https://9to5mac.com/2018/04/14/watchos-4-3-1-suggests-future-support-for-third-party-watch-faces/)，或者更多的表盘定制化。否则，我们将看到一些关于继续扩展苹果手表的健康和健身功能的发布（通过 HealthKit 软件集）。
 
 ## TV OS、Audio OS 和 Siri：让苹果电视和 HomePod 更加智能
 
