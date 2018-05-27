@@ -1,3 +1,4 @@
+* [WWDC 2018：关于iOS 12、iPad Pro、新MacBooks或者更多产品的所有预测](https://juejin.im/post/5b056d485188256710601ecc) ([dandyxu](https://github.com/dandyxu) 翻译)
 * [预测你的游戏的货币化未来](https://juejin.im/post/5ad1d3b6f265da238f12fafa) ([NoName4Me](https://github.com/NoName4Me) 翻译)
 * [用行为经济学来传达付费应用订阅的价值](https://juejin.im/post/5ad3ffd0f265da23906c785f) ([ALVINYEH](https://github.com/ALVINYEH) 翻译)
 * [怎样把取消订阅的用户吸引回来](https://juejin.im/post/5acc1538518825651d07fdd1) ([allenlongbaobao](https://github.com/allenlongbaobao) 翻译)
