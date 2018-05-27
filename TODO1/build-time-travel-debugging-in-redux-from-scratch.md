@@ -2,7 +2,7 @@
 > * 原文作者：[Trey Huffine](https://levelup.gitconnected.com/@treyhuffine?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/build-time-travel-debugging-in-redux-from-scratch.md](https://github.com/xitu/gold-miner/blob/master/TODO1/build-time-travel-debugging-in-redux-from-scratch.md)
-> * 译者：
+> * 译者：[老教授](https://juejin.im/user/58ff449a61ff4b00667a745c/posts)
 > * 校对者：
 
 # 从零开始，在 Redux 中构建时间旅行式调试
@@ -60,11 +60,11 @@ const createStore = (reducer, initialState) => {
 };
 ```
 
-#### 实施时间旅行时调试
+#### 实现时间旅行式调试
 
-We will implement time traveling by subscribing a new listener to the Redux store and also extending the store’s functionality. Each change in state will be added to an array, giving us a synchronous representation of every change in state of the application. We will print the list of states to the DOM for clarity.
+我们将对 Redux 的 store 实现一个新的监听，并拓展 store 的能力，从而实现时间旅行功能。状态的每一次改变都将被添加到一个数组里，给了我们一个对应用状态每一次变化的同步表现。为了清晰起见，我们将把这个状态的列表打印到 DOM 节点里面。
 
-First we initialize the timeline and index of the active state in the history (line 1–2). We also create a `saveTimeline` function that adds the current state to the timeline array, prints the state to the DOM, and increments the index of the given state tree that is being rendered by the app. To ensure we capture every state change, we subscribe the `saveTimeline` function as a listener to the Redux store.
+首先，我们会对时间轴和历史中处于活动态的状态索引进行初始化（第1、2行）。我们还会创建一个 `savetimeline` 函数，它会将当前状态添加到时间轴数组，将状态打印到 DOM 节点上，并对程序用来渲染的指定状态树的索引进行递增。为了确保我们捕捉到每一次状态变化，我们将 `saveTimeline` 函数作为 Redux store 的一个监听者实施订阅。
 
 ```
 const timeline = [];
@@ -81,23 +81,23 @@ const saveTimeline = () => {
 store.subscribe(saveTimeline);
 ```
 
-Next add a new function to the store — `setState`. This will allow us to inject any state into the Redux store. It will be called as we time travel between states using buttons on the DOM that we will create in the next section. The following is the implementation of the `setState` function on the store.
+接着我们在 store 中添加一个新的函数 —— `setState`。它允许我们向 Redux 的 store 中注入任何状态值。当我们要通过一个 DOM 上的按钮（下一节创建）在不同的状态间进行穿梭时，这个函数就会被调用。下面就是 store 里面这个 `setState` 函数的实现：
 
 ```
-// FOR DEBUGGING PURPOSES ONLY
+// 仅供调试
 store.setState = desiredState => {
   store.state = desiredState;
 
-// Assume the debugger is injected last. We don't want to update
-// the saved states as we are debugging, so we slice it off.
+  // 假设调试器（译者注：上文的 saveTimeline ）是最后被注入的，
+  // 我们并不想在调试时更新调试器中已存储的状态，所以我们把它排除掉
   const applicationListeners = store.listeners.slice(0, -1);
   applicationListeners.forEach(listener => listener());
 };
 ```
 
-> Keep in mind that this is for educational purposes only. You should extend the Redux store or set the state in this manner.
+> 谨记，我们这么做仅为了方便学习。仅在此场景下你可以直接拓展 Redux 的 store 或直接设置状态。
 
-When we build the full application in the following section, we will also build out the DOM. For now, all you need to know is that there will be a “previous” and a “next” button to enable time traveling. These buttons will update the active index for the timeline state being shown, allowing us to easily move forward and backward through the state changes. The follow shows how we register the event listeners to navigate the timeline:
+当我们在下一节建立好整个应用，我们也就同时把 DOM 节点给建立好了。现在，你只要知道将会有一个“向前走”和一个“向后走”的按钮来用来进行时间旅行。这两个按钮将更新状态时间轴的活动索引（从而改变用来展示的活动状态），允许我们在不同的状态变化间轻松地前进和后退。下面代码将告诉你怎么注册事件监听来穿梭时间轴：
 
 ```
 const previous = document.getElementById('previous');
@@ -129,7 +129,7 @@ next.addEventListener('click', e => {
 });
 ```
 
-Putting this all together yields the following code to create time travel debugging.
+综合起来，可以得到下面的代码来创建时间旅行式调试。
 
 ```
 const timeline = [];
@@ -145,18 +145,18 @@ const saveTimeline = () => {
 
 store.subscribe(saveTimeline);
 
-// FOR DEBUGGING & EDUCATIONAL PURPOSES ONLY
-// The store should not be extended like this.
+// 仅供调试
+// store 不应该像这样进行拓展
 store.setState = desiredState => {
   store.state = desiredState;
 
-  // Assume the debugger is injected last. We don't want to update
-  // the saved states as we're debugging.
+  // 假设调试器（译者注：上文的 saveTimeline ）是最后被注入的，
+  // 我们并不想在调试时更新调试器中已存储的状态，所以我们把它排除掉
   const applicationListeners = store.listeners.slice(0, -1);
   applicationListeners.forEach(listener => listener());
 };
 
-// This assumes there are previous/next buttons with the give IDs to control the time travel
+// 这里假定通过这两个 ID 就可以拿到向前走、向后走两个按钮，用以控制时间旅行
 const previous = document.getElementById('previous');
 const next = document.getElementById('next');
 
@@ -185,9 +185,9 @@ next.addEventListener('click', e => {
 });
 ```
 
-#### Building an application with time travel debugging
+#### 搭建一个含时间旅行式调试的应用程序
 
-We will now create a visual representation to understand time travel debugging. We add an event listener to the document body that will generate three random numbers between 0–255 and save those as `r`, `g`, and `b` in the Redux store. A function subscribed to the store that will update the background color as well as display the current RGB value on the screen. In addition, our time travel debugger will be subscribed to the state changes and add each change to the timeline.
+现在我们开始创建视觉上的效果来理解时间旅行式调试。我们在 document 的 body 上添加事件监听，事件触发时会创建三个 0-255 间的随机数，并分别作为 RGB 值存到 Redux 的 store 里面。将会有一个 store 的订阅函数来更新页面背景色并把当前 RGB 色值展现在屏幕上。另外，我们的时间旅行式调试会对状态变化进行订阅，把每个变化记录到时间轴里。
 
 We begin by initializing the HTML document as follows.
 
@@ -228,9 +228,9 @@ We begin by initializing the HTML document as follows.
 </html>
 ```
 
-Notice that we also create a `<div>` for the debugger. There are buttons to navigate the different states and a node to list each update in the state.
+注意我们还创建了一个 `<div>` 用于调试。里面有用于不同状态间穿梭的按钮，还有一个用来列举状态每一次变化的 DOM 节点。
 
-Inside the script, we begin by referencing the DOM nodes and our `createStore`.
+在 JavaScript 里，我们先引用 DOM 节点，引入 `createStore`。
 
 ```
 const textNode = document.getElementById('background');
@@ -257,7 +257,7 @@ const createStore = (reducer, initialState) => {
 };
 ```
 
-Next, we create the reducer to track the RGB values and initialize the store. The initial state will be a white background.
+接着，我们创建一个用于跟踪 RGB 色值变化的 reducer 并初始化 store。初始状态将是白色背景。
 
 ```
 const getInitialState = () => {
@@ -284,7 +284,7 @@ const reducer = (state = getInitialState(), action) => {
 const store = createStore(reducer);
 ```
 
-Now we can subscribe a function to the store that will set the background color and add the text RGB value to the DOM. This is cause any update to the state to be represented our UI.
+现在我们对 store 添加订阅函数，用于设置页面背景色并把文本形式的 RGB 色值添加到 DOM 节点上。这会让状态的每一个变化都可以在我们的 UI 界面上表现出来。
 
 ```
 const setBackgroundColor = () => {
@@ -299,14 +299,14 @@ const setBackgroundColor = () => {
 store.subscribe(setBackgroundColor);
 ```
 
-Finally we add a function to generate a random number 0–255 and an `onClick` event listener that will dispatch a new RGB value to the store.
+最后我们添加一个函数用于生成 0-255 间的随机数，并加上一个 `onClick` 的事件监听，事件触发时将新的 RGB 值派发（dispatch）到 store 里面。
 
 ```
 const generateRandomColor = () => {
   return Math.floor(Math.random() * 255);
 };
 
-// A simple event to dispatch changes
+// 一个简单的事件用于派发数据变化
 document.addEventListener('click', () => {
   console.log('----- Previous state', store.getState());
   store.dispatch({
@@ -321,11 +321,11 @@ document.addEventListener('click', () => {
 });
 ```
 
-This is the entirety of our application logic. We add the time travel code from the previous section below and at the bottom of the script tag call `store.dispatch({})` to generate the initial state.
+这就是我们所有的程序逻辑了。我们将上一节的时间旅行代码添加到后面，并在 script 标签的最后面调用 `store.dispatch({})` 来产生初始状态。
 
 ![](https://cdn-images-1.medium.com/max/800/1*i3L6QvShxky5wkcloijdqA.gif)
 
-Below is the full working code of the application.
+下面是应用程序的完整代码。
 
 ```
 <!DOCTYPE html>
@@ -405,7 +405,7 @@ Below is the full working code of the application.
       const generateRandomColor = () => {
         return Math.floor(Math.random() * 255);
       };
-      // A simple event to dispatch changes
+      // 一个简单的事件用于派发数据变化
       document.addEventListener('click', () => {
         console.log('----- Previous state', store.getState());
         store.dispatch({
@@ -428,11 +428,11 @@ Below is the full working code of the application.
         activeItem = timeline.length - 1;
       };
       store.subscribe(saveTimeline);
-      // FOR DEBUGGING PURPOSES ONLY
+      // 仅供调试
       store.setState = desiredState => {
         store.state = desiredState;
-        // Assume the debugger is injected last. We don't want to update
-        // the saved states as we're debugging.
+        // 假设调试器（译者注：上面的 saveTimeline ）是最后被注入的，
+        // 我们并不想在调试时更新调试器中已存储的状态，所以我们把它排除掉
         const applicationListeners = store.listeners.slice(0, -1);
         applicationListeners.forEach(listener => listener());
       };
@@ -456,19 +456,19 @@ Below is the full working code of the application.
         const desiredState = timeline[index];
         store.setState(desiredState);
       });
-      store.dispatch({}); // Sets the inital state
+      store.dispatch({}); // 设置初始状态
     </script>
   </body>
 </html>
 ```
 
-### Wrap up
+### 总结
 
-Our educational implementation of time travel debugging depicts the core principles of Redux. We can effortlessly track the ongoing state of our application, making it easy to debug and understand fully what is happening.
+我们的时间旅行式调试的教学示范实现向我们展现了 Redux 的核心准则。我们可以毫不费劲地跟踪我们应用程序中不断变化的状态，便于调试和了解正在发生的事情。
 
 * * *
 
-If you found this article helpful, please tap the ❤. [Follow me](https://medium.com/@treyhuffine) for more articles on blockchain, React, Node.js, JavaScript, and open source software! You can also find me on [Twitter](https://twitter.com/treyhuffine) or [gitconnected](https://gitconnected.com/treyhuffine).
+如果你觉得本文有用，请点击 ❤. [订阅我](https://medium.com/@treyhuffine) 可以看到更多的关于 blockchain、 React、 Node.js、 JavaScript 和开源软件的文章！你也可以在 [Twitter](https://twitter.com/treyhuffine) 或 [gitconnected](https://gitconnected.com/treyhuffine) 上找到我。
 
 
 ---
