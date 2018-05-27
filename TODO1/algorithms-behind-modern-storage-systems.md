@@ -75,7 +75,6 @@ B-Tree 的特性如下：
 
 ### LSM-Tree
 
-
 结构化日志合并树是一个不可变的基于磁盘的写优化数据结构。它适用于写入比查询操作更频繁的场景。LSM-Tree 已经获得了更多的关注，因为它可以避免随机插入，更新和删除。
 
 #### 剖析 LSM-Tree
@@ -87,7 +86,6 @@ B-Tree 的特性如下：
 #### Sorted String Tables
 
 因为 SSTable（有序串行表）的简单性（易于写入，搜索和读取）与合并性能（合并期间，扫描源 SSTable，合并结果的写入是顺序的），多数现代的 LSM-Tree 实现（例如 [RocksDB](https://en.wikipedia.org/wiki/RocksDB) 和 [Apache Cassandra](https://en.wikipedia.org/wiki/Apache_Cassandra)）都选用 SSTable 作为硬盘表。
-
 
 SSTable 是一种基于硬盘的有序不可变的数据结构。从结构上来看，SSTable 可以分为两部分：数据块和索引块，如图 6 所示。数据块包含以键为顺序写入的唯一键值对。索引块包含映射到数据块指针的键，指针指向实际记录的位置。为了快速搜索，索引一般使用优化的结构实现，例如 B-Tree 或用于点查询的哈希表。SSTable 中的每一个值都有一个时间戳与之对应。时间戳记录了插入、更新（这两者一般不做区分）和删除时间。
 
