@@ -9,7 +9,7 @@
 
 ## 读优化 B-Tree 和写优化 LSM-Tree 的不同用途
 
-
+### 作者：Alex Petrov
 
 应用程序处理的数据量不断增长。因此，扩展存储变得愈发具有挑战性。每个数据库系统都有自己的方案。为了做出正确的选择，了解它们是至关重要的。
 
@@ -131,7 +131,7 @@ SSTable 代表一段时间内所有数据库操作的快照，因为 SSTable 是
 
 在 LSM-Tree 中，WAL 用于保存处于内存表但尚未完全刷新到磁盘上的更改。只要内存表被刷新完毕并置换，便可以在新创建的 SSTable 中进行读取操作，则 WAL 中从内存表刷新到硬盘上的那部分更改就可以丢弃了。
 
-### Summarizing
+### 总结
 
 One of the biggest differences between the B-tree and LSM-tree data structures is what they optimize for and what implications these optimizations have.
 
