@@ -1,3 +1,4 @@
+* [可微可塑性：一种学会学习的新方法](https://juejin.im/post/5b055308f265da0ba063879d) ([luochen1992](https://github.com/luochen1992) 翻译)
 * [给初学者的 Jupyter Notebook 教程](https://juejin.im/post/5af8d3776fb9a07ab7744dd0) ([SergeyChang](https://github.com/SergeyChang) 翻译)
 * [如何在安卓应用中使用 TensorFlow Mobile](https://juejin.im/post/5afb8dc5518825426c690236) ([luochen1992](https://github.com/luochen1992) 翻译)
 * [在浏览器里使用 TenserFlow.js 实时估计人体姿态](https://juejin.im/post/5afd833b5188254270642ff3) ([NoName4Me](https://github.com/NoName4Me) 翻译)
