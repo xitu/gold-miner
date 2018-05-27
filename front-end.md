@@ -1,3 +1,6 @@
+* [JavaScript 是如何工作的：深入网络层 + 如何优化性能和安全](https://juejin.im/post/5b02ae48518825429d1f9aff) ([Hopsken](https://github.com/Hopsken) 翻译)
+* [JavaScript 是如何工作的：对比 WebAssembly + 为什么在某些场景下它比 JavaScript 更合适](https://juejin.im/post/5b0526e751882507c36d0167) ([stormluke](https://github.com/stormluke) 翻译)
+* [怎样更好地使用 Vue：我在新工作中遇到的一些问题清单](https://juejin.im/post/5b0a36366fb9a07a9c04aca2) ([sophiayang1997](https://github.com/sophiayang1997) 翻译)
 * [如何在 5 分钟之内写出一个不错的 loading 界面](https://juejin.im/post/5af54bbb518825426d2d2e63) ([whuzxq](https://github.com/whuzxq) 翻译)
 * [使用 Puppeteer 和 Jest 测试你的 React 应用](https://juejin.im/post/5af90988518825426a1fcc2e) ([jonjia](https://github.com/jonjia) 翻译)
 * [这就是为什么我们需要在 React 的类组件中为事件处理程序绑定 this](https://juejin.im/post/5afa6e2f6fb9a07aa2137f51) ([whuzxq](https://github.com/whuzxq) 翻译)
