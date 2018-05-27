@@ -75,7 +75,7 @@ if ('serviceWorker' in navigator) {
 
 每次页面加载时都可以调用 `register()` 方法，浏览器会判断 Service Worker 是否已经注册，并且会正确处理。
 
-`register()` 方法的一个重要细节是 Service Worker 文件的位置。在这种情况下，你可以看到 Service Worker 文件位于域的根目录。 这意味着 Service Worker 的范围将是整个网站。换句话说，这个 Service Worker 将会收到这个域的所有内容的 `fetch` 事件（我们将在后面讨论）。如果我们在 `/example/sw.js` 注册 Service Worker 文件，那么 Service Worker 只会看到以 `/example/` 开头的页面的 `fetch` 事件（例如 `/example/page1/`、`/example/page2/`）。
+`register()` 方法的一个重要细节是 Service Worker 文件的位置。在这种情况下，你可以看到 Service Worker 文件位于域的根目录。这意味着 Service Worker 的范围将是整个网站。换句话说，这个 Service Worker 将会收到这个域的所有内容的 `fetch` 事件（我们将在后面讨论）。如果我们在 `/example/sw.js` 注册 Service Worker 文件，那么 Service Worker 只会看到以 `/example/` 开头的页面的 `fetch` 事件（例如 `/example/page1/`、`/example/page2/`）。
 
 在安装阶段，最好加载和缓存一些静态资源。资源成功缓存后，Service Worker 安装完成。如果没有成功（加载失败）—— Service Worker 将重试。一旦安装成功，静态资源就已经在缓存中了。
 
