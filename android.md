@@ -1,3 +1,6 @@
+* [Windows Insets 和 Fragment 过渡动画](https://juejin.im/post/5b05206f6fb9a07ac162c9af) ([LeeSniper](https://github.com/LeeSniper) 翻译)
+* [Android 支持库 21.1.0 中的 Loaders](https://juejin.im/post/5b06139a6fb9a07aa43c966f) ([dreamhb](https://github.com/dreamhb) 翻译)
+* [Android Studio 切换至 D8 dexer](https://juejin.im/post/5b0a84f0518825388e725ec8) ([Starriers](https://github.com/Starriers) 翻译)
 * [移动游戏发行的新时代](https://juejin.im/post/5af9acf851882542877345ef) ([IllllllIIl](https://github.com/IllllllIIl) 翻译)
 * [在 Google I/O 2018 观看 Flutter 的正确姿势](https://juejin.im/post/5aebd7166fb9a07ab4587b3f) ([wzasd](https://github.com/wzasd) 翻译)
 * [更为详细的地图、导航和助手功能 —— Google I/O 2018 的 Android 应用更新](https://juejin.im/post/5aee74626fb9a07abb237f89) ([sisibeloved](https://github.com/sisibeloved) 翻译)
