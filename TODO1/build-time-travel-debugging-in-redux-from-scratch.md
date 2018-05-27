@@ -39,7 +39,7 @@ Redux 核心库就是这个 `createStore` 函数。Redux 的 store 管理着状�
 
 `createStore` 函数接受一个 reducer 函数作为必要参数，并接受一个 `initialState` 作为可选参数。整个 `createStore` 如下文所示（不可思议的简短，对吧？）：
 
-```
+```js
 const createStore = (reducer, initialState) => {
   const store = {};
   store.state = initialState;
@@ -66,7 +66,7 @@ const createStore = (reducer, initialState) => {
 
 首先，我们会对时间轴和历史中处于活动态的状态索引进行初始化（第1、2行）。我们还会创建一个 `savetimeline` 函数，它会将当前状态添加到时间轴数组，将状态打印到 DOM 节点上，并对程序用来渲染的指定状态树的索引进行递增。为了确保我们捕捉到每一次状态变化，我们将 `saveTimeline` 函数作为 Redux store 的一个监听者实施订阅。
 
-```
+```js
 const timeline = [];
 let activeItem = 0;
 
@@ -83,7 +83,7 @@ store.subscribe(saveTimeline);
 
 接着我们在 store 中添加一个新的函数 —— `setState`。它允许我们向 Redux 的 store 中注入任何状态值。当我们要通过一个 DOM 上的按钮（下一节创建）在不同的状态间进行穿梭时，这个函数就会被调用。下面就是 store 里面这个 `setState` 函数的实现：
 
-```
+```js
 // 仅供调试
 store.setState = desiredState => {
   store.state = desiredState;
@@ -99,7 +99,7 @@ store.setState = desiredState => {
 
 当我们在下一节建立好整个应用，我们也就同时把 DOM 节点给建立好了。现在，你只要知道将会有一个“向前走”和一个“向后走”的按钮来用来进行时间旅行。这两个按钮将更新状态时间轴的活动索引（从而改变用来展示的活动状态），允许我们在不同的状态变化间轻松地前进和后退。下面代码将告诉你怎么注册事件监听来穿梭时间轴：
 
-```
+```js
 const previous = document.getElementById('previous');
 const next = document.getElementById('next');
 
@@ -131,7 +131,7 @@ next.addEventListener('click', e => {
 
 综合起来，可以得到下面的代码来创建时间旅行式调试。
 
-```
+```js
 const timeline = [];
 let activeItem = 0;
 
@@ -191,7 +191,7 @@ next.addEventListener('click', e => {
 
 We begin by initializing the HTML document as follows.
 
-```
+```html
 <!DOCTYPE html>
 <html>
   <head>
@@ -232,7 +232,7 @@ We begin by initializing the HTML document as follows.
 
 在 JavaScript 里，我们先引用 DOM 节点，引入 `createStore`。
 
-```
+```js
 const textNode = document.getElementById('background');
 const timelineNode = document.getElementById('timeline');
 
@@ -259,7 +259,7 @@ const createStore = (reducer, initialState) => {
 
 接着，我们创建一个用于跟踪 RGB 色值变化的 reducer 并初始化 store。初始状态将是白色背景。
 
-```
+```js
 const getInitialState = () => {
   return {
     r: 255,
@@ -286,7 +286,7 @@ const store = createStore(reducer);
 
 现在我们对 store 添加订阅函数，用于设置页面背景色并把文本形式的 RGB 色值添加到 DOM 节点上。这会让状态的每一个变化都可以在我们的 UI 界面上表现出来。
 
-```
+```js
 const setBackgroundColor = () => {
   const state = store.getState();
   const { r, g, b } = state;
@@ -301,7 +301,7 @@ store.subscribe(setBackgroundColor);
 
 最后我们添加一个函数用于生成 0-255 间的随机数，并加上一个 `onClick` 的事件监听，事件触发时将新的 RGB 值派发（dispatch）到 store 里面。
 
-```
+```js
 const generateRandomColor = () => {
   return Math.floor(Math.random() * 255);
 };
@@ -327,7 +327,7 @@ document.addEventListener('click', () => {
 
 下面是应用程序的完整代码。
 
-```
+```html
 <!DOCTYPE html>
 <html>
   <head>
@@ -468,7 +468,7 @@ document.addEventListener('click', () => {
 
 * * *
 
-如果你觉得本文有用，请点击 ❤. [订阅我](https://medium.com/@treyhuffine) 可以看到更多的关于 blockchain、 React、 Node.js、 JavaScript 和开源软件的文章！你也可以在 [Twitter](https://twitter.com/treyhuffine) 或 [gitconnected](https://gitconnected.com/treyhuffine) 上找到我。
+如果你觉得本文有用，请点击 ❤。[订阅我](https://medium.com/@treyhuffine) 可以看到更多关于 blockchain、 React、 Node.js、 JavaScript 和开源软件的文章！你也可以在 [Twitter](https://twitter.com/treyhuffine) 或 [gitconnected](https://gitconnected.com/treyhuffine) 上找到我。
 
 
 ---
