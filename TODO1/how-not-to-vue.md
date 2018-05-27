@@ -21,11 +21,11 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*TUsVw4rEJwhw2iFuSyEWkw.png)
 
-**DON’T.** phone 和 city 的响应性毫无用处。
+**DON’T：** phone 和 city 的响应性毫无用处。
 
 ![](https://cdn-images-1.medium.com/max/800/1*HYgxVfj99dt-yaGIeSABGw.png)
 
-**DO.** 将静态属性传给 `$options`。它更加简短，而且不会做多余的工作。
+**DO：** 将静态属性传给 `$options`。它更加简短，而且不会做多余的工作。
 
 ### 考虑将非响应式（non-reactive）的数据转变为响应式（reactive）
 
@@ -35,11 +35,11 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*mSQ5DXcLOlFK6vfdz-Gyjw.png)
 
-**DON’T.** 计算属性应该只基于 Vue 的响应式数据去使用。否则，它将不会起作用。
+**DON’T：** 计算属性应该只基于 Vue 的响应式数据去使用。否则，它将不会起作用。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Q7HhvYfTsHNUZLMcnptbhw.png)
 
-**DO.** 手动更新你的非响应式数据。
+**DO：** 手动更新你的非响应式数据。
 
 此外，我建议你不要在计算属性中使用任何边数据（side-data）。你的计算属性中不应该有任何副作用。这样做会为你节省很多时间。相信我。
 
@@ -70,15 +70,15 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*FxPRflqqk8K6wRr4jUyFBQ.png)
 
-**DON’T.** 你可以使用间隔（intervals）。但是如果你忘记使用 `clearInterval`，就会在组件卸载时出错。
+**DON’T：** 你可以使用间隔（intervals）。但是如果你忘记使用 `clearInterval`，就会在组件卸载时出错。
 
 ![](https://cdn-images-1.medium.com/max/800/1*7kBqD5KNSkCTTpP2O7FUgw.png)
 
-**DO.** 在 `beforeDestroy` 钩子中使用 `clearInterval` 来清除间隔。
+**DO：** 在 `beforeDestroy` 钩子中使用 `clearInterval` 来清除间隔。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Tmr7GIY7saojZkOPoVQfuQ.png)
 
-**DO.** 如果你不想这么麻烦，可以考虑使用 [**vue-timers**](https://github.com/kelin2025/vue-timers)。
+**DO：** 如果你不想这么麻烦，可以考虑使用 [**vue-timers**](https://github.com/kelin2025/vue-timers)。
 
 ### 变异的父实例
 
@@ -88,15 +88,15 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*MYb4iAVzlvQPZDWqCnJM0w.png)
 
-**DON’T.** 如果你试图去改变 `props`，Vue 会警告你，但是如果你通过 `$parent` 去改变 `props`，Vue 将无法检测到。
+**DON’T：** 如果你试图去改变 `props`，Vue 会警告你，但是如果你通过 `$parent` 去改变 `props`，Vue 将无法检测到。
 
 ![](https://cdn-images-1.medium.com/max/800/1*pJkabHNu8Gx7f4UMM07FMg.png)
 
-**DO.** 使用事件触发器（events emitter）去监听事件。此外，`v-model` 只是 `value` 属性和 `input` 事件的语法糖。
+**DO：** 使用事件触发器（events emitter）去监听事件。此外，`v-model` 只是 `value` 属性和 `input` 事件的语法糖。
 
 ![](https://cdn-images-1.medium.com/max/800/1*yypns5Qp2y_t7HrsPT5O7g.png)
 
-**DO.** Vue 还有一个语法糖：`.sync` 修饰符用于更新 `update:prop` 事件中的 `prop`。
+**DO：** Vue 还有一个语法糖：`.sync` 修饰符用于更新 `update:prop` 事件中的 `prop`。
 
 ### If/else 表单验证
 
@@ -104,15 +104,15 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*yn_pt6eFfOIz-RvMEA30gQ.png)
 
-**DON’T.** 我在新项目中被类似的代码吓坏了。不要再这样愚蠢了，这个问题有很多可行的解决方案
+**DON’T：** 我在新项目中被类似的代码吓坏了。不要再这样愚蠢了，这个问题有很多可行的解决方案
 
 ![](https://cdn-images-1.medium.com/max/800/1*omOSNM6WmpsYSN3C4dy4dw.png)
 
-**DO.** 请使用 [**vuelidate**](https://monterail.github.io/vuelidate/)。对于每个字段只需要一行验证规则，多么整洁且具有声明性的代码。
+**DO：** 请使用 [**vuelidate**](https://monterail.github.io/vuelidate/)。对于每个字段只需要一行验证规则，多么整洁且具有声明性的代码。
 
 ![](https://cdn-images-1.medium.com/max/800/1*_4S2iHw93lSS_GIeceJ_YA.png)
 
-**DO.** 我也制作了一个允许你使用一个对象声明表单数据和验证的小[**插件**](https://github.com/Kelin2025/vuelidate-forms)。
+**DO：** 我也制作了一个允许你使用一个对象声明表单数据和验证的小[**插件**](https://github.com/Kelin2025/vuelidate-forms)。
 
 ### 最后
 
