@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/future-of-web-design.md](https://github.com/xitu/gold-miner/blob/master/TODO1/future-of-web-design.md)
 > * 译者：[sophia](https://github.com/sophiayang1997)
-> * 校对者：[kezhenxu94](https://github.com/kezhenxu94/)
+> * 校对者：[kezhenxu94](https://github.com/kezhenxu94/) [hannahGu](https://github.com/hannahGu)
 
 # 新的 CSS 特性正在改变网页设计
 
@@ -231,7 +231,7 @@ CSS Grid 能够使你能够轻松地布置事物，以便你可以快速地创�
 
 我们习惯于在网页上创建矩形布局，因为 CSS 盒子模型是一个矩形。除了矩形之外我们还找到了创建简单形状的方法，例如三角形和圆形。
 
-今天，我们不需要因为创建不规则形状而止步不前。使用 CSS 形状和 `clip-path`，我们可以毫不费力地创建不规则的形状。
+今天，我们不需要因为创建不规则形状过于麻烦而止步不前。使用 CSS 形状和 `clip-path`，我们可以毫不费力地创建不规则的形状。
 
 例如，[Aysha Anggraini](https://twitter.com/RenettaRenula) 尝试使用 CSS Grid 和 `clip path` 创建一个 comic-strip-inspired 布局。
 
