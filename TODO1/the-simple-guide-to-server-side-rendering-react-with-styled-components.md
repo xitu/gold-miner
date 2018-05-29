@@ -5,17 +5,17 @@
 > * 译者：[Elliott Zhao](https://github.com/elliott-zhao)
 > * 校对者：
 
-# 使用 styled-components 的 React 服务器端渲染极简指南
+# 使用 styled-components 的 React 服务端渲染极简指南
 
 ![](https://cdn-images-1.medium.com/max/2000/1*esSohBffpbW40OCldHJ_zA.png)
 
-本指南的目标旨在分享如何在服务器端渲染使用 styled-components 的 React 应用程序的核心原则。当你意识到把 styled-components 安装到你的程序中是多么的无缝，它的美才真正凸显出来。除此之外，styled-components 还很容易集成到使用其他样式化方式的现有应用程序中。
+本指南旨在分享服务端渲染的 React App 中使用 style-components 的核心原则。当你意识到把 styled-components 集成到你的程序中是多么的完美，它的美才真正凸显出来。除此之外，styled-components 还很容易集成到使用其他样式方案的现有应用程序中。
 
 在本指南中，没有类似于 Redux，React Router 这类额外的库，或者代码拆分之类的概念 —— 让我们从基础开始。
 
-你可以在这里看到最终能工作的例子： **https://github.com/Jobeir/styled-components-server-side-rendering** 。在这里参与此文的讨论：**https://spectrum.chat/thread/b95c9ef2-20cb-4bab-952f-fadd90add391** 。
+你可以在这里看到最终能工作的例子： [**https://github.com/Jobeir/styled-components-server-side-rendering**](https://github.com/Jobeir/styled-components-server-side-rendering) 。这里参与此文的讨论： [**https://spectrum.chat/thread/b95c9ef2-20cb-4bab-952f-fadd90add391**](https://spectrum.chat/thread/b95c9ef2-20cb-4bab-952f-fadd90add391)
 
-### 从建立我们的 React 应用开始
+### 开始构建我们的 React 应用
 
 ![](https://cdn-images-1.medium.com/max/600/1*wbD3IaUAwYsSHJa9Y6OBBA.png)
 
@@ -25,11 +25,11 @@
 
 除此之外，一个单独的 `server.js` 文件来处理我们的 React 应用程序的路由和服务。 `client/` 目录中有含 `App.js` ， `Html.js` 和 `index.js` 在内的我们实际的应用程序。
 
-想要开始，你可以选择一个新的空目录，并用以下命令创建一个空的 `package.json` 文件：
+首先，新建一个空的文件目录，通过下面的指令创建一个空的 `package.json` 文件：
 
 `npm init --yes` 或者 `yarn init --yes`
 
-然后把下方展示的脚本和依赖都粘进去。这个应用的依赖有 React，styled-components，Express，Wepback 和  Babel。
+然后把下方展示的脚本和依赖都粘进去。这个应用的依赖有 React ， styled-components ， Express ， Wepback 和 Babel 。
 
 ```json
 "scripts": {
@@ -64,7 +64,7 @@ const App = () => <div>💅</div>;
 export default App;
 ```
 
-`App.js` 返回一个包裹 💅 表情符的 div。这是一个非常基本的 React 组件，我们将把它渲染到浏览器中。
+`App.js` 返回一个包裹 💅 表情符的 div 。这是一个非常基本的 React 组件，我们将把它渲染到浏览器中。
 
 **2.**`**src/client/index.js**`
 
@@ -76,15 +76,15 @@ import App from './App';
 render(<App />, document.getElementById('app'));
 ```
 
-`index.js` 是将 React 应用程序装入DOM的标准方式。它会取出 `App.js` 组件并渲染它。
+`index.js` 是将 React 应用程序装入 DOM 的标准方式。它会取出 `App.js` 组件并渲染它。
 
 **3.**`**src/client/Html.js**`
 
 ```javascript
 /**
  * Html
- * 这个Html.js文件充当了一个模板，我们将所有生成的应用程序代码作为
- * 常规HTML发送给客户端之前插入。
+ * 这个 Html.js 文件充当了一个模板，我们将所有生成的应用程序代码插入其中
+ * 然后作为常规的 HTML 发送给客户端。
  * 注意我们从这个函数返回一个模板字符串。
  */
 const Html = ({ body, title }) => `
@@ -102,13 +102,13 @@ const Html = ({ body, title }) => `
 export default Html;
 ```
 
-到目前为止，我们已经有了一个 `package.json` ，它包含了我们所有的依赖和脚本，还有在 `src / client /` 文件夹中的一个基本的 React 应用程序。这个 React 应用程序会把 `Html.js` 文件返回的模板字符串渲染为HTML。
+到目前为止，我们已经有了一个 `package.json` ，它包含了我们所有的依赖和脚本，还有在 `src/client/` 文件夹中的一个基本的 React 应用程序。这个 React 应用程序会把 `Html.js` 文件返回的模板字符串渲染为 HTML 。
 
-### 创建服务器
+### 创建服务
 
 ![](https://cdn-images-1.medium.com/max/800/1*_o9W9dTKMXheC-LLQC3Bzw.png)
 
-为了在服务器上渲染我们的应用，我们需要安装 express 处理请求并发回我们的 HTML 。由于 express 已经添加进来了，我们可以直接创建服务器。
+为了在服务器上渲染我们的应用，我们需要安装 express 处理请求并返回我们的 HTML 。express 添加进来以后，我们就可以创建服务了。
 
 `**src/server.js**`
 
@@ -124,7 +124,7 @@ const server = express();
 
 server.get('/', (req, res) => {
   /**
-   * renderToString() 将获取我们的 React 应用程序并将其转换为一个字
+   * renderToString()  将获取我们的 React 应用程序并将其转换为一个字
    * 符串，以便插入到我们的 Html 模板函数中。
    */
   const body = renderToString(<App />);
@@ -142,7 +142,7 @@ server.listen(port);
 console.log(`Serving at http://localhost:${port}`);
 ```
 
-### 配置Webpack
+### 配置 Webpack
 
 本指南专注于非常基础的知识，因此我们让 Webpack 配置保持简单。我们使用 Webpack 和 Babel 在生产模式下构建我们的 React 应用程序。有一个单入口在 `src / server.js` 中，它将被输出到 `dist /` 下。
 
@@ -178,7 +178,7 @@ module.exports = {
 };
 ```
 
-现在我们已经可以构建并服务一个服务器端渲染的 React 应用程序了。我们可以运行两个命令并做好准备。
+现在我们已经可以构建并服务一个服务端渲染的 React 应用程序了。我们可以运行两个命令并做好准备。
 
 首先，运行：
 
@@ -188,21 +188,21 @@ module.exports = {
 
 `yarn start` 或者 `npm start`
 
-**如果它没有启动，你可能需要在项目的根目录中添加一个** `_.babelrc_` **文件。**
+**如果它没有启动，你可能需要在项目的根目录中添加一个 **`_.babelrc_`** 文件。**
 
 ![](https://cdn-images-1.medium.com/max/800/1*1xXs7xt80kpSk37hCVyQ7w.png)
 
-在成功的 yarn build 和随后的 yarn start 之后，访问 [http://localhost:3000](http://localhost:3000)。
+yarn build ，然后 yarn start ，成功后访问 [http://localhost:3000](http://localhost:3000)。
 
 ### 添加 styled-components
 
-到目前为止，一切都很好。我们已经成功创建了一个在服务器上渲染的 React 应用程序。我们没有任何类似 React Router，Redux的第三方库，而且我们的Webpack配置也是直奔主题的。
+到目前为止，一切都很好。我们已经成功创建了一个在服务器上渲染的 React 应用程序。我们没有任何类似 React Router ，Redux 的第三方库，而且我们的 Webpack 配置也是直奔主题的。
 
 接下来，让我们开始使用 styled-components 样式化我们的应用。
 
 1.  `**src/client/App.js**`
 
-让我们创建我们的第一个 styled component。要创建一个 styled component ，首先要导入 `styled` 并且定义你的组件。
+让我们创建我们的第一个 styled component 。要创建一个 styled component ，首先要导入 `styled` 并且定义你的组件。
 
 ```javascript
 import React from 'react';
@@ -242,7 +242,7 @@ import { ServerStyleSheet } from 'styled-components'; // <-- 导入 ServerStyleS
 const port = 3000;
 const server = express();
 
-// 创建索引路由为我们的React应用程序提供服务。
+// 创建索引路由为我们的 React 应用程序提供服务。
 server.get('/', (req, res) => {
   const sheet = new ServerStyleSheet(); // <-- 创建样式表
 
@@ -253,7 +253,7 @@ server.get('/', (req, res) => {
   res.send(
     Html({
       body,
-      styles, // <-- 将样式传递给我们的Html模板
+      styles, // <-- 将样式传递给我们的 Html 模板
       title
     })
   );
@@ -272,7 +272,7 @@ console.log(`Serving at http://localhost:${port}`);
 ```javascript
 /**
  * Html
- * 这个Html.js文件充当了一个模板，我们要在发送到客户端之前将所有生
+ * 这个 Html.js 文件充当了一个模板，我们将所有生成的应用程序代码插入其中
  * 成的应用程序字符串插入进去。
  */
 const Html = ({ body, styles, title }) => `
@@ -291,7 +291,7 @@ const Html = ({ body, styles, title }) => `
 export default Html;
 ```
 
-**就是这样！让我们构建并运行使用服务器端渲染的React和styled-components应用程序吧。**
+**就是这样！让我们构建并运行使用服务端渲染的 React 和 styled-components 应用程序吧。**
 
 `yarn build` 或者 `npm build`
 
@@ -303,21 +303,22 @@ export default Html;
 
 ### 结论
 
-我们已经创建了如何服务器端渲染使用 styled-components 的React应用程序的分步指南。本指南周围没有各种花哨的技巧，因为我们想要关注核心概念。从这里开始，您可以在现有应用程序中使用这些原则，或者在本指南的基础上构建更复杂的应用程序。还有其他一些指南可以帮助您添加状态管理，路由，性能改进等等。
+我们已经创建了服务端渲染中使用 styled-components 的 React 应用程序的分步指南。本指南周围没有各种花哨的技巧，因为我们想要关注核心概念。从这里开始，您可以在现有应用程序中使用这些原则，或者在本指南的基础上构建更复杂的应用程序。还有其他一些指南可以帮助您添加状态管理，路由，性能改进等等。
 
 * * *
 
 ### 不要停止学习！
 
-感谢您阅读本指南到最后。希望它能帮助你理解并开始使用React / SSR和styled-components。如果您认识任何可能从本指南中受益的人，我会很乐意推荐给他们！
+感谢您阅读本指南到最后。希望它能帮助你理解并开始使用 React / SSR 和 styled-components 。如果您认识任何可能从本指南中受益的人，我会很乐意推荐给他们！
 
-如果您希望看到使用样式化组件的服务器端渲染的较大代码库，则可以查看我的其中一个项目， [Jobeir，在Github上](https://github.com/Jobeir/jobeir). 最重要的是，[styled-components文档](https://www.styled-components.com/docs/advanced#server-side-rendering)总是一个不错的去处。
+如果您希望看到使用样式化组件的服务端渲染的较大代码库，则可以查看我的另一个项目， [Jobeir, on Github](https://github.com/Jobeir/jobeir). 最重要的是，[styled-components文档](https://www.styled-components.com/docs/advanced#server-side-rendering)总是一个不错的去处。
 
-### 在 [Jobeir](https://jobeir.com) 的在 SSR React 上使用 styled-components
+### 在 [Jobeir](https://jobeir.com) 的在 SSR React 中使用 styled-components
 
-我是谁？我是 [**Jobeir**](https://jobeir.com) 的创始人，Joberi是一个专注于帮助每个人找到科技领域最好的工作的工作布告栏。我在加拿大温哥华担任高级前端开发人员。你可以在 [Twitter](https://twitter.com/jobeirofficial) 上问我问题，或者跟我打招呼，又或者检出我们的 [Github](https://github.com/Jobeir) 仓库。
+我是谁？我是 [**Jobeir**](https://jobeir.com) 的创始人， Joberi 是一个专注于帮助每个人找到科技领域最好的工作的工作布告栏。我在加拿大温哥华担任高级前端开发人员。可以在 [Twitter](https://twitter.com/jobeirofficial) 上问我问题，或者跟我打招呼，又或者检索我们的 [Github](https://github.com/Jobeir) 仓库。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
+
 
 ---
 
