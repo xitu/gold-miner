@@ -131,53 +131,53 @@ SSTable 代表一段时间内所有数据库操作的快照，因为 SSTable 是
 
 ### 总结
 
-One of the biggest differences between the B-tree and LSM-tree data structures is what they optimize for and what implications these optimizations have.
+B-Tree 和 LSM-Tree 数据结构最大的差异之一是，它们优化的目的以及优化的效果。
 
-Let's compare the properties of B-trees with LSM-trees. In summary, B-trees have the following properties:
+我们来对比一下 B-Tree 和 LSM-Tree 之间的特性。总的来说，B-Tree 具有以下特性：
 
-• They are mutable, which allows for in-place updates by introducing some space overhead and a more involved write path, although it does not require complete file rewrites or multisource merges.
+• 它是可变的，它允许通过一些空间开销和更多的写入路径来进行就地更新，因而它不需要文件重写或多源合并。
 
-• They are read-optimized, meaning they do not require reading from (and subsequently merging) multiple sources, thus simplifying the read path.
+• 它是读优化的，这意味着它不需要从多个源数据中读取（也不需要合并），因而简化了读取路径。
 
-• Writes might trigger a cascade of node splits, making some write operations more expensive.
+• 写操作可能引起级联节点分裂，这使得写操作开销较高。
 
-• They are optimized for paged environments (block storage), where byte addressing is not possible.
+• 它针对分页环境（块存储）进行了优化，杜绝了字节定位操作。
 
-• Fragmentation, caused by frequent updates, might require additional maintenance and block rewrites. B-trees, however, usually require less maintenance than LSM-tree storage.
+• 碎片化, 由频繁更新造成的碎片化可能需要额外的维护和块重写。然而对 B-Tree 的维护一般要比 LSM-Tree 要少。
 
-• Concurrent access requires reader/writer isolation and involves chains of locks and latches.
+• 并发访问读写隔离，这涉及锁存器与锁链。
 
-LSM-trees have these properties:
+LSM-Tree 具有以下特性：
 
-• They are immutable. SSTables are written on disk once and never updated. Compaction is used to reconcile space occupied by removed items and merge same-key data from multiple data files. Merged SSTables are discarded and removed after a successful merge as part of the compaction process. Another useful property coming from immutability is that flushed tables can be accessed concurrently.
+• 它是不可变的。SSTable 一旦被写入硬盘就不会再改变。压缩操作被用于整合占用空间，删除条目，合并在不同数据文件中的同键数据。作为压缩操作的一部分，在成功合并后，源 SSTable 将被弃用并删除。这种不可变性给我们带来了另一个有用的特性，刷新后的表可以被并发访问。
 
-• They are write optimized, meaning that writes are buffered and flushed on disk sequentially, potentially allowing for spatial locality on the disk.
+• 它是写优化的，这意味着写入操作将进入缓冲，随后顺序刷新到硬盘上，可能支持基于硬盘的空间局部性。
 
-• Reads might require accessing data from multiple sources, since data for the same key, written during different times, might land in different data files. Records have to go through the merge process before being returned to the client.
+• 读取操作可能需要访问多个数据源，因为在不同时间写入的同一个键的数据有可能位于不同的数据文件中。必须经过合并过程才能将记录返回给客户端。
 
-• Maintenance/compaction is required, as buffered writes are flushed on disk.
+• 需要维护 / 压缩，因为缓冲中的写入操作被刷新到硬盘上。
 
-### Evaluating Storage Systems
+### 评估存储系统
 
-Developing storage systems always presents the same challenges and factors to consider. Deciding what to optimize for has a substantial influence on the result. You can spend more time during write in order to lay out structures for more efficient reads, reserve extra space for in-place updates, facilitate faster writes, and buffer data in memory to ensure sequential write operations. It is impossible, however, to do this all at once. An ideal storage system would have the lowest read cost, lowest write cost, and no overhead. In practice, data structures compromise among multiple factors. Understanding these compromises is important.
+开发存储系统总要面对类似的挑战，考虑类似的因素。决定优化方向会对结果产生很大影响。你可以在写入过程中花费更多时间来布局结构以实现更高效的读取，为就地更新预留空间，也可以缓冲数据确保顺序写入以提高写入速度。但是，一次完成这一切是不可能的。想象中的存储系统应该具有最低的读取成本，最低的写入成本，并且没有开销。但实际上，数据结构只能在多个因素之间权衡。理解这些妥协是重要的。
 
-Researchers from Harvard's DASlab (Data System Laboratory) summarized the three key parameters database systems are optimized for: read overhead, update overhead, and memory overhead, or RUM. Understanding which of these parameters are most important for your use-case influences the choice of data structures, access methods, and even suitability for certain workloads, as the algorithms are tailored having a specific use-case in mind.
+来自哈佛 DASlab（数据系统实验室）的研究人员总结了数据库系统优化方向的关键三点：读取开销、更新开销和内存开销（或简称为 RUM）。对于数据结构的选择应该了解哪些参数对你的用例最为重要，访问方法，甚至适用于某些工作负载，因为算法是针对特定用例量身定制的。
 
-The [RUM Conjecture](http://daslab.seas.harvard.edu/rum-conjecture/)<sup>2</sup> states that setting an upper bound for two of the mentioned overheads also sets a lower bound for the third one. For example, B-trees are read-optimized at the cost of write overhead as well as having to reserve empty space for the (thereby resulting in memory overhead). LSM-trees have less space overhead at a cost of read overhead brought on by having to access multiple disk-resident tables during the read. These three parameters form a competing triangle, and improvement on one side may imply compromise on the other. Figure 9 illustrates the RUM Conjecture.
+[RUM 假说](http://daslab.seas.harvard.edu/rum-conjecture/) <sup><a href="#note2">[2]</a></sup> 为上述的两种开销设置了上限，同时为第三种设置了下限。例如，B-Tree 以提高写入开销、预留空间（同时也造成了内存开销）为代价进行读优化。LSM-Tree 以读取时必须进行多硬盘表访问的高读取开销换取低写入开销。在处于竞争三角形的三个参数中，一方面的改进可能就意味着另一方面的让步。图 9 对 RUM 假说进行了说明。
 
-![支撑现代存储系统的算法](http://deliveryimages.acm.org/10.1145/3230000/3220266/petrov9.png)
+![支撑现代存储系统的算法](https://s1.ax1x.com/2018/05/29/C4OA5n.png)
 
-B-trees optimize for read performance: the index is laid out in a way that minimizes the disk accesses required to traverse the tree. Only a single index file has to be accessed to locate the data. This is achieved by keeping this index file mutable, which also increases write amplification resulting from node splits and merges, relocation, and fragmentation/imbalance-related maintenance. To amortize update costs and reduce the number of splits, B-trees reserve extra free space in nodes on all levels. This helps to postpone write amplification until the node is full. In short, B-trees trade update and memory overhead for better read performance.
+B-Tree 优化读取性能：索引的布局方式可以最小化遍历树的磁盘访问需求。通过访问一个索引文件就可以定位数据。这是通过持续更新索引文件来实现的，但这也增加了由于节点拆分和合并，重定位以及碎片、不平衡相关的维护造成的额外写入开销。为了平稳更新成本并减少分割次数，B-Tree 在所有级别的节点上都预留有额外的空间。这有助于在节点饱和之前延迟写入开销的增长。简而言之，B-Tree 牺牲更新和内存性能以获得更好的读取性能。
 
-LSM-trees optimize for write performance. Neither updates nor deletes require locating data on disk (which B-trees do), and they guarantee sequential writes by buffering all insert, update, and delete operations in memory-resident tables. This comes at the price of higher maintenance costs and a need for compaction (which is just a way of mitigating the ever-growing price of reads and reducing the number of disk-resident tables) and more expensive reads (as the data has to be read from multiple sources and merged). At the same time, LSM-trees eliminate memory overhead by not reserving any empty space (unlike B-tree nodes, which have an average occupancy of 70 percent, an overhead required for in-place updates) and allowing block compression because of the better occupancy and immutability of the end file. In short, LSM-trees trade read performance and maintenance for better write performance and lower memory overhead.
+LSM-Tree 优化写入性能。无论是更新还是删除都需要在磁盘上定位数据（B-Tree 也一样），并且它通过在内存表中缓存所有插入，更新和删除操作来保证顺序写入。这是以较高的维护成本和压缩需求（这是唯一的缓解不断增长的读取开销和减少磁盘表的数量的方式）和更高的读取成本（因为数据必须从多个源读取并合并）为代价的。同时，LSM-Tree 通过不保留任何预留空间来减少内存开销（不同于 B-Tree 节点，其平均利用率为 70％，包含就地更新所需的开销），因为更高的利用率和最终文件的不变性，LSM-Tree 支持块压缩。简而言之，LSM-Tree 牺牲读取性能，提高维护成本来获得更好的写入性能和更低的内存占用。
 
-There are data structures that optimize for each desired property. Using adaptive data structures allows for better read performance at the price of higher maintenance costs. Adding metadata facilitating traversals (such as [fractional cascading](https://en.wikipedia.org/wiki/Fractional_cascading)) will have an impact on write time and take space, but can improve the read time. Optimizing for memory efficiency using compression (for example, algorithms such as [Gorilla compression](http://www.vldb.org/pvldb/vol8/p1816-teller.pdf),<sup>6</sup> [delta encoding](https://en.wikipedia.org/wiki/Delta_encoding), and many others) will add some overhead for packing the data on writes and unpacking it on reads. Sometimes, you can trade functionality for efficiency. For example, [heap files and hash indexes](https://en.wikipedia.org/wiki/Database_storage_structures) can provide great performance guarantees and smaller space overhead because of the file format simplicity, for the price of not being able to perform anything but point queries. You can also trade precision for space and efficiency by using approximate data structures, such as the Bloom filter, [HyperLogLog](https://en.wikipedia.org/wiki/HyperLogLog), [Count-Min sketch](https://en.wikipedia.org/wiki/Count%E2%80%93min_sketch), and many others.
+有的数据结构可针对每个期望的属性进行优化。使用自适应数据结构可以以更高维护成本获得更好的读取性能。添加有助于遍历的元数据（如[分散层叠](https://en.wikipedia.org/wiki/Fractional_cascading)）将会影响写入时间并占用更多空间，但可以提高读取性能。使用压缩优化内存使用率（例如，[Gorilla 压缩](http://www.vldb.org/pvldb/vol8/p1816-teller.pdf) <sup><a href="#note6">[6]</a></sup> 、[delta 编码](https://en.wikipedia.org/wiki/Delta_encoding)等诸多算法）会增加一些开销，用于在写入时压缩数据并在读取时解压缩数据。有时候，您可以牺牲功能来提高效率。例如，[堆文件和散列索引](https://en.wikipedia.org/wiki/Database_storage_structures)由于文件格式简单，可以保证很好的性能和较小的空间开销，而作为代价，它们不支持除点查询以外的其他功能。你还可以通过使用近似数据结构（如布隆过滤器、[HyperLogLog](https://en.wikipedia.org/wiki/HyperLogLog)、[Count-Min sketch](https://en.wikipedia.org/wiki/Count%E2%80%93min_sketch) 等）来为了空间与效率牺牲精度。
 
-The three tunables—read, update, and memory overheads—can help you evaluate the database and gain a deeper understanding of the workloads for which it is best suited. All of them are quite intuitive, and it's often easy to sort the storage system into one of the buckets and guess how it's going to perform, then validate your hypothesis through extensive testing.
+三种可变参数 —— 读取，更新和内存开销 —— 可以帮助你评估数据库并深入了解最适合的工作负载。它们都非常直观，将存储系统按其分类很容易，猜测它是如何执行的，然后通过大量测试验证你的假设。
 
-Of course, there are other important factors to consider when evaluating a storage system, such as maintenance overhead, operational simplicity, system requirements, suitability for frequent updates and deletes, access patterns, and so on. The RUM Conjecture is just a rule of thumb that helps to develop an intuition and provide an initial direction. Understanding your workload is the first step on the way to building a scalable back end.
+当然，评估存储系统时还有一些其他重要因素需要考虑，例如维护开销，易用性，系统要求，频繁增删的适应性，访问模式等。RUM 假说只是帮助发展直观感觉并提供初始方向的一条经验法则。了解你的工作部件是构建可扩展后端的第一步。
 
-Some factors may vary from implementation to implementation, and even two databases that use similar storage-design principles may end up performing differently. Databases are complex systems with many moving parts and are an important and integral part of many applications. This information will help you peek under the hood of a database and, knowing the difference between the underlying data structures and their inner doings, decide what's best for you.
+一些因素可能因实施而异，甚至两个使用类似存储设计原则的数据库可能会有不同表现。数据库是包含许多可插拔模块的复杂系统，是许多应用程序的重要组成部分。这些信息将帮助你窥探数据库的底层，并且了解底层数据结构和其内部行为之间的差异，从而决定哪个是最适合你的。
 
 #### 参考文献
 
