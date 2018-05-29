@@ -5,24 +5,24 @@
 > * 译者：
 > * 校对者：
 
-# Spantastic text styling with Spans
+# 使用 Span 来修改文本样式的优质体验
 
 ![](https://cdn-images-1.medium.com/max/2000/1*_91P4pyi4_V0xUX89YXMyg.png)
 
-Illustration by [Virginia Poltrack](https://twitter.com/VPoltrack)
+插图来自 [Virginia Poltrack](https://twitter.com/VPoltrack)
 
-To style text in Android, use spans! Change the color of a few characters, make them clickable, scale the size of the text or even draw custom bullet points with spans. Spans can change the `TextPaint` properties, draw on a `Canvas`, or even change text layout and affect elements like the line height. Spans are markup objects that can be attached to and detached from text; they can be applied to whole paragraphs or to parts of the text.
+如果要在 Android 中设置文字的样式，请使用 spans！使用 span 改变一些字符的颜色，使它们可以被点击、缩放文本的大小、甚至是绘制自定义的 bullet points。Spans 可以改变 `TextPaint` 属性、在 `Canvas` 上绘制，甚至改变文本布局并影响线高等元素。Span 是可以附加到文本和从文本分离的标记对象，它们可以应用于整个段落或部分文本。
 
-Let’s see how to use spans, what spans are provided out of the box, how to easily create your own and finally how to test them.
+让我们来学习如何使用 spans，有哪些 spans 供我们选择，如何简单创建属于你的 spans 以及如何测试它们。
 
-### Styling text in Android
+### 在 Android 中设置文字样式
 
-Android offers several ways of styling text:
+Android 提供了几种方法用于文本样式的设置：
 
-*   **Single style** — where the style applies to the entire text displayed by a TextView
-*   **Multi style** — where several styles can be applied to a text, at character or paragraph level
+*   **单一样式** —— 样式是用于由 TextView 显示的整个文本
+*   **多样式** —— 可以将多种不同的样式分别应用于文字、字符或者段落
 
-**Single style** implies styling of the entire content of the TextView, using XML attributes or [styles and themes](https://developer.android.com/guide/topics/ui/look-and-feel/themes.html). This approach is an easy solution and works from XML but doesn’t allow styling of parts of the text. For example, by setting `textStyle=”bold”`, the entire text will be bold; you can’t define only specific characters to be bold.
+**单一样式** 意味着使用 XML 属性或者[样式和主题](https://developer.android.com/guide/topics/ui/look-and-feel/themes.html)对 TextView 的整个内容进行样式的修改。使用 XML 的方法是一种比较简单的解决方案，但是这种方法无法修改文本中间的样式。例如，通过设置 `textStyle=”bold”`，整个文本将变成粗体，您不能只将特定字符定义为粗体。
 
 ```
 <TextView
@@ -32,24 +32,24 @@ Android offers several ways of styling text:
     android:textStyle="bold"/>
 ```
 
-**Multi style** implies adding several styles to the same text. For example, having one word italic and another one bold. Multi style can be achieved using HTML tags, spans or handling custom text drawing on the Canvas.
+**多样式** 意味着在同一文本中添加多种样式。例如，将一个单词设置为斜体，另一个单词设置为粗体。多样式模式可以使用 HTML 标签，在画布上使用 spans 或者通过处理自定义文本绘制来进行文本样式的应用。
 
 ![](https://cdn-images-1.medium.com/max/800/0*3hnVPTJP5Hv4Jduo.)
 
-Left: Single style text. TextView with textSize=”32sp” and textStyle=”bold”. Right: Multi style text. Text with `ForegroundColorSpan`, StyleSpan(ITALIC), ScaleXSpan(1.5f), StrikethroughSpan.
+左图：单一样式的文本。TextView 设置 `textSize=”32sp”` 和 `textStyle=”bold”`。右图：多样式的文本。文本设置 `ForegroundColorSpan`， `StyleSpan(ITALIC)`， `ScaleXSpan(1.5f)`， `StrikethroughSpan`。
 
-**HTML tags** are easy solutions for simple problems, like making a text bold, italic, or even displaying bullet points. To style text containing HTML tags, call `[Html.fromHtml](https://developer.android.com/reference/android/text/Html.html#fromHtml%28java.lang.String,%20int%29)` method. Under the hood, the HTML format is converted into spans. Please note that the `Html` class does not support all HTML tags and css styles like making the bullet points another colour.
+**HTML 标签** 是一种处理简单样式问题的解决方案，如使文字变粗体、斜体甚至是标识 bullet points。要设置包含 HTML 标签的文本，请调用 [`Html.fromHtml`](https://developer.android.com/reference/android/text/Html.html#fromHtml%28java.lang.String,%20int%29) 方法。在 HTML 引擎中，HTML 格式被转换成 spans。请注意，`Html` 类并不支持所有 HTML 标签和 css 样式，例如使 bullet points 变成另一种颜色。
 
 ```
 val text = "My text <ul><li>bullet one</li><li>bullet two</li></ul>"
 myTextView.text = Html.fromHtml(text)
 ```
 
-You manually **draw the text on Canvas** when you have styling needs that are not supported by default by the platform, like writing text that follows a curved path.
+当您发现有平台不支持的样式需求时，您可以手动**在画布上绘制文本**，例如需要写一个弯曲的文本。
 
-**Spans** allow you to implement multi-style text with finer grained customisation. For example, you can define paragraphs of your text to have a bullet point by applying a `[BulletSpan](https://developer.android.com/reference/android/text/style/BulletSpan.html)`. You can customise the gap between the text margin and the bullet and the colour of the bullet. Starting with Android P, you can even [set the radius of the bullet point](https://developer.android.com/reference/android/text/style/BulletSpan.html#BulletSpan%28int,%20int,%20int%29). You can also create a custom implementation for the span. Check out “Create custom spans” section below to find out how.
+**Spans** 允许您使用更精细的方法来自定义实现多样式文本。例如，您可以通过使用 [`BulletSpan`](https://developer.android.com/reference/android/text/style/BulletSpan.html) 来定义 bullet point。您也可以自定义目标文本边距和颜色。从 Android P 开始，您甚至可以[设置 bullet point 的半径](https://developer.android.com/reference/android/text/style/BulletSpan.html#BulletSpan%28int,%20int,%20int%29)。
 
-```
+``` Java
 val spannable = SpannableString("My text \nbullet one\nbullet two")
 
 spannable.setSpan(
@@ -67,11 +67,11 @@ myTextView.text = spannable
 
 ![](https://cdn-images-1.medium.com/max/800/0*z7VsMx891rPMRhiY.)
 
-Left: Using HTML tags. Center: Using BulletSpan with default bullet size. Right: Using BulletSpan on Android P or custom implementation.
+左图：使用 HTML 标签。中图：使用 `BulletSpan` 设置默认 bullet 大小。右图：使用 `BulletSpan` 在 Android P 或者自定义实现。
 
-You can combine single style and multi style. You can consider the style you apply to the TextView as a “base” style. The spans text styling is applied “on top” of the base style and will override the base style. For example, when setting the `textColor=”@color.blue”` attribute to a TextView and applying a `ForegroundColorSpan(Color.PINK)` for the first 4 characters of the text, then, the first 4 characters will use the pink colour set by the span, and the rest of the text, the colour set by the TextView attribute.
+您可以结合单一样式和多样式。您可以将您设置 TextView 的样式视为“基础”样式。spans 的文本样式应用于基础样式的“顶部”，并且会覆盖基础样式。例如，当将 `textColor=”@color.blue”` 属性设置为 TextView 并对文本的前4个字符设置 `ForegroundColorSpan(Color.PINK)` 时，前4个字符将使用粉红色，是由 span 来进行控制，剩下的部分有 TextView 属性来进行设置。
 
-```
+``` Java
 <TextView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -79,51 +79,51 @@ You can combine single style and multi style. You can consider the style you app
 
 val spannable = SpannableString(“Text styling”)
 spannable.setSpan(
-     ForegroundColorSpan(Color.PINK), 
-     0, 4, 
-     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+    ForegroundColorSpan(Color.PINK), 
+    0, 4, 
+    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
 
 myTextView.text = spannable
 ```
 
 ![](https://cdn-images-1.medium.com/max/800/1*JIWZ3OBz2PHdo9Grt0lBnw.png)
 
-Combining TextView with XML attributes and text with spans.
+将 TextView 使用 XML 和文本结合的方式来使用 spans。
 
-### Applying Spans
+### 应用中的 Spans
 
-When using spans, you will work with one of the following classes: `[SpannedString](https://developer.android.com/reference/android/text/SpannedString.html)`, `[SpannableString](https://developer.android.com/reference/android/text/SpannableString.html)` or `[SpannableStringBuilder](https://developer.android.com/reference/android/text/SpannableStringBuilder.html)`. The difference between them lies in whether the text or the markup objects are mutable or immutable and in the internal structure they use: `SpannedString` and `SpannableString` use linear arrays to keep records of added spans, whereas `SpannableStringBuilder` uses an [interval tree](https://en.wikipedia.org/wiki/Interval_tree).
+当使用 spans 时，您将使用以下类之一：[`SpannedString`](https://developer.android.com/reference/android/text/SpannedString.html)、[`SpannableString`](https://developer.android.com/reference/android/text/SpannableString.html) 或者 [`SpannableStringBuilder`](https://developer.android.com/reference/android/text/SpannableStringBuilder.html)。他们之间的区别在于文本或者标记的对象是否可变以及他们使用内部结构：`SpannedString` 和 `SpannableString` 是使用线性的方式来保存添加 spans 的记录。而 `SpannableStringBuilder` 使用[区间树](https://en.wikipedia.org/wiki/Interval_tree)来实现。
 
-Here’s how to decide which one to use:
+以下是怎么确定要使用哪一个 Spans：
 
-*   Just **reading and not setting** the text nor the spans? -> `SpannedString`
-*   **Setting the text and the spans**? -> `SpannableStringBuilder`
-*   Setting a **small number of spans** (<~10)? -> `SpannableString`
-*   Setting a **larger number of spans** (>~10) -> `SpannableStringBuilder`
+*   仅仅**读取而不是设置**文本或者 spans？ -> `SpannableString`
+*   **设置文本和 spans** ？-> `SpannableStringBuilder`
+*   设置一个 **spans 很少数量的文本**(<~10)？ -> `SpannableString`
+*   设置一个 **spans 很大数量的文本**(>~10)？ -> `SpannableStringBuilder`
 
-For example, if you’re working with a text that doesn’t change, but to which you want to attach spans, you should use a `SpannableString`.
+例如，如果您使用的文本不会改变，但要将其附加到 spans 的文本中，应该使用 `SpannableString`。
 
 ```
-╔════════════════════════╦══════════════╦════════════════╗
+╔════════════════════════╦══════════════════╦════════════════════╗
 ║ **Class**              ║ **Mutable Text** ║ **Mutable Markup** ║
-╠════════════════════════╬══════════════╬════════════════╣
-║ SpannedString          ║      no      ║       no       ║
-║ SpannableString        ║      no      ║      yes       ║
-║ SpannableStringBuilder ║     yes      ║      yes       ║
-╚════════════════════════╩══════════════╩════════════════╝
+╠════════════════════════╬══════════════════╬════════════════════╣
+║ SpannedString          ║        no        ║        no          ║
+║ SpannableString        ║        no        ║       yes          ║
+║ SpannableStringBuilder ║       yes        ║       yes          ║
+╚════════════════════════╩══════════════════╩════════════════════╝
 ```
 
-All of these classes extend the `[Spanned](https://developer.android.com/reference/android/text/Spanned.html)` interface, but the classes that have mutable markup (`SpannableString` and `SpannableStringBuilder`) also extend from `[Spannable](https://developer.android.com/reference/android/text/Spannable.html)`.
+所有这些类都继承 [`Spanned`](https://developer.android.com/reference/android/text/Spanned.html) 的接口，但是具有可变标记（`SpannableString` 和 `SpannableStringBuilder`）也是继承与[`Spannable`](https://developer.android.com/reference/android/text/Spannable.html)。
 
-`[Spanned](https://developer.android.com/reference/android/text/Spanned.html)` -> immutable text with immutable markup
+[Spanned](https://developer.android.com/reference/android/text/Spanned.html) -> 带有不可变标记的不可变文本
 
-`[Spannable](https://developer.android.com/reference/android/text/Spannable.html)` (extends `Spanned`)-> immutable text with mutable markup
+[Spannable](https://developer.android.com/reference/android/text/Spannable.html) （继承 `Spanned`）-> 具有可变标记的不可变文本
 
-Apply a span by calling `[setSpan(Object what, int start, int end, int flags)](https://developer.android.com/reference/android/text/Spannable.html#setSpan%28java.lang.Object,%20int,%20int,%20int%29)` on the `Spannable` object. The `what` Object is the marker that will be applied from a start to an end index in the text. The flag marks whether the span should expand to include text inserted at their starting or ending point, or not. Independent of which flag is set, whenever text is inserted at a position greater than the starting point and less than the ending point, the span will automatically expand.
+通过 `Spannable` 对象调用 [`setSpan(Object what, int start, int end, int flags)`](https://developer.android.com/reference/android/text/Spannable.html#setSpan%28java.lang.Object,%20int,%20int,%20int%29) 。`what`对象是将从文本中的开始到结束索引的标记。这个标志代表了这个 span 是否应在其扩展到包含起点或者终点的位置处插入文本。无论在那个位置进行标记，只要文本插入的位置大于起点小于终点位置，span 将自动扩大。
 
-For example, setting a `ForegroundColorSpan` can be done like this:
+举个例子，设置一个 `ForegroundColorSpan` 可以像这么做：
 
-```
+``` Java
 val spannable = SpannableStringBuilder(“Text is spantastic!”)
 
 spannable.setSpan(
@@ -132,9 +132,9 @@ spannable.setSpan(
      Spannable.SPAN_EXCLUSIVE_INCLUSIVE)
 ```
 
-Because the span was set using the `[SPAN_EXCLUSIVE_**INCLUSIVE**](https://developer.android.com/reference/android/text/Spanned.html#SPAN_EXCLUSIVE_EXCLUSIVE)` flag, when inserting text at the end of the span, it will be extended to include the new text:
+由于 span 是使用 [`SPAN_EXCLUSIVE_INCLUSIVE`](https://developer.android.com/reference/android/text/Spanned.html#SPAN_EXCLUSIVE_EXCLUSIVE) 标志，因此在文本末插入文本时，它将会扩展到包含新的文本。
 
-```
+``` Java
 val spannable = SpannableStringBuilder(“Text is spantastic!”)
 
 spannable.setSpan(
@@ -147,13 +147,13 @@ spannable.insert(12, “(& fon)”)
 
 ![](https://cdn-images-1.medium.com/max/800/0*Bq7PnfvDBcm1CjK7.)
 
-Left: Text with ForegroundColorSpan. Right: Text with ForegroundColorSpan and Spannable.SPAN_EXCLUSIVE_INCLUSIVE.
+左图：文本使用 `ForegroundColorSpan`。右图：文本使用 `ForegroundColorSpan` 和 `Spannable.SPAN_EXCLUSIVE_INCLUSIVE`。
 
-If the span is set with `Spannable.SPAN_EXCLUSIVE_EXCLUSIVE` flag, inserting text at the end of the span will not modify the end index of the span.
+如果 span 设置为 `Spannable.SPAN_EXCLUSIVE_EXCLUSIVE` 标志，则在 span 末尾插入的文本将不会修改 span 的结束标记。
 
-Multiple spans can be composed and attached to the same text segment. For example, text that is both bold and red can be constructed like this:
+多 spans 可以组成并且附加到相同的文本段。举个例子，粗体和红色的文字都可以这样构造：
 
-```
+``` Java
 val spannable = SpannableString(“Text is spantastic!”)
 
 spannable.setSpan(
@@ -169,42 +169,42 @@ spannable.setSpan(
 
 ![](https://cdn-images-1.medium.com/max/800/1*8PXOuMO_daAGDsnIlADruw.png)
 
-Text with multiple spans: ForegroundColorSpan(Color.RED) and StyleSpan(BOLD).
+文本使用多 spans：`ForegroundColorSpan(Color.RED)` 和 `StyleSpan(BOLD)`。
 
-### Framework spans
+### spans 的框架
 
-The Android framework defines several interfaces and abstract classes that are checked at measure and render time. These classes have methods that allow a span to access objects like the `TextPaint` or the `Canvas`.
+Android 框架定义了在度量和渲染图形时检查的几个接口和抽象类。这些类具有允许 span 访问 `TextPaint` 或者 `Canvas` 对象的方法。
 
-The Android framework provides 20+ spans in the [android.text.style](https://developer.android.com/reference/android/text/style/package-summary.html) package, subclassing the main interfaces and abstract classes. We can categorize spans in several ways:
+Android 框架在 [`android.text.style`](https://developer.android.com/reference/android/text/style/package-summary.html) 包中提供了20多个 span，对主要的接口和抽象类进行了子类化。我们可以用几种方法进行分类：
 
-*   Based on whether span changes only appearance or also the text metric/layout
-*   Based on whether they affect text at character or at paragraph level
+*   根据 span 是仅仅更改外观还是更改文字的度量/布局
+*   根据它们是否影响文字在字符或者段落中的级别
 
 ![](https://cdn-images-1.medium.com/max/1000/0*3qvv1i8lbceOxq0P.)
 
-Span categories: character vs paragraph, appearance vs metric.
+Span 类型：字符与段落，外观与度量
 
-#### **Appearance vs metric affecting spans**
+#### **外观与度量分别对 span 的影响**
 
-The first category affects character-level text in a way that modifies their appearance: text or background colour, underline, strikethrough, etc., that triggers a redraw without causing a relayout of the text. These spans implement `[UpdateAppearance](https://developer.android.com/reference/android/text/style/UpdateAppearance.html)` and extend `[CharacterStyle](https://developer.android.com/reference/android/text/style/CharacterStyle.html)`. `CharacterStyle` subclasses define how to draw text by providing access to update the `TextPaint`.
+第一组分类影响字符级文本可以修改它们的外观：文本或背景颜色、下划线、删除线等，会重新绘制而不会导致文本重新布局。这些 span 实现了 [`UpdateAppearance`](https://developer.android.com/reference/android/text/style/UpdateAppearance.html) 并且继承 [`CharacterStyle`](https://developer.android.com/reference/android/text/style/CharacterStyle.html)。`CharacterStyle` 子类定义了如何通过提供更新 `TextPaint` 来访问文本
 
 ![](https://cdn-images-1.medium.com/max/1000/0*gwmWCXpJfDVV5Kcn.)
 
-Appearance affecting spans.
+影响外观的 span。
 
-**Metric affecting** spans modify text metrics and layout, therefore the object that observes the span change will re-measure the text for correct layout and rendering.
+**度量影响** spans 修改文本度量和布局，因此观察 span 的对象将会从新测量文本以便于正确的布局和渲染。
 
-For example, a span that affects the text size will require re-measure and layout, as well as re-drawing. These spans usually extend the `[MetricAffectingSpan](https://developer.android.com/reference/android/text/style/MetricAffectingSpan.html)` class. This abstract class allows subclasses to define how the span affects text measurement, by providing access to the `TextPaint`. Since `MetricAffectingSpan` extends `CharacterSpan`, subclasses affect the appearance of the text at character level.
+举个例子，影响文本大小的 span 将需要从新测量、布局以及绘制。这些 spans 通常会去继承 [`MetricAffectingSpan`](https://developer.android.com/reference/android/text/style/MetricAffectingSpan.html) 类。这个抽象类允许子类通过对 `TextPaint` 的访问来决定如何去测量文本。由于 `MetricAffectingSpan` 继承 `CharacterSpan`，因此子类会影响字符级别的文本外观。
 
 ![](https://cdn-images-1.medium.com/max/1000/0*Eq0RoZ20n7bWk_eu.)
 
-Metric affecting spans.
+影响度量的 span。
 
-You might be tempted to always re-create the `CharSequence` with text and markup and call `[TextView.setText(CharSequence)](https://developer.android.com/reference/android/widget/TextView.html#setText%28java.lang.CharSequence%29)`. But this will almost always trigger a re-measuring and re-drawing of the layout and extra objects being created. To decrease the performance hit set the text with `[TextView.setText(Spannable, BufferType.SPANNABLE)](https://developer.android.com/reference/android/widget/TextView.html#setText%28int,%20android.widget.TextView.BufferType%29)` and then, when you need to modify the spans, retrieve the `Spannable` object from the TextView by casting `TextView.getText()` to `Spannable`. We’ll go into more details on what’s going on under the hood with `TextView.setText` and different performance optimisations in a further post.
+您可能总是想去重新创建带有文本和标记的 `CharSequence`，并调用 [`TextView.setText(CharSequence)`](https://developer.android.com/reference/android/widget/TextView.html#setText%28java.lang.CharSequence%29)。 但是这将会导致每次重新测量、重新绘制布局以及创建额外对象。为了降低性能消耗，请使用 [`TextView.setText(Spannable, BufferType.SPANNABLE)`](https://developer.android.com/reference/android/widget/TextView.html#setText%28int,%20android.widget.TextView.BufferType%29) 然后，当你需要修改 span 时，通过将 `TextView.getText()` 强制转换成 `Spannable` 来从 `TextView` 中检索 `Spannable` 对象。我们将在后面详细介绍 `TextView.setText` 背后的原理，以及不同的性能优化
 
-For example, consider the following `Spannable` object set and retrieved like this:
+举个例子，思考以下 `Spannable` 对象并像这样检索：
 
-```
+``` Java
 val spannableString = SpannableString(“Spantastic text”)
 
 // setting the text as a Spannable
@@ -217,49 +217,49 @@ textView.setText(spannableString, BufferType.SPANNABLE)
 val spannableText = textView.text as Spannable
 ```
 
-Now, when we set spans on the `spannableText`, we don’t need to call `textView.setText` again because we’re modifying directly the instance of the `CharSequence` object held by `TextView`.
+现在，当我们在 `spannableText` 中设置 span 时，我们不需要再次调用 `textView.setText`，因为我们直接修改由 `TextView` 持有的 `CharSequence` 对象实例。
 
-Here’s what happens when we set different spans:
+以下是我们设置不同 span 时发生的情况：
 
-**Case 1: Appearance affecting span**
+**情况 1：影响外观的 span**
 
-```
+``` Java
 spannableText.setSpan(
      ForegroundColorSpan(colorAccent), 
      0, 4, 
      Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
 ```
 
-Since we attached an appearance affecting span, `TextView.onDraw` is called but not `TextView.onLayout`. The text is redrawn, but the width and height will be the same.
+由于我们附加了一种影响外观的 span，因此调用了 `TextView.onDraw`，而不是 `TextView.onLayout`。文本进行重绘，但宽度和高度将会相同。
 
-**Case 2: Metric affecting span**
+**情况 2：影响度量的 span**
 
-```
+``` Java
 spannableText.setSpan(
      RelativeSizeSpan(2f), 
      0, 4, 
      Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
 ```
 
-Because the `[RelativeSizeSpan](https://developer.android.com/reference/android/text/style/RelativeSizeSpan.html)` changes the size of the text, the width and height of the text can change and the way text is layed out (for example, a particular word may fall into the next line now, without the `TextView` size changing). The `TextView` needs to compute the new size so `onMeasure` and `onLayout` are called.
+因为 [`RelativeSizeSpan`](https://developer.android.com/reference/android/text/style/RelativeSizeSpan.html) 可以改变文本的大小、宽度和高度（举个例子，一个特定的单词可能会出现在下一行，但是 TextView 的大小不会被修改）。`TextView` 需要计算新的大小，所以 `onMeasure` 和 `onLayout` 会被调用。
 
 ![](https://cdn-images-1.medium.com/max/800/0*Li86sQd6bpmNDWu9.)
 
-Left: ForegroundColorSpan — appearance affecting span. Right: RelativeSizeSpan — metric affecting span.
+左图：ForegroundColorSpan — 影响外观的 span。右图：RelativeSizeSpan — 影响度量的 span。
 
-#### **Character vs paragraph affecting spans**
+#### **影响字符和段落的 spans**
 
-A span can either affect the text at the character level, updating elements like background colour, style or size, or a the paragraph level, changing the alignment or the margin of the entire block of text. Depending on the needed styling, spans either extend `[CharacterStyle](https://developer.android.com/reference/android/text/style/CharacterStyle.html)` or implement `[ParagraphStyle](https://developer.android.com/reference/android/text/style/ParagraphStyle.html)`. Spans that extend `ParagraphStyle` must be attached from the first character to the last character of a single paragraph, otherwise the span will not be displayed. On Android paragraphs are defined based on new line (`\n`) character.
+span 不但可以改变字符级别的文本，更新元素如背景颜色、样式或者大小，而且可以改变段落级别的文本，更改整个文本块的对齐或者边距。根据所需的样式，spans 继承 [`CharacterStyle`](https://developer.android.com/reference/android/text/style/CharacterStyle.html) 或者实现 [`ParagraphStyle`](https://developer.android.com/reference/android/text/style/ParagraphStyle.html)。继承 `ParagraphStyle` 的 Spans 必须从第一个字符附加到单个段落的最后一个字符，否则 span 将不会被显示出来。在 Android 上，段落是根据（`\n`）字符定义的。
 
 ![](https://cdn-images-1.medium.com/max/800/0*iK2M43udyG0m5Ic5.)
 
-On Android paragraphs are defined based on new line (‘\n’) character.
+在 Android 上，段落是根据（`\n`）字符定义的。
 
 ![](https://cdn-images-1.medium.com/max/1000/0*CLKvPQz5xETA6Y84.)
 
-Paragraph affecting spans.
+影响段落的 spans。
 
-For example, a `CharacterStyle` span like `[BackgroundColorSpan](https://developer.android.com/reference/android/text/style/BackgroundColorSpan.html)` can be attached to any characters in the text. Here we’re attaching it from the 5th to the 8th character:
+举个例子，像是 [`BackgroundColorSpan`](https://developer.android.com/reference/android/text/style/BackgroundColorSpan.html) 的 `CharacterStyle` span，可以附加到文本中的任何字符。这里我们将其添加至第5到第8个字符中：
 
 ```
 val spannable = SpannableString(“Text is\nspantastic”)
@@ -270,7 +270,7 @@ spannable.setSpan(
     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
 ```
 
-A `ParagraphStyle` span, like `[QuoteSpan](https://developer.android.com/reference/android/text/style/QuoteSpan.html)`, can only be attached from the start of a paragraph, otherwise the line and the text margin don’t appear. For example, “_Text is_**_\n_**_spantastic_” contains a new line on the 8th character of the text, so we can attach the `QuoteSpan` to it and just the paragraph starting from there will be styled. If we attached the span to any position other than 0 or 8, the text would not be styled at all.
+像 [`QuoteSpan`](https://developer.android.com/reference/android/text/style/QuoteSpan.html) 一样的 `ParagraphStyle` span 只能从段落开头附加，否则文字的边距并不会生效。举个例子，“_Text is_**_\n_**_spantastic_”在文本的第8个字符中包含了换行，因此我们可以将 `QuoteSpan` 附加到它上面，并且只是从那里开始的段落将被格式化。如果我们将 span 附加到除了 0 或 8 以外的其他任何位置，则文本不会被设置目标样式。
 
 ```
 spannable.setSpan(
@@ -281,20 +281,20 @@ spannable.setSpan(
 
 ![](https://cdn-images-1.medium.com/max/800/0*J_YIdoh9-gXTQB5X.)
 
-Left: BackgroundColorSpan — character affecting span. Right: QuoteSpan — paragraph affecting span.
+左图: BackgroundColorSpan — 影响外观的 span. 右图: QuoteSpan — 影响段落的 span.
 
-### Creating custom spans
+### 创建自定义的 spans
 
-When implementing your own span, you will need to decide whether your span affects the text at character or paragraph level and whether it also affects the layout or just the appearance of the text. But, before writing your own implementations from scratch, check whether you can use the functionality provided in the framework spans.
+当需要实现自己的 span 时，您需要确定 span 是否需要影响字符或者段落文本，以及它是否影响布局或者文本的外观。但是从头开始编写自己的实现之前，请检查您是否可以使用 span 框架中提供的功能。
 
 TL;DR:
 
-*   Affecting text at the **character level** -> `CharacterStyle`
-*   Affecting text at the **paragraph level** -> `ParagraphStyle`
-*   Affecting **text appearance** -> `UpdateAppearance`
-*   Affecting **text metrics** -> `UpdateLayout`
+*   在**字符级别**修改文本 -> `CharacterStyle`
+*   在**段落级别**修改文本 -> `ParagraphStyle`
+*   修改**文本外观** -> `UpdateAppearance`
+*   修改**文本度量** -> `UpdateLayout`
 
-Let’s say that we need to implement a span that allows increasing the size of the text with a certain ratio, like `RelativeSizeSpan`, and setting the color of the text, like `ForegroundColorSpan`. To do this, we can extend the `RelativeSizeSpan` and, since this provides callbacks for `updateDrawState` and `updateMeasureState`, we can override the drawing state callback and set the colour of the `TextPaint`.
+假如我们需要实现一个 span，允许一定比例的增加文本的大小，就像是 `RelativeSizeSpan`，并设置文本的颜色，像是 `ForegroundColorSpan`。为此，我们可以继承 `RelativeSizeSpan`，并且由于它提供了 `updateDrawState` 和 `updateMeasureState` 回调函数，我们可以重写绘制状态的回调并且设置 `TextPaint` 的颜色。
 
 ```
 class RelativeSizeColorSpan(
@@ -309,17 +309,17 @@ class RelativeSizeColorSpan(
 }
 ```
 
-Note: the same effect can be achieved by applying both a `RelativeSizeSpan` and `ForegroundColorSpan` to the same text.
+提示：通过将 `RelativeSizeSpan` 和 `ForegroundColorSpan` 设置在相同的文本可以获得同样的效果。
 
-### Testing custom spans implementation
+### 测试您实现自定义的 spans
 
-Testing spans means checking that indeed the expected modifications have been made on the TextPaint or that the correct elements have been drawn on to your Canvas. For example, consider the custom implementation of a span that adds a bullet point, of a specified size and color to a paragraph, together with a gap between the left margin and the bullet point. See the implementation in the [android-text sample](https://github.com/googlesamples/android-text/blob/master/TextStyling-Kotlin/app/src/main/java/com/android/example/text/styling/renderer/spans/BulletPointSpan.kt). To test this class implement an AndroidJUnit test, checking that indeed:
+测试 spans 意味着检查是否确实对 TextPaint 进行了预期的修改或者 Canvas 上绘制了正确的元素。举个例子，考虑 span 的自定义实现，该 span 向段落中添加具有大小和颜色的 bullet point 以及左边距和 bullet point 之间的间隙。请参考 [android-text sample](https://github.com/googlesamples/android-text/blob/master/TextStyling-Kotlin/app/src/main/java/com/android/example/text/styling/renderer/spans/BulletPointSpan.kt)。为了测试这个类而实现了一个 AndroidJUnit 测试类来检查是否满足预期效果：
 
-*   A circle is drawn on the canvas, of a specific size
-*   Nothing is drawn if the span is not attached to text
-*   The correct margin is set, based on the constructor parameters values
+*   在画布上绘制一个特定尺寸的圆
+*   如果 span 未附加到文本，则不绘制任何内容
+*   根据构造函数的参数值设置正确的页边距
 
-Testing the Canvas interactions can be done by mocking the canvas, passing the mocked object to the `drawLeadingMargin` method and verifying that the correct methods have been called, with the correct parameters.
+测试 Canvas 交互可以通过模拟一个画布，将模拟出来的对象传递给 `drawLeadingMargin` 方法，并验证调用的含有正确参数的方法，
 
 ```
 val canvas = mock(Canvas::class.java)
@@ -368,12 +368,11 @@ val text = SpannableString("text")
 }
 ```
 
-Check out the rest of the tests in the `[BulletPointSpanTest](https://github.com/googlesamples/android-text/blob/master/TextStyling-Kotlin/app/src/androidTest/java/com/android/example/text/styling/renderer/spans/BulletPointSpanTest.kt)`.
+查看其余的测试在 [`BulletPointSpanTest`](https://github.com/googlesamples/android-text/blob/master/TextStyling-Kotlin/app/src/androidTest/java/com/android/example/text/styling/renderer/spans/BulletPointSpanTest.kt)。
 
-### Testing spans usage
+### 测试 spans 的用法
 
-The `[Spanned](https://developer.android.com/reference/android/text/Spanned.html)` interface allows both setting and retrieving spans from text. Check that the correct spans are added at the correct locations by implementing an Android JUnit test. In the [android-text sample](https://github.com/googlesamples/android-text) we’re converting bullet point markup tags to bullet points. This is done by attaching `BulletPointSpans` to the text, at the correct location. Here’s how it can be tested:
-
+[`Spanned`](https://developer.android.com/reference/android/text/Spanned.html) 接口允许从文本中设置和检索 span。通过实现 Android JUnit 测试，来检查是否在正确的位置添加了正确的 span。在 [android-text sample](https://github.com/googlesamples/android-text) 中，我们 bullet point 标记标签转换成 bullet points。这是通过 在正确的位置附加 `BulletPointSpans` 来完成的。以下是可以被测试的方式：
 ```
 @Test fun textWithBulletPoints() {
 val result = builder.markdownToSpans(“Points\n* one\n+ two”)
@@ -397,17 +396,17 @@ assertEquals(14, result.getSpanEnd(bulletSpan2).toLong())
 }
 ```
 
-Check out `[MarkdownBuilderTest](https://github.com/googlesamples/android-text/blob/master/TextStyling-Kotlin/app/src/androidTest/java/com/android/example/text/styling/renderer/MarkdownBuilderTest.kt)` for more test examples.
+查看 [`MarkdownBuilderTest`](https://github.com/googlesamples/android-text/blob/master/TextStyling-Kotlin/app/src/androidTest/java/com/android/example/text/styling/renderer/MarkdownBuilderTest.kt) 以获得更多测试示例。
 
-> Note: if you need to iterate through the spans outside tests, use `[Spanned#nextSpanTransition](https://developer.android.com/reference/android/text/Spanned.html#nextSpanTransition%28int,%20int,%20java.lang.Class%29)` instead of `[Spanned#getSpans](https://developer.android.com/reference/android/text/Spanned.html#getSpans%28int,%20int,%20java.lang.Class%3CT%3E%29)` as it’s more performant.
+> 提示：如果你需要遍历测试外的 spans，使用 [`Spanned#nextSpanTransition`](https://developer.android.com/reference/android/text/Spanned.html#nextSpanTransition%28int,%20int,%20java.lang.Class%29) 而不是 [`Spanned#getSpans`](https://developer.android.com/reference/android/text/Spanned.html#getSpans%28int,%20int,%20java.lang.Class%3CT%3E%29)，因为它更高效。
 
 * * *
 
-Spans are a powerful concept, deeply embedded in the text rendering functionality. They give access to components like `TextPaint` and `Canvas` that allow a highly customisable way of styling text on Android. In Android P we’ve added extensive documentation to the [framework spans](https://developer.android.com/reference/android/text/style/package-summary.html) so, before implementing your own, check out what’s available.
+Spans 是一个很强大的概念，文本渲染功能中有强大的功能。他们允许访问像 `TextPaint` 和 `Canvas` 这样的组件，这些组件可以在 Android 上进行高度可定制的样式文本。在 Android P 中，我们为 [spans 框架](https://developer.android.com/reference/android/text/style/package-summary.html)添加了大量文档，因此在您需要实现自己的 span 的时候，请先查看是否有您需要的功能。
 
-In a future article we’re going to tell you more about how spans work under the hood and how to use them in a performant way. For example, you’ll need to use `[textView.setText(CharSequence, BufferType)](https://developer.android.com/reference/android/widget/TextView.html#setText%28java.lang.CharSequence,%20android.widget.TextView.BufferType%29)` or `[Spannable.Factory](https://developer.android.com/reference/android/text/Spannable.Factory.html)`. For details as to why, stay tuned!
+在以后的文章中，我们将更详细地介绍 span 如何在引擎下以高效的方式使用它们。例如，您需要使用 [`textView.setText(CharSequence, BufferType)`](https://developer.android.com/reference/android/widget/TextView.html#setText%28java.lang.CharSequence,%20android.widget.TextView.BufferType%29)。有关详情，敬请关注！
 
-> Lots of thanks to [Siyamed Sinir](https://twitter.com/siyamed), Clara Bayarri and [Nick Butcher](https://medium.com/@crafty).
+> 非常感谢 [Siyamed Sinir](https://twitter.com/siyamed), Clara Bayarri 和 [Nick Butcher](https://medium.com/@crafty)
 
 
 ---
