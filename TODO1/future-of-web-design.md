@@ -17,7 +17,7 @@
 
 我不想承认这一点，但这也许是我们当时能完成的最好作品。也许是因为我们没有合适的工具去进行创意设计导致的。网络的需求正在迅速发展，但我们被浮动（floats）和表格（tables）这些古老的技术所局限。
 
-如今，网页设计的风貌已经完全改变。我们拥有又新潮又强大的工具 —— CSS 网格（CSS Grid），CSS 自定义属性（CSS custom properties），CSS图形（CSS shapes）和 CSS 写作模式（CSS writing-mode），我们可以用仅举的这几项工具来锻炼我们的创造力。
+如今，网页设计的风貌已经完全改变。我们拥有又新潮又强大的工具 —— CSS 网格（CSS Grid），CSS 自定义属性（CSS custom properties），CSS 图形（CSS shapes）和 CSS 写作模式（CSS writing-mode），我们可以用仅举的这几项工具来锻炼我们的创造力。
 
 ### CSS 网格（CSS Grid）如何改变一切
 
@@ -41,7 +41,7 @@
 
 为什么呢？
 
-假设你想制作一个 4 列的网格，每列的大小为 100 像素。使用 CSS 网格，你可以在 `grid-template-columns` 声明中写四次 `100px` ，之后一个 4 列网格就会被创建。
+假设你想制作一个 4 列的网格，每列的大小为 100 像素。使用 CSS 网格，你可以在 `grid-template-columns` 声明中写四次 `100px`，之后一个 4 列网格就会被创建。
 
 ```
 .grid {
@@ -87,7 +87,7 @@
 
 #### 使网格具有响应性
 
-在关于 CSS 网格的讨论中，没有不讨论其响应性的。有几种方法可以使 CSS Grid 具有响应性。一种方式（可能是最流行的方式）是使用 `fr` 单位。另一种方法是更改​​媒体查询的列数。
+在关于 CSS 网格的讨论中，没有不讨论其响应性的。有几种方法可以使 CSS Grid 具有响应性。一种方式（可能是最流行的方式）是使用 `fr` 单位。另一种方法是更改媒体查询的列数。
 
 `fr` 是代表一个片段的灵活长度单位。当你使用 `fr` 单位时，浏览器会分割开放空间并根据 `fr` 倍数将区域分配给列。这意味着要创建四个相同大小的列，你需要写四次 `1fr`。
 
@@ -101,7 +101,7 @@
 
 [![GIF shows four columns created with the fr unit. These columns resize according to the available white space](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/f12ee9f9-e577-4e2a-8173-f8c6fddff213/future-web-design-grid-fr.gif)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/f12ee9f9-e577-4e2a-8173-f8c6fddff213/future-web-design-grid-fr.gif)
 
-用 `fr` 单位创建的网格遵守网格的最大宽度。 ([大图预览](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/f12ee9f9-e577-4e2a-8173-f8c6fddff213/future-web-design-grid-fr.gif))
+用 `fr` 单位创建的网格遵守网格的最大宽度。（[大图预览](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/f12ee9f9-e577-4e2a-8173-f8c6fddff213/future-web-design-grid-fr.gif)）
 
 **让我们做一些计算来理解为什么以上代码创建四个相等大小的列**。
 
@@ -127,11 +127,11 @@
 
 新的剩余空间是 `1260px - 1000px - 20px * 3 = 200px`；然后根据剩余部分的数量将这 `200px` 除以三。每个部分是 `66px`。我希望这能够解释为什么 `fr` 单位不总是创建等宽列。
 
-如果你希望 `fr` 单位每次都创建等宽列，则需要使用 `minmax(0, 1fr)` 去强制指定它。对于此特定示例，你还需要将图像的 `max-width` 属性设置为 100％。
+如果你希望 `fr` 单位每次都创建等宽列，则需要使用 `minmax(0, 1fr)` 去强制指定它。对于此特定示例，你还需要将图像的 `max-width` 属性设置为 100%。
 
 请参阅 [CodePen](https://codepen.io) 上 Zell Liew（[@zellwk](https://codepen.io/zellwk)）的 [CSS Grid `fr` unit demo 2](https://codepen.io/zellwk/pen/mxyXOm/)
 
-**注意**：Rachel Andrew 撰写了一篇关于不同 CSS 值（min-content，max-content，fr等）如何影响内容大小的[文章](https://www.smashingmagazine.com/2018/01/understanding-sizing-css-layout/)。这篇文章值得一读！ 
+**注意**：Rachel Andrew 撰写了一篇关于不同 CSS 值（min-content、max-content 和 fr 等）如何影响内容大小的[文章](https://www.smashingmagazine.com/2018/01/understanding-sizing-css-layout/)。这篇文章值得一读！ 
 
 #### 不等宽网格
 
@@ -330,7 +330,7 @@ CSS Grid 能够使你能够轻松地布置事物，以便你可以快速地创�
 
 请参阅 [CodePen](https://codepen.io) 上 Aysha Anggraini（[@rrenula](https://codepen.io/rrenula)）的 [Comic-book-style layout with CSS Grid](https://codepen.io/rrenula/pen/LzLXYJ/)。
 
-[Hui Jing](https://twitter.com/hj_chen) 解释了如何使用 CSS 形状，[使文本能够沿着碧昂丝的曲线流动](https://www.chenhuijing.com/blog/why-you-should-be-excited-about-css-shapes/) 。
+[Hui Jing](https://twitter.com/hj_chen) 解释了如何使用 CSS 形状，[使文本能够沿着碧昂丝的曲线流动](https://www.chenhuijing.com/blog/why-you-should-be-excited-about-css-shapes/)。
 
 [![An image of Huijing's article, where text flows around Beyoncé.](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/e2b60894-b7dd-41ac-94dd-b87a6bdf3cbc/future-web-design-beyonce.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/e2b60894-b7dd-41ac-94dd-b87a6bdf3cbc/future-web-design-beyonce.png) 
 
@@ -374,7 +374,7 @@ Jen Simmon 实验室的图片显示了 Jan Tschichold。
 
 尽管新的 CSS 工具很有帮助，但你并不是一定需要它们中的任何一个才能创建独特的网站。一点点聪明才智和一些努力都需要走很长的路。
 
-例如，在 [Super Silly Hackathon](https://supersillyhackathon.sg) 中，[Cheeaun](https://twitter.com/cheeaun) 将整个网站旋转-15度，当你在阅读网站时，你会看起来像个傻子。
+例如，在 [Super Silly Hackathon](https://supersillyhackathon.sg) 中，[Cheeaun](https://twitter.com/cheeaun) 将整个网站旋转 -15 度，当你在阅读网站时，你会看起来像个傻子。
 
 [![A screenshot from Super Silly Hackthon, with text slightly rotated to the left](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/e308a830-ba6a-431c-8e5d-c4128cad965a/future-web-design-supersilly.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/e308a830-ba6a-431c-8e5d-c4128cad965a/future-web-design-supersilly.png) 
 
@@ -384,7 +384,7 @@ Jen Simmon 实验室的图片显示了 Jan Tschichold。
 
 ![](https://i.loli.net/2018/05/23/5b0528b7e755a.png)
 
-当我为我的课程 [Learn JavaScript](https://learnjavascript.today) 创建销售页面时，我添加了让JavaScript学习者感到宾至如归的元素。 
+当我为我的课程 [Learn JavaScript](https://learnjavascript.today) 创建销售页面时，我添加了让 JavaScript 学习者感到宾至如归的元素。 
 
 [![Image where I used JavaScript elements in the design for Learn JavaScript.](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/6b66f918-dc6f-4da1-870e-aa6b5ea8029c/future-web-design-learnjavascript.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/6b66f918-dc6f-4da1-870e-aa6b5ea8029c/future-web-design-learnjavascript.png) 
 
