@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-simple-guide-to-server-side-rendering-react-with-styled-components.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-simple-guide-to-server-side-rendering-react-with-styled-components.md)
 > * 译者：[Elliott Zhao](https://github.com/elliott-zhao)
-> * 校对者：
+> * 校对者：hannah(https://github.com/hannahGu) [lance10030](https://github.com/lance10030)
 
 # 使用 styled-components 的 React 服务端渲染极简指南
 
