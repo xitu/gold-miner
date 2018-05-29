@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/why-machine-learning-matters.md](https://github.com/xitu/gold-miner/blob/master/TODO1/why-machine-learning-matters.md)
 > * 译者：[sisibeloved](https://github.com/sisibeloved)
-> * 校对者：
+> * 校对者：[DAA233](https://github.com/DAA233)、[whuzxq](https://github.com/whuzxq)
 
 # 给人类的机器学习指南🤖👶
 
@@ -17,11 +17,11 @@
 
 [**章节 1：论机器学习的重要性**](https://medium.com/machine-learning-for-humans/why-machine-learning-matters-6164faf1df12)**。**人工智能和机器学习的广阔画卷 —— 过去、现在和未来。
 
-[**章节 2.1：监督学习**](https://medium.com/@v_maini/supervised-learning-740383a2feab)**。**学习解决方法。介绍线性回归、损失函数、过拟合和梯度下降。
+[**章节 2.1：监督学习**](https://medium.com/@v_maini/supervised-learning-740383a2feab)**。**学习解决方案。介绍线性回归、损失函数、过拟合和梯度下降。
 
 [**章节 2.2：监督学习 II**](https://medium.com/@v_maini/supervised-learning-2-5c1c23f3560d)**。**两种分类方法：逻辑斯蒂回归和支持向量机（SVM）。
 
-[**章节 2.3：监督学习 III**](https://medium.com/@v_maini/supervised-learning-3-b1551b9c4930)**。**无参学习期：k-近邻算法、决策树、随机森林。介绍交叉验证、超参调整和集成模型。
+[**章节 2.3：监督学习 III**](https://medium.com/@v_maini/supervised-learning-3-b1551b9c4930)**。**无参学习器：k-近邻算法、决策树、随机森林。介绍交叉验证、超参调整和集成模型。
 
 [**章节 3：无监督学习**](https://medium.com/@v_maini/unsupervised-learning-f45587588294)**。**聚类：K-均值方法、分级。降维：主分量分析（PCA）、奇异值分解（SVD）。
 
@@ -45,19 +45,19 @@
 
 ### 论机器学习的重要性
 
-在本世纪，人工智能比起其它发明更具前景。任何不了解它的人都会在一个日渐神奇的世界中幡然悔悟，发现自己的落伍。
+与本世纪的其他创新相比，人工智能比更具前景。任何不了解它的人都会在一个充满梦幻般高科技的世界中幡然悔悟，发现自己的落伍。
 
-人工智能的进步已然异常惊人。在过去四十年的一系列 [AI 的胜利和（觉得 AI 赶超人类还遥遥无期的）错误的希望](https://en.wikipedia.org/wiki/History_of_artificial_intelligence#The_first_AI_winter_1974.E2.80.931980) 之后，近些年数据存储和计算机运算性能上的飞速进步急剧地改变了游戏规则。
+人工智能的进步已然异常惊人。在过去四十年的一系列 [AI 寒冬和不切实际的希望](https://en.wikipedia.org/wiki/History_of_artificial_intelligence#The_first_AI_winter_1974.E2.80.931980) 之后，近些年数据存储和计算机运算性能上的飞速进步急剧地改变了游戏规则。
 
-在 2015 年，Google 训练了一个对话机器人（AI），不仅能够作为一个称职的技术支持顾问与人类进行交流，还能谈论道德、表达观念和回答大多数实际的问题。
+在 2015 年，Google 训练了一个对话机器人（AI），不仅能够作为一个称职的技术支持顾问与人类进行交流，还能讨论道德、发表意见并回答一些基于现实的问题。
 
 ![](https://cdn-images-1.medium.com/max/800/1*P1H87bkqILoGBVVT7g0T0A.png)
 
 （[Vinyals 和 Le，2017](https://arxiv.org/abs/1506.05869)）
 
-同年，DeepMind 开发了一个[终端](https://storage.googleapis.com/deepmind-media/dqn/DQNNaturePaper.pdf)，仅接收像素和游戏分数作为输入，并在 49 个 Atari 游戏中超越了人类的表现。不久之后，在 2016 年，DeepMind 发布了一种全新的名为 A3C 的适用于人工智能[进行游戏的方法](https://arxiv.org/pdf/1602.01783.pdf)，从而超越了先前的成就。
+同年，DeepMind 开发了一个[智能体](https://storage.googleapis.com/deepmind-media/dqn/DQNNaturePaper.pdf)，仅接收像素和游戏分数作为输入，并在 49 个 Atari 游戏中超越了人类的表现。不久之后，在 2016 年，DeepMind 发布了一种全新的名为 A3C 的适用于人工智能[进行游戏的方法](https://arxiv.org/pdf/1602.01783.pdf)，从而超越了先前的成就。
 
-同一时期，[AlphaGo](https://deepmind.com/research/publications/mastering-game-go-deep-neural-networks-tree-search/) 战胜了一位顶尖的围棋高手 —— 距机器首次在国际象棋上战胜人类已经过去了二十年，围棋这个领域一直被人类统治着，这可谓是一次惊人的胜利。许多高手无法领会机器怎么可能了解这个古老的中国战争艺术的游戏的细节和复杂度，毕竟它有着 10¹⁷⁰ 种可能的对局（[宇宙中只有 10⁸⁰ 个原子](http://www.slate.com/articles/technology/technology/2016/03/google_s_alphago_defeated_go_champion_lee_sedol_ken_jennings_explains_what.html)）。
+同一时期，[AlphaGo](https://deepmind.com/research/publications/mastering-game-go-deep-neural-networks-tree-search/) 战胜了一位顶尖的围棋高手 —— 距机器首次在国际象棋上战胜人类已经过去了二十年，围棋这个领域一直被人类统治着，这可谓是一次惊人的胜利。许多高手无法领会机器怎么可能了解这个古老的中国战争艺术游戏的细节和复杂度，毕竟它有着 10¹⁷⁰ 种可能的对局（[宇宙中只有 10⁸⁰ 个原子](http://www.slate.com/articles/technology/technology/2016/03/google_s_alphago_defeated_go_champion_lee_sedol_ken_jennings_explains_what.html)）。
 
 ![](https://cdn-images-1.medium.com/max/800/1*2pYq0Qc3oMDYoVoEA9-6cg.png)
 
@@ -77,13 +77,13 @@
 
 Google Translate 通过卷积神经网络，实时地将英文翻译覆盖到饮品菜单上面。
 
-如今 AI 被用来为癌症患者制定[基于病情的治疗计划](https://www.ibm.com/watson/health/oncology-and-genomics/oncology/)、从药物测试中即时分析结果来快速[达到合适的药效](https://deepmind.com/applied/deepmind-health/)，和开展发现药物的[科学研究](http://benevolent.ai/)。
+如今 AI 被用来为癌症患者制定[基于病情的治疗计划](https://www.ibm.com/watson/health/oncology-and-genomics/oncology/)、从药物测试中即时分析结果以便快速[分配合适的专家](https://deepmind.com/applied/deepmind-health/)，和开展发现药物的[科学研究](http://benevolent.ai/)。
 
 ![](https://cdn-images-1.medium.com/max/800/1*GEo3QHtN3gcWt0b2k08q7w.png)
 
 位于伦敦的 BenevolentAI 的大胆宣言（截图自[关于我们](http://benevolent.ai/about-us/)页面，2017 年 8 月）。
 
-在日常生活中，机器取代传统意义上人类扮演的角色变得越来越普遍。真的，如果下次你打电话给酒店前台让他们送一些牙膏，出现在你面前的一个小小的家务运输机器人，而不是一个真人时，请不要惊讶。
+在日常生活中，机器取代传统意义上人类扮演的角色变得越来越普遍。真的，如果下次你打电话给酒店前台让他们送一些牙膏，出现在你面前的是一个小小的家务运输机器人，而不是一个真人时，请不要惊讶。
 
 ![](https://i.loli.net/2018/05/16/5afb8c9f2b861.png)
 
@@ -91,13 +91,13 @@ Google Translate 通过卷积神经网络，实时地将英文翻译覆盖到饮
 
 ### 语义树：人工智能和机器学习
 
-> 一点微不足道的建议：将知识看成一种**语义树** —— 在你进入叶子（详细知识点）或直到将其穷尽之前，确保你了解一些基础概念，像语义树的躯干和主分支。 —— Elon Musk，[Reddit 有问必答](https://www.reddit.com/r/IAmA/comments/2rgsan/i_am_elon_musk_ceocto_of_a_rocket_company_ama/cnfre0a/)
+> 一点小建议：将知识看成一种**语义树** —— 确保你理解了基本原理（主干和分支），然后再去看树叶/细节，否则它们会无处可栖。 —— Elon Musk，[Reddit 有问必答](https://www.reddit.com/r/IAmA/comments/2rgsan/i_am_elon_musk_ceocto_of_a_rocket_company_ama/cnfre0a/)
 
 ![](https://cdn-images-1.medium.com/max/800/1*QJG2nMIqWHmLp2j4c0GVuQ.png)
 
 机器学习是人工智能的众多子领域之一，关注如何让计算机学习经验和提升思考、计划、决定和行动的能力。
 
-**人工智能是一门研究能够感知周围的世界、制定计划并做出决定来实现目标的载体的学科。**它的基础包括数学、逻辑学、哲学、概率学、语言学、神经科学和决策论。许多领域属于人工智能的范畴，例如计算机视觉、机器人科学、机器学习和自然语言处理。
+**人工智能是对智能体的研究，他们感知媒介周围的世界，形成计划并做出决定以实现其目标。**它的基础包括数学、逻辑学、哲学、概率学、语言学、神经科学和决策论。许多领域属于人工智能的范畴，例如计算机视觉、机器人科学、机器学习和自然语言处理。
 
 **机器学习是人工智能的子领域**。它的目标是让计算机自行学习。一个机器学习算法使它能够识别观测数据中的模式，构建能够解释世界的模型，并在没有确切的预编程规则和模型的情况下预测事物的发展。
 
@@ -115,9 +115,9 @@ Google Translate 通过卷积神经网络，实时地将英文翻译覆盖到饮
 
 ### 强大的人工智能将永远改变我们的世界；想了解这个过程，学习机器学习是一个很好的入口。
 
-上面讨论的技术是**人工狭义智能（ANI）**的例子，它可以有效地执行一个狭义上的任务。
+上面讨论的技术是**狭义人工智能（ANI）**的例子，它可以有效地执行一个狭义上的任务。
 
-同时，我们还在继续向制造类人级别的**人工通用智能（AGI）**，也被称为[**强人工智能**](https://en.wikipedia.org/wiki/Artificial_general_intelligence)努力。AGI 的定义是一种人工智能，它能成功地完成人类所能从事的任何智力活动，包括学习、计划和不确定情况下的决策、用自然语言交流、开玩笑、操纵人、买卖股票或……对自身进行重编程。
+同时，我们还在继续向制造类人级别的**广义人工智能（AGI）**，也被称为[**强人工智能**](https://en.wikipedia.org/wiki/Artificial_general_intelligence)努力。AGI 的定义是一种人工智能，它能成功地完成**人类所能从事的任何智力活动**，包括学习、计划和不确定情况下的决策、用自然语言交流、开玩笑、操纵人、买卖股票或……对自身进行重编程。
 
 而这最后一项是个大问题。一旦我们创建了一个可以改进自身的 AI，它将开启一个自我完善的循环，这可能导致在某一时期发生**智力爆炸**，从几十年到一天都有可能。
 
@@ -127,15 +127,15 @@ Google Translate 通过卷积神经网络，实时地将英文翻译覆盖到饮
 
 ![](https://cdn-images-1.medium.com/max/800/1*rR4Hp7-pfgGBDqyPdcnh8g.png)
 
-我们对黑洞边界之内的事情一无所知，因为没有光可以从黑洞的捕捉中逃逸。同样地，**当我们解锁了 AI 循环改进自身的能力之后，也没有人能够预测将会发生什么，就像老鼠特意创造了一个人类之后，难以预测人类会对它们的世界产生什么样的影响。**他会继续帮它们获取更多奶酪，就像它们预期的那样吗？（图片来自 [WIRED](http://www.wired.co.uk/article/what-black-holes-explained)）
+我们对黑洞边界之内的事情一无所知，因为没有光可以从黑洞的捕捉中逃逸。同样地，**当我们解锁了 AI 循环改进自身的能力之后，也没有人能够预测将会发生什么，就像创造出一个人类的老鼠可能无法预测人类会对他们的世界做什么一样。**他会继续帮它们获取更多奶酪，就像它们预期的那样吗？（图片来自 [WIRED](http://www.wired.co.uk/article/what-black-holes-explained)）
 
-人类未来研究学院最近发布了一份报告，对人工智能领域的研究者进行了 AGI 的时限调查，发现**『研究人员认为，人工智能有 50% 的几率在 45 年内在任何领域中胜过人类。』**（[Grace 等人，2017](https://arxiv.org/pdf/1705.08807.pdf)）**。**我们曾与一些理智的人工智能实践者私下交谈过，他们预测的时限更长（上限是『永远』），而其他人给出的时限惊人地短 —— 仅仅只有几年。
+人类未来研究学院最近发布了一份报告，对人工智能领域的研究者进行了 AGI 的时限调查，发现**『研究人员认为，人工智能有 50% 的几率在 45 年内在任何领域中胜过人类』**（[Grace 等人，2017](https://arxiv.org/pdf/1705.08807.pdf)）**。**我们曾与一些理智的人工智能实践者私下交谈过，他们预测的时限更长（上限是『永远』），而其他人给出的时限惊人地短 —— 仅仅只有几年。
 
 ![](https://cdn-images-1.medium.com/max/800/0*2TpuuqUKnhdnr5eK.)
 
-来自 Kurzweil 的《奇点临近》，发表于 2005。现在，在 2017，只有几张海报能够留在墙上了。
+来自 Kurzweil 的《奇点临近》，发表于 2005。现在，在 2017，只有几张海报能够名正言顺地留在墙上了。
 
-比人类级别更高的**人工超级智能（ASI）**的出现对人类来说可能是最好或最坏的事情之一，它带来了一个巨大的挑战，即用有利于人类的方式确定 AI **想要**什么。
+比人类级别更高的**超级人工智能（ASI）**的出现对人类来说可能是最好或最坏的事情之一，它带来了一个巨大的挑战，即用有利于人类的方式确定 AI **想要**什么。
 
 虽然说不好未来会发生什么，但有一点是肯定的：**2017 年是开始理解机器如何思考的好时机。**不仅仅是像坐在扶手椅上的哲学家，带着对人工智能的尊重睿智地制定我们的路线图和政策这样抽象的理解，我们必须接触机器如何看待世界的细节 —— 他们“想要”什么，他们潜藏的偏见和失效模式，他们的性格怪癖 —— 就像我们研究心理学和神经科学，以了解人类如何学习、决定、行动和感觉。
 
@@ -143,7 +143,7 @@ Google Translate 通过卷积神经网络，实时地将英文翻译覆盖到饮
 
 我们该如何抑制人工智能[进一步控制现有的数据集中明显的系统偏差](https://www.google.com/intl/en/about/gender-balance-diversity-important-to-machine-learning/)的倾向？我们应该如何看待世界上最好的技术专家之间关于人工智能潜在的风险和收益的[分歧](http://fortune.com/2017/07/26/mark-zuckerberg-argues-against-elon-musks-view-of-artificial-intelligence-again/)？在一个没有工作的世界里，人类的追求会发生什么变化？
 
-机器学习是我们实现人工通用智能的核心，同时，它将改变每一个行业，并对我们的日常生活产生巨大的影响。这就是为什么我们认为机器学习值得了解，至少在概念层面上是这样的 —— 因此我们推出了这个系列，作为最佳的入门读物。
+机器学习是我们实现广义人工智能的核心，同时，它将改变每一个行业，并对我们的日常生活产生巨大的影响。这就是为什么我们认为机器学习值得了解，至少在概念层面上是这样的 —— 因此我们推出了这个系列，作为最佳的入门读物。
 
 ### 怎样阅读这个系列
 
@@ -163,7 +163,7 @@ Google Translate 通过卷积神经网络，实时地将英文翻译覆盖到饮
 
 [Samer](https://www.linkedin.com/in/samer-sabri-8995a717/) 是 UCSD 一位正在攻读计算机科学与工程的硕士生，并且是 [Conigo Labs](http://www.conigolabs.com/) 的创始人之一。在毕业之前，他创建了 TableScribe，一个面向中小企业的商业智能工具，并在麦肯锡公司待了两年，为财富 100 强公司提供咨询服务。Samer 之前在耶鲁学习了计算机科学、伦理学、政治学和经济学。
 
-这个系列的大部分内容都是在为期10天的英国之行中写下的，经历了火车、飞机、咖啡馆、酒吧以及种种浮光掠影。我们的目标是巩固我们对人工智能、机器学习、以及其中的方法如何结合在一起的理解 —— 并在这个过程中创造出值得分享的东西。
+这个系列的大部分内容都是在为期 10 天的英国之行中写下的，经历了火车、飞机、咖啡馆、酒吧以及种种浮光掠影。我们的目标是巩固我们对人工智能、机器学习、以及其中的方法如何结合在一起的理解 —— 并在这个过程中创造出值得分享的东西。
 
 现在，不要迟疑，让我们进入[**章节 2.1：监督学习**](https://medium.com/@v_maini/supervised-learning-740383a2feab)，开始探索机器学习的世界吧！
 
@@ -182,7 +182,7 @@ Google Translate 通过卷积神经网络，实时地将英文翻译覆盖到饮
 
 #### 联系人：[ml4humans@gmail.com](mailto:ml4humans@gmail.com)
 
-感谢 [_Jonathan Eng_](https://www.linkedin.com/in/jonathaneng1/)_,_ [_Edoardo Conti_](https://www.linkedin.com/in/edoardoconti/)_,_ [_Grant Schneider_](https://www.linkedin.com/in/grantwschneider/)_,_ [_Sunny Kumar_](https://www.linkedin.com/in/sunnykumar1/)_,_ [_Stephanie He_](https://www.linkedin.com/in/stephanieyhe/)_,_ [_Tarun Wadhwa_](https://www.linkedin.com/in/tarunw/)，和 [_Sachin Maini_](https://www.linkedin.com/in/sachinmaini/)（系列编辑）的不可或缺的贡献和反馈。
+特别感谢 [_Jonathan Eng_](https://www.linkedin.com/in/jonathaneng1/)_,_ [_Edoardo Conti_](https://www.linkedin.com/in/edoardoconti/)_,_ [_Grant Schneider_](https://www.linkedin.com/in/grantwschneider/)_,_ [_Sunny Kumar_](https://www.linkedin.com/in/sunnykumar1/)_,_ [_Stephanie He_](https://www.linkedin.com/in/stephanieyhe/)_,_ [_Tarun Wadhwa_](https://www.linkedin.com/in/tarunw/)，和 [_Sachin Maini_](https://www.linkedin.com/in/sachinmaini/)（系列编辑）的不可或缺的贡献和反馈。
 
 
 ---
