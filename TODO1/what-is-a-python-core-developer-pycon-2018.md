@@ -1,634 +1,634 @@
-> * 原视频地址：[Mariatta Wijaya - What is a Python Core Developer? - PyCon 2018](https://www.youtube.com/watch?v=hhj7eb6TrtI)
+> * 原视频地址：[Mariatta Wijaya - What is a Python Core Developer?- PyCon 2018](https://www.youtube.com/watch?v=hhj7eb6TrtI)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/what-is-a-python-core-developer-pycon-2018.md](https://github.com/xitu/gold-miner/blob/master/TODO1/what-is-a-python-core-developer-pycon-2018.md)
-> * 译者：
+> * 译者：[Elliott Zhao](https://github.com/elliott-zhao)
 > * 校对者：
 
-# Mariatta Wijaya - What is a Python Core Developer? - PyCon 2018
+# Mariatta Wijaya —— 什么是 Python 核心开发人员？- PyCon 2018
 
 > 本文为 PyCon 2018 视频之 Mariatta Wijaya - What is a Python Core Developer? 的中文字幕，您可以搭配原视频食用。
 
-0:00  hello everybody welcome to our next
+0:00  大家好，欢迎进入我们的下一个
 
-0:02  session here and I'm really really
+0:02  议程，我对这个议程
 
-0:06  excited about this session gonna have a
+0:06  感到非常兴奋。这个议程将会对
 
-0:10  great talk on what it is to be a Python
+0:10  什么是Python核心开发者
 
-0:14  core developer and giving the speech is
+0:14  进行非常棒的讨论。进行演讲的人是
 
-0:17  my friend here maryada we yaha we see I
+0:17  我的好朋友玛利亚塔·维加亚。我们
 
-0:23  got it wrong all right it's Marietta and
+0:23  发现我犯了一个错误。好吧，应该是玛利亚塔。
 
-0:27  we won't be having any Q&A; afterwards
+0:27  我们在之后不会有问答环节
 
-0:30  but I'm sure Marietta would be happy to
+0:30  不过我相信如果你找到她的话，
 
-0:33  talk with you during the rest of the
+0:33  Marietta应该很乐意在会议的
 
-0:35  conference if you find her so on she'll
+0:35  休息时间中和你聊聊，她就会在
 
-0:37  be around so without further ado Mario
+0:37  附近。那么，如果没有其他事情的话，玛利亚。
 
-0:44  it's working all right hi welcome to my
+0:44  这很有用。好吧，欢迎来到我的
 
-0:49  top so before I introduce more about
+0:49  演讲。所以在我对我自己做更多
 
-0:52  myself I'd like to introduce all of you
+0:52  介绍之前，我想先介绍一下在座的各位。
 
-0:55  here will will all be here in the same
+0:55  因为我们都会在这同一个房间中
 
-0:57  room for like 45 minutes I think it's
+0:57  共处差不多45分钟的时间，我觉得我们
 
-1:01  good that we all know each other more so
+1:01  互相加深一下了解是个不错的主意。
 
-1:05  I'm pretty sure everyone in this room
+1:05  我十分确信在这个房间中的每个人
 
-1:06  use Python right you have written at
+1:06  都是用Python，对么？你至少使用
 
-1:08  least hello world with Python yes you
+1:08  Python写过 hello world。没错！你还
 
-1:12  use f strings yes and you're all here
+1:12  使用 F-String ，没错！而且在座的所有
 
-1:16  are members of the Python community
+1:16  人都是Python社区的一员。
 
-1:18  you're here at PyCon meeting interacting
+1:18  你们正在PyCon会议上和其他“Python家”进行
 
-1:21  with other Python is this you're all
+1:21  互动。 所以你们都是Python社区
 
-1:23  member of the community and and I
+1:23  中的一员。并且我相信你们中
 
-1:26  believe many of you here do give back to
+1:26  的很多人都会通过向开源项目
 
-1:29  the community by contributing to open
+1:29  贡献代码的方式回馈社区
 
-1:31  source can I see how many people have at
+1:31  可以让我看看有多少人
 
-1:34  least made one pull request to any open
+1:34  对任何一个开源项目做过至少一次
 
-1:37  source project to see Python there's a
+1:37  Pull Request ？给CPython？有很多人。
 
-1:40  lot of you there's a lot of you that's
+1:40  非常多的人。这实在是
 
-1:42  great that's awesome so thank you so
+1:42  太好了，简直太棒了。因此，我对各位
 
-1:44  much for contributing to open source and
+1:44  向开源软件和CPython贡献代码表示由衷的
 
-1:46  to see Python
+1:46  感谢。
 
-1:48  alright Who am I now I am really busy
+1:48  好的，现在来介绍一下我到底是谁。我真是很忙。
 
-1:54  that's a summary of it so my name is
+1:54  这是一个汇总。我的名字是
 
-1:57  Mary era and now you can find me on
+1:57  玛利亚塔，你可以在 Twitter 、 Github
 
-1:59  Twitter github I'm a mom I have two
+1:59  上找到我。我是两个孩子的母亲，
 
-2:02  children two sons seven and five years
+2:02  两个都是儿子，一个七岁一个五岁。
 
-2:04  old I moved to Canada a long time ago so
+2:04  我很久以前就搬到了加拿大
 
-2:08  I now live in Vancouver I work for
+2:08  我现在住在温哥华，
 
-2:11  zapier so first of all
+2:11  为 Zapier 工作，所以首先
 
-2:13  I want to thank SAP year for completely
+2:13  我想要感谢 Zapier 给予我不遗余力
 
-2:16  supporting me sending me here to speak
+2:16  的支持，派我到 PyCon 这里来发言
 
-2:18  at PyCon all they ask is I wear the
+2:18  而对我的唯一要求就是让我穿上
 
-2:22  t-shirt branding so thank you is a paean
+2:22  这件企业文化T恤。所以感谢 Zapier 。
 
-2:26  we're hiring so check out check us out
+2:26  我们正在招聘，所以在明天的招聘会上
 
-2:29  tomorrow at a job fair I will be there
+2:29  请关注我们一下，我也会在那。
 
-2:31  too and I'm outside of my family and
+2:31  在工作和家庭之外，我还
 
-2:34  work I helped organize thank you bye
+2:34  帮助组织了 Thank Goodbye
 
-2:37  ladies
+2:37   Ladies 。
 
-2:37  and I helped organize conference called
+2:37  另外我还参与组织了一个名叫
 
-2:41  PI Cascades so the next one will happen
+2:41  PyCascades的会议，它会在2019
 
-2:44  in Seattle sometime in 2019 and on top
+2:44  年的某个时间在西雅图召开。
 
-2:49  of all that I I do contribute to open
+2:49  而最重要的是，我向开源项目
 
-2:51  source so it's kind of a new thing for
+2:51  贡献代码，这对我来说
 
-2:53  me I just really started doing that two
+2:53  是一种新的尝试。我真正开始做这件事
 
-2:56  years ago I I really feel a newbie when
+2:56  是两年，当加入开源项目，
 
-2:59  it comes to open source so but last year
+2:59  我感觉我真是个新手。 不过去年
 
-3:03  somehow they granted me the commit write
+3:03  不知为何他们赋予了我向CPython提交代码的
 
-3:06  to see Python I can now call myself a
+3:06  的写权限。我现在可以自称是一个
 
-3:10  Python core developer and this talk is
+3:10  Python核心开发者了，而这个演讲都是
 
-3:16  all about this like since I became a
+3:16  关于这件事。自从我成为一个
 
-3:18  core developer everybody has lots of
+3:18  核心开发者，有很多人提出
 
-3:20  questions like what even is a Python
+3:20  像这样的问题：作为一个Python
 
-3:23  core developer like what is it like how
+3:23  核心开发者感觉怎样？感觉如何？他们怎样
 
-3:25  can they become a core developer so to
+3:25  才能成为一个核心开发者？因此，为了日后
 
-3:30  save myself from answering all of that
+3:30  免于回答所有的这类问题，
 
-3:32  for future generations I'm just gonna
+3:32  我要在这次演讲中
 
-3:34  answer all of that here in this talk and
+3:34  回答所有的这些问题。
 
-3:36  I can point them to this video next time
+3:36  下次我就可以直接把这个视频指给他们看。
 
-3:39  and to help illustrate the journey I'm
+3:39  为了帮助说明我的历程，
 
-3:43  gonna borrow this diagram which I saw it
+3:43  我借用了这张我去年在PyCaribbean
 
-3:46  by Caribbean Lyceum I saw this from dr.
+3:46  上罗素·基思 - 马吉博士的主题演讲
 
-3:49  Russell Keith McGee's keynote speech he
+3:49   中看到的图表。他把这个
 
-3:52  called is the open source conversion
+3:52  成为开源转换漏斗。
 
-3:54  funnel so he described it as follows
+3:54  他是这么介绍这个图表的：
 
-3:57  like there is a universe of people who
+3:57  假设有一大群人作为
 
-3:59  could potentially use your project some
+3:59  你项目的潜在用户，其中
 
-4:02  of the potential users eventually find
+4:02  一些潜在用户最终找到
 
-4:03  your project and start using a project
+4:03  你的项目并且开始使用这个项目。
 
-4:05  and some of the new users sticks around
+4:05  然后一些新用户留存下来，
 
-4:07  and becomes a regular user some of the
+4:07  并变成了一些常规用户。一部分
 
-4:10  regular users stick around and start
+4:10  常规用户留存下来，并且开始
 
-4:12  participating in a community becoming
+4:12  参与社区，成为社区中的
 
-4:13  community members some of the community
+4:13  一员。一部分社区成员
 
-4:16  members start contributing to the
+4:16  开始向项目贡献代码，
 
-4:17  project and become contributors some of
+4:17  并成为了贡献者。一部分贡献者
 
-4:20  the contributors stick around long
+4:20  坚持的时间足够长，
 
-4:21  enough and eventually becomes the core
+4:21  并最终成为了核心
 
-4:23  team and some of the core teams becomes
+4:23  团队，然后一些核心团队成为了
 
-4:24  the leader of the community
+4:24  社区的领袖。
 
-4:26  I copied it McGee and he talked really
+4:26  我从罗素·基思 - 马吉那里拷贝过来的！而且他的演讲
 
-4:31  fast too so throughout this talk I will
+4:31  也非常的快。所以纵观整个演讲，我会
 
-4:37  start with this diagram except I'm gonna
+4:37  从这张图表开始，除了我会把它
 
-4:41  flip it upside down I felt the journey
+4:41  上下翻转。我觉得整个历程
 
-4:44  has been more like climbing up the
+4:44  更像是爬上阶梯或
 
-4:47  ladder going up in the food chain
+4:47  在食物链中上升，
 
-4:49  instead of going down like that
+4:49  而不是像那样下行。
 
-4:51  and I wouldn't be distinguishing between
+4:51  而且我不会区别对待
 
-4:56  potential users or new users let's just
+4:56  潜在用户和新用户，我们仅仅
 
-4:59  talk about everyone's the user of Python
+4:59  讨论所有的Python用户。
 
-5:02  and in place of the leader we have to be
+5:02  然后再领袖的位置，是
 
-5:06  the FL and in my opinion the core team
+5:06  BDFL。而在我的观点来看，
 
-5:10  they also become the leaders of the
+5:10  核心团队也充当了社区领袖
 
-5:12  community and I will talk about a more
+5:12  的角色，这个之后我会详细说。
 
-5:15  of that later but this is how I felt my
+5:15  而这就是我对我的历程
 
-5:19  journey has been I started as a user I
+5:19  的感受。我开始作为一个用户，
 
-5:21  used Python and then I started getting
+5:21  我使用Python，然后我开始
 
-5:24  involved in the community going to
+5:24  参与到社区中，参加
 
-5:27  conferences I went to PyCon I went to
+5:27  会议，我参加PyCon，我参加
 
-5:29  meetups and then I started contributing
+5:29  聚会，然后我开始向开源
 
-5:31  to open source and eventually they gave
+5:31  项目贡献代码，然后最终他们给
 
-5:34  me commit right and I become the core
+5:34  了我提交权限，然后我就成为了
 
-5:37  team members and I think that's where
+5:37  核心团队的一员，而这我认为成为BDFL
 
-5:40  the journey ends like the BD FL nobody
+5:40  就是旅行的终点，没有人
 
-5:43  will replace him he will be around
+5:43  会取代他，他会永远都在周围。
 
-5:45  forever forever now back to the question
+5:45  永远。现在我们回到问题：
 
-5:52  what is a Python core developer
+5:52  什么是Python核心开发者？
 
-5:56  technically it just means that you have
+5:56  技术上来讲，这意味着你拥有
 
-5:59  the commit right to see Python and
+5:59  向CPython提交代码的权限，现在
 
-6:02  currently there are 89 people in this
+6:02  在全世界范围内有89个人。
 
-6:06  whole world this programming language
+6:06  这门有着编程语言七百万用户的
 
-6:08  with seven million users there are 89
+6:08  编程语言，有89个人拥有
 
-6:11  people with such commit writing comes
+6:11  这种提交权限。还有一些
 
-6:17  with certain nice perks so I get to have
+6:17  不错的福利，所以我得到的
 
-6:19  this cool Python logo next to my name in
+6:19  有在bug跟踪紧挨着我的名字这个很酷的
 
-6:23  the back tracker I get to come to the
+6:23  Python标志。 我来到Python语言
 
-6:27  Python language submit free admission
+6:27  峰会，可以享受免费入场和
 
-6:29  free lunch
+6:29  免费午餐。
 
-6:30  and it happens every year at PyCon us
+6:30  而这，在美国每年召开的PyCon上都会发生。
 
-6:34  and I get to come to buy some coarse
+6:34  我会来买一些Core Sprint，
 
-6:36  prints and uh it seems to be happening
+6:36  呃，这似乎每年都在发生。
 
-6:39  annually I really hope it just becomes
+6:39  我真心希望它成为
 
-6:41  an annual tradition but it comes with
+6:41  每年一度的传统，但是一旦
 
-6:47  certain responsibilities once you were
+6:47  你被授予了提交权，一些
 
-6:50  granted commit right you will be added
+6:50  责任也就随之而来了。 您将被
 
-6:53  to the Python core team on github and
+6:53  添加到github上的Python核心
 
-6:57  you will be added you will be
+6:57  团队。然后你就要加入……你会
 
-7:00  responsible for 17 repositories
+7:00  负责17个存储库。
 
-7:03  obviously the C Python the Deaf guide
+7:03  可见的有CPython，开发指南，
 
-7:07  the paps our workflow performance and
+7:07  peps，我们的工作流，性能，
 
-7:10  all our github BOTS you'll be expected
+7:10  以及我们所有的github机器人。您将被期望
 
-7:14  to subscribe and participate in various
+7:14  订阅并参与各种
 
-7:17  Python mailing lists Python runs our
+7:17  Python邮件列表。Python运营我们的
 
-7:20  mailing list so it means you'll get
+7:20  邮件列表。所以，这意味着你会得到
 
-7:24  thousands of emails I have thousands of
+7:24  数以千计的电子邮件。我就收到过这么多
 
-7:28  emails I receive thousands of emails my
+7:28  邮件。我收到数以千计的邮件，我的
 
-7:29  inbox is full I have to figure out today
+7:29  邮箱被塞得满满的，我必须弄清楚该做什么。
 
-7:33  so you're going to have to learn how to
+7:33  所以你将不得不学习如何去管理
 
-7:36  manage your emails I said that you'll be
+7:36  你的邮件。 我之前说过你会
 
-7:42  responsible I talked about
+7:42  负担起很多责任。我之前说到的
 
-7:43  responsibilities what I meant is that
+7:43  责任就是指这个。
 
-7:47  it's expected that you're going to have
+7:47  一般来讲，你会不得不去
 
-7:50  to review a lot of for requests today
+7:50  Review一大堆Pull Request。直到今天为止，
 
-7:53  there are more than 600 still open and
+7:53  还有超过600个Pull Request仍处在打开状态。
 
-7:56  you're going to have to make decisions
+7:56  你还需要做决策，决定你是否
 
-7:59  whether you want to accept those peers
+7:59  接收这些PR，
 
-8:01  or said no and in the past year core
+8:01  抑或说No。在过去的一年里，核心
 
-8:06  developers has closed more than 6,000
+8:06  开发者已经关闭了超过6000个
 
-8:10  for requests that's a lot of work and
+8:10  Pull Request，这是很繁重的工作。
 
-8:14  when you do accept the full request
+8:14  当你接受Pull Request时，
 
-8:17  you've gotta be prepared to face the
+8:17  你必须做好准备面对
 
-8:19  consequence I mean if if everything's
+8:19  后果。我是说，如果一切
 
-8:24  fine it was the right decision usually
+8:24  正常，这是一个正确的决定，一般来说
 
-8:26  nobody said anything but if it was the
+8:26  没有人会说什么。然而一旦这是
 
-8:29  wrong decision that it actually breaks
+8:29  一个错误的决定，它实际上会
 
-8:33  things introduced bugs
+8:33  搞坏东西，引入BUG，
 
-8:36  the person who merged the poor requests
+8:36  合并Pull Request的人
 
-8:40  we all have to take the blame you will
+8:40  将不得不负担起责任。你将
 
-8:43  be responsible and follow up and try to
+8:43  负责并且跟进，并且尝试去
 
-8:45  fix things just because you merge it
+8:45  解决问题，仅因为是你合并的它。
 
-8:48  so it's a huge responsibility and then
+8:48  所以这是一个非常巨大的责任。然后
 
-8:55  you're going to be expected to help
+8:55  你还要帮助人们
 
-8:57  people to contribute to cpython because
+8:57  向CPython贡献代码，因为
 
-9:00  you you know how to contribute you know
+9:00  你知道怎么贡献代码，你知道
 
-9:02  what you expect and since you have the
+9:02  你想要什么，而且因为你有
 
-9:07  commit right to cpython
+9:07  CPython的提交权限，
 
-9:08  you get to make decisions you get to
+9:08  所以你可以作出决定，你可以告诉
 
-9:11  tell people what goes in to python or
+9:11  别人什么东西可以进入Python，什么东西
 
-9:15  not you get to shape the language decide
+9:15  不能。你可以塑造这门语言的形状，
 
-9:21  how it's going to evolve that's a huge
+9:21  决定它如何发展。这是一个非常巨大的
 
-9:25  responsibility and that makes you the
+9:25 责任, 这使你成为
 
-9:28  representative and leader of Python the
+9:28  Python语言和社区的
 
-9:34  language and the community yes there's
+9:34  代表和领导者。对，这里有一个
 
-9:39  there's a PDF file he makes a lot of big
+9:39  BDFL。他做出许多
 
-9:42  decisions but he takes input from the
+9:42  重大决定，但是他从
 
-9:46  core developers he relies on us to and
+9:46  核心开发者那里获取信息。他也很依赖我们，
 
-9:48  he delegates many things to the core
+9:48  他把很多事情交给核心
 
-9:51  developers often he just say I want
+9:51  开发者。通常他仅仅说我想要
 
-9:53  these to happen and core developers make
+9:53  这些事情发生，然后核心开发者们就会让
 
-9:55  it happen
+9:55  它发生。
 
-9:56  so we're his helpers well his
+9:56  所以，我们是他的助手，我们是
 
-9:58  second-in-command core developers are
+9:58  他的二把手。核心开发者是
 
-10:02  the leaders of this community so now
+10:02  社区的领袖。现在我
 
-10:06  I've talked a lot about what being a
+10:06  已经针对”作为核心开发者是
 
-10:08  core developer is people still have lots
+10:08  怎样一种体验？“说了很多，但是大家还是
 
-10:12  of questions about it so I'm going to
+10:12  有非常多的问题。所以我要一个一个
 
-10:14  answer them one by one this is one of
+10:14  地回答他们。这是我遇到的出现频率
 
-10:19  the most frequent question I got a new
+10:19  最高的问题中的一个。一个我刚刚
 
-10:21  user or somebody I just met asked how
+10:21  认识的新用户或者什么人，问我
 
-10:26  they can be a core available but this is
+10:26  他们怎么才能成为一个核心开发者。不过这是一个
 
-10:31  a really big question it's difficult
+10:31  非常大的问题。向一个普通用户
 
-10:34  concept to explain to just a user so I'm
+10:34  解释这个概念很难。因此我
 
-10:38  going to try to answer some really easy
+10:38  准备先回答一些特别简单的
 
-10:40  questions first how can someone be more
+10:40  问题。怎样让某个人积极的
 
-10:44  involved in the community this is really
+10:44  参与社区。这非常
 
-10:48  easy because there are lots of ways to
+10:48  简单，因为有很多种途径
 
-10:51  be involved anyone can take part you
+10:51  让人变得更积极。任何人都可以参加。
 
-10:54  start locally help out your local Python
+10:54  你可以从本地开始，帮助你的本地的
 
-10:58  Meetup I run meetups I know we're always
+10:58  Python聚会。我组织聚会，所以我知道我们一直
 
-11:02  looking for help we're always looking
+11:02  在寻求帮助。我们一直寻找
 
-11:04  for people to speak give workshop teach
+11:04  演讲者，提供工作室或是教学。
 
-11:07  so if you want to help out reach out to
+11:07  所以如果你想帮忙，请联系
 
-11:10  your local meetup organizers tell them I
+11:10  当地的聚会组织者，告诉他们
 
-11:14  want to give a talk I know a venue where
+11:14  我想发表演讲，我可以提供场地
 
-11:17  you can host made ups help them out and
+11:17  供你们举办聚会。帮帮他们。
 
-11:20  if there's no Meetup
+11:20  如果没有聚会，
 
-11:21  start one if you don't like to do
+11:21  自己举办一个。如果你不喜欢举办
 
-11:25  meetups it's too much for you that's
+11:25  聚会，这对你来说有点过，
 
-11:27  fine you can just write blogs about
+11:27  没问题， 你可以写一些关于Python的
 
-11:30  Python share to the world how you you
+11:30  博客，向全世界分享你
 
-11:33  use Python write about your favorite
+11:33  如何使用Python。 写下你最喜欢的
 
-11:35  library write a tutorial or just spread
+11:35  库，写一篇教程，或者单纯的把
 
-11:38  the knowledge of Python to everyone
+11:38  Python的知识传播给每个人。
 
-11:41  volunteer at conferences that's a good
+11:41  在会议上做志愿者，这是
 
-11:44  way to contribute back to the community
+11:44  回馈社区的好方法，
 
-11:46  especially here at PyCon PyCon
+11:46  尤其是在PyCon。
 
-11:50  conferences rely on volunteers and
+11:50  PyCon会议依靠志愿者，
 
-11:55  whenever you're interacting with other
+11:55  每当你与其他社区成员
 
-11:58  members of the community always always
+11:58  互动时，永远都要
 
-12:00  be a good person the open considerate
+12:00  做一个开放，体贴和尊重他人
 
-12:04  and respectful next question how to
+12:04  的好人。 下一个问题：如何
 
-12:10  contribute to open source lots of ways
+12:10  为开源项目做贡献？有很多中途径。
 
-12:15  join the communication channels join
+12:15  加入沟通渠道，
 
-12:18  their mailing list
+12:18  加入他们的邮件列表，
 
-12:19  Ayana see kitaru slack just get to know
+12:19  IRC，Gitter，Slack。只要能认识
 
-12:23  other country viewers get to know the
+12:23  其他的贡献者和
 
-12:25  maintainer help by reporting issues tell
+12:25  项目的维护者就行。通过报告问题提供帮助，
 
-12:29  us how to reproduce bugs that you
+12:29  告诉我们如何重现您
 
-12:31  encounter propose new ideas help with
+12:31  遇到的错误，提出新的想法，帮助
 
-12:36  documentation this is really important
+12:36  完善文档。这很真的重要。
 
-12:39  every projects I've participated in
+12:39  我参与过的所有项目，
 
-12:42  really could use help in the
+12:42  都真的可以从文档中寻求
 
-12:45  documentation review pull request and
+12:45  帮助。检查Pull Request，
 
-12:48  again you're interacting with other
+12:48  并再次与其他贡献者
 
-12:50  contributors always be open be a good
+12:50  进行交互。要永远做一个善于体谅和尊重
 
-12:55  person be considerate and respect now
+12:55  别人的好人。那么，
 
-13:00  usually after I answer all that the next
+13:00  通常在我回答所有这些后，下一个
 
-13:04  follow-up question is always well
+13:04  后续问题总是：好吧，
 
-13:08  actually I just want to contribute to
+13:08  其实我只是想贡献
 
-13:11  code not the documentation maybe I can
+13:11  代码而不是文档。也许我可以
 
-13:15  start with me
+13:15  从文档开始，
 
-13:15  but eventually I want to contribute to
+13:15  但最终我想贡献
 
-13:18  code tell me how all right I guess
+13:18  代码。告诉我怎么做。好吧，我想
 
-13:23  people really have this specific desire
+13:23  大家都有这个愿望——
 
-13:26  to contribute to codes
+13:26  贡献代码。
 
-13:29  sure if the goal is don't come tribute
+13:29  当然。如果目标是
 
-13:32  to code you have to first rate the
+13:32  贡献代码，您必须先阅读
 
-13:35  contribution guide every large project
+13:35  贡献指南。每个大项目
 
-13:38  has one everyone every project has
+13:38  都有一个，每个项目都
 
-13:41  different guide different workflow you
+13:41  有不同的指南，不同的工作流程。你
 
-13:43  have to up first read that and then find
+13:43  必须首先阅读这些，然后找到一个
 
-13:47  an issue to work on and then you have to
+13:47  问题来处理，然后你必须
 
-13:50  learn how to use version control like
+13:50  学习如何使用版本控制，
 
-13:53  get and then create a pull request and
+13:53  如git，然后创建一个拉请求。
 
-13:59  then the follow-up question through this
+13:59  那么下一个后续问题是：
 
-14:01  is okay Mary receives your Python core
+14:01  好的Mariatta，因为你是Python核心
 
-14:04  developer please be more specific and
+14:04  开发者，请更具体一些，
 
-14:07  tell me how to contribute code to see
+14:07  告诉我如何为CPython
 
-14:11  python this is this is the biggest
+14:11  贡献代码。这是最大的
 
-14:14  mystery everybody wants to know this and
+14:14  秘密，每个人都想知道，
 
-14:17  I I wanted to know this too I asked this
+14:17  我原来也想知道。我在两年前
 
-14:21  very same question to the media fellow
+14:21  向BDFL提出了同样的
 
-14:24  two years ago and so I'm just going to
+14:24  问题。所以我只是要给你们
 
-14:27  tell you what he told me first with the
+14:27  讲讲他怎么告诉我的。首先阅读
 
-14:33  dev guide it really has everything you
+14:33  开发指南，它真的有你
 
-14:36  need to know the Deaf guide tells you
+14:36  需要知道的一切。开发指南告诉你
 
-14:38  how to get the source code how to use
+14:38  如何获得源代码，如何使用
 
-14:41  kit where our mailing list are how to
+14:41  git，我们的邮件列表在哪里，如何
 
-14:44  run tests how to compile everything he
+14:44  运行测试，如何编译...他对我
 
-14:47  said here this is the URL that guy read
+14:47  说的所有话就是：这里是开发指南的网址，
 
-14:50  it and then next he told me join the
+14:50  读一遍。接下来，他告诉我加入
 
-14:55  core mentorship and Python death mailing
+14:55  核心指导和Python研发邮件
 
-14:58  list and if I ever need had ever have
+14:58  列表，如果我有任何
 
-15:00  questions just ask me the mailing list
+15:00  疑问，只需在邮件列表中提问即可。
 
-15:03  is that just tell them Guido sent you
+15:03   他说，只要告诉他们圭多让你来的。
 
-15:06  okay
+15:06  好吧。
 
-15:09  really the first few emails I wrote to
+15:09  真的。 所以我写给邮件列表
 
-15:12  the mailing list
+15:12  的前几封电子邮件
 
-15:13  it started with hey I asked Widow about
+15:13  都是这么开始的：嘿，我问圭多这件事，
 
-15:17  this and he told me to write to you so
+15:17  他告诉我写信给你。 
 
-15:20  here is my question then he pointed me
+15:20  所以这是我的问题... 然后他给我指出
 
-15:25  to the bug tracker this is where you're
+15:25  错误跟踪器，这是你应该
 
-15:28  supposed to find issues to work on and
+15:28  找到问题去解决的地方。 然后说
 
-15:31  then said what an easy issue create a
+15:31  多简单的问题，创建
 
-15:36  patch patch at a time pull requests now
+15:36  一个补丁，修补它并提出请求，
 
-15:38  so these are what we don't old me simple
+15:38  所以这些都是圭多告诉我的。 很简单，
 
-15:44  sounds like it and he never really
+15:44  就像听起来那样。 他从来没有真的
 
-15:48  actually gave me any issues to work on
+15:48  给我任何问题让我处理，
 
-15:51  he never assigned anything to me because
+15:51  他从来没有给我分配任何东西，因为
 
-15:52  he didn't know what I was interested in
+15:52  他不知道我对哪方面更感兴趣。
 
-15:55  so that was something that I had to
+15:55  所以我必须
 
-15:59  learn on my own so I started subscribing
+15:59  自己学习的东西，所以我开始订阅
 
-16:03  to updates to the bug tracker
+16:03  更新和错误跟踪器，
 
-16:05  so I get email whenever there are new
+16:05  所以我在每当有新活动时都会收到
 
-16:09  activities and then I try to read some
+16:09  邮件。然后我尝试阅读其中
 
-16:13  of them find anything that interests me
+16:13  的一些内容，找到对我感兴趣的任何内容，
 
-16:16  and then start researching and figure
+16:16  然后开始研究，并找出如何解决
 
-16:20  out how to fix the bug now at that time
+16:20  这个问题。now at that time
 
 16:28  people that start asking me well since
 
