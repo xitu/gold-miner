@@ -15,21 +15,21 @@
 
 ### 导览
 
-[**章节 1：论机器学习的重要性**](https://medium.com/machine-learning-for-humans/why-machine-learning-matters-6164faf1df12)**。**人工智能和机器学习的广阔画卷 —— 过去、现在和未来。
+**[章节 1：论机器学习的重要性](https://medium.com/machine-learning-for-humans/why-machine-learning-matters-6164faf1df12)。** 人工智能和机器学习的广阔画卷 —— 过去、现在和未来。
 
-[**章节 2.1：监督学习**](https://medium.com/@v_maini/supervised-learning-740383a2feab)**。**学习解决方案。介绍线性回归、损失函数、过拟合和梯度下降。
+**[章节 2.1：监督学习](https://medium.com/@v_maini/supervised-learning-740383a2feab)。** 学习解决方案。介绍线性回归、损失函数、过拟合和梯度下降。
 
-[**章节 2.2：监督学习 II**](https://medium.com/@v_maini/supervised-learning-2-5c1c23f3560d)**。**两种分类方法：逻辑斯蒂回归和支持向量机（SVM）。
+**[章节 2.2：监督学习 II](https://medium.com/@v_maini/supervised-learning-2-5c1c23f3560d)。** 两种分类方法：逻辑斯蒂回归和支持向量机（SVM）。
 
-[**章节 2.3：监督学习 III**](https://medium.com/@v_maini/supervised-learning-3-b1551b9c4930)**。**无参学习器：k-近邻算法、决策树、随机森林。介绍交叉验证、超参调整和集成模型。
+**[章节 2.3：监督学习 III](https://medium.com/@v_maini/supervised-learning-3-b1551b9c4930)。** 无参学习器：k-近邻算法、决策树、随机森林。介绍交叉验证、超参调整和集成模型。
 
-[**章节 3：无监督学习**](https://medium.com/@v_maini/unsupervised-learning-f45587588294)**。**聚类：K-均值方法、分级。降维：主分量分析（PCA）、奇异值分解（SVD）。
+**[章节 3：无监督学习](https://medium.com/@v_maini/unsupervised-learning-f45587588294)。** 聚类：K-均值方法、分级。降维：主分量分析（PCA）、奇异值分解（SVD）。
 
-[**章节 4：神经网络和深度学习**](https://medium.com/@v_maini/neural-networks-deep-learning-cdad8aeae49b)**。**深度学习的工作原理。从人类的大脑中汲取灵感。卷积神经网络（CNNs）、循环神经网络（RNNs）。实际应用。
+**[章节 4：神经网络和深度学习](https://medium.com/@v_maini/neural-networks-deep-learning-cdad8aeae49b)。** 深度学习的工作原理。从人类的大脑中汲取灵感。卷积神经网络（CNNs）、循环神经网络（RNNs）。实际应用。
 
-[**章节 5：强化学习**](https://medium.com/@v_maini/reinforcement-learning-6eacf258b265)**。**探索和开发。马尔可夫决策过程。Q-学习、政策学习和深度强化学习。价值学习问题。
+**[章节 5：强化学习](https://medium.com/@v_maini/reinforcement-learning-6eacf258b265)。** 探索和开发。马尔可夫决策过程。Q-学习、政策学习和深度强化学习。价值学习问题。
 
-[**附录：机器学习的最佳资源**](https://medium.com/@v_maini/how-to-learn-machine-learning-24d53bb64aa1)**。**精选的资源列表，用于创建您自己的机器学习课程。
+**[附录：机器学习的最佳资源](https://medium.com/@v_maini/how-to-learn-machine-learning-24d53bb64aa1)。** 精选的资源列表，用于创建您自己的机器学习课程。
 
 ### 面向的读者有哪些？
 
@@ -39,7 +39,7 @@
 
 这份指南老少皆宜。我们将会讨论概率、统计、编程、线性代数和微积分的基本概念，但就算没有基础知识亦能有所收获。
 
-这个系列是一份在约 2-3 小时内快速熟悉高水平的机器学习概念的指南。
+这个系列是一份在约 2~3 小时内快速熟悉高水平的机器学习概念的指南。
 
 如果你想知道哪些课程值得学习、哪些书值得阅读、哪些项目值得尝试等等，看看我们在[附录：机器学习的最佳资源](https://medium.com/machine-learning-for-humans/how-to-learn-machine-learning-24d53bb64aa1)里的推荐吧。
 
@@ -91,21 +91,21 @@ Google Translate 通过卷积神经网络，实时地将英文翻译覆盖到饮
 
 ### 语义树：人工智能和机器学习
 
-> 一点小建议：将知识看成一种**语义树** —— 确保你理解了基本原理（主干和分支），然后再去看树叶/细节，否则它们会无处可栖。 —— Elon Musk，[Reddit 有问必答](https://www.reddit.com/r/IAmA/comments/2rgsan/i_am_elon_musk_ceocto_of_a_rocket_company_ama/cnfre0a/)
+> 一点小建议：将知识看成一种**语义树** — 确保你理解了基本原理（主干和分支），然后再去看树叶/细节，否则它们会无处可栖。 — Elon Musk，[Reddit 有问必答](https://www.reddit.com/r/IAmA/comments/2rgsan/i_am_elon_musk_ceocto_of_a_rocket_company_ama/cnfre0a/)
 
 ![](https://cdn-images-1.medium.com/max/800/1*QJG2nMIqWHmLp2j4c0GVuQ.png)
 
 机器学习是人工智能的众多子领域之一，关注如何让计算机学习经验和提升思考、计划、决定和行动的能力。
 
-**人工智能是对智能体的研究，他们感知媒介周围的世界，形成计划并做出决定以实现其目标。**它的基础包括数学、逻辑学、哲学、概率学、语言学、神经科学和决策论。许多领域属于人工智能的范畴，例如计算机视觉、机器人科学、机器学习和自然语言处理。
+**人工智能是对智能体的研究，他们感知媒介周围的世界，形成计划并做出决定以实现其目标。** 它的基础包括数学、逻辑学、哲学、概率学、语言学、神经科学和决策论。许多领域属于人工智能的范畴，例如计算机视觉、机器人科学、机器学习和自然语言处理。
 
-**机器学习是人工智能的子领域**。它的目标是让计算机自行学习。一个机器学习算法使它能够识别观测数据中的模式，构建能够解释世界的模型，并在没有确切的预编程规则和模型的情况下预测事物的发展。
+**机器学习是人工智能的子领域。** 它的目标是让计算机自行学习。一个机器学习算法使它能够识别观测数据中的模式，构建能够解释世界的模型，并在没有确切的预编程规则和模型的情况下预测事物的发展。
 
 **人工智能效应：什么才是“人工智能”？**
 
 “人工智能”的技术标准有点模糊，并且随着时间推移而不断改变。AI 这个标签通常用来形容能在传统领域取代人类的机器。有趣的是，一旦计算机知道如何完成这些任务，人们通常会说它不是**真正的**智能。这被称为 [**AI 效应**](https://en.wikipedia.org/wiki/AI_effect)。
 
-例如，IBM 的深蓝在 1997 年击败了世界国际象棋冠军 [Garry Kasparov](https://medium.com/@GarryKasparov) 时，人们抱怨说它使用的是『蛮力』的方法，根本不是『真正』的智力。正如 Pamela McCorduck 所写的，**『人工智能领域的历史的一部分，就是每当有人想出如何让计算机做某事时 —— 成为一个出色的棋手，解决简单但相对没那么正式的问题 —— 就有一群评论家跳出来说，「那不叫思考！」』**（[McCorduck，2004](http://www.pamelamc.com/html/machines_who_think.html)）。
+例如，IBM 的深蓝在 1997 年击败了世界国际象棋冠军 [Garry Kasparov](https://medium.com/@GarryKasparov) 时，人们抱怨说它使用的是『蛮力』的方法，根本不是『真正』的智力。正如 Pamela McCorduck 所写的，**『人工智能领域的历史的一部分，就是每当有人想出如何让计算机做某事时 —— 成为一个出色的棋手，解决简单但相对没那么正式的问题 —— 就有一群评论家跳出来说，「那不叫思考！」』** （[McCorduck，2004](http://www.pamelamc.com/html/machines_who_think.html)）。
 
 可能人类对于毫无保留地接收所谓的『人工智能』有种**难以言述**的抗拒吧：
 
@@ -115,7 +115,7 @@ Google Translate 通过卷积神经网络，实时地将英文翻译覆盖到饮
 
 ### 强大的人工智能将永远改变我们的世界；想了解这个过程，学习机器学习是一个很好的入口。
 
-上面讨论的技术是**狭义人工智能（ANI）**的例子，它可以有效地执行一个狭义上的任务。
+上面讨论的技术是 **狭义人工智能（ANI）** 的例子，它可以有效地执行一个狭义上的任务。
 
 同时，我们还在继续向制造类人级别的**广义人工智能（AGI）**，也被称为[**强人工智能**](https://en.wikipedia.org/wiki/Artificial_general_intelligence)努力。AGI 的定义是一种人工智能，它能成功地完成**人类所能从事的任何智力活动**，包括学习、计划和不确定情况下的决策、用自然语言交流、开玩笑、操纵人、买卖股票或……对自身进行重编程。
 
@@ -127,17 +127,17 @@ Google Translate 通过卷积神经网络，实时地将英文翻译覆盖到饮
 
 ![](https://cdn-images-1.medium.com/max/800/1*rR4Hp7-pfgGBDqyPdcnh8g.png)
 
-我们对黑洞边界之内的事情一无所知，因为没有光可以从黑洞的捕捉中逃逸。同样地，**当我们解锁了 AI 循环改进自身的能力之后，也没有人能够预测将会发生什么，就像创造出一个人类的老鼠可能无法预测人类会对他们的世界做什么一样。**他会继续帮它们获取更多奶酪，就像它们预期的那样吗？（图片来自 [WIRED](http://www.wired.co.uk/article/what-black-holes-explained)）
+我们对黑洞边界之内的事情一无所知，因为没有光可以从黑洞的捕捉中逃逸。同样地，**当我们解锁了 AI 循环改进自身的能力之后，也没有人能够预测将会发生什么，就像创造出一个人类的老鼠可能无法预测人类会对他们的世界做什么一样。** 他会继续帮它们获取更多奶酪，就像它们预期的那样吗？（图片来自 [WIRED](http://www.wired.co.uk/article/what-black-holes-explained)）
 
-人类未来研究学院最近发布了一份报告，对人工智能领域的研究者进行了 AGI 的时限调查，发现**『研究人员认为，人工智能有 50% 的几率在 45 年内在任何领域中胜过人类』**（[Grace 等人，2017](https://arxiv.org/pdf/1705.08807.pdf)）**。**我们曾与一些理智的人工智能实践者私下交谈过，他们预测的时限更长（上限是『永远』），而其他人给出的时限惊人地短 —— 仅仅只有几年。
+人类未来研究学院最近发布了一份报告，对人工智能领域的研究者进行了 AGI 的时限调查，发现『**研究人员认为，人工智能有 50% 的几率在 45 年内在任何领域中胜过人类**』（[Grace 等人，2017](https://arxiv.org/pdf/1705.08807.pdf)）。我们曾与一些理智的人工智能实践者私下交谈过，他们预测的时限更长（上限是『永远』），而其他人给出的时限惊人地短 —— 仅仅只有几年。
 
 ![](https://cdn-images-1.medium.com/max/800/0*2TpuuqUKnhdnr5eK.)
 
 来自 Kurzweil 的《奇点临近》，发表于 2005。现在，在 2017，只有几张海报能够名正言顺地留在墙上了。
 
-比人类级别更高的**超级人工智能（ASI）**的出现对人类来说可能是最好或最坏的事情之一，它带来了一个巨大的挑战，即用有利于人类的方式确定 AI **想要**什么。
+比人类级别更高的 **超级人工智能（ASI）** 的出现对人类来说可能是最好或最坏的事情之一，它带来了一个巨大的挑战，即用有利于人类的方式确定 AI **想要**什么。
 
-虽然说不好未来会发生什么，但有一点是肯定的：**2017 年是开始理解机器如何思考的好时机。**不仅仅是像坐在扶手椅上的哲学家，带着对人工智能的尊重睿智地制定我们的路线图和政策这样抽象的理解，我们必须接触机器如何看待世界的细节 —— 他们“想要”什么，他们潜藏的偏见和失效模式，他们的性格怪癖 —— 就像我们研究心理学和神经科学，以了解人类如何学习、决定、行动和感觉。
+虽然说不好未来会发生什么，但有一点是肯定的：**2017 年是开始理解机器如何思考的好时机。** 不仅仅是像坐在扶手椅上的哲学家，带着对人工智能的尊重睿智地制定我们的路线图和政策这样抽象的理解，我们必须接触机器如何看待世界的细节 —— 他们“想要”什么，他们潜藏的偏见和失效模式，他们的性格怪癖 —— 就像我们研究心理学和神经科学，以了解人类如何学习、决定、行动和感觉。
 
 关于人工智能存在着复杂的、高风险的问题，这些问题需要我们在未来几年的认真关注。
 
@@ -149,9 +149,9 @@ Google Translate 通过卷积神经网络，实时地将英文翻译覆盖到饮
 
 你可以不必按部就班地阅读这个系列。根据你自己的兴趣和空余时间，有三种方法推荐给你：
 
-1.  **T 形阅读法。**从头读到尾。用你自己的语言概括一下每一个章节的内容（见：[Feynman technique](https://mattyford.com/blog/2014/1/23/the-feynman-technique-model)）；这样能够提升阅读的积极性并加深记忆。然后在你最感兴趣或与工作关联最为紧密的地方深入钻研。我们将会在每一章的结尾介绍一些拓展资源。
-2.  **专注阅读法。**跳到你最感兴趣的地方并把你的精力花在那儿。
-3.  [**80/20 法**](https://www.thebalance.com/pareto-s-principle-the-80-20-rule-2275148)**。**先通读全文，标记一些有趣的高级概念，然后花一晚时间好好钻研。😉
+1.  **T 形阅读法。** 从头读到尾。用你自己的语言概括一下每一个章节的内容（见：[Feynman technique](https://mattyford.com/blog/2014/1/23/the-feynman-technique-model)）；这样能够提升阅读的积极性并加深记忆。然后在你最感兴趣或与工作关联最为紧密的地方深入钻研。我们将会在每一章的结尾介绍一些拓展资源。
+2.  **专注阅读法。** 跳到你最感兴趣的地方并把你的精力花在那儿。
+3.  **[80/20 法](https://www.thebalance.com/pareto-s-principle-the-80-20-rule-2275148)。** 先通读全文，标记一些有趣的高级概念，然后花一晚时间好好钻研。😉
 
 ### 关于作者
 
@@ -182,7 +182,7 @@ Google Translate 通过卷积神经网络，实时地将英文翻译覆盖到饮
 
 #### 联系人：[ml4humans@gmail.com](mailto:ml4humans@gmail.com)
 
-特别感谢 [_Jonathan Eng_](https://www.linkedin.com/in/jonathaneng1/)_,_ [_Edoardo Conti_](https://www.linkedin.com/in/edoardoconti/)_,_ [_Grant Schneider_](https://www.linkedin.com/in/grantwschneider/)_,_ [_Sunny Kumar_](https://www.linkedin.com/in/sunnykumar1/)_,_ [_Stephanie He_](https://www.linkedin.com/in/stephanieyhe/)_,_ [_Tarun Wadhwa_](https://www.linkedin.com/in/tarunw/)，和 [_Sachin Maini_](https://www.linkedin.com/in/sachinmaini/)（系列编辑）的不可或缺的贡献和反馈。
+特别感谢 [_Jonathan Eng_](https://www.linkedin.com/in/jonathaneng1/)、[_Edoardo Conti_](https://www.linkedin.com/in/edoardoconti/)、[_Grant Schneider_](https://www.linkedin.com/in/grantwschneider/)、[_Sunny Kumar_](https://www.linkedin.com/in/sunnykumar1/)、[_Stephanie He_](https://www.linkedin.com/in/stephanieyhe/)、[_Tarun Wadhwa_](https://www.linkedin.com/in/tarunw/) 和 [_Sachin Maini_](https://www.linkedin.com/in/sachinmaini/)（系列编辑）的不可或缺的贡献和反馈。
 
 
 ---
