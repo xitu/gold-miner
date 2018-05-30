@@ -5,13 +5,13 @@
 > * 译者：
 > * 校对者：
 
-# 通过安全浏览保护WebView
+# 通过安全浏览保护 WebView
 
 由软件工程师 Nate Fischer 发布。
 
-自 2007 年以来，Google 安全浏览功能一直在保护整个网络中的用户免遭网络钓鱼和恶意软件攻击。对于不断增长的威胁，它保护了[超过 30 亿台设备](https://www.blog.google/topics/safety-security/safe-browsing-protecting-more-3-billion-devices-worldwide-automatically/)，现在还包括桌面和移动平台上不需要的软件。今天，我们宣布 Google Play Protect 默认将安全浏览功能引入 WebView，从 2018 年 4 月开始发布 WebView 66。
+自 2007 年以来，Google 安全浏览功能一直在保护整个网络中的用户免遭网络钓鱼和恶意软件攻击。它保护了[超过 30 亿台设备](https://www.blog.google/topics/safety-security/safe-browsing-protecting-more-3-billion-devices-worldwide-automatically/)免于不断增长的威胁，现在还包括桌面和移动平台上不需要的软件。今天，我们宣布 Google Play Protect 默认将安全浏览功能引入 WebView，从 2018 年 4 月开始发布 WebView 66。
 
-Android 应用开发人员使用 WebView 无需再进行任何更改即可从中受益。WebView 中的安全浏览功能自 Android 8.0（API 级别 26）开始提供，使用了与 [Android 上的 Chrome](https://security.googleblog.com/2015/12/protecting-hundreds-of-millions-more.html) 相同的底层技术。当安全浏览被触发时，应用程序将显示警告并收到网络错误。为 API 27 及以上构建的应用程序可以使用[新的安全浏览API](https://developer.android.com/reference/android/webkit/WebView.html)进行自定义此行为。
+Android 应用开发人员使用 WebView 无需再进行任何更改即可从中受益。WebView 中的安全浏览功能自 Android 8.0（API 级别 26）开始提供，使用了与 [Android 上的 Chrome](https://security.googleblog.com/2015/12/protecting-hundreds-of-millions-more.html) 相同的底层技术。当安全浏览被触发时，应用程序将显示警告并收到网络错误。为 API 27 及以上构建的应用程序可以使用[新的安全浏览 API](https://developer.android.com/reference/android/webkit/WebView.html)进行自定义此行为。
 
 [![](https://1.bp.blogspot.com/-dD8ce8s6-Cs/WtToFfrvoSI/AAAAAAAAFOQ/Khc-FV9MuREKm_35uecATVbJILv45PzVgCLcBGAs/s1600/unnamed%2B%25281%2529.png)](https://1.bp.blogspot.com/-dD8ce8s6-Cs/WtToFfrvoSI/AAAAAAAAFOQ/Khc-FV9MuREKm_35uecATVbJILv45PzVgCLcBGAs/s1600/unnamed%2B%25281%2529.png)
 
