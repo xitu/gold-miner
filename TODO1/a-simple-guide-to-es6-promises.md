@@ -244,7 +244,7 @@ promiseThatResolves()
 
 #### 参考
 
-*   由 [Jake Archibald](https://medium.com/@jaffathecake) 撰写的 [ECMA Promise 规范](http://www.ecma-international.org/ecma-262/6.0/#sec-promise-objects)、[Mozilla 文档](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)、[Google 的 Promise 开发者指南](https://developers.google.com/web/fundamentals/primers/promises#promise-api-reference)，还有 [探索 JavaScript 中的 Promise 章节](http://exploringjs.com/es6/ch_promises.html#sec_first-example-promises) 以及 [Promise 介绍](http://jamesknelson.com/grokking-es6-promises-the-four-functions-you-need-to-avoid-callback-hell/)。
+由 [Jake Archibald](https://medium.com/@jaffathecake) 撰写的 [ECMA Promise 规范](http://www.ecma-international.org/ecma-262/6.0/#sec-promise-objects)、[Mozilla 文档](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)、[Google 的 Promise 开发者指南](https://developers.google.com/web/fundamentals/primers/promises#promise-api-reference)，还有 [探索 JavaScript 中的 Promise 章节](http://exploringjs.com/es6/ch_promises.html#sec_first-example-promises) 以及 [Promise 介绍](http://jamesknelson.com/grokking-es6-promises-the-four-functions-you-need-to-avoid-callback-hell/)。
 
 > 我希望你能喜欢这个客串贴！本文由 [**Arfat Salmon**](https://codeburst.io/@arfatsalman) 专门为 CodeBurst.io 撰写
 
