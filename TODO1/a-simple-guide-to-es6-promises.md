@@ -13,7 +13,7 @@
 
 Promise 是 JavaScript ES6 中最令人兴奋的新增功能之一。为了支持异步编程，JavaScript 使用了回调（callbacks），[以及一些其他的技术](http://exploringjs.com/es6/ch_async.html#sec_receiving-results-asynchronously)。然而，使用回调会遇到[地狱回调](http://callbackhell.com/)/[末日金字塔](https://en.wikipedia.org/wiki/Pyramid_of_doom_%28programming%29)等问题。Promise 是一种通过使代码看起来同步并避免在回调时出现问题进而大大简化异步编程的模式。
 
-在这篇文章中，我们将看到什么是 Promise，以及如何利用它们给我们带来好处。
+在这篇文章中，我们将看到什么是 Promise，以及如何利用它给我们带来好处。
 
 * [**2018 年 Web 开发者路线图**：一个提供给前端或后端开发人员的插图指南（内部提供课程链接）](https://codeburst.io/the-2018-web-developer-roadmap-826b1b806e8d)
 
@@ -25,7 +25,7 @@ ECMA 委员会将 promise 定义为 ——
 
 简单来说，**一个 promise 是一个装有未来值的容器**。如果你仔细想想，这正是你正常的日常谈话中使用**承诺**（promise）这个词的方式。比如，你预定一张去印度的机票，准备前往美丽的山岗站[大吉岭](https://en.wikipedia.org/wiki/Darjeeling)旅游。预订后，你会得到一张**机票**。这张**机票**是航空公司的一个**承诺**，意味着你在出发当天可以获得相应的座位。实质上，票证是未来值的占位符，即**座位**。
 
-这还有另外一个例子 —— 你**答应**你的朋友，你会在看完[**计算机程序设计艺术**](https://en.wikipedia.org/wiki/The_Art_of_Computer_Programming)这本书后还给他们。在这里，你的话充当占位符。值就相当于这本书。
+这还有另外一个例子 —— 你向你的朋友**承诺**，会在看完[**计算机程序设计艺术**](https://en.wikipedia.org/wiki/The_Art_of_Computer_Programming)这本书后还给他们。在这里，你的话充当占位符。值就相当于这本书。
 
 你可以想想其他类似承诺（promise）的例子，这些例子涉及各种现实生活中的情况，例如在医生办公室等候，在餐厅点餐，在图书馆发放书籍等等。这些所有的情况都涉及某种形式的承诺（promise）。然而，例子只能告诉我们这么多，[Talk is cheap, so let’s see the code.](https://news.ycombinator.com/item?id=902216)。
 
@@ -56,7 +56,7 @@ Promise 示例
 
 #### 使用 Promise
 
-在上面的例子中，我们创建了一个 promise 并将其存储在 `myPromise` 中。**那我们如何才能获得通过** `resolve` **或** `reject` **函数传递过来的值呢**？所有的 `Promise` 都有一个 `.then()` 方法。这样问题就好解决了，让我们一起来看一下 ——
+在上面的例子中，我们创建了一个 promise 并将其存储在 `myPromise` 中。**那我们如何才能获取通过** `resolve` **或** `reject` **函数传递过来的值呢**？所有的 `Promise` 都有一个 `.then()` 方法。这样问题就好解决了，让我们一起来看一下 ——
 
 ```
 const myPromise = new Promise((resolve, reject) => {
@@ -73,7 +73,7 @@ const onRejected = (error) => console.log(error);
 
 myPromise.then(onResolved, onRejected);
 
-// 效果同上，更加简明扼要
+// 效果同上，代码更加简明扼要
 myPromise.then((resolvedValue) => {
     console.log(resolvedValue);
 }, (error) => {
@@ -148,7 +148,7 @@ myProimse.catch(
 
 #### Promise 链式调用
 
-`.then()` 和 `.catch()` 方法**总是返回一个 promise**。所以你可以把多个 `.then` 连接到一起。让我们通过一个例子来理解它。
+`.then()` 和 `.catch()` 方法**总是返回一个 promise**。所以你可以把多个 `.then` 链接到一起。让我们通过一个例子来理解它。
 
 首先，我们创建一个返回 promise 的 `delay` 函数。返回的 promise 将在给定秒数后解析。这是它的实现 ——
 
@@ -158,7 +158,7 @@ const delay = (ms) => new Promise(
 );
 ```
 
-在这个例子中，我们使用一个函数来包装我们的 promise，以便它不会立即执行。该 `delay` 函数接收以毫秒为单位的时间作为参数。由于[闭包](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures)的特点，该执行器函数可以访问 `ms` 参数。它还包含一个在毫秒后调用 `resolve` 函数的 `setTimeout` 函数，从而**有效解决 promise**。这是一个示例用法 ——
+在这个例子中，我们使用一个函数来包装我们的 promise，以便它不会立即执行。该 `delay` 函数接收以毫秒为单位的时间作为参数。由于[闭包](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures)的特点，该执行器函数可以访问 `ms` 参数。它还包含一个在 `ms` 毫秒后调用 `resolve` 函数的 `setTimeout` 函数，从而**有效解决 promise**。这是一个示例用法 ——
 
 ```
 delay(5000).then(() => console.log('Resolved after 5 seconds'));
@@ -228,13 +228,13 @@ promiseThatResolves()
   .catch(err => console.log(err));
 ```
 
-第 1 行创建了一个始终可以解决的 promise。当你有一个带有两个回调 ，即`onResolved` 和 `onRejected` 的 `.then` 方法时，你只能处理**执行器**函数的错误和拒绝。假设 `.then` 中的处理程序也会抛出错误。它不会导致执行 `onRejected` 回调，如第 6 - 9 行所示。
+第 1 行创建了一个始终可以解决的 promise。当你有一个带有两个回调 ，即 `onResolved` 和 `onRejected` 的 `.then` 方法时，你只能处理**执行器**函数的错误和拒绝。假设 `.then` 中的处理程序也会抛出错误。它不会导致执行 `onRejected` 回调，如第 6 - 9 行所示。
 
 但如果你在 `.then` 后跟着调用 `.catch`，那么 `.catch` **既捕捉执行器函数的错误也捕捉 .then 处理程序的错误**。这是有道理的，因为 `.then` 总是返回一个 promise。如第 12 - 16 行所示。
 
 * * *
 
-你可以执行所有的代码示例，并通过实践应用学的更多。一个好的学习方法是将 promise 重新通过基于回调的函数实现。如果你使用 Node，那么在 `fs` 和其他模块中的很多函数都是基于回调的。在 Node 中确实存在可以自动将基于回调的函数转换为 promise 的实用工具，例如 [util.promisify](https://nodejs.org/api/util.html#util_util_promisify_original) 和 [pify](https://github.com/sindresorhus/pify)。但是，**如果你还在学习阶段**，请考虑遵循 WET（Write Everything Twice）原则，并重新实现或阅读尽可能多的库/函数的代码。如果不是在学习阶段，特别是在生产环境下，请每隔一段时间就要使用 [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself)（Don’t Repeat Yourself） 原则激励自己。
+你可以执行所有的代码示例，并通过实践应用学的更多。一个好的学习方法是将 promise 通过基于回调的函数重新实现。如果你使用 Node，那么在 `fs` 和其他模块中的很多函数都是基于回调的。在 Node 中确实存在可以自动将基于回调的函数转换为 promise 的实用工具，例如 [util.promisify](https://nodejs.org/api/util.html#util_util_promisify_original) 和 [pify](https://github.com/sindresorhus/pify)。但是，**如果你还在学习阶段**，请考虑遵循 WET（Write Everything Twice）原则，并重新实现或阅读尽可能多的库/函数的代码。如果不是在学习阶段，特别是在生产环境下，请每隔一段时间就要使用 [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself)（Don’t Repeat Yourself） 原则激励自己。
 
 还有很多其他的 promise 相关知识我没有提及，比如 `Promise.all` 、`Promise.race` 和其他静态方法，以及如何处理 promise 中出现的错误，还有一些在创建一个promise 时应该注意的一些常见的反模式（anti-patterns）和细节。你可以参考下面的文章，以便可以更好地了解这些主题。
 
