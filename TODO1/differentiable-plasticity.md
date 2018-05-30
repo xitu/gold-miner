@@ -2,60 +2,60 @@
 > * 原文作者：[Uber Engineering](https://eng.uber.com)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/differentiable-plasticity.md](https://github.com/xitu/gold-miner/blob/master/TODO1/differentiable-plasticity.md)
-> * 译者：
-> * 校对者：
+> * 译者：[luochen](https://github.com/luochen1992)
+> * 校对者：[SergeyChang](https://github.com/SergeyChang) [xxholly32](https://github.com/xxholly32)
 
-# Differentiable Plasticity: A New Method for Learning to Learn
+# 可微可塑性：一种学会学习的新方法
 
 ![](https://i.loli.net/2018/05/15/5afa39e829174.png)
 
-Neural networks, which underlie many of Uber’s machine learning systems, have proven highly successful in solving complex problems, including image recognition, language understanding, and game-playing. However, these networks are usually trained to a stopping point through [gradient descent](https://en.wikipedia.org/wiki/Gradient_descent), which incrementally adjusts the connections of the network based on its performance over many trials. Once the training is complete, the network is fixed and the connections can no longer change; as a result, barring any later re-training (again requiring many examples), the network in effect stops learning at the moment training ends.
+作为 Uber 机器学习系统基础的神经网络，在解决包括图像识别、语言理解和博弈论在内的复杂问题方面被证明是非常成功的。然而，网络通常通过 [梯度下降](https://en.wikipedia.org/wiki/Gradient_descent) 训练到一个终止点，根据多次试验中的网络表现不断调整网络连接。一旦训练完成，网络就已经固定，连接不再改变；因此，除了以后的再训练（又需要很多样本），实际上网络在训练结束时就停止学习。
 
-By contrast, biological brains exhibit [_plasticity_](https://en.wikipedia.org/wiki/Neuroplasticity)_—_that is, the ability for connections between neurons to change continually and automatically throughout life, allowing animals to learn quickly and efficiently from ongoing experience. The levels of plasticity of different areas and connections in the brain are the result of millions of years of fine-tuning by evolution to allow efficient learning during the animal’s lifetime. The resultant ability to learn continually over life lets animals adapt to changing or unpredictable environments with very little additional data. We can quickly memorize patterns that we have never seen before or learn new behaviors from just a few trials in entirely novel situations.
+相比之下，生物大脑表现出的 [**可塑性**](https://en.wikipedia.org/wiki/Neuroplasticity) —— 即在整个生命中，神经元之间连接持续不断地自主变化的能力，使动物能够从持续的经验中快速有效地学习。大脑中不同区域和连接的可塑性水平是通过数百万年的进化而进行微调的结果，以便在动物的一生中进行有效地学习。由此产生的持续学习能力可以让动物只需很少的额外信息（additional data）就能适应变化或不可预测的环境。我们可以很快地记住以前从未见过的场景，或者在完全陌生的情况下从几次试验中获得新的知识。
 
-To give our artificial agents similar abilities, Uber AI Labs has developed [a new method called](https://arxiv.org/abs/1804.02464) _differentiable plasticity_ that lets us train the behavior of plastic connections through gradient descent so that they can help previously-trained networks adapt to future conditions. While evolving such plastic neural networks is a [longstanding area of research in evolutionary computation](https://arxiv.org/abs/1703.10371), to our knowledge the work introduced here is the first to show it is possible to optimize plasticity itself through gradient descent. Because gradient-based methods underlie many of the recent spectacular breakthroughs in artificial intelligence (including [image recognition](https://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks), [machine translation](https://research.google.com/pubs/pub45610.html), [Atari video games](https://www.nature.com/articles/nature14236), and [Go playing](https://www.nature.com/articles/nature24270)), making plastic networks amenable to gradient descent training may dramatically expand the power of both approaches.
+为了给我们的人工智能体提供类似的能力，Uber 人工智能实验室开发了 [一种称为**可微可塑性**的新方法](https://arxiv.org/abs/1804.02464) 让我们通过梯度下降训练可塑的连接行为，以便他们可以帮助以前训练的网络适应未来的环境。虽然演化这种可塑性神经网络是 [进化计算长期研究的领域](https://arxiv.org/abs/1703.10371)。据我们所知，这里介绍的工作首次表明可以通过梯度下降优化可塑性网络。因为最近人工智能领域的重大突破是以基于梯度的方法为基础的（包括 [图像识别](https://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks)、[机器翻译](https://research.google.com/pubs/pub45610.html) 和 [对弈](https://www.nature.com/articles/nature24270)）。使可塑性网络适应梯度下降训练可能会极大扩展这两种方法的力量。
 
-### How differentiable plasticity works
+### 可微可塑性是如何工作的
 
-In our method, each connection receives an initial weight, as well as a coefficient that determines how plastic the connection is. More precisely, the activation _y_<sub>_i_</sub> of neuron _i_ is calculated as follows:
+在我们的方法中，每个连接都会有初始权重，包括决定连接可塑性的系数。更准确地说，神经元 _i_ 的激活值  _y_<sub>_i_</sub> 计算如下：
 
-[![Differentiable Plasticity equation](https://eng.uber.com/wp-content/uploads/2018/04/differentiable_plasticity_equation-300x89.png)](http://eng.uber.com/wp-content/uploads/2018/04/differentiable_plasticity_equation.png)
+[![可微可塑性方程](https://eng.uber.com/wp-content/uploads/2018/04/differentiable_plasticity_equation-300x89.png)](http://eng.uber.com/wp-content/uploads/2018/04/differentiable_plasticity_equation.png)
 
-The first equation is a typical activation function for neural network units, except that the input weights have a fixed component (green) and a plastic component (red). The _H_<sub>_i,j_</sub> term in the plastic component is automatically updated as a function of ongoing inputs and outputs (as specified in the second equation—note that other formulations are possible, as discussed in [the paper](https://arxiv.org/abs/1804.02464)).
+第一个等式是神经网络单元典型的激活函数，不包括输入权重的固定分量（绿色）和可塑性分量（红色）。可塑性分量的 _H_<sub>_i,j_</sub> 项作为输入和输出的函数可以自动更新（正如在第二个等式指出的那样，其他公式也是可以的，在 [这篇论文](https://arxiv.org/abs/1804.02464) 中有讨论。）
 
-During an initial training period, gradient descent tunes the structural parameters _w_<sub>_i,__j_</sub> and <span style="color: #333333;">_α_<sub>_i,j_</sub>, which determine how large the fixed and plastic components are. As a result, after this initial training, the agent can learn automatically from ongoing experience because the plastic component of each connection is adequately shaped by neural activity to store information, reminiscent of some forms of learning in animals (including humans).
+在初始训练期间，梯度下降调整结构参数 _w_<sub>_i,_ _j_</sub> 和 <span style="color: #333333;">_α_<sub>_i,j_</sub> 这决定了固定和可塑性分量的大小。因此，在初始训练之后，智能体可以从持续性的经验中自动学习，因为每个连接的可塑性分量都通过神经活动充分塑造以存储信息，让人想起动物（包括人类）中某些学习的形式。
 
-### Demonstrating differentiable plasticity
+### 展示可微可塑性
 
-To demonstrate the potential of differentiable plasticity, we applied it to several challenging tasks that require fast learning from unpredictable stimuli.
+为了展示可微可塑性的潜力，我们将其应用于一些需要从不可预知刺激中快速学习具有挑战性的任务。
 
-In an image reconstruction task (Figure 1), a network memorizes a set of natural images that it has never seen before; then one of these images is shown, but with one half of it erased, and the network must reconstruct the missing half from memory. We show that differentiable plasticity can effectively train large networks, with millions of parameters, to solve this task. Importantly, traditional networks with non-plastic connections (including state-of-the-art recurrent architectures such as [LSTMs](https://en.wikipedia.org/wiki/Long_short-term_memory)) cannot solve this task and take considerably more time to learn a massively simplified version of it.
+在图像重建任务中（图1）网络存储一组从未见过的自然图像；然后显示这些图像中的一张，但其中一半被擦除，并且网络必须从记忆中重建缺失的一半。我们展示了可微可塑性能有效地训练具有数百万参数的大型网络来解决这个任务。重要的是，具有非塑性连接的传统网络（包括 [LSTMs](https://en.wikipedia.org/wiki/Long_short-term_memory) 等最先进的循环结构）无法解决此任务，并且花费相当多的时间来学习它极大简化的版本。
 
-[![Image reconstruction task](https://eng.uber.com/wp-content/uploads/2018/04/image2.jpg)](https://www.cs.toronto.edu/~kriz/cifar.html)
+[![图像重建任务](https://eng.uber.com/wp-content/uploads/2018/04/image2.jpg)](https://www.cs.toronto.edu/~kriz/cifar.html)
 
 [![](https://eng.uber.com/wp-content/uploads/2018/04/anim0.gif)](http://eng.uber.com/wp-content/uploads/2018/04/anim0.gif)
 
-Figure 1: An image completion task (each row indicates a separate episode). After being shown three images, the network is given a partial image and must reconstruct the missing part from memory. Non-plastic networks (including LSTMs) cannot solve this task. Source images from the [CIFAR10 dataset](https://www.cs.toronto.edu/~kriz/cifar.html).
+图 1：图像补全任务（每一行都是单独的重建过程（episode））。在显示三张图像之后，网络获得部分图像并且必须从记忆中重建缺失的部分。非塑性网络（包括LSTM）无法解决此任务。源图像来自 [CIFAR10 数据集](https://www.cs.toronto.edu/~kriz/cifar.html)
 
-We also trained plastic networks to solve the [Omniglot task](https://github.com/brendenlake/omniglot) (a standard ”learning to learn” task), which requires learning to recognize a set of novel handwritten symbols from a single demonstration of each one. Furthermore, the method can also be applied to reinforcement learning problems: plastic networks outperform non-plastic ones in a maze exploration task in which the agent must discover, memorize, and repeatedly reach the location of a reward within a maze (Figure 2). In this way, the simple idea of adding plasticity coefficients to neural networks offers a genuinely novel approach—sometimes the best available—to solving a wide breadth of problems requiring continuous learning from ongoing experience.
+我们还训练了可塑性网络来解决 [Omniglot 任务](https://github.com/brendenlake/omniglot)（一个标准的“学会学习”任务）这需要学习从每人单独绘制的符号中识别一组陌生的手写符号。此外，该方法还可以应用于强化学习问题：可塑性网络在迷宫探索任务中胜过非塑性网络，其中智能体必须发现、记忆并反复到达迷宫内的奖励位置（图 2）。通过这种方式，将可塑性系数添加到神经网络这一简单的思想提供了一种真正新颖的方法 —— 有时是最好的方法 —— 解决广泛的需要从持续经验中不断学习的问题。
 
-[![Maze exploration task - random](https://eng.uber.com/wp-content/uploads/2018/04/image5.gif)](http://eng.uber.com/wp-content/uploads/2018/04/image5.gif)
+[![迷宫探索任务 —— 随机](https://eng.uber.com/wp-content/uploads/2018/04/image5.gif)](http://eng.uber.com/wp-content/uploads/2018/04/image5.gif)
 
-[![Maze exploration task - differentiable plasticity applied](https://eng.uber.com/wp-content/uploads/2018/04/image4.gif)](http://eng.uber.com/wp-content/uploads/2018/04/image4.gif)
+[![迷宫探索任务 —— 应用可微可塑性](https://eng.uber.com/wp-content/uploads/2018/04/image4.gif)](http://eng.uber.com/wp-content/uploads/2018/04/image4.gif)
 
-Figure 2: A maze exploration task. The agent (yellow square) is rewarded for hitting the reward location (green square) as many times as possible (the agent is teleported to a random location each time it finds the reward). In Episode 1 (left), the agent’s behavior is essentially random. After 300,000 episodes (right), the agent has learnt to memorize the reward location and navigate towards it.
+图 2：迷宫探索任务。智能体（黄色方块）尽可能多地到达奖励地点（绿色方块）从而获得奖励（智能体在每次发现奖励时将其转移到随机地点）。在第 1 次探索迷宫时（左图），智能体的行为实质上是随机的。经过 300,000 次的探索（右图）之后，智能体已经学会记住奖励地点并向其自动寻路。
 
-### Looking forward
+### 展望
 
-In effect, differentiable plasticity offers a new, biologically-inspired approach to the classical problem of “[Learning to Learn](http://bair.berkeley.edu/blog/2017/07/18/learning-to-learn/),” or “[meta-learning](http://metalearning.ml).” The approach is also highly flexible, providing gradient descent with an elementary building block (the plastic connection) that it can harness in a variety of powerful ways, as demonstrated in the diverse tasks described above.
+实际上，可微可塑性为 [学会学习](http://bair.berkeley.edu/blog/2017/07/18/learning-to-learn/) 或 [元学习](http://metalearning.ml) 这一经典问题提供了一种新的生物启发式方法，只需通过各种强大的方式利用梯度下降和基础构建块（可塑性连接），这种方法也能非常灵活，就像上述不同任务所证明的那样。
 
-Furthermore, it opens the door to multiple new avenues of research. For example, can we improve existing complex network architectures, such as LSTMs, by making their connections plastic? What if the plasticity of the connections was under the control of the network itself, as it seems to be in biological brains through the influence of [neuromodulators](https://www.ncbi.nlm.nih.gov/pubmed/12880632)? Can plasticity offer a more efficient form of memory than recurrence alone (note that recurrence stores incoming information in neural activity, while plasticity stores it in connections, which are much more numerous)?
+此外，它打开了多个新研究途径的大门。例如，我们是否可以通过连接可塑性来改进现有的复杂网络体系结构，如 LSTM？如果连接的可塑性受到网络本身的控制，那么它似乎类似于 [神经调质](https://www.ncbi.nlm.nih.gov/pubmed/12880632) 影响生物大脑？可塑性是否提供了一种比单独循环网络更有效的记忆形式（请注意，循环网络将传入的信息存储在神经活动中，而可塑性网络将其存储在数量更多的连接中）？
 
-We intend to investigate these and other exciting questions in our future work in differentiable plasticity and hope others will join us in this exploration. To encourage research on this novel approach, we have released the code for the experiments described above [on GitHub](https://github.com/uber-common/differentiable-plasticity), along with [a paper describing our methods and results](https://arxiv.org/abs/1804.02464).
+我们打算在未来的可微可塑性工作中研究这些以及其他令人兴奋的问题，并希望其他人加入我们的探索。为了鼓励对这种新方法的研究，我们 [在 GitHub](https://github.com/uber-common/differentiable-plasticity) 发布了上述实验的代码以及 [描述我们的方法和结果的论文](https://arxiv.org/abs/1804.02464)。
 
-_To be notified of future Uber AI Labs blog posts, please sign up for _[_our mailing list_](https://goo.gl/forms/HvXgNYzSjbalVRQ93)_, or you can subscribe to _[_the Uber AI Labs YouTube channel_](https://www.youtube.com/channel/UCOb_oiEfSedawuvRA0oaVoQ)_. If you are interested in joining Uber AI Labs, please apply at _[_Uber.ai_](http://uber.ai)_._
+要想收到未来 Uber 人工智能实验室博客的文章，请注册为 [我们的邮件列表](https://goo.gl/forms/HvXgNYzSjbalVRQ93) 或者你也可以订阅 [Uber 人工智能实验室 YouTube 频道](https://www.youtube.com/channel/UCOb_oiEfSedawuvRA0oaVoQ)。如果您对加入 Uber AI 实验室感兴趣，请在 [Uber.ai](http://uber.ai) 上提交申请。
 
-_[Subscribe to our newsletter](http://uber.us11.list-manage1.com/subscribe?u=092a95bfe05dfa7c27877ca59&id=381801863c) to keep up with the latest innovations from Uber Engineering._
+[订阅我们的资讯](http://uber.us11.list-manage1.com/subscribe?u=092a95bfe05dfa7c27877ca59&id=381801863c) 以跟上 Uber 工程的最新创新。
 
 
 ---
