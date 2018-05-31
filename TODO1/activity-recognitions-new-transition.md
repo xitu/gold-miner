@@ -7,7 +7,7 @@
 
 # 情景活动感知识别的 Transition API 新特性面向全体开发者开放
 
-由Android开发团队的Marc Stogaitis，Tajinder Gadh和Michael Cai发布
+由 Android 开发团队的 Marc Stogaitis，Tajinder Gadh 和 Michael Cai 发布
 
 人们现在携带最多的个人设备就是手机，但是到目前为止，应用程序都很难根据用户不断变化的环境以及状态来调整情景模式。我们从开发者那里了解到开发者已经花费了很多时间去结合位置以及其他传感器等各种装置的数据信号，以确定用户何时开始或者结束像是步行或者驾驶这样的情景活动。更糟的是，当应用程序不断的监测用户的当前情景活动状态时，电池的寿命会受到影响。这就是今天的目的，我们很高兴能够向所有 Android 开发人员提供 情景活动感知 Transition API（不同情景活动的识别 API） -- 这是一个简单的 API，会帮您处理所有状态，并告诉您当前用户的情景活动是什么状态：当用户的活动情景状态发生改变时。
 
@@ -29,7 +29,7 @@ QuickBooks Self-Employed 中的自动追踪驾驶里程
 
 Life360 中实时分享位置信息。
 
-在接下来的几个月里，我们将继续在 Transition API 中增加新的活动分类，用来支持 Android 上的情景感知功能，如道路或者铁路车辆。如果您准备在您的应用中使用 Transition API，请查看我们的 API 指南](https://developer.android.com/guide/topics/location/transitions.html)。
+在接下来的几个月里，我们将继续在 Transition API 中增加新的活动分类，用来支持 Android 上的情景感知功能，如道路或者铁路车辆。如果您准备在您的应用中使用 Transition API，请查看我们的 [API 指南](https://developer.android.com/guide/topics/location/transitions.html)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
