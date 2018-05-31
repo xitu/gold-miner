@@ -11,13 +11,13 @@
 
 ### 作者：Alex Petrov
 
-应用程序处理的数据量不断增长。因此，扩展存储变得愈发具有挑战性。每个数据库系统都有自己的方案。为了从这些方案中做出正确的选择，了解它们是至关重要的。
+随着应用程序处理的数据量不断增长，扩展存储变得愈发具有挑战性。每个数据库系统都有自己的方案。为了从这些方案中做出正确的选择，了解它们是至关重要的。
 
-每个应用程序在读写负载平衡、一致性、延迟和访问模式方面各不相同。熟悉数据库和底层存储有助于架构决策；有助于解释系统行为；有助于解决问题；有助于根据具体情况调优。
+每个应用程序在读写负载平衡、一致性、延迟和访问模式方面各不相同。熟悉数据库和底层存储能帮助你进行架构决策、解释系统行为、排除故障以及根据具体情况调优。
 
 优化一个系统不可能做到面面俱到。我们当然希望有一个数据结构既能保证最佳的读写性能，又不需要任何存储开销，但显然，这是不存在的。
 
-本文深入讨论了大多数现代数据库中使用的两种存储系统设计 —— 读优化 [B-Tree](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.96.6637&rep=rep1&type=pdf) <sup><a href="#note1">[1]</a></sup> 和写优化 [LSM（结构化日志合并）-Tree](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.44.2782&rep=rep1&type=pdf) <sup><a href="#note5">[5]</a></sup> —— 并描述了它们的用例和优缺权衡。
+本文深入讨论了大多数现代数据库中使用的两种存储系统设计 —— 读优化 [B-Tree](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.96.6637&rep=rep1&type=pdf) <sup><a href="#note1">[1]</a></sup> 和写优化 [LSM(log-structured merge)-Tree](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.44.2782&rep=rep1&type=pdf) <sup><a href="#note5">[5]</a></sup> —— 并描述了它们的用例和优缺权衡。
 
 ### B-Tree
 
