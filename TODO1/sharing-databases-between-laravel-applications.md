@@ -9,7 +9,7 @@
 
 ### 介绍
 
-如果您碰巧在 [Twitter](https://twitter.com/michaeldyrynda) 上关注了我，您可能已经看到我发表了一些我正在做的日常工作。我们有一个面向客户的会员区和一个内部 CRM ，它们工作在同一个主数据库上。
+如果您碰巧在 [Twitter](https://twitter.com/michaeldyrynda) 上关注了我，您可能已经看到我发表了一些我正在做的日常工作。我们有一个面向客户的会员区和一个内部 CRM，它们工作在同一个主数据库上。
 
 CRM 是在我为现在的老板打工之前建立起来的，而会员区是我在 2017 年初作为外包商建立的。会员区本身是一个新的 Laravel 应用程序，而 CRM 则是一个完全自定义编写的软件。
 
@@ -17,11 +17,11 @@ CRM 是在我为现在的老板打工之前建立起来的，而会员区是我�
 304/5000
 作为外包商，我有一个数据库的不完整副本，并且我设法从数据库模式中反向工程 Eloquent 模型，创建[工厂](https://laravel.com/docs/5.6/database-testing#writing-factories)，以便能够为会员应用编写测试。
 
-在 2017 年年底，我们开始将我们的 CRM 迁移到 Laravel ，以便对代码库进行一些现代化改造，为其提供一个标准结构，并且可以轻松地对其进行更改。现在我们有两个 Laravel 应用程序，我们开始研究如何在它们之间共享数据。
+在 2017 年年底，我们开始将我们的 CRM 迁移到 Laravel，以便对代码库进行一些现代化改造，为其提供一个标准结构，并且可以轻松地对其进行更改。现在我们有两个 Laravel 应用程序，我们开始研究如何在它们之间共享数据。
 
 ### Eloquent 模型
 
-数据库模型是最容易处理的部分。为此，我们使用 Composer 为每个共享数据库表创建模型创建一个包，并将它们作为 [vcs 存储库](https://getcomposer.org/doc/05-repositories.md#loading-a-package-from-a-vcs-repository) 。这使我们能够无需通过Packagist发布就可以共享这些模型。
+数据库模型是最容易处理的部分。为此，我们使用 Composer 为每个共享数据库表创建模型创建一个包，并将它们作为 [vcs 存储库](https://getcomposer.org/doc/05-repositories.md#loading-a-package-from-a-vcs-repository)。这使我们能够无需通过Packagist发布就可以共享这些模型。
 
 这个包中的模型每个都从它们自己的基础模型扩展而来，它为每个数据库设置连接，并包含可以将它们连接在一起的最少量的逻辑。
 
@@ -43,7 +43,7 @@ Laravel 在` `config/database.php` 文件中附带多个数据库连接，向您
 
 ### 独立的实用程序
 
-我花了很长时间把类似 Artisan 的工具集中在一起，这个工具只关注迁移和数据库填充功能 —— [Nomad](https://github.com/michaeldyrynda/nomad)。为了管理许多应用程序的数据库迁移， Nomad 可以被引入独立的 Composer 项目 - 例如 [Vagabond](https://github.com/michaeldyrynda/vagabond)。
+我花了很长时间把类似 Artisan 的工具集中在一起，这个工具只关注迁移和数据库填充功能 —— [Nomad](https://github.com/michaeldyrynda/nomad)。为了管理许多应用程序的数据库迁移，Nomad 可以被引入独立的 Composer 项目 - 例如 [Vagabond](https://github.com/michaeldyrynda/vagabond)。
 
 Vagabond项目随后被作为一个包，您可以将其作为 VCS 存储库使用，并使用服务提供者，指导 Laravel 加载迁移，以及使用它的应用程序中可能存在的所有迁移。
 
@@ -95,7 +95,7 @@ database/migrations/
 
 在我们的测试环境中，我们使用 Laravel 的  [`RefreshDatabase`](https://laravel.com/docs/5.6/database-testing#resetting-the-database-after-each-test) 特征，它可以智能地为每个测试建立并删除整个数据库。然而，在撰写本文时，虽然它正确运行所有迁移，**但它只会删除默认数据库连接上的表**。
 
-这意味着如果我们对使用自己的数据库以及共享数据库的应用程序进行测试，则每次测试都将失败，因为 Laravel 会尝试运行未丢弃连接的迁移。对此， [Sepehr Lajevardi](https://twitter.com/sepehrlajevardi) 有一个[解决方案](https://github.com/laravel/framework/issues/21063#issuecomment-360616841) ， [Keith Damiani](https://twitter.com/keithdamiani) 为我指出明路。
+这意味着如果我们对使用自己的数据库以及共享数据库的应用程序进行测试，则每次测试都将失败，因为 Laravel 会尝试运行未丢弃连接的迁移。对此，[Sepehr Lajevardi](https://twitter.com/sepehrlajevardi) 有一个[解决方案](https://github.com/laravel/framework/issues/21063#issuecomment-360616841)，[Keith Damiani](https://twitter.com/keithdamiani) 为我指出明路。
 
 Sepehr 的建议中提及的的特性使用一个从待删表的连接数组中查找属性的方法覆盖 Laravel 的默认 `refreshTestDatabase` 方法。
 
@@ -161,7 +161,7 @@ definitions:
         MYSQL_ROOT_PASSWORD: 'supersecret'
 ```
 
-`export` 这几行为我们的应用程序作用的三个数据库中的每个数据库进行配置。我们让 MariaDB 服务使用 `MYSQL_DATABASE` 环境变量配置第一个数据库，然后使用 MySQL 客户端创建 `second_db` 和 `third_db` 。
+`export` 这几行为我们的应用程序作用的三个数据库中的每个数据库进行配置。我们让 MariaDB 服务使用 `MYSQL_DATABASE` 环境变量配置第一个数据库，然后使用 MySQL 客户端创建 `second_db` 和 `third_db`。
 
 > `MYSQL_ROOT_PASSWORD` 变量被定义为一个静态字符串，因为我没弄明白如何把随机密码注入部署步骤中，但是如果您知道如何做，请告诉我！
 
