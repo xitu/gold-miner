@@ -2,8 +2,8 @@
 > * 原文作者：[Nate Fischer](https://android-developers.googleblog.com)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/protecting-webview-with-safe-browsing.md](https://github.com/xitu/gold-miner/blob/master/TODO1/protecting-webview-with-safe-browsing.md)
-> * 译者：
-> * 校对者：
+> * 译者：[androidxiao](https://github.com/androidxiao)
+> * 校对者：[jasonxia23](https://github.com/jasonxia23)
 
 # 通过安全浏览保护 WebView
 
