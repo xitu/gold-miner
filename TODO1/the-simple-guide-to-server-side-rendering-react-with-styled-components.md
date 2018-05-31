@@ -54,7 +54,7 @@
 
 既然我们所有的依赖关系都已经被考虑到了，并且我们已经设置了脚本来启动和构建我们的项目，我们现在可以设置我们的 React 应用程序了。
 
-**1.**`**src/client/App.js**`
+**1.`src/client/App.js`**
 
 ```javascript
 import React from 'react';
@@ -66,7 +66,7 @@ export default App;
 
 `App.js` 返回一个包裹 💅 表情符的 div。这是一个非常基本的 React 组件，我们将把它渲染到浏览器中。
 
-**2.**`**src/client/index.js**`
+**2.`src/client/index.js`**
 
 ```javascript
 import React from 'react';
@@ -78,7 +78,7 @@ render(<App />, document.getElementById('app'));
 
 `index.js` 是将 React 应用程序装入 DOM 的标准方式。它会取出 `App.js` 组件并渲染它。
 
-**3.**`**src/client/Html.js**`
+**3.`src/client/Html.js`**
 
 ```javascript
 /**
@@ -110,7 +110,7 @@ export default Html;
 
 为了在服务器上渲染我们的应用，我们需要安装 express 处理请求并返回我们的 HTML。express 添加进来以后，我们就可以创建服务了。
 
-`**src/server.js**`
+**`src/server.js`**
 
 ```javascript
 import express from 'express';
@@ -200,7 +200,7 @@ yarn build，然后 yarn start，成功后访问 [http://localhost:3000](http://
 
 接下来，让我们开始使用 styled-components 样式化我们的应用。
 
-1.  `**src/client/App.js**`
+**1. `src/client/App.js`**
 
 让我们创建我们的第一个 styled component。要创建一个 styled component，首先要导入 `styled` 并且定义你的组件。
 
@@ -227,7 +227,7 @@ export default App;
 
 把一个 styled component 添加到我们的应用
 
-**2.** `**src/server.js**`
+**2. `src/server.js`**
 
 这是最大的变化发生的地方。 `styled-components` 暴露了 `ServerStyleSheet`，它允许我们用 `<App />` 中的所有 `styled` 组件创建一个样式表。这个样式表稍后会传入我们的 `Html` 模板。
 
@@ -265,7 +265,7 @@ console.log(`Serving at http://localhost:${port}`);
 
 向 server.js 添加5行代码。
 
-**3.** `**src/client/Html.js**`
+**3. `src/client/Html.js`**
 
 将 `styles` 作为参数添加到我们的 `Html` 函数中，并将 `$ {styles}` 参数插入到我们的模板字符串中。
 
