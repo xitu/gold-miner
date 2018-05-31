@@ -2,324 +2,324 @@
 > * 原文作者：[]()
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/exploring-apps-without-jailbreaking.md](https://github.com/xitu/gold-miner/blob/master/TODO1/exploring-apps-without-jailbreaking.md)
-> * 译者：[melon8](https://github.com/melon8)
-> * 校对者：[ALVINYEH](https://github.com/ALVINYEH)
+> * 译者：
+> * 校对者：
 
-# 不越狱探索 App 的技巧
+# Exploring Apps Without Jailbreaking
 
-## 学习如何构建其他应用的五种简单技巧
+## Five simple techniques to learn how other apps are built
 
-Medium 的 iOS应用是一个带伪导航条的原生应用，而 Product Hunt 则是用 React Native 构建的。
+The Medium iOS app is a native app with a fake navigation bar and the Product Hunt app is built with React Native.
 
 ![](https://cdn-images-1.medium.com/max/800/1*OW-khVXV7oFfBpwdtOD_hw.png)
 
-Medium iOS 应用（左）和 Product Hunt iOS 应用(右)。
+The Medium iOS app (left) and the Product Hunt iOS app (right).
 
-我是怎么知道的呢？除了我自己编写代码或向开发人员询问以外，我可以用几个简单的测试来确定 —— 不需要越狱。
+How do I know? Unless I wrote the code myself or asked the developers who did, I can be confident based on a few simple tests—no jailbreaking required.
 
-想知道我怎么做的？
+Want to learn how it’s done?
 
-### 背景
+### Background
 
-在网络的“早期”时代，很容易了解任何网站是如何建立的。通过在浏览器中查看源码，底层代码可以暴露给任何人看到、拿去混淆或者重用。随着网络的发展和框架的使用，网站变的越来越复杂，到现在，这几乎是不可能做到的。
+In the “early days” of the web, it was easy to learn how any site was built. By viewing the source in a browser, the underlying code could be exposed for anyone to see, remix, and reuse. As the web progresses and frameworks increase the complexity of sites, this is nearly impossible now.
 
 ![](https://cdn-images-1.medium.com/max/800/1*F1PatoKhttsUn6yowfwjDA.png)
 
-使用 Chrome 检查 Medium 文章的 HTML。
+Using Chrome to inspect the HTML of a Medium article.
 
-App 有相同的问题，但更糟。app 会经过编译，这意味着原代码已经从人类可阅读的格式转换为计算机友好格式。
+Apps have the same problem, but worse. Apps are compiled, which means the original source code has been translated from a human-friendly format to a computer-friendly format.
 
-虽然有工具可以反编译 iOS 应用，但它们需要越狱设备，特殊工具和专业编程知识。我将分享一些不需要任何黑客技巧的策略 —— 只要应用安装在你的设备上就够了。
+While there are tools to de-compile iOS apps, they require a jailbroken device, special tools, and coding expertise. I’m going to share tactics that don’t require any hacker skills—all you need is the app installed on your device.
 
-### 关键的理念
+### The Key Idea
 
-我们的策略很简单：将应用推向极限，期待着出状况。如果我们能看到它们出现的具体问题，就可以推断它们如何工作。
+Our strategy is simple: push apps to their limits in hopes of breaking them. If we see how they break, we can infer how they work.
 
-我们将尝试回答以下问题：
+We are going to try to answer the following:
 
-1. 该应用是原生的吗？如果不是，它是一个 web view？React Native？PhoneGap？Unity？某种 hybrid？
-2. 使用了哪些 UI 元素？是开箱即用的组件还是一些自定义的东西？如何使用它们来达到预期的效果？
+1.  Is the app native? If not, is it a web view? React Native? PhoneGap? Unity? Some kind of hybrid?
+2.  What UI elements are being used? Mainly out-of-the-box components or something custom? How are they used to achieve the desired effect?
 
-### 实验
+### The Experiments
 
-为了收集数据，我们将做五个测试。我将解释每项测试如何执行，寻找的目标是什么以及从结果中可以得出什么结论。
+To gather data, we are going to perform five tests. I will explain how to perform each test, what to look for, and what to conclude from the results.
 
-我们将测试：
+We will be testing:
 
-1. 按钮触摸状态 👆
-2. 交互式导航栏手势 🔙
-3. VoiceOver 🔊
-4.动态类型🔎
-5. 飞行模式 ✈️
+1.  Button touch states 👆
+2.  Interactive navigation gestures 🔙
+3.  VoiceOver 🔊
+4.  Dynamic type 🔎
+5.  Airplane mode ✈️
 
 ![](https://cdn-images-1.medium.com/max/2000/1*Mji7eJHwKQKQBh82Tv2obw.jpeg)
 
-### 实验 #1：按钮触摸状态 👆
+### Experiment #1: Button Touch States 👆
 
-一个按钮看起来很简单。你点击它，然后发生一些事情。但是，并非所有的按钮都是相同的。
+A button may seem simple. You tap on it, and something happens. However, not all buttons are created equal.
 
-我们将测试按钮交互的边缘情况 —— 用户不仅仅是点击一下按钮时的行为。
+We are going to test the edge cases of button interaction—the behavior when the user doesn’t simply tap the button.
 
-iOS 开发新人常常对 `UIButton`（iOS 上的默认按钮组件）的交互复杂性感到惊讶。在交互中的不同节点有九个事件会发生。
+New iOS developers are often surprised by the complexity of interaction on a `UIButton` (the default button component on iOS). There are nine events that occur at various points in the interaction.
 
-1. `touchDown`
-2. `touchDownRepeat`
-3. `touchDragInside`
-4. `touchDragOutside`
-5. `touchDragEnter`
-6. `touchDragExit`
-7. `touchUpInside`
-8. `touchUpOutside`
-9. `touchCancel`
+1.  `touchDown`
+2.  `touchDownRepeat`
+3.  `touchDragInside`
+4.  `touchDragOutside`
+5.  `touchDragEnter`
+6.  `touchDragExit`
+7.  `touchUpInside`
+8.  `touchUpOutside`
+9.  `touchCancel`
 
-（在[苹果开发者文档](https://developer.apple.com/documentation/uikit/uicontrolevents)中了解有关 `UIControlEvents` 的更多信息。）
+(Learn more about `UIControlEvents` in the [developer documentation](https://developer.apple.com/documentation/uikit/uicontrolevents).)
 
-几乎所有的按钮都会在 `touchUpInside` 上执行一个动作（当用户在控件边界内触摸并松手时）。用户触摸时，大多数按钮都会表现出特殊的状态。
+Almost all buttons perform an action on `touchUpInside` (when the user releases their touch inside the bounds of the control). Most buttons have a special state when the user touches down.
 
-真正的区别因素是按钮如何处理 `touchDragExit` 和 `touchDragEnter` 事件。当用户触摸按钮时，按钮如何响应，然后不抬起手指，拖动到按钮之外，然后再拖回来。
+The real differentiating factor is how buttons handle the `touchDragExit` and `touchDragEnter` events. How do buttons respond when the user touches down on the button, then without lifting their finger, drags outside of the button and then back in?
 
 ![](https://cdn-images-1.medium.com/max/800/1*o9vaFZNIOoJOyRbe9QvU6A.gif)
 
-在 iOS 模拟器中测试标准按钮。
+Testing a standard button in the iOS simulator.
 
-标准的 `UIButton` 有一些常见的行为：
+Standard `UIButton`'s have some common behaviors:
 
-1. 拖回按钮时的“触摸区域”大于按钮的边界。
-2. 在 touchDragEnter 和 touchDragExit 的时候有一个动画。
+1.  The “touch area” when dragging back into the button is larger than the button’s bounds.
+2.  There is an animation on `touchDragEnter` and `touchDragExit`.
 
-但是，自定义的原生按钮通常会丢掉这些默认动画。
+However, customized native buttons often lose these default animations.
 
 ![](https://cdn-images-1.medium.com/max/800/1*7WEjgmPpcWb1RJU_7Vk3VQ.gif)
 
-没有动画的自定义按钮。
+A custom button with no animations.
 
-#### 一个例子
+#### An Example
 
-我们来看看 Medium 应用。如果你在 Medium 的 iOS 应用中阅读此内容，你可以直接在上面试试！
+Let’s try an example with the Medium app. If you’re reading this on the Medium iOS app, you can follow along at home!
 
-让我们试一下右下角的这个看起来很花哨的按钮：
+Let’s try this fancy-looking button in the bottom right:
 
 ![](https://cdn-images-1.medium.com/max/800/1*LjDIPzIsPupqBavlayV06g.png)
 
-如果你点击按钮，然后按住不动，将手指向外移动并返回，你会发现手形图标在其明暗状态之间切换。
+If you tap on the button, then while still holding, move your finger out and back in, you’ll notice the hand icon switching between its light and dark state.
 
-（我的下一篇文章：“我如何通过增长黑客来得到 10 万用户” 😉）
+(My next post: “How I growth-hacked my way to 100k claps” 😉)
 
-#### React Native 按钮
+#### React Native Buttons
 
-React Native 按钮很容易认出来。它们通常有一个缓慢的淡入淡出动画，并且适用于**一切** React Native 按钮。
+React Native buttons are pretty easy to spot. They often have a slow fade animation, and it’s applied to **everything**.
 
 ![](https://cdn-images-1.medium.com/max/800/1*TRzUveN7gJy-QCCo-p-pEA.gif)
 
-Facebook 的 F8 应用中的按钮动画。这是 React Native 应用程序中的常见效果。
+Button animation in Facebook’s F8 app. This is a common effect in React Native apps.
 
-React Native 应用程序通常会大量使用滚动视图，这会使按钮的行为难以测试，因为拖动按钮也会滚动视图。
+React Native apps usually make heavy use of scroll views, which can make this button behavior difficult to test, since dragging the button also scrolls the view.
 
-当谈到 React Native 的话题时，另一个泄露秘密的表现就是 cell 的点击状态。iOS 的原生 cell 点击后会出现一个纯色背景，而 React Native 的 cell 点击后与其按钮类似的高光效果。
+While on the topic of React Native, another big giveaway is the touch states on “cells”. Traditional table cells apply a solid background color, while React Native cells usually apply a highlight effect similar to their buttons.
 
 ![](https://cdn-images-1.medium.com/max/800/1*kDDB-EtlYgMR_yENeMmg4Q.gif)
 
-左：React Native cell 行为。右：原生 cell 行为。
+Left: React Native cell behavior. Right: Native cell behavior.
 
-#### Web View 按钮
+#### Web View Buttons
 
-在我下载测试的 PhoneGap 应用程序中，约 95％ 的按钮完全没有触摸状态，其余的约 5％ 保留了触摸按钮的状态，但在拖出或返回时没有任何表现。
+Of the PhoneGap apps I downloaded to test, ~95% of the buttons had no touch states at all, and the remaining ~5% had a touch down state, but didn’t have any effect when dragging out or back in.
 
-#### 按钮触摸状态的结论
+#### Conclusions from button touch states
 
-请记住很重要的一点，这些按钮行为很容易被重写。表现出特定的行为并不意味着一个绝对的原因 —— 它只是某个方向的线索。
+It’s important to keep in mind that these button behaviors are easily overridable. Exhibiting a particular behavior does not imply a cause—it’s just a clue in a certain direction.
 
-但是随着时间的推移，你会不自觉对按钮有一种“感觉”，但它是探索 app 如何构建的，做出有根据猜测的最简单方法之一。（这种技术也可以用来确定一个交互元素是一个按钮还是其他类型的控件。）
+You’ll have to get a “feel” for buttons over time, but it’s one of the easiest ways to start making educated guesses about how an app is built. (This technique can also be used to determine whether an interactive element is a button or some other kind of control.)
 
-### 实验 #2：交互式导航手势
+### Experiment #2: Interactive navigation gestures 🔙
 
-从 iOS 7 开始，用户可以通过滑动显示屏的左侧边缘来导航到前一个界面。这个手势特别有趣，因为它是交互式的，这意味着它可以搓来搓去。
+Since iOS 7, users have been able to navigate to the previous screen by swiping the left edge of the display. This gesture is especially fun because it’s interactive, meaning it can be scrubbed back and forth.
 
-在 iOS 上使用标准的 `UINavigationController` 时，这种行为是自带的。出于某种原因，许多应用程序弃用了标准导航栏，并最终导致了导航转换效果的丢失，损坏或[质量不高](https://medium.com/@nathangitter/designing-jank-free-apps-9f66d43b9c87)。
+This behavior comes for free when using a standard `UINavigationController` on iOS. For one reason or another, many apps forgo the standard behavior and end up with a missing, broken, or [janky](https://medium.com/@nathangitter/designing-jank-free-apps-9f66d43b9c87) navigation transition.
 
-让我们在 Medium 中试一下。
+Let’s try it on the Medium app.
 
 ![](https://cdn-images-1.medium.com/max/800/1*DXaY3wngOmbDnygRsGR_5w.gif)
 
-比较 Medium（左侧）和 App Store（右侧）上的导航转换效果。
+Comparing navigation transitions on the Medium app (left) and the App Store app (right).
 
-与标准导航转换不同，Medium app 将导航栏与屏幕的其余部分一起移动。而标准情况下，导航栏保持不变，上面的所有标签会淡入淡出。
+Unlike a standard navigation transition, the Medium app moves the navigation bar with the rest of the screen. Normally the navigation bar stays constant and any labels cross-fade.
 
-另外，Medium app 的前一个界面上的黑色半透明叠加层较暗，看起来导航转换部分被重写了，或者更有可能是直接使用了自定义的组件。
+Additionally, the dark overlay on the previous screen is much darker in the Medium app, leading me to believe that the transition has been overridden, or more likely, is a totally custom component.
 
-我个人认为它看起来非常好，并且理解他们出于设计和开发的需要而采取了这种方法。
+I personally think it looks really good, and understand there are major design and development benefits gained from this approach.
 
-#### React Native 导航
+#### React Native Navigation
 
-从开发的角度来看，React Native 中的导航功能实现起来更加困难。因此，React Native 应用程序倾向于使用自定义导航转换，而不是使用`UINavigationController`的标准“push”和“pop”。
+From a development perspective, navigation is more difficult in React Native. As a result, React Native apps tend to use custom navigation transitions instead of the standard “push” and “pop” of `UINavigationController`.
 
 ![](https://cdn-images-1.medium.com/max/800/1*xkAtEig66JoJISlBcl3YCw.gif)
 
-Facebook 的 F8 应用程序中的自定义转换效果。
+A custom transition in Facebook’s F8 app.
 
-iOS 上的默认模态演示不是交互式的，并且在重新出现的界面上没有缩放效果。
+Default modal presentations on iOS are not interactive, and don’t have a scaling effect on the screen that’s re-appearing.
 
-以下是 React Native 中自定义转换的另一个示例。
+Here’s another example of a custom transition in React Native.
 
 ![](https://cdn-images-1.medium.com/max/800/1*iOqkUpe_3TDIvt_JqSYo-A.gif)
 
-Facebook 的 F8 应用中的导航转换效果。
+A navigation transition in Facebook’s F8 app.
 
-没有阴影或黑色叠加，但真正泄露秘密的表现是动画时机。在这个 gif 中很难看到，但是在我抬手之后，动画完成比平常慢得多。
+There’s no shadow or dark overlay, but the real giveaway is the animation timing. It’s hard to see in this gif, but after I release my touch, the animation completes much slower than normal.
 
-就像按钮触摸状态一样，通过测试许多导航转换，你可以在一段时间的后获得一种“感觉”。
+Just like button touch states, this is something you can get a “feel” for over time by testing many navigation transitions.
 
-#### 交互式导航手势的结论
+#### Conclusions from interactive navigation gestures
 
-这是我最喜欢的测试之一，因为它可以揭示更多关于 app 的信息，而不仅仅是导航栏的工作方式。如果手势把 app 搞出了 bug，则可能得到的信息不仅仅是导航转换的方式了。
+This is one of my favorite tests since it can reveal more about an app than just how the navigation bar works. If the gesture breaks an app, it’s possible to learn about more than just the navigation transition.
 
-但是，就像按钮触摸状态一样，导航转换可以被重写。然而实际上，由于导航转换需要大量的开发工作，所以导航转换不太可能被严格定制。
+However, just like button touch states, navigation transitions can be overridden. In practice, navigation transitions are less likely to be heavily customized since it requires significant development effort.
 
-### 实验 #3：VoiceOver（旁白）🔊
+### Experiment #3: VoiceOver 🔊
 
-你想要超能力？试试 VoiceOver。
+You want superpowers? VoiceOver will give you superpowers.
 
-VoiceOver 是 Apple 版本的屏幕阅读器。适用于视力障碍用户，这种辅助功能选项会大声朗读用户界面。
+VoiceOver is Apple’s version of a screen reader. Meant for low-vision users, this accessibility option reads the user interface aloud.
 
-VoiceOver 有另一个我们更感兴趣的效果：它在当前选定的元素周围显示一个黑框。
+VoiceOver has another effect we are more interested in: it displays a black box around the currently selected element.
 
 ![](https://cdn-images-1.medium.com/max/800/1*7B6BZBbp-amooMt5ZOMvpA.png)
 
-在 App Store 和 Weather 应用程序中选择元素的声音。
+Voice over selecting elements in the App Store and Weather apps.
 
-这使我们能够将界面分解成各个部分。不需要猜测界面是如何构建的，我们可以让 VoiceOver 告诉我们！有时它甚至会大声朗读元素的类型（“按钮”，“日期选择器”等）。
+This allows us to break a screen into its parts. Instead of guessing how a screen is built, we can just have VoiceOver tell us! Sometimes it will even read aloud the type of element (“button”, “date picker”, etc).
 
-如果您以前没有使用过 VoiceOver，那么它很值得去学习。基本概念：
+If you haven’t played with VoiceOver before, it is worth learning. The basics:
 
-1. 在屏幕上拖动以选择元素。
-2. 双击屏幕上的任意位置以“点击”所选元素。
-3. 左右滑动以在元素之间快速跳转。
+1.  Drag on the screen to select elements.
+2.  Double-tap anywhere on the screen to “tap” the selected element.
+3.  Swipe left and right to quickly jump between elements.
 
-让我们来研究一下在 Medium 中使用 VoiceOver 的效果。
+Let’s investigate the Medium app with VoiceOver.
 
 ![](https://cdn-images-1.medium.com/max/800/1*_wvOl8sGA-2RjevOJcBzpA.png)
 
-使用 VoiceOver 在 Medium 中选择帖子的标题。
+Using VoiceOver to select the title of a post in the Medium app.
 
-大多数元素的表现和预期一致。VoiceOver 只是读取选择的内容或元素的名称。但是，有一些不寻常的行为。
+Most of the elements act as expected. VoiceOver simply reads the content of the selection or the name of the element. However, there are a few unusual behaviors.
 
-在主屏幕上，选择帖子的标题只能读取标题的一半。首先它说，“Color Contrast Crash C”，然后选择标题的底部读取“Course for Interface Design”。这说明 label 的布局肯定有一些自定义的部分，这使得 VoiceOver 认为标题被分成多个 label，每行一个 label。（我的猜测是他们为自定义行间距的 label 构建了一个变通方案，而通常的解决方案是使用 `attributedString` 属性，并且他们的方案可能会导致以后出现复杂问题。）
+On the home screen, selecting the title of a post only reads half of the title. First it says, “Color Contrast Crash C”, then selecting the bottom of the title reads “Course for Interface Design”. There must be something custom about the layout of the labels that makes VoiceOver think the title is split into multiple labels, one per line. (My guess is they built a workaround for labels with custom line spacing, which usually requires overriding the `attributedString` property, and can lead to complications later.)
 
-选择描述 label 后，我们可以看到 VoiceOver 揭示隐藏信息的威力。对于大多数用户来说，label 只是显示“估计有 2.85 亿...”。但是VoiceOver告诉我们更多的信息：“估计有 2.85 亿人视力受损。这个数字包括从法律上来看这些人的人数“。在这种情况下说明，所有数据都存储在标签中，但视觉上被截断了。
+Selecting the description, we can see the power of VoiceOver to reveal hidden information. To most users, the label only says “There are an estimated 285 million…”. But VoiceOver tells us more: “There are an estimated 285 million people in the world who are visually impaired. This number includes anyone from legally blind to those”. In this case, all that data is stored in the label, but visually cut off.
 
 * YouTube 视频链接：https://youtu.be/7iiah_J_N0A
 
-Medium 的 VoiceOver 演示。(确保你的声音不是静音)
+VoiceOver demo on the Medium iOS app. (Make sure your sound is on.)
 
-如果幸运的话，你可以使用它来访问你无法访问的信息。
+If you’re lucky, you can use this to access information you otherwise shouldn’t be able to access.
 
-这是另一个有趣实验。在“书签”选项卡上，如果你没有书签，则有一个不可见的标签。它说：“要给文章加书签，在任一地方点击书签图标，文章会被添加到这个列表。”
+Here’s another fun one. On the “bookmarks” tab, if you have no bookmarks, there is an invisible label. It says “To bookmark stories, tap on the bookmark icon anywhere and it will be added to this list.”
 
 ![](https://cdn-images-1.medium.com/max/800/1*o-X2hCfV1rWjXIRWdWOa_g.png)
 
-使用 VoiceOver 在 Medium 中选择不可见标签。
+Using VoiceOver to select an invisible label in the Medium app.
 
-我猜是开发人员会快速暂时隐藏这个标签，并假定可能将来产品又会让它显示。（或者，也许我正在被 A/B 测试。）
+My guess is that a developer quickly hid this label temporarily, with the assumption that it might be shown in the future. (Or maybe I’m just being A/B tested.)
 
-#### 非原生应用程序
+#### Non-native Apps
 
-VoiceOver 也适用于基于网络视图的 app。如果你听到“链接”或“标题级别”等字眼时，表示你正在一个网络视图之中。
+VoiceOver works well for web view-based apps as well. If you hear words like “link” or “heading level one”, you’re in a web view.
 
-此外，文本元素可能会基于样式以各种奇怪的方式拆分（因为它的 HTML 表示），并且元素可能不会自然分组。
+Additionally, text can be split in various odd ways based on styling (because of its HTML representation), and elements may not be grouped naturally.
 
-游戏（由 Unity，SpriteKit 等构建）通常根本没有任何 VoiceOver 支持。
+Games (built with Unity, SpriteKit, etc) generally do not have any VoiceOver support at all.
 
-#### VoiceOver 的结论
+#### Conclusions from VoiceOver
 
-VoiceOver 提供的证据在这些测试中最可靠。它显示元素的可视范围，并可以读取不可见的属性。这是关于任何界面的宝贵资料。
+VoiceOver provides the most reliable evidence of any test. It shows the visual bounds of elements, and reads invisible attributes. It’s a treasure trove of data about any screen.
 
-随着你更多地使用 VoiceOver，你会学习到各种 UI 元素的默认表达方式，并开始注意到它的不同之处。
+As you use VoiceOver more, you’ll learn the default phrasing for various UI elements, and start to notice when it’s different.
 
-与上述任何测试一样，VoiceOver 不是 100％ 可靠的。所有的 VoiceOver 文本和边界框都可以由开发人员配置。针对 VoiceOver 优化过的应用程序也可能会揭露更少关于应用程序如何工作的信息，因为开发人员会修复可能导致 app 出问题的 bug。
+As with any of these tests, VoiceOver is not 100% reliable. All of the VoiceOver text and bounding boxes are configurable by the developer. Apps optimized for VoiceOver tend to display less rich information about how the app works since the developer has fixed issues that cause it to break.
 
-（专业提示：将 VoiceOver 设置为你的“辅助功能快捷键”，便于在测试时打开和关闭。）
+(Pro tip: Setting VoiceOver as your “Accessibility Shortcut” makes it easy to toggle on and off while testing.)
 
-### 实验 #4：动态类型🔎
+### Experiment #4: Dynamic type 🔎
 
-与 VoiceOver 类似，动态类型 是适用于视力障碍用户的辅助功能。它可以修改整个系统的文字大小。
+Similar to VoiceOver, dynamic type is an accessibility setting for low-vision users. It modifies the text size throughout the system.
 
-我们想要使用动态类型来破坏布局。有了新的“辅助功能中的更大字体”后，这比以往更容易看出 app 端倪，这绝对是巨大字体。
+We want to use dynamic type to break layouts. And with the new “Accessibility Sizes” which are absolutely gigantic, this is easier than ever.
 
 ![](https://cdn-images-1.medium.com/max/800/1*KmwvxTP9Q2KyLfTqwo54MQ.png)
 
-调至最大字体的“更大文本”设置界面。
+The “Larger Text” settings screen with the maximum type size.
 
-动态类型 可以在设置 > 辅助功能 > 更大字体中设置。这也可以作为一个 widget 添加到 iOS 11 中的控制中心，以便于访问。
+Dynamic type can be activated in Settings > Accessibility > Larger Text. This can also be added as a widget to the control center in iOS 11 for easier access.
 
-不幸的是，Medium 不支持 动态类型，所以我们将使用 App Store 演示。
+Unfortunately the Medium app doesn’t support dynamic type, so we are going to use the App Store app instead.
 
-我将文字大小设置为最大值，并找到了一个错误的布局 —— 搜索界面上的一个广告。
+I set the text size to the maximum, and was able to find one broken layout—an advertisement on the search screen.
 
 ![](https://cdn-images-1.medium.com/max/800/1*IsqwosbqCtJVJADUySBb3A.png)
 
-最大字体（左侧）和默认字体（右侧）的 App Store 搜索界面。
+The App Store search screen with the largest type setting (left), and the default (right).
 
-文本“22K”布局的非常好，但它没有揭露太多布局的秘密，因为布局为更大字体做了调整（可以看到元素改位堆叠排列，而不是并排）。
+The clipping text “22K” is pretty great, but it doesn’t reveal too much about the layout, since the layout is adjusted for large type (seen by the elements in a stack instead of being side-by-side).
 
-我最喜欢的部分是淡蓝色的“广告”按钮。和正常字体大小时的漂亮的圆角矩形不同，我们得到了一个怪怪的拉伸的形状。
+My favorite part here is the light blue “Ad” button. Instead of a nice rounded rectangle, we get a funky stretched shape.
 
 ![](https://cdn-images-1.medium.com/max/800/1*Q-v6oAigHDVBWNfBgzgmXQ.png)
 
-更大字体设置下的“广告”按钮。
+The “Ad” button with a large type setting.
 
-我的猜测是，这个蓝色框被绘制成一个硬编码半径的自定义路径。通常，控件不会使用动态类型调整大小（请参阅“GET”按钮作为示例），所以这里有一些自定义内容。
+My guess is that this blue box is drawn as a custom path with a hard-coded radius. Usually controls don’t resize with dynamic type (see the “GET” button as an example), so there’s something custom going on here.
 
-####动态类型的结论
+#### Conclusions from dynamic type
 
-有些应用程序根本不支持 动态类型。即使支持，他们也可能不支持辅助设置中更大的字体。
+Some apps simply don’t support dynamic type. Even if they do, they might not support the larger accessibility sizes.
 
-但是当动态类型生效时，就可以对布局进行压力测试。使用 VoiceOver 已经可以了解一些信息，结合动态类型更有助于验证理论。通常支持动态类型的 app 也会测试这一部分，这会减少显示有用信息的机会。
+When it works, dynamic type can stress-test layouts. Some of this information is viewable already with VoiceOver, but it can help to verify theories. Generally apps that support dynamic type have also tested dynamic type, which reduces the chance of revealing useful information.
 
-### 实验 #5：飞行模式✈️
+### Experiment #5: Airplane mode ✈️
 
-另一个简单的测试是启用飞行模式。飞行模式会禁用 Wi-Fi 和蜂窝移动网络，这会立即导致网络请求失败。通过在各种情况下禁用网络连接，我们可以看到 app 如何出问题。
+Another simple test is to enable Airplane mode. Airplane mode disables Wi-Fi and cellular connection, which causes network requests to immediately fail. By disabling network connections in various situations, we can see how apps break.
 
-在 Medium 中，如果你加载主页，打开飞行模式，并选择一篇文章，文章仍会加载。事实上，整个帖子仍然可读。
+In the Medium app, if you load the home page, turn on Airplane mode, and select a post, the post will still load. In fact, the entire post is still readable.
 
 ![](https://cdn-images-1.medium.com/max/800/1*uKDEsrYBp0PRfIVlq8aLoA.png)
 
-飞行模式下的 Medium。文字内容加载，但图像不加载。
+The Medium app with Airplane mode on. The content loads, but images do not.
 
-由此，我们推断 Medium 在加载预览时会拉取整个帖子的内容（并进行一些缓存）。
+From this, we know that the app pulls the content for entire posts when it loads the previews (and does some caching).
 
-App Store 也会延迟加载图像。加载完一个页面并滚动到底部之后打开飞行模式会看到图像区域是空白的。
+The App Store app lazily loads images as well. Turning on Airplane mode after loading an app page and scrolling to the bottom reveals blank spaces where the loaded images belong.
 
 ![](https://cdn-images-1.medium.com/max/800/1*ayzVeFPBdoN9UwaPIKdSsQ.png)
 
-App Store 在飞行模式下。图像（即使在同一页面上）似乎是懒加载。
+The App Store app with Airplane mode on. Images (even on the same page) appear to lazily load.
 
-大多数现代应用程序重度依赖于网络连接，来下载内容然后允许交互，所以飞行模式会让大多数 app 出错。
+Most modern apps depend heavily on network connections to download content and allow interactivity, so this will break most apps.
 
-#### React Native 和非原生应用
+#### React Native and Non-Native Apps
 
-在我测试过的 React Native app 中，大多数应用程序通过删除屏幕上的所有内容，并显示一条自定义的“无连接”消息，对缺乏互联网连接的情况立即做出反应。
+Of the React Native apps I tested, most immediately responded to a lack of internet connection by removing all content on the screen and displaying a custom “no connection” message.
 
-对于基于 webview 的 app，大多数没有反应。没有迹象表明当前正在加载或者加载失败。
+For webview-based apps, most didn’t respond. There was no indication that loading was occurring, or that it failed.
 
-#### 飞行模式的结论
+#### Conclusions from airplane mode
 
-不幸的是，飞行模式并没有给出如何构建应用程序的明确答案，因为大多数应用程序在没有可用连接时会有某种回退方式。
+Unfortunately, airplane mode doesn’t give too many definitive answers on how the app is built, as most apps have some kind of fallback when no connection is available.
 
-想继续深入？通过观察 app 的网络流量，你可以了解更多关于其他应用的信息。Charles Proxy（代理）的 iOS app 是洞悉各种 app 的好方法，但需要一些 HTTP 网络知识。
+Want to dive deeper? You can learn a lot about other apps by observing their network traffic. Charles Proxy for iOS is a great way to get insight, but requires some knowledge of HTTP networking.
 
-### 小贴士
+### Takeaways
 
-尽管可能不能完全确定 app 的构建方式，但有一些方法可以让你进行有根据的猜测。通过研究边缘案例，我们可以更大程度上揭示它们的内部运作。
+While it may seem impossible to determine how an app is built, there are some ways to make educated guesses. By studying edge cases, we can reveal the inner workings of the larger system.
 
-我们的学习也可以为我们自己的 app 的设计和开发提供信息。多了解一些方法有助于我们在未来做出更好的决策。
+Our learnings can inform the design and development of our own apps. Being aware of other approaches helps us make better decisions in the future.
 
-在一个不开源的应用程序的世界中，做些小改动的能力有限。（或重新发现）思考事物运转的方式的乐趣。
+In a world of closed-source apps with a limited ability to tinker, hopefully these techniques help some people discover (or rediscover) the joy of learning how things work.
 
 * * *
 
-喜欢这个故事？在 Medium 上留言，并与 iOS 设计/开发者朋友分享。想要了解最新的移动应用设计/开发？在 Twitter上关注我：[twitter.com/nathangitter](https://twitter.com/nathangitter)
+Enjoyed the story? Leave some claps 👏👏👏 here on Medium and share it with your iOS design/dev friends. Want to stay up-to-date on the latest in mobile app design/dev? Follow me on Twitter: [twitter.com/nathangitter](https://twitter.com/nathangitter)
 
-感谢 [David Okun](https://twitter.com/dokun24) 修改本文的草稿。
+Thanks to [David Okun](https://twitter.com/dokun24) for revising drafts of this post.
 
 
 ---

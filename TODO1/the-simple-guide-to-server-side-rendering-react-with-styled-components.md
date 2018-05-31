@@ -2,36 +2,36 @@
 > * 原文作者：[Dennis Brotzky](https://medium.com/@JobeirDennis?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-simple-guide-to-server-side-rendering-react-with-styled-components.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-simple-guide-to-server-side-rendering-react-with-styled-components.md)
-> * 译者：[Elliott Zhao](https://github.com/elliott-zhao)
-> * 校对者：hannah(https://github.com/hannahGu) [lance10030](https://github.com/lance10030)
+> * 译者：
+> * 校对者：
 
-# 使用 styled-components 的 React 服务端渲染极简指南
+# The simple guide to server-side rendering React with styled-components
 
 ![](https://cdn-images-1.medium.com/max/2000/1*esSohBffpbW40OCldHJ_zA.png)
 
-本指南旨在分享服务端渲染的 React App 中使用 style-components 的核心原则。当你意识到把 styled-components 集成到你的程序中是多么的完美，它的美才真正凸显出来。除此之外，styled-components 还很容易集成到使用其他样式方案的现有应用程序中。
+The goal of this guide is to share the core principles of how to use styled-components in a server side rendered React application. The beauty of styled-components really shines through when you realize how seamless it is to setup in your application. Furthermore, styled-components are easy to integrate into existing applications that are using other methods of styling.
 
-在本指南中，没有类似于 Redux，React Router 这类额外的库，或者代码拆分之类的概念 —— 让我们从基础开始。
+In this guide there are no additional libraries such as Redux, React Router, or concepts such as code splitting — let’s start with the basics.
 
-你可以在这里看到最终能工作的例子： [**https://github.com/Jobeir/styled-components-server-side-rendering**](https://github.com/Jobeir/styled-components-server-side-rendering)，这里参与此文的讨论： [**https://spectrum.chat/thread/b95c9ef2-20cb-4bab-952f-fadd90add391**](https://spectrum.chat/thread/b95c9ef2-20cb-4bab-952f-fadd90add391)
+You can view the final working example at: [**https://github.com/Jobeir/styled-components-server-side-rendering**,](https://github.com/Jobeir/styled-components-server-side-rendering) discuss this post at[**https://spectrum.chat/thread/b95c9ef2-20cb-4bab-952f-fadd90add391**](https://spectrum.chat/thread/b95c9ef2-20cb-4bab-952f-fadd90add391)
 
-### 开始构建我们的 React 应用
+### Getting started by setting up our React app
 
 ![](https://cdn-images-1.medium.com/max/600/1*wbD3IaUAwYsSHJa9Y6OBBA.png)
 
-应用架构。
+Application structure.
 
-首先，让我们来看看在这个指南中我们的应用程序的架构是怎样的。我们需要把所有的依赖和脚本放在 `package.json` 中，并且我们的构建步骤会通过 `webpack.config.js` 进行处理。
+First, let’s take a look at how our application will be structured for this guide. We’ll need to have all our dependencies and scripts within`package.json` and our build step will be processed through `webpack.config.js`.
 
-除此之外，一个单独的 `server.js` 文件来处理我们的 React 应用程序的路由和服务。 `client/` 目录中有含 `App.js`，`Html.js` 和 `index.js` 在内的我们实际的应用程序。
+Beyond that, a single `server.js` file will handle our routing and serving of our React application. The `client/` folder contains our the actual application in `App.js`, `Html.js` and `index.js.`
 
-首先，新建一个空的文件目录，通过下面的指令创建一个空的 `package.json` 文件：
+To get started, in a new empty folder of your choice, create an empty `package.json` by running:
 
-`npm init --yes` 或者 `yarn init --yes`
+`npm init --yes` or `yarn init --yes`
 
-然后把下方展示的脚本和依赖都粘进去。这个应用的依赖有 React，styled-components，Express，Wepback 和 Babel。
+Then paste in the following scripts and dependencies shown below. The dependencies for this application include React, styled-components, Express, Wepback, and Babel.
 
-```json
+```
 "scripts": {
   "start": "node ./dist/server",
   "build": "webpack"
@@ -52,11 +52,11 @@
 }
 ```
 
-既然我们所有的依赖关系都已经被考虑到了，并且我们已经设置了脚本来启动和构建我们的项目，我们现在可以设置我们的 React 应用程序了。
+Now that all our dependancies are accounted for and we’ve setup our scripts to start and build our project we can setup our React application.
 
-**1.`src/client/App.js`**
+**1.**`**src/client/App.js**`
 
-```javascript
+```
 import React from 'react';
 
 const App = () => <div>💅</div>;
@@ -64,11 +64,11 @@ const App = () => <div>💅</div>;
 export default App;
 ```
 
-`App.js` 返回一个包裹 💅 表情符的 div。这是一个非常基本的 React 组件，我们将把它渲染到浏览器中。
+`App.js` returns a div wrapping the 💅 emoji. It’s a very basic React component that we will be rendering into the browser.
 
-**2.`src/client/index.js`**
+**2.**`**src/client/index.js**`
 
-```javascript
+```
 import React from 'react';
 import { render } from 'react-dom';
 import App from './App';
@@ -76,16 +76,16 @@ import App from './App';
 render(<App />, document.getElementById('app'));
 ```
 
-`index.js` 是将 React 应用程序装入 DOM 的标准方式。它会取出 `App.js` 组件并渲染它。
+`index.js` is the standard way to mount a React application into the DOM. We’re taking out `App.js` component and rendering it.
 
-**3.`src/client/Html.js`**
+**3.**`**src/client/Html.js**`
 
-```javascript
+```
 /**
  * Html
- * 这个 Html.js 文件充当了一个模板，我们将所有生成的应用程序代码插入其中
- * 然后作为常规的 HTML 发送给客户端。
- * 注意我们从这个函数返回一个模板字符串。
+ * This Html.js file acts as a template that we insert all our generated
+ * application code into before sending it to the client as regular HTML.
+ * Note we're returning a template string from this function.
  */
 const Html = ({ body, title }) => `
   <!DOCTYPE html>
@@ -102,17 +102,17 @@ const Html = ({ body, title }) => `
 export default Html;
 ```
 
-到目前为止，我们已经有了一个 `package.json`，它包含了我们所有的依赖和脚本，还有在 `src/client/` 文件夹中的一个基本的 React 应用程序。这个 React 应用程序会把 `Html.js` 文件返回的模板字符串渲染为 HTML。
+What we have so far is a `package.json` that contains all our dependencies and scripts along with a basic React app in the `src/client/` folder. This React app will be rendered as HTML through the `Html.js` file that returns a template string.
 
-### 创建服务
+### Creating the server
 
 ![](https://cdn-images-1.medium.com/max/800/1*_o9W9dTKMXheC-LLQC3Bzw.png)
 
-为了在服务器上渲染我们的应用，我们需要安装 express 处理请求并返回我们的 HTML。express 添加进来以后，我们就可以创建服务了。
+To render our app on the server we’ll need to setup express to handle the request and send back our HTML. With express already added, we can get right into creating server.
 
-**`src/server.js`**
+`**src/server.js**`
 
-```javascript
+```
 import express from 'express';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
@@ -124,8 +124,8 @@ const server = express();
 
 server.get('/', (req, res) => {
   /**
-   * renderToString()  将获取我们的 React 应用程序并将其转换为一个字
-   * 符串，以便插入到我们的 Html 模板函数中。
+   * renderToString() will take our React app and turn it into a string
+   * to be inserted into our Html template function.
    */
   const body = renderToString(<App />);
   const title = 'Server side Rendering with Styled Components';
@@ -142,11 +142,11 @@ server.listen(port);
 console.log(`Serving at http://localhost:${port}`);
 ```
 
-### 配置 Webpack
+### Configuring Webpack
 
-本指南专注于非常基础的知识，因此我们让 Webpack 配置保持简单。我们使用 Webpack 和 Babel 在生产模式下构建我们的 React 应用程序。有一个单入口在 `src/server.js` 中，它将被输出到 `dist/` 下。
+This guide is focused on the very basics so our Webpack config is kept simple. We are using Webpack to build our React app in production mode and with Babel. There is a single entry point at `src/server.js` that will be ouput into `dist/`
 
-```javascript
+```
 const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
 const path = require('path');
@@ -178,37 +178,37 @@ module.exports = {
 };
 ```
 
-现在我们已经可以构建并服务一个服务端渲染的 React 应用程序了。我们可以运行两个命令并做好准备。
+Now we have enough to build and serve a server side rendered React application. We can run two commands and be ready.
 
-首先，运行：
+First, run:
 
-`yarn build` 或者 `npm build`
+`yarn build` or `npm build`
 
-然后用过运行以下命令启动程序：
+Then to start application run:
 
-`yarn start` 或者 `npm start`
+`yarn start` or `npm start`
 
-**如果它没有启动，你可能需要在项目的根目录中添加一个** `_.babelrc_` **文件。**
+_If it does not start you may need to add a_ `_.babelrc_` _file in the root of your project._
 
 ![](https://cdn-images-1.medium.com/max/800/1*1xXs7xt80kpSk37hCVyQ7w.png)
 
-yarn build，然后 yarn start，成功后访问 [http://localhost:3000](http://localhost:3000)。
+Visiting [http://localhost:3000](http://localhost:3000) after a successful yarn build and subsequent yarn start.
 
-### 添加 styled-components
+### Adding styled-components
 
-到目前为止，一切都很好。我们已经成功创建了一个在服务器上渲染的 React 应用程序。我们没有任何类似 React Router，Redux 的第三方库，而且我们的 Webpack 配置也是直奔主题的。
+So far, so good. We’ve successfully created a React application that’s rendered on the server. We don’t have any third party libraries like React Router, Redux, and our Webpack config is straight to the point.
 
-接下来，让我们开始使用 styled-components 样式化我们的应用。
+Next, let’s start styling our app with styled-components:
 
-**1. `src/client/App.js`**
+1.  `**src/client/App.js**`
 
-让我们创建我们的第一个 styled component。要创建一个 styled component，首先要导入 `styled` 并且定义你的组件。
+Let’s create our first styled component. To create a styled component import `styled` and define your component.
 
-```javascript
+```
 import React from 'react';
 import styled from 'styled-components';
 
-// 我们的单个styled component 定义
+// Our single Styled Component definition
 const AppContaienr = styled.div`
   display: flex;
   align-items: center;
@@ -225,35 +225,35 @@ const App = () => <AppContaienr>💅</AppContaienr>;
 export default App;
 ```
 
-把一个 styled component 添加到我们的应用
+Adding a styled component into our App
 
-**2. `src/server.js`**
+**2.** `**src/server.js**`
 
-这是最大的变化发生的地方。 `styled-components` 暴露了 `ServerStyleSheet`，它允许我们用 `<App />` 中的所有 `styled` 组件创建一个样式表。这个样式表稍后会传入我们的 `Html` 模板。
+This is where the biggest changes occur. `styled-components` exposes `ServerStyleSheet` that will allow use to create a stylesheet from all the `styled` components in our `<App />`. This stylesheet gets passed into our `Html` template later on.
 
-```javascript
+```
 import express from 'express';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import App from './client/App';
 import Html from './client/Html';
-import { ServerStyleSheet } from 'styled-components'; // <-- 导入 ServerStyleSheet
+import { ServerStyleSheet } from 'styled-components'; // <-- importing ServerStyleSheet
 
 const port = 3000;
 const server = express();
 
-// 创建索引路由为我们的 React 应用程序提供服务。
+// Creating a single index route to server our React application from.
 server.get('/', (req, res) => {
-  const sheet = new ServerStyleSheet(); // <-- 创建样式表
+  const sheet = new ServerStyleSheet(); // <-- creating out stylesheet
 
-  const body = renderToString(sheet.collectStyles(<App />)); // <-- 搜集样式
-  const styles = sheet.getStyleTags(); // <-- 从表中获取所有标签
+  const body = renderToString(sheet.collectStyles(<App />)); // <-- collecting styles
+  const styles = sheet.getStyleTags(); // <-- getting all the tags from the sheet
   const title = 'Server side Rendering with Styled Components';
 
   res.send(
     Html({
       body,
-      styles, // <-- 将样式传递给我们的 Html 模板
+      styles, // <-- passing the styles to our Html template
       title
     })
   );
@@ -263,17 +263,17 @@ server.listen(port);
 console.log(`Serving at http://localhost:${port}`);
 ```
 
-向 server.js 添加5行代码。
+Adding 5 lines of code to server.js.
 
-**3. `src/client/Html.js`**
+**3.** `**src/client/Html.js**`
 
-将 `styles` 作为参数添加到我们的 `Html` 函数中，并将 `$ {styles}` 参数插入到我们的模板字符串中。
+Adding `styles` as an argument into our `Html` function and inserting the `${styles}` argument into our template string.
 
-```javascript
+```
 /**
  * Html
- * 这个 Html.js 文件充当了一个模板，我们将所有生成的应用程序代码插入其中
- * 成的应用程序字符串插入进去。
+ * This Html.js file acts as a template that we insert all our generated
+ * application strings into before sending it to the client.
  */
 const Html = ({ body, styles, title }) => `
   <!DOCTYPE html>
@@ -291,31 +291,31 @@ const Html = ({ body, styles, title }) => `
 export default Html;
 ```
 
-**就是这样！让我们构建并运行使用服务端渲染的 React 和 styled-components 应用程序吧。**
+**And that’s it! Let’s build and run our server side rendered React application with styled-components.**
 
-`yarn build` 或者 `npm build`
+`yarn build` or `npm build`
 
-然后用过运行以下命令启动程序：
+Then to start application run:
 
-`yarn start` 或者 `npm start`
+`yarn start` or `npm start`
 
 ![](https://cdn-images-1.medium.com/max/1000/1*TuzLZNu5HEHcK4h0cEZNdw.png)
 
-### 结论
+### Conclusion
 
-我们已经创建了服务端渲染中使用 styled-components 的 React 应用程序的分步指南。本指南周围没有各种花哨的技巧，因为我们想要关注核心概念。从这里开始，您可以在现有应用程序中使用这些原则，或者在本指南的基础上构建更复杂的应用程序。还有其他一些指南可以帮助您添加状态管理，路由，性能改进等等。
+We’ve created a step-by-step guide of how to server side render a React application with styled-components. There are no bells or whistles around this guide because we wanted to focus on the core concepts. From here, you can use these principles in your existing apps or build on top of this guide to create a more complex app. There are other guides that will help you piece together how to add state management, routing, performance improvements, and more.
 
 * * *
 
-### 不要停止学习！
+### Don’t stop learning!
 
-感谢您阅读本指南到最后。希望它能帮助你理解并开始使用 React / SSR 和 styled-components。如果您认识任何可能从本指南中受益的人，我会很乐意推荐给他们！
+Thank you for following this guide and reading through to the end. Hopefully it helped you understand and get started with React/SSR and styled-components. If you know anyone that would benefit from this guide I would love if you recommended it to them!
 
-如果您希望看到使用样式化组件的服务端渲染的较大代码库，则可以查看我的另一个项目，[Jobeir, on Github](https://github.com/Jobeir/jobeir). 最重要的是，[styled-components文档](https://www.styled-components.com/docs/advanced#server-side-rendering)总是一个不错的去处。
+If you’d like to see a larger code base that’s server side rendered using styled-components you can check out one of my projects, [Jobeir, on Github](https://github.com/Jobeir/jobeir). On top of that, the [styled-components documentation](https://www.styled-components.com/docs/advanced#server-side-rendering) is always a good place to go.
 
-### 在 [Jobeir](https://jobeir.com) 的在 SSR React 中使用 styled-components
+### Using SSR React with styled-components at [Jobeir](https://jobeir.com)
 
-我是谁？我是 [**Jobeir**](https://jobeir.com) 的创始人，Jobeir 是一个专注于帮助每个人找到科技领域最好的工作的工作布告栏。我在加拿大温哥华担任高级前端开发人员。可以在 [Twitter](https://twitter.com/jobeirofficial) 上问我问题，或者跟我打招呼，又或者检索我们的 [Github](https://github.com/Jobeir) 仓库。
+Who am I? I’m the creator of [**Jobeir**](https://jobeir.com), a job board focused on helping everyone find the best jobs in tech. I work as a Senior Frontend developer in Vancouver, Canada. You can ask me questions, say hello on [Twitter](https://twitter.com/jobeirofficial), or even check out our [Github](https://github.com/Jobeir).
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
