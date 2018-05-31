@@ -4,7 +4,7 @@
 > * 译者：[Elliott Zhao](https://github.com/elliott-zhao)
 > * 校对者：
 
-# Mariatta Wijaya —— 什么是 Python 核心开发人员？- PyCon 2018
+# 玛利亚塔·维加亚 —— 什么是 Python 核心开发者？- PyCon 2018
 
 > 本文为 PyCon 2018 视频之 Mariatta Wijaya - What is a Python Core Developer? 的中文字幕，您可以搭配原视频食用。
 
@@ -14,19 +14,19 @@
 
 0:06  感到非常兴奋。这个议程将会对
 
-0:10  什么是Python核心开发者
+0:10  什么是 Python 核心开发者
 
 0:14  进行非常棒的讨论。进行演讲的人是
 
-0:17  我的好朋友玛利亚塔·维加亚。我们
+0:17  我的好朋友麻利亚塔·维加亚。我们
 
 0:23  发现我犯了一个错误。好吧，应该是玛利亚塔。
 
-0:27  我们在之后不会有问答环节
+0:27  我们在之后不会有问答环节，
 
 0:30  不过我相信如果你找到她的话，
 
-0:33  Marietta应该很乐意在会议的
+0:33  玛利亚塔应该很乐意在会议的
 
 0:35  休息时间中和你聊聊，她就会在
 
@@ -40,23 +40,23 @@
 
 0:55  因为我们都会在这同一个房间中
 
-0:57  共处差不多45分钟的时间，我觉得我们
+0:57  共处差不多45 分钟的时间，我觉得我们
 
 1:01  互相加深一下了解是个不错的主意。
 
 1:05  我十分确信在这个房间中的每个人
 
-1:06  都是用Python，对么？你至少使用
+1:06  都是用 Python，对么？你至少使用
 
-1:08  Python写过 hello world。没错！你还
+1:08  Python 写过 hello world。没错！你还
 
-1:12  使用 F-String ，没错！而且在座的所有
+1:12  使用 F-String，没错！而且在座的所有
 
-1:16  人都是Python社区的一员。
+1:16  人都是 Python 社区的一员。
 
-1:18  你们正在PyCon会议上和其他“Python家”进行
+1:18  你们正在 PyCon 会议上和其他“ Python 家”进行
 
-1:21  互动。 所以你们都是Python社区
+1:21  互动。所以你们都是 Python 社区
 
 1:23  中的一员。并且我相信你们中
 
@@ -68,13 +68,13 @@
 
 1:34  对任何一个开源项目做过至少一次
 
-1:37  Pull Request ？给CPython？有很多人。
+1:37  Pull Request ？给 CPython？有很多人。
 
 1:40  非常多的人。这实在是
 
 1:42  太好了，简直太棒了。因此，我对各位
 
-1:44  向开源软件和CPython贡献代码表示由衷的
+1:44  向开源软件和 CPython 贡献表示由衷的
 
 1:46  感谢。
 
@@ -82,7 +82,7 @@
 
 1:54  这是一个汇总。我的名字是
 
-1:57  玛利亚塔，你可以在 Twitter 、 Github
+1:57  玛利亚塔，你可以在 Twitter、Github
 
 1:59  上找到我。我是两个孩子的母亲，
 
@@ -100,7 +100,7 @@
 
 2:18  而对我的唯一要求就是让我穿上
 
-2:22  这件企业文化T恤。所以感谢 Zapier 。
+2:22  这件企业文化T恤。所以感谢 Zapier。
 
 2:26  我们正在招聘，所以在明天的招聘会上
 
@@ -110,11 +110,11 @@
 
 2:34  帮助组织了 Thank Goodbye
 
-2:37   Ladies 。
+2:37   Ladies。
 
 2:37  另外我还参与组织了一个名叫
 
-2:41  PyCascades的会议，它会在2019
+2:41  PyCascades 的会议，它会在2019
 
 2:44  年的某个时间在西雅图召开。
 
@@ -126,19 +126,19 @@
 
 2:56  是两年，当加入开源项目，
 
-2:59  我感觉我真是个新手。 不过去年
+2:59  我感觉我真是个新手。不过去年
 
-3:03  不知为何他们赋予了我向CPython提交代码的
+3:03  不知为何他们赋予了我向 CPython 提交代码的
 
 3:06  的写权限。我现在可以自称是一个
 
-3:10  Python核心开发者了，而这个演讲都是
+3:10  Python 核心开发者了，而这个演讲都是
 
 3:16  关于这件事。自从我成为一个
 
 3:18  核心开发者，有很多人提出
 
-3:20  像这样的问题：作为一个Python
+3:20  像这样的问题：作为一个 Python
 
 3:23  核心开发者感觉怎样？感觉如何？他们怎样
 
@@ -154,7 +154,7 @@
 
 3:39  为了帮助说明我的历程，
 
-3:43  我借用了这张我去年在PyCaribbean
+3:43  我借用了这张我去年在 PyCaribbean
 
 3:46  上罗素·基思 - 马吉博士的主题演讲
 
@@ -212,7 +212,7 @@
 
 4:56  潜在用户和新用户，我们仅仅
 
-4:59  讨论所有的Python用户。
+4:59  讨论所有的 Python 用户。
 
 5:02  然后再领袖的位置，是
 
@@ -226,11 +226,11 @@
 
 5:19  的感受。我开始作为一个用户，
 
-5:21  我使用Python，然后我开始
+5:21  我使用 Python ，然后我开始
 
 5:24  参与到社区中，参加
 
-5:27  会议，我参加PyCon，我参加
+5:27  会议，我参加 PyCon ，我参加
 
 5:29  聚会，然后我开始向开源
 
@@ -238,7 +238,7 @@
 
 5:34  了我提交权限，然后我就成为了
 
-5:37  核心团队的一员，而这我认为成为BDFL
+5:37  核心团队的一员，而这我认为成为 BDFL
 
 5:40  就是旅行的终点，没有人
 
@@ -246,33 +246,33 @@
 
 5:45  永远。现在我们回到问题：
 
-5:52  什么是Python核心开发者？
+5:52  什么是 Python 核心开发者？
 
 5:56  技术上来讲，这意味着你拥有
 
-5:59  向CPython提交代码的权限，现在
+5:59  向 CPython 提交代码的权限，现在
 
 6:02  在全世界范围内有89个人。
 
 6:06  这门有着编程语言七百万用户的
 
-6:08  编程语言，有89个人拥有
+6:08  编程语言，有89 个人拥有
 
 6:11  这种提交权限。还有一些
 
 6:17  不错的福利，所以我得到的
 
-6:19  有在bug跟踪紧挨着我的名字这个很酷的
+6:19  有在 bug 跟踪紧挨着我的名字这个很酷的
 
-6:23  Python标志。 我来到Python语言
+6:23  Python 标志。我来到 Python 语言
 
 6:27  峰会，可以享受免费入场和
 
 6:29  免费午餐。
 
-6:30  而这，在美国每年召开的PyCon上都会发生。
+6:30  而这，在美国每年召开的 PyCon 上都会发生。
 
-6:34  我会来买一些Core Sprint，
+6:34  我会来买一些 Core Sprint，
 
 6:36  呃，这似乎每年都在发生。
 
@@ -282,23 +282,23 @@
 
 6:47  你被授予了提交权，一些
 
-6:50  责任也就随之而来了。 您将被
+6:50  责任也就随之而来了。您将被
 
-6:53  添加到github上的Python核心
+6:53  添加到 Github 上的 Python 核心
 
 6:57  团队。然后你就要加入……你会
 
 7:00  负责17个存储库。
 
-7:03  可见的有CPython，开发指南，
+7:03  可见的有 CPython ，开发指南，
 
-7:07  peps，我们的工作流，性能，
+7:07  PEP，我们的工作流，性能，
 
-7:10  以及我们所有的github机器人。您将被期望
+7:10  以及我们所有的 Github 机器人。您将被期望
 
 7:14  订阅并参与各种
 
-7:17  Python邮件列表。Python运营我们的
+7:17  Python 邮件列表。Python 运营我们的
 
 7:20  邮件列表。所以，这意味着你会得到
 
@@ -310,7 +310,7 @@
 
 7:33  所以你将不得不学习如何去管理
 
-7:36  你的邮件。 我之前说过你会
+7:36  你的邮件。我之前说过你会
 
 7:42  负担起很多责任。我之前说到的
 
@@ -318,21 +318,21 @@
 
 7:47  一般来讲，你会不得不去
 
-7:50  Review一大堆Pull Request。直到今天为止，
+7:50  审阅一大堆 Pull Request。直到今天为止，
 
-7:53  还有超过600个Pull Request仍处在打开状态。
+7:53  还有超过600个 Pull Request 仍处在打开状态。
 
 7:56  你还需要做决策，决定你是否
 
-7:59  接收这些PR，
+7:59  接受这些 PR，
 
-8:01  抑或说No。在过去的一年里，核心
+8:01  抑或说 No。在过去的一年里，核心
 
-8:06  开发者已经关闭了超过6000个
+8:06  开发者已经关闭了超过6000 个
 
 8:10  Pull Request，这是很繁重的工作。
 
-8:14  当你接受Pull Request时，
+8:14  当你接受 Pull Reques t时，
 
 8:17  你必须做好准备面对
 
@@ -344,9 +344,9 @@
 
 8:29  一个错误的决定，它实际上会
 
-8:33  搞坏东西，引入BUG，
+8:33  搞坏东西，引入 BUG，
 
-8:36  合并Pull Request的人
+8:36  合并 Pull Request 的人
 
 8:40  将不得不负担起责任。你将
 
@@ -358,25 +358,25 @@
 
 8:55  你还要帮助人们
 
-8:57  向CPython贡献代码，因为
+8:57  向 CPython 贡献代码，因为
 
 9:00  你知道怎么贡献代码，你知道
 
 9:02  你想要什么，而且因为你有
 
-9:07  CPython的提交权限，
+9:07  CPython 的提交权限，
 
 9:08  所以你可以作出决定，你可以告诉
 
-9:11  别人什么东西可以进入Python，什么东西
+9:11  别人什么东西可以进入 Python，什么东西
 
 9:15  不能。你可以塑造这门语言的形状，
 
 9:21  决定它如何发展。这是一个非常巨大的
 
-9:25 责任, 这使你成为
+9:25 责任，这使你成为
 
-9:28  Python语言和社区的
+9:28  Python 语言和社区的
 
 9:34  代表和领导者。对，这里有一个
 
@@ -430,7 +430,7 @@
 
 10:54  你可以从本地开始，帮助你的本地的
 
-10:58  Python聚会。我组织聚会，所以我知道我们一直
+10:58  Python 聚会。我组织聚会，所以我知道我们一直
 
 11:02  在寻求帮助。我们一直寻找
 
@@ -450,23 +450,23 @@
 
 11:25  聚会，这对你来说有点过，
 
-11:27  没问题， 你可以写一些关于Python的
+11:27  没问题，你可以写一些关于 Python 的
 
 11:30  博客，向全世界分享你
 
-11:33  如何使用Python。 写下你最喜欢的
+11:33  如何使用 Python。写下你最喜欢的
 
 11:35  库，写一篇教程，或者单纯的把
 
-11:38  Python的知识传播给每个人。
+11:38  Python 的知识传播给每个人。
 
 11:41  在会议上做志愿者，这是
 
 11:44  回馈社区的好方法，
 
-11:46  尤其是在PyCon。
+11:46  尤其是在 PyCon。
 
-11:50  PyCon会议依靠志愿者，
+11:50  PyCon 会议依靠志愿者，
 
 11:55  每当你与其他社区成员
 
@@ -474,7 +474,7 @@
 
 12:00  做一个开放，体贴和尊重他人
 
-12:04  的好人。 下一个问题：如何
+12:04  的好人。下一个问题：如何
 
 12:10  为开源项目做贡献？有很多中途径。
 
@@ -498,7 +498,7 @@
 
 12:42  都真的可以从文档中寻求
 
-12:45  帮助。检查Pull Request，
+12:45  帮助。检查 Pull Request，
 
 12:48  并再次与其他贡献者
 
@@ -544,11 +544,11 @@
 
 13:59  那么下一个后续问题是：
 
-14:01  好的Mariatta，因为你是Python核心
+14:01  好的玛利亚塔，因为你是 Python 核心
 
 14:04  开发者，请更具体一些，
 
-14:07  告诉我如何为CPython
+14:07  告诉我如何为 CPython
 
 14:11  贡献代码。这是最大的
 
@@ -556,7 +556,7 @@
 
 14:17  我原来也想知道。我在两年前
 
-14:21  向BDFL提出了同样的
+14:21  向 BDFL 提出了同样的
 
 14:24  问题。所以我只是要给你们
 
@@ -568,7 +568,7 @@
 
 14:38  如何获得源代码，如何使用
 
-14:41  git，我们的邮件列表在哪里，如何
+14:41  Git，我们的邮件列表在哪里，如何
 
 14:44  运行测试，如何编译...他对我
 
@@ -576,7 +576,7 @@
 
 14:50  读一遍。接下来，他告诉我加入
 
-14:55  核心指导和Python研发邮件
+14:55  核心指导和 Python 研发邮件
 
 14:58  列表，如果我有任何
 
@@ -586,27 +586,27 @@
 
 15:06  好吧。
 
-15:09  真的。 所以我写给邮件列表
+15:09  真的。所以我写给邮件列表
 
 15:12  的前几封电子邮件
 
 15:13  都是这么开始的：嘿，我问圭多这件事，
 
-15:17  他告诉我写信给你。 
+15:17  他告诉我写信给你。
 
 15:20  所以这是我的问题... 然后他给我指出
 
 15:25  错误跟踪器，这是你应该
 
-15:28  找到问题去解决的地方。 然后说
+15:28  找到问题去解决的地方。然后说
 
 15:31  多简单的问题，创建
 
 15:36  一个补丁，修补它并提出请求，
 
-15:38  所以这些都是圭多告诉我的。 很简单，
+15:38  所以这些都是圭多告诉我的。很简单，
 
-15:44  就像听起来那样。 他从来没有真的
+15:44  就像听起来那样。他从来没有真的
 
 15:48  给我任何问题让我处理，
 
@@ -628,617 +628,617 @@
 
 16:16  然后开始研究，并找出如何解决
 
-16:20  这个问题。now at that time
+16:20  这个问题。那么，到这时，
 
-16:28  people that start asking me well since
+16:28  人们开始问我：既然
 
-16:31  you've been following the bug tracker
+16:31  你一直在追踪错误跟踪器，
 
-16:33  maybe you can find me an issue to work
+16:33  也许你可以找到我可以解决的
 
-16:36  on all right give me some time because
+16:36  问题。好，给我一点时间。因为
 
-16:43  in order to really find an issue I have
+16:43  为了真正发现问题，我必须
 
-16:46  to really really watch the bug tracker
+16:46  仔细地观察错误跟踪器。
 
-16:49  recent some of the issues that I thought
+16:49  提出一些我认为
 
-16:52  could be interesting to you and then
+16:52  对你有意思的问题，然后
 
-16:54  still ask you whether you're interested
+16:54  问你是否感兴趣。
 
-16:56  and you might not actually want to be
+16:56   而你实际上可能并不
 
-16:58  interested so I think I feel that this
+16:58  感兴趣，所以我觉得找到
 
-17:03  is finding an issue to work on is a
+17:03  一个要解决的问题，是一种
 
-17:06  skill you're going to have to acquire to
+17:06  你将应该学习和掌握的
 
-17:09  learn and it's going to take time so you
+17:09  的技能。这需要时间，所以你
 
-17:14  shouldn't be relying on me or maintainer
+17:14  不应该依靠我或维护人员
 
-17:18  to assign you an issue it just doesn't
+17:18  来指派你一个问题。这件事不是
 
-17:21  work like that
+17:21  这么做的。
 
-17:22  so so perhaps people want to hear what
+17:22  也许人们希望听到
 
-17:28  I've been contributing what are my open
+17:28  我的贡献，我的开源
 
-17:31  sort of contributing contributions for
+17:31  贡献是什么。例如，
 
-17:34  inspiration for examples except I really
+17:34  对灵感的贡献。反正我
 
-17:39  don't think I've had many meaningful
+17:39  我真的认为我没有做出很多有意义
 
-17:42  contributions
+17:42  的贡献。
 
-17:43  I fix a lot of typos really this this
+17:43  我修复了很多拼写错误。真的！ 这
 
-17:48  was one of my first contribution to open
+17:48  是我第一次向开源项目贡献代码时
 
-17:51  source and one will change this is how I
+17:51  的一次文件改变。我就是这么
 
-17:53  started two years ago I really fix a lot
+17:53  开始的。两年前，我确实修复了很多
 
-18:02  of typos I was reading a pap saw typos
+18:02  拼写错误。我正在阅读 PEP，发现了一处拼写错误，
 
-18:05  fixing really the moral of the story is
+18:05  修复它。真的。这个故事的意思是说，
 
-18:13  my contributions have been accidental
+18:13  我的贡献是偶然的。
 
-18:17  like I was it wasn't intentional but it
+18:17 这并不是刻意为之，
 
-18:19  wasn't really goal I was learning I read
+18:19  也没有真正意义上的目标。我只是学习，
 
-18:23  the docs trying to learn how to use it
+18:23  我阅读文档，试图学会如何使用它，
 
-18:26  so problems and I take them I contribute
+18:26  看到了问题然后修复了它们。我向
 
-18:33  very little code to see Python and
+18:33  CPython 贡献了很少的代码，
 
-18:36  that's something that seems like
+18:36  似乎所有人
 
-18:39  everybody expects core developers to be
+18:39  都期望核心开发者
 
-18:42  contributing code a lot of code well I
+18:42  贡献代码。很多代码。好吧，
 
-18:45  don't I write documentation I write to
+18:45  我没有。我写文档，我
 
-18:49  fight on the developers guide my github
+18:49  给 Python 开发者指南写东西。我的
 
-18:53  bought right even more code than I have
+18:53  Github 机器人编写的代码比我
 
-18:57  ever done to see Python so if if you use
+18:57  给 CPython 写的代码还要多。所以如果你使用
 
-19:01  iPhone 3 6 4 or 3 6 5 you're likely
+19:01  Python 3.6.4或3.6.5，你可能
 
-19:06  using code generated by my github bot
+19:06  正在使用我的 Github 机器人生成的代码。
 
-19:09  and I I participate in mailing list help
+19:09  我参与邮件列表，帮助回答
 
-19:12  answer questions and I like to review
+19:12  问题，并且我喜欢审阅
 
-19:16  pull requests I try to prioritize
+19:16  Pull Request，我尝试优先
 
-19:19  reviewing pull requests from first-time
+19:19  审阅来自首次贡献者
 
-19:22  contributors because I want to be the
+19:22  的拉取请求。因为我希望向
 
-19:25  one to congratulate you on your first
+19:25  首次向 CPython 发起 Pull Request
 
-19:28  pull request to see Python so that's
+19:28  的人表示祝贺。这就是
 
-19:30  that's how I've been contributing
+19:30  我一直在贡献的方式，
 
-19:36  and there are lots of open-source
+19:36  并且有很多开源
 
-19:40  projects out there that really could use
+19:40  项目可以帮助
 
-19:42  help
+19:42  你。
 
-19:43  I just contribute to tools I use in love
+19:43  我只是为我爱用的工具做出贡献。
 
-19:46  I contribute to Colin
+19:46  我为 coala 做出贡献。
 
-19:49  I made a contribution to warehouse a
+19:49  j几个月全，我为 warehouse 做
 
-19:51  couple months ago I use github and a
+19:51  出贡献。我在我的
 
-19:55  HTTP for my BOTS so I started
+19:55  机器人上用到了 gidgethub 和 aiohttp，
 
-19:57  contributing them to really like look at
+19:57  所以我y也开始贡献它们。真的，例如看一下
 
-20:02  your requirements txt file and think of
+20:02  你的 requirements.txt 文件，并考虑
 
-20:06  contributing them don't be fixated in
+20:06  贡献他们。不要只注重为
 
-20:10  contributing just to see Python there
+20:10  CPython 做贡献，还有
 
-20:12  are a lot of open source projects now
+20:12  很多开源项目。一旦
 
-20:17  once people start contributing to see
+20:17  人们开始为 CPython
 
-20:20  Python they they all have the same
+20:20  做贡献，他们都有同样
 
-20:22  questions please when can you review my
+20:22  的问题。请问，你什么时候可以查看我的
 
-20:28  PR I'm sorry I'm really sorry that I
+20:28  RP？ 对不起，我真的很抱歉，我
 
-20:34  haven't got around reviewing your PR and
+20:34  没有审阅你的 RP。
 
-20:38  now let me share you some numbers since
+20:38  现在让我分享一些数字。自从
 
-20:42  the migration to get up February 2017 we
+20:42  2017年2月迁移到 Github 以来，我们
 
-20:47  have more than 65,000 pull requests we
+20:47  有超过65,000 个 Pull Request。我们
 
-20:51  have closed a lot of them like more two
+20:51  已经关闭了很多，可能在两天或者多一点的
 
-20:55  days I think we merged 5200 the thing is
+20:55  时间内我想我们合并了5200 条。问题是，
 
-20:59  that I'm just there's so many of you
+20:59  你们的人数太过庞大，
 
-21:01  there are so many people contributing
+21:01  有那么多的人做出贡献。
 
-21:04  more than 800 in the last year there are
+21:04  仅去年就超过800 人。尽管
 
-21:10  even though there are close to 90 core
+21:10  核心开发者接近90
 
-21:14  developers only half of them are still
+21:14  人，但去年只有一半人
 
-21:17  active in the last year so we just don't
+21:17  仍然活跃。所以我们没有
 
-21:23  have enough time to review everything so
+21:23  足够的时间来审阅这一切，
 
-21:26  I'm really really sorry
+21:26  所以我真的很抱歉。
 
-21:28  but there are other reasons in addition
+21:28  但还有其他原因，
 
-21:31  to not having enough time sometimes it's
+21:31  除了没有足够的时间，有时候这
 
-21:35  just not my expertise I don't think I
+21:35  不在我的专业知识范围内，我认为我不
 
-21:37  should be reviewing it I think it's
+21:37  应该审阅它，我认为这是
 
-21:38  something for other color weapons to
+21:38  其他核心开发者需要
 
-21:40  review that's why I haven't review it or
+21:40  审阅的东西。这就是为什么我没有审阅。又或者
 
-21:44  maybe I just
+21:44  我只是......
 
-21:46  it sounds bad I just didn't care it's
+21:46  听起来很糟糕……我只是不在乎。
 
-21:50  it's it's not my interest area and I
+21:50  这不是我的兴趣领域，我也
 
-21:54  didn't ask for this change you went
+21:54  没有要求你做的这个
 
-21:57  ahead and cleared up er anyway so i'm
+21:57  改变，并且不分青红皂白清除了 PR，对此我
 
-22:00  sorry and i know i when i want to read
+22:00  很抱歉。我知道我想要拒绝
 
-22:04  jack appear i'm supposed to explain to
+22:04  PR 的时候，我应该向你解释
 
-22:07  you why i am rejecting it but a lot of
+22:07  为什么我拒绝它。但很多
 
-22:12  time I have no good reason I just don't
+22:12  时候我没有很好的理由，我只是
 
-22:14  want it I don't I'm sorry that I find it
+22:14  不想要，或者不关心。对不起，我发现
 
-22:20  easier to just abandon it and leave it
+22:20  放弃它并将其交给下一个
 
-22:24  to the next core developer to review
+22:24  核心开发者进行审阅会更容易。
 
-22:28  then to actually say no to you so again
+22:28  然后由他对你说不。所以我再次
 
-22:32  I'm sorry I'm also Canadian so and as
+22:32  抱歉。我也是个加拿大人(开玩笑)。正如
 
-22:41  I've mentioned a real accepting a peer
+22:41  我之前提到的，接受 RP
 
-22:44  comes with certain consequence and I
+22:44  有一定的后果，我
 
-22:48  don't always want to accept such
+22:48  并不总是想接受这样
 
-22:52  responsibilities again sorry okay let's
+22:52  的责任。再次抱歉。好吧，让我们
 
-22:59  go back to this really really difficult
+22:59  回到这个真正困难的
 
-23:00  question how to become a Python core
+23:00  问题：如何成为一名 Python 核心
 
-23:03  available this is big and and it's
+23:03  开发者。这是个大工程，并且
 
-23:07  hardly involve multiple stages but I've
+23:07  很难，还包含多个阶段。但是我
 
-23:11  explained to you how to get involved in
+23:11  已经向您解释了如何参与
 
-23:14  the community and how to start
+23:14  社区以及如何开始
 
-23:16  contributing and I've explained what are
+23:16  贡献，并且我已经解释
 
-23:19  the responsibilities of Python core
+23:19  了 Python 核心开发者
 
-23:22  developers so kind of broken those apart
+23:22  的责任。因此，像是将这些问题分解为
 
-23:28  into smaller questions this is a much
+23:28  更小的问题一样，这次的范围
 
-23:34  smaller scope how can a contributor to
+23:34  更小，CPython 的贡献者
 
-23:38  see Python become a Python core
+23:38  如何成为 Python 核心
 
-23:41  developer now when we want to promote
+23:41  开发者。现在，当我们想要发展
 
-23:45  somebody to be a core developer we have
+23:45  某人成为核心开发者时，我们有
 
-23:49  one really big question can we trust
+23:49  一个非常重要的问题：我们能否相信
 
-23:57  this person
+23:57  这个人？
 
-23:59  you're going to be when we give you
+23:59  你会……当我们给你
 
-24:02  commit right to see Python you will be
+24:02 向 CPython 提交代码的权限，你将对
 
-24:04  responsible for programming language
+24:04  一门700万人使用的
 
-24:06  used by seven million people and if you
+24:06  编程语言负责。 如果你
 
-24:13  do inspire to be Co developer you need
+24:13  确实鼓起勇气成为核心开发者，你需要
 
-24:15  to earn our trust and there is no other
+24:15  赢得我们的信任。除了真正与你
 
-24:20  way for us to learn to trust you
+24:20  互动以外，没有别的办法
 
-24:23  other than actually interacting with you
+24:23  让我们学会信任你。
 
-24:27  and these interactions can be in a form
+24:27   这些互动可以是你
 
-24:30  of you contributing you're participating
+24:30  做出贡献，你参与
 
-24:33  in mailing list you made pull requests
+24:33  邮件列表，你提出了 Pull Request，
 
-24:36  you review pull requests for us the more
+24:36  你帮我们审阅 Pull Request，你做得
 
-24:39  you do those the more we get to know you
+24:39 越多，我们越了解你。
 
-24:42  the more we know you the more we can
+24:42 我们越了解你，我们越能
 
-24:46  learn whether to trust you or not and
+24:46  了解是否信任你。
 
-24:50  then you're going to have to accept all
+24:50  然后你将不得不接受
 
-24:53  the responsibilities I've said that and
+24:53  我说过的所有责任。
 
-24:57  above all we do need to know that you're
+24:57  而最重要的是，我们确实需要知道你是一个
 
-25:01  a good person that you'll be kind be
+25:01  好人。你会对其他
 
-25:05  open considerate and respectful to other
+25:05  核心开发者和其他贡献者
 
-25:09  core developers and to other
+25:09  表现出友善，开放，
 
-25:11  contributors now a lot of people then
+25:11  体贴和尊重。现在，很多人
 
-25:20  ask me well how did you do all this how
+25:20  问我：呃，你是怎么做到的？ 你是
 
-25:22  did you earn the trust how did you
+25:22 如何获得信任的？ 你是如何
 
-25:26  become core developer I really don't
+25:26  成为核心开发者的？我真的不
 
-25:29  know don't don't ask me I I I really
+25:29  知道。别问我。我真
 
-25:32  don't know this is a question you need
+25:32  的不知道。这是你需要
 
-25:34  to ask to other core developer at v--
+25:34  替我向其他核心开发者提出
 
-25:36  for me I really just feel lucky so a
+25:36  的问题。我只是觉得很幸运。所以
 
-25:40  squid or a snake as Brad Raymond they
+25:40  问问圭多，问尼克，问问布雷特，雷蒙德。
 
-25:46  they know why I why they trust me I
+25:46  他们知道为什么他们相信我，
 
-25:48  don't I really just feel lucky how much
+25:48  我不知道。我真的只是觉得幸运。我花了多少
 
-25:56  time I spend contributing way too much
+25:56  时间做这些贡献？太多
 
-25:59  time then I'm willing to admit so I
+25:59  时间，我承认。所以我
 
-26:04  realized I had too much time in the open
+26:04  意识到我在开源领域花了
 
-26:08  source so in the past two months I've
+26:08  太多时间，所以在过去的两个月里我
 
-26:10  taken a break sighs
+26:10  休息了一下。
 
-26:12  I'm not contributing until the end of
+26:12  直到本月底，我才
 
-26:14  the month and um except for the days
+26:14  做出贡献，除了我在 PyCon 和 Sprint
 
-26:18  when I'm at PyCon and at the spring
+26:18  的这几天之外。
 
-26:22  way too much time so this people do ask
+26:22  太多时间。那么，这个。人们会问我
 
-26:32  me this and it always feels like a trick
+26:32  这个问题，这个问题看起来好像在
 
-26:34  question I asked this
+26:34  开玩笑一样。前几天
 
-26:39  couple days ago here at this conference
+26:39  我在这个会议上被问到了这个问题，
 
-26:41  I got asked when I was at PyCon it tell
+26:41  我在意大利的 PyCon 上
 
-26:45  ya I was asked when I was at PyCon
+26:45 被进到这个问题，在澳大利亚的
 
-26:47  Australia people around the world are
+26:47  PyCon 上我也被问到这个问题。全世界的人
 
-26:49  curious no I don't I don't get paid to
+26:49  都很好奇。不，没有。我没有从贡献
 
-26:56  contribute to Python
+26:56  Python 中收到薪水。
 
-26:57  my salary is zero and as the core
+26:57   我的薪水为零，作为核心
 
-27:02  developer I don't receive salaries very
+27:02  开发者，我没有收到薪水，只有很少
 
-27:07  few core developers are getting paid
+27:07  的核心开发者获得报酬。
 
-27:10  some kauravas got paid to contribute but
+27:10  一些核心开发者得到了报酬，但
 
-27:14  not full-time they still put in a lot of
+27:14  不是全职的。他们仍然把大量的
 
-27:17  personal time into Python another big
+27:17  个人时间投入到 Python 中。另一大
 
-27:24  mystery how do i balance all of this III
+27:24  谜团：我如何平衡这一切的？ 
 
-27:30  don't know I do not have balance I
+27:30  我不知道。我没有平衡。
 
-27:34  forget a lot of things I keep forgetting
+27:34  我总是忘记事情。我一直忘记
 
-27:37  to take my vitamins I run late
+27:37  服用我的维生素，我延迟了
 
-27:39  appointments and I double booked
+27:39  预约，并且我还会预订双倍的
 
-27:41  appointment I don't have things I don't
+27:41  预约。我没有……我的
 
-27:45  have my life all balanced I don't know I
+27:45  生活没有完全平衡。我不知道。
 
-27:52  thought I was done with the big
+27:52  我认为我讲完了了大问题。
 
-27:54  questions but I ask this question every
+27:54  不过这个问题，我每天都会
 
-28:00  day some kordell's has asked me the same
+28:00  问。有些程序员问我同样的
 
-28:05  question the VFL asked me this question
+28:05  问题。BDFL 问我这个问题。
 
-28:10  how can we get more women to contribute
+28:10  我们如何才能让更多的女性为开源
 
-28:13  to open source
+28:13  贡献力量？
 
-28:18  let me first share some numbers
+28:18  让我先分享一些数字。
 
-28:24  Python has seven million users and I'm
+28:24  Python 有700万用户，我
 
-28:27  pretty sure it's a very diverse set of
+28:27  敢肯定它是一个非常多元化的
 
-28:29  users and our communities is diverse
+28:29  用户群体。我们的社区也是多样化的，
 
-28:34  I see our even here at PyCon I see many
+28:34  甚至在 PyCon 上看到很多
 
-28:38  women participating I see lots of people
+28:38  女性参加，我看到很多有色
 
-28:40  of color
+28:40  人种，
 
-28:41  I see disabled people I see
+28:41  我看到残疾人，我看到
 
-28:44  transgender people I see diversity in
+28:44  变性人，我看到这次会议
 
-28:48  this conference and I think we've done a
+28:48  的多样性，我认为我们已经在这
 
-28:50  great job at that so now let's look at
+28:50  方面做得很好。那么现在让我们看看
 
-28:55  the contributors to cpython
+28:55  CPython 的贡献者。
 
-28:59  I've told you we have more than 800
+28:59  我已经告诉过你，去年我们有
 
-29:01  contributors in the last year a lot of
+29:01  超过800个贡献者。
 
-29:09  out of all those 800 less than 10 or
+29:09  在这800人中，不到10人
 
-29:16  women no 10% 10 individuals we have a
+29:16  是女性。不是10％，是10个人。我们有89
 
-29:26  team and core developers only two women
+29:26  名核心开发者，只有两名女性。
 
-29:37  I let the shock wears off because this
+29:37  我让这种冲击慢慢消化，因为这是
 
-29:46  is real but this is also wrong this is
+29:46  真实的，但这也是错误的。这不
 
-29:53  not the right representation of our
+29:53  是我们社区的正确
 
-29:57  community this is not leadership
+29:57  典范，这不是领导
 
-30:03  qualities you should not try to achieve
+30:03  素质，你不应该订立这样的
 
-30:08  this you should try to avoid this kind
+30:08  目标，你应该尽量避免在
 
-30:12  of statistics in your own organization
+30:12  你自己的组织中得到这种统计数据。
 
-30:18  this is this is a problem and I'm
+30:18  这是个问题。我正
 
-30:21  putting this out there so that you can
+30:21  在把它摆上桌面。所以你可以
 
-30:26  see what I've been seeing in the last
+30:26  看到去年我看到的是
 
-30:31  year I see a gap a really huge gap and I
+30:31  什么。我看到了一个鸿沟，一个巨大的鸿沟。我
 
-30:40  don't know what to do about it
+30:40  不知道该怎么办。
 
-30:41  I need help I really don't know what I
+30:41   我需要帮助，我真的不知道我
 
-30:46  need to do so asking me I ask this to
+30:46  需要做什么。所以人们一直在问我，我也问
 
-30:51  myself how to get more women
+30:51  我自己，如何让更多的女性
 
-30:53  contributing and I I really don't know
+30:53  做出贡献，我真的不知道。
 
-30:56  if people know of another large open
+30:56  如果人们知道另一个
 
-31:00  source project with seven million users
+31:00  拥有700万用户的大型开源项目，
 
-31:02  that is doing good with diversity tell
+31:02  在多样性方面做得很好，告诉
 
-31:06  me about it it's like a little I don't
+31:06  我一些关于它的事，我好学习一下。我不
 
-31:08  know and I I care so much about this I
+31:08  知道。我对此非常关心，我
 
-31:14  tried to get professional advice I ask
+31:14  试图获得专业意见。我问过
 
-31:18  sharp and I've explained to them the
+31:18  萨奇夏普，我已经向他们解释了
 
-31:22  situation and I ask if they have an
+31:22  情况，我问他们是否有
 
-31:25  advice and what can I pass on core
+31:25  建议。我作为一个 Python 核心开发者，
 
-31:30  developer do to improve the diversity in
+31:30  可以做些什么去改善社区的
 
-31:34  the community so they gave me some
+31:34  多样性。于是他们给了我一些
 
-31:40  advice they said I need to identify the
+31:40  建议，他们说我需要找出
 
-31:43  problems and they also told me that it's
+31:43  问题的所在，他们也告诉我，这
 
-31:47  not something I can do on my own
+31:47  不是我自己能做的事情。
 
-31:50  I'm going to need all the corners to
+31:50  我将需要所有的程序员
 
-31:53  participate and work on improving
+31:53  参与，并致力于改进。
 
-32:01  identifying problems I really had to ask
+32:01  发现的问题：我真的不得不问
 
-32:08  myself like what are their barriers what
+32:08  自己，她们的障碍是什么？什么
 
-32:16  are the bearings that applies only to
+32:16  是仅针对于女性的
 
-32:19  women that somehow 800 men were able to
+32:19  障碍？有800名男性能够
 
-32:25  contribute to cpython and only so few
+32:25  为 CPython 做出贡献，而只有很少
 
-32:29  women the there are lots of problems and
+32:29  的女性能够做出贡献。有很多问题，
 
-32:35  for me personally I've I faced the same
+32:35  对我个人而言，我面临着同样
 
-32:39  barriers I'm not gonna say all of them
+32:39  的障碍。 我不会在这里说出他们的
 
-32:43  here but one of the barriers was I
+32:43  全部，但其中一个障碍是：我
 
-32:51  didn't have any role models I didn't see
+32:51  没有任何角色模板。我没有看到过
 
-32:55  anyone who looked like me
+32:55  任何一个和我一样的人
 
-32:59  participating in open source for a long
+32:59  参与开源。在很长的一段
 
-33:03  time I believed it's just maybe I
+33:03  时间里，我相信可能我根本
 
-33:07  shouldn't be doing maybe it's just not
+33:07  不应该做这个，没准这并不是
 
-33:09  the place for people like me and it it
+33:09  我这样的人应该呆的地方。这是
 
-33:16  was a huge barrier that I had to
+33:16  我必须克服的一个
 
-33:18  overcome and I just feel so lucky that
+33:18  巨大障碍，我感到非常幸运，
 
-33:22  there are members of this community that
+33:22  这个社区的成员，
 
-33:26  the BDF algorithm and my son core
+33:26  BDFL 圭多和 Python 核心
 
-33:29  developers have always been there for me
+33:29  开发人员一直都在我身边，
 
-33:31  supporting me helping me throughout this
+33:31  支持我，帮助我穿过这个
 
-33:34  Tamia I I just felt like it so thank you
+33:34  藩篱。我只是觉得很幸运，所以谢谢
 
-33:39  all but we we have to do better and the
+33:39  大家。但我们必须做得更好，
 
-33:44  core developers do want to do better
+33:44  核心开发者确实想要做得更好，
 
-33:46  they've acknowledged that there is still
+33:46  他们已经承认我们
 
-33:49  diversity problem in our community and
+33:49  社区仍然存在多样性问题。
 
-33:56  during the language summit few days ago
+33:56  并且在几天前的语言峰会期间，
 
-33:58  after the core developers that they need
+33:58  在核心开发者参与完他们需要
 
-34:01  to take part
+34:01  参与的内容之后，
 
-34:02  I've taught them that going forward
+34:02  我告诉他们未来
 
-34:05  they're going to have to do at least one
+34:05  至少要做以下事情
 
-34:08  of the following they're gonna have to
+34:08  之一：他们必须要
 
-34:11  provide mentorship prioritizing women
+34:11  提供指导，优先考虑妇女
 
-34:14  and the underrepresented group members
+34:14  和弱势群体成员。
 
-34:16  they could try to set up office hours
+34:16  他们可以尝试设置办公时间，
 
-34:19  AMA citizens one-on-ones and I've made
+34:19  开一对一的“问我任何事”会。而且我让
 
-34:24  them understand that public forums like
+34:24  他们明白，像邮件列表这样的
 
-34:28  mailing lists are always the safe space
+34:28  公共论坛始终是女性
 
-34:32  for women and minorities to ask
+34:32  和弱势群体提出问题的
 
-34:35  questions so I've told them they're
+34:35  安全空间。所以我告诉他们，他们
 
-34:40  going to have to be available to answer
+34:40  必须可以私下回答
 
-34:43  questions in private so and the quarter
+34:43  问题。 因此，核心
 
-34:48  levels have been very receptive they are
+34:48  开发者一直非常乐于助人，
 
-34:50  all on board and we are working harder
+34:50  他们全都参与其中，我们正在努力
 
-34:54  to try to be more welcoming to women and
+34:54  让自己对于女性
 
-34:57  minorities still iirc is there anything
+34:57  和弱势群体更加热情。我还要说如果有其他
 
-35:03  more I could have done to help improve I
+35:03  事情可以帮助我改进，我
 
-35:08  mean I've always been available
+35:08  的意思是随时都可以
 
-35:10  privately my DM is always open six
+35:10  私下来找我，我的 DM 一直在线。萨奇
 
-35:15  suggests that maybe I could start
+35:15  建议，也许我可以开始
 
-35:17  sharing more of my experiences I thought
+35:17  分享更多的经验。 我以为
 
-35:20  I have but she said it they said it
+35:20  我已经在做了。但她说，他们说
 
-35:25  could inspire me maybe it could inspire
+35:25  这可能会激励
 
-35:27  other women I don't know I don't think
+35:27  其他女性。我不知道会不会。我不认为
 
-35:31  I've done anything spectacular I fix
+35:31  我做了什么大事，我就是修正了
 
-35:34  typos but if sharing my stories can help
+35:34  拼写错误。但如果分享我的故事有用，
 
-35:38  then I will try so oh my my name is Mary
+35:38  那么我会尝试。所以，哦！我的名字是玛利亚塔，
 
-35:44  era I like and strings and you really
+35:44  我喜欢 F-String。如果你真的
 
-35:47  really want to hear my stories you have
+35:47  想听听我的故事，你得
 
-35:49  to follow me on Twitter that's where I
+35:49  在 Twitter 上关注我，我在
 
-35:51  will be sharing my stories if you wanna
+35:51  那里分享我的故事。 如果你想
 
-35:53  reach out privately that's my email and
+35:53  私下联系我，那是我的电子邮件。
 
-35:56  when I have really really long stories I
+35:56  当我很长很长的故事时，我
 
-35:59  might just post them on my website that
+35:59  可能会将它们发布到我的网站上。我要讲的
 
-36:02  is all thank you so much for listening
+36:02  这这么多，非常感谢你的聆听。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
