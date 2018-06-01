@@ -2,268 +2,268 @@
 > * 原文作者：[Henry Zhu](https://medium.freecodecamp.org/@left_pad?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/were-nearing-the-7-0-babel-release-here-s-all-the-cool-stuff-we-ve-been-doing.md](https://github.com/xitu/gold-miner/blob/master/TODO1/were-nearing-the-7-0-babel-release-here-s-all-the-cool-stuff-we-ve-been-doing.md)
-> * 译者：
+> * 译者：[xueshuai](https://github.com/xueshuai)
 > * 校对者：
 
-# We’re nearing the 7.0 Babel release. Here’s all the cool stuff we’ve been doing.
+# 我们距离 Babel 7.0 发布很近了。这里是所有我们一直在做的很酷的事情。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*vLtFVPTHJGDfw3XOl4C1Sw.jpeg)
 
-Photo by [“My Life Through A Lens”](https://unsplash.com/photos/bq31L0jQAjU?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/search/photos/change?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)
+图片来自 [“My Life Through A Lens”](https://unsplash.com/photos/bq31L0jQAjU?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)，发布于  [Unsplash](https://unsplash.com/search/photos/change?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)
 
-Hey there 👋! I’m [Henry](http://twitter.com/left_pad), one of the maintainers on [Babel](http://babeljs.io).
+来看这！我是 [Henry](http://twitter.com/left_pad)，[Babel](http://babeljs.io) 的维护者之一。
 
-> EDIT: I’ve [left Behance](https://www.henryzoo.com/blog/2018/02/15/leaving-behance.html) and have made a [Patreon](https://www.patreon.com/henryzhu) to try to pursue [working on open source full time](https://www.henryzoo.com/blog/2018/03/02/in-pursuit-of-open-source-part-1.html), please consider donating (ask your company).
+> 编辑：我写过 [left Behance](https://www.henryzoo.com/blog/2018/02/15/leaving-behance.html) 并制作了 [Patreon](https://www.patreon.com/henryzhu) 来尝试追求  [全职工作在开源工作上](https://www.henryzoo.com/blog/2018/03/02/in-pursuit-of-open-source-part-1.html)，请您考虑捐献（向你的公司咨询）。
 
-#### A quick intro to Babel
+#### Babel 简介
 
-Some people like to think of Babel as a tool that lets you write ES6 code. More specifically, a JavaScript compiler than will convert ES6 into ES5 code. That was pretty fitting back when its name was 6to5, but I think Babel has become a lot more than that.
+有些人可能把 Babel 看作是一个让你写 ES6 代码的工具。 更准确的说，把 ES6 代码转换为 ES5 代码的 JavaScript 编译器。 当它的名字是 6to5 时，这很适合，但是我认为 Babel 已经变得不只是这些了。
 
-Now let’s back up a bit. The reason why this is even necessary in the first place is because, unlike most languages on the server (even Node.js), the version of JavaScript that you can run depends on your specific browser version. So it doesn’t matter if you are using the latest browsers if your users (that you want to keep) are still on IE. If you want to write the `class A {}` , for example, then you’re out of luck — some number of your users will get a `SyntaxError` and a white page.
+现在让我们聊一些背景。首先，这个是非常必要的，因为不像在服务器上的其他语言（甚至是  Node.js），你能运行的的 JavaScript 版本取决于你的浏览器的特定版本。如果你使用最新的浏览器，而你的用户（你想留住的）仍然使用 IE，是没有关系的。但是，举个例子，如果你想写 `class A {}` ，那么你就很不幸了 - 你的一些用户将会得到一个 `SyntaxError` 和一个空白页面。
 
-So that’s why Babel was created. It allows you to write the version of JavaScript you desire, knowing that it will run correctly on all the (older) browsers you support.
+所以这就是为什么 Babel 被创建的原因。它允许你写你想写的 JavaScript 版本，你知道它会在你支持的所有（更老）的浏览器上正确的运行。
 
-But it doesn’t just stop at “ES6” (some people like to say ES2015). Babel has certainly expanded upon its initial goal of only compiling ES6 code, and now compiles whatever ES20xx version you want (the latest version of JavaScript) to ES5.
+但是，它并不停止于 “ES6”（有些人喜欢说 ES2015）。Babel 已经确实扩展了他的最初目标，即只编译 ES6 代码。现在，它能够编译你想要的无论哪个 ES20XX 版本（JavaScript 最新版本）到 ES5.
 
-#### The ongoing process
+#### 正在进行的进程
 
-One of the interesting things about the project is that, as long as new JavaScript syntax is added, Babel will need to implement a transform to convert it.
+关于这个项目的一个有趣的事情是，只要 JavaScript 语法被加进去，Babel 就需要实现一个转换转变它。
 
-But you might be thinking, why should we even send a compiled version (larger code size) to browsers that do support that syntax? How do we even know what syntax each browser supports?
+但是你可能会想，为什么我们应该给支持那样语法的浏览器发送一个编译过的版本（更大的代码体积）？我们怎么知道每个浏览器支持什么语法？
 
-Well, we made `[babel-preset-en](https://babeljs.io/docs/plugins/preset-env)v` to help with that issue by creating a tool that lets you specify which browsers you support. It will automatically only transform the things that those browsers don’t support natively.
+好了，我们制作了一个让你能够指定你支持哪个浏览器的工具 [babel-preset-en](https://babeljs.io/docs/plugins/preset-env)，来帮助解决这个问题。它将会自动地只转换那些浏览器原生不支持的东西。
 
-Beyond that, Babel (because of its usage in the community) has a place in influencing the future of the JavaScript language itself! Given that it is a tool for transforming JS code, it can also be used to implement any of the proposals submitted to [TC39](http://2ality.com/2015/11/tc39-process.html) (Ecma Technical Committee 39, the group that moves JavaScript forward as a standard).
+除此之外，Babel（因为它在社区的使用）能够影响 JavaScript 语言自身的未来。鉴于它是用于转换 JS 代码的工具，它也可以用于实现提交给 [TC39](http://2ality.com/2015/11/tc39-process.html) 的任何提案（Ecma Technical Committee 39，一个使 JavaScript 作为标准向前发展的组织）。
 
-There is a whole process a “proposal” goes through, from Stage 0 to Stage 4 when it lands into the language. Babel, as a tool, is in the right place to test out new ideas and to get developers to use it in their applications so they can give feedback to the committee.
+当一个 “提案” 在语言中实现的时候，从 Stage 0 到 Stage 4，它经历了一个完整的流程。Babel，作为一个工具，在正确的地方测试新的想法并且让开发者在他们的应用中使用它，以便他们可以向委员会提供反馈。
 
-This is really important for a few reasons: the committee wants to be confident that the changes they make are what the community wants (consistent, intuitive, effective). Implementing an unspecified idea in the browser is slow (C++ in the browser vs. JavaScript in Babel), costly, and requires users to use a flag in the browser versus changing their Babel config file.
+由于一些原因，这非常重要：委员会想确信他们做出的更改是社区想要的（一致，直观，有效）。在浏览器里实现一个不明的想法是缓慢的（浏览器中的 C++ 与 Babel 中的 JavaScript），昂贵的，并且要求用户在浏览器中使用一个标志，而不是更改他们的 Babel 配置文件。
 
-Since Babel is so ubiquitous, there is a good chance that real usage will occur. This will make the proposal much better off than if it was just implemented without any vetting from the developer community at large.
+因为 Babel 已经非常普及了，这是有一个好的机会使真正的用途出现。这将使提案比那个没有广大社区开发者反馈的实现更好。
 
-And it is not just useful in production. Our online [REPL](https://babeljs.io/repl) is useful for people learning JavaScript itself, and allows them to test things out.
+而且他不只是在产品中有用。我们的在线 [REPL](https://babeljs.io/repl) 对人们学习 JavaScript 有帮助，并且允许他们测试东西。
 
-I think Babel is in a great position to be an educational tool for programmers so they can continue to learn how JavaScript works. Through contributing to the project itself, they’ll learn many other concepts such as ASTs, compilers, language specification, and more.
+我认为 Babel 是一个能够让程序员们了解 JavaScript 如何工作的非常好的工具。通过给这个项目做贡献，他们将会学习很多其他的概念，例如 ASTs，编译器，语言规范等等。
 
-I’m really excited about the future of the project and can’t wait to see where the team can go. Please join and help us!
+我们真的对这个项目的未来很兴奋，并且迫不及待的要知道这个团队能够走到哪里。请加入并帮助我们！
 
-#### My story
+#### 我的故事
 
-Those are some of the reasons I get excited to work on this project each day, especially as a maintainer. Most of the current maintainers, including myself, didn’t create the project but joined a year after — and it’s still [mindblowing](https://medium.com/@left_pad/ossthanks-some-thoughts-d0267706c2c6) to think where I started.
+这里有一些我希望每天都工作在这个项目上的原因，特别是作为一个维护者。大多数当前的维护者，包括我自己，并不是创建这个项目的人，而是在一年之后加入的 - 想起我开始的地方仍然很兴奋。
 
-As for me, I recognized a need and an interesting project. I slowly and consistently got more involved, and now I’ve been able to get my employer, [Behance](https://www.behance.net/), to sponsor half my time on Babel.
+至于我，我认识到一个需求和一个有趣的项目。我慢慢并持续地有更多的参与，现在我已经能够有了我的雇主，[Behance](https://www.behance.net/)，资助我一半的时间工作在 Babel 上。
 
-Sometimes “maintaining” just means fixing bugs, answering questions on our Slack or [Twitter](https://twitter.com/babeljs/), or writing a changelog (it’s really up to each of us). But recently, I’ve decreased my focus on making bug fixes and features. Instead, I’ve been putting some time into thinking about more high level issues like: what’s the future of this project? How do we grow our community in terms of the number of maintainers versus of the number of users? How can we sustain the project in terms of funding? Where do we fit in the JavaScript ecosystem as a whole (education, [TC39](https://github.com/tc39/proposals), tooling)? And is there a role for us to play in helping new people join in open source ([RGSoC](https://twitter.com/left_pad/status/959439119960215552) and [GSoC](https://summerofcode.withgoogle.com/))?
+有时候“维护”只是意味着修复 bugs，在 Slack 或 [Twitter](https://twitter.com/babeljs/) 上回答问题，或是编写更新日志（这真的取决于我们每一个人）。但是最近，我已经减少了在 bug 修复和特性上的注意力。取而代之的是我把时间放在了思考更多高级的问题上，例如：这个项目的未来是什么？我们如何就维护者与用户的数量而言，使我们的社区增长。我们如何在资金方面维持这个项目？我们如何整体的融入 JavaScript 生态系统（教育，[TC39](https://github.com/tc39/proposals)，工具）？这里有没有一个适合我们的角色来帮助新人加入开源项目（[RGSoC](https://twitter.com/left_pad/status/959439119960215552) 和 [GSoC](https://summerofcode.withgoogle.com/)）？
 
-Because of these questions, what I’m most excited about with this release isn’t necessarily the particulars in the feature set (which are many: initial implementations of new proposals like the [Pipeline Operator (a |> b)](https://github.com/babel/babel/tree/master/packages/babel-plugin-proposal-pipeline-operator), a [new TypeScript preset](https://github.com/babel/babel/tree/master/packages/babel-preset-typescript) with help from the TS team, and .babelrc.js files).
+因为这些问题，我对这个版本最大的期望不是特性集中地细节（有很多：初步实施的新提案比如 [Pipeline Operator (a |> b)](https://github.com/babel/babel/tree/master/packages/babel-plugin-proposal-pipeline-operator)，有 TS 团队提供帮助的 [new TypeScript preset](https://github.com/babel/babel/tree/master/packages/babel-preset-typescript) 和 .babelrc.js 文件）。
 
-Rather, I’m excited about what all those features represent: a year’s worth of hard work trying not to break everything, balancing users’ expectations (why is the build so slow/code output so large, why is the code not spec-compliant enough, why doesn’t this work without configuration, why isn’t there an option for x), and sustaining a solid team of mostly volunteers.
+而是我对这些特性所代表的东西更兴奋：一年来不懈的努力不去打破一切，平衡用户的期望（为什么构建这么慢/代码输入这么大，为什么代码没有足够的兼容，为什么这个工作不能没有配置，为什么这里没有一个对其他情况的选择）和维持一个由志愿者组成的坚实团队。
 
-And I know our industry has a huge focus on “major releases,” hyped features, and stars, but that’s just one day that fades. I’d like to suggest we continue thinking about what it takes to be consistent in pushing the ecosystem forward in a healthy fashion.
+并且我知道我们的行业对“主要版本”有一个很大的关注，大肆宣传特性和 stars，但那只是一个衰落的日子。我想建议我们继续想一想什么使生态系统以一个健康的方式持续向前推进。
 
-This could simply mean thinking about the mental and emotional burden of maintainer-ship. It could mean thinking about how to provide mentorship, expectation management, work/life balance advice, and other resources to people wanting to get involved, instead of just encouraging developers to expect immediate, free help.
+这可能仅仅意味着思考维护者的心理和情绪上的负担。这可能意味着思考如何提供指导，期望管理，平衡工作/生活的建议和其他的人们想要加入的资源，而不只是鼓励开发者来期待即时的，免费的帮助。
 
-#### Diving into the changelog
+#### 深入更新日志
 
-Well, I hope you enjoy the long changelog 😊. If you’re interested in helping us out, please let us know and we’d be glad to talk more.
+嗯，我希望你能享受这个长的更新日志 😊。如果你对帮助我们感兴趣，请让我们知道，我们将很乐意多谈。
 
 ![](https://cdn-images-1.medium.com/max/800/0*zvhm_vD3VWFaWA1c.png)
 
-We started a new [videos page](https://babeljs.io/docs/community/videos/), since people wanted to learn more about how Babel works and contribute back. This page contains videos of conference talks on Babel and related concepts from team members and people in the community.
+因为人们想更多地了解关于 Babel 如何工作和回馈，我们开放了一个新的 [视频页面](https://babeljs.io/docs/community/videos/)。这个页面包含了 Babel 会议谈话的视频，来自团队成员和社区人们的相关概念。
 
 ![](https://cdn-images-1.medium.com/max/800/0*8q5nV1APkAFKydrZ.png)
 
-We also created a new [team page](https://babeljs.io/team)! We will be updating this page in the future with more information about what people work on and why they are involved. For such a large project, there are many ways to get involved and help out.
+我们同样创建了一个新的 [团队页面](https://babeljs.io/team)！我们将在未来使用更多的关于人们在做什么工作和为什么他们加入的信息来更新这个页面。对于一个这样大的项目，这里有很多方法参与其中并帮忙。
 
-Here are some highlights and quick facts:
+这有一些亮点和简短的事实：
 
-*   Babel turned 3 years old on [September 28, 2017](https://babeljs.io/blog/2017/10/05/babel-turns-three)!
-*   Daniel [moved](https://twitter.com/left_pad/status/926096965565370369) `babel/babylon` and `babel/babel-preset-env` into the main Babel monorepo, [babel/babel](https://github.com/babel/babel). This includes all Git history, labels, and issues.
-*   We received a [$1k/month donation](https://twitter.com/left_pad/status/923696620935421953) from Facebook Open Source!
-*   This the highest monthly donation we have gotten since the start (next highest is $100/month).
-*   In the meantime, we will use our funds to meet in person and to send people to TC39 meetings. These meetings are every 2 months around the world.
-*   If a company wants to specifically sponsor something, we can create separate issues to track. This was difficult before, because we had to pay out of pocket or find a conference to speak at during the same week to help cover expenses.
+*   Babel 在 [2017 年 10 月 28 日](https://babeljs.io/blog/2017/10/05/babel-turns-three) 已经 3 岁了！
+*   Daniel 把 `babel/babylon` 和 `babel/babel-preset-env` [移动到](https://twitter.com/left_pad/status/926096965565370369) 主要的 Babel monorepo 里，[babel/babel](https://github.com/babel/babel)。这包含 Git 历史，标签和提案。
+*   我们从 Facebook Open Source 收到了 [每月 1000 美元的捐赠](https://twitter.com/left_pad/status/923696620935421953)！
+*   这是我们从一开始收到的最高的月度捐赠（下一个是 100 美元/月）。
+*   同时，我们将用我们的资金去亲自会见，并派人去 TC39 会议。这些会议每隔 2 个月在世界各地举行。
+*  如果一个公司想制定赞助什么，我们能创建一个单独的议题来跟踪。这在之前是困难的，因为我们必须用从口袋掏钱支付，或者在同一周找到一个会议发言来帮助支付费用。
 
-#### How you can help
+#### 你怎么才能帮忙
 
-If your company would like to **give back** by supporting a fundamental part of JavaScript development and its future, consider donating to our [Open Collective](https://opencollective.com/babel). You can also donate developer time to help maintain the project.
+如果你的公司愿意通过支持一个 JavaScript 开发的基础部分和他的未来作为 **回报**，考虑一下给我们的 [Open Collective](https://opencollective.com/babel) 捐献。你也能贡献开发时间来帮助维护这个项目。
 
-#### #1: Help maintain the project (developer time at work)
+#### #1：帮助维护项目（工作中开发人员的时间）
 
 ![](https://i.loli.net/2018/05/10/5af3a5e7b9a3f.png)
 
-The best thing for Babel is finding people who are committed to helping out with the project, given the massive amount of work and responsibility it requires. Again, [I never felt ready](https://dev.to/hzoo/im-the-maintainer-of-babel-ask-me-anything-282/comments/1k6d) to be a maintainer, but somehow stumbled upon it. But I’m just one person, and our team is just a few people.
+对 Babel 最好的事情就是找愿意帮助项目的人，他们能够承担大量的工作并对需求负责。再说一下，[我从来没觉得准备好](https://dev.to/hzoo/im-the-maintainer-of-babel-ask-me-anything-282/comments/1k6d) 成为一个维护者，但不知道怎么的，就发现已经这样了。但是我只是一个人，并且我的团队只有少数几个人。
 
-#### #2: Help fund development
+#### #2：帮助资助开发
 
 ![](https://i.loli.net/2018/05/10/5af3a5e8009bc.png)
 
-We definitely want to be able to fund people on the team so they can work full-time. Logan, in particular, left his job a while ago and is using our current funds to work on Babel part time.
+我无疑是想能够给团队的人资金使他们能够全职工作。尤其是 Logan，不久以前离开了他的工作并且用我们的资金来进行 Babel 的兼职工作。
 
-#### #3 Contribute in other ways 😊
+#### #3 从其他渠道做贡献
 
-For example, [Angus](https://twitter.com/angustweets) made us an [official song](https://medium.com/@angustweets/hallelujah-in-praise-of-babel-977020010fad)!
+例如，[Angus](https://twitter.com/angustweets) 给我们制作了一个 [官方歌曲](https://medium.com/@angustweets/hallelujah-in-praise-of-babel-977020010fad)！
 
-#### Upgrading
+#### 升级
 
-We will also be working on an upgrade tool that will help [rewrite your package.json/.babelrc files](https://github.com/babel/notes/issues/44) and more. Ideally, this means it would modify any necessary version number changes, package renames, and config changes.
+我们也将升级帮助你 [重写你的 package.json/.babelrc 文件](https://github.com/babel/notes/issues/44) 的工具和其他更多的东西。 理想情况下，这意味着它将修改任何必要的版本号变更，包的重命名和配置的变更。
 
-Please reach out to help and to post issues when trying to update. This is a great opportunity to get involved and help the ecosystem update!
+当尝试更新的时候，请伸出手来帮助并发布议题。这是一个参与其中并帮助生态系统更新的绝好的机会。
 
-#### Summary of the [previous post](https://babeljs.io/blog/2017/09/12/planning-for-7.0)
+#### [前一个发布](https://babeljs.io/blog/2017/09/12/planning-for-7.0) 总结
 
-*   Dropped Node 0.10/0.12/5 support.
-*   Updated [TC39 proposals](https://github.com/babel/proposals/issues)
-*   Numeric Separator: `1_000`
-*   Optional Chaining Operator: `a?.b`
-*   `import.meta` (parseble)
-*   Optional Catch Binding: `try { a } catch {}`
-*   BigInt (parseble): `2n`
-*   Split export extensions into `export-default-from` and `export-ns-form`
-*   `.babelrc.js` support (a config using JavaScript instead of JSON)
-*   Added a new Typescript Preset and separated the React/Flow presets
-*   Added [JSX Fragment Support](https://reactjs.org/blog/2017/11/28/react-v16.2.0-fragment-support.html) and various Flow updates
-*   Removed the internal `babel-runtime` dependency for smaller size
+*   放弃对 Node 0.10/0.12/5 的支持
+*   更新 [TC39 提案](https://github.com/babel/proposals/issues)
+*   数字分隔符： `1_000`
+*   可选的链接操作符： `a?.b`
+*   `import.meta` （可解析）
+*   可选的 Catch 绑定：`try { a } catch {}`
+*   BigInt（可解析）：`2n`
+*   分割导出扩展到 `export-default-from` 和 `export-ns-form`
+*   支持 `.babelrc.js`（使用 JavaScript 代替 JSON 的配置）
+*   增加一个新的 Typescript Preset 和拆分 React/Flow presets
+*   增加 [JSX 分段支持](https://reactjs.org/blog/2017/11/28/react-v16.2.0-fragment-support.html) 和 各种 Flow 更新
+*   为了更小的体积，删除内部 `babel-runtime` 依赖
 
-#### Newly updated TC39 proposals
+#### 最新更新的 TC39 提案
 
-*   Pipeline Operator: `a |> b`
-*   Throw Expressions: `() => throw 'hi'`
-*   Nullish Coalescing Operator: `a ?? b`
+*   Pipeline 操作符：`a |> b`
+*   Throw 表达式：`() => throw 'hi'`
+*   无效合并操作符：`a ?? b`
 
-#### Deprecated yearly presets (e.g. babel-preset-es20xx)
+#### 弃用年份 presets（例如，babel-preset-es20xx）
 
-TL;DR: use `babel-preset-env`.
+注意：使用 `babel-preset-env`：
 
-What’s better than you having to decide which Babel preset to use? Having it done for you, automatically!
+这比你决定使用哪个 Babel preset 更好的地方是什么？已经为你完成了，自动地！
 
-Even though the amount of work that goes into maintaining the lists of data is humongous — again, why we need help — it solves multiple issues. It makes sure users are up to date with the spec. It means less configuration/package confusion. It means an easier upgrade path. And it means fewer issues about what is what.
+尽管维护数据列表的工作量很大 - 再一次，我们需要帮助 - 它解决了很多问题。它确保了用户能够及时了解规范。它意味着较少的配置/包的混乱。它意味着一个简单升级之路。并且它意味着更少的什么是什么的问题。
 
-`babel-preset-env` is actually a pretty _old_ preset that replaces every other syntax preset that you will need (es2015, es2016, es2017, es20xx, latest, and so on).
+`babel-preset-env` 其实是一个很 _老_ 的 preset，它代替了每个其他的你将需要的（es2015，es2016，es2017，es20xx，latest 等等）句法 preset
 
 ![](https://cdn-images-1.medium.com/max/800/0*wgAjmRI1MVcI_Veg.png)
 
-It compiles the latest yearly release of JavaScript (whatever is in Stage 4) which replaces all the old presets. But it also has the ability to compile according to target environments you specify: it can handle development mode, like the latest version of a browser, or multiple builds, like a version for IE. It even has another version for evergreen browsers.
+它代替了所有的老的 presets 来编译最新年度的 JavaScript 版本（Stage 4 里的无论什么）。但是它也有能力根据你指定的目标环境编译：它能够处理开发模式，比如最新版本的浏览器，或是多重构建，例如 IE 版本。 它甚至有另一个为了流行多年的浏览器提供的版本
 
-#### Not removing the Stage presets (babel-preset-stage-x)
+#### 没有移除 Stage presets（babel-preset-stage-x）
 
 ![](https://i.loli.net/2018/05/10/5af3a6239956e.png)
 
-We can always keep it up to date, and maybe we just need to determine a better system than what the current presets are.
+我们可以随时更新它，或许我们只需要决定一个比当前 presets 更好的系统。
 
-Right now, stage presets are just a list of plugins that we manually update after each TC39 meeting. To make this manageable, we need to allow major version bumps for these “unstable” packages. This is partly because the community will re-create these packages anyway. So we might as well do it from an official package, and then have the ability to provide better messaging and so on.
+现在，stage presets 只是我们在每个 TC39 会议后手动更新的插件列表。要使这个可管理，我们需要允许主要的版本为这些“不稳定”的包做缓冲。这是一部分，因为委员会无论怎样都将重建这些包。所以我们可能会从一个官方包做这件事，并且之后我们有能力提供过更好的消息等等。
 
-#### Renames: Scoped Packages (`@babel/x`)
+#### 重命名：Scoped Packages（`@babel/x`）
 
-Here is a poll I put out almost a year ago:
+这里是一个大约一年前我发布的投票：
 
 ![](https://i.loli.net/2018/05/10/5af3a6402f8b7.png)
 
-Back then, not a lot of projects used scoped packages, so most people didn’t even know they existed. You might have had to pay for an npm org account back then, whereas now it is free (and supports non-scoped packages, too).
+那时候，不是很多的项目使用 scoped packages，所以很多人甚至不知道它们的存在。那时候你可能必须为了一个 npm org 的账户花钱，而现在它是免费的（并且支持也 non-scoped packages）。
 
-The issues with searching for scoped packages are solved, and download counts work. The only stumbling block left is that some 3rd party registries still don’t support scoped packages. But I think we are at a point where it seems pretty unreasonable to wait on that.
+搜索 scoped packages 的问题已经被解决了，下载计数工作了。唯一一个绊脚石就是一些第三方注册仍然不支持 scoped packages。但是我想我们现在正处于一个点，在这里看起来等待很不合理。
 
-Here’s why we prefer scoped packages:
+为什么我们比较喜欢 scoped packages：
 
-*   Naming is difficult: we won’t have to check if someone else decided to use our naming convention for their own plugin
-*   We have similar issues with package squatting
-*   Sometimes people create `babel-preset-20xx` or some other package because it’s funny. We have to make an issue and email to ask for it back.
-*   People have a legit package, but it happens to be the same name as what we wanted to call it.
-*   People see that a new proposal is merging (like optional chaining or pipeline operator) and decide to fork and publish a version of it under the same name. Then, when we publish, it tell us the package was already published 🤔. So I have to find their email and email both them and npm support to get the package back and republish.
-*   What is an “official” package and what is a user/community package with the same name? We get issue reports of people using misnamed or unofficial packages because they assumed it was part of Babel. One example of this was a report that `babel-env` was rewriting their `.babelrc` file. It took them a while to realize it wasn't `babel-preset-env`.
+*   命名困难：我们不需要去检查别人是否决定在他们的插件上使用我们的命名惯例
+*   在 package squatting 上我们有类似的问题
+*   有些时候人们创建 `babel-preset-20xx` 或是其他的包是因为好玩。我们必须发布一个议题，并且发邮件把它要回来
+*   有人有一个合法的包，但是它恰好和我们想叫的名字是一样的
+*   有人看到一个新的提案正在 merging（像 optional chaining 或者 pipeline 操作符），并且决定使用同样的名字来 fork 和 publish。然后，当我们发布的时候，我们就被告知包已经被发布了 🤔。所以我必须找到他们和 npm 支持团队双方的电子邮件，把包拿回来再重新发布。
+*   同一个名字下，什么是“官方”包，什么是用户/社区包？我们收到了有些人使用错误的名字或者非官方包的问题报告，原因是他们以为这是 Babel 的一部分。关于这个一个例子是有一份报告说 `babel-env` 重写了他们的 `.babelrc` 文件。他们花了一些时间才意识到它不是 `babel-preset-env`。
 
-So, it seems pretty clear that we should use scoped packages, and, if anything, we should have done it much earlier 🙂!
+所以，这已经很清楚了，我们应该使用 scoped packages，并且，不论什么，我们应该快一些完成它！
 
-Examples of the scoped name change:
+scoped name 更改的例子:
 
 *   `babel-cli` -> `@babel/cli`
 *   `babel-core` -> `@babel/core`
 *   `babel-preset-env` -> `@babel/preset-env`
 
-#### Renames: `-proposal-`
+#### 重命名：`-proposal-`
 
-Any proposals will be named with `-proposal-` now to signify that they aren't officially in JavaScript yet.
+现在任何提案都将被以 `-proposal-` 命名来标记他们还没有在 JavaScript 官方之内。
 
-So `@babel/plugin-transform-class-properties` becomes `@babel/plugin-proposal-class-properties`, and we would name it back once it gets into Stage 4.
+所以 `@babel/plugin-transform-class-properties` 变成 `@babel/plugin-proposal-class-properties`，当它进入 Stage 4 后，我们会把它命名回去。
 
-#### Renames: Drop the year from the plugin name
+#### 重命名：把插件名字里的年份去掉
 
-Previous plugins had the year in the name, but it doesn’t seem to be necessary now.
+之前的 plugins 名字里有年份，但是现在似乎并不是必须的。
 
-So `@babel/plugin-transform-es2015-classes` becomes `@babel/plugin-transform-classes`.
+所以 `@babel/plugin-transform-es2015-classes` 变成 `@babel/plugin-transform-classes`。
 
-Since years were only used for es3/es2015, we didn’t change anything from es2016 or es2017. However, we are deprecating those presets in favor of preset-env, and, for the template literal revision, we just added it to the template literal transform for simplicity.
+因为年份只是用于 es3/es2015，我们没有从 es2016 或 es2017 里改变任何东西。无论怎样，我们将那些 presets 设置为 preset-env，并且，对于字面模板调整，我们只是简单地把它添加到字面模板转换里。
 
-#### Peer dependencies and integrations
+#### Peer dependencies 和 integrations
 
-We are introducing a peer dependencies on `@babel/core` for all the plugins (`@babel/plugin-class-properties`), presets (`@babel/preset-env`), and top level packages (`@babel/cli`, `babel-loader`).
+我们介绍一下 `@babel/core` 上的 peer dependencies，用于所有的 plugins（`@babel/plugin-class-properties`），presets（`@babel/preset-env`）和 top level packages（`@babel/cli`，`babel-loader`）
 
-> peerDependencies are dependencies expected to be used by your code, as opposed to dependencies only used as an implementation detail. — [Stijn de Witt via StackOverflow](https://stackoverflow.com/a/34645112).
+> peerDependencies 是被你的代码期望使用的依赖，与只被用于实现细节的 dependencies 相反。- [Stijn de Witt 在 StackOverflow 上的回答](https://stackoverflow.com/a/34645112)
 
-`babel-loader` already had a `peerDependency` on `babel-core`, so this just changes it to `@babel/core`. This change prevents people from trying to install these packages on the wrong version of Babel.
+`babel-loader` 在 `babel-core` 上 已经有一个 `peerDependency` 了，所以这个只是把它变成了 `@babel/core`。这个改变阻止了人们尝试去安装这些 Babel 包的错误版本。
 
-For tools that already have a `peerDependency` on `babel-core` and aren't ready for a major bump (since changing the peer dependency is a breaking change), we have published a new version of `babel-core` to bridge the changes over with the new version [babel-core@7.0.0-bridge.0](https://github.com/babel/babel-bridge). For more information, check out [this issue](https://github.com/facebook/jest/pull/4557#issuecomment-344048628).
+对于在 `babel-core` 已经有 `peerDependency` 和没有准备好主要更新（因为改变 peer dependency 是一个 breaking change）的工具，我们已经发布了一个新版本的 `babel-core` 来桥接新版本上的改变 [babel-core@7.0.0-bridge.0](https://github.com/babel/babel-bridge)。想获得更多地信息，查看 [这个议题](https://github.com/facebook/jest/pull/4557#issuecomment-344048628)。
 
-Similarly, packages like `gulp-babel`, `rollup-plugin-babel`, and so on all used to have `babel-core` as a dependency. Now these will just have a `peerDependency` on `@babel/core`. Because of this, these packages don’t have to bump major versions when the `@babel/core` API hasn't changed.
+类似的，像 `gulp-babel`，`rollup-plugin-babel` 等等的包都曾经把 `babel-core` 作为一个 dependency。现在，这些将仅仅在 `@babel/core` 上有 `peerDependency`。因为这个，这些包没有必要在 `@babel/core` API 改变的时候升级主要版本
 
-#### [#5224](https://github.com/babel/babel/pull/5224): independent publishing of experimental packages
+#### [#5224](https://github.com/babel/babel/pull/5224)：独立发布 experimental packages
 
-I mention this in [The State of Babel](http://babeljs.io/blog/2016/12/07/the-state-of-babel) in the `Versioning` section. Here’s the [Github Issue](https://github.com/babel/babylon/issues/275).
+我在 [Babel 的状态](http://babeljs.io/blog/2016/12/07/the-state-of-babel) 的 `Versioning` 部分提到过这个。这里是 [Github Issue](https://github.com/babel/babylon/issues/275)。
 
-You might remember that after Babel 6, Babel became a set of npm packages with its own ecosystem of custom presets and plugins.
+你可能记得在 Babel 6 之后，Babel 变成了一个拥有它自己的生态系统的一套 npm 包，这个生态系统有 custom presets 和 plugins。
 
-Since then, however, we have always used a “fixed/synchronized” versioning system (so that no package is on v7.0 or above). When we do a new release, such as `v6.23.0` , only packages that have updated code in the source are published with the new version. The rest of the packages are left as is. This mostly works in practice because we use `^` in our packages.
+然而，从那以后，我们一直使用一个 “fixed/synchronized” 的版本系统（所以没有包是在 v7.0 或者是以上的）。当我们做一个新的发布，例如 `v6.23.0`，只有源代码更新过的包才会随着新版本一起被发布。其余的包保持原样。这在实践中大多是管用的，因为我们在我们的包中使用了 `^`。
 
-Unfortunately, this kind of system requires a major version to be released for all packages once a single package needs it. This either means that we make a lot small breaking changes (unnecessary), or we batch lots of breaking changes into a single release. Instead, we want to differentiate between the experimental packages (Stage 0, and so on) and everything else (es2015).
+不幸的是，当一个包需要发布一个主版本时，这种系统需要为所有的包都发布一个。这要不意味着我们做了很多小的 breaking changes（不必要的），要不就意味着我们我们打包了很多 breaking changes 到一个发布中。相反，我们想把 experimental packages（Stage 0 等等）和 所有其他的（es2015）区分开。
 
-Because of this, we intend to make major version bumps to any experimental proposal plugins when the spec changes, rather than waiting to update all of Babel. So anything that is < Stage 4 would be open to breaking changes in the form of major version bumps. The same applies to the Stage presets themselves (if we don’t drop them entirely).
+因为这个，当规范变化时，我们打算将所有的 experimental proposal plugins 的主版本迭代，而不只是等待去更新所有的 Babel。所以，任何 Stage 4 之前的东西都将以主版本迭代的形式开放给 breaking changes。Stage presets 自身也是一样的（如果我们不把他们整个扔掉）。
 
-This goes along with our decision to require TC39 proposal plugins to use the `-proposal-` name. If the spec changes, we will do a major version bump to the plugin and the preset it belongs to (as opposed to just making a patch version which may break for people). Then, we will need to deprecate the old versions and setup an infrastructure which will automatically update people so that they’re up to date on what the spec will become (and so they don't get stuck on something. We haven’t been so lucky with decorators.).
+与这个随之而来的是我们要求 TC39 提案使用 `-proposal-` 的名字的决定，我们将对插件及其所属的 preset 做一个主版本迭代（而不是只做一个可能让人失望的补丁版本）。然后，我们将需要弃用旧的版本，并且建立一个不管规范变成什么样子都将自动更新使人们保持最新的框架（并使他们不被什么东西卡住。我们没有像 decorators 那么幸运。）。
 
-#### The `env` option in `.babelrc` is not being deprecated!
+#### `.babelrc` 中的 `env` 选项没有没弃用
 
-Unlike in the [last post](https://babeljs.io/blog/2017/09/12/planning-for-7.0#deprecate-the-env-option-in-babelrc), we just fixed the merging behavior to be [more consistent](https://twitter.com/left_pad/status/936687774098444288).
+不像[最后一个提交](https://babeljs.io/blog/2017/09/12/planning-for-7.0#deprecate-the-env-option-in-babelrc)，我们只是修复了合并的行为来使其[更兼容](https://twitter.com/left_pad/status/936687774098444288)
 
-The configuration in `env` is given higher priority than root config items. And instead of the weird approach of just using both, plugins and presets now merge based on their identity, so you can do this:
+`env` 中的配置被赋予了比根配置项更高的优先级。并且现在根据它们的标识来合并，而不是只是同时使用 plugins 和 presets 这种奇怪的实现，所以现在我们可以这样做：
 
 ```
 {  presets: [    ['env', { modules: false}],  ],  env: {    test: {      presets: [         'env'      ],    }  },}
 ```
 
-with `BABEL_ENV=test` . It would replace the root env config with the one from test, which has no options.
+有了 `BABEL_ENV=test`，它将使用没有选项的 test 中的配置来替换根环境配置。
 
-#### Support `[class A extends Array](https://twitter.com/left_pad/status/940723982638157829)` (oldest caveat)
+#### 支持 `[class A extends Array](https://twitter.com/left_pad/status/940723982638157829)` (最早的警告)
 
-Babel will automatically wrap any native built-ins like `Array`, `Error`, and `HTMLElement` so that doing this just works when compiling classes.
+Babel 将自动包含像 `Array`， `Error` 和 `HTMLElement` 的原生 built-ins，所以做这个会在编译 classes 的时候生效。
 
-#### Speed
+#### 速度
 
-*   Many [fixes](https://twitter.com/rauchg/status/924349334346276864) from [bmeurer](https://twitter.com/bmeurer) on the v8 team!
-*   60% faster via the [web-tooling-benchmark](https://github.com/v8/web-tooling-benchmark) [https://twitter.com/left_pad/status/927554660508028929](https://twitter.com/left_pad/status/927554660508028929)
+*   很多来自 v8 团队 [bmeurer](https://twitter.com/bmeurer) 的[修复](https://twitter.com/rauchg/status/924349334346276864)！
+*   通过 [web-tooling-benchmark](https://github.com/v8/web-tooling-benchmark) [https://twitter.com/left_pad/status/927554660508028929](https://twitter.com/left_pad/status/927554660508028929) 提速 60%
 
-#### preset-env: `"useBuiltins": "usage"`
+#### preset-env：`"useBuiltins"："usage"`
 
-`babel-preset-env` introduced the idea of compiling syntax to different targets. It also introduced, via the `useBuiltIns` option, the ability to only add polyfills that the targets don't support.
+`babel-preset-env` 介绍了编译语法到不同的目标的想法。它同时介绍了通过 `useBuiltIns` 选项，只为目标添加不支持的 polyfills 的能力。
 
-So with this option, something like:
+所以有了这个选项，一些事情比如：
 
 ```
 import "babel-polyfill";
 ```
 
-can turn into
+能够变成
 
 ```
 import "core-js/modules/es7.string.pad-start";import "core-js/modules/es7.string.pad-end";// ...
 ```
 
-if the target environment happens to support polyfills other than `padStart` or `padEnd`.
+如果目标环境恰巧支持 `padStart` 或 `padEnd` 之外的 polyfills。
 
-But in order to make that even better, we should only import polyfills that are “used” in the codebase itself. Why import `padStart` if it is not even used in the code?
+但是为了使它更好，我们应该仅仅引入代码库自身“使用”的 polyfills。如果它在代码中没有使用 `padStart`，为什么引入？
 
-`"useBuiltins": "usage"` is our first attempt to tackle that idea. It performs an import at the top of each file, but only adds the import if it finds it used in the code. This approach means that we can import the minimum amount of polyfills necessary for the app (and only if the target environment doesn't support it).
+`"useBuiltins": "usage"` 是我们解决那个想法的第一次尝试。它在每个文件的头部执行了一个引入，但是只有在找到它在代码中被使用的时候才添加引用。这个实现意味着我们能够为应用引入最小量的，必须的 polyfills（并且只有在目标环境不支持它的时候）。
 
-So if you use `Promise` in your code, it will import it at the top of the file (if your target doesn't support it). Bundlers will dedupe the file if it is the same, so this approach won't cause multiple polyfills to be imported.
+所以如果你在大妈中使用 `Promise`，它将在文件的头部引入它（如果你的目标不支持它）。如果它是重复的，Bundlers 将会删除重复的部分，所以这个实现不会造成 polyfills 的多重引用。
 
 ```
 import "core-js/modules/es6.promise";var a = new Promise();
@@ -273,44 +273,44 @@ import "core-js/modules/es6.promise";var a = new Promise();
 import "core-js/modules/es7.array.includes";[].includesa.includes
 ```
 
-With type inference we can know if an instance method like `.includes` is for an array or not. Having a false positive is ok until that logic is better, since it is still better than importing the whole polyfill like before.
+通过类型推断我们能知道一个像 `.includes` 的实例是否是一个 array 或者不是。在逻辑变得更好之前，得到一个 false positive 是可以的，因为它仍旧是优于之前引入整个 polyfill 的。
 
-#### Misc updates
+#### 其他更新
 
-*   `[babel-template](https://github.com/babel/babel/blob/master/packages/babel-template)` is faster and easier to use
-*   [regenerator](https://github.com/facebook/regenerator) was released under the [MIT License](https://twitter.com/left_pad/status/938825429955125248) — it’s the dependency used to compile generators/async
-*   “lazy” option to the `modules-commonjs` plugin via [#6952](https://github.com/babel/babel/pull/6952)
-*   You can now use `envName: "something"` in .babelrc or pass via cli `babel --envName=something` instead of having to use `process.env.BABEL_ENV` or `process.env.NODE_ENV`
-*   `["transform-for-of", { "assumeArray": true }]` to make all for-of loops output as regular arrays
-*   Exclude `transform-typeof-symbol` in loose mode for preset-env [#6831](https://github.com/babel/babel/pull/6831)
-*   [Landed PR for better error messages with syntax errors](https://twitter.com/left_pad/status/942859244759666691)
+*   `[babel-template](https://github.com/babel/babel/blob/master/packages/babel-template)` 更快并且用起来更简单
+*   [regenerator](https://github.com/facebook/regenerator) 在 [MIT 证书](https://twitter.com/left_pad/status/938825429955125248)下发布 - 它是用来编译 generators/async 的依赖
+*   通过 [#6952](https://github.com/babel/babel/pull/6952) 的 `modules-commonjs` plugin 的 “lazy” 选项
+*   你现在能在 .babelrc 中使用 `envName: "something"` 或者 在命令行输入 `babel --envName=something` 来取代必须使用`process.env.BABEL_ENV` 或 `process.env.NODE_ENV`
+*   `["transform-for-of", { "assumeArray": true }]` 来使所有的 for-of 循环按照规则数组输出
+*   为了 preset-env [#6831](https://github.com/babel/babel/pull/6831)，在松散模式中排除 `transform-typeof-symbol`
+*   [实现 PR 来获得更好的语法错误消息](https://twitter.com/left_pad/status/942859244759666691)
 
-#### To-dos Before Release
+#### 发布之前需要做的
 
-*   [Handle](https://github.com/babel/babel/issues/6766) `[.babelrc](https://github.com/babel/babel/issues/6766)` [lookup](https://github.com/babel/babel/issues/6766) (want this done before first RC release)
-*   [“overrides” support](https://github.com/babel/babel/pull/7091): different config based on glob pattern
-*   Caching and invalidation logic in babel-core.
-*   Better story around external helpers.
-*   Either implement or have a plan in place for versioning and handling polyfills independently from helpers, so we aren’t explicitly tied to core-js 2 or 3. People may have things that depend on one or the other, and won’t want to load both a lot of the time.
-*   Either a [working decorator implementation](https://github.com/babel/babel/pull/6107), or functional legacy implementation, with clear path to land current spec behavior during 7.x’s lifetime.
+*   [Handle](https://github.com/babel/babel/issues/6766) `[.babelrc](https://github.com/babel/babel/issues/6766)` [lookup](https://github.com/babel/babel/issues/6766)（想在第一次 RC 发布之前完成）
+*   [“overrides” support](https://github.com/babel/babel/pull/7091)：基于全局模式的差异配置
+*   babel-core 中的缓存和无效逻辑
+*   围绕外部 helpers 的更好的 story。
+*   对于迭代和处理 independently 对于 helpers 的独立性，实现它或者是有一个成熟的计划，所以我们不是明确的与 core-js 2 或 3 绑定。人们可能有东西依赖于一个或者其他，并且不想同时加载两者太多。
+*   不管是一个[working decorator 的实现](https://github.com/babel/babel/pull/6107)，或者是 functional legacy 的实现，在 7.x’s 的有效期内，有一个明确的路径实现当前标准的行为。
 
-#### Thanks
+#### 感谢
 
-Shoutout to our team of volunteers:
+向我们的志愿者团队致意：
 
-[Logan](https://twitter.com/loganfsmyth) has been really pushing hard to fix a lot of our core issues regarding configs and more. He’s the one doing all of that hard work.
+[Logan](https://twitter.com/loganfsmyth) 已经很努力的推进修复很多我们关于配置及更多的核心问题。他就是那个做了所有困难工作的人。
 
-[Brian](https://twitter.com/existentialism) has been taking over maintenance of a lot of preset-env work and whatever else I was doing before 😛
+[Brian](https://twitter.com/existentialism) 已经接管很多 preset-env 的维护工作，无论以前我做过什么 😛
 
-[Daniel](https://twitter.com/TschinderDaniel) has always stepped in when we need the help, whether it be maintaining babel-loader or helping move the babylon/babel-preset-env repo’s over. And same with [Nicolo](https://twitter.com/NicoloRibaudo), [Sven](https://twitter.com/svensauleau), [Artem](https://twitter.com/yavorsky_), and [Diogo](https://twitter.com/kovnsk) who have stepped up in the last year to help out.
+[Daniel](https://twitter.com/TschinderDaniel) 一直在我们需要的帮助的时候介入，不管是维护 babel-loader 或是帮助迁移 babylon/babel-preset-env 库。同样的，[Nicolo](https://twitter.com/NicoloRibaudo)，[Sven](https://twitter.com/svensauleau)，[Artem](https://twitter.com/yavorsky_) 和 [Diogo](https://twitter.com/kovnsk)，在上一年加强了帮助。
 
-I’m really looking forward to a release (I’m tired too — it’s almost been a year 😝). But I also don’t want to rush anything just because. There’s been a lot of ups and downs throughout this release, but I’ve certainly learned a lot and I’m sure the rest of the team has as well.
+我真的很期待一个发布（我也累了 - 已经快一年了 😝）。但是我也不想催促任何东西，因为在这个版本中已经有很多的起伏了。我确实学到了很多东西，我相信团队的其他成员也是如此。
 
-And if I’ve learned anything at all this year, I should really heed this advice rather than just write about it.
+如果我今年学到了什么，我应该真正的听从这个建议而不只是写下来。
 
 ![](https://i.loli.net/2018/05/10/5af3a67ab1365.png)
 
-> Also thanks to [Mariko](https://twitter.com/kosamari) for the [light push](https://twitter.com/kosamari/status/944272286055530496) to actually finish this post (2 months in the making)
+> 同样感谢 [Mariko](https://twitter.com/kosamari) 的[轻推](https://twitter.com/kosamari/status/944272286055530496)，实际完成了这个发布（两个月的制作）。
 
 
 ---
