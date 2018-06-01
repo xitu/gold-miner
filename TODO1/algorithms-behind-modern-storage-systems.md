@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/algorithms-behind-modern-storage-systems.md](https://github.com/xitu/gold-miner/blob/master/TODO1/algorithms-behind-modern-storage-systems.md)
 > * 译者：[LeopPro](https://github.com/LeopPro)
-> * 校对者：[zephyrJS](https://github.com/zephyrJS) [FesonX](https://github.com/)
+> * 校对者：[zephyrJS](https://github.com/zephyrJS) [FesonX](https://github.com/FesonX)
 
 # 支撑现代存储系统的算法
 
