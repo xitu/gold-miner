@@ -3202,7 +3202,7 @@
 |[2017 年 JavaScript 发展状况回顾](https://juejin.im/entry/5a44a500f265da43271887f0/)|翻译|8|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译|11|
 |[全新 Android 注入器 : Dagger 2（二）](https://juejin.im/post/5a3a1883f265da4321542fc1)|校对|1|
-|[2017 年 11 月兑换 套头衫和各一个]()|减去积分|30|
+|[2017 年 11 月兑换 套头衫和 T 恤各一个]()|减去积分|30|
 |[学习 JavaScript：9个常见错误阻碍你进步](https://juejin.im/post/59bb4a7c6fb9a00a53274cd7)|翻译|3|
 |[为什么 context.Value 重要，如何改进](https://juejin.im/post/59b20d6ff265da249517c14a)|校对|2|
 |[2017 年 9 月 6 日兑换小猫一个]()|减去积分|15|
