@@ -8,409 +8,423 @@
 
 > 本文为 PyCon 2018 视频之 Graham Dumpleton - Secrets of a WSGI master. 的中文字幕，您可以搭配原视频食用。
 
-0:01	so welcome this is grand
+0:01  so welcome this is Graham Dumpleton with Secrets of a WSGI master thank you.
+	
+0:09  so thank you everyone for comming last talk of the day and it's 
 
-0:09  thank you so thank you everyone for
+0:21  always challenge sometimes at least I'm not the last talk of the last day
 
-0:21  always challenge sometimes at least I'm
+0:26  everyone half the time everyone's gone home already
 
-0:26  everyone half the time everyone's gone
+0:29  so my background if you're not familiar, I'm the author of the mod_wsgi. So I have
 
-0:29  so my background if you're not familiar
+0:37  been involved with the wsgi and what it is for over ten years.
 
-0:37  been involved with the whiskey and what
+0:42  shortly after when it was created I've always been very opinionted on my ideas
 
-0:42  shortly after when it was created I've
+0:48  around it so the point of this talk is to sort of hopefully give you a bit of
 
-0:48  around it so the point of this talk is
+0:52  wisdom which I've accumulated about using wsgi apps or in particular with
 
-0:52  wisdom which I've accumulated about
+0:58  mod_wsgi which is the Apache module  which I wrote which allows you
 
-0:58  Maude whiskey which is the might Apache
+1:05  run your Python web application with Apache so I'm gonna give various tips 
 
-1:05  run your Python web application with
+1:10  and things a lot along the way and also perhaps tell you about some things you 
 
-1:10  and things a lot along the way and also
+1:15  may not have known about around mod_wsgi because I've been doing a lot of 
 
-1:15  may not have known about around Maude
-
-1:18  work with it over the last few years
+1:18  work with it over the last few years where I haven't necessarily documented 
 
 1:23  much or said much about it and so you
 
-1:29  what is whiskey I call whiskey now I
+1:25 might not know about those things so 
+
+1:29  what is whiskey I call whiskey now 
+
+1:32 I used to always called WSGI but what it
 
 1:34  means is web server gateway interface
 
+1:37 and what it is is a means of plugging in 
+
 1:41  a Python web application with a web
+
+1:45 server so it's going to act as a
 
 1:48  bridge between those two now importantly
 
+1:51 wsgi is an application programming
+
 1:54  interface so when I have this picture
 
-1:59  WSGI whiskey HTTP is a wire protocol
+1:57 again here where I talk about HTTP and
+
+1:59  WSGI wsgi. HTTP is a wire protocol, wsgi is not it's an application
 
 2:06  programming interface and I see a lot of
 
-2:10  in trying to understand it
+2:08 people get confused about that at times
 
-2:15  thing worth pointing out that whiskey is
+2:10  in trying to understand it that's not a wire protocol the other 
 
-2:20  a specification and it's defined by pep
+2:15  thing worth pointing out that wsgi is not implementation of anything. it is 
 
-2:25  an update related to Python free called
+2:20  a specification and it's defined by pep originally free free free free but there was
 
-2:31  everything confusing so it's not an
+2:25  an update related to Python free called free free free free just made
 
-2:37  author of mod whiskey you'll often see
+2:31  everything confusing so it's not an implementation especially with me being the
 
-2:41  whiskey that's actually confusing
+2:37  author of mod whiskey you'll often see people say I'm using Apache and 
 
-2:45  talking about mod whiskey or they're
+2:41  wsgi that's actually confusing. because you don't know whether they're
 
-2:49  behind it as a using Apache as a proxy
+2:45  talking about mod_wsgi or they're talking about Apache with core 
 
-2:53  about implementation use the name so use
+2:49  behind it as a using Apache as a proxy. so it's all important if you're talking
 
-2:57  or guna corn you whiskey and so on
+2:53  about implementation use the name. so use mod_wsgi if you're talking about that or
 
-3:02  program look like for whiskey this is it
+2:57  or guna corn you wsgi and so on.so what does the canonical HelloWorld
 
-3:07  object to function in this case and for
+3:02  program look like for wsgi this is it. it's very simple you have a call all
 
-3:12  environ
+3:07  object to function in this case and for each request you'll passed an
 
-3:16  the HTTP headers but also information
+3:12  environ with all the information about the request of
 
-3:21  as the remote client IP address and
+3:16  the HTTP headers but also information from the server itself information such
 
-3:27  then the job of that whiskey application
+3:21  as the remote client IP address and other information about the server. and it's 
 
-3:32  it's going to generate a response and a
+3:27  then the job of the wsgi application to act on that request information and
 
-3:39  HTTP response and a request body start
+3:32  it's going to generate a response and  a response composes of headers for
 
-3:45  and then we're doing to actually return
+3:39  HTTP response and a request body start response is called to setup the header
 
-3:50  lots of traps and pitfalls of writing
+3:45  and then we're doing to actually return that body. so very very simple there are
 
-3:54  simple but when you start to actually
+3:50  lots of traps and pitfalls of writing wsgi application so it may look
 
-3:58  construct and try to create a whole
+3:54  simple but when you start to actually build on top of this very basic
 
-4:02  introduce whiskey middleware and other
+3:58  construct and try to create a whole application stack you might start to
 
-4:06  requesting the request content and it
+4:02  introduce wsgi middleware and other bits like that and how you deal with
 
-4:13  suggestion is friends don't let friends
+4:06  requesting the request content and it gets very very messy at times so my 
 
-4:18  frustrating to see a lot of people on
+4:13  suggestion is friends don't let friends use raw wsgi. okay it's very
 
-4:21  trying to understand this I don't
+4:18  frustrating to see a lot of people on stack of comming up with problems I'm
 
-4:26  with
+4:21  trying to understand this I don't understand why are you trying to do 
 
-4:29  think you're getting it's whiskey steer
+4:26  with raw wsgi. so if you have friends who
 
-4:35  save them a lot of trouble because they
+4:29  think you're getting it's wsgi steer them to a web framework please.it'll
 
-4:40  documentation for a start which explains
+4:35  save them a lot of trouble because they won't be well these ones have a lot of 
 
-4:45  but do provide an interface on top of
+4:40  documentation for a start which explains how to use them, good tutorials and so on
 
-4:49  things and ensures that things are
+4:45  but do provide an interface on top of wsgi which hides all those horrible
+
+4:49  things and ensures that things are implemented correctly. now even if you're using one of those frameworks you still need a way to host a wsgi application they
 
 4:55  using one of those frameworks you still
 
-5:00  they are a framework to help you build
+5:00  they are a framework to help you build that application now those frameworks such as 
 
-5:05  such as Jango and flask they do provide
+5:05  such as Dango and flask they do provide you a wsgi server you can use. that is
 
-5:11  a development whiskey server it's not
+5:11  a development wsgi server it's not suitable for production. so even if they
 
-5:18  do have them do not use them and this is
+5:18  do have them do not use them and this is the way you need to start looking at
 
-5:22  what's called we call production grade
+5:22  what's called we call production grade wsgi server and there is various
 
-5:26  attributes that a production grade
+5:26  attributes that a production grade wsgi server has to have and those
 
-5:30  development service don't
+5:30  development service don't so for wsgi service we're talking
 
-5:34  about mod whiskey with Apache we have
+5:34  about mod_wsgi with Apache we  guna corn we have u_wsgi there the 
 
-5:40  main free there's also tornado and knock
+5:40  main free there's also tornado and waitress which is another one
 
-5:45  which is straight whiskey server and
+5:45  which is straight wsgi server and then we have to have other ones which is tornado
 
-5:49  tornado which is not really a strictly
+5:49  tornado which is not really a strictly just the wsgi service actually an 
 
-5:54  asynchronous web server but they do have
+5:54  asynchronous web server but they do have an adapter for wsgi but the three
 
-5:58  main ones you'll see Apache mod whiskey
+5:58  main ones you'll see Apache mod_wsgi, gunicorn, uwsgi. Apache mod_wdgo 
 
-6:05  whiskey is traditionally been seen as
+6:05  is traditionally been seen as very hard to setup. back in the
 
-6:11  day when everything started up with when
+6:11  day when everything started up with when mod_wsgi first came out you had to
 
-6:16  like download the source code for mod
+6:16  like download the source code for mod_wsgi from the site you had to unpack tar.baz 
 
-6:20  tar ball you had to go and do a
+6:20  you had to go and do a configure step and make step and make
 
-6:24  install step and then you still had to
+6:24  install step and then you still had to configure Apache to actually load it and
 
-6:28  then configure it for your application
+6:28  then configure it for your application there was a bit of a black art to that
 
-6:32  that I wrote a lot of Doc's
+6:32  that I wrote a lot of Doc's people didn't necessarily read them but 
 
-6:37  even if you read them it'll still
+6:37  even if you read them it'll still perhaps difficult to setup.
 
-6:41  things were slightly better when the
+6:41  things were slightly better when the Linux distribution started to package it
 
-6:44  mod whiskey you could at least go
+6:44  mod_wsgi you could at least go apt-get install or yum install and get
 
-6:49  it in but you still have to configure it
+6:49  it in but you still have to configure it. now at least for installation now, things
 
-6:55  are a bit easier because one of the
+6:55  are a bit easier because one of the problems with the Linux distributions
 
-6:59  now is they don't necessarily have an up
+6:59  now is they don't necessarily have an up to date version of mod_wsgi, there was
 
-7:03  a situation and not too fond ago that
+7:03  a situation and not too fond ago that Debian Ubuntu was supplying a version of mod_wsgi which was 
 
-7:08  mod key whiskey which was 5 years old it
+7:08  5 years old. it was 50 versions out of date that drives me nuts.
 
-7:15  me nuts you know when I was be
+7:15  you know when I was be supporting the last version not alone 50 versions ago.
 
-7:18  versions ago so what a lot of people
+7:18  so what a lot of people don't konw is that it's 
 
-7:23  actually possible to build mod whiskey
+7:23  actually possible to build mod_wsgi and install it using pip
 
-7:29  still have to have a patchy installed
+7:29  so you still have to have a patchy installed. you still have to have the Apache dev
 
-7:32  package installed for your operating
+7:32  package installed for your operating system but you can pip install it. 
 
-7:36  pull down the source code and it will
+7:36  it'll pull down the source code and it will actually build it up and install
 
-7:40  whiskey module that is built into the
+7:40  mod_wsgi module that is built into the pip installation or version environment
 
-7:44  you're using but that's not all
+7:44  you're using but that's not all. there's also now a way of running a
 
-7:50  patch with mod whiskey from the command
+7:50  patch with mod_wsgi from the command line so rather than actually having to
 
-7:55  go in and configure Apache to load it
+7:55  go in and configure Apache to load it. you can just run this command so I just
 
-8:01  go to mod whiskey Express start server
+8:01  go to mod_wsg-express start-server and give it my wsgi script file
 
-8:05  it's going to do startup Apache for me
+8:05  it's going to do startup Apache for me and run my webapp, and I haven't done a
 
-8:11  single line of configuration and that
+8:11  single line of configuration and that was a bit that was difficult for a lot
 
-8:16  of people this does it all for you so
+8:16  of people this does it all for you so this is just like you came with gunicorn now 
 
-8:21  core now I can run it from the command
+8:21  I can run it from the command. it'll start on port 8000 by default
 
-8:26  default it'll go in and set up the
+8:26  it'll go in and set up the configuration for you for Apache by
 
-8:33  itself and do it with a set of
+8:33  itself and do it with a set of configuration which I regard as being a
 
-8:38  really good starting point and this is
+8:38  really good starting point and this is important because mod_wsgi has been
 
-8:43  around for over 10 years and like with a
+8:43  around for over 10 years and like with a lot of software packages you make
 
-8:46  decisions early on which you think are
+8:46  decisions early on which you think are good decisions and once you make that 
 
-8:52  decision you can't
+8:52  decision you can't change your mind. so this is actually
 
-8:56  been a really good thing for me because
+8:56  been a really good thing for me because it means I've been able to go back and
 
-8:59  because I'm automatically configuring it
+8:59  because I'm automatically configuring it. I've been able to draw on all that
 
-9:03  experience from how people used mud
+9:03  experience from how people used mod_wsgi and set up with a really good
 
-9:07  configuration which isn't actually the
+9:07  configuration which isn't actually the same as what the default configuration
 
-9:11  would be if you using Apache yourself
+9:11  would be if you using Apache yourself and doing it yourself
 
-9:14  so I've done a lot better you can learn
+9:14  so I've done a lot better you can learn from that and I part of the latest
 
-9:20  slides will talk about some of that that
+9:20  slides will talk about some of that  extra configuration I do now do
 
-9:26  you're using Django though we can make
+9:26  if you're using Django though we can make it easier again. you can go into
 
-9:31  your Django settings module you can add
+9:31  your Django settings module. you can add in mod_wsgi server to the list of
 
-9:39  installed apps and that's just going to
+9:39  installed apps and that's just going to give you a new management command you 
 
-9:43  can run with the managed up I so I can
+9:43  can run with the manage.py so I can python manage.py runmodwsgi and
 
-9:48  it will start up django app just like if
+9:48  it will start up django app just like if you're running python manage.py runserver 
 
-9:53  server but in this case it's using mod
+9:53  but in this case it's using mod_wsgi in Apache underneath and so
 
-10:00  you'll now have a production grade
+10:00  you'll now have a production grade server rather than just that development server
 
-10:04  server now you may be saying well why
+10:04  now you may be saying well why would I want to do that the runserver
 
-10:09  server is really useful in development I
+10:09  is really useful in development I get automatic source code reloading and
 
-10:15  you might think well no point okay but
+10:15  you might think well no point okay but you can't it's not the default because I
 
-10:20  want the default to be a production
+10:20  want the default to be a production ready configuration but you can if you
 
-10:25  want say reload uncle changes that means
+10:25  want say reload-on-changes that means that once you go in and change your
 
-10:29  source code it will automatically
+10:29  source code it will automatically restart the process to reload the code
 
-10:33  on the next request okay so you still
+10:33  on the next request okay so you still have functionality so it is possible to
 
-10:37  use this for development those used to
+10:37  use this for development those used to be in the past the idea is that no one
 
-10:42  ever would ever use mod Wiis can develop
+10:42  ever would ever use mod Wiis can develop them because they felt it was too hard
 
-10:45  to set up a pesci and to go and manually
+10:45  to set up Apache and to go and manually restart Apache every time you made a
 
-10:49  change so with this you don't need to
+10:49  change so with this you don't need to. there are a bunch of other options which
 
-10:54  the mod whiskey Express supports and one
+10:54  the mod whiskey Express supports and one other example is enabling the debugger
 
-11:00  so if you want to start debugging in PDB
+11:00  so if you want to start debugging in PDB, the python debugger is why and
 
-11:08  exception occurs you can actually run
+11:08  exception occurs you can actually run that command like that and it will throw
 
-11:12  you into the Python debugger to actually
+11:12  you into the Python debugger to actually then debug it if you want and there's 
 
-11:16  various other commands for tracking or
+11:16  various other commands for tracking or capturing an audit trail of all the 
 
-11:20  requests so you can actually look at all
+11:20  requests so you can actually look at all the request headers the request content
 
-11:24  responses and response content for every
+11:24  responses and response content for every query request if you need to actually
 
-11:27  start debugging at that level and
+11:27  start debugging at that level and various other things. so I can do that
 
-11:33  from the command line we've with Jango
+11:33  from the command line we've with Django in that way. now if I want to take that
 
-11:37  to production all I need to do is run
+11:37  to production. all I need to do is run the same command that I ran before we've
 
-11:45  run mod whiskey I need a place in to
+11:45  run mod_wsgi. I need a place in to actually say this if you're 
 
-11:49  looking closely when I ran this before
+11:49  looking closely when I ran this before it was doing stuff in slash temp
 
-11:53  with the generated configuration for a
+11:53  with the generated configuration for a real production we want to actually put
 
-11:56  it in a better location so that a cron
+11:56  it in a better location so that a cron job doesn't go and remove all the files
 
-12:00  from slash temp on us so we'll give it a
+12:00  from slash temp on us so we'll give it a center root we'll put that in etc 
 
-12:04  directory so I'm gonna run this command
+12:04  directory so I'm gonna run this command as root initially. I'm gonna want to use
 
-12:08  port 80 that means it's a privileged
+12:08  port 80 that means it's a privileged port I need to be route to start this up
 
-12:12  so that's why I'm specifying a user and
+12:12  so that's why I'm specifying a user and group two to have this run the
 
-12:16  application knows when it starts and I
+12:16  application knows when it starts and I just put --setup-only on the end
 
-12:21  and it will generate the config but not
+12:21  and it will generate the config but not actually start anything. okay so I've got
 
-12:27  my config and it's not gonna be
+12:27  my config and it's not gonna be generator each time. one of the things in
 
-12:32  that generator config is an Apache CTL
+12:32  that generator config is an Apache CTL script just like you would have with a
 
-12:37  normal Apache installation but this one
+12:37  normal Apache installation but this one is tied to this particular generated
 
-12:40  conflict and I can do start restart and
+12:40  conflict and I can do start restart and stop and I can then put that into my
 
-12:47  init scripts in my system setup or using
+12:47  init scripts in my system setup or using systemd and have that started up when
 
-12:52  the box starts now very very important
+12:52  the box starts now very very important in all of this what it described so far
 
-12:57  about that generating configuration it
+12:57  about that generating configuration it is not touching your system Apache
 
-13:02  configuration okay it's generating it
+13:02  configuration. okay it's generating it all in a separate area. so it is a
 
-13:07  totally isolated config so if you were
+13:07  totally isolated config. so if you were using Apache 
 
-13:12  on your system for something else it
+13:12  on your system for something else it will not interface with it the only 
 
-13:16  thing is if you do want to run it this
+13:16  thing is if you do want to run it this way on port 80, you would install Apache
 
-13:22  but you wouldn't actually enable it in
+13:22  but you wouldn't actually enable it in systemd.so it started up in that way
 
-13:26  because we want this one to take over
+13:26  because we want this one to take over port 80 so we've got a very easy way now
 
-13:30  going from development being able to run
+13:30  going from development being able to run on the command line generate your config
 
-13:36  put it in your system init files and
+13:36  put it in your system init files and have it start up as your actual main
 
-13:40  Apache on your box although those
+13:40  Apache on your box although those examples I guess our work so far we're
 
-13:46  primarily involving Django if you're not
+13:46  primarily involving Django if you're not using Django you can still do the same
 
-13:50  thing starts over risky script file I
+13:50  thing starts over risky script file I have all my options now one of the
 
-13:57  things about how the Django integration
+13:57  things about how the Django integration worked is that it automatically setup
 
-14:02  the capatch II configuration required to
+14:02  the capatch II configuration required to map your static files into Apache so
 
-14:09  that when you access the slash static
+14:09  that when you access the slash static directory that would all we handle for
 
-14:14  you now in this case on running a
+14:14  you now in this case on running a separate wsgi application now so I
 
-14:18  can still do that by using this URL
+14:18  can still do that by using this URL alias option and say I have these files
 
-14:23  in my static directory here I want to
+14:23  in my static directory here I want to map them at slash static and they're a
 
-14:27  bunch of other options available you can
+14:27  bunch of other options available you can override the number of processes and
 
-14:31  Fred's and lots of other things to do
+14:31  Fred's and lots of other things to do with how you handle things like
 
-14:39  responding to headers for proxy
+14:39  responding to headers for proxy information if you're putting this
 
-14:42  behind a proxy for example there's all
+14:42  behind a proxy for example there's all sorts of things like that if you need to
 
-14:46  know about any of the information you
+14:46  know about any of the information you can go --help it'll put out lots of
 
-14:50  helpful information not as long as the
+14:50  helpful information not as long as the volumn alias,your wsgi docs but then
 
-14:56  it's not as complicated diver is trying
+14:56  it's not as complicated diver is trying to set up your wsgi it's much simpler
 
-15:01  so latest rage these days actually is
+15:01  so latest rage these days actually is docker and containers and one of the
 
-15:07  reasons that I went and created mod
+15:07  reasons that I went and created mod_wsgi-express in the first place was
 
-15:11  because of what was happening in the
+15:11  because of what was happening in the container space if you had to set up
 
-15:15  Apache with mod whiskey in a docker file
+15:15  Apache with mod_wsgi in a docker file for running in a container it was just
 
-15:21  as messy as if you're doing it on your
+15:21  as messy as if you're doing it on your own box and in some ways even more messy
 
-15:25  because you couldn't do it manually by
+15:25  because you couldn't do it manually by hand you had to actually script the
 
-15:28  generation of all config to integrated
+15:28  generation of all config to integrated into the Apache config so that was
 
-15:33  actually one of the reasons why I did
+15:33  actually one of the reasons why I did this.
 
-15:36  using this with docker not too hard
+15:36  using this with docker not too hard. we just potentially start out with your
 
-15:41  docker base image you're going to
+15:41  docker base image you're going to install Apache packages required very
 
-15:47  importantly if you have don't work with
+15:47  importantly if you have don't work with the python base images from docker is
 
-15:51  this problems of Unicode so we can fix
+15:51  this problems of Unicode so we can fix them up
 
-15:54  we people install mod whiskey and we set
+15:54  we people install mod_wsgi and we set our pip command to actually run things
 
-16:01  and because we're in a docker container
+16:01  and because we're in a docker container,we're going to say log to terminal so
 
-16:04  that we can capture those locks ok
+16:04  that we can capture those locks ok pretty simple so once we do that we do
 
-16:11  we can build that for look at our docker
+16:11  we can build that for look at our docker file and we can run it ok fairly
 
-16:15  straightforward but if you have used
+16:15  straightforward but if you have used docker
 
-16:20  I don't know how many people aware of
+16:20  I don't know how many people aware of this problem if you saw that if you
 
-16:24  understood had docker builds work that
+16:24  understood had docker builds work that container when I was running it was I 
 
-16:27  was running as root inside of that
+16:27  was running as root inside of that container 
 
 16:32  say hey so he's going to admit that they
 
