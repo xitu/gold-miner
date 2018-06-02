@@ -5,7 +5,7 @@
 > * 译者：[lsvih](https://github.com/lsvih)
 > * 校对者：
 
-# What are JavaScript Generators and how to use them
+# 什么是 JavaScript 生成器？如何使用生成器？
 
 ![](https://cdn-images-1.medium.com/max/2000/1*9XJAQFEiYvd2i1hv9tgwXA.jpeg)
 
