@@ -1,34 +1,34 @@
 > * 原文地址：[Intro to Swift Functional Programming with Bob](https://medium.com/ios-geek-community/intro-to-swift-functional-programming-with-bob-9c503ca14f13#.i3o0lngnq)
 * 原文作者：[Bob Lee](https://medium.com/@bobleesj?source=post_header_lockup)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
-* 校对者：
+* 译者：[Deepmissea](http://deepmissea.blue)
+* 校对者：[thanksdanny](http://thanksdanny.mobi)，[Germxu](https://github.com/Germxu)
 
-# Intro to Swift Functional Programming with Bob #
+# Bob，函数式编程是什么鬼？
 
-## The tutorial I’d have written for my younger self. ##
+## 写给年轻的自己的教程
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/2000/1*AHNKmNnflyMN2zfQh9Cb4Q.png">
 
-A veteran how to use tools — so can we
+老司机怎么开车，我们就怎么开
 
-### Functional programming? ###
+### 函数式编程？
 
-You get it. People are talking about it. You google and look up the first 5 articles from the top. Frustrated, you notice most tutorials pull a vague Wikipedia definition like,
+你懂的。很多人都讨论它。你 Google 一下然后看了看前五篇文章，令人沮丧的是，你发现大部分文章只给出一个含糊不清的 Wikipedia 定义，像是：
 
-> “Functional Programming is a paradigm that allows you to make your code explicit. There is no state and no mutuality”
+> “函数式编程是一种编程范式，能让你的代码清晰又明确，没有变量也没有状态。”
 
-I’ve been there my friend. In fact, I still do. I give a gentle degree of a face-palm wrapped around my mouth and respond,
+和你一样，老兄，事实上，我也这样搜索过。我温柔地做了个捂脸的表情，并轻声回应道：
 
-> Dafuq?
+> 这 TM 是啥？
 
-#### **Prerequisite** ####
+#### **先决条件**
 
-Familiarity with closures. If you do not understand what comes after in and key signs such as `$0` , you are not ready for this tutorial. You may leave, and find every resource available [here](https://bobleesj.gitbooks.io/bob-s-learning-journey/content/WORK.html) to level up.
+和闭包很像。如果你不理解什么是后进和关键标识，比如 $0，那你还没做好阅读这篇教程的准备。你可以暂时离开，找[这里](https://bobleesj.gitbooks.io/bob-s-learning-journey/content/WORK.html)的资源来升升级。
 
-### Non-Functianal Programming ###
+### 非函数式编程
 
-I’m a big fan of why. Why do we learn functional programming? Well, the best answer comes from our past. Assume you are creating an calculator app that adds an array.
+我是十万个为什么。为什么要学习函数式编程？好吧，最好的答案往往来自于历史。假设你要创建一个添加一个数组的计算器应用。
 
 ```
 // Somewhere in ViewController
@@ -41,7 +41,7 @@ for number in numbers {
 }
 ```
 
-Okay, but what if I need to create one more?
+没问题，但是如果我再添加一个呢？
 
 ```
 // Somewhere in NextViewController 
@@ -54,7 +54,7 @@ for newNumber in numbers {
 }
 ```
 
-It seems like we are repeating ourselves. Long, boring, and uncenessary. You have to create `sum` to track the added result. It’s just atrocious. 5 lines of code. We are probably better off creating a function instead.
+这看起来就像我们重复我们自己，又长又无聊，还没必要。你不得不创建一个 `sum` 来记录添加的结果。这很让人崩溃，五行代码。我们最好创建一个函数代替这些玩意。
 
 ```
 func saveMeFromMadness(elements: [Int]) -> Int {
@@ -68,7 +68,7 @@ func saveMeFromMadness(elements: [Int]) -> Int {
 }
 ```
 
-So when you need to use the `sum` feature, just call
+这样在需要使用 `sum` 的地方，直接调用
 
 ```
 // Somewhere in ViewController
@@ -78,27 +78,27 @@ saveMeFromMadness(elements: [1, 2, 3])
 saveMeFromMadness(elements: [4, 5, 6])
 ```
 
-**Stop right there. That’s it. You’ve tasted a functional paradigm. A functional approach is nothing more than using functions to derive the result you need.**
+**停下别动，对。你现在已经尝试了一个函数式范式的使用。函数式就是用函数来得到你想要的结果。**
 
-### Analogy ###
+### 比喻 ###
 
-On Excel or Google’s Spreadsheet, to sum up values, you select cells, and call a function most likely written in the C# language.
+在 Excel 或者 Google 的 Spreadsheet 上，如果要对一些值求和，你需要选择表格，然后调用一个像是 C# 编写的函数。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*FT4PCQ2PjKkuX1KcNhk8Yw.gif">
 
-Sum function in Excel
+Excel 里的求和函数
 
-*Okay, that’s it. Bye. Thanks for reading.* 😂
+*好，就是这样，再见。感谢阅读。* 😂
 
-### Declarative vs Imperative ###
+### 声明式 vs 命令式 
 
-Finally, now, it makes sense to come up with a detailed definition of functional programming.
+最后，现在，是时候拿出详细的函数式编程定义了。
 
-#### **Declarative** ####
+#### **声明式** ####
 
-We often describe functional programming as **declarative**. **You don’t care how you got the answer.** For example, a human can climb up the Mt.Everest by jumping off from a plane or work from the bottom by taking ages. **You get the same result**. The user has no idea how the Excel spreadsheet’s `Sum` function is made up off. But, it just works.
+我们经常把函数式编程描述为**声明式**的。**你无须在意这个答案从何而来**。举个例子，一个人来爬珠穆朗玛峰，可能从飞机上跳下去，也可能花好几年从地下开始爬。**你会得到同样的结果**。人们往往不知道 Excel 表格里的 `Sum` 是怎么组成的，但是，它就是得到相应的结果。
 
-The atrocious example, a.k.a non-functional programming, we saw above is often called, **imperative**. It tells you **how** you got the answer from A → B.
+一个残酷的例子，众所周知的非函数式编程，我们经常看到上面的调用被称为**命令式**。它告诉你**如何（how）**得到从 A 到 B 的答案。
 
 ```
 let numbers = [1, 2, 3]
@@ -109,41 +109,45 @@ for number in numbers {
 }
 ```
 
-The user knows that you loop through `numbers`. **But, is it really necessary?** I don’t care how it is made. I only care about the result as long as fast and quick.
+人们知道你循环了 `numbers`。**但是，这有必要么？**我不在意它是怎么做的，我只在意结果的出来的迅速快捷。
 
-As a result, Excel and Spreadsheet incorporate a functional programming paradigm to get quick and easy answers without worrying about any implementation detail — **my father wouldn’t necessarily want to deal with it when working with his company’s financial data.**
+因此，Excel 和 Spreadsheet 融合了函数式编程的范式，来更快更简单的获取结果，而不需要关心具体的实现。（我父亲也没必要在处理公司财务数据的时候关心它）
 
-### Other Benefits ###
+### 其他的好处 ###
 
-In the atrocious example above, we had to arbitrarily create `var sum = 0` in order to track the added result within each view controller. But, is it really necessary? The value of `sum` constantly changes. What if I mistakenly mess around with sum? Again, as I talked about in [10 tips to become a better Swift Developer](https://medium.com/ios-geek-community/10-tips-to-become-better-swift-developer-a7c2ab6fc0c2#.rcnngphgj),
+在上面那个让人崩溃的例子里，我们不得不创建一个 `var sum = 0` 来跟踪每个视图控制器的增加结果。但是这有必要吗？`sum` 的值不断改变，如果我弄乱了总和怎么办？而且，我在[10 条 tips 让你成为一个更好的 Swift 开发者](https://medium.com/ios-geek-community/10-tips-to-become-better-swift-developer-a7c2ab6fc0c2#.rcnngphgj)中提到过，
 
-More variables → more memorization → more headache → more bugs → more life problems.
 
-More variables → Easy to f up → Done
+更多的变量 → 更多记忆 → 更多头痛 → 更多 bug → 更多的生活问题。
 
-> **As a result, a functional paradigm ensures no mutability or no change in state when used.**
+更多的变量 → 容易 TM 的 → 完蛋
 
-Also, as you realize or will discover more, a functional paradigm provides a modular, easy to maintain code base.
+> **因此，函数式范式确保在使用的时候不可变或者没有状态的变化。**
 
-### Purpose ###
+而且，和你意识到的或即将发现的一样，函数式范式提供了一个更利于维护代码的模型。
 
-So, now you understand why we favor functional programming. So what? Well, in this tutorial, **let’s only focus on the fundamentals**. I’m not going to talk about how functional programming can be applied to user events and networking and so on. I might post tutorials how to do all those stuff using RxSwift. So stay tuned or follow me if you are new.
+### 目的 ###
 
-### Real Works ###
+那好，现在你明白了为什么我们喜欢函数式编程。所以呢？嗯，这篇教程，**只专注于基本面**。我不会讨论函数式编程在事件和网络等等中的应用。我可能会发一些通过 RxSwift 来做这些事的教程。所以说如果你是新手，跟着我，螺旋稳。
 
-You might have seen things like `filter`, `map`, `reduce` and so on. Well, this is how you manipulate an array using a functional approach using **Filter only**. Make sure you are cool with generics as well.
+![](http://pic.7230.com/Uploads/Picture/2016-12-23/585cc99f0000f.png)
+（译者配的图 😂 ）
 
-It’s all about getting the fundamenatals. If I can teach you how to swim in the swimming pool, you probably can in the ocean, lake, pond, maybe not in the mud. In this tutorial, If you get the fundamentals, you can create your own `map` and `reduce` or any other cool functions as you wish. You may google things up. Just that you won’t get this Bob the Developer explanation from me.
+### 真正的工作 ###
 
-### Filter ###
+你可能已经见过像 `filter`、`map`、`reduce` 等等的一些东西。不错，这些让你用函数式的途径中的**过滤器**来处理一个数组。确保你对泛型的理解同样的酷。
 
-Assume you have an array.
+这全是关于基本面的东西。如果我能教你如何在泳池里游泳，那你也可以在海里，湖里，池塘里，泥坑里（最好不是）游泳，这这篇教程，如果你学会了基本面，你就可以创建你自己的 `map` 和 `reduce` 或者其他你想要的炫酷函数。你可以 google 东西，否则，你不会从我这里得到这个叫“Bob”的开发者的解释了。
+
+### 过滤器 ###
+
+假设你有个数组。
 
 ```
 let recentGrade = ["A", "A", "A", "A", "B", "D"] // My College Grade
 ```
 
-You want to filter/bring and returns an array that only contains a “A” which used to make my mom happy. How do you go about that **imperatively**?
+你想要过滤/带来并且返回一个只包含 “A” 的数组，这能让我妈妈感到快乐。你怎么用**命令式**的方式来做这个？
 
 ```
 var happyGrade: [String] = []
@@ -159,32 +163,31 @@ for grade in recentGrade {
 print(happyGrade) // ["A", "A", "A", "A"]
 ```
 
-**This is mad.** I wrote this code. I do not recheck while proof reading. This is atrocious. 8 lines of code within a view controller? 🙃
+**这简直让人发疯。**我竟然写了这种代码。我不会在校对的时候重新检查，这很残忍。视图控制器中的8行代码？🙃
 
-> *I can’t even*.
+> *不堪回首*。
 
-We have to this stop this madness and save all of you who have been doing this way. Let’s create a function that does it all. Brace yourself. **We are now going to deal with closures**. Let’s try to create a filter that accomplishes the same task above. *Real shit happens now.*
+我们必须停止这种疯狂，并拯救所有像你这么做的人。让我们创建一个函数来完成它。振作起来。**我们现在要对付一下闭包了**。让我们试着创建一个过滤器来完成和上面一样的工作。**真正麻烦现在来了。**
+### 函数式的方式简介 ###
 
-### Introduction to Functional Way ###
-
-Let’s create a function that takes a `String` array and also takes a closure whose type is `(String) -> Bool` . Last, it will return a filtered `String` array. Why? Just bear with me for another two minutes.
+现在我们创建一个函数，有一个包含 `String` 类型的数组并且有个闭包，类型是 `(String) -> Bool`。最后，它返回一个过滤后的 `String` 数组。为啥？忍我两分钟就告诉你。
 
 ```
 func stringFilter(array: [String], **returnBool: (String) -> Bool**) -> [String] {}
 ```
 
-You might be quite distressed by the `returnBool` section. I know what you must be thinking,
+你可能会对 `returnBool` 部分特别苦恼。我知道你在想什么，
 
-> So, what are we going to pass under return**Bool** ?
+> 那么，我们要在返回 **Bool** 下传递什么？
 
-You are going to create a closure that contains an else-if statement whether the array contains, “A”. If so, returns `true`.
+你需要创建一个闭包，包含一个 if-else 语句来判断数组里是否含有 “A”。如果有，返回 `true`。
 
 ```
 // A closure for returnBool 
 let mumHappy: (String) -> Bool = { grade in return grade == "A" }
 ```
 
-If you want to make it real short,
+如果你想让他更短，
 
 ```
 let mamHappy: (String) -> Bool = { $0 == "A" }
@@ -193,9 +196,9 @@ mamHappy("A") // return true
 mamHappy("B") // return false
 ```
 
-*If you are confused by two examples above, you are not ready for this battle field. You need to workout first and then come back. You can read revisit my articles on closures right* [*here*](https://medium.com/ios-geek-community/no-fear-closure-in-swift-3-with-bob-72a10577c564#.uzdsqd7oa).
+**如果你对上面的两个例子感到困惑，那你还适应不了这个副本。你需要锻炼一下然后再回来。你可以重读我关于闭包的文章**。[**链接**](https://medium.com/ios-geek-community/no-fear-closure-in-swift-3-with-bob-72a10577c564#.uzdsqd7oa)
 
-Since we haven’t finished up the implementation of the `stringFilter`, let’s continue where we left off.
+由于还没完成我们 `stringFilter` 函数的实现，让我们从离开的位置继续。
 
 ```
 func stringFilter (grade: [String], returnBool: (String) -> Bool)-> [String] {
@@ -211,11 +214,11 @@ func stringFilter (grade: [String], returnBool: (String) -> Bool)-> [String] {
 }
 ```
 
-You must be like, “😫”. Let me explain. Within the `stringFilter` function, you pass `mamHappy` under `returnBool`. After that, you pass each grade to `mamHappy` by calling `returnBool(letter)` which is eventually `mamHappy(letter)`.
+你的表情一定是 😫。我想说把刀放下，听我解释。通过 `stringFilter` 函数，你可以传递 `mamHappy` 作为 `returnBool`。然后调用 `returnBool(letter)`，把每个项传递个 `mamHappy`，最终就是 `mamHappy(letter)`。
 
-It will either return `true` or `false`. If true, append `letter` to `happyGrade` which should be only filled with “A’s.🤓 That’s what my mom felt happy about for the last 12 years.
+它返回 `true` 或者 `false`。如果返回真，把 `letter` 加到只有 “A” 的 `happyGrade` 里。🤓 这就是为什么我妈妈在过去 12 年里感到开心的原因。
 
-Anyway, let’s finally run the function.
+不管怎样，最终运行一下函数。
 
 ```
 let myGrade = ["A", "A", "A", "A", "B", "D"]
@@ -223,32 +226,32 @@ let myGrade = ["A", "A", "A", "A", "B", "D"]
 let lovelyGrade = stringFilter(grade: myGrade, returnBool: **mamHappy**)
 ```
 
-### Enter Closure Directly ###
+### 直接输入闭包 ###
 
-You don’t necessarily have to create a separate closure like `mamHappy`. You may pass directly under `returnBool`.
+其实你不需要创建一个分离的 `mamHappy`。可以直接在 `returnBool` 传递。
 
 ```
 stringFilter(grade: myGrade, returnBool: { grade in
  return grade == "A" })
 ```
 
-I want it short.
+我想让它更简洁。
 
 ```
 stringFilter(grade: myGrade, returnBool: { $0 == “A” })
 ```
 
-### The Meat and Potato ###
+### 肉和土豆 ###
 
-Congratulations, if you’ve come this far, you’ve already made it. I’m thankful for your attention. Let’s now, create a savage, a.k.a a generic filter where you can create a bunch of filters on your own. For example, you can filter a sentence that contains words you don’t like. You can filter an array that is greater 60 but smaller than 100. You can filter Bool which only contains true
+祝贺，如果你已经到了这里，那你已经做到了。我很感谢你的关注。现在让我们创建一个野蛮点的，广为人知的通用过滤器，你可以创建一堆你想要过滤的。比如，过滤你不喜欢的单词，过滤数组里大于 60 小于 100 的数。过滤只包含真值的布尔类型。
 
-The best thing — it justrequires** only one sentence. **We save lives and time. Love it. It’s okay to work hard, but let’s work smart and hard.
+最棒的是它用**一句话**就可以形容。我们拯救了生命和时间。爱它，我们可以努力工作，但是我们要聪明的努力工作。
 
-### Generic Code ###
+### 泛型代码 ###
 
-*If you are not comfortable with generic code, you are not in the right place just for now. you are in a danger zone. Please go to this safe place called,* “[*Intro to generics with Bob*](https://medium.com/ios-geek-community/intro-to-generics-in-swift-with-bob-df58118a5001#.z61lki1c5) ”, *and then bring some weapons to fight back.*
+如果你对泛型代码感到不适，那你现在所在的位置并不正确，这里车速很快，赶快到安全的地方，名字是“[**Bob，泛型是什么鬼？**](https://medium.com/ios-geek-community/intro-to-generics-in-swift-with-bob-df58118a5001#.z61lki1c5)”，然后带点武器回来继续。
 
-I’m going to create a generic function whose type is `Bob`. You may use `T` or `U`. But, you know. It’s my article.
+我要创建一个含有 `Bob` 泛型的函数，你可以使用 `T` 或者 `U`。但是你要知道，这是我的文章。
 
 ```
 func myFilter<Bob>(array: [Bob], logic: (Bob) -> Bool) -> [Bob] {
@@ -262,9 +265,9 @@ func myFilter<Bob>(array: [Bob], logic: (Bob) -> Bool) -> [Bob] {
 }
 ```
 
-Let’s try to find smart students
+让我们试着找点聪明的学生
 
-#### Application to School System ####
+#### 应用到学校系统 ####
 
 ```
 let AStudent = myFilter(array: Array(1...100), logic: { $0 >= 93 && $0 <= 100 })
@@ -272,7 +275,7 @@ let AStudent = myFilter(array: Array(1...100), logic: { $0 >= 93 && $0 <= 100 })
 print(AStudent) // [93, 94, 95, ... 100]
 ```
 
-#### Application to vote counting ####
+#### 应用到投票计数 ####
 
 ```
 let answer = [true, false, true, false, false, false, false]
@@ -283,9 +286,9 @@ let trueAnswer = myFilter(array: answer, logic: { $0 == true })
 let falseAnswer = myFilter(array: answer) { $0 == false }
 ```
 
-### Filter from Swift ###
+### Swift 里的过滤器 ###
 
-Fortunately, we don’t have to create `myFilter`. Swift has provided us with a default one. Let’s create an array that contains [1…100] and get only numbers that are even and smaller than 51.
+幸运的是，我们不需要创建 `myFilter`。Swift 已经为我们提供了一个默认的。现在我们创建一个从一到一百的数组，然后只要小于 51 的偶数。
 
 ```
 let zeroToHund = Array(1…100)
@@ -293,30 +296,30 @@ zeroToHund.filter{ $0 % 2 == 0 }.filter { $0 <= 50 })
 // [2, 4, 6, 8, 10, 12, 14, ..., 50]
 ```
 
-> That’s it. [Source Code](https://bobleesj.gitbooks.io/bob-s-learning-journey/content/Content/01_Swift_3/Intro_to_Functional_Programming.html) 
+> 这就 OK 了。[源码](https://bobleesj.gitbooks.io/bob-s-learning-journey/content/Content/01_Swift_3/Intro_to_Functional_Programming.html) 
 
-### My Message ###
+### 我的消息 ###
 
-I’m sure in your head, you are already thinking how you can apply functional approach in your app and programs. Remember, it doesn’t matter which programming language you use.
+我敢肯定你现在已经在想，怎么在你的应用和程序里使用函数式编程。记住，你使用什么语言都无所谓。
 
-You have to visualize how you can apply functional paradigm to many other areas. Before you Google, I recommend you to take a moment and spark some brain cells one or two.
+你需要清晰的是如何将函数式范式引用到更多的领域。在你 Google 之前，我建议你花一点时间消耗一两个脑细胞想一想。
 
-Since you understand the principle behind “filter”, you now can easily google and see how `map`, `reduce`, and other functions are made up of. I hope you’ve learned to swim as long as it’s not burning hot or cold.
+从你理解 “filter” 背后的真正含义后，你现在可以更简单的 google 然后查看什么是 `map` 和 `reduce`，以及其他函数是怎么组成的。我希望能你在不冷不热的环境中学会游泳。
 
-> You are only limited by your imagination. Keep thinking and Google.
+> 你现在只被你的想象力所限制。保持思考并 Google。
 
-### Last Remarks ###
+### 最后的话 ###
 
-In my biased opinion, this article is gold. This is what I needed when I was so dumbfounded by closures and functional stuff. People get too fancy for such a simple principle. If you liked my explanation, make sure please share and recommend! The more hears I receive, I get more pumped to produce great contents for everyone! Also, the more hearts means more views based on the Medium algorithm.
+在我个人看来，这篇文章是黄金。它出现在我被闭包和函数式的东西弄得一脸懵逼的时候。人们都喜欢特别简单的原则。如果你喜欢我的解释，请分享并推荐给更多的人。我收到的心越多，我就会越像抽水泵一样，为每个人献出更伟大的内容！而且，更多的心意味着基于 Medium 算法上的更多观点。
 
-*Any geeks on Instagram? I post my daily what’s up and updates. Feel free to add me and say hi me! @*[*bobthedev*](https://instagram.com/bobthedev) 
+**有 Instagram 上的 geek 吗？我会发布我的一些日常并更新。欢迎大家随时添加我，跟我打招呼！**@[*bobthedev*](https://instagram.com/bobthedev) 
 
-### Swift Conference ###
+### Swift 会议 ###
 
-One of my Portuguese friends [João](https://twitter.com/NSMyself) , is organizing a Swift conference at Aveiro, Portugal. Unlike many ones out there, this conference was designed to be experimental and engaging. The audience gets to interact and build along with speakers — Bring your laptops guys. It’s my first Swift conference. I’m super excited! On top of that, it is affordable as well. The event will happen on June 1–2, 2017. If you are interested in knowing more, feel free to check out its website [here](http://swiftaveiro.xyz) or Twitter below.
+我的一个葡萄牙朋友 [João](https://twitter.com/NSMyself) 正在葡萄牙阿威罗组织一个 Swift 会议。不像许多人在的那里，这次会议的目的是实验性参与。观众与演讲者可以相互交流 - 带上你的笔记本电脑。这是我第一次的 Swift 会议。我超兴奋！除此之外，它也是经济实惠的。活动会在 2017 年的六月一号到二号举行。如果你有兴趣了解更多信息，请随时查看网站[这里](http://swiftaveiro.xyz)或下面的 Twitter。
 
 [SwiftAveiro (@SwiftAveiro) | Twitter](https://twitter.com/SwiftAveiro) 
 
-### About Me ###
+### 关于我 ###
 
-I give detail updates on my [Facebook Page](https://www.facebook.com/bobthedeveloper). I usually publish articles on Saturdays on 8am EST. In 2017, I dare to grow iOS Geek Community as the #1 iOS blog on Medium.
+我在我的 [Facebook 页面](https://www.facebook.com/bobthedeveloper)上给出详细的更新信息。一般在美国东部时间的上午八点，我会发表文章。2017 年，我立志成长为 Medium 上 iOS Geek 社区中第一的 iOS 博客。

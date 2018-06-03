@@ -8,6 +8,9 @@
 
 # Android 开发者如何函数式编程 （一）
 
+- [Android 开发者如何函数式编程 （二）](https://github.com/xitu/gold-miner/blob/master/TODO/functional-programming-for-android-developers-part-2.md)
+- [Android 开发者如何函数式编程 （三）](https://github.com/xitu/gold-miner/blob/master/TODO/functional-programming-for-android-developers-part-3.md)
+
 ![](https://cdn-images-1.medium.com/max/2000/1*DCzEYU60hk2pO7WCJj3GoQ.jpeg)
 
 最近我花了一些时间学习 [Elixir](http://elixir-lang.org/) —— 一门极好的编程语言，适合初学者入门学习。

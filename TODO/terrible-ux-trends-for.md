@@ -1,146 +1,144 @@
 > * 原文地址：[Terrible UX Trends for 2017](https://medium.com/ux-power-tools/terrible-ux-trends-for-2017-de6faebf099e#.reygjk2nv)
 * 原文作者：[Christian Beck](https://medium.com/@cmbeck_?source=post_header_lockup)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
-* 校对者：
+* 译者：[Ruixi](https://github.com/Ruixi)
+* 校对者：[L9m](https://github.com/L9m),[bobmayuze](https://github.com/bobmayuze)
 
-# Terrible UX Trends for 2017 #
+# 某些2017年的 UX 趋势啊，扎心了#
 
-## Pay attention, these are going to take over the UX universe. ##
+### 前方高能，非战斗人员请迅速撤离 ###
 
-### 🔥 Hot New UX Techniques ###
+### 🔥 热门的 UX 新技术热点 ###
 
-#### Greyer Grays ####
+#### 比灰更灰 ####
 
-Instagram blew away the design world by redoing their app in black and white. It was as if we had never seen those two colors paired together in our entire lives.
+Instagram 用黑与白的重设计颠覆设计界。我们好像从未见过全由这两种颜色搭配的设计。 
 
 ![](https://cdn-images-1.medium.com/max/800/1*XARSm9e47wY9X0X48p4U1A.png)
 
 Instagram 3.0
 
-This year it’s all about grays getting greyer. A recent scientific survey we just published shows some compelling statistics:
-
+今年的主题是将灰色进行到底。我们最近发表的一项“科学”调查，显示了一组”令人信服”的统计数据：
 [![](https://cdn-images-1.medium.com/max/800/1*EVKyoiQvtl34AiQb2OImvA.png)](https://twitter.com/uxpowertools/status/829012492114391040)
 
-Got a lot of DM’s wondering why the hell we asked this pointless question.
+很多的吃瓜群众对我们问这种无意义的问题一脸懵逼。
+看呐，世界各地的设计师们相对于 gary 而言更偏爱用 gery。如果今年你还是用 gray 的话，还是改行的好。**没人要啦。**
 
-Look at that. Designers everywhere prefer grey over gray. If you are still using gray this year, then start looking for another job. **You’re unhireable.**
+#### 虚拟现实中的滚动条（?） ####
 
-#### Scrollbars in virtual reality ####
+还记得你不得不回头去看你身后的大鲨鱼的时候吗？不再有这场景啦。只要把你的视线集中在滚动条上，向左／右滚动。晃动你的头来做个视差滚动。只是千万不要在某个人的 VR 头显上来个整屏滚动：**这可能会造成永久性的伤害**。
 
-Remember when you had to turn your head to see that giant shark behind you? Not any more. Just focus your eyes on that scrollbar and blink to scroll left/right. Bob your head to do a parallax scroll. Just don’t scroll-jack someone’s VR headset: *This could cause permanent injury*.
+#### 折纸原型 ####
 
-#### Origami Prototyping ####
+你在学校中学画纸上原型，在聚会上用来作为谈资可能还有用。但在今天，你站在星巴克外请人来“测试”一个硬地滚球的直播应用的纸上原型会招致白眼🙄（注：硬地滚球是一项严重痉挛、脑瘫或严重肢体残疾人士参加的运动，具体玩法就是在地上滚球，根据扔出的球离目标球的总距离来判断胜负）。
 
-Paper prototyping is a thing you learned in school and still talk about like it’s useful at parties. But nowadays those enthralling stories about how you stood outside a Starbucks and paid people to “test” your paper prototype for a bocce ball streaming app are met with eye-rolls 🙄
-
-This is where origami prototyping comes in. If you want to really test your prototype without using a screen you’ll need to become an expert in origami shapes that mimic the soft drop shadows you plan to use. If you think you’re going to use texture in your skeuomorphic design, what better way than folding textured parchment paper?
+这时折纸原型就该派上用场了，如果你真的想在屏幕之外测试原型的话，你需要成为一个折纸专家，用折纸形状模拟你想要投影（soft drop shadow）。如果想在拟物化设计中使用材质的话，那么粗糙羊皮纸就是最好的选择了。
 
 ![](https://cdn-images-1.medium.com/max/800/1*nMRhrf72fkJvvoeEVLidow.png)
 
-The new Pokémon Go app coming out in 2017
+2017年新出的 Pokémon Go
 
-### Hot new job titles ###
+### 热门新职位 ###
 
-Everyone loves job titles. When we’re not busy having job titles, we spend time talking about them. Or writing articles about them. Here’s a sneak peak at some new job titles that are sure to shatter Glassdoor with inflated salary ranges that you can quote during your next interview!
+每个人都喜欢职业称谓。在不忙着弄这个的时候，我们花了不少时间来讨论这个。或者为它们写不少文章。这里有几个新鲜出炉的称谓，保证可以拿大笔薪水，你也可以在下次面试中拿来试试！
 
-#### Principal Design System Architect ####
+#### 设计系统首席架构师 ####
 
-In the past, designers used to focus on screens, or user flows. Sometimes they would mock things up in “high fidelity” and hand them off to dev to help them build software. But this is basic shit now. You can design a bot to do all this boring work for you.
+在过去，设计师们所关注的都在于屏幕或者用户流。有时候他们会使用“高保真”模型，然后转换成为程序来帮助构建软件。而现在？辣鸡。你可以设计一个脚本来替你完成各种无聊的工作。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*GH02-QpJ7lYeSpaJAsm5pQ.gif)
 
-Leaked prototype of Adobe’s new Design Bot CC™
+Adobe 的新型设计机器人 CC™ 的偷跑模型
 
-In 2017, the best designers will use design systems. These are pages and pages of controls, colors, and fancy gridlines that show *how* something should be designed but not ACTUALLY designed.
+在 2017 年，最好的设计师都用设计系统。这些页面，控件页面，颜色，神奇的网格都展示了应该**如何**被设计，而不是实际上的设计。
 
-#### Principle Designer ####
+#### 基本法设计师（Principle Designer） ####
 
-It gets misspelled so often it is now a real title. Yes, this means that as a true “**Principal** Designer” you won’t get to correct people. However, you’re now charged with ethics and morals of your design team. You know…principles. You won’t critique design. Instead you will simply pose hypothetical questions challenging other designers to think about how your work “fits into company values.” You will also say things like, “We have a deeper mission here, you guys. It goes beyond pixels and RGB values. We are making a difference in the world.”
+这个经常被拼错的头衔现在是真的了。没错，这意味着你作为一个真正的“ **首席(Principal)** 设计师” ，你不会去纠正别人。反正，你现在被控为你所在设计团队的良心。你懂的……基本法。你并不会对设计去批判一番。相反，你只会提出假设性的问题，让其他设计师陷入关于你的工作是如何“契合企业价值观”的无尽思考。你也会打打类似“弟兄们，我们在这里有更深远的使命！它超越了像素和 RGB 的价值。我们正在改变世界！”的嘴炮。 
 
-#### Sketch Runner ####
+#### Sketch 绘制专家 ####
 
-Behind every great Principle Designer is a great Sketch Runner. This person is learning the ropes on how to be a great designer by printing out designs on paper, and then literally running them down the hall to development to be coded. There is no functional reason for this role but it’s a necessary addition for any design team that wants to have interns but doesn’t have any actual work to give them. Sketch Runners, while often unpaid, will earn plenty of sweat equity in the long run.
+每个伟大的基本法设计师（Principle Designer）背后都有一个伟大的 Sketch 绘制专家。这人就是通过打印设计稿，然后（字面意义上的跑）交给开发，来摸索怎样成为一个卓越的设计师的。但是对于任何想用实习生，但没有什么实际工作派给他们的设计团队而言，这是一个必要的补充。Sketch 绘制专家，往往没有报酬，但从长远来看还是会有所收获。
 
 ![](https://cdn-images-1.medium.com/max/800/1*RVyq0FfNzeeQMjILSqi-FA.png)
 
-Yep.
+没错。
 
-#### **Associate Eye Trackers** ####
+#### **初级眼动追踪者(Associate Eye Trackers)** ####
 
-The field of eye tracking is so damn important you can’t just start “dabbling” in eye tracking any more. You also won’t become Amy Adams in *Arrival* right out of the gate.
+眼动追踪领域真是太TM重要了，你不能浅尝辄止。你往往做不到像 Amy Adams 在 **《降临》** 中的那么成功。
 
 ![](ttps://cdn-images-1.medium.com/max/800/1*nx8Mw2r_g2bMCx9VLUgVeQ.png)
 
-In time, young eye tracker. In time.
+现在，年轻的眼动追踪者。就现在。
 
-You will start by simply tracking people’s hand gestures. Are users flipping you off? Are they slamming their keyboards in disgust? These are just a few things Associate Eye Trackers will learn to pick up on as they set out on the long path to become *Senior Eye Trackers*.
+你可以从简单地追踪人们的手势开始。用户竖中指了吗？用户抓狂地摔键盘了吗？这些只是初级眼动追踪者（Associate Eye Trackers）在成为 **高级眼动追踪者（Senior Eye Trackers）** 的遥远征途中需要学习的一小部分。
 
-#### Drone Choreographer ####
+#### 无人机＋一切 ####
 
-Man these things are so hot, we probably need to write an article about what they **CAN’T DO**…the first thing I’d have to cross off the list is, “serve as the backdrop behind a flying Lady Gaga.” I thought for sure they couldn’t do that. Boy was I wrong!
+年轻人啊，这东西真是太火了。我们可能得写一篇关于什么它们**做不了**的长文……我需要从这份单子上划掉的第一件事就是“做一个飞翔的 Lady Gaga 的背景板。”我原以为他们肯定不会这么干的。哥，我错了。
 
 ![](https://cdn-images-1.medium.com/max/800/1*AyBckEAyQwuxjfWUEZAu6g.gif)
 
-Fun fact: Drones are not fooled by poker faces. God Bless America!
-Think of anything you want to design this year and then imagine it with drones. Here are a couple of freebies for those that still don’t see the tremendous value these drones provide:
+有趣的事实：无人机并没有被 poker faces 愚弄。天佑美利坚！
+想想你今年想要设计的东西，然后想象一下它们和无人机在一起。这还有些是附赠给那些依然没有看到无人机所提供的巨大价值的家伙们的:
 
-- A Facebook drone to follow you around and live stream your life. *Like*.
-- A Twitter drone that literally follows other people around. In new versions, this drone can question people’s political views then berate them so you don’t have to do it in person (because you probably wouldn’t).
-- Uber Drone. It doesn’t pick you up but it can pick up other little things. Like the car keys you left sitting across the room.
+- 一架 Facebook 无人机围着你打转，一直直播你的生活。**赞**。
+- 一架 Twitter 无人机准确地跟随着周围的人。在新版本中，这架无人机可以质疑人们的政治观点，接着指责他们，所以你不用亲自动手（因为你也可能不会）。
+- Uber 无人机。它并不能捎你一程，但是它可以帮你捎点别的小东西。比如你落在房间里的汽车钥匙。
 
-That’s all I got. The rest is up to your imagination.
+这就是我能想到的全部了。发挥你的想象力吧。
 
 
-### Design Mega Trends ###
+### 设计发展大势 ###
 
-Mega trends are really trendy. They are trends *of trends*. But this year the mega trends are going to get **even more mega**. By the end of the year we’re gonna need another adjective to describe them.
+大趋势确实是很新潮的。这可是**趋势的**趋势。但今年的大趋势似乎要来得**比大更大**。截至年底，我们还需要另一个形容词来形容它们。
 
-Without further ado, here are the new JUMBO trends for 2017. Use these or else face unending scrutiny on Dribbble.
+事不宜迟，下面就是 2017 年的大趋势。用这些或者其他的来面对 Dribble 上没完没了的审阅吧。
 
-#### Askew-morphic Design ####
+#### 斜态设计 ####
 
-Forget parallel lines. And any sense of order. Designs in 2017 will have no right angles whatsoever. If they do, people will tweet about how unimaginative and “unoriginal” you are. You will be measured more by the number of different angles you use and less by the numbers of color.
+忘掉平行线吧。以及任何秩序感。2017 的设计没有直角！否则，人们会叽叽喳喳地议论你是多么缺乏想象力和“创造性”。你得使用更多的不同度数的夹角，以及更少的颜色。
 
-#### **Flat VR design** ####
+#### **扁平化的虚拟现实设计** ####
 
-Remember those terrible gradients and shading techniques that tried to make virtual reality look real? Yuck. *Gross. ****Ew.***Now everything is flat.
+还记得那些想要营造真实视感糟糕的简便和投影技术吗？没错。**很明显**。 **硬伤。** 现在每个地方都扁平化了。
 
-Virtual Reality will be more like a *South Park* show than *Kubo and the Two Strings*. You will finally start to see designs that help people escape this awful 3-D reality we are forced to live in everyday.
+虚拟现实将会更像是 **《南方公园》** 而不是 **《魔弦传说》** 。你最终会看到设计帮助人们逃离我们被迫每天生活在其中的的丑陋的三维现实。
 
 ![](https://cdn-images-1.medium.com/max/600/1*UhzZz8T6hqp_WFyxo_Pj3A.png)
 
 ![](https://cdn-images-1.medium.com/max/600/1*_lw8ajalS14yXARJFuKXbw.png)
 
-Before and after a VR Redesign I’m doing with our Principle Designer.
+VR重设计前/后。我选择我们的基本法设计师。
 
-#### Brutal Design ####
+#### 残酷的设计 ####
 
-This is a lot like Brutalist design but *even uglier*. It’s like Tilda Swinton playing Sylvester Stallone in a biopic. How will you pull this off?
+这很像是野兽派的设计，但是**更丑**。就像是蒂尔达·斯文顿（英国女演员）出演的一部史泰龙传记影片。这你怎么搞得定啊！
 
-Color will be used sporadically. No fills or strokes. Just splatters of random color tossed like one of those trendy “color runs” all these damn millennials keep doing to trick themselves into thinking they’re living healthy lifestyles.
+色彩只用作点缀。没有填充，没有色块。随机色彩的飞溅就像是时髦的“color runs”。这些牛逼的千禧一代一刻不停地把自己伪装成享受健康生活的样子
 
 ![](https://cdn-images-1.medium.com/max/800/1*tlMwMwlttTZqgtC2Bqck_g.png)
 
-At the end of the run, you inhale carcinogenic (but colorful!) chemicals
+跑完全程，你吸入了致癌（但是花花绿绿的！）化学制品。
 
-#### Real-Life Conversational UI ####
+#### 真实场景对话 UI ####
 
-It’s you talking *in person* to another human.
+就是你**亲自**和另一个人类交谈。
 
 ![](https://cdn-images-1.medium.com/max/800/1*eWI_7PuR0YPQ8EBRdLjX6g.png)
 
-A mockup for a new project I’m working on for eHarmony (using a Bootstrap theme in Sketch).
+我在 eHarmony（在草图中使用了 Bootstrap 主题）做的一个新项目的新模型。
 
-Alright, that’s all you need to know for 2017! It’s already February so I hope for your sake you are already aware of most of these trends. And remember if you want to make any mean comments, pump brakes mean girl.
+行了，这些就是你需要知道的关于 2017 的一切了。已经到二月份啦，所以处于对你的考虑，希望你已经了解了大部分的趋势了哈。还有，如果你有什么要留言的，pump brakes mean girl。
 
 [![](https://cdn-images-1.medium.com/max/800/1*ZGoV9E37LM6evlsn79D0oA.png)](https://www.designernews.co/comments/242989)
 
-My favorite designer response from 2016
+2016 年我最喜欢的设计师的回复。
 
 
-*When I’m not writing, I’m working on Sketch design tools like* [*UX Power Tools*](https://www.uxpower.tools)
-*to make you a better, more efficient designer. All the best Sketch designers are using it, and I think you might like it, too.* [*Check it out on Marvel*](https://marvelapp.com/explore/1672412/ux-power-tools-style-guide) *!*
+**在我不写东西的时候，我主要草图设计工具这上边忙活，比如** [**UX Power Tools**](https://www.uxpower.tools)
+**为了让你成为一个更6，更有影响力的设计师。所有最好的图形设计师都在用，你应该也挺喜欢的吧。**[**戳一戳见证奇迹！**](https://marvelapp.com/explore/1672412/ux-power-tools-style-guide)
 
-[*Follow UX Power Tools on Twitter*](https://www.twitter.com/uxpowertools)
-[*Follow me on Twitter*](https://twitter.com/cmbeck_)
+[**关注推特上给力的 UX 工具**](https://www.twitter.com/uxpowertools)
+[**关注我的推特**](https://twitter.com/cmbeck_)

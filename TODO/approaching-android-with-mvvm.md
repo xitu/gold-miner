@@ -1,9 +1,8 @@
 > * 原文链接 : [Approaching Android with MVVM — ribot labs — Medium](https://medium.com/ribot-labs/approaching-android-with-mvvm-8ceec02d5442#.8c8bnpmwi)
-* 原文作者 : [Joe Birch](https://twitter.com/hitherejoe)
-* 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : [Sausure](https://github.com/Sausure)
-* 校对者: [EthanWu (ethan-wu)](https://github.com/EthanWu)、[dodocat (Quanqi)](https://github.com/dodocat)、[foolishgao](https://github.com/foolishgao)
-* 状态 :  完成
+> * 原文作者 : [Joe Birch](https://twitter.com/hitherejoe)
+> * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
+> * 译者 : [Sausure](https://github.com/Sausure)
+> * 校对者: [EthanWu (ethan-wu)](https://github.com/EthanWu)、[dodocat (Quanqi)](https://github.com/dodocat)、[foolishgao](https://github.com/foolishgao)
 
 # MVVM 模式介绍
 

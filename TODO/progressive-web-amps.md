@@ -39,7 +39,7 @@
 
 ### AMP 还是 PWA？
 
-AMP 可靠快速的体验，在实现时也伴随着一些限制。当你需要高度动态的功能时，AMP 是不适用的，譬如推送通知、网络支付和依靠额外 JavaScript 的功能。此外，因为 AMP 页面通常从 AMP 缓存中提供，你的 Service Worker 不能运行，首次访问享受不到渐进式 Web 应用的最重要的好处。另一方面，在首次访问的速度上，渐进式 Web 应用永远不及 AWP，因为平台能顺利且毫不费力地预渲染 AMP 页面 — 内嵌更简单（比如在内嵌浏览器中）。
+AMP 可靠快速的体验，在实现时也伴随着一些限制。当你需要高度动态的功能时，AMP 是不适用的，譬如推送通知、网络支付和依靠额外 JavaScript 的功能。此外，因为 AMP 页面通常从 AMP 缓存中提供，你的 Service Worker 不能运行，首次访问享受不到渐进式 Web 应用的最重要的好处。另一方面，在首次访问的速度上，渐进式 Web 应用永远不及 AMP，因为平台能顺利且毫不费力地预渲染 AMP 页面 — 内嵌更简单（比如在内嵌浏览器中）。
 
 ![From Google’s Advanced Mobile Pages (AMP) to progressive web apps](https://www.smashingmagazine.com/wp-content/uploads/2016/12/progressive-web-amp-8.png)
 

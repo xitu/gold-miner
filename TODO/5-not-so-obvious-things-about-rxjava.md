@@ -1,43 +1,43 @@
 > * 原文地址：[5 Not So Obvious Things About RxJava](https://medium.com/@jagsaund/5-not-so-obvious-things-about-rxjava-c388bd19efbc#.kf2q0gksm)
-* 原文作者：[Jag Saund](https://medium.com/@jagsaund)
-* 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者： 
-* 校对者：
+> * 原文作者：[Jag Saund](https://medium.com/@jagsaund)
+> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> * 译者： [skyar2009](https://github.com/skyar2009)
+> * 校对者：[Danny1451](https://github.com/Danny1451), [yunshuipiao](https://github.com/yunshuipiao)
 
 ![](https://cdn-images-1.medium.com/max/2000/1*0VDGLZYyQhUFBa9ZkFiHEQ.jpeg)
 
-# 5 Not So Obvious Things About RxJava
+# 震惊！RxJava 5 个不为人知的小秘密
 
-Whether you’re new to RxJava, or have used it for a while, there’s always something new to learn. While using the framework, I learned 5 not so obvious things about RxJava that helped me maximize its potential.
+无论你是刚刚接触 RxJava，还是已经使用过一段时间，关于 RxJava 你总会有些新的知识要学。在使用 RxJava 框架过程中，我发现了 5 点不那么明显的知识，使我可以充分挖掘它的潜能。
 
-***NOTE*** This article references APIs that are available in **RxJava 1.2.6**
+**注释** 本文引用的 APIs 是基于 **RxJava 1.2.6**
 
-### 1. When to use map or flatMap
+### 1. 什么时候使用 map，什么时候使用 flatMap
 
-[map](http://reactivex.io/documentation/operators/map.html) and [flatMap](http://reactivex.io/documentation/operators/flatmap.html) are two commonly used ReactiveX operators. They’re often the first two operators you learn, and it can be confusing to figure out which one’s the right one to use.
+[map](http://reactivex.io/documentation/operators/map.html) 和 [flatMap](http://reactivex.io/documentation/operators/flatmap.html) 是常用的两个 ReactiveX 操作。它们往往是你最先接触的两个操作，并且很难确定使用哪个是正确的。
 
-Both *map* and *flatMap* apply a transformational function on each item emitted by an Observable. However, *map* only emits one item, whereas *flatMap* emits zero or more items.
+**map** 和 **flatMap** 都是对 Observable 发出的每一个元素执行转换方法。但是，**map** 只输出一个元素，**flatMap** 输出 0 或多个元素。
 
 ![](https://cdn-images-1.medium.com/max/800/1*hKc_cjAvfr4RqeMcyDbRkw.png)
 
-In this example, the `map` operator applies the `split` function to each string and emits one item containing an array of strings. Use this when you want to transform one emitted item into another.
+在上面的例子中，`map` 操作对每一个字符串执行了 `split` 方法并输出了一个包含字符串数组的元素。当你想将一个元素转换成另一个时使用 `map`。
 
-Sometimes, the function we apply returns multiple items, and we want to add them to a single stream. In this instance, `flatMap` is a good candidate. In the example above the `flatMap` operator “flattens” the array of words emitted into a single sequence.
+有些时候，我们执行的方法返回多个元素，并且我们希望将他们添加到同一个流中。这种情况下，`flatMap` 是一个好的选择。在上面的例子中 `flatMap` 操作将字符串数组处理后输出到了同一个序列。
 
-### 2. Avoid creating observables with Observable.create(…)
+### 2. 避免使用 Observable.create(…) 创建 Observable
 
-At some point you’ll need to convert a traditional synchronous or asynchronous API into a reactive one. Though using [Observable.create](http://reactivex.io/documentation/operators/create.html) seems like an attractive solution, it requires you to:
+有些时候你需要将同步或异步的 API 转成响应式的 API。使用 [Observable.create](http://reactivex.io/documentation/operators/create.html) 看起来是个极具诱惑性的选择，但它有如下要求：
 
-- Unregister callbacks when an Observable is unsubscribed (failing to do so can cause memory leaks)
-- Emit events using onNext or onCompleted only while a subscriber is still subscribed
-- Propagate errors upstream using onError
-- Handle backpressure
+- 当取消 Observable 订阅时需要注销回调 (否则会造成内存泄露)
+- 只有当有订阅者订阅时才能使用 onNext 或 onCompleted 发送事件
+- 使用 onError 向上游传递错误
+- 处理背压
 
-It’s difficult to correctly implement these requirements, but luckily, you don’t have to. There’s a few static helper methods that handle this for you:
+很难正确的实现以上要求，幸运的是，你可以不这么做。有一些静态工具方法可以帮你解决：
 
 **syncOnSubscribe**
 
-A utility for creating a safe `OnSubscribe<T>` that responds correctly to backpressure requests from subscribers. Use it when you need to transform a synchronous pull-like API that’s blocking into a reactive one.
+一个可以创建安全 `OnSubscribe<T>` 的工具，它创建的 `OnSubscribe<T>` 能够正确地处理来自订阅者的背压请求。当你需要将一个同步获取式的阻塞 API 转成响应式 API 时可以使用。
 
 ```
 public Observable<byte[]> readFile(@NonNull FileInputStream stream) {
@@ -64,7 +64,7 @@ public Observable<byte[]> readFile(@NonNull FileInputStream stream) {
 
 **fromCallable**
 
-A static helper that’s great for wrapping a simple synchronous API and transforming it into a reactive one. As an added bonus, `fromCallable` also handles checked exceptions.
+一个静态工具，可以对简单的同步 API 进行封装并将之转化成响应式 API。更赞的是，`fromCallable` 也可以处理检查到的异常。
 
 ```
 public Observable<Boolean> enablePushNotifications(boolean enable) {
@@ -77,7 +77,7 @@ public Observable<Boolean> enablePushNotifications(boolean enable) {
 
 **fromEmitter**
 
-A static helper that’s great for wrapping an asynchronous API and managing the resource when the Observable is unsubscribed from. Unlike `fromCallable`, you have the ability to emit multiple items.
+一个静态工具，对异步 API 进行封装并可以管理 Observable 被取消订阅时释放的资源。不像 `fromCallable`，你可以输出多个元素。
 
 ```
 import android.bluetooth.le.BluetoothLeScanner;
@@ -128,65 +128,65 @@ public class RxBluetoothScanner {
 }
 ```
 
-### 3. How to handle Backpressure
+### 3. 如何处理背压
 
-Sometimes, an Observable produces events so quickly that an Observer downstream can’t keep up with them. When this happens, you’ll often experience a `MissingBackpressureException`.
+有时，Observable 产生事件过快以至于下游观察者跟不上它的速度。当这种情况发生时，你往往会遇到 `MissingBackpressureException` 异常。
 
 ![](https://cdn-images-1.medium.com/max/800/1*G-yJQ_ururyvMGkGRA3eAw.png)
 
-RxJava offers a few ways to manage backpressure but picking the right one depends on your situation.
+RxJava 提供了一些方法管理背压，但是具体使用哪一种需要视情况而定。
 
-**Cold vs. Hot Observables**
+**冷、热 Observable**
 
-Cold Observables begin emitting items upon subscription. The Observer subscribed to a cold Observable can control the pace of emitting events without sacrificing the integrity of the stream. Examples of cold Observables include, reading a File, database queries, web requests, and a static iterable converted to an Observable.
+只有当有订阅时，冷 Observable 才会发送元素。观察者订阅冷 Observable 可以控制发送事件的速度而不需要牺牲流的完整性。冷 Observable 例子有：读文件、数据库查询、网络请求以及静态迭代器转成的 Observable。
 
-Hot Observables are continuous streams of events, emitted regardless of the number of subscribers. When an Observer subscribes to a hot Observable, it can either:
+热 Observable 是连续的事件流，它的发出不依赖订阅者的数量。当一个观察者订阅了 Observable，那么它将面临下面的一种情况：
 
-- receive a replay of a subset of all events emitted
-- receive a replay of all events emitted
-- receive new events as they’re emitted
+- 收到所有事件子集的重放
+- 收到所有事件的重放
+- 收到新的事件
 
-Examples of hot Observables include, touch events, notifications, and progress updates.
+热 Observables 例子有：触摸事件、通知以及进度更新。
 
-Due to the inherent nature of events emitted by a hot Observable, you can’t control their pace. For example, you can’t slow down the rate at which touch events are emitted. Thus, it’s best to use one of the flow control strategies outlined by `BackpressureMode`.
+由于热 Observable 发出事件的本性，我们不能控制它的速度。例如，你不能降低触摸事件发出的速度。因此，最好是使用 `BackpressureMode` 提供的流控制策略。
 
-Using a reactive-pull approach, cold Observables can respond to feedback from the Observer to slow down. To learn more, see ReactiveX documentation on [backpressure and reactive-pull](https://github.com/ReactiveX/RxJava/wiki/Backpressure).
+使用一个响应式获取方法，冷 Observable 可以根据观察者的反馈降低发送速度。更多知识，请看 ReactiveX 文档的[背压与响应式获取方法](https://github.com/ReactiveX/RxJava/wiki/Backpressure).
 
-**BackpressureMode.NONE and BackpressureMode.ERROR**
+**BackpressureMode.NONE 和 BackpressureMode.ERROR**
 
-In both of these modes, emitted events aren’t backpressured. A `MissingBackpressureException` is thrown when observeOn’s internal 16-element sized buffer overflows.
+在这两种模式中，发送的事件不是背压。当被观察者的 16 元素缓冲区溢出时会抛出 `MissingBackpressureException`。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Wexx6Cgpqhgwr_rQnGUjIw.png)
 
 **BackpressureMode.BUFFER**
 
-In this mode, an unbounded buffer with an initial size of 128 is created. Items emitted too quickly are buffered unboundedly. If the buffer isn’t drained, items continue to accumulate until memory is exhausted. This results in an `OutOfMemoryException`.
+在这种模式下，有一个无限的缓冲区（初始化时是 128）。过快发出的元素都会放到缓冲区中。如果缓冲区中的元素无法消耗，会持续的积累直到内存耗尽。结果是 `OutOfMemoryException` 异常。
 
 ![](https://cdn-images-1.medium.com/max/800/1*7YWjJNYa1Qgzrxjdottmzg.png)
 
 **BackpressureMode.DROP**
 
-This mode uses a fixed buffer of size 1. If the downstream observable can’t keep up, the first item is buffered and subsequent emissions are dropped. When the consumer is ready to take the next value, it receives the first value emitted by the source Observable.
+这种模式是使用固定大小为 1 的缓冲区。如果下游观察者无法处理，第一个元素会缓存下来后续的会被丢弃。当消费者可以处理下一个元素时，它收到的将是 Observable 发出的第一个元素。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Lc_olwX6t_KDWp1wXShXMg.png)
 
 **BackpressureMode.LATEST**
 
-This mode is similar to `BackpressureMode.DROP` because it also uses a fixed buffer of size 1. However, rather than buffering the first item and dropping subsequent items, `BackpressureMode.LATEST` replaces the item in the buffer with the latest emission. When the consumer is ready to take the next value, it receives the latest value emitted by the source Observable.
+这种模式与 `BackpressureMode.DROP` 类似，因为它也使用固定大小为 1 的缓冲区。然而，不是缓存第一个元素丢弃后续元素，`BackpressureMode.LATEST` 而是使用最新的元素替换缓冲区缓存的元素。当消费者可以处理下一个元素时，它收到的是 Observable 最近一次发送的元素。
 
 ![](https://cdn-images-1.medium.com/max/800/1*3DRYVExZDiutRZpzaFx2xQ.png)
 
-### 4. How to prevent errors from unintentionally terminating your stream
+### 4. 如何防止无意的结束流错误
 
-RxJava communicates unrecoverable errors by notifying the Observable sequence with an `onError` notification. This also terminates the sequence.
+RxJava 通过给 Observable 序列发送 `onError` 通知不可恢复的错误，并且会结束序列。
 
-Sometimes, you don’t want your sequence to terminate. In those instances, RxJava offers a number of ways to handle errors without terminating your sequence.
+有时，你不希望结束序列。对于这种情况，RxJava 提供了几种不会结束序列的错误处理方法。
 
-RxJava offers a number of ways to handle errors but sometimes you don’t want your sequence to be terminated. This is especially handy when working with Subjects.
+RxJava 提供了许多错误处理方法，但是有时你不希望结束序列。尤其是涉及到主题时。
 
 **onErrorResumeNext**
 
-Using [onErrorResumeNext](http://reactivex.io/RxJava/javadoc/rx/Observable.html#onErrorResumeNext%28rx.Observable%29) allows you to intercept the `onError` notification and return another Observable. This can either wrap the error with additional information and return a new error, or it can return a new event to be received in `onNext`.
+使用 [onErrorResumeNext](http://reactivex.io/RxJava/javadoc/rx/Observable.html#onErrorResumeNext%28rx.Observable%29) 可以拦截 `onError` 并返回一个 Observable。或者对错误信息添加附加信息并返回一个新的错误，或者发送给 `onNext` 一个新的事件。
 
 ```
 public Observable<SearchResult> search(@NotNull EditText searchView) {
@@ -200,11 +200,11 @@ public Observable<SearchResult> search(@NotNull EditText searchView) {
 }
 ```
 
-**The catch with onErrorResumeNext**
+**使用 onErrorResumeNext 捕获**
 
-Using this operator repairs the downstream sequence, but terminates the upstream sequence because an `onError` notification has been emitted. Therefore, if you were connected to a Subject that was publishing notifications, an `onError` notification would terminate the Subject.
+使用该操作会修复下游序列，但是会结束上游序列因为已经发送了 `onError` 通知。所以，如果你连接的是一个发布通知的主题，`onError` 通知会结束主题。
 
-If you wish to keep the upstream running, nest the Observable with the `onErrorResumeNext` operator inside a `flatMap` or `switchMap` operator.
+如果你希望上游继续运行，可以在 `onErrorResumeNext` 操作中嵌套 `flatMap` 或 `switchMap` 操作。
 
 ```
 public Observable<SearchResult> search(@NotNull EditText searchView) {
@@ -218,13 +218,13 @@ public Observable<SearchResult> search(@NotNull EditText searchView) {
 }
 ```
 
-### 5. How to share your Observable
+### 5. 如何共享你的 Observable
 
-Sometimes you’ll need to share the output of an Observable with multiple Observers. Two ways to multicast the events emitted from on Observable with RxJava are `share` and `publish`.
+有时你需要将 Observable 的输出共享给多个观察者。RxJava 提供了 `share` 和 `publish` 两种方式实现 Observable 发送事件的多播。
 
 **Share**
 
-The `share` operator allows multiple Observers to connect to the source Observable. In the example below, a source Observable emits `MotionEvent` items that are shared. Then, we create two additional Observables to filter out the source for `DOWN` and `UP` touch events. For `DOWN` events, we draw a red circle, and for`UP` events we draw a blue circle.
+`share` 允许多个观察者连接到源 Observable。下面的例子中，共享的是 Observable 发送的 `MotionEvent` 事件。然后，我们创建了另外两个 Observable 分别过滤 `DOWN` 和 `UP` 触摸事件。`DOWN` 事件我们画红圈，`UP` 事件我们画篮圈。
 
 ```
 public void touchEventHandler(@NotNull View view) {
@@ -245,15 +245,15 @@ public void touchEventHandler(@NotNull View view) {
 }
 ```
 
-However, when the Observer subscribes to the source Observable, the source begins emitting events. This is problematic because subsequent subscribers can miss one or more touch events.
+然而，一旦有观察者订阅 Observable，Observable 就会开始发送事件。这样就会造成后续的订阅者会错过一个或多个触摸事件。
 
 ![](https://cdn-images-1.medium.com/max/800/1*RLhTXNHt8GZxaYl1I0OVfw.gif)
 
-In this example, the “blue” Observer misses the first value emitted after it subscribes to the source. In some situations, this is fine, but if you can’t afford to miss any events, you’ll need to use the `publish` operator.
+在这个例子中，“蓝” 观察者错过了第一个事件。有些时候这没问题，但是如果你不能接受错过任何事件，那么你需要使用 `publish` 操作。
 
 **Publish**
 
-Calling `publish` on a source Observable transforms the Observable into a ConnectedObservable. This means that it will behave similar to a valve being flipped on. The example below is the same as above, but notice we now use the `publish` operator.
+对 Observable 执行 `publish` 操作会将值转化为 ConnectedObservable。就像打开阀门一样。下面的例子和上面一样，需要注意的是我们现在使用的是 `publish` 操作。
 
 ```
 public void touchEventHandler(@NotNull View view) {
@@ -276,8 +276,8 @@ public void touchEventHandler(@NotNull View view) {
 }
 ```
 
-Once the necessary Observables subscribe to the source, you’ll need to call `connect` on the source ConnectedObservable to begin emitting events.
+一旦必要的 Observables 订阅了源，你需要执行对源 ConnectedObservable 执行 `connect` 来开始发送事件。
 
 ![](https://cdn-images-1.medium.com/max/800/1*ORD0JlGH_FIk3oRb64gvEQ.gif)
 
-Notice, once `connect` is called on the source, the same sequence of events emit to both the “green” and “blue” Observers.
+注意，一旦对源调用了 `connect` 方法，相同事件序列会分别发送给 “绿” 和 “蓝” 观察者。

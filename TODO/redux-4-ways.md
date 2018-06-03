@@ -1,60 +1,60 @@
 > * 原文地址：[Redux 4 Ways](https://medium.com/react-native-training/redux-4-ways-95a130da0cdc#.nyb3hqtgb)
-* 原文作者：[Nader Dabit](https://medium.com/@dabit3?source=post_header_lockup)
+* 原文作者：本篇文章已获得作者 [Nader Dabit](https://medium.com/@dabit3?source=post_header_lockup) 授权
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
-* 校对者：
+* 译者：[reid3290](https://github.com/reid3290)
+* 校对者：[rccoder](https://github.com/rccoder)，[xekri](https://github.com/xekri)
 
-# Redux 4 Ways #
+# Redux 异步四兄弟 #
 
-## Implementations of [Thunk](https://github.com/gaearon/redux-thunk) vs [Saga](https://github.com/redux-saga/redux-saga) vs [Observable](https://github.com/redux-observable/redux-observable) vs [Redux Promise Middleware](https://github.com/pburtchaell/redux-promise-middleware) in 10 minutes. ##
+## 在十分钟内实践 [Thunk](https://github.com/gaearon/redux-thunk) 、 [Saga](https://github.com/redux-saga/redux-saga) 、 [Observable](https://github.com/redux-observable/redux-observable) 以及 [Redux Promise Middleware](https://github.com/pburtchaell/redux-promise-middleware)。 ##
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*V6i_YjJC80VVeSnYvBiL5Q.jpeg">
 
-At the last [React Native online meetup](https://github.com/knowbody/react-native-online-meetups), I gave a presentation on the differences of Thunk vs Saga vs Redux Observable [(see slides here)](http://slides.com/dabit3/deck-11-12) .
+在上一次的 [React Native online meetup](https://github.com/knowbody/react-native-online-meetups) 活动中，笔者就 Thunk 、 Saga 以及 Redux Observable 之间的不同之处做了报告 [(点击此处获取幻灯片)](http://slides.com/dabit3/deck-11-12) 。
 
-> These libraries offer ways to handle side effects or asynchronous actions in a redux application. For more information on why you may need something like this, see [this link.](https://github.com/markerikson/react-redux-links/blob/master/redux-side-effects.md) 
+> 上述函数库都提供了一些方法用以处理 Redux 应用中带有副作用的或者是异步的 action。更多关于为什么要用到这些库的介绍，请 [点击此处](https://github.com/markerikson/react-redux-links/blob/master/redux-side-effects.md) 。
 
-I thought I would take this one step further and not only create [a repo ](https://github.com/dabit3/redux-4-ways) for viewing and testing these implementations, but walk through how they are implemented step by step and add one more implementation, [Redux Promise Middleware](https://github.com/pburtchaell/redux-promise-middleware) .
+相较于仅仅是创建一个[仓库](https://github.com/dabit3/redux-4-ways)，然后查看和测试这些库的实现方法，笔者希望更进一步，即一步步地弄清这些库是如何解决异步在 Redux 中产生的副作用，并额外增加一种方案 —— [Redux Promise Middleware](https://github.com/pburtchaell/redux-promise-middleware) 。
 
-When I first started with redux, wrapping my head around these asynchronous side effect options was overwhelming. Even though the documentation was not bad, I just wanted to see the most absolute basic implementations of each in action to give me a clear understanding of how to get started with them without wasting a bunch of time.
+笔者第一次接触 Redux 的时候，就被这些异步的、带有副作用的函数库搞得“头昏脑胀”。 虽然相关文档还算齐全，但还是希望能够结合实际项目去深入理解这些函数库是如何解决 Redux 中的异步问题。从而快速上手，避免浪费过多时间。
 
-In this tutorial, I’ll walk through a basic example of fetching and storing data in a reducer using each of these libraries.
+在本教程中，笔者将应用上述函数库，一步步地实现一个拉取数据并将数据存储在 reducer 中的简单例子。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*8PlQZYT4kGnCGZTVGtAoGg.jpeg">
 
-As displayed in the above diagram, one of the most common use cases for these side effect libraries is hitting an api, showing a loading indicator, then displaying the data once it has returned from the api (or showing an error if there is an error). We will implement this exact functionality in all four libraries.
+如图所示，上述函数库最通用的模式之一就是发起一个 API 请求，显示加载图标，数据返回后展示结果（如果出现错误则展示错误信息）。笔者将依次使用上述 4 个函数库实现该功能。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*06R5v_0WvZNNdvPntIuWaA.gif">
 
-### Getting Started ###
+### 开始 ###
 
-I will be using React Native in this example, but feel free to use React, as it will all be exactly the same. If you are following along, just replace the `View` with `div`, and `Text` with `p`. In this first section, we will just be implementing a basic redux boilerplate to use with the four libraries.
+在本例中笔者将使用 React Native，当然使用 React 也是完全一样的 —— 只需要把 `View` 替换为 `div`, 把 `Text` 替换为 `p` 即可。 在本节中，笔者将仅仅实现一个简单的 Redux 示例应用，以展示上述 4 个函数库的用法。
 
-I will run react-native init to create an empty project:
+首先运行 react-native init 命令创建一个空项目：
 
 ```
 react-native init redux4ways 
 ```
 
-Or, using create-react-app:
+当然也可以使用 create-react-app:
 
 ```
 create-react-app redux4ways
 ```
 
-Then, cd into the project
+然后进入项目目录：
 
 ```
 cd redux4ways
 ```
 
-Next, we will install all of the dependencies we will need for the rest of the project.
+安装所需依赖：
 
 ```
 yarn add redux react-redux redux-thunk redux-observable redux-saga rxjs redux-promise-middleware
 ```
 
-Next, we will create all of the files and folders we will need to get started:
+创建将要用到的相关目录和文件：
 
 ```
 mkdir reducers
@@ -68,9 +68,9 @@ touch reducers/index.js reducers/dataReducer.js
 touch app.js api.js configureStore.js constants.js actions.js
 ```
 
-Now that we have everything installed and the files we need, we will build out the basic redux implementation we will be using.
+至此，所有依赖都已安装完毕，相关文件业已新建妥当，可以着手编码开发了。
 
-In `index.ios` (ios) or `index.android.js` (android), update the code to the following:
+首先将 `index.ios` (ios) 或 `index.android.js` (android) 中的代码更新如下： 
 
 ```
 import React from 'react'
@@ -91,21 +91,21 @@ const ReduxApp = () => (
 )
 
 ```
-1. We import `Provider` from `react-redux`
-2. import `configureStore` that we will create soon
-3. import `App` which will be our main application component for this tutorial
-4. create the store, calling `configureStore()`
-5. wrap `App` in the `Provider`, passing in the store
+1. 从 `react-redux` 中引入 `Provider`。
+2. 引入 `configureStore`，随后将创建该文件。
+3. 引入 `App` 作为本例应用中的入口组件。
+4. 调用 `configureStore()` 方法创建 store。
+5. 将 `App` 包裹在 `Provider` 中并传入上述 store。
 
 
-Next, we’ll create the constants we will use in our actions and reducer. In `constants.js`, update the code to the following:
+接着创建 actions 和 reducer 所涉及的相关常量，`constants.js` 文件内容如下：
 ```
 export const FETCHING_DATA = 'FETCHING_DATA'
 export const FETCHING_DATA_SUCCESS = 'FETCHING_DATA_SUCCESS'
 export const FETCHING_DATA_FAILURE = 'FETCHING_DATA_FAILURE'
 ```
 
-Next, we will create our `dataReducer`. In `dataReducer.js`, update the code to the following:
+再接着创建 `dataReducer`，`dataReducer.js` 文件内容如下：
 
 ```
 import { FETCHING_DATA, FETCHING_DATA_SUCCESS, FETCHING_DATA_FAILURE } from '../constants'
@@ -141,13 +141,13 @@ export default function dataReducer (state = initialState, action) {
   }
 }
 ```
-1. We import the constants that we will be needing in this reducer.
-2. The `initialState` of the reducer is an object with a `data` array, a `dataFetched` Boolean, an `isFetching` Boolean, and an `error` Boolean.
-3. The reducer checks for three actions, updating the state accordingly. For example, if `FETCHING_DATA_SUCCESS` is the action, then we update the state with the new data, and set `isFetching` to `false`.
+1. 引入相关常量。
+2. 该 reducer 的初始状态 `initialState` 是一个对象，该对象由 1 个数组 `data` 和 3 个布尔类型的变量：`dataFetched` 、`isFetching` 以及 `error` 构成。
+3. 该 reducer 负责处理 3 种类型的 actions 并相应地更新状态。例如，如果 action 的类型是 `FETCHING_DATA_SUCCESS`， 则将新数据添加到状态对象中并将 `isFetching` 设为 `false`。
 
-Now, we need to create our reducer entrypoint, in which we will call `combineReducers` on all of our reducers, which in our case is only one reducer: `dataReducer.js`.
+接下来需要创建 reducer 的入口文件，在该文件中会对所有的 reducers 调用 `combineReducers` 方法（在本例中只有一个 reducer，即 `dataReducer.js` ）。
 
-In `reducers/index.js`:
+`reducers/index.js` 文件内容如下：
 ```
 import { combineReducers } from 'redux'
 import appData from './dataReducer'
@@ -159,7 +159,7 @@ const rootReducer = combineReducers({
 export default rootReducer
 ```
 
-Next, we create the actions. In `actions.js`**,** update the code to the following:
+之后则需要创建相应的 actions，`actions.js` 文件内容如下： 
 ```
 import { FETCHING_DATA, FETCHING_DATA_SUCCESS, FETCHING_DATA_FAILURE } from './constants'
 
@@ -184,10 +184,10 @@ export function getDataFailure() {
 
 export function fetchData() {}
 ```
-1. We import the constants that we will be needing in this reducer.
-2. Create four methods, three of them calling actions (`getData`, `getDataSuccess`, and `getDataFailure`), the fourth will be updated to a thunk soon (`fetchData`).
+1. 引入相关常量。
+2. 定义 4 个函数，其中 3 个 （`getData`、`getDataSuccess` 和 `getDataFailure`）会直接返回 action，第 4 个（`fetchData`）则会更新一个 thunk （具体实现见下文）。
 
-Now, let’s create the configureStore. In configureStore.js, update the code to the following:
+接着定义 configureStore：
 ```
 import { createStore } from 'redux'
 import app from './reducers'
@@ -197,10 +197,10 @@ export default function configureStore() {
   return store
 }
 ```
-1. import the root reducer from `‘./reducers’`
-2. export a function that will create the store
+1. 从 `./reducers` 中引入 root reducer。
+2. 暴露用以创建 store 的函数接口。
 
-Finally, we will create the UI and hook into the props that we will need. In `app.js`:
+最后, 对接页面 UI 并绑定相应 props：
 ```
 import React from 'react'
 import { TouchableHighlight, View, Text, StyleSheet } from 'react-native'
@@ -264,11 +264,9 @@ export default connect(
   mapDispatchToProps
 )(App)
 ```
-Everything here is pretty self explanatory. If you’re new to redux, the connect method transforms the current Redux store state and imported actions into the props you want to pass to a presentational component you are wrapping, in our case `App`.
+此处代码不言自明 —— connect 方法用于将当前 Redux store 的状态和引入的 actions 作为 props 传入目标展示性组件中，即此例中的 `App`。
 
-The final piece we will need is a mock api that will simulate a 3 second timeout and return a promise with the fetched data.
-
-To do so, open `api.js` and place in it the following code:
+最后需要一个模拟的数据接口，该接口返回一个 promise，该 promise 会在 3 秒钟后 reslove，并返回相应数据。对应文件 `api.js` 内容如下：
 ```
 const people = [
   { name: 'Nader', age: 36 },
@@ -284,17 +282,17 @@ export default () => {
   })
 }
 ```
-In `api.js`, we are creating an array of people, and when this file is imported and executed, it will return a promise that will return after 3 seconds with the people array..
+在该文件中，首先创建一个含有人员信息的数组，然后暴露一个实现了上述模拟接口功能的方法。
 
 ### Redux Thunk ###
 
-Now that redux is hooked up, we will sync it up with our first asynchronous library, [Redux Thunk](https://github.com/gaearon/redux-thunk). ([branch](https://github.com/dabit3/redux-4-ways/tree/thunk))
+ 至此，Redux 已经和 React 连接了起来，接下来引入第一个异步函数库 —— [Redux Thunk](https://github.com/gaearon/redux-thunk)。（[branch](https://github.com/dabit3/redux-4-ways/tree/thunk)）
 
-To do so, first we need to create a thunk.
+首先需要创建一个 thunk
 
-> “Redux Thunk [middleware](https://github.com/reactjs/redux/blob/master/docs/advanced/Middleware.md) allows you to write action creators that return a function instead of an action. The thunk can be used to delay the dispatch of an action, or to dispatch only if a certain condition is met. The inner function receives the store methods `dispatch` and `getState` as parameters.” — Redux Thunk documentation
+> “[Redux Thunk middleware](https://github.com/reactjs/redux/blob/master/docs/advanced/Middleware.md) 允许 action 创建函数返回一个函数而不是 action。 该中间件可以用于延迟 action 的 dispatch 过程， 或仅当满足特定条件时才 dispatch action；其内部函数接受两个参数：`dispatch` 和 `getState`。 ” —— Redux Thunk 文档
 
-In `actions.js`, update the `fetchData` function and import the api:
+在 `actions.js` 文件中，更新函数 `fetchData` 并引入 api:
 ```
 import { FETCHING_DATA, FETCHING_DATA_SUCCESS, FETCHING_DATA_FAILURE } from './constants'
 import getPeople from './api'
@@ -331,9 +329,9 @@ export function fetchData() {
 view raw
 ```
 
-The `fetchData` function is now a thunk. When fetchData is called, it returns a function that will then dispatch the `getData` action. Then, `getPeople` is called. Once `getPeople` resolves, it will then dispatch the `getDataSuccess` action.
+此处 `fetchData` 函数是一个 thunk。当被调用时，fetchData 会返回一个函数；该函数首先会 dispatch `getData` action，然后调用 `getPeople`，在 `getPeople` 返回的 promise reslove 之后，会 dispatch `getDataSuccess` action。
 
-Next, we update `configureStore` to apply the thunk middleware:
+接下来，需要更新 `configureStore` 函数以引入 thunk 中间件：
 
 ```
 import { createStore, applyMiddleware } from 'redux'
@@ -346,11 +344,11 @@ export default function configureStore() {
 }
 ```
 
-1. import applyMiddleware from `redux`
-2. import `thunk` from `redux-thunk`
-3. call `createStore`, passing in `applyMiddleware` as the second argument.
+1. 从 `redux` 引入 applyMiddleware。
+2. 从 `redux-thunk` 引入 `thunk`。
+3. 将 `applyMiddleware` 作为第二个参数传递给函数 `createStore`。
 
-Finally, we can update the `app.js` file to use the new thunk.
+最后，更新 `app.js` 文件来使用上述 thunk：
 ```
 
 import React from 'react'
@@ -435,23 +433,22 @@ export default connect(
 )(App)
 ```
 
-Main takeaways from this change:
+此处代码主要有以下几个要点：
 
-1. We add an onPress method to the TouchableHighlight that calls `props.fetchData()` when pressed.
-2. We add a check to see if `props.appData.isFetching` is true, and if so we return loading indicator text.
-3. We add a check to `props.appData.data.length`, looping through the array if it is there and returning the name and age of the person.
+1. 为 TouchableHighlight 组件绑定 onPress 函数，当按压事件触发后调用 `props.fetchData()`。
+2. 检查 `props.appData.isFetching` 的值是否为 true， 如果是则返回正在加载的文字提示。
+3. 检查 `props.appData.data.length`，如果该值存在且不为 0，则遍历该数组，展示人员姓名和年龄信息。
 
-Now, when we click the Load Data button, we should see the loading message, and then the data should display after 3 seconds.
+至此，当按下按钮 Load Data 后，首先会看到正在加载的提示文字，3 秒后会看到人员信息。
 
 ### Redux Saga ###
 
-[Redux Saga](https://github.com/redux-saga/redux-saga) uses a combination of async await and generators to make for a smooth and fun to use api. ([branch](https://github.com/dabit3/redux-4-ways/tree/saga))
+[Redux Saga](https://github.com/redux-saga/redux-saga) 组合使用 async await 和 Generators，使其函数接口简单易用。（[branch](https://github.com/dabit3/redux-4-ways/tree/saga)）
 
-> “It uses an ES6 feature called Generators to make those asynchronous flows easy to read, write and test. (if you’re not familiar with them [*here are some introductory links*](https://redux-saga.github.io/redux-saga/docs/ExternalResources.html) ) By doing so, these asynchronous flows look like your standard synchronous JavaScript code. (kind of like `async`/`await`, but generators have a few more awesome features we need)” — Redux Saga documentation
+> “通过使用 ES6 的新特性 Generators，涉及异步流程的代码变得易于阅读、编写和测试。（如果你对此特性还不熟悉的话，[**点击此处获取入门介绍**](https://redux-saga.github.io/redux-saga/docs/ExternalResources.html)）。基于此，Javascript 的异步代码看起来就和标准的同步代码一样（有点类似于 `async`/`await`，但 Generators 另外还有一些我们所需要的极佳特性）。—— Redux Saga 文档
 
-To implement a Saga, we first need to update our actions.
+为了实现 Saga，首先需要更新 actions —— 删除 `actions.js` 文件中除了如下代码外的其它所有代码：
 
-In `actions.js`, replace everything except the following function:
 ```
 import { FETCHING_DATA } from './constants'
 
@@ -462,7 +459,8 @@ export function fetchData() {
 }
 ```
 
-This action will trigger the saga we are about to create. In a new file called `saga.js`, add the following code:
+该 action 会触发我们即将创建的 saga。新建 `saga.js` 文件，写入如下代码：
+
 ```
 import { FETCHING_DATA, FETCHING_DATA_SUCCESS, FETCHING_DATA_FAILURE } from './constants'
 import { put, takeEvery } from 'redux-saga/effects'
@@ -484,11 +482,12 @@ function* dataSaga () {
 export default dataSaga
 ```
 
-1. We import the constants that we will be needing.
-2. We import `put` and `takeEvery` from `redux-saga/effects`. When we call `put`, redux saga instructs the middleware to dispatch an action. `takeEvery` will listen for dispatched action (in our case `FETCHING_DATA)` and call a callback function (in our case `fetchData`)
-3. When `fetchData` is called, we will wait to see if `getPeople` returns successfully, and if it does, we will dispatch `FETCHING_DATA_SUCCCESS`
+1. 引入所需常量。
+2. 从 `redux-saga/effects` 中引入 `put` 和 `takeEvery`。当调用 `put` 函数时，Reduc Sage 会指示中间件 dipatch 一个 action。`takeEvery` 函数则会监听被 dispatch 了的 action（本例中即为 `FETCHING_DATA`），然后调用回调函数（本例中即为 `fetchData`）。
+3. 当 `fetchData` 被调用后，代码会等待函数 `getPeople` 的返回，如果返回成功则 dispatch `FETCHING_DATA_SUCCCESS` action。
 
-Finally, we need to update `configureStore.js` to use the saga middleware instead of the thunk middleware.
+最后更新 `configureStore.js` 文件，用 saga 替换 thunk。
+
 ```
 import { createStore, applyMiddleware } from 'redux'
 import app from './reducers'
@@ -505,19 +504,19 @@ export default function configureStore() {
 }
 ```
 
-The main things to note in this file is that we import our saga and also `createSagaMiddleware` form `redux-saga`. When we create the store, we pass in the `sagaMiddleware` that we created, and then call `sagaMiddleWare.run` before returning the store.
+在该文件中既引入了上述 saga，又从 `redux-saga` 中引入了 `createSagaMiddleware`。在创建 store 时，传入 `sagaMiddleware`，然后在返回 store 之前调用 `sagaMiddleWare.run`。
 
-Now, we should be able to run the application and get the same functionality that we had when using redux thunk!
+至此，可以再次运行该程序并看到和使用 Redux Thunk 是同样的效果！
 
-> Notice that we only changed three files in the move from thunk to saga: `saga.js``configureStore.js` and `actions.js`.
+> 注意：从 thunk 迁移到 saga 只改变了 3 个文件： `saga.js`、`configureStore.js` 以及 `actions.js`。
 
 ### Redux Observable ###
 
-Redux Observable uses RxJS and observables to create asynchronous actions and data flow for a Redux app. ([branch](https://github.com/dabit3/redux-4-ways/tree/observable))
+Redux Observable 使用 RxJS 和 observables 来为 Redux 应用创建异步 action 和异步数据流。（[branch](https://github.com/dabit3/redux-4-ways/tree/observable)）
 
-> [“RxJS 5](http://github.com/ReactiveX/RxJS)-based middleware for [Redux](http://github.com/reactjs/redux). Compose and cancel async actions to create side effects and more.” — Redux Observable documentation
+> “基于 [RxJS 5](http://github.com/ReactiveX/RxJS) 的 [Redux](http://github.com/reactjs/redux) 中间件。组合撤销异步 actions 以产生副作用等。” —— Redux Observable 文档
 
-The first thing we need to do to get started with redux observable is to again update our actions.js file:
+首先还是需要更新 actions.js 文件：
 ```
 import { FETCHING_DATA, FETCHING_DATA_SUCCESS, FETCHING_DATA_FAILURE } from './constants'
 
@@ -542,11 +541,11 @@ export function getDataFailure (error) {
 }
 ```
 
-As you can see, we’ve updated our actions to have our original three actions from before.
+如上所示，将之前的 actions 更新为最早的 3 个 actions。
 
-Next, we will create what is known as an epic. An epic is a function which takes a stream of actions and returns a stream of actions.
+接着创建所谓的 epic —— 输入 action stream 并输出 action stream 的函数。
 
-Create a file called `epic.js` with the following code:
+新建 `epic.js` 文件并加入如下代码：
 ```
 import { FETCHING_DATA } from './constants'
 import { getDataSuccess, getDataFailure } from './actions'
@@ -566,17 +565,17 @@ const fetchUserEpic = action$ =>
 export default fetchUserEpic
 ```
 
-> $ is a common RxJS convention to identify variables that reference a stream
+> 一般在 RxJS 中，变量名中的 $ 符号用以表示该变量是某 stream 的引用。
 
-1. import the FETCHING_DATA constant.
-2. import `getDataSuccess` and `getDataFailure` functions from the actions.
-3. import `rxjs` and `Observable` from rxjs.
-4. We create a function called `fetchUserEpic`.
-5. We wait for the `FETCHING_DATA` action to come through the stream, and when it does we call [mergeMap](https://www.learnrxjs.io/operators/transformation/mergemap.html) on the action, returning `Observable.fromPromise` from `getPeople` and mapping the response to the `getDataSuccess` function from our actions.
+1. 引入常量 FETCHING_DATA。
+2. 引入 `getDataSuccess` 和 `getDataFailure` 函数。
+3. 从 rxjs 中引入 `rxjs` 和 `Observable`。
+4. 定义函数 `fetchUserEpic`。
+5. 等到 `FETCHING_DATA` action 通过该 stream 之后，调用 [mergeMap](https://www.learnrxjs.io/operators/transformation/mergemap.html) 函数, 从 `getPeople` 中返回 `Observable.fromPromise` 并将返回值映射到 `getDataSuccess` 函数中。
 
-Finally, we just need to update configureStore to use the new epic middleware.
+最后，更新 configureStore，应用新中间件 —— epic。
 
-In `configureStore.js`:
+`configureStore.js` 文件内容如下：
 ```
 import { createStore, applyMiddleware } from 'redux'
 import app from './reducers'
@@ -593,21 +592,21 @@ export default function configureStore () {
 view raw
 ```
 
-Now we should be able to run our application and the functionality should all work as before!
+至此，可以再次运行该程序并看到后之前一样的效果！
 
 ### Redux Promise Middleware ###
 
-Redux Promise Middleware is a lightweight library for resolving and rejecting promises with conditional optimistic updates. ([branch](https://github.com/dabit3/redux-4-ways/tree/promise-middleware))
+Redux Promise Middleware 是一个用于 reslove 和 reject promise 的轻量级函数库。 ([branch](https://github.com/dabit3/redux-4-ways/tree/promise-middleware))
 
-> “Redux promise middleware enables robust handling of async code in [Redux](http://redux.js.org/) . The middleware enables optimistic updates and dispatches pending, fulfilled and rejected actions. It can be combined with [redux-thunk](https://github.com/gaearon/redux-thunk) to chain async actions.” — Redux Promise Middleware documentation
+> “Redux Promise Middleware 使得 [Redux](http://redux.js.org/) 中的异步代码更为健壮，并使 optimistic updates 、dispatches pending 、fulfilled 和 rejected actions 成为可能。 它也可以和 [redux-thunk](https://github.com/gaearon/redux-thunk) 结合使用链式化异步 action” —— Redux Promise Middleware 文档
 
-As you will see, Redux Promise Middleware reduces boilerplate pretty dramatically vs some of the other options.
+正如你将要看到的一样，相比于上述几个函数库而言，Redux Promise Middleware 极大地减少了代码量。
 
-It can also be [combined with Thunk](https://github.com/pburtchaell/redux-promise-middleware/blob/640c48c40c4f5168bafba017e8c975e09dafe4b4/README.md) to chain the async actions.
+它也可以和 [Thunk 结合使用](https://github.com/pburtchaell/redux-promise-middleware/blob/640c48c40c4f5168bafba017e8c975e09dafe4b4/README.md) 以实现异步 action 的链式化。
 
-Redux Promise Middleware is different in that it takes over your actions and appends `_PENDING`, `_FULFILLED`, or `_REJECTED` actions depending on the outcome of your promise.
+相较于上述几个函数库，Redux Promise Middleware 有所不同 —— 它会接管你的 action 并基于 promise 状态的不同在 action 类型名称后添加 `_PENDING`、`_FULFILLED` 或 `_REJECTED`。
 
-For example, if we called FETCHING like this:
+例如，如果调用如下函数：
 
 ```
 function fetchData() {
@@ -618,13 +617,14 @@ function fetchData() {
 }
 ```
 
-Then `FETCH_DATA_PENDING` would automatically be dispatched.
+那么就会自动地 dispatch `FETCH_DATA_PENDING` action。
 
-Once the `getPeople` promise resolved, it would call either `FETCH_DATA_FULFILLED` or `FETCH_DATA_REJECTED` depending on the outcome of `getPeople`.
+一旦 `getPeople` promise resolved，基于返回结果的不同，会 dispatch `FETCH_DATA_FULFILLED` 或 `FETCH_DATA_REJECTED` action。
 
-Let’s see this in action in our existing app.
+让我们通过现有的例子来理解该特性：
 
-To get started, let’s first update our constants to match those that we will now be working with. In `constants.js`:
+首先需要更新 `constants.js`，以使其匹配我们将要用到的常量:
+
 ```
 export const FETCH_DATA = 'FETCH_DATA'
 export const FETCH_DATA_PENDING = 'FETCH_DATA_PENDING'
@@ -632,7 +632,8 @@ export const FETCH_DATA_FULFILLED = 'FETCH_DATA_FULFILLED'
 export const FETCH_DATA_REJECTED = 'FETCH_DATA_REJECTED'
 ```
 
-Next, in `actions.js`, let’s update our action to a single action: `FETCH_DATA`:
+接着将 `actions.js` 文件更新为只有一个 `FETCH_DATA` 这一个 action。
+
 ```
 import { FETCH_DATA } from './constants'
 import getPeople from './api'
@@ -645,7 +646,8 @@ export function fetchData() {
 }
 ```
 
-Now, in our reducer (`dataReducer.js`) we need to swap out the actions with the new constants we are working with:
+接着基于上面新定义的常量更新 `dataReducer.js` 文件：
+
 ```
 import { FETCH_DATA_PENDING, FETCH_DATA_FULFILLED, FETCH_DATA_REJECTED } from '../constants'
 const initialState = {
@@ -681,8 +683,9 @@ export default function dataReducer (state = initialState, action) {
 }
 ```
 
-Last, we just need to update `configureStore` to use the new Redux Promise Middleware:
-、、、
+最后更新 `configureStore`，应用 Redux Promise Middleware：
+
+```
 import { createStore, applyMiddleware } from 'redux'
 import app from './reducers'
 import promiseMiddleware from 'redux-promise-middleware';
@@ -691,20 +694,20 @@ export default function configureStore() {
   let store = createStore(app, applyMiddleware(promiseMiddleware()))
   return store
 }
-、、、
+```
 
-Now, we should be able to run our application and get the same functionality.
+至此，可以再次运行该程序并看到后之前一样的效果！
 
-### Conclusion ###
+### 总结 ###
 
-Overall, I think I like Saga for more complex applications, and Redux Promise Middleware for everything else. I really like working with generators and async-await with Saga, it is fun, but I also like the reduction in boilerplate that Redux Promise Middleware offers.
+总的来说，笔者认为 Saga 更适用于较为复杂的应用，除此之外的其他所有情况 Redux Promise Middleware 都是十分合适的。笔者十分喜欢 Saga 中的 Generators 和 async-await，这些特性很有趣； 同时笔者也喜欢 Redux Promise Middleware，因为它极大地减少了代码量。
 
-If I knew how to use RXJS a little better, I may sway to Redux Observable, but there are still quite a few things I don’t understand well enough to confidently use it in production.
+如果对 RxJS 更为熟悉的话，笔者也许会偏向 Redux Observable；但还是有很多笔者理解不透彻的地方，因此无法自信地将其应用于生产环境中。
 
-> My Name is [Nader Dabit](https://twitter.com/dabit3) , and I am a software developer that specializes in building and teaching React and React Native.
+> 笔者 [Nader Dabit](https://twitter.com/dabit3)，是一名专注于 React 和 React Native 开发和培训的软件开发者。
 
-> If you like React Native, checkout out our podcast — [React Native Radio](https://devchat.tv/react-native-radio) on [Devchat.tv](http://devchat.tv/) with [Gant Laborde](https://medium.com/@gantlaborde) [Kevin Old](https://medium.com/@kevinold) [Ali Najafizadeh](https://medium.com/@alinz) and [Peter Piekarczyk](https://medium.com/@peterpme) 
+> 如果你也喜欢 React Native，欢迎查看我和 [Gant Laborde](https://medium.com/@gantlaborde) [Kevin Old](https://medium.com/@kevinold) [Ali Najafizadeh](https://medium.com/@alinz) 及 [Peter Piekarczyk](https://medium.com/@peterpme) 在 [Devchat.tv](http://devchat.tv/) 的 podcast — [React Native Radio](https://devchat.tv/react-native-radio)。
 
-> Also, check out my book, [React Native in Action](https://www.manning.com/books/react-native-in-action)  now available from Manning Publications
+> 同时，也欢迎查看笔者所著的 [React Native in Action](https://www.manning.com/books/react-native-in-action)，该书目前可以在 Manning Publications 购买。
 
-> If you enjoyed this article, please recommend and share it! Thanks for your time
+> 如果你喜欢这篇文章，欢迎推荐和分享！谢谢！

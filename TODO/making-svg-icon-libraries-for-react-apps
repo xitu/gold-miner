@@ -1,0 +1,140 @@
+> * 原文地址：[Making SVG icon libraries for React apps](http://nicolasgallagher.com/making-svg-icon-libraries-for-react-apps/)
+> * 原文作者：[Nicolas](http://nicolasgallagher.com/)
+> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/making-svg-icon-libraries-for-react-apps.md](https://github.com/xitu/gold-miner/blob/master/TODO/making-svg-icon-libraries-for-react-apps.md)
+> * 译者：[AlbertHao](https://github.com/Albertao)
+> * 校对者：[AlenQi](https://github.com/AlenQi), [94haox](https://github.com/94haox)
+
+# 为你的 React 应用制作 SVG 图标库
+
+目前来说，使用 SVG 是为应用创建图标库的最好方法。通过 SVG 制作出来的图标是可缩放且可调整的，同时也是离散的，这意味着它们可以进行增量加载或更新。而与之相反，使用字体进行构建的图标是不能进行增量加载/更新的。仅这一点就使 SVG 图标成为了那些依赖于代码分离和增量部署的高性能应用的更佳选择。
+
+这篇文章描述了如何从一个 SVG 图标库中创建一个由 React 组件构成的包。尽管我会着重于 React 框架，然而制作任何其他类型的包也是同理的。在 Twitter 的项目中我使用了这篇文章介绍的几种不同方式来打包公司内部的 SVG 图标库，包括：优化过后的 SVG ，纯 JavaScript 模块，React Dom 组件，和 React Native 组件。
+
+## 使用图标
+
+最终，我们得到的是一个能像任何其他 JavaScript 包一样被安装并使用的 JavaScript 包。
+
+```
+yarnpkg add @acme/react-icons
+```
+
+每一个图标都可以将其看作一个可用的，被独立导出的 React 组件。
+
+```
+import IconCamera from '@acme/react-icons/camera';
+```
+
+上面这行代码允许你的模块打包工具只打包需要的图标。当使用代码分割功能时，图标们能通过块来进行高效地分离。相比于那些引入字体并将所有图标打包入一个单一组件中的图标库来说，这是一个重大的优势。
+
+```
+// 整个图标库都被打包进了你的应用
+import Icon from '@acme/react-icons';
+const IconCamera = <Icon name='camera' />;
+```
+
+每一个图标都能很简单地根据使用情况来进行自定义（例如，颜色和大小等）。
+
+```
+import IconCamera from '@twitter/react-icons/camera';
+const Icon = (
+  <IconCamera
+    style={{ color: 'white', height: '2em' }}
+  />
+);
+```
+
+然而图标最终是渲染成 SVG 的，这是一个不为组件使用者们所知的实现细节。
+
+## 创建组件
+
+每个 React 组件都利用从 SVG 源文件里提取出的路径和维度数据渲染出了一个行内 SVG 图像。使用 `createIconComponent` 助手函数，我们只需寥寥几行模板代码便可从 SVG 数据中创建一个组件。
+
+```
+import createIconComponent from './utils/createIconComponent';
+import React from 'react';
+const IconCamera = createIconComponent({
+  content: <g><path d='...'></g>,
+  height: 24,
+  width: 24
+});
+IconCamera.displayName = 'IconCamera';
+export default IconCamera;
+```
+
+这是一个使用 `createIconComponent` 函数在搭建像 [Twitter Lite](https://mobile.twitter.com/) 这样的 web 应用（使用 [React Native for Web](https://github.com/necolas/react-native-web) 搭建）时的一个例子。This is an example of what the `createIconComponent` function looks like when building components for a web app like [Twitter Lite](https://mobile.twitter.com/), which is built with [React Native for Web](https://github.com/necolas/react-native-web).
+
+```
+// createIconComponent.js
+import { createElement, StyleSheet } from 'react-native-web';
+import React from 'react';
+
+const createIconComponent = ({ content, height, width }) =>
+  (initialProps) => {
+    const props = {
+      ...initialProps,
+      style: StyleSheet.compose(styles.root, initialProps.style),
+      viewBox: `0 0 ${width} ${height}`
+    };
+
+    return createElement('svg', props, content);
+  };
+
+const styles = StyleSheet.create({
+  root: {
+    display: 'inline-block',
+    fill: 'currentcolor',
+    height: '1.25em',
+    maxWidth: '100%',
+    position: 'relative',
+    userSelect: 'none',
+    textAlignVertical: 'text-bottom'
+  }
+});
+```
+
+将 `fill` 这个样式设置为 `currentcolor` 可以让你通过 `color` 样式属性来控制 SVG 的颜色。
+
+现在我们需要做的只剩下使用脚本来处理 SVG 并生成对应的 React 组件了。
+
+## 创建图标包
+
+你可以在 GitHub 上的一个叫做 [`icon-builder-example`](https://github.com/necolas/icon-builder-example) 的仓库里找到完成这一步工作的其中一种方式的完整示例代码。
+
+整个示例工具的项目结构大概长这样：
+
+```
+.
+├── README.md
+├── package.json
+├── scripts/
+    ├── build.js
+    ├── createReactPackage.js
+    └── svgOptimize.js
+└── src/
+    ├── alerts.svg
+    ├── camera.svg
+    ├── circle.svg
+    └── ...
+```
+
+[构建脚本](https://github.com/necolas/icon-builder-example/blob/master/scripts/build.js)使用了 [SVGO](https://github.com/necolas/icon-builder-example/blob/master/scripts/svgOptimize.js) 来优化 SVG，提取 SVG 路径信息和元数据。之后例子中的 [React 打包工具]((https://github.com/necolas/icon-builder-example/blob/master/scripts/createReactPackage.js)) 使用了模板来创建 `package.json` 文件和那些需要首屏展示的 React 图标。
+
+```
+import createIconComponent from './utils/createIconComponent';
+import React from 'react';
+const ${componentName} = createIconComponent({
+  height: ${height},
+  width: ${width},
+  content: <g>${paths}</g>
+});
+${componentName}.displayName = '${componentName}';
+export default ${componentName};
+```
+
+为了从相同的 SVG 源编译其他类型的包，也可以引入额外的打包工具。当底层的图标库改变时，只需要几条命令就可以重新编译数以百计的图标并为每个包发布新版本。
+
+
+---
+
+> [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
