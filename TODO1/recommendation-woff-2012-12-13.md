@@ -5,9 +5,9 @@
 > * 译者：
 > * 校对者：
 
-# WOFF File Format 1.0
+# WOFF文件格式 1.0
 
-## W3C Recommendation 13 December 2012
+## W3C 2012 年 12 月 13 日推荐
 
 This version: [http://www.w3.org/TR/2012/REC-WOFF-20121213/](http://www.w3.org/TR/2012/REC-WOFF-20121213/)
 
@@ -25,45 +25,48 @@ See also [**translations**](http://www.w3.org/2003/03/Translations/byTechnology?
 
 * * *
 
-## Abstract
+## 摘要
 
-This document specifies the WOFF font packaging format. This format was designed to provide lightweight, easy-to-implement compression of font data, suitable for use with CSS @font-face rules. Any properly licensed TrueType/OpenType/Open Font Format file can be packaged in WOFF format for Web use. User agents decode the WOFF file to restore the font data such that it will display identically to the input font.
+本文档指定了 WOFF 字体的打包格式。这种格式旨在提供轻量级的、易于实现的字体数据压缩，适用于 CSS @ font-face 规则。任何获得许可的 TrueType/OpenType/Open 字体格式文件都可以打包成 WOFF 格式以在 Web 上使用。用户代理解码 WOFF 文件以恢复字体数据，使其显示时与输入的字体相同。
 
-The WOFF format also allows additional metadata to be attached to the file; this can be used by font designers or vendors to include licensing or other information, beyond that present in the original font. Such metadata does not affect the rendering of the font in any way, but may be displayed to the user on request.
+WOFF 格式还允许附加元数据到相关文件；字体设计人员或供应商可以使用此字体来包含许可或者其他信息，而不是原始字体中的信息。这样的元数据不会以任何方式影响字体的呈现，但可以根据需要向用户显示。
 
-The WOFF format is not intended to replace other formats such as TrueType/OpenType/Open Font Format or SVG fonts, but provides an alternative solution for use cases where these formats may be less optimal, or where licensing considerations make their use less acceptable.
+WOFF 格式并不准备取代其他格式，例如 TrueType/OpenType/Open Font Format 或 SVG 字体，但为使用这些格式可能不太理想的情况下提供了一种替代方案，或者为因许可方面的原因导致使用不太合适的情况下提供了替代方案。
 
-## Status of This Document
+## 本文档的状态
 
-This section describes the status of this document at the time of its publication. Other documents may supersede this document. A list of current W3C publications and the latest revision of this technical report can be found in the [W3C technical reports index](http://www.w3.org/TR/) at http://www.w3.org/TR/.
+本节介绍本文件发布时的状态。 其他文件可能会取代本文件。 当前的 W3C 出版物清单和此技术报告的最新版本可以在[W3C技术报告索引](http://www.w3.org/TR/) http://www.w3.org/TR/ 中找到。
 
-This is the W3C Recommendation of "WOFF File Format 1.0". This document has been reviewed by W3C Members, by software developers, and by other W3C groups and interested parties, and is endorsed by the Director as a W3C Recommendation. It is a stable document and may be used as reference material or cited from another document. W3C's role in making the Recommendation is to draw attention to the specification and to promote its widespread deployment. This enhances the functionality and interoperability of the Web.
+这是“ WOFF 文件格式1.0 ”的 W3C 推荐标准。 本文档已由 W3C 会员，软件开发人员以及其他 W3C 团体和有关各方进行了审核，并由署长确认为 W3C 的推荐标准。 它是一个稳定的文件，可以用作参考资料或由其他文件引用。 W3C 在制定建议书时的角色是引起对规范的关注并促进其广泛部署。 这增强了Web的功能和互操作性。
+W3C在制定推荐标准时的角色是引起对规范的关注并促进其广泛部署。这增强了 Web 的功能性和互操作性。
 
-Please send comments about this document to [www-font@w3.org](mailto:www-font@w3.org) (with [public archive](http://lists.w3.org/Archives/Public/www-font/)).
+请将有关本文档的意见发送至[www-font@w3.org](mailto:www-font@w3.org)（在[public archive](http://lists.w3.org/Archives/Public/www-font/)可查看）。
 
-This specification has been edited, relative to the [11 October 2011 Proposed Recommendation](http://www.w3.org/TR/2012/PR-WOFF-20121011/), to incorporate minor changes to the Internet Media Type registration, as a result of IANA expert review. There is a [changes appendix](#changes) describing the changes made.
+相对于[2011年10月11日提议的推荐标准](http://www.w3.org/TR/2012/PR-WOFF-20121011/)，本规范已经进行了编辑，纳入了对互联网媒体类型注册的微小更改,这是 IANA 专家审核的结果。 [更改附录](#changes)描述了所做的更改。
 
-The CR exit criteria were:
+CR退出标准是：
 
-1.  Sufficient reports of implementation experience have been gathered to demonstrate that the “WOFF File Format 1.0” syntax and features are implementable and are interpreted in a consistent manner. To do so, the Working Group would insure that all features have been implemented in at least two implementation in an interoperable way.
-2.  The implementations have been developed independently.
+1. 已经收集了足够的实施经验报告来证明“ WOFF文件格式1.0 ”的语法和特征是可实施的并且以一致的方式解释。 为此，工作组将确保所有功能都至少以两种实现方式以可互操作的方式实施。
 
-The Working Group has developed public test suites as follows:
+2. 这些实现是独立开发的。
 
-*   [User Agent tests](http://dev.w3.org/webfonts/WOFF/tests/UserAgent/Tests/xhtml1/testcaseindex.xht)
+
+工作组制定了如下公共测试程序组：
+
+*  [用户代理测试](http://dev.w3.org/webfonts/WOFF/tests/UserAgent/Tests/xhtml1/testcaseindex.xht)
+
+*  [创作工具测试](http://dev.w3.org/webfonts/WOFF/tests/AuthoringTool/Tests/xhtml1/testcaseindex.xht)
+
+*  测试[文件格式本身](http://dev.w3.org/webfonts/WOFF/tests/Format/Tests/xhtml1/testcaseindex.xht)的数据
     
-*   [Authoring Tool tests](http://dev.w3.org/webfonts/WOFF/tests/AuthoringTool/Tests/xhtml1/testcaseindex.xht)
-    
-*   Test data for [the file format itself](http://dev.w3.org/webfonts/WOFF/tests/Format/Tests/xhtml1/testcaseindex.xht)
-    
 
-A [WOFF validator](http://dev.w3.org/webfonts/WOFF/tools/validator/) was developed, to make all the file format checks indicated in the specification. The validator passes 100% of these tests. The new W3C Test Harness was used to deploy the tests: [Authoring Tools test harness](http://www.w3c-test.org/framework/suite/woff-at/) and [User Agent test harness](http://www.w3c-test.org/framework/suite/woff-ua/).
+开发了一个[ WOFF 验证器](http://dev.w3.org/webfonts/WOFF/tools/validator/)，以进行规范中指明的所有文件格式的检查。 验证器通过了100%的测试。 新的 W3C 测试工具用于部署以下测试：[创作工具测试工具](http://www.w3c-test.org/framework/suite/woff-at/)和[用户代理测试工具](http://www.w3c-test.org/framework/suite/woff-ua/)。
 
-The [User Agents implementation report](http://w3c-test.org/framework/review/woff-ua/) and [Authoring Tools implementation report](http://w3c-test.org/framework/review/woff-at/) are available.
+[用户代理实施报告](http://w3c-test.org/framework/review/woff-ua/)和[创作工具实施报告](http://w3c-test.org/framework/review/woff-at/)是可用的。
 
-This document was initially developed by contributors to the [www-font@w3.org](mailto:www-font@w3.org) mailing list. After trial implementation, it became the [WOFF Submission](http://www.w3.org/Submission/2010/SUBM-WOFF-20100408/) and was further developed by the [WebFonts Working Group](http://www.w3.org/Fonts/WG/) at W3C.
+本文档最初由[www-font@w3.org](mailto:www-font@w3.org) 邮件列表的贡献者撰写。 试用后，它成为 [WOFF 提交](http://www.w3.org/Submission/2010/SUBM-WOFF-20100408/)的内容，并由W3C的 [WebFonts工作组](http://www.w3.org/Fonts/WG/)进一步开发。
 
-This document was produced by a group operating under the [5 February 2004 W3C Patent Policy](http://www.w3.org/Consortium/Patent-Policy-20040205/). W3C maintains a [public list of any patent disclosures](http://www.w3.org/2004/01/pp-impl/44556/status) made in connection with the deliverables of the group; that page also includes instructions for disclosing a patent. An individual who has actual knowledge of a patent which the individual believes contains [Essential Claim(s)](http://www.w3.org/Consortium/Patent-Policy-20040205/#def-essential) must disclose the information in accordance with [section 6 of the W3C Patent Policy](http://www.w3.org/Consortium/Patent-Policy-20040205/#sec-Disclosure).
+本文档由 [2004 年 2 月 5 日 W3C 专利政策](http://www.w3.org/Consortium/Patent-Policy-20040205/)下运营的小组编制。 W3C保留与工作组交付内容有关的[任何专利公开清单](http://www.w3.org/2004/01/pp-impl/44556/status); 该页面还包括披露专利的说明。具有专利实际知识的个人认为其包含[基本要求](http://www.w3.org/Consortium/Patent-Policy-20040205/#def-essential) ，必须根据 [W3C 专利政策第 6 部分](http://www.w3.org/Consortium/Patent-Policy-20040205/#sec-Disclosure)披露信息。
 
 ## 1. Introduction
 
