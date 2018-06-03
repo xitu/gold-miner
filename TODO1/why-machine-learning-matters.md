@@ -11,7 +11,7 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*Vkf6A8Mb0wBoL3Fw1u0paA.jpeg)
 
-**[更新于 9/1/17]**这个系列已经有完整的电子书了！[下载地址](https://www.dropbox.com/s/e38nil1dnl7481q/machine_learning.pdf?dl=0)。
+**[更新于 9/1/17]** 这个系列已经有完整的电子书了！[下载地址](https://www.dropbox.com/s/e38nil1dnl7481q/machine_learning.pdf?dl=0)。
 
 ### 导览
 
