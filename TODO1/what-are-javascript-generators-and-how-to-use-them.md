@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/what-are-javascript-generators-and-how-to-use-them.md](https://github.com/xitu/gold-miner/blob/master/TODO1/what-are-javascript-generators-and-how-to-use-them.md)
 > * 译者：[lsvih](https://github.com/lsvih)
-> * 校对者：
+> * 校对者：[zhongdeming428](https://github.com/zhongdeming428)
 
 # 什么是 JavaScript 生成器？如何使用生成器？
 
@@ -44,7 +44,7 @@ genForLoop.next(); // 3
 genForLoop.next(); // 4
 ```
 
-它做了什么？它实际上只是对上面例子中的 for 循环做了一点改动，但产生了很大的变化。这种变化是由于生成器最重要的特性造成的 - 只有在需要的时候它才会产生下一个值，而不会一次性产生所有的值。在某些情景下，这种特性十分方便。
+它做了什么？它实际上只是对上面例子中的 for 循环做了一点改动，但产生了很大的变化。这种变化是由于生成器最重要的特性造成的 —— 只有在需要的时候它才会产生下一个值，而不会一次性产生所有的值。在某些情景下，这种特性十分方便。
 
 ### 生成器语法
 
@@ -234,7 +234,7 @@ gen.next(); // {value: 3, done: false}
 gen.next(); // {value: undefined, done: true} 之后所有的 next 调用都会返回同样的输出
 ```
 
-这是最常用的方法。它会在被调用时每次返回一个 next 对象。在生成器工作结束时，`next()` 会将 `done` 属性设为 `true`，`value` 属性设为 `undefined`。
+这是最常用的方法。它每次被调用时都会返回下一个对象。在生成器工作结束时，`next()` 会将 `done` 属性设为 `true`，`value` 属性设为 `undefined`。
 
 我们不仅可以用 `next()` 来迭代生成器，还可以用 `for of` 循环来一次得到生成器所有的值（而不是对象）。
 
@@ -273,7 +273,7 @@ gen.next(); // {value: undefined, done: true} - 在 return() 之后的所有 nex
 
 ```
 
-`return()` 将会忽略生成器中的任何代码。它会根据传值设定 `value`，并将 `done` 设为 `true`。任何在 `return()` 之后进行的 `next()` 调用都会返回 done 对象。
+`return()` 将会忽略生成器中的任何代码。它会根据传值设定 `value`，并将 `done` 设为 `true`。任何在 `return()` 之后进行的 `next()` 调用都会返回 `done`　属性为　`true`　的对象。
 
 **throw() 方法**
 
@@ -290,7 +290,7 @@ gen.throw('Something bad'); // 会报错 Error Uncaught Something bad
 gen.next(); // {value: undefined, done: true}
 ```
 
-`throw()` 做的事非常简单 - 就是抛出错误。我们可以用 `try-catch` 来处理。
+`throw()` 做的事非常简单 —— 就是抛出错误。我们可以用 `try-catch` 来处理。
 
 #### 自定义方法的实现
 
@@ -408,3 +408,4 @@ btn.addEventListener('click', (el) => {
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
+
