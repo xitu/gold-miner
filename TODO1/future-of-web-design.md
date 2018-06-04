@@ -2,46 +2,46 @@
 > * 原文作者：[Zell](https://www.smashingmagazine.com/author/zellliew)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/future-of-web-design.md](https://github.com/xitu/gold-miner/blob/master/TODO1/future-of-web-design.md)
-> * 译者：
-> * 校对者：
+> * 译者：[sophia](https://github.com/sophiayang1997)
+> * 校对者：[kezhenxu94](https://github.com/kezhenxu94/) [hannahGu](https://github.com/hannahGu)
 
-# New CSS Features That Are Changing Web Design
+# 新的 CSS 特性正在改变网页设计
 
-Today, the design landscape has changed completely. We’re equipped with new and powerful tools — CSS Grid, CSS custom properties, CSS shapes and CSS writing-mode, to name a few — that we can use to exercise our creativity. Zell Liew explains how.
+如今，网页设计的风貌已经完全改变。我们拥有又新潮又强大的工具 —— CSS 网格/栅格（CSS Grid），CSS 自定义属性（CSS custom properties），CSS 图形（CSS shapes）和 CSS 写作模式（CSS writing-mode），这里仅举此几例 —— 这些都可以被用来锻炼我们的创造力。本文作者 Zell Liew 将解释如何用它们来锻炼我们的创造力。
 
-There was a time when web design got monotonous. Designers and developers built the same kinds of websites over and over again, so much so that we were mocked by people in our own industry for creating only two kinds of websites:
+曾经有一段时间网页设计变得单调乏味。设计师们和开发者们一次又一次地构建相同类型的网站，以至于我们被本行业的人嘲笑只会创建两种类型的网站：
 
 ![](https://i.loli.net/2018/05/23/5b052472069ff.png)
 
-Is this the limit of what our “creative” minds can achieve? This thought sent an incontrollable pang of sadness into my heart.
+这难道是我们的“创造性”思维可以实现的最大限度吗？这种想法让我感到一阵无法控制的悲伤。
 
-I don’t want to admit it, but maybe that was the best we could accomplish back then. Maybe we didn’t have suitable tools to make creative designs. The demands of the web were evolving quickly, but we were stuck with ancient techniques like floats and tables.
+我不想承认这一点，但这也许是我们当时能完成的最好作品。也许是因为我们没有合适的工具去进行创意设计导致的。网络的需求正在迅速发展，但我们被浮动（floats）和表格（tables）这些古老的技术所局限。
 
-Today, the design landscape has changed completely. We’re equipped with new and powerful tools — CSS Grid, CSS custom properties, CSS shapes and CSS `writing-mode`, to name a few — that we can use to exercise our creativity.
+如今，网页设计的风貌已经完全改变。我们拥有又新潮又强大的工具 —— CSS 网格（CSS Grid），CSS 自定义属性（CSS custom properties），CSS 图形（CSS shapes）和 CSS 写作模式（CSS writing-mode），我们可以用仅举的这几项工具来锻炼我们的创造力。
 
-### How CSS Grid Changed Everything
+### CSS 网格（CSS Grid）如何改变一切
 
-Grids are essential for web design; you already knew that. But have you stopped to asked yourself how you designed the grid you mainly use?
+你早就已经知道网格对于网页设计至关重要。但是你是否停下来问问自己，你主要使用网格去如何设计网页？
 
-Most of us haven’t. We use the 12-column grid that has became a standard in our industry.
+我们大多数的人都没有思考这个问题。我们通常习惯使用已经成为我们行业标准的 12 列网格。
 
-*   But why do we use the same grid?
-*   Why are grids made of 12 columns?
-*   Why are our grids sized equally?
+*   但为什么我们使用相同的网格？
+*   为什么网格由 12 列组成？
+*   为什么我们的网格大小相等？
 
-Here’s one possible answer to why we use the same grid: **We don’t want to do the math**.
+我们使用相同网格的理由可能是：**我们并不想计算**。
 
-In the past, with float-based grids, to create a three-column grid, you needed to calculate the width of each column, the size of each gutter, and how to position each grid item. Then, you needed to create classes in the HTML to style them appropriately. It was [quite complicated](https://zellwk.com/blog/responsive-grid-system/).
+过去，在基于浮动的的网格中去创建一个三列网格。你需要计算每列的宽度，每个间隔的大小以及如何去放置这些网格项。然后，你需要在 HTML 中创建类（classes）以适当地设置它们的样式。这样做[非常复杂](https://zellwk.com/blog/responsive-grid-system/)。
 
-To make things easier, we adopted grid frameworks. In the beginning, frameworks such as [960gs](https://960.gs) and [1440px](https://1440px.com) allowed us to choose between 8-, 9-, 12- and even 16-column grids. Later, Bootstrap won the frameworks war. Because Bootstrap allowed only 12 columns, and changing that was a pain, we eventually settled on 12 columns as the standard.
+为了让事情更简单，我们可以采用网格框架。一开始，[960gs](https://960.gs) 和 [1440px](https://1440px.com) 等框架允许我们选择 8、9、12 甚至 16 列的网格。后来，Bootstrap 在这场框架大战之中胜出。由于 Bootstrap 值仅允许网格 12 列，并且想要改变这个规则是非常痛苦的过程，因此我们最终以 12 列作为网格标准。
 
-But we shouldn’t blame Bootstrap. It was the best approach back then. Who wouldn’t want a good solution that works with minimal effort? With the grid problem settled, we turned our attention to other aspects of design, such as typography, color and accessibility.
+但我们不应该责怪 Bootstrap。那是当时最好的办法。谁不想要一个能够以最小的努力工作就可以获得的优良解决方案？随着网格的问题解决，我们将注意力转移到设计的其他方面，例如排版、颜色和可访问性。
 
-Now, with the **advent of CSS Grid, grids have become much simpler**. We no longer have to fear grid math. It’s become so simple that I would argue that creating a grid is easier with CSS than in a design tool such as Sketch!
+现在，随着 **CSS Grid 的出现，网格变得更加简单**。我们不再需要担心网格中遇到的复杂计算。这些工作变得非常简单，以至于我认为使用 CSS 创建网格比使用 Sketch 等设计工具更加容易！
 
-Why?
+为什么呢？
 
-Let’s say you want to make a 4-column grid, each column sized at 100 pixels. With CSS Grid, you can write `100px` four times in the `grid-template-columns` declaration, and a 4-column grid will be created.
+假设你想制作一个 4 列的网格，每列的大小为 100 像素。使用 CSS 网格，你可以在 `grid-template-columns` 声明中写四次 `100px`，之后一个 4 列网格就会被创建。
 
 ```
 .grid {
@@ -51,11 +51,11 @@ Let’s say you want to make a 4-column grid, each column sized at 100 pixels. W
 }
 ```
 
-[![Screenshot of Firefox's grid inspector that shows four columns.](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/9287f25c-75f8-456b-9f22-b3190802d543/future-web-design-grid-four.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/9287f25c-75f8-456b-9f22-b3190802d543/future-web-design-grid-four.png) 
+[![Screenshot of Firefox's grid inspector that shows four columns.](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/9287f25c-75f8-456b-9f22-b3190802d543/future-web-design-grid-four.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/9287f25c-75f8-456b-9f22-b3190802d543/future-web-design-grid-four.png)
 
-You can create four grid columns by specifying a column-width four times in `grid-template-columns`.
+你可以通过在 `grid-template-columns` 中指定四次列宽来创建四个网格列。
 
-If you want a 12-column grid, you just have to repeat `100px` 12 times.
+如果你想要一个 12 列的网格，你只需要重复 `100px` 12 次。
 
 ```
 .grid {
@@ -67,11 +67,11 @@ If you want a 12-column grid, you just have to repeat `100px` 12 times.
 
 [![Screenshot of Firefox's grid inspector that shows twelve columns.](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/61ab598a-9c0d-4d81-a624-3fbca4dfb6b2/future-web-design-grid-twelve.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/61ab598a-9c0d-4d81-a624-3fbca4dfb6b2/future-web-design-grid-twelve.png) 
 
-Creating 12 columns with CSS Grid.
+使用 CSS Grid 创建 12 列网格。
 
-Yes, the code isn’t beautiful, but we’re not concerned with optimizing for code quality (yet) — we’re still thinking about design. CSS Grid makes it so easy for anyone — even a designer without coding knowledge — to create a grid on the web.
+如你所见，这段代码并不优雅，但我们（暂时还）并不关心优化代码质量，我们优先考虑设计方面的。对于任何人来说，CSS Grid 都很容易，即使是没有编码知识的设计师，也可以在网络上创建网格。
 
-If you want to create grid columns with different widths, you just have to specify the desired width in your `grid-template-columns` declaration, and you’re set.
+如果你想要创建具有不同宽度的网格列，只需在 `grid-template-columns` 声明中指定所需的宽度，就搞定了。
 
 ```
 .grid {
@@ -83,13 +83,13 @@ If you want to create grid columns with different widths, you just have to speci
 
 [![Screenshot of Firefox's grid inspector that shows three colums of different width.](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/6be83c78-9646-4c17-8d74-a3ffa55c13e1/future-web-design-grid-asym.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/6be83c78-9646-4c17-8d74-a3ffa55c13e1/future-web-design-grid-asym.png) 
 
-Creating columns of different widths is easy as pie.
+创建不同宽度的列也是小菜一碟。
 
-#### Making Grids Responsive
+#### 使网格具有响应性
 
-No discussion about CSS Grid is complete without talking about the responsive aspect. There are several ways to make CSS Grid responsive. One way (probably the most popular way) is to use the `fr` unit. Another way is to change the number of columns with media queries.
+在关于 CSS 网格的讨论中，没有不讨论其响应性的。有几种方法可以使 CSS Grid 具有响应性。一种方式（可能是最流行的方式）是使用 `fr` 单位。另一种方法是更改媒体查询的列数。
 
-`fr` is a flexible length that represents a fraction. When you use the `fr` unit, browsers divide up the open space and allocate the areas to columns based on the `fr` multiple. This means that to create four columns of equal size, you would write `1fr` four times.
+`fr` 是代表一个片段的灵活长度单位。当你使用 `fr` 单位时，浏览器会分割开放空间并根据 `fr` 倍数将区域分配给列。这意味着要创建四个相同大小的列，你需要写四次 `1fr`。
 
 ```
 .grid {
@@ -101,41 +101,41 @@ No discussion about CSS Grid is complete without talking about the responsive as
 
 [![GIF shows four columns created with the fr unit. These columns resize according to the available white space](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/f12ee9f9-e577-4e2a-8173-f8c6fddff213/future-web-design-grid-fr.gif)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/f12ee9f9-e577-4e2a-8173-f8c6fddff213/future-web-design-grid-fr.gif)
 
-Grids created with the `fr` unit respect the maximum width of the grid. ([Large preview](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/f12ee9f9-e577-4e2a-8173-f8c6fddff213/future-web-design-grid-fr.gif))
+用 `fr` 单位创建的网格遵守网格的最大宽度。（[大图预览](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/f12ee9f9-e577-4e2a-8173-f8c6fddff213/future-web-design-grid-fr.gif)）
 
-**Let’s do some calculations to understand why four equal-sized columns are created**.
+**让我们做一些计算来理解为什么以上代码创建四个相等大小的列**。
 
-First, let’s assume the total space available for the grid is `1260px`.
+首先，我们假设网格的总可用空间为 `1260px`。
 
-Before allocating width to each column, CSS Grid needs to know how much space is available (or leftover). Here, it subtracts `grip-gap` declarations from `1260px`. Since each gap `20px`, we’re left with `1200px` for the available space. `(1260 - (20 * 3) = 1200)`.
+在为每列分配宽度之前，CSS Grid 需要知道有多少可用空间（或剩余空间）。在这里，它从 `1260px` 减去 `grip-gap` 声明。由于每个间隙 `20px`，我们剩下 `1200px` 的可用空间。`（1260 - （20 * 3）= 1200）`。
 
-Next, it adds up the `fr` multiples. In this case, we have four `1fr` multiples, so browsers divide `1200px` by four. Each column is thus `300px`. This is why we get four equal columns.
+接下来，将 `fr` 倍数考虑进来。在这个例子里面，我们有四个 `1fr` 倍数，所以浏览器将 `1200px` 除以四。每列是 300 px。这就是为什么我们得到四个相等的列。
 
-**However, grids created with the `fr` unit aren’t always equal**!
+**但是，使用 `fr` 单元创建的网格并不总是相等的**！
 
-When you use `fr`, you need to be aware that each `fr` unit is a fraction of the available (or leftover) space.
+当你使用 `fr` 时，你需要知道每个 `fr` 单位是可用（或剩余）空间的一个小片段。
 
-If you have an element that is wider than any of the columns created with the `fr` unit, the calculation needs to be done differently.
+如果你的元素比使用 `fr` 单位创建的任何列都要宽，则需要以不同的方式进行计算。
 
-For example, the grid below has one large column and three small (but equal) columns even though it’s created with `grid-template-columns: 1fr 1fr 1fr 1fr`.
+例如，下面例子中的网格具有一个大列和和三个小（但相等的）列，即使它是使用 `grid-template-columns: 1fr 1fr 1fr 1fr` 创建的。
 
-See the Pen [CSS Grid `fr` unit demo 1](https://codepen.io/zellwk/pen/vjWQep/) by Zell Liew ([@zellwk](https://codepen.io/zellwk)) on [CodePen](https://codepen.io).
+请参阅 [CodePen](https://codepen.io) 上 Zell Liew（[@zellwk](https://codepen.io/zellwk)）的 [CSS Grid `fr` unit demo 1](https://codepen.io/zellwk/pen/vjWQep/)。
 
-After splitting `1200px` into four and allocating `300px` to each of the `1fr` columns, browsers realize that the first grid item contains an image that is `1000px`. Since `1000px` is larger than `300px`, browsers choose to allocate `1000px` to the first column instead.
+将 `1200px` 分成四部分并为每个 `1fr` 列分配 `300px` 的区域后，浏览器意识到第一个网格项包含 `1000px` 的图像。由于 `1000px` 大于 `300px`，浏览器会选择将 `1000px` 分配给第一列。
 
-That means, we need to recalculate leftover space.
+这意味着，我们需要重新计算剩余空间。
 
-The new leftover space is `1260px - 1000px - 20px * 3 = 200px`; this `200px` is then divided by three according to the amount of leftover fractions. Each fraction is then `66px`. Hopefully that explains why `fr` units do not always create equal-width columns.
+新的剩余空间是 `1260px - 1000px - 20px * 3 = 200px`；然后根据剩余部分的数量将这 `200px` 除以三。每个部分是 `66px`。我希望这能够解释为什么 `fr` 单位不总是创建等宽列。
 
-If you want the `fr` unit to create equal-width columns everytime, you need to force it with `minmax(0, 1fr)`. For this specific example, you’ll also want to set the image’s `max-width` property to 100%.
+如果你希望 `fr` 单位每次都创建等宽列，则需要使用 `minmax(0, 1fr)` 去强制指定它。对于此特定示例，你还需要将图像的 `max-width` 属性设置为 100%。
 
-See the Pen [CSS Grid `fr` unit demo 2](https://codepen.io/zellwk/pen/mxyXOm/) by Zell Liew ([@zellwk](https://codepen.io/zellwk)) on [CodePen](https://codepen.io).
+请参阅 [CodePen](https://codepen.io) 上 Zell Liew（[@zellwk](https://codepen.io/zellwk)）的 [CSS Grid `fr` unit demo 2](https://codepen.io/zellwk/pen/mxyXOm/)
 
-**Note**: Rachel Andrew has written an amazing [article](https://www.smashingmagazine.com/2018/01/understanding-sizing-css-layout/) on how different CSS values (min-content, max-content, fr, etc.) affect content sizes. It’s worth a read!
+**注意**：Rachel Andrew 撰写了一篇关于不同 CSS 值（min-content、max-content 和 fr 等）如何影响内容大小的[文章](https://www.smashingmagazine.com/2018/01/understanding-sizing-css-layout/)。这篇文章值得一读！ 
 
-#### Unequal-Width Grids
+#### 不等宽网格
 
-To create grids with unequal widths, you simply vary the fr multiple. Below is a grid that follows the golden ratio, where the second column is 1.618 times of the first column, and the third column is 1.618 times of the second column.
+只需更改 fr 倍数，就可以创建宽度不等的网格。下面是一个遵循黄金比例的网格，其中第二列是第一列的 1.618 倍，第三列是第二列的 1.618 倍。
 
 ```
 .grid {
@@ -147,11 +147,11 @@ To create grids with unequal widths, you simply vary the fr multiple. Below is a
 
 [![GIF shows a three-column grid created with the golden ratio. When the browser is resized, the columns resize accordingly.](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/18f3c1ee-74f1-4bdc-b747-1019285f671b/future-web-design-grid-fr-asym.gif)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/18f3c1ee-74f1-4bdc-b747-1019285f671b/future-web-design-grid-fr-asym.gif) 
 
-A three-column grid created with the golden ratio.
+用黄金比例创建的三列网格。
 
-#### Changing Grids At Different Breakpoints
+#### 在不同的断点改变网格
 
-If you want to change the grid at different breakpoints, you can declare a new grid within a media query.
+如果你想要在不同的断点处更改网格，则可以在媒体查询中声明新的网格。
 
 ```
 .grid {
@@ -167,73 +167,73 @@ If you want to change the grid at different breakpoints, you can declare a new g
 }
 ```
 
-Isn’t it easy to create grids with CSS Grid? Earlier designers and developers would have killed for such a possibility.
+使用 CSS Grid 创建网格很难吗？要是产品经理知道是这么简单的话，设计师和开发人员早就被干掉了。
 
-#### Height-Based Grids
+#### 基于高度的网格
 
-It was impossible to make grids based on the height of a website previously because there wasn’t a way for us to tell how tall the viewport was. Now, with viewport units, CSS Calc, and CSS Grid, we can even make grids based on viewport height.
+之前根据网站的高度来制作网格是不可能的，因为我们没有办法获取视口的高度。现在，通过视口单元（viewport units）、CSS Calc 和 CSS Grid，我们甚至可以根据视口高度制作网格。
 
-In the demo below, I created grid squares based on the height of the browser.
+在下面的演示中，我根据浏览器的高度创建了网格方形。
 
-See the Pen [Height based grid example](https://codepen.io/zellwk/pen/qoEYaL/) by Zell Liew ([@zellwk](https://codepen.io/zellwk)) on [CodePen](https://codepen.io).
+请参阅 [CodePen](https://codepen.io) 上 Zell Liew（[@zellwk](https://codepen.io/zellwk)）的 [Height based grid example](https://codepen.io/zellwk/pen/qoEYaL/)。
 
-Jen Simmons has a great video that talks about [desgining for the fourth edge](https://www.youtube.com/watch?v=dQHtT47eH0M&feature=youtu.be) — with CSS Grid. I highly recommend you watch it.
+Jen Simmons 有一个很棒的视频，讲述了[四维空间设计](https://www.youtube.com/watch?v=dQHtT47eH0M&feature=youtu.be) —— 使用 CSS Grid。我强烈建议你去看看。
 
-#### Grid Item Placement
+#### 网格项的放置
 
-Positioning grid items was a big pain in the past because you had to calculate the `margin-left` property.
+在过去，定位网格项是一种很大的痛苦，因为你必须计算 `margin-left` 属性。
 
-Now, with CSS Grid, you can place grid items directly with CSS without the extra calculations.
+现在，使用 CSS Grid，你可以直接使用 CSS 放置网格项而无需额外的计算。 
 
 ```
 .grid-item {
-  grid-column: 2; /* Put on the second column */
+  grid-column: 2; /* 放在第二列 */
 }
 ```
 
 [![Screenshot of a grid item placed on the second column](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/bf790516-2d0d-4078-aac0-6a1d9357a74b/future-web-design-grid-placement.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/bf790516-2d0d-4078-aac0-6a1d9357a74b/future-web-design-grid-placement.png) 
 
-Placing an item on the second column.
+在第二列放置一个项目。
 
-You can even tell a grid item how many columns it should take up with the `span` keyword.
+你甚至可以通过 `span` 关键字告诉网格项应该占用多少列。
 
 ```
 .grid-item {
-  /* Put in the second column, span 2 columns */
+  /* 放在第二列，跨越 2 列 */
   grid-column: 2 / span 2;
 }
 ```
 
 [![Screenshot of a grid item that's placed on the second column. It spans two columns](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/a66e3449-3bd9-40ff-8fe2-6116c0939d77/future-web-design-grid-placement-span.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/a66e3449-3bd9-40ff-8fe2-6116c0939d77/future-web-design-grid-placement-span.png) 
 
-You can tell grid items the number of columns (or even rows) they should occupy with the `span` keyword.
+你可以使用 `span` 关键字来告诉网格项应该占用的列数（或行数）。
 
-#### Inspirations
+#### 启示
 
-CSS Grid enables you to lay things out so easily that you can create a lot of variations of the same website quickly. One prime example is [Lynn Fisher’s personal home page](https://lynnandtonic.com).
+CSS Grid 能够使你能够轻松地布置事物，以便你可以快速地创建许多同一网站的不同变体。一个最好的例子是 [Lynn Fisher 的个人主页](https://lynnandtonic.com)。
 
-If you’d like to find out more about what CSS Grid can do, check out [Jen Simmon’s lab](http://labs.jensimmons.com), where she explores how to create different kinds of layouts with CSS Grid and other tools.
+如果你想了解更多关于 CSS Grid 可以做什么的内容，请查看 [Jen Simmon 的实验室](http://labs.jensimmons.com)，在那里她将探索如何使用 CSS Grid 和其他工具创建不同类型的布局。
 
-To learn more about CSS Grid, check out the following resources:
+要了解关于 CSS Grid 的更多信息，请查看以下资源：
 
-*   [Master CSS Grid](http://mastercssgrid.com), Rachel Andrew and Jen Simmons
-    Video tutorials
-*   [Layout Land](https://www.youtube.com/channel/UC7TizprGknbDalbHplROtag), Jen Simmons
-    A series of videos about layout
-*   [CSS layout workshop](https://thecssworkshop.com), Rachel Andrew
-    A CSS layout course
-*   [Learn CSS Grid](https://learncssgrid.com), Jonathan Suh
-    A free course on CSS Grid.
-*   [Grid critters](https://geddski.teachable.com/p/gridcritters), Dave Geddes
-    A fun way to learn CSS Grid
+*   [Master CSS Grid](http://mastercssgrid.com)，Rachel Andrew 和 Jen Simmons
+    视频教程
+*   [Layout Land](https://www.youtube.com/channel/UC7TizprGknbDalbHplROtag)，Jen Simmons
+    关于布局的一系列视频
+*   [CSS layout workshop](https://thecssworkshop.com)，Rachel Andrew
+    一个 CSS 布局课程
+*   [Learn CSS Grid](https://learncssgrid.com)，Jonathan Suh
+    一个关于 CSS Grid 的免费课程
+*   [Grid critters](https://geddski.teachable.com/p/gridcritters)，Dave Geddes
+    一种学习 CSS Grid 的有趣方法
 
-### Designing With Irregular Shapes
+### 使用不规则形状进行设计
 
-We are used to creating rectangular layouts on the web because the CSS box model is a rectangle. Besides rectangles, we’ve also found ways to create simple shapes, such as triangles and circles.
+我们习惯于在网页上创建矩形布局，因为 CSS 盒子模型是一个矩形。除了矩形之外我们还找到了创建简单形状的方法，例如三角形和圆形。
 
-Today, we don’t need to stop there. With CSS shapes and `clip-path` at our disposal, we can create irregular shapes without much effort.
+今天，我们不需要因为创建不规则形状过于麻烦而止步不前。使用 CSS 形状和 `clip-path`，我们可以毫不费力地创建不规则的形状。
 
-For example, [Aysha Anggraini](https://twitter.com/RenettaRenula) experimented with a comic-strip-inspired layout with CSS Grid and `clip path`.
+例如，[Aysha Anggraini](https://twitter.com/RenettaRenula) 尝试使用 CSS Grid 和 `clip path` 创建一个 comic-strip-inspired 布局。
 
 ```
 <div class="wrapper">
@@ -328,73 +328,73 @@ For example, [Aysha Anggraini](https://twitter.com/RenettaRenula) experimented w
 }
 ```
 
-See the Pen [Comic-book-style layout with CSS Grid](https://codepen.io/rrenula/pen/LzLXYJ/) by Aysha Anggraini ([@rrenula](https://codepen.io/rrenula)) on [CodePen](https://codepen.io).
+请参阅 [CodePen](https://codepen.io) 上 Aysha Anggraini（[@rrenula](https://codepen.io/rrenula)）的 [Comic-book-style layout with CSS Grid](https://codepen.io/rrenula/pen/LzLXYJ/)。
 
-[Hui Jing](https://twitter.com/hj_chen) explains how to use CSS shapes in a way that [allows text to flow](https://www.chenhuijing.com/blog/why-you-should-be-excited-about-css-shapes/) along the Beyoncé curve.
+[Hui Jing](https://twitter.com/hj_chen) 解释了如何使用 CSS 形状，[使文本能够沿着碧昂丝的曲线流动](https://www.chenhuijing.com/blog/why-you-should-be-excited-about-css-shapes/)。
 
 [![An image of Huijing's article, where text flows around Beyoncé.](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/e2b60894-b7dd-41ac-94dd-b87a6bdf3cbc/future-web-design-beyonce.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/e2b60894-b7dd-41ac-94dd-b87a6bdf3cbc/future-web-design-beyonce.png) 
 
-Text can flow around Beyoncé if you wanted it to!
+如果你愿意，文本可以在碧昂丝周围流动！
 
-If you’d like to dig deeper, [Sara Soueidan](https://twitter.com/SaraSoueidan) has an article to help you [create non-rectangular layouts](https://www.sarasoueidan.com/blog/css-shapes/).
+如果你想深入挖掘，[Sara Soueidan](https://twitter.com/SaraSoueidan) 的文章可以帮助你[创建非矩形布局](https://www.sarasoueidan.com/blog/css-shapes/)。
 
-CSS shapes and `clip-path` give you infinite possibilities to create custom shapes unique to your designs. Unfortunately, syntax-wise, CSS shapes and `clip-path` aren’t as intuitive as CSS Grid. Luckily, we have tools such as [Clippy](https://bennettfeely.com/clippy/) and [Firefox’s Shape Path Editor](https://developer.mozilla.org/en-US/docs/Tools/Page_Inspector/How_to/Edit_CSS_shapes) to help us create the shapes we want.
+CSS 形状和 `clip-path` 为你提供无限的可能性来创建属于你设计的且独一无二的自定义形状。不幸的是，在语法上，CSS 形状和 `clip-path` 并不像 CSS Grid 那么直观。 幸运的是，我们有诸如 [Clippy](https://bennettfeely.com/clippy/) 和 [Firefox’s Shape Path Editor](https://developer.mozilla.org/en-US/docs/Tools/Page_Inspector/How_to/Edit_CSS_shapes) 来帮助我们创建我们想要的形状。
 
 [![Image of Clippy, a tool to help you create custom CSS shapes](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/1c101607-4aac-4fa9-a968-62a33133331c/future-web-design-clippy.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/1c101607-4aac-4fa9-a968-62a33133331c/future-web-design-clippy.png) 
 
-Clippy helps you create custom shapes easily with `clip-path`.
+Clippy 可帮助你使用 `clip-path` 轻松创建自定义形状。 
 
-### Switching Text Flow With CSS’ `writing-mode`
+###  使用 CSS 的 `writing-mode` 切换文本流
 
-We’re used to seeing words flow from left to right on the web because the web is predominantly made for English-speaking folks (at least that’s how it started).
+我们习惯于在网络上看到从左到右的文字排版，因为网络一开始主要是为讲英语的人们制作的。
 
-But some languages don’t flow in that direction. For example, Chinese words can read top down and right to left.
+但有些语言不是朝这个方向进行文字排版的。例如，中文可以自上而下阅读，也可以从右到左阅读。
 
-CSS’ `writing-mode` makes text flow in the direction native to each language. Hui Jing experimented with a Chinese-based layout that flows top down and right to left on a website called [Penang Hokkien](http://penang-hokkien.gitlab.io). You can read more about her experiment in her article, “[The One About Home](https://www.chenhuijing.com/blog/the-one-about-home/#🏀)”.
+CSS 的 `writing-mode` 可以使文本按照每种语言原生的方向流动。Hui Jing 尝试了一种中国式布局，在一个名为 [Penang Hokkien](http://penang-hokkien.gitlab.io) 的网站上自上而下，从右到左流动。你可以在她的文章“[The One About Home](https://www.chenhuijing.com/blog/the-one-about-home/#🏀)”中阅读更多关于她的实验。
 
-Besides articles, Hui Jing has a great talk on typography and `writing-mode`, “[When East Meets West: Web Typography and How It Can Inspire Modern Layouts](https://www.youtube.com/watch?v=Tqxo269aORM)”. I highly encourage you to watch it.
+除了文章之外，Hui Jing 在排版和 `writing-mode` 方面进行了精彩的演讲，“[When East Meets West: Web Typography and How It Can Inspire Modern Layouts](https://www.youtube.com/watch?v=Tqxo269aORM)”。我强烈建议你观看它。
 
 [![An image of the Penang Hokken, showcasing text that reads from top to bottom and right to left.](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/2f69df2b-18d2-4da4-8e44-22226ef0becd/future-web-design-penang-hokkien.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/2f69df2b-18d2-4da4-8e44-22226ef0becd/future-web-design-penang-hokkien.png) 
 
-Penang Hokkien shows that Chinese text can be written from top to bottom, right to left.
+槟城福建人（Penang Hokkien）表示中文文本可以从上到下，从右到左书写。
 
-Even if you don’t design for languages like Chinese, it doesn’t mean you can’t apply CSS’ `writing-mode` to English. Back in 2016, when I created [Devfest.asia](https://2016.devfest.asia/community/), I flexed a small creative muscle and opted to rotate text with `writing-mode`.
+即使你不设计像中文那样语言，也不意味着你无法将 CSS 的 `writing-mode` 应用于英文。早在2016年，当我创建 [Devfest.asia](https://2016.devfest.asia/community/) 时，我灵光一闪，选择使用 `writing-mode` 旋转文字。
 
 [![An image that shows how I rotated text in a design I created for Devfest.asia](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/70acafa4-5454-4257-bbdd-3f5fe18d3696/future-web-design-devfest.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/70acafa4-5454-4257-bbdd-3f5fe18d3696/future-web-design-devfest.png) 
 
-Tags were created by using writing mode and transforms.
+标签是使用 `writing-mode` 和转换创建的。
 
-[Jen Simmons’s lab](http://labs.jensimmons.com) contains many experiments with `writing-mode`, too. I highly recommend checking it out, too.
+[Jen Simmons 的实验室](http://labs.jensimmons.com) 也包含许多关于 `writing-mode` 的实验。我强烈建议你也看一下。
 
 [![An image from Jen Simmon's lab that shows a design from Jan Tschichold.](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/4f024681-c86e-4009-89aa-1ff379e71e8a/future-web-design-lab.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/4f024681-c86e-4009-89aa-1ff379e71e8a/future-web-design-lab.png) 
 
-An image from Jen Simmon's lab that shows Jan Tschichold.
+Jen Simmon 实验室的图片显示了 Jan Tschichold。
 
-### Effort And Ingenuity Go A Long Way
+### 努力和创造力能使人走得更远
 
-Even though the new CSS tools are helpful, you don’t need any of them to create unique websites. A little ingenuity and some effort go a long way.
+尽管新的 CSS 工具很有帮助，但你并不是一定需要它们中的任何一个才能创建独特的网站。一点点聪明才智和一些努力都需要走很长的路。
 
-For example, in [Super Silly Hackathon](https://supersillyhackathon.sg), [Cheeaun](https://twitter.com/cheeaun) rotates the entire website by -15 degrees and makes you look silly when reading the website.
+例如，在 [Super Silly Hackathon](https://supersillyhackathon.sg) 中，[Cheeaun](https://twitter.com/cheeaun) 将整个网站旋转 -15 度，当你在阅读网站时，你会看起来像个傻子。
 
 [![A screenshot from Super Silly Hackthon, with text slightly rotated to the left](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/e308a830-ba6a-431c-8e5d-c4128cad965a/future-web-design-supersilly.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/e308a830-ba6a-431c-8e5d-c4128cad965a/future-web-design-supersilly.png) 
 
-Cheeaun makes sure you look silly if you want to enter Super Silly Hackathon.
+如果你想进入 Super Silly Hackathon，Cheeaun 会确保你看起来很傻。
 
-[Darin Senneff](https://twitter.com/dsenneff) made an [animated login avatar](https://codepen.io/dsenneff/pen/QajVxO) with some trigonometry and GSAP. Look at how cute the ape is and how it covers its eyes when you focus on the password field. Lovely!
+[Darin Senneff](https://twitter.com/dsenneff) 制作了一个带有一些三角和 GSAP 的[动画登录头像](https://codepen.io/dsenneff/pen/QajVxO)。看看这只猿是多么的可爱，以及当你的鼠标光标位于密码框时它是如何遮住眼睛的。卡哇伊！
 
 ![](https://i.loli.net/2018/05/23/5b0528b7e755a.png)
 
-When I created the sales page for my course, [Learn JavaScript](https://learnjavascript.today), I added elements that make the JavaScript learner feel at home.
+当我为我的课程 [Learn JavaScript](https://learnjavascript.today) 创建销售页面时，我添加了让 JavaScript 学习者感到宾至如归的元素。 
 
 [![Image where I used JavaScript elements in the design for Learn JavaScript.](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/6b66f918-dc6f-4da1-870e-aa6b5ea8029c/future-web-design-learnjavascript.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/6b66f918-dc6f-4da1-870e-aa6b5ea8029c/future-web-design-learnjavascript.png) 
 
-I used the `function` syntax to create course packages instead of writing about course packages.
+我使用 `function` 语法来创建课程包，而不是普通地编写有关课程包的信息。
 
-### Wrapping Up
+### 总结
 
-A unique web design isn’t just about layout. It’s about how the design integrates with the content. With a little effort and ingenuity, all of us can create unique designs that speak to our audiences. The tools at our disposal today make our jobs easier.
+独特的网页设计不仅仅是布局设计，而是关于设计如何与内容整合。只需付出一点努力和创造性，我们所有人都可以创造独一无二的设计并广而告之，如今我们可以使用的工具让我们的工作更轻松。
 
-The question is, do you care enough to make a unique design? I hope you do.
+问题是，你是否足够在意制作出独一无二的设计呢？我希望你是。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
