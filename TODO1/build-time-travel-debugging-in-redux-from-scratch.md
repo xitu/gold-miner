@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/build-time-travel-debugging-in-redux-from-scratch.md](https://github.com/xitu/gold-miner/blob/master/TODO1/build-time-travel-debugging-in-redux-from-scratch.md)
 > * 译者：[老教授](https://juejin.im/user/58ff449a61ff4b00667a745c/posts)
-> * 校对者：
+> * 校对者：[DM.Zhong](https://github.com/zhongdeming428)、[da](https://github.com/sunhaokk)
 
 # 从零开始，在 Redux 中构建时间旅行式调试
 
