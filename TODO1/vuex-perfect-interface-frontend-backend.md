@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/vuex-perfect-interface-frontend-backend.md](https://github.com/xitu/gold-miner/blob/master/TODO1/vuex-perfect-interface-frontend-backend.md)
 > * 译者：[zhmhhu](https://github.com/zhmhhu)
-> * 校对者：
+> * 校对者：[sunui](https://github.com/sunui), [Teiyanana](https://github.com/Teiyanana)
 
 # 为什么 VueX 是前端与 API 之间的完美接口
 
@@ -19,7 +19,7 @@
 
 理想状态下，后端和前端将通过紧密的通信和谐共处，后端提供的数据将完全匹配前端所需的数据。
 
-实际上，应用程序的这两个部分通常由完全不同的团队甚至不同的公司开发。 在设计部门和前端部门之外建立一个专门的团队并不罕见，而你自己的团队正在进行后端开发。
+实际上，应用程序的这两个部分通常由完全不同的团队甚至不同的公司开发。在设计部门和前端部门之外建立一个专门的团队并不罕见，而你自己的团队正在进行后端开发。
 
 ### 典型解决方案
 
@@ -31,7 +31,7 @@
 这种方法存在的问题是双重的：
 
 1. 数据集成通常分散在整个应用程序中，需要跟踪并重新编写大量代码。
-2. 即使数据是相对独立的，前端期望与API最终提供的内容之间往往存在不匹配。 前端期望的数据与 API 最终返回的数据往往存在不匹配。
+2. 即使数据是相对独立的，前端期望与API最终提供的内容之间往往存在不匹配。前端期望的数据与 API 最终返回的数据往往存在不匹配。
 
 ### 更好的解决方案：VueX
 
@@ -49,7 +49,7 @@ VueX 是受 Flux，Redux 和 Elm 架构的启发下开发的状态管理库，�
 
 ## VueX 是如何工作的
 
-VueX 将状态管理分为 3 个关键部分：**state**，**mutations** 和 **actions**。 当你实例化一个 VueX store时，你可以定义这三个对象：
+VueX 将状态管理分为 3 个关键部分：**state**，**mutations** 和 **actions**。当你实例化一个 VueX store时，你可以定义这三个对象：
 
 ```
 const store = new Vuex.Store({
@@ -67,7 +67,7 @@ const store = new Vuex.Store({
 
 ### State
 
-State 代表实际数据本身。 这只是一个包含数据树的 JavaScript 对象。 在 VueX 中，您可以拥有单个全局状态树或按模块组织（例如用户状态树，产品状态树等）
+State 代表实际数据本身。 这只是一个包含数据树的 JavaScript 对象。在 VueX 中，您可以拥有单个全局状态树或按模块组织（例如用户状态树，产品状态树等）
 
 例如，我们可以使用这个状态树来跟踪我们当前的用户，如果用户没有登录，则从 null 开始：
 
@@ -79,7 +79,7 @@ state: {
 
 ### Mutations
 
-Mutations 是我们改变状态树的机制。 状态的所有变化**必须**通过 mutations 来实现，这使得 VueX 能够以可预测的方式管理状态。
+Mutations 是我们改变状态树的机制。状态的所有变化**必须**通过 mutations 来实现，这使得 VueX 能够以可预测的方式管理状态。
 
 一个关于 mutation 的例子也许是这样：
 
@@ -93,7 +93,7 @@ mutations: {
 
 Mutations 是**同步的**，并**直接**修改状态对象（比如，与 Redux 相比，有一个同等的概念称为 reducer 并返回一个 **new** 对象）。
 
-这种状态对象的同步、直接变化与 Vue 的响应式概念完美匹配。 VueX 状态对象是响应式的，所以这些变化向外延伸到所有的依赖。
+这种状态对象的同步、直接变化与 Vue 的响应式概念完美匹配。VueX 状态对象是响应式的，所以这些变化向外延伸到所有的依赖。
 
 你可以通过 `commit` 函数来调用一个 mutation：
 
@@ -105,7 +105,7 @@ store.commit('setCurrentUser', user);
 
 Actions 是 VueX 的最后一块，是**意图**和**修改**之间的中介。
 
-Actions是**异步的**，并且**间接地**通过`commititting` mutations 来修改 store。 但是，由于它们是异步的，因此它们可以做的远不止这些。
+Actions是**异步的**，并且**间接地**通过`commititting` mutations 来修改 store。但是，由于它们是异步的，因此它们可以做的远不止这些。
 
 异步允许 actions 处理诸如 API 调用，用户交互和整个 action 流程等事情。
 
@@ -121,7 +121,7 @@ actions: {
 }
 ```
 
-Actions 可以返回 promises，允许视图或其他代码分派 actions ，等待它们完成并根据其结果做出响应。你应该使用 `dispatch` 来分派一个 action 。而不是使用 `commit`。 例如，我们的调用代码可能如下所示：
+Actions 可以返回 promises，允许视图或其他代码分派 actions，等待它们完成并根据其结果做出响应。你应该使用 `dispatch` 来分派一个 action 。而不是使用 `commit`。例如，我们的调用代码可能如下所示：
 
 ```
 store.dispatch('login', credentials).then(() => {
@@ -163,7 +163,7 @@ actions: {
 }
 ```
 
-现在，我们的前端可以通过测试数据实现一种登录方式，这种登录方式在将来也是以**同样的**方式运行的，可以同时实现成功和失败的登录请求。 这种行为将**立即**发生，而不是通过 API 异步实现，但通过返回 promises ，现在任何调用者都可以像对待真正的 API 调用一样对待它。
+现在，我们的前端可以通过测试数据实现一种登录方式，这种登录方式在将来也是以**同样的**方式运行的，可以同时实现成功和失败的登录请求。这种行为将**立即**发生，而不是通过 API 异步实现，但通过返回 promises ，现在任何调用者都可以像对待真正的 API 调用一样对待它。
 
 当我们的 API 可用时，我们可以简单地修改这个 action 以使用它，并且我们的代码库中的其他所有内容都保持不变。
 
@@ -173,7 +173,7 @@ actions: {
 
 继续使用我们的登录示例，或许我们假设 API 将返回我们在登录时需要的所有用户信息，但是我们需要在通过身份验证后从单独的端点获取首选项，即使此格式与我们预期的格式不同
 
-我们可以将这种差异完全隔离在我们的 VueX 的 action 中，防止我们需要改变我们前端的其他任何地方。 由于 promises 可以链式调用和嵌套，我们可以在我们的行为被视为完成之前，通过一系列需要完成的 API 调用。
+我们可以将这种差异完全隔离在我们的 VueX 的 action 中，防止我们需要改变我们前端的其他任何地方。由于 promises 可以链式调用和嵌套，我们可以在我们的行为被视为完成之前，通过一系列需要完成的 API 调用。
 
 ```
 actions: {
