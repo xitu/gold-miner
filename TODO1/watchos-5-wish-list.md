@@ -2,72 +2,72 @@
 > * 原文作者：[apollozac](https://twitter.com/apollozac)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/watchos-5-wish-list.md](https://github.com/xitu/gold-miner/blob/master/TODO1/watchos-5-wish-list.md)
-> * 译者：
+> * 译者：[talisk](https://github.com/talisk)
 > * 校对者：
 
-# watchOS 5 Wish List: Apple Watch Podcasts, open Siri face, rethought Control Center, more
+# watchOS 5 愿望清单: Apple Watch Podcasts, open Siri face, rethought Control Center, more
 
 ![](https://9to5mac.files.wordpress.com/2017/09/apple-watch-series-31.jpg?quality=82&w=1024#038;strip=all&w=1600)
 
-We’re just two months away from WWDC 2018 where Apple will unveil the next major versions of its operating systems, and watchOS is arguably the platform with the most low hanging fruit left to be picked. Apple Watch Series 3 is the most capable version yet with cellular connectivity and an even faster chip, and watchOS 5 can unlock even more potential with that hardware. Read on for what I’d love to see in watchOS 5:
+我们距离 2018 年 WWDC 仅两个月的时间，苹果将推出其操作系统的下一个主要版本，而 watchOS 可以说是拥有最弱能力的平台。Apple Watch Series 3是最具能力的版本，拥有蜂窝连接和更快的芯片，而 watchOS 5 可以通过该硬件释放更多潜能。请阅读我在 watchOS 5 中看到的内容：
 
-### More Audio Streaming
+### 更多音频流
 
-Apple Watch can independently stream Apple Music including Radio on Wi-Fi on LTE as of [watchOS 4.1](https://9to5mac.com/2017/10/31/watchos-4-1-apple-music-apple-watch/), and it works wonderfully. You can take your Apple Watch to the gym and stream music over Wi-Fi and leave your iPhone in the car, or take your Apple Watch for an outdoor run and stream your workout mix over LTE with your iPhone left at home. Radio streaming even lets you listen to NPR and ESPN from your Apple Watch with Bluetooth audio like AirPods.
+从 [watchOS 4.1](https://9to5mac.com/2017/10/31/watchos-4-1-apple-music-apple-watch/) 开始，Apple Watch 可以在 Wi-Fi 上、LTE 网络上独立播放 Apple Music，包括收音机等，并且体验极其美妙。您可以将 Apple Watch 带到健身房，通过Wi-Fi传输音乐，并将iPhone留在汽车中，或将 Apple Watch 用于室外跑步，并通过 LTE 将 iPhone 上的锻炼整合到您的 iPhone 中。 无线电流媒体甚至可以让您从您的 Apple Watch 收听带有蓝牙音频的 NPR 和 ESPN，如 AirPods。
 
-Starting with Music and Radio streaming makes sense, but I really, really hope watchOS 5 takes the next step and adds podcast streaming. I use Apple’s Podcasts app everywhere it’s available — iPhone, iPad, HomePod, CarPlay, Apple TV, and iTunes on the Mac — and a version for Apple Watch would be fantastic. The lack of an Apple Podcasts app on Apple Watch is one of the last reasons I need to bring my iPhone on workouts.
+从音乐和广播流开始是有道理的，但我真的很希望 watchOS 5 采取下一步并添加 Podcasts 流媒体。 我在苹果的 Podcasts 应用程序中随处可用 —— iPhone、iPad、HomePod、CarPlay、Apple TV 和 Mac 上的 iTunes —— 以及 Apple Watch 的一个版本都非常棒。 Apple Watch上缺少Apple Podcasts应用程序是我需要将 iPhone 带入锻炼的最后一个原因之一。
 
 ![](https://9to5mac.files.wordpress.com/2018/04/apple-watch-podcasts.png?w=1000&h=436)
 
-Podcasts for Apple Watch could stream podcasts with playback positions synced between devices and optionally download episodes for offline playback (like on flights or long workouts) to save battery life — Apple Watch Series 3 with LTE has 16GB of storage and all other models have 8GB that go largely unused. Siri has long been able to control podcast playback on other devices, so this could extend to Apple Watch, and being able to play a new episode from an alert would be really convenient.
+Apple Watch 播客可播放播放设备之间同步的播放位置，并可选择下载用于离线播放的节目（如飞行或长时间锻炼）以节省电池寿命 - 带有 LTE 的 Apple Watch Series 3 具有 16GB 存储空间，其他所有型号都有 8GB 基本上未被使用。Siri 长期以来一直能够控制其他设备上的播客播放，所以这可能会扩展到 Apple Watch，并且能够通过弹窗切换新的节目将非常方便。
 
-Better developer tools would be needed to enable truly great third-party podcast apps — which is why there’s no standalone Overcast for Apple Watch yet — so hopefully Apple will offer its own solution and allow developers to create functional third-party podcast players too. For now, my favorite solution with the current limitations is [Outcast for Apple Watch](https://9to5mac.com/2018/01/30/outcast-apple-watch-podcast-app/). It works great for one-off episode requests, but it’s absolutely a stop-gap solution for now.
+需要更好的开发人员工具来启用真正优秀的第三方播客应用 —— 这就是为什么 Apple Watch 没有独立的 Overcast 原因 —— 所以希望苹果能够提供自己的解决方案，并允许开发人员创建功能强大的第三方播客播放器。 目前，我最喜欢的解决方案是当前局限性 [Apple Watch 的 Outcast](https://9to5mac.com/2018/01/30/outcast-apple-watch-podcast-app/)。它适用于一次性插播要求，但它绝对是现在的一个缩小版解决方案。
 
 ![](https://9to5mac.files.wordpress.com/2017/03/ibooks-now-playing-e1522859883856.jpg?quality=82&strip=all&strip=all)
 
-Audio streaming shouldn’t stop at podcast playback either. More audio sources like audiobooks from iBooks (and other services) would be extremely welcome. If you get deep into an audiobook and want to go for a run today, you’re bringing your iPhone with you despite LTE connectivity in Apple Watch Series 3.
+音频流媒体不应止于播客。iBooks（以及其他服务）的有声读物等更多音频源将会非常受欢迎。如果您好好听一下有声读物，并想今天跑步，尽管在 Apple Watch Series 3 中有 LTE 连接，但仍要携带 iPhone。
 
-### Even Smarter Siri Face
+### 更智能的 Siri 表盘
 
-Apple introduced a really useful watch face in watchOS 4 called Siri that includes a vertically scrolling carousel of data tiles from various sources like Calendar and Weather. It’s the most dynamic watch face in terms of presenting relevant information when you need it, and watchOS 4.3 recently made it smarter by adding Activity and Music as new data sources so you can view your Activity rings and see playlist updates.
+苹果公司在 watchOS 4 中推出了一款名为 Siri 的非常实用的表盘，其中包括来自各种来源的垂直滚动轮播数据切片，如日历和天气。它是您在需要时呈现相关信息方面最具动态的表盘，并且最近，在 watchOS 4.3 通过添加活动和音乐作为新的数据源变得更加智能，因此您可以查看活动铃声并查看播放列表更新。
 
-You can even toggle off specific data sources (like News and Stocks for example) from the Watch app on iPhone, but you can’t add third-party data sources yet. The Siri face does let you add up to two complications which can be from third-party apps, but these are more permanent and can’t be presented in the timeline.
+您甚至可以从 iPhone 上的 Watch 应用程序切换特定的数据源（例如 News 和股票）但是您还不能添加第三方数据源。Siri 的表盘确实让你加起来可能来自第三方应用程序的两个复杂问题，但这些复杂性更加长久，并且不能在时间线上呈现。
 
 ![](https://9to5mac.files.wordpress.com/2018/04/siri-watch.jpg?quality=82&strip=all&strip=all)
 
-Opening the Siri watch face to third-party apps would be a huge hit. I would love to see remaining tasks left in [Things](https://geo.itunes.apple.com/us/app/things-3/id904237743?mt=8&at=10laZc&pt=11l8808) presented throughout the day for example. I’d also like to see the Siri watch face put recent notifications in the timeline view. When I miss an alert on my Apple Watch and see the red dot above the Siri watch face, swiping down to view the alert in Notification Center feels like something that the Siri face should present on its own.
+开放 Siri 表面对第三方应用程序将是一个巨大的打击。例如，我很乐意看到[天气](https://geo.itunes.apple.com/cn/app/things-3/id904237743?mt=8&at=10laZc&pt=1118808)中剩下的东西。 我还希望看到 Siri 手表在时间线视图中显示最近的通知。当我错过 Apple Watch 的提醒并看到 Siri 手表上方的红点时，向下滑动查看通知中心的提醒就像是 Siri 表面应该出现的东西。
 
-Something else unique to the Siri watch face is the special Siri complication. It doesn’t do anything fancy — it just activates Siri with a tap instead of saying Hey Siri or holding the Digital Crown — but it could be useful on other watch faces.
+Siri 手表的其他独特之处在于特殊的 Siri 复杂功能。 它并没有什么奇特之处 —— 它只是通过轻敲来激活 Siri，而不是说嘿 Siri 或者拿着数码皇冠 —— 但它可能对其他表盘有用。
 
 ![](https://9to5mac.files.wordpress.com/2017/05/siri-watch.jpg?quality=82&strip=all&strip=all)
 
-Also worth mentioning is something Benjamin Mayo and I discuss on [9to5Mac Happy Hour](https://9to5mac.com/guides/9to5mac-happy-hour/) after every watchOS update: the Siri waveform was responsive in [watchOS 1](https://9to5mac.com/2017/05/17/watchos-4-original-watch-os/), but it’s been a canned animation since watchOS 2 for unknown reasons. Maybe, just maybe, watchOS 5 will restore the responsive Siri waveform.
+另外值得一提的是，Benjamin Mayo 和我在每次 watchOS 更新后在 [9to5Mac 欢乐时光](https://9to5mac.com/guides/9to5mac-happy-hour/) 上讨论：Siri 波形在 [watchOS 1](https://9to5mac.com/2017/05/17/watchos-4-original-watch-os/) 中有响应，但在 watchOS 2 却不能动了，也许，watchOS 5 将恢复响应的 Siri 波形。
 
-### Rethought Control Center
+### 重新思考控制中心
 
-Control Center on watchOS originated as a Settings glance before the whole concept of glances was replaced by faster loading apps with glanceable launch screens in the Dock. Since then, Apple has tied all Control Center toggles to the swipe up screen from the watch face, but the ever-expanding list of toggles is anything but glanceable now.
+watchOS 上的控制中心始于“设置”一瞥，然后才将整个概念视图更换为 Dock 中更快地加载应用程序，并带有可查看的启动屏幕。从那时起，苹果已经将所有控制中心切换到了从表盘向上滑动的屏幕上，但是不断扩大的切换列表现在已经不再可见了。
 
-There are two issues with the current Control Center today: there are 11 tiles on Apple Watch Series 3 with LTE, and five of those tiles require scrolling to see. What started as a flick up and tap is now a flick up, hunt, scroll, hunt, and tap. Slightly less convenient.
+目前的控制中心目前存在两个问题：Apple Watch Series 3 上有 11 个按钮使用 LTE，其中五个需要滚动查看。现在需要通过轻弹起来，搜寻，滚动，搜寻，然后点击这样的流程开始，稍不方便。
 
-New tiles are regularly added through watchOS updates and in some cases rearranged which makes it harder to form muscle memory of what control is where, and important controls like muting alerts and switching audio sources are buried under arguably less important toggles.
+通过 watchOS 更新定期添加新的选项，并在某些情况下重新排列，这使得难以形成对控制位置的肌肉记忆，并且像静音警报和切换音频源的重要控制被埋没在可以说是不太重要的切换位置。
 
 ![](https://9to5mac.files.wordpress.com/2018/04/control-center-watch.jpg?quality=82&strip=all&strip=all)
 
-In watchOS 5, I’d prefer an option to rearrange these toggles similar to what iOS 11 offers for Control Center widgets on iPhone and iPad. I would much prefer to have AirPlay and mute further above battery percentage and ping my iPhone, but another user may have different priorities, so customization would be welcome.
+在 watchOS 5 中，我更喜欢重新排列这些切换的选项，类似于 iOS 11 为 iPhone 和 iPad 上的 Control Center 小部件提供的选项。 我更愿意 AirPlay 和静音进一步超过电池的百分比和寻找我的 iPhone，但另一个用户可能有不同的优先事项，所以定制将受到欢迎。
 
-Rethinking the layout entirely could also go a long way. A denser layout like the original three button version in watchOS 1 could eliminate the need to scroll for most buttons, and rethinking separate buttons for some actions could further improve Control Center’s glanceability.
+完全重新思考布局也可能会有很长的路要走。类似于 watchOS 1 中的原始三键版本的更密集的布局可以消除对大多数按钮的滚动需求，并且为某些动作重新考虑单独的按钮可以进一步提高控制中心的可视性。
 
-### More
+### 还有
 
-Of course there are loads of other changes and new features that would be welcome on watchOS. Last year’s [request](https://9to5mac.com/2017/04/12/wwdc-apple-watch-watchos-4/) for a Notes app still stands, Calendar still needs a year view, the state of third-party apps proves developers need new tools and incentives, and third-party watch faces remains an opportunity.
+当然，还有许多其他的改变和新功能将会在watchOS上受到欢迎。去年针对备忘录应用的[需求](https://9to5mac.com/2017/04/12/wwdc-apple-watch-watchos-4/)还在呢，日历需求还得再等一年。第三方应用程序的状态，证明开发人员需要新的工具和激励措施，第三方表盘仍然还有机会。
 
-I loved Matt Birchler’s [watchOS 5 concept](https://9to5mac.com/2018/01/16/watchos-5-apple-watch/) with new watch face layouts, an ambient always-on display, and built-in sleep tracking too. Apple bought Beddit [nearly a year ago](https://9to5mac.com/2017/05/09/apple-acquires-popular-apple-watch-sleep-tracking-app-beddit/) and we haven’t seen the result of that acquisition yet.
+我喜欢 Matt Birchler 的 [watchOS 5 概念](https://9to5mac.com/2018/01/16/watchos-5-apple-watch/)，有着全新的表面布局，一个环境常亮显示屏，内置睡眠跟踪。苹果在[近一年前买下了 Beddit](https://9to5mac.com/2017/05/09/apple-acquires-popular-apple-watch-sleep-tracking-app-beddit/)，不过我们还没有看到这次收购的结果。
 
 ![](https://9to5mac.files.wordpress.com/2018/04/call.png?w=1000&h=468)
 
-Other grab bag requests include the ability to change tones for alerts like on iOS (something I’ve missed since [day one](https://9to5mac.com/2015/05/18/apple-watch-review-video/)), the ability to sort email into folders on the Mail app (my trick to maintaining a manageable inbox), the LTE indicator on the Explorer face as a complication for other watch faces, and —since Apple Watch Series 3 includes untethered calling — the ability to use other apps on Apple Watch during a phone call.
+其他的要求包括能够改变 iOS 上的提示音（例如，我错过了 [day one](https://9to5mac.com/2015/05/18/apple-watch-review-video/) 的提示），能够将电子邮件分类到邮件应用中的文件夹（我维护可管理的收件箱的技巧），LTE 作为其他表盘的复杂功能，以及 - 因为 Apple Watch Series 3 包含无限制通话功能 —— 可以在通话期间在 Apple Watch 上使用其他应用程序。
 
-What would you like to see in watchOS 5? Share you top picks in the comments and on Twitter [@9to5mac](https://twitter.com/9to5mac) and [@apollozac](https://twitter.com/apollozac).
+你有什么想在 watchOS 5 上看到？在 Twitter [@9to5mac](https://twitter.com/9to5mac) 和 [@apollozac](https://twitter.com/apollozac) 上分享你的想法。
 
 * * *
 
