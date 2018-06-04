@@ -1,3 +1,5 @@
+* [Swift 中的 Playground 驱动开发](https://juejin.im/post/5b07665c6fb9a07ac5608d8a) ([ALVINYEH](https://github.com/ALVINYEH) 翻译)
+* [Swift 中的内存泄漏](https://juejin.im/post/5b07a1c251882538914a5d3e) ([RickeyBoy](https://github.com/RickeyBoy) 翻译)
 * [使用 iPhone X 与 Maya 实现快速面部捕捉](https://juejin.im/post/5af40eba6fb9a07ac76ed7d1) ([ALVINYEH](https://github.com/ALVINYEH) 翻译)
 * [轻松管理 Swift 项目中的不同环境](https://juejin.im/post/5af264a4f265da0b967233ff) ([melon8](https://github.com/melon8) 翻译)
 * [构建、测试、分发！运用 Fastlane 与 Jenkins，完整的 iOS 持交付指南。](https://juejin.im/post/5af430f0f265da0b8262d1ea) ([talisk](https://github.com/talisk) 翻译)

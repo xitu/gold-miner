@@ -1,3 +1,7 @@
+* [使用 Go 语言的流模式来解析 DrugBank 的 XML（或者任何大的 XML 文件）](https://juejin.im/entry/5b06322a6fb9a07aab2a3d44) ([steinliber](https://github.com/steinliber) 翻译)
+* [那些我们不需要的 HTTP 头信息](https://juejin.im/post/5b06c89df265da0db35022d8) ([SergeyChang](https://github.com/SergeyChang) 翻译)
+* [由 Node.js 发送 Web 推送通知](https://juejin.im/post/5afc32146fb9a07acf5657e7) ([lsvih](https://github.com/lsvih) 翻译)
+* [30 分钟 Python 爬虫教程](https://juejin.im/post/5afab181f265da0b7452514a) ([kezhenxu94](https://github.com/kezhenxu94) 翻译)
 * [Python 中的键值（具名）参数：如何使用它们](https://juejin.im/post/5ae97546f265da0b8d41bcc7) ([sisibeloved](https://github.com/sisibeloved) 翻译)
 * [使用 python 和 keras 实现卷积神经网络](https://juejin.im/post/5aefb0f351882567336aa3c7) ([JohnJiangLA](https://github.com/JohnJiangLA) 翻译)
 * [使用 Go 和 AWS Lambda 构建无服务 API](https://juejin.im/post/5af4082f518825672a02f262) ([sisibeloved](https://github.com/sisibeloved) 翻译)

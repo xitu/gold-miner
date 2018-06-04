@@ -2,78 +2,78 @@
 > * 原文作者：[Dan Oved](http://www.danioved.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/real-time-human-pose-estimation-in-the-browser-with-tensorflow-js.md](https://github.com/xitu/gold-miner/blob/master/TODO1/real-time-human-pose-estimation-in-the-browser-with-tensorflow-js.md)
-> * 译者：
-> * 校对者：
+> * 译者：[NoName4Me](https://github.com/NoName4Me)
+> * 校对者：[luochen1992](https://github.com/luochen1992)、[isiyin](https://github.com/isiyin)
 
-# Real-time Human Pose Estimation in the Browser with TensorFlow.js
+# 在浏览器里使用 TenserFlow.js 实时估计人体姿态
 
-Posted by: [Dan Oved](http://www.danioved.com/), freelance creative technologist at Google Creative Lab, graduate student at ITP, NYU.
-Editing and illustrations: [Irene Alvarado](https://twitter.com/irealva), creative technologist and [Alexis Gallo](http://alexisgallo.com/), freelance graphic designer, at Google Creative Lab.
+发布者：[Dan Oved](http://www.danioved.com/)，谷歌创意实验室自由创意技术专家，纽约大学 ITP 研究生。
+编辑和插图：创意技术专家 [Irene Alvarado](https://twitter.com/irealva) 和谷歌创意实验室自由平面设计师 [Alexis Gallo](http://alexisgallo.com/)。
 
-In collaboration with Google Creative Lab, I’m excited to announce the release of a [TensorFlow.js](https://js.tensorflow.org/) version of [PoseNet](https://github.com/tensorflow/tfjs-models/tree/master/posenet)[¹](https://arxiv.org/abs/1701.01779),[²](https://arxiv.org/abs/1803.08225) a machine learning model which allows for **real-time human pose estimation in the browser**. Try a live demo [here](https://storage.googleapis.com/tfjs-models/demos/posenet/camera.html).
+在与谷歌创意实验室的合作中，我很高兴地宣布 [TensorFlow.js](https://js.tensorflow.org/) 版 [PoseNet](https://github.com/tensorflow/tfjs-models/tree/master/posenet)[¹](https://arxiv.org/abs/1701.01779) 的发行，[²](https://arxiv.org/abs/1803.08225) 它是一个能够**在浏览器里对人体姿态进行实时估计**的机器学习模型。[点击这里](https://storage.googleapis.com/tfjs-models/demos/posenet/camera.html)在线体验。
 
 ![](https://cdn-images-1.medium.com/max/600/1*BKZqEPtvM-6xwarhABZQnA.gif)
 
 ![](https://cdn-images-1.medium.com/max/600/1*Gsx7MLBj2LKiaDsab0iNjg.gif)
 
-PoseNet can detect human figures in images and videos using either a single-pose or multi-pose algorithm — all from within the browser.
+PoseNet 使用单人姿态或多人姿态算法可以检测图像和视频中的人物形象 —— 全部在浏览器中完成。
 
-**So what is pose estimation anyway?** Pose estimation refers to computer vision techniques that detect human figures in images and video, so that one could determine, for example, where someone’s elbow shows up in an image. To be clear, this technology is **not** recognizing _who_ is in an image — there is no personal identifiable information associated to pose detection. The algorithm is simply estimating where key body joints are.
+**那么，姿态估计究竟是什么呢？**姿态估计是指在图像和视频中检测人物的计算机视觉技术，比如，可以确定某个人的肘部在图像中的位置。需要澄清一点，这项技术并不是识别图像中是**谁** —— 姿态估计不涉及任何个人身份信息。该算法仅仅是估计身体关键关节的位置。
 
-**Ok, and why is this exciting to begin with?** Pose estimation has many uses, from [interactive](https://vimeo.com/128375543) [installations](https://www.youtube.com/watch?v=I5__9hq-yas) that [react](https://vimeo.com/34824490) to the [body](https://vimeo.com/2892576) to [augmented reality](https://www.instagram.com/p/BbkKLiegrTR/), [animation](https://www.instagram.com/p/Bg1EgOihgyh/?taken-by=millchannel), [fitness uses](https://www.runnersneed.com/expert-advice/gear-guides/gait-analysis.html), and more. We hope the accessibility of this model inspires more developers and makers to experiment and apply pose detection to their own unique projects. While many alternate pose detection systems have been [open-sourced](https://github.com/CMU-Perceptual-Computing-Lab/openpose), all require specialized hardware and/or cameras, as well as quite a bit of system setup. **With PoseNet running on** [**TensorFlow.js**](https://js.tensorflow.org/) **anyone with a decent webcam-equipped desktop or phone can experience this technology right from within a web browser.** And since we’ve open sourced the model, Javascript developers can tinker and use this technology with just a few lines of code. What’s more, this can actually help preserve user privacy. Since PoseNet on TensorFlow.js runs in the browser, no pose data ever leaves a user’s computer.
+**好吧，为什么这是令人兴奋的开始**？姿态估计有很多用途，从[互动](https://vimeo.com/128375543)[装置](https://www.youtube.com/watch?v=I5__9hq-yas)[反馈](https://vimeo.com/34824490)给[身体](https://vimeo.com/2892576)，到[增强现实](https://www.instagram.com/p/BbkKLiegrTR/)，[动画](https://www.instagram.com/p/Bg1EgOihgyh/?taken-by=millchannel)，[健身用途](https://www.runnersneed.com/expert-advice/gear-guides/gait-analysis.html)等等。我们希望借助此模型激发更多的开发人员和制造商尝试将姿态检测应用到他们自己的独特项目中。虽然许多同类姿态检测系统也已经[开源](https://github.com/CMU-Perceptual-Computing-Lab/openpose)，但它们都需要专门的硬件和/或相机，以及相当多的系统安装。 **借助运行在** [**TensorFlow.js**](https://js.tensorflow.org/) **上的 PoseNet**，**任何人只需拥有带摄像头的台式机或者手机即可在浏览器中体验这项技术**。而且由于我们已经开源了这个模型，JavaScript 开发人员可以用几行代码来修改和使用这个技术。更重要的是，这实际上可以帮助保护用户隐私。因为基于 TensorFlow.js 的 PoseNet 运行在浏览器中，任何姿态数据都不会离开用户的计算机。
 
-Before we dig into the details of how to use this model, a shoutout to all the folks who made this project possible: [George Papandreou](https://research.google.com/pubs/GeorgePapandreou.html) and [Tyler Zhu](https://research.google.com/pubs/TylerZhu.html), Google researchers behind the papers [_Towards Accurate Multi-person Pose Estimation in the Wild_](https://arxiv.org/abs/1701.01779) and [_PersonLab: Person Pose Estimation and Instance Segmentation with a Bottom-Up, Part-Based, Geometric Embedding Model_](https://arxiv.org/abs/1803.08225), and [Nikhil Thorat](https://twitter.com/nsthorat) and [Daniel Smilkov](https://twitter.com/dsmilkov?lang=en), engineers on the Google Brain team behind the [TensorFlow.js](https://js.tensorflow.org/) library.
+在我们深入探讨如何使用这个模型的细节之前，先向所有让这个项目成为可能的人们致意：论文[**对户外多人姿态的精确估计**](https://arxiv.org/abs/1701.01779) 和 [**PersonLab: 自下而上的局部几何嵌入模型的人体姿态估计和实例分割**](https://arxiv.org/abs/1803.08225)的作者 [George Papandreou](https://research.google.com/pubs/GeorgePapandreou.html) 和 [Tyler Zhu](https://research.google.com/pubs/TylerZhu.html)，以及 [TensorFlow.js](https://js.tensorflow.org/) 库背后的 Google Brain 小组的工程师 [Nikhil Thorat](https://twitter.com/nsthorat) 和 [Daniel Smilkov](https://twitter.com/dsmilkov?lang=en)。
 
 * * *
 
-### Getting Started with PoseNet
+### PoseNet 入门
 
-[PoseNet](https://github.com/tensorflow/tfjs-models/tree/master/posenet) can be used to estimate **either** a **single pose** or **multiple poses**, meaning there is a version of the algorithm that can detect only one person in an image/video and one version that can detect multiple persons in an image/video. Why are there two versions? The single person pose detector is faster and simpler but requires only one subject present in the image (more on that later). We cover the single-pose one first because it’s easier to follow.
+[PoseNet](https://github.com/tensorflow/tfjs-models/tree/master/posenet) 可以被用来估计**单人姿态**或**多人姿态**，这意味着算法有一个检测图像/视频中只有一个人的版本，和检测多人的版本。为什么会有两个版本？因为单人姿态检测更快，更简单，但要求图像中只能有一个主体（后面会详细说明）。我们先说单体姿态，因为它更简单易懂。
 
-At a high level pose estimation happens in two phases:
+姿态估计整体来看主要有两个阶段：
 
-1.  An _input RGB image_ is fed through a convolutional neural network.
-2.  Either a single-pose or multi-pose decoding algorithm is used to decode _poses, pose confidence scores_, _keypoint positions,_and _keypoint confidence scores_ from the model outputs.
+1. 输入一个通过卷积神经网络反馈的 **RGB 图像**。
+2. 使用单人姿态或多人姿态解码算法从模型输出中解码**姿态，姿态置信得分**，**关键点位置**，以及**关键点置信得分**。
 
-But wait what do all these keywords mean? Let’s review the most important ones:
+等一下，所有这些关键词指的是什么？我们看看一下最重要的几个：
 
-*   **Pose** — at the highest level, PoseNet will return a pose object that contains a list of keypoints and an instance-level confidence score for each detected person.
+* **姿态** - 从最上层来看，PoseNet 将返回一个姿态对象，其中包含每个检测到的人物的关键点列表和实例级别的置信度分数。
 
 ![](https://cdn-images-1.medium.com/max/800/1*3bg3CO1b4yxqgrjsGaSwBw.png)
 
-PoseNet returns confidence values for each person detected as well as each pose keypoint detected. Image Credit: “Microsoft Coco: Common Objects in Context Dataset”,[https://cocodataset.org](http://cocodataset.org/#home).
+PoseNet 返回检测到的每个人的置信度值以及检测到的每个姿态关键点。图片来源：「Microsoft Coco：上下文数据集中的通用对象」，[https://cocodataset.org](http://cocodataset.org/#home)。
 
-*   **Pose confidence score** — this determines the overall confidence in the estimation of a pose. It ranges between 0.0 and 1.0\. It can be used to hide poses that are not deemed strong enough.
-*   **Keypoint** — a part of a person’s pose that is estimated, such as the nose, right ear, left knee, right foot, etc.It contains both a position and a keypoint confidence score. PoseNet currently detects 17 keypoints illustrated in the following diagram:
+* **姿态置信度分数** - 决定了对姿态估计的整体置信度。它介于 0.0 和 1.0 之间。它可以用来隐藏分数不够高的姿态。
+* **关键点** —— 估计的人体姿态的一部分，例如鼻子，右耳，左膝，右脚等。 它包含位置和关键点置信度分数。PoseNet 目前检测到下图所示的 17 个关键点：
 
 ![](https://cdn-images-1.medium.com/max/800/1*7qDyLpIT-3s4ylULsrnz8A.png)
 
-Seventeen pose keypoints detected by PoseNet.
+PosNet 检测到17个姿态关键点。
 
-*   **Keypoint Confidence Score **— this determines the confidence that an estimated keypoint position is accurate. It ranges between 0.0 and 1.0. It can be used to hide keypoints that are not deemed strong enough.
-*   **Keypoint Position** — 2D x and y coordinates in the original input image where a keypoint has been detected.
+* **关键点置信度得分** - 决定了估计关键点位置准确的置信度。它介于 0.0 和 1.0 之间。它可以用来隐藏分数不够高的关键点。
+* **关键点位置** —— 检测到关键点的原始输入图像中的二维 x 和 y 坐标。
 
-#### Part 1: Importing the TensorFlow.js and PoseNet Libraries
+#### 第 1 部分：导入 TensorFlow.js 和 PoseNet 库
 
-A lot of work went into abstracting away the complexities of the model and encapsulating functionality into easy-to-use methods. Let’s go over the basics of how to setup a PoseNet project.
+很多工作都是将模型的复杂性抽象化并将功能封装为易于使用的方法。我们看一下构建 PoseNet 项目的基础知识。
 
-The library can be installed with npm:
+该库可以通过 npm 安装：
 
-```
+```shell
 npm install @[tensorflow-models/posenet](https://www.npmjs.com/package/@tensorflow-models/posenet)
 ```
 
-and imported using es6 modules:
+然后使用 es6 模块导入：
 
-```
+```js
 import * as posenet from '@[tensorflow-models/posenet](https://www.npmjs.com/package/@tensorflow-models/posenet)';
 
 const net = await posenet.load();
 ```
 
-or via a bundle in the page:
+或通过页面中的一个包：
 
-```
+```html
 <html>
   <body>
     <!-- Load TensorFlow.js -->
@@ -83,69 +83,69 @@ or via a bundle in the page:
     </script>
     <script type="text/javascript">
       posenet.load().then(function(net) {
-        // posenet model loaded
+        // posenet 模块加载成功
       });
     </script>
   </body>
 </html>
 ```
 
-#### Part 2a: Single-person Pose Estimation
+#### 第 2a 部分：单人姿态估计
 
 ![](https://cdn-images-1.medium.com/max/800/1*SpWPwprVuNYhXs44iTSODg.png)
 
-Example single-person pose estimation algorithm applied to an image. Image Credit: “Microsoft Coco: Common Objects in Context Dataset”,[https://cocodataset.org](http://cocodataset.org/#home).
+单人姿态估计算法用于图像的示例。图片来源：「Microsoft Coco：上下文数据集中的通用对象」，[https://cocodataset.org](http://cocodataset.org/#home)。
 
-As stated before, the single-pose estimation algorithm is the simpler and faster of the two. Its ideal use case is for when there is **only one** person centered in an input image or video. The disadvantage is that if there are multiple persons in an image, keypoints from both persons will likely be estimated as being part of the same single pose — meaning, for example, that person #1’s left arm and person #2’s right knee might be conflated by the algorithm as belonging to the same pose. If there is any likelihood that the input images will contain multiple persons, the multi-pose estimation algorithm should be used instead.
+如前所述，单人姿态估计算法更简单，速度更快。它的理想使用场景是当输入图像或视频中心只有一个人。缺点是，如果图像中有多个人，那么来自两个人的关键点可能会被估计成同一个人的姿态的一部分 —— 举个例子，路人甲的左臂和路人乙的右膝可能会由该算法确定为属于相同姿态而被合并。如果输入图像可能包含多人，则应该使用多人姿态估计算法。
 
-Let’s review the **inputs** for the single-pose estimation algorithm:
+我们来看看单人姿态估计算法的**输入**：
 
-*   **Input image element **— An html element that contains an image to predict poses for, such as a video or image tag. Importantly, the image or video element fed in should be **square**.
-*   **Image scale factor **— A number between 0.2 and 1\. Defaults to 0.50\. What to scale the image by before feeding it through the network. Set this number lower to scale down the image and increase the speed when feeding through the network at the cost of accuracy.
-*   **Flip horizontal **— Defaults to false. If the poses should be flipped/mirrored horizontally. This should be set to true for videos where the video is by default flipped horizontally (i.e. a webcam), and you want the poses to be returned in the proper orientation.
-*   **Output stride** — Must be 32, 16, or 8\. Defaults to 16\. Internally, this parameter affects the height and width of the layers in the neural network. At a high level, it affects the **accuracy** and **speed** of the pose estimation. The _lower_ the value of the output stride the higher the accuracy but slower the speed, the _higher_ the value the faster the speed but lower the accuracy. The best way to see the effect of the output stride on output quality is to play with the [single-pose estimation demo.](https://storage.googleapis.com/tfjs-models/demos/posenet/camera.html)
+* **输入图像元素** —— 包含要预测图像的 html 元素，例如视频或图像标记。重要的是，输入的图像或视频元素应该是**正方形**的。
+* **图像比例因子** —— 在 0.2 和 1 之间的数字。默认为 0.50。在送入神经网络之前如何缩放图像。将此数字设置得较低以缩小图像，并以精度为代价增加通过网络的速度。
+* **水平翻转** —— 默认为 false。表示是否姿态应该水平/垂直镜像。对于视频默认水平翻转（比如网络摄像头）的视频，应该设置为 true，因为你希望姿态能以正确的方向返回。
+* **输出步幅** —— 必须为 32，16 或 8。默认 16。在内部，此参数会影响神经网络中图层的高度和宽度。在上层看来，它会影响姿态估计的**精度**和**速度**。值**越小**精度越高，但速度更慢，值**越大**速度越快，但精度更低。查看输出步幅对输出质量的影响的最好方法是体验这个[单人姿态估计演示](https://storage.googleapis.com/tfjs-models/demos/posenet/camera.html)。
 
-Now let’s review the **outputs** for the single-pose estimation algorithm**:**
+下面让我们看一下单人姿态估计算法的**输出**：
 
-*   A pose, containing both a pose confidence score and an array of 17 keypoints.
-*   Each keypoint contains a keypoint position and a keypoint confidence score. Again, all the keypoint positions have x and y coordinates in the input image space, and can be mapped directly onto the image.
+1. 一个包含姿态置信度得分和 17 个关键点数组的姿态。
+2. 每个关键点都包含关键点位置和关键点置信度得分。同样，所有关键点位置在输入图像的坐标空间中都有 x 和 y 坐标，并且可以直接映射到图像上。
 
-This short code block shows how to use the single-pose estimation algorithm:
+这个段代码块显示了如何使用单人姿态估计算法：
 
-```
+```js
 const imageScaleFactor = 0.50;
 const flipHorizontal = false;
 const outputStride = 16;
 
 const imageElement = document.getElementById('cat');
 
-// load the posenet model
+// 加载 posenet 模型
 const net = await posenet.load();
 
 const pose = await net.estimateSinglePose(imageElement, scaleFactor, flipHorizontal, outputStride);
 ```
 
-An example output pose looks like the following:
+输出姿态示例如下：
 
-```
+```js
 {
   "score": 0.32371445304906,
   "keypoints": [
-    { // nose
+    { // 鼻子
       "position": {
         "x": 301.42237830162,
         "y": 177.69162777066
       },
       "score": 0.99799561500549
     },
-    { // left eye
+    { // 左眼
       "position": {
         "x": 326.05302262306,
         "y": 122.9596464932
       },
       "score": 0.99766051769257
     },
-    { // right eye
+    { // 右眼
       "position": {
         "x": 258.72196650505,
         "y": 127.51624706388
@@ -157,49 +157,49 @@ An example output pose looks like the following:
 }
 ```
 
-#### Part 2b: Multi-person Pose Estimation
+#### 第 2b 部分：多人姿态估计
 
 ![](https://cdn-images-1.medium.com/max/800/1*EZOqbMLkIwBgyxrKLuQTHA.png)
 
-Example multi-person pose estimation algorithm applied to an image. Image Credit: “Microsoft Coco: Common Objects in Context Dataset”,[https://cocodataset.org](http://cocodataset.org/#home).
+多人姿态估计算法应用于图像的例子。图片来源：「Microsoft Coco：上下文数据集中的通用对象」，[https://cocodataset.org](http://cocodataset.org/#home)。
 
-The multi-person pose estimation algorithm can estimate many poses/persons in an image. It is more complex and slightly slower than the single-pose algorithm, but it has the advantage that if multiple people appear in a picture, their detected keypoints are less likely to be associated with the wrong pose. For that reason, even if the use case is to detect a single person’s pose, this algorithm may be more desirable.
+多人姿态估计算法可以估计图像中的多个姿态/人物。它比单人姿态算法更复杂并且稍慢，但它的优点是，如果图片中出现多个人，他们检测到的关键点不太可能与错误的姿态相关联。出于这个原因，即使用例是用来检测单人的姿态，该算法也可能更合乎需要。
 
-Moreover, an attractive property of this algorithm is that performance is not affected by the number of persons in the input image. Whether there are 15 persons to detect or 5, the computation time will be the same.
+此外，该算法吸引人的特性是性能不受输入图像中人数的影响。无论是 15 人还是 5 人，计算时间都是一样的。
 
-Let’s review the **inputs**:
+让我们看一下它的**输入**：
 
-*   **Input image element **— Same as single-pose estimation
-*   **Image scale factor** — Same as single-pose estimation
-*   **Flip horizontal** — Same as single-pose estimation
-*   **Output stride** — Same as single-pose estimation
-*   **Maximum pose detections **— An integer. Defaults to 5\. The maximum number of poses to detect.
-*   **Pose confidence score threshold** — 0.0 to 1.0\. Defaults to 0.5\. At a high level, this controls the minimum confidence score of poses that are returned.
-*   **Non-maximum suppression (NMS) radius** — A number in pixels. At a high level, this controls the minimum distance between poses that are returned. This value defaults to 20, which is probably fine for most cases. It should be increased/decreased as a way to filter out less accurate poses but only if tweaking the pose confidence score is not good enough.
+* **输入图像元素** —— 与单人姿态估计相同
+* **图像比例因子** —— 与单人姿态估计相同
+* **水平翻转** —— 与单人姿态估计相同
+* **输出步幅** —— 与单人姿态估计相同
+* **最大检测姿态** —— 一个整数。默认为 5，表示要检测的姿态的最大数量。
+* **姿态置信分数阈值** —— 0.0 至 1.0。默认为 0.5。在更深层次上，这将控制返回姿态的最低置信度分数。
+* **非最大抑制（NMS，Non-maximum suppression）半径** —— 以像素为单位的数字。在更深层次上，这控制了返回姿态之间的最小距离。这个值默认为 20，这在大多数情况下可能是好的。可以通过增加/减少，以滤除不太准确的姿态，但只有在调整姿态置信度分数无法满足时才调整它。
 
-The best way to see what effect these parameters have is to play with the [multi-pose estimation demo](https://storage.googleapis.com/tfjs-models/demos/posenet/camera.html).
+查看这些参数有什么影响的最好方法是体验这个[多人姿态估计演示](https://storage.googleapis.com/tfjs-models/demos/posenet/camera.html)。
 
-Let’s review the **outputs**:
+让我们看一下它的**输出**：
 
-*   A promise that resolves with an array of poses.
-*   Each pose contains the same information as described in the single-person estimation algorithm.
+* 以一系列姿态为 `resolve` 的 `promise`。
+* 每个姿态包含与单人姿态估计算法中相同的信息。
 
-This short code block shows how to use the multi-pose estimation algorithm:
+这段代码块显示了如何使用多人姿态估计算法：
 
-```
+```js
 const imageScaleFactor = 0.50;
 const flipHorizontal = false;
 const outputStride = 16;
-// get up to 5 poses
+// 最多 5 个姿态
 const maxPoseDetections = 5;
-// minimum confidence of the root part of a pose
+// 姿态的最小置信度
 const scoreThreshold = 0.5;
-// minimum distance in pixels between the root parts of poses
+// 两个姿态之间的最小像素距离
 const nmsRadius = 20;
 
 const imageElement = document.getElementById('cat');
 
-// load posenet
+// 加载 posenet
 const net = await posenet.load();
 
 const poses = await net.estimateMultiplePoses(
@@ -207,10 +207,10 @@ const poses = await net.estimateMultiplePoses(
   maxPoseDetections, scoreThreshold, nmsRadius);
 ```
 
-An example output array of poses looks like the following:
+输出数组的示例如下所示：
 
-```
-// array of poses/persons
+```js
+// 姿态/人的数组
 [ 
   { // pose #1
     "score": 0.42985695206067,
@@ -242,86 +242,84 @@ An example output array of poses looks like the following:
 ]
 ```
 
-**If you’ve read this far, you know enough to get started with the PoseNet** [**demos**](https://github.com/tensorflow/tfjs-models/tree/master/posenet/demos)**.** **This is probably a good stopping point.** If you’re curious to know more about the technical details of the model and implementation, we invite you to continue reading below.
+**如果你已经读到了这里，你应该了解的足够多，可以开始 [PoseNet]((https://github.com/tensorflow/tfjs-models/tree/master/posenet/demos)) 演示了**。**这可能是一个很好的停止点**。如果你想了解更多关于该模型和实现的技术细节，我们邀请你继续阅读下文。
 
 * * *
 
-### For Curious Minds: A Technical Deep Dive
+### 写给好奇的人：技术深探
 
-In this section, we’ll go into a little more technical detail regarding the single-pose estimation algorithm. At a high level, the process looks like this:
+在本节中，我们将介绍关于单人姿态估计算法的更多技术细节。在上层来看，这个过程如下所示：
 
 ![](https://cdn-images-1.medium.com/max/800/1*ey139jykjnBzUqcknAjHGQ.png)
 
-Single person pose detector pipeline using PoseNet.
+使用 PoseNet 的单人姿态检测器流程。
 
-One important detail to note is that the researchers trained both a [ResNet](https://arxiv.org/abs/1512.03385) and a [MobileNet](https://arxiv.org/abs/1704.04861) model of PoseNet. While the ResNet model has a higher accuracy, its large size and many layers would make the page load time and inference time less-than-ideal for any real-time applications. We went with the MobileNet model as it’s designed to run on mobile devices.
+需要注意的一个重要细节是研究人员训练了 PoseNet 的 [ResNet](https://arxiv.org/abs/1512.03385) 模型和 [MobileNet](https://arxiv.org/abs/1704.04861) 模型。虽然 ResNet 模型具有更高的准确性，但其大尺寸和多层的特点会使页面加载时间和推导时间对于任何实时应用程序都不理想。我们使用 MobileNet 模型，因为它是为移动设备而设计的。
 
-#### Revisiting the Single-pose Estimation Algorithm
+#### 重新审视单人姿态估计算法
 
-**Processing Model Inputs: an Explanation of Output Strides**
+**处理模型输入：输出步幅的解释**
 
-First we’ll cover how to obtain the PoseNet model outputs (mainly heatmaps and offset vectors) by discussing **output strides**.
+首先，我们将说明如何通过讨论**输出步幅**来获得 PoseNet 模型输出（主要是热图和偏移矢量）。
 
-Conveniently, the PoseNet model is image size invariant, which means it can predict pose positions in the same scale as the original image regardless of whether the image is downscaled. This means PoseNet can be configured to have a _higher accuracy at the expense of performance_ by setting the **output stride** we’ve referred to above at runtime.
+比较方便地是，PoseNet 模型是图像大小不变的，这意味着它能以与原始图像相同的比例预测姿态位置，而不管图像是否缩小。这意味着 PoseNet 可以通过设置上面我们在运行时提到的**输出步幅**，**以牺牲性能获得更高的精度**。
 
-The output stride determines how much we’re scaling down the output relative to the input image size. It affects the size of the layers and the model outputs. The _higher_ the output stride, the smaller the resolution of layers in the network and the outputs, and correspondingly their accuracy. In this implementation, the output stride can have values of 8, 16, or 32\. In other words, an output stride of 32 will result in the fastest performance but lowest accuracy, while 8 will result in the highest accuracy but slowest performance. We recommend starting with 16.
+输出步幅决定了我们相对于输入图像大小缩小输出的程度。它会影响图层和模型输出的大小。输出步幅**越大**，网络中的层和输出的分辨率越小，准确性也越低。在此实现中，输出步幅可以为 8，16 或 32。换句话说，输出步幅为 32 将输出最快但是精度最低，而 8 的精度最高但是最慢。我们建议从 16 开始。
 
 ![](https://cdn-images-1.medium.com/max/800/1*zXXwR16kprAWLPIOKCrXLw.png)
 
-The output stride determines how much we’re scaling down the output relative to the input image size. A higher output stride is faster but results in lower accuracy.
+输出步幅决定了输出相对于输入图像的缩小程度。较高的输出步幅会更快，但会导致精度较低。
 
-Underneath the hood, when the output stride is set to 8 or 16, the amount of input striding in the layers is reduced to create a larger output resolution. [**Atrous convolution**](https://www.tensorflow.org/api_docs/python/tf/nn/atrous_conv2d) is then used to enable the convolution filters in the subsequent layers to have a wider field of view (atrous convolution is not applied when the output stride is 32). While Tensorflow supported atrous convolution, TensorFlow.js did not, so we [added a PR](https://github.com/tensorflow/tfjs-core/pull/794) to include this.
+本质是，当输出步幅设置为 8 或 16 时，层中的输入量减少使得可以创建更大的输出分辨率。然后使用 [Atrous 卷积](https://www.tensorflow.org/api_docs/python/tf/nn/atrous_conv2d)来使后续图层中的卷积滤波器具有更宽的视野（当输出步幅为 32 时，不会应用 atrous 卷积）。虽然 Tensorflow 支持 atrous 卷积，但 TensorFlow.js 不支持，所以我们添加了一个 [PR](https://github.com/tensorflow/tfjs-core/pull/794) 来包含这个。
 
-**Model Outputs: Heatmaps and Offset Vectors**
+**模型输出：热图和偏移矢量**
 
-When PoseNet processes an image, what is in fact returned is a **heatmap** along with **offset vectors** that can be decoded to find high confidence areas in the image that correspond to pose keypoints. We’ll go into what each of these mean in a minute, but for now the illustration below captures at a high-level how each of the pose keypoints is associated to one heatmap tensor and an offset vector tensor.
+当 PoseNet 处理图像时，事实上返回的是热图以及偏移矢量，可以解码以找到图像中与姿态关键点对应的高置信度区域。我们将在一分钟内讨论它们各自的含义，但现在下面的插图以高级方式捕获每个姿态关键点与一个热图张量和一个偏移矢量张量的关联。
 
 ![](https://cdn-images-1.medium.com/max/800/1*mcaovEoLBt_Aj0lwv1-xtA.png)
 
-Each of the 17 pose keypoints returned by PoseNet is associated to one heatmap tensor and one offset vector tensor used to determine the exact location of the keypoint.
+PoseNet 返回的 17 个姿态关键点中的每一个都与一个热图张量和一个偏移矢量张量相关联，用于确定关键点的确切位置。
 
-Both of these outputs are 3D tensors with a height and width that we’ll refer to as the **resolution**. The resolution is determined by both the input image size and the output stride according to this formula:
+这两个输出都是具有高度和宽度的 3D 张量，我们将其称为**分辨率**。分辨率由输入图像大小和输出步幅根据以下公式确定：
 
-```
+```js
 Resolution = ((InputImageSize - 1) / OutputStride) + 1
 
-// Example: an input image with a width of 225 pixels and an output
-// stride of 16 results in an output resolution of 15
+// 示例：宽度为 225 像素且输出步幅为 16 的输入图像产生输出分辨率为 15
 // 15 = ((225 - 1) / 16) + 1
 ```
 
-**Heatmaps**
+**热图**
 
-Each heatmap is a 3D tensor of size **resolution x resolution x 17**, since 17 is the number of keypoints detected by PoseNet. For example, with an image size of 225 and output stride of 16, this would be 15x15x17\. Each slice in the third dimension (of 17) corresponds to the heatmap for a specific keypoint. Each position in that heatmap has a confidence score, which is the probability that a part of that keypoint type exists in that position. It can be thought of as the original image being broken up into a 15x15 grid, where the heatmap scores provide a classification of how likely each keypoint exists in each grid square.
+每个热图是尺寸 **resolution x resolution x 17** 的 3D 张量，因为 17 是 PoseNet 检测到的关键点的数量。例如，图像大小为 225，输出步幅为 16，那么就是 15 x 15 x 17。第三维（17）中的每个切片对应于特定关键点的热图。该热图中的每个位置都有一个置信度分数，这是该类型关键点的一部分在该位置的概率。它可以被认为是原始图像被分解成 15 x 15 网格，其中热图分数提供了每个网格中每个关键点存在概率的等级。
 
-**Offset Vectors**
+**偏移矢量**
 
-Each offset vector is a 3D tensor of size **resolution x resolution x 34**, where 34 is the number of keypoints * 2\. With an image size of 225 and output stride of 16, this would be 15x15x34\. Since heatmaps are an approximation of where the keypoints are, the offset vectors correspond in location to the heatmap points, and are used to predict the exact location of the keypoints as by traveling along the vector from the corresponding heatmap point. The first 17 slices of the offset vector contain the x of the vector and the last 17 the y. The offset vector sizes are in **the same scale as the original image.**
+每个偏移矢量都是尺寸 **resolution x resolution x 34** 的 3D 张量，其中 34 是关键点数* 2。图像大小为 225，输出步幅为 16 时，它是 15 x 15 x 34。由于热图是关键点位置的近似值，所以偏移矢量在位置上对应于热图中的点，用于遍历热图点对应的向量，从而预测关键点的确切位置。偏移矢量的前 17 个切片包含矢量的 x 坐标和后 17 个包含 y 坐标。偏移矢量大小**与原始图像具有相同的比例**。
 
-**Estimating Poses from the Outputs of the Model**
+**根据模型的输出估计姿态**
 
-After the image is fed through the model, we perform a few calculations to estimate the pose from the outputs. The single-pose estimation algorithm for example returns a pose confidence score which itself contains an array of keypoints (indexed by part ID) each with a confidence score and x, y position.
+图像通过模型馈送后，我们执行一些计算来从输出中估计姿态。例如，单人姿态估计算法返回姿态置信度分数，它包含关键点数组（以各部分的 ID 作索引），每个关键点具有置信度分数和 x，y 位置。
 
-To get the keypoints of the pose:
+为了获得姿态的关键点：
 
-1.  A **sigmoid** activation is done on the heatmap to get the scores.
+1. 调用热图的 **sigmoid** 方法，以获得分数。
     `scores = heatmap.sigmoid()`
-2.  **argmax2d** is done on the keypoint confidence scores to get the x and y index in the heatmap with the highest score for each part, which is essentially where the part is most likely to exist. This produces a tensor of size 17x2, with each row being the y and x index in the heatmap with the highest score for each part.
+2. **argmax2d** 是根据关键点置信度得分来获得热图中 x 和 y 索引，取每个部分的得分最高者，一般也是该部分最有可能存在的地方。这会产生一个尺寸为 17 x 2 的张量，每一行都是每部分得分最高的热图中的 y 和 x 索引。
     `heatmapPositions = scores.argmax(y, x)`
-3.  The **offset vector** for each part is retrieved by getting the x and y from the offsets corresponding to the x and y index in the heatmap for that part. This produces a tensor of size 17x2, with each row being the offset vector for the corresponding keypoint. For example, for the part at index k, when the heatmap position is y and d, the offset vector is:
+3. 每部分的**偏移矢量**通过从该部分的热图中对应 x 和 y 索引的偏移量中获取 x 和 y。这会产生 17 x 2 的张量，每行都是相应关键点的偏移向量。例如，对于索引为 k 的部分，当热图位置为 y 和 x 时，偏移矢量为：
     `offsetVector = [offsets.get(y, x, k), offsets.get(y, x, 17 + k)]`
-4.  To get the **keypoint**, each part’s heatmap x and y are multiplied by the output stride then added to their corresponding offset vector, which is in the same scale as the original image.
+4. 为了获得**关键点**，将每部分的热图 x 和 y 乘以输出步幅，然后将其添加到它们对应的偏移向量中，该向量与原始图像具有相同的比例。
     `keypointPositions = heatmapPositions * outputStride + offsetVectors`
-5.  Finally, each **keypoint confidence score** is the confidence score of its heatmap position. The **pose confidence score** is the mean of the scores of the keypoints.
+5. 最后，每个**关键点置信度分数**是其热图**位置的置信度分数**。该姿态的置信度得分是关键点的评分的平均值。
 
-#### Multi-person Pose Estimation
+#### 多人姿态估计
 
-The details of the multi-pose estimation algorithm are outside of the scope of this post. Mainly, that algorithm differs in that it uses a **greedy** process to group keypoints into poses by following displacement vectors along a part-based graph. Specifically, it uses the **fast greedy decoding**algorithm from the research paper [_PersonLab: Person Pose Estimation and Instance Segmentation with a Bottom-Up, Part-Based, Geometric Embedding Model_](https://arxiv.org/pdf/1803.08225.pdf). For more information on the multi-pose algorithm please read the full research paper or look at the [code](https://github.com/tensorflow/tfjs-models/tree/master/posenet/src).
+多人姿态估计算法的细节超出了本文的范围。该算法的主要不同之处在于它使用**贪婪**过程通过沿着基于部分图的位移矢量将关键点分组为姿态。具体来说，它使用研究论文 [**PersonLab: 自下而上的局部几何嵌入模型的人体姿态估计和实例分割**](https://arxiv.org/pdf/1803.08225.pdf)中的**快速贪婪解码**算法。有关多人姿态算法的更多信息，请阅读完整的研究论文或查看[代码](https://github.com/tensorflow/tfjs-models/tree/master/posenet/src)。
 
 * * *
 
-It’s our hope that as more models are ported to TensorFlow.js, the world of machine learning becomes more accessible, welcoming, and fun to new coders and makers. PoseNet on TensorFlow.js is a small attempt at making that possible. We’d love to see what you make — and don’t forget to share your awesome projects using #tensorflowjs and #posenet!
-
+我们希望随着越来越多的模型被移植到 TensorFlow.js，机器学习的世界变得对更容易被新的开发者和制造者接受，更受欢迎和更有趣。基于 TensorFlow.js 的 PoseNet 是实现这一目标的一个小小尝试。我们很乐意看到你做出了什么 —— 不要忘记使用 #tensorflowjs 和 #posenet 分享您的精彩项目！
 
 ---
 
