@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/what-are-javascript-generators-and-how-to-use-them.md](https://github.com/xitu/gold-miner/blob/master/TODO1/what-are-javascript-generators-and-how-to-use-them.md)
 > * 译者：[lsvih](https://github.com/lsvih)
-> * 校对者：[zhongdeming428](https://github.com/zhongdeming428)
+> * 校对者：[zhongdeming428](https://github.com/zhongdeming428),[老教授](https://juejin.im/user/58ff449a61ff4b00667a745c/posts)
 
 # 什么是 JavaScript 生成器？如何使用生成器？
 
@@ -13,11 +13,11 @@
 
 ### 什么是 JavaScript 生成器？
 
-生成器是一种可以用来控制迭代器的（iterator）函数，它可以随时暂停，并可以在任意时候恢复。
+生成器是一种可以用来控制迭代器（iterator）的函数，它可以随时暂停，并可以在任意时候恢复。
 
-上面的描述没法说明什么，让我们来看一些例子，解释什么是生成器，以及生成器与 for 循环之类的迭代器有什么区别。
+上面的描述没法说明什么，让我们来看一些例子，解释什么是生成器，以及生成器与 **for 循环**之类的迭代器有什么区别。
 
-下面是一个 for 循环的例子，它会在执行后立刻返回一些值。这段代码其实就是简单地生成了 0-5 这些数字。
+下面是一个 **for 循环**的例子，它会在执行后立刻返回一些值。这段代码其实就是简单地生成了 0-5 这些数字。
 
 ```
 for (let i = 0; i < 5; i += 1) {
@@ -44,7 +44,7 @@ genForLoop.next(); // 3
 genForLoop.next(); // 4
 ```
 
-它做了什么？它实际上只是对上面例子中的 for 循环做了一点改动，但产生了很大的变化。这种变化是由于生成器最重要的特性造成的 —— 只有在需要的时候它才会产生下一个值，而不会一次性产生所有的值。在某些情景下，这种特性十分方便。
+它做了什么？它实际上只是对上面例子中的 **for 循环**做了一点改动，但产生了很大的变化。这种变化是由生成器最重要的特性造成的 —— 只有在需要的时候它才会产生下一个值，而不会一次性产生所有的值。在某些情景下，这种特性十分方便。
 
 ### 生成器语法
 
@@ -66,7 +66,7 @@ let generator = (*) => {} // SyntaxError
 
 如上面的例子所示，我们并不能使用箭头函数来创建一个生成器。
 
-以下例子为将生成器作为方法（method）创建。定义方法与定义函数的方式是一样的。
+下面将生成器作为方法（method）来创建。定义方法与定义函数的方式是一样的。
 
 ```
 class MyClass {
@@ -113,7 +113,7 @@ calcSix.next().value; // 11
 calcSix.next().value; // 36
 ```
 
-`yield` 每次都会返回一个值，在你再次调用同一个函数的时候，它会执行至下一个 `yield` 语句处。
+用 `yield` 返回的值只会返回一次，当你再次调用同一个函数的时候，它会执行至下一个 `yield` 语句处（译者注：前面的 `yield` 不再返回东西了）。
 
 在生成器中，我们通常会在输出时得到一个对象。这个对象有两个属性：`value` 与 `done`。如你所想，`value` 为返回值，`done` 则会显示生成器是否完成了它的工作。
 
@@ -169,7 +169,7 @@ gen.next().value; // 4
 
 在开始下一节前，我们先观察一个第一眼看上去比较奇特的行为。
 
-下面是正常的代码，不会报出任何错误，这表明 `yield` 可以在 `next()` 方法中返回传递的值：
+下面是正常的代码，不会报出任何错误，这表明 `yield` 可以在 `next()` 方法调用后返回传递的值：
 
 ```
 function * generator(arr) {
@@ -273,7 +273,7 @@ gen.next(); // {value: undefined, done: true} - 在 return() 之后的所有 nex
 
 ```
 
-`return()` 将会忽略生成器中的任何代码。它会根据传值设定 `value`，并将 `done` 设为 `true`。任何在 `return()` 之后进行的 `next()` 调用都会返回 `done`　属性为　`true`　的对象。
+`return()` 将会忽略生成器中的任何代码。它会根据传值设定 `value`，并将 `done` 设为 `true`。任何在 `return()` 之后进行的 `next()` 调用都会返回 `done` 属性为 `true` 的对象。
 
 **throw() 方法**
 
@@ -314,7 +314,7 @@ const gen = generator();
 gen.math(1); // 3.141592653589793
 ```
 
-#### 生成器的作用
+#### 生成器的用途
 
 在前面，我们用了已知迭代次数的生成器。但如果我们不知道要迭代多少次会怎么样呢？为了解决这个问题，需要在生成器函数中创建一个无限循环。下面以一个会返回随机数的函数为例进行演示：
 
@@ -326,7 +326,7 @@ function * randomFrom(...arr) {
 
 const getRandom = randomFrom(1, 2, 5, 9, 4);
 
-getRandom.next().value; // 返回随机数
+getRandom.next().value; // 返回随机的一个数
 ```
 
 这是个简单的例子。下面来举一些更复杂的函数为例，我们要写一个节流（throttle）函数。如果你还不知道节流函数是什么，请参阅[这篇文章](https://medium.com/@_jh3y/throttling-and-debouncing-in-javascript-b01cad5c8edf)。
@@ -344,7 +344,7 @@ function * throttle(func, time) {
 const thr = throttle(console.log, 1000);
 
 thr.next(); // {value: undefined, done: false}
-thr.next('hello'); // {value: undefined, done: false} + 1s after -> 'hello'
+thr.next('hello'); // 返回 {value: undefined, done: false} ，然后 1 秒后输出 'hello'
 ```
 
 还有没有更好的利用生成器的例子呢？如果你了解递归，那你肯定听过[斐波那契数列](https://en.wikipedia.org/wiki/Fibonacci_number)。通常我们是用递归来解决这个问题的，但有了生成器后，可以这样写：
@@ -370,9 +370,9 @@ fib.next(); // {value: 8, done: false}
 
 不再需要递归了！我们可以在需要的时候获得数列中的下一个数字。
 
-#### The use of generators with HTML
+#### 将生成器用在 HTML 上
 
-既然是讨论 JavaScript，那使用生成器的最明确的方法就是操作 HTML。
+既然是讨论 JavaScript，那显然要用生成器来操作下 HTML。
 
 假设有一些 HTML 块需要处理，可以使用生成器来轻松实现。（当然除了生成器之外还有很多方法可以做到）
 
@@ -408,4 +408,3 @@ btn.addEventListener('click', (el) => {
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
-
