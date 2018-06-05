@@ -468,7 +468,7 @@ document.addEventListener('click', () => {
 
 * * *
 
-如果你觉得本文有用，请点击 ❤。[订阅我](https://medium.com/@treyhuffine) 可以看到更多关于 blockchain、 React、 Node.js、 JavaScript 和开源软件的文章！你也可以在 [Twitter](https://twitter.com/treyhuffine) 或 [gitconnected](https://gitconnected.com/treyhuffine) 上找到我。
+如果你觉得本文有用，请点击 ❤。[订阅我](https://medium.com/@treyhuffine) 可以看到更多关于 blockchain、React、Node.js、JavaScript 和开源软件的文章！你也可以在 [Twitter](https://twitter.com/treyhuffine) 或 [gitconnected](https://gitconnected.com/treyhuffine) 上找到我。
 
 
 ---
