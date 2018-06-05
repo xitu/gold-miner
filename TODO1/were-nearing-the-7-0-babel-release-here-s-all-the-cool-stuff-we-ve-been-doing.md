@@ -273,7 +273,7 @@ import "core-js/modules/es6.promise";var a = new Promise();
 import "core-js/modules/es7.array.includes";[].includesa.includes
 ```
 
-通过类型推断我们能知道一个像 `.includes` 的实例是否是一个 array 或者不是。在逻辑变得更好之前，得到一个 false positive 是可以的，因为它仍旧是优于之前引入整个 polyfill 的。
+通过类型推断我们能知道一个像 `.includes` 的实例是否是一个 array。在逻辑变得更好之前，得到一个 false positive 是可以的，因为它仍旧是优于之前引入整个 polyfill 的。
 
 #### 其他更新
 
