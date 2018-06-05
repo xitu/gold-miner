@@ -3,7 +3,6 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/sharing-databases-between-laravel-applications.md](https://github.com/xitu/gold-miner/blob/master/TODO1/sharing-databases-between-laravel-applications.md)
 > * 译者：[Elliott Zhao](https://github.com/elliott-zhao)
-> * 校对者：
 
 # 在 Laravel 应用程序之间共享数据库
 
@@ -105,7 +104,7 @@ Sepehr 的建议中提及的的特性使用一个从待删表的连接数组中�
 
 Laravel 实际上很容易将第三方软件包的配置合并到主配置中。在我们的生产应用程序中，我们的数据库配置中**没有**配置任何连接。
 
-相反，这个功能位于每个数据库连接的服务提供者内部。我们有一个顶级提供程序，每个提供程序都可以扩展，默认情况下，每个提供程序只需定义一个受保护的属性： `$connectionName`。
+相反，这个功能位于每个数据库连接的服务提供者内部。我们有一个顶级提供程序，每个提供程序都可以扩展，默认情况下，每个提供程序只需定义一个受保护的属性：`$connectionName`。
 
 你可以在[这里](https://gist.github.com/michaeldyrynda/381024012249661a52fed7351c3e39a5)看到这个功能的独立样例。
 
