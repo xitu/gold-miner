@@ -5,11 +5,11 @@
 > * 译者：[xueshuai](https://github.com/xueshuai)
 > * 校对者：[Colafornia](https://github.com/Colafornia)
 
-# Babel 7.0 带来的很酷的事情
+# Babel 7.0 版本将带来的很酷的事情
 
 ![](https://cdn-images-1.medium.com/max/1000/1*vLtFVPTHJGDfw3XOl4C1Sw.jpeg)
 
-图片来自 [“My Life Through A Lens”](https://unsplash.com/photos/bq31L0jQAjU?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)，发布于  [Unsplash](https://unsplash.com/search/photos/change?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)
+图片来自 [“My Life Through A Lens”](https://unsplash.com/photos/bq31L0jQAjU?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)，发布于 [Unsplash](https://unsplash.com/search/photos/change?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)
 
 来看这👋！我是 [Henry](http://twitter.com/left_pad)，[Babel](http://babeljs.io) 的维护者之一。
 
