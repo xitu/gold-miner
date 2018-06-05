@@ -2,8 +2,8 @@
 > * 原文作者：[Florina Muntenescu](https://medium.com/@florina.muntenescu?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/spantastic-text-styling-with-spans.md](https://github.com/xitu/gold-miner/blob/master/TODO1/spantastic-text-styling-with-spans.md)
-> * 译者：
-> * 校对者：
+> * 译者：[wzasd](https://github.com/wzasd)
+> * 校对者：[luochen1992](https://github.com/luochen1992)
 
 # 使用 Span 来修改文本样式的优质体验
 
@@ -32,13 +32,13 @@ Android 提供了几种方法用于文本样式的设置：
     android:textStyle="bold"/>
 ```
 
-**多样式** 意味着在同一文本中添加多种样式。例如，将一个单词设置为斜体，另一个单词设置为粗体。多样式模式可以使用 HTML 标签，在画布上使用 spans 或者通过处理自定义文本绘制来进行文本样式的应用。
+**多样式**意味着在同一文本中添加多种样式。例如，将一个单词设置为斜体，另一个单词设置为粗体。多样式模式可以使用 HTML 标签，在画布上使用 spans 或者通过处理自定义文本绘制来进行文本样式的应用。
 
 ![](https://cdn-images-1.medium.com/max/800/0*3hnVPTJP5Hv4Jduo.)
 
-左图：单一样式的文本。TextView 设置 `textSize=”32sp”` 和 `textStyle=”bold”`。右图：多样式的文本。文本设置 `ForegroundColorSpan`， `StyleSpan(ITALIC)`， `ScaleXSpan(1.5f)`， `StrikethroughSpan`。
+左图：单一样式的文本。TextView 设置 `textSize=”32sp”` 和 `textStyle=”bold”`。右图：多样式的文本。文本设置 `ForegroundColorSpan`、`StyleSpan(ITALIC)`、`ScaleXSpan(1.5f)` 和 `StrikethroughSpan`。
 
-**HTML 标签** 是一种处理简单样式问题的解决方案，如使文字变粗体、斜体甚至是标识 bullet points。要设置包含 HTML 标签的文本，请调用 [`Html.fromHtml`](https://developer.android.com/reference/android/text/Html.html#fromHtml%28java.lang.String,%20int%29) 方法。在 HTML 引擎中，HTML 格式被转换成 spans。请注意，`Html` 类并不支持所有 HTML 标签和 css 样式，例如使 bullet points 变成另一种颜色。
+**HTML 标签**是一种处理简单样式问题的解决方案，如使文字变粗体、斜体甚至是标识 bullet points。要设置包含 HTML 标签的文本，请调用 [`Html.fromHtml`](https://developer.android.com/reference/android/text/Html.html#fromHtml%28java.lang.String,%20int%29) 方法。在 HTML 引擎中，HTML 格式被转换成 spans。请注意，`Html` 类并不支持所有 HTML 标签和 css 样式，例如使 bullet points 变成另一种颜色。
 
 ```
 val text = "My text <ul><li>bullet one</li><li>bullet two</li></ul>"
@@ -69,7 +69,7 @@ myTextView.text = spannable
 
 左图：使用 HTML 标签。中图：使用 `BulletSpan` 设置默认 bullet 大小。右图：使用 `BulletSpan` 在 Android P 或者自定义实现。
 
-您可以结合单一样式和多样式。您可以将您设置 TextView 的样式视为“基础”样式。spans 的文本样式应用于基础样式的“顶部”，并且会覆盖基础样式。例如，当将 `textColor=”@color.blue”` 属性设置为 TextView 并对文本的前4个字符设置 `ForegroundColorSpan(Color.PINK)` 时，前4个字符将使用粉红色，是由 span 来进行控制，剩下的部分有 TextView 属性来进行设置。
+您可以结合单一样式和多样式。您可以将您设置 TextView 的样式视为“基础”样式。spans 的文本样式应用于基础样式的“顶部”，并且会覆盖基础样式。例如，当将 `textColor=”@color.blue”` 属性设置为 TextView 并对文本的前4个字符设置 `ForegroundColorSpan(Color.PINK)` 时，前 4 个字符将使用粉红色，是由 span 来进行控制，剩下的部分有 TextView 属性来进行设置。
 
 ``` Java
 <TextView
@@ -107,8 +107,8 @@ myTextView.text = spannable
 ╔════════════════════════╦══════════════════╦════════════════════╗
 ║ **Class**              ║ **Mutable Text** ║ **Mutable Markup** ║
 ╠════════════════════════╬══════════════════╬════════════════════╣
-║ SpannedString          ║        no        ║        no          ║
-║ SpannableString        ║        no        ║       yes          ║
+║ SpannedString          ║       no         ║       no           ║
+║ SpannableString        ║       no         ║       yes          ║
 ║ SpannableStringBuilder ║       yes        ║       yes          ║
 ╚════════════════════════╩══════════════════╩════════════════════╝
 ```
@@ -117,7 +117,7 @@ myTextView.text = spannable
 
 [Spanned](https://developer.android.com/reference/android/text/Spanned.html) -> 带有不可变标记的不可变文本
 
-[Spannable](https://developer.android.com/reference/android/text/Spannable.html) （继承 `Spanned`）-> 具有可变标记的不可变文本
+[Spannable](https://developer.android.com/reference/android/text/Spannable.html)（继承 `Spanned`）-> 具有可变标记的不可变文本
 
 通过 `Spannable` 对象调用 [`setSpan(Object what, int start, int end, int flags)`](https://developer.android.com/reference/android/text/Spannable.html#setSpan%28java.lang.Object,%20int,%20int,%20int%29) 。`what`对象是将从文本中的开始到结束索引的标记。这个标志代表了这个 span 是否应在其扩展到包含起点或者终点的位置处插入文本。无论在那个位置进行标记，只要文本插入的位置大于起点小于终点位置，span 将自动扩大。
 
@@ -182,11 +182,11 @@ Android 框架在 [`android.text.style`](https://developer.android.com/reference
 
 ![](https://cdn-images-1.medium.com/max/1000/0*3qvv1i8lbceOxq0P.)
 
-Span 类型：字符与段落，外观与度量
+Span 类型：字符与段落，外观与度量。
 
 #### **外观与度量分别对 span 的影响**
 
-第一组分类影响字符级文本可以修改它们的外观：文本或背景颜色、下划线、删除线等，会重新绘制而不会导致文本重新布局。这些 span 实现了 [`UpdateAppearance`](https://developer.android.com/reference/android/text/style/UpdateAppearance.html) 并且继承 [`CharacterStyle`](https://developer.android.com/reference/android/text/style/CharacterStyle.html)。`CharacterStyle` 子类定义了如何通过提供更新 `TextPaint` 来访问文本
+第一组分类影响字符级文本可以修改它们的外观：文本或背景颜色、下划线、删除线等，会重新绘制而不会导致文本重新布局。这些 span 实现了 [`UpdateAppearance`](https://developer.android.com/reference/android/text/style/UpdateAppearance.html) 并且继承 [`CharacterStyle`](https://developer.android.com/reference/android/text/style/CharacterStyle.html)。`CharacterStyle` 子类定义了如何通过提供更新 `TextPaint` 来访问文本。
 
 ![](https://cdn-images-1.medium.com/max/1000/0*gwmWCXpJfDVV5Kcn.)
 
@@ -270,7 +270,7 @@ spannable.setSpan(
     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
 ```
 
-像 [`QuoteSpan`](https://developer.android.com/reference/android/text/style/QuoteSpan.html) 一样的 `ParagraphStyle` span 只能从段落开头附加，否则文字的边距并不会生效。举个例子，“_Text is_**_\n_**_spantastic_”在文本的第8个字符中包含了换行，因此我们可以将 `QuoteSpan` 附加到它上面，并且只是从那里开始的段落将被格式化。如果我们将 span 附加到除了 0 或 8 以外的其他任何位置，则文本不会被设置目标样式。
+像 [`QuoteSpan`](https://developer.android.com/reference/android/text/style/QuoteSpan.html) 一样的 `ParagraphStyle` span 只能从段落开头附加，否则文字的边距并不会生效。举个例子，“_Text is_**_\n_**_spantastic_” 在文本的第8个字符中包含了换行，因此我们可以将 `QuoteSpan` 附加到它上面，并且只是从那里开始的段落将被格式化。如果我们将 span 附加到除了 0 或 8 以外的其他任何位置，则文本不会被设置目标样式。
 
 ```
 spannable.setSpan(
@@ -281,7 +281,7 @@ spannable.setSpan(
 
 ![](https://cdn-images-1.medium.com/max/800/0*J_YIdoh9-gXTQB5X.)
 
-左图: BackgroundColorSpan — 影响外观的 span. 右图: QuoteSpan — 影响段落的 span.
+左图：BackgroundColorSpan — 影响外观的 span。右图：QuoteSpan — 影响段落的 span。
 
 ### 创建自定义的 spans
 
@@ -319,7 +319,7 @@ class RelativeSizeColorSpan(
 *   如果 span 未附加到文本，则不绘制任何内容
 *   根据构造函数的参数值设置正确的页边距
 
-测试 Canvas 交互可以通过模拟一个画布，将模拟出来的对象传递给 `drawLeadingMargin` 方法，并验证调用的含有正确参数的方法，
+测试 Canvas 交互可以通过模拟一个画布，将模拟出来的对象传递给 `drawLeadingMargin` 方法，并验证调用的含有正确参数的方法。
 
 ```
 val canvas = mock(Canvas::class.java)
@@ -406,7 +406,7 @@ Spans 是一个很强大的概念，文本渲染功能中有强大的功能。�
 
 在以后的文章中，我们将更详细地介绍 span 如何在引擎下以高效的方式使用它们。例如，您需要使用 [`textView.setText(CharSequence, BufferType)`](https://developer.android.com/reference/android/widget/TextView.html#setText%28java.lang.CharSequence,%20android.widget.TextView.BufferType%29)。有关详情，敬请关注！
 
-> 非常感谢 [Siyamed Sinir](https://twitter.com/siyamed), Clara Bayarri 和 [Nick Butcher](https://medium.com/@crafty)
+> 非常感谢 [Siyamed Sinir](https://twitter.com/siyamed), Clara Bayarri 和 [Nick Butcher](https://medium.com/@crafty)。
 
 
 ---
