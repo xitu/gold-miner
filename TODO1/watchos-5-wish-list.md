@@ -3,7 +3,6 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/watchos-5-wish-list.md](https://github.com/xitu/gold-miner/blob/master/TODO1/watchos-5-wish-list.md)
 > * 译者：[talisk](https://github.com/talisk)
-> * 校对者：
 
 # watchOS 5 愿望清单: Apple Watch Podcasts，开放的 Siri 表盘，重新设计的控制中心，以及更多
 
@@ -19,7 +18,7 @@
 
 ![](https://9to5mac.files.wordpress.com/2018/04/apple-watch-podcasts.png?w=1000&h=436)
 
-Apple Watch 播客可在播放设备之间同步播放位置，并可选择下载用于离线播放的节目（如乘坐航班或长时间锻炼时）以节省电池寿命 - 带有 LTE 的 Apple Watch Series 3 具有 16GB 存储空间，其他所有型号都有 8GB，但基本上未被使用。Siri 长期以来一直能够控制其他设备上的 Podcasts 播放，所以这可能会扩展到 Apple Watch，并且能够通过弹窗切换新的节目将非常方便。
+Apple Watch 播客可在播放设备之间同步播放位置，并可选择下载用于离线播放的节目（如乘坐航班或长时间锻炼时）以节省电池寿命 — 带有 LTE 的 Apple Watch Series 3 具有 16GB 存储空间，其他所有型号都有 8GB，但基本上未被使用。Siri 长期以来一直能够控制其他设备上的 Podcasts 播放，所以这可能会扩展到 Apple Watch，并且能够通过弹窗切换新的节目将非常方便。
 
 需要更好的开发人员工具来启用真正优秀的第三方播客应用 —— 这就是为什么 Apple Watch 没有独立的 Overcast 原因 —— 所以希望苹果能够提供自己的解决方案，并允许开发人员创建功能强大的第三方播客播放器。在当前限制下，我最喜欢的应用是 [Outcast for Apple Watch](https://9to5mac.com/2018/01/30/outcast-apple-watch-podcast-app/)。它适用于一次性收听的情况，但它绝对是现在的一个权宜之计。
 
