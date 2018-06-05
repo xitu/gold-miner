@@ -3,41 +3,41 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/were-nearing-the-7-0-babel-release-here-s-all-the-cool-stuff-we-ve-been-doing.md](https://github.com/xitu/gold-miner/blob/master/TODO1/were-nearing-the-7-0-babel-release-here-s-all-the-cool-stuff-we-ve-been-doing.md)
 > * 译者：[xueshuai](https://github.com/xueshuai)
-> * 校对者：
+> * 校对者：[Colafornia](https://github.com/Colafornia)
 
-# 我们距离 Babel 7.0 发布很近了。这里是所有我们一直在做的很酷的事情。
+# Babel 7.0 带来的很酷的事情
 
 ![](https://cdn-images-1.medium.com/max/1000/1*vLtFVPTHJGDfw3XOl4C1Sw.jpeg)
 
 图片来自 [“My Life Through A Lens”](https://unsplash.com/photos/bq31L0jQAjU?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)，发布于  [Unsplash](https://unsplash.com/search/photos/change?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)
 
-来看这！我是 [Henry](http://twitter.com/left_pad)，[Babel](http://babeljs.io) 的维护者之一。
+来看这👋！我是 [Henry](http://twitter.com/left_pad)，[Babel](http://babeljs.io) 的维护者之一。
 
-> 编辑：我写过 [left Behance](https://www.henryzoo.com/blog/2018/02/15/leaving-behance.html) 并制作了 [Patreon](https://www.patreon.com/henryzhu) 来尝试追求  [全职工作在开源工作上](https://www.henryzoo.com/blog/2018/03/02/in-pursuit-of-open-source-part-1.html)，请您考虑捐献（向你的公司咨询）。
+> 编辑：我已经离开了 [Behance](https://www.henryzoo.com/blog/2018/02/15/leaving-behance.html) 并制作了 [Patreon](https://www.patreon.com/henryzhu)，尝试 [全职投入到开源工作上](https://www.henryzoo.com/blog/2018/03/02/in-pursuit-of-open-source-part-1.html)，请你或你的公司考虑捐献。
 
 #### Babel 简介
 
-有些人可能把 Babel 看作是一个让你写 ES6 代码的工具。 更准确的说，把 ES6 代码转换为 ES5 代码的 JavaScript 编译器。 当它的名字是 6to5 时，这很适合，但是我认为 Babel 已经变得不只是这些了。
+有些人可能把 Babel 看作是一个让你写 ES6 代码的工具。更准确的说，Babel 是把 ES6 代码转换为 ES5 代码的 JavaScript 编译器。当它的名字是 6to5 时，这很适合，但是我认为 Babel 已经变得不只是这些了。
 
-现在让我们聊一些背景。首先，这个是非常必要的，因为不像在服务器上的其他语言（甚至是  Node.js），你能运行的的 JavaScript 版本取决于你的浏览器的特定版本。如果你使用最新的浏览器，而你的用户（你想留住的）仍然使用 IE，是没有关系的。但是，举个例子，如果你想写 `class A {}` ，那么你就很不幸了 - 你的一些用户将会得到一个 `SyntaxError` 和一个空白页面。
+现在让我们聊一些背景。这一点非常必要，因为不像运行在服务器上的其他语言（甚至是  Node.js），你能运行的的 JavaScript 版本取决于你的浏览器的特定版本。如果你使用最新的浏览器，而你的用户（你想留住的）仍然使用 IE，是没有关系的。但是，举个例子，如果你想写 `class A {}` ，那么你就很不幸了 - 你的一些用户将会得到一个 `SyntaxError` 和一个空白页面。
 
-所以这就是为什么 Babel 被创建的原因。它允许你写你想写的 JavaScript 版本，你知道它会在你支持的所有（更老）的浏览器上正确的运行。
+所以这就是创建 Babel 的原因。它允许你写你想写的 JavaScript 版本，你知道它会在你支持的所有（更老）的浏览器上正确的运行。
 
-但是，它并不停止于 “ES6”（有些人喜欢说 ES2015）。Babel 已经确实扩展了他的最初目标，即只编译 ES6 代码。现在，它能够编译你想要的无论哪个 ES20XX 版本（JavaScript 最新版本）到 ES5.
+但是，它并不停止于 “ES6”（有些人喜欢说 ES2015）。Babel 已经确实扩展了他的最初目标，即只编译 ES6 代码。现在，它能够编译任意一个你想要的 ES20XX 版本（JavaScript 最新版本）到 ES5.
 
 #### 正在进行的进程
 
-关于这个项目的一个有趣的事情是，只要 JavaScript 语法被加进去，Babel 就需要实现一个转换转变它。
+关于这个项目的一个有趣的事情是，只要 JavaScript 语法被加进去，Babel 就需要实现一个转换器去转化它。
 
-但是你可能会想，为什么我们应该给支持那样语法的浏览器发送一个编译过的版本（更大的代码体积）？我们怎么知道每个浏览器支持什么语法？
+但是你可能会想，为什么我们要给已经支持该语法的浏览器发送一个编译过的版本（更大的代码体积）？我们怎么知道每个浏览器支持什么语法？
 
 好了，我们制作了一个让你能够指定你支持哪个浏览器的工具 [babel-preset-en](https://babeljs.io/docs/plugins/preset-env)，来帮助解决这个问题。它将会自动地只转换那些浏览器原生不支持的东西。
 
 除此之外，Babel（因为它在社区的使用）能够影响 JavaScript 语言自身的未来。鉴于它是用于转换 JS 代码的工具，它也可以用于实现提交给 [TC39](http://2ality.com/2015/11/tc39-process.html) 的任何提案（Ecma Technical Committee 39，一个使 JavaScript 作为标准向前发展的组织）。
 
-当一个 “提案” 在语言中实现的时候，从 Stage 0 到 Stage 4，它经历了一个完整的流程。Babel，作为一个工具，在正确的地方测试新的想法并且让开发者在他们的应用中使用它，以便他们可以向委员会提供反馈。
+一个 “提案” 进入到语言中会经历从 Stage 0 到 Stage 4 的一个完整流程。Babel，作为一个工具，在正确的地方测试新的想法并且让开发者在他们的应用中使用它，以便他们可以向委员会提供反馈。
 
-由于一些原因，这非常重要：委员会想确信他们做出的更改是社区想要的（一致，直观，有效）。在浏览器里实现一个不明的想法是缓慢的（浏览器中的 C++ 与 Babel 中的 JavaScript），昂贵的，并且要求用户在浏览器中使用一个标志，而不是更改他们的 Babel 配置文件。
+出于以下原因，这一点非常重要：委员会想确信他们做出的更改是社区想要的（一致，直观，有效）。在浏览器里实现一个不明的想法是缓慢的（浏览器中的 C++ 对比 Babel 中的 JavaScript），昂贵的，并且要求用户在浏览器中使用一个标志，而不是更改他们的 Babel 配置文件。
 
 因为 Babel 已经非常普及了，这是有一个好的机会使真正的用途出现。这将使提案比那个没有广大社区开发者反馈的实现更好。
 
@@ -49,13 +49,13 @@
 
 #### 我的故事
 
-这里有一些我希望每天都工作在这个项目上的原因，特别是作为一个维护者。大多数当前的维护者，包括我自己，并不是创建这个项目的人，而是在一年之后加入的 - 想起我开始的地方仍然很兴奋。
+这里有一些我希望每天都工作在这个项目上的原因，特别是作为一个维护者。大多数当前的维护者，包括我自己，并不是创建这个项目的人，而是在一年之后加入的 - 想起我开始的地方仍然很[兴奋](https://medium.com/@left_pad/ossthanks-some-thoughts-d0267706c2c6)。
 
 至于我，我认识到一个需求和一个有趣的项目。我慢慢并持续地有更多的参与，现在我已经能够有了我的雇主，[Behance](https://www.behance.net/)，资助我一半的时间工作在 Babel 上。
 
-有时候“维护”只是意味着修复 bugs，在 Slack 或 [Twitter](https://twitter.com/babeljs/) 上回答问题，或是编写更新日志（这真的取决于我们每一个人）。但是最近，我已经减少了在 bug 修复和特性上的注意力。取而代之的是我把时间放在了思考更多高级的问题上，例如：这个项目的未来是什么？我们如何就维护者与用户的数量而言，使我们的社区增长。我们如何在资金方面维持这个项目？我们如何整体的融入 JavaScript 生态系统（教育，[TC39](https://github.com/tc39/proposals)，工具）？这里有没有一个适合我们的角色来帮助新人加入开源项目（[RGSoC](https://twitter.com/left_pad/status/959439119960215552) 和 [GSoC](https://summerofcode.withgoogle.com/)）？
+有时候“维护”只是意味着修复 bugs，在 Slack 或 [Twitter](https://twitter.com/babeljs/) 上回答问题，或是编写更新日志（这真的取决于我们每一个人）。但是最近，我已经减少了在 bug 修复和特性上的注意力。取而代之的是我把时间放在了思考更多高层次的问题上，例如：这个项目的未来是什么？我们如何就维护者与用户的数量而言，使我们的社区增长。我们如何在资金方面维持这个项目？我们如何整体的融入 JavaScript 生态系统（教育，[TC39](https://github.com/tc39/proposals)，工具）？这里有没有一个适合我们的角色来帮助新人加入开源项目（[RGSoC](https://twitter.com/left_pad/status/959439119960215552) 和 [GSoC](https://summerofcode.withgoogle.com/)）？
 
-因为这些问题，我对这个版本最大的期望不是特性集中地细节（有很多：初步实施的新提案比如 [Pipeline Operator (a |> b)](https://github.com/babel/babel/tree/master/packages/babel-plugin-proposal-pipeline-operator)，有 TS 团队提供帮助的 [new TypeScript preset](https://github.com/babel/babel/tree/master/packages/babel-preset-typescript) 和 .babelrc.js 文件）。
+因为这些问题，这个版本最让我感到兴奋的地方不是那些特性（有很多：初步实施的新提案比如 [Pipeline Operator (a |> b)](https://github.com/babel/babel/tree/master/packages/babel-plugin-proposal-pipeline-operator)，有 TS 团队提供帮助的 [new TypeScript preset](https://github.com/babel/babel/tree/master/packages/babel-preset-typescript) 和 .babelrc.js 文件）。
 
 而是我对这些特性所代表的东西更兴奋：一年来不懈的努力不去打破一切，平衡用户的期望（为什么构建这么慢/代码输入这么大，为什么代码没有足够的兼容，为什么这个工作不能没有配置，为什么这里没有一个对其他情况的选择）和维持一个由志愿者组成的坚实团队。
 
@@ -139,7 +139,7 @@
 
 尽管维护数据列表的工作量很大 - 再一次，我们需要帮助 - 它解决了很多问题。它确保了用户能够及时了解规范。它意味着较少的配置/包的混乱。它意味着一个简单升级之路。并且它意味着更少的什么是什么的问题。
 
-`babel-preset-env` 其实是一个很 _老_ 的 preset，它代替了每个其他的你将需要的（es2015，es2016，es2017，es20xx，latest 等等）句法 preset
+`babel-preset-env` 其实是一个很 _老_ 的 preset，它代替了每个其他的你将需要的（es2015，es2016，es2017，es20xx，latest 等等）句法 preset。
 
 ![](https://cdn-images-1.medium.com/max/800/0*wgAjmRI1MVcI_Veg.png)
 
@@ -159,11 +159,11 @@
 
 ![](https://i.loli.net/2018/05/10/5af3a6402f8b7.png)
 
-那时候，不是很多的项目使用 scoped packages，所以很多人甚至不知道它们的存在。那时候你可能必须为了一个 npm org 的账户花钱，而现在它是免费的（并且支持也 non-scoped packages）。
+那时候，没有很多项目使用 scoped packages，所以很多人甚至不知道它们的存在。那时候你可能必须为了一个 npm org 的账户花钱，而现在它是免费的（并且支持也 non-scoped packages）。
 
-搜索 scoped packages 的问题已经被解决了，下载计数工作了。唯一一个绊脚石就是一些第三方注册仍然不支持 scoped packages。但是我想我们现在正处于一个点，在这里看起来等待很不合理。
+搜索 scoped packages 的问题已经被解决了，下载计数也已经生效。唯一一个绊脚石就是一些第三方注册仍然不支持 scoped packages。但是我想我们现在正处于一个点，在这里看起来等待很不合理。
 
-为什么我们比较喜欢 scoped packages：
+为什么我们更喜欢 scoped packages：
 
 *   命名困难：我们不需要去检查别人是否决定在他们的插件上使用我们的命名惯例
 *   在 package squatting 上我们有类似的问题
@@ -263,7 +263,7 @@ import "core-js/modules/es7.string.pad-start";import "core-js/modules/es7.string
 
 `"useBuiltins": "usage"` 是我们解决那个想法的第一次尝试。它在每个文件的头部执行了一个引入，但是只有在找到它在代码中被使用的时候才添加引用。这个实现意味着我们能够为应用引入最小量的，必须的 polyfills（并且只有在目标环境不支持它的时候）。
 
-所以如果你在大妈中使用 `Promise`，它将在文件的头部引入它（如果你的目标不支持它）。如果它是重复的，Bundlers 将会删除重复的部分，所以这个实现不会造成 polyfills 的多重引用。
+所以如果你在代码中使用 `Promise`，它将在文件的头部引入它（如果你的目标不支持它）。如果它是重复的，Bundlers 将会删除重复的部分，所以这个实现不会造成 polyfills 的多重引用。
 
 ```
 import "core-js/modules/es6.promise";var a = new Promise();
@@ -302,7 +302,7 @@ import "core-js/modules/es7.array.includes";[].includesa.includes
 
 [Brian](https://twitter.com/existentialism) 已经接管很多 preset-env 的维护工作，无论以前我做过什么 😛
 
-[Daniel](https://twitter.com/TschinderDaniel) 一直在我们需要的帮助的时候介入，不管是维护 babel-loader 或是帮助迁移 babylon/babel-preset-env 库。同样的，[Nicolo](https://twitter.com/NicoloRibaudo)，[Sven](https://twitter.com/svensauleau)，[Artem](https://twitter.com/yavorsky_) 和 [Diogo](https://twitter.com/kovnsk)，在上一年加强了帮助。
+[Daniel](https://twitter.com/TschinderDaniel) 一直在我们需要的帮助的时候介入，不管是维护 babel-loader 或是帮助迁移 babylon/babel-preset-env 库。同样的，[Nicolo](https://twitter.com/NicoloRibaudo)，[Sven](https://twitter.com/svensauleau)，[Artem](https://twitter.com/yavorsky_) 和 [Diogo](https://twitter.com/kovnsk)，在上一年帮助做了更多。
 
 我真的很期待一个发布（我也累了 - 已经快一年了 😝）。但是我也不想催促任何东西，因为在这个版本中已经有很多的起伏了。我确实学到了很多东西，我相信团队的其他成员也是如此。
 
