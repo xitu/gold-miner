@@ -1,11 +1,7 @@
 > * 原视频地址：[Andrew Godwin - Taking Django Async - PyCon 2018](https://www.youtube.com/watch?v=-7taKQnndfo)
-
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/talking-django-async-pycon-2018.md](https://github.com/xitu/gold-miner/blob/master/TODO1/talking-django-async-pycon-2018.md)
-
 > * 译者：
-
 > * 校对者：
 
 # Andrew Godwin - Taking Django Async - PyCon 2018
