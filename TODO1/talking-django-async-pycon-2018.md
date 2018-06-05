@@ -4,7 +4,7 @@
 > * 译者：
 > * 校对者：
 
-# Andrew Godwin - Taking Django Async - PyCon 2018
+# Andrew Godwin — Django 异步 — PyCon 2018
 
 > 本文为 PyCon 2018 视频之 Andrew Godwin - Taking Django Async 的中文字幕，您可以搭配原视频食用。
 
