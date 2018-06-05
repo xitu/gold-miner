@@ -2,26 +2,27 @@
 > * 原文作者：[Jose Alcérreca](https://medium.com/@JoseAlcerreca?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/livedata-with-snackbar-navigation-and-other-events-the-singleliveevent-case.md](https://github.com/xitu/gold-miner/blob/master/TODO1/livedata-with-snackbar-navigation-and-other-events-the-singleliveevent-case.md)
-> * 译者：
+> * 译者：[wzasd](github.com/wzasd)
 > * 校对者：
 
-## LiveData with SnackBar, Navigation and other events (the SingleLiveEvent case)
+## 在 SnackBar，Navigation 和其他事件中使用 LiveData（SingleLiveEvent 案例）
 
-A convenient way for a view (activity or fragment) to communicate with a ViewModel is to use `[LiveData](https://developer.android.com/topic/libraries/architecture/livedata)` observables. The view subscribes to changes in LiveData and reacts to them. This works well for data that is displayed in a screen continuously.
+视图层（Activity 或者 Fragment）与 ViewModel 层进行通讯的一种便捷的方式就是使用 [`LiveData`](https://developer.android.com/topic/libraries/architecture/livedata) 来进行观察。这个视图层订阅 Livedata 的数据变化并对其变化做出反应。这适用于连续不断显示在屏幕的数据。
+
 
 ![](https://cdn-images-1.medium.com/max/800/1*vbhP6Sw61MAK335gEubwHA.png)
 
-**However, some data should be consumed only once,** like a Snackbar message, a navigation event or a dialog trigger.
+**但是，有一些数据只会消费一次，**就像是 Snackbar 消息，导航事件或者对话框。
 
 ![](https://cdn-images-1.medium.com/max/800/1*WwhYg9sscdYQgLvC3xks4g.png)
 
-Instead of trying to solve this with libraries or extensions to the Architecture Components, it should be faced as a design problem. **We recommend you treat your events as part of your state**. In this article we show some common mistakes and recommended approaches.
+这应该考虑设计问题，而不是试图通过架构组件的裤或者扩展来解决这个问题。**我们建议您将您的事件视为您的状态的一部分**。在本文中，我们将展示一些常见的错误方法，以及推荐的方式。
 
-### ❌ Bad: 1. Using LiveData for events
+### ❌ 错误：1。 使用 LiveData 来解决事件
 
-This approach holds a Snackbar message or a navigation signal directly inside a LiveData object. Although in principle it seems like a regular LiveData object can be used for this, it presents some problems.
+这种方法来直接的在 LiveData 对象的内部来持有 Snackbar 消息或者导航一些信息。尽管原则上看起来像是普通的 LiveData 对象可以用在这里，但是会出现一些问题。
 
-In a master/detail app, here is the master’s ViewModel:
+在一个主/从应用程序中，这里是主 ViewModel：
 
 ```
 // Don't use this for events
@@ -38,7 +39,7 @@ class ListViewModel : ViewModel {
 }
 ```
 
-In the View (activity or fragment):
+在视图层（activity 或者 fragment）：
 
 ```
 myViewModel.navigateToDetails.observe(this, Observer {
@@ -46,14 +47,14 @@ myViewModel.navigateToDetails.observe(this, Observer {
 })
 ```
 
-The problem with this approach is that the value in `_navigateToDetails` stays true for a long time and it’s not possible to go back to the first screen. Step by step:
+这种方法的问题是 `_navigateToDetails` 中的值会长时间保持为真，并且无法返回到第一个屏幕。一步一步进行分析：
 
-1.  The user clicks the button so the Details Activity starts
-2.  The user presses back, coming back to the master activity
-3.  The observers become active again, after being inactive while activity was in the back stack
-4.  The value is still `true` so the Details activity is incorrectly started again
+5.  用户点击按钮 Details Activity 启动。
+6.  用户用户按下返回，回到主 Activity。
+7.  观察者在活动处于回退状态时从非监听状态再次变成监听状态。
+8.  但是该值仍然为 “真”，因此 Detail Activity 启动出错。
 
-A solution would be to fire the navigation from the ViewModel and immediately set the flag to false:
+解决方法是从 ViewModel 中将导航的标志点击后立刻设为 false;
 
 ```
 fun userClicksOnButton() {
@@ -62,17 +63,17 @@ fun userClicksOnButton() {
 }
 ```
 
-However, one important thing to remember is that LiveData holds values but doesn’t guarantee to emit every value that it receives. For example: a value can be set when no observers are active, so a new one will just replace it. Also, setting values from different threads could lead to race conditions that would only generate one call to the observers.
+但是，需要记住的一件事就是 LiveData 储存这个值，但是不保证发出它接受到的每个值。例如：当没有观察者处于监听状态时，可以设置一个值，因此新的值将会替换它。此外，从不同线程设置值的时候可能会导致竞争，只会向观察者发出一次呼叫。
 
-But the main problem with this approach is that **it’s hard to understand and plain ugly**. How do we make sure the value is reset after the navigation event has happened?
+但是这种方法的主要问题是**难以理解和不简洁**。在导航时间发生后，我们如何确保值被重置呢？
 
-### **❌ Better: 2. Using LiveData for events, resetting event values in observer**
+### **❌ 可能更好一些：2。使用 LiveData 进行事件处理，在观察者中重置事件的初始值**
 
-With this approach you add a way to indicate from the View that you already handled the event and that it should be reset.
+通过这种方法，您可以添加一种方法来从视图中支出您已经处理了该事件，并且重置该事件。
 
-#### Usage
+#### 用法
 
-With a small change to our observers we might have a solution for this:
+对我们的观察者进行一些小改动，我们就有了这样的解决方案：
 
 ```
 listViewModel.navigateToDetails.observe(this, Observer {
@@ -83,7 +84,7 @@ listViewModel.navigateToDetails.observe(this, Observer {
 })
 ```
 
-Adding the new method in the ViewModel as follows:
+在 ViewModel 中添加新的方法：
 
 ```
 class ListViewModel : ViewModel {
@@ -103,15 +104,15 @@ class ListViewModel : ViewModel {
 }
 ```
 
-#### Issues
+#### 问题
 
-The problem with this approach is that there’s some boilerplate (one new method in the ViewModel per event) and it’s error prone; it’s easy to forget the call to the ViewModel from the observer.
+这种方法的问题是有一些样板（每个事件在 ViewModel 中有一个新的方法），并且很容易出错，观察者很容易忘记调用这个 ViewModel 的方法。
 
-### **✔️ OK: Use SingleLiveEvent**
+### **✔️ 正确解决方法: 使用 SingleLiveEvent**
 
-The [SingleLiveEvent](https://github.com/googlesamples/android-architecture/blob/dev-todo-mvvm-live/todoapp/app/src/main/java/com/example/android/architecture/blueprints/todoapp/SingleLiveEvent.java) class was created for a sample as a solution that worked for that particular scenario. It is a LiveData that will only send an update once.
+这个 [SingleLiveEvent](https://github.com/googlesamples/android-architecture/blob/dev-todo-mvvm-live/todoapp/app/src/main/java/com/example/android/architecture/blueprints/todoapp/SingleLiveEvent.java) 类是为了适用于特定场景的解决方法。这是一个只会发送一次更新的 LiveData。
 
-#### Usage
+#### 用法
 
 ```
 class ListViewModel : ViewModel {
@@ -133,17 +134,17 @@ myViewModel.navigateToDetails.observe(this, Observer {
 })
 ```
 
-#### Issues
+#### 问题
 
-The problem with SingleLiveEvent is that it’s restricted to one observer. If you inadvertently add more than one, only one will be called and there’s no guarantee of which one.
+SingleLiveEvent 的问题在于它仅限于一个观察者。如果您无意中添加了多个，则只会调用一个，并且不能保证哪一个。
 
 ![](https://cdn-images-1.medium.com/max/800/1*TLeVFNJwRpXCeS7NaF1EaA.png)
 
-### **✔️ Recommended: Use an Event wrapper**
+### **✔️ 推荐: 使用事件包装器**
 
-In this approach you manage explicitly whether the event has been handled or not, reducing mistakes.
+在这种方法中，您可以明确地管理事件是否已经被处理，从而减少错误。
 
-#### Usage
+#### 用法
 
 ```
 /**
@@ -195,19 +196,20 @@ myViewModel.navigateToDetails.observe(this, Observer {
 })
 ```
 
-The advantage of this approach is that the user needs to specify the intention by using `getContentIfNotHandled()` or `peekContent()`. This method models the events as part of the state: they’re now simply a message that has been consumed or not.
+这种方法的优点在于用户使用 `getContentIfNotHandled()` 或者 `peekContent()` 来指定意图。这个方法将事件建模为状态的一部分：他们现在只是一个消耗或者不消耗的消息。
 
 ![](https://cdn-images-1.medium.com/max/800/1*b0z9Flj04zVW_UGsDPQyOA.png)
 
-With an Event wrapper, you can add multiple observers to a single-use event
+使用事件包装器，您可以将多个观察器添加到一次性事件中。
 
 * * *
 
-In summary: **design events as part of your state**. Use your own [Event](https://gist.github.com/JoseAlcerreca/5b661f1800e1e654f07cc54fe87441af) wrapper in LiveData observables and customize it to fit your needs.
+总之：**设计事件作为你的状态的一部分**。使用您自己的[事件](https://gist.github.com/JoseAlcerreca/5b661f1800e1e654f07cc54fe87441af)包装器并根据您的需求进行定制。
 
 Bonus! Use this [EventObserver](https://gist.github.com/JoseAlcerreca/e0bba240d9b3cffa258777f12e5c0ae9) to remove some repetitive code if you end up having lots of events.
+银弹！若您最终发生大量事件，请使用这个 [EventObserver](https://gist.github.com/JoseAlcerreca/e0bba240d9b3cffa258777f12e5c0ae9) 可以删除很多无用的代码。
 
-Thanks to [Don Turner](https://medium.com/@donturner?source=post_page), [Nick Butcher](https://medium.com/@crafty?source=post_page), and [Chris Banes](https://medium.com/@chrisbanes?source=post_page).
+感谢 [Don Turner](https://medium.com/@donturner?source=post_page)，[Nick Butcher](https://medium.com/@crafty?source=post_page)，和 [Chris Banes](https://medium.com/@chrisbanes?source=post_page)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
