@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/activity-recognitions-new-transition.md](https://github.com/xitu/gold-miner/blob/master/TODO1/activity-recognitions-new-transition.md)
 > * 译者：[wzasd](github.com/wzasd)
-> * 校对者：
+> * 校对者：[maoqyhz](https://github.com/maoqyhz)、[LeeSniper](https://github.com/LeeSniper)
 
 # 带有情景感知这一新特性的活动识别 Transition API 面向全体开发者开放。
 
