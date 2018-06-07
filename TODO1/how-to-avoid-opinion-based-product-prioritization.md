@@ -2,142 +2,145 @@
 > * 原文作者：[Tamzin Taylor](https://medium.com/@tamzint?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-avoid-opinion-based-product-prioritization.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-avoid-opinion-based-product-prioritization.md)
-> * 译者：
+> * 译者：[Yuze](https://github.com/bobmayuze)
 > * 校对者：
 
-# How to avoid opinion-based product prioritization
+# 如何避免拍脑袋想出的产品优先策略
 
-## Discover insights to help you drive decision making using data and better manage stakeholders
+## 在看老板的脸色之外，其实我们还可以利用数据来做出更好的决策
 
 ![](https://cdn-images-1.medium.com/max/800/1*1QtpBve99bpwRN2PFAokjg.png)
 
-Making decisions is hard. And, in most organizations, they are made harder by the many competing opinions, stakeholders, and self-interests in play. Sometimes the biggest hurdle to rational decision-making can be your CEO or CFO, whose very strong views can be hard to resist.
+最难的事情就是做决定。特别是在一个团队的事情，做决定有时候还需要考虑到很多其他的因素。有时候会有组织内部竞争者的意见，团队领导或是老板个人的看法，甚至有时候是自己想试试新的方案。大部分的时候 CEO，CFO， CXO 的意见是很难去拒绝的。
 
-So, how do successful app developers avoid decisions about product features and marketing defaulting to the view of the highest-paid or most persistent voice?
+既然这是个常见性的问题的话，我们可以看看那些最成功的 App 开发者们是如何应对这样的情况的。
 
-I recently had the opportunity to explore this question. I interviewed around 20 of our top developers, as well as Google engineers, Google product managers, and directors of growth. From these interviews, it was clear that the interviewees exhibited three key behaviors that address this challenge:
+我采访了大约 20 个顶尖的开发者，他们当中有来自 Google 的工程师，产品经理，以及增长经理。从这些简短的采访中， 我总结出了 3 个重要的点：
 
-*   They use experimentation to explore their opportunities.
-*   They put data at the heart of the process.
-*   They spread this culture of data and sharing of information throughout their organization.
+*   他们都会通过实验来不断拓宽选择的可能性.
+*   数据是整个过程中最重要的一环.
+*   他们会在公司内部传播这个方法，并且和其他同事们分享相关的信息.
 
-In this article, I’m looking in detail at two examples of these behaviors in action. In the first case, I had the opportunity to take a prioritization method often using internally at Google, and test it out with UK app developer 1tap. Then, I’ve been fortunate enough to be given the inside track on the process used by 2017 app of the year winner Memrise.
+在这篇文章中，我会用2个例子来展示顶尖的开发者们是如何解决这些问题的。在第一个例子里面，我很荣幸的有机会能采用 Google 内部经常采用的方法论在 1tap 的这个产品上做决策。第二个例子里，我甚至还有机会和 2017 年度优秀 app Memrise 团队交流，得到他们团队对这个方法论的看法。
 
-### 1tap and the North Star method
+### 1tap 和北极星方法
 
-Originating in Silicon Valley, the concept of a [North Star Metric](https://www.forbes.com/sites/forbesagencycouncil/2017/07/19/how-to-find-your-companys-north-star-metric/#58293ac830f8) has been around for a while. Within Google, the teams at YouTube and Gmail among others, use the process of orienting around a “north star metric” to prioritize the features to build. From my interviews, I discovered how beneficial it is for our teams and wondered if it might help app developers too. Within Google, we have a growth team that has been the conduit for this process, so I harnessed this team to work with 1tap.
 
-So, what is this method? Conceptually it’s really simple; there are just four components: the North Star metric, a user flows diagram, a growth model, and a spreadsheet. Because, let’s face it, what data-based model is complete without a spreadsheet?
+[北极星方法](https://www.forbes.com/sites/forbesagencycouncil/2017/07/19/how-to-find-your-companys-north-star-metric/#58293ac830f8) 源于硅谷，并且已经有相对悠久的历史。在 Google 内部， Youtube 团队和 Gmail 团队经常用这个方法来帮助他们决定哪个特性应该被优先开发。根据我对他们的采访，我发现这样的方法论对于整个团队来说都是卓有成效的。我们在 Google 有专门的这么一支专业团队，所以我就顺水推舟地让他们和 1tap 团队合作来执行这个方法论。
 
-Let’s look at each of these components in more detail, and how they played out at 1tap.
+说了这么久，这个方法论到底是什么呢？理念上来说它非常简单，只有 4 个重要的东西：一个指北系统，一个用户流的图，一个增长模型，还有一个简单的电子表格。毕竟，所有的数据模型都需要一个电子表格来作为载体。
 
-### Set a North Star metric
+那么接下来就让我们一起看看这 4 个东西是如何互相合作来帮助 1tap 解决问题的吧。
 
-This is a metric that consolidates all the work you’re doing and value you’re delivering across acquisition, engagement, conversion, and retention. So, if you were a hotel booking app this metric is nights booked, while for a messaging app it would be messages sent.
+### 设置一个指北系统
 
-1tap’s mission is to make self-employment easier than being employed. They have two apps: [1tap receipts](https://play.google.com/store/apps/details?id=io.onetap.app.receipts.uk) that offers automatic data extraction and bookkeeping, and [1tap tax](https://play.google.com/store/apps/details?id=io.onetap.app.tax) that estimates tax payments with automatic receipt and invoice scanning.
+这个指北系统其实就是一个类似于能够系统的衡量我们的工作对于整个公司，业务，亦或是计划的贡献。有点类似 KPI 的概念。比如说我们在做一个旅馆预订业务的应用的话，那么这个指标就是用户们预订的夜晚总数。如果我们在做一个即时通讯应用，那么这个指标就是发送的消息。
 
-For this exercise, we looked at 1tap receipts. We very quickly determined the North Star metric for 1tap receipts had to be about transactions. However, as Jon Butterfield, head of growth at 1tap, notes “the tricky part here, and the thing that threw us off, was what’s more important, users adding a lot of receipts, or a lot of uses just adding a few receipts?” Looking closely at the value 1tap receipts offers its users, it was clear that if users record more data 1tap receipts can help them better with their taxes. The result, a North Star metric that is all about receipts per user, and the more receipts the better.
+1tap 的愿景是为了让自我雇佣变的更加简单一个团队。他们在 Google Play Store 上有 2 个应用：用于自动提供自动数据提取和簿记功能的 [1tap receipts](https://play.google.com/store/apps/details?id=io.onetap.app.receipts.uk) 以及用于通过收据和账单来自动计算税务的 [1tap tax](https://play.google.com/store/apps/details?id=io.onetap.app.tax) 。
 
-### Define your user flows
+这一次，我们用 1tap receipts 来练习这个方法论。我们很快就决定了这次的指标是交易数量相关的内容。然而，1tap 的首席增长官告诉我们，我们需要先搞清楚我们是想要用户数量少但是单个用户使用的次数较多还是在用户量多的情况下每个用户使用次数比较少。显而易见，作为一个希望帮助人们的产品，我们希望单个用户数量为优先，而且越多越好。
+
+### 定义你的用户流
 
 ![](https://cdn-images-1.medium.com/max/800/0*7B9lSgNbH6rkQmH3.)
 
-The goal here is twofold. First, to **confirm that your app includes feedback loops** that continue to bring the user back. Second, to **examine your metrics and determine how successful** you are **at moving users through these loops**. The process is straightforward, you:
+这一步主要分成两步。首先，确认你开发的应用能够给你用户的反馈。第二，确认你的指标并且弄清楚你对于控制用户经过不同流的能力在哪里，并且画出一个流程图。这个过程非常简单，只要：
 
-*   Define your app’s key events.
-*   Draw the flows between events.
-*   Use your analytics to identify the percentage of users taking each flow.
+*   定义你应用里的关键事件。
+*   画出不同事件之间的流是如何运作的。
+*   运用统计学来观察用户们在每个流停留的比例。
 
-You’ll find the diagram has 3 main sections: your acquisition and retention loops, and the key flows inside the product.
+你会发现这个图有 3 个主要的部分：你对新用户的获取，旧用户的回归率，以及整个产品的关键事件流。
 
-The **acquisition sources are the main ways users install your app**. You can get this data from the Play Console under User acquisition, just make sure you’ve added UTM tags to all your marketing URLs, and link your AdWords account for full visibility.
+新用户的获取主要就是用户通过什么样的途径来下载你开发的应用。只要你确保你正确的设置了 UTM 标签在所有投放的链接之下，并且关联你的 AdWords 账户，你就能从 Google Play 的控制台里轻松看到你的新用户获取途径。
 
-The product user flows will be specific to your business but will probably include sign-in, onboarding, and conversion (if you’re a paid app). Most likely there’ll be a magic moment in the onboarding flow you’ll really care about, as it’s a leading indicator of engagement and conversion, make sure you include it.
+不过每个产品的用户流都是根据具体情况而定的。但是一般都会包括登陆，上线，转化率（如果这是个付费产品）。 大部分的时候，对于一个app来说会有一个你特别关注的神奇的时刻，也就是关键事件流
+。这个东西很多时候就代表了这个指标，所以我们务必要包含它在指标里边儿。 
 
-Finally there are the **re-engagement flows**, what’s driving users to come back into the app.
+最后，还有 **重复流**，也就是引导用户返回app的东西。
 
-When your diagram is complete, everyone in your business can talk about the product in the same way and understand how their activities — acquisition, engagement, conversion, and retention — impact the North Star metric.
+当流程图完善的时候，整个团队里面的成员们就会知道要以什么为向导并且不同的交互是如何影响到这个指标的。
 
-In the case of 1tap receipts, this exercise resulted in the following visualization.
+在 1tap 这个例子里，这个图是这样的：
 
 ![](https://cdn-images-1.medium.com/max/800/0*ihtNP20aIDYffxrn.)
 
-You’ll notice that there aren’t any analytics on this user flow. For 1tap the most important outcome was understanding the flow of the product and focusing on the key components that “move the needle”. One important result was **identifying where the wow moment is**. In 1tap receipts, it turned out to be the “Activate User” stage, where they add the receipt. “Getting the user to see their data automatically extracted instantly shows the value of the product, and surprises a lot of people with the accuracy of the OCR technology,” says Jon.
+你会发现他们没有任何用户流的分析。对于 1tap 这个应用和团队来说，认识到让用户感觉到惊艳的那个时刻才是最重要的。也就是用户激活阶段。Jon 表示很多用户都被 1tap 应用能够快速并且准确的 OCR 技术惊艳到了。
 
-The final user flow diagram was the result of about 10 iterations. The first one had, in Jon’s words, “thousands and thousands of different things in it and it was just a clutter.” We then worked together to simplify the representation to focus on the key moments in the user journeys. It also helped 1tap ask the question of features that didn’t get into the diagram, “if it’s not included in the core flow, is it even needed?” As Jon notes, “cluttering your app with features is something that can kill usability.”
+最终的用户流图是在迭代了 10 个版本之后才产生的。Jon 认为第一版的这个图简直就是一团糟。太过于细节导致整个图看起来很混乱。然后整个团队才一起努力简化那张图，并且把精力都放在重要的方面。更棒的是，整理这张图还让 1tap 的应用去除了很多冗余的功能。“如果这不是个关键点的话，我们也没必要放在 app 里面吧”，Jon 如是说到。
 
-As a result, 1tap also discovered they had a break in their user feedback loops. This break occurred in the activities, shown in orange in the diagram, related to exporting transaction data. As a result 1tap began changing how users export their data, and where they get access to their exports. They’re still experimenting, but by keeping many of the reports in the app they have increased retention.
+整理了图之后，1tap 团队发现他们在用户反馈方面有很大的问题。问题是主要出在用户在导出数据的时候。现在，他们虽然仍然处在试验阶段，但是保存这些报告的做法已经有效的帮助他们提升了用户留存率。
 
-### **Build a growth model**
+### **构建一个增长模型**
 
-The next step is to build the growth model. We use the information about the user flows and are guided by the North Star metric to determine the growth drivers. These are the drivers that will improve areas of weakness and build on strengths.
+下一步就是构建增长模型了。我们会需要之前在北极星方法中找到的指标来决定我们应该怎么样去发挥我们的优势以及弥补我们不够完善的地方。
 
-As with the initial user flow diagram, the first version of the growth model 1tap built was rather complex, stretching to some 16 pages. But, by focusing on what’s important a straightforward, workable growth model soon emerged. This growth model can be summarized as:
+就像之前在构建用户流的图的时候一样， 1tap 第一版的增长模型非常的复杂，有大概 16 页纸那么长。但是，在去掉了无关紧要东西之后，可以总结为：
 
 ![](https://cdn-images-1.medium.com/max/800/0*qnlVKnZB8odmSPE-.)
 
-The headline here is receipts added per user, which you should recognize: it’s the North Star metric. This headline breaks down into the receipt submissions divided by the monthly active users (MAU). In turn, this further breaks down into each of the mechanisms users can employ for adding receipts — scanning, sending by email, and entering manually — and new and returning users.
+这里的标题是每个用户处理的收据的数量，也就是我们最关注的指标。我们根据月活跃用户来对整个数量分层。
 
-When they first started coding their products, 1tap focused on analytics. They tracked just about everything a user does in the app. As Jon notes “this is something that we are really proud of,” says Jon. “However, before we knew it, we were suffering from analysis paralysis. With so much choice, we didn’t know where to begin with understanding our users and their behavior. The model helped us focus on providing value and made it easier for us to deliver our North Star metric.’
+当他们刚开始编写 1tap 这个应用的时候，他们之前花了很多心思在数据分析上,几乎吧用户在这个应用上所有行为都进行了分析，并且这也是他们团队应以为傲的一点。然而，Jon 表示，他们的团队其实很多时候就是因为这个原因导致不知道从何处开始理解用户。因为可以参考的数据维度实在是太多了。但是这个增长模型能够很好的帮助他们通过找出北极星指标来做到这一点。
 
-But, as Jon explains, the key benefit of developing this growth model was that it made it easier to explain to the CEO where the MAU comes from, and then the CFO could see where the revenue comes from too. Also, product could see what levers to pull to add the most value.
+但是就如 Jon 所说的那样，这个增长模型的重点是能够帮助向 CEO 解释月活用户是从何而来的，也能帮助 CFO 思考收入是从何而来的。此外，产品还能通过使用这个体系来做更好的决定。
 
-### Create a spreadsheet
+### 创建一个电子表格
 
-The final step is to transfer the model to a spreadsheet and **evaluate your opportunities, to see how they impact growth**.
+这整个流程的最后一步就是把模型转化成一张电子表格，并且 **帮助我们评估我们的机会，从而观察这些机遇是如何帮助我们的产品增长的**。
 
-You probably won’t be surprised to learn that 1tap’s growth model translated into a large spreadsheet. But, on this occasion, size was important. Here is a snippet of, what Jon and the team at 1tap call “The Calculator”.
+你也许早就已经发现 1tap 的增长模型会变成一张巨大的电子表格。但是这种情况下，表格的尺寸是很重要的，下图就是 Jon 和他的团队称作“计算器”其中的一部分。
 
 ![](https://cdn-images-1.medium.com/max/800/0*Hmizl_Y7zhdMbNmU.)
 
-Armed with this spreadsheet, 1tap started to explore how various activities would impact receipts added per user over 10 days. Jon notes that one of the early benefit was that they could see the impact of minor changes. For example, by improving download to registration conversion by just 2%, the overall receipt count improved by 100%. By contrast, improving registration to activation conversion would only impact the receipt count by 75%.
+有了表格之后，1tap 开始探索了十几天各种活动对于用户平均收据数量的影响。Jon 发现这么做的好处就是他们能看到微小的改变给团队带来的好处。比如当下载到注册的转化率提升 2% 的时候，收据的总数也增加了2％。对比之下，从注册到激活到转化的提升对于总数的影响只有 75%。
 
-As a result, 1tap started putting more effort into getting the wow moment (and registration) earlier in the user journeys, rather than pumping more money into acquisition.
+随后，1tap 团队决定把更多的重心放在让用户感觉到这是一款惊艳的产品之上，而不是用户的获取。
 
-So, what did this process and the model achieve for 1tap?
+所以这个流程和模型为 1tap 带来了什么呢？
 
-“The first thing it gave us was clarity — across all departments — about what we’re doing,” says Jon. “So our CEO, Nick, no longer had to ask where the MAU was coming from and how we could increase it. It’s as clear as day in this model. Similarly, product didn’t have to ask what are we going to do next? What’s the priority? These decisions are now all based on the calculator. And, the CFO knew that, by increasing revenue, we increased retention. So, from the growth model, everyone can see what is happening next.”
+首先，这些东西让他们团队明白了他们在做什么，什么是重要的。CEO Nick 再也不需要每天都问月活是从哪里来的以及我们如何才能增加月活。一切都明明白白的写在模型里了。此外，产品对于之后的需求也更加明确，知道如何制定优先级。现在所有决定都由这个“计算器”来做。CFO 也能知道通过增加收入我们还能提升用户的留存。基本上每个人都对团队下一步的动作能有所感知。
 
-Another important impact was understanding how to increase acquisitions. “The big thing we realized is that we should be putting a lot of priority into accountants. We’d not really done this in the past, so it was a huge wake-up call,” says Jon. “This is a big lever, and it was clear that if we put more effort into partner channels, we could get a lot more users relatively easily and have a built-in mechanism, their accountant, to help retain them.”
+另外一个重要的就是这个模型帮助他们更好的理解了用户获取。过去他们是不可能有这样的机会的。现在他们明白了通过和第三方合作去做一些登陆能有效的大量提高用户获取，并且提高用户留存。
 
-Jon also notes another important knock-on effect, and that was with new hires. “Without the information from the calculator, we could easily be hiring the wrong people at the wrong time. But, now we know when and who we should hire to maximize our growth.”
+最后，Jon 还表示，这个模型还帮助了他们团队知道什么时候应该要雇用什么样的人。过去他们常常在错误的时间雇用不适合的人导致团队发展缓慢。
 
 ### Memrise
 
-Language app [Memrise](https://play.google.com/store/apps/details?id=com.memrise.android.memrisecompanion&hl=en_US) is used by 35 million people to learn their choice of language from over 200 language pairs. Kristina Narusk, head of growth for Memrise, describes the company’s journey to date as unique, in part because “we’ve been rather lucky with having Ed Cooke as our CEO because he is one of the most creative and experimental people out there who, at the same time, is great at running a growing team and a growing business”. Ed’s approach injects a lot of out-of-the-box thinking into the company. The downside, if you can describe it as such, is the challenge of managing the creative ideas to find the ones that will grow the app.
+[Memrise](https://play.google.com/store/apps/details?id=com.memrise.android.memrisecompanion&hl=en_US)，作为一款语言学习应用，拥有 3500 万的用户，并且能过为他们提供超过200种语言的教学。Kristina Narusk，他们的首席增长官，认为这家公司的成长路径是非常幸运的。他们有 Ed Cooke 这样同时具备创新能力又能很好的运营团队的人作为 CEO。Ed 经常有各种各样的奇思妙想，但是同时，分辨这些想法中哪些能为产品真正带来增长也是非常有挑战性的事情.
 
-Kristina told me about one such example where, one Sunday morning about three years ago, she got a text from Ed to say he was in Scotland, had bought a double-decker bus, and was going to tour Europe filming videos of native speakers saying phrases and sentences. “It was quite a unique experience to get a message like that,” says Kristina. “So, we had to come up with ways to handle this kind of irreverent idea, not just those from Ed but the whole team, and turn them into successful app features.”
+举个例子，Kristina 告诉我三年前的一天，她收到一条来自 Ed 的短信。内容是说他在英国买了一辆双层巴士，决定在欧洲环游并且录下不同国家的不同语种母语人士说一些话的方式。这是一种非常罕见的事情，所以我们整个团队不得不提出各种方案来面对这种奇葩的想法，并且把它和应用的增长结合起来。
 
-Memrise came up with a way of filtering these ideas using **six criteria**:
+Memrise 提出了一种六维验证法来过滤这些奇妙的想法：
 
-1.  Has to be iterable. It must be possible to start with a small MVP and then iterate if it’s successful.
-2.  Has an immediate impact. As soon as the feature rolls out to users, it should generate behavioral change that is noticeable in metrics.
-3.  Has a lasting effect. It must benefit users over an extended period, not just for the first five minutes or the first day.
-4.  Has to be measurable. There must be a way to measure its impact on users and the success of the app.
-5.  Has the power of localization. It has to be something that can be delivered to most, if not all, of the app’s markets.
-6.  Has to fit coherently into the app. The idea has to fit into the app and make sense.
+1.  必须是可以迭代的。我们能够从一个简单的MVP开始不断迭代直到完善。
+2.  有立竿见影的效果。当新的想法实现的时候需要能给我们带来直观的改变。
+3.  有长远的效果。这个想法需要能在长期帮助我们的用户，而不是三分钟热度。
+4.  必须可以量化。我们需要可以量化这个想法对产品的效果。
+5.  可以落地，能够尽量覆盖大量的应用市场。
+6.  和产品相关，并且是可以理解的。
 
 ![](https://cdn-images-1.medium.com/max/800/0*ZFEKyBCJ09866AjF.)
 
-In the feature discovery phase the team then plays a prediction game, to assess how the feature idea is aligned with the criteria. Only ideas that meet all of the criteria pass through the evaluation filter and head to Memrise’s development process.
+在探索未来新特性的时候，他们团队会用这个法则来决定开发什么而不开发什么。
 
-As Kristina explains, to instill this creative and experimental mindset in every team in the company, **Memrise divided the product development lifecycle into 4 stages: discover, define, develop, and follow-up.**
+就像 Kristina 所说的那样，我们需要大胆假设，小心验证。**Memrise 把产品的开发周期分为 4 个阶段：探索，定义，开发，和跟进。**
 
 ![](https://cdn-images-1.medium.com/max/800/0*zHlTtMJtB4hKpYoz.)
 
-During the **discovery** stage the product team sketches, draws, designs, prototypes, and user tests the idea. Experiments are run for designs, UI prototypes, and content prototypes. They could, for example, build something that they can get random people from the street to test out. Other experiments might use online resources (to test copy, buttons, and colors), or Memrise users for longitudinal course content experiments. The entire product and design team is involved at this stage, with researchers, language experts, and developers sitting in the testing sessions. One challenge Kristina has found with this process is keeping the observers silent. “Developers are very quiet when coding,“ says Kristina, “but tend to become very vocal when they see people using the product ‘incorrectly’.”
 
-In the Memrise Membus case (Ed’s impulse Scottish purchase), during the discovery phase, the bus went to Oxford to film some videos in English to see whether the idea made sense before touring the rest of Europe. Adding the videos to the Memrise English courses was the minimum viable product (MVP), making sure the bus stayed in one piece for distances longer than the drive from the Memrise office in East London to Oxford Circus was more of a challenge. But, importantly, the test showed that the videos had a positive effect on subscription conversions and the cost of producing the videos was low enough to justify moving onto other languages. So, it turned out that it was a good idea to buy a bus in Scotland and then turn it into a video feature.
+在探索阶段的时候，产品团队会画出 PRD，并且会有用户来测试这个新的想法。试验尝尝会包含比如设计，用户体验，内容方向相关的创新。举个例子，团队会找许多路人来测试，亦或者是一些在线的测试或者一些长期用户来测试新的特性。整个团队，包括设计师，语言学专家，以及开发者们。然而，Kristina 发现在测试产品的时候，很难让开发人员们保持冷静。他们总是会对用户不能正确打开新的特性而表示不爽。
 
-With the idea tested out the team moves to **define**, where they create a detailed spec with all the functionality described and the user interfaces drawn out. Also, it specifies the experiments to run on the feature, including details such as the:
+在 Memrise Membus 这个案例中（就是上面开车环游欧洲的那个），在探索阶段的时候，大巴先开去了牛津拍了些视频来测试想法是否可行。而不是直接在整个欧洲拍摄。在牛津拍摄英语的视频就是这个想法的原型。然后发现那个视频的想法对整个产品带来的好处非常明显，而且成本很低。最后我们就敲定了这个方案。
 
-*   Target platform
-*   Target learners
-*   Target language
-*   Length of the experiment
-*   What needs tracking
-*   What the analytics dashboard should contain
+当这个想法探索完毕之后，我们就到了 **定义**的阶段。这一阶段，我们会明确这个新的想法的功能以及如何和用户交互。同时，也会明确测试的细节比如：
+
+*   测试的平台
+*   目标用户
+*   目标语言
+*   测试周期长度
+*   需要关注的东西
+*   分析看板应该包括的东西
 
 The data team gets involved too. They help make sure that the feature is built to capture the right data points, so that the product team can evaluate the feature’s impact. The videos were used to create a premium learning mode and offered as part of the Pro subscription. It was, therefore, important to understand the effect on the conversion rate to Pro from adding this mode to the English course. At the end of the stage, the whole team acts as jury, to give feedback on the product ideation and specing outcome.
 
@@ -151,17 +154,17 @@ YouTube 视频链接：https://youtu.be/e2RPXKi4e90
 
 At Memrise they have a standard set of metrics and graphs for every experiment that goes out. “The day after the release you’ll find us refreshing this page all the time,” says Kristina, “to see how the feature and the new idea is performing. In our team’s case, it shows you the joy and fun of seeing the results coming in and learning whether we built something super successful that people enjoy, or whether we need to go back to the whiteboard and start thinking again.” The Memrise Membus journey ended with a decision to add videos and a special _Learn with Locals_ mode to all languages.
 
-### Conclusion
+### 结论
 
 ![](https://cdn-images-1.medium.com/max/800/0*QnrE1nsyWfxPFOlq.)
 
-I said at the start of this article that making decisions is hard. Avoiding opinion-based decisions, maybe, even harder. However, by sharing two very different approaches to product decision making, I hope I’ve given you some ideas on how to streamline and rationalize the process in your company. Regardless of the process you adopt or create, remember it’s key that the process involves everyone from your organization and product team. And, ultimately, look to data to help identify the right changes to make or activities to engage in.
+在这篇文章开始的时候我就已经说过做决定是困难的。远离拍脑袋做决定也许更加难。然而，通过分享这两个不同的做决定的方式，我希望我能帮你在为产品做决定这件事上有新的观感。重要的不是流程，而是让团队里的人都参与到这个流程里面来。最终在有数据的帮助下再作出重要的改变。
 
 * * *
 
-### **What do you think?**
+### **你的想法?**
 
-Do you have thoughts on decision making and prioritization? Let us know in the comments below or tweet using **#AskPlayDev** and we’ll reply from [@GooglePlayDev](http://twitter.com/googleplaydev), where we regularly share news and tips on how to be successful on Google Play.
+如果你对决策制订以及优先级分级you自己的想法的话，欢迎你在下面评论，或者在[推特](http://twitter.com/googleplaydev)上给我们留言，并且关注我们分享的最新信息。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
