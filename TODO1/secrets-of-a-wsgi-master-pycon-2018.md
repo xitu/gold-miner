@@ -8,1667 +8,1669 @@
 
 > 本文为 PyCon 2018 视频之 Graham Dumpleton - Secrets of a WSGI master. 的中文字幕，您可以搭配原视频食用。
 
-00:01  so welcome this is Graham
+00:01 非常欢迎接下来是 Graham
 
-00:04  Dumbleton and with secrets of wsgi master
+00:04 Dumbleton-wsgi 大师的秘密
 
-00:09  thank you. so thank you everyone for
+00:09 谢谢。所以谢谢大家
 
-00:19  coming last talk of the day and it's
+00:19 一天的最后一次讲座，它
 
-00:21  always challenge sometimes. at least I'm
+00:21 有时候是一个挑战。还好我不
 
-00:23  not the last talk of the last day. cuz
+00:23 最后一天的最后一次讲座。因为
 
-00:26  everyone half the time everyone's gone
+00:26 大半时间每个人都走了
 
-00:27  off half go home already.
+00:27 已经有一半已经回家了。
 
-00:29  so my background if you're not familiar
+00:29 介绍下我的背景，以防你不熟悉
 
-00:33  I am the author of mod_wsgi. so I've
+00:33 我是mod_wsgi的作者。所以我
 
-00:37  been involved with the wsgi and what
+00:37 参与研究wsgi
 
-00:40  it is for over ten years.
+00:40 已经有十多年了。
 
-00:42  shortly after when it was created. I've
+00:42 创建后不久。我有
 
-00:45  always been very opinionated on my ideas
+00:45 对我的想法一直很有见地
 
-00:48  around it .so the point of this talk is
+00:48 围绕它，所以这个谈话的重点是
 
-00:51  to sort of hopefully give you a bit of
+00:51 希望给你一点点
 
-00:52  wisdom which I've accumulated about
+00:52 我已经积累了的智慧
 
-00:55  using wsgi apps or in particular with
+00:55 使用wsgi应用程序或特别与
 
-00:58  mod_wsgi which is Apache
+00:58这是Apache的mod_wsgi
 
-01:02  module which I wrote which allows you to
+01:02我写的模块可以让你
 
-01:05  run your Python web application with
+01:05用你的Python Web应用程序运行
 
-01:06  Apache. so I'm gonna give various tips
+01:06阿帕奇。所以我会提供各种提示
 
-01:10  and things a lot along the way. and also
+01:10和很多事情。并且
 
-01:13  perhaps tell you about some things you
+01:13也许你会告诉你一些事情
 
-01:15  may not have known about around mod
+01:15可能不知道有关mod的情况
 
-01:17  wsgi because I've been doing a lot of
+01:17因为我一直在做很多事情
 
-01:18  work with it over the last few years.
+01:18在过去的几年里与它合作。
 
-01:21  where I haven't necessarily documented
+01:21我没有必要记录
 
-01:23  much or said much about it and so you
+01:23很多，或者说很多，所以你
 
-01:26  might not know about those things. so
+01:26可能不知道这些事情。所以
 
-01:29  what is wsgi I call wsgi now I
+01:29我现在称之为wsgi的wsgi是什么
 
-01:31  used to always called WSGI but what it
+01:31以前总是叫WSGI，但它是什么
 
-01:34  means is web server gateway interface.
+01:34表示是Web服务器网关接口。
 
-01:36  and what it is is a means of plugging in
+01:36它是一种插入的手段
 
-01:41  a Python web application with a web
+01:41一个带有web的Python web应用程序
 
-01:44  server. so it's going to bridge act as a
+01:44服务器。所以它将成为一个桥梁
 
-01:48  bridge between those two. now importantly
+01:48这两者之间的桥梁。现在很重要
 
-01:52  wsgi is an application programming
+01:52 wsgi是一个应用程序编程
 
-01:54  interface. so when I have this picture
+01:54界面。所以当我有这张照片时
 
-01:57  again here where I talk about HTTP and
+01:57在这里我谈论HTTP和
 
-01:59  WSGI wsgi HTTP is a wire protocol
+01:59 WSGI wsgi HTTP是一个有线协议
 
-02:04  wsgi is not it's an application
+02:04 wsgi不是它的应用程序
 
-02:06  programming interface and I see a lot of
+02:06编程界面和我看到很多
 
-02:08  people get confused about that at times
+02:08有时候人们会对此感到困惑
 
-02:10  in trying to understand it
+02:10试图理解它
 
-02:13  that's not a wire protocol. the other
+02:13这不是一个有线协议。另一个
 
-02:15  thing worth pointing out that wsgi is
+02:15值得指出的是wsgi是
 
-02:17  not an implementation of anything. it is
+02:17不是执行任何事情。它是
 
-02:20  a specification and it's defined by pep
+02:20一个规范，它由pep定义
 
-02:22  originally free free free but there was
+02:22本来免费免费免费，但有
 
-02:25  an update related to Python free called
+02:25有关Python免费更新的更新
 
-02:28  free free free free. just to make
+02:28免费免费免费免费。只是为了使
 
-02:31  everything confusing. so it's not an
+02:31一切都让人困惑。所以它不是
 
-02:34  invitation especially with me being the
+02:34特别邀请我参加
 
-02:37  author of mod_wsgi. you'll often see
+02:37 mod_wsgi的作者。你会经常看到
 
-02:39  people say oh I'm using Apache and
+02:39人们说哦，我正在使用Apache和
 
-02:41  wsgi that's actually confusing
+02:41 wsgi实际上令人困惑
 
-02:44  because you don't know whether they're
+02:44因为你不知道他们是不是
 
-02:45  talking about mod_wsgi or they're
+02:45谈论mod_wsgi或者他们是
 
-02:47  talking about Apache with gunicorn
+02:47用gunicorn谈论Apache
 
-02:49  behind it as using Apache as a proxy.
+02:49使用Apache作为代理。
 
-02:52  so it's all important if you're talking
+02:52所以如果你在说话，这很重要
 
-02:53  about implementation use the name so use
+02:53关于实现使用这个名字使用
 
-02:55  mod_wsgi if you're talking about that
+02:55 mod_wsgi如果你正在谈论这个
 
-02:57  or gunicorn you wsgi and so on
+02:57或gunicorn你wsgi等
 
-02:59  so what does the canonical HelloWorld
+02:59那么规范的HelloWorld是什么
 
-03:02  program look like for wsgi .this is it
+03:02程序看起来像是wsgi，这是它
 
-03:05  it's very simple you have a call all
+03:05这很简单，你有一个电话
 
-03:07  object to function in this case and for
+03:07反对在这种情况下运作，并为
 
-03:09  each request you'll get passed an
+03:09每个请求你会通过一个
 
-03:12  environ
+03:12 environ
 
-03:14  all the information about the request of
+03:14关于请求的所有信息
 
-03:16  the HTTP headers but also information
+03:16 HTTP头还有信息
 
-03:19  from the server itself information such
+03:19从服务器本身的信息等
 
-03:21  as the remote client IP address and
+03:21作为远程客户端的IP地址和
 
-03:25  other information about the server. its
+03:25有关服务器的其他信息。它的
 
-03:27  then the job of that wsgi application
+03:27然后是那个wsgi应用程序的工作
 
-03:29  to act on that request information and
+03:29根据该请求信息和
 
-03:32  it's going to generate a response and a
+03:32它会产生一个响应和一个
 
-03:35  response composes of headers for the
+03:35响应组成的标题
 
-03:39  HTTP response and a request body start
+03:39 HTTP响应和请求正文开始
 
-03:43  response is called to setup the header
+03:43响应被调用来设置标题
 
-03:45  and then we're doing to actually return
+03:45然后我们正在做实际的回报
 
-03:46  that body. so very very simple there are
+03:46那身体。所以非常非常简单
 
-03:50  lots of traps and pitfalls of writing
+03:50很多陷阱和写作的陷阱
 
-03:52  wsgi applications.so it may look
+03:52 wsgi applications.so它可能看起来
 
-03:54  simple but when you start to actually
+03:54简单但是当你开始真正的时候
 
-03:56  build on top of this very basic
+03:56建立在这个非常基础的基础之上
 
-03:58  construct and try to create a whole
+03:58构建并尝试创建一个整体
 
-04:00  application stack. you might start to
+04:00应用程序堆栈。你可能会开始
 
-04:02  introduce wsgi middleware and other
+04:02介绍wsgi中间件等
 
-04:04  bits like that and how you deal with
+04:04这样的位和你如何处理
 
-04:06  requesting the request content and it
+04:06请求请求内容和它
 
-04:09  gets very very messy at times. so my
+04:09有时候会非常混乱。所以我的
 
-04:13  suggestion is friends don't let friends
+04:13建议是朋友别让朋友
 
-04:14  use raw wsgi. okay it's very
+04:14使用原始的wsgi。好吧，它非常
 
-04:18  frustrating to see a lot of people on
+04:18很沮丧地看到很多人
 
-04:19  stack of coming up with problems I'm
+04:19堆栈提出问题，我是
 
-04:21  trying to understand this. I don't
+04:21试图理解这一点。我不
 
-04:23  understand why are you trying to do it
+04:23明白你为什么要这样做
 
-04:26  with
+04:26与
 
-04:26  raw wsgi so if you have friends who
+04:26生wsgi所以如果你有朋友谁
 
-04:29  think you're getting it's wsgi steer
+04:29认为你已经掌握了它
 
-04:32  them to a web framework please it'll
+04:32他们到一个Web框架，请它会
 
-04:35  save them a lot of trouble because they
+04:35因为他们救了他们很多麻烦
 
-04:38  won't be well these ones have a lot of
+04:38不会很好这些有很多
 
-04:40  documentation for a start which explains
+04:40开始的文档说明
 
-04:43  how to use them good tutorials and so on
+04:43如何使用它们很好的教程等等
 
-04:45  but do provide an interface on top of
+04:45但是确实提供了一个接口
 
-04:47  wsgi which hides all those horrible
+04:47 wsgi，它隐藏了所有那些可怕的东西
 
-04:49  things and ensures that things are
+04:49事情，并确保事情是
 
-04:51  implemented correctly now even if you're
+04:51正确实施
 
-04:55  using one of those frameworks you still
+04:55使用这些框架之一，你仍然
 
-04:57  need a way to host a wsgi application
+04:57需要一种方法来托管一个wsgi应用程序
 
-05:00  they are a framework to help you build
+05:00他们是一个帮助你建立的框架
 
-05:02  that application. now those frameworks
+05:02那个应用程序。现在是这些框架
 
-05:05  such as Dango and flask. they do provide
+05:05如丹戈和烧瓶。他们提供
 
-05:08  you a wsgi server you can use that is
+05:08你是一个可以使用的wsgi服务器
 
-05:11  a development wsgi server. it's not
+05:11开发一个wsgi服务器。不是
 
-05:15  suitable for production so even if they
+05:15即使他们适合生产
 
-05:18  do have them. do not use them and this is
+05:18确实有他们。不要使用它们，这是
 
-05:21  the way you need to start looking at
+05:21你需要开始看的方式
 
-05:22  what's called we call production grade
+05:22我们称之为生产等级
 
-05:23  wsgi server and there's various
+05:23 wsgi服务器，有各种各样的
 
-05:26  attributes that a production grade
+05:26属性表示一个生产等级
 
-05:28  wsgi server has to have and those
+05:28 wsgi服务器必须有和那些
 
-05:30  development service don't.
+05:30开发服务不要。
 
-05:32  so for wsgi service we're talking
+05:32因此，我们正在谈论的wsgi服务
 
-05:34  about mod_wsgi with Apache we have
+05:34关于mod_wsgi与我们的Apache
 
-05:36  gunicorn we have uwsgi. there the
+05:36 gunicorn我们有uwsgi。那里
 
-05:40  main free there's also tornado and knock
+05:40主要免费也有龙卷风和敲门声
 
-05:42  tornado waitress which is another one
+05:42龙卷风女服务员是另一个
 
-05:45  which is straight wsgi server and
+05:45这是直wsgi服务器和
 
-05:48  then we have to have other ones which is
+05:48那我们必须有其他的
 
-05:49  tornado which is not really a strictly
+05:49龙卷风，这不是一个严格的
 
-05:52  just the wsgi service actually an
+05:52实际上只是wsgi服务
 
-05:54  asynchronous web server. but they do have
+05:54异步Web服务器。但他们确实有
 
-05:56  an adapter for wsgi but the three
+05:56一个适用于wsgi但三个适配器
 
-05:58  main ones you'll see Apache mod_wsgi
+05:58主要的你会看到Apache mod_wsgi
 
-06:00  gunicorn and uwsgi Apache and mod
+06:00 gunicorn和uwsgi Apache和mod
 
-06:05  wsgi is traditionally been seen as
+06:05 wsgi传统上被视为
 
-06:07  being very hard to set up. back in the
+06:07非常难以设置。回到了
 
-06:11  day when everything started up with when
+06:11那天什么时候一切都开始了
 
-06:14  mod_wsgi first came out you had to
+06:14 mod_wsgi首先出来你必须
 
-06:16  like download the source code for mod
+06:16喜欢下载mod的源代码
 
-06:18  wsgi from the site you had to unpack
+06:18 wsgi从你必须解压的网站
 
-06:20  tar ball you had to go and do a
+06:20焦油球你必须去做一个
 
-06:22  configure step and make step and make
+06:22配置步骤，使步骤和制作
 
-06:24  install step and then you still had to
+06:24安装一步，然后你仍然不得不
 
-06:26  configure Apache to actually load it and
+06:26配置Apache实际加载它和
 
-06:28  then configure it for your application.
+06:28然后配置它为您的应用程序。
 
-06:30  there was a bit of a black art to that
+06:30那里有一点黑色艺术
 
-06:32  that I wrote a lot of Doc's
+06:32我写了很多文件
 
-06:34  people didn't necessarily read them but
+06:34人们不一定阅读他们，但
 
-06:37  even if you read them it'll still
+06:37即使你读了它们，它仍然会
 
-06:38  perhaps difficult to set up.
+06:38也许很难成立。
 
-06:41  things were slightly better when the
+06:41当事情稍微好转时
 
-06:42  Linux distribution started to package it
+06:42 Linux发行版开始打包
 
-06:44  mod_wsgi. you could at least go
+06:44 mod_wsgi。你至少可以去
 
-06:47  apt-get install or yum install and get
+06:47 apt-get install或yum安装并获取
 
-06:49  it in but you still have to configure it
+06:49它，但你仍然必须配置它
 
-06:51  now at least for installation now. things
+现在06:51至少现在安装。事
 
-06:55  are a bit easier because one of the
+06:55有点容易，因为其中一个
 
-06:57  problems with the Linux distributions
+06:57 Linux发行版的问题
 
-06:59  now is they don't necessarily have an up
+06:59现在他们不一定有起来
 
-07:00  to date version of mod_wsgi. there was
+07:00至最新版本的mod_wsgi。有
 
-07:03  a situation and not too fond ago that
+07:03一个情况，不太喜欢那个
 
-07:05  Debian Ubuntu was supplying a version of
+07:05 Debian Ubuntu提供了一个版本
 
-07:08  mod_wsgi which was 5 years old it
+07:08这是5年前的mod_wsgi吧
 
-07:11  was 50 versions out of date. that drives
+07:11是过时的50个版本。驱动
 
-07:15  me nuts. you know when I was be
+07:15我坚果。你知道我什么时候是
 
-07:16  supporting the last version not alone 50
+07:16支持最新版本不孤单50
 
-07:18  versions ago so what a lot of people
+07:18以前版本，所以很多人
 
-07:21  probably don't know is that it's
+07:21可能不知道是这样
 
-07:23  actually possible to build mod_wsgi
+07:23实际上可以构建mod_wsgi
 
-07:25  and install it using PIP so long you
+07:25然后使用PIP安装它
 
-07:29  still have to have Apache installed
+07:29仍然需要安装Apache
 
-07:31  you still have to have the Apache dev
+07:31你仍然必须拥有Apache开发者
 
-07:32  package installed for your operating
+为您的操作安装07:32包
 
-07:34  system but you can pip install it it'll
+07:34系统，但你可以点安装它
 
-07:36  pull down the source code and it will
+07:36拉下源代码，它会
 
-07:38  actually build it up and install mod
+07:38实际上建立起来并安装mod
 
-07:40  wsgi module that is built into the
+07:40内置于wsgi模块
 
-07:43  pipe installation or version environment
+07:43管道安装或版本环境
 
-07:44  you're using. but that's not all
+07:44你正在使用。但那不是全部
 
-07:47  there's also now a way of running 
+07:47现在还有一种跑步方式
 
-07:50  Apache with mod_wsgi from the command
+07:50 Apache与mod_wsgi从命令
 
-07:53  line. so rather than actually having to
+07:53线。而不是实际上必须
 
-07:55  go in and configure Apache to load it
+07:55进入并配置Apache来加载它
 
-07:58  you can just run this command. so I just
+07:58你可以运行这个命令。所以我只是
 
-08:01  go to mod_wsgi-express start server
+08:01去mod_wsgi-express启动服务器
 
-08:03  and give it my wsgi script file and
+08:03并给我的wsgi脚本文件和
 
-08:05  it's going to do start up Apache for me
+08:05它会为我启动Apache
 
-08:08  and run my web app. and I haven't done a
+08:08并运行我的网络应用程序。我没有做过
 
-08:11  single line of configuration and that
+08:11单线配置和那个
 
-08:14  was a bit that was difficult for a lot
+08:14有点难度很大
 
-08:16  of people. this does it all for you. so
+08:16的人。这一切都为你。所以
 
-08:19  this is just like you came with gunicorn
+08:19这就像你带着枪炮一样来的
 
-08:21  now I can run it from the command
+08:21现在我可以从命令中运行它
 
-08:23  line it'll start on port 8000 by
+08:23行它将从8000端口开始
 
-08:26  default it'll go in and set up the
+08:26默认它会进入并设置
 
-08:29  configuration for you for Apache by
+08:29为你配置Apache为
 
-08:33  itself and do it with a set of
+08:33本身，并与一套
 
-08:35  configuration which I regard as being a
+08:35我认为是一个配置
 
-08:38  really good starting point and this is
+08:38真的很好的起点，这是
 
-08:40  important because mod_wsgi has been
+08:40因为mod_wsgi一直很重要
 
-08:43  around for over 10 years and like with a
+08:43左右超过10年，喜欢与
 
-08:45  lot of software packages you make
+08:45很多你制作的软件包
 
-08:46  decisions early on which you think are
+08:46你认为的早期决定
 
-08:49  good decisions and once you make that
+08:49好的决定，一旦你这样做
 
-08:52  decision you can't
+08:52决定你不能
 
-08:54  change your mind so this is actually
+08:54改变你的想法，所以这是其实
 
-08:56  been a really good thing for me because
+08:56对我来说是一件非常好的事情，因为
 
-08:57  it means I've been able to go back and
+08:57这意味着我已经能够回去了
 
-08:59  because I'm automatically configuring it
+08:59因为我自动配置它
 
-09:01  I've been able to draw on all that
+09:01我已经能够利用所有这些
 
-09:03  experience from how people used mod
+09:03经验从人们如何使用mod
 
-09:04  wsgi and set up with a really good
+09:04 wsgi，成立了一个非常好的
 
-09:07  configuration which isn't actually the
+09:07配置这实际上不是
 
-09:09  same as what the default configuration
+09:09与默认配置相同
 
-09:11  would be if you using Apache yourself
+09:11会是你自己使用Apache
 
-09:13  and doing it yourself.
+09:13并自己动手。
 
-09:14  so I've done a lot better. you can learn
+09:14所以我做得好多了。你可以学习
 
-09:18  from that and I part of the latest
+09:18从那里开始，我是最新的一部分
 
-09:20  slides will talk about some of that.
+09:20幻灯片会谈论其中的一些。
 
-09:21  extra configuration I now do. if
+09:21现在我做了额外的配置。如果
 
-09:26  you're using Django though we can make
+09:26你正在使用Django，尽管我们可以制作
 
-09:28  it even easier again. you can go into
+09:28它再次变得更加容易。你可以进去
 
-09:31  your Django settings module. you can add
+09:31你的Django设置模块。你可以加
 
-09:36  in mod_wsgi.server to the list of
+09:36在mod_wsgi.server列表中
 
-09:39  installed apps and that's just going to
+09:39已安装的应用程序，这只是
 
-09:41  give you a new management command you
+09:41给你一个新的管理命令你
 
-09:43  can run with the manage.py. so I can
+09:43可以使用manage.py运行。所以我可以
 
-09:46  go python manage.py runmodwsgi and
+09:46 go python manage.py runmodwsgi和
 
-09:48  it will start up Django app just like if
+09:48它会启动Django应用程序，就像if
 
-09:51  you're running Python manageby. run
+09:51你正在运行Python manageby。跑
 
-09:53  server but in this case it's using mod
+09:53服务器，但在这种情况下，它使用mod
 
-09:56  wsgi in Apache underneath and so
+09:56在Apache下面的wsgi等等
 
-10:00  you'll now have a production grade server rather than just that development server
+10:00你现在将拥有一台生产级服务器，而不仅仅是该开发服务器
 
-10:01  server rather than just that development
+10:01服务器而不仅仅是这种发展
 
-10:04  server. now you may be saying well why
+10:04服务器。现在你可能会说为什么
 
-10:07  would I want to do that. the run
+10:07我想这样做。运行
 
-10:09  is really useful in development I get automatic source code reloading and
+10:09在开发中非常有用，我获得了自动源代码重新加载和
 
-10:12  get automatic source code reloading. and
+10:12获得自动源代码重新加载。和
 
-10:15  you might think well no point. okay but
+10:15你可能认为没有意义。好吧，但是
 
-10:18  you can it's not the default because I
+10:18你可以不是默认的，因为我
 
-10:20  want the default to be a production ready configuration but you can if you
+10:20希望默认设置为生产就绪配置，但如果您愿意，也可以
 
-10:22  ready configuration .but you can if you
+10:22准备好配置，但是如果你愿意的话
 
-10:25  want say reload-on-changes that means
+10:25想要说重新加载的意思
 
-10:27  that once you go in and change your
+10:27一旦你进去改变你的
 
-10:29  source code it will automatically restart the process to reload the code
+10:29源代码会自动重启进程重新加载代码
 
-10:31  restart the process to reload the code
+10:31重新启动进程重新加载代码
 
-10:33  on the next request okay so you still
+10:33在下一个请求好，所以你仍然
 
-10:35  have functionality. so it is possible to
+10:35有功能。所以有可能
 
-10:37  use this for development those used to
+10:37用这个来开发那些习惯的
 
-10:40  be in the past the idea is that no one
+10:40过去的想法是没有人
 
-10:42  ever would ever use mod_wsgi to develop
+10:42曾经会使用mod_wsgi进行开发
 
-10:43  because they felt it was too hard
+10:43因为他们觉得太难了
 
-10:45  to set up Apache and to go and manually
+10:45设置Apache并手动启动
 
-10:47  restart Apache every time you made a
+10:47每次你重新启动Apache
 
-10:49  change. so with this you don't need to.
+10:49改变。所以这个你不需要。
 
-10:52  there are a bunch of other options which
+10:52还有其他一些选项
 
-10:54  the mod_wsgi-express supports and one
+10:54 mod_wsgi-express支持和一个
 
-10:58  other example is enabling the debugger.
+10:58另一个例子是启用调试器。
 
-11:00  so if you want to start debugging in PDB--
+11:00所以如果你想在PDB中开始调试 - 
 
-11:05  the Python debugger is why and
+11:05 Python调试器是为什么和
 
-11:08  exception occurs you can actually run that command like that and it will throw
+11:08异常发生，你可以像这样真正运行那个命令，它会抛出
 
-11:10  that command like that and it will throw
+11:10那样的命令会抛出
 
-11:12  you into the Python debugger to actually
+11:12你真的进入了Python调试器
 
-11:14  then debug it if you want. and there's
+11:14然后如果你想调试它。还有
 
-11:16  various other commands for tracking or
+11:16其他各种跟踪或命令
 
-11:18  capturing an audit trail of all the
+11:18捕捉所有的审计线索
 
-11:20  requests so you can actually look at all
+11:20请求，所以你可以看看所有
 
-11:22  the request headers the request content
+11:22请求标题请求内容
 
-11:24  responses and response content for every
+11:24响应和每个响应内容
 
-11:26  query quest. if you need to actually
+11:26查询任务。如果你真的需要
 
-11:27  start debugging at that level and
+11:27开始在该级别进行调试
 
-11:30  various other things. so I can do that
+11:30其他各种事情。所以我可以做到这一点
 
-11:33  from the command line we've with Django
+11:33从我们与Django的命令行
 
-11:35  in that way now if I want to take that
+11:35现在如果我想采取的话
 
-11:37  to production. all I need to do is run the same command that I ran before we've
+11:37到生产。我所需要做的就是运行我们之前运行的相同命令
 
-11:40  the same command that I ran before we've
+11:40我们之前跑过的同样的命令
 
-11:45  runmodwsgi. I need a place in to
+11:45 runmodwsgi。我需要一个地方
 
-11:48  actually say this  if you're
+11:48如果你真的这么说
 
-11:49  looking closely when I ran this before it was doing stuff in slash temp
+11:49当我在斜线温度下做东西之前，仔细观察它
 
-11:51  it was doing stuff in temp slash temp
+11:51它正在做临时斜线温度的东西
 
-11:53  with the generated configuration for a
+11:53用一个生成的配置
 
-11:55  real production we want to actually put
+11:55我们真正想要的实际生产
 
-11:56  it in a better location so that a cron
+11:56它在一个更好的位置，这样一个cron
 
-11:58  job doesn't go and remove all the files
+11:58工作不去，并删除所有的文件
 
-12:00  from slash temp on us so we'll give it a
+12:00从斜线温度对我们所以我们会给它一个
 
-12:02  center root we'll put that in etc
+12:02中心根，我们会把它放在等
 
-12:04  directory so I'm gonna run this command
+12:04目录，所以我要运行这个命令
 
-12:06  as root initially I'm gonna want to use
+12:06最初，我想要使用
 
-12:08  port 80 that means it's a privileged
+12:08端口80这意味着它是一个特权
 
-12:10  port I need to be route to start this up
+12:10端口我需要路线来启动它
 
-12:12  so that's why I'm specifying a user and
+12:12这就是为什么我要指定一个用户和
 
-12:14  group two to have this run the
+12:14第二组有此运行
 
-12:16  application knows when it starts and I
+12:16应用程序知道它何时开始和我
 
-12:18  just put - - setup - only on the end
+12:18只是 - - 设置 - 只在最后
 
-12:21  and it will generate the config but not
+12:21它会生成配置，但不会
 
-12:24  actually start anything okay so I've got
+12:24实际上开始任何事情，所以我有
 
-12:27  my config and it's not gonna be
+12:27我的配置，它不会是
 
-12:29  generator each time .one of the things in
+12:29发生器每一次
 
-12:32  that generator config is an Apache CTL
+12:32生成器配置是Apache CTL
 
-12:35  script just like you would have with a
+12:35脚本就像你会用一个
 
-12:37  normal Apache installation but this one
+12:37普通的Apache安装，但这一个
 
-12:39  is tied to this particular generated
+12:39与此生成的特定关联
 
-12:40  conflict and I can do start restart and
+12:40冲突，我可以开始重新启动
 
-12:44  stop and I can then put that in to my
+12:44停下来，然后我可以把它放到我的
 
-12:47  init scripts in my system setup or using
+12:47在我的系统设置或使用的初始化脚本
 
-12:50  systemd and have that started up when
+12:50 systemd并且在那时启动
 
-12:52  the box starts now very very important
+12:52这个盒子现在开始非常重要
 
-12:55  in all of this what it described so far
+12:55到目前为止所描述的全部内容
 
-12:57  about that generating configuration it
+12:57关于它的生成配置
 
-12:59  is not touching your system Apache
+12:59不接触你的系统Apache
 
-13:02  configuration. okay it's generating it
+13:02配置。好的，它正在产生它
 
-13:05  all in a separate area so it is a
+13:05都在一个单独的区域，所以它是一个
 
-13:07  totally isolated config. so if you were
+13:07完全隔离配置。所以如果你是
 
-13:10  using Apache
+13:10使用Apache
 
-13:12  on your system for something else it will not interface with it the only 
+13:12在你的系统上有其他的东西，它不会与它唯一的接口
 
-13:13  will not interfere with it. the only
+13:13不会干涉它。唯一的
 
-13:16  thing is if you do want to run it this
+13:16如果你确实想要运行它的话
 
-13:18  way on port 80 you would install Apache
+13:18在80端口上安装Apache
 
-13:22  but you wouldn't actually enable it in
+13:22但你实际上并没有启用它
 
-13:24  systemd so it started up in that way
+13:24 systemd就这样开始了
 
-13:26  because we want this one to take over
+13:26因为我们希望这个接手
 
-13:27  port 80. so we've got a very easy way now
+13:27 80港口。所以我们现在有一个非常简单的方法
 
-13:30  going from development being able to run
+13:30从发展到运行
 
-13:33  on the command line generate your config
+13:33在命令行上生成你的配置
 
-13:36  put it in your system init files and
+13:36把它放在你的系统init文件中
 
-13:38  have it start up as your actual main
+13:38它开始作为你的实际主力
 
-13:40  Apache on your box. although those
+13:40阿帕奇在你的盒子里。尽管这些
 
-13:44  examples I guess our work so far we're
+13:44例子我想我们的工作到目前为止我们是
 
-13:46  primarily involving Django if you're not using Django you can still do the same
+13:46主要涉及Django，如果你不使用Django，你仍然可以做同样的事情
 
-13:49  using Django you can still do the same
+13:49使用Django，你仍然可以做同样的事情
 
-13:50  thing starts over wsgi script file I
+13:50通过wsgi脚本文件重新开始
 
-13:54  have all my options now one of the
+13:54现在我所有的选择之一
 
-13:57  things about how the Django integration worked is that it automatically setup
+13:57关于Django集成如何工作的一点是它会自动设置
 
-13:59  worked is that it automatically set up
+13:59工作是它自动设置
 
-14:02  the Apache configuration required to
+14:02需要Apache配置
 
-14:06  map your static files into Apache. so
+14:06将你的静态文件映射到Apache。所以
 
-14:09  that when you access the  /static
+14:09当你访问/静态
 
-14:11  directory that would all we handle for
+我们所有人都会处理的14:11目录
 
-14:14  you now. in this case on running a
+14:14你现在。在这种情况下运行一个
 
-14:16  separate wsgi application now so I
+14:16现在单独的wsgi应用程序，所以我
 
-14:18  can still do that by using this URL alias option and say I have these files
+14:18仍然可以通过使用这个URL别名选项并说我有这些文件
 
-14:20  alias option and say I have these files
+14:20别名选项，并说我有这些文件
 
-14:23  in my static directory here I want to
+14:23在我的静态目录中，我想要
 
-14:25  map them at slash static and they're a
+14:25映射他们在斜线静态，他们是一个
 
-14:27  bunch of other options available you can
+14:27其他可用的选项可以
 
-14:29  override the number of processes and
+14:29重写进程的数量和
 
-14:31  Fred's and lots of other things to do
+14:31弗雷德和其他许多事情要做
 
-14:33  with how you handle things like
+14:33你如何处理这样的事情
 
-14:39  responding to headers for proxy
+14:39回复代理的标题
 
-14:41  information if you're putting this
+14:41如果你把这个信息
 
-14:42  behind a proxy for example there's all
+例如14:42后面有一个代理
 
-14:44  sorts of things like that if you need to
+如果你需要的话，有14.4种类似的东西
 
-14:46  know about any of the information you
+14:46知道你的任何信息
 
-14:48  can go - - help. it'll put out lots of
+14:48可以去 - 帮忙。它会放出很多
 
-14:50  helpful information not as long as the
+14:50有用的信息没有那么长
 
-14:53  volume Alice you wsgi Doc's. but then
+14:53爱丽丝你wsgi文件的。但是之后
 
-14:56  it's not as complicated diver is trying
+14:56这不是一个复杂的潜水员在尝试
 
-14:58  to set up you wsgi it's much simpler.
+14:58设置你的wsgi就简单多了。
 
-15:01  so latest trends these days actually is
+15:01所以最近的趋势实际上是
 
-15:04  docker and containers and one of the
+码头和集装箱15:04和其中一个
 
-15:07  reasons that I went and created mod_wsgi-express in the first place was
+15:07我首先创建了mod_wsgi-express的原因是
 
-15:09  wsgi Express in the first place was
+15:09 wsgi首先是Express
 
-15:11  because of what was happening in the
+15:11因为发生了什么事
 
-15:13  container space if you had to set up
+15:13容器空间，如果你不得不设置
 
-15:15  Apache with mod_wsgi in a docker file
+15:15在docker文件中使用mod_wsgi的Apache
 
-15:19  for running in a container. it was just
+15:19在一个容器中跑步。这只是
 
-15:21  as messy as if you're doing it on your own box and in some ways even more messy
+15:21就像你在自己的盒子上做的那样混乱，在某些方面更加混乱
 
-15:23  own box and in some ways even more messy.
+15:23自己的盒子，在某些方面更加凌乱。
 
-15:25  because you couldn't do it manually by
+15:25因为你不能手动做
 
-15:27  hand you had to actually script the
+15:27手你必须真正的脚本
 
-15:28  generation of all config to integrated
+15:28所有配置生成一体
 
-15:30  into the Apache config. so that was
+15:30进入Apache配置。所以那是
 
-15:33  actually one of the reasons why I did
+15:33其实我之所以这样做的原因之一
 
-15:34  this.
+15:34这个。
 
-15:36  using this with docker not too hard
+15:36与码头工人一起使用并不难
 
-15:40  we just potentially start out with your
+15:40我们可能会开始与你的
 
-15:41  docker base image you're going to
+15:41码头基地图像你要去
 
-15:43  install Apache packages required. very
+15:43安装所需的Apache软件包。非常
 
-15:47  importantly if you have don't work with
+15:47重要的是，如果你不合作
 
-15:48  the Python base images from docker is
+15:48 Docker的Python基础图像是
 
-15:51  this problems of Unicode so we can fix
+15:51 Unicode的这个问题，所以我们可以修复
 
-15:53  them up
+15:53他们
 
-15:54  we people install mod_wsgi and we set
+15:54我们安装mod_wsgi并设置
 
-15:58  our PL command to actually run things
+15:58我们的PL命令实际运行的东西
 
-16:01  and because we're in a docker container,we're going to say log to terminal so
+16:01因为我们在一个码头集装箱，所以我们要说登录到码头
 
-16:02  we're going to say log to terminal so
+16:02我们打算说登录到终端
 
-16:04  that we can capture those locks ok
+16:04我们可以捕获这些锁定
 
-16:06  pretty simple so once we do that we do
+16:06很简单，所以一旦我们做到了，我们就做到
 
-16:11  we can build that for look at our docker
+16:11我们可以建立这个看看我们的码头工人
 
-16:12  file and we can run it ok fairly
+16:12文件，我们可以很好地运行它
 
-16:15  straightforward. but if you have used
+16:15直截了当。但如果你已经使用过
 
-16:19  docker
+码头工人16:19
 
-16:20  I don't know how many people aware of this problem if you saw that if you
+16:20如果你看到这个问题，我不知道有多少人知道这个问题
 
-16:21  this problem if you saw that if you
+16:21如果你看到了这个问题
 
-16:24  understood had docker builds work that
+16:24理解了码头工人的工作
 
-16:26  container when I was running it was I
+当我运行它时是16:26容器是我
 
-16:27  was running as root inside of that
+16:27在那里以root身份运行
 
-16:29  container please don't do that. who does
+16:29集装箱请不要那样做。谁做
 
-16:32  say hey so he's going to admit that they
+16:32说，嘿，他会承认他们
 
-16:34  run their docker containers root. yeah
+16:34运行他们的Docker容器根目录。是啊
 
-16:36  please don't do that.
+16:36请不要这样做。
 
-16:39  containers do provide you an extra level
+16:39容器确实为您提供了额外的级别
 
-16:41  of isolation but the important things
+16:41隔离但重要的事情
 
-16:44  with production systems you always have
+16:44拥有你一直拥有的生产系统
 
-16:45  as many layers of security as you can. if
+16:45尽可能多的安全层。如果
 
-16:48  you run things as root then as a
+16:48你以root身份运作，然后作为一个
 
-16:51  vulnerability found in the container
+容器中发现16:51漏洞
 
-16:52  runtime someone can escape out so the
+16:52运行时有人可以逃脱出来
 
-16:54  hosts they're already root so please
+16:54他们已经是root的主机了
 
-16:57  don't run things as root the other thing
+16:57别把事情当作根源
 
-16:59  about that very simple docker file is I
+16:59关于那个非常简单的码头文件是我
 
-17:01  was not using a virtual environment even
+17:01甚至没有使用虚拟环境
 
-17:03  if you're using docker you might think
+17:03如果你使用docker，你可能会想
 
-17:05  oh I don't need a virtual environment
+17:05哦，我不需要虚拟环境
 
-17:06  because I'm the only person using it
+17:06因为我是唯一使用它的人
 
-17:09  please also use a virtual environment
+17:09也请使用虚拟环境
 
-17:11  because there are a lot of issues that
+17:11因为有很多问题
 
-17:12  can come up with trying to install
+17:12可以拿出试图安装
 
-17:14  packages into a system Python. if this
+17:14打包成Python系统。如果这
 
-17:16  operating system itself has to install
+17:16操作系统本身必须安装
 
-17:19  packages to support the operating system
+17:19包来支持操作系统
 
-17:21  you can give lots of conflict so avoid
+17:21你可以避免很多冲突
 
-17:23  that. so a better docker file might start
+17:23那。所以更好的docker文件可能会启动
 
-17:26  out with creating a non root user we can
+17:26我们可以创建一个非root用户
 
-17:29  do things this and I'll you'll note that
+17:29做这件事，我会告诉你
 
-17:32  are actually putting the GID is 0.I'll
+17:32实际上是把GID是0.I'll
 
-17:34  tell why in a moment. we can create our
+17:34为什么在一瞬间。我们可以创造我们的
 
-17:38  virtual environment when we're finishing
+17:38虚拟环境，当我们完成
 
-17:40  off the docker file make sure doing
+17:40关闭码头文件确保做
 
-17:42  things as a non root user and because we
+17:42作为非root用户，因为我们
 
-17:45  are a non root user we can't use port 80
+17:45是非root用户，我们不能使用端口80
 
-17:47  but that's ok because we can just map
+17:47但没关系，因为我们可以绘制地图
 
-17:49  when we run the container. now thrown in
+17:49当我们运行容器时。现在投入
 
-17:52  another thing here as well I could have
+17:52这里还有一件事我可以
 
-17:54  just put in here
+17:54放在这里
 
-17:55  run mod_wsgi-express but I've
+17:55运行mod_wsgi-express但我已经
 
-17:57  actually got another package here or
+17:57实际上在这里或另一个包裹
 
-17:58  just what I just wanted to show off of
+17:58正是我想要炫耀的东西
 
-18:00  it
+18:00吧
 
-18:01  and that's called warpdrive I actually
+18:01这实际上叫做warpdrive
 
-18:03  create this two years ag.o I haven't had
+18:03创造这两年ag.o我没有
 
-18:04  much pickup on it but I haven't actually
+18:04大大提升了它，但我其实并没有
 
-18:06  said much about it either but it may be
+18:06说了很多，但可能是
 
-18:08  of interest if you have me of Heroku and
+18:08如果你有我的Heroku和
 
-18:12  how that works when you push up a
+18:12当你向上推进时，这是如何工作的
 
-18:14  application to Heroku it uses what's
+18:14应用Heroku它使用什么
 
-18:16  called a build pack. it will go into your
+18:16称为构建包。它会进入你的
 
-18:19  source code look and see if you've got a
+18:19源代码看，看看你有没有
 
-18:20  requirements text file and will
+18:20要求文本文件和将
 
-18:23  automatically install the packages for
+18:23自动安装包
 
-18:24  you warpdrive build in this example
+18:24你在这个例子中建立了warpdrive
 
-18:27  does the same thing so what is providing
+18:27做同样的事情，所以提供什么
 
-18:31  is a really easy ability to build up
+18:31是一个非常容易建立的能力
 
-18:32  your all the files you need to support
+18:32你需要支持的所有文件
 
-18:35  your application so that can be
+18:35你的申请可以
 
-18:37  requirements not text because you can
+18:37要求不是文字，因为你可以
 
-18:39  also put various hooks in there to do
+18:39也把各种各样的钩子放在那里做
 
-18:41  pre and post build actions and so on and
+18:41制作前后动作等等
 
-18:45  to start at the end I just go warpdrive
+18:45最后开始我只是去warpdrive
 
-18:48  start now in this case it's going to run
+18:48现在开始在这种情况下它将会运行
 
-18:50  mod_wsgi but that's only your default
+18:50 mod_wsgi但这只是你的默认值
 
-18:52  warpdrive actually knows how to startup
+18:52 warpdrive实际上知道如何启动
 
-18:54  gunicorn and waitress and  uwsgi as
+18:54 gunicorn和女服务员和uwsgi as
 
-18:57  well so even if you didn't want to use
+18:57所以即使你不想使用
 
-18:59  mod_wsgi-express you may be
+18:59 mod_wsgi-表达你的可能
 
-19:01  interested in looking at warpdrive
+19:01有兴趣看着warpdrive
 
-19:02  because of its ability to do that and it
+19:02因为它有能力做到这一点
 
-19:05  will worry about providing some good
+19:05会担心提供一些好处
 
-19:07  default options even for gunicorn and
+19:07默认选项，甚至对于gunicorn和
 
-19:10  you wsgi it's even smart enough to
+19:10你很聪明
 
-19:12  realize if you're using Django it no
+19:12意识到如果你使用Django它没有
 
-19:16  matter which of those service we've
+19:16重要的是我们的服务
 
-19:17  being used how to startup Django for you.
+19:17正在使用如何为你启动Django。
 
-19:19  including hosting of static files or
+19:19包括托管静态文件或
 
-19:22  even injecting in white noise middle
+19:22甚至在白色噪音中注入
 
-19:25  wrapper if using gunicorn to actually
+19:25包装如果使用gunicorn来实际上
 
-19:28  handle static files. so again just to run
+19:28处理静态文件。所以再次运行
 
-19:32  it up and you'll see that it's not
+19:32起来，你会发现事实并非如此
 
-19:33  running as root now, now one of the other
+19:33现在以root身份运行，现在是其中一个
 
-19:36  things is that even though you're
+19:36即使你是的，事情就是这样
 
-19:38  running as non-root it's actually very
+19:38以非root身份运行，实际上非常非常
 
-19:40  good to design your container or your
+19:40很好设计你的容器或你的
 
-19:42  image so it can run as an arbitrary user
+19:42图像，因此它可以作为任意用户运行
 
-19:44  ID and that is actually why I was using
+19:44 ID，这实际上是我使用的原因
 
-19:47  group ID 0. if you run a image as a non
+19:47组ID 0.如果你运行一个图像为非
 
-19:52  root user of a very very high value
+19:52非常高价值的root用户
 
-19:54  there's no entry in the password file
+19:54密码文件中没有条目
 
-19:56  it'll default to group ID of 0 so if you
+19:56它会默认为0，所以如果你
 
-19:59  run a system which is a container
+19:59运行一个容器系统
 
-20:01  environment which
+20:01哪个环境
 
-20:02  provides extra protections and forces
+20:02提供额外的保护和力量
 
-20:05  you to run as a arbitrary user ID this
+20:05你作为一个任意的用户ID运行
 
-20:08  will still work. warpdrive I used it in
+20:08仍然有效。 warpdrive我用它
 
-20:14  docker container there or docker image
+20:14那里的码头集装箱或码头图像
 
-20:16  it's not intended just for that .one of
+20:16并不只是为了这一点
 
-20:19  the good things about it is you can
+20:19关于它的好处是你可以
 
-20:21  actually still use it in your local
+20:21实际上仍然在你的本地使用它
 
-20:22  development environment so I can
+20:22开发环境让我可以
 
-20:25  actually create my project under warp
+20:25实际上是在扭曲下创建我的项目
 
-20:27  drive and essentially it's gone and
+20:27开车，基本上没有了
 
-20:29  created a virtual environment for me and
+20:29为我和我创造了一个虚拟环境
 
-20:30  put me in that I can still go warpdrive
+20:30把我放在那里，我仍然可以去warpdrive
 
-20:33  built and that ought to be all that
+20:33建成，应该是所有的
 
-20:35  running of the PIP to install the
+20:35运行PIP来安装
 
-20:38  packages running in your hooks and then
+20:38包在你的钩子中运行，然后
 
-20:40  I thought when I run this over I can go
+20:40我想，当我跑过去时我可以走了
 
-20:41  warpdrive start and it will start up my
+20:41 warpdrive开始，它会启动我的
 
-20:43  server for me okay so it's intended to
+20:43服务器对我来说好，所以它的目的是
 
-20:45  provide you a way of building up your
+20:45为你提供一种建立你自己的方式
 
-20:47  application environment that works on
+20:47工作的应用程序环境
 
-20:49  your development box but also in a
+20:49你的发展箱子还在一个
 
-20:52  containerized environment or production
+20:52集装箱环境或生产
 
-20:54  system so you have parity between them
+20:54系统，所以你有他们之间的平等
 
-20:57  so you got a better better guarantee
+20:57所以你有更好的保证
 
-20:59  that if something works or builds
+20:59如果有东西在工作或建立
 
-21:01  properly in your own development box it
+21:01正确地在你自己的开发箱里吧
 
-21:03  will work fine in production or a
+21:03可以在生产或工作中正常工作
 
-21:04  container .so that I haven't I haven't
+21:04容器。所以我没有，我没有
 
-21:08  done much on warpdrive lately but you
+21:08最近在warpdrive上做了很多，但你
 
-21:10  are interested please talk to me because
+21:10有兴趣请跟我说说，因为
 
-21:12  I'd like to sort of kick to start that
+21:12我想点头开始
 
-21:13  again and with some of the stuff that's
+21:13再加上一些东西
 
-21:15  been happening with people in fact put
+21:15事实上已经发生在人们身上
 
-21:17  ppm support in there as well and start
+21:17支持在那里以及开始
 
-21:20  utilizing some of that for it as far as
+21:20尽可能地利用其中的一些
 
-21:26  generating a docker image we previously
+21:26我们以前生成码头图像
 
-21:28  were using a docker file
+21:28正在使用docker文件
 
-21:29  wellwe've warpdrive you don't even need
+21:29我们甚至不需要warpdrive
 
-21:31  that. I can actually use it go warpdrive
+21:31。我实际上可以使用它去warpdrive
 
-21:33  image name of an image to crate and it
+21:33将图像的图像名称打包并打包
 
-21:36  all go and build the image for me. you
+21:36都去为我建立形象。您
 
-21:38  don't even need to generate a docker
+21:38甚至不需要生成码头
 
-21:39  file now I could have done that by
+21:39现在我可以通过
 
-21:42  generating a docker file myself in this
+21:42在这里生成一个docker文件
 
-21:44  case I'm actually using a package called
+21:44我实际上正在使用一个名为的包
 
-21:46  source to image it can be viewed as
+21:46来源图像它可以被视为
 
-21:50  being like build packs for Heroku.
+21:50就像Heroku的build pack。
 
-21:53  but it's purpose-built for doing stuff
+21:53但它是专门用来做东西的
 
-21:55  with docker images and
+21:55与码头图像和
 
-21:57  container images. it allows you to define
+21:57容器图像。它允许你定义
 
-22:00  a what's called a sauce which builder as
+22:00一个叫做建筑师的酱
 
-22:02  a image itself and you can point that at
+22:02一个图像本身，你可以指出
 
-22:06  a source code repo using this command
+22:06使用此命令的源代码回购
 
-22:09  it'll pull down the git repo for me
+22:09它会为我提供git回购
 
-22:10  it'll run up that builder inject a repo
+22:10它会运行起来，建造者注入回购
 
-22:13  source code and then run that build step
+22:13源代码，然后运行该构建步骤
 
-22:16  inside
+22:16里面
 
-22:16  and generates you an image and then I
+22:16并生成一张图片，然后是我
 
-22:18  can come along and run that after. now
+22:18可以过来后运行。现在
 
-22:20  source to image is understood by at
+22:20来源图像被at所理解
 
-22:23  least
+至少22:23
 
-22:23  openshift which is a kubernetes platform
+22:23这是一个kubernetes平台
 
-22:27  provided by Red Hat which builds on
+22:27由Red Hat提供
 
-22:29  kubernetes and has extra capabilities
+22:29 kubernetes并有额外的能力
 
-22:31  for doing builds and as well as just
+22:31因为做建设和公正
 
-22:33  running images. so it's giving that past
+22:33运行图像。所以它给了过去
 
-22:35  like environment or platform as a
+22:35像环境或平台一样
 
-22:37  service and it has a source to merge
+22:37服务，它有一个合并源
 
-22:39  build support so I've now got a way then
+22:39建立支持，所以我现在有办法
 
-22:42  of doing things with warpdrive at my
+22:42在我的时候用warpdrive做事情
 
-22:43  local box it understands source to image
+22:43本地盒子可以理解源图像
 
-22:46  I could generate images with it but I
+22:46我可以用它生成图像，但我
 
-22:48  can also deploy it direct into openshift
+22:48也可以直接将它部署到openshift中
 
-22:50  as well. all using the same underlying
+22:50。全部使用相同的基础
 
-22:52  build mechanism but also the same way of
+22:52构建机制也是一样的
 
-22:54  running up there. if you are using still
+22:54跑到那里。如果你还在使用
 
-22:59  the Apache on your box you're not left
+22:59你的盒子上的阿帕奇你没有离开
 
-23:02  out of this still you can do peep
+23:02你仍然可以偷看
 
-23:04  install to build that mod_wsgi
+23:04安装来构建那个mod_wsgi
 
-23:06  module' for Apache. but if you want to
+23:06模块'的Apache。但如果你想
 
-23:08  use your system patchy still and
+23:08使用你的系统patchy仍然和
 
-23:09  configure it manually you can and
+23:09手动配置你可以和
 
-23:12  because the module is built into a
+23:12因为这个模块被内置到一个
 
-23:14  virtual environment your path
+23:14虚拟环境你的路径
 
-23:16  installation that's fair will run this
+23:16安装这是公平的将运行此
 
-23:18  module config command it'll generate the
+23:18模块配置命令它会生成
 
-23:20  couple lines you need to put in the
+23:20你需要放入的几条线
 
-23:22  Apache config to load that you still
+23:22 Apache配置来加载你仍然
 
-23:24  need to go and configure it manually for
+23:24需要手动配置
 
-23:27  your application but that's a good
+23:27你的申请，但这是一个很好的
 
-23:29  starting point now as far as using mod
+23:29现在开始使用mod
 
-23:34  wsgi in Apache and doing it yourself
+23:34在Apache中wsgi并自己做
 
-23:36  when I did mod_wsgi-express it used a
+23:36当我做了mod_wsgi-表达它使用了一个
 
-23:40  mode called daemon mode. that is the
+23:40模式称为守护进程模式。那就是
 
-23:42  preferred way that you run mod_wsgi.
+23:42首选你运行mod_wsgi的方式。
 
-23:45  unfortunately the history of how mod
+23:45不幸的是如何mod的历史
 
-23:47  wsgi got created meant that the
+23:47 wsgi被创造意味着
 
-23:49  default mode is something called
+23:49默认模式是所谓的
 
-23:50  embedded mode.
+23:50嵌入模式。
 
-23:52  if you're using embedded mode please
+23:52如果你使用嵌入式模式
 
-23:54  don't use daemon mode it is much better
+23:54不要使用守护进程模式，要好得多
 
-23:58  now what is the difference when we run
+23:58现在我们跑步有什么不同
 
-24:01  Apache. Apache creates all these worker
+24:01阿帕奇。 Apache创建所有这些工作
 
-24:04  process they're the things that accepts
+24:04过程他们是接受的东西
 
-24:05  the HTTP requests. normally in embedded
+24:05 HTTP请求。通常在嵌入式中
 
-24:09  mode your Python web application is
+24:09模式你的Python Web应用程序是
 
-24:11  actually embedded in the same process
+24:11实际上嵌入在相同的过程中
 
-24:14  the same work Apache worker process that
+24:14同样的工作Apache工作进程
 
-24:18  is useful soft some things but in
+24:18对一些事情很有用，但在中
 
-24:20  general it's really hard to set up
+24:20将军很难成立
 
-24:21  proper and that's where a lot of people
+24:21正确，这是很多人的地方
 
-24:23  have problems so you're better off using
+24:23有问题，所以你最好使用
 
-24:25  daemon mode and in what happens in
+24:25守护进程模式以及发生的事情
 
-24:27  daemon mode is that a separate process
+24:27守护进程模式就是一个单独的进程
 
-24:29  is created
+24:29创建
 
-24:30  for running the wsgi application in
- 
-24:32  or more than one .and there's a little
+24:30为了运行wsgi应用程序
+ 
+24:32或者多于一个，还有一点
 
-24:35  proxy in there so the only thing that is
+24:35那里代理是唯一的事情
 
-24:37  running inside of the Apache worker
+24:37在Apache工作人员的内部运行
 
-24:38  process is these little prosecutes now
+24:38过程是现在这些小起诉
 
-24:40  this is all handle for you so it's not
+24:40这一切都为你处理，所以不是
 
-24:43  like you have to manually run your
+24:43像你必须手动运行你的
 
-24:45  wsgi application separately and then
+24:45分别申请wsgi
 
-24:48  setup Apache to proxy mod_wsgi
+24:45分开申请，然后
 
-24:50  handles all that running of the separate
+24:48将Apache设置为代理mod_wsgi
 
-24:52  daemon process for you so if you restart
+24:50处理单独运行的所有内容
 
-24:53  Apache it'll also restart the separate
+24:52守护进程为你，所以如果你重新启动
 
-24:55  process so if you're doing this manually
+24:53阿帕奇，它也会重启这个单独的
 
-25:00  yourself the key bit is this wsgi
+24:55过程，所以如果你手动做这个
 
-25:03  daemon process directive which you have
+25:00你自己的关键是这个wsgi
 
-25:05  an Apache so if you're using mod_wsgi
+25:03守护进程的指令，你有
 
-25:07  now and if you don't have with wsgi
+25:05一个Apache，所以如果你使用mod_wsgi
 
-25:09  daemon process go find out about it
+25:07现在，如果你没有与wsgi
 
-25:11  because you're not using daemon mode
+25:09守护进程去了解它
 
-25:13  here the other thing is that you want to
+25:11因为你没有使用守护进程模式
 
-25:16  turn off embedded mode so that it isn't
+25:13这里另一件事就是你想要的
 
-25:18  used and that's what wsgi is strict
+25:16关闭嵌入式模式，使其不是
 
-25:21  embedded does so if you don't have that
+25:18使用，这就是wsgi是严格的
 
-25:23  in your Apache config iver
+25:21嵌入是如果你没有的话
 
-25:24  maybe research that one as well but
+25:23在你的Apache配置iver中
 
-25:28  otherwise we set up an application with
+25:24也许研究一个，但是
 
-25:29  wsgi script alias and we're going to
+25:28否则我们用一个应用程序
 
-25:31  tell it that I'm going to run that
+25:29 wsgi脚本别名，我们将会
 
-25:32  inside of that daemon process the daemon
+25:31告诉我，我要去运行它
 
-25:38  processing in the daemon mode it is
+守护进程内部25:32处理守护进程
 
-25:39  existed since version 1.0
+25:38处于守护进程模式下
 
-25:42  of mod_wsgi so it's always been there
+25:39自1.0版以来就存在
 
-25:44  but it has been improved gradually as
+mod_wsgi 25:42所以它一直在那里
 
-25:47  that when I went got developed over
+25:44但随着时间的推移逐渐改善
 
-25:49  those 10 years now there are a lot of
+25:47那时我走了
 
-25:51  options on it but a lot of options
+25:49那10年现在有很多
 
-25:53  aren't set with same defaults and that
+25:51选项，但有很多选项
 
-25:57  is again because of the history I
+25:53没有设置相同的默认值和那个
 
-25:58  couldn't go back when I added these new
+25:57又是因为我的历史
 
-26:00  features and set a value because I would
+25:58当我添加这些新功能时无法返回
 
-26:02  have upset those people who had an
+26:00特点并设置一个值，因为我会的
 
-26:03  existing configuration. so if you're
+26:02让那些曾经拥有过的人感到不安
 
-26:05  using daemon mode already if you are not
+现有配置26:03。所以如果你是
 
-26:09  using some of these especially these
+26:05如果你没有使用守护进程模式
 
-26:10  ones within the red boxes go back and
+26:09使用其中一些尤其是这些
 
-26:13  have a look at it lang and loco you
+26:10红色盒子里的东西会返回
 
-26:16  might have already hit this before some
+26:13看看它和你在一起
 
-26:18  operating systems set the locale to be
+26:16可能在一些之前已经达到了这个水平
 
-26:20  ASCII which causes lots of problems
+26:18操作系统将语言环境设置为
 
-26:21  we've basically Python web applications
+26:20 ASCII会导致很多问题
 
-26:24  so those options safe for setting laying
+26:21我们基本上都是Python网络应用程序
 
-26:25  locale. but the other ones are more
+26:24所以这些选项可以安全地铺设
 
-26:27  probably important startup timeout
+26:25区域设置。但其他的更多
 
-26:29  socket I'm a cute on and request timeout
+26:27可能是重要的启动超时
 
-26:31  so startup time at this one is very
+26:29 socket我是一个可爱的请求超时
 
-26:34  important if you're using django. django
+26:31所以启动时间非常多
 
-26:36  once upon a time if it failed when it
+26:34如果你使用django，这很重要。 Django的
 
-26:38  first loaded it was fine if it was a
+26:36曾经一次，如果它失败了
 
-26:42  transient problem
+26:38第一次加载它很好，如果它是
 
-26:44  the second time reloaded on the next
+26:42短暂的问题
 
-26:46  request that worked fine it could be
+第二次26:44重新下载
 
-26:47  really out of twice. Django changed that
+26:46请求，它可以工作得很好
 
-26:49  once it tries to attempt reloading once
+26:47真的超出了两倍。 Django改变了这一点
 
-26:52  on a transit problem you can't try and
+26:49一旦尝试重新加载一次
 
-26:55  attempt reload after that and you have
+26:52在运输问题上你不能尝试
 
-26:57  to manually go in and restart Apache if
+26:55尝试重新加载后，你有
 
-26:59  you've seen that use this dial up
+26:57手动进入并重启Apache
 
-27:01  timeout set that what will happen is we
+26:59你已经看到使用这个拨号了
 
-27:03  can't load that wsgi application
+27:01超时设定会发生什么是我们
 
-27:05  within that time frame successfully.
+27:03无法加载该wsgi应用程序
 
-27:06  it'll actually restart the processes
+27:05在这段时间内成功。
 
-27:08  again that wafers transient problem
+27:06它实际上会重启进程
 
-27:10  you'll keep going and hopefully the next
+27:08再次表明晶圆瞬态问题
 
-27:12  time it'll work. socket time and a
+27:10你会继续前进，希望下一次
 
-27:16  queue timeout especially queue timeout if
+27:12它会工作。套接字时间和a
 
-27:20  you have requests come in and your
+27:16队列超时特别是队列超时如果
 
-27:22  application locks up on that request
+27:20你有请求进来和你的
 
-27:24  because of a deadlock or something and
+27:22应用程序锁定该请求
 
-27:27  all your friends start to backup all
+27:24因为僵局什么的
 
-27:31  or it takes a
+27:27你的所有朋友开始全部备份
 
-27:34  long-running request and takes a long
+27:31还是需要一个
 
-27:35  time all these requests start backing up
+27:34长时间运行的请求，需要很长时间
 
-27:38  and if it takes a long time for your
+27:35所有这些请求都开始备份
 
-27:41  application to recover then what can
+27:38如果你需要很长时间
 
-27:43  happen is that Apache gets backlogged
+27:41申请恢复的话可以
 
-27:47  and when your recovers finally you've
+27:43发生的事情是Apache会积压
 
-27:50  got this huge number requests queued up
+27:47当你最终恢复的时候
 
-27:51  the users have already gone away
+27:50有这么多的请求排队
 
-27:53  there's no point serving the request
+27:51用户已经离开了
 
-27:55  your queue time allows you to throw
+27:53请求没有意义
 
-27:56  those requests out and recover from the
+27:55你的排队时间可以让你投掷
 
-27:58  backlog really quickly
+27:56那些请求并从中恢复
 
-28:00  sohcahtoa is to avoid other things we've
+27:58积压确实很快
 
-28:02  blocked blocking in connections because
+28:00 sohcahtoa是为了避免我们的其他事情
 
-28:04  the default and patch is actually three
+28:02阻止了连接因为
 
-28:06  minutes five minutes which is way too
+28:04默认和补丁实际上是三个
 
-28:09  long so look for those options
+28:06分五分钟，这也是
 
-28:12  another one is request timeout if your
+28:09长时间寻找这些选项
 
-28:14  request is taking too long
+28:12另一个是请求超时如果你的
 
-28:16  it's meant to finish in in 20 seconds
+28:14请求时间太长
 
-28:19  and it's taking two hours every time
+28:16它意味着在20秒内完成
 
-28:22  that happens it reduces the capacity of
+28:19每次都需要两个小时
 
-28:24  your server and you can't handle any
+28:22发生这种情况会降低容量
 
-28:26  more requests you can put a timeout on
+28:24你的服务器，你不能处理任何
 
-28:28  this and it will actually go and restart
+另外28:26请求你可以暂停
 
-28:30  the process to kick out all the requests
+28:28这个，它会实际上去并重新启动
 
-28:32  out so that you can get back to a fresh
+28:30解除所有请求的过程
 
-28:34  start and keep going and that's helping
+28:32以便你可以回到新鲜的地方
 
-28:37  you to recover automatically when your
+28:34开始并继续前进，这是帮助
 
-28:38  applications blocks up for various
+28:37当你的时候你会自动恢复
 
-28:40  reasons with all this there's all these
+28:38应用程序阻止各种
 
-28:44  options things like processes and Fred's
+28:40所有这些原因都存在
 
-28:46  and all these other ones very important
+28:44选择过程和Fred的东西
 
-28:48  to know how to set them up a lot of
+28:46其他所有这些都非常重要
 
-28:51  people ask me how do I set up my
+28:48知道如何设置他们很多
 
-28:52  wsgi' server well I can't answer that
+28:51有人问我如何设置我的
 
-28:54  question because I don't know how your
+28:52 wsgi'服务器，我无法回答
 
-28:55  application works I don't
+28:54因为我不知道你的问题
 
-28:57  out behaves that's where monitoring is
+28:55申请工作我没有
 
-29:00  very very important there are things out
+28:57表现出这是监测的地方
 
-29:03  there application performance monitoring
+29:00非常非常重要的是有些事情
 
-29:05  products such as New Relic which you can
+29:03有应用程序性能监控
 
-29:07  blame me for because I actually wrote
+29:05产品，如New Relic，你可以
 
-29:09  the hyphenation for that and also now
+29:07因为我真的写了责备我
 
-29:12  more recently data dog has application
+29:09连字符和现在
 
-29:15  form its monitoring they to a degree
+29:12最近数据狗有应用程序
 
-29:17  allow you to see what's happening inside
+29:15在一定程度上形成对他们的监控
 
-29:19  of your web app and can be used to help
+29:17让你看到里面发生了什么
 
-29:23  make your application perform better but
+29:19你的网络应用程序，可用于帮助
 
-29:26  they don't capture some metrics which
+29:23使你的应用程序表现更好，但是
 
-29:28  are very useful for tuning your actual
+29:26他们没有捕捉到一些指标
 
-29:32  web server Apache in this case. in mod
+29:28对于调整你的实际非常有用
 
-29:36  wsgi there is this ability to get out
+在这种情况下29:32 web服务器Apache。在mod
 
-29:38  metric information this is an event
+29:36 wsgi有这种能力出去
 
-29:40  mechanism there where you can actually
+29:38度量信息这是一个事件
 
-29:42  be notified when requests start when
+29:40机制在那里你可以实际上
 
-29:43  they finish when exceptions occurred you
+29:42当请求开始时被通知
 
-29:46  can actually pull that information out
+29:43当你发生异常时，他们完成
 
-29:48  and send it into some sort of metrics
+29:46实际上可以将这些信息提取出来
 
-29:51  aggregation systems such as data dog
+29:48并将其发送到某种指标
 
-29:54  some of the important ones as far as
+29:51聚合系统如数据狗
 
-29:56  treating the the web server is how much
+29:54一些重要的事情
 
-29:58  of the capacity of that server is being
+29:56对待web服务器是多少
 
-29:59  used now things like New Relic and data
+这台服务器的容量正在29:58
 
-30:02  dog APM don't have those things I
+29:59现在使用New Relic和数据
 
-30:04  provide them I just don't provide a
+30:02狗APM没有这些东西我
 
-30:06  back-end so if you're really interested
+30:04提供他们我只是不提供一个
 
-30:08  in it being able to tune the wsgi
+30:06后端，所以如果你真的感兴趣
 
-30:10  server you might be interested in
+30:08可以调整wsgi
 
-30:11  looking at this capability or for
+30:10你可能感兴趣的服务器
 
-30:13  tracking the events of when things occur
+30:11看这个能力还是为了
 
-30:15  in in aside of Apache so I can use that
+30:13跟踪事件发生的事件
 
-30:18  to pull out my data request very
+30:15在Apache旁边，所以我可以使用它
 
-30:21  important response time in this case
+30:18非常感谢我的数据请求
 
-30:22  happens to be using DotA dog but there's
+30:21在这种情况下的重要响应时间
 
-30:25  other interesting things you can do
+30:22恰好是使用DotA狗，但有
 
-30:26  because it's an event model and I can
+30:25你可以做的其他有趣的事情
 
-30:28  actually track every request then I can
+30:26因为这是一个事件模型，我可以
 
-30:31  do fancy things like this .so this is a
+30:28实际上跟踪每个请求，然后我可以
 
-30:34  bouquet application that is actually
+30:31做这种喜欢的事情，所以这是一个
 
-30:36  showing live traffic and this can be
+30:34实际上是花束应用
 
-30:39  really useful in helping you to sort of
+30:36显示实时路况，这可以
 
-30:40  get a concept of what's happening in
+30:39对帮助你有点帮助
 
-30:43  there and how your requests coming in
+30:40了解发生了什么事情的概念
 
-30:46  relative to each other and like that
+30:43那里以及您的要求如何进入
 
-30:49  green line for example is showing
+30:46彼此相对，就像那样
 
-30:50  requests while they're being handled if
+例如30:49的绿线正在显示
 
-30:54  one of those requests went on and
+30:50请求正在处理中
 
-30:56  started running for ten minutes and
+30:54其中一个请求继续进行
 
-30:58  blocked up then note that that green
+30:56开始跑步十分钟
 
-31:00  line would go forever and obviously
+30:58封锁然后注意那绿色
 
-31:02  while that happens I've got less
+31:00线将永远和明显
 
-31:03  capacity to handle other requests so
+31:02虽然这种情况发生，但我已经减少了
 
-31:06  that bottom line is then actually the
+31:03处理其他请求的能力如此
 
-31:08  capacity so you see how it jumps up and
+31:06那底线实际上是
 
-31:09  down
+31:08容量让你看到它是如何跳起来的
 
-31:10  so the event thing is cute for for doing
+下午31:09
 
-31:12  that and so hopefully is that something
+31:10所以事情很可爱
 
-31:15  of interest
+31:12那么，希望是那样
 
-31:17  forest fires resources there is various
+31:15感兴趣
 
-31:19  mod wsgi documentation the pypi
+31:17森林火灾资源有很多种
 
-31:22  site has information on mod_wsgi
+31:19 mod wsgi文档pypi
 
-31:24  expressed because the other Doc's aren't
+31:22网站有关于mod_wsgi的信息
 
-31:25  really up to tail warp-drive project and
+31:24表示因为其他文件不是
 
-31:28  source to in which might be of interest
+31:25真的到尾部扭曲驱动项目和
 
-31:29  as well
+31:28来源可能有兴趣
 
-31:30  now a few summary things I'd like to say
+31:29
 
-31:35  I get a lot of questions people trying
+31:30现在我想说几句总结性的话
 
-31:37  to use my wsgi on Windows please I'd
+31:35我遇到很多人试过的问题
 
-31:40  rather you didn't okay if you do it's
+31:37在Windows上使用我的wsgi，我愿意
 
-31:42  just at least use docker on Windows ok
+31:40如果你这样做的话，你不会这么做
 
-31:44  there are shortcomings of using Apache
+31:42至少在Windows上使用docker确定
 
-31:46  on Windows please don't use packages
+31:44有使用Apache的缺点
 
-31:52  that provided by your linux distro i
+31:46在Windows上请不要使用包
 
-31:53  know your sister admins or in your
+31:52由你的linux发行版提供
 
-31:55  devops via whatever in your work may say
+31:53知道你的姐姐管理员或你的
 
-31:58  no no you have to use the package system
+31:55通过你工作中的任何东西可能会说
 
-32:00  it's a pain in the neck they are
+31:58不，你不得不使用包装系统
 
-32:01  generally a very old and out of date use
+32:00这是他们脖子上的痛苦
 
-32:03  pip install method if you can and
+32:01通常是非常陈旧和过时的用法
 
-32:07  friends tell their friends other user
+32:03 pip安装方法，如果你可以和
 
-32:08  use other wsgi service right you're
+32:07朋友告诉他们的朋友其他用户
 
-32:10  all using mud wsgi and you all tell
+32:08正确使用其他的wsgi服务
 
-32:12  people not to use gunicorn and the others
+32:10全部都使用泥土wsgi，你都告诉
 
-32:14  right because mud wsgi is definitely
+32:12人们不要使用gunicorn和其他人
 
-32:16  not dead i've been doing a lot of work
+32:14对，因为wsgi是绝对的
 
-32:18  on it it's just not very public
+32:16没有死，我一直在做很多工作
 
-32:20  knowledge at the moment and finally part
+32:18它只是不太公开
 
-32:23  of the reason I feel I'd like to see
+32:20知识在此刻，最后一部分
 
-32:24  people use mod_wsgis I have done a
+32:23我觉得我想看看
 
-32:26  lot of work of making it using easier to
+32:24人使用mod_wsgis我做了一个
 
-32:28  use now. especially if you want to run
+32:26使得它更容易使用
 
-32:30  omit containers okay so have a look at
+32:28现在使用。 特别是如果你想运行
 
-32:33  it please don't dismiss it as I often
+32:30忽略容器好，所以看看
 
-32:36  have people do so that's it
+32:33请不要像我经常那样解雇它
 
-32:39  and hopefully you understand the joke
+32:36有人这样做就是这样
 
-32:41  most people don't seem to when I would
+32:39希望你明白这个笑话
 
-32:42  do it so that'll be all I'll take
+32:41大多数人似乎没有时间
 
-32:46  questions to the side and that's it so
+32:42这样做，这将是我将采取的一切
 
-32:49  thank you
+32:46向侧面提问，就是这样
+
+32:49谢谢
 
 32:50  [Applause]
 
