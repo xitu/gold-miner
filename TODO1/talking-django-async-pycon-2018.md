@@ -10,18 +10,20 @@
 
 00:00:00,560 --> 00:00:05,700
 hello let's give a warm
+大家好，让我们热烈欢迎Andrew Godwin
 
 00:00:05,700 --> 00:00:15,660
-PyCon welcome to Andrew Godwin hello
+PyCon welcome to Andrew Godwin
 
 00:00:15,660 --> 00:00:19,109
-good afternoon everyone I am here to
+hello good afternoon everyone I am here to
+大家下午好，今天我在这里给大家谈一下Django异步机制
 
 00:00:19,109 --> 00:00:22,619
 talk about taking Django async louder
 
 00:00:22,619 --> 00:00:25,289
-okay I think there we go
+好吧 ，我想我们现在开始吧
 
 00:00:25,289 --> 00:00:28,410
 so a brief introduction for those who
