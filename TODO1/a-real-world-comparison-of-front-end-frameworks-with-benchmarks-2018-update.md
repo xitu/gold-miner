@@ -5,15 +5,15 @@
 > * 译者：
 > * 校对者：
 
-＃前端框架与基准的真实比较（2018年更新）
+# 前端开发框架实战对比（2018年更新）
 
-！[]（https://cdn-images-1.medium.com/max/1000/1*0aM-p4OCCxRMXroYn0qPVA.png）
+![](https://cdn-images-1.medium.com/max/1000/1*0aM-p4OCCxRMXroYn0qPVA.png)
 
-本文是[带有基准的前端框架的真实世界比较]的刷新（https://medium.freecodecamp.org/a-real-world-comparison-of-front-end-frameworks-with-benchmarks -e1cb62fd526c）从2017年12月起。
+本文是对2017年12月发表的 [前端开发框架的实战对比](https://medium.freecodecamp.org/a-real-world-comparison-of-front-end-frameworks-with-benchmarks -e1cb62fd526c)一文的更新
 
-在这个比较中，我们将展示几乎相同的[RealWorld示例应用程序]（https://github.com/gothinkster/realworld）的不同实现如何相互堆叠。
+在这个比较中，我们将展示几乎相同的 [RealWorld示例应用程序](https://github.com/gothinkster/realworld)的不同实现如何相互堆叠。
 
-[RealWorld示例应用]（https://github.com/gothinkster/realworld）为我们提供了：
+ [RealWorld示例应用](https://github.com/gothinkster/realworld)为我们提供了：
 
 1. **真实世界应用程序** - 超过“待办事项”的东西。通常，“todos”不能传达足够的知识和观点来实际构建_real_应用程序。
 2. **标准化** - 符合一定规则的项目。提供后端API，静态标记，样式和规范。
@@ -21,13 +21,13 @@
 
 ####上一版本的批评（2017年12月）
 
-Ang️Angular没有投入生产。 RealWorld回购协议中列出的演示应用程序使用的是开发版本，但是感谢[Jonathan Faircloth]（https://medium.com/@jafaircl），它现在处于生产版本！
+Ang️Angular没有投入生产。 RealWorld回购协议中列出的演示应用程序使用的是开发版本，但是感谢 [Jonathan Faircloth](https://medium.com/@jafaircl)，它现在处于生产版本！
 
-✅Vue未列入真实世界回购协议中，因此未包括在内。正如你可以想象的那样，在前端世界，这引起了很大的热度。你怎么没有添加Vue？你有什么问题？这一次是Vue.js！谢谢[Emmanuel Vilsbol]（https://medium.com/@evilsbol）**。**
+✅Vue未列入真实世界回购协议中，因此未包括在内。正如你可以想象的那样，在前端世界，这引起了很大的热度。你怎么没有添加Vue？你有什么问题？这一次是Vue.js！谢谢 [Emmanuel Vilsbol](https://medium.com/@evilsbol)**。**
 
 ####我们正在比较哪些库/框架？
 
-正如在2017年12月的文章中，我们包含了RealWorld回购中列出的所有实现。不管它是否有大的跟随都没关系。唯一的限制是它出现在[RealWorld回购]（https://github.com/gothinkster/realworld）页面上。
+正如在2017年12月的文章中，我们包含了RealWorld回购中列出的所有实现。不管它是否有大的跟随都没关系。唯一的限制是它出现在 [RealWorld回购](https://github.com/gothinkster/realworld)页面上。
 
 ！[]（https://cdn-images-1.medium.com/max/1000/1*IJ4a_VfY1Qn3yJaIy7pjVw.png）
 
