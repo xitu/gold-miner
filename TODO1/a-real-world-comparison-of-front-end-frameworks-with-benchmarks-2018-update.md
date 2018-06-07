@@ -5,19 +5,19 @@
 > * 译者：geniusq1981
 > * 校对者：
 
-# 前端开发框架的实战对比（2018年更新）
+# 前端开发框架的实战对比 (2018年更新)
 
 ![](https://cdn-images-1.medium.com/max/1000/1*0aM-p4OCCxRMXroYn0qPVA.png)
 
-本文是是对2017年12月发表的 [前端开发框架的实战对比]（https://medium.freecodecamp.org/a-real-world-comparison-of-front-end-frameworks-with-benchmarks-e1cb62fd526c）一文的更新。
+本文是是对2017年12月发表的 [前端开发框架的实战对比](https://medium.freecodecamp.org/a-real-world-comparison-of-front-end-frameworks-with-benchmarks-e1cb62fd526c) 一文的更新。
 
-在对比中，我们将展示不同框架之间去实现几乎相同的 [实战示例应用]（https://github.com/gothinkster/realworld）有怎样的差别。
+在对比中，我们将展示不同框架之间去实现几乎相同的 [实战示例应用](https://github.com/gothinkster/realworld) 有怎样的差别。
 
-[实战示例应用](https://github.com/gothinkster/realworld)为我们提供了：
+[实战示例应用](https://github.com/gothinkster/realworld) 为我们提供了：
 
-1. **实战应用** - 这不是“将要做的”。一般来说，“将要做的”无法表达构建一个真实应用的所需要的足够的知识和观点。
-2. **标准化** - 符合一定规则的项目。提供后端 API，静态标记，样式和规格。
-3. **由专家撰写或审核** - 一个实战项目，理想情况下，由技术专家创建或审核。
+1. **实战应用** — 这不是“将要做的”。一般来说，“将要做的”无法表达构建一个真实应用的所需要的足够的知识和观点。
+2. **标准化**  — 符合一定规则的项目。提供后端 API，静态标记，样式和规格。
+3. **由专家撰写或审核** — 一个实战项目，理想情况下，由技术专家创建或审核。
 
 #### 上一版本的不足（2017年12月）
 
