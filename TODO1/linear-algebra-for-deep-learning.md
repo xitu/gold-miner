@@ -15,7 +15,7 @@
 
 ![](https://cdn-images-1.medium.com/max/1000/1*oOS8U37MHmJ7Vl8nqnepiA.jpeg)
 
-### 为什么是数学?
+### 为什么是数学？
 
 线性代数，概率论和微积分是组成机器学习的三种“语言”。学习这些数学知识将有助于深入理解底层算法机制，并且开发新的算法。
 
@@ -23,19 +23,19 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*pUr-9ctuGamgjSwoW_KU-A.png)
 
-[源码](https://hadrienj.github.io/posts/Deep-Learning-Book-Series-2.1-Scalars-Vectors-Matrices-and-Tensors/)
+[来源](https://hadrienj.github.io/posts/Deep-Learning-Book-Series-2.1-Scalars-Vectors-Matrices-and-Tensors/)
 
 深度学习背后的核心数据结构是标量，矢量，矩阵和张量。让我们使用这些数据结构，通过编程的方式来解决所有基本的线性代数问题。
 
 ### 标量
 
-标量是**单个数字**，也可以视为 0 阶张量。符号 x ∈ ℝ 表示 x 是一个标量，属于一组实数值 ℝ 。
+标量是**单个数字**，也可以视为 0 阶张量。符号 x ∈ ℝ 表示 x 是一个标量，属于一组实数值 ℝ。
 
-以下是深度学习中不同数集的表示。ℕ 表示正整数集合 (1,2,3,…)。 ℤ 表示结合了正值，负值和零值的整数集合。 ℚ 表示有理数集合。
+以下是深度学习中不同数集的表示。ℕ 表示正整数集合 (1,2,3,…)。ℤ 表示结合了正值，负值和零值的整数集合。ℚ 表示有理数集合。
 
-在 Python 中有一些内置的标量类型，**int**, **float**, **complex**, **bytes**, **Unicode** 。在 Numpy（一个 Python 库）中，有 24 种新的基本数据类型来描述不同类型的标量。有关数据类型的信息，请参阅[文档](https://docs.scipy.org/doc/numpy-1.14.0/reference/arrays.scalars.html).
+在 Python 中有一些内置的标量类型，**int**, **float**, **complex**, **bytes**, **Unicode** 。在 Numpy（一个 Python 库）中，有 24 种新的基本数据类型来描述不同类型的标量。有关数据类型的信息，请参阅[文档](https://docs.scipy.org/doc/numpy-1.14.0/reference/arrays.scalars.html)。
 
-**在 Python 中定义标量和相关操作:**
+**在 Python 中定义标量和相关操作：**
 
 下面的代码段解释了一些运算运算符在标量中的应用。
 
@@ -89,11 +89,11 @@ True
 
 ![](https://cdn-images-1.medium.com/max/800/1*fHS5crNOYBxDGASNPSp5lw.png)
 
-为了明确地定位到矢量的某个分量，矢量的第 i 个标量元素被写为 x[i] 。
+为了明确地定位到矢量的某个分量，矢量的第 i 个标量元素被写为 x[i]。
 
 在深度学习中，向量通常代表特征向量，其原始组成部分定义了具体特征的相关性。这些元素可以包括二维图像中一组像素的强度的相关重要性或者各种金融工具的历史价格值。
 
-**在 Python 中定义向量和相关操作:**
+**在 Python 中定义向量和相关操作：**
 
 ```
 import numpy as np
@@ -153,7 +153,7 @@ matrix([[1, 2],
 >>> a = x.mean(0)
 >>> a
 matrix([[1.5, 2.5]])
->>> # 对矩阵求均值。（其中axis 不设置值，对 m*n 个数求均值，返回一个实数；axis = 0：压缩行，对各列求均值，返回 1* n 矩阵；axis =1 ：压缩列，对各行求均值，返回 m *1 矩阵）
+>>> # 对矩阵求均值。（其中axis 不设置值，对 m*n 个数求均值，返回一个实数；axis = 0：压缩行，对各列求均值，返回 1* n 矩阵；axis =1 ：压缩列，对各行求均值，返回 m *1 矩阵）。
 >>> z = x.mean(1)
 >>> z
 matrix([[ 1.5],
@@ -187,9 +187,9 @@ print(sum)
 
 #### 矩阵与矩阵相加
 
-C = A + B (*A 与 B 的维度需要相同*)
+C = A + B (**A 与 B 的维度需要相同**)
 
-`shape` 方法返回矩阵的维度，`add` 方法接受两个矩阵参数并返回这两个矩阵的和。如果两个矩阵的维度不一致  `add` 方法将会抛出一个异常，说无法将其相加。
+`shape` 方法返回矩阵的维度，`add` 方法接受两个矩阵参数并返回这两个矩阵的和。如果两个矩阵的维度不一致 `add` 方法将会抛出一个异常，说无法将其相加。
 
 ```
 # 矩阵与矩阵相加
@@ -258,7 +258,7 @@ print(s_mul)
 
 ![](https://cdn-images-1.medium.com/max/800/1*96qrPHcvXBVM01I1lUKS8g.png)
 
-[源码](https://hadrienj.github.io/posts/Deep-Learning-Book-Series-2.2-Multiplying-Matrices-and-Vectors/)
+[来源](https://hadrienj.github.io/posts/Deep-Learning-Book-Series-2.2-Multiplying-Matrices-and-Vectors/)
 
 ```
 # 矩阵乘法
@@ -410,13 +410,13 @@ Division:
 """
 ```
 
-有关张量和 PyTorch 的更多文档 [点击这里](https://pytorch.org/tutorials/beginner/deep_learning_60min_blitz.html).
+有关张量和 PyTorch 的更多文档[点击这里](https://pytorch.org/tutorials/beginner/deep_learning_60min_blitz.html)。
 
 * * *
 
 **重要的链接**
 
-在 Python 中入门深度学习:
+在 Python 中入门深度学习：
 
 * [**Deep Learning with Python**: The human brain imitation.](https://towardsdatascience.com/deep-learning-with-python-703e26853820)
 * [**Introduction To Machine Learning**: Machine Learning is an idea to learn from examples and experience, without being explicitly programmed. Instead of…](https://towardsdatascience.com/introduction-to-machine-learning-db7c668822c4)
