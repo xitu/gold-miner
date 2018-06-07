@@ -28,7 +28,7 @@
 
 有三种情况可以确定：
 
-*   **一个应用程序的所有。**针对 Android（Go 版）设备和具有相同体验的所有其他设备使用相同的应用程序。在这种情况下，您正在优化现有应用程序以便在这些设备上顺利运行，并且您的现有用户可以从这些优化中获得性能优势。这个应用程序可能是多进制的，但对于低 RAM 设备没有特定的经验。我们强烈建议您使用新的  [Android App Bundle](https://developer.android.com/platform/technology/app-bundle/) 来体验高达 65％ 的体积节省，而无需重构代码。
+*  **一个应用程序的所有。**针对 Android（Go 版）设备和具有相同体验的所有其他设备使用相同的应用程序。在这种情况下，您正在优化现有应用程序以便在这些设备上顺利运行，并且您的现有用户可以从这些优化中获得性能优势。这个应用程序可能是多进制的，但对于低 RAM 设备没有特定的经验。我们强烈建议您使用新的  [Android App Bundle](https://developer.android.com/platform/technology/app-bundle/) 来体验高达 65％ 的体积节省，而无需重构代码。
 
 * **一个应用程序，不同的 APK。**针对 Android（Go 版）设备和其他所有设备使用相同的应用，但是有不同的体验。创建不同的 APK; 一个 APK 针对新的 android.hardware.ram.low 尺寸 vs APK（s）定位其他所有设备。
 
