@@ -2,7 +2,7 @@
 > * 原文作者：[Jacek Schae](https://medium.freecodecamp.org/@jacekschae?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/a-real-world-comparison-of-front-end-frameworks-with-benchmarks-2018-update.md](https://github.com/xitu/gold-miner/blob/master/TODO1/a-real-world-comparison-of-front-end-frameworks-with-benchmarks-2018-update.md)
-> * 译者：
+> * 译者：geniusq1981
 > * 校对者：
 
 # 前端开发框架实战对比（2018年更新）
@@ -45,7 +45,7 @@ Ang️Angular没有投入生产。 RealWorld回购协议中列出的演示应用
 
 您越早画画，使用该应用程序的人的体验就越好。灯塔还测量[第一互动]（https://developers.google.com/web/tools/lighthouse/audits/first-interactive），但对于大多数应用来说，这几乎是相同的，并且它处于测试阶段。
 
-！[]（https://cdn-images-1.medium.com/max/1000/1*El9cBVFHxRG36XD8KNjA_g.png）
+![](https://cdn-images-1.medium.com/max/1000/1*El9cBVFHxRG36XD8KNjA_g.png)
 
 第一个有意义的油漆（毫秒） - 越低越好
 
@@ -59,9 +59,9 @@ Ang️Angular没有投入生产。 RealWorld回购协议中列出的演示应用
 
 这取决于你的框架的大小，以及你添加的额外的依赖关系，以及你的构建工具如何构建一个小包。
 
-！[]（https://cdn-images-1.medium.com/max/1000/1*xHuwMctzoT6aA3BE4zXA5w.png）
+![](https://cdn-images-1.medium.com/max/1000/1*xHuwMctzoT6aA3BE4zXA5w.png)
 
-传输大小（KB） - 越低越好
+传输大小(KB) - 越低越好
 
 您可以看到Svelte，Dojo 2和AppRun做得非常好。我无法对榆树说得太多 - 特别是当你看下一张图时。我想看看[Hyperapp]（https://hyperapp.js.org/）是如何与下一次比较的[Jorge Bucaran]（https://medium.com/@jorgebucaran）？
 
@@ -71,7 +71,7 @@ Ang️Angular没有投入生产。 RealWorld回购协议中列出的演示应用
 
 >如果调试是删除软件错误的过程，那么编程必须是将它们放入的过程 - Edsger Dijkstra
 
-！[]（https://cdn-images-1.medium.com/max/1000/1*YTfk05JBtqNBIoK_4u2H3g.png）
+![](https://cdn-images-1.medium.com/max/1000/1*YTfk05JBtqNBIoK_4u2H3g.png)
 
 ＃行代码 - 越少越好
 
@@ -79,9 +79,9 @@ Ang️Angular没有投入生产。 RealWorld回购协议中列出的演示应用
 
 ＃＃＃ 结论是
 
-我想对[Eric Simons]（https://medium.com/@er）表示非常感谢
+我想对 [Eric Simons](https://medium.com/@er)表示非常感谢
 
-> 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
+> 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner)对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
 
 ---
