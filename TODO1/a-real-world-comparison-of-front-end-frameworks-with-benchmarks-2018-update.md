@@ -39,7 +39,7 @@
 2.  **大小:** 应用程序多大？我们只会比较已编译过的的 JavaScript 文件大小。 CSS 对于所有不同实现框架都是通用的，并且从 CDN (内容分发网络)下载。 HTML 也是通用的。所有技术都编译或转换成 JavaScript，因此我们只计算这些文件的大小。
 3.  **代码行:** 开发者根据开发指南需要写多少行代码来做一个实战应用？为了公平，虽然有些应用程序有一些花里胡哨的东西，但它不应该对结果产生影响。所以我们只计算每个应用程序中的 `src/` 文件夹。
 
-### 公制 #1: **性能**
+### 指标 #1: **性能**
 
 使用 Chrome 做的 [First Meaningful Paint](https://developers.google.com/web/tools/lighthouse/audits/first-meaningful-paint）测试，使用工具 [Lighthouse Audit](https://developers.google.com/)。
 
@@ -51,7 +51,7 @@ First meaningful paint(毫秒) - 越低越好
 
 在性能方面你可能不会看到很多差异。
 
-### 公制 #2: 大小
+### 指标 #2: 大小
 
 传输大小来自 Chrome 的网络标签，包含从服务器传送的压缩的响应头和响应正文。
 
@@ -65,7 +65,7 @@ First meaningful paint(毫秒) - 越低越好
 
 您可以看到 Svelte，Dojo 2 和 AppRun 做得非常好。我不能说 Elm 也表现足够好 - 特别是当你看下一张图时。我也想看看 [Hyperapp](https://hyperapp.js.org/)的表现。可能下次吧， [Jorge Bucaran](https://medium.com/@jorgebucaran)？
 
-### 公制 #3: 代码行
+### 指标 #3: 代码行
 
 通过 [cloc](https://github.com/AlDanial/cloc)我们计算每个仓库的 src 文件夹中的代码行。空白和注释行不会包含在内。为什么这个有意义？
 
