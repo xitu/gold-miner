@@ -311,7 +311,7 @@ array([[1, 3],
 
 ![](https://cdn-images-1.medium.com/max/800/1*gyd_WcgWOPYncAsR6Z0IKQ.png)
 
-[源码](https://refactored.ai/track/python-for-machine-learning/courses/linear-algebra.ipynb)
+[来源](https://refactored.ai/track/python-for-machine-learning/courses/linear-algebra.ipynb)
 
 我们使用像 TensorFlow 或 PyTorch 这样的 Python 库来声明张量，而不是使用嵌套矩阵来表示。
 
@@ -414,7 +414,7 @@ Division:
 
 * * *
 
-** 重要的链接 **
+**重要的链接**
 
 在 Python 中入门深度学习：
 
