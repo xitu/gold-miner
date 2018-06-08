@@ -1,1436 +1,1066 @@
 > * 原视频地址：[James Bennett - A Bit about Bytes: Understanding Python Bytecode - PyCon 2018](https://www.youtube.com/watch?v=cSSpnq362Bk)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/understanding-python-bytecode-pycon-2018.md](https://github.com/xitu/gold-miner/blob/master/TODO1/understanding-python-bytecode-pycon-2018.md)
-> * 译者：
+> * 译者：[cdpath](https://github.com/cdpath)
 > * 校对者：
 
-# James Bennett - A Bit about Bytes: Understanding Python Bytecode - PyCon 2018
+# James Bennett - 理解 Python 字节码 - PyCon 2018
 
 > 本文为 PyCon 2018 视频之 James Bennett - A Bit about Bytes: Understanding Python Bytecode 的中文字幕，您可以搭配原视频食用。
 
-0:07  all right hi welcome to a bit about
+0:07  欢迎来到字节漫谈
 
-0:11  bytes about looking a Python byte code
+0:11  今天来聊一下 Python 字节码
 
-0:14  so in addition to being a clever play on
+0:14  标题除了玩文字游戏
 
-0:17  words would be some useful information
+0:17  另有深意
 
-0:20  so without much further ado we have
+0:20  闲话少说
 
-0:22  James Bennett Django core developer so
+0:22  有请 Django 核心开发者 James Bennett
 
-0:25  let's get the talk underway hi so I want
+0:25  开始演讲
 
-0:36  to start with a sort of an existential
+0:36  我想先问个有点儿存在主义色彩的问题
 
-0:38  question why are we here
+0:38  我们为什么要参加 PyCon
 
-0:41  at PyCon we're here because we love
+0:41  是因为热爱 Python
 
-0:45  Python right right and why do we love
+0:45  没错吧
 
-0:52  Python we love Python because we all
+0:52  为什么热爱 Python？
 
-0:55  understand this great truth of
+0:55  因为我们相信
 
-0:57  programming did we read code much more
+0:57  读代码的时间比写代码多得多
 
-1:00  often than we write it and so we should
+1:03  所以要尽力让代码更易读
 
-1:03  write our code to be as readable as we
+1:05  当然，我们热爱 Python
 
-1:05  can make it and of course we love Python
+1:08  是因为 Python 是为一个简单的观点而生的
 
-1:08  because we don't even built around that
+1:12  代码应该易读
 
-1:12  simple idea that code should be easy to
+1:19  Python 清晰、易读、易懂
 
-1:15  read and that language is Python clear
+1:24  即便不是程序员
 
-1:19  easy to read understandable Python even
+1:25  也可以看一眼 Python 代码
 
-1:24  people who aren't necessarily
+1:28  理解其中的逻辑
 
-1:25  programmers can at least be a look at
+1:30  没错吧？
 
-1:28  some Python and follow the logic of
+1:36  这就是 Python
 
-1:30  what's going on right okay so this
+1:41  至少从 Python.org 下载的 CPython 是如此
 
-1:36  actually is Python or at least this is
+1:50  接下来我要教给大家，它是哪里来的
 
-1:39  how Python works if you go download
+1:53  又是如何工作的
 
-1:41  Python from Python org you know we call
+1:56  理解它有什么用
 
-1:44  the C Python distribution this is how it
+1:59  最后如何在实践中
 
-1:47  executes your code we're going to learn
+2:01  或者理论中应用它
 
-1:50  about where this comes from how this
+2:05  不过在此之前
 
-1:53  works what sorts of useful things we can
+2:07  我们要稍微了解一下电脑是如何运行的
 
-1:56  learn from understanding it and how we
+2:08  还要知道编程语言是如何运作的
 
-1:59  can apply that you know both practically
+2:12  我喜欢这条推文
 
-2:01  and in a sort of theoretical sense but
+2:14  如此美丽又如此真实
 
-2:05  before we do that we need to understand
+2:19  不过我们的确需要理解计算机的工作原理
 
-2:07  a little bit about how computers work
+2:21  计算机内部的 CPU 处理器是个硅片
 
-2:08  and we need to understand a little bit
+2:26  上面雕刻着精心布置的电路
 
-2:10  how programming languages
+2:32  输入特定的电流
 
-2:12  work now I love this because it is
+2:35  就能得到另一种模式的电流
 
-2:14  beautiful and it is true but we do need
+2:37  而且模式可以预测
 
-2:19  to understand how a computer actually
+2:40  给这些模式起上名字并赋予含义
 
-2:21  works deep down inside you have your CPU
+2:45  我们就可以说这种电流模式代表加法
 
-2:24  your processor it's a little wafer of
+2:49  电脑的工作原理就是如此
 
-2:26  silicon and inscribed on it are these
+2:51  我们起的这些名字
 
-2:29  electrical circuits and they're set up
+2:53  叫做 CPU 指令
 
-2:32  so if I send a certain pattern
+2:56  有时也被成为机器码
 
-2:33  electricity in I get another different
+3:00  如果进一步用便于人类理解的形式展示出来
 
-2:35  pattern of electricity out it's very
+3:01  就是汇编代码
 
-2:37  predictable and we give names and
+3:05  不过即便是汇编语言也没有那么容易理解
 
-2:40  meanings to these patterns we treat them
+3:08  你们见过汇编代码吗？
 
-2:42  as if they do mean something so we say
+3:11  有多少人愿意一直用汇编写代码？
 
-2:45  this pattern of electricity actually
+3:13  我们更愿意写源代码
 
-2:46  means add two numbers together that's
+3:22  美妙、清晰、易读、易懂
 
-2:49  how your computer actually works
+3:24  但是计算机只接受二进制指令
 
-2:51  those names we give to them we call them
+3:29  要如何在两者之间架设桥梁呢？
 
-2:53  instructions for the CPU sometimes you
+3:33  这些年来，人们尝试过好几种办法
 
-2:56  hear them called machine code for the
+3:35  一些语言通过 Grace Murray Hopper 首先发明的编译器
 
-2:58  CPU if we show it in a slightly more
+3:41  将源代码直接编译为机器码
 
-3:00  human readable format you'll sometimes
+3:45  这些语言就是编译语言
 
-3:01  hear called assembly but it's not all
+3:47  一些语言借助解释器
 
-3:05  that friendly to humans to look at this
+3:51  直接在运行时把源代码解释为机器码
 
-3:08  stuff anybody ever looked at assembly
+3:57  这些是解释型语言
 
-3:11  how many of you would like to write like
+3:59  Python 就是解释型语言
 
-3:13  that all the time so you want to write
+4:02  大家也经常谈到 Python 解释器
 
-3:19  source code which is the beautiful clear
+4:03  不过还有第三种语言
 
-3:22  easy to read easy to understand human
+4:06  一些语言编译得到的指令
 
-3:24  friendly version but your computer wants
+4:10  并不适用于真实的物理 CPU
 
-3:26  these binary instructions so how are we
+4:16  我是说你可以造一个这样的 CPU，但是至少它现在不存在
 
-3:29  gonna get from one to the other there
+4:20  这些语言可以为并不存在的 CPU 编译指令而解释器
 
-3:33  are some options there are some
+4:25  就是模拟 CPU 来执行指令的程序
 
-3:34  different ideas that have been tried
+4:28  解释器理解这些指令
 
-3:35  over the years some languages you're
+4:30  并将这些指令翻译为真实的 CPU 接受的二进制码
 
-3:37  going to run a program called a compiler
+4:36  这种中间指令就是字节码
 
-3:39  courtesy of Rear Admiral Grace Hopper
+4:39  有很多语言属于此类
 
-3:41  which will take your source code and
+4:41  有人用 Java 吗？
 
-3:43  transform it directly into those machine
+4:45  Java 编译的字节码运行在 Java 虚拟机上
 
-3:45  code instructions we call those compiled
+4:47  有人用 .Net 吗？
 
-3:47  languages some languages you just invoke
+4:48  还有 C#
 
-3:51  the language itself with your program it
+4:51  C# 编译的字节码运行在 .Net 虚拟机上
 
-3:53  runs your program directly translating
+4:55  当然还有 Python
 
-3:55  source code into machine code as it goes
+4:58  Python 编译的字节码运行在 Python 虚拟机上
 
-3:57  we call that an interpreted language
+5:02  我们仔细看一看它的工作原理
 
-3:59  people often say pythons an interpreted
+5:04  这是一个计算斐波纳契数的 Python 函数
 
-4:02  language we talk about a Python
+5:11  写得很好懂
 
-4:03  interpreter but there's actually a third
+5:13  先是判断是否小于 2，是的话直接返回
 
-4:06  way some languages compiled to a set of
+5:18  否则就通过循环得到斐波纳契数
 
-4:10  instructions that's not for any real
+5:23  Python 实际上如何执行这个函数呢？
 
-4:12  physical CPU that exists I mean I
+5:25  有人见过拓展名是 pyc 的文件吗？
 
-4:16  suppose you could go build one but it
+5:33  如果你用 Python2 的话，就知道 Python 2 会在
 
-4:18  doesn't exist right now these languages
+5:35  源代码的路径下放一个同名的 pyc 文件
 
-4:20  compile to instructions for the CPU that
+5:40  如果用的是 Python3，pyc 会放在 `__pycache__ ` 路径下
 
-4:22  doesn't exist and then the interpreter
+5:47  你也许听说过这些 pyc 是编译后的 Python
 
-4:25  is a piece of software that implements
+5:50  或许听说过 pyc 可以省去再次编译的时间
 
-4:28  that CPU that understands those
+5:52  这就是 Python 字节码
 
-4:30  instructions and how to translate them
+5:55  pyc 文件中就是编译源代码得到的字节码
 
-4:32  into the specific instructions for
+5:59  所以当你下一次运行这段代码
 
-4:34  whatever actual processor you're running
+6:01  或者下一次导入这个模块时
 
-4:36  it on we call that byte code there are a
+6:03  Python 不需要从头再编译一遍
 
-4:39  lot of languages that do this anybody
+6:08  Python 需要的就是这种格式的字节码来执行
 
-4:41  ever use Java Java compiler bytecode
+6:13  那要如何理解其工作原理呢？
 
-4:45  you've run it on the Java Virtual
+6:15  假如你用 Python 解释器
 
-4:47  Machine anybody ever use one of the
+6:17  输入了获取斐波纳契的函数
 
-4:48  dotnet languages c-sharp c-sharp
+6:20  会得到一个函数对象
 
-4:51  compiles to bytecode runs on the.net vm
+6:25  这个对象有一个特殊方法，`__code__`
 
-4:55  and python python compiles to bytecode
+6:27  也就是 Python code 对象
 
-4:58  which runs on the Python virtual machine
+6:32  有人昨天听了 Emily Morehouse 关于语法解析和 AST（抽象语法树）的演讲吗？
 
-5:02  so let's take a look at how this works
+6:36  讲得非常不错
 
-5:04  we're gonna look at Python function this
+6:38  你可以学到一些 code 对象的知识
 
-5:08  calculates two Bonacci numbers so this
+6:40  以及 Python 如何使用它
 
-5:11  should be pretty easy to understand
+6:42  我们今天要看得却是另一个不同的属性
 
-5:13  we've got you know a little if we're
+6:45  从另外的角度
 
-5:15  less than two return otherwise loop
+6:46  也就是语法解析接下来的事情
 
-5:18  figuring out what the next two Bonacci
+6:48  code 对象含有 Python 所需的一切用来执行函数的东西
 
-5:20  number is eventually return it how will
+6:54  它有一些属性，我们可以看看里面有什么
 
-5:23  Python actually execute this function
+6:56  以及它是怎么运作的
 
-5:25  well is anybody we're seeing a file with
+6:59  有一个属性叫 `co_consts`
 
-5:29  an extension dot py c especially if you
+7:02  它是元组，其元素是函数体中引用的所有的字面量和常量
 
-5:33  use Python to python to use to drop
+7:06  可以看到其中有
 
-5:35  these directly next to your source code
+7:09  数字 2，0，1
 
-5:37  in the same directory python 3 we have a
+7:11  由 0 和 1 组成的元组
 
-5:40  directory called pi cache with double
+7:13  以及 None
 
-5:42  underscores that's where your py c files
+7:17  这里的 None 看上去挺奇怪的
 
-5:44  go you may have heard these described as
+7:20  毕竟函数体中就没有写 None
 
-5:47  you know compiled Python or some sort of
+7:22  但是 Python 把 None 放在这里是有原因的
 
-5:50  you know time saver for when you rerun
+7:28  Python 函数如果没有显式使用 return
 
-5:52  it again that is python bytecode that's
+7:33  就会返回 None
 
-5:55  what's in that file it's actually the
+7:36  所以元组中有 None
 
-5:56  binary bytecode that python compiled
+7:45  因为 Python 在编译的时候
 
-5:59  your source code into so next time you
+7:47  无法获知是否有显式的 return 表达式
 
-6:01  run that or next time you import that
+7:52  实际上根本就不可能知道
 
-6:03  module Python doesn't have to compile it
+7:55  这些就是字面量
 
-6:06  all over again but that's the actual
+7:59  还有一个属性，`co_varnames`
 
-6:08  form that Python wants that code in in
+8:01  其元素是局部变量名
 
-6:10  order to be able to execute it so how
+8:06  分别是：n, current 和 next
 
-6:13  could we get at this and understand
+8:12  另一个属性是 `co_names`
 
-6:15  what's going on well suppose you typed
+8:15  其中的元素是函数体中引用的 `nonlocal` 变量名
 
-6:17  in that Fibonacci function into a Python
+8:18  这个函数没有用到 nonlocal 变量
 
-6:20  interpreter and you looked at it it's a
+8:20  所以它就是个空元组
 
-6:22  function object and it would have this
+8:22  最后来看看最有意思的属性
 
-6:25  little attribute on it double underscore
+8:25  `co_code`
 
-6:27  code this is a Python code object
+8:30  这就是函数的字节码
 
-6:32  did nobody go to Emily Morehouse's talk
+8:33  它不是字符串，而是 bytes 对象
 
-6:34  yesterday about parsing and the ast
+8:36  因为 Python3 的实现的缘故
 
-6:36  there's really good talk and you
+8:42  一些字符可以用 ASCII 表示
 
-6:38  learned a little bit about code objects
+8:47  这和 Python 展示 bytes 对象的默认方法有关
 
-6:40  and how Python uses them we're gonna
+8:49  但是它不是字符串，也不能把它当作字符串
 
-6:42  look at some slightly different
+8:51  它就是一串字节
 
-6:43  attributes than what Emily was talking
+8:55  如果我们想知道这一长串字节是什么意思
 
-6:45  about because we're looking at the other
+8:57  不妨先从第一个字节开始
 
-6:46  side of this is what happens after the
+9:02  看上去是个管道符号 `|`
 
-6:48  parsing so this code object this
+9:06  我不知道你们能不能背过 ASCII 表
 
-6:51  contains everything Python needs to
+9:08  反正我是背不过
 
-6:52  execute the function and it has
+9:10  所以我其实不知道管道符号 `|` 对应的十进制数字是什么
 
-6:54  attributes we can poke at to see how
+9:15  不过我可以让 Python 告诉我
 
-6:56  it's going to do that so one interesting
+9:21  用 Python 求出 `|` 对应的十进制数字是 124
 
-6:59  attribute is called Co Const this is a
+9:24  所以字节码的第一个字节的值是 124
 
-7:02  tuple it contains all of the literal or
+9:26  这仍然没有什么有用的信息
 
-7:04  constant values that were referenced in
+9:30  好在标准库里有个 `dis` 模块
 
-7:06  the body of our function so we see our
+9:36  其中的 `opname` 数组里面有全部的 Python 字节码指令
 
-7:09  integers you ate a 2 in there we had a 0
+9:39  其索引值就是字节码的十进制数值
 
-7:11  we had a 1 we had a tuple of a 0 and a 1
+9:46  由此可以查到 124 对应的字节码操作符是 `LOAD_FAST`
 
-7:13  and we have none now none is kind of
+9:48  好了，我们知道第一个字节的十进制数字是 124
 
-7:17  weird to see there because the body of
+9:54  含义是 `LOAD_FAST` 指令
 
-7:20  that function didn't include a literal
+9:57  字节码中的第二个字节是 0
 
-7:22  none anywhere the Python put it in there
+10:00  加起来就是 `LOAD_FAST 0`
 
-7:24  anyway
+10:02  不知道你们留意幻灯片的第一页了没有
 
-7:25  there's a reason for that which is if
+10:05  其实就是这里的内容
 
-7:28  Python is executing our function and it
+10:08  `LOAD_FAST 0` 也就是 Python 字节码指令
 
-7:31  finishes executing without reaching any
+10:12  准确地讲
 
-7:33  explicit return statement it's going to
+10:15  这个指令的意思是在变量名元组中查找索引值是 0 的变量名
 
-7:36  return none so Python needs to have none
+10:21  也就是局部变量 n
 
-7:40  already loaded up already ready to go in
+10:26  把它 push 到调用栈的顶端
 
-7:43  that tuple so it can reference it
+10:29  我们稍后会介绍调用栈
 
-7:45  because the time Python is compiling
+10:31  不过现在我得告诉你一个捷径
 
-7:47  this it has no way of knowing whether
+10:35  刚才我给大家演示的读取字节码的方法非常繁琐
 
-7:48  any explicit return statement is ever
+10:38  还有个简单的方法
 
-7:51  going to be reached in fact that's a
+10:41  `import dis` 然后调用 `dis.dis`
 
-7:52  really hard / impossible thing to do in
+10:44  你可传给它任何东西
 
-7:55  advance so these are our literals
+10:47  比如函数
 
-7:59  there's another one called Co VAR names
+10:48  或者源代码字符串
 
-8:01  this is a tuple containing the names of
+10:50  或者任意类型的 Python 对象
 
-8:04  all the local variables of the function
+10:52  `dis.dis()` 就会将其解开
 
-8:06  we had 3 of those and current.next so
+10:56  打印出易于阅读的字节码
 
-8:09  they're all in there then we have this
+11:00  传入斐波纳契函数得到的结果
 
-8:12  one called Co names this would be any
+11:02  就是幻灯片第一页的内容
 
-8:15  non-local names that we referenced in
+11:05  这就是斐波纳契函数的字节码
 
-8:17  the body of the function now the
+11:11  有几点值得注意：
 
-8:18  Fibonacci function didn't include any
+11:12  左边这些数字
 
-8:20  non-local names so this is an empty
+11:17  2， 3， 4， 5， 6， 7， 8
 
-8:22  tuple and finally we're gonna get to the
+11:18  对应源码的行号
 
-8:25  fun part Co code this is the bytecode of
+11:20  也是每个指令块的起点
 
-8:30  the Fibonacci function this is not a
+11:22  你一定注意到了
 
-8:33  string this is a Python bites object
+11:25  每行源码都对应着多行字节码指令
 
-8:36  because this is being done in Python 3
+11:30  每个指令旁边都有一个数字
 
-8:38  like it should be some of these
+11:32  而这个数字总是偶数
 
-8:42  characters do print or some of these
+11:34  有人愿意猜猜它为什么是偶数吗？
 
-8:44  bytes do print as ASCII characters
+11:38  这是 Python3.6 的新特征
 
-8:46  that's just because that's how Python
+11:41  这些数字是字节码的偏移量
 
-8:47  defaults to representing a bytes object
+11:44  如果你仔细看 `__code__.co_codes`
 
-8:49  but it's not a string we can't treat it
+11:46  输入索引值
 
-8:51  a string it's a sequence of bytes now
+11:49  比如 6
 
-8:55  suppose we want to understand what's
+11:53  就能得到 `POP_JUMP_IF_FALSE`
 
-8:57  going on in this big long sequence of
+11:57  之所以用偶数
 
-9:00  bytes well we can look at it that first
+11:59  是因为 Python3.6 中
 
-9:02  byte printed as a pipe character now I
+12:02  不是所有字节码指令都有参数
 
-9:06  don't know about any of you I have not
+12:04  但是 Python3.6 给每个指令都带了参数
 
-9:08  memorized an ASCII table so I don't
+12:07  不管本来有没有参数
 
-9:10  actually know what decimal byte value
+12:08  这样每个字节码指令都占2个字节
 
-9:13  produces a pipe character in ascii
+12:10  这样实现起来也更容易
 
-9:15  fortunately I can ask Python and it will
+12:16  也有一些指令的参数太大了
 
-9:18  tell me Python will tell me the pipe
+12:19  没办法放到一个字节里
 
-9:21  character is decimal value 1 2 4 so the
+12:21  就会分割成多个字节
 
-9:24  first byte of that byte code was a byte
+12:22  但是一定是两个字节的整数倍
 
-9:26  with value 1 2 4 that still doesn't tell
+12:24  而对于 Python3.5 或者更早的版本
 
-9:30  me very much luckily there's a module in
+12:28  对于同样的输入
 
-9:33  the standard library called disk with
+12:29  你得到的字节码可能就有奇数偏移量
 
-9:36  this list in it called up name it's a
+12:31  因为 Python 3.5 中不是所有指令都有参数
 
-9:38  list of all the Python bytecode
+12:33  还有一点值得注意
 
-9:39  instructions and at each index is the
+12:37  这些向右三角符号
 
-9:42  instruction name that goes with that
+12:40  比如源代码第 4 行，偏移量 12 
 
-9:44  decimal value so what's the hundred and
+12:42  这里的 `LOAD_CONST`
 
-9:46  twenty fourth bytecode operation it's
+12:44  以及源代码第 5 行，偏移量 22
 
-9:48  called load fast ok so now we know the
+12:47  这些是「跳转目标」
 
-9:52  first byte of this is a decimal one to
+12:50  Python 通过这种方式告诉你其他指令可能会跳转到这些地方来
 
-9:54  four that's a load fast instruction the
+12:57  还记得斐波纳契函数中的循环吗？
 
-9:57  next byte of it was a zero so it's a
+12:59  最开始是一个判断
 
-10:00  load fast zero I don't know how much
+13:01  每次运行到循环的起点
 
-10:02  attention you paid to that first slide
+13:04  都要跳转回上一个指令
 
-10:05  but that's what it started with load
+13:08  这些三角箭头就是说这里可能是其他指令的跳转目标
 
-10:08  fast zero that's a Python bytecode
+13:12  好了，看过了一些字节码
 
-10:12  instruction and specifically what this
+13:17  我们也知道如何解析原始字节码
 
-10:15  means is look up in that sea of our
+13:19  先拿到字节码
 
-10:18  names tuple whatever item is at index
+13:22  再手动解析这些字节对应的指令
 
-10:21  zero which is local variable n push that
+13:24  或者干脆用 `dis.dis` 来解析
 
-10:26  on top of the evaluation stack we're
+13:26  我们实际上谈了一些 Python 的工作原理
 
-10:29  gonna get to what the evaluation stack
+13:29  以及Python 如何使用字节码
 
-10:31  is in just a minute but first I'm gonna
+13:33  CPython 实现的 Python 虚拟机是面向堆栈的
 
-10:33  show you the shortcut I showed you the
+13:35  换句话说就是它的基础数据结构是栈
 
-10:35  hard laborious way to read byte code
+13:40  如果你以前没有用过栈的话（这里简要介绍一下）
 
-10:38  here's the easy way use the disk module
+13:43  栈有点儿像列表
 
-10:41  import disks call the function disk disk
+13:45  只不过支持两个非常重要的操作
 
-10:44  you can pass in almost anything you want
+13:48  栈有两端，就叫做顶和底吧
 
-10:47  to here and passing in a function you
+13:49  一个操作是 push
 
-10:48  can pass in strings of source code you
+13:52  也就是把值放到栈顶
 
-10:50  can pass in all sorts of Python objects
+13:55  另一个操作是 pop
 
-10:52  and this will disassemble them print a
+13:57  也就是从栈顶取值，删除，并返回
 
-10:56  human readable version of the byte code
+14:01  每次调用 Python 函数都会把调用帧 push 到调用栈的栈顶
 
-10:58  that they compile into and what you'll
+14:07  调用栈记录着每个被调用的函数
 
-11:00  get out of that from that Fibonacci
+14:09  一旦函数返回对应的调用帧就从调用栈 pop 掉
 
-11:02  function is the contents of that first
+14:17  返回值 push 到调用帧中
 
-11:05  Lyde this is the bytecode of that
+14:18  所以如果调用斐波纳契函数
 
-11:08  Fibonacci function there's a couple
+14:21  稍后有详细说明
 
-11:11  things that are worth knowing here this
+14:23  就可以拿到返回值
 
-11:12  output you'll see over on the left
+14:24  当执行调用帧中的调用帧时
 
-11:14  you'll see these numbers two three four
+14:31  还用会用到另外两个栈
 
-11:17  five six seven eight
+14:34  「计算栈」，也叫做「数据栈」
 
-11:18  those are the line numbers in the source
+14:40  Python 用它存储所有用到的数据
 
-11:20  code that's where each lines
+14:43  Python 函数的多数计算过程皆在此进行
 
-11:22  instructions are beginning you'll notice
+14:46  而大多数指令都用来操作栈顶元素
 
-11:25  each line of Python source code turned
+14:53  另一个用到的栈是「代码块栈」
 
-11:27  into multiple bytecode instructions and
+14:55  用来记录当前活跃的代码块
 
-11:30  then each instruction has a number next
+15:00  代码块就是诸如 try/except, with 块之类的东西
 
-11:32  to it as well and they're always even
+15:04  Python 需要代码块是因为break 和 continue 之类的语句会作用在当前代码块上
 
-11:34  does anybody want to guess why that is
+15:11  Python 就得知道当前的代码块是什么
 
-11:38  this is a nuez of python 3.6 those
+15:13  这可以通过维护代码块栈来实现
 
-11:41  numbers are the offsets into the byte
+15:17  所以每次遇到这种结构
 
-11:44  code if you grabbed that bytes object Co
+15:19  Python 就将其 push 到代码块栈
 
-11:46  code on that code object and indexed
+15:21  结束后再 pop 掉
 
-11:49  into it say go to index 6 you would find
+15:24  我们再来看一下函数具体是如何执行的
 
-11:53  a pop jump if false up code there the
+15:27  假如我们想求得第 8 个斐波纳契数
 
-11:57  reason that those are even numbers is as
+15:31  我们要调用 Python 的斐波纳契函数求解
 
-11:59  of Python 3.6 not every byte code
+15:35  而这可以转换为三个字节码指令
 
-12:02  instruction actually uses an argument
+15:39  `LOAD_GLOBAL`, `LOAD_CONST` 和 `CALL_FUNCTION`
 
-12:04  but as of Python 3.6 they all get an
+15:42  仔细看
 
-12:07  argument whether they want one or not
+15:44  最开始计算栈是空的
 
-12:08  because that makes every one of these
+15:46  第一个指令是 `LOAD_GLOBAL`
 
-12:10  exactly two bytes which makes it much
+15:48  载入全局变量名 `fib`，也就是斐波纳契函数
 
-12:14  easier to work with there are some
+15:54  需要在 `co_names` 元组中的 nonlocal 变量名中查找
 
-12:16  instructions that if their argument gets
+16:01  找到函数之后就把函数对象 push 到计算栈栈顶
 
-12:19  too large to fit in a byte can actually
+16:04  接下来是 `LOAD_CONST`
 
-12:21  split over multiple bytes but it's
+16:06  这里就是取得常量元组的索引为 1 的元素
 
-12:22  always a multiple of two bytes if you're
+16:10  还记得吗
 
-12:24  looking at python 3.5 or earlier and you
+16:12  索引为 0 的元素是 None
 
-12:28  put in this same function you might see
+16:15  所以我们得到的是整数 8
 
-12:29  some odd-numbered offsets because not
+16:17  也就是函数的参数
 
-12:31  everything actually got an argument in
+16:19  将其 push 到栈顶
 
-12:33  python 3.5 one other thing worth noting
+16:22  接下来是 `CALL_FUNCTION` 指令
 
-12:37  here is we see some rate pointing angle
+16:26  其参数是 1
 
-12:40  brackets we see them like line four
+16:29  当只使用位置参数时，Python 调用函数的方法是
 
-12:42  offset 12 at that load Const
+16:34  将函数 push 到栈顶
 
-12:44  line five offset 22
+16:36  再将位置参数继续 push 到栈顶（也就是函数对象的上面）
 
-12:47  those are jump targets this is Python
+16:39  然后调用函数时
 
-12:50  telling you these are instructions that
+16:42  pop 所有的位置参数
 
-12:53  may be jumped to by some other
+16:46  所以栈中下一个元素就是函数对象，pop 出这个函数对象
 
-12:55  instruction that's going on here so you
+16:48  再将新栈 push 到调用帧或者调用栈中
 
-12:57  remember that Fibonacci function had a
+16:54  在新调用帧中执行斐波纳契函数
 
-12:59  loop in it with the test at the
+16:56  求得返回值 21
 
-13:01  beginning every time we go to the
+17:00  接下来 pop 调用栈，得到调用帧
 
-13:04  beginning of the loop we're doing a jump
-
-13:06  back to an earlier instruction those
-
-13:08  angle brackets are just there to tell
-
-13:10  you these are potential jump targets of
-
-13:12  other
-
-13:12  instructions so now we've seen some byte
-
-13:17  code we understand how we can actually
-
-13:19  get at the raw byte code as bytes how we
-
-13:22  could decipher it manual if we wanted to
-
-13:24  and now we know the easy shortcut we got
-
-13:26  actually talked about how Python works
-
-13:29  how it uses byte code so pythons VM the
-
-13:33  virtual machine in C Python is stack
-
-13:35  oriented it's built around the stack as
-
-13:38  a fundamental data structure if you've
-
-13:40  never worked with stacks they're sort of
-
-13:43  list like but they support two very
-
-13:45  important operations a stack has has two
-
-13:48  ends which we'll call a top and a bottom
-
-13:49  you have a push operation which means
-
-13:52  take this value put it on top and a pop
-
-13:55  operation which means take whatever is
-
-13:57  on top remove it return it each time you
-
-14:01  call a function in Python you're pushing
-
-14:04  a new entry a call frame on to a call
-
-14:07  stack that keeps track of every function
-
-14:09  being executed when one of those
-
-14:11  functions returns that call frame gets
-
-14:14  popped right back off the stack the
-
-14:17  return value gets pushed into the
-
-14:18  calling frame so you know if somebody
-
-14:21  calls bar Fibonacci function as we'll
-
-14:23  see in a minute we get that return value
-
-14:24  back now while you're executing this in
-
-14:28  that call frame in the call stack we're
-
-14:31  gonna use two more stacks one is an
-
-14:34  evaluation stack sometimes you also see
-
-14:36  called
-
-14:36  a data stack this is where Python is
-
-14:40  going to keep all of the data it's
-
-14:41  actually working with this is where most
-
-14:43  of the execution happens inside a Python
-
-14:46  function most of the instructions are
-
-14:49  about manipulating what's on top of that
-
-14:50  evaluation stack there's also a second
-
-14:53  one called a block stack a block stack
-
-14:55  keeps track of how many different blocks
-
-14:57  are active right now blocks are things
-
-15:00  like a try except with block you know
-
-15:03  anything like that
-
-15:04  Python needs that because there are some
-
-15:06  statements like break and continue that
-
-15:09  affect whatever the current block is so
-
-15:11  Python needs to know what is the current
-
-15:13  block and it does that by simply
-
-15:15  managing a stack like every time you go
-
-15:17  into certain constructs like this it
-
-15:19  pushes a new item on the block stack
-
-15:21  when it finishes pops that item back off
-
-15:24  so let's look at how we execute a
-
-15:27  function suppose we want to know the
-
-15:29  eighth Fibonacci number we're just going
-
-15:31  to ask Python to calculate that using
-
-15:33  our Fibonacci function that turns into
-
-15:35  three bytecode instructions load global
-
-15:39  load Const call function so let's take a
-
-15:42  look at what's going on here we start
-
-15:44  this we've got an empty evaluation stack
-
-15:46  so we get to our first instruction load
-
-15:48  global we're going to load the global
-
-15:52  name fib which is our Fibonacci function
-
-15:54  this is what's gonna go look in that Co
-
-15:57  names tuple that tuple of non local
-
-15:59  names it's going to look up that
-
-16:01  function push the function object on top
-
-16:04  of our evaluation stack next we're gonna
-
-16:06  have a load Const in this case it's
-
-16:09  going to get the first item out of our
-
-16:10  tuple of constants because remember Ida
-
-16:12  index zero is none so the first item in
-
-16:15  there at index one is the integer eight
-
-16:17  which is gonna be the argument to our
-
-16:19  function push that on to the stack then
-
-16:22  we hit a call function instruction has
-
-16:26  an argument of one the way Python is
-
-16:29  calling this function we're only using
-
-16:31  positional arguments is it pushes the
-
-16:34  function onto the stack pushes the
-
-16:36  positional arguments on top of it then
-
-16:39  call function the argument is the number
-
-16:42  of positional arguments to the function
-
-16:43  it pops all those off it knows the
-
-16:46  function is the next thing there pops
-
-16:48  that off pushes a new stack onto the
-
-16:51  call frame or onto the call stack
-
-16:54  execute our Fibonacci function inside
-
-16:56  that new frame gets a return value of 21
-
-17:00  pops the call stack get that frame off
-
-17:03  return value goes on to the top of our
+17:03  返回值就回到了计算栈
 
 17:06  evaluation stack right here where we
 
 17:08  called the Fibonacci function and that
 
-17:10  is step by step how python is going to
+17:10  这就是 Python 逐步执行斐波纳契函数的细节
 
-17:12  execute this function now the call
+17:14  这里的 `CALL_FUNCTION` 指令只适用于位置参数
 
-17:14  function instruction is only for
+17:18  如果是关键字参数
 
-17:16  function calls that involve positional
+17:20  就要用 `CALL_FUNCTION_KW` 指令
 
-17:18  arguments if you used keyword arguments
+17:26  如果用到生成器，参数拆包
 
-17:20  there's a different instruction called
+17:30  `*` 操作符或者 `**` 操作符
 
-17:22  call function kW if you use any of the
+17:33  就要用到 `CALL_FUNCTION_EX` 指令
 
-17:26  iterator or mapping unpacking syntax the
+17:39  这就是函数的工作原理
 
-17:30  asterisk double Asterix and syntax in
+17:42  如果你感兴趣
 
-17:33  your function call there's one called
+17:45  可以查阅 Python 标准库文档中的 dis 模块
 
-17:34  call function e^x
+17:47  dis 模块非常好用
 
-17:36  that gets used to do that so that's how
+17:53  它列举了所有的字节码指令
 
-17:39  we're executing a function now if you
+17:55  还说明了这些指令的功能，指令接受的参数等等任何你想了解的
 
-17:42  want to you can go dig into the Python
+18:00  有关Python 字节码的技术细节
 
-17:45  standard library documentation the dis
+18:03  这里再讲几个非常有意思的东西
 
-17:47  module is extremely handy it has a list
+18:07  dis 模块中有一个函数叫 `distb`
 
-17:50  of all of the things in the module all
+18:12  你可曾遇到莫名其妙的异常
 
-17:53  of the bytecode instructions what they
+18:15  不知道它到底是哪里抛出的
 
-17:55  do what kind of arguments they take
+18:18  `dis.distb` 可以帮上忙
 
-17:58  anything you could want to know about
+18:25  你可以直接在异常发生之后调用它
 
-18:00  how Python bytecode works is all in
+18:29  或者传入捕获到的 `traceback` 对象
 
-18:03  there there are a couple things I want
+18:33  `distb` 会解析当前调用栈上活跃的调用帧
 
-18:05  to point out though they're kind of cool
+18:39  打印出执行过的字节码
 
-18:07  one is another function that's in that
+18:41  还画箭头直接指向抛出异常的指令
 
-18:09  module it's called disty be how many
+18:46  举个例子
 
-18:12  times have you looked at an exception
+18:48  我把一个数字除以 0
 
-18:15  and wondered where the heck did that
+18:51  Python 抛出了异常
 
-18:17  come from
+18:54  `import dis; dis.distb()`
 
-18:18  what made that happen well this function
+18:57  就可以打印出执行过的字节码
 
-18:21  disk dot dis TB you can call it either
+19:00  如果你还想继续深究细节
 
-18:25  right after an exception has occurred or
+19:02  请参阅我在幻灯片结尾处给出的参考资料
 
-18:27  if you have a python trace back object
+19:04  你可以看一下用 C 语言写的 Python 解释器
 
-18:29  that you've captured somehow you can
+19:07  这就是 2 小时前 GitHub 上的 Python 字节码解释器的 C 源码
 
-18:31  pass it in and what it will do is
+19:16  本质上是一个巨大的 switch 表达式
 
-18:33  disassemble whatever call frame on the
+19:19  查找传入的十进制数指令代表的操作是什么
 
-18:36  call stack was active at the time show
+19:27  好，现在我们对字节码有了一些了解
 
-18:39  you the byte code that was being
+19:31  但是字节码有什么用呢？
 
-18:41  executed and give you a pointer
+19:34  了解字节码有什么好处？
 
-18:43  specifically to the instruction where
+19:40  你们听过或者用过 Forth 语言吗？
 
-18:46  that exception got raised so for example
+19:46  或者新一些的 Factor 语言？
 
-18:48  here you can see I divided by 0 whoops
+19:52  Forth 和 Factor 都是面向堆栈的编程语言
 
-18:51  Python raised an exception import dis
+19:57  Python 虚拟机也是面向堆栈的
 
-18:54  dis TB and here I can see exactly what
+19:59  刚才我们讲过
 
-18:57  happened if you really want to
+20:01  基本上都是围绕着把一些东西 push 到栈顶
 
-19:00  understand what's going on I'm gonna
+20:03  在栈顶进行一些操作
 
-19:02  have a link at the very end to where you
+20:05  最后把结果 pop 回来
 
-19:04  can go look at the actual internals of
+20:08  这个过程和我们熟悉的编程方法有些不同
 
-19:07  the Python interpreter which are written
+20:11  但是有很多编程语言都是围绕这个理念设计的
 
-19:08  in C this is the beginning of the actual
+20:13  而且理解这种编程思想也挺不错的
 
-19:11  real honest-to-goodness Python bytecode
+20:18  或许没有实际用到它的一天
 
-19:14  interpreter as it existed on github
+20:20  但是你可以学习它
 
-19:16  about two hours ago it is a gigantic
+20:22  进而拓展你的编程视野
 
-19:19  switch statement that simply looks at
+20:27  而且面向堆栈的编程语言或者虚拟机
 
-19:22  whatever decimal value instruction was
+20:34  通过很少的几个指令
 
-19:25  passed into it and figures out what to
+20:37  和有限的栈操作符就可以实现惊人的功能
 
-19:27  do with that so now we know some things
+20:39  真是非常巧妙
 
-19:31  about bytecode but what can we learn
+20:42  当然了解字节码也是有实际意义的
 
-19:34  from this what use is it what good is it
+20:44  大家都喜欢开 C 语言的玩笑
 
-19:37  to us to know about bytecode has anybody
+20:49  都把 C 语言当作是半个汇编语言 <注：这里原文没有听清>
 
-19:40  here ever written any forth or if your
+20:51  因为你写的、读的 C 代码可以看出来它会传换成什么机器码
 
-19:46  little newer maybe played with a
+20:59  Python 在某种程度上也是如此
 
-19:48  language like factor
+21:03  我们可以学习 Python 字节码
 
-19:50  or heard of languages like forth and
+21:05  学习如何理解它
 
-19:52  factor these are what are called stack
+21:07  进而了解我们写的 Python 源码会被翻译成什么字节码
 
-19:54  oriented programming languages Python
+21:11  以及 Python 解释器是如何执行源代码的
 
-19:57  virtual machine is also stack oriented
+21:16  这一切会让你富有洞察力
 
-19:59  we saw this it all Orient's around
+21:19  你还会了解 Python 的工作原理
 
-20:01  pushing things on top of a stack
+21:26  以及所有人都想知道的提高 Python 代码的性能的方法
 
-20:03  manipulating the top of the stack
+21:30  看一下这两个函数
 
-20:05  popping things back off this is a very
+21:33  它俩的做的是一件事儿
 
-20:08  different way of doing programming than
+21:35  计算一周有多少秒
 
-20:09  what we're used to but there have been
+21:37  不过有一种写法更快一些
 
-20:11  entire languages built around it and
+21:40  你能看出来哪个写法更快吗？
 
-20:13  understanding this way of programming is
+21:46  我希望大家可以好好想一想
 
-20:15  actually kind of cool you may never even
+21:49  为什么一个函数比另一个更快
 
-20:18  get any practical use out of it but it's
+21:52  以及如何找出这个函数
 
-20:20  a thing you can learn and it's a thing
+21:55  方法就是看字节码
 
-20:22  will broaden your understanding of
+21:56  先用 `dis` 模块得到字节码
 
-20:24  different styles of programming in
+22:02  这两个函数的字节码有很大的不同
 
-20:25  different ways you can do programming
+22:04  可以看到第一个函数的字节码把一天的秒数存入变量
 
-20:27  and it really is amazing if you look at
+22:09  也就是说需要加载常量
 
-20:30  a stack oriented language or a stack
+22:12  存入变量
 
-20:32  oriented virtual machine to see just how
+22:15  再读出变量中的值
 
-20:34  much you can do with so few instructions
+22:17  加载另一个常量，进行乘法
 
-20:37  and so few basic operations on a stack
+22:19  最后返回结果
 
-20:39  it's actually really really neat of
+22:22  第二个函数的字节码只用了两个常量的乘法
 
-20:42  course there are also some practical
+22:24  而 Python 在编译的时候
 
-20:44  purposes people like to joke about see
+22:27  发现这是两个常量的乘法
 
-20:46  they like to call see a sort of portable
+22:32  这个值又不会变化
 
-20:49  assembler or portable assembly language
+22:35  `7 * 86400` 的结果怎么着也不会变
 
-20:51  because you can write C and read C and
+22:41  Python 会对此进行优化
 
-20:54  reason pretty well about what kind of
+22:43  在编译的时候进行乘法
 
-20:57  machine code a given bit of C is going
+22:45  实际上就直接返回 604800 了
 
-20:59  to turn into Python is sort of the same
+22:49  其他多余的操作都省去了
 
-21:03  way we can learn Python bytecode and
+22:51  这种优化的确很聪明
 
-21:05  learn how to understand it and then we
+22:53  Python 在遇到常量操作的时候都会进行这种优化
 
-21:07  can reason about what kind of bytecode
+23:00  Python 所作的优化不只这一种
 
-21:10  is Python going to turn my source code
+23:03  你们听说过 spectre 和 meltdown 吗？
 
-21:11  into how is this actually going to
+23:05  有所了解吗？
 
-21:14  execute when I hand it off to the Python
+23:08  这两个漏洞主要是分支预测导致的
 
-21:16  interpreter studying that can give you
+23:11  也就是处理器会尝试推测 if 语句接下来可能的操作
 
-21:19  some insights also you can learn a bit
+23:18  Python 也会预测字节码操作
 
-21:22  about how Python works and how Python
+23:22  一些字节码运算符总是成对出现
 
-21:24  can help you and then of course what
+23:24  比如比较操作后面经常跟着跳转指令
 
-21:26  everybody wants to know is how you can
+23:29  Python 字节码解释器就会进行优化
 
-21:28  look at it and reason about performance
+23:31  试图推测接下来的操作
 
-21:30  so here's a couple of functions both of
+23:33  从而充分利用 CPU 的分支预测功能以提高执行速度
 
-21:33  these do the same thing they both
+23:37  所以还挺不错的
 
-21:35  calculate the number of seconds in a
+23:41  你还可以回答一些经常出现的性能优化问题
 
-21:37  week except one of them is faster than
+23:44  大家总是问
 
-21:40  the other can you guess which one it is
+23:46  为什么字面量列表或者字面量字典比调用 `list` 和 `dict` 更快
 
-21:42  I very cleverly hidden it I want you to
+23:51  好吧，原因如下
 
-21:46  stop and think why would one of these
+23:55  先用 `{}` 来创建一个字面量字典
 
-21:49  functions be faster than the other and
+23:57  只需要两个指令
 
-21:52  how could we figure out why that is and
+24:00:00  如果调用 `dict`
 
-21:55  the answer is we can look at the byte
+24:02:00  需要三个指令
 
-21:56  code we can ask the Dismal to
+24:04:00  其中一个还是 `CALL_FUNCTION`
 
-21:59  disassemble these for us there's a big
+24:06:00  这意味着要往调用栈 push 调用帧
 
-22:02  difference in what those turn
+24:07:00  执行函数再把结果 pop 回来
 
-22:04  into you notice that first one stored
+24:10:00  再用现实中的代码举个例子
 
-22:07  the number of seconds in a day in a
+24:12:00  这个例子非常简单
 
-22:09  variable which meant we had to load a
+24:15:00  就是算一下前十个完全平方数
 
-22:12  constant Stewart in a variable then look
+24:17:00  这里没有展示完整的字节码
 
-22:15  up what was stored in a variable load
+24:20:00  只是 while 循环对应的字节码
 
-22:17  another constant do a multiplication and
+24:22:00  由 15 个字节码指令组成
 
-22:19  finally return the value the second one
+24:25:00  这段代码可以优化
 
-22:22  only used multiplication with two
+24:28:00  比如把 while 循环换成 for 循环
 
-22:24  integer constants and Python when it was
+24:30:00  用 range 来计数
 
-22:27  compiling this noticed we're using
+24:34:00  现在循环体的字节码短了很多
 
-22:30  arithmetic on to editor constants
+24:36:00  只需要 9 个指令
 
-22:32  they're not going to change the values
+24:39:00  如果写得更符合 Python 哲学的话
 
-22:35  of seven and 86,400 are not going to
+24:42:00  比如用列表推导式
 
-22:38  change anytime soon so python can just
+24:43:00  对应的字节码会是什么样子呢？
 
-22:41  optimize that away python can do that
+24:47:00  现在整个函数体的字节码只有 9 个指令
 
-22:43  multiplication at compile time and now
+24:48:00  但是不要被表象迷惑了
 
-22:45  this function is just returned 600 4800
+24:54:00  我把这段字节码放在这里是有原因的
 
-22:49  there's nothing else to it so it's kind
+24:57:00  注意，虽然只有 9 个指令
 
-22:51  of a cool optimization Python will do
+25:00:00  却包含了创建函数和调用函数的指令
 
-22:53  that sort of constant folding anytime
+25:02:00  所以需要把额外的调用帧 push 到调用栈
 
-22:55  you have these operations on constants
+25:03:00  在那里执行函数体
 
-22:57  that it can optimize a way it isn't the
+25:05:00  执行完再 pop 掉，返回
 
-23:00  only sneaky offer sneaky optimization
+25:08:00  这种操作会耗费更多资源
 
-23:03  Python does has anybody heard about
+25:10:00  即使字节码指令更少
 
-23:05  specter and meltdown anybody familiar
+25:15:00  因为不是所有的指令都消耗同样多的资源
 
-23:08  with those these were attacks against
+25:18:00  我们现在讨论的是不同的字节码以及字节码指令的性能差异
 
-23:11  branch prediction where processors try
+25:24:00  大家都想了解，这种微优化技巧
 
-23:14  to predict what's gonna happen on the
+25:28:00  首先我要强调
 
-23:16  other end of an if statement Python
+25:30:00  Python 很慢
 
-23:18  actually tries to predict what bytecode
+25:32:00  如果你为提高 Python 字节码指令的执行速度而绞尽脑汁
 
-23:20  operations will happen some byte code
+25:35:00  那就会只见树木不见森林
 
-23:22  operations come in pairs like a
+25:37:00  Python 比 C 语言慢太多了
 
-23:24  comparison is usually followed by a jump
+25:39:00  根本没必要考虑这种微优化
 
-23:27  instruction of some type and the Python
+25:43:00  如果你想写出闪电般迅捷的 Python 代码
 
-23:29  bytecode interpreter optimizes this and
+25:52:00  先去仔细浏览一遍 Python 标准库
 
-23:31  tries to predict what's going to come
+25:56:00  看看内置函数和内置类
 
-23:33  next in order to work with your CPUs
+25:58:00  了解哪些是 C 语言实现的
 
-23:35  branch predictor to make these run even
+26:01:00  哪些是 Python 实现的
 
-23:37  faster so there are some cool things
+26:03:00  因为谈到速度差异时
 
-23:39  going on here you can also answer some
+26:05:00  通过优化字节码指令得到的提升可能就这么点儿
 
-23:41  perennial questions about Python
+26:10:00  而换成 C 语言实现的版本
 
-23:44  performance people always ask things
+26:12:00  性能提升就有这么多，根本没有可比性
 
-23:46  like why is a literal list or a literal
+26:16:00  即使如此，你可能想要有一些基本的概念
 
-23:48  dictionary faster than calling lists or
+26:18:00  这里简要介绍几个
 
-23:51  dict well right there's your answer we
+26:22:00  你如果读过一些 Python 性能优化指南
 
-23:55  just do a literal dict using that brief
+26:24:00  可能听说过不要在引用循环内的变量
 
-23:57  syntax that's two instructions we
+26:27:00  而是先创建别名再在循环中使用这个别名
 
-24:00:00  actually call the Dix function that's
+26:30:00  这就是为什么 (指向幻灯片)
 
-24:02:00  three instructions and one of them is a
+26:32:00  LOAD 指令之间性能存在差异
 
-24:04:00  call instruction so we actually have to
+26:35:00  `LOAD_CONST` 和 `LOAD_FAST` 比较快
 
-24:06:00  push another frame on the call stack
+26:38:00  而 `LOAD_NAME` 和 `LOAD_GLOBAL` 相对会慢不少
 
-24:07:00  execute a function body in there pop it
+26:40:00  至于为什么
 
-24:10:00  back off you can see this in your own
+26:43:00  查找 nonlocal 变量会比较复杂
 
-24:12:00  code here's a simple example this is
+26:47:00  可能需要在多个命名空间中进行搜索
 
-24:15:00  just a function that calculates the
+26:52:00  如果你看一下实现解释器的源码
 
-24:17:00  first
+26:56:00  就会知道这些指令的实现非常繁复
 
-24:17:00  perfect squares and this isn't the whole
+26:57:00  另外，循环和代码块比较慢
 
-24:20:00  bytecode this is just the body of that
+27:01:00  可以尽量避免使用
 
-24:22:00  loop that while loop 15 bytecode
+27:03:00  它们会用到 `SETUP_LOOP`，`SETUP_WITH`，`SETUP_EXCEPTION` 这些指令
 
-24:25:00  instructions long we do better than that
+27:10:00  每次进入或退出循环或者代码块
 
-24:28:00  what if we change that while loop with a
+27:13:00  都需要用到多个指令来进入循环
 
-24:30:00  counter to a four loop with a range well
+27:18:00  处理好上下文，push 到代码块栈
 
-24:34:00  suddenly it's a much shorter loop body
+27:19:00  执行循环体
 
-24:36:00  now it's nine instructions what if we go
+27:22:00  如果退出循环还得跳出来
 
-24:39:00  really idiomatic Python and say this
+27:24:00  最后 pop 结果
 
-24:42:00  really ought to be a list comprehension
+27:26:00  还有一些收尾的清理工作
 
-24:43:00  what's that gonna turn into now the
+27:27:00  都是非常耗费资源的指令，可以尽力避免
 
-24:47:00  whole function body is nine instructions
+27:30:00  而访问属性，字典检索，列表索引这些操作也需要留意
 
-24:48:00  long but this is deceptive this is why I
+27:38:00  这里的 `LOAD_ATTR` 和 `BINARY_SUBSCR` 
 
-24:54:00  put this up here notice it's nine
+27:42:00  你经常会听人说
 
-24:57:00  instructions but it involves building a
+27:44:00  获取字典或列表里的元素
 
-25:00:00  function and calling a function so it
+27:45:00  如果要循环遍历
 
-25:02:00  has to push another frame onto the call
+27:47:00  每次都要引用一次
 
-25:03:00  stack execute another function body in
+27:49:00  最好提前用局部变量的别名 <注：这里存疑>
 
-25:05:00  there pop it back off return a value
+27:53:00  因为循环中的每一步都要进行查找 <注：dict 的 lookup 效率非常高，不知道这里是什么意思>
 
-25:08:00  that's a slightly more expensive
+27:55:00  而这种指令更耗资源
 
-25:10:00  operation even though this is fewer
+28:01:00  在 `dis` 模块的文档中还有很多类似优化技巧
 
-25:13:00  bytecode instructions not all bytecode
+28:05:00  文档介绍了各种指令供你查阅
 
-25:15:00  instructions are equally expensive to
+28:08:00  还有一些资料值得一读
 
-25:18:00  execute so this is where we start
+28:10:00  这里推荐三个
 
-25:21:00  talking about comparing different
+28:13:00  首先是本免费在线电子书，《Python 虚拟机内部原理》
 
-25:23:00  bytecode at different bytecode
+28:20:00  当然欢迎给作者打赏
 
-25:24:00  operations and people always want to
+28:21:00  这本书完整介绍了 Python 解释器内部的工作原理
 
-25:26:00  know about these micro optimizations the
+28:28:00  所有的内部机制
 
-25:28:00  very first thing I want to tell you is
+28:31:00  各种栈
 
-25:30:00  Python is slow if you're worrying about
+28:32:00  各种字节指令
 
-25:32:00  how fast a Python bytecode operation is
+28:36:00  其次是 Allison Kaptur 写的 《用 Python 实现 Python 解释器》
 
-25:35:00  you're probably missing the forest for
+28:39:00  她详尽介绍了实现方法
 
-25:37:00  the trees because python is so much
+28:40:00  哦，她还有个 PyCon 演讲
 
-25:39:00  slower than C that it's not even worth
+28:43:00  她完完整整地介绍了如何用
 
-25:42:00  worrying about that kind of micro
+28:48:00  合理的数据结构
 
-25:43:00  optimization if you want to learn how to
+28:50:00  结合各种字节码操作来用 Python 写一个 Python 解释器
 
-25:46:00  write really fast Python really blazing
+28:52:00  最后，可以读一下 CPython 字节码解释器的源码
 
-25:49:00  great performance Python the first thing
+28:57:00  其中有一部分就是刚才给你们展示过的那个巨大的 switch 表达式
 
-25:52:00  you should do is take a good look
+29:00:00  它大概有一千多行
 
-25:54:00  through the standard library standard
+29:02:00  我看的版本有这么长
 
-25:56:00  modules built-in functions and classes
+29:05:00  至少也有几百行
 
-25:58:00  find out which of them are implemented
+29:08:00  不过不难读懂
 
-26:01:00  in C versus which ones are implemented
+29:09:00  是写得非常好的 C 代码
 
-26:03:00  in Python because the speed difference
+29:11:00  CPython 的 C 源码的风格还是比较易读的
 
-26:05:00  there like some of these bytecode
+29:18:00  这些都是不错的参考资料
 
-26:07:00  instructions you might gain you know
+29:21:00  你还可以在 Twitter 上找到我
 
-26:09:00  this much
+29:24:00  我可以回答几个问题
 
-26:10:00  whereas getting it in C you're gonna
+29:28:00  你可以在线上关注我
 
-26:12:00  gain this much it's just no contest but
+29:32:00  最后感谢大家的聆听
 
-26:16:00  you probably want some general
-
-26:18:00  guidelines so here are a few you ever
-
-26:22:00  seen a Python optimization guide that
-
-26:24:00  says don't refer to names inside a loop
-
-26:27:00  always alias it to something and then
-
-26:30:00  the alias inside the loop this is why
-
-26:32:00  not all load operations are equal load
-
-26:35:00  constant load fast are very fast load
-
-26:38:00  name load global are comparatively quite
-
-26:40:00  slow going into the details of why it's
-
-26:43:00  because the lookups for non local names
-
-26:45:00  can be fairly complex it may have to
-
-26:47:00  search in multiple namespaces before it
-
-26:49:00  finally finds what it's looking for if
-
-26:52:00  you go look at the actual interpreter
-
-26:53:00  implementation you can see the
-
-26:56:00  implementations of these instructions
-
-26:57:00  are pretty large another thing loops and
-
-27:01:00  blocks are really expensive avoid them
-
-27:03:00  if you can you'll see these instructions
-
-27:06:00  sort of jump out at you set up loop set
-
-27:08:00  up with set up exception anytime you
-
-27:10:00  enter or exit a loop or a block or
-
-27:13:00  anything like that you need multiple
-
-27:15:00  instructions to get into the loop set up
-
-27:18:00  all the context push on to the block
-
-27:19:00  stack execute the body of the loop jump
-
-27:22:00  back if you're if you're doing the loop
-
-27:24:00  the jumps back then finally pop
-
-27:26:00  everything back off and clean up that's
-
-27:27:00  an expensive operation avoid that one if
-
-27:30:00  you can attribute accesses dictionary
-
-27:34:00  lookups list indexing all of these
-
-27:36:00  things really stick out in byte code
-
-27:38:00  these load ad or binary subscript C
-
-27:42:00  people say if you need something out of
-
-27:44:00  a dictionary or something out of a list
-
-27:45:00  and you're gonna loop and you're gonna
-
-27:47:00  refer to it every time through the loop
-
-27:49:00  alias it to a local variable before you
-
-27:51:00  do that because otherwise you're doing
-
-27:53:00  this expensive look up every single time
-
-27:55:00  through the loop these are relatively
-
-27:57:00  expensive bytecode instructions a lot
-
-28:01:00  more of this you can learn by sort of
-
-28:03:00  looking through the documentation for
-
-28:05:00  the disk module look at all these
-
-28:06:00  different operations and what they do
-
-28:08:00  there are also some good resources I'm
-
-28:10:00  gonna recommend three here one is
-
-28:13:00  there's a free online book called inside
-
-28:15:00  the Python virtual machine you can read
-
-28:18:00  it at no charge you can also pay some
-
-28:20:00  money to the author to thank him for
-
-28:21:00  writing it this is a complete tour of
-
-28:24:00  how Python works inside the Python
-
-28:27:00  interpreter
-
-28:28:00  all of the internal mechanics all of
-
-28:31:00  those stacks all of the bytecode
-
-28:32:00  operations the whole thing Allyson
-
-28:36:00  Kaptur has written a Python interpreter
-
-28:38:00  in Python
-
-28:39:00  she walks you through and by the way she
-
-28:40:00  gave a great talk here at PyCon
-
-28:43:00  she walks you through how to build a
-
-28:46:00  Python bytecode interpreter with all the
-
-28:48:00  correct data structures and handling all
-
-28:50:00  of the byte code operations in Python
-
-28:52:00  itself and then finally of course you
-
-28:55:00  can read the bytecode interpreter which
-
-28:57:00  is that gigantic switch statement that I
-
-28:59:00  showed you part of earlier that switch
-
-29:00:00  statement I think is around a thousand
-
-29:02:00  lines long or at least it was in one
-
-29:04:00  version that I looked at it is
-
-29:05:00  definitely hundreds of lines long but
-
-29:08:00  you can actually read through it it's
-
-29:09:00  fairly clear fairly well written C pipe
-
-29:11:00  C Python source code tends to be on the
-
-29:13:00  readable side as C goes so all of those
-
-29:18:00  are really good resources also if you
-
-29:21:00  want to I am on Twitter I will be
-
-29:24:00  heading out of here I can take maybe one
-
-29:27:00  or two questions in the hallway
-
-29:28:00  afterward and you can find me online and
-
-29:32:00  follow up so thank you all for showing
-
-29:36:00  up hopefully you learn something
-
-29:42:00  you
+29:36:00  希望你们有所收获
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
