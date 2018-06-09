@@ -3241,10 +3241,11 @@
 |[前端调试技巧与诀窍](https://juejin.im/post/5901e8d6a0bb9f0065e64f63)|校对|2|
 |[别让你的偏爱拖了后腿：快拥抱箭头函数吧！](https://juejin.im/post/59158c92a0bb9f005fd58fd7)|校对|2|
 
-## 译者：[changkun](https://github.com/changkun) 历史贡献积分：138.5 当前积分：138.7 年度积分：39.5
+## 译者：[changkun](https://github.com/changkun) 历史贡献积分：143.5 当前积分：143.7 年度积分：44.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|5|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|30.5|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|9|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译|6|
@@ -5070,10 +5071,11 @@
 |[为 Django Framework 贡献你的力量并没有想象中的那么难](https://juejin.im/post/5a77cd6e5188257a79247fe1)|翻译|3|
 |[大话（Summer vs winter Observable）之我与 Rx Observable[Android RxJava2]（这是什么鬼）第六话](https://juejin.im/post/5a7cfdaaf265da4e7f35901a)|校对|3|
 
-## 译者：[LeeSniper](https://github.com/LeeSniper) 历史贡献积分：17 当前积分：17 年度积分：17
+## 译者：[LeeSniper](https://github.com/LeeSniper) 历史贡献积分：23 当前积分：23 年度积分：23
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Awesome Flutter 翻译](https://github.com/xitu/awesome-flutter)|翻译|6|
 |[Windows Insets 和 Fragment 过渡动画](https://juejin.im/post/5b05206f6fb9a07ac162c9af)|翻译|2|
 |[如何在安卓应用中使用 TensorFlow Mobile](https://juejin.im/post/5afb8dc5518825426c690236)|校对|1.5|
 |[建立一个像科幻小说一样的虚拟世界：设计一个全球性的虚拟世界](https://juejin.im/post/5ad19dcdf265da2389262784)|翻译|5|
@@ -5402,10 +5404,11 @@
 |[写给前端开发者的 GraphQL 指南w](https://juejin.im/post/5ac09072518825558c479215)|翻译|4|
 |[iOS App 上一种灵活的路由方式](https://juejin.im/post/5aafc278f265da23805973e3)|校对|1|
 
-## 译者：[allenlongbaobao](https://github.com/allenlongbaobao) 历史贡献积分：78.5 当前积分：68.5 年度积分：78.5
+## 译者：[allenlongbaobao](https://github.com/allenlongbaobao) 历史贡献积分：83.5 当前积分：73.5 年度积分：83.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|5|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|6|
 |[JavaScript 是如何工作的：Web 推送通知的机制](https://juejin.im/post/5b002766518825429d1f90bc)|校对|2|
 |[深入浅出 JavaScript 关键词 — this](https://juejin.im/post/5aefe76e6fb9a07abc29d4a1)|校对|3|
@@ -5530,10 +5533,11 @@
 |[使用 Swift 实现原型动画](https://juejin.im/post/5ae28a9b6fb9a07aaa10fa1e)|校对|2|
 |[不使用 fastlane 实现持续交付的 5 种选项](https://juejin.im/post/5acf47cb6fb9a028c523944c)|翻译|5|
 
-## 译者：[luochen1992](https://github.com/luochen1992) 历史贡献积分：48 当前积分：48 年度积分：48
+## 译者：[luochen1992](https://github.com/luochen1992) 历史贡献积分：48.5 当前积分：48.5 年度积分：48.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|0.5|
 |[JavaScript 是如何工作的：深入网络层 + 如何优化性能和安全](https://juejin.im/post/5b02ae48518825429d1f9aff)|校对|1.5|
 |[可微可塑性：一种学会学习的新方法](https://juejin.im/post/5b055308f265da0ba063879d)|翻译|3|
 |[关于你的编程生涯的一些告诫](https://juejin.im/post/5b0256e36fb9a07aa767f5b4)|校对|2|
@@ -5775,10 +5779,11 @@
 |[JavaScript 是如何工作的：深入网络层 + 如何优化性能和安全](https://juejin.im/post/5b02ae48518825429d1f9aff)|校对|1.5|
 |[可用但最不常见的 HTML5 标签](https://juejin.im/post/5b0026e8f265da0b8c253c2a)|校对|1|
 
-## 译者：[SpielbergGao](https://github.com/SpielbergGao) 历史贡献积分：1 当前积分：1 年度积分：1
+## 译者：[SpielbergGao](https://github.com/SpielbergGao) 历史贡献积分：2 当前积分：2 年度积分：2
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Awesome Flutter 校对](https://github.com/xitu/awesome-flutter)|校对|1|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|1|
 
 ## 译者：[lihanxiang](https://github.com/lihanxiang) 历史贡献积分：1.5 当前积分：1.5 年度积分：1.5
@@ -5818,3 +5823,15 @@
 |------|-------|-------|
 |[怎样更好地使用 Vue：我在新工作中遇到的一些问题清单](https://juejin.im/post/5b0a36366fb9a07a9c04aca2)|校对1|
 |[可微可塑性：一种学会学习的新方法](https://juejin.im/post/5b055308f265da0ba063879d)|校对|1.5|
+
+## 译者：[zhongdeming428](https://github.com/zhongdeming428) 历史贡献积分：1.5 当前积分：1.5 年度积分：1.5
+
+|文章|类型|积分|
+|------|-------|-------|
+|[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|1.5|
+
+## 译者：[androidxiao](https://github.com/androidxiao) 历史贡献积分：1.5 当前积分：1.5 年度积分：1.5
+
+|文章|类型|积分|
+|------|-------|-------|
+|[Awesome Flutter 校对](https://github.com/xitu/awesome-flutter)|校对|1.5|
