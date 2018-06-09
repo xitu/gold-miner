@@ -7,15 +7,15 @@
 
 # 或许你并不需要 Rust 和 WASM 来提升 JS 的执行效率 — 第一部分
 
-几个星期前，我在 Twitter 上看到一篇名为 [“Oxidizing Source Maps with Rust and WebAssembly”](https://hacks.mozilla.org/2018/01/oxidizing-source-maps-with-rust-and-webassembly/) 的推文，其内容主要是讨论用 Rust 编写的 WebAssembly 替换 `source-map` 核心中的纯 JavaScript 部分带来的性能优势。
+几个星期前，我在 Twitter 上看到一篇名为 [“Oxidizing Source Maps with Rust and WebAssembly”](https://hacks.mozilla.org/2018/01/oxidizing-source-maps-with-rust-and-webassembly/) 的推文，其内容主要是讨论用 Rust 编写的 WebAssembly 替换 `source-map` 库中纯 JavaScript 编写的核心代码所带来的性能优势。
 
 这篇文章使我感兴趣的原因，并不是因为我擅长 Rust 或 WASM，而是因为我总是对语言特性和纯 JavaScript 中缺少的性能优化感到好奇。
 
-于是我从 GitHub 检出了这个库，然后逐字逐句的记录了这次小型性能调查。
+于是我从 GitHub 检出了这个库，然后逐字逐句的记录了这次小型性能研究。
 
 ### 获取代码
 
-对于我的调查，当时使用的是**近乎**默认配置的 x64.release 的 V8，V8 版本对应着 1 月 20 日的提交历史 commit [69abb960c97606df99408e6869d66e014aa0fb51](https://chromium.googlesource.com/v8/v8/+/69abb960c97606df99408e6869d66e014aa0fb51)。为了能够根据需要深入到生成的机器码，我通过 GN 标志启用了反汇编程序，这是我唯一偏离默认配置的地方。
+对于我的研究，当时使用的是**近乎**默认配置的 x64 V8 的发布版本，V8 版本对应着 1 月 20 日的提交历史 commit [69abb960c97606df99408e6869d66e014aa0fb51](https://chromium.googlesource.com/v8/v8/+/69abb960c97606df99408e6869d66e014aa0fb51)。为了能够根据需要深入到生成的机器码，我通过 GN 标志启用了反汇编程序，这是我唯一偏离默认配置的地方。
 
 ```
 ╭─ ~/src/v8/v8 ‹master›
@@ -106,7 +106,7 @@ Overhead  Symbol
     0.56%  v8::internal::IncrementalMarking::RecordWriteSlow
 ```
 
-事实上, 就像 [“Oxidizing Source Maps …”](https://hacks.mozilla.org/2018/01/oxidizing-source-maps-with-rust-and-webassembly/) 那篇博文说的那样，基准测试在排序上相当重：`doQuickSort` 出现在配置文件的顶部，并且在列表中还多次出现（这意味着它已被优化/去优化了几次）。
+事实上, 就像 [“Oxidizing Source Maps …”](https://hacks.mozilla.org/2018/01/oxidizing-source-maps-with-rust-and-webassembly/) 那篇博文说的那样，基准测试相当侧重于排序上：`doQuickSort` 出现在配置文件的顶部，并且在列表中还多次出现（这意味着它已被优化/去优化了几次）。
 
 ### 优化排序 —— 参数适配
 
@@ -149,7 +149,7 @@ function doQuickSort(ary, comparator, p, r) {
 }
 ``` 
 
-通过梳理源代码发现除了测试之外，`quickSort` 只有用这两个函数才能调用。
+通过梳理源代码发现除了测试之外，`quickSort` 只被这两个函数调用过。
 
 如果我们修复调用参数数量问题会怎么样？
 
@@ -400,7 +400,7 @@ sortOriginal:  896.3589999999995
 
 ![解析和排序耗时](https://mrale.ph/images/2018-02-03/parse-sort-0.png)
 
-在 V8 中，我们似乎花费大量的时间来解析映射，以便对它们进行排序。在 SpiderMonkey 中，解析映射速度更快，反而是排序较慢。这促使我开始查看解析代码。
+在 V8 中，我们花费几乎和排序差不多的时间来进行解析映射。在 SpiderMonkey 中，解析映射速度更快，反而是排序较慢。这促使我开始查看解析代码。
 
 ### 优化解析 —— 删除分段缓存
 
@@ -524,11 +524,11 @@ if (segment) {
 
 让我们尝试抽象地比较这两个操作。
 
-**一方面是纯粹的解析：**
+**一种是直接解析：**
 
-解析分段只查看一个分段的每个字符。对于每个字符，它执行少量比较和算术运算，将 base64 字符转换为它所表示的整数值。然后它执行几个按位操作来将此整数值并入较大的整数值。然后它将解码值存储到一个数组中并移动到该段的下一部分。细分受限于 5 个元素。
+解析分段只查看一个分段的每个字符。对于每个字符，它执行少量比较和算术运算，将 base64 字符转换为它所表示的整数值。然后它执行几个按位操作来将此整数值并入较大的整数值。然后它将解码值存储到一个数组中并移动到该段的下一部分。分段不得多于5个。
 
-**另一方面缓存：**
+**另一种是缓存：**
 
 1.  为了查找缓存的值，我们遍历该段的所有字符以找到其结尾;
 2.  我们提取子字符串，这需要分配资源和可能的复制，具体取决于 JS VM 中字符串的实现方式;
