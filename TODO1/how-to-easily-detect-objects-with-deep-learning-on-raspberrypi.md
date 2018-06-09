@@ -15,7 +15,7 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*YJbdykJRHFlzlIXWwn0nIA.gif)
 
-检测孟买路上的车辆
+检测孟买路上的车辆。
 
 ### 为什么要检测对象？为什么使用树莓派？
 
@@ -441,7 +441,7 @@ python ./code/train-model.py
 watch -n 100 python ./code/model-state.py
 ```
 
-#### 第 9 步:预测
+#### 第 9 步：预测
 
 一旦模型训练好了，您就可以使用来进行预测
 
