@@ -5533,10 +5533,11 @@
 |[使用 Swift 实现原型动画](https://juejin.im/post/5ae28a9b6fb9a07aaa10fa1e)|校对|2|
 |[不使用 fastlane 实现持续交付的 5 种选项](https://juejin.im/post/5acf47cb6fb9a028c523944c)|翻译|5|
 
-## 译者：[luochen1992](https://github.com/luochen1992) 历史贡献积分：48.5 当前积分：48.5 年度积分：48.5
+## 译者：[luochen1992](https://github.com/luochen1992) 历史贡献积分：48.5 当前积分：3.5 年度积分：48.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[2018 年 5 月兑树莓派套餐 1 套]()|减去积分|45|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|0.5|
 |[JavaScript 是如何工作的：深入网络层 + 如何优化性能和安全](https://juejin.im/post/5b02ae48518825429d1f9aff)|校对|1.5|
 |[可微可塑性：一种学会学习的新方法](https://juejin.im/post/5b055308f265da0ba063879d)|翻译|3|
@@ -5771,10 +5772,11 @@
 |------|-------|-------|
 |[在浏览器里使用 TenserFlow.js 实时估计人体姿态](https://juejin.im/post/5afd833b5188254270642ff3)|校对|2|
 
-## 译者：[sophiayang1997](https://github.com/sophiayang1997) 历史贡献积分：5.5 当前积分：5.5 年度积分：5.5
+## 译者：[sophiayang1997](https://github.com/sophiayang1997) 历史贡献积分：5.5 当前积分：-2.5 年度积分：5.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|2018 年 6 月兑掘金笔记本 1 个|减去积分|8|
 |[怎样更好地使用 Vue：我在新工作中遇到的一些问题清单](https://juejin.im/post/5b0a36366fb9a07a9c04aca2)|翻译|3|
 |[JavaScript 是如何工作的：深入网络层 + 如何优化性能和安全](https://juejin.im/post/5b02ae48518825429d1f9aff)|校对|1.5|
 |[可用但最不常见的 HTML5 标签](https://juejin.im/post/5b0026e8f265da0b8c253c2a)|校对|1|
