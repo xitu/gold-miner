@@ -5784,7 +5784,7 @@
 |------|-------|-------|
 |[在浏览器里使用 TenserFlow.js 实时估计人体姿态](https://juejin.im/post/5afd833b5188254270642ff3)|校对|2|
 
-## 译者：[sophiayang1997](https://github.com/sophiayang1997) 历史贡献积分：18.5 当前积分：10.5 年度积分：18.5
+## 译者：[sophiayang1997](https://github.com/sophiayang1997) 历史贡献积分：18.5 当前积分：11.5 年度积分：18.5
 
 |文章|类型|积分|
 |------|-------|-------|
