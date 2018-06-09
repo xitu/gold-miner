@@ -3,19 +3,19 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-easily-detect-objects-with-deep-learning-on-raspberrypi.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-easily-detect-objects-with-deep-learning-on-raspberrypi.md)
 > * 译者：[Starrier](https://github.com/Starriers)
-> * 校对者：
+> * 校对者：[luochen1992](https://github.com/luochen1992)、[jasonxia23](https://github.com/jasonxia23)
 
-# 如何通过树莓派的深度学习轻松检测对象
+# 如何轻松地在树莓派上使用深度学习检测目标
 
-## 真实世界带来的挑战是数据有限以及诸如移动电话和树莓派等微笑硬件无法运行复杂的深度学习模型。这篇文章演示了如何使用树莓派进行对象检测。
+## 真实世界带来的挑战，是有限的数据以及小型硬件，诸如手机和树莓派等，这些硬件无法运行复杂的深度学习模型。这篇文章演示了如何使用树莓派进行对象检测，就像公路上的汽车，冰箱里的橘子，文件上的签名，太空中的特斯拉。
 
-免责声明：我正在构建帮助用更少的数据和没有硬件的方式构建 XMl 的[nanonets.com](https://nanonets.com/objectdetection/?utm_source=medium.com&utm_medium=content&utm_campaign=How%20to%20easily%20Detect%20Objects%20with%20Deep%20Learning%20on%20RaspberryPi&utm_content=top)。
+免责声明：我正在用更少的数据和无硬件的方式构建 [nanonets.com](https://nanonets.com/objectdetection/?utm_source=medium.com&utm_medium=content&utm_campaign=How%20to%20easily%20Detect%20Objects%20with%20Deep%20Learning%20on%20RaspberryPi&utm_content=top) 来帮助建立机器学习。
 
 > **如果你没有耐心继续阅读下去，可以直接翻阅到底部查看 Github 的仓库。**
 
 ![](https://cdn-images-1.medium.com/max/800/1*YJbdykJRHFlzlIXWwn0nIA.gif)
 
-在孟买的路上检测车辆。
+检测孟买路上的车辆
 
 ### 为什么要检测对象？为什么使用树莓派？
 
@@ -33,12 +33,12 @@
 
 为了模仿人类层次的表现水平，科学家将视觉感知任务分解为四个不同的类别。
 
-1.  **Classification**，为整个图像指定一个标签
+1.  **分类**，为整个图像指定一个标签
 2.  **Localization**，为特定标签指定一个边框
 3.  **对象检测**，在图像中绘制多个边界框
 4.  **图像分割**，创建图像中物体所在位置的精确部分
 
-对于各种应用来说，对象检测已经足够好了（即使图像分割结果更为精确，但它受到创建训练数据的复杂性影响。它通常需要 12 倍以上的人类注射器，而不是绘制边界框；这是更多的轶事，但缺乏一个来源）。而且在检测对象之后，可以单独从边界框中分割对象。
+对于各种应用来说，对象检测已经足够好了（即使图像分割结果更为精确，但它受到创建训练数据的复杂性影响。对于一个人类标注者来说，分割图像所花的时间比绘制边界框要多 12 倍；这是更多的轶事，但缺乏一个来源）。而且在检测对象之后，可以单独从边界框中分割对象。
 
 #### 使用对象检测：
 
@@ -51,7 +51,7 @@
 对象检测可用来回答各种问题。这是粗略的分类：
 
 1.  **在我的图像中是否存在对象**？例如，我家有入侵者么。
-2.  **对象在哪里**，在图像中？例如，当一辆汽车试图在世界各地航行时，知道物体在哪里是很重要的。
+2.  **对象在哪里**，在图像中？例如，当一辆汽车试图在世界各地行驶时，知道物体在哪里是很重要的。
 3.  **有多少个对象**，它们都在图像中么？ 对象检测是计算物体的最有效的方法之一。例如，一个仓库里的架子上有多少箱子。
 4.  **什么是不同类型的对象**在图像中？比如哪个动物在动物园的哪个地方？ 
 5.  **对象的大小是多少**？ 尤其是使用静态相机时，很容易计算出物体的大小。比如芒果的大小是多少？
@@ -145,7 +145,7 @@ YOLO 在 <20 行代码中的解释。
 
 ### 我们如何构建用于对象检测的深度学习模型？
 
-#### 深度学习的工作流的 6 个主要步骤将分成 3 个阶段
+#### 深度学习工作流的 6 个主要步骤将分成 3 个阶段
 
 1.  收集训练数据
 2.  训练模型
@@ -157,9 +157,9 @@ YOLO 在 <20 行代码中的解释。
 
 ### 阶段 1 —— 收集训练数据
 
-#### **第 1 步 收集图像（每个对象至少有 100 个）：**
+#### **第 1 步 收集图像（每个对象至少有 100 张图像）：**
 
-在这个任务中，每个对象需要几个 100 张图像。尝试将数据捕获到您最终要对其进行预测的数据上。
+在这个任务中，每个对象需要几百张图像。尝试将数据捕获到您最终要对其进行预测的数据上。
 
 ![](https://cdn-images-1.medium.com/max/800/1*ZqUXpif7jgmAsIwX7ZFdrQ.png)
 
@@ -175,7 +175,7 @@ YOLO 在 <20 行代码中的解释。
 
 #### **第 3 步 寻找可以迁移学习的预训练模型**
 
-您可以在 [medium.com/nanonets/nanonets-how-to-use-deep-learning-when-you-have-limited-data-f68c0b512cab](http://medium.com/nanonets/nanonets-how-to-use-deep-learning-when-you-have-limited-data-f68c0b512cab) 中阅读到更多有关这方面的信息。您需要一个预训练模型，这样您就可以减少训练所需的数据量。没有它，您可能需要几个 10 万张的图像来训练模型。
+您可以在 [medium.com/nanonets/nanonets-how-to-use-deep-learning-when-you-have-limited-data-f68c0b512cab](http://medium.com/nanonets/nanonets-how-to-use-deep-learning-when-you-have-limited-data-f68c0b512cab) 中阅读到更多有关这方面的信息。您需要一个预训练模型，这样您就可以减少训练所需的数据量。没有它，您可能需要几十万张的图像来训练模型。
 
 [你可以在这里找到一些预训练的模型](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md)
 
@@ -275,7 +275,7 @@ os.system("xdg-open image1.jpg")
 
 **下载模型**
 
-一旦你完成了模型的训练，你就可以把它下载到你的圆周率上了。要导出模型运行：
+一旦你完成了模型的训练，你就可以把它下载到你的树莓派上了。要导出模型运行：
 
 ```
 sudo nvidia-docker run -v `pwd`:data docker.nanonets.com/pi_training -m export -a ssd_mobilenet_v1_coco -e ssd_mobilenet_v1_coco_0 -c /data/0/model.ckpt-8998
@@ -313,7 +313,7 @@ python ObjectDetectionPredict.py --model data/0/quantized_graph.pb --labels data
 
 ### 树莓派的性能基准测试
 
-树莓派对内存和计算都有限制（与树莓派 GPU 兼容的 Tensorflow 版本仍然不可用）。因此，对基准测试来说，每个模型需要多少是时间才能对新图像进行预测非常重要。
+树莓派对内存和计算都有限制（与树莓派 GPU 兼容的 Tensorflow 版本仍然不可用）。因此，对基准测试来说，每个模型需要多少时间才能对新图像进行预测非常重要。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*Z1z6TWrmvpW5DQ0WPKkTFw.png)
 
@@ -325,7 +325,7 @@ python ObjectDetectionPredict.py --model data/0/quantized_graph.pb --labels data
 
 #### 我们在 NanoNets 的目标是使深度学习工作更加简单。对象检测是我们关注的一个主要领域，我们已经制定了一个工作流来解决实现深度学习模型的许多挑战。
 
-### NanoNets 如何是过程更简单：
+### NanoNets 如何使过程更简单：
 
 #### 1. 无需注解
 
@@ -339,9 +339,9 @@ python ObjectDetectionPredict.py --model data/0/quantized_graph.pb --labels data
 
 NanoNets **完全在云端运行**而且无需任何硬件。这使得它更容易使用。
 
-#### 4. 适合想树莓派这样的移动设备
+#### 4. 适合像树莓派这样的移动设备
 
-因为像树莓派和手机这样的设备并不是为了运行复杂的计算任务而构建的，所以您可以吧工作量外包给我们的云，它会为您完成所有的计算
+因为像树莓派和手机这样的设备并不是为了运行复杂的计算任务而构建的，所以您可以把工作量外包给我们的云，它会为您完成所有的计算
 
 ### 这里是使用 NanoNets API 对图像进行预测的简单片段
 
@@ -443,7 +443,7 @@ watch -n 100 python ./code/model-state.py
 
 #### 第 9 步:预测
 
-一旦模型被训练，您就可以使用来进行预测
+一旦模型训练好了，您就可以使用来进行预测
 
 ```
 python ./code/prediction.py PATH_TO_YOUR_IMAGE.jpg
