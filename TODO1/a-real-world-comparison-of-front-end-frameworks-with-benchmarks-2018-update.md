@@ -43,7 +43,7 @@
 
 使用 Chrome 自带的 [Lighthouse Audit](https://developers.google.com/) 工具进行 [首次有效绘制](https://developers.google.com/web/tools/lighthouse/audits/first-meaningful-paint) 的测试。
 
-渲染速度越快，应用的使用者体验也越好。Lighthouse 也测试 [First interactive](https://developers.google.com/web/tools/lighthouse/audits/first-interactive) ，但对于大多数应用来说，这几乎是相同的，而它还处于测试阶段。
+绘制速度越快，应用的使用者体验就越好。Lighthouse 也测试 [First interactive](https://developers.google.com/web/tools/lighthouse/audits/first-interactive) ，但对于大多数应用来说，这几乎是相同的，而它还处于测试阶段。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*El9cBVFHxRG36XD8KNjA_g.png)
 
@@ -69,7 +69,7 @@
 
 通过[cloc](https://github.com/AlDanial/cloc) 我们计算每个仓库的 src 文件夹中的代码行。空白和注释行不会包含在内。这样做的意义何在？
 
->如果调试是删除软件错误的过程，那么编程就是引入错误的过程 —— Edsger Dijkstra
+>如果调试是删除软件错误的过程，那么编程就是引入错误的过程 — Edsger Dijkstra
 
 ![](https://cdn-images-1.medium.com/max/1000/1*YTfk05JBtqNBIoK_4u2H3g.png)
 
