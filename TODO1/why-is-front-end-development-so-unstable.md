@@ -2,113 +2,113 @@
 > * 原文作者：[Jimmy Breck-McKye](http://www.breck-mckye.com)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/why-is-front-end-development-so-unstable.md](https://github.com/xitu/gold-miner/blob/master/TODO1/why-is-front-end-development-so-unstable.md)
-> * 译者：
+> * 译者：[Colafornia](https://github.com/Colafornia)
 > * 校对者：
 
-# Why is Front-End Development So Unstable?
+# 为何前端开发如此不稳定
 
-We all know the meme: by the time you’ve learned one front-end technology, another three have just been released. Also, that one you just learned? It’s deprecated.
+我们都知道这个笑话：在你学会一项前端技术的时候，另外三项新技术已经发布了。不仅如此，你刚学会的那个也已经被弃用了。
 
-What we don’t often see is an examination why.
+我们却不常看到有解释为什么会这样。
 
-The typical explanation (a la `r/programming`) seems to be something or other about webdevs being naturally impatient, faddish and incompetent, which may constitute a more general fallacy: assuming behaviour you cannot understand is caused by an entire group being foolish, wicked or greedy (whereas your own unwise behaviour is due exclusively to factors beyond your control).
+典型的解释（来源于 reddit 的 `r/programming` 频道）这似乎与前端开发者天生不耐烦，追逐流行与能力有限相关，这种解释构成了一个更普遍的谬论：假设你所不理解的行为是由整个群体的愚蠢，糟糕或贪婪造成的 (而你自己的不明智行为完全是由你无法控制的因素造成的)。
 
-Still, fallacy or no, we do have a problem - don’t we?
+无论它是不是谬论，我们确实有这个问题，对吗？
 
-### Quantifying the issue
+### 量化问题
 
-Before we get carried away, it’s worth validating whether the meme really has basis in reality. Do front end technologies actually change that quickly?
+在跑偏之前，我们有必要确定这个问题是否真的有现实依据。前端技术真的变化很快吗？
 
-In the sense of major view technologies, probably not. Consider this list of the highest ‘starred’ JavaScript front-end technologies on [Github](https://github.com/collections/front-end-javascript-frameworks):
+从主流受关注（也可能不是）的技术来看，细想一下这个 [Github](https://github.com/collections/front-end-javascript-frameworks) 上“高星” JavaScript 前端技术排行：
 
 ```
 +------------------------------------------------------------+
-| Library          | Stars   | Released       | Age          |
+| 库          | Star 数   | 发布时间       | 年龄          |
 |------------------------------------------------------------+
-| React            | 96986   | March 2015     | 3 years      |
-| Vue              | 95727   | October 2015   | 2.5 years    |
-| Angular (1)      | 58531   | October 2010   | 7.5 years    |
-| jQuery           | 49061   | August 2006    | 11 years     |
-| Angular (2+)     | 36665   | December 2015  | 2.5 years    |
-| Backbone         | 27194   | October 2010   | 7.5 years    |
-| Polymer          | 19668   | May 2015       | 3 years      |
-| Ember            | 19003   | December 2011  | 6.5 years    |
-| Aurelia          | 10506   | June 2016      | 2 years      |
-| Knockout         | 8894    | July 2010      | 8 years      |
+| React            | 96986   | 2015 年 3 月    | 3 年      |
+| Vue              | 95727   | 2015 年 10 月   | 2.5 年    |
+| Angular (1)      | 58531   | 2010 年 10 月   | 7.5 年    |
+| jQuery           | 49061   | 2006 年 8 月    | 11 年     |
+| Angular (2+)     | 36665   | 2015 年 12 月   | 2.5 年    |
+| Backbone         | 27194   | 2010 年 10 月   | 7.5 年    |
+| Polymer          | 19668   | 2015 年 5 月    | 3 年      |
+| Ember            | 19003   | 2011 年 12 月   | 6.5 年    |
+| Aurelia          | 10506   | 2016 年 6 月    | 2 年      |
+| Knockout         | 8894    | 2010 年 7 月    | 8 年      |
 +------------------------------------------------------------+
 ```
 
-2.5 years for the youngest isn’t _that_ old in the scheme of things - it’s less than half the support lifespan of your typical desktop OS, for example - but it’s still a ways off our caricature. So what is causing this perception of rapid, even unsustainable change?
+最年轻的一个项目也已经两岁半了，并不是**那么**老，举例来说，它不到你的桌面操作系统支持寿命的一半，并且这个年轻项目依然还在运行。所以是什么导致人们对前端有了这种更迭快速、甚至不可持续变化的感觉呢？
 
-### React and friends
+### React 与它的朋友们
 
-It might be React. As powerful a tool as it is, it requires an army of helper modules and support libraries to be used seriously, and this is where the problem sets in. The React community is very big on what I would call the ‘microlibrary architecture’, where applications are composed of a myriad discrete, single-purpose JavaScript libraries, in homage to the [Unix philosophy](https://homepage.cs.uri.edu/~thenry/resources/unix_art/ch01s06.html).
+可能是 React 造成的。作为一个强力工具，它需要一系列助手模块以支持这些库被认真使用，这就是问题所在。React 生态中我称之为“微型库（microlib）架构”的内容非常庞大，其应用是有无数离散的，单一用途的 JavaScript 库组成，以对 [Unix 哲学](https://homepage.cs.uri.edu/~thenry/resources/unix_art/ch01s06.html) 致敬。
 
-The advantage of this architecture is that you can easily adapt as new practices emerge, which makes sense at a time of rapid innovation (like the past few years). The disadvantage is that it increases your surface area for breaking changes and demands a great deal (often too much) vetting and selection of said microlibs.
+这一架构的优点是，当新的实践出现，你可以快速适应，这在像几年前那种快速革新阶段非常有用。缺点在于它使你需要经常进行大型迭代，同时也要求在众多（往往太多）所谓的微型库（microlib）你需要审查挑选。
 
-And this is the thrust of my argument: what’s wrong with JavaScript isn’t the language [1], the web, or any technology in particular, but a poor ‘choice architecture’ that makes developers slaves to fads and trends.
+这也是我论点的主旨：问题不在于 JavaScript 语言本身 [1]，Web 或是任何特定的技术，而是糟糕的“做选择式架构”使得开发者不得不追逐流行趋势。
 
-### The NPM problem
+### NPM 问题
 
-Modern JavaScript’s greatest asset - and liability - is NPM. It provides an enormous wealth of modules, catering to just about any specific purpose one can conceive, but very difficult to filter and curate. Which ones are really being supported? Which ones are actually functionally correct? Which ones aren’t really just vectors for evil malware? The only heuristic a JavaScript developer can really use is popularity - number of downloads and Github stars - which exacerbates faddishness.
+NPM 是现代 JavaScript 的最大资产，也是最大负债。它提供了丰富的模块，几乎可以满足任意特定需求，但很难对于这些模块进行过滤和管理。哪些模块是真正得到支持的？哪些模块真正达成功能上准确？哪些模块不只是恶意软件的载体？JavaScript 开发者真正使用的选择方法是受欢迎程度——下载次数与 Github 上的 Star 数量，这无疑加剧了追逐流行的风气。
 
-There are other ways to validate a library, of course: you can read through Github issues and search for StackOverflow questions. You can do some testing or even examine the sourcecode for yourself (in most cases). But this takes time, which isn’t really warranted when choosing e.g. a date parsing doodad.
+当然还有其它方法去甄别一个库：你可以浏览这个库的 Github issue 列表，在 StackOverflow 上搜索问题。你也可以做一些测试甚至自己检查源代码（在大多数情况下）。但这些方法都耗费时间，在选择类似日期解析模块这种小玩意儿时，没有必要做这些耗费时间的事。
 
-I will concede that this is something of a cultural weakness of JavaScript developers. As an interviewer I often like to ask candidates how they choose technologies, and it depresses me somewhat that popularity is the almost always the only marker they know. Software engineering is at least partly a research job and we need to train junior programmers research skills. But even if we did, the odds would still be stacked against them.
+我承认这是 JavaScript 的一个文化缺陷。作为面试官，我经常问面试者是如何进行技术选型的，答案令人沮丧，受欢迎程度总是他们唯一知道的指标。软件工程至少在一定程度上是一项研究工作，我们需要培训初级工程师这些研究技能，但是即使我们做了培训，工程师们也未必能做出正确的选择。
 
-### Imagine being a junior developer
+### 想象自己是一名初级工程师
 
-Put yourself in the shoes of a junior-to-mid-level JavaScript developer, writing a new application for the first time.
+站在初级、中级 JavaScript 开发人员的角度，第一次编写新的应用程序。
 
-It starts innocently enough. You have a completely clean slate and want to keep things simple. You are a devout Agilist and YAGNI is your watchword. So you begin with a ‘simple, barbones framework’. That sounds good, doesn’t it? (Even if it did not, that’s often the only choice you’ve got).
+起初你很天真。你的项目非常干净并希望让事情一直简单，虔诚地关注着敏捷与 YAGNI（You aren't gonna need it，意为“你不需要它”）。因此你从一个“简单的框架”入手。这感觉挺好，对吧？（即使感觉并不好，这也经常是你唯一的选择）。
 
-Being barebones it does little, so the task falls on your shoulders to choose some helper libraries. If you are doing frontend work, it might be helpers for Redux for forms and API requests. If backend, it might be middlewares for Express [2].
+作为一个赤裸的框架它能做的事很少，因此担子落在你的肩上，需要选择一些助手库。如果你负责前端工作，则可能是表单和 API 请求的 Redux 助手。如果是后端，则可能是 Express 中间件[2]。
 
-So you do a Google search, which reveals a Medium post that heartily recommends _X.js_. It later transpires the post was written by _X’s_ author, though she never announces that particular conflict of interest (she does, however, provide a GitTip jar). Not that you could tell - all Medium articles look the same, so you can never rely on a ‘brand’ to identify reputable material.
+如果你用 Google 搜索一下，会显示有个 Medium 文章大力推荐 **X.js**。后来发现这篇文章就是 **X.js** 的作者写的，尽管她从未声明过利益冲突（但是她提供了一个 GitTip 的 jar 包）。并不是说所有的 Medium 文章看起来都一样，因此你不能依赖某个“品牌”来识别有信誉的资料。
 
-You miss the replies pointing out some critical inadequacies in _X.js_, because Medium deliberately suppresses them, and move on to finding a _Y_.
+你错过了一些指出 **X.js** 致命缺陷的文章，因为 Medium 有意扣住了这些文章，然后你去继续寻找一个 **Y**.
 
-This time you find a link on Twitter - with over a hundred hearts! You guess that’s a pretty good signal it’s been “curated” by a community more knowledgeable than yourself. You add a heart of your own in gratitude (like the hundred before) and follow the link to Github.
+这次你在 Twitter 上找到了一个有一百多个红心的链接！你猜这是个好信号，因为 Twitter 是一个比你懂得更多的社区“策划”的。你在感激之情中也点了红心（像之前那一百多个人一样）然后按照链接到了 Github。
 
-But not so fast. That link was old - the library is now deprecated. You can tell because the word `DEPRECATED` is slapped everywhere like `CONDEMNED` signs on a Scooby Doo themepark.
+事情进展的没那么快。那个链接过时了——这个库已经被废弃了。你会发现这一点是因为页面上到处都是 `DEPRECATED` 这个单词，，就像史努比主题公园里的 `CONDEMNED` 标志（译者注：史努比系列电影中的一个主题）。
 
-You see, _Y.js_ was “object oriented”. You thought this was a good thing, vaguely recalling something from first year ComSci about Smalltalk and message passing. But apparently it is Very Bad.
+你发现 **Y.js** 是“面向对象”的。你模糊记起计算机专业大一时学到的面向对象程序设计语言和通信的内容，觉得这是一个好东西。但显然这很糟糕。
 
-Another Medium article tries to explain why, though its reasoning is hazy and packed in dense terminology you don’t recognise. It later turns out the terminology was invented by the post’s author, as were the neutral-looking external blog posts he cited as authorities to his argument.
+Medium 上的另一篇文章试图解释为什么，然而他的论证不仅含糊不清，还有一堆密密麻麻你不认识的术语。后来你发现这些术语就是文章作者自己发明的，正如他所引用的看似中立的外部博客文章一样，他引用了自己的论点。
 
-It gets worse. The post claims that even mentioning OOP in a JavaScript interview will render you utterly unemployable! You are seriously disoriented now. Thankfully help is at hand - in the form of his $50 dollar JavaScript webdev course. You take a note of the link, thinking how lucky you are to have found it, and give another clap in gratitude. (Nineteen thousand and one).
+情况变得更糟了。文章声称在 JavaScript 面试中提到 OOP（面向对象）也会导致你拿不到 offer！你现在已经完全懵逼了。谢天谢地，手头就有解决方案——文章作者的售价 50 刀的 JavaScript 开发课程。你记下了课程链接，感觉三生有幸才能找到这个课程，又在感激之情中给了一个 clap（此文章的第一万九千另一个 clap）（译者注：clap 是 Medium 上类似于点赞的一个东西）。
 
-So you move onto _Z.js_, which seems to have a lot more Github stars, though the documentation seems less useful. Lots of methods are listed, but how do I practically use it? You are heartened at least to see it uses something called ‘Standard JS’, which you assume has something to do with the ECMA Standards Committee. It doesn’t.
+于是你继续找到了 Github 上的高星项目 **Z.js**，虽然它的文档看起来没什么用。文档只是列出了一堆方法，但是实际该怎么使用 **Z.js** 呢？至少看到 **Z.js** 使用了叫 “Standard JS” 的东西，你觉得这与 ECMA 标准委员会有关，精神一振。然而它们之间并没有什么关系。
 
-But how could you do better, Junior Developer? Who was there to guide you? The Senior Developers, too, are learning as they go. We’re caught in this avalanche too, just trying to keep up to date and remain employable.
+作为一名初级工程师，怎么才能做得更好呢？谁可以引导你？高级工程师也同样在边学边做。我们也困在其中，只能疲于跟上潮流，维持工作。
 
-So. You take the path of least resistance: you choose the Github project with the most votes, the most stars. And **that** is why JavaScript dev is driven by fads and hype.
+所以你放弃抵抗：选择了 Gihub 上 Star 数最多，投票最多的项目。**这就是为什么 JavaScript 是由潮流和炒作驱动的**。
 
-### What is to be done?
+### 应该做些什么？
 
-Like most natural complainers I am generally better at moaning about problems than, y’know, SOLVING them. But I have a few ideas:
+和那些天生爱抱怨的人一样，我更擅长抱怨问题，而不是**解决**问题。但我有一些想法：
 
-### Be wary of Medium
+### 谨慎对待 Medium
 
-Medium incentivises clickbait somewhat and makes it harder to distinguish authoritative content. Classical blogging allows good authors to establish a distinct visual theme, which helps visitors recognise a source that’s helped them before.
+Medium 鼓励了一些标题党，使得我们很难辨别权威内容。传统博客允许优秀作者创建独特的博客主题，有助于读者识别之前有过帮助的内容源。
 
-### Be wary of self-promotion
+### 谨慎对待 “自我提升”
 
-Over the last few years I’ve seen much more aggressive self-marketing in the JavaScript world, possibly due to the rise of paid online training materials and the employment/consulting advantage of being a Github ‘celebrity’. I’ve no problem with people being incentivised for good content, but increasingly I feel I see dishonest tactics: self-citation; invented, proprietary terminology (so searching takes you back to the author’s materials), and name-squatting (e.g. ‘Standard.js’)
+过去几年里看到了 JavaScript 领域中更积极的自我推销，这可能与在线付费内容的增加与作为 Github “网红” 进行就业/咨询的优势有关。对于那些为优秀内容付费并感到满意的人没有任何问题，但是越来越多的人遇到了虚假策略：自我引证，发明专有术语（所以搜索引擎会将你带回作者的文章）以及名称冒用（如 “Standard.js”）。
 
-### Consider non-microlib architectures
+### 考虑无微型库（non-microlib）架构
 
-Try to start your projects in frameworks that provide a large surface area of features and don’t require many plugins to get productive - this will immediately reduce the number of moving parts and exposure to unexpected, breaking change. It’s one reason I’m very interested in [Vue.js](https://vuejs.org/). You could also use React as part of a starter kit or larger framework, like [Next](https://github.com/zeit/next.js/).
+尝试用提供丰富功能特性并且无需其它插件来提升效率的框架来启动项目，这将立即减少模块变动和暴露在外的意外变化。这也是我对 [Vue.js](https://vuejs.org/) 感兴趣的原因之一。你也可以像 [Next](https://github.com/zeit/next.js/) 一样使用 React 作为初学者礼包或更大型框架的一部分。
 
-### Don’t over-sweat the employablity thing
+### 不要过分焦虑就业问题
 
-The only people who need to know a company’s whole stack inside and out on day zero are freelance contractors, who are paid a handsome wage to parachute in and get a project out the door. Otherwise, most employers are absolutely fine with you not knowing the ins and outs of the latest React helper library. So avoid the call to learn absolutely everything: most of it noise.
+唯一需要在报到当天就全盘了解公司内外技术栈的是外包人员，他们可以在公司外完成项目，获得可观的薪酬。除此之外，大多数老板并不在意你不了解最新 React 助手库的来龙去脉。因此，不必理会那些需要学习一切内容的呼吁，其中大多数都是噪音。
 
-### Notes[]
+### 标注[]
 
-[1] Though it has many, many faults.
+[1] 这一想法有很多很多错误。
 
-[2] Can you believe Express requires a middleware just to parse JSON POST bodies? Sorry, but that is utterly bananas.
+[2] 你敢信 Express 需要一个中间件才能解析 JSON 格式的 POST 请求 Body。抱歉，Express 就是这么为所欲为。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
