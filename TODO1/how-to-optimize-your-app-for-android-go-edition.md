@@ -2,8 +2,7 @@
 > * 原文作者：[Raj Ajrawat](https://medium.com/@rajamatage?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-optimize-your-app-for-android-go-edition.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-optimize-your-app-for-android-go-edition.md)
-> * 译者：
-> * 校对者：
+> * 译者：[androidxiao](https://github.com/androidxiao)
 
 # 如何优化您的 Android 应用（Go 版）
 
@@ -28,11 +27,11 @@
 
 有三种情况可以确定：
 
-*  **一个应用程序的所有。**针对 Android（Go 版）设备和具有相同体验的所有其他设备使用相同的应用程序。在这种情况下，您正在优化现有应用程序以便在这些设备上顺利运行，并且您的现有用户可以从这些优化中获得性能优势。这个应用程序可能是多进制的，但对于低 RAM 设备没有特定的经验。我们强烈建议您使用新的  [Android App Bundle](https://developer.android.com/platform/technology/app-bundle/) 来体验高达 65％ 的体积节省，而无需重构代码。
+*  **一个应用程序的所有。** 针对 Android（Go 版）设备和具有相同体验的所有其他设备使用相同的应用程序。在这种情况下，您正在优化现有应用程序以便在这些设备上顺利运行，并且您的现有用户可以从这些优化中获得性能优势。这个应用程序可能是多进制的，但对于低 RAM 设备没有特定的经验。我们强烈建议您使用新的  [Android App Bundle](https://developer.android.com/platform/technology/app-bundle/) 来体验高达 65％ 的体积节省，而无需重构代码。
 
-* **一个应用程序，不同的 APK。**针对 Android（Go 版）设备和其他所有设备使用相同的应用，但是有不同的体验。创建不同的 APK; 一个 APK 针对新的 android.hardware.ram.low 尺寸 vs APK（s）定位其他所有设备。
+* **一个应用程序，不同的 APK。** 针对 Android（Go 版）设备和其他所有设备使用相同的应用，但是有不同的体验。创建不同的 APK; 一个 APK 针对新的 android.hardware.ram.low 尺寸 vs APK（s）定位其他所有设备。
 
-* **两个应用。**创建一个新的 “lite” 应用程序并定位 Android（Go 版）设备。您可以按原样保留现有的应用程序。“lite” 应用程序仍然可以定位所有区域设置中的所有设备，因为不需要此“精简版”应用程序仅针对 Android（Go 版）设备。
+* **两个应用。** 创建一个新的 “lite” 应用程序并定位 Android（Go 版）设备。您可以按原样保留现有的应用程序。“lite” 应用程序仍然可以定位所有区域设置中的所有设备，因为不需要此“精简版”应用程序仅针对 Android（Go 版）设备。
 
 每种方式都有优点和缺点，最好根据您的特定业务来评估这些方案。
 
@@ -53,28 +52,17 @@
 
 研究表明，ANR（应用程序无响应）错误和崩溃可能会对用户保留造成重大负面影响，并可能导致高卸载率。购买 Android（Go版）手机的消费者会把它们作为他们的第一款智能手机，他们会期待一种快乐，干净，高效的体验，而不是让手机死机。Google Play 控制台中的 [Android 重要](https://developer.android.com/topic/performance/vitals/index.html)功能可让您跟踪 ANR 和崩溃情况，并深入了解影响特定用户或设备类型的错误。该工具对于我们许多开发人员来说是识别，分类和修复其应用程序中出现的问题所不可缺少的。
 
-
 ![](https://cdn-images-1.medium.com/max/800/0*TjnO4X-3zCNH1Imw.)
-
-
 
 >“为了降低崩溃率和减少 ANR，我们使用了 Android 的重要功能和 Firebase 的 Crashlytics 进行主动监控，并且设法在大约 99.9％ 的无崩溃会话和 ANR 率小于 0.1％ 的情况下运行，从而使我们的崩溃比我们早期的版本降低了 10 倍,“ [Flipkart](https://play.google.com/store/apps/details?id=com.flipkart.android) 用户体验与成长高级总监 Arindam Mukherjee 说。“为了实现这一目标，我们分阶段推出了我们的应用程序 - 监控崩溃和 ANR，广泛使用 Nullity Annotations 来计算运行静态代码分析工具时的 NullPointerException 问题。我们还对启用 ProGuard 的版本进行了测试，这有助于我们在周期的早期捕获与混淆相关的问题。“
 
-
-
-
 在诊断 ANR 时有一些常见的模式用于查找：
 
-*  该应用程序在主线程上执行涉及 I/O 的耗时操作。
-
-*  该应用程序正在主线程上进行耗时操作
-
+* 该应用程序在主线程上执行涉及 I/O 的耗时操作。
+* 该应用程序正在主线程上进行耗时操作
 * 主线程正在对另一个进程执行同步绑定程序调用，而其他进程需要很长时间才能返回。
-
 * 主线程被阻塞，等待正在另一个线程上发生的耗时同步操作。
-
 * 主线程与另一个线程处于死锁状态，无论是在您的进程中还是通过联编程序调用。主线程不是要等待很长时间才能完成操作，而是处于死锁状态。有关更多信息，请参见[死锁](https://developer.android.com/topic/performance/vitals/anr#deadlocks)。
-
 
 请务必了解更多关于[诊断和再现崩溃的信息](https://developer.android.com/topic/performance/vitals/crash.html#diagnose_the_crashes)，并查看 [Flipkart](https://play.google.com/store/apps/details?id=com.flipkart.android) 关于 Android 版优化的最新视频（Go 版）：
 
@@ -82,19 +70,14 @@ YouTube 视频链接：https://youtu.be/4lHfTteF8tE?list=PLWz5rJ2EKKc9ofd2f-_-xm
 
 #### 目标 Android 奥利奥
 
-
 Android Oreo（目标 API 26）包含许多[资源优化措施](https://developer.android.com/about/versions/oreo/android-8.0.html#art)，如[后台执行限制](https://developer.android.com/about/versions/oreo/background.html)，这可确保进程在后台正常运行，同时保持手机流畅。许多这些功能都是专门为提高电池寿命和整体手机性能而设计的，并且确保使用这些设备的用户对您的应用有很好的体验。如果您的应用或游戏仍未针对 API 26 或更高版本，我强烈建议您[仔细阅读](https://developer.android.com/distribute/best-practices/develop/target-sdk.html) Google Play [的迁移指南](https://developer.android.com/distribute/best-practices/develop/target-sdk.html)。特别要密切关注[后台执行限制](https://developer.android.com/about/versions/oreo/background.html)和[通知渠道](https://developer.android.com/about/versions/oreo/android-8.0.html#notifications)。请记住[已经宣布安全更新](https://android-developers.googleblog.com/2017/12/improving-app-security-and-performance.html)：发布到 Play 控制台的新应用需要在 2018 年 8 月 1 日之前至少定位到 API 26（Android 8.0）或更高版本，而现有/已发布应用的更新将需要在 2018 年 11 月 1 日之前完成。为了符合这些要求，您需要尽快使用奥利奥。
-
 
 #### 保持安装的大小很小
 ![](https://cdn-images-1.medium.com/max/800/0*BqSRQQuWQ7Q_Xna1.)
 
-
 [APK 大小和安装率之间](https://medium.com/googleplaydev/shrinking-apks-growing-installs-5d3fcba23ce2)存在[非常明显的相关性：APK 大小](https://medium.com/googleplaydev/shrinking-apks-growing-installs-5d3fcba23ce2)越小，安装量越高。使用 Android（Go 版）的人对磁盘大小非常敏感，因为这些手机通常存储容量有限。这就是为什么 Play 商店会在搜索结果和 Play 商品详情等特定情况下展示应用尺寸超过应用评分的原因之一。尽管 Android（Go 版）设备上的 Play 商店与全球所有设备上的用户都可以使用的 Google Play 商店相同，但我们正在自定义商店体验，我们认为这对于这些设备上的用户非常重要。
 
-
-
->“ 我们的 Android 团队对使用网络和设备资源有限的用户会重点关注，” [Tinder](https://play.google.com/store/apps/details?id=com.tinder) 国际增长主管 AJ Cihla 说。“ 更好的是，随着  Android App Bundle 的推出，我们能够以简单，可持续的方式减少 20％，并且这样做自然适合我们的持续集成和流程部署。总而言之，我们正在寻找适用于 Android Go 设备的 27MB 
+> “我们的 Android 团队对使用网络和设备资源有限的用户会重点关注，” [Tinder](https://play.google.com/store/apps/details?id=com.tinder) 国际增长主管 AJ Cihla 说。“ 更好的是，随着  Android App Bundle 的推出，我们能够以简单，可持续的方式减少 20％，并且这样做自然适合我们的持续集成和流程部署。总而言之，我们正在寻找适用于 Android Go 设备的 27MB 
  APK; 这是我们去年发布的 90MB + 套件的一大飞跃。“
 
 
@@ -140,15 +123,11 @@ Android（Go 版）手机是设备上具有 <1GB RAM 的设备。该操作系统
 > LATAM 最大的购物应用程序 [Mercado Libre](https://play.google.com/store/apps/details?id=com.mercadolibre) 通过将精力集中在应用程序的体系结构上，能够解决内存分配和 APK 大小需求。”为了缩小我们 APK 的规模，我们首先通过架构和密度实现了多 APK，然后通过 ProGuard 在外部库中分离出任何额外的类或资源，“ Mercado Libre 的工程师 Nicolas Palermo 说。” 从那里，我们通过分析确认是否需要某些库，并删除那些我们不必要的库来关注我们的代码和资源。我们所有的图像都在可能的情况下更改为 WebP，并且任何未转换为 WebP 的图像都严格按照我们所需的质量进行压缩。最后，我们使用 APK 分析器了解更多关于我们的内存使用情况，以确保我们的 PSS 在可接受的范围内。“
 
 
->“我开始瞄准 SDK 26，以确保用户获得最新的 Android 体验。从那里，我找到了所有的静态函数和静态变量，看看它们是否真的有必要，然后删除那些没有的东西。为了在 Activities 和 Fragments 之间传值，可以用公共接口替换公共静态函数，”预算应用程序 [Gastos Diarios 3 的](https://play.google.com/store/apps/details?id=mic.app.gastosdiarios)创建者 Michel Carvajal 说。他补充说：“我还找到了诸如 While 和 For 这样的循环，用于读取数据库的执行操作，并尝试使用 AsyncTask 将大部分这些进程放入异步类中。最后，我搜索了不明确的 SQL 语句以取代更高效的 SQL 语句。所有这些项目以及其他一些项目共同帮助我将 PSS 降低了近 60％。
+> “我开始瞄准 SDK 26，以确保用户获得最新的 Android 体验。从那里，我找到了所有的静态函数和静态变量，看看它们是否真的有必要，然后删除那些没有的东西。为了在 Activities 和 Fragments 之间传值，可以用公共接口替换公共静态函数，”预算应用程序 [Gastos Diarios 3 的](https://play.google.com/store/apps/details?id=mic.app.gastosdiarios)创建者 Michel Carvajal 说。他补充说：“我还找到了诸如 While 和 For 这样的循环，用于读取数据库的执行操作，并尝试使用 AsyncTask 将大部分这些进程放入异步类中。最后，我搜索了不明确的 SQL 语句以取代更高效的 SQL 语句。所有这些项目以及其他一些项目共同帮助我将 PSS 降低了近 60％。
 
-
-#### 保持冷启动时间在5秒以下
-
+#### 保持冷启动时间在 5 秒以下
 
 感知是关键。在用户测试和研究中，等待应用程序或游戏加载5秒后，人们会感到沮丧，这会导致放弃和卸载。您应该把它当作您的窗口，以确保您拥有一个用户，并且不要让他们有机会在他们的手机上安装您的应用后放弃您的应用。我们总是测量冷启动时间，因为这段时间是您的应用程序与用户充分交互。完成重新启动测试设备后，最好在冷启动时间内运行测试。
-
-
 
 >“在考虑尺寸要求时，我们将工作重点放在图像压缩格式，声音片段长度和图像分辨率上，”  [Sachin Saga Cricket Champions](https://play.google.com/store/apps/details?id=com.jetplay.sachinsagacc) 制造商 JetSynthesys 生产副总裁 Amitabh Lakhera 说。“ 对于启动时间优化，减少数据加载，设置和后台实用程序，有助于节省大量时间。除了优化游戏着色器，并避免像玩家档案一样的检查，游戏平衡文件和强制更新显着加快了游戏开始。在启动时删除互联网连接并使用反作弊工具可防止玩家在游戏中出现任何潜在的不当行为，并减少内存使用量。”
 
@@ -158,11 +137,9 @@ YouTube 视频链接：https://youtu.be/-g7yxxTpF2o?list=PLWz5rJ2EKKc9Gq6FEnSXCl
 
 * * *
 
-
 ### **您怎么认为？**
 
 您有没有想过如何开发全球市场并优化您的应用策略？请在下面的评论中告诉我们，或者使用 **#AskPlayDev **发**微博**，我们会回复 [@GooglePlayDev](http://twitter.com/googleplaydev)，我们会定期分享有关如何在 Google Play 上取得成功的新闻和建议。
-
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
