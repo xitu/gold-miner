@@ -390,81 +390,70 @@ id：许可证的标识字符串。 该属性是**可选的**。
 
 text：零个或多个子元素，包含字符数据和可选的`div`和/或`span`子元素
 
-**`copyright` element**
+**`copyright` 元素**
 
-The copyright for the font. This element is OPTIONAL. If present, it MUST be a child of the metadata element. This element may be localized using `text` child elements. This element has no attributes.
+字体的版权。 这个元素是**可选的**。 如果存在，它**必须**是元数据元素的子元素。 这个元素可以使用 `text` 子元素进行本地化。 这个元素没有属性。
 
-**children**
+**子元素**
 
-text: One or more child elements containing character data and optionally `div` and/or `span` children
+text：一个或多个包含字符数据的子元素，以及可选的`div`和/或`span`子元素
 
-**`trademark` element**
+**`trademark` 元素**
 
-The trademark for the font. This element is OPTIONAL. If present, it MUST be a child of the `metadata` element. This element may be localized using `text` child elements. This element has no attributes.
+字体的商标。 这个元素是**可选的**。 如果存在，它**必须**是 `metadata` 元素的子元素。 这个元素可以使用 `text` 子元素进行本地化。 这个元素没有属性。
 
-**children**
+**子元素**
 
-text: One or more child elements containing character data and optionally `div` and/or `span` children
+text：一个或多个包含字符数据的子元素，以及可选的`div`和/或`span`子元素
 
-**`licensee` element**
+**`licensee` 元素**
 
-The licensee of the font. This element is OPTIONAL. If present, it MUST be a child of the `metadata` element. This is an empty element.
+字体的被许可人。 这个元素是**可选的**。 如果存在，它**必须**是 `metadata` 元素的子元素。 这是一个空白的元素。
 
-**attributes**
+**属性**
 
-name: The name of the licensee. This attribute is REQUIRED.
+name：被许可人的名字。 该属性是**必需的**。
 
-dir: The text direction, either `ltr` (for "left to right") or `rtl` (for "right to left"). This attribute is OPTIONAL and, if omitted, defaults to `ltr`.
+dir：文本方向，可以是`ltr`（用于“从左到右”）或`rtl`（用于“从右到左”）。 该属性是可选的，如果省略，则默认为`ltr`。
 
-class: An arbitrary set of space-separated tokens. This attribute is OPTIONAL.
+class：一组用空格任意分隔的令牌。 该属性是**可选的**。
 
-Although the metadata elements and structure defined above are expected to be sufficient for most needs, an extension mechanism is also provided so that font vendors can include arbitrary metadata items that do not fit the standard elements above:
+尽管上面定义的元数据元素和结构预计足以满足大多数需求，但还是提供了扩展机制，以便字体供应商可以包含不符合上述标准元素的任意元数据项目：
 
-**`extension` element**
+**`extension` 元素**
 
 A container element for extended metadata provided by the vendor. Zero or more `extension` elements may be present as children of the top-level metadata element. Each such metadata `extension` has an optional `name`, which may be provided in multiple languages, and one or more item elements.
+供应商提供的扩展元数据的容器元素。 零个或多个 `extension` 元素可以是顶级元数据元素的子元素。 每个这样的 `extension` 元数据具有可选的 `name`，其可以以多种语言提供，并且具有一个或多个项目元素。
 
-**attributes**
+**属性**
 
-id: An arbitrary identifier defined by the vendor. This attribute is OPTIONAL.
+id：供应商定义的任意标识符。 该属性是**可选的**。
 
-**children**
+**子元素**
 
-name: Zero or more child elements
+name: 零个或多个子元素
 
-item: One or more child elements
+item: 一个或多个子元素
 
-item element: At least one item element MUST be present in each `extension` container.
+item element：每个 `extension` 容器中**必须**至少存在一个项目元素。
 
-**attributes**
+**属性**
 
-id: An arbitrary identifier defined by the vendor. This attribute is OPTIONAL.
+id：供应商定义的任意标识符。 该属性是**可选的**。
 
-**children**
+**子元素**
 
-name: One or more child elements
+name: 一个或多个子元素
 
-value: One or more child elements
+value: 一个或多个子元素
 
-**`name` element**
+**`name` 元素**
 
-Zero or more `name` elements may be used to provide a human-friendly name for the collection of extended metadata items in an `extension` element. A user agent that displays metadata SHOULD choose the name with most the appropriate language from among those available for each named `extension` element. This child element is OPTIONAL in `extension` elements; anonymous extension elements are also permissible.
+可以使用零个或多个 `name` 元素来为扩展元素中的扩展元数据项集合提供一个人性化的名称。显示元数据的用户代理**应当**从每个指定 `extension` 元素的可用语言中选择最合适的语言。这个子元素在`extension`元素中是可选的；匿名扩展元素也是允许的。
 
-One or more `name` elements are also used to provide a human-friendly name for a specific extended metadata item. A user agent that displays metadata SHOULD choose the name with the most appropriate language from among those available for each `item` element. This child element is REQUIRED in `item` elements; an `item` element with no` name` is invalid and SHOULD be ignored.
+还可以使用一个或多个 `name` 元素为特定的扩展元数据项提供人性化的名称。显示元数据的用户代理应该从每个 `item` 元素的可用语言中选择最合适的语言。 这个子元素在 `item` 元素中是**必需**的；没有 `name` 的 `item` 元素是无效的，应该被忽略。
 
-**attributes**
-
-xml:lang: A language tag as defined in BCP47 [[BCP47](#ref-BCP47)]. This attribute is OPTIONAL.
-
-dir: The text direction, either `ltr` (for "left to right") or `rtl` (for "right to left"). This attribute is OPTIONAL and, if omitted, defaults to `ltr`.
-
-class: An arbitrary set of space-separated tokens. This attribute is OPTIONAL.
-
-**`value` element**
-
-One or more `value` elements are used to provide the value of a specific extended metadata item. A user agent that displays metadata SHOULD choose the value with the most appropriate language from among those available for each `item` element. This child element is REQUIRED; an `item` element with no `value` is invalid and SHOULD be ignored.
-
-**attributes**
+**属性**
 
 xml:lang: A language tag as defined in BCP47 [[BCP47](#ref-BCP47)]. This attribute is OPTIONAL.
 
@@ -472,65 +461,85 @@ dir: The text direction, either `ltr` (for "left to right") or `rtl` (for "right
 
 class: An arbitrary set of space-separated tokens. This attribute is OPTIONAL.
 
-Where `text` elements are used to contain (localizable) content, further structure MAY also be provided using `div` and `span` child elements similar to those used in HTML.
+xml：lang：  BCP47 [[BCP47](#ref-BCP47)]中定义的语言标签。 该属性是可选的。
 
-**`text` element**
+dir：  文本方向，可以是`ltr`（用于“从左到右”）或`rtl`（用于“从右到左”）。 该属性是可选的，如果省略，则默认为`ltr`。
 
-An element used to contain a particular localization of a metadata element's contents. This element has a mixed content model; in addition to the child elements mentioned below, it may directly contain character data.
+class：  一组用空格任意分隔的令牌。 该属性是**可选的**。
 
-**attributes**
+**`value` 元素**
 
-xml:lang: A language tag (as specified in BCP47 [[BCP47](#ref-BCP47)]) indicating the language of this particular version of the metadata element's content. This attribute is OPTIONAL; however, for multiple `text` children of a metadata element to be usefully distinguished, they SHOULD all be tagged with appropriate different language codes.
+一个或多个`value`元素用于提供特定扩展元数据项的值。 显示元数据的用户代理**应当**从每个`item`元素的可用语言中选择最合适的语言值。这个子元素是必需的; 没有 `value` 的 `item` 元素是无效的，应该被忽略。
 
-dir: The text direction, either `ltr` (for "left to right") or `rtl` (for "right to left"). This attribute is OPTIONAL and, if omitted, defaults to `ltr`.
+**属性**
 
-class: An arbitrary set of space-separated tokens. This attribute is OPTIONAL.
+xml：lang：  BCP47 [[BCP47](#ref-BCP47)]中定义的语言标签。 该属性是**可选的**。
 
-**children**
+dir：  文本方向，可以是`ltr`（用于“从左到右”）或`rtl`（用于“从右到左”）。 该属性是**可选的**，如果省略，则默认为`ltr`。
 
-div: Contains a block of text, such as a paragraph or heading.
+class：一组任意空格分隔的令牌。 该属性是**可选的**。
 
-span: Contains an inline run of text.
+在使用'text'元素来包含（可本地化）内容的地方，也可以使用 `div` 和 `span` 子元素来提供进一步的结构，类似于HTML中使用的元素。
 
-**`div` element**
+**`text` 元素**
 
-A block-level element used, for example, to contain a paragraph.
+一个用于包含元数据元素内容的特定本地化的元素。该元素具有混合内容模型; 除了下面提到的子元素之外，它可以直接包含字符数据。
 
-**attributes**
+**属性**
 
-dir: The text direction, either `ltr` (for "left to right") or `rtl` (for "right to left"). This attribute is OPTIONAL and, if omitted, defaults to `ltr`.
+xml：lang：语言标记（如BCP47 [[BCP47](#ref-BCP47)]中指定的），指示元数据元素内容的此特定版本的语言。 该属性是可选的; 然而，对于元数据元素的多个 `text` 子元素要进行有效区分，他们**应当**使用适当的不同语言代码进行标记。
 
-class: An arbitrary set of space-separated tokens. This attribute is OPTIONAL.
+dir：文本方向，可以是`ltr`（用于“从左到右”）或`rtl`（用于“从右到左”）。 该属性是**可选的**，如果省略，则默认为`ltr`。
 
-**`span` element**
+class：一组任意空格分隔的令牌。 该属性是**可选的**。
 
-An inline element used, for example, to indicate a run of text with a different text direction, or in a different language.
+**子元素**
 
-**attributes**
+div：包含一段文字，如段落或标题。
 
-dir: The text direction, either `ltr` (for "left to right") or `rtl` (for "right to left"). This attribute is OPTIONAL and, if omitted, defaults to `ltr`.
+span：包含内联文本。
 
-class: An arbitrary set of space-separated tokens. This attribute is OPTIONAL.
+**`div` 元素**
 
-The `text` elements used to hold (localizable) text for a number of the individual pieces of metadata thus have a mixed content model consisting of text content, `div` and `span` elements; `div` elements have a mixed content model of text content, `div` and `span` elements; and `span` elements have a mixed content model of text content and `span` elements. In other words, div can contain other `div` elements; `span` can contain other `span` elements; `span` does not require a containing `div`.
+一个用于包含（比如）段落的块级元素。
 
-[Appendix A](#appendix-a) includes several examples of the content of the metadata block.
+**属性**
 
-Note: Although the metadata block is optional, and there is no requirement for user agents to process it in order to render the font, clients such as Web browsers are encouraged to provide a means (such as a "Font Information" dialog for the current page) for users to view the metadata included in WOFF files. Not every client will necessarily have an appropriate context for this, but any client that enables the user to find out about the resources used by a Web document should consider exposing information about the fonts used, and in the case of WOFF-packaged fonts, the metadata block is the primary source of this information.
+dir：文本方向，可以是`ltr`（用于“从左到右”）或`rtl`（用于“从右到左”）。 该属性是**可选的**，如果省略，则默认为`ltr`。
 
-## 8. Private Data Block
+class：一组任意空格分隔的令牌。 该属性是**可选的**。
 
-The WOFF file MAY include a block of arbitrary data, allowing font creators to include whatever information they wish. The content of this data MUST NOT affect font usage or load behavior of user agents. User agents should make no assumptions about the content of a private block; it may (for example) contain ASCII or Unicode text, or some vendor-defined binary data, and it may be compressed or encrypted, but it has no publicly defined format. Conformant user agents will not assume anything about the structure of this data. Only the font developer or vendor responsible for the private block is expected to understand its contents.
+**`span` 元素**
+
+用于指示（比如）具有不同文本方向或不同语言的文本的一连串的文本。
+
+**子元素**
+
+dir：文本方向，可以是`ltr`（用于“从左到右”）或`rtl`（用于“从右到左”）。 该属性是**可选的**，如果省略，则默认为`ltr`。
+
+class：一组任意空格分隔的令牌。 该属性是**可选的**。
+
+用于保存（可本地化）的文本的 `text` 元素分割成许多独立的元数据，因此具有由文本内容、`div` 和 `span` 元素组成的混合内容模型; `div` 元素具有文本内容、`div` 和 `span` 元素的混合内容模型; `span` 元素具有文本内容和 `span` 元素的混合内容模型。 换句话说，div 可以包含其他 `div` 元素; `span` 可以包含其他 `span` 元素; `span` 不需要包含 `div`。
+
+[附录 A](#appendix-a) 包含了元数据块内容的几个例子。
+
+注意：尽管元数据块是可选的，并且不需要用户代理为了渲染字体而对其进行处理，但是鼓励诸如 Web 浏览器的客户端提供一种手段（例如当前的“字体信息”对话框页面）供用户查看 WOFF 文件中包含的元数据。 并非每个客户端都必须具有适当的上下文，但是任何使用户能够找出 Web 文档所使用的资源的客户端都应该考虑公开有关所用字体的信息，并且在使用 WOFF 打包字体的情况下，元数据块是此信息的主要来源。
+
+## 8. 专有数据块
 
 The private data block, if present, MUST be the last block in the WOFF file, following all the font tables and any extended metadata block. The private data block MUST begin on a 4-byte boundary in the WOFF file, with up to three null bytes inserted as padding after any preceding metadata block if needed to ensure this. The end of the private data block MUST correspond to the end of the WOFF file.
 
+WOFF 文件可以包含任意数据块，允许字体创建者包含他们希望的任何信息。这些数据的内容不得影响用户代理的字体使用或加载行为。用户代理**不得**对专有块的内容做任何假设；它可能（例如）包含 ASCII 或 Unicode 文本或某些供应商定义的二进制数据，它可能是压缩或加密的，但它没有公开定义的格式。符合规范的用户代理不会假设任何关于这些数据的结构。只有负责专有块的字体开发人员或供应商才能理解其内容。
+
+专有数据块（如果存在）**必须**是 WOFF 文件中的最后一个块，跟随在所有字体表和任何扩展元数据块之后。私人数据块务必从 WOFF 文件中的一个4字节边界开始，如果需要的话，最多可以在任何前面的元数据块之后插入作为填充的三个空字节，以确保这一点。专有数据块的末尾必须对应于 WOFF 文件的末尾。
+
 * * *
 
-## Appendix A: Extended Metadata Examples
+## 附录 A: 扩展元数据示例
 
-This appendix is purely informative, not a normative part of the WOFF specification.
+本附录纯粹是指示性的，不是 WOFF 规范的正式部分。
 
-This "dummy" metadata block illustrates the use of the metadata elements described in section 7, including the use of multiple `text` child elements to provide localized versions of certain elements.
+这个“虚拟”元数据块描述了第 7 节中描述的元数据元素的用法，包括使用多个`text`子元素来提供某些元素的本地化版本。
 
 ```
 <?xml version="1.0" encoding="UTF-8"?>
@@ -617,7 +626,7 @@ A real-life example of a simple metadata block (reproduced by permission of FSI 
 </metadata>
 ```
 
-Another example of a metadata block (reproduced by permission of Ascender Corporation). This is dynamically generated, with the `uniqueid` and `licensee` elements modified to be unique for each customer.
+元数据块的另一个例子（由 Ascender Corporation 许可转载）。 这是动态生成的，`uniqueid` 和 `uniqueid`元素被修改为每个用户都是唯一的。
 
 ```
 <?xml version="1.0" encoding="UTF-8"?>
@@ -637,9 +646,9 @@ software. If you have any questions, please contact Ascender Corp.</text>
 </metadata>
 ```
 
-Here is an example of how the div element could be used, modified from a portion of the [XML file for Gentium Plus](http://dev.w3.org/webfonts/WOFF/spec/metadata/GentiumPlus-WOFF-metadata.xml) which, when viewed as plain text, has paragraph formatting.
+下面是一个如何使用 div 元素的例子，可以从[Gentium Plus的XML文件](http://dev.w3.org/webfonts/WOFF/spec/metadata/GentiumPlus-WOFF-metadata .xml)的一部分修改，当以纯文本格式查看时，它具有段落格式。
 
-The original metadata file contained:
+原始的元数据文件包含：
 
 ```
 <description>
@@ -670,7 +679,7 @@ The original metadata file contained:
 </description>
 ```
 
-Using the `div` element, this could become:
+使用`div`元素，可能会变成：
 
 ```
 <description>
@@ -701,9 +710,9 @@ Using the `div` element, this could become:
 </description>
 ```
 
-## Appendix B: Media Type registration
+## 附录 B: 媒体类型注册
 
-This appendix registers a new MIME media type, in conformance with [BCP 13](http://www.ietf.org/rfc/rfc4288.txt) and [W3CRegMedia](http://www.w3.org/2002/06/registering-mediatype.html).
+本附录根据 [BCP 13](http://www.ietf.org/rfc/rfc4288.txt) 和[W3CRegMedia](http://www.w3.org/2002/06/registering-mediatype.html)注册了一种新的 MIME 媒体类型。
 
 **Type name:** application
 
@@ -716,20 +725,21 @@ This appendix registers a new MIME media type, in conformance with [BCP 13](http
 **Encoding considerations:** binary.
 
 **Security considerations:** 
-    
-Fonts are interpreted data structures that represent collections of glyph outlines, metrics and layout information for various languages and writing systems. Currently, there are many standardized font data tables that allow an unspecified number of entries, and where existing, predefined data fields allow storage of binary data with variable length. There is a significant risk that the flexibility of font data structures may be exploited to hide malicious binary content disguised as a font data component.
 
-WOFF is based on the table-based SFNT (scalable font) format which is highly extensible and offers an opportunity to introduce additional data structures when needed. However, this same extensibility may present specific security concerns – the flexibility and ease of defining new data structures makes it easy for any arbitrary data to be added and hidden inside a font file.
 
-WOFF fonts may contain 'hints' for the alignment of graphical elements of the glyphs with the target display pixel grid, and depending on the font technology utilized in the creation of a font these hints may represent active code interpreted and executed by the font rasterizer. Even though they operate within the confines of the glyph outline conversion system and have no access outside the font rendering machinery, hint instructions can be, however, quite complex, and a maliciously designed complex font could cause undue resource consumption (e.g. memory or CPU cycles) on a machine interpreting it. Indeed, fonts are sufficiently complex that most if not all interpreters cannot be completely protected from malicious fonts without undue performance penalties.
+字体是解释性的数据结构，表示各种语言和书写系统的字形轮廓、度量和布局信息的集合。目前，有许多标准化的字体数据表，允许未指定数量的条目，并且现有的预定义数据字段允许存储具有可变长度的二进制数据。 字体数据结构的灵活性可能会被利用，来隐藏伪装成字体数据组件的恶意二进制内容。
 
-Widespread use of fonts as necessary component of visual content presentation warrants that a careful attention should be given to security considerations whenever a font is either embedded into an electronic document or transmitted alongside media content as a linked resource.
+WOFF 基于以表格为基础的 SFNT（可扩展字体）格式，具有高度的可扩展性，并提供了在需要时引入额外数据结构的功能。 但是，这种相同的可扩展性可能会带来特定的安全问题 —— 定义新数据结构的灵活性和易用性使得任意数据都可以轻松添加和隐藏在字体文件中。
 
-WOFF uses gzip compression. The WOFF header contains the uncompressed length of each compressed table. Applications may therefore constrain the size of memory buffer allocated for decompression and may stop writing if a maliciously crafted WOFF file in fact contains more data than is indicated.
+WOFF 字体可以包含用于将字形的图形元素与目标显示像素网格对齐的“提示”，并且取决于在创建字体中使用的字体技术，这些提示可以表示由字体光栅化器解释和执行的活动代码。尽管它们在字形大纲转换系统的范围内运行，并且不能在字体呈现机制之外访问，但是提示指令可能非常复杂，而且恶意设计的复杂字体可能会导致不必要的资源（例如内存或 CPU 周期）消耗在解释它的机器上。事实上，字体非常复杂，即使不是所有的解释器都不能完全免受恶意字体的影响，也不会受到不适当的性能损失。
 
-WOFF does not provide privacy protections internally; if needed, these should be provided externally.
+广泛使用字体作为视觉内容呈现的必要组成部分，这要求当字体嵌入到电子文档中或与媒体内容一起作为链接资源传输时，应该仔细注意安全性方面的问题。
 
-WOFF has a private data block facility, which may contain arbitrary binary data. WOFF does not provide a means to access this, or to execute any code contained therein. WOFF [requires](#conform-private-noeffect) that the content of this block not affect font rendering in any way.
+WOFF 使用 gzip 压缩。 WOFF 标题包含每个压缩表的未压缩长度。因此，应用程序可能会限制分配给解压缩的内存缓冲区的大小，如果恶意制作的 WOFF 文件实际上包含的数据比指示的数据多，则可能会停止写入。
+
+WOFF 在内部不提供隐私保护; 如果需要，这些应该在外部提供。
+
+WOFF 有一个专有数据块设施，可能包含任意的二进制数据。 WOFF不提供访问这个或者执行其中包含的任何代码的手段。 WOFF [要求](#conform-private-noeffect)该块的内容不会以任何方式影响字体呈现。
 
 **Interoperability considerations:**
 
