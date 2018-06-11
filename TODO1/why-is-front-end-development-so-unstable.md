@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/why-is-front-end-development-so-unstable.md](https://github.com/xitu/gold-miner/blob/master/TODO1/why-is-front-end-development-so-unstable.md)
 > * 译者：[Colafornia](https://github.com/Colafornia)
-> * 校对者：[geniusq1981](https://github.com/geniusq1981)
+> * 校对者：[geniusq1981](https://github.com/geniusq1981) [sunhaokk](https://github.com/sunhaokk)
 
 # 为何前端开发如此不稳定
 
@@ -62,7 +62,7 @@ NPM 是现代 JavaScript 的最大资产，也是最大负债。它提供了丰�
 
 起初你很天真。你的项目非常干净并希望让事情一直简单，你是一个虔诚的 Agilist（敏捷开发倡导者）而且 YAGNI（You aren't gonna need it，意为 “你不需要它”）是你的口号。因此你从一个“简单的框架”入手。这感觉挺好，对吧？（即使感觉并不好，这也经常是你唯一的选择）。
 
-作为一个赤裸的框架它能做的事很少，因此担子落在你的肩上，需要选择一些助手库。如果你负责前端工作，可能是 Redux 的用于表单和 API 请求的辅助库。如果是后端，则可能是 Express 中间件[2]。
+作为一个基本框架它能做的事很少，因此担子落在你的肩上，需要选择一些辅助库。如果你负责前端工作，可能是 Redux 的用于表单和 API 请求的辅助库。如果是后端，则可能是 Express 中间件[2]。
 
 如果你用 Google 搜索一下，会发现一个强烈推荐 **X.js** 的 Medium 文章。后来发现这篇文章就是 **X.js** 的作者写的，尽管她从未声明过利益冲突（但是她提供了一个 GitTip 的 jar 包）。并不是说所有的 Medium 文章看起来都一样，因此你不能依赖某个“品牌”来识别有信誉的资料。
 
@@ -102,7 +102,7 @@ Medium 鼓励了一些标题党，使得我们很难辨别权威内容。传统�
 
 ### 不要过分焦虑就业问题
 
-唯一需要在报到当天就全盘了解公司内外技术栈的是外包人员，他们可以在公司外完成项目，获得可观的薪酬。除此之外，大多数老板并不在意你不了解最新 React 助手库的来龙去脉。因此，不必理会那些需要学习一切内容的呼吁，其中大多数都是噪音。
+唯一需要在报到当天就全盘了解公司内外技术栈的是外包人员，他们可以在公司外完成项目，获得可观的薪酬。除此之外，大多数老板并不在意你不了解最新 React 辅助库的来龙去脉。因此，不必理会那些需要学习一切内容的呼吁，其中大多数都是噪音。
 
 ### 注释[]
 
