@@ -6,7 +6,6 @@
 > * 校对者：
 
 ## 在 SnackBar，Navigation 和其他事件中使用 LiveData（SingleLiveEvent 案例）
-
 视图层（Activity 或者 Fragment）与 ViewModel 层进行通讯的一种便捷的方式就是使用 [`LiveData`](https://developer.android.com/topic/libraries/architecture/livedata) 来进行观察。这个视图层订阅 Livedata 的数据变化并对其变化做出反应。这适用于连续不断显示在屏幕的数据。
 
 
@@ -16,11 +15,11 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*WwhYg9sscdYQgLvC3xks4g.png)
 
-这应该考虑设计问题，而不是试图通过架构组件的裤或者扩展来解决这个问题。**我们建议您将您的事件视为您的状态的一部分**。在本文中，我们将展示一些常见的错误方法，以及推荐的方式。
+这应该被视为设计问题，而不是试图通过架构组件的库或者扩展来解决这个问题。**我们建议您将您的事件视为您的状态的一部分**。在本文中，我们将展示一些常见的错误方法，以及推荐的方式。
 
 ### ❌ 错误：1。 使用 LiveData 来解决事件
 
-这种方法来直接的在 LiveData 对象的内部来持有 Snackbar 消息或者导航一些信息。尽管原则上看起来像是普通的 LiveData 对象可以用在这里，但是会出现一些问题。
+这种方法来直接的在 LiveData 对象的内部持有 Snackbar 消息或者导航信息。尽管原则上看起来像是普通的 LiveData 对象可以用在这里，但是会出现一些问题。
 
 在一个主/从应用程序中，这里是主 ViewModel：
 
@@ -106,7 +105,7 @@ class ListViewModel : ViewModel {
 
 #### 问题
 
-这种方法的问题是有一些样板（每个事件在 ViewModel 中有一个新的方法），并且很容易出错，观察者很容易忘记调用这个 ViewModel 的方法。
+这种方法的问题是有一些死板（每个事件在 ViewModel 中有一个新的方法），并且很容易出错，观察者很容易忘记调用这个 ViewModel 的方法。
 
 ### **✔️ 正确解决方法: 使用 SingleLiveEvent**
 
@@ -200,13 +199,12 @@ myViewModel.navigateToDetails.observe(this, Observer {
 
 ![](https://cdn-images-1.medium.com/max/800/1*b0z9Flj04zVW_UGsDPQyOA.png)
 
-使用事件包装器，您可以将多个观察器添加到一次性事件中。
+使用事件包装器，您可以将多个观察者添加到一次性事件中。
 
 * * *
 
-总之：**设计事件作为你的状态的一部分**。使用您自己的[事件](https://gist.github.com/JoseAlcerreca/5b661f1800e1e654f07cc54fe87441af)包装器并根据您的需求进行定制。
+总之：**把事件设计成你的状态的一部分**。使用您自己的[事件](https://gist.github.com/JoseAlcerreca/5b661f1800e1e654f07cc54fe87441af)包装器并根据您的需求进行定制。
 
-Bonus! Use this [EventObserver](https://gist.github.com/JoseAlcerreca/e0bba240d9b3cffa258777f12e5c0ae9) to remove some repetitive code if you end up having lots of events.
 银弹！若您最终发生大量事件，请使用这个 [EventObserver](https://gist.github.com/JoseAlcerreca/e0bba240d9b3cffa258777f12e5c0ae9) 可以删除很多无用的代码。
 
 感谢 [Don Turner](https://medium.com/@donturner?source=post_page)，[Nick Butcher](https://medium.com/@crafty?source=post_page)，和 [Chris Banes](https://medium.com/@chrisbanes?source=post_page)。
