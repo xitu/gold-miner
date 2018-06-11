@@ -2,7 +2,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/what-is-a-python-core-developer-pycon-2018.md](https://github.com/xitu/gold-miner/blob/master/TODO1/what-is-a-python-core-developer-pycon-2018.md)
 > * 译者：[Elliott Zhao](https://github.com/elliott-zhao)
-> * 校对者：
+> * 校对者：[K.Lew](https://github.com/kasheemlew)
 
 # 玛利亚塔·维加亚 —— 什么是 Python 核心开发者？- PyCon 2018
 
