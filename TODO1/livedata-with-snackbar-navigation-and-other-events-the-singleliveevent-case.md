@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/livedata-with-snackbar-navigation-and-other-events-the-singleliveevent-case.md](https://github.com/xitu/gold-miner/blob/master/TODO1/livedata-with-snackbar-navigation-and-other-events-the-singleliveevent-case.md)
 > * 译者：[wzasd](github.com/wzasd)
-> * 校对者：
+> * 校对者：[LeeSniper](github.com/LeeSniper)
 
 ## 在 SnackBar，Navigation 和其他事件中使用 LiveData（SingleLiveEvent 案例）
 视图层（Activity 或者 Fragment）与 ViewModel 层进行通讯的一种便捷的方式就是使用 [`LiveData`](https://developer.android.com/topic/libraries/architecture/livedata) 来进行观察。这个视图层订阅 Livedata 的数据变化并对其变化做出反应。这适用于连续不断显示在屏幕的数据。
@@ -11,20 +11,20 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*vbhP6Sw61MAK335gEubwHA.png)
 
-**但是，有一些数据只会消费一次，** 就像是 Snackbar 消息，导航事件或者对话框。
+**但是，有一些数据只会消费一次，**就像是 Snackbar 消息，导航事件或者对话框。
 
 ![](https://cdn-images-1.medium.com/max/800/1*WwhYg9sscdYQgLvC3xks4g.png)
 
 这应该被视为设计问题，而不是试图通过架构组件的库或者扩展来解决这个问题。**我们建议您将您的事件视为您的状态的一部分**。在本文中，我们将展示一些常见的错误方法，以及推荐的方式。
 
-### ❌ 错误：1. 使用 LiveData 来解决事件
+### ❌ 错误：1。 使用 LiveData 来解决事件
 
 这种方法来直接的在 LiveData 对象的内部持有 Snackbar 消息或者导航信息。尽管原则上看起来像是普通的 LiveData 对象可以用在这里，但是会出现一些问题。
 
 在一个主/从应用程序中，这里是主 ViewModel：
 
 ```
-// Don't use this for events
+// 不要使用这个事件
 class ListViewModel : ViewModel {
     private val _navigateToDetails = MutableLiveData<Boolean>()
 
@@ -38,7 +38,7 @@ class ListViewModel : ViewModel {
 }
 ```
 
-在视图层（activity 或者 fragment）：
+在视图层（Activity 或者 Fragment）：
 
 ```
 myViewModel.navigateToDetails.observe(this, Observer {
@@ -48,10 +48,10 @@ myViewModel.navigateToDetails.observe(this, Observer {
 
 这种方法的问题是 `_navigateToDetails` 中的值会长时间保持为真，并且无法返回到第一个屏幕。一步一步进行分析：
 
-5.  用户点击按钮 Details Activity 启动。
-6.  用户用户按下返回，回到主 Activity。
-7.  观察者在活动处于回退状态时从非监听状态再次变成监听状态。
-8.  但是该值仍然为“真”，因此 Detail Activity 启动出错。
+1.  用户点击按钮 Details Activity 启动。
+2.  用户用户按下返回，回到主 Activity。
+3.  观察者在 Activity 处于回退栈时从非监听状态再次变成监听状态。
+4.  但是该值仍然为 “真”，因此 Detail Activity 启动出错。
 
 解决方法是从 ViewModel 中将导航的标志点击后立刻设为 false;
 
@@ -62,11 +62,11 @@ fun userClicksOnButton() {
 }
 ```
 
-但是，需要记住的一件事就是 LiveData 储存这个值，但是不保证发出它接受到的每个值。例如：当没有观察者处于监听状态时，可以设置一个值，因此新的值将会替换它。此外，从不同线程设置值的时候可能会导致竞争，只会向观察者发出一次呼叫。
+但是，需要记住的一件很重要的事就是 LiveData 储存这个值，但是不保证发出它接受到的每个值。例如：当没有观察者处于监听状态时，可以设置一个值，因此新的值将会替换它。此外，从不同线程设置值的时候可能会导致资源竞争，只会向观察者发出一次改变信号。
 
-但是这种方法的主要问题是**难以理解和不简洁**。在导航时间发生后，我们如何确保值被重置呢？
+但是这种方法的主要问题是**难以理解和不简洁**。在导航事件发生后，我们如何确保值被重置呢？
 
-### **❌ 可能更好一些：2. 使用 LiveData 进行事件处理，在观察者中重置事件的初始值**
+### **❌ 可能更好一些：2。使用 LiveData 进行事件处理，在观察者中重置事件的初始值**
 
 通过这种方法，您可以添加一种方法来从视图中支出您已经处理了该事件，并且重置该事件。
 
@@ -83,7 +83,7 @@ listViewModel.navigateToDetails.observe(this, Observer {
 })
 ```
 
-在 ViewModel 中添加新的方法：
+像下面这样在 ViewModel 中添加新的方法：
 
 ```
 class ListViewModel : ViewModel {
