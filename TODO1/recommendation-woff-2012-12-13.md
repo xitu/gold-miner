@@ -9,19 +9,19 @@
 
 ## W3C 2012 年 12 月 13 日推荐
 
-This version: [http://www.w3.org/TR/2012/REC-WOFF-20121213/](http://www.w3.org/TR/2012/REC-WOFF-20121213/)
+这一版本: [http://www.w3.org/TR/2012/REC-WOFF-20121213/](http://www.w3.org/TR/2012/REC-WOFF-20121213/)
 
-Latest version: [http://www.w3.org/TR/WOFF/](http://www.w3.org/TR/WOFF/)
+最新版本: [http://www.w3.org/TR/WOFF/](http://www.w3.org/TR/WOFF/)
 
-Previous version: [http://www.w3.org/TR/2012/PR-WOFF-20121011/](http://www.w3.org/TR/2012/PR-WOFF-20121011/)
+上一版本: [http://www.w3.org/TR/2012/PR-WOFF-20121011/](http://www.w3.org/TR/2012/PR-WOFF-20121011/)
 
-Authors: Jonathan Kew (Mozilla Corporation), Tal Leming (Type Supply), Erik van Blokland (LettError)
+作者: Jonathan Kew (Mozilla Corporation), Tal Leming (Type Supply), Erik van Blokland (LettError)
 
-Please refer to the [**errata**](http://www.w3.org/Fonts/REC-WOFF-20121213-errata.html) for this document, which may include some normative corrections.
+请参阅本文档的[勘误表](http://www.w3.org/Fonts/REC-WOFF-20121213-errata.html)，其中可能包含一些规范性更正。
 
-See also [**translations**](http://www.w3.org/2003/03/Translations/byTechnology?technology=WOFF).
+也可查看 [**translations**](http://www.w3.org/2003/03/Translations/byTechnology?technology=WOFF).
 
-[Copyright](http://www.w3.org/Consortium/Legal/ipr-notice#Copyright) © 2012 [W3C](http://www.w3.org/)® ([MIT](http://www.csail.mit.edu/), [ERCIM](http://www.ercim.eu/), [Keio](http://www.keio.ac.jp/)), All Rights Reserved. W3C [liability](http://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer), [trademark](http://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks) and [document use](http://www.w3.org/Consortium/Legal/copyright-documents) rules apply.
+[Copyright](http://www.w3.org/Consortium/Legal/ipr-notice#Copyright) © 2012 [W3C](http://www.w3.org/)® ([MIT](http://www.csail.mit.edu/), [ERCIM](http://www.ercim.eu/), [Keio](http://www.keio.ac.jp/))， 版权所有。 W3C [liability](http://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer)、 [trademark](http://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks) 和 [document use](http://www.w3.org/Consortium/Legal/copyright-documents) 规则适用。
 
 * * *
 
@@ -37,8 +37,7 @@ WOFF 格式并不准备取代其他格式，例如 TrueType/OpenType/Open Font F
 
 本节介绍本文件发布时的状态。 其他文件可能会取代本文件。 当前的 W3C 出版物清单和此技术报告的最新版本可以在[W3C技术报告索引](http://www.w3.org/TR/) http://www.w3.org/TR/ 中找到。
 
-这是“ WOFF 文件格式1.0 ”的 W3C 推荐标准。 本文档已由 W3C 会员，软件开发人员以及其他 W3C 团体和有关各方进行了审核，并由署长确认为 W3C 的推荐标准。 它是一个稳定的文件，可以用作参考资料或由其他文件引用。 W3C 在制定建议书时的角色是引起对规范的关注并促进其广泛部署。 这增强了Web的功能和互操作性。
-W3C在制定推荐标准时的角色是引起对规范的关注并促进其广泛部署。这增强了 Web 的功能性和互操作性。
+这是“ WOFF 文件格式1.0 ”的 W3C 推荐标准。 本文档已由 W3C 会员，软件开发人员以及其他 W3C 团体和有关各方进行了审核，并由署长确认为 W3C 的推荐标准。 它是一个稳定的文件，可以用作参考资料或由其他文件引用。 W3C 在制定建议书时的角色是引起对规范的关注并促进其广泛部署。 这增强了Web的功能和互操作性。W3C在制定推荐标准时的角色是引起对规范的关注并促进其广泛部署。这增强了 Web 的功能性和互操作性。
 
 请将有关本文档的意见发送至[www-font@w3.org](mailto:www-font@w3.org)（在[public archive](http://lists.w3.org/Archives/Public/www-font/)可查看）。
 
@@ -49,7 +48,6 @@ CR退出标准是：
 1. 已经收集了足够的实施经验报告来证明“ WOFF文件格式1.0 ”的语法和特征是可实施的并且以一致的方式解释。 为此，工作组将确保所有功能都至少以两种实现方式以可互操作的方式实施。
 
 2. 这些实现是独立开发的。
-
 
 工作组制定了如下公共测试程序组：
 
@@ -422,7 +420,6 @@ class：一组用空格任意分隔的令牌。 该属性是**可选的**。
 
 **`extension` 元素**
 
-A container element for extended metadata provided by the vendor. Zero or more `extension` elements may be present as children of the top-level metadata element. Each such metadata `extension` has an optional `name`, which may be provided in multiple languages, and one or more item elements.
 供应商提供的扩展元数据的容器元素。 零个或多个 `extension` 元素可以是顶级元数据元素的子元素。 每个这样的 `extension` 元数据具有可选的 `name`，其可以以多种语言提供，并且具有一个或多个项目元素。
 
 **属性**
@@ -454,12 +451,6 @@ value: 一个或多个子元素
 还可以使用一个或多个 `name` 元素为特定的扩展元数据项提供人性化的名称。显示元数据的用户代理应该从每个 `item` 元素的可用语言中选择最合适的语言。 这个子元素在 `item` 元素中是**必需**的；没有 `name` 的 `item` 元素是无效的，应该被忽略。
 
 **属性**
-
-xml:lang: A language tag as defined in BCP47 [[BCP47](#ref-BCP47)]. This attribute is OPTIONAL.
-
-dir: The text direction, either `ltr` (for "left to right") or `rtl` (for "right to left"). This attribute is OPTIONAL and, if omitted, defaults to `ltr`.
-
-class: An arbitrary set of space-separated tokens. This attribute is OPTIONAL.
 
 xml：lang：  BCP47 [[BCP47](#ref-BCP47)]中定义的语言标签。 该属性是可选的。
 
@@ -722,7 +713,6 @@ software. If you have any questions, please contact Ascender Corp.</text>
 **Encoding considerations:** binary.
 
 **Security considerations:** 
-
 
 字体是解释性的数据结构，表示各种语言和书写系统的字形轮廓、度量和布局信息的集合。目前，有许多标准化的字体数据表，允许未指定数量的条目，并且现有的预定义数据字段允许存储具有可变长度的二进制数据。 字体数据结构的灵活性可能会被利用，来隐藏伪装成字体数据组件的恶意二进制内容。
 
