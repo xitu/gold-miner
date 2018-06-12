@@ -2,88 +2,88 @@
 > * 原文作者：[Jacek Schae](https://medium.freecodecamp.org/@jacekschae?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/a-real-world-comparison-of-front-end-frameworks-with-benchmarks-2018-update.md](https://github.com/xitu/gold-miner/blob/master/TODO1/a-real-world-comparison-of-front-end-frameworks-with-benchmarks-2018-update.md)
-> * 译者：
-> * 校对者：
+> * 译者：[geniusq1981](https://github.com/geniusq1981)
+> * 校对者：[Hopsken ](https://github.com/Hopsken)、[zephyrJS](https://github.com/zephyrJS)
 
-# A Real-World Comparison of Front-End Frameworks with Benchmarks (2018 update)
+# 前端开发框架的实战对比（2018 年更新）
 
 ![](https://cdn-images-1.medium.com/max/1000/1*0aM-p4OCCxRMXroYn0qPVA.png)
 
-This article is a refresh of [A Real-World Comparison of Front-End Frameworks with Benchmarks](https://medium.freecodecamp.org/a-real-world-comparison-of-front-end-frameworks-with-benchmarks-e1cb62fd526c) from December 2017.
+本文是是对 2017 年 12 月发表的 [前端开发框架的实战对比](https://medium.freecodecamp.org/a-real-world-comparison-of-front-end-frameworks-with-benchmarks-e1cb62fd526c) 一文的更新。
 
-In this comparison, we will show how different implementations of almost identical [RealWorld example apps](https://github.com/gothinkster/realworld) stack up against each other.
+在对比中，我们将展示不同框架之间去实现几乎相同的 [实战示例应用](https://github.com/gothinkster/realworld) 有怎样的差别。
 
-The [RealWorld example app](https://github.com/gothinkster/realworld) gives us:
+[实战示例应用](https://github.com/gothinkster/realworld) 为我们提供了：
 
-1.  **Real World App** — Something more than a “todo”. Usually “todos” don’t convey enough knowledge and perspective to actually build _real_ applications.
-2.  **Standardized **— A project that conforms to certain rules. Provides a back-end API, static markup, styles, and spec.
-3.  **Written or reviewed by an expert **— A consistent, real world project that, ideally, an expert in that technology would have built or reviewed.
+1. **实战应用**——不只是一个 "todo" 应用。一般来说，"todo" 应用无法充分的传达构建一个真实应用所需要的知识和观点。
+2. **标准化**——符合一定开发指南的项目。提供后端 API，静态标记，样式和规格。
+3. **由专家撰写或审核**——一个实战项目，理想情况下，由技术专家创建或审核。
 
-#### Criticism from the last version (Dec 2017)
+#### 上一版本的不足（2017 年 12 月）
 
-✅️ Angular was not in production. The demo app listed on the RealWorld repo was using a development version, but thanks to [Jonathan Faircloth](https://medium.com/@jafaircl) it is now in production version!
+✅ Angular 没有用于生产环境。之前实战应用仓库列出的示例应用使用的是一个开发版本，感谢 [Jonathan Faircloth](https://medium.com/@jafaircl)，它现在已经是生产版本！
 
-✅ Vue was not listed in the Real World repo, and thus was not included. As you can imagine, in the front-end world, this caused a lot of heat. How come you didn’t add Vue? What the heck is wrong with you? This time around Vue.js is in! Thank you [Emmanuel Vilsbol](https://medium.com/@evilsbol)**.**
+✅ Vue 没有包含在实战应用仓库，因此未包括在对比中。正如你可以想象的那样，Vue 在前端引起了很大的热度。怎么可以不考虑 Vue 呢？你到底是怎么想的？这一次我们加入了Vue.js！谢谢 [Emmanuel Vilsbol](https://medium.com/@evilsbol)。
 
-#### Which libraries/frameworks are we comparing?
+#### 我们比较哪些库/框架？
 
-As in the December 2017 article, we included all implementations listed in the RealWorld repo. It doesn’t matter if it has a big following or not. The only qualification is that it appears on the [RealWorld repo](https://github.com/gothinkster/realworld) page.
+和 2017 年 12 月的文章一样，我们包含了实战应用仓库中列出的所有实现方式。不管它有没有大量的拥趸，唯一标准就是它出现在 [实战应用仓库](https://github.com/gothinkster/realworld) 页面上。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*IJ4a_VfY1Qn3yJaIy7pjVw.png)
 
-Frontends at [https://github.com/gothinkster/realworld](https://github.com/gothinkster/realworld) (April 2018)
+前往 [https://github.com/gothinkster/realworld](https://github.com/gothinkster/realworld) （2018 年 4 月）
 
-### What metrics do we look at?
+### 我们看什么指标？
 
-1.  **Performance:** How long does this App take to show content and become usable?
-2.  **Size:** How big is the App? We will only compare the size of the compiled JavaScript file(s). The CSS is common to all variants, and is downloaded from a CDN (Content Delivery Network). The HTML is common to all variants, too. All technologies compile or transpile to JavaScript, thus we only size this file(s).
-3.  **Lines of Code:** How many lines of code did the author need to create the RealWorld app based on spec? To be fair some apps have a bit more bells and whistles, but it should not have a significant impact. The only folder we quantify is `src/` in each app.
+1.  **性能：** 应用需要多长时间能显示出页面内容并可用？
+2.  **大小：** 应用程序多大？我们只会比较已编译过的的 JavaScript 文件大小。 CSS 对于所有不同实现框架都是通用的，并且从 CDN (内容分发网络)下载。 HTML 也是通用的。所有技术都编译或转换成 JavaScript，因此我们只计算这些文件的大小。
+3.  **代码行数：** 开发者根据开发指南需要写多少行代码来做一个实战应用？为了公平，虽然有些应用程序有一些花里胡哨的东西，但它不应该对结果产生影响。所以我们唯一量化的目录只用每个 app 中的 src/ 目录。
 
-### Metric #1: **Performance**
+### 指标 ＃1：**性能**
 
-Check out the [First meaningful paint](https://developers.google.com/web/tools/lighthouse/audits/first-meaningful-paint) test with [Lighthouse Audit](https://developers.google.com/web/tools/lighthouse/) that ships with Chrome.
+使用 Chrome 自带的 [Lighthouse Audit](https://developers.google.com/) 工具进行 [首次有效绘制](https://developers.google.com/web/tools/lighthouse/audits/first-meaningful-paint) 的测试。
 
-The sooner you paint, the better the experience for the person who is using the App. Lighthouse also measures [First interactive](https://developers.google.com/web/tools/lighthouse/audits/first-interactive), but this was almost identical for most apps, and it’s in beta.
+绘制速度越快，应用的使用体验就越好。Lighthouse 也测试 [First interactive](https://developers.google.com/web/tools/lighthouse/audits/first-interactive) ，但对于大多数应用来说，这几乎是相同的，而它还处于测试阶段。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*El9cBVFHxRG36XD8KNjA_g.png)
 
-First meaningful paint (ms) — lower is better
+首次有效绘制（毫秒）——越低越好
 
-You probably won’t see a lot of difference when it comes to performance.
+在性能方面你可能不会看到很多差异。
 
-### Metric #2: Size
+### 指标 ＃2：大小
 
-Transfer size is from the Chrome network tab. GZIPed response headers plus the response body, as delivered by the server.
+传输大小来自 Chrome 的网络标签，包含从服务器传送的压缩的响应头和响应正文。
 
-The smaller the file, the faster the download (and there’s less to parse).
+文件越小，下载速度越快(并且需要解析的数据也越少)。
 
-This depends on the size of your framework as well as on any extra dependencies you added, and how well your build tool can make a small bundle.
+这取决于你的框架以及你添加的依赖库的大小，还有你的编译工具的好坏也有一定影响。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*xHuwMctzoT6aA3BE4zXA5w.png)
 
-Transfer size (KB) — lower is better
+传输大小（KB）——越低越好
 
-You can see that Svelte, Dojo 2, and AppRun do a pretty good job. I can’t say enough about Elm— especially when you look at the next chart. I’d like to see how [Hyperapp](https://hyperapp.js.org/) compares…maybe next time, [Jorge Bucaran](https://medium.com/@jorgebucaran)?
+您可以看到 Svelte，Dojo 2 和 AppRun 做得非常好。我不能说 Elm 也表现足够好——特别是当你看下一张图时。我也想看看 [Hyperapp](https://hyperapp.js.org/) 的表现。可能下次吧，[Jorge Bucaran](https://medium.com/@jorgebucaran) ？
 
-### Metric #3: Lines of Code
+### 指标 ＃3：代码行数
 
-Using [cloc](https://github.com/AlDanial/cloc) we count the lines of code in each repo’s src folder. Blank and comment lines are **not** part of this calculation.Why is this meaningful?
+通过 [cloc](https://github.com/AlDanial/cloc) 我们计算每个仓库的 src 文件夹中的代码行。空白和注释行不会包含在内。这样做的意义何在？
 
-> If debugging is the process of removing software bugs, then programming must be the process of putting them in — Edsger Dijkstra
+>如果调试是删除软件错误的过程，那么编程就是引入错误的过程 — Edsger Dijkstra
 
 ![](https://cdn-images-1.medium.com/max/1000/1*YTfk05JBtqNBIoK_4u2H3g.png)
 
-# lines of code — fewer is better
+# 代码行数——越少越好
 
-The fewer lines of code you have, then the probability of finding an error is smaller. You also have a smaller code base to maintain.
+您拥有的代码行数越少，那么出现错误的概率就越小，而且你也只需要维护较小的代码库。
 
-### In conclusion
+### 结论
 
-I’d like to say a big thank you to [Eric Simons](https://medium.com/@ericsimons) for creating the [RealWorld Example Apps](https://github.com/gothinkster/realworld) repo, and to numerous contributors who wrote different implementations.
+我想说，非常感谢 [Eric Simons](https://medium.com/@er) 创建了 [实战示例应用](https://github.com/gothinkster/realworld) ，还有大量的提供不同实现的贡献者们。
 
-**Update:** Thanks to [Jonathan Faircloth](https://medium.com/@jafaircl) for providing production version of Angular.
+**更新:** 感谢 [Jonathan Faircloth](https://medium.com/@jafaircl) 提供生产版本的 Angular。
 
-> And if you found this article interesting, you should [follow me on Twitter](https://twitter.com/jacekschae) and Medium.
+> 如果你对这篇文章感兴趣，你可以在 [Twitter](https://twitter.com/jacekschae) 和 Medium 上加我。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
