@@ -526,9 +526,6 @@ class：一组任意空格分隔的令牌。 该属性是**可选的**。
 注意：尽管元数据块是可选的，并且不需要用户代理为了渲染字体而对其进行处理，但是鼓励诸如 Web 浏览器的客户端提供一种手段（例如当前的“字体信息”对话框页面）供用户查看 WOFF 文件中包含的元数据。 并非每个客户端都必须具有适当的上下文，但是任何使用户能够找出 Web 文档所使用的资源的客户端都应该考虑公开有关所用字体的信息，并且在使用 WOFF 打包字体的情况下，元数据块是此信息的主要来源。
 
 ## 8. 专有数据块
-
-The private data block, if present, MUST be the last block in the WOFF file, following all the font tables and any extended metadata block. The private data block MUST begin on a 4-byte boundary in the WOFF file, with up to three null bytes inserted as padding after any preceding metadata block if needed to ensure this. The end of the private data block MUST correspond to the end of the WOFF file.
-
 WOFF 文件可以包含任意数据块，允许字体创建者包含他们希望的任何信息。这些数据的内容不得影响用户代理的字体使用或加载行为。用户代理**不得**对专有块的内容做任何假设；它可能（例如）包含 ASCII 或 Unicode 文本或某些供应商定义的二进制数据，它可能是压缩或加密的，但它没有公开定义的格式。符合规范的用户代理不会假设任何关于这些数据的结构。只有负责专有块的字体开发人员或供应商才能理解其内容。
 
 专有数据块（如果存在）**必须**是 WOFF 文件中的最后一个块，跟随在所有字体表和任何扩展元数据块之后。私人数据块务必从 WOFF 文件中的一个4字节边界开始，如果需要的话，最多可以在任何前面的元数据块之后插入作为填充的三个空字节，以确保这一点。专有数据块的末尾必须对应于 WOFF 文件的末尾。
@@ -741,111 +738,111 @@ WOFF 在内部不提供隐私保护; 如果需要，这些应该在外部提供�
 
 WOFF 有一个专有数据块设施，可能包含任意的二进制数据。 WOFF不提供访问这个或者执行其中包含的任何代码的手段。 WOFF [要求](#conform-private-noeffect)该块的内容不会以任何方式影响字体呈现。
 
-**Interoperability considerations:**
+**互操作性考虑：**
 
-**Published specification:** This media type registration is extracted from the [WOFF specification](http://www.w3.org/TR/WOFF) at W3C.
+**发布的规范：**此媒体类型注册摘自W3C的[WOFF规范](http://www.w3.org/TR/WOFF)。
 
-**Applications that use this media type:** WOFF is used by Web browsers, often in conjunction with HTML and CSS.
+**使用此媒体类型的应用程序：** WOFF由 Web 浏览器使用，通常与HTML 和 CSS 一起使用。
 
-**Additional information:**
+**附加信息：**
 
-**Magic number(s):** The signature field in the WOFF header MUST contain the "magic number" 0x774F4646
+**幻数：** WOFF标题中的签名字段必须包含“幻数” 0x774F4646
 
-**File extension(s):** woff
+**文件扩展名：** woff
 
-**Macintosh file type code(s):** (no code specified)
+**Macintosh 文件类型代码：**（不指定代码）
 
-**Macintosh Universal Type Identifier code:** org.w3c.woff
+**Macintosh通用类型标识符代码：**  org.w3c.woff
 
-**Fragment Identifiers:** none.
+**片段标识符：** 无。
 
-**Person & email address to contact for further information:** Chris Lilley (www-font@w3.org).
+**联系人和电子邮件地址以获取更多信息：** Chris Lilley（www-font@w3.org）。
 
-**Intended usage:** COMMON
+**用途：** **通用**
 
-**Restrictions on usage:** None
+**使用限制：** 无
 
-**Author:** The WOFF specification is a work product of the World Wide Web Consortium's WebFonts Working Group.
+**作者：** WOFF规范是万维网联盟 WebFonts 工作组的工作产品。
 
-**Change controller:** The W3C has change control over this specification.
+**更改控制权：** W3C对本规范有更改控制权。
 
-## Appendix C: Changes
+## 附录 C: 修订记录
 
-The following changes have been made, relative to the [27 July 2010 First Public Working Draft](http://www.w3.org/TR/2010/WD-WOFF-20100727). No new features have been added, except for optional enhancements to the metadata format; the remaining changes are clarifications and corrections to existing features.
+相对于[2010年7月27日的第一次公开工作草案](http://www.w3.org/TR/2010/WD-WOFF-20100727)，已做出以下更改。 除了元数据格式的增强选项功能外，没有添加任何新的功能; 剩下的更改是对现有功能的澄清和更正。
 
-*   Clarified that WOFF is a font _packaging_ or wrapper format, not a new font format as such.
-*   Clarified padding and byte-alignment requirements throughout
-*   Preferred the term 'input font' rather than 'original file' to describe the font which is converted to WOFF
-*   Clarified that any subsetting, checksum-correction, or DSIG invalidating changes _prior_ to WOFF conversion are out of scope for the WOFF specification.
-*   Clarified meaning of totalSfntSize.
-*   Defined what is meant by a well formed input font.
-*   Clarified meaning of 'invalid metadata' - must be well-formed, compressed, and conform to the schema.
-*   Clarified which elements and attributes in the XML are required; for elements, clarified their required parents.
-*   Clarified that the id attribute is not of type ID in the XML sense
-*   Added link to a RelaxNG grammar, which tries to express the same constraints as the prose in a machine-readable manner. The prose is normative in case of any difference.
-*   Added reminder to check for overflow when decompressing.
-*   Added a Media Type registration template as required by [W3C Media Type registration](http://www.w3.org/2002/06/registering-mediatype.html) policies.
-*   Separated normative and informative references.
-*   Switched to upper-case for RFC-2119 keywords.
-*   Added id and class attributes to all testable assertions.
-*   Added some non-normative explanatory notes.
-*   Minor clarifications to wording throughout.
-*   Some re-ordering of text to group related assertions or to improve readability; in particular, the best practices were previously an appendix and are now integrated into the main body of the specification.
-*   Added this Changes appendix.
+* 澄清 WOFF是一种字体**打包**或封装格式，而不是一种新的字体格式。
+* 澄清填充和字节对齐的需求
+* 首选术语 “input font” 而不是 “original file” 来描述转换为 WOFF 的字体
+* 澄清在 WOFF 转换之前的任何subsetting（子集）、checksum-correction（校验和校正）或DSIG无效更改超出了WOFF规范的范围。
+* 澄清 totalSfntSize 的含义。
+* 定义了格式良好的输入字体的含义。
+* 澄清“无效元数据”的含义 —— 必须格式良好，压缩并符合模式。
+* 澄清了XML中的哪些元素和属性是必需的;对于某些元素，澄清了他们需要的父元素。
+* 澄清了 id 属性不是 XML 意义上的类型ID
+* 添加到 RelaxNG 语法的链接，该语法试图以机器可读的方式表达与文本相同的约束。如果有任何差异，文本是必须是规范的。
+* 在解压缩时增加提醒检查是否溢出。
+* 根据[W3C媒体类型注册]（http://www.w3.org/2002/06/registering-mediatype.html）策略的要求增加了媒体类型注册模板。
+* 分开了规范性和信息性参考。
+* 把RFC-2119关键字转换成了大写字母。
+* 为所有可测试的断言添加了 id 和 class 属性。
+* 增加了一些非规范的解释性说明。
+* 对整个措辞做了小的澄清。
+* 把相关的断言合并分组或为了提高可读性，将文本重新排列; 特别是，以前最佳做法放在附录中，现在已经整合到规范的主体中。
+* 增加了这个更改附录。
 
-The following changes were made as a result of Last Call:
+最后一次修订有如下更改：
 
-*   Language attributes now reference BCP47, and use xml:lang.
-*   Added optional `div` and `span` elements that can be used to provide structure within metadata text.
-*   Added `dir` and `class` attributes to metadata elements.
-*   Removed summary of conformance requirements (duplicated material from the main body of the specification).
-*   Somewhat rearranged and clarified description of the metadata format.
-*   Noted that same-origin requirements are at risk, in the expectation that CSS3 Fonts will handle this instead.
-*   Mention the need to compute the binary search fields when reconstructing an sfnt header.
-*   Require that metadata be encoded in UTF-8, rather than allowing either UTF-8 or UTF-16.
+* 语言属性现在引用 BCP47，并使用 xml：lang。
+* 增加了可选的 `div` 和 `span` 元素，可用于在元数据文本中提供构建。
+* 为元数据元素添加了 `dir` 和 `class` 属性。
+* 删除了一致性要求的摘要（和规范的主体部分有重复内容）。
+* 稍微重新安排并澄清了元数据格式的描述。
+* 注意到相同来源的请求是有风险的，期望 CSS3 字体可以处理这个问题。
+* 提到重建 sfnt 头时需要计算二进制搜索字段。
+* 要求以 UTF-8 编码元数据，而不是既允许使用 UTF-8 又允许使用 UTF-16。
 
-A [color-coded diff](http://dev.w3.org/cvsweb/webfonts/WOFF/spec/Overview.html.diff?r1=1.58;r2=1.96;f=h) between the editors draft used to prepare the Last Call Working Draft, and the editors draft used to prepare the Candidate Recommendation, is available.
+用于准备最后工作草案的编辑草稿和用于编写候选推荐标准的编辑草稿之间的[颜色编码差异](http://dev.w3.org/cvsweb/webfonts/WOFF/spec/Overview.html.diff?r1=1.58;r2=1.96;f=h) 可用。
 
-The following changes were made after publication of the Candidate Recommendation:
+候选建议书发布后进行了以下更改：
 
-*   Removed (previously at-risk) text specifying same-origin requirements for loading WOFF fonts, and CORS mechanism to relax the restriction, as the CSS WG agreed to include this in CSS3 Fonts as part of the specification of the @font-face rule.
-*   Moved CSS3-Fonts from normative to informative section, due to removal of at-risk items.
-*   Corrected erroneous use of MUST in a general introductory statement
+* 删除加载 WOFF 字体的指定相同来源要求的文本（这在以前是危险的）以及 CORS 机制，以放宽限制，因为 CSS 工作组同意将其作为 @ font-face 规则的一部分包含在 CSS3 字体中。
+* 由于移除了风险项目，将 CSS3-Fonts 从规范部分移至信息部分。
+* 在一般介绍性声明中更正了 MUST 的错误使用
 
-A [color-coded diff](http://dev.w3.org/cvsweb/webfonts/WOFF/spec/Overview.html.diff?r1=1.99;r2=1.112;f=h) between the editors draft used to prepare the Candidate Recommendation, and the editors draft used to prepare the Proposed Recommendation, is available.
+用于准备候选建议书的编辑草案和编写建议的建议书的编辑草案之间的[颜色编码差异](http://dev.w3.org/cvsweb/webfonts/WOFF/spec/Overview.html.diff?r1=1.99;r2=1.112;f=h)是可用的。
 
-The following changes were made after publication of the Proposed Recommendation:
+在提交建议书发布后做出以下更改：
 
-*   The security considerations section of the Media Type Registration appendix was updated to point into the body of the specification, alerting the reader to the private data block and indicating that WOFF does not provide a mechanism to execute any binary code that might be contained therein. This change was made at the request of the IANA Expert Reviewer.
+* 媒体类型注册附录的安全考虑部分已更新，放在了规范的主体部分，提醒读者注意专有数据块，并指出 WOFF 没有提供执行任何可能包含在其中的二进制代码的机制。 这一变更是应 IANA 专家审查员的要求作出的。
 
 * * *
 
-## References
+## 参考
 
-### Normative References
+### 规范性参考文献
 
-[BCP47]:  [BCP 47](http://www.rfc-editor.org/rfc/bcp/bcp47.txt) Tags for Identifying Languages and Matching of Language Tags
+[BCP47]:  [BCP 47](http://www.rfc-editor.org/rfc/bcp/bcp47.txt) 识别语言和匹配语言标签的标签
 
-[OFF]: [Open Font Format specification](http://standards.iso.org/ittf/PubliclyAvailableStandards/
-c052136_ISO_IEC_14496-22_2009(E).zip) (ISO/IEC 14496-22:2009).
+[OFF]: [开放字体格式规范](http://standards.iso.org/ittf/PubliclyAvailableStandards/c052136_ISO_IEC_14496-22_2009(E).zip) (ISO/IEC 14496-22:2009).
 
-[RFC-2119]: [RFC 2119:](http://tools.ietf.org/html/rfc2119) Key words for use in RFCs to Indicate Requirement Levels. S. Bradner, Editor. Internet Engineering Task Force, March 1997.
+[RFC-2119]: [RFC 2119:](http://tools.ietf.org/html/rfc2119) 在RFC中用于指示需求级别的关键词。 S. Bradner，编辑。 互联网工程任务组，1997年3月。
 
-[ZLIB]: [RFC 1950](http://tools.ietf.org/html/rfc1950) ZLIB Compressed Data Format Specification. P. Deutsch, J-L. Gailly, Editors. Internet Engineeering Task Force, May 1996.
+[ZLIB]: [RFC 1950](http://tools.ietf.org/html/rfc1950)  ZLIB压缩数据格式规范。 P. Deutsch，J-L。 Gailly，编辑。 互联网工程任务组，1996年5月。
 
-### Informative References
+### 信息性参考
 
 [Compress2]: [zlib compress2() function](http://refspecs.linuxbase.org/LSB_3.0.0/LSB-Core-generic/LSB-Core-generic/zlib-compress2-1.html)
 
-[CSS3-Fonts]: [CSS Fonts Module Level 3](http://www.w3.org/TR/css3-fonts/). J. Daggett, Editor. World Wide Web Consortium, 4 October 2011. The [latest version of CSS3 Fonts](http://www.w3.org/TR/css3-fonts/) is available at http://www.w3.org/TR/css3-fonts/. (Work in Progress).
+[CSS3-Fonts]: [CSS 字体模块级别 3](http://www.w3.org/TR/css3-fonts/). J. Daggett, 编辑。 万维网联盟，2011年10月4日。 [最新版本的CSS3字体](http://www.w3.org/TR/css3-fonts/) 可在http://www.w3.org/TR/css3-fonts/上找到。（工作正在进行中）。
 
-[OpenType]: [Microsoft OpenType specification](http://www.microsoft.com/typography/otspec/), version 1.6. Microsoft, 2009. OpenType is a registered trademark of Microsoft Corporation.
+[OpenType]: [微软 OpenTyp e规范](http://www.microsoft.com/typography/otspec/),版本1.6。 Microsoft，2009。OpenType是微软公司的注册商标。
 
-[TrueType]: [Apple TrueType Reference manual](http://developer.apple.com/fonts/TTRefMan/). Apple, 2002. TrueType is a registered trademark of Apple Computer, Inc.
+[TrueType]: [Apple TrueType 参考手册](http://developer.apple.com/fonts/TTRefMan/)。
+Apple，2002。TrueType 是苹果有限公司的注册商标。
 
 [Uncompress]: [zlib uncompress() function](http://refspecs.linuxbase.org/LSB_3.0.0/LSB-Core-generic/LSB-Core-generic/zlib-uncompress-1.html)
 
-[XML]: [Extensible Markup Language](http://www.w3.org/TR/xml/)
+[XML]: [可扩展标记语言](http://www.w3.org/TR/xml/)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
