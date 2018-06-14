@@ -2,68 +2,69 @@
 > * 原文作者：[Kass](https://medium.com/@cryptokass?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/create-simple-blockchain-java-tutorial-from-scratch.md](https://github.com/xitu/gold-miner/blob/master/TODO/create-simple-blockchain-java-tutorial-from-scratch.md)
-> * 译者：
-> * 校对者：
+> * 译者：[NeoyeElf](https://github.com/NeoyeElf)
+> * 校对者：[yankwan](https://github.com/yankwan)
 
-# Creating Your First Blockchain with Java. Part 1.
+# 用 Java 创造你的第一个区块链，第一部分。
 
-The aim of this tutorial series, is to help you build a picture of how one could develop blockchain technology.
+这系列文章旨在帮助你了解如何使用开发区块链技术。
 
-In this tutorial we will :
+本文会讲到：
 
-* Create your first (very) **basic ‘blockchain’**.
-* Implement a simple **proof of work** ( mining ) system.
-* **Marvel at the possibilities**.
+* 创造你的第一个（十分）**基础的‘区块链’**。
+* 实现一个简单的**验证性**（挖矿）系统。
+* **奇迹是有可能发生的**.
 
-( I will assume you have a basic understanding of [Object Oriented Programming](https://docs.oracle.com/javase/tutorial/java/concepts/) )
+( 本文假设你对于[面向对象编程](https://docs.oracle.com/javase/tutorial/java/concepts/)已经有了基本的了解 )
 
-_It’s worth noting that this wont be a fully functioning, ready for production block chain. Instead this is a proof of concept implementation to help you understand what a blockchain is for future tutorials._
+_值得注意的是，文中讲到的并不是一个功能完整，可以上线的区块链系统。相反，这只是一个概念验证性工作，来帮助你理解什么是区块链以便阅读未来的教程._
 
-You can support this and future tutorials :)
+你可以通过以下方式来支持本文和将来的教程 :)
+
 _btc: 17svYzRv4XJ1Sfi1TSThp3NBFnh7Xsi6fu_
 
 * * *
 
-### Setting Up.
+### 准备工作.
 
-We will be using Java but you should be able to follow along in any [OOP](https://en.wikipedia.org/wiki/Object-oriented_programming) language. I’ll be using Eclipse but you can use any new fancy text editor ( though you’ll miss out on a lot of good bloat ).
+本文准备使用 Java 作为开发语言，但是你应该能够使用任何[面向对象](https://en.wikipedia.org/wiki/Object-oriented_programming)语言来跟着一起学习。我会使用 Eclipse，不过你也可以使用任何其他喜欢的编辑器（ 虽然你会错过很多方便的功能 ）。
 
-You will need:
+你需要：
 
-* Java and JDK installed. ( duh ).
-* Eclipse ( or another IDE/Text Editor ).
+* 安装 Java 和 JDK。
+* Eclipse ( 或者其他 IDE/编辑器 ).
 
 ![](https://cdn-images-1.medium.com/max/800/1*3rE0ahnLzfQ7JHyxNJAH7Q.gif)
 
-Don’t worry if your eclipse looks different to mine. I’ll be using a dark theme in eclipse because ^
+你的 eclipse 界面也许会看起来和我的不一样，不过没关系，那是因为我使用了深色主题。
 
-Optionally, you can grab [GSON library by google](https://repo1.maven.org/maven2/com/google/code/gson/gson/2.6.2/gson-2.6.2.jar) (_who are they ???_). This will allow us to turn an object into Json \o/. It’s a super useful library that we will also be using further down the line for peer2peer stuff, but feel free to use an alternate method.
+你可以安装 [GSON library by google](https://repo1.maven.org/maven2/com/google/code/gson/gson/2.6.2/gson-2.6.2.jar) (_这是什么 ???_)，当然这是可选项。它可以让我们将 object 转换成 Json \o/。这是一个超级实用的库，在后面我们也将它用到 peer2peer 上，但你随时可以用一个类似的方法去替换它。
 
-In Eclipse create a (file > new > ) Java project. I’ll call my Project “**noobchain**” and create a new _Class_ by the same name (**NoobChain**).
+在 Eclipse 中 创建一个 Java 项目(file > new > )。我将我的项目命名为“**noobchain**”，接着创建一个新的同名 _Class_ （**NoobChain**）。
 
 ![](https://cdn-images-1.medium.com/max/800/1*VPKiJWgOiZszGvLgPNiqLA.png)
 
-Don’t be copying my project name now ( ͠° ͟ ͜ʖ ͡°)
+不要想着立马复制我的项目名称哦 ( ͠° ͟ ͜ʖ ͡°)
 
-Now you’re good to go :)
+我们开了个不错的头，可以往下继续了 :)
 
 * * *
 
-### Making the Blockchain.
+### 创造区块链
 
-A blockchain is just a chain/list of blocks. Each block in the blockchain will have its own digital signature, contain digital signature of the previous block, and have some data ( this data could be transactions for example ).
+一个区块链只是一个个区块的链接/列表。区块链中的每一个区块都会有自己的数字签名，前一个区块的数字签名和一些数据（例如一些交易数据）。
 
 ![](https://cdn-images-1.medium.com/max/800/1*627BG-7qMtaXNsX0n41C6Q.png)
 
-I sure hope Nakamoto never sees this.
+我希望中本聪永远都不会看到这个.
 
 > **_Hash = Digital Signature._**
 
-**Each block doesn’t just contain the hash of the block before it, but its own hash is in part, calculated from the previous hash**. If the previous block’s data is changed then the previous block’s hash will change ( since it is calculated in part, by the data) in turn affecting all the hashes of the blocks there after. **Calculating and comparing the hashes allow us to see if a blockchain is invalid.**
+**每一个区块不仅仅包含前一个区块的 hash 值，其自己的 hash 值，有一部分是根据前一个区块的 hash 值计算出来的**。如果前一个区块的数据发生了变化，那么前一个区块的 hash 值也会随之变化（因为它有一部分是根据区块的数据进行计算的），并会依次影响所有区块的 hash 值。**通过计算和比较 hash 值，我们可以判断区块链是否合法。**
 
-What does this mean ? …Changing any data in this list, will change the signature and **break the chain**.
+这意味着什么？修改链中的任意数据，都会改变数字签名，进而**破坏整个区块链**。
 
-#### So Firsts lets create class **Block** that make up the blockchain:
+#### 那么首先让我们来创建组成区块链的 **Block** 类：
 
 ```
 import java.util.Date;
@@ -72,10 +73,10 @@ public class Block {
 
 	public String hash;
 	public String previousHash;
-	private String data; //our data will be a simple message.
-	private long timeStamp; //as number of milliseconds since 1/1/1970.
+	private String data; //我们的数据是一条简单的消息
+	private long timeStamp; //从 1/1/1970 起至现在的总毫秒数.
 
-	//Block Constructor.
+	//Block 类的构造方法.
 	public Block(String data,String previousHash ) {
 		this.data = data;
 		this.previousHash = previousHash;
@@ -84,25 +85,25 @@ public class Block {
 }
 ```
 
-As you can see our basic **Block** contains a `String hash` that will hold our digital signature. The variable `previousHash` to hold the previous block’s hash and`String data` to hold our block data.
+你可以看到，我们的基础 **Block** 类包含一个 `String hash`，它代表了数字签名。`previousHash` 变量为前一个区块的 hash 值，它和 `String data` 组成了这个区块的数据。
 
-#### **Next we will need a way to generate a digital signature**,
+#### **接着我们需要一种方法去生成数字签名**，
 
-there are many cryptographic algorithms you can choose from, however SHA256 fits just fine for this example. We can `import java.security.MessageDigest;` to get access to the SHA256 algorithm.
+有很多加密算法可供我们选择，当然 SHA256 算法正好适合我们这个例子。我们可以通过 `import java.security.MessageDigest;` 来使用 SHA256 算法。
 
-We need to use SHA256 later down the line so lets create a handy helper method in a new **StringUtil** ‘utility’ _class_ :
+我们在 **StringUtil** ‘工具’ _类_ 中创建了一个方便使用的方法，以便在接下来去使用 SHA256 算法：
 
 ```
 import java.security.MessageDigest;
 
 public class StringUtil {
-	//Applies Sha256 to a string and returns the result. 
+	//使用 Sha256 算法加密一个字符串，返回计算结果
 	public static String applySha256(String input){		
 		try {
 			MessageDigest digest = MessageDigest.getInstance("SHA-256");	        
-			//Applies sha256 to our input, 
+			//对输入使用 sha256 算法
 			byte[] hash = digest.digest(input.getBytes("UTF-8"));	        
-			StringBuffer hexString = new StringBuffer(); // This will contain hash as hexidecimal
+			StringBuffer hexString = new StringBuffer(); // 它会包含16进制的 hash 值
 			for (int i = 0; i < hash.length; i++) {
 				String hex = Integer.toHexString(0xff & hash[i]);
 				if(hex.length() == 1) hexString.append('0');
@@ -117,11 +118,11 @@ public class StringUtil {
 }
 ```
 
-This is mostly a carbon copy of the [http://www.baeldung.com/sha-256-hashing-java](http://www.baeldung.com/sha-256-hashing-java)
+上面基本上是复制的这篇文章中的方法 [http://www.baeldung.com/sha-256-hashing-java](http://www.baeldung.com/sha-256-hashing-java)
 
-**Don’t worry too much if you don’t understand the contents of this helper method**, _all you need to know is that it takes a string and applies SHA256 algorithm to it, and returns the generated signature as a string._
+**如果你不理解这个辅助方法的内容，也不用担心。** _你只需要知道，它接受一个字符串作为输入，并对其使用 SHA256 算法，最后将返回的字符串作为数字签名。_ 
 
-Now lets use our **applySha256** helper, in a new method in the **Block** _class_, to calculate the hash. We must calculate the hash from all parts of the block we don’t want to be tampered with. So for our block we will include the `previousHash`, the `data` and `timeStamp`.
+现在让我们在 **Block** _class_ 中的一个新方法里使用 **applySha256** 辅助方法来计算 hash 值。我们必须根据区块中那些不想被篡改的数据来计算 hash 值。对于本文中的区块，我们会包含 `previousHash`、`data` 和 `timeStamp`。
 
 ```
 public String calculateHash() {
@@ -134,7 +135,7 @@ public String calculateHash() {
 }
 ```
 
-and lets add this method to the **Block** _constructor_…
+让我们把这个方法加入到 **Block** _构造方法_ 中去...
 
 ```
 	public Block(String data,String previousHash ) {
@@ -145,15 +146,15 @@ and lets add this method to the **Block** _constructor_…
 	}
 ```
 
-#### **Time for some testing…**
+#### **是时候做些测试了...**
 
-In our main **NoobChain** class lets create some blocks and print the hashes to the screen to see that everything is in working order.
+让我们在主类 **NoobChain** 中新建一些区块对象并将其 hash 值打印到屏幕上，来确保一切工作正常有序。
 
 ![](https://cdn-images-1.medium.com/max/800/1*I6k_gZJ0KRZYR4KU22Okig.gif)
 
-Lets test this…
+开始测试...
 
-The first block is called the genesis block, and because there is no previous block we will just enter “0” as the previous hash.
+第一个区块被命名为起始区块，由于它前面没有区块，所以我们用 “0” 作为其前一个区块的 hash 值。
 
 ```
 public class NoobChain {
@@ -173,15 +174,15 @@ public class NoobChain {
 }
 ```
 
-The output should look similar to this:
+这段程序的输出应该长下面这样：
 
 ![](https://cdn-images-1.medium.com/max/800/0*uRnxW_CqB6FqWiUd.png)
 
-Your values will be different because your timestamp will be different.
+由于时间戳不一样，你的 hash 值和我的应该会不同。
 
-Each block now has its own digital signature based on its information and the signature of the previous block.
+现在，每一个区块应该拥有自己的基于区块数据和前一个区块签名计算出来的数字签名
 
-Currently it’s not much of a block**chain,** so lets store our blocks in an _ArrayList_ and also import gson to view it as Json. _(_[_click here to find out how to import the gson library_](https://medium.com/@cryptokass/importing-gson-into-eclipse-ec8cf678ad52)_)_
+目前，这还并不是区块**链**，所以让我们将区块存储在一个 _ArrayList_ 中并导入 gson 库来将其输出为 Json 字符串。_(_[_点击这里查看如何导入 gson 库_](https://medium.com/@cryptokass/importing-gson-into-eclipse-ec8cf678ad52)_)_
 
 ```
 import java.util.ArrayList;
@@ -192,7 +193,7 @@ public class NoobChain {
 	public static ArrayList<Block> blockchain = new ArrayList<Block>(); 
 
 	public static void main(String[] args) {	
-		//add our blocks to the blockchain ArrayList:
+		//将我们的区块加入到区块链 ArrayList 中：
 		blockchain.add(new Block("Hi im the first block", "0"));		
 		blockchain.add(new Block("Yo im the second block",blockchain.get(blockchain.size()-1).hash)); 
 		blockchain.add(new Block("Hey im the third block",blockchain.get(blockchain.size()-1).hash));
@@ -204,27 +205,27 @@ public class NoobChain {
 }
 ```
 
-Now our output should look something closer to what we expect a blockchain to look like.
+现在我们的输出应该更加接近我们期望的区块链的样子。
 
-#### Now we need a way to check the integrity of our blockchain.
+#### 现在我们需要一种方法来检查区块链的完整合法性
 
-Lets create an **isChainValid()** _Boolean_ method in the **NoobChain** _class_, that will loop through all blocks in the chain and compare the hashes. This method will need to check the hash variable is actually equal to the calculated hash, and the previous block’s hash is equal to the **previousHash** variable.
+让我们在 **NoobChain** _类_ 中新建一个返回值为 _Boolean_ 的 **isChainValid()** 方法，它会循环链中所有的区块并比较其 hash 值。这个方法需要能够检查当前区块的 hash 值和计算出来的 hash 值是否相等以及前一个区块的 hash 值是否等于当前区块存储的 **previousHash** 值。
 
 ```
 public static Boolean isChainValid() {
 	Block currentBlock; 
 	Block previousBlock;
 	
-	//loop through blockchain to check hashes:
+	//循环区块链并检查 hash 值：
 	for(int i=1; i < blockchain.size(); i++) {
 		currentBlock = blockchain.get(i);
 		previousBlock = blockchain.get(i-1);
-		//compare registered hash and calculated hash:
+		//比较当前区块存储的 hash 值和计算出来的 hash 值：
 		if(!currentBlock.hash.equals(currentBlock.calculateHash()) ){
 			System.out.println("Current Hashes not equal");			
 			return false;
 		}
-		//compare previous hash and registered previous hash
+		//比较前一个区块存储的 hash 值和当前区块存储的 previousHash 值：
 		if(!previousBlock.hash.equals(currentBlock.previousHash) ) {
 			System.out.println("Previous Hashes not equal");
 			return false;
@@ -234,19 +235,19 @@ public static Boolean isChainValid() {
 }
 ```
 
-Any change to the blockchain’s blocks will cause this method to return false.
+对链中的区块做任何改变都会导致这个方法返回 false。
 
-On the bitcoin network nodes share their blockchains and the **longest valid chain is accepted** by the network. What’s to stop someone tampering with data in an old block then creating a whole new longer blockchain and presenting that to the network ? **Proof of work**. The _hashcash_ proof of work system means it takes considerable time and computational power to create new blocks. Hence the attacker would need more computational power than the rest of the peers combined.
+在比特币网络中，区块链被每个节点所共享，最长的合法链会被接受。那么靠什么去阻止某人篡改旧区块中的数据，然后创建一个全新的更长的区块链并将其分享到网络中？**答案是区块链的合法性验证工作量**。 _hashcash_ 的验证工作意味着计算机需要大量的时间和计算能力来创建新的区块。因此，攻击者需要比其他同行拥有更多的计算能力。
 
 ![](https://cdn-images-1.medium.com/max/800/1*R_bfhtxuHqM6aJYCZiQA9g.gif)
 
-hashcash, much wow.
+hashcash, 那需要很大的工作量哦.
 
-### Lets start mining blocks !!!
+### 开始挖矿吧！！！
 
-We will require _miners_ to do proof-of-work by **trying different variable values in the block until its hash starts with a certain number of 0’s.**
+我们要求 _miners_ 去做验证性工作，**通过在区块中尝试不同的参数值直到其 hash 值以若干个 0 开头。**
 
-Lets add an _int_ called **nonce** to be included in our **calculateHash()** method, and the much needed **mineBlock()** method :
+让我们新增一个 _int_ 类型的 **nonce** 变量，并将其使用到 **calculateHash()** 方法和十分重要的 **mineBlock()** 方法中：
 
 ```
 import java.util.Date;
@@ -255,11 +256,11 @@ public class Block {
 	
 	public String hash;
 	public String previousHash; 
-	private String data; //our data will be a simple message.
-	private long timeStamp; //as number of milliseconds since 1/1/1970.
+	private String data; //我们的数据是一条简单的消息
+	private long timeStamp; //从 1/1/1970 起至现在的总毫秒数.
 	private int nonce;
 	
-	//Block Constructor.  
+	//Block 类构造方法.  
 	public Block(String data,String previousHash ) {
 		this.data = data;
 		this.previousHash = previousHash;
@@ -268,7 +269,7 @@ public class Block {
 		this.hash = calculateHash(); //Making sure we do this after we set the other values.
 	}
 	
-	//Calculate new hash based on blocks contents
+	//根据区块内容计算其新 hash 值
 	public String calculateHash() {
 		String calculatedhash = StringUtil.applySha256( 
 				previousHash +
@@ -280,7 +281,7 @@ public class Block {
 	}
 	
 	public void mineBlock(int difficulty) {
-		String target = new String(new char[difficulty]).replace('\0', '0'); //Create a string with difficulty * "0" 
+		String target = new String(new char[difficulty]).replace('\0', '0'); //创建一个用 difficulty * "0" 组成的字符串
 		while(!hash.substring( 0, difficulty).equals(target)) {
 			nonce ++;
 			hash = calculateHash();
@@ -290,17 +291,17 @@ public class Block {
 }
 ```
 
-In reality each miner will start iterating from a random point. Some miners may even try random numbers for nonce. Also it’s worth noting that at the harder difficulties solutions may require more than integer.MAX_VALUE, miners can then try changing the timestamp.
+实际上，每个挖矿者会从一个随机点开始迭代计算。一些挖矿者甚至会尝试使用随机数作为 nonce。值得注意的是，更复杂的解决方案的计算值可能会超过 integer 最大值，这时挖矿者可以尝试更改时间戳。
 
-The **mineBlock()** method takes in an int called difficulty, this is the number of 0’s they must solve for. Low difficulty like 1 or 2 can be solved nearly instantly on most computers, i’d suggest something around 4–6 for testing. At the time of writing Litecoin’s difficulty is around 442,592.
+**mineBlock()** 方法接受一个 int 类型的 difficulty 参数，这是程序需要计算处理的 0 的数量。像 1 或 2 这样低难度的 difficulty 值，也许一台计算机就可以解决了。所以我建议将 difficulty 的值设置为 4-6 来做测试。现在莱特币挖矿的 difficulty 值约为 442,592。
 
-Lets add the difficulty as a static variable to the NoobChain class :
+让我们在 NoobChain 类中新增一个静态变量 difficulty：
 
 ```
 public static int difficulty = 5;
 ```
 
-We should update the **NoobChain** _class_ to trigger the **mineBlock()** _method_ for each new block. The **isChainValid**() _Boolean_ should also check if each block has a solved ( by mining ) hash.
+我们应该更新 **NoobChain** _类_ 去触发每个新区块的 **mineBlock()** _方法_。 返回 _布尔值_ 的 **isChainValid()** 还应检查每个区块（通过挖矿）计算出来的 hash 是否合法。
 
 ```
 import java.util.ArrayList;
@@ -312,7 +313,7 @@ public class NoobChain {
 	public static int difficulty = 5;
 
 	public static void main(String[] args) {	
-		//add our blocks to the blockchain ArrayList:
+		//将我们的区块添加至区块链 ArrayList 中：
 		
 		blockchain.add(new Block("Hi im the first block", "0"));
 		System.out.println("Trying to Mine block 1... ");
@@ -338,21 +339,21 @@ public class NoobChain {
 		Block previousBlock;
 		String hashTarget = new String(new char[difficulty]).replace('\0', '0');
 		
-		//loop through blockchain to check hashes:
+		//循环区块链来检查 hash 值的合法性：
 		for(int i=1; i < blockchain.size(); i++) {
 			currentBlock = blockchain.get(i);
 			previousBlock = blockchain.get(i-1);
-			//compare registered hash and calculated hash:
+			//比较当前区块存储的 hash 值和计算出来的 hash 值：
 			if(!currentBlock.hash.equals(currentBlock.calculateHash()) ){
 				System.out.println("Current Hashes not equal");			
 				return false;
 			}
-			//compare previous hash and registered previous hash
+			//比较前一个区块存储的 hash 值和当前区块存储的 previousHash 值：
 			if(!previousBlock.hash.equals(currentBlock.previousHash) ) {
 				System.out.println("Previous Hashes not equal");
 				return false;
 			}
-			//check if hash is solved
+			//检查 hash 值是否已经存在
 			if(!currentBlock.hash.substring( 0, difficulty).equals(hashTarget)) {
 				System.out.println("This block hasn't been mined");
 				return false;
@@ -363,51 +364,56 @@ public class NoobChain {
 }
 ```
 
-Notice we also check and print _isChainValid_.
+同时我们还检查了 _isChainValid_ 值，并将其打印出来。
 
-Running this your results should look like :
+运行这个程序的输出应该像下面这样：
 
 ![](https://cdn-images-1.medium.com/max/800/1*qzjPDdgOESJSwDSP0peEEg.png)
 
-Mining each block took some time! ( around 3 seconds ) You should mess around with the difficulty value to see how that effects the time it takes to mine each block ;)
+对每个区块的计算都需要花费一些时间！ （大约3秒）你应该仔细研究下 difficulty 值，看看它是如何影响每个区块的计算时间的 :)
 
-If someone were to **tamper** 😒 with the data in your blockchain system:
+如果有人试图去**篡改** 😒 你系统中区块链的数据：
 
-* Their blockchain would be invalid.
-* They would not be able to create a longer blockchain.
-* Honest blockchains in your network will have a time advantage on the longest chain.
+* 他们的区块链会变得不合法。
+* 他们将无法创建一个更长的区块链。
+* 网络中合法的区块链在链长度上将会具有时间优势。
 
-**A tampered blockchain will not be able to catch up with a longer & valid chain. ***
+**一个被篡改的区块链不会同时合法且具有长度优势的。***
 
-*unless they have vastly more computation speed than all other nodes in your network combined. A future quantum computer or something.
+*除非它们的计算速度远远超过网络中所有其他节点的总和。比如有一台未来量子计算机之类的。
 
-### You’re all done with your basic blockchain!
+### 恭喜你，你已经实现了自己的基础区块链！
 
 ![](https://cdn-images-1.medium.com/max/800/1*9K4pVMSdI7A0YZH-g47I2w.gif)
 
-Go on pat yourself on the back.
+拍拍你自己的肩膀把。
 
-Your blockchain:
-**> Is made up of blocks that store data.
-> Has a digital signature that chains your blocks together.
-> Requires proof of work mining to validate new blocks.
-> Can be check to see if data in it is valid and unchanged.**
+你的区块链：
 
-You can download these project files on [Github](https://github.com/CryptoKass/NoobChain-Tutorial-Part-1).
+**> 是由存储数据的一个个区块组成的。**
+
+**> 有一个将你所有的区块串连起来的数字签名。**
+
+**> 对于新加入的区块，需要一系列的挖矿验证性工作去检查其合法性。**
+
+**> 可以检查数据是否合法和是否被篡改。**
+
+你可以在 [Github](https://github.com/CryptoKass/NoobChain-Tutorial-Part-1) 上下载本文的项目。
 
 ![](https://cdn-images-1.medium.com/max/800/1*ZbFDb_ml08yDSRXyzhFGxA.gif)
 
-You can **follow to be notified** when next tutorials and other blockchain development articles are posted. Any feedback is also greatly appreciated. Thanks.
+你可以**关注我**，当下个教程和其他区块链开发文章发布时便可以及时得到通知。十分欢迎任何反馈信息。谢谢。
 
 ### [Creating Your First Blockchain with Java. Part 2:](https://medium.com/programmers-blockchain/creating-your-first-blockchain-with-java-part-2-transactions-2cdac335e0ce)
 
-We cover **Transactions, Signatures** and **Wallets**.
+下个教程的内容将涉及区块链的**交易**，**签名**和**钱包**。
 
-_contact:_ kassCrypto@gmail.com
+联系: kassCrypto@gmail.com
 
-**_Questions_**_:_ [https://discord.gg/ZsyQqyk](https://discord.gg/ZsyQqyk) _(I’m on the Blockchain developers Club discord)_
+**提问**：[https://discord.gg/ZsyQqyk](https://discord.gg/ZsyQqyk) (我在 discord 上的区块链开发者俱乐部)。
 
 
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
+
