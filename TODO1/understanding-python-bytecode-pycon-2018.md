@@ -2,7 +2,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/understanding-python-bytecode-pycon-2018.md](https://github.com/xitu/gold-miner/blob/master/TODO1/understanding-python-bytecode-pycon-2018.md)
 > * 译者：[cdpath](https://github.com/cdpath)
-> * 校对者：
+> * 校对者：[HCMY](https://github.com/HCMY)
 
 # James Bennett - 理解 Python 字节码 - PyCon 2018
 
@@ -32,9 +32,9 @@
 
 0:52  为什么热爱 Python？
 
-0:55  因为我们相信
+0:55  因为我们都明白
 
-0:57  读代码的时间比写代码多得多
+0:57  读代码的时间比写代码多得多的道理
 
 1:03  所以要尽力让代码更易读
 
@@ -608,10 +608,6 @@
 
 17:03  返回值就回到了计算栈
 
-17:06  evaluation stack right here where we
-
-17:08  called the Fibonacci function and that
-
 17:10  这就是 Python 逐步执行斐波纳契函数的细节
 
 17:14  这里的 `CALL_FUNCTION` 指令只适用于位置参数
@@ -1068,3 +1064,4 @@
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
+
