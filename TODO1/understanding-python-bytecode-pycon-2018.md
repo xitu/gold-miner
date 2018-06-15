@@ -4,7 +4,7 @@
 > * 译者：[cdpath](https://github.com/cdpath)
 > * 校对者：[HCMY](https://github.com/HCMY)
 
-# James Bennett - 理解 Python 字节码 - PyCon 2018
+# James Bennett — 理解 Python 字节码 — PyCon 2018
 
 > 本文为 PyCon 2018 视频之 James Bennett - A Bit about Bytes: Understanding Python Bytecode 的中文字幕，您可以搭配原视频食用。
 
