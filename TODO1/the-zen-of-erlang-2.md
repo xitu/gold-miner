@@ -2,145 +2,145 @@
 > * 原文作者：[Fred T-H](https://ferd.ca)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-zen-of-erlang-2.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-zen-of-erlang-2.md)
-> * 译者：
+> * 译者：[7Ethan](https://github.com/7Ethan)
 > * 校对者：
 
-# As bad as anything else
+# 就像其它的任何事物一样糟糕
 
-## The Zen of Erlang
+## Erlang 之禅
 
 **如果你还没看本文的第一部分，请先阅读第一部分：[Erlang 之禅：第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/the-zen-of-erlang-1.md)。**
 
 ![Bugs that Happen in production](https://ferd.ca/static/img/zen-of-erlang/015.png)
 
-The next connection I want to make is regarding the frequency each of these types of bugs have in production (in my experience). There's no obvious proof that there is any connection between the use of finding bugs and their incidence in production systems, but my gut feeling would tell me that such a connection does exist.
+我在这部分想要阐述的是以我的经验去说说在生产中每种类型错误的出现频率。没有任何明显的证据表明利用查找错误和错误的发生概率有联系。但是我的直觉告诉我，这种关系是存在的。
 
-First of all, easy repeatable bugs in core features should just not make it to production. If they do, you have essentially shipped a broken product and no amount of restarting or support will help your users. Those require modifying the code, and may be the result of some deeply entrenched issues within the organisation that produced them.
+首先，在核心功能中容易重复的错误不应该出现在产品中。如果这样做了，那么你实际上已经发布了一个破产品，再多的重新启动或者技术支持都不会帮到你的用户。这些要修改代码，并且可能是软件内部产生的一些根深蒂固的问题的结果。
 
-Repeatable bugs in side-features will pretty often make it to production. I do think this is a result of not taking the time to test them properly, but there's also a strong possibility that secondary features often get left behind when it comes to partial refactorings, or that the people behind their design do not fully consider whether the feature will coherently fit with the rest of the system.
+生产中的一些边缘功能常会出现不断重复的错误，我认为这是没有花足够的时间去合理测试它们的结果。但当涉及到部分重构时，次要功能往往会被摆在次要位置，或者设计者没有充分考虑这些功能要与系统的其他部分保持一致。
 
-On the other hand, transient bugs will show up all the damn time. Jim Gray, who coined these terms, reported that on 132 bugs noted at a given set of customer sites, only one was a Bohrbug. 131/132 of errors encountered in production tended to be heisenbugs. They're hard to catch, and if they're truly statistical bugs that may show once in a million times, it just takes some load on your system to trigger them all the time; a once in a billion bug will show up every 3 hours in a system doing 100,000 requests a second, and a once in a million bug could similarly show up once every 10 seconds on such a system, but their occurrence would still be rare in tests.
+另一方面，瞬变错误一直存在。吉姆·格雷发明了这些术语，他报告说，在给定的客户站点中，132 个错误里只有一个是 Bohrbug。它们很难被捕获，如果它们是真正的错误，可能每一百万次就只出现一次，那么你的系统就会一直需要一些负载来捕捉它们;每 10 个 bug 中就有一个会在系统中每 3 小时出现一次，每秒处理 10 万个请求;每 10 个 bug 中就有一个会在系统中出现，但在测试中这种情况比较少见。
 
-That's a lot of bugs, and a lot of failures if they are not handled properly.
+如果处理不当，就将会有很多的错误和失败。
 
 ![Bugs Handled by Restarts](https://ferd.ca/static/img/zen-of-erlang/016.png)
 
-So really, how efficient is restarting as a strategy?
+那么，重新开始作为一种策略有多有效呢?
 
-Well for repeatable bugs on core features, restarting is useless. For repeatable bugs in less frequently used code paths, it depends; if the feature is a thing very important to a very small amount of users, restarting won't do much. If it's a side-feature used by everyone, but to a degree they don't care much about, then restarting or ignoring the failure altogether can work well. For example, if the facebook 'poke' feature were to be broken (would it still exist), not too many users would notice or see their experience ruined by its failure.
+对于核心功能上的重复错误，重新启动是没用的。对于不经常使用的代码路径中的重复错误，这取决于不同情况;如果这个功能对于非常少的用户来说非常重要，那么重新启动不会有太大的作用。如果这是每个人都使用的一个小功能，但在某种程度上他们并不太在意，那么重新开始或忽略失败就可以很好地工作。例如，如果facebook 的 ‘poke’ 功能失效(不知道这个问题是否还存在)，那么不会有太多的用户会注意到因它的失败二影响了体验。
 
-For transient bugs though, restarting is extremely effective, and they tend to be the majority of bugs you'll meet live. Because they are hard to reproduce, that their showing up is often dependent on very specific circumstances or interleavings of bits of state in the system, and that their appearance tends to be in a very small fraction of all operations, restarting tends to make them disappear altogether.
+对于瞬态错误，重启是非常有效的，而且它们往往是我们遇到的常见错误。由于它们难以复制，所以它们的出现通常依赖于特定情况或系统中状态的交织，并且它们的出现往往只占所有操作的一小部分，重启往往会使它们消失。
 
-Rolling back to a known stable state and trying again is unlikely to hit the same weird context that causes them. And just like that, what could have been a catastrophe has become little more than a hiccup for the system, something users quickly learn to live with.
+回滚到已知的稳定状态，再重复一次相同的操作，不太可能碰到导致这种情况的奇怪上下文。因此，可能发生的灾难只不过是系统的一个小插曲，用户很快就学会了与之共存。
 
-You can then make use of logging, tracing, or a variety of introspection tools (which all come out of the box in Erlang) to later find, understand, and fix the issues so they stop happening. Or you could just decide to tolerate them were the effort required to fix the issues too large.
+然后，你可以使用日志记录、跟踪或各种自检工具(这些工具在 Erlang 中都是现成的)来查找、理解和修复问题，以便它们不再发生。或者你可以决定容忍它们，因为解决问题需要付出巨大的努力。
 
 ![notorious bsd](https://ferd.ca/static/img/zen-of-erlang/017.png)
 
-This question was asked to me on a forum where I was discussing programming stuff and discussing the Erlang model. I copied it verbatim because it's a great example of a question a lot of people ask when they hear about restarting and Erlang's features.
+这个问题是在一个论坛上提出来的，当时我正在讨论编程内容和 Erlang 模型。我一字不差地摘录了它，因为这是一个很好的例子，很多人听到重启和 Erlang 的特性时都会问这个问题。
 
-I want to address it specifically by giving a realistic example of how a system could be designed in Erlang, which will highlight its peculiarities.
+我想通过一个现实的例子来具体说明如何在 Erlang 中设计一个系统，这更能突出它的特性。
 
 ![supervision tree demo](https://ferd.ca/static/img/zen-of-erlang/018.png)
 
-With supervisors (rounded squares), we can start creating deep hierarchies of processes. Here we have a system for elections, with two trees: a tally tree and a live reports tree. The tally tree takes care of counting and storing results, and the live reports tree is about letting people connect to it to see the results.
+通过监督者(圆形的方形)，我们可以开始创建深层次的流程。这里我们有一个选举系统，有两棵树:一棵计数树和一棵实时报告树。计数树负责计数和存储结果，而实时报告树则是让人们连接到它以查看结果。
 
-By the order the children are defined, the live reports will not run until the tally tree is booted and functional. The district subtree (about counting results per district) won't run unless the storage layer is available. The storage's cache is only booted if the storage worker pool (which would connect to a database) is operational.
+通过定义子节点的顺序可以知道，实时报告树将不会运行，除非计数树启动并运行。 除非存储层可用，否则分区子树（关于每个分区的计数结果）将不会运行。 如果存储工作者池（将连接到数据库）可用，则只能启动存储的缓存。
 
-The supervision strategies I mentioned earlier let us encode these requirements in the program structure, and they are still respected at run time, not just at boot time. For example, the tally supervisor may be using a one for one strategy, meaning that districts can individually fail without effecting each other's counts. By contrast, each district (Quebec and Ontario's supervisors) could be employing a rest for one strategy. This strategy could therefore ensure that the OCR process can always send its detected vote to the 'count' worker, and it can crash often without impacting it. On the other hand, if the count worker is unable to keep and store state, its demise interrupts the OCR procedure, ensuring nothing breaks.
+我前面提到的监督策略让我们在程序结构中对这些需求进行编码，并且它们在运行时仍然存在的，而不仅仅是在启动时。例如，管理人员可能会采用一对一策略，这意味着各区域可能各自失败，而不会影响彼此之间的计数。相比之下，每个地区(魁北克和安大略的管理者)都可以采取休息策略。 因此，这一策略可以确保 OCR 程序始终可以将检测到的投票发送给“计数”工作人员，并且即使经常崩溃也不会对其造成影响。 另一方面，如果计数工作人员无法保存和存储状态，它的停止会中断 OCR 程序，确保没有任何数据丢失。
 
-The OCR process itself here could be just monitoring code written in C, as a standalone agent, and be linked to it. This would further isolate the faults of that C code from the VM, for better isolation or parallelisation.
+这个 OCR 进程本身可能是用 C 语言编写的监视代码，作为独立的代理，并与其链接。 这将进一步隔离该 C 语言代码与虚拟机的故障，以实现更好的隔离或并行化。
 
-Another thing I should point out is that each supervisor has a configurable tolerance to failure; the district supervisor might be very tolerant and deal with 10 failures a minute, whereas the storage layer could be fairly intolerant to failure if expected to be correct, and shut down permanently after 3 crashes an hour if we wanted it to.
+我要指出的另一件事是，每个主管都有对失败的可配置容忍度;区域主管可能非常宽容，每分钟处理 10 次故障，而存储层如果预期是正确的，则可能对故障相当不宽容，如果我们希望它是正确的，则在每小时 3 次崩溃后永久关闭。
 
-In this program, critical features are closer to the root of the tree, unmoving and solid. They are unimpacted by their siblings' demise, but their own failure impacts everyone else. The leaves do all the work and can be lost fairly well — once they have absorbed the data and operated their photosynthesis on it, it is allowed to go towards the core.
+在这个程序中，关键的功能更接近树的根，这样能更少的移动和更加坚固。他们不受兄弟节点消亡的影响，但他们自己的失败影响到其他人。叶子完成了所有的工作，并且可以很好地丢失 —— 一旦它们吸收了数据并在上面进行光合作用，它就可以进入核心。
 
-So by defining all of that, we can isolate risky code in a worker with a high tolerance or a process that is being monitored, and move data to stabler process as information matures into the system. If the OCR code in C is dangerous, it can fail and safely be restarted. When it works, it transmits its information to the Erlang OCR process. That process can do validation, maybe crash on its own, maybe not. If the information is solid, it moves it to the Count process, whose job is to maintain very simple state, and eventually flush that state to the database via the storage subtree, safely independent.
+因此，通过定义所有这些，我们可以将危险的代码隔离在一个具有高容忍度或正在被监控的进程中，并在数据进入系统时将数据移至更稳定的进程。 如果 C 语言中的OCR 代码有危险，它可以失败并安全地重新启动。 当它工作时，它将其信息传输到 Erlang OCR 进程。 该过程可以进行验证，也可以自行崩溃，也许不会。 如果信息是可靠的，则将其移至 Count 过程，该进程的任务是保持非常简单的状态，并最终通过存储子树将该状态刷新到数据库，这是安全独立的。
 
-If the OCR process dies, it gets restarted. If it dies too often, it takes its own supervisor down, and that bit of the subtree is restarted too — without affecting the rest of the system. If that fixes things, great. If not, the process is repeated upwards until it works, or until the whole system is taken down as something is clearly wrong and we can't cope with it through restarts.
+如果 OCR 进程死亡，它会自动重启。如果它奔溃得太频繁，它就会将自己的管理器关闭，子树的那一部分也会重新启动 —— 不会影响系统的其他部分。如果这能解决问题，很好。如果没有，这个过程就会不断重复，直到它工作，或者直到整个系统被取下，因为某些东西显然是错误的，我们无法通过重新启动来处理它。
 
-There's enormous value in structuring the system this way because error handling is baked into its structure. This means I can stop writing outrageously defensive code in the edge nodes — if something goes wrong, let someone else (or the program's structure) dictate how to react. If I know how to handle an error, fine, I can do that for that specific error. Otherwise, just let it crash!
+以这种方式构建系统具有巨大的价值，因为错误处理被嵌入到系统的结构中。这意味着我可以不用在边缘节点中编写恶心的防御代码 —— 如果出了问题，让其他人(或程序的结构)来决定如何反应。如果我知道如何处理一个错误，那么我可以对那个特定的错误这么做。否则，就让它崩溃吧!
 
-This tends to transform your code. Slowly you notice that it no longer contains these tons of if/else or switches or try/catch expressions. Instead, it contains legible code explaining what the code should do when everything goes right. It stops containing many forms of second guessing, and your software becomes much more readable.
+这中方式倾向于转换代码。慢慢地，你会发现它不再包含大量的 if/else 或 switch 或 try/catch 表达式。相反，它包含了清晰的代码，解释当一切正常时代码应该做什么。它不再包含许多形式的猜测，你的软件可读性更强。
 
 ![supervision subtrees](https://ferd.ca/static/img/zen-of-erlang/019.png)
 
-When taking a step back and looking at our program structure, we may in fact find that each of the subtrees encircled in yellow seem to be mostly independent from each other in terms of what they do; their dependency is mostly logical: the reporting system needs a storage layer to query, for example.
+当我们退一步看我们的程序结构时，我们可能会发现，在黄色环绕的每个子树中，在它们所做的事情上似乎都是相互独立的;它们的依赖关系大多是合乎逻辑的:例如，报表系统需要一个存储层进行查询。
 
-It would also be great if I could, for example, swap my storage implementation or use it independently in other systems. It could be neat, too, to isolate the live reports system into a different node or to start providing alternative means (such as SMS for example).
+例如，如果我可以交换存储实现或在其他系统中独立使用它，那也是非常好的。将实时报告系统隔离到不同的节点或开始提供替代手段（例如 SMS）也可能很整洁。
 
-What we now need is to find a way to break up these subtrees and turn them into logical units that we can compose, reuse together, and that we can otherwise configure, restart, or develop independently.
+我们现在需要的是找到一种方式来打破这些子树，并将它们转化为我们可以组合，重用的逻辑单元，并且我们可以独立配置，重新启动或开发。
 
 ![OTP apps](https://ferd.ca/static/img/zen-of-erlang/020.png)
 
-OTP applications are what Erlang uses as a solution here. OTP applications are pretty much the code to construct such a subtree, along with some metadata. This metadata contains basic stuff like version numbers and descriptions of what the app does, but also ways to specify dependencies between applications. This is useful because it lets me keep my storage app independent from the rest of the system, but still encode the tally app's need for it to be there when it runs. I can keep all the information I had encoded in my system, but now it is built out of independent blocks that are easier to reason about.
+OTP 应用程序是 Erlang 在这里用作解决方案的地方。 OTP 应用程序是构建这种子树的代码以及一些元数据。该元数据包含基本内容，如版本号和应用程序的描述，以及指定应用程序之间的依赖关系的方法。 这非常有用，因为它可以让我的存储应用程序与系统的其他部分保持独立，但仍然对计数应用程序在运行时的需要进行编码。我可以保留我在系统中编码的所有信息，但现在它是由独立块构建的，这些块更容易理解。
 
-In fact, OTP applications are what people consider to be libraries in Erlang. If your code base isn't an OTP application, it isn't reusable in other systems. [Sidenote: there are ways to specify OTP libraries that do not actually contain subtrees, just modules to be reused by other libraries]
+实际上，人们认为 OTP 应用程序是 Erlang 的库。 如果您的代码库不是 OTP 应用程序，那么它在其他系统中不可重用。 [旁注：有许多方法可以指定实际上不包含子树的 OTP 库，只是由其他库重用的模块]
 
-With all of this done, our Erlang system now has all of the following properties defined:
+搞掂一切后，我们的 Erlang 系统现在已经定义了以下所有属性：
 
-*   what is critical or not to the survival of the system
-*   what is allowed to fail or not, and at which frequency it can do so before it is no longer sustainable
-*   how software should boot according to which guarantees, and in what order
-*   how software should fail, meaning it defines the legal states of partial failures you find yourself in, and how to roll back to a known stable state when this happens
-*   how software is upgraded (because it can be upgraded live, based on the supervision structure)
-*   how components interdepend on each other
+*   对系统的生存至关重要或不重要
+*   什么是可以失败的，以及在不再可持续之前它能够以何种频率这样做
+*   软件应该如何根据哪些保证以及以什么样的顺序启动
+*   软件应该如何失败，这意味着它定义了你所处的部分失败的合法状态，以及如何在发生这种情况时回滚到已知的稳定状态
+*   软件如何升级（因为它可以根据监督结构进行实时升级）
+*   组件如何相互依赖
 
-This is all extremely valuable. What's more valuable is forcing every developer to think in such terms from early on. You have less defensive code, and when bad things happen, the system keeps running. All you have to do is go look at the logs or introspect the live system state and take your time to fix things, if you feel it's worth the time.
+这是非常有价值的。更有价值的是迫使每个开发人员在早期就从这种角度去考虑。你的防守代码较少，发生奔溃时系统会继续运行。你只需要查看日志或实时系统状态，并花时间修复问题（如果您觉得这是值得的时间）。
 
 ![sleep at night](https://ferd.ca/static/img/zen-of-erlang/021.png)
 
-With all of this done, I should be able to sleep at night, right? Hopefully yes. What I included here is a small pixelated diagram from a new software deploy we ran at Heroku a couple of years ago.
+完成这一切后，我应该可以安稳的睡大觉了，对吧？希望是的。我在这里包展示的是几年前我们在 Heroku 上运行的一个新软件部署的小图像。
 
-The leftmost side of the diagram is around September. By that time, our new proxying layer ([vegur](https://github.com/heroku/vegur)) had been in production for maybe 3 months, and we had ironed out most of the kinks in it. Users had no problem, the transition was going smoothly and new features were being used.
+图的最左边是在 9 月左右。那时，我们的新代理层([vegur](https://github.com/heroku/vegur)）已经投入生产了大约 3 个月，我们已经解决了其中的大部分问题。用户没有问题，过渡进行得很顺利，新的功能正在被使用。
 
-At some point, a team member got a very expensive credit card bill for the logging service we were using to aggregate exceptions. That's when we took a look at it and saw the horror on the leftmost side of the diagram: we were generating between 500,000 to 1,200,000 exceptions a day! Holy cow, that was a lot. But was it? If the issue was a heisenbug, and our system was seeing, say 100,000 requests a second, what were the odds of it happening? Something between 1/17000 and 1/7000. Somewhat very frequent, but because it had no impact on service, we didn't notice it until the bandwidth and storage bill came through.
+在某个时候，一个团队成员为我们用来聚合异常的日志记录服务收到了非常昂贵的信用卡帐单。 那时候我们看了一眼，看到了图表最左边的恐怖：我们每天产生 500,000 到 1,200,000 个异常！额滴神，这太多了吧。 但是呢？ 如果问题是一个 heisenbug，而我们的系统每秒收到 100,000 个请求，那么它发生的几率是多少？在 1/17000 到 1/7000 之间。这很频繁，但是因为它对服务没有影响，所以直到带宽和存储账单来了我们才注意到它。
 
-It took us a short while to figure out the error, and we fixed it. You can see that there is still a low rate of exceptions after that, maybe a few dozen thousands a day. They're all things we know of, but are impact-free. Two years later and we haven't bothered to fix it because the system works fine despite that.
+我们花了不多的时间弄清楚错误，然后我们修正了错误。你可以看到，此后的异常率仍然很低，可能每天几十万。他们都是我们所知道的，但是没有影响。两年后，我们还没有着手解决这个问题，因为尽管如此，系统还是可以正常工作的。
 
 ![expect failure](https://ferd.ca/static/img/zen-of-erlang/022.png)
 
-At the same time, you can't always just sleep at night. Failures can be out of your control despite your best design efforts.
+与此同时，你不可能总能安稳的睡大觉。 尽管你采用了最佳的设计方法，但失败可能会失控。
 
-A couple of years ago I was on a flight to Vancouver starting on its descent when the pilot used the intercom to tell us something a bit like this: "this is your captain speaking, we will be landing shortly. Do not be alarmed as we will stay on the tarmac for a few minutes while the fire department looks over the plane. We have lost some hydraulic component and they want to ensure there is no risk of fire. There are two backup systems for the broken one, and we should be fine."
+几年前，当飞行员用对讲机告诉我们一些事情时，我正在飞往温哥华的航班上：“这是机长，我们马上就要着陆了。不要惊慌，因为我们会在停机坪上停留几分钟，而消防部门会检查飞机。我们已经失去了一些液压元件，他们想要确保没有发生火灾的危险。我们有两个备用系统，我们应该没问题。”
 
-And we were fine. In this case the airplane was amazingly well designed.
+我们都没事。在这种情况下，这架飞机设计得非常好。
 
-The image for this slide isn't that flight though, it's another one I was on two weeks ago, while the Eastern US were being burrowed under 24 inches of snow. The plane (flight United 734), which I'm sure was as reliable, landed on the runway. When it came time to break though, it made a loud noise, what I assume is the ABS equivalent of aircrafts, but it still kept going.
+这张幻灯片上的图片并不是那个航班，而是我两周前拍摄的另一张，当时美国东部正被埋在 24 英寸厚的雪中。这架飞机(联合 734 航班)，我确信它同样可靠，降落在跑道上。但到了休息的时候，它发出了很大的噪音，我猜是 ABS 的飞机，但它还是继续前进。
 
-We ran over the red lights at the end of the runway you see on the picture, and at the end of the tarmac, the plane skid off the runway, missed the onramp, and the front wheel ended up in the grass. Everyone was fine, but this is an example of why great engineering cannot save the day every time.
+我们跑过了跑道尽头的红灯，你在照片上看到了，在停机坪的尽头，飞机滑出跑道，错过了斜坡，前轮在草地上消失了。每个人都没事，但这是一个伟大的工程不能每次都能正常运作的例子。
 
 ![danger zone](https://ferd.ca/static/img/zen-of-erlang/023.png)
 
-In fact, operations will always remain a huge factor in successful systems being deployed. This slide is heavily inspired (pretty much stolen in fact) from presentations by Richard Cook. If you don't know him, I urge you to go watch videos of his talks on youtube, they're pretty much all fantastic.
+事实上，操作始终是成功部署系统的一个重要因素。这张幻灯片很受理查德·库克( Richard Cook )的演讲启发(实际上是被偷了)。如果你不认识他，我建议你去 youtube 上看他演讲的视频，这些视频非常棒。
 
-Proper system architecture and development practices can still not replace, or can be broken by inadequate operations; the efficiency and usefulness of tools, playbooks, monitoring, automation, and so on, all tend to implicitly rely on the knowledge and respect of well-defined operating conditions (throughput, load, overload management, etc.) If defined at all, these operational limits let you know when things are about to go bad, and when they are good again.
+正确的系统架构和开发实践仍然无法被取代，或者可能因不适当的操作而被打破; 工具，剧本，监控，自动化等的效率和有用性，都趋向隐式依赖于知识和操作条件的完全考虑（如吞吐量，负载，过载管理等）。如果定义了这些，这些操作限制会让你知道什么时候事情会变坏，什么时候再变好。
 
-The problem with these limits is that as operators get used to them, and get used to frequently breaking them without negative consequences, there is a risk of slowly pushing the envelope towards the edge of the danger zone, where nasty large-scale failures happen. Your reaction time and margin to adapt to higher loads erodes, and you eventually end in a position where things are constantly broken with no respite in sight.
+这些限制的问题在于，当操作员习惯了这些限制，并且习惯了频繁地破坏它们而不产生负面后果，就有可能慢慢地将极限推到危险区域的边缘，在那里会发生严重的大规模故障。你的反应时间和和余地将受到更高的负载会的侵蚀，最终被终结在一个不断被破坏的位置，却没有任何喘息的机会。
 
-So we have to be careful and aware of this kind of thing, and to the importance that people using and operating the software has on it. It is always harder to scale up a good team than it is to scale up a program. Plan for emergencies even if they don't happen; they will some day and you'll be happy you ran simulations and have recipes to follow to fix it all up.
+所以我们必须小心，注意这类事情，以及重视人们使用和操作软件的重要性。要想扩大一个优秀团队的规模，总是比扩大一个项目要困难。即使不发生紧急情况也要做好计划预防它们奔溃，当这样的事情发生时你可以轻松的运行模拟程序并且有完备的方法去修复它们。
 
 ![plane emergency measures](https://ferd.ca/static/img/zen-of-erlang/024.png)
 
-In the case of my flight, as I said, nobody was injured. Still, this is the circus that was deployed for it all: busses to escort passengers back to the terminal, since moving a stranded plane could be risky. Pick-up trucks to escort the busses safely from the runway to the terminal. Police cars, a whole lot of fire trucks, and that black car that I don't know what it does but I'm sure it's super useful.
+就像我说的，在我的飞行中没有人受伤。尽管如此，这仍是一场为了大家而上演的闹剧:巴士护送乘客返回航站楼，因为运送滞留的飞机可能存在风险。 很多随车将巴士安全地从跑道护送至码头。其中有警车，一大堆消防车，还有那辆我不知道它做什么的黑色汽车，但我相信它非常有用。
 
-They deploy all of that despite everyone being fine, despite planes being super reliable. They do things right.
+尽管每个人没事，尽管飞机非常可靠，但他们还是部署了所有这些设备。他们做了正确的事情。
 
 ![other goodies](https://ferd.ca/static/img/zen-of-erlang/025.png)
 
-Here's another bunch of things you gain by using Erlang. I don't really have much to say about them, just that I do tend to have some kind of interest in you switching to use it, so here it is.
+这里有另外一些你使用 Erlang 获得的东西。对他们没什么好说的，只是我倾向于对切换使用它有一些兴趣，所以就是这样。
 
-The last point is worth commenting though. One of the risks that happen in languages that are very flexible in their approach in system design is that libraries you use may not want to do things the way you feel would be appropriate in your case, and you're left either not using the lib, or having to operate codebases with an incoherent design. This doesn't happen in Erlang as everyone uses the same proven approach to do things.
+最后一点值得评论。在他们的系统设计方法中非常灵活的语言中发生的风险之一是，你使用的库可能不会按照你认为合理的的方式执行任何操作。这样的情形下你只好不用库，又或者用不连贯的设计来操作代码库。这在 Erlang 中不会发生，因为每个人都使用相同的经过验证的方法来完成任务。
 
 ![how things interact](https://ferd.ca/static/img/zen-of-erlang/026.png)
 
-In a nutshell, the Zen of Erlang and 'let it crash' is really all about figuring out how components interact with each other, figuring out what is critical and what is not, what state can be saved, kept, recomputed, or lost. In all cases, you have to come up with a worst-case scenario and how to survive it. By using fail-fast mechanisms with isolation, links & monitors, and supervisors to give boundaries to all of these worst-case scenarios' scale and propagation, you make it a really well-understood regular failure case.
+简而言之，Erlang 的“让它崩溃”和“让它崩溃”的精髓，其实就是搞清楚组件如何相互作用，弄明白什么是关键的，什么不是关键的，什么状态可以保存、保留、重新计算或丢失。在所有的情况下，你都必须想出最坏的情况以及如何度过它。通过使用具有隔离，链路和监视器以及监视器的故障快速机制来限制所有这些最坏情况的规模和传播，你将让它成为一个非常容易理解的常规故障案例。
 
-That sounds simple, but it's surprisingly good; if you feel that your well-understood regular failure case is viable, then all your error handling can fall-through to that case. You no longer need to worry or write defensive code. You write what the code should do and let the program's structure dictate the rest. Let it crash.
+这听起来很简单，但却有奇效。如果你认为你可以理解的常规失败案例是可行的，那么你所有的错误处理都可以适用于该案例。你不再需要担心或编写防御代码。你只要编写代码应该做什么，并让程序的结构决定其余部分。随它崩溃去吧。
 
 ![zen of erlang](https://ferd.ca/static/img/zen-of-erlang/027.png)
 
-That’s the Zen of Erlang: building interactions first, making sure the worst that can happen is still okay. Then there will be few faults or failures in your system to make you nervous (and when it happens, you can introspect everything at run time!) You can sit back and relax.
+这就是 Erlang 的精髓：首先建立互动，确保可能发生的最坏情况仍然是可行的。那么在你的系统中几乎没有错误或失败会让你紧张（当它发生时，你可以在运行时自省一切！），那样你就可以坐下来放松了。
 
 
 ---
