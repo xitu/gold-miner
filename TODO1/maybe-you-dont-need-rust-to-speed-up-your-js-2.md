@@ -5,13 +5,13 @@
 > * 译者：
 > * 校对者：
 
-# Maybe you don't need Rust and WASM to speed up your JS — Part 2
+# 或许你并不需要 Rust 和 WASM 来提升 JS 的执行效率 — 第二部分
 
 **以下内容为本系列文章的第二部分，如果你还没看第一部分，请移步 [Maybe you don't need Rust and WASM to speed up your JS — 第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/maybe-you-dont-need-rust-to-speed-up-your-js-1.md)。**
 
-There are three different ways to decode Base64 VLQ segments that I tried against each other.
+有三种不同的方式可以解码我试过的 Base64 VLQ 段。
 
-The first one `decodeCached` is exactly the same as the default implementation used by `source-map` - which I already listed above:
+第一个 `decodeCached` 与 `source-map` 使用的默认实现完全相同 - 我已经在上面列出了：
 
 ```
 function decodeCached(aStr) {
@@ -62,7 +62,7 @@ function decodeCached(aStr) {
 }
 ``` 
 
-The next competitor is `decodeNoCaching`. It is essentially `decodeCached` but without the cache. Each segment is decoded independently. I also replaced `Array` with `Int32Array` for `segment` storage.
+下一个竞争对手是`decodeNoCaching`。 它本质上是`decodeCached`，但没有缓存。 每个段都被独立解码。 我也用`Int32Array`替换`Array`作为`segment`存储。
 
 ```
 function decodeNoCaching(aStr) {
@@ -97,9 +97,9 @@ function decodeNoCaching(aStr) {
 }
 ``` 
 
-Finally the third variant `decodeNoCachingNoString` tries to avoid dealing with JavaScript strings altogether by converting the string into utf8 encoded `Uint8Array`. This optimization is inspired by the fact that JS VMs are more likely to optimize an array load down to a single memory access. Optimizing `String.prototype.charCodeAt` to the same extent is harder due to the sheer complexity of the hierarchy of different string representations that JS VMs utilize.
+最后，第三个变体`decodeNoCachingNoString`尝试避免通过将字符串转换为utf8编码的`Uint8Array`来处理JavaScript字符串。 这种优化受到以下事实的启发：JS虚拟机更有可能将阵列负载优化为单个内存访问。 由于JS VM使用的不同字符串表示的层次结构非常复杂，所以将`String.prototype.charCodeAt`优化到相同的范围更加困难。
 
-I benchmarked both a version that encodes string into utf8 as part of the iteration and a version that uses preencoded string. With this latter “optimistic” version I am trying to estimate how much we could gain if we were able to skip _typed array ⇒ string ⇒ typed array_ round trip. Which would be possible if we loaded the source map directly as an array buffer and parsed it directly from that buffer instead of converting it to string first.
+我将一个将字符串编码为utf8的版本作为迭代的一部分，以及使用预编码字符串的版本。 对于后者的“乐观”版本，我试图估计如果我们能够跳过_type数组⇒string⇒typed array_往返，我们可以获得多少收益。 如果我们直接将源映射加载为数组缓冲区并直接从该缓冲区解析它，而不是先将其转换为字符串，那么这将是可能的。
 
 ```
 let encoder = new TextEncoder();
@@ -140,30 +140,30 @@ function decodeNoCachingNoStringPreEncoded(arr) {
 }
 ``` 
 
-Here are the results I’ve gotten by running my microbenchmark in Chrome Dev `66.0.3343.3` (V8 `6.6.189`) and Firefox Nightly `60.0a1 (2018-02-11)`:
+下面是我在Chrome Dev`66.0.3343.3`（V8`6.6.189`）和Firefox Nightly`60.0a1中运行我的microbenchmark得到的结果(2018-02-11)`:
 
-![Different Decodes](https://mrale.ph/images/2018-02-03/different-decodes.png)
+![不同的解码](https://mrale.ph/images/2018-02-03/different-decodes.png)
 
-There are few things to notice here:
+有几件事情需要注意：
 
-*   the version that uses caching is slower than anything else on both V8 and SpiderMonkey. Its performance degrades steeply as number of cache entries grows - while performance of non-caching versions does not depend on that;
-*   on SpiderMonkey it pays off to convert string into typed array as part of parsing, while on V8 character access is fast enough - so it only pays off to use array if you can move string-to-array conversion out of the benchmark (e.g. you load your data into typed arrays to begin with);
+*使用缓存的版本比V8和SpiderMonkey上的其他任何版本都要慢。随着缓存条目数量的增长，其性能急剧下降 - 而非缓存版本的性能不依赖于此;
+*在SpiderMonkey上，将字符串转换为类型化数组作为分析的一部分，而在V8上字符访问速度足够快 - 所以只有在可以将字符串到数组的转换移出基准（例如，你将你的数据加载到类型数组中以开始）;
 
-I was curious if V8 team did any work recently to improve `charCodeAt` performance - as I remembered rather vividly that Crankshaft never made an effort to specialize `charCodeAt` for a particular string representation at a call-site and instead expanded `charCodeAt` into a large chunk of code handling many different string representations, making loading characters from strings slower than loading elements from typed arrays.
+我很好奇，如果V8团队最近做了一些工作来提高charCodeAt性能 - 我记得生动地记得Crankshaft从来没有努力在一个调用站点为特定的字符串表示专门化'charCodeAt'，而是将`charCodeAt`扩展为一大块代码处理许多不同的字符串表示，使得从字符串加载字符比从加载数组加载元素慢。
 
-I trawled V8 issue tracker and found few active issues like these:
+我浏览了V8问题跟踪器，发现了像这样的几个活动问题：
 
 *   [Issue 6391: StringCharCodeAt slower than Crankshaft](https://bugs.chromium.org/p/v8/issues/detail?id=6391);
 *   [Issue 7092: High overhead of String.prototype.charCodeAt in typescript test](https://bugs.chromium.org/p/v8/issues/detail?id=7092);
 *   [Issue 7326: Performance degradation when looping across character codes of a string](https://bugs.chromium.org/p/v8/issues/detail?id=7326);
 
-Some of the comments on these issues reference commits from late January 2018 and onward, which indicated to me that performance of `charCodeAt` is being actively worked on. Out of curiosity I decided to rerun my microbenchmark in Chrome Beta and compare against Chrome Dev
+对这些问题的一些评论引用了2018年1月末以后的提交，这表明我正在积极地开展'charCodeAt'的性能测试。 出于好奇，我决定在Chrome Beta中重新运行我的microbenchmark，并与Chrome Dev进行比较
 
 ![Different Decodes](https://mrale.ph/images/2018-02-03/different-decodes-v8s.png)
 
-This comparison does in fact confirm that all those commits by the V8 team were not for nothing: performance of `charCodeAt` improved drastically from version `6.5.254.21` to `6.6.189`. Comparing “no cache” and “using array” lines we can see that on an older V8 `charCodeAt` behaved so much worse that it made sense to convert the string into `Uint8Array` just to access it faster. However the overhead of doing this conversion inside the parse does not pay off anymore in a newer V8.
+事实上，这一比较确认V8团队的所有提交都不是空话：`charCodeAt`的性能从版本“6.5.254.21”大大提高到了“6.6.189”。 比较“无缓存”和“使用数组”行，我们可以看到，在较旧的V8 charCodeAt表现更差，因此将字符串转换为“Uint8Array”只是为了更快地访问该字符串。 然而，在解析内部进行这种转换的开销并不能在新的V8中得到回报。
 
-However it still pays off to use an array instead of a string as long as you don’t have to pay the conversion cost. Why is that? To figure that out I run the following code in tip-of-the tree V8:
+但是，只要您不必支付转换成本，就可以使用数组而不是字符串。 这是为什么？ 为了解决这个问题，我在V8树的顶端运行以下代码：
 
 ```
 function foo(str, i) {
@@ -184,28 +184,28 @@ foo(str, 0);
 ╰─$ out.gn/x64.release/d8 --allow-natives-syntax --print-opt-code --code-comments x.js
 ``` 
 
-The command produced a [gigantic assembly listing](https://gist.github.com/mraleph/a1f36a67676a8dfef0af081f27f3eb6a) confirming my suspicion that V8 still does not specialize `charCodeAt` for a particular string representation. This lowering seems to come from [this code](https://github.com/v8/v8/blob/de7a3174282a48fab9c167155ffc8ff20c37214d/src/compiler/effect-control-linearizer.cc#L2687-L2826) in V8 sources, which resolves the mystery of why array access is faster than string `charCodeAt`.
+该命令产生了一个[巨大的程序集列表]（https://gist.github.com/mraleph/a1f36a67676a8dfef0af081f27f3eb6a），证实我怀疑V8仍然没有针对特定的字符串表示特殊化“charCodeAt”。 这种降低似乎来自V8源代码中的[此代码]（https://github.com/v8/v8/v8/blob/de7a3174282a48fab9c167155ffc8ff20c37214d/src/compiler/effect-control-linearizer.cc#L2687-L2826），它可以解决 为什么数组访问速度快于字符串“charCodeAt”的奥秘。
 
-#### Parsing Improvements
+#### 解析改进
 
-In light of these discoveries lets remove caching of parsed segments from `source-map` parsing code and measure the effect.
+鉴于这些发现，我们可以从`source-map`解析代码中移除已解析片段的缓存并测量其效果。
 
-![Parse and Sort times](https://mrale.ph/images/2018-02-03/parse-sort-1.png)
+！[解析和排序时间]（https://mrale.ph/images/2018-02-03/parse-sort-1.png）
 
-Just like our microbenchmarking predicted caching was detrimental to the overall performance rather than being beneficial: removing it actually improves parsing times considerably.
+就像我们的微基准预测缓存对整体性能不利，而不是有益的：删除它实际上大大提高了解析时间。
 
-### Optimizing Sorting - Algorithmic Improvements
+### 优化排序 - 算法改进
 
-Now that we improved parsing performance lets take a look at the sorting again.
+现在我们改进了解析性能，让我们再看一下排序。
 
-There are two arrays that are being sorted:
+有两个正在排序的数组：
 
 1.  `originalMappings` array is being sorted using `compareByOriginalPositions` comparator;
 2.  `generatedMappings` array is being sorted using `compareByGeneratedPositionsDeflated` comparator.
 
-#### Optimizing `originalMappings` Sorting
+#### 优化`originalMappings`排序
 
-I took a look at `compareByOriginalPositions` first.
+我首先看了一下`compareByOriginalPositions`。
 
 ```
 function compareByOriginalPositions(mappingA, mappingB, onlyCompareOriginal) {
@@ -238,11 +238,11 @@ function compareByOriginalPositions(mappingA, mappingB, onlyCompareOriginal) {
 }
 ``` 
 
-Here I noticed that mappings are being ordered by `source` component first and then by all other components. `source` specifies which source file the mapping originally came from. An obvious idea here is that instead of using a flat gigantic `originalMappings` array, which mixes together mappings from different source files, we can turn `originalMappings` into array of arrays: `originalMappings[i]` would be an array of all mappings from source file with index `i`. This way we can sort mappings into different `originalMappings[i]` arrays based on their source as we parse them and then sort individual smaller arrays.
+在这里我注意到，映射首先由`source`组件排序，然后由所有其他组件排序。 `source`指定映射最初来自哪个源文件。 这里一个明显的想法是，我们可以将`originalMappings`变成数组数组：`originalMappings [i]`是一个包含所有映射的数组，而不是使用平坦的巨大的`originalMappings`数组，它将来自不同源文件的映射混合在一起 从索引为`i`的源文件中提取。 通过这种方式，我们可以根据解析它们的来源将映射排序到不同的`originalMappings [i]`数组中，然后对单个较小的数组进行排序。
 
-This is essentially a [Bucket Sort](https://en.wikipedia.org/wiki/Bucket_sort)
+这本质上是[桶排序]（https://en.wikipedia.org/wiki/Bucket_sort）
 
-Here is what we do in parsing loop:
+这是我们在解析循环中所做的：
 
 ```
 if (typeof mapping.originalLine === 'number') {
@@ -259,7 +259,7 @@ if (typeof mapping.originalLine === 'number') {
 }
 ```
 
-And then after that:
+然后在那之后：
 
 ```
 var startSortOriginal = Date.now();
@@ -273,17 +273,17 @@ for (var i = 0; i < originalMappings.length; i++) {
 var endSortOriginal = Date.now();
 ```
 
-The `compareByOriginalPositionsNoSource` comparator is almost exactly the same as `compareByOriginalPositions` comparator except it does not compare `source` component anymore - those are guaranteed to be equal due to the way we constructed each `originalMappings[i]` array.
+“compareByOriginalPositionsNoSource”比较器几乎与“compareByOriginalPositions”比较器完全相同，只是它不再比较“source”组件 - 由于我们构造每个`originalMappings [i]`数组的方式，这些保证是相等的。
 
-![Parse and Sort times](https://mrale.ph/images/2018-02-03/parse-sort-2.png)
+！[解析和排序时间]（https://mrale.ph/images/2018-02-03/parse-sort-2.png）
 
-This algorithmic change improves sorting times on both V8 and SpiderMonkey and additionally improves parsing times on V8.
+此算法更改可提高V8和SpiderMonkey上的排序时间，并进一步改进V8上的解析时间。
 
-Parse time improvement is likely due to the reduction of costs associated with managing `originalMappings` array: growing a single gigantic `originalMappings` array is more expensive than growing multiple smaller `originalMappings[i]` arrays individually. However this is just my guess, which is not confirmed by any rigorous analysis.
+解析时间的提高很可能是由于管理`originalMappings`数组的相关成本的降低：增长一个巨大的`originalMappings`数组比单独生长多个较小的`originalMappings [i]`数组要昂贵得多。 然而，这只是我的猜测，没有经过任何严格的分析。
 
-#### Optimizing `generatedMappings` Sorting
+####优化`generatedMappings`排序
 
-Let us take a look at `generatedMappings` and `compareByGeneratedPositionsDeflated` comparator.
+让我们看一下`generatedMappings`和`compareByGeneratedPositionsDeflated`比较器。
 
 ```
 function compareByGeneratedPositionsDeflated(mappingA, mappingB, onlyCompareGenerated) {
@@ -316,9 +316,9 @@ function compareByGeneratedPositionsDeflated(mappingA, mappingB, onlyCompareGene
 }
 ```
 
-Here we first compare mappings by `generatedLine`. There are likely considerably more generated lines than original source files so it does not make sense to split `generatedMappings` into multiple individual arrays.
+这里我们首先比较`generatedLine`的映射。 生成的行可能比原始源文件多得多，因此将`generatedMappings`分成多个单独的数组是没有意义的。
 
-However when I looked at the parsing code I noticed the following:
+但是，当我看着解析代码时，我注意到了以下内容：
 
 ```
 while (index < length) {
@@ -336,7 +336,7 @@ while (index < length) {
 }
 ```
 
-These are the only occurrences of `generatedLine` in this code, which means that `generatedLine` is growing monotonically - implying that `generatedMappings` array is already ordered by `generatedLine` and it does not make sense to sort the array as whole. Instead we can sort each individual smaller subarray. We change the code like this:
+这是代码中`generatedLine`的唯一出现，这意味着`generatedLine`是单调增长的 - 意味着`generatedMappings`数组已经被`generatedLine`排序了，并且将整个数组排序是没有意义的。 相反，我们可以对每个较小的子阵列进行排序。 我们改变这样的代码：
 
 ```
 let subarrayStart = 0;
@@ -361,9 +361,9 @@ while (index < length) {
 sortGenerated(generatedMappings, subarrayStart);
 ```
 
-Instead of using `quickSort` for sorting smaller subarrays, I also decided to use [insertion sort](https://en.wikipedia.org/wiki/Insertion_sort), similar to a hybrid strategy that some VMs use for `Array.prototype.sort`.
+我没有使用`quickSort`排序较小的子阵列，而是决定使用[插入排序]（https://en.wikipedia.org/wiki/Insertion_sort），类似于一些VM用于Array.prototype的混合策略.sort`。
 
-Note: insertion sort is also faster than quick sort if input array is already sorted… and it turns out that mappings used for the benchmark _are_ in fact sorted. If we expect `generatedMappings` to be almost always sorted after parsing then it would be even more efficient to simply check whether `generatedMappings` is sorted before trying to sort it.
+注意：如果输入数组已经排序，插入排序也快于快速排序......事实证明，用于基准的映射实际上是排序的。 如果我们期望`generatedMappings`在解析之后几乎总是被排序，那么在试图对它进行排序之前简单地检查`generatedMappings`是否已经排序会更有效率。
 
 ```
 const compareGenerated = util.compareByGeneratedPositionsDeflatedNoLine;
@@ -398,29 +398,29 @@ function sortGenerated(array, start) {
 }
 ```
 
-This yields the following result:
+这产生以下结果：
 
-![Parse and Sort times](https://mrale.ph/images/2018-02-03/parse-sort-3.png)
+！[解析和排序时间]（https://mrale.ph/images/2018-02-03/parse-sort-3.png）
 
-Sorting times drop drastically, while parsing times slightly increase - that happens because the code sorting `generatedMappings` as part of the parsing loop, making our breakdown slightly meaningless. Lets check comparison of cumulative timings (parsing and sorting together)
+排序时间急剧下降，而解析时间稍微增加 - 这是因为代码将`generatedMappings`作为解析循环的一部分进行排序，使得我们的分解略显无意义。 让我们检查累计时间的比较（解析和排序）
 
-#### Improvements to Total Time
+####改善总时间
 
-![Parse and Sort times](https://mrale.ph/images/2018-02-03/parse-sort-3-total.png)
+！[解析和排序时间]（https://mrale.ph/images/2018-02-03/parse-sort-3-total.png）
 
-Now it becomes obvious that we considerably improved overall mappings parsing performance.
+现在很明显，我们大大提高了整体映射解析性能。
 
-Is there anything else we could do to improve performance?
+我们还有什么可以改善表现的吗？
 
-It turns out yes: we can pull out a page from asm.js / WASM own playbook without going full-Rust on our JavaScript code base.
+事实证明是的：我们可以从asm.js / WASM自己的剧本中抽出一个页面，而不用全部使用 - 在我们的JavaScript代码库上生锈。
 
-### Optimizing Parsing - Reducing GC Pressure
+###优化分析 - 降低GC压力
 
-We are allocating hundreds of thousands of `Mapping` objects, which puts considerable pressure on the GC - however we don’t really need these objects to be objects - we can pack them into a typed array. Here is how I did it.
+我们正在分配成千上万的`Mapping`对象，这给GC带来了相当大的压力 - 然而我们并不真的需要这些对象作为对象 - 我们可以将它们打包成一个类型化的数组。 这是我如何做到的。
 
-Few years ago I was really excited about [Typed Objects](https://github.com/nikomatsakis/typed-objects-explainer) proposal which would allow JavaScript programmers to define structs and arrays of structs and all other amazing things that would come extremely handy here. Unfortunately champions working on that proposal moved away to work on other things leaving us with a choice to write these things either manually or in C++ 😞
+几年前，我对[Typed Objects]（https://github.com/nikomatsakis/typed-objects-explainer）提案感到非常兴奋，该提案将允许JavaScript程序员定义结构和结构数组以及所有其他令人惊奇的事情 这里非常方便。 不幸的是，针对该提案开展工作的冠军离开了其他方面的工作，让我们有选择地手动或使用C ++编写这些东西。
 
-First, I changed `Mapping` from a normal object into a wrapper that points into a gigantic typed array that would contain all our mappings.
+首先，我将Mapping从一个普通的对象变成了一个包装器，它指向一个巨大的类型数组，它将包含我们所有的映射。
 
 ```
 function Mapping(memory) {
@@ -467,7 +467,7 @@ Mapping.prototype = {
 };
 ```
 
-Then I adjusted the parsing and sorting code to use it like this:
+然后我调整了解析和排序代码来使用它，如下所示：
 
 ```
 BasicSourceMapConsumer.prototype._parseMappings = function (aStr, aSourceRoot) {
@@ -548,50 +548,46 @@ exports.compareByOriginalPositionsNoSource =
 };
 ```
 
-As you can see readability does suffer quite a bit. Ideally I would prefer to allocate a temporary `Mapping` object whenever I need to work with its fields. However such code style would lean heavily on VMs ability to eliminate allocations of these temporary wrappers via _allocation sinking_, _scalar replacement_ or other similar optimizations. Unfortunately in my experiments SpiderMonkey could not deal with such code well enough and thus I opted for much more verbose and error prone code.
+正如你所看到的，可读性确实受到了很大的影响。理想情况下，我希望在需要处理其字段时分配临时的“映射”对象。然而，这种代码风格将严重依赖虚拟机通过_allocation sinking_，_scalar replacement_或其他类似的优化来消除这些临时包装的分配。不幸的是，在我的实验中，SpiderMonkey无法很好地处理这样的代码，因此我选择了更多冗长且容易出错的代码。
 
-This sort of _almost_ manual memory management might seem rather foreign in JS. That’s why I think it might be worth mentioning here that “oxidized” `source-map` actually [requires users to manually manage](https://github.com/mozilla/source-map#sourcemapconsumerprototypedestroy) its lifetime to ensure that WASM resources are freed.
+这种_almost_手动内存管理在JS中可能看起来很陌生。这就是为什么我认为在这里值得一提的是，“氧化”的“源图”实际上[需要用户手动管理]（https://github.com/mozilla/source-map#sourcemapconsumerprototypedestroy）它的生命周期，以确保WASM资源被释放。
 
-Rerunning benchmark confirms that alleviating GC pressure yields a nice improvement
+重新运行的基准证实，缓解GC压力产生了很好的改善
 
-![After reworking allocation](https://mrale.ph/images/2018-02-03/parse-sort-4.png)
+！[重新分配后]（https://mrale.ph/images/2018-02-03/parse-sort-4.png）
 
-![After reworking allocation](https://mrale.ph/images/2018-02-03/parse-sort-4-total.png)
+！[重新分配后]（https://mrale.ph/images/2018-02-03/parse-sort-4-total.png）
 
-Interestingly enough on SpiderMonkey this approach improves both parsing _and_ sorting times, which came as a surprise to me.
+有趣的是，在SpiderMonkey上，这种方法改善了解析和排序时间，这对我来说是一个惊喜。
 
-#### SpiderMonkey Performance Cliff
+#### SpiderMonkey性能悬崖
 
-As I was playing with this code I also discovered a confusing performance cliff in SpiderMonkey: when I increased the size of preallocated memory buffer from 4MB to 64MB to gauge reallocation costs, benchmark showed a sudden drop in performance after 7th iteration.
+当我玩这段代码时，我还发现了SpiderMonkey中令人困惑的性能悬崖：当我将预分配的内存缓冲区的大小从4MB增加到64MB来衡量重新分配成本时，基准测试显示第7次迭代后性能突然下降。
 
-![After reworking allocation](https://mrale.ph/images/2018-02-03/parse-sort-5-total.png)
+！[重新分配后]（https://mrale.ph/images/2018-02-03/parse-sort-5-total.png）
 
-This looked like some sort of polymorphism to me, but I could not immediately figure out how changing the size of an array can result in a polymorphic behavior.
+这看起来像某种多态性对我来说，但我不能立即弄清楚如何改变数组的大小可以导致多态行为。
 
-Puzzled I reached out to a SpiderMonkey hacker [Jan de Mooij](https://twitter.com/jandemooij) who very [quickly identified](https://bugzilla.mozilla.org/show_bug.cgi?id=1437471) an asm.js related optimization from 2012 as a culprit… then he went and removed it from SpiderMonkey so that nobody hits this confusing cliff again.
+我很困惑，我找到了一个SpiderMonkey黑客[Jan de Mooij]（https://twitter.com/jandemooij），他很快[识别出]（https://bugzilla.mozilla.org/show_bug.cgi?id=1437471） asm.js从2012年开始相关的优化作为罪魁祸首......然后他将它从SpiderMonkey中删除，以免再次碰到这个令人迷惑的悬崖。
 
-### Optimizing Parsing - Using `Uint8Array` Instead of a String.
+###优化分析 - 使用`Uint8Array`而不是字符串。
 
-Finally if we start using `Uint8Array` instead of a string for parsing we get yet another small improvement.
+最后，如果我们开始使用`Uint8Array`而不是一个字符串来解析，我们又得到了一个小小的改进。
 
-![After reworking allocation](https://mrale.ph/images/2018-02-03/parse-sort-6-total.png)
+###对基线的总体改进
 
-This improvement is predicated on rewriting `source-map` to parse mappings directly from typed arrays, instead of using JavaScript string and parsing it with `JSON.decode`. I did not do such rewrite but I don’t anticipate any issues.
-
-### Total Improvements Against the Baseline
-
-Here is where we started:
-
+这是我们开始的地方：
 ```
 $ d8 bench-shell-bindings.js
 ...
-[Stats samples: 5, total: 24050 ms, mean: 4810 ms, stddev: 155.91063145276527 ms]
+[Stats samples: 5, total: 24050 ms, mean: 4810 m
+s, stddev: 155.91063145276527 ms]
 $ sm bench-shell-bindings.js
 ...
 [Stats samples: 7, total: 22925 ms, mean: 3275 ms, stddev: 269.5999093306804 ms]
 ``` 
 
-and this is where we are finishing
+这就是我们正在完成的地方
 
 ```
 $ d8 bench-shell-bindings.js
@@ -602,115 +598,114 @@ $ sm bench-shell-bindings.js
 [Stats samples: 31, total: 25247 ms, mean: 814.4193548387096 ms, stddev: 5.591064299397745 ms]
 ``` 
 
-![After reworking allocation](https://mrale.ph/images/2018-02-03/parse-sort-final.png)
+！[重新分配后]（https://mrale.ph/images/2018-02-03/parse-sort-final.png）
 
-![After reworking allocation](https://mrale.ph/images/2018-02-03/parse-sort-final-total.png)
+！[重新分配后]（https://mrale.ph/images/2018-02-03/parse-sort-final-total.png）
 
-This is a factor of 4 improvement!
+这是一个4倍提高的因素！
 
-It might be also worth noting that we are still sorting all `originalMappings` arrays eagerly even though this is not really needed. There are only two operations that use `originalMappings`:
+可能还值得注意的是，尽管这不是真的需要，我们仍然热切地对所有`originalMappings`数组进行排序。 只有两个操作使用`originalMappings`：
 
 *   `allGeneratedPositionsFor` which returns all generated positions for the given line in the original source;
 *   `eachMapping(..., ORIGINAL_ORDER)` which iterates over all mappings in their original order.
 
-If we assume that `allGeneratedPositionsFor` is the most common operation and that we are only going to search within a handful of `originalMappings[i]` arrays then we can vastly improve parsing time by sorting `originalMappings[i]` arrays lazily whenever we actually need to search one of them.
+如果我们假设`allGeneratedPositionsFor`是最常见的操作，并且我们只在少数`originalMappings [i]`数组中搜索，那么无论何时我们可以通过对`originalMappings [i]`数组进行排序来大大提高解析时间 实际上需要搜索其中的一个。
 
-Finally a comparison of V8 from Jan 19th to V8 from Feb 19th with and without [untrusted code mitigations](https://github.com/v8/v8/wiki/Untrusted-code-mitigations).
+最后比较从1月19日V8从2月19日与V8没有[不可信代码缓解]（https://github.com/v8/v8/wiki/Untrusted-code-mitigations）。
 
-![After reworking allocation](https://mrale.ph/images/2018-02-03/parse-sort-v8-vs-v8-total.png)
+！[重新分配后]（https://mrale.ph/images/2018-02-03/parse-sort-v8-vs-v8-total.png）
 
-### Comparing to Oxidized `source-map` Version
+###比较氧化的`source-map`版本
 
-Following the publication of this post on February 19th, I got few requests to compare `source-map` with my tweaks against mainline oxidized `source-map` that uses Rust and WASM.
+继2月19日发布这篇文章之后，我几乎没有要求将源图与我使用Rust和WASM的主线氧化“源图”相比较。
 
-Quick look at Rust source code for [`parse_mappings`](https://github.com/fitzgen/source-map-mappings/blob/master/src/lib.rs#L499-L566) revealed that Rust version does not collect or sort original mappings eagerly, only equivalent of `generatedMappings` is produced and sorted. To match this behavior I adjusted my JS version by commenting out sorting of `originalMappings[i]` arrays.
+快速查看[`parse_mappings`]（https://github.com/fitzgen/source-map-mappings/blob/master/src/lib.rs#L499-L566）的Rust源代码，发现Rust版本不收集或者热切排序原始映射，只会生成和排序`generatedMappings`的等价物。为了匹配这种行为，我通过注释掉`originalMappings [i]`数组的排序来调整我的JS版本。
 
-Here are benchmark results for just parsing (which also includes sorting `generatedMappings`) and for parsing and then iterating over all `generatedMappings`.
+这里是仅仅解析的基准结果（其中还包括对`generatedMappings`进行排序），然后对所有`generatedMappings`进行解析和迭代。
 
-![Parse only times](https://mrale.ph/images/2018-02-03/parse-only-rust-wasm-vs-js.png)
+！[只解析时间]（https://mrale.ph/images/2018-02-03/parse-only-rust-wasm-vs-js.png）
 
-![Parse and iterate times](https://mrale.ph/images/2018-02-03/parse-iterate-rust-wasm-vs-js.png)
+！[解析和迭代次数]（https://mrale.ph/images/2018-02-03/parse-iterate-rust-wasm-vs-js.png）
 
-**Note that the comparison is slightly misleading because Rust version does not optimize sorting of `generatedMappings` in the same way as my JS version does.**
+**请注意，比较有点误导，因为Rust版本并未像我的JS版本那样优化`generatedMappings`的排序。**
 
-Thus I am not gonna declare here that _«we have successfully reached parity with the Rust+WASM version»_. However at this level of performance differences it might make sense to reevaluate if it is even worth the complexity to use Rust in `source-map`.
+因此，我不会在这里宣布，“我们已经成功与Rust + WASM版本达成了平衡”。然而，在这种性能差异的水平上，如果甚至值得在`source-map`中使用Rust的复杂性，那么重新评估可能是有意义的。
 
-#### Update (Feb 27th 2018)
+####更新（2018年2月27日）
 
-Nick Fitzgerald, the author of `source-map`, [has updated](http://fitzgeraldnick.com/2018/02/26/speed-without-wizardry.html) Rust+WASM version with algorithmic improvements described in this article. Here is an amended performance graph for _parse and iterate_ benchmark:
+`source-map`的作者Nick Fitzgerald [已更新]（http://fitzgeraldnick.com/2018/02/26/speed-without-wizardry.html）本文描述的算法改进的Rust + WASM版本。 以下是_parse和iterate_ benchmark的修正性能图：
 
-![Parse and iterate times](https://mrale.ph/images/2018-02-03/parse-iterate-rust-wasm-vs-js-2.png)
+！[解析和迭代次数]（https://mrale.ph/images/2018-02-03/parse-iterate-rust-wasm-vs-js-2.png）
 
-As you can see WASM+Rust version is now around 15% faster on SpiderMonkey and approximately the same speed on V8.
+正如你可以看到WASM + Rust版本在SpiderMonkey上的速度现在增加了大约15％，而在V8上的速度也大致相同。
+###学习
 
-### Learnings
+####对于JavaScript开发人员
 
-#### For a JavaScript Developer
+##### Profiler是你的朋友
 
-##### Profiler Is Your Friend
+以各种形状和形式进行的分析和细粒度的性能跟踪是保持性能表现的最佳方式。它允许您在代码中本地化热点，并揭示潜在的运行时问题。因为这个特殊的原因，不要回避使用像perf这样的低级分析工具 - “友好”的工具可能不会告诉你整个故事，因为它们隐藏了较低的级别。
 
-Profiling and fine grained performance tracking in various shapes and forms is the best way to stay on top of the performance. It allows you to localize hot-spots in your code and also reveals potential issues in the underlying runtime. For this particular reason don’t shy away from using low-level profiling tools like `perf` - “friendly” tools might not be telling you the whole story because they hide lower level.
+不同的性能问题需要不同的方法来分析和可视化收集的配置文件。确保熟悉各种可用的工具。
 
-Different performance problems require different approaches to profiling and visualizing collected profiles. Make sure to familiarize yourself with a wide spectrum of available tools.
+#####算法很重要
 
-##### Algorithms Are Important
+能够根据抽象复杂性来推理你的代码是一项重要的技能。快速排序一个具有100K元素的阵列或快速排序3333 30元素的子阵列会更好吗？
 
-Being able to reason about your code in terms of abstract complexity is an important skill. Is it better to quick-sort one array with 100K elements or quick-sort 3333 30-element subarrays?
+一些手语数学可以指导我们（（100000日志100000）比（3333日志30日志30）大3倍） - 数据越大，通常能够做一点数学的重要性越大。
 
-A bit of handwavy mathematics can guide us ((100000 log 100000) is 3 times larger than (3333 times 30 log 30)) - and the larger your data is the more important it usually is to be able to do a tiny bit of mathematics.
+除了了解你的对数之外，你需要拥有一定数量的常识，并且能够评估你的代码在平均和最糟糕的情况下的使用情况：哪些操作很常见，昂贵操作的成本如何摊销，昂贵的运营摊销的惩罚是什么？
 
-In addition to knowing your logarithms, you need to posses a healthy amount of common sense and be able to evaluate how your code would be used on average and in the worst case: which operations are common, how the cost of expensive operations can be amortized, what the penalty for amortizing expensive operations?
+#####虚拟机正在进行中。 Bug开发人员！
 
-##### VMs Are Work in Progress. Bug Developers!
+不要犹豫，与开发人员讨论奇怪的性能问题。并非所有事情都可以通过改变自己的代码来解决。俄国谚语说道：“制作罐子的不是上帝！”虚拟机开发人员是人，就像所有他们犯错误一样。一旦你接触到他们，他们也很擅长修复这些错误。一封邮件或聊天消息或DM可能为您节省通过外部C ++代码进行挖掘的时间。
 
-Do not hesitate to reach out to developers to discuss strange performance issues. Not everything can be solved just by changing your own code. The Russian proverb says _«It’s not gods who make pots!»_. VM developers are people and just like all others they make mistakes. They are also quite good at fixing those mistakes once you reach out to them. One mail or chat message or a DM might save you days of digging through foreign C++ code.
+#####虚拟机仍然需要一点帮助
 
-##### VMs Still Need a Bit of Help
+有时您需要编写低级代码或了解低级别细节，以便将JavaScript中的最后一滴性能压缩。
 
-Sometimes you need to write low-level code or know low-level details to squeeze the last drops of that performance juice out of JavaScript.
+人们可能更喜欢更好的语言水平的设施来实现这一点，但是如果我们到达那里，仍有待观察。
 
-One could prefer a better language level facilities to achieve that, but it remains to be seen if we ever get there.
+####对于语言实现者/设计者
 
-#### For a Language Implementor/Designer
+#####巧妙的优化必须是可诊断的
 
-##### Clever Optimizations Must be Diagnosable
+如果您的运行时具有任何内置的智能优化，那么您需要提供一个直观的工具来诊断这些优化失败的时间并向开发人员提供可操作的反馈。
 
-If your runtime has any sort of built-in clever optimizations then you need to provide a straightforward tool to diagnose when these optimizations fail and deliver an actionable feedback to the developer.
+在像JavaScript这样的语言环境中，这至少意味着像分析器这样的工具也应该为您提供一种方法来检查单个操作，以确定虚拟机是否专注于它们，而不是它 - 这是什么原因。
 
-In the context of languages like JavaScript this at minimum means that tools like profiler should also provide you with a way to inspect individual operations to figure out whether VM specializes them well and it it does not - what is the reason for that.
+这种内省应该不需要用魔术标志来构建虚拟机的自定义版本，然后通过兆字节的未记录调试输出进行循环。当您打开DevTools窗口时，此类工具应该就在那里。
 
-This sort of introspection should not require building custom versions of the VM with magic flags and then treading through megabytes of undocumented debug output. This sort of tools should be right there, when you open your DevTools window.
+#####语言和优化必须是朋友
 
-##### Language and Optimizations Must Be Friends
+最后，作为一名语言设计师，您应该尝试预测语言缺乏哪些特性，从而更容易编写性能良好的代码。市场上的用户是否需要手动布局和管理内存？我确定他们是。如果您的语言甚至是非常流行的用户最终会成功编写性能较差的代码。通过其他方式（例如，通过更复杂的优化或要求用户在Rust中重写其代码）来增加解决性能问题和解决相同性能问题的语言功能的成本。
 
-Finally as a language designer you should attempt to foresee where the language lacks features which make it easier to write well performing code. Are your users on the market for a way to layout and manage memory manually? I am sure they are. If your language is even remotely popular users would eventually succeed in writing code that performs poorly. Weight the cost of adding language features that fix performance problems against solving the same performance problems by other means (e.g. by more sophisticated optimizations or by asking users to rewrite their code in Rust).
+这也适用于其他方式：如果您的语言具有功能，请确保它们执行得相当好，并且它们的性能既可以被用户理解，又可以轻松诊断。投资使您的整个语言达到最优化，而不是拥有性能良好的核心，这些核心被性能不佳的很少使用的特性的长尾巴包围。
 
-This works the other way around too: if your language has features make sure that they perform reasonably well and their performance is both well understood by users and can be easily diagnosed. Invest in making your whole language optimized, instead of having a well performing core surrounded by poorly performing long tail of rarely used features.
+###后记
 
-### Afterword
+我们在这篇文章中发现的大多数优化分为三个不同的组：
 
-Most optimizations we discovered in this post fall into three different groups:
+1.算法改进;
+2.独立实施的解决方法，但潜在的语言依赖问题;
+3.针对V8特定问题的解决方法。
 
-1.  algorithmic improvements;
-2.  workarounds for implementation independent, but potentially language dependent issues;
-3.  workarounds for V8 specific issues.
+无论您编写哪种语言，仍然需要考虑算法。当你在固有的“较慢”语言中使用更糟糕的算法时，更容易注意到，但只是用“更快”的语言重新实现相同的算法，即使它可能会缓解症状，也不能解决问题。很大一部分帖子致力于这个组的优化：
 
-No matter which language you write in you still need to think about algorithms. It is easier to notice when you are using worse algorithms in inherently “slower” languages, but just reimplementing the same algorithms in a “faster” language does not solve the problem even though it might alleviate the symptoms. Large part of the post is dedicated to optimizations from this group:
+*通过对子序列进行排序而不是整个排列实现排序改进;
+*讨论缓存好处或缺乏它们。
 
-*   sorting improvements achieved by sorting subsequences rather than the whole array;
-*   discussions of caching benefits or lack of them there-off.
+第二组由单态化技巧表示。由于多态性而导致的性能受损不是V8特有的问题。这不是一个JS特定的问题。您可以跨实现甚至语言应用单态。有些语言（Rust，实际上）以某种形式将它应用于引擎盖下。
 
-The second group is represented by the monomorphisation trick. Performance suffering due to polymorphism is not a V8 specific issue. Neither it is a JS specific issue. You can apply monomorphisation across implementations and even languages. Some languages (Rust, actually) apply it in some form for you under the hood.
+最后一个也是最有争议的小组由争论适应的东西代表。
 
-The last and most controversial group is represented by argument adaptation stuff.
+最后，我对映射表示进行的优化（将单个对象封装到单个类型数组中）是跨越所有三个组的优化。这是关于理解GCed系统整体的局限性和成本。这也是关于理解现有JS虚拟机的优势，并将其用于我们的优势。
 
-Finally an optimization I did to mappings representation (packing individual objects into a single typed array) is an optimization that spans all three groups. It’s about understanding limitations and costs of a GCed system as whole. It’s also about understanding strength of existing JS VMs and utilizing it for our advantage.
+所以... **为什么我选择了标题？**这是因为我认为第三组代表了所有应该随着时间的推移将会修复的问题。其他组代表跨越实现和语言的普遍知识。
 
-So… **Why did I choose the title?** That’s because I think that the third group represents all issues which should and would be fixed over time. Other groups represent universal knowledge that spans across implementations and languages.
+很显然，每个开发人员和每个团队都可以自由选择花费N小时严格的时间分析，阅读和思考他们的JavaScript代码，或花费'M`小时用'X'语言重写他们的东西。
 
-Obviously each developer and each team are free to choose between spending `N` rigorous hours profiling and reading and thinking about their JavaScript code, or to spend `M` hours rewriting their stuff in a language `X`.
-
-However: (a) everybody needs to be fully aware that the choice even exists; and (b) language designers and implementors should work together on making this choice less and less obvious - which means working on language features and tools and reducing the need in “group №3” optimizations.
+但是：（a）每个人都需要充分意识到这种选择是存在的;和（b）语言设计者和实现者应该共同努力使这个选择越来越不明显 - 这意味着在语言特征和工具方面开展工作，并且减少“第3组”优化的需求。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
