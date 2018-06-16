@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-avoid-opinion-based-product-prioritization.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-avoid-opinion-based-product-prioritization.md)
 > * 译者：[Yuze](https://github.com/bobmayuze)
-> * 校对者：
+> * 校对者：[Yuhanlolo](https://github.com/Yuhanlolo), [geniusq1981](https://github.com/geniusq1981)
 
 # 如何避免拍脑袋想出的产品优先策略
 
@@ -11,30 +11,30 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*1QtpBve99bpwRN2PFAokjg.png)
 
-最难的事情就是做决定。特别是在一个团队的事情，做决定有时候还需要考虑到很多其他的因素。有时候会有组织内部竞争者的意见，团队领导或是老板个人的看法，甚至有时候是自己想试试新的方案。大部分的时候 CEO，CFO， CXO 的意见是很难去拒绝的。
+ 产品决策是一件很难的事情。在大部分的公司里，做决定有时候还需要考虑到很多其他的因素。有时候会有组织内部竞争者的意见，团队领导或是老板个人的看法，甚至有时候是自己想试试新的方案。有时候阻止你做出理性决策的最大障碍来自你的 CEO 或 CFO，因为他们的想法通常你很难拒绝。
 
-既然这是个常见性的问题的话，我们可以看看那些最成功的 App 开发者们是如何应对这样的情况的。
+既然这是个常见性的问题的话， 那么，成功的 app 开发者们是如何应对那些拍脑袋想出的产品决策的呢？
 
-我采访了大约 20 个顶尖的开发者，他们当中有来自 Google 的工程师，产品经理，以及增长经理。从这些简短的采访中， 我总结出了 3 个重要的点：
+我采访了大约 20 个顶尖的开发者，他们当中有来自 Google 的工程师，产品经理，以及成长总监。从这些简短的采访中，他们身上都展现了三个重要的特质
 
 *   他们都会通过实验来不断拓宽选择的可能性.
 *   数据是整个过程中最重要的一环.
-*   他们会在公司内部传播这个方法，并且和其他同事们分享相关的信息.
+*   他们在公司文化中传播数据的价值以及信息共享的重要性.
 
-在这篇文章中，我会用2个例子来展示顶尖的开发者们是如何解决这些问题的。在第一个例子里面，我很荣幸的有机会能采用 Google 内部经常采用的方法论在 1tap 的这个产品上做决策。第二个例子里，我甚至还有机会和 2017 年度优秀 app Memrise 团队交流，得到他们团队对这个方法论的看法。
+在这篇文章中，我会用2个例子来展示顶尖的开发者们是如何解决这些问题的。在第一个例子里面， 我很荣幸有机会采用 Google 内部经常使用的产品优先策略，并且将这个方法应用到了 1tap 这个产品上。第二个例子里，我非常幸运，可以内部跟踪 2017 年最佳应用 Memrise 开发过程中使用的决策流程，得到他们团队对这个方法论的看法。
 
 ### 1tap 和北极星方法
 
 
 [北极星方法](https://www.forbes.com/sites/forbesagencycouncil/2017/07/19/how-to-find-your-companys-north-star-metric/#58293ac830f8) 源于硅谷，并且已经有相对悠久的历史。在 Google 内部， Youtube 团队和 Gmail 团队经常用这个方法来帮助他们决定哪个特性应该被优先开发。根据我对他们的采访，我发现这样的方法论对于整个团队来说都是卓有成效的。我们在 Google 有专门的这么一支专业团队，所以我就顺水推舟地让他们和 1tap 团队合作来执行这个方法论。
 
-说了这么久，这个方法论到底是什么呢？理念上来说它非常简单，只有 4 个重要的东西：一个指北系统，一个用户流的图，一个增长模型，还有一个简单的电子表格。毕竟，所有的数据模型都需要一个电子表格来作为载体。
+说了这么久，这个方法论到底是什么呢？从概念上讲它 非常简单，只有 4 个部分：一个指北系统，一个用户流的图，一个增长模型，还有一个简单的电子表格。毕竟，所有的数据模型都需要一个电子表格来作为载体。
 
 那么接下来就让我们一起看看这 4 个东西是如何互相合作来帮助 1tap 解决问题的吧。
 
 ### 设置一个指北系统
 
-这个指北系统其实就是一个类似于能够系统的衡量我们的工作对于整个公司，业务，亦或是计划的贡献。有点类似 KPI 的概念。比如说我们在做一个旅馆预订业务的应用的话，那么这个指标就是用户们预订的夜晚总数。如果我们在做一个即时通讯应用，那么这个指标就是发送的消息。
+对于产品来说，这个系统类似于 KPI 的概念。它所衡量的指标包括该产品获取用户，并保持用户的参与率，转化率，以及留存率的能力。比如说我们在做一个旅馆预订应用，那么这个指标就是用户预订数。如果我们在做一个即时通讯应用，那么这个指标就是发送的信息数。
 
 1tap 的愿景是为了让自我雇佣变的更加简单一个团队。他们在 Google Play Store 上有 2 个应用：用于自动提供自动数据提取和簿记功能的 [1tap receipts](https://play.google.com/store/apps/details?id=io.onetap.app.receipts.uk) 以及用于通过收据和账单来自动计算税务的 [1tap tax](https://play.google.com/store/apps/details?id=io.onetap.app.tax) 。
 
@@ -55,7 +55,7 @@
 新用户的获取主要就是用户通过什么样的途径来下载你开发的应用。只要你确保你正确的设置了 UTM 标签在所有投放的链接之下，并且关联你的 AdWords 账户，你就能从 Google Play 的控制台里轻松看到你的新用户获取途径。
 
 不过每个产品的用户流都是根据具体情况而定的。但是一般都会包括登陆，上线，转化率（如果这是个付费产品）。 大部分的时候，对于一个app来说会有一个你特别关注的神奇的时刻，也就是关键事件流
-。这个东西很多时候就代表了这个指标，所以我们务必要包含它在指标里边儿。 
+。这个东西很多时候就代表了这个指标，也就是参与率和转化率指标，所以我们务必要包含它在指标里边儿。 
 
 最后，还有 **重复流**，也就是引导用户返回app的东西。
 
@@ -65,7 +65,7 @@
 
 ![](https://cdn-images-1.medium.com/max/800/0*ihtNP20aIDYffxrn.)
 
-你会发现他们没有任何用户流的分析。对于 1tap 这个应用和团队来说，认识到让用户感觉到惊艳的那个时刻才是最重要的。也就是用户激活阶段。Jon 表示很多用户都被 1tap 应用能够快速并且准确的 OCR 技术惊艳到了。
+你会发现他们没有任何用户流的分析。对于 1tap 这个应用和团队来说，认识到让用户感觉到惊艳的那个时刻才是最重要的。也就是用户激活阶段。Jon 说：” 让用户能立即看到自动提取出来的信息，这个就体现了产品的价值，也让很多用户被我们 OCR 技术的准确程度惊艳到了 ”
 
 最终的用户流图是在迭代了 10 个版本之后才产生的。Jon 认为第一版的这个图简直就是一团糟。太过于细节导致整个图看起来很混乱。然后整个团队才一起努力简化那张图，并且把精力都放在重要的方面。更棒的是，整理这张图还让 1tap 的应用去除了很多冗余的功能。“如果这不是个关键点的话，我们也没必要放在 app 里面吧”，Jon 如是说到。
 
@@ -75,11 +75,11 @@
 
 下一步就是构建增长模型了。我们会需要之前在北极星方法中找到的指标来决定我们应该怎么样去发挥我们的优势以及弥补我们不够完善的地方。
 
-就像之前在构建用户流的图的时候一样， 1tap 第一版的增长模型非常的复杂，有大概 16 页纸那么长。但是，在去掉了无关紧要东西之后，可以总结为：
+就像之前在构建用户流的图的时候一样， 1tap 第一版的增长模型非常的复杂，有大概 16 页纸那么长。但是，通过聚焦重要内容，一个直接可行的成长模型应运而生。成长模型概括如下：
 
 ![](https://cdn-images-1.medium.com/max/800/0*qnlVKnZB8odmSPE-.)
 
-这里的标题是每个用户处理的收据的数量，也就是我们最关注的指标。我们根据月活跃用户来对整个数量分层。
+这里的关键是每个用户添加的收据，这就是北极星指标。可以把它分解成每个月活跃用户（MAU）提交的收据。反过来，它也可以继续分解成每个通过不同途径添加收据的用户 - 扫描，电邮，手动输入 - 以及新用户和回头客。
 
 当他们刚开始编写 1tap 这个应用的时候，他们之前花了很多心思在数据分析上,几乎吧用户在这个应用上所有行为都进行了分析，并且这也是他们团队应以为傲的一点。然而，Jon 表示，他们的团队其实很多时候就是因为这个原因导致不知道从何处开始理解用户。因为可以参考的数据维度实在是太多了。但是这个增长模型能够很好的帮助他们通过找出北极星指标来做到这一点。
 
@@ -93,15 +93,16 @@
 
 ![](https://cdn-images-1.medium.com/max/800/0*Hmizl_Y7zhdMbNmU.)
 
-有了表格之后，1tap 开始探索了十几天各种活动对于用户平均收据数量的影响。Jon 发现这么做的好处就是他们能看到微小的改变给团队带来的好处。比如当下载到注册的转化率提升 2% 的时候，收据的总数也增加了2％。对比之下，从注册到激活到转化的提升对于总数的影响只有 75%。
+有了表格之后，1tap 开始探索了十几天各种活动对于用户平均收据数量的影响。Jon 发现这么做的好处就是他们能看到微小的改变给团队带来的好处。比如当下载到注册的转化率提升 2% 的时候，收据总数翻了一番。
+。对比之下，从注册到激活到转化的提升对于总数的影响只有 75%。
 
-随后，1tap 团队决定把更多的重心放在让用户感觉到这是一款惊艳的产品之上，而不是用户的获取。
+随后， 1tap 团队决定把更多的精力放在让用户在使用过程中更早的发现惊喜时刻（就是注册阶段），而不是简单的通过花钱去拉拢新用户。
 
 所以这个流程和模型为 1tap 带来了什么呢？
 
 首先，这些东西让他们团队明白了他们在做什么，什么是重要的。CEO Nick 再也不需要每天都问月活是从哪里来的以及我们如何才能增加月活。一切都明明白白的写在模型里了。此外，产品对于之后的需求也更加明确，知道如何制定优先级。现在所有决定都由这个“计算器”来做。CFO 也能知道通过增加收入我们还能提升用户的留存。基本上每个人都对团队下一步的动作能有所感知。
 
-另外一个重要的就是这个模型帮助他们更好的理解了用户获取。过去他们是不可能有这样的机会的。现在他们明白了通过和第三方合作去做一些登陆能有效的大量提高用户获取，并且提高用户留存。
+ 另外一个重要影响就是明白了如何去增加新用户。过去他们是不可能有这样的机会的。现在他们明白了通过和第三方合作去做一些登陆能有效的大量提高用户获取，并且提高用户留存。
 
 最后，Jon 还表示，这个模型还帮助了他们团队知道什么时候应该要雇用什么样的人。过去他们常常在错误的时间雇用不适合的人导致团队发展缓慢。
 
@@ -117,14 +118,14 @@ Memrise 提出了一种六维验证法来过滤这些奇妙的想法：
 2.  有立竿见影的效果。当新的想法实现的时候需要能给我们带来直观的改变。
 3.  有长远的效果。这个想法需要能在长期帮助我们的用户，而不是三分钟热度。
 4.  必须可以量化。我们需要可以量化这个想法对产品的效果。
-5.  可以落地，能够尽量覆盖大量的应用市场。
+5.  可以本地化，能够尽量覆盖大量的应用市场。
 6.  和产品相关，并且是可以理解的。
 
 ![](https://cdn-images-1.medium.com/max/800/0*ZFEKyBCJ09866AjF.)
 
 在探索未来新特性的时候，他们团队会用这个法则来决定开发什么而不开发什么。
 
-就像 Kristina 所说的那样，我们需要大胆假设，小心验证。**Memrise 把产品的开发周期分为 4 个阶段：探索，定义，开发，和跟进。**
+就像 Kristina 所说的那样，我们需要将这个具有创造性和实验性的思维方式逐渐灌输到团队和公司中。**Memrise 把产品的开发周期分为 4 个阶段：探索，定义，开发，和跟进。**
 
 ![](https://cdn-images-1.medium.com/max/800/0*zHlTtMJtB4hKpYoz.)
 
@@ -142,23 +143,23 @@ Memrise 提出了一种六维验证法来过滤这些奇妙的想法：
 *   需要关注的东西
 *   分析看板应该包括的东西
 
-The data team gets involved too. They help make sure that the feature is built to capture the right data points, so that the product team can evaluate the feature’s impact. The videos were used to create a premium learning mode and offered as part of the Pro subscription. It was, therefore, important to understand the effect on the conversion rate to Pro from adding this mode to the English course. At the end of the stage, the whole team acts as jury, to give feedback on the product ideation and specing outcome.
+数据团队也参与其中。 他们帮助确保该功能的构建是为了捕获正确的数据点，以便产品团队可以评估该功能的影响。 这些视频用于创建高级学习模式，并作为专业版订阅的一部分。 因此，了解将此模式添加到英语课程中对专业版用户转化率的影响是很重要的。 在阶段结束时，整个团队充当用户，对产品构思和预测结果提供反馈。
 
-Once everything is ready and set up, the development team start to **develop** the feature. Because the development team has been involved in the discovery and define phases, development is usually straightforward as many assumptions have been tested and there is more certainty about the business reasons for building the feature.
+当所有的东西都准备好之后，我们就会进入 **开发**的这个阶段。因为开发团队早就以及参与了探索和定义的阶段，所以在开发的时候就非常直接了，大家也知道开发特性的原因会是什么。
 
-When development finishes, it’s down to the product manager to switch on the feature, so that the users will see what’s been built, and start the experiments.
+当开发结束之后，需要产品经理决定要不要正式启用这个特性，这样用户就可以发现什么被更新了，并且开始测试这些新的特性。
 
-With the new version of the app out, the team can move to the **follow-up** stage. At this point, the team will look to answer questions such as: How are the KPIs for the feature performing?What is the initial user feedback? What is the effect of the new release on the app ratings? Hopefully, as Kristina describes it, this is “the joyful moment of watching when and how the results come in.”
+当应用的新版本被发布的时候，我们就到了 **跟进**这个阶段。在这个阶段的时候，团队会倾向于回答问题比如 KPI 怎么样？用户的初次反馈是什么？新的特性对于应用的评分有什么样的影响？理想情况下，按照 Kristina 说的那样，这个时刻是非常享受的，因为我们可以看到结果是如何产生的。
 
 YouTube 视频链接：https://youtu.be/e2RPXKi4e90
 
-At Memrise they have a standard set of metrics and graphs for every experiment that goes out. “The day after the release you’ll find us refreshing this page all the time,” says Kristina, “to see how the feature and the new idea is performing. In our team’s case, it shows you the joy and fun of seeing the results coming in and learning whether we built something super successful that people enjoy, or whether we need to go back to the whiteboard and start thinking again.” The Memrise Membus journey ended with a decision to add videos and a special _Learn with Locals_ mode to all languages.
+在 Memrise，他们为每个实验都有一套标准和图表。 “发布后的第二天，你会发现我们一直在刷新这个页面，” Kristina 说，“看看这个功能和新想法的表现如何。 就我们团队来说，我们看到出来的结果很兴奋，而且让我们知道我们做的东西是否成功是否被人们所喜爱，还是需要回到白板面前再重新思考。“Memrise 最终决定为所有语言添加视频以及对应的学习以及本地模式。
 
 ### 结论
 
 ![](https://cdn-images-1.medium.com/max/800/0*QnrE1nsyWfxPFOlq.)
 
-在这篇文章开始的时候我就已经说过做决定是困难的。远离拍脑袋做决定也许更加难。然而，通过分享这两个不同的做决定的方式，我希望我能帮你在为产品做决定这件事上有新的观感。重要的不是流程，而是让团队里的人都参与到这个流程里面来。最终在有数据的帮助下再作出重要的改变。
+在这篇文章开始的时候我就已经说过做决定是困难的。远离拍脑袋做决定也许更加难。然而，通过分享这两个不同的做决定的方式，我希望我能帮你在为产品做决定这件事上有新的观感。 无论流程是怎样的，一定要让团队里的人都参与到这个流程里面来，在数据的支持下找到合适的改变，亦或是合适活动让用户参与进来。
 
 * * *
 
