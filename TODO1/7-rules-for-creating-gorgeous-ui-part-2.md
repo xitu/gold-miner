@@ -176,6 +176,7 @@ iOS 7 的设计真的让背景模糊化变得流行起来，虽然 Windows Vista
 *   **斜体**
 *   **字符间距**（或者 —— 用 更 高 大 上 的 术 语 —— **字距!**)
 *   **边距**（讲道理这并不是一个字体**本身的**性质，但是可以用来吸引别人的注意，所以它可以出现在表上）
+
 ![](https://cdn-images-1.medium.com/max/800/1*D7QBHz4TqdxzXphdioU_gg.png)
 
 颜色，大小写，和字据用得不错。这是[@workjon](http://twitter.com/workjon)的孩子做的。当然，也关注下[@workjon](http://twitter.com/workjon) —— 他的文字设计很棒！
