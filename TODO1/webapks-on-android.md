@@ -2,29 +2,29 @@
 > * 原文作者：[Pete LePage](https://developers.google.cn/web/resources/contributors/petelepage?hl=zh-cn)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/webapks-on-android.md](https://github.com/xitu/gold-miner/blob/master/TODO1/webapks-on-android.md)
-> * 译者：
+> * 译者：[Yuhanlolo] (https://github.com/Yuhanlolo)
 > * 校对者：
 
 # PWA 再进化，可以生成一个安卓原生的 WebAPK 了
 
-[Add to Home Screen](https://developers.google.cn/web/fundamentals/app-install-banners/?hl=zh-cn) on Android does more than just add the Progressive Web App to the users Home Screen. Chrome automatically generates and installs a special APK of your app. We sometimes refer to this as a **WebAPK**. Being installed via an APK makes it possible for your app to show up in the app launcher, in Android's app settings and to register a set of intent filters.
+在安卓系统上，[网络应用安装横幅](https://developers.google.cn/web/fundamentals/app-install-banners/?hl=zh-cn)不仅仅只是将网络应用（PWA）添加到用户的主屏幕。 Chrome 会自动为你的应用生成一个特别的 APK，我们称之为 **WebAPK**。 将应用以 APK 的形式安装到手机上，使得它能够出现在用户的应用程序启动器和系统设置里，以及注册一系列的消息传递对象（intent）过滤器。
 
-To [generate the WebAPK](https://chromium.googlesource.com/chromium/src/+/master/chrome/android/webapk/README) Chrome looks at the [web app manifest](https://developers.google.cn/web/fundamentals/web-app-manifest/?hl=zh-cn), and other meta-data. Whenever the manifest changes, Chrome will need to generate a new APK.
+为了[生成 WebAPK](https://chromium.googlesource.com/chromium/src/+/master/chrome/android/webapk/README)，Chrome 需要检查 [网络应用清单](https://developers.google.cn/web/fundamentals/web-app-manifest/?hl=zh-cn)和元数据. 一旦网络应用清单改变了，Chrome 将会生成一个新的 APK。
 
-> Note: Since the WebAPK is generated each time the manifest changes, we recommend changing it only when necessary. Don't use it to store user specific identifiers, or other other data that will frequently change. Frequently changing the manifest will increase install time because the WebAPK will need to be re-generated with every change.
+> 注意：由于网络应用清单的改变会重新生成 WebAPK，我们建议只在必要的情况下修改它。同时，不要用清单储存任何跟用户有关的信息，或是其他需要经常变更的数据。因为频繁地改变清单将会触发 Chrome 不断生成新的 WebAPK，从而导致安装时间的延长。
 
-## Android intent filters
+## 安卓消息传递对象（intent）过滤器
 
-When a Progressive Web App is installed on Android, it will register a set of [intent filters](https://developer.android.google.cn/guide/components/intents-filters?hl=zh-cn) for all URLs within the scope of the app. When a user clicks on a link that is within the scope of the app, the app will be opened, rather than opening within a browser tab.
+当安装一个 PWA 到安卓系统上时，该应用将会为它所有的 URL 注册一系列[消息传递对象过滤器](https://developer.android.google.cn/guide/components/intents-filters?hl=zh-cn)。当用户点击任何包括在这个 PWA 中的链接时，该应用将会以应用程序的形式被打开，而不是在浏览器中被打开。
 
-Consider the following partial `manifest.json`, when launched from the app launcher, it would launch `https://example.com/` as a standalone app, without any browser chrome.
+让我们看看下面这个 `manifest.json` 文件的截取，当它从程序启动器中被调用时，它将会以一个独立应用程序的形式启动 `https://example.com/`，并且不需要任何浏览器。
 
 ```
 "start_url": "/",
 "display": "standalone",
 ```
 
-The WebAPK would include the following intent filters:
+一个 WebAPK 包括如下的消息传递对象（intent）过滤器：
 
 ```
 <intent-filter>
@@ -38,15 +38,15 @@ The WebAPK would include the following intent filters:
 </intent-filter>
 ```
 
-If the user clicks on a link within an installed app to `https://example.com/read`, it would be caught by the intent and opened in the Progressive Web App.
+如果用户在某个应用程序中点击了一个跳转到 `https://example.com/read` 的链接，这一行为将会被消息传递对象（intent）捕捉到，并且在对应的 PWA 程序中打开该链接。
 
-> Note: Navigating directly to `https://example.com/app/` from the address bar will work exactly as the same as it does for native apps that have an intent filter. Chrome assumes the user **intended** to visit the site and will open this site.
+> 注意：从地址栏里直接跳转到 `https://example.com/app/` 和从带有该消息传递对象（intent）过滤器的原生应用里打开这个链接是一样的。Chrome 会认为用户是 **有意识地** 想要访问这个地址并且打开它。
 
-### Using `scope` to restrict intent filters
+### 使用 `scope` 限制消息传递对象（intent）过滤器
 
-If you don't want your Progressive Web App to handle all URLs within your site, you can add the [`scope`](https://developers.google.cn/web/fundamentals/web-app-manifest/?hl=zh-cn#scope) property to your web app manifest. The `scope` property tells Android to only open your web app if the URL matches the `origin` + `scope`, and limits which URLs will be handled by your app and which should be opened in the browser. This is helpful when you have your app and other non-app content on the same domain.
+如果你不想要你的 PWA 处理网站上所有的链接，你可以添加 [`scope`](https://developers.google.cn/web/fundamentals/web-app-manifest/?hl=zh-cn#scope) 属性到网络应用清单中。`scope` 属性会告诉安卓系统只在 URL 与 `origin` 和 `scope` 匹配时打开你的 PWA，并且规定哪些 URL 应该在 PWA 中被开打以及哪些 URL 应该在浏览器中被打开。当你的应用与其他非应用内容在同一个域名下时，`scope` 非常有帮助。
 
-Consider the following partial `manifest.json`, when launched from the app launcher, it would launch `https://example.com/app/` as a standalone app, without any browser chrome.
+让我们看看下面这个 `manifest.json` 文件的截取，当它从程序启动器中被调用时，它将会以一个独立应用程序的形式启动 `https://example.com/app/`，并且不需要任何浏览器。
 
 ```
 "scope": "/app/",
@@ -54,7 +54,7 @@ Consider the following partial `manifest.json`, when launched from the app launc
 "display": "standalone",
 ```
 
-Like before, the generated WebAPK would include an intent filter but would modify the `android:pathPrefix` attribute in the APK's `AndroidManifest.xml`:
+和之前一样，生成的 WebAPK 将会包括消息传递对象（intent）过滤器，但它会修改 APK 中 `AndroidManifest.xml` 里的 `android:pathPrefix` 属性：
 
 ```
 <intent-filter>
@@ -68,71 +68,71 @@ Like before, the generated WebAPK would include an intent filter but would modif
 </intent-filter>
 ```
 
-Let's take a look at a few examples:  
-✅ `https://example.com/app/` - within `/app/`  
-✅ `https://example.com/app/read/book` - within `/app/`  
-❌ `https://example.com/help/` - not in `/app/`  
-❌ `https://example.com/about/` - not in `/app/`
+让我们看几个简单的例子:  
+✅ `https://example.com/app/` - 在`/app/`路径下
+✅ `https://example.com/app/read/book` - 在 `/app/`路径下
+❌ `https://example.com/help/` - 不在 `/app/`路径下
+❌ `https://example.com/about/` - 不在 `/app/`路径下
 
-See [`scope`](https://developers.google.cn/web/fundamentals/web-app-manifest/?hl=zh-cn) for more information about `scope`, what happens when you don't set it, and how you can use it to define the scope of your app.
+如果你不想设置 `scope` 属性，或者想知道如何定义 PWA 的 `scope`， 更多内容请参考 [`scope`](https://developers.google.cn/web/fundamentals/web-app-manifest/?hl=zh-cn)。
 
-## Managing permissions
+## 管理权限
 
-Permissions work in the same way as other web apps and cannot be requested at install time, instead they must be requested at run time, ideally only when you really need them. For example, don't ask for camera permission on first load, but instead wait until the user attempts to take a picture.
+权限管理的运作和其他网络应用是一样的，它们需要在运行的时候请求而不是在安装的时候请求。理想的情况是只在你需要它们的时候请求。比如说，不要在一开始加载的时候就请求相机的权限，而是在用户准备拍照的时候再请求。
 
-> Note: Android normally grants immediate permission to show notifications for installed apps, but apps installed via WebAPKs are not granted this at install time, you must request it at runtime within your app.
+> 注意：通常情况下，安卓系统会马上授予刚安装的应用发送通知的权限，但这并不适用于通过 WebAPK 安装的应用。因此，你需要在运行的时候发起通知权限的请求。
 
-## Managing storage and app state
+## 管理储存空间和应用状态
 
-Even though the progressive web app is installed via an APK, Chrome uses the current profile to store any data, and it will not be segregated away. This allows a shared experience between the browser and the installed app. Cookies are shared an active, any client side storage is accessible and the service worker is installed and ready to go.
+虽然 PWA 是通过 APK 安装的，Chrome 会使用当前的配置文件存储数据，并且不会将它们隔离开。这为浏览器和应用程序之间交互提供了数据共享的体验。在这里，缓存是共享且活跃的，任何客户端的储存空间都是可以被访问的。与此同时，服务器端也是安装好并且随时可以运行的。
 
-Though, this can be an issue if the user clears their Chrome profile, or chooses to delete site data.
+不过，这在用户清除他们的 Chrome 配置文件或者网站数据时会出现问题。
 
-## Frequently asked questions
+## 常见问题
 
-**What happens if the user has already installed the native app for the site?**
+**如果用户已经安装了该网站的原生应用怎么办？**
 
-Like add to home screen today, users will be able to add a site independent of any native apps. If you expect users to potentially install both, we recommend differentiating the icon or name of your site from your native app.
+就像PWA安装横幅一样，用户可以添加任何独立于原生应用的网站到主屏幕。如果你期望用户同时安装这两者，我们建议你用不同的图标或者名字来区别你的网站和应用。
 
-**When a user opens a site installed via improved add to Home screen, will Chrome be running?**
+**当用户通过安装了的 PWA 打开某个站点时，Chrome 在运行吗？**
 
-Yes, once the site is opened from the home screen the primary activity is still Chrome. Cookies, permissions, and all other browser state will be shared.
+是的，一旦该站点通过主屏幕被打开，主要的活动依旧在 Chrome 下运行。缓存，权限，以及所有的浏览器状态将会被两者共享。
 
-**Will my installed site's storage be cleared if the user clears Chrome's cache?**
+**如果用户清除了浏览器缓存，已安装的 PWA 的储存空间会被清除吗？**
 
-Yes.
+是的。
 
-**Will my app be re-installed when I get a new device?**
+**如果我使用一个新的设备，我的 PWA 会被重新安装吗？**
 
-Not at this time, but we think it is an important area and we are investigating ways to make it work.
+并不是所有的时候都会。但我们认为这是一个很重要的问题，并且在努力完善它。
 
-**Will I be able to register to handle custom URL schemes and protocols?**
+**我可以注册我自己处理 URL 的方法和协议吗？**
 
-No.
+不可以。
 
-**How are permissions handled? Will I see the Chrome prompt or Android's?**
+**权限问题是如何解决的？我收到的提示是来自于安卓系统还是 Chrome？**
 
-Permissions will still be managed through Chrome. Users will see the Chrome prompts to grant permissions and will be able to edit them in Chrome settings.
+权限依旧是通过 Chrome 管理的。用户将会收到 Chrome 的提示从而授予权限，并且可以在 Chrome 设置中编辑这些权限。
 
-**What versions of Android will this work on?**
+**PWA 可以在哪一个版本的安卓系统上运行？**
 
-Progressive web apps can be installed on all versions of Android that run Chrome for Android, specifically Jelly Bean and above.
+PWA 可以在所有有 Chrome 的安卓系统上运行， 具体来说就是 Jelly Bean 以上的版本。
 
-**Does this use the WebView?**
+**PWA 使用的是 WebView 吗？**
 
-No, the site opens in the version of Chrome the user added the site from.
+不是，网站是通过用户添加该 PWA 的 Chrome 打开的。
 
-**Can we upload the APKs that are created to the Play Store?**
+**我们可以上传能够提交到应用商店的 APK 吗？**
 
-No. There is no key signing information supplied to enable you to create your own PWA that can be in the store.
+不可以，因为目前还没有可以支持 PWA 上传到应用商店的签名信息。
 
-**Are these listed in the Play Store?**
+**PWA 在应用商店的列表中吗？**
 
-No.
+不在。
 
-**I am developer of another browser on Android, can I have this seamless install process?**
+**我是安卓平台上其他浏览器的开发者，我能为我的网络应用实现这样快捷的安装流程吗？**
 
-We are working on it. We are committed to making this available to all browsers on Android and we will have more details soon.
+我们正在为此努力。我们希望所有的浏览器都可以支持 PWA。更多的细节我们会在之后公布。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
