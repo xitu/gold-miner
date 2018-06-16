@@ -5,13 +5,13 @@
 > * 译者：
 > * 校对者：
 
-# Automated Feature Engineering in Python
+# Python 中的自动特征工程
 
-## How to automatically create machine learning features
+## 如何自动化地创建机器学习特征
 
 ![](https://cdn-images-1.medium.com/max/1000/1*lg3OxWVYDsJFN-snBY7M5w.jpeg)
 
-Machine learning is increasingly moving from hand-designed models to automatically optimized pipelines using tools such as [H20](http://docs.h2o.ai/h2o/latest-stable/h2o-docs/automl.html), [TPOT](https://epistasislab.github.io/tpot/), and [auto-sklearn](https://automl.github.io/auto-sklearn/stable/). These libraries, along with methods such as [random search](http://www.jmlr.org/papers/volume13/bergstra12a/bergstra12a.pdf), aim to simplify the model selection and tuning parts of machine learning by finding the best model for a dataset with little to no manual intervention. However, feature engineering, an [arguably more valuable aspect](https://www.featurelabs.com/blog/secret-to-data-science-success/) of the machine learning pipeline, remains almost entirely a human labor.
+Machine learning is increasingly moving from hand-designed models to automatically optimized pipelines using tools such as [H20](http://docs.h2o.ai/h2o/latest-stable/h2o-docs/automl.html), [TPOT](https://epistasislab.github.io/tpot/), and [auto-sklearn](https://automl.github.io/auto-sklearn/stable/). These libraries, along with methods such as [random search](http://www.jmlr.org/papers/volume13/bergstra12a/bergstra12a.pdf), aim to simplify the model selection and tuning parts of machine learning by finding the best model for a dataset with little to no manual intervention. However, feature engineering, an [arguably more valuable aspect](https://www.featurelabs.com/blog/secret-to-data-science-success/) of the machine learning pipeline, remains almost entirely a human labor.机器学习正在利用诸如 [H20](http://docs.h2o.ai/h2o/latest-stable/h2o-docs/automl.html), [TPOT](https://epistasislab.github.io/tpot/) 和 [auto-sklearn](https://automl.github.io/auto-sklearn/stable/) 等工具越来越多地从手工设计模型向自动化优化管道迁移。
 
 [Feature engineering](https://en.wikipedia.org/wiki/Feature_engineering), also known as feature creation, is the process of constructing new features from existing data to train a machine learning model. This step can be more important than the actual model used because a machine learning algorithm only learns from the data we give it, and creating features that are relevant to a task is absolutely crucial (see the excellent paper [“A Few Useful Things to Know about Machine Learning”](https://homes.cs.washington.edu/~pedrod/papers/cacm12.pdf)).
 
@@ -21,7 +21,7 @@ In this article, we will walk through an example of using automated feature engi
 
 * * *
 
-### Feature Engineering Basics
+### 特征工程基础
 
 [Feature engineering](https://www.datacamp.com/community/tutorials/feature-engineering-kaggle) means building additional features out of existing data which is often spread across multiple related tables. Feature engineering requires extracting the relevant information from the data and getting it into a single table which can then be used to train a machine learning model.
 
@@ -56,7 +56,7 @@ stats.head(10)
 
 These operations are not difficult by themselves, but if we have hundreds of variables spread across dozens of tables, this process is not feasible to do by hand. Ideally, we want a solution that can automatically perform transformations and aggregations across multiple tables and combine the resulting data into a single table. Although Pandas is a great resource, there’s only so much data manipulation we want to do by hand! (For more on manual feature engineering check out the excellent [Python Data Science Handbook](https://jakevdp.github.io/PythonDataScienceHandbook/05.04-feature-engineering.html)).
 
-### Featuretools
+### Featuretools 框架
 
 Fortunately, featuretools is exactly the solution we are looking for. This open-source Python library will automatically create many features from a set of related tables. Featuretools is based on a method known as “[Deep Feature Synthesis](http://featurelabs1.wpengine.com/wp-content/uploads/2017/12/DSAA_DSM_2015-1.pdf)”, which sounds a lot more imposing than it actually is (the name comes from stacking multiple features not because it uses deep learning!).
 
@@ -78,7 +78,7 @@ First, let’s take a look at our example data. We already saw some of the datas
 
 If we have a machine learning task, such as predicting whether a client will repay a future loan, we will want to combine all the information about clients into a single table. The tables are related (through the `client_id` and the `loan_id` variables) and we could use a series of transformations and aggregations to do this process by hand. However, we will shortly see that we can instead use featuretools to automate the process.
 
-#### Entities and EntitySets
+### 实体和实体集
 
 The first two concepts of featuretools are **entities** and **entitysets**. An entity is simply a table (or a `DataFrame` if you think in Pandas). An [EntitySet](https://docs.featuretools.com/loading_data/using_entitysets.html) is a collection of tables and the relationships between them. Think of an entityset as just another Python data structure, with its own methods and attributes.
 
@@ -119,7 +119,7 @@ For this dataframe, even though `missed` is an integer, this is not a [numeric v
 
 The column types have been correctly inferred with the modification we specified. Next, we need to specify how the tables in the entityset are related.
 
-#### Table Relationships
+#### 表关系
 
 The best way to think of a **relationship** between two tables is the [analogy of parent to child](https://stackoverflow.com/questions/7880921/what-is-a-parent-table-and-a-child-table-in-database). This is a one-to-many relationship: each parent can have multiple children. In the realm of tables, a parent table has one row for every parent, but the child table may have multiple rows corresponding to multiple children of the same parent.
 
@@ -149,7 +149,7 @@ es
 
 The entityset now contains the three entities (tables) and the relationships that link these entities together. After adding entities and formalizing relationships, our entityset is complete and we are ready to make features.
 
-#### Feature Primitives
+#### 特征基元
 
 Before we can quite get to deep feature synthesis, we need to understand [feature primitives](https://docs.featuretools.com/automated_feature_engineering/primitives.html). We already know what these are, but we have just been calling them by different names! These are simply the basic operations that we use to form new features:
 
@@ -185,7 +185,7 @@ Even though we specified only a few feature primitives, featuretools created man
 
 The complete dataframe has 793 columns of new features!
 
-#### Deep Feature Synthesis
+#### 深度特征合成
 
 We now have all the pieces in place to understand deep feature synthesis (dfs). In fact, we already performed dfs in the previous function call! A deep feature is simply a feature made of stacking multiple primitives and dfs is the name of process that makes these features. The depth of a deep feature is the number of primitives required to make the feature.
 
@@ -211,7 +211,7 @@ features.head()
 
 Featuretools has built many new features for us to use. While this process does automatically create new features, it will not replace the data scientist because we still have to figure out what to do with all these features. For example, if our goal is to predict whether or not a client will repay a loan, we could look for the features most correlated with a specified outcome. Moreover, if we have domain knowledge, we can use that to choose specific feature primitives or [seed deep feature synthesis](https://docs.featuretools.com/guides/tuning_dfs.html) with candidate features.
 
-#### Next Steps
+#### 接下来的步骤
 
 Automated feature engineering has solved one problem, but created another: too many features. Although it’s difficult to say before fitting a model which of these features will be important, it’s likely not all of them will be relevant to a task we want to train our model on. Moreover, [having too many features](https://pdfs.semanticscholar.org/a83b/ddb34618cc68f1014ca12eef7f537825d104.pdf) can lead to poor model performance because the less useful features drown out those that are more important.
 
@@ -219,7 +219,7 @@ The problem of too many features is known as the [curse of dimensionality](https
 
 The curse of dimensionality is combated with [feature reduction (also known as feature selection)](https://machinelearningmastery.com/an-introduction-to-feature-selection/): the process of removing irrelevant features. This can take on many forms: Principal Component Analysis (PCA), SelectKBest, using feature importances from a model, or auto-encoding using deep neural networks. However, [feature reduction](https://en.wikipedia.org/wiki/Feature_selection) is a different topic for another article. For now, we know that we can use featuretools to create numerous features from many tables with minimal effort!
 
-### Conclusions
+### 结论
 
 Like many topics in machine learning, automated feature engineering with featuretools is a complicated concept built on simple ideas. Using concepts of entitysets, entities, and relationships, featuretools can perform deep feature synthesis to create new features. Deep feature synthesis in turn stacks feature primitives — **aggregations,** which act across a one-to-many relationship between tables, and **transformations,** functions applied to one or more columns in a single table — to build new features from multiple tables.
 
