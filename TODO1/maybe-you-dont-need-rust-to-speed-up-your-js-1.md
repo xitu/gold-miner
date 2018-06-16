@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/maybe-you-dont-need-rust-to-speed-up-your-js-1.md](https://github.com/xitu/gold-miner/blob/master/TODO1/maybe-you-dont-need-rust-to-speed-up-your-js-1.md)
 > * 译者：[Shery](https://github.com/shery15)
-> * 校对者：
+> * 校对者：[geniusq1981](https://github.com/geniusq1981)
 
 # 或许你并不需要 Rust 和 WASM 来提升 JS 的执行效率 — 第一部分
 
@@ -108,7 +108,7 @@ Overhead  Symbol
 
 事实上, 就像 [“Oxidizing Source Maps …”](https://hacks.mozilla.org/2018/01/oxidizing-source-maps-with-rust-and-webassembly/) 那篇博文说的那样，基准测试相当侧重于排序上：`doQuickSort` 出现在配置文件的顶部，并且在列表中还多次出现（这意味着它已被优化/去优化了几次）。
 
-### 优化排序 —— 参数适配
+### 优化排序 — 参数适配
 
 在性能分析器中出现了一些可疑内容，分别是 `Builtin:ArgumentsAdaptorTrampoline` 和 `Builtin:CallFunction_ReceiverIsNullOrUndefined`，它们似乎是V8实现的一部分。如果我们让 `perf report` 追加与它们关联的调用链信息，那么我们会注意到这些函数大多也是从排序代码中调用的：
 
@@ -127,7 +127,7 @@ Overhead  Symbol
     +  1.49% *SourceMapConsumer_parseMappings ../dist/source-map.js:1894
 ``` 
 
-现在是查看代码的时候了。快速排序实现本身位于 [`lib/quick-sort.js`](https://github.com/mozilla/source-map/blob/c97d38b70de088d87b051f81b95c138a74032a43/lib/quick-sort.js) 中，并通过解析 [`lib/source-map-consumer.js`](https://github.com/mozilla/source-map/blob/c97d38b70de088d87b051f81b95c138a74032a43/lib/source-map-consumer.js#L564-L568) 中的代码进行调用。用于排序的比较函数是 [`compareByGeneratedPositionsDeflated`](https://github.com/mozilla/source-map/blob/c97d38b70de088d87b051f81b95c138a74032a43/lib/util.js#L334-L343) 和 [`compareByOriginalPositions`](https://github.com/mozilla/source-map/blob/c97d38b70de088d87b051f81b95c138a74032a43/lib/util.js#L296-L304).
+现在是查看代码的时候了。快速排序实现本身位于 [`lib/quick-sort.js`](https://github.com/mozilla/source-map/blob/c97d38b70de088d87b051f81b95c138a74032a43/lib/quick-sort.js) 中，并通过解析 [`lib/source-map-consumer.js`](https://github.com/mozilla/source-map/blob/c97d38b70de088d87b051f81b95c138a74032a43/lib/source-map-consumer.js#L564-L568) 中的代码进行调用。用于排序的比较函数是 [`compareByGeneratedPositionsDeflated`](https://github.com/mozilla/source-map/blob/c97d38b70de088d87b051f81b95c138a74032a43/lib/util.js#L334-L343) 和 [`compareByOriginalPositions`](https://github.com/mozilla/source-map/blob/c97d38b70de088d87b051f81b95c138a74032a43/lib/util.js#L296-L304)。
 
 通过查看这些比较函数是如何定义，以及如何在快速排序中调用，可以发现调用时的参数数量不匹配：
 
@@ -169,7 +169,7 @@ index ade5bb2..2d39b28 100644
                 }
 ``` 
 
-> 注意：因为我不想花时间搞清楚构建过程，所以我直接在 dist/source-map.js 中进行编辑。
+> 注意：因为我不想花时间搞清楚构建过程，所以我直接在 `dist/source-map.js` 中进行编辑。
 
 ```
 ╭─ ~/src/source-map/bench ‹perf-work› [Fix comparator invocation arity]
@@ -190,7 +190,7 @@ console.timeEnd: iteration, 4140.963000
 
 ![参数适配](https://mrale.ph/images/2018-02-03/argument-adaptation.png)
 
-> 如果您从未听说过**执行栈**，请查看[维基百科](https://en.wikipedia.org/wiki/Call_stack) 和 Franziska Hinkelmann 的[博客文章](https://fhinkel.rocks/2017/10/30/Confused-about-Stack-and-Heap/).
+> 如果您从未听说过**执行栈**，请查看[维基百科](https://en.wikipedia.org/wiki/Call_stack) 和 Franziska Hinkelmann 的[博客文章](https://fhinkel.rocks/2017/10/30/Confused-about-Stack-and-Heap/)。
 
 尽管对于真实代码这类开销可以忽略不计，但在这段代码中，`comparator` 函数在基准测试运行期间被调用了数百万次，这扩大了参数适配的开销。
 
@@ -242,7 +242,7 @@ Parsing source map
 
 让我们回到排序代码。如果我们再次分析基准测试，我们会注意到 `ArgumentsAdaptorTrampoline` 从结果中消失了，但 `CallFunction_ReceiverIsNullOrUndefined` 仍然存在。这并不奇怪，因为我们仍在调用 `comparator` 函数。
 
-### 优化排序 —— 单态（monomorphise）
+### 优化排序 — 单态（monomorphise）
 
 怎样比调用函数的性能更好呢？不调用它！
 
@@ -343,7 +343,7 @@ Overhead Symbol
 
 这个时候，我开始对我们花了多少时间来**解析**映射和对它们进行**排序**产生了兴趣。我进入到解析部分的代码并添加了几个 `Date.now()` 记录耗时：
 
-> 我想用 `performance.now()`， 但是 SpiderMonkey shell 显然不支持它。
+> 我想用 `performance.now()`，但是 SpiderMonkey shell 显然不支持它。
 
 ```
 diff --git a/dist/source-map.js b/dist/source-map.js
@@ -402,7 +402,7 @@ sortOriginal:  896.3589999999995
 
 在 V8 中，我们花费几乎和排序差不多的时间来进行解析映射。在 SpiderMonkey 中，解析映射速度更快，反而是排序较慢。这促使我开始查看解析代码。
 
-### 优化解析 —— 删除分段缓存
+### 优化解析 — 删除分段缓存
 
 让我们再看看这个性能分析结果
 
@@ -518,7 +518,7 @@ if (segment) {
 
 该代码不是对每个序列进行独立解码，而是试图缓存已解码的分段：它向前扫描直到找到分隔符 (`,` or `;`)，然后从当前位置提取子字符串到分隔符，并通过在缓存中查找提取的子字符串来检查我们是否有先前解码过的这种分段——如果我们命中缓存，则返回缓存的分段，否则我们进行解析，并将分段缓存到缓存中。
 
-缓存 (又名 [记忆化](https://en.wikipedia.org/wiki/Memoization)) 是一种非常强大的优化技——然而，它只有在维护缓存本身，以及查找缓存结果比再次执行计算这个过程开销小时才有意义。
+缓存（又名[记忆化](https://en.wikipedia.org/wiki/Memoization)）是一种非常强大的优化技——然而，它只有在维护缓存本身，以及查找缓存结果比再次执行计算这个过程开销小时才有意义。
 
 #### 抽象分析
 
@@ -526,17 +526,17 @@ if (segment) {
 
 **一种是直接解析：**
 
-解析分段只查看一个分段的每个字符。对于每个字符，它执行少量比较和算术运算，将 base64 字符转换为它所表示的整数值。然后它执行几个按位操作来将此整数值并入较大的整数值。然后它将解码值存储到一个数组中并移动到该段的下一部分。分段不得多于5个。
+解析分段只查看一个分段的每个字符。对于每个字符，它执行少量比较和算术运算，将 base64 字符转换为它所表示的整数值。然后它执行几个按位操作来将此整数值并入较大的整数值。然后它将解码值存储到一个数组中并移动到该段的下一部分。分段不得多于 5 个。
 
 **另一种是缓存：**
 
-1.  为了查找缓存的值，我们遍历该段的所有字符以找到其结尾;
-2.  我们提取子字符串，这需要分配资源和可能的复制，具体取决于 JS VM 中字符串的实现方式;
+1.  为了查找缓存的值，我们遍历该段的所有字符以找到其结尾；
+2.  我们提取子字符串，这需要分配资源和可能的复制，具体取决于 JS VM 中字符串的实现方式；
 3.  我们使用这个字符串作为 Dictionary 对象中的键名，其中：
     1.  首先需要 VM 为该字符串计算散列值（再次遍历它并对单个字符执行各种按位操作），这可能还需要 VM 将字符串内部化（取决于实现方式）；
     2.  那么 VM 必须执行散列表查找，这需要通过值与其他键进行探测和比较（这可能需要再次查看字符串中的单个字符）；
 
-总的来看，直接解析应该更快，假设 JS VM 在独立运算/按位操作方面做得很好，仅仅是因为它只查看每个单独的字符一次，而缓存需要遍历该分段 2 - 4 次，以确定我们是否命中缓存。
+总的来看，直接解析应该更快，假设 JS VM 在独立运算/按位操作方面做得很好，仅仅是因为它只查看每个单独的字符一次，而缓存需要遍历该分段 2-4 次，以确定我们是否命中缓存。
 
 性能分析似乎也证实了这一点：`KeyedLoadIC_Megamorphic` 是 V8 用于实现上面代码中类似  `cachedSegments[str]` 等键控查找的存根。
 
@@ -556,8 +556,7 @@ Object.keys(cachedSegments).length = 155478
 // 用 [n] 个分段生成一个字符串，分段在长度为 [v] 的循环中重复，
 // 例如，分段数为 0，v，2 * v，... 都相等，
 // 因此是 1, 1 + v, 1 + 2 * v, ...
-// 使用 [base] 作为分段中的基本值 —— 这个参数允许分段
-// 很长。
+// 使用 [base] 作为分段中的基本值 —— 这个参数允许分段很长。
 //
 // 注意：[v] 越大，[cachedSegments] 缓存越大。
 function makeString(n, v, base) {
