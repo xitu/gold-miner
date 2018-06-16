@@ -2,56 +2,67 @@
 > * 原文作者：[Alexander Zlatkov](https://blog.sessionstack.com/@zlatkov?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-javascript-works-the-rendering-engine-and-tips-to-optimize-its-performance.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-javascript-works-the-rendering-engine-and-tips-to-optimize-its-performance.md)
-> * 译者：
-> * 校对者：
+> * 译者：[stormluke](https://github.com/stormluke)
+> * 校对者：[allenlongbaobao](https://github.com/allenlongbaobao)、[Usey95](https://github.com/Usey95)
 
-# How JavaScript works: the rendering engine and tips to optimize its performance
+# JavaScript 是如何工作的：渲染引擎和性能优化技巧
 
-This is post # 11 of the series dedicated to exploring JavaScript and its building components. In the process of identifying and describing the core elements, we also share some rules of thumb we use when building [SessionStack](https://www.sessionstack.com/?utm_source=medium&utm_medium=blog&utm_content=js-series-rendering-engine-intro), a JavaScript application that needs to be robust and highly-performant to help users see and reproduce their web app defects real-time.
+这是探索 JavaScript 及其构建组件专题系列的第 11 篇。在识别和描述核心元素的过程中，我们分享了在构建 [SessionStack](https://www.sessionstack.com/?utm_source=medium&utm_medium=blog&utm_content=js-series-rendering-engine-intro) 时使用的一些经验法则。SessionStack 是一个需要鲁棒且高性能的 JavaScript 应用程序，它帮助用户实时查看和重现它们 Web 应用程序的缺陷。
 
-When you’re building web apps, however, you don’t just write isolated JavaScript code that runs on its own. The JavaScript you write is interacting with the environment. Understanding this environment, how it works and what it is composed of will allow you to build better apps and be well-prepared for potential issues that might arise once your apps are released into the wild.
+1. [[译] JavaScript 是如何工作的：对引擎、运行时、调用堆栈的概述](https://juejin.im/post/5a05b4576fb9a04519690d42)
+2. [[译] JavaScript 是如何工作的：在 V8 引擎里 5 个优化代码的技巧](https://github.com/xitu/gold-miner/blob/master/TODO/how-javascript-works-inside-the-v8-engine-5-tips-on-how-to-write-optimized-code.md)
+3. [[译] JavaScript 是如何工作的：内存管理 + 处理常见的4种内存泄漏](https://github.com/xitu/gold-miner/blob/master/TODO/how-javascript-works-memory-management-how-to-handle-4-common-memory-leaks.md)
+4. [[译] JavaScript 是如何工作的: 事件循环和异步编程的崛起 + 5个如何更好的使用 async/await 编码的技巧](https://github.com/xitu/gold-miner/blob/master/TODO/how-javascript-works-event-loop-and-the-rise-of-async-programming-5-ways-to-better-coding-with.md)
+5. [[译] JavaScript 是如何工作的：深入剖析 WebSockets 和拥有 SSE 技术 的 HTTP/2，以及如何在二者中做出正确的选择](https://github.com/xitu/gold-miner/blob/master/TODO/how-javascript-works-deep-dive-into-websockets-and-http-2-with-sse-how-to-pick-the-right-path.md)
+6. [[译] JavaScript 是如何工作的：与 WebAssembly 一较高下 + 为何 WebAssembly 在某些情况下比 JavaScript 更为适用](https://github.com/xitu/gold-miner/blob/master/TODO1/how-javascript-works-a-comparison-with-webassembly-why-in-certain-cases-its-better-to-use-it.md)
+7. [[译] JavaScript 是如何工作的：Web Worker 的内部构造以及 5 种你应当使用它的场景](https://github.com/xitu/gold-miner/blob/master/TODO/how-javascript-works-the-building-blocks-of-web-workers-5-cases-when-you-should-use-them.md)
+8. [[译] JavaScript 是如何工作的：Web Worker 生命周期及用例](https://github.com/xitu/gold-miner/blob/master/TODO1/how-javascript-works-service-workers-their-life-cycle-and-use-cases.md)
+9. [[译] JavaScript 是如何工作的：Web 推送通知的机制](https://github.com/xitu/gold-miner/blob/master/TODO1/how-javascript-works-the-mechanics-of-web-push-notifications.md)
+10. [[译] JavaScript 是如何工作的：用 MutationObserver 追踪 DOM 的变化](https://github.com/xitu/gold-miner/blob/master/TODO1/how-javascript-works-tracking-changes-in-the-dom-using-mutationobserver.md)
+
+当构建 Web 应用程序时，你不只是编写独立运行的 JavaScript 代码片段。你编写的 JavaScript 需要与环境进行交互。理解环境是如何工作的以及它是由什么组成的，你就能够构建更好的应用程序，并且能更好地处理应用程序发布后才会显现的潜在问题。
 
 ![](https://cdn-images-1.medium.com/max/800/1*lMBu87MtEsVFqqbfMum-kA.png)
 
-So, let’s see what the browser main components are:
+那么，让我们看看浏览器的主要组件有哪些：
 
-*   **User interface**: this includes the address bar, the back and forward buttons, bookmarking menu, etc. In essence, this is every part of the browser display except for the window where you see the web page itself.
-*   **Browser engine**:ithandles the interactions between the user interface and the rendering engine
-*   **Rendering engine**: it’s responsible for displaying the web page. The rendering engine parses the HTML and the CSS and displays the parsed content on the screen.
-*   **Networking**: these are network calls such as XHR requests, made by using different implementations for the different platforms, which are behind a platform-independent interface. We talked about the networking layer in more detail in a [previous post](https://blog.sessionstack.com/how-modern-web-browsers-accelerate-performance-the-networking-layer-f6efaf7bfcf4) of this series.
-*   **UI backend**: it’s used for drawing the core widgets such as checkboxes and windows. This backend exposes a generic interface that is not platform-specific. It uses operating system UI methods underneath.
-*   **JavaScript engine**: We’ve covered this in great detail in a [previous post](https://blog.sessionstack.com/how-javascript-works-inside-the-v8-engine-5-tips-on-how-to-write-optimized-code-ac089e62b12e) from the series. Basically, this is where the JavaScript gets executed.
-*   **Data persistence**: your app might need to store all data locally. The supported types of storage mechanisms include [localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage), [indexDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API), [WebSQL](https://en.wikipedia.org/wiki/Web_SQL_Database) and [FileSystem](https://developer.mozilla.org/en-US/docs/Web/API/FileSystem).
+* **用户界面**：包括地址栏、后退和前进按钮、书签菜单等。实际上，它包括了浏览器中显示的绝大部分，除了你看到的网页本身的那个窗口。
+* **浏览器引擎**：它处理用户界面和渲染引擎之间的交互。
+* **渲染引擎**：它负责显示网页。渲染引擎解析 HTML 和 CSS，并在屏幕上显示解析的内容。
+* **网络层**：诸如 XHR 请求之类的网络调用，通过对不同平台的不同的实现来完成，这些实现位于一个平台无关的接口之后。我们在本系列的[上一篇文章](https://blog.sessionstack.com/how-modern-web-browsers-accelerate-performance-the-networking-layer-f6efaf7bfcf4)中更详细地讨论了网络层。
+* **UI 后端**：它用于绘制核心组件（widget），例如复选框和窗口。这个后端暴露了一个平台无关的通用接口。它使用下层的操作系统提供的 UI 方法。
+* **JavaScript 引擎**：我们在[上一篇文章](https://blog.sessionstack.com/how-javascript-works-inside-the-v8-engine-5-tips-on-how-to-write -optimized-code-ac089e62b12e)中详细介绍了这一主题。基本上，这是 JavaScript 执行的地方。
+* **数据持久化层**：你的应用可能需要在本地存储所有数据。其支持的存储机制包括 [localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage)、[indexDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API)、[WebSQL](https://en.wikipedia.org/wiki/Web_SQL_Database) 和 [FileSystem](https://developer.mozilla.org/en-US/docs/Web/API/FileSystem)。
 
-In this post, we’re going to focus on the rendering engine, since it’s handling the parsing and the visualization of the HTML and the CSS, which is something that most JavaScript apps are constantly interacting with.
+在这篇文章中，我们将关注渲染引擎，因为它负责处理 HTML 和 CSS 的解析和可视化，这是大多数 JavaScript 应用程序不断与之交互的地方。
 
-#### Overview of the rendering engine
+#### 渲染引擎概述
 
-The main responsibility of the rendering engine is to display the requested page on the browser screen.
+渲染引擎的主要职责是在浏览器屏幕上显示所请求的页面。
 
-Rendering engines can display HTML and XML documents and images. If you’re using additional plugins, the engines can also display different types of documents such as PDF.
+渲染引擎可以显示 HTML / XML 文档和图像。如果你使用其他插件，它还可以显示不同类型的文档，例如 PDF。
 
-#### Rendering engines
+#### 不同的渲染引擎
 
-Similar to the JavaScript engines, different browsers use different rendering engines as well. These are some of the popular ones:
+与 JavaScript 引擎类似，不同的浏览器也使用不同的渲染引擎。常见的有这些：
 
-*   **Gecko** — Firefox
-*   **WebKit** — Safari
-*   **Blink** — Chrome, Opera (from version 15 onwards)
+* **Gecko** — Firefox
+* **WebKit** — Safari
+* **Blink** — Chrome，Opera (版本 15 之后)
 
-#### The process of rendering
+#### 渲染的过程
 
-The rendering engine receives the contents of the requested document from the networking layer.
+渲染引擎从网络层接收所请求文档的内容。
 
 ![](https://cdn-images-1.medium.com/max/800/1*9b1uEMcZLWuGPuYcIn7ZXQ.png)
 
-#### Constructing the DOM tree
+#### 构建 DOM 树
 
-The first step of the rendering engine is parsing the HTML document and converting the parsed elements to actual [DOM](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Introduction) nodes in a **DOM tree**.
+渲染引擎的第一步是解析 HTML 文档并将解析出的元素转换为 **DOM 树** 中实际的 [DOM](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Introduction) 节点。
 
-Imagine you have the following textual input:
+假设你有以下文字输入：
 
-```
+``` html
 <html>
   <head>
     <meta charset="UTF-8">
@@ -66,17 +77,17 @@ Imagine you have the following textual input:
 </html>
 ```
 
-The DOM tree for this HTML will look like this:
+这个 HTML 的 DOM 树如下所示：
 
 ![](https://cdn-images-1.medium.com/max/800/1*ezFoXqgf91umls9FqO0HsQ.png)
 
-Basically, each element is represented as the parent node to all of the elements, which are directly contained inside of it. And this is applied recursively.
+基本上，每个元素都作为它所包含元素的父节点，这个结构是递归的。
 
-#### Constructing the CSSOM tree
+#### 构建 CSSOM 树
 
-CSSOM refers to the **CSS Object Model**. While the browser was constructing the DOM of the page, it encountered a `link` tag in the `head` section which was referencing the external `theme.css` CSS style sheet. Anticipating that it might need that resource to render the page, it immediately dispatched a request for it. Let’s imagine that the `theme.css` file has the following contents:
+CSSOM 指 **CSS 对象模型**。当浏览器构建页面的 DOM 时，它在 `head` 中遇到了一个引用外部 `theme.css` CSS 样式表的 `link` 标签。浏览器预计到它可能需要该资源来呈现页面，所以它立即发出请求。让我们假设 `theme.css` 文件包含以下内容：
 
-```
+```css
 body { 
   font-size: 16px;
 }
@@ -98,39 +109,39 @@ img {
 }
 ```
 
-As with the HTML, the engine needs to convert the CSS into something that the browser can work with — the CSSOM. Here is how the CSSOM tree will look like:
+与 HTML 一样，引擎需要将 CSS 转换为浏览器可以使用的东西 —— CSSOM。以下是 CSSOM 树的样子：
 
 ![](https://cdn-images-1.medium.com/max/800/1*5YU1su2mdzHEQ5iDisKUyw.png)
 
-Do you wonder why does the CSSOM have a tree structure? When computing the final set of styles for any object on the page, the browser starts with the most general rule applicable to that node (for example, if it is a child of a body element, then all body styles apply) and then recursively refines the computed styles by applying more specific rules.
+你知道为什么 CSSOM 是树型结构吗？当计算页面上对象的最终样式集时，浏览器以适用于该节点的最一般规则开始（例如，如果它是 body 元素的子元素，则应用 body 的所有样式），然后递归地细化，通过应用更具体的规则来计算样式。
 
-Let’s work with the specific example that we gave. Any text contained within a `span` tag that is placed within the `body` element, has a font size of 16 pixels and has a red color. Those styles are inherited from the `body` element. If a `span` element is a child of a `p` element, then its contents are not displayed due to the more specific styles that are being applied to it.
+让我们来看看具体的例子。包含在 `body` 元素内的 `span` 标签中的任何文本的字体大小均为 16 像素，并且为红色。这些样式是从 `body` 元素继承而来的。 如果一个 `span` 元素是一个 `p` 元素的子元素，那么它的内容就不会被显示，因为它被应用了更具体的样式（`display: none`）。
 
-Also, note that the above tree is not the complete CSSOM tree and only shows the styles we decided to override in our style sheet. Every browser provides a default set of styles also known as **“user agent styles”** — that’s what we see when we don’t explicitly provide any. Our styles simply override these defaults.
+另外请注意，上面的树不是完整的 CSSOM 树，只显示了我们决定在样式表中重写的样式。每个浏览器都提供了一组默认的样式，也称为**「用户代理样式」**——这是我们在未明确指定任何样式时看到的样式。我们的样式会覆盖这些默认值。
 
-#### Constructing the render tree
+#### 构建渲染树
 
-The visual instructions in the HTML, combined with the styling data from the CSSOM tree, are being used to create a **render tree**.
+HTML 中的视图指令与 CSSOM 树中的样式数据结合在一起用来创建**渲染树**。
 
-What is a render tree you may ask? This is a tree of the visual elements constructed in the order in which they will be displayed on the screen. It is the visual representation of the HTML along with the corresponding CSS. The purpose of this tree is to enable painting the contents in their correct order.
+你可能会问什么是渲染树。渲染树是一颗由可视化元素以它们在屏幕上显示的顺序而构成的树型结构。它是 HTML 和相应的 CSS 的可视化表示。此树的目的是为了以正确的顺序绘制内容。
 
-Each node in the render tree is known as a renderer or a render object in Webkit.
+渲染树中的节点被称为 Webkit 中的渲染器或渲染对象。
 
-This is how the renderer tree of the above DOM and CSSOM trees will look like:
+这就是上述 DOM 和 CSSOM 树的渲染器树的样子：
 
 ![](https://cdn-images-1.medium.com/max/800/1*WHR_08AD8APDITQ-4CFDgg.png)
 
-To construct the render tree, the browser does roughly the following:
+为了构建渲染树，浏览器大致做了如下工作：
 
-*   Starting at the root of the DOM tree, it traverses each visible node. Some nodes are not visible (for example, script tags, meta tags, and so on), and are omitted since they are not reflected in the rendered output. Some nodes are hidden via CSS and are also omitted from the render tree. For example, the span node — in the example above it’s not present in the render tree because we have an explicit rule that sets the `display: none` property on it.
-*   For each visible node, the browser finds the appropriate matching CSSOM rules and applies them.
-*   It emits visible nodes with content and their computed styles
+* 从 DOM 树的根开始，浏览器遍历每个可见节点。某些节点是不可见的（例如 script、meta 等），并且由于它们不需要渲染而被忽略。一些通过 CSS 隐藏的节点也从渲染树中省略。例如 span 节点 —— 在上面的例子中，它并不存在于渲染树中，因为我们明确地其上设置了 `display: none` 属性。
+* 对于每个可见节点，浏览器找到适当的 CSSOM 规则并应用它们。
+* 浏览器输出带有内容及其计算出的样式的可见节点
 
-You can take a look at the RenderObject’s source code (in WebKit) here: [https://github.com/WebKit/webkit/blob/fde57e46b1f8d7dde4b2006aaf7ebe5a09a6984b/Source/WebCore/rendering/RenderObject.h](https://github.com/WebKit/webkit/blob/fde57e46b1f8d7dde4b2006aaf7ebe5a09a6984b/Source/WebCore/rendering/RenderObject.h)
+你可以在这里查看 RenderObject 的源代码（在 WebKit 中）：[https://github.com/WebKit/webkit/blob/fde57e46b1f8d7dde4b2006aaf7ebe5a09a6984b/Source/WebCore/rendering/RenderObject.h](https://github.com/WebKit/webkit/blob/fde57e46b1f8d7dde4b2006aaf7ebe5a09a6984b/Source/WebCore/rendering/RenderObject.h)
 
-Let’s just look at some of the core things for this class:
+我们来看看这个类的一些核心内容：
 
-```
+```cpp
 class RenderObject : public CachedImageClient {
   // Repaint the entire object.  Called when, e.g., the color of a border changes, or when a border
   // style changes.
@@ -144,95 +155,95 @@ class RenderObject : public CachedImageClient {
 }
 ```
 
-Each renderer represents a rectangular area usually corresponding to a node’s CSS box. It includes geometric info such as width, height, and position.
+每个渲染器代表一个矩形区域，通常对应于一个节点的 CSS 盒模型。它包含几何信息，例如宽度、高度和位置。
 
-#### Layout of the render tree
+#### 渲染树的布局
 
-When the renderer is created and added to the tree, it does not have a position and size. Calculating these values is called layout.
+当渲染器被创建并添加到树中时，它并没有位置和大小。计算这些值的过程称为布局。
 
-HTML uses a flow-based layout model, meaning that most of the time it can compute the geometry in a single pass. The coordinate system is relative to the root renderer. Top and left coordinates are used.
+HTML 使用基于流的布局模型，这意味着大部分时间内它可以在一次遍历中（single pass）计算出布局。坐标系是相对于根渲染器的，使用左上原点坐标。
 
-Layout is a recursive process — it begins at the root renderer, which corresponds to the `<html>` element of the HTML document. Layout continues recursively through a part or the entire renderer hierarchy, computing geometric info for each renderer that requires it.
+布局是一个递归过程 —— 它从根渲染器开始，对应于 HTML 文档的 `<html>` 元素，通过部分或整个渲染器的层次结构递归地为每个需要布局的渲染器计算布局信息。
 
-The position of the root renderer is `0,0` and its dimensions have the size of the visible part of the browser window (a.k.a. the viewport).
+根渲染器的位置是 `0,0`，并且其尺寸为浏览器窗口（也称为视口）的可见部分的尺寸。
 
-Starting the layout process means giving each node the exact coordinates where it should appear on the screen.
+开始布局过程意味着给出每个节点它应该出现在屏幕上的确切坐标。
 
-#### Painting the render tree
+#### 绘制渲染树
 
-In this stage, the renderer tree is traversed and the renderer’s `paint()` method is called to display the content on the screen.
+在这个阶段，浏览器遍历渲染器树，调用渲染器的 `paint()` 方法在屏幕上显示内容。
 
-Painting can be global or incremental (similar to layout):
+绘图可以是全局的或增量式的（与布局类似）：
 
-*   **Global** — the entire tree gets repainted.
-*   **Incremental** — only some of the renderers change in a way that does not affect the entire tree. The renderer invalidates its rectangle on the screen. This causes the OS to see it as a region that needs repainting and to generate a `paint` event. The OS does it in a smart way by merging several regions into one.
+* **全局** —— 整棵树被重画
+* **增量式** —— 只有一些渲染器以不影响整个树的方式进行变更。渲染器在屏幕上标记其矩形区域无效，这会导致操作系统将其视为需要重绘并生成 `paint` 事件的区域。操作系统通过将几个区域合并为一个区域的智能方式来完成绘图。
 
-In general, it’s important to understand that painting is a gradual process. For better UX, the rendering engine will try to display the contents on the screen as soon as possible. It will not wait until all the HTML is parsed to start building and laying out the render tree. Parts of the content will be parsed and displayed, while the process continues with the rest of the content items that keep coming from the network.
+一般来说，了解绘图是一个渐进的过程是很重要的。为了更好的用户体验，渲染引擎会尝试尽快在屏幕上显示内容。它不会等到所有的 HTML 被分析完毕才开始构建和布置渲染树。一小部分内容先被解析并显示，同时一边从网络获取剩下的内容一边渐进地渲染。
 
-#### Order of processing scripts and style sheets
+#### 处理脚本和样式表的顺序
 
-Scripts are parsed and executed immediately when the parser reaches a `<script>` tag. The parsing of the document halts until the script has been executed. This means that the process is **synchronous**.
+当解析器到达 `<script>` 标签时，脚本将被立即解析并执行。文档解析将会被暂停，直到脚本执行完毕。这意味着该过程是**同步**的。
 
-If the script is external then it first has to be fetched from the network (also synchronously). All the parsing stops until the fetch completes.
+如果脚本是外部的，那么它首先必须从网络获取（也是同步的）。所有解析都会停止，直到网络请求完成。
 
-HTML5 adds an option to mark the script as asynchronous so that it gets parsed and executed by a different thread.
+HTML5 添加了一个选项，可以将脚本标记为异步，此时脚本被其他线程解析和执行。
 
-#### Optimizing the rendering performance
+#### 优化渲染性能
 
-If you’d like to optimize your app, there are five major areas that you need to focus on. These are the areas over which you have control:
+如果你想优化你的应用，那么你需要关注五个主要方面。这些是您可以控制的地方：
 
-1.  **JavaScript** — in previous posts we covered the topic of writing optimized code that doesn’t block the UI, is memory efficient, etc. When it comes to rendering, we need to think about the way your JavaScript code will interact with the DOM elements on the page. JavaScript can create lots of changes in the UI, especially in SPAs.
-2.  **Style calculations **— this is the process of determining which CSS rule applies to which element based on matching selectors. Once the rules are defined, they are applied and the final styles for each element are calculated.
-3.  **Layout** — once the browser knows which rules apply to an element, it can begin to calculate how much space the latter takes up and where it is located on the browser screen. The web’s layout model defines that one element can affect others. For example, the width of the `<body>` can affect the width of its children and so on. This all means that the layout process is computationally intensive. The drawing is done in multiple layers.
-4.  **Paint** — this is where the actual pixels are being filled. The process includes drawing out text, colors, images, borders, shadows, etc. — every visual part of each element.
-5.  **Compositing** — since the page parts were drawn into potentially multiple layers they need to be drawn onto the screen in the correct order so that the page renders properly. This is very important, especially for overlapping elements.
+1. **JavaScript** —— 在之前的文章中，我们介绍了关于编写高性能代码的主题，这些代码不会阻塞 UI，并且内存效率高等等。当涉及渲染时，我们需要考虑 JavaScript 代码与页面上 DOM 元素交互的方式。JavaScript 可以在 UI 中产生大量的更新，尤其是在 SPA 中。
+2. **样式计算** —— 这是基于匹配选择器确定哪个 CSS 规则适用于哪个元素的过程。一旦定义了规则，就会应用这些规则，并计算出每个元素的最终样式。
+3. **布局** —— 一旦浏览器知道哪些规则适用于元素，就可以开始计算后者占用的空间以及它在浏览器屏幕上的位置。Web 的布局模型定义了一个元素可以影响其他元素。例如，`<body>` 的宽度会影响子元素的宽度等等。这一切都意味着布局过程是计算密集型的。该绘图是在多个图层完成的。
+4. **绘图** —— 这里开始填充实际的像素。该过程包括绘制文本、颜色、图像、边框、阴影等 —— 每个元素的每个视觉部分。
+5. **合成** —— 由于页面部件被划分为多层，因此需要按照正确的顺序将其绘制到屏幕上，以便正确地渲染页面。这非常重要，特别是对于重叠元素来说。
 
-#### Optimizing your JavaScript
+#### 优化你的 JavaScript
 
-JavaScript often triggers visual changes in the browser. All the more so when building an SPA.
+JavaScript 经常触发浏览器中的视觉变化，构建 SPA 时更是如此。
 
-Here are a few tips on which parts of your JavaScript you can optimize to improve rendering:
+以下是关于可以优化 JavaScript 哪些部分来改善渲染性能的一些小提示：
 
-*   Avoid `setTimeout` or `setInterval` for visual updates. These will invoke the `callback` at some point in the frame, possible right at the end. What we want to do is trigger the visual change right at the start of the frame not to miss it.
-*   Move long-running JavaScript computations to Web Workers as we have [previously discussed](https://blog.sessionstack.com/how-javascript-works-the-building-blocks-of-web-workers-5-cases-when-you-should-use-them-a547c0757f6a?source=---------3----------------).
-*   Use micro-tasks to introduce DOM changes over several frames. This is in case the tasks need access to the DOM, which is not accessible by Web Workers. This basically means that you’d break up a big task into smaller ones and run them inside `requestAnimationFrame` , `setTimeout`, `setInterval` depending on the nature of the task.
+* 避免使用 `setTimeout` 或 `setInterval` 进行视图更新。这些将在帧中某个不确定的时间点上调用 `callback`，可能在最后。我们想要做的是在帧开始时触发视觉变化而不是错过它。
+* 将长时间运行的 JavaScript 计算任务移到 Web Workers 上，像我们之前[讨论过的](https://blog.sessionstack.com/how-javascript-works-the-building-blocks-of-web-workers-5-cases-when-you-should-use-them-a547c0757f6a?source=---------3----------------) 那样
+* 使用微任务在多个帧中变更 DOM。这是为了处理在 Web Worker 中的任务需要访问 DOM，而 Web Worker 又不允许访问 DOM 的情况。就是说你可以将一个大任务分解为小任务，并根据任务的性质在 `requestAnimationFrame`、`setTimeout` 或 `setInterval` 中运行它们。
 
-#### Optimize your CSS
+#### 优化你的 CSS
 
-Modifying the DOM through adding and removing elements, changing attributes, etc. will make the browser recalculate element styles and, in many cases, the layout of the entire page or at least parts of it.
+通过添加和删除元素、更改属性等来修改 DOM 会导致浏览器重新计算元素样式，并且在很多情况下还会重新布局整个页面或至少其中的一部分。
 
-To optimize the rendering, consider the following:
+要优化渲染性能，请考虑以下方法：
 
-*   Reduce the complexity of your selectors. Selector complexity can take more than 50% of the time needed to calculate the styles for an element, compared to the rest of the work which is constructing the style itself.
-*   Reduce the number of elements on which style calculation must happen. In essence, make style changes to a few elements directly rather than invalidating the page as a whole.
+* 减少选择器的复杂性。相对于构建样式本身的工作，复杂的选择器可能会让计算元素样式所需的时间增加 50％。
+* 减少必须计算样式的元素的数量。本质上，直接对几个元素进行样式更改，而不是使整个页面无效。
 
-#### Optimize the layout
+#### 优化布局
 
-Layout re-calculations can be very heavy for the browser. Consider the following optimizations:
+布局的重新计算会对浏览器造成很大压力。请考虑下面的优化:
 
-*   Reduce the number of layouts whenever possible. When you change styles the browser checks to see if any of the changes require the layout to be re-calculated. Changes to properties such as width, height, left, top, and in general, properties related to geometry, require layout. So, avoid changing them as much as possible.
-*   Use `flexbox` over older layout models whenever possible. It works faster and can create a huge performance advantage for your app.
-*   Avoid forced synchronous layouts. The thing to keep in mind is that while JavaScript runs, all the old layout values from the previous frame are known and available for you to query. If you access `box.offsetHeight` it won’t be an issue. If you, however, change the styles of the box before it’s accessed (e.g. by dynamically adding some CSS class to the element), the browser will have to first apply the style change and then run the layout. This can be very time-consuming and resource-intensive, so avoid it whenever possible.
+* 尽可能减少布局的数量。当你更改样式时，浏览器将检查是否需要重新计算布局。对属性的更改，如宽度、高度、左、上和其他与几何有关的属性，都需要重新布局。所以，尽量避免改变它们。
+* 尽量使用 `flexbox` 而不是老的布局模型。它运行速度更快，可为你的应用程序创造巨大的性能优势。
+* 避免强制同步布局。需要注意的是，在 JavaScript 运行时，前一帧中的所有旧布局值都是已知的并且可以查询。如果你查询 `box.offsetHeight` 是没问题的。 但是，如果你在查询元素之前更改了元素的样式（例如，动态向元素添加一些 CSS 类），浏览器必须先应用样式更改并执行布局过程。这可能非常耗时且耗费资源，因此请尽可能避免。
 
-**Optimize the paint**
+**优化绘图**
 
-This often is the longest-running of all the tasks so it’s important to avoid it as much as possible. Here is what we can do:
+这通常是所有任务中运行时间最长的，因此尽可能避免这种情况非常重要。 以下是我们可以做的事情：
 
-*   Changing any property other than transforms or opacity triggers a paint. Use it sparingly.
-*   If you trigger a layout, you will also trigger a paint, since changing the geometry results in a visual change of the element.
-*   Reduce paint areas through layer promotion and orchestration of animations.
+* 除了变换（transform）和透明度之外，改变其他任何属性都会触发重新绘图，请谨慎使用。
+* 如果触发了布局，那也会触发绘图，因为更改布局会导致元素的视觉效果也改变。
+* 通过图层提升和动画编排来减少重绘区域。
 
-Rendering is a vital aspect of how [SessionStack](https://www.sessionstack.com/?utm_source=medium&utm_medium=blog&utm_content=js-series-rendering-engine-outro) functions. SessionStack has to recreate as a video everything that happened to your users at the time they experienced an issue while browsing your web app. To do this, SessionStack leverages only the data that was collected by our library: user events, DOM changes, network requests, exceptions, debug messages, etc. Our player is highly optimized to properly render and make use of all the collected data in order to offer a pixel-perfect simulation of your users’ browser and everything that happened in it, both visually and technically.
+渲染是 [SessionStack](https://www.sessionstack.com/?utm_source=medium&utm_medium=blog&utm_content=js-series-rendering-engine-outro) 运行的重点之一。当用户浏览你的 web 应用遇到问题时，SessionStack 必须将这些遇到的问题重建成一个视频。为了做到这点，SessionStack 仅利用我们的库收集到数据：用户事件、DOM 更改、网络请求、异常和调试消息等。我们的播放器经过高度优化，能够按顺序正确呈现和使用所有收集到的数据，从视觉和技术两方面为你提供用户在浏览器中发生的一切的像素级完美模拟。
 
-There is a free plan if you’d like to [give SessionStack a try](https://www.sessionstack.com/signup/).
+如果你想试试看，这里可以免费[尝试 SessionStack](https://www.sessionstack.com/signup/）。
 
 ![](https://cdn-images-1.medium.com/max/800/0*h2Z_BnDiWfVhgcEZ.)
 
-#### Resources
+#### 资源
 
-*   [https://developers.google.com/web/fundamentals/performance/critical-rendering-path/constructing-the-object-model](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/constructing-the-object-model)
-*   [https://developers.google.com/web/fundamentals/performance/rendering/reduce-the-scope-and-complexity-of-style-calculations](https://developers.google.com/web/fundamentals/performance/rendering/reduce-the-scope-and-complexity-of-style-calculations)
-*   [https://www.html5rocks.com/en/tutorials/internals/howbrowserswork/#The_parsing_algorithm](https://www.html5rocks.com/en/tutorials/internals/howbrowserswork/#The_parsing_algorithm)
+* [https://developers.google.com/web/fundamentals/performance/critical-rendering-path/constructing-the-object-model](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/constructing-the-object-model)
+* [https://developers.google.com/web/fundamentals/performance/rendering/reduce-the-scope-and-complexity-of-style-calculations](https://developers.google.com/web/fundamentals/performance/rendering/reduce-the-scope-and-complexity-of-style-calculations)
+* [https://www.html5rocks.com/en/tutorials/internals/howbrowserswork/#The_parsing_algorithm](https://www.html5rocks.com/en/tutorials/internals/howbrowserswork/#The_parsing_algorithm)
 
 
 ---

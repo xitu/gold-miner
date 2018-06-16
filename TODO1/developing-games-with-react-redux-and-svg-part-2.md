@@ -123,7 +123,7 @@ CurrentScore.propTypes = {
 export default CurrentScore;
 ```
 
-> **注意：**如果您尚未配置 Joti One（或者配置了其他字体），您将需要修改相应的代码。如果您以后创建的其他组件也会用到该字体，请记住，您也需要更新这些组件。
+> **注意：** 如果您尚未配置 Joti One（或者配置了其他字体），您将需要修改相应的代码。如果您以后创建的其他组件也会用到该字体，请记住，您也需要更新这些组件。
 
 如您所见，`CurrentScore` 组件仅需要一个属性：`score`。由于您的游戏还没有计算分数，为了马上看到这个组件，您需要传入一个硬编码的值。因此，在 `Canvas` 组件里，往 `svg` 中末尾添加 `<CurrentScore score={15} />`。另外，还需要添加 `import` 语句来获取这个组件（`import CurrentScore from './CurrentScore';`）。
 
