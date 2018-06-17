@@ -261,7 +261,7 @@ pick aa0a35a867e 为导航添加样式
 
 ## 结论
 
-虽然我们已经介绍了使用 Git 进行日常工作流程中出现的大多数常见和基本情况，但重写Git历史是一个巨大的话题，在熟悉上述提示时，您可以在[ Git 官方文档](https://git-scm.com/book/en/v2/Git-Tools-Rewriting-History)。 快乐的 git'ing！
+虽然我们已经介绍了使用 Git 进行日常工作流程中出现的大多数常见和基本情况，但重写 Git 提交历史是一个巨大的话题，如果你已经熟悉上述建议，您可以在[Git 官方文档](https://git-scm.com/book/en/v2/Git-Tools-Rewriting-History)。快乐的 git'ing！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
