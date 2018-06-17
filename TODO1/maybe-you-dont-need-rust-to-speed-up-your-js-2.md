@@ -13,7 +13,7 @@
 
 第一个是 `decodeCached`，它与 `source-map` 使用的默认实现方式完全相同 - 我已经在上面列出了：
 
-```
+```[]
 function decodeCached(aStr) {
     var length = aStr.length;
     var cachedSegments = {};
@@ -60,11 +60,11 @@ function decodeCached(aStr) {
     index++;
     }
 }
-``` 
+```
 
 下一个竞争者是`decodeNoCaching`。 它本质上是没有缓存的`decodeCached`。 每个段都被独立解码。我也用`Int32Array`替换`Array`作为`segment`存储。
 
-```
+```[]
 function decodeNoCaching(aStr) {
     var length = aStr.length;
     var cachedSegments = {};
@@ -95,13 +95,13 @@ function decodeNoCaching(aStr) {
     index++;
     }
 }
-``` 
+```
 
-最后，第三个是`decodeNoCachingNoString`，它尝试避免通过将字符串转换为utf8编码的`Uint8Array`来处理JavaScript字符串。 这个优化受到了下面的启发：JS虚拟机更有可能将阵列负载优化为单个内存访问。 由于JS VM使用的不同字符串表示的层次结构非常复杂，所以将`String.prototype.charCodeAt`优化到相同的范围更加困难。
+最后，第三个是 `decodeNoCachingNoString`，它尝试避免通过将字符串转换为utf8编码的`Uint8Array`来处理JavaScript字符串。 这个优化受到了下面的启发：JS虚拟机更有可能将阵列负载优化为单个内存访问。 由于JS VM使用的不同字符串表示的层次结构非常复杂，所以将`String.prototype.charCodeAt`优化到相同的范围更加困难。
 
 我对比了两个版本，一个是将字符串编码为utf8的版本，另一个是使用预编码字符串的版本。用后面的这个“优化”版本，我想要评估一下，通过跳过数组⇒字符串⇒数组转化过程，可以给我们带来多少的优化提升。如果我们直接将源映射加载为数组缓冲区并直接从该缓冲区解析它，而不是先将其转换为字符串，那么种方式将是可能实现的。
 
-```
+```[]
 let encoder = new TextEncoder();
 function decodeNoCachingNoString(aStr) {
     decodeNoCachingNoStringPreEncoded(encoder.encode(aStr));
@@ -138,7 +138,7 @@ function decodeNoCachingNoStringPreEncoded(arr) {
     index++;
     }
 }
-``` 
+```
 
 下面是我在Chrome Dev`66.0.3343.3`（V8`6.6.189`）和 Firefox Nightly`60.0a1` 中运行我的微基准测试得到的结果(2018-02-11):
 
@@ -153,9 +153,9 @@ function decodeNoCachingNoStringPreEncoded(arr) {
 
 我浏览了V8问题跟踪器，发现了下面几个问题：
 
-*   [Issue 6391: StringCharCodeAt slower than Crankshaft](https://bugs.chromium.org/p/v8/issues/detail?id=6391);
-*   [Issue 7092: High overhead of String.prototype.charCodeAt in typescript test](https://bugs.chromium.org/p/v8/issues/detail?id=7092);
-*   [Issue 7326: Performance degradation when looping across character codes of a string](https://bugs.chromium.org/p/v8/issues/detail?id=7326);
+* [Issue 6391: StringCharCodeAt slower than Crankshaft](https://bugs.chromium.org/p/v8/issues/detail?id=6391);
+* [Issue 7092: High overhead of String.prototype.charCodeAt in typescript test](https://bugs.chromium.org/p/v8/issues/detail?id=7092);
+* [Issue 7326: Performance degradation when looping across character codes of a string](https://bugs.chromium.org/p/v8/issues/detail?id=7326);
 
 这些问题的评论当中，有些引用了2018年1月末以后的提交，这表明正在积极地进行`charCodeAt`的性能改善。 出于好奇，我决定在 Chrome Beta 版本中重新运行我的微基准测试，并与 Chrome Dev 版本进行比较
 
@@ -165,7 +165,7 @@ function decodeNoCachingNoStringPreEncoded(arr) {
 
 但是，如果您可以不通过转换，就能直接使用数组而不是字符串，那么就会带来性能的提升。 这是为什么呢？ 为了解答这个问题，我在 V8 运行以下代码：
 
-```
+```[]
 function foo(str, i) {
     return str.charCodeAt(i);
 }
@@ -179,14 +179,14 @@ foo(str, 0);
 foo(str, 0);
 ```
 
-```
+```[]
 ╭─ ~/src/v8/v8 ‹master›
 ╰─$ out.gn/x64.release/d8 --allow-natives-syntax --print-opt-code --code-comments x.js
-``` 
+```
 
 这个命令产生了一个[巨大的程序集列表](https://gist.github.com/mraleph/a1f36a67676a8dfef0af081f27f3eb6a)，这个证实我的怀疑，V8 的 “charCodeAt” 仍然没有针对特定的字符串表示进行特殊处理。这种降低似乎源自 V8 中的[这个代码](https://github.com/v8/v8/v8/blob/de7a3174282a48fab9c167155ffc8ff20c37214d/src/compiler/effect-control-linearizer.cc#L2687-L2826)，它可以解释什么数组访问速度快于字符串的`charCodeAt`的奥秘。
 
-#### 解析改进
+## 解析改进
 
 鉴于这些发现，我们可以从`source-map`解析代码中去掉缓存解析片段，再测试效果。
 
@@ -194,20 +194,20 @@ foo(str, 0);
 
 就像我们的微基准测试预测的那样，缓存对整体性能是不利的：删除它可以大大提升解析时间。
 
-### 优化排序 - 算法改进
+## 优化排序 - 算法改进
 
 现在我们改进了解析性能，让我们再看一下排序。
 
 有两个正在排序的数组：
 
-1.  `originalMappings`数组使用`compareByOriginalPositions` 比较器进行排序;
-2.  `generatedMappings`数组使用`compareByGeneratedPositionsDeflated` 比较器进行排序.
+1. `originalMappings`数组使用`compareByOriginalPositions` 比较器进行排序;
+2. `generatedMappings`数组使用`compareByGeneratedPositionsDeflated` 比较器进行排序.
 
-#### 优化 `originalMappings` 排序
+## 优化 `originalMappings` 排序
 
 我首先看了一下`compareByOriginalPositions`。
 
-```
+```[]
 function compareByOriginalPositions(mappingA, mappingB, onlyCompareOriginal) {
     var cmp = strcmp(mappingA.source, mappingB.source);
     if (cmp !== 0) {
@@ -236,7 +236,7 @@ function compareByOriginalPositions(mappingA, mappingB, onlyCompareOriginal) {
 
     return strcmp(mappingA.name, mappingB.name);
 }
-``` 
+```
 
 我注意到，映射首先由`source`组件进行排序，然后再由所有其他组件排序。 `source`指定映射最初来自哪个源文件。 一个明显的想法是，我们可以将`originalMappings`变成数组的嵌套：`originalMappings [i]`是一个包含第i个源文件所有映射的数组，而不再使用巨大的`originalMappings`数组，它直接将来自不同源文件的映射混合在一起。通过这种方式，我们可以把从源文件解析出来的映射排序存到不同的`originalMappings [i]`数组中，然后对单个较小的数组在进行排序。
 
@@ -244,7 +244,7 @@ function compareByOriginalPositions(mappingA, mappingB, onlyCompareOriginal) {
 
 这是我们在解析循环中做的：
 
-```
+```[]
 if (typeof mapping.originalLine === 'number') {
     // This code used to just do: originalMappings.push(mapping).
     // Now it sorts original mappings already by source during parsing.
@@ -261,7 +261,7 @@ if (typeof mapping.originalLine === 'number') {
 
 在那之后：
 
-```
+```[]
 var startSortOriginal = Date.now();
 // The code used to sort the whole array:
 //     quickSort(originalMappings, util.compareByOriginalPositions);
@@ -281,11 +281,11 @@ var endSortOriginal = Date.now();
 
 解析速度的提高是由于处理`originalMappings`数组的消耗的降低：生成一个单一的巨大的`originalMappings`数组比生成多个但更小的`originalMappings [i]`数组要消耗更多。不过，这只是我的猜测，没有经过任何严格的分析。
 
-#### 优化 `generatedMappings` 排序
+### 优化 `generatedMappings` 排序
 
 让我们看一下`generatedMappings`和`compareByGeneratedPositionsDeflated`比较器。
 
-```
+```[]
 function compareByGeneratedPositionsDeflated(mappingA, mappingB, onlyCompareGenerated) {
     var cmp = mappingA.generatedLine - mappingB.generatedLine;
     if (cmp !== 0) {
@@ -320,7 +320,7 @@ function compareByGeneratedPositionsDeflated(mappingA, mappingB, onlyCompareGene
 
 但是，当我看到解析代码时，我注意到了以下的内容：
 
-```
+```[]
 while (index < length) {
     if (aStr.charAt(index) === ';') {
     generatedLine++;
@@ -338,7 +338,7 @@ while (index < length) {
 
 这是代码中唯一出现`generatedLine`的地方，这意味着`generatedLine`是单调增长的 — 意味着`generatedMappings`数组已经被`generatedLine`排序了，并且对整个数组排序没有意义。相反，我们可以对每个较小的子阵列进行排序。我们把代码改成下面这样：
 
-```
+```[]
 let subarrayStart = 0;
 while (index < length) {
     if (aStr.charAt(index) === ';') {
@@ -365,7 +365,7 @@ sortGenerated(generatedMappings, subarrayStart);
 
 注意：如果输入数组已经排序，插入排序会比快速排序更快...事实证明，用于基准测试的映射实际上是排序过的。如果我们期望`generatedMappings`在解析之后几乎都是被排序过的，那么在排序之前先简单地检查`generatedMappings`是否已经排序会更有效率。
 
-```
+```[]
 const compareGenerated = util.compareByGeneratedPositionsDeflatedNoLine;
 
 function sortGenerated(array, start) {
@@ -404,7 +404,7 @@ function sortGenerated(array, start) {
 
 排序时间急剧下降，而解析时间稍微增加 — 这是因为代码将`generatedMappings`作为解析循环的一部分进行排序，使得我们的分解略显无意义。让我们检查累计时间的比较（解析和排序）
 
-####改善总时间
+#### 改善总时间
 
 ![解析和排序时间](https://mrale.ph/images/2018-02-03/parse-sort-3-total.png)
 
@@ -414,7 +414,7 @@ function sortGenerated(array, start) {
 
 是的：我们可以从 asm.js/WASM 指南中抽出一页，而不用在 JavaScript 基础上全部使用 Rust。
 
-###优化解析 - 降低GC压力
+### 优化解析 - 降低GC压力
 
 我们正在分配成千上万的`Mapping`对象，这给GC带来了相当大的压力 - 然而我们并不是真的需要这样的对象 - 我们可以将它们打包成一个类型数组。这是我的做法。
 
@@ -422,7 +422,7 @@ function sortGenerated(array, start) {
 
 首先，我将Mapping从一个普通对象变成一个只想类型数组的一个包装器，它将包含我们所有的映射。
 
-```
+```[]
 function Mapping(memory) {
     this._memory = memory;
     this.pointer = 0;
@@ -469,7 +469,7 @@ Mapping.prototype = {
 
 然后我调整了解析和排序代码，如下所示：
 
-```
+```[]
 BasicSourceMapConsumer.prototype._parseMappings = function (aStr, aSourceRoot) {
     // Allocate 4 MB memory buffer. This can be proportional to aStr size to
     // save memory for smaller mappings.
@@ -570,14 +570,15 @@ exports.compareByOriginalPositionsNoSource =
 
 我很困惑，我找到了一个 SpiderMonkey 黑客 [Jan de Mooij](https://twitter.com/jandemooij)，他很快[识别出](https://bugzilla.mozilla.org/show_bug.cgi?id=1437471) 罪魁祸首是 asm.js 从 2012 年开始的相关优化......然后他将它从 SpiderMonkey 中删除，以免再次碰到这个令人迷惑的性能断崖。
 
-###优化分析 - 使用 `Uint8Array` 替代字符串。
+### 优化分析 - 使用 `Uint8Array` 替代字符串。
 
 最后，如果我们使用`Uint8Array`代替字符串来解析，我们又可以得到小的改进。
 
-###对基线的总体改进
+### 对基线的总体改进
 
 这是开始的情况：
-```
+
+```[]
 $ d8 bench-shell-bindings.js
 ...
 [Stats samples: 5, total: 24050 ms, mean: 4810 m
@@ -585,18 +586,18 @@ s, stddev: 155.91063145276527 ms]
 $ sm bench-shell-bindings.js
 ...
 [Stats samples: 7, total: 22925 ms, mean: 3275 ms, stddev: 269.5999093306804 ms]
-``` 
+```
 
 这是我们完成时的情况
 
-```
+```[]
 $ d8 bench-shell-bindings.js
 ...
 [Stats samples: 22, total: 25158 ms, mean: 1143.5454545454545 ms, stddev: 16.59358125226469 ms]
 $ sm bench-shell-bindings.js
 ...
 [Stats samples: 31, total: 25247 ms, mean: 814.4193548387096 ms, stddev: 5.591064299397745 ms]
-``` 
+```
 
 ![重新分配后](https://mrale.ph/images/2018-02-03/parse-sort-final.png)
 
@@ -606,8 +607,8 @@ $ sm bench-shell-bindings.js
 
 可能还值得注意的是，尽管这不是真的需要，我们仍然热切地对所有`originalMappings`数组进行排序。 只有两个操作使用`originalMappings`：
 
-*   `allGeneratedPositionsFor` which returns all generated positions for the given line in the original source;
-*   `eachMapping(..., ORIGINAL_ORDER)` which iterates over all mappings in their original order.
+* `allGeneratedPositionsFor` which returns all generated positions for the given line in the original source;
+* `eachMapping(..., ORIGINAL_ORDER)` which iterates over all mappings in their original order.
 
 如果我们假设`allGeneratedPositionsFor`是最常见的操作，并且我们只在少数`originalMappings [i]`数组中搜索，那么无论何时我们可以通过对`originalMappings [i]`数组进行排序来大大提高解析时间 实际上需要搜索其中的一个。
 
@@ -615,7 +616,7 @@ $ sm bench-shell-bindings.js
 
 ![重新分配后](https://mrale.ph/images/2018-02-03/parse-sort-v8-vs-v8-total.png)
 
-###比较氧化的`source-map`版本
+### 比较氧化的`source-map`版本
 
 继2月19日发布这篇文章之后，我几乎没有要求将源图与我使用Rust和WASM的主线氧化“源图”相比较。
 
@@ -631,7 +632,7 @@ $ sm bench-shell-bindings.js
 
 因此，我不会在这里宣布，“我们已经成功与Rust + WASM版本达成了平衡”。然而，在这种性能差异的水平上，如果甚至值得在`source-map`中使用Rust的复杂性，那么重新评估可能是有意义的。
 
-####更新（2018年2月27日）
+#### 更新（2018年2月27日）
 
 `source-map`的作者Nick Fitzgerald [已更新](http://fitzgeraldnick.com/2018/02/26/speed-without-wizardry.html)本文描述的算法改进的Rust + WASM版本。 以下是_parse和iterate_ benchmark的修正性能图：
 
@@ -685,18 +686,18 @@ $ sm bench-shell-bindings.js
 
 ### 后记
 
-我们在这篇文章中发现的大多数优化分为三个不同的组：
+我们在这篇文章中发现的优化大致分成三个部分：
 
 1. 算法改进;
-2. 独立实施的解决方法，但潜在的语言依赖问题;
-3. 针对V8特定问题的解决方法。
+2. 解决独立的实现方法但是与编程语言相关的的问题;
+3. 解决 V8 特定问题。
 
-无论您编写哪种语言，仍然需要考虑算法。当你在固有的“较慢”语言中使用更糟糕的算法时，更容易注意到，但只是用“更快”的语言重新实现相同的算法，即使它可能会缓解症状，也不能解决问题。很大一部分帖子致力于这个组的优化：
+无论您使用哪种编程语言，都需要考虑算法。当您在原本就“比较慢”的编程语言中使用糟糕的算法时，您就能更容易注意到这一点，但是如果只是换成使用“比较快”的编程语言，继续使用这样的算法，那么存在的问题依然解决不了，即便在性能表现看不是很明显。这篇文章中的很大一部分内容都致力于这个部分的优化：
 
-* 通过对子序列进行排序而不是整个排列实现排序改进;
-* 讨论缓存好处或缺乏它们。
+* 排序的改进，通过对子数组排序代替对整个数组排序;
+* 讨论使用或者不使用缓存的优缺点。
 
-第二组由单态化技巧表示。由于多态性而导致的性能受损不是V8特有的问题。这不是一个JS特定的问题。您可以跨实现甚至语言应用单态。有些语言（Rust，实际上）以某种形式将它应用于引擎盖下。
+第二部分是由单态化技巧表示。由于多态性而导致的性能受损不是V8特有的问题。这不是一个JS特定的问题。您可以跨实现甚至语言应用单态。有些语言（Rust，实际上）以某种形式将它应用于引擎盖下。
 
 最后一个也是最有争议的小组由争论适应的东西代表。
 
@@ -710,8 +711,6 @@ $ sm bench-shell-bindings.js
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
-
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
- 
