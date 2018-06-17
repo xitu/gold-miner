@@ -59,13 +59,13 @@ Git 提交信息是你在你所写的代码上所留下的指纹。不管你今�
 *   这会在你的 Git 定义的文本编辑器中打开你最后一次的提交，它具有提交信息 **为导航添加样式**。
 *   因为我们只更新了 CSS 声明，所以我们不需要修改提交信息。你可以只做保存然后退出 Git 为你打开的文本编辑器，你的更改会被反映到提交上。
 
-由于你修改了一个已经存在的提交，你需要使用 `git push --force-with-lease <remote_name> <branch_name>` 命令将这些修改 _强制推送_ 到你的远程仓库。这个命令会使用我们本地仓库中所做的修改来覆盖远程仓库中 `Add styles for navigation` 这个提交。
+由于你修改了一个已经存在的提交，你需要使用 `git push --force-with-lease <remote_name> <branch_name>` 命令将这些修改 _强制推送_ 到你的远程仓库。这个命令会使用我们本地仓库中所做的修改来覆盖远程仓库中`为导航添加样式`这个提交。
 
 当你强制推送分支的时候有一点需要注意，那就是当你所在分支是一个多人工作的分支时，你的强制推送可能会给其他人的正常推送造成麻烦，因为远程分支上有一些强制推送的新的提交。因此，你应该明智地使用这个功能。你可以在[这里](https://git-scm.com/docs/git-push#git-push---no-force-with-lease)学习到更多有关 Git 强制推送选项的信息。
 
 ## 场景 2：我需要修改一次特定的提交
 
-在上一个场景中，因为我们只需要修改最近的一次提交，所以做起来非常简单，但是想象一下如果代码审查者建议修改 `_navigation.html.haml` 文件中的某些部分。在这种场景下，它是倒数第二次提交，所以修改起来不像第一个场景中那么直接。让我们看看怎么处理这种情况：
+在上一个场景中，因为我们只需要修改最近的一次提交，所以做起来非常简单，但是想象一下如果代码审查者建议修改 `_navigation.html.haml` 文件中的某些部分。在这种场景下，它是第二次提交，所以修改起来不像第一个场景中那么直接。让我们看看怎么处理这种情况：
 
 不管什么时候你在分支上提交了更改，都会有一个独一无二的 SHA1 哈希字符串作为更改提交的标志。可以把它看做区分任意两个更改提交的独特的 ID。你可以通过运行 `git log` 命令查看某个分支上的所有更改提交以及其 SHA1 哈希值。运行命令之后，你可以看到一些下面这样的输出，最近一次的提交在顶部。
 
@@ -74,41 +74,41 @@ commit aa0a35a867ed2094da60042062e8f3d6000e3952 (HEAD -> add-page-navigation)
 Author: Kushal Pandya <kushal@gitlab.com>
 Date: Wed May 2 15:24:02 2018 +0530
 
-    Add styles for navigation
+    为导航添加样式
 
 commit c22a3fa0c5cdc175f2b8232b9704079d27c619d0
 Author: Kushal Pandya <kushal@gitlab.com>
 Date: Wed May 2 08:42:52 2018 +0000
 
-    Render navigation partial
+    渲染导航部分
 
 commit 4155df1cdc7be01c98b0773497ff65c22ba1549f
 Author: Kushal Pandya <kushal@gitlab.com>
 Date: Wed May 2 08:42:51 2018 +0000
 
-    Page Navigation View
+    页面导航视图
 
 commit 8d74af102941aa0b51e1a35b8ad731284e4b5a20
 Author: Kushal Pandya <kushal@gitlab.com>
 Date: Wed May 2 08:12:20 2018 +0000
 
-    Add routes for navigation
+    添加导航路由
 ```
 
-现在轮到 `git rebase` 命令表演了。不管什么时候我们想要用 `git rebase` 命令修改一个特定的更改提交，我们首先要将我们分支的 HEAD 复位到我们想要修改的更改提交 _之前_。在这个场景中，我们需要修改 `Page Navigation View` 的更改提交。
+现在轮到 `git rebase` 命令表演了。不管什么时候我们想要用 `git rebase` 命令修改一个特定的更改提交，我们首先要将我们分支的 HEAD 变基到我们想要修改的更改提交 _之前_。在这个场景中，我们需要修改`页面导航视图`的更改提交。
 
 ![更改提交日志](https://about.gitlab.com/images/blogimages/keeping-git-commit-history-clean/GitRebase.png)
 
 现在，注意我们想要修改的更改提交之前的一个更改提交的哈希值；复制这个哈希值然后按照一下步骤进行操作：
 
-*   通过运行命令 `git rebase -i 8d74af102941aa0b51e1a35b8ad731284e4b5a20` 来复位分支到我们要修改的更改提交的前一个更改提交
-    *   **命令分解**：现在我们正在使用 Git 的 `rebase` 命令的 _交互模式_，通过提交 SHA1 哈希值我们可以将分支进行复位。
-*   这条命令会运行 Git 复位命令的交互模式，并且会打开文本编辑器展示你所复位到的更改提交 _之后_ 的所有更改提交。它看起来是这样的：
+*   通过运行命令 `git rebase -i 8d74af102941aa0b51e1a35b8ad731284e4b5a20` 来将分支变基到我们要修改的更改提交的前一个更改提交
+    *   **命令分解**：现在我们正在使用 Git 的 `rebase` 命令的 _交互模式_，通过提交 SHA1 哈希值我们可以将分支进变基。
+*   这条命令会运行 Git 变基命令的交互模式，并且会打开文本编辑器展示你所变基到的更改提交 _之后_ 的所有更改提交。它看起来是这样的：
 
 ```
-pick 4155df1cdc7 Page Navigation View
-pick c22a3fa0c5c Render navigation partial
-pick aa0a35a867e Add styles for navigation
+pick 4155df1cdc7 页面导航视图
+pick c22a3fa0c5c 渲染导航部分
+pick aa0a35a867e 为导航添加样式
 
 # Rebase 8d74af10294..aa0a35a867e onto 8d74af10294 (3 commands)
 #
@@ -130,11 +130,11 @@ pick aa0a35a867e Add styles for navigation
 # Note that empty commits are commented out
 ```
 
-注意到每个更改提交之前都有一个单词 `pick`，并且在它下面的内容里面，有所有的我们可以使用的关键字。因为我们想要 _编辑_ 一个更改提交，所以我们将命令 `pick 4155df1cdc7 Page Navigation View` 修改为 `edit 4155df1cdc7 Page Navigation View`。保存更改并退出编辑器。 
+注意到每个更改提交之前都有一个单词 `pick`，并且在它下面的内容里面，有所有的我们可以使用的关键字。因为我们想要 _编辑_ 一个更改提交，所以我们将命令 `pick 4155df1cdc7 页面导航视图` 修改为 `edit 4155df1cdc7 页面导航视图`。保存更改并退出编辑器。 
 
-现在你的分支已经被复位到包含 `_navigation.html.haml` 的更改提交之前了。打开文件并完成每个审查反馈中的修改需求。一旦你完成了修改，使用命令 `git add _navigation.html.haml` 将它们暂存起来。
+现在你的分支已经被变基到包含 `_navigation.html.haml` 的更改提交之前了。打开文件并完成每个审查反馈中的修改需求。一旦你完成了修改，使用命令 `git add _navigation.html.haml` 将它们暂存起来。
 
-因为我们已经暂存了这些更改，所以现在应该把分支 HEAD 重新移动到我们原来的更改提交（同时包含我们所有的新的更改的提交），运行 `git rebase --continue`，这将会在终端中打开你的默认编辑器并且向你展示复位期间我们所做的更改的提交信息； `Page Navigation View`。如果需要你可以修改这个提交信息，但现在我们保留它，因此接下来保存修改然后退出编辑器。这个时候，Git 会重新展示你刚刚修改的更改提交之后的所有更改提交并且分支的 `HEAD` 已经回到了我们原来的所有更改提交的顶部，它包含所有你对其中某个更改提交所做的所有新的更改。
+因为我们已经暂存了这些更改，所以现在应该把分支 HEAD 重新移动到我们原来的更改提交（同时包含我们所有的新的更改的提交），运行 `git rebase --continue`，这将会在终端中打开你的默认编辑器并且向你展示变基期间我们所做的更改的提交信息； `页面导航视图`。如果需要你可以修改这个提交信息，但现在我们保留它，因此接下来保存修改然后退出编辑器。这个时候，Git 会重新展示你刚刚修改的更改提交之后的所有更改提交并且分支的 `HEAD` 已经回到了我们原来的所有更改提交的顶部，它包含所有你对其中某个更改提交所做的所有新的更改。
 
 因为我们又一次修改了远程仓库中的一个提交，我们需要再次使用 `git push --force-with-lease <remote_name> <branch_name>` 命令将分支强制提交。
 
@@ -142,19 +142,19 @@ pick aa0a35a867e Add styles for navigation
 
 一个常见的场景就是当我们刚刚修改了一些之前的提交并重新提交了一些新的更改。现在让我们尽可能的精简一下这些提交，用原来的提交合并它们。
 
-你所要做的就是像其它场景中所做的那样开始交互性的复位。
+你所要做的就是像其它场景中所做的那样开始交互性的变基操作。
 
 ```
-pick 4155df1cdc7 Page Navigation View
-pick c22a3fa0c5c Render navigation partial
-pick aa0a35a867e Add styles for navigation
+pick 4155df1cdc7 页面导航视图
+pick c22a3fa0c5c 渲染导航部分
+pick aa0a35a867e 为导航添加样式
 pick 62e858a322 Fix a typo
 pick 5c25eb48c8 Ops another fix
 pick 7f0718efe9 Fix 2
 pick f0ffc19ef7 Argh Another fix!
 ```
 
-现在假设你想要合并所有的那些提交到 `c22a3fa0c5c Render navigation partial`。你只需要做：
+现在假设你想要合并所有的那些提交到 `c22a3fa0c5c 渲染导航部分`。你只需要做：
 
 1.  把你想要合并的那些更改提交往上移动，以使得它们位于最终合并的更改提交之下。
 2.  将每一个更改提交的模式由 `pick` 改为 `squash` 或者 `fixup`。
@@ -164,21 +164,21 @@ _笔记：_`squash` 模式会在描述中保留修改时的信息。而`fixup` �
 你会以下面这种结果结束实验：
 
 ```
-pick 4155df1cdc7 Page Navigation View
-pick c22a3fa0c5c Render navigation partial
+pick 4155df1cdc7 页面导航视图
+pick c22a3fa0c5c 渲染导航部分
 fixup 62e858a322 Fix a typo
 fixup 5c25eb48c8 Ops another fix
 fixup 7f0718efe9 Fix 2
 fixup f0ffc19ef7 Argh Another fix!
-pick aa0a35a867e Add styles for navigation
+pick aa0a35a867e 为导航添加样式
 ```
 
 保存更改并退出编辑器，你就完成了！这就是完成之后的历史提交记录：
 
 ```
-pick 4155df1cdc7 Page Navigation View
-pick 96373c0bcf Render navigation partial
-pick aa0a35a867e Add styles for navigation
+pick 4155df1cdc7 页面导航视图
+pick 96373c0bcf 渲染导航部分
+pick aa0a35a867e 为导航添加样式
 ```
 
 像之前一样，你现在所要做的所有工作只是运行 `git push --force-with-lease <remote_name> <branch_name>` 命令，然后所有的修改都被强制推送了。
@@ -190,13 +190,13 @@ pick aa0a35a867e Add styles for navigation
 为避免发生冲突，请确保您在时间线上上移的提交不会触及其后的提交所触及的相同文件。
 
 ```
-pick 4155df1cdc7 Page Navigation View
-pick c22a3fa0c5c Render navigation partial
+pick 4155df1cdc7 页面导航视图
+pick c22a3fa0c5c 渲染导航部分
 fixup 62e858a322 Fix a typo                 # this changes styles.css
 fixup 5c25eb48c8 Ops another fix            # this changes image/logo.svg
 fixup 7f0718efe9 Fix 2                      # this changes styles.css
 fixup f0ffc19ef7 Argh Another fix!          # this changes styles.css
-pick aa0a35a867e Add styles for navigation  # this changes index.html (no conflict)
+pick aa0a35a867e 为导航添加样式  # this changes index.html (no conflict)
 ```
 
 ### 附加提示：快速 `fixup`
@@ -211,31 +211,31 @@ pick aa0a35a867e Add styles for navigation  # this changes index.html (no confli
 git commit --fixup c22a3fa0c5c
 ```
 
-（注意到这个哈希值是属于 `c22a3fa0c5c Render navigation partial` 这个更改提交的）
+（注意到这个哈希值是属于 `c22a3fa0c5c 渲染导航部分` 这个更改提交的）
 
-这会产生这样的提交信息：`fixup! Render navigation partial`。
+这会产生这样的提交信息：`fixup! 渲染导航部分`。
 
 **步骤 2：还有这个小伙伴 `--autosquash`**
 
-通过简单的使用交互复位功能。你可以让 `git` 自动的把所有 `fixup` 放到正确的位置。
+通过简单的使用交互变基操作。你可以让 `git` 自动的把所有 `fixup` 放到正确的位置。
 
 `git rebase -i 4155df1cdc7 --autosquash`
 
 历史提交记录会变成下面这样:
 
 ```
-pick 4155df1cdc7 Page Navigation View
-pick c22a3fa0c5c Render navigation partial
+pick 4155df1cdc7 页面导航视图
+pick c22a3fa0c5c 渲染导航部分
 fixup 62e858a322 Fix a typo
 fixup 5c25eb48c8 Ops another fix
 fixup 7f0718efe9 Fix 2
 fixup f0ffc19ef7 Argh Another fix!
-pick aa0a35a867e Add styles for navigation
+pick aa0a35a867e 为导航添加样式
 ```
 
 一切就绪，你只需要审查并继续。
 
-如果你觉得有风险，你可以做一个非交互式的复位 `git rebase --autosquash`，但前提是你喜欢过这种有风险的生活，因为你没有机会在应用前检查它们。
+如果你觉得有风险，你可以做一个非交互式的变基 `git rebase --autosquash`，但前提是你喜欢过这种有风险的生活，因为你没有机会在应用前检查它们。
 
 ## 场景 4：我的提交记录没啥有用的内容，我需要重新开始！
 
