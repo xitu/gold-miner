@@ -7,7 +7,11 @@
 
 # How Apple can fix 3D Touch
 
+# 苹果公司如何修复 3D Touch
+
 I should start with the obvious. _3D Touch is broken_! The user experience is far from great. Apple introduced 3D Touch and its new related interactions Peek and Pop in 2014. It’s been almost 4 years since its first introduction, yet people don’t know/use 3D Touch. Why would they? Even tech-savvy users don’t know which buttons offer 3D touch. Let alone regular users.
+
+我应该从最显而易见的地方开始。3D Touch 已被破坏！如今3D Touch 的用户体验远远没有达到预期。苹果公司在 2014 年推出了3D Touch 和与之相关的新的交互方式 Peek 和 Pop。距离它的第一次推出已经过去了近乎四年，然而人们并不了解以及使用 3D Touch。他们怎么可能知道呢？即使是那些懂得相关技术的用户都不知道按下哪个按钮可以使用 3D Touch，更不用说那些普通用户了。
 
 What would happen if we decide to make all links same color and style as the regular text? People would not know what to click on right? Why is 3D Touch be any different? We rely on our vision to decide actionability before anything else. If you can’t distinguish 3D Touchable buttons from those that are not, how are you supposed to know you can press on them? Look at this screenshot and see if you can tell which of the buttons can be 3D Touched.
 
