@@ -24,7 +24,7 @@ Git 提交信息是你在你所写的代码上所留下的指纹。不管你今�
 
 但是在我们深入了解之前，让我们快速浏览一下我们假设的 Ruby 应用程序中典型的开发工作流程。
 
-**注意：**这篇文章默认你已经掌握 Git 基础，分支如何工作，如何将分支的未提交更改添加到暂存区以及如何提交更改。如果你不太熟悉这些流程，[我们的文档](https://docs.gitlab.com/ee/topics/git/index.html)是一个好的起点。
+**注意：** 这篇文章默认你已经掌握 Git 基础，分支如何工作，如何将分支的未提交更改添加到暂存区以及如何提交更改。如果你不太熟悉这些流程，[我们的文档](https://docs.gitlab.com/ee/topics/git/index.html)是一个好的起点。
 
 ## 生活中的某天
 
@@ -59,7 +59,7 @@ Git 提交信息是你在你所写的代码上所留下的指纹。不管你今�
 *   这会在你的 Git 定义的文本编辑器中打开你最后一次的提交，它具有提交信息**为导航添加样式**。
 *   因为我们只更新了 CSS 声明，所以我们不需要修改提交信息。你可以只做保存然后退出 Git 为你打开的文本编辑器，你的更改会被反映到提交上。
 
-由于你修改了一个已经存在的提交，你需要使用 `git push --force-with-lease <remote_name> <branch_name>` 命令将这些修改 **强制推送**到你的远程仓库。这个命令会使用我们本地仓库中所做的修改来覆盖远程仓库中`为导航添加样式`这个提交。
+由于你修改了一个已经存在的提交，你需要使用 `git push --force-with-lease <remote_name> <branch_name>` 命令将这些修改**强制推送**到你的远程仓库。这个命令会使用我们本地仓库中所做的修改来覆盖远程仓库中`为导航添加样式`这个提交。
 
 当你强制推送分支时，有一点需要注意，那就是当你所在分支是一个多人协作的分支时，你的强制推送可能会给其他人的正常推送造成麻烦，因为远程分支上有一些强制推送的新的提交。因此，你应该合理地使用这个功能。你可以在[这里](https://git-scm.com/docs/git-push#git-push---no-force-with-lease)学习到更多有关 Git 强制推送选项的信息。
 
@@ -159,7 +159,7 @@ pick f0ffc19ef7 Argh Another fix!
 1.  把你想要合并的那些更改提交往上移动，以使得它们位于最终合并的更改提交之下。
 2.  将每一个更改提交的模式由 `pick` 改为 `squash` 或者 `fixup`。
 
-**注意：**`squash` 模式会在描述中保留修改时的信息。而`fixup` 不会，它只会保留原来的提交信息。
+**注意：** `squash` 模式会在描述中保留修改时的信息。而`fixup` 不会，它只会保留原来的提交信息。
 
 你会以下面这种结果结束实验：
 
@@ -221,7 +221,7 @@ git commit --fixup c22a3fa0c5c
 
 `git rebase -i 4155df1cdc7 --autosquash`
 
-历史提交记录会变成下面这样:
+历史提交记录会变成下面这样：
 
 ```
 pick 4155df1cdc7 页面导航视图
@@ -245,15 +245,15 @@ pick aa0a35a867e 为导航添加样式
 
 *   创建补丁文件的第一步是确保您的分支具有来自 `master` 分支的所有更改并且与这些更改没有冲突。
 *   您可以在 `add-page-navigation` 分支中签出时运行 `git rebase master` 或 `git merge master`，以将所有从 `master` 进行的更改转移到您的分支上。
-*   现在创建补丁文件; 运行 `git diff master add-page-navigation>〜/ add_page_navigation.patch`。
-    *    **命令分解**：在这里我们使用了 Git 的 _diff_ 特性，查询 `master` 分支和 `add-page-navigation` 分支之间的差异，然后**重定向**输出（通过 `>` 符号）到一个文件，在我们的用户主目录（在 *nix 系操作系统中通常是 `〜/`）中命名为 `add_page_navigation.patch`。
+*   现在创建补丁文件；运行 `git diff master add-page-navigation > ~/add_page_navigation.patch`。
+    *    **命令分解**：在这里我们使用了 Git 的 _diff_ 特性，查询 `master` 分支和 `add-page-navigation` 分支之间的差异，然后**重定向**输出（通过 `>` 符号）到一个文件，在我们的用户主目录（在 `*nix` 系操作系统中通常是 `~/`）中命名为 `add_page_navigation.patch`。
 *   你可以指定你想保存这个文件的路径，文件名和扩展名为任意你想要的值。
 *   一旦命令运行并且没有看到任何错误，就会生成补丁文件。
-*   现在签出 `master` 分支; 运行 `git checkout master`。
-*   从本地仓库删除分支 `add-page-navigation`; 运行 `git branch -D add-page-navigation`。请记住，我们已经在创建的补丁文件中更改了此分支。
-*   现在创建一个具有相同名称的新分支（`master` 被签出）; 运行 `git checkout -b add-page-navigation`。
+*   现在签出 `master` 分支；运行 `git checkout master`。
+*   从本地仓库删除分支 `add-page-navigation`；运行 `git branch -D add-page-navigation`。请记住，我们已经在创建的补丁文件中更改了此分支。
+*   现在创建一个具有相同名称的新分支（`master` 被签出）；运行 `git checkout -b add-page-navigation`。
 *   现在，这是一个新的分支，没有任何你所做的修改。
-*   最后，从修补程序文件中应用您的更改；`git apply〜/ add_page_navigation.patch`。
+*   最后，从修补程序文件中应用您的更改；`git apply ~/add_page_navigation.patch`。
 *   在这里，所有更改都会应用到分支中，并且它们将显示为未提交，就好像您所做的所有修改都完成了，但没有任何修改是在分支中实际提交的。
 *   现在，您可以继续并按照所需顺序提交按影响区域分组的单个文件或文件，并使用简单明了的提交信息。
 
@@ -261,7 +261,7 @@ pick aa0a35a867e 为导航添加样式
 
 ## 结论
 
-虽然我们已经介绍了使用 Git 进行日常工作流程中出现的大多数常见和基本情况，但重写 Git 提交历史是一个巨大的话题，如果你已经熟悉上述建议，您可以在[Git 官方文档](https://git-scm.com/book/en/v2/Git-Tools-Rewriting-History)。快乐的 git'ing！
+虽然我们已经介绍了使用 Git 进行日常工作流程中出现的大多数常见和基本情况，但重写 Git 提交历史是一个巨大的话题，如果你已经熟悉上述建议，您可以在 [Git 官方文档](https://git-scm.com/book/en/v2/Git-Tools-Rewriting-History)。快乐的 git'ing！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
