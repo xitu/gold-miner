@@ -78,7 +78,7 @@ $ git push -u origin hotfix/readme-update
 
 这样做将会在你的 GitHub 项目上创建新分支。-u 标志符表示将本地分支与远程分支相连，以便将来只需输入 git push origin 就可以推送到远程分支。
 
-返回浏览器并导航到你 fork 的项目（在我的示例中地址是：https://github.com/akrabat/zend-validator），你会发现你的新分支在顶部列出了一个简便的“Compare & pull request”按钮：
+返回浏览器并导航到你 fork 的项目（在我的示例中地址是：https://github.com/akrabat/zend-validator ），你会发现你的新分支在顶部列出了一个简便的“Compare & pull request”按钮：
 
 ![Pr button](https://akrabat.com/wp-content/uploads/2015/09/2015-09pr-button.png)
 
@@ -111,7 +111,7 @@ Lorna Mitchell 的文章[代码审查：在你运行代码之前](http://www.lor
 1.  Fork 原项目并克隆到本地。
 2.  创建一个 **upstream** 远程并在你创建分支之前同步更新到你的本地副本。
 3.  为每项单独的工作创建分支。
-4.  做好你的工作，编写[良好的提交信息](https://blogs.gnome.org/danni/2011/10/25/a-guide-to-writing-git-commit-messages/)，并阅读CONTRIBUTING文件（如果有的话）。
+4.  做好你的工作，编写[良好的提交信息](https://blogs.gnome.org/danni/2011/10/25/a-guide-to-writing-git-commit-messages/)，并阅读 CONTRIBUTING 文件（如果有的话）。
 5.  推送到 **origin** 仓库。
 6.  在 GitHub 中创建一个新的 PR。
 7.  回应每一条[代码审查](http://www.lornajane.net/posts/2015/code-reviews-before-you-even-run-the-code)的反馈信息。
