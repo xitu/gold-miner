@@ -1,3 +1,4 @@
+* [创造华丽 UI 的 7 个规则（Part 2）](https://juejin.im/post/5b2a1554e51d4558cc35b3be) ([xujunjiejack](https://github.com/xujunjiejack) 翻译)
 * [创造华丽 UI 的 7 个规则（Part 1）](https://juejin.im/post/5b1dcc7d5188257d7d71946a) ([wzasd](https://github.com/wzasd) 翻译)
 * [用户体验中的稀缺性：成为常态的心理偏见](https://juejin.im/post/5aef0943518825672a02d2ca) ([Starriers](https://github.com/Starriers) 翻译)
 * [细数那些我离不开的 Sketch 插件](https://juejin.im/post/5ae0623ef265da0b8d419aca) ([allenlongbaobao](https://github.com/allenlongbaobao) 翻译)
