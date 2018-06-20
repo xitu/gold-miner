@@ -1,3 +1,5 @@
+* [如何针对 Android 优化您的应用（Go 版）](https://juejin.im/post/5b21cd246fb9a01e754642f3) ([androidxiao](https://github.com/androidxiao) 翻译)
+* [带你领略 ConstraintLayout 1.1 的新功能](https://juejin.im/post/5b013e6f51882542c760dc7b) ([Moosphan](https://github.com/Moosphan) 翻译)
 * [在 Android P 中使用默认的 TLS 来保护你的用户](https://juejin.im/post/5b29030551882574b4094a6f) ([hanliuxin5](https://github.com/hanliuxin5) 翻译)
 * [介绍 Google Play 上新的优质 Android 应用与游戏](https://juejin.im/post/5ae978d151882567370633ca) ([sisibeloved](https://github.com/sisibeloved) 翻译)
 * [情景活动感知识别的 Transition API 新特性面向全体开发者开放](https://juejin.im/post/5b21cfe16fb9a01e561a4b26) ([wzasd](https://github.com/wzasd) 翻译)
