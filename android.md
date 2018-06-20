@@ -1,3 +1,8 @@
+* [在 Android P 中使用默认的 TLS 来保护你的用户](https://juejin.im/post/5b29030551882574b4094a6f) ([hanliuxin5](https://github.com/hanliuxin5) 翻译)
+* [介绍 Google Play 上新的优质 Android 应用与游戏](https://juejin.im/post/5ae978d151882567370633ca) ([sisibeloved](https://github.com/sisibeloved) 翻译)
+* [情景活动感知识别的 Transition API 新特性面向全体开发者开放](https://juejin.im/post/5b21cfe16fb9a01e561a4b26) ([wzasd](https://github.com/wzasd) 翻译)
+* [通过安全浏览保护 WebView](https://juejin.im/post/5b0fb8a06fb9a00a25192a3f) ([androidxiao](https://github.com/androidxiao) 翻译)
+* [使用 Span 来修改文本样式的优质体验](https://juejin.im/post/5b24c20851882574ea3a0d86) ([wzasd](https://github.com/wzasd) 翻译)
 * [Windows Insets 和 Fragment 过渡动画](https://juejin.im/post/5b05206f6fb9a07ac162c9af) ([LeeSniper](https://github.com/LeeSniper) 翻译)
 * [Android 支持库 21.1.0 中的 Loaders](https://juejin.im/post/5b06139a6fb9a07aa43c966f) ([dreamhb](https://github.com/dreamhb) 翻译)
 * [Android Studio 切换至 D8 dexer](https://juejin.im/post/5b0a84f0518825388e725ec8) ([Starriers](https://github.com/Starriers) 翻译)
