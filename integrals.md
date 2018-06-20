@@ -5527,7 +5527,7 @@
 |------|-------|-------|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|4|
 
-## 译者：[sunhaokk](https://github.com/sunhaokk) 历史贡献积分：43 当前积分：43 年度积分：43
+## 译者：[sunhaokk](https://github.com/sunhaokk) 历史贡献积分：43.5 当前积分：43.5 年度积分：43.5
 
 |文章|类型|积分|
 |------|-------|-------|
