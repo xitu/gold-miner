@@ -1,3 +1,4 @@
+* [Erlang 之禅第一部分](https://juejin.im/post/5b2a16cce51d4558d726e8c9) ([steinliber](https://github.com/steinliber) 翻译)
 * [[字幕翻译] James Bennett — 理解 Python 字节码 — PyCon 2018](https://github.com/xitu/gold-miner/issues/3990) ([cdpath](https://github.com/cdpath) 翻译)
 * [如何通过树莓派的深度学习轻松检测对象](https://juejin.im/post/5b1ba938518825137661af46) ([Starriers](https://github.com/Starriers) 翻译)
 * [[字幕翻译] 玛利亚塔·维加亚 — 什么是 Python 核心开发者？— PyCon 2018](https://juejin.im/post/5b152c825188257d8a48d4a8) ([elliott-zhao](https://github.com/elliott-zhao) 翻译)
