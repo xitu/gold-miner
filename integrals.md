@@ -4719,7 +4719,7 @@
 |[做好准备：新的 V8 即将到来，Node.js 的性能正在改变。](https://juejin.im/post/5aaf755851882555627d16e5)|校对|3|
 |[论原子 CSS 的日益普及](https://juejin.im/post/5a4387af6fb9a045186b04d1)|校对|1.5|
 
-## 译者：[lcx-seima](https://github.com/lcx-seima) 历史贡献积分：32.5 当前积分：32.5 年度积分：32.5
+## 译者：[lcx-seima](https://github.com/lcx-seima) 历史贡献积分：37.5 当前积分：37.5 年度积分：32.5
 
 |文章|类型|积分|
 |------|-------|-------|
