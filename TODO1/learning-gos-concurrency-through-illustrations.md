@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/learning-gos-concurrency-through-illustrations.md](https://github.com/xitu/gold-miner/blob/master/TODO1/learning-gos-concurrency-through-illustrations.md)
 > * 译者：[Elliott Zhao](https://github.com/elliott-zhao)
-> * 校对者：
+> * 校对者：[CACppuccino](https://github.com/CACppuccino)
 
 # 通过插图学习 Go 的并发
 
