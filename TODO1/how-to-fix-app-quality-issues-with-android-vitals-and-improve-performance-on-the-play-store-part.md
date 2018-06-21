@@ -5,26 +5,26 @@
 > * 译者：[LeeSniper](https://github.com/LeeSniper)
 > * 校对者：
 
-# 如何用 Android vitals 解决应用质量问题
+# 如何用 Android vitals 解决应用程序的质量问题
 
-## Post 1 of 2: 修复 ANR 事件和过度唤醒是如何提高应用在 Play Store 上的表现的
+## 两篇中的第一篇：修复 ANR 事件和过度唤醒是如何提高应用在 Play Store 上的表现的
 
 ![](https://cdn-images-1.medium.com/max/800/0*EWSxinDkL4qP3nQT.)
 
-For an app developer there is no better measure of success than happy users, and preferably a lot of them. The best way to achieve this is to have a great app that people want to use, but what do we mean by “great”? It boils down to two things: features and app quality. While the former ultimately depends on your creativity and chosen business model, the latter can be objectively measured and improved.对于应用开发者来说，没有比开心的用户更好的成功度量标准，最好是其中的很多。 实现这一目标的最佳方式是拥有一个人们想要使用的优秀应用程序，但是我们认为“好”是什么意思？ 它归结为两件事：功能和应用程序质量。 前者最终取决于你的创造力和选择的商业模式，后者可以客观地衡量和改进。
+对于一个应用开发者来说，没有比开心的用户更好的衡量成功的标准，而且最好是有很多这样的用户。实现这一目标的最佳方式是拥有一个人人都想用的优秀应用，不过我们所说的“优秀”指的是什么呢？它可以归结为两件事：功能和应用质量。前者最终取决于你的创造力和选择的商业模式，而后者可以客观地衡量和改进。
 
-在去年进行的一项 Google 内部研究中，我们查看了 Play Store 中的一星评论，发现超过 40％ 的人提到应用稳定性的问题。相对的，人们用更好的评分和评论持续奖励表现最佳的应用。 这使得它们在 Google Play 上获得更好的排名，而好的排名有助于提高安装量。不仅如此，用户还会更加投入，并愿意花费更多的时间和金钱在这些应用程序中。
+在去年进行的一项 Google 内部研究中，我们查看了 Play Store 中的一星评论，发现超过 40％ 的人提到应用稳定性的问题。相对的，人们会用更高的评分和更好的评论持续奖励那些表现最佳的应用。这使得它们在 Google Play 上获得更好的排名，而好的排名有助于提高安装量。不仅如此，用户还会更加投入，并愿意在这些应用程序上花费更多的时间和金钱。
 
-因此，解决您应用程序的稳定性问题可以很大程度上决定它有多成功。
+因此，解决应用程序的稳定性问题可以在很大程度上决定它有多成功。
 
-为了提供一个客观的质量衡量标准，使你可以轻松发现应用需要解决哪些稳定性问题，我们在 Play Console 中添加了一个名为 Android vitals 的新部分。这个部分可以告诉你应用程序的性能和稳定性问题，而不需要在代码中添加仪器或库。当你的应用程序运行在众多设备上的时候，Android vitals 会收集关于应用程序性能的匿名指标。即使在使用硬件实验室进行测试时，它也会以其他方式难以获得的规模为你提供信息。
+为了提供一个客观的质量衡量标准，使你可以轻松发现应用需要解决哪些稳定性问题，我们在 Play Console 中添加了一个名为 Android vitals 的新模块。这个模块可以告诉你应用程序的性能和稳定性问题，而不需要在代码中添加仪器或库。当你的应用程序运行在众多设备上的时候，Android vitals 会收集关于应用程序性能的匿名指标。即使在使用硬件实验室进行测试时，它也会以其他方式难以获得的规模为你提供信息。
 
 Android vitals 可以提醒你的问题包括崩溃、应用程序无响应（ANR）和渲染时间。这些问题都直接影响你的用户对应用的体验和看法。此外，还有一类用户可能不会直接与你的应用关联的不良应用行为：比如耗电的速度比预期的要快。
 
 在本文中，我将着眼于以下两个问题：
 
-*   **过度唤醒**。 这会影响电池的续航时间，如果用户无法及时充电，可能会导致他们无法使用设备。这种行为很可能会让用户迅速卸载你的应用。
-*   **应用程序无响应（ANR）事件**。这些事件发生在你的应用程序 UI 冻结的时候。发生冻结时，如果你的应用位于前台，会弹出对话框让用户选择关闭应用或等待响应。从用户的角度来看，这种行为与应用程序崩溃一样糟糕。用户可能不会立即卸载你的应用，但如果 ANR 持续存在，用户很可能会寻找替代的应用。
+*   **过度唤醒**。这会影响电池的续航时间，如果用户无法及时充电，可能会导致他们无法使用设备。这种行为很可能会让用户迅速卸载你的应用。
+*   **应用程序无响应（ANR）事件**。这些事件发生在你的应用程序 UI 冻结的时候。发生冻结时，如果你的应用位于前台，会弹出对话框让用户选择关闭应用或等待响应。从用户的角度来看，这种行为与应用崩溃一样糟糕。用户可能不会立即卸载你的应用，但如果 ANR 持续存在，用户很可能会寻找替代的应用。
 
 ### 过度唤醒
 
@@ -32,11 +32,11 @@ Android vitals 可以提醒你的问题包括崩溃、应用程序无响应（AN
 
 那么，唤醒是什么以及它们何时变得过度呢？
 
-为了延长电池续航时间，屏幕关闭后，Android 设备将通过禁用主 CPU 内核进入深度睡眠模式。除非用户唤醒设备，否则设备会尽可能长时间地保持在此状态。但是，有一些重要事件需要唤醒 CPU 并提醒用户，例如，当闹钟响起或有新的聊天消息到达时。这些警报可以通过唤醒警报（wakeup alarm）来处理，但正如我将要解释的那样，这并不是必须的。到目前为止，唤醒似乎是一件好事，显示重要的事件引起用户的注意，但是如果有太多这种事件那么电池寿命就会受到影响。
+为了延长电池的续航时间，屏幕关闭后，Android 设备将通过禁用主 CPU 内核进入深度睡眠模式。除非用户唤醒设备，否则设备会尽可能长时间地保持在此状态。但是，有一些重要事件需要唤醒 CPU 并提醒用户，例如，当闹钟响起或有新的聊天消息到达时。这些警报可以通过唤醒警报（wakeup alarm）来处理，但正如我将要解释的那样，这并不是必须的。到目前为止，唤醒似乎是一件好事，它可以显示重要的事件引起用户的注意，但是如果有太多这种事件那么电池寿命就会受到影响。
 
 ### Android vitals 如何显示过度唤醒？
 
-了解你的应用是否在驱动过多的唤醒是 Android vitals 的重要任务。收集的有关你的应用行为的匿名数据用于显示自设备完全充电后，每小时经历超过 10 次唤醒的用户的百分比。要查看的关键点是一个红色的图标；这个图标告诉你，你的应用已超出不良行为阈值。而这个阈值表示你的应用属于 Google Play 上表现较差的应用，你应该考虑改善其行为。
+了解你的应用是否在驱动过多的唤醒是 Android vitals 的重要任务。收集的有关你应用行为的匿名数据用于显示自设备完全充电后，每小时经历超过 10 次唤醒的用户的百分比。要查看的关键点是一个红色的图标；这个图标告诉你，你的应用已超出不良行为阈值。而这个阈值表示你的应用属于 Google Play 上表现较差的应用，你应该考虑改善其行为。
 
 ![](https://cdn-images-1.medium.com/max/800/0*lI6WpGCrW0NIQDUk.)
 
@@ -46,10 +46,10 @@ Android vitals 可以提醒你的问题包括崩溃、应用程序无响应（AN
 
 *   如果你需要根据网络返回的数据来显示信息，可以考虑使用消息推送来实现，例如 Firebase Cloud Messaging。使用这种机制而不是定期拉取新数据，你的应用只有在需要时才会被唤醒。
 *   如果你无法使用消息推送并且依赖定期拉取，可以考虑使用 JobScheduler 或者是 Firebase JobDispatcher（甚至是 SyncManager 来获取帐户数据）。这些是比 AlarmManager 更高级别的 API，而且为更智能的定期任务提供以下好处：
-    **A)** Batching — instead of waking up the system multiple times to run jobs, many jobs will be batched letting the device sleep longer.  ** A）**批处理 - 不是多次唤醒系统来运行作业，许多作业将批量使设备睡眠时间更长。
-    **B)** Criteria — you can specify criteria, such as network availability or battery charging status, that must be met to run your job. Using criteria avoids waking up the device and running your app needlessly.** B）**条件 - 您可以指定必须满足的条件（如网络可用性或电池充电状态）来运行您的工作。 使用标准可避免唤醒设备并不必要地运行您的应用程序。  
-    **C)** Persistence and automatic back-off — jobs can be persisted (even across reboots) and will benefit from automatic retry in case of a failure.  ** C）**持久性和自动回退 - 作业可以保持（即使在重新启动时也可以），并且可以在发生故障时自动重试。
-    **D)** Doze compatibility — jobs will only run when there are no restrictions imposed by doze mode or app standby.** D）**打盹兼容性 - 只有在打盹模式或应用程序待机没有限制时才会运行作业。
+    **A）**批处理 —— 许多任务将被批量处理以使设备睡眠时间更长，而不是多次唤醒系统来执行这些任务。 
+    **B）**条件 —— 你可以指定必须满足某些条件才能执行你的任务，例如网络可用性或电池的充电状态。使用这些条件可以避免不必要的设备唤醒和应用运行。  
+    **C）**持续性和自动重试 —— 任务可以持续执行（即使重新启动也可以），并且可以在发生故障时自动重试。
+    **D）**Doze 兼容性 —— 任务只有在不受 Doze 模式限制或应用程序待机时才会执行。
 
 只有当消息推送和定期任务不适合你的工作时，你才应该使用 AlarmManager 安排唤醒警报。或者从另一个角度来看，只有当你需要在特定时间启动闹钟时才需要使用唤醒警报，无论网络或其他条件如何。
 
@@ -57,7 +57,7 @@ Android vitals 可以提醒你的问题包括崩溃、应用程序无响应（AN
 
 要解决过度唤醒的问题，请先确定你的应用在哪些地方设置了唤醒警报，然后降低触发这些警报的频率。
 
-要确定你的应用在哪些地方设置了唤醒警报，请在 Android Studio 中打开 AlarmManager 类，右键单击 RTC_WAKEUP 或 ELAPSED_REALTIME_WAKEUP 字段并选择“Find Usages”。 这将显示你项目中用到这些标志的所有实例。审查每一个实例，看看你是否可以切换到更智能的定时任务机制中的一种。
+要确定你的应用在哪些地方设置了唤醒警报，请在 Android Studio 中打开 AlarmManager 类，右键单击 RTC_WAKEUP 或 ELAPSED_REALTIME_WAKEUP 字段并选择 “Find Usages”。 这将显示你项目中用到这些标志的所有实例。审查每一个实例，看看你是否可以切换到更智能的定时任务机制中的一种。
 
 ![](https://cdn-images-1.medium.com/max/800/0*AqOuensVaMAnWsbT.)
 
@@ -73,19 +73,19 @@ Android vitals 可以提醒你的问题包括崩溃、应用程序无响应（AN
 
 ![](https://cdn-images-1.medium.com/max/800/0*ncJ-EVNH0Z1rJdVj.)
 
-那么，什么是应用程序无响应（ANR），它是如何影响用户的？
+那么，什么是应用程序无响应（ANR），它又是如何影响用户的呢？
 
-对于用户来说，ANR 是当他们尝试与你的应用进行交互，但该界面被冻结。界面保持冻结几秒钟后，会显示一个对话框，让用户选择等待或强制应用程序退出。
+对于用户来说，ANR 是当他们尝试与你的应用进行交互时，但该界面被冻结。界面保持冻结几秒钟后，会显示一个对话框，让用户选择等待或强制应用程序退出。
 
-从应用程序开发的角度来看，当应用程序通过执行耗时操作（如磁盘或网络 I/O）阻塞主线程时，就会发生 ANR。主线程（有时称为 UI 线程）负责响应用户事件并刷新屏幕上每秒绘制六十次的内容。因此，将任何可能延迟其工作的操作都转移到后台线程是至关重要的。
+从应用程序开发的角度来看，当应用程序通过执行耗时操作（如磁盘或网络读写）阻塞主线程时，就会发生 ANR。主线程（有时称为 UI 线程）负责响应用户事件并刷新屏幕上每秒绘制六十次的内容。因此，将任何可能延迟其工作的操作都转移到后台线程是至关重要的。
 
 ### Android vitals 如何显示 ANR？
 
-Using anonymous data collected about your app’s ANR events, Android vitals provides several levels of detail about ANRs. The main screen shows a summary of ANR activity in your app. This shows the percentage of daily sessions where users experienced at least one ANR, with separate reports for the last and previous 30 days. The bad behavior threshold is also provided.使用收集的有关您的应用的 ANR 事件的匿名数据，Android vitals 提供了有关 ANR 的多个级别的详细信息。主屏幕显示应用程序中 ANR 活动的摘要。这显示了用户每天经历至少一次 ANR 的每日会话的百分比，以及最近和最近 30 天的单独报告。还提供了不良行为的阈值。
+使用收集到的有关你应用 ANR 事件的匿名数据，Android vitals 提供了有关 ANR 的多个级别的详细信息。主屏幕显示你应用程序中发生 ANR 的 Activity 的概况。这显示了用户经历过至少一次 ANR 的每日会话的百分比，以及之前最近 30 天的单独报告。还提供了不良行为的阈值。
 
 ![](https://cdn-images-1.medium.com/max/800/0*WTt4VlpfdmHEK_su.)
 
-The details view, the **ANR rate** page, shows details of the ANR rate over time, and ANRs by app version, activity name, ANR type, and Android version. You can filter this data by APK version codes, supported devices, OS versions, and period.详细信息视图** ANR费率**页面显示ANR费率随时间变化的详细信息，以及按应用版本，活动名称，ANR类型和Android版本显示的ANR。 您可以通过APK版本代码，支持的设备，操作系统版本和期限来过滤这些数据。
+详细信息视图的 **ANR 比例**页面显示了 ANR 比例随时间变化的详细信息，以及按应用版本、Activity 名称、ANR 类型和 Android 版本显示的 ANR 信息。你可以通过 APK 版本号、支持的设备、操作系统版本和时间段来过滤这些数据。
 
 ![](https://cdn-images-1.medium.com/max/800/0*uuk2F6DaMO7n4UMr.)
 
@@ -97,7 +97,7 @@ The details view, the **ANR rate** page, shows details of the ANR rate over time
 
 如前所述，当应用程序进程阻塞主线程时就会发生 ANR。几乎任何原因都可能导致这种阻塞，但最常见的原因包括：
 
-*   **在主线程上执行磁盘或网络读写操作**。这是迄今为止 ANR 最常见的原因。虽然大多数开发人员都认为你不应该在主线程上读取或写入数据到磁盘或网络，但有时我们总会无意间这么做。在理想情况下从磁盘读取几个字节可能不会导致 ANR，但是**这绝不是一个好主意**。 如果用户使用的设备闪存很慢会怎么样？如果他们的设备受到来自其他应用程序同时读取和写入的巨大压力，而你的应用程序在队列中等待执行“快速”读取操作时又该怎么办？**切勿在主线程上执行读写操作。**
+*   **在主线程上执行磁盘或网络读写操作**。这是迄今为止 ANR 最常见的原因。虽然大多数开发人员都认为你不应该在主线程上读取或写入数据到磁盘或网络，但有时我们总会无意间这么做。在理想情况下从磁盘读取几个字节可能不会导致 ANR，但是**这绝不是一个好主意**。如果用户使用的设备闪存很慢怎么办？如果他们的设备受到来自其他应用程序同时读取和写入的巨大压力，而你的应用程序在队列中等待执行“快速”读取操作时又该怎么办？**切勿在主线程上执行读写操作。**
 *   **在主线程上执行长时间计算**。那么内存里的计算会怎么样呢？RAM 不会受长时间访问的影响，较小的操作应该没问题。但是，当你开始在循环中执行复杂计算或处理大型数据集时，可以轻松阻塞主线程。可以考虑调整包含数百万像素的大图像的大小，或解析大块的 HTML 文本，然后在 TextView 中显示。一般来说，最好让你的应用在后台执行这些操作。
 *   **从主线程向另一个进程运行同步绑定调用**。与磁盘或网络操作类似，在跨进程边界进行阻塞调用时，程序执行会传递到你无法控制的某个位置。如果其他进程很忙怎么办？如果它需要访问磁盘或网络来响应你的请求怎么办？另外，数据传递给另一个进程需要进行序列化和反序列化，这也需要时间。最好从后台线程进行进程间调用。
 *   **使用同步**。即使你将繁重的操作移动到后台线程，也需要与主线程进行通信以显示进度或计算的结果。多线程编程并不容易，而且在使用同步进行锁定时，通常很难保证不会阻塞执行。在最糟糕的情况下，它甚至可能导致死锁，线程之间互相阻塞永久等待下去。最好不要自己设计同步，使用专门的解决方案会更好一些，比如 [Handler](https://developer.android.com/reference/android/os/Handler.html)，从后台线程传递不可变的数据到主线程。
