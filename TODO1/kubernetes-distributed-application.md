@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/kubernetes-distributed-application.md](https://github.com/xitu/gold-miner/blob/master/TODO1/kubernetes-distributed-application.md)
 > * 译者：[maoqyhz](https://github.com/maoqyhz)
-> * 校对者：
+> * 校对者：[cf020031308](https://github.com/cf020031308)、[HCMY](https://github.com/HCMY)
 
 # Kubernetes 分布式应用部署和人脸识别 app 实例
 
@@ -25,9 +25,9 @@
 
 应用程序由六个部分组成。代码仓库可在这里找到：[Kube Cluster Sample](https://github.com/Skarlso/kube-cluster-sample)。
 
-这是一个人脸识别的微服务应用，它可以识别人物的图像并将其和已知人物进行比较。应用的运行过程如下：首先向[接收器](https://github.com/Skarlso/kube-cluster-sample/tree/master/receiver)发送请求，请求中需要包含图像的路径。然后将图像存储在 NFS 的某处，同时接收器会将图像路径存储在 DB（MySQL）中。最后向队列发送一个处理请求，包含保存图像的 ID。这里使用 [NSQ](http://nsq.io/) 作为队列（**译者注**：NSQ 是一个基于 Go 语言的分布式实时消息平台）。识别结果会在一个简单的前端中，通过表格的形式展现出来，可以看到这些待识别的图像中的人物是谁。
+这是一个人脸识别的服务应用，它可以识别人物的图像并将其和已知人物进行比较。识别结果会在一个简单的前端中，通过表格的形式展现出来，可以看到这些待识别的图像中的人物是谁。应用的运行过程如下：首先向[接收器](https://github.com/Skarlso/kube-cluster-sample/tree/master/receiver)发送请求，请求中需要包含图像的路径。这些图像可存储在 NFS 一类的地方，同时接收器会将图像路径存储在 DB（MySQL）中。最后向队列发送一个处理请求，包含保存图像的 ID。这里使用 [NSQ](http://nsq.io/) 作为队列（**译者注**：NSQ 是一个基于 Go 语言的分布式实时消息平台）。
 
-期间，[图像处理](https://github.com/Skarlso/kube-cluster-sample/tree/master/image_processor)服务会不间断地监视将要执行作业的队列。处理流程由以下步骤组成：取 ID；加载图像；最后，通过 [gRPC](https://grpc.io/) 将图像发送到用 Python 编写的[人脸识别](https://github.com/Skarlso/kube-cluster-sample/tree/master/face_recognition)后端程序。如果识别成功，后端将返回与该图像中人物相对应的名称。然后，image_processor 会更新图像记录的人物 ID 字段，并将图像标记为“processed successfully”。如果识别不成功，图像将被保留为“pending”。 如果在识别过程中出现故障，图像将被标记为“failed”。
+期间，[图像处理](https://github.com/Skarlso/kube-cluster-sample/tree/master/image_processor)服务会不间断地监视将要执行作业的队列。处理流程由以下步骤组成：取 ID；加载图像；最后，通过 [gRPC](https://grpc.io/) 将图像发送到用 Python 编写的[人脸识别](https://github.com/Skarlso/kube-cluster-sample/tree/master/face_recognition)后端程序。如果识别成功，后端将返回与该图像中人物相对应的名称。然后，图像处理器会更新图像记录的人物 ID 字段，并将图像标记为“processed successfully”。如果识别不成功，图像将被保留为“pending”。 如果在识别过程中出现故障，图像将被标记为“failed”。
 
 处理失败的图像可以通过 cron 作业重试，例如：
 
@@ -35,31 +35,31 @@
 
 ## 接收器
 
-接收器服务是整个应用运行的起点。接收器接收一个请求的 API 格式如下：
+接收器服务是整个流程的起点。这个 API 接收如下格式的请求：
 
 ```
 curl -d '{"path":"/unknown_images/unknown0001.jpg"}' http://127.0.0.1:8000/image/post
 ```
 
-在这个例子中，接收器通过共享数据库集群来存储图像路径。当数据库存储图像路径成功后，接收器实例就能从数据库服务中接收图像 ID。此应用程序是基于在持久层提供实体对象唯一标识的这一模型的。一旦 ID 产生，接收器会向 NSQ 发送一个消息。到这里，接收器的工作就完成了。
+在这个例子中，接收器通过共享数据库集群来存储图像路径。当数据库存储图像路径成功后，接收器实例就能从数据库服务中接收图像 ID。此应用程序是基于在持久层提供实体对象唯一标识的模型的。一旦 ID 产生，接收器会向 NSQ 发送一个消息。到这里，接收器的工作就完成了。
 
 ## 图像处理器
 
-下面是激动人心的开始。当图像处理器第一次运行时，它会创建两个 Go 例程（routine）。 他们是：
+下面是激动人心的开始。当图像处理器第一次运行时，它会创建两个 Go 协程（routine）。 他们是：
 
 ### Consume
 
-这是一个 NSQ 消费者。它有三个必要的工作。首先，它能够监听队列中的消息。其次，当其接收到消息后，会将收到的 ID 添加到第二个例程处理的线程安全的 ID 切片中去。最后，它标志着第二个例程需要开始工作。NSQ 消费者通过 [sync.Condition](https://golang.org/pkg/sync/#Cond) 执行操作。
+这是一个 NSQ 消费者。它有三个必要的工作。首先，它能够监听队列中的消息。其次，当其接收到消息后，会将收到的 ID 添加到第二个例程处理的线程安全的 ID 切片中去。最后，它通过 [sync.Condition](https://golang.org/pkg/sync/#Cond) 告知第二个协程有工作要做。
 
 ### ProcessImages
 
-该例程处理 ID 切片，知道切片完全耗尽。一旦切片消耗完，例程将暂停而不是在通道上等待睡眠。以下是处理单个 ID 的步骤：
+该例程处理 ID 切片，直到切片完全耗尽。一旦切片消耗完，例程将暂停而不是等待 channel。以下是处理单个 ID 的步骤：
 
-*   与人脸识别服务建立 gRPC 连接（在人脸识别章节解释）
+*   与人脸识别服务建立 gRPC 连接（在下面人脸识别章节解释）
 *   从数据库中取回图像记录
-*   设置 [断路器](#circuit-breaker) 的两个函数
-    *   设置 1: 运行RPC方法调用的主函数
-    *   设置 2: 对断路器的 Ping 进行健康检查
+*   设置 [断路器](#断路器) 的两个函数
+    *   函数 1: 运行 RPC 方法调用的主函数
+    *   函数 2: 对断路器的 Ping 进行健康检查
 *   调用函数 1，发送图像路径到人脸识别服务。服务需要能够访问该路径。最好能像 NFS 一样进行文件共享
 *   如果调用失败，更新图像记录的状态字段为“FAILED PROCESSING”
 *   如果成功，将会返回数据库中与图片相关的人物名。它会执行一个 SQL 的连接查询，获取到相关的人物 ID
@@ -67,15 +67,15 @@ curl -d '{"path":"/unknown_images/unknown0001.jpg"}' http://127.0.0.1:8000/image
 
 这个服务可以被复制，换句话说，可以同时运行多个服务。
 
-<h3 id="circuit-breaker">断路器</h3>
+### 断路器
 
-虽然这是一个不需要太大精力就能够复制资源的系统，但仍然可能存在例如，网络故障，两个服务间的任何的通信问题。因此我在 gRRC 调用上实现了一个小小的断路器作为乐趣。
+虽然这是一个不需要太大精力就能够复制资源的系统，但仍可能存在状况，例如网络故障、服务间的通信问题。因此我在 gRRC 调用上实现了一个小小的断路器作为乐趣。
 
 它是这样工作的：
 
 ![kube circuit](https://skarlso.github.io/img/kube_circuit1.png)
 
-正如你所见到的，在服务中一旦有 5 个不成功的调用，断路器将会被激活，并且不允许任何调用通过。经过一段配置的时间后，会向服务发送一个 Ping 调用，并检测服务是否返回信息。如果仍然出错，会增加超时时间，否则就会打开，使正常通信。
+正如你所见到的，在服务中一旦有 5 个不成功的调用，断路器将会被激活，并且不允许任何调用通过。经过一段配置的时间后，会向服务发送一个 Ping 调用，并检测服务是否返回信息。如果仍然出错，会增加超时时间，否则就会打开，允许流量通过。
 
 ## 前端
 
@@ -83,9 +83,9 @@ curl -d '{"path":"/unknown_images/unknown0001.jpg"}' http://127.0.0.1:8000/image
 
 ## 人脸识别
 
-这里是识别魔术发生的地方。为了追求灵活性，我决定将人脸识别这项功能封装成为基于 gRPC 的服务。我开始打算用 Go 语言去编写，但后来发现使用 Python 来实现会更加清晰。事实上，除了 gPRC 代码之外，人脸识别部分大概需要 7 行代码。我正在使用一个极好的库，它包含了所有 C 实现的 OpenCV 的调用。[人脸识别](https://github.com/ageitgey/face_recognition)。在这里签订 API 使用协议，也就意味着在协议的许可下，我可以随时更改人脸识别代码的实现。
+这里是识别魔术发生的地方。为了追求灵活性，我决定将人脸识别这项功能封装成为基于 gRPC 的服务。我开始打算用 Go 语言去编写，但后来发现使用 Python 来实现会更加清晰。事实上，除了 gPRC 代码之外，人脸识别部分大概需要 7 行 Python 代码。我正在使用一个极好的库，它包含了所有 C 实现的 OpenCV 的调用。[人脸识别](https://github.com/ageitgey/face_recognition)。在这里签订 API 使用协议，也就意味着在协议的许可下，我可以随时更改人脸识别代码的实现。
 
-请注意，这里存在一个可以用 Go 语言来开发 OpenCV 的库。我正打算使用它，但是它并没有包含 C 实现的 OpenCV 的调用。这个库叫做 [GoCV](https://gocv.io/)，你可以去了解一下。它们有些非常了不起的地方，比如，实时的摄像头反馈处理，只需要几行代码就能够实现。
+请注意，这里存在一个可以用 Go 语言来开发 OpenCV 的库。我差点就用它了，但是它并没有包含 C 实现的 OpenCV 的调用。这个库叫做 [GoCV](https://gocv.io/)，你可以去了解一下。它们有些非常了不起的地方，比如，实时的摄像头反馈处理，只需要几行代码就能够实现。
 
 python 的库本质上很简单。现在，我们有一组已知的人物图像，并将其命名为 `hannibal_1.jpg, hannibal_2.jpg, gergely_1.jpg, john_doe.jpg` 放在文件夹中。在数据库中包含两张表，分别是 `person` 和 `person_images`。它们看起来像这样：
 
@@ -115,11 +115,11 @@ gRPC 调用会返回人物的 ID，并用于修改待识别图像记录中 `pers
 
 ## NSQ
 
-NSQ 是一个极好的基于 Go 语言的队列。它可以缩放并且在系统上具有最小的占用空间。它还具有消费者用来接收消息的查找服务，以及发送者在发送消息时使用的守护程序。
+NSQ 是一个极好的基于 Go 语言的队列。它可伸缩并且在系统上具有最小的占用空间。它还具有消费者用来接收消息的查找服务，以及发送者在发送消息时使用的守护程序。
 
-NSQ 的理念是守护进程应该与发送者应用程序一起运行。这样，发件人只会发送到本地主机。但守护进程连接到查找服务，这就是他们如何实现全局队列。
+NSQ 的理念是守护进程应该与发送者应用程序一起运行。这样，发件人只会发送到本地主机。但守护进程连接到查找服务，他们就是这样实现全局队列。
 
-这就意味着，有多少个发送者，有需要部署多少个 NSQ 守护进程。由于守护进程的资源要求很小，因此不会干扰主应用程序的要求。
+这就意味着，有多少个发送者，有需要部署多少个 NSQ 守护进程。由于守护进程的资源要求很小，不会影响主应用程序的需求。
 
 ## 配置
 
@@ -153,11 +153,11 @@ Kubernetes 的基础知识之一是它为所有组件使用标签和注解。Ser
 
 ### Pods
 
-Pods 是一个逻辑上分组的容器，也就意味着一个 Pod 可以容纳多个容器。一个 Pod 在创建后会获得自己的 DNS 和虚拟 IP 地址，这样Kubernetes 就可以为其平衡流量。你很少需要直接处理容器，即使在调试时（比如查看日志），通常也会调用 `kubectl logs deployment / your-app -f` 而不是查看特定的容器。尽管有可能会调用 `-c container_name`。 `-f` 会加在日志命令的尾部。
+Pods 是一个逻辑上分组的容器，也就意味着一个 Pod 可以容纳多个容器。一个 Pod 在创建后会获得自己的 DNS 和虚拟 IP 地址，这样Kubernetes 就可以为其平衡流量。你很少需要直接处理容器，即使在调试时（比如查看日志），通常也会调用 `kubectl logs deployment / your-app -f` 而不是查看特定的容器。尽管有可能会调用 `-c container_name`。 `-f` 参数会持续显示日志文件的末尾部分。
 
 ### Deployments
 
-在 Kubernetes 中创建任何类型的资源时，它将在后台使用 Deployment。一个 Deployment 对象描述当前应用程序的期望状态。你可以用这个对象做一些工作，例如，更新 Pods，或者对于不同状态下的 Service，你可以进行更新或推出新版本的应用程序。您不直接控制 ReplicaSet（如稍后所述），但可以控制 Deployment 对象来创建和管理 ReplicaSet。
+在 Kubernetes 中创建任何类型的资源时，它将在后台使用 Deployment。一个 Deployment 对象描述当前应用程序的期望状态。这东西可以用来变换 Pod 或 Service 的状态，更新或推出新版的应用。您不直接控制 ReplicaSet（如稍后所述），但可以控制 Deployment 对象来创建和管理 ReplicaSet。
 
 ### Services
 
@@ -178,7 +178,7 @@ Kubernetes 如何知道服务是否正确运行？你可以配置运行状况检
 *   `svc` – 服务本身
 *   `cluster.local` – 本地集群域名
 
-该域名可以通过自定义来更改。要访问集群外部的服务，必须使用 DNS供应商，再使用Nginx（例如）将IP地址绑定到记录。可以使用以下命令查询服务的公共IP地址：
+该域名可以通过自定义来更改。要访问集群外部的服务，必须有 DNS 提供者，再使用Nginx（例如）将IP地址绑定到记录。可以使用以下命令查询服务的公共IP地址：
 
 *   NodePort – `kubectl get -o jsonpath="{.spec.ports[0].nodePort}" services mysql`
 *   LoadBalancer – `kubectl get -o jsonpath="{.spec.ports[0].LoadBalancer}" services mysql`
@@ -230,9 +230,9 @@ ReplicaSet 是低级复制管理器。 它确保为应用程序运行正确数�
 
 ### DaemonSet
 
-请记住我是如何解释 Kubernetes 始终使用标签的。DaemonSet 是一个控制器，用于确保守护程序应用程序始终在具有特定标签的节点上运行。
+还记得我说的Kubernetes是如何持续使用标签的吗？DaemonSet 是一个控制器，用于确保守护程序应用程序始终在具有特定标签的节点上运行。
 
-例如：您希望所有标有 `logger` 或 `mission_critical` 的节点运行记录器/审计服务守护程序。然后你创建一个 DaemonSet，并给它一个名为 `logger` 或 `mission_critical` 的节点选择器。Kubernetes 将寻找具有该标签的节点。始终确保它将有一个守护进程的实例在其上运行。因此，在该节点上运行的每个都可以在本地访问该守护进程。
+例如：您希望所有标有 `logger` 或 `mission_critical` 的节点运行记录器/审计服务守护程序。然后你创建一个 DaemonSet，并给它一个名为 `logger` 或 `mission_critical` 的节点选择器。Kubernetes 将寻找具有该标签的节点。始终确保它将有一个守护进程的实例在其上运行。因此，在该节点上运行的每个实例都可以在本地访问该守护进程。
 
 在我的应用程序中，NSQ 守护进程可能是一个 DaemonSet。为了确保它在具有接收器组件的节点上运行，我采用 `receiver` 标记一个节点，并用 `receiver` 应用程序选择器指定一个 DaemonSet。
 
@@ -240,13 +240,13 @@ DaemonSet 具有 ReplicaSet 的所有优点。它是可扩展的并由Kubernetes
 
 ### Scaling
 
-在 Kubernetes 中进行 scaling 是微不足道的。ReplicaSets 负责管理 Pod 的实例数量，如 nginx 部署中所看到的，使用“replicas：3”设置。我们应该以允许 Kubernetes 运行它的多个副本的方式编写我们的应用程序。
+在 Kubernetes 中做扩展很简单。ReplicaSets 负责管理 Pod 的实例数量，如 nginx 部署中所看到的，使用“replicas：3”设置。我们应该以允许 Kubernetes 运行它的多个副本的方式编写我们的应用程序。
 
 当然这些设置是巨大的。你可以指定哪些复制必须在什么节点上运行，或者在各种等待时间等待实例出现的时间。你可以在这里阅读关于此主题的更多信息：[Horizontal Scaling](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/) 和此处：[Interactive Scaling with Kubernetes](https：/ /kubernetes.io/docs/tutorials/kubernetes-basics/scale-interactive/)，当然还有一个 [ReplicaSet](https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/) 控件的详细信息 所有的 scaling 都可以在 Kubernetes 中实现。
 
 ### Kubernetes 总结
 
-这是一个处理容器编排的便利工具。 它的基本单位是具有分层的架构的 Pods。顶层是 Deployments，通过它处理所有其他资源。它高度可配置，提供了一个用于所有调用的API，因此可能不会运行 `kubectl`，而是可以编写自己的逻辑将信息发送到 Kubernetes API。
+这是一个处理容器编排的便利工具。 它的基本单位是具有分层的架构的 Pods。顶层是 Deployments，通过它处理所有其他资源。它高度可配置，提供了一个用于所有调用的 API，因此比起运行 `kubectl`，你可以编写自己的逻辑将信息发送到 Kubernetes API。
 
 Kubernetes 现在支持所有主要的云提供商，它完全是开源的，随意贡献！如果你想深入了解它的工作方式，请查看代码：[Kubernetes on Github](https://github.com/kubernetes/kubernetes)。
 
@@ -349,7 +349,7 @@ echo -n "ubersecurepassword" | base64
 kubectl apply -f mysql.yaml
 ```
 
-`apply` vs `create`。简而言之，`apply` 被认为是声明性的对象配置命令，而 `create` 则是命令式的。这意味着现在“create”通常是针对其中一项任务的，比如运行某些东西或创建部署。而在使用 apply 时，用户不会定义要采取的操作。这将由 Kubernetes 根据集群的当前状态进行定义。因此，当没有名为 `mysql` 的服务时，我调用 `apply -f mysql.yaml`，它会创建服务。再次运行时，Kubernetes 不会做任何事情。但是，如果我再次运行 `create`，它会抛出一个错误，说明服务已经被创建。
+`apply` 还是 `create`？简而言之，`apply` 被认为是声明性的对象配置命令，而 `create` 则是命令式的。这意味着现在“create”通常是针对其中一项任务的，比如运行某些东西或创建 Deployment。而在使用 apply 时，用户不会定义要采取的操作。这将由 Kubernetes 根据集群的当前状态进行定义。因此，当没有名为 `mysql` 的服务时，我调用 `apply -f mysql.yaml`，它会创建服务。再次运行时，Kubernetes 不会做任何事情。但是，如果我再次运行 `create`，它会抛出一个错误，说明服务已经被创建。
 
 有关更多信息，请查看以下文档：[Kubernetes Object Management](https://kubernetes.io/docs/concepts/overview/object-management-kubectl/overview/)，[Imperative Configuration](https：// kubernetes .io / docs / concepts / overview / object-management-kubectl / imperative-config /)，[Declarative Configuration](https://kubernetes.io/docs/concepts/overview/object-management-kubectl/declarative-config/)）。
 
@@ -411,7 +411,7 @@ mysql> exit
 Bye
 ```
 
-你还会注意到我已经在这里安装了一个文件：[Database Setup SQL](https://github.com/Skarlso/kube-cluster-sample/blob/master/database_setup.sql)到容器中。MySQL 容器自动执行这些。该文件将引导一些数据以及我将要使用的模式。
+你还会注意到我已经在这里安装了一个文件：[Database Setup SQL](https://github.com/Skarlso/kube-cluster-sample/blob/master/database_setup.sql)到容器中。MySQL 容器自动执行这些。该文件将初始化一些数据以及我将要使用的模式。
 
 volume 定义如下：
 
@@ -459,7 +459,7 @@ kubectl logs deployment/mysql -f
 
 ### NSQ 查找
 
-NSQ 查找将作为内部服务运行，它不需要从外部访问。所以我设置了 `clusterIP：None`，这会告诉 Kubernetes 这项服务是一项无头（headless）的服务。这意味着它不会被负载均衡，并且不会是单一的 IP 服务 DNS 将会基于服务选择器。
+NSQ 查找将作为内部服务运行，它不需要从外部访问。所以我设置了 `clusterIP：None`，这会告诉 Kubernetes 这项服务是一项无头（headless）的服务。这意味着它不会被负载均衡，并且不会是单一的 IP 服务。DNS 将会基于服务选择器。
 
 我们定义的 NSQ Lookup 选择器是：
 
@@ -480,7 +480,7 @@ command: ["/nsqlookupd"]
 args: ["--broadcast-address=nsqlookup.default.svc.cluster.local"]
 ```
 
-你可能会问什么是 `--broadcast-address`？默认情况下，nsqlookup 将使用 `hostname` 作为广播地址 当消费者运行回调时，它会尝试连接到如下内容：`http：// nsqlookup-234kf-asdf：4161 / lookup?topics = image`。请注意 `nsqlookup-234kf-asdf` 是容器的主机名。通过将广播地址设置为内部 DNS，回调将为：`http：//nsqlookup.default.svc.cluster.local：4161 / lookup?topic = images`。这将按预期工作。
+你可能会问什么是 `--broadcast-address`？默认情况下，nsqlookup 将使用 `hostname` 作为广播地址 当消费者运行回调时，它会尝试连接到类似于 `http://nsqlookup-234kf-asdf:4161/lookup?topics=image` 的 url。请注意 `nsqlookup-234kf-asdf` 是容器的主机名。通过将广播地址设置为内部 DNS，回调将为：`http://nsqlookup.default.svc.cluster.local:4161/lookup?topic=images`。这将按预期工作。
 
 NSQ 查找还需要两个端口进行转发：一个用于广播，一个用于 nsqd 回调。这些在 Dockerfile 中公开，然后 在Kubernetes 模板中使用。像这个：
 
@@ -533,7 +533,7 @@ kubectl apply -f nsqlookup.yaml
 
 #### Nsq 守护进程
 
-Receiver 启动一个 nsq 守护进程。如前所述，接收者用它自己运行 nsqd。它是这样做的，因此可以在本地而不是通过网络进行通信。通过让接收器执行此操作，它们将在同一节点上结束。
+Receiver 启动一个 nsq 守护进程。如前所述，接收者用它自己运行 nsqd。它这样做可以在本地通信而不是通过网络。通过让接收器执行此操作，它们将在同一节点上结束。
 
 NSQ 守护进程还需要一些调整和参数。
 
@@ -556,7 +556,7 @@ args: ["--lookupd-tcp-address=$(NSQLOOKUP_ADDRESS):4160", "--broadcast-address=$
 
 #### 面向大众的服务
 
-现在，这是我第一次部署面向公众的服务。这里有两种选择。我可以使用 LoadBalancer，由于这个 API 可以承受很大的负载。如果这将在生产环境部署，那么它应该使用这一个。
+现在，这是我第一次部署面向公众的服务。这里有两种选择。我可以使用 LoadBalancer，因为这个 API 可以承受很大的负载。如果这将在生产环境部署，那么它应该使用这一个。
 
 我在本地做只部署单个节点的，所以称为“NodePort”就足够了。一个 `NodePort` 在一个静态端口上暴露每个节点 IP 上的服务。如果未指定，它将在 30000-32767 之间的主机上分配一个随机端口。但它也可以被配置为一个特定的端口，在模板文件中使用 `nodePort`。要使用此服务，请使用 `<NodeIP>：<NodePort>`。如果配置了多个节点，则 LoadBalancer 可以将它们复用到单个 IP。
 
@@ -649,7 +649,7 @@ kubectl apply -f image_processor.yaml
 
 ### 人脸识别
 
-人脸识别别服务是一个简单的，只有图像处理器才需要服务。它的模板如下：
+人脸识别别服务是一个简单的，只有图像处理器才需要的服务。它的模板如下：
 
 ```
 apiVersion: v1
@@ -834,7 +834,7 @@ func main() {
 
 新客户端代码的优势在于，如果新端点不可用，它可以退回到提交旧的方式。然而，旧客户端代码没有这个优势，所以我们无法改变我们的代码现在的工作方式。考虑一下：你有90台服务器，并且你做了一个缓慢的滚动更新，在更新的同时一次只取出一台服务器。如果更新持续一分钟左右，整个过程大约需要一个半小时才能完成（不包括任何并行更新）。
 
-在此期间，你的一些服务器将运行新代码，其中一些将运行旧代码。调用是负载均衡的，因此你无法控制哪些服务器会被击中。如果客户试图以新的方式进行调用，但会触及旧服务器，则客户端将失败。客户端可以尝试并回退，但是由于你删除了旧版本，它将不会成功，除非它仅仅是一个机会，用新代码击中服务器（假设没有设置粘滞会话）。
+在此期间，你的一些服务器将运行新代码，其中一些将运行旧代码。调用是负载均衡的，因此你无法控制哪些服务器会被击中。如果客户试图以新的方式进行调用，但会触及旧服务器，则客户端将失败。客户端可以尝试并回退，但是由于你删除了旧版本，它将不会成功，除非很巧合地命中了运行新代码的服务器，用新代码命中服务器（假设没有设置粘滞会话）。
 
 另外，一旦所有服务器都更新完毕，旧客户端将无法再使用你的服务。
 
@@ -887,11 +887,11 @@ func PostImage(w http.ResponseWriter, r *http.Request) {
 # 单个路径:
 curl -d '{"path":"unknown4456.jpg"}' http://127.0.0.1:8000/image/post
 
-# 多元路径:
+# 多个路径:
 curl -d '{"paths":[{"path":"unknown4456.jpg"}]}' http://127.0.0.1:8000/images/post
 ```
 
-在这里，客户端被访问。通常情况下，如果客户端是服务，我会修改它，以防万一新的端点抛出一个 404，它会尝试下一个。
+在这里，客户端是 `curl`。通常情况下，如果客户端是个服务，我会改一下，在新的路径抛出 404 时可以再试试老的路径。
 
 为简洁起见，我不修改 NSQ 和其他用来批量图像处理的操作，他们仍然会一个一个接收。这就当作业留给你们来做了。
 
@@ -929,7 +929,7 @@ kubectl rolling-update receiver --rollback
 
 手动更新的问题在于它们不在源代码控制中。
 
-考虑一下：有些东西已经改变，一些服务器手动更新以做一个快速的“补丁修复”，但没有人目睹它，并且没有记录。一个新的人出现并对模板进行更改并将模板应用到群集。所有服务器都会更新，然后突然出现服务中断。
+考虑一下：由于手动进行“快速修复”，一些服务器得到了更新，但没有人目睹它，并且没有记录。另一个人出现并对模板进行更改并将模板应用到群集。所有服务器都会更新，然后突然出现服务中断。
 
 长话短说，更新后的服务器已经被覆盖，因为该模板没有反映手动完成的工作。
 
@@ -985,9 +985,9 @@ kubectl delete services -all
 
 女士们，先生们。我们用 Kubernetes 编写，部署，更新和扩展了（当然还不是真的）分布式应用程序。
 
-如果您有任何问题，请随时在下面的评论中聊天。我非常乐意解答。
+如果您有任何问题，请随时在下面的评论中讨论。我非常乐意解答。
 
-我希望你享受阅读它，虽然这很长， 我正在考虑将它分成多篇博客，但是有一个整体的的，一个页面指南是有用的，并且可以很容易地找到，保存和打印。
+我希望你享受阅读它，虽然这很长， 我正在考虑将它分成多篇博客，但是一个整体的单页指南是有用的，并且可以很容易地找到，保存和打印。
 
 感谢您的阅读。
 
