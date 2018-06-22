@@ -40,7 +40,7 @@
 
 不同的团队对 React Native 都有丰富的经验。React Native 在其他方面提出技术和组织方面的挑战，有时会被证明是一种令人难以置信的工具。在本系列中，我们详细介绍了我们的经验以及接下来要做的事情。
 
-[在第二部分](https://medium.com/airbnb-engineering/react-native-at-airbnb-the-technology-dafd0b43838)我们列举了 React Native 作为一项技术的有效性和缺陷。
+[在第二部分](https://medium.com/airbnb-engineering/react-native-at-airbnb-the-technology-dafd0b43838)，我们列举了 React Native 作为一项技术的有效性和缺陷。
 
 [在第三部分](https://medium.com/airbnb-engineering/building-a-cross-platform-mobile-team-3e1837b40a88)，我们列举了与构建跨平台移动团队相关的一些组织挑战。
 
