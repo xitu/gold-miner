@@ -7,7 +7,7 @@
 
 # Airbnb 中的 React Native
 
-##在 2016 年，我们在 React Native 下了一个大赌注。两年后，我们准备与大家分享我们的经验并展示未来会怎样。
+## 在 2016 年，我们在 React Native 下了一个大赌注。两年后，我们准备与大家分享我们的经验并展示未来会怎样。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*P9Kc_EWojKpqfc1-_AhnSg.jpeg)
 
