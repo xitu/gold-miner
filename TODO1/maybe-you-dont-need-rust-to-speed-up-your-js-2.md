@@ -9,7 +9,7 @@
 
 **以下内容为本系列文章的第二部分，如果你还没看第一部分，请移步 [或许你并不需要 Rust 和 WASM 来提升 JS 的执行效率 — 第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/maybe-you-dont-need-rust-to-speed-up-your-js-1.md)。**
 
-有三种不同的方式可以解码我试过的 Base64 VLQ 段。
+我尝试过三种不同的方法对 Base64 VLQ 段进行解码。
 
 第一个是 `decodeCached`，它与 `source-map` 使用的默认实现方式完全相同 - 我已经在上面列出了：
 
@@ -99,7 +99,7 @@ function decodeNoCaching(aStr) {
 
 最后，第三个是 `decodeNoCachingNoString`，它尝试通过将字符串转换为 utf8编码的`Uint8Array`来避免处理JavaScript字符串。 这个优化受到了下面的启发：JS虚拟机更有可能将阵列负载优化为单个内存访问。 由于JS VM使用的不同字符串表示的层次结构非常复杂，所以将`String.prototype.charCodeAt`优化到相同的范围更加困难。
 
-我对比了两个版本，一个是将字符串编码为 utf8的版本，另一个是使用预编码字符串的版本。用后面的这个“优化”版本，我想要评估一下，通过不适用数组⇒字符串⇒数组的转化过程，可以给我们带来多少的优化提升。如果我们直接将源映射加载为数组缓冲区并直接从该缓冲区解析它，而不是先将其转换为字符串，那么种方式将是可能实现的。
+我对比了两个版本，一个是将字符串编码为 utf8的版本，另一个是使用预编码字符串的版本。用后面的这个“优化”版本，我想要评估一下，通过数组⇒字符串⇒数组的转化过程，可以给我们带来多少的性能提升。"优化"版本的实现方式是我们将源映射为数组缓冲区并直接从该缓冲区解析它，而不是直接对字符串进行转换。
 
 ```[]
 let encoder = new TextEncoder();
@@ -149,7 +149,7 @@ function decodeNoCachingNoStringPreEncoded(arr) {
 * 在 V8 和 SpiderMonkey 上，使用缓存的版本比的其他版本都要慢。随着缓存数量的增加，其性能急剧下降 - 而无缓存版本的性能不会受此影响;
 * 在SpiderMonkey上，将字符串转换为类型化数组作为分析的一部分，而在 V8上字符访问速度足够快 - 所以只有在可以将字符串到数组的转换移出基准（例如，你将你的数据加载到类型数组中以开始）;
 
-我很好奇，V8团队最近有没有做了一些工作来提高charCodeAt性能 - 我记得生动地记得Crankshaft从来没有努力在一个调用站点为特定的字符串表示专门化'charCodeAt'，而是将`charCodeAt`扩展为一大块代码处理许多不同的字符串表示，使得从字符串加载字符比从加载数组加载元素慢。
+我很怀疑 V8 团队近年来没有改进过 charCodeAt 的性能 - 我清楚地记得 Crankshaft 没有花费力气把 'charCodeAt' 作为特定字符串的调用方法，反而是将其扩大到所有以字符串表示的代码块都能使用，使得从字符串加载字符比从类型数组加载元素慢。
 
 我浏览了V8问题跟踪器，发现了下面几个问题：
 
@@ -574,6 +574,10 @@ exports.compareByOriginalPositionsNoSource =
 
 最后，如果我们使用`Uint8Array`代替字符串来解析，我们又可以得到小的改善效果。
 
+![重新分配后](https://mrale.ph/images/2018-02-03/parse-sort-6-total.png)
+
+假设我们重写 source-map，直接从类型数组映射而不是利用 JavaScript 的字符串方法 JSON.decode，那么还能得到一些性能提升。
+
 ### 对基线的总体改进
 
 这是开始的情况：
@@ -612,7 +616,7 @@ $ sm bench-shell-bindings.js
 
 如果我们假设`allGeneratedPositionsFor`是最常见的操作，并且我们只在少数`originalMappings [i]`数组中搜索，那么无论何时我们需要搜索其中的一个，我们都可以通过对`originalMappings [i]`数组进行排序来大大提高解析时间。
 
-最后比较从 1 月 19 日的 V8 和 2 月 19 日的 V8 包含和包含[不可信代码缓解]（https://github.com/v8/v8/wiki/Untrusted-code-mitigations）。
+最后比较从 1 月 19 日的 V8 和 2 月 19 日的 V8 包含和不包含[减少不可信代码]（https://github.com/v8/v8/wiki/Untrusted-code-mitigations）。
 
 ![重新分配后](https://mrale.ph/images/2018-02-03/parse-sort-v8-vs-v8-total.png)
 
