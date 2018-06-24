@@ -69,10 +69,10 @@
 ```
 
 让我们看几个简单的例子:  
-✅ `https://example.com/app/` - 在`/app/`路径下
-✅ `https://example.com/app/read/book` - 在 `/app/`路径下
-❌ `https://example.com/help/` - 不在 `/app/`路径下
-❌ `https://example.com/about/` - 不在 `/app/`路径下
+✅ `https://example.com/app/` - 在`/app/`路径下  
+✅ `https://example.com/app/read/book` - 在 `/app/`路径下  
+❌ `https://example.com/help/` - 不在 `/app/`路径下  
+❌ `https://example.com/about/` - 不在 `/app/`路径下  
 
 如果你不想设置 `scope` 属性，或者想知道如何定义 PWA 的 `scope`， 更多内容请参考 [`scope`](https://developers.google.cn/web/fundamentals/web-app-manifest/?hl=zh-cn)。
 
