@@ -15,7 +15,7 @@
 
 ## 安卓 intent filters
 
-当安装一个 PWA 到安卓系统上时，该应用将会为它所有的 URL 注册一系列[intent filters](https://developer.android.google.cn/guide/components/intents-filters?hl=zh-cn)。当用户点击任何包括在这个 PWA 中的链接时，该应用将会以应用程序的形式被打开，而不是在浏览器中被打开。
+当安装一个 PWA 到安卓系统上时，该应用将会为它所有的 URL 注册一系列 [intent filters](https://developer.android.google.cn/guide/components/intents-filters?hl=zh-cn)。当用户点击任何包括在这个 PWA 中的链接时，该应用将会以应用程序的形式被打开，而不是在浏览器中被打开。
 
 让我们看看下面这个 `manifest.json` 文件的片段，当它从程序启动器中被调用时，它将会以一个独立应用程序的形式启动 `https://example.com/`，并且不需要任何浏览器。
 
