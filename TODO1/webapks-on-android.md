@@ -7,24 +7,24 @@
 
 # PWA 再进化，可以生成一个安卓原生的 WebAPK 了
 
-在安卓系统上，[网络应用安装横幅](https://developers.google.cn/web/fundamentals/app-install-banners/?hl=zh-cn)不仅仅只是将网络应用（PWA）添加到用户的主屏幕。 Chrome 会自动为你的应用生成一个特别的 APK，我们称之为 **WebAPK**。 将应用以 APK 的形式安装到手机上，使得它能够出现在用户的应用程序启动器和系统设置里，以及注册一系列的消息传递对象（intent）过滤器。
+在安卓系统上，[网络应用安装横幅](https://developers.google.cn/web/fundamentals/app-install-banners/?hl=zh-cn)不仅仅只是将渐进式网络应用（PWA）添加到用户的主屏幕。 Chrome 会自动为你的应用生成一个特殊的 APK，有时候我们称之为 **WebAPK**。 将应用以 APK 的形式安装到手机上，使得它能够出现在用户的应用程序启动器和系统设置里，以及注册一系列 intent filters。
 
-为了[生成 WebAPK](https://chromium.googlesource.com/chromium/src/+/master/chrome/android/webapk/README)，Chrome 需要检查 [网络应用清单](https://developers.google.cn/web/fundamentals/web-app-manifest/?hl=zh-cn)和元数据. 一旦网络应用清单改变了，Chrome 将会生成一个新的 APK。
+为了[生成 WebAPK](https://chromium.googlesource.com/chromium/src/+/master/chrome/android/webapk/README)，Chrome 需要检查 [web app manifest](https://developers.google.cn/web/fundamentals/web-app-manifest/?hl=zh-cn)和元数据. 一旦 manifest 改变了，Chrome 将会生成一个新的 APK。
 
-> 注意：由于网络应用清单的改变会重新生成 WebAPK，我们建议只在必要的情况下修改它。同时，不要用清单储存任何跟用户有关的信息，或是其他需要经常变更的数据。因为频繁地改变清单将会触发 Chrome 不断生成新的 WebAPK，从而导致安装时间的延长。
+> 注意：由于 manifest 的改变会重新生成 WebAPK，我们建议只在必要的情况下修改它。同时，不要用 manifest 储存任何跟用户有关的信息，或是其他需要经常变更的数据。因为频繁地修改 manifest 将会触发 Chrome 不断生成新的 WebAPK，从而导致安装时间的延长。
 
-## 安卓消息传递对象（intent）过滤器
+## 安卓 intent filters
 
-当安装一个 PWA 到安卓系统上时，该应用将会为它所有的 URL 注册一系列[消息传递对象过滤器](https://developer.android.google.cn/guide/components/intents-filters?hl=zh-cn)。当用户点击任何包括在这个 PWA 中的链接时，该应用将会以应用程序的形式被打开，而不是在浏览器中被打开。
+当安装一个 PWA 到安卓系统上时，该应用将会为它所有的 URL 注册一系列[intent filters](https://developer.android.google.cn/guide/components/intents-filters?hl=zh-cn)。当用户点击任何包括在这个 PWA 中的链接时，该应用将会以应用程序的形式被打开，而不是在浏览器中被打开。
 
-让我们看看下面这个 `manifest.json` 文件的截取，当它从程序启动器中被调用时，它将会以一个独立应用程序的形式启动 `https://example.com/`，并且不需要任何浏览器。
+让我们看看下面这个 `manifest.json` 文件的片段，当它从程序启动器中被调用时，它将会以一个独立应用程序的形式启动 `https://example.com/`，并且不需要任何浏览器。
 
 ```
 "start_url": "/",
 "display": "standalone",
 ```
 
-一个 WebAPK 包括如下的消息传递对象（intent）过滤器：
+一个 WebAPK 包括如下的 intent filters：
 
 ```
 <intent-filter>
@@ -38,15 +38,15 @@
 </intent-filter>
 ```
 
-如果用户在某个应用程序中点击了一个跳转到 `https://example.com/read` 的链接，这一行为将会被消息传递对象（intent）捕捉到，并且在对应的 PWA 程序中打开该链接。
+如果用户在某个应用程序中点击了一个跳转到 `https://example.com/read` 的链接，这一行为将会被 intent 捕捉到，并且在对应的 PWA 中打开该链接。
 
 > 注意：从地址栏里直接跳转到 `https://example.com/app/` 和从带有该消息传递对象（intent）过滤器的原生应用里打开这个链接是一样的。Chrome 会认为用户是 **有意识地** 想要访问这个地址并且打开它。
 
-### 使用 `scope` 限制消息传递对象（intent）过滤器
+### 使用 `scope` 限制 intent filters
 
-如果你不想要你的 PWA 处理网站上所有的链接，你可以添加 [`scope`](https://developers.google.cn/web/fundamentals/web-app-manifest/?hl=zh-cn#scope) 属性到网络应用清单中。`scope` 属性会告诉安卓系统只在 URL 与 `origin` 和 `scope` 匹配时打开你的 PWA，并且规定哪些 URL 应该在 PWA 中被开打以及哪些 URL 应该在浏览器中被打开。当你的应用与其他非应用内容在同一个域名下时，`scope` 非常有帮助。
+如果你不想要你的 PWA 处理网站上所有的链接，你可以添加 [`scope`](https://developers.google.cn/web/fundamentals/web-app-manifest/?hl=zh-cn#scope) 属性到 manifest 中。`scope` 属性会告诉安卓系统只在 URL 与 `origin` 和 `scope` 匹配时打开你的 PWA，并且规定哪些 URL 应该在 PWA 中被开打以及哪些 URL 应该在浏览器中被打开。当你的应用与其他非应用内容在同一个域名下时，`scope` 非常有帮助。
 
-让我们看看下面这个 `manifest.json` 文件的截取，当它从程序启动器中被调用时，它将会以一个独立应用程序的形式启动 `https://example.com/app/`，并且不需要任何浏览器。
+让我们看看下面这个 `manifest.json` 文件的片段，当它从程序启动器中被调用时，它将会以一个独立应用程序的形式启动 `https://example.com/app/`，并且不需要任何浏览器。
 
 ```
 "scope": "/app/",
@@ -54,7 +54,7 @@
 "display": "standalone",
 ```
 
-和之前一样，生成的 WebAPK 将会包括消息传递对象（intent）过滤器，但它会修改 APK 中 `AndroidManifest.xml` 里的 `android:pathPrefix` 属性：
+和之前一样，生成的 WebAPK 将会包括 intent filters，但它会修改 APK 中 `AndroidManifest.xml` 里的 `android:pathPrefix` 属性：
 
 ```
 <intent-filter>
@@ -69,14 +69,14 @@
 ```
 
 让我们看几个简单的例子:  
-✅ `https://example.com/app/` - 在`/app/`路径下  
-✅ `https://example.com/app/read/book` - 在 `/app/`路径下  
-❌ `https://example.com/help/` - 不在 `/app/`路径下  
-❌ `https://example.com/about/` - 不在 `/app/`路径下  
+✅ `https://example.com/app/` - 在`/app/`路径下
+✅ `https://example.com/app/read/book` - 在 `/app/`路径下
+❌ `https://example.com/help/` - 不在 `/app/`路径下
+❌ `https://example.com/about/` - 不在 `/app/`路径下
 
 如果你不想设置 `scope` 属性，或者想知道如何定义 PWA 的 `scope`， 更多内容请参考 [`scope`](https://developers.google.cn/web/fundamentals/web-app-manifest/?hl=zh-cn)。
 
-## 管理权限
+## 权限管理
 
 权限管理的运作和其他网络应用是一样的，它们需要在运行的时候请求而不是在安装的时候请求。理想的情况是只在你需要它们的时候请求。比如说，不要在一开始加载的时候就请求相机的权限，而是在用户准备拍照的时候再请求。
 
@@ -92,7 +92,7 @@
 
 **如果用户已经安装了该网站的原生应用怎么办？**
 
-就像PWA安装横幅一样，用户可以添加任何独立于原生应用的网站到主屏幕。如果你期望用户同时安装这两者，我们建议你用不同的图标或者名字来区别你的网站和应用。
+就像 PWA 安装横幅一样，用户可以添加任何独立于原生应用的网站到主屏幕。如果你期望用户同时安装这两者，我们建议你用不同的图标或者名字来区别你的网站和应用。
 
 **当用户通过安装了的 PWA 打开某个站点时，Chrome 在运行吗？**
 
@@ -116,11 +116,11 @@
 
 **PWA 可以在哪一个版本的安卓系统上运行？**
 
-PWA 可以在所有有 Chrome 的安卓系统上运行， 具体来说就是 Jelly Bean 以上的版本。
+PWA 可以在所有安装了 Chrome 的安卓系统上运行， 具体来说就是 Jelly Bean 以上的版本。
 
 **PWA 使用的是 WebView 吗？**
 
-不是，网站是通过用户添加该 PWA 的 Chrome 打开的。
+不是，网站是通过 Chrome 打开的，打开网站的 Chrome 的版本则是用户添加该 PWA 的那一版本。
 
 **我们可以上传能够提交到应用商店的 APK 吗？**
 
