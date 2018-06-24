@@ -9,7 +9,7 @@
 
 在安卓系统上，[网络应用安装横幅](https://developers.google.cn/web/fundamentals/app-install-banners/?hl=zh-cn)不仅仅只是将渐进式网络应用（PWA）添加到用户的主屏幕。 Chrome 会自动为你的应用生成一个特殊的 APK，有时候我们称之为 **WebAPK**。 将应用以 APK 的形式安装到手机上，使得它能够出现在用户的应用程序启动器和系统设置里，以及注册一系列 intent filters。
 
-为了[生成 WebAPK](https://chromium.googlesource.com/chromium/src/+/master/chrome/android/webapk/README)，Chrome 需要检查 [web app manifest](https://developers.google.cn/web/fundamentals/web-app-manifest/?hl=zh-cn)和元数据. 一旦 manifest 改变了，Chrome 将会生成一个新的 APK。
+为了[生成 WebAPK](https://chromium.googlesource.com/chromium/src/+/master/chrome/android/webapk/README)，Chrome 需要检查 [web app manifest](https://developers.google.cn/web/fundamentals/web-app-manifest/?hl=zh-cn) 和元数据. 一旦 manifest 改变了，Chrome 将会生成一个新的 APK。
 
 > 注意：由于 manifest 的改变会重新生成 WebAPK，我们建议只在必要的情况下修改它。同时，不要用 manifest 储存任何跟用户有关的信息，或是其他需要经常变更的数据。因为频繁地修改 manifest 将会触发 Chrome 不断生成新的 WebAPK，从而导致安装时间的延长。
 
