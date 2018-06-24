@@ -3,13 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/webapks-on-android.md](https://github.com/xitu/gold-miner/blob/master/TODO1/webapks-on-android.md)
 > * 译者：[Yuhanlolo] (https://github.com/Yuhanlolo)
-> * 校对者：
+> * 校对者：[maoqyhz] (https://github.com/maoqyhz)
 
 # PWA 再进化，可以生成一个安卓原生的 WebAPK 了
 
-在安卓系统上，[网络应用安装横幅](https://developers.google.cn/web/fundamentals/app-install-banners/?hl=zh-cn)不仅仅只是将渐进式网络应用（PWA）添加到用户的主屏幕。 Chrome 会自动为你的应用生成一个特殊的 APK，有时候我们称之为 **WebAPK**。 将应用以 APK 的形式安装到手机上，使得它能够出现在用户的应用程序启动器和系统设置里，以及注册一系列 intent filters。
+在安卓系统上，[网络应用安装横幅](https://developers.google.cn/web/fundamentals/app-install-banners/?hl=zh-cn)不仅仅只是将渐进式网络应用（PWA）添加到用户的主屏幕。Chrome 会自动为你的应用生成一个特殊的 APK，有时候我们称之为 **WebAPK**。 将应用以 APK 的形式安装到手机上，使得它能够出现在用户的应用程序启动器和系统设置里，以及注册一系列 intent filters。
 
-为了[生成 WebAPK](https://chromium.googlesource.com/chromium/src/+/master/chrome/android/webapk/README)，Chrome 需要检查 [web app manifest](https://developers.google.cn/web/fundamentals/web-app-manifest/?hl=zh-cn) 和元数据. 一旦 manifest 改变了，Chrome 将会生成一个新的 APK。
+为了[生成 WebAPK](https://chromium.googlesource.com/chromium/src/+/master/chrome/android/webapk/README)，Chrome 需要检查 [web app manifest](https://developers.google.cn/web/fundamentals/web-app-manifest/?hl=zh-cn) 和元数据。一旦 manifest 改变了，Chrome 将会生成一个新的 APK。
 
 > 注意：由于 manifest 的改变会重新生成 WebAPK，我们建议只在必要的情况下修改它。同时，不要用 manifest 储存任何跟用户有关的信息，或是其他需要经常变更的数据。因为频繁地修改 manifest 将会触发 Chrome 不断生成新的 WebAPK，从而导致安装时间的延长。
 
@@ -40,7 +40,7 @@
 
 如果用户在某个应用程序中点击了一个跳转到 `https://example.com/read` 的链接，这一行为将会被 intent 捕捉到，并且在对应的 PWA 中打开该链接。
 
-> 注意：从地址栏里直接跳转到 `https://example.com/app/` 和从带有该消息传递对象（intent）过滤器的原生应用里打开这个链接是一样的。Chrome 会认为用户是 **有意识地** 想要访问这个地址并且打开它。
+> 注意：从地址栏里直接跳转到 `https://example.com/app/` 和从带有该消息传递对象（intent）过滤器的原生应用里打开这个链接是一样的。Chrome 会认为用户是**有意识地**想要访问这个地址并且打开它。
 
 ### 使用 `scope` 限制 intent filters
 
@@ -69,12 +69,12 @@
 ```
 
 让我们看几个简单的例子:  
-✅ `https://example.com/app/` - 在`/app/`路径下  
-✅ `https://example.com/app/read/book` - 在 `/app/`路径下  
-❌ `https://example.com/help/` - 不在 `/app/`路径下  
-❌ `https://example.com/about/` - 不在 `/app/`路径下  
+✅ `https://example.com/app/` — 在`/app/`路径下  
+✅ `https://example.com/app/read/book` — 在 `/app/`路径下  
+❌ `https://example.com/help/` — 不在 `/app/`路径下  
+❌ `https://example.com/about/` — 不在 `/app/`路径下  
 
-如果你不想设置 `scope` 属性，或者想知道如何定义 PWA 的 `scope`， 更多内容请参考 [`scope`](https://developers.google.cn/web/fundamentals/web-app-manifest/?hl=zh-cn)。
+如果你不想设置 `scope` 属性，或者想知道如何定义 PWA 的 `scope`，更多内容请参考 [`scope`](https://developers.google.cn/web/fundamentals/web-app-manifest/?hl=zh-cn)。
 
 ## 权限管理
 
@@ -116,7 +116,7 @@
 
 **PWA 可以在哪一个版本的安卓系统上运行？**
 
-PWA 可以在所有安装了 Chrome 的安卓系统上运行， 具体来说就是 Jelly Bean 以上的版本。
+PWA 可以在所有安装了 Chrome 的安卓系统上运行，具体来说就是 Jelly Bean 以上的版本。
 
 **PWA 使用的是 WebView 吗？**
 
