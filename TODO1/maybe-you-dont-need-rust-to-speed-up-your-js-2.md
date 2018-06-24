@@ -7,13 +7,13 @@
 
 # 或许你并不需要 Rust 和 WASM 来提升 JS 的执行效率 — 第二部分
 
-**以下内容为本系列文章的第二部分，如果你还没看第一部分，请移步 [或许你并不需要 Rust 和 WASM 来提升 JS 的执行效率 — 第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/maybe-you-dont-need-rust-to-speed-up-your-js-1.md)。**
+**以下内容为本系列文章的第二部分，如果你还没看第一部分，请移步[或许你并不需要 Rust 和 WASM 来提升 JS 的执行效率 — 第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/maybe-you-dont-need-rust-to-speed-up-your-js-1.md)。**
 
 我尝试过三种不同的方法对 Base64 VLQ 段进行解码。
 
-第一个是 `decodeCached`，它与 `source-map` 使用的默认实现方式完全相同 - 我已经在上面列出了：
+第一个是 `decodeCached`，它与 `source-map` 使用的默认实现方式完全相同 — 我已经在上面列出了：
 
-```[]
+```
 function decodeCached(aStr) {
     var length = aStr.length;
     var cachedSegments = {};
@@ -62,9 +62,9 @@ function decodeCached(aStr) {
 }
 ```
 
-下一个是`decodeNoCaching`。它实际上就是没有缓存的`decodeCached`。每个分段都被单独解码。我使用`Int32Array`来进行`segment`存储，而不再是`Array`。
+下一个是 `decodeNoCaching`。它实际上就是没有缓存的 `decodeCached`。每个分段都被单独解码。我使用 `Int32Array` 来进行 `segment` 存储，而不再是 `Array`。
 
-```[]
+```
 function decodeNoCaching(aStr) {
     var length = aStr.length;
     var cachedSegments = {};
@@ -97,11 +97,11 @@ function decodeNoCaching(aStr) {
 }
 ```
 
-最后，第三个是 `decodeNoCachingNoString`，它尝试通过将字符串转换为 utf8编码的`Uint8Array`来避免处理JavaScript字符串。 这个优化受到了下面的启发：JS虚拟机更有可能将阵列负载优化为单个内存访问。 由于JS VM使用的不同字符串表示的层次结构非常复杂，所以将`String.prototype.charCodeAt`优化到相同的范围更加困难。
+最后，第三个是 `decodeNoCachingNoString`，它尝试通过将字符串转换为 utf8 编码的 `Uint8Array` 来避免处理 JavaScript 字符串。这个优化受到了下面的启发：JS 虚拟机更有可能将阵列负载优化为单个内存访问。由于 JS VM 使用的不同字符串表示的层次结构非常复杂，所以将 `String.prototype.charCodeAt` 优化到相同的范围更加困难。
 
-我对比了两个版本，一个是将字符串编码为 utf8的版本，另一个是使用预编码字符串的版本。用后面的这个“优化”版本，我想要评估一下，通过数组⇒字符串⇒数组的转化过程，可以给我们带来多少的性能提升。"优化"版本的实现方式是我们将源映射为数组缓冲区并直接从该缓冲区解析它，而不是直接对字符串进行转换。
+我对比了两个版本，一个是将字符串编码为 utf8 的版本，另一个是使用预编码字符串的版本。用后面的这个“优化”版本，我想要评估一下，通过数组 ⇒ 字符串 ⇒ 数组的转化过程，可以给我们带来多少的性能提升。“优化”版本的实现方式是我们将源映射为数组缓冲区并直接从该缓冲区解析它，而不是直接对字符串进行转换。
 
-```[]
+```
 let encoder = new TextEncoder();
 function decodeNoCachingNoString(aStr) {
     decodeNoCachingNoStringPreEncoded(encoder.encode(aStr));
@@ -140,16 +140,16 @@ function decodeNoCachingNoStringPreEncoded(arr) {
 }
 ```
 
-下面是我在Chrome Dev`66.0.3343.3`（V8`6.6.189`）和 Firefox Nightly`60.0a1` 中运行我的微基准测试得到的结果(2018-02-11):
+下面是我在 Chrome Dev`66.0.3343.3`（V8`6.6.189`）和 Firefox Nightly`60.0a1` 中运行我的微基准测试得到的结果(2018-02-11)：
 
 ![不同的解码](https://mrale.ph/images/2018-02-03/different-decodes.png)
 
 注意几点：
 
-* 在 V8 和 SpiderMonkey 上，使用缓存的版本比的其他版本都要慢。随着缓存数量的增加，其性能急剧下降 - 而无缓存版本的性能不会受此影响;
+* 在 V8 和 SpiderMonkey 上，使用缓存的版本比的其他版本都要慢。随着缓存数量的增加，其性能急剧下降 — 而无缓存版本的性能不会受此影响；
 * 在SpiderMonkey上，将字符串转换为类型化数组作为分析的一部分，而在 V8上字符访问速度足够快 - 所以只有在可以将字符串到数组的转换移出基准（例如，你将你的数据加载到类型数组中以开始）;
 
-我很怀疑 V8 团队近年来没有改进过 charCodeAt 的性能 - 我清楚地记得 Crankshaft 没有花费力气把 'charCodeAt' 作为特定字符串的调用方法，反而是将其扩大到所有以字符串表示的代码块都能使用，使得从字符串加载字符比从类型数组加载元素慢。
+我很怀疑 V8 团队近年来没有改进过 charCodeAt 的性能 — 我清楚地记得 Crankshaft 没有花费力气把 'charCodeAt' 作为特定字符串的调用方法，反而是将其扩大到所有以字符串表示的代码块都能使用，使得从字符串加载字符比从类型数组加载元素慢。
 
 我浏览了V8问题跟踪器，发现了下面几个问题：
 
