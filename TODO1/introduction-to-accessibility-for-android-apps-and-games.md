@@ -1,9 +1,9 @@
-> * 原文地址：[Android 应用和游戏的辅助功能介绍](https://medium.com/googleplaydev/introduction-to-accessibility-for-android-apps-and-games-d0e7af5384d)
+> * 原文地址：[Android 应用和游戏的无障碍开发介绍](https://medium.com/googleplaydev/introduction-to-accessibility-for-android-apps-and-games-d0e7af5384d)
 > * 原文作者：[Maxim Mai](https://medium.com/@maximfmai?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/introduction-to-accessibility-for-android-apps-and-games.md](https://github.com/xitu/gold-miner/blob/master/TODO1/introduction-to-accessibility-for-android-apps-and-games.md)
-> * 译者：
-> * 校对者：
+> * 译者：[geniusq1981](https://github.com/geniusq1981)
+> * 校对者：[DateBro](https://github.com/DateBro)
 
 # 安卓应用和游戏的无障碍开发介绍
 
@@ -11,11 +11,11 @@
 
 ![](https://cdn-images-1.medium.com/max/800/0*C2kWfqX8bsbps-ME.)
 
-虽然我们的目标是设计和开发迎合广大受众群体的应用，但我们不应该忘记，使用安卓和 Google Play 的用户中还有一些是残疾人。据 [世界卫生组织](http://www.who.int/disabilities/world_report/2011/report/en/) 估计，世界人口的15％，大约10亿人，有不同程度的听力，视觉，认知以及运动功能方面的残疾。这会影响他们与科技之间进行互动的方式，认识到这点对我们来说很重要，因为我们要让每个人在 Google Play 和安卓上使用他们最喜爱的应用和游戏时都感到幸福和舒适。
+虽然我们的目标是设计和开发迎合广大受众群体的应用，但我们不应该忘记，使用安卓和 Google Play 的用户中还有一些是残疾人。据 [世界卫生组织](http://www.who.int/disabilities/world_report/2011/report/en/) 估计，世界人口的 15％，大约 10 亿人，有不同程度的听力，视觉，认知以及运动功能方面的残疾。这会影响他们与科技之间进行互动的方式，让每个人在 Google Play 和 Android 上使用他们最喜欢的应用时感到舒适对我们来说很重要。
 
-我们通常认为残疾是永久性或者持续性的能力缺陷，但经常也会有阶段性的或临时的无障碍需求影响我们每个人。比如，有些情况下我们只有一只手可以用，例如抱着孩子，或者刚做完手术，或者骑自行车，这些都是特定情境下的无障碍需求，可以通过优秀的设计来改善和适应。
+我们通常认为残疾是永久性或者持续性的能力缺陷，但经常也会有阶段性的或临时的无障碍需求影响我们每个人。比如，有些情况下我们只有一只手可以用，例如抱着孩子，或者刚做完手术，或者骑自行车，这些都是特定情境下的无障碍需求，可以通过优秀的设计来满足。
 
-在安卓和 Google Play 上，我们为开发者提供开发工具，开发指导和支持，以便为尽可能多的人群提供包容性的体验。我们最近还在 Play 商店中策划了[收集无障碍相关应用](https://www.google.com/url?q=http://play.google.com/store/apps/topic?id%3Dcampaign_editorial_300324a_accessapps18&sa=D&source=hangouts&ust=1526630727446000&usg=AFQjCNFT86-9N1DrImf9arznkRQ-QdarXA) 。使用这些非常棒的应用程序吧，我们确实非常自豪在安卓和 Google Play 上能够发布这些应用程序！
+在安卓和 Google Play 上，我们为开发者提供开发工具，开发指导和支持，以便为尽可能多的人群提供包容性的体验。我们最近还在 Play 商店中策划了[收集无障碍相关应用](https://www.google.com/url?q=http://play.google.com/store/apps/topic?id%3Dcampaign_editorial_300324a_accessapps18&sa=D&source=hangouts&ust=1526630727446000&usg=AFQjCNFT86-9N1DrImf9arznkRQ-QdarXA) 。使用这些非常棒的应用程序吧，我们确实非常自豪能够在安卓和 Google Play 上发布这些应用程序！
 
 一些安卓开发者也已将无障碍体验提升到一个新的水平，特别是满足残疾人的需求。让我们深入了解一下我们可以从他们的应用和游戏中学到什么。
 
@@ -23,7 +23,7 @@
 
 无论您是专门针对无障碍用例构建应用程序，还是正在努力让您的应用程序或游戏对残疾人士更具包容性，我们都会为您提供支持。
 
-我们已经为安卓开发人员创建了可用于 [无障碍](https://developer.android.com/guide/topics/ui/accessibility/) 开发的资源，您将在其中找到关于该主题的简单介绍，以及连接 [使用教程设计来支持无障碍的需求](https://material.io/guidelines/usability/accessibility.html) 和最佳实践 [开发更多的无障碍应用](https://developer.android.com/guide/topics/ui/accessibility/apps).
+我们已经为安卓开发人员创建了可用于 [无障碍](https://developer.android.com/guide/topics/ui/accessibility/) 开发的资源，您将在其中找到关于该主题的简单介绍，以及链接 [使用Material Design来支持无障碍的需求](https://material.io/guidelines/usability/accessibility.html) 和最佳实践 [开发更多的无障碍应用](https://developer.android.com/guide/topics/ui/accessibility/apps).
 
 您可以确保您的应用 **正确地标记用户界面元素** 以便让使用屏幕阅读器的用户（例如“语音提示”）更清楚地听到内容。同样，您可以考虑在屏幕上对您的内容进行分组，以便那些有视力障碍的人可以快速高效地浏览您的应用。
 
@@ -35,7 +35,7 @@
 
 ### 三个聚焦无障碍的应用程序
 
-这些应用和游戏给与残疾人士在日常生活中访问和利用移动技术更多的机会。
+这些应用和游戏给予残疾人士在日常生活中更多访问和利用移动技术的机会。
 
 [**做我的眼睛**](https://play.google.com/store/apps/details?id=com.bemyeyes.bemyeyes)
 
@@ -47,11 +47,11 @@
 
 视力受损的用户准备打电话给视力正常的志愿者
 
-由于超过 [253 亿](http://www.who.int/en/news-room/fact-sheets/detail/blindness-and-visual-impairment) 的视力障碍患者中绝大多数生活在中低收入国家，因此在应用中添加更多本地语言并提高翻译质量非常重要。您也可以通过 [参与翻译项目来提供帮助](https://crowdin.com/project/be-my-eyes-android).
+由于超过 [2.53 亿](http://www.who.int/en/news-room/fact-sheets/detail/blindness-and-visual-impairment) 的视力障碍患者中绝大多数生活在中低收入国家，因此在应用中添加更多本地语言并提高翻译质量非常重要。您也可以通过 [参与翻译项目来提供帮助](https://crowdin.com/project/be-my-eyes-android).
 
 [**芝麻开门**](https://play.google.com/store/apps/details?id=com.sesame.phone_nougat)
 
-触摸屏革新了手机，因为它们可以在手持设备上提供直观的导航。然而，有数百万人因为脊髓损伤，多发性硬化症，ALS和神经退行性疾病等导致患有严重的运动障碍，对于他们可能需要不同的交互形态。
+触摸屏革新了手机，因为它们可以在手持设备上提供直观的导航。然而，有数百万人因为脊髓损伤，多发性硬化症，ALS 和神经退行性疾病等患有严重的运动障碍，对于他们可能需要不同的交互形态。
 
 结合先进的计算机视觉技术和语音控制功能，芝麻开门应用允许任何人只通过控制头部移动而完全不使用手就可以使用 Android 手机或平板电脑。该应用程序通过注册Android 无障碍服务来实现这一目标，以便人们可以控制整个操作系统，通过 Play 商店下载应用程序，并能玩游戏以及控制连接的家庭设备和服务。
 
@@ -63,9 +63,9 @@
 
 [**音频游戏中心 2.0**](https://play.google.com/store/apps/details?id=com.AUT.AudioGameHub)
 
-位于新西兰奥克兰的声纳互动团队擅长利用语音，声响和音乐为有视力和无视力的用户制作游戏。这个应用是把视频游戏社区的乐趣和感觉带给世界各地有视觉障碍的人群。
+位于新西兰奥克兰的声纳互动团队擅长利用语音，声响和音乐为有视力和无视力的用户制作游戏。这个想法是把视频游戏社区的乐趣和感觉带给世界各地有视觉障碍的人群。
 
-音频游戏中心是由11个独立游戏组成的集合，包括炸弹解散者，射箭，武士锦标赛和狩猎。许多游戏可以由多个玩家在同一个设备上一起玩，以实现协作和竞技体验，让视力正常和视力受损的朋友都能参与其中。
+音频游戏中心是由 11 个独立游戏组成的集合，包括炸弹解散者，射箭，武士锦标赛和狩猎。许多游戏可以由多个玩家在同一个设备上一起玩，以实现协作和竞技体验，让视力正常和视力受损的朋友都能参与其中。
 
 ![](https://cdn-images-1.medium.com/max/800/1*2lC2yhviSS9fjtcju9TVHA.png)
 
@@ -79,7 +79,7 @@
 
 [谷歌无障碍扫描程序](https://play.google.com/store/apps/details?id=com.google.android.apps.accessibility.auditor) 使用了 [无障碍测试框架](https://github.com/google/Accessibility-Test-Framework-for-Android) ，并会对您手机上安装的任何安卓应用提出改善建议，而这不需要任何技术能力。它通过查看内容标签，可点击项目，对比度等内容后会提供可行的建议。
 
-例如，内容标签提供有用的描述，向人们解释每个交互元素的含义和目的。这些标签允许屏幕阅读器（如 TalkBack）来向那些需要这些服务的人正确解释出这些功能的特殊控制方法。
+例如，内容标签提供有用的描述，向人们解释每个交互元素的含义和目的。这些标签允许屏幕阅读器（如 TalkBack）向那些依赖这些服务的人正确解释特定控件的功能。
 
 ![](https://cdn-images-1.medium.com/max/800/1*aAcJvQ75gLoECAO5grbCLA.png)
 
@@ -93,7 +93,7 @@
 
 ### 你怎么看?
 
-D你有没有想过设计可访问性的应用程序？请在下面的评论中告诉我们，或者使用#AskPlayDev发微博，我们会回复 [@GooglePlayDev](http://twitter.com/googleplaydev), 我们会定期分享有关如何在Google Play上取得成功的新闻和提示。.
+你有没有想过设计无障碍访问的应用程序？请在下面的评论中告诉我们，或者使用 #AskPlayDev 发微博，我们会回复 [@GooglePlayDev](http://twitter.com/googleplaydev), 我们会定期分享有关如何在Google Play上取得成功的新闻和提示。.
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
