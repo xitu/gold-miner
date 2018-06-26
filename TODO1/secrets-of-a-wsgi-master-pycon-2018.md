@@ -1,8 +1,7 @@
 > * 原视频地址：[Graham Dumpleton - Secrets of a WSGI master. - PyCon 2018](https://www.youtube.com/watch?v=CPz0s1CQsTE)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/secrets-of-a-wsgi-master-pycon-2018.md](https://github.com/xitu/gold-miner/blob/master/TODO1/secrets-of-a-wsgi-master-pycon-2018.md)
-> * 译者：
-> * 校对者：
+> * 译者：[vuuihc](https://github.com/vuuihc)
 
 # Graham Dumpleton - Secrets of a WSGI master. - PyCon 2018
 
