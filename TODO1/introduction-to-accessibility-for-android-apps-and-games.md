@@ -2,98 +2,98 @@
 > * 原文作者：[Maxim Mai](https://medium.com/@maximfmai?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/introduction-to-accessibility-for-android-apps-and-games.md](https://github.com/xitu/gold-miner/blob/master/TODO1/introduction-to-accessibility-for-android-apps-and-games.md)
-> * 译者：
-> * 校对者：
+> * 译者：[geniusq1981](https://github.com/geniusq1981)
+> * 校对者：[DateBro](https://github.com/DateBro)
 
-# Introduction to accessibility for Android apps and games
+# 安卓应用和游戏的无障碍开发介绍
 
-## How you can tailor app or game design to improve the experience for everyone
+## 如何定制应用和游戏的设计以改善用户体验
 
 ![](https://cdn-images-1.medium.com/max/800/0*C2kWfqX8bsbps-ME.)
 
-While we aim to design and create apps that cater to a broad audience, we should not forget that there are people who use Android and Google Play who may have some form of disability. The [World Health Organization](http://www.who.int/disabilities/world_report/2011/report/en/) estimated that 15% of the world’s population, roughly one billion people, experience some form of disability affecting hearing, visual, cognitive, and motor functions. This can impact the way these users interact with technology, and it’s important to us at Google Play and Android that everyone feels welcome and comfortable using their favorite apps and games.
+虽然我们的目标是设计和开发迎合广大受众群体的应用，但我们不应该忘记，使用安卓和 Google Play 的用户中还有相当一部分是残疾人。据 [世界卫生组织](http://www.who.int/disabilities/world_report/2011/report/en/) 估计，世界人口的 15％，大约 10 亿人，有不同程度的听力，视觉，认知以及运动功能方面的残疾。这些会影响到他们与科技之间进行互动的方式，让每个人在 Google Play 和 Android 上使用他们最喜欢的应用时感到舒适对我们来说很重要。
 
-We often think of disabilities as being permanent or a continued deterioration of ability, but there are often cases of situational or temporary accessibility needs that affect everyone. Having only one hand available while holding a baby, recovering from a surgery, or simply riding a bike, all represent situational accessibility needs that may be improved and accommodated by using good design.
+我们通常认为残疾是永久或者持续的能力缺陷，但经常也会有阶段性的或临时的无障碍需求影响到我们每个人。比如，有些情况下我们只有一只手可以使用，例如抱着孩子，或者刚做完手术，或者骑自行车的时候，这些都是特定情境下的无障碍需求，可以通过优秀的设计来解决。
 
-At Android and Google Play, we are committed to providing developers with tools, guidance, and support in order to promote inclusive experiences for as many people as possible. We also recently curated a [collection of accessibility-related apps](https://www.google.com/url?q=http://play.google.com/store/apps/topic?id%3Dcampaign_editorial_300324a_accessapps18&sa=D&source=hangouts&ust=1526630727446000&usg=AFQjCNFT86-9N1DrImf9arznkRQ-QdarXA) on the Play Store. Check out these awesome apps as we are proud to have them on Android and Google Play!
+在安卓和 Google Play 上，我们为开发者提供开发工具，开发指导和支持，以便为尽可能多的人提供包容性的体验。我们最近还在 Play 商店中策划了 [收集无障碍相关应用](https://www.google.com/url?q=http://play.google.com/store/apps/topic?id%3Dcampaign_editorial_300324a_accessapps18&sa=D&source=hangouts&ust=1526630727446000&usg=AFQjCNFT86-9N1DrImf9arznkRQ-QdarXA) 的活动 。使用这些非常棒的应用程序吧，能够在安卓和 Google Play 上发布这些应用程序，我们确实感到非常自豪！
 
-Some Android developers have also taken the accessibility experience to a new level, specifically addressing needs arising from disabilities. Let’s take a deeper look to see what we can learn from their apps and games.
+一些安卓开发者也已将无障碍体验提升到一个新的水平，特别是满足残疾人的需求。让我们深入了解一下我们可以从他们的应用和游戏中学到些什么。
 
-### Easy steps to make your app and game more accessible
+### 简单的步骤，使您的应用程序和游戏更容易被访问
 
-Whether you are building apps specifically with accessibility use cases in mind, or whether you are working on making your app or game more inclusive for people with disabilities, we are here to support you.
+无论您是专门针对无障碍用例构建应用程序，还是正在努力让您的应用程序或游戏对残疾人士更具包容性，我们都会为您提供支持。
 
-We have created a resource to [accessibility](https://developer.android.com/guide/topics/ui/accessibility/) for Android developers, where you’ll find an easy to follow introduction to the topic, alongside links to [using material design to support accessibility needs](https://material.io/guidelines/usability/accessibility.html), and best practices for [developing more accessible apps](https://developer.android.com/guide/topics/ui/accessibility/apps).
+我们已经为安卓开发人员创建了可用于 [无障碍](https://developer.android.com/guide/topics/ui/accessibility/) 开发的资源，您将在其中找到关于该主题的简单介绍，以及链接 [使用 Material Design 来支持无障碍的需求](https://material.io/guidelines/usability/accessibility.html) 和最佳实践 [开发更多的无障碍应用](https://developer.android.com/guide/topics/ui/accessibility/apps)。
 
-You can ensure your app **labels UI elements properly** to make it easier for people who use screen readers, such as TalkBack, to hear the content clearly. Similarly, you may consider thinking through your content grouping on screen so that those with vision impairments can navigate your app quickly and efficiently.
+您可以确保您的应用**正确地标记用户界面元素**以便让使用屏幕阅读器的用户（例如 TalkBack）更清楚地听到内容。同样，您可以考虑在屏幕上对您的内容进行分组，以便那些有视力障碍的人可以快速高效地浏览您的应用。
 
-Some people may have difficulties interacting with small touch controls, so keep that in mind by providing **larger touch targets**. This may make it much easier for many people to navigate your app. Color and contrast are two more areas that may impact large sections of your audience. **Avoiding low contrast ratios** between foreground and background colors is a another best practice, as well as ensuring that UI elements are clearly distinguishable for people with colorblindness.
+有些人可能在与小的触控目标交互时遇到困难，因此请记住提供**更大的触摸目标**。这可能会让很多人浏览您的应用程序变得更容易。颜色和对比度是另外两个可能影响到用户使用的方面。**避免前景色和背景色之间的对比度过低**是另外一种最佳做法，同时要确保用户界面的元素颜色，色盲用户可以很清晰地分辨。
 
-Adding video and audio content or instructions can ensure people with a hearing impairment can access your app. Consider providing the option to **toggle subtitles,** and if instructions are given via videos think about making those same instructions available in an alternative format.
+添加视频和音频内容或指令可以让听力受损的人访问您的应用。考虑提供**切换字幕**的选项，并且如果是通过视频给出指令，请考虑用多种样式提供相同的指令。
 
-These are examples of easy steps you can follow to make your app more inclusive, however they are in no way meant to serve as an exhaustive checklist. We will follow-up with a deep-dive post later this summer to provide more tips on accessible design and development.
+这些都是简单步骤的示例，您可以按照这些步骤使您的应用更具包容性，但这绝不意味着做到这些就足够了。我们将在今年夏天晚些时候发表更加深入的文章，以提供关于无障碍设计和开发的更多建议。
 
-### Three apps that focus on accessibility
+### 三个聚焦无障碍的应用程序
 
-These apps and games improve the opportunity for people with disabilities to access and utilize mobile technology in their everyday lives.
+这些应用和游戏给残障人士提供了在日常生活中更多访问和利用移动技术的机会。
 
-[**Be My Eyes**](https://play.google.com/store/apps/details?id=com.bemyeyes.bemyeyes)
+[**做我的眼睛**](https://play.google.com/store/apps/details?id=com.bemyeyes.bemyeyes)
 
-How often would you help a stranger in need? The team behind Be My Eyes is harnessing the global scale of Android to tap into the power of human generosity and our sense of community with the goal of empowering blind and low vision people to lead more independent lives.
+你多久会帮助有需要的陌生人？“做我的眼睛”的背后团队正在利用安卓的全球规模，挖掘人类奉献爱心和社区意识的力量，旨在让盲人和弱视人群过上更加独立的生活。
 
-At no cost to either side, the app matches blind or low vision users to sighted volunteers via a video call who can provide assistance such as helping with orientation in new surroundings, reading labels or controls, distinguishing colours, and many more tasks.
+无需任何费用，该应用程序通过视频通话让盲人或弱视人群与视力正常的志愿者相匹配，志愿者可以提供相应的帮助，例如在新环境中进行定位，阅读标签或控件，区分颜色以及执行更多任务等。
 
 ![](https://cdn-images-1.medium.com/max/800/0*ZWrIIDxpH76qNmfL.)
 
-Vision impaired user ready to call to a sighted volunteer
+视力受损的用户准备打电话给视力正常的志愿者
 
-As a large majority of the over [253 million people](http://www.who.int/en/news-room/fact-sheets/detail/blindness-and-visual-impairment) with vision impairments live in low and medium income countries, it is important to add more local languages to the app and improve the quality of translations. You can also help by [getting involved in the translation project](https://crowdin.com/project/be-my-eyes-android).
+由于超过 [2.53 亿](http://www.who.int/en/news-room/fact-sheets/detail/blindness-and-visual-impairment) 的视力障碍患者中绝大多数生活在中低收入国家，因此在应用中添加更多本地语言并提高翻译质量是非常重要的。您也可以通过 [参与翻译项目来提供帮助](https://crowdin.com/project/be-my-eyes-android)。
 
-[**Open Sesame**](https://play.google.com/store/apps/details?id=com.sesame.phone_nougat)
+[**芝麻开门**](https://play.google.com/store/apps/details?id=com.sesame.phone_nougat)
 
-Touchscreens have revolutionised phones because they offer intuitive navigation on a handheld device. However, for the millions of people with severe dexterity impairments resulting from spinal cord injuries, Multiple Sclerosis, ALS and neurodegenerative diseases, a different interaction model may be needed.
+触摸屏让手机发生了巨大变革，因为它们可以在手持设备上提供直观的导航。然而，有数百万人因为脊髓损伤，多发性硬化症，ALS 和神经退行性疾病导致严重的运动障碍，对于他们可能需要不同的交互方式。
 
-Combining advanced computer-vision technologies and voice control, Open Sesame allows anyone with controlled movement of their head complete hands free access to an Android phone or tablet. The app achieves this by registering an [Android accessibility service](https://developer.android.com/guide/topics/ui/accessibility/services.html) so that people can control the entire operating system, download apps via the Play Store, and play any game and control connected home devices and services.
+结合先进的计算机视觉技术和语音控制功能，芝麻开门应用允许任何人只通过控制头部移动而完全不使用手就可以使用安卓手机或平板电脑。该应用程序通过注册安卓无障碍服务来实现这一目标，以便人们可以控制整个操作系统，通过 Google Play 商店下载应用程序，玩游戏以及控制连接的家庭设备和服务。
 
 ![](https://cdn-images-1.medium.com/max/800/0*xPVd0S0KMl_mN3Cn.)
 
-Motor impaired user controlling an Android phone with head movements
+运动障碍用户使用头部移动控制安卓手机
 
-A number of US states offer subsidies to put the magic of Open Sesame within reach of more people who are eligible. The Sesame Enable team is working hard to increase the number of these programs and are happy to [guide new users](https://sesame-enable.com/get-help-with-state-benefits/) through the subsidy process.
+许多美国州政府提供补贴，让更多符合条件的人士可以体验芝麻开门的魔力。芝麻开门的团队正在努力增加提供补贴的计划数量，他们很乐意通过补贴流程 [引导新用户](https://sesame-enable.com/get-help-with-state-benefits/)。
 
-[**Audio Game Hub 2.0**](https://play.google.com/store/apps/details?id=com.AUT.AudioGameHub)
+[**音频游戏中心 2.0**](https://play.google.com/store/apps/details?id=com.AUT.AudioGameHub)
 
-The team at Sonar Interactive, based in Auckland, New Zealand, specialises in using voices, sounds, and music to create games for both sighted and non-sighted users. The idea is to bring the fun and sense of community of video games to those with vision impairments around the world.
+位于新西兰奥克兰的声纳互动团队擅长利用语音，声响和音乐为有视力和无视力的用户制作游戏。这个想法是把视频游戏社区的乐趣和感觉带给世界各地有视觉障碍的人群。
 
-Audio Game Hub is a collection of eleven standalone games including Bomb Disarmer, Archery, Samurai Tournament, and Hunt. Many can be played by multiple players on the same device to enable collaborative and competitive experiences, involving sighted and vision impaired friends.
+音频游戏中心是由 11 个独立游戏组成的集合，包括炸弹解散者，射箭，武士锦标赛和狩猎等。许多游戏可以由多个玩家在同一个设备上一起玩，以实现团队协作和竞技的体验，让视力正常和视力受损的朋友都能参与其中。
 
 ![](https://cdn-images-1.medium.com/max/800/1*2lC2yhviSS9fjtcju9TVHA.png)
 
-A game of Archery is in progress, aiming is guided by sound
+射箭游戏正在进行中，通过声音指导用户瞄准
 
-The team continues to innovate in the gaming space. Checkout Animal Escape, the latest addition to Audio Game Hub, launched today and available on the Play Store.
+该团队不断在游戏领域进行创新。Animal Escape 是音频游戏中心的最新成员，现在已经在 Google Play 中上线，可以下载使用。
 
-### A useful developer tool to test the accessibility of your apps and games
+### 一款有用的开发者工具，用于测试您的应用和游戏的无障碍功能
 
-Testing your app for accessibility is a key component of your development process. We have published a [getting started guide](https://developer.android.com/training/accessibility/testing#top_of_page) that highlights the importance of combining manual, user, and automated testing to find usability issues that you might otherwise miss.
+测试您的应用程序的无障碍功能是您开发过程中的的关键部分。我们发布了 [入门指南](https://developer.android.com/training/accessibility/testing#top_of_page)，强调手动测试，使用者以及自动化测试相结合的重要性，以便发现可能会遗漏的无障碍问题。
 
-The [Google Accessibility Scanner](https://play.google.com/store/apps/details?id=com.google.android.apps.accessibility.auditor) uses the [Accessibility Testing Framework](https://github.com/google/Accessibility-Test-Framework-for-Android) and suggests improvements for any Android app installed on your phone without requiring technical skills. It provides actionable suggestions after looking at content labels, clickable items, contrast, and more.
+[谷歌无障碍扫描程序](https://play.google.com/store/apps/details?id=com.google.android.apps.accessibility.auditor) 使用了 [无障碍测试框架](https://github.com/google/Accessibility-Test-Framework-for-Android)，并会对您手机上安装的任何安卓应用提出改善建议，而这不需要任何技术能力。它通过查看内容标签，可点击项目，对比度等内容后会提供可行的建议。
 
-For example, content labels provide useful and descriptive descriptions that explain the meaning and purpose of each interactive element to people. These labels allow screen readers, such as TalkBack, to properly explain the function of a particular control to those who may rely on these services.
+例如，内容标签提供有用的描述，向人们解释每个交互元素的含义和目的。这些标签允许屏幕阅读器（例如 TalkBack）向那些依赖这些服务的人正确解释特定控件的功能。
 
 ![](https://cdn-images-1.medium.com/max/800/1*aAcJvQ75gLoECAO5grbCLA.png)
 
-Accessibility scanner is turned on and ready to analyze any app
+无障碍扫描程序已打开并准备分析应用程序
 
-While we hope you will use Accessibility Scanner to improve the accessibility of your own app, it also allows you to suggest accessibility improvements to other developers.
+我们希望您会使用无障碍扫描程序来改善自己的应用程序的无障碍性，而且它也允许您向其他开发人员提供无障碍的改进建议。
 
-We have shared some examples from those who are making big developments in this space and hopefully the tips and links to resources we have provided will help you create a better experience for everyone who wants to use your app or game. Whether you are specifically creating an app for people with a disability or just trying to share your app or game with all those who are interested, these insights hopefully provide some inspiration and a good starting point. As we mentioned above, they are by no means exhaustive, and there are still many more considerations both in development, design, and when initially concepting your app or game that can help to make it more accessible and enjoyable for everyone. Look out for my next article, which will take a deeper look into accessibility development and also remember to check out the [new accessibility collection](https://www.google.com/url?q=http://play.google.com/store/apps/topic?id%3Dcampaign_editorial_300324a_accessapps18&sa=D&source=hangouts&ust=1526630727446000&usg=AFQjCNFT86-9N1DrImf9arznkRQ-QdarXA) on the Play store in the meantime.
+我们已经从在这个领域取得重大进展的人那里分享了一些成功实例，希望我们提供的建议和资源链接可以帮助您的应用或游戏为使用者创造更好的体验。无论您是专门为残障人士创建应用程序，还是试图与所有感兴趣的人分享您的应用或游戏，希望这些观点可以给您提供一些灵感和正确的起步。正如我们上面提到的，它们绝不是详尽无遗的，在开发，设计和开始构思应用程序或游戏时，仍然有许多考虑因素可以帮助提高无障碍使用体验。看看我的下一篇文章，它将深入探讨无障碍开发，同时请记得看一下 Google Play 中的 [新的无障碍应用收藏夹](https://www.google.com/url?q=http://play.google.com/store/apps/topic?id%3Dcampaign_editorial_300324a_accessapps18&sa=D&source=hangouts&ust=1526630727446000&usg=AFQjCNFT86-9N1DrImf9arznkRQ-QdarXA)。
 
 * * *
 
-### What do you think?
+### 你怎么看？
 
-Do you have thoughts on designing apps for accessibility? Let us know in the comments below or tweet using **#AskPlayDev** and we’ll reply from [@GooglePlayDev](http://twitter.com/googleplaydev), where we regularly share news and tips on how to be successful on Google Play.
+你有没有想过设计无障碍访问的应用程序？请在下面的评论中告诉我们，或者使用 #AskPlayDev 发微博，我们会回复 [@GooglePlayDev](http://twitter.com/googleplaydev), 我们会定期分享有关如何在Google Play上取得成功的新闻和提示。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
