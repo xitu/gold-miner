@@ -2,191 +2,191 @@
 > * 原文作者：[Gabriel Peal](https://medium.com/@gpeal?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/react-native-at-airbnb-the-technology.md](https://github.com/xitu/gold-miner/blob/master/TODO1/react-native-at-airbnb-the-technology.md)
-> * 译者：
+> * 译者：[ALVINYEH](https://github.com/ALVINYEH)
 > * 校对者：
 
-# React Native at Airbnb: The Technology
+# Airbnb 中的 React Native：技术部分
 
-## The technical details
+## 技术细节
 
 ![](https://cdn-images-1.medium.com/max/2000/1*iaYan0f1NeQlzGnwzjXEvg.jpeg)
 
-This is the second in a [series of blog posts](https://medium.com/airbnb-engineering/react-native-at-airbnb-f95aa460be1c) in which we outline our experience with React Native and what is next for mobile at Airbnb.
+这是[系列博客文章](https://medium.com/airbnb-engineering/react-native-at-airbnb-f95aa460be1c)中的第二篇，在本文中，将会概述使用 React Native 的经验，以及 Airbnb 移动端接下来要做的事情。
 
-React Native itself is a relatively new and fast-moving platform in the cross-section of Android, iOS, web, and cross-platform frameworks. After two years, we can safely say that React Native is revolutionary in many ways. It is a paradigm shift for mobile and we were able to reap the benefits of many of its goals. However, its benefits didn’t come without significant pain points.
+React Native 本身在 Android，iOS，Web 和跨平台框​​架的各个部分上，是一个相对较新且快速移动的平台。再过多两年后，我们可以很有把握地说，React Native 在很多方面都是革命性的。这是移动设备的转变范例，我们能够从众多目标中获得收益。然而，它的好处并非没有明显的痛点。
 
-### What Worked Well
+### 技术性优势
 
-#### Cross-Platform
+#### 跨平台
 
-The primary benefit of React Native is the fact that code you write runs natively on Android and iOS. Most features that used React Native were able to achieve _95–100% shared code_ and _0.2% of files were platform-specific_ (*.android.js/*.ios.js).
+React Native 的主要好处在于，你所编写的代码能够同时在 Andriod 和 iOS 上运行。使用 React Native 的大多数功能都可以实现 **95 - 100% 的共享代码**，和 **0.2% 不同平台需要用的的文件**（**.android.js/.ios.js**）。
 
-#### Unified Design Language System (DLS)
+#### 统一设计语言系统（DLS）
 
-We developed a cross-platform design language called [DLS](https://airbnb.design/building-a-visual-language/). We have Android, iOS, React Native, and web versions of every component. Having a unified design language was amenable to writing cross-platform features because it meant that designs, component names, and screens were consistent across platforms. However, we were still able to make platform-appropriate decisions where applicable. For example, we use the native [Toolbar](https://developer.android.com/reference/android/support/v7/widget/Toolbar) on Android and [UINavigationBar](https://developer.apple.com/documentation/uikit/uinavigationbar) on iOS and we chose to hide [disclosure indicators](https://developer.apple.com/ios/human-interface-guidelines/views/tables/) on Android because they don’t adhere to the Android platform design guidelines.
+我们开发了一种名为 [DLS](https://airbnb.design/building-a-visual-language/) 的跨平台设计语言。同时拥有 Android，iOS，React Native 和每个组件的 Web 版本。拥有统一的设计语言可以实现编写跨平台代码的功能，这意味着设计，组件名称和跨平台屏幕可以保持一致。但是，我们仍然能够在适用的情况下，做出适合平台的决策。例如，我们在 Andriod 上使用原生的 [Toolbar](https://developer.android.com/reference/android/support/v7/widget/Toolbar)，iOS 上使用 [UINavigationBar](https://developer.apple.com/documentation/uikit/uinavigationbar)，但我们需要在 Andriod 上隐藏[disclosure indicators](https://developer.apple.com/ios/human-interface-guidelines/views/tables/)，因为这不符合 Andriod 平台设计准则。
 
-We opted to rewrite components instead of wrapping native ones because it was more reliable to make platform-appropriate APIs individually for each platform and reduced the maintenance overhead for Android and iOS engineers who may not know how to properly test changes in React Native. However, it did cause fragmentation between the platforms in which native and React Native versions of the same component would get out of sync.
+我们选择了重写组件，而不是封装原生组件。因为每个平台分别制作适用的 API 会更加可靠，并且可以减少 Android 和 iOS 工程师的维护开销，他们可能不清楚应该如何正确测试 React Native 中更改的代码。但是，它确实会导致同一组件的原生和 React Native 版本不同步的平台之间出现碎片。
 
 #### React
 
-There is a reason that React is the [most-loved](https://insights.stackoverflow.com/survey/2018/#technology-most-loved-dreaded-and-wanted-frameworks-libraries-and-tools) web framework. It is simple yet powerful and scales well to large codebases. Some of the things we particularly like are:
+React 成为[最受开发者欢迎](https://insights.stackoverflow.com/survey/2018/#technology-most-loved-dreaded-and-wanted-frameworks-libraries-and-tools) Web 框架有一个原因。那就是它非常简单但功能强大，适用于大型代码库。我们非常喜欢的特点是：
 
-*   **Components:** React Components enforce separation of concerns with well-defined props and state. This is a major contributor to React’s scalability.
-*   **Simplified Lifecycles:** Android and, to a slightly lesser extent, iOS lifecycles are notoriously [complex](https://i.stack.imgur.com/fRxIQ.png). Functional reactive React components fundamentally solve this problem and made learning React Native dramatically simpler than learning Android or iOS.
-*   **Declarative:** The declarative nature of React helped keep our UI in sync with the underlying state.
+*   **组件：** React 组件通过明确定义的属性和状态强制分离关注点。React 的可扩展性起着很大作用。
+*   **简单的生命周期：** 简单来说, Android 和 iOS 的生命周期都出了名的[复杂](https://i.stack.imgur.com/fRxIQ.png)。 函数式和反应式 React 组件从根本上解决了这个问题，所以学习 React Native 比学习 Andriod 和 iOS 更简单。
+*   **声明：** React 的声明特性帮助我们的 UI 与基础状态保持同步。
 
-#### Iteration Speed
+#### 迭代速度
 
-While developing in React Native, we were able to reliably use [hot reloading](https://facebook.github.io/react-native/blog/2016/03/24/introducing-hot-reloading.html) to test our changes on Android and iOS in just a second or two. Even though build performance is a top priority for our native apps, it has never come close to the iteration speed we achieved with React Native. At best, native compilation times are 15 seconds but can be as high as 20 minutes for full builds.
+在使用 React Native 进行开发时，我们能够稳定地使用[热加载](https://facebook.github.io/react-native/blog/2016/03/24/introducing-hot-reloading.html)来测试我们在 Android 和 iOS 上的改动，过程只需一两秒钟的时间。尽管构建性能是原生应用的首要任务，但它从来没有达到我们通过 React Native 实现的迭代速度。在最理想的情况下，本地编译时间为 15 秒，但对于完整项目的构建，竟高达 20 分钟。
 
-#### Investing in Infrastructure
+#### 基础框架的投入
 
-We developed extensive integrations into our native infrastructure. All core pieces such as networking, i18n, experimentation, shared element transitions, device info, account info, and many others were wrapped in a single React Native API. These bridges were some of the more complex pieces because we wanted to wrap the existing Android and iOS APIs into something that was consistent and canonical for React. While keeping these bridges up to date with the rapid iteration and development of new infrastructure was a constant game of catch up, the investment by the infrastructure team made product work much easier.
+我们开发了广泛的集成到我们的原生基础框架，诸如网络、国际化、实验、共享元素转换、设备信息，帐户信息等许多核心组件都封装在一个 React Native API 中。这些桥接是一些更复杂的部分，因为我们想要将现有的 Android 和 iOS API 封装成对 React 一致且规范的东西。尽管通过快速迭代和新基础架构的开发，来保持这些桥接是最新的，但基础架构团队的投入能简化产品工作。
 
-Without this heavy investment in infrastructure, React Native would have led to a subpar developer and user experiences. As a result, we don’t believe React Native can be simply tacked on to an existing app without a significant and continuous investment.
+如果没有大量投入基础架构，React Native 会导致糟糕的开发人员和用户体验。因此，我们不相信 React Native 可以在没有重大和持续投入的情况下，直接应用到现有的应用程序中。
 
-#### Performance
+#### 性能表现
 
-One of the largest concerns around React Native was its performance. However, in practice, this was rarely a problem. Most of our React Native screens feel as fluid as our native ones. Performance is often thought of in a single dimension. We frequently saw mobile engineers look at JS and think “slower than Java”. However, moving business logic and [layout](https://github.com/facebook/yoga) off of the main thread actually improves render performance in many cases.
+React Native 最大的问题之一就是它的性能。但是，在实际使用过程中，这并非是个问题。我们的大多数使用了 React Native 的屏幕都像原生的一样流畅。我们往往会总在一个单一的维度中去考虑性能。我们经常看到移动端工程师认为 JS，“比Java慢”。然而，在很多情况下，移动端主线程的业务逻辑和[布局](https://github.com/facebook/yoga)都可以提高渲染性能。
 
-When we did see performance issues, they were usually caused by excessive rendering and were mitigated by effectively using [shouldComponentUpdate](https://reactjs.org/docs/react-component.html#shouldcomponentupdate), [removeClippedSubviews](https://facebook.github.io/react-native/docs/view.html#removeclippedsubviews), and better use of Redux.
+当我们确实发现性能问题时，大多数是由过度渲染引起的，并通过有效地使用 [shouldComponentUpdate](https://reactjs.org/docs/react-component.html#shouldcomponentupdate)，[removeClippedSubviews](https://facebook.github.io/react-native/docs/view.html#removeclippedsubviews)，和使用 Redux 来解决。
 
-However, the initialization and first-render time (outlined below) made React Native perform poorly for launch screens, deeplinks, and increased the TTI time while navigating between screens. In addition, screens that dropped frames were difficult to debug because [Yoga](https://github.com/facebook/yoga) translates between React Native components and native views.
+然而，初始化和初识渲染时间（下面概述）使得 React Native 在启动屏幕，Deep Links 表现不佳，并且在屏幕之间导航时增加了 TTI 时间。另外，因为 [Yoga](https://github.com/facebook/yoga) 在 React Native 组件和原生视图之间进行了转换，所以丢失帧的屏幕很难调试。 
 
 #### Redux
 
-We used [Redux](https://redux.js.org/) for state management which we found effective and prevented the UI from ever getting out of sync with state and enabled easy data sharing across screens. However, Redux is notorious for its boilerplate and has a relatively difficult learning curve. We provided generators for some common templates but it was still one of the most challenging pieces and source of confusion while working with React Native. It is worth noting that these challenges were not React Native specific.
+我们使用了 [Redux](https://redux.js.org/) 进行状态管理，发现这种方法非常有效。不但防止了 UI 与状态不同步的问题，在屏幕之间也能轻松实现数据共享。但是，Redux 以其模板和相对困难的学习曲线而声名狼藉。我们为一些常见模板提供了生成器，但它仍然是在使用 React Native 时，最具挑战性的部分和混淆之一。值得注意的是，这些挑战不是 React Native 特有的。
 
-#### Backed by Native
+#### 原生支持
 
-Because everything in React Native can be bridged by native code, we were ultimately able to build many things we weren’t sure were possible at the beginning such as:
+由于 React Native 中的所有内容都可以通过原生代码进行桥接，因此我们最终能够在开始时构建许多我们不确定的事情，例如：
 
-1.  _Shared element transitions_: We built a _<SharedElement>_ component that is backed by native shared element code on Android and iOS. This even works between native and React Native screens.
-2.  _Lottie:_ We were able to get Lottie working in React Native by wrapping the existing libraries on Android and iOS.
-3.  _Native networking stack:_ React Native uses our existing native networking stack and cache on both platforms.
-4.  _Other core infra:_ Just like networking, we wrapped the rest of our existing native infrastructure such as i18n, experimentation, etc. so that it worked seamlessly in React Native.
+1.  **共享元素转换：**我们构建了一个 **<SharedElement>** 组件，该组件由 Android 和 iOS 上的原生共享元素代码所支持。这甚至适用于原生和 React Native 屏幕。
+2.  **Lottie：** 通过在 Android 和 iOS 上封装现有的库，我们能够让 Lottie 在 React Native 中正常工作。
+3.  **Native 网络栈：**React Native 在两个平台上都使用我们现有的本地网络栈和缓存。
+4.  **其它核心基础架构：**就像网络一样，我们将其他现有的本地基础架构（如国际化，实验等）封装起来，以便它能够在 React Native 中无缝工作。
 
-#### Static Analysis
+#### 静态分析
 
-We have a [strong history of using eslint](https://github.com/airbnb/javascript) on web which we were able to leverage. However, we were the first platform at Airbnb to pioneer [prettier](https://github.com/prettier/prettier). We found it to be effective at reducing nits and bikeshedding on PRs. Prettier is now being actively investigated by our web infrastructure team.
+在网络方面上，我们[使用 eslint 的历史非常悠久](https://github.com/airbnb/javascript)，可以利用它。不过，Airbnb 是开创 [Prettier](https://github.com/prettier/prettier) 的第一个平台。我们发现它可以有效减少 PR 上的麻烦。现在，我们的网络基础架构团队正在积极研究 Prettier。
 
-We also used analytics to measure render times and performance to figure out which screens were the top priority to investigate for performance issues.
+我们还用分析来衡量渲染时间和性能，以确定哪些屏幕是性能问题调查的首要任务。
 
-Because React Native was smaller and newer than our web infrastructure, it proved to be a good testbed for new ideas. Many of the tools and ideas we created for React Native are being adopted by web now.
+由于 React Native 比我们的网络基础结构更小、更新，因此是良好的测试新想法的平台。我们为 React Native 创建的许多工具和想法现在都被 Web 采用。
 
-#### Animations
+#### 动画
 
-Thanks to the React Native [Animated](https://facebook.github.io/react-native/docs/animated.html) library, we were able to achieve jank-free animations and even interaction-driven animations such as scrolling parallax.
+多亏了 React Native [动画](https://facebook.github.io/react-native/docs/animated.html) 库，我们能够实现 Jank Free 动画，甚至交互驱动的动画，如视差滚动。
 
-#### JS/React Open Source
+#### JS/React 开源
 
-Because React Native truly runs React and javascript, we were able to leverage the extremely vast array of javascript projects such as redux, reselect, jest, etc.
+由于 React Native 会运行 React 和 JavaScript，因此我们能够利用大量的 Javascript 项目，例如 Redux、Reselect、Jest 等。
 
 #### Flexbox
 
-React Native handles layout with [Yoga](https://github.com/facebook/yoga), a cross-platform C library that handles layout calculations via the [flexbox](https://www.w3schools.com/css/css3_flexbox.asp) API. Early on, we were hit with Yoga limitations such as the lack of aspect ratios but they have been added in subsequent updates. Plus, fun tutorials such as [flexbox froggy](https://flexboxfroggy.com/) made onboarding more enjoyable.
+React Native 使用了 [Yoga](https://github.com/facebook/yoga) 来处理布局。这是个跨平台的 C 语言库，通过 [flexbox](https://www.w3schools.com/css/css3_flexbox.asp) API 处理布局计算。早些时候，我们受到 Yoga 的局限，例如缺乏长宽比，不过在后续更新增添了。此外，像 [flexbox froggy](https://flexboxfroggy.com/) 这样有趣的教程，能让你在上手的时候更加享受。
 
-#### Collaboration with Web
+#### 与 Web 互相协作
 
-Late in the React Native exploration, we began building for web, iOS, and Android at once. Given that web also uses Redux, we found large swaths of code that could be shared across web and native platforms with no alterations.
+在 React Native 探索的后期，我们开始一次性为 Web，iOS 和 Android 构建项目。鉴于 Web 也使用 Redux，我们发现大量代码可以在 Web 和原生平台上共享，无需做任何更改。
 
-### What didn’t work well
+### 缺点
 
-#### React Native Immaturity
+#### React Native 还不成熟
 
-React Native is less mature than Android or iOS. It is newer, highly ambitious, and moving extremely quickly. While React Native works well in most situations, there are instances in which its immaturity shows through and makes something that would be trivial in native very difficult. Unfortunately, these instances are hard to predict and can take anywhere from hours to many days to work around.
+React Native 相对 Android 或 iOS 来说，略显不够成熟。它很新，也有野心，并且迭代速度非常快。虽然 React Native 在大多数情况下都能很好地工作，但有些情况下，它的不成熟可能会显现出来，使用原生就能轻而易举实现的事情变得非常困难。不幸的是，这些情况很难预测，而且可能需要几小时到几天的时间才能解决。
 
-#### Maintaining a Fork of React Native
+#### 维护 React Native 的分支
 
-Due to React Native’s immaturity, there were times in which we needed to patch the React Native source. In addition to contributing back to React Native, we had to [maintain a fork](https://github.com/airbnb/react-native/commits/0.46-canary) in which we could quickly merge changes and bump our version. Over the two years, we had to add roughly 50 commits on top of React Native. This makes the process of upgrading React Native extremely painful.
+由于 React Native 还不成熟，我们有时需要修补 React Native 源码。除了将问题反馈给 React Native 之外，我们还必须[维护一个分支](https://github.com/airbnb/react-native/commits/0.46-canary)，我们可以在其中快速合并更改并升级版本。在过去两年中，我们不得不在 React Native 添加大约 50 次 commit。这使得升级 React Native 的过程非常痛苦。
 
-#### JavaScript Tooling
+#### JavaScript 工具
 
-JavaScript is an untyped language. The lack of type safety was both difficult to scale and became a point of contention for mobile engineers used to typed languages who may have otherwise been interested in learning React Native. We explored adopting [flow](https://flow.org/) but cryptic error messages led to a frustrating developer experience. We also explored [TypeScript](http://www.typescriptlang.org/) but integrating it into our existing infrastructure such as [babel](https://babeljs.io/) and [metro bundler](https://github.com/facebook/metro) proved to be problematic. However, we are continuing to actively investigate TypeScript on web.
+JavaScript 是一种无类型语言。缺乏类型安全既难以扩展，也成为习惯于类型化语言的移动端工程师争论的焦点，否则它们可能会对学习 React Native 感兴趣。我们探讨了采用 [flow](https://flow.org/) 的方式，但隐晦的错误消息导致了令人沮丧的开发者体验。我们还探讨了 [TypeScript](http://www.typescriptlang.org/)，但将其整合到我们现有的基础架构中时，如 [babel](https://babeljs.io/)和 [metro bundler](https://github.com/facebook/metro) 是有问题的。不过，我们正在继续积极研究 Web 上的 TypeScript。
 
-#### Refactoring
+#### 重构
 
-A side-effect of JavaScript being untyped is that refactoring was extremely difficult and error-prone. Renaming props, especially props with a common name like _onClick_ or props that are passed through multiple components were a nightmare to refactor accurately. To make matters worse, the refactors broke in production instead of at compile time and were hard to add proper static analysis for.
+JavaScript 一个被忽略的副作用是，重构非常困难且容易出错。重命名一些属性，特别是带有通用名称的属性（如 **onClick** 或通过多个组件传递的属性），对于准确地重构来说是一场噩梦。更糟糕的是，重构在生产环境中崩溃，而不是在编译时，很难对其进行适当的静态分析。
 
-#### JavaScriptCore inconsistencies
+#### JavaScriptCore 不一致
 
-One subtle and tricky aspect of React Native is due to the fact that it is executed on a [JavaScriptCore environment](https://facebook.github.io/react-native/docs/javascript-environment.html). The following are consequences we encountered as a result:
+React Native 的一个微妙和棘手的方面是，它需要在 [JavaScriptCore 环境](https://facebook.github.io/react-native/docs/javascript-environment.html)上执行。以下是我们遇到的问题：
 
-*   iOS ships with its own [JavaScriptCore out of the box](https://developer.apple.com/documentation/javascriptcore). This meant that iOS was mostly consistent and not problematic for us.
-*   Android doesn’t ship its own JavaScriptCore so React Native bundles its own. However, the one you get by default [is ancient](https://github.com/facebook/react-native/issues/10245). As a result, we had to go out of our way to bundle a [newer one](https://github.com/react-community/jsc-android-buildscripts).
-*   While debugging, React Native attaches to a Chrome Developer Tools instance. This is great because it is a powerful debugger. However, once the debugger is attached, all JavaScript runs within Chrome’s V8 engine. This is fine 99.9% of the time. However, in one instance, we got bit when toLocaleString worked on iOS and but only worked on Android while debugging. It turns out that the Android JSC [doesn’t include it](https://github.com/facebook/react-native/issues/15717) and it was silently failing unless you were debugging in which case it was using V8 which does. Without knowing technical details like this, it can lead to days of painful debugging for product engineers.
+*   iOS 自带的 [JavaScriptCore](https://developer.apple.com/documentation/javascriptcore) 可以开箱即用。这就是说，iOS 大部分是一致的，对我们来说没有问题。
+*   Android 不带有 JavaScriptCore，因此由 React Native 提供。但是，默认情况下，获得的是[旧版本](https://github.com/facebook/react-native/issues/10245)的。这导致的结果是，我们不得不自己捆绑一个[新版本](https://github.com/react-community/jsc-android-buildscripts)的 JavaScriptCore。
+*   在调试时，React Native 会连接到 Chrome 开发者工具。这点非常好，因为它是一个强大的调试器。但是，一旦连接了调试器，所有 JavaScript 都将在 Chrome 的 V8 引擎中运行。99.9% 的情况都运行良好。但是，在一个实例中，我们在 iOS 上使用 toLocaleString 时，我们碰到了问题，调试只能在 Android 上工作。事实证明，Android [(不包括 JSC）](https://github.com/facebook/react-native/issues/15717)，除非你正在调试，在这种情况下，它使用的是 V8 引擎，否则它会悄无声息地失败。在不知道这些技术细节的情况下，可能会导致产品工程师进行数日痛苦的调试。
 
-#### React Native Open Source Libraries
+#### React Native 开源库
 
-Learning a platform is difficult and time-consuming. Most people only know one or two platforms well. React Native libraries that have native bridges such as maps, video, etc. requires equal knowledge of all three platforms to be successful. We found that most React Native Open source projects were written by people who had experience with only one or two. This led to inconsistencies or unexpected bugs on Android or iOS.
+学习平台既困难又费时。大多数人只能很好地了解一或两个平台。React Native 库有原生桥接，例如地图，视频等，开发者需要对三个平台都有相同的认识才能实现。我们发现大多数 React Native 开源项目都是由有一两次经验的人所编写的。这导致了 Android 或 iOS 上的不一致或意想不到的错误。
 
-On Android, many React Native libraries also require you to use a relative path to node_modules rather than publishing maven artifacts which are inconsistent with what is expected by the community.
+在 Android 上，许多 React Native 库也要求你使用 node_modules 的相对路径，而不是发布与社区所期望的不一致的 Maven Artifact。
 
-#### Parallel Infrastructure and Feature Work
+#### 并行基础架构和工作
 
-We have accumulated many years of native infrastructure on Android and iOS. However, in React Native, we started with a blank slate and had to write or create bridges of all existing infrastructure. This meant that there were times in which a product engineer needed some functionality that didn’t yet exist. At that point, they either had to work in a platform they were unfamiliar with and outside the scope of their project to build it or be blocked until it could be created.
+我们在 Android 和 iOS 上积累了多年的原生基础架构。但是，在 React Native 中，我们从完全空白的状态开始，不得不编写或创建所有现有基础架构的桥接。这意味着，有时产品工程师需要一些尚不存在的功能。在这一点上，他们要么必须在一个不熟悉的平台上工作，要么在项目范围之外构建，或者在被创建之前就被阻止了。
 
-#### Crash Monitoring
+#### 崩溃监控
 
-We use [Bugsnag](https://www.bugsnag.com/) for crash reporting on Android and iOS. While we were able to get Bugsnag generally working on both platforms, it was less reliable and required more work than it did on our other platforms. Because React Native is relatively new and rare in the industry, we had to build a significant amount of infrastructure such as uploading source maps in-house and had to work with Bugsnag to be able to do things like filter crashes by just those that occurred in React Native.
+我们使用 [Bugsnag](https://www.bugsnag.com/) 进行 Android 和 iOS 崩溃报告。虽然 Bugsnag 通常在两个平台上能正常工作，但它不太靠谱，并且需要比在其他平台上做更多的工作。由于 React Native 在行业中相对较新且罕见，因此我们必须构建大量基础架构，例如内部上传的源地图，并且必须与 Bugsnag 合作才能执行诸如发生在 React Native 过滤器崩溃等事件。
 
-Due to the amount of custom infrastructure around React Native, we would occasionally have serious issues in which crashes weren’t reported or source maps weren’t properly uploaded.
+由于 React Native 周围的自定义基础架构数量众多，偶尔也会出现严重问题，例如未报告崩溃或源地图未正确上传。
 
-Finally, debugging React Native crashes were often more challenging if the issue spanned React Native and native code since stack traces don’t jump between React Native and native.
+最后，如果问题跨越 React Native 和原生代码，调试 React Native 崩溃往往更具挑战性，因为堆栈跟踪不能在 React Native 和原生代码之间跳转。
 
-#### Native Bridge
+#### 原生桥接
 
-React Native has a [bridge API](https://facebook.github.io/react-native/docs/communication-ios.html) to communicate between native and React Native. While it works as expected, it is extremely cumbersome to write. Firstly, it requires all three development environments to be properly set up. We also experienced many issues in which the types coming from JavaScript were unexpected. For example, integers were often wrapped by strings, an issue that isn’t realized until it is passed over a bridge. To make matters worse, sometimes iOS will fail silently while Android will crash. We began to investigate automatically generating bridge code from TypeScript definitions towards the end of 2017 but it was too little too late.
+React Native 有 [桥接 API](https://facebook.github.io/react-native/docs/communication-ios.html) 用于原生和 React Native 之间进行通信。虽然它能按预期正常工作，但编写起来非常麻烦。首先，它要求所有三种开发环境都要正确设置。我们也遇到了很多来自 JavaScript 的类型不正确的问题。例如，整数通常是由字符串封装的，这个问题直到它通过桥接才能实现。更糟糕的是，有时 iOS 会悄无声息地失败，而 Android 则会崩溃。到 2017 年底，我们开始研究从 TypeScript 定义自动生成的桥接代码，但为时已晚。
 
-#### Initialization Time
+#### 初始化时间
 
-Before React Native can render for the first time, you must initialize its runtime. Unfortunately, this takes several seconds for an app of our size, even on a high-end device. This made using React Native for launch screens nearly impossible. We minimized the first-render time for React Native by initializing it at app-launch.
+在 React Native 首次渲染之前，你必须初始化其运行时。不幸的是，即使在高端设备上，我们的应用也需要几秒钟的时间。所以，几乎是不可能使用 React Native 来启动屏幕。我们通过在应用程序启动时初始化 React Native 来缩短第一次渲染时间。
 
-#### Initial Render Time
+#### 初始渲染时间
 
-Unlike with native screens, rendering React Native requires at least one full main thread -> js -> yoga layout thread -> main thread round trip before there is enough information to render a screen for the first time. We saw an average initial p90 render of 280ms on iOS and 440ms on Android. On Android, we used the [postponeEnterTransition](https://developer.android.com/reference/android/app/Activity.html#postponeEnterTransition%28%29) API which is normally used for shared element transitions to delay showing the screen until it has rendered. On iOS, we had issues setting the navbar configuration from React Native fast enough. As a result, we added an artificial delay of 50ms to all React Native screen transitions to prevent the navbar from flickering once the configuration was loaded.
+与原生屏幕不同，渲染 React Native 需要至少一个完整的主线程 -> JS  -> Yoga 布局线程 -> 主线程返回之前，然后才有足够的信息来第一次渲染屏幕。我们可以看到 iOS 平均初始 p90 渲染 280ms，而 Android 需要 440ms。在 Android 上，我们使用通常用于共享元素转换的 [postponeEnterTransition](https://developer.android.com/reference/android/app/Activity.html#postponeEnterTransition%28%29) API 来延迟显示屏幕直到它完成渲染。在 iOS 上，我们遇到了问题，从 React Native 快速设置导航栏配置。因此，我们为所有 React Native 屏幕过渡添加了 50ms 的仿真延迟，以防止配置加载后导航栏闪烁。
 
-#### App Size
+#### App 大小
 
-React Native also has a non-negligible impact on app size. On Android, the total size of React Native (Java + JS + native libraries such as Yoga + Javascript Runtime) was 8mb per ABI. With both x86 and arm (32 bit only) in one APK, it would have been closer to 12mb.
+React Native 对应用程序大小也有不可忽视的影响。在 Android 上，React Native（Java + JS + 本地库，例如 Yoga + Javascript 运行时）的总大小为每个ABI  8MB。在一个 APK 中使用 x86 和 arm（仅 32 位），它将接近 12MB。
 
-#### 64-bit
+#### 64 位
 
-We still can’t ship a 64-bit APK on Android because of [this](https://github.com/facebook/react-native/issues/2814) issue.
+由于[这个](https://github.com/facebook/react-native/issues/2814)问题，我们仍然不能在 Android 上安装一个 64 位的 APK。
 
-#### Gestures
+#### 手势
 
-We avoided using React Native for screens that involved complex gestures because the touch subsystem for Android and iOS are different enough that coming up with a unified API has been challenging for the entire React Native community. However, work is continuing to progress and [react-native-gesture-handler](https://github.com/kmagiera/react-native-gesture-handler) just hit 1.0.
+我们避免在涉及复杂手势的屏幕上使用 React Native，因为 Android 和 iOS 的触摸子系统非常不同，所以需要统一的 API 对整个 React Native 社区来说都具有挑战性。然而，这项工作仍在继续进行，并且 [react-native-gesture-handler](https://github.com/kmagiera/react-native-gesture-handler) 刚刚达到 1.0 的。
 
-#### Long Lists
+#### List 太长
 
-React Native has made some progress in this area with libraries like [FlatList](https://facebook.github.io/react-native/docs/flatlist.html). However, they are nowhere near the maturity and flexibility of [RecyclerView](https://developer.android.com/guide/topics/ui/layout/recyclerview) on Android or [UICollectionView](https://developer.apple.com/documentation/uikit/uicollectionview) on iOS. Many of the limitations are difficult to overcome because of the threading. Adapter data can’t be accessed synchronously so it is possible to see views flash in as they get asynchronously rendered while scrolling quickly. Text also can’t be measured synchronously so iOS can’t make certain optimizations with pre-computed cell heights.
+React Native在这方面取得了一些进展，比如 [FlatList](https://facebook.github.io/react-native/docs/flatlist.html) 库。但是，它们远不及 Android 上的 [RecyclerView](https://developer.android.com/guide/topics/ui/layout/recyclerview) 或是 iOS 上的 [UICollectionView](https://developer.apple.com/documentation/uikit/uicollectionview) 的成熟度和灵活性。由于多进程的问题，许多限制难以克服。适配器数据无法同步访问，这会导致视图闪烁，因为它们在快速滚动时进行了异步渲染。另外，文本也无法同步测量，因此 iOS 无法使用预先计算的 cell 高度进行某些优化。
 
-#### Upgrading React Native
+#### 升级 React Native
 
-Although most React Native upgrades were trivial, there were a few that wound up being painful. In particular, it was nearly impossible to use React Native 0.43 (April 2017) to 0.49 (October 2017) because it used React 16 alpha and beta. This was hugely problematic because most React libraries that are designed for web use don’t support pre-release React versions. The process of wrangling the proper dependencies for this upgrade was a major detriment to other React Native infrastructure work in mid-2017.
+尽管大多数 React Native 升级都很微不足道，但有一些却令人非常痛苦。尤其是，几乎是不可能使用 React Native 0.43（2017 年 4 月）至 0.49（2017 年 10月），因为其中使用了 React 16 alpha 和 beta。这是个大问题，因为大多数专为 Web 使用而设计的，React 库不支持预发布的 React 版本。争论此次升级的适当依赖关系的过程，对 2017 年中其他 React Native 基础架构工作造成重大损害。
 
-#### Accessibility
+#### 辅助功能
 
-In 2017, we did a major [accessibility overhaul](https://airbnb.design/designing-for-access/) in which we invested significant efforts to ensure that people with disabilities can use Airbnb to book a listing that can accommodate their needs. However, there were many holes in the React Native accessibility APIs. In order to meet even a minimum acceptable accessibility bar, we had to [maintain our own fork](https://github.com/airbnb/react-native/commits/0.46-canary) of React Native where we could merge fixes. For these case, a one-line fix on Android or iOS wound up taking days of figuring out how to add it to React Native, cherry picking it, then filing an issue on React Native core and following up on it over the coming weeks.
+在 2017 年，我们进行了一次[辅助功能大修](https://airbnb.design/designing-for-access/)，其中我们投入了大量的精力，确保残疾人士可以使用 Airbnb 预订来满足他们的房源需要。但是，React Native 关于辅助功能的 API 有很多漏洞。为了满足甚至最小可接受的辅助功能条，我们必须要[维护 React Native 的一个分支](https://github.com/airbnb/react-native/commits/0.46-canary)，来合并修复程序。对于这些情况，Android 或 iOS 上的一行修复需要数天时间，才能确定如何将其添加到 React Native，然后 cherry-pick，接着在 React Native Core 上提交问题，并在接下来的几周内对其进行跟踪。
 
-#### Troublesome Crashes
+#### 棘手的崩溃
 
-We have had to deal with a few very bizarre crashes that are hard to fix. For example, we are currently experiencing [this crash](https://issuetracker.google.com/issues/37045084) on the _@ReactProp_ annotation and have been unable to reproduce it on any device, even those with identical hardware and software to ones that are crashing in the wild.
+我们不得不面对一些难以解决的、非常奇怪的崩溃。例如，我们目前在 **@ReactProp** 注释中遇到了[这个崩溃](https://issuetracker.google.com/issues/37045084)，并且无法在任何设备上复现，即使是那些具有相同硬件和软件的设备也是如此。
 
-#### SavedInstanceState Across Processes on Android
+#### 在 Android 上的 SavedInstanceState 跨进程 
 
-Android frequently cleans up background processes but gives them a chance to [synchronously save their state in a bundle](https://developer.android.com/topic/libraries/architecture/saving-states#use_onsaveinstancestate_as_backup_to_handle_system_initiated_process_death). However, on React Native, all state is only accessible in the js thread so this can’t be done synchronously. Even if this weren’t the case, redux as a state store is not compatible with this approach because it contains a mix of serializable and non-serializable data and may contain more data than can fit within the savedInstanceState bundle which would lead to [crashes in production](https://medium.com/@mdmasudparvez/android-os-transactiontoolargeexception-on-nougat-solved-3b6e30597345).
+Android 经常会去清理后台进程，但给了一个机会来[同步保存在 bundle 中的状态](https://developer.android.com/topic/libraries/architecture/saving-states#use_onsaveinstancestate_as_backup_to_handle_system_initiated_process_death)。但是，在 React Native 上，所有状态只能在 JS 线程中访问，因此同步无法完成。即使情况并非如此，作为状态存储的 Redux 与此方法也不兼容，因为它混合了包含可序列化和不可序列化数据，并且可能包含比 saveInstanceState 包中容纳的更多数据，这会导致[在生产环境下崩溃](https://medium.com/@mdmasudparvez/android-os-transactiontoolargeexception-on-nougat-solved-3b6e30597345)。
 
 * * *
 
-This is part two in a series of blog posts highlighting our experiences with React Native and what’s next for mobile at Airbnb.
+这是系列博客文章的第二部分，重点讲述了我们使用 React Native 的经验，以及 Airbnb 移动端接下来要做的事情。
 
-*   [Part 1: React Native at Airbnb](https://medium.com/airbnb-engineering/react-native-at-airbnb-f95aa460be1c)
-*   [_Part 2: The Technology_](https://medium.com/airbnb-engineering/react-native-at-airbnb-the-technology-dafd0b43838)
-*   [Part 3: Building a Cross-Platform Mobile Team](https://medium.com/airbnb-engineering/building-a-cross-platform-mobile-team-3e1837b40a88)
-*   [Part 4: Making a Decision on React Native](https://medium.com/airbnb-engineering/sunsetting-react-native-1868ba28e30a)
-*   [Part 5: What’s Next for Mobile](https://medium.com/airbnb-engineering/whats-next-for-mobile-at-airbnb-5e71618576ab)
+*   [第一部分：Airbnb 中的 React Native](https://medium.com/airbnb-engineering/react-native-at-airbnb-f95aa460be1c)
+*   [**第二部分：技术细节**](https://medium.com/airbnb-engineering/react-native-at-airbnb-the-technology-dafd0b43838)
+*   [第三部分：构建跨平台的移动端团队](https://medium.com/airbnb-engineering/building-a-cross-platform-mobile-team-3e1837b40a88)
+*   [第四部分：在 React Native 上作出的决策](https://medium.com/airbnb-engineering/sunsetting-react-native-1868ba28e30a)
+*   [第五部分：移动端接下来的事情](https://medium.com/airbnb-engineering/whats-next-for-mobile-at-airbnb-5e71618576ab)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
