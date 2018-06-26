@@ -1,4 +1,4 @@
-> * 原文地址：[Android 应用和游戏的无障碍开发介绍](https://medium.com/googleplaydev/introduction-to-accessibility-for-android-apps-and-games-d0e7af5384d)
+> * 原文地址：[Introduction to accessibility for Android apps and games](https://medium.com/googleplaydev/introduction-to-accessibility-for-android-apps-and-games-d0e7af5384d)
 > * 原文作者：[Maxim Mai](https://medium.com/@maximfmai?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/introduction-to-accessibility-for-android-apps-and-games.md](https://github.com/xitu/gold-miner/blob/master/TODO1/introduction-to-accessibility-for-android-apps-and-games.md)
