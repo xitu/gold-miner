@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-fix-app-quality-issues-with-android-vitals-and-improve-performance-on-the-play-store-part.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-fix-app-quality-issues-with-android-vitals-and-improve-performance-on-the-play-store-part.md)
 > * 译者：[LeeSniper](https://github.com/LeeSniper)
-> * 校对者：
+> * 校对者：[DateBro](https://github.com/DateBro)
 
 # 如何用 Android vitals 解决应用程序的质量问题
 
@@ -75,9 +75,9 @@ Android vitals 可以提醒你的问题包括崩溃、应用程序无响应（AN
 
 那么，什么是应用程序无响应（ANR），它又是如何影响用户的呢？
 
-对于用户来说，ANR 是当他们尝试与你的应用进行交互时，但该界面被冻结。界面保持冻结几秒钟后，会显示一个对话框，让用户选择等待或强制应用程序退出。
+对于用户来说，ANR 是当他们尝试与你的应用进行交互时，该界面被冻结。界面保持冻结几秒钟后，会显示一个对话框，让用户选择等待或强制应用程序退出。
 
-从应用程序开发的角度来看，当应用程序通过执行耗时操作（如磁盘或网络读写）阻塞主线程时，就会发生 ANR。主线程（有时称为 UI 线程）负责响应用户事件并刷新屏幕上每秒绘制六十次的内容。因此，将任何可能延迟其工作的操作都转移到后台线程是至关重要的。
+从应用程序开发的角度来看，当应用程序因为执行耗时操作（如磁盘或网络读写）阻塞主线程时，就会发生 ANR。主线程（有时称为 UI 线程）负责响应用户事件并刷新屏幕上每秒绘制六十次的内容。因此，将任何可能延迟其工作的操作都转移到后台线程是至关重要的。
 
 ### Android vitals 如何显示 ANR？
 
