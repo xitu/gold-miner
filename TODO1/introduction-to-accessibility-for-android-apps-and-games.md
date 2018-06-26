@@ -15,7 +15,7 @@
 
 我们通常认为残疾是永久或者持续的能力缺陷，但经常也会有阶段性的或临时的无障碍需求影响到我们每个人。比如，有些情况下我们只有一只手可以使用，例如抱着孩子，或者刚做完手术，或者骑自行车的时候，这些都是特定情境下的无障碍需求，可以通过优秀的设计来解决。
 
-在安卓和 Google Play 上，我们为开发者提供开发工具，开发指导和支持，以便为尽可能多的人提供包容性的体验。我们最近还在 Play 商店中策划了[收集无障碍相关应用](https://www.google.com/url?q=http://play.google.com/store/apps/topic?id%3Dcampaign_editorial_300324a_accessapps18&sa=D&source=hangouts&ust=1526630727446000&usg=AFQjCNFT86-9N1DrImf9arznkRQ-QdarXA) 的活动 。使用这些非常棒的应用程序吧，能够在安卓和 Google Play 上发布这些应用程序，我们确实感到非常自豪！
+在安卓和 Google Play 上，我们为开发者提供开发工具，开发指导和支持，以便为尽可能多的人提供包容性的体验。我们最近还在 Play 商店中策划了 [收集无障碍相关应用](https://www.google.com/url?q=http://play.google.com/store/apps/topic?id%3Dcampaign_editorial_300324a_accessapps18&sa=D&source=hangouts&ust=1526630727446000&usg=AFQjCNFT86-9N1DrImf9arznkRQ-QdarXA) 的活动 。使用这些非常棒的应用程序吧，能够在安卓和 Google Play 上发布这些应用程序，我们确实感到非常自豪！
 
 一些安卓开发者也已将无障碍体验提升到一个新的水平，特别是满足残疾人的需求。让我们深入了解一下我们可以从他们的应用和游戏中学到些什么。
 
@@ -23,11 +23,11 @@
 
 无论您是专门针对无障碍用例构建应用程序，还是正在努力让您的应用程序或游戏对残疾人士更具包容性，我们都会为您提供支持。
 
-我们已经为安卓开发人员创建了可用于 [无障碍](https://developer.android.com/guide/topics/ui/accessibility/) 开发的资源，您将在其中找到关于该主题的简单介绍，以及链接 [使用 Material Design 来支持无障碍的需求](https://material.io/guidelines/usability/accessibility.html) 和最佳实践 [开发更多的无障碍应用](https://developer.android.com/guide/topics/ui/accessibility/apps).
+我们已经为安卓开发人员创建了可用于 [无障碍](https://developer.android.com/guide/topics/ui/accessibility/) 开发的资源，您将在其中找到关于该主题的简单介绍，以及链接 [使用 Material Design 来支持无障碍的需求](https://material.io/guidelines/usability/accessibility.html) 和最佳实践 [开发更多的无障碍应用](https://developer.android.com/guide/topics/ui/accessibility/apps)。
 
-您可以确保您的应用 **正确地标记用户界面元素** 以便让使用屏幕阅读器的用户（例如 TalkBack）更清楚地听到内容。同样，您可以考虑在屏幕上对您的内容进行分组，以便那些有视力障碍的人可以快速高效地浏览您的应用。
+您可以确保您的应用**正确地标记用户界面元素**以便让使用屏幕阅读器的用户（例如 TalkBack）更清楚地听到内容。同样，您可以考虑在屏幕上对您的内容进行分组，以便那些有视力障碍的人可以快速高效地浏览您的应用。
 
-有些人可能在与小的触控目标交互时遇到困难，因此请记住提供 **更大的触摸目标**。这可能会让很多人浏览您的应用程序变得更容易。颜色和对比度是另外两个可能影响到用户使用的方面。**避免前景色和背景色之间的对比度过低**是另外一种最佳做法，同时要确保用户界面的元素颜色，色盲用户可以很清晰地分辨。
+有些人可能在与小的触控目标交互时遇到困难，因此请记住提供**更大的触摸目标**。这可能会让很多人浏览您的应用程序变得更容易。颜色和对比度是另外两个可能影响到用户使用的方面。**避免前景色和背景色之间的对比度过低**是另外一种最佳做法，同时要确保用户界面的元素颜色，色盲用户可以很清晰地分辨。
 
 添加视频和音频内容或指令可以让听力受损的人访问您的应用。考虑提供**切换字幕**的选项，并且如果是通过视频给出指令，请考虑用多种样式提供相同的指令。
 
@@ -47,7 +47,7 @@
 
 视力受损的用户准备打电话给视力正常的志愿者
 
-由于超过 [2.53 亿](http://www.who.int/en/news-room/fact-sheets/detail/blindness-and-visual-impairment) 的视力障碍患者中绝大多数生活在中低收入国家，因此在应用中添加更多本地语言并提高翻译质量是非常重要的。您也可以通过 [参与翻译项目来提供帮助](https://crowdin.com/project/be-my-eyes-android).
+由于超过 [2.53 亿](http://www.who.int/en/news-room/fact-sheets/detail/blindness-and-visual-impairment) 的视力障碍患者中绝大多数生活在中低收入国家，因此在应用中添加更多本地语言并提高翻译质量是非常重要的。您也可以通过 [参与翻译项目来提供帮助](https://crowdin.com/project/be-my-eyes-android)。
 
 [**芝麻开门**](https://play.google.com/store/apps/details?id=com.sesame.phone_nougat)
 
@@ -59,7 +59,7 @@
 
 运动障碍用户使用头部移动控制安卓手机
 
-许多美国州政府提供补贴，让更多符合条件的人士可以体验芝麻开门的魔力。芝麻开门的团队正在努力增加提供补贴的计划数量，他们很乐意通过补贴流程 [引导新用户](https://sesame-enable.com/get-help-with-state-benefits/) 
+许多美国州政府提供补贴，让更多符合条件的人士可以体验芝麻开门的魔力。芝麻开门的团队正在努力增加提供补贴的计划数量，他们很乐意通过补贴流程 [引导新用户](https://sesame-enable.com/get-help-with-state-benefits/)。
 
 [**音频游戏中心 2.0**](https://play.google.com/store/apps/details?id=com.AUT.AudioGameHub)
 
@@ -77,7 +77,7 @@
 
 测试您的应用程序的无障碍功能是您开发过程中的的关键部分。我们发布了 [入门指南](https://developer.android.com/training/accessibility/testing#top_of_page)，强调手动测试，使用者以及自动化测试相结合的重要性，以便发现可能会遗漏的无障碍问题。
 
-[谷歌无障碍扫描程序](https://play.google.com/store/apps/details?id=com.google.android.apps.accessibility.auditor) 使用了 [无障碍测试框架](https://github.com/google/Accessibility-Test-Framework-for-Android) ，并会对您手机上安装的任何安卓应用提出改善建议，而这不需要任何技术能力。它通过查看内容标签，可点击项目，对比度等内容后会提供可行的建议。
+[谷歌无障碍扫描程序](https://play.google.com/store/apps/details?id=com.google.android.apps.accessibility.auditor) 使用了 [无障碍测试框架](https://github.com/google/Accessibility-Test-Framework-for-Android)，并会对您手机上安装的任何安卓应用提出改善建议，而这不需要任何技术能力。它通过查看内容标签，可点击项目，对比度等内容后会提供可行的建议。
 
 例如，内容标签提供有用的描述，向人们解释每个交互元素的含义和目的。这些标签允许屏幕阅读器（例如 TalkBack）向那些依赖这些服务的人正确解释特定控件的功能。
 
@@ -87,13 +87,13 @@
 
 我们希望您会使用无障碍扫描程序来改善自己的应用程序的无障碍性，而且它也允许您向其他开发人员提供无障碍的改进建议。
 
-我们已经从在这个领域取得重大进展的人那里分享了一些成功实例，希望我们提供的建议和资源链接可以帮助您的应用或游戏为使用者创造更好的体验。无论您是专门为残障人士创建应用程序，还是试图与所有感兴趣的人分享您的应用或游戏，希望这些观点可以给您提供一些灵感和正确的起步。正如我们上面提到的，它们绝不是详尽无遗的，在开发，设计和开始构思应用程序或游戏时，仍然有许多考虑因素可以帮助提高无障碍使用体验。看看我的下一篇文章，它将深入探讨无障碍开发，同时请记得看一下 Google Play 中的 [新的无障碍应用收藏夹](https://www.google.com/url?q=http://play.google.com/store/apps/topic?id%3Dcampaign_editorial_300324a_accessapps18&sa=D&source=hangouts&ust=1526630727446000&usg=AFQjCNFT86-9N1DrImf9arznkRQ-QdarXA) 
+我们已经从在这个领域取得重大进展的人那里分享了一些成功实例，希望我们提供的建议和资源链接可以帮助您的应用或游戏为使用者创造更好的体验。无论您是专门为残障人士创建应用程序，还是试图与所有感兴趣的人分享您的应用或游戏，希望这些观点可以给您提供一些灵感和正确的起步。正如我们上面提到的，它们绝不是详尽无遗的，在开发，设计和开始构思应用程序或游戏时，仍然有许多考虑因素可以帮助提高无障碍使用体验。看看我的下一篇文章，它将深入探讨无障碍开发，同时请记得看一下 Google Play 中的 [新的无障碍应用收藏夹](https://www.google.com/url?q=http://play.google.com/store/apps/topic?id%3Dcampaign_editorial_300324a_accessapps18&sa=D&source=hangouts&ust=1526630727446000&usg=AFQjCNFT86-9N1DrImf9arznkRQ-QdarXA)。
 
 * * *
 
-### 你怎么看?
+### 你怎么看？
 
-你有没有想过设计无障碍访问的应用程序？请在下面的评论中告诉我们，或者使用 #AskPlayDev 发微博，我们会回复 [@GooglePlayDev](http://twitter.com/googleplaydev), 我们会定期分享有关如何在Google Play上取得成功的新闻和提示。.
+你有没有想过设计无障碍访问的应用程序？请在下面的评论中告诉我们，或者使用 #AskPlayDev 发微博，我们会回复 [@GooglePlayDev](http://twitter.com/googleplaydev), 我们会定期分享有关如何在Google Play上取得成功的新闻和提示。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
