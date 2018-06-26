@@ -37,7 +37,7 @@ React 成为[最受开发者欢迎](https://insights.stackoverflow.com/survey/20
 
 #### 迭代速度
 
-在使用 React Native 进行开发时，我们能够稳定地使用[热加载](https://facebook.github.io/react-native/blog/2016/03/24/introducing-hot-reloading.html)来测试我们在 Android 和 iOS 上的改动，过程只需一两秒钟的时间。尽管构建性能是原生应用的首要任务，但它从来没有达到我们通过 React Native 实现的迭代速度。在最理想的情况下，本地编译时间为 15 秒，但对于完整项目的构建，竟高达 20 分钟。
+在使用 React Native 进行开发时，我们能够稳定地使用[热加载](https://facebook.github.io/react-native/blog/2016/03/24/introducing-hot-reloading.html)来测试我们在 Android 和 iOS 上的改动，过程只需一两秒钟的时间。尽管构建性能是原生应用的首要任务，但它从来没有达到我们通过 React Native 实现的迭代速度。在最理想的情况下，原生编译时间为 15 秒，但对于完整项目的构建，竟高达 20 分钟。
 
 #### 基础框架的投入
 
@@ -63,8 +63,8 @@ React Native 最大的问题之一就是它的性能。但是，在实际使用�
 
 1.  **共享元素转换：**我们构建了一个 **<SharedElement>** 组件，该组件由 Android 和 iOS 上的原生共享元素代码所支持。这甚至适用于原生和 React Native 屏幕。
 2.  **Lottie：** 通过在 Android 和 iOS 上封装现有的库，我们能够让 Lottie 在 React Native 中正常工作。
-3.  **Native 网络栈：**React Native 在两个平台上都使用我们现有的本地网络栈和缓存。
-4.  **其它核心基础架构：**就像网络一样，我们将其他现有的本地基础架构（如国际化，实验等）封装起来，以便它能够在 React Native 中无缝工作。
+3.  **Native 网络栈：**React Native 在两个平台上都使用我们现有的原生网络栈和缓存。
+4.  **其它核心基础架构：**就像网络一样，我们将其他现有的原生基础架构（如国际化，实验等）封装起来，以便它能够在 React Native 中无缝工作。
 
 #### 静态分析
 
@@ -148,7 +148,7 @@ React Native 有 [桥接 API](https://facebook.github.io/react-native/docs/commu
 
 #### App 大小
 
-React Native 对应用程序大小也有不可忽视的影响。在 Android 上，React Native（Java + JS + 本地库，例如 Yoga + Javascript 运行时）的总大小为每个ABI  8MB。在一个 APK 中使用 x86 和 arm（仅 32 位），它将接近 12MB。
+React Native 对应用程序大小也有不可忽视的影响。在 Android 上，React Native（Java + JS + 原生库，例如 Yoga + Javascript 运行时）的总大小为每个ABI  8MB。在一个 APK 中使用 x86 和 arm（仅 32 位），它将接近 12MB。
 
 #### 64 位
 
