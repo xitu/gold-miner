@@ -15,19 +15,19 @@
 
 期待已久的 [Java EE Security API (JSR 375)](https://jcp.org/en/jsr/detail?id=375) 将 Java 企业级安全带入云计算和微服务时代的新纪元。本系列的文章将向您展示如何简化新的安全机制，以及 Java EE 跨容器安全的标准化处理，然后在启用云的项目中使用它们。 
 
-[本系列的第一篇文章](https://www.ibm.com/developerworks/library/j-javaee8-security-api-1/index.html)概述了 [Java EE Security API (JSR 375)](https://jcp.org/en/jsr/detail?id=375)，包括对新的高级接口的介绍：`HttpAuthenticationMechanism`、`IdentityStore` 和 `SecurityContext`。本文中深入理解的三部分中的第一部分，您将学习如何在 Java web 示例应用程序中使用 `HttpAuthenticationMechanism` 来设置和配置用户身份验证。
+[本系列的第一篇文章](https://www.ibm.com/developerworks/library/j-javaee8-security-api-1/index.html)概述了 [Java EE Security API (JSR 375)](https://jcp.org/en/jsr/detail?id=375)，包括对新的高级接口的介绍：`HttpAuthenticationMechanism`、`IdentityStore` 和 `SecurityContext`。本文将深入理解这三部分中的第一部分，您将学习如何在 Java web 示例应用程序中使用 `HttpAuthenticationMechanism` 来设置并配置用户身份验证。
 
-`HttpAuthenticationMechanism` 接口是 Java™ EE HTTP 新的身份验证机制的核心。它拥有三个内置的 CDI（上下文和依赖注入）实现，它们会自动实例化，然后工 CDI 容器调用。这些内置实现支持 Servlet 4.0 指定的三种经典身份验证方案：基本 HTTP 身份验证、基于表单的身份验证和自定义表单身份验证
+`HttpAuthenticationMechanism` 接口是 Java™ EE HTTP 新的身份验证机制的核心。它拥有三个内置的 CDI（上下文和依赖注入）实现，它们会自动实例化，然后供 CDI 容器调用。这些内置实现支持 Servlet 4.0 指定的三种经典身份验证方案：基本 HTTP 身份验证、基于表单的身份验证和自定义表单身份验证
 
 除了内置的身份验证方法，您还可以使用 `HttpAuthenticationMechanism` 来开发自定义身份验证。如果需要支持指定协议和身份验证令牌，可以选择此选项。一些 servlet 容器还可以提供自定义的 `HttpAuthenticationMechanism` 实现。
 
-本文中，您将亲自体验如何 `HttpAuthenticationMechanism` 接口及其三个内置实现。我还将向您演示如何编写自定义 `HttpAuthenticationMechanism` 身份验证机制。
+本文中，您将亲自体验 `HttpAuthenticationMechanism` 接口及其三个内置实现。我还将向您演示如何编写自定义 `HttpAuthenticationMechanism` 身份验证机制。
 
 [获取代码](https://github.com/readlearncode/Java-EE-8-Sampler/tree/master/security-1-0)
 
 ## 安装 Soteria
 
-我们将使用 Java EE 8 Security API 指南来实现 [Soteria](https://github.com/javaee/security-soteria)，通过 `HttpAuthenticationMechanism` 来研究可访问的内置身份验证机制和自定义的身份验证机制。您可以使用两种方法中的一种获取 Soteria。
+我们将使用 Java EE 8 Security API 指南来实现 [Soteria](https://github.com/javaee/security-soteria)，通过 `HttpAuthenticationMechanism` 来研究可访问的内置身份验证机制和自定义的身份验证机制。您可以使用两种方法中的一种来获取 Soteria。
 
 ### 1. 在您的 POM 中，显式指定 Soteria
 
@@ -95,7 +95,7 @@ public class UserServlet extends HttpServlet { … }
 public class ApplicationConfig { ... }
 ```
 
-要设置跳转到登录页面的方式，请使用 `useForwardToLogin` 选项。如果需要将此选项设置为“转发”或者“重定向”，则应该显式声明 `true` 或者 `false`，缺省值为 `true`。或者，你可以通过传递给选项 `useForwardToLoginExpression`的 EL 表达式来设置该值。
+要设置跳转到登录页面的方式，请使用 `useForwardToLogin` 选项。如果需要将此选项设置为“转发”或者“重定向”，则应该显式声明 `true` 或者 `false`，缺省值为 `true`。或者，您可以通过传递给选项 `useForwardToLoginExpression` 的 EL 表达式来设置该值。
 
 `@LoginToContinue` 具有合理的默认值。登录页面被设置为 `/login`，同时错误页面被设置为 `/login-error`。
 
@@ -117,7 +117,7 @@ public class ApplicationConfig { ... }
 public class AdminServlet extends HttpServlet { ... }
 ```
 
-清单 6 演示了 `login.do` 的登录页面，它是一个由登录支持 bean 支持的 JSF（JavaServer Pages）页面，如清单 7 所示。
+清单 6 演示了 `login.do` 的登录页面，它是一个登录 backing bean 支持的 JSF（JavaServer Pages）页面，如清单 7 所示。
 
 ##### 清单 6. login.do JSF 登录页面
 
@@ -207,9 +207,9 @@ public class CustomAuthenticationMechanism implements HttpAuthenticationMechanis
 
 ## 在 HTTP 请求期间执行方法
 
-During an HTTP request, methods on the `HttpAuthenticationMechanism` implementation are called at fixed moments. Figure 1 shows when each method is called in relation to methods on `Filter` and `HttpServlet` instances.
+在 HTTP 请求期间，在固定时刻调用 `HttpAuthenticationMechanism` 实现的方法。图 1 描述了在 `Filter` 和 `HttpServlet` 实例上调用每个方法的时间。
 
-##### Figure 1. Method call sequence
+##### 图 1. 方法调用顺序
 
 ![方法调用顺序](https://www.ibm.com/developerworks/java/library/j-javaee8-security-api-2/MethodCallSequence.png)
 
@@ -217,7 +217,7 @@ During an HTTP request, methods on the `HttpAuthenticationMechanism` implementat
 
 在执行 `doFilter()` 或者 `service()` 之后调用 `secureResponse()` 方法。它在 servlet 或 过滤器生成的响应上提供后置处理功能。加密是该方法的潜在功能。
 
-The `cleanSubject()` method is called following a call to the `logout()` method on an `HttpServletRequest` instance. This method also can be used to clear state related to user after a logout event.
+在调用 `HttpServletRequest` 实例上的 `logout()` 方法之后，调用 `cleanSubject()` 方法。此方法还可用于删除注销时间后与用户相关的状态。
 
 `HttpMessageContext` 接口有一个 `HttpAuthenticationMechanism` 实例可以用来与调用它的 `ServerAuthModule` 进行通信的方法。
 
@@ -249,13 +249,13 @@ public class CustomAuthenticationMechanism implements HttpAuthenticationMechanis
 *   **`isRememberMe`** "remember me" 的开关。
 *   **`isRememberMeExpression`** 是 isRememberMe 的 EL 版本。
 
-`RememberMe`功能被作为**拦截器绑定**而实现。容器将拦截对 `validateRequest()` 和 `cleanSubject()` 方法的调用。当对包含 `RememberMe` cookie 的实现调用，`validateRequest()`方法时，它将尝试对调用方进行身份验证。如果成功，通知 `HttpMessageConext` 登录事件；否则 cookie 将被移出。拦截 `cleanSubject()` 方法只需删除 cookie 并完成注销请求。
+`RememberMe`功能被作为**拦截器绑定**而实现。容器将拦截对 `validateRequest()` 和 `cleanSubject()` 方法的调用。当对包含 `RememberMe` cookie 实现的调用，调用 `validateRequest()`方法时，它将尝试对调用方进行身份验证。如果成功，通知 `HttpMessageConext` 登录事件；否则 cookie 将被移出。拦截 `cleanSubject()` 方法只需删除 cookie 并完成注销请求。
 
 ## 第二部分结论
 
 新的 `HttpAuthenticationMechanism` 接口是 Java EE 8 中 web 身份验证的核心。它内置的三种身份验证支持 Servlet 4.0 中指定的经典身份验证方法，而且也很容易为自定义实现进行接口扩展。在本教程中，您学习了如何使用注解来调用和配置  `HttpAuthenticationMechanism` 的内置机制，以及如何为特殊用例编写自定义机制。我鼓励您用下面的小测验来测试您所学到的东西。
 
-这篇文章深入地介绍新的 Java EE 8 Security API 的三个主要组件中的第一个。接下来的两篇文章将介绍 `IdentityStore` 和 `SecurityContext` API 的亲自实践。
+这篇文章深入地介绍新的 Java EE 8 Security API 的三个主要组件中的第一个。接下来的两篇文章将介绍 `IdentityStore` 和 `SecurityContext` API 的实践。
 
 ## 测试您的掌握程度
 
