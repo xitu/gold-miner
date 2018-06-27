@@ -5,7 +5,7 @@
 > * 译者：
 > * 校对者：
 
-# 从 Java EE 8 API 安全开始 —— 第一部分
+# 从 Java EE 8 Security API 开始 —— 第一部分
 
 ## 面向云和微服务平台的 Java 企业级安全
 
@@ -13,30 +13,30 @@
 
 关于这个系列：
 
-期待已久的 [Java EE Security API (JSR 375)](https://jcp.org/en/jsr/detail?id=375) 将 Java 企业级安全带入云计算和微服务时代的新纪元。本系列的文章将向您展示如何简化新的安全机制，以及 Java EE 跨容器的安全处理的标准化，然后开始在启用云的项目中使用它们。
+期待已久的 [Java EE Security API (JSR 375)](https://jcp.org/en/jsr/detail?id=375) 将 Java 企业级安全带入云计算和微服务时代的新纪元。本系列的文章将向您展示如何简化新的安全机制，以及 Java EE 跨容器安全的标准化处理，然后在启用云的项目中使用它们。
 
-经验丰富的 Java™ 开发者应该了解，Java 并不会受到缺乏 Java 安全机制的影响。选项包括 [Java 容器授权协议说明](https://jcp.org/aboutJava/communityprocess/mrel/jsr115/index3.html) (JACC)，[Java 身份认证服务提供器](https://jcp.org/aboutJava/communityprocess/mrel/jsr196/index2.html) (JASPIC)，以及大量第三方特定容器的安全 API 和配置管理解决方案。
+经验丰富的 Java™ 开发者应该了解，Java 并不会受到缺乏 Java 安全机制的影响。选项包括 [Java 容器授权协议说明](https://jcp.org/aboutJava/communityprocess/mrel/jsr115/index3.html) （JACC），[Java 身份认证服务提供器](https://jcp.org/aboutJava/communityprocess/mrel/jsr196/index2.html) （JASPIC），以及大量第三方特定容器的 API 安全和配置管理解决方案。
 
-问题不在于缺乏选择，而在于缺乏企业标准。没有标准，几乎没有任何可以激励供应商始终如一地实现核心特性的动力，比如，身份验证、新技术更新的独有解决方案。比如，上下文和依赖注入（CDI）和表达式语言（EL），或者与云和微服务架构的安全发展保持同步。
+问题不在于缺乏选择，而在于缺乏企业标准。没有标准，导致几乎没有任何可以激励供应商始终如一地实现核心特性的动力，比如，身份验证、独有解决方案的新技术更新。比如，上下文和依赖注入（CDI）以及表达式语言（EL），或者与云和微服务架构的安全发展保持同步。
 
-本系列介绍了 Java EE 新的安全性 API，首先会概述 API 及其三个主要接口：`HttpAuthenticationMechanism`、`IdentityStore`和 `SecurityContext`。
+本系列介绍了 Java EE 新的安全性 API，首先会概述 API 及其三个主要接口：`HttpAuthenticationMechanism`、`IdentityStore` 和 `SecurityContext`。
 
 [获取代码](https://github.com/readlearncode/Java-EE-8-Sampler/tree/master/security-1-0)
 
 ## Java EE 新的安全标准
 
-Java EE 安全规范的开发得力于 2014 [Java EE 8 问卷调查](https://blogs.oracle.com/theaquarium/java-ee-8-survey-final-results)中，社区的反馈推动了 Java EE 安全规范的开发步伐。简化和标准化 Java 企业级安全是许多调查对象的优先考虑事项。一旦成立，JSR 375专家组就确定以下问题：
+Java EE 安全规范的开发得力于 2014 [Java EE 8 问卷调查](https://blogs.oracle.com/theaquarium/java-ee-8-survey-final-results)，社区的反馈推动了 Java EE 安全规范的开发步伐。简化和标准化 Java 企业级安全是许多调查对象优先考虑的事项。一旦成立，JSR 375专家组将确定以下问题：
 
 *   构成 Java EE 的各种 EJB 和 servlet 容器定义了类似的与安全相关的 API，但语法存在细微差别。例如，servlet 检查用户角色时，调用是 `HttpServletRequest.isUserInRole(String role)`，而 EJB 则调用 `EJBContext.isCallerInRole(String roleName)`。
-*   实现像 JACC 这样的现有安全机制，困难重重，而 JASPIC 同时也很难被正确使用。
+*   实现像 JACC 这样的现有安全机制，困难重重，而 JASPIC 也很难被正确使用。
 *   现有机制无法充分利用现代 Java EE 的编程特性，例如上下文和依赖注入（CDI）。
 *   没有可移值性方法来控制如何在后端跨容器时，进行身份验证。
 *   对于管理标识存储或者角色和权限的配置，没有标准的支持。
 *   部署自定义身份验证规则，没有标准支持。
 
-这些是 JSR 375 旨在解决的主要问题。同时，该规范通过定义用于身份验证、身份存储、角色和权限以及跨容器授权的可移值 API，是开发者能够自行管理和控制安全性。
+这些是 JSR 375 旨在解决的主要问题。同时，该规范通过定义用于身份验证、身份存储、角色和权限以及跨容器授权的可移值性 API，促使开发者能够自行管理和控制安全性。
 
-Java EE Security API 的有点在于它提供了一种配置身份存储和身份验证机制的替代方法，但并不能取代现有的安全机制。Java EE Security API 授权开发人员以一致的和可移值的方式启用 Java EE web 应用程序的安全性 —— 无论是否具有特定于供应商的或者独有的解决方案。
+Java EE Security API 的优点在于它提供了一种配置身份存储和身份验证机制的替代方法，但并不能取代现有的安全机制。Java EE Security API 授权开发人员以一致的和可移值的方式启用 Java EE web 应用程序的安全性 —— 无论是否具有特定于供应商的或者独有的解决方案。
 
 ## Java EE Security API 有什么？
 
@@ -62,7 +62,7 @@ servlet 容器机制被限制为只支持 Servlet 4.0 定义的小部分凭据�
 
 相反，JASPIC 非常优秀，而且有很好的延展性，但它的使用也相当复杂。编码 `AuthModule`，并且将其与 web 容器对齐以进行身份验证使用，可能会非常难以处理。除此以外，由于 JASPIC 没有声明式配置，也没有明确的方式来重载编程注册的 `AuthModule`。
 
-Java EE Security API 通过一个新的接口 `HttpAuthenticationMechanism` 解决了其中一些问题。新接口本质上是 JASPIC `ServerAuthModule` 接口的一个简化版 servlet 容器变体，它利用了现有的机制，同时减轻了它们的限制。
+Java EE Security API 通过一个新的接口 `HttpAuthenticationMechanism` 解决了其中一些问题。新接口本质上是 JASPIC `ServerAuthModule` 接口的一个简化版 servlet 容器变体，它利用了现有的机制，同时削弱了它们的限制。
 
 `HttpAuthenticationMechanism` 实例是容器负责提供注入的 CDI bean。`HttpAuthenticationMechanism` 接口的其他实现可以由应用程序或或 servlet 容器提供。注意，`HttpAuthenticationMechanism` 仅由 servlet 容器指定。
 
@@ -74,7 +74,7 @@ Java EE 容器必须为 Servlet 4.0 规范中定义的三种身份认证提供 `
 *   基于表单的身份验证（部分 13.6.3）
 *   自定义表单身份验证（部分 13.6.3.1）
 
-每个实现都是由相关注解的存在触发的：
+每个实现都由相关注解的存在触发：
 
 *   `@BasicAuthenticationMechanismDefinition`
 *   `@FormAuthenticationMechanismDefinition`
@@ -88,7 +88,7 @@ Java EE 容器必须为 Servlet 4.0 规范中定义的三种身份认证提供 `
 
 ### 基本的 HTTP 身份验证
 
-`@BasicAuthenticationMechanismDefinition` 注解触发 Servlet 4.0 定义的基本 HTTP 认证。清单 1 列举了一个示例。只有配置参数是可选的，而且允许指定 realm。
+`@BasicAuthenticationMechanismDefinition` 注解触发 Servlet 4.0 定义的基本 HTTP 身份验证。清单 1 列举了一个示例。只有配置参数是可选的，而且允许指定 realm。
 
 ##### 清单 1. 基本的 HTTP 身份验证
 
@@ -159,11 +159,11 @@ public class AdminServlet extends HttpServlet { ... }
 
 标识存储按顺序进行查询，这取决于每个 `IdentityStore` 实现的优先级。存储列表被解析了两次：首先用于身份验证，然后用于授权。
 
-作为开发者，你可以通过实现 `IdentityStore` 接口来实现自己的轻量级标识存储，或者您可以使用为 LDAP 和 RDBMS 内置的 `IdentityStores` 的其中一种。它们是通过将配置细节传递给适当的注解来初始化的—— `@LdapIdentityStoreDefinition` 或者 `@DataBaseIdentityStoreDefinition`。
+作为开发者，你可以通过实现 `IdentityStore` 接口来实现自己的轻量级标识存储，或者您可以使用为 LDAP 和 RDBMS 内置的 `IdentityStores` 的其中一种。它们是通过将配置细节传递给适当的注解来初始化的 —— `@LdapIdentityStoreDefinition` 或者 `@DataBaseIdentityStoreDefinition`。
 
 ### 配置内置的 IdentityStore
 
-最简单的标识存储是**数据库存储**。它是通过 `@DataBaseIdentityStoreDefinition` 注解进行配置的。正如清单 4 所演示的那样，这两个内置的数据存储注解基于 Java EE 7 中已有 `[@DataStoreDefinition](https://docs.oracle.com/javaee/7/api/javax/annotation/sql/DataSourceDefinition.html)` 注解。
+最简单的标识存储是**数据库存储**。它是通过 `@DataBaseIdentityStoreDefinition` 注解进行配置的。正如清单 4 所演示的那样，这两个内置的数据存储注解基于 Java EE 7 中已有的 `[@DataStoreDefinition](https://docs.oracle.com/javaee/7/api/javax/annotation/sql/DataSourceDefinition.html)` 注解。
 
 清单 4 演示了如何配置数据库身份存储。这些配置选项本身就进行了自我解释，而且如果您曾经配置过数据库定义，应该会很熟悉。
 
@@ -201,7 +201,7 @@ public class AdminServlet extends HttpServlet { ... }
 
 ### 自定义 IdentityStore
 
-设计您自己的轻量级标识存储非常简单。您需要实现 `IdentityStore` 接口，至少要实现 `validate()` 方法。接口上有四种方法，它们都有默认的实现方式。`validate()` 方法是运行标识存储所需的最小值。它棘手 `Credential` 实例，然后返回 `CredentialValidationResults` 实例。
+设计您自己的轻量级标识存储非常简单。您需要实现 `IdentityStore` 接口，至少要实现 `validate()` 方法。接口上有四种方法，它们都有默认的实现方式。`validate()` 方法是运行标识存储所需的最小值。它接受 `Credential` 实例，然后返回 `CredentialValidationResults` 实例。
 
 在清单 6 中，`validate()` 方式接收一个包含要验证的登录凭据的 `UsernamePasswordCredential` 实例。然后返回一个  `CredentialValidationResults` 的实例。如果简单的配置逻辑促使身份验证成功，则使用用户名和用户所属组配置该对象。如果身份验证失败，那么 `CredentialValidationResults` 实例只包含状态标志 `INVALID`。
 
@@ -224,7 +224,7 @@ public class LiteWeightIdentityStore implements IdentityStore {
 
 为了使用轻量级标识存储，你可以向自定义 `HttpAuthenticationMechanism` 注入 `IdentityStoreHandler`，就像清单 7 演示的那样。
 
-##### 清单 7. 向自定义 HttpAuthenticationMechanism 注入LiteWeightIdentityStore
+##### 清单 7. 向自定义 HttpAuthenticationMechanism 注入 LiteWeightIdentityStore
 
 ```
 @ApplicationScoped
@@ -251,7 +251,7 @@ public class LiteAuthenticationMechanism implements HttpAuthenticationMechanism 
 
 `IdentityStore` 和 `HttpAuthenticationMechanism` 将用户的身份验证和授权完美结合，但是自身的声明式模型尚未成型。**Programmatic security** 使 web 应用程序能执行授权或拒绝访问应用程序资源所需的检查，`SecurityContext` API 提供了这一功能性需求。
 
-目前，Java EE 容器在实现安全上下文对象的方式并不一致。例如，servlet 容器提供一个 `HttpServletRequest` 实例，在该实例上调用 `getUserPrincipal()` 方法来获取表示用户身份的 `[UserPrincipal](https://docs.oracle.com/javase/8/docs/api/java/nio/file/attribute/UserPrincipal.html)`。EJB 容器提供了不同命名的 `EJBContext` 实例，在该实例上调用同名方法。同时，如果需要测试用户是否属于某个角色，则必须在   `HttpServletRequest` 实例上调用 `isUserRole()` 方法，然后再调用 EJBContext 实例上调用 `isCallerInRole()`。
+目前，Java EE 容器在实现安全上下文对象的方式上并不一致。例如，servlet 容器提供一个 `HttpServletRequest` 实例，在该实例上调用 `getUserPrincipal()` 方法来获取表示用户身份的 `[UserPrincipal](https://docs.oracle.com/javase/8/docs/api/java/nio/file/attribute/UserPrincipal.html)`。EJB 容器提供了不同命名的 `EJBContext` 实例，在该实例上调用同名方法。同时，如果需要测试用户是否属于某个角色，则必须在 `HttpServletRequest` 实例上调用 `isUserRole()` 方法，然后在 EJBContext 实例上调用 `isCallerInRole()`。
 
 **什么是 security context？**  
 
@@ -264,7 +264,7 @@ public class LiteAuthenticationMechanism implements HttpAuthenticationMechanism 
 `SecurityContext` 接口提供了用于编程安全性的入口点，并且是可注入类型。它有五种方法（都默认为未实现），以下是方法的列表和用途：
 
 *   **Principal getCallerPrincipal();** 如果当前调用者未进行身份验证，则返回 null，否则返回特定于平台的主体，表明当前用户的名称已通过验证。
-*   **<T extends Principal> Set<T> getPrincipalsByType(Class<T> pType);** 从通过身份验证的调用者的主题中，返回给定类型的所有主体；如果既未找到 `pType` 类型，或者当前用户未进行身份验证，则返回一个空集。
+*   **<T extends Principal> Set<T> getPrincipalsByType(Class<T> pType);** 从通过身份验证的调用者的主题中，返回给定类型的所有主体；如果未找到 `pType` 类型，或者当前用户未进行身份验证，则返回一个空集。
 *   **boolean isCallerInRole(String role);** 确定指定用户中是否包括调用方；如果未授权，则返回 false。
 *   **boolean hasAccessToWebResource(String resource, String... methods);** 确定调用方是否可以通过所提供的方法访问给定 web 资源。
 *   **AuthenticationStatus authenticate(HttpServletRequest req, HttpServletResponse res, AuthenticationParameters param);**: 通知容器应该启动或与调用方继续以基于 HTTP 身份验证的方式进行会话。因为依赖于 `HttpServletRequest` 和 `HttpServletResponse` 实例，所以此方法仅在 servlet 容器中运行。
