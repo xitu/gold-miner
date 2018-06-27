@@ -60,7 +60,7 @@ Java EE 平台已经指定了两种用于验证 Web 应用程序用户的机制:
 
 servlet 容器机制被限制为只支持 Servlet 4.0 定义的小部分凭据类型，而且它无法支持与调用方的复杂交互。它也无法为应用程序提供一种方法，以确定调用者是根据所需的身份存储进行身份验证的。
 
-相反，JASPIC 非常优秀，而且有很好的延展性，但它的使用也相当复杂。编码 `AuthModule`，并且将其与 web 容器对齐以进行身份验证使用，可能会非常难以处理。除此以外，由于 JASPIC 没有声明式配置，也没有明确的方式来重载编程注册的 `AuthModule`。
+相反，JASPIC 非常优秀，而且有很好的延展性，但它的使用也相当复杂。编码 `AuthModule`，并且将其与 web 容器对齐以进行身份验证使用，可能会非常难以处理。除此以外，JASPIC 没有声明式配置，也没有明确的方式来重载注册 `AuthModule` 的编码方式。
 
 Java EE Security API 通过一个新的接口 `HttpAuthenticationMechanism` 解决了其中一些问题。新接口本质上是 JASPIC `ServerAuthModule` 接口的一个简化版 servlet 容器变体，它利用了现有的机制，同时削弱了它们的限制。
 
@@ -70,9 +70,9 @@ Java EE Security API 通过一个新的接口 `HttpAuthenticationMechanism` 解�
 
 Java EE 容器必须为 Servlet 4.0 规范中定义的三种身份认证提供 `HttpAuthenticationMechanism` 实现。这三种实现是：
 
-*   基本 HTTP 身份验证（部分 13.6.1）
-*   基于表单的身份验证（部分 13.6.3）
-*   自定义表单身份验证（部分 13.6.3.1）
+*   基本 HTTP 身份验证（第 13.6.1 章节）
+*   基于表单的身份验证（第 13.6.3 章节）
+*   自定义表单身份验证（第 13.6.3.1 章节）
 
 每个实现都由相关注解的存在触发：
 
@@ -106,7 +106,7 @@ public class UserServlet extends HttpServlet { … }
 
 ### 基于表单的身份验证
 
-`@FormAuthenticationMechanismDefinition` 注解用于基于表单的身份验证。它有一个必要的参数 `loginToContinue`，用于配置 web 应用程序的登录页面、错误页面和重定向或转发特性。在清单 2 中，您可以看到登录页面是用 URL 定义的， `useForwardToLoginExpression` 是使用表达式语言（EL）配置的。不需要向 `@LoginToContinue` 注解传递任何参数，因为实现会提供默认值。
+`@FormAuthenticationMechanismDefinition` 注解用于基于表单的身份验证。它有一个必要的参数 `loginToContinue`，用于配置 web 应用程序的登录页面、错误页面和重定向或转发特性。在清单 2 中，您可以看到登录页面是用 URL 定义的，`useForwardToLoginExpression` 是使用表达式语言（EL）配置的。不需要向 `@LoginToContinue` 注解传递任何参数，因为实现会提供默认值。
 
 ##### 清单 2. 基于表单的身份验证
 
@@ -146,7 +146,7 @@ public class AdminServlet extends HttpServlet { ... }
 
 **标识存储**是存储用户标识数据的数据库。如用户名、组成员和用于验证的凭据信息。Java EE Security API 提供了一个名为 `IdentityStore` 的抽象标识存储。类似于 `JAAS LoginModule` 接口，`IdentityStore` 用于与标识存储进行交互，以便对用户进行身份验证并检索组成员身份。
 
-正如规范所描述的，`IdentityStore` 被 `HttpAuthenticationMechanism` 的实现所使用，但这不是一项要求， `IdentityStore` 可以独立存在，供任何其他身份验证机制使用。尽管如此，使用 `IdentityStore` 和 `HttpAuthenticationMechanism` 使应用程序能够以可移值和标准化的方式控制用于身份验证的身份存储，在大部分用例场景中，都推荐使用。
+正如规范所描述的，`IdentityStore` 被 `HttpAuthenticationMechanism` 的实现所使用，但这不是必须的， `IdentityStore` 可以独立存在，供任何其他身份验证机制使用。尽管如此，使用 `IdentityStore` 和 `HttpAuthenticationMechanism` 使应用程序能够以可移植和标准化的方式控制用于身份验证的身份存储，在大部分用例场景中，都推荐使用。
 
 `IdentityStore` API 包括一个 `IdentityStoreHandler` 接口，`HttpAuthenticationMechanism` 必须委托它来验证用户凭据。之后，`IdentityStoreHandler` 调用 `IdentityStore` 实例。`Identity` 存储实现不是直接使用的，而是通过专门的处理程序进行交互的。
 
@@ -182,7 +182,7 @@ public class AdminServlet extends HttpServlet { ... }
 public class ApplicationConfig { ... }
 ```
 
-注意，清单 4 中的优先级要设置为 10.在发现多个标识存储并确定相对于其他存储的迭代顺序时使用。人数越少，优先级越高。
+注意，清单 4 中的优先级要设置为 10。在发现多个标识存储并确定相对于其他存储的迭代顺序时使用。数目越少，优先级越高。
 
 LDAP 的配置如清单 5 所描述的那样，非常简单。如果您有 LDAP 语义配置方面的经验，您会发现这里的选项非常熟悉。
 
