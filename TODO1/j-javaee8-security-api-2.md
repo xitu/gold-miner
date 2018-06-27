@@ -5,35 +5,35 @@
 > * 译者：
 > * 校对者：
 
-# Get started with the Java EE 8 Security API — Part 2
+# 从 Java EE 8 Security API 开始 —— 第二部分
 
-## Web authentication with HttpAuthenticationMechanism
+## 基于 HttpAuthenticationMechanism 认证
 
-Classic and custom Servlet authentication with Java EE 8's new annotation-driven HTTP authentication mechanism
+使用 Java EE 8 新的注解驱动的 HTTP 身份验证机制的经典和自定义 Servlet 身份验证。
 
-About this series:
+关于本系列：
 
-The new and long-awaited [Java EE Security API (JSR 375)](https://jcp.org/en/jsr/detail?id=375) ushers Java enterprise security into the cloud and microservices computing era. This series shows you how the new security mechanisms simplify and standardize security handling across Java EE container implementations, then gets you started using them in your cloud-enabled projects.
+期待已久的 [Java EE Security API (JSR 375)](https://jcp.org/en/jsr/detail?id=375) 将 Java 企业级安全带入云计算和微服务时代的新纪元。本系列的文章将向您展示如何简化新的安全机制，以及 Java EE 跨容器安全的标准化处理，然后在启用云的项目中使用它们。 
 
-The [first article in this series](https://www.ibm.com/developerworks/library/j-javaee8-security-api-1/index.html) presented an overview of the [Java EE Security API (JSR 375)](https://jcp.org/en/jsr/detail?id=375), including a high-level introduction to the new `HttpAuthenticationMechanism`, `IdentityStore`, and `SecurityContext` interfaces. In this article, the first of three deep dives, you’ll learn how to use `HttpAuthenticationMechanism` to setup and configure user authentication in an example Java web application.
+[本系列的第一篇文章](https://www.ibm.com/developerworks/library/j-javaee8-security-api-1/index.html)概述了 [Java EE Security API (JSR 375)](https://jcp.org/en/jsr/detail?id=375)，包括对新的高级接口的介绍：`HttpAuthenticationMechanism`、`IdentityStore` 和 `SecurityContext`。本文中深入理解的三部分中的第一部分，您将学习如何在 Java web 示例应用程序中使用 `HttpAuthenticationMechanism` 来设置和配置用户身份验证。
 
-The `HttpAuthenticationMechanism` interface is the heart of Java™ EE's new HTTP authentication mechanism. It comes with three built-in CDI (contexts and dependency injection)-enabled implementations, which are instantiated automatically and made available for use by the CDI container. These built-in implementations support three classic authentication methods specified by Servlet 4.0: basic HTTP authentication, form-based authentication, and custom form-based authentication.
+`HttpAuthenticationMechanism` 接口是 Java™ EE HTTP 新的身份验证机制的核心。它拥有三个内置的 CDI（上下文和依赖注入）实现，它们会自动实例化，然后工 CDI 容器调用。这些内置实现支持 Servlet 4.0 指定的三种经典身份验证方案：基本 HTTP 身份验证、基于表单的身份验证和自定义表单身份验证
 
-In addition to the built-in authentication methods, you have the option to use `HttpAuthenticationMechanism` to develop custom authentication. You might choose this option if you needed to support specific protocols and authentication tokens. Some servlet containers may also offer custom `HttpAuthenticationMechanism` implementations.
+除了内置的身份验证方法，您还可以使用 `HttpAuthenticationMechanism` 来开发自定义身份验证。如果需要支持指定协议和身份验证令牌，可以选择此选项。一些 servlet 容器还可以提供自定义的 `HttpAuthenticationMechanism` 实现。
 
-In this article you’ll get a hands-on introduction to using the `HttpAuthenticationMechanism` interface and its three built-in implementations. I’ll also show you how to write your own custom `HttpAuthenticationMechanism` authentication mechanism.
+本文中，您将亲自体验如何 `HttpAuthenticationMechanism` 接口及其三个内置实现。我还将向您演示如何编写自定义 `HttpAuthenticationMechanism` 身份验证机制。
 
-[Get the code](https://github.com/readlearncode/Java-EE-8-Sampler/tree/master/security-1-0)
+[获取代码](https://github.com/readlearncode/Java-EE-8-Sampler/tree/master/security-1-0)
 
-## Installing Soteria
+## 安装 Soteria
 
-We’ll use the Java EE 8 Security API reference implementation, [Soteria](https://github.com/javaee/security-soteria), to explore both built-in and custom authentication mechanisms accessible via `HttpAuthenticationMechanism`. You can get Soteria in one of two ways.
+我们将使用 Java EE 8 Security API 指南来实现 [Soteria](https://github.com/javaee/security-soteria)，通过 `HttpAuthenticationMechanism` 来研究可访问的内置身份验证机制和自定义的身份验证机制。您可以使用两种方法中的一种获取 Soteria。
 
-### 1. Explicitly specify Soteria in your POM
+### 1. 在您的 POM 中，显式指定 Soteria
 
-Use the following Maven coordinates to specify Soteria in your POM:
+在您的 POM 中，使用以下 Maven 坐标来指定 Soteria：
 
-##### Listing 1. Maven coordinates for the Soteria project
+##### 清单 1. Soteria 项目的 Maven 坐标
 
 ```
 <dependency>
@@ -43,11 +43,11 @@ Use the following Maven coordinates to specify Soteria in your POM:
 </dependency>
 ```
 
-### 2. Use built-in Java EE 8 coordinates
+### 2. 使用内置的 Java EE 8 坐标
 
-Java EE 8-compliant servers will have their own implementation of the new Java EE 8 Security API, or they’ll rely on Sotoria’s implementation. In either you only need the Java EE 8 coordinates:
+符合 Java EE 8 的服务器将拥有自己的新的 Java EE 8 Security API 实现，或者它们依赖于 Sotoria 的实现。无法如何，你都需要 Java EE 8 的坐标。
 
-##### Listing 2. Java EE 8 Maven coordinates
+##### 清单 2. Java EE 8 的 Maven 坐标
 
 ```
 <dependency>
@@ -58,15 +58,15 @@ Java EE 8-compliant servers will have their own implementation of the new Java E
 </dependency>
 ```
 
-## Built-in authentication mechanisms
+## 内置身份验证机制
 
-The built-in HTTP authentication mechanisms support authentication styles specified for [Servlet 4.0 (section 13.6)](https://javaee.github.io/servlet-spec/downloads/servlet-4.0/servlet-4_0_FINAL.pdf). In the next sections I’ll show you how to use annotations to initiate the three authentication mechanisms, as well as how to setup and implement each one in a Java web application.
+内置的 HTTP 身份验证机制支持 [Servlet 4.0（第 13.6 章节）](https://javaee.github.io/servlet-spec/downloads/servlet-4.0/servlet-4_0_FINAL.pdf)指定的身份验证方式。下一章节我将向您演示如何使用注解来启用三种身份验证机制，以及如何在 Java web 应用程序中设置和实现每种机制。
 
 ### @BasicAuthenticationMechanismDefinition
 
-The `@BasicAuthenticationMechanismDefinition` annotation triggers HTTP basic authentication as defined by Servlet 4.0 (section 13.6.1). It has one optional parameter, `realmName`, which specifies the name of the realm that will be sent via the `WWW-Authenticate` header. Listing 3 shows how to trigger HTTP basic authentication for the realm name `user-realm`.
+`@BasicAuthenticationMechanismDefinition` 注解触发 Servlet 4.0（第 13.6.1 章节）定义的 HTTP 基本身份验证。它有一个可选参数 `realmName`，它通过 `WWW-Authenticate` 报头指定发送 realm 的名称。清单 3 演示了如何为名为 `user-realm` 的 realm 触发 HTTP 基本身份验证。
 
-##### Listing 3. HTTP basic authentication mechanism
+##### 清单 3. HTTP 基本身份验证机制
 
 ```
 @BasicAuthenticationMechanismDefinition(realmName="user-realm")
@@ -78,11 +78,11 @@ public class UserServlet extends HttpServlet { … }
 
 ### @FormAuthenticationMechanismDefinition
 
-The `@FormAuthenticationMechanismDefinition` annotation provokes form-based authentication as defined by the Servlet 4.0 specification (section 13.6.3). It has one configuration option that must be set. The `loginToContinue` option accepts a configured `@LoginToContinue` annotation, which allows the application to provide "login to continue" functionality. You have the option to use reasonable defaults or specify one of four characteristics for this feature.
+`@FormAuthenticationMechanismDefinition` 注解引起 Servlet 4.0 规范定义中（第 13.6.3 章节）基于表单的身份验证。它有一个必须配置的选项。`loginToContinue` 选项接受配置的 `@LoginToContinue` 注解，该注解允许应用程序提供 "login to continue" 的功能。您可以选择使用合理的默认值或为此功能指定四个特性中的一个。
 
-In Listing 4, the login page is specified to the URI `/login-servlet`. If authentication fails, flow is passed to `/login-servlet-fail`.
+在清单 4 中，登录页面 URI 被指定为 `/login-servlet`。如果身份验证失败，流将传递到 `/login-servlet-fail`。
 
-##### Listing 4. Form-based authentication mechanism
+##### 清单 4. 基于表单的身份验证机制
 
 ```
 @FormAuthenticationMechanismDefinition(
@@ -95,15 +95,15 @@ In Listing 4, the login page is specified to the URI `/login-servlet`. If authen
 public class ApplicationConfig { ... }
 ```
 
-To set the manner of reaching the login page, use the `useForwardToLogin` option. To set this option to either "forward" or "redirect" you would specify `true` or `false`, with the default being `true`. Alternatively, you could set the value via an EL expression passed to the option: `useForwardToLoginExpression`.
+要设置跳转到登录页面的方式，请使用 `useForwardToLogin` 选项。如果需要将此选项设置为“转发”或者“重定向”，则应该显式声明 `true` 或者 `false`，缺省值为 `true`。或者，你可以通过传递给选项 `useForwardToLoginExpression`的 EL 表达式来设置该值。
 
-The `@LoginToContinue` has reasonable defaults. The login page is set to `/login` and the error page is set to `/login-error`.
+`@LoginToContinue` 具有合理的默认值。登录页面被设置为 `/login`，同时错误页面被设置为 `/login-error`。
 
 ### @CustomFormAuthenticationMechanismDefinition
 
-The `@CustomFormAuthenticationMechanismDefinition` annotation provides options for configuring a custom login form. In Listing 5, you can see that the website’s login page is identified as `login.do`. The login page is set as a value to the `loginPage` parameter to the `loginToContinue` parameter of the `@CustomFormAuthenticationMechanismDefinition` annotation. Note that `loginToContinue` is the only parameter, and it is optional.
+`@CustomFormAuthenticationMechanismDefinition` 注解为自定义登录表单提供了配置选项。在清单 5 中，你可以发现网站的登录页面被标识为 `login.do`。登录页面设置为 `@CustomFormAuthenticationMechanismDefinition` 注解的`loginPage` 参数的 `loginToContinue` 参数的值。注意，`loginToContinue` 是唯一的参数，而且是可选的。
 
-##### Listing 5. Custom form configuration
+##### 清单 5. 自定义表单配置
 
 ```
 @CustomFormAuthenticationMechanismDefinition(
@@ -117,9 +117,9 @@ The `@CustomFormAuthenticationMechanismDefinition` annotation provides options f
 public class AdminServlet extends HttpServlet { ... }
 ```
 
-The `login.do` login page is shown in Listing 6 and is a JSF (JavaServer Pages) page supported by a login backing bean, as shown in Listing 7.
+清单 6 演示了 `login.do` 的登录页面，它是一个由登录支持 bean 支持的 JSF（JavaServer Pages）页面，如清单 7 所示。
 
-##### Listing 6. The login.do JSF login page
+##### 清单 6. login.do JSF 登录页面
 
 ```
 <form jsf:id="form">
@@ -137,9 +137,9 @@ The `login.do` login page is shown in Listing 6 and is a JSF (JavaServer Pages) 
 </form>
 ```
 
-The login backing bean uses a `SecurityContext` instance to perform authentication, as shown in Listing 7. If successful, the user is given access to the resource; otherwise the flow is passed to the error page. In this case, it forwards the user to the default login URI at `/login-error`.
+登录 backing bean 使用 `SecurityContext` 实例来执行身份验证，如清单 7 所示。如果验证成功，将授予用户对资源的访问权；否则，流将传递给错误页面。在本例中，它将用户转发到默认的 URI `/login-error`。
 
-##### Listing 7. Login backing bean
+##### 清单 7. 登录 backing bean
 
 ```
 @Named
@@ -170,23 +170,23 @@ public class LoginBean {
        }
       
    }
-   // Some methods omitted for brevity
+   // 为了简洁而省略一些方法
 }
 ```
 
-## Writing a custom HttpAuthenticationMechanism
+## 编写一个自定义 HttpAuthenticationMechanism
 
-In many cases you’ll find that the three built-in implementations are sufficient for your needs. In some cases, you may prefer to write your own implementation of the `HttpAuthenticationMechanism` interface. In this section I’ll walk through the process of writing a custom `HttpAuthenticationMechanism` interface.
+在大多数场景中，您会发现这三个内置的实现已经足以满足您的需求。在某些场景中，您可能更喜欢编写自己的 `HttpAuthenticationMechanism` 接口实现。本节中，我将介绍如何编写自定义的 `HttpAuthenticationMechanism` 接口。
 
-In order to ensure that it is available to your Java application, you will need to implement the `HttpAuthenticationMechanism` interface as a CDI bean with `@ApplicationScope`. The interface defines the following three methods:
+为了确保 Java 应用程序可以使用它，您需要将 `HttpAuthenticationMechanism` 接口实现为具有 `@ApplicationScope` 的 CDI bean。接口定义了以下三种方法：
 
-*   `validateRequest()` authenticates an HTTP request.
-*   `secureResponse()` secures the HTTP response message.
-*   `cleanSubject()` clears the subject of provided principals and credentials.
+*   `validateRequest()` 身份验证的 HTTP 请求。
+*   `secureResponse()` 保护 HTTP 相应消息。
+*   `cleanSubject()` 清除提供的主体和凭据的主题。
 
-All methods accept the same parameter types, which are: `HttpServletRequest`, `HttpServletResponse`, and `HttpMessageContext`. These map to the corresponding methods defined on the [JASPIC Server Auth Module](https://github.com/trajano/server-auth-modules) interface, which is provided by the container. When a JASPIC method is invoked on `Server Auth`, it delegates to the corresponding method of your custom `HttpAuthenticationMechanism`.
+`HttpServletRequest`、`HttpServletResponse` 和  `HttpMessageContext` 方法都接受相同的参数类型。它们都映射在由容器提供的 [JASPIC Server Auth Module](https://github.com/trajano/server-auth-modules) 接口所定义的对应方法上。当在 `Server Auth` 上调用 JASPIC 方法时，它将委托给您自定义的 `HttpAuthenticationMechanism`。
 
-##### Listing 8. Custom HttpAuthenticationMechanism implementation
+##### 清单 8. 自定义 HttpAuthenticationMechanism 的实现
 
 ```
 @ApplicationScoped
@@ -205,29 +205,29 @@ public class CustomAuthenticationMechanism implements HttpAuthenticationMechanis
 }
 ```
 
-## Method execution during an HTTP request
+## 在 HTTP 请求期间执行方法
 
 During an HTTP request, methods on the `HttpAuthenticationMechanism` implementation are called at fixed moments. Figure 1 shows when each method is called in relation to methods on `Filter` and `HttpServlet` instances.
 
 ##### Figure 1. Method call sequence
 
-![Method call sequence](https://www.ibm.com/developerworks/java/library/j-javaee8-security-api-2/MethodCallSequence.png)
+![方法调用顺序](https://www.ibm.com/developerworks/java/library/j-javaee8-security-api-2/MethodCallSequence.png)
 
-The `validateRequest()` method is invoked before the `doFilter()` or `service()` methods, and in response to calling `authenticate()` on the `HttpServletResponse` instance. The purpose of this method is to permit a caller to authenticate. To assist this action, the method has access to the caller's `HttpRequest` and `HttpResponse` instances. It can use these to extract authentication information for the request. It may also write to the HTTP response in order to redirect the caller to an OAuth provider. Following authentication, it can use the `HttpMessageContext` instance to advise the authentication state.
+在执行 `doFilter()` 或 `service()` 方法之前调用 `validateRequest()` 方法，并在 `HttpServletResponse` 实例上调用 `authenticate()`。此方法的目的是允许调用方进行身份验证。为了进行这个操作，方法应该拥有调用方 `HttpRequest` 和 `HttpResponse` 实例的访问权限。它可以使用这些来获取请求的身份验证信息，也可以为了调用方重定向到 OAuth 提供者而进行写入操作。完成身份验证之后，它可以使用 `HttpMessageContext` 实例来告知身份验证的状态。
 
-The `secureResponse()` method is called after `doFilter()` or `service()`. It provides post-processing functionality on a response generated by a servlet or filter. Encryption is a potential use for this method.
+在执行 `doFilter()` 或者 `service()` 之后调用 `secureResponse()` 方法。它在 servlet 或 过滤器生成的响应上提供后置处理功能。加密是该方法的潜在功能。
 
 The `cleanSubject()` method is called following a call to the `logout()` method on an `HttpServletRequest` instance. This method also can be used to clear state related to user after a logout event.
 
-The `HttpMessageContext` interface has methods that an `HttpAuthenticationMechanism` instance can use to communicate with the JASPIC `ServerAuthModule` that invoked it.
+`HttpMessageContext` 接口有一个 `HttpAuthenticationMechanism` 实例可以用来与调用它的 `ServerAuthModule` 进行通信的方法。
 
-## Custom example: Authentication with cookies
+## 自定义示例：使用 cookie 进行身份验证
 
-As I previously mentioned, you’ll usually write a custom implementation in order to provide functionality not available from the built-in options. One example would be using cookies in your authentication flow.
+正如我之前提及的那样，您通常会编写一个自定义实现来提供内置选项中不可用的功能。一个示例是，在身份验证流中使用 cookie。
 
-At the class level, you may use the optional `@RememberMe` annotation to effectively "remember" a user authentication and apply it automatically with every request.
+在类的级别中，您可以使用可选的 `@RememberMe` 注解来有效地“记住”用户身份验证，并在每个请求中自动应用它。
 
-##### Listing 9. Use @RememberMe on a custom HttpAuthenticationMechanism
+##### 清单 9. 在自定义的 HttpAuthenticationMechanism 中使用 @RememberMe
 
 ```
 @RememberMe(
@@ -237,66 +237,66 @@ At the class level, you may use the optional `@RememberMe` annotation to effecti
 public class CustomAuthenticationMechanism implements HttpAuthenticationMechanism { … }
 ```
 
-This annotation has eight configuration options, all of which have sensible defaults, so you don’t have to implement them manually:
+这个注解有 8 个配置选项，每一个选项都有合理的默认值，因此您不必手动实现它们：
 
-*   **`cookieMaxAgeSeconds`** sets the life of the “remember me” cookie.
-*   **`cookieMaxAgeSecondsExpression`** is the EL version of cookieMaxAgeSeconds.
-*   **`cookieSecureOnly`** specifies that the cookie should only be accessed via secure means (HTTPS).
-*   **`cookieSecureOnlyExpression`** is the EL version of cookieSecureOnly.
-*   **`cookieHttpOnly`** indicates that the cookie should be sent with HTTP requests only.
-*   **`cookieHttpOnlyExpression`** is the EL version of cookieHttpOnly.
-*   **`cookieName`** set the cookie’s name.
-*   **`isRememberMe`** switches "remember me" on or off.
-*   **`isRememberMeExpression`** is the EL version of isRememberMe.
+*   **`cookieMaxAgeSeconds`** 设置 “remember me” cookie 的生命周期。
+*   **`cookieMaxAgeSecondsExpression`** 是 cookieMaxAgeSeconds的 EL 版本。
+*   **`cookieSecureOnly`** 指定只能通过安全方法（HTTPS）访问 cookie。
+*   **`cookieSecureOnlyExpression`** 是 cookieSecureOnly 的 EL 版本。
+*   **`cookieHttpOnly`** 表示只有 HTTP 请求才能发送 cookie。
+*   **`cookieHttpOnlyExpression`** 是 cookieHttpOnly 的 EL 版本。
+*   **`cookieName`** 设置 cookie 的名称、
+*   **`isRememberMe`** "remember me" 的开关。
+*   **`isRememberMeExpression`** 是 isRememberMe 的 EL 版本。
 
-The `RememberMe` functionality is implemented as an _interceptor binding_. The container will intercept calls to `validateRequest()` and `cleanSubject()` methods. When the `validateRequest()` method is called on an implementation that includes a `RememberMe` cookie, it will attempt to authenticate the caller. If successful, the `HttpMessageConext` will be notified about a login event; otherwise the cookie will be removed. Intercepting the `cleanSubject()` method simply removes the cookie and completes the logout request.
+`RememberMe`功能被作为**拦截器绑定**而实现。容器将拦截对 `validateRequest()` 和 `cleanSubject()` 方法的调用。当对包含 `RememberMe` cookie 的实现调用，`validateRequest()`方法时，它将尝试对调用方进行身份验证。如果成功，通知 `HttpMessageConext` 登录事件；否则 cookie 将被移出。拦截 `cleanSubject()` 方法只需删除 cookie 并完成注销请求。
 
-## Conclusion to Part 2
+## 第二部分结论
 
-The new `HttpAuthenticationMechanism` interface is the heart of web authentication in Java EE 8. Its built-in authentication mechanisms support the three classic authentication methods specified in Servlet 4.0, and it is also very easy to extend the interface for custom implementations. In this tutorial you’ve learned how to use annotations to call and configure `HttpAuthenticationMechanism`’s built-in mechanisms, and how to write a custom mechanism for a special use case. I encourage you to test what you've learned with the quiz questions below.
+新的 `HttpAuthenticationMechanism` 接口是 Java EE 8 中 web 身份验证的核心。它内置的三种身份验证支持 Servlet 4.0 中指定的经典身份验证方法，而且也很容易为自定义实现进行接口扩展。在本教程中，您学习了如何使用注解来调用和配置  `HttpAuthenticationMechanism` 的内置机制，以及如何为特殊用例编写自定义机制。我鼓励您用下面的小测验来测试您所学到的东西。
 
-This article is the first of three deep dives introducing major components of the new Java EE 8 Security API. The next two articles will be hands-on introductions to the `IdentityStore` and `SecurityContext` APIs.
+这篇文章深入地介绍新的 Java EE 8 Security API 的三个主要组件中的第一个。接下来的两篇文章将介绍 `IdentityStore` 和 `SecurityContext` API 的亲自实践。
 
-## Test your knowledge
+## 测试您的掌握程度
 
-1.  What are the three default `HttpAuthenticationMechanism` implementations?
+1.  三种默认的 `HttpAuthenticationMechanism` 实现是什么？
     1.  `@BasicFormAuthenticationMechanismDefinition`
     2.  `@FormAuthenticationMechanismDefinition`
     3.  `@LoginFormAuthenticationMechanismDefinition`
     4.  `@CustomFormAuthenticationMechanismDefinition`
     5.  `@BasicAuthenticationMechanismDefinition`
-2.  Which two of the following annotations provoke form-based authentication?
+2.  一下哪两个注释会引发基于表单的身份验证？
     1.  `@BasicAuthenticationMechanismDefinition`
     2.  `@BasicFormAuthenticationMechanismDefinition`
     3.  `@FormAuthenticationMechanismDefinition`
     4.  `@FormBasedAuthenticationMechanismDefinition`
     5.  `@CustomFormAuthenticationMechanismDefinition`
-3.  Which two of the following are valid configurations for basic authentication?
+3.  下列哪两项是基于身份验证的有效配置？
     1.  `@BasicAuthenticationMechanismDefinition(realmName="user-realm")`
     2.  `@BasicAuthenticationMechanismDefinition(userRealm="user-realm")`
     3.  `@BasicAuthenticationMechanismDefinition(loginToContinue = @LoginToContinue)`
     4.  `@BasicAuthenticationMechanismDefinition`
     5.  `@BasicAuthenticationMechanismDefinition(realm="user-realm")`
-4.  Which three of the following are valid configurations for form-based authentication?
+4.  下列哪三项是基于表单的身份验证的有效配置？
     1.  `@FormAuthenticationMechanismDefinition(loginToContinue = @LoginToContinue)`
     2.  `@FormAuthenticationMechanismDefinition`
     3.  `@FormBasedAuthenticationMechanismDefinition`
     4.  `@FormAuthenticationMechanismDefinition(loginToContinue = @LoginToContinue(useForwardToLoginExpression = "${appConfigs.forward}"))`
     5.  `@FormBasedAuthenticationMechanismDefinition(loginToContinue = @LoginToContinue)`
-5.  During an HTTP request, in what order are methods called on the `HttpAuthenticationMechanism`, `Filter`, and `HttpServlet` implementations?
+5.  在 HTTP 请求期间，按照什么顺序，在 `HttpAuthenticationMechanism`、`Filter` 和 `HttpServlet` 实现上调用方法？
     1.  `doFilter()`, `validateRequest()`, `service()`, `secureResponse()`
     2.  `validateRequest()`, `doFilter()`, `secureResponse()`, `service()`
     3.  `validateRequest()`, `service()`, `doFilter()`, `secureResponse()`
     4.  `validateRequest()`, `doFilter()`, `service()`, `secureResponse()`
     5.  `service()`, `secureResponse()`, `doFilter()`, `validateRequest()`
-6.  How do you set the maximum age for a `RememberMe` cookie?
+6.  如何为 `RememberMe` cookie 设置最长有效时间？
     1.  `@RememberMe(cookieMaxAge = (units = SECONDS, value = 3600)`
     2.  `@RememberMe(maxAgeSeconds = 3600)`
     3.  `@RememberMe(cookieMaxAgeSeconds = 3600)`
     4.  `@RememberMe(cookieMaxAgeMilliseconds = 3600000)`
     5.  `@RememberMe(cookieMaxAgeSeconds = "3600")`
 
-[Check your answers.](http://www.ibm.com/developerworks/library/j-javaee8-security-api-2/quiz-answers.html)
+[检查您的答案](http://www.ibm.com/developerworks/library/j-javaee8-security-api-2/quiz-answers.html)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
