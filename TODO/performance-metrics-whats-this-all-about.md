@@ -4,7 +4,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/performance-metrics-whats-this-all-about.md](https://github.com/xitu/gold-miner/blob/master/TODO/performance-metrics-whats-this-all-about.md)
 > * 译者：[llp0574](https://github.com/llp0574)
-> * 校对者：[ppp-man](https://github.com/ppp-man)，[lampui](https://github.com/lampui)，[STLighter](https://github.com/STLighter)
+> * 校对者：[ppp-man](https://github.com/ppp-man)，[lampui](https://github.com/lampui)
 
 # 性能指标都是些什么鬼?
 
@@ -235,7 +235,7 @@ FP 事件在 Graphic Layer 进行绘制的时候触发，而不是文本、图�
 
 ![](https://cdn-images-1.medium.com/max/800/0*xWGGBiXh0pLiPeuk.)
 
-这个指标的定义和 TTCI 有一点不同。我们从头至尾来分析跟踪时间轴。在 FMP 发生后有一个 3 秒的安静窗口。这个时间已经足够说明页面对于用户来说是可交互的。但可能会有**长任务**在这个安静窗口期间或之后开始执行，它们可以被忽略。
+这个指标的定义和 TTCI 有一点不同。我们从头至尾来分析跟踪时间轴。在 FMP 发生后有一个 3 秒的安静窗口。这个时间已经足够说明页面对于用户来说是可交互的。但可能会有**独立任务**在这个安静窗口期间或之后开始执行，它们可以被忽略。
 
 > **独立任务** - 将 250ms 中执行的多个任务视为一个任务，当一个任务距离 FMP 很远才执行，且在这个任务前后均有一个 1 秒的安静期，则其为一个“独立任务”。举例来说，这个任务可能是第三方广告或者分析脚本。
 
