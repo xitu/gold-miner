@@ -2,140 +2,140 @@
 > * 原文作者：[Nash Vail](https://uxdesign.cc/@nashvail?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-you-can-use-simple-trigonometry-to-create-better-loaders.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-you-can-use-simple-trigonometry-to-create-better-loaders.md)
-> * 译者：
-> * 校对者：
+> * 译者：[DM.Zhong](https://github.com/zhongdeming428)
+> * 校对者：[Ruochen Li](https://github.com/liruochen1998)
 
-# How you can use simple Trigonometry to create better loaders
+# 怎样使用简单的三角函数来创建更好的加载动画
 
-Recently while researching on landing pages, I ran into a website. It’s great and super useful for the people who use it. Something on the site though caught my eye and made me a little uneasy.
+最近在研究登录页面的时候，我偶然进入了一个网站。这个网站对于使用的人而言非常棒也非常有用。这个网站上的一个小细节虽然吸引了我的注意力，但是我却不那么轻松。
 
 ![](https://cdn-images-1.medium.com/max/800/1*i-AvsEyZqhaQ9aK5huIv6A.gif)
 
-Nooooo!
+Nooooo！
 
-Noticing this, the jittery unnatural motion and the not so smooth movement of the constituent circles, gave me the idea to write this article.
+注意到这个，圆圈们不太自然的抖动以及不那么流畅的运动让我有了写这篇文章的想法。
 
-What we are going to do in this article is recreate a much smoother version of the loader you see above, using the basic concepts of trigonometry. I know it sounds weird, but believe me, it’s going to be fun. You’ll be surprised at how less code needs to be written for all of it to work. And no, you don’t need to know Trigonometry or be a Math genius to understand this article, I’ll explain every. thing.
+这篇文章所要做的一件事就是使用基础三角函数的概念重新创建一个上方加载动画的更加流畅的版本。我知道这听起来可能很奇怪，但是相信我，这将会非常有趣。你会被这个加载动画工作起来所需要的代码量之小所惊讶到。而且，弄懂这篇文章根本不需要你是一个数学天才，甚至不需要你懂三角函数，我会解释所有的一切。
 
-Here’s what we’ll be making!
+下面是我们要做的事情！
 
 ![](https://cdn-images-1.medium.com/max/800/1*DPzqs50u_Pl09acuSu1jpQ.gif)
 
-Smoooooth!
+很流畅！
 
-### Let’s Begin
+### 让我们开始吧
 
-The loader that we are going to make consists basically of three small circles moving in a periodic up and down motion, each, a little out of sync with the others.
+我们所要实现的加载动画实际上是由三个小圆周期性的上下运动所组成的，每一个的运动都与其它两个不同步。
 
-Let’s break it down into parts, first, we’ll get a single small circle moving in a smooth periodic up and down motion. We’ll figure the rest of the parts later.
+让我们把它分解成多个部分，首先，我们会得到一个小圆流畅地周期性地上下运动。我们稍对剩余的部分进行分析。
 
-You are always welcome to code along.
+欢迎你随时进行编码。
 
-#### 1. Positioning the circle
+#### 1. 给小圆定位
 
 ![](https://cdn-images-1.medium.com/max/1000/1*78yw0Ivdxm-bcrmSvbTYkg.png)
 
-All the above code does is draws a small circle at the centre of the `<svg>` element.
+上面的代码在 `<svg>` 元素的中间画了一个小圆。
 
 ![](https://cdn-images-1.medium.com/max/800/1*lcafSsoXqgg7mmAhB6jG9g.png)
 
-Fig. 1: Not an actual representation of the SVG output
+图1：SVG 输出的非实际示意图
 
-Let’s understand how it does that.
+让我们理解一下它是怎么实现的。
 
-The `width` and `height` property are exactly what you’d imagine them to be. The width and height of the `SVG` element, or the box, for simplicity.
+`width` 和 `height` 属性使我们想要的实际尺寸。简单起见，就是我们的 `SVG` 元素或者是盒子的宽度和高度。
 
 ![](https://cdn-images-1.medium.com/max/800/1*kHROytMDZzes7dvxRkPcfQ.png)
 
-Fig. 2: Width and height of the SVG box.
+图二：SVG 盒子的宽度和高度
 
-As a default, the `SVG` box has the traditional coordinate system with the origin at the top left and `x, y` values increasing towards right and bottom respectively. Also, every single unit corresponds to a pixel, such that the four corners of the box have appropriate coordinates in accordance with the `width` and `height` it’s given.
+默认情况下，`SVG` 盒子具有传统坐标系，它的原点在左上角， `x, y` 的值分别向右和向下递增。同样在默认情况下，每一个单位都对应一个像素，这样盒子的四个角落根据给定的 `width` 和 `height` 具有适当的坐标。
 
 ![](https://cdn-images-1.medium.com/max/800/1*_09TMPUcoWWmpJcMjvbqiA.png)
 
-Fig. 3: Coordinates of the SVG Box corners.
+图三：SVG 盒子的四个角以及它们的坐标
 
-The next step is very straightforward with elementary school mathematics in play. The centre of the box can be calculated to be `(width/2, height/2)` which is `(150, 75)` . We assign this value to `cx` and `cy` to position the circle at the centre.
+下一步非常简单地小学数学知识的运用。盒子中心点的坐标可以通过 `(width/2, height/2)` 计算出来为 `(150, 75)`。我们把这两个值分别赋给 `cx` 和 `cy` 以便于把小圆圈定位于盒子的中心。
 
 ![](https://cdn-images-1.medium.com/max/800/1*8PUOQSHkAnVtBB49TjM_Yw.png)
 
-Fig. 4: Calculating the centre.
+图四：计算盒子的中心点
 
-#### 2. Making the circle move
+#### 2. 让小圆圈动起来
 
-Our goal in this section is to make the circle move. But not just move in any form of motion. We need the circle to move in a _periodic up and down motion_.
+我们这一节的目的就是使小圆圈动起来。但是不仅仅是无规律的简单形式的任何运动。我们需要小圆圈做**周期性的上下运动**。
 
 ![](https://cdn-images-1.medium.com/max/800/1*UOk_1DHKmvN2CnbFryNmSg.png)
 
-Fig. 5: Expected movement.
+图五：预期的运动
 
-#### 2.1 The Math of periodicity
+#### 2.1 周期性运动中的数学知识
 
-Periodic is anything that occurs on a regular interval. The simplest example of periodicity is the rising and setting of the Sun every day. And time. Whatever time it is right now, say 6:30 PM , 24 hours later, it’ll again be 6:30 PM, and 24 hours from then will again be 6:30 PM. That’s regular, that’s something happening precisely at 24 hours intervals.
+周期性是指事情发生在有规律的时间间隔内。最简单的例子就是每天的日出和日落。不管现在是什么时候，比如下午 6:30，24 小时后还是下午 6:30，而且在那个时候的 24 小时之后仍然是下午 6:30。它很有规律，它恰好在 24 小时的时间间隔内发生。
 
-If it’s noon and the Sun is at its highest point in the sky, 24 hours later it’ll again be there. Or if it’s evening and the Sun is just touching the horizon, ready to set, 24 hours later, it’ll again be doing the same. Do you see where I am going with this?
+假设现在是中午，太阳位于天空中它一天中的最高点，24 小时候它仍然在那里。或者假如现在是晚上并且夕阳处在地平线，随时都会落下去，24 小时之后，它又在做着相同的事情。你明白我举这些例子是为了说明什么了吗？
 
 ![](https://cdn-images-1.medium.com/max/800/1*PsqRzgZxHJjN5ApMPx_hrA.png)
 
-Fig. 6: The rising and setting cycle of the Sun.
+图六：日出和日落的循环
 
-This is a very simple representation, some will say even inaccurate (scientifically) at some levels but I guess it still gets the point of the Sun repeating its position across, quite well.
+这是一个非常简单的示意图，有些人可能会说在某些层面（科学）上是不准确的，但我认为它仍然表示出了太阳重复位置的点，相当好。
 
-If we plotted the Sun’s vertical position in the sky against the time of the day, we could see the periodicity even more clearly.
+如果我们画出来一天中太阳在天空中的垂直位置，我们可能会发现其周期性愈发明显。
 
-To plot any 2-dimensional curve we need two values, `x` and `y`. In our case `time` [of the day] and `positionOfTheSun`. We collect a set of these values, put them on a graph and this is what we get.
+为了画出来一条二维曲线，我们需要两个值，`x` 和 `y`。在我们的例子中是[一天中的] `time` 和 `positionOfTheSun`（译者注：太阳的位置）。我们收集到了一系列的这样的值，把它们画在一张图上就得到了我们想要的。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*HEtKZZzLExSGpcOosYov8w.png)
 
-Fig. 7: The rising and setting cycle of the sun plotted on a graph.
+图七：把日出和日落的循环画在一张图上
 
-The vertical axis or the `y axis` is the Sun’s vertical position in sky and the horizontal axis or the `x axis` represents time. As the time entity progresses the “position of the Sun” entity changes its value and repeats the same set of values after 24 hours.
+垂直坐标轴或者说是 `y 轴`就是太阳在天空中的垂直位置；水平坐标轴或者说是 `x 轴`代表时间。随着时间的变化，太阳的位置也会发生变化，并且这样的值在 24 小时之后会重复出现。
 
-What we are capable of doing, now that we have knowledge of the graph, is figure out the Sun’s position in the sky even if we happen to be inside a cave. To see just how we will be able to do that, first off, let’s go ahead and give a name to our graph, `sunsVerticalPositionAt` .
+现在我们已经得到了有关太阳位置的知识图谱，这样即使我们处在黑暗的洞穴里，我们也可以知道此时此刻太阳在天空中的位置。要想知道我们是如何做到这点的，首先让我们继续，给我们的图表命名为 `sunsVerticalPositionAt`。
 
-Once we have that we can form an equation…
+一旦我们得到了有关太阳位置的知识图表，我们可以得到以下公式……
 
 `verticalPositionInTheSky = sunsVerticalPositionAt( [time] )`
 
-We just need to feed in time to our graph (or mathematically speaking, to our function) and we can figure the position of the sun. Here’s how.
+我们只需要把我们的时间代入图表（或者从数学的角度说，是函数），然后我们就可以得到太阳在天空中的位置。这就是怎样得到太阳位置的方法。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*MESaCB0KXypWR1A0CY4l6w.png)
 
-Fig. 8: Figuring out the position of the Sun using graph.
+图八：根据图表计算太阳的位置
 
-We pick a time at which we would like to know the Sun’s position (say t1), draw a straight vertical line, wherever it intersects the curve, we draw a straight horizontal line from the intersection to the `y` axis. That new intersection gives us the position of the Sun in the sky at that particular time. See we didn’t need to leave our cave!
+我们选一个想要知道太阳位置的时间（假设是 t1），画一条垂直的线，它会与图表中的曲线相交，经过这个交点我们再画一条水平的直线让它与 `y` 轴相交。水平直线与 `y` 轴的交点所代表的数值即为 t1 时刻太阳在天空中的位置。这样看来我们并不需要离开我们的洞穴就可以知道太阳在天空中的位置了。
 
-I guess we have squeezed the analogy enough, let’s go ahead and jump right into some Math. On removing the Sun and all the other decorations from the graph, this is what we get.
+我想我已经用了足够多的比喻来进行解释，接下来我们讲一些数学知识。把图表中的太阳和其它装饰都删除掉，就得到了我们所想要的。
 
 ![](https://cdn-images-1.medium.com/max/800/1*62AF8P78hlEWuGuimpIBPA.png)
 
-Fig. 9: Periodic curve.
+图九：周期曲线
 
-This graph represents periodicity, boldly. An entity (the vertical position of the Sun in our example) repeating its value as another entity (time in our example) progresses.
+这张图表很直观地表示了周期性。一个对象（在我们的例子中是 Sun 的垂直位置）重复其作为另一个对象的值（在我们的例子中是时间）。
 
-There are more than just a couple of periodic functions in Mathematics, but we’ll stick with the most basic and the hallmark of periodic functions and the one we’re going to use to create impeccable loaders, `y = sin(x)` also known as the Sine function.
+数学当中有许许多多周期性函数，但是我们仍然坚持周期函数最基本的特征，我们打算使用 `y = sin(x)` 函数作为创建最完美的加载动画的公式，也就是著名的正弦公式。
 
-Here’s the graph for `y = sin(x)`.
+下面是 `y = sin(x)` 的曲线图。
 
 ![](https://cdn-images-1.medium.com/max/800/1*vLZmqxh-hC_ouYa5VfxipA.png)
 
-Fig. 10: The Sine curve
+图十：正弦曲线
 
-Did something ring a bell? Do you see the resemblance between the equation here and the equation we had for figuring out the Sun’s position in the sky?
+你是不是突然发现了什么？你有没有发现正弦公式和计算太阳在天空中位置的公式的相似之处？
 
-We can pass in an `x` and get the value of `y`. Just like we were able to pass in `time` and figure the Sun’s position in the sky …without leaving our cave, okay I am killing the cave joke now.
+我们可以传入一个 `x` 值然后得到 `y` 的值。就像我们可以传入 `time` 然后计算出太阳在天空中的位置一样……不用离开我们的洞穴，好吧我再也不开这个洞穴的玩笑了。
 
-If you’re thinking what’s `[sin](https://en.wikipedia.org/wiki/Sine)`[/Sine](https://en.wikipedia.org/wiki/Sine)? Well, that’s just a name given to a function, like we gave the name of `sunsVerticalPositionAt` to our graph/function.
+如果你在思考什么是[正弦公式](https://en.wikipedia.org/wiki/Sine)？好吧，那就是一个函数的名字，就像我们给我们的图表（或者函数）命名为 `sunsVerticalPositionAt`。
 
-What’s to focus here is on `y` and `x` . Look how the value of `y` is changing as `x` progresses. (Can you relate this to our example of the Sun changing its vertical position in the sky as time progressed?)
+这里需要注意的是 `y` 和 `x`。看一下 `y` 是怎样随 `x` 的变化而变化的。（你可以把它和我们太阳在天空中垂直位置随时间变化的例子联系起来吗？）
 
-Also notice that the maximum value `y` reaches is 1 and the minimum value it could attain is -1. That’s just a feature, if you will, of the Sine function. The range of values, `y = sin(x)` produces is from -1 to +1.
+同样的可以注意到 `y` 的最大值是 1，最小值是 -1。这只是正弦函数的一个特征。`y = sin(x)` 的值域为 -1 到 +1。
 
-But this range can be changed by a simple operation. Which we’re going to do in a little bit. But before that, let’s take all that we’ve learned so far and get the circle moving however much we can.
+但是这个值域是可以改变的，我们将一点一点的做。但在这之前，让我们把目前所学的所有知识都运用起来，实现小圆圈的运动。
 
-#### 2.2 Math to code
+#### 2.2 从数学知识到代码
 
-So far we have the circle inside `<svg>...</svg>` and the circle has an id of `c` . Let’s go ahead and target this circle in JavaScript and make it dance, baby!
+现在我们已经在 `<svg>...</svg>` 中画了一个圆圈，并且这个圆圈的 ID 是 `c`。让我们继续，然后通过 JavaScript 让它舞动起来！
 
 ```
 let c = document.getElementbyId('c');
@@ -146,13 +146,13 @@ function animate() {
 }
 ```
 
-What’s happening in the code above is simple, first of all we are targeting the circle and storing it in a variable, `c`.
+上面代码所做的事情很简单，一开始我们获取到了圆圈并且把它存到了一个叫做 `c` 的变量中。
 
-Next, we are using `requestAnimationFrame` along with a function named `animate`. `animate` recursively calls itself using `requestAnimationFrame` to run whatever animation code is inside of it at 60 FPS (whenever possible). Read more about `requestAnimationFrame` [here](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame).
+接下来，我们使用了 `requestAnimationFrame` 函数和一个叫做 `animate` 的函数。`animate`通过 `requestAnimationFrame` 函数递归的调用它自己，以 60 FPS 的速度运行其中的任何动画代码（尽可能）。在[这里](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame)获取更多有关 `requestAnimationFrame` 的知识。
 
-All you need to know is that code inside `animate` at every call, describes a single frame in an entire animation. When it gets called next, recursively, a slight change in the frame is made. This is done over and over at a very fast speed (60 FPS) and that is what appears as an animation.
+你所需要知道的是每次 `animate` 被调用时，其内部的代码描述了动画中的单个帧。当它下一次被递归地调用的时候，这一帧就发生了一点点的变化。这一变化在高速下（60 FPS）不断的重复，然后就出现了我们所要的动画效果。
 
-It’ll make more sense as we go through the code.
+看一下代码理解得更清楚一些。
 
 ```
 let c = document.getElementById('c');
@@ -169,47 +169,47 @@ function animate() {
 }
 ```
 
-We have added 4 new lines of code. If you run this you’ll see the circle slowly moving at its centre like so.
+我们添加了四行代码。如果你运行这些代码，你就会看到圆圈会在中心点附近缓慢地移动，就像下面这样。
 
 ![](https://cdn-images-1.medium.com/max/800/1*wI9UjHHitmJ7BLOV0o_OUg.gif)
 
-Here’s what’s happening.
+下面是代码的解释。
 
-Once we had the coordinates of the circle’s centre, `cx` and `cy` , we were 50% there. All we need to do, is first of all, leave `cx` alone because we don’t want to change circle’s horizontal position. We need to add and subtract equal numbers periodically from `cy` to make the circle go up and down. And that’s exactly what we’re doing in the code.
+一旦我们知道了圆圈中心点的坐标， `cx` 和 `cy`，这里是盒子宽度和高度的一半。首先，我们把 `cx` 放在一边，因为我们不想改变小圆圈的水平位置。我们需要定期从 `cy` 添加或减去相同的数字以使得小圆圈上下移动。这也正是我们在代码中所做的。
 
 ![](https://cdn-images-1.medium.com/max/800/1*NAyM8tc_MbFvaYXBdrFi_g.png)
 
-Fig. 11: Changing y coordinate of the circle’s centre.
+图十一：改变小圆圈中心点的 y 坐标
 
-`centreY` stores in itself the value of circle’s center (75) so that numbers can be added to it or subtracted from it — like already mentioned — to change the circle’s vertical position.
+`centreY` 存储着小圆圈中心点的 Y 坐标的值（75），这样就可以从 `centreY` 增加或者减去一定的值 —— 就像已经提到的那样 —— 改变小圆圈的垂直位置。
 
-`currentAnimationTime` is a number initialized to 0, that dictates the speed of the animation, the more we increment it at every call, the faster the animation will happen. I have chosen the value of `0.15`, by trial and error because it looks like a good enough speed.
+`currentAnimationTime` 是一个被初始化为 0 的值，它决定了动画变化的快慢，我们在每次调用中给它增加的值越多，动画变化得越快。我通过尝试和错误选择了 `0.15` 这个值，因为它看起来像是一个足够好的动画速度。
 
-`currentAnimationTime` is the `x` in the Sine graph/function. As the value of `currentAnimationTime` increases, we pass it to `Math.sin` (an inbuilt JavaScript function for Sine), add the number that it generates to `centreY`…
+`currentAnimationTime` 是正弦函数的 `x` 值。当 `currentAnimationTime` 的值增加以后，我们把它传给 `Math.sin` 函数（一个内置的用于计算正弦值的 JavaScript 函数），然后把它经过 `Math.sin` 函数计算出来的值添加到 `centreY` 上……
 
 ![](https://cdn-images-1.medium.com/max/1000/1*dgAeM9JtvnYedY2AKBjMMg.png)
 
-…and then assign that number, using `[setAttribute](https://developer.mozilla.org/en/docs/Web/API/Element/setAttribute)` to `cy`.
+……然后使用 [setAttribute](https://developer.mozilla.org/en/docs/Web/API/Element/setAttribute) 把最后的结果赋值给 `cy`。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*YtD5kKXiSLrlIBmfzqbjzg.png)
 
-Like we already know, Sine can produce, for any value of `x` a number between `1` and `-1`. So, the values that get assigned to `cy` range from the minimum of `centreY — 1` to the maximum value of `centreY + 1`. And this causes the circle to vertically shake by a 1-pixel margin at its position.
+就像我们知道的那样，对于任意一个 `x` 值，都可以使用正弦函数产生一个 `-1` 到 `1` 之间的值。因此，`cy` 的值最小为 `centreY — 1`，最大为 `centreY + 1`。这就导致小圆圈在垂直方向上的抖动距离为 1 像素。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Nm51v_IikurNFWH_NG_iBg.png)
 
-Fig. 12
+图十二
 
-We want to increase that margin. Which means we need a bigger number than 1. How do we do that? Do we need a new function? No!
+我们想要增加这个抖动的间距。这就意味着我们需要一个比 1 更大的数字。我们该怎么做呢？我们需要一个新的函数吗？No！
 
-Remember we were about to do an operation right before the beginning of section 2.2? It’s very straightforward, all we need to do is multiply Sine by the number we want for the margin.
+还记得我们要在 2.2 节开始之前进行一个操作吗？ 这非常简单，我们需要做的就是将正弦乘以我们想要的边距。
 
-The operation of multiplying a function by a constant is called scaling. Notice how the graph changes its shape, also notice the effect of multiplication on maximum and minimum values of Sine.
+将函数乘以常数的操作称为缩放。请注意图形如何改变其形状，还有乘法对正弦的最大值和最小值的影响。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*refKM0MJrZ8yPsPruGuTWw.png)
 
-Fig. 13: Graph scaling
+图十三：图形缩放
 
-Now that we know this, let’s make necessary changes to our code.
+现在我们知道该怎么做了，让我修改一下代码。
 
 ```
 let c = document.getElementById('c');
@@ -229,11 +229,13 @@ function animate() {
 
 ![](https://cdn-images-1.medium.com/max/800/1*fZ1VREG9A02CeGdS1-q_ng.gif)
 
-This produces a very smooth up and down animation of the circle. Lovely isn’t it?
+这产生了一个非常流畅的小圆圈上下运动的动画。很可爱吧？
 
 What we just did is increased the **_amplitude_** of the Sine function by multiplying a number to it.
 
-The next thing that we’re going to do is add two new circles to either side of the original circle and make them move in the same fashion.
+我们所做的只是通过将函数乘以一个固定数字，增加了正弦函数的**振幅**。
+
+下一步我们要做的是添加两个小圆圈到原来小圆圈的两边，然后让它们以同样的方式动起来。
 
 ```
 <svg width="300" height="150">
@@ -243,15 +245,15 @@ The next thing that we’re going to do is add two new circles to either side of
 </svg>
 ```
 
-We have made a few changes here and also organized the code. First, notice the two new lines in bold. These are the two new circles, one positioned 30 pixels to the left (150 -30 = 120) and the other 30 pixels to the right (150 + 30 = 180).
+我们已经做了一点改变，这里的代码也已经被重构了。首先，请注意到两行新的粗体代码。它们是两个新的小圆圈，一个在原来小圆圈左边的 30 像素处（150 - 30 = 120），一个在原来小圆圈右边的 30 像素点处（150 + 30 = 180）
 
-Earlier, we had given the only circle an id of `c`, it worked because that was the only circle there. But now since we have a total of 3 circles it’ll be good to give them descriptive IDs. And that’s what we have done, the circles — from left to right — have IDs of `cLeft`, `cCentre` and `cRight`. Our original circle with the id of `c` is now `cCentre`.
+之前，我们给了唯一的那个小圆圈一个 ID 为 `c`，它能够正常运动因为只有一个小圆圈。但是现在我们已经有了三个小圆圈，最好给它们都取一个描述性很强的 ID。我们已经完成了这个工作，这些小圆圈从左到右 —— ID 为 `cLeft`，`cCentre` 和 `cRight`。原来的小圆圈的 ID 已经由 `c` 变成了 `cCentre`。
 
-Run the above code, and the following is what you get.
+运行以上代码，下面就是我们得到的效果。
 
 ![](https://cdn-images-1.medium.com/max/800/1*TToQCA0u__qkKLWoWlxa8A.gif)
 
-Good, but the new circles aren’t moving at all! Well, let’s get them moving.
+很好，但是新添加的小圆圈都没有动起来！好吧，现在要让它们动起来了。
 
 ```
 let cLeft= document.getElementById('cLeft'),
@@ -279,63 +281,63 @@ function animate() {
 }
 ```
 
-With a few extra lines of code that target the new circles and apply the same animation code to them as `cCentre`, this is what we get.
+只添加了寥寥几行代码就达到了我们的目标，给新的小圆圈都添加了和 ID 为 `cCentre` 的小圆圈一样的动画代码，下面是我们得到的效果。
 
 ![](https://cdn-images-1.medium.com/max/800/1*TWnBExRuU-h2V_2RY1f2Qg.gif)
 
-Whoa! the new circles are moving! but, what we have right now, in no way possible looks like the loader we set out to build.
+哇哦！新的小圆圈也动了起来！但是，我们现在得到的效果，根本不像是一个我们想要做出来的加载动画。
 
-Though the circles are moving periodically, the problem is that all the three circles are moving in sync. That’s not what we want. We want each consecutive circle to have some delay in motion. So it looks like the circle other than the one at the beginning is following the motion of the circle before it. Something like this.
+尽管小圆圈们周期性的动了起来，现在还是有问题，因为它们的动作是同步的。这不是我们想要的。我们希望每个连续的小圆圈在运动时都有一些延迟。所以看起来，除了第一个小圆圈之外，后面的小圆圈看起来像循环之前的小圆圈的运动。就像下面这样。
 
 ![](https://cdn-images-1.medium.com/max/800/1*zu3l5_VPcIk9nx1WyRUkTA.gif)
 
-Do you notice that each circle after the first is slightly out of sync from the one to its left. If you hide other two circles using the palm of your hand you’ll notice that the visible circle is still performing the same up and down motion we coded in section 2.2.
+你注意到了吗？每个小圆圈的运动都比它左边的小圆圈慢一步。如果你用手遮掉两个小圆圈，你会发现你看到的那个小圆圈的上下运动仍然跟我们在 2.2 节中实现的动画一样。
 
-Now to get the circles out of sync, spoiler, we just need to make a minuscule change to our code. But understanding how that minuscule change works is important. Let’s get to that.
+现在为了让小圆圈不同步，对其进行干扰，我们只需要对我们的代码做一个微小的改变。但了解这种微小变化如何起作用很重要。让我们来看看。
 
-If we graph the motion of each circle as in the previous figure, this is what the graphs would look like.
+如果我们用之前的时间 - 位置曲线图绘制每个圆圈的运动，如下图所示，这就是图形的样子。
 
 ![](https://cdn-images-1.medium.com/max/800/1*XSv5fY5aRYY0fdOsPK-9BQ.png)
 
-Fig. 14: Motion graph of constituent circles.
+图十四：三个小圆圈的运动图
 
-No surprises here, since we know that each circle is moving in the same fashion. Understand that since we’re using the Sine function to make this animation happen, all the curves above are simply graphs of the Sine function. Now to get these graphs out of sync, we need to understand the mathematical concept of shifting/translating graphs.
+这里没有惊喜，因为我们知道每个小圆圈都以相同的方式运动。理解一下它，因为我们使用正弦函数来实现这个动画，所以上面的所有曲线都只是正弦函数的图形。现在为了让这些图不同步，我们需要了解图象平移/图象变换的数学概念。
 
-A shift is a rigid translation in that it does not change the shape or size of the graph of the function. All that a shift will do is change the location of the graph. A shift can be horizontal or vertical. For our intents and purposes we’re interested in horizontal shifts (as you’ll see).
+平移是一种严格的变换，因为它不会改变函数曲线的形状或大小。所有这些转变将会改变曲线的位置。平移可以是水平或垂直的。对于我们的目的而言，我们对水平平移感兴趣（如您所见）。
 
-Notice how changing the value of `a` in the Gif below makes the `y=sin(x)` graph move horizontally.
+注意一下 Gif 中 `a` 值发生变化时，`y=sin(x)` 的曲线图是怎么水平移动的。
 
 ![](https://cdn-images-1.medium.com/max/800/1*XhmFUvhr_BEmEUhRJP9MvQ.gif)
 
-Fig. 15: Graph translation (Desmos)
+图十五：图象变换（示例）
 
-To understand how this works, let’s get back to the analogy of rising and setting of the Sun.
+为了理解其中的原理，让我重新回到日出和日落的比喻当中。
 
-What was our function again? `sunsVerticalPositionAt(t)`. That’s right! Alright, so we can pass any time to this function and get the Sun’s vertical position in the sky at that particular time. Therefore, say to get the Sun’s position in the sky at 9 AM, we can write `sunsVerticalPositionAt(9)`.
+我们的函数又是哪个？`sunsVerticalPositionAt（t）`。那就对了！好的，所以我们可以给函数传入时间参数，并在特定的时间获得太阳在天空中的垂直位置。因此，为了在上午9点得到太阳的位置，我们可以写 `sunsVerticalPositionAt（9）`。
 
-Now consider the function `sunsVerticalPositionAt(t — 3)`. Pay close attention here, whatever time (t) we pass into this new function (which takes in t-3 instead of just t) we’ll get the value of the Sun’s position 3 hours earlier than `t`.
+现在看一下 `sunsVerticalPositionAt(t — 3)`。认真注意一下，不管我们传入了什么时间（t）到函数中（这里使用 t - 3 代替 t），我们都会得到比 t 时刻早三个小时的时候，太阳在天空中的位置。
 
 ![](https://cdn-images-1.medium.com/max/800/1*83lHHMKTJHaq7cV9FjNAGQ.png)
 
-Fig. 16
+图十六
 
-Which means at t = 9 I’ll get the value at 6 at t = 12 I’ll get at 9 and so on. We have wired the function that way, or in other words made function return earlier values than what `t` is passed.
+这意味着 t = 9 的时候，我们得到的是 6 时刻的结果，而在 t = 12 的时候，我们得到的也是 9 时刻的结果。我们用这种方式连接函数，换句话说，函数返回的值比 `t` 传递的时刻更早。
 
-We can also say, we have shifted the graph of the function towards right on the x axis. Notice in the figure below that the old graph at `t = 6` gives us the value `B` . Once the graph is shifted, the same value `B` is returned by the shifted graph at `t = 9`.
+我们也可以说，我们将函数的图象在 x 轴向右进行了平移。注意到下面图象中，变换之前的图象在 `t = 6` 时刻的值为 `B`。当图象被平移后，`B` 会作为 `t = 9` 时刻的结果返回。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*0KgfprzfADpVVAv_whQfNQ.png)
 
-Fig. 17: Shifted graph.
+图十七：变换之后的图象
 
-Similarly if we _add_ 3 instead of subtracting, `sunsVerticalPosition(t + 3)` the graph will shift to the left, or in other words it will give values for 3 hours later in the day. Can you figure how?
+同样的，如果我们给参数**加 3** 而不是减三，`sunsVerticalPosition(t + 3)` 的图象会向左平移，或者换句话说，函数返回的值会比原来传入的时刻晚 3 小时。你明白这是为什么吗？
 
-With the knowledge of this concept in our heads what we can do now is shift the graphs that dictate the animation of the last two circles like so.
+随着这个知识的概念在我们头脑中的形成，我们现在可以做的就是进行图象变换以使得决定最后两个小圆圈动画的图形像下面这样。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*hQc9dC3z1XZnWcTHLbBxYg.png)
 
-Fig. 18
+图十八
 
-To do this we’ll have to make a very small in change our code.
+为了完成这个效果，我们需要小小地修改一下代码。
 
 ```
 let cLeft= document.getElementById('cLeft'),
@@ -363,31 +365,31 @@ currentAnimationTime += 0.15;
 }
 ```
 
-And that is it! We shifted the graphs that make the `cCenter` and `cRight` animate.
+现在就对了，我们平移了图象，使得 `cCenter` 和 `cRight` 代表的小圆圈符合要求地动了起来。
 
 ![](https://cdn-images-1.medium.com/max/800/1*xfAZYoKogskpdY16yPF2Hw.gif)
 
-There it is! our loader circles moving with absolute mathematical precision. High 5! You can always play around with different values, like increment to `currentAnimationFrame` to the control the speed or `amplitude` to control the offset and make the loader animate just the way you want it to.
+上图就是！我们加载动画的小圆圈按照绝对的数学精度运动。值得庆祝一下！你可以随时使用不同的值，例如增加 `currentAnimationFrame` 的值以控制动画速度或`幅度`来控制偏移量，并使加载动画按照您希望的方式进行动画运动。
 
-Nash, you’re crazy for writing such a long article explaining intricacies of a simple loader. No! you’re crazy for reading it this far. [Let’s be friends!](http://twitter.com/NashVail) Before you click away though I have a few updates to share :)
-
-* * *
-
-I have **my first ever online class** teaching Git and GitHub up on Skillshare! You can use [this link to get a free 2 months Skillshare membership](https://skl.sh/2riYNbD) (requires credit card and supports me 😸) or use [this link to view the class for free](https://skl.sh/2HPQVIR).
+纳什，你写这么长的文章解释一个简单的加载动画的错综复杂，你疯了吗？不！你为了阅读它而疯狂。[让我们成为朋友！](http://twitter.com/NashVail)在你点击之前，我还有几个更新共享:)
 
 * * *
 
-Do you use Sketch? Then you might find this library I created helpful for wire-framing!
+我有个**我的第一个在线课程**用于讲授 Git 和 GitHub 的使用技巧！你可以使用[这个链接获得免费的2个月Skillshare会员资格](https://skl.sh/2riYNbD)（需要信用卡支付来支持一下我😸），或者使用[这个链接来查看免费课程](https://skl.sh/2HPQVIR)。
+
+* * *
+
+你使用过 Sketch 吗？如果是的话那么你可能会发现我创建的这个库对 wire-framing 有帮助！
 
 ![](https://cdn-images-1.medium.com/max/800/1*BJw94iuZPiGlf10DVaaF4A.png)
 
-[Check out Wireframe.sketch.](https://github.com/nashvail/Wireframe.sketch)
+[签出 Wireframe.sketch.](https://github.com/nashvail/Wireframe.sketch)
 
 * * *
 
-At last, would it be ok if I sent you an email whenever I create/write/teach something that I think might be helpful to you? Let me know your email address. No Spam ever, that’s a promise.
+最后，当我创作/写作/教授某些我认为可能对你有帮助的东西时，我可以向你发送一封电子邮件吗？让我知道你的电子邮件地址。没有垃圾邮件，这是我的承诺。
 
-_Thanks again for reading! Have a good one!_
+**再次感谢您的阅读！祝您每天愉快！**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
