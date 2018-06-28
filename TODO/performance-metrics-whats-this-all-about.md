@@ -18,7 +18,7 @@ PWM’s 都是些什么，我们为什么需要它们？
 
 此前我们有两个主要的点（事件）来测量性能：
 
-`DOMContentLoaded` — 页面加载完成但脚本文件刚刚开始执行时触发（译者注：这里指初始的HTML文档加载并解析完成，但不包括样式表、图像和子框架的加载完成，参考[MDN DOMContentLoaded事件](https://developer.mozilla.org/zh-CN/docs/Web/Events/DOMContentLoaded)）。
+`DOMContentLoaded` — 页面加载完成但脚本文件刚刚开始执行时触发（译者注：这里指初始的 HTML 文档加载并解析完成，但不包括样式表、图像和子框架的加载完成，参考 [MDN DOMContentLoaded 事件](https://developer.mozilla.org/zh-CN/docs/Web/Events/DOMContentLoaded)）。
 
 `load` 事件在页面完全加载后触发，此时用户已经可以使用页面或应用。
 
