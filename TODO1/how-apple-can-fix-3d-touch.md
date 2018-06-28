@@ -2,8 +2,8 @@
 > * 原文作者：[Eliz Kılıç](https://medium.com/@eliz_kilic?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-apple-can-fix-3d-touch.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-apple-can-fix-3d-touch.md)
-> * 译者：Wangalan30
-> * 校对者：liruochen1998
+> * 译者：[Wangalan30](https://github.com/Wangalan30)
+> * 校对者：[liruochen1998](https://github.com/liruochen1998)
 
 # 苹果公司如何修复 3D Touch
 
