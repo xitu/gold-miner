@@ -2,87 +2,87 @@
 > * 原文作者：[Spencer Brown](http://spencer.sx/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/to-yarn-and-back-again-npm.md](https://github.com/xitu/gold-miner/blob/master/TODO1/to-yarn-and-back-again-npm.md)
-> * 译者：
+> * 译者：[DM.Zhong](https://github.com/zhongdeming428)
 > * 校对者：
 
-# To Yarn and Back (to npm) Again
+# 将项目迁移到 Yarn 然后又迁回到 npm
 
-Last year, [we decided to move all of our JavaScript projects from npm to Yarn](https://mixmax.com/blog/yarn-ifying-mixmax).
+去年，[我们决定将所有 JavaScript 项目从 npm 迁移到 Yarn](https://mixmax.com/blog/yarn-ifying-mixmax)。
 
-We did so for two primary reasons:
+之所以这样做，有以下两个主要原因：
 
-*   `yarn install` was 20x faster than `npm install`. `npm install` was taking upward of 20 minutes in many of our larger projects.
-*   Yarn's dependency locking was singificantly more reliable than npm's.
+*   `yarn install` 比 `npm install` 快 20 倍。`npm install` 在我们的一些大型项目中往往需要消耗 20 分钟。
+*   Yarn 的依赖锁定比 npm 的更加可靠。
 
-Check out last year's blog post (linked above) for more details.
+查看去年的一篇博客（链接在上方给出了）可以了解更多。
 
-## 13 months with Yarn
+## 使用 Yarn 的 13 个月
 
-Yarn solved the annoying problems we faced using npm, but it came with issues of its own:
+Yarn 解决了我们在使用 npm 时所遇到的一些烦人的问题，但是它自身也带来了许多的问题：
 
-*   Yarn has shipped [very bad regressions](https://github.com/yarnpkg/yarn/issues/3765), which made us afraid of upgrading.
-*   Yarn often produces `yarn.lock` files that are invalid when you run `add`, `remove`, or `update`. This results in engineers needing to perform tedious work to `remove` and `add` offending packages until Yarn figures out how to untangle itself so that `yarn check` passes.
-*   Frequently when engineers would run `yarn` after pulling down a project's latest changes, their `yarn.lock` files would become dirty due to Yarn [making optimizations](https://github.com/yarnpkg/yarn/issues/4379#issuecomment-332512206). Resolving this required engineers to make and push commits unrelated to their work. Yarn should perform these optimizations when commands update `yarn.lock`, not the next time `yarn` is run.
-*   `yarn publish` is unreliable (broken?) ([tracked issues #1](https://github.com/yarnpkg/yarn/issues/1619), [tracked issue #2](https://github.com/yarnpkg/yarn/issues/1182)), which meant that we had to use `npm publish` to publish packages. It was easy to forget that we needed to use npm in this special case and accidentally publishing with Yarn resulted in published packages being un-installable.
+*   Yarn 出现了[非常不好的回归](https://github.com/yarnpkg/yarn/issues/3765)，这让我们不太敢升级它。
+*   Yarn 经常会在你运行 `add`，`remove`，或者 `update` 的时候生成无效的 `yarn.lock` 文件。这就使得开发者在进行`移除`和`添加`有冲突的包时会做一些冗余的工作，直到 Yarn 找出解决方案以使得 `yarn check` 能够通过，才能改善这一现象。
+*   很多时候，当开发人员在拉取项目的最新变化后运行 `yarn` 时，他们的 `yarn.lock` 文件会变的很“脏”，因为 Yarn [进行了优化](https://github.com/yarnpkg/yarn/issues/4379#issuecomment-332512206)。为了解决这个问题，需要开发人员推送与他们工作无关的更改。Yarn 需要在使用命令 `yarn lock` 更新时立即优化，而不是在下一次使用 `yarn` 命令时。
+*   `yarn publish` 不是很可靠（很烂？）（[tracked issues #1](https://github.com/yarnpkg/yarn/issues/1619), [tracked issue #2](https://github.com/yarnpkg/yarn/issues/1182)），这意味着我们不得不使用 `npm publish` 来发布包。很容易忘记我们在这种特殊场景下需要使用 npm，并且意外地使用 Yarn 发布包导致发布的包无法安装。
 
-Unfortunately, none of these workflow-breaking issues were fixed during the 13 months we used Yarn.
+不幸的是，在我们使用 Yarn 的 13 个月里，这些工作流很破烂的问题一个都没有被修复。
 
-After a couple of especially painful weeks full of 15-minute Yarn untangling sessions, we decided to take a look at moving back to npm.
+在经历了特别痛苦的的几个星期（充满了 15 分钟的 Yarn 问题解决会议）后，我们决定回归到 npm。
 
 ## npm 6
 
-npm made significant improvements during the time we used Yarn in an attempt to catch up to Yarn's speed and locking - the issues that originally led us to Yarn. As annoying as our Yarn issues were, we couldn't afford to lose these benefits, so we first had to validate that npm had addressed our original issues.
+在我们使用 Yarn 的这段时间里，npm 做出了重大的改善，以期拥有 Yarn 的速度及其依赖锁定的可靠性 —— 这些问题曾使得我们转向了 Yarn。就像 Yarn 里面的那些烦人的问题一样，我们无法离开这些好处，因此我们首先需要验证一下 npm 是否解决了原来的那些问题。
 
-We decided to trial the latest version of npm available at the time, `npm@​6.0.0`, since we wanted to take advantage of as many speed improvements and bug fixes as possible. `npm​@6.0.0` was [reportedly a relatively minor major update](https://github.com/npm/npm/releases/tag/v6.0.0-next.0), so we figured that using it wouldn't be dangerously risky. Strangely, `npm​@5.8.1` the version of npm we had tested prior to 6.0.0's release, failed to install dependencies on several of our engineers' machines (OS X Sierra/High Sierra, `node​@v8.9.3`) with various errors (eg [`cb() never called!`](https://github.com/npm/npm/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+cb+never+called)).
+我们决定尝试一下当前能够获取到的最新版本的 npm，`npm@​6.0.0`，因为我们想要利用尽可能多的速度改善和 bug 修复。据传 `npm​@6.0.0` 是一个[相对较小的重大更新](https://github.com/npm/npm/releases/tag/v6.0.0-next.0)，因此我们人为使用它不会冒很大的风险。不可思议的是，`npm​@5.8.1` 使我们在 6.0.0 发布之前测试过的版本，在我们许多开发工程师的机器上（OS X Sierra/High Sierra，`node​@v8.9.3`）安装依赖失败了，出现了许多错误（比如 [`cb() never called!`](https://github.com/npm/npm/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+cb+never+called)）。
 
-### Speed
+### 速度
 
-We were happy to find that in a trial of five samples per package manager, npm performed about the same as Yarn on average:
+我们很高兴地发现，在每个包管理器试用五个案例时，npm的平均成绩与 Yarn 相当：
 
-*   Yarn: `$ rm -rf node_modules && time yarn`: 126s
-*   npm: `$ rm -rf node_modules && time npm i`: 132s
+*   Yarn：`$ rm -rf node_modules && time yarn`：126s
+*   npm：`$ rm -rf node_modules && time npm i`：132s
 
-A step in the right direction. Our investigation continued :).
+在正确的方向上迈出了正确的一步。我们的调查试验还会继续 :)。
 
 ### Locking
 
-npm introduced [`package-lock.json`](https://docs.npmjs.com/files/package-lock.json) in `npm@​5.0.0` \- the npm-equivalent of Yarn's `yarn.lock`. [`npm shrinkwrap`](https://docs.npmjs.com/cli/shrinkwrap) can still be used to create [`npm-shrinkwrap.json`](https://docs.npmjs.com/files/shrinkwrap.json) files, but the use case for these files is a bit different per [npm's docs](https://docs.npmjs.com/files/shrinkwrap.json):
+npm 在 `npm@​5.0.0` 引入了 [`package-lock.json`](https://docs.npmjs.com/files/package-lock.json) 等价于 Yarn 中的 `yarn.lock`。[`npm shrinkwrap`](https://docs.npmjs.com/cli/shrinkwrap) 仍然可以被用于创建 [`npm-shrinkwrap.json`](https://docs.npmjs.com/files/shrinkwrap.json) 文件，但是根据 [npm 文档](https://docs.npmjs.com/files/shrinkwrap.json)的描述，这些文件的使用场景有了一些不同：
 
-> The recommended use-case for npm-shrinkwrap.json is applications deployed through the publishing process on the registry: for example, daemons and command-line tools intended as global installs or devDependencies. It's strongly discouraged for library authors to publish this file, since that would prevent end users from having control over transitive dependency updates.
+> 推荐的 npm-shrinkwrap.json 使用场景是通过发布过程在注册表中部署的应用程序：例如，用作全局安装或 devDependencies 的守护程序和命令行工具。对于库作者发布这个文件非常不鼓励，因为这会阻止最终用户控制传递依赖关系更新。
 
-`package-lock.json` files, on the other hand, [are not published with packages](https://docs.npmjs.com/files/package-lock.json). This is equivalent to how Yarn does not respect dependencies' `yarn.lock` files - the parent project manages its own dependencies and subdependencies (with the caveat that if libraries _do_ publish `npm-shrinkwrap.json` files when they shouldn't, you'll be stuck using their dependencies).
+`package-lock.json` 文件，另一方面，[不跟随包一起发布](https://docs.npmjs.com/files/package-lock.json)。这相当于 Yarn 如何不尊重依赖关系的 `yarn.lock` 文件 —— 父项目管理自己的依赖关系和子依赖关系（但要注意的是，如果库 **的确**在不应该的时候发布 `npm-shrinkwrap.json` 文件,那么您将会使用它们的依赖性）。
 
-#### Locking validation
+#### Locking 验证
 
-npm doesn't have an equivalent to Yarn's [`yarn check`](https://yarnpkg.com/lang/en/docs/cli/check/), but it looks like some folks ([like Airbnb](https://github.com/npm/npm/issues/17722#issuecomment-355454948)) use `npm ls >/dev/null` to check for installation errors such as missing packages.
+npm 没有与 Yarn 的 [`yarn check`](https://yarnpkg.com/lang/en/docs/cli/check/) 相对应的功能，但它看起来像一些人（如 Airbnb）使用 `npm ls> / dev / null` 来检查安装错误，如缺少软件包。
 
-Unfortunately that check counts peer dependency warnings as errors, which has prevented us from using it, since [we often fulfill peer dependencies via CDN](https://mixmax.com/blog/rollup-externals).
+不幸的是，检查将 peer 依赖警告视为错误，这阻止了我们使用它，因为[我们经常通过 CDN 实现 peer 依赖关系](https://mixmax.com/blog/rollup-externals)。
 
-npm recently introduced [`npm ci`](https://docs.npmjs.com/cli/ci), which fortunately provides some validation. `npm ci` ensures that `package-lock.json` and `package.json` are in sync as one form of validation. It also provides some other benefits - check out the documentation for details.
+npm 最近引入了 [`npm ci`](https://docs.npmjs.com/cli/ci)，很幸运它提供了一些验证功能。`npm ci` 确保了 `package-lock.json` 和 `package.json` 在同一验证形式下是同步的。它同样提供了一些其它好处 —— 查看文档了解更多。
 
-We never observed `install` inconsistencies when using npm previously (only Yarn seems to have these issues :)), so we figured that we would be safe using only `npm ci`.
+之前在使用 npm 时，我们从不将 `install` 视为前后矛盾的（似乎只有 Yarn 有这些问题 :)），因此我们认为只使用 `npm ci` 是安全的。
 
-### Yarn annoyances
+### 使用 Yarn 的烦恼
 
-In addition to catching up to Yarn's speed and locking guarantees, it seemed that npm did not have any of the issues that had been bothering us with Yarn!
+除了追上 Yarn 的速度和拥有 Yarn 依赖关系锁定的保证之外，npm 似乎没有任何使用 Yarn 时困扰我们的问题！
 
 ### Check, check, check
 
-`npm​@6.0.0` checked all of the boxes for us, so we decided to move forward with it!
+`npm​@6.0.0` 为我们检查了所有的盒子，所有我们决定以后继续使用它！
 
-After a successful 3-week trial in one of our services, we migrated the rest of our services and projects!
+在一个成功的对于我们的一个服务的三周试验之后，我们将剩余的其它服务和项目也迁移到了 npm！
 
-## Recommendations
+## 建议
 
 ### `deyarn`
 
-We've published an open-source module called [`deyarn`](https://github.com/mixmaxhq/deyarn) to help you convert your projects from Yarn to npm!
+我们已经发布了一个叫做 [`deyarn`](https://github.com/mixmaxhq/deyarn) 的开源模块，它可以帮助你将项目从 Yarn 迁移到 npm。
 
-### Using `engines` to enforce npm use
+### 通过 `engines` 强制使用 npm
 
-We recommend using [the `engines` option](https://docs.npmjs.com/files/package.json#engines) to help yourself avoid accidentally using Yarn when you want to use npm.
+我们推荐使用 [`engines` 选项](https://docs.npmjs.com/files/package.json#engines)，它可以让你避免在应该使用 npm 的时候却意外地使用了 Yarn 了。
 
-We've added a configuration like:
+我们已经添加了一个配置如下：
 
 ```
 {
@@ -93,13 +93,13 @@ We've added a configuration like:
 ```
     
 
-to all of the `package.json`s in our internal projects. `deyarn` (linked above) takes care of this for you :).
+对于你内部项目的所有的 `package.json` 而言。`deyarn`（链接在上方给出）会帮你管理 :)。
 
-### Try it out!
+### 试试它！
 
-We tested that this flow would work for our needs and we suggest you do too. If you need the absolute fastest package manager, then you may still find [Yarn to be best](https://www.google.com/search?q=yarn%20vs%20npm%20speed). But if you're looking to simplify your setup, we've found that npm 6 recaptures a critical balance between speed and reliability.
+我们测试过这个工作流能够满足我们的需求，并且我们也推荐你使用它。如果你需要一个极致快速的包管理器，然后你会发现 [Yarn 仍然是最佳之选](https://www.google.com/search?q=yarn%20vs%20npm%20speed)。但是如果你需要一个建立起来比较简单的包管理器，我们发现 npm 6 在速度与可靠性上保持了很好的平衡。
 
-[Want to help us build the future of communication using npm?](https://mixmax.com/careers)
+[想要帮助我们使用 npm 建立未来的社区吗？](https://mixmax.com/careers)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
