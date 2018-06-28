@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/design-types-7d75839a20ea.md](https://github.com/xitu/gold-miner/blob/master/TODO1/design-types-7d75839a20ea.md)
 > * 译者：[zhmhhu](https://github.com/zhmhhu)
-> * 校对者：[xujunjiejack](https://github.com/xujunjiejack),[osirism](https://github.com/osirism)
+> * 校对者：[xujunjiejack](https://github.com/xujunjiejack), [osirism](https://github.com/osirism)
 
 # 为什么给设计定义 UX、UI、CX、IA、IxD 和其他类型的头衔是愚蠢的行为
 
@@ -83,7 +83,7 @@
 
 * * *
 
-**最后，附上 “visual basic之父” 最近发布在 tweet 上的一句话。**
+**最后，附上“visual basic 之父” 最近发布在 tweet 上的一句话。**
 
 ![](https://cdn-images-1.medium.com/max/1000/1*2Wjbju8NISCNbyxuvZVKig.png)
 
