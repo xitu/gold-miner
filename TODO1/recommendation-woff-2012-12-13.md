@@ -3,7 +3,6 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/recommendation-woff-2012-12-13.md](https://github.com/xitu/gold-miner/blob/master/TODO1/recommendation-woff-2012-12-13.md)
 > * 译者：[zhmhhu](https://github.com/zhmhhu)
-> * 校对者：
 
 # WOFF文件格式 1.0
 
