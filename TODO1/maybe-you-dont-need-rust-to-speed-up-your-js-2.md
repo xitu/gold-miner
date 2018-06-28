@@ -562,7 +562,7 @@ exports.compareByOriginalPositionsNoSource =
 
 #### SpiderMonkey 性能断崖
 
-当我使用这段代码时，我还发现了 SpiderMonkey 中令人困惑的性能断崖现象：当我将预置内存缓冲区的大小从 4MB 增加到 64MB 来衡量重新分配的消耗时，基准测试显示当进行第 7 次迭代后性能突然下降了。
+当我使用这段代码时，我还发现了 SpiderMonkey 中令人困惑的性能断崖现象：当我将预置内存缓冲区的大小从 4 MB 增加到 64 MB 来衡量重新分配的消耗时，基准测试显示当进行第 7 次迭代后性能突然下降了。
 
 ![重新分配后](https://mrale.ph/images/2018-02-03/parse-sort-5-total.png)
 
