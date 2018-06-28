@@ -2,92 +2,92 @@
 > * 原文作者：[Slava Shestopalov](https://medium.muz.li/@shestopalov.v?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/design-types-7d75839a20ea.md](https://github.com/xitu/gold-miner/blob/master/TODO1/design-types-7d75839a20ea.md)
-> * 译者：
-> * 校对者：
+> * 译者：[zhmhhu](https://github.com/zhmhhu)
+> * 校对者：[xujunjiejack](https://github.com/xujunjiejack), [osirism](https://github.com/osirism)
 
-# Why UX, UI, CX, IA, IxD, and Other Sorts of Design Are Dumb
+# 为什么给设计定义 UX、UI、CX、IA、IxD 和其他类型的头衔是愚蠢的行为
 
-## How to stop setting up definitions for overkill terminology and start doing the job. An opinion.
+## 如何停止为过度使用的术语设置定义并开始工作。我的观点如下。
 
-What do you do? What title do you put on the resume and portfolio? Why these words? I invite you to an exploration of how design titles and directions are (not) connected with the real world. So, let’s take a look at the current state of things. I guess you’ve seen different attempts to distinguish between UX and UI, UX and CX, user experience and product design, and so on. And you might have seen schemes about designer types like UI and UX designer, UX and IxD designer, etc. They are adorable. Diagrams showing what is what have got extremely sophisticated over time.
+你在做什么？你在简历和作品集上会给自己取个什么头衔？为什么是这些头衔？我邀请你来研究一下设计的头衔和方向是如何与现实世界（不）相关的。所以，让我们来看看事物的当前状态。我想你已经了解过各种区分 UX 和 UI，UX 和 CX，用户体验和产品设计等各种设计头衔的方式。你可能已经看到了有关区分 UI 和 UX，UX 和 IxD 等设计师类型的图表，它们很华丽。随着时间的推移，用来展示不同设计头衔的图表变得越来越复杂。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*XWNVnfj2dLz6nv27Xs_6_Q.png)
 
-This is a vivid reflection of the phenomenon I’d like us to chew on. If you’ve ever googled such stuff, you’ve probably noticed they give few answers and don’t tell much about us — designers.
+这些生动反映了我想反复研究的现象，如果你曾经搜索过这样的东西，你可能已经注意到他们并没有给出答案，也没有告诉你太多我们这些人 —— 设计师 —— 的事
 
-Something significant is always missing in all these differentiations. Where is… value? Money? Social or business goal? If any measurable value is not taken into account, such diagrams can only serve a topic for designers’ snobbish chatter at 10 AM near the coffee machine. For the majority of people — people who do not live in the world of pixels, fonts, and canvases — it’s nonsense. And it surely seems twaddle to our clients.
+在所有这些差异化图表中总是会遗失一些重要的东西。做这些图表的价值在哪里？钱？社会目的还是商业目的？如果没有考虑到任何可衡量的价值，这些图表也只不过是为设计师提供了一个闲暇时刻的讨论话题而已。对于大多数人来说 —— 那些没有生活在像素、字体和画布世界的人 —— 这些都是无意义的东西。当然这对我们的客户来讲，似乎也是无意义的。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*Rd8N8AgupUMRaBJJ_txp8A.png)
 
-I remember time when I tried to “enlighten” clients and rolled my eyes at them when they confused design terminology. Now I know for sure who created so-called clients from hell — designers from hell. Such as me years ago. We are in the trapping pit we’ve dug. Difference between UX, CX, UI, IxD, etc. doesn’t ring non-designers a bell. And it doesn’t have to because the difference is theoretical.
+我记得当我试图“启发”客户，并在他们混淆了设计术语时将目光投向了他们。现在我确切地知道是谁从地狱创造了所谓的客户 —— 来自地狱的设计师。正如几年前的我一样。我们正处在我们挖掘的陷阱中。UX、CX、UI、IxD 等之间的差异不会引起非设计人员的注意。并不一定要注意这些差别，因为这种差别是理论上的。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*vviekrE3A_mbzN2YlX6msA.png)
 
-I have a hypothesis that the modern outbreak of creative design types and titles is a kind of resistance to stereotypes. Maybe we are adding descriptive words and replacing “designer” with “strategist”, “architect”, “analyst”, and “developer” to run away from “make it look sexy”. The latest trend is to call yourself a product designer or a product manager (whatever it means). Product has become the new UX these days. Isn’t it a vicious circle? People, whose titles “entrepreneur” and “CEO” are existing for decades, laugh at our constantly changing job naming.
+我有一个假设，即现代的创意设计类型和主题的爆发是一种对陈旧观念的抵制。也许我们添加描述性词语或者用 “策略师”，“建筑师”，“分析师” 和 “开发者” 取代 “设计师”是为了避免 “让它看起来性感。称自己为产品设计师或产品经理（不管它是什么意思）是一种新潮。最近产品已经成为了新的用户体验。这不是一个恶性循环吗？“企业家” 和 “首席执行官” 这种头衔已经存在了数十年，现在他们开始嘲笑我们不断变化的工作头衔。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*LVTK3hTwcAObaZ_A6pT6Bg.png)
 
-There is no matter what you call yourself and your approach if the result of work lacks tangible value. If a designer draws wireframes, prepares prototypes, conducts workshops, but cannot deliver a design _solution_ for a problem, he or she is anything but a designer.
+如果工作的结果缺乏有形的价值，那么无论你怎样称呼你自己和你的能力都没有关系。如果设计师绘制线框、准备原型、举办研讨会，但无法为问题提供设计**解决方案**，他或她就不是一个设计师。
 
-> **_Clients care about what you do only when you care about their business._**
+> **只有当你关心他们的业务时，客户才会关心你的工作。**
 
-So, what are designers supposed to do? Where is the balance between focusing on a narrow area or being in charge of all design activities? Where is the verge between drawing mockups and influencing the world behind the window? There is a popular idea that the T-shaped skillset is the best for a designer. It means a designer has deep competence some area and decent knowledge in the rest of design areas.
+那么，设计师应该做什么？侧重于狭窄区域还是负责所有设计活动，两者之间的平衡点在哪里？绘制模型和影响窗口后面的世界，它们的边界在哪里？有一种流行的观点认为，T 形技能对于设计师来说是最好的。这意味着设计师在某些领域具有深厚的专业知识，并且在其他设计领域具有一定的知识面。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*hK7ytbVyb-RZ15CfBODnbg.png)
 
-However, we are living in a weird age. There is a bunch of dick-shaped designers proud of knowing one narrow area and a trifle of neighboring ones. Such skills don’t allow to think strategically and keep the final value in mind.
+但是，我们生活在一个怪异的时代。有那么一群技能形状为“丁丁”类的设计师，他们只关注于某一狭小领域而对其他相关领域甚少了解。拥有这一特点的设计师在设计过程中会缺少战略性思考，无法考虑到最终价值。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*NWL3zO3SIvITHknl-TlDkA.png)
 
-I often hear, “Oh fuff, I don’t draw icons. I’m a UX designer. I pass my wireframes to a UI guy”. Or, “I pick the color palette. You’d better ask about the business model that girl at the whiteboard”. What’s next? There will be Blue Button Designers? (Do not confuse with Red Button Designers.) Flat Icon Architects? Customer Journey Map Strategists? Principal Sticky Note Peelers? Helvetica Poster Developers? To feel how grotesque it sounds try transforming some non-design job titles. Steel Hammer Carpenter, Motor Yacht Sailor, Asian Flavor Cook, Beretta Gun Soldier…
+我经常听到，“哦，天哪，我不画图标。我是 UX 设计师。我将我的框架图提交给做 UI 的家伙”。或者，“我是负责调色板的。商业模式的内容你最好去问下白板上的那个女孩。”接下来会怎么样？会有蓝色按钮设计师？（不要与红色按钮设计师混淆。）扁平化图标构建师？消费者体验地图策划师？便利贴收割机？Helvetica 海报开发人员？为了感受这些头衔是多怪诞，你可以尝试改变一些非设计职位。钢锤木匠，机动游艇水手，亚洲风味厨师，贝瑞塔枪士兵...
 
-> “UX/UI designer” sounds as awkward as “vegetable/carrot salad” or “vehicle/bus driver”.
+> “UX/UI 设计师”听起来像“蔬菜/胡萝卜沙拉”或“汽车/公交车司机”一样尴尬。
 
-And since design thinking is a hype nowadays, there is another problem. I call it em-dash-shaped designers. They attend dozens of design conferences and courses, try themselves a little bit in different directions but can not produce anything valuable and complex. Those guys like mentioning all the areas they pretend to know. For instance, UI/UX/Web/Mobile/Desktop Designer, Service/Digital/Product Designer/Manager.
+由于设计思维现在被大肆炒作，出现了另一个问题。我称之为技能形状为“破折号”类的设计师。他们参与了许多设计研讨会和课程，在不同的设计领域方向都有一些粗浅的了解，但却不能给出任何有价值且具有复合性的产出。例如，UI/UX/Web/移动终端/桌面终端 设计师，服务/数字/产品 设计师/经理。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*riMfPuh8foxeobts4Xgt8A.png)
 
-You may disagree, “It sounds cool in theory. But these buzzword titles are exactly what HRs and recruiters are looking for”. Well, this is right to a certain extent. And there is a point where professional dignity goes in. If it becomes trendy to call our job “Pixel Mover” or “Photoshop Operator”, will we put it on resumes? Of course, we are not there yet, but we are moving towards when conforming to trends.
+你可能会不同意，“理论上这听起来很酷。但是这些流行的头衔正是 HR 和招聘人员所追求的。”这在一定程度上是正确的。并且到某种程度上我们确实要考虑职业尊严。如果把我们的工作称为“像素移动器”或“Photoshop 操作员”是一种新潮的做法，我们还会把它放在简历上吗？当然，目前的情况还不会这么糟，但我们确实有在往这个情况发展的趋势。
 
-I think large companies have contributed to unteaching designers to be… designers. This zoo of designer and design types is the result of granular work distribution in big teams. Designers are doing their small parts and gradually unlearn to test them against the final goal. Throw stones at me, but the end-to-end design process is a must for any designer, although they can specialize in something. From a bird’s eye view, there is a universal design workflow.
+我认为，大公司在不把设计师培养成为设计师方面颇有贡献。设计师和设计类型的大集合是大团队进行细粒度工作分配的结果。设计师们习惯于负责自己的一小块部分，并逐渐忘记如何用最终目标来检验他们的结果。我的观点是，设计师可以专注于某个领域，但是必须从头到尾参与到设计过程中。从俯视的角度来看，有一个通用的设计工作流程。
 
-> Methods vary for every industry but the core is the same: research, ideation, validation, implementation.
+> 每个行业的方法各不相同, 但核心是相同的：研究、构思、验证、实施。
 
-If we call ourselves designers, I believe we should take responsibility for the whole product fate even doing a small portion of work at a time. If icons, wireframes, mockups, icons or prototypes are neat, but what users see is a disaster, designers haven’t done their work. Let me make myself clear. I don’t promote being a design generalist versus a design specialist. Just pointing out a professional misbalance and ambiguity we have nowadays. It seems design has the most unstable borders among all the jobs.
+如果我们称自己为设计师, 我相信我们应该对整个产品的命运负责, 即使一次只做一小部分的工作。如果图标、框架图、版面、图标或原型是整洁的, 但用户看到的是一场灾难, 那么设计者就还没有完成他们的工作。我在强调一遍。我不提倡成为一个设计通才与设计专家。只是指出我们现在存在的职业失衡和模糊。在所有工作中，各种设计职位有最不稳定的边界]。
 
-Now we can return to the questions I asked at the beginning. What are we? Why these words? And here is another interesting observation. Designers used to call themselves after _what_ they did. Present-day titles more and more reflect _how_ we work because there is not much difference between designing a mobile interface and a microwave oven. “If you can design a thing, you can design anything”, said Massimo Vignelli. Methodology is what matters a lot. What are the steps that guide us to good solutions? How can we measure their benefits? Businesswise, what helps to make more money?
+现在我们可以回到我在开始时提问的问题上。我们的职位称呼是什么？为什么用这些词？这里有另一个有趣的现象。设计师们常常以他们做了**什么**来给自己定头衔。现在，头衔越来越能够反映出我们是**如何**工作的, 因为设计一个手机界面和一个微波炉没有太大的区别。“只要你能设计一件东西，你就可以设计任何其他的东西”，方法论是非常重要的。什么是指导我们获得良好解决方案的步骤？我们如何衡量他们的价值？在商业上，什么可以帮助我们赚更多的钱？
 
 ![](https://cdn-images-1.medium.com/max/1000/1*bWGnsAWm-KdOdetYjO9nGw.png)
 
-We should be able to show the measurable value of what we consider is right. Sometimes designers propose solutions that don’t bring income immediately but attract loyal customers. Loyalty and reputation will bring money in the future. The task is to show how it’ll be possible. It’s like playing chess. The more steps ahead you think, the more credibility and trust you gain.
+我们应该展现我们认为正确的可衡量的价值。有时设计师提出的解决方案不能立即带来收入，但却可以吸引一些忠实的顾客。培养用户的忠诚和维护产品的声誉可以在未来帮助产品盈利。任务是展示这种结果将如何实现。这就像下棋。你想到的步骤越多，获得的声誉和信任就越多。
 
-ROI of design is one of the basic topics in our profession, and more and more I feel lack of it. Photoshop, Sketch, pixel perfection, customer journey maps, visual language don’t make us designers. The same way a hammer and a saw don’t make someone a carpenter. We are designers when we solve problems and contribute to something valuable.
+设计的投资回报率是我们这个行业的基本问题之一，而我越来越感觉到缺乏它。Photoshop、Sketch、pixel perfection、customer journey maps、visual language 不会让我们成为设计师。就像锤子和锯子不会让某人成为木匠一样。当我们解决了问题和贡献有价值的东西时我们才是设计师。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*weMdmdiR2hQCC_TIB07XSQ.png)
 
-There will always be people and situations that break the reputation of our profession. A popular meme says there will always be someone who can do it cheaper and worse. Fortunately, there are simple things we can do to support the positive image of designers.
+总会有人和事来破坏我们的职业声誉。有一个流行的段子说，总会有人能够做到更廉价、更糟糕。幸运的是，我们可以做很多简单的事情来支持设计师的正面形象。
 
-#### 1. Call your job clearly and concisely
+#### 1. 明确而简洁地声明你的工作
 
-After the decades of evolution, only the word “designer” has left unchanged. If you put any words before “designer” check whether they can stay relevant in ten years or so. And beware of referring to one particular tool or method because this makes you look limited. In all times serious, mature clients weren’t searching for wireframe-artists and button-creators. They need market-conquerors, problem-solvers, and money-multipliers. If you are one of them, you are at the helm of changes. Specializing in something is good until it becomes an obstacle for understanding the whole business.
+经过几十年的发展，只有“设计师”这个词保持不变。如果你在“设计师”之前写下任何文字，检查他们是否可以在十年左右时间内保持相关性。谨防提及某种特定的工具或方法，因为这会让你看起来能力有限。在任何时候，严肃的、成熟的客户都不会寻找框架图艺术家和按钮创作者。他们是需要可以征服市场、解决问题和为公司创造盈利的人。如果你是他们中的一员，你就掌控了变化。专门研究某些东西，直到它成为理解整个业务的障碍，是很好的做法。
 
-#### 2. Showcase not work, but the value added
+#### 2. 我们的工作不单是作品的展示，更重要的是增加产品价值
 
-It might turn out that many works are lacking tangible value. Oh, I know that from my own experience. Instead of “Designed look and feel for a financial app” try “2x speed-up of the sign-up to a financial app”. For the project “Design of a logistics VR concept” consider “VR concept that estimatedly can save up to 40% of the delivery cost”. Value can be both financial — earning or saving money — and social — making one’s life better. “I’ve done” is stronger and more result-oriented than “I did”.
+你可能会发现许多工作缺乏有形的价值。哦，我从我自己的经验中知道。尝试“将金融应用程序的注册增速提高 2 倍”，而不是“为金融应用程序设计更好的外观和体验”。对于“物流 VR 概念设计”项目，考虑“可节省高达 40% 的交付成本的 VR 概念”。价值可以是金融回报，增加收入或节省支出。也可以是社会回报，改善人们的生活。“我完成的”比“我做的”更强大，更强调结果。
 
-#### 3. Collect and create the proofs of design impact
+#### 3. 收集并创建设计影响结果的证据
 
-Clients will always be challenging our designs and questioning our proposals. And the bigger a project is, the more businesses risk when rely on unproven designs. So we should learn from the evidence of design impact on business and people and generate such evidence. One of the recent cases is Forrester’s study on how design thinking techniques have affected the economic performance of IBM.
+客户将永远挑战我们的设计工作并质疑我们的建议。而一个项目越大，依赖未经证实的设计就越容易冒险。因此，我们应该从设计对商业和人员的影响的案例中学习有用的东西并创造这种案例。最近的一个案例是 Forrester 的关于设计思维技术如何影响 IBM 经济绩效的研究。
 
-On the other hand, there are widely-spread myths about the value of design. It’s really hard to extract design from all the activities and say something like, “A week of designer’s work brings $10k income to our business.” One of popular fake facts states, “$1 invested in design brings $100 of income”. This idea is absent in the book it usually is associated with. The more we refer to such unproven factoids, the more come across as “artists”. It’s designers’ responsibility to replace myths with research data.
+另一方面，有一个关于设计价值的广泛流传的谬误。很难将设计从所有活动中单独剥离出来，并说出类似这样的话“设计师一周的工作可以为我们的业务带来 1 万美元的收入”。有一个广为流传的假消息指出，“在设计上投资1美元可以带来 100 美元的收入”。这个想法通常不会在与之相关的书中存在。我们提到的这些未经证实的事实越多，就越会走向“艺术家”的歧途。设计师的责任是用研究数据取代谬误。
 
 * * *
 
-_Instead of post scriptum — a recent tweet by “Father of Visual Basic”._
+**最后，附上“visual basic 之父” 最近发布在 tweet 上的一句话。**
 
 ![](https://cdn-images-1.medium.com/max/1000/1*2Wjbju8NISCNbyxuvZVKig.png)
 
-_Feel free to get in touch elsewhere:_ [_Dribbble_](https://dribbble.com/shestopalov)_,_ [_Behance_](https://www.behance.net/shestopalov)_,_ [_SlideShare_](https://www.slideshare.net/shestopalov)_,_ [_Instagram_](https://www.instagram.com/slava.shestopalov/)_._
+**随时联系：[_Dribbble_](https://dribbble.com/shestopalov)_、_ [_Behance_](https://www.behance.net/shestopalov)_、_ [_SlideShare_](https://www.slideshare.net/shestopalov)_、_ [_Instagram_](https://www.instagram.com/slava.shestopalov/)。**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
