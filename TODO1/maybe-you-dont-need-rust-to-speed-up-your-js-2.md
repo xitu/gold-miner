@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/maybe-you-dont-need-rust-to-speed-up-your-js-2.md](https://github.com/xitu/gold-miner/blob/master/TODO1/maybe-you-dont-need-rust-to-speed-up-your-js-2.md)
 > * 译者：[geniusq1981](https://github.com/geniusq1981)
-> * 校对者：[D-kylin ](https://github.com/D-kylin)
+> * 校对者：[D-kylin ](https://github.com/D-kylin)、[leviding](https://github.com/leviding)
 
 # 或许你并不需要 Rust 和 WASM 来提升 JS 的执行效率 — 第二部分
 
