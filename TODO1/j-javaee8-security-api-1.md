@@ -261,7 +261,7 @@ public class LiteAuthenticationMechanism implements HttpAuthenticationMechanism 
 
 ### SecurityContext 接口中的方法
 
-`SecurityContext` 接口提供了用于程序安全性的入口点，并且是可注入类型。它有五种方法（都默认为未实现），以下是方法的列表和用途：
+`SecurityContext` 接口提供了用于程序安全性的入口点，并且是可注入类型。它有五个方法（都默认为未实现），以下是方法的列表和用途：
 
 *   **Principal getCallerPrincipal();** 如果当前调用者未进行身份验证，则返回 null，否则返回特定于平台的主体，表明当前用户的名称已通过验证。
 *   **<T extends Principal> Set<T> getPrincipalsByType(Class<T> pType);** 从通过身份验证的调用者的主题中，返回给定类型的所有主体；如果未找到 `pType` 类型，或者当前用户未通过身份验证，则返回一个空集合。
