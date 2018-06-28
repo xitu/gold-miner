@@ -68,7 +68,7 @@ PWM’s 都是些什么，我们为什么需要它们？
 
 4. “**用户体验良好吗？**”
 
-我是否因没有出现滚动卡顿、动画卡顿、无样式内容闪烁和Web 字体文件加载缓慢等问题而感到惊喜？
+我是否因没有出现滚动卡顿、动画卡顿、无样式内容闪烁和 Web 字体文件加载缓慢等问题而感到惊喜？
 
 * * *
 
@@ -90,7 +90,7 @@ PWM’s 是一组用来帮助检测性能瓶颈的指标。除开 `load` 和 `DO
 
 ![First Paint of msn.com](https://cdn-images-1.medium.com/max/800/1*IuI-OeOiJByd_kbOnQ4T6A.png)
 
-为了弄明白它是如何工作的，我们以 Chromium 中 Graphic Layer 的底层实现作为例子（译者注：关于GraphicsLayer，可以参考[WEBKIT 渲染不可不知的这四棵树](https://juejin.im/entry/57f9eb9e0bd1d00058bc0a1b)或[无线性能优化：Composite](http://taobaofed.org/blog/2016/04/25/performance-composite/)中相关内容）。
+为了弄明白它是如何工作的，我们以 Chromium 中 Graphic Layer 的底层实现作为例子（译者注：关于GraphicsLayer，可以参考 [WEBKIT 渲染不可不知的这四棵树](https://juejin.im/entry/57f9eb9e0bd1d00058bc0a1b)或[无线性能优化：Composite](http://taobaofed.org/blog/2016/04/25/performance-composite/) 中相关内容）。
 
 ![Simplified Chromium Graphics Layer](https://cdn-images-1.medium.com/max/800/1*w0ejDtPxaRfJsyGRgoE02A.png)
 
@@ -229,7 +229,7 @@ FP 事件在 Graphic Layer 进行绘制的时候触发，而不是文本、图�
 
 ![](https://cdn-images-1.medium.com/max/800/0*6qzJAADPmBaNSwFw.)
 
-使用逆序分析，从追踪线的尾端开始看，发现页面加载活动保持了 5 秒的安静并且再无更多的长任务执行，得到了一段叫做**安静窗口**的时期。安静窗口之后的第一个长任务（从结束时间向前开始算）之前的时间点就是**TTCI**（译者注：这里是将整个时间线反转过来看的，实际表示的是安静窗口前，最接近安静窗口的长任务的结束时间）。
+使用逆序分析，从追踪线的尾端开始看，发现页面加载活动保持了 5 秒的安静并且再无更多的长任务执行，得到了一段叫做**安静窗口**的时期。安静窗口之后的第一个长任务（从结束时间向前开始算）之前的时间点就是 **TTCI**（译者注：这里是将整个时间线反转过来看的，实际表示的是安静窗口前，最接近安静窗口的长任务的结束时间）。
 
 **TTFI**
 
