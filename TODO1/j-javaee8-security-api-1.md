@@ -2,95 +2,95 @@
 > * 原文作者：[Alex Theedom](https://developer.ibm.com/author/alex.theedom)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/j-javaee8-security-api-1.md](https://github.com/xitu/gold-miner/blob/master/TODO1/j-javaee8-security-api-1.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Starrier](https://github.com/Starriers)
+> * 校对者：[JackEggie](https://github.com/JackEggie)、[maoqyhz](https://github.com/maoqyhz)
 
-# Get started with the Java EE 8 Security API — Part 1
+# 从 Java EE 8 Security API 开始 —— 第一部分
 
-## Java enterprise security for cloud and microservices platforms
+## 面向云和微服务平台的 Java 企业级安全
 
-Overview of the new HttpAuthenticationMechanism, IdentityStore, and SecurityContext interfaces
+新的 HttpAuthenticationMechanism、IdentityStore 和 SecurityContext 接口概述
 
-About this series:
+关于这个系列：
 
-The new and long-awaited [Java EE Security API (JSR 375)](https://jcp.org/en/jsr/detail?id=375) ushers Java enterprise security into the cloud and microservices computing era. This series shows you how the new security mechanisms simplify and standardize security handling across Java EE container implementations, then gets you started using them in your cloud-enabled projects.
+期待已久的 [Java EE Security API (JSR 375)](https://jcp.org/en/jsr/detail?id=375) 将 Java 企业级安全带入云计算和微服务的新纪元。本系列的文章将向您展示如何简化新的安全机制，以及 Java EE 跨容器安全的标准化处理，然后在启用云的项目中使用它们。
 
-Experienced Java™ developers know that Java does not suffer from a scarcity of Java security mechanisms. Options include the [Java Authorization for Container Contracts specification](https://jcp.org/aboutJava/communityprocess/mrel/jsr115/index3.html) (JACC), [Java Authentication Service Provider Interface for Containers](https://jcp.org/aboutJava/communityprocess/mrel/jsr196/index2.html) (JASPIC), and a plethora of third-party container-specific security APIs and configuration management solutions.
+经验丰富的 Java™ 开发者应该了解，Java 并不会受到缺乏 Java 安全机制的影响。可选的方案有 [Java 容器授权协议说明](https://jcp.org/aboutJava/communityprocess/mrel/jsr115/index3.html) （JACC），[Java 身份认证服务提供器](https://jcp.org/aboutJava/communityprocess/mrel/jsr196/index2.html) （JASPIC），以及大量第三方特定于容器的安全 API 和配置管理解决方案。
 
-The trouble has not been lack of options but the absence of an enterprise standard. Without a standard, there has been little motivating vendors to consistently implement core features such as authentication, to upgrade proprietary solutions for newer technologies such as context and dependency injection (CDI) and Expression Language (EL), or to stay current with security developments for cloud and microservices architectures.
+问题不在于缺乏选择，而在于缺乏企业标准。没有标准，导致几乎没有什么可以激励供应商始终如一地实现核心特性，比如，身份验证，像上下文和依赖注入（CDI）以及表达式语言（EL）那样独有解决方案的新技术更新，或者与云和微服务架构的安全发展保持同步。
 
-This series introduces the new Java EE Security API, starting with an overview of the API and its three primary interfaces: `HttpAuthenticationMechanism`, `IdentityStore`, and `SecurityContext`.
+本系列介绍了新的 Java EE Security API，首先会概述 API 及其三个主要接口：`HttpAuthenticationMechanism`、`IdentityStore` 和 `SecurityContext`。
 
-[Get the code](https://github.com/readlearncode/Java-EE-8-Sampler/tree/master/security-1-0)
+[获取代码](https://github.com/readlearncode/Java-EE-8-Sampler/tree/master/security-1-0)
 
-## A new standard for Java EE security
+## Java EE 新的安全标准
 
-The movement to develop a Java EE security specification was galvanized by community feedback in the 2014 [Java EE 8 survey](https://blogs.oracle.com/theaquarium/java-ee-8-survey-final-results). Simplifying and standardizing Java enterprise security was a priority for many survey respondents. Once formed, the JSR 375 expert group identified the following issues:
+Java EE 安全规范的开发得力于 2014 [Java EE 8 问卷调查](https://blogs.oracle.com/theaquarium/java-ee-8-survey-final-results)，社区的反馈推动了 Java EE 安全规范的开发步伐。简化和标准化 Java 企业级安全是许多调查对象优先考虑的事项。JSR 375专家组一旦成立，将确定以下问题：
 
-*   The various EJB and servlet containers comprising Java EE defined similar security-related APIs, but with subtly different syntax. For example, a servlet's call to check a user's role was `HttpServletRequest.isUserInRole(String role)`, while an EJB would call `EJBContext.isCallerInRole(String roleName)`.
-*   Existing security mechanisms like JACC were tricky to implement, and JASPIC could be difficult to use correctly.
-*   Existing mechanisms did not take advantage of modern Java EE programming features such as context and dependency injection (CDI).
-*   There was no portable way to control how authentication happened on the backend across containers.
-*   There was no standard support for managing identity stores or the configuration of roles and permissions.
-*   There was no standard support for deploying custom authentication rules.
+*   构成 Java EE 的各种 EJB 和 servlet 容器定义了类似的与安全相关的 API，但语法存在细微差别。例如，servlet 检查用户角色时，调用 `HttpServletRequest.isUserInRole(String role)`，而 EJB 则调用 `EJBContext.isCallerInRole(String roleName)`。
+*   实现像 JACC 这样的现有安全机制，困难重重，而 JASPIC 也很难被正确使用。
+*   现有机制无法充分利用现代 Java EE 的编程特性，例如上下文和依赖注入（CDI）。
+*   没有可移值性方法来控制如何在后端跨容器时，进行身份验证。
+*   对于管理标识存储或者角色和权限的配置，没有标准的支持。
+*   对于部署自定义身份验证规则，没有标准支持。
 
-These were the principal issues JSR 375 aimed to resolve. Simultaneously, the specification sought to enable developers to manage and control security themselves, by defining portable APIs for authentication, identity stores, roles and permissions, and authorizations across containers.
+这些是 JSR 375 旨在解决的主要问题。同时，该规范通过定义用于身份验证、身份存储、角色和权限以及跨容器授权的可移值性 API，促使开发者能够自行管理和控制安全性。
 
-The beauty of the Java EE Security API is that it provides an alternative way to configure identity stores and authentication mechanisms, but does not replace existing security mechanisms. The Java EE Security API empowers developers to enable security in Java EE web applications in a consistent and portable manner—with or without vendor-specific or proprietary solutions.
+Java EE Security API 的优点在于它提供了一种配置身份存储和身份验证机制的替代方法，但并不能取代现有的安全机制。Java EE Security API 允许开发人员以一致的和可移值的方式启用 Java EE web 应用程序的安全性 —— 无论是否具有特定于供应商的或者独有的解决方案。
 
-## What's in the Java EE Security API?
+## Java EE Security API 中有什么？
 
-Version 1.0 of the Java EE Security API includes a subset of the original draft proposal and focuses on technology that is relevant for cloud-native applications. Those features are:
+Java EE Security API 1.0 版本包含了初始提交草案的一个子集，而且侧重于本地云应用程序相关的技术。这些特性是：
 
-*   An API for authentication
-*   An identity store API
-*   A security context API
+*   用于身份验证的 API
+*   标识存储 API
+*   上下文安全的 API
 
-These features are brought together with new, standardized terminology for all Java EE security implementations. The remaining features, slated for inclusion in the next version of the Java EE Security specification, are:
+这些特性与所有 Java EE 安全实现的新的标准化术语结合在一起。剩余的特性（计划包含在下一个版本中）是：
 
-*   A password aliasing API
-*   A role/permission assignment API
-*   An API for authorization interceptors
+*   密码别名 API
+*   角色/权限分配 API
+*   授权拦截器 API
 
-## Secure web authentication
+## Web 安全认证
 
-The Java EE platform already specifies two mechanisms for authenticating users of web applications: [Servlet 4.0](https://jcp.org/en/jsr/detail?id=369) (JSR 369) provides a declarative mechanism that is suitable for general application configuration. For more robust authentication needs, [JASPIC](https://jcp.org/aboutJava/communityprocess/mrel/jsr196/index2.html) defines a service provider interface called `ServerAuthModule`, which supports the development of authentication modules to handle any credential type. Additionally, the [Servlet Container Profile](https://docs.oracle.com/cd/E19226-01/820-7695/gizel/index.html) specifies how JASPIC should be integrated with the servlet container.
+Java EE 平台已经指定了两种用于验证 Web 应用程序用户的机制：[Servlet 4.0](https://jcp.org/en/jsr/detail?id=369) (JSR 369) 提供适用于一般应用程序配置的声明式机制。对于健壮性有更高需求的场景，[JASPIC](https://jcp.org/aboutJava/communityprocess/mrel/jsr196/index2.html) 定义了一个叫作 `ServerAuthModule` 的服务提供者接口，它支持开发认证模块来处理任何凭证类型。此外，[Servlet 容器配置文件](https://docs.oracle.com/cd/E19226-01/820-7695/gizel/index.html)指定了如何将 JASPIC 与 servlet 容器集成。
 
-Both of these mechanisms are meaningful and effective, but each has its restrictions for web application developers.
+这两种机制都是有意义和有效的，但对于 web 应用程序开发者来说，每种机制都存在其自身的局限性。
 
-The servlet container mechanism is constrained to supporting only a small range of credential types defined by Servlet 4.0, and it fails to support complex interactions with callers. It also fails to provide a way for applications to establish that callers are authenticated against a desired identity store.
+Servlet 容器机制被限制为只支持 Servlet 4.0 定义的小部分凭据类型，而且它无法支持与调用方的复杂交互。它也无法为应用程序提供一种方法，以确定调用者是根据所需的标识存储进行身份验证的。
 
-Conversely JASPIC is very powerful and malleable, but it's also rather complicated to use. Coding an `AuthModule` and aligning it to the web container for authentication use can be tricky. On top of this, there is no declarative configuration for JASPIC, and no clear way to override a programmatically registered `AuthModule`.
+相反，JASPIC 非常优秀，而且有很好的延展性，但它的使用也相当复杂。编码 `AuthModule`，并且将其与 web 容器对齐以进行身份验证使用，可能会非常难以处理。除此以外，JASPIC 没有声明式配置，也没有明确的方式来重载注册 `AuthModule` 的编码方式。
 
-The Java EE Security API resolves some of these issues with a new interface, `HttpAuthenticationMechanism`. Essentially a simplified, servlet-container variant of the JASPIC `ServerAuthModule` interface, the new interface leverages existing mechanisms while alleviating their restrictions.
+Java EE Security API 通过一个新的接口 `HttpAuthenticationMechanism` 解决了其中一些问题。新接口本质上是 JASPIC `ServerAuthModule` 接口的一个简化版 servlet 容器变体，它利用了现有的机制，同时削弱了它们的限制。
 
-An `HttpAuthenticationMechanism` instance is a CDI bean that the container is responsible for making available for injection. Additional implementations of the `HttpAuthenticationMechanism` interface may be provided by the application or the servlet container. Note that `HttpAuthenticationMechanism` is only specified for the servlet container.
+`HttpAuthenticationMechanism` 实例是容器负责提供注入的 CDI bean。`HttpAuthenticationMechanism` 接口的其他实现可以由应用程序或 servlet 容器提供。注意，`HttpAuthenticationMechanism` 仅为 servlet 容器指定。
 
-## Support for Servlet 4.0 authentication
+## 对 Servlet 4.0 身份验证的支持
 
-A Java EE container must provide `HttpAuthenticationMechanism` implementations for three authentication mechanisms, which are defined in the Servlet 4.0 specification. The three implementations are:
+Java EE 容器必须为 Servlet 4.0 规范中定义的三种身份认证机制提供 `HttpAuthenticationMechanism` 实现。这三种实现是：
 
-*   Basic HTTP authentication (section 13.6.1)
-*   Form-based authentication (section 13.6.3)
-*   Custom-form authentication (section 13.6.3.1)
+*   基本 HTTP 身份验证（第 13.6.1 章节）
+*   基于表单的身份验证（第 13.6.3 章节）
+*   自定义表单身份验证（第 13.6.3.1 章节）
 
-Each implementation is triggered by the presence of its associated annotation:
+每个实现都由相关注解的存在触发：
 
 *   `@BasicAuthenticationMechanismDefinition`
 *   `@FormAuthenticationMechanismDefinition`
 *   `@CustomFormAuthenticationMechanismDefinition`
 
-Upon encountering one of these annotations, the container will instantiate an instance of the associated mechanisms and make it immediately available.
+当遇到这些注解之一时，容器会实例化相关机制的实例，并使其立即可用。
 
-In the new spec, it is no longer necessary to specify the authentication mechanism in the `web.xml` file between `<login-config>` elements, as was required by Servlet 4.0. In fact, the deployment process might fail —or at least ignore the `web.xml` configurations— if they are present when an HttpAuthenticationMechanism-based annotation is also present.
+在新规范中，不再需要像 Servlet 4.0 所要求的那样，在 `web.xml` 中的 `<login-config>` 元素之间指定身份验证机制。事实上，如果 `web.xml` 和基于 HttpAuthentication 机制的注解同时存在时，部署过程可能会失败 —— 至少要忽略 `web.xml` 配置。
 
-Let's take a look at examples of how each mechanism might be used.
+让我们看看每种机制的示例是如何运行的。
 
-### Basic HTTP authentication
+### 基本的 HTTP 身份验证
 
-The `@BasicAuthenticationMechanismDefinition` annotation provokes basic HTTP authentication as defined by Servlet 4.0. Listing 1 shows an example. The only configuration parameter is optional, and allows a realm to be specified.
+`@BasicAuthenticationMechanismDefinition` 注解触发 Servlet 4.0 定义的基本 HTTP 身份验证。清单 1 列举了一个示例。唯一的配置参数是可选的，而且允许指定 realm。
 
-##### Listing 1. Basic HTTP Authentication
+##### 清单 1. 基本的 HTTP 身份验证
 
 ```
 @BasicAuthenticationMechanismDefinition(realmName="${'user-realm'}")
@@ -100,15 +100,15 @@ The `@BasicAuthenticationMechanismDefinition` annotation provokes basic HTTP aut
 public class UserServlet extends HttpServlet { … }
 ```
 
-**What is a realm?**
+**什么是 realm？**
 
-A server resource can be partitioned into separate protected spaces. In this case, each will have its own authentication schema and authorization database, containing users and groups controlled by the same policy. This database of users and groups is known as a _realm_.
+服务器资源可以划分为单独的受保护控件。在这种情况下，每个用户都将拥有自己的身份验证模式和授权数据库，其中包含受同源策略控制的用户和组。这个用户和组的数据库称为 **realm**。 
 
-### Form-based authentication
+### 基于表单的身份验证
 
-The `@FormAuthenticationMechanismDefinition` annotation is used for form-based authentication. It has one required parameter, `loginToContinue`, which is used to configure a web application's login page, error page, and redirect or forwarding characteristics. In Listing 2 you can see that the login page is defined with a URI and the `useForwardToLoginExpression` is configured using an Expression Language (EL) expression. There is no need to pass any parameters to the `@LoginToContinue` annotation because reasonable defaults are provided by the implementation.
+`@FormAuthenticationMechanismDefinition` 注解用于基于表单的身份验证。它有一个必要的参数 `loginToContinue`，用于配置 web 应用程序的登录页面、错误页面和重定向或转发特性。在清单 2 中，您可以看到登录页面是用 URL 定义的，`useForwardToLoginExpression` 是使用表达式语言（EL）配置的。不需要向 `@LoginToContinue` 注解传递任何参数，因为实现会提供默认值。
 
-##### Listing 2. Form-based authentication
+##### 清单 2. 基于表单的身份验证
 
 ```
 @FormAuthenticationMechanismDefinition(
@@ -122,11 +122,11 @@ The `@FormAuthenticationMechanismDefinition` annotation is used for form-based a
 public class ApplicationConfig { ... }
 ```
 
-### Custom-form authentication
+### 自定义表单认证
 
-The `@CustomFormAuthenticationMechanismDefinition` annotation triggers built-in custom-form authentication. Listing 3 shows an example.
+`@CustomFormAuthenticationMechanismDefinition` 注解触发内置自定义表单身份验证。清单 3 给出了一个示例。
 
-##### Listing 3. Custom-form authentication
+##### 清单 3. 自定义表单认证
 
 ```
 @CustomFormAuthenticationMechanismDefinition(
@@ -140,34 +140,34 @@ The `@CustomFormAuthenticationMechanismDefinition` annotation triggers built-in 
 public class AdminServlet extends HttpServlet { ... }
 ```
 
-Custom-form authentication is intended to better align with JavaServer Pages (JSF) and related Java EE technologies. The `login.do` page is rendered and the username and password are entered and processed by the backing bean for the login page.
+自定义表单身份验证旨在更好地与 JavaServer Pages (JSF) 和相关的 Java EE 技术保持一致性。`login.do` 页面显示后，用户名和密码由登录页面的后台 bean 输入并处理。
 
-## The IdentityStore API
+## IdentityStore API
 
-An _identity store_ is a database that stores user identity data such as user name, group membership, and information used to verify credentials. The Java EE Security API provides an identity-store abstraction called `IdentityStore`. Akin to the `JAAS LoginModule` interface, `IdentityStore` is used to interact with identity stores in order to authenticate users and retrieve group memberships.
+**标识存储**是存储用户标识数据的数据库，如用户名、组成员和用于验证的凭据信息。Java EE Security API 提供了一个名为 `IdentityStore` 的抽象标识存储。类似于 `JAAS LoginModule` 接口，`IdentityStore` 用于与标识存储进行交互，以便对用户进行身份验证并检索组成员身份。
 
-As the specification is written, it is intended that `IdentityStore` is used by `HttpAuthenticationMechanism` implementations, but that isn't a requirement. `IdentityStore` can stand separate and be used by any other authentication mechanism. Nevertheless, using `IdentityStore` and `HttpAuthenticationMechanism` together enables an application to control the identity stores it uses for authentication in a portable and standard way, and is recommended for most use-case scenarios.
+正如规范所描述的，`IdentityStore` 被 `HttpAuthenticationMechanism` 的实现所使用，但这不是必须的， `IdentityStore` 可以独立存在，供任何其他身份验证机制使用。尽管如此，使用 `IdentityStore` 和 `HttpAuthenticationMechanism` 使应用程序能够以可移植和标准化的方式控制用于身份验证的身份存储，在大部分用例场景中，都推荐使用。
 
-The `IdentityStore` API includes an `IdentityStoreHandler` interface, which the `HttpAuthenticationMechanism` must delegate to in order to validate a user credential. The `IdentityStoreHandler` then calls on the `IdentityStore` instance. `Identity` store implementations are not used directly but rather are interacted with via the dedicated handler.
+`IdentityStore` API 包括一个 `IdentityStoreHandler` 接口，`HttpAuthenticationMechanism` 必须委托它来验证用户凭据。之后，`IdentityStoreHandler` 调用 `IdentityStore` 实例。`Identity` 存储实现不是直接使用的，而是通过专门的处理程序进行交互的。
 
-The `IdentityStoreHandler` can authenticate against multiple `IdentityStores` and return an aggregate result in the form of a `CredentialValidationResult` instance. This object may do as little as relay whether the credentials are valid or not, or it could be a rich object containing any of the following information:
+`IdentityStoreHandler` 可以针对多个 `IdentityStores` 进行身份验证，并且以 `CredentialValidationResult` 实例的形式返回聚合结果。无论凭据是否有效，该对象可能只具有传递凭据的作用，或者它可以是包含下述任何信息的丰富对象：
 
-*   `[CallerPrincipal](https://javaee.github.io/security-api/apidocs/javax/security/enterprise/CallerPrincipal.html)`
-*   A set of groups to which the principal belongs
-*   The caller's name or LDAP-distinguished name
-*   The caller's unique identifier from the identity store
+*   [`CallerPrincipal`](https://javaee.github.io/security-api/apidocs/javax/security/enterprise/CallerPrincipal.html)
+*   主体所属的一组集合
+*   调用者的名称或者 LDAP 可分辨的名称
+*   标识存储中调用方的唯一标识
 
-Identity stores are queried in order, determined by the priority of each `IdentityStore` implementation. The list of stores is parsed twice: first for authentication and then for authorization.
+标识存储按顺序进行查询，这取决于每个 `IdentityStore` 实现的优先级。存储列表被解析了两次：首先用于身份验证，然后用于授权。
 
-As a developer, you may implement your own lightweight identity store by implementing the `IdentityStore` interface, or you may use one of the built-in `IdentityStores` for LDAP and RDBMS. These are initialized by passing configuration details to the appropriate annotation—either `@LdapIdentityStoreDefinition` or `@DataBaseIdentityStoreDefinition`.
+作为开发者，您可以通过实现 `IdentityStore` 接口来实现自己的轻量级标识存储，或者您可以使用为 LDAP 和 RDBMS 内置的 `IdentityStores` 的其中一种。它们是通过将配置细节传递给适当的注解来初始化的 —— `@LdapIdentityStoreDefinition` 或者 `@DataBaseIdentityStoreDefinition`。
 
-### Configuring a built-in IdentityStore
+### 配置内置的 IdentityStore
 
-The simplest identity store is the _database store_. It is configured via the `@DataBaseIdentityStoreDefinition` annotation, as shown in Listing 4. The two built-in datastore annotations are based on the `[@DataStoreDefinition](https://docs.oracle.com/javaee/7/api/javax/annotation/sql/DataSourceDefinition.html)` annotation already available in Java EE 7.
+最简单的标识存储是**数据库存储**。它是通过 `@DataBaseIdentityStoreDefinition` 注解进行配置的。正如清单 4 所演示的那样，这两个内置的数据存储注解基于 Java EE 7 中已有的 [`@DataStoreDefinition`](https://docs.oracle.com/javaee/7/api/javax/annotation/sql/DataSourceDefinition.html) 注解。
 
-Listing 4 shows how to configure a database identity store. These configuration options are fairly self explanatory and should be familiar if you've ever configured a database definition.
+清单 4 演示了如何配置数据库身份存储。这些配置选项本身就进行了自我解释，而且如果您曾经配置过数据库定义，应该会很熟悉。
 
-##### Listing 4. Configuring a database identity store
+##### 清单 4. 配置数据库标识存储
 
 ```
 @DatabaseIdentityStoreDefinition(
@@ -182,11 +182,11 @@ Listing 4 shows how to configure a database identity store. These configuration 
 public class ApplicationConfig { ... }
 ```
 
-Note in Listing 4 that the priority is set to 10. This is used in case multiple identity stores are found and determines the iteration order relative to other stores. Lower numbers have higher priority.
+注意，清单 4 中的优先级要设置为 10。在发现多个标识存储并确定相对于其他存储的迭代顺序时使用。数目越少，优先级越高。
 
-The LDAP configuration is just as simple, as shown in Listing 5. If you have experience with LDAP configuration semantics you will find the options here familiar.
+LDAP 的配置如清单 5 所描述的那样，非常简单。如果您有 LDAP 语义配置方面的经验，您会发现这里的选项非常熟悉。
 
-##### Listing 5. Configuring an LDAP identity store
+##### 清单 5. 配置 LDAP 标识存储
 
 ```
 @LdapIdentityStoreDefinition(
@@ -199,13 +199,13 @@ The LDAP configuration is just as simple, as shown in Listing 5. If you have exp
 public class AdminServlet extends HttpServlet { ... }
 ```
 
-### Customizing IdentityStore
+### 自定义 IdentityStore
 
-Designing your own lightweight identity store is quite simple. You are required to implement the `IdentityStore` interface and at least the `validate()` method. There are four methods on the interface, all of which have default method implementations. The `validate()` method is the minimum required for a working identity store. It accepts an instance of `Credential` and returns an instance of `CredentialValidationResults`.
+设计您自己的轻量级标识存储非常简单。您需要实现 `IdentityStore` 接口，至少要实现 `validate()` 方法。接口上有四种方法，它们都有默认的实现方式。`validate()` 方法是运行标识存储所需的最小条件。它接受 `Credential` 实例，然后返回 `CredentialValidationResults` 实例。
 
-In Listing 6, the `validate()` method receives an instance of `UsernamePasswordCredential` containing login credentials to validate. It then returns an instance of `CredentialValidationResults`. If the simple configuration logic results in a successful authentication, this object is configured with the username and a set of groups to which the user belongs. If authentication fails, then the `CredentialValidationResults` instance contains only the status flag `INVALID`.
+在清单 6 中，`validate()` 方式接收一个包含要验证的登录凭据的 `UsernamePasswordCredential` 实例，然后返回一个  `CredentialValidationResults` 的实例。如果简单的配置逻辑促使身份验证成功，则使用用户名和用户所属组配置该对象。如果身份验证失败，那么 `CredentialValidationResults` 实例只包含状态标志 `INVALID`。
 
-##### Listing 6. A custom, lightweight identity store
+##### 清单 6. 定制化的轻量级标识存储
 
 ```
 @ApplicationScoped
@@ -220,11 +220,11 @@ public class LiteWeightIdentityStore implements IdentityStore {
 }
 ```
 
-Note that the implementation is annotated `@ApplicationScope`. This is required because the `IdentityStoreHandler` holds references to all `IdentityStore` bean instances managed by the CDI container. The `@ApplicationScope` annotation ensures that the instance is a CDI-managed bean, which is available to the entire application.
+注意，实现是基于 `@ApplicationScope` 注解的。这是必需的，因为 `IdentityStoreHandler` 保存对 CDI 容器管理的所有 `IdentityStore` bean 实例的引用。`@ApplicationScope` 注解确保实例是 CDI 管理的 bean，该 bean 实例对整个应用程序来说，都是可用的。
 
-To use your lightweight identity store, you inject the `IdentityStoreHandler` into a custom `HttpAuthenticationMechanism`, as shown in Listing 7.
+要使用您自己轻量级标识存储，您可以向自定义 `HttpAuthenticationMechanism` 注入 `IdentityStoreHandler`，就像清单 7 演示的那样。
 
-##### Listing 7. Injecting LiteWeightIdentityStore into a custom HttpAuthenticationMechanism
+##### 清单 7. 向自定义 HttpAuthenticationMechanism 注入 LiteWeightIdentityStore
 
 ```
 @ApplicationScoped
@@ -247,35 +247,35 @@ public class LiteAuthenticationMechanism implements HttpAuthenticationMechanism 
 }
 ```
 
-## The SecurityContext API
+## SecurityContext API
 
-`IdentityStore` and `HttpAuthenticationMechanism` combine powerfully for user authentication and authorization, but the declarative model is not enough by itself. _Programmatic security_ enables a web application to perform the checks required to grant or deny access to application resources, and the `SecurityContext` API provides this functionality.
+`IdentityStore` 和 `HttpAuthenticationMechanism` 将用户的身份验证和授权完美结合，但是自身的声明式模型尚未成型。**程序的安全性编码**使 web 应用程序能执行授权或拒绝访问应用程序资源所需的检查，`SecurityContext` API 提供了这一功能性需求。
 
-Currently, Java EE containers implement security context objects inconsistently. For example, the servlet container provides an `HttpServletRequest` instance on which the `getUserPrincipal()` method is called to obtain the `[UserPrincipal](https://docs.oracle.com/javase/8/docs/api/java/nio/file/attribute/UserPrincipal.html)` representing the user's identity. The EJB container then provides the differently named `EJBContext` instance, on which the same-named method is called. Likewise, if you want to test whether the user belongs to a certain role, you must call the method `isUserRole()` on the `HttpServletRequest` instance, and then call the `isCallerInRole()` on the EJBContext instance.
+目前，Java EE 容器在实现安全上下文对象的方式上并不一致。例如，servlet 容器提供一个 `HttpServletRequest` 实例，在该实例上调用 `getUserPrincipal()` 方法来获取表示用户身份的 [`UserPrincipal`](https://docs.oracle.com/javase/8/docs/api/java/nio/file/attribute/UserPrincipal.html)。EJB 容器提供了不同命名的 `EJBContext` 实例，在该实例上调用同名方法。同样的，如果需要测试用户是否属于某个角色，则必须在 `HttpServletRequest` 实例上调用 `isUserRole()` 方法，然后在 EJBContext 实例上调用 `isCallerInRole()`。
 
-**What is the security context?**  
+**什么是上下文安全**  
 
-In a Java enterprise application, the _security context_ provides access to security-related information associated with the current authenticated user. The goal of the SecurityContext API is to provide consistent access to an application's security context across all servlet and EJB containers.
+在 Java 企业级应用程序中，**上下文安全** 提供了对与当前经过身份验证的用户关联的安全相关信息的访问。SecurityContext API 的目标是在所有 servlet 和 EJB 容器中提供对应应用程序安全上下文的访问一致性。
 
-The new `SecurityContext` provides a consistent mechanism across Java EE containers for obtaining authentication and authorization information. The new Java EE Security specification mandates that the `SecurityContext` be available in the servlet and EJB container as a minimum. Server vendors may also make it available in other containers.
+新的 `SecurityContext` 提供了跨 Java EE 容器的一致性机制，用于获取身份验证和授权信息。新的 Java EE  Security 规范要求至少在 servlet 和 EJB 容器中使用 `SecurityContext`。服务器供应商也可以在使其在其他容器中可用。
 
-### Methods of the SecurityContext interface
+### SecurityContext 接口中的方法
 
-The `SecurityContext` interface provides an entry point for programmatic security and is an injectable type. It has five methods, none of which have default implementations. Here's a list of the methods and their purposes:
+`SecurityContext` 接口提供了用于程序安全性的入口点，并且是可注入类型。它有五个方法（都默认为未实现），以下是方法的列表和用途：
 
-*   **Principal getCallerPrincipal();** returns the platform-specific principal representing the name of the current authenticated user or null if the current caller is not authenticated.
-*   **<T extends Principal> Set<T> getPrincipalsByType(Class<T> pType);** returns all principals of the given type from the authenticated caller's subject; if neither the `pType` type is found or the current user is not authenticated then an empty set is returned.
-*   **boolean isCallerInRole(String role);** determines whether or not the caller is included in the specified role; if the user is not authorized it returns false.
-*   **boolean hasAccessToWebResource(String resource, String... methods);** determines whether or not the caller has access to the given web resource via the methods provided.
-*   **AuthenticationStatus authenticate(HttpServletRequest req, HttpServletResponse res, AuthenticationParameters param);**: Informs the container that it should start or continue an HTTP-based authentication conversation with the caller. Being dependent on the `HttpServletRequest` and `HttpServletResponse` instances, this method only works in the servlet container.
+*   **Principal getCallerPrincipal();** 如果当前调用者未进行身份验证，则返回 null，否则返回特定于平台的主体，表明当前用户的名称已通过验证。
+*   **<T extends Principal> Set<T> getPrincipalsByType(Class<T> pType);** 从通过身份验证的调用者的主题中，返回给定类型的所有主体；如果未找到 `pType` 类型，或者当前用户未通过身份验证，则返回一个空集合。
+*   **boolean isCallerInRole(String role);** 确定指定角色中是否包括调用方；如果未授权，则返回 false。
+*   **boolean hasAccessToWebResource(String resource, String... methods);** 确定调用方是否可以通过所提供的方法访问给定的 web 资源。
+*   **AuthenticationStatus authenticate(HttpServletRequest req, HttpServletResponse res, AuthenticationParameters param);**: 通知容器应该启动或与调用方继续以基于 HTTP 身份验证的方式进行会话。因为依赖于 `HttpServletRequest` 和 `HttpServletResponse` 实例，所以此方法仅在 servlet 容器中运行。
 
-We'll conclude with a quick look at using one of these methods to check a user's access to a web resource.
+我们将简要总结使用这些方法的其中之一来检查用户对 web 资源的访问。
 
-## Using SecurityContext: An example
+## 使用 SecutiytContext：示例
 
-Listing 8 shows how you would use the `hasAccessToWebResource()` method to test a caller's access to a given web resource for a specified HTTP method. In this case, the `SecurityContext` instance is injected into the servlet and used in the `doGet()` method, where the caller's access to the `GET` method of the servlet located at the URI `/secretServlet` is tested.
+清单 8 演示了如何使用 `hasAccessToWebResource()` 方法测试调用方对指定 HTTP 方法的给定 web 资源的访问。在这种情况下，将 `SecurityContext` 实例注入到 servlet 中，并在 `doGet()` 方法中使用，测试调用方 URI `/secretServlet` 的 servlet 的 `GET` 方法的访问。
 
-##### Listing 8. Web resource access tested for caller
+##### 清单 8. 调用方的 web 资源访问测试
 
 ```
 @DeclareRoles({"admin", "user", "demo"})
@@ -297,49 +297,49 @@ public class HasAccessServlet extends HttpServlet {
 }
 ```
 
-## Conclusion to Part 1
+## 第一部分的总结
 
-The new Java EE Security API successfully combines the power of existing authentication and authorization mechanisms with the ease of development developers expect from modern Java EE features and techniques.
+新的 Java EE Security API 成功地将现有身份验证和授权机制与开发者期望的现代 Java EE 特性和技术的易用性相结合。
 
-While the initial drive for this API was the need for a consistent and portable way to solve security-related problems, there are improvements yet to come. In future versions, the JSR 375 expert group intends to integrate APIs for password aliasing, role and permission assignment, and intercepting authorization—all features that did not make it into the spec's v1.0.
+尽管这个 API 的初始目标是寻求以一致性和可移值性的方式解决安全性方面的问题，但仍需继续改进。在未来的版本中，JSR 375 专家组打算集成用于密码别名、角色和权限分配以及拦截器授权的 API —— 这些是还没有被纳入规范 v1.0 中的特性。
 
-The expert group also hopes to integrate features such as secret management and encryption, which are vital for common use cases in cloud-native and microservices applications. The 2016 [Java EE Community survey](https://blogs.oracle.com/theaquarium/java-ee-8-community-survey-results-and-next-steps) additionally showed that OAuth2 and OpenID were voted the third-most important features for inclusion in Java EE 8. While time constraints ruled out these features for v1.0, there is a strong case and motivation for including these features in upcoming releases.
+同时，专家组也希望集成诸如密码管理与加密等特性，这些特性对于本地云和微服务应用程序中的常见使用至关重要。此外，2016 [Java EE 社区调查](https://blogs.oracle.com/theaquarium/java-ee-8-community-survey-results-and-next-steps)还表明 OAuth2 和 OpenID 被选为 Java EE 8 中包含的第三个重要特性。虽然时间的限制将这些特性排除在 v1.0 中，但是在即将发布的版本中，包含这些特性确实是有着不可忽视的理由和动机。
 
-You've had an overview of the basic features and components of the new Java EE Security API, and I encourage you to test what you've learned with the quick quiz below. The next article will be a deep dive into the `HttpAuthenticationMechanism` interface and its three authentication mechanisms supporting Servlet 4.0.
+您已经对新的 Java EE Security API 的基本特性和组件有了大致的了解，我鼓励您通过下面的快速测试来检测您所学的内容。下一篇文章将深入研究 `HttpAuthenticationMechanism` 接口及其支持的 Servlet 4.0 的三种身份验证机制。
 
-## Test your understanding
+## 测试您的理解
 
-1.  What are the three default `HttpAuthenticationMechanism` implementations?
+1.  三种默认的 `HttpAuthenticationMechanism` 实现是什么？
     1.  `@BasicFormAuthenticationMechanismDefinition`
     2.  `@FormAuthenticationMechanismDefinition`
     3.  `@LoginFormAuthenticationMechanismDefinition`
     4.  `@CustomFormAuthenticationMechanismDefinition`
     5.  `@BasicAuthenticationMechanismDefinition`
-2.  Which two of the following annotations will trigger the built-in LDAP and RDBMS identity stores?
+2.  以下哪两个注解将触发内置 LDAP 和 RDBMS 标识存储？
     1.  `@LdapIdentityStore`
     2.  `@DataBaseIdentityStore`
     3.  `@DataBaseIdentityStoreDefinition`
     4.  `@LdapIdentityStoreDefinition`
     5.  `@RdbmsBaseIdentityStoreDefinition`
-3.  Which of the following statements are true?
-    1.  The `IdentityStore` can only be used by implementations of `HttpAuthenticationMechanism`.
-    2.  The `IdentityStore` can be used by any built-in or bespoke security solution.
-    3.  The `IdentityStore` should only be accessed via injected implementations of the `IdentityStoreHandler`.
-    4.  The `IdentityStore` cannot be used by implementations of `HttpAuthenticationMechanism`.
-4.  What is the goal of the `SecurityContext`?
-    1.  To provide consistent access to security context across servlet and EJB containers.
-    2.  To provide consistent access to security context to only EJB containers.
-    3.  To provide consistent access to security context across all containers.
-    4.  To provide consistent access to security context to the servlet container.
-    5.  To provide consistent access to security context across EJB containers.
-5.  Why must `HttpAuthenticationMechanism` implementations be `@ApplicationScoped`?
-    1.  To ensure that it is a CDI-managed bean and available to the entire application.
-    2.  So that the `HttpAuthenticationMechanism` can be used at all application levels.
-    3.  So that there is one instance of the `HttpAuthenticationMechanism` for each user.
+3.  以下哪种说法是正确的？
+    1.  `IdentityStore` 只用于 `HttpAuthenticationMechanism` 的实现。
+    2.  `IdentityStore` 可用于任何内置或者定制的安全策略解决方案。
+    3.  `IdentityStore` 只能通过注入 `IdentityStoreHandler`的实现才可以访问。
+    4.  `IdentityStore` 无法通过 `HttpAuthenticationMechanism` 的实现来使用。
+4.  `SecurityContext` 的目标是什么？
+    1.  提供跨 servlet 和 EJB 容器上下文安全访问的一致性。
+    2.  只提供针对 EJB 容器上下文安全访问的一致性。
+    3.  提供对所有容器上下文安全访问的一致性。
+    4.  提供对 Servlet 容器上下文安全访问的一致性。
+    5.  提供跨 EJB 容器对上下文安全访问的一致性。
+5.  为什么 `HttpAuthenticationMechanism` 实现必须是 `@ApplicationScoped`？
+    1.  为了确保它是 CDI 管理的 bean，而且可以供整个应用程序使用。
+    2.  为了让 `HttpAuthenticationMechanism` 可以在所有应用程序级别上使用。
+    3.  为了让每个用户都有一个 `HttpAuthenticationMechanism` 实例。
     4.  `JsonAdapter`.
-    5.  This is an untrue statement.
+    5.  这不是正确的说法。
 
-[Check your answers.](https://www.ibm.com/developerworks/library/j-javaee8-security-api-1/quiz-answers.html)
+[检查您的答案](https://www.ibm.com/developerworks/library/j-javaee8-security-api-1/quiz-answers.html)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
