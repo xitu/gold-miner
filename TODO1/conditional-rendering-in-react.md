@@ -5,7 +5,7 @@
 > * 译者：[Dong Han](https://github.com/IveHD)
 > * 校对者：
 
-# 8 React 条件渲染方法
+# 8 React 条件渲染
 
 ![](https://cdn-images-1.medium.com/max/800/1*iePG8qczEBX1ICAMR5U-JQ.png)
 
