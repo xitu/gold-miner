@@ -1,3 +1,6 @@
+* [怎样（以及为什么要）保持你的 Git 提交记录的整洁](https://juejin.im/post/5b29060ee51d4558cd2adac0) ([zhongdeming428](https://github.com/zhongdeming428) 翻译)
+* [关于你的编程生涯的一些告诫](https://juejin.im/post/5b0256e36fb9a07aa767f5b4) ([kezhenxu94](https://github.com/kezhenxu94) 翻译)
+* [部署！=发布（第二部分）](https://juejin.im/post/5b00d2fa6fb9a07a9a1120e9) ([Starriers](https://github.com/Starriers) 翻译)
 * [如何逃离 async/await 地狱](https://juejin.im/post/5aefbb48f265da0b9b073c40) ([Colafornia](https://github.com/Colafornia) 翻译)
 * [我在编程初级阶段常犯的错误](https://juejin.im/post/5ae97af6f265da0ba062f797) ([kezhenxu94](https://github.com/kezhenxu94) 翻译)
 * [Deploy != Release（第一部分）：Deploy 与 Release 的区别及为什么很重要？](https://juejin.im/post/5ad80983f265da505c3c1b3a) ([stormluke](https://github.com/stormluke) 翻译)

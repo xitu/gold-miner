@@ -2,16 +2,16 @@
 > * 原文作者：[Leandro Pérez](https://medium.com/@leandromperez?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/memory-leaks-in-swift.md](https://github.com/xitu/gold-miner/blob/master/TODO1/memory-leaks-in-swift.md)
-> * 译者：
-> * 校对者：
+> * 译者：[RickeyBoy](https://github.com/rickeyboy)
+> * 校对者：[swants](https://github.com/swants), [talisk](https://github.com/talisk)
 
-# Memory Leaks in Swift
+# Swift 中的内存泄漏
 
-## Unit Testing and other tools to avoid them.
+## 通过单元测试等方式避免
 
 ![](https://cdn-images-1.medium.com/max/2000/1*7ISuh6UwWtqCmfzSUpyUBw.png)
 
-In this article we will talk about memory leaks and will learn how to use Unit Testing to detect them. Here’s a sneak peek:
+本篇文章中，我们将探讨内存泄漏，以及学习如何使用单元测试检测内存泄漏。现在我们先来快速看一个例子：
 
 ```
 describe("MyViewController"){
@@ -26,63 +26,63 @@ describe("MyViewController"){
 }
 ```
 
-This is a test written in [**_SpecLeaks_**](https://cocoapods.org/pods/SpecLeaks).
+这是 [**SpecLeaks**](https://cocoapods.org/pods/SpecLeaks) 中的一个测试。
 
-**Important:** I will explain what memory leaks are, talk about retain cycles and other things you might already know. If you want to read only about Unit Testing Leaks, skip to the last section.
+重点：我将要解释什么是内存泄漏，讨论循环引用以及一些其他你可能早已知道的事情。如果你仅仅想阅读有关对泄漏进行单元测试的部分，直接跳到最后一章即可。
 
-### **Memory Leaks**
+### **内存泄漏**
 
-Indeed, it’s one of the most frequent problems we face as developers. We code feature after feature and as the app grows, we introduce leaks.
+在实际中，内存泄漏是我们开发者最常面临的问题。随着 app 的成长，我们为 app 开发了一个又一个的功能，却也同时带来了内存泄漏的问题。
 
-A memory leak is a portion of memory that is occupied forever and never used again. It is garbage that takes space and causes problems.
+内存泄漏就是指内存片段不再会被使用，却被永久持有。它是内存垃圾，不仅占据空间也会导致一些问题。
 
-> Memory that was allocated at some point, but was never released and is no longer referenced by your app. Since there are no references to it, there’s now no way to release it and the memory can’t be used again.
+> 某个时刻被分配过，但又未被释放，并且也不再被你的 app 持有的内存，就是被泄漏的内存。因为它不再被引用，所以现在没有办法释放掉它，它也没有办法被再次使用。
+>
+> [苹果官方文档](https://developer.apple.com/library/content/documentation/DeveloperTools/Conceptual/InstrumentsUserGuide/CommonMemoryProblems.html)
 
-> [Apple Docs](https://developer.apple.com/library/content/documentation/DeveloperTools/Conceptual/InstrumentsUserGuide/CommonMemoryProblems.html)
+不论我们是新人还是老手，我们总会在某个时间点创造内存泄漏，这无关我们的经验多少。为了打造一个干净、不崩溃的应用，消除内存泄漏十分重要，因为它们**十分危险**。
 
-We all create leaks at some point, from junior to senior devs. It doesn’t matter how experienced we are. It is paramount to eliminate them to have a clean, crash-free application. Why? Because _they are dangerous._
+### 内存泄漏很危险
 
-### Leaks are dangerous
+内存泄漏不仅会**增加 app 的内存占用**，也会**引入有害的的副作用**甚至**崩溃**。
 
-Not only they **increase the memory footprint** of the app, but they also **introduce unwanted side effects** and **crashes.**
+为什么**内存占用**会不断增长？它是对象没有被释放掉的直接后果。这些对象完全就是内存垃圾，当创建这些对象的操作不断被执行，它们占据的内存就会不断增长。太多的内存垃圾！这可能导致内存警告的情况，并且最终 app 会崩溃。
 
-Why does the **memory footprint** grow? It is a direct consequence of objects not being released. Those objects are actually garbage. As the actions that create those objects are repeated, the occupied memory will grow. Too much garbage! This can lead to memory warnings situations and in the end, the app will crash.
+解释**有害的副作用**需要更详细一点的细节。
 
-Explaining **unwanted side effects** requires a little more detail.
+假设有一个对象在被创建时的 `init` 方法中开始监听一个通知。它每次监听到通知后的动作就是将一些东西存入数据库中，播放视频或者是对一个分析引擎发布一个事件。由于对象需要被平衡，我们必须要在它被释放时停止监听通知，这在 `deinit` 中实现。
 
-Imagine an object that starts listening to a notification when it is created, inside `init`. It reacts to it, saving things to a database, playing a video, or posting events to an analytics engine. Since the object needs to be balanced, we make it stop listening to the notification when it is released, inside `deinit`.
+如果这样一个对象泄漏了，会发生什么？
 
-What happens if such an object leaks?
+这个对象永远不会被释放，它永远不会停止监听通知。每一次通知被发布，该对象就会响应。如果用户反复执行操作，创建这个有问题的对象，那么就会有多个重复对象存在。所有这些对象都会响应这个通知，并且会彼此影响。
 
-It will never die and it will never stop listening to the notification. Each time the notification is posted, the object will react to it. If the user repeats an action that creates the object in question, there will be multiple instances alive. All those instances responding to the notification and stepping into each other.
+在这种情况下，**崩溃可能是发生的最好情况**。
 
-In such situations, a **crash might be the best thing that happens.**
+大量泄漏的对象重复响应了 app 通知，改变数据库、用户界面，使得整个 app 的状态出错。你可以通过 [The Pragmatic Programmer](https://www.goodreads.com/book/show/4099.The_Pragmatic_Programmer) 这篇文章中的 **Dead Programs tell no lies** 了解这类问题的重要性。
 
-Multiple leaked objects reacting to app notifications, altering the database, the UI, corrupting the entire state of the app. You can read about the importance of kind of problems in **“Dead programs tell no lies”** in [The Pragmatic Programmer](https://www.goodreads.com/book/show/4099.The_Pragmatic_Programmer).
+内存泄漏毫无疑问会导致非常差的用户体验以及 App Store 上的低分。
 
-Leaks will undoubtedly lead to a bad UX and poor ratings in the App Store.
+### 内存泄漏于何处产生？
 
-### Where do Leaks come from?
+比如第三方 SDK 或者框架都可能产生内存泄漏，甚至也包括 Apple 创造的某些类诸如 `CALayer` 或者 `UILabel`。在这些情况下，我们除了等待 SDK 更新或者弃用 SDK 之外别无他法。
 
-Leaks may come from a 3rd party SDK or framework for example. Even from classes created by Apple too like `CALayer` or `UILabel`. In those cases there isn’t much we can do, except waiting for an update or discarding the SDK.
+但内存泄漏更可能的是由我们自身的代码导致的。**内存泄漏的头号原因则是循环引用**。
 
-But it is much more likely that leaks are introduced by us inour code. The number one reason for leaks are **retain cycles**.
+为了避免内存泄漏，我们必须理解内存管理和循环引用。
 
-In order to avoid leaks, we must understand memory management and retain cycles.
+### 循环引用
 
-### Retain Cycles
+**循环**这个词来源于 Objective-C 使用手动引用计数的时期。在能够使用自动引用计数和 Swift，以及我们现在针对值类型所能做的一切方便的事情之前，我们使用的是 Objective-C 和手动引用计数。你可以通过 [这篇文章](https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/AutomaticReferenceCounting.html) 了解手动引用计数和自动引用计数。
 
-The word _retain_ comes from the Manual Reference Counting days in Objective-C. Before ARC and Swift and all the nice things we can do now with value types, there was Objective-C and MRC. You can read about MRC and ARC in [this article](https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/AutomaticReferenceCounting.html).
+在那段时期，我们需要对内存处理了解更多。理解分配、拷贝、引用的含义，以及如何平衡这些操作（比如释放）是非常重要的。基本规则是不论你何时创造了一个对象，你就拥有了它并且你需要负责释放掉它。
 
-Back in those days we needed to know a bit more about memory handling. Understanding the meaning of alloc, copy, retain and to how to balance those actions with opposites, like release, was crucial. The basic rule was: whenever you create an object, you own it and you are responsible for releasing it.
+现在的事情简单很多，但是仍然需要学习一些概念。
 
-Now things are much easier, but still, there are some concepts that need to be learned.
+Swift 中当一个对象对强关联了另一个对象，就是引用了它。这里说的对象指的是引用类型，基本上就是类。
 
-In Swift, when an object has a strong association to another object, it is retaining it. When I say object I am talking about Reference Types, Classes basically.
+结构体和枚举都是**值类型**。仅有值类型的话不太可能产生循环引用。当捕获和存储值类型（结构体和枚举）时，并不会有之前说的关于引用的种种问题。值都是被拷贝的，而不是被引用，尽管值也能持有对对象的引用。
 
-Struct and Enums are _Value Types._ It is not possible to create retain cycles with value types only. When capturing and storing value types (structs and enums), there is no such thing as references. Values are copied, rather than referenced, although values can hold references to objects.
-
-When an object references a second one, it owns it. The second object will stay alive until it is released. This is known as a **S_trong Reference_**. Only when you set the property to **nil** will the second object be destroyed.
+当一个对象引用了第二个对象，那么就拥有了它。第二个对象将会一直存在直到它被释放。这被称作**强引用**。直到当你将对应属性设置为 **nil** 时第二个对象才会被销毁。
 
 ```
 class Server {
@@ -97,15 +97,15 @@ class Client {
 }
 ```
 
-Strong association.
+强关联。
 
-If A retains B and B retains A there is a retain cycle.
+A 持有 B 并且 B 持有 A 那么就造成了循环引用。
 
 A 👉 B + A 👈 B = 🌀
 
 ```
 class Server {
-    var clients : [Client] //Because this reference is strong
+    var clients : [Client] // 因为这里是强引用
     
     func add(client:Client){
         self.clients.append(client)
@@ -113,23 +113,23 @@ class Server {
 }
 
 class Client {
-    var server : Server //And this one is also strong
+    var server : Server // 并且这里也是强引用
     
     init (server : Server) {
         self.server = server
         
-        self.server.add(client:self) //This line creates a Retain Cycle -> Leak!
+        self.server.add(client:self) // 这一行产生了循环引用 -> 内存泄漏
     }
 }
 ```
 
-A retain cycle.
+循环引用。
 
-In this example, it would be impossible to dealloc neither the client nor the server.
+在这个例子中，不论 client 还是 server 都将无法被释放内存。
 
-In order to be released from memory, an object must first release all its dependencies. Since the object itself is a dependency, it cannot be released. Again, _when an object has a retain cycle, it cannot die._
+为了从内存中释放，对象必须首先释放其所有的依赖关系。由于对象本身也是依赖项，因此无法释放。同样，**当一个对象存在循环引用时，它不会被释放**。
 
-Retain cycles are broken when one of the references in the cycle is **weak or unowned.** The cycle must exist because it is required by the nature of the associations we are coding. The problem is that all the associations cannot be strong. One of them must be weak.
+当循环引用中的一个引用是**弱引用（weak）或者无主引用（unowned）**的时候，循环引用就可以被打破。有时候由于我们正在编写的代码需要相互关联，因此循环必须存在。但问题就在于不能所有的关联关系都是强关联，其中至少必须有一个是弱关联。
 
 ```
 class Server {
@@ -141,36 +141,37 @@ class Server {
 }
 
 class Client {
-    weak var server : Server! //This one is weak
+    weak var server : Server! // 此处为弱引用
     
     init (server : Server) {
         self.server = server
         
-        self.server.add(client:self) //Now there is no retain cycle
+        self.server.add(client:self) // 现在不存在循环引用了
     }
 }
 ```
 
-A weak reference breaks the retain cycle.
 
-### How to break retain cycles
+弱引用可以打破循环引用。
 
-> Swift provides two ways to resolve strong reference cycles when you work with properties of class type: weak references and unowned references.
+### 如何打破循环引用
 
-> Weak and unowned references enable one instance in a reference cycle to refer to the other instance _without_ keeping a strong hold on it. The instances can then refer to each other without creating a strong reference cycle.
-
+> Swift 提供了两种方式用以解决使用引用类型时导致的的强引用循环：Weak 和 Unowned。
+>
+> 在循环引用中使用 Weak 以及 Unowned，能让一个实例引用另一个实例时**不再**保持强持有。这样实例之间能够互相引用而不会产生强引用循环。
+>
 > [Apple’s Swift Programming Language](https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/AutomaticReferenceCounting.html#//apple_ref/doc/uid/TP40014097-CH20-ID48)
 
-**Weak:** A variable can optionally not take ownership of an object it references to. A weak reference is when a variable does not take ownership of an object. **A weak reference can be nil.**
+**Weak：** 一个变量能够可选地不持有其引用的对象。当变量并不持有其引用对象时，就是弱引用。**弱引用可以为 nil**。
 
-**Unowned**: Like weak references, an unowned reference does not keep a strong hold on the instance it refers to. Unlike a weak reference, however, an unowned reference is assumed to always have a value. Because of this, an unowned reference is always defined as a non-optional type. **An unowned reference cannot be nil.**
+**Unowned：** 和弱引用相似，无主引用也不会强持有其引用的实例。但与弱引用不同的是，无主引用必须是一直有值的。正因如此，无主引用始终被定义为非可选类型。**无主引用不能为 nil**。
 
-[When to Use Each:](https://krakendev.io/blog/weak-and-unowned-references-in-swift)
+[二者的使用时机](https://krakendev.io/blog/weak-and-unowned-references-in-swift)
 
-> Define a capture in a closure as an unowned reference when the closure and the instance it captures will always refer to each other, and will always be deallocated at the same time.
-
-> Conversely, define a capture as a weak reference when the captured reference may become `nil` at some point in the future. Weak references are always of an optional type, and automatically become `nil` when the instance they reference is deallocated.
-
+> 当闭包和它捕获的实例互相引用时，将闭包中的捕获值定义为无主引用，这样他们总是会同时被释放出内存。
+>
+> 相反的，将闭包中捕获的实例定义为弱引用时，这个捕获的引用有可能在未来变成 `nil`。弱引用始终是一个可选类型，当引用的实例被释放出内存时它就会自动变成 `nil`。
+>
 > [Apple’s Swift Programming Language](https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/AutomaticReferenceCounting.html)
 
 ```
@@ -197,25 +198,25 @@ class Parent {
 }
 ```
 
-weak vs unowned references.
+对比弱引用和无主引用。
 
-It is not rare to forget a `weak self` somewhere along the way while we code. We usually introduce leaks when we write block closures, like `flatMap` and `map` inside reactive code, or when we code observers, or delegates. In [this article](https://medium.com/@stremsdoerfer/understanding-memory-leaks-in-closures-48207214cba) you can read about leaks in closures.
+写代码时忘记使用 `weak self` 的情况并不稀奇。我们经常在写闭包时引入内存泄漏，比如在使用 `flatMap` 和 `map` 这样的函数式代码时，或者是在写消息监听、代理的相关代码时。[这篇文章](https://medium.com/@stremsdoerfer/understanding-memory-leaks-in-closures-48207214cba) 里你可以读到更多关于闭包中内存泄漏的内容。
 
-### How to eliminate Memory Leaks?
+### 如何消灭内存泄漏？
 
-1.  Don’t create them. Have a strong understanding of memory management. Have a strong [code-style](https://swift.org/documentation/api-design-guidelines/%5C) defined for your project and respect it. If you are tidy and respect your code-style, the absence of `weak self` will be noticeable. Core reviews can really help.
-2.  Use [Swift Lint](https://github.com/realm/SwiftLint). It is a great tool that enforces you to adhere to a code style and keep rule 1\. It helps you detect early issues at compile-time. Like delegate variable declarations that are not weak, becoming potential retain cycles.
-3.  Detect leaks at run-time and make them visible. If you know how many instances of a certain object must be alive at a time, you can use [LifetimeTracker](https://github.com/krzysztofzablocki/LifetimeTracker). It is a great tool to have running in development mode.
-4.  Profile the app frequently. The [memory analysis tools](https://developer.apple.com/library/content/documentation/DeveloperTools/Conceptual/InstrumentsUserGuide/CommonMemoryProblems.html) that come with XCode do an excellent job. See [this article](https://useyourloaf.com/blog/xcode-visual-memory-debugger/). Instruments used to be the way to go not a while ago and it is great tool too.
-5.  Unit Test Leaks with [**SpecLeaks**](https://cocoapods.org/pods/SpecLeaks). This pod uses Quick and Nimble and lets you easily create tests for leaks. You can read about it in the following section.
+1. 不要创造出内存泄漏。对内存管理有更深刻的认识。为项目定义完善的 [代码风格](https://swift.org/documentation/api-design-guidelines/%5C)，并且严格遵守。如果你足够严谨，并且遵循你的代码风格，那么缺少 `weak self` 也将容易被发现。代码审查也能提供很大帮助。
+2. 使用 [Swift Lint](https://github.com/realm/SwiftLint)。这是一个一个很棒的工具，能够强制你遵循一种代码风格，遵循第一条规则。它能够帮你早在编译期就发现一些问题，比如代理变量声明时并没有被声明为弱引用，这原本可能导致循环引用。
+3. 在运行期间检测内存泄漏，并将它们可视化。如果你清楚某个特定的对象在特定时刻有多少实例存在，那么你可以使用 [LifetimeTracker](https://github.com/krzysztofzablocki/LifetimeTracker)。这是一个能在开发模式下运行的好工具。
+4. 经常评测 app。Xcode 中的 [内存分析工具](https://developer.apple.com/library/content/documentation/DeveloperTools/Conceptual/InstrumentsUserGuide/CommonMemoryProblems.html) 非常有用，可以参考 [这篇文章](https://useyourloaf.com/blog/xcode-visual-memory-debugger/). 不久之前 Instruments 也是一种方法，这也是非常棒的工具。
+5. 使用 [**SpecLeaks**](https://cocoapods.org/pods/SpecLeaks) 对内存泄漏进行单元测试。这个第三方库使用 Quick 和 Nimble 让你方便地对内存泄漏进行测试。你可以在接下来的章节中更多地了解到它。
 
-### Unit Testing Leaks
+### 对内存泄漏进行单元测试
 
-Once we know how cycles and weak references work, we can write code to test for retain cycles. The idea is to use weak references to probe for cycles. With a weak reference to an object we can test if that object leaks or not.
+一旦我们知道循环和弱引用是怎么一回事，我们就能为循环引用编写测试，方法就是弱引用去检测循环。只需要对某个对象进行弱引用，我们就能测试出该对象是否有内存泄漏。
 
-> Because a weak reference does not keep a strong hold on the instance it refers to, it’s possible for that instance to be deallocated while the weak reference is still referring to it. Therefore, **ARC automatically sets a weak reference to** `**nil**` **when the instance that it refers to is deallocated.**
+> 因为弱引用并不会持有其引用的实例，所以当实例被释放出内存时，很可能弱引用仍然指向该实例。因此，**当弱引用引用的对象被释放后，自动引用计数会将弱引用设置为** `nil`。
 
-Let’s say we want to see if object `x` leaks. We can create a weak reference to it and call it `leakReferece.` If `x` is released from memory, ARC will set `leakReference` to nil. So, if `x` leaks, the `leakReferece` can never be nil.
+假设我们想知道 `x` 是否发生了内存泄漏，我们创建了一个指向它的弱引用，叫做 `leakReference`。如果 `x` 被从内存中释放，ARC 会将 `leakReference` 设置为 nil。所以，如果 `x` 发生了内存泄漏，`leakReference` 永远不会被设置为 nil。
 
 ```
 func isLeaking() -> Bool {
@@ -227,35 +228,35 @@ func isLeaking() -> Bool {
     x = nil
     
     if leakReference == nil {
-        return false //Not leaking
+        return false // 没发生内存泄漏
     }
     else{
-        return true //Leaking
+        return true // 发生了内存泄漏
     }
 }
 ```
 
-Testing if an object leaks.
+测试一个对象是否发生内存泄漏。
 
-If `x` is actually leaking, the weak variable `leakReference` will point to the leaked instance. On the other hand, if the object is not leaking, after setting it to nil, it should not exist anymore. In that case, `leakReference` will be nil.
+如果 `x` 真的发生了内存泄漏，弱引用 `leakReference` 会指向这个发生内存泄漏的实例。另一方面，如果该对象没发生内存泄露，那么在该对象被设置为 nil 之后，它将不再存在。这样的话，`leakReference` 将会为 nil。
 
-“Swift by Sundell” wrote a detailed explanation of different kinds of leaks [in this article](https://www.swiftbysundell.com/posts/using-unit-tests-to-identify-avoid-memory-leaks-in-swift). That post was really helpful for me to write this article and SpecLeaks too. Another [nice article](https://medium.com/wolox-driving-innovation/how-to-automatically-detect-a-memory-leak-in-ios-769b7bb1ec7c) that follows a similar approach.
+”Swift by Sundell” 在 [这篇文章](https://www.swiftbysundell.com/posts/using-unit-tests-to-identify-avoid-memory-leaks-in-swift) 中详细阐述了不同内存泄漏的区别，对我写本文以及 SpecLeaks 都有极大的帮助。另外 [一篇佳作](https://medium.com/wolox-driving-innovation/how-to-automatically-detect-a-memory-leak-in-ios-769b7bb1ec7c) 也采用了类似的方式。
 
-Based on this notion, I have created SpecLeaks, an extension of Quick and Nimble that allows you to test for leaks. The idea is to code unit test for leaks without having to write much boilerplate code.
+基于这些理论，我写出了 SpecLeacks，一个基于 Quick 和 Nimble、能够检测内存泄漏的拓展。核心就是编写单元测试来检测内存泄漏，不需要大量冗余的样板代码。
 
 ### SpecLeaks
 
-Quick and Nimble is a great combination to write unit tests in a more humanly readable fashion. [SpecLeaks](https://cocoapods.org/pods/SpecLeaks) is only a few additions to those frameworks that will let you create unit tests to see if objects are leaking.
+结合使用 Quick 和 Nimble 能更好地编写更人性化、可读性更强的单元测试。[SpecLeaks](https://cocoapods.org/pods/SpecLeaks) 只是在这两个框架的基础之上增加了一点点功能，使其能够让你更方便地编写单元测试，来检测是否有对象发生了内存泄漏。
 
-If you don’t know about unit testing, this screenshot might give you a hint of what it does:
+如果你对单元测试并不了解，那么这张截图也许能够给你一个提示，告诉你单元测试做了些什么：
 
 ![](https://cdn-images-1.medium.com/max/1000/1*i8K2uBxYToiym52MvIrFFQ.png)
 
-You can create a set of tests that will instantiate objects and try things on them. You define what to expect and if the results are as expected, the test will pass, green. If the outcomes are not what you defined as expected, the test fails in red.
+你可以写单元测试来实例化一些对象，并在基于它们做一些尝试。你定义期望的结果，以及怎样的结果才算符合预期，才能通过测试，让测试结果呈现绿色。如果最终结果并不符合最开始定义的预期，那么测试将会失败并呈现出红色。
 
-#### **Testing for leaks in initialization**
+#### **测试初始化阶段的内存泄漏**
 
-The simplest test you can write to see if an object is leaking. Just instantiate the object and see if it leaks. Sometimes, objects register as observers, or have delegates, or register to notifications. For those cases, this kind of test can detect a few leaks:
+这是检测内存泄漏的测试中，最简单的一个，只需要初始化一个实例并看它是否发生了内存泄漏。有时，这个对象注册了监听事件，或者是有代理方法，或者注册了通知，这些情况下，这类测试就能检测出一些内存泄漏：
 
 ```
 describe("UIViewController"){
@@ -271,11 +272,11 @@ describe("UIViewController"){
 }
 ```
 
-Testing initialization.
+测试初始化阶段。
 
-#### Testing for Leaks in View Controllers
+#### 测试 viewController 中的内存泄漏
 
-A view controller might start leaking right away when its view is loaded. After that, a million things can happen, but with this simple test you can ensure that your viewDidLoad is not leaking.
+一个 viewController 可能在它的子视图加载完成后开始发生内存泄漏。在此之后，会发生大量的事情，但是使用这个简单的测试你就能保证在 viewDidLoad 方法中不存在内存泄漏。
 
 ```
 describe("a CustomViewController") {
@@ -294,13 +295,13 @@ describe("a CustomViewController") {
 }
 ```
 
-Testing init + viewDidLoad on a view controller.
+对一个 viewController 的 init 和 viewDidLoad 进行测试。
 
-Using _SpecLeaks_ you don’t need to manually call `view` on the view controller in order for `viewDidLoad` to be called. SpecLeaks will do that for you when you are testing a `UIViewController` subclass.
+使用 **SpecLeaks** 你不需要为了使 `viewDidLoad` 方法被调用而手动调用 viewController 上的 `view`。当你测试 `UIViewController` 的子类时 SpecLeaks 将会替你做这些。
 
-#### Testing for Leaks when a method is called
+#### 测试方法被调用时的内存泄漏
 
-Sometimes it’s not enough to instantiate an object to see if it leaks. It might start leaking when a method is called. For such cases, you can test if an object leaks when an action is executed, like this:
+有时候初始化一个实例并不能判断是否发生了内存泄漏，因为内存泄漏有可能在某个方法被调用的时候发生。在这种情况下，你可以在操作被执行的时候测试是否有内存泄漏，像这样：
 
 ```
 describe("doSomething") {
@@ -315,24 +316,27 @@ describe("doSomething") {
 }
 ```
 
-Test if CustomViewController leaks when `doSomething` is called.
+检测自定义 viewController 是否在 `doSomething` 方法被调用时发生内存泄漏。
 
-### To wrap it up
+### 总结一下
 
-Leaks are problematic. They pave the way for poor UX, crashes and bad reviews in the App Store. We need to eliminate them. A strong code style, good practices, understanding memory management and unit testing will help.
+内存泄漏能产生大量问题，他们会导致极差的用户体验、崩溃和 App Store 中的差评，我们必须要消除它们。良好的代码风格、良好的实践、对内存管理透彻的理解以及单元测试都能起到有效的帮助。
 
-Unit Testing will not guarantee the absence of leaks though. You will never cover all the permutations of method calls and states. Testing the whole spectrum of interactions with an object might be just impossible. Also, it is often necessary to mock dependencies. And the original dependencies might be the ones leaking.
+但是单元测试并不能保证内存测试完全不发生，你并不能覆盖所有的方法调用和状态，测试每一个存在与其他对象相互作用的东西是不太可能的。另外，有时候必须要模拟依赖，才能发现原始的依赖可能发生的内存泄漏。
 
-Unit Testing will decrease the chances of leaking. It is quite easy to test and to spot leaks in closures with [**SpeakLeaks**](https://cocoapods.org/pods/SpecLeaks). Like `flatMap` or any other escaping closure that retains `self`. The same if you forget to declare a delegate as weak.
+单元测试确实能降低发生内存泄漏的可能性，使用 [**SpeakLeaks**](https://cocoapods.org/pods/SpecLeaks) 可以非常方便的检测、发现出闭包中的内存泄漏，就比如 `flatMap` 或者是其他持有了 `self` 的逃逸闭包。如果你忘记将代理声明为弱引用也是同样的道理。
 
-I use RxSwift a lot, and flatMap, map, subscribe and others require to pass closures. For such cases, the absence of weak/unowned often will create leaks that can be detected with SpecLeaks quite easily.
+我大量地使用了 RxSwift，以及 faltMap、map、subscribe 和一些其他需要传递闭包的函数。在这些情况下，缺少 weak 或 unowned 经常会导致内存泄漏，而使用 SpecLeaks 就能轻易的检测出来。
 
-Personally, I am trying to add this kind of tests to all my classes. Whenever I create a view controller, for example, I just add a Spec for it. Sometimes view controllers contain leaks in view loading, and those can be quickly caught with this kind of testing.
+就个人而言，我始终尝试在我的所有类之中增加这样的测试。例如每当我创造一个 viewController，我就会为它创造一份 SpecLeaks 代码。有时候 viewController 会在加载视图时发生内存泄漏，用这类测试就能轻而易举地发现。
 
-What do you think? Do you write unit tests for memory leaks? Do you write tests at all?
+那么你意下如何？你会为检测内存泄漏而写单元测试吗？你会写测试吗？
 
-I hope you enjoy reading this article, send me a line with your opinion or questions! And feel free to try SpeakLeaks :)
+我希望你喜欢阅读本文，如果你有任何的建议和疑问都可以给我回复！请尽情尝试 SpeckLeaks :)
 
+* * *
+
+感谢 [Flawless App](https://medium.com/@FlawlessApp?source=post_page)。
 
 ---
 
