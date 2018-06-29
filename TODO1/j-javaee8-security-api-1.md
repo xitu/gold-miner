@@ -25,7 +25,7 @@
 
 ## Java EE 新的安全标准
 
-Java EE 安全规范的开发得力于 2014 [Java EE 8 问卷调查](https://blogs.oracle.com/theaquarium/java-ee-8-survey-final-results)，社区的反馈推动了 Java EE 安全规范的开发步伐。简化和标准化 Java 企业级安全是许多调查对象优先考虑的事项。一旦成立，JSR 375专家组将确定以下问题：
+Java EE 安全规范的开发得力于 2014 [Java EE 8 问卷调查](https://blogs.oracle.com/theaquarium/java-ee-8-survey-final-results)，社区的反馈推动了 Java EE 安全规范的开发步伐。简化和标准化 Java 企业级安全是许多调查对象优先考虑的事项。JSR 375专家组一旦成立，将确定以下问题：
 
 *   构成 Java EE 的各种 EJB 和 servlet 容器定义了类似的与安全相关的 API，但语法存在细微差别。例如，servlet 检查用户角色时，调用 `HttpServletRequest.isUserInRole(String role)`，而 EJB 则调用 `EJBContext.isCallerInRole(String roleName)`。
 *   实现像 JACC 这样的现有安全机制，困难重重，而 JASPIC 也很难被正确使用。
@@ -152,7 +152,7 @@ public class AdminServlet extends HttpServlet { ... }
 
 `IdentityStoreHandler` 可以针对多个 `IdentityStores` 进行身份验证，并且以 `CredentialValidationResult` 实例的形式返回聚合结果。无论凭据是否有效，该对象可能只具有传递凭据的作用，或者它可以是包含下述任何信息的丰富对象：
 
-*   `[CallerPrincipal](https://javaee.github.io/security-api/apidocs/javax/security/enterprise/CallerPrincipal.html)`
+*   [`CallerPrincipal`](https://javaee.github.io/security-api/apidocs/javax/security/enterprise/CallerPrincipal.html)
 *   主体所属的一组集合
 *   调用者的名称或者 LDAP 可分辨的名称
 *   标识存储中调用方的唯一标识
@@ -163,7 +163,7 @@ public class AdminServlet extends HttpServlet { ... }
 
 ### 配置内置的 IdentityStore
 
-最简单的标识存储是**数据库存储**。它是通过 `@DataBaseIdentityStoreDefinition` 注解进行配置的。正如清单 4 所演示的那样，这两个内置的数据存储注解基于 Java EE 7 中已有的 `[@DataStoreDefinition](https://docs.oracle.com/javaee/7/api/javax/annotation/sql/DataSourceDefinition.html)` 注解。
+最简单的标识存储是**数据库存储**。它是通过 `@DataBaseIdentityStoreDefinition` 注解进行配置的。正如清单 4 所演示的那样，这两个内置的数据存储注解基于 Java EE 7 中已有的 [`@DataStoreDefinition`](https://docs.oracle.com/javaee/7/api/javax/annotation/sql/DataSourceDefinition.html) 注解。
 
 清单 4 演示了如何配置数据库身份存储。这些配置选项本身就进行了自我解释，而且如果您曾经配置过数据库定义，应该会很熟悉。
 
@@ -251,7 +251,7 @@ public class LiteAuthenticationMechanism implements HttpAuthenticationMechanism 
 
 `IdentityStore` 和 `HttpAuthenticationMechanism` 将用户的身份验证和授权完美结合，但是自身的声明式模型尚未成型。**程序的安全性编码**使 web 应用程序能执行授权或拒绝访问应用程序资源所需的检查，`SecurityContext` API 提供了这一功能性需求。
 
-目前，Java EE 容器在实现安全上下文对象的方式上并不一致。例如，servlet 容器提供一个 `HttpServletRequest` 实例，在该实例上调用 `getUserPrincipal()` 方法来获取表示用户身份的 `[UserPrincipal](https://docs.oracle.com/javase/8/docs/api/java/nio/file/attribute/UserPrincipal.html)`。EJB 容器提供了不同命名的 `EJBContext` 实例，在该实例上调用同名方法。同样的，如果需要测试用户是否属于某个角色，则必须在 `HttpServletRequest` 实例上调用 `isUserRole()` 方法，然后在 EJBContext 实例上调用 `isCallerInRole()`。
+目前，Java EE 容器在实现安全上下文对象的方式上并不一致。例如，servlet 容器提供一个 `HttpServletRequest` 实例，在该实例上调用 `getUserPrincipal()` 方法来获取表示用户身份的 [`UserPrincipal`](https://docs.oracle.com/javase/8/docs/api/java/nio/file/attribute/UserPrincipal.html)。EJB 容器提供了不同命名的 `EJBContext` 实例，在该实例上调用同名方法。同样的，如果需要测试用户是否属于某个角色，则必须在 `HttpServletRequest` 实例上调用 `isUserRole()` 方法，然后在 EJBContext 实例上调用 `isCallerInRole()`。
 
 **什么是上下文安全**  
 
