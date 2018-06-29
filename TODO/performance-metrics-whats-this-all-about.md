@@ -247,9 +247,9 @@ FP 事件在 Graphic Layer 进行绘制的时候触发，而不是文本、图�
 
 **TTFI 和 TTCI 指标如何对开发者产生帮助？**
 
-当线程在**视觉上准备好**和**首次可交互**间忙碌了很长时间：
+当线程在**视觉上准备好**和**首次可交互**之间忙碌了很长时间的时候
 
-![When thread is busy for a long time between Visually Ready and First Interactive](https://cdn-images-1.medium.com/max/800/1*_uAiHAv4-bpoMFYqgbBKcQ.png)
+![](https://cdn-images-1.medium.com/max/800/1*_uAiHAv4-bpoMFYqgbBKcQ.png)
 
 这是其中一个最复杂的瓶颈，并且没有标准方法来修复这类型的问题。它是独立的，而且取决于应用的特定情况。[Chrome 开发者工具](https://developer.chrome.com/devtools)有一系列[文章](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/)帮助我们检测运行时的性能问题。
 
