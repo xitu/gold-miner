@@ -2,28 +2,28 @@
 > * 原文作者：[Nick Fitzgerald](http://fitzgeraldnick.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/oxidizing-source-maps-with-rust-and-webassembly.md](https://github.com/xitu/gold-miner/blob/master/TODO1/oxidizing-source-maps-with-rust-and-webassembly.md)
-> * 译者：
+> * 译者：[D-kylin](https://github.com/D-kylin)
 > * 校对者：
 
-# Oxidizing Source Maps with Rust and WebAssembly
+# 论 Rust 和 WebAssembly 对源码地址索引的极限优化
 
-[Tom Tromey](http://tromey.com) and I have replaced the most performance-sensitive portions of the `source-map` JavaScript Library’s source map parser with Rust code that is compiled to WebAssembly. The WebAssembly is up to **5.89 times faster** than the JavaScript implementation on realistic benchmarks operating on real world source maps. Additionally, performance is also more consistent: relative standard deviations decreased.
+[Tom Tromey](http://tromey.com) 和我尝试使用 Rust 语言进行编码，然后用 WebAssembly 进行编译打包后替换 `source-map（源码地址索引，以下行文为了理解方便均不进行翻译）` 的 JavaScript 工具库中性能敏感的部分。在实际场景中以相同的基准进行对比操作， [WebAssembly](https://webassembly.org/) 的性能要比已有的 source-map 库 **快上 5.89 倍** 。 另外，多次测试结果也更为一致：相对一致的情况下偏差值很小。
 
-We removed JavaScript code that had been written in a convoluted and unidiomatic way in the name of performance, and replaced it with idiomatic Rust code that performs even better.
+我们以提高性能的名义将那些令人费解又难以阅读的 JavaScript 代码替换成更加语义化的 Rust 代码，这确实行之有效。
 
-We hope that, by sharing our experience, we inspire others to follow suit and rewrite performance-sensitive JavaScript in Rust via WebAssembly.
+现在，我们把 Rust 结合 WebAssembly 使用的经验分享给大家，也鼓励程序员按照自己的需求对性能敏感的 JavaScript 进行重构。
 
-## Background
+## 背景
 
-### The Source Map Format
+### source-map 的技术规范
 
-The [source map format](https://docs.google.com/document/d/1U1RGAehQwRypUTovF1KRlpiOFze0b-_2gc6fAH0KY0k) provides a bidirectional mapping between locations in some generated JavaScript code that was emitted by a compiler[0](#foot-0), minifier, or package bundling tool back to locations in the original sources that a programmer authored. JavaScript developer tools use source maps to symbolicate backtraces, and to implement source-level stepping in debuggers. Source maps encode debug information similar to that found in [DWARF’s `.debug_line`](http://dwarfstd.org/) section.
+[source map 文件](https://docs.google.com/document/d/1U1RGAehQwRypUTovF1KRlpiOFze0b-_2gc6fAH0KY0k) 提供了 JavaScript 源码被编译器<sup><a href="#note0">[0]</a></sup>、压缩工具、包管理工具转译成的文件之间的地址索引供编程人员使用。JavaScript 开发者工具使用 source-map 后可以实现字符级别的回溯，调试工具中的按步调试也是依赖它来实现的。Source-map 对报错信息的编码方式与 [DWARF’s `.debug_line`](http://dwarfstd.org/) 的部分标准很相似。
 
-A source map is a JSON object with a handful of fields. The `"mappings"` field is a string that makes up the bulk of the source map, and contains the bidirectional mappings between source and object locations.
+source-map 对象是 JSON 对象的其中一个分支。 其中 `“映射集”` 用字符串表示，是 source-map 的重要组成部分，包含了最终代码和定位对象的双向索引。
 
-We will describe the `"mappings"` string’s grammar in [extended Backus-Naur form (EBNF)](https://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_form).
+我们用 [extended Backus-Naur form (EBNF)](https://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_form) 标准描述 `“映射集”` 的字符串语法。
 
-Mappings are grouped by generated JavaScript line number, which is incremented every time a semicolon lays between individual mappings. When consecutive mappings are on the same generated JavaScript line, they are separated by a comma:
+Mappings 是 JavaScript 代码块的分组行号，每一个映射集只要以分号结尾了就代表一个独立的映射集，它就自增 1 。同一行 JavaScript 代码如果生成多个映射集，就用逗号分隔开：
 
 ```
 <mappings> = [ <generated-line> ] ';' <mappings>
@@ -35,13 +35,13 @@ Mappings are grouped by generated JavaScript line number, which is incremented e
                     ;
 ```
 
-Each individual mapping has a location in the generated JavaScript, and optionally a location in the original source text, which might also contain an associated name:
+每一个独立的映射集都能定位到当初生成它的那段 JavaScript 代码，还能有一个关联名字的可选项能定位到那段代码中的源码字符串：
 
 ```
 <mapping> = <generated-column> [ <source> <original-line> <original-column> [ <name> ] ] ;
 ```
 
-Every component of a mapping is a Variable Length Quantity (VLQ) encoded integer. Filenames and associated names are encoded as indices into side tables stored in other fields of the source map’s JSON object. Every value is relative to the last occurrence of its type, i.e. a given `<source>` value is the delta since the previous `<source>` value. These deltas tend to be smaller than their absolute values, which means they are more compact when encoded:
+每个映射集组件都通过一种叫做 `大数值的位数可变表示法(Variable Length Quantity，缩写为 VLQ)` 编码成二进制数字。 文件名和相关联的名字被编码后储存在 source-map 的 JSON 对象中。每一个值标注了源码最后出现的位置，现在，给你一个 `<source>` 值那么它跟前一个 `<source>` 值就给我们提供了一些信息。如果这些值之间趋向于越来越小，就说明它们在被编码的时候更加紧密：
 
 ```
 <generated-column> = <vlq> ;
@@ -51,9 +51,9 @@ Every component of a mapping is a Variable Length Quantity (VLQ) encoded integer
 <name> = <vlq> ;
 ```
 
-Each character in a VLQ is drawn from a set of 64 printable ASCII characters comprising the upper- and lower-case letters, the decimal digits, and some symbols. Each character represents a particular 6-bit value. The most significant bit is set on all but the last character in the VLQ; the remaining five bits are prepended to the integer value represented.
+利用 VLQ 编码后的字符都能从 ASCII 字符集中找到，比如大小写的字母，又或者是十进制数字跟一些符号。每个字符都表示了一个 6 位大小的值。 VLQ 编码后的二进制数前五位用来表示数值，最后一位只用来做标记正负。
 
-Rather than attempting to translate this definition into EBNF, we provide pseudocode for parsing and decoding a single VLQ below:
+与其向你解释 EBNF 标准，不如来看一段简单的 VLQ 转换代码实现：
 
 ```
 constant SHIFT = 5
@@ -81,15 +81,15 @@ decode_vlq(input):
         return (value, input)
 ```
 
-### The `source-map` JavaScript Library
+###  `source-map` JavaScript 工具库
 
-The [`source-map` library](https://github.com/mozilla/source-map) is published on [npm](https://www.npmjs.com/) and maintained by the [Firefox Developer Tools team](https://twitter.com/firefoxdevtools) at Mozilla. It is one of the most transitively depended-upon libraries by the JavaScript community, and is downloaded [10M times per week](https://www.npmjs.com/package/source-map).
+[`source-map`](https://github.com/mozilla/source-map) 是由 [火狐开发者工具团队](https://twitter.com/firefoxdevtools) 维护，发布在 [npm](https://www.npmjs.com/) 上。它是 JavaScript 社区最流行的依赖包之一，下载量达到 [每周 1000 万次](https://www.npmjs.com/package/source-map)。
 
-Like many software projects, the `source-map` library was written first for correctness, and then later modified to improve performance. By this time, it has seen a good amount of performance work.
+就像许多软件项目一样， `source-map` 工具库最开始也没有很好的去实现它，以至于后面只能通过不断的修复来改善性能。截止到本文完成之前，其实已经有了不错的性能表现了。
 
-When consuming source maps, the majority of time is spent parsing the `"mappings"` string and constructing a pair of arrays: one sorted by generated JavaScript location, the other sorted by original source location. Queries use binary search on the appropriate array. The parsing and sorting both happen lazily, and don’t occur until a particular query requires it. This allows a debugger to list sources, for example, without needing to parse and sort mappings. Once parsed and sorted, querying tends not to be a performance bottleneck.
+当我们使用 source-map ，很大一部分的时间都是消耗在解析 `“映射集”` 字符串和构建数组对：一旦 JavaScript 的定位改变了，另一个文件的代码标示的定位也要改变。选用合适的二进制查找方式对数组进行查找。解析和排序操作只有在特定的时机才会被调用。例如，在调试工具中查看源码时，不需要对任何的映射集进行解析和排序。一次性的解析和排序、查找并不会成为性能瓶颈。
 
-The VLQ decoding function takes a string as input, parses and decodes a VLQ from the string, and returns a pair of the value and the rest of the input that was not consumed. This function was originally written in an idiomatic, referentially transparent style to return the pair as an `Object` literal with two properties:
+VLQ 编码函数通过输入字符串，解析字符串并返回一对由解析结果和其余输入组成的值。通常把函数的返回值写成有两个属性组成的 `对象` ，这样更具有可读性，也方便日后进行格式转换。
 
 ```
 function decodeVlqBefore(input) {
@@ -98,9 +98,9 @@ function decodeVlqBefore(input) {
 }
 ```
 
-Returning a pair that way was found to be costly. JavaScript Just-in-Time (JIT) compilers’ optimized compilation tiers were unable to eliminate this allocation. Because the VLQ decoding routine is called frequently, this allocation was creating undue pressure on the garbage collector, leading to more frequent garbage collection pauses.
+我们发现返回这样的对象成本很高。针对 JavaScript 的 `即时编译（JIT）` 优化，很难用第三方编译的方式来优化这部分花销。因为 VLQ 的编码事件总是频繁产生，所以这部分的内存分配工作给垃圾收集机制带来很大的压力，导致垃圾收集工作就像是走走停停一样。
 
-To remove the allocation, we [modified the procedure](https://github.com/mozilla/source-map/pull/135) to take a second parameter: an `Object` that gets mutated and serves as an out parameter. Rather than returning a freshly allocated `Object`, the out parameter’s properties are overwritten. This way, we could reuse the same object for every VLQ parse. This is less idiomatic, but much more performant:
+为了禁用内存分配，我们 [修改程序](https://github.com/mozilla/source-map/pull/135) 的第二个参数：将返回 `对象` 进行变体并作为输出参数，这样就把结果当成一个外部 `对象` 的属性。我们可以肯定这个外部对象与 VLQ 函数返回的对象是一致的。虽然损失了一点可读性，但是执行效率更高：
 
 ```
 function decodeVlqAfter(input, out) {
@@ -110,9 +110,9 @@ function decodeVlqAfter(input, out) {
 }
 ```
 
-When reaching an unexpected end-of-string or an invalid base 64 character, the VLQ decoding function would `throw` an `Error`. We found that JavaScript JITs would emit faster code when we [changed the single base 64 digit decoding function to return `-1` on failure](https://github.com/mozilla/source-map/pull/185) instead of `throw`ing an `Error`. This is less idiomatic, but once again it improved performance.
+当查找一个位置长度的字符串或者 base 64 字符， VLQ 编码函数会 `抛出` 一个 `报错`。我们发现如果 [如果转换 base 64 数字出现错误，编码函数返回 `-1`](https://github.com/mozilla/source-map/pull/185) 而不是 `抛出` 一个 `报错`，那么 JavaScript 的即时编译效率更高。虽然损失了一点可读性，但是执行效率又高了那么一丢丢。
 
-When profiling with SpiderMonkey’s [JITCoach](http://users.eecs.northwestern.edu/~stamourv/papers/optimization-coaching-js.pdf) prototype, we found that SpiderMonkey’s JIT was using slow-path polymorphic inline caches for `Object` property gets and sets on our mapping `Object`s. The JIT was not emitting the desired fast-path code with direct object slot accesses, because it was not detecting a common [“shape” (or “hidden class”)](http://bibliography.selflanguage.org/_static/implementation.pdf) shared by all mapping `Object`s. Some properties would be added in a different order, or omitted completely, for example, when there was no associated name for a mapping. By creating a constructor for mapping `Object`s that initialized every property we would ever use, we helped the JIT create a common shape for all mapping `Object`s. This resulted in [another performance improvement](https://github.com/mozilla/source-map/pull/188):
+剖析 SpiderMonkey 引擎中 [JITCoach](http://users.eecs.northwestern.edu/~stamourv/papers/optimization-coaching-js.pdf) 原型， 我们发现 SpiderMonkey 引擎即时编译机制是使用多态短路径实时缓存 `对象` 的 getter 和 setter。它的即时编译没有如我们期待的那样直接通过快速访问得到对象的属性，因为以同样的 [“形状” (或者称之为 “隐藏类”)](http://bibliography.selflanguage.org/_static/implementation.pdf) 是访问不到它返回出来的对象。有一些属性可能都不是你存入对象时的键名，甚至键名是完全省略掉的，比如当它在映射集中定位不到名字时。创建一个 Mapping 类生成器，初始化每一个属性，我们配合即时编译，为 Mapping 类添加通用属性。完整结果可以在这里看到 [另一种性能改进](https://github.com/mozilla/source-map/pull/188):
 
 ```
 function Mapping() {
@@ -126,48 +126,48 @@ function Mapping() {
 }
 ```
 
-When sorting the two mapping arrays, we use custom comparator functions. When the `source-map` library was first written, SpiderMonkey’s `Array.prototype.sort` was implemented in C++ for performance[1](#foot-1). However, when `sort` is passed an explicit comparator function and a large array, the sorting code must call the comparator function many times. Calls from C++ to JavaScript are relatively expensive, so passing a custom comparator function made the sorts perform poorly.
+对两个映射集数组进行排序时，我们使用自定义对比函数。当 `source-map` 工具库源码被第一次写入， SpiderMonkey 的 `Array.prototype.sort` 是用 C++ 实现来提升性能<sup><a href="#note1">[1]</a></sup>。尽管如此，当使用外部提供的对比函数并对一个巨大的数组进行 `排序` 的时候，排序代码也需要调用很多次对比函数。从 C++ 中调用 JavaScript 相对来说也是很昂贵的花销，所以调用自定义对比函数会使得排序性能急速下降。  
 
-To avoid this, we [implemented our own Quicksort in JavaScript](https://github.com/mozilla/source-map/pull/186). This not only avoided the C++-to-JavaScript calls, but also let the JavaScript JITs inline the comparator function into the sorting function, enabling further optimizations. This brought us another large performance boost, and again made the code less idiomatic.
+基于上述条件，我们 [实现了另一个版本 Javascript 快排](https://github.com/mozilla/source-map/pull/186)。它只能通过 C++ 调用 Javascript 时才能使用，它也允许 JavaScript 即时编译时作为排序函数的对比函数传入，用来获取更好的性能。这个改进给我们带来大幅度的性能提升，同时只需要损失很小的代码可读性。
 
 ### WebAssembly
 
-[WebAssembly](http://webassembly.org/) is a new, low-level, architecture-independent byte code developed for the Web. It is designed for safe and efficient execution and compact binaries, and is developed in the open as a Web standard. It is supported by all major Web browsers.
+[WebAssembly](http://webassembly.org/) 是一种新的技术，它以二进制形式运行在 Web 浏览器底层，为浏览器隔离危险代码和减少代码量所设计的。现在已经作为 Web 的标准，而且大多数的浏览器厂商已经支持这个功能。
 
-WebAssembly exposes a stack machine that maps well onto modern processor architectures. Its instructions operate on a large, linear buffer of memory. It does not support garbage collection, although extending it to work with garbage-collected JavaScript objects is [planned for the future](https://github.com/WebAssembly/design/issues/1079). Control flow is structured, rather than allowing arbitrary jumps and labels. It is designed to be deterministic and consistent, even where different architectures diverge on edge cases, such as out-of-range shifts, overflows, and canonicalizing `NaN`s.
+WebAssembly 开辟一块新的栈区供机器运行，有现代处理器架构的支持能更好的处理映射，它可以直接操作一大块连续的储存 buffer 字节。WebAssembly 不支持自动化的垃圾回收，不过 [在不久的将来](https://github.com/WebAssembly/design/issues/1079) 它也会继承 JavaScript 对象的垃圾回收机制。控制流是具有结构化的，比起在代码间随意的打标记或者跳跃，它被设计用来提供一种更可靠、运行一致的执行流程。处理一些架构上的边缘问题，比如：超出表示范围的数值怎么截取、溢出问题、规范 `NaN` 。
 
-WebAssembly aims to match or beat native execution speed. It is currently [within 1.5x](https://github.com/WebAssembly/spec/blob/master/papers/pldi2017.pdf) native execution on most benchmarks.
+WebAssembly 的目标是获得或者逼近原始指令的运行速度。目前在大多数的基准测试中跟原始指令相比 [只相差 1.5x](https://github.com/WebAssembly/spec/blob/master/papers/pldi2017.pdf) 了。
 
-Because of the lack of a garbage collector, languages that target WebAssembly are currently limited to languages without a runtime or garbage collector to speak of, unless the collector and runtime are also compiled to WebAssembly. That doesn’t happen in practice. Right now, the languages developers are actually compiling to WebAssembly are C, C++, and Rust.
+因为缺乏垃圾收集器，要编译成 WebAssembly 语言仅限那些没有运行时和垃圾采集器的编程语言，除非把控制器和运行时也编译成 WebAssembly 。实际中这些一般很难做到。现在，语言开发者事实上是把 C ，C++ 和 Rust 编译成 WebAssembly。
 
 ### Rust
 
-[Rust](https://www.rust-lang.org) is a systems programming language that emphasizes safety and speed. It provides memory safety without relying on a garbage collector. Instead, it statically tracks _ownership_ and _borrowing_ of resources to determine where to emit code to run destructors or free memory.
+[Rust](https://www.rust-lang.org) 是一种更加安全和高效的系统编程语言。它的内存管理更加安全，不依赖于垃圾回收机制，而是允许你通过静态追踪函数 _ownership_ 和 _borrowing_ 这两个方法来申请和释放内存。
 
-Rust is in a great position for compiling to WebAssembly. Since Rust does not require garbage collection, Rust authors don’t have to jump through extra hoops to target WebAssembly. Rust has many of the goodies that Web developers have come to expect, and which C and C++ lack:
+使用 Rust 来编译成 WebAssembly 是一种不错的选择。由于语言设计者一开始就没有为 Rust 设计垃圾自动回收机制，也就不用为了编译成 WebAssembly 做额外的工作。Web 开发者还发现一些在 C 和 C++ 没有的优点：
 
-*   Easy building, packaging, publishing, sharing, and documenting of libraries. Rust has `rustup`, `cargo`, and the [crates.io](https://crates.io/) ecosystem; C and C++ don’t have any widely used equivalent.
-*   Memory safety. _Not_ having to chase down memory corruption in `gdb`. Rust prevents most of these pitfalls at compile time.
+*   Rust 库更加容易构建、容易共享、打包简单和容易提取公共部分，而且自成文档。Rust 有诸如 `rustup`， `cargo` 和 [crates.io](https://crates.io/) 的完整生态系统。这是 C 和 C++ 所不能比拟的。
+*   内存安全方面。在 `迭代算法` 中不断产生内存碎片。Rust 则可以在编译时就避免大部分类似的性能陷阱。
 
-## Parsing and Querying Source Maps in Rust
+## Rust 对映射集的解析和查找
 
-When we decided to rewrite the hot portions of source map parsing and querying in Rust, we had to decide where the boundary between JavaScript and the WebAssembly emitted by the Rust compiler would be. Crossing the boundary between JavaScript’s JITed code to WebAssembly and back currently imposes overhead similar to that of the C++-to-JavaScript calls we mentioned earlier.[2](#foot-2) So it was important to place this boundary in so as to minimize the number of times we had to cross it.
+当我们决定把 source-map 中使用频率最高的解析和查找功能进行重构，就需要考虑到 JavaScript 和 WebAssembly 的运行边界问题。如果出现了 JavaScript 即时编译和 WebAssembly 相互穿插运行可能会影响彼此原来的执行效率。关于这个问题可以回忆一下前面我们讨论过的在 C++ 代码中调用 JavaScript 代码的例子<sup><a href="#note2">[2]</a></sup>。所以确定好边界来最小化两个不同语言相互穿插执行的次数显得尤为重要。
 
-A poor choice of where to place the boundary between WebAssembly and JavaScript would have been at the VLQ decoding function. The VLQ decoding function is invoked between one and four times for every mapping encoded in the `"mappings"` string, therefore we would have to cross the JavaScript-to-WebAssembly boundary that many times during parsing.
+在 VLQ 编码函数中供选择的 JavaScript 和 WebAssembly 的运行边界其实很少。VLQ 编码函数对 `“映射集”` 字符串的每一次 Mapping 时需要被引用 1 ~ 4 次，在整个解析过程不得不在 JavaScript 和 WebAssembly 的边界来回切換很多次。
 
-Instead, we decided to parse the whole `"mappings"` string in Rust/WebAssembly, and then keep the parsed data there. The WebAssembly heap owns the parsed data in its queryable form. This means that we never have to copy the data out of the WebAssembly heap, which would involve crossing the JavaScript/WebAssembly boundary more often. Instead, we only cross that boundary once each way for every query, plus once each way for every mapping that is a result of that query. Queries tend to produce a single result, or perhaps a handful.
+因此，我们决定只用 Rust/WebAssembly 解析整个 `“映射集”` 字符串，然后把解析结果保留在内存中，WebAssembly 堆就可以直接查找到解析后的数据。这意味着我们不用把数据从 WebAssembly 堆中复制出来，也就不需要频繁的在 JavaScript 和 WebAssembly 边界来回切换了。除此之外，每次的查找只需要切换一次边界，每执行一次 Mapping 只不过是在解析结果中多查找一次。每次查找只产生一个结果，而这样的操作次数屈指可数。
 
-To have confidence that our Rust implementation was correct, not only did we ensure that our new implementation passed the `source-map` library’s existing test suite, but we also wrote a [suite of `quickcheck` property tests](https://github.com/fitzgen/source-map-mappings/blob/97ba6fb4163f6edfa45f6a3c9e86914ec5ef02a2/tests/quickcheck.rs). These tests construct random `"mappings"` input strings, parse them, and then assert that various properties hold.
+通过这两个单元化测试，我们确信利用 Rust 语言来实现是正确的。 一个是 `source-map` 工具库已有的单元测试，另一个是 [`快速查找` 性能的单元测试](https://github.com/fitzgen/source-map-mappings/blob/97ba6fb4163f6edfa45f6a3c9e86914ec5ef02a2/tests/quickcheck.rs) 。这个测试的是通过解析随机输入 `“映射集”` 字符串，判断执行结果的多个性能指标。
 
-[Our Rust implementation of `"mappings"` parsing and querying is available on crates.io as the `source-map-mappings` crate.](https://crates.io/crates/source-map-mappings)
+[我们基于 Rust 实现 crates.io，利用 crates.io 的 api 作为 Mapping 函数对 `“映射集”` 进行解析和查找。](https://crates.io/crates/source-map-mappings)
 
-### Base 64 Variable Length Quantities
+### Base 64 大数值的位数可变表示法
 
-The first step to parsing a source map’s mappings is decoding VLQs. We implemented a [`vlq` library](https://github.com/tromey/vlq) in Rust and published it to crates.io.
+对 source-map 进行 Mapping 的第一步是 VLQ 编码。这里是我们实现的 [`vlq` 工具库](https://github.com/tromey/vlq)，基于 Rust 实现，发布到 crates.io 上。
 
-The `decode64` function decodes a single base 64 digit. It uses pattern matching and the idiomatic `Result`-style error handling.
+`decode64` 函数解码结果是一个 base 64 数值。它使用匹配模式和可读性良好的 `Result` —— 处理错误。
 
-A `Result<T, E>` is either `Ok(v)`, indicating that the operation succeeded and produced the value `v` of type `T`, or `Err(error)`, indicating that the operation failed, with the value `error` of type `E` providing the details. The `decode64` function’s return type `Result<u8, Error>` indicates that it returns a `u8` value on success, or a `vlq::Error` value on failure:
+`Result<T, E>` 函数运行得到一个类型为 `T`，值为 `V` 就返回 `Ok(v)`；运行得到一个类型为 `E`，值为 `error` 就返回 `Err(error)` 来提供报错细节。`decode64` 函数运行得到一个类型为 `Result<u8, Error>` 的返回值，如果成功，值为 `u8`，如果失败，值为 `vlq::Error`:
 
     fn decode64(input: u8) -> Result<u8, Error> {
         match input {
@@ -181,7 +181,7 @@ A `Result<T, E>` is either `Ok(v)`, indicating that the operation succeeded and 
     }
     
 
-With the `decode64` function in hand, we can decode whole VLQ values. The `decode` function takes a mutable reference to an iterator of bytes as input, consumes as many bytes as it needs to decode the VLQ, and finally returns a `Result` of the decoded value:
+通过 `decode64` 函数，我们可以对 VLQ 值进行解码。 `decode` 函数将可变引用作为输入字节的迭代器，消耗需要解码的 VLQ，最后返回 `Result` 函数作为解码结果。 
 
     pub fn decode<B>(input: &mut B) -> Result<i64>
     where
@@ -219,11 +219,11 @@ With the `decode64` function in hand, we can decode whole VLQ values. The `decod
     
     
 
-Unlike the JavaScript code it is replacing, this code does not sacrifice idiomatic error handling for performance. Idiomatic error handling _is_ performant, and does not involve boxing values on the heap or unwinding the stack.
+不像被替换掉的 JavaScript，这段代码没有为了性能而降低错误处理代码的可读性，可读性更好的错误处理执行逻辑更容易理解，也没有涉及到堆的值包装和栈的压栈出栈。
 
-### The `"mappings"` String
+### `"mappings"` 字符串
 
-We begin by defining some small helper functions. The `is_mapping_separator` predicate function returns `true` if the given byte is a separator between mappings, and `false` if it is not. There is a nearly identical JavaScript function:
+我们开始定义一些辅助函数。`is_mapping_separator` 函数判断给定的数据能否被 `Mapping` 如果可以就返回 `true`，否则返回 `false`。这是一个语法与 JavaScript 很相似的函数：
 
     #[inline]
     fn is_mapping_separator(byte: u8) -> bool {
@@ -231,7 +231,7 @@ We begin by defining some small helper functions. The `is_mapping_separator` pre
     }
     
 
-Next, we define a helper function for reading a single VLQ delta value and adding it to the previous value. The JavaScript does not have an equivalent function, and instead repeats this code each time it wants to read a VLQ delta. JavaScript does not let us control how our parameters are represented in memory, but Rust does. We cannot pass a reference to a number in a zero-cost manner with JavaScript. We could pass a reference to an `Object` with a number property or we could close over the number’s variable in a local closure function, but both of these solutions have associated runtime costs:
+然后我们定义一个辅助函数用来读取 VLQ 数据并把它添加到前一个值中。这个函数没法用 JavaScript 类比了，每读取一段 VLQ 数据就要运行这个函数一遍。 Rust 可以控制参数在内存中以怎样的形式存储，JavaScript 则没有这个功能。虽然我们可以用一组数字属性引用 `对象` 或者把数字变量通过闭包保存下来，但是依然模拟不了 Rust 在引用一组数组属性的时候做到零花销。JavaScript 只要运行时就一定会有相关的时间花销。
 
     #[inline]
     fn read_relative_vlq<B>(
@@ -256,7 +256,7 @@ Next, we define a helper function for reading a single VLQ delta value and addin
     }
     
 
-All in all, the Rust implementation of `"mappings"` parsing is quite similar to the JavaScript implementation it replaces. However, with the Rust, we have control over what is or isn’t boxed, whereas in the JavaScript, we do not. Every single parsed mapping `Object` is boxed in the JavaScript implementation. Much of the Rust implementation’s advantage stems from avoiding these allocations and their associated garbage collections:
+总而言之，基于 Rust 实现的 `“映射集”` 解析与被替换调的 JavaScript 实现语法逻辑非常相似。尽管如此，使用 Rust 我们可以控制底层哪些功能要打包到一起，哪些用辅助函数来解决。JavaScript 语言对底层的控制权就小了很多，举个简单例子，解析映射 `对象` 只能用 JavaScript 原生方法。Rust 语言的优势源于把内存的分配和垃圾回收交给编程人员自己去实现：
 
     pub fn parse_mappings(input: &[u8]) -> Result<Mappings, Error> {
         let mut generated_line = 0;
@@ -327,25 +327,25 @@ All in all, the Rust implementation of `"mappings"` parsing is quite similar to 
     }
     
 
-Finally, we still use a custom Quicksort implementation in the Rust code, and this is the only unidiomatic thing about the Rust code. We found that although the standard library’s built-in sorting is much faster when targeting native code, our custom Quicksort is faster when targeting WebAssembly. (This is surprising, but we have not investigated why it is so.)
+最后，我们仍然在 Rust 代码中使用我们自己定义的快排，这可能是所有 Rust 代码中可读性最差了。我们还发现，在原生代码环境中，标准库的内置排序函数执行效率更高，但是一旦把运行环境换成 WebAssembly，我们定义的排序函数比标准库的内置排序函数执行效率更高。（对于这样的差异很意外，不过我们也没有再深究了。）
 
-Interfacing with JavaScript
+JavaScript 接口
 ---------------------------
 
-The WebAssembly foreign function interface (FFI) is constrained to scalar values, so any function exposed from Rust to JavaScript via WebAssembly may only use scalar value types as parameters and return types. Therefore, the JavaScript code must ask the Rust to allocate a buffer with space for the `"mappings"` string and return a pointer to that buffer. Next, the JavaScript must copy the `"mappings"` string into that buffer, which it can do without crossing the FFI boundary because it has write access to the whole WebAssembly linear memory. After the buffer is initialized, the JavaScript calls the `parse_mappings` function and is returned a pointer to the parsed mappings. Then, the JavaScript can perform any number of queries through the WebAssembly API, passing in the pointer to the parsed mappings when doing so. Finally, when no more queries will be made, the JavaScript tells the WebAssembly to free the parsed mappings.
+WebAssembly 的对外函数接口（foreign function interface，简称 FFI）受限于标量值，所以一些以 Rust 语言编写，通过 WebAssembly 转成 JavaScript 代码后的函数参数只能是标量数值类型，返回值也是标量数值类型。因此，JavaScript 要求 Rust 为 `“映射集”` 字符串分配一块缓冲区并返回该 buffer 字节的地址指针。然后，JavaScript 必须复制出 `“映射集”` 字符串的 buffer 字节，这时候因为 FFI 的限制什么也做不了，只能把整段连续的 WebAssembly 内存直接写入。之后 JavaScript 调用 `parse_mappings` 函数进行 buffer 字节的初始化工作，初始化完毕后返回解析结果的指针。完成上述这些前置工作后，JavaScript 就可以使用 WebAssembly 的 API ，给定一些数值查找结果，或者给定一个指针得到解析后的映射集。所有查询结果完毕以后，JavaScript 会告诉 WebAssembly 释放存储映射集结果的内存空间。
 
-### Exposing WebAssembly APIs from Rust
+### 从 Rust 暴露 WebAssembly 的应用编程接口
 
-All the WebAssembly APIs we expose live in a small glue crate that wraps the `source-map-mappings` crate. This separation is useful because it allows us to test the `source-map-mappings` crate with our native host target, and only compile the WebAssembly glue when targeting WebAssembly.
+所有的暴露出去的 WebAssembly APIs 都被封装在一个 “小胶箱” 里。这样的分离很有用，它允许我们用测试环境来执行 `source-map-mappings`。如果你想编译成纯的 WebAssembly 代码也可以，只需要把编译环境修改成 WebAssembly 。
 
-In addition to the constraints of what types can cross the FFI boundary, each exported function requires that
+另外，受限于 FFI 的传值要求，那么输出的函数必须满足一下两点：
 
-*   it has the `#[no_mangle]` attribute so that it is not name-mangled, and JavaScript can easily call it, and
-*   it is marked `extern "C"` so that it is publicly exported in the final `.wasm` file.
+*   它不能有 `#[无名]` 属性，要方便 JavaScript 能调用它 。
+*   它标记 `外部 "C"` 以便提取到 `.wasm` 公共文件中。
 
-Unlike the core library, this glue code that exposes functionality to JavaScript via WebAssembly does, by necessity, frequently use `unsafe`. Calling `extern` functions and using pointers received from across an FFI boundary is always `unsafe`, because the Rust compiler cannot verify the safety of the other side. Ultimately this is less concerning with WebAssembly than it might be with other targets — the worst we can do is `trap` (which causes an `Error` to be raised on the JavaScript side) or return an incorrect answer. Much tamer than the worst case scenarios with native binaries where executable memory is in the same address space as writable memory, and an attacker can trick the program into jumping to memory where they’ve inserted some shell code.
+不同于核心库，这些代码暴露功能给 WebAssembly 转 JavaScript，有必要提醒你，频繁使用非常的 `不安全`。 只要调用 `外部` 函数和使用指针从 FFI 边界接收指针，就是 `不安全`，因为 Rust 编译器没法校验另一端是否安全。我们很少关心到这个安全性问题 —— 最坏的情况下我们可以做一个 `陷阱`（把 JavaScript 端的 `报错` 全部抓住），或者直接返回一个报错响应。在同一段地址中，可以向地址写入内容要比只是将地址储存的内容以二进制字节运行要危险的多，如果可写入的话，攻击者就可以欺骗程序跳转到特定的内存地址，然后插入一段他自己的 shell 脚本代码。
 
-The simplest function we export is the function to get the last error that occurred in the library. This provides similar functionality as `errno` from `libc`, and is called by JavaScript when some API call fails and the JavaScript would like to know what kind of failure it was. We always maintain the most recent error in a global, and this function retrieves that error value:
+我们输出的一个最简单是函数功能是把工具库产生的一个报错捕获到。它提供了 `libc` 中 `errno` 类似的功能，它会将 API 运行出错时报告 JavaScript 到底是什么样的错误。我们总是把最近的报错保留在全局对象上，这个函数可以检索错误值：
 
 ```
 static mut LAST_ERROR: Option<Error> = None;
@@ -361,15 +361,15 @@ pub extern "C" fn get_last_error() -> u32 {
 }
 ```
 
-The first interaction between JavaScript and Rust is allocating a buffer with space to hold the `"mappings"` string. We desire an owned, contiguous chunk of `u8`s, which suggests using `Vec<u8>`, but we want to expose a single pointer to JavaScript. A single pointer can cross the FFI boundary, and is easier to wrangle on the JavaScript side. We can either add a layer of indirection with `Box<Vec<u8>>` or we can save the extra data needed to reconstruct the vector on the side. We choose the latter approach.
+JavaScript 和 Rust 的第一次交互发生在为 buffer 字节分配内存空间来存储 `“映射集”` 字符串。我们希望能有一块独立的，由 `u8` 组成的连续块，它建议使用 `Vec<u8>`，但我们想要暴露一个简单的指针给 JavaScript。一个简单的指针可以跨越 FFI 的边界，但是很容易在 JavaScript 端引起报错。我们可以用 `Box<Vec<u8>>` 添加一个连接层或者保存在外部数据中，另一端有需要这份数据的时候再载体进行格式化。我们决定采用后一个方法。
 
-A vector is a triple of
+这个载体由以下三者组成：
 
-1.  a pointer to the heap-allocated elements,
-2.  the capacity of that allocation, and
-3.  the length of the initialized elements.
+1.  一个指针指向堆内存元素，
+2.  分配内存的容量有多大，
+3.  元素的初始化长度。
 
-Since we are only exposing the pointer to the heap-allocated elements to JavaScript, we need a way to save the length and capacity so we can reconstruct the `Vec` on demand. We allocate two extra words of space and store the length and capacity in the first two words of the heap elements. Then we give JavaScript a pointer to the space just after those extra words:
+当我们暴露一个堆内存元素的指针给 JavaScript，我们需要一种方式来保存长度和容量，将来通过 `Vec` 重建它。我们在堆元素的开头添加两个额外的词来存储长度和容量，然后我们把这个添加了两个标注的指针传给 JavaScript：
 
 ```
 #[no_mangle]
@@ -400,16 +400,16 @@ pub extern "C" fn allocate_mappings(size: usize) -> *mut u8 {
 }
 ```
 
-After initializing the buffer for the `"mappings"` string, JavaScript passes ownership of the buffer to `parse_mappings`, which parses the string into a queryable structure. A pointer to the queryable `Mappings` structure is returned, or `NULL` if there was some kind of parse failure.
+把 buffer 字节初始化为 `“字符集”` 字符串之后，JavaScript 把 buffer 字节的控制器交给 `parse_mappings`，将字符串解析为可查找结构。解析成功会返回 `Mappings` 后的结构，失败就返回 `NULL`。
 
-The first thing that `parse_mappings` must do is recover the `Vec`‘s length and capacity. Next, it constructs a slice of the `"mappings"` string data, constrains the lifetime of the slice to the current scope to double check that we don’t access the slice again after its deallocated, and call into our library’s `"mappings"` string parsing function. Regardless whether parsing succeeded or not, we deallocate the buffer holding the `"mappings"` string, and return a pointer to the parsed structure or save any error that may have occurred and return `NULL`.
+`parse_mappings` 要做的第一步就是恢复 `Vec` 的长度和容量。第二部，`“映射集”` 字符串数据被截取，在被截取的整个生命周期内都无法从当前作用域检测到，只有当他们被重新分配到内存中，并被我们的工具库解析为 `“字符集”` 字符串之后才能获取到。不论解析结果有没有成功，我们都重新申请 buffer 字节来储存 `“字符集”` 字符串，然后返回一个指针指向解析成功的结果，或者返回一个指针指向 `NULL`。
 
 ```
-/// Force the `reference`'s lifetime to match the `scope`'s
-/// lifetime. Certain `unsafe` operations, such as dereferencing raw
-/// pointers, return references with un-constrained lifetimes, and we
-/// use this function to ensure we can't accidentally use the
-/// references after they become invalid.
+/// 留意在匹配的生命周期内作用域中的引用，
+/// 某些 `不安全` 的操作，比如解除指针关联引用。
+/// 生命周期内返回一些不保留的引用，
+/// 使用这个函数保证我们不会一不小心的使用了
+/// 一个非法的引用值。
 #[inline]
 fn constrain<'a, T>(_scope: &'a (), reference: &'a T) -> &'a T
 where
@@ -423,7 +423,7 @@ pub extern "C" fn parse_mappings(mappings: *mut u8) -> *mut Mappings {
     assert_pointer_is_word_aligned(mappings);
     let mappings = mappings as *mut usize;
 
-    // Unstuff the data we put just before the pointer to the mappings
+    // 在指针指向映射集字符串前将数据拿出
     // string.
     let capacity_ptr = mappings.wrapping_offset(-2);
     debug_assert!(!capacity_ptr.is_null());
@@ -433,7 +433,7 @@ pub extern "C" fn parse_mappings(mappings: *mut u8) -> *mut Mappings {
     debug_assert!(!size_ptr.is_null());
     let size = unsafe { *size_ptr };
 
-    // Construct the input slice from the pointer and parse the mappings.
+    // 从指针的截取片段构造一个指针并解析成映射集。
     let result = unsafe {
         let input = slice::from_raw_parts(mappings as *const u8, size);
         let this_scope = ();
@@ -441,14 +441,14 @@ pub extern "C" fn parse_mappings(mappings: *mut u8) -> *mut Mappings {
         source_map_mappings::parse_mappings(input)
     };
 
-    // Deallocate the mappings string and its two prefix words.
+    // 重新分配映射集字符串的内存并添加两个前置的数据。
     let size_in_usizes = (size + mem::size_of::<usize>() - 1) / mem::size_of::<usize>();
     unsafe {
         Vec::<usize>::from_raw_parts(capacity_ptr, size_in_usizes + 2, capacity);
     }
 
-    // Return the result, saving any errors on the side for later inspection by
-    // JS if required.
+    // 返回结果，保存一些报错给另一端语言提供帮助
+    // 如果 JavaScript 需要的话。
     match result {
         Ok(mappings) => Box::into_raw(Box::new(mappings)),
         Err(e) => {
@@ -461,9 +461,9 @@ pub extern "C" fn parse_mappings(mappings: *mut u8) -> *mut Mappings {
 }
 ```
 
-When we run queries, we need a way to translate the results across the FFI boundary. The results of a query are either a single `Mapping` or set of many `Mapping`s, and a `Mapping` can’t cross the FFI boundary as-is unless we box it. We do not wish to box `Mapping`s since we would _also_ need to provide getters for each of its fields, causing code bloat on top of the costs of allocation and indirection. Our solution is to call an imported function for each `Mapping` query result.
+当我们进行查找时，我们需要找一个方法来转换结果，才能传给 FFI 使用。查找结果可能是一个 `映射` 或者集合组成的 `映射`，`映射` 不能直接给 FFI 使用，除非我们进行封装。 我们肯定不希望对 `映射` 进行封装，因为之后我们还可能需要从原来的结构中获取内容，那时我们还要费时费力的分配内存和间接取值。我们的方法是调用一个引导进来的函数处理每一个 `映射`。
 
-The `mappings_callback` is an `extern` function without definition, which translates to an imported function in WebAssembly that the JavaScript must provide when instantiating the WebAssembly module. The `mappings_callback` takes a `Mapping` that is exploded into its member parts: each field in a transitively flattened `Mapping` is translated into a parameter so that it can cross the FFI boundary. For `Option<T>` members, we add a `bool` parameter that serves as a discriminant, determining whether the `Option<T>` is `Some` or `None`, and therefore whether the following `T` parameter is valid or garbage:
+`mappings_callback` 就是一个 `外部` 函数，它不是本地定义的函数，而是在 WebAssembly 模块实例化的时候由 JavaScript 引导进来。`mappings_callback` 将 `映射` 分解成不同的部分：每个文件都是被展平后的 `映射`，被转换后可以作为参数传递给 FFI 使用。 `可选项<T>` 我们加入一个 `bool` 参数控制不同的转换结果，由 `可选项<T>` 是 `Some` 还是 `None` 决定参数 `T` 是合法值还是无用值：
 
 ```
 extern "C" {
@@ -555,9 +555,9 @@ unsafe fn invoke_mapping_callback(mapping: &Mapping) {
 }
 ```
 
-All of the exported query functions have a similar structure. They begin by converting a raw `*mut Mappings` pointer into an `&mut Mappings` mutable reference. The `&mut Mappings` lifetime is constrained to the current scope to enforce that it is only used in this function call, and not saved away somewhere where it might be used after it is deallocated. Next, the exported query function forwards the query to the corresponding `Mappings` method. For each resulting `Mapping`, the exported function invokes the `mapping_callback`.
+所有输出的查找函数都有相似的结构。它们一开始都是转换 `*mut Mappings` 成一个 `&mut Mappings` 引用。`&mut Mappings` 生命周期仅限于当前范围，以强制它只用于这个函数的调用，在它被重新分配内存后不能再使用。其次，每一个查找方法都依赖于 `Mapping` 方法。每个被输出的函数都调用 `mapping_callback` 的结果都是 `映射`。
 
-A typical example is the exported `all_generated_locations_for` query function, which wraps the `Mappings::all_generated_locations_for` method, and finds all the mappings corresponding to the given original source location:
+输出一个典型的查找函数 `all_generated_locations_for`，它包裹了`Mappings::all_generated_locations_for` 方法，并找到所有源标注的映射依赖：
 
 ```
 #[inline]
@@ -598,7 +598,7 @@ pub extern "C" fn all_generated_locations_for(
 }
 ```
 
-Finally, when the JavaScript is finished querying the `Mappings`, it must deallocate them with the exported `free_mappings` function:
+最后，当 JavaScript 完成查找 `映射集` 时，必须输出 `free_mappings` 函数来为结果重新分配内存：
 
 ```
 #[no_mangle]
@@ -609,44 +609,44 @@ pub extern "C" fn free_mappings(mappings: *mut Mappings) {
 }
 ```
 
-### Compiling Rust into `.wasm` Files
+### 将 Rust 编译成 `.wasm` 文件
 
-The addition of the `wasm32-unknown-unknown` target makes compiling Rust into WebAssembly possible, and `rustup` makes installing a Rust compiler toolchain targeting `wasm32-unknown-unknown` easy:
+为目标添加 `wasm32-unknown-unknown` 给 Rust 编译成 WebAssembly 带来可能，而且 `rustup` 使得安装 Rust 的编译工具指向 `wasm32-unknown-unknown` 更加便捷：
 
 ```
 $ rustup update
 $ rustup target add wasm32-unknown-unknown
 ```
 
-Now that we have a `wasm32-unknown-unknown` compiler, the only difference between building for our host platform and WebAssembly is a `--target` flag:
+现在我们就有了一个 `wasm32-unknown-unknown` 编译器, 通过修改 `--target` 标记就可以实现不同的语言到 WebAssembly 之间的编译：
 
 ```
 $ cargo build --release --target wasm32-unknown-unknown
 ```
 
-The resulting `.wasm` file is at `target/wasm32-unknown-unknown/release/source_map_mappings_wasm_api.wasm`.
+`.wasm` 后缀的编译文件保存在 `target/wasm32-unknown-unknown/release/source_map_mappings_wasm_api.wasm`.
 
-Although we now have a working `.wasm` file, we are not finished: this `.wasm` file is still much larger than it needs to be. To produce the smallest `.wasm` file we can, we leverage the following tools:
+尽管我们已经有一个可以运行的 `.wasm` 文件，工作还没完成：这个 `.wasm` 文件体积仍然太大了。生产环境的 `.wasm` 文件体积越小越好，我们通过以下工具一步步压缩它：
 
-*   [`wasm-gc`](https://github.com/alexcrichton/wasm-gc), which is like a linker’s `--gc-sections` flag that removes unused object file sections, but for `.wasm` files instead of ELF, Mach-O, etc. object files. It finds all functions that are not transitively reachable from an exported function and removes them from the `.wasm` file.
+*   [`wasm-gc`](https://github.com/alexcrichton/wasm-gc)，`--gc-sections` 标记了要移除没有使用过的对象文件，对于 `.wasm` 文件，ELF，Mach-O 除外。它会找到哪些输出函数没有被用过，然后从 `.wasm` 文件中移除。
 
-*   [`wasm-snip`](https://github.com/fitzgen/wasm-snip), which is used to replace a WebAssembly function’s body with a single `unreachable` instruction. This is useful for manually removing functions that will never be called at runtime, but which the compiler and `wasm-gc` couldn’t statically prove were unreachable. Snipping a function can make other functions statically unreachable, so it makes sense to run `wasm-gc` again afterwards.
+*   [`wasm-snip`](https://github.com/fitzgen/wasm-snip)，用 `非访问性` 的指令来替代 WebAssembly 的函数体，这对于那些运行时从头到尾没有没调用过，但是 `wasm-gc` 静态分析没法移除掉，通过手动配置编译结果。丢弃一个函数引用指针使得其他函数没法访问到失去引用指针的函数，所以很有必要在此操作之后再一次使用 `wasm-gc`。
 
-*   [`wasm-opt`](https://github.com/WebAssembly/binaryen), which runs `binaryen`‘s optimization passes over a `.wasm` file, shrinking its size and improving its runtime performance. Eventually, when LLVM’s WebAssembly backend matures, this may no longer be necessary.
+*   [`wasm-opt`](https://github.com/WebAssembly/binaryen)，用 `binaryen` 优化 `.wasm` 文件，压缩文件体积并提高运行时的性能。实际上，随着后端底层虚拟机越来越成熟，这步操作变得可有可无。
 
-Our [post-build pipeline](https://github.com/fitzgen/source-map-mappings/blob/e76dac2cd16fda8bcd49b35c234fccc42b754bae/source-map-mappings-wasm-api/build.py) goes `wasm-gc` → `wasm-snip` → `wasm-gc` → `wasm-opt`.
+我们的 [生产流程配置](https://github.com/fitzgen/source-map-mappings/blob/e76dac2cd16fda8bcd49b35c234fccc42b754bae/source-map-mappings-wasm-api/build.py) 是 `wasm-gc` → `wasm-snip` → `wasm-gc` → `wasm-opt`.
 
-### Using WebAssembly APIs in JavaScript
+### 在 JavaScript 使用 WebAssembly APIs
 
-The first concern when using WebAssembly in JavaScript is how to load the `.wasm` files. The `source-map` library is primarily used in three environments:
+在 JavaScript 使用 WebAssembly 的首要问题就是，如何加载 `.wasm` 文件。 `source-map` 工具库的运行环境主要有三个：
 
 1.  Node.js
-2.  The Web
-3.  Inside Firefox Developer Tools
+2.  网页
+3.  火狐开发者工具里
 
-Different environments can have different methods for loading a `.wasm` file’s bytes into an `ArrayBuffer` that can then be compiled by the JavaScript runtime. On the Web and inside Firefox, we can use the standard `fetch` API to make an HTTP request to load the `.wasm` file. It is the library consumer’s responsibility to provide a URL pointing to the `.wasm` file before parsing any source maps. When used with Node.js, the library uses the `fs.readFile` API to read the `.wasm` file from disk. No initialization is required before parsing any source maps in this scenario. We provide a uniform interface regardless which environment the library is loaded in by using feature detection to select the correct `.wasm` loading implementation.
+不同的环境使用不同的方式将 `.wasm` 文件加载为 `ArrayBuffer` 字节，才能在 JavaScript 运行时进行编译使用。在网页和火狐浏览器里可以用标准化的 `fetch` API 建立 HTTP 请求来加载 `.wasm` 文件。它是一个工具库，负责将 URL 指向需要从网络加载的 `.wasm` 文件，加载完成后才能进行任何的 source-map 解析。当使用 Node.js 把工具库换成 `fs.readFile` API 从硬盘中读取 `.wasm` 文件。在这个脚本中，在进行任何 source-map 解析之前不需要执行初始化。我们只负责提供一个统一的接口，基于什么环境、用什么的工具库才能正确的加载 `.wasm` 文件，各位自己去撸代码吧。
 
-When compiling and instantiating the WebAssembly module, we must provide the `mapping_callback`. This callback cannot change across the lifetime of the instantiated WebAssembly module, but depending on what kind of query we are performing, we want to do different things with the resulting mappings. So the actual `mapping_callback` we provide is only responsible for translating the exploded mapping members into a structured object and then trampolining that result to a closure function that we set depending on what query we are running.
+当编译和实例化 WebAssembly 模块时，我们必须提供 `mapping_callback`。 这个回调函数不能在实例化 WebAssembly 模块的生命周期外进行回调，但是可以根据我们将要执行的查找工作和不同的映射结果对返回结果进行一些调整。所以实际上 `mapping_callback` 只提供对分离后的映射成员进行对象结构化，然后把结果用一个闭包函数包裹起来后返回给你，你随意进行查找操作。
 
 ```
 let currentCallback = null;
@@ -694,7 +694,7 @@ WebAssembly.instantiate(buffer, {
 })
 ```
 
-To make setting and unsetting the `currentCallback` ergonomic, we define a `withMappingCallback` helper that takes two functions: one to set as the `currentCallback`, and another to invoke immediately. Once the second function’s execution finishes, we reset the `currentCallback` to `null`. This is the JavaScript equivalent of [RAII](https://en.wikipedia.org/wiki/Resource_acquisition_is_initialization):
+为了 `currentCallback` 工程化和非工程化设置，我们定义了 `withMappingCallback` 辅助函数来完成这件事：它就像设置过的 `currentCallback`，如果不想设置的话直接调用 `currentCallback` 就可以。一旦 `withMappingCallback` 完成，我们就把  `currentCallback` 重置成 `null`。[RAII](https://en.wikipedia.org/wiki/Resource_acquisition_is_initialization) 等价于以下代码：
 
 ```
 function withMappingCallback(mappingCallback, f) {
@@ -707,7 +707,7 @@ function withMappingCallback(mappingCallback, f) {
 }
 ```
 
-Recall that JavaScript’s first task, when parsing a source map, is to tell the WebAssembly to allocate space for the `"mappings"` string, and then copy the string into the allocated buffer:
+回想以下 JavaScript 最初的设想，当解析一段 source-map 时，需要告诉 WebAssembly 分配一段内存来存储 `“映射集”` 字符串，然后将字符串复制到一段 buffer 字节内存里：
 
 ```
 const size = mappingsString.length;
@@ -722,14 +722,14 @@ for (let i = 0; i < size; i++) {
 }
 ```
 
-Once JavaScript has initialized the buffer, it calls the exported `parse_mappings` WebAssembly function and translates any failures into an `Error` that gets `throw`n.
+JavaScript 对 buffer 字节进行初始化的时候，它会调用从 WebAssembly 导出的 `parse_mappings` 函数，如果转换过程失败就 `抛出` 一些 `报错`。
 
 ```
 const mappingsPtr = this._wasm.exports.parse_mappings(mappingsBufPtr);
 if (!mappingsPtr) {
     const error = this._wasm.exports.get_last_error();
     let msg = `Error parsing mappings (code ${error}): `;
-    // XXX: keep these error codes in sync with `fitzgen/source-map-mappings`.
+    // XXX: 用 `fitzgen/source-map-mappings` 同步接收报错信息。
     switch (error) {
     case 1:
         msg += "the mappings contained a negative line, column, source index or name index";
@@ -754,9 +754,9 @@ if (!mappingsPtr) {
 this._mappingsPtr = mappingsPtr;
 ```
 
-The various query methods that call into WebAssembly have similar structure, just like the exported functions on the Rust side do. They validate query parameters, set up a temporary mappings callback closure with `withMappingCallback` that aggregates results, calls into WebAssembly, and then returns the results.
+运行在 WebAssembly 中的查找函数都有相似的结构，跟 Rust 语言定义的方法一样。它们判断传入的查找参数，传入一个临时的闭包回调函数到 `withMappingCallback` 得到返回值，将 `withMappingCallback` 传入 WebAssembly 就得到最终结果。
 
-Here is what `allGeneratedPositionsFor` looks like in JavaScript:
+`allGeneratedPositionsFor` 在 JavaScript 中的实现如下：
 
 ```
 BasicSourceMapConsumer.prototype.allGeneratedPositionsFor = function ({
@@ -808,7 +808,7 @@ BasicSourceMapConsumer.prototype.allGeneratedPositionsFor = function ({
 };
 ```
 
-When JavaScript is done querying the source map, the library consumer should call `SourceMapConsumer.prototype.destroy` which then calls into the exported `free_mappings` WebAssembly function:
+当 JavaScript 查找 source-map，调用 `SourceMapConsumer.prototype.destroy` 方法，它会在内部调用从 WebAssembly 导出的 `free_mappings`函数：
 
 ```
 BasicSourceMapConsumer.prototype.destroy = function () {
@@ -819,135 +819,135 @@ BasicSourceMapConsumer.prototype.destroy = function () {
 };
 ```
 
-## Benchmarks
+## 基准测试
 
-All tests were performed on a MacBook Pro from mid 2014 with a 2.8 GHz Intel Core i7 processor and 16 GB 1600 MHz DDR3 memory. The laptop was plugged into power for every test, and the benchmark Webpage was refreshed between tests. The tests were performed in Chrome Canary 65.0.3322.0, Firefox Nightly 59.0a1 (2018-01-15), and Safari 11.0.2 (11604.4.7.1.6)[3](#foot-3). For each benchmark, to warm up the browser’s JIT compiler, we performed five iterations before collecting timings. After warm up, we recorded timings for 100 iterations.
+所有测试都是运行在 2014 年年中生产的 MacBook Pro 上，具体配置是 2.8 GHz Intel i7 处理器，16 GB 1600 MHz DDR3 内存。笔记本电脑测试过程中一直插入电源，并且在进行网页基准测试时，每次测试开始前都刷新网页。测试使用的浏览器的版本号非别是：Chrome Canary 65.0.3322.0, Firefox Nightly 59.0a1 (2018-01-15), Safari 11.0.2 (11604.4.7.1.6)<sup><a href="#note3">[3]</a></sup>。为了保证测试环境一致，在采集执行时间前都运行 5 次来 `预热` 浏览器的 JIT 编译器，然后计算运行 100 次的总时间。
 
-We used a variety of input source maps with our benchmarks. We used three source maps found in the wild of varying sizes:
+我们使用同一个 source-map 文件，选用文件中三个不同位置大小的片段作为测试素材：
 
-1.  The [source map for the minified-to-unminified](https://github.com/mozilla/source-map/blob/2c6fb7e30bae18d7213a721c2854cb24a84cab04/dist/source-map.min.js.map) versions of the original JavaScript implementation of the `source-map` library. This source map is created by [UglifyJS](https://github.com/mishoo/UglifyJS2) and its `"mappings"` string is 30,081 characters long.
+1. 用 JavaScript 实现的 [压缩版](https://github.com/mozilla/source-map/blob/2c6fb7e30bae18d7213a721c2854cb24a84cab04/dist/source-map.min.js.map) `source-map`。这个 source-map 文件用 [UglifyJS](https://github.com/mishoo/UglifyJS2) 进行压缩，最终的 `“映射集”` 字符串长度只有 30,081 个字符。
 
-2.  The [latest Angular.JS’s minified-to-unminified source map](https://code.angularjs.org/latest/). This source map’s `"mappings"` string is 391,473 characters long.
+2. [Angular.JS 最后版本压缩得到的 source-map](https://code.angularjs.org/latest/)，这个 `“映射集”` 字符串长度是 391,473 个字符。
 
-1.  The [Scala.JS runtime’s Scala-to-JavaScript source map](https://github.com/mozilla/source-map/blob/master/bench/scalajs-runtime-sourcemap.js). This source map is the largest, and its `"mappings"` string is 14,964,446 characters long.
+1. [Scala.JS 运行时的计算得到 JavaScript](https://github.com/mozilla/source-map/blob/master/bench/scalajs-runtime-sourcemap.js) 的 `source-map`。这个映射体积最大，`“映射集”` 字符串长度是 14,964,446 个字符。
 
-Additionally, we augmented the input set with two more artificially constructed source maps:
+另外，我们还专门增加两种人为的 source-map 结构：
 
-1.  The Angular.JS source map inflated to ten times its original size. This results in a `"mappings"` string of size 3,914,739.
+1. 将 Angular.JS source map 原体积扩大 10 倍。`“映射集”` 字符串长度是 3,914,739 个字符。
 
-1.  The Scala.JS source map inflated to twice its original size. This results in a `"mappings"` string of size 29,928,893. For this input source map, we only collected 40 iterations on each benchmark.
+2. 将 Scala.JS source map 原体积扩大 2 倍。`“映射集”` 字符串长度是 29,928,893 个字符。这个 source-map 在保持其他基准的情况下我们只收集运行 40 次的时间。
 
-Astute readers will have noticed an extra 9 and 1 characters in the inflated source maps’ sizes respectively. These are from the `;` separator characters between each copy of the original `"mappings"` string when gluing them together to create the inflated version.
+精明的读者可能会留意到，扩大后的 source-map 分别多出 9 个和 1 个字符，这多出的字符数量恰好是在扩大过程中将 suorce-map 分隔开的 `;`。
 
-We will pay particular attention to the Scala.JS source map. It is the largest non-artificial source map we tested. Additionally, it is the largest source map for which we have measurements for all combinations of browser and library implementation. There is no data for the largest input (the twice inflated Scala.JS source map) on Chrome. With the JavaScript implementation, we were unable to take any measurements with this combination because none of the benchmarks could complete without the tab’s content process crashing. With the WebAssembly implementation, Chrome would erroneously throw `RuntimeError: memory access out of bounds`. Using Chrome’s debugger, the supposed out-of-bounds access was happening in an instruction sequence that does not exist in the `.wasm` file. All other browser’s WebAssembly implementations successfully ran the benchmark with this input, so I am inclined to believe it is a bug in the Chrome implementation.
+我们把目光集中到 Scala.JS source map，它是不经过人为扩大时体积最大的版本。另外，它还是我们所测试的过的浏览器环境中体积最大的。用 Chrome 测试体积最大的 source-map 时什么数据也没有 (扩大 2 倍的 Scala.JS source map)。用 JavaScript 实现的版本，我们没法通过组合模拟出 Chrome 标签的内容进行崩溃；用 WebAssembly 实现的版本，Chrome 将会抛出 `运行时错误：内存访问超出界限`，使用 Chrome 的 debugger 工具，可以发现是由于 `.wasm` 文件缺少内存泄漏时的处理指令。其他浏览器在 WebAssembly 实现的版本都能成功通过基准测试，所以，我只能认为这是 Chrome 浏览器的一个bug
 
-**For all benchmarks, lower values are better.**
+**对于基准测试，值越小测试效果越好**
 
-### Setting a Breakpoint for the First Time
+### 在某个位置设置一个断点
 
-The first benchmark simulates a stepping debugger setting a breakpoint on some line in the original source for the first time. This requires that the source map’s `"mappings"` string is parsed, and that the parsed mappings are sorted by their original source locations so we can binary search to the breakpoint’s line’s mappings. The query returns every generated JavaScript location that corresponds to any mapping on the original source line.
+第一个基准测试程序通过在源码打上断点来进行分步调试。它需要 source-map 正在被解析成 `“映射集”` 字符串，而且解析得到的映射以源码出现的位置进行排列，这样我们就可以通过二分查找的方法找到断点对应 `“映射集”` 中的行号。查找结果返回编译后的文件对应 JavaScript 源码的定位。 
 
 [![](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/01/set.first_.breakpoint.mean_.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/01/set.first_.breakpoint.mean_.png)
 
 [![](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/01/set.first_.breakpoint.scalajs.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/01/set.first_.breakpoint.scalajs.png)
 
-The WebAssembly implementation outperforms its JavaScript counterpart in all browsers. For the Scala.JS source map, the WebAssembly implementation takes 0.65x the amount of time its JavaScript counterpart takes in Chrome, 0.30x in Firefox, and 0.37x in Safari. The WebAssembly implementation is fastest in Safari, taking 702ms on average compared to Chrome’s 1140ms and Firefox’s 877ms.
+WebAssembly 的实现在浏览器中的执行性能要全面优于 JavaScript 的实现。对于 Scala.JS source map，使用 WebAssembly 实现的版本运行时间在 Chrome 浏览器只有原来的 0.65x、在 Firefox 浏览器只有原来的 0.30x、在 Safari 浏览器只有原来的 0.37x。使用 WebAssembly 实现，运行时间最短的是 Safari 浏览器，平均只需要 702 ms，紧跟着的是 Firefox 浏览器需要 877 ms，最后是 Chrome 浏览器需要 1140 ms。
 
-Furthermore, the [relative standard deviation](https://en.wikipedia.org/wiki/Coefficient_of_variation) of the WebAssembly implementation is more narrow than the JavaScript implementation, particularly in Firefox. For the Scala.JS source map with the JavaScript implementation, Chrome’s relative standard deviation is ±4.07%, Firefox’s is ±10.52%, and Safari’s is ±6.02%. In WebAssembly, the spreads shrink down to ±1.74% in Chrome, ±2.44% in Firefox, and ±1.58% in Safari.
+此外，[相对误差值](https://en.wikipedia.org/wiki/Coefficient_of_variation) ，WebAssembly 实现要远远小于 JavaScript 实现的版本，尤其是在 Firefox 浏览器中。以 Scala.JS source map 的 JavaScript 实现的版本为例，Chrome 浏览器相对误差值是 ±4.07%，Firefox 浏览器是 ±10.52%，Safari 浏览器是 ±6.02%。WebAssembly 实现的版本中，Chrome 浏览器的相对误差值缩小到 ±1.74%，在 Firefox 浏览器 ±2.44%，在 Safari 浏览器 ±1.58%。
 
-### Pausing at an Exception for the First Time
+### 在异常的位置暂停
 
-The second benchmark exercises the code path for the first time that a generated JavaScript location is used to look up its corresponding original source location. This happens when a stepping debugger pauses at an uncaught exception originating from within the generated JavaScript code, when a console message is logged from within the generated JavaScript code, or when stepping into the generated JavaScript code from some other JavaScript source.
+第二个基准测试用来补充第一个基准测试中的意外情况。当逐步调试暂停而且捕获到一个未知的异常，但是没有生成 JavaScript 代码，当一个控制台打印信息没有给出生成 JavaScript 代码，或者逐步调试生成的 JavaScript 来自于其他的 JavaScript 源码，就启用第二个基准测试方案。
 
-To translate a generated JavaScript location into an original source location, the `"mappings"` string must be parsed. The parsed mappings must then be sorted by generated JavaScript location, so that we can binary search for the closest mapping, and finally that closest mapping’s original source location is returned.
+对 JavaScript 源码和编译后的代码进行定位时，`“映射集”` 字符串必须停止解析。已经解析好的映射经过排序创建 JavaScript 的定位，这样就可以通过二分查找定位到最接近的映射定位，根据映射定位找到最接近的源文件定位。
 
 [![](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/01/first.pause_.at_.exception.mean_.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/01/first.pause_.at_.exception.mean_.png)
 
 [![](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/01/first.pause_.at_.exception.scalajs.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/01/first.pause_.at_.exception.scalajs.png)
 
-Once again, the WebAssembly implementation outperforms the JavaScript implementation in all browsers &mdamdash; by an even larger lead this time. With the Scala.JS source map, in Chrome, the WebAssembly implementation takes 0.23x the amount time that the JavaScript implementation takes. In both Firefox and Safari, the WebAssembly takes 0.17x the time the JavaScript takes. Once more, Safari runs the WebAssembly fastest (305ms), followed by Firefox (397ms), and then Chrome (486ms).
+再一次的，在所有浏览器对 WebAssembly 和 JavaScript 这两种实现多维评估模型测试，WebAssembly 在运行时间上遥遥领先。对比 Scala.JS source map，在 Chrome 浏览器中 WebAssembly 实现的版本只需要花费 JavaScript 的 0.23x。在 Firefox 浏览器和 Safari 浏览器中只需要花费 0.17x。Safari 浏览器运行 WebAssembly 最快 (305ms)，紧接着是 Firefox 浏览器 (397ms)，最后是 Chrome 浏览器 (486ms)。
 
-The WebAssembly implementation is also less noisy than the JavaScript implementation again. The relative standard deviations fell from ±4.04% to 2.35±% in Chrome, from ±13.75% to ±2.03% in Firefox, and from ±6.65% to ±3.86% in Safari for the Scala.JS source map input.
+WebAssembly 实现的结果误差值也更小，对比 Scala.JS 的实现，在 Chrome浏览器中相对误差值从 ±4.04% 降到 2.35±%，在 Firefox 浏览器从 ±13.75% 降到 ±2.03%，在 Safari 浏览器从 ±6.65% 降到 ±3.86%。
 
-### Subsequent Breakpoints and Pauses at Exceptions
+### 伴随断点和异常暂停的基准测试
 
-The third and fourth benchmarks observe the time it takes to set subsequent breakpoints after the first one, or to pause at subsequent uncaught exceptions, or to translate subsequent logged messages’ locations. Historically, these operations have never been a performance bottleneck: the expensive part is the initial `"mappings"` string parse and construction of queryable data structures (the sorted arrays).
+第三和第四个基准测试，通过观察在第一个断点紧接着又设置一个断点，或者在发现异常暂停的位置后又设置暂停，或者转换打印的运行日志信息的时间花销。按照以往，这些操作都不会成为性能瓶颈：性能花销最大的地方在于 `“映射集”` 字符串的解析和可查找数据的结构构建（对数组进行排序）。
 
-Nevertheless, we want to make sure it _stays_ that way: we don’t want these operations to suddenly become costly.
+话说是这么说，我们还是希望能确保这些花销能维持的更加 `稳定`：我们不希望这些操作会在某些条件下性能花销突然提高。
 
-Both of these benchmarks are measuring the time it takes to binary search for the closest mapping to the target location and returning that mapping’s co-location.
+以下是在基准测试中，不同的编译后文件定位到源文件的二分查找所花的时间。
 
 [![](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/01/subsequent.setting.breakpoints.mean_.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/01/subsequent.setting.breakpoints.mean_.png) [![](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/01/subsequent.setting.breakpoints.scalajs.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/01/subsequent.setting.breakpoints.scalajs.png)
 
 [![](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/01/subsequent.pausing.at_.exceptions.mean_.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/01/subsequent.pausing.at_.exceptions.mean_.png) [![](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/01/subsequent.pausing.at_.exceptions.scalajs.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/01/subsequent.pausing.at_.exceptions.scalajs.png)
 
-These benchmark results should be seasoned with more salt than the other benchmarks’ results. Looking at both of the Scala.JS source map input plots, we see clear strata formations. This layering happens because the benchmarked operations run in such little time that the resolution of our timer becomes visible. We can see that Chrome exposes timers with resolution to tenths of a millisecond, Firefox exposes them with resolution to .02 milliseconds, and Safari exposes millisecond resolution.
+这个基准测试比其他基准测试的结果要更丰富。查看 Scala.JS source map 以不同的实现方式输入到不同浏览器中可以看到更细小的差异。因为都是用很小的时间单位去衡量测试结果，所以细小的时间差异也能显现出来。我们可以看到 Chrome 浏览器只用了十分之一毫秒，Firefox 浏览器只用了 0.02 毫秒，Safari 浏览器用了 1 毫秒。
 
-All we can conclude, based on this data, is that subsequent queries largely remain sub-millisecond operations in both JavaScript and WebAssembly implementations. Subsequent queries have never been a performance bottleneck, and they do not become a bottleneck in the new WebAssembly implementation.
+根据这些数据，我们可以得出结论，后续查询操作在 JavaScript 和 WebAssembly 实现中大部分都保持在毫秒级以下。后续查询从来不会成为用 WebAssembly 来重新实现时的瓶颈。
 
-### Iterating Over All Mappings
+### 遍历所有映射
 
-The final two benchmarks measure the time it takes to parse a source map and immediately iterate over its mappings, and to iterate over an already-parsed source map’s mappings. These are common operations performed by build tools that are composing or consuming source maps. They are also sometimes performed by stepping debuggers to highlight to the user which lines within an original source the user can set breakpoints on — it doesn’t make sense to set a breakpoint on a line that doesn’t translate into any location in the generated JavaScript.
+最后两个基准测试的是解析 source-map 并立即遍历所有映射所花的时间，而且遍历的映射都是假定为已经解析完毕的。这是一个很普通的操作，通过构建工具消耗和重建 source-map。它们有时也通过逐步调试器向用户强调用户可以设置断点的原始源内的哪些行 —— 在没有转换为生成中的任何位置的 JavaScript 行上设置断点没有意义。
 
-This benchmark was the one we worried about: it involves the most JavaScript↔WebAssembly boundary crossing, an FFI call for every mapping in the source map. For all other benchmarks tested, our design minimized the number of such FFI calls.
+这些基准测试也有一个地方让我们十分担忧：它涉及了很多 JavaScript↔WebAssembly 两种代码相互穿插运行，在映射 source-map 时还要注意 FFI。对于所有基准测试，我们已经最大限度的减少这种 FFI 调用。
 
 [![](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/01/parse.and_.iterate.mean_.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/01/parse.and_.iterate.mean_.png) [![](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/01/parse.and_.iterate.scalajs.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/01/parse.and_.iterate.scalajs.png)
 
 [![](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/01/iterate.already.parsed.mean_.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/01/iterate.already.parsed.mean_.png) [![](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/01/iterate.already.parsed.scalajs.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/01/iterate.already.parsed.scalajs.png)
 
-It turns out our worry was unfounded. The WebAssembly implementation doesn’t just meet the JavaScript implementation’s performance, even when the source map is already parsed, it surpasses the JavaScript implementation’s performance. For the parse-and-iterate and iterate-already-parsed benchmarks, the WebAssembly takes 0.61x and 0.71x the time of the JavaScript in Chrome. In Firefox, the WebAssembly takes 0.56x and 0.77x the time of the JavaScript. In Safari, the WebAssembly implementation takes 0.63x and 0.87x the amount of time that the JavaScript implementation takes. Once again, Safari runs the WebAssembly implementation the quickest, and Firefox and Chrome are essentially tied for second place. Safari deserves special acknowledgment for its JavaScript performance on the iterate-already-parsed benchmark: beyond just outperforming the other browsers’ JavaScript times, Safari runs the JavaScript faster than the other browsers run the WebAssembly!
+事实证明，我们的担心是多余的。 WebAssembly 实现不仅满足 JavaScript 实现的性能，即使 source-map 已被解析，也超过了 JavaScript 实现的性能。对于分析迭代和迭代已解析的基准测试，WebAssembly 在 Chrome 浏览器中的时间花费是 JavaScript 的 0.61 倍和 0.71 倍。在 Firefox 浏览器中，WebAssembly 的时间花费 JavaScript 的 0.56 倍和 0.77 倍。在 Safari 浏览器中，WebAssembly 实现是 JavaScript 实现的时间 0.63 倍和 0.87倍。 Safari 浏览器再一次以最快的速度运行 WebAssembly 实现，Firefox 浏览器和 Chrome 浏览器基本上排在第二位。 Safari 浏览器在迭代已解析的基准测试中值得对 JavaScript 性能给予特别优化：除了超越其他浏览器的 JavaScript 时间之外，Safari 浏览器运行 JavaScript 的速度比其他浏览器运行WebAssembly 的速度还要快！
 
-True to the trend from earlier benchmarks, we also see reductions in the relative standard deviations in the WebAssembly compared to the JavaScript implementation. When both parsing and iterating, Chrome’s relative standard deviation fell from ±1.80% to ±0.33%, Firefox’s from ±11.63% to ±1.41%, and Safari’s from ±2.73% to ±1.51%. When iterating over an already-parsed source map’s mappings, Firefox’s relative standard deviation dropped from ±12.56% to ±1.40%, and Safari’s from ±1.97% to ±1.40%. Chrome’s relative standard deviation grew from ±0.61% to ±1.18%, making it the only browser to buck the trend, but only on this one benchmark.
+这符合早期基准测试趋势，我们还看到 WebAssembly 相对误差比 JavaScript 的相对误差要小。经过解析和遍历，Chrome 浏览器的相对误差从 ±1.80% 降到 ±0.33%，Firefox 浏览器从 ±11.63% 降到 ±1.41%，Safari 浏览器从 ±2.73% 降到 ±1.51%。当遍历一个已经解析完的映射，Firefox 浏览器的相对误差从 ±12.56% 降到 ±1.40%，Safari 浏览器从 ±1.97% 降到 ±1.40%。Chrome 浏览器的相对误差从 ±0.61% 升到 ±1.18%，这是基准测试中唯一一个趋势上升的浏览器。
 
-### Code Size
+### 代码体积
 
-One of advantages of the `wasm32-unknown-unknown` target over the `wasm32-unknown-emscripten` target, is that it generates leaner WebAssembly code. The `wasm32-unknown-emscripten` target includes polyfills for most of `libc` and a file system built on top of `IndexedDB`, among other things, but `wasm32-unknown-unknown` does not. With the `source-map` library, we’ve only used `wasm32-unknown-unknown`.
+使用 `wasm32-unknown-unknown` 比 `wasm32-unknown-emscripten` 的好处在于生成的 WebAssembly 代码体积更小。`wasm32-unknown-emscripten` 包含了许多补丁，比如 `libc`，比如在文件系统顶部建立 `IndexedDB`，对于 `source-map` 库，我们只使用 `wasm32-unknown-unknown`。
 
-We consider the code size of the JavaScript and WebAssembly that is delivered to the client. That is, we’re looking at the code size after bundling JavaScript modules together into a single `.js` file. We look at the effects of using `wasm-gc`, `wasm-snip`, and `wasm-opt` to shrink `.wasm` file size, and using `gzip` compression, which is ubiquitously supported on the Web.
+我们考虑的是最终交付到客户端的 JavaScript 和 WebAssembly 代码体积。也就是说，我们在将 JavaScript 模块捆绑到一个 `.js` 文件后查看代码大小。我们看看使用 `wasm-gc`，`wasm-snip` 和 `wasm-opt` 缩小 `.wasm` 文件体积的效果，以及使用网页上都支持的 `gzip` 压缩。
 
-In these measurements, the JavaScript size reported is always the size of minified JavaScript, created with the [Google Closure Compiler](https://developers.google.com/closure/compiler) at the “simple” optimization level. We used the Closure Compiler because UglifyJS does not support some newer ECMAScript forms that we introduced (for example `let` and arrow functions). We used the “simple” optimization level because the “advanced” optimization level is destructive for JavaScript that wasn’t authored with Closure Compiler in mind.
+在这个衡量标准下，JavaScript 的体积总是指压缩后的大小， 用 [Google Closure 编译器](https://developers.google.com/closure/compiler) 创建属于 “简单” 的优化级别。我们使用 Closure Compiler 只因为 UglifyJS 对于一些新的 ECMAScript 标准无效(例如 `let` 和箭头函数)。我们使用 “简单” 的优化级别，因为 “高级” 优化级别对于没有用 Closure Compiler 编写的 JavaScript 具有破坏性。
 
-The bars labeled “JavaScript” are for variations of the original, pure-JavaScript `source-map` library implementation. The bars labeled “WebAssembly” are for variations of the new `source-map` library implementation that uses WebAssembly for parsing the `"mappings"` string and querying the parsed mappings. Note that the “WebAssembly” implementation still uses JavaScript for all other functionality! The `source-map` library has additional features, such as generating source maps, that are still implemented in JavaScript. For the “WebAssembly” implementation, we report the sizes of both the WebAssembly and JavaScript.
+标记为 “JavaScript” 的条形图用于原始的纯 JavaScript `source-map` 库实现的变体。标记为 “WebAssembly” 的条形图用于新的 `source-map` 库实现的变体，它使用 WebAssembly 来解析字符串的 “映射” 并查询解析的映射。请注意，“WebAssembly” 实现仍然使用 JavaScript 来实现所有其他功能！ `source-map` 库有额外的功能，比如生成映射地图，这些功能仍然在 JavaScript 中实现。对于 “WebAssembly” 实现，我们报告 WebAssembly 和 JavaScript 的大小。
 
 [![](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/01/size.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/01/size.png)
 
-At its smallest, the new WebAssembly implementation has a larger total code size than the old JavaScript implementation: 20,996 bytes versus 8,365 bytes respectively. However, by using tools for shrinking `.wasm` size, we brought the size of the WebAssembly down to 0.16x its original size. Both implementations have similar amounts of JavaScript.
+在最小处，新的 WebAssembly 实现总代码体积要比旧的 JavaScript 实现大很多：分别是 20,996 字节与 8,365字节。尽管如此，使用 `.wasm` 的工具进行代码压缩，得到的 WebAssembly 文件只有原来体积的 0.16 倍。代码量跟 JavaScript 差不多。
 
-If we replaced JavaScript parsing and querying code with WebAssembly, why doesn’t the WebAssembly implementation contain less JavaScript? There are two factors contributing to the lack of JavaScript code size reductions. First, there is some small amount of new JavaScript introduced to load the `.wasm` file and interface with the WebAssembly. Second, and more importantly, some of the JavaScript routines that we “replaced” were previously shared with other parts of the `source-map` library. Now, although those routines are no longer shared, they are still in use by those other portions of the library.
+如果我们用 WebAssembly 替换 JavaScript 解析和查询代码，为什么 WebAssembly 实现不包含更少的 JavaScript？有两个因素导致 JavaScript 无法剔除。首先，需要引入一些新的 JavaScript 来加载 `.wasm` 文件并给 WebAssembly 提供接口。其次，更重要的是，我们 “替换” 的一些 JavaScript 事务与 `suorce-map` 库的其他部分共享。虽然现在事务已经不再共享，但是其他库可能仍然在使用。
 
-Let us turn our focus towards what is contributing to the size of the pre-`gzip`ed `.wasm` file. Running `wasm-objdump -h` gives us the sizes of each section:
+让我们把目光投向 `gzip` 压缩过的 `.wasm` 文件。运行 `wasm-objdump -h` 给出每一部分的体积：
 
 [![](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/01/section-sizes.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/01/section-sizes.png)
 
-The `Code` and `Data` sections effectively account for the whole `.wasm` file’s size. The `Code` section contains the encoded WebAssembly instructions that make up function bodies. The `Data` section consists of static data to be loaded into the WebAssembly module’s linear memory space.
+`Code` 和 `Data` 几乎占据了 `.wasm` 文件的体积。`Code` 部分包含组成函数体的 WebAssembly 编码指令。`Data` 部分包含要加载到 WebAssembly 模块的连续内存空间中的静态数据。
 
-Using `wasm-objdump` to manually inspect the `Data` section’s contents shows that it mostly consists of string fragments used for constructing diagnostic messages if the Rust code were to panic. However, when targeting WebAssembly, Rust panics translate into WebAssembly traps, and traps do not carry extra diagnostic information. We consider it a bug in `rustc` that these string fragments are even emitted. Unfortunately, `wasm-gc` cannot currently remove unused `Data` segments either, so we are stuck with this bloat for the meantime. WebAssembly and its tooling is still relatively immature, and we expect the toolchain to improve in this respect with time.
+使用 `wasm-objdump` 手动检查 `Data` 部分的内容，显示它主要由用于构建诊断消息的字符串片段组成，比如 Rust 代码运行出错的。但是，在定位 WebAssembly 时，Rust 运行错误会转化为 WebAssembly 陷阱，并且陷阱不会携带额外的诊断信息。我们认为这是 `rustc` 中的一个错误，即这些字符串片段被提交出去。不幸的是，`wasm-gc` 目前还不能移除没有使用过的 `Data` 片段，所以我们在这段时间内一直处于这种臃肿的状态。WebAssembly 和相关工具仍然不成熟，我们希望工具链随着时间的推移在这方面得到改进。 
 
-Next, we post-process `wasm-objdump`‘s disassembly output to compute the size of each function body inside the `Code` section, and group sizes by Rust crate:
+接下来，我们对 `wasm-objdump` 的反汇编输出进行后处理，以计算 `Code` 部分中每个函数体的大小，并得到用 Rust 创建时的大小：
 
 [![](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/01/crate-size.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/01/crate-size.png)
 
-The heaviest crate is `dlmalloc` which is used by the `alloc` crate, which implements Rust’s low-level allocation APIs. Together, `dlmalloc` and `alloc` clock in at 10,126 bytes, or 50.98% the total function size. In a sense, this is a relief: the code size of the allocator is a constant that will not grow as we port more JavaScript code to Rust.
+最重要的代码块是 `dlmalloc`，它通过 `alloc` 实现 Rust 底层的内存分配 APIs。`dlmalloc` 和 `alloc` 加起来一共是 10,126 字节，占总函数代码量的 50.98%。从某种意义上说，这是一种解脱：分配器的代码大小是一个常数，不会随着我们将更多的 JavaScript 代码移植到 Rust 而增长。
 
-The sum of code sizes from crates that we authored (`vlq`, `source_map_mappings`, and `source_map_mappings_wasm_api`) is 9,320 bytes, or 46.92% the total function size. That leaves only 417 bytes (2.10%) of space consumed by the other crates. This speaks to the efficacy of `wasm-gc`, `wasm-snip`, and `wasm-opt`: although crates like `std` are _much_ larger than our crates, we only use a tiny fraction of its APIs and we only pay for what we use.
+我们自己实现的代码总量是（`vlq`，`source_map_mappings`和 `source_map_mappings_wasm_api`）9,320 字节，占总函数体积的 46.92%。只留了 417 字节（2.10%）给其它函数。这足以说明 `wasm-gc`，`wasm-snip` 和 `wasm-opt` 的功效：`std` 比我们的代码要多，但我们只使用了一小部分 API，所以只保留我们用过的函数。
 
-## Conclusions and Future Work
+## 总结和展望
 
-Rewriting the most performance-sensitive portions of source map parsing and querying in Rust and WebAssembly has been a success. On our benchmarks, the WebAssembly implementation takes a fraction the time that the original JavaScript implementation takes — as little as 0.17x the time. We observe that, for all browsers, the WebAssembly implementation is faster than the JavaScript implementation. Furthermore, the WebAssembly implementation offers more consistent and reliable performance: relative standard deviation between iterations dropped significantly compared to the JavaScript implementation.
+用 Rust 和 WebAssembly 重构 source-map 中性能最敏感的解析和查找的功能已经完成。在我们的基准测试中，WebAssembly 实现只需要原始 JavaScript 实现所花费时间的一小部分 —— 仅为 0.17倍。我们观察到在所有浏览器中，WebAssembly 实现总是比 JavaScript 实现的性能要好。WebAssembly 实现也比 JavaScript 实现更加一致和可靠的性能：WebAssembly 实现的进行遍历操作的时间相对误差值更小。
 
-The JavaScript implementation has accumulated convoluted code in the name of performance, and we replaced it with idiomatic Rust. Rust does not force us to choose between clearly expressing intent and runtime performance.
+JavaScript 已经以性能的名义积累了许多令人费解的代码，我们用可读性更好的 Rust 替代了它。Rust 并不强迫我们在清晰表达意图和运行时间表现之间进行选择。
 
-That said, there is still more work to do.
+换句话说，我们仍然要为此做许多工作。
 
-The most pressing next step is investigating why the Rust standard library’s sorting is not as fast as our custom Quicksort when targeting WebAssembly. This is the sole unidiomatic bit of Rust code in the rewrite. This behavior is surprising since our Quicksort implementation is naive, and the standard library’s quick sort is pattern defeating and opportunistically uses insertion sort for small and mostly-sorted ranges. In fact, the standard library’s sorting routine _is_ faster than ours when targeting native code. We speculate that inlining heuristics are changing across targets, and that our comparator functions aren’t being inlined into the standard library’s sorting routine when targeting WebAssembly. It requires further investigation.
+下一步工作的首要目标是彻底了解为什么 Rust 标准库的排序在 WebAssembly 中没有达到我们实现的快排性能。这个表现另我们惊讶不已，因为我们实现的快排依旧很粗糙，而标准库的快排在模式设计上很失败，投机性的使用了最小插入排序和大范围排序。事实上，在原生环境下，标准库的排序性能要比我们实现的排序要好。我们推测是内联函数引起运行目标转移，而我们的比较函数没有内联到标准库中，所以当目标转移到 WebAssembly 时，标准库的排序性能就会下降。这需要进一步的验证。
 
-We found size profiling WebAssembly was more difficult than necessary. To get useful information presented meaningfully, we were forced to write [our own home-grown script to post-process `wasm-objdump`](https://github.com/fitzgen/source-map-mappings/blob/cfbb11e1af65b1e9c22bfe082c95f849e5812708/source-map-mappings-wasm-api/who-calls.py). The script constructs the call graph, and lets us query who the callers of some function were, helping us understand why the function was emitted in the `.wasm` file, even if we didn’t expect it to be. It is pretty hacky, and doesn’t expose information about inlined functions. A proper WebAssembly size profiler would have helped, and would be a benefit for anyone following in our tracks.
+我们发现 WebAssembly 体积分析太困难而显得不是很必要。为了获得更有意义的信息，我们只能编写 [我们自己实现的反编译脚本 `wasm-objdump`](https://github.com/fitzgen/source-map-mappings/blob/cfbb11e1af65b1e9c22bfe082c95f849e5812708/source-map-mappings-wasm-api/who-calls.py)。该脚本构造调用图，并让我们查询某些函数的调用者是谁，帮助我们理解为什么该函数是在 `.wasm` 文件中被提交，即使我们没有预料到它。很不好意思，这个脚本对内联函数不起作用。一个适当的 WebAssembly 体积分析器会有所帮助，并且任何人都能从追踪得到有用的信息。
 
-The relatively large code size footprint of the allocator suggests that writing or adapting an allocator that is focused on tiny code size could provide considerable utility for the WebAssembly ecosystem. At least for our use case, allocator performance is not a concern, and we only make a small handful of dynamic allocations. For an allocator, we would choose small code size over performance in a heartbeat.
+内存分配器的代码体积相对较大，重构或者调整一个分配器的代码量可以为 WebAssembly 生态系统提供相当大的作用。至少对于我们的用例，内存分配器的性能几乎不用考虑，我们只需要手动分配很小的动态内存。对于内存分配器，我们会毫不犹豫的选择代码体积小的。
 
-The unused segments in our `Data` section highlight the need for `wasm-gc`, or another tool, to detect and remove static data that is never referenced.
+`Data` 部分中没有使用的片段需要用 `wasm-gc` 或者其他工具进行高亮，检测和删除永远不会被使用的静态数据。
 
-There are still some JavaScript API improvements that we can make for the library’s downstream users. The introduction of WebAssembly in our current implementation requires the introduction of manually freeing the parsed mappings when the user is finished with it. This does not come naturally to most JavaScript programmers, who are used to relying on a garbage collector, and do not typically think about the lifetime of any particular object. We could introduce a `SourceMapConsumer.with` function that took a raw, un-parsed source map, and an `async` function. The `with` function would construct a `SourceMapConsumer` instance, invoke the `async` function with it, and then call `destroy` on the `SourceMapConsumer` instance once the `async` function call completes. This is like `async` RAII for JavaScript.
+我们仍然可以对库的下游用户进行一些 JavaScript API 改进。在我们当前的实现中引入 WebAssembly 需要引入在用户完成映射解析时手动释放内存。对于大多数习惯依赖垃圾回收器的 JavaScript 程序员来说，这并非自然而然，他们通常不会考虑任何特定对象的生命周期。我们可以传入 `SourceMapConsumer.with` 函数，它包含一个未解析的 source-map 和一个 `async` 函数。 `with` 函数将构造一个 `SourceMapConsumer` 实例，用它调用 `async` 函数，然后在 `async` 函数调用完成后调用 `SourceMapConsumer` 实例的 `destroy`。这就像 JavaScript 的`async` RAII。
 
 ```
 SourceMapConsumer.with = async function (rawSourceMap, f) {
@@ -960,25 +960,25 @@ SourceMapConsumer.with = async function (rawSourceMap, f) {
 };
 ```
 
-Another alternative way to make the API easier to work with for JavaScript programmers would be to give every `SourceMapConsumer` its own instance of the WebAssembly module. Then, because the `SourceMapConsumer` instance would have the sole GC edge to its WebAssembly module instance, we could let the garbage collector manage all of the `SourceMapConsumer` instance, the WebAssembly module instance, and the module instance’s heap. With this strategy, we would have a single `static mut MAPPINGS: Mappings` in the Rust WebAssembly glue code, and the `Mappings` instance would be implicit in all exported query function calls. No more `Box::new(mappings)` in the `parse_mappings` function, and no more passing around `*mut Mappings` pointers. With some care, we might be able to remove all allocation from the Rust library, which would shrink the emitted WebAssembly to half its current size. Of course, this all depends on creating multiple instances of the same WebAssembly module being a relatively cheap operation, which requires further investigation.
+另一个使 API 更容易被 JavaScript 编程人员使用的方法是把 `SourceMapConsumer` 传入每一个  WebAssembly 模块。因为 `SourceMapConsumer` 实例占据了 WebAssembly 模块实例的 GC 边缘，垃圾回收器就管理了 `SourceMapConsumer` 实例、WebAssembly 模块实例和模块实例堆。通过这个策略，我们用一个简单的 `static mut MAPPINGS: Mappings` 就可以把 Rust 和 WebAssembly 胶粘起来，并且 `Mapping` 实例在所有导出的查找函数都是不可见的。在 `parse_mappings` 函数中不再有 `Box :: new（mappings）` ，并且不再传递 `* mut Mappings` 指针。谨慎期间，我们可能需要把 Rust 库所有内存分配函数移除，这样可以把需要提交的 WebAssembly 体积缩小一半。当然，这一切都取决于创建相同 WebAssembly 模块的多个实例是一个相对简单的操作，这需要进一步调查。
 
-The [`wasm-bindgen`](https://github.com/alexcrichton/wasm-bindgen) project aims to remove the need to write FFI glue code by hand, and automates interfacing between WebAssembly and JavaScript. Using it, we should be able to remove all the hand-written `unsafe` pointer manipulation code involved in exporting Rust APIs to JavaScript.
+[`wasm-bindgen`](https://github.com/alexcrichton/wasm-bindgen) 项目的目标是移除所有需要手动编写的 FFI 胶粘代码，实现 WebAssembly 和 JavaScript 的自动化对接。使用它，我们能够删除所有涉及将 Rust API 导出到 JavaScript 的手写 `不安全` 指针操作代码。
 
-In this project, we ported source map parsing and querying to Rust and WebAssembly, but this is only half of the `source-map` library’s functionality. The other half is generating source maps, and it is also performance sensitive. We would like to rewrite the core of building and encoding source maps in Rust and WebAssembly sometime in the future as well. We expect to see similar speed ups to what we observed for parsing source maps.
+在这个项目中，我们将 source-map 解析和查询移植到 Rust 和 WebAssembly 中，但这只是 `source-map` 库功能的一半。另一半是生成源映射，它也是性能敏感的。我们希望在未来的某个时候重写 Rust 和 WebAssembly 中构建和编码源映射的核心。我们希望将来能看到生成源映射也能达到这样的性能。
 
-[The pull request adding the WebAssembly implementation to the `mozilla/source-map` library is in the process of merging here.](https://github.com/mozilla/source-map/pull/306) That pull request contains the benchmarking code, so that results can be reproduced, and we can continue to improve them.
+[WebAssembly 实现的 `mozilla/source-map` 库所有提交申请的合集](https://github.com/mozilla/source-map/pull/306) 这个提交申请包含了基准测试代码，可以将结果重现，你也可以继续完善它。
 
-Finally, I’d like to thank [Tom Tromey](http://tromey.com) for hacking on this project with me. I’d also like to thank [Aaron Turon](http://aturon.github.io/blog/), [Alex Crichton](http://alexcrichton.com/), [Benjamin Bouvier](https://benj.me/), [Jeena Lee](http://jeenalee.com/), [Jim Blandy](http://www.red-bean.com/jimb/), [Lin Clark](https://code-cartoons.com/), [Luke Wagner](https://blog.mozilla.org/luke/), [Mike Cooper](http://www.mythmon.com/), and [Till Schneidereit](http://tillschneidereit.net/) for reading early drafts and providing valuable feedback. This document, our benchmarks, and the `source-map` library are all better thanks to them.
+最后，我想感谢 [Tom Tromey](http://tromey.com) 对这个项目的支持。同时也感谢 [Aaron Turon](http://aturon.github.io/blog/)、[Alex Crichton](http://alexcrichton.com/)、[Benjamin Bouvier](https://benj.me/)、[Jeena Lee](http://jeenalee.com/)、[Jim Blandy](http://www.red-bean.com/jimb/)、[Lin Clark](https://code-cartoons.com/)、[Luke Wagner](https://blog.mozilla.org/luke/)、[Mike Cooper](http://www.mythmon.com/) 以及 [Till Schneidereit](http://tillschneidereit.net/) 阅审阅原稿并提供了宝贵的意见。非常感谢他们对基准测试代码和 `source-map` 库的贡献。
 
 * * *
 
-0 Or [“transpiler”](http://composition.al/blog/2017/07/30/what-do-people-mean-when-they-say-transpiler/) if you must insist. [⬑](#back-foot-0)
+<a name="note0">[0]</a> 或者你坚持叫做 [“转译器”](http://composition.al/blog/2017/07/30/what-do-people-mean-when-they-say-transpiler/)
 
-1 [SpiderMonkey now uses a self-hosted JavaScript implementation of `Array.prototype.sort` when there is a custom comparator function, and a C++ implementation when there is not.](https://searchfox.org/mozilla-central/rev/7fb999d1d39418fd331284fab909df076b967ac6/js/src/builtin/Array.js#184-227) [⬑](#back-foot-1)
+<a name="note1">[1]</a> [当你传入自己定义的对比函数，SpiderMonkey 引擎会使用 JavaScript 数组原型的排序方法 `Array.prototype.sort`；如果不传入对比函数，SpiderMonkey 引擎会使用 C++ 实现的排序方法](https://searchfox.org/mozilla-central/rev/7fb999d1d39418fd331284fab909df076b967ac6/js/src/builtin/Array.js#184-227) 
 
-2 [The overhead of calls between WebAssembly and JavaScript should mostly disappear in Firefox once bug 1319203 lands.](https://bugzilla.mozilla.org/show_bug.cgi?id=1319203) After that, calls between JavaScript and WebAssembly will have similar overheads to out-of-line calls between JavaScript functions. But that patch hasn’t landed yet, and other browsers haven’t landed equivalent improvements yet either. [⬑](#back-foot-2)
+<a name="note2">[2]</a> [一旦 Firefox 浏览器出现 1319203 错误码，WebAssembly 和 JavaScript 之间的调用性能将会急速下降](https://bugzilla.mozilla.org/show_bug.cgi?id=1319203)。WebAssembly 和 JavaScript 的调用和 JavaScript 之间的调用开销都是非线性增长的，截止本文发表前各大浏览器厂商仍然没能改进这个问题。 
 
-3 For Firefox and Chrome, we tested with the latest nightly builds. We did not do the same with Safari because the latest Safari Technology Preview requires a newer macOS version than El Capitan, which this laptop was running. [⬑](#back-foot-3)
+<a name="note3">[3]</a> Firefox 浏览器和 Chrome 浏览器我们都进行了 `每日构建` 测试，但是没有对 Safari 浏览器进行这样的测试。因为最新的 Safari Technology Preview 需要比 El Capitan 更新的 macOS 版本，而这款电脑就运行这个版本了。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
