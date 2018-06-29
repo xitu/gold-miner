@@ -2,7 +2,7 @@
 > * 原文作者：[William Koehrsen](https://towardsdatascience.com/@williamkoehrsen?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/automated-feature-engineering-in-python.md](https://github.com/xitu/gold-miner/blob/master/TODO1/automated-feature-engineering-in-python.md)
-> * 译者：
+> * 译者：[mingxing47](https://github.com/mingxing47)
 > * 校对者：
 
 # Python 中的自动特征工程
@@ -225,9 +225,9 @@ Like many topics in machine learning, automated feature engineering with feature
 
 In future articles, I’ll show how to use this technique on a real world problem, the [Home Credit Default Risk competition](https://www.kaggle.com/c/home-credit-default-risk) currently being hosted on Kaggle. Stay tuned for that post, and in the meantime, read [this introduction to get started](https://towardsdatascience.com/machine-learning-kaggle-competition-part-one-getting-started-32fb9ff47426) in the competition! I hope that you can now use automated feature engineering as an aid in a data science pipeline. Our models are only as good as the data we give them, and automated feature engineering can help to make the feature creation process more efficient.
 
-For more information on featuretools, including advanced usage, check out the [online documentation](https://docs.featuretools.com/). To see how featuretools is used in practice, read about the [work of Feature Labs](https://www.featurelabs.com/), the company behind the open-source library.
+要获取更多关于特征工具的信息，包括这些工具的高级用法，可以查阅[在线文档](https://docs.featuretools.com/)。要查看特征工具如何在实践中应用，可以参见 [Feature Labs 的工作成果](https://www.featurelabs.com/)，这是一个开源库背后的公司。
 
-As always, I welcome feedback and constructive criticism and can be reached on Twitter [@koehrsen_will](http://twitter.com/koehrsen_will).
+我一如既往地欢迎各位的反馈和建设性的批评，你们可以在 Twitter [@koehrsen_will](http://twitter.com/koehrsen_will) 上与我进行交流。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
