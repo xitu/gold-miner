@@ -2,130 +2,129 @@
 > * 原文作者：[Chen Hui Jing](https://www.chenhuijing.com/blog/vertical-typesetting-revisited/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/vertical-typesetting-revisited.md](https://github.com/xitu/gold-miner/blob/master/TODO/vertical-typesetting-revisited.md)
-> * 译者：
-> * 校对者：
+> * 译者：[DEARPORK](https://github.com/Usey95)
+> * 校对者：[congFly](https://github.com/congFly) [PLDaily](https://github.com/PLDaily)
 
-# Vertical typesetting with writing-mode revisited
+# 垂直排版：重提 writing-mode
 
-About year ago, I [wrote about the findings](https://www.chenhuijing.com/blog/chinese-web-typography/) from an exercise in attempting to typeset Chinese vertically on the web. What came out of that was [a bare-bones demo](https://www.chenhuijing.com/zh-type) that allowed you to switch between writing modes using the checkbox hack.
+大约一年前， 我写了在一次 Web 中文垂直排版的尝试中的[一些发现](https://www.chenhuijing.com/blog/chinese-web-typography/)。这是一个[简单的 demo](https://www.chenhuijing.com/zh-type)，它允许你通过复选框来切换书写模式。
 
-I met [Yoav Weiss](https://blog.yoav.ws/) a little while back and we chatted a little about the [Responsive Images Community Group](http://ricg.io/) because I mentioned how I thought it would be nice if there could be some media query for `writing-mode` with the `picture` element so I didn’t have to do some mildly hackish transforms on my images when I switched modes. And he suggested I write it up as [a use-case for responsive images](https://github.com/ResponsiveImagesCG/ri-usecases/issues/63).
+我在不久后遇到了 [Yoav Weiss](https://blog.yoav.ws/)，并聊了一下[响应式图片社区小组](http://ricg.io/)，因为我提到如果可以通过媒体查询得到 `picture` 元素的 `writing-mode`，我就不必在切换排版的时候通过一些比较 hack 的方式对图像进行转换。他建议我把它写成[一个响应式图像用例](https://github.com/ResponsiveImagesCG/ri-usecases/issues/63)。
 
-But when I reopened this demo that I hadn’t touched in a year, my face went from 😱 to 😩 within the first 5 minutes (what can I say? I have an expressive face 🤷). So for catharsis, I’m going to write down my play-by-play of trying to figure out who (i.e. browsers) broke what and hopefully how to mitigate it, for now.
+但当我重新打开这个一年没打开的 demo 的时候，我的表情在最初的五分钟由 😱 变成了 😩（我还能说什么呢，我就是这么表情丰富 🤷）。所以为了宣泄，我将一步步写下谁（也就是各种浏览器）破坏了什么以及目前可能的解决办法。
 
-Post is long, use links to skip.
+帖子很长，可以使用链接来跳转。
 
-### Brain dump structure
+### 大脑转储结构
 
-* [Initial findings](#initial-findings)
+* [最初的发现](#initial-findings)
   * [Chrome (64.0.3278.0 dev)](#chrome-64032780-dev)
   * [Firefox (59.0a1 Nightly)](#firefox-590a1-nightly)
   * [Safari Technology Preview 44](#safari-technology-preview-44)
   * [Edge 16.17046](#edge-1617046)
   * [Edge 15.15254](#edge-1515254)
   * [iOS 11 WebKit](#ios-11-webkit)
-* [Code time](#code-time)
-  * [Some background](#some-background)
-  * [Debugging 101: Reset to baseline](#debugging-101-reset-to-baseline)
-  * [The implications of vertical-rl](#the-implications-of-vertical-rl)
-* [Layout switching](#layout-switching)
-  * [Solution #1: Javascript](#solution-1-javascript)
-  * [Solution #2: Checkbox hack](#solution-2-checkbox-hack)
-* [Handling image alignment](#handling-image-alignment)
-  * [Old school properties](#old-school-properties)
-  * [Using flexbox for centring](#using-flexbox-for-centring)
-  * [How about Grid?](#how-about-grid)
-* [Winning solution?](#winning-solution)
-* [Further reading](#further-reading)
-* [Issues and bug list](#issues-and-bugs-list)
+* [代码时间](#code-time)
+  * [一些背景](#some-background)
+  * [调试 101：重置为基准](#debugging-101-reset-to-baseline)
+  * [vertical-rl 的含义](#the-implications-of-vertical-rl)
+* [排版切换](#layout-switching)
+  * [解决方案 #1: Javascript](#solution-1-javascript)
+  * [解决方案 #2: 复选框 hack](#solution-2-checkbox-hack)
+* [处理图像对齐](#handling-image-alignment)
+  * [经典的属性](#old-school-properties)
+  * [使用 flexbox 来居中](#using-flexbox-for-centring)
+  * [Grid 怎么样？](#how-about-grid)
+* [成功的解决方案？](#winning-solution)
+* [延伸阅读](#further-reading)
+* [问题和错误列表](#issues-and-bugs-list)
 
-## Initial findings
+## 最初的发现
 
-I’m only looking at the browsers I have immediate access to. Because I have other things to do with my life 🙆.
+我只在看我能立即访问的浏览器，因为我的人生还有很多别的事要做 🙆。
 
 ### Chrome (64.0.3278.0 dev)
 
 ![vertical-rl on Chrome](https://www.chenhuijing.com/images/posts/vertical-typesetting/chrome-640.jpg)
 
-Okay, this looks perfectly fine. I was sort of exaggerating when I said everything was broken. All the text and images are accounted for, no major rendering problems in vertical writing mode. Good job, Chrome.
+好的，这看起来非常棒。我说所有东西都被破坏了其实有点夸张。所有的文字和图片都占满，在垂直书写模式下没有重大的渲染问题。做的好，Chrome。
 
 ![horizontal-tb on Chrome](https://www.chenhuijing.com/images/posts/vertical-typesetting/chrome2-640.jpg)
 
-Toggling the switcher kicks things over to the right though. I remember that trying to horizontally centre something in vertical writing-mode was really painful, so this must have been some hack I tried in the first pass that didn’t go so well.
+切换排版模式将东西都踢去了右边。我记得在垂直排版下将东西水平居中是一件让人特别痛苦的事情，所以在第一次不太顺利的尝试中我肯定用了某些 hack 手段。
 
-It definitely worked at near the beginning of the 2017 because I made [this screencast](https://www.chenhuijing.com/slides/webconf-asia-2017/videos/mode-switcher.mp4) for my Webconf.Asia slides. Pretty sure it was using Chrome at the time. It’s amazing what a few months will do to a demo. My senior once mentioned a phrase called “code rot”, I wonder if this is it.
+这在 2017 年初是绝对可行的，因为我为我的 Webconf.Asia 幻灯片做了[这个截屏](https://www.chenhuijing.com/slides/webconf-asia-2017/videos/mode-switcher.mp4)。我很确定当时用的是 Chrome。几个月时间一个 demo 的变化让人惊讶。我的老大提到过一个词叫「代码腐烂」，也许这就是吧。
 
 ### Firefox (59.0a1 Nightly)
 
 ![vertical-rl on Firefox](https://www.chenhuijing.com/images/posts/vertical-typesetting/firefox-640.jpg)
 
-Oh boy, this is just. I have no words. I use Firefox Nightly as my default browser, so hence my initial reaction of ZOMG EVERYTHING IS BROKEN. Because everything IS broken here. Look at it, look at the infinite horizontal scrollbar, what’s happening?!
+天哪，这，我都无语了。Firefox Nightly 是我的默认浏览器，所以我的最初反应是一切都被破坏了。一切确实都被破坏了，看看这无限滚动的水平滚动条，到底发生了什么？！
 
 ![horizontal-tb on Firefox](https://www.chenhuijing.com/images/posts/vertical-typesetting/firefox2-640.jpg)
 
-Let’s toggle…wait, where is my checkbox?! Sigh. This might take a while. Anyway, at least I tied the checkbox to the label so we can still click the label to toggle. Well, it’s definitely NOT centred, but not too broken either. 2 browsers and already a world of difference.
+让我们切换……等等，我的复选框呢？唉，这可能要等一会。不管怎么说，至少我将复选框绑在了 label 上，所以我仍然可以通过点击 label 来切换排版。所以，这绝对不是居中，但也没有太崩。两个浏览器的表现形式天差地别。
 
 ### Safari Technology Preview 44
 
 ![vertical-rl on Safari TP](https://www.chenhuijing.com/images/posts/vertical-typesetting/stp-640.jpg)
 
-Hey. Hey, hey hey. This looks surprisingly UN-broken. Even the height is correct. Safari, I may have misjudged you. What exactly is the Safari rendering engine again? Oh right, WebKit.
+嘿，嘿，嘿！这看起来令人惊讶的好。甚至连高度都是正确的。Safari，我可能误判你了。Safari 的渲染引擎到底是什么？好吧，WebKit。
 
 ![horizontal-tb on Safari TP](https://www.chenhuijing.com/images/posts/vertical-typesetting/stp2-640.jpg)
 
-Oooo, this is kind of, sort of, in the centre of the page. Without looking at the code, I’m sure I tried some weird translate thing to shift the entire content block, hence the inconsistent behaviour in every browser. But this has been a pleasant surprise.
+噢噢噢，这有点居中。不看代码，我也能确定我尝试过一些很奇怪的转译来改变整个内容块，因此在每个浏览器中行为不一致。但这是个令人欣慰的惊喜。
 
 ### Edge 16.17046
 
-I’m on Windows 10 insider fast ring release so I think my Edge is probably a higher version than most people have installed. No matter, I can check my phone too (yes I use a Windows phone, go ahead, judge me).
+这是 Windows 10 内置快速通道版本，所以我想我的 Edge 浏览器应该比大多数人的版本更高。没关系，我也可以用我的手机（没错，我用的是 Windows phone，不服来战）。
 
 ![vertical-rl on Edge 16](https://www.chenhuijing.com/images/posts/vertical-typesetting/edge-640.jpg)
 
-Anyway, this doesn’t look too broken either. Just that the checkbox is a bit off. Big plus is that the scroll-wheel works! All the other browsers don’t let me scroll horizontally with my scroll-wheel. I don’t know if this is a Windows thing or an Edge thing though.
+无论如何，这看起来也不算太坏。只是那个复选框有点错位。更重要的是滚轮正常工作！其他所有的浏览器都不允许我用滚轮水平滚动。虽然我不知道这是 Windows 的功劳还是 Edge。
 
 ![horizontal-tb on Edge 16](https://www.chenhuijing.com/images/posts/vertical-typesetting/edge2-640.jpg)
 
-Vaguely semi-centred as well. I really have to check that transforms code soon. I might have an inkling as to what’s going on with the checkbox as well now. Ah, but no vertical scroll with the scroll-wheel, this is getting interesting. Also, notice that the scrollbar is on the left instead 🤔.
+也是隐约的居中。我真的需要马上检查下我的转换代码。现在我可能对我的复选框究竟怎么了也产生了疑问。啊，使用滚轮无法垂直滚动，这就有意思了。另外，注意滚动条在左边 🤔。
 
 ### Edge 15.15254
 
 ![](https://www.chenhuijing.com/images/posts/vertical-typesetting/edgem.jpg)
 
-vertical-rl on Edge 15
+Edge 15 上的 vertical-rl
 
 ![](https://www.chenhuijing.com/images/posts/vertical-typesetting/edgem2.jpg)
 
-horizontal-tb on Edge 15
+Edge 15 上的 horizontal-tb
 
-Pretty much the same as Edge 16. I’m reasonably confident that Edge on Windows phone uses the exact same rendering engine, in this case EdgeHTML, as the desktop version, but somebody please correct me if I’m wrong.
+跟 Edge 16 几乎一模一样。我有理由相信 Windows phone 上的 Edge 浏览器用的是与桌面版本同样的渲染引擎 EdgeHTML，如果有错还望指正。
 
 ### iOS 11 WebKit
 
 ![](https://www.chenhuijing.com/images/posts/vertical-typesetting/ios.jpg)
 
-vertical-rl on iOS 11 WebKit
+iOS 11 WebKit 上的 vertical-rl
 
 ![](https://www.chenhuijing.com/images/posts/vertical-typesetting/ios2.jpg)
 
-horizontal-tb on iOS 11 WebKit
+iOS 11 WebKit 上的 horizontal-tb 
 
-Even though I have a plethora of browsers installed on my iPad, I know that the rendering engine powering all of them is still WebKit, because Apple has never allowed third-party browsing engines. And as already demonstrated on the desktop version, it’s one of the better behaving ones.
+尽管我的 iPad 上装了一大堆浏览器，但我知道它们的渲染引擎都是 WebKit，因为苹果从未允许过第三方的浏览器引擎。正如在桌面版展示的那样，这是表现比较好的浏览器。
 
-## Code time
+## 代码时间
 
-Alright, now that we’ve established the baseline of destruction, it’s time to pull off the dust covers and look at whatever weird code I have under there. To be fair, there isn’t much of it, given how bare-bones this demo is, so that’s good.
+好了，既然我们已经确定了破坏的基准，现在是时候把防尘罩拆下来，看看底下到底有什么怪异的代码。公平地说，没有太多，考虑到这是一个非常简单的演示，所以还不错。
 
-I also want to shout-out (for the umpteenth time) [Browsersync](https://www.browsersync.io/), which is my top development tool, especially when it comes to building and debugging for multiple browsers on multiple devices. I wouldn’t be doing a lot of this if I didn’t have Browsersync.
+同时我还要强烈安利（无数次）[Browsersync](https://www.browsersync.io/)，那是我最重要的开发工具，尤其是需要在不同设备的不同浏览器上调试的时候。如果我没有 Browsersync，我将不会为此做这么多工作。
 
-### Some background
+### 一些背景
 
-The implementation of the switcher could have gone 2 ways, one with Javascript to toggle classes, or with the checkbox hack. I often lean toward the CSS-only solution and so decided to go with the checkbox hack. This demo is simple enough such that there wasn’t much interference in terms of keyboard controls, I mean, you could tab and toggle as per any other checkbox.
+切换器的实现可以用两种形式，一是通过 Javascript 切换类，二是 hack 复选框。我通常倾向于只使用 CSS 的解决方案，所以决定 hack 复选框。这个 demo 足够简单，所以不会有太多键盘控制方面的干扰。我的意思是，你可以像其它任何的复选框一样用 tab 切换到它然后切换。
+我真的需要研究可访问性的问题以确定我是否会在屏幕阅读器上搞砸它，但那是另一回事了。今天优先处理布局问题。
 
-I really need to study up on accessibility to determine if I’m screwing things up for screen-readers, but that’s for another day. Priority of today is dealing with the layout problem.
+如果你没有尝试过 hack 复选框，它涉及到 `:checked` 伪选择器的使用和兄弟或子选择器，你可以通过这种方式用 CSS hack 复选框的状态。
 
-The checkbox hack, if you haven’t tried it before, involves making use of the `:checked` pseudo-selector and sibling or child selectors. You can “hack” state with CSS using this method.
-
-The caveat is that the input (usually the checkbox element), which is what toggles the `:checked` state, must be at the same level or higher than the targeted element whose state you wish to toggle.
+需要注意的是，切换 `:checked` 状态的 input（通常是复选框元素），必须处于与你想切换状态的目标元素相同或更高的层级。
 
 ```
 <body>
@@ -133,24 +132,24 @@ The caveat is that the input (usually the checkbox element), which is what toggl
   <label for="switcher" class="c-switcher__label">竪排</label>
 
   <main>
-    <!-- All the markup for the content -->
+    <!-- 内容样式 -->
   </main>
 
   <script src="scripts.js"></script>
 </body>
 ```
 
-And herein lies the complications. Having a mixture of different nested writing-modes on the same page really screws up the browser. I’m no browser engineer, but I have enough rudimentary knowledge to know that rendering things isn’t trivial. But I’m a stickler for punishment, so onwards with the pain!
+问题就在复杂度上。在同一个页面上混合使用不同的嵌套的书写模式确实会搞垮浏览器。我不是浏览器工程师，但我有足够的常识知道渲染东西不是微不足道的。但是我是一个执着的人，所以必受其苦。
 
 ![](https://www.chenhuijing.com/images/posts/vertical-typesetting/diagram.svg)
 
-General strategy with checkbox hack
+一般的复选框 hack 策略
 
-In the original demo, I set the default writing-mode to `vertical-rl` on the `body` element, then used the checkbox to toggle the writing-mode of the `main` element. But it seems like everyone (browser rendering engines) handles nested writing-modes differently, as seen by the catalogue of screenshots above.
+原始的 demo上，我在 `body` 元素上设置默认的书写模式为 `vertical-rl`，然后使用复选框来切换 `main` 元素里的书写模式。但是看起来似乎每个人（浏览器渲染引擎）都向上面的截图目录一样，以不同的方式处理嵌套的书写模式。
 
-### Debugging 101: Reset to baseline
+### 调试 101: 重置为基准
 
-Remember, this is a brain dump entry, sorry if you’re bored. First thing I did was to remove all styles and start from scratch. Again, this works because the demo was barebones to begin with. Context is everything, folks.
+记住，这是一个大脑转储条目，如果你觉得无聊，我对此表示抱歉。我做的第一件事就是删除所有样式，重新开始。再次重申，这个 demo 有效是因为它十分简单。上下文才是一切，朋友们。
 
 ```
 html {
@@ -172,13 +171,13 @@ body {
 }
 ```
 
-This has almost become the de-facto starting point of all my projects. Set everything to `border-box`, and usually I’ll add in `margin: 0` and `padding: 0` to the universal selector block as my baseline reset. But for this demo, I’ll let the browser keep its spacings and just reset the `body` element.
+这几乎成了我所有项目的事实起点。将所有元素设置成 `border-box`，而且通常我还会加上 `margin: 0` 和 `padding: 0` 作为样式重置的基础。但是就这个 demo 而言，我将让浏览器保留它的空白只重置 `body` 元素。
 
-This demo is almost purely Chinese, so I put in only Chinese fonts in my font stack and left the system sans-serif as the fallback. For most cases though, it is a general consensus to put your Latin-based font of choice first. The reasoning being, Chinese fonts will have support for basic Latin characters, but not the other way around.
+这个 demo 几乎全是中文，所以我只添加了中文字体，把系统自带的 sans-serif 作为后备。不过大多数情况来说，优先选择基于拉丁语的字体是个普遍的共识。但在这里，中文字体支持基本的拉丁字符，而反过来情况就不一样了。
 
-When the browser encounters any Chinese characters, it won’t find them in the Latin-based font family, so it will fallback to the next in line until it finds a font that does. If you list the Chinese font first, the browser will use the Latin-based characters found in the Chinese font, and sometimes these glyphs aren’t that polished and don’t look so good, especially on Windows.
+当浏览器遇到中文字符时，它不会在基于拉丁语的字体中寻找，所以它会选用下一种备选字体，直到找到合适的。如果你先将中文字体列出来，浏览器将使用中文字体中的拉丁语字符，有时候这些字形没被打磨，看起来也不太好，尤其是在 Windows 上。
 
-Next are some aesthetic styles that don’t really affect layout much (does `line-height` count? 🤔)
+接下来是一些不太影响布局的美化（`line-height` 算吗？🤔）
 
 ```
 img {
@@ -200,39 +199,39 @@ figcaption {
 }
 ```
 
-This is a reasonably decent baseline to start with. So now we can start investigating `writing-mode` behaviour.
+这一个合理、体面的基准。现在我们可以调查 `writing-mode` 的行为了。
 
-### The implications of vertical-rl
+### vertical-rl 的含义
 
-The default value for `writing-mode` is `horizontal-tb` on every single element, and it is an inherited property. If you set a value for `writing-mode` on an element, this value will cascade down to all its children and beyond.
+每一个元素的 `writing-mode` 的默认值都是 `horizontal-tb`，而且它是一个继承属性。如果你设置了一个元素的 `writing-mode`，这个值将传递到它所有的子元素。
 
-If we set the `writing-mode` to `vertical-rl` on the `main` element, all the text and images are rendered correctly for every browser. Firefox has this slight vertical overflow of 15px and I suspect it’s due to the scrollbar, but I can’t be sure. Other browsers have no vertical overflow at all.
+如果我们将 `main` 元素的 `writing-mode` 设置为 `vertical-rl` ，在每个浏览器上，所有的文字和图像都被正确渲染了。Firefox 有 15px 轻微的垂直溢出，我怀疑是因为滚动条，不过我不能确定。其它的浏览器一点水平溢出都没有。
 
 ![vertical-rl on the main element](https://www.chenhuijing.com/images/posts/vertical-typesetting/main-640.jpg)
 
-The issue with having the `main` element in vertical writing mode, but the document itself being in horizontal writing mode means that the content starts on the left and we end up seeing the end of the article on first load instead.
+`main` 元素是垂直书写模式的同时，document 本身是水平书写模式，就会产生问题，意味着内容从左边开始，而且我们最终会看到第一次加载的文章的末尾。
 
-So let’s move things up one level, and set `writing-mode: vertical-rl` on the `body` element instead. Chrome, Safari and Edge render the content from right-to-left, which is what we want. However, Firefox still shows the end of the article, although this did fix the scrollbar overflow issue. This looks most relevant to [Bug 1102175](https://bugzilla.mozilla.org/show_bug.cgi?id=1102175).
+所以，让我们把东西提升一个层级，在 `body` 上设置 `writing-mode: vertical-rl`。Chrome，Safari 和 Edge 如我们所想从右到左渲染内容。但是 Firefox 仍然显示文章的末尾，尽管这确实修复了滚动条溢出的问题，它看起来和 [Bug 1102175](https://bugzilla.mozilla.org/show_bug.cgi?id=1102175)有关。
 
 ![vertical-rl on the body element](https://www.chenhuijing.com/images/posts/vertical-typesetting/body-640.jpg)
 
-And lastly, if we apply `writing-mode: vertical-rl` to the `html` element, Firefox finally comes around and reads from right-to-left. Also, no funny overflowing, just vertical right-to-left goodness.
+最后，如果我们将 `html` 设置 `writing-mode: vertical-rl`，Firefox 终于正常并从右到左显示了，而且没有搞笑的溢出。And lastly, if we apply `writing-mode: vertical-rl` to the `html` element, Firefox finally comes around and reads from right-to-left. Also, no funny overflowing, just vertical right-to-left goodness.
 
 ![vertical-rl on the html element](https://www.chenhuijing.com/images/posts/vertical-typesetting/html-640.jpg)
 
-IE11 supports writing mode but with the older syntax defined in an [earlier version of the specification](https://www.w3.org/TR/2003/CR-css3-text-20030514/#Progression) which uses `-ms-writing-mode: tb-rl`. This works fine, but based on my current markup, which uses the `main` element that is not supported by IE11, the switcher fails. Even applying `display: block` on the `main` element doesn't fix it. I could replace `main` with `div` for better support. Let me think about it.
+IE11 支持书写模式属性，只不过使用[较早的规范](https://www.w3.org/TR/2003/CR-css3-text-20030514/#Progression)中定义的旧语法 `-ms-writing-mode: tb-rl`。这工作正常，但我由于现在使用的 `main` 标签 IE11 并不支持，切换器失效了。甚至将 `main` 标签设置成 `display: block` 都无法修复。我可以为了更好的兼容性将 `main` 替换成 `div`。让我考虑一下。
 
-## Layout switching
+## 布局切换
 
-There are known flexbox bugs in Firefox when it comes to vertical writing so I’m going to split this debugging task into 2 parts, the first is just pure layout. Figuring out the different methods of getting the writing mode switcher to work without any funky overflowing.
+由于 Firefox 有已知的垂直书写的弹性盒模型的问题，所以我将把调试任务分成两个部分，一是纯粹的布局。找出使切换器正常工作的不同方法，而且没有任何奇怪的溢出。
 
-The second part will be related to centring the images in the figures, which is what got me into this mess. Aside from centring, I also wanted to have some sort of image orientation. Which was what led me to revisit this demo in the first place: my [RICG use case write-up](https://github.com/ResponsiveImagesCG/ri-usecases/issues/63). #mildlysidetracked
+第二个部分将与图像居中有关，这让我陷入混乱。除了居中，我还想调整图像的方向，它是让我首先重温 [RICG 用例汇总](https://github.com/ResponsiveImagesCG/ri-usecases/issues/63)的原因。#不起眼的注脚
 
-### Solution #1: Javascript
+### 解决方案 #1: Javascript
 
-Let’s talk about the cop-out solution first. Since the problem arises from nesting mixed writing modes, maybe stop using them? Based on our observations from above, a Javascript event listener to toggle CSS classes on the `html` element could potentially solve a lot of the weird rendering issues. Okay, code time 🤓.
+让我们先来尝试回避的解决方案，既然问题出在混用书写模式，也许我们可以停止混用。基于我们上面的观察，用一个 Javascript 事件监听器去切换 html 元素的 CSS 类可以隐性修复许多奇怪的渲染问题。好了，代码时间到。
 
-The 2 classes I want to toggle between are uncreatively named `vertical` and `horizontal`. Since I already have the checkbox, might as well make use of it to be the class toggler.
+我想切换的两个类的类名简单地叫做 `vertical` 和 `horizontal`。既然我已经有了复选框，也许也可以用作类的切换器。
 
 ```
 document.addEventListener('DOMContentLoaded', function() {
@@ -253,7 +252,7 @@ function changeEventHandler(event) {
 }
 ```
 
-Centring the content block went quite well. Because there wasn’t any funny nesting of writing modes nor flexbox involved, a straight-forward auto margins centring worked perfectly in all the browsers, even Firefox.
+将内容块居中完成得很好。因为再也没有嵌套的书写模式或者弹性盒模型。直接的自动 margin 在所有浏览器中都完美实现了居中，甚至 Firefox。
 
 ```
 .vertical {
@@ -279,13 +278,13 @@ Centring the content block went quite well. Because there wasn’t any funny nes
 
 ![Auto margins for vertical centring](https://www.chenhuijing.com/images/posts/vertical-typesetting/centred2-640.jpg)
 
-Fun fact, when in vertical writing mode, we can use `margin-top: auto` and `margin-bottom: auto` to vertically centre things! But trust me when I say centring things horizontally is more painful than you’d expect. You’ll see when we get to the next part with the checkbox hack.
+有趣的是，在垂直书写模式，我们可以用 `margin-top: auto` 和 `margin-bottom: auto` 来垂直居中。但相信我，水平居中将比你想象的更令人痛苦。在下一个 hack 复选框的部分你将看到。
 
-**Accidental TIL**: Microsoft Edge adheres to the ‘_Assignment to read-only properties is not allowed in strict mode_‘ ECMAScript5 standard but Chrome and Firefox allows for a strict quirks mode, most likely for code compatibility. I initially tried to use `classList` for toggling class names, but it's a read-only property. `className` isn't read-only though. Related reading in the [links below](#further-reading).
+**意外的 TIL**: Microsoft Edge 遵守 ECMAScript5「**严格模式下不允许分配只读属性**」的规范，但是 Chrome 和 Firefox 在严格怪异模式下仍然允许，很可能是为了代码兼容。我最初尝试使用 `classList` 来切换类名，但它是一个只读属性，而 `className` 则不是。相关阅读在[下面的链接](#further-reading)。
 
-### Solution 2: Checkbox hack
+### 解决方案 2: 复选框 hack
 
-The mechanics behind this technique is similar to using Javascript, except that instead of using a CSS class to change state, we make use of the `:checked` pseudo element. Like we discussed earlier, the checkbox element has to be at the same level as the `main` element for this to work.
+这个方案的原理类似使用 Javascript，区别在于我们不使用 CSS 类来改变状态，而是使用 `:checked` 伪元素。如我们前面所讨论的，复选框元素必须和 `main` 元素在同一层级才会生效。
 
 ```
 .c-switcher__checkbox:checked ~ main {
@@ -297,28 +296,27 @@ The mechanics behind this technique is similar to using Javascript, except that 
 .c-switcher__checkbox:not(:checked) ~ main {
   writing-mode: horizontal-tb;
   max-width: 40em; 
-  margin-left: auto; // this doesn't work
-  margin-right: auto; // this doesn't work
+  margin-left: auto; // 无效
+  margin-right: auto; // 无效
 }
 ```
 
-Layout code the same as `.vertical` and `.horizontal`, but alas, the results are not. Vertical centring is good, looks exactly the same as if we used Javascript. But horizontal centring is skewed to the right. The auto margins don’t seem to be doing anything in this dimension.
+布局代码与 `.vertical` 和 `.horizontal` 一样，但，结果却不一样。垂直居中是好的，看起来好像是我们在用 Javascript。但是水平居中歪向了右边。自动 margin 在这一部分似乎完全没有发挥作用。
+但仔细一想，这其实是「正确」的行为，因为我们同样不能用这种方式在水平书写模式下实现垂直居中。为什么呢？让我们来看一下规范。
 
-But if you think about it, this is actually ”correct” behaviour because we can’t centre things vertically in horizontal writing mode with this method either. Why is this? Let’s check the specifications.
+所有的 CSS 属性都有值，一旦你的浏览器解析了一个文档并构建了 DOM 树，每个元素的每个属性都需要赋值。[Lin Clark](http://lin-clark.com/) 写了[一个精彩的代码漫画](https://hacks.mozilla.org/2017/08/inside-a-super-fast-css-engine-quantum-css-aka-stylo/)来解释 CSS 引擎如何工作，你不能错过它！话说回来，值，规范里说：
 
-All CSS properties have values, Once your browser has parsed a document and constructed the DOM tree, it needs to assign a value to every property on every element. [Lin Clark](http://lin-clark.com/) wrote [a brilliant code cartoon](https://hacks.mozilla.org/2017/08/inside-a-super-fast-css-engine-quantum-css-aka-stylo/) explaining how a CSS engine works, you have to read it! Anyway, values. From the specification:
+> 一个属性的最终值是**四步计算**的结果：首先通过规范确定值（「**指定值**」），然后解析为一个用于继承的值（「**计算值**」），然后如果有必要，转换成绝对值（「**使用值**」），最后依据具体场景限制再做转换（「**实际值**」）。
 
-> The final value of a property is the result of a **four-step calculation**: the value is determined through specification (the “**specified value**”), then resolved into a value that is used for inheritance (the “**computed value**”), then converted into an absolute value if necessary (the “**used value**”), and finally transformed according to the limitations of the local environment (the “**actual value**”).
-
-Also, from the specification, the [calculation of heights and margins](https://www.w3.org/TR/CSS2/visuren.html#relative-positioning) are determined by a number of rules for each of the different types of boxes. And if both top and bottom values are auto, their used values are resolved to `0`.
+与此同时，依据规范，[高度和 margin 的计算](https://www.w3.org/TR/CSS2/visuren.html#relative-positioning)由各类盒模型的许多规则决定的。如果上下的值同时为 auto，它们的使用值将被解析成 `0`。
 
 ![Margins resolving to zero](https://www.chenhuijing.com/images/posts/vertical-typesetting/zero-640.jpg)
 
-When we set the writing mode to vertical, the “height” seems to become the horizontal-axis when it comes to calculating these values. I say seems because I’m honestly not 100% sure how it really works. And it dawned on me that the Javascript solution is actually magic!
+当我们将书写模式设置成垂直，「height」似乎在计算的时候会变成水平坐标。我说似乎是因为我并不百分百确定它真的是这样计算的。它让我觉得 Javascript 解决方案很神奇。
 
-Nah, I’m kidding. It’s really because we didn’t mix writing-modes when using the Javascript solution, so the respective dimensions that resolved to `0` were not the ones that affected the centring we wanted to achieve. Maybe re-read that sentence a few times 🤷.
+开个玩笑，实际上因为我们在 Javascript 解决方案中没有混用书写模式，所以将各自的值解析为 `0` 并不影响我们想要的居中效果。可能你需要重读这一句话几次 🤷。
 
-To horizontally centre our `main` element when vertical writing mode is toggled, we’ll need to use the good ol’ transform trick.
+想要在切换到垂直书写模式的时候将 `main` 元素水平居中，我们需要使用好的变换技巧。
 
 ```
 .c-switcher__checkbox:not(:checked) ~ main {
@@ -329,23 +327,23 @@ To horizontally centre our `main` element when vertical writing mode is toggled,
 }
 ```
 
-This works for Chrome, Firefox and Safari. Unfortunately, it was kind of wonky on Edge, things are skewed to somewhere in the middle of the page and to the left. Time to file a bug with Edge. Also, the scrollbar appears on the left instead of the right.
+这在 Chrome，Firefox 和 Safari 上可行。不幸的是，Edge 上有点毛病，东西都歪向页面中间的某个地方以及左边。是时候记录下这个 Edge 的 bug。另外，滚动条出现在了左侧而不是右侧。
 
 ![Seems to be buggy on Edge](https://www.chenhuijing.com/images/posts/vertical-typesetting/troublemaker-640.jpg)
 
-## Handling image alignment
+## 处理图像对齐
 
-Okay, moving on. When in vertical writing mode, I wanted the figures with 2 images to display stacked and while in horizontal mode, be side-by-side when space permits. Ideally, the figures (image and captions) would be centre-aligned in their respective writing modes.
+好了，继续。当在垂直书写模式时，我希望有两张图片的 figure 元素堆叠显示，而在水平书写模式中，如果空间允许，则并排显示。理想情况下，figure 元素（图像和标题）将在各自的书写模式下居中。
 
-### Old school properties
+### 经典的属性
 
-Now that we’re operating on a clean slate, let’s just try the most basic of centring techniques: `text-align`. Images and text are, by default, inline elements. Apply `text-align: center` to the figure element, and, oh my god, it worked 😱!
+既然我们正在一个干净的页面工作，让我们试试最基础的居中技术：`text-align`。默认情况下，图像和文本是内联元素。给 figure 元素设置 `text-align: center`，天呐，成功了 😱！
 
-Images on both horizontal and vertical writing mode have been successfully centred with no issues. I’m now very concerned about my state of mind a year ago when I was building this. Clearly flexbox was unnecessary for my intents and purposes. I reached for the new shiny first and it bit me in the ass.
+水平和垂直书写模式下的图像都已经成功地居中了。我现在非常怀疑一年前我做这个的时候的智商。显然，为了我的目的和意图，弹性盒模型是不必要的。我首先尝试了新的技术，但它让我付出了代价。
 
-I am shook. I need a drink 🥃.
+真是醉了 🥃。
 
-On horizontal writing mode, nothing much needed to be added. Just a simple `margin-bottom: 1em` for some breathing room between figures. I did need to rotate the portrait orientation images to landscape for space reasons, and did that with a rotate transform.
+在水平书写模式中，不需要添加太多东西。只是一个简单的 `margin-bottom: 1em`，给 figure 之间留空间。由于空间关系，我确实需要将竖直的图像旋转，在这里我使用 transform 的 rotate 来完成。
 
 ```
 .vertical {
@@ -366,11 +364,11 @@ On horizontal writing mode, nothing much needed to be added. Just a simple `marg
 }
 ```
 
-Thing is, when you rotate an element, the browser still recognises it’s original width and height values (I think), so for my demo, when the viewport gets real narrow, it triggers a horizontal overflow. Maybe there’s a fix for that, or I’m doing things wrongly. Advice welcome.
+问题是，当你旋转了一个元素，浏览器仍然会记住它原来的宽高（我想），所以在我的 demo 中，当视窗变得非常窄的时候，它将触发水平溢出。可能有办法修复这个问题，但我没有找到。欢迎指教。
 
-This is specifically the use case I will be writing up for the RICG. The idea being, if there was some sort of media query for writing-mode, I could define a portrait image and a landscape image using the `srcset` attribute then serve the appropriate image accordingly.
+这就是我将为 RICG 编写的用例。想法是，如果可以通过媒体查询得到书写模式，我就可以使用 `srcset` 定义一个垂直的图像和一个水平的图像，分别为对应的书写模式提供图片。
 
-For vertical writing mode, we generally want the text to be justified, or at least aligned top for those semi-orphaned characters on short lines. And for breathing room, the margin is applied to the left instead of the bottom.
+在垂直书写模式中，我们通常希望文字整齐，或者至少在短行上对齐半孤立的字符。然后文字间的空隙，margin 应该设置为 left 而不是 bottom。
 
 ```
 .vertical {
@@ -387,33 +385,33 @@ For vertical writing mode, we generally want the text to be justified, or at lea
 }
 ```
 
-We can pretty much call it a day now. It’s done. This is the target end result already. I want to add that this works exactly the same for both the Javascript implementation and the checkbox hack implementation, except for the Edge bug I mentioned earlier.
+现在我们几乎可以称之为圆满的一天。最终结果已经实现了目标。我想补充说的是，除了我之前提到的 Edge 缺陷之外，无论 Javascript 方案还是复选框 hack 方案都是完全相同的。
 
-### Using flexbox for centring
+### 使用弹性盒模型居中
 
-I suspect I chose to use flexbox for centring, though I honestly can’t remember what exactly why I thought it was good idea. Clearly I didn’t need flexbox for any of this. Should have done a brain dump then, huh?
+我怀疑我选择弹性盒模型实现居中的理由，尽管老实说我想不起来到底为什么我觉得这是一个好主意。显然，我不需要弹性盒模型的任何特点。那我应该也做个大脑转储？
 
-But taking a look at my original code, I realised that I had applied a `display: flex` to the image wrapper `div` for those images that were supposed to stack. This made the images themselves flex children, and somehow messed up the rendering in Firefox while using a vertical writing mode 😩.
+但看了一眼我的源码，我才发现我给包裹图像的应该堆叠的 `div` 设置了 `display: flex`，这让图像成为了弹性容器的子元素，导致 Firefox 的垂直书写模式渲染混乱。
 
 ![Flexbox issue with vertical writing-mode on Firefox](https://www.chenhuijing.com/images/posts/vertical-typesetting/ffbug-640.jpg)
 
-When using this approach, things look fine and dandy for the versions of Chrome, Edge and Safari I tested (refer to list above) whereby the images were centre-aligned on both vertical and horizontal, and that is nice. But they’re not in Firefox, like literally, the images aren’t visible on my page when vertical writing mode is toggled. It’s fine in horizontal though.
+使用这种方法，东西看上去都很美好，而且我测试过的 Chrome，Edge 以及 Safari 的所有版本（前面提到的列表）都可行，因此图像在垂直和水平两种模式下都居中对齐。但 Firefox 不行，真的，切换到垂直书写模式时，图片在我的页面上不可见，虽然在水平模式下很好。
 
 ![Flexbox issue with vertical writing-mode on Firefox](https://www.chenhuijing.com/images/posts/vertical-typesetting/ffbug2-640.jpg)
 
-I had wrapped the images that were supposed to do the stacking thing in a `div` that had `display: flex` applied, and this somehow messed up the rendering in Firefox while in vertical writing mode. I suspect this behaviour is related to the following bugs: [Bug 1189131](https://bugzilla.mozilla.org/show_bug.cgi?id=1189131), [Bug 1223180](https://bugzilla.mozilla.org/show_bug.cgi?id=1223180), [Bug 1332555](https://bugzilla.mozilla.org/show_bug.cgi?id=1332555), [Bug 1318825](https://bugzilla.mozilla.org/show_bug.cgi?id=1318825) and [Bug 1382867](https://bugzilla.mozilla.org/show_bug.cgi?id=1382867).
+我已经用 `display: flex` 的 `div` 包裹了应该堆叠显示的图像，但不知为何在 Firefox 的垂直模式下搞砸了。我怀疑这个行为和这些 bug 有关：[Bug 1189131](https://bugzilla.mozilla.org/show_bug.cgi?id=1189131)， [Bug 1223180](https://bugzilla.mozilla.org/show_bug.cgi?id=1223180), [Bug 1332555](https://bugzilla.mozilla.org/show_bug.cgi?id=1332555)， [Bug 1318825](https://bugzilla.mozilla.org/show_bug.cgi?id=1318825) 和 [Bug 1382867](https://bugzilla.mozilla.org/show_bug.cgi?id=1382867)。
 
-In the meantime, I’m kinda intrigued by this effect that images, which are flex children, have in vertical writing mode on Firefox. It’s like the browser just went nope ♀️ 🙅 💩.
+与此同时，我对 Firefox 下，在垂直书写模式中作为弹性容器子元素的图像的效果产生了好奇。好像浏览器直接对你说不 ♀️ 🙅 💩。
 
 ![Flexbox issue with vertical writing-mode on Firefox](https://www.chenhuijing.com/images/posts/vertical-typesetting/whoa-640.jpg)
 
-Vertical writing mode aside, I had a conversation with [Jen Simmons](http://jensimmons.com/) some time back about flexbox implementation across different browsers and she found that shrinking images are handled differently across all the browsers. [The issue](https://github.com/w3c/csswg-drafts/issues/1322) is still being discussed among the CSS working group so stay tuned for updates.
+抛开垂直书写模式，我和 [Jen Simmons](http://jensimmons.com/) 交流过不同浏览器的 flexbox 实现，她发现在所有的浏览器中，缩小图像的处理都是不同的。[这个问题](https://github.com/w3c/csswg-drafts/issues/1322)仍在 CSS 工作组中讨论，敬请期待更新。
 
-This shrinking issue is related to the concept of intrinsic sizing, specifically the intrinsic aspect-ratio of images. The CSS working group had [quite a long discussion](https://github.com/w3c/csswg-drafts/issues/1112) about this because it’s not a trivial issue.
+这个缩小的问题与固有尺寸的概念有关，尤其是含有固有长宽比例的图像。CSS 工作组对此有过[相当长的讨论](https://github.com/w3c/csswg-drafts/issues/1112)，因为这不是一个小问题。
 
-One interesting observation was that on Firefox, the flex container width capped out at the width of the viewport, but not so for other browsers. When the total width of the images within the container exceeded the viewport width, on Firefox, the images would shrink to fit, but on all other browsers, they just overflowed and you got a horizontal scroll 🤔.
+Firefox 上一个有趣的观察是，弹性容器的宽被视窗的宽度限制，但目前没有在别的浏览器上发现这个问题。当容器内所有的图片的宽度之和超过了视窗宽度，在 Firefox 上，图像会缩小以适应宽度，但在别的所有的浏览器上，它们只会溢出然后你会得到一个水平滚动条 🤔。
 
-To circumvent this issue for now, I made sure none of my images were flex children themselves. All the images, whether or not they were doubles or singles, were wrapped in an additional `div`. The `display: flex` property was applied onto the `figure` element, which made the `figcaption` and image wrapper `div` the flex children instead of the images themselves.
+为了暂时避免这个问题，我要确保我的图像都不是弹性容器的子元素。所有的图像，无论是单还是双，都被包裹在额外的 `div`中。`figure` 元素设置了 `display: flex` 属性，让 `figcaption` 和包裹图像的 `div` 成为弹性容器的子元素而不是图像本身。
 
 ```
 .vertical {
@@ -476,46 +474,47 @@ To circumvent this issue for now, I made sure none of my images were flex childr
 
 ```
 
-The checkbox hack implementation works exactly the same way. My takeaway from this exercise is that browsers need to work very hard to calculate the dimensions of elements, especially those with intrinsic aspect-ratios.
+复选框 hack 的实现完全一样。我从中学习到的是，浏览器对于元素的区域计算需要下很大功夫，尤其是具有固有尺寸比例的。
 
-### How about Grid?
+### Grid 怎么样？
 
-We’ve already come so far from what was necessary for this layout, so I considered attempting to use Grid for the image alignment. We could try making each `figure` a grid container and maybe make use of fun properties like `grid-area` and `fit-content` to make things line up.
+我们已经在布局所需上走了很远，所以我考虑尝试使用 Grid 来实现图像对齐。我们可以尝试让每个 `figure` 都成为一个 grid 容器，或许可以用上 `grid-area` 和 `fit-content` 这些有趣的属性让东西对齐。
 
-Unfortunately, 10 minutes into the attempt, I broke my brain. The grid inspector tool in Firefox didn’t seem to match the elements on my page, but maybe it’s because there are too many things on there.
+不幸的是，十分钟的尝试之后，我脑袋炸了。Firefox 的 grid 调试器并不能匹配我页面上的元素，但也有可能是因为页面上太多东西了。
 
 ![Grid inspector tool issue in vertical writing-mode](https://www.chenhuijing.com/images/posts/vertical-typesetting/gridtool-640.jpg)
 
-I need to create a simplified test case for using grid with vertical writing mode and that will be a much simpler demo and separate write-up (probably with corresponding bug reports).
+我需要为使用 grid 的垂直书写模式创建一个简化的测试用例，那将是一个简单得多的 demo，我还会单独写一篇文章（可能还有相关的错误报告）。
 
-## Winning solution?
+## 成功的解决方案？
 
-The currently active implementation of my [stand-alone demo](https://www.chenhuijing.com/zh-type/) is the checkbox hack without flexbox solution. I’m retaining the checkbox hack version to track the Edge bug. But the flexbox solution, if you don’t mind the extra wrappers, works fine as well. The markup for the Javascript implementation also looks nicer, because you can wrap the toggle in a `div` and style that.
+当前完成的我的[独立 demo](https://www.chenhuijing.com/zh-type/) 使用的是不用弹性盒模型的复选框 hack 解决方案。我将保留复选框 hack 的版本以追踪 Edge 的 bug。但弹性盒模型解决方案，如果你不介意多余的包裹，也是可以的。用于 Javascript 实现的标记也看起来更好，因为你将切换器包裹在一个 `div` 中然后写样式。
 
-But at the end of the day, there are so many ways to achieve the same end result. It’s fine to copy code from elsewhere, but the trouble comes when something does go wrong and you can’t figure out why. You don’t have to write everything from scratch, but make sure there’s no “magic” that you can’t decipher.
+在最后，有很多方法可以实现同样的结果。从别的地方拷贝代码也可以，但是出现莫名其妙的问题就麻烦了。你不必从头开始编写所有东西，但要确保里面没有无法破译的「魔法」。
 
-Just saying 😎.
+说说而已 😎。
 
-## Further reading
+## 延伸阅读
 
-* [Assignment to read-only properties is not allowed in strict mode](https://devtidbits.com/2016/06/12/assignment-to-read-only-properties-is-not-allowed-in-strict-mode/)
-* [Inside a super fast CSS engine: Quantum CSS (aka Stylo)](https://hacks.mozilla.org/2017/08/inside-a-super-fast-css-engine-quantum-css-aka-stylo/)
-* [CSS Writing Modes Level 3](https://www.w3.org/TR/css-writing-modes-3/)
-* [CSS Flexible Box Layout Module Level 1 Editor’s Draft](https://drafts.csswg.org/css-flexbox/)
-* [CSS Intrinsic & Extrinsic Sizing Module Level 3](https://www.w3.org/TR/css-sizing-3/)
+* [严格模式下不允许分配只读属性](https://devtidbits.com/2016/06/12/assignment-to-read-only-properties-is-not-allowed-in-strict-mode/)
+* [内置的超快 CSS 引擎: Quantum CSS (又称 Stylo)](https://hacks.mozilla.org/2017/08/inside-a-super-fast-css-engine-quantum-css-aka-stylo/)
+* [CSS 写作模式 级别三](https://www.w3.org/TR/css-writing-modes-3/)
+* [CSS 弹性盒模型布局 模块 级别一 编辑草案](https://drafts.csswg.org/css-flexbox/)
+* [CSS 内部与外部尺寸 模块 级别三](https://www.w3.org/TR/css-sizing-3/)
 
-## Issues and bugs list
+## 问题和错误列表
 
-* [Firefox Bug 1102175: `<body>` with writing-mode: vertical-rl doesn’t align children to the right](https://bugzilla.mozilla.org/show_bug.cgi?id=1102175)
-* [Firefox Bug 1189131: flex align-items center displaces text when writing-mode is vertical-rl](https://bugzilla.mozilla.org/show_bug.cgi?id=1189131)
-* [Firefox Bug 1223180: Flex + vertical writing-mode: flex items / text disappear](https://bugzilla.mozilla.org/show_bug.cgi?id=1223180)
-* [Firefox Bug 1332555: [writing-mode] Vertical writing-mode child results in wrong intrinsic size for the parent and thus the child doesn’t fit later when reflowed](https://bugzilla.mozilla.org/show_bug.cgi?id=1332555)
-* [Firefox Bug 1318825: [css-flexbox] Vertical-writing-mode flex item in horizontal flex container has wrong width](https://bugzilla.mozilla.org/show_bug.cgi?id=1318825)
-* [Firefox Bug 1382867: Layout problem with writing-mode and flexbox](https://bugzilla.mozilla.org/show_bug.cgi?id=1382867)
-* [CSSWG Issue #1322: [css-flexbox] Non-interop with shrinking images](https://github.com/w3c/csswg-drafts/issues/1322)
-* [Chromium Issue 781972: Images don’t keep aspect ratio when resizing](https://bugs.chromium.org/p/chromium/issues/detail?id=781972)
+* [Firefox Bug 1102175: writing-mode 为 vertical-rl 的`<body>`元素子元素不向右对齐](https://bugzilla.mozilla.org/show_bug.cgi?id=1102175)
+* [Firefox Bug 1189131: 当书写模式为vertical-rl时，flex align-items center会移动文本](https://bugzilla.mozilla.org/show_bug.cgi?id=1189131)
+* [Firefox Bug 1223180: Flex + 垂直书写模式: flex 元素 / 文本 消失](https://bugzilla.mozilla.org/show_bug.cgi?id=1223180)
+* [Firefox Bug 1332555: [书写模式] 垂直书写模式的子元素固有大小错误，因此重绘后大小不适](https://bugzilla.mozilla.org/show_bug.cgi?id=1332555)
+* [Firefox Bug 1318825: [css-flexbox] 垂直书写模式下 Flex 元素在水平弹性容器中宽度错误](https://bugzilla.mozilla.org/show_bug.cgi?id=1318825)
+* [Firefox Bug 1382867: 书写模式和弹性盒模型的布局问题](https://bugzilla.mozilla.org/show_bug.cgi?id=1382867)
+* [CSSWG Issue #1322: [css-flexbox] 与图像缩小不兼容](https://github.com/w3c/csswg-drafts/issues/1322)
+* [Chromium Issue 781972: 调整大小时，图像不保留宽高比](https://bugs.chromium.org/p/chromium/issues/detail?id=781972)
 
 
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
+

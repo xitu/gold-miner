@@ -2,37 +2,37 @@
 > * 原文作者：[Wojtek Kaliciński](https://medium.com/@wkalicinski?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/troubleshooting-proguard-issues-on-android.md](https://github.com/xitu/gold-miner/blob/master/TODO/troubleshooting-proguard-issues-on-android.md)
-> * 译者：
-> * 校对者：
+> * 译者：[dieyidezui](http://www.dieyidezui.com)
+> * 校对者：[corresponding](https://github.com/corresponding)
 
-# Troubleshooting ProGuard issues on Android
+# ProGuard 在 Android 上的使用姿势
 
-## Why ProGuard?
+## 为什么使用 ProGuard
 
-ProGuard is a tool that shrinks, optimizes and obfuscates code. While there are other tools available for developers, ProGuard is readily available as part of the Android Gradle build process and ships with the SDK.
+ProGuard 是一个压缩、优化、混淆代码的工具。尽管有很多其他工具供开发者们使用，但是 ProGuard 作为 Android Gradle 构建过程的一部分，已经打包在 SDK 中。
 
-There are many reasons why you might want to enable ProGuard when building your app. Some developers care about the obfuscation part more, but for me the main benefit is the removal of all unused code that you otherwise ship with your APK as part of the classes.dex file.
+当我们构建应用时，使用 ProGuard 有很多好处。有的开发者更关心混淆这块功能，对我而言最大的用处是打包时移除 dex 中的无用代码。
 
 ![](https://cdn-images-1.medium.com/max/800/0*qPTtQ4y-0g9kMye3.)
 
-An example size distribution chart of an Android app. Data source: [Topeka sample app](https://github.com/googlesamples/android-topeka).
+一个 Android 示例应用的空间分布图，源码地址  [Topeka sample app](https://github.com/googlesamples/android-topeka)。
 
-There are many tangible benefits of making your code size (and app) smaller, such as increased user retention and satisfaction, faster download and install times, and reaching users on lower-end devices, especially in emerging markets. There are even some situations when you are required to limit your app size, such as the [4MB limit for Instant Apps](https://developer.android.com/topic/instant-apps/faqs.html#apk-size), for which ProGuard can prove to be indispensable.
+减少包体积的好处有很多，比如增加用户黏性和满意度，提升下载速度，减少安装时间，以便在终端设备上连接用户，尤其是在新兴市场。当然，有时候您不得不限制您的应用的大小，比如 [Instant App 限制大小 4 MB](https://developer.android.com/topic/instant-apps/faqs.html#apk-size)，此时 ProGuard 显得必不可少了。
 
-If that’s not enough to convince you, consider that stripping out unused code and obfuscating all names has a cumulative effect and can unlock even more optimizations:
+如果以上还不足以说服您使用 ProGuard，其实移除无用代码和混淆所有名称还有其他更多的优化效果：
 
-* On some versions of Android, DEX code gets compiled into machine code either at install time or during runtime. Both the original DEX and the optimized code remain on the device at all times, so the math is simple: **less code equals shorter compilation times on the device and less storage used**.
-* Another thing that ProGuard can do, which makes a big impact on code size, is **change all identifiers (package, class and class members) to use short names**, such as `a.A` and `a.a.B`. This process is known as _obfuscation_. Obfuscation reduces code size in two ways: the actual strings representing these names are shorter, and moreover they now have a higher chance of being reused by different methods and fields if they share the same signature, which decreases the total number of items in the string pool.
-* Using ProGuard is a prerequisite for enabling the [resource shrinker](https://developer.android.com/studio/build/shrink-code.html#shrink-resources). The **resource shrinker** **strips out resources that are not referenced from code in your project** (such as images, which are often the largest part of the APK).
-* **Removing code can also save you from the** [**64K dex method reference problem**](https://developer.android.com/studio/build/multidex.html). By only packaging the methods your code actually uses into the APK, especially when you take into account third party libraries, you can greatly reduce the need for using Multidex in your app.
+* 在一些版本的 Android 设备上，DEX 代码会在安装或者运行时被编译成机器码。原始的 DEX 和优化后的机器码都会保留在设备中，所以算一下就知道：**代码越少，意味着编译时间越短，存储占用越少**。
+* ProGuard 除了可以大幅减少代码的空间之外，还可以**让所有的标识符（包、类和成员）都使用更短的名字**，如 `a.A` 和 `a.a.B`。这个过程就是混淆。混淆通过两种方式来减少代码：让表示名称的字符串更短；在这些方法或者属性有相同的签名情况，下这些字符串更容易被复用，最终减少了字符串池的数目。
+* 使用 ProGuard 是开启[资源压缩](https://developer.android.com/studio/build/shrink-code.html#shrink-resources)的前提条件. **资源压缩功能会移除您项目中代码没有引用到的资源文件**（如图片资源，这一般是 APK 中占比最大的部分了）.
+* 通过仅将您代码中实际使用的方法打包到 APK 中，**移除代码会帮您避免** [**64K dex 方法引用问题**](https://developer.android.com/studio/build/multidex.html)。尤其是您引用了很多第三方库的时候，这样可以大大降低在您应用中使用 Multidex 的需求。
 
-> **Do I think every Android app should use code shrinking? Yes!**
+> **每个 Android 应用都应该使用代码压缩吗？我认为是的！**
 
-But before you take the leap, continue reading to learn about things that can break in your app, sometimes in very subtle ways, when you enable ProGuard. While some errors will prevent you from building your app, there are also those that you can only catch at runtime, so make sure you test your app thoroughly.
+但是在您激动的跳起来之前，请先继续阅读下去。当您开启 ProGuard 时，在某些非常微妙的情况下会让您的应用崩溃。虽然有些错误会在构建应用时发生，您能及时发现，但是也有些错误您只能在运行时发现，所以请确保您的应用经过彻底的测试。
 
-### How to ProGuard?
+### 如何使用 ProGuard？
 
-Enabling ProGuard in your project is as simple as adding these lines (if they’re not already there) to your main application module’s `build.gradle` file:
+在您的项目中开启 ProGuard 只需简单到添加如下几行代码在您的主应用模块的 `build.gradle` 文件中：
 
 ```
 buildTypes {
@@ -46,120 +46,123 @@ builds, as it’s an additional step that makes the build slower and can make de
 }
 ```
 
-The configuration of ProGuard itself is done through a separate configuration file. You can see in the snippet above that I’ve included the default configuration that is supplied[¹](#9ca6) with the Android Gradle Plugin and then I’m going to add some options relevant to my project on top of that in `proguard-rules.pro`.
+ProGuard 自身的配置已经在另外一个单独的配置文件中完成了。上面的代码中，我给出了 Android Gradle 打包插件中的默认配置[¹](#9ca6)，接下去我会在 `proguard-rules.pro` 中加入其他的配置。
 
-You can find a [manual describing all the possible options](https://www.guardsquare.com/en/proguard/manual/usage#keepoptions) on the ProGuard site. Before you delve deeper into the configuration, it’s good to start with a basic understanding of how ProGuard works and why we even need to specify additional options.
+在 ProGuard 官网您可以找到一个 [使用手册](https://www.guardsquare.com/en/proguard/manual/usage#keepoptions)。
+在您深入研究这些配置之前，最好先大概理解 ProGuard 是如何工作的和我们为什么要指定一些额外的选项。
 
 ![](https://cdn-images-1.medium.com/max/800/0*Y0tJVDd5RnFy_qUL.)
 
-You can also watch [part of this Google I/O session](https://youtu.be/AdfKNgyT438?t=6m50s) to see Shai Barack’s explanation.
+您也可以去观看 [part of this Google I/O session](https://youtu.be/AdfKNgyT438?t=6m50s) Shai Barack 的教学视频。
 
-In short, ProGuard takes your project’s class files as input, then looks at all possible application entry points and calculates the map of all code reachable from those entry points, then removes the rest (dead code, or code that can never run because it’s never called).
+简单来说，ProGuard 将您项目中的 .class 文件做为输入，然后寻找代码中所有的调用点，计算出代码中所有可达的调用关系图，然后移除剩余的部分（即不可达的代码和那些不会被调用的代码）。
 
-When reading the ProGuard manual, you should skip the Input/Output section, as the Android Gradle Plugin will specify the inputs (your classes) and the library jars (the Android framework classes against which you’re building your app) for you.
+在您读 ProGuard 手册时，您没必要看那些 输入 / 输出的部分，因为这些 Android Gradle 打包插件会替您指定输入源（您和第三方库的代码) 和 Android jar 库（您构建应用时用到的 Android 框架类）。
 
-The important part of correctly configuring ProGuard is letting it know which parts of your code are accessed at runtime and shouldn’t be removed (and that also should have their names left intact when obfuscation is turned on). When classes or methods are only accessed dynamically (using reflection), ProGuard sometimes cannot determine their “liveness” when building the graph of used code and will erroneously remove these classes. This could also happen whenever you only reference your code from XML resources (which usually uses reflection under the hood).
+想要正确配置 ProGuard，最重要的就是让它知道运行时您的哪些代码不应该被移除（如果开启混淆的话，当然也要保持他们的名称不变）。当一些类和方法会被动态访问到时（如使用反射），在某些情况下，ProGuard 在构建调用图时不能正确的决定他们的「生死」，导致这些代码被错误的移除掉。当您只从 XML 资源引用您的代码会时（通常使用底层的反射），这个情况也会发生。
 
-During a typical Android build, AAPT (the tool that processes resources) generates an additional ProGuard rules file. It adds explicit [**keep rules**](https://www.guardsquare.com/en/proguard/manual/usage#keepoptions)forAndroid application entry points, so all your Activities, Services, BroadcastReceivers and ContentProviders from the Android Manifest should be left intact. That’s why, in the animation above, the `MyActivity` class doesn’t get removed or renamed.
+在一次 Android 典型的构建过程中，AAPT（处理资源的工具）会生成一个额外的 ProGuard 规则文件。它会为 Android 应用添加一些特别的 [**keep 规则**](https://www.guardsquare.com/en/proguard/manual/usage#keepoptions)，所以您在 Android Manifest.xml 中记录的 Activities、Services、BroadcastReceivers 和 ContentProviders  会保持不动. 这就是为什么在上面动图中 `MyActivity` 类没有被被移除或者重命名.
 
-AAPT will also **keep** all Views (and their constructors) that are used in XML layouts and some other classes such as transitions referenced from animation transition resources. You can examine the configuration file generated by AAPT after performing a build by opening `<your_project>/<app_module>/build/intermediates/proguard-rules/<variant>/aapt_rules.txt:`
+AAPT 也会 **keep** 住所有在 XML 布局文件使用到的 View 类（和它们的构造函数）和其他一些类，如在过渡动画资源中引用到的过渡类。 您可以在构建后直接看这个 AAPT 生成的配置文件，位置是：`<your_project>/<app_module>/build/intermediates/proguard-rules/<variant>/aapt_rules.txt`。
 
 ![](https://cdn-images-1.medium.com/max/800/0*nVWailJWyOyv4sa5.)
 
-An example ProGuard configuration created by AAPT during build
+在构建时 AAPT 生成的一个示例 ProGuard 配置文件
 
-I will talk more about the **keep** rules in a [later section](#5a16) of this article, but before we get there it’s best to learn what to do when…
+我会在本文[后面章节](#5a16)中讨论更多关于 **keep** 规则，但是在那之前我们最好先学一下在以下情况时应该怎么做：
 
-## When enabling ProGuard breaks your build
+## 当 ProGuard 打断了您的构建
 
-Before you can test if everything works correctly at runtime with ProGuard enabled, first you need to build your app. Unfortunately, ProGuard can fail your build by emitting warnings at compile time when it detects problems with your code, such as referencing missing classes.
+在您可以测试是否开启 ProGuard 后所有代码在运行时都能正常工作前，您需要先构建您的应用。不幸的是，ProGuard 可能会发现一些引用的类缺失，并给予告警，导致您的构建失败。
 
-The key to fixing the build is looking at the build output messages, understanding what the warnings are about and addressing them, usually by fixing your dependencies or adding [**-dontwarn**](https://www.guardsquare.com/en/proguard/manual/usage#dontwarn) rules to your ProGuard config.
+修复这个问题的关键是仔细观察构建时输出的消息，理解这些警告的内容并定位他们。通常的途径是修正您的依赖或者在您的 ProGuard 配置中添加 [**-dontwarn**](https://www.guardsquare.com/en/ProGuard/manual/usage#dontwarn) 规则。
 
-One of the reasons warnings can appear is when one of your dependencies is compiled against JARs that are not on your build path, such as when using _provided_ (compile-time only) dependencies. Sometimes, the code paths using these dependencies aren’t actually invoked when running the library code on Android. Let’s look at a real world example.
+这些警告的一个原因就是，您的构建路径中没有加入需要依赖的 JARs，如使用了 _provided_ （仅编译时）依赖。而有时候，在 Android 上这些代码的依赖在运行时并不会被真正的调用。让我们看一个真实的例子。
 
 ![](https://cdn-images-1.medium.com/max/800/0*a4_7ZBbkOG3gncuN.)
 
-Build output when building a project depending on OkHttp 3.8.0.
+一个项目依赖 OkHttp 3.8.0 构建时的消息。
 
-The OkHttp library added new annotations (`javax.annotation.Nullable`) to their classes in version 3.8.0\. Because they use a compile-time dependency, the annotations themselves don’t make it into the final build of an app that depends on OkHttp (unless the app adds `com.google.code.findbugs:jsr305` explicitly) and [ProGuard will complain](https://github.com/square/okhttp/issues/3355) about missing classes.
+OkHttp 库在 3.8.0 版本的类中添加了新的注解（`javax.annotation.Nullable`）。但是因为它们使用了编译时的依赖，所以这些注解在最终构建时不会被打包进去（哪怕应用显式的依赖了 `com.google.code.findbugs:jsr305`），因此 [ProGuard 会抱怨](https://github.com/square/okhttp/issues/3355) 缺失了这些类.
 
-Because we know these annotation classes are not used at runtime, we can safely ignore that warning by adding the **-dontwarn** rules to the ProGuard configuration, as [suggested in the OkHttp manual](https://github.com/square/okhttp/pull/3354/files):
+因为我们知道这些注解类在运行时不会被使用，我们可以通过在 ProGuard 配置中添加 **-dontwarn** 规则来安全地忽略掉这些警告，如  [在 OkHttp 文档中加入这些规则](https://github.com/square/okhttp/pull/3354/files)：
 
 ```
 -dontwarn javax.annotation.Nullable  
 -dontwarn javax.annotation.ParametersAreNonnullByDefault
 ```
 
-You should go through a similar process for all warnings you see in the output, then rebuild and try again until your build passes. The important part is to understand why you’re getting the warning and if it’s safe to ignore it or if you really are missing some classes in your build.
+您应该经历过类似的过程，在输出消息中看到这些警告，然后重新构建直到构建通过。重要的是去理解为什么您会收到这些警告以及您在构建时是否真的缺少这些类。
 
-Now you might be tempted to just ignore all warnings using the **-**[**ignorewarnings**](https://www.guardsquare.com/en/proguard/manual/usage#ignorewarnings) option, but that is rarely a good idea. In some cases, ProGuard warnings will actually let you know about errors that will prevent your app from working and about [other problems with your config](https://www.guardsquare.com/en/proguard/manual/troubleshooting#dynamicalclass).
+现在您可能会尝试使用 **-**[**ignorewarnings**](https://www.guardsquare.com/en/proguard/manual/usage#ignorewarnings) 选项直接忽略所有的警告，但这通常不是个好注意。在某些情况下，ProGuard 的警告确实有助于您发现闪退的罪魁祸首和关于[您配置上的其他问题](https://www.guardsquare.com/en/proguard/manual/troubleshooting#dynamicalclass)。
 
-You might also want to read the ProGuard _notes_ (messages with lower priority than Warnings), which can highlight problems with classes accessed by reflection. While they don’t break your build, these can produce nasty runtime crashes. That can happen when…
+您可能需要了解一下 Progard的 _notes_ （优先级低于警告的消息），它可以帮您发现一些反射相关的问题。虽然它不会打断您的构建，但是在运行时可能会闪退。这会在下面的场景中发生：
 
-## When ProGuard removes too much
+## 当 ProGuard 移除过多的类
 
-In some cases ProGuard can’t know that a class or method is being used, such as when it’s only referenced by reflection or from XML. To prevent that code from being stripped out or renamed, you have to specify additional [**keep** rules](https://www.guardsquare.com/en/proguard/manual/usage#keepoptions) in the ProGuard configuration. It is up to you, the developer, to figure out which parts of your code can be problematic and supply the necessary rules.
+在某些情况下，ProGuard 并不知道一个类或者方法被使用了，例如这个类仅在反射时被使用或者仅在 XML 中被引用。为了阻止这样的代码被移除或混淆，您应当在 ProGuard 配置中指定额外 [**keep** 规则](https://www.guardsquare.com/en/proguard/manual/usage#keepoptions)。这取决于作为应用开发者的你，需要去发现哪些部分代码有问题并提供必要的规则。
 
-Getting a `ClassNotFoundException` or `MethodNotFoundException` at runtime is a sure sign you are missing classes or methods, either because ProGuard removed them or because they were missing in the first place because of misconfigured dependencies. It is very important to test the release build (with ProGuard enabled) of your app thoroughly and deal with these errors.
+当运行时发生了 `ClassNotFoundException` 或 `MethodNotFoundException` 异常意味着您肯定缺失了某些类或者方法，也许是 ProGuard  移除了他们，又或者是因为错误配置依赖而导致无法找到他们。所以生产环境的构建（开启 ProGuard 时）一定要注重彻底的测试并正视这些错误。
 
-There are different flavors of the keep option that you can use to configure Proguard:
 
-* **keep **— preserves all classes and methods matching the class specification
-* **keepclassmembers — **specifies members to be kept, but only if their parent class is being preserved for some other reason (it’s reachable from an entry point or is kept by another rule)
-* **keepclasseswithmembers **— will keep the class and its members, but only if all the members listed in the class specification are present
+您有很多选项来配置您的 ProGuard：
 
-I suggest you become familiar with the [class specification syntax](https://www.guardsquare.com/en/proguard/manual/usage#classspecification) in ProGuard, which is used by all keep rules mentioned above and also by the **-dontwarn** option discussed in the previous section. There are also versions of the three keep rules that only prevent obfuscation (renaming), but don’t prevent shrinking. You can take look at an overview of all the keep options in a handy [table](https://www.guardsquare.com/en/proguard/manual/usage#keepoverview) on the ProGuard site.
+* **keep **— 保留所有匹配的类和方法
+* **keepclassmembers **— 当且仅当它们的类因为其他的原因被保留时（被其他调用点引用到或者被其他的规则 keep 住），keep 住指定的一些成员
+* **keepclasseswithmembers **— 当且仅当所有的成员在匹配的类中存在时，会 keep 住 这些类和它的成员
 
-As an alternative to writing complicated ProGuard rules, you can just add a `[**@Keep**](https://developer.android.com/reference/android/support/annotation/Keep.html)` [annotation](https://developer.android.com/reference/android/support/annotation/Keep.html) on single classes/methods/fields that you don’t want removed or renamed by ProGuard. You need the default Android ProGuard configuration file included in your build to use this technique.
+我建议您从 ProGuard 的这篇 [class specification syntax](https://www.guardsquare.com/en/proguard/manual/usage#classspecification) 开始熟悉，此文讨论了上述所有的 keep 规则和前一段讨论到的 **-dontwarn** 选项。另外这三个 keep 规则也各有一个不同的版本支持仅保留混淆（重命名），不保留压缩。您可以在 ProGuard 官网的[表格](https://www.guardsquare.com/en/proguard/manual/usage#keepoverview)看一下概览。
 
-## APK Analyzer and ProGuard
+作为一个可选的方案来写 ProGuard 规则，您可以直接在某个不想被混淆和移除的类、方法、属性上添加 [**@Keep**](https://developer.android.com/reference/android/support/annotation/Keep.html)  注解。注意，如果这样做的话，您需要把 Android 默认的 ProGuard 配置加入到您的构建中。
 
-The [APK Analyzer](https://developer.android.com/studio/build/apk-analyzer.html) in Android Studio can help you see which classes were removed by ProGuard and generate keep rules for them. When you build an APK with ProGuard enabled, there are additional output files created in `<app_module>/build/outputs/mapping/`that contain information about removed code and mappings from the obfuscated names to the original names.
+## APK Analyzer 和 ProGuard
+
+Android Studio 集成的 [APK Analyzer](https://developer.android.com/studio/build/apk-analyzer.html) 可以帮您看到哪些类被 ProGuard 移除了并支持为它们生成 keep 规则。当您构建 APK 时开启了 ProGuard，那么会额外输出一些文件在 `<app_module>/build/outputs/mapping/` 目录下。这些文件包含了移除代码的信息、混淆的映射关系。
 
 ![](https://cdn-images-1.medium.com/max/800/0*ds03uyRBXdHyi7pV.)
 
-Loading ProGuard mappings in APK Analyzer unlocks more information in the DEX viewer.
+加载 ProGuard 映射文件到 APK Analyzer 可以看到 DEX 视图中更多的信息
 
-When you load these mappings into the APK Analyzer (using the _“Load Proguard mappings… “_ button), you get some additional functionality in the DEX tree view:
+当您加载了映射文件到 APK Analyzer时（点击 _“Load Proguard mappings… “_ 按钮）， 您可以在 DEX 视图树中看到一些额外功能：
 
-* All names are deobfuscated (you can see original names)
-* Packages, classes, methods and fields which were **kept** by a ProGuard configuration rule are shown in **bold**
-* You can enable the “Show removed nodes” option to see anything that was removed by ProGuard (shown in strikethrough). Right clicking on a node in the tree lets you generate a keep rule that you can paste in your ProGuard configuration file.
+* 所有的名字都是混淆前的（即您可以看到原始的名字）
+* 被 ProGuard 配置规则 **kept** 的包，类，方法和属性会显示成粗体
+* 您可以开启 “Show removed nodes” 选项来看任何被 ProGuard 移除的内容（字体上会有删除线）。右击树上的一个节点可以让您生成一个 keep 规则以便您粘贴到您的配置文件中。
 
-## When ProGuard removes too little
+## 当 ProGuard 移除过少的类
 
-The Android ProGuard rules include some safe defaults for every Android app, such as making sure `View` getters and setters - which are normally accessed through reflection - and many other common methods and classes are not stripped out. While this will prevent your app from crashing in many situations, the config might not be 100% ideal for your app. You can remove the default ProGuard file and use your own.
+所有应用都可以使用 Android 内置的 ProGuard 的一些安全的默认规则，如保留 `View`  的 getter 和 setter 方法，因为他们通常会被反射来访问，以及其他一些普通的方法和类都不会被移除。 这在许多情况下可以时您的应用避免崩溃的发生，但是这些配置并不是 100% 适合您的应用。您可以移除掉默认的 ProGuard 文件而使用您自己的。
 
-If you want ProGuard to remove all unused code, you should avoid keep rules that are too broad, such as involving wildcard matching for whole packages. Instead opt for class-specific rules or using the `@Keep` annotation mentioned before.
+如果您希望 ProGuard 移除所有未使用的代码，您应当避免 keep 规则写的太宽泛，如加入通配符匹配整个包，而是使用类相关的匹配规则或者使用上面提及的 `@Keep` 注解。
 
 ![](https://cdn-images-1.medium.com/max/800/0*p4zsl6tqrwy6jOUr.)
 
-Use the `-whyareyoukeeping <class-specification>` option to see why classes are not removed.
+使用 `-whyareyoukeeping <class-specification>` 选项来观察为什么这些类没有被移除。
 
-If you’re unsure as to why ProGuard did not remove part of your code when you were expecting it to be gone, you can add the [**-whyareyoukeeping**](https://www.guardsquare.com/en/proguard/manual/usage#whyareyoukeeping) option to the ProGuard configuration file and then build your APK again. In the build output, you will then be able to see the chain of usages that made ProGuard decide to keep the code.
+如果您实在不确定为什么 ProGuard 没有移除您期望它移除的代码，，您可以添加 [**-whyareyoukeeping**](https://www.guardsquare.com/en/proguard/manual/usage#whyareyoukeeping) 选项至 ProGuard 配置文件中，然后重新构建您的应用。在构建输出中，您会看到是什么调用链决定了 ProGuard 保留这些代码。
 
 ![](https://cdn-images-1.medium.com/max/800/0*SFubaEvLatNnVmDr.)
 
-See references to classes and methods in APK Analyzer to track down what’s keeping them in the DEX.
+在 APK Analyzer 中追踪是什么在 DEX 中 keep 住了这些类和方法
 
-Another way that’s not as accurate, but doesn’t require a rebuild and works on any APK, is to open the DEX file in the APK Analyzer and right-click on the class/method you’re interested in. Select “_Find usages_” and you’ll be able to browse a chain of references that might guide you as to which part of code is using the given class/method and thus preventing it from being removed.
+另一种方法不那么精准，但在任何应用都不需要重新构建和额外的工作量。那就是在 APK Analyzer 中打开 DEX 文件，然后右击您关注的类、方法。选择 “_Find usages_” 您将看到引用链，这也许会引导您了解哪部分代码使用指定的类、方法从而阻止了它被移除。
 
-## ProGuard and obfuscated stack traces
+## ProGuard 和 混淆后的堆栈
 
-I mentioned that ProGuard outputs mappings and logs when processing class files during a build. You should save these files alongside your APK whenever you store build artifacts. The mapping files cannot be used across different builds and will only work correctly with the APK they were produced with. Having the mappings available will help you debug crashes coming from users’ devices that would otherwise be difficult to inspect because of obfuscated names.
+我之前提及到，在构建过程中 ProGuard 会在处理类文件时输出映射关系和日志文件。当您需要保留构建产物时，您应当保存好这些文件和 APK 在一起。这些映射文件不能被其他的构建所使用，而只会在与它们一起生成的 APK 配合使用时才能确保正确。有了这些映射关系，您才能有效地 debug 用户设备的发生的崩溃。否则太难去定位问题了，因为名字都混淆过了。
 
 ![](https://cdn-images-1.medium.com/max/800/0*wzjVsQyikWNXSjbO.)
 
-Upload the ProGuard mapping file with your APK to Google Play Console in order to get deobfuscated stack traces.
 
-When publishing your obfuscated release APK on the Play Console remember to also upload the mapping file for each version. That way whenever you go to the _ANRs & crashes_ page, the reported stack traces will show real class and method names and line numbers instead of the shortened and obfuscated ones.
+上传 APK 对应的 ProGuard 映射文件至 Google Play 控制台，从而获得混淆前的堆栈信息。
 
-## About ProGuard and third-party libraries
+您在 Google Play 控制台发布混淆后的生产 APK时，记得为每个版本上传对应的映射文件。这样的话当您看 _ANRs & crashes_ 页面时，上报的堆栈都会现实真实的类名、方法名和行号而不是缩短的混淆后的那些。
 
-Just as it is your responsibility to provide the keep rules for your own code, it should be the responsibility of third-party library creators to provide you with the necessary config so that your build doesn’t fail or app doesn’t crash when ProGuard is enabled.
+## 关于 ProGuard 和 第三方库
 
-Some projects simply mention the necessary rules in their manual or README so that you can copy and paste them to your main ProGuard file. There is a better way however. For library modules and for libraries distributed as AARs, the maintainer of the library can specify rules that will be supplied with the AAR and automatically exposed to the library consumer’s build system by adding this snippet to the module’s `build.gradle` file:
+就像您有责任为您自己的代码提供 keep 规则一样，那些第三方库的作者们也有义务向您提供必要的混淆规则配置来避免开启 Proguard 导致的构建失败或者应用崩溃。
+
+有些项目简单地在他们的文档或者 README 上提及了必要的混淆规则，所以您需要复制粘贴这些规则到您的主 ProGuard 配置文件中。不过有个更好的方法，第三方库的维护者们如果发布的库是 AAR ，那么可以指定规则打包在 AAR 中并会在应用构建时自动暴露给构建系统，通过添加下面几行代码到库模块的 `build.gradle` 文件中：
 
 ```
 release { //or your own build type  
@@ -167,25 +170,26 @@ release { //or your own build type
 }
 ```
 
-The rules that you put in the `consumer-proguard.txt` file will be appended to the main ProGuard configuration and used during the full application build.
+您写入在 `consumer-proguard.txt` 文件中的规则将会在应用构建时附加到应用主 ProGuard 配置并被使用。
 
 * * *
 
-> **Please refer to our** [**documentation pages**](https://developer.android.com/studio/build/shrink-code.html) **for more information about code and resource shrinking.**
+> **如果想了解更多关于代码和资源压缩的信息，请参考我们的**[**文档页面**](https://developer.android.com/studio/build/shrink-code.html) 
+* * *
+
+开启 ProGuard 可能一开始会比较困难，但是我个人认为这些代价是值得的。只要投入一点点时间，您将会获得一个轻量、优化后的应用。此外，现在花费时间去配置您的应用意味着当[实验性的 ProGuard 替代者](https://r8.googlesource.com/r8) R8 就绪时，您已经准备好了。因为 R8 也是用现有的 ProGuard 规则文件来工作的。
+
+除了让您的代码更小巧之外， ProGuard 和 R8 可以选择优化您的代码让它运行得更快，当然这又是另一篇文章的话题了……
 
 * * *
 
-Enabling ProGuard can be a little daunting at first, but I personally think the benefits are worth it and, with a little time investment, you’ll get a slimmer, more optimized app. What’s more, taking the time to configure your app now means you’ll be ready when the [experimental ProGuard replacement](https://r8.googlesource.com/r8) called R8 is introduced, which will work with the existing ProGuard rules files.
+[¹](#6c8e) proguard-android.txt 文件之前是在 SDK tools 目录下（`SDK/tools/proguard/proguard-android.txt`），但在新版的 SDK Tools 和 Android Gradle 插件版本2.2.0+上，可以在构建时从 Android 插件的 jar 中解压出来。在构建您的项目后，您可以在 `<your_project>/build/intermediates/proguard-files/` 目录下找到这个配置文件。
 
-Apart from making your code smaller, ProGuard and R8 can optionally apply optimizations which transform your code allowing it to run faster, but that’s a topic for another article…
-
-* * *
-
-[¹](#6c8e) The ProGuard-android.txt file was previously taken from the Sdk tools folder (`Sdk/tools/ProGuard/ProGuard-android.txt`), but in newer versions of SDK Tools and Android Gradle plugin 2.2.0+, it is unzipped from the Android plugin jar during build. You can find the configuration file after building your project in`<your_project>/build/intermediates/ProGuard-files/`.
-
-Thanks to [Daniel Galpin](https://medium.com/@dagalpin?source=post_page).
+感谢 [Daniel Galpin](https://medium.com/@dagalpin?source=post_page)。
 
 
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[React](https://github.com/xitu/gold-miner#react)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计) 等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
+
+

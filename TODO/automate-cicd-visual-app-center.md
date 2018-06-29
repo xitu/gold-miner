@@ -2,73 +2,72 @@
 > * 原文作者：[Cormac Foster](https://www.sitepoint.com/author/cfoster/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/automate-cicd-visual-app-center.md](https://github.com/xitu/gold-miner/blob/master/TODO/automate-cicd-visual-app-center.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Yong Li](https://github.com/NeilLi1992)
+> * 校对者：[zhaoyi0113](https://github.com/zhaoyi0113)，[LeviDing](https://github.com/leviding)
 
-# Automate CI/CD and Spend More Time Writing Code
+# 自动化持续集成/持续分发，以节省更多时间编写代码
 
-_This article was sponsored by [Microsoft Visual Studio App Center](https://appcenter.ms/signup?utm_source=Sitecore&utm_medium=Blog&utm_campaign=appcenter_connect). Thank you for supporting the partners who make SitePoint possible._
+**该文章由 [微软 Visual Studio 应用中心](https://appcenter.ms/signup?utm_source=Sitecore&utm_medium=Blog&utm_campaign=appcenter_connect) 赞助。请支持我们的合作方，是他们让 SitePoint 成为可能。**
 
-What’s the best part about developing software? Writing amazing code.
+什么是软件开发中最棒的部分？编写漂亮的代码。
 
-What’s the worst part? Everything else.
+什么是最糟的部分？其余的一切。
 
-Developing software is a wonderful job. You get to solve problems in new ways, delight users, and see something you built making lives better. But for all the hours we spend writing code, there are often just as many spent managing the overhead that comes along with it—and it’s all a big waste of time. Here are some of the biggest productivity sinkholes, and how we at Microsoft are trying to scrape back some of that time for you.
+开发软件是一份精彩的工作。你会用全新的方法解决问题，取悦用户，并且亲眼见证你的工作让生活更美好。然而在我们花费时间编写代码之外，我们常常还要花费同样多的时间来管理随之而来的各种琐碎开销 —— 这些都是在浪费时间。以下是一些最大的效率黑洞，以及在微软我们是如何处理这些问题，以帮助你节省一些开发时间。
 
-## 1. Building
+## 1. 生成
 
-What’s the first step to getting your awesome app in the hands of happy users? Making it exist. Some may think moving from source code to binary wouldn’t still be such a pain, but it is. Depending on the project, you might compile several times a day, on different platforms, and all that waiting is time you could have spent coding. Plus, if you’re building iOS apps, you need a Mac build agent—not necessarily your primary development tool, particularly if you’re building apps in a cross-platform framework.
+让你超赞的应用到达用户手中的第一步是什么？让它出现。许多人可能觉得把源代码转换成二进制文件，在今天已经不是什么难事了，但实际上它依然是。取决于项目的不同，你可能一天需要编译好几次，或是在不同的平台上编译，而这些都占用了你本可以用来编写代码的宝贵时间。除此之外，如果你在生成 iOS 应用，你还需要 Mac 生成代理，尤其是当你使用跨平台框架来创建应用时。而这甚至都不一定是你最主要的开发工具。
 
-You want to claim back that time, and the best way to do that is (it won’t be the last time I say this) _automation_. You need to automate away the configuration and hardware management so the apps just build when they’re supposed to.
+你想要夺回这些时间，最好的办法就是**自动化**（我还会多次重申这点）。你需要将配置和硬件管理都自动化，使得应用需要生成的时候，直接就可以开始生成。
 
-![Build with Microsoft Mobile Center](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2017/11/1510795993Mobile-Center_Image1_Build-1024x524.png)
+![使用微软移动中心来生成](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2017/11/1510795993Mobile-Center_Image1_Build-1024x524.png)
 
-Our attempt to answer that need is Visual Studio App Center Build, a service that automates all the steps you don’t want to reproduce manually, so you can build every time you check in code, or any time you, your QA team, or your release managers want to. Just point Build at a Github, Bitbucket, or VSTS repo, pick a branch, configure a few parameters, and you’re building Android, UWP, and even iOS and macOS apps in the cloud, without managing any hardware. And if you need to do something special, you can add post-clone, pre-build, and post-build scripts to customize.
+我们对于这一需求的回应就是：Visual Studio 应用中心生成服务。这一服务帮你自动化所有你不想手动重复的步骤，使得你每次提交代码的时候，或者无论何时你、你的测试团队、或者你的发布经理希望的时候，你都可以快速生成。只要将生成服务连接到 GitHub，BitBucket 或者 VSTS 仓库，选取一个分支，配置几个参数，你就可以在云中生成 Android、UWP 甚至 iOS 和 macOS 应用，而无需管理任何硬件。如果你有更特别的需求，你还可以添加 post-clone、pre-build 以及 post-build 脚本来进行自定义。
 
-## 2. Testing
+## 2. 测试
 
-I’ve spent many years testing software, and throughout my career, there were three questions I always hated hearing:
+我花了许多年做软件测试。在我的职业生涯中，以下是我最讨厌听到的三个问题：
 
-“Are you done yet?”
+“你完成了吗？”
 
-“Can you reproduce it?”
+“你可以重现吗？”
 
-“Is it really that bad?”
+“真的有这么糟糕？”
 
-In the past, there’s rarely been enough time or resources for thorough, proper testing, but mobile development has exacerbated that particular problem. We now deliver more code, more frequently to more devices. We can’t waste hours trying to recreate that elusive critical failure, and we don’t have time to argue over whether a bug is a showstopper. At the same time, we’re the gatekeepers who are ultimately responsible for a high-visibility failure or a poor-quality product, and as members of a team, we want to get ahead of problems to _increase_ quality, rather than just standing in the way of shipping.
+在过去，已经很难有足够的时间和资源来进行彻底的，像样的测试。但是移动开发的出现让这一问题更加恶化。如今我们需要将更多的代码更加频繁地分发到更多的设备上去，我们不能浪费几个小时来重现一个神出鬼没的重大故障，我们也没有时间来争论某一个 Bug 是否严重到推迟产品发布时间。然而同时，我们又是最终需要对无法忽视的故障和劣质产品负责的人。作为团队的成员，我们希望比问题更快一步，来**提升**质量，而不是让问题阻碍了发布。
 
-So what’s the answer? “Automation,” sure. But automation that _makes sense_. Spreadsheets of data and folders of screenshots mean nothing if you can’t put it all together. When you’re up against a deadline and have to convince product owners to make a call, you need to deliver information they can understand, while still giving devs the detail they need to make the fix.
+所以解决之道是什么？当然是”自动化“。但必须是**有意义**的自动化。如果你不能整合到一起的话，一张张的数据表和一个个存满截屏的文件夹就什么用处也没有。当你临近截止日期，而又必须说服产品负责人来打电话中止发布的时候，你不仅要给出易于他们理解的信息，同时又要给开发人员保留足够的细节来供其修复。
 
-![Test with Microsoft Mobile Center](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2017/11/1510796048Mobile-Center_Image2_test-1024x582.png)
+![使用微软移动中心来测试](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2017/11/1510796048Mobile-Center_Image2_test-1024x582.png)
 
-To help with that, we’ve created App Center Test, a service that performs automated UI tests on hundreds of configurations across thousands of real devices. Since the tests are automated, you run exactly the same test every time, so you can identify performance and UX deviations right away, with every build. Tests produce screenshots or videos alongside performance data, so anyone can spot issues, and devs can click down into the detailed logs and start fixing right away. You can spot-check your code by testing on a few devices with every commit, then run regressions on hundreds of devices to verify that everything works for all your users.
+为了改善这一问题，我们创建了应用中心测试服务。该服务可以在数以千计的真实设备上使用数以百计的不同配置来进行自动化 UI 测试。因为测试全部是自动的，每一次都确保运行完全相同的测试，这样在每一次生成中你都能立刻发现性能问题和 UX 偏差。测试会生成截图和视频，也会生成性能数据，这样任何人都能发现问题，而开发人员也能点进详细的日志中，即刻开始修复问题。你还可以在每次代码提交时先在个别设备上做抽查，然后再在数以百计的不同设备上做回归测试，以确保对所有的用户都一切正常。
 
-## 3. Distribution
+## 3. 分发
 
-So you’ve built an app and it’s performing as it should. Great! But now the iteration really begins. You want to know what people think of it before you push it to end-users. But how? Putting together a beta program is hard enough, but making sure everyone has the most recent version of your app (and if it’s a mobile app, making sure your users can even install the app) is a full-time job—and it’s a job nobody on your team wants.
+你终于完成了一个应用并且它能像预期一样正常工作，太棒了！但是真正的迭代现在才开始。你想在应用抵达终端用户之前就知道其他人怎么看你的应用，但是你要怎么做呢？创建一个 beta 版本已经足够难了，而要确保每一个人都有你应用的最新版本（如果是移动应用，甚至要先确保用户能够安装它）简直要花费你全部的时间，并且你的团队成员谁都不愿意做这样的工作。
 
-Once again, _automation_. When you’re ready to push a build, you need to automate the notification process _and_ the app distribution process, and you need to be able to trigger both every time you build (or every time the release manager says so).
+再一次，**自动化**。当你准备好推送一个版本的时候，你需要自动化的通知流程**以及**应用分发流程，并且你需要在每一次你生成的时候（或至少发布经理同意的时候），这两者都能够自动触发。
 
-![Distribute with Microsoft Mobile Center](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2017/11/1510796093Mobile-Center_Image3_Distribute-1024x640.png)
+![使用微软移动中心来分发](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2017/11/1510796093Mobile-Center_Image3_Distribute-1024x640.png)
 
-Our answer is App Center’s Distribute service. If you have a list of email addresses, you have what you need to get your builds in the hands of internal or beta testers. Create a distribution group, upload a build (or build one from a repo), and Distribute handles the rest. If you think this sounds like [HockeyApp](https://hockeyapp.net/), you’re right. App Center Distribute is the next generation of HockeyApp, integrating its distribution automation with the rest of our CI/CD services. And once you’re done with beta testing, Distribute can also get your app into your users’ hands, with deployment to Google Play, Apple’s App Store, or—for enterprise users—Microsoft Intune.
+我们的解决方案是应用中心分发服务。你需要的只是一组邮件地址，就可以把你的版本发布到内部用户或 beta 测试用户的手中。你只需创建一个分发组，上传你的版本（或者从源代码仓库生成），然后分发服务就会处理剩下的一切。如果你觉得这听起来就像 [HockeyApp](https://hockeyapp.net/)，你猜对了。应用中心分发服务就是下一代的 HockeyApp，将它的自动化分发功能整合进我们其它的持续集成/持续分发服务之中。一旦你完成了 beta 测试，分发服务就会将你的应用部署到 Google Play，苹果的 App Store，或者 —— 对于企业用户来说 —— 微软的 Intune，从而让你的应用抵达最终用户手中。
 
-## 4. Closing the Loop
+## 4. 闭环
 
-People often talk about deployment pipelines, but we’re not just after a one-way push. If you can learn what’s happening _after_ your apps have shipped, you can take that feedback to developers and create a closed loop to make your products better, faster. That information takes two forms—analysis of how users interact with your apps, and critically, reporting on how and when those apps fail.
+人们经常谈论部署流水线，但我们不满足于单向的部署过程。如果你能够知晓在应用发布完**之后**发生了什么，你就可以把反馈意见告知开发人员，由此形成一个闭环来使你的产品更好、更快。这一反馈信息以两种形式存在 —— 关于用户如何和你的应用进行交互的分析，以及必不可少的，关于应用在何时，发生怎样的故障的报告。
 
-Let’s start with the second, because crashing is about as bad as it gets. When an app fails, you want to know about it fast, but you also need to know how much it really matters. A crash in an obscure feature that affects everyone is usually worse than a total launch failure on just the iPhone 4. App Center Crashes groups similar crash reports and shows you the most affected platforms so you can make intelligent triage decisions. And when you’re ready to start fixing the issues, the crashes are fully symbolicated so you have the information you need to get started. You can automatically create entries in your bug tracker, so developers can start fixing issues without leaving their workflow. Again, more automation means more time writing better code.
+先说第二点，因为故障很要命。当应用出现故障的时候，虽然你想快速地了解情况，但你更需要知道故障到底有多紧要。在一个不起眼的小功能中却影响到所有人的故障，通常比只有 iPhone 4 用户完全无法启动应用，要更严重。应用中心的故障服务可以将相似的故障进行分组，并且告知你最受影响的平台，以使你做出明智的分检决定。当你准备好开始修复问题的时候，故障已经完全符号化，所有你需要的信息已经准备就绪。你可以自动地在你的故障跟踪程序中创建记录，方便开放人员无需中断他们的工作流就可以开始修复故障。更多的自动化再一次带来更多的时间，以编写更好的代码。
 
-For analytics, you want something useful out-of-the-box. App Center Analytics provides the kind of engagement-focused user- and device-level metrics app that owners want to see; things like who’s using which devices, how often, from where, and how long they’re staying. But your app isn’t the same as everyone else’s, so we let you create and track custom metrics, like “booked a ride” or “ordered home delivery.” And if you want deeper analysis, we enable continuous export to [Azure Application Insights](https://azure.microsoft.com/en-us/services/application-insights/).
+对于第一点的分析数据，你通常需要一些开箱即用的工具。应用中心分析服务提供了用户层面和设备层面的、侧重于参与度的度量应用，这些都是产品负责人最希望见到的。它们可以告诉你诸如：是谁在使用哪些设备、使用得多频繁、在哪里使用、使用多长时间等信息。当然，你的应用不会和别人的完全一样，因此你更可以创建和跟踪自定义的度量，比如“预定了乘车”或者“选择了配送上门”。如果你需要更深入的分析，我们还支持持续导出到 [Azure Application Insights](https://azure.microsoft.com/en-us/services/application-insights/)。
 
-## 5. Working with what you have
+## 5. 使用手边的工具开始工作
 
-You can theorycraft the perfect CI/CD solution all day long, but it’s all useless if you can’t put it into action. What matters is getting something you can use now, whether that means integrating with existing systems you really love (or can’t get rid of), or just automating pieces of a manual process until you can get to the rest. It’s always better to make even a small step, as long as it’s in the right direction.
+你可以花费整天的时间来纸上谈兵地构想你完美的持续集成/持续分发方案，但是除非你能付诸行动，它分文不值。不管是集成一个你十分偏爱的现有系统（或许你只是不得不用），还是先自动化一些小的手动流程再逐渐改善其它部分，重要的是你能利用手边可用的工具立即开始行动。
 
-Obviously, I’m biased and think you should give our whole system a try, but developers need different things. If you just want to adopt pieces of App Center, we’ve built it to be completely modular. We have REST APIs for every App Center service, and we’ve pre-built integration with services like VSTS. And that’s the way it should be, because you’re building _your_ app, so you should build it _your_ way.
+当然，在这里我的立场是有倾向性的，并且我相信你应该尝试一下我们的整套系统。不过开发者有着各式各样的需求。如果你只是想要采用应用中心的部分服务，我们已经把它设计为完全模块化的了。我们为每一个应用中心的服务提供了 REST API，我们也和像 VSTS 之类的服务预先做好了集成。我们相信这才是它应有的样子，因为是你在创建**你的**应用，你应该用**自己的**方式来创建它。
 
-We’d love to have you [try Visual Studio App Center](https://appcenter.ms/signup?utm_source=Sitecore&utm_medium=Blog&utm_campaign=appcenter_connect)—it’s brand new today and free to get started. We want to hear what you think!
-
+我们欢迎你 [试一试 Visual Studio 应用中心](https://appcenter.ms/signup?utm_source=Sitecore&utm_medium=Blog&utm_campaign=appcenter_connect)，此时它是全新的，并且可以免费开始试用。我们希望听到你的想法！
 
 ---
 

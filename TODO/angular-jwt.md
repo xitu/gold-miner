@@ -2,369 +2,369 @@
 > * 原文作者：[angular-university](https://blog.angular-university.io)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/angular-jwt.md](https://github.com/xitu/gold-miner/blob/master/TODO/angular-jwt.md)
-> * 译者：
-> * 校对者：
+> * 译者：[rottenpen](https://github.com/rottenpen)
+> * 校对者：[FateZeros](https://github.com/FateZeros)，[tvChan](https://github.com/tvChan)
 
-# JWT: The Complete Guide to JSON Web Tokens
+# JWT: JSON Web Tokens 全方位指南
 
-This post is the first part of a two-parts step-by-step guide for implementing JWT-based Authentication in an Angular application (also applicable to enterprise applications).
+这篇推送是手把手教你在 Angular 应用中使用基于 JWT 验证用户身份两部曲的第一部分（也适用于企业应用程序）
 
-The goal in this post is to first start by learning how **JSON Web Tokens (or JWTs) work in detail**, including how they can be used for User Authentication and Session Management in a Web Application.
+本文的目标是先让我们了解 **JSON Web Tokens（或 JWT）具体是如何工作的**，包括如何将它们用于Web应用程序中的用户身份验证和会话管理。
 
-In Part 2, we will then see how JWT-based Authentication can be implemented in the specific context of an Angular Application, but _this post is about JWTs only_.
+第二部分，我们将会看到在具有特定上下文的Angular应用中，基于JWT的认证是怎样运用的，但这篇文章只关于 JWTs。
 
-### Why a JWT Deep Dive?
+### 为什么需要深入探讨 JWT
 
-Having a detailed overview of JWTs is essential for:
+对了解 JWTs 至关重要的几个点：
 
-* implementing a JWT-based authentication solution
-* all sorts of practical troubleshooting: understanding error messages, stack traces
-* choosing third-party libraries and understanding their documentation
-* designing an in-house authentication solution
-* choosing and configuring a third-party authentication service
+* 实现一种基于 JWT 的认证解决方案
+* 各种实际故障排除：理解错误消息，堆栈跟踪
+* 选择第三方库并理解他们的文档
+* 设计一个内部认证解决方案
+* 选择和配置第三方认证服务
 
-Even when choosing a ready to use JWT-based Authentication solution, there will still be some coding involved, especially on the client but also on the server.
+即使准备选择使用基于 JWT 的认证解决方案时，仍然会涉及一些编码，特别是在客户端上，还有在服务端上。
 
-At the end of this post, you will know JWTs in-depth including a good understanding of the cryptographic primitives that they are based upon, which are used in many other security use cases.
+在这篇文章的最后，您将深入了解 JWT，包括深入了解他们所基于的密码原语，这些原语在许多其他安全用例中都有使用。
 
-You will know when to use JWTs and why, you will understand the JWT format to the point that you can manually troubleshoot signatures, and know several online / Node tools to do so.
+你会知道什么时候用 JWT，为什么会用到它，会了解 JWT 的格式以便手动排除签名故障，还有知道一些在线/Node 工具来实现它。
 
-Using those tools you will be able to troubleshoot yourself out of numerous JWT-related error situations. So without further ado let's get started with our JWT deep dive!
+使用这些工具，您将能够排除许多与 JWT 有关的错误情况。所以，我们不妨开始深入探索我们的 JWT！
 
-### Why JWTs?
+### 为什么是 JWTs
 
-The biggest advantage of JWTs (when compared to user session management using an in-memory random token) is that they enable the delegation of the authentication logic to a third-party server that might be:
+JWTs 最大的优势（相对于用户会话管理中使用内存里的随机令牌）是它们可以把认证逻辑委托到第三方服务器：
 
-* a centralized in-house custom developed authentication server
-* more typically, a commercial product like a LDAP capable of issuing JWTs
-* or even a completely external third-party authentication provider such as for example Auth0
+* 可以是一个集中的内部开发身份验证服务器
+* 更典型的是一个商业产品能像 LDAP 服务器一样发布 JWTs
+* 甚至可以是一个完全外部的第三方认证供应商，例如 Auth0
 
-The external authentication server _can be completely separate from our application server_ and does not have to share any secret key with other elements of the network, namely with our application server - there is no secret key installed on our server to be accidentally lost or stolen.
+外部认证服务器 _可以完全独立于我们的应用服务器_，并且不必与网络的其他元素共享任何密钥，也就是说，在我们的应用服务器上根本就没有密钥，别说是丢失或被盗了。
 
-Also, there is no need for any direct live link between the authentication server or the application server for authentication to work (more on that later).
+另外，身份验证服务器或应用服务器之间不需要任何直接的实时链接来进行身份验证（稍后将进一步讨论）。
 
-Furthermore, the application server can be **completely stateless**, as there is no need to keep tokens in-memory between requests. The authentication server can issue the token, send it back and then immediately discard it!
+此外，应用服务器可以 **完全无状态**，因为不需要在请求之间保留内存中的令牌。身份验证服务器可以发出令牌，将其发送回，然后立即丢弃它！
 
-Also, there is also **no need to store password digests** at the level of the application database either, so fewer things to get stolen and less security-related bugs.
+此外，也**不需要在应用程序数据库的存储密码摘要**，因此能被盗的东西更少，而与安全性相关的bug也会更少。
 
-At this point you might be thinking: I have an in-house internal application, are JWTs a good solution for that as well? Yes, in the last section of this post we will cover the use of JWTs in a typical Pre-Authentication enterprise scenario.
+在这个点上，你可能会想：我有一个公司内部的应用，JWTs 是不是一个很好的解决方案？对，在这篇文章的最后一部分会讲到 jwts 在典型的预认证企业中的使用情况。
 
-### Table Of Contents
+### 正文目录
 
-In this post we are going to cover the following topics:
+在这文章中，我们将涵盖如下章节：
 
-* What are JWTs?
-* Online tools for JWT validation
-* What is the format of a JSON Web Token
-* JWTs in a Nutshell: Header, Payload, Signature
-* Base64Url (vs Base64)
-* User Session Management with JWTs: Subject and Expiration
-* The HS256 JWT Signature - How does it work?
-* Digital Signatures
-* Hashing functions and SHA-256
-* The RS256 JWT Signature - let's talk about public key crypto
-* RS256 vs HS256 Signatures - Which one is better?
-* WKS (JSON Web Key Set) Endpoints
-* How to implement JWT Signature Periodic Key Rotation
-* JWTs in the Enterprise
-* Summary and Conclusions
+* 什么是JWTs
+* JWT的在线认证工具
+* JSON Web Token 的规范
+* 简单地说下什么是 JWTs：Header, Payload, Signature
+* Base64Url （vs Base64）
+* 使用JWT的用户会话管理：主体和过期时间
+* HS256 JWT 签名 - 是如何运作的
+* 数字签名
+* hash 函数和 SHA-256
+* RS256 JWT 签名 - 我们来讨论下公钥加密
+* RS256 vs HS256 签名 - 哪一个更好？
+* WKS （JSON Web Key Set）密钥集端点
+* 如何实现 JWT 签名周期性的密钥刷新
+* jwt在企业中的应用
+* 结语
 
-### What are JWTs?
+### 什么是JWTs
 
-A JSON Web Token (or JWT) is simply a JSON payload containing a particular claim. The **key property of JWTs** is that in order to confirm if they are valid we only need to look at the token itself.
+JSON Web Token（ JWT ）只是一个包含特定声明的 JSON 有效内容。 JWTs的 *关键属性* 在于确认令牌本身是否有效。
 
-We don't have to contact a third-party service or keep JWTs in-memory between requests to confirm that the claim they carry is valid - this is because they carry a Message Authentication Code or MAC (more on this later).
+我们不需要连接第三方服务器，也不需要在请求间保存JWTs到内存中，来确认它们携带的声明是有效的。
 
-A JWT is made of 3 parts: the Header, the Payload and the Signature. Let's go through each one, starting with the Payload.
+一个 jwt 分为3个部分：头部 header, 载荷 payload, 签名 signature。让我们从载荷开始一个个介绍吧。
 
-#### What does a JWT Payload look like?
+#### JWT 的 Payload 长什么样子？
 
-The payload of a JWT is just a plain Javascript object. Here is an example of a valid payload object:
+JWT 的载荷只是一个简单的 JavaScript 对象。这是一个载荷的例子：
 
-In this case, the payload contains identification information about a given user, but in general, the payload could be anything else such as for example information about a bank transfer.
+在这种情况下，一个载荷包含了关于给定用户的身份信息，但一般情况下，载荷可以是其他任何东西例如包括银行转账的信息。
 
-There are no restrictions on the content of the payload, but it's important to know that **a JWT is not encrypted**. So any information that we put in the token is still readable to anyone who intercepts the token.
+对载荷的内容是没有限制，但是重点是要知道，**JWT 是不加密的**。所以我们放入 token 的任何信息对于拦截 token 的任何人都是可读的。
 
-Therefore it's important not to put in the Payload any user information that an attacker could leverage directly.
+因此重点是不要在载荷上放任何用户信息给攻击者直接利用。
 
-#### JWT Headers - Why are they necessary?
+#### JWT Headers - 为什么它们那么必不可少？
 
-The content of the Payload is then validated by the receiver by inspecting the signature. But there are multiple types of signatures, so one of the things that the receiver needs to know is for example which type of signature to look for.
+接收方通过检查签名确认载荷的内容。但是签名有多种类型，所以例如接收者需要知道的事情之一是要查找签名是哪种类型。
 
-This type of technical metadata information about the token itself is placed in a separate Javascript object and sent together with the Payload.
+这种关于令牌本身的技术元数据信息被放置在一个单独的 JavaScript 对象中，并与载荷一起发送。
 
-That separate JSON object is known as the JWT Header, and here is an example of a valid header:
+这个单独的JSON对象被称为JWT头，这里是一个有效头的例子：
 
-As we can see, its also just a plain Javascript object. In this header, we can see that the signature type used for this JWT was RS256.
+正如我们所看到的，它也只是一个简单的 Javascript 对象。在这个头文件中，我们可以看到用于这个 JWT 的签名类型是 RS256。
 
-More on the multiple types of signatures in a moment, right now let's focus on understanding what the presence of the signature enables in terms of Authentication.
+很快你会看到更多类型的签名，现在我们先重点了解签名的存在对于身份验证的影响。
 
-#### JWT signatures - How are they used for Authentication?
+#### JWT 签名 - 它们是怎么被运用到用户认证的？
 
-The last part of a JWT is the signature, which is a Message Authentication Code (or MAC). The signature of a JWT can only be produced by someone in possession of both the payload (plus the header) and a given secret key.
+JWT的最后一部分是签名，它是一个消息认证码（或 MAC）。JWT 的签名只能由同时拥有载荷（加上头）和密钥的人生成。
 
-Here is how the signature is used to ensure Authentication:
+下面是如何使用签名来确保身份验证：
 
-* the user submits the username and password to an Authentication server, which might be our Application server, but it's typically a separate server
-* the Authentication server validates the username and password combination and creates a JWT token with a payload containing the user technical identifier and an expiration timestamp
-* the Authentication server then takes a secret key, and uses it to sign the Header plus Payload and sends it back to the user browser (we will cover later the exact details on how the signature works )
-* the browser takes the signed JWT and starts sending it with each HTTP request to our Application server
-* The signed JWT acts effectively as a temporary user credential, that replaces the permanent credential wich is the username and password combination
+* 用户将用户名和密码提交给身份验证服务器，这可能是我们的应用程序服务器，但它通常是一个单独的服务器。
+* 验证服务器验证用户名和密码组合，并创建一个 JWT 令牌，其中的载荷包含了用户技术标识符和到期时间戳
+* 身份验证服务器随后获得一个密钥，并使用它来标记头部和载荷并将其发送回用户浏览器（稍后我们将介绍签名如何工作的具体细节） 
+* 浏览器发送到我们应用服务器的每一个 HTTP 请求都会携带着已签名的 JWT
+* 已签名的 JWT 扮演着临时用户凭证，它取代了永久用户凭证，即用户名和密码的组合
 
-And from there, here is what our Application server does with the JWT token:
+看看这里我们的应用服务器和JWT令牌做了什么：
 
-* our Application server checks the JWT signature and confirms that indeed someone in possession of the secret key signed this particular Payload
-* The Payload identifies a particular user via a technical identifier
-* Only the Authentication server is in possession of the private key, and the Authentication server only gives out tokens to users that submit the correct password
-* therefore our Application server can safely be sure that this token was indeed given to this particular user by the Authentication server, meaning that it's indeed the user as it had the right password
-* The server proceeds with processing the HTTP request assuming that it indeed it belongs to that user
+* 我们的应用服务器检查JWT签名并确认确实拥有密钥的用户签署了这个特定的Payload
+* 载荷通过技术标识符识别特定的用户
+* 只有认证服务器拥有私钥，并且认证服务器仅向提交正确密码的用户发出令牌
+* 因此我们的应用程序服务器可以安全地确定这个令牌确实是由认证服务器给予这个特定用户的，这意味着它的确是那个有正确的密码的用户
+* 假设这令牌是属于该用户，服务器将继续处理 http 请求。
 
-The only way for an attacker to impersonate a user would be to either steal both its username and personal login password, or steal the secret signing key from the Authentication server.
+攻击者冒充用户的唯一方法是窃取其用户名和个人登录密码，或者从认证服务器窃取密钥。
 
-As we can see, the signature is really the key part of the JWT!
+正如我们看到的，签名才是 JWT 的关键部分！
 
-The signature is what enables a fully stateless server to be sure that a given HTTP request belongs to a given user, just by looking at a JWT token present in the request itself, and without forcing the password to be sent each time with the request.
+该签名使得完全无状态的服务器能够确定特定的 HTTP 请求属于特定的用户，可以只看请求本身中存在的JWT令牌，并且不强制每次发送请求都带上密码。
 
-#### Is the goal of JWTs to make a server stateless?
+#### JWTs 的目标是使服务器无状态吗？
 
-Making the server stateless is a nice side effect, but the key benefit of JWTs is that the Authentication server that issued the JWT and the Application server that validates the JWT can be two completely separate servers.
+使服务器无状态是只一个不错的副作用，JWTs 关键的好处是，发送JWT的服务器和验证JWT的服务器可以是两个完全独立的服务器。
 
-This means that there is only the need for some minimal Authentication logic at the level of the application server - we only need to check the JWT!
+这意味着我们只需要最小的验证逻辑，即检查 JWT 就能胜任这个水平上服务器的身份验证工作。
 
-It would be possible for a complete cluster of applications to delegate login/signup to a single Authentication server.
+可能一个认证服务器将为一群应用提供授权登录/注册服务。
 
-This means that the Applications servers are simpler and safer, as a lot of the Authentication functionality is concentrated on the Authentication server and reused across applications.
+这意味着应用程序服务器更简单，更安全，因为许多身份验证功能都集中在身份验证服务器上，并在应用程序之间重复使用。
 
-Now that we know on a high level how JWTs enable stateless third-party Authentication, let's get into their implementation details.
+现在我们已经知道 JWT 是如何启用无状态的第三方认证的，让我们来详细介绍它们的实现。
 
-### What does a JSON Web Token look like?
+### 一个JSON Web Token长什么样子呢？
 
-To learn about the 3 JWT building parts, here is a video that shows some code and an online JWT validation tool:
+为了了解JWT的3个组成部分，这里有一个展示代码和一个在线 JWT 验证工具的[视频](https://www.youtube.com/embed/4dmvQlBmr34)
 
-<iframe width="710" height="399" src="https://www.youtube.com/embed/4dmvQlBmr34" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
 
-Let's then have a look at an example of a JWT, taken from the online JWT validation tool available at [jwt.io](https://jwt.io):
+
+让我们看一个JWT的案例，取自在线JWT验证工具[jwt.io](https://jwt.io):
 
 ```
 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ
 ```
 
-You might be thinking, where have the JSON objects gone?? We will get them back in a moment. In fact, at the end of this post you will understand in-depth every aspect of this strange looking string.
+你可能会想到，JSON 对象去哪了？？我们马上就带它们回来。事实上，在这篇文章的结尾，你将深入了解这个奇怪的字符串的每一个方面。
 
-Let's have a look at it: we can see that it does have 3 parts separated by dots. The first part before the first dot is the JWT Header:
+让我们看一下它：我们能看到它被点（.）分成三个独立的部分。第一部分是在第一个点之前的 JWT 头部：
 
 ```
 JWT Header: 
 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
 ```
 
-The second part, between the first dot and the second, is the Payload:
+第二部分是在第一点和第二个点之间的载荷：
 
 ```
 JWT Payload: eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9
 ```
 
-And the last part, after the second dot is the Signature:
+最后一部分是，第二个点后面的签名：
 
 ```
 JWT Signature: 
 TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ
 ```
 
-If you want to confirm that the information is indeed there, simply copy the complete JWT string above to the official online JWT validation tool available at [jwt.io](https://jwt.io/).
+如果你想要确认这部分信息确实是存在的，只要把整句 JWT 字符串复制到官方的 JWT 验证工具[jwt.io](https://jwt.io/)即可。
 
-But then what are all these characters, how can we read back the information in a JWT for troubleshooting? How does jwt.io get the JSON objects back?
+但这些字符是什么，我们应该怎么读取JWT中的信息来排查问题呢？jwt.io 是怎么取回 JSON 对象的？
 
-### Base64 in a Nutshell, or is it Base64Url?
+### 是 Base64 还是 Base64Url？
 
-Believe it or not, the Payload, the Header, and the Signature are still in there in readable form.
+不管你相不相信，载荷，头部，还有签名仍然是以可读形式存在着。
 
-It's just that we want to make sure that when we send the JWT across the network we won't run into any of those nasty ("garbled text" `qÃ®Ã¼Ã¶:Ã`) character encoding issues.
+我们只是想确保当我们发送 JWT 时，在网络上不会有那些讨厌的（“乱码” `qÃ®Ã¼Ã¶：Ã`）字符编码问题。
 
-This problem happens because different computers across the world are handling strings in different character encodings, such as for example UTF-8, ISO 8859-1, etc.
+发生这问题是因为世界各地不同的电脑都通过不同的编码来处理字符串，例如 UTF-8, ISO 8859-1等等。
 
-And these problems are ubiquitous as much as strings are: whenever we have a string in any platform we have an encoding being used. Even if we didn't specify any encoding:
+字符串这种问题比比皆是：当我们在任何平台都有一个字符串时，我们都会对其进行编码。哪怕我们没有指定任何编码：
 
-* either the default encoding of the operating system will be used
-* or it will be taken from a configuration parameter in our server
+* 要么使用操作系统默认编码
+* 要么从服务器的配置参数中获取
 
-We want to be able to send strings across the network without having to worry about these issues, so we choose a subset of characters that all common encodings handle the same way, and that is how the Base64 encoding format was born.
+我们希望在网络上发送的的字符串不必担心这些问题，因此我们选择了一个所有常见的字符编码都能通过同样方式处理的字符子集，Base64 编码格式应运而生。
 
 ### Base64 vs Base64Url
 
-But what we see in a JWT is actually not Base64: instead its **Base64Url**.
+但我们可以看到 JWT 实际上不是 Base64 而是 **Base64Url**。
 
-It's just like Base64, but there are a couple of characters different so that we can easily send a JWT as part of a Url parameter, which is exactly what happens if for example we use a third-party login page that then redirects to our site.
+这就像 base64，但上演着不同的角色，举个真实的例子：如果我们用一个第三方登录页，然后重定向到我们的网站，我们可以轻易地把 JWT 当作 URL 参数发送出去。
 
-So if we take the second part of this JWT (between the first and the second dot), we get the Payload which looks like this:
+所以，如果我们在这个 JWT 提取第二部分内容（在第一个点和第二个点之间），我们得到的载荷是长这样子的：
 
 ```
 eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9
 ```
 
-Let's just run it through an online decoder, like for example [this one](https://www.base64decode.org/):
+让我们在在线解码器上运行它，例如[这个解码器](https://www.base64decode.org/):
 
-We get back a JSON payload! This is great to know for troubleshooting. We did use a Base64 decoder though, more on this later, right now let's summarize what we have so far:
+我们得到一个 JSON 载荷！对于故障排除来说，它是个很棒的东西。我们也用 Base64 解码，在此之后，让我们马上总结一下到目前为止我们已经：
 
-> Summary: We now have a good overview of the content of a JWT Header and the Payload: they are just two Javascript objects, converted to JSON and encoded in Base64Url and separated by a dot.
+> 总结：我们现在有一个可读性良好的 JWT 头和载荷：它们只是两个 JavaScript 对象，转换为 JSON，使用 base64url 进行编码的内容会被点分隔开。
 
-This format is really just a practical way of sending JSON across a network.
+这种格式实际上只是通过网络发送 JSON 的一种实用方式。
 
-This video shows some code on how to create and validate a JWT, and covers the Header and the Payload parts in detail:
+这段视频展示了如何创建和验证 JWT 的一些代码，包括头和载荷部分细节：[vedio](https://www.youtube.com/embed/c5p4ttLXbgo)
 
-<iframe class="remove-on-print" width="560" height="315" src="https://www.youtube.com/embed/c5p4ttLXbgo" frameborder="0" allowfullscreen=""></iframe>
 
-Before moving into the signature, let's talk about what do we put in the Payload in the concrete use case of User Authentication.
 
-### User Session Management with JWTs: Subject and Expiration
+在进入签名之前，让我们讨论一下，在用户身份验证的具体示例中，我们将什么放进载荷中。
 
-As we have mentioned, a JWT payload could in principle be any claim, and not just user identification information. But using JWT for Authentication is such a common use case that there are a couple of specific properties of a payload defined for supporting:
+### JWT 用户会话管理：主题和过期
 
-* user identification
-* session expiration
+正如我们已经提到的，一个 JWT 的载荷原则上可以是任何东西，而不仅仅是用户认证信息。但使用 JWT 认证是常见的情况，这里有两个载荷特性：
 
-Here is a payload with a couple of the most commonly used JWT payload properties:
+* 用户验证
+* 会话过期
 
-Here is what these standard properties mean:
+这是一对最常用的JWT载荷特性：
 
-* `iss` means the issuing entity, in this case, our authentication server
-* `iat` is the timestamp of creation of the JWT (in seconds since Epoch)
-* `sub` contains the technical identifier of the user
-* `exp` contains the token expiration timestamp
+以下是这些标准属性的含义：
 
-This is what is called a Bearer Token, and implicitly means:
+* `iss` 指的是发行实体，在这种情况下是我们的认证服务器
+* `iat` 是JWT创建的时间戳（从 Epoch 时间纪元开始的秒数）
+* `sub` 包含用户的验证码
+* `exp` 包含令牌的过期时间戳
 
-> The Authentication Server confirms that the bearer of this token is the user with the following ID defined by the `sub` property: let's give this user access
+这就是所谓的 Bearer Token，它隐含的意思是：
 
-Now that we have a good understanding of how the Payload is used in the typical case of User Authentication, let's now focus on understanding the Signature.
+> 认证服务器确认这个令牌的主人的ID被定义了 `sub` 的属性：让这个用户访问
 
-There are many types of signatures for JWTs, in this post we going to cover two: HS256 and RS256. So let's start with the first signature type: HS256.
+现在我们已经充分理解到载荷在典型的用户验证中是怎么使用的了，现在让我们重点了解下签名。
 
-### The HS256 JWT Digital Signature - How does it work?
+JWT 的签名有很多类型，本文将介绍两种：HS256 和 RS256。那我们从第一个签名类型开始：HS256。
 
-Like most signatures, the HS256 digital signature is based on a special type of function: a cryptographic hashing function.
+### HS256 的 JWT 数字签名 - 它是怎么工作的？
 
-This sounds intimidating, but it's a concept well worth learning: this knowledge was useful 20 years ago and will be useful for a very long time. A lot of practical security implementation revolves around hashes, they are everywhere in web application security.
+正如大多数签名，HS256 数字签名是基于一个特殊类型的函数：加密 hash 函数。
 
-The good news is that its possible to explain everything that we need to know (as Web application developers) about Hashing in a few paragraphs, and that is what we will do here.
+这听起来很吓人，但这是一个值得学习的概念：这一知识点不管在过去的20年还是将来很长一段时间都很有用。很多实际的安全措施都围绕着 hash，它们在 Web 应用安全无处不在。
 
-We are going to do this in two steps: first, we will talk about what a hashing function is, and after that, we will see how such function together with a password can be combined to produce a Message Authentication Code (which **is** the digital signature).
+好消息是，我们可以通过几段话解释清楚关于 hashing （作为 Web 应用开发者）所需要知道的一切，这就是我们要做的。
 
-In the end of this section, you will be able to reproduce the HS256 JWT signature yourself using online troubleshooting tools and an npm package.
+我们将分两部来做：首先，我们将讨论 hash 函数是什么，然后我们将看到如何将这样的函数和密码结合生成消息验证代码（数字签名）。
 
-#### What is a Hashing function?
+在本章的最后，你可以自己使用在线诊断工具和 npm 包复现这个 HS256 JWT 签名。
 
-A hashing function is a special type of function with some very unique properties: it has lots of practical useful use cases like digital signatures.
+#### 什么是 hash 函数？
 
-We are going to talk about 4 interesting properties of these functions, and then see why these properties enable us to produce a verifiable signature.
+hash 函数是一种特殊类型的函数，它具有一些非常独特的属性：它具有许多实际有用的用例，如数字签名。
 
-The function that we will be using here is called [SHA-256](http://www.movable-type.co.uk/scripts/sha256.html).
+我们将讨论这些函数的4个有趣的属性，然后看看为什么这些属性使我们能够生成可验证的签名。
 
-#### Hashing Functions Property 1 - Irreversibility
+我们在这里使用的函数被称为[SHA-256](http://www.movable-type.co.uk/scripts/sha256.html)。
 
-A hashing function is a bit like a meat grinder: you put steaks on one end, and get hamburgers on the other - and there is no way to ever get back those steaks starting with the hamburger:
+#### hash 函数属性1————不可逆性
 
-> the function is effectively irreversible!
+hash 函数有点像绞肉机：你把牛排放在一端，就可以从另一端得到汉堡包，你没有办法从汉堡包中把牛排放回去：
 
-This means that if we take our Header and Payload and run it through this function, no one will be able to get the data back again just by looking at the output.
+> 这个函数是真正不可逆的
 
-To see the output of for example SHA-256, try it out with this [online hash calculator](http://www.xorbin.com/tools/sha256-hash-calculator), to see what a typical output that looks like this:
+这意味着如果我们靠头部和载荷运行这个函数，是得不到相同输出的。
+
+想要查看SHA-256的输出示例，可以用这个[在线hash计算器](http://www.xorbin.com/tools/sha256-hash-calculator)实验下：
 
 ```
 3f306b76e92c8a8fbae88a3ef1c0f9b0a81fe3a953fa9320d5d0281b059887c3
 ```
 
-This also means that hashing is not encryption: encryption by definition is a reversible action - we do need to get back the original input from the encrypted output.
+这意味 hash 不是加密：加密是一种可逆的行为————我们需要从加密输出中取回原始输入。
 
-#### Hashing Functions Property 2 - Reproducible
+#### hash 函数的特性2————可复现的
 
-Another important thing to know about hashing is that it's reproducible, meaning that if we hash the same input eader and payload multiple times, we will always get back the exact same result, bit by bit.
+关于哈希的另一个重要的特性是它是可复现的，这意味着如果我们把相同的输入 eader 和载荷多次的 hash，我们总是会得到完全相同的结果。
 
-This means that given a pair of inputs and a hash output, we can always validate if a given output (for example a signature) is correct because we can easily reproduce the calculation - but only if we have all the inputs.
+这意味着，给定一对输入和一个 hash 输出，我们总是可以验证输出（例如签名）是否正确，因为我们可以很容易复现这个 hash 过程————但前提是我们拥有所有的输入。
 
-#### Hashing Functions Property 3 - No Collisions
+#### hash 函数的特征3————无冲突
 
-Another interesting property of Hashing functions is that if we submit multiple values to it, we always get back a unique result per input value.
+hash 函数的另一个有趣特性是，如果我们多次向它提交不同的值，根据每次的输入值都会得到唯一的结果。
 
-There are effectively no situations when two different inputs will produce the same output - a unique input produces a unique output.
+实际上不存在两个不同的输入值能得到相同结果的情况————一个独特的输入会产生独特的输出。
 
-This means that if we hash the Payload plus the Header, we always get back the exact same result, and not other input data could have produced the same hash output - the hash output is effectively a unique representation of the input data.
+这意味着如果我们 hash 头跟载荷，我们通常会得到完全相同的结果，而不是不同的数据也能得到相同的 hash 输出————hash 输出实际上输入数据的唯一表现形式。
 
-#### Hashing Functions Property 4 - Unpredictability
+#### hash函数的特征4————不可预测性
 
-The last property that we will cover about hashing functions is that given a known output, it's not possible to guess the input using a successive incremental approximation method.
+我们将要讨论的是关于 hash 函数的最后一个属性是，根据已知输出是不可能用连续增量逼近的方法来猜测输入的。
 
-Let's say that we had the hash output just above and we were trying to find out the Payload that generated it, by guessing an input and inspecting the output to see if it's close to the expected result.
+假设我们有一个 hash 输出，我们尝试通过观察它来猜测它的输入值，然后看看实际的输入值跟我们猜测的是否接近。
 
-Then we simply tweak one character on the input and then check the output again to see if we got closer, and if so repeat the process until we manage to guess the input.
+然后我们简单地调整输入中的一个字符，然后再次检查输出，看看它们是否更接近，如果是这样，重复这个过程，直到我们能设法猜测到输入。
 
-But there is only one problem:
+这里唯一的问题是：
 
-> With hashing functions, this strategy will not work!
+> 使用 hash 函数，这个策略将不起作用！
 
-This is because in a hashing function, if we change even a single character in the input (actually even a single bit), on average 50% of the output bits will change!
+这是因为在 hash 函数中，如果我们改变输入中的一个字符（甚至是一个 bit），平均50%的输出 bit 会发生变化！
 
-So even minimal differences in the input create a completely different output.
+因此，即使是最小的输入差异，也会产生完全不同的输出。
 
-This all sounds interesting, but you are likely thinking at this point: how does a hashing function enable a digital signature then??
+这一切听起来都很有趣，但您可能正在思考一点:hash 函数是如何启用数字签名的呢？
 
-Can't the attacker just take the Header and Payload and forge the signature?
+攻击者不能只用头和载荷来伪造签名吗？
 
-Anyone can apply the SHA-256 function and get to the same output and append it to the signature of the JWT, right?
+任何人都可以使用 SHA-256 函数得到相同的输出，将它添加到 JWT 的签名，对吗？
 
-### How to use hashing functions to produce a signature?
+### 怎么使用 hash 函数来创建一个签名？
 
-That last part is true, anyone can reproduce the hash of a given Header and Payload.
+只要最后一部分是 true，任何人都可以重现给定的 header 和 payload 的 hash 值。
 
-But the HS256 signature is not only that: instead, what we do is we take the Header, the Payload and we add also a secret password, and then we hash everything together.
+但是 HS256 签名不仅仅是这样：相反，我们会带上头部，载荷和我们添加的密码，然后全部一起进行 hash 处理。
 
-The result of that is a SHA-256 HMAC or Hash-Based Message Authentication Code, and one example of a function that does that is the HMAC-SHA256 function, which is used in HS256 signatures.
+得到的结果是一个 SHA-256 HMAC 或者一个 Hash-Based 消息认证代码。例如 HMAC-SHA256 函数，会被用在 HS256 签名上。
 
-The result of that function can only be reproduced by someone in possession of the JWT Header, the Payload (which are readable by anyone that grabbed the token), **AND** the password.
+这个函数的结果只能被拥有 JWT Header, Payload（所有抓取了 token 的人都能读懂的）和密码的人所重现。
 
-> This means that that resulting hash is effectively a form of digital signature!
+> 这意味着由此产生的 hash 实际上是数字签名的一种形式。
 
-This is because the hashed result proves that the Payload was created and then signed by someone in possession of the password: there would be no other way for someone to come up with that particular hash.
+因为 hash 后的结果证明载荷是被密码持有人创建并签名的：别人没办法想出这样独一无二的 hash。
 
-So the hash serves as an unforgeable digital proof that the Payload is valid.
+因此，hash 作为一个不可伪造的数字证明的载荷是有效的
 
-The hash is then appended to the message, in order to allow the receiver to authenticate it: this hashed output is called an HMAC: Hash-Based Message Authentication Code, which is a form of digital signature.
+然后将 hash 附加到消息中，以便接收者对其进行验证：该散列输出称为 HMAC：基于散列的消息验证代码，这是一种数字签名形式。
 
-And that is exactly what we do in the case of JWTs: that last part of the JWT (after the second dot) is the SHA-256 hash of the Header plus the Payload, encoded in Base64Url.
+JWTs 的真实情况：JWT 的最后一部分（第二点后）是头加上载荷的 SHA-256 hash，编码格式是 base64url。
 
-#### How to validate a JWT signature?
+#### 如何验证一个 JWT 签名？
 
-So when we receive a HS256-signed JWT on our server, we have to have that exact same password too, in order be to be able to validate the signature and confirm that the token Payload is indeed valid.
+因此当我们在服务器端收到一个 HS256-signed JWT，我们也需要一个准确的密码，用来验证签名和确认 token 的载荷确实是有效的。
 
-To check the signature we simply take the JWT header plus the payload and hash it together with the password. This means in the case of HS256 that the JWT receiver needs to have the exact same password as the sender.
+想要检查这个签名，我们只需将密码与 JWT 头跟载荷一起 hash 就可以了。这意味着，在 HS256 的情况下，JWT 接收方需要和发送方具有相同的密码。
 
-And if we get back the same hash as in the signature it means that the token must be valid, because only someone with the password could have come up with that signature.
+如果我们得到与签名相同的 hash 值，则意味着该令牌肯定是有效的，因为只有具有密码的人才可以提供该签名。
 
-And that, in general, is how digital signatures and HMACs work. Do you want to see this in action?
+总之，这就是数字签名和 HMAC 的工作方式。想不想马上看看它？
 
-### Manually confirming a SHA-256 JWT Signature
+### 手动确认 SHA-256 JWT 签名
 
-Let's take that the same JWT as above and remove the signature and the second dot, leaving only the Header and the Payload part. That would look something like this:
+让我们采用与上述相同的 JWT，并删除签名和第二个点，只留下头部和载荷部分。它看起来像这样：
 
 ```
 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9
 ```
 
-Now if you copy/paste this string to an online HMAC SHA-256 tool like [this one](https://hash.online-convert.com/sha256-generator), and use the password `secret`, we get back the JWT signature!
+现在，如果您将此字符串复制/粘贴到像[这个](https://hash.online-convert.com/sha256-generator)那样的在线 HMAC SHA-256 工具中，并使用密码 `secret` ，我们将返回 JWT 签名！
 
-Or almost, we will get back the Base64 version of it, which still has an `=` at the end, and this is close but not identical to Base64Url:
+通常，我们会得到它的 Base64 版本，它通常以 `=` 结尾，这是接近但不完全相同的 Base64Url：
 
 ```
 TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ=
 ```
 
-That equal sign would show up as `%3D` in a URL bar, so that is kind of messy, but it also explains the need for Base64Url, if we want to send JWTs as a URL parameter.
+这个等号会以 `%3D` 在 url 栏显示，这是其中一个麻烦，但它也充分说明了 Base64Url 的重要性，
 
-There aren't a lot of online Base64Url converters available, but we can always do that in the command line. So to really confirm this HS256 signature, here is an [npm package](https://www.npmjs.com/package/base64url) that implements Base64Url, as well as conversion from/to Base64.
+没有很多在线 Base64Url 转换器可用，但是我们可以在命令行中进行。所以要真正确认这个HS256签名，这里有个[ npm 包](https://www.npmjs.com/package/base64url)，可以实现 Base64Url，以及Base64的正向/反向转换。
 
-#### The base64url NPM Package
+#### base64url NPM 包
 
-Let's then use it to convert our result to Base64 URL and completely confirm the signature and our understanding of how it works:
+让我们使用这个包将结果转化成 Base64 URL 来确认签名，同时搞懂它是怎么运作的
 
 ```
 mkdir quick-test && cd quick-test
@@ -378,63 +378,63 @@ node
 TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ
 ```
 
-So finally there we have it, this string is the HS256 JWT signature that we were trying to reproduce:
+所以最后我们得到了这个我们一直试图复现的HS256 JWT签名字符串：
 
-> This is the exact same signature as the JWT above, character per character!
+> 这要求 JWT 签名上的每个字母都一摸一样！
 
-So congratulations, you now know in-depth how HS256 JWT signatures work and you will be able to troubleshoot yourself out of any situation using these online tools and packages.
+那么恭喜你，现在你知道如何深入 HS256 JWT 签名的工作里去了，你将能自己使用这些在线工具和软件包排查问题。
 
-### Why other types of signatures then?
+### 为什么还有其他签名呢？
 
-This, in summary, is how JWT signatures are used for Authentication, and HS256 is just an example of a particular signature type. But there other signature types, and the one most commonly used is: RS256.
+总而言之，这才是 JWT 签名在认证的用法，而 HS256 只是一个特定签名类型的例子。但是还有其他的签名类型，最常用的是 RS256。
 
-What is the difference? We have introduced HS256 here mostly because it makes it much simpler to understand the notion of a MAC code, and you might very well find it in production in many applications.
+有什么不同？ 我们在这里介绍 HS256 的原因主要是因为它可以让我们更容易理解 MAC 代码的概念，而且你很可能在许多应用的生产中发现它。
 
-But in general, it's **much** better to use something like the RS256 signature method instead, because as we are going to learn in the next section it has so many advantages over HS256\.
+但总的来说，使用 RS256 签名会**更好**一些，因为我们将在下一节知道，相比 HS256 它有更多优势。
 
-### Disadvantages of HS256 Signatures
+### HS256 签名的缺点
 
-HS256 signatures can be brute forced if the input secret key is weak, but that could be said about many other key based technologies.
+如果输入密匙很弱，HS256 签名很可能会被破解，但这可能涉及许多其他关于密钥的技术。
 
-Hash-based signatures are however particularly simpler to brute force when compared to other alternatives, for typical production key sizes.
+根据典型的生产密钥大小对比，基于 Hash 的签名比其他替代品更容易破解。
 
-But more than that, a practical disadvantage of HS256 is that it requires the existence of a previously agreed secret password between the server that is issuing the JWTs, and any other server machine consuming the JWTs for validation and user identification.
+但更重要的是，HS256 的一个实际缺点是，在派发 JWTs 服务器和其他验证用户身份的服务器之间需要一个事先商定的密码的。
 
-#### Unpractical Key Rotation
+#### 不实用的密钥转换
 
-This means that if we want to change the password we need to have it distributed and installed to all network nodes that need it, which is not convenient, it's error prone and would involve coordinated server downtime.
+这意味着，如果我们想改变密码，我们需要把它分配并安装到所有需要它的网络节点，这不方便，容易出错，需要协调服务器停机时间。
 
-This might not even be feasible is let's say one server is managed by a completely different team or even by a third-party organization.
+服务器由一个完全不同的团队管理，甚至由第三方组织管理的情况下，这是不可行的。
 
-#### No separation between token creation and validation
+#### 令牌的创建和验证是不独立的
 
-It all boils down to the fact that there is no distinction between the ability to create JWTs vs the ability of simply validating them: with HS256 everyone in the network can both create **and** validate tokens because they all have the secret password.
+这一切都归结于创建和验证 JWT 的能力是一样的：网络中的每个人都可以通过 HS256 创建**和**验证令牌，因为它们都有自己的密码。
 
-This means that there are many more places where the password can be lost or stolen by an attacker, as the password needs to be installed everywhere, and not all applications have the same level of operational security.
+这意味着攻击者可以窃取密码的地方更多了，因为密码需要安装在每一个地方，而不是所有的应用程序都具有相同安全级别。
 
-One way to mitigate this is to create one shared password per application, but instead, we are going to learn about a new signature method that solves all these problems and that modern JWT-based solutions now use by default: RS256.
+缓解这种问题的一个方法是在每个应用间创建一个共享密码，但是，我们要学习一个新的签名方法，来解决所有这些问题，同时现代基于 JWT 的解决方案都默认使用：RS256。
 
-### THe RS256 JWT Signature
+### RS256 JWT 签名
 
-With RS256 we are still going to produce a Message Authentication Code just like before, the goal is still to create a digital signature that proves that a given JWT is valid.
+使用RS256，我们仍然会像以前一样生成一个认证码，但是我们的目标仍然是创建一个数字签名来证明给定的 JWT 是有效的。
 
-But in the case of this signature, we are going to separate the ability to create valid tokens, that only the Authentication server should have, from the ability to validate JWT tokens, that only our Application server would benefit from doing.
+但是在这个签名的情况下，我们将分离创建有效令牌的能力，只有验证服务器才能验证JWT令牌，只有我们的应用服务器才能从中受益。
 
-The way that we are going to that is that we are going to create two keys instead of one:
+我们要做的是，我们将创建两个密钥来取代它：
 
-* There will still be a private key but this time it will be owned only by the Authentication server, used only to sign JWTs
-* The private key can be used to sign JWTs, but it cannot be used to validate them
-* There is a second key called the public key, which is used by the application server only to validate JWTs
-* The public key can be used to validate JWT signatures, but it cannot be used to sign new JWTs
-* The public key does not need to be kept private and it often is not, because if the attacker gets it there is no way to use it to forge signatures
+* 仍然会有一个私钥，但它只会在验证服务器自己签署 JWTs 时才会用到。
+* 私钥可用于签署 JWTs，但不能用于验证
+* 第二个密钥叫做公钥，它只被服务器用于验证 JWTs
+* 公钥可用于验证 JWT 签名，但不能用于签署新的 JWT
+* 公钥一般不需要保密，因为攻击者得到它也没办法伪造签名
 
-### Introducing The RSA encryption technology
+### 介绍一下 RSA 加密技术
 
-RS256 signatures use a particular type of keys, called RSA Keys. RSA is the name of an encryption/decryption algorithm that takes one key to encrypt and a second key to decrypt.
+RS256 使用了一种特定类型的密钥，称为 RSA 密钥。RSA 是一种加密/解密算法的名称，该算法使用一个密钥进行加密，另一个密钥进行解密。
 
-Note that RSA is not a Hashing function, because by definition the output of encryption can be reversed and we can get back the initial result.
+注意，RSA 密钥不是 hash 函数，因为根据定义，加密的结果是可以反转的，我们能找回初始的结果。
 
-Let's see what an RSA _Public_ Key looks like:
+让我们看一下一个 RSA _公钥_长怎样的：
 
 ```
 -----BEGIN PUBLIC KEY-----
@@ -442,11 +442,11 @@ MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDdlatRjRjogo3WojgGHFHYLugdUWAY9iR3fy4arWNA
 -----END PUBLIC KEY-----  
 ```
 
-Again it looks bit scary, but it's just a unique key generated by a command line tool like openssl or an online RSA key generation utility like [this one](http://travistidwell.com/jsencrypt/demo/).
+它看起来有一点可怕，但它其实只是一个像 OpenSSL 这样的命令行工具或[像这个](http://travistidwell.com/jsencrypt/demo/)在线RSA密钥生成工具生成的唯一密钥，
 
-Again this key _could_ be made public, and this is actually typically published, so the attacker does not need to guess this key: it usually already has it.
+同样，这个密钥 _可以被公开_，它实际上就是公开的，因此攻击者不需要猜测这个密钥：通常他们早已拥有了它。
 
-But then there is the corresponding RSA _Private_ Key:
+但也有相应的 RSA 私钥：
 
 ```
 -----BEGIN RSA PRIVATE KEY-----
@@ -454,85 +454,84 @@ MIICWwIBAAKBgQDdlatRjRjogo3WojgGHFHYLugdUWAY9iR3fy4arWNA1KoS8kVw33cJibXr8bvwUAUp
 -----END RSA PRIVATE KEY-----  
 ```
 
-The good news is that there is no way an attacker could guess that!
+好消息是，攻击者根本无法猜出这一点！
 
-Again let's remember the two keys are linked, what one key encrypts the other and only the other can decrypt. But how do we use that to produce a signature?
+再次记住，这两个键是对应的，一个密钥加密，另一个只能解密。但是我们如何使用它来产生签名呢？
 
-### Why not just encrypt the payload with RSA?
+### 为什么不只对载荷 RSA 加密？
 
-Here is one attempt to create a digital signature using RSA: we take the Header and the Payload, and encrypt it using RSA with the private key, then we send the JWT over.
+下面是使用 RSA 创建数字签名的一个尝试：我们对 Header 和 Payload 使用 RSA 私钥加密，然后发送JWT。
 
-The receiver gets the JWT, decrypts it with the Public Key, and checks the result.
+接收者得到 JWT，用公钥解密，然后检查结果。
 
-If the decryption process works and the output looks like a JSON payload, this means that it must have been the Authentication Server that created this data and encrypted it. So it must be valid, right?
+如果解密过程起到作用，并且输出看起来像一个 JSON 载荷，那么验证服务器一定是创建了这个数据同时对它进行加密。所以它必须是完整的，对吧？
 
-That is indeed true, and it would be sufficient to prove that the token is correct. But that is not what we do due to practical reasons.
+确实如此，证明这个令牌是正确的就足够了。但是由于实际的原因，这不是我们所要做的。
 
-The RSA encryption process is relatively slow compared to for example a hashing function. For larger payload sizes this could be an issue, and this is only one reason.
+例如与 hash 函数相比，RSA 加密过程相对较慢。对于更大的载荷，这可能是一个问题，这仅仅是其中的一个原因。
 
-So what do then, how do HS256 signatures actually use RSA in practice?
+那么，实际上 HS256 签名怎么使用 RSA 的呢？
 
-### Using RSA and SHA-256 to sign a JWT (RSA-SHA256)
+### 用 RSA 和 SHA-256 签署一个 JWT （RSA-SHA256）
 
-In practice what we do is we take the Header and the Payload and we hash them first, using for example SHA-256.
+在实践中，我们首先要做的是把头部和载荷进行 hash 函数处理，例如使用 SHA-256。
 
-This is something very fast to do, and we obtain a unique representation of the input data that is much smaller than the actual data itself.
+这一步很快就完成了，接下来我们会得到一个唯一的比实际长度要小得多的输入数据。
 
-We then take the hash output, and encrypt that instead of the whole data (header plus payload) using the RSA private key, which gives us the RS256 signature!
+然后我们获取 hash 输出并使用 RAS 私钥加密获取 RS256 签名，而不是对整个数据（头和载荷）加密！
 
-We then append it to the JWT as the last of the 3 parts, and we send it.
+接着我们把它作为三部分的最后一部分添加到 JWT 并发送。
 
-### How does the receiver check RS256 Signatures?
+### 如何接收检查 RS256 签名？
 
-The receiver of the JWT will then:
+JWT 接收者将会：
 
-* take the header and the payload, and hash everything with SHA-256
-* decrypt the signature using the public key, and obtain the signature hash
-* the receiver compares the signature hash with the hash that he calculated himself based on the Header and the Payload
+* 用 SHA-256 hash 头和载荷
+* 用公钥解密签名，并获得签名的 hash
+* 接收者对签名的 hash 结果和头加载荷的 hash 结果进行对比
 
-Do the two hashes match? Then this proves that the JWT was indeed created by the Authentication server!
+两个 hash 值匹配吗？如果匹配，就可以证明这个 JWT 确实是由认证服务器创建的了！
 
-Anyone could have calculated that hash, but only the Authentication server could have encrypted it with the matching RSA private key.
+任何人都可以计算这个 hash，但只有身份验证服务器可以用匹配的 RSA 私钥对它进行加密。
 
-Do you think that there has to be more to it? Let's confirm this then, and learn how to troubleshoot RS256 signatures along the way.
+你认为还有更多吗？那么我们来确认一下，并在这个过程中学习如何排查 RS256 签名。
 
-### Manually confirming an RS256 JWT signature
+### 手动确认一个 RS256 JWT 签名
 
-Let's start by taking an example of a JWT signed with RS256 from [jwt.io](https://jwt.io):
-
+让我们在 [jwt.io](https://jwt.io) 开始一个 RS256 签名的 JWT 的例子：
 ```
 eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.EkN-DOsnsuRjRO6BxXemmJDm3HbxrbRzXglbN2S4sOkopdU4IsDxTI8jO19W_A4K8ZPJijNLis4EZsHeY559a4DFOd50_OqgHGuERTqYZyuhtF39yxJPAjUESwxk2J5k_4zM3O-vtd1Ghyo4IbqKKSy6J9mTniYJPenn5-HIirE
 ```
 
-As we can see, there is no immediate visual difference when compared to an HS256 JWT, but this was signed with the same RSA Private Key shown above.
+我们可以看到，这相对 HS256 JWT 来说没有直接的视觉差异，但这是与上面所示的相同的 RSA 的私钥签署。
 
-Now let's isolate the Header and the Payload only, and remove the signature:
+现在，我们只隔离了头部和载荷，和移除了签名：
 
 ```
 eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9
 ```
 
-All we have to do now is to hash this with SHA-256, and encrypt it with RSA using the RSA private key shown above.
+我们现在要做的就是使用 SHA-256 对它进行 hash 处理，并使用上面显示的 RSA 私钥对它进行加密。
 
-The result should be the JWT signature! Let's confirm if that is the case using the Node built-in Crypto module. There is no need for an external installation, this comes built-in with Node.
+得到的结果应该就是 JWT 签名了！让我们来确认一下是否用了 node 内置的 Crypto 模块。不需要额外安装，这是 Node 的内置模块。
 
-This module comes with a built-in [RSA-SHA256 function](https://nodejs.org/api/crypto.html#crypto_class_sign) and many other signature functions that we can use to try to reproduce signatures.
+这个模块内置了[RSA-SHA256 函数](https://nodejs.org/api/crypto.html#crypto_class_sign) 和许多其他签名函数，我们可以使用它们尝试重现签名。
 
-To do that, the first thing that we need is to take the RSA private key and save it to a text file, named `private.key`.
+为了重现它，我们要做的第一件事是，我们需要取得RSA私钥并保存到一个叫 `private.key` 的 text 文件。
 
-Then on the command line, we run the node shell and execute this small program:
+然后在命令行中，我们通过node shell执行这个小程序
 
-If you are using a different JWT than the test JWT that we have been using, then you need to copy/paste only the two parts to the `write` call, without the JWT signature.
+如果您使用的JWT与我们使用的测试JWT不同，那么您只需将这两个部分复制/粘贴到 `write` 调用中，而不需要 JWT 签名。
 
-And here is what we get back:
+这是返回的结果：
 
 ```
  EkN+DOsnsuRjRO6BxXemmJDm3HbxrbRzXglbN2S4sOkopdU4IsDxTI8jO19W/A4K8ZPJijNLis4EZsHeY559a4DFOd50/OqgHGuERTqYZyuhtF39yxJPAjUESwxk2J5k/4zM3O+vtd1Ghyo4IbqKKSy6J9mTniYJPenn5+HIirE=
 ```
 
-Which is completely different than the JWT signature !! But wait a second: there are slashes here, equal signs: this would not be possible to put in an URL without further escaping.
+这与 JWT 签名完全不同！但是等一下：这里有斜杠，等号，它们是不可能的在没有转义的情况下放入一个 URL 的。
 
-This is because we have created the Base64 version of the signature, and what we need instead is the Base64Url version of this. So let's convert it:
+这是因为我们已经创建了 Base64 版本的签名，而我们需要的是 Base64Url 版本。 所以让我们转换它：
 
 ```
 bash$ node
@@ -540,142 +539,139 @@ const base64url = require('base64url');
 base64url.fromBase64("EkN+DOsnsuRjRO6BxXemmJDm3HbxrbRzXglbN2S4sOkopdU4IsDxTI8jO19W/A4K8ZPJijNLis4EZsHeY559a4DFOd50/OqgHGuERTqYZyuhtF39yxJPAjUESwxk2J5k/4zM3O+vtd1Ghyo4IbqKKSy6J9mTniYJPenn5+HIirE=");
 ```
 
-And here is what get back:
+看一下返回什么：
 
 ```
 EkN-DOsnsuRjRO6BxXemmJDm3HbxrbRzXglbN2S4sOkopdU4IsDxTI8jO19W_A4K8ZPJijNLis4EZsHeY559a4DFOd50_OqgHGuERTqYZyuhtF39yxJPAjUESwxk2J5k_4zM3O-vtd1Ghyo4IbqKKSy6J9mTniYJPenn5-HIirE 
 ```
 
-Which is exactly, bit by bit the RS256 signature that we were trying to create!
+这正是我们试图创建的 RS256 签名的一点一滴！
 
-This proves our understanding of RS256 JWT signatures, and we now know how to troubleshoot them if needed.
+这验证了我们对 RS256 JWT 签名的理解，现在我们知道如何在需要时对它进行故障排除。
 
-In summary, RS256 JWT signatures are simply an RSA encrypted SHA-256 hash of the header plus payload.
+总之，RS256 JWT签名只是一个被RSA加密过同时被SHA-256 hash的头和载荷。
 
-So we now know how RS256 signatures work, but why are these signatures better than HS256?
+所以我们现在知道 RS256 签名是如何工作的，但为什么这些签名比 HS256 更好呢？
 
-### RS256 Signatures vs HS256 - Why use RS256?
+### RS256 vs HS256 - 为什么使用 RS256？
 
-With RS256, the attacker can easily perform the first step of signature creation process which is to create the SHA-256 hash based on the values of a stolen JWT header and payload.
+通过 RS256 攻击者可以很容易地做到签名创建过程的第一步，即根据被盗的 JWT 头和有效负载的值创建 SHA-256 hash。
 
-But from there to recreate a signature he would have to brute force RSA, which for a good key size is [unfeasible](https://crypto.stackexchange.com/questions/3043/how-much-computing-resource-is-required-to-brute-force-rsa).
+但想要从那重新生成签名，就不得不破解RSA，但对一个好的密钥来说破解是[不可能的事](https://crypto.stackexchange.com/questions/3043/how-much-computing-resource-is-required-to-brute-force-rsa)。
 
-But that is not the most practical reason why we would want to choose RS256 over HS256, for most applications.
+但是对于大多数应用，这并不是我们为什么要选择 RS256 而不是 HS256 的最实际的原因。
 
-With RS256, we also know that the private key that has the power of signing tokens is only kept by the Authentication server, where it's much safer - so RS256 means fewer chances of losing the signing private key.
+使用 RS256，我们也知道具有签名令牌功能的私钥只能由认证服务器保存，在那里更加安全 - 这意味着使用 RS256 丢失签名私钥的可能性较小。
 
-But there is a much bigger practical reason to choose RS256 - simplified key rotation.
+但是选择 RS256 有一个更大的实际原因 - 密钥转换。
 
-### How to implement key rotation
+### 如何证明密钥转换
 
-Let's remember that the public key used to validate tokens can be published anywhere, and the attacker cannot in practice do anything with it.
+记住，验证令牌的公钥可以在任何地方发布，但实际上攻击者拿着它也什么都做不了。
 
-After all, what good would it do for an attacker to be able to validate a stolen JWT? An attacker wants to be able to forge JWTs, not validate them.
+毕竟，攻击者验证偷来的 JWT 有什么好处呢？攻击者是想要伪造 JWTs，而不是验证他们。
 
-This opens up the possibility of publishing the public key in a server under our control.
+这样就可以在我们控制的服务器上发布公钥了。
 
-The application servers then only needs to connect to that server to fetch the public key, and check again periodically just in case it has changed, either due to an emergency or periodic key rotation.
+应用服务器只需要连接到该服务器获取公钥，并定期重新检查，以防它发生变化，无论是因为突发事件还是周期性的密钥旋转。
 
-So there is no need to bring the application server and the authentication server down at the same time, and update the keys eveywhere in one go.
+因此，不需要同时关闭应用服务器和认证服务器，并一次性更新密钥。
 
-But how can the public key get published? Here is one possible format.
+那公钥是怎么发布的？这有个很可能形式。
 
-### JWKS (JSON Web Key Set) Endpoints
+### JWKS (JSON Web Key Set)终端
+有许多形式可以发布公钥，但是这里有一个让人熟悉的格式：JWKS，它是 Json Web Key Set 的缩写。
 
-There are many formats to publish public keys, but here is one that will feel familiar: JWKS which is short for Json Web Key Set.
+使用一些 npm 包来占用这些端点并验证 JWT，我们将在第二部分看到。
+这些端点可以发布一系列公钥，而不仅仅是一个公钥。
 
-There are some very easy to use npm packages to consume these endpoints and validate JWTs, as we will see on part two.
+如果您想知道这种类型的端点是什么样子的，请看一下这个活生生的[例子](https://angularuniv-security-course.auth0.com/.well-known/jwks.json)，在这我们收到HTTP GET request的response。
 
-These are endpoints that can publish a series of public keys, not just one.
+`kid` 属性是关键标识符，而 `x5c` 属性是一个特定公钥的表现形式。
 
-If you are curious to know what this type of endpoints looks like, have a look at this [live example](https://angularuniv-security-course.auth0.com/.well-known/jwks.json), here is what we receive in response to an HTTP GET request:
+这种格式的优点在于它是标准的，所以我们只需要 URL 的端点和一个使用 JWKS 的库 - 这让我们可以使用公钥来验证 JWT，而不必在我们的服务器安装它。 
 
-The `kid` property is the key identifier, and `x5c` is the representation of one particular public key.
+JWTs 往往与公共互联网站点以及第三方社交登录的解决方案有关。那么内部网跟内部应用程序呢？
 
-The great thing about this format is that its standard, so we just have to have the URL to the endpoint, and a library that consumes JWKS - this should give us a ready to use public key for validating JWTs, without having to install it on our server.
+### 企业中的 JWTs
 
-JWTs are often associated to public internet sites, and to social login solutions. But what about intranet, in-house applications?
+JWT 也适用于企业，在大家对安全措施的认知里，预认证设置是一个很好的选择。
 
-### JWTs in the Enterprise
+在许多公司的预验证设置中，应用程序服务器会在私有网络的代理服务器上运行，它只需从 HTTP 报头上检索当前用户。
 
-JWTs are applicable also to the enterprise, as a great alternative to the typical Pre-Authentication setup which is a known security liability.
+标识用户的 HTTP 头通常由网络的集中元素填充，通常是在代理服务器上的一个登录页面，该页面负责处理用户会话。
 
-In the Pre-Authentication setup that many companies use, we run our application servers behind a proxy on a private network, and simply retrieve the current user from an HTTP header.
+如果会话过期，该服务器将阻止对应用程序的访问，需要用户再次登录后进行身份验证。
 
-The HTTP header that identifies the user is usually filled in by a centralized element of the network, usually a centralized login page installed on a proxy server that will take care of the user session.
+之后，它会将所有请求转发到应用程序服务器，并简单地添加一个 HTTP 头来标识用户。
 
-That server will block access to the application if the session is expired, and will authenticate the users after login.
+> 问题是，通过这种设置，实际上网络中的任何人都可以通过设置相同的HTTP头轻松地模拟用户！
 
-After that, it will forward all requests to the application server and simply add an HTTP header to identify the user.
+有些解决方案，比如应用服务器层级的代理服务器IP白名单，或者使用客户端证书，但实际上大多数公司没有这个措施
 
-> The problem is that with that setup in practice anyone inside the network can easily impersonate a user just by setting that same HTTP header!
+#### 一个更好的预认证配置版本
 
-There are solutions for that, like white-listing the IP of the proxy server at the level of the application server, or using a client certificate but in practice, most companies don't have these measures in place.
+预认证的想法很好，因为此设置意味着应用程序开发人员不必在每个应用程序上实现身份验证功能，节省了时间和避免了潜在的安全漏洞。
 
-#### A better version of the Pre-Authentication Setup
+预认证使我们不需要受困于安全性问题，让我们的应用程序更完备，哪怕只是在私人网络里。难道能够快捷设置预认证不是一件好事吗？
 
-The Pre-Authentication idea is good though because this setup means that the Application Developer does not have to implement the authentication features itself on each application, sparing time and avoiding potential security bugs.
+很容易想象到加入JWT的场景：让HTTP头成为一个jwt，而不是仅仅像过往的预认证那样仅仅把用户名放进头部。
 
-Wouldn't it be great to have the convenience of the Pre-Authentication setup, without having to compromise security and make our Application authentication easily bypassable, even if only inside a private network?
+让我们把用户名取代JWT的载荷，并在验证服务器中签名。
 
-This is simple to do if we put JWT into the picture: instead of just putting the username in the header as we usually do in Pre-Authentication, let's make that HTTP header a JWT.
+应用服务器将会第一步验证 JWT，而不仅仅从 header 中提取用户名：
 
-Let's then put the username inside the payload of that JWT, signed by the Authentication server.
+* 如果签名正确，则用户身份正确，请求能够通过
+* 如果签名不正确，应用服务器会直接拒绝请求
 
-The Application server, instead of just taking the username from the header, will first validate the JWT:
+结果是，我们现在认证工作运作正常，即使是在私人网络上！
+我们不再需要盲目相信包含用户名的 HTTP Header。我们可以确认 HTTP header 的正确性，由代理发出，而防止攻击者假装其他用户登录。
 
-* if the signature is correct, then the user is correctly authenticated and the request goes through
-* if not, the application server can simply reject the request
+### 结语
 
-The result is that we now have Authentication working correctly, even inside the private network!
+在这篇文章里，我们对 JWT 有了一个全面的了解，它是什么，它们是怎么被运用于用户验证的。JWTs仅仅是具有易于验证和不可伪造特性的JSON 载荷。
 
-We no longer have to trust blindly the HTTP Header containing the username. We can make sure that that HTTP header is indeed valid and issued by the proxy, and it's not some attacker trying to log in as another user.
+而且，JWT 不是身份验证独有的，我们可以使用它们在网络任何地方发送任何声明。
 
-### Conclusions
+另一个在使用 JWTs 时常见的安全问题：我们可以在载荷上为用户授权角色：只读用户、管理员等。
 
-In this post we got an overall idea of what JWTs are, and how they are used for Authentication. JWTs are simply JSON payloads whith a easibly verifiable and unforgable signature.
+在下一篇文章里，我们将会学习到在 Angular 应用中如何使用 JWTs 进行用户验证。
 
-Again, there is nothing about JWTs that is authentication-specific, we could use them to send any claim across the network.
+我希望你能享受这篇文章，如果你有什么问题和意见，请在评论区提出，我会与你联系。
 
-Another common security related use for JWTs if Authorization: we can for example put in the Payload the list of Authorization roles for the user: Read Only User, Administrator, etc.
+注意了！很快就会有更多相关的文章出炉，欢迎订阅！
 
-In the next post of this series, we are going to learn how to implement Authentication in an Angular application using JWTs.
+### 相关链接
 
-I hope you enjoyed this post, if you have some questions or comments please let me know in the comments below and I will get back to you.
+[Auth0 JWT 手册](https://auth0.com/e-books/jwt-handbook)
 
-To get notified when more posts like this come out, I invite you to subscribe to our newsletter:
+[RS256 和 JWKS 指南](https://auth0.com/blog/navigating-rs256-and-jwks/)
 
-### Related Links
-
-[The JWT Handbook by Auth0](https://auth0.com/e-books/jwt-handbook)
-
-[Navigating RS256 and JWKS](https://auth0.com/blog/navigating-rs256-and-jwks/)
-
-[Brute Forcing HS256 is Possible: The Importance of Using Strong Keys in Signing JWTs](https://auth0.com/blog/brute-forcing-hs256-is-possible-the-importance-of-using-strong-keys-to-sign-jwts/)
+[暴力破解 hs256 是可能的：签署强健 jwts 的重要性](https://auth0.com/blog/brute-forcing-hs256-is-possible-the-importance-of-using-strong-keys-to-sign-jwts/)
 
 [JSON Web Key Set (JWKS)](https://auth0.com/docs/jwks)
 
-### Video Lessons Available on YouTube
+### YouTube 上的视频教程
 
-Have a look at the Angular University Youtube channel, we publish about 25% to a third of our video tutorials there, new videos are published all the time.
+看看 Angular 大学的 Youtube 频道，我们发布了大约25％到三分之一的视频教程，新视频会陆续推出。
 
-[Subscribe](http://www.youtube.com/channel/UC3cEGKhg3OERn-ihVsJcb7A?sub_confirmation=1) to get new video tutorials:
+[订阅](http://www.youtube.com/channel/UC3cEGKhg3OERn-ihVsJcb7A？sub_confirmation=1)获取新的视频教程：
 
-## Other posts on Angular
+## 有关 angular 的其他文章
 
-Have also a look also at other popular posts that you might find interesting:
+还可以看看其他有趣的文章：
 
-* [Getting Started With Angular - Development Environment Best Practices With Yarn, the Angular CLI, Setup an IDE](http://blog.angular-university.io/getting-started-with-angular-setup-a-development-environment-with-yarn-the-angular-cli-setup-an-ide/)
-* [Why a Single Page Application, What are the Benefits ? What is a SPA ?](http://blog.angular-university.io/why-a-single-page-application-what-are-the-benefits-what-is-a-spa/)
-* [Angular Smart Components vs Presentation Components: What's the Difference, When to Use Each and Why?](http://blog.angular-university.io/angular-2-smart-components-vs-presentation-components-whats-the-difference-when-to-use-each-and-why)
-* [Angular Router - How To Build a Navigation Menu with Bootstrap 4 and Nested Routes](http://blog.angular-university.io/angular-2-router-nested-routes-and-nested-auxiliary-routes-build-a-menu-navigation-system/)
-* [Angular Router - Extended Guided Tour, Avoid Common Pitfalls](http://blog.angular-university.io/angular2-router/)
-* [Angular Components - The Fundamentals](http://blog.angular-university.io/introduction-to-angular-2-fundamentals-of-components-events-properties-and-actions/)
-* [How to build Angular apps using Observable Data Services - Pitfalls to avoid](http://blog.angular-university.io/how-to-build-angular2-apps-using-rxjs-observable-data-services-pitfalls-to-avoid/)
-* [Introduction to Angular Forms - Template Driven vs Model Driven](http://blog.angular-university.io/introduction-to-angular-2-forms-template-driven-vs-model-driven/)
-* [Angular ngFor - Learn all Features including trackBy, why is it not only for Arrays ?](http://blog.angular-university.io/angular-2-ngfor/)
-* [Angular Universal In Practice - How to build SEO Friendly Single Page Apps with Angular](http://blog.angular-university.io/angular-2-universal-meet-the-internet-of-the-future-seo-friendly-single-page-web-apps/)
-* [How does Angular Change Detection Really Work ?](http://blog.angular-university.io/how-does-angular-2-change-detection-really-work/)
+* [开始 Angualr ————在 yarn 下的最佳开发环境，Angular CLI，设置 IDE](http://blog.angular-university.io/getting-started-with-angular-setup-a-development-environment-with-yarn-the-angular-cli-setup-an-ide/)
+* [为什么是单页应用？有什么好处？什么是 spa？](http://blog.angular-university.io/why-a-single-page-application-what-are-the-benefits-what-is-a-spa/)
+* [Angular 智能组件 vs 展示组件: 有什么区别,什么时候使用它们，为什么？](http://blog.angular-university.io/angular-2-smart-components-vs-presentation-components-whats-the-difference-when-to-use-each-and-why)
+* [Angular Router ————如何用 Bootstrap4 和 Nested Routes 创建导航菜单](http://blog.angular-university.io/angular-2-router-nested-routes-and-nested-auxiliary-routes-build-a-menu-navigation-system/)
+* [Angular Router————拓展导航，避免常见陷阱](http://blog.angular-university.io/angular2-router/)
+* [Angular Components————原理](http://blog.angular-university.io/introduction-to-angular-2-fundamentals-of-components-events-properties-and-actions/)
+* [如何使用可观察的数据服务构建 Angular 应用————要避免的陷阱](http://blog.angular-university.io/how-to-build-angular2-apps-using-rxjs-observable-data-services-pitfalls-to-avoid/)
+* [Angular Forms 介绍————模版驱动 vs 模型驱动](http://blog.angular-university.io/introduction-to-angular-2-forms-template-driven-vs-model-driven/)
+* [Angular ngFor————学习包括 trackby 的所有功能，为什么它不仅对数组能用？](http://blog.angular-university.io/angular-2-ngfor/)
+* [Angular university 实战————如何创建 SEO 友好的 Angualr 单页应用](http://blog.angular-university.io/angular-2-universal-meet-the-internet-of-the-future-seo-friendly-single-page-web-apps/)
+* [Angular2 的脏值检测是怎么工作的？](http://blog.angular-university.io/how-does-angular-2-change-detection-really-work/)
 
 
 ---

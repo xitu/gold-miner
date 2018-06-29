@@ -2,20 +2,20 @@
 > * 原文作者：[Josh M](http://notjoshmiller.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/ajax-polling-in-react-with-redux.md](https://github.com/xitu/gold-miner/blob/master/TODO/ajax-polling-in-react-with-redux.md)
-> * 译者：
-> * 校对者：
+> * 译者：[刘嘉一](https://github.com/lcx-seima)
+> * 校对者：[yoyoyohamapi](https://github.com/yoyoyohamapi)，[FateZeros](https://github.com/FateZeros)
 
-# AJAX Polling in React with Redux
+# 在 React & Redux 中使用 AJAX 轮询
 
-> Update: Check out a more recent article on using redux-saga for polling here: [http://notjoshmiller.com/ajax-polling-part-2-sagas/](http://notjoshmiller.com/ajax-polling-part-2-sagas/)
+> 更新：查看最新关于使用 redux-saga 进行轮询的文章：[http://notjoshmiller.com/ajax-polling-part-2-sagas/](http://notjoshmiller.com/ajax-polling-part-2-sagas/)
 
-Sometimes life gives you lemons. Sometimes your API doesn't stream events. Polling with AJAX is a common workaround for keeping client-side state in sync with time-dependent server-side state. Most of us know that `setInterval` is not optimal for this, but its cousin `setTimeout` can be used in [recursive solutions](http://stackoverflow.com/questions/14027005/simple-long-polling-example-with-javascript-and-jquery).
+正如生活不总是给予你所需之物，你所用的 API 也不总是支持流式事件。因此，当你需要把一些有时序依赖的状态从服务端同步到客户端时，一个常用的 “曲线救国” 方法就是使用 AJAX 进行接口轮询。我们大部分人都知道使用 `setInterval` 并不是处理轮询的 “最佳人选”，不过它的堂兄 `setTimeout` 配合 [递归解法](http://stackoverflow.com/questions/14027005/simple-long-polling-example-with-javascript-and-jquery) 却可以大展身手。
 
-How can we reconcile naive polling with the reactive data flow that React and Redux prescribe for us? RxJS and other observable variants are a good choice, but unless your project is already harnessing observables then it's probably not worth pulling them in for one problem. A possible solution is already available in the form of React component lifecycle methods and Redux actions. What might this look like?
+React & Redux 为我们提供了响应式的数据流，我们如何才能使普通的轮询方法与其和谐共处？RxJS 以及其他 Observable 类库是处理轮询的不错选择，不过除非你的项目已经集成了 Observable 类库，否则仅为解决轮询而引入相关类库显得并不值当。当前通过结合 React 组件的生命周期方法和 Redux 的 Action 就已经足够处理 AJAX 轮询，下面来看看如何得解？
 
-Let's first visualize our state via a Redux reducer:
+首先通过 Redux 的 Reducer 来说明当前 State：
 
-```
+```javascript
 const initialState = {  
     data: {},
     isFetching: false
@@ -37,11 +37,11 @@ export function data (state = initialState, action) {
 }
 ```
 
-I won't cover how to handle asynchronous action creators here, but there are good examples in the Redux docs. Just assume we have middleware that can handle the action types illustrated here. I will be using an action creator signature similar to the one found in the [real-world example](https://github.com/rackt/redux/tree/master/examples/real-world).
+我不会在这里去讲解如何处理 Redux 中的异步 Action 创建函数，想更好地了解这方面知识请参考 Redux 文档中的异步示例。 现在只需假设我们已有相关的 Redux 中间件来处理本文提到的各种 Action 。我会使用与 [real-world example](https://github.com/rackt/redux/tree/master/examples/real-world)（译注：原文链接的仓库已不存在，可以参考 Redux 文档中同名例子）中相似形式的 Action 创建函数。
 
-So our action creator for this model might look like:
+对应上方的数据模型，我们的 Action 创建函数可能为：
 
-```
+```javascript
 export function dataFetch() {  
   return {
     [CALL_API]: {
@@ -52,15 +52,15 @@ export function dataFetch() {
 }
 ```
 
-Super basic, but let's now think about how you would poll this endpoint. Should you set a timer in the reducer? The action creator? Perhaps even the middleware? What about the smart component itself? I vote for the component, since it should be able to handle its own data dependencies, and we can control our timer with lifecycle methods. How would that look?
+回到最初的问题，让我们想想你会如何实现 API 接口的轮询。你会把轮询的定时器设置在 Reducer 中？还是 Action 创建函数里？或许是中间件里？如果把定时器放到 Smart 组件（译注：参看 [Smart and Dumb Components - Medium](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)）中怎么样呢？我会选择在组件中设置定时器，不仅是因为组件需要控制自身的数据依赖，而且我们可以通过组件的生命周期方法控制这些定时器，看看如何做到？
 
-```
+```javascript
 import React from 'react';  
 import {connect} from 'react-redux';  
 import {bindActionCreators} from 'redux';  
 import * as DataActions from 'actions/DataActions';
 
-// Which part of the Redux global state does our component want to receive as props?   
+// 组件需要哪些 Redux 全局状态作为 props 传入？
 function mapStateToProps(state) {  
     return {
         data: state.data.data,
@@ -68,7 +68,7 @@ function mapStateToProps(state) {
     };
 }
 
-// Which action creators does it want to receive by props?       
+// 组件需要哪些 Action 创建函数作为 props 传入？
 function mapDispatchToProps(dispatch) {  
     return {
         dataActions: bindActionCreators(DataActions, dispatch)
@@ -82,7 +82,7 @@ export default class AppContainer {
 
             clearTimeout(this.timeout);
 
-            // Optionally do something with data
+            // 你可以在这里处理获取到的数据
 
             if (!nextProps.isFetching) {
                 this.startPoll();
@@ -105,10 +105,9 @@ export default class AppContainer {
 }
 ```
 
-And that's basically it. The component needs data so it fetches while mounting. When `dataFetch` dispatches a new action our reducer returns new state, triggering `componentWillReceiveProps`, which clears any pending timers and only starts a new timer if we aren't already fetching.
+好了，大功告成。因为上面的组件需要一些额外数据进行渲染，所以它会在挂载的时候尝试获取这些数据。 当 `dataFetch` 发送了一个新 Action 后，我们的 Reducer 会返回新的状态， 进而触发组件的 `componentWillReceiveProps` 方法。在这个生命周期方法内会首先清除所有进行中的定时器，若当前没有进行数据请求则随即启动一个新定时器。
 
-Granted there are other ways to handle this approach, and of course this kind of polling is discouraged if any kind of long-polling is available, but I hope this helps illustrate what is possible when combining React lifecycle methods with the kind of data flow afforded by Redux.
-
+诚然还有很多方法可以处理这里的接口轮询问题，并且如果有任何长轮询方法可用时，此处的轮询方法便相形见绌。不过我还是希望这篇文章可以帮助阐明结合 React 生命周期方法和 Redux 数据流的处 “事” 之道。
 
 ---
 
