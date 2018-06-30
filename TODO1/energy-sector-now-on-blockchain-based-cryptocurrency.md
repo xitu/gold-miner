@@ -2,52 +2,52 @@
 > * 原文作者：[torik](https://medium.com/@dungvinh50956756?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/energy-sector-now-on-blockchain-based-cryptocurrency.md](https://github.com/xitu/gold-miner/blob/master/TODO1/energy-sector-now-on-blockchain-based-cryptocurrency.md)
-> * 译者：
+> * 译者：[geniusq1981](https://github.com/geniusq1981)
 > * 校对者：
 
-# Energy sector now on blockchain-based cryptocurrency
+# 能源部门现在基于区块链的加密货币
 
 ![](https://cdn-images-1.medium.com/max/800/1*wprAtM-rk8-wdyeIuRufgg.jpeg)
 
-Envion could be a Swiss-registered blockchain that focuses on providing crypto-mining infrastructure and block-chain mining. The firm offers good solutions that maximize the worth of renewable energy globally. mercantilism in cryptocurrencies is extraordinarily well-liked, and Envion seeks to revolutionize the digital currency mining. Mining cryptocurrencies like Bitcoin needs refined hardware which may handle advanced equations.
+Envion 是一家在瑞士注册的区块链公司，专注于加密挖掘基础设施和区块链挖掘技术。该公司给全球可再生能源的价值最大化提供了很好的解决方案。加密货币的重商主义（商业本位）属性受到全球的追捧，因此 Envion 试图彻底改变数字货币挖掘方式。目前像挖掘比特币这样的加密货币是需要非常精密的硬件来处理高级方程式。
 
-To grow the worth chain of energy yielders, Envion has created a wise worldwide system of satellite-connected standard crypto-mining units that convert energy into crypto-assets right at the supply.
+为了扩大能源产出的价值链，Envion 已经建立了一个全球范围的智能系统，该系统由卫星连接的标准加密货币挖掘设备组成，这些设备将能源转化为加密资产。
 
-Envion boasts of last technology and triumph style. The organization has designed an especially mobile mining resolution that is hosted in standardized CSC containers. The containers is captive to any location within the world inside many days therefore dispersive the blockchain infrastructure. The quality ensures that the units is captive to the nighest and most cost-effective energy supply therefore reducing energy prices.
+Envion 宣称拥有最后的技术和胜利风格。该组织设计了一个移动的挖掘协议，该分辨率托管在标准化的CSC容器中。集装箱被封存到世界各地的许多天内，因此可以分散区块链基础设施。质量确保了这些设备能够获得最高和最具成本效益的能源供应，从而降低能源价格。
 
-The mining resolution contains a prepared “plug and play” which may be deployed at any energy supply. The engineering of a standard keeper resolution with totally|a totally|a completely} machine-driven startup ensures fully autonomous mining capability. Once connected, the mobile mining units begin mining forthwith as a result of refined satellite and surge protection.
+采矿决议包含一个准备好的“即插即用”，可以在任何能源供应部署。标准门将分辨率的设计完全由一个完全的机器驱动的启动确保了完全自主的挖掘能力。一旦连接起来，移动采矿单元就会开始采矿，因为精确的卫星和电涌保护。
 
-With the collapse of solar array costs and also the resultant reduction in electricity costs, low cost energy is accessible. Envion’s mining units will monetise free native overcapacities. The MMU will faucet into any type of inexperienced power as well as hydro, fossil, wind and star. This reduces the carbon footprint whereas provision the miners with extraordinarily low cost energies. every unit are used by users connected to Envion’s Unified Mining Cloud (UMC) that picks out the foremost valuable currencies to mine and directs the miners to the coin.
+随着太阳能阵列成本的崩溃以及由此导致的电力成本的降低，可以获得低成本的能源。 Envion的采矿部门将货币化免费本土产能过剩。该MMU将水龙头到任何类型的经验的权力，以及水电，化石，风和明星。这减少了碳足迹，同时为矿工提供了非常低的成本能量。每个单位都由连接到Envion统一采矿云（UMC）的用户使用，该用户可以挖掘出最重要的宝贵货币，并将矿工指引到硬币。
 
-According to the company’s report, Envion combines ASIC mining and GPU-based mining that permits for the utilization of each graphics cards and ASICs to mine coins.
+根据该公司的报告，Envion结合了ASIC挖掘和基于GPU的挖掘，允许利用每个图形卡和ASIC来挖掘硬币。
 
-The MMU contains a vast antenna that provides uninterrupted net affiliation. Reduced energy prices means that less operative prices and therefore a lot of returns on investment. it’s no secret that mining needs giant amounts of power that is why it’s important to reduce energy prices. The energy consumption of the bitcoin network for the past unit of time is regarding seventy five million kilowatts that shows what quantity energy the mining wants. every bitcoin group action needs just about 245-kilowatt hours to method.
+MMU包含一个巨大的天线，提供不间断的网络连接。能源价格下降意味着操作价格下降，因此投资回报很大。矿业需要大量的能源并不是秘密，这就是为什么降低能源价格很重要。比特币网络过去的单位时间能耗约为7000万千瓦，表明采矿需要多少能量。每个比特币团体行动需要大约245千瓦时的方法。
 
-Envion, therefore, seeks to form mining cheaper and cleaner. the corporate promotes environmental friendliness because it recycles the energy generated. The mining units area unit placed close to buildings that require heating like greenhouses and warehouses. This apply more reduces energy prices.
+因此，Envion寻求形成更便宜和更清洁的矿业。该公司提倡环保，因为它可以回收所产生的能源。采矿单位面积单位放置在需要像温室和仓库加热的建筑物附近。这适用更多的降低能源价格。
 
-Envion’s progressive data processing management platform connects all the units to 1 redistributed network victimisation satellite affiliations and redundant 4G connection. In the end, Envion provides a a lot of profitable mining resolution additionally to lowering energy prices and reassuring miners of a secure mining resolution since the method doesn’t admit single entities.
+Envion的渐进式数据处理管理平台将所有单元连接到1个重新分配的网络受害卫星附属机构和冗余4G连接。最后，Envion还提供了大量有利可图的采矿解决方案，以降低能源价格，并向采矿者保证安全的采矿决议，因为该方法不承认单个实体。
 
-The company’s proprietary self-moving cooling system has forty times the potency of ancient centers therefore achieving inconceivable power potency.
+该公司专有的自动冷却系统具有古代中心效力的四十倍，因此实现了不可思议的动力效能。
 
-Scalability
+可扩展性
 
-Envion’s mining units area unit implausibly ascendible given the economical and low-priced hardware. moreover, the company’s redistributed construct provides for the usage of tiny to medium-sized power sources.
+考虑到经济和低价的硬件，Envion的采矿单元区域单元难以上升。此外，该公司的重新分配结构提供了中小型电源的使用。
 
-Envion boasts of being the sole world mining firm that’s not full of energy value fluctuations, hardware inadequacies, stationary locations and government restrictions. this can be as a result of the corporate is vehemently anti-centralized and has access to the world’s most cost-effective energy sources. in addition, Envion creates access to the littlest free inverter/transformer stations.
+Envion自称是唯一一家没有能源价值波动，硬件不足，固定地点和政府限制的世界矿业公司。这可能是因为企业强烈反集中，并且可以获得世界上最具成本效益的能源。此外，Envion可以访问最小的免费逆变器/变电站。
 
-Envion is arguably one in all some of corporations that apply mobile, redistributed and ascendible ways therefore it doesn’t got to contend with issues that face ancient mining corporations. the expansion of blockchain applications has seen the rise in demand for mining infrastructure.
+Envion可以说是所有应用移动，重新分配和可升级方式的公司中的一员，因此它无法应对古老矿业公司面临的问题。区块链应用的扩张使得对矿业基础设施的需求增加。
 
-The company believes in making a win-win state of affairs for power plants, during this instance, the corporate pays to use the differentwise unutilized native over-capacities of power-plants and other energy sources. additionally, there’s a win-win state of affairs for the blockchain; Envion provides stability through the decentralization of mining activities and involving the community within the mining processes. property the communities participate in mining makes mining operations to not be full of native laws, energy value spikes, and governmental restrictions. These competencies contour international blockchain infrastructure.
+该公司相信为发电厂实现双赢的事态发展，在这种情况下，企业将支付使用发电厂和其他能源的不同利用率的原生能力。此外，区块链还有一个双赢的局面。 Envion通过采矿活动的分散化和社区在采矿过程中的参与来提供稳定性。社区参与采矿的财产使采矿作业不会充满本土法律，能源价值高峰和政府限制。这些能力是国际区块链基础设施的象征。
 
-Envion’s quality construct permits easy transportation and intensive readying therefore providing immunity from political restrictions. The lesser the restrictions, the lesser the prices concerned.
+Envion的质量构造允许轻松的运输和密集的准备工作，因此可以免受政治限制。限制越少，价格越低。
 
-Moreover, the corporate is very profitable. With a 161% come back on investment per annum, the company’s strategy allows it to extend its mobile mining units therefore increasing profits. The firm employs efficient production of its transportable units thus increasing profits.
+此外，这家公司的利润也非常丰厚。基于 161％的年投资回报率，公司战略可以持续增加移动采矿设备来增加利润。公司也通过配备更加高效的传输设备来增加利润。
 
-The distribution of dividends is finished on a weekly basis with seventy fifth being emitted and twenty fifth being reinvested. The EVC token permits Envion users to possess veto rights. The rights offer token holders the flexibility to participate within the decision-making method.
+每周进行分红，其中 75％被分配，另外的 25％被用于重新投资。EVC 令牌赋予 Envion 用户否决权。该权利让令牌持有者可以非常灵活地参与决策过程。
 
-With Envion, you get a period affiliation, period observation, continuous improvement, and prediction.
+通过 Envion，您可以获得周期关系表，周期观察，持续改进和预测。
 
-Even though the corporate could be a startup, its prospects area unit promising. investment within the company could be a risk that will pay off. The firm guarantees miners an exciting and profitable mining procedure and going by the contents of the Whitepaper, it positive are a worthy expertise.
+尽管这家公司是一家初创公司，但投资人都非常看好它的盈利前景。该公司提供给矿工们一套令人兴奋并且有利可图的采矿程序，所有内容都遵循着标准的白皮书，这是一个非常有价值的专业知识资产。
 
 Website — [https://www.envion.org/en/](https://www.envion.org/en/)
 
