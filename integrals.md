@@ -2856,10 +2856,11 @@
 |[你正在阅读的用户体验文章是不是在向你进行推销？](https://juejin.im/post/58d4c501a22b9d00645544d9)|校对|2|
 |[震惊，还可以用这种姿势学习编程](https://juejin.im/post/58d3ebd4128fe1006cb43722)|翻译|3|
 
-## 译者：[lsvih](https://github.com/lsvih) 历史贡献积分：263.5 当前积分：222.5 年度积分：56
+## 译者：[lsvih](https://github.com/lsvih) 历史贡献积分：263.5 当前积分：197.5 年度积分：56
 
 |文章|类型|积分|
 |------|-------|-------|
+|2018 年 6 月兑服务器 1 个|减去积分|25|
 |[什么是 JavaScript 生成器？如何使用生成器？](https://juejin.im/post/5b14faf2f265da6e4d5af3b9)|翻译|4|
 |[可用但最不常见的 HTML5 标签](https://juejin.im/post/5b0026e8f265da0b8c253c2a)|翻译|2|
 |[由 Node.js 发送 Web 推送通知](https://juejin.im/post/5afc32146fb9a07acf5657e7)|翻译|3.5|
@@ -3467,10 +3468,11 @@
 |------|-------|-------|
 |[如何在无损的情况下让图片变的更小](https://juejin.im/post/5959fbe0f265da6c2518d740)|校对|2|
 
-## 译者：[swants](https://github.com/swants) 历史贡献积分：59 当前积分：39 年度积分：20
+## 译者：[swants](https://github.com/swants) 历史贡献积分：59 当前积分：29 年度积分：20
 
 |文章|类型|积分|
 |------|-------|-------|
+|2018 年 6 月兑掘金桌垫 1 个|减去积分|10|
 |[Swift 中的内存泄漏](https://juejin.im/post/5b07a1c251882538914a5d3e)|校对|1.5|
 |[Swift 中的 Playground 驱动开发](https://juejin.im/post/5b07665c6fb9a07ac5608d8a)|校对|3|
 |[关于你的编程生涯的一些告诫](https://juejin.im/post/5b0256e36fb9a07aa767f5b4)|校对|2|
@@ -4376,10 +4378,11 @@
 |[如何禁用链接](https://juejin.im/post/5a240aa66fb9a0452577f06a)|校对|1|
 |[JavaScript 如何工作的: 事件循环和异步编程的崛起 + 5 个关于如何使用 async/await 编写更好的技巧](https://juejin.im/post/5a221d35f265da43356291cc)|校对|4|
 
-## 译者：[sakila1012](https://github.com/sakila1012) 历史贡献积分：33 当前积分：33 年度积分：31
+## 译者：[sakila1012](https://github.com/sakila1012) 历史贡献积分：33 当前积分：17 年度积分：31
 
 |文章|类型|积分|
 |------|-------|-------|
+|2018 年 6 月兑掘金笔记本 2 个|减去积分|16|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|3.5|
 |[使用 Web3 和 Vue.js 来创建你的第一个以太坊 dAPP（第三部分）](https://juejin.im/post/5ac36e1f518825556a729c3f)|翻译|4|
 |[20 年后比特币将会变成什么样 - 第 3 部分](https://juejin.im/post/5a9ce3715188255585070586)|翻译|6|
@@ -5303,10 +5306,11 @@
 |[在 V8 引擎中设置原型（prototypes）](https://juejin.im/post/5a9921e76fb9a028bd4bc3c4)|校对|1|
 |[json — JavaScript 对象表示法](https://juejin.im/post/5a9432ae5188257a5c6092b0)|校对|1|
 
-## 译者：[rydensun](https://github.com/rydensun) 历史贡献积分：26 当前积分：26 年度积分：26
+## 译者：[rydensun](https://github.com/rydensun) 历史贡献积分：26 当前积分：16 年度积分：26
 
 |文章|类型|积分|
 |------|-------|-------|
+|2018 年 6 月兑掘金桌垫 1 个|减去积分|10|
 |[Swift 写网络层：用面向协议的方式](https://juejin.im/post/5af432385188256737066c04)|校对|2|
 |[构建、测试、分发！运用 Fastlane 与 Jenkins，完整的 iOS 持交付指南。](https://juejin.im/post/5af430f0f265da0b8262d1ea)|校对|1|
 |[用户体验中的稀缺性：成为常态的心理偏见](https://juejin.im/post/5aef0943518825672a02d2ca)|校对|1.5|
@@ -5904,10 +5908,11 @@
 |[什么是 JavaScript 生成器？如何使用生成器？](https://juejin.im/post/5b14faf2f265da6e4d5af3b9)|校对|0.5|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|1.5|
 
-## 译者：[androidxiao](https://github.com/androidxiao) 历史贡献积分：11 当前积分：11 年度积分：11
+## 译者：[androidxiao](https://github.com/androidxiao) 历史贡献积分：11 当前积分：1 年度积分：11
 
 |文章|类型|积分|
 |------|-------|-------|
+|2018 年 6 月兑集智纪念水杯 2 个|减去积分|10|
 |[带你领略 ConstraintLayout 1.1 的新功能](https://juejin.im/post/5b013e6f51882542c760dc7b)|校对|0.5|
 |[如何针对 Android 优化您的应用（Go 版）](https://juejin.im/post/5b21cd246fb9a01e754642f3)|翻译|6.5|
 |[通过安全浏览保护 WebView](https://juejin.im/post/5b0fb8a06fb9a00a25192a3f)|翻译|1.5|
