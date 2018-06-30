@@ -1,3 +1,8 @@
+* [如何避免拍脑袋想出的产品优先策略](https://juejin.im/post/5b37a0156fb9a00e78666072) ([bobmayuze](https://github.com/bobmayuze) 翻译)
+* [Android 应用和游戏的无障碍开发介绍](https://juejin.im/post/5b31ea42e51d455882380119) ([geniusq1981](https://github.com/geniusq1981) 翻译)
+* [如何用 Android vitals 解决应用程序的质量问题](https://juejin.im/post/5b3229a7f265da598c09dd4a) ([LeeSniper](https://github.com/LeeSniper) 翻译)
+* [在 SnackBar，Navigation 和其他事件中使用 LiveData（SingleLiveEvent 案例）](https://juejin.im/post/5b2b1b2cf265da5952314b63) ([wzasd](https://github.com/wzasd) 翻译)
+* [PWA 再进化，可以生成一个安卓原生的 WebAPK 了](https://juejin.im/post/5b2fb7f2e51d4558b46667be) ([Yuhanlolo](https://github.com/Yuhanlolo) 翻译)
 * [如何针对 Android 优化您的应用（Go 版）](https://juejin.im/post/5b21cd246fb9a01e754642f3) ([androidxiao](https://github.com/androidxiao) 翻译)
 * [带你领略 ConstraintLayout 1.1 的新功能](https://juejin.im/post/5b013e6f51882542c760dc7b) ([Moosphan](https://github.com/Moosphan) 翻译)
 * [在 Android P 中使用默认的 TLS 来保护你的用户](https://juejin.im/post/5b29030551882574b4094a6f) ([hanliuxin5](https://github.com/hanliuxin5) 翻译)
