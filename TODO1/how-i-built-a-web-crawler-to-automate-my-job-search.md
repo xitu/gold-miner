@@ -2,8 +2,8 @@
 > * 原文作者：[Zhia Hwa Chong](https://medium.freecodecamp.org/@zhiachong?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-i-built-a-web-crawler-to-automate-my-job-search.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-i-built-a-web-crawler-to-automate-my-job-search.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Starrier](https://github.com/Starriers)
+> * 校对者：[liruochen1998](https://github.com/liruochen1998)
 
 # 我是如何从零开始建立一个网络爬虫来实现我的求职自动化的
 
@@ -13,11 +13,11 @@
 
 奇怪的是，我并没有感觉被忽视了。
 
-我在做一些我认为真正有趣而且令人敬畏的事情。
+我在做一些我认为真正有趣而且非常优秀的事情。
 
 我刚从大学毕业，所以迫切地需要得到一份工作。当我离开西雅图的时候，我的背包里装满了大学课本和衣服。我可以在我的  2002 Honda Civic 后备箱中装上我的所有东西。
 
-当时我不太喜欢社交活动，因此我决定用所知道的最好的方式来解决工作的问题。我试图创建一个应用程序来帮助我，这篇文章就是关于我是如何实现这一目标的。😃
+当时我不太喜欢社交，因此我决定用所知道的最好的方式来解决工作的问题。我试图创建一个应用程序来帮助我，这篇文章就是关于我是如何实现这一目标的。😃
 
 ### 开始使用 Craigslist
 
@@ -39,7 +39,7 @@ Craigslist
 
 ### 构建（工作）原型之旅
 
-我有一台用过的 [BenQ](https://www.engadget.com/2007/11/19/benq-intros-the-joybook-r43-laptop/) 笔记本，我上大学时，哥哥送给我的，我现在用它来进行开发。
+我有一台用过的 [BenQ](https://www.engadget.com/2007/11/19/benq-intros-the-joybook-r43-laptop/) 笔记本，是我上大学时哥哥送给我的，我现在用它来进行开发。
 
 从任何角度来说，这都不是最好的开发环境。我正在使用 Python 2.4 和 [Sublime text](https://www.sublimetext.com/2) 的一个旧版本，不过从头开始编写应用程序的过程确实是一种令人兴奋的体验。
 
@@ -61,7 +61,7 @@ RSS 提要的示例
 
 我用 Google 搜素了一下，我在 [StackOverflow](https://stackoverflow.com/questions/10353021/is-there-a-developers-api-for-craigslist-org) 上找到了一篇有用的文章，其中描述了如何通过 Craiglist RSS 提要进行搜索。这是 Craigslist 免费提供的过滤功能。我所要做的就是传递一个我所感兴趣的具有特定关键字的查询参数。
 
-我专注于在西雅图寻找与软件相关的工作。在此之后，我在西雅图输了一个特定的 URL,来查找包含关键字 “software” 的信息。 
+我专注于在西雅图寻找与软件相关的工作。在这个前提下，我在西雅图输了一个特定的 URL,来查找包含关键字 “software” 的信息。 
 
 > [https://seattle.craigslist.org/search/sss?format=rss&query=software](https://seattle.craigslist.org/search/sss?format=rss&query=software)
 
@@ -71,7 +71,7 @@ RSS 提要的示例
 
 例如，标题为 “software” 的西雅图 RSS 提要。
 
-### 我所尝试过的 Beautiful soup
+### Beautiful soup 是我所使用的工具中，最好用的一个
 
 令我不敢相信的是，我的方法起作用了。
 
@@ -83,7 +83,7 @@ RSS 提要的示例
 
 Craigslist 回复链接的截图
 
-我是一个有很多技能而且有很多兴趣的人，但是重复手动工作并不是其中之一。我本可以雇佣别人帮我做这件事，但我几乎没有吃过所有一美元的拉面，所有这就意味着我不能在这个附带的项目上任意挥霍。
+我是一个有很多技能而且有很多兴趣的人，但是重复手动工作并不是其中之一。我本可以雇用别人帮我做这件事，但是我仅能用一美元的拉面勉强维持生活，所有这就意味着我不能在这个附带的项目上任意挥霍。
 
 这是死胡同，但并不意味着**结束**。
 
@@ -119,7 +119,7 @@ BeautifulSoup 允许你在网页上搜索特定的 HTML tag 或者 marker。而�
 
 自此以后，一起都变得简单了。我依赖于 BeautifulSoup 提供的内置功能，只需使用一些简单的操作，我就可以很容易的从 Craigslist 博客中获取电子邮件地址。
 
-### 把东西放在一起
+### 进行内容组合
 
 不到一小时，我就有了自己的第一个 MVP，我已经建立了一个网页爬虫，可以收集电子邮件地址，并回复西雅图半径 100 英里范围内寻找软件工程师的人。
 
@@ -145,7 +145,7 @@ BeautifulSoup 允许你在网页上搜索特定的 HTML tag 或者 marker。而�
 
 这是一次让人大开眼界的经验，我最终学习了一些关于互联网（和 Craigslist）如何运行的知识，各种不同的工具如何协同工作来解决一个问题，而且我得到了一个很酷的小故事，我可以和朋友分享这些。
 
-从某种意义上说，这就像现在的技术是如何工作的。你发现了一个你需要解决的巨大的，复杂的问题。而你看不到任何直接的、明显的解决方案。你把这个大而复杂的问题分解成多个不同的可管理的块，然后依次解决每一个块。
+从某种意义上说，这就像现在的技术是如何工作的。你发现了一个你需要解决的巨大而复杂的问题。而你看不到任何直接的、明显的解决方案。你把这个大而复杂的问题分解成多个不同的可管理的块，然后依次解决每一个块。
 
 回顾过去，我的问题是：**我如何才能利用互联网上这个优秀的目录，迅速接触到有特定兴趣的人？**当时没有已知的产品或解决方案，所以我把它分解成多个部分：
 
