@@ -2,158 +2,160 @@
 > * 原文作者：[Ralph Ammer](https://medium.com/@ralphammer?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/a-quick-beginners-guide-to-drawing.md](https://github.com/xitu/gold-miner/blob/master/TODO1/a-quick-beginners-guide-to-drawing.md)
-> * 译者：
-> * 校对者：
+> * 译者：[wzasd](https://github.com/wzasd)
+> * 校对者：[LeeSniper](https://github.com/LeeSniper)、[liruochen1998](https://github.com/liruochen1998)
 
-# A quick beginner’s guide to drawing
+# 绘图技巧的快速入门
 
-6 drawing exercises to get you started right now!
+6 个绘图练习，让你立即上手！
 
 ![](https://cdn-images-1.medium.com/max/800/1*rUnTj2M6B-pWZAGEJzUXIQ.gif)
 
-The **basic craft of drawing** is about two things: you learn **to control your hand** and **to see**.
+**绘图的基本功**有两个必须掌握的东西：学习**控制你的手**和**眼睛**。
 
-_Tip: For the following 6 exercises I suggest you_ **_stick with one pen and one particular type of paper_** _(for instance A5)._
+小贴士：针对以下的 6 个练习，我建议您**用一支笔和特定的类型的纸**（例如 A5）进行练习。
 
-### Dexterity — two workouts
+### 灵巧性 - 两项训练
 
-The first two exercises are about controlling your hand. We want to **build muscles** and train our **hand-eye-coordination**. Mechanical exercises like these are great for beginners. Later on you might use them to **explore new pens** or get started **when you don’t know what to draw** yet.
+前两个练习是关于如何控制您的手。我们想去**建立你的肌肉记忆**并且训练您的**眼和手的协调性**。像这样的机械训练是一个很好的开始。后期您可能会使用这种方法来**尝试新的笔**，或者**当您不知道要绘制什么的时候来进行训练**。
 
-They are also terrific ways to relax your mind.
+当然，它们也是放松心情的好办法。
 
 #### Exercise 1: Circles — more is more!
+#### 练习 1：画圈 - 画的越多越好
 
-> **Distribute circles of various sizes on a piece of paper until the paper is filled. Make sure the circles do not overlap.**
+> **在一张纸上画各种尺寸的圆圈直到纸被填满。确保圆圈不会重叠**
 
 ![](https://cdn-images-1.medium.com/max/800/1*4BoggbHjC0_6xxm9Giq7jA.gif)
 
-Drawing circles is [not as easy as you might think](https://medium.com/personal-growth/why-perfection-is-boring-1079cb3bf5d1). Notice how the circles become harder, the bigger you make them? Try them in both directions — and make lots of them.
+绘制圆圈[并不是你想象中的那么容易](https://medium.com/personal-growth/why-perfection-is-boring-1079cb3bf5d1)。注意到没有当你画的圆越大，想要画的圆润就会越困难？尝试在两个方向绘制 - 并不断画出他们。
 
-_Tip:_ **_Shake your hand_** _when it starts cramping! This is a workout for our hands after all._
+小贴士：当手开始抽筋的时候**甩手**！毕竟，这是关于我们的手的锻炼。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Ry2NnFZaPWmrsO2QiuJP9A.gif)
 
 #### Exercise 2: Hatching — the joy of structure
+#### 练习 2：镶嵌 - 结构的乐趣
 
-> **Fill a piece of paper with parallel lines.**
+> **用平行线充满一张纸**
 
 ![](https://cdn-images-1.medium.com/max/800/1*ZyZQbd50EXj65XdE8RirNg.gif)
 
-Diagonal lines come easiest for us because **they comply to the motion of our wrist**. Did you notice how left-handed people prefer the opposite direction than right-handed people? Have a look at drawings by your favourite draughtswoman or draughtsman (in my case: [Leonardo](https://en.wikipedia.org/wiki/Leonardo_da_Vinci)), and guess which hand they used!
+对角线对我们来说是最简单的因为**它们符合我们手腕的运动**。你有没有注意到左撇子比右撇子更喜欢相反的方向？看看你最喜欢的绘图设计师（对我来说：[Leonardo](https://en.wikipedia.org/wiki/Leonardo_da_Vinci)）的图纸，并猜测他们使用的哪只手！
 
 ![](https://cdn-images-1.medium.com/max/800/1*3FcbNajSFhjajSCEluEJFg.gif)
 
-**Now make sure to try other directions as well**. Have fun! Combine various hatchings and enjoy watching the darkness spread on your paper.
+**现在请确保尝试绘制其他方向的线**。玩的愉快！组合各种不同的影线，欣赏纸上的明暗度。
 
-_Tip:_ **_Don’t rotate the paper_**_. The whole point here is to train your hand to get comfortable with_ **_all_** _directions._
+小贴士：**请勿旋转画纸**。这个训练的要点是让你的手适应各个方向。
 
-**So now that we have worked our hands a little, let’s train our eyes!**
+**现在我们已经对手进行了训练，让我们开始训练我们的眼睛！**
 
-### Perception — learning to see
+### 感知力 - 学习去看
 
-Drawing is mainly about [**seeing and understanding what you see**](https://medium.com/personal-growth/stop-taking-pictures-and-start-drawing-b1642aded2b6). People often assume that everybody sees the same, but actually seeing is a skill which you can improve. **The more you draw, the more you see.** The next four exercises **will make you see more**.
+绘画的重点是[**看到并且理解你所看到的东西**](https://medium.com/personal-growth/stop-taking-pictures-and-start-drawing-b1642aded2b6)。人们经常认为 每个人看到的东西都是相同的，但实际看是一种可以提升的技巧。**你画的越多，看到的就越多。**所以下面的四个训练**将会使你看到更多**。
 
-#### Exercise 3: Contour — Show me your hands!
+#### 训练 3：轮廓 - 向我展示你的手
 
-> **You see all those fascinating contours of your hand? Collect them on a piece of paper! Don’t try to draw the whole hand yet, just pick some of those lovely lines.**
+> **你看到你手上所有迷人的线条轮廓吗？把它们收集在一张纸上！不要试图画出整个手，只需要挑出一些可爱的线条部位。**
 
 ![](https://cdn-images-1.medium.com/max/800/1*cZ2zA0W-UhXNDrbrghC6ww.gif)
 
-Whether you draw a person, a plant, or your favourite animal, it is usually the **contours** that define a body or object and make others **recognise** them. The challenge is less to draw those distinctive lines but rather **to see them** in the first place!
+无论你是画一个人、一棵植物还是你最喜欢的动物，通常来说都是定义一个身体或者物体的**轮廓**，并让其他人看出来是什么。挑战的难点不是要画出这些独特的线条，而是首先要**看到它们**；
 
-**Even if you think you already know the shape of an object, it is always worth to take a closer look and rediscover it**.
+**即使你认为你已经知道一个物体的形状，但总是值得你去仔细观察并重新审视它**。
 
-#### Exercise 4: Chiaroscuro — folding light and darkness
+#### 练习 4：明暗关系 - 折叠光与暗
 
-> **Arrange and draw a piece of cloth. Start with the contours and then — using your hatching skills — create an interplay of light und darkness.**
+> **排列并且画一块布。从轮廓开始，然后 - 使用您的镶嵌技能 - 创造光与暗的相互关系。**
 
 ![](https://cdn-images-1.medium.com/max/800/1*573JHUFPYcHCIa-Ai6_1EQ.gif)
 
-This exercise gives you a sense for light and darkness. I have to admit it is not the easiest and might as well be part of an advanced tutorial. Keep in mind: **This one is not about getting it perfectly “right”**. The cloth is a **playground** to try out those various hatchings you have practised before and feel how you can create light and shadows with your — almost — bare hands!
+这个练习是给你对光和暗的感觉。我不得不承认这并不简单，也可能成为高级教程的一部分。请记住：**这一个并不是完全的“正确”。**这一块布就是一个**背景**，可以尝试你以前练过各种不同的图案，并感受如何用你手绘的光线和阴影。
 
-_Tip: You can use_ **_curved hatching_** _to modulate the shapes, and_ **_crosshatching_** _to achieve darker areas that resemble woven structures._
+小贴士：您可以使用**弯曲阴影**来调整形状，并使用阴影线实现与**交叉线**来模拟较暗区域。
 
 ![](https://cdn-images-1.medium.com/max/800/1*jiVJAU_YuHy_f4zJg47ORg.gif)
 
-_Tip: Close your eyes just a little bit when you look at the cloth. You will see everything blurred, but you will also_ **_see an enhanced contrast between light and dark_**_._
+小贴士：当你看到布的时候，请闭上眼睛。你会看的很模糊，但你也会**看到光与暗之间的强烈对比**。
 
 ![](https://cdn-images-1.medium.com/max/800/1*oUcRLSSkj9vtMZDxLc1Ivw.gif)
 
-The arrangement of light is a great way to **show what is important** in a picture. Just have a look at paintings by [Rembrandt](https://de.wikipedia.org/wiki/Rembrandt_van_Rijn) or [Georges de la Tour](https://en.wikipedia.org/wiki/Georges_de_La_Tour). And the next time you watch a movie look out for dramatic effects achieved with light and shadow.
+光线的排列是对于图片内**重要内容展示**的最好方法。只要看看 [Rembrandt](https://de.wikipedia.org/wiki/Rembrandt_van_Rijn) 和 [Georges de la Tour](https://en.wikipedia.org/wiki/Georges_de_La_Tour) 的绘画。下一次你看电影时会注意到光阴带来的喜剧效果。
 
-#### Exercise 5: Perspective — lost in space
+#### 练习 5：透视 - 消失的空间
 
-> **Let’s draw some cubes! Just follow the simple steps below.**
+> **让我们画一些立方体！只需要按照下面的简单步骤。**
 
 ![](https://cdn-images-1.medium.com/max/800/1*7SGLqdcPGZUuDty_3ozYvg.gif)
 
-Perspective drawing is basically a **projection of a 3D environment on a 2D surface** (your piece of paper).
+透视图基本上是** 3D 环境在 2D 表面上（您的纸）的投影**。
 
 ![](https://cdn-images-1.medium.com/max/800/1*dpjQq5D0nfEYIYlKsNVGYw.gif)
 
-Constructing perspective drawings is a bit of a science and cannot be covered in detail within the attention span of an online article. Nevertheless we can have some fun with **a simple technique** that gives us **an intuitive feel** for the magic of perspective drawing:
+构建透视图是一门科学，不能在一篇文章的关注范围内详细介绍。不过，我们可以通过一种**简单的技术**获得一些乐趣，让我们直观地感受透视图的魔力：
 
-**_Step 1:_** Draw a horizontal line. This is the **horizon** of your picture.
+**步骤 1：** 画一条水平线，这就是你照片的地平线。
 
 ![](https://cdn-images-1.medium.com/max/800/1*HBIymxEYZI2x3I3s_e_IDw.gif)
 
-**_Step 2:_** Define two points on the horizon near the edge of the paper. These are your two **vanishing points**.
+**步骤 2：** 在纸张边缘附近的地平线定义两个点。这就是你的两个**消失点**。
 
 ![](https://cdn-images-1.medium.com/max/800/1*1uFonMBvFQ3eNL9e7BcGGw.gif)
 
-**_Step 3:_** Draw a vertical line somewhere.
+**步骤 3：** 在某处绘制垂直线。
 
 ![](https://cdn-images-1.medium.com/max/800/1*b2GHhfd_-4XHLggXP0ZxDg.gif)
 
-**_Step 4:_** Connect the endpoints of the vertical line with the vanishing points.
+**步骤 4：** 将垂直线的端点连接到消失点。
 
 ![](https://cdn-images-1.medium.com/max/800/1*IogkqeVs_51JOG2El6l46A.gif)
 
-**_Step 5:_** Add two vertical lines like this:
+**步骤 5：** 像这样添加两条垂直线。
 
 ![](https://cdn-images-1.medium.com/max/800/1*b4uEYTxOtx91ilLdFD-vQQ.gif)
 
-**_Step 6:_** Connect them with the vanishing points.
+**步骤 6：** 将他们与消失点连接起来。
 
 ![](https://cdn-images-1.medium.com/max/800/1*VpcqF0gbtjKS2HzA9cvReg.gif)
 
-**_Step 7:_** Now use a dark pencil or pen to emphasise the cube. Voilà!
+**步骤 7：** 现在用一直更深颜色的铅笔或者钢笔来强调立方体。瞧！
 
 ![](https://cdn-images-1.medium.com/max/800/1*cAuyUJ969E81XvR_p9u4qg.gif)
 
-**Repeat steps 3–7 as often as you like.** Have fun! If you feel adventurous you might even hatch the sides of the cubes.
+**重复步骤 3-7 如果你喜欢的话。** 玩的开心！如果你喜欢挑战，你甚至可能会镶嵌到立方体的边缘。
 
 ![](https://cdn-images-1.medium.com/max/800/1*bP1gGRnZ4YFgbp3pRSPt_g.gif)
 
-_Tip: When you draw lines that meet, it is usually a good idea to be confident and_ **_let them overlap a little bit_**_. The shapes will look better defined._
+小贴士：当你画出相遇的线条时，**让他们交叉在一起**通常是一个好主意。这样的形状看起来更好一些。
 
 ![](https://cdn-images-1.medium.com/max/800/1*GSak0juhukCviIpl9vwH_A.gif)
 
-Mastering perspective drawings will give you the power to create illusions of depth. But most importantly, **you teach your brain how to think in three dimensions**. So even if you choose to draw “flat” drawings or mess with the “rules” of perspective — which I like to do —** to understand perspective drawing is still one of the most precious drawing skills you can learn**.
+掌握透视图会使你能看见深度构图的力量。但是最重要的是，**你教会你的大脑如何三维的思考**。因此，即使您选择绘制“平面”图或者混淆视角的“规则” - 我喜欢这样做 - **理解透视图仍然是您可以掌握的最珍贵的绘图技能之一**。
 
-#### Exercise 6: Composition — Why is this there?
+#### 练习 6: 构图 - 这个为什么要放在那?
 
-> **Make 5 different drawings of an object. Arrange the object differently on the paper each time!**
+> **制作 5 个关于一个物体的不同绘图。每次将这个物体进行不同的排列**。
 
 ![](https://cdn-images-1.medium.com/max/800/1*g4mywtKL2Gvc4H5gMcfKEA.gif)
 
-Composition is a great tool to **“say” something with a drawing**, to **shape its meaning or message**.
+构图是一种很棒的工具，**用来表达某些东西**，以**塑造其意义或者信息**。
 
-To understand how it works we have to bear in mind that our perception has been **shaped by everyday experiences**. For instance horizontal and vertical lines seem more “stable” to us than diagonals, which might “fall over” any second. And when we see a big dark shape at the bottom we somehow assume it must be “heavy”.
+为了理解它是如何工作的，我们必须牢记，我们的感知已经被**日常的经验所固定**。例如，水平线和垂直线对于我们来说似乎比对角线更“稳定”，对角线可能会在任何时候“倒下”。当我们在底部看到一个很大的阴影时，我们莫名认为它一定会很“沉重”。
 
 ![](https://cdn-images-1.medium.com/max/800/1*vl77WjyBwGQO5DDvU8X8YQ.gif)
 
-As you try different arrangements of your subject on a piece of paper, notice how this changes their connotations — their meaning.
+当你在一张纸上试着对你的主题进行不同的安排时，注意这是如何改变它们的内涵 - 它们的含义。
 
 ![](https://cdn-images-1.medium.com/max/800/1*iUHuYpv1cxvWUu-zICyKdQ.gif)
 
-#### Let me know what you think!
+#### 让我知道你的想法！
 
-Since this is my first drawing tutorial, I am curious about which parts you enjoyed. What else would you like to learn about drawing? **Please leave ideas and suggestions in the comment section below!**
+由于这是我的第一个绘图教程，我很好奇你最喜欢哪个部分。关于绘画你还有什么想了解的？**请在下面的评论部分留下您的想法和建议！**
 
-**Oh, and here is part II: “**[**5 more drawing exercises**](https://medium.com/@ralphammer/5-more-drawing-exercises-9c0df4645387)**”!**
+**哦，这是第二部分：“[**另外 5 个绘画练习**](https://medium.com/@ralphammer/5-more-drawing-exercises-9c0df4645387)”！**
 
-_If you enjoyed this article, please hit those little_ 👏 _below (you can “clap” multiple times!), share the story with your friends, and_ [**_subscribe to my mailing list_**](http://eepurl.com/cJJLR1)_. You can find an overview of my articles_ [**_here_**](http://ralphammer.com/writing)_._
+**如果你喜欢这篇文章，请点击下面这些小👏（您可以多次“拍手”！）并把这篇文章分享给你的朋友，和[**订阅我的邮箱**](http://eepurl.com/cJJLR1)，你可以在[这里](http://ralphammer.com/writing)找到我的文章。**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
