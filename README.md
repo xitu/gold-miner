@@ -63,7 +63,6 @@
 
 ## Android
 
-* [在 Google I/O 2018 观看 Flutter 的正确姿势](https://juejin.im/post/5aebd7166fb9a07ab4587b3f) ([wzasd](https://github.com/wzasd) 翻译)
 * [更为详细的地图、导航和助手功能 —— Google I/O 2018 的 Android 应用更新](https://juejin.im/post/5aee74626fb9a07abb237f89) ([sisibeloved](https://github.com/sisibeloved) 翻译)
 * [论 Android 中 Span 的正确打开方式](https://juejin.im/entry/5af401bb518825671776537d/) ([tanglie1993](https://github.com/tanglie1993) 翻译)
 * [如何避免拍脑袋想出的产品优先策略](https://juejin.im/post/5b37a0156fb9a00e78666072) ([bobmayuze](https://github.com/bobmayuze) 翻译)
