@@ -2,86 +2,86 @@
 > * 原文作者：[Diego Haz](https://medium.freecodecamp.org/@diegohaz)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/introducing-the-single-element-pattern.md](https://github.com/xitu/gold-miner/blob/master/TODO1/introducing-the-single-element-pattern.md)
-> * 译者：
+> * 译者：[jonjia](https://github.com/jonjia)
 > * 校对者：
 
-# Introducing the Single Element Pattern
+# 单元素组件模式简介
 
-## Rules and best practices for creating reliable building blocks with React and other component-based libraries.
+## 使用 React 或其它基于组件的库创建可靠构建模块的规则和最佳实践。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*safLOvm16NWX1Z4mPBHNCQ.png)
 
-Back in 2002 — when I started building stuff for the web — most developers, including me, structured their layouts using `<table>` tags.
+在 2002 年 — 当我开始构建网页的时候 — 包括我在内的大多数开发者都使用 `<table>` 标签来构建网页布局。
 
-Only in 2005 did I start following [web standards](https://en.wikipedia.org/wiki/Web_standards).
+直到 2005 年，我才开始遵循 [网页标准](https://en.wikipedia.org/wiki/Web_standards)。
 
-> When a web site or web page is described as complying with web standards, it usually means that the site or page has valid HTML, CSS and JavaScript. The HTML should also meet accessibility and semantic guidelines.
+> 如果有网站或网页宣称遵循网页标准，通常就表示他们的网页符合HTML、CSS、JavaScript等标准。HTML的部分也要满足无障碍性以及HTML语义的要求。
 
-I learned about semantics and accessibility, then started to use proper HTML tags and external CSS. I was proudly adding those [W3C Badges](https://www.w3.org/QA/Tools/Icons) to every web site I made.
+我了解了语义和无障碍性，然后开始使用正确的 HTML 标签和外部 CSS。我很自豪地将 [W3C 认证徽章](https://www.w3.org/QA/Tools/Icons) 添加到我制作的每个网站。
 
 ![](https://cdn-images-1.medium.com/max/800/1*pFL99e3lxpYN-Fp24HfdBw.jpeg)
 
-The HTML code we wrote was pretty much the same as the output code that went to the browser. That means that validating our output using the [W3C Validator](https://validator.w3.org/) and other tools was also teaching us how to write better code.
+我们编写的 HTML 代码和输出到浏览器中的真实代码非常相似。这意味着使用 [W3C 验证器](https://validator.w3.org/) 和其它工具来验证输出代码的规范性也可以告诉我们如何写出更好的代码。
 
-Time has passed. To isolate reusable parts of the front end, I've used PHP, template systems, jQuery, Polymer, Angular, and React. This latter, in particular, I have been using for the past three years.
+时光流逝。为了分离前端中可重用部分，我使用过 PHP、模版系统、jQuery、Polymer、Angular 和 React。特别是最近这三年，我一直在使用后三者。
 
-As time went on, the code we wrote was getting more and more different from the one served to the user. Nowadays, we’re transpiling our code in many different ways (using Babel and TypeScript, for example). We write [ES2015+](https://devhints.io/es6) and [JSX](https://reactjs.org/docs/introducing-jsx.html), but the output code will be just HTML and JavaScript.
+随着时间的推移，我们编写的代码和用户实际使用的代码越来越不同了。现在，我们使用不同方式（例如 Babel 和 TypeScript）来编译代码。我们使用 [ES2015+](https://devhints.io/es6) 和 [JSX](https://reactjs.org/docs/introducing-jsx.html) 规范编写，但最终的输出代码就只是 HTML 和 JavaScript。
 
-Currently, even though we can still use W3C tools to validate our web sites, they don't help us much with the code we write. We're still pursuing best practices to make our code more consistent and maintainable. And, if you're reading this article, I guess you're also looking for the same thing.
+如今，虽然我们还会使用 W3C 的工具来验证我们的网站，但对于编写代码没有太大帮助。我们仍在追求代码稳定和可维护的最佳实践。而且，如果你正在读这篇文章，我想你也有同样的诉求。
 
-And I have something for you.
+我为你准备了一些东西。
 
-### The Single Element Pattern ([Singel](https://github.com/diegohaz/singel))
+### 单元素组件模式（[Singel 源码](https://github.com/diegohaz/singel)）
 
-I don't know exactly how many components I've written so far. But, if I put Polymer, Angular and React together, I can safely say that this number is over a thousand.
+我已经不知道写过多少个组件了。但如果把 Polymer、Angular 和 React 的项目都加起来，我敢说这个数字肯定超过一千了。
 
-Besides company projects, I maintain a [React boilerplate](https://github.com/diegohaz/arc) with more than 40 example components. Also, I'm working with [Raphael Thomazella](https://github.com/Thomazella), who also contributed to this idea, on a [UI toolkit](https://github.com/diegohaz/reas) with dozens more of them.
+除公司项目外，我还维护了一个包含 40 多个示例组件的 [React 模版库](https://github.com/diegohaz/arc)。另外，我正在和 [Raphael Thomazella](https://github.com/Thomazella) 维护一套 [交互式 UI 组件库](https://github.com/diegohaz/reas)，他为这个项目贡献了很多。
 
-Many developers have the misconception that, if they start a project with the perfect file structure, they'll have no problems. The reality, though, is that it doesn't matter how consistent your file structure is. If your components don't follow well-defined rules, this will eventually make your project hard to maintain.
+许多开发者都有一个误解：如果以一个完美的文件结构来开始一个项目，那就没有任何问题。事实上，文件结构的一致性没那么重要。如果你的组件没有遵循明确定义的规则，这最终会使你的项目很难维护。
 
-After creating and maintaining so many components, I can identify some characteristics that made them more consistent and reliable and, therefore, more enjoyable to use. The more a component resembled an HTML element, the more **reliable** it became.
+在创建和维护了那么多组件之后，我发现了一些使它们更加一致和可靠的特性，这样用起来会更加愉快。一个组件越像一个 HTML 元素，它就会变的越**可靠**。
 
-> There's nothing more reliable than a `<div>`.
+> 没有什么比一个 `<div>` 标签更可靠了。
 
-When using a component, you'll ask yourself one or more of these questions:
+使用组件时，你可以问问自己下面的问题：
 
-*   Question #1: What if I need to pass props to nested elements?
-*   Question #2: Will this break the app for some reason?
-*   Question #3: What if I want to pass `id` or another HTML attribute?
-*   Question #4: Can I style it passing `className` or `style` props?
-*   Question #5: What about event handlers?
+*   问题 #1：如果我需要将 props 传递给嵌套元素会怎么样？
+*   问题 #2：由于某种原因，这个组件会使应用中断吗？
+*   问题 #3：如果我想传递 `id` 或其它 HTML 属性会怎么样？
+*   问题 #4：我可以通过传递 `className` 或 `style` 属性来自定义组件样式吗？
+*   问题 #5：事件是如何处理的呢？
 
-**Reliability** means, in this context, not needing to open the file and look at the code to understand how it works. If you're dealing with a `<div>`, for example, you'll know the answers right away:
+**可靠性** 意味着，在这种情况下，不需要打开文件查看源码来了解它的工作原理。如果你在使用一个 `<div>`，你马上就会知道答案，如下：
 
-*   [Rule #1: Render only one element](#2249)
-*   [Rule #2: Never break the app](#a129)
-*   [Rule #3: Render all HTML attributes passed as props](#cbaa)
-*   [Rule #4: Always merge the styles passed as props](#f168)
-*   [Rule #5: Add all the event handlers passed as props](#3646)
+*   [规则 #1：每次只渲染一个元素](#2249)
+*   [规则 #2：从不中断应用](#a129)
+*   [规则 #3：应用所有作为属性传递的 HTML 属性](#cbaa)
+*   [规则 #4：应用作为属性传递的样式规则](#f168)
+*   [规则 #5：应用所有作为属性传递的事件处理方法](#3646)
 
-This is the group of rules that we call [Singel](https://github.com/diegohaz/singel).
+我把这一组规则称为 [Singel](https://github.com/diegohaz/singel)。
 
-### Refactor-driven development
+### 重构驱动开发
 
-> Make it work, then make it better.
+> 先让它工作，然后再去优化。
 
-Of course, it's not possible to have all of your components following [Singel](https://github.com/diegohaz/singel). At some point — in fact, at many points — you'll have to break at least the first rule.
+当然，不可能将让所有组件都遵循 [Singel](https://github.com/diegohaz/singel) 所有规则。在某情况下 — 实际上很多情况下 — 你不得不至少打破第一条规则。
 
-The components that should follow these rules are the most important part of your application: atoms, primitives, building blocks, elements or whatever you call your foundation components. In this article, I'm going to call them **single elements**.
+应该遵循这些规则的组件是应用中最重要的部分：原子、原始、构建块、元素或任何称为基础的组件。这篇文章中，我将统称它们为**单个元素**。
 
-Some of them are easy to abstract right away: `Button`, `Image`, `Input`. That is, those components that have a direct relationship with HTML elements. In some other cases, you'll only identify them when you start having to duplicate code. And that's fine.
+其中一些很容易抽象出来，比如：`Button`、`Image` 和 `Input`。也可以说是那些和 HTML 元素有直接关系的组件。在其它情况下，只有在重复代码时才会识别出它们。那也没关系。
 
-Often, whenever you need to change some component, add a new feature, or fix a bug, you'll see — or start writing — duplicated styling and behavior. That's the signal to abstract it into a new single element.
+通常，无论何时你需要更改某个组件时，不管是添加新功能，还是修复问题，你可能会看到 — 或者开始编写重复的样式和行为。这就是需要将它抽象为一个新的单元素信号。
 
-The higher the percentage of single elements in your application compared to other components, the more consistent and easier to maintain it will be.
+单元素组件与其它组件的比值越高，应用就会越稳定、越方便维护。
 
-Put them into a separate folder — `elements`, `atoms`, `primitives` — so, whenever you import some component from it, you'll be sure about the rules it follows.
+将它们放到单独的文件夹中 — 比如：`elements`, `atoms`, `primitives`，因此，无论何时你需要导入这些组件时，你都会确信它们遵循了规则。
 
-### A practical example
+### 一个实例
 
-In this article I’m focussing on React. The same rules can be applied to any component-based library out there.
+在本文中，我重点放在 React 上。同样的规则也适用于其它任何基于组件的库。
 
-That said, consider that we have a `Card` component. It's composed of `Card.js` and `Card.css`, where we have styles for `.card`, `.top-bar`, `.avatar`, and other class selectors.
+这就是说，我们有一个 `Card` 组件。它由 `Card.js` 和 `Card.css` 组成，在 `Card.css` 文件中我们为 `.card`、`.top-bar`、`.avatar` 和其它类选择器配置了样式规则。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Sm0TM1LOvrWi0WBVjVRIsA.png)
 
@@ -101,11 +101,11 @@ const Card = ({ profile, imageUrl, imageAlt, title, description }) => (
 );
 ```
 
-At some point, we have to put the avatar in another part of the application. Instead of duplicating HTML and CSS, we're going to create a new single element `Avatar` so we can reuse it.
+在某些时候，应用中的其它位置也有可能使用头像。为了不重复 HTML 和 CSS 代码，我们要创建一个新的 `Avatar` 单元素组件，然后就能复用它了。
 
-#### Rule #1: Render only one element
+#### 规则 #1：每次只渲染一个元素
 
-It's composed by `Avatar.js` and `Avatar.css`, which has the `.avatar` style we extracted from `Card.css`. This renders just an `<img>`:
+它由 `Avatar.js` 和 `Avatar.css` 组成，后者配置了我们从`Card.css` 中取出用于 `.avatar` 的样式，最终返回一个 `<img>` 元素：
 
 ```
 const Avatar = ({ profile, ...props }) => (
@@ -118,21 +118,21 @@ const Avatar = ({ profile, ...props }) => (
 );
 ```
 
-This is how we would use it inside `Card` and other parts of the application:
+下面是我们如何在 `Card` 和应用中其它位置使用它：
 
 ```
 <Avatar profile={profile} />
 ```
 
-#### Rule #2: Never break the app
+#### 规则 #2：从不中断应用
 
-An `<img>` doesn't break the app if you don't pass a `src` attribute, even though that's a required one. Our component, however, will break the whole app if we don't pass `profile`.
+一个 `<img>` 元素，虽然 `src` 属性是必须的，如果你不传递它，也不会中断应用。但是，对于我们的应用，如果不传递 `profile`，那么这个组件就会中断应用。
 
 ![](https://cdn-images-1.medium.com/max/800/1*aAB2QAEHkWxMBo-UFaCsUA.png)
 
-React 16 provides a [new lifecycle method](https://reactjs.org/blog/2017/07/26/error-handling-in-react-16.html) called `componentDidCatch`, which can be used to gracefully handle errors inside components. Even though it's a good practice to implement error boundaries within your app, it may mask bugs inside our single element.
+React 16 版本中提供了一个名为 `componentDidCatch` 的 [新的生命周期方法](https://reactjs.org/blog/2017/07/26/error-handling-in-react-16.html)，可以用来优雅地处理组件内部错误。虽然在应用中实现边界错误处理是一种很好的做法，但这也会掩盖单元素组件中的错误。
 
-We must make sure that `Avatar` is reliable by itself, and assume that even required props may not be provided by a parent component. In this case, besides checking whether `profile` exists before using it, we should use `Flow`, `TypeScript`, or `PropTypes` to warn about it:
+我们必须确保 `Avatar` 组件本身是可靠的，并考虑到所需要的属性父组件可能不会传递的情况。在这种情况下，除了在使用 `profile` 之前检查它是否存在之外，还要使用 `Flow`、`TypeScript` 或 `PropTypes` 对这种情况给出警告，如下：
 
 ```
 const Avatar = ({ profile, ...props }) => (
@@ -152,17 +152,17 @@ Avatar.propTypes = {
 };
 ```
 
-Now we can render `<Avatar />` with no props and see on the console what it expects to receive:
+现在我们不传递任何属性来使用 `<Avatar />` 组件，来看看控制台会给出什么警告：
 
 ![](https://cdn-images-1.medium.com/max/800/1*5Cjn18Fr2n_O1wHMGff4wQ.png)
 
-Often, we ignore those warnings and let our console accumulate several of them. This makes `PropTypes` useless, since we'll likely never notice new warnings when they show up. So, make sure to always solve the warnings before they multiply.
+通常，我们会忽略这些警告并在控制台中累积几个。因为当新警告出现时，我们永远不会在意，所以 `PropTypes` 无法发挥作用。因此，在这些警告累积之前，请务必解决。
 
-#### Rule #3: Render all HTML attributes passed as props
+#### 规则 #3：应用所有作为属性传递的 HTML 属性
 
-So far, our single element was using a custom prop called `profile`. We should avoid using custom props, especially when they're mapped directly to HTML attributes. Learn more about it below, in [Suggestion #1: Avoid adding custom props](#c3e6).
+目前为止，我们的单元素组件使用了名为 `profile` 的自定义属性。我们应该避免使用自定义属性，特别是当它们直接映射为 HTML 属性时。查看下面的 [建议 #1: 避免使用自定义属性](#c3e6) 了解更多。
 
-We can easily accept all HTML attributes in our single elements by just passing all `props` down to the underlying element. We can solve the problem with custom props by expecting the respective HTML attributes instead:
+通过将所有属性传递给底层元素，就可以在单元素组件中轻松实现应用所有 HTML 属性。我们可以通过传递相应的 HTML 属性来解决自定义属性问题：
 
 ```
 const Avatar = props => <img className="avatar" {...props} />;
@@ -173,19 +173,19 @@ Avatar.propTypes = {
 };
 ```
 
-Now `Avatar` looks more like an HTML element:
+现在 `Avatar` 使用起来更像一个 HTML 元素了：
 
 ```
 <Avatar src={profile.photoUrl} alt={profile.photoAlt} />
 ```
 
-This rule also includes rendering `children` when, of course, the underlying HTML element accepts it.
+如果底层 HTML 元素接受 `children` 属性是，这条规则也同样适用。
 
-#### Rule #4: Always merge the styles passed as props
+#### 规则 #4：应用作为属性传递的样式规则
 
-Somewhere in your application, you'll want the single element to have a slightly different style. You should be able to customize it whether by using `className` or `style` props.
+在应用中的某个地方，你可能希望单元素组件有一个稍微不同的样式。你应该可以通过 `className` 或 `style` 属性来自定义它。
 
-The internal style of a single element is equivalent to the style that browsers apply to native HTML elements. That being said, our `Avatar`, when receiving a `className` prop, shouldn't replace the internal one — but append it.
+单元素组件内部样式等同于浏览器应用到原生 HTML 元素的样式。虽然那么说，当我们的 `Avatar` 组件收到一个 `className` 属性时，不应该用来替换内部值 — 而是追加进去。
 
 ```
 const Avatar = ({ className, ...props }) => (
@@ -199,7 +199,7 @@ Avatar.propTypes = {
 };
 ```
 
-If we applied an internal `style` prop to `Avatar`, it could be easily solved by using [object spread](https://github.com/tc39/proposal-object-rest-spread/blob/master/Spread.md):
+如果我们将 `style` 属性应用于 `Avatar` 组件，可以使用 [对象扩展](https://github.com/tc39/proposal-object-rest-spread/blob/master/Spread.md) 轻松完成应用：
 
 ```
 const Avatar = ({ className, style, ...props }) => (
@@ -218,7 +218,7 @@ Avatar.propTypes = {
 };
 ```
 
-Now we can reliably apply new styles to our single element:
+现在我们就可以像下面这样将新样式应用到单元素组件：
 
 ```
 <Avatar
@@ -227,13 +227,13 @@ Now we can reliably apply new styles to our single element:
 />
 ```
 
-If you find yourself having to duplicate the new styles, don't hesitate to create another single element composing `Avatar`. It's fine — and often necessary — to create a single element that renders another single element.
+如果你发现自己需要复制新样式，请毫不犹豫地创建另一个组成 `Avatar` 的单元素组件。创建一个包含另一个单元素组件没问题 — 通常也是必须的。
 
-#### Rule #5: Add all the event handlers passed as props
+#### 规则 #5：应用所有作为属性传递的事件处理方法
 
-Since we're passing all `props` down, our single element is already prepared to receive any event handler. However, if we already have that event handler applied internally, what should we do?
+由于我们将所有属性向下传递，单元素组件已经准备好接收任何事件处理属性。但是，如果组件内部已经应用了这个事件的处理，我们该怎么办？
 
-In this case, we have two options: we can replace the internal handler with the prop altogether, or call both. That's up to you. Just make sure to **always** apply the event handler coming from the prop.
+这种情况下，我们有两个选择：使用传递的处理方法替换掉内部处理方法，或者两个都调用。这取决于你。只要确保**始终**应用来自属性传递的事件处理方法。
 
 ```
 const callAll = (...fns) => (...args) => fns.forEach(fn => fn && fn(...args));
@@ -258,21 +258,21 @@ Avatar.propTypes = {
 };
 ```
 
-### Suggestions
+### 建议
 
-#### Suggestion #1: Avoid adding custom props
+#### 建议 #1: 避免使用自定义属性
 
-When creating single elements — especially when developing new features in your application — you'll be tempted to add custom props in order to configure them in different ways.
+在创建单元素组件 — 特别是在应用中开发新功能时 — 很容易去添加自定义属性来满足不同的使用。
 
-Using `Avatar` as an example, by some eccentricity of the designer suppose you have some places where the avatar should be squared, and others where it should be rounded. You might think that it's a good idea to add a `rounded` prop to `Avatar`.
+使用 `Avatar` 组件举个例子，设计师建议有些地方头像是方形的，而其它地方应该是圆形。你也许认为给组件添加一个 `rounded` 属性是一个好主意。
 
-Unless you're creating a well-documented open source library, **resist that**. Besides introducing the need of documentation, it's not scalable and will lead to unmaintainable code. Always try to create a new single element — such as `AvatarRounded` — which renders `Avatar` and modifies it, rather than adding a custom prop.
+除非你正在创建一个文档良好的开源库，否则，**千万不要那样**。除了文档需要，那样还会导致不可扩展和代码的不可维护。总是创建一个新的单元素组件 — 比如 `AvatarRounded` — 它会渲染 `Avatar` 并做一些修改，而不是去添加自定义属性。
 
-If you keep using unique and descriptive names and building reliable components, you may have hundreds of them. It'll still be highly maintainable. Your documentation will be the names of the components.
+如果你坚持使用独特的描述性命名、创建可靠的组件，你将会创建成百上千个组件。它们依然是高度可维护的。组件名就可以作为文档。
 
-#### Suggestion #2: Receive the underlying HTML element as a prop
+#### 建议 #2：接收作为属性传递的 HTML 元素
 
-Not every custom prop is evil. Often you'll want to change the underlying HTML element rendered by a single element. And adding a custom prop is the only way to achieve that.
+并不是每个自定义属性都是不好的。有时你想要改变单元素组件中包裹的 HTML 元素。通过添加一个自定义属性来达到这个目的可能是唯一方法。
 
 ```
 const Button = ({ as: T, ...props }) => <T {...props} />;
@@ -286,7 +286,7 @@ Button.defaultProps = {
 };
 ```
 
-A common example is rendering a `Button` as an `<a>`:
+一个常见的例子是将 `Button` 组件渲染为 `<a>` 元素，如下：
 
 ```
 <Button as="a" href="https://google.com">
@@ -294,7 +294,7 @@ A common example is rendering a `Button` as an `<a>`:
 </Button>
 ```
 
-Or as another component:
+或者作为另一个元素的使用：
 
 ```
 <Button as={Link} to="/posts">
@@ -302,26 +302,26 @@ Or as another component:
 </Button>
 ```
 
-If you're interested on this feature, I recommend you to take a look at [Reas](https://github.com/diegohaz/reas), a React UI toolkit built with Singel in mind.
+如果你对这个功能感兴趣，我建议你看一下 [Reas](https://github.com/diegohaz/reas) 项目，这是一个使用 Singel 理念构建的 React UI 工具包。
 
-### Validate your single elements using Singel CLI
+### 使用 Single CLI 来验证你的单元素组件
 
-Finally, after reading all this, you may have wondered if there is a tool to automatically validate your elements against this pattern. I have developed such a tool, [Singel CLI](https://github.com/diegohaz/singel).
+最后，在阅读完所有内容之后，你可能想知道是否有工具可以根据此模式自动验证元素。我开发了这样一个工具，叫做[Singel CLI](https://github.com/diegohaz/singel)。
 
-If you want to use it on an ongoing project, I suggest you create a new folder and start putting your singel elements there.
+如果你想在正在进行的项目中使用它，我建议你创建一个新的文件夹并把你的单元素组件放在里面。
 
-If you're using React, you can install `singel` through **npm** and run it this way:
+如果你正在使用 React，你可以通过 **npm** 安装 `singel` 并运行它，如下：
 
 ```
 $ npm install --global singel
 $ singel components/*.js
 ```
 
-The output will be similar to this:
+输出结果类似于下面这样：
 
 ![](https://cdn-images-1.medium.com/max/800/1*fE7wp8PS2EG7043OYcQhkg.png)
 
-Another good way is to install it as a dev dependency in your project and add a script into `package.json`:
+另一种方法是在项目中作为开发依赖安装，并在 `package.json` 文件中添加脚本：
 
 ```
 $ npm install --dev singel
@@ -333,22 +333,22 @@ $ npm install --dev singel
 }
 ```
 
-Then, just run the **npm** script:
+然后，运行 **npm** 脚本吧：
 
 ```
 $ npm run singel
 ```
 
-### Thank you for reading this!
+### 感谢阅读！
 
-If you like it and find it useful, here are some things you can do to show your support:
+如果你喜欢这篇文章并发现它很有用，你可以通过以下方式来表达你的支持：
 
-*   Hit the clap 👏 button on this article a few times (up to 50)
-*   Give a star ⭐️ on GitHub: [https://github.com/diegohaz/singel](https://github.com/diegohaz/singel)
-*   Follow me on GitHub: [https://github.com/diegohaz](https://github.com/diegohaz)
-*   Follow me on Twitter: [https://twitter.com/diegohaz](https://twitter.com/diegohaz)
+*   点击 ❤️ 按钮喜欢这篇文章
+*   Star ⭐️ 我的 GitHub 项目：[https://github.com/diegohaz/singel](https://github.com/diegohaz/singel)
+*   在 GitHub 上关注我：[https://github.com/diegohaz](https://github.com/diegohaz)
+*   在 Twitter 上关注我：[https://twitter.com/diegohaz](https://twitter.com/diegohaz)
 
-Thanks to [Raphael Thomazella](https://medium.com/@thomazella?source=post_page).
+感谢 [Raphael Thomazella](https://medium.com/@thomazella?source=post_page)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
