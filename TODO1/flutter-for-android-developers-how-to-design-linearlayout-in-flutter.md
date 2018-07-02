@@ -267,8 +267,6 @@ LinearLayout 在 Android 中大量使用，与 Row/Column 小部件相同。希�
 
 看看这里的 android 例子。
 
-[**burhanrashid52/FlutterForAndroidExample**: Contribute to FlutterForAndroidExample development by creating an account on GitHub.](https://github.com/burhanrashid52/FlutterForAndroidExample)
-
 [burhanrashid52 / FlutterForAndroidExample：通过在GitHub上创建一个帐户，为 FlutterForAndroidExample 开发做出贡献。](https://github.com/burhanrashid52/FlutterForAndroidExample)
 
 **谢谢 ！！！**
