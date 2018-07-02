@@ -5,45 +5,47 @@
 > * 译者：
 > * 校对者：
 
-# Flutter For Android Developers : How to design LinearLayout in Flutter ?
+# Flutter For Android 开发者：如何在 Flutter 中设计 LinearLayout？
 
 ![](https://cdn-images-1.medium.com/max/2000/1*9JzKFil-Xsip742fdxDqZw.jpeg)
 
-Photo by [Marvin Ronsdorf](https://unsplash.com/photos/1hGAXyyav64?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/search/photos/row-and-column?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText).
+[Marvin Ronsdorf](https://unsplash.com/photos/1hGAXyyav64?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) 在 [Unsplash](https://unsplash.com/search/photos/row-and-column?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) 上​​拍摄的照片。
 
-This blog is meant for Android developers looking to apply their existing Android knowledge to build mobile apps with Flutter. In this blog, we are going to explore what is equivalent design widget for LinearLayout in Flutter.
+这个博客是面向 Android 开发人员的，旨在将他们现有的 Android 知识应用于使用 Flutter 构建移动应用程序。在这篇博客中，我们将探索 Flutter 中 LinearLayout 的等效设计部件。
 
-### Series
+### 系列  
 
-*   [How to design activity UI in Flutter ?](https://blog.usejournal.com/flutter-for-android-developers-how-to-design-activity-ui-in-flutter-4bf7b0de1e48)
-*   How to design LinearLayout in Flutter ? (You are here)
 
-### Prerequisites
+* [如何在 Flutter 中设计 activity 的 UI？](https://blog.usejournal.com/flutter-for-android-developers-how-to-design-activity-ui-in-flutter-4bf7b0de1e48)
 
-This blog already assumes that you have already setup the flutter in your PC and able to run a Hello World app. If you have not install flutter yet, gets started from [here](https://flutter.io/get-started/).
+* 如何在 Flutter 中设计 LinearLayout？ （就在这里）
 
-Dart is based on the object-oriented concept so as android java developer you will be able to catch up dart very easily.
+### 先决条件
 
-### Let’s get started
+这篇博客已假设您已经在 PC 中配置了 flutter，并且能够运行 Hello World 应用程序。如果您尚未安装 flutter，[请点击这里](https://flutter.io/get-started/)。
 
-If you are an Android Developer then I assumes that you have heavily used LinearLayout while designing the layout. Those who are still not familiar with LinearLayout let me start with an official definition.
+Dart 基于面向对象的概念，因此作为 android java 开发人员，您将能够轻松地使用 dart。
 
-> LinearLayout is a layout that arranges other views either horizontally in a single **_Column_** or vertically in a single **_Row_**.
+### 让我们开始吧
+
+如果您是 Android 开发人员，那么我假设您在设计布局时大量使用了 LinearLayout。那些仍然不熟悉 LinearLayout 的人让我从一个正式的定义开始。
+
+>LinearLayout 是一种布局，可以将其它视图水平排列在单个列中，也可以垂直排列在单个行中。
 
 ![](https://cdn-images-1.medium.com/max/800/1*kE-KoY8nR4qT8nYHPrV0Pw.jpeg)
 
-As above visual representation and the definition itself, you can make out what is the equivalent widget in Flutter. Yes, you are right they are Row and Column. This two widget have almost same behavior as the LinearLayout in native Android. Row and columns are heavily used in flutter too.
+上面的效果展示和定义本身是一样的，您可以确定 Flutter 中的等效小部件是什么。是的，你是对的，它们是行列。
 
-> **Note:** The Row/Column widget does not scroll . If you have a line of widgets and want them to be able to scroll if there is insufficient room, consider using a [ListView](https://docs.flutter.io/flutter/widgets/ListView-class.html).
+>**注意：**“行/列”小部件不会滚动。如果您有一系列小部件并希望它们能够在没有足够空间的情况下滚动，请考虑使用 [ListView]((https://docs.flutter.io/flutter/widgets/ListView-class.html).)。
 
-Now we will cover some main attributes of LinearLayout which can be converted into the equivalent widget properties in Flutter.
 
-### 1. Orientation
+现在我们将介绍 LinearLayout 的一些主要属性，它们可以转换为 Flutter 中的等效小部件属性。
 
-In LinearLayout you can define the orientation of its child by using `android:orientation=”horizontal”` attributes which take `horizontal/vertical` as values which are similar to Row/Column widget in Flutter.
+### 1. 方向
 
-In Android, LinearLayout is `ViewGroup` which can have views as a child.You can set all the child views inside the `<LinearLayout> </LinearLayout>` tags.So in order set child widget in our Row/Column widget, we need to use Row/Column.children property which accepts the `List<Widget>`. Refer below code snippet.
+在 LinearLayout 中，您可以使用 android:orientation ="horizo​​ntal" 属性定义其子项的方向，该属性将水平/垂直作为与 Flutter 中的行/列小部件类似的值。
 
+在 Android 中，LinearLayout 是 ViewGroup，可以向里面添加子 View。您可以在 <LinearLayout> </ LinearLayout> 标签内设置所有子 View。因此，为了在我们的 Row/Column 小部件中设置子小部件，我们需要使用 Row/Column.children 属性，该属性接受 List<Widget>。请参阅下面的代码片段。
 ```
 import 'package:flutter/material.dart';
 
@@ -87,21 +89,22 @@ class _MyAppState extends State<MyApp> {
 }
 ```
 
-In this example, we have used Row widget which is `android:orientation=”horizontal”` attribute of `LinearLayout`. We use Column for vertical value. If you are wondering what is Scaffold doing here than you can read my previous article [How to design activity UI using Scaffold in Flutter ?](https://blog.usejournal.com/flutter-for-android-developers-how-to-design-activity-ui-in-flutter-4bf7b0de1e48). Below is the output from above code for using Row and Column widget.
+在这个例子中，我们使用了 LinearLayout 的 android:orientation ="horizo​​ntal" 属性的 Row 小部件。我们使用 Column 作为垂直值。如果你想知道 Scaffold 在这里做什么，你可以阅读我之前的文章[如何在 Flutter 中使用 Scaffold 设计 activity UI？](https://blog.usejournal.com/flutter-for-android-developers-how-to-design-activity-ui-in-flutter-4bf7b0de1e48)
 
 ![](https://cdn-images-1.medium.com/max/800/1*DbZVIPcRxe7Mg8avHmf5Sw.jpeg)
 
 ![](https://cdn-images-1.medium.com/max/800/1*j8ikHPpLx46r3bwNveJubA.png)
 
-### 2. “match_parent” vs “wrap_content”
 
-*   MATCH_PARENT: which means that the view wants to be as big as its parent and if your view is top level root view than it will as big as the device screen.
-*   WRAP_CONTENT: which means that the view wants to be just big enough to enclose its content.
+### 2. "match_parent" vs "wrap_content"
 
-In order to get behavior for `match_parent` and `wrap_content` we need to use `mainAxisSize` property in Row/Column widget, the mainAxisSize property takes MainAxisSize enum having two values which is `MainAxisSize.min` which behaves as `wrap_content` and `MainAxisSize.max` which behaves as `match_parent`.
+*  MATCH_PARENT: 这意味着视图希望与其父视图一样大，如果您的视图是顶级根视图，那么它将与设备屏幕一样大。
 
-In the above example, we did not define any mainAxisSize property to the Row widget so by default its set mainAxisSize property to `MainAxisSize.max` which is `match_parent`. The yellow background of the container represents how the free space is covered. This is how we define this property in the above example and check the output with different attribute values.
+* WRAP_CONTENT: 这意味着该视图要足够大以包含其内容。
 
+为了获得 `match_parent` 和 `wrap_content` 的行为，我们需要在 Row/Column 小部件中使用 `mainAxisSize` 属性，`mainAxisSize` 属性采用 MainAxisSize 枚举，其中有两个值，即 `MainAxisSize.min`，其行为如 `wrap_content` 和 `MainAxisSize.max`，其行为与 `match_parent` 相同。
+
+在上面的例子中，我们没有为 Row 部件定义任何 mainAxisSize 属性，所以默认情况下它的 mainAxisSize 属性设置为 `MainAxisSize.max`，它是`match_parent`。容器的黄色背景代表了自由空间的覆盖方式。这就是我们在上面的例子中定义这个属性的方法，并检查具有不同属性值的输出。
 ```
 ....
 body: new Container(
@@ -116,16 +119,15 @@ body: new Container(
 
 ![](https://cdn-images-1.medium.com/max/1000/1*bUP8rPQbN2w07QaEtz7ENA.png)
 
-This is how we can visually differentiate the attributes we used in Row/Column widget.
+这就是我们如何在视觉上区分 Row/Column 小部件中使用的属性。
 
-### 3. Gravity
+### 3. 权重
 
-Gravity specifies how a child views should position its content, within its own bounds. We define gravity in LinearLayout layout using `android:gravity=”center”` with multiple alignment values. The same can be achieved in Row/Column widget using `MainAxisAlignment` and `CrossAxisAlignment` properties.
+权重指定了在它自身的范围内子 view 如何摆放位置，我们使用具有多个对齐值的 `android:gravity ="center"` 在 LinearLayout 布局中定义默认权重。在使用 `MainAxisAlignment` 和 `CrossAxisAlignment` 属性的 Row/Column 小部件中可以实现相同的功能。
 
-#### 1. [MainAxisAlignment](https://docs.flutter.io/flutter/rendering/MainAxisAlignment-class.html):
+#### 1. [主轴对齐](https://docs.flutter.io/flutter/rendering/MainAxisAlignment-class.html):
 
-This property defines how the children should be placed along the main axis(Row/Column).In order to make this work, there should be some space available in the Row/Column widget if you set the value to `MainAxisSize.min` i.e `wrap_content` than setting MainAxisAlignment won’t have any effect on the widget because of no available space. We can define MainAxisAlignment property like this.
-
+这个属性定义了子 view 应该如何沿着主轴（行/列）放置。为了使这个有效，如果将值设置为 `MainAxisSize.min`，则应在 Row/Column 小部件中提供一些空间，即由于没有可用空间，`wrap_content` 设置 MainAxisAlignment 对小部件没有任何影响。
 ```
 ....
 body: new Container(
@@ -138,26 +140,26 @@ body: new Container(
 )
 ...
 ```
+>一张图片胜过千言万语，我更喜欢视觉展示而不是描述每一个属性。
 
-> A picture is worth a thousand words, instead describing each and every attribute I rather prefer visual representation.
-
-So below this output comparing LinearLayout attributes to MainAxisAlignment property in Row Widget.
+因此在此输出将 LinearLayout 属性与 Row Widget 中的 MainAxisAlignment 属性进行比较。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*zQD7Hhg5WITKdQF1hqZyiQ.png)
 
-Now, let’s compare it with the Column Widget.
+现在，让我们将它与列控件进行比较。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*cJFYgsnUl5hE5DLPCkbLMA.png)
 
-> **Exercise:** You can try other enums `spaceEvenly`,`spaceAround`,`spaceBetween` which behaves as a vertical/horizontal chain which we use in ConstraintLayout.
+>练习：您可以尝试其它枚举值，即 `spaceEvenly `, `spaceAround `，`spaceBetween`，其行为与我们在 ConstraintLayout 中使用的垂直/水平链相同。
 
-#### 2. [CrossAxisAlignment](https://docs.flutter.io/flutter/rendering/CrossAxisAlignment-class.html) :
 
-This property defines how the children should be placed along the cross axis. It means if we use Row widget the individual’s children gravity will be on the basis of the vertical line. And if we use Column widget the individual’s children gravity will be on the basis of horizontal line.
+#### 2. [交叉轴对齐](https://docs.flutter.io/flutter/rendering/CrossAxisAlignment-class.html) :
 
-This sound pretty confusion right! Don’t worry you will understand better as you read further.
+这个属性定义了子 view 应该如何沿横轴放置。这意味着如果我们使用 Row 小部件，则子 view 的权重将基于垂直线。如果我们使用 Column 小部件，那么子 view 将以水平线为基础。
 
-For better understanding, we are making it `wrap_content` i.e `MainAxisSize.min`. You define a CrossAxisAlignment property like below code. If no property is set then it will take `CrossAxisAlignment. start` by default.
+这听起来很混乱吧！不要担心，随着阅读的进一步深入，你会更好地理解。
+
+为了更好地理解，我们使它成为 `wrap_content`，即 `MainAxisSize.min`。您可以像下面的代码一样定义一个 `CrossAxisAlignment. start` 属性。
 
 ```
 ....
@@ -172,24 +174,25 @@ body: new Container(
 ...
 ```
 
-So below this output comparing LinearLayout attributes to CrossAxisAlignment property in Row Widget.
+因此，在此下面输出将 LinearLayout 属性与 Row Widget 中的 CrossAxisAlignment 属性进行比较。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*10EUefrNcIUIW3GGR5pRQg.png)
 
-Now, let’s compare it with the Column Widget.
+现在，让我们将它与列控件进行比较。
+
 
 ![](https://cdn-images-1.medium.com/max/1000/1*GdfFwLT_933GOj-KU9yeag.png)
 
-Stretch behave little different, its stretch the widget to max available space i.e `match_parent` to its cross axis.
 
-### 3. Layout Weight
+拉伸行为有点不同，它将小部件伸展到最大可用空间，即与其交叉轴 `match_parent`。
 
-To create a linear layout in which each child uses the same amount of space or to divide space in specific ratio on the screen,we set the `android:layout_height` of each view to `“0dp”` (for a vertical layout) or the `android:layout_width` of each view to `“0dp”` (for a horizontal layout). Then set the `android:layout_weight` of each view to `“1”` or any other value as per space you want to divide.
+### 3. 布局权重
 
-To achieve the same thing in flutter Row/Column widget we wrap each child into an `Expanded` widget which will have flex property equivalent to our `android:layout_weight` so by defining flex value we define the amount of space should be applied to that specific child.
+要创建一个线性布局，其中每个子 view 使用相同的空间或在屏幕上以特定比例划分空间，我们将每个视图的 `android:layout_height` 设置为 `"0dp"`（对于垂直布局）或将每个视图的 `android:layout_width` 设置为 `"0dp"`（对于水平布局）。然后将每个视图的 `android:layout_weight` 设置为 `"1"` 或根据要划分的空间设置其它任何值。
 
-This is how you define the weight/flex to each child.
+为了在 flutter Row/Column 小部件中实现同样的功能，我们将每个子 view 包装到一个 `Expanded` 小部件中，该小部件的 flex 属性等同于我们的 `android:layout_weight`，因此通过定义 flex 值我们定义该应用特定子元素的空间量。
 
+这就是你如何为每个孩子定义权重/弹性。
 ```
 import 'package:flutter/material.dart';
 
@@ -253,25 +256,26 @@ class _MyAppState extends State<MyApp> {
 }
 ```
 
-For the sake of better understanding, we have wrap each icon inside a container with a background color to easily identify how much space has been covered by the widget.
+为了更好地理解，我们将每个图标包装在具有背景颜色的容器中，以便轻松识别窗口小部件已覆盖的空间。
 
 ![](https://cdn-images-1.medium.com/max/800/1*hLp6mC4eMA0RFp5dSFLlVg.png)
 
-### Conclusion
+### 总结
 
-LinearLayout is heavily used in Android same goes with flutter Row/Column widget. Hope to cover more topics in the upcoming blogs. I have created a sample app to play around with Row/Column attributes and how this attributes works when they are combined.
-
+LinearLayout 在 Android 中大量使用，与 Row/Column 小部件相同。希望在即将到来的博客中涵盖更多主题。我已经创建了一个示例应用程序来演示 Row/Column 属性以及这些属性在组合时如何工作。
 ![](https://cdn-images-1.medium.com/max/800/1*fbdY7IRyItUIW37WhqWzQQ.gif)
 
-Check out flutter for android example here.
+看看这里的 android 例子。
 
 [**burhanrashid52/FlutterForAndroidExample**: Contribute to FlutterForAndroidExample development by creating an account on GitHub.](https://github.com/burhanrashid52/FlutterForAndroidExample)
 
-**Thank you !!!**
+[burhanrashid52 / FlutterForAndroidExample：通过在GitHub上创建一个帐户，为 FlutterForAndroidExample 开发做出贡献。](https://github.com/burhanrashid52/FlutterForAndroidExample)
 
-**If you find this article helpful. Please like,share and clap so other people will see this here on Medium. If you have any quires or suggestions, feel free comment on the blog or hit me on Twitter, Github or Reddit.**
+**谢谢 ！！！**
 
-**To get latest updates for my upcoming blog please follow me on Medium, Twitter, Github or Reddit.**
+**如果您觉得这篇文章有帮助。请喜欢，分享和拍手，这样其他人会在中看到这一点。如果您有任何问题或建议，请在博客上免费发表评论，或在 Twitter，Github 或 Reddit 上给我点赞。**
+
+**要获取我即将发布的博客的最新更新，请在 Medium，Twitter，Github 或Reddit 上关注我。**
 
 * [**Burhanuddin Rashid (@burhanrashid52) | Twitter**](https://twitter.com/burhanrashid52)
 
