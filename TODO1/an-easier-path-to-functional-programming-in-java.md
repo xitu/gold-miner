@@ -2,26 +2,26 @@
 > * 原文作者：[Venkat Subramaniam](https://developer.ibm.com/author/venkats/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/an-easier-path-to-functional-programming-in-java.md](https://github.com/xitu/gold-miner/blob/master/TODO1/an-easier-path-to-functional-programming-in-java.md)
-> * 译者：
-> * 校对者：
+> * 译者：[maoqyhz](https://github.com/maoqyhz)
+> * 校对者：[satansk](https://github.com/satansk)、[lihanxiang](https://github.com/lihanxiang)
 
-# An easier path to functional programming in Java
+# 通往 Java 函数式编程的捷径
 
-## Think declaratively to adopt functional techniques in your Java programs
+## 以声明式的思想在你的 Java 程序中使用函数式编程技术
 
-Java™ developers are well accustomed to imperative and object-oriented programming, as these styles have been supported by the Java language since its first release. In Java 8, we gained access to a set of powerful new functional features and syntax. Functional programming has been around for decades, and it's generally more concise and expressive, less error prone, and easier to parallelize than object-oriented programming. So there are good reasons to introduce functional features into your Java programs. Still, programming in the functional style requires some changes in how you design your code.
+Java™ 开发人员习惯于面向命令式和面向对象的编程，因为这些特性自 Java 语言首次发布以来一直受到支持。在 Java 8 中，我们获得了一组新的强大的函数式特性和语法。函数式编程已经存在了数十年，与面向对象编程相比，函数式编程通常更加简洁和达意，不易出错，并且更易于并行化。所以有很好的理由将函数式编程特性引入到 Java 程序中。尽管如此，在使用函数式特性进行编程时，就如何设计你的代码这一点上需要进行一些改变。
 
-**About this series**
+**关于本文**
 
-Java 8 is the most significant update to the Java language since its inception — packed so full of new features that you might wonder where to start. In this series, author and educator Venkat Subramaniam offers an idiomatic approach to Java 8: short explorations that invite you to rethink the Java conventions you've come to take for granted, while gradually integrating new techniques and syntax into your programs.
+Java 8 是 Java 语言自诞生以来最重要的更新，它包含如此多的新特性，以至于你可能想知道应该从哪开始了解它。在本系列中，身为作家和教育家的 Venkat Subramaniam 提供了一种符合 Java 语言习惯的 Java 8 学习方式。邀请你进行简短的探索后，重新思考你认为理所当然的 Java 一贯用法和规范，同时逐渐将新技术和语法集成到你的程序中去。
 
-I've found that thinking declaratively, rather than imperatively, can ease the transition to a more functional style of programming. In this first article in the new [_Java 8 idioms_ series](http://www.ibm.com/developerworks/library/?series_title_by=Java+8+idioms), I explain the difference and overlap between imperative, declarative, and functional programming styles. Then, I show you how to use declarative thinking to gradually integrate functional techniques into your Java programs.
+我认为，以声明式的思想而不是命令式的思想来编程，可以更加轻松地向更加函数化的编程风格过渡。在 [_Java 8 idioms_ series](http://www.ibm.com/developerworks/library/?series_title_by=Java+8+idioms) 这个系列的第一篇文章中，我解释了命令式、声明式和函数式编程风格之间的异同。然后，我将向你展示如何使用声明式的思想逐渐将函数式编程技术集成到你的 Java 程序中。
 
-## The imperative style
+## 命令式风格（面向过程）
 
-Developers trained in the imperative style of programming are accustomed to telling programs what to do, as well as how to do it. Here's a simple example:
+受命令式编程风格训练的开发者习惯于告诉程序需要做什么以及如何去做。这里是一个简单的例子：
 
-##### Listing 1. findNemo in the imperative style
+<h5 id="listing1">清单 1. 以命令式风格编写的 findNemo 方法</h5>
 
 ```
 import java.util.*;
@@ -51,17 +51,17 @@ public class FindNemo {
 }
 ```
 
-The `findNemo()` method starts by initializing a mutable _flag_ variable, also known as a _garbage variable_. Developers often give such variables throwaway names like `f`, `t`, or `temp`, conveying our general attitude that they shouldn't exist. In this case, the variable is named `found`.
+方法 `findNemo()` 首先初始化一个可变变量 **flag**，也称为垃圾变量（garbage variable）。开发者经常会给予某些变量一个临时性的名字，例如 `f`、`t`、`temp` 以表明它们根本不应该存在。在本例中，这些变量应该被命名为 `found`。
 
-Next, the program loops through one element at a time in the given `names` list. It checks whether the name at hand equals the value that it's looking for, in this case, `Nemo`. If the value matches, it sets the flag to `true` and instructs the flow of control to "break" out of the loop.
+接下来，程序会循环遍历给定的 `names` 列表，每次都会判断当前遍历的值是否和待匹配值相同。在这个例子中，待匹配值为 `Nemo`，如果遍历到的值匹配，程序会将标志位设为 `true`，并执行流程控制语句 "break" 跳出循环。
 
-Because this is an imperative-style program — the most familiar style for many Java developers — you define every step of the program: you tell it to iterate over each element, compare the value, set the flag, and break out of the loop. The imperative style gives you full control, which is sometimes a good thing. On the other hand, you do all the work. In many cases, you could be more productive by doing less.
+这是对于广大 Java 开发者最熟悉的编程风格 —— 命令式风格的程序，因此你可以定义程序的每一步：你告诉程序遍历每一个元素，和待匹配值进行比较，设置标志位，以及跳出循环。命令式编程风格让你可以完全控制程序，有的时候这是一件好事。但是，换个角度来看，你做了很多机器可以独立完成的工作，这势必导致生产力下降。因此，有的时候，你可以通过少做事来提高生产力。
 
-## The declarative style
+## 声明式风格
 
-Declarative programming means that you still tell the program what to do, but you leave the implementation details to the underlying library of functions. Let's see what happens when we rework the `findNemo` method from [Listing 1](#listing1) using the declarative style:
+声明式编程意味着你仍然需要告诉程序需要做什么，但是你可以将实现细节留给底层函数库。让我们看看使用声明式编程风格重写[清单 1](#listing1) 中的 `findNemo` 方法时会发生什么：
 
-##### Listing 2. findNemo in the declarative style
+##### 清单 2. 以声明式风格编写的 findNemo 方法
 
 ```
 public static void findNemo(List<String> names) {
@@ -72,31 +72,31 @@ public static void findNemo(List<String> names) {
 }
 ```
 
-Note first that you don't have any garbage variables in this version. You are also not wasting effort on looping through the collection. Instead, you let the built-in `contains()` method do the work. You've still told the program what to do — check whether the collection holds the value we're seeking — but you've left the details to the underlying method.
+首先需要注意的是，此版本中没有任何垃圾变量。你也不需要在遍历集合中浪费精力。相反，你只需要使用内建的 `contains()` 方法来完成这项工作。你仍然要告诉程序需要做什么，集合中是否包含我们正在寻找的值，但此时你已经将细节交给底层的方法来实现了。 
 
-In the imperative example, you controlled the iteration and the program did exactly as instructed. In the declarative version, you don't care how the work happens, as long as it gets done. The implementation of `contains()` may vary, but as long as the result is what you expect, you are happy with that. Less effort to get the same result.
+在命令式编程风格的例子中，你控制了遍历的流程，程序可以完全按照指令进行；在声明式的例子中，只要程序能够完成工作，你完全不需要关注它是如何工作的。`contains()` 方法的实现可能会有所不同，但只要结果符合你的期望，你就会对此感到满意。更少的工作能够得到相同的结果。
 
-Training yourself to think in a declarative style will greatly ease your transition to functional programming in Java. The reason? The functional style builds on the declarative style. Thinking declaratively offers a gradual transition from imperative to functional programming.
+训练自己以声明式的编程风格来进行思考将更加轻松地向更加函数化的编程风格过渡。原因在于，函数式编程风格是建立在声明式风格之上的。声明式风格的思维可以让你逐渐从命令式编程转换到函数式编程。
 
-## The functional style
+## 函数式编程风格
 
-While programming in a functional style is always declarative, simply using a declarative style doesn't equate to functional programming. This is because functional programming combines declarative methods with higher order functions. Figure 1 visualizes the relationships between the imperative, declarative, and functional programming styles.
+虽然函数式风格的编程总是声明式的，但是简单地使用声明式风格编程并不等同与函数式编程。这是因为函数式编程时将声明式编程和高阶函数结合在了一起。图 1 显示了命令式，声明式和函数式编程风格之间的关系。
 
-##### Figure 1. Connecting the imperative, declarative, and functional styles
+##### 图 1. 命令式、声明式和函数式编程风格之间的关系
 
 ![A logic diagram showing how the imperative, declarative, and functional programming styles differ and overlap.](https://www.ibm.com/developerworks/library/j-java8idioms1/fig1.png)
 
-### Higher order functions in Java
+### Java 中的高阶函数
 
-In Java, you pass objects to methods, create objects within methods, and return objects from methods. You can do the same with functions. That is, you can pass functions to methods, create functions within methods, and return functions from methods.
+在 Java 中，你可以将对象传递给方法，在方法中创建对象，也可以从方法中返回对象。同时你也可以用函数做相同的事情。也就是说，你可以将函数传递给方法，在方法中创建函数，也可以从方法中返回函数。
 
-In this context, a _method_ is part of a class — static or instance — but a function can be local to a method and cannot be intentionally associated with a class or an instance. A method or a function that can receive, create, or return a function is considered a _higher order function_.
+在这种情况下，**方法**是类的一部分（静态或实例），但是函数可以是方法的一部分，并且不能有意地与类或实例相关联。一个可以接收、创建、或者返回函数的方法或函数称之为**高阶函数**。
 
-## A functional programming example
+## 一个函数式编程的例子
 
-Adopting a new programming style requires changing how you think about your programs. It's a process that you can practice with simple examples, building up to more complex programs.
+采用新的编程风格需要改变你对程序的看法。这是一个从简单例子的练习开始，到构建更加复杂程序的过程。
 
-##### Listing 3. A Map in the imperative style
+<h5 id="listing3">清单 3. 命令式编程风格下的 Map</h5>
 
 ```
 import java.util.*;
@@ -123,17 +123,17 @@ public class UseMap {
 }
 ```
 
-In [Listing 3](#listing3), the `main()` function creates a `HashMap` that holds the number of page visits for a website. Meanwhile, the `incrementPageVisit()` method increases a count for each visit to the given page. We'll focus on this method.
+在[清单 3](#listing3) 中，`main()` 函数创建了一个 `HashMap` 来保存网站访问次数。同时，`incrementPageVisit()` 方法增加了每次访问给定页面的计数。我们将聚焦此方法。
 
-The `incrementPageVisit()` method is written in an imperative style: Its job is to increment a count for the given page, which it stores in the `Map`. The method doesn't know if there's already a count for the given page, so it first checks to see if a count exists. If not, it inserts a "0" as the count for that page. It then gets the count, increments it, and stores the new value in the `Map`.
+以命令式编程风格写的 `incrementPageVisit()` 方法：它的工作是为给定页面增加一个计数，并存储在 `Map` 中。该方法不知道给定页面是否已经有计数值，所以会先检查计数值是否存在，如果不存在，会为该页面插入一个值为"0"的计数值。然后再获取该计数值，递增它，并将新的计数值存储在 `Map` 中。
 
-Thinking declaratively requires you to shift the design of this method from "how" to "what." When the method `incrementPageVisit()` is called, you want to either initialize the count for the given page to 1 or increment the running value by one count. That's the _what_.
+以声明式的方式思考需要你将方法的设计从 "how" 转变到 "what"。当 `incrementPageVisit()` 方法被调用时，你需要将给定的页面计数值初始化为 1 或者计数值加 1。这就是 **what**。
 
-Because you're programming declaratively, the next step is to scan the JDK library for methods in the `Map` interface that can accomplish your goal — that is, you're looking for a built-in method that knows _how_ to accomplish your given task.
+因为你是通过声明式编程的，那么下一步就是在 JDK 库中寻找可以完成这项工作且实现了 `Map` 接口的方法。换言之，你需要找到一个知道**如何**完成你指定任务的内建方法。
 
-It turns out that the `merge()` method suits your purposes perfectly. Listing 4 uses your new declarative approach to modify the `incrementPageVisit()` method from [Listing 3](#listing3). In this case, however, you're not just adopting a more declarative style by choosing a smarter method; because `merge()` is a higher order function, the new code is actually a good example of the functional style:
+事实证明 `merge()` 方法非常适合你的而目的。清单 4 使用新的声明式方法对[清单 3](#listing3) 中的 `incrementPageVisit()` 方法进行修改。但是，在这种情况下，你不仅仅只是选择更智能的方法来写出更具声明性风格的代码，因为 `merge()` 是一个更高阶的函数。所以说，新的代码实际上是一个体现函数式风格的很好的例子：
 
-##### Listing 4. A Map in the functional style
+<h5 id="listing4">清单 4. 函数式编程风格下的 Map</h5>
 
 ```
 public static void incrementPageVisit(Map<String, Integer> pageVisits, String page) {
@@ -141,18 +141,17 @@ public static void incrementPageVisit(Map<String, Integer> pageVisits, String pa
 }
 ```
 
-In Listing 4, `page` is passed as the first argument to `merge()`: the key whose value should be updated. The second argument serves as the initial value that will be given for that key _if_ it doesn't already exist in the `Map` (in this case, "1"). The third argument, a lambda expression, receives as parameters the current value in the map for the key and a variable holding the value passed as the second argument to merge. The lambda expression returns the sum of its parameters, in effect incrementing the count. (_Editorial note_: Thanks to István Kovács for correcting an error in the code.)
+在清单 4 中，`page` 作为第一个参数传递给 `merge()`：map 中键对应的值将会被更新。第二个参数作为初始值，**如果** `Map` 中不存在指定键的值，那么该值将会赋值给 `Map` 中键对应的值（在本例中为"1"）。第三个参数为一个 lambda 表达式，接受当前 `Map` 中键对应的值和该函数中第二个参数对应的值作为参数。lambda 表达式返回其参数的总和，实际上增加了计数值。（**编者注**：感谢 István Kovács 修正了代码错误）
 
-Compare the single line of code in the `incrementPageVisit()` method in [Listing 4](#listing4) with the multiple lines of code from [Listing 3](#listing3). While the program in [Listing 4](#listing4) is an example of the functional style, thinking through the problem declaratively helped us make the leap.
+将[清单 4](#listing4) 的 `incrementPageVisit()` 方法中的单行代码与[清单 3](#listing3) 中的多行代码进行比较。虽然[清单 4](#listing4) 中的程序是函数式编程风格的一个例子，但通过声明性地思想去思考问题帮助能够我们实现飞跃。
 
-## Conclusion
+## 总结
 
-You have much to gain from adopting functional techniques and syntax in your Java programs: the code is concise, more expressive, has fewer moving parts, is easier to parallelize, and is generally easier to understand than object-oriented code. The challenge is to change your thinking from the imperative style of programming — which is familiar to the vast majority of developers — to thinking declaratively.
+在 Java 程序中采用函数式编程技术和语法有很多好处：代码更简洁，更富有表现力，移动部分更少，实现并行化更容易，并且通常比面向对象的代码更易理解。 目前面临的挑战是，如何将你的思维从绝大多数开发人员所熟悉的命令式编程风格转变为以声明式的方式进行思考。
 
-While there's nothing easy or straightforward about functional programming, you can take a big leap by learning to focus on _what_ you want your programs to do, rather than _how_ you want it done. By allowing the underlying library of functions to manage execution, you will gradually and intuitively get to know the higher order functions that are the building blocks of functional programming.
+虽然函数式编程并没有那么简单或直接，但是你可以学习专注于你希望程序**做什么**而不是**如何做**这件事，来取得巨大的飞跃。通过允许底层函数库管理执行，你将逐渐直观地了解用于构建函数式编程模块的高阶函数。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
-
 
 ---
 

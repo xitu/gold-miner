@@ -1,3 +1,6 @@
+* [苹果公司如何修复 3D Touch](https://juejin.im/post/5b35e5886fb9a00e3642724f) ([Wangalan30](https://github.com/Wangalan30) 翻译)
+* [Airbnb 中的 React Native](https://juejin.im/post/5b2c924ff265da59a401f050) ([ALVINYEH](https://github.com/ALVINYEH) 翻译)
+* [不越狱探索 App](https://juejin.im/post/5b0e7eec518825155a048dc4) ([melon8](https://github.com/melon8) 翻译)
 * [Swift 中的 Playground 驱动开发](https://juejin.im/post/5b07665c6fb9a07ac5608d8a) ([ALVINYEH](https://github.com/ALVINYEH) 翻译)
 * [Swift 中的内存泄漏](https://juejin.im/post/5b07a1c251882538914a5d3e) ([RickeyBoy](https://github.com/RickeyBoy) 翻译)
 * [使用 iPhone X 与 Maya 实现快速面部捕捉](https://juejin.im/post/5af40eba6fb9a07ac76ed7d1) ([ALVINYEH](https://github.com/ALVINYEH) 翻译)

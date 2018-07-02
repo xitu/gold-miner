@@ -1,3 +1,5 @@
+* [为 GitHub 项目做出贡献的初学者指南](https://juejin.im/entry/5b2e58ba6fb9a00e4966ee4b) ([sophiayang1997](https://github.com/sophiayang1997) 翻译)
+* [怎样（以及为什么要）保持你的 Git 提交记录的整洁](https://juejin.im/post/5b29060ee51d4558cd2adac0) ([zhongdeming428](https://github.com/zhongdeming428) 翻译)
 * [关于你的编程生涯的一些告诫](https://juejin.im/post/5b0256e36fb9a07aa767f5b4) ([kezhenxu94](https://github.com/kezhenxu94) 翻译)
 * [部署！=发布（第二部分）](https://juejin.im/post/5b00d2fa6fb9a07a9a1120e9) ([Starriers](https://github.com/Starriers) 翻译)
 * [如何逃离 async/await 地狱](https://juejin.im/post/5aefbb48f265da0b9b073c40) ([Colafornia](https://github.com/Colafornia) 翻译)
