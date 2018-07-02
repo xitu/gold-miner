@@ -1,3 +1,6 @@
+* [或许你并不需要 Rust 和 WASM 来提升 JS 的执行效率 — 第二部分](https://juejin.im/post/5b357c20f265da595f0d3f91) ([geniusq1981](https://github.com/geniusq1981) 翻译)
+* [怎样使用简单的三角函数来创建更好的加载动画](https://juejin.im/post/5b33055f518825748871c590) ([zhongdeming428](https://github.com/zhongdeming428) 翻译)
+* [WOFF文件格式 1.0](https://github.com/xitu/gold-miner/blob/master/TODO1/recommendation-woff-2012-12-13.md) ([zhmhhu](https://github.com/zhmhhu) 翻译)
 * [Vue.js 还是 React？你会选择哪一个？为什么?](https://juejin.im/post/5b25b3a16fb9a00e70686180) ([allenlongbaobao](https://github.com/allenlongbaobao) 翻译)
 * [或许你并不需要 Rust 和 WASM 来提升 JS 的执行效率 — 第一部分](https://juejin.im/post/5b24cf7e51882574c2652f61) ([shery15](https://github.com/shery15) 翻译)
 * [从零开始，在 Redux 中构建时间旅行式调试](https://juejin.im/post/5b24c0bce51d4558ba1a5584) ([weberpan](https://github.com/weberpan) 翻译)
