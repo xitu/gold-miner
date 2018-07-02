@@ -11,7 +11,7 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/1*iaYan0f1NeQlzGnwzjXEvg.jpeg)
 
-这是[系列博客文章](https://medium.com/airbnb-engineering/react-native-at-airbnb-f95aa460be1c)中的第二篇，本文将会概述使用 React Native 的经验，以及 Airbnb 移动端接下来要做的事情。
+这是[系列博客文章](https://juejin.im/post/5b2c924ff265da59a401f050)中的第二篇，本文将会概述使用 React Native 的经验，以及 Airbnb 移动端接下来要做的事情。
 
 React Native 本身在 Android，iOS，Web 和跨平台框架的各个部分上，是一个相对较新且快速迭代的平台。两年后，我们可以很有把握地说，React Native 在很多方面都是革命性的。这是移动设备的转变范例，我们能够从众多目标中获得收益。然而，它的好处并非没有明显的痛点。
 
@@ -182,7 +182,7 @@ Android 经常会去清理后台进程，但给了一个机会来[同步保存�
 
 这是系列博客文章的第二部分，重点讲述了我们使用 React Native 的经验，以及 Airbnb 移动端接下来要做的事情。
 
-*   [第一部分：Airbnb 中的 React Native](https://medium.com/airbnb-engineering/react-native-at-airbnb-f95aa460be1c)
+*   [第一部分：Airbnb 中的 React Native](https://juejin.im/post/5b2c924ff265da59a401f050)
 *   [**第二部分：技术细节**](https://medium.com/airbnb-engineering/react-native-at-airbnb-the-technology-dafd0b43838)
 *   [第三部分：构建跨平台的移动端团队](https://medium.com/airbnb-engineering/building-a-cross-platform-mobile-team-3e1837b40a88)
 *   [第四部分：在 React Native 上作出的决策](https://medium.com/airbnb-engineering/sunsetting-react-native-1868ba28e30a)
