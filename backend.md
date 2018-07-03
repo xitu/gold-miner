@@ -1,3 +1,7 @@
+* [从 Java EE 8 Security API 开始 — 第一部分](https://juejin.im/post/5b35a8d4f265da599423598b) ([Starriers](https://github.com/Starriers) 翻译)
+* [通过插图学习 Go 的并发](https://juejin.im/post/5b2cd078e51d4558b70ca399) ([elliott-zhao](https://github.com/elliott-zhao) 翻译)
+* [Kubernetes 分布式应用部署和人脸识别 app 实例](https://juejin.im/post/5b2db0576fb9a00e50313904) ([maoqyhz](https://github.com/maoqyhz) 翻译)
+* [[字幕翻译] Graham Dumpleton — Secrets of a WSGI master. — PyCon 2018](https://github.com/xitu/gold-miner/blob/master/TODO1/secrets-of-a-wsgi-master-pycon-2018.md) ([vuuihc](https://github.com/vuuihc) 翻译)
 * [Erlang 之禅第一部分](https://juejin.im/post/5b2a16cce51d4558d726e8c9) ([steinliber](https://github.com/steinliber) 翻译)
 * [[字幕翻译] James Bennett — 理解 Python 字节码 — PyCon 2018](https://github.com/xitu/gold-miner/issues/3990) ([cdpath](https://github.com/cdpath) 翻译)
 * [如何通过树莓派的深度学习轻松检测对象](https://juejin.im/post/5b1ba938518825137661af46) ([Starriers](https://github.com/Starriers) 翻译)

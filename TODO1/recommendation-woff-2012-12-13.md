@@ -2,164 +2,164 @@
 > * 原文作者：[W3C](https://www.w3.org)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/recommendation-woff-2012-12-13.md](https://github.com/xitu/gold-miner/blob/master/TODO1/recommendation-woff-2012-12-13.md)
-> * 译者：
-> * 校对者：
+> * 译者：[zhmhhu](https://github.com/zhmhhu)
 
-# WOFF File Format 1.0
+# WOFF文件格式 1.0
 
-## W3C Recommendation 13 December 2012
+## W3C 2012 年 12 月 13 日推荐
 
-This version: [http://www.w3.org/TR/2012/REC-WOFF-20121213/](http://www.w3.org/TR/2012/REC-WOFF-20121213/)
+这一版本：[http://www.w3.org/TR/2012/REC-WOFF-20121213/](http://www.w3.org/TR/2012/REC-WOFF-20121213/)
 
-Latest version: [http://www.w3.org/TR/WOFF/](http://www.w3.org/TR/WOFF/)
+最新版本：[http://www.w3.org/TR/WOFF/](http://www.w3.org/TR/WOFF/)
 
-Previous version: [http://www.w3.org/TR/2012/PR-WOFF-20121011/](http://www.w3.org/TR/2012/PR-WOFF-20121011/)
+上一版本：[http://www.w3.org/TR/2012/PR-WOFF-20121011/](http://www.w3.org/TR/2012/PR-WOFF-20121011/)
 
-Authors: Jonathan Kew (Mozilla Corporation), Tal Leming (Type Supply), Erik van Blokland (LettError)
+作者：Jonathan Kew (Mozilla Corporation), Tal Leming (Type Supply), Erik van Blokland (LettError)
 
-Please refer to the [**errata**](http://www.w3.org/Fonts/REC-WOFF-20121213-errata.html) for this document, which may include some normative corrections.
+请参阅本文档的[勘误表](http://www.w3.org/Fonts/REC-WOFF-20121213-errata.html)，其中可能包含一些规范性更正。
 
-See also [**translations**](http://www.w3.org/2003/03/Translations/byTechnology?technology=WOFF).
+也可查看 [**translations**](http://www.w3.org/2003/03/Translations/byTechnology?technology=WOFF)。
 
-[Copyright](http://www.w3.org/Consortium/Legal/ipr-notice#Copyright) © 2012 [W3C](http://www.w3.org/)® ([MIT](http://www.csail.mit.edu/), [ERCIM](http://www.ercim.eu/), [Keio](http://www.keio.ac.jp/)), All Rights Reserved. W3C [liability](http://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer), [trademark](http://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks) and [document use](http://www.w3.org/Consortium/Legal/copyright-documents) rules apply.
+[Copyright](http://www.w3.org/Consortium/Legal/ipr-notice#Copyright) © 2012 [W3C](http://www.w3.org/)® ([MIT](http://www.csail.mit.edu/), [ERCIM](http://www.ercim.eu/), [Keio](http://www.keio.ac.jp/))，版权所有。W3C [liability](http://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer)、 [trademark](http://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks) 和 [document use](http://www.w3.org/Consortium/Legal/copyright-documents) 规则适用。
 
 * * *
 
-## Abstract
+## 摘要
 
-This document specifies the WOFF font packaging format. This format was designed to provide lightweight, easy-to-implement compression of font data, suitable for use with CSS @font-face rules. Any properly licensed TrueType/OpenType/Open Font Format file can be packaged in WOFF format for Web use. User agents decode the WOFF file to restore the font data such that it will display identically to the input font.
+本文档指定了 WOFF 字体的打包格式。这种格式旨在提供轻量级的、易于实现的字体数据压缩，适用于 CSS @ font-face 规则。任何获得许可的 TrueType/OpenType/Open 字体格式文件都可以打包成 WOFF 格式以在 Web 上使用。用户代理解码 WOFF 文件以恢复字体数据，使其显示时与输入的字体相同。
 
-The WOFF format also allows additional metadata to be attached to the file; this can be used by font designers or vendors to include licensing or other information, beyond that present in the original font. Such metadata does not affect the rendering of the font in any way, but may be displayed to the user on request.
+WOFF 格式还允许附加元数据到相关文件；字体设计人员或供应商可以使用此字体来包含许可或者其他信息，而不是原始字体中的信息。这样的元数据不会以任何方式影响字体的呈现，但可以根据需要向用户显示。
 
-The WOFF format is not intended to replace other formats such as TrueType/OpenType/Open Font Format or SVG fonts, but provides an alternative solution for use cases where these formats may be less optimal, or where licensing considerations make their use less acceptable.
+WOFF 格式并不准备取代其他格式，例如 TrueType/OpenType/Open Font Format 或 SVG 字体，但为使用这些格式可能不太理想的情况下提供了一种替代方案，或者为因许可方面的原因导致使用不太合适的情况下提供了替代方案。
 
-## Status of This Document
+## 本文档的状态
 
-This section describes the status of this document at the time of its publication. Other documents may supersede this document. A list of current W3C publications and the latest revision of this technical report can be found in the [W3C technical reports index](http://www.w3.org/TR/) at http://www.w3.org/TR/.
+本节介绍本文件发布时的状态。其他文件可能会取代本文件。当前的 W3C 出版物清单和此技术报告的最新版本可以在[W3C技术报告索引](http://www.w3.org/TR/) http://www.w3.org/TR/ 中找到。
 
-This is the W3C Recommendation of "WOFF File Format 1.0". This document has been reviewed by W3C Members, by software developers, and by other W3C groups and interested parties, and is endorsed by the Director as a W3C Recommendation. It is a stable document and may be used as reference material or cited from another document. W3C's role in making the Recommendation is to draw attention to the specification and to promote its widespread deployment. This enhances the functionality and interoperability of the Web.
+这是“ WOFF 文件格式1.0 ”的 W3C 推荐标准。本文档已由 W3C 会员，软件开发人员以及其他 W3C 团体和有关各方进行了审核，并由署长确认为 W3C 的推荐标准。它是一个稳定的文件，可以用作参考资料或由其他文件引用。W3C 在制定建议书时的角色是引起对规范的关注并促进其广泛部署。这增强了 Web 的功能和互操作性。W3C 在制定推荐标准时的角色是引起对规范的关注并促进其广泛部署。这增强了 Web 的功能性和互操作性。
 
-Please send comments about this document to [www-font@w3.org](mailto:www-font@w3.org) (with [public archive](http://lists.w3.org/Archives/Public/www-font/)).
+请将有关本文档的意见发送至[www-font@w3.org](mailto:www-font@w3.org)（在[public archive](http://lists.w3.org/Archives/Public/www-font/)可查看）。
 
-This specification has been edited, relative to the [11 October 2011 Proposed Recommendation](http://www.w3.org/TR/2012/PR-WOFF-20121011/), to incorporate minor changes to the Internet Media Type registration, as a result of IANA expert review. There is a [changes appendix](#changes) describing the changes made.
+相对于[2011年10月11日提议的推荐标准](http://www.w3.org/TR/2012/PR-WOFF-20121011/)，本规范已经进行了编辑，纳入了对互联网媒体类型注册的微小更改,这是 IANA 专家审核的结果。[更改附录](#changes)描述了所做的更改。
 
-The CR exit criteria were:
+CR退出标准是：
 
-1.  Sufficient reports of implementation experience have been gathered to demonstrate that the “WOFF File Format 1.0” syntax and features are implementable and are interpreted in a consistent manner. To do so, the Working Group would insure that all features have been implemented in at least two implementation in an interoperable way.
-2.  The implementations have been developed independently.
+1. 已经收集了足够的实施经验报告来证明“ WOFF文件格式 1.0 ”的语法和特征是可实施的并且以一致的方式解释。为此，工作组将确保所有功能都至少以两种实现方式以可互操作的方式实施。
 
-The Working Group has developed public test suites as follows:
+2. 这些实现是独立开发的。
 
-*   [User Agent tests](http://dev.w3.org/webfonts/WOFF/tests/UserAgent/Tests/xhtml1/testcaseindex.xht)
+工作组制定了如下公共测试程序组：
+
+*  [用户代理测试](http://dev.w3.org/webfonts/WOFF/tests/UserAgent/Tests/xhtml1/testcaseindex.xht)
+
+*  [创作工具测试](http://dev.w3.org/webfonts/WOFF/tests/AuthoringTool/Tests/xhtml1/testcaseindex.xht)
+
+*  测试[文件格式本身](http://dev.w3.org/webfonts/WOFF/tests/Format/Tests/xhtml1/testcaseindex.xht)的数据
     
-*   [Authoring Tool tests](http://dev.w3.org/webfonts/WOFF/tests/AuthoringTool/Tests/xhtml1/testcaseindex.xht)
-    
-*   Test data for [the file format itself](http://dev.w3.org/webfonts/WOFF/tests/Format/Tests/xhtml1/testcaseindex.xht)
-    
 
-A [WOFF validator](http://dev.w3.org/webfonts/WOFF/tools/validator/) was developed, to make all the file format checks indicated in the specification. The validator passes 100% of these tests. The new W3C Test Harness was used to deploy the tests: [Authoring Tools test harness](http://www.w3c-test.org/framework/suite/woff-at/) and [User Agent test harness](http://www.w3c-test.org/framework/suite/woff-ua/).
+开发了一个[ WOFF 验证器](http://dev.w3.org/webfonts/WOFF/tools/validator/)，以进行规范中指明的所有文件格式的检查。验证器通过了 100% 的测试。新的 W3C 测试工具用于部署以下测试：[创作工具测试工具](http://www.w3c-test.org/framework/suite/woff-at/)和[用户代理测试工具](http://www.w3c-test.org/framework/suite/woff-ua/)。
 
-The [User Agents implementation report](http://w3c-test.org/framework/review/woff-ua/) and [Authoring Tools implementation report](http://w3c-test.org/framework/review/woff-at/) are available.
+[用户代理实施报告](http://w3c-test.org/framework/review/woff-ua/)和[创作工具实施报告](http://w3c-test.org/framework/review/woff-at/)是可用的。
 
-This document was initially developed by contributors to the [www-font@w3.org](mailto:www-font@w3.org) mailing list. After trial implementation, it became the [WOFF Submission](http://www.w3.org/Submission/2010/SUBM-WOFF-20100408/) and was further developed by the [WebFonts Working Group](http://www.w3.org/Fonts/WG/) at W3C.
+本文档最初由[www-font@w3.org](mailto:www-font@w3.org) 邮件列表的贡献者撰写。试用后，它成为 [WOFF 提交](http://www.w3.org/Submission/2010/SUBM-WOFF-20100408/)的内容，并由W3C的 [WebFonts工作组](http://www.w3.org/Fonts/WG/)进一步开发。
 
-This document was produced by a group operating under the [5 February 2004 W3C Patent Policy](http://www.w3.org/Consortium/Patent-Policy-20040205/). W3C maintains a [public list of any patent disclosures](http://www.w3.org/2004/01/pp-impl/44556/status) made in connection with the deliverables of the group; that page also includes instructions for disclosing a patent. An individual who has actual knowledge of a patent which the individual believes contains [Essential Claim(s)](http://www.w3.org/Consortium/Patent-Policy-20040205/#def-essential) must disclose the information in accordance with [section 6 of the W3C Patent Policy](http://www.w3.org/Consortium/Patent-Policy-20040205/#sec-Disclosure).
+本文档由 [2004 年 2 月 5 日 W3C 专利政策](http://www.w3.org/Consortium/Patent-Policy-20040205/)下运营的小组编制。W3C保留与工作组交付内容有关的[任何专利公开清单](http://www.w3.org/2004/01/pp-impl/44556/status)；该页面还包括披露专利的说明。具有专利实际知识的个人认为其包含[基本要求](http://www.w3.org/Consortium/Patent-Policy-20040205/#def-essential) ，必须根据 [W3C 专利政策第 6 部分](http://www.w3.org/Consortium/Patent-Policy-20040205/#sec-Disclosure)披露信息。
 
-## 1. Introduction
+## 1.简介
 
-This document specifies a simple compressed file format for fonts, designed primarily for use on the Web and known as WOFF (Web Open Font Format). Despite this name, WOFF should be regarded as a container format or "wrapper" for font data in already-existing formats rather than an actual font format in its own right.
+本文档为字体指定了一种简单的压缩文件格式，主要用在 Web 上并称为 WOFF（Web Open Font Format）。尽管它有这个名字，WOFF 应该被认为是一种容器格式，或者是已经存在的格式的字体数据的“包装”，而不是真正的字体格式。
 
-The WOFF format is a container for the table-based sfnt structure used in e.g. TrueType [[TrueType](#ref-TT)], OpenType [[OpenType](#ref-OT)] and Open Font Format [[OFF](#ref-OFF)] fonts, hereafter referred to as sfnt fonts. A WOFF file is simply a repackaged version of a sfnt font with optional compression of the font data tables. The WOFF file format also allows font metadata and private-use data to be included separately from the font data. WOFF encoding tools convert an input sfnt font into a WOFF formatted file, and user agents restore the sfnt font data for use with a Web document.
+WOFF 格式是一个容器，用于 比如 TrueType [[TrueType](#ref-TT)]，OpenType [[OpenType](#ref-OT)]和 Open Font Format[[OFF](#ref-OFF)] 字体等基于表的 sfnt 结构中， 以下简称 sfnt 字体。WOFF 文件仅仅是一个 sfnt 字体的重新包装版本，提供可选压缩字体数据表。WOFF 文件格式还允许将字体元数据和专用数据与字体数据分别包含。WOFF 编码工具将输入的 sfnt 字体转换为 WOFF 格式的文件，并且用户代理还原 sfnt 字体数据以用于 Web 文档。
 
-The structure and contents of decoded font data exactly match those of a well-formed input font file. Tools producing WOFF files may provide other font editing features such as glyph subsetting, validation or font feature additions but these are considered outside the scope of this format. Independent of these features, both tools and user agents are expected to assure that the validity of the underlying font data is preserved.
+解码的字体数据的结构和内容与格式正确的输入字体文件完全匹配。生成 WOFF 文件的工具可能会提供其他字体编辑功能，例如字形子集，验证或字体功能添加，但这些被认为不在此格式的范围之内。独立于这些特征，工具和用户代理都希望能够保证底层字体数据的有效性。
 
-### Notational Conventions
+### 符号规定
 
-The all-uppercase key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 [[RFC-2119](#ref-RFC-2119)]. If these words occur in lower- or mixed case, they should be interpreted in accordance with their normal English meaning.
+"MUST"、 "MUST NOT"、 "REQUIRED"、 "SHALL"、 "SHALL NOT"、 "SHOULD"、 "SHOULD NOT"、 "RECOMMENDED"、 "MAY"、和 "OPTIONAL" 中的全部大写关键字，本文档将按照 RFC 2119 [[RFC-2119](#ref-RFC-2119)] 中的描述进行解释。如果这些词出现在较低或混合的情况下，则应按照其正常的英语含义进行解释。
 
-This document includes sections of text that are called out as "Notes" and set off from the main text of the specification. These notes are intended as informative explanations or clarifications, to serve as hints or guides to implementers and users, but are not part of the normative text.
+本文件包括以“注释”形式出现并从规范的正文引出的文本。这些注释的目的是作为某些信息的解释或澄清某些内容，它们是制定人和用户的提示或指导，但不属于规范性文本的一部分。
 
-## 2. General Requirements
+## 2. 一般要求
 
-The primary purpose of the WOFF format is to package fonts linked to Web documents by means of CSS @font-face rules. User agents supporting the WOFF file format for linked fonts must respect the requirements of the CSS3 Fonts specification ([[CSS3-Fonts](#ref-CSS3-Fonts)] [Section 4.1: The @font-face rule](http://www.w3.org/TR/css3-fonts/#font-face-rule)). In particular, such linked fonts are only available to the documents that reference them; they MUST NOT be made available to other applications or documents on the user's system.
+WOFF 格式的主要目的是通过 CSS @ font-face 规则打包并链接到 Web文档。支持 WOFF 文件格式的链接字体的用户代理必须遵守 CSS3 字体规范（[[CSS3-Fonts](#ref-CSS3-Fonts)] [第 4.1 节：@ font-face 规则](http://www.w3.org/TR/css3-fonts/#font-face-rule)）的要求。特别是，这种链接的字体只适用于引用它们的文档；它们不能被用户系统上的其他应用程序或文档使用。
 
-The WOFF format is intended for use with @font-face to provide fonts linked to specific Web documents. Therefore, WOFF files must not be treated as an installable font format in desktop operating systems or similar environments. The WOFF-packaged data will typically be decoded to sfnt format for use by existing font-rendering APIs that expect OpenType font data, but such decoded font must not be exposed to other documents or applications.
+WOFF 格式旨在与 @ font-face 一起使用，以提供链接字体到特定的 Web 文档。因此，在桌面操作系统或类似的环境中，不得将 WOFF 文件视为可安装的字体格式。WOFF 封装的数据通常会被解码为 sfnt 格式，以供预期使用 OpenType 字体数据的字体渲染 API 使用，但此类解码字体不得暴露给其他文档或应用程序。
 
-## 3. Overall File Structure
+## 3. 整体文件结构
 
-The structure of WOFF files is similar to the structure of sfnt fonts: a table directory containing lengths and offsets to individual font data tables, followed by the data tables themselves. The sfnt structure is described fully in the TrueType [[TrueType](#ref-TT)], OpenType [[OpenType](#ref-OT)] and Open Font Format [[OFF](#ref-OFF)] specifications.
+WOFF 文件的结构类似于 sfnt 字体的结构：一个表索引（包含单个字体数据表的长度和偏移量），其后是数据表本身。sfnt 结构在 TrueType [[TrueType](#ref-TT)]、OpenType [[OpenType](#ref-OT)] 和 Open Font Format [[OFF](#ref-OFF)] 规范中有详细描述。
 
-The main body of the file consists of the same collection of font data tables as the input sfnt font, stored in the same order, except that each table MAY be compressed, and the sfnt table directory is replaced by the WOFF table directory.
+文件的主体由与输入 sfnt 字体相同的字体数据表集合组成，按照相同的顺序存储，此外，每个表可以被压缩，并且 sfnt 表索引被 WOFF 表索引替换。
 
-The WOFF specification does not guarantee that the actual font data packaged in a valid WOFF container is in fact correct and usable. It requires only that the WOFF packaging structure—header, table directory, and compressed tables—conforms to this specification. The contained data must be used with just as much caution as font data delivered in "raw" form or via any other packaging method.
+WOFF 规范并不保证包装在有效的 WOFF 容器中的实际字体数据是正确和可用的。它仅需要 WOFF 的包装结构 —— 标题、表索引和压缩表 —— 符合此规范。包含的数据必须与以“原始”形式或通过任何其他打包方式传输的字体数据一样谨慎使用。
 
-A complete WOFF file consists of several blocks: a 44-byte header, immediately followed (in this order) by a variable-size table directory, a variable number of font tables, an optional block of extended metadata, and an optional block of private data. Except for padding with a maximum of three null bytes in places where 4-byte alignment of a table length or block offset is specified, there MUST NOT be any extraneous data between the data blocks or font data tables indicated by the WOFF header and table directory, or beyond the last such block or table. If such extraneous data is present a conforming user agent MUST reject the file as invalid. The file MUST also be rejected as invalid if the offsets and lengths of any data blocks or font tables indicate overlapping byte ranges of the file, or ranges that would extend beyond the end of the file.
+一个完整的 WOFF 文件由这几部分组成：一个 44 字节的头，紧跟着（按此顺序）的是一个可变大小的表索引，一个可变数量的字体表，一个可选的扩展元数据块和一个可选的专有块数据。除了在指定表长度或块偏移的4字节对齐的地方填充最多三个空字节外，WOFF 标题和表索引所指示的数据块或字体数据表之间**不得**存在任何无关数据，或超出最后一个如上所述的块或表。如果存在这样的无关数据，则符合规范的用户代理必须视该文件为无效并拒绝。如果任何数据块或字体表的偏移量和长度表明文件的重叠字节范围或文件的扩展范围超出文件末尾，则该文件也必须被视为无效并拒绝。
 
-**WOFF File**
+**WOFF 文件**
 
-WOFFHeader: File header with basic font type and version, along with offsets to metadata and private data blocks.
+WOFFHeader（WOFF 头）:包含基本字体类型和版本的文件头，以及元数据和专有数据块的偏移量。
 
-TableDirectory: Directory of font tables, indicating the original size, compressed size and location of each table within the WOFF file.
+TableDirectory（表索引）：字体表的索引，指示 WOFF 文件内每个表的原始大小，压缩大小和位置。
 
-FontTables: The font data tables from the input sfnt font, compressed to reduce bandwidth requirements.
+FontTables（字体表）：来自输入 sfnt 字体的字体数据表，经过压缩以减少带宽需求。
 
-ExtendedMetadata: An optional block of extended metadata, represented in XML format and compressed for storage in the WOFF file.
+ExtendedMetadata（扩展元数据）：扩展元数据的可选块，以XML格式表示并被压缩以便存储在 WOFF 文件中。
 
-PrivateData: An optional block of private data for the font designer, foundry, or vendor to use.
+PrivateData（专有数据）：可供字体设计师，机构或供应商使用的可选的专有数据块。
 
-Data values stored in the WOFF Header and WOFF Table Directory sections are stored in big-endian format, just as values are within sfnt fonts. The following basic data types are used in the description:
+存储在 WOFF Header 和 WOFF Table Directory 部分中的数据值以 big-endian （大端格式）格式存储，就像 sfnt 字体中的值一样。以下基本数据类型使用如下描述：
 
-**Data types**
+**数据类型**
 
-UInt32: 32-bit (4-byte) unsigned integer in big-endian format
+UInt32：32位（4字节）大端格式的无符号整数
 
-UInt16: 16-bit (2-byte) unsigned integer in big-endian format
+UInt16：16位（2字节）大端格式的无符号整数
 
-All sizes and offsets described in this document are assumed to be in bytes unless otherwise noted.
+除非另有说明，否则本文档中描述的所有大小和偏移量均以字节为单位。
 
-## 4. WOFF Header
+## 4. WOFF 头
 
-The header includes an identifying signature and indicates the specific kind of font data included in the file (TrueType or CFF outline data); it also has a font version number, offsets to additional data chunks, and the number of entries in the table directory that immediately follows the header:
+标题包含识别签名，并指示文件中包含的特定种类的字体数据（TrueType 或 CFF 轮廓数据）；它还有一个字体版本号，补充数据块的偏移量以及紧跟在标题后面的表索引中的条目数量：
 
-**WOFFHeader**
+**WOFF 头**
 
-UInt32: signature  0x774F4646 `'wOFF'`
+UInt32：signature  0x774F4646 `'wOFF'`
 
-UInt32: flavor  The "sfnt version" of the input font.
+UInt32：flavor  输入字体的“ SFNT 版本”
 
-UInt32: length  Total size of the WOFF file.
+UInt32：length  WOFF文件的总大小。
 
-UInt16: numTables  Number of entries in directory of font tables.
+UInt16：numTables 字体表索引中的条目数。
 
-UInt16: reserved Reserved;  set to zero.
+UInt16：reserved 保留；设置为零。
 
-UInt32: totalSfntSize  Total size needed for the uncompressed font data, including the sfnt header, directory, and font tables (including padding).
+UInt32：totalSfntSize  未压缩字体数据所需的总大小，包括 sfnt 头，索引和字体表（包括填充）。
 
-UInt16: majorVersion  Major version of the WOFF file.
+UInt16：majorVersion WOFF文件的主要版本。
 
-UInt16: minorVersion  Minor version of the WOFF file.
+UInt16：minorVersion WOFF文件的次要版本。
 
-UInt32: metaOffset  Offset to metadata block, from beginning of WOFF file.
+UInt32：metaOffset 从WOFF文件开始到元数据块的偏移量。
 
-UInt32: metaLength  Length of compressed metadata block.
+UInt32：metaLength 压缩元数据块的长度。
 
-UInt32: metaOrigLength  Uncompressed size of metadata block.
+UInt32：metaOrigLength 元数据块的未压缩长度。
 
-UInt32: privOffset  Offset to private data block, from beginning of WOFF file.
+UInt32：privOffset 从WOFF文件开始到专有数据块的偏移量。
 
-UInt32: privLength  Length of private data block.
+UInt32：privLength 专有数据块的长度。
 
-The `signature` field in the WOFF header MUST contain the "magic number" 0x774F4646. If the field does not contain this value, user agents MUST reject the file as invalid.
+WOFF头中的 `signature` 字段必须包含“幻数” 0x774F4646。如果该字段不包含此值，则用户代理必须拒绝该文件为无效。
 
-The `flavor` field corresponds to the "sfnt version" field found at the beginning of an sfnt file, indicating the type of font data contained. Although only fonts of type 0x00010000 (the version number 1.0 as a 16.16 fixed-point value, indicating TrueType glyph data) and 0x4F54544F (the tag `'OTTO'`, indicating CFF glyph data) are widely supported at present, it is not an error in the WOFF file if the `flavor` field contains a different value, indicating a WOFF-packaged version of a different sfnt flavor. (The value 0x74727565 `'true'` has been used for some TrueType-flavored fonts on Mac OS, for example.) Whether client software will actually support other types of sfnt font data is outside the scope of the WOFF specification, which simply describes how the sfnt is repackaged for Web use.
+'flavor' 字段对应于在 sfnt 文件开始处找到的 “sfnt version”字段，表示包含的字体数据的类型。虽然目前仅支持类型 0x00010000（版本号 1.0 作为16.16定点值，表示 TrueType 字形数据）和 0x4F54544F（表示 CFF 字形数据的标签“OTTO”）的字体，但是如果 `flavor` 字段包含不同的值(（表示不同 sfnt flavor 的 WOFF打包版本），那么在 WOFF 文件也不会出错。（例如，值 0x74727565 `true`已被用于 Mac OS上的某些 TrueType-flavored 字体）。客户端软件是否实际上支持其他类型的 sfnt 字体数据不在 WOFF 规范的范围之内，该规范仅描述 sfnt 如何重新打包以供 Web 使用。
 
-The WOFF `majorVersion` and `minorVersion` fields specify the version number for a given WOFF file, which can be based on the version number of the input font but is not required to be. These fields have no effect on font loading or usage behavior in user agents.
+WOFF 的 “majorVersion” 和 “minorVersion” 字段表示给定的 WOFF 文件的版本号，该版本号可以基于输入字体的版本号，但不是必需的。这些字段对用户代理中的字体加载或使用行为没有影响。
 
-The `totalSfntSize` field is the sum of the uncompressed font table sizes, each padded to a multiple of 4 bytes, plus the size of the sfnt header and table directory. Thus, this is the size of buffer needed to decode the complete WOFF-packaged font (but not metadata, which is not part of the input sfnt file) into a standard sfnt structure. This value MUST be a multiple of 4, because all font tables including the last are to be padded to a 4-byte boundary. If this value is incorrect, a conforming user agent MUST reject the file as invalid.
+`totalSfntSize` 字段是未压缩字体表大小的总和，每个大小填充4个字节的倍数，再加上 sfnt 头和表索引的大小。因此，这是将完整的 WOFF 打包字体（而不是元数据，不是输入 sfnt 文件的一部分）解码为标准 sfnt 结构所需的缓冲区大小。这个值必须是4的倍数，因为包括最后一个的所有字体表都被填充到一个4字节的边界内。如果此值不正确，则符合规范的用户代理必须视该文件为无效并拒绝。
 
-The sfnt header includes three fields (`searchRange`, `entrySelector` and `rangeShift`) that are designed to facilitate a binary search of the table directory. As the proper value for each of these fields can be computed directly from the number of font tables, they are not stored in the WOFF file. User agents that decode WOFF files back to an sfnt structure MUST therefore compute the correct values for these fields in the sfnt header, as described in the OpenType/OFF specification.[[OFF](#ref-OFF)]
+sfnt头文件包含三个字段（`searchRange`，`entrySelector` 和 `rangeShift`），用于简化表索引的二进制搜索。由于每个字段的正确值可以直接从字体表中计算出来，因此它们不会存储在 WOFF 文件中。因此，将 WOFF 文件解码为 sfnt 结构的用户代理必须按照 OpenType / OFF 规范中的描述，计算 sfnt 头中这些字段的正确值。[[OFF]（#ref-OFF)]
 
-Note: The correct value for `totalSfntSize` may be computed as illustrated by the following pseudo-code:
+注意：`totalSfntSize`的正确值可以用如下所示的伪代码进行计算：
 
 ```
 totalSfntSize = 12 // size of sfnt header ("offset table" in the OpenType spec)
@@ -168,366 +168,365 @@ for each table:
     totalSfntSize += (table.origLength + 3) & 0xFFFFFFFC // table size, padded
 ```
 
-If either or both of the metadata or private blocks is not present, the relevant offset and length fields MUST be set to zero. If the metadata or private data offset and length fields indicate byte ranges that overlap other data blocks or tables, or extend beyond the end of the file, a conforming user agent MUST reject the file as invalid.
+如果元数据或私有块中的任何一个或两个都不存在，相关的偏移和长度字段**务必**设置为零。如果元数据或专有数据的偏移量和长度字段表示与其他数据块或表重叠，或者超出文件末尾的字节范围，则符合规范的用户代理必须视该文件为无效并拒绝。
 
-The header includes a `reserved` field; this MUST be set to zero. If this field is non-zero, a conforming user agent MUST reject the file as invalid.
+标题包含一个 `reserved` 字段；这个必须设置为零。如果该字段不为零，则符合规范的用户代理必须视该文件为无效并拒绝。
 
-## 5. Table Directory
+## 5. 表索引
 
-The table directory is an array of WOFF table directory entries, as defined below. The directory follows immediately after the WOFF file header; therefore, there is no explicit offset in the header pointing to this block. Its size is calculated by multiplying the `numTables` value in the WOFF header times the size of a single WOFF table directory. Each table directory entry specifies the size and location of a single font data table.
+表索引是一个关于 WOFF 表索引条目的数组，如下定义。该索引紧跟在 WOFF 文件头的后面；因此，在头中没有明确指向该块的偏移量。其大小是通过将 WOFF 文件头中的 numTables 值乘以单个 WOFF 表索引的大小来计算的。每个表索引指定单个字体数据表的大小和位置。
 
-**WOFF TableDirectoryEntry**
+**WOFF TableDirectoryEntry（表索引条目）**
 
-UInt32: tag  4-byte sfnt table identifier.
+UInt32：tag 4 字节的 sfnt 表标识符。
 
-UInt32: offset  Offset to the data, from beginning of WOFF file.
+UInt32：offset 从WOFF文件开始到数据的偏移量。
 
-UInt32: compLength  Length of the compressed data, excluding padding.
+UInt32：compLength 压缩数据的长度，不包括填充。
 
-UInt32: origLength  Length of the uncompressed table, excluding padding.
+UInt32：origLength 未压缩的表的长度，不包括填充。
 
-UInt32: origChecksum  Checksum of the uncompressed table.
+UInt32：origChecksum 未压缩表的校验和。
 
-The format of `tag` values are defined by the specifications for sfnt fonts. The `offset` and `compLength` fields identify the location of the compressed font table. The `origLength` and `origCheckSum` fields are the length and checksum of the input font table from the table directory of the input font.
+`tag` 值的格式由 sfnt 字体的规格定义。`offset` 和 `compLength` 字段标识压缩字体表的位置。`origLength` 和 `origCheckSum` 字段是输入字体表索引中输入字体表的长度和校验和。
 
-The sfnt format specifications require that font tables be aligned on 4-byte boundaries. Font tables whose length is not a multiple of 4 are padded with null bytes up to the next 4-byte boundary. Font data tables in the WOFF file have the same requirement: they MUST begin on 4-byte boundaries and be zero-padded to the next 4-byte boundary. The `compLength` and `origLength` fields in the table directory store the exact, unpadded length.
+sfnt 格式规范要求字体表以4字节边界对齐。长度不是4的倍数的字体表填充空字节，直到下一个4字节边界。WOFF 文件中的字体数据表具有相同的要求：它们**必须**从4字节边界开始，并填充到下一个4字节边界。表目录中的 `compLength` 和 `origLength` 字段存储确切的、未填充的长度。
 
-If the `offset` and `compLength` values indicate a byte range that overlaps other data blocks or font tables, or if the byte range extends beyond the end of the file, a conforming user agent MUST reject the file as invalid.
+如果`offset` 和 `compLength` 值指示的字节范围与其他数据块或字体表重叠，或者如果字节范围超出文件末尾，则符合规范的用户代理必须视该文件为无效并拒绝。
 
-If the length of a compressed font table would be the same as or greater than the length of the input font table, the font table MUST be stored uncompressed in the WOFF file and the `compLength` set equal to the `origLength`. Tools MAY also opt to leave other tables uncompressed (e.g. all tables less than a certain size), in which case `compLength` will be equal to `origLength` for these tables as well. WOFF files containing table directory entries for which `compLength` is greater than `origLength` are considered invalid and MUST NOT be loaded by user agents. Files containing compressed font tables that decompress to a size other than `origLength` are also considered invalid and MUST NOT be loaded.
+如果压缩字体表的长度等于或大于输入字体表的长度，则字体表**必须**未压缩存储在 WOFF 文件中，并将 `compLength` 设置为等于 `origLength`。工具也**可以**选择不压缩其他表（例如，所有小于特定大小的表），在这种情况下，`compLength` 将等于这些表的 `origLength`。包含 `compLength` 大于 `origLength` 的表索引条目的 WOFF 文件被认为是无效的，并且**不能**由用户代理加载。包含压缩字体表的文件解压缩后的大小不等于 `origLength` 也被认为是无效的，并且**不能**被加载。
 
-The sfnt font specifications require that table directory entries are sorted in ascending order of `tag` value. To simplify processing, WOFF-producing tools MUST produce a table directory with entries in ascending `tag` value order. User agents MUST likewise assure that the sfnt table directory is recreated in ascending `tag` order when restoring the font data to its uncompressed state. The ordering of the font tables themselves is independent of the order of directory entries, as described below.
+sfnt 字体规范要求表目录条目按 `tag` 值的升序进行排序。为了简化处理，WOFF 生成工具必须生成一个表索引，其中的条目按照 `tag` 值升序排列。用户代理必须同样确保在将字体数据恢复到其未压缩状态时，sfnt 表索引按照升序`tag`顺序重新创建。字体表本身的排序与索引条目的顺序无关，如下所述。
 
-sfnt fonts store a checksum for each table in the table directory, and an overall checksum for the entire font in the `head` table (see the TrueType, OpenType or Open Font Format specifications for the definition of each calculation). Tools producing WOFF files MUST validate these checksums, and reject the font if errors are found.
+sfnt 字体为表索引中的每个表存储校验和，以及为在 `head` 表中整个字体存储总体校验和（关于每个计算的定义，请参见 TrueType、OpenType 或 Open Font 格式规范）。生成 WOFF 文件的工具必须验证这些校验和，并在发现错误时拒绝该字体。
 
-A WOFF file contains the same set of font tables as the input font from which it was created. This means that the overall font checksum of a font decompressed from a conformant WOFF file will always match the checksum in the well-formed input font. In the case where the input font included unreferenced data between or after the actual tables, this would affect the overall checksum of the input font, but would be dropped during creation of the WOFF file.
+WOFF 文件包含一组与创建它的输入字体相同的字体表。这意味着，从符合规范的 WOFF 文件解压缩字体的总体字体校验和将始终与格式正确的输入字体中的校验和相匹配。在输入字体包含未引用数据（这些未引用数据在实际表之间或之后）的情况下，这会影响输入字体的总体校验和，但在创建 WOFF 文件时会丢失。
 
-A well-formed input font does not have structural anomalies such as incorrect padding, overlapping font tables, extraneous data between tables (which will be discarded by the WOFF generator), or incorrect checksums.
+格式正确的输入字体没有结构异常，比如填充不正确，字体表重叠，表（将由WOFF生成器丢弃）之间的外部数据或校验和不正确。
 
-To ensure that lossless round-trip conversion from sfnt to WOFF and back will be possible, a well-formed input font should conform to certain norms that are not strictly required by the OpenType/OFF specification, although they are common practice:
+一个格式良好的输入字体应符合 OpenType/OFF 规范中并不严格要求的某些规范，以确保从 sfnt 到 WOFF 和 back 的无损往返转换是可能的，尽管它们是常用的做法：
 
-**Font table padding**
+**字体表填充**
 
-The OpenType/OFF specification is not entirely clear about whether _all_ tables in an sfnt font must be padded with 0-3 zero bytes to a multiple of 4 bytes in length, or whether this applies only _between_ tables, and the final table of the file may be left unpadded. Most current tools and fonts seem to expect all tables to be padded to a 4-byte boundary, including the last. The WOFF specification assumes this behavior, and specifies that the `totalSfntLength` field in the WOFF header provides for such padding. To ensure that a given font can be packaged as a WOFF file and then decoded to its original format and give a byte-for-byte identical result, the input font should therefore be padded to a multiple of 4 bytes in length.
+OpenType/OFF 规范并不完全清楚 sfnt 字体中的 **所有** 表是否必须用 0-3 个零字节填充到4字节长度的倍数，或者这仅适用于**中间**表，或者文件的最终表可能并不需要填充。大多数常用工具和字体似乎都希望所有的表都被填充到一个4字节的边界，包括最后一个。WOFF 规范假定了这种行为，并指定 WOFF 头中的`totalSfntLength` 字段提供了这种填充。为了确保给定的字体可以打包成 WOFF 文件，然后解码为原始格式，并给出一个字节一个字节的相同结果，输入字体应该被填充为4个字节的倍数。
 
-**No "hidden" data**
+**无"隐藏"数据**
 
-The OpenType/OFF specification does not explicitly prohibit the presence of "extra" data or padding in between the font tables; as the table directory includes the offset and length of each actual table, such data would simply be ignored. However, the WOFF format makes no provision to preserve such non-font-table data when packaging a font, and therefore it would not survive a round-trip format conversion.
+OpenType/OFF 规范没有明确禁止在字体表之间存在“额外”的数据或填充；由于表索引包含每个实际表的偏移量和长度，这些数据将被忽略。然而，在打包字体时，WOFF格式没有规定保留这种非字体表数据，因此在格式互相转换时它不会被保留。
 
-**Header fields are correct**
+**Header 字段是正确的**
 
-The OpenType/OFF header fields (`searchRange`, `entrySelector`, `rangeShift`) that are designed to facilitate a binary search of the table directory must be correct in the input sfnt file, as the WOFF format does not directly preserve these fields but assumes a WOFF decoder will recompute them as needed.
+因为 WOFF 格式不直接保存这些字段，所以设计用于提高表索引的二进制搜索的 OpenType/OFF header 字段（`searchRange`、`entrySelector`、`rangeShift`）必须在输入 sfnt 文件中是正确的，但假设 WOFF 解码器将根据需要重新计算它们。
 
-**Checksums are correct**
+**Checksums （校验和）是正确的**
 
-The WOFF specification says that table checksums must be validated (and corrected if necessary) by WOFF creators. In order for complete round-trip fidelity, therefore, the checksums in the input sfnt file must also be correct prior to WOFF packaging.
+WOFF 规范规定，表的 checksums 必须由 WOFF 创建者验证（并在必要时进行更正）。因此，为了实现完整的往返保真度，输入 sfnt 文件中的 checksums 在 WOFF 封装之前也必须是正确的。
 
-**No overlapping tables**
+**无重叠表**
 
-The offset and length values in the input sfnt table directory must not indicate overlapping byte ranges of the input font.
+输入sfnt表索引中的偏移量和长度值不能指示输入字体的重叠字节范围。
 
-The result of creating a WOFF file and then decoding this to regenerate an sfnt font MUST result in a final font that is bitwise-identical to the well-formed input font.. If the input font has defects or anomalies that make this impossible, the WOFF-generating tool SHOULD either reject the font or issue an appropriate warning that lossless round-trip conversion will not be possible.
+创建一个 WOFF 文件然后解码这个文件以重新生成一个 sfnt 字体的结果必须产生一个最终字体，该字体与格式正确的输入字体按位相同。如果输入字体有缺陷或异常使得这个不可能，WOFF生成工具**应该**拒绝字体或发出适当的警告，即无法进行无损往返转换。
 
-## 6. Font Data Tables
+## 6. 字体数据表
 
-The font data tables in the WOFF file are exactly the same as the tables in the input font, except that each table MAY have been compressed. If compressed, it MUST have been compressed by the `compress2()` function of zlib [[Compress2](#ref-Compress2)] (or an equivalent, compatible algorithm). User agents use the `uncompress()` function of zlib [[Uncompress](#ref-Uncompress)](or an equivalent, compatible algorithm) to decompress each table. The underlying format these functions use is described in the ZLIB specification [[ZLib](#ref-ZLIB)]. User agents or other programs that decode WOFF files MUST be able to handle tables that have been compressed. If the decompression function fails for any table, the WOFF file is invalid and MUST NOT be loaded.
+WOFF 文件中的字体数据表与输入字体中的表完全相同，只是每个表可能已被压缩。如果是压缩的，那么它必须是被 zlib [[Compress2](ref-Compress2)]（或等效的兼容算法）的 `compress2（）` 函数压缩。用户代理使用zlib [[Uncompress](#ref-Uncompress)]（或等效的兼容算法）的 `uncompress（）` 函数对每个表进行解压缩。这些函数使用的基础格式在 ZLIB 规范[[ZLib](#ref-ZLIB)]中有描述。用户代理或解码 WOFF 文件的其他程序必须能够处理已压缩的表。如果任何表的解压缩函数失败，则 WOFF 文件无效并且不能被加载。
 
-The font data tables MUST be stored immediately following the table directory, without gaps except for any padding that is required (up to three null bytes at the end of each table) to ensure 4-byte alignment.
+字体数据表**必须**存储在表索引之后，除了所需的任何填充（每个表末尾最多三个空字节）以确保4字节对齐之外，不能有间隙。
 
-Font tables in WOFF files MUST be stored in the same order as the well-formed input font. The table order is implied by `offset` values in the table directory; sorting table directory entries into ascending `offset` value order produces a list of entries in an order equivalent to that of the font tables.
-
-***
-
-Note: User agents need not necessarily reconstitute the input font as a whole, and may reorder tables when decoding the WOFF file to sfnt form; they may access individual tables directly as needed. Under these circumstances the resulting sfnt will no longer be an exact copy of the input font, and checksums or digital signature data may be invalidated as a result.
-
-In some cases, sites deploying WOFF files as Web fonts may wish to subset the character repertoire, optimize table ordering for efficient text layout or rasterization, or remove (or add) optional font tables depending on the particular features needed for a site. User agents might make similar modifications to the font during decoding, such as omitting tables that are not needed by their particular text display system.
-
-The automatic removal of OpenType features such as GPOS and GSUB information at any stage in the process of deploying a WOFF file is strongly discouraged. Many writing systems around the world rely on these features for very basic display of text in the script that they use.
-
-If either a WOFF-creation tool or a WOFF-consuming user agent reorders or otherwise modifies the collection of font tables, the font checksum in the `head` table will need to be recalculated as it will be affected by the changed offsets in the sfnt table directory. Any `DSIG` table in the input font will also be invalidated by such changes, and should therefore be removed from the modified font. A new signature could be added to the modified font, as described by the OpenType and Open Font Format specifications (if appropriate signing credentials are available to the tool involved). Any such pre- and/or post-processing represents a modification of the font data being packaged; while it might be done in conjunction with WOFF packaging for Web deployment, it falls outside the scope of the WOFF specification.
-
-The OpenType/OFF specification does not explicitly prohibit the presence of "extra" data or padding in between the font tables in the sfnt format; as the table directory includes the offset and length of each actual table, such data would simply be ignored. However, the WOFF format makes no provision to preserve such "hidden" non-font-table data when packaging a font, and therefore it would not survive a round-trip format conversion.
+WOFF 文件中的字体表**必须**以与格式正确的输入字体相同的顺序存储。表顺序由表索引中的 `offset` 值指定；将表索引条目按照 `offset` 值升序排列，以与字体表顺序相同的顺序生成条目列表。
 
 ***
 
-## 7. Extended Metadata Block
+注意：用户代理不需要输入字体重建为一个字体数据表，并且可以在将 WOFF 文件解码为 sfnt 形式时将数据表重新排序；他们可以根据需要直接访问各个表。在这些情况下，生成的 sfnt 将不再是输入字体的精确副本，并且 checksums 或数字签名数据可能因此失效。
 
-The WOFF file MAY include a block of extended metadata. This may be more extensive and more easily accesible than metadata present in sfnt tables. The metadata block consists of XML data compressed by zlib; the file header specifies both the size of the actual compressed and the original uncompressed size in order to facilitate memory allocation.
+在某些情况下，将 WOFF 文件部署为 Web 字体的站点希望能够实现：将字符库集成到子集中，根据站点所需的特定功能优化表排序以实现高效的文本布局或光栅化，亦或删除（或添加）可选字体表。用户代理可能在解码期间对字体进行类似的修改，例如省略其特定文本显示系统不需要的表。
 
-The presence (or absence) and content of the metadata block MUST NOT affect font loading or rendering behavior of user agents; it is intended to be purely informative. User agents MAY provide a means for users to view information about fonts (such as a "Font Information" panel). If such information is provided, then they MUST treat the metadata block as the primary source, and MAY fall back to presenting information from the font's `name` table entries when relevant extended metadata elements are not present.
+强烈建议在部署 WOFF 文件的任何阶段自动删除 OpenType 属性，例如 GPOS 和 GSUB 信息。世界各地的许多书写系统在他们使用的脚本中都依靠这些属性进行非常基本的文本显示。
 
-If present, the metadata MUST be compressed; it is never stored in uncompressed form.
+如果 WOFF 创建工具或 WOFF 终端用户代理重新排序或以其他方式修改字体表的集合，则需要重新计算 `head` 表中的字体的 checksum，因为它将受到 sfnt 表索引中已更改的偏移量的影响。输入字体中的任何 `DSIG` 表也会因此类更改而失效，因此应从修改后的字体中删除。如 OpenType 和 Open Font Format 规范所述（如果适用的签名凭证可用于所涉及的工具），新的签名可以添加到修改的字体中。任何这样的预处理和/或后处理都表示对被打包的字体数据的进行了修改；虽然它可能与用于 Web 部署的 WOFF 打包一起完成，但它不属于 WOFF 规范的范围。
 
-The metadata block MUST follow immediately after the last font table. As all font data tables are padded with up to three null bytes if needed to reach a 4-byte boundary, the beginning of the metadata block will always be 4-byte aligned. If the metadata block is the last block in the WOFF file, there SHOULD be no additional padding after the end of the block.
+OpenType/OFF 规范没有明确禁止在 sfnt 格式的字体表之间存在“额外”数据或填充；由于表索引包含每个实际表的偏移量和长度，所以这些数据将被忽略。然而，在打包字体时，WOFF 格式没有规定保留这种“隐藏的”非字体表数据，因此它不能在格式互相转换时被保留。
 
-The extended metadata MUST be well-formed XML encoded in UTF-8.
+***
 
-The schema for the extended metadata XML is described below. If the extended metadata does not match this schema, it is invalid. It is also invalid if it cannot be decompressed by zlib's `uncompress()` function (or equivalent), or if the length of the decompressed data does not match the `metaOrigLength` value specified in the WOFF header. Thus, valid metadata is well formed, conforms to the schema below, and is stored in compressed form in the WOFF file. A conforming user agent MUST ignore an invalid metadata block, as if the block were not present.
+## 7. 扩展的元数据块
 
-This description is also available [as a RelaxNG schema](metadata/woffmeta.rng). In the event of a discrepancy between the RelaxNG schema and the text of the specification, the text takes precedence.
+WOFF 文件可能包含一个扩展的元数据块。这可能比 sfnt 表格中的元数据更广泛和更容易访问。元数据块由被 zlib 压缩的 XML 数据组成;文件头指定了实际压缩的大小和原始的未压缩大小，以便于内存分配。
 
-Several elements store their data in `text` child elements; this is to support localization. The `text` elements MAY be given a `lang` attribute in the XML namespace [[XML](#ref-XML)]. For backwards compatibility, `lang` attributes in the default namepsace are also accepted in older content, and SHOULD be treated the same as `xml:lang`. New content SHOULD instead use `xml:lang`.
+元数据块的存在（或不存在）和内容不得影响用户代理的字体加载或渲染行为；它旨在提供纯粹的信息。用户代理可以为用户提供查看字体信息的方法（如“字体信息”面板）。如果提供了这样的信息，那么它们**必须**将元数据块视为主要来源，并且在相关的扩展元数据元素不存在时，**可以**从字体的 `name` 表条目提取信息。
 
-The syntax of values of the `xml:lang` attribute can be found in BCP47 [[BCP47](#ref-BCP47)]. A user agent displaying metadata SHOULD choose a preferred language/locale to display from among those available, following BCP47.
+如果存在，则必须压缩元数据；它从不以未压缩的形式存储。
 
-The user agent SHOULD choose which of the available `text` elements to display as follows:
+元数据块必须紧跟在最后一个字体表之后。由于如果需要达到 4 字节的边界，所有字体数据表都填充了多达三个空字节，元数据块的开始始终是 4 字节对齐的。如果元数据块是 WOFF 文件中的最后一个块，那么在块结束后不应该有额外的填充。
 
-1.  If a `text` element is available that matches the user's preferred language, as determined via an explicit preference or implied by the current locale, use this language.
-2.  If the user agent has a concept of a list of "acceptable" languages or defaults, try each of these in turn and use the first one for which a match found.
-3.  If there is a `text` element with no `xml:lang` attribute, use this; in the event that more than one exists, use the first of them.
-4.  If no match is found yet, use the first `text` element. (Thus, the metadata creator can determine the "localization of last resort" simply by choosing which language to put first in each group of text elements.)
+扩展元数据**必须**是以 UTF-8 编码的格式良好的XML。
 
-Such localizable elements are indicated by the statement "This element may be localized using `text` child elements" in the description below; the internal structure of `text` elements with `xml:lang` attributes is not repeated for each element type. In each of these localizable elements, at least one text child element MUST be present, except in the case of the `license` element (as described below).
+下面描述扩展元数据XML的模式。如果扩展元数据与该模式不匹配，则它是无效的。如果它不能通过 zlib 的 `uncompress（）` 函数（或等价的）解压缩，或者解压缩数据的长度与 WOFF 头中指定的 `metaOrigLength` 值不匹配，那么它也是无效的。因此，有效的元数据应该是格式良好，符合以下模式，并以压缩形式存储在 WOFF 文件中。符合规范的用户代理必须忽略无效的元数据块，就好像该块不存在一样。
 
-**`metadata` element**
+[符合 RelaxNG 模式](metadata/woffmeta.rng) 的描述也是对的。如果 RelaxNG 模式与规范文本之间存在差异，则文本优先。
 
-The main element. This element is REQUIRED.
+多个元素将其数据存储在 `text` 子元素中；这是为了支持本地化。可以在 XML 的命名空间 [[XML](#ref-XML)] 中为 `text` 元素赋予一个 `lang` 属性。为了向后兼容，默认命名空间中的 `lang` 属性在旧内容中也被接受，并且**应当**与 `xml：lang` 同等对待。新内容中**应当**使用 `xml：lang`。
 
-**attributes**
+可以在 BCP47 [[BCP47](#ref-BCP47)]中找到 `xml：lang` 属性值的语法。根据 BCP47 的规定，显示元数据的用户代理应该选择一个首选的语言/区域来显示可用的语言/区域。
 
-version: A version number indicating the format version of the `metadata` element. This is currently `1.0`. This attribute is REQUIRED.
+用户代理**应当**选择可用的 `text` 元素显示如下：
 
-**children**
+1. 如果可用的text元素与用户的首选语言相匹配（通过显式偏好确定或由当前语言环境确定），请使用此语言。
+2. 如果用户代理具有“可接受”语言或默认列表的概念，请依次尝试每种方法并使用匹配的第一个。
+3. 如果有一个没有 `xml：lang` 属性的 `text` 元素，就使用这个：如果存在多个，请使用其中的第一个。
+4. 如果尚未找到匹配项，请使用第一个 `text` 元素。（因此，元数据创建者可以简单地通过在每个文本元素组中选择首先放置哪种语言来确定“最后的本地化手段”。）
 
-uniqueid: Zero or one child elements
+这种可本地化的元素由“这个元素可以使用 `text` 子元素进行本地化”这个描述来表达，带 `xml：lang` 属性的 `text` 元素的内部结构对每个元素类型都不会重复。在每个本地化元素中，至少有一个文本子元素**必须**存在，除了`license`元素外（如下所述）。
 
-vendor: Zero or one child elements
+** `metadata` 元素**
 
-credits: Zero or one child elements
+主元素。这个元素是**必需的**。
 
-description: Zero or one child elements
+**属性**
 
-license: Zero or one child elements
+版本：指示 `metadata` 元素格式版本的版本号。目前这是`1.0`。该属性是**必需的**。
 
-copyright: Zero or one child elements
+**子元素**
 
-trademark: Zero or one child elements
+uniqueid：零个或一个子元素
 
-licensee: Zero or one child elements
+vendor：零个或一个子元素
 
-extension: Zero or more child elements
+credits：零个或一个子元素
 
-All first-level child elements of the `metadata` are OPTIONAL, and may occur in any order as children of the top-level metadata element.
+description：零个或一个子元素
 
-The `extension` element is intended to allow vendors to include metadata that is not covered by the specific elements defined here, while following a standard model. User agents that provide a means for the user to view WOFF file metadata SHOULD include such `extension` elements in the metadata presented to the user.
+license：零个或一个子元素
 
-**`uniqueid` element**
+copyright：零个或一个子元素
 
-A unique identifier string for the font. This element is recommended, but not required for the metadata to be valid. This element MUST be a child of the `metadata` element. This is an empty element.
+trademark：零个或一个子元素
 
-**attributes**
+licensee：零个或一个子元素
 
-id: The identification string. This attribute is REQUIRED.
+extension：零个或一个子元素
 
-The string defined in the `uniqueid` element is not guaranteed to be truly unique, as there is no central registry or authority to ensure this, but it is intended to allow vendors to reliably identify the exact version of a particular font. The use of "reverse-DNS" prefixes to provide a "namespace" is recommended; this can be augmented by additional identification data of the vendor's own design.
+元数据的所有第一级子元素都是可选的，并且可以作为顶级元数据元素的子元素以任何顺序出现。
 
-Note: The `id` attribute of the `uniqueid` element, and of several further metadata elements defined below, is not required to conform to the rules for the XML type ID; its form is at the discretion of the font creator or vendor.
+`extension` 元素旨在允许供应商在遵循标准模型的同时包含未在此定义的特定元素的元数据。为用户提供查看 WOFF 文件元数据方法的用户代理**应当**在呈现给用户的元数据中包含这样的 `extension` 元素。
 
-**`vendor` element**
+** `uniqueid` 元素**
 
-Information about the font vendor. This element is recommended, but not required for the metadata to be valid. This element MUST be a child of the `metadata` element. This is an empty element.
+字体的唯一标识字符串。推荐使用此元素，但不要求元数据有效。这个元素**必须**是元数据元素的子元素。这是一个空元素。
 
-**attributes**
+**属性**
 
-name: The name of the font vendor. This attribute is REQUIRED.
+id：标识字符串。该属性是**必需的**。
 
-url: The url for the font vendor. This attribute is OPTIONAL.
+`uniqueid` 元素中定义的字符串并不保证是唯一的，因为没有中央注册机构或权威机构来确保这一点，但它的目的是让供应商可靠地识别特定字体的确切版本。建议使用“反向 DNS ”前缀来提供“命名空间”；这可以通过供应商自己设计的附加识别数据来增强。
 
-dir: The text direction, either `ltr` (for "left to right") or `rtl` (for "right to left"). This attribute is OPTIONAL and, if omitted, defaults to `ltr`.
+注意：`uniqueid` 元素的 `id` 属性以及下面定义的其他几个元数据元素的 `id` 属性不需要符合 XML 类型的 ID 规则；其形式由字体创建者或供应商自行决定。
 
-class: An arbitrary set of space-separated tokens. This attribute is OPTIONAL.
+**`vendor` 元素**
 
-**`credits` element**
+有关字体供应商的信息。推荐使用此元素，但不要求元数据有效。这个元素必须是元数据元素的子元素。这是一个空元素。
 
-Credit information for the font. This can include any type of credit the vendor desires: designer, hinter, and so on. This element is OPTIONAL. If present, it MUST be a child of the `metadata` element and it MUST contain at least one `credit` element. This element has no attributes.
+**属性**
 
-**children**
+name：字体供应商的名称。该属性是**必需的**。
 
-credit: One or more child elements
+url：字体供应商的网址。该属性是**可选的**。
 
-**`credit` element**
+dir：文本方向，可以是`ltr`（用于“从左到右”）或`rtl`（用于“从右到左”）。该属性是可选的，如果省略，则默认为`ltr`。
 
-A single credit record. If present, it MUST be a child of the `credits` element. This is an empty element.
+class：一组用空格任意分隔的令牌。该属性是**可选的**。
 
-**attributes**
+** `credits` 元素**
 
-name: The name of the entity being credited. This attribute is REQUIRED.
+字体的信用信息。这可以包括供应商期望的任何类型的信用：设计师，调解员等等。这个元素是**可选的**。如果存在，它**必须**是 `metadata` 元素的子元素，并且必须包含至少一个 `credit` 元素。这个元素没有属性。
 
-url: The url for the entity being credited. This attribute is OPTIONAL.
+**子元素**
 
-role: The role of the entity being credited. This attribute is OPTIONAL.
+credit：一个或多个子元素
 
-dir: The text direction, either `ltr` (for "left to right") or `rtl` (for "right to left"). This attribute is OPTIONAL and, if omitted, defaults to `ltr`.
+** `credit` 元素**
 
-class: An arbitrary set of space-separated tokens. This attribute is OPTIONAL.
+单一的信用记录。如果存在，它**必须**是 `credits` 元素的子元素。这是一个空元素。
 
-**`description` element**
+**属性**
 
-An arbitrary text description of the font's design, its history, etc. This element is OPTIONAL. If present, it MUST be a child of the `metadata` element. This element may be localized using `text` child elements.
+name：被记入的实体的名称。该属性是**必需的**。
 
-**attributes**
+url：被记录的实体的 url。该属性是**可选的**。
 
-url: The url for more information about the font design, history, etc. This attribute is OPTIONAL.
+角色：被记入实体的角色。该属性是**可选的**。
 
-**children**
+dir：文本方向，可以是 `ltr`（用于“从左到右”）或 `rtl`（用于“从右到左”）。该属性是可选的，如果省略，则默认为 `ltr`。
 
-text: One or more child elements containing character data and optionally `div` and/or `span` children
+class：一组用空格任意分隔的令牌。该属性是**可选的**。
 
-**`license` element**
+** `description` 元素**
 
-Licensing information for the font. This element is OPTIONAL. If present, it MUST be a child of the `metadata` element. This element may be localized using `text` child elements; however, it is permitted to be empty (for example, if the vendor prefers to just provide a license URL rather than including the actual text of the license.)
+字体设计的任意文本描述，历史记录等。这个元素是**可选的**。如果存在，它必须是 `metadata` 元素的子元素。这个元素可以使用 `text` 子元素进行本地化。
 
-**attributes**
+**属性**
 
-url: The url for the license, more information about the license, etc. This attribute is OPTIONAL.
+url：有关字体设计，历史等的更多信息的URL。此属性是**可选的**。
 
-id: An identifying string for the license. This attribute is OPTIONAL.
+**子元素**
 
-**children**
+text：一个或多个包含字符数据的子元素，以及可选的 `div` 和/或 `span` 子元素
 
-text: Zero or more child elements containing character data and optionally `div` and/or `span` children
+** `license` 元素**
 
-**`copyright` element**
+字体的许可信息。这个元素是**可选的**。如果存在，它必须是 `metadata` 元素的子元素。这个元素可以使用 `text` 子元素进行本地化；但是，它被允许为空（例如，如果供应商更喜欢仅提供许可证URL而不包括许可证的实际文本）。
 
-The copyright for the font. This element is OPTIONAL. If present, it MUST be a child of the metadata element. This element may be localized using `text` child elements. This element has no attributes.
+**属性**
 
-**children**
+url：许可证的 URL，有关许可证的更多信息等。此属性是**可选的**。
 
-text: One or more child elements containing character data and optionally `div` and/or `span` children
+id：许可证的标识字符串。该属性是**可选的**。
 
-**`trademark` element**
+**子元素**
 
-The trademark for the font. This element is OPTIONAL. If present, it MUST be a child of the `metadata` element. This element may be localized using `text` child elements. This element has no attributes.
+text：零个或多个子元素，包含字符数据和可选的 `div` 和/或 `span` 子元素
 
-**children**
+** `copyright` 元素**
 
-text: One or more child elements containing character data and optionally `div` and/or `span` children
+字体的版权。这个元素是**可选的**。如果存在，它**必须**是元数据元素的子元素。这个元素可以使用 `text` 子元素进行本地化。这个元素没有属性。
 
-**`licensee` element**
+**子元素**
 
-The licensee of the font. This element is OPTIONAL. If present, it MUST be a child of the `metadata` element. This is an empty element.
+text：一个或多个包含字符数据的子元素，以及可选的 `div` 和/或 `span` 子元素
 
-**attributes**
+** `trademark` 元素**
 
-name: The name of the licensee. This attribute is REQUIRED.
+字体的商标。这个元素是**可选的**。如果存在，它**必须**是 `metadata` 元素的子元素。这个元素可以使用 `text` 子元素进行本地化。这个元素没有属性。
 
-dir: The text direction, either `ltr` (for "left to right") or `rtl` (for "right to left"). This attribute is OPTIONAL and, if omitted, defaults to `ltr`.
+**子元素**
 
-class: An arbitrary set of space-separated tokens. This attribute is OPTIONAL.
+text：一个或多个包含字符数据的子元素，以及可选的 `div` 和/或 `span` 子元素
 
-Although the metadata elements and structure defined above are expected to be sufficient for most needs, an extension mechanism is also provided so that font vendors can include arbitrary metadata items that do not fit the standard elements above:
+** `licensee` 元素**
 
-**`extension` element**
+字体的被许可人。这个元素是**可选的**。如果存在，它**必须**是 `metadata` 元素的子元素。这是一个空白的元素。
 
-A container element for extended metadata provided by the vendor. Zero or more `extension` elements may be present as children of the top-level metadata element. Each such metadata `extension` has an optional `name`, which may be provided in multiple languages, and one or more item elements.
+**属性**
 
-**attributes**
+name：被许可人的名字。该属性是**必需的**。
 
-id: An arbitrary identifier defined by the vendor. This attribute is OPTIONAL.
+dir：文本方向，可以是 `ltr` （用于“从左到右”）或 `rtl`（用于“从右到左”）。该属性是可选的，如果省略，则默认为 `ltr`。
 
-**children**
+class：一组用空格任意分隔的令牌。该属性是**可选的**。
 
-name: Zero or more child elements
+尽管上面定义的元数据元素和结构预计足以满足大多数需求，但还是提供了扩展机制，以便字体供应商可以包含不符合上述标准元素的任意元数据项目：
 
-item: One or more child elements
+** `extension` 元素**
 
-item element: At least one item element MUST be present in each `extension` container.
+供应商提供的扩展元数据的容器元素。零个或多个 `extension` 元素可以是顶级元数据元素的子元素。每个这样的 `extension` 元数据具有可选的 `name`，其可以以多种语言提供，并且具有一个或多个项目元素。
 
-**attributes**
+**属性**
 
-id: An arbitrary identifier defined by the vendor. This attribute is OPTIONAL.
+id：供应商定义的任意标识符。该属性是**可选的**。
 
-**children**
+**子元素**
 
-name: One or more child elements
+name：零个或多个子元素
 
-value: One or more child elements
+item：一个或多个子元素
 
-**`name` element**
+item element：每个 `extension` 容器中**必须**至少存在一个项目元素。
 
-Zero or more `name` elements may be used to provide a human-friendly name for the collection of extended metadata items in an `extension` element. A user agent that displays metadata SHOULD choose the name with most the appropriate language from among those available for each named `extension` element. This child element is OPTIONAL in `extension` elements; anonymous extension elements are also permissible.
+**属性**
 
-One or more `name` elements are also used to provide a human-friendly name for a specific extended metadata item. A user agent that displays metadata SHOULD choose the name with the most appropriate language from among those available for each `item` element. This child element is REQUIRED in `item` elements; an `item` element with no` name` is invalid and SHOULD be ignored.
+id：供应商定义的任意标识符。该属性是**可选的**。
 
-**attributes**
+**子元素**
 
-xml:lang: A language tag as defined in BCP47 [[BCP47](#ref-BCP47)]. This attribute is OPTIONAL.
+name：一个或多个子元素
 
-dir: The text direction, either `ltr` (for "left to right") or `rtl` (for "right to left"). This attribute is OPTIONAL and, if omitted, defaults to `ltr`.
+value：一个或多个子元素
 
-class: An arbitrary set of space-separated tokens. This attribute is OPTIONAL.
+** `name` 元素**
 
-**`value` element**
+可以使用零个或多个 `name` 元素来为扩展元素中的扩展元数据项集合提供一个人性化的名称。显示元数据的用户代理**应当**从每个指定 `extension` 元素的可用语言中选择最合适的语言。这个子元素在 `extension`元素中是可选的；匿名扩展元素也是允许的。
 
-One or more `value` elements are used to provide the value of a specific extended metadata item. A user agent that displays metadata SHOULD choose the value with the most appropriate language from among those available for each `item` element. This child element is REQUIRED; an `item` element with no `value` is invalid and SHOULD be ignored.
+还可以使用一个或多个 `name` 元素为特定的扩展元数据项提供人性化的名称。显示元数据的用户代理应该从每个 `item` 元素的可用语言中选择最合适的语言。这个子元素在 `item` 元素中是**必需**的；没有 `name` 的 `item` 元素是无效的，应该被忽略。
 
-**attributes**
+**属性**
 
-xml:lang: A language tag as defined in BCP47 [[BCP47](#ref-BCP47)]. This attribute is OPTIONAL.
+xml：lang：BCP47 [[BCP47](#ref-BCP47)] 中定义的语言标签。该属性是可选的。
 
-dir: The text direction, either `ltr` (for "left to right") or `rtl` (for "right to left"). This attribute is OPTIONAL and, if omitted, defaults to `ltr`.
+dir：文本方向，可以是 `ltr`（用于“从左到右”）或 `rtl`（用于“从右到左”）。该属性是可选的，如果省略，则默认为 `ltr`。
 
-class: An arbitrary set of space-separated tokens. This attribute is OPTIONAL.
+class：一组用空格任意分隔的令牌。该属性是**可选的**。
 
-Where `text` elements are used to contain (localizable) content, further structure MAY also be provided using `div` and `span` child elements similar to those used in HTML.
+** `value` 元素**
 
-**`text` element**
+一个或多个 `value` 元素用于提供特定扩展元数据项的值。显示元数据的用户代理**应当**从每个 `item` 元素的可用语言中选择最合适的语言值。这个子元素是必需的；没有 `value` 的 `item` 元素是无效的，应该被忽略。
 
-An element used to contain a particular localization of a metadata element's contents. This element has a mixed content model; in addition to the child elements mentioned below, it may directly contain character data.
+**属性**
 
-**attributes**
+xml：lang：  BCP47 [[BCP47](#ref-BCP47)]中定义的语言标签。该属性是**可选的**。
 
-xml:lang: A language tag (as specified in BCP47 [[BCP47](#ref-BCP47)]) indicating the language of this particular version of the metadata element's content. This attribute is OPTIONAL; however, for multiple `text` children of a metadata element to be usefully distinguished, they SHOULD all be tagged with appropriate different language codes.
+dir：  文本方向，可以是`ltr`（用于“从左到右”）或`rtl`（用于“从右到左”）。该属性是**可选的**，如果省略，则默认为`ltr`。
 
-dir: The text direction, either `ltr` (for "left to right") or `rtl` (for "right to left"). This attribute is OPTIONAL and, if omitted, defaults to `ltr`.
+class：一组任意空格分隔的令牌。该属性是**可选的**。
 
-class: An arbitrary set of space-separated tokens. This attribute is OPTIONAL.
+在使用'text'元素来包含（可本地化）内容的地方，也可以使用 `div` 和 `span` 子元素来提供进一步的结构，类似于HTML中使用的元素。
 
-**children**
+** `text` 元素**
 
-div: Contains a block of text, such as a paragraph or heading.
+一个用于包含元数据元素内容的特定本地化的元素。该元素具有混合内容模型；除了下面提到的子元素之外，它可以直接包含字符数据。
 
-span: Contains an inline run of text.
+**属性**
 
-**`div` element**
+xml：lang：语言标记（如 BCP47 [[BCP47](#ref-BCP47)]中指定的），指示元数据元素内容的此特定版本的语言。该属性是可选的；然而，对于元数据元素的多个 `text` 子元素要进行有效区分，他们**应当**使用适当的不同语言代码进行标记。
 
-A block-level element used, for example, to contain a paragraph.
+dir：文本方向，可以是 `ltr`（用于“从左到右”）或 `rtl`（用于“从右到左”）。该属性是**可选的**，如果省略，则默认为 `ltr`。
 
-**attributes**
+class：一组任意空格分隔的令牌。该属性是**可选的**。
 
-dir: The text direction, either `ltr` (for "left to right") or `rtl` (for "right to left"). This attribute is OPTIONAL and, if omitted, defaults to `ltr`.
+**子元素**
 
-class: An arbitrary set of space-separated tokens. This attribute is OPTIONAL.
+div：包含一段文字，如段落或标题。
 
-**`span` element**
+span：包含内联文本。
 
-An inline element used, for example, to indicate a run of text with a different text direction, or in a different language.
+** `div` 元素**
 
-**attributes**
+一个用于包含（比如）段落的块级元素。
 
-dir: The text direction, either `ltr` (for "left to right") or `rtl` (for "right to left"). This attribute is OPTIONAL and, if omitted, defaults to `ltr`.
+**属性**
 
-class: An arbitrary set of space-separated tokens. This attribute is OPTIONAL.
+dir：文本方向，可以是 `ltr`（用于“从左到右”）或 `rtl`（用于“从右到左”）。该属性是**可选的**，如果省略，则默认为 `ltr`。
 
-The `text` elements used to hold (localizable) text for a number of the individual pieces of metadata thus have a mixed content model consisting of text content, `div` and `span` elements; `div` elements have a mixed content model of text content, `div` and `span` elements; and `span` elements have a mixed content model of text content and `span` elements. In other words, div can contain other `div` elements; `span` can contain other `span` elements; `span` does not require a containing `div`.
+class：一组任意空格分隔的令牌。该属性是**可选的**。
 
-[Appendix A](#appendix-a) includes several examples of the content of the metadata block.
+** `span` 元素**
 
-Note: Although the metadata block is optional, and there is no requirement for user agents to process it in order to render the font, clients such as Web browsers are encouraged to provide a means (such as a "Font Information" dialog for the current page) for users to view the metadata included in WOFF files. Not every client will necessarily have an appropriate context for this, but any client that enables the user to find out about the resources used by a Web document should consider exposing information about the fonts used, and in the case of WOFF-packaged fonts, the metadata block is the primary source of this information.
+用于指示（比如）具有不同文本方向或不同语言的文本的一连串的文本。
 
-## 8. Private Data Block
+**子元素**
 
-The WOFF file MAY include a block of arbitrary data, allowing font creators to include whatever information they wish. The content of this data MUST NOT affect font usage or load behavior of user agents. User agents should make no assumptions about the content of a private block; it may (for example) contain ASCII or Unicode text, or some vendor-defined binary data, and it may be compressed or encrypted, but it has no publicly defined format. Conformant user agents will not assume anything about the structure of this data. Only the font developer or vendor responsible for the private block is expected to understand its contents.
+dir：文本方向，可以是 `ltr`（用于“从左到右”）或 `rtl`（用于“从右到左”）。该属性是**可选的**，如果省略，则默认为 `ltr`。
 
-The private data block, if present, MUST be the last block in the WOFF file, following all the font tables and any extended metadata block. The private data block MUST begin on a 4-byte boundary in the WOFF file, with up to three null bytes inserted as padding after any preceding metadata block if needed to ensure this. The end of the private data block MUST correspond to the end of the WOFF file.
+class：一组任意空格分隔的令牌。该属性是**可选的**。
+
+用于保存（可本地化）的文本的 `text` 元素分割成许多独立的元数据，因此具有由文本内容、`div` 和 `span` 元素组成的混合内容模型；`div` 元素具有文本内容、`div` 和 `span` 元素的混合内容模型；`span` 元素具有文本内容和 `span` 元素的混合内容模型。换句话说，div 可以包含其他 `div` 元素；`span` 可以包含其他 `span` 元素；`span` 不需要包含 `div`。
+
+[附录 A](#appendix-a) 包含了元数据块内容的几个例子。
+
+注意：尽管元数据块是可选的，并且不需要用户代理为了渲染字体而对其进行处理，但是鼓励诸如 Web 浏览器的客户端提供一种手段（例如当前的“字体信息”对话框页面）供用户查看 WOFF 文件中包含的元数据。并非每个客户端都必须具有适当的上下文，但是任何使用户能够找出 Web 文档所使用的资源的客户端都应该考虑公开有关所用字体的信息，并且在使用 WOFF 打包字体的情况下，元数据块是此信息的主要来源。
+
+## 8. 专有数据块
+WOFF 文件可以包含任意数据块，允许字体创建者包含他们希望的任何信息。这些数据的内容不得影响用户代理的字体使用或加载行为。用户代理**不得**对专有块的内容做任何假设；它可能（例如）包含 ASCII 或 Unicode 文本或某些供应商定义的二进制数据，它可能是压缩或加密的，但它没有公开定义的格式。符合规范的用户代理不会假设任何关于这些数据的结构。只有负责专有块的字体开发人员或供应商才能理解其内容。
+
+专有数据块（如果存在）**必须**是 WOFF 文件中的最后一个块，跟随在所有字体表和任何扩展元数据块之后。私人数据块务必从 WOFF 文件中的一个4字节边界开始，如果需要的话，最多可以在任何前面的元数据块之后插入作为填充的三个空字节，以确保这一点。专有数据块的末尾必须对应于 WOFF 文件的末尾。
 
 * * *
 
-## Appendix A: Extended Metadata Examples
+## 附录 A：扩展元数据示例
 
-This appendix is purely informative, not a normative part of the WOFF specification.
+本附录纯粹是指示性的，不是 WOFF 规范的正式部分。
 
-This "dummy" metadata block illustrates the use of the metadata elements described in section 7, including the use of multiple `text` child elements to provide localized versions of certain elements.
+这个“虚拟”元数据块描述了第 7 节中描述的元数据元素的用法，包括使用多个 `text` 子元素来提供某些元素的本地化版本。
 
 ```
 <?xml version="1.0" encoding="UTF-8"?>
@@ -614,7 +613,7 @@ A real-life example of a simple metadata block (reproduced by permission of FSI 
 </metadata>
 ```
 
-Another example of a metadata block (reproduced by permission of Ascender Corporation). This is dynamically generated, with the `uniqueid` and `licensee` elements modified to be unique for each customer.
+元数据块的另一个例子（由 Ascender Corporation 许可转载）。这是动态生成的，`uniqueid` 和 `uniqueid`元素被修改为每个用户都是唯一的。
 
 ```
 <?xml version="1.0" encoding="UTF-8"?>
@@ -634,9 +633,9 @@ software. If you have any questions, please contact Ascender Corp.</text>
 </metadata>
 ```
 
-Here is an example of how the div element could be used, modified from a portion of the [XML file for Gentium Plus](http://dev.w3.org/webfonts/WOFF/spec/metadata/GentiumPlus-WOFF-metadata.xml) which, when viewed as plain text, has paragraph formatting.
+下面是一个如何使用 div 元素的例子，可以从[Gentium Plus的XML文件](http://dev.w3.org/webfonts/WOFF/spec/metadata/GentiumPlus-WOFF-metadata .xml)的一部分修改，当以纯文本格式查看时，它具有段落格式。
 
-The original metadata file contained:
+原始的元数据文件包含：
 
 ```
 <description>
@@ -646,7 +645,7 @@ The original metadata file contained:
 	the Latin, Cyrillic and Greek scripts to produce readable, high-quality
 	publications. The design is intended to be highly readable, reasonably
 	compact, and visually attractive. Gentium has won a "Certificate of Excellence
-	in Typeface Design" in two major international typeface design competitions: 
+	in Typeface Design" in two major international typeface design competitions：
 	bukva:raz! (2001), TDC2003 (2003).
 
 	The Gentium Plus font family is based on the original design. It currently 
@@ -667,7 +666,7 @@ The original metadata file contained:
 </description>
 ```
 
-Using the `div` element, this could become:
+使用`div`元素，可能会变成：
 
 ```
 <description>
@@ -679,7 +678,7 @@ Using the `div` element, this could become:
    to be highly readable, reasonably compact, and visually attractive.
    Gentium has won a "Certificate of Excellence in Typeface
    Design" in two major international typeface design
-   competitions: bukva:raz! (2001), TDC2003 (2003).</div>
+   competitions：bukva:raz! (2001), TDC2003 (2003).</div>
    <div>The Gentium Plus font family is based on the original design.
    It currently comes with regular and italic face only, although
    additional weights are in development.</div>
@@ -698,9 +697,9 @@ Using the `div` element, this could become:
 </description>
 ```
 
-## Appendix B: Media Type registration
+## 附录 B：媒体类型注册
 
-This appendix registers a new MIME media type, in conformance with [BCP 13](http://www.ietf.org/rfc/rfc4288.txt) and [W3CRegMedia](http://www.w3.org/2002/06/registering-mediatype.html).
+本附录根据 [BCP 13](http://www.ietf.org/rfc/rfc4288.txt) 和 [W3CRegMedia](http://www.w3.org/2002/06/registering-mediatype.html) 注册了一种新的 MIME 媒体类型。
 
 **Type name:** application
 
@@ -713,126 +712,126 @@ This appendix registers a new MIME media type, in conformance with [BCP 13](http
 **Encoding considerations:** binary.
 
 **Security considerations:** 
-    
-Fonts are interpreted data structures that represent collections of glyph outlines, metrics and layout information for various languages and writing systems. Currently, there are many standardized font data tables that allow an unspecified number of entries, and where existing, predefined data fields allow storage of binary data with variable length. There is a significant risk that the flexibility of font data structures may be exploited to hide malicious binary content disguised as a font data component.
 
-WOFF is based on the table-based SFNT (scalable font) format which is highly extensible and offers an opportunity to introduce additional data structures when needed. However, this same extensibility may present specific security concerns – the flexibility and ease of defining new data structures makes it easy for any arbitrary data to be added and hidden inside a font file.
+字体是解释性的数据结构，表示各种语言和书写系统的字形轮廓、度量和布局信息的集合。目前，有许多标准化的字体数据表，允许未指定数量的条目，并且现有的预定义数据字段允许存储具有可变长度的二进制数据。字体数据结构的灵活性可能会被利用，来隐藏伪装成字体数据组件的恶意二进制内容。
 
-WOFF fonts may contain 'hints' for the alignment of graphical elements of the glyphs with the target display pixel grid, and depending on the font technology utilized in the creation of a font these hints may represent active code interpreted and executed by the font rasterizer. Even though they operate within the confines of the glyph outline conversion system and have no access outside the font rendering machinery, hint instructions can be, however, quite complex, and a maliciously designed complex font could cause undue resource consumption (e.g. memory or CPU cycles) on a machine interpreting it. Indeed, fonts are sufficiently complex that most if not all interpreters cannot be completely protected from malicious fonts without undue performance penalties.
+WOFF 基于以表格为基础的 SFNT（可扩展字体）格式，具有高度的可扩展性，并提供了在需要时引入额外数据结构的功能。但是，这种相同的可扩展性可能会带来特定的安全问题 —— 定义新数据结构的灵活性和易用性使得任意数据都可以轻松添加和隐藏在字体文件中。
 
-Widespread use of fonts as necessary component of visual content presentation warrants that a careful attention should be given to security considerations whenever a font is either embedded into an electronic document or transmitted alongside media content as a linked resource.
+WOFF 字体可以包含用于将字形的图形元素与目标显示像素网格对齐的“提示”，并且取决于在创建字体中使用的字体技术，这些提示可以表示由字体光栅化器解释和执行的活动代码。尽管它们在字形大纲转换系统的范围内运行，并且不能在字体呈现机制之外访问，但是提示指令可能非常复杂，而且恶意设计的复杂字体可能会导致不必要的资源（例如内存或 CPU 周期）消耗在解释它的机器上。事实上，字体非常复杂，即使不是所有的解释器都不能完全免受恶意字体的影响，也不会受到不适当的性能损失。
 
-WOFF uses gzip compression. The WOFF header contains the uncompressed length of each compressed table. Applications may therefore constrain the size of memory buffer allocated for decompression and may stop writing if a maliciously crafted WOFF file in fact contains more data than is indicated.
+广泛使用字体作为视觉内容呈现的必要组成部分，这要求当字体嵌入到电子文档中或与媒体内容一起作为链接资源传输时，应该仔细注意安全性方面的问题。
 
-WOFF does not provide privacy protections internally; if needed, these should be provided externally.
+WOFF 使用 gzip 压缩。WOFF 标题包含每个压缩表的未压缩长度。因此，应用程序可能会限制分配给解压缩的内存缓冲区的大小，如果恶意制作的 WOFF 文件实际上包含的数据比指示的数据多，则可能会停止写入。
 
-WOFF has a private data block facility, which may contain arbitrary binary data. WOFF does not provide a means to access this, or to execute any code contained therein. WOFF [requires](#conform-private-noeffect) that the content of this block not affect font rendering in any way.
+WOFF 在内部不提供隐私保护；如果需要，这些应该在外部提供。
 
-**Interoperability considerations:**
+WOFF 有一个专有数据块设施，可能包含任意的二进制数据。WOFF不提供访问这个或者执行其中包含的任何代码的手段。WOFF [要求](#conform-private-noeffect)该块的内容不会以任何方式影响字体呈现。
 
-**Published specification:** This media type registration is extracted from the [WOFF specification](http://www.w3.org/TR/WOFF) at W3C.
+**互操作性考虑：**
 
-**Applications that use this media type:** WOFF is used by Web browsers, often in conjunction with HTML and CSS.
+**发布的规范：** 此媒体类型注册摘自W3C的[WOFF规范](http://www.w3.org/TR/WOFF)。
 
-**Additional information:**
+**使用此媒体类型的应用程序：** WOFF由 Web 浏览器使用，通常与HTML 和 CSS 一起使用。
 
-**Magic number(s):** The signature field in the WOFF header MUST contain the "magic number" 0x774F4646
+**附加信息：**
 
-**File extension(s):** woff
+**幻数：** WOFF标题中的签名字段必须包含“幻数” 0x774F4646
 
-**Macintosh file type code(s):** (no code specified)
+**文件扩展名：** woff
 
-**Macintosh Universal Type Identifier code:** org.w3c.woff
+**Macintosh 文件类型代码：**（不指定代码）
 
-**Fragment Identifiers:** none.
+**Macintosh通用类型标识符代码：**  org.w3c.woff
 
-**Person & email address to contact for further information:** Chris Lilley (www-font@w3.org).
+**片段标识符：** 无。
 
-**Intended usage:** COMMON
+**联系人和电子邮件地址以获取更多信息：** Chris Lilley（www-font@w3.org）。
 
-**Restrictions on usage:** None
+**用途：** **通用**
 
-**Author:** The WOFF specification is a work product of the World Wide Web Consortium's WebFonts Working Group.
+**使用限制：** 无
 
-**Change controller:** The W3C has change control over this specification.
+**作者：** WOFF规范是万维网联盟 WebFonts 工作组的工作产品。
 
-## Appendix C: Changes
+**更改控制权：** W3C对本规范有更改控制权。
 
-The following changes have been made, relative to the [27 July 2010 First Public Working Draft](http://www.w3.org/TR/2010/WD-WOFF-20100727). No new features have been added, except for optional enhancements to the metadata format; the remaining changes are clarifications and corrections to existing features.
+## 附录 C：修订记录
 
-*   Clarified that WOFF is a font _packaging_ or wrapper format, not a new font format as such.
-*   Clarified padding and byte-alignment requirements throughout
-*   Preferred the term 'input font' rather than 'original file' to describe the font which is converted to WOFF
-*   Clarified that any subsetting, checksum-correction, or DSIG invalidating changes _prior_ to WOFF conversion are out of scope for the WOFF specification.
-*   Clarified meaning of totalSfntSize.
-*   Defined what is meant by a well formed input font.
-*   Clarified meaning of 'invalid metadata' - must be well-formed, compressed, and conform to the schema.
-*   Clarified which elements and attributes in the XML are required; for elements, clarified their required parents.
-*   Clarified that the id attribute is not of type ID in the XML sense
-*   Added link to a RelaxNG grammar, which tries to express the same constraints as the prose in a machine-readable manner. The prose is normative in case of any difference.
-*   Added reminder to check for overflow when decompressing.
-*   Added a Media Type registration template as required by [W3C Media Type registration](http://www.w3.org/2002/06/registering-mediatype.html) policies.
-*   Separated normative and informative references.
-*   Switched to upper-case for RFC-2119 keywords.
-*   Added id and class attributes to all testable assertions.
-*   Added some non-normative explanatory notes.
-*   Minor clarifications to wording throughout.
-*   Some re-ordering of text to group related assertions or to improve readability; in particular, the best practices were previously an appendix and are now integrated into the main body of the specification.
-*   Added this Changes appendix.
+相对于[2010年7月27日的第一次公开工作草案](http://www.w3.org/TR/2010/WD-WOFF-20100727)，已做出以下更改。除了元数据格式的增强选项功能外，没有添加任何新的功能；剩下的更改是对现有功能的澄清和更正。
 
-The following changes were made as a result of Last Call:
+* 澄清 WOFF是一种字体**打包**或封装格式，而不是一种新的字体格式。
+* 澄清填充和字节对齐的需求
+* 首选术语 “input font” 而不是 “original file” 来描述转换为 WOFF 的字体
+* 澄清在 WOFF 转换之前的任何subsetting（子集）、checksum-correction（校验和校正）或DSIG无效更改超出了WOFF规范的范围。
+* 澄清 totalSfntSize 的含义。
+* 定义了格式良好的输入字体的含义。
+* 澄清“无效元数据”的含义 —— 必须格式良好，压缩并符合模式。
+* 澄清了XML中的哪些元素和属性是必需的；对于某些元素，澄清了他们需要的父元素。
+* 澄清了 id 属性不是 XML 意义上的类型ID
+* 添加到 RelaxNG 语法的链接，该语法试图以机器可读的方式表达与文本相同的约束。如果有任何差异，文本是必须是规范的。
+* 在解压缩时增加提醒检查是否溢出。
+* 根据[W3C媒体类型注册]（http://www.w3.org/2002/06/registering-mediatype.html）策略的要求增加了媒体类型注册模板。
+* 分开了规范性和信息性参考。
+* 把 RFC-2119关键字转换成了大写字母。
+* 为所有可测试的断言添加了 id 和 class 属性。
+* 增加了一些非规范的解释性说明。
+* 对整个措辞做了小的澄清。
+* 把相关的断言合并分组或为了提高可读性，将文本重新排列；特别是，以前最佳做法放在附录中，现在已经整合到规范的主体中。
+* 增加了这个更改附录。
 
-*   Language attributes now reference BCP47, and use xml:lang.
-*   Added optional `div` and `span` elements that can be used to provide structure within metadata text.
-*   Added `dir` and `class` attributes to metadata elements.
-*   Removed summary of conformance requirements (duplicated material from the main body of the specification).
-*   Somewhat rearranged and clarified description of the metadata format.
-*   Noted that same-origin requirements are at risk, in the expectation that CSS3 Fonts will handle this instead.
-*   Mention the need to compute the binary search fields when reconstructing an sfnt header.
-*   Require that metadata be encoded in UTF-8, rather than allowing either UTF-8 or UTF-16.
+最后一次修订有如下更改：
 
-A [color-coded diff](http://dev.w3.org/cvsweb/webfonts/WOFF/spec/Overview.html.diff?r1=1.58;r2=1.96;f=h) between the editors draft used to prepare the Last Call Working Draft, and the editors draft used to prepare the Candidate Recommendation, is available.
+* 语言属性现在引用 BCP47，并使用 xml：lang。
+* 增加了可选的 `div` 和 `span` 元素，可用于在元数据文本中提供构建。
+* 为元数据元素添加了 `dir` 和 `class` 属性。
+* 删除了一致性要求的摘要（和规范的主体部分有重复内容）。
+* 稍微重新安排并澄清了元数据格式的描述。
+* 注意到相同来源的请求是有风险的，期望 CSS3 字体可以处理这个问题。
+* 提到重建 sfnt 头时需要计算二进制搜索字段。
+* 要求以 UTF-8 编码元数据，而不是既允许使用 UTF-8 又允许使用 UTF-16。
 
-The following changes were made after publication of the Candidate Recommendation:
+用于准备最后工作草案的编辑草稿和用于编写候选推荐标准的编辑草稿之间的[颜色编码差异](http://dev.w3.org/cvsweb/webfonts/WOFF/spec/Overview.html.diff?r1=1.58;r2=1.96;f=h) 可用。
 
-*   Removed (previously at-risk) text specifying same-origin requirements for loading WOFF fonts, and CORS mechanism to relax the restriction, as the CSS WG agreed to include this in CSS3 Fonts as part of the specification of the @font-face rule.
-*   Moved CSS3-Fonts from normative to informative section, due to removal of at-risk items.
-*   Corrected erroneous use of MUST in a general introductory statement
+候选建议书发布后进行了以下更改：
 
-A [color-coded diff](http://dev.w3.org/cvsweb/webfonts/WOFF/spec/Overview.html.diff?r1=1.99;r2=1.112;f=h) between the editors draft used to prepare the Candidate Recommendation, and the editors draft used to prepare the Proposed Recommendation, is available.
+* 删除加载 WOFF 字体的指定相同来源要求的文本（这在以前是危险的）以及 CORS 机制，以放宽限制，因为 CSS 工作组同意将其作为 @ font-face 规则的一部分包含在 CSS3 字体中。
+* 由于移除了风险项目，将 CSS3-Fonts 从规范部分移至信息部分。
+* 在一般介绍性声明中更正了 MUST 的错误使用
 
-The following changes were made after publication of the Proposed Recommendation:
+用于准备候选建议书的编辑草案和编写建议的建议书的编辑草案之间的[颜色编码差异](http://dev.w3.org/cvsweb/webfonts/WOFF/spec/Overview.html.diff?r1=1.99;r2=1.112;f=h)是可用的。
 
-*   The security considerations section of the Media Type Registration appendix was updated to point into the body of the specification, alerting the reader to the private data block and indicating that WOFF does not provide a mechanism to execute any binary code that might be contained therein. This change was made at the request of the IANA Expert Reviewer.
+在提交建议书发布后做出以下更改：
+
+* 媒体类型注册附录的安全考虑部分已更新，放在了规范的主体部分，提醒读者注意专有数据块，并指出 WOFF 没有提供执行任何可能包含在其中的二进制代码的机制。这一变更是应 IANA 专家审查员的要求作出的。
 
 * * *
 
-## References
+## 参考
 
-### Normative References
+### 规范性参考文献
 
-[BCP47]:  [BCP 47](http://www.rfc-editor.org/rfc/bcp/bcp47.txt) Tags for Identifying Languages and Matching of Language Tags
+[BCP47]：[BCP 47](http://www.rfc-editor.org/rfc/bcp/bcp47.txt) 识别语言和匹配语言标签的标签
 
-[OFF]: [Open Font Format specification](http://standards.iso.org/ittf/PubliclyAvailableStandards/
-c052136_ISO_IEC_14496-22_2009(E).zip) (ISO/IEC 14496-22:2009).
+[OFF]：[开放字体格式规范](http://standards.iso.org/ittf/PubliclyAvailableStandards/c052136_ISO_IEC_14496-22_2009(E).zip) (ISO/IEC 14496-22:2009).
 
-[RFC-2119]: [RFC 2119:](http://tools.ietf.org/html/rfc2119) Key words for use in RFCs to Indicate Requirement Levels. S. Bradner, Editor. Internet Engineering Task Force, March 1997.
+[RFC-2119]：[RFC 2119:](http://tools.ietf.org/html/rfc2119) 在RFC中用于指示需求级别的关键词。S. Bradner，编辑。互联网工程任务组，1997年3月。
 
-[ZLIB]: [RFC 1950](http://tools.ietf.org/html/rfc1950) ZLIB Compressed Data Format Specification. P. Deutsch, J-L. Gailly, Editors. Internet Engineeering Task Force, May 1996.
+[ZLIB]：[RFC 1950](http://tools.ietf.org/html/rfc1950)  ZLIB压缩数据格式规范。P. Deutsch，J-L。Gailly，编辑。互联网工程任务组，1996年5月。
 
-### Informative References
+### 信息性参考
 
-[Compress2]: [zlib compress2() function](http://refspecs.linuxbase.org/LSB_3.0.0/LSB-Core-generic/LSB-Core-generic/zlib-compress2-1.html)
+[Compress2]：[zlib compress2() function](http://refspecs.linuxbase.org/LSB_3.0.0/LSB-Core-generic/LSB-Core-generic/zlib-compress2-1.html)
 
-[CSS3-Fonts]: [CSS Fonts Module Level 3](http://www.w3.org/TR/css3-fonts/). J. Daggett, Editor. World Wide Web Consortium, 4 October 2011. The [latest version of CSS3 Fonts](http://www.w3.org/TR/css3-fonts/) is available at http://www.w3.org/TR/css3-fonts/. (Work in Progress).
+[CSS3-Fonts]：[CSS 字体模块级别 3](http://www.w3.org/TR/css3-fonts/). J. Daggett, 编辑。万维网联盟，2011年10月4日。[最新版本的CSS3字体](http://www.w3.org/TR/css3-fonts/) 可在http://www.w3.org/TR/css3-fonts/上找到。（工作正在进行中）。
 
-[OpenType]: [Microsoft OpenType specification](http://www.microsoft.com/typography/otspec/), version 1.6. Microsoft, 2009. OpenType is a registered trademark of Microsoft Corporation.
+[OpenType]：[微软 OpenTyp e规范](http://www.microsoft.com/typography/otspec/),版本1.6。Microsoft，2009。OpenType是微软公司的注册商标。
 
-[TrueType]: [Apple TrueType Reference manual](http://developer.apple.com/fonts/TTRefMan/). Apple, 2002. TrueType is a registered trademark of Apple Computer, Inc.
+[TrueType]：[Apple TrueType 参考手册](http://developer.apple.com/fonts/TTRefMan/)。
+Apple，2002。TrueType 是苹果有限公司的注册商标。
 
-[Uncompress]: [zlib uncompress() function](http://refspecs.linuxbase.org/LSB_3.0.0/LSB-Core-generic/LSB-Core-generic/zlib-uncompress-1.html)
+[Uncompress]：[zlib uncompress() function](http://refspecs.linuxbase.org/LSB_3.0.0/LSB-Core-generic/LSB-Core-generic/zlib-uncompress-1.html)
 
-[XML]: [Extensible Markup Language](http://www.w3.org/TR/xml/)
+[XML]：[可扩展标记语言](http://www.w3.org/TR/xml/)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
