@@ -11,7 +11,7 @@
 
 之所以这样做，有以下两个主要原因：
 
-*   `yarn install` 比 `npm install` 快 20 倍。`npm install` 在我们的一些大型项目中往往需要消耗 20 分钟。
+*   `yarn install` 比 `npm install` 快 20 倍。`npm install` 在我们的一些大型项目中往往需要消耗 20 分钟以上。
 *   Yarn 的依赖锁定比 npm 的更加可靠。
 
 查看去年的一篇博客（链接在上方给出了）可以了解更多。
@@ -21,19 +21,19 @@
 Yarn 解决了我们在使用 npm 时所遇到的一些烦人的问题，但是它自身也带来了许多的问题：
 
 *   Yarn 出现了[非常不好的回归](https://github.com/yarnpkg/yarn/issues/3765)，这让我们不太敢升级它。
-*   Yarn 经常会在你运行 `add`，`remove` 或者 `update` 的时候生成无效的 `yarn.lock` 文件。这就使得开发者在进行`移除`和`添加`有冲突的包时会做一些冗余的工作，直到 Yarn 找出解决方案以使得 `yarn check` 能够通过，才能改善这一现象。
+*   Yarn 经常会在你运行 `add`，`remove` 或者 `update` 的时候生成无效的 `yarn.lock` 文件。这就使得开发者需要做一些冗余的工作来 `remove` 和 `add` 这些有冲突的包，直到 Yarn 找出解决方案以使得 `yarn check` 能够通过，才能改善这一现象。
 *   很多时候，因为 Yarn [进行了优化](https://github.com/yarnpkg/yarn/issues/4379#issuecomment-332512206),所以当开发人员在拉取项目的最新变化后运行 `yarn` 时，他们的 `yarn.lock` 文件会变的很“脏”，。为了解决这个问题，需要开发人员推送与他们工作无关的更改。Yarn 需要在使用命令 `yarn lock` 更新时立即优化，而不是在下一次使用 `yarn` 命令时。
-*   `yarn publish` 不是很可靠（存在问题？）（[tracked issues #1](https://github.com/yarnpkg/yarn/issues/1619), [tracked issue #2](https://github.com/yarnpkg/yarn/issues/1182)），这意味着我们不得不使用 `npm publish` 来发布包。很容易忘记我们在这种特殊场景下需要使用 npm，并且意外地使用 Yarn 发布包导致发布的包无法安装。
+*   `yarn publish` 不是很可靠（存在问题？）（[tracked issues #1](https://github.com/yarnpkg/yarn/issues/1619), [tracked issue #2](https://github.com/yarnpkg/yarn/issues/1182)），这意味着我们不得不使用 `npm publish` 来发布包。这使我们很容易忘记在这种特殊场景下需要使用 npm，并且意外地使用 Yarn 发布包导致发布的包无法安装。
 
 不幸的是，在我们使用 Yarn 的 13 个月里，这些工作流很混乱的问题一个都没有被修复。
 
-在经历了特别痛苦的的几个星期（经常开 15 分钟的 Yarn 问题解决会议）后，我们决定回归到 npm。
+在经历了特别痛苦的几个星期（经常开 15 分钟的 Yarn 问题解决会议）后，我们决定回归到 npm。
 
 ## npm 6
 
 在我们使用 Yarn 的这段时间里，npm 做出了重大的改善，以期拥有 Yarn 的速度及其依赖锁定的可靠性 —— 这些问题曾使得我们转向了 Yarn。就像 Yarn 里面的那些烦人的问题一样，我们无法离开这些好处，因此我们首先需要验证一下 npm 是否解决了原来的那些问题。
 
-我们决定尝试一下当前能够获取到的最新版本的 npm，`npm@​6.0.0`，因为我们想要利用尽可能多的速度改善和 bug 修复。据传 `npm​@6.0.0` 是一个[相对较小的重大更新](https://github.com/npm/npm/releases/tag/v6.0.0-next.0)，因此我们人为使用它不会冒很大的风险。不可思议的是，`npm​@5.8.1` 使我们在 6.0.0 发布之前测试过的版本，在我们许多开发工程师的机器上（OS X Sierra/High Sierra，`node​@v8.9.3`）安装依赖失败了，出现了许多错误（比如 [`cb() never called!`](https://github.com/npm/npm/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+cb+never+called)）。
+我们决定尝试一下当前能够获取到的最新版本的 npm，`npm@​6.0.0`，因为我们想要利用尽可能多的速度改善和 bug 修复。据传 `npm​@6.0.0` 是一个[相对较小的重大更新](https://github.com/npm/npm/releases/tag/v6.0.0-next.0)，因此我们认为使用它不会冒很大的风险。不可思议的是，`npm​@5.8.1` 使我们在 6.0.0 发布之前测试过的版本，在我们许多开发工程师的机器上（OS X Sierra/High Sierra，`node​@v8.9.3`）安装依赖失败了，出现了许多错误（比如 [`cb() never called!`](https://github.com/npm/npm/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+cb+never+called)）。
 
 ### 速度
 
@@ -50,7 +50,7 @@ npm 在 `npm@​5.0.0` 引入了 [`package-lock.json`](https://docs.npmjs.com/fi
 
 > 推荐的 npm-shrinkwrap.json 使用场景是通过发布过程在注册表中部署的应用程序：例如，用作全局安装或 devDependencies 的守护程序和命令行工具。对于库作者发布这个文件非常不鼓励，因为这会阻止最终用户控制传递依赖关系更新。
 
-`另一方面，package-lock.json` 文件[不跟随包一起发布](https://docs.npmjs.com/files/package-lock.json)。这相当于 Yarn 如何不尊重依赖关系的 `yarn.lock` 文件 —— 父项目管理自己的依赖关系和子依赖关系（但要注意的是，如果库**的确**在不应该的时候发布 `npm-shrinkwrap.json` 文件,那么您将会使用它们的依赖性）。
+`另一方面，package-lock.json` 文件[不跟随包一起发布](https://docs.npmjs.com/files/package-lock.json)。这相当于 Yarn 如何不尊重依赖关系的 `yarn.lock` 文件 —— 父项目管理自己的依赖关系和子依赖关系（但要注意的是，如果库**的确**在不应该的时候发布 `npm-shrinkwrap.json` 文件,那么您将不得不使用它们的依赖性）。
 
 #### Locking 验证
 
@@ -68,7 +68,7 @@ npm 最近引入了 [`npm ci`](https://docs.npmjs.com/cli/ci)，很幸运它提�
 
 ### Check, check, check
 
-`npm​@6.0.0` 为我们检查了所有的盒子，所有我们决定以后继续使用它！
+`npm​@6.0.0` 为我们检查了所有的盒子，所以我们决定以后继续使用它！
 
 在对我们的一个服务进行为期三周的试验成功后，我们将剩余的其它服务和项目也迁移到了 npm！
 
