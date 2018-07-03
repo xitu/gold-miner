@@ -189,7 +189,7 @@ BeautifulSoup 允许你在网页上搜索特定的 HTML tag 或者 marker。而�
 
 **Zhia Chong 是 Twitter 的软件工程师。他在西雅图的广告测量团队工作，评估广告客户的影响和投资回报率。该团队是** [**hiring**](https://careers.twitter.com/en/work-for-twitter/201803/software-engineer-backend-advertising-measurement.html)！
 
-**你可以在**[**Twitter**](https://twitter.com/zhiachong) **和** [**LinkedIn**](https://www.linkedin.com/in/zhiachong/) **上找到他。**
+**你可以在 **[**Twitter**](https://twitter.com/zhiachong) **和** [**LinkedIn**](https://www.linkedin.com/in/zhiachong/) **上找到他。**
 
 感谢[开源 portfolio](https://medium.com/@osportfolio?source=post_page)。
 
