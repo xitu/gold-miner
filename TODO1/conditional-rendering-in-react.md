@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/conditional-rendering-in-react.md](https://github.com/xitu/gold-miner/blob/master/TODO1/conditional-rendering-in-react.md)
 > * 译者：[Dong Han](https://github.com/IveHD)
-> * 校对者：
+> * 校对者：[Jessica Shao](https://github.com/tutaizi)
 
 # 8 React 实现条件渲染的多种方式和性能考量
 
@@ -17,7 +17,7 @@
 
 那就是另外一回事了。
 
-### 你已经有所选择
+### 有几种方案可供你选择
 
 在 React 中有多种使用条件语句的方式。并且，和编程中的大多数事情一样，依赖于你所要解决的实际问题，有些方式是更适合的。
 
@@ -27,7 +27,7 @@
 *   避免使用 `null` 渲染
 *   元素变量
 *   三元运算符
-*   且运算 (&& )
+*   与运算 (&& )
 *   立即调用函数（IIFE）
 *   子组件
 *   高阶组件（HOCs）
@@ -36,7 +36,7 @@
 
 ![](https://cdn-images-1.medium.com/max/800/0*vS8AU_xnc4VHcHrK.)
 
-你可以在 [JSFiddle](https://jsfiddle.net/) 中尝试和分解所有的例子。
+你可以在 [JSFiddle](https://jsfiddle.net/) 中尝试和拷贝（fork）所有例子。
 
 让我们从使用 if/else 这种最原始的实现开始并在这里构建它。
 
@@ -53,7 +53,7 @@ class App extends React.Component {
 }
 ```
 
-你将使用一个属性来保存文本，并且使用另外一个属性存储正在被编辑的问题。第三个属性将用来表示你是在 `edit` 还是 `view` 模式下。
+你将使用一个属性来保存文本，并且使用另外一个属性存储正在被编辑的文本。第三个属性将用来表示你是在 `edit` 还是 `view` 模式下。
 
 接下来，添加一些方法来处理输入文本、保存和输入事件：
 
@@ -109,7 +109,7 @@ class App extends React.Component {
 }
 ```
 
-下面是完整的代码，可以在 fiffle 中尝试执行它：
+下面是完整的代码，可以在 fiddle 中尝试执行它：
 
 Babel + JSX:
 
@@ -222,7 +222,7 @@ class App extends React.Component {
 }
 ```
 
-下面是完整的代码，可以在 fiffle 中尝试执行它：
+下面是完整的代码，可以在 fiddle 中尝试执行它：
 
 Babel + JSX:
 
@@ -362,7 +362,7 @@ ReactDOM.render(
 );
 ```
 
-`Number` 组件只有在父组件传递偶数时渲染父组件传递的值，否则，将返回 `null`。然后，当时观察控制台输出，将会发现不管 `render` 返回什么， `componentDidUpdate` 总是会被调用。
+`Number` 组件只有在父组件传递偶数时渲染父组件传递的值，否则，将返回 `null`。然后，当观察控制台输出时，将会发现不管 `render` 返回什么， `componentDidUpdate` 总是会被调用。
 
 回头来看我们的例子，像这样来改变 `renderInputField` 方法：
 
@@ -458,13 +458,13 @@ ReactDOM.render(
 );
 ```
 
-返回 `null` 来替代一个空元素的优势在于这将会组建的性能有一些改善，因为 React 不必要解绑组件来替换它。
+返回 `null` 来替代一个空元素的优势在于这将会对组建的性能有一些改善，因为 React 不必要解绑组件来替换它。
 
 例如，当执行返回空 `div` 元素的代码时，打开检阅页面元素，将会看到在跟元素下的 `div` 元素是如何被刷新的：
 
 ![](https://cdn-images-1.medium.com/max/800/0*1f--Ics8DXB3UFp_.)
 
-对比这个例子，当返回 `null` 来隐藏组件时，`Edit` 按钮被电击时 `div` 元素是不更新的：
+对比这个例子，当返回 `null` 来隐藏组件时，`Edit` 按钮被点击时 `div` 元素是不更新的：
 
 ![](https://cdn-images-1.medium.com/max/800/0*7SzdmNMiVje-msFz.)
 
@@ -596,11 +596,11 @@ ReactDOM.render(
 
 使用这种方式使主 `render` 方法更有可读性，但是可能并没有必要使用 if/else 判断（或者像 `switch` 这样的语句）和辅助的渲染方法。
 
-让我们尝试一个更简单的方法。
+让我们尝试一种更简单的方法。
 
 ### 三元运算符
 
-我们可以使用 [三元运算符](https://en.wikipedia.org/wiki/%3F:) 来替换使用 if/else 语句：
+我们可以使用 [三元运算符](https://en.wikipedia.org/wiki/%3F:) 来代替 if/else 语句：
 
 ```
 condition ? expr_if_true : expr_if_false
@@ -680,11 +680,11 @@ render () {
 
 [https://jsfiddle.net/eh3rrera/y6yff8rv/](https://jsfiddle.net/eh3rrera/y6yff8rv/)
 
-### 且运算符
+### 与运算符
 
 在某种特殊情况下，三元运算符是可以简化的。
 
-当你想要渲染元素或者不渲染任何元素的情况下，你可以使用 `&&` 运算符。
+当你想要一种条件下渲染元素，另一种条件下不渲染元素时，你可以使用 `&&` 运算符。
 
 不同于 `&` 运算符，当左侧的表达式可以决定最终结果时，`&&` 是不会再执行右侧表达式的判断的。
  
@@ -825,7 +825,7 @@ return (
 
 ### 立即执行函数表达式 (IIFE)
 
-顾名思义，立即执行函数就是在定义之后被立即调用的函数，他们不需要被明确的调用。
+顾名思义，立即执行函数就是在定义之后被立即调用的函数，他们不需要被显式地调用。
 
 通常情况下，你一般会这样定义并执行（定义后执行）一个函数：
 
@@ -971,7 +971,7 @@ ReactDOM.render(
 
 很多时候，立即执行函数看起来可能是一种不那么优雅的解决方案。
 
-毕竟，我们在使用 React，React 推荐使用的方案是尽可能的将逻辑和应用分解，并且推荐使用函数式编程而非命令式编程。
+毕竟，我们在使用 React，React 推荐使用的方案是将你的应用逻辑分解为尽可能多的组件，并且推荐使用函数式编程而非命令式编程。
 
 所以修改条件渲染逻辑为一个子组件，这个子组件会依据父组件传递的 props 来决定在不同情况下的渲染，这将会是一个更好的方案。
 
@@ -1273,7 +1273,7 @@ function higherOrderComponent(Component) {
 
 这里有一篇 [Robin Wieruch](https://www.robinwieruch.de/about/) 写的 [关于高阶组件的极好的文章](https://www.robinwieruch.de/gentle-introduction-higher-order-components/)，这篇文章深入讨论了高阶组件在条件渲染中的应用。
 
-早我们这篇文章中，我将会借鉴一些 `EitherComponent` 的概念。
+在我们这篇文章中，我将会借鉴一些 `EitherComponent` 的概念。
 
 在函数式编程中，`Either` 这一类方法的实现通常是作为一个包装，来返回两个不同的值。
 
@@ -1287,7 +1287,7 @@ function withEither(conditionalRenderingFn, EitherComponent) {
 
 通常高阶组件的函数名都以 `with` 开头。
 
-这个函数将会返回另一个函数，另一个函数接收一个原组件并返回一个新的组件：
+这个函数将会返回另一个函数，这个被返回的函数接收一个原组件并返回一个新的组件：
 
 ```
 function withEither(conditionalRenderingFn, EitherComponent) {
@@ -1341,7 +1341,7 @@ const withEditContionalRendering = withEither(isViewConditionFn, EditComponent);
 const EditSaveWithConditionalRendering = withEditContionalRendering(SaveComponent);
 ```
 
-这样你就可以在 `render` 方法中使用所有需要的属性：
+这样一来你就只需在render方法中使用该组件，并向它传递所有需要用到的属性：
 
 ```
 render () {    
@@ -1447,7 +1447,7 @@ ReactDOM.render(
 
 条件渲染可能是复杂的。就像前面我所展示的那样，每种方式的性能也可能是不同的。
 
-然而，在大多数时候这种差别是不成问题的。但当我们使用它们时，你将需要对 React 是如何和虚拟 DOM 协同工作的并且使用一些技巧来[优化性能](https://reactjs.org/docs/optimizing-performance.html)。
+然而，在大多数时候这种差别是不成问题的。但当它确实造成问题时，你将需要深入理解 React 的虚拟 DOM 的工作原理，并且使用一些技巧来[优化性能](https://reactjs.org/docs/optimizing-performance.html)。
 
 这里有一篇关于很好的文章，关于 [优化React的条件渲染](https://medium.com/@cowi4030/optimizing-conditional-rendering-in-react-3fee6b197a20)，我非常推荐你读一下。
 
@@ -1518,7 +1518,7 @@ ReactDOM.render(
 );
 ```
 
-第二个例子使用且运算（`&&`）做同样的事情：
+第二个例子使用与运算（`&&`）做同样的事情：
 
 Babel + JSX:
 
