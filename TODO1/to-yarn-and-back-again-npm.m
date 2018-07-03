@@ -56,7 +56,7 @@ npm 在 `npm@​5.0.0` 引入了 [`package-lock.json`](https://docs.npmjs.com/fi
 
 npm 没有与 Yarn 的 [`yarn check`](https://yarnpkg.com/lang/en/docs/cli/check/) 相对应的功能，但 `yarn check` 看起来像一些人（如 Airbnb）使用 `npm ls> / dev / null` 来检查安装错误，如缺少软件包。
 
-不幸的是，检查将 peer 依赖警告视为错误，这阻止了我们使用它，因为[我们经常通过 CDN 实现 peer 依赖关系](https://mixmax.com/blog/rollup-externals)。
+不幸的是，检查将 peer 依赖警告视为错误，这使得我们无法使用它，因为[我们经常通过 CDN 实现 peer 依赖关系](https://mixmax.com/blog/rollup-externals)。
 
 npm 最近引入了 [`npm ci`](https://docs.npmjs.com/cli/ci)，很幸运它提供了一些验证功能。`npm ci` 确保了 `package-lock.json` 和 `package.json` 在同一验证形式下是同步的。它同样提供了一些其它好处 —— 查看文档了解更多。
 
