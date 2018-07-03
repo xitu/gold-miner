@@ -2,8 +2,7 @@
 > * 原文作者：[Alex Theedom](https://developer.ibm.com/author/alex.theedom)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/j-javaee8-security-api-2.md](https://github.com/xitu/gold-miner/blob/master/TODO1/j-javaee8-security-api-2.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Starriers](https://github.com/Starriers)
 
 # 从 Java EE 8 Security API 开始 —— 第二部分
 
