@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/react-native-at-airbnb-the-technology.md](https://github.com/xitu/gold-miner/blob/master/TODO1/react-native-at-airbnb-the-technology.md)
 > * 译者：[ALVINYEH](https://github.com/ALVINYEH)
-> * 校对者：[ssshooter](https://github.com/ssshooter)
+> * 校对者：[ssshooter](https://github.com/ssshooter)、[LeeSniper](https://github.com/LeeSniper)
 
 # Airbnb 中的 React Native：技术部分
 
@@ -11,7 +11,7 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/1*iaYan0f1NeQlzGnwzjXEvg.jpeg)
 
-这是[系列博客文章](https://juejin.im/post/5b2c924ff265da59a401f050)中的第二篇，本文将会概述使用 React Native 的经验，以及 Airbnb 移动端接下来要做的事情。
+这是[系列博客文章](https://juejin.im/post/5b2c924ff265da59a401f050)中的第二篇，本文将会概述我们使用 React Native 的经验，以及 Airbnb 移动端接下来要做的事情。
 
 React Native 本身在 Android，iOS，Web 和跨平台框架的各个部分上，是一个相对较新且快速迭代的平台。两年后，我们可以很有把握地说，React Native 在很多方面都是革命性的。这是移动设备的转变范例，我们能够从众多目标中获得收益。然而，它的好处并非没有明显的痛点。
 
@@ -23,16 +23,16 @@ React Native 的主要好处在于，你所编写的代码能够同时在 Andrio
 
 #### 统一设计语言系统（DLS）
 
-我们开发了一种名为 [DLS](https://airbnb.design/building-a-visual-language/) 的跨平台设计语言。同时拥有 Android，iOS，React Native 和每个组件的 Web 版本。拥有统一的设计语言可以实现编写跨平台代码的功能，这意味着设计，组件名称和跨平台屏幕可以保持一致。但是，我们仍然能够在适用的情况下，做出适合平台的决策。例如，我们在 Andriod 上使用原生的 [Toolbar](https://developer.android.com/reference/android/support/v7/widget/Toolbar)，iOS 上使用 [UINavigationBar](https://developer.apple.com/documentation/uikit/uinavigationbar)，但我们需要在 Andriod 上隐藏 [disclosure indicators](https://developer.apple.com/ios/human-interface-guidelines/views/tables/)，因为这不符合 Andriod 平台设计准则。
+我们开发了一种名为 [DLS](https://airbnb.design/building-a-visual-language/) 的跨平台设计语言。同时拥有每个组件的 Android、iOS、React Native 和 Web 版本。拥有统一的设计语言可以实现编写跨平台代码的功能，这意味着设计，组件名称和屏幕可以跨平台保持一致。但是，我们仍然能够在适用的情况下，做出适合平台的决策。例如，我们在 Andriod 上使用原生的 [Toolbar](https://developer.android.com/reference/android/support/v7/widget/Toolbar)，iOS 上使用 [UINavigationBar](https://developer.apple.com/documentation/uikit/uinavigationbar)，但我们需要在 Andriod 上隐藏 [disclosure indicators](https://developer.apple.com/ios/human-interface-guidelines/views/tables/)，因为这不符合 Andriod 平台设计准则。
 
 我们选择了重写组件，而不是封装原生组件。因为每个平台分别制作适用的 API 会更加可靠，并且可以减少 Android 和 iOS 工程师的维护开销，他们可能不清楚应该如何正确测试 React Native 中更改的代码。但是，它确实会导致同一组件的原生和 React Native 版本不同步的平台之间出现碎片。
 
 #### React
 
-React 成为[最受开发者欢迎](https://insights.stackoverflow.com/survey/2018/#technology-most-loved-dreaded-and-wanted-frameworks-libraries-and-tools) Web 框架有一个原因。那就是它非常简单但功能强大，适用于大型代码库。我们非常喜欢的特点是：
+React 成为[最受开发者欢迎的](https://insights.stackoverflow.com/survey/2018/#technology-most-loved-dreaded-and-wanted-frameworks-libraries-and-tools) Web 框架也是有原因。那就是它非常简单但功能强大，适用于大型代码库。我们非常喜欢的特点是：
 
 *   **组件：** React 组件通过明确定义的属性和状态强制分离关注点。React 的可扩展性在其中起着很大作用。
-*   **简单的生命周期：** 简单来说, Android 和 iOS 的生命周期都出了名的[复杂](https://i.stack.imgur.com/fRxIQ.png)。 函数式和响应式 React 组件从根本上解决了这个问题，所以学习 React Native 比学习 Andriod 和 iOS 更简单。
+*   **简单的生命周期：** 简单来说, Android 和 iOS 的生命周期都出了名的[复杂](https://i.stack.imgur.com/fRxIQ.png)。函数式和响应式 React 组件从根本上解决了这个问题，所以学习 React Native 比学习 Andriod 和 iOS 更简单。
 *   **声明式：** React 的声明特性帮助我们的 UI 与基础状态保持同步。
 
 #### 迭代速度
@@ -102,11 +102,11 @@ React Native 相对 Android 或 iOS 来说，略显不够成熟。它很新，�
 
 #### JavaScript 工具
 
-JavaScript 是一种无类型语言。缺乏类型安全既难以扩展，也成为习惯于类型化语言的移动端工程师争论的焦点，否则它们可能会对学习 React Native 感兴趣。我们探讨了采用 [flow](https://flow.org/) 的方式，但隐晦的错误消息导致了令人沮丧的开发者体验。我们还探讨了 [TypeScript](http://www.typescriptlang.org/)，但将其整合到我们现有的基础架构中时，如 [babel](https://babeljs.io/)和 [metro bundler](https://github.com/facebook/metro) 是有问题的。不过，我们正在继续积极研究 Web 上的 TypeScript。
+JavaScript 是一种无类型语言。缺乏类型安全既难以扩展，也成为习惯于类型化语言的移动端工程师争论的焦点，否则他们可能会对学习 React Native 感兴趣。我们探讨了采用 [flow](https://flow.org/) 的方式，但隐晦的错误消息导致了令人沮丧的开发者体验。我们还探讨了 [TypeScript](http://www.typescriptlang.org/)，但将其整合到我们现有的基础架构中时，如 [babel](https://babeljs.io/)和 [metro bundler](https://github.com/facebook/metro) 是有问题的。不过，我们正在继续积极研究 Web 上的 TypeScript。
 
 #### 重构
 
-JavaScript 一个被忽略的副作用是，重构非常困难且容易出错。重命名一些属性，特别是带有通用名称的属性（如 **onClick** 或通过多个组件传递的属性），对于准确地重构来说是一场噩梦。更糟糕的是，重构在生产环境中崩溃，而不是在编译时，很难对其进行适当的静态分析。
+JavaScript 一个无类型的副作用是，重构非常困难且容易出错。重命名一些属性，特别是带有通用名称的属性（如 **onClick** ）或通过多个组件传递的属性，对于准确地重构来说是一场噩梦。更糟糕的是，重构在生产环境中崩溃，而不是在编译时，很难对其进行适当的静态分析。
 
 #### JavaScriptCore 不一致
 
@@ -148,7 +148,7 @@ React Native 有 [桥接 API](https://facebook.github.io/react-native/docs/commu
 
 #### App 大小
 
-React Native 对应用程序大小也有不可忽视的影响。在 Android 上，React Native（Java + JS + 原生库，例如 Yoga + Javascript 运行时）的总大小为每个 ABI  8MB。在一个 APK 中使用 x86 和 arm（仅 32 位），体积将接近 12MB。
+React Native 对应用程序大小也有不可忽视的影响。在 Android 上，React Native（Java + JS + 原生库，例如 Yoga + Javascript 运行时）的总大小为每个 ABI 8MB。在一个 APK 中使用 x86 和 arm（仅 32 位），体积将接近 12MB。
 
 #### 64 位
 
@@ -156,7 +156,7 @@ React Native 对应用程序大小也有不可忽视的影响。在 Android 上�
 
 #### 手势
 
-我们避免在涉及复杂手势的屏幕上使用 React Native，因为 Android 和 iOS 的触摸子系统非常不同，所以需要统一的 API 对整个 React Native 社区来说都具有挑战性。然而，这项工作仍在继续进行，[react-native-gesture-handler](https://github.com/kmagiera/react-native-gesture-handler) 最近已经发布 1.0 版本。
+我们避免在涉及复杂手势的页面上使用 React Native，因为 Android 和 iOS 的触摸子系统非常不同，以至于整理出一套统一的 API 对整个 React Native 社区来说都具有挑战性。然而，这项工作仍在继续进行，[react-native-gesture-handler](https://github.com/kmagiera/react-native-gesture-handler) 最近已经发布 1.0 版本。
 
 #### List 太长
 
@@ -164,7 +164,7 @@ React Native 在这方面取得了一些进展，比如 [FlatList](https://faceb
 
 #### 升级 React Native
 
-尽管大多数 React Native 升级都很微不足道，但有一些却令人非常痛苦。尤其是，几乎是不可能使用 React Native 0.43（2017 年 4 月）至 0.49（2017 年 10月），因为其中使用了 React 16 alpha 和 beta。这是个大问题，因为大多数专为 Web 使用而设计的，React 库不支持预发布的 React 版本。争论此次升级的适当依赖关系的过程，对 2017 年中其他 React Native 基础架构工作造成重大损害。
+尽管大多数 React Native 升级都很微不足道，但有一些却令人非常痛苦。尤其是， React Native 0.43（2017 年 4 月）至 0.49（2017 年 10月）版本几乎无法使用，因为其中使用了 React 16 alpha 和 beta。这是个大问题，因为大多数专为 Web 使用而设计的 React 库不支持以前发布的 React 版本。争论此次升级的适当依赖关系的过程，对 2017 年中其他 React Native 基础架构工作造成重大损害。
 
 #### 辅助功能
 
@@ -172,11 +172,11 @@ React Native 在这方面取得了一些进展，比如 [FlatList](https://faceb
 
 #### 棘手的崩溃
 
-我们不得不面对一些难以解决的、非常奇怪的崩溃。例如，我们目前在 **@ReactProp** 注释中遇到了[这个崩溃](https://issuetracker.google.com/issues/37045084)，并且无法在任何设备上复现，即使是那些具有相同硬件和软件的设备也是如此。
+我们不得不面对一些难以解决的、非常奇怪的崩溃。例如，我们目前在 **@ReactProp** 注解中遇到了[这个崩溃](https://issuetracker.google.com/issues/37045084)，并且无法在任何设备上复现，即使是和那些持续崩溃的设备具有相同硬件和软件也是如此。
 
 #### 在 Android 上的 SavedInstanceState 跨进程 
 
-Android 经常会去清理后台进程，但给了一个机会来[同步保存在 bundle 中的状态](https://developer.android.com/topic/libraries/architecture/saving-states#use_onsaveinstancestate_as_backup_to_handle_system_initiated_process_death)。但是，在 React Native 上，所有状态只能在 JS 线程中访问，因此同步无法完成。即使情况并非如此，作为状态存储的 Redux 与此方法也不兼容，因为它混合了包含可序列化和不可序列化数据，并且可能包含比 saveInstanceState 包中容纳的更多数据，这会导致[在生产环境下崩溃](https://medium.com/@mdmasudparvez/android-os-transactiontoolargeexception-on-nougat-solved-3b6e30597345)。
+Android 经常会去清理后台进程，但给了它们一个[同步把状态保存在 bundle 中的](https://developer.android.com/topic/libraries/architecture/saving-states#use_onsaveinstancestate_as_backup_to_handle_system_initiated_process_death)机会。但是，在 React Native 上，所有状态只能在 JS 线程中访问，因此无法同步进行。即使情况并非如此，作为状态存储的 Redux 与此方法也不兼容，因为它混合了包含可序列化和不可序列化数据，并且可能包含比 saveInstanceState 包中容纳的更多类型的数据，这会导致[在生产环境下崩溃](https://medium.com/@mdmasudparvez/android-os-transactiontoolargeexception-on-nougat-solved-3b6e30597345)。
 
 * * *
 
