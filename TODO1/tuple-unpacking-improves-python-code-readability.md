@@ -3,17 +3,17 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/tuple-unpacking-improves-python-code-readability.md](https://github.com/xitu/gold-miner/blob/master/TODO1/tuple-unpacking-improves-python-code-readability.md)
 > * 译者：[lsvih](https://github.com/lsvih)
-> * 校对者：
+> * 校对者：[Zheaoli](https://github.com/Zheaoli)
 
 # 使用多重赋值与元组解包提升 Python 代码的可读性
 
-无论是教导新手还是资深 Python 程序员，我都发现**很多 Python 程序员没有充分利用多重赋值这一特性**。
+无论是教导新手还是资深 Python 程序员，我都发现 **很多 Python 程序员没有充分利用多重赋值这一特性**。
 
 多重赋值（也经常被称为元组解包或者可迭代对象解包）能让你在一行代码内同时对多个变量进行赋值。这种特性在学习时看起来很简单，但在真正需要使用时再去回想它可能会比较麻烦。
 
 在本文中，将介绍什么是多重赋值，举一些常用的多重赋值的样例，并了解一些较少用、常被忽视的多重赋值用法。
 
-请注意在本文中会用到 [f-strings](https://cito.github.io/blog/f-strings/) 这种 Python 3.6 以上版本才有的特性，如果你的 Python 版本较老，可以自己用字符串的 `format` 方法来代替这种特性。
+请注意在本文中会用到 [f-strings](https://cito.github.io/blog/f-strings/) 这种 Python 3.6 以上版本才有的特性，如果你的 Python 版本较老，可以使用字符串的 `format` 方法来代替这种特性。
 
 ## 多重赋值的实现原理
 
@@ -27,7 +27,7 @@ Python 的多重赋值如下所示：
 
 在这儿我们将 `x` 设为了 `10`，`y` 设为了 `20`。
 
-从更底层的角度看，我们其实是创建了一个 `10, 20` 的元组，然后对这个元组进行循环，将拿到的两个数字按照顺序分别赋给 `x` 与 `y`。
+从更底层的角度看，我们其实是创建了一个 `10, 20` 的元组，然后遍历这个元组，将拿到的两个数字按照顺序分别赋给 `x` 与 `y`。
 
 写成下面这种语法应该更容易理解：
 
@@ -178,7 +178,7 @@ def reformat_date(mdy_date_string):
     return f"{year}-{month}-{day}"
 ```
 
-因此无论何时你在代码中将索引写死了，请停下来想一想是不是应该用多重赋值来改善代码的可读性。
+因此当你准备对索引进行硬编码时，请停下来想一想是不是应该用多重赋值来改善代码的可读性。
 
 ## 多重赋值是十分严格的
 
@@ -202,7 +202,7 @@ Traceback (most recent call last):
 ValueError: not enough values to unpack (expected 3, got 2)
 ```
 
-这种严格其实很棒，如果我们在处理元素时出现了非预期的对象数量，多重赋值会直接报错，这样我们就能发现一些还没有被发现的 bug。
+这种严格的限制其实很棒，如果我们在处理元素时出现了非预期的对象数量，多重赋值会直接报错，这样我们就能发现一些还没有被发现的 bug。
 
 举个例子。假设我们有一个简单的命令行程序，通过原始的方式接受参数，如下所示：
 
