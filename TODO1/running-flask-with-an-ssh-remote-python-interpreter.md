@@ -2,8 +2,8 @@
 > * 原文作者：[Ernst Haagsman](https://blog.jetbrains.com/pycharm/author/ernst-haagsmanjetbrains-com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/running-flask-with-an-ssh-remote-python-interpreter.md](https://github.com/xitu/gold-miner/blob/master/TODO1/running-flask-with-an-ssh-remote-python-interpreter.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Starrier](https://github.com/Starriers)
+> * 校对者：[shisaq](https://github.com/shisaq)
 
 # 通过 SSH 远程使用 Python 解释器来运行 Flask
 
@@ -11,7 +11,7 @@
 
 大多数应用程序会被部署到某种类型的 Linux 虚拟机中。或许你正在使用的是传统的 web 主机，即所谓的 VPS 主机。
 
-如果我们想在一个类似于我们生产环境的环境中进行开发，那我们如何才能做到这一点呢？最好的方法就是为了开发目的而设置第二个虚拟机。让我们看看 PyCharm 是如何连接到 VPS 盒子的。
+如果我们想在一个类似于我们生产环境的环境中进行开发，那我们如何才能做到这一点呢？最好的方法就是为了开发目的而设置第二个虚拟机。让我们看看 PyCharm 是如何连接到 VPS 环境。
 
 ## 我们的应用程序
 
@@ -19,7 +19,7 @@
 
 首先[克隆仓库](https://github.com/ErnstHaagsman/flask-compose/tree/with-database)，然后切换到 ‘with-database’ 分支。打开项目之后，我们需要配置服务器。我使用 AWS EC2 实例，但是你也可以使用任何其他的 Linux 环境（包括树莓派）。 
 
-想要配置解释器，请打开设置/项目设置，并使用齿轮图添加解释器：
+想要配置解释器，请打开设置/项目设置，并使用齿轮图标添加解释器：
 
 ![添加解释器](https://d3nmt5vlzunoa1.cloudfront.net/pycharm/files/2018/03/Add-Interpreter.png)
 
@@ -39,13 +39,13 @@
 
 ## 配置我们的环境
 
-Docker Compose 非常方便，因为它允许我们以非常简洁的方式指定和配置服务器。如果我们想要在常见的 Linux 机器上工作，我们需要自己处理这个配置。因此，我们先开始下载 PostgreSQL。
+Docker Compose 非常方便，因为它允许我们以非常简洁的方式指定和配置服务器。如果我们想要在常规 Linux 机器上工作，我们需要自己处理这个配置。因此，我们先开始下载 PostgreSQL。
 
 打开 SSH 会话，也可以转到工具/SSH 会话，或者使用 Ctrl+Shift+A 查找 ‘Start SSH session’ 操作：
 
 [![开启 SSH 会话](https://d3nmt5vlzunoa1.cloudfront.net/pycharm/files/2018/03/Start-SSH-session.png)](https://d3nmt5vlzunoa1.cloudfront.net/pycharm/files/2018/03/Start-SSH-session.png)
 
-现在，我们可以运行 `sudo apt-get install postgresql`。如果你正在树莓派上实验，也是如此。如果我们正在开发一个应用程序，那么记录我们正在做的事情，可以确保我们以后正确复制环境。 
+现在，我们可以运行 `sudo apt-get install postgresql`。如果你正在树莓派上实验，也是如此。如果我们正在开发一个应用程序，那么记录我们正在做的事情，可以确保我们以后正确重现环境。 
 
 一款配置 Linux 机器的优秀软件是 [Ansible](https://www.ansible.com/)。使用 Ansible，我们可以通过 YAML 文件来描述 Linux 服务器的所需状态，然后使用 Ansible 工具来应用所需的配置。
 
@@ -60,7 +60,7 @@ Docker Compose 非常方便，因为它允许我们以非常简洁的方式指�
        name: postgresql-9.5
 ```
 
-如果我们使用这些内容新建一个 `setup.yml` 文件，PyCharm 会自动将其上传到我们在项目配置期间配置的位置。默认情况下，这是 `/tmp/` 的子文件夹。因此，我们先 Ansible，导航到这个文件夹，运行这个文件（在 Ansible 术语中称为剧本）。你可以通过在服务器上运行这些命令（使用你之前启动的 SSH 会话）来实现这一点：
+如果我们使用这些内容新建一个 `setup.yml` 文件，PyCharm 会自动将其上传到我们在项目配置期间配置的位置。默认情况下，这是 `/tmp/` 的子文件夹。因此，我们先安装 Ansible，导航到这个文件夹，运行这个文件（在 Ansible 术语中称为 playbook）。你可以通过在服务器上运行这些命令（使用你之前启动的 SSH 会话）来实现这一点：
 
 ```
 sudo apt update && sudo apt install -y ansible
@@ -97,11 +97,11 @@ ansible-playbook ./setup.yml
     virtualenv_python: python3
 ```
 
-我们将这些任务添加到剧本（setup.yml）并重新运行之后，就可以重新配置 PyCharm 来使用运程 venv 而不是我们环境的系统解释器。为此，请返回到解释器设置屏宽。使用齿轮图标选择“显示所有”，然后单击铅笔编辑解释器。更改虚拟环境 （`/home/ubuntu/venv/bin/python`）中 Python 可执行文件的路径:
+我们将这些任务添加到 playbook（setup.yml）并重新运行之后，就可以重新配置 PyCharm 来使用远程 venv 而不是我们环境的系统解释器。为此，请返回到设置解释器的界面。使用齿轮图标选择“显示所有”，然后单击铅笔编辑解释器。更改虚拟环境 （`/home/ubuntu/venv/bin/python`）中 Python 可执行文件的路径:
 
 [![修改解释器](https://d3nmt5vlzunoa1.cloudfront.net/pycharm/files/2018/03/Change-interpreter.png)](https://d3nmt5vlzunoa1.cloudfront.net/pycharm/files/2018/03/Change-interpreter.png)
 
-现在，我们发现了，我们可以运行 Flask 来运行配置。让我们先编辑它，这样它就可以从外界获取。我们需要提供 `host=0.0.0.0` 作为 Flask 的附加选项：
+既然我们已经准备妥当，我们可以运行 Flask 来运行配置。让我们先编辑它，这样它就可以从外界获取。我们需要提供 `host=0.0.0.0` 作为 Flask 的附加选项：
 
 [![Flask Run Configuration](https://d3nmt5vlzunoa1.cloudfront.net/pycharm/files/2018/03/Flask-Run-Configuration.png)](https://d3nmt5vlzunoa1.cloudfront.net/pycharm/files/2018/03/Flask-Run-Configuration.png)
 
@@ -134,13 +134,13 @@ ansible-playbook setup.yml
 ansible-playbook clean-db.yml
 ```
 
-第一个剧本会配置 PostgreSQL 用户账户。第二个剧本会删除已存在的数据库，然后创建一个干净的数据库。在这个数据库中，  运行 `schema.sql` 文件来创建这个应用程序所需要的表。
+第一个剧本会配置 PostgreSQL 用户账户。第二个剧本会删除已存在的数据库，然后创建一个干净的数据库。在这个数据库中，运行 `schema.sql` 文件来创建这个应用程序所需要的表。
 
 你还可以使用 PyCharm 来运行 SQL 命令并检查数据库。 [阅读我们关于在树莓派上运行代码的文章来了解更多内容](https://blog.jetbrains.com/pycharm/2017/07/raspberry-ping-1/)。
 
 ## The Finish Line
 
-在设置数据库后，我们应该可以使用调试配置再次启动 Flask，并查看我们的很快的留言系统：
+在设置数据库后，我们应该可以使用调试配置再次启动 Flask，并查看我们的炫酷的留言系统：
 
 [![Results](https://d3nmt5vlzunoa1.cloudfront.net/pycharm/files/2018/03/Results.png)](https://d3nmt5vlzunoa1.cloudfront.net/pycharm/files/2018/03/Results.png)
 
