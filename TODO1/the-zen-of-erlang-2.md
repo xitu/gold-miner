@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-zen-of-erlang-2.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-zen-of-erlang-2.md)
 > * 译者：[7Ethan](https://github.com/7Ethan)
-> * 校对者：[K.Lew](https://github.com/kasheemlew)[satansk](https://github.com/satansk)
+> * 校对者：[K.Lew](https://github.com/kasheemlew), [satansk](https://github.com/satansk)
 
 # 就像其它的任何事物一样糟糕
 
@@ -25,7 +25,7 @@
 
 ![通过重启来处理 bug](https://ferd.ca/static/img/zen-of-erlang/016.png)
 
-那么，重启作为一种策略有多有效呢?
+那么，重启作为一种策略有多有效呢？
 
 对于核心功能上的可复现的 bug，重新启动是没用的。对于不经常使用的代码路径中的可复现的 bug，这取决于不同情况;如果这个功能对于非常少的用户来说非常重要，那么重新启动不会有太大的作用。如果这是每个人都使用的一个小功能，但在某种程度上他们并不太在意，那么重新开始或忽略失败就够了。例如，如果facebook 的 ‘poke’ 功能失效(不知道这个问题是否还存在)，也不会对很多用户的体验有影响。
 
