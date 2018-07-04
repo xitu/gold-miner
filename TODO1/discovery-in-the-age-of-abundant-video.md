@@ -11,7 +11,7 @@
 
 ![](https://cdn-images-1.medium.com/max/1600/0*Z4o0cUjhfdNMRrOd.)
 
-如今在互联网上，人们可以接触到海量的视频信息，[而提供这些视频的平台数量已经超过五年前的两倍](https://www.ericsson.com/en/trends-and-insights/consumerlab/consumer-insights/reports/tv-and-media-2017)。因此，人们往往需要花费更多的时间和精力([+13% YoY](https://www.ericsson.com/en/trends-and-insights/consumerlab/consumer-insights/reports/tv-and-media-2017))去搜索自己感兴趣的视频。
+如今在互联网上，人们可以接触到海量的视频，[而提供这些视频的平台数量已经超过五年前的两倍](https://www.ericsson.com/en/trends-and-insights/consumerlab/consumer-insights/reports/tv-and-media-2017)。因此，人们往往需要花费更多的时间和精力([+13% YoY](https://www.ericsson.com/en/trends-and-insights/consumerlab/consumer-insights/reports/tv-and-media-2017))去搜索自己感兴趣的视频。
 
 ![](https://cdn-images-1.medium.com/max/1600/0*enf33FQyYbhzNvV2.)
 
