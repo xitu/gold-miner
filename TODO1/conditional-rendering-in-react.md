@@ -2,47 +2,47 @@
 > * 原文作者：[Esteban Herrera](https://blog.logrocket.com/@eh3rrera?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/conditional-rendering-in-react.md](https://github.com/xitu/gold-miner/blob/master/TODO1/conditional-rendering-in-react.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Dong Han](https://github.com/IveHD)
+> * 校对者：[Jessica Shao](https://github.com/tutaizi)，[doctype233](https://github.com/tutaizi
 
-# 8 React conditional rendering methods
+# 8 React 实现条件渲染的多种方式和性能考量
 
 ![](https://cdn-images-1.medium.com/max/800/1*iePG8qczEBX1ICAMR5U-JQ.png)
 
-[JSX](https://facebook.github.io/jsx/) is a powerful extension to JavaScript that allows us to define UI components. But it doesn’t support loops or conditional expressions directly (although the addition of [conditional expressions has been discussed](https://github.com/reactjs/react-future/issues/35) before).
+[JSX](https://facebook.github.io/jsx/) 是对 JavaScript 强大的扩展，允许我们来定义 UI 组件。但是它不直接支持循环和条件表达式（尽管添加 [条件表达式已经被讨论过了](https://github.com/reactjs/react-future/issues/35)）。
 
-If you want to iterate over a list to render more than one component or implement some conditional logic, you have to use pure Javascript. You don’t have a lot of options with looping either. Most of the time, `map` will cover your needs.
+如果你想要遍历一个列表来渲染多个组件或者实现一些条件逻辑，你不得不使用纯 Javascript，你也并没有很多的选择来处理循环。更多的时候，`map` 将会满足你的需要。
 
-But conditional expressions?
+但是条件表达式呢？
 
-That’s another story.
+那就是另外一回事了。
 
-### You’ve got options
+### 有几种方案可供你选择
 
-There’s more than one way to use conditional expressions in React. And, as with most things in programming, some are better suited than others depending on the problem you’re trying to solve.
+在 React 中有多种使用条件语句的方式。并且，和编程中的大多数事情一样，依赖于你所要解决的实际问题，有些方式是更适合的。
 
-This tutorial covers the most popular conditional renderings methods:
+本教程介绍了最流行的条件渲染方法：
 
 *   If/Else
-*   Prevent rendering with `null`
-*   Element variables
-*   Ternary operator
-*   Short-circuit operator (&& )
-*   Immediately-Invoked Function Expressions (IIFE)
-*   Subcomponents
-*   High Order Components (HOCs)
+*   避免使用 `null` 渲染
+*   元素变量
+*   三元运算符
+*   与运算 (&&)
+*   立即调用函数（IIFE）
+*   子组件
+*   高阶组件（HOCs）
 
-As an example of how all these methods work, a component with a view/edit functionality will be implemented:
+作为所有这些方法如何工作的示例，接下来将实现具有查看/编辑功能的组件：
 
 ![](https://cdn-images-1.medium.com/max/800/0*vS8AU_xnc4VHcHrK.)
 
-You can try and fork all the examples in [JSFiddle](https://jsfiddle.net/).
+你可以在 [JSFiddle](https://jsfiddle.net/) 中尝试和拷贝（fork）所有例子。
 
-Let’s start with the most naive implementation using an if/else block and build it from there.
+让我们从使用 if/else 这种最原始的实现开始并在这里构建它。
 
 ### If/else
 
-Let’s create a component with the following state:
+让我们使用如下状态来构建一个组件：
 
 ```
 class App extends React.Component {
@@ -53,36 +53,9 @@ class App extends React.Component {
 }
 ```
 
-You’ll use one property for the saved text and another one or the text that is being edited. A third property will indicate if you are in `edit` or `view` mode.
+你将使用一个属性来保存文本，并且使用另外一个属性存储正在被编辑的文本。第三个属性将用来表示你是在 `edit` 还是 `view` 模式下。
 
-Next, add some methods for handling input text and the save and edit events:
-
-```
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {text: '', inputText: '', mode:'view'};
-    
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSave = this.handleSave.bind(this);
-    this.handleEdit = this.handleEdit.bind(this);
-  }
-  
-  handleChange(e) {
-    this.setState({ inputText: e.target.value });
-  }
-  
-  handleSave() {
-    this.setState({text: this.state.inputText, mode: 'view'});
-  }
-
-  handleEdit() {
-    this.setState({mode: 'edit'});
-  }
-}
-```
-
-Now for the `render` method, check the `mode` state property to either render an edit button or a text input and a save button, in addition to the saved text:
+接下来，添加一些方法来处理输入文本、保存和输入事件：
 
 ```
 class App extends React.Component {
@@ -109,7 +82,34 @@ class App extends React.Component {
 }
 ```
 
-Here’s the complete fiddle to try it out:
+现在，对于渲染方法，除了保存的文本之外，还要检查模式状态属性，以显示编辑按钮或文本输入框和保存按钮：
+
+```
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {text: '', inputText: '', mode:'view'};
+    
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSave = this.handleSave.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
+  }
+  
+  handleChange(e) {
+    this.setState({ inputText: e.target.value });
+  }
+  
+  handleSave() {
+    this.setState({text: this.state.inputText, mode: 'view'});
+  }
+
+  handleEdit() {
+    this.setState({mode: 'edit'});
+  }
+}
+```
+
+下面是完整的代码，可以在 fiddle 中尝试执行它：
 
 Babel + JSX:
 
@@ -169,11 +169,11 @@ ReactDOM.render(
 );
 ```
 
-An if/else block is the easiest way to solve the problem, but I’m sure you know this is not a good implementation.
+if/else 是最简单的方式来解决这个问题，但是我确定你知道这并不是一种好的实现方式。
 
-It works great for simple use cases and every programmer knows how it works. But there’s a lot of repetition and the `render` method looks crowded.
+它适用于简单的用例，每个程序员都知道它是如何工作的。但是有很多重复，`render` 方法看起来并不简洁。
 
-So let’s simplify it by extracting all the conditional logic to two render methods, one to render the input box and another one to render the button:
+所以让我们通过将所有条件逻辑提取到两个渲染方法来简化它，一个来渲染文本框，另一个来渲染按钮：
 
 ```
 class App extends React.Component {
@@ -222,7 +222,7 @@ class App extends React.Component {
 }
 ```
 
-Here’s the complete fiddle to try it out:
+下面是完整的代码，可以在 fiddle 中尝试执行它：
 
 Babel + JSX:
 
@@ -297,17 +297,17 @@ ReactDOM.render(
 );
 ```
 
-Notice that the method `renderInputField` returns an empty `div` element when the app is in view mode.
+需要注意的是当组件在预览模式下时，方法 `renderInputField` 返回了一个空的 `div` 元素。
 
-However, this is not necessary.
+然而这并不是必要的。
 
-### Prevent rendering with null
+### 避免渲染空元素
 
-If you want to **hide** a component, you can make its render method return `null`, there’s no need to render an empty (and different) element as a placeholder.
+如果你想要**隐藏**一个组件，你可以让它的渲染方法返回 `null`，因为没必要渲染一个空的（和不同的）元素来占位。
 
-One important thing to keep in mind when returning `null` is that even though the component doesn’t show up, its lifecycle methods are still fired.
+需要注意的重要一点是当返回 `null` 时，即使组件并不会被看见，但是生命周期方法仍然被触发了。
 
-Take, for example, the following fiddle that implements a counter with two components:
+举个例子，下面的代码实现了两个组件之间的计数器：
 
 Babel + JSX:
 
@@ -362,9 +362,9 @@ ReactDOM.render(
 );
 ```
 
-The `Number` component only renders the counter for even values, otherwise, `null` is returned. However, when you look at the console, you’ll see that `componentDidUpdate` is always called regardless of the value returned by `render`.
+`Number` 组件只有在父组件传递偶数时渲染父组件传递的值，否则，将返回 `null`。然后，当观察控制台输出时，将会发现不管 `render` 返回什么， `componentDidUpdate` 总是会被调用。
 
-Back to our example, change the `renderInputField` method to look like this:
+回头来看我们的例子，像这样来改变 `renderInputField` 方法：
 
 ```
   renderInputField() {
@@ -383,7 +383,7 @@ Back to our example, change the `renderInputField` method to look like this:
   }
 ```
 
-Here’s the complete fiddle:
+下面是完整的代码：
 
 Babel + JSX:
 
@@ -458,27 +458,27 @@ ReactDOM.render(
 );
 ```
 
-One advantage of returning `null` instead of an empty element is that you’ll improve a little bit the performance of your app because React won’t have to unmount the component to replace it.
+返回 `null` 来替代一个空元素的优势在于这将会对组建的性能有一些改善，因为 React 不必要解绑组件来替换它。
 
-For example, when trying the [fiddle](https://jsfiddle.net/eh3rrera/q0w1aamt/) that renders the empty `div` element, if you open the Inspector tab, you’ll see how the `div` element under the root is always updated:
+例如，当执行返回空 `div` 元素的代码时，打开检阅页面元素，将会看到在跟元素下的 `div` 元素是如何被刷新的：
 
 ![](https://cdn-images-1.medium.com/max/800/0*1f--Ics8DXB3UFp_.)
 
-Unlike the case when `null` is returned to hide the component, where that `div` element is not updated when the `Edit` button is clicked:
+对比这个例子，当返回 `null` 来隐藏组件时，`Edit` 按钮被点击时 `div` 元素是不更新的：
 
 ![](https://cdn-images-1.medium.com/max/800/0*7SzdmNMiVje-msFz.)
 
-[Here](https://reactjs.org/docs/reconciliation.html), you can learn more about how React updates the DOM elements and how the “diffing” algorithm works.
+[这里](https://reactjs.org/docs/reconciliation.html)，你将明白更多关于 React 是如何更新 DOM 元素的和“对比”算法是如何运行的。
 
-Maybe in this simple example, the performance improvement is insignificant, but when working when big components, there can be a difference.
+可能在这个简单的例子中，性能的改善是微不足道的，但是当在一个需要频繁更新的组件中时，情况将是不一样的。
 
-I’ll talk more about the performance implications of conditional rendering later. For now, let’s continue to improve this example.
+稍后会详细讨论条件渲染的性能影响。现在，让我们继续改进这个例子。
 
-### Element variables
+### 元素变量
 
-One thing I don’t like is having more than one `return` statement in methods.
+我不喜欢的一件事是在一个方法中有不止一个 `return` 声明。
 
-So I’m going to use a variable to store the JSX elements and only initialize it when the condition is `true`:
+所以我将会使用一个变量来存储 JSX 元素并且只有当条件判断为 `true` 的时候才初始化它：
 
 ```
 renderInputField() {
@@ -515,9 +515,9 @@ renderInputField() {
   }
 ```
 
-This gives the same result as returning `null` from those methods.
+这样做是等同于那些返回 `null` 的方法的。
 
-Here’s the fiddle to try it out:
+以下是优化后的完整代码：
 
 Babel + JSX:
 
@@ -594,23 +594,23 @@ ReactDOM.render(
 );
 ```
 
-The main `render` method is more readable this way but maybe it isn’t necessary to use if/else blocks (or something like a `switch` statement) and secondary render methods.
+使用这种方式使主 `render` 方法更有可读性，但是可能并没有必要使用 if/else 判断（或者像 `switch` 这样的语句）和辅助的渲染方法。
 
-Let’s try a simpler approach.
+让我们尝试一种更简单的方法。
 
-### Ternary operator
+### 三元运算符
 
-Instead of using an if/else block we can use the [ternary conditional operator](https://en.wikipedia.org/wiki/%3F:):
+我们可以使用 [三元运算符](https://en.wikipedia.org/wiki/%3F:) 来代替 if/else 语句：
 
 ```
 condition ? expr_if_true : expr_if_false
 ```
 
-The operator is wrapped in curly braces and the expressions can contain JSX, optionally wrapped in parentheses to improve readability.
+该运算符用大括号包裹，表达式可以包含JSX，可选择将其包含在圆括号中以提高可读性。
 
-And it can be applied in different parts of the component. Let’s apply it to the example so you can see this in action.
+它可以应用于组件的不同部分。让我们将它应用到示例中，以便您可以看到这个实例。
 
-I’m going to remove `renderInputField` and `renderButton` and in the `render` method, I’m going to add a variable to know if the component is in `view` or `edit` mode:
+我将在 `render` 方法中删除 `renderInputField` 和 `renderButton`，并添加一个变量用来表示组件是在 `view` 还是 `edit` 模式：
 
 ```
 render () {
@@ -623,7 +623,7 @@ render () {
 }
 ```
 
-Now you can use the ternary operator to return `null` if the `view` mode is set, or the input field otherwise:
+现在，你可以使用三元运算符，当组件被设置为 `view` 模式时返回 `null`，否则返回输入框：
 
 ```
   // ...
@@ -648,7 +648,7 @@ Now you can use the ternary operator to return `null` if the `view` mode is set,
   );
 ```
 
-Using a ternary operator, you can declare one component to render either a save or edit button by changing its handler and label correspondingly:
+使用三元运算符，你可以通过改变组件的事件处理函数和现实的标签文字来动态的声明它的按钮是保存还是编辑：
 
 ```
   // ...
@@ -674,23 +674,23 @@ Using a ternary operator, you can declare one component to render either a save 
   );
 ```
 
-As said before, this operator can be applied in different parts of the component.
+正如前面所说，三元运算符可以应用在组件的不同位置。
 
-Here’s the fiddle to try it out:
+可以在 fiddle 中运行查看效果：
 
 [https://jsfiddle.net/eh3rrera/y6yff8rv/](https://jsfiddle.net/eh3rrera/y6yff8rv/)
 
-### Short-circuit operator
+### 与运算符
 
-The ternary operator has a special case where it can be simplified.
+在某种特殊情况下，三元运算符是可以简化的。
 
-When you want to render either something or nothing, you can only use the `&&` operator.
+当你想要一种条件下渲染元素，另一种条件下不渲染元素时，你可以使用 `&&` 运算符。
 
-Unlike the `&` operator, `&&` doesn’t evaluate the right-hand side expression if just by evaluating the left-hand expression can decide the final result.
+不同于 `&` 运算符，当左侧的表达式可以决定最终结果时，`&&` 是不会再执行右侧表达式的判断的。
+ 
+例如，如果第一个表达式被判定为 false（`false && …`），就没有必要再执行判断下一个表达式了，因为结果将永远是 `false`。
 
-For example, if the first expression evaluates to false (`false && …`), it’s not necessary to evaluate the next expression because the result will always be `false`.
-
-In React, you can have expressions like the following:
+在 React 中，你可以使用像下面这样的表达式：
 
 ```
 return (
@@ -700,11 +700,11 @@ return (
 );
 ```
 
-If `showHeader` evaluates to `true`, the `<Header/>`component will be returned by the expression.
+如果 `showHeader` 被判定为 `true`，`<Header/>` 组件将会被这个表达式返回。
 
-If `showHeader` evaluates to `false`, the `<Header/>`component will be ignored and an empty `div` will be returned.
+如果 `showHeader` 被判定为 `false`，`<Header/>` 组件将会被忽略并且一个空的 `div` 将会被返回。
 
-This way, the following expression:
+使用这种方式，下面的表达方式：
 
 ```
 {
@@ -720,7 +720,7 @@ This way, the following expression:
 }
 ```
 
-Can be turned into:
+可以被改写为：
 
 ```
 !view && (
@@ -732,7 +732,7 @@ Can be turned into:
 )
 ```
 
-Here’s the complete fiddle:
+下面是可在 fiddle 中执行的完整代码：
 
 Banel + JSX:
 
@@ -796,11 +796,11 @@ ReactDOM.render(
 );
 ```
 
-Looks better, right?
+看起来更好了，不是吗？
 
-However, the ternary operator doesn’t always look better.
+然而，三元表达式不总是看起来这么好。
 
-Consider a complex, nested set of conditions:
+考虑一组复杂的嵌套条件：
 
 ```
 return (
@@ -819,15 +819,15 @@ return (
 );
 ```
 
-This can become a mess pretty quickly.
+这可能会很快变得混乱。
 
-For that reason, sometimes you might want to use other techniques, like immediately-invoked functions.
+出于这个原因，有时您可能想要使用其他技术，例如立即执行函数。
 
-### Immediately-invoked function expressions (IIFE)
+### 立即执行函数表达式 (IIFE)
 
-As the name implies, IIFEs are functions that are executed immediately after they are defined, there’s no need to call them explicitly.
+顾名思义，立即执行函数就是在定义之后被立即调用的函数，他们不需要被显式地调用。
 
-Generally, this is how you define and execute (at a later point) a function:
+通常情况下，你一般会这样定义并执行（定义后执行）一个函数：
 
 ```
 function myFunction() {
@@ -839,9 +839,9 @@ function myFunction() {
 myFunction();
 ```
 
-But if you want to execute the function immediately after it is defined, you have to wrap the whole declaration in parenthesis (to convert it to an expression) and execute it by adding two more parentheses (passing any arguments the function may take.
+但是如果你想要在定义后立即执行一个函数，你必须使用一对括号来包裹这个函数（把它转换成一个表达式）并且通过添加另外两个括号来执行它（括号里面可以传递函数需要的任何参数）。
 
-Either this way:
+就像这样：
 
 ```
 ( function myFunction(/* arguments */) {
@@ -849,7 +849,7 @@ Either this way:
 }(/* arguments */) );
 ```
 
-Or this way:
+或者这样：
 
 ```
 ( function myFunction(/* arguments */) {
@@ -857,7 +857,7 @@ Or this way:
 } ) (/* arguments */);
 ```
 
-Since the function won’t be called in any other place, you can drop the name:
+因为这个函数不会在其他任何地方被调用，所以你可以省略函数名：
 
 ```
 ( function (/* arguments */) {
@@ -865,7 +865,7 @@ Since the function won’t be called in any other place, you can drop the name:
 } ) (/* arguments */);
 ```
 
-Or you can also use arrow functions:
+或者你也可以使用箭头函数：
 
 ```
 ( (/* arguments */) => {
@@ -873,9 +873,9 @@ Or you can also use arrow functions:
 } ) (/* arguments */);
 ```
 
-In React, you use curly braces to wrap an IIFE, put all the logic you want inside it (if/else, switch, ternary operators, etc), and return whatever you want to render.
+在 React 中，你可以使用大括号来包裹立即执行函数，在函数内写所有你想要的逻辑（if/else、switch、三元运算符等等），然后返回任何你想要渲染的东西。
 
-For example, here’s how the logic to render the save/edit button could look with an IIFE:
+例如， 下面的立即执行函数中就是如何判断渲染保存还是编辑按钮的逻辑：
 
 ```
 {
@@ -894,7 +894,7 @@ For example, here’s how the logic to render the save/edit button could look wi
 } 
 ```
 
-Here’s the complete fiddle:
+下面是可以在 fiddle 中执行的完整代码：
 
 Babel + JSX:
 
@@ -967,17 +967,17 @@ ReactDOM.render(
 <div id="root"></div>
 ```
 
-### Subcomponents
+### 子组件
 
-Sometimes, an IFFE might seem like a hacky solution.
+很多时候，立即执行函数看起来可能是一种不那么优雅的解决方案。
 
-After all, we’re using React, where the recommended approaches are things like splitting up the logic of your app in as many components as possible and using functional programming instead of imperative programming.
+毕竟，我们在使用 React，React 推荐使用的方案是将你的应用逻辑分解为尽可能多的组件，并且推荐使用函数式编程而非命令式编程。
 
-So moving the conditional rendering logic to a sub-component that renders different things based on its props would be a good option.
+所以修改条件渲染逻辑为一个子组件，这个子组件会依据父组件传递的 props 来决定在不同情况下的渲染，这将会是一个更好的方案。
 
-But here, I’m going to do something a bit different to show you how you can go from an imperative solution to more declarative and functional solutions.
+但在这里，我将做一些有点不同的事情，向您展示如何从一个命令式的解决方案转向更多的声明式和函数式解决方案。
 
-I’m going to start by creating a `SaveComponent`:
+我将从创建一个 `SaveComponent` 组件开始：
 
 ```
 const SaveComponent = (props) => {
@@ -997,7 +997,7 @@ const SaveComponent = (props) => {
 };
 ```
 
-As properties, it receives everything it needs to work. In the same way, there’s an `EditComponent`:
+正如函数式编程的属性，`SaveComponent` 的功能逻辑都来自于它接收的参数所指定的。同样的方式定义另一个组件 `EditComponent`：
 
 ```
 const EditComponent = (props) => {
@@ -1009,7 +1009,7 @@ const EditComponent = (props) => {
 };
 ```
 
-Now the `render` method can look like this:
+现在 `render` 方法就会变成这样：
 
 ```
 render () {
@@ -1035,7 +1035,7 @@ render () {
 }
 ```
 
-Here’s the complete fiddle:
+下面是可以在 fiddle 中执行的完整代码：
 
 Babel + JSX:
 
@@ -1115,9 +1115,9 @@ ReactDOM.render(
 );
 ```
 
-### If component
+### If 组件
 
-There are libraries like [JSX Control Statements](https://github.com/AlexGilleran/jsx-control-statements) that extend JSX to add conditional statements like:
+有像 [jsx-control-statements](https://github.com/AlexGilleran/jsx-control-statements) 这样的库可以扩展JSX来添加如下条件语句：
 
 ```
 <If condition={ true }>
@@ -1127,7 +1127,7 @@ There are libraries like [JSX Control Statements](https://github.com/AlexGillera
 </If>
 ```
 
-These libraries provide more advanced components, but if we need something like a simple if/else, we can do something like what [Michael J. Ryan](https://github.com/tracker1) showed in one of the [comments](https://github.com/facebook/jsx/issues/65#issuecomment-255484351) of this [issue](https://github.com/facebook/jsx/issues/65):
+这些库提供更高级的组件，但是如果我们需要简单的 if/else，我们可以参考 [Michael J. Ryan](https://github.com/tracker1) 在 [issue](https://github.com/facebook/jsx/issues/65) 下的 [评论](https://github.com/facebook/jsx/issues/65#issuecomment-255484351)：
 
 ```
 const If = (props) => {
@@ -1162,7 +1162,7 @@ render () {
 }
 ```
 
-Here’s the complete fiddle:
+下面是可以在 fiddle 中执行的完整代码：
 
 Babel + JSX:
 
@@ -1249,15 +1249,15 @@ ReactDOM.render(
 );
 ```
 
-### Higher-order components
+### 高阶组件
 
-A [higher-order component](https://reactjs.org/docs/higher-order-components.html) (HOC) is a function that that takes an existing component and returns a new one with some added functionality:
+[高阶组件](https://reactjs.org/docs/higher-order-components.html)（HOC）是一个函数，它接收一个已经存在的组件并且基于这个组件返回一个新的带有更多附加功能的组件：
 
 ```
 const EnhancedComponent = higherOrderComponent(component);
 ```
 
-Applied to conditional rendering, an HOC could return a different component than the one passed based on some condition:
+应用于条件渲染时，一个组件被传递给一个高阶组件，高阶组件可以依据一些条件返回一个不同于原组件的组件：
 
 ```
 function higherOrderComponent(Component) {
@@ -1271,13 +1271,13 @@ function higherOrderComponent(Component) {
 }
 ```
 
-There’s an [excellent article about HOCs](https://www.robinwieruch.de/gentle-introduction-higher-order-components/) by [Robin Wieruch](https://www.robinwieruch.de/about/) that digs deeper into conditional renderings with higher order components.
+这里有一篇 [Robin Wieruch](https://www.robinwieruch.de/about/) 写的 [关于高阶组件的精彩好文](https://www.robinwieruch.de/gentle-introduction-higher-order-components/)，这篇文章深入讨论了高阶组件在条件渲染中的应用。
 
-For this article, I’m going to borrow the concepts of the `EitherComponent`.
+在我们这篇文章中，我将会借鉴一些 `EitherComponent` 的概念。
 
-In functional programming, the `Either` type is commonly used as a wrapper to return two different values.
+在函数式编程中，`Either` 这一类方法的实现通常是作为一个包装，来返回两个不同的值。
 
-So let’s start by defining a function that takes two arguments, another function that will return a boolean value (the result of the conditional evaluation), and the component that will be returned if that value is `true`:
+所以让我们从定义一个接收两个参数的函数开始，另一个函数返回一个布尔值（判断条件的结果），如果这个布尔值为 `true` 则返回组件：
 
 ```
 function withEither(conditionalRenderingFn, EitherComponent) {
@@ -1285,9 +1285,9 @@ function withEither(conditionalRenderingFn, EitherComponent) {
 }
 ```
 
-It’s a convention to start the name of the HOC with the word `with`.
+通常高阶组件的函数名都以 `with` 开头。
 
-This function will return another function that will take the original component to return a new one:
+这个函数将会返回另一个函数，这个被返回的函数接收一个原组件并返回一个新的组件：
 
 ```
 function withEither(conditionalRenderingFn, EitherComponent) {
@@ -1297,7 +1297,7 @@ function withEither(conditionalRenderingFn, EitherComponent) {
 }
 ```
 
-The component (function) returned by this inner function will be the one you’ll use in your app, so it will take an object with all the properties that it will need to work:
+这个被一个内部函数返回的组件（函数）就是你将在你的应用中使用的，所以它接收一个对象，这个对象具有它运行所需的所有属性：
 
 ```
 function withEither(conditionalRenderingFn, EitherComponent) {
@@ -1309,7 +1309,7 @@ function withEither(conditionalRenderingFn, EitherComponent) {
 }
 ```
 
-The inner functions have access to the outer functions’ parameters, so now, based on the value returned by the function `conditionalRenderingFn`, you either return the `EitherComponent` or the original `Component`:
+内部函数可以访问到外部函数的参数，因此，根据函数 `conditionalRenderingFn` 的返回值，你可以判断返回 `EitherComponent` 或者原 `Component`：
 
 ```
 function withEither(conditionalRenderingFn, EitherComponent) {
@@ -1323,7 +1323,7 @@ function withEither(conditionalRenderingFn, EitherComponent) {
 }
 ```
 
-Or, using arrow functions:
+或者使用箭头函数：
 
 ```
 const withEither = (conditionalRenderingFn, EitherComponent) => (Component) => (props) =>
@@ -1332,7 +1332,7 @@ const withEither = (conditionalRenderingFn, EitherComponent) => (Component) => (
     : <Component { ...props } />;
 ```
 
-This way, using the previously defined `SaveComponent` and `EditComponent`, you can create a `withEditConditionalRendering` HOC and with this, create a `EditSaveWithConditionalRendering` component:
+通过这个方式，使用原来定义的 `SaveComponent` 和 `EditComponent`，你可以创建一个 `withEditConditionalRendering` 高阶组件，并且通过它可以创建一个 `EditSaveWithConditionalRendering` 组件：
 
 ```
 const isViewConditionFn = (props) => props.mode === 'view';
@@ -1341,7 +1341,7 @@ const withEditContionalRendering = withEither(isViewConditionFn, EditComponent);
 const EditSaveWithConditionalRendering = withEditContionalRendering(SaveComponent);
 ```
 
-That you can use in the `render` method passing all the properties needed:
+这样一来你就只需在render方法中使用该组件，并向它传递所有需要用到的属性：
 
 ```
 render () {    
@@ -1360,7 +1360,7 @@ render () {
 }
 ```
 
-Here’s the complete fiddle:
+下面是可以在 fiddle 中执行的完整代码：
 
 Babel + JSX:
 
@@ -1443,19 +1443,19 @@ ReactDOM.render(
 );
 ```
 
-### Performance considerations
+### 性能考量
 
-Conditional rendering can be tricky. As I showed you before, the performance of each option can be different.
+条件渲染可能是复杂的。就像前面我所展示的那样，每种方式的性能也可能是不同的。
 
-However, most of the time, the differences don’t matter a lot. But when they do, you’ll need a good understanding of how React works with the Virtual DOM and a few tricks to [optimizing performance](https://reactjs.org/docs/optimizing-performance.html).
+然而，在大多数时候这种差别是不成问题的。但当它确实造成问题时，你将需要深入理解 React 的虚拟 DOM 的工作原理，并且使用一些技巧来[优化性能](https://reactjs.org/docs/optimizing-performance.html)。
 
-Here’s a good article about [optimizing conditional rendering in React](https://medium.com/@cowi4030/optimizing-conditional-rendering-in-react-3fee6b197a20), I totally recommend you read it.
+这里有一篇关于很好的文章，关于 [优化React的条件渲染](https://medium.com/@cowi4030/optimizing-conditional-rendering-in-react-3fee6b197a20)，我非常推荐你读一下。
 
-The essential idea is that changing the position of the components due to conditional rendering can cause a reflow that will unmount/mount the components of the app.
+基本的思想是条件渲染导致改变组件的位置将会引起回流，从而导致应用内组件的解绑/绑定。
 
-Based on the example of the article, I created two fiddles.
+基于这篇文章的例子，我写了两个例子：
 
-The first one uses an if/else block to show/hide the `SubHeader` component:
+第一个例子使用 if/else 来控制 `SubHeader` 组件的显示/隐藏：
 
 Babel + JSX:
 
@@ -1518,7 +1518,7 @@ ReactDOM.render(
 );
 ```
 
-The second one uses the short circuit operator (`&&`) to do the same:
+第二个例子使用与运算（`&&`）做同样的事情：
 
 Babel + JSX:
 
@@ -1569,23 +1569,23 @@ ReactDOM.render(
 );
 ```
 
-Open the Inspector and click on the button a few times.
+打开元素检查并且点击几次按钮。
 
-You’ll see how the `Content` component is treated differently by each implementation.
+你将看到在每一种实现中 `Content` 是被如何处理的。
 
-### Conclusion
+### 结论
 
-Just as with many things in programming, there are many ways to implement conditional rendering in React.
+就像编程中的很多事情一样，在 React 中有很多种方式实现条件渲染。
 
-I’d say that with exception of the first method (if/else with many returns), you’re free to choose whatever method you want.
+我会说除了第一种方式（有多种返回的if/else），你可以任选你喜欢的方式。
 
-You can decide which one is best for your situation based on:
+基于下面的原则，你可以决定哪一种方式在你的实际情况中是最好的：
 
-*   Your programming style
-*   How complex the conditional logic is
-*   How comfortable you are with JavaScript, JSX, and advanced React concepts (like HOCs)
+*   你的编程风格
+*   条件逻辑的复杂程度
+*   使用 JavaScript、JSX和高级的 React 概念（比如高阶组件）的舒适度。
 
-And all things being equal, always favor simplicity and readability.
+如果所有的事情都是相当的，那么就追求简明度和可读性。
 
 * * *
 
@@ -1593,11 +1593,11 @@ And all things being equal, always favor simplicity and readability.
 
 [![](https://cdn-images-1.medium.com/max/1000/1*s_rMyo6NbrAsP-XtvBaXFg.png)](http://logrocket.com)
 
-[LogRocket](https://logrocket.com) is a frontend logging tool that lets you replay problems as if they happened in your own browser. Instead of guessing why errors happen, or asking users for screenshots and log dumps, LogRocket lets you replay the session to quickly understand what went wrong. It works perfectly with any app, regardless of framework, and has plugins to log additional context from Redux, Vuex, and @ngrx/store.
+[LogRocket](https://logrocket.com) 是一款前端日志工具，能够在你自己的浏览器上复现问题。而不是去猜为什么发生错误或者向用户要截图和日志，LogRocket 帮助你复现场景来快速理解发生了什么错误。 它适用于任何应用程序，且和框架无关，并且具有从Redux，Vuex和@ngrx/store记录其他上下文的插件。
 
-In addition to logging Redux actions and state, LogRocket records console logs, JavaScript errors, stacktraces, network requests/responses with headers + bodies, browser metadata, and custom logs. It also instruments the DOM to record the HTML and CSS on the page, recreating pixel-perfect videos of even the most complex single page apps.
+除了记录Redux动作和状态之外，LogRocket 还记录控制台日志，JavaScript 错误，堆栈跟踪，带有头信息+主体的网络请求/响应，浏览器元数据和自定义日志。它还可以检测 DOM 来记录页面上的 HTML 和 CSS，即使是最复杂的单页面应用，也能还原出像素级的视频。
 
-Try it for free.
+免费试用。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
