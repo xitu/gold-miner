@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/conditional-rendering-in-react.md](https://github.com/xitu/gold-miner/blob/master/TODO1/conditional-rendering-in-react.md)
 > * 译者：[Dong Han](https://github.com/IveHD)
-> * 校对者：[Jessica Shao](https://github.com/tutaizi)
+> * 校对者：[Jessica Shao](https://github.com/tutaizi)，[doctype233](https://github.com/tutaizi
 
 # 8 React 实现条件渲染的多种方式和性能考量
 
