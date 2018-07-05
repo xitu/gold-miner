@@ -11,7 +11,7 @@
 
 [JSX](https://facebook.github.io/jsx/) 是对 JavaScript 强大的扩展，允许我们来定义 UI 组件。但是它不直接支持循环和条件表达式（尽管添加 [条件表达式已经被讨论过了](https://github.com/reactjs/react-future/issues/35)）。
 
-如果你想要遍历一个集合来渲染多个组件或者实现一些条件逻辑，你不得不使用纯 Javascript，你也并没有很多的选择来处理循环。更多的时候，`map` 将会满足你的需要。
+如果你想要遍历一个列表来渲染多个组件或者实现一些条件逻辑，你不得不使用纯 Javascript，你也并没有很多的选择来处理循环。更多的时候，`map` 将会满足你的需要。
 
 但是条件表达式呢？
 
@@ -1271,7 +1271,7 @@ function higherOrderComponent(Component) {
 }
 ```
 
-这里有一篇 [Robin Wieruch](https://www.robinwieruch.de/about/) 写的 [关于高阶组件的极好的文章](https://www.robinwieruch.de/gentle-introduction-higher-order-components/)，这篇文章深入讨论了高阶组件在条件渲染中的应用。
+这里有一篇 [Robin Wieruch](https://www.robinwieruch.de/about/) 写的[关于高阶组件的精彩好文](https://www.robinwieruch.de/gentle-introduction-higher-order-components/)，这篇文章深入讨论了高阶组件在条件渲染中的应用。
 
 在我们这篇文章中，我将会借鉴一些 `EitherComponent` 的概念。
 
