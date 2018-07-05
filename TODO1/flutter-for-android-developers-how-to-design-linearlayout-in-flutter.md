@@ -38,7 +38,6 @@ Dart 基于面向对象的概念，因此作为 android java 开发人员，您�
 
 >**注意：**“行/列”小部件不会滚动。如果您有一系列小部件并希望它们能够在没有足够空间的情况下滚动，请考虑使用 [ListView]((https://docs.flutter.io/flutter/widgets/ListView-class.html).)。
 
-
 现在我们将介绍 LinearLayout 的一些主要属性，它们可以转换为 Flutter 中的等效小部件属性。
 
 ### 1. 方向
