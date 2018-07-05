@@ -2,8 +2,8 @@
 > * 原文作者：[Burhanuddin Rashid](https://proandroiddev.com/@burhanrashid52?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/flutter-for-android-developers-how-to-design-linearlayout-in-flutter.md](https://github.com/xitu/gold-miner/blob/master/TODO1/flutter-for-android-developers-how-to-design-linearlayout-in-flutter.md)
-> * 译者：
-> * 校对者：
+> * 译者：[androidxiao(https://github.com/androidxiao)
+> * 校对者：[Starriers](https://github.com/Starriers)
 
 # Android 开发者的 Flutter 框架：如何在 Flutter 中设计 LinearLayout？
 
