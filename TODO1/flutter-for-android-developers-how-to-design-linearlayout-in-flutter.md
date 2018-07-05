@@ -5,7 +5,7 @@
 > * 译者：
 > * 校对者：
 
-# Flutter For Android 开发者：如何在 Flutter 中设计 LinearLayout？
+# Android 开发者的 Flutter 框架：如何在 Flutter 中设计 LinearLayout？
 
 ![](https://cdn-images-1.medium.com/max/2000/1*9JzKFil-Xsip742fdxDqZw.jpeg)
 
@@ -24,11 +24,11 @@
 
 这篇博客已假设您已经在 PC 中配置了 flutter，并且能够运行 Hello World 应用程序。如果您尚未安装 flutter，[请点击这里](https://flutter.io/get-started/)。
 
-Dart 基于面向对象的概念，因此作为 android java 开发人员，您将能够轻松地使用 dart。
+Dart 基于面向对象的概念，因此作为 android java 开发人员，您将能够轻松地掌握 dart。
 
 ### 让我们开始吧
 
-如果您是 Android 开发人员，那么我假设您在设计布局时大量使用了 LinearLayout。那些仍然不熟悉 LinearLayout 的人让我从一个正式的定义开始。
+如果您是 Android 开发人员，那么我假设您在设计布局时大量使用了 LinearLayout。对于那些不熟悉 LinearLayout 的人，我会给出官方定义。
 
 >LinearLayout 是一种布局，可以将其它视图水平排列在单个列中，也可以垂直排列在单个行中。
 
@@ -271,7 +271,7 @@ LinearLayout 在 Android 中大量使用，与 Row/Column 小部件相同。希�
 
 **谢谢 ！！！**
 
-**如果您觉得这篇文章有帮助。请喜欢，分享和拍手，这样其他人会在中看到这一点。如果您有任何问题或建议，请在博客上免费发表评论，或在 Twitter，Github 或 Reddit 上给我点赞。**
+**如果您觉得这篇文章有帮助。请收藏，分享和拍手，这样其他人会在中看到这一点。如果您有任何问题或建议，请在博客上自由发表评论，或在 Twitter，Github 或 Reddit 上给我点赞。**
 
 **要获取我即将发布的博客的最新更新，请在 Medium，Twitter，Github 或Reddit 上关注我。**
 
