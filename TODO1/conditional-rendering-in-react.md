@@ -1271,7 +1271,7 @@ function higherOrderComponent(Component) {
 }
 ```
 
-这里有一篇 [Robin Wieruch](https://www.robinwieruch.de/about/) 写的[关于高阶组件的精彩好文](https://www.robinwieruch.de/gentle-introduction-higher-order-components/)，这篇文章深入讨论了高阶组件在条件渲染中的应用。
+这里有一篇 [Robin Wieruch](https://www.robinwieruch.de/about/) 写的 [关于高阶组件的精彩好文](https://www.robinwieruch.de/gentle-introduction-higher-order-components/)，这篇文章深入讨论了高阶组件在条件渲染中的应用。
 
 在我们这篇文章中，我将会借鉴一些 `EitherComponent` 的概念。
 
