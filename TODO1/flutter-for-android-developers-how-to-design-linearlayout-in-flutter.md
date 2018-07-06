@@ -15,7 +15,6 @@
 
 ### 系列  
 
-
 * [如何在 Flutter 中设计 activity 的 UI？](https://blog.usejournal.com/flutter-for-android-developers-how-to-design-activity-ui-in-flutter-4bf7b0de1e48)
 
 * 如何在 Flutter 中设计 LinearLayout？ （就在这里）
@@ -36,7 +35,7 @@ Dart 基于面向对象的概念，因此作为 android java 开发人员，您�
 
 上面的效果展示和定义本身是一样的，您可以确定 Flutter 中的等效小部件是什么。是的，你是对的，它们是行列。
 
->**注意：**“行/列”小部件不会滚动。如果您有一系列小部件并希望它们能够在没有足够空间的情况下滚动，请考虑使用 [ListView]((https://docs.flutter.io/flutter/widgets/ListView-class.html).)。
+>**注意：**“行/列”小部件不会滚动。如果您有一系列小部件并希望它们能够在没有足够空间的情况下滚动，请考虑使用 [ListView](https://docs.flutter.io/flutter/widgets/ListView-class.html)。
 
 现在我们将介绍 LinearLayout 的一些主要属性，它们可以转换为 Flutter 中的等效小部件属性。
 
@@ -45,6 +44,7 @@ Dart 基于面向对象的概念，因此作为 android java 开发人员，您�
 在 LinearLayout 中，您可以使用 android:orientation ="horizo​​ntal" 属性定义其子项的方向，该属性将水平/垂直作为与 Flutter 中的行/列小部件类似的值。
 
 在 Android 中，LinearLayout 是 ViewGroup，可以向里面添加子 View。您可以在 <LinearLayout> </ LinearLayout> 标签内设置所有子 View。因此，为了在我们的 Row/Column 小部件中设置子小部件，我们需要使用 Row/Column.children 属性，该属性接受 List<Widget>。请参阅下面的代码片段。
+
 ```
 import 'package:flutter/material.dart';
 
@@ -101,9 +101,9 @@ class _MyAppState extends State<MyApp> {
 
 * WRAP_CONTENT: 这意味着该视图要足够大以包含其内容。
 
-为了获得 `match_parent` 和 `wrap_content` 的行为，我们需要在 Row/Column 小部件中使用 `mainAxisSize` 属性，`mainAxisSize` 属性采用 MainAxisSize 枚举，其中有两个值，即 `MainAxisSize.min`，其行为如 `wrap_content` 和 `MainAxisSize.max`，其行为与 `match_parent` 相同。
+为了获得 `match_parent` 和 `wrap_content` 的行为，我们需要在 Row/Column 小部件中使用 `mainAxisSize` 属性，`mainAxisSize` 属性采用 MainAxisSize 枚举，其中有两个值，即 `MainAxisSize.min` 和 `MainAxisSize.max`，的行为对应 `wrap_content` 和 `match_parent`。
 
-在上面的例子中，我们没有为 Row 部件定义任何 mainAxisSize 属性，所以默认情况下它的 mainAxisSize 属性设置为 `MainAxisSize.max`，它是`match_parent`。容器的黄色背景代表了自由空间的覆盖方式。这就是我们在上面的例子中定义这个属性的方法，并检查具有不同属性值的输出。
+在上面的例子中，我们没有为 Row 部件定义任何 mainAxisSize 属性，所以默认情况下它的 mainAxisSize 属性设置为 `MainAxisSize.max`，它是 `match_parent`。容器的黄色背景代表了自由空间的覆盖方式。这就是我们在上面的例子中定义这个属性的方法，并检查具有不同属性值的输出。
 ```
 ....
 body: new Container(
@@ -141,7 +141,7 @@ body: new Container(
 ```
 >一张图片胜过千言万语，我更喜欢视觉展示而不是描述每一个属性。
 
-因此在此输出将 LinearLayout 属性与 Row Widget 中的 MainAxisAlignment 属性进行比较。
+因此在此输出的情况下将 LinearLayout 属性与 Row Widget 中的 MainAxisAlignment 属性进行比较。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*zQD7Hhg5WITKdQF1hqZyiQ.png)
 
@@ -154,11 +154,11 @@ body: new Container(
 
 #### 2. [交叉轴对齐](https://docs.flutter.io/flutter/rendering/CrossAxisAlignment-class.html) :
 
-这个属性定义了子 view 应该如何沿横轴放置。这意味着如果我们使用 Row 小部件，则子 view 的权重将基于垂直线。如果我们使用 Column 小部件，那么子 view 将以水平线为基础。
+这个属性定义了子 view 应该如何沿横轴放置。这意味着如果我们使用 Row 小部件，则子 view 的权重将基于垂直线。如果我们使用 Column 小部件，那么子 view 将以水平线为基准。
 
-这听起来很混乱吧！不要担心，随着阅读的进一步深入，你会更好地理解。
+这听起来很混乱吧！不要担心，随着阅读的进一步深入，你会理解得更透彻。
 
-为了更好地理解，我们使它成为 `wrap_content`，即 `MainAxisSize.min`。您可以像下面的代码一样定义一个 `CrossAxisAlignment. start` 属性。
+为了更好地理解，我们使它成为 `wrap_content`，即 `MainAxisSize.min`。你可以像下面的代码一样定义一个 `CrossAxisAlignment. start` 属性。
 
 ```
 ....
