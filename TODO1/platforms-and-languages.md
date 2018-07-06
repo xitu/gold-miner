@@ -1,5 +1,5 @@
-> *原文地址：[编程语言和平台：带评论的推文串](https://medium.learningbyshipping.com/platforms-and-languages-f41960af9ec)
-> *译文作者：[Steven Sinofsky](https://medium.learningbyshipping.com/@stevesi?source=post_header_lockup)
+> * 原文地址：[编程语言和平台：带评论的推文串](https://medium.learningbyshipping.com/platforms-and-languages-f41960af9ec)
+> * 译文作者：[Steven Sinofsky](https://medium.learningbyshipping.com/@stevesi?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/platforms-and-languages.md](https://github.com/xitu/gold-miner/blob/master/TODO1/platforms-and-languages.md)
 > * 译者：
