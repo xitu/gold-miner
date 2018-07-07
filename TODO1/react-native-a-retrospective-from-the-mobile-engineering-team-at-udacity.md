@@ -7,7 +7,7 @@
 
 # React Native: 回顾 Udacity 移动工程团队的使用历程
 
-![](../react-native.png)
+![](../images/react-native.png)
 
 [Udacity](https://www.udacity.com/) 的移动团队最近把我们的应用程序中用 [React Native](https://facebook.github.io/react-native/) 编写的最后一个功能移除了。
 
