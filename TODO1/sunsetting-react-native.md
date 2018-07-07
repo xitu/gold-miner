@@ -37,9 +37,9 @@ React Native 的开发人员经验非常丰富。在某些方面，例如构建�
 
 ### 退役计划
 
-由于无法实现我们的具体目标，因此我们做了一个艰难的决定 —— React Native 不再适合我们了。我们目前正在与团队合作制定健康的过渡计划。我们已经停止了所有新的 React Native 功能，并计划在今年年底之前将大多数最高流量的视图页面转换为原生编写。这得到了一些即将发生的预定重新设计的帮助。我们的原生基础架构团队将支持到 2018 年的 React Native。在 2019 年，我们将开始降低支持并减少一些 React Native 开销，例如启动时初始化运行时。
+由于无法实现我们的具体目标，因此我们做了一个艰难的决定 —— React Native 不再适合我们了。我们目前正在与团队合作制定健康的过渡计划。我们已经停止了所有新的 React Native 功能，并计划在今年年底之前，将大多数最高流量的视图页面转换为原生编写。这得到了一些即将开始的预定重新设计的帮助。我们的原生基础架构团队将支持到 2018 年的 React Native。在 2019 年，我们将开始降低支持并减少一些 React Native 开销，例如启动时初始化运行时。
 
-在 Airbnb，我们是开源软件的坚定信徒。我们积极使用和促进世界各地的许多开源项目，并且也开放了一些我们的 React Native工作。由于我们已经离开了 React Native，我们无法像社区一样维护 React Native 的功能。为了做对社区最好的事情，我们将把一些 React Native 开源工作迁移到 [react-native-community](https://github.com/react-native-community)，我们已经开始使用 [react-native-maps](https://github.com/react-community/react-native-maps)，并即将使用 [native-navigation](https://github.com/airbnb/native-navigation) 和 [lottie-react-native](https://github.com/airbnb/lottie-react-native/)。 
+在 Airbnb，我们是开源软件的坚定信徒。我们积极使用和促进世界各地的许多开源项目，并且也开放了一些我们的 React Native工作。由于我们已经不再使用 React Native 了，我们无法像社区一样维护 React Native 的功能。为了让社区变得更好，我们将把一些 React Native 开源工作迁移到 [react-native-community](https://github.com/react-native-community)，我们已经开始使用 [react-native-maps](https://github.com/react-community/react-native-maps)，并即将使用 [native-navigation](https://github.com/airbnb/native-navigation) 和 [lottie-react-native](https://github.com/airbnb/lottie-react-native/)。 
 
 ### 这并不全是坏事
 
