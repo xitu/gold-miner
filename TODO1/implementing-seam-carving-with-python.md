@@ -100,7 +100,7 @@ def calc_energy(img):
 
 ![](https://karthikkaranth.me/img/pietro_first_seam.jpg)
 
-所以我们怎么找到这条线吗？事实证明，这个我ｅｎｔｉｒｅ可以很好地使用动态规划来解决！
+所以我们怎么找到这条线被=呢？事实证明，这个问题可以很好地使用动态规划来解决！
 
 ![](https://karthikkaranth.me/img/minimize_energy.png)
 
