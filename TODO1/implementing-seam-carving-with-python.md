@@ -7,17 +7,17 @@
 
 # 使用 Python 实现接缝裁剪算法
 
-接缝裁剪是一种新型的裁剪图像的方式，它不会丢失图像中的重要内容。这通常被称之为“内容感知”裁剪或图像重定向。你可以感受一下这个算法让这张照片：
+接缝裁剪是一种新型的裁剪图像的方式，它不会丢失图像中的重要内容。这通常被称之为“内容感知”裁剪或图像重定向。你可以从这张照片中感受一下这个算法：
 
 ![](https://karthikkaranth.me/img/pietro-de-grandi-329892-unsplash.jpg)
 
-[Unsplash 上由 Pietro De Grandi 拍摄](https://unsplash.com/photos/T7K4aEPoGGk)
+[照片由 Unsplash 用户 Pietro De Grandi 提供](https://unsplash.com/photos/T7K4aEPoGGk)
 
 变成下面这张:
 
 ![](https://karthikkaranth.me/img/pietro_carved.jpg)
 
-正如你所看到的，图像中的非常重要内容——船只，都保留下来了。该算法去除了一些岩层和水（让船看起来更靠近）。核心算法可以参考 Shai Avidan 和 Ariel Shamir 的原始论文 [Seam Carving for Content-Aware Image Resizing](http://graphics.cs.cmu.edu/courses/15-463/2007_fall/hw/proj2/imret.pdf) 。在这篇文章中，我将展示如何在 Python 中基本实现该算法。
+正如你所看到的，图像中的非常重要内容 —— 船只，都保留下来了。该算法去除了一些岩层和水（让船看起来更靠近）。核心算法可以参考 Shai Avidan 和 Ariel Shamir 的原始论文 [Seam Carving for Content-Aware Image Resizing](http://graphics.cs.cmu.edu/courses/15-463/2007_fall/hw/proj2/imret.pdf) 。在这篇文章中，我将展示如何在 Python 中基本实现该算法。
 
 ## 概要
 
@@ -26,7 +26,7 @@
 1.  为每个像素分派一个能量值（energy）
 2.  找到能量最低的像素的 8 联通区域
 3.  删除该区域内所有的像素
-4.  重复 1-3，直到删除到所需要保留的行/列数
+4.  重复 1-3，直到删除所需要保留的行/列数
 
 接下来，假设我们只是尝试裁剪图像的宽度，即删除列。对于删除行来说也是类似的，至于原因最后会说明。
 
@@ -92,7 +92,7 @@ def calc_energy(img):
 
 ![](https://karthikkaranth.me/img/pietro_energy.jpg)
 
-显然，像天空和水的静止部分变化最小的区域，具有非常低的能量（暗的部分）。当我们运行接缝裁剪算法的时候，被移除的线条一般都与图像的这些部分紧密相关，同时试图保留高能量部分（亮的部分）。
+显然，像天空和水的静止部分这样变化最小的区域，具有非常低的能量（暗的部分）。当我们运行接缝裁剪算法的时候，被移除的线条一般都与图像的这些部分紧密相关，同时试图保留高能量部分（亮的部分）。
 
 ###　找到最小能量的接缝（seam）
 
@@ -100,11 +100,11 @@ def calc_energy(img):
 
 ![](https://karthikkaranth.me/img/pietro_first_seam.jpg)
 
-所以我们怎么找到这条线被=呢？事实证明，这个问题可以很好地使用动态规划来解决！
+所以我们怎么找到这条线呢？事实证明，这个问题可以很好地使用动态规划来解决！
 
 ![](https://karthikkaranth.me/img/minimize_energy.png)
 
-让我们创建一个名为 `M` 的 2D 数组 来存储每个像素的最小能量值。如果您不熟悉动态规划，这简单来说就是，从图像顶部到该点的所有可能接缝（seam）中的最小能量即为 `M[i,j]` 。因此，M 的最后一行中就将包含从图像顶部到底部的最小能量。我们需要从此回溯以查找此接缝中存在的像素，所以我们将保留这些值，存储在名为`backtrack` 的  2D 数组中。
+让我们创建一个名为 `M` 的 2D 数组 来存储每个像素的最小能量值。如果您不熟悉动态规划，这简单来说就是，从图像顶部到该点的所有可能接缝（seam）中的最小能量即为 `M[i,j]` 。因此，M 的最后一行中就将包含从图像顶部到底部的最小能量。我们需要从此回溯以查找此接缝中存在的像素，所以我们将保留这些值，存储在名为`backtrack` 的 2D 数组中。
 
 ```
 def minimum_seam(img):
@@ -387,7 +387,7 @@ if __name__ == '__main__':
 
 * * *
 
-**修改于(2018年5月5日):** 正如一个[热心的 reddit 用户](https://www.reddit.com/r/Python/comments/8mpjw4/implementing_seam_carving_with_python/dzpouv4/) 所说，通过使用 [numba](https://numba.pydata.org/) 来加速计算繁重的功能，得到几十倍的性能提升。要想体验 numba，只要在函数 `carve_column` 和 `minimum_seam` 之前加上 `@numba.jit`。就像下面这样：
+**修改于(2018年5月5日):** 正如一个[热心的 reddit 用户](https://www.reddit.com/r/Python/comments/8mpjw4/implementing_seam_carving_with_python/dzpouv4/) 所说，通过使用 [numba](https://numba.pydata.org/) 来加速计算繁重的功能，可以很容易的得到几十倍的性能提升。要想体验 numba，只要在函数 `carve_column` 和 `minimum_seam` 之前加上 `@numba.jit`。就像下面这样：
 
 ```
 @numba.jit
