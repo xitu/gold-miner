@@ -2,124 +2,121 @@
 > * 原文作者：[Mathieu Dionne](https://medium.com/@MathDy24?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-choose-the-best-static-site-generator-in-2018.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-choose-the-best-static-site-generator-in-2018.md)
-> * 译者：
+> * 译者：[ssshooter](https://github.com/ssshooter)
 > * 校对者：
 
-# How to Choose the Best Static Site Generator in 2018
+# 2018 年,如何选择最好的静态站点生成器
 
 ![](https://cdn-images-1.medium.com/max/800/1*4877k4Hq9dPdtmvg9hnGFA.jpeg)
 
-So.
+截止到现在已经有非·常·多静态站点生成器了。
 
-Many.
+即使我们已经做了 15+ 个[演示和教程](https://snipcart.com/blog/categories/jamstack)也无法覆盖所有静态站点生成器。
 
-Static site generators.
-
-Even for us who’ve done 15+ (and counting) [demos & tutorials](https://snipcart.com/blog/categories/jamstack) with them, it can get quite overwhelming.
-
-I can’t believe what it must be like for a developer just learning about the JAMstack and static web ecosystem.
+我难以理解 [JAMstack](https://jamstack.org/) 和静态页面生态系统的开发人员的感受……
 
 ![](https://cdn-images-1.medium.com/max/800/0*YikT2JWUObtnzO0d.gif)
 
-Like landing in freakin’ Wonderland
+大概像爱丽丝踏入仙境那样吧。
 
-To try and help them, we decided to synthesize our knowledge into one comprehensive piece.
+为了解决这个问题，我们决定把我们的知识综合到一块。
 
-By the end of this post, you should be able **to find the best static site generator (SSG) for any particular project.**
+本文结束时，你应该能够**对各个项目都能找到对应的最佳静态站点生成器（Static site generators 缩写 SSG）。**
 
-Here’s what you’ll learn about SSGs:
+你可以学习到一下内容：
 
-1.  What they are (and why you should use them).
-2.  What are the best static site generators, today.
-3.  Considerations to keep in mind before choosing _the one_.
+1. 它们是什么（以及为什么要使用它们）。
+2. 现在最好的静态站点生成器是什么。
+3. 在选择 **SSG** 之前的注意事项。
 
 ![](https://cdn-images-1.medium.com/max/800/1*4877k4Hq9dPdtmvg9hnGFA.jpeg)
 
-### 1. Static site generators, what are they?
+### 1. 静态站点生成器是什么？
 
-If you’re here looking for the right SSG, I assume you have a decent understanding of what they are. Still, a bit of context can’t hurt.
+如果你看本文的目标是寻找合适的 SSG，那么你应该很清楚 SSG 是什么啦，不过在我这里解释一下也无伤大雅。
 
-Static sites aren’t new. They were what we used to build the web way before dynamic CMS (WordPress, Drupal, etc.) took over.
+静态网站不是新鲜事物。它们是我们在动态 CMS（WordPress，Drupal 等）之前用来构建 Web 的方式。
 
-What’s new, then?
+那有什么新特性？
 
-The modern tools — static site generators, mainly — that came out in the last years expanded the capabilities of static sites.
+过去几年中出现的现代的静态站点生成器，扩展了静态站点的功能。
 
-Simply put, a static site generator takes your site content, applies it to templates, and generates a structure of purely static HTML files ready to be delivered to visitors.
+简而言之，静态站点生成器会获取您的站点内容，将其应用于模板，并生成纯静态HTML文件，以便传递给访问者。
 
 ![](https://cdn-images-1.medium.com/max/800/0*xztT5nlj6UvKWHU-.png)
 
-This process brings its share of benefits when compared to traditional CMSs.
+与传统的 CMS 相比，这一处理过程带来了许多好处。
 
-### Why use them?
+### 为什么要使用 SSG？
 
-Having to dynamically pull information from a database every time a visitor hits a page on a content-heavy site can result in delays that cause frustration and bounces.
+每次访问者在内容繁多的网站上跳转，必须动态地从数据库中提取信息，这可能导致页面呈现速度满，从而用户流失。
 
-SSGs serve already compiled files to the browser, cutting load times by a large margin.
+SSG 将已编译的文件提供给浏览器，大大减少了加载时间。
 
-→ **Security & reliability**
+→ **安全性和可靠性**
 
-One of the biggest threats of developing with a dynamic CMS is the lack of security. Their need for bigger server-side infrastructures opens the way for potential breaches.
+使用动态 CMS 开发的最大威胁之一是缺乏安全性。动态 CMS 复杂的后端架构产生了很多潜在风险。
 
-With static setups, there’s little to no server-side functionality.
+而使用静态设置，几乎没有使用服务器端功能。
 
-→ **Flexibility**
+→ **灵活性**
 
-Opinionated and cumbersome traditional CMSs are constraining. The only way to scale is with existing plugins and customization is limited to available theming platforms. That’s cool if you’re a non-technical user, but developers quickly find themselves hands tied.
+老旧繁琐的传统 CMS 不灵活。扩展的唯一方法是使用现有插件，或者为某个平台定制。如果不懂技术直接用倒是很爽，但开发人员发现自己各种被束缚。
 
-SSGs might ask for more technical skills but will reward developers with freedom. Most of them also have plugin ecosystems, theming and easy to plug third-party services. Plus, extendability using their core programming language is limitless.
+SSG 对技术要求可能会稍高，但自由度同样也高。他们中的大多数还有插件生态系统，主题和易于插入第三方服务。此外，使用其核心编程语言的可扩展性是无限的。
 
-→ **Their weaknesses are… disappearing.**
+→ **他们的弱点……正在消失。**
 
-With an ever-growing ecosystem surrounding static site development, many of its main issues are finding answers through new tools.
+随着 SSG 生态系统的不断发展，很多主要问题都被新工具解决。
 
-_Content management and administrative tasks_ can be challenging for end users who don’t have a technical background. Good news is there’s an impressive number of headless CMSs out there [ready to complete](https://snipcart.com/blog/headless-ecommerce-guide) your SSG. The difference between headless and traditional CMSs being that you’ll use the former only for “content management” tasks, not templating and frontend content generation. I bet you’ll find one fitting your needs.
+**内容管理和管理任务**对于没有技术背景的用户来说可能并不简单。但好消息是，现在有大量的 headless CMS（无头 CMS） 可以[完善](https://snipcart.com/blog/headless-ecommerce-guide)你的 SSG。headless 和传统 CMS 之间的区别在于，您只能将前者用于“内容管理”任务，而不是模板和前端内容生成。你总会发现一个适合你的需求。
 
-Some static site CMSs support SSGs straight up. For instance, [Forestry](https://forestry.io/#/) for Jekyll & Hugo or [DatoCMS](https://www.datocms.com/) for many of them.
+一些静态站点 CMS 直接支持SSG。例如，Jekyll 和 Hugo 的 [Forestry](https://forestry.io/#/) 或者普遍适用的[DatoCMS](https://www.datocms.com/)。
 
-As for _dynamic features_ necessary for a great user experience? There’s a bunch of awesome services available:
+如果你需要一些**动态的特性**，也有很多很棒的服务可供选择：
 
-*   [Serverless](https://serverless.com/) or [Webtask](https://webtask.io/) for backend functions,
-*   [Netlify](https://www.netlify.com/) for deployment,
-*   [Algolia](https://www.algolia.com/) for search,
-*   Snipcart for e-commerce,
-*   [Disqus](https://disqus.com/) or [Staticman](https://staticman.net/) for user-generated content.
+*   实现后端功能的 [Serverless](https://serverless.com/) 或 [Webtask](https://webtask.io/)
+*   用于部署的 [Netlify](https://www.netlify.com/)
+*   用于搜索的 [Algolia](https://www.algolia.com/)
+*   电商方面可以考虑 Snipcart
+*   用户生成内容（如评论）可以考虑 [Disqus](https://disqus.com/) 或 [Staticman](https://staticman.net/)
 
-These are just a few examples of [what’s out there](https://www.thenewdynamic.org/tool/).
 
-> _Sell the JAMstack and static site generators to your clients by translating these development advances into business benefits._ [_Read this guide_](https://snipcart.com/blog/jamstack-clients-static-site-cms) _to know more._
+这里只是[其中](https://www.thenewdynamic.org/tool/)几个例子。
+
+> **通过将这些开发进度转化为业务优势，将 JAMstack 和静态站点生成器发布给你的客户，[**阅读本指南**](https://snipcart.com/blog/jamstack-clients-static-site-cms)了解更多。**
 
 ![](https://cdn-images-1.medium.com/max/800/1*4877k4Hq9dPdtmvg9hnGFA.jpeg)
 
-### 2. Which static site generator should you choose?
+### 2. 应该选择哪个静态站点生成器？
 
-Knowing what static site generators are and why you should use them is one thing, knowing which one to adopt is a whole other endeavour.
+了解 SSG 是什么是一方面，弄明白哪个 SSG 更适合自己又是另一回事了。
 
-There are over 400 of them roaming the web these days. If you’re only starting with static web development, what follows will help your decision-making process!
+网上有超过 400 种 SSG。如果你要是从静态 Web 开始开发，以下内容将有助于你的决策！
 
-I’ll cover some of the best ones out there, but remember that it’s still a small portion of all existing SSGs. For a complete list, I suggest you visit [staticgen.com](https://www.staticgen.com/).
+我将介绍其中最好的一部分，但请记住它仅仅是所有现有 SSG 种的一小部分。完整列表建议访问[staticgen.com](https://www.staticgen.com/)。
 
-### 2.1 Best static site generators in 2018
+### 2.1 2018年最佳静态站点生成器
 
-In this section, I present the ones I consider you SHOULD know and that will answer the needs of most projects. These choices are based on general popularity but also on our team’s experience building [dozens of JAMstack demos](https://github.com/snipcart).
+在本节中，我将为你介绍那些广为人知并且可以满足大多数项目的需求的 SSG。这个推荐基于这些项目的热度，也取决于我们团队建立[数十个 JAMstack demo](https://github.com/snipcart) 的经验。
 
 [**Jekyll**](https://jekyllrb.com/)
 
 ![](https://cdn-images-1.medium.com/max/800/0*xlMOOB3Swx-sifym.png)
 
-Still the most popular SSG, with a large user base and a big directory of plugins. It’s great for blogs and also widely used by e-commerce sites.
+Jekyll 仍然是最受欢迎的 SSG，具有庞大的用户群和大量插件。作为个人博客非常适合，也被电子商务网站广泛使用。
 
-One of Jekyll’s key selling points for newcomers is its wide range of _importers_. It enables an existing site to be migrated to Jekyll with relative ease. If you have a WordPress site, for example, you can switch to Jekyll using one of them.
+Jekyll 对新手来说的一个主要卖点是各种 **importer**。它能使现有站点相对轻松地迁移到 Jekyll。例如，如果你有 WordPress 站点，则可以使用 importer 切换到 Jekyll。
 
-Jekyll then allows you to focus on the content without worrying about databases, updates, and comment moderation while preserving permalinks, categories, pages, posts, and custom layouts.
+并且，Jekyll 可以让你专注于内容而无需担心数据库，更新和评论审核，同时保留永久链接，类别，页面，帖子和自定义布局。
 
-It’s built with Ruby and integrated into GitHub Pages, so there’s a much lower risk of getting hacked. Theming is simple, SEO is baked in, and the Jekyll community offers a lot of plugins for customization.
+Jekyll 用 Ruby 构建，并集成到 GitHub Page 中，因此被黑客攻击的风险要低得多。主题可以简单更换，自带 SEO，并且 Jekyll 社区提供了大量的自定义插件。
 
-→ Jekyll Tutorials:
+→ Jekyll 教程：
 
-*   [Static Site E-Commerce: Integrating Snipcart with Jekyll](https://snipcart.com/blog/static-site-e-commerce-part-2-integrating-snipcart-with-jekyll)
-*   [CloudCannon CMS for Jekyll: Building a Multilingual Site](https://snipcart.com/blog/cms-jekyll-cloud-cannon-multilingual)
-*   [Staticman for User-Generated Content on a Jekyll Static Website](https://snipcart.com/blog/staticman-dynamic-content-static-website)
+*   [静态电商网站：集成 Snipcart 与 Jekyll](https://snipcart.com/blog/static-site-e-commerce-part-2-integrating-snipcart-with-jekyll)
+*   [Jekyll CloudCannon CMS：构建多语言网站](https://snipcart.com/blog/cms-jekyll-cloud-cannon-multilingual)
+*   [Staticman 用户内容生成 + Jekyll 静态网站](https://snipcart.com/blog/staticman-dynamic-content-static-website)
 
 * * *
 
@@ -127,21 +124,21 @@ It’s built with Ruby and integrated into GitHub Pages, so there’s a much low
 
 ![](https://cdn-images-1.medium.com/max/800/0*QtVY1u5_t419rHWH.png)
 
-Gatsby brings static pages to frontend stacks, leveraging client-side JavaScript, reusable APIs, and prebuilt Markup. It’s an easy-to-use solution that creates an SPA (Single Page Application) with React.js, Webpack, modern JavaScript, CSS, and more.
+Gatsby 将静态页面带到前端技术栈，依靠浏览器端 JavaScript，可重用 API 和预构建标记。这是一个易用的解决方案，可以使用React.js，Webpack，现代 JavaScript，CSS 等创建 SPA（单页应用程序）。
 
-Gatsby.js is a static PWA (Progressive Web App) generator. It pulls only the critical HTML, CSS, data, and JavaScript so that your site can load as fast as possible.
+Gatsby.js 是一个静态 PWA（Progressive Web App）生成器。它仅提取关键的 HTML，CSS，数据和 JavaScript，以便您的网站尽可能快地加载。
 
-Its rich data plugin ecosystem lets a website pull data from a variety of sources, including headless CMSs, SaaS services, APIs, databases, file systems, and more.
+其丰富的数据插件生态系统允许网站从无头 CMS，SaaS 服务，API，数据库，文件系统等渠道拉取数据。
 
-Gatsby has a wide range of applications and is a solid choice for sites that need to utilize data from many sources. It’s on its way to the top, don’t be surprised if it becomes the number one SSG in the next few months.
+Gatsby 应用广泛，对于需要利用来自多个来源的数据的站点而言，它是不二之选。它正在走向顶峰，如果它在未来几个月成为头号 SSG，请不要感到惊讶。
 
-Oh, and it might also fix one of the biggest dev pains with SSGs: (long) atomic builds. Creator Kyle Matthews [recently created a company](https://thenewstack.io/gatsbyjs-the-open-source-react-based-ssg-creates-company-to-evolve-cloud-native-website-builds/) on top of his open source project. Gatsby Inc. will build a cloud infrastructure for Gatsby sites that might enable incremental builds — a game changer for SSGs.
+哦，它也可能解决了 SSG 最大的开发难题之一：长原子构建（long atomic build）。创作者 Kyle Matthews 以 Gatsby 为主[最近建立了一家公司](https://thenewstack.io/gatsbyjs-the-open-source-react-based-SSG-creates-company-to-evolve-cloud-native-website-builds/)。Gatsby Inc. 将为 Gatsby 网站构建一个云基础架构，可以实现增量构建，甚至可以说是改变了 SSG 的游戏规则了。
 
-→ Gatsby Tutorials:
+→ Gatsby 教程：
 
-*   [ReactJS E-Commerce With No Backend Using Snipcart & Gatsby](https://snipcart.com/blog/snipcart-reactjs-static-ecommerce-gatsby)
-*   [Grav as Headless CMS Tied to Gatsby with GraphQL Schema](https://snipcart.com/blog/react-graphql-grav-cms-headless-tutorial)
-*   [Static Forms, Auth & Serverless Functions (Gatsby + Netlify Demo)](https://snipcart.com/blog/static-forms-serverless-gatsby-netlify)
+*   [Snipcart & Gatsby 搭建 ReactJS 无后台电商网站](https://snipcart.com/blog/snipcart-reactjs-static-ecommerce-gatsby)
+*   [Grav CMS + Gatsby + GraphQL](https://snipcart.com/blog/react-graphql-grav-cms-headless-tutorial)
+*   [静态表单，授权，无服务器功能（Gatsby + Netlify Demo）](https://snipcart.com/blog/static-forms-serverless-gatsby-netlify)
 
 * * *
 
@@ -149,19 +146,20 @@ Oh, and it might also fix one of the biggest dev pains with SSGs: (long) atomic 
 
 ![](https://cdn-images-1.medium.com/max/800/0*PAL4JxBh4U-dISqu.png)
 
-An easy-to-set-up, user-friendly SSG that doesn’t need much config before you get the site up and running.
+一个易于设置，用户友好的 SSG，部署运行网站不需要太多配置。
 
-Hugo is well-known for its build speed, while its [data-driven content](https://gohugo.io/templates/data-templates/) features make it easy to generate HTML based on JSON/CSV feeds. You can also write your own shortcodes and use the pre-built templates to quickly set up SEO, comments, analytics, and other functions.
+Hugo 以其构建速度而闻名，而其 [data-driven content](https://gohugo.io/templates/data-templates/) 特性可以轻松地基于 JSON / CSV 源生成HTML。你通过很少的代码就能使用预先构建的模板快速设置SEO，评论，分析和其他功能。
 
-In addition, Hugo provides full i18n support for multi-language sites, making it easy to reach an international audience. This is particularly useful for e-commerce merchants who want to localize their websites.
+此外，Hugo 为多语言网站提供全面的 i18n 支持，受众面大大增加。这对于想要本地化的电商网站特别有用。
 
-Plus, they [recently announced](https://gohugo.io/news/0.42-relnotes/) an advanced theming feature that offers a powerful way of building Hugo sites with reusable components.
+最近，他们[发布](https://gohugo.io/news/0.42-relnotes/) 了一种先进的主题功能，这可以让你使用可重用组件构建 Hugo 站点。
 
-→ Hugo Tutorials:
+→ Hugo 教程：
 
-*   [How to Build & Host a (Very Fast) Static E-Commerce Site](https://snipcart.com/blog/hugo-tutorial-static-site-ecommerce)
-*   [Static E-Commerce on Hugo with Product Management in Forestry.io](https://forestry.io/blog/snipcart-brings-ecommerce-static-site/#/)
-*   [A Great, Fast Static E-Commerce Experience with 6 Easy Tools](https://www.netlify.com/blog/2015/08/25/a-great-fast-static-e-commerce-experience-with-6-easy-tools/)
+*   [搭建高速静态电商网站](https://snipcart.com/blog/hugo-tutorial-static-site-ecommerce)
+* [Hugo的静态电子商务与Forestry.io中的产品管理]（https://forestry.io/blog/snipcart-brings-ecommerce-static-site/#/）
+*   [Forestry.io & Hugo 静态电商网站](https://forestry.io/blog/snipcart-brings-ecommerce-static-site/#/)
+*   [6 种简易工具给你优秀，快速的静态电商体验](https://www.netlify.com/blog/2015/08/25/a-great-fast-static-e-commerce-experience-with-6-easy-tools/)
 
 * * *
 
@@ -169,16 +167,16 @@ Plus, they [recently announced](https://gohugo.io/news/0.42-relnotes/) an advanc
 
 ![](https://cdn-images-1.medium.com/max/800/0*H6lYvOXmQMfbhMBf.jpg)
 
-While not necessarily an SSG per se, Next.js is a lightweight framework for static and server-rendered React applications.
+Next.js 本质上不只是 SSG，它是一个用于静态服务端渲染的 React 轻量框架。
 
-It builds Universal JavaScript apps, meaning that JS runs both on client and server. This process has boosted these apps’ performances in first-page load and SEO capabilities. Next.js’ set of features includes automatic code splitting, simple client-side routing, webpack-based dev environment and any Node.js server implementation.
+Next.js 构建可以在浏览器端和服务器上都可运行的通用 JavaScript 应用程序。这个过程提升了这些应用程序在首页加载和搜索引擎优化功能方面的表现。Next.js 包括自动代码拆分，简单的前端路由，基于 webpack 的开发环境和任何 Node.js 服务器实现等一整套功能。
 
-JavaScript is everywhere nowadays, React being the trendiest JS frontend framework as of today, so it’s definitely worth a look.
+JavaScript 现在无处不在，React 是现在最流行的 JS 前端框架，所以它绝对值得一看。
 
-→ Next.js Tutorial:
+→ Next.js 教程：
 
-*   [Next.js Tutorial: SEO-Friendly React E-Commerce SPA](https://snipcart.com/blog/react-seo-nextjs-tutorial)
-*   [Introducing Build a Server-rendered ReactJS application with Next.js](https://egghead.io/lessons/next-js-introducing-build-a-server-rendered-reactjs-application-with-next-js)
+*   [Next.js 教程：SEO 友好的 React 电商单页应用](https://snipcart.com/blog/react-seo-nextjs-tutorial)
+*   [用 Next.js 客户端渲染 ReactJS 应用](https://egghead.io/lessons/next-js-introducing-build-a-server-rendered-reactjs-application-with-next-js)
 
 * * *
 
@@ -186,115 +184,115 @@ JavaScript is everywhere nowadays, React being the trendiest JS frontend framewo
 
 ![](https://cdn-images-1.medium.com/max/800/0*L1wlu2hgtpcRYfcr.png)
 
-Similar in name and purpose to Next.js, Nuxt is a framework for creating Universal Vue.js Applications. It enables UI rendering while abstracting away the client/server distribution. It also got a deployment option called _nuxt generate_ to build static generated Vue.js applications.
+名字和功能都与 Next.js 相似，但 Nuxt 是用于创建 Vue.js 应用程序的框架。它可以在抽象出客户端/服务器分布的同时启用 UI 呈现。它还有一个用于构建静态 Vue.js 应用程序的 **nuxt generate** 选项。
 
-This minimalistic framework for going serverless is straightforward and simple but is arguably geared more toward programmatic implementation instead of a traditional DOM scaffolding.
+这种用于无服务器的简约框架使用十分简单，但它更倾向于程序化实现而不是传统的 DOM 脚手架。
 
-Since Nuxt is a Vue framework, familiarity with Vue is strongly recommended, but developers who have worked with Vue before will feel right at home. With the quick rise of Vue.js in the JavaScript ecosystem — and considering [our collective love](https://snipcart.com/blog/progressive-migration-backbone-vuejs-refactoring) for it — , no wonder it ends up on this list.
+由于 Nuxt 是 Vue 框架，因此强烈建议你先了解 Vue，当然之前使用 Vue 的开发者会感到宾至如归。随着 Vue.js 的迅速崛起，[我们也用 Vue 重构了项目](https://snipcart.com/blog/progressive-migration-backbone-vuejs-refactoring)，所以最后当然要推荐以下它啦。
 
-> _If you’re a Vue.js fan, you could also check out_ [_VuePress_](https://vuepress.vuejs.org/)_._
+> **如果你是Vue.js 用户，你也可以了解一下[**VuePress**](https://vuepress.vuejs.org/)**
 
-→ Nuxt Tutorials:
+→ Nuxt教程：
 
-*   [A Tutorial to Bundle Cockpit CMS & Nuxt.js in a full JAMstack](https://snipcart.com/blog/cockpit-cms-tutorial-nuxtjs)
-*   [Simple Server Side Rendering, Routing, and Page Transitions with Nuxt.js](https://css-tricks.com/simple-server-side-rendering-routing-page-transitions-nuxt-js/)
+*   [Cockpit CMS & Nuxt.js 全栈教程](https://snipcart.com/blog/cockpit-cms-tutorial-nuxtjs)
+*   [Nuxt.js 服务器端渲染、路由与页面跳转](https://css-tricks.com/simple-server-side-rendering-routing-page-transitions-nuxt-js/)
 
 * * *
 
-### 2.2 Main considerations
+### 2.2 主要考虑因素
 
-This section will take another approach in helping you discover your soul mate SSG. You’ll find a few new ones here I haven’t mentioned in the last section.
+本节将采用另一种方法，帮助你找到最适合自己的 SSG。
 
-Here are some questions you should ask yourself before choosing the right tool:
+在选择合适的工具之前，你应该先问自己这些问题：
 
-#### **1. Do you need lots of dynamic features & extensions out of the box?**
+#### **1. 您是否需要开箱即用的大量动态功能和扩展？**
 
-There are two schools of thoughts here.
+这里有两个流派：
 
-1.  Pick a static site generator offering a great number of features out-of-the-box. You won’t need tons of plugins or build everything by yourself. In that case, _Hugo_ presents a huge set of built-in functionalities with which you can get straight to work. _Gatsby_ also fits the bill here.
-2.  Pick an SSG that comes with fewer features, but offers a wide plugin ecosystem that allows you to expand and customize your setup as needed. This probably represents one of _Jekyll_’s greatest strengths. The fact that it has been so popular for so long has translated into a large community and a wide array of plugins. To push this notion even further, [_Metalsmith_](http://www.metalsmith.io/) or [_Spike_](https://spike.js.org/) leave all manipulations to plugins, making them highly customizable and able to build anything. The trade-off here is that this asks for a higher level of technical proficiency to handle use cases. But this might be a silver lining if you’re trying to learn the language your SSG is running on!
+1. 选择一个提供大量开箱即用的功能的静态站点生成器。不需要大量的插件或自己构建一切。如果你是这样想的，**Hugo** 提供了大量内置功能，其次 **Gatsby** 也挺适合于这个情况。
+2. 选择功能较少的 SSG，但提供广泛的插件生态系统，并且允许你根据需要扩展和自定义设置。这可能是 **Jekyll** 最大的优势之一。它长期以来如此热门，社区也逐渐完善，各种各样的插件也随之而出现。为了进一步推动这一概念， [**Metalsmith**](http://www.metalsmith.io/) 或 [**Spike**](https://spike.js.org/) 将设置交给插件，其具有高度可定制性让其无所不能。要权衡的是，它对技术要求很高，但如果你想学习 SSG 运行的语言，这可能是一线希望！
 
-#### **2. How important is your build & deploy time?**
+#### **2. 你在意构建和部署时间吗？**
 
-As I’ve already mentioned, static sites, in general, are a great improvement for speed, but some SSGs push the bar further.
+正如我已经提到的，一般静态站点的速度就已经很有优势，但是个别 SSG 更是非一般的快。
 
-The clear winner here is _Hugo_. It’s well-known for its blazing fast build times. It can put together a simple site from markup and templates in milliseconds and go through thousands of pages in seconds.
+这局的赢家明显是 **Hugo**。它以其超快的构建时间而闻名，可以在几毫秒内将内容和模板组合成一个简单站点，以这个速度几秒钟内可以完成数千页。
 
-Reactive frameworks such as _Nuxt_ are also great for performances & SEO purposes.
+诸如 **Nuxt** 之类的响应式框架也非常适合性能和搜索引擎优化。
 
 ![](https://cdn-images-1.medium.com/max/800/0*kScgW22S3zvfmDF0.png)
 
-This is one area where Jekyll actually looks bad — many developers complain about its build speed.
+Jekyll 在这方面就不怎么样了 -- 许多开发人员抱怨它的构建速度。
 
-#### **3. What is the type of project you want to handle with an SSG?**
+#### **3. 你想用 SSG 处理什么类型的项目？**
 
-Consider your project’s end goal. Not all generators are created for the same results, and you’ll save a lot of pain by choosing one that is specialized for what you’re trying to achieve.
+各个 SSG 实现的目的并不相同，选择前想清楚你的网站类型可以省掉很多麻烦事。
 
-→ **Blog or small personal websites**:
+→ **博客或小型个人网站**：
 
-_Jekyll_ is the obvious one to mention here. It presents itself as a blog-aware SSG abstracting everything that could get in the way of what really matters on a blog: the content. _Hexo_ is [another one](https://snipcart.com/blog/hexo-ecommerce-nodejs-blog-framework) you should consider for building a simple blogging platform. Ultimately though, most SSGs will do the job in this area.
+**Jekyll** ，答案显而易见。它本身就为博客而生，它可以抽象出博客的主要内容。**Hexo** 是搭建简单博客平台的[另一个选择](https://snipcart.com/blog/hexo-ecommerce-nodejs-blog-framework)。不过，其实大多数 SSG 都可以做博客或个人网站。
 
-Also check out: Hugo, Pelican, Gatsby.
+也可以了解一下：Hugo，Pelican，Gatsby。
 
-→ **Documentation**:
+→ **文档**：
 
-_GitBook_ makes it easy to write and maintain high-quality documentation and is easily the most popular tool of this kind.
+**GitBook** 使编写和维护高质量的文档变得容易，现在已是最流行的文档工具。
 
-Also check out: Docusaurus, MkDocs.
+也可以了解一下 Docusaurus，MkDocs。
 
-→ **E-Commerce**:
+→ **电子商务**：
 
-You can also easily integrate a shop on most static site generators (as seen in previous tutorials). E-Commerce can be tricky though, as many aspects come into consideration. Think about user-experience related aspects such as speed and UI customization. SEO is also something you don’t want to disregard when developing a business online.
+您还可以用 SSG 生成电商网站（如前面的教程中所示）。但电商网站不好做，需要考量的东西十分多：用户体验方面，例如速度和UI定制，搜索引擎优化也是必不可少的。
 
-For larger stores where you might need a CMS for product management, ask yourself which SSG will be the better fit for the headless CMS of your choice.
+大型电商网站需要 CMS 进行产品管理，这个时候就要思考哪个 SSG 更适合你选择的无头 CMS。
 
-With these in mind, drawing from our own experiences we suggest looking at reactive frameworks like _Gatsby_ & _Nuxt_. But it doesn’t mean you should put aside friendlier options like _Jekyll_ or _Hugo_ if you need to keep everything simple.
+根据我们的经验，我们推荐 **Gatsby** 和 **Nuxt** 这样的响应式框架。但如果你还是需要一切从简，你可以考虑 **Jekyll** 或 **Hugo**。
 
-→ **Marketing website**:
+→ **营销网站**：
 
-One I still haven’t mention yet is [_Middleman_](https://middlemanapp.com/). What differentiates this one from the bunch is that it aims to provide the flexibility to craft any type of site, instead of being heavily geared towards a blogging engine. It’s great for advanced marketing websites and companies like MailChimp and Vox Media have used it for their own.
+之前还没提过 [**Middleman**](https://middlemanapp.com/)。它的与众不同之处在于它可以灵活搭建任何类型的网站，而不是专注于博客引擎。这对于高级营销网站来说非常棒，MailChimp 和 Vox Media 等公司也将它用于自己的网站。
 
-Also check out: Gatsby, Hugo, Jekyll.
+也可以了解一下 Gatsby，Hugo，Jekyll。
 
-#### **4. If you’re willing to modify the site and/or generator yourself, do you need it to be in a particular language you’re well-versed in?**
+#### **4. 你是否希望自己修改网站和生成器？是否需要使用自己精通的语言？**
 
-If so, here’s where you should look at for the following languages:
+以下是各个框架使用的语言：
 
-*   **JavaScript**: Next.js & Gatsby (for React), Nuxt & VuePress (for Vue), Hexo, GitBook, Metalsmith, Harp, Spike.
-*   **Python**: Pelican, MkDocs, Cactus.
-*   **Ruby**: Jekyll, Middleman, Nanoc, Octopress.
-*   **Go**: Hugo, InkPaper.
-*   **.NET**: Wyam, pretzel.
+*   **JavaScript**：Next.js & Gatsby（适用于 React）、Nuxt & VuePress（适用于 Vue）、Hexo、GitBook、Metalsmith、Harp、Spike。
+*   **Python**：Pelican、MkDocs、Cactus.
+*   **Ruby**：Jekyll、Middleman、Nanoc、Octopress.
+*   **Go**：Hugo、InkPaper。
+*   **.NET**：Wyam、pretzel。
 
-#### **5. Are non-technical users going to work on this site?**
+#### **5. 非技术用户是否需要管理此网站？**
 
-After the development part is done and the website is built, who is going to run it and edit its content? In most cases, this falls in the hands of non-technical users who’ll have a hard time navigating through code repos.
+开发并网站构建后，网站内容的管理员是谁？在大多数情况下，他们不是技术人员，他们很难通过代码进行内容管理。
 
-Here’s where you should strongly consider pairing your SSG with a headless CMS. Not only the choice of CMS is important, but also finding the right SSG to attach on the frontend is crucial.
+这种情况应该将有无头 CMS 的 SSG 放在首位。CMS 的选择很重要，找到可以对接的 SSG 同样重要。
 
-_Gatsby_ has pushed this thinking forward with one of their latest feature, a [GraphQL implementation](https://www.gatsbyjs.org/docs/querying-with-graphql/). I won’t go into explaining [what GraphQL is](https://snipcart.com/blog/graphql-nodejs-express-tutorial), but in short, it enables faster less-bloated data queries.
+**Gatsby** 的新功能，[使用 GraphQL 实现](https://www.gatsbyjs.org/docs/querying-with-graphql/)。这里不解释[ GraphQL 是啥](https://snipcart.com/blog/graphql-nodejs-express-tutorial)，简而言之，它可以实现更快更简洁的数据查询。
 
-#### **6. Is community and help from peers important to you?**
+#### **6. 你依赖社区和同好的帮助吗？**
 
-If so, consider one of the top static site generators listed earlier. These are the most popular right now and are backed by the most active communities spawning plugins, case studies, and resources of all kinds.
+如果答案是肯定的，请考虑前面列出的顶级静态站点生成器。这些都是目前最受欢迎的 SSG，社区活跃，案例研究和各种资源的支持都不会落后。
 
-Remember that modern static sites and the JAMstack are still part of a relatively new ecosystem, and if you start with less known tools you’ll rapidly discover the lack of help available.
+注意，现代静态网站和 JAMstack 仍然是一个相对较新的生态系统的一部分，如果你用的工具用户不多，踩到坑可能就要自己填了。
 
 ![](https://cdn-images-1.medium.com/max/800/1*4877k4Hq9dPdtmvg9hnGFA.jpeg)
 
-### Closing thoughts
+### 总结
 
-I won’t end this post by telling you which static site generator is the best and which one you should choose. Primarily because I simply don’t have the answer, but also because you should now have enough information to make that call yourself.
+到最后我还是不会告诉你，你应该选择什么 SSG，你应该按自己的情况自己做选择。
 
-All you need to do now is go out and explore every possibility that seems attractive to you. One thing’s for sure, it’s that you should have fun doing it as SSGs finally give freedom and flexibility back to developers.
+现在你可以认真思考一下真正吸引你的是什么。有一件事是肯定的，你 SSG 一定就会给你自由和灵活的感觉！
 
-What static site generator would you recommend? What’s next for the JAMstack ecosystem? I really want to hear from you, so join the discussion in the comments below!
+你会推荐什么静态网站生成器？JAMstack 生态系统将何去何从？我真的很想听听大家的意见，请在下面的评论中加入讨论！
 
-If you’ve enjoyed this post, please take a second to share it on Twitter.
+如果您喜欢这篇文章，就在 Twitter 上分享一下吧！
 
 ![](https://cdn-images-1.medium.com/max/800/1*ZrJKJqBsksWd-8uKM9OvgA.png)
 
-_I originally published this on the_ [_Snipcart blog_](https://snipcart.com/blog/choose-best-static-site-generator) _and shared it in our_ [_newsletter_](http://snipcart.us5.list-manage2.com/subscribe?u=c019ca88eb8179b7ffc41b12c&id=3e16e05ea2)_._
+**首发地址** [_Snipcart blog_](https://snipcart.com/blog/choose-best-static-site-generator) **本文地址（英语）** [_newsletter_](http://snipcart.us5.list-manage2.com/subscribe?u=c019ca88eb8179b7ffc41b12c&id=3e16e05ea2)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
