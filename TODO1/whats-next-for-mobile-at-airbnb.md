@@ -2,114 +2,114 @@
 > * 原文作者：[]()
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/whats-next-for-mobile-at-airbnb.md](https://github.com/xitu/gold-miner/blob/master/TODO1/whats-next-for-mobile-at-airbnb.md)
-> * 译者：
+> * 译者：[ALVINYEH](https://github.com/ALVINYEH)
 > * 校对者：
 
-# What’s Next for Mobile at Airbnb
+# Airbnb 移动端路在何方？
 
-## Bringing the best back to native
+## 发挥原生最大的潜力
 
 ![](https://cdn-images-1.medium.com/max/2000/1*_N3sz8fhNFU5tB5YTVfGHg.jpeg)
 
-_This is the fifth in a_ [_series of blog posts_](https://medium.com/airbnb-engineering/react-native-at-airbnb-f95aa460be1c) _in which we outline our experience with React Native and what is next for mobile at Airbnb._
+**这是[系列博客文章](https://juejin.im/post/5b2c924ff265da59a401f050)中的第五篇，本文将会概述使用 React Native 的经验，以及 Airbnb 移动端接下来要做的事情。**
 
-### Exciting Times Ahead
+### 激动人心的时刻即将来临
 
-Even while experimenting with React Native, we continued to accelerate our efforts on native as well. Today, we have a number of exciting projects in production or in the pipeline. Some of these projects were inspired by the best parts and learnings from our experience with React Native.
+即使当初在尝试使用 React Native 时，我们也同时加快了原生的开发。今天，我们在生产环境或正在进行中的项目方面，有许多令人激动的计划。其中一些项目的灵感，来自我们使用 React Native 的最佳部分和经验。
 
-#### Server-Driven Rendering
+#### 服务器驱动渲染
 
-Even though we’re not using React Native, we still see the value in writing product code once. We still heavily rely on our universal design language system ([DLS](https://airbnb.design/building-a-visual-language/)) and many screens look nearly identical on Android and iOS.
+即使我们已不再使用 React Native，但也看到了只编写一次产品代码的价值。我们仍然非常依赖通用设计语言系统（[DLS](https://airbnb.design/building-a-visual-language/)），因为许多页面在 Android 和 iOS 上几乎一模一样。
 
-Several teams have experimented with and started to unify around powerful server-driven rendering frameworks. With these frameworks, the server sends data to the device describing the components to render, the screen configuration, and the actions that can occur. Each mobile platform then interprets this data and renders native screens or even entire flows using DLS components.
+几个团队已经尝试开始在强大的服务器驱动的渲染框架上达成一致。使用这些框架，服务器将数据发送到设备，描述需要渲染的组件，页面配置以及可能发生的操作。然后，每个移动平台都会对这些数据进行解析，并使用 DLS 组件渲染原生页面，甚至是整个流程。
 
-Server-driven rendering at scale comes with its own set of challenges. Here is a handful we’re solving:
+服务器驱动的大规模渲染还有很多难题。下面是我们正在解决的几个问题：
 
-*   Safely updating our component definitions while maintaining backward compatibility.
-*   Sharing type definitions for our components across platforms.
-*   Responding to events at runtime like button taps or user input.
-*   Transitioning between multiple JSON-driven screens while preserving internal state.
-*   Rendering entirely custom components that don’t have existing implementations at build-time. We’re experimenting with the [Lona](https://github.com/airbnb/Lona/) format for this.
+*   在保持向后下兼容性的同时，需要安全地更新组件定义。
+*   跨平台共享组件的类型定义。
+*   在运行时响应事件，如按钮点击或用户输入。
+*   在保留内部状态的同时，在多个 JSON 驱动的屏幕之间进行过渡。
+*   在构建时渲染完全没有现有实现的自定义组件。我们正在试验 [Lona](https://github.com/airbnb/Lona/) 格式。
 
-Server-driven rendering frameworks have already provided huge value by allowing us to experiment with and update functionality instantly over-the-air.
+服务器驱动的渲染框架已经提供了巨大的价值，我们可以即时实验和更新功能。
 
-#### Epoxy Components
+#### Epoxy 组件
 
-In 2016, we open sourced [Epoxy](https://github.com/airbnb/epoxy) for Android. Epoxy is a framework that enables easy heterogeneous RecyclerViews, UICollectionViews, and UITableViews. Today, most new screens use Epoxy. Doing so allows us to break up each screen into isolated components and achieve lazy-rendering. Today, we have Epoxy on Android and iOS.
+2016 年，我们开源了 Android 的 [Epoxy](https://github.com/airbnb/epoxy)。Epoxy 是一个框架，可以实现简单的异构 RecyclerView、UICollectionView 和 UITableView。今天，大多数新页面都采用了 Epoxy。这可以让我们将每个页面拆分为独立的组件，实现延迟渲染。现今，我们在 Android 和 iOS 上都有用 Epoxy。
 
-This is what it looks like on iOS:
+在 iOS 上大概长这个样子：
 
 ![](https://i.embed.ly/1/display/resize?url=https%3A%2F%2Favatars1.githubusercontent.com%2Fu%2F1307745%3Fs%3D400%26v%3D4&key=a19fcc184b9711e1b4764040d3dc5c07&width=40)
 
-On Android, we have leveraged the ability to write [DSLs in Kotlin](https://kotlinlang.org/docs/reference/type-safe-builders.html) to make implementing components easy to write and type-safe:
+在 Android 上，我们利用使用 [Kotlin 编写 DSL](https://kotlinlang.org/docs/reference/type-safe-builders.html)，编写组件和类型安全：
 
 ![](https://i.embed.ly/1/display/resize?url=https%3A%2F%2Favatars1.githubusercontent.com%2Fu%2F1307745%3Fs%3D400%26v%3D4&key=a19fcc184b9711e1b4764040d3dc5c07&width=40)
 
 #### Epoxy Diffing
 
-In React, you return a list of components from [render](https://reactjs.org/tutorial/tutorial.html#what-is-react). The key to React’s performance is that those components are just a data model representation of the actual views/HTML you want to render. The component tree is then diffed and only the changes are dispatched. We built a similar concept for Epoxy. In Epoxy, you declare the models for your entire screen in [buildModels](https://reactjs.org/tutorial/tutorial.html#what-is-react). That, paired with the elegant Kotlin DSL makes it conceptually very similar to React and looks like this:
+在 React 中，利用 [render](https://reactjs.org/tutorial/tutorial.html#what-is-react) 可返回一个组件列表。React 性能的关键在于，这些组件只表示你要渲染的实际视图/HTML 的数据模型。然后对组件树进行扩展，只渲染更改的部分。我们为 Epoxy 建立了一个类似的概念。在 Epoxy 中，你可以在 [buildModel](https://reactjs.org/tutorial/tutorial.html#what-is-react) 中为整个页面声明模型。与优雅的 Kotlin 和 DSL 搭配使用，在概念上与 React 非常相似，看起来像这样：
 
 ![](https://i.embed.ly/1/display/resize?url=https%3A%2F%2Favatars1.githubusercontent.com%2Fu%2F1307745%3Fs%3D400%26v%3D4&key=a19fcc184b9711e1b4764040d3dc5c07&width=40)
 
-Any time your data changes, you call requestModelBuild() and it will re-render your screen with the optimal RecyclerView calls dispatched.
+每当数据发生变化时，你都要调用 `requestModelBuild()`，这个方法会重新渲染你的页面，并调用最佳的 RecyclerView。
 
-On iOS, it would look like this:
-
-![](https://i.embed.ly/1/display/resize?url=https%3A%2F%2Favatars1.githubusercontent.com%2Fu%2F1307745%3Fs%3D400%26v%3D4&key=a19fcc184b9711e1b4764040d3dc5c07&width=40)
-
-#### A New Android Product Framework (MvRx)
-
-One of the most exciting recent developments is a new Framework we’re developing that we internally call MvRx. MvRx combines the best of Epoxy, [Jetpack](https://developer.android.com/jetpack/), [RxJava](https://github.com/ReactiveX/RxJava), and Kotlin with many principles from React to make building new screens easier and more seamless than ever before. It is an opinionated yet flexible framework that was developed by taking common development patterns that we observed as well as the best parts of React. It is also thread-safe and nearly everything runs off of the main thread which makes scrolling and animations feel fluid and smooth.
-
-So far, it has worked on a variety of screens and nearly eliminated the need to deal with lifecycles. We are currently trialing it across a range of Android products and are planning on open sourcing it if it continues to be successful. This is the complete code required to create a functional screen that makes a network request:
+在 iOS 上大概长这个样子：
 
 ![](https://i.embed.ly/1/display/resize?url=https%3A%2F%2Favatars1.githubusercontent.com%2Fu%2F1307745%3Fs%3D400%26v%3D4&key=a19fcc184b9711e1b4764040d3dc5c07&width=40)
 
-MvRx has simple constructs for handling Fragment args, savedInstanceState persistence across process restarts, TTI tracking, and a number of other features.
+#### 一个新的 Android 产品架构（MvRx）
 
-We’re also working on a similar framework for iOS that is in early testing.
+最近令人非常激动的进展之一是，我们正在开发新架构，内部称之为 MvRx。 MvRx 结合了 Epoxy、[Jetpack](https://developer.android.com/jetpack/)、[RxJava](https://github.com/ReactiveX/RxJava) 的优点，以及 Kotlin 与 React 的许多原理，构建出的新页面比以往任何时候都更容易、更流畅。它是一个固执己见而又灵活的框架，通过采用我们观察到的共同开发模式以及 React 的最佳部分而开发出来的。同时它也是线程安全的，几乎所有事情都从主线程运行，这使得滚动和动画都能非常流畅。
 
-Expect to hear more about this soon but we’re excited about the progress we’ve made so far.
+到目前为止，它已经在各种页面上正常工作了，并且几乎不用去处理生命周期。我们目前正在针对一系列 Android 产品进行试用，如果它能继续取得成功，我们会计划开源。这是创建发出网络请求的功能页面所需的完整代码：
 
-#### Iteration Speed
+![](https://i.embed.ly/1/display/resize?url=https%3A%2F%2Favatars1.githubusercontent.com%2Fu%2F1307745%3Fs%3D400%26v%3D4&key=a19fcc184b9711e1b4764040d3dc5c07&width=40)
 
-One thing that was immediately obvious when switching from React Native back to native was the iteration speed. Going from a world where you can reliably test your changes in a second or two to one where may have to wait up to 15 minutes was unacceptable. Luckily, we were able to provide some much-needed relief there as well.
+MvRx 的架构比较简单，主要用于处理 Fragment 参数，跨进程重启的 savedInstanceState 持久性，TTI 跟踪以及其他一些功能。
 
-We built infrastructure on Android and iOS to enable you to compile only part of the app that includes a launcher and can depend on specific feature modules.
+我们还在开发一个类似的 iOS 框架，该框架正在进行早期测试。
 
-On Android, this uses [gradle product flavors](https://developer.android.com/studio/build/build-variants#product-flavors). Our gradle modules look like this:
+预计很快会听到更多这方面的消息，我们对迄今取得的进展感到兴奋。
+
+#### 迭代速度
+
+当从 React Native 切换回原生时，立竿见影的是迭代速度。从一个在一或两秒就能可靠地测试更改部分的平台，到一个可能需要等待 15 分钟的平台，根本无法接受。幸好，我们也找到了一些补救措施。
+
+我们在 Android 和 iOS 上构建了基础架构，可以只编译包含启动器的应用中的一部分，并且可以依赖于特定的功能模块。
+
+在 Android 上，这里使用了 [gradle product flavors](https://developer.android.com/studio/build/build-variants#product-flavors)。我们的 gradle 模块看起来像这样：
 
 ![](https://cdn-images-1.medium.com/freeze/max/60/1*KVrbsdwESyfbtKFeh2acXg.png?q=20)
 
 ![](https://cdn-images-1.medium.com/max/1600/1*KVrbsdwESyfbtKFeh2acXg.png)
 
-This new level of indirection enables engineers to build and develop on a thin slice of the app. That paired with [IntelliJ module unloading](https://blog.jetbrains.com/idea/2017/06/intellij-idea-2017-2-eap-introduces-unloaded-modules/) dramatically improves build and IDE performance on a MacBook Pro.
+这种新的间接层，使得工程师们能够在应用的一小部分上进行构建和开发。与 [IntelliJ 的卸载模块](https://blog.jetbrains.com/idea/2017/06/intellij-idea-2017-2-eap-introduces-unloaded-modules/)配合使用，大大提高了 MacBook Pro 上的构建时间和 IDE 性能。
 
-We have built scripts to create a new testing flavor and in the span of just a few months, we have already created over 20. Development builds that use these new flavors are 2.5x faster on average and the percentage of builds that take longer than five minutes is down 15x.
+我们编写了脚本来创建新的测试 flavor，在短短几个月内，我们已经创建了 20 多个。使用这些新的 flavor 开发版本平均要快 2.5 倍，花费 5 分钟以上的构建时间的百分比下降了 15 倍。
 
-For reference, [this is the gradle snippet](https://gist.github.com/gpeal/d68e4fc1357ef9d126f25afd9ab4eee2) used to dynamically generate product flavors that have a root dependency module.
+作为参考，这是 [gradle 代码段](https://gist.github.com/gpeal/d68e4fc1357ef9d126f25afd9ab4eee2)，可用于动态生成具有根依赖性模块的 product flavor。
 
-Similarly, on iOS, our modules look like this:
+同样，在 iOS 上，我们的模块如下所示：
 
 ![](https://cdn-images-1.medium.com/freeze/max/60/1*AVB7em_JCmj-JmjTCkLdQw.png?q=20)
 
 ![](https://cdn-images-1.medium.com/max/1600/1*AVB7em_JCmj-JmjTCkLdQw.png)
 
-The same system results in builds that are 3–8x faster
+相同系统的构建速度可提高 3-8 倍
 
-### Conclusion
+### 结论
 
-It is exciting to be at a company that isn’t afraid to try new technologies yet strives to maintain an incredibly high bar for quality, speed, and developer experience. At the end of the day, React Native was an essential tool in shipping features and giving us new ways of thinking about mobile development. If this sounds like a journey you would like to be a part of, [let us know](https://www.airbnb.com/careers/departments/engineering)!
+很高兴能够成为一家不怕尝试新技术，同时又努力保持高质量、高速度和良好开发体验的公司。最后，React Native 是一个发行新功能的重要工具，它为我们提供了新的移动开发思路。如果你想参与其中，[请告诉我们](https://www.airbnb.com/careers/departments/engineering)！
 
 * * *
 
-This is part five in a series of blog posts highlighting our experiences with React Native and what’s next for mobile at Airbnb.
+这是系列博客文章的第五部分，重点讲述了我们使用 React Native 的经验，以及 Airbnb 移动端接下来要做的事情。
 
-*   [Part 1: React Native at Airbnb](https://medium.com/airbnb-engineering/react-native-at-airbnb-f95aa460be1c)
-*   [Part 2: The Technology](https://medium.com/airbnb-engineering/react-native-at-airbnb-the-technology-dafd0b43838)
-*   [Part 3: Building a Cross-Platform Mobile Team](https://medium.com/airbnb-engineering/building-a-cross-platform-mobile-team-3e1837b40a88)
-*   [Part 4: Making a Decision on React Native](https://medium.com/airbnb-engineering/sunsetting-react-native-1868ba28e30a)
-*   [_Part 5: What’s Next for Mobile_](https://medium.com/airbnb-engineering/whats-next-for-mobile-at-airbnb-5e71618576ab)
+*   [第一部分：Airbnb 中的 React Native](https://juejin.im/post/5b2c924ff265da59a401f050)
+*   [第二部分：技术细节](https://juejin.im/post/5b3b40a26fb9a04fab44e797)
+*   [第三部分：构建跨平台的移动端团队](https://juejin.im/post/5b446177f265da0f7c4faec8)
+*   [第四部分：在 React Native 上作出的决策](https://juejin.im/post/5b447b1e6fb9a04fd3437dad)
+*   [**第五部分：移动端接下来的事情**](https://github.com/xitu/gold-miner/blob/master/TODO1/whats-next-for-mobile-at-airbnb.md)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
