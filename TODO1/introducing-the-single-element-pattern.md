@@ -13,11 +13,11 @@
 
 在 2002 年 — 当我开始构建网页的时候 — 包括我在内的大多数开发者都使用 `<table>` 标签来构建网页布局。
 
-直到 2005 年，我才开始遵循 [网页标准](https://en.wikipedia.org/wiki/Web_standards)。
+直到 2005 年，我才开始遵循[网页标准](https://en.wikipedia.org/wiki/Web_standards)。
 
 > 如果有网站或网页宣称遵循网页标准，通常就表示他们的网页符合 HTML、CSS、JavaScript 等标准。HTML 的部分也要满足无障碍性以及 HTML 语义的要求。
 
-我了解了语义化和无障碍性，然后开始使用正确的 HTML 标签和外部 CSS。我很自豪地将 [W3C 认证徽章](https://www.w3.org/QA/Tools/Icons) 添加到我制作的每个网站。
+我了解了语义化和无障碍性，然后开始使用正确的 HTML 标签和外部 CSS。我很自豪地将 [W3C 认证徽章](https://www.w3.org/QA/Tools/Icons)添加到我制作的每个网站。
 
 ![](https://cdn-images-1.medium.com/max/800/1*pFL99e3lxpYN-Fp24HfdBw.jpeg)
 
@@ -35,7 +35,7 @@
 
 我已经不知道写过多少个组件了。但如果把 Polymer、Angular 和 React 的项目都加起来，我敢说这个数字肯定超过一千了。
 
-除公司项目外，我还维护了一个包含 40 多个示例组件的 [React 模版库](https://github.com/diegohaz/arc)。另外，我正在和 [Raphael Thomazella](https://github.com/Thomazella) 维护一套 [交互式 UI 组件库](https://github.com/diegohaz/reas)，他为这个项目贡献了很多。
+除公司项目外，我还维护了一个包含 40 多个示例组件的 [React 模版库](https://github.com/diegohaz/arc)。另外，我正在和 [Raphael Thomazella](https://github.com/Thomazella) 维护一套[交互式 UI 组件库](https://github.com/diegohaz/reas)，他为这个项目贡献了很多。
 
 许多开发者都有一个误解：如果以一个完美的文件结构来开始一个项目，那么他们就不会遇到任何问题。事实上，文件结构的一致性没那么重要。如果你的组件没有遵循明确定义的规则，这最终会使你的项目很难维护。
 
@@ -51,7 +51,7 @@
 *   问题 #4：我可以通过传递 `className` 或 `style` 属性来自定义组件样式吗？
 *   问题 #5：事件是如何处理的呢？
 
-**可靠性** 意味着，在这种情况下，不需要打开文件查看源码来了解它的工作原理。如果你在使用一个 `<div>`，你马上就会知道答案，如下：
+**可靠性**意味着，在这种情况下，不需要打开文件查看源码来了解它的工作原理。如果你在使用一个 `<div>`，你马上就会知道答案，如下：
 
 *   [规则 #1：每次只渲染一个元素](#2249)
 *   [规则 #2：从不中断应用](#a129)
@@ -105,7 +105,7 @@ const Card = ({ profile, imageUrl, imageAlt, title, description }) => (
 
 #### 规则 #1：每次只渲染一个元素
 
-它由 `Avatar.js` 和 `Avatar.css` 组成，后者配置了我们从`Card.css` 中取出用于 `.avatar` 的样式，最终返回一个 `<img>` 元素：
+它由 `Avatar.js` 和 `Avatar.css` 组成，后者配置了我们从 `Card.css` 中取出用于 `.avatar` 的样式，最终返回一个 `<img>` 元素：
 
 ```
 const Avatar = ({ profile, ...props }) => (
@@ -130,7 +130,7 @@ const Avatar = ({ profile, ...props }) => (
 
 ![](https://cdn-images-1.medium.com/max/800/1*aAB2QAEHkWxMBo-UFaCsUA.png)
 
-React 16 版本中提供了一个名为 `componentDidCatch` 的 [新的生命周期方法](https://reactjs.org/blog/2017/07/26/error-handling-in-react-16.html)，可以用来优雅地处理组件内部错误。虽然在应用中实现边界错误处理是一种很好的做法，但这也会掩盖单元素组件中的错误。
+React 16 版本中提供了一个名为 `componentDidCatch` 的[新的生命周期方法](https://reactjs.org/blog/2017/07/26/error-handling-in-react-16.html)，可以用来优雅地处理组件内部错误。虽然在应用中实现边界错误处理是一种很好的做法，但这也会掩盖单元素组件中的错误。
 
 我们必须确保 `Avatar` 组件本身是可靠的，并考虑到所需要的属性父组件可能不会传递的情况。在这种情况下，除了在使用 `profile` 之前检查它是否存在之外，还要使用 `Flow`、`TypeScript` 或 `PropTypes` 对这种情况给出警告，如下：
 
@@ -160,7 +160,7 @@ Avatar.propTypes = {
 
 #### 规则 #3：应用所有作为属性传递的 HTML 属性
 
-目前为止，我们的单元素组件使用了名为 `profile` 的自定义属性。我们应该避免使用自定义属性，特别是当它们直接映射为 HTML 属性时。查看下面的 [建议 #1: 避免使用自定义属性](#c3e6) 了解更多。
+目前为止，我们的单元素组件使用了名为 `profile` 的自定义属性。我们应该避免使用自定义属性，特别是当它们直接映射为 HTML 属性时。查看下面的[建议 #1: 避免使用自定义属性](#c3e6)了解更多。
 
 通过将所有属性传递给底层元素，就可以在单元素组件中轻松实现应用所有 HTML 属性。我们可以通过传递相应的 HTML 属性来解决自定义属性问题：
 
@@ -185,7 +185,7 @@ Avatar.propTypes = {
 
 在应用中的某个地方，你可能希望单元素组件有一个稍微不同的样式。你应该可以通过 `className` 或 `style` 属性来自定义它。
 
-单元素组件内部样式等同于浏览器应用到原生 HTML 元素的样式。虽然那么说，当我们的 `Avatar` 组件收到一个 `className` 属性时，不应该用来替换内部值 — 而是追加进去。
+单元素组件内部样式等同于浏览器应用到原生 HTML 元素的样式。也就是说，当我们的 `Avatar` 组件收到一个 `className` 属性时，不应该用来替换内部值 — 而是追加进去。
 
 ```
 const Avatar = ({ className, ...props }) => (
@@ -199,7 +199,7 @@ Avatar.propTypes = {
 };
 ```
 
-如果我们将 `style` 属性应用于 `Avatar` 组件，可以使用 [对象扩展](https://github.com/tc39/proposal-object-rest-spread/blob/master/Spread.md) 轻松完成应用：
+如果我们将 `style` 属性应用于 `Avatar` 组件，可以使用[对象扩展](https://github.com/tc39/proposal-object-rest-spread/blob/master/Spread.md) 轻松完成应用：
 
 ```
 const Avatar = ({ className, style, ...props }) => (
@@ -260,7 +260,7 @@ Avatar.propTypes = {
 
 ### 建议
 
-#### 建议 #1: 避免使用自定义属性
+#### [建议 #1: 避免使用自定义属性](#c3e6)
 
 在创建单元素组件 — 特别是在应用中开发新功能时 — 很容易去添加自定义属性来满足不同的使用。
 
@@ -306,7 +306,7 @@ Button.defaultProps = {
 
 ### 使用 Singel CLI 来验证你的单元素组件
 
-最后，在阅读完所有内容之后，你可能想知道是否有工具可以根据此模式自动验证元素。我开发了这样一个工具，叫做[Singel CLI](https://github.com/diegohaz/singel)。
+最后，在阅读完所有内容之后，你可能想知道是否有工具可以根据此模式自动验证元素。我开发了这样一个工具，叫做 [Singel CLI](https://github.com/diegohaz/singel)。
 
 如果你想在正在进行的项目中使用它，我建议你创建一个新的文件夹并把你的单元素组件放在里面。
 
