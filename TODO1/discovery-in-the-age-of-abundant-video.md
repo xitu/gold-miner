@@ -2,133 +2,133 @@
 > * 原文作者：[Albert Reynaud](https://medium.com/@Reynaud_10696?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/discovery-in-the-age-of-abundant-video.md](https://github.com/xitu/gold-miner/blob/master/TODO1/discovery-in-the-age-of-abundant-video.md)
-> * 译者：
+> * 译者：[Yuhanlolo] (https://github.com/Yuhanlolo)
 > * 校对者：
 
-# Discovery in the age of abundant video
+# 海量视频时代下的内容发现之旅
 
-## Key aspects to consider when improving your content discovery experience
+## 提升内容发现平台上用户体验的关键因素
 
 ![](https://cdn-images-1.medium.com/max/1600/0*Z4o0cUjhfdNMRrOd.)
 
-Today, people have access to more video content than ever and [the number of platforms on which this content is available has more than doubled in the past 5 years](https://www.ericsson.com/en/trends-and-insights/consumerlab/consumer-insights/reports/tv-and-media-2017). As a result, people are spending an increasing amount of time ([+13% YoY](https://www.ericsson.com/en/trends-and-insights/consumerlab/consumer-insights/reports/tv-and-media-2017)) searching for the content they want.
+如今在互联网上，人们可以接触到海量的视频信息，[而提供这些视频的平台数量已经超过五年前的两倍](https://www.ericsson.com/en/trends-and-insights/consumerlab/consumer-insights/reports/tv-and-media-2017)。因此，人们往往需要花费更多的时间和精力([+13% YoY](https://www.ericsson.com/en/trends-and-insights/consumerlab/consumer-insights/reports/tv-and-media-2017))去搜索自己感兴趣的视频。
 
 ![](https://cdn-images-1.medium.com/max/1600/0*enf33FQyYbhzNvV2.)
 
-With the proliferation of over-the-top (“OTT”) platforms and the emergence of new consumption habits, building retention is increasingly challenging for content distributors. The ability to keep people engaged through frictionless and contextual discovery experiences will determine the success of these platforms.
+对于大部分内容创作者而言，随着许多开放式 (“OTT”) 平台的壮大以及新型消费习惯的形成，建立用户对平台的粘性越来越具有挑战性。而具备让用户能够在各种情景下畅行无阻地享受视频探索过程的能力，很大程度上可以保证这些平台的成功。
 
-In this article, I’ll be sharing insights and best practices around content discovery that I’ve collected by working with media entertainment platforms across Europe. While Google plays an instrumental role in bringing people into your app and website, I’ll be focusing on the aspects of the discovery that take place once someone has arrived on your properties.
+在这篇文章里，我将分享我在欧洲各个媒体平台的工作经历中收集到的关于内容发现的一些干货以及实际操作。由于谷歌是用户进入你的应用或者网站的基本途径，我将集中讨论用户进入你的应用之后的发现过程。
 
-### Decide how you’re going to measure success
+### 决定如何评估成功
 
 ![](https://cdn-images-1.medium.com/max/1600/0*kdOZRPISbF-SyFvm.)
 
-Let’s start talking about discovery! But wait, how do we measure success?
+让我们先来谈谈发现！但是等等，我们应该如何评估用户的发现之旅是否成功呢？
 
-No need to stress the importance of choosing the right KPIs to measure the impact of your discovery experimentation. Interestingly these KPIs tend to vary significantly whether you’re a subscription video on demand (“SVOD”) service, an advertising video on demand (“AVOD”) service, or a public or commercial broadcaster. Here are examples of the most commonly used metrics to measure the performance of discovery experiences:
+无需强调选择正确的 KPI 对于评估内容发现实验的重要性。有意思的是，无论你是否使用视频订阅 (“SVOD”)、投放广告 (“AVOD”)，或者商业传播的服务，这些 KPI 在不同情景下会非常不一样。下面是一些通过 KPI 来评估用户在内容发现平台上的体验的常见例子：  
 
-*   Watch time, number of video views
-*   Avg. number of playbacks per week, number of video completions
-*   Number of sessions, session duration
-*   % sessions or playbacks coming from recommendations engines
+*   视频观看时间及次数
+*   每周平均回放次数，播放完成次数
+*   时域 (session) 数量及时长
+*   来自推荐引擎的时域 (session) 和回放数量所占的百分比
 
-The potential issue of such short term KPIs is that focusing on them exclusively will distract your business away from longer term objectives. As an example, you could increase video consumption by recommending low quality, sensational content, but in the longer term, this will hurt your image and audience’s loyalty.
+这些短期 KPI 的潜在问题在于，过度地关注它们反而会导致你偏离原本的长期的商业目标。比如说，你可以通过推荐低质量的轰动性内容增加播放量，但从长远来看，这样做会影响平台的形象以及用户的忠诚度。
 
-For that reason, I recommend combining discovery KPIs with longer term KPIs such as the **number of subscribers or 30 day retention.** Although these may be more challenging to A/B test, they will ensure the experience you’re providing is fully aligned with your long-term business objectives.
+因此，我推荐采用短期 KPI 和 长期 KPI 结合的方式，比如说 **订阅人数或30天之内的用户留存率。** 虽然这比 A/B test 更加困难, 但它可以保证你为用户所提供的体验与你的长期商业目标是一致的。
 
-### The right fuel for your recommendation engine
+### 为你的推荐引擎选择正确的燃料
 
 ![](https://cdn-images-1.medium.com/max/1600/0*pXKT80eUkgEbBk-7.)
 
-As recommendation engines get smarter, there’s no doubt they’ll play an increasingly important role in how platforms surface content to people. They’re used throughout media platforms in areas such as dynamic content ranking, semantic search, and clustering of collections.
+当推荐引擎变得更聪明的时候，它们毫无疑问地将在用户对平台内容的认知里扮演越来越重要的角色。它们贯穿于整个媒体平台，从动态排序，语义搜索，到集合聚类。
 
-Many in the ecosystem are using basic recommendation engines and finding some success. However, more and more content providers are looking to get more sophisticated by adding approaches to their recommendation system such as:
+许多系统在使用基本的推荐引擎时取得了一些成功。然而，越来越多的内容提供者正在为他们的推荐系统寻找更复杂的方法，比如：    
 
-*   **Collaborative filtering:** predicting what people will like based on their similarity to other users
-*   **Content-based filtering:** recommending items that have similar features to those that the user liked in the past
+*   **合作式过滤：** 通过其他相似用户的喜好以及用户之间的相似程度预测某个用户的喜好
+*   **基于内容的过滤：** 为用户推荐与他们过去喜欢的内容特性相似的内容
 
-But you shouldn’t expect algorithms to do all the work for you. Finding the right balance in recommendation engines while aligning with your business objectives can be more challenging than it seems:
+但是你不能期待算法为你实现所有的事情。找到算法与长期目标之间的平衡比它看起来要复杂得多：  
 
-*   **Implicit versus explicit feedback:** How do you interpret declarative feedback? What behavior signals from your audience should be considered: click on video, completing playback? How to simplify the process of giving explicit feedback: star rating, like, etc? One example is in the recent update of Play Movies & TV. We added thumb ratings as explicit feedback which directly feed into the recommendation algorithms — check out this [video](https://www.youtube.com/watch?v=smc80kgmZ8k&feature=youtu.be&t=16s) (16s) for an example.
-*   **Editorial versus automated:** How do you preserve the personality of human recommendations that constitutes your brand and positioning? Content discovery solution provider [CogniK](https://www.cognik.net/discovery-recommendations/) recommends to leverage the content lists provided by the editorial team to improve your recommendation engine. Similarly, editorial teams may have control over some parameters of your recommendation engine by attributing manually more weight to certain content or categories.
-*   **Live versus on-demand:** When should you balance one over the other? How do you mix this without confusing your audience?
-*   **Popularity versus novelty:** How do you suggest new and unknown content and avoid echo chamber effects? How to balance serendipity with relevance of recommendations as collaborative filtering based recommendations will typically naturally converge to popular trends if the UI doesn’t combat the trend. Some content providers tend to increase the level of serendipity of their recommendations based on how long someone has been in the platform.
+*   **间接反馈与直接反馈：** 如何解释间接反馈呢? 用户的什么行为需要被考虑：点击视频，完成回放? 如何简化直接反馈呢: 评分，点赞等等? 最近升级的 Play Movies & TV 是一个典型的例子。我们添加了喜欢和不喜欢的按钮作为直接反馈，并且将该反馈加入推荐算法中 — 这里有一个 16 秒的示例 [video](https://www.youtube.com/watch?v=smc80kgmZ8k&feature=youtu.be&t=16s)。
+*   **手动编辑与自动化：** 如何保持由你的品牌和配置组成的人类推荐呢？内容发现解决方案提供商 [CogniK](https://www.cognik.net/discovery-recommendations/) 推荐通过编辑部门提供的内容列表来改进推荐引擎。类似地，编辑部门可以通过增加特定内容或是分类的权重来控制推荐引擎的某些参数。
+*   **实时推荐与按需推荐：** 何时需要考虑其中实时推荐多于按需推荐，或是按需推荐多于实时推荐呢？如何在不让用户感到疑惑的情况下将这两者结合呢？
+*   **流行程度与新颖程度：** 如何推荐新的和未知的内容，并且避免回声效应呢？如果应用界面与流行趋势不相悖的话，基于合作式过滤的推荐通常会与趋向于当下流行的内容，那么如何平衡意外发现新奇内容的几率和推荐内容的相程度呢？根据用户在平台停留的时长，一些内容提供者倾向于提高用户意外发现新奇内容的几率。
 
-### Enrich your recommendations with broader context
+### 在更广的情景下丰富你的推荐系统
 
 ![](https://cdn-images-1.medium.com/max/1600/0*bSqwlsJr9xRmtE3b.)
 
-In circumstances where personalization is either impossible (cold start: people using your platform for the first time) or insufficient, you may want to enrich your experience with other contextual input.
+在一些场景下，个性化要么是不可能 (比如初次使用你的平台的用户)，要么是不完备的。你也许需要通过其他外部信息来丰富用户体验。
 
-Taking into account aspects such as **time** (weekday vs. weekend, time of the day, etc), or **location** (highlight local news or channels, sport teams) is now pretty common among media & entertainment platforms. Similarly, providers tend to adapt the duration and category of recommended videos based on the **form factor:** people probably prefer short form videos to consume on their phone and longer content on the big screen.
+考虑其他因素诸如 **时间** (工作日和周末, 一天中的时间等等)，或者 **地点** (突出当地的新闻或频道，运动队等等) 是现在媒体和娱乐平台上比较常见的。类似地，内容提供者们倾向于通过 **形态系数**，即人们大多更喜欢在手机上观看短视频，在大屏幕上观看长视频，来改编视频的时长和类别。
 
-More recently, I’ve seen more and more platforms tapping into **trending topics** and upcoming events in order to feed their recommendation and curation experiences (elections, breaking news, sport events, etc).
+最近，我看到越来越多的平台利用 **流行话题** 和即将到来的事件，为他们的推荐系统增加信息流和精选 (大选，头条，运动新闻等等)。
 
-### Adapt to your audience’s expectations and mindset
+### 适应用户的期望和心态
 
 ![](https://cdn-images-1.medium.com/max/1600/0*mz0_hVhri9mnMHqI.)
 
-As a media platform, you should anticipate and be prepared to serve all possible user intents.
+作为一个媒体平台，你应该做好服务于用户各种可能的意图的准备.
 
-One way to do so is to adapt your UX to the different methods for finding something to watch depending on how indecisive your audience is. Influenced by a number of external factors (who people watch content with, available time, motivation, mood, etc), your audience may take a radically different approach to access the content they’re going to watch. Based on research, the Google Play movies product team uses a framework that categorizes the way people operate when they decide what to watch in one of four different modalities: **find, select, browse, or surf**. Your experience should be able to address each modality across the **“certainty spectrum”**.
+其中一个办法是根据目标用户犹豫不决的程度，让你所设计的用户体验能够适应不同的寻找视频观看的行为。由于受到一系列外界因素的影响 (和谁一起观看、可以观看的时间、观看的动机、心情等等)，你的目标用户也许会用完全不一样的方式去打开他们想要观看的视频。基于之前的研究，Google Play 的电影产品部门使用了一个框架，该框架将用户决定观看某个视频时的操作方式分类成 4 种形式：**搜索、选择、浏览，或者冲浪**。也就是说，你的用户体验应当在 **“特定范畴”** 内涉及每一种形式。
 
 ![](https://cdn-images-1.medium.com/max/1600/0*vuY5zE6OLPbnWO5G.)
 
-Source: Google Play Movies Research
+来源：Google Play 电影研究
 
-Similarly, some solutions providers like [Spideo](http://spideo.tv/en/mood-based-discovery/) are now trying to capture the **mood** of their users based on keywords and wishes in order to fit with their aspirations at a particular time.
+同样地，一些内容提供者例如 [Spideo](http://spideo.tv/en/mood-based-discovery/) 正在尝试通过关键词和愿望清单捕捉用户的 **心情**，从而在特定时间为他们推荐合适的内容。
 
 ![](https://cdn-images-1.medium.com/max/1600/0*bbcv1sLpaPG5JA-8.)
 
-Source: [Spideo](http://spideo.tv/en/)
+来源：[Spideo](http://spideo.tv/en/)
 
-While it can be challenging to adapt your discovery to all possible intents, it is helpful to define your most typical user groups using **persona profiles** in order to better inform your product team**.** Using empirical data, persona profiles constitute an informed summary of the mindset, needs, and goals typically held by certain segments of your audience. [Discover further best practices for developing data-driven personas using conjoint analysis](https://research.google.com/pubs/pub44167.html).
+虽然让你的内容发现平台适用于用户所有可能的意图是非常困难的，为了让产品团队更好地了解相关信息，通过 **用户画像** 定义典型的目标用户是很有帮助的。通过实验数据，用户的思维方式、需求，以及用户细分的目标组成了用户画像。[通过综合数据分析进一步发现绘制用户画像的最佳实践](https://research.google.com/pubs/pub44167.html).
 
 ![](https://cdn-images-1.medium.com/max/1600/0*x08S8A8z7h-BIN4B.)
 
-Source: Luma Institute
+来源：Luma Institute
 
-Here are examples of possible media persona profiles I’ve come across: TV couch traditionalist, screen shifter, binge watcher, sports fan, computer centric, etc.
+以下是一些我想到的媒体用户画像的示例：坐在沙发上看电视的人、经常跳转屏幕的人、看电视没有节制的的人、运动迷，用电脑看视频的人等等。
 
-### Facilitating routines
+### 促进日常行为养成
 
 ![](https://cdn-images-1.medium.com/max/1600/0*XGPPuhAGqBeEKFWx.)
 
-Instead of taking people through a complete discovery journey each time they log into your platform, you may help them improve actions of what they already frequently do.
+与其让人们每次一打开你的平台就进入完全的探索发现之旅，不如帮助他们改善经常从事的事情。
 
-Typically, some user segments such as football fans watching weekend highlights, morning news addicts, or Saturday nights movie fans, present behavioral patterns that can easily be supported by your platform. Some of your audience may not even be aware of their own routine and appreciate that you’re able to anticipate their preferences.
+通常来说，一些用户细分例如看周末精选的足球迷、看晨间新闻的人，或者在周六晚上看电影的人，他们的行为模式都可以轻易被平台所支持。其中一些目标用户甚至可能不会意识到他们自身的行为模式从而感激你能够预计他们的偏好。
 
-The “Discover Weekly” playlist of [Spotify](https://play.google.com/store/apps/details?id=com.spotify.music&hl=en) is another great example of a habitual user engagement. Every Monday morning, a personalized playlist is released to all users so they can discover and enjoy new content throughout the week.
+另一个为用户习惯设计体验的很棒的例子是 [Spotify](https://play.google.com/store/apps/details?id=com.spotify.music&hl=en) 的 “每周发现“ 播放列表，这是一个对所有用户开放的个性化的播放列表，让用户在一周内能够发现并享受新的内容。
 
-### A smoother leanback experience
+### 一个舒适的背靠式观影体验
 
 ![](https://cdn-images-1.medium.com/max/1600/0*l41zSwlD0gkObg18.)
 
-According to Ericsson ConsumerLab, live and scheduled linear TV still represents 58% of active viewing hours. While on-demand usage is continuously growing driven by younger audiences, people still love the serendipity and ease of linear TV and will continue looking for smoother leanback experiences.
+根据 Ericsson ConsumerLab 的调查，电视台直播和线性录播的节目仍然占据了 58% 的活跃播放时长。虽然年轻一代的观众越来越倾向于点播，大部分人仍旧喜欢意外发现新奇内容的经历和观看录播的电视节目，并且他们会继续寻找一个更加舒适的背靠式观影的体验。
 
-As a result, many on-demand services are recreating these benefits by offering linear streams of personalized content that people can turn on and adjust with minimum interaction (e.g. Flow from [Deezer](https://youtu.be/ykbaMNaGLgc)). Your audience will be expecting more of these leanback experiences, unforgiving of inaccuracies, and demanding on transparency and control.
+为了重新创建背靠式观影的优势，许多点播服务开始提供为用户提供微交互的方式 (例如，来自 [Deezer](https://youtu.be/ykbaMNaGLgc) 的Flow)，让用户可以非常容易地根据自己的喜好打开和调整节目。观众们将会期待更多的背靠式观影体验、原谅那些不够准确的信息，以及要求透明度和播放控制权。
 
-There are other ways of bringing fluidity into the discovery experience. Functionalities such as auto-play or watch next have now been adopted by most platforms. In addition, I’ve seen great adoption of functionalities like [**picture in picture**,](https://developer.android.com/guide/topics/ui/picture-in-picture.html) or “start playing when on focus”. All of the above participate in recreating the magic of linear TV within on-demand platforms.
+也有其他可以将这种流程带入发现体验的方法。一些例如自动播放的功能已经被大部分平台使用了。除此之外，我也看到了许多很棒的功能，比如说[**子母画面**,](https://developer.android.com/guide/topics/ui/picture-in-picture.html) 或者 “集中注意力的时候开始播放”。以上所有的功能都参与了在点播平台上重建线性节目。
 
-### Assist decision making
+### 辅助决定
 
 ![](https://cdn-images-1.medium.com/max/1600/0*lnTXJY_3Rgi_k8w3.)
 
-It is tempting for product teams to associate their content with as much information as possible, thinking it’ll guide people in their decision. Title, description, genre, price, ratings, trailer, etc… very quickly, this overload of information will lead people to a state of “**decision paralysis”.**
+对于产品团队来说，尽可能多地将各种信息和平台内容联系起来是一件很吸引人的事情，他们认为这样可以帮助用户更好地作出决定。然而，一系列信息比如标题，描述，分类，价格，评分，预告等等，很快地让用户信息过载，从而导致他们进入一个 **“决定无能”** 的状态。
 
-A picture says a thousand words and, as a result, many platforms are spending more and more time optimizing the right visuals for their content. User studies can also help you distinguish the “most critical” information from “important” or “nice to have” information and prioritize accordingly.
+我们常说：“一图胜千言”，因此，现今许多平台都投入了越来越多的时间去为优化内容的视觉效果。用户研究同时也可以帮助你区别“最关键的”的信息和“重要的”，或者是“加分的”信息，从而决定相应的优先权。
 
-Another common way of simplifying the experience is to dynamically display additional information only when required, when people express some kind of interest in particular content: click, mouse-over, on-focus, etc — see this [video](https://www.youtube.com/watch?v=smc80kgmZ8k&feature=youtu.be&t=37s) (at 37 seconds) for an example.
+另一个常见的方法是只在用户有需求或是有兴趣的情况下才显示额外的信息，以此来简化用户体验。用户的兴趣通常表现为：点击，光标集中等等 — 这里有一个 37 秒的视频例子 [video](https://www.youtube.com/watch?v=smc80kgmZ8k&feature=youtu.be&t=37s)/s
 
-Finally, you may consider **editorializing** your titles, making them more human and relatable than simple titles. By stressing the context of a sports game, the implications of a story, the highlight of a TV show or revelation of a new episode, the discovery experience becomes more relevant for your audience.
+最后，你可以考虑为你的标题 **插入编者意见**，从而让他们比起简单的标题更有可读性。通过强调运动节目的情景，故事的含义，电视节目的精选，或者新剧集放送，在发现体验中用户将更容易感受到他们自己与内容的关联。
 
 * * *
 
-These insights will hopefully help you define and optimize your approach to content, and better engage your audience — whether that be through better definition of your goals, optimizing to the workings of engine’s to accelerate your visibility, improved understanding of your audience, and anticipating their behaviour and what they want, where and when they want it.
+希望这些建议能够帮助你定义和优化你的平台内容以及取悦你的用户 — 无论你是通过更好的目标定位，优化推荐引擎从而加速内容可见度，提高对用户的理解，还是预测他们的行为和在不同时间地方的喜好。
 
-### What do you think?
+### 你怎么看？
 
-Do you have thoughts on content discovery for media platforms? Let us know in the comments below or tweet using **#AskPlayDev** and we’ll reply from [@GooglePlayDev](http://twitter.com/googleplaydev), where we regularly share news and tips on how to be successful on Google Play.
+你对媒体平台上的内容发现有什么想法吗？请在下面留言或者用通过 **#AskPlayDev** 的标签在 tweet 上告诉我们。我们将会通过 [@GooglePlayDev](http://twitter.com/googleplaydev) 这个邮箱地址回复你，这也是也是我们通常用来分享如何让 Google Play 变得更好的新闻和意见的邮箱。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
