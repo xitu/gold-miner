@@ -40,13 +40,13 @@
 
 不同的团队对 React Native 都有丰富的经验。React Native 有时被证明是一个极好的工具，但有时也会在技术和组织上提出挑战。在本系列中，我们详细介绍了我们的经验以及接下来要做的事情。
 
-[在第二部分](https://medium.com/airbnb-engineering/react-native-at-airbnb-the-technology-dafd0b43838)，我们列举了 React Native 作为一项技术的有效性和缺陷。
+[在第二部分](https://juejin.im/post/5b3b40a26fb9a04fab44e797)，我们列举了 React Native 作为一项技术的有效性和缺陷。
 
-[在第三部分](https://medium.com/airbnb-engineering/building-a-cross-platform-mobile-team-3e1837b40a88)，我们列举了与构建跨平台移动团队相关的一些组织挑战。
+[在第三部分](https://github.com/xitu/gold-miner/blob/master/TODO1/sunsetting-react-native.md)，我们列举了与构建跨平台移动团队相关的一些组织挑战。
 
-[在第四部分](https://medium.com/airbnb-engineering/sunsetting-react-native-1868ba28e30a)，我们重点介绍了我们今天与 React Native 的立场以及它在 Airbnb 中的未来。
+[在第四部分](https://github.com/xitu/gold-miner/blob/master/TODO1/sunsetting-react-native.md)，我们重点介绍了我们今天与 React Native 的立场以及它在 Airbnb 中的未来。
 
-[在第五部分](https://medium.com/airbnb-engineering/whats-next-for-mobile-at-airbnb-5e71618576ab)，我们会谈到从 React Native 中学到的最重要的知识，并利用它们使得原生表现地更好。
+[在第五部分](https://github.com/xitu/gold-miner/blob/master/TODO1/whats-next-for-mobile-at-airbnb.md)，我们会谈到从 React Native 中学到的最重要的知识，并利用它们使得原生表现地更好。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
