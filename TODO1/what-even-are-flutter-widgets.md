@@ -2,28 +2,28 @@
 > * 原文作者：[Matt Carroll](https://medium.com/@mattcarroll?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/what-even-are-flutter-widgets.md](https://github.com/xitu/gold-miner/blob/master/TODO1/what-even-are-flutter-widgets.md)
-> * 译者：
+> * 译者：[ALVIN](https://github.com/ALVINYEH)
 > * 校对者：
 
-# What even are Flutter widgets?
+# Flutter 组件是什么？
 
 ![](https://cdn-images-1.medium.com/max/2000/1*y0VtCCdwj9zhk9dGu7wlog.png)
 
-_The following explanation of Flutter widgets is my own personal perspective and does not constitute an official explanation of widgets or related areas of the Flutter framework. Please refer to official Flutter documentation for information about how the Flutter team thinks about Flutter._
+**以下对 Flutter 组件的解释是我自己的个人观点，并不构成对 Flutter 框架的组件或相关领域的官方解释。想要了解有关 Flutter 团队对 Flutter 的看法，请参阅 Flutter 的官方文档。**
 
-Flutter is a mobile UI framework that makes UI development fun, quick, and easy. But it feels really weird to go from traditional Android and iOS to Flutter. The reason it feels weird is because we go from mutable, long-lived `View`s and `UIView`s to these immutable, short-lived `Widget` things. What are they, and why do they work?
+Flutter 是一个移动端的 UI 框架，它使 UI 开发变得更有趣、快速和简单。但从传统的 Android 和 iOS 到 Flutter，感觉真的不可思议。之所以感到惊讶是因为我们从可变的，生命周期长的 `View` 和 `UIView`，变成了这些不可改变的，生命周期短的 `Widget`。它们到底是什么呢，为什么它们高效？
 
-Recently a Medium article was written about how [Widgets relate to Elements and RenderObjects](https://medium.com/flutter-community/flutter-what-are-widgets-renderobjects-and-elements-630a57d05208). I recommend that article and I recommend that you keep researching until you fully understand the content in that article. But for those of you already lost at the `Widget` level, allow me to offer an explanation that might help.
+最近发表了一篇关于 [Widget 与 Element 和 RenderObjects 的关系](https://medium.com/flutter-community/flutter-what-are-widgets-renderobjects-and-elements-630a57d05208)的文章。我非常推荐这篇文章，建议你继续深入研究，直到你可以完全理解其内容为止。但对于那些已经迷失在 `Widget` 的人，请允许我提供一些可能有帮助的解释。
 
-### Traditional Views and view models
+### 传统的 View 和视图模型
 
-I have long been a proponent of using view models in mobile UI development.
+我一直支持在移动 UI 开发中使用视图模型。
 
-Whether you’re working on Android or iOS, consider a custom `View`, or `UIView`, called `ListItemView`. This `ListItemView` displays an icon on the left, then a title above a subtitle directly to the right of the icon, and finally an optional accessory on the right side:
+无论你是在 Android 还是 iOS 上工作，都要考虑自定义的 `View` 或 `UIView`，称为`ListItemView`。这个 `ListItemView` 在左边显示一个图标，然后在图标右边显示字幕上方的标题，最后在右侧显示一个可选附件：
 
 ![](https://cdn-images-1.medium.com/max/1600/1*a5OR1jqUJrjEsW1XtNrijg.png)
 
-When defining this custom `View`, you could make each presentation option an independent property:
+在定义这个自定义 `View` 的时候，你可以将每个 presentation 设为独立属性：
 
 ```
 myListItemView.icon = blah;  
@@ -32,7 +32,7 @@ myListItemView.subtitle = “blah”;
 myListItemView.accessory = blah;
 ```
 
-This technically works, but it comes with an architectural cost. By defining each of these configurations independently, your presentation `Object` requires a reference to your `View` so that it can configure each of these properties. However, if you use a view model then your presentation `Object` can operate without any reference to a `View` which means your presentation `Object` can be unit tested and it avoids a compile-time dependency on your concrete `View`:
+从技术上来说，这没什么问题，但是带来了架构成本。通过独立定义每个配置，你的 presentation `Object` 需要引用你的 `View`，以便它可以配置每个属性。但是，如果你使用 视图模型，那么 你的 presentation `Object` 可以在不引用 `View` 的情况下运行，这意味着你的 presentation `Object`可以进行单元测试，并且它避免了对具体 `View` 的编译时依赖性：
 
 ```
 class ListItem {  
@@ -43,16 +43,16 @@ class ListItem {
   ...  
 }
 
-// Use a Presenter to create a new view model.  
+// 使用 Presenter 创建一个新的视图模型。
 myListItem = myPresenter.present();
 
-// Pass the view model into the View to render the new presentation.  
+// 传递 视图模型 到 View 来渲染新的 presentation。 
 myListItemView.update(myListItem);
 ```
 
-This rationale for using view models has nothing to do with Flutter, but it’s important that you understand what a view model is, as compared to a traditional `View`. The view model is an immutable configuration that needs to be applied to a long-lived, mutable `View`.
+这种使用视图模型的这个基本原理，与 Flutter 无关，但与传统的 `View` 相比，理解视图模型是非常重要的。视图模型是一个不可变的配置，需要应用于生命周期长的，可变的 `View`。
 
-The dependency relationship in traditional Android and iOS is as follows:
+传统 Android 和 iOS 中的依赖关系如下：
 
 ```
 MyAndroidView -> MyAndroidViewModel
@@ -60,37 +60,37 @@ MyAndroidView -> MyAndroidViewModel
 MyiOSUIView -> MyiOSViewModel
 ```
 
-In other words, in traditional Android and iOS we work primarily with the mutable, long-lived `View`s (and `UIView`s). We define layout XML, storyboards, and programmatic layouts by working with those long-lived `View` (and `UIView`) `Object`s. Then, we occasionally pass in new view models to change their appearance.
+换句话说，在传统的 Android 和 iOS 中，我们主要使用可变的，生命周期长的 `View`（和 `UIView`）。我们通过使用那些生命周期长的 `View`（和`UIView`）`Object`来定义布局 XML，Storyboard 和可编程的布局。然后，我们不定期会传递新的视图模型来改变它们的界面。
 
-Now let’s talk Flutter.
+现在，让我们来谈谈 Flutter。
 
-### Flutter reverses the relationship
+### Flutter 颠覆了这种依赖关系
 
-Instead of working with mutable, long-lived `View`s that occasionally receive new view models, how about we work almost exclusively with immutable view models that occasionally configure mutable, long-lived views?
+与其使用可变的、生命周期长，且会不定期接收新的视图模型 `View`，不如我们只使用不可变视图模型，来配置可变的、生命周期长的 `View`？
 
-Instead of:
+以前是：
 
 ```
 MyView -> MyViewModel
 ```
 
-Let’s do:
+现在改为：
 
 ```
 MyViewModel -> MyView
 ```
 
-And just like that, in a very high-level nutshell, we just invented Flutter’s widget system:
+就像这样，简单地说，我们刚刚发明了 Flutter 的组件系统：
 
 ```
 MyWidget -> MyElement  
 MyWidget -> MyRenderObject
 ```
 
-Widgets are immutable and they contain a bunch of properties that are used to configure how something is rendered:
+这些组件都是不可变的，其中包含了许多用于配置渲染内容方式的属性：
 
 ```
-// This Widget sure looks a lot like a view model, doesn't it?  
+// 这个组件肯定看起来很像一个视图模型，不是吗？
 new Container(  
   width: 50.0,  
   height: 50.0,  
@@ -98,59 +98,59 @@ new Container(
   color: Colors.black,  
 );
 
-// The one difference between a Flutter Widget and a traditional  
-// view model is that Widgets also carry a responsibility to  
-// instantiate their long-lived view:  
+// Flutter 组件和传统视图有一个很大的区别  
+// 就是这些组件同样可以  
+// 实例化生命周期长的视图 
 final mutableSubtree = myContainer.createElement();  
 final mutableRender = myContainer.createRenderObject();
 ```
 
-But why does the Widget create 2 things? I thought the Widget just created a single, long-lived view?
+但为什么这些组件能创建这两样东西呢？我认为，组件应该只能创建了一个生命周期长的视图？
 
-Well, in Flutter the concept of parent/children exists independently of rendering. In iOS and Android the parent/children relationship is one-and-the-same with the concept of drawing to the screen.
+在 Flutter 中，父/子的概念独立于渲染而存在。在 iOS 和 Android 中，父/子关系与绘制到屏幕的概念是一致的。
 
-For example, in Android a ViewGroup is responsible for:
+例如，在 Android 中的需要负责：
 
 ```
-// Parent/Children relationships:  
+// 父/子关系  
 myViewGroup.addView(...);  
 myViewGroup.removeView(...);
 
-// ...and...
+// 以及
 
-// Layout and painting:  
+// 布局和绘制  
 myViewGroup.measure(...);  
 myViewGroup.layout(...);  
 myViewGroup.draw(...);
 ```
 
-In Flutter, we have:
+在 Flutter，我们有
 
 ```
-// Elements for parent/children relationships:  
-myElement.mount(); // This creates and adds children  
-myElement.forgetChild(...); // Removes a child
+// Element 来管理父/子关系  
+myElement.mount(); // 这创建并添加子级组件 
+myElement.forgetChild(...); // 移除子级组件
 
-// RenderObjects for layout and painting:  
+// 用 RenderObjects 来布局和绘制：
 myRenderObject.layout();  
 myRenderObject.paint();
 ```
 
-So even though a Widget in Flutter is responsible for creating an `Element` and a `RenderObject`, those 2 `Object`s combined represent the same set of responsibilities as a single `ViewGroup` in Android.
+所以说，尽管 Flutter 中的组件负责创建一个 `Element` 和一个 `RenderObject`，但这两个 `Object`的组合等同与 Android 单个 `ViewGroup` 相同的功能。
 
-Thus, in Flutter we work with view models that configure their views, instead of working with `View`s that are configured with their view models. The relationship is inverted.
+因此，在 Flutter 中，我们使用可以配置 `View` 的视图模型，而不是使用视图模型配置的 `View`。这种关系是颠倒的。
 
-### Why the inversion is a big deal
+### 为什么说这种颠倒关系是个大问题
 
-It might feel strange to invert the view model relationship. It might especially feel strange that a view model knows how to instantiate the equivalent of a long-lived view. But what Flutter shows us is that by inverting this relationship we achieve the ability to compose user interfaces declaratively.
+颠倒视图模型的关系，以及如果一个视图模型知道如何实例化相对应的一个长生命周期的视图，你可能会感到特别奇怪。但 Flutter 向我们展示的是，通过颠倒这种关系，我们实现了以声明方式组合用户界面的能力。
 
-In my opinion, what Flutter is doing, fundamentally, is approaching a domain-specific language for painting pixels.
+在我看来，Flutter 正在做的事情，从根本上说，像是正在接近绘制像素的特定领域语言。
 
-Domain-specific languages are the philosophical goal of pretty much any developer. If you’re working on an app for the airline industry then you’re spending a lot of your time constructing implementations of industry-specific terminology like flight manifest, boarding pass, seat assignment, and membership status. You’re utilizing lower level language semantics to compose a representation of what these terms mean in your industry. Then, ideally, at some point developers will stop using low level constructs and they’ll start implementing entire applications using `Object`s like `FlightManifest`, `BoardingPass`, and `SeatAssignment`.
+特定领域的语言是几乎所有开发人员的终极目标。如果你正在为航空业开发应用，那么你将花费大量时间构建行业特定术语的实现，如航班清单、登机牌、座位分配和会员身份。你在利用较低级别的语言语义，来表示这些术语在你的行业中的含义。然后，理想情况下，在某些时候，开发人员将停止使用这种较低级别的构造方式，他们将开始使用 `Object`，像 `FlightManifest`、`BoardingPass` 和`SeatAssignment`来实现整个应用。
 
-But not every problem is a business problem. Some problems are technical problems, e.g., rendering. Rendering user interfaces is a problem domain within itself. Flutter is solving this problem by engineering a domain-specific language for rendering user interfaces. Just like SQL is a declarative domain-specific language for searching information, Flutter’s widget system is becoming a declarative domain-specific language for composing user interfaces. This is made possible by placing immutable view models on the outside, while confining mutable views to the inside.
+但并非每个问题都是商业问题。一些问题是技术问题，例如渲染。渲染用户界面本身就是一个问题范畴。Flutter 正通过设计出用于渲染用户界面的一种特定领域的语言来解决此问题。就像 SQL 是用于搜索信息的声明式的领域特定语言一样，Flutter 的组件系统正在成为用于组合用户界面的声明式的领域特定语言。这可以通过在外部放置不可变视图模型，同时将可变视图限制在内部来实现。
 
-Hopefully this perspective will help you understand and appreciate widgets in Flutter. But if not, just keep playing with the Flutter API and eventually it will sink in.
+希望这个视角，可以帮助你理解和欣赏 Flutter 中的组件。但是如果没有，只要你继续使用 Flutter 的 API，最终你也会体验出个中的妙处。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
