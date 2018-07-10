@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/building-a-cross-platform-mobile-team.md](https://github.com/xitu/gold-miner/blob/master/TODO1/building-a-cross-platform-mobile-team.md)
 > * 译者：[ALVINYEH](https://github.com/ALVINYEH)
-> * 校对者：
+> * 校对者：[DateBro](https://github.com/DateBro)
 
 # 建立一个跨平台的移动端团队
 
