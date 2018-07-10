@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/introducing-the-single-element-pattern.md](https://github.com/xitu/gold-miner/blob/master/TODO1/introducing-the-single-element-pattern.md)
 > * 译者：[jonjia](https://github.com/jonjia)
-> * 校对者：
+> * 校对者：[Hopsken](https://hopsken.com/)
 
 # 单元素组件模式简介
 
@@ -15,15 +15,15 @@
 
 直到 2005 年，我才开始遵循 [网页标准](https://en.wikipedia.org/wiki/Web_standards)。
 
-> 如果有网站或网页宣称遵循网页标准，通常就表示他们的网页符合HTML、CSS、JavaScript等标准。HTML的部分也要满足无障碍性以及HTML语义的要求。
+> 如果有网站或网页宣称遵循网页标准，通常就表示他们的网页符合 HTML、CSS、JavaScript 等标准。HTML 的部分也要满足无障碍性以及 HTML 语义的要求。
 
-我了解了语义和无障碍性，然后开始使用正确的 HTML 标签和外部 CSS。我很自豪地将 [W3C 认证徽章](https://www.w3.org/QA/Tools/Icons) 添加到我制作的每个网站。
+我了解了语义化和无障碍性，然后开始使用正确的 HTML 标签和外部 CSS。我很自豪地将 [W3C 认证徽章](https://www.w3.org/QA/Tools/Icons) 添加到我制作的每个网站。
 
 ![](https://cdn-images-1.medium.com/max/800/1*pFL99e3lxpYN-Fp24HfdBw.jpeg)
 
 我们编写的 HTML 代码和输出到浏览器中的真实代码非常相似。这意味着使用 [W3C 验证器](https://validator.w3.org/) 和其它工具来验证输出代码的规范性也可以告诉我们如何写出更好的代码。
 
-时光流逝。为了分离前端中可重用部分，我使用过 PHP、模版系统、jQuery、Polymer、Angular 和 React。特别是最近这三年，我一直在使用后三者。
+时光流逝。为了分离前端中可重用部分，我使用过 PHP、模版系统、jQuery、Polymer、Angular 和 React。尤其是后几个，最近三年我一直在使用它们。
 
 随着时间的推移，我们编写的代码和用户实际使用的代码越来越不同了。现在，我们使用不同方式（例如 Babel 和 TypeScript）来编译代码。我们使用 [ES2015+](https://devhints.io/es6) 和 [JSX](https://reactjs.org/docs/introducing-jsx.html) 规范编写，但最终的输出代码就只是 HTML 和 JavaScript。
 
@@ -37,9 +37,9 @@
 
 除公司项目外，我还维护了一个包含 40 多个示例组件的 [React 模版库](https://github.com/diegohaz/arc)。另外，我正在和 [Raphael Thomazella](https://github.com/Thomazella) 维护一套 [交互式 UI 组件库](https://github.com/diegohaz/reas)，他为这个项目贡献了很多。
 
-许多开发者都有一个误解：如果以一个完美的文件结构来开始一个项目，那就没有任何问题。事实上，文件结构的一致性没那么重要。如果你的组件没有遵循明确定义的规则，这最终会使你的项目很难维护。
+许多开发者都有一个误解：如果以一个完美的文件结构来开始一个项目，那么他们就不会遇到任何问题。事实上，文件结构的一致性没那么重要。如果你的组件没有遵循明确定义的规则，这最终会使你的项目很难维护。
 
-在创建和维护了那么多组件之后，我发现了一些使它们更加一致和可靠的特性，这样用起来会更加愉快。一个组件越像一个 HTML 元素，它就会变的越**可靠**。
+在创建和维护了那么多组件之后，我发现了一些使它们更加一致和可靠的特性，这样用起来会更加愉快。一个组件越像一个 HTML 元素，它就会变得越**可靠**。
 
 > 没有什么比一个 `<div>` 标签更可靠了。
 
@@ -65,7 +65,7 @@
 
 > 先让它工作，然后再去优化。
 
-当然，不可能将让所有组件都遵循 [Singel](https://github.com/diegohaz/singel) 所有规则。在某情况下 — 实际上很多情况下 — 你不得不至少打破第一条规则。
+当然，不可能让所有组件都遵循 [Singel](https://github.com/diegohaz/singel) 全部规则。在某情况下 — 实际上很多情况下 — 你不得不至少打破第一条规则。
 
 应该遵循这些规则的组件是应用中最重要的部分：原子、原始、构建块、元素或任何称为基础的组件。这篇文章中，我将统称它们为**单个元素**。
 
@@ -179,7 +179,7 @@ Avatar.propTypes = {
 <Avatar src={profile.photoUrl} alt={profile.photoAlt} />
 ```
 
-如果底层 HTML 元素接受 `children` 属性是，这条规则也同样适用。
+如果底层 HTML 元素接受 `children` 属性，这条规则也同样适用。
 
 #### 规则 #4：应用作为属性传递的样式规则
 
@@ -304,7 +304,7 @@ Button.defaultProps = {
 
 如果你对这个功能感兴趣，我建议你看一下 [Reas](https://github.com/diegohaz/reas) 项目，这是一个使用 Singel 理念构建的 React UI 工具包。
 
-### 使用 Single CLI 来验证你的单元素组件
+### 使用 Singel CLI 来验证你的单元素组件
 
 最后，在阅读完所有内容之后，你可能想知道是否有工具可以根据此模式自动验证元素。我开发了这样一个工具，叫做[Singel CLI](https://github.com/diegohaz/singel)。
 
