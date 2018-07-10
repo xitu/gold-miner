@@ -2,14 +2,14 @@
 > * 原文作者：[David Isbitski](https://developer.amazon.com/blogs/alexa/author/David+Isbitski)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/announcing-the-alexa-skills-kit-for-node-js.md](https://github.com/xitu/gold-miner/blob/master/TODO1/announcing-the-alexa-skills-kit-for-node-js.md)
-> * 译者：[Yuhanlolo] (https://github.com/Yuhanlolo)
-> * 校对者：[yqian1991] (https://github.com/yqian1991)
+> * 译者：[Yuhanlolo](https://github.com/Yuhanlolo)
+> * 校对者：[yqian1991](https://github.com/yqian1991), [DateBro](https://github.com/DateBro)
 
 # 基于 Node.js 的 Alexa Skills Kit 发布了！
 
 我们今天很高兴地宣布，一个新的基于 Node.js ，旨在帮助开发者们更加简单和快捷地开发 Alexa skill 的 [alexa-sdk](https://github.com/alexa/alexa-skill-sdk-for-nodejs) 发布了。通过 [Alexa Skills Kit](http://developer.amazon.com/ask)、 [Node.js](https://nodejs.org/en/)，和 [AWS Lambda](https://aws.amazon.com/lambda/) 开发 Alexa skill 如今已成为最受欢迎的 skill 开发方式。Node.js 事件驱动，非阻塞的特性，使它非常适合开发 Alexa skill，并且 Node.js 也是世界上最大开源系统之一。除此之外，为每个月前一百万个网络请求提供免费服务的亚马逊网络服务系统 (AWS) Lambda，能够支持大部分开发者从事 skill 的开发。在使用 AWS Lambda 的同时，你不需要担心管理任何 SSL 证书的问题 (因为 Alexa Skills Kit 是被 AWS 信任的触发器)。
 
-在使用 AWS Lambda 创建 Alexa skill 的时候，加入 Node.js 和 Alexa Skills Kit 只是一个简单的流程，但你实际上所需要写的代码要比这复杂得多。我们已经意识到大部分开发 skill 的时间和精力都花在了处理时域 (session) 的属性、skill 的状态持久化，创建回复以及行为模式上面。因此，Alexa 团队着手于开发一个基于 Node.js 的 Alexa Skills Kit SDK 来帮助你避免这些常见的烦恼，从而专注于你的 skill 自身的逻辑开发而不是样板化编码。 
+在使用 AWS Lambda 创建 Alexa skill 的时候，加入 Node.js 和 Alexa Skills Kit 只是一个简单的流程，但你实际上所需要写的代码要比这复杂得多。我们已经意识到大部分开发 skill 会话 (session) 的属性、skill 的状态持久化，创建回复以及行为模式上面。因此，Alexa 团队着手于开发一个基于 Node.js 的 Alexa Skills Kit SDK 来帮助你避免这些常见的烦恼，从而专注于你的 skill 自身的逻辑开发而不是样板化编码。 
 
 ## 使用基于 Node.js 的 Alexa Skills Kit (alexa-sdk)加速 Alexa Skill 的开发
 
@@ -181,9 +181,9 @@ var newSessionHandlers = {
  };
 ```
 
-注意当一个新的 session 被创建时，我们简单地通过 this.handler.state 把 skill 的状态设置为 STARTMODE。此时skill 的状态将会自动被持久化在 session 的属性中，如果你在 DynamoDB 里设置了表格的话，你可以选择将它持久化于各个 session 当中。
+注意当一个新的 session 被创建时，我们简单地通过 this.handler.state 把 skill 的状态设置为 STARTMODE。此时 skill 的状态将会自动被持久化在 session 的属性中，如果你在 DynamoDB 里设置了表格的话，你可以选择将它持久化于各个 session 当中。
 
-值得注意的是，NewSession 是一个很棒的捕捉各种行为的管理器，同时也是一个很好的 skill 入口，但它不是必须的。NewSession 只会在一个以它命名的函数中被唤醒。你所定义的每一个状态都可以有它们自己的 NewSession 管理器，在你使用内置留存时被唤醒。在上面的例子中，我们可以更加灵活地为 states.STARTMODE 和 states.GUESSMODE 定义不同的 NewSession 行为。  
+值得注意的是，NewSession 是一个很棒的捕捉各种行为的管理器，同时也是一个很好的 skill 入口，但它不是必需的。NewSession 只会在一个以它命名的函数中被唤醒。你所定义的每一个状态都可以有它们自己的 NewSession 管理器，在你使用内置留存时被唤醒。在上面的例子中，我们可以更加灵活地为 states.STARTMODE 和 states.GUESSMODE 定义不同的 NewSession 行为。  
 
 为了定义回复 skill 在不同状态下的 intents，我们需要使用 Alexa.CreateStateHandler 函数。任何在这里定义的 intent 管理器将只会在特定状态下工作，这让我们的开发操作更加灵活！
 
