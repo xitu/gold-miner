@@ -71,12 +71,12 @@ React Native 的开发人员经验非常不同。在某些方面，例如构建�
 * * *
 
 这是系列博客文章的第四部分，重点讲述了我们使用 React Native 的经验，以及 Airbnb 移动端接下来要做的事情。
- 
- *   [第一部分：Airbnb 中的 React Native](https://juejin.im/post/5b2c924ff265da59a401f050)
- *   [第二部分：技术细节](https://juejin.im/post/5b3b40a26fb9a04fab44e797)
- *   [第三部分：构建跨平台的移动端团队](https://medium.com/airbnb-engineering/building-a-cross-platform-mobile-team-3e1837b40a88)
- *   [**第四部分：在 React Native 上作出的决策**](https://medium.com/airbnb-engineering/sunsetting-react-native-1868ba28e30a)
- *   [第五部分：移动端接下来的事情](https://medium.com/airbnb-engineering/whats-next-for-mobile-at-airbnb-5e71618576ab)
+
+*   [第一部分：Airbnb 中的 React Native](https://juejin.im/post/5b2c924ff265da59a401f050)
+*   [第二部分：技术细节](https://juejin.im/post/5b3b40a26fb9a04fab44e797)
+*   [第三部分：构建跨平台的移动端团队**](https://github.com/xitu/gold-miner/blob/master/TODO1/sunsetting-react-native.md)
+*   [**第四部分：在 React Native 上作出的决策**](https://github.com/xitu/gold-miner/blob/master/TODO1/sunsetting-react-native.md)
+*   [第五部分：移动端接下来的事情](https://github.com/xitu/gold-miner/blob/master/TODO1/whats-next-for-mobile-at-airbnb.md)
 
 在此感谢 [Laura Kelly](https://medium.com/@laura.kelly_61928?source=post_page)。
 
