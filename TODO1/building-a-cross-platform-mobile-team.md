@@ -74,12 +74,12 @@ Android 和 iOS 已有十年的时间了，有数百万的工程师为学习资�
 
 这是系列博客文章的第三部分，重点讲述了我们使用 React Native 的经验，以及 Airbnb 移动端接下来要做的事情。
  
- *   [第一部分：Airbnb 中的 React Native](https://juejin.im/post/5b2c924ff265da59a401f050)
- *   [第二部分：技术细节](https://medium.com/airbnb-engineering/react-native-at-airbnb-the-technology-dafd0b43838)
- *   [**第三部分：构建跨平台的移动端团队**](https://medium.com/airbnb-engineering/building-a-cross-platform-mobile-team-3e1837b40a88)
- *   [第四部分：在 React Native 上作出的决策](https://medium.com/airbnb-engineering/sunsetting-react-native-1868ba28e30a)
- *   [第五部分：移动端接下来的事情](https://medium.com/airbnb-engineering/whats-next-for-mobile-at-airbnb-5e71618576ab)
-    
+*   [第一部分：Airbnb 中的 React Native](https://juejin.im/post/5b2c924ff265da59a401f050)
+*   [第二部分：技术细节](https://juejin.im/post/5b3b40a26fb9a04fab44e797)
+*   [**第三部分：构建跨平台的移动端团队**](https://github.com/xitu/gold-miner/blob/master/TODO1/sunsetting-react-native.md)
+*   [第四部分：在 React Native 上作出的决策](https://github.com/xitu/gold-miner/blob/master/TODO1/sunsetting-react-native.md)
+*   [第五部分：移动端接下来的事情](https://github.com/xitu/gold-miner/blob/master/TODO1/whats-next-for-mobile-at-airbnb.md)
+
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
 
