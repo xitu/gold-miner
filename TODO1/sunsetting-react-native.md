@@ -13,7 +13,7 @@
 
 **这是[系列博客文章](https://juejin.im/post/5b2c924ff265da59a401f050)中的第四篇，本文将会概述使用 React Native 的经验，以及 Airbnb 移动端接下来要做的事情。**今天，我们路在何方？
 
-尽管很多团队都依赖 React Native，计划在可预见的将来投入使用，但我们最终无法实现我们原来的目标。此外，还有一些我们无法克服的[技术](https://juejin.im/post/5b3b40a26fb9a04fab44e797)和[组织](https://medium.com/airbnb-engineering/building-a-cross-platform-mobile-team-3e1837b40a88)挑战，使继续投入 React Native 变得更加困难。
+尽管很多团队都依赖 React Native，计划在可预见的将来投入使用，但我们最终无法实现我们原来的目标。此外，还有一些我们无法克服的[技术](https://juejin.im/post/5b3b40a26fb9a04fab44e797)和[组织](https://medium.com/airbnb-engineering/building-a-cross-platform-mobile-team-3e1837b40a88)挑战，使继续投入使用 React Native 变得更加困难。
 
 因此，我们要勇往直前，**Airbnb 正式停止使用 React Native**，并将我们所有的精力重新投入原生。
 
@@ -33,11 +33,11 @@
 
 #### 改善开发者体验
 
-React Native 的开发人员经验非常丰富。在某些方面，例如构建时间，情况要好得多。但是，在其他方面，比如调试，情况比较糟糕。本系列的[第 2 部分](https://juejin.im/post/5b3b40a26fb9a04fab44e797)列举了具体细节。
+React Native 的开发人员经验非常不同。在某些方面，例如构建时间，情况要好得多。但是，在其他方面，比如调试，情况比较糟糕。本系列的[第 2 部分](https://juejin.im/post/5b3b40a26fb9a04fab44e797)列举了具体细节。
 
 ### 退役计划
 
-由于无法实现我们的具体目标，因此我们做了一个艰难的决定 —— React Native 不再适合我们了。我们目前正在与团队合作制定健康的过渡计划。我们已经停止了所有新的 React Native 功能，并计划在今年年底之前，将大多数最高流量的视图页面转换为原生编写。这得到了一些即将开始的预定重新设计的帮助。我们的原生基础架构团队将支持到 2018 年的 React Native。在 2019 年，我们将开始降低支持并减少一些 React Native 开销，例如启动时初始化运行时。
+由于无法实现我们的特定目标，因此我们做了一个艰难的决定 —— React Native 不再适合我们了。我们目前正在与团队合作制定健康的过渡计划。我们已经停止了所有新的 React Native 功能，并计划在今年年底之前，将大多数最高流量的视图页面转换为原生编写。这得到了一些即将开始的预定重新设计的帮助。我们的原生基础架构团队将支持到 2018 年的 React Native。在 2019 年，我们将开始降低支持并减少一些 React Native 开销，例如启动时的初始化运行时。
 
 在 Airbnb，我们是开源软件的坚定信徒。我们积极使用和促进世界各地的许多开源项目，并且也开放了一些我们的 React Native工作。由于我们已经不再使用 React Native 了，我们无法像社区一样维护 React Native 的功能。为了让社区变得更好，我们将把一些 React Native 开源工作迁移到 [react-native-community](https://github.com/react-native-community)，我们已经开始使用 [react-native-maps](https://github.com/react-community/react-native-maps)，并即将使用 [native-navigation](https://github.com/airbnb/native-navigation) 和 [lottie-react-native](https://github.com/airbnb/lottie-react-native/)。 
 
@@ -60,11 +60,11 @@ React Native 的开发人员经验非常丰富。在某些方面，例如构建�
 
 ### 一些思考
 
-我们将 React Native 集成到大型现有应用中，并持续以非常快的速度迭代。我们遇到的许多困难，都是由于采用了混合模型方法。但是，我们的规模能够承担并解决小公司可能没有时间解决的一些难题。想让 React Native 与原生无缝互相协作是有可能的，但很有挑战性。每个使用 React Native 的公司都会有一种新体验，这是他们的团队组成、现有应用、产品需求和 React Native 成熟度的独特功能。
+我们将 React Native 集成到大型现有应用中，并持续以非常快的速度迭代。我们遇到的许多困难，都是由于采用了混合模型方法。但是，我们的规模能够承担并解决小公司可能没有时间解决的一些难题。想让 React Native 与原生无缝互相协作是有可能的，但很有挑战性。每个使用 React Native 的公司都会有一种由他们的团队组成、现有应用、产品需求和 React Native 成熟度确定的独特体验。
 
 当一切齐头并进时，React Native 能匹配许多功能所做的工作、迭代速度、质量和开发人员的体验，甚至超越了我们的所有目标和期望。有时候，真的觉得我们即将改变移动开发的游戏规则。尽管这些经历令人备受鼓舞，但当我们将积极情绪与工程组织的痛点，以及当前的需求和资源相平衡时，我们认为它已不适合我们了。
 
-决定是否使用新平台是一项重大的决策，这完全取决于你团队的独特因素。我们放弃使用的经历和原因，可能会不适用于你的团队。事实上，[许多](https://medium.com/@Pinterest_Engineering/supporting-react-native-at-pinterest-f8c2233f90e6)[公司](https://instagram-engineering.com/react-native-at-instagram-dd828a9a90c7)公司现今仍在继续成功使用它，对于其他公司来说，它可能仍然是许多其他公司的最佳选择。
+决定是否使用新平台是一项重大的决策，这完全取决于你团队的独特因素。我们放弃使用的经历和原因，可能会不适用于你的团队。事实上，[许多](https://medium.com/@Pinterest_Engineering/supporting-react-native-at-pinterest-f8c2233f90e6)[公司](https://instagram-engineering.com/react-native-at-instagram-dd828a9a90c7)现今仍在继续成功使用它，对于其他公司来说，它可能仍然是多数公司的最佳选择。
 
 虽然我们从未停止过使用原生，但 React Native 退役后可以腾出更多资源，使原生化比以往更好。请继续阅读本系列的[下一部分](https://medium.com/airbnb-engineering/whats-next-for-mobile-at-airbnb-5e71618576ab)，一起了解学习原生的新功能。
 
