@@ -2,7 +2,7 @@
 > * 原文作者：[Albert Reynaud](https://medium.com/@Reynaud_10696?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/discovery-in-the-age-of-abundant-video.md](https://github.com/xitu/gold-miner/blob/master/TODO1/discovery-in-the-age-of-abundant-video.md)
-> * 译者：[Yuhanlolo] (https://github.com/Yuhanlolo)
+> * 译者：[Yuhanlolo](https://github.com/Yuhanlolo)
 > * 校对者：[DateBro](https://github.com/DateBro)
 
 # 海量视频时代下的内容发现之旅
