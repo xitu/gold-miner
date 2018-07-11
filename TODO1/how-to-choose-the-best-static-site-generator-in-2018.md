@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-choose-the-best-static-site-generator-in-2018.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-choose-the-best-static-site-generator-in-2018.md)
 > * 译者：[ssshooter](https://github.com/ssshooter)
-> * 校对者：[https://github.com/dandyxu](https://github.com/dandyxu) [lihanxiang](https://github.com/lihanxiang)
+> * 校对者：[dandyxu](https://github.com/dandyxu) [lihanxiang](https://github.com/lihanxiang)
 
 # 2018 年，如何选择最好的静态站点生成器
 
