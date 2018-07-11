@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/whats-next-for-mobile-at-airbnb.md](https://github.com/xitu/gold-miner/blob/master/TODO1/whats-next-for-mobile-at-airbnb.md)
 > * 译者：[ALVINYEH](https://github.com/ALVINYEH)
-> * 校对者：
+> * 校对者：[DateBro](https://github.com/DateBro)
 
 # Airbnb 移动端路在何方？
 
@@ -25,7 +25,7 @@
 
 服务器驱动的大规模渲染还有很多难题。下面是我们正在解决的几个问题：
 
-*   在保持向后下兼容性的同时，需要安全地更新组件定义。
+*   在保持向下兼容性的同时，需要安全地更新组件定义。
 *   跨平台共享组件的类型定义。
 *   在运行时响应事件，如按钮点击或用户输入。
 *   在保留内部状态的同时，在多个 JSON 驱动的屏幕之间进行过渡。
@@ -41,7 +41,7 @@
 
 ![](https://i.embed.ly/1/display/resize?url=https%3A%2F%2Favatars1.githubusercontent.com%2Fu%2F1307745%3Fs%3D400%26v%3D4&key=a19fcc184b9711e1b4764040d3dc5c07&width=40)
 
-在 Android 上，我们利用使用 [Kotlin 编写 DSL](https://kotlinlang.org/docs/reference/type-safe-builders.html)，编写组件和类型安全：
+在 Android 上，我们利用使用 [Kotlin 编写 DSL](https://kotlinlang.org/docs/reference/type-safe-builders.html)，使编写组件更加简单和类型安全：
 
 ![](https://i.embed.ly/1/display/resize?url=https%3A%2F%2Favatars1.githubusercontent.com%2Fu%2F1307745%3Fs%3D400%26v%3D4&key=a19fcc184b9711e1b4764040d3dc5c07&width=40)
 
@@ -59,7 +59,7 @@
 
 #### 一个新的 Android 产品架构（MvRx）
 
-最近令人非常激动的进展之一是，我们正在开发新架构，内部称之为 MvRx。 MvRx 结合了 Epoxy、[Jetpack](https://developer.android.com/jetpack/)、[RxJava](https://github.com/ReactiveX/RxJava) 的优点，以及 Kotlin 与 React 的许多原理，构建出的新页面比以往任何时候都更容易、更流畅。它是一个固执己见而又灵活的框架，通过采用我们观察到的共同开发模式以及 React 的最佳部分而开发出来的。同时它也是线程安全的，几乎所有事情都从主线程运行，这使得滚动和动画都能非常流畅。
+最近令人非常激动的进展之一是，我们正在开发新架构，内部称之为 MvRx。 MvRx 结合了 Epoxy、[Jetpack](https://developer.android.com/jetpack/)、[RxJava](https://github.com/ReactiveX/RxJava) 的优点，以及 Kotlin 与 React 的许多原理，构建出的新页面比以往任何时候都更容易、更流畅。它是一个固执己见而又灵活的框架，通过采用我们观察到的共同开发模式以及 React 的最佳部分而开发出来的。同时它也是线程安全的，几乎所有事情都从主线程运行，这使得滚动和动画都能变得非常流畅。
 
 到目前为止，它已经在各种页面上正常工作了，并且几乎不用去处理生命周期。我们目前正在针对一系列 Android 产品进行试用，如果它能继续取得成功，我们会计划开源。这是创建发出网络请求的功能页面所需的完整代码：
 
@@ -73,7 +73,7 @@ MvRx 的架构比较简单，主要用于处理 Fragment 参数，跨进程重�
 
 #### 迭代速度
 
-当从 React Native 切换回原生时，立竿见影的是迭代速度。从一个在一或两秒就能可靠地测试更改部分的平台，到一个可能需要等待 15 分钟的平台，根本无法接受。幸好，我们也找到了一些补救措施。
+当从 React Native 切换回原生时，马上显现出来的问题就是迭代速度。从一个在一或两秒就能可靠地测试更改部分的平台，到一个可能需要等待 15 分钟的平台，根本无法接受。幸好，我们也找到了一些补救措施。
 
 我们在 Android 和 iOS 上构建了基础架构，可以只编译包含启动器的应用中的一部分，并且可以依赖于特定的功能模块。
 
@@ -85,7 +85,7 @@ MvRx 的架构比较简单，主要用于处理 Fragment 参数，跨进程重�
 
 这种新的间接层，使得工程师们能够在应用的一小部分上进行构建和开发。与 [IntelliJ 的卸载模块](https://blog.jetbrains.com/idea/2017/06/intellij-idea-2017-2-eap-introduces-unloaded-modules/)配合使用，大大提高了 MacBook Pro 上的构建时间和 IDE 性能。
 
-我们编写了脚本来创建新的测试 flavor，在短短几个月内，我们已经创建了 20 多个。使用这些新的 flavor 开发版本平均要快 2.5 倍，花费 5 分钟以上的构建时间的百分比下降了 15 倍。
+我们编写了脚本来创建新的测试 flavor，在短短几个月内，我们已经创建了 20 多个。使用这些新的 flavor 开发版本平均要快 2.5 倍，花费 5 分钟以上的构建时间百分比下降了 15 倍。
 
 作为参考，这是 [gradle 代码段](https://gist.github.com/gpeal/d68e4fc1357ef9d126f25afd9ab4eee2)，可用于动态生成具有根依赖性模块的 product flavor。
 
