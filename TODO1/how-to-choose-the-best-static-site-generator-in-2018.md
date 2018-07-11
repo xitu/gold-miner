@@ -3,9 +3,9 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-choose-the-best-static-site-generator-in-2018.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-choose-the-best-static-site-generator-in-2018.md)
 > * 译者：[ssshooter](https://github.com/ssshooter)
-> * 校对者：
+> * 校对者：[https://github.com/dandyxu](https://github.com/dandyxu) [lihanxiang](https://github.com/lihanxiang)
 
-# 2018 年,如何选择最好的静态站点生成器
+# 2018 年，如何选择最好的静态站点生成器
 
 ![](https://cdn-images-1.medium.com/max/800/1*4877k4Hq9dPdtmvg9hnGFA.jpeg)
 
@@ -33,7 +33,7 @@
 
 ### 1. 静态站点生成器是什么？
 
-如果你看本文的目标是寻找合适的 SSG，那么你应该很清楚 SSG 是什么啦，不过在我这里解释一下也无伤大雅。
+如果你看本文的目标是寻找合适的 SSG，那么你应该很清楚 SSG 是什么啦，不过我在这里解释一下也无伤大雅。
 
 静态网站不是什么新鲜事物。它们是我们在动态 CMS（WordPress，Drupal 等）之前用来构建 Web 的方式。
 
@@ -110,7 +110,7 @@ Jekyll 对新手来说的一个主要卖点是各种 **importer**。它能使现
 
 并且，Jekyll 可以让你专注于内容而无需担心数据库，更新和评论审核，同时保留永久链接，类别，页面，帖子和自定义布局。
 
-Jekyll 用 Ruby 构建，并集成到 GitHub Page 中，因此被黑客攻击的风险要低得多。主题可以简单更换，自带 SEO，并且 Jekyll 社区提供了大量的自定义插件。
+Jekyll 用 Ruby 构建，并集成到 GitHub Pages 中，因此被黑客攻击的风险要低得多。主题可以简单更换，自带 SEO，并且 Jekyll 社区提供了大量的自定义插件。
 
 → Jekyll 教程：
 
@@ -188,11 +188,11 @@ JavaScript 现在无处不在，React 是现在最流行的 JS 前端框架，�
 
 这种用于无服务器的简约框架使用十分简单，但它更倾向于程序化实现而不是传统的 DOM 脚手架。
 
-由于 Nuxt 是 Vue 框架，因此强烈建议你先了解 Vue，当然之前使用 Vue 的开发者会感到宾至如归。随着 Vue.js 的迅速崛起，[我们也用 Vue 重构了项目](https://snipcart.com/blog/progressive-migration-backbone-vuejs-refactoring)，所以最后当然要推荐以下它啦。
+由于 Nuxt 是 Vue 框架，因此强烈建议你先了解 Vue，当然之前使用 Vue 的开发者会感到宾至如归。随着 Vue.js 的迅速崛起，[我们也用 Vue 重构了项目](https://snipcart.com/blog/progressive-migration-backbone-vuejs-refactoring)，所以最后当然要推荐一下它啦。
 
-> **如果你是Vue.js 用户，你也可以了解一下[**VuePress**](https://vuepress.vuejs.org/)**
+> **如果你是 Vue.js 用户，你也可以了解一下[**VuePress**](https://vuepress.vuejs.org/)**
 
-→ Nuxt教程：
+→ Nuxt 教程：
 
 *   [Cockpit CMS & Nuxt.js 全栈教程](https://snipcart.com/blog/cockpit-cms-tutorial-nuxtjs)
 *   [Nuxt.js 服务器端渲染、路由与页面跳转](https://css-tricks.com/simple-server-side-rendering-routing-page-transitions-nuxt-js/)
@@ -222,7 +222,7 @@ JavaScript 现在无处不在，React 是现在最流行的 JS 前端框架，�
 
 ![](https://cdn-images-1.medium.com/max/800/0*kScgW22S3zvfmDF0.png)
 
-Jekyll 在这方面就不怎么样了 -- 许多开发人员抱怨它的构建速度。
+Jekyll 在这方面就不怎么样了 —— 许多开发人员抱怨它的构建速度。
 
 #### **3. 你想用 SSG 处理什么类型的项目？**
 
@@ -230,7 +230,7 @@ Jekyll 在这方面就不怎么样了 -- 许多开发人员抱怨它的构建速
 
 → **博客或小型个人网站**：
 
-**Jekyll** ，答案显而易见。它本身就为博客而生，它可以抽象出博客的主要内容。**Hexo** 是搭建简单博客平台的[另一个选择](https://snipcart.com/blog/hexo-ecommerce-nodejs-blog-framework)。不过，其实大多数 SSG 都可以做博客或个人网站。
+**Jekyll**，答案显而易见。它本身就为博客而生，它可以抽象出博客的主要内容。**Hexo** 是搭建简单博客平台的[另一个选择](https://snipcart.com/blog/hexo-ecommerce-nodejs-blog-framework)。不过，其实大多数 SSG 都可以做博客或个人网站。
 
 也可以了解一下：Hugo，Pelican，Gatsby。
 
