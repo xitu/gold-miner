@@ -1,7 +1,7 @@
 > * 原文地址：[Programming Languages and Platforms: an annotated twitter thread](https://medium.learningbyshipping.com/platforms-and-languages-f41960af9ec)
 > * 原文作者：[Steven Sinofsky](https://medium.learningbyshipping.com/@stevesi?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接: [https://github.com/xitu/gold-miner/blob/master/TODO1/platforms-and-languages.md](https://github.com/xitu/gold-miner/blob/master/TODO1/platforms-and-languages.md)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/platforms-and-languages.md](https://github.com/xitu/gold-miner/blob/master/TODO1/platforms-and-languages.md)
 > * 译者：[cf020031308](https://github.com/cf020031308)
 > * 校对者：
 
