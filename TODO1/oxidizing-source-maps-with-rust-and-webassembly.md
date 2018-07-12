@@ -3,11 +3,11 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/oxidizing-source-maps-with-rust-and-webassembly.md](https://github.com/xitu/gold-miner/blob/master/TODO1/oxidizing-source-maps-with-rust-and-webassembly.md)
 > * 译者：[D-kylin](https://github.com/D-kylin)
-> * 校对者：
+
 
 # 论 Rust 和 WebAssembly 对源码地址索引的极限优化
 
-[Tom Tromey](http://tromey.com) 和我尝试使用 Rust 语言进行编码，然后用 WebAssembly 进行编译打包后替换 `source-map`（源码地址索引，以下行文为了理解方便均不进行翻译）的 JavaScript 工具库中性能敏感的部分。在实际场景中以相同的基准进行对比操作， [WebAssembly](https://webassembly.org/) 的性能要比已有的 source-map 库 **快上 5.89 倍** 。 另外，多次测试结果也更为一致：相对一致的情况下偏差值很小。
+[Tom Tromey](http://tromey.com) 和我尝试使用 Rust 语言进行编码，然后用 WebAssembly 进行编译打包后替换 `source-map`（源码地址索引，以下行文为了理解方便均不进行翻译）的 JavaScript 工具库中性能敏感的部分。在实际场景中以相同的基准进行对比操作，[WebAssembly](https://webassembly.org/) 的性能要比已有的 source-map 库**快上 5.89 倍**。另外，多次测试结果也更为一致：相对一致的情况下偏差值很小。
 
 我们以提高性能的名义将那些令人费解又难以阅读的 JavaScript 代码替换成更加语义化的 Rust 代码，这确实行之有效。
 
@@ -17,13 +17,13 @@
 
 ### source-map 的技术规范
 
-[source map 文件](https://docs.google.com/document/d/1U1RGAehQwRypUTovF1KRlpiOFze0b-_2gc6fAH0KY0k) 提供了 JavaScript 源码被编译器<sup><a href="#note0">[0]</a></sup>、压缩工具、包管理工具转译成的文件之间的地址索引供编程人员使用。JavaScript 开发者工具使用 source-map 后可以实现字符级别的回溯，调试工具中的按步调试也是依赖它来实现的。Source-map 对报错信息的编码方式与 [DWARF’s `.debug_line`](http://dwarfstd.org/) 的部分标准很相似。
+[source map 文件](https://docs.google.com/document/d/1U1RGAehQwRypUTovF1KRlpiOFze0b-_2gc6fAH0KY0k)提供了 JavaScript 源码被编译器<sup><a href="#note0">[0]</a></sup>、压缩工具、包管理工具转译成的文件之间的地址索引供编程人员使用。JavaScript 开发者工具使用 source-map 后可以实现字符级别的回溯，调试工具中的按步调试也是依赖它来实现的。Source-map 对报错信息的编码方式与 [DWARF’s `.debug_line`](http://dwarfstd.org/) 的部分标准很相似。
 
-source-map 对象是 JSON 对象的其中一个分支。 其中 `“映射集”` 用字符串表示，是 source-map 的重要组成部分，包含了最终代码和定位对象的双向索引。
+source-map 对象是 JSON 对象的其中一个分支。其中 `“映射集”` 用字符串表示，是 source-map 的重要组成部分，包含了最终代码和定位对象的双向索引。
 
 我们用 [extended Backus-Naur form (EBNF)](https://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_form) 标准描述 `“映射集”` 的字符串语法。
 
-Mappings 是 JavaScript 代码块的分组行号，每一个映射集只要以分号结尾了就代表一个独立的映射集，它就自增 1 。同一行 JavaScript 代码如果生成多个映射集，就用逗号分隔开：
+Mappings 是 JavaScript 代码块的分组行号，每一个映射集只要以分号结尾了就代表一个独立的映射集，它就自增 1。同一行 JavaScript 代码如果生成多个映射集，就用逗号分隔开：
 
 ```
 <mappings> = [ <generated-line> ] ';' <mappings>
@@ -41,7 +41,7 @@ Mappings 是 JavaScript 代码块的分组行号，每一个映射集只要以�
 <mapping> = <generated-column> [ <source> <original-line> <original-column> [ <name> ] ] ;
 ```
 
-每个映射集组件都通过一种叫做 `大数值的位数可变表示法(Variable Length Quantity，缩写为 VLQ)` 编码成二进制数字。 文件名和相关联的名字被编码后储存在 source-map 的 JSON 对象中。每一个值标注了源码最后出现的位置，现在，给你一个 `<source>` 值那么它跟前一个 `<source>` 值就给我们提供了一些信息。如果这些值之间趋向于越来越小，就说明它们在被编码的时候更加紧密：
+每个映射集组件都通过一种叫做大数值的位数可变表示法（Variable Length Quantity，缩写为 VLQ）编码成二进制数字。文件名和相关联的名字被编码后储存在 source-map 的 JSON 对象中。每一个值标注了源码最后出现的位置，现在，给你一个 `<source>` 值那么它跟前一个 `<source>` 值就给我们提供了一些信息。如果这些值之间趋向于越来越小，就说明它们在被编码的时候更加紧密：
 
 ```
 <generated-column> = <vlq> ;
@@ -51,7 +51,7 @@ Mappings 是 JavaScript 代码块的分组行号，每一个映射集只要以�
 <name> = <vlq> ;
 ```
 
-利用 VLQ 编码后的字符都能从 ASCII 字符集中找到，比如大小写的字母，又或者是十进制数字跟一些符号。每个字符都表示了一个 6 位大小的值。 VLQ 编码后的二进制数前五位用来表示数值，最后一位只用来做标记正负。
+利用 VLQ 编码后的字符都能从 ASCII 字符集中找到，比如大小写的字母，又或者是十进制数字跟一些符号。每个字符都表示了一个 6 位大小的值。VLQ 编码后的二进制数前五位用来表示数值，最后一位只用来做标记正负。
 
 与其向你解释 EBNF 标准，不如来看一段简单的 VLQ 转换代码实现：
 
@@ -81,13 +81,13 @@ decode_vlq(input):
         return (value, input)
 ```
 
-###  `source-map` JavaScript 工具库
+### `source-map` JavaScript 工具库
 
 [`source-map`](https://github.com/mozilla/source-map) 是由 [火狐开发者工具团队](https://twitter.com/firefoxdevtools) 维护，发布在 [npm](https://www.npmjs.com/) 上。它是 JavaScript 社区最流行的依赖包之一，下载量达到 [每周 1000 万次](https://www.npmjs.com/package/source-map)。
 
-就像许多软件项目一样， `source-map` 工具库最开始也没有很好的去实现它，以至于后面只能通过不断的修复来改善性能。截止到本文完成之前，其实已经有了不错的性能表现了。
+就像许多软件项目一样，`source-map` 工具库最开始也没有很好的去实现它，以至于后面只能通过不断的修复来改善性能。截止到本文完成之前，其实已经有了不错的性能表现了。
 
-当我们使用 source-map ，很大一部分的时间都是消耗在解析 `“映射集”` 字符串和构建数组对：一旦 JavaScript 的定位改变了，另一个文件的代码标示的定位也要改变。选用合适的二进制查找方式对数组进行查找。解析和排序操作只有在特定的时机才会被调用。例如，在调试工具中查看源码时，不需要对任何的映射集进行解析和排序。一次性的解析和排序、查找并不会成为性能瓶颈。
+当我们使用 source-map，很大一部分的时间都是消耗在解析 `“映射集”` 字符串和构建数组对：一旦 JavaScript 的定位改变了，另一个文件的代码标示的定位也要改变。选用合适的二进制查找方式对数组进行查找。解析和排序操作只有在特定的时机才会被调用。例如，在调试工具中查看源码时，不需要对任何的映射集进行解析和排序。一次性的解析和排序、查找并不会成为性能瓶颈。
 
 VLQ 编码函数通过输入字符串，解析字符串并返回一对由解析结果和其余输入组成的值。通常把函数的返回值写成有两个属性组成的 `对象` ，这样更具有可读性，也方便日后进行格式转换。
 
@@ -98,7 +98,7 @@ function decodeVlqBefore(input) {
 }
 ```
 
-我们发现返回这样的对象成本很高。针对 JavaScript 的 `即时编译（JIT）` 优化，很难用第三方编译的方式来优化这部分花销。因为 VLQ 的编码事件总是频繁产生，所以这部分的内存分配工作给垃圾收集机制带来很大的压力，导致垃圾收集工作就像是走走停停一样。
+我们发现返回这样的对象成本很高。针对 JavaScript 的即时编译（Just-In-Time，JIT）优化，很难用第三方编译的方式来优化这部分花销。因为 VLQ 的编码事件总是频繁产生，所以这部分的内存分配工作给垃圾收集机制带来很大的压力，导致垃圾收集工作就像是走走停停一样。
 
 为了禁用内存分配，我们 [修改程序](https://github.com/mozilla/source-map/pull/135) 的第二个参数：将返回 `对象` 进行变体并作为输出参数，这样就把结果当成一个外部 `对象` 的属性。我们可以肯定这个外部对象与 VLQ 函数返回的对象是一致的。虽然损失了一点可读性，但是执行效率更高：
 
@@ -110,9 +110,9 @@ function decodeVlqAfter(input, out) {
 }
 ```
 
-当查找一个位置长度的字符串或者 base 64 字符， VLQ 编码函数会 `抛出` 一个 `报错`。我们发现如果 [如果转换 base 64 数字出现错误，编码函数返回 `-1`](https://github.com/mozilla/source-map/pull/185) 而不是 `抛出` 一个 `报错`，那么 JavaScript 的即时编译效率更高。虽然损失了一点可读性，但是执行效率又高了那么一丢丢。
+当查找一个位置长度的字符串或者 base 64 字符，VLQ 编码函数会 `抛出` 一个 `报错`。我们发现如果 [如果转换 base 64 数字出现错误，编码函数返回 `-1`](https://github.com/mozilla/source-map/pull/185) 而不是 `抛出` 一个 `报错`，那么 JavaScript 的即时编译效率更高。虽然损失了一点可读性，但是执行效率又高了那么一丢丢。
 
-剖析 SpiderMonkey 引擎中 [JITCoach](http://users.eecs.northwestern.edu/~stamourv/papers/optimization-coaching-js.pdf) 原型， 我们发现 SpiderMonkey 引擎即时编译机制是使用多态短路径实时缓存 `对象` 的 getter 和 setter。它的即时编译没有如我们期待的那样直接通过快速访问得到对象的属性，因为以同样的 [“形状” (或者称之为 “隐藏类”)](http://bibliography.selflanguage.org/_static/implementation.pdf) 是访问不到它返回出来的对象。有一些属性可能都不是你存入对象时的键名，甚至键名是完全省略掉的，比如当它在映射集中定位不到名字时。创建一个 Mapping 类生成器，初始化每一个属性，我们配合即时编译，为 Mapping 类添加通用属性。完整结果可以在这里看到 [另一种性能改进](https://github.com/mozilla/source-map/pull/188):
+剖析 SpiderMonkey 引擎中 [JITCoach](http://users.eecs.northwestern.edu/~stamourv/papers/optimization-coaching-js.pdf) 原型，我们发现 SpiderMonkey 引擎即时编译机制是使用多态短路径实时缓存 `对象` 的 getter 和 setter。它的即时编译没有如我们期待的那样直接通过快速访问得到对象的属性，因为以同样的 [“形状” (或者称之为 “隐藏类”)](http://bibliography.selflanguage.org/_static/implementation.pdf) 是访问不到它返回出来的对象。有一些属性可能都不是你存入对象时的键名，甚至键名是完全省略掉的，比如当它在映射集中定位不到名字时。创建一个 Mapping 类生成器，初始化每一个属性，我们配合即时编译，为 Mapping 类添加通用属性。完整结果可以在这里看到 [另一种性能改进](https://github.com/mozilla/source-map/pull/188)：
 
 ```
 function Mapping() {
@@ -126,7 +126,7 @@ function Mapping() {
 }
 ```
 
-对两个映射集数组进行排序时，我们使用自定义对比函数。当 `source-map` 工具库源码被第一次写入， SpiderMonkey 的 `Array.prototype.sort` 是用 C++ 实现来提升性能<sup><a href="#note1">[1]</a></sup>。尽管如此，当使用外部提供的对比函数并对一个巨大的数组进行 `排序` 的时候，排序代码也需要调用很多次对比函数。从 C++ 中调用 JavaScript 相对来说也是很昂贵的花销，所以调用自定义对比函数会使得排序性能急速下降。  
+对两个映射集数组进行排序时，我们使用自定义对比函数。当 `source-map` 工具库源码被第一次写入，SpiderMonkey 的 `Array.prototype.sort` 是用 C++ 实现来提升性能<sup><a href="#note1">[1]</a></sup>。尽管如此，当使用外部提供的对比函数并对一个巨大的数组进行 `排序` 的时候，排序代码也需要调用很多次对比函数。从 C++ 中调用 JavaScript 相对来说也是很昂贵的花销，所以调用自定义对比函数会使得排序性能急速下降。  
 
 基于上述条件，我们 [实现了另一个版本 Javascript 快排](https://github.com/mozilla/source-map/pull/186)。它只能通过 C++ 调用 Javascript 时才能使用，它也允许 JavaScript 即时编译时作为排序函数的对比函数传入，用来获取更好的性能。这个改进给我们带来大幅度的性能提升，同时只需要损失很小的代码可读性。
 
@@ -138,7 +138,7 @@ WebAssembly 开辟一块新的栈区供机器运行，有现代处理器架构�
 
 WebAssembly 的目标是获得或者逼近原始指令的运行速度。目前在大多数的基准测试中跟原始指令相比 [只相差 1.5x](https://github.com/WebAssembly/spec/blob/master/papers/pldi2017.pdf) 了。
 
-因为缺乏垃圾收集器，要编译成 WebAssembly 语言仅限那些没有运行时和垃圾采集器的编程语言，除非把控制器和运行时也编译成 WebAssembly 。实际中这些一般很难做到。现在，语言开发者事实上是把 C ，C++ 和 Rust 编译成 WebAssembly。
+因为缺乏垃圾收集器，要编译成 WebAssembly 语言仅限那些没有运行时和垃圾采集器的编程语言，除非把控制器和运行时也编译成 WebAssembly。实际中这些一般很难做到。现在，语言开发者事实上是把 C，C++ 和 Rust 编译成 WebAssembly。
 
 ### Rust
 
@@ -146,18 +146,18 @@ WebAssembly 的目标是获得或者逼近原始指令的运行速度。目前�
 
 使用 Rust 来编译成 WebAssembly 是一种不错的选择。由于语言设计者一开始就没有为 Rust 设计垃圾自动回收机制，也就不用为了编译成 WebAssembly 做额外的工作。Web 开发者还发现一些在 C 和 C++ 没有的优点：
 
-*   Rust 库更加容易构建、容易共享、打包简单和容易提取公共部分，而且自成文档。Rust 有诸如 `rustup`， `cargo` 和 [crates.io](https://crates.io/) 的完整生态系统。这是 C 和 C++ 所不能比拟的。
+*   Rust 库更加容易构建、容易共享、打包简单和容易提取公共部分，而且自成文档。Rust 有诸如 `rustup`，`cargo` 和 [crates.io](https://crates.io/) 的完整生态系统。这是 C 和 C++ 所不能比拟的。
 *   内存安全方面。在 `迭代算法` 中不断产生内存碎片。Rust 则可以在编译时就避免大部分类似的性能陷阱。
 
 ## Rust 对映射集的解析和查找
 
 当我们决定把 source-map 中使用频率最高的解析和查找功能进行重构，就需要考虑到 JavaScript 和 WebAssembly 的运行边界问题。如果出现了 JavaScript 即时编译和 WebAssembly 相互穿插运行可能会影响彼此原来的执行效率。关于这个问题可以回忆一下前面我们讨论过的在 C++ 代码中调用 JavaScript 代码的例子<sup><a href="#note2">[2]</a></sup>。所以确定好边界来最小化两个不同语言相互穿插执行的次数显得尤为重要。
 
-在 VLQ 编码函数中供选择的 JavaScript 和 WebAssembly 的运行边界其实很少。VLQ 编码函数对 `“映射集”` 字符串的每一次 Mapping 时需要被引用 1 ~ 4 次，在整个解析过程不得不在 JavaScript 和 WebAssembly 的边界来回切換很多次。
+在 VLQ 编码函数中供选择的 JavaScript 和 WebAssembly 的运行边界其实很少。VLQ 编码函数对 `“映射集”` 字符串的每一次 Mapping 时需要被引用 1~4 次，在整个解析过程不得不在 JavaScript 和 WebAssembly 的边界来回切換很多次。
 
 因此，我们决定只用 Rust/WebAssembly 解析整个 `“映射集”` 字符串，然后把解析结果保留在内存中，WebAssembly 堆就可以直接查找到解析后的数据。这意味着我们不用把数据从 WebAssembly 堆中复制出来，也就不需要频繁的在 JavaScript 和 WebAssembly 边界来回切换了。除此之外，每次的查找只需要切换一次边界，每执行一次 Mapping 只不过是在解析结果中多查找一次。每次查找只产生一个结果，而这样的操作次数屈指可数。
 
-通过这两个单元化测试，我们确信利用 Rust 语言来实现是正确的。 一个是 `source-map` 工具库已有的单元测试，另一个是 [`快速查找` 性能的单元测试](https://github.com/fitzgen/source-map-mappings/blob/97ba6fb4163f6edfa45f6a3c9e86914ec5ef02a2/tests/quickcheck.rs) 。这个测试的是通过解析随机输入 `“映射集”` 字符串，判断执行结果的多个性能指标。
+通过这两个单元化测试，我们确信利用 Rust 语言来实现是正确的。一个是 `source-map` 工具库已有的单元测试，另一个是 [`快速查找`性能的单元测试](https://github.com/fitzgen/source-map-mappings/blob/97ba6fb4163f6edfa45f6a3c9e86914ec5ef02a2/tests/quickcheck.rs)。这个测试的是通过解析随机输入 `“映射集”` 字符串，判断执行结果的多个性能指标。
 
 [我们基于 Rust 实现 crates.io，利用 crates.io 的 api 作为 Mapping 函数对 `“映射集”` 进行解析和查找。](https://crates.io/crates/source-map-mappings)
 
@@ -167,7 +167,7 @@ WebAssembly 的目标是获得或者逼近原始指令的运行速度。目前�
 
 `decode64` 函数解码结果是一个 base 64 数值。它使用匹配模式和可读性良好的 `Result` —— 处理错误。
 
-`Result<T, E>` 函数运行得到一个类型为 `T`，值为 `V` 就返回 `Ok(v)`；运行得到一个类型为 `E`，值为 `error` 就返回 `Err(error)` 来提供报错细节。`decode64` 函数运行得到一个类型为 `Result<u8, Error>` 的返回值，如果成功，值为 `u8`，如果失败，值为 `vlq::Error`:
+`Result<T, E>` 函数运行得到一个类型为 `T`，值为 `V` 就返回 `Ok(v)`；运行得到一个类型为 `E`，值为 `error` 就返回 `Err(error)` 来提供报错细节。`decode64` 函数运行得到一个类型为 `Result<u8, Error>` 的返回值，如果成功，值为 `u8`，如果失败，值为 `vlq::Error`：
 
     fn decode64(input: u8) -> Result<u8, Error> {
         match input {
@@ -181,7 +181,7 @@ WebAssembly 的目标是获得或者逼近原始指令的运行速度。目前�
     }
     
 
-通过 `decode64` 函数，我们可以对 VLQ 值进行解码。 `decode` 函数将可变引用作为输入字节的迭代器，消耗需要解码的 VLQ，最后返回 `Result` 函数作为解码结果。 
+通过 `decode64` 函数，我们可以对 VLQ 值进行解码。`decode` 函数将可变引用作为输入字节的迭代器，消耗需要解码的 VLQ，最后返回 `Result` 函数作为解码结果。 
 
     pub fn decode<B>(input: &mut B) -> Result<i64>
     where
@@ -231,7 +231,7 @@ WebAssembly 的目标是获得或者逼近原始指令的运行速度。目前�
     }
     
 
-然后我们定义一个辅助函数用来读取 VLQ 数据并把它添加到前一个值中。这个函数没法用 JavaScript 类比了，每读取一段 VLQ 数据就要运行这个函数一遍。 Rust 可以控制参数在内存中以怎样的形式存储，JavaScript 则没有这个功能。虽然我们可以用一组数字属性引用 `对象` 或者把数字变量通过闭包保存下来，但是依然模拟不了 Rust 在引用一组数组属性的时候做到零花销。JavaScript 只要运行时就一定会有相关的时间花销。
+然后我们定义一个辅助函数用来读取 VLQ 数据并把它添加到前一个值中。这个函数没法用 JavaScript 类比了，每读取一段 VLQ 数据就要运行这个函数一遍。Rust 可以控制参数在内存中以怎样的形式存储，JavaScript 则没有这个功能。虽然我们可以用一组数字属性引用 `Object` 或者把数字变量通过闭包保存下来，但是依然模拟不了 Rust 在引用一组数组属性的时候做到零花销。JavaScript 只要运行时就一定会有相关的时间花销。
 
     #[inline]
     fn read_relative_vlq<B>(
@@ -336,7 +336,7 @@ WebAssembly 的对外函数接口（foreign function interface，简称 FFI）�
 
 ### 从 Rust 暴露 WebAssembly 的应用编程接口
 
-所有的暴露出去的 WebAssembly APIs 都被封装在一个 “小胶箱” 里。这样的分离很有用，它允许我们用测试环境来执行 `source-map-mappings`。如果你想编译成纯的 WebAssembly 代码也可以，只需要把编译环境修改成 WebAssembly 。
+所有的暴露出去的 WebAssembly APIs 都被封装在一个 “小胶箱” 里。这样的分离很有用，它允许我们用测试环境来执行 `source-map-mappings`。如果你想编译成纯的 WebAssembly 代码也可以，只需要把编译环境修改成 WebAssembly。
 
 另外，受限于 FFI 的传值要求，那么输出的函数必须满足一下两点：
 
@@ -461,9 +461,9 @@ pub extern "C" fn parse_mappings(mappings: *mut u8) -> *mut Mappings {
 }
 ```
 
-当我们进行查找时，我们需要找一个方法来转换结果，才能传给 FFI 使用。查找结果可能是一个 `映射` 或者集合组成的 `映射`，`映射` 不能直接给 FFI 使用，除非我们进行封装。 我们肯定不希望对 `映射` 进行封装，因为之后我们还可能需要从原来的结构中获取内容，那时我们还要费时费力的分配内存和间接取值。我们的方法是调用一个引导进来的函数处理每一个 `映射`。
+当我们进行查找时，我们需要找一个方法来转换结果，才能传给 FFI 使用。查找结果可能是一个 `映射` 或者集合组成的 `映射`，`映射` 不能直接给 FFI 使用，除非我们进行封装。我们肯定不希望对 `映射` 进行封装，因为之后我们还可能需要从原来的结构中获取内容，那时我们还要费时费力的分配内存和间接取值。我们的方法是调用一个引导进来的函数处理每一个 `映射`。
 
-`mappings_callback` 就是一个 `外部` 函数，它不是本地定义的函数，而是在 WebAssembly 模块实例化的时候由 JavaScript 引导进来。`mappings_callback` 将 `映射` 分解成不同的部分：每个文件都是被展平后的 `映射`，被转换后可以作为参数传递给 FFI 使用。 `可选项<T>` 我们加入一个 `bool` 参数控制不同的转换结果，由 `可选项<T>` 是 `Some` 还是 `None` 决定参数 `T` 是合法值还是无用值：
+`mappings_callback` 就是一个 `外部` 函数，它不是本地定义的函数，而是在 WebAssembly 模块实例化的时候由 JavaScript 引导进来。`mappings_callback` 将 `映射` 分解成不同的部分：每个文件都是被展平后的 `映射`，被转换后可以作为参数传递给 FFI 使用。`可选项 <T>` 我们加入一个 `bool` 参数控制不同的转换结果，由 `可选项 <T>` 是 `Some` 还是 `None` 决定参数 `T` 是合法值还是无用值：
 
 ```
 extern "C" {
@@ -624,7 +624,7 @@ $ rustup target add wasm32-unknown-unknown
 $ cargo build --release --target wasm32-unknown-unknown
 ```
 
-`.wasm` 后缀的编译文件保存在 `target/wasm32-unknown-unknown/release/source_map_mappings_wasm_api.wasm`.
+`.wasm` 后缀的编译文件保存在 `target/wasm32-unknown-unknown/release/source_map_mappings_wasm_api.wasm`。
 
 尽管我们已经有一个可以运行的 `.wasm` 文件，工作还没完成：这个 `.wasm` 文件体积仍然太大了。生产环境的 `.wasm` 文件体积越小越好，我们通过以下工具一步步压缩它：
 
@@ -634,7 +634,7 @@ $ cargo build --release --target wasm32-unknown-unknown
 
 *   [`wasm-opt`](https://github.com/WebAssembly/binaryen)，用 `binaryen` 优化 `.wasm` 文件，压缩文件体积并提高运行时的性能。实际上，随着后端底层虚拟机越来越成熟，这步操作变得可有可无。
 
-我们的 [生产流程配置](https://github.com/fitzgen/source-map-mappings/blob/e76dac2cd16fda8bcd49b35c234fccc42b754bae/source-map-mappings-wasm-api/build.py) 是 `wasm-gc` → `wasm-snip` → `wasm-gc` → `wasm-opt`.
+我们的 [生产流程配置](https://github.com/fitzgen/source-map-mappings/blob/e76dac2cd16fda8bcd49b35c234fccc42b754bae/source-map-mappings-wasm-api/build.py) 是 `wasm-gc` → `wasm-snip` → `wasm-gc` → `wasm-opt`。
 
 ### 在 JavaScript 使用 WebAssembly APIs
 
@@ -646,7 +646,7 @@ $ cargo build --release --target wasm32-unknown-unknown
 
 不同的环境使用不同的方式将 `.wasm` 文件加载为 `ArrayBuffer` 字节，才能在 JavaScript 运行时进行编译使用。在网页和火狐浏览器里可以用标准化的 `fetch` API 建立 HTTP 请求来加载 `.wasm` 文件。它是一个工具库，负责将 URL 指向需要从网络加载的 `.wasm` 文件，加载完成后才能进行任何的 source-map 解析。当使用 Node.js 把工具库换成 `fs.readFile` API 从硬盘中读取 `.wasm` 文件。在这个脚本中，在进行任何 source-map 解析之前不需要执行初始化。我们只负责提供一个统一的接口，基于什么环境、用什么的工具库才能正确的加载 `.wasm` 文件，各位自己去撸代码吧。
 
-当编译和实例化 WebAssembly 模块时，我们必须提供 `mapping_callback`。 这个回调函数不能在实例化 WebAssembly 模块的生命周期外进行回调，但是可以根据我们将要执行的查找工作和不同的映射结果对返回结果进行一些调整。所以实际上 `mapping_callback` 只提供对分离后的映射成员进行对象结构化，然后把结果用一个闭包函数包裹起来后返回给你，你随意进行查找操作。
+当编译和实例化 WebAssembly 模块时，我们必须提供 `mapping_callback`。这个回调函数不能在实例化 WebAssembly 模块的生命周期外进行回调，但是可以根据我们将要执行的查找工作和不同的映射结果对返回结果进行一些调整。所以实际上 `mapping_callback` 只提供对分离后的映射成员进行对象结构化，然后把结果用一个闭包函数包裹起来后返回给你，你随意进行查找操作。
 
 ```
 let currentCallback = null;
@@ -853,7 +853,7 @@ BasicSourceMapConsumer.prototype.destroy = function () {
 
 WebAssembly 的实现在浏览器中的执行性能要全面优于 JavaScript 的实现。对于 Scala.JS source map，使用 WebAssembly 实现的版本运行时间在 Chrome 浏览器只有原来的 0.65x、在 Firefox 浏览器只有原来的 0.30x、在 Safari 浏览器只有原来的 0.37x。使用 WebAssembly 实现，运行时间最短的是 Safari 浏览器，平均只需要 702 ms，紧跟着的是 Firefox 浏览器需要 877 ms，最后是 Chrome 浏览器需要 1140 ms。
 
-此外，[相对误差值](https://en.wikipedia.org/wiki/Coefficient_of_variation) ，WebAssembly 实现要远远小于 JavaScript 实现的版本，尤其是在 Firefox 浏览器中。以 Scala.JS source map 的 JavaScript 实现的版本为例，Chrome 浏览器相对误差值是 ±4.07%，Firefox 浏览器是 ±10.52%，Safari 浏览器是 ±6.02%。WebAssembly 实现的版本中，Chrome 浏览器的相对误差值缩小到 ±1.74%，在 Firefox 浏览器 ±2.44%，在 Safari 浏览器 ±1.58%。
+此外，[相对误差值](https://en.wikipedia.org/wiki/Coefficient_of_variation)，WebAssembly 实现要远远小于 JavaScript 实现的版本，尤其是在 Firefox 浏览器中。以 Scala.JS source map 的 JavaScript 实现的版本为例，Chrome 浏览器相对误差值是 ±4.07%，Firefox 浏览器是 ±10.52%，Safari 浏览器是 ±6.02%。WebAssembly 实现的版本中，Chrome 浏览器的相对误差值缩小到 ±1.74%，在 Firefox 浏览器 ±2.44%，在 Safari 浏览器 ±1.58%。
 
 ### 在异常的位置暂停
 
