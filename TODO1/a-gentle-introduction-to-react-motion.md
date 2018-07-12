@@ -3,17 +3,17 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/a-gentle-introduction-to-react-motion.md](https://github.com/xitu/gold-miner/blob/master/TODO1/a-gentle-introduction-to-react-motion.md)
 > * 译者：[doctype233](https://github.com/doctype233)
-> * 校对者：
+> * 校对者：[Gavin-Gong](https://github.com/Gavin-Gong)
 
 # 关于 React Motion 的简要介绍
 
-React 很棒，在过去的几周里，我用它玩得很开心，所以我决定尝试一下[React Motion](https://github.com/chenglou/react-motion)。一开始 API 就让我感到有困惑和棘手，但是最终一切开始变得有意义，不过这需要时间。遗憾的是，我在网上找不到合适的 React Motion 教程，所以我决定把这篇文章写出来，不仅是作为一个开发者们的资源，也能给我自己作参考。
+React 很棒，在过去的几周里，我用它玩得很开心，所以我决定尝试一下 [React Motion](https://github.com/chenglou/react-motion)。一开始 API 就让我感到有困惑和棘手，但是最终一切开始变得有意义，不过这需要时间。遗憾的是，我在网上找不到合适的 React Motion 教程，所以我决定把这篇文章写出来，不仅是作为一个开发者们的资源，也能给我自己作参考。
 
-React Motion 对外暴露三个主要的组件：Motion, StaggeredMotion 和 TransitionMotion。在本教程中，我们将一起看一看 Motion 组件，之后你会发现将在这一部分花费大量时间。
+React Motion 对外暴露三个主要的组件：Motion，StaggeredMotion 和 TransitionMotion。在本教程中，我们将一起看一看 Motion 组件，之后你会发现将在这一部分花费大量时间。
 
 由于这是一个 React Motion 教程，所以我将假设你有点熟悉 React 以及 ES2015。
 
-我们将在使用 React Motion 重新创建 [一个 Framerjs 的例子](http://framerjs.com/examples/preview/#new-tweet.framer) 时探索 API。你可以在这找到代码的最终版本  [在这](https://github.com/nashvail/ReactPathMenu/)。
+我们将在使用 React Motion 重新创建[一个 Framerjs 的例子](http://framerjs.com/examples/preview/#new-tweet.framer)时探索 API。你可以在这找到代码的最终版本[在这](https://github.com/nashvail/ReactPathMenu/)。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*kyWa60lJ2P1nGrQOSFwDag.gif)
 
@@ -21,31 +21,31 @@ React Motion 对外暴露三个主要的组件：Motion, StaggeredMotion 和 Tra
 
 我们首先要研究一点数学问题，但是不要担心，我会尽可能详细地解释每一个步骤。你可以直接跳过这一部分到 React.start(); 部分。
 
-准备好了吗? 那就开始吧...
+准备好了吗？那就开始吧...
 
 ### Math.start();
 
-我们可以把蓝色的大按钮称为——主按钮, 从蓝色按钮上飞出的按钮称为——子按钮。
+我们可以把蓝色的大按钮称为——主按钮，从蓝色按钮上飞出的按钮称为——子按钮。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*qllWMqjzSS-WNxJicsTg7A.png)
 
 Fig. 1
 
-子按钮拥有两种位置状态， 1) 子按钮均隐藏在主按钮后面的位置， 2) 子按钮在主按钮周围排列成一个圆圈的位置。
+子按钮拥有两种位置状态，1) 子按钮均隐藏在主按钮后面的位置，2) 子按钮在主按钮周围排列成一个圆圈的位置。
 
 这里就出现了数学问题，我们必须想出一种方法，在一个完美的圆中均匀地排列主按钮周围的子按钮。你可以通过试错法将这些值通过代码写死，但认真的说，谁会这么做呢？另外，一旦你找到正确的数学方法，只要你愿意你可以摆放任意多的子按钮，而他们都会自动排列自己。
 
 首先让我们了解几个术语。
 
-#### M_X, M_Y
+#### M_X，M_Y
 
 ![](https://cdn-images-1.medium.com/max/1200/1*QILlqlCX5YemXpc2L301Ig.png)
 
 Fig. 2
 
-M_X, M_Y 分别表示以主按钮为中心的 X 和 Y 坐标。(M_X, M_Y) 这个点将用作计算每个子按钮的距离和方向的参考。
+M_X, M_Y 分别表示以主按钮为中心的 X 和 Y 坐标。（M_X, M_Y）这个点将用作计算每个子按钮的距离和方向的参考。
 
-每个子按钮最初都隐藏在主按钮中心的后面，中心坐标为 M_X, M_Y。
+每个子按钮最初都隐藏在主按钮中心的后面，中心坐标为 M_X，M_Y。
 
 #### 分离角、扇形角、飞出半径
 
@@ -55,11 +55,11 @@ Fig. 3
 
 飞出半径为子按钮飞出后距离主按钮的距离，其他两个词语的释义看起来不言自明。
 
-还需要注意一个地方,
+还需要注意一个地方，
 
-> 扇形角 = (子按钮数-1) * 分离角
+> 扇形角 = （子按钮数-1） * 分离角
 
-现在，我们需要设计一个函数，该函数接收子按钮 (0, 1, 2, 3 …) 的索引，并返回子按钮的新位置的 x 和 y 的坐标。
+现在，我们需要设计一个函数，该函数接收子按钮（0, 1, 2, 3 …）的索引，并返回子按钮的新位置的 x 和 y 的坐标。
 
 #### 基准角、索引
 
@@ -69,11 +69,11 @@ Fig. 4
 
 由于通常来说三角学中的角度是从 x 轴的正方向测量的，我们将从相反的方向（右到左）开始给我们的子按钮编号。这样，以后我们就不必在每次需要子按钮的最后位置时乘以负一。
 
-当我们看到它时，请注意 (参见 Fig. 3)
+当我们看到它时，请注意（参见 Fig. 3）
 
-> 基准角 = (180 — 扇形角)/2
+> 基准角 = （180 — 扇形角）/2
 
-(一定程度上).
+（一定程度上）。
 
 #### 角
 
@@ -83,9 +83,9 @@ Fig. 5
 
 每个子按钮都有它自己的角度，我称之为角。这个角是计算子按钮最终位置所需的最后一条信息。
 
-请注意, (参见 Fig. 3, Fig. 4)
+请注意，（参见 Fig. 3, Fig. 4）
 
-> 索引为 i 的子按钮的角度 = 基准角 + ( i * 分离角)
+> 索引为 i 的子按钮的角度 = 基准角 + （i * 分离角）
 
 现在，一旦我们有了每个子按钮的角，
 
@@ -93,21 +93,21 @@ Fig. 5
 
 Fig. 6
 
-我们就能够为每个子按钮计算 _增量X_ and _增量Y_。
+我们就能够为每个子按钮计算 **增量 X** 和**增量 Y**。
 
-请注意 (参见 Fig. 2),
+请注意（参见 Fig. 2），
 
-> 子按钮的最终 X 轴坐标 = M_X + 增量X
+> 子按钮的最终 X 轴坐标 = M_X + 增量 X
 
-> 子按钮的最终 Y 轴坐标 = M_Y - 增量Y
+> 子按钮的最终 Y 轴坐标 = M_Y - 增量 Y
 
-(我们从 M_Y 中减去增量X，因为不同于原点在左下角的一般坐标系，浏览器的原点在左上角，所以为了方便移动，你可以降低他们 y 轴坐标的值。)
+（我们从 M_Y 中减去增量X，因为不同于原点在左下角的一般坐标系，浏览器的原点在左上角，所以为了方便移动，你可以降低他们 y 轴坐标的值。）
 
-所以，这些就是我们所需要的数学方法，现在我们有两样东西：每个子按钮的初始位置 (M\_X, M\_Y) 和子按钮的最终位置，剩下的魔发就交由 React 来完成吧！
+所以，这些就是我们所需要的数学方法，现在我们有两样东西：每个子按钮的初始位置（M\_X，M\_Y）和子按钮的最终位置，剩下的魔发就交由 React 来完成吧！
 
 ### React.start();
 
-在下面的关键代码中，你将会看到发生什么，点击主按钮，我们将 isOpen 的状态变量设置为 true （第85行）。一旦 isOpen 为 true，就会传递不同的子按钮的样式（第97行，第66行，第75行）。
+在下面的关键代码中，你将会看到发生什么，点击主按钮，我们将 isOpen 的状态变量设置为 true（第85行）。一旦 isOpen 为 true，就会传递不同的子按钮的样式（第 97 行，第 66 行，第 75 行）。
 
 结果：
 
@@ -119,19 +119,19 @@ Fig. 7
 
 ### React-Motion.start();
 
-<Motion> 获取 [几个参数](https://github.com/chenglou/react-motion#motion-) 每个参数是可选的，但我们不关心这里的可选参数，因为我们没有做任何与这个参数有关的事情。
+<Motion>获取[几个参数](https://github.com/chenglou/react-motion#motion-)每个参数是可选的，但我们不关心这里的可选参数，因为我们没有做任何与这个参数有关的事情。
 
-其中 <Motion> 一个参数是 _style_, _style_ 将作为参数传递到回调函数中，该函数包含内建的 _interpolated values_ ，然后执行它的动画。
+其中 <Motion> 一个参数是 _style_，_style_ 将作为参数传递到回调函数中，该函数包含内建的 _interpolated values_ ，然后执行它的动画。
 
-(第8行 : 因为正在React中执行迭代，所以需要将一个 key 参数传递给子组件。)
+（第 8 行：因为正在React中执行迭代，所以需要将一个 key 参数传递给子组件。）
 
 就像这样，
 
 即使在这样做以后，结果也不会与图 Fig. 7 有所不同，为什么这么说？好吧，我们还需要最后一步，_spring._。
 
-正如前面提到的, 回调函数包含内建的值，也就是说， _spring_ 帮助函数内建的值插入样式值。
+正如前面提到的，回调函数包含内建的值，也就是说，_spring_ 帮助函数内建的值插入样式值。
 
-我们需要修改 initialChildButtonStyles 和 the finalChildButtonStyles 并注意 _top_ 和 _left_ 被  _spring_ 覆盖的值。这些是仅有的改变，现在，
+我们需要修改 initialChildButtonStyles 和 the finalChildButtonStyles 并注意 _top_ 和 _left_ 被 _spring_ 覆盖的值。这些是仅有的改变，现在，
 
 ![](https://cdn-images-1.medium.com/max/1600/1*vJVGoGiTF0_WWOjF4nX5yw.gif)
 
@@ -191,7 +191,7 @@ NUM_CHILDREN = 3
 
 NUM_CHILDREN = 8
 
-相当酷对吗? 再说一遍，你可以在 [在这](https://github.com/nashvail/ReactPathMenu/blob/staggered-motion/Components/APP.js)找到相应代码。如果你觉得这篇文章有帮助，请点击下面的推荐按钮。
+相当酷对吗？再说一遍，你可以在[在这](https://github.com/nashvail/ReactPathMenu/blob/staggered-motion/Components/APP.js)找到相应代码。如果你觉得这篇文章有帮助，请点击下面的推荐按钮。
 
 如果有一些问题、评论、建议或仅仅是想聊个天？可以在 Twitter 上找到我 [@NashVail](http://twitter.com/NashVail) 或者给我发电子邮件 [hello@nashvail.me](mailto:hello@nashvail.me)。
 
