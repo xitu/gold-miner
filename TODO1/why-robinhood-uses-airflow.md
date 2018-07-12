@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/why-robinhood-uses-airflow.md](https://github.com/xitu/gold-miner/blob/master/TODO1/why-robinhood-uses-airflow.md)
 > * 译者：[cf020031308](https://github.com/cf020031308)
-> * 校对者：
+> * 校对者：[yqian1991](https://github.com/yqian1991)
 
 # Robinhood 为什么使用 Airflow
 
@@ -44,8 +44,8 @@ Airflow 使用[操作符](https://airflow.incubator.apache.org/concepts.html#ope
 ![](https://cdn-images-1.medium.com/max/800/1*CcxrRbffqn45YwGglCyexw.png)
 
 ```
-| 传感器 -> 转移 -|> 动作 -|> 转移 -> 传感器 |
-|      提取       |  转换  |      加载       |
+| 传感器 -> 转移 -> | 动作 | -> 转移 -> 传感器 |
+|      提取        |  转换 |      加载       |
 ```
 
 使用不同类型的 Airflow 操作符的 ETL 工作流程
@@ -65,16 +65,6 @@ Airflow DAG 是使用 Python 代码定义的。这使我们能够定义比 cron 
 我们还使用 Airflow 传感器在市场收盘后立即开始作业，即使当天只有半天开盘。以下示例通过为需要复杂的调度的工作流自定义操作符，来在给定日期根据市场时间动态更新。
 
 ![](https://cdn-images-1.medium.com/max/800/1*avVioxXl1jTrnC0rj0oEYA.png)
-
-```
-   今天交易吗？  +-- 当日休市传感器 -- Django 命令操作符
-                 |
-                 |
-市场分支操作符 --+
-                 |
-                 |
-   今天休市吗？  +-- Django 命令操作符
-```
 
 在给定日期根据市场时间动态调度的工作流
 
