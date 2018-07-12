@@ -9,11 +9,11 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*4877k4Hq9dPdtmvg9hnGFA.jpeg)
 
-截止到现在已经有非·常·多静态站点生成器了。
+截止到现在已经有非常多静态站点生成器了。
 
 即使我们已经做了 15+（还在增加）个[演示和教程](https://snipcart.com/blog/categories/jamstack)，也无法覆盖所有静态站点生成器。
 
-我难以理解 [JAMstack](https://jamstack.org/) 和静态页面生态系统的开发人员的感受……
+我难以理解 [JAMstack](https://jamstack.org/) 和静态页面生态系统的开发人员的感受…
 
 ![](https://cdn-images-1.medium.com/max/800/0*YikT2JWUObtnzO0d.gif)
 
@@ -41,7 +41,7 @@
 
 过去几年中出现的现代的静态站点生成器，扩展了静态站点的功能。
 
-简而言之，静态站点生成器会获取您的站点内容，将其应用于模板，并生成纯静态HTML文件，以便传递给访问者。
+简而言之，静态站点生成器会获取您的站点内容，将其应用于模板，并生成纯静态 HTML 文件，以便传递给访问者。
 
 ![](https://cdn-images-1.medium.com/max/800/0*xztT5nlj6UvKWHU-.png)
 
@@ -71,7 +71,7 @@ SSG 对技术要求可能会稍高，但自由度同样也高。他们中的大�
 
 **内容管理和管理任务**对于没有技术背景的用户来说可能并不简单。但好消息是，现在有大量的 headless CMS（无头 CMS） 可以[完善](https://snipcart.com/blog/headless-ecommerce-guide)你的 SSG。headless 和传统 CMS 之间的区别在于，您只能将前者用于“内容管理”任务，而不是模板和前端内容生成。你总会发现一个适合你的需求。
 
-一些静态站点 CMS 直接支持SSG。例如，Jekyll 和 Hugo 的 [Forestry](https://forestry.io/#/) 或者普遍适用的[DatoCMS](https://www.datocms.com/)。
+一些静态站点 CMS 直接支持SSG。例如，Jekyll 和 Hugo 的 [Forestry](https://forestry.io/#/) 或者普遍适用的 [DatoCMS](https://www.datocms.com/)。
 
 如果你需要一些**动态的特性**，也有很多很棒的服务可供选择：
 
@@ -148,16 +148,16 @@ Gatsby 应用广泛，对于需要利用来自多个来源的数据的站点而�
 
 一个易于设置，用户友好的 SSG，部署运行网站不需要太多配置。
 
-Hugo 以其构建速度而闻名，而其[数据驱动内容](https://gohugo.io/templates/data-templates/)的特性可以轻松地基于 JSON / CSV 源生成HTML。你通过很少的代码就能使用预先构建的模板快速设置SEO，评论，分析和其他功能。
+Hugo 以其构建速度而闻名，而其[数据驱动内容](https://gohugo.io/templates/data-templates/)的特性可以轻松地基于 JSON/CSV 源生成HTML。你通过很少的代码就能使用预先构建的模板快速设置 SEO，评论，分析和其他功能。
 
 此外，Hugo 为多语言网站提供全面的 i18n 支持，受众面大大增加。这对于想要本地化的电商网站特别有用。
 
-最近，他们[发布](https://gohugo.io/news/0.42-relnotes/) 了一种先进的主题功能，这可以让你使用可重用组件构建 Hugo 站点。
+最近，他们[发布](https://gohugo.io/news/0.42-relnotes/)了一种先进的主题功能，这可以让你使用可重用组件构建 Hugo 站点。
 
 → Hugo 教程：
 
 *   [搭建高速静态电商网站](https://snipcart.com/blog/hugo-tutorial-static-site-ecommerce)
-* [Hugo的静态电子商务与Forestry.io中的产品管理]（https://forestry.io/blog/snipcart-brings-ecommerce-static-site/#/）
+*   [Hugo 的静态电子商务与 Forestry.io 中的产品管理](https://forestry.io/blog/snipcart-brings-ecommerce-static-site/#/)
 *   [Forestry.io & Hugo 静态电商网站](https://forestry.io/blog/snipcart-brings-ecommerce-static-site/#/)
 *   [6 种简易工具给你优秀，快速的静态电商体验](https://www.netlify.com/blog/2015/08/25/a-great-fast-static-e-commerce-experience-with-6-easy-tools/)
 
@@ -190,7 +190,7 @@ JavaScript 现在无处不在，React 是现在最流行的 JS 前端框架，�
 
 由于 Nuxt 是 Vue 框架，因此强烈建议你先了解 Vue，当然之前使用 Vue 的开发者会感到宾至如归。随着 Vue.js 的迅速崛起，[我们也用 Vue 重构了项目](https://snipcart.com/blog/progressive-migration-backbone-vuejs-refactoring)，所以最后当然要推荐一下它啦。
 
-> **如果你是 Vue.js 用户，你也可以了解一下[**VuePress**](https://vuepress.vuejs.org/)**
+> **如果你是 Vue.js 用户，你也可以了解一下[**VuePress**](https://vuepress.vuejs.org/)**。
 
 → Nuxt 教程：
 
@@ -210,7 +210,7 @@ JavaScript 现在无处不在，React 是现在最流行的 JS 前端框架，�
 这里有两个流派：
 
 1. 选择一个提供大量开箱即用的功能的静态站点生成器。不需要大量的插件或自己构建一切。如果你是这样想的，**Hugo** 提供了大量内置功能，其次 **Gatsby** 也挺适合于这个情况。
-2. 选择功能较少的 SSG，但提供广泛的插件生态系统，并且允许你根据需要扩展和自定义设置。这可能是 **Jekyll** 最大的优势之一。它长期以来如此热门，社区也逐渐完善，各种各样的插件也随之而出现。为了进一步推动这一概念， [**Metalsmith**](http://www.metalsmith.io/) 或 [**Spike**](https://spike.js.org/) 将设置交给插件，其具有高度可定制性让其无所不能。要权衡的是，它对技术要求很高，但如果你想学习 SSG 运行的语言，这可能是一线希望！
+2. 选择功能较少的 SSG，但提供广泛的插件生态系统，并且允许你根据需要扩展和自定义设置。这可能是 **Jekyll** 最大的优势之一。它长期以来如此热门，社区也逐渐完善，各种各样的插件也随之而出现。为了进一步推动这一概念，[**Metalsmith**](http://www.metalsmith.io/) 或 [**Spike**](https://spike.js.org/) 将设置交给插件，其具有高度可定制性让其无所不能。要权衡的是，它对技术要求很高，但如果你想学习 SSG 运行的语言，这可能是一线希望！
 
 #### **2. 你在意构建和部署时间吗？**
 
@@ -270,7 +270,7 @@ Jekyll 在这方面就不怎么样了 —— 许多开发人员抱怨它的构�
 
 这种情况应该将有无头 CMS 的 SSG 放在首位。CMS 的选择很重要，找到可以对接的 SSG 同样重要。
 
-**Gatsby** 的新功能，[使用 GraphQL 实现](https://www.gatsbyjs.org/docs/querying-with-graphql/)。这里不解释[ GraphQL 是啥](https://snipcart.com/blog/graphql-nodejs-express-tutorial)，简而言之，它可以实现更快更简洁的数据查询。
+**Gatsby** 的新功能，[使用 GraphQL 实现](https://www.gatsbyjs.org/docs/querying-with-graphql/)。这里不解释 [GraphQL 是啥](https://snipcart.com/blog/graphql-nodejs-express-tutorial)，简而言之，它可以实现更快更简洁的数据查询。
 
 #### **6. 你依赖社区和同行的帮助吗？**
 
