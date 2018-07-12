@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-use-flutter-to-build-an-app-with-bottom-navigation.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-use-flutter-to-build-an-app-with-bottom-navigation.md)
 > * 译者：[geniusq1981](https://github.com/geniusq1981)
-> * 校对者：
+> * 校对者：[DateBro](https://github.com/DateBro)
 
 # 如何用 Flutter 来创建一个带有底部导航栏的应用程序
 
@@ -11,15 +11,11 @@
 
 如果你从事移动开发，你可能听说过谷歌的跨平台 SDK：Flutter。Flutter 的 [beta 版本](https://medium.com/flutter-io/announcing-flutter-beta- build-beautiful-native-apps-dc142aea74c0) 于 2 月 27 日发布，并于近期发布了第一个预览版。为了帮助您开始使用 Flutter，本教程将介绍 SDK 的一些基本内容，同时还将介绍如何设置底部导航栏。为了帮助您学习，本教程的代码可以在 [GitHub](https://github.com/JoeCherry/my_app)上获得。
 
-
 ### 什么是 Flutter?
-
 
 在我们开始编写代码之前，让我们先谈谈什么是 Flutter。Flutter SDK 继承了一套完整的开发框架，包括在 Android 和 iOS 上构建原生移动应用所需的 widget 和工具。与其他诸如 React Native 和 Xamarin 等跨平台框架的区别在于，它不使用平台原生 widget，也不使用 webview。相反，Flutter 有自己的用 C/C++ 编写的渲染引擎，而用来编写 Flutter 应用程序的 Dart 代码在各个平台上都可以编译成底层代码。这就可以在每个平台上都能做出高性能的应用。不仅应用在使用体验上非常快，而且通过 Flutter 的热重载特性也大大加快了开发时间。热重载允许开发人员在他们的设备或模拟器上立即显示修改内容的变化效果，由此可以减少那些浪费在等待代码编译的时间。
 
-
 ### 如何创建一个 Flutter 应用
-
 
 现在我们已经了解了 Flutter 是什么，让我们开始创建我们的应用程序。如果您还没有准备好开发环境，请按照 [Flutter 网站](https://flutter.io/get-started/install/)的步骤安装 Flutter SDK。要创建应用程序，请运行“flutter create my_app”。如果您想让您的应用程序使用 Swift 或 Kotlin 作为平台特定代码，那么您可以从终端或命令行运行“flutter create -i Swift -a Kotlin my_app”。打开你创建的新项目，你可以使用安装了 Dart 插件的 VS Code 或者安装了 Flutter 和 Dart 插件的 Android Studio。如果您需要编辑器安装的相关帮助，请参考 Flutter 的 [帮助文档](https://flutter.io/get-started/editor/#androidsstudio)。
 
@@ -31,8 +27,7 @@
 import 'package:flutter/material.dart';
 ```
 
-这就导入了 Flutter SDK 提供的 Material Design widgets。如果您想查看所有提供的 widget，可以在 [Widget 目录](https://flutter.io/widgets/) 中去查看。
-
+这就导入了 Flutter SDK 提供的 Material Design widgets。如果您想查看所有提供的 widget，可以在 [Widget 目录](https://flutter.io/widgets/) 中查看。
 
 在导入语句之后，我们需要添加 main 方法。
 
@@ -112,7 +107,6 @@ class _HomeState extends State<Home> {
 
 这里有很多内容，我们来逐一看看。在 `_HomeState` 类中，我们实现了 `Home` widget 的 build 方法。我们从 build 方法返回的 widget 叫做 `Scaffold`。这个 widget 有一些很棒的属性，可以帮助我们布置主屏幕，包括添加底部导航栏、滑动条和选项卡。我们现在只使用它的 `appBar` 和 `bottomNavigationBar` 属性。在我们的底部导航栏中，我们返回一个列表，其中列出了我们希望在底部栏中出现的项目。如您所见，我们有三个选项卡，分别是 Home、Message 和 Profile。我们还将当前索引作为属性设置为 0。稍后我们将把它与当前选项卡联系起来。当前索引可以让导航栏知道要将哪个图标用于当前选择的选项卡。
 
-
 此时，我们差不多已经准备好第一次运行 Flutter 应用了，来看看我们的成果。再回到 main.dart 文件，在顶部，我们需要导入新创建的 Home widget。我们可以通过在当前的导入语句下添加下面这个导入语句来实现。
 
 ```
@@ -137,7 +131,6 @@ import 'home_widget.dart';
 ```
 
 第一个是当前所选选项卡的索引，另一个则是选项卡对应的希望渲染的 widget 列表。
-
 
 接下来，我们需要使用这些属性来告诉我们的 widget，当一个新选项卡被选中时需要显示什么。为此，我们需要对 build 方法返回的 scaffold widget 进行一些更改。这是我们新的 build 方法。
 
@@ -171,7 +164,7 @@ import 'home_widget.dart';
  }
 ```
 
-我们的 build 方法中更改的三行用 `// new` 注释了。首先，我们添加了 scaffold 的 body 属性，即在应用程序栏和底部导航栏之间显示的 widget。我们将 body 设置为与 `_children` widget 列表中相相应的 widget。接下来，我们给底部导航栏添加 `onTap` 属性。我们将它设置为一个名为 `ontabtap` 的函数，该函数将接收被选中选项卡的索引并决定如何处理它。我们马上就实现这个函数。最后，我们将底部导航栏的 `currentIndex` 设置为 state 类里面的  `_currentIndex` 属性。
+我们的 build 方法中更改的三行用 `// new` 注释了。首先，我们添加了 scaffold 的 body 属性，即在应用程序栏和底部导航栏之间显示的 widget。我们将 body 设置为与 `_children widget` 列表中相对应的 widget。接下来，我们给底部导航栏添加 `onTap` 属性。我们将它设置为一个名为 `ontabtap` 的函数，该函数将接收被选中选项卡的索引并决定如何处理它。我们马上就实现这个函数。最后，我们将底部导航栏的 `currentIndex` 设置为 state 类里面的  `_currentIndex` 属性。
 
 #### 第四步 处理导航
 
