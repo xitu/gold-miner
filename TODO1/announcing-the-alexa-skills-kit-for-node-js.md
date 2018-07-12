@@ -58,7 +58,7 @@ var handlers = {
 };
 ```
 
-注意上面出现的一个新语法规则 “:tell”? alexa-sdk 遵循 tell/ask 的响应方式来生成你的[语音输出回复对象](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/alexa-skills-kit-interface-reference#Response Format)。如果我们想要问用户问题的话，我们需要把以上代码改成：
+注意上面出现的一个新语法规则 “:tell”? alexa-sdk 遵循 tell/ask 的响应方式来生成你的[语音输出回复对象](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/alexa-skills-kit-interface-reference)。如果我们想要问用户问题的话，我们需要把以上代码改成：
 
 ```
 this.emit(‘:ask’, ’What would you like to do?’, ’Please say that again?’);
@@ -369,7 +369,7 @@ this.attributes[”yourAttribute"] = ’value’;
 [Alexa Skills Kit (ASK)](https://developer.amazon.com/ask)  
 [Alexa 开发者论坛](https://forums.developer.amazon.com/forums/category.jspa?categoryID=48)
 
--Dave ([@TheDaveDev](http://twitter.com/thedavedev))
+- Dave ([@TheDaveDev](http://twitter.com/thedavedev))
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
