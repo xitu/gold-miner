@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/implementing-seam-carving-with-python.md](https://github.com/xitu/gold-miner/blob/master/TODO1/implementing-seam-carving-with-python.md)
 > * 译者：[caoyi0905](https://github.com/caoyi0905)
-> * 校对者：
+> * 校对者：[yqian1991](https://github.com/yqian1991)
 
 # 使用 Python 实现接缝裁剪算法
 
@@ -13,11 +13,11 @@
 
 [照片由 Unsplash 用户 Pietro De Grandi 提供](https://unsplash.com/photos/T7K4aEPoGGk)
 
-变成下面这张:
+变成下面这张：
 
 ![](https://karthikkaranth.me/img/pietro_carved.jpg)
 
-正如你所看到的，图像中的非常重要内容 —— 船只，都保留下来了。该算法去除了一些岩层和水（让船看起来更靠近）。核心算法可以参考 Shai Avidan 和 Ariel Shamir 的原始论文 [Seam Carving for Content-Aware Image Resizing](http://graphics.cs.cmu.edu/courses/15-463/2007_fall/hw/proj2/imret.pdf) 。在这篇文章中，我将展示如何在 Python 中基本实现该算法。
+正如你所看到的，图像中的非常重要内容 —— 船只，都保留下来了。该算法去除了一些岩层和水（让船看起来更靠近）。核心算法可以参考 Shai Avidan 和 Ariel Shamir 的原始论文 [Seam Carving for Content-Aware Image Resizing](http://graphics.cs.cmu.edu/courses/15-463/2007_fall/hw/proj2/imret.pdf)。在这篇文章中，我将展示如何在 Python 中基本实现该算法。
 
 ## 概要
 
@@ -55,7 +55,7 @@ from tqdm import trange
 *   找到 y 轴的偏导数
 *   将他们的绝对值求和
 
-这就是该像素的能量值。那么问题就来了，“你怎么计算图像的导数？”，维基百科上的 [Image derivations（图像导数）](https://en.wikipedia.org/wiki/Image_derivatives) 给我们展示了许多不同的计算图像导数的方法。我们将使用 Sobel 滤波器。这是一个在图像上的每个通道上的计算的[convolutional kernel（卷积核）](http://aishack.in/tutorials/image-convolution-examples/)。以下是图像的两个不同方向的过滤器：
+这就是该像素的能量值。那么问题就来了，“你怎么计算图像的导数？”，维基百科上的 [Image derivations（图像导数）](https://en.wikipedia.org/wiki/Image_derivatives)给我们展示了许多不同的计算图像导数的方法。我们将使用 Sobel 滤波器。这是一个在图像上的每个通道上的计算的[convolutional kernel（卷积核）](http://aishack.in/tutorials/image-convolution-examples/)。以下是图像的两个不同方向的过滤器：
 
 ![](https://karthikkaranth.me/img/sobel.png)
 
@@ -68,7 +68,7 @@ def calc_energy(img):
         [0.0, 0.0, 0.0],
         [-1.0, -2.0, -1.0],
     ])
-    # 将一个2D的滤波器转为3D的滤波器，为每个通道设置相同的滤波器： R，G，B
+    # 将一个 2D 的滤波器转为 3D 的滤波器，为每个通道设置相同的滤波器：R，G，B
     filter_du = np.stack([filter_du] * 3, axis=2)
 
     filter_dv = np.array([
@@ -76,7 +76,7 @@ def calc_energy(img):
         [2.0, 0.0, -2.0],
         [1.0, 0.0, -1.0],
     ])
-    # 将一个2D的滤波器转为3D的滤波器，为每个通道设置相同的滤波器： R，G，B
+    # 将一个 2D 的滤波器转为 3D 的滤波器，为每个通道设置相同的滤波器：R，G，B
     filter_dv = np.stack([filter_dv] * 3, axis=2)
 
     img = img.astype('float32')
@@ -104,7 +104,7 @@ def calc_energy(img):
 
 ![](https://karthikkaranth.me/img/minimize_energy.png)
 
-让我们创建一个名为 `M` 的 2D 数组 来存储每个像素的最小能量值。如果您不熟悉动态规划，这简单来说就是，从图像顶部到该点的所有可能接缝（seam）中的最小能量即为 `M[i,j]` 。因此，M 的最后一行中就将包含从图像顶部到底部的最小能量。我们需要从此回溯以查找此接缝中存在的像素，所以我们将保留这些值，存储在名为`backtrack` 的 2D 数组中。
+让我们创建一个名为 `M` 的 2D 数组 来存储每个像素的最小能量值。如果您不熟悉动态规划，这简单来说就是，从图像顶部到该点的所有可能接缝（seam）中的最小能量即为 `M[i,j]`。因此，M 的最后一行中就将包含从图像顶部到底部的最小能量。我们需要从此回溯以查找此接缝中存在的像素，所以我们将保留这些值，存储在名为`backtrack` 的 2D 数组中。
 
 ```
 def minimum_seam(img):
@@ -172,7 +172,7 @@ def crop_c(img, scale_c):
     r, c, _ = img.shape
     new_c = int(scale_c * c)
 
-    for i in trange(c - new_c): # 如果你不想用tqdm，这里将 trange 改为 range
+    for i in trange(c - new_c): # 如果你不想用 tqdm，这里将 trange 改为 range
         img = carve_column(img)
 
     return img
@@ -196,7 +196,7 @@ if __name__ == '__main__':
     main()
 ```
 
-然后运行这段代码:
+然后运行这段代码：
 
 ```
 python carver.py 0.5 image.jpg cropped.jpg
@@ -206,9 +206,9 @@ cropped.jpg 现在应该显示以下这样的图像:
 
 ![]https://karthikkaranth.me/img/pietro_carved.jpg)
 
-## 行应该怎么处理呢?
+## 行应该怎么处理呢？
 
-然后，我们可以开始研究怎么修改我们的循环来换个方向处理数据。或者......只需旋转图像就可以运行 `crop_c` ！
+然后，我们可以开始研究怎么修改我们的循环来换个方向处理数据。或者...只需旋转图像就可以运行 `crop_c`！
 
 ```
 def crop_r(img, scale_r):
@@ -244,19 +244,19 @@ def main():
     imwrite(out_filename, out)
 ```
 
-运行代码:
+运行代码：
 
 ```
 python carver.py r 0.5 image2.jpg cropped.jpg
 ```
 
-然后我们就可以把这张图:
+然后我们就可以把这张图：
 
 ![](https://karthikkaranth.me/img/brent-cox-455716-unsplash.jpg)
 
 [Photo by Brent Cox on Unsplash](https://unsplash.com/photos/ydGRmobx5jA)
 
-变成这样:
+变成这样：
 
 ![](https://karthikkaranth.me/img/brent_carved.jpg)
 
@@ -287,7 +287,7 @@ def calc_energy(img):
         [0.0, 0.0, 0.0],
         [-1.0, -2.0, -1.0],
     ])
-    # 将一个2D的滤波器转为3D的滤波器，为每个通道设置相同的滤波器： R，G，B
+    # 将一个 2D 的滤波器转为 3D 的滤波器，为每个通道设置相同的滤波器：R，G，B
     filter_du = np.stack([filter_du] * 3, axis=2)
 
     filter_dv = np.array([
@@ -295,7 +295,7 @@ def calc_energy(img):
         [2.0, 0.0, -2.0],
         [1.0, 0.0, -1.0],
     ])
-    # 将一个2D的滤波器转为3D的滤波器，为每个通道设置相同的滤波器： R，G，B
+    # 将一个 2D 的滤波器转为 3D 的滤波器，为每个通道设置相同的滤波器：R，G，B
     filter_dv = np.stack([filter_dv] * 3, axis=2)
 
     img = img.astype('float32')
@@ -387,7 +387,7 @@ if __name__ == '__main__':
 
 * * *
 
-**修改于(2018年5月5日):** 正如一个[热心的 reddit 用户](https://www.reddit.com/r/Python/comments/8mpjw4/implementing_seam_carving_with_python/dzpouv4/) 所说，通过使用 [numba](https://numba.pydata.org/) 来加速计算繁重的功能，可以很容易的得到几十倍的性能提升。要想体验 numba，只要在函数 `carve_column` 和 `minimum_seam` 之前加上 `@numba.jit`。就像下面这样：
+**修改于（2018 年 5 月 5 日）：** 正如一个[热心的 reddit 用户](https://www.reddit.com/r/Python/comments/8mpjw4/implementing_seam_carving_with_python/dzpouv4/)所说，通过使用 [numba](https://numba.pydata.org/) 来加速计算繁重的功能，可以很容易的得到几十倍的性能提升。要想体验 numba，只要在函数 `carve_column` 和 `minimum_seam` 之前加上 `@numba.jit`。就像下面这样：
 
 ```
 @numba.jit
