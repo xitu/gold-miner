@@ -7,22 +7,22 @@
 
 # 基于 Node.js 的 Alexa Skills Kit 发布了！
 
-我们今天很高兴地宣布，一个新的基于 Node.js ，旨在帮助开发者们更加简单和快捷地开发 Alexa skill 的 [alexa-sdk](https://github.com/alexa/alexa-skill-sdk-for-nodejs) 发布了。通过 [Alexa Skills Kit](http://developer.amazon.com/ask)、 [Node.js](https://nodejs.org/en/)，和 [AWS Lambda](https://aws.amazon.com/lambda/) 开发 Alexa skill 如今已成为最受欢迎的 skill 开发方式。Node.js 事件驱动，非阻塞的特性，使它非常适合开发 Alexa skill，并且 Node.js 也是世界上最大开源系统之一。除此之外，为每个月前一百万个网络请求提供免费服务的亚马逊网络服务系统 (AWS) Lambda，能够支持大部分开发者从事 skill 的开发。在使用 AWS Lambda 的同时，你不需要担心管理任何 SSL 证书的问题 (因为 Alexa Skills Kit 是被 AWS 信任的触发器)。
+我们今天很高兴地宣布，一个新的基于 Node.js，旨在帮助开发者们更加简单和快捷地开发 Alexa skill 的 [alexa-sdk](https://github.com/alexa/alexa-skill-sdk-for-nodejs) 发布了。通过 [Alexa Skills Kit](http://developer.amazon.com/ask)、[Node.js](https://nodejs.org/en/)，和 [AWS Lambda](https://aws.amazon.com/lambda/) 开发 Alexa skill 如今已成为最受欢迎的 skill 开发方式。Node.js 事件驱动，非阻塞的特性，使它非常适合开发 Alexa skill，并且 Node.js 也是世界上最大开源系统之一。除此之外，为每个月前一百万个网络请求提供免费服务的亚马逊网络服务系统（AWS）Lambda，能够支持大部分开发者从事 skill 的开发。在使用 AWS Lambda 的同时，你不需要担心管理任何 SSL 证书的问题（因为 Alexa Skills Kit 是被 AWS 信任的触发器）。
 
-在使用 AWS Lambda 创建 Alexa skill 的时候，加入 Node.js 和 Alexa Skills Kit 只是一个简单的流程，但你实际上所需要写的代码要比这复杂得多。我们已经意识到大部分开发 skill 会话 (session) 的属性、skill 的状态持久化，创建回复以及行为模式上面。因此，Alexa 团队着手于开发一个基于 Node.js 的 Alexa Skills Kit SDK 来帮助你避免这些常见的烦恼，从而专注于你的 skill 自身的逻辑开发而不是样板化编码。 
+在使用 AWS Lambda 创建 Alexa skill 的时候，加入 Node.js 和 Alexa Skills Kit 只是一个简单的流程，但你实际上所需要写的代码要比这复杂得多。我们已经意识到大部分开发 skill 会话（session）的属性、skill 的状态持久化，创建回复以及行为模式上面。因此，Alexa 团队着手于开发一个基于 Node.js 的 Alexa Skills Kit SDK 来帮助你避免这些常见的烦恼，从而专注于你的 skill 自身的逻辑开发而不是样板化编码。 
 
-## 使用基于 Node.js 的 Alexa Skills Kit (alexa-sdk)加速 Alexa Skill 的开发
+## 使用基于 Node.js 的 Alexa Skills Kit（alexa-sdk）加速 Alexa Skill 的开发
 
 有了 alexa-sdk，我们的目标是帮助你在能够避免不必要的复杂度的情况下，更快捷地开发 skills。今天我们要发布的这个最新版本的 SDK 具备以下几个特点：  
 
-*   新版SDK是可托管的 NPM 安装包，简化了在任何 Node.js 环境下的开发  
-*   可以通过内置事件创建 Alexa 的回复  
-*   为新的 session 内置帮助事件 (Helper events)，并且添加了未处理事件 (unhandled events) 来捕捉所有异常  
-*   提供了能构建基于状态机的用户意图 (intent) 处理的帮助函数 (Helper function)    
-    *   这让根据当前 skill 的状态定义不同的事件管理器成为现实  
-*   属性持久化的配置在 Amazon DynamoDB 的帮助下变得更加简单   
-*   所有输出的语音将自动封装在 SSML 下  
-*   Lambda 事件和和上下文对象 (context objects) 将通过 this.event 读取，并且可以通过 this.contextAbility 重写内置函数，从而让你的状态管理和回复创建更加灵活。例如，将状态属性储存到 AWS S3 上。  
+*   新版SDK是可托管的 NPM 安装包，简化了在任何 Node.js 环境下的开发
+*   可以通过内置事件创建 Alexa 的回复
+*   为新的 session 内置帮助事件（Helper events），并且添加了未处理事件（unhandled events）来捕捉所有异常
+*   提供了能构建基于状态机的用户意图（intent）处理的帮助函数（Helper function）
+*   这让根据当前 skill 的状态定义不同的事件管理器成为现实
+*   属性持久化的配置在 Amazon DynamoDB 的帮助下变得更加简单
+*   所有输出的语音将自动封装在 SSML 下
+*   Lambda 事件和和上下文对象 (context objects) 将通过 this.event 读取，并且可以通过 this.contextAbility 重写内置函数，从而让你的状态管理和回复创建更加灵活。例如，将状态属性储存到 AWS S3 上。
 
 ## 安装和调试基于 Node.js 的 Alexa Skills Kit (alexa-sdk)
 
@@ -44,7 +44,7 @@ exports.handler = function(event, context, callback){
 };
 ```
 
-这几行代码将会导入 alexa sdk 并且为我们创建一个 alexa 对象以便之后使用。接着，我们需要处理与 skill 交互的️ intent。幸运的是，alexa-sdk 使得在我们想要的意图 (Intent) 上激活一个函数变得简单。例如，创建一个为 ‘HelloWorldIntent’ 服务的事件管理器，我们只需要简单地用以下代码实现：  
+这几行代码将会导入 alexa sdk 并且为我们创建一个 alexa 对象以便之后使用。接着，我们需要处理与 skill 交互的️ intent。幸运的是，alexa-sdk 使得在我们想要的意图（Intent）上激活一个函数变得简单。例如，创建一个为 ‘HelloWorldIntent’ 服务的事件管理器，我们只需要简单地用以下代码实现：
 
 ```
 var handlers = {
@@ -58,13 +58,13 @@ var handlers = {
 };
 ```
 
-注意上面出现的一个新语法规则 “:tell”? alexa-sdk 遵循 tell/ask 的响应方式来生成你的 [语音输出回复对象](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/alexa-skills-kit-interface-reference#Response Format)。如果我们想要问用户问题的话，我们需要把以上代码改成：  
+注意上面出现的一个新语法规则 “:tell”? alexa-sdk 遵循 tell/ask 的响应方式来生成你的[语音输出回复对象](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/alexa-skills-kit-interface-reference#Response Format)。如果我们想要问用户问题的话，我们需要把以上代码改成：
 
 ```
-    this.emit(‘:ask’, ’What would you like to do?’, ’Please say that again?’);
+this.emit(‘:ask’, ’What would you like to do?’, ’Please say that again?’);
 ```
 
-事实上，你的 skill 生成的许多回复都遵循一样的语法规则。下面是一些常见的 skill 回复生成的例子：  
+事实上，你的 skill 生成的许多回复都遵循一样的语法规则。下面是一些常见的 skill 回复生成的例子：
 
 ```
 var speechOutput = 'Hello world!';
@@ -95,14 +95,14 @@ this.emit(':tellWithLinkAccountCard', speechOutput);
 
 this.emit(':askWithLinkAccountCard', speechOutput);
 
-this.emit(':responseReady'); // 在回复创建之后， 返回 Alexa 服务之前被调用。Calls :saveState.
+this.emit(':responseReady'); // 在回复创建之后，返回 Alexa 服务之前被调用。Calls :saveState。
 
-this.emit(':saveState', false); // 事件管理器将 this.attributes 的内容和当前管理器的状态存储到 DynamoDB，然后将之前内置的回复发送到 Alexa 服务。如果你想用别的方式处理持久化状态，可以重写它。其中的第二个属性是可选的并且可以通过将它设置为 “true” 以强制储存。
+this.emit(':saveState', false); // 事件管理器将 this.attributes 的内容和当前管理器的状态存储到 DynamoDB，然后将之前内置的回复发送到 Alexa 服务。如果你想用别的方式处理持久化状态，可以重写它。其中的第二个属性是可选的并且可以通过将它设置为 ‘true’ 以强制储存。
 
 this.emit(':saveStateError'); // 在存储状态的过程出错时被调用。如果你想自己处理异常的话，可以重写它。
 ```
 
-一旦我们创建好事件管理器，在新的 session (NewSession) 场景下，我们需要用之前创建的 alexa 对象中的 registerHandlers 函数去注册这些管理器。  
+一旦我们创建好事件管理器，在新的 session（NewSession）场景下，我们需要用之前创建的 alexa 对象中的 registerHandlers 函数去注册这些管理器。
 
 ```
 exports.handler = function(event, context, callback){
@@ -114,13 +114,13 @@ exports.handler = function(event, context, callback){
 };
 ```
 
-你也可以同时注册多个事件管理器。与其创建单个管理器对象，我们创建了一个新的 session，其中有许多处理不同事件的不同管理器，并且我们可以通下面的代码同时注册它们：  
+你也可以同时注册多个事件管理器。与其创建单个管理器对象，我们创建了一个新的 session，其中有许多处理不同事件的不同管理器，并且我们可以通下面的代码同时注册它们：
 
 ```
     alexa.registerHandlers(handlers, handlers2, handlers3, ...);
 ```
 
-你所定义的事件管理器可以相互调用，从而保证你的 skill 的回复是统一的。下面是 LaunchRequest 和 IntentRequest (在 HelloWorldIntent 中) 都返回 “Hello World” 消息的一个例子。  
+你所定义的事件管理器可以相互调用，从而保证你的 skill 的回复是统一的。下面是 LaunchRequest 和 IntentRequest（在 HelloWorldIntent 中）都返回 “Hello World” 消息的一个例子。
 
 ```
 var handlers = {
@@ -138,7 +138,7 @@ var handlers = {
 };
 ```
 
-一旦你注册了所有的意图管理器函数，你只需要简单地用 alexa 对象里的执行函数去运行 skill 的逻辑就可以了。最后一行代码是这样的：  
+一旦你注册了所有的意图管理器函数，你只需要简单地用 alexa 对象里的执行函数去运行 skill 的逻辑就可以了。最后一行代码是这样的：
 
 ```
 exports.handler = function(event, context, callback){
@@ -152,13 +152,13 @@ exports.handler = function(event, context, callback){
 };
 ```
 
-你可以从 github 上下载完整的示例。我们还提供了最新的基于 Node.js 和 alexa-sdk 开发的 skill 示例：   [Fact](https://github.com/alexa/skill-sample-nodejs-fact)， [HelloWorld](https://github.com/alexa/skill-sample-nodejs-hello-world)， [HighLow](https://github.com/alexa/skill-sample-nodejs-highlowgame)， [HowTo](https://github.com/alexa/skill-sample-nodejs-howto) 和 [Trivia](https://github.com/alexa/skill-sample-nodejs-trivia)。
+你可以从 github 上下载完整的示例。我们还提供了最新的基于 Node.js 和 alexa-sdk 开发的 skill 示例：[Fact](https://github.com/alexa/skill-sample-nodejs-fact)，[HelloWorld](https://github.com/alexa/skill-sample-nodejs-hello-world)，[HighLow](https://github.com/alexa/skill-sample-nodejs-highlowgame)，[HowTo](https://github.com/alexa/skill-sample-nodejs-howto) 和 [Trivia](https://github.com/alexa/skill-sample-nodejs-trivia)。
 
 ## 让 Skill 的状态管理更简单
 
 alexa-sdk 会根据当前状态把即将接受的 intent 传送给正确的管理器函数。它其实只是 session 属性中一个简单的字符串，用来表示 skill 的状态。在定义 intent 管理器的时候，你也可以通过将表示状态的字符串添加到 intent 的名称后面来模仿这个内置传送的过程，但事实上 alexa-sdk 已经帮你做到了。
 
-比如说，让我们根据上一个管理新的 session 事件的例子，创建一个简单的有“开始”和“猜数”两个状态的猜数字游戏。  
+比如说，让我们根据上一个管理新的 session 事件的例子，创建一个简单的有“开始”和“猜数”两个状态的猜数字游戏。
 
 ```
 var states = {
@@ -220,7 +220,7 @@ var guessModeHandlers = Alexa.CreateStateHandler(states.GUESSMODE, {
 
         } else if (guessNum === targetNum){
 
-            // 通过一个 callback 函数，用 arrow 函数储存正确的 “this” context
+            // 通过一个 callback 函数，用 arrow 函数储存正确的 ‘this’ context
 
             this.emit('JustRight', () => {
 
@@ -265,7 +265,7 @@ var guessModeHandlers = Alexa.CreateStateHandler(states.GUESSMODE, {
 });
 ```
 
-另一方面，如果我们在 STARTMODE 状态下，我可以用以下方式定义 StateHandlers：  
+另一方面，如果我们在 STARTMODE 状态下，我可以用以下方式定义 StateHandlers：
 
 ```
 var startGameHandlers = Alexa.CreateStateHandler(states.STARTMODE, {
@@ -321,17 +321,17 @@ var startGameHandlers = Alexa.CreateStateHandler(states.STARTMODE, {
     }
 ```
 
-我们可以看到 AMAZON.YesIntent 和 AMAZON.NoIntent 在 guessModeHandlers 对象中是没有被定义的，因为对于该状态来说，“是”或者“不是” 的回复是没有意义的。这样的回复将会被 “Unhandled” 管理器捕捉到。
+我们可以看到 AMAZON.YesIntent 和 AMAZON.NoIntent 在 guessModeHandlers 对象中是没有被定义的，因为对于该状态来说，“是”或者“不是”的回复是没有意义的。这样的回复将会被 ‘Unhandled’ 管理器捕捉到。
 
 还有就是，注意在 NewSession 和 Unhandled 这两个状态中的不同行为。在这个游戏中，我们通过调用 newSessionHandlers 对象中的 NewSession 管理器“重置” skill 的状态。你也可以跳过这一步，然后 alexa-sdk 将会为当前状态调用 intent 管理器。你只需要记住在调用 alexa.execute() 之前去注册你的状态管理器，否则它们将不会被找到。
 
-所有属性将会在你的 skill 结束 session 时自动保存，但是如果用户自己结束了当前的 session，你需要 emit “:saveState” 事件 (this.emit(‘:saveState’, true) 来强制保存这些属性。 你应该在 SessionEndedRequest 管理器中做这件事，因为 SessionEndedRequest 管理器将会在用户通过“退出”或回复超时结束当前 session 的时候被调用。你可以看看以上的代码示例。
+所有属性将会在你的 skill 结束 session 时自动保存，但是如果用户自己结束了当前的 session，你需要 emit ‘:saveState’ 事件（this.emit(‘:saveState’, true）来强制保存这些属性。你应该在 SessionEndedRequest 管理器中做这件事，因为 SessionEndedRequest 管理器将会在用户通过“退出”或回复超时结束当前 session 的时候被调用。你可以看看以上的代码示例。
 
-我们将上面的例子写在了一个高/低猜数字游戏中，你可以点击[这里下载](https://github.com/alexa/skill-sample-nodejs-highlowgame).
+我们将上面的例子写在了一个高/低猜数字游戏中，你可以点击[这里下载](https://github.com/alexa/skill-sample-nodejs-highlowgame)。
 
 ## 通过 Amazon DynamoDB 持久化 Skill 属性
 
-很多人喜欢将 session 属性值储存到数据库中以便日后使用。alexa-sdk 直接结合了 [Amazon DynamoDB](https://aws.amazon.com/dynamodb/) (一个 NoSQL 的数据库服务) 让你只需要几行代码就可以实现属性存储。
+很多人喜欢将 session 属性值储存到数据库中以便日后使用。alexa-sdk 直接结合了 [Amazon DynamoDB](https://aws.amazon.com/dynamodb/)（一个 NoSQL 的数据库服务）让你只需要几行代码就可以实现属性存储。
 
 简单地在你调用 alexa.execute 之前为 alexa 对象中的 DynamoDB 的表格设置一个名字。
 
@@ -351,15 +351,15 @@ exports.handler = function(event, context, callback) {
 this.attributes[”yourAttribute"] = ’value’;
 ```
 
-你可以提前[手动创建一个表格](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SampleData.CreateTables.html) 或者为你的 Lambda 函数的 DynamoDB 提供[创建表格权限](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_CreateTable.html) 然后一切都会自动生成。不过你要知道，在第一次唤醒 skill 的时候，创建表格可能会花费几分钟的时间。    
+你可以提前[手动创建一个表格](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SampleData.CreateTables.html)或者为你的 Lambda 函数的 DynamoDB 提供[创建表格权限](http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_CreateTable.html)然后一切都会自动生成。不过你要知道，在第一次唤醒 skill 的时候，创建表格可能会花费几分钟的时间。
 
 尝试扩展高低猜数字游戏：  
 
-*   让它能够储存你每次游戏中所猜的平均数  
-*   加入 [声音效果](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/speech-synthesis-markup-language-ssml-reference#audio)
-*   给玩家有限的猜数字时间  
+*   让它能够储存你每次游戏中所猜的平均数
+*   加入[声音效果](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/speech-synthesis-markup-language-ssml-reference#audio)
+*   给玩家有限的猜数字时间
 
-想要获取更多关于学习使用 Alexa Skills Kit 开发的信息，可以看看下面的链接：  
+想要获取更多关于学习使用 Alexa Skills Kit 开发的信息，可以看看下面的链接：
 
 [基于 Node.js 的 Alexa Skills Kit](https://github.com/alexa/alexa-skill-sdk-for-nodejs)  
 [Alexa 开发者播客](http://bit.ly/alexadevchat)  
