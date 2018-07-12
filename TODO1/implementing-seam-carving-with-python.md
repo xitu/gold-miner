@@ -2,35 +2,35 @@
 > * 原文作者：[Karthik Karanth](https://karthikkaranth.me)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/implementing-seam-carving-with-python.md](https://github.com/xitu/gold-miner/blob/master/TODO1/implementing-seam-carving-with-python.md)
-> * 译者：
-> * 校对者：
+> * 译者：[caoyi0905](https://github.com/caoyi0905)
+> * 校对者：[yqian1991](https://github.com/yqian1991)
 
-# Implementing Seam Carving with Python
+# 使用 Python 实现接缝裁剪算法
 
-Seam carving is a novel way to crop images without losing important content in the image. This is often called “content-aware” cropping or image retargeting. Its an algorithm that lets you go from this:
+接缝裁剪是一种新型的裁剪图像的方式，它不会丢失图像中的重要内容。这通常被称之为“内容感知”裁剪或图像重定向。你可以从这张照片中感受一下这个算法：
 
 ![](https://karthikkaranth.me/img/pietro-de-grandi-329892-unsplash.jpg)
 
-[Photo by Pietro De Grandi on Unsplash](https://unsplash.com/photos/T7K4aEPoGGk)
+[照片由 Unsplash 用户 Pietro De Grandi 提供](https://unsplash.com/photos/T7K4aEPoGGk)
 
-to this:
+变成下面这张：
 
 ![](https://karthikkaranth.me/img/pietro_carved.jpg)
 
-As you can see, most of the important content in the image: the boats, have been left intact. The algorithm removed some of the rock formations and the water(leading to the boats appearing nearer to each other). The core algorithm is very well explained in the original paper, [Seam Carving for Content-Aware Image Resizing](http://graphics.cs.cmu.edu/courses/15-463/2007_fall/hw/proj2/imret.pdf) by Shai Avidan and Ariel Shamir. In this post, I’ll talk about how to make a basic implementation of the algorithm in Python.
+正如你所看到的，图像中的非常重要内容 —— 船只，都保留下来了。该算法去除了一些岩层和水（让船看起来更靠近）。核心算法可以参考 Shai Avidan 和 Ariel Shamir 的原始论文 [Seam Carving for Content-Aware Image Resizing](http://graphics.cs.cmu.edu/courses/15-463/2007_fall/hw/proj2/imret.pdf)。在这篇文章中，我将展示如何在 Python 中基本实现该算法。
 
-## Overview
+## 概要
 
-The algorithm works as follows:
+该算法的工作原理如下：
 
-1.  Assign an energy value to every pixel
-2.  Find an 8-connected path of the pixels with the least energy
-3.  Delete all the pixels in the path
-4.  Repeat 1-3 till the desired number of rows/columns are deleted
+1.  为每个像素分派一个能量值（energy）
+2.  找到能量最低的像素的 8 联通区域
+3.  删除该区域内所有的像素
+4.  重复 1-3，直到删除所需要保留的行/列数
 
-For the rest of this post, we’ll assume that we are only trying to crop the width of the image, ie: remove columns. But the same concepts can be translated to rows. This will be demonstrated towards the end.
+接下来，假设我们只是尝试裁剪图像的宽度，即删除列。对于删除行来说也是类似的，至于原因最后会说明。
 
-If you’re following along with the code, here are the required imports:
+以下是 Python 代码需要引入的包：
 
 ```
 import sys
@@ -39,28 +39,27 @@ import numpy as np
 from imageio import imread, imwrite
 from scipy.ndimage.filters import convolve
 
-# tqdm is not strictly necessary, but it gives us a pretty progress bar
-# to visualize progress.
+# tqdm 并不是必需的，但它可以向我们展示一个漂亮的进度条
 from tqdm import trange
 ```
 
-### Energy map
+### 能量图
 
-The first step is to compute an energy value for every pixel. The paper defines many different energy functions which can be used. We’ll use the most basic one:
+第一步是计算每个像素的能量值，论文中定义了许多不同的可以使用的能量函数。我们来使用最基础的那个：
 
 ![](https://karthikkaranth.me/img/energy_function.png)
 
-So what does this really mean? `I` is the image, so what this equation tells us is that, for each pixel in the image, for every channel, we perform the following:
+这意味着什么呢？`I` 代表图像，所以这个式子告诉我们，对于图像中的每个像素和每个通道，我们执行以下几个步骤：
 
-*   Find the partial derivative in the x axis
-*   Find the partial derivative in the y axis
-*   Sum their absolute values
+*   找到 x 轴的偏导数
+*   找到 y 轴的偏导数
+*   将他们的绝对值求和
 
-This will be the energy value for that pixel. This brings up the question, “how do you compute the derivative of an image?”. The [Image derivations](https://en.wikipedia.org/wiki/Image_derivatives) page on Wikipedia points us to a number of different ways to compute the derivative of the image. We’ll be using the Sobel filter. This is a [convolutional kernel](http://aishack.in/tutorials/image-convolution-examples/) that is run over the image on every channel. Here is the filter in two different directions of the image:
+这就是该像素的能量值。那么问题就来了，“你怎么计算图像的导数？”，维基百科上的 [Image derivations（图像导数）](https://en.wikipedia.org/wiki/Image_derivatives)给我们展示了许多不同的计算图像导数的方法。我们将使用 Sobel 滤波器。这是一个在图像上的每个通道上的计算的[convolutional kernel（卷积核）](http://aishack.in/tutorials/image-convolution-examples/)。以下是图像的两个不同方向的过滤器：
 
 ![](https://karthikkaranth.me/img/sobel.png)
 
-Intuitively, we can think of the first filter as replacing every pixel by the difference in its value on the top, to its value on the bottom side. The second filter replaces every pixel with the difference between the values to its right and the values to its left. This would capture the general trend of the pixels in that 3x3 area. In fact, this method is relatable to edge detection algorithms. Computing the energy map is fairly simple:
+直观地说，我们可以认为第一个滤波器是将每个像素替换为它上边的值和下边的值之差。第二个过滤器将每个像素替换为它右边的值和左边的值之差。这种滤波器捕捉到的是每个像素相邻所构成的 3x3 区域中像素的总体趋势。事实上，这种方法与边缘检测算法也有关系。计算能量图的方式非常简单：
 
 ```
 def calc_energy(img):
@@ -69,8 +68,7 @@ def calc_energy(img):
         [0.0, 0.0, 0.0],
         [-1.0, -2.0, -1.0],
     ])
-    # This converts it from a 2D filter to a 3D filter, replicating the same
-    # filter for each channel: R, G, B
+    # 将一个 2D 的滤波器转为 3D 的滤波器，为每个通道设置相同的滤波器：R，G，B
     filter_du = np.stack([filter_du] * 3, axis=2)
 
     filter_dv = np.array([
@@ -78,36 +76,35 @@ def calc_energy(img):
         [2.0, 0.0, -2.0],
         [1.0, 0.0, -1.0],
     ])
-    # This converts it from a 2D filter to a 3D filter, replicating the same
-    # filter for each channel: R, G, B
+    # 将一个 2D 的滤波器转为 3D 的滤波器，为每个通道设置相同的滤波器：R，G，B
     filter_dv = np.stack([filter_dv] * 3, axis=2)
 
     img = img.astype('float32')
     convolved = np.absolute(convolve(img, filter_du)) + np.absolute(convolve(img, filter_dv))
 
-    # We sum the energies in the red, green, and blue channels
+    # 我们将红绿色蓝三通道中的能量相加
     energy_map = convolved.sum(axis=2)
 
     return energy_map
 ```
 
-Upon visualizing the energy map, we see:
+可视化能量图后，我们可以看到：
 
 ![](https://karthikkaranth.me/img/pietro_energy.jpg)
 
-Clearly, the areas with minimal variation, such as the sky, and the still parts of the water, have very low energy(dark). When we run the seam carving algorithm, the lines removed with tend to closely associate with these parts of the image, while attempting to preserve the high energy parts(light).
+显然，像天空和水的静止部分这样变化最小的区域，具有非常低的能量（暗的部分）。当我们运行接缝裁剪算法的时候，被移除的线条一般都与图像的这些部分紧密相关，同时试图保留高能量部分（亮的部分）。
 
-### Finding the seam with least energy
+###　找到最小能量的接缝（seam）
 
-Our next objective is find a path from the top of the image to the bottom of the image with the least energy. This line must be 8-connected: this means that every pixel in the line must be touched the next pixel in the line either via an edge or corner. For this example, it is the red line in this:
+我们下一个目标就是找到一条从图像顶部到图像底部的能量最小的路径。这条线必须是 8 联通的：这意味着线中的每个像素都可以他通过边或叫角碰到线中的下一个像素。举个例子，这就是下图中的红色线条：
 
 ![](https://karthikkaranth.me/img/pietro_first_seam.jpg)
 
-So how do we find this line? Turns out, this problem translates well to dynamic programming concepts!
+所以我们怎么找到这条线呢？事实证明，这个问题可以很好地使用动态规划来解决！
 
 ![](https://karthikkaranth.me/img/minimize_energy.png)
 
-Lets create a 2D array call `M` to store the minimum energy value seen upto that pixel. If you are unfamiliar with dynamic programming, this basically says that `M[i,j]` will contain the smallest energy at that point in the image, considering all the possible seams upto that point from the top of the image. So, the minimum energy required to traverse from the top of the image to bottom will be present in the last row of M. We need to backtrack from this to find the list of pixels present in this seam, so we’ll hold onto those values with a 2D array call `backtrack`.
+让我们创建一个名为 `M` 的 2D 数组 来存储每个像素的最小能量值。如果您不熟悉动态规划，这简单来说就是，从图像顶部到该点的所有可能接缝（seam）中的最小能量即为 `M[i,j]`。因此，M 的最后一行中就将包含从图像顶部到底部的最小能量。我们需要从此回溯以查找此接缝中存在的像素，所以我们将保留这些值，存储在名为`backtrack` 的 2D 数组中。
 
 ```
 def minimum_seam(img):
@@ -119,7 +116,7 @@ def minimum_seam(img):
 
     for i in range(1, r):
         for j in range(0, c):
-            # Handle the left edge of the image, to ensure we don't index -1
+            # 处理图像的左边缘，防止索引到 -1
             if j == 0:
                 idx = np.argmin(M[i - 1, j:j + 2])
                 backtrack[i, j] = idx + j
@@ -134,9 +131,9 @@ def minimum_seam(img):
     return M, backtrack
 ```
 
-### Deleting the pixels from the seam with the least energy
+### 删除最小能量的接缝中的像素
 
-Then, we remove the seam with the lowest energy, and return a new image:
+然后我们就可以删除有着最低能量的接缝中的像素，返回新的图片：
 
 ```
 def carve_column(img):
@@ -144,49 +141,46 @@ def carve_column(img):
 
     M, backtrack = minimum_seam(img)
 
-    # Create a (r, c) matrix filled with the value True
-    # We'll be removing all pixels from the image which
-    # have False later
+    # 创建一个（r，c）矩阵，所有值都为 True
+    # 我们将删除图像中矩阵里所有为 False 的对应的像素
     mask = np.ones((r, c), dtype=np.bool)
 
-    # Find the position of the smallest element in the
-    # last row of M
+    # 找到 M 最后一行中最小元素的那一列的索引
     j = np.argmin(M[-1])
 
     for i in reversed(range(r)):
-        # Mark the pixels for deletion
+        # 标记这个像素之后需要删除
         mask[i, j] = False
         j = backtrack[i, j]
 
-    # Since the image has 3 channels, we convert our
-    # mask to 3D
+    # 因为图像是三通道的，我们将 mask 转为 3D 的
     mask = np.stack([mask] * 3, axis=2)
 
-    # Delete all the pixels marked False in the mask,
-    # and resize it to the new image dimensions
+    # 删除 mask 中所有为 False 的位置所对应的像素，并将
+    # 他们重新调整为新图像的尺寸
     img = img[mask].reshape((r, c - 1, 3))
 
     return img
 ```
 
-### Repeat for every column
+### 对每列重复操作
 
-All the ground work has been done! Now, we simply run the `carve_column` function again and again until we’ve remove the desired number of columns. We create a `crop_c` function which takes as input the image, and a scale factor. If the image is of dimensions (300, 600) and we want to reduce it to (150, 600), we’d pass 0.5 as `scale_c`.
+所有的基础工作都已做完了！现在，我们只要一次次地运行 `carve_column ` 函数，直到我们删除到了所需的列数。我们再创建一个 `crop_c` 函数，图像和缩放因子作为输入。如果图像的尺寸为（300,600），并且我们想要将其减小到（150,600），`scale_c` 设置为 0.5 即可。
 
 ```
 def crop_c(img, scale_c):
     r, c, _ = img.shape
     new_c = int(scale_c * c)
 
-    for i in trange(c - new_c): # use range if you don't want to use tqdm
+    for i in trange(c - new_c): # 如果你不想用 tqdm，这里将 trange 改为 range
         img = carve_column(img)
 
     return img
 ```
 
-## Putting it all together
+## 将它们合在一起
 
-We can add a main function to call it from the command line:
+我们可以添加一个 main 函数，让代码可以通过命令行调用：
 
 ```
 def main():
@@ -202,19 +196,19 @@ if __name__ == '__main__':
     main()
 ```
 
-And run it with:
+然后运行这段代码：
 
 ```
 python carver.py 0.5 image.jpg cropped.jpg
 ```
 
-cropped.jpg should now contain this image:
+cropped.jpg 现在应该显示以下这样的图像:
 
 ![]https://karthikkaranth.me/img/pietro_carved.jpg)
 
-## What about rows?
+## 行应该怎么处理呢？
 
-Well, we could go about working out how to change our loops to switch the axes. Or…just rotate the image and run `crop_c`!
+然后，我们可以开始研究怎么修改我们的循环来换个方向处理数据。或者...只需旋转图像就可以运行 `crop_c`！
 
 ```
 def crop_r(img, scale_r):
@@ -224,7 +218,7 @@ def crop_r(img, scale_r):
     return img
 ```
 
-Adding this to the main function, we can now crop rows as well!
+将这段代码添加到 main 函数中，现在我们也可以裁剪行！
 
 ```
 def main():
@@ -250,27 +244,27 @@ def main():
     imwrite(out_filename, out)
 ```
 
-Run it with:
+运行代码：
 
 ```
 python carver.py r 0.5 image2.jpg cropped.jpg
 ```
 
-And we can turn this:
+然后我们就可以把这张图：
 
 ![](https://karthikkaranth.me/img/brent-cox-455716-unsplash.jpg)
 
 [Photo by Brent Cox on Unsplash](https://unsplash.com/photos/ydGRmobx5jA)
 
-to this:
+变成这样：
 
 ![](https://karthikkaranth.me/img/brent_carved.jpg)
 
-## Conclusion
+## 总结
 
-I hope that was an educative and enjoyable read. I enjoyed implementing this paper, and am looking forward to building a faster version of the algorithm. A simple change would be to remove multiple seams using the same computed seams for the image. In my experiments, this can make the algorithm faster, almost linearly with respect to the number of seams removed per iteration. However, there is a noticable loss in quality. Another optimization is computing the energy map on the GPU, [which was explored here](http://www.contrib.andrew.cmu.edu/~abist/seamcarving.html).
+我希望你是愉快而又收获地读到这里的。我很享受实现这篇论文的过程，并打算构建一个这个算法更快的版本。比如说，使用相同的计算过的图像接缝去除多个接缝。在我的实验中，这可以使算法更快，每次迭代可以几乎线性地移除接缝，但质量明显下降。另一个优化是计算 GPU 上的能量图，[在这里探讨的](http://www.contrib.andrew.cmu.edu/~abist/seamcarving.html)。
 
-Here is the complete program:
+这是完整的程序：
 
 ```
 #!/usr/bin/env python
@@ -293,8 +287,7 @@ def calc_energy(img):
         [0.0, 0.0, 0.0],
         [-1.0, -2.0, -1.0],
     ])
-    # This converts it from a 2D filter to a 3D filter, replicating the same
-    # filter for each channel: R, G, B
+    # 将一个 2D 的滤波器转为 3D 的滤波器，为每个通道设置相同的滤波器：R，G，B
     filter_du = np.stack([filter_du] * 3, axis=2)
 
     filter_dv = np.array([
@@ -302,14 +295,13 @@ def calc_energy(img):
         [2.0, 0.0, -2.0],
         [1.0, 0.0, -1.0],
     ])
-    # This converts it from a 2D filter to a 3D filter, replicating the same
-    # filter for each channel: R, G, B
+    # 将一个 2D 的滤波器转为 3D 的滤波器，为每个通道设置相同的滤波器：R，G，B
     filter_dv = np.stack([filter_dv] * 3, axis=2)
 
     img = img.astype('float32')
     convolved = np.absolute(convolve(img, filter_du)) + np.absolute(convolve(img, filter_dv))
 
-    # We sum the energies in the red, green, and blue channels
+    # 我们将红绿色蓝三通道中的能量相加
     energy_map = convolved.sum(axis=2)
 
     return energy_map
@@ -353,7 +345,7 @@ def minimum_seam(img):
 
     for i in range(1, r):
         for j in range(0, c):
-            # Handle the left edge of the image, to ensure we don't index a -1
+            # 处理图像的左边缘，防止索引到 -1
             if j == 0:
                 idx = np.argmin(M[i-1, j:j + 2])
                 backtrack[i, j] = idx + j
@@ -395,7 +387,7 @@ if __name__ == '__main__':
 
 * * *
 
-**EDIT(5th June 2018):** As shown to me by a [helpful redditor](https://www.reddit.com/r/Python/comments/8mpjw4/implementing_seam_carving_with_python/dzpouv4/), it is possible to easily achieve a massive speedup by using [numba](https://numba.pydata.org/) to speed up the computationally heavy functions. To do this, add `@numba.jit` before the functions `carve_column` and `minimum_seam`. Like:
+**修改于（2018 年 5 月 5 日）：** 正如一个[热心的 reddit 用户](https://www.reddit.com/r/Python/comments/8mpjw4/implementing_seam_carving_with_python/dzpouv4/)所说，通过使用 [numba](https://numba.pydata.org/) 来加速计算繁重的功能，可以很容易的得到几十倍的性能提升。要想体验 numba，只要在函数 `carve_column` 和 `minimum_seam` 之前加上 `@numba.jit`。就像下面这样：
 
 ```
 @numba.jit
