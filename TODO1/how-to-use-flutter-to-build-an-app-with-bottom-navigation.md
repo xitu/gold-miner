@@ -73,7 +73,7 @@ class Home extends StatefulWidget {
 }
 ```
 
-您可能会注意到，这个 widget 类没有实现我们前面提到的 build 方法。当涉及到 `StatefulWidgets` 时，build 方法会在 widget 对应的 `State` 类中实现。在 `StatefulWidget` 中，唯一需要的方法是我们在上面实现的 `createState` 方法，我们只返回一个 `_HomeState` 类实例。类名前面的 `“_”` 代表 Dart 将类或类属性标记为 private。我们现在需要创建 home widget 的 state 类。在 `home_widget.dart` 文件的末尾添加这个段代码:
+您可能会注意到，这个 widget 类没有实现我们前面提到的 build 方法。当涉及到 `StatefulWidgets` 时，build 方法会在 widget 对应的 `State` 类中实现。在 `StatefulWidget` 中，唯一需要的方法是我们在上面实现的 `createState` 方法，我们只返回一个 `_HomeState` 类实例。类名前面的 `“_”` 代表 Dart 将类或类属性标记为 private。我们现在需要创建 home widget 的 state 类。在 `home_widget.dart` 文件的末尾添加这个段代码：
 
 ```
 class _HomeState extends State<Home> {
