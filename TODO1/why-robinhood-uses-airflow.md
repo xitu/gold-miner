@@ -2,87 +2,92 @@
 > * 原文作者：[Vineet Goel](https://robinhood.engineering/@vineetgoel?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/why-robinhood-uses-airflow.md](https://github.com/xitu/gold-miner/blob/master/TODO1/why-robinhood-uses-airflow.md)
-> * 译者：
-> * 校对者：
+> * 译者：[cf020031308](https://github.com/cf020031308)
+> * 校对者：[yqian1991](https://github.com/yqian1991)
 
-# Why Robinhood uses Airflow
+# Robinhood 为什么使用 Airflow
 
-Robinhood relies on batch processing jobs at set schedules for a large number of tasks. These jobs range from data analysis and metric aggregations, to brokerage operations such as dividend payouts. We started off with using cron to schedule these jobs but with their growing number and complexity, it became increasingly challenging for us to manage them using cron:
+Robinhood 通过定时作业批处理大量任务。这些作业涵盖了从数据分析和指标汇总到经纪业务如股息支付的范围。我们起初使用 cron 来调度这些工作，但随着它们的数量和复杂性的增加，这越来越具有挑战性：
 
-*   **Managing dependencies** between jobs was difficult. With cron we would use worst-case expected durations for upstream jobs to schedule downstream jobs. This was getting increasingly harder with scale as the complexity of these jobs and their dependency graphs increased.
-*   **Failure handling** and alerting had to be managed by the job. We would have to rely on the job, or the on-call engineer to handle retries and upstream failures in the case of dependent jobs.
-*   **Retrospection** was difficult. We would need to sift through logs or alerts to check how a job may have performed on a certain day in the past.
+*   **依赖管理**难。使用 cron，我们得用上游作业的最坏预期时长来安排下游作业。随着这些作业的复杂度及其依赖关系的成规模增加，这越来越难。
+*   **失败处理**和警报必须由作业管理。在存在依赖关系的情况下，如果作业不能处理重试和上游故障，就只能靠工程师随叫随到。
+*   **回溯**难。我们得筛查日志或警报来检查作业在过去某一天的表现。
 
-We decided to move away from cron for our scheduling needs and replace it with something that would solve the above problems. We explored a few open source alternatives like [Pinball](https://github.com/pinterest/pinball), [Azkaban](https://azkaban.github.io/) and [Luigi](https://github.com/spotify/luigi), before finally deciding on [Airflow](http://pythonhosted.org/airflow/index.html).
+为了满足调度需求，我们决定放弃 cron，将其替换为能解决上述问题的东西。我们调研了一些开源替代品，如 [Pinball](https://github.com/pinterest/pinball)， [Azkaban](https://azkaban.github.io/) 以及 [Luigi](https://github.com/spotify/luigi)，最终决定用 [Airflow](http://pythonhosted.org/airflow/index.html)。
 
 #### Pinball
 
-Pinball, developed at Pinterest, has a lot of features of a distributed, horizontally scalable, workflow management and scheduling system. It solves a lot of the problems mentioned above but the documentation was sparse and the relative size of the community was small.
+Pinball 由 Pinterest 开发，具有分布式、可水平扩展的工作流管理和调度系统的许多功能。它解决了上面提到的很多问题，但文档很少，社区相对较小。
 
 #### Azkaban
 
-Azkaban, developed at LinkedIn, is probably the oldest among the alternatives we considered. It uses properties files to define workflows while most of the newer alternatives use code. This makes it harder to define complex workflows.
+由 LinkedIn 开发的 Azkaban 可能是我们考虑过的替代品中最古老的。它使用属性文件来定义工作流，而大多数新的替代方案使用代码。这使得定义复杂工作流程变得更加困难。
 
 #### Luigi
 
-Luigi, developed at Spotify, has an active community and probably came the closest to Airflow during our exploration. It uses Python for defining workflows and comes with a simple UI. However, Luigi doesn’t have a scheduler and users still have to rely on cron for scheduling jobs.
+由 Spotify 开发的 Luigi 拥有一个活跃的社区，可能在我们的调研中最接近 Airflow。它使用 Python 来定义工作流，并带有一个简单的 UI。但是 Luigi 没有调度程序，用户仍然需要依赖 cron 来安排作业。
 
-### Hello Airflow!
+### 你好，Airflow！
 
-Airflow, developed at Airbnb has a growing community and seemed to be the best suited for our purposes. It is a horizontally scalable, distributed workflow management system which allows us to specify complex workflows using Python code.
+由 Airbnb 开发的 Airflow 拥有一个持续增长的社区，似乎是最适合我们目的的。它是一个可水平扩展的分布式工作流管理系统，允许我们使用 Python 代码指定复杂的工作流。
 
-#### Dependency Management
+#### 依赖管理
 
-Airflow uses [Operators](https://airflow.incubator.apache.org/concepts.html#operators) as the fundamental unit of abstraction to define tasks, and uses a [DAG](https://airflow.incubator.apache.org/concepts.html#dags) (Directed Acyclic Graph) to define workflows using a set of operators. Operators are extensible which makes customizing workflows easy. Operators are divided into 3 types:
+Airflow 使用[操作符](https://airflow.incubator.apache.org/concepts.html#operators)作为定义任务的基本抽象单元，并使用 [DAG](https://airflow.incubator.apache.org/concepts.html#dags)（有向无环图）通过一组操作符定义工作流。操作符是可扩展的，这使得自定义工作流变得容易。操作符分为3种类型：
 
-*   **Action** operators that perform some action such as executing a Python function or submitting a Spark Job.
-*   **Transfer** operators that move data between systems such as from Hive to Mysql or from S3 to Hive.
-*   **Sensors** which trigger downstream tasks in the dependency graph when a certain criteria is met, for example checking for a certain file becoming available on S3 before using it downstream. Sensors are a powerful feature of Airflow allowing us to create complex workflows and easily manage their preconditions.
+*   **动作**执行某些操作的操作符，例如执行 Python 函数或提交 Spark Job。
+*   **转移**在系统之间移动数据的操作符，例如从 Hive 到 Mysql 或从 S3 到 Hive。
+*   **传感器**在满足特定条件时触发依赖网中的下游任务，例如在下游使用之前检查 S3 上的某个文件是否可用。传感器是 Airflow 的强大功能，使我们能够创建复杂的工作流程并轻松管理其前提条件。
 
-Below is an example of how the different type of sensors can be used for a typical ETL ([Extract Transform Load](https://en.wikipedia.org/wiki/Extract,_transform,_load)) workflow. The example uses Sensor operators to wait until data is available and uses a Transfer operator to move the data to the required location. An Action operator is then used for the Transform stage followed by using the Transfer operator to load the results. Finally, we use Sensor operators to verify that the result was stored appropriately.
+下面是一个示例，说明不同类型的传感器如何用于典型的 ETL（[数据提取转换与加载](https://en.wikipedia.org/wiki/Extract,_transform,_load)）工作流程。该示例使用传感器操作符等待数据可用，并使用转移操作符将数据移动到所需位置。然后将动作操作符用于转换阶段，然后使用转移操作符加载结果。最后，我们使用传感器操作符来验证结果是否已正确存储。
 
 ![](https://cdn-images-1.medium.com/max/800/1*CcxrRbffqn45YwGglCyexw.png)
 
-An ETL workflow using different types of Airflow Operators
+```
+| 传感器 -> 转移 -> | 动作 | -> 转移 -> 传感器 |
+|      提取        |  转换 |      加载       |
+```
 
-#### Failure Handling and Monitoring
+使用不同类型的 Airflow 操作符的 ETL 工作流程
 
-Airflow allows us to configure retry policies into individual tasks and also allows us to set up alerting in the case of failures, retries, as well as tasks running [longer than expected](https://airflow.incubator.apache.org/concepts.html#slas). Airflow comes with an intuitive UI with some powerful tools for monitoring and managing jobs. It provides historical views of the jobs and tools to control the state of jobs — such as kill a running job or manually re-running a job. One of the unique features of Airflow is the ability to create charts using job data. This allows us to build custom visualizations to monitor the jobs closely and also acts as a great debugging tool while triaging issues with jobs and scheduling.
+#### 故障处理和监控
 
-#### Extensible
+Airflow 允许我们为单个任务配置重试策略配置，并可设置在出现故障、重试以及运行的任务[长于预期](https://airflow.incubator.apache.org/concepts.html#slas)的情况下告警。Airflow 有直观的 UI，带有一些用于监控和管理作业的强大工具。它提供了作业的历史视图和控制作业状态的工具 —— 例如，终止正在运行的作业或手动重新运行作业。 Airflow 的一个独特功能是能够使用作业数据创建图表。这使我们能够构建自定义可视化以紧密监视作业，并在排查作业和调度问题时充当一个很好的调试工具。
 
-Airflow Operators are defined using Python classes. This makes it very easy to define custom, reusable workflows by extending existing operators. We have built a large suite of custom operators in-house, a few notable examples of which are the OpsGenieOperator, DjangoCommandOperator and KafkaLagSensor.
+#### 可扩展
 
-#### Smarter Cron
+Airflow 操作符是使用 Python 类定义的。这使得通过扩展现有操作符来定义自定义、可重用的工作流非常容易。我们在内部构建了一大套自定义操作符，其中一些值得注意的例子是 OpsGenieOperator，DjangoCommandOperator 和 KafkaLagSensor。
 
-Airflow DAGs are defined using Python code. This allows us to define more complex schedules beyond what cron offers. For example, some of our DAGs need to run only on market open days. With simple cron, we would schedule these to run on all weekdays and handle the market holiday case in the application.
+#### 更智能的 Cron
 
-We also use Airflow sensors to run jobs right after market close, while handling market half-days. The following example uses custom operators built for running workflows on complex schedules that dynamically update according to the market hours for a given day.
+Airflow DAG 是使用 Python 代码定义的。这使我们能够定义比 cron 更复杂的调度。例如，我们的一些 DAG 只需在交易日运行。而如果用简陋的 cron，我们得设置在所有的工作日运行，然后在应用程序中处理市场假期的情况。
+
+我们还使用 Airflow 传感器在市场收盘后立即开始作业，即使当天只有半天开盘。以下示例通过为需要复杂的调度的工作流自定义操作符，来在给定日期根据市场时间动态更新。
 
 ![](https://cdn-images-1.medium.com/max/800/1*avVioxXl1jTrnC0rj0oEYA.png)
 
-Workflow with a dynamic schedule depending on market hours for a given day
+在给定日期根据市场时间动态调度的工作流
 
-#### Backfills
+#### 回填
 
-We use Airflow for metrics aggregations and batch processing of data. With evolving needs, we sometimes need to go back and change how we aggregate certain metrics or add new metrics. This involves running backfills across arbitrary spans of time in the past. Airflow provides a CLI which allows us to run backfills across arbitrary spans of time with a single command, and also allows us to trigger backfills from the UI. We use Celery (built by our very own [Ask Solem](https://medium.com/@asksol)) to distribute these tasks across worker boxes. The distribution capabilities of Celery make backfills quick and easy by allowing us to spin up more worker boxes while running backfills.
+我们使用 Airflow 进行指标聚合和批量处理数据。随着需求的不断变化，我们有时需要回头更改我们汇总某些指标或添加新指标的方式。这需要能往过去任意时间段回填数据。 Airflow 提供了一个命令行工具，让我们能使用单个命令跨任意时间段进行回填，也可以从 UI 触发回填。我们使用 Celery（由我们的 [Ask Solem](https://medium.com/@asksol) 制作）往 worker box 中分发这些任务。 Celery 的分发能力使我们能够在运行回填时使用更多 worker box，从而使回填变得快捷方便。
 
-#### Common Pitfalls and Weaknesses
+#### 常见的陷阱和弱点
 
-We are currently on Airflow 1.7.1.3 which works well in production but comes with its own set of [weaknesses and pitfalls](https://cwiki.apache.org/confluence/display/AIRFLOW/Common+Pitfalls).
+我们目前使用的是 Airflow 1.7.1.3，它在生产中运行良好，但有自己的[弱点和陷阱](https://cwiki.apache.org/confluence/display/AIRFLOW/Common+Pitfalls)。
 
-*   **Time zone issue** — Airflow relies on the system time zone (instead of UTC) for scheduling. This requires the entire airflow setup to be run in the same time zone.
-*   The **Scheduler** works separately for scheduled jobs and backfill jobs. This can result in weird outcomes such as backfills not respecting a DAG’s max_active_runs configuration.
-*   Airflow was built primarily for data batch processing due to which the Airflow designers made a decision to always **schedule jobs for the previous interval**. Hence, a job scheduled to run daily at midnight will pass in the execution date “2016–12–31 00:00:00” to the job’s context when run on “2017–01–01 00:00:00”. This can get confusing especially in the case of jobs running at irregular intervals.
-*   **Unexpected backfills** — Airflow by default tries to backfill missed runs when resuming a paused DAG or adding a new DAG with a start_date in the past. While this behavior is expected, there is no way to get around this, and can result in issues if a job shouldn’t run out of schedule. Airflow 1.8 introduces the [LatestOnlyOperator](https://github.com/apache/incubator-airflow/blob/master/airflow/operators/latest_only_operator.py) to get around this issue.
+*   **时区问题** —— Airflow 依赖系统时区（而不是 UTC）进行调度。这要求整个 Airflow 设置在同一时区运行。
+*   **调度程序**分开运行预定作业和回填作业。这可能会导致奇怪的结果，例如回填不符合 DAG 的 max_active_runs 配置。
+*   Airflow 主要用于数据批处理，因而其设计师决定总是**先等待一个间隔后再开始作业**。因此，对一个计划在每天午夜运行的作业，其上下文中传入的执行时间为“2016-12-31 00:00:00”，但实际却在“2017-01-01 00:00:00”才真正运行。这可能会让人感到困惑，尤其是在不定期运行的作业中。
+*   **意外的回填** —— 默认情况下，Airflow 会在 DAG 从暂停中恢复时或在添加一个 start_date 为过去时间的新 DAG 时尝试回填错过的任务。虽然这种行为是可预料的，但终究没有办法绕过，如果一个作业不应该回填，这就会导致问题。Airflow 1.8 引入了[最近操作符](https://github.com/apache/incubator-airflow/blob/master/airflow/operators/latest_only_operator.py) 来解决这个问题。
 
 * * *
 
-### Conclusion
+### 总结
 
-Airflow has quickly grown to become an important component of our infrastructure at Robinhood. The ability to define DAGs with Python code and the extensible API makes Airflow a configurable and powerful tool. Hopefully this post is useful for anyone exploring scheduling and workflow management tools for their own needs. We are happy to answer any questions. If this kind of stuff is interesting to you, we are [hiring](https://boards.greenhouse.io/robinhood#.WQqFh1PyvUI)!
+Airflow 迅速发展成了我们 Robinhood 基础设施的重要组成部分。使用 Python 代码和可扩展 API 定义 DAG 的能力使 Airflow 成为可配置且功能强大的工具。希望这篇文章对于任何探索调度和工作流管理工具以满足其自身需求的人都很有用。我们很乐意回答任何问题。如果这种东西对你很有意思，考虑下我们的[招聘](https://boards.greenhouse.io/robinhood#.WQqFh1PyvUI)！
 
-Thanks to [Arpan Shah](https://medium.com/@arpanshah29?source=post_page), [Aravind Gottipati](https://medium.com/@aravindg?source=post_page), and [Jack Randall](https://medium.com/@thejgr?source=post_page).
+感谢 [Arpan Shah](https://medium.com/@arpanshah29?source=post_page)，[Aravind Gottipati](https://medium.com/@aravindg?source=post_page)，和 [Jack Randall](https://medium.com/@thejgr?source=post_page)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
