@@ -7,13 +7,13 @@
 
 # 关于 React Motion 的简要介绍
 
-React 很棒，在过去的几周里，我用它玩得很开心，所以我决定尝试一下[React Motion](https://github.com/chenglou/react-motion)。一开始我就在 API 里周旋并且感到有些棘手，但是最终一切开始变得有意义，不过这需要时间。遗憾的是，我在网上找不到合适的 React Motion 教程，所以我决定把这篇文章写出来，不仅是作为一个开发者们的资源，也能给我自己作参考。
+React 很棒，在过去的几周里，我用它玩得很开心，所以我决定尝试一下[React Motion](https://github.com/chenglou/react-motion)。一开始 API 就让我感到有困惑和棘手，但是最终一切开始变得有意义，不过这需要时间。遗憾的是，我在网上找不到合适的 React Motion 教程，所以我决定把这篇文章写出来，不仅是作为一个开发者们的资源，也能给我自己作参考。
 
 React Motion 对外暴露三个主要的组件：Motion, StaggeredMotion 和 TransitionMotion。在本教程中，我们将一起看一看 Motion 组件，之后你会发现将在这一部分花费大量时间。
 
 由于这是一个 React Motion 教程，所以我将假设你有点熟悉 React 以及 ES2015。
 
-我们将在使用 React Motion 重新创建 [一个 Framerjs 的例子](http://framerjs.com/examples/preview/#new-tweet.framer) 时探索 API。你可以在这找到代码的最终版本  [在这](https://github.com/nashvail/ReactPathMenu/).
+我们将在使用 React Motion 重新创建 [一个 Framerjs 的例子](http://framerjs.com/examples/preview/#new-tweet.framer) 时探索 API。你可以在这找到代码的最终版本  [在这](https://github.com/nashvail/ReactPathMenu/)。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*kyWa60lJ2P1nGrQOSFwDag.gif)
 
@@ -25,15 +25,15 @@ React Motion 对外暴露三个主要的组件：Motion, StaggeredMotion 和 Tra
 
 ### Math.start();
 
-我们可以把蓝色的大按钮称为 - _主按钮_, 从蓝色按钮上飞出的按钮称为 — _子按钮_.
+我们可以把蓝色的大按钮称为——主按钮, 从蓝色按钮上飞出的按钮称为——子按钮。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*qllWMqjzSS-WNxJicsTg7A.png)
 
 Fig. 1
 
-子按钮拥有两种位置状态， 1) 一个将他们均隐藏在主按钮后面的位置， 2) 一个将子按钮在主按钮周围排列成一个圆圈的位置。
+子按钮拥有两种位置状态， 1) 子按钮均隐藏在主按钮后面的位置， 2) 子按钮在主按钮周围排列成一个圆圈的位置。
 
-这里就出现了数学问题，我们必须想出一种方法，在一个完美的圆中均匀地排列主按钮周围的子按钮。你可以通过试错法将这些值通过代码写死，但认真的说，谁会这么做呢？另外，一旦你找到正确的方法，只要你愿意你可以摆放任意多的子按钮，而他们都会自动排列自己。
+这里就出现了数学问题，我们必须想出一种方法，在一个完美的圆中均匀地排列主按钮周围的子按钮。你可以通过试错法将这些值通过代码写死，但认真的说，谁会这么做呢？另外，一旦你找到正确的数学方法，只要你愿意你可以摆放任意多的子按钮，而他们都会自动排列自己。
 
 首先让我们了解几个术语。
 
@@ -61,13 +61,13 @@ Fig. 3
 
 现在，我们需要设计一个函数，该函数接收子按钮 (0, 1, 2, 3 …) 的索引，并返回子按钮的新位置的 x 和 y 的坐标。
 
-#### 基准角,索引
+#### 基准角、索引
 
 ![](https://cdn-images-1.medium.com/max/1200/1*HM9Pysix_eOJjbPQ_YNPxQ.png)
 
 Fig. 4
 
-由于通常来说三角学中的角度是从正 x 轴测量的，我们将从相反的方向（右到左）开始给我们的子按钮编号。这样，以后我们就不必在每次需要子按钮的最后位置时乘以负一。
+由于通常来说三角学中的角度是从 x 轴的正方向测量的，我们将从相反的方向（右到左）开始给我们的子按钮编号。这样，以后我们就不必在每次需要子按钮的最后位置时乘以负一。
 
 当我们看到它时，请注意 (参见 Fig. 3)
 
@@ -121,25 +121,25 @@ Fig. 7
 
 <Motion> 获取 [几个参数](https://github.com/chenglou/react-motion#motion-) 每个参数是可选的，但我们不关心这里的可选参数，因为我们没有做任何与这个参数有关的事情。
 
-其中 <Motion> 一个参数是 _style_, 这个样式将作为参数传递到回调函数中，该函数包含内建的 _interpolated values_ ，然后执行它的动画。
+其中 <Motion> 一个参数是 _style_, _style_ 将作为参数传递到回调函数中，该函数包含内建的 _interpolated values_ ，然后执行它的动画。
 
-(第8行 : 因为正在React中执行迭代，所以需要将一个 _key_ 参数传递给子组件。)
+(第8行 : 因为正在React中执行迭代，所以需要将一个 key 参数传递给子组件。)
 
-就像这样,
+就像这样，
 
 即使在这样做以后，结果也不会与图 Fig. 7 有所不同，为什么这么说？好吧，我们还需要最后一步，_spring._。
 
 正如前面提到的, 回调函数包含内建的值，也就是说， _spring_ 帮助函数内建的值插入样式值。
 
-我们需要修改 _initialChildButtonStyles_ 和 the _finalChildButtonStyles_ 并注意 _top_ 和 _left_ 被  _spring_ 覆盖的值。这些是仅有的改变，现在，
+我们需要修改 initialChildButtonStyles 和 the finalChildButtonStyles 并注意 _top_ 和 _left_ 被  _spring_ 覆盖的值。这些是仅有的改变，现在，
 
 ![](https://cdn-images-1.medium.com/max/1600/1*vJVGoGiTF0_WWOjF4nX5yw.gif)
 
 Fig. 8
 
-spring 可选地采用第二个参数，这是一个包含两个数字的数组 [Stiffness, damping]，默认值为[170,26],这导致了上图 Fig. 8 中看到的结果。
+spring 可选地接收第二个参数，这是一个包含两个数字的数组 [Stiffness, damping]，默认值为[170,26],这导致了上图 Fig. 8 中呈现的结果。
 
-将 Stiffness 视为动画发生的速度，这不是一个非常精确的假设，只是速度越大的值越大。Dampness 是一个摇摇欲坠的效果，不过相反的，值越小，动画摇摇欲坠的效果越明显。
+将 Stiffness 视为动画发生的速度，这不是一个非常精确的假设，只是速度越大的值越大。Dampness 是一个晃动效果参数，不过相反的，值越小，晃动效果越明显。
 
 可以看看这个
 
@@ -151,7 +151,7 @@ spring 可选地采用第二个参数，这是一个包含两个数字的数组 
 
 [320, 17] — Fig. 10
 
-我们离最终完成很近了，但是还没有。如果我们在每次下一个子按钮开始动画前添加延迟会怎样？为了达到最终效果，这正是我们需要做的，但这样做并不那么简单，我不得不把每个运动组件存储为状态变量中的数组，然后一个一个地为每个子按钮改变状态以达到期望的效果，代码就像这样
+我们离最终完成很近了，但是还没有。如果我们在每次下一个子按钮开始动画前添加延迟会怎样？为了达到最终效果，这正是我们需要做的，但这样做并不那么简单，我不得不把每个运动组件以数组的形式存储到状态变量中，然后一个一个地为每个子按钮改变状态以达到期望的效果，代码就像这样
 
 > this.state = {  
 > isOpen: false,  
@@ -169,7 +169,7 @@ spring 可选地采用第二个参数，这是一个包含两个数字的数组 
 > this.setState({childButtons: childButtons.slice(0)});  
 > }
 
-最终打开菜单功能得以实现 :
+最终打开菜单功能得以实现：
 
 ![](https://cdn-images-1.medium.com/max/1600/1*OAwTtEZ77MFmYc5J93UWIA.gif)
 
