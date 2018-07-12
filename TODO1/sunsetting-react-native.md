@@ -11,7 +11,7 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/1*8c-9hgBkRGcllO9CHcTzbQ.jpeg)
 
-**这是[系列博客文章](https://juejin.im/post/5b2c924ff265da59a401f050)中的第四篇，本文将会概述使用 React Native 的经验，以及 Airbnb 移动端接下来要做的事情。**今天，我们路在何方？
+**这是[系列博客文章](https://juejin.im/post/5b2c924ff265da59a401f050)中的第四篇，本文将会概述使用 React Native 的经验，以及 Airbnb 移动端接下来要做的事情。** 今天，我们路在何方？
 
 尽管很多团队都依赖 React Native，计划在可预见的将来投入使用，但我们最终无法实现我们原来的目标。此外，还有一些我们无法克服的[技术](https://juejin.im/post/5b3b40a26fb9a04fab44e797)和[组织](https://medium.com/airbnb-engineering/building-a-cross-platform-mobile-team-3e1837b40a88)挑战，使继续投入使用 React Native 变得更加困难。
 
