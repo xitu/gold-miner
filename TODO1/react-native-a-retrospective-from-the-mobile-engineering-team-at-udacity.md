@@ -2,12 +2,12 @@
 > * 原文作者：[Nate Ebel](https://engineering.udacity.com/@n8ebel?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/react-native-a-retrospective-from-the-mobile-engineering-team-at-udacity.md](https://github.com/xitu/gold-miner/blob/master/TODO1/react-native-a-retrospective-from-the-mobile-engineering-team-at-udacity.md)
-> * 译者：@pkuwwt
-> * 校对者：
+> * 译者：[pkuwwt](https://github.com/pkuwwt)
+> * 校对者：[DateBro](https://github.com/DateBro)
 
 # React Native: 回顾 Udacity 移动工程团队的使用历程
 
-![](../images/react-native.png)
+![](https://cdn-images-1.medium.com/max/1600/1*AjesIvV-kkwk6LLvNf1t4A.png)
 
 [Udacity](https://www.udacity.com/) 的移动团队最近把我们的应用程序中用 [React Native](https://facebook.github.io/react-native/) 编写的最后一个功能移除了。
 
@@ -21,13 +21,13 @@
   * 哪些方面可行？哪些方面不可行？
   * ...以及其它 🙂
 
-我必然不能自称是 React Native 专家。我们团队中有的人比我更有经验，不过他们也未必能够称之为专家。
+我必然不能自称是 React Native 专家。我们团队中有的人比我更有经验，不过他们也未必能够称为专家。
 
 我只是想谈一谈我们自己的经验，介绍一下在我们这个特定的使用情况下哪些可行哪些不可行。React Native 是否适合于你的团队/项目，这完全取决于你。而本文的作用是为你决策时提供一些额外的有用参考。
 
-> ``是否在你的团队/项目中使用 React Native 完全取决于你''
+> “是否在你的团队/项目中使用 React Native 完全取决于你”
 
-还需要指出的是，这里的经验和观点来自于 Udacity 的移动工程团队，并不涉及到其它场合。我们的想法不代表其它使用 React/React Native，或为之构建内容的团队的观点。
+还需要指出的是，这里的经验和观点来自于 Udacity 的移动工程团队，并不涉及到公司其他团队。我们的想法不代表其它使用 React/React Native，或为之构建内容的团队的观点。
 
 * * *
 
@@ -84,14 +84,14 @@ iOS 团队最初唯一的那个开发者对跳进 React Native 阵营相当认�
 
 > **代码库的规模**
 
-  * iOS: 97400 行代码 （.swift，.h，.m）
-  * Android：93000 行代码 （xml, java, kotlin, gradle）
+  * iOS: 97400 行代码（.swift，.h，.m）
+  * Android：93000 行代码（xml, java, kotlin, gradle）
 
 > **功能的一致性**
 
 当引入 React Native 时，这些应用程序的功能基本上是一致的。
 
-随着项目推进，核心体验基本上保持一致，但每个团队都有一些在特定平台上独有的``实验性''功能。
+随着项目推进，核心体验基本上保持一致，但每个团队都有一些在特定平台上独有的“实验性”功能。
 
 此外，由于更大的国际化需求，诸如本地化和更小的 apk 软件包大小之类的需求日益成为 Android 团队的优先事项。Android 团队还和其它地区的团队密切合作，为特定市场开发一些功能，这是 iOS 团队不需要重点考虑的。
 
@@ -143,7 +143,7 @@ iOS 团队最初唯一的那个开发者对跳进 React Native 阵营相当认�
 
 我们移除应用程序中与 React Native 相关的最后一点代码，原因在于剩下的唯一一个 React Native 功能已经快要下线，我们不打算对它继续支持了。
 
-> ``为什么停止用 React Native 开发新功能呢''
+> “为什么停止用 React Native 开发新功能呢”
 
 更有意思的问题可能是：为什么停止用 React Native 开发新功能呢？
 
@@ -202,7 +202,7 @@ iOS 团队最初唯一的那个开发者对跳进 React Native 阵营相当认�
 
 > **设备相关的问题**
 
-不管你叫它 ``碎片化'' 还是 ``分散化''，我们面临的现实是，Android 设备上有更多独特的配置需要考虑。
+不管你叫它“碎片化”还是“分散化”，我们面临的现实是，Android 设备上有更多独特的配置需要考虑。
 
 在很多情况下，我们发现布局不能很好地适配到不同尺寸的 Android 手机。我们发现最新的 iPhone 和 Pixel 设备上可以很流畅地运行动画，但是在国际市场上更广泛使用的低端设备上是做不到的。 
 
@@ -243,7 +243,7 @@ Android 团队还经历了 Android/Gradle 构建工具与 React Native 冲突的
 
 iOS 团队同样存在不少问题。
 
-配置构建工具比较痛苦，因为我们使用 React Native 时采用的是非标准文件结构。因为我们有多个项目仓库，我们将 React Native 仓库置于 srcroot/ReactNative 目录下，而很多已有的构建工具却假设默认的应用文件结构为 /ReactNative/ios/ ...ios。
+配置构建工具比较痛苦，因为我们使用 React Native 时采用的是非标准文件结构。因为我们有多个项目仓库，我们将 React Native 仓库置于 srcroot/ReactNative 目录下，而很多已有的构建工具却假设默认的应用文件结构为 /ReactNative/ios/ios。
 
 此外，我们使用过 cocoapods 来管理依赖关系，它原来是包含 React Native 的推荐方式，但是后来却不再被推荐了。这个问题因为我们的非标准文件结构而变得更为严重，于是我们需要在 Podfile 中用一些很恼人的小技巧来从正确的位置读取文件。
 
@@ -275,7 +275,7 @@ React Native 作为一个整体发展是非常快的，然而我们也发现它�
 
 前面已经提过，我们有几次都注意到了性能的问题。
 
-我们可以在空间够在的 iOS 和 Android 设备上实现非常漂亮的动画，但是这些动画却在国际市场上更广泛使用的低端 Android 设备上难以良好运行。
+我们可以在空间足够的 iOS 和 Android 设备上实现非常漂亮的动画，但是这些动画在国际市场上更广泛使用的低端 Android 设备上却难以良好运行。
 
 在进入到应用的 React Native 部分时的加载时间比我们预期要长。这使得它不像是一种无缝过渡。
 
@@ -320,7 +320,7 @@ React Native 的改动的速度也构成挑战。因为存在不持续的改动�
 
 > **更少的代码分支**
 
-让应用程序与 React Native 仓库中的改动保持一致，我们就可以做得更好。 我相信让这些更新同步会让我们在实现这些功能时有更强烈的跨平台开发的感觉。
+让应用程序与 React Native 仓库中的改动保持一致，我们就可以做得更好。我相信让这些更新同步会让我们在实现这些功能时有更强烈的跨平台开发的感觉。
 
 增加设备上的测试，特别是 Android，可有助于我们在早期发现更多 UI/性能问题，并且在发布之前修复。在新代码编写之前修复问题，又可以进一步减少代码分支的数目。
 
@@ -364,7 +364,7 @@ iOS 团队和 Android 团队有不同的说法。
 
 不会。理想情况下，Android 团队将不会投入到 React Native 中去。我们发现 React Native 组件的集成过程相当烦琐，并且其用户体验并不能在所有 Android 设备上都同样运行良好。
 
-此外，我们倾向于坚持使用一种技术栈，而不愿意在Android 框架上再增加一层抽象，因为这也意味着增加潜在的 BUG。
+此外，我们倾向于坚持使用一种技术栈，而不愿意在 Android 框架上再增加一层抽象，因为这也意味着增加潜在的 BUG。
 
 我们的印象是，用 React Native 为 Android 创建新功能的过程是比较快的，但是这个功能从早期阶段过渡到最终发布版本，以及长期的维护过程，往往会花费更多时间。
 
@@ -374,13 +374,13 @@ iOS 团队和 Android 团队有不同的说法。
 
 作为一个团队，我们很可能不会在短期内投入到跨平台的开发中。iOS 团队有可能会用 React Native 来构建一些新东西，并且这只限于 iOS 设备，因为他们大体上会更享受这种开发体验。
 
-个体而言，团队成员会继续追踪 React Native，以及 Flutter。因为诸如 React Native 和 Flutter 这样的解决方案也在一直进化，我们会持续为我们的团队评估这些技术。
+个体而言，团队成员会继续关注 React Native，以及 Flutter。因为诸如 React Native 和 Flutter 这样的解决方案也在一直进化，我们会持续为我们的团队评估这些技术。
 
 那么，这就是我们今天所处的状态。
 
 我们对 React Native 如何能更好地适应我们的团队以及路线图方面有了更好的理解。我们可以基于这种判断来指导我们下一步的决策，从而为团队做出正确的技术选择。
 
-> ``我们可不可以确定地判断 React Native 是否适合于你？不能。''
+> “我们可不可以确定地判断 React Native 是否适合于你？不能。”
 
 我们知道 React Native 的优点以及不足，那么我们可不可以确定地判断 React Native 是否适合你？
 
@@ -393,25 +393,25 @@ iOS 团队和 Android 团队有不同的说法。
 
 #### 想要学习更多移动开发？
 
-* [**谷歌的安卓开发纳米学位 | Udacity**: 和谷歌一起使用我们的安卓开发纳米课程，开启你的职业生涯](https://www.udacity.com/course/android-developer-nanodegree-by-google--nd801)
+* [**谷歌的安卓开发纳米学位 | Udacity**：和谷歌一起使用我们的安卓开发纳米课程，开启你的职业生涯](https://www.udacity.com/course/android-developer-nanodegree-by-google--nd801)
 
-* [**成为一个 iOS 开发得 | Udacity**: 学习 iOS 应用开发，使用我们的 iOS 开发者纳米课程成为一个 iOS 开发者](https://www.udacity.com/course/ios-developer-nanodegree--nd003)
+* [**成为一个 iOS 开发得 | Udacity**：学习 iOS 应用开发，使用我们的 iOS 开发者纳米课程成为一个 iOS 开发者](https://www.udacity.com/course/ios-developer-nanodegree--nd003)
 
-* [**React | Udacity**: React 是一种完全的颠覆性的前端开发。和 Udacity 一起来掌握这种来自于 Facebook 的 UI 库](https://www.udacity.com/course/react-nanodegree--nd019)
+* [**React | Udacity**：React 是一种完全的颠覆性的前端开发。和 Udacity 一起来掌握这种来自于 Facebook 的 UI 库](https://www.udacity.com/course/react-nanodegree--nd019)
 
-* [**使用 Flutter 来构建本地移动应用 | Udacity**: 从谷歌专家那里学习如何使用 Flutter 在 iOS 和安卓设备上创建高质量的本地界面](https://www.udacity.com/course/build-native-mobile-apps-with-flutter--ud905)
+* [**使用 Flutter 来构建本地移动应用 | Udacity**：从谷歌专家那里学习如何使用 Flutter 在 iOS 和安卓设备上创建高质量的本地界面](https://www.udacity.com/course/build-native-mobile-apps-with-flutter--ud905)
 
 #### 关注我们
 
-想了解更多构建 Udacity 的工程师和科学家，请在 Medium 上 [关注](https://engineering.udacity.com/) 我们。
+想了解更多构建 Udacity 的工程师和科学家，请在 Medium 上[关注](https://engineering.udacity.com/)我们。
 
-想加入我们？请 @udacity。[机会多多。](http://www.udacity.com/jobs)。
+想加入我们？请 @udacity，[机会多多。](http://www.udacity.com/jobs)
 
-#### 移动设备上的 Udacity 
+#### 移动设备上的 Udacity
 
-[**移动设备上的 Udacity | iPad, iPhone 和 Android**： 我们已经将 Udacity 的课程体验带到了 iPad 和 iPhone 和 Android 上。开始学习你所需的技能吧)(https://www.udacity.com/mobile)
+[**移动设备上的 Udacity | iPad, iPhone 和 Android**：我们已经将 Udacity 的课程体验带到了 iPad 和 iPhone 和 Android 上。开始学习你所需的技能吧)(https://www.udacity.com/mobile)
 
-感谢 [Aashish Bansal](https://medium.com/@aashish.bansal?source=post_page) 和 [Justin Li](https://medium.com/@li.justin?source=post_page).
+感谢 [Aashish Bansal](https://medium.com/@aashish.bansal?source=post_page) 和 [Justin Li](https://medium.com/@li.justin?source=post_page)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
