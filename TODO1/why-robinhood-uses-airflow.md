@@ -33,11 +33,11 @@ Pinball 由 Pinterest 开发，具有分布式、可水平扩展的工作流管�
 
 #### 依赖管理
 
-Airflow 使用 [操作符](https://airflow.incubator.apache.org/concepts.html#operators) 作为定义任务的基本抽象单元，并使用 [DAG](https://airflow.incubator.apache.org/concepts.html#dags)（有向无环图）通过一组操作符定义工作流。 操作符是可扩展的，这使得自定义工作流变得容易。操作符分为3种类型：
+Airflow 使用[操作符](https://airflow.incubator.apache.org/concepts.html#operators)作为定义任务的基本抽象单元，并使用 [DAG](https://airflow.incubator.apache.org/concepts.html#dags)（有向无环图）通过一组操作符定义工作流。操作符是可扩展的，这使得自定义工作流变得容易。操作符分为3种类型：
 
-*   **动作** 执行某些操作的操作符，例如执行 Python 函数或提交 Spark Job。
-*   **转移** 在系统之间移动数据的操作符，例如从 Hive 到 Mysql 或从 S3 到 Hive。
-*   **传感器** 在满足特定条件时触发依赖网中的下游任务，例如在下游使用之前检查 S3 上的某个文件是否可用。传感器是 Airflow 的强大功能，使我们能够创建复杂的工作流程并轻松管理其前提条件。
+*   **动作**执行某些操作的操作符，例如执行 Python 函数或提交 Spark Job。
+*   **转移**在系统之间移动数据的操作符，例如从 Hive 到 Mysql 或从 S3 到 Hive。
+*   **传感器**在满足特定条件时触发依赖网中的下游任务，例如在下游使用之前检查 S3 上的某个文件是否可用。传感器是 Airflow 的强大功能，使我们能够创建复杂的工作流程并轻松管理其前提条件。
 
 下面是一个示例，说明不同类型的传感器如何用于典型的 ETL（[数据提取转换与加载](https://en.wikipedia.org/wiki/Extract,_transform,_load)）工作流程。该示例使用传感器操作符等待数据可用，并使用转移操作符将数据移动到所需位置。然后将动作操作符用于转换阶段，然后使用转移操作符加载结果。最后，我们使用传感器操作符来验证结果是否已正确存储。
 
