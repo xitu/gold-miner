@@ -7,7 +7,7 @@
 
 # 论 Rust 和 WebAssembly 对源码地址索引的极限优化
 
-[Tom Tromey](http://tromey.com) 和我尝试使用 Rust 语言进行编码，然后用 WebAssembly 进行编译打包后替换 `source-map（源码地址索引，以下行文为了理解方便均不进行翻译）` 的 JavaScript 工具库中性能敏感的部分。在实际场景中以相同的基准进行对比操作， [WebAssembly](https://webassembly.org/) 的性能要比已有的 source-map 库 **快上 5.89 倍** 。 另外，多次测试结果也更为一致：相对一致的情况下偏差值很小。
+[Tom Tromey](http://tromey.com) 和我尝试使用 Rust 语言进行编码，然后用 WebAssembly 进行编译打包后替换 `source-map`（源码地址索引，以下行文为了理解方便均不进行翻译）的 JavaScript 工具库中性能敏感的部分。在实际场景中以相同的基准进行对比操作， [WebAssembly](https://webassembly.org/) 的性能要比已有的 source-map 库 **快上 5.89 倍** 。 另外，多次测试结果也更为一致：相对一致的情况下偏差值很小。
 
 我们以提高性能的名义将那些令人费解又难以阅读的 JavaScript 代码替换成更加语义化的 Rust 代码，这确实行之有效。
 
