@@ -11,7 +11,7 @@
 
 如果你从事移动开发，你可能听说过谷歌的跨平台 SDK：Flutter。Flutter 的 [beta 版本](https://medium.com/flutter-io/announcing-flutter-beta- build-beautiful-native-apps-dc142aea74c0) 于 2 月 27 日发布，并于近期发布了第一个预览版。为了帮助您开始使用 Flutter，本教程将介绍 SDK 的一些基本内容，同时还将介绍如何设置底部导航栏。为了帮助您学习，本教程的代码可以在 [GitHub](https://github.com/JoeCherry/my_app)上获得。
 
-### 什么是 Flutter?
+### 什么是 Flutter？
 
 在我们开始编写代码之前，让我们先谈谈什么是 Flutter。Flutter SDK 继承了一套完整的开发框架，包括在 Android 和 iOS 上构建原生移动应用所需的 widget 和工具。与其他诸如 React Native 和 Xamarin 等跨平台框架的区别在于，它不使用平台原生 widget，也不使用 webview。相反，Flutter 有自己的用 C/C++ 编写的渲染引擎，而用来编写 Flutter 应用程序的 Dart 代码在各个平台上都可以编译成底层代码。这就可以在每个平台上都能做出高性能的应用。不仅应用在使用体验上非常快，而且通过 Flutter 的热重载特性也大大加快了开发时间。热重载允许开发人员在他们的设备或模拟器上立即显示修改内容的变化效果，由此可以减少那些浪费在等待代码编译的时间。
 
@@ -73,7 +73,7 @@ class Home extends StatefulWidget {
 }
 ```
 
-您可能会注意到，这个 widget 类没有实现我们前面提到的 build 方法。当涉及到 `StatefulWidgets` 时，build 方法会在 widget 对应的 `State` 类中实现。在 `StatefulWidget` 中，唯一需要的方法是我们在上面实现的 `createState` 方法，我们只返回一个 `_HomeState` 类实例。类名前面的“_”代表 Dart 将类或类属性标记为 private。我们现在需要创建 home widget 的 state 类。在 `home_widget.dart` 文件的末尾添加这个段代码:
+您可能会注意到，这个 widget 类没有实现我们前面提到的 build 方法。当涉及到 `StatefulWidgets` 时，build 方法会在 widget 对应的 `State` 类中实现。在 `StatefulWidget` 中，唯一需要的方法是我们在上面实现的 `createState` 方法，我们只返回一个 `_HomeState` 类实例。类名前面的 `“_”` 代表 Dart 将类或类属性标记为 private。我们现在需要创建 home widget 的 state 类。在 `home_widget.dart` 文件的末尾添加这个段代码:
 
 ```
 class _HomeState extends State<Home> {
