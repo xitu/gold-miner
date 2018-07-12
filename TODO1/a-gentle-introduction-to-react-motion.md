@@ -193,7 +193,7 @@ NUM_CHILDREN = 8
 
 相当酷对吗? 再说一遍，你可以在 [在这](https://github.com/nashvail/ReactPathMenu/blob/staggered-motion/Components/APP.js)找到相应代码。如果你觉得这篇文章有帮助，请点击下面的推荐按钮。
 
-如果有一些问题、评论、建议或仅仅是想聊个天？可以在 Twitter 上找到我 [@NashVail](http://twitter.com/NashVail) 或者给我发电子邮件 [hello@nashvail.me](mailto:hello@nashvail.me).
+如果有一些问题、评论、建议或仅仅是想聊个天？可以在 Twitter 上找到我 [@NashVail](http://twitter.com/NashVail) 或者给我发电子邮件 [hello@nashvail.me](mailto:hello@nashvail.me)。
 
 * * *
 
