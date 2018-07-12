@@ -1701,10 +1701,11 @@
 |[用 Swift 开发我的第一个 iOS 应用前，我想要知道这些内容](http://gold.xitu.io/entry/57c66667c4c9710061a57b3f/)|校对|2|
 |[你的设计应该「所见即所得」](http://gold.xitu.io/entry/57c5978f128fe1005fdf4858/)|校对|1|
 
-## 译者：[steinliber](https://github.com/steinliber) 历史贡献积分：69 当前积分：24 年度积分：17
+## 译者：[steinliber](https://github.com/steinliber) 历史贡献积分：69 当前积分：9 年度积分：17
 
 |文章|类型|积分|
 |------|-------|-------|
+|2018 年 7 月兑掘金桌垫和 GitHub 贴纸各 1 个|减去积分|15|
 |[Erlang 之禅第一部分](https://juejin.im/post/5b2a16cce51d4558d726e8c9)|翻译|6|
 |[使用 Go 语言的流模式来解析 DrugBank 的 XML（或者任何大的 XML 文件）](https://juejin.im/entry/5b06322a6fb9a07aab2a3d44)|翻译|3|
 |[为 Python Web 应用编写 Dockerfiles](https://juejin.im/post/5aaf8038518825557e783285)|校对|1|
@@ -2409,10 +2410,11 @@
 |[如何搭建安卓开发持续化集成环境（Ubuntu + Jenkins + SonarQube）](https://gold.xitu.io/entry/589d1c251b69e60059ba04b5)|翻译|7|
 |[SOLID 原则：权威指南](https://gold.xitu.io/entry/587f1c331b69e6005853ecfa)|校对|1|
 
-## 译者：[fghpdf](https://github.com/fghpdf) 历史贡献积分：26.5 当前积分：26.5
+## 译者：[fghpdf](https://github.com/fghpdf) 历史贡献积分：26.5 当前积分：16.5 年度积分：0
 
 |文章|类型|积分|
 |------|-------|-------|
+|2018 年 7 月兑掘金桌垫 1 个|减去积分|10|
 |[fghpdf 翻译开源库 Python 100 个](#)|翻译|10|
 |[搭建个人深度学习平台](https://juejin.im/post/59be8e2b5188252c24746e9c)|校对|1.5|
 |[在你沉迷于包的海洋之前，还是了解一下运行时 Node.js 的本身](https://juejin.im/post/58cf4a3144d90400690b7be7/)|翻译|6|
@@ -4497,10 +4499,11 @@
 |------|-------|-------|
 |[JavaScript 工作原理：内存管理 + 处理常见的 4 种内存泄漏](https://juejin.im/post/5a2559ae6fb9a044fe4634ba)|翻译|8|
 
-## 译者：[LeopPro](https://github.com/LeopPro) 历史贡献积分：52 当前积分：52 年度积分：39
+## 译者：[LeopPro](https://github.com/LeopPro) 历史贡献积分：52 当前积分：44 年度积分：39
 
 |文章|类型|积分|
 |------|-------|-------|
+|2018 年 7 月兑集智优盘 1 个|减去积分|8|
 |[支撑现代存储系统的算法](https://juejin.im/post/5b10f80b5188257d92206851)|翻译|12|
 |[BigQuery 中的比特币：使用公共数据分析区块链](https://juejin.im/post/5afc17b16fb9a07aaf35673a)|翻译|3|
 |[使用 Rust 开发一个简单的 Web 应用，第 4 部分 —— CLI 选项解析](https://juejin.im/post/5a8d6aad6fb9a0634514c6c6)|翻译|8|
@@ -5302,10 +5305,11 @@
 |[json — JavaScript 对象表示法](https://juejin.im/post/5a9432ae5188257a5c6092b0)|校对|1|
 |[嵌套三元表达式棒极了（软件编写）（第十四部分）](https://juejin.im/post/5a7d6769f265da4e7e10ad82)|校对|1|
 
-## 译者：[zhmhhu](https://github.com/zhmhhu) 历史贡献积分：58.5 当前积分：58.5 年度积分：58.5
+## 译者：[zhmhhu](https://github.com/zhmhhu) 历史贡献积分：61.5 当前积分：61.5 年度积分：61.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|推荐多篇优秀英文文章|奖励|3|
 |[WOFF文件格式 1.0](https://github.com/xitu/gold-miner/blob/master/TODO1/recommendation-woff-2012-12-13.md)|翻译|10|
 |[为什么 VueX 是前端与 API 之间的完美接口](https://juejin.im/post/5b14d1bd6fb9a01e4508bfc1)|翻译|5|
 |[一个简单的 ES6 Promises 指南](https://juejin.im/post/5b0eb3b1f265da08f31e770a)|校对|1|
@@ -5867,10 +5871,11 @@
 |[Awesome Flutter 校对](https://github.com/xitu/awesome-flutter)|校对|1|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|1|
 
-## 译者：[lihanxiang](https://github.com/lihanxiang) 历史贡献积分：8.5 当前积分：8.5 年度积分：8.5
+## 译者：[lihanxiang](https://github.com/lihanxiang) 历史贡献积分：8.5 当前积分：0.5 年度积分：8.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|2018 年 7 月兑纪念币 4 个|减去积分|8|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|6|
 |[一种更简单的途径在 Java 中进行函数式编程](https://juejin.im/post/5b24aa5f6fb9a00e4d53e0c9)|校对|0.5|
 |[创造华丽 UI 的 7 个规则（Part 1）](https://juejin.im/post/5b1dcc7d5188257d7d71946a)|校对|0.5|
@@ -6104,3 +6109,9 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[为 GitHub 项目做出贡献的初学者指南](https://juejin.im/entry/5b2e58ba6fb9a00e4966ee4b)|校对|1.5|
+
+## 译者：[upupming](https://github.com/upupming) 历史贡献积分：1 当前积分：1 年度积分：1
+
+|文章|类型|积分|
+|------|-------|-------|
+|[修订 The JavaScript Tutorial](https://github.com/xitu/javascript-tutorial-zh/pull/151)|修订|1|
