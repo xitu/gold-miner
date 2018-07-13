@@ -1,3 +1,7 @@
+* [单元素组件模式简介](https://juejin.im/post/5b445d79e51d4519596b5f87) ([jonjia](https://github.com/jonjia) 翻译)
+* [React 实现条件渲染的多种方式和性能考量](https://juejin.im/post/5b3e34905188251b1f223ad3) ([IveHD](https://github.com/IveHD) 翻译)
+* [2018 年，如何选择最好的静态站点生成器](https://juejin.im/post/5b47079bf265da0faa3655be) ([ssshooter](https://github.com/ssshooter) 翻译)
+* [将项目迁移到 Yarn 然后又迁回到 npm](https://juejin.im/post/5b3b5735f265da0f894b443d) ([zhongdeming428](https://github.com/zhongdeming428) 翻译)
 * [或许你并不需要 Rust 和 WASM 来提升 JS 的执行效率 — 第二部分](https://juejin.im/post/5b357c20f265da595f0d3f91) ([geniusq1981](https://github.com/geniusq1981) 翻译)
 * [怎样使用简单的三角函数来创建更好的加载动画](https://juejin.im/post/5b33055f518825748871c590) ([zhongdeming428](https://github.com/zhongdeming428) 翻译)
 * [WOFF文件格式 1.0](https://github.com/xitu/gold-miner/blob/master/TODO1/recommendation-woff-2012-12-13.md) ([zhmhhu](https://github.com/zhmhhu) 翻译)
