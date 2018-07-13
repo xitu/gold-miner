@@ -1,3 +1,8 @@
+* [如何在 Flutter 中设计 LinearLayout？](https://juejin.im/post/5b3edeb16fb9a04fe820ccbc) ([androidxiao](https://github.com/androidxiao) 翻译)
+* [使用 Flutter 的 GestureDetector 构建自定义滑块](https://juejin.im/post/5b431bff5188251b166ee0c1) ([ALVINYEH](https://github.com/ALVINYEH) 翻译)
+* [Flutter 组件到底是什么？](https://juejin.im/post/5b46f836f265da0f8f2025f7) ([ALVINYEH](https://github.com/ALVINYEH) 翻译)
+* [海量视频时代下的内容发现之旅](https://juejin.im/post/5b441c895188251aad20f644) ([Yuhanlolo](https://github.com/Yuhanlolo) 翻译)
+* [React Native：回顾 Udacity 移动工程团队的使用历程](https://juejin.im/post/5b421b606fb9a04fd15ff802) ([pkuwwt](https://github.com/pkuwwt) 翻译)
 * [如何避免拍脑袋想出的产品优先策略](https://juejin.im/post/5b37a0156fb9a00e78666072) ([bobmayuze](https://github.com/bobmayuze) 翻译)
 * [Android 应用和游戏的无障碍开发介绍](https://juejin.im/post/5b31ea42e51d455882380119) ([geniusq1981](https://github.com/geniusq1981) 翻译)
 * [如何用 Android vitals 解决应用程序的质量问题](https://juejin.im/post/5b3229a7f265da598c09dd4a) ([LeeSniper](https://github.com/LeeSniper) 翻译)
