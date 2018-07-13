@@ -421,10 +421,11 @@
 |[使用重构件（Codemod）加速 JavaScript 开发和重构](http://gold.xitu.io/entry/574e49662e958a005e00f543)|翻译|7|
 |[8月份兑换小章鱼猫一只]()|减去积分|15|
 
-## 译者：[zheaoli](https://github.com/Zheaoli) 历史贡献积分：87 当前积分：-5 年度积分：4
+## 译者：[zheaoli](https://github.com/Zheaoli) 历史贡献积分：87。5 当前积分：-4.5 年度积分：4.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[使用多重赋值与元组解包提升 Python 代码的可读性](https://juejin.im/post/5b3c2cf1e51d451925625b94)|翻译|0.5|
 |[带你了解以太坊第 2 层扩容方案：State Channels、Plasma 和 Truebit](https://juejin.im/post/5aa1f63c518825558804f85b)|校对|4|
 |[Django 基于 Postgres 的全文搜索](https://juejin.im/entry/593a069b61ff4b006c70ba82/detail)|校对|1|
 |[在 Swift 中使用闭包实现懒加载](https://juejin.im/post/590a9eeab123db00549776ee)|校对|1|
@@ -2861,10 +2862,11 @@
 |[你正在阅读的用户体验文章是不是在向你进行推销？](https://juejin.im/post/58d4c501a22b9d00645544d9)|校对|2|
 |[震惊，还可以用这种姿势学习编程](https://juejin.im/post/58d3ebd4128fe1006cb43722)|翻译|3|
 
-## 译者：[lsvih](https://github.com/lsvih) 历史贡献积分：263.5 当前积分：197.5 年度积分：56
+## 译者：[lsvih](https://github.com/lsvih) 历史贡献积分：269 当前积分：203 年度积分：61.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[使用多重赋值与元组解包提升 Python 代码的可读性](https://juejin.im/post/5b3c2cf1e51d451925625b94)|翻译|5.5|
 |2018 年 6 月兑服务器 1 个|减去积分|25|
 |[什么是 JavaScript 生成器？如何使用生成器？](https://juejin.im/post/5b14faf2f265da6e4d5af3b9)|翻译|4|
 |[可用但最不常见的 HTML5 标签](https://juejin.im/post/5b0026e8f265da0b8c253c2a)|翻译|2|
@@ -4247,10 +4249,11 @@
 |[JavaScript 如何工作：在 V8 引擎里 5 个优化代码的技巧](https://juejin.im/post/5a102e656fb9a044fd1158c6)|校对|2|
 |[Vue Report 2017](https://juejin.im/post/5a138fae5188254d28732899)|翻译|4|
 
-## 译者：[caoyi0905](https://github.com/caoyi0905) 历史贡献积分：25.5 当前积分：15.5
+## 译者：[caoyi0905](https://github.com/caoyi0905) 历史贡献积分：28.5 当前积分：18.5 年度积分：3
 
 |文章|类型|积分|
 |------|-------|-------|
+|[使用 Python 实现接缝裁剪算法](https://juejin.im/post/5b46ee8e6fb9a04fc436ad60)|翻译|3|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译|8|
 |[TensorFlow 官方文档翻译校对](https://github.com/xitu/tensorflow-docs)|翻译|10|
 |[ES6 中的元编程： 第三部分 - 代理（Proxies）](https://juejin.im/post/5a0f05496fb9a04508093ac4)|校对|1.5|
@@ -5240,10 +5243,13 @@
 |[使用 MVI 开发响应式 APP - 第三部分 - 状态减少（state reducer）](https://juejin.im/post/5a955c50f265da4e853d856a)|翻译|4|
 |[二十年后比特币会变成什么样？- 第二部分](https://juejin.im/post/5a955721f265da4e826377b6)|翻译|6|
 
-## 译者：[Starriers](https://github.com/Starriers) 历史贡献积分：225.5 当前积分：195.5 年度积分：225.5
+## 译者：[Starriers](https://github.com/Starriers) 历史贡献积分：238 当前积分：138 年度积分：238
 
 |文章|类型|积分|
 |------|-------|-------|
+|[从 Java EE 8 Security API 开始 — 第二部分](https://juejin.im/post/5b3b49d66fb9a04f8a2160a9)|翻译|4.5|
+|[通过 SSH 远程使用 Python 解释器来运行 Flask](https://juejin.im/post/5b3e25a8e51d45191716d187)|翻译|4|
+|[我是如何从零开始建立一个网络爬虫来实现我的求职自动化的](https://juejin.im/post/5b3b40896fb9a04f9e22e927)|翻译|4|
 |[将项目迁移到 Yarn 然后又迁回到 npm](https://juejin.im/post/5b3b5735f265da0f894b443d)|校对|1.5|
 |[如何在 Flutter 中设计 LinearLayout？](https://juejin.im/post/5b3edeb16fb9a04fe820ccbc)|校对|0.5|
 |[从 Java EE 8 Security API 开始 — 第一部分](https://juejin.im/post/5b35a8d4f265da599423598b)|翻译|5|
@@ -5733,10 +5739,11 @@
 |[用 Java 代码实现区块链](https://juejin.im/post/5ae57d9e6fb9a07ab83dcc03)|校对|4|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|6|
 
-## 译者：[mingxing47](https://github.com/mingxing47) 历史贡献积分：10.5 当前积分：10.5 年度积分：10.5
+## 译者：[mingxing47](https://github.com/mingxing47) 历史贡献积分：14 当前积分：14 年度积分：14
 
 |文章|类型|积分|
 |------|-------|-------|
+|[[字幕翻译] Andrew Godwin — Django 异步 — PyCon 2018](https://www.bilibili.com/video/av24571596/)|校对|3.5|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|5|
 |[预测你的游戏的货币化未来](https://juejin.im/post/5ad1d3b6f265da238f12fafa)|校对|1|
 |[用 Go 编写你自己的区块链挖矿算法！](https://juejin.im/post/5ad6d2ff51882579ef4f7cf0)|校对|2.5|
@@ -6021,10 +6028,11 @@
 |------|-------|-------|
 |[Vue.js 还是 React？你会选择哪一个？为什么?](https://juejin.im/post/5b25b3a16fb9a00e70686180)|校对|0.5|
 
-## 译者：[geniusq1981](https://github.com/geniusq1981) 历史贡献积分：22 当前积分：22 年度积分：22
+## 译者：[geniusq1981](https://github.com/geniusq1981) 历史贡献积分：34 当前积分：34 年度积分：34
 
 |文章|类型|积分|
 |------|-------|-------|
+|[[字幕翻译] Andrew Godwin — Django 异步 — PyCon 2018](https://www.bilibili.com/video/av24571596/)|翻译|12|
 |[Envion 通过区块链采矿来支持可再生能源的发展](https://juejin.im/post/5b47f6c2e51d45191b611b09)|翻译|3|
 |[能源行业聚焦基于区块链技术的加密货币](https://juejin.im/post/5b47f4a9e51d45198a2eb75b)|翻译|3.5|
 |[或许你并不需要 Rust 和 WASM 来提升 JS 的执行效率 — 第二部分](https://juejin.im/post/5b357c20f265da595f0d3f91)|翻译|4|
@@ -6041,17 +6049,19 @@
 |[Kubernetes 分布式应用部署和人脸识别 app 实例](https://juejin.im/post/5b2db0576fb9a00e50313904)|校对|0.5|
 |[[字幕翻译] James Bennett — 理解 Python 字节码 — PyCon 2018](https://github.com/xitu/gold-miner/issues/3990)|校对|0.5|
 
-## 译者：[kasheemlew](https://github.com/kasheemlew) 历史贡献积分：4.5 当前积分：4.5 年度积分：4.5
+## 译者：[kasheemlew](https://github.com/kasheemlew) 历史贡献积分：7 当前积分：7 年度积分：7
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Erlang 之禅第二部分](https://juejin.im/post/5b3ea3ed6fb9a04fb8772a2c)|校对|2.5|
 |[Erlang 之禅第一部分](https://juejin.im/post/5b2a16cce51d4558d726e8c9)|校对|2|
 |[[字幕翻译] 玛利亚塔·维加亚 — 什么是 Python 核心开发者？— PyCon 2018](https://juejin.im/post/5b152c825188257d8a48d4a8)|校对|2.5|
 
-## 译者：[satansk](https://github.com/satansk) 历史贡献积分：1 当前积分：1 年度积分：1
+## 译者：[satansk](https://github.com/satansk) 历史贡献积分：1.5 当前积分：1.5 年度积分：1.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Erlang 之禅第二部分](https://juejin.im/post/5b3ea3ed6fb9a04fb8772a2c)|校对|0.5|
 |[一种更简单的途径在 Java 中进行函数式编程](https://juejin.im/post/5b24aa5f6fb9a00e4d53e0c9)|校对|1|
 
 ## 译者：[FesonX](https://github.com/FesonX) 历史贡献积分：1.5 当前积分：1.5 年度积分：1.5
@@ -6060,10 +6070,11 @@
 |------|-------|-------|
 |[支撑现代存储系统的算法](https://juejin.im/post/5b10f80b5188257d92206851)|校对|1.5|
 
-## 译者：[7Ethan](https://github.com/7Ethan) 历史贡献积分：1.5 当前积分：1.5 年度积分：1.5
+## 译者：[7Ethan](https://github.com/7Ethan) 历史贡献积分：7 当前积分：7 年度积分：7
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Erlang 之禅第二部分](https://juejin.im/post/5b3ea3ed6fb9a04fb8772a2c)|翻译|5.5|
 |[Erlang 之禅第一部分](https://juejin.im/post/5b2a16cce51d4558d726e8c9)|校对|1.5|
 
 ## 译者：[Moosphan](https://github.com/Moosphan) 历史贡献积分：3 当前积分：3 年度积分：3
@@ -6090,18 +6101,20 @@
 |------|-------|-------|
 |修订文章性能指标都是些什么鬼？|修订|3|
 
-## 译者：[Yuhanlolo](https://github.com/Yuhanlolo) 历史贡献积分：9.5 当前积分：9.5 年度积分：9.5
+## 译者：[Yuhanlolo](https://github.com/Yuhanlolo) 历史贡献积分：14.5 当前积分：14.5 年度积分：14.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[基于 Node.js 的 Alexa Skills Kit 发布了！](https://juejin.im/post/5b4790b6f265da0f5d4cbec5)|翻译|5|
 |[海量视频时代下的内容发现之旅](https://juejin.im/post/5b441c895188251aad20f644)|翻译|4.5|
 |[PWA 再进化，可以生成一个安卓原生的 WebAPK 了](https://juejin.im/post/5b2fb7f2e51d4558b46667be)|翻译|3|
 |[如何避免拍脑袋想出的产品优先策略](https://juejin.im/post/5b37a0156fb9a00e78666072)|校对|2|
 
-## 译者：[DateBro](https://github.com/DateBro) 历史贡献积分：10 当前积分：10 年度积分：10
+## 译者：[DateBro](https://github.com/DateBro) 历史贡献积分：10.5 当前积分：10.5 年度积分：10.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[基于 Node.js 的 Alexa Skills Kit 发布了！](https://juejin.im/post/5b4790b6f265da0f5d4cbec5)|校对|0.5|
 |[React Native：回顾 Udacity 移动工程团队的使用历程](https://juejin.im/post/5b421b606fb9a04fd15ff802)|校对|1.5|
 |[海量视频时代下的内容发现之旅](https://juejin.im/post/5b441c895188251aad20f644)|校对|1.5|
 |[Flutter 组件到底是什么？](https://juejin.im/post/5b46f836f265da0f8f2025f7)|校对|1|
@@ -6117,10 +6130,11 @@
 |------|-------|-------|
 |[或许你并不需要 Rust 和 WASM 来提升 JS 的执行效率 — 第二部分](https://juejin.im/post/5b357c20f265da595f0d3f91)|校对|1.5|
 
-## 译者：[liruochen1998](https://github.com/liruochen1998) 历史贡献积分：2 当前积分：2 年度积分：2
+## 译者：[liruochen1998](https://github.com/liruochen1998) 历史贡献积分：3.5 当前积分：3.5 年度积分：3.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[我是如何从零开始建立一个网络爬虫来实现我的求职自动化的](https://juejin.im/post/5b3b40896fb9a04f9e22e927)|校对|1.5|
 |[绘图技巧的快速入门之：6 个绘图练习，让你立即上手！](https://juejin.im/post/5b39823fe51d4558ca674cff)|校对|0.5|
 |[苹果公司如何修复 3D Touch](https://juejin.im/post/5b35e5886fb9a00e3642724f)|校对|0.5|
 |[怎样使用简单的三角函数来创建更好的加载动画](https://juejin.im/post/5b33055f518825748871c590)|校对|1|
@@ -6167,3 +6181,16 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[将项目迁移到 Yarn 然后又迁回到 npm](https://juejin.im/post/5b3b5735f265da0f894b443d)|校对|1.5|
+
+## 译者：[shisaq](https://github.com/shisaq) 历史贡献积分：1.5 当前积分：1.5 年度积分：1.5
+
+|文章|类型|积分|
+|------|-------|-------|
+|[通过 SSH 远程使用 Python 解释器来运行 Flask](https://juejin.im/post/5b3e25a8e51d45191716d187)|校对|1.5|
+
+## 译者：[yqian1991](https://github.com/yqian1991) 历史贡献积分：3 当前积分：3 年度积分：3
+
+|文章|类型|积分|
+|------|-------|-------|
+|[使用 Python 实现接缝裁剪算法](https://juejin.im/post/5b46ee8e6fb9a04fc436ad60)|校对|0.5|
+|[基于 Node.js 的 Alexa Skills Kit 发布了！](https://juejin.im/post/5b4790b6f265da0f5d4cbec5)|校对|2.5|
