@@ -2,124 +2,124 @@
 > * 原文作者：[Srushtika Neelakantam](https://blog.ably.io/@n.srushtika?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-implement-consistent-hashing-efficiently.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-implement-consistent-hashing-efficiently.md)
-> * 译者：
+> * 译者：[yqian1991](https://github.com/yqian1991)
 > * 校对者：
 
-# How we implemented consistent hashing efficiently
+# 我们是如何高效实现一致性哈希的
 
-## Ably’s realtime platform is distributed across more than 14 physical data centres and 100s of nodes. In order for us to ensure both load and data are distributed evenly and consistently across all our nodes, we use consistent hashing algorithms.
+## Ably 的实时平台分布在超过 14 个物理数据中心和 100 多个节点上。为了保证负载和数据都能够均匀并且一致的分布到所有的节点上，我们采用了一致性哈希算法。
 
-In this article, we’ll understand what consistent hashing is all about and why it is an essential tool in scalable distributed system architectures. Further, we’ll look at data structures that can be used to implement this algorithm efficiently at scale. At the end, we’ll also have a look at a working example for the same.
+在这篇文章中，我们将会理解一致性哈希到底是怎么回事，为什么它是可伸缩的分布式系统架构中的一个重要工具。然后更进一步，我们会介绍可以用来高效率规模化实现一致性哈希算法的数据结构。最后，我们也会带大家看一看用这个算法实现的一个可工作实例。
 
-### Hashing revisited
+### 再谈哈希
 
-Remember the good old naïve Hashing approach that you learnt in college? Using a hash function, we ensured that resources required by computer programs could be stored in memory in an efficient manner, ensuring that in-memory data structures are loaded evenly. We also ensured that this resource storing strategy also made information retrieval more efficient and thus made programs run faster.
+还记得大学里学的那个古老而原始的哈希方法吗？通过使用哈希函数，我们确保了计算机程序所需要的资源可以通过一种高效的方式存储在内存中，也确保了内存数据结构能被均匀加载。我们也确保了这种资源存储策略使信息检索变得更高效，从而让程序运行得更快。
 
-The classic hashing approach used a hash function to generate a pseudo-random number, which is then divided by the size of the memory space to transform the random identifier into a position within the available space. Something that looked like the following:
+经典的哈希方法用一个哈希函数来生成一个伪随机数，然后这个伪随机数被内存空间大小整除，从而将一个随机的数值标识转换成可用内存空间里的一个位置。就如同下面这个函数所示：
 
 `location = hash(key) mod size`
 
 ![](https://cdn-images-1.medium.com/max/800/1*ojknKxQ7uxGaJEam2nQYWQ.png)
 
-### So, why can’t we use the same method for handling requests over the network?
+### 既然如此，我们为什么不能用同样的方法来处理网络请求呢？
 
-In a scenario where various programs, computers, or users are requesting some resources from multiple server nodes, we need a mechanism to map requests evenly to available server nodes, thus ensuring that load is balanced, and consistent performance can be maintained. We could consider the server nodes to be the placeholders to which one or more of the requests could be mapped to.
+在各种不同的程序、计算机或者用户从多个服务器请求资源的场景里，我们需要一种机制来将请求均匀地分布到可用的服务器上，从而保证负载均衡，并且保持稳定一致的性能。我们可以将这些服务器节点看做是一个或多个请求可以被映射到的位置。
 
-Now let’s take a step back. In the classic hashing method, we always assume that:
+现在让我们先退一步。在传统的哈希方法中，我们总是假设：
 
-*   The number of memory locations is known, and
-*   This number never changes.
+*   内存位置的数量是已知的，并且
+*   这个数量从不改变
 
-For example, at Ably, we routinely scale the cluster size up and down throughout the day, and also have to cope with unexpected failures. But, if we consider the scenario mentioned above, we cannot guarantee that the number of server nodes will remain the same. What if one of them unexpectedly fails?With a naive hashing approach we would end up needing to rehash every single key as the new mapping is dependant on the number of nodes/ memory locations as shown below:
+例如，在 Ably，我们一整天里通常需要扩大或者缩减集群的大小，而且我们也要处理一些意外的故障。但是，如果我们考虑前面提到的这些场景的话，我们就不能保证服务器数量是不变的。如果其中一个服务器发生意外故障了怎么办？如果继续使用最简单的哈希方法，结果就是我们需要对每个哈希键重新计算哈希值，因为新的映射完全决定于服务器节点或者内存地址的数量，如下图所示：
 
 ![](https://cdn-images-1.medium.com/max/800/1*ojknKxQ7uxGaJEam2nQYWQ.png)
 
-Before
+节点变化之前
 
 ![](https://cdn-images-1.medium.com/max/800/1*8wnQ4y-9waQPC6sHdmZgdg.png)
 
-After
+节点变化之后
 
-The problem in a distributed system with simple rehashing — where the placement of every key moves — is that there is state stored on each node; a small change in the cluster size for example, could result in a huge amount of work to reshuffle all the data around the cluster. As the cluster size grows, this becomes unsustainable as the amount of work required for each hash change grows linearly with cluster size. This is where the concept of consistent hashing comes in.
+在分布式系统中使用简单哈希存在的问题 - 每个哈希键的存放位置都会变化 - 就是因为每个节点都存放了一个状态；哪怕只是集群数目的一个非常小的变化都可能导致巨大的工作量来重新排列集群上的所有数据。随着集群的增长，重新哈希的方法是没法持续使用的，因为重新哈希所需要的工作量会随着集群的大小而线性地增长。这就是一致性哈希的概念被引入的场景。
 
-### Consistent Hashing — what is it anyway?
+### 一致性哈希 - 它到底是什么？
 
-Consistent Hashing can be described as follows:
+一致性哈希可以用下面的方式描述：
 
-*   It represents the resource requestors (which we shall refer to as ‘requests’ from now on, for the purpose of this blog post) and the server nodes in some kind of a virtual ring structure, known as a _hashring._
-*   The number of locations is no longer fixed, but the ring is considered to have an infinite number of points and the server nodes can be placed at random locations on this ring. Of course, choosing this random number again can be done using a hash function but the second step of dividing it with the number of available locations is skipped as it is no longer a finite number.
-*   The requests, ie the users, computers or serverless programs, which are analogous to keys in classic hashing approach, are also placed on the same ring using the same hash function.
+*   它用虚拟环形的结构来表示资源请求者（为了叙述方便，后文将称之为 ‘请求’）和服务器节点，这个环通常被称作一个 _hashring_。
+*   存储位置的数量不再是确定的，但是我们认为这个环上有无穷多个点并且服务器节点可以被放置到环上的任意位置。当然，我们仍然可以使用哈希函数来选择这个随机数，但是之前的第二个步骤，也就是除以存储位置数量的那一步被省略了，因为存储位置的数量不再是一个有限的数值。
+*   请求，例如用户，计算机或者 serverless 程序，这些就等同于传统哈希方法中的键，也使用同样的哈希函数被放置到同样的环上。
 
 ![](https://cdn-images-1.medium.com/max/800/1*002BDjvoadVRbPyo0lkuiQ.png)
 
-So, how is the decision about which request will be served by which server node made? If we assume the ring is ordered so that clockwise traversal of the ring corresponds to increasing order of location addresses, each request can be served by the server node that first appears in this clockwise traversal; that is, the first server node with an address greater than that of the request gets to serve it. If the address of the request is higher than the highest addressed node, it is served by the server node with the least address, as the traversal through the ring goes in a circular fashion. This is illustrated below:
+那么它到底是如何决定请求被哪个服务器所服务呢？如果我们假设这个环是有序的，而且在环上进行顺时针遍历就对应着存储地址的增长顺序，每个请求可以被顺时针遍历过程中所遇到的第一个节点所服务；也就是说，第一个在环上的地址比请求的地址大的服务器会服务这个请求。如果请求的地址比节点中的最大地址还大，那它会反过来被拥有最小地址的那个服务器服务，因为在这个环上的遍历是以循环的方式进行的。方法用下图进行了阐明：
 
 ![](https://cdn-images-1.medium.com/max/800/1*yhBejrSaatHa4b0gr96tvQ.png)
 
-Theoretically, each server node ‘owns’ a range of the hashring, and any requests coming in at this range will be served by the same server node. Now, what if one of these server nodes fails, say Node 3, the range of the next server node widens and any request coming in all of this range, goes to the new server node. But that’s it. It’s just this one range, corresponding to the failed server node, that needed to be re-assigned, while the rest of the hashring and request-node assignments still remain unaffected. This is in contrast to the classic hashing technique in which the change in size of the hash table effectively disturbs ALL of the mappings. Thanks to _consistent hashing_, only a portion (relative to the ring distribution factor) of the requests will be affected by a given ring change. (A ring change occurs due to an addition or removal of a node causing some of the request-node mappings to change.)
+理论上，每个服务器‘拥有’哈希环（hashring）上的一段区间范围，任何映射到这个范围里的请求都将被同一个服务器服务。现在好了，如果其中一个服务器出现故障了怎么办，就以节点 3 为例吧，这个时候下一个服务器节点在环上的地址范围就会扩大，并且映射到这个范围的任何请求会被分派给新的服务器。仅此而已。只有对应到故障节点的区间范围内的哈希需要被重新分配，而哈希环上其余的部分和请求 - 服务器的分配仍然不会受到影响。这跟传统的哈希技术正好是相反的，在传统的哈希中，哈希表大小的变化会影响 *全部* 的映射。因为有了 _一致性哈希_，只有一部分（这跟环的分布因子有关）请求会受已知的哈希环变化的影响。（节点增加或者删除会导致环的变化，从而引起一些请求 - 服务器之间的映射发生改变。）
 
 ![](https://cdn-images-1.medium.com/max/800/1*59Mn6sT0Wu7qQJmX1FOhtw.png)
 
-### An efficient implementation approach
+### 一种高效的实现方法
 
-Now that we’re comfortable with what a hash ring is…
+现在我们对什么是哈希环已经熟悉了...
 
-We need to implement the following to make it work:
+我们需要实现以下内容来让它工作：
 
-1.  A mapping from our hash space to nodes in the cluster allowing us to find the nodes responsible for a given request.
-2.  A collection those requests to the cluster that resolve to a given node. Moving forward, this will allow us to find out which hashes are affected by the addition or removal of a particular node.
+1.  一个从哈希空间到集群上所有服务器节点之间的映射，让我们能找到可以服务指定请求的节点。
+2.  一个集群上每个节点所服务的请求的集合。在后面，这个集合可以让我们找到哪些哈希因为节点的增加或者删除而受到了影响。
 
-#### Mapping
+#### 映射
 
-In order to accomplish the first part above, we need the following:
+要完成上述的第一个部分，我们需要以下内容：
 
-*   A hash function for computing the position in the ring given an identifier for requests.
-*   A way to find out which node corresponds to a hashed request.
+*   一个哈希函数，用来计算已知请求的标识（ID）在环上对应的位置。
+*   一种方法，用来寻找转换为哈希值的请求标识所对应的节点。
 
-To find out the node corresponding to a particular request, we can use a simple data structure for it’s representation, comprising of the following:
+为了找到与特定请求相对应的节点，我们可以用一种简单的数据结构来阐释，它由以下内容组成：
 
-*   An array of hashes that correspond to nodes in the ring.
-*   A map (hash table) for finding the node corresponding to a particular request.
+*   一个与环上的节点一一对应的哈希数组。
+*   一张图（哈希表），用来寻找与已知请求相对应的服务器节点。
 
-This is essentially a primitive representation of an ordered map.
+这实际上就是一个有序图的原始表示。
 
-To find a node responsible for a given hash in the above structure, we need to:
+为了能在以上数据结构中找到可以服务于已知哈希值的节点，我们需要：
 
-*   Perform a modified binary search to find the first node-hash in the array that is equal to or greater than (≥) the hash you wish to look up.
-*   Look up the node corresponding to the found node-hash in the map
+*   执行修改过的二分搜索，在数组中查找到第一个等于或者大于（≥）你要查询的哈希值所对应的节点 - 哈希映射。
+*   查找在图中发现的节点 - 哈希映射所对应的那个节点。
 
-#### Addition or removal of a node
+#### 节点的增加或者删除
 
-As we saw in the beginning of the article, when a new node is added, some portion of the hashring, comprising of various requests, must be assigned to that node. Conversely, when a node is removed, the requests that had been assigned to that node will need to be handled by some other node.
+在这篇文章的开头我们已经看到了，当一个节点被添加，哈希环上的一部分区间范围，以及它所包括的各种请求，都必须被分配到这个新节点。反过来，当一个节点被删除，过去被分配到这个节点的请求都将需要被其他节点处理。
 
-#### How do we find those the requests that are affected by a ring change?
+#### 如何寻找到被哈希环的改变所影响的那些请求？
 
-One solution is to iterate through all the requests allocated to a node. For each request, we decide whether it falls within the bounds of the ring change that has occurred, and move it elsewhere if necessary.
+一种解决方法就是遍历分配到一个节点的所有请求。对每个请求，我们判断它是否处在环发生变化的区间范围内，如果有需要的话，把它转移到其他地方。
 
-However, the work required to do this increases as the number of requests allocated to a given node scales. The situation becomes worse as the number of ring changes that occur tends to increase as the number of nodes increases. In the worst case, since ring changes are often related to localised failures, an instantaneous load associated with a ring change could increase the likelihood of other affected nodes as well, possibly leading to cascading issues across the system.
+然而，这么做所需要的工作量会随着节点上请求数量的增加而增加。让情况变得更糟糕的是，随着节点数量的增加，环上发生变化的数量也可能会增加。最坏的情况是，由于环的变化通常与局部故障有关，与环变化相关联的瞬时负载也可能增加其他受影响节点发生故障的可能性，有可能导致整个系统发生级联故障。
 
-To counter this, we would like relocation of requests to be as efficient as possible. Ideally, we’d store all requests in a data structure that allows us to find those affected by a single hash change anywhere on the ring
+考虑到这个因素，我们希望请求的重定位做到尽可能高效。最理想的情况是，我们可以将所有请求保存在一种数据结构里，这样我们能找到环上任何地方发生哈希变化时受到影响的请求。
 
-#### Efficiently finding affected hashes
+#### 高效查找受影响的哈希值
 
-Adding or removing a node from the cluster will change the allocation of requests in some portion of the ring, which we will refer to as the _affected range_. If we know the bounds of the affected range, we will be able to move the requests to their correct location.
+在集群上增加或者删除一个节点将改变环上一部分请求的分配，我们称之为 _受影响范围_（_affected range_）。如果我们知道受影响范围的边界，我们就可以把请求转移到正确的位置。
 
-To find the the bounds of the affected range, starting at the hash H of the added or removed node, we can move backwards (counter-clockwise in the diagram) around the ring from H until another node is found. Let’s call the hash of this node S (for start). The requests that are anti-clockwise of this node will be located to it, so they won’t be affected.
+为了寻找受影响范围的边界，我们从增加或者删除掉的一个节点的哈希值 H 开始，从 H 开始绕着环向后移动（图中的逆时针方向），直到找到另外一个节点。让我们将这个节点的哈希值定义为 S（作为开始）。从这个节点开始逆时针方向上的请求会被指定给它（S），因此它们不会受到影响。
 
-_Note that this is a simplified depiction of what happens; in practice, the structure, and algorithm, are further complicated because we use replication factors of greater than, 1 and specialised replication strategies in which only a subset of nodes is applicable to any given request._
+_Note 注意这只是实际将发生的情况的一个简化描述；在实践中，数据结构和算法都更加复杂，因为我们使用的复制因子 （replication factors）数目大于 1，并且当任意给定的请求都只有一部分节点可用的情况下，我们还会使用专门的复制策略。_
 
-The requests that have placement hashes in the range between the found node and the node that was added(or removed) are those that need to be moved.
+那些哈希值在被找到的节点和增加（或者删除）的节点范围之间的请求就是需要被移动的。
 
-#### Efficiently finding the requests in the affected range
+#### 高效查找受影响范围内的请求
 
-One solution is simply to iterate through all the requests corresponding to a node, and update the ones that have a hash within the range.
+一种解决方法就是简单的遍历对应于一个节点的所有请求，并且更新那些哈希值映射到此范围内的请求。
 
-In JavaScript that might look something like this:
+在 JavaScript 中类似这样：
 
 ```
 for (const request of requests) {
   if (contains(S, H, request.hash)) {
-    /* the request is affected by the change */
+    /* 这个请求受环变化的影响 */
     request.relocate();
   }
 }
@@ -135,62 +135,62 @@ function contains(lowerBound, upperBound, hash) {
 }
 ```
 
-Since the ring is circular, it is not enough to just find requests where S <= r < H, since S may be greater than H (meaning that the range wraps over the top of the ring). The function `contains()` handles that case.
+由于哈希环是环状的，仅仅查找 S <= r < H 之间的请求是不够的，因为 S 可能比 H 大（表明这个区间范围包含了哈希环的最顶端的开始部分）。函数 `contains()` 可以处理这种情况。
 
-Iterating through all the requests on a given node is fine as long as the number of requests is relatively low or if the addition or removal of nodes is relatively rare.
+只要请求数量相对较少，或者节点的增加或者删除的情况也相对较少出现，遍历一个给定节点的所有请求还是可行的。
 
-However, the work required increases as the number of requests at a given node grows, and worse, ring changes tend to occur more frequently as the number of nodes increases, whether due to automated scaling or failover, triggering simultaneous load across the system to rebalance the requests.
+然而，随着节点上的请求数量的增加，所需的工作量也随之增加，更糟糕的是，随着节点的增加，环变化也可能发生得更频繁，无论是因为在自动节点伸缩（automated scaling）或者是故障转换（failover）的情况下为了重新均衡访问请求而触发的整个系统上的并发负载。
 
-In the worst case, load associated with this may increase the likelihood of failures on other nodes, possibly leading to cascading issues across the system.
+最糟的情况是，与这些变化相关的负载可能增加其它节点发生故障的可能性，有可能导致整个系统范围的级联故障。
 
-To mitigate this, we can also store requests in a separate ring data-structure similar to the one discussed earlier. In this ring, a hash maps directly to the request that is located at that hash.
+为了减轻这种影响，我们也可以将请求存储到类似于之前讨论过的一个单独的环状数据结构中，在这个环里，一个哈希值直接映射到这个哈希对应的请求。
 
-Then we can locate the requests within a range by doing the following:
+这样我们就能通过以下步骤来定位受影响范围内的所有请求：
 
-*   Locate the first request following the start of the range, S.
-*   Iterate clockwise until you find a request that has a hash outside the range.
-*   Relocate those requests that were inside the range.
+*   定位从 S 开始的第一个请求。
+*   顺时针遍历直到你找到了这个范围以外的一个哈希值。
+*   重新定位落在这个范围之内的请求。
 
-The number of requests that need to be iterated for a given hash update will on average be R/N where R is the number of requests located in the range of the node and N is the number of hashes in the ring, assuming an even distribution of requests.
+当一个哈希更新时所需要遍历的请求数量平均是 R/N，R 是定位到这个节点范围内的请求数量，N 是环上哈希值的数量，这里我们假设请求是均匀分布的。
 
 * * *
 
-Let’s put the above explanation into action with a working example:
+让我们通过一个可工作的例子将以上解释付诸实践：
 
-Suppose that we have a cluster containing two nodes A and B.
+假设我们有一个包含节点 A 和 B 的集群。
 
-Let’s randomly generate a ‘placement hash’ for each of these nodes: (assuming 32-bit hashes), so we get
+让我们随机的产生每个节点的 ‘哈希分配’：（假设是32位的哈希），因此我们得到了
 
 `A:0x5e6058e5`
 
 `B:0xa2d65c0`
 
-This places the nodes on an imaginary ring where the numbers `0x0`, `0x1`, `0x2`… are placed consecutively up to `0xffffffff`, which is in turn curled to be followed by `0x0`.
+在此我们将节点放到一个虚拟的环上，数值 `0x0`, `0x1`, `0x2`... 是被连续放置到环上的直到 `0xffffffff`，就这样在环上绕一个圈后 `0xffffffff` 的后面正好跟着的就是 `0x0`。
 
-Since node A has the hash `0x5e6058e5`, it is responsible for any request that hashes into the range`0xa2d65c0+1` up to `0xffffffff` and from `0x0` up to `0x5e6058e5`, as shown below:
+由于节点 A 的哈希是 `0x5e6058e5`，它负责的就是从 `0xa2d65c0+1` 到 `0xffffffff`，以及从 `0x0` 到 `0x5e6058e5` 范围里的任何请求，如下图所示：
 
 ![](https://cdn-images-1.medium.com/max/800/1*inKL8q-CTZ6Asl_uSpDYew.png)
 
-B on the other hand is responsible for the range`0x5e6058e5+1`up to `0xa2d65c0`. Thus, the entire hash space is distributed.
+另一方面，B 负责的是从 `0x5e6058e5+1` 到 `0xa2d65c0` 的范围。如此，整个哈希空间都被划分了。
 
-This mapping from nodes to their hashes needs to be shared with the whole cluster so that the result of ring calculation is always the same. Thus, any node that requires a particular request can determine where it lives
+从节点到它们的哈希之间的映射在整个集群上是共享的，这样保证了每次环计算的结果总是一致的。因此，任何节点在需要服务请求的时候都可以判断请求放在哪里。
 
-Say we want to find (or create) a request that has the identifier ‘bobs.blog@example.com’.
+比如我们需要寻找 （或者创建）一个新的请求，这个请求的标识符是 ‘bobs.blog@example.com’。
 
-1.  We compute a hash H of the identifier, say `0x89e04a0a`
-2.  We look at the ring and find the first node with a hash that is greater than H. Here that happens to be B.
+1.  我们计算这个标识的哈希 H ，比如得到的是 `0x89e04a0a`
+2.  我们在环上寻找拥有比 H 大的哈希值的第一个节点。这里我们找到了 B。
 
-Therefore B is the node responsible for that request. If we need the request again, we will repeat the above steps and land again on the same node, which has the state we need.
+因此 B 是负责这个请求的节点。如果我们再次需要这个请求，我们将重复以上步骤并且又会得到同样的节点，它会包含我们需要的的状态。
 
-This example is a bit oversimplified. In reality, having a single hash for each node is likely to distribute the load quite unfairly. As you may have noticed, in this example, B is responsible for `(0xa2d656c0-0x5e6058e5)/232 = 26.7%` of the ring, while A is responsible for the rest. Ideally, each node would be responsible for an equal portion of the ring.
+这个例子是过于简单了。在实际情况中，只给每个节点一个哈希可能导致负载非常不均匀的分布。你可能已经注意到了，在这个例子中，B 负责环的 `(0xa2d656c0-0x5e6058e5)/232 = 26.7%`，同时 A 负责剩下的部分。理想的情况是，每个节点可以负责环上同等大小的一部分。
 
-One way to make this fairer is to generate multiple random hashes for each node, as below:
+让分布更均衡合理的一种方法是为每个节点产生多个随机哈希，像下面这样：
 
 ![](https://cdn-images-1.medium.com/max/800/1*7qNhuMpoIWhatDWSOJaZVA.png)
 
-In reality, we find the results of this are still unsatisfactory, so we divide the ring into 64 equally sized segments and ensure a hash for each node is placed somewhere in each segment; the details of this are not important however. The aim is just to ensure each node is responsible for an equal portion of the ring, so that load is evenly distributed. (Another advantage of having multiple hashes for each node is that the hashes can be added to or removed from the ring gradually, to avoid sudden spikes of load. )
+事实上，我们发现这样做的结果照样令人不满意，因此我们将环分成 64 个同样大小的片段并且确保每个节点都会被放到每个片段中的某个位置；这个的细节就不是那么重要了。反正目的就是确保每个节点能负责环上同等大小的一部分，因此保证负载是均匀分布的。（为每个节点产生多个哈希的另一个优势就是哈希可以在环上逐渐的被增加或者删除，这样就避免了负载的突然间的变化。）
 
-Suppose that now we add a new node to the ring called C. We generate a random hash for C.
+假设我们现在在环上增加一个新节点叫做 C，我们为 C 产生一个随机哈希值。
 
 `A:0x5e6058e5`
 
@@ -198,29 +198,29 @@ Suppose that now we add a new node to the ring called C. We generate a random ha
 
 `C:0xe12f751c`
 
-Now, the ring space between `0xa2d65c0 + 1` and `0xe12f751c` (which used to hash to A) are now delegated to C. All the other requests will continue to hash to the same node as before. To handle this shift of power, all the requests in that range that already exist on A will need to move all their state over to C.
+现在，`0xa2d65c0 + 1` 和 `0xe12f751c` （以前是属于A的部分）之间的环空间被分配给了 C。所有其他的请求像以前一样继续被哈希到同样的节点。为了处理节点职责的变化，这个范围内的已经分配给 A 的所有请求需要将它们的所有状态转移给 C。
 
 ![](https://cdn-images-1.medium.com/max/800/1*9EH-yVTX8U9dxRdQ7pjK1Q.png)
 
-You now understand why hashing is needed in distributed systems to distribute load evenly. Consistent hashing however is required to ensure minimisation of the amount of work needed in the cluster whenever there is a ring change.
+现在你理解了为什么在分布式系统中均衡负载是需要哈希的。然而我们需要一致性哈希来确保在环发生任何变化的时候最小化集群上所需要的工作量。
 
-Additionally, nodes need to exist on multiple locations on the ring to ensure statistically the load is more likely to be distributed more evenly. Iterating an entire hash ring for each ring change is inefficient. As your distributed system scales, having a more efficient way to determine what’s changed is necessary to minimise the performance impact of ring changes as much as possible. New index and data types are needed to solve this.
+另外，节点需要存在于环上的多个地方，这样可以从统计学的角度保证负载被均匀分布。每次环发生变化都遍历整个哈希环的效率是不高的，随着你的分布式系统的伸缩，有一种更高效的方法来决定什么发生了变化是很必要的，它能帮助你尽可能的最小化环变化带来的性能上的影响。我们需要新的索引和数据类型来解决这个问题。
 
 * * *
 
-Building distributed systems is hard. We love it, and we love to chat about. If you need to rely on one, use Ably. If you want to chat, reach out!
+构建分布式系统是很难的事情。但是我们热爱它并且我们喜欢谈论它。如果你需要依靠一种分布式系统的话，选择 Ably。如果你想跟我们谈一谈的话，联系我们！
 
-This to [John Diamond](https://github.com/jdmnd), Distributed Systems Engineer at Ably, for his inputs for this article.
+在此特别感谢 Ably 的分布式系统工程师 [John Diamond](https://github.com/jdmnd) 对本文的贡献。
 
 * * *
 
 ![](https://cdn-images-1.medium.com/max/800/1*L6S-jVuznYcx4W1o4i9i9w.jpeg)
 
-Srushtika is a Dev Advocate for [Ably Realtime](http://ably.io)
+Srushtika 是 [Ably Realtime](http://ably.io)的软件开发顾问
 
 ![](https://cdn-images-1.medium.com/max/800/1*g_I_lIRmw4_IODWKLJweqw.png)
 
-Thanks to [John Diamond](https://medium.com/@john_91129?source=post_page) and [Matthew O'Riordan](https://medium.com/@matt.at.ably?source=post_page).
+感谢 [John Diamond](https://medium.com/@john_91129?source=post_page) 和 [Matthew O'Riordan](https://medium.com/@matt.at.ably?source=post_page).
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
