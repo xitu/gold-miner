@@ -5243,10 +5243,11 @@
 |[使用 MVI 开发响应式 APP - 第三部分 - 状态减少（state reducer）](https://juejin.im/post/5a955c50f265da4e853d856a)|翻译|4|
 |[二十年后比特币会变成什么样？- 第二部分](https://juejin.im/post/5a955721f265da4e826377b6)|翻译|6|
 
-## 译者：[Starriers](https://github.com/Starriers) 历史贡献积分：238 当前积分：138 年度积分：238
+## 译者：[Starriers](https://github.com/Starriers) 历史贡献积分：246 当前积分：216 年度积分：246
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TensorFlow 官方文档修订](https://github.com/xitu/tensorflow-docs)|修订|8|
 |[从 Java EE 8 Security API 开始 — 第二部分](https://juejin.im/post/5b3b49d66fb9a04f8a2160a9)|翻译|4.5|
 |[通过 SSH 远程使用 Python 解释器来运行 Flask](https://juejin.im/post/5b3e25a8e51d45191716d187)|翻译|4|
 |[我是如何从零开始建立一个网络爬虫来实现我的求职自动化的](https://juejin.im/post/5b3b40896fb9a04f9e22e927)|翻译|4|
@@ -5318,10 +5319,11 @@
 |[json — JavaScript 对象表示法](https://juejin.im/post/5a9432ae5188257a5c6092b0)|校对|1|
 |[嵌套三元表达式棒极了（软件编写）（第十四部分）](https://juejin.im/post/5a7d6769f265da4e7e10ad82)|校对|1|
 
-## 译者：[zhmhhu](https://github.com/zhmhhu) 历史贡献积分：65.5 当前积分：65.5 年度积分：65.5
+## 译者：[zhmhhu](https://github.com/zhmhhu) 历史贡献积分：70.5 当前积分：70.5 年度积分：70.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|5|
 |[为什么 UX，UI，CX，IA，IxD 和其他类型的设计都是愚蠢的](https://juejin.im/post/5b3588f2e51d4558dd69a44c)|翻译|4|
 |推荐多篇优秀英文文章|奖励|3|
 |[WOFF文件格式 1.0](https://github.com/xitu/gold-miner/blob/master/TODO1/recommendation-woff-2012-12-13.md)|翻译|10|
@@ -5469,10 +5471,11 @@
 |[写给前端开发者的 GraphQL 指南w](https://juejin.im/post/5ac09072518825558c479215)|翻译|4|
 |[iOS App 上一种灵活的路由方式](https://juejin.im/post/5aafc278f265da23805973e3)|校对|1|
 
-## 译者：[allenlongbaobao](https://github.com/allenlongbaobao) 历史贡献积分：89 当前积分：79 年度积分：88
+## 译者：[allenlongbaobao](https://github.com/allenlongbaobao) 历史贡献积分：92 当前积分：82 年度积分：91
 
 |文章|类型|积分|
 |------|-------|-------|
+|[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|3|
 |[Vue.js 还是 React？你会选择哪一个？为什么?](https://juejin.im/post/5b25b3a16fb9a00e70686180)|翻译|3.5|
 |[JavaScript 是如何工作的：Service Worker 的生命周期与使用场景](https://juejin.im/post/5b14c1d86fb9a01e700ff2f2)|校对|1|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|5|
@@ -5568,10 +5571,11 @@
 |------|-------|-------|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|4|
 
-## 译者：[sunhaokk](https://github.com/sunhaokk) 历史贡献积分：58.5 当前积分：58.5 年度积分：58.5
+## 译者：[sunhaokk](https://github.com/sunhaokk) 历史贡献积分：64.5 当前积分：64.5 年度积分：64.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|6|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|15|
 |[为何前端开发如此不稳定](https://juejin.im/post/5b1f2f1ae51d4506894983ae)|校对|0.5|
 |[从零开始，在 Redux 中构建时间旅行式调试](https://juejin.im/post/5b24c0bce51d4558ba1a5584)|校对|0.5|
@@ -5984,10 +5988,11 @@
 |[使用 styled-components 的 React 服务器端渲染极简指南](https://juejin.im/post/5b0f9a4c51882515791502d0)|翻译|4|
 |[JavaScript 是如何工作的：Service Worker 的生命周期与使用场景](https://juejin.im/post/5b14c1d86fb9a01e700ff2f2)|校对|1|
 
-## 译者：[lance10030](https://github.com/lance10030) 历史贡献积分：1.5 当前积分：1.5 年度积分：1.5
+## 译者：[lance10030](https://github.com/lance10030) 历史贡献积分：9.5 当前积分：9.5 年度积分：9.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|8|
 |[使用 styled-components 的 React 服务器端渲染极简指南](https://juejin.im/post/5b0f9a4c51882515791502d0)|校对|1.5|
 
 ## 译者：[Teiyanana](https://github.com/Teiyanana) 历史贡献积分：0.5 当前积分：0.5 年度积分：0.5
@@ -6194,3 +6199,15 @@
 |------|-------|-------|
 |[使用 Python 实现接缝裁剪算法](https://juejin.im/post/5b46ee8e6fb9a04fc436ad60)|校对|0.5|
 |[基于 Node.js 的 Alexa Skills Kit 发布了！](https://juejin.im/post/5b4790b6f265da0f5d4cbec5)|校对|2.5|
+
+## 译者：[trexguo](https://github.com/trexguo) 历史贡献积分：1.5 当前积分：1.5 年度积分：1.5
+
+|文章|类型|积分|
+|------|-------|-------|
+|[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|1.5|
+
+## 译者：[Tivcrmn](https://github.com/Tivcrmn) 历史贡献积分：1 当前积分：1 年度积分：1
+
+|文章|类型|积分|
+|------|-------|-------|
+|[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|1|
