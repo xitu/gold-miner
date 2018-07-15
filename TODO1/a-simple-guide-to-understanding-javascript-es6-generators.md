@@ -26,7 +26,7 @@ new Map([[1, 2]])[Symbol.iterator]() // MapIterator {1 => 2}
 new Set([1, 2])[Symbol.iterator]() // SetIterator {1, 2}
 ```
 
-ES6 引入的 **Generator** 在之后的 JavaScript 发布中一直没有什么变化。（中间这一段不太明白作者想表达什么），虽然 ES7 和 ES8 有一些小更新，但是改变幅度无法与 ES5 到 ES6 相提并论，可以说 JavaScript 踏出了新的一步。
+第一次亮相于 ES6 的 Generator 在后续 JavaScript 版本的发布中并没有变化，所以 Generator 有可能在将来会继续保持现在的特性及用法，我们是绕不开它的。虽然 ES7 和 ES8 有一些小更新，但是改变幅度无法与 ES5 到 ES6 相提并论，可以说 JavaScript 踏出了新的一步。
 
 **读完本文，我相信你一定能充分理解 Generator 的原理**。如果你是专业人士，可以在回复中添加评论，一起改进这篇文章。为帮助大家理解代码，代码中已包含一定注释。
 
