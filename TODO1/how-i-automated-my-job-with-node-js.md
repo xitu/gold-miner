@@ -2,170 +2,162 @@
 > * 原文作者：[Shaun Michael Stone](https://medium.com/@shaunmstone?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-i-automated-my-job-with-node-js.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-i-automated-my-job-with-node-js.md)
-> * 译者：
+> * 译者：[geniusq1981](https://github.com/geniusq1981)
 > * 校对者：
 
-# How I automated my job with Node.js
+# 我是如何使用Node.js自动完成工作的
 
 ![](https://cdn-images-1.medium.com/max/800/1*S7-c7ZO0w0ocUU8tzkB3zA.jpeg)
 
-You know those tedious tasks you have to do at work: Updating configuration files, copying and pasting files, updating Jira tickets.
+您知道在工作中必须完成的繁琐任务: 更新配置文件,复制和粘贴文件,更新Jira票证. 
 
-Time adds up after a while. This was very much the case when I worked for an online games company back in 2016. The job could be very rewarding at times when I had to build configurable templates for games, but about 70% of my time was spent on making copies of those templates and deploying re-skinned implementations.
+一段时间后,时间会增加. 当我在2016年为一家网络游戏公司工作时就是这种情况. 当我不得不为游戏构建可配置的模板时,这项工作可能会非常有价值,但是大约70%的时间用于制作那些游戏的副本. 模板和部署重新设置皮肤的实现. 
 
-### What is a Reskin?
+### 什么是Reskin?
 
-The definition of a reskin at the company was using the same game mechanics, screens and positioning of elements, but changing the visual aesthetics such as colour and assets. So in the context of a simple game like ‘Rock Paper Scissors’, we would create a template with basic assets like below.
+公司的reskin的定义是使用相同的游戏机制,屏幕和元素的定位,但改变了视觉美学,​​如颜色和资产. 因此,在像"Rock Paper Scissors"这样的简单游戏的背景下,我们将创建一个具有如下基本资源的模板. 
 
 ![](https://cdn-images-1.medium.com/max/800/1*hgFoiDduNdXaLJ-0seB-Gw.jpeg)
 
-But when we create a reskin of this, we would use different assets and the game would still work. If you look at games like Candy Crush or Angry Birds, you’ll find that they have many varieties of the same game. Usually Halloween, Christmas or Easter releases. From a business perspective it makes perfect sense. Now… back to our implementation. Each of our games would share the same bundled JavaScript file, and load in a JSON file that had different content and asset paths. The result?
+但是当我们创建一个reskin,我们将使用不同的资产,游戏仍然可以工作. 如果你看看像Candy Crush或Angry Birds这样的游戏,你会发现它们有很多种类的同一款游戏. 通常万圣节,圣诞节或复活节发布. 从商业角度来看,它非常有意义. 现在......回到我们的实施. 我们的每个游戏都将共享相同的捆绑JavaScript文件,并加载到具有不同内容和资产路径的JSON文件中. 结果?
 
 ![](https://cdn-images-1.medium.com/max/800/1*SYAsVKSmEmcKQ8dEZiisPg.jpeg)
 
-Me and the other developers had stacked daily schedules, and my first thought was, ‘a lot of this could be automated.’ Whenever I created a new game, I had to carry out these steps:
+我和其他开发人员已经堆积了每日时间表,我的第一个想法是"很多都可以实现自动化. "每当我创建一个新游戏时,我都必须执行以下步骤: 
 
-1.  Do a git pull on the templates repository to make sure they were up to date;
-2.  Create a new branch — identified by the Jira ticket ID — from the master branch;
-3.  Make a copy of the template I needed to build;
-4.  Run gulp;
-5.  Update the content in a **config.json** file. This would involve asset paths, headings and paragraphs as well as data service requests;
-6.  Build locally and check content matched the stakeholder’s word document. _Yeah I know_;
-7.  Verify with the designers they are happy with how it looks;
-8.  Merge to master branch and move on to the next one;
-9.  Update the status of the Jira ticket and leave a comment for the stakeholders involved;
-10.  Rinse and repeat.
+1.  在模板库上做一个git pull以确保它们是最新的;
+2.  从主分支创建一个新的分支 - 由Jira故障单ID标识 - ;
+3.  制作我需要构建的模板的副本;
+4.  跑了一口气;
+5.  更新a中的内容**config.json**文件. 这将涉及资产路径,标题和段落以及数据服务请求;
+6.  在本地构建并检查与利益相关者的word文档匹配的内容. *是的,我知道*;
+7.  与设计师核实他们对它的外观感到满意;
+8.  合并到主分支并继续下一个分支;
+9.  更新Jira票的状态,并为相关的利益相关者发表评论;
+10. 冲洗并重复. 
 
 ![](https://cdn-images-1.medium.com/max/800/1*7Jg9xcM_hj6g8QC22vTiiw.jpeg)
 
-Now to me, this felt more administrative than actual development work. I was exposed to Bash scripting in a previous role and jumped on it to create a few scripts to reduce the effort involved. One of the scripts updated the templates and created a new branch, the other script did a commit and merged the project to Staging and Production environments.
+现在对我而言,这比实际的开发工作更具行政能力. 我曾在之前的角色中接触过Bash脚本,并跳过它来创建一些脚本以减少所涉及的工作量. 其中一个脚本更新了模板并创建了一个新分支,另一个脚本执行了提交并将项目合并到Staging and Production环境. 
 
-Setting up a project would take me three-to-ten minutes to set up manually. Maybe five to ten minutes for deployment. Depending on the complexity of the game, it could take anything from ten minutes to half a day. The scripts helped, but a lot of time was still spent on updating the content or trying to chase down missing information.
+设置项目需要三到十分钟才能手动设置. 部署可能需要五到十分钟. 根据游戏的复杂程度,它可能需要十分钟到半天. 脚本有所帮助,但仍有大量时间用于更新内容或试图追查丢失的信息. 
 
 ![](https://cdn-images-1.medium.com/max/800/0*jxmPvnNgXhpFMV3v.)
 
-Writing code to shave time was not enough. It was thinking of a better approach to our workflow so that I could utilise the scripts more. Move the content from out of the word documents, and into Jira tickets, breaking it out into the relevant custom fields. The Designers, instead of sending a link to where the assets exist on the public drive, it would be more practical to set up a content delivery network (CDN) repository with a Staging and Production URL to the assets.
+编写代码来缩短时间是不够的. 它正在考虑更好地处理我们的工作流程,以便我可以更多地利用脚本. 将内容从单词文档中移出,并移入Jira票证,将其分解为相关的自定义字段. 设计人员不是发送公共驱动器上资产所在位置的链接,而是设置一个内容交付网络 (CDN) 存储库,其中包含资产的暂存和生产URL. 
 
 ### Jira API
 
-Things like this can take a while to enforce, but our process did improve over time. I did some research on the API of Jira; our project management tool, and did some requests to the Jira tickets I was working on. I was pulling back _a lot_ of valuable data. So valuable that I made the decision to integrate it into my Bash scripts to read values from Jira tickets, to also post comments and tag stakeholders when I finished.
+这样的事情可能需要一段时间才能实施,但我们的流程确实会随着时间的推移而改善. 我对Jira的API进行了一些研究;我们的项目管理工具,并对我正在处理的Jira门票做了一些请求. 我退后了*很多*有价值的数据. 非常有价值,我决定将它集成到我的Bash脚本中,以便从Jira门票中读取值,并在完成后发布评论和标记利益相关者. 
 
-### Bash Transition to Node
+### Bash过渡到节点
 
-The Bash scripts were good, but if someone was working on a Windows machine, they couldn’t be run. After doing some digging, I made the decision to use JavaScript to wrap the whole process into a bespoke build tool. I called the tool **Mason**, and it would change everything.
+Bash脚本很好,但如果有人在Windows机器上工作,则无法运行. 在做了一些挖掘之后,我决定使用JavaScript将整个过程包装成一个定制的构建工具. 我打电话给这个工具**石匠**,它会改变一切. 
 
 ### CLI
 
-When you use Git — I assume you do — in the terminal, you will notice it has a very friendly command line interface. If you misspell or type a command incorrectly, it will politely make a suggestion on what it thinks you were trying to type. A library called **commander** applies the same behaviour, and this was one of many libraries I used.
+当你使用Git  - 我假设你这样做 - 在终端中,你会发现它有一个非常友好的命令行界面. 如果您错误拼写错误或输入错误的命令,它会礼貌地就其认为您尝试键入的内容提出建议. 一个名为的库**指挥官**应用相同的行为,这是我使用的许多库之一. 
 
-Consider the simplified code example below. It’s bootstrapping a Command Line Interface (CLI) application.
+考虑下面的简化代码示例. 它正在引导命令行界面 (CLI) 应用程序. 
 
-#### src/mason.js
+#### SRC / mason.js
 
-```
-#! /usr/bin/env node
+    #! /usr/bin/env node
 
-const mason = require('commander');
-const { version } = require('./package.json');
-const console = require('console');
+    const mason = require('commander');
+    const { version } = require('./package.json');
+    const console = require('console');
 
-// commands
-const create = require('./commands/create');
-const setup = require('./commands/setup');
+    // commands
+    const create = require('./commands/create');
+    const setup = require('./commands/setup');
 
-mason
-    .version(version);
+    mason
+        .version(version);
 
-mason
-    .command('setup [env]')
-    .description('run setup commands for all envs')
-    .action(setup);
+    mason
+        .command('setup [env]')
+        .description('run setup commands for all envs')
+        .action(setup);
 
-mason
-    .command('create <ticketId>')
-    .description('creates a new game')
-    .action(create);
+    mason
+        .command('create <ticketId>')
+        .description('creates a new game')
+        .action(create);
 
-mason
-    .command('*')
-    .action(() => {
+    mason
+        .command('*')
+        .action(() => {
+            mason.help();
+        });
+
+    mason.parse(process.argv);
+
+    if (!mason.args.length) {
         mason.help();
-    });
+    }
 
-mason.parse(process.argv);
+使用npm,您可以运行您的链接**的package.json**它将创建一个全局别名. 
 
-if (!mason.args.length) {
-    mason.help();
-}
-```
+    ...
+    "bin": {
+      "mason": "src/mason.js"
+    },
+    ...
 
-With the use of npm, you can run a link from your **package.json** and it will create a global alias.
+当我在项目的根目录中运行npm链接时. 
 
-```
-...
-"bin": {
-  "mason": "src/mason.js"
-},
-...
-```
+    npm link
 
-When I run npm link in the root of the project.
+它将为我提供一个我可以调用的命令,称为mason. 因此,每当我在终端中调用mason时,它都会运行它**mason.js**脚本. 所有任务都属于一个名为mason的伞命令,我每天都用它来构建游戏. 我节省的时间是......令人难以置信. 
 
-```
-npm link
-```
+您可以在下面看到 - 在我当时所做的假设示例中 - 我将Jira票号作为参数传递给命令. 这会使Jira API卷曲,并获取更新游戏所需的所有信息. 然后,它将继续构建和部署项目. 然后我会发表评论并标记利益相关者和设计师,让他们知道它已经完成. 
 
-It will provide me with a command I can call, called mason. So whenever I call mason in my terminal, it will run that **mason.js** script. All tasks fall under one umbrella command called mason, and I used it to build games every day. The time I saved was… incredible.
+    $ mason create GS-234
+    ... calling Jira API 
+    ... OK! got values!
+    ... creating a new branch from master called 'GS-234'
+    ... updating templates repository
+    ... copying from template 'pick-from-three'
+    ... injecting values into config JSON
+    ... building project
+    ... deploying game
+    ... Perfect! Here is the live link 
+    http://www.fake-studio.com/game/fire-water-earth
+    ... Posted comment 'Hey [~ben.smith], this has been released. Does the design look okay? [~jamie.lane]' on Jira.
 
-You can see below — in a hypothetical example of what I did back then — that I pass a Jira ticket number to the command as an argument. This would curl the Jira API, and fetch all the information I needed to update the game. It would then proceed to build and deploy the project. I would then post a comment and tag the stakeholder & designer to let them know it was done.
+所有这些都完成了一些关键的笔触!
 
-```
-$ mason create GS-234
-... calling Jira API 
-... OK! got values!
-... creating a new branch from master called 'GS-234'
-... updating templates repository
-... copying from template 'pick-from-three'
-... injecting values into config JSON
-... building project
-... deploying game
-... Perfect! Here is the live link 
-http://www.fake-studio.com/game/fire-water-earth
-... Posted comment 'Hey [~ben.smith], this has been released. Does the design look okay? [~jamie.lane]' on Jira.
-```
-
-All done with a few key strokes!
-
-I was so happy with the whole project, I decided to rewrite a better version in a book I’ve just released called, **‘Automating with Node.js’:**
+我对整个项目非常满意,我决定在我刚刚发布的一本书中重写一个更好的版本,**'使用Node.js自动化': **
 
 ![](https://cdn-images-1.medium.com/max/800/1*wOmVnWEaWu-1g-xL874xyg.jpeg)
 
-> **_Colour Print:_**  [_http://amzn.eu/aA0cSnu_](http://amzn.eu/aA0cSnu)**_Kindle:_**  [_http://amzn.eu/dVSykv1_](http://amzn.eu/dVSykv1)**_Kobo:_**  [_https://www.kobo.com/gb/en/ebook/automating-with-node-js_](https://www.kobo.com/gb/en/ebook/automating-with-node-js)  
-> **_Leanpub:_** [_https://leanpub.com/automatingwithnodejs_](https://leanpub.com/automatingwithnodejs)**_Google Play:_**  [https://play.google.com/store/books/details?id=9QFgDwAAQBAJ](https://play.google.com/store/books/details?id=9QFgDwAAQBAJ)
+> ***彩色打印: ***  [*http://amzn.eu/aA0cSnu*](http://amzn.eu/aA0cSnu)***点燃: ***  [*http://amzn.eu/dVSykv1*](http://amzn.eu/dVSykv1)***工房: ***  [*https://www.kobo.com/gb/en/ebook/automating-with-node-js*](https://www.kobo.com/gb/en/ebook/automating-with-node-js)\
+> ***Leanpub: *** [*https://leanpub.com/automatingwithnodejs*](https://leanpub.com/automatingwithnodejs)***Google Play: ***  <https://play.google.com/store/books/details?id=9QFgDwAAQBAJ>
 
-The book is broken into two parts:
+这本书分为两部分: 
 
-### Part 1
+### 第1部分
 
-The first part is a collection of recipes, or instructional building blocks that behave as individual global commands. These can be used as you go about your day, and can be called at any time to speed up your workflow or for pure convenience.
+第一部分是一系列配方或指导构建块,其作用是单独的全局命令. 这些可以在您一天中使用,并且可以随时调用以加快您的工作流程或纯粹的方便. 
 
-### Part 2
+### 第2部分
 
-The second part is a walk-through of creating a cross-platform build tool from the ground up. Each script that achieves a certain task will be its own command, with a main umbrella command — usually the name of your project — encapsulating them all.
+第二部分是从头开始创建跨平台构建工具的演练. 实现某个任务的每个脚本都是它自己的命令,主伞命令 - 通常是项目的名称 - 将它们全部封装起来. 
 
-The project in the book is called **nobot** _(no-bot)_ Based on the little cartoon robot. I hope you enjoy reading it and learn something.
+书中的项目被称为**nobot** * (无机器人) *基于小卡通机器人. 我希望你喜欢阅读并学习一些东西. 
 
 ![](https://cdn-images-1.medium.com/max/800/1*fiOf2PARww-2wmOiV66iWA.jpeg)
 
-I understand that circumstances and flows are different in every business, but you should be able to find something, even if it’s small, that can make your day a little easier at the office.
+我知道每个企业的情况和流程都不同,但是你应该能够找到一些东西,即使它很小,也可以让你的办公室变得更轻松. 
 
-**Spend more time dev’ing and less time doing admin.**
+**花更多时间开发,减少管理时间. **
 
 ![](https://cdn-images-1.medium.com/max/800/1*4877k4Hq9dPdtmvg9hnGFA.jpeg)
 
-Thanks for reading! If you enjoyed, drop us a few claps below. 👏
+谢谢阅读!如果你喜欢,请给我们下面几个拍手. 👏
 
-For videos on all aspects of software/hardware, check out my YouTube channel: [https://www.youtube.com/channel/UCKr-FjGzNdbbk--gvW5tzaw](https://www.youtube.com/channel/UCKr-FjGzNdbbk--gvW5tzaw)
+有关软件/硬件各方面的视频,请查看我的YouTube频道: <https://www.youtube.com/channel/UCKr-FjGzNdbbk--gvW5tzaw>
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
