@@ -39,23 +39,80 @@
 
 在 iOS 上大概长这个样子：
 
-![](https://i.embed.ly/1/display/resize?url=https%3A%2F%2Favatars1.githubusercontent.com%2Fu%2F1307745%3Fs%3D400%26v%3D4&key=a19fcc184b9711e1b4764040d3dc5c07&width=40)
+```
+BasicRow.epoxyModel(
+  content: BasicRow.Content(
+    titleText: "Settings",
+    subtitleText: "Optional subtitle"),
+  style: .standard,
+  dataID: "settings",
+  selectionHandler: { [weak self] _, _, _ in
+    self?.navigate(to: .settings)
+  })
+```
 
 在 Android 上，我们利用使用 [Kotlin 编写 DSL](https://kotlinlang.org/docs/reference/type-safe-builders.html)，使编写组件更加简单和类型安全：
 
-![](https://i.embed.ly/1/display/resize?url=https%3A%2F%2Favatars1.githubusercontent.com%2Fu%2F1307745%3Fs%3D400%26v%3D4&key=a19fcc184b9711e1b4764040d3dc5c07&width=40)
+```
+basicRow {
+ id("settings")
+ title(R.string.settings)
+ subtitleText(R.string.settings_subtitle)
+ onClickListener { navigateTo(SETTINGS) }
+}
+```
 
 #### Epoxy Diffing
 
 在 React 中，利用 [render](https://reactjs.org/tutorial/tutorial.html#what-is-react) 可返回一个组件列表。React 性能的关键在于，这些组件只表示你要渲染的实际视图/HTML 的数据模型。然后对组件树进行扩展，只渲染更改的部分。我们为 Epoxy 建立了一个类似的概念。在 Epoxy 中，你可以在 [buildModel](https://reactjs.org/tutorial/tutorial.html#what-is-react) 中为整个页面声明模型。与优雅的 Kotlin 和 DSL 搭配使用，在概念上与 React 非常相似，看起来像这样：
 
-![](https://i.embed.ly/1/display/resize?url=https%3A%2F%2Favatars1.githubusercontent.com%2Fu%2F1307745%3Fs%3D400%26v%3D4&key=a19fcc184b9711e1b4764040d3dc5c07&width=40)
+```
+override fun EpoxyController.buildModels() {
+  header {
+    id("marquee")
+    title(R.string.edit_profile)
+  }
+  inputRow {
+    id("first name")
+    title(R.string.first_name)
+    text(firstName)
+    onChange { 
+      firstName = it 
+      requestModelBuild()
+    }
+  }
+  // Put the rest of your models here...
+}
+```
 
 每当数据发生变化时，你都要调用 `requestModelBuild()`，这个方法会重新渲染你的页面，并调用最佳的 RecyclerView。
 
 在 iOS 上大概长这个样子：
 
-![](https://i.embed.ly/1/display/resize?url=https%3A%2F%2Favatars1.githubusercontent.com%2Fu%2F1307745%3Fs%3D400%26v%3D4&key=a19fcc184b9711e1b4764040d3dc5c07&width=40)
+```
+override func itemModel(forDataID dataID: DemoDataID) -> EpoxyableModel? {
+  switch dataID {
+  case .header:
+    return DocumentMarquee.epoxyModel(
+      content: DocumentMarquee.Content(titleText: "Edit Profile"),
+      style: .standard,
+      dataID: DemoDataID.header)
+  case .inputRow:
+    return InputRow.epoxyModel(
+      content: InputRow.Content(
+        titleText: "First name",
+        inputText: firstName)
+      style: .standard,
+      dataID: DemoDataID.inputRow,
+      behaviorSetter: { [weak self] view, content, dataID in
+        view.textDidChangeBlock = { _, inputText in
+          self?.firstName = inputText
+          self?.rebuildItemModel(forDataID: .inputRow)
+        }
+      })
+  }
+}
+```
 
 #### 一个新的 Android 产品架构（MvRx）
 
@@ -63,7 +120,52 @@
 
 到目前为止，它已经在各种页面上正常工作了，并且几乎不用去处理生命周期。我们目前正在针对一系列 Android 产品进行试用，如果它能继续取得成功，我们会计划开源。这是创建发出网络请求的功能页面所需的完整代码：
 
-![](https://i.embed.ly/1/display/resize?url=https%3A%2F%2Favatars1.githubusercontent.com%2Fu%2F1307745%3Fs%3D400%26v%3D4&key=a19fcc184b9711e1b4764040d3dc5c07&width=40)
+```
+data class SimpleDemoState(val listing: Async<Listing> = Uninitialized)
+
+class SimpleDemoViewModel(override val initialState: SimpleDemoState) : MvRxViewModel<SimpleDemoState>() {
+    init {
+        fetchListing()
+    }
+
+    private fun fetchListing() {
+        // This automatically fires off a request and maps its response to Async<Listing>
+        // which is a sealed class and can be: Unitialized, Loading, Success, and Fail.
+        // No need for separate success and failure handlers!
+        // This request is also lifecycle-aware. It will survive configuration changes and
+        // will never be delivered after onStop.
+        ListingRequest.forListingId(12345L).execute { copy(listing = it) }
+    }
+}
+
+class SimpleDemoFragment : MvRxFragment() {
+    // This will automatically subscribe to the ViewModel state and rebuild the epoxy models
+    // any time anything changes. Similar to how React's render method runs for every change of
+    // props or state.
+    private val viewModel by fragmentViewModel(SimpleDemoViewModel::class)
+
+    override fun EpoxyController.buildModels() {
+        val (state) = withState(viewModel)
+        if (state.listing is Loading) {
+            loader()
+            return
+        }
+        // These Epoxy models are not the views themself so calling buildModels is cheap. RecyclerView
+        // diffing will be automaticaly done and only the models that changed will re-render.
+        documentMarquee {
+            title(state.listing().name)
+        }
+        // Put the rest of your Epoxy models here...
+    }
+
+    override fun EpoxyController.buildFooter() = fixedActionFooter {
+        val (state) = withState(viewModel)
+        buttonLoading(state is Loading)
+        buttonText(state.listing().price)
+        buttonOnClickListener { _ -> }
+    }
+}
+```
 
 MvRx 的架构比较简单，主要用于处理 Fragment 参数，跨进程重启的 savedInstanceState 持久性，TTI 跟踪以及其他一些功能。
 
@@ -79,8 +181,6 @@ MvRx 的架构比较简单，主要用于处理 Fragment 参数，跨进程重�
 
 在 Android 上，这里使用了 [gradle product flavors](https://developer.android.com/studio/build/build-variants#product-flavors)。我们的 gradle 模块看起来像这样：
 
-![](https://cdn-images-1.medium.com/freeze/max/60/1*KVrbsdwESyfbtKFeh2acXg.png?q=20)
-
 ![](https://cdn-images-1.medium.com/max/1600/1*KVrbsdwESyfbtKFeh2acXg.png)
 
 这种新的间接层，使得工程师们能够在应用的一小部分上进行构建和开发。与 [IntelliJ 的卸载模块](https://blog.jetbrains.com/idea/2017/06/intellij-idea-2017-2-eap-introduces-unloaded-modules/)配合使用，大大提高了 MacBook Pro 上的构建时间和 IDE 性能。
@@ -90,8 +190,6 @@ MvRx 的架构比较简单，主要用于处理 Fragment 参数，跨进程重�
 作为参考，这是 [gradle 代码段](https://gist.github.com/gpeal/d68e4fc1357ef9d126f25afd9ab4eee2)，可用于动态生成具有根依赖性模块的 product flavor。
 
 同样，在 iOS 上，我们的模块如下所示：
-
-![](https://cdn-images-1.medium.com/freeze/max/60/1*AVB7em_JCmj-JmjTCkLdQw.png?q=20)
 
 ![](https://cdn-images-1.medium.com/max/1600/1*AVB7em_JCmj-JmjTCkLdQw.png)
 
