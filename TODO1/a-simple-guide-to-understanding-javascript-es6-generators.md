@@ -1,9 +1,9 @@
 > * 原文地址：[A Simple Guide to Understanding Javascript (ES6) Generators](https://medium.com/dailyjs/a-simple-guide-to-understanding-javascript-es6-Generators-d1c350551950)
 > * 原文作者：[Rajesh Babu](https://medium.com/@rajeshdavid?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/a-simple-guide-to-understanding-javascript-es6-Generators.md](https://github.com/xitu/gold-miner/blob/master/TODO1/a-simple-guide-to-understanding-javascript-es6-Generators.md)
-> * 译者：
-> * 校对者：
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/a-simple-guide-to-understanding-javascript-es6-generators.md](https://github.com/xitu/gold-miner/blob/master/TODO1/a-simple-guide-to-understanding-javascript-es6-generators.md)
+> * 译者：[ssshooter](https://github.com/ssshooter)
+> * 校对者：[Zheng7426](https://github.com/Zheng7426) [hopsken](https://hopsken.com/)
 
 # Javascript（ES6）Generator 入门
 
@@ -26,15 +26,15 @@ new Map([[1, 2]])[Symbol.iterator]() // MapIterator {1 => 2}
 new Set([1, 2])[Symbol.iterator]() // SetIterator {1, 2}
 ```
 
-第一次亮相于 ES6 的 Generator 在后续 JavaScript 版本的发布中并没有变化，所以 Generator 有可能在将来会继续保持现在的特性及用法，我们是绕不开它的。虽然 ES7 和 ES8 有一些小更新，但是改变幅度无法与 ES5 到 ES6 相提并论，可以说 JavaScript 踏出了新的一步。
+第一次亮相于 ES6 的 Generator 在后续 JavaScript 版本的发布中并没有变化，所以 Generator 有可能在将来会继续保持现在的特性及用法，我们是绕不开它的。虽然 ES7 和 ES8 有一些小更新，但是改变幅度无法与 ES5 到 ES6 相提并论，可以说 ES6 使得 JavaScript 踏出了新的一步。
 
-**读完本文，我相信你一定能充分理解 Generator 的原理**。如果你是专业人士，可以在回复中添加评论，一起改进这篇文章。为帮助大家理解代码，代码中已包含一定注释。
+**读完本文，我相信你一定能充分理解 Generator 的原理**。如果你是专业人士，欢迎在回复中添加评论，一起改进这篇文章。为帮助大家理解代码，代码中已包含一定注释。
 
 ![](https://cdn-images-1.medium.com/max/800/1*ZrJKJqBsksWd-8uKM9OvgA.png)
 
 ### 介绍
 
-众所周知，JavaScript 的函数会一直运行到 **return 或函数结束**。但对于 Generator 函数，会一直运行到 **遇到 yield 或 return 或函数结束**。与一般函数不同，**Generator 函数**一旦被调用，就会返回一个 **Generator 对象**。这个对象拥有 **Generator Iterable**，可以使用 **next()** 方法或 **for…of** 循环迭代它。
+众所周知，JavaScript 的函数都会一直运行到 **return 或函数结束**。但对于 Generator 函数，会一直运行到 **遇到 yield 或 return 或函数结束**。与一般函数不同，**Generator 函数**一旦被调用，就会返回一个 **Generator 对象**。这个对象拥有 **Generator Iterable**，可以使用 **next()** 方法或 **for…of** 循环迭代它。
 
 > Generator 每次调用 next()，函数会一直运行到下一个 yield，然后暂停执行。
 
@@ -73,15 +73,15 @@ Generator 函数的生命周期
 
 **继续阅读深入理解上图。**
 
-### 把 Yield 赋值到一个变量
+### 把 yield 赋值到一个变量
 
-在的示例中，我们创建了一个带有 yield 的最基本的 Generator，并获得了预期的输出。给下面代码中，我们将整个 yield 表达式赋值到一个变量。
+在的示例中，我们创建了一个带有 yield 的最基本的 Generator，并获得了预期的输出。在下面代码中，我们将整个 yield 表达式赋值到一个变量。
 
 ![](https://cdn-images-1.medium.com/max/800/1*zdJQlUaqIiD3eV0j0QzrZA.png)
 
-把 Yield 赋值到一个变量
+把 yield 赋值到一个变量
 
-> 把整个 yield 表达式 传到变量的结果是什么？**Undefined …**
+> 把整个 yield 表达式传到变量的结果是什么？**Undefined …**
 
 > 为什么会是 undefined？**从第二个 next() 开始，前一个 yield 会被替换为 next 函数的参数。因为例子中的 next 没有传入任何值，所以程序判定“前一个 yield 表达式”为 undefined**。
 
@@ -183,7 +183,6 @@ Yield* 与 Return
 
 1. 第一个 next()，直接进入 yield 1 并返回其值。
 2. 第二个 next() 返回 2。
-
 3. 第三个 next()，运行 **return 'foo'** 后紧接着，yield 返回 'the end'，其中 'foo' 被赋值到 **const result**。
 4. 最后一个 next() 结束运行。
 
@@ -199,14 +198,13 @@ yield* 还有一个值得一提的用法，它可以遍历 iterable 对象，如
 
 ### 最佳实践
 
-最重要的是，每个 iterator/Generator 都可以使用 **for…of** 遍历。与显式调用的 next() 类似，for…of 循环
-依据 **yield 关键字** 进入下一次迭代。这里是重点：它只会迭代到**最后一个 yield**，不会像 next() 那样处理 return 语句。
+最重要的是，每个 iterator/Generator 都可以使用 **for…of** 遍历。与显式调用的 next() 类似，for…of 循环依据 **yield 关键字** 进入下一次迭代。这里是重点：它只会迭代到**最后一个 yield**，不会像 next() 那样处理 return 语句。
 
 ![](https://cdn-images-1.medium.com/max/800/1*dDYt_xElLC7wjUDN7HfDJg.png)
 
 Yield 与 for…of
 
-> 最后 return 的值不会被打印，因为 for…of 循环只迭代到最后一个 yield。所以这是最佳实践，可以忽略 Generator 函数里的 return 语句，因为 return 在 **for…of** 迭代时会影响函数可重用性。（不怎么表达比较清晰，作者也没有给例子）
+> 最后 return 的值不会被打印，因为 for…of 循环只迭代到最后一个 yield。因此，作为最佳实践，尽量避免在 Generator 函数中使用 return 语句，原因在于当使用 for...of 语句进行迭代时，return 会影响函数的可重用性。
 
 ![](https://cdn-images-1.medium.com/max/800/1*4877k4Hq9dPdtmvg9hnGFA.jpeg)
 
